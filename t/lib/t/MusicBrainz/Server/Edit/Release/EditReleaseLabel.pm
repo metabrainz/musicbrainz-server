@@ -204,7 +204,7 @@ test 'Prevents initializing an edit with a duplicate label/catalog number pair' 
             label => $label,
             catalog_number => 'ABC-456',
         );
-    }, qr/The label and catalog number in this edit already exist on the release./;
+    }, qr/The label and catalog number in this edit already exist on the release\./;
 };
 
 test 'Prevents applying an edit with a duplicate label/catalog number pair' => sub {
@@ -236,7 +236,7 @@ test 'Prevents applying an edit with a duplicate label/catalog number pair' => s
 
     like exception {
         $edit_edit->accept;
-    }, qr/The label and catalog number in this edit already exist on the release./;
+    }, qr/The label and catalog number in this edit already exist on the release\./;
 };
 
 test 'Can apply after labels are merged' => sub {

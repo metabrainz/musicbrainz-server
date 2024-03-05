@@ -20,10 +20,11 @@ test('getUpdatedTrackArtists', function (t) {
     joinPhrase: string = '',
     creditedAs: string = '',
   ) => {
-    const artist = {...genericArtist, name, gid};
+    const artist = {...genericArtist, gid, name};
     return {artist, joinPhrase, name: creditedAs};
   };
 
+  /* eslint-disable sort-keys */
   const testCases = [
     {
       desc: 'artist change, track matches old',
@@ -236,6 +237,7 @@ test('getUpdatedTrackArtists', function (t) {
       ],
     },
   ];
+  /* eslint-enable sort-keys */
 
   t.plan(testCases.length);
 

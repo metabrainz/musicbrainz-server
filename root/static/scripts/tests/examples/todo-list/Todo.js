@@ -72,8 +72,8 @@ const Todo: TodoComponentT = React.memo<PropsT>(({
     event: SyntheticKeyboardEvent<HTMLInputElement>,
   ) => {
     dispatch(state.key, {
-      type: 'set-description',
       description: event.currentTarget.value,
+      type: 'set-description',
     });
   }, [state.key, dispatch]);
 

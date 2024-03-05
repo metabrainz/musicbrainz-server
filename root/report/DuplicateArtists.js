@@ -106,7 +106,7 @@ const DuplicateArtists = ({
                             ? lp_attributes(
                               artist.typeName, 'artist_type',
                             )
-                            : l('Unknown')}
+                            : lp('Unknown', 'type')}
                         </td>
                       </tr>
                     ) : (

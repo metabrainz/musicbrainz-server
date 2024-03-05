@@ -27,9 +27,9 @@ test('MBS-13327: Recording is not unlinked when removing feat. artists', functio
   });
 
   const medium = new fields.Medium({
+    format_id: null,
     name: '',
     position: 1,
-    format_id: null,
     tracks: [],
   }, release);
 

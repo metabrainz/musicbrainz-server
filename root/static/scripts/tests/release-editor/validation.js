@@ -70,8 +70,8 @@ validationTest((
     ],
   });
 
-  var release = releaseEditor.rootField.release();
-  var events = release.events();
+  const release = releaseEditor.rootField.release();
+  const events = release.events();
 
   t.ok(events[0].isDuplicate());
   t.ok(events[1].isDuplicate());
@@ -87,11 +87,12 @@ validationTest((
 
   releaseEditor.action = 'edit';
 
-  var label1 = {name: 'Foo', id: 123};
-  var label2 = {name: 'Bar', id: 456};
-  var label3 = {name: 'Foo', id: 789};
+  const label1 = {id: 123, name: 'Foo'};
+  const label2 = {id: 456, name: 'Bar'};
+  const label3 = {id: 789, name: 'Foo'};
 
   releaseEditor.releaseLoaded({
+    /* eslint-disable sort-keys */
     labels: [
       {label: label1, catalogNumber: 'ABC-123'},
       {label: label1, catalogNumber: 'ABC-123'},
@@ -107,9 +108,10 @@ validationTest((
       {label: null, catalogNumber: null},
       {label: null, catalogNumber: null},
     ],
+    /* eslint-enable sort-keys */
   });
 
-  var labels = releaseEditor.rootField.release().labels();
+  const labels = releaseEditor.rootField.release().labels();
 
   t.ok(labels[0].isDuplicate(), 'Same label and catno is a dupe');
   t.ok(labels[1].isDuplicate(), 'Same label and catno is a dupe');

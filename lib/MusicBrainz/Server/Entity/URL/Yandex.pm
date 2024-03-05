@@ -1,21 +1,13 @@
-package MusicBrainz::Server::Entity::URL::Instagram;
+package MusicBrainz::Server::Entity::URL::Yandex;
 
 use Moose;
+
+use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name {
-    my $self = shift;
-
-    if ($self->url =~ m{^https?://(?:www\.)?instagram\.com/([^/]+)/?$}i) {
-        return '@' . $1;
-    }
-    else {
-        return 'Instagram';
-    }
-}
-
+sub sidebar_name { l('Stream at Yandex') }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -23,7 +15,7 @@ no Moose;
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2015 MetaBrainz Foundation
+Copyright (C) 2024 MetaBrainz Foundation
 
 This file is part of MusicBrainz, the open internet music database,
 and is licensed under the GPL version 2, or (at your option) any

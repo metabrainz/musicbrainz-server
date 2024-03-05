@@ -268,11 +268,11 @@ export function createReleaseObject(
     length: 0,
     name: '',
     packagingID: null,
+    quality: 0,
     script: null,
     scriptID: null,
     status: null,
     statusID: null,
-    quality: 0,
     ...props,
   };
 }

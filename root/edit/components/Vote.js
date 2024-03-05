@@ -42,7 +42,7 @@ const VoteCheckbox = ({
     ? getLatestVoteForEditor(edit, user)
     : null;
   const checked =
-    (latestVote && latestVote.vote == props.value) ||
+    (latestVote && latestVote.vote === props.value) ||
     (!latestVote && props.value === EDIT_VOTE_NONE);
   return (
     <label htmlFor={`id-${name}-${label}`}>

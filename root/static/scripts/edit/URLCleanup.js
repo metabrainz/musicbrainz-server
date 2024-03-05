@@ -451,6 +451,7 @@ type CleanupEntries = {
   +[type: string]: CleanupEntry,
 };
 
+/* eslint-disable sort-keys */
 const CLEANUPS: CleanupEntries = {
   '7digital': {
     match: [new RegExp(
@@ -5075,7 +5076,7 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?rism\.online\/(\w+)\/(\d+).*$/, 'https://rism.online/$1/$2');
     },
     validate: function (url, id) {
-      let m = /^https:\/\/rism\.online\/(\w+)\/(\d+)$/.exec(url);
+      const m = /^https:\/\/rism\.online\/(\w+)\/(\d+)$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -5838,12 +5839,12 @@ const CLEANUPS: CleanupEntries = {
         switch (id) {
           case LINK_TYPES.mailorder.artist:
             return {
-              result: prefix == 'artist',
+              result: prefix === 'artist',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.mailorder.release:
             return {
-              result: prefix == 'item',
+              result: prefix === 'item',
               target: ERROR_TARGETS.ENTITY,
             };
         }
@@ -6276,7 +6277,10 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.socialnetwork],
   },
   'vk': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?vk\\.com/', 'i')],
+    match: [new RegExp(
+      '^(https?://)?([^/]+\\.)?vk\\.com/(?!(?:artist|audio|music|video))',
+      'i',
+    )],
     restrict: [LINK_TYPES.socialnetwork],
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vk\.com/, 'https://vk.com');
@@ -6321,6 +6325,50 @@ const CLEANUPS: CleanupEntries = {
             return {
               result: type === 'releases' &&
                       /^[\w-]+\/[\d]+\/[\w-]+$/.test(ending),
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'vkmusic': {
+    match: [new RegExp(
+      '^(https?://)?([^/]+\\.)?vk\\.com/(?:artist|audio|music|video)',
+      'i',
+    )],
+    restrict: [LINK_TYPES.streamingfree],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vk\.com/, 'https://vk.com');
+      // Remove 'ref' and 'from' parameters
+      url = url.replace(/([&?])(?:from|ref)=[^?&]*/g, '$1');
+      // Ensure the first parameter left uses ? not to break the URL
+      url = url.replace(/([&?])&+/, '$1');
+      url = url.replace(/[&?]$/, '');
+      url = url.replace(/^https:\/\/vk\.com\/(?:artist\/\w+\?z|audio\?act)=audio_playlist-(\d+_\d+).*$/, 'https://vk.com/music/album/-$1');
+      url = url.replace(/^https:\/\/vk\.com\/artist\/\w+\?z=video-(\d+_\d+).*$/, 'https://vk.com/video-$1');
+      url = url.replace(/^https:\/\/vk\.com\/((?:audio|video|music\/album\/)-\d+_\d+).*$/, 'https://vk.com/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/vk\.com\/(?:(artist)\/\w+|(audio|video)-\d+_\d+|(music\/album)\/-\d+_\d+)$/.exec(url);
+      if (m) {
+        const prefix = m[1] || m[2] || m[3];
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.recording:
+            return {
+              result: prefix === 'audio' || prefix === 'video',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.release:
+            return {
+              result: prefix === 'music/album',
               target: ERROR_TARGETS.ENTITY,
             };
         }
@@ -6579,6 +6627,51 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'yandex': {
+    match: [new RegExp(
+      '^(https?://)?music\\.yandex\\.(?:com|by|kz|ru|uz)\/(?!video)',
+      'i',
+    )],
+    restrict: [LINK_TYPES.streamingfree],
+    clean: function (url) {
+      url = url.replace(/^https?:\/\/music\.yandex\.(?:com|by|kz|ru|uz)\//, 'https://music.yandex.com/');
+      url = url.replace(/^https:\/\/music\.yandex\.com\/(?:#!\/)?(album|artist|label)\/(\d+)(\/track\/\d+)?$/, 'https://music.yandex.com/$1/$2$3');
+      url = url.replace(/^https:\/\/music\.yandex\.com\/iframe\/#album?\/(\d+)$/, 'https://music.yandex.com/album/$1');
+      url = url.replace(/^https:\/\/music\.yandex\.com\/iframe\/#track?\/(\d+):(\d+)$/, 'https://music.yandex.com/album/$2/track/$1');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/music\.yandex\.com\/(album|artist|label)\/\d+(\/track\/\d+)?$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        const isTrack = Boolean(m[2]);
+        switch (id) {
+          case LINK_TYPES.streamingfree.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.label:
+            return {
+              result: prefix === 'label',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.release:
+            return {
+              result: prefix === 'album' && !isTrack,
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.recording:
+            return {
+              result: prefix === 'album' && isTrack,
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'yesasia': {
     match: [new RegExp(
       '^(https?://)?(www\\.)?yesasia\\.com/',
@@ -6817,6 +6910,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
 };
+/* eslint-enable sort-keys */
 
 function testAll(tests: $ReadOnlyArray<RegExp>, text: string) {
   for (let i = 0; i < tests.length; i++) {

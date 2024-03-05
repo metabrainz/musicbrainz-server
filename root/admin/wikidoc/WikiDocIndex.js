@@ -35,16 +35,15 @@ const WikiDocTable = ({
   const columns = React.useMemo(
     () => {
       const nameColumn = {
+        accessor: (x: WikiDocT) => x.id,
         Cell: ({cell: {value}}: CellRenderProps<WikiDocT, string>) => (
           <a href={'/doc/' + encodeURIComponent(value)}>{value}</a>
         ),
-        Header: 'Page name',
-        accessor: (x: WikiDocT) => x.id,
         cellProps: {className: 'title'},
+        Header: 'Page name',
         id: 'name',
       };
       const transcludedVersionColumn = {
-        Header: 'Transcluded version',
         accessor: (x: WikiDocT) => x.version,
         cellProps: {
           className: 'c transcluded-version',
@@ -52,10 +51,12 @@ const WikiDocTable = ({
             ? {textAlign: 'right'}
             : null,
         },
+        Header: 'Transcluded version',
         headerProps: {className: 'c'},
         id: 'transcluded-version',
       };
       const wikiVersionColumn = {
+        accessor: (x: WikiDocT) => x.wiki_version,
         Cell: ({row: {original}}: CellRenderProps<WikiDocT, number>) => (
           <>
             {original.wiki_version === original.version ? null : (
@@ -88,11 +89,11 @@ const WikiDocTable = ({
           </>
         ),
         Header: 'Wiki version',
-        accessor: (x: WikiDocT) => x.wiki_version,
         headerProps: {className: 'c'},
         id: 'wiki-version',
       };
       const actionsColumn = {
+        accessor: (x: WikiDocT) => x.id,
         Cell: ({row: {original}}: CellRenderProps<WikiDocT, string>) => (
           <>
             <a href={'/admin/wikidoc/edit' +
@@ -115,9 +116,8 @@ const WikiDocTable = ({
             </a>
           </>
         ),
-        Header: 'Actions',
-        accessor: (x: WikiDocT) => x.id,
         cellProps: {className: 'actions c'},
+        Header: 'Actions',
         headerProps: {className: 'c'},
         id: 'actions',
       };

@@ -29,7 +29,7 @@ const crosby = {
 test('reduceArtistCredit', function (t) {
   t.plan(4);
 
-  let ac = {names: []};
+  const ac = {names: []};
   t.equal(reduceArtistCredit(ac), '', 'zero names');
 
   ac.names = [{artist: bowie}];
@@ -46,7 +46,7 @@ test('reduceArtistCredit', function (t) {
   );
 
   ac.names = [
-    {artist: bowie, name: 'dave bowie', joinPhrase: ' & ('},
+    {artist: bowie, joinPhrase: ' & (', name: 'dave bowie'},
     {artist: crosby, joinPhrase: ')'},
   ];
   t.equal(
@@ -64,7 +64,7 @@ test('reduceArtistCreditNames', function (t) {
    * just verify that the dropFinalJoinPhrase parameter is honored.
    */
   const names = [
-    {artist: bowie, name: 'dave bowie', joinPhrase: ' feat. '},
+    {artist: bowie, joinPhrase: ' feat. ', name: 'dave bowie'},
     {artist: crosby, joinPhrase: ' & '},
   ];
   t.equal(
@@ -88,12 +88,12 @@ test('isComplexArtistCredit', function (t) {
   ac = {names: [{artist: bowie, name: 'david robert jones'}]};
   t.equal(isComplexArtistCredit(ac), true, 'david robert jones is complex');
 
-  ac = {names: [{artist: bowie, name: '', joinPhrase: ''}]};
+  ac = {names: [{artist: bowie, joinPhrase: '', name: ''}]};
   t.equal(isComplexArtistCredit(ac), true, 'empty artist credit is complex');
 
   ac = {
     names: [
-      {artist: bowie, name: 'david bowie', joinPhrase: ' & '},
+      {artist: bowie, joinPhrase: ' & ', name: 'david bowie'},
       {artist: crosby, name: 'bing crosby'},
     ],
   };

@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^http://catalogue.bnf.fr/ark:/12148/cb([1-4][0-9]{7})[0-9b-z]$}i) {
+    if ($self->url =~ m{^http://catalogue\.bnf\.fr/ark:/12148/cb([1-4][0-9]{7})[0-9b-z]$}i) {
         return 'FRBNF' . $1;
     }
     else {

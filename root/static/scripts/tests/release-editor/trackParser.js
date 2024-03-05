@@ -18,13 +18,13 @@ import * as common from './common.js';
 function parserTest(name, callback) {
   test(name, function (t) {
     trackParser.options = {
+      hasTrackArtists: false,
       hasTrackNumbers: false,
       hasVinylNumbers: false,
-      hasTrackArtists: false,
-      useTrackNumbers: false,
       useTrackArtists: false,
-      useTrackNames: false,
       useTrackLengths: false,
+      useTrackNames: false,
+      useTrackNumbers: false,
     };
     callback(t);
   });
@@ -36,12 +36,12 @@ parserTest('track numbers', function (t) {
   Object.assign(trackParser.options, {
     hasTrackNumbers: true,
     hasVinylNumbers: true,
-    useTrackNumbers: true,
-    useTrackNames: true,
     useTrackLengths: true,
+    useTrackNames: true,
+    useTrackNumbers: true,
   });
 
-  var input = [
+  const input = [
     'a1  Kermis         02:04',
     'a2.  Glitch        02:51',
     'a3.Afrik Slang     02:11',
@@ -52,6 +52,7 @@ parserTest('track numbers', function (t) {
   ]
     .join('\n');
 
+  /* eslint-disable sort-keys */
   common.trackParserTest(t, input, [
     {position: 1, number: 'a1', name: 'Kermis'},
     {position: 2, number: 'a2', name: 'Glitch'},
@@ -61,6 +62,7 @@ parserTest('track numbers', function (t) {
     {position: 6, number: '6', name: 'In Je Graff'},
     {position: 7, number: '7', name: 'Ｈｉｌｌｗｏｏｄ'},
   ]);
+  /* eslint-enable sort-keys */
 });
 
 parserTest((
@@ -70,12 +72,12 @@ parserTest((
 
   Object.assign(trackParser.options, {
     hasTrackNumbers: true,
-    useTrackNumbers: true,
-    useTrackNames: true,
     useTrackLengths: true,
+    useTrackNames: true,
+    useTrackNumbers: true,
   });
 
-  var input = [
+  const input = [
     '1. Forgotten Child    3:39    ',
     '2. Dirty Looks  4:34   ',
     '  3. Private Life  3:29  ',
@@ -83,14 +85,14 @@ parserTest((
   ]
     .join('\n');
 
-  /* eslint-disable no-multi-spaces */
+  /* eslint-disable no-multi-spaces, sort-keys */
   common.trackParserTest(t, input, [
     {position: 1, name: 'Forgotten Child', formattedLength: '3:39'},
     {position: 2, name: 'Dirty Looks',     formattedLength: '4:34'},
     {position: 3, name: 'Private Life',    formattedLength: '3:29'},
     {position: 4, name: 'Never Can Wait',  formattedLength: '3:24'},
   ]);
-  /* eslint-enable no-multi-spaces */
+  /* eslint-enable no-multi-spaces, sort-keys */
 });
 
 parserTest((
@@ -100,21 +102,23 @@ parserTest((
 
   Object.assign(trackParser.options, {
     hasTrackNumbers: true,
-    useTrackNumbers: true,
-    useTrackNames: true,
     useTrackLengths: true,
+    useTrackNames: true,
+    useTrackNumbers: true,
   });
 
-  var input = [
+  const input = [
     '1. Criminology 2.5',
     '2. Love On A .45',
   ]
     .join('\n');
 
+  /* eslint-disable sort-keys */
   common.trackParserTest(t, input, [
     {position: 1, name: 'Criminology 2.5', formattedLength: ''},
     {position: 2, name: 'Love On A .45', formattedLength: ''},
   ]);
+  /* eslint-enable sort-keys */
 });
 
 parserTest((
@@ -124,12 +128,12 @@ parserTest((
 
   Object.assign(trackParser.options, {
     hasTrackNumbers: true,
-    useTrackNumbers: true,
-    useTrackNames: true,
     useTrackLengths: true,
+    useTrackNames: true,
+    useTrackNumbers: true,
   });
 
-  var input = '\
+  const input = '\
     1 Freeman Hardy & Willis Acid\n\n\
       Written-By – James*, Jenkinson* \n\n\
     5:42\n\
@@ -138,10 +142,12 @@ parserTest((
     4:51 \n\
   ';
 
+  /* eslint-disable sort-keys */
   common.trackParserTest(t, input, [
     {position: 1, name: 'Freeman Hardy & Willis Acid', formattedLength: ''},
     {position: 2, name: 'Orange Romeda', formattedLength: ''},
   ]);
+  /* eslint-enable sort-keys */
 });
 
 parserTest('XX:XX:XX track times (MBS-3353)', function (t) {
@@ -149,16 +155,18 @@ parserTest('XX:XX:XX track times (MBS-3353)', function (t) {
 
   Object.assign(trackParser.options, {
     hasTrackNumbers: true,
-    useTrackNumbers: true,
-    useTrackNames: true,
     useTrackLengths: true,
+    useTrackNames: true,
+    useTrackNumbers: true,
   });
 
-  var input = '1. Love On A .45  05:22:31';
+  const input = '1. Love On A .45  05:22:31';
 
+  /* eslint-disable sort-keys */
   common.trackParserTest(t, input, [
     {position: 1, name: 'Love On A .45', formattedLength: '5:22:31'},
   ]);
+  /* eslint-enable sort-keys */
 });
 
 parserTest((
@@ -168,19 +176,19 @@ parserTest((
 
   Object.assign(trackParser.options, {
     hasTrackNumbers: true,
-    useTrackNames: true,
     useTrackLengths: true,
+    useTrackNames: true,
   });
 
   releaseEditor.rootField.release(new fields.Release(common.testRelease));
 
-  var release = releaseEditor.rootField.release();
-  var medium = release.mediums()[0];
+  const release = releaseEditor.rootField.release();
+  const medium = release.mediums()[0];
 
   medium.cdtocs = [];
   medium.toc(null);
 
-  var input = trackParser
+  const input = trackParser
     .mediumToString(medium)
     .split('\n')
     .reverse()
@@ -188,7 +196,7 @@ parserTest((
 
   medium.tracks(trackParser.parse(input, medium));
 
-  var tracks = medium.tracks();
+  const tracks = medium.tracks();
 
   t.equal(tracks[0].position(), 1, 'track 1 has position 1');
   t.equal(tracks[1].position(), 2, 'track 2 has position 2');
@@ -201,22 +209,22 @@ parserTest((
 
   releaseEditor.rootField.release(new fields.Release(common.testRelease));
 
-  var release = releaseEditor.rootField.release();
-  var medium = release.mediums()[0];
+  const release = releaseEditor.rootField.release();
+  const medium = release.mediums()[0];
 
   medium.cdtocs = ['1'];
 
   trackParser.options.useTrackLengths = true;
 
   // The string does not include track numbers.
-  var input = trackParser.mediumToString(medium);
+  const input = trackParser.mediumToString(medium);
 
   // Re-enable track numbers so that parsing anything fails.
   trackParser.options.hasTrackNumbers = true;
 
   medium.tracks(trackParser.parse(input, medium));
 
-  var tracks = medium.tracks();
+  const tracks = medium.tracks();
 
   t.deepEqual(
     tracks.map(x => x.length()),
@@ -231,13 +239,14 @@ parserTest((
   t.plan(16);
 
   Object.assign(trackParser.options, {
+    hasTrackArtists: true,
     hasTrackNumbers: true,
     hasVinylNumbers: true,
-    hasTrackArtists: true,
     useTrackNumbers: true,
   });
 
-  var release = new fields.Release({
+  /* eslint-disable sort-keys */
+  const release = new fields.Release({
     mediums: [{
       tracks: [{
         number: '1',
@@ -247,14 +256,15 @@ parserTest((
       }],
     }],
   });
+  /* eslint-enable sort-keys */
 
   releaseEditor.rootField.release(release);
 
   // Parse only numbers
-  var medium = release.mediums()[0];
+  const medium = release.mediums()[0];
   medium.tracks(trackParser.parse('A1. FOO! - BAR! (2:55)', medium));
 
-  var track = medium.tracks()[0];
+  let track = medium.tracks()[0];
   t.equal(track.number(), 'A1', 'number was used');
   t.equal(track.name(), 'foo', 'name was not used');
   t.equal(
@@ -266,8 +276,8 @@ parserTest((
 
   // Parse only titles
   Object.assign(trackParser.options, {
-    useTrackNumbers: false,
     useTrackNames: true,
+    useTrackNumbers: false,
   });
 
   medium.tracks(trackParser.parse('B1. FOO! - BAR! (2:55)', medium));
@@ -284,8 +294,8 @@ parserTest((
 
   // Parse only artists
   Object.assign(trackParser.options, {
-    useTrackNames: false,
     useTrackArtists: true,
+    useTrackNames: false,
   });
 
   medium.tracks(trackParser.parse('B1. oof - BAR! (2:55)', medium));
@@ -322,21 +332,21 @@ parserTest((
 parserTest('Does not lose previous recordings (MBS-7719)', function (t) {
   t.plan(11);
 
-  var trackParser = releaseEditor.trackParser;
+  const trackParser = releaseEditor.trackParser;
 
   Object.assign(trackParser.options, {
     hasTrackNumbers: true,
-    useTrackNumbers: true,
     useTrackNames: true,
+    useTrackNumbers: true,
   });
 
-  var release = new fields.Release({
+  const release = new fields.Release({
     mediums: [
       {
         tracks: [
           {
-            id: 1,
             gid: '7aeebcb5-cc99-4c7f-82bc-f2da35200081',
+            id: 1,
             name: 'Old Track 1',
             recording: {
               gid: 'adbd01f7-7d69-43cc-95b5-d3a163be44ef',
@@ -344,8 +354,8 @@ parserTest('Does not lose previous recordings (MBS-7719)', function (t) {
             },
           },
           {
-            id: 2,
             gid: '8a45fd90-3ee0-4344-ad07-97187950112d',
+            id: 2,
             name: 'Old Track 2',
             recording: {
               gid: '81a5d436-d16f-4bff-8be6-5fd29c1ce0fc',
@@ -353,8 +363,8 @@ parserTest('Does not lose previous recordings (MBS-7719)', function (t) {
             },
           },
           {
-            id: 3,
             gid: '5e420411-b097-4d04-8d2e-2d62b7e2e884',
+            id: 3,
             name: 'This Track Will Be Moved',
             recording: {
               gid: '843910ac-4c11-4c3f-9a8a-1056d161dd2f',
@@ -367,8 +377,8 @@ parserTest('Does not lose previous recordings (MBS-7719)', function (t) {
   });
 
   releaseEditor.rootField.release(release);
-  var medium = release.mediums()[0];
-  var oldRecordings = medium.tracks().map(x => x.recording());
+  const medium = release.mediums()[0];
+  const oldRecordings = medium.tracks().map(x => x.recording());
 
   medium.tracks(
     trackParser.parse(
@@ -378,8 +388,8 @@ parserTest('Does not lose previous recordings (MBS-7719)', function (t) {
       medium,
     ),
   );
-  var newTracks = medium.tracks();
-  var newRecordings = newTracks.map(x => x.recording());
+  let newTracks = medium.tracks();
+  let newRecordings = newTracks.map(x => x.recording());
 
   t.ok(!newTracks[0].id, 'first track has no id');
   t.ok(!newTracks[0].gid, 'first track has no gid');
@@ -436,16 +446,18 @@ parserTest('parsing fullwidth numbers', function (t) {
 
   Object.assign(releaseEditor.trackParser.options, {
     hasTrackNumbers: true,
-    useTrackNumbers: true,
-    useTrackNames: true,
     useTrackLengths: true,
+    useTrackNames: true,
+    useTrackNumbers: true,
   });
 
-  var input = '１ Ｆｏｏ ２：３４';
+  const input = '１ Ｆｏｏ ２：３４';
 
+  /* eslint-disable sort-keys */
   common.trackParserTest(t, input, [
     {position: 1, name: 'Ｆｏｏ', formattedLength: '2:34'},
   ]);
+  /* eslint-enable sort-keys */
 });
 
 parserTest((
@@ -453,10 +465,11 @@ parserTest((
 ), function (t) {
   t.plan(2);
 
-  var trackParser = releaseEditor.trackParser;
+  const trackParser = releaseEditor.trackParser;
   Object.assign(trackParser.options, {useTrackLengths: true});
 
-  var release = new fields.Release({
+  /* eslint-disable sort-keys */
+  const release = new fields.Release({
     id: 1,
     mediums: [
       {
@@ -480,11 +493,12 @@ parserTest((
       },
     ],
   });
+  /* eslint-enable sort-keys */
 
   releaseEditor.rootField.release(release);
 
-  var medium = release.mediums()[0];
-  var tracks = medium.tracks();
+  const medium = release.mediums()[0];
+  const tracks = medium.tracks();
 
   medium.tracks(trackParser.parse('1:23\n2:34', medium));
   t.equal(
@@ -500,10 +514,11 @@ parserTest((
 ), function (t) {
   t.plan(1);
 
-  var trackParser = releaseEditor.trackParser;
+  const trackParser = releaseEditor.trackParser;
   trackParser.options.useTrackNames = true;
 
-  var release = new fields.Release({
+  /* eslint-disable sort-keys */
+  const release = new fields.Release({
     id: 1,
     mediums: [
       {
@@ -515,14 +530,16 @@ parserTest((
       },
     ],
   });
+  /* eslint-enable sort-keys */
 
   releaseEditor.rootField.release(release);
 
-  var medium = release.mediums()[0];
+  const medium = release.mediums()[0];
   medium.tracks(
     trackParser.parse('Track B\nTrack A\nCool Bonus Vid', medium),
   );
 
+  /* eslint-disable sort-keys */
   t.deepEqual(
     medium.tracks().map(function (t) {
       return {id: t.id, name: t.name(), isDataTrack: t.isDataTrack()};
@@ -533,6 +550,7 @@ parserTest((
       {id: undefined, name: 'Cool Bonus Vid', isDataTrack: true},
     ],
   );
+  /* eslint-enable sort-keys */
 });
 
 parserTest('force number of tracks to equal CD TOC', function (t) {
@@ -540,7 +558,8 @@ parserTest('force number of tracks to equal CD TOC', function (t) {
 
   trackParser.options.useTrackNames = true;
 
-  var release = new fields.Release({
+  /* eslint-disable sort-keys */
+  const release = new fields.Release({
     id: 1,
     mediums: [
       {
@@ -554,10 +573,11 @@ parserTest('force number of tracks to equal CD TOC', function (t) {
       },
     ],
   });
+  /* eslint-enable sort-keys */
 
   releaseEditor.rootField.release(release);
 
-  var medium = release.mediums()[0];
+  const medium = release.mediums()[0];
   medium.tracks(trackParser.parse(
     'Track A\n' +
     'Very Different Title\n' +

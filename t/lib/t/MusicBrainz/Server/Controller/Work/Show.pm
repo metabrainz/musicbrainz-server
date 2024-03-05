@@ -21,7 +21,7 @@ test all => sub {
     $mech->content_like(qr/Dancing Queen/, 'work title');
     $mech->content_like(qr/Composition/, 'work type');
     $mech->content_like(qr{/work/745c079d-374e-4436-9448-da92dedef3ce}, 'link back to work');
-    $mech->content_like(qr/T-000.000.001-0/, 'iswc');
+    $mech->content_like(qr/T-000\.000\.001-0/, 'iswc');
     $mech->content_like(qr{Test annotation 6}, 'annotation');
 
     page_test_jsonld $mech => {

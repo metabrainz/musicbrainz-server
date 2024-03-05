@@ -13,7 +13,7 @@ import {groupBy} from '../common/utility/arrays.js';
 let typeInfoLoaded = false;
 
 function editorMayEditTypes(type0, type1) {
-  var types = [type0, type1].sort().join('-');
+  const types = [type0, type1].sort().join('-');
 
   if (/^area-area|area-url$/.test(types)) {
     return !!MB.userIsLocationEditor;
@@ -56,9 +56,9 @@ export default function exportTypeInfo(typeInfo, attrInfo) {
   }
 
   Object.assign(linkedEntities, {
-    link_type_tree: typeInfo,
-    link_type: Object.values(typeInfo).flat().reduce(mapItems, {}),
     link_attribute_type: attrInfo.reduce(mapItems, {}),
+    link_type: Object.values(typeInfo).flat().reduce(mapItems, {}),
+    link_type_tree: typeInfo,
   });
 
   for (const type of Object.values(linkedEntities.link_type)) {
@@ -70,9 +70,9 @@ export default function exportTypeInfo(typeInfo, attrInfo) {
   MB.allowedRelations = {};
 
   Object.keys(typeInfo).forEach(function (typeString) {
-    var types = typeString.split('-');
-    var type0 = types[0];
-    var type1 = types[1];
+    const types = typeString.split('-');
+    const type0 = types[0];
+    const type1 = types[1];
 
     if (!editorMayEditTypes(type0, type1)) {
       return;

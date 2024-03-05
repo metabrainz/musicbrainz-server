@@ -18,7 +18,7 @@ test((
 ), function (t) {
   t.plan(1);
 
-  var data = mbEdit.fields.track({});
+  const data = mbEdit.fields.track({});
 
   t.equal(data.number, '', 'number is empty string');
 });
@@ -45,7 +45,7 @@ test((
   vm.items.removeAll([item1, item2]);
   vm.items([item1, item2, item3]);
 
-  var childNodes = parentNode.childNodes;
+  const childNodes = parentNode.childNodes;
   t.equal(childNodes[0].textContent, '1');
   t.equal(childNodes[1].textContent, '2');
   t.equal(childNodes[2].textContent, '3');
