@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-19 08:58+0000\n"
-"PO-Revision-Date: 2024-02-17 19:28+0000\n"
+"PO-Revision-Date: 2024-02-19 19:28+0000\n"
 "Last-Translator: \"Vac31.\" <Vaclovas@users.noreply.translations.metabrainz."
 "org>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
@@ -24,8 +24,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -5638,7 +5638,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:16
 msgid "Purchase at Spotify"
-msgstr ""
+msgstr "Pirkti Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:18
 msgid "Stream at Spotify"
@@ -5646,7 +5646,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Tidal.pm:14
 msgid "Purchase at Tidal"
-msgstr ""
+msgstr "Pirkti Tidal"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Tidal.pm:16
 msgid "Stream at Tidal"
@@ -11690,11 +11690,11 @@ msgstr ""
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:45
 msgctxt "relationship attribute description"
 msgid "none"
-msgstr ""
+msgstr "nėra"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:168
 msgid "No relationship attributes found."
-msgstr ""
+msgstr "Nerasta jokių santykių požymių."
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:48
 msgid "This relationship type doesn't allow any attributes."
@@ -14916,7 +14916,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:5741
 msgid "Please link to TikTok profiles, not videos."
-msgstr ""
+msgstr "Pateik nuorodas į TikTok profilius, o ne vaizdo įrašus."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6008
 msgid "This is not a profile, but a Twitter documentation page."

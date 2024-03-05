@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-02-03 04:28+0000\n"
+"PO-Revision-Date: 2024-02-19 19:28+0000\n"
 "Last-Translator: \"Vac31.\" <Vaclovas@users.noreply.translations.metabrainz."
 "org>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
@@ -17,9 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.3.1\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.4\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -1765,20 +1765,16 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:1233
-#, fuzzy
-#| msgid "This indicates an agency who did design for the release."
 msgid "This indicates an artist who did design for the event."
-msgstr "Tai nurodo agentūrą, kuri kūrė leidinio dizainą."
+msgstr "Tai nurodo atlikėją, kuri atliko renginio dizainą."
 
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
 
 #: DB:link_type/description:1232
-#, fuzzy
-#| msgid "This indicates an agency who did illustration for the release."
 msgid "This indicates an artist who did illustration for the event."
-msgstr "Tai nurodo agentūrą, kuri atliko leidinio iliustraciją."
+msgstr "Tai nurodo atlikėją, kuri atliko renginio iliustraciją."
 
 #: DB:link_type/description:927
 msgid "This indicates an artist who did illustration for the release."
@@ -1815,6 +1811,8 @@ msgid ""
 "This indicates an artist who provided artwork for the event when no more "
 "specific information is available."
 msgstr ""
+"Tai nurodo atlikėją, kuris renginiui pateikė meno kūrinį, kai nėra jokios "
+"tikslesnės informacijos."
 
 #: DB:link_type/description:993
 msgid ""
