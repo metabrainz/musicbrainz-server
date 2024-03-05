@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-19 08:58+0000\n"
-"PO-Revision-Date: 2024-02-05 02:28+0000\n"
+"PO-Revision-Date: 2024-03-02 02:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -44,9 +44,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.3.1\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.4\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -5540,10 +5540,8 @@ msgid "Playlists at Spotify"
 msgstr "Playlist su Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:16
-#, fuzzy
-#| msgid "Purchase at Tidal"
 msgid "Purchase at Spotify"
-msgstr "Acquista su Tidal"
+msgstr "Acquista su Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:18
 msgid "Stream at Spotify"
@@ -11767,8 +11765,6 @@ msgid "This attribute isn’t directly being used by any relationship types."
 msgstr "Quest'attributo non è direttamente in uso in nessun tipo di relazione."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:45
-#, fuzzy
-#| msgid "none"
 msgctxt "relationship attribute description"
 msgid "none"
 msgstr "nessuno"
@@ -12274,12 +12270,6 @@ msgid "Bad Amazon URLs"
 msgstr "URL di Amazon non validi"
 
 #: ../root/report/BootlegsOnNonBootlegLabels.js:24
-#, fuzzy
-#| msgid ""
-#| "This report shows releases that have at least one “Bootleg Production” "
-#| "label in their labels list, but are not set to status “Bootleg”. These "
-#| "labels pretty much never release non-bootleg releases, so chances are "
-#| "that either the label or the status are wrong."
 msgid ""
 "This report shows releases that are set to status “Bootleg”, but have at "
 "least one label in their labels list which is not “[no label]” nor has the "
@@ -12287,18 +12277,16 @@ msgid ""
 "bootleg releases, so chances are that either the label or the status is "
 "wrong."
 msgstr ""
-"Questo rapporto mostra le pubblicazioni che hanno almeno un'etichetta di "
-"tipo \"produzione di bootleg\" nel loro elenco di etichette, ma non hanno lo "
-"status impostato su \"bootleg\". Queste etichette non pubblicano "
-"praticamente mai pubblicazioni non-bootleg, quindi è probabile che o "
-"l'etichetta o lo status siano sbagliati."
+"Questo rapporto mostra le pubblicazioni che hanno lo status impostato su "
+"\"bootleg\", ma hanno almeno un'etichetta che non è \"[no label]\" né è di "
+"tipo \"produzione di bootleg\" nel loro elenco di etichette. Etichette di "
+"altri tipi non pubblicano praticamente mai pubblicazioni bootleg, quindi è "
+"probabile che o l'etichetta o lo status sia sbagliato."
 
 #: ../root/report/BootlegsOnNonBootlegLabels.js:33
 #: ../root/report/ReportsIndex.js:466
-#, fuzzy
-#| msgid "Releases on bootleg labels not set to bootleg"
 msgid "Releases on non-bootleg labels set to bootleg"
-msgstr "Pubblicazioni su etichette di bootleg non impostate come bootleg"
+msgstr "Pubblicazioni su etichette non-bootleg impostate come bootleg"
 
 #: ../root/report/CDTocDubiousLength.js:24
 msgid ""
@@ -13078,12 +13066,6 @@ msgid "Releases without script"
 msgstr "Pubblicazioni senza sistema di scrittura"
 
 #: ../root/report/NonBootlegsOnBootlegLabels.js:24
-#, fuzzy
-#| msgid ""
-#| "This report shows releases that have at least one “Bootleg Production” "
-#| "label in their labels list, but are not set to status “Bootleg”. These "
-#| "labels pretty much never release non-bootleg releases, so chances are "
-#| "that either the label or the status are wrong."
 msgid ""
 "This report shows releases that have at least one “Bootleg Production” label "
 "in their labels list, but are not set to status “Bootleg”. These labels "
@@ -13094,7 +13076,7 @@ msgstr ""
 "tipo \"produzione di bootleg\" nel loro elenco di etichette, ma non hanno lo "
 "status impostato su \"bootleg\". Queste etichette non pubblicano "
 "praticamente mai pubblicazioni non-bootleg, quindi è probabile che o "
-"l'etichetta o lo status siano sbagliati."
+"l'etichetta o lo status sia sbagliato."
 
 #: ../root/report/NonBootlegsOnBootlegLabels.js:32
 #: ../root/report/ReportsIndex.js:460
@@ -14947,11 +14929,9 @@ msgid "{medium} on {release}"
 msgstr "{medium} di {release}"
 
 #: ../root/static/scripts/common/components/OrderableDirection.js:22
-#, fuzzy
-#| msgid "None"
 msgctxt "relationship order direction"
 msgid "None"
-msgstr "Nessuno"
+msgstr "Nessuna"
 
 #: ../root/static/scripts/common/components/OrderableDirection.js:25
 msgid "Forward"
@@ -15516,10 +15496,8 @@ msgid "Please link to Threads profiles, not threads."
 msgstr "Inserisci collegamenti a profili Thread, non a post."
 
 #: ../root/static/scripts/edit/URLCleanup.js:5741
-#, fuzzy
-#| msgid "Please link to Twitter profiles, not tweets."
 msgid "Please link to TikTok profiles, not videos."
-msgstr "Inserisci collegamenti a profili Twitter, non a tweet."
+msgstr "Inserisci collegamenti a profili TikTok, non a video."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6008
 msgid "This is not a profile, but a Twitter documentation page."
