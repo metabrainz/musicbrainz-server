@@ -2,11 +2,13 @@
 # Translators:
 # Vaclovas lntas (Vac.) <email address hidden>, 2023
 # "Vac31." <gateway_31@protonmail.com>, 2023.
+# "Vac31." <Vaclovas@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-09 18:28+0000\n"
-"Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
+"PO-Revision-Date: 2024-02-26 21:28+0000\n"
+"Last-Translator: \"Vac31.\" <Vaclovas@users.noreply.translations.metabrainz."
+"org>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/lt/>\n"
 "Language: lt\n"
@@ -16,12 +18,12 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
 " n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.4\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
 msgid "Abkhazian"
-msgstr "Abchazų"
+msgstr "abchazų"
 
 #. frequency:1 iso_code_3:ace 
 #: DB:language/name:3

@@ -1619,12 +1619,30 @@ msgid ""
 "release."
 msgstr ""
 
+#: DB:link_type/description:1233
+#, fuzzy
+#| msgid "Indicates an artist that performed on this recording."
+msgid "This indicates an artist who did design for the event."
+msgstr "Указывает исполнителя, выступавшего на этой записи."
+
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
 
+#: DB:link_type/description:1232
+#, fuzzy
+#| msgid "Indicates an artist that performed on this recording."
+msgid "This indicates an artist who did illustration for the event."
+msgstr "Указывает исполнителя, выступавшего на этой записи."
+
 #: DB:link_type/description:927
 msgid "This indicates an artist who did illustration for the release."
+msgstr ""
+
+#: DB:link_type/description:1234
+msgid ""
+"This indicates an artist who did the graphic design for the event, arranging "
+"pieces of content into a coherent and aesthetically-pleasing design."
 msgstr ""
 
 #: DB:link_type/description:27
@@ -1638,6 +1656,12 @@ msgstr ""
 msgid ""
 "This indicates an artist who is responsible for the creative and practical "
 "day-to-day aspects involved with making a musical recording."
+msgstr ""
+
+#: DB:link_type/description:1231
+msgid ""
+"This indicates an artist who provided artwork for the event when no more "
+"specific information is available."
 msgstr ""
 
 #: DB:link_type/description:993
@@ -4034,7 +4058,7 @@ msgstr ""
 msgid "artists and repertoire position"
 msgstr ""
 
-#: DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
 msgid "artwork"
 msgstr ""
 
@@ -4556,7 +4580,7 @@ msgstr ""
 msgid "derived from"
 msgstr ""
 
-#: DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
 msgid "design"
 msgstr "дизайн"
 
@@ -4881,7 +4905,8 @@ msgstr ""
 msgid "glass mastering location for"
 msgstr ""
 
-#: DB:link_type/name:1172 DB:link_type/name:125 DB:link_type/name:27
+#: DB:link_type/name:1172 DB:link_type/name:1234 DB:link_type/name:125
+#: DB:link_type/name:27
 msgid "graphic design"
 msgstr "графический дизайн"
 
@@ -5354,7 +5379,7 @@ msgstr ""
 msgid "hybrid of"
 msgstr ""
 
-#: DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
 msgid "illustration"
 msgstr ""
 
@@ -6651,7 +6676,8 @@ msgstr ""
 msgid "provided {additional} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
+#: DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr ""
 
@@ -6667,12 +6693,13 @@ msgstr ""
 msgid "provided {additional} design/illustration on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:125
-#: DB:link_type/long_link_phrase:27
+#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:1234
+#: DB:link_type/long_link_phrase:125 DB:link_type/long_link_phrase:27
 msgid "provided {additional} graphic design on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:927 DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
+#: DB:link_type/long_link_phrase:1173
 msgid "provided {additional} illustration on"
 msgstr ""
 
@@ -6684,7 +6711,7 @@ msgstr ""
 msgid "provided {additional} {assistant} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 
@@ -7940,7 +7967,8 @@ msgstr ""
 msgid "{additional} art direction"
 msgstr ""
 
-#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
+#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr ""
@@ -7977,13 +8005,15 @@ msgstr ""
 msgid "{additional} engineering location for"
 msgstr ""
 
-#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:125
-#: DB:link_type/link_phrase:27 DB:link_type/reverse_link_phrase:1172
+#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:1234
+#: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
+#: DB:link_type/reverse_link_phrase:1172 DB:link_type/reverse_link_phrase:1234
 #: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
 msgid "{additional} graphic design"
 msgstr ""
 
-#: DB:link_type/link_phrase:927 DB:link_type/link_phrase:1173
+#: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
+#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
 #: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
 msgid "{additional} illustration"
 msgstr ""
@@ -8109,7 +8139,8 @@ msgstr ""
 msgid "{additional} {assistant} conductor"
 msgstr ""
 
-#: DB:link_type/link_phrase:928 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
+#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
 msgid "{additional} {assistant} design"
 msgstr ""
 

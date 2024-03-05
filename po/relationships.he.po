@@ -1722,13 +1722,39 @@ msgid ""
 "release."
 msgstr "ציון אמן שנצח על תזמורת, להקה או מקהלה בהוצאה זו."
 
+#: DB:link_type/description:1233
+#, fuzzy
+#| msgid "This indicates a person or agency who did design for the release."
+msgid "This indicates an artist who did design for the event."
+msgstr "ציון אדם או סוכנות שעיצבו עבור ההוצאה."
+
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
 
+#: DB:link_type/description:1232
+#, fuzzy
+#| msgid ""
+#| "This indicates a person or agency who did illustration for the release."
+msgid "This indicates an artist who did illustration for the event."
+msgstr "ציון אדם או סוכנות ששאירו עבור ההוצאה."
+
 #: DB:link_type/description:927
 msgid "This indicates an artist who did illustration for the release."
 msgstr ""
+
+#: DB:link_type/description:1234
+#, fuzzy
+#| msgid ""
+#| "This credits the people or agency who did the graphic design, arranging "
+#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
+#| "design."
+msgid ""
+"This indicates an artist who did the graphic design for the event, arranging "
+"pieces of content into a coherent and aesthetically-pleasing design."
+msgstr ""
+"מזכה את האנשים או הסוכנות שבצעו את העיצוב הגרפי, תוך שהם מסדרים חלקי תוכן "
+"לעיצוב שרוול לכיד ונעים אסתטית."
 
 #: DB:link_type/description:27
 msgid ""
@@ -1744,6 +1770,18 @@ msgid ""
 msgstr ""
 "ציון אמן האחראי להיבטים היומיומיים היצירתיים והמעשיים הכרוכים בביצוע הקלטה "
 "מוזיקלית."
+
+#: DB:link_type/description:1231
+#, fuzzy
+#| msgid ""
+#| "This indicates a person or agency who provided artwork for the release "
+#| "when no more specific information is available."
+msgid ""
+"This indicates an artist who provided artwork for the event when no more "
+"specific information is available."
+msgstr ""
+"ציון אדם או סוכנות שבצעו נהול אמנותי עבור הוצאה כאשר מידע מסוים יותר אינו "
+"זמין."
 
 #: DB:link_type/description:993
 msgid ""
@@ -4621,7 +4659,7 @@ msgstr ""
 msgid "artists and repertoire position"
 msgstr ""
 
-#: DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
 msgid "artwork"
 msgstr "תמונות עטיפה"
 
@@ -5145,7 +5183,7 @@ msgstr "נגזרות"
 msgid "derived from"
 msgstr "נגזר מ־"
 
-#: DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
 msgid "design"
 msgstr "עיצוב"
 
@@ -5470,7 +5508,8 @@ msgstr " זיגוג עותק־אב על־ידי"
 msgid "glass mastering location for"
 msgstr " אתר זיגוג עותק־אב של"
 
-#: DB:link_type/name:1172 DB:link_type/name:125 DB:link_type/name:27
+#: DB:link_type/name:1172 DB:link_type/name:1234 DB:link_type/name:125
+#: DB:link_type/name:27
 msgid "graphic design"
 msgstr "עיצוב גרפי"
 
@@ -5943,7 +5982,7 @@ msgstr "אורחים"
 msgid "hybrid of"
 msgstr "הכלאה של"
 
-#: DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
 msgid "illustration"
 msgstr "איור"
 
@@ -7244,7 +7283,8 @@ msgstr "ייצוג משפטי ל־"
 msgid "provided {additional} art direction on"
 msgstr "{additional} נהול אמנותי ב־"
 
-#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
+#: DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr "provided {additional} תמונות עטיפה ב־"
 
@@ -7260,12 +7300,13 @@ msgstr "{additional} עיצוב ב־"
 msgid "provided {additional} design/illustration on"
 msgstr "{additional} עיצוב/איור ב־"
 
-#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:125
-#: DB:link_type/long_link_phrase:27
+#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:1234
+#: DB:link_type/long_link_phrase:125 DB:link_type/long_link_phrase:27
 msgid "provided {additional} graphic design on"
 msgstr "{additional} עיצוב גרפי ב־"
 
-#: DB:link_type/long_link_phrase:927 DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
+#: DB:link_type/long_link_phrase:1173
 msgid "provided {additional} illustration on"
 msgstr "{additional} איור ב־"
 
@@ -7277,7 +7318,7 @@ msgstr "{additional} ייצוג משפטי ל־"
 msgid "provided {additional} {assistant} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 
@@ -8546,7 +8587,8 @@ msgstr "{additional} אתר עיבוד ל־"
 msgid "{additional} art direction"
 msgstr "{additional} ניהול אמנותי"
 
-#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
+#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr "{additional} תמונות עטיפה"
@@ -8583,13 +8625,15 @@ msgstr "{additional} אתר עריכה ל־"
 msgid "{additional} engineering location for"
 msgstr "{additional} אתר הנדסה עבור"
 
-#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:125
-#: DB:link_type/link_phrase:27 DB:link_type/reverse_link_phrase:1172
+#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:1234
+#: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
+#: DB:link_type/reverse_link_phrase:1172 DB:link_type/reverse_link_phrase:1234
 #: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
 msgid "{additional} graphic design"
 msgstr "{additional} עיצוב גרפי"
 
-#: DB:link_type/link_phrase:927 DB:link_type/link_phrase:1173
+#: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
+#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
 #: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
 msgid "{additional} illustration"
 msgstr "{additional} איור"
@@ -8715,7 +8759,8 @@ msgstr ""
 msgid "{additional} {assistant} conductor"
 msgstr ""
 
-#: DB:link_type/link_phrase:928 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
+#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
 msgid "{additional} {assistant} design"
 msgstr ""
 
@@ -9521,20 +9566,6 @@ msgstr "תמיכה עבור {vocal:%|vocals}"
 #~ "This credits a person or agency whose photographs are included as part of "
 #~ "a release."
 #~ msgstr "זיכוי אדם או סוכנות שהתצלומים שלהם הם חלק מהוצאה."
-
-#~ msgid "This indicates a person or agency who did design for the release."
-#~ msgstr "ציון אדם או סוכנות שעיצבו עבור ההוצאה."
-
-#~ msgid ""
-#~ "This indicates a person or agency who did illustration for the release."
-#~ msgstr "ציון אדם או סוכנות ששאירו עבור ההוצאה."
-
-#~ msgid ""
-#~ "This indicates a person or agency who provided artwork for the release "
-#~ "when no more specific information is available."
-#~ msgstr ""
-#~ "ציון אדם או סוכנות שבצעו נהול אמנותי עבור הוצאה כאשר מידע מסוים יותר אינו "
-#~ "זמין."
 
 #~ msgid ""
 #~ "This indicates an artist (generally a person) was the founder of an event "

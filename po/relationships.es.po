@@ -24,7 +24,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-02-13 14:29+0000\n"
+"PO-Revision-Date: 2024-02-29 16:28+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.3.1\n"
+"X-Generator: Weblate 5.4\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -242,7 +242,7 @@ msgstr ""
 
 #: DB:link_type/description:357
 msgid "Designates that a work is or was the anthem for an area."
-msgstr "Designa que un trabajo es o era el himno de un área."
+msgstr "Indica que una obra es o ha sido el himno de un área."
 
 #: DB:link_type/description:356
 msgid "Designates that one area is contained by another."
@@ -541,7 +541,8 @@ msgstr ""
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance."
 msgstr ""
-"Indica el evento donde tuvo lugar la primera interpretación de la obra."
+"Indica el evento durante el que tuvo lugar la primera interpretación de la "
+"obra."
 
 #: DB:link_type/description:986
 msgid ""
@@ -1027,23 +1028,23 @@ msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"Apunta a la página de Wikidata de este área, y sirve para obtener sumarios "
-"de Wikipedia."
+"Indica la página de Wikidata de este área, y sirve para obtener sumarios de "
+"Wikipedia."
 
 #: DB:link_type/description:352
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"Apunta a la página de Wikidata de este artista, y sirve para obtener "
-"sumarios de Wikipedia."
+"Indica la página de Wikidata de este artista, y sirve para obtener sumarios "
+"de Wikipedia."
 
 #: DB:link_type/description:790
 msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"Apunta a la página de Wikidata de este evento, y sirve para obtener sumarios "
+"Indica la página de Wikidata de este evento, y sirve para obtener sumarios "
 "de Wikipedia."
 
 #: DB:link_type/description:1087
@@ -1051,7 +1052,7 @@ msgid ""
 "Points to the Wikidata page for this genre, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"Apunta a la página de Wikidata de este género, y sirve para obtener sumarios "
+"Indica la página de Wikidata de este género, y sirve para obtener sumarios "
 "de Wikipedia."
 
 #: DB:link_type/description:733
@@ -1065,7 +1066,7 @@ msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"Apunta a la página de Wikidata de esta discográfica, y sirve para obtener "
+"Indica la página de Wikidata de esta discográfica, y sirve para obtener "
 "sumarios de Wikipedia."
 
 #: DB:link_type/description:594
@@ -1073,8 +1074,8 @@ msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"Apunta a la página de Wikidata de este lugar, y sirve para obtener sumarios "
-"de Wikipedia."
+"Indica la página de Wikidata de este lugar, y sirve para obtener sumarios de "
+"Wikipedia."
 
 #: DB:link_type/description:353
 msgid ""
@@ -1087,16 +1088,16 @@ msgid ""
 "Points to the Wikidata page for this series, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"Apunta a la página de Wikidata de esta serie, y sirve para obtener sumarios "
-"de Wikipedia."
+"Indica la página de Wikidata de esta serie, y sirve para obtener sumarios de "
+"Wikipedia."
 
 #: DB:link_type/description:351
 msgid ""
 "Points to the Wikidata page for this work, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"Apunta a la página de Wikidata de esta obra, y sirve para obtener sumarios "
-"de Wikipedia."
+"Indica la página de Wikidata de esta obra, y sirve para obtener sumarios de "
+"Wikipedia."
 
 #: DB:link_type/description:89
 msgid "Points to the Wikipedia page for this album."
@@ -1120,7 +1121,7 @@ msgstr ""
 
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place."
-msgstr "Apunta a la página de Wikipedia de este lugar."
+msgstr "Indica la página de Wikipedia de este lugar."
 
 #: DB:link_type/description:744
 msgid "Points to the Wikipedia page for this series."
@@ -1589,12 +1590,30 @@ msgid ""
 "release."
 msgstr ""
 
+#: DB:link_type/description:1233
+#, fuzzy
+#| msgid "This indicates the artist directed video on this release."
+msgid "This indicates an artist who did design for the event."
+msgstr "Indica que el artista dirigió vídeo en esta publicación."
+
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
 
+#: DB:link_type/description:1232
+#, fuzzy
+#| msgid "This indicates the artist directed video on this release."
+msgid "This indicates an artist who did illustration for the event."
+msgstr "Indica que el artista dirigió vídeo en esta publicación."
+
 #: DB:link_type/description:927
 msgid "This indicates an artist who did illustration for the release."
+msgstr ""
+
+#: DB:link_type/description:1234
+msgid ""
+"This indicates an artist who did the graphic design for the event, arranging "
+"pieces of content into a coherent and aesthetically-pleasing design."
 msgstr ""
 
 #: DB:link_type/description:27
@@ -1608,6 +1627,12 @@ msgstr ""
 msgid ""
 "This indicates an artist who is responsible for the creative and practical "
 "day-to-day aspects involved with making a musical recording."
+msgstr ""
+
+#: DB:link_type/description:1231
+msgid ""
+"This indicates an artist who provided artwork for the event when no more "
+"specific information is available."
 msgstr ""
 
 #: DB:link_type/description:993
@@ -3558,7 +3583,7 @@ msgstr ""
 #: DB:link_type/description:840
 msgid ""
 "This relationship type links an artist to its corresponding page at Last.fm."
-msgstr "Esto enlaza un artista con su página en Last.fm."
+msgstr "Enlaza un artista a su página en Last.fm."
 
 #: DB:link_type/description:785
 msgid ""
@@ -3569,7 +3594,7 @@ msgstr ""
 msgid ""
 "This relationship type links an artist to its corresponding page at setlist."
 "fm."
-msgstr "Esto enlaza un artista con su página en setlist.fm."
+msgstr "Enlaza un artista a su página en setlist.fm."
 
 #: DB:link_type/description:189
 msgid "This relationship type links an artist to their Myspace page."
@@ -4015,7 +4040,7 @@ msgstr ""
 msgid "artists and repertoire position"
 msgstr ""
 
-#: DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
 msgid "artwork"
 msgstr "portada"
 
@@ -4537,7 +4562,7 @@ msgstr "derivaciones"
 msgid "derived from"
 msgstr "derivado de"
 
-#: DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
 msgid "design"
 msgstr ""
 
@@ -4633,7 +4658,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:238
 msgid "earliest release"
-msgstr "ultimo lanzamiento"
+msgstr "primera publicación"
 
 #: DB:link_attribute_type/name:1131
 msgid "early music"
@@ -4641,7 +4666,7 @@ msgstr ""
 
 #: DB:link_type/name:309
 msgid "edit"
-msgstr "editar"
+msgstr "edición"
 
 #: DB:link_type/link_phrase:309
 msgid "edit of"
@@ -4810,7 +4835,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:1088 DB:link_type/reverse_link_phrase:752
 msgid "from"
-msgstr "desde"
+msgstr "origen"
 
 #: DB:link_type/link_phrase:1096 DB:link_type/name:1096
 msgid "fusion of"
@@ -4822,7 +4847,7 @@ msgstr "origen del género"
 
 #: DB:link_type/link_phrase:1088
 msgid "genres"
-msgstr "generos"
+msgstr "géneros"
 
 #: DB:link_type/name:934 DB:link_type/name:713
 msgid "geonames"
@@ -4862,7 +4887,8 @@ msgstr ""
 msgid "glass mastering location for"
 msgstr ""
 
-#: DB:link_type/name:1172 DB:link_type/name:125 DB:link_type/name:27
+#: DB:link_type/name:1172 DB:link_type/name:1234 DB:link_type/name:125
+#: DB:link_type/name:27
 msgid "graphic design"
 msgstr ""
 
@@ -5335,7 +5361,7 @@ msgstr ""
 msgid "hybrid of"
 msgstr ""
 
-#: DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
 msgid "illustration"
 msgstr ""
 
@@ -5552,7 +5578,7 @@ msgstr "es la base de"
 
 #: DB:link_type/long_link_phrase:238
 msgid "is the earliest release of"
-msgstr "es el primer lanzamiento de"
+msgstr "es la primera publicación de"
 
 #: DB:link_type/long_link_phrase:241
 msgid "is the earliest version of {translated} {parody}"
@@ -6321,7 +6347,7 @@ msgstr ""
 
 #: DB:link_type/name:1
 msgid "part of set"
-msgstr ""
+msgstr "parte de conjunto"
 
 #: DB:link_attribute_type/name:579
 msgid "partial"
@@ -6630,7 +6656,8 @@ msgstr "ofreció representación legal para"
 msgid "provided {additional} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
+#: DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr ""
 
@@ -6646,12 +6673,13 @@ msgstr ""
 msgid "provided {additional} design/illustration on"
 msgstr "diseño / ilustración {additional}"
 
-#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:125
-#: DB:link_type/long_link_phrase:27
+#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:1234
+#: DB:link_type/long_link_phrase:125 DB:link_type/long_link_phrase:27
 msgid "provided {additional} graphic design on"
 msgstr "diseño gráfico {additional}"
 
-#: DB:link_type/long_link_phrase:927 DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
+#: DB:link_type/long_link_phrase:1173
 msgid "provided {additional} illustration on"
 msgstr ""
 
@@ -6663,7 +6691,7 @@ msgstr ""
 msgid "provided {additional} {assistant} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 
@@ -7908,7 +7936,7 @@ msgstr ""
 #: DB:link_type/link_phrase:51 DB:link_type/link_phrase:156
 #: DB:link_type/long_link_phrase:51 DB:link_type/long_link_phrase:156
 msgid "{additional:additionally} {guest} {solo} performed"
-msgstr "intérprete {additional} {guest} ({solo}) en"
+msgstr "intérprete {additional:adicional} {guest:invitado} {solo:(solo)} en"
 
 #: DB:link_type/reverse_link_phrase:697
 msgid "{additional:additionally} {pre:pre-}{re}mastered at"
@@ -7927,7 +7955,8 @@ msgstr ""
 msgid "{additional} art direction"
 msgstr "dirección artística {additional:adicional}"
 
-#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
+#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr ""
@@ -7964,13 +7993,15 @@ msgstr ""
 msgid "{additional} engineering location for"
 msgstr ""
 
-#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:125
-#: DB:link_type/link_phrase:27 DB:link_type/reverse_link_phrase:1172
+#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:1234
+#: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
+#: DB:link_type/reverse_link_phrase:1172 DB:link_type/reverse_link_phrase:1234
 #: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
 msgid "{additional} graphic design"
 msgstr "diseño gráfico {additional:adicional}"
 
-#: DB:link_type/link_phrase:927 DB:link_type/link_phrase:1173
+#: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
+#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
 #: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
 msgid "{additional} illustration"
 msgstr ""
@@ -8096,7 +8127,8 @@ msgstr ""
 msgid "{additional} {assistant} conductor"
 msgstr ""
 
-#: DB:link_type/link_phrase:928 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
+#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
 msgid "{additional} {assistant} design"
 msgstr ""
 
@@ -8293,6 +8325,7 @@ msgstr "{bonus:bonus|next} disco"
 #: DB:link_type/long_link_phrase:1
 msgid "{bonus:may be|is} part of a set, the next disc in the set is"
 msgstr ""
+"{bonus:puede ser|es} parte de un conjunto, el siguiente disco del conjunto es"
 
 #: DB:link_type/reverse_link_phrase:951 DB:link_type/reverse_link_phrase:950
 msgid "{co:co-}{executive:executive }produced for"

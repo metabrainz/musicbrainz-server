@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-02-01 21:28+0000\n"
+"PO-Revision-Date: 2024-03-02 02:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.3.1\n"
+"X-Generator: Weblate 5.4\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -173,6 +173,11 @@ msgstr "Mark tree"
 #: DB:instrument/name:442
 msgid "Marxophone"
 msgstr "marxofono"
+
+#: DB:instrument/name:1199
+msgctxt "Belorussian duda"
+msgid "Matstsyanka"
+msgstr "matstsyanka"
 
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
@@ -3603,6 +3608,11 @@ msgstr "tamburo a fessura"
 #: DB:instrument/name:104
 msgid "snare drum"
 msgstr "tamburo rullante"
+
+#: DB:instrument/name:1198
+msgctxt "Latvian bagpipe"
+msgid "somu dūdas"
+msgstr "somu dūdas"
 
 #: DB:instrument/name:284
 msgid "song loan"

@@ -1849,13 +1849,39 @@ msgstr ""
 "これは、このリリースでオーケストラ、バンド、または合唱団を指揮したアーティス"
 "トを示す。"
 
+#: DB:link_type/description:1233
+#, fuzzy
+#| msgid "This indicates a person or agency who did design for the release."
+msgid "This indicates an artist who did design for the event."
+msgstr "これは、リリースの設計を行った個人または代理店を示す。"
+
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
 
+#: DB:link_type/description:1232
+#, fuzzy
+#| msgid ""
+#| "This indicates a person or agency who did illustration for the release."
+msgid "This indicates an artist who did illustration for the event."
+msgstr "これは、リリースのイラストを描いた人物または代理店を示す。"
+
 #: DB:link_type/description:927
 msgid "This indicates an artist who did illustration for the release."
 msgstr ""
+
+#: DB:link_type/description:1234
+#, fuzzy
+#| msgid ""
+#| "This credits the people or agency who did the graphic design, arranging "
+#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
+#| "design."
+msgid ""
+"This indicates an artist who did the graphic design for the event, arranging "
+"pieces of content into a coherent and aesthetically-pleasing design."
+msgstr ""
+"これは、グラフィックデザインを行い、コンテンツを一貫性のある見た目に美しいス"
+"リーブデザインに配置した人々または代理店のクレジットである。"
 
 #: DB:link_type/description:27
 msgid ""
@@ -1871,6 +1897,18 @@ msgid ""
 msgstr ""
 "これは、レコーディングの作成に関連する創造的かつ実用的な日常の側面を担当する"
 "アーティストを示す。"
+
+#: DB:link_type/description:1231
+#, fuzzy
+#| msgid ""
+#| "This indicates a person or agency who provided artwork for the release "
+#| "when no more specific information is available."
+msgid ""
+"This indicates an artist who provided artwork for the event when no more "
+"specific information is available."
+msgstr ""
+"これは、具体的な情報が入手出来ない場合にリリース用のアートワークを提供した個"
+"人または代理店を示す。"
 
 #: DB:link_type/description:993
 msgid ""
@@ -4913,7 +4951,7 @@ msgstr ""
 msgid "artists and repertoire position"
 msgstr ""
 
-#: DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
 msgid "artwork"
 msgstr "アートワーク"
 
@@ -5435,7 +5473,7 @@ msgstr "派生"
 msgid "derived from"
 msgstr "派生元"
 
-#: DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
 msgid "design"
 msgstr "デザイン"
 
@@ -5760,7 +5798,8 @@ msgstr ""
 msgid "glass mastering location for"
 msgstr "この場所でガラス原版製造されたリリース"
 
-#: DB:link_type/name:1172 DB:link_type/name:125 DB:link_type/name:27
+#: DB:link_type/name:1172 DB:link_type/name:1234 DB:link_type/name:125
+#: DB:link_type/name:27
 msgid "graphic design"
 msgstr "グラフィックデザイン"
 
@@ -6233,7 +6272,7 @@ msgstr "ホスト"
 msgid "hybrid of"
 msgstr ""
 
-#: DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
 msgid "illustration"
 msgstr "イラスト"
 
@@ -7532,7 +7571,8 @@ msgstr ""
 msgid "provided {additional} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
+#: DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr ""
 
@@ -7548,12 +7588,13 @@ msgstr ""
 msgid "provided {additional} design/illustration on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:125
-#: DB:link_type/long_link_phrase:27
+#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:1234
+#: DB:link_type/long_link_phrase:125 DB:link_type/long_link_phrase:27
 msgid "provided {additional} graphic design on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:927 DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
+#: DB:link_type/long_link_phrase:1173
 msgid "provided {additional} illustration on"
 msgstr ""
 
@@ -7565,7 +7606,7 @@ msgstr ""
 msgid "provided {additional} {assistant} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 
@@ -8838,7 +8879,8 @@ msgstr "ここで{additional:補助的に}編曲された作品"
 msgid "{additional} art direction"
 msgstr "{additional:補助的な}アートディレクション"
 
-#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
+#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr "{additional:補助的な}アートワーク"
@@ -8875,13 +8917,15 @@ msgstr "ここで{additional:補助的に}編集されたレコーディング"
 msgid "{additional} engineering location for"
 msgstr "ここで{additional:補助的に}エンジニアリングされたレコーディング"
 
-#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:125
-#: DB:link_type/link_phrase:27 DB:link_type/reverse_link_phrase:1172
+#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:1234
+#: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
+#: DB:link_type/reverse_link_phrase:1172 DB:link_type/reverse_link_phrase:1234
 #: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
 msgid "{additional} graphic design"
 msgstr "{additional:補助的な}グラフィックデザイン"
 
-#: DB:link_type/link_phrase:927 DB:link_type/link_phrase:1173
+#: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
+#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
 #: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
 msgid "{additional} illustration"
 msgstr "{additional:補助的な}イラスト"
@@ -9008,7 +9052,8 @@ msgstr ""
 msgid "{additional} {assistant} conductor"
 msgstr ""
 
-#: DB:link_type/link_phrase:928 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
+#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
 msgid "{additional} {assistant} design"
 msgstr ""
 
@@ -9809,20 +9854,6 @@ msgstr ""
 #~ msgstr ""
 #~ "これは、写真がリリースの一部として含まれている個人または機関のクレジットで"
 #~ "ある。"
-
-#~ msgid "This indicates a person or agency who did design for the release."
-#~ msgstr "これは、リリースの設計を行った個人または代理店を示す。"
-
-#~ msgid ""
-#~ "This indicates a person or agency who did illustration for the release."
-#~ msgstr "これは、リリースのイラストを描いた人物または代理店を示す。"
-
-#~ msgid ""
-#~ "This indicates a person or agency who provided artwork for the release "
-#~ "when no more specific information is available."
-#~ msgstr ""
-#~ "これは、具体的な情報が入手出来ない場合にリリース用のアートワークを提供した"
-#~ "個人または代理店を示す。"
 
 #~ msgid ""
 #~ "This indicates that a person or agency did the art direction for the "

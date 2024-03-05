@@ -4,11 +4,12 @@
 # Gary Liu, 2022
 # suming <331874545@qq.com>, 2023.
 # claybiockiller <clay0305@hotmail.com>, 2023.
+# ycwei982 <ycwei982@outlook.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-04 22:28+0000\n"
-"Last-Translator: claybiockiller <clay0305@hotmail.com>\n"
+"PO-Revision-Date: 2024-02-26 21:28+0000\n"
+"Last-Translator: ycwei982 <ycwei982@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/relationship-types/zh_Hans/>\n"
 "Language: zh\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.4\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -1703,13 +1704,40 @@ msgid ""
 "release."
 msgstr "这表明艺术家在此专辑中指挥了乐团，乐队或合唱团。"
 
+#: DB:link_type/description:1233
+#, fuzzy
+#| msgid "This indicates an artist cancelled their appearance at an event."
+msgid "This indicates an artist who did design for the event."
+msgstr "这表明艺术家在活动中取消出席。"
+
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
 
+#: DB:link_type/description:1232
+#, fuzzy
+#| msgid ""
+#| "This indicates a person or agency who did design or illustration for the "
+#| "track."
+msgid "This indicates an artist who did illustration for the event."
+msgstr "这指的是参与设计音轨或制作音轨插图的个人或机构。"
+
 #: DB:link_type/description:927
 msgid "This indicates an artist who did illustration for the release."
 msgstr ""
+
+#: DB:link_type/description:1234
+#, fuzzy
+#| msgid ""
+#| "This credits the people or agency who did the graphic design, arranging "
+#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
+#| "design."
+msgid ""
+"This indicates an artist who did the graphic design for the event, arranging "
+"pieces of content into a coherent and aesthetically-pleasing design."
+msgstr ""
+"这记载的是平面设计师或机构，他们将内容元素组合为符合一致性和审美要求的封套设"
+"计。"
 
 #: DB:link_type/description:27
 msgid ""
@@ -1723,6 +1751,16 @@ msgid ""
 "This indicates an artist who is responsible for the creative and practical "
 "day-to-day aspects involved with making a musical recording."
 msgstr "这表明艺术家负责录音制作期间的创作和日常实践。"
+
+#: DB:link_type/description:1231
+#, fuzzy
+#| msgid ""
+#| "This indicates an artist who conducted an orchestra, band or choir on "
+#| "this release."
+msgid ""
+"This indicates an artist who provided artwork for the event when no more "
+"specific information is available."
+msgstr "这表明艺术家在此专辑中指挥了乐团，乐队或合唱团。"
 
 #: DB:link_type/description:993
 msgid ""
@@ -4293,7 +4331,7 @@ msgstr ""
 msgid "artists and repertoire position"
 msgstr ""
 
-#: DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
 msgid "artwork"
 msgstr ""
 
@@ -4725,7 +4763,7 @@ msgstr "封面"
 
 #: DB:link_type/link_phrase:78
 msgid "cover art"
-msgstr "封面图像"
+msgstr "封面插图"
 
 #: DB:link_type/reverse_link_phrase:78
 msgid "cover art for"
@@ -4815,7 +4853,7 @@ msgstr ""
 msgid "derived from"
 msgstr ""
 
-#: DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
 msgid "design"
 msgstr "设计"
 
@@ -5140,7 +5178,8 @@ msgstr "玻璃母盘处理，处理者为"
 msgid "glass mastering location for"
 msgstr ""
 
-#: DB:link_type/name:1172 DB:link_type/name:125 DB:link_type/name:27
+#: DB:link_type/name:1172 DB:link_type/name:1234 DB:link_type/name:125
+#: DB:link_type/name:27
 msgid "graphic design"
 msgstr "平面设计"
 
@@ -5613,7 +5652,7 @@ msgstr ""
 msgid "hybrid of"
 msgstr ""
 
-#: DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
 msgid "illustration"
 msgstr "插图"
 
@@ -6908,7 +6947,8 @@ msgstr ""
 msgid "provided {additional} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
+#: DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr ""
 
@@ -6924,12 +6964,13 @@ msgstr ""
 msgid "provided {additional} design/illustration on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:125
-#: DB:link_type/long_link_phrase:27
+#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:1234
+#: DB:link_type/long_link_phrase:125 DB:link_type/long_link_phrase:27
 msgid "provided {additional} graphic design on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:927 DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
+#: DB:link_type/long_link_phrase:1173
 msgid "provided {additional} illustration on"
 msgstr ""
 
@@ -6941,7 +6982,7 @@ msgstr ""
 msgid "provided {additional} {assistant} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 
@@ -8201,7 +8242,8 @@ msgstr ""
 msgid "{additional} art direction"
 msgstr ""
 
-#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
+#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr ""
@@ -8238,13 +8280,15 @@ msgstr ""
 msgid "{additional} engineering location for"
 msgstr ""
 
-#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:125
-#: DB:link_type/link_phrase:27 DB:link_type/reverse_link_phrase:1172
+#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:1234
+#: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
+#: DB:link_type/reverse_link_phrase:1172 DB:link_type/reverse_link_phrase:1234
 #: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
 msgid "{additional} graphic design"
 msgstr ""
 
-#: DB:link_type/link_phrase:927 DB:link_type/link_phrase:1173
+#: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
+#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
 #: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
 msgid "{additional} illustration"
 msgstr ""
@@ -8370,7 +8414,8 @@ msgstr ""
 msgid "{additional} {assistant} conductor"
 msgstr ""
 
-#: DB:link_type/link_phrase:928 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
+#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
 msgid "{additional} {assistant} design"
 msgstr ""
 
