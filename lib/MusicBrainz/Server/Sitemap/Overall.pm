@@ -264,7 +264,38 @@ sub build_one_entity {
 
     my $sql = $c->sql;
 
-    # Find the counts in each potential batch of 50,000
+    # Sitemaps for a particular suffix (see `%SITEMAP_SUFFIX_INFO` in
+    # `Sitemap::Constants`) are divided into batches of `$MAX_SITEMAP_SIZE`.
+    # Each entity has a batch number associated with it, which is calculated
+    # as `ceil(row_id / $MAX_SITEMAP_SIZE)`.
+    #
+    # As an example, if `$MAX_SITEMAP_SIZE` were 50,000, and we were
+    # outputting the "base" artist URL sitemap, then artists with
+    # row IDs >= 1 and <= 50000 would go into batch #1
+    # (sitemap-artist-1.xml.gz); the artist with row ID 50001 would go into
+    # batch #2 (sitemap-artist-2.xml.gz).
+    #
+    # An exception to this rule is that we sometimes bundle adjacent batches:
+    #
+    #  * We'll bundle a batch into the previous one if the sum of URLs they
+    #    contain is less than or equal to `$MAX_SITEMAP_SIZE`. (There may be
+    #    holes in the row ID space as entities are merged or removed, or as
+    #    transactions are rolled back.) This reduces the total number of
+    #    sitemap files and keeps them as close to `$MAX_SITEMAP_SIZE` as
+    #    possible, for uniformity.
+    #
+    #  * We exclude the last batch from this bundling so that it's always in
+    #    its own sitemap (even if it's few enough that it could theoretically
+    #    be part of the previous one). The goal is that each URL only ever
+    #    starts in its actual batch number and then moves down over time
+    #    (as entities are merged or removed).
+    #
+    #    This keeps the set of URLs contained in the second-to-last batch
+    #    more stable: we know the last batch will always grow as new entities
+    #    are added, so there's no point to combining it when splitting it is
+    #    inevitable. Thus, the second-to-last sitemap won't have to be
+    #    pointlessly crawled again after it would have been split.
+
     my $raw_batches = $sql->select_list_of_hashes(
         "SELECT batch, count(id) FROM (SELECT id, ceil(id / ?::float) AS batch FROM $entity_type) q GROUP BY batch ORDER BY batch ASC",
         $MAX_SITEMAP_SIZE,
@@ -272,16 +303,6 @@ sub build_one_entity {
 
     return unless @{$raw_batches};
     my @batches;
-
-    # Exclude the last batch, which should always be its own sitemap.
-    #
-    # Since sitemaps do a bit of a bundling thing to reach as close to 50,000
-    # URLs as possible, it'd be possible that right after a rollover past
-    # 50,000 IDs, the new one would be folded into the otherwise-most-recent
-    # batch. Since the goal is that each URL only ever starts in its actual
-    # batch number and then moves down over time, this ensures that the last
-    # batch is always its own sitemap, even if it's few enough it could
-    # theoretically be part of the previous one.
 
     if (scalar @$raw_batches > 1) {
         my $batch = {count => 0, batches => []};
