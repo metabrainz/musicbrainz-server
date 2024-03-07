@@ -6,6 +6,7 @@ use warnings;
 use English;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
+use String::ShellQuote qw( shell_quote );
 
 use DBDefs;
 use MusicBrainz::Server::Replication qw( :replication_type );
@@ -61,6 +62,7 @@ sub RunSQLScript
     print localtime() . " : $startmessage ($file)\n" unless $fQuiet;
 
     $path //= $sqldir;
+    my $quoted_file_path = shell_quote("$path/$file");
 
     my $opts = $db->shell_args;
     my $echo = ($fEcho ? '-e' : '');
@@ -82,8 +84,8 @@ sub RunSQLScript
         $ENV{'PGOPTIONS'} .= ' -c client_min_messages=WARNING';
     }
 
-    print "$psql $quiet $echo -f $path/$file $opts 2>&1 $stdout |\n" if $fVerbose;
-    open(PIPE, "$psql $quiet $echo -f $path/$file $opts 2>&1 $stdout |")
+    print "$psql $quiet $echo -f $quoted_file_path $opts 2>&1 $stdout |\n" if $fVerbose;
+    open(PIPE, "$psql $quiet $echo -f $quoted_file_path $opts 2>&1 $stdout |")
         or die "exec '$psql': $OS_ERROR";
     while (<PIPE>)
     {
