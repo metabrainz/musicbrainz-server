@@ -383,7 +383,7 @@
           [% l('This medium format is set to “Digital Media”, but the packaging type for this release is not “None”.') %]
         </p>
         <p>
-          [% l('This is almost always incorrect. Please make sure whether you actually wanted a different format (such as “USB Flash Drive” or “Music Card”) or packaging type.') %]
+          [% l('This is almost always incorrect. Please make sure whether you actually wanted a different format (such as “USB Flash Drive” or “Download Card”) or packaging type.') %]
         </p>
         <label>
           <input id="confirm-digital-packaging" type="checkbox" data-bind="checked: confirmedStrangeDigitalPackaging" />
