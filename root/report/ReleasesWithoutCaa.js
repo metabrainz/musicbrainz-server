@@ -27,7 +27,9 @@ const ReleasesWithoutCaa = ({
        {caa_how_to|uploaded to the Cover Art Archive}.
        Note that the cover art uploaded for a release must always exactly
        match the actual art for that specific release (for example,
-       they should have the same barcode, format, etc.).`,
+       they should have the same barcode, format, etc.).
+       This report skips pseudo-releases, since they should generally
+       not have cover art.`,
       {caa_how_to: '/doc/How_to_Add_Cover_Art'},
     )}
     entityType="release"
