@@ -162,7 +162,7 @@ const AdminMenu = ({user}: UserProp) => (
       {isAccountAdmin(user) ? (
         <>
           <li>
-            <a href="/admin/attributes">{l_admin('Edit attributes')}</a>
+            <a href="/attributes">{l_admin('Edit attributes')}</a>
           </li>
           <li>
             <a href="/admin/statistics-events">
