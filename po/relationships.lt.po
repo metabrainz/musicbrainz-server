@@ -7,9 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-02-19 19:28+0000\n"
-"Last-Translator: \"Vac31.\" <Vaclovas@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2024-03-10 22:28+0000\n"
+"Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/lt/>\n"
 "Language: lt\n"
@@ -281,6 +280,22 @@ msgid ""
 "For works that have lyrics, this indicates that those lyrics are not "
 "relevant to this recording. Examples include instrumental arrangements, or "
 "\"beats\" from hip-hop songs which may be reused with different lyrics."
+msgstr ""
+"Kūriniams, kurie turi dainų tekstus, tai reiškia, kad tie dainų tekstai nėra "
+"susiję su šiuo įrašu. Pavyzdžiai: instrumentinės aranžuotės arba hiphopo "
+"dainų „ritmai“, kurie gali būti pakartotinai naudojami su kitais dainų "
+"tekstais."
+
+#: DB:link_attribute_type/description:1406
+#, fuzzy
+#| msgid ""
+#| "For works that have lyrics, this indicates that those lyrics are not "
+#| "relevant to this recording. Examples include instrumental arrangements, "
+#| "or \"beats\" from hip-hop songs which may be reused with different lyrics."
+msgid ""
+"For works that usually have instruments and vocals, this indicates that the "
+"instrumental parts are not relevant to this recording. Examples include rap "
+"tracks from hip hop songs that can be remixed and used with different beats."
 msgstr ""
 "Kūriniams, kurie turi dainų tekstus, tai reiškia, kad tie dainų tekstai nėra "
 "susiję su šiuo įrašu. Pavyzdžiai: instrumentinės aranžuotės arba hiphopo "
@@ -1700,6 +1715,12 @@ msgid ""
 "release."
 msgstr "Tai nurodo įrašymo inžinierių, kuris įrašė lauko įrašus leidiniui."
 
+#: DB:link_type/description:1240
+msgid ""
+"This indicates a release group is an excerpt from another, such as the "
+"highlights of a box set or a long opera."
+msgstr ""
+
 #: DB:link_type/description:1174
 msgid "This indicates an agency that did the art direction for the release."
 msgstr "Tai nurodo agentūrą, kuri kūrė leidinio meno kryptį."
@@ -1750,6 +1771,18 @@ msgstr ""
 
 #: DB:link_type/description:18
 msgid "This indicates an artist that did the art direction for the release."
+msgstr "Tai nurodo atlikėją, kuris (-i) kūrė leidinio meno vadovą."
+
+#: DB:link_type/description:1236
+#, fuzzy
+#| msgid "This indicates an artist that did the art direction for the release."
+msgid "This indicates an artist that did the sound effects for the recording."
+msgstr "Tai nurodo atlikėją, kuris (-i) kūrė leidinio meno vadovą."
+
+#: DB:link_type/description:1235
+#, fuzzy
+#| msgid "This indicates an artist that did the art direction for the release."
+msgid "This indicates an artist that did the sound effects for the release."
 msgstr "Tai nurodo atlikėją, kuris (-i) kūrė leidinio meno vadovą."
 
 #: DB:link_type/description:151
@@ -2064,6 +2097,11 @@ msgstr ""
 msgid ""
 "This indicates that two instruments are related in a way not covered by "
 "other, more specific relationships."
+msgstr ""
+
+#: DB:link_type/description:1237
+msgid ""
+"This indicates the area (usually a city) where a label is headquartered in."
 msgstr ""
 
 #: DB:link_type/description:1185
@@ -2457,6 +2495,14 @@ msgstr ""
 msgid "This is used to link a work to its corresponding page on Allmusic."
 msgstr ""
 
+#: DB:link_type/description:1238
+msgid ""
+"This is used to link an a cappella version of a song to the original song."
+"<br/><br/>\n"
+"An a cappella version is a version of the song with only the vocal tracks "
+"(for example, a hip hop vocal track without the beat)."
+msgstr ""
+
 #: DB:link_type/description:307
 msgid ""
 "This is used to link an artist to its corresponding page in the "
@@ -2469,6 +2515,15 @@ msgstr ""
 
 #: DB:link_type/description:714
 msgid "This is used to link an artist to its primary concert venue."
+msgstr ""
+
+#: DB:link_type/description:1239
+msgid ""
+"This is used to link an instrumental version of a song to the original song."
+"<br/><br/>\n"
+"An instrumental version is a version of the song with any vocals removed "
+"(for example, a hip hop beat without the rap tracks). For karaoke tracks, "
+"use the karaoke relationship."
 msgstr ""
 
 #: DB:link_type/description:180
@@ -4096,6 +4151,26 @@ msgstr ""
 msgid "YouTube channels"
 msgstr ""
 
+#: DB:link_type/name:1238
+msgid "a cappella"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1238
+#, fuzzy
+#| msgid "karaoke version of"
+msgid "a cappella version of"
+msgstr "karaokės versija"
+
+#: DB:link_type/link_phrase:1238
+#, fuzzy
+#| msgid "karaoke versions"
+msgid "a cappella versions"
+msgstr "karaokė versijos"
+
+#: DB:link_attribute_type/name:1406
+msgid "acappella"
+msgstr ""
+
 #: DB:link_attribute_type/name:1345
 msgid "accompanying"
 msgstr ""
@@ -4764,6 +4839,10 @@ msgstr ""
 msgid "design/illustration"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1236 DB:link_type/long_link_phrase:1235
+msgid "did sound effects for"
+msgstr ""
+
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
 #: DB:link_type/name:88 DB:link_type/name:171
 #: DB:link_type/reverse_link_phrase:88 DB:link_type/reverse_link_phrase:171
@@ -4942,6 +5021,14 @@ msgstr ""
 #: DB:link_type/link_phrase:1003 DB:link_type/name:1003
 #: DB:link_type/reverse_link_phrase:1003 DB:link_type/long_link_phrase:1003
 msgid "event artists"
+msgstr ""
+
+#: DB:link_type/link_phrase:1240 DB:link_type/name:1240
+msgid "excerpt from"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1240
+msgid "excerpts"
 msgstr ""
 
 #: DB:link_attribute_type/name:425
@@ -5253,6 +5340,12 @@ msgstr ""
 msgid "has a blog at"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1238
+#, fuzzy
+#| msgid "translated version"
+msgid "has a cappella version"
+msgstr "išversta versija"
+
 #: DB:link_type/long_link_phrase:212
 msgid "has a catalog of records at"
 msgstr ""
@@ -5428,6 +5521,12 @@ msgstr "turi įspaudą"
 msgid "has influences of"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1239
+#, fuzzy
+#| msgid "used instruments"
+msgid "has instrumental version"
+msgstr "naudojami instrumentai"
+
 #: DB:link_type/long_link_phrase:984 DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
 msgstr ""
@@ -5501,6 +5600,16 @@ msgstr ""
 msgid "has {half:half-}{step}sibling"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:1237
+#, fuzzy
+#| msgid "manufactured in"
+msgid "headquartered in"
+msgstr "pagamintas"
+
+#: DB:link_type/name:1237
+msgid "headquarters"
+msgstr ""
+
 #: DB:link_type/link_phrase:794 DB:link_type/name:794 DB:link_type/name:995
 #: DB:link_type/reverse_link_phrase:995
 msgid "held at"
@@ -5549,6 +5658,10 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:801
 msgid "hosts"
+msgstr ""
+
+#: DB:link_type/link_phrase:1237
+msgid "houses headquarters for"
 msgstr ""
 
 #: DB:link_type/link_phrase:916 DB:link_type/name:916
@@ -5624,13 +5737,25 @@ msgstr ""
 msgid "instrument technician"
 msgstr ""
 
-#: DB:link_attribute_type/name:580
+#: DB:link_attribute_type/name:580 DB:link_type/name:1239
 msgid "instrumental"
 msgstr ""
 
 #: DB:link_type/name:105
 msgid "instrumental supporting musician"
 msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1239
+#, fuzzy
+#| msgid "translated version of"
+msgid "instrumental version of"
+msgstr "išversta versija"
+
+#: DB:link_type/link_phrase:1239
+#, fuzzy
+#| msgid "translated versions"
+msgid "instrumental versions"
+msgstr "išverstos versijos"
 
 #: DB:link_type/link_phrase:752
 msgid "instruments"
@@ -5719,18 +5844,16 @@ msgstr "yra singlas/mini albumas, kuris buvo paimtas iš"
 msgid "is a tribute to"
 msgstr "yra padėka"
 
-#: DB:link_type/long_link_phrase:278
-msgid ""
-"is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
-"{karaoke} recording of"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:309
 msgid "is an edit of"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1240
+msgid "is an excerpt from"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:926
@@ -5788,6 +5911,12 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:109
 msgid "is the {step}parent of"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:278
+msgid ""
+"is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
+"a} {partial} {instrumental} {cover} {karaoke} recording of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:722
@@ -6453,7 +6582,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:525
 msgid "original"
-msgstr ""
+msgstr "originalas"
 
 #: DB:link_type/reverse_link_phrase:836
 msgid "originally scheduled as"
@@ -7237,7 +7366,7 @@ msgstr ""
 #: DB:link_type/link_phrase:811 DB:link_type/link_phrase:816
 #: DB:link_type/link_phrase:817 DB:link_type/link_phrase:938
 msgid "setlist.fm"
-msgstr ""
+msgstr "setlist.fm"
 
 #: DB:link_type/reverse_link_phrase:811 DB:link_type/reverse_link_phrase:816
 #: DB:link_type/reverse_link_phrase:817 DB:link_type/reverse_link_phrase:938
@@ -7247,7 +7376,7 @@ msgstr ""
 #: DB:link_type/name:811 DB:link_type/name:816 DB:link_type/name:817
 #: DB:link_type/name:938
 msgid "setlistfm"
-msgstr ""
+msgstr "setlistfm"
 
 #: DB:link_type/link_phrase:729 DB:link_type/name:729
 msgid "show notes"
@@ -7275,7 +7404,7 @@ msgstr ""
 
 #: DB:link_type/name:11
 msgid "single from"
-msgstr ""
+msgstr "singlas iš"
 
 #: DB:link_type/link_phrase:11
 msgid "single/EP which was taken from"
@@ -7312,7 +7441,7 @@ msgstr ""
 
 #: DB:link_type/name:786 DB:link_type/name:785 DB:link_type/name:787
 msgid "songkick"
-msgstr ""
+msgstr "songkick"
 
 #: DB:link_attribute_type/description:10 DB:link_attribute_type/name:10
 msgid "soprano vocals"
@@ -7320,6 +7449,15 @@ msgstr ""
 
 #: DB:link_type/name:133 DB:link_type/name:29
 msgid "sound"
+msgstr ""
+
+#: DB:link_type/name:1236 DB:link_type/name:1235
+#: DB:link_type/reverse_link_phrase:1236 DB:link_type/reverse_link_phrase:1235
+msgid "sound effects"
+msgstr "garso efektai"
+
+#: DB:link_type/link_phrase:1236 DB:link_type/link_phrase:1235
+msgid "sound effects for"
 msgstr ""
 
 #: DB:link_type/name:870 DB:link_type/name:291 DB:link_type/name:290
@@ -7359,25 +7497,25 @@ msgstr "srautinis perdavimas"
 #: DB:link_type/link_phrase:978 DB:link_type/link_phrase:980
 #: DB:link_type/link_phrase:1005 DB:link_type/link_phrase:979
 msgid "streaming page"
-msgstr ""
+msgstr "srautinis perdavimo puslapis"
 
 #: DB:link_type/reverse_link_phrase:978 DB:link_type/reverse_link_phrase:980
 #: DB:link_type/reverse_link_phrase:1005 DB:link_type/reverse_link_phrase:979
 msgid "streaming page for"
-msgstr ""
+msgstr "srautinis perdavimo puslapis, skirtas"
 
 #: DB:link_type/link_phrase:847 DB:link_type/reverse_link_phrase:923
 msgid "students"
-msgstr ""
+msgstr "studentai"
 
 #: DB:link_type/link_phrase:923 DB:link_type/name:923
 #: DB:link_type/long_link_phrase:923
 msgid "studied at"
-msgstr ""
+msgstr "studijavo"
 
 #: DB:link_attribute_type/name:1310
 msgid "sub"
-msgstr ""
+msgstr "po"
 
 #: DB:link_type/name:1095
 msgid "subgenre"
@@ -7880,6 +8018,18 @@ msgstr "youtube"
 #: DB:link_type/name:1080
 msgid "youtube music"
 msgstr "youtube music"
+
+#: DB:link_type/link_phrase:278
+msgid ""
+"{acappella:a cappella} {live} {medley:medley including a} {partial} "
+"{instrumental} {cover} {karaoke} recording of"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:278
+msgid ""
+"{acappella:a cappella} {live} {medley:medleys including} {partial} "
+"{instrumental} {cover} {karaoke} recordings"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
@@ -8619,6 +8769,10 @@ msgstr ""
 msgid "{entity1} is dedicated to {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1237
+msgid "{entity1} is headquartered in {entity0}"
+msgstr "{entity1} būstinė yra {entity0}"
+
 #: DB:link_type/long_link_phrase:939
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
@@ -8865,18 +9019,6 @@ msgstr ""
 
 #: DB:link_type/link_phrase:986 DB:link_type/link_phrase:987
 msgid "{instrument:%|instruments} technician for"
-msgstr ""
-
-#: DB:link_type/link_phrase:278
-msgid ""
-"{live} {medley:medley including a} {partial} {instrumental} {cover} "
-"{karaoke} recording of"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:278
-msgid ""
-"{live} {medley:medleys including} {partial} {instrumental} {cover} {karaoke} "
-"recordings"
 msgstr ""
 
 #: DB:link_type/link_phrase:109

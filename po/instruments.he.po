@@ -151,6 +151,11 @@ msgstr "נבל אירי / קלארסק"
 msgid "Lyricon"
 msgstr "ליריקון"
 
+#: DB:instrument/name:1200
+msgctxt "Traditional Hungarian bagpipe"
+msgid "Magyar duda"
+msgstr ""
+
 #: DB:instrument/name:637
 msgctxt "Mark Stevens' bar chime"
 msgid "Mark tree"
@@ -159,11 +164,6 @@ msgstr "סימן שלוש"
 #: DB:instrument/name:442
 msgid "Marxophone"
 msgstr "מרקסופון"
-
-#: DB:instrument/name:1199
-msgctxt "Belorussian duda"
-msgid "Matstsyanka"
-msgstr ""
 
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
@@ -1430,6 +1430,16 @@ msgstr "קריאת ברווז"
 msgid "duduk"
 msgstr "דודוק"
 
+#: DB:instrument/name:1202
+msgctxt "Podhale bagpipe"
+msgid "dudy podhalanskie"
+msgstr ""
+
+#: DB:instrument/name:1201
+msgctxt "Great Polish bagpipe"
+msgid "dudy wielkopolskie"
+msgstr ""
+
 #: DB:instrument/name:851
 msgctxt "indian clay kettle drum"
 msgid "duggi"
@@ -2662,6 +2672,11 @@ msgstr "מרימבה לומינה"
 #: DB:instrument/name:633
 msgid "marímbula"
 msgstr "מרימבולה"
+
+#: DB:instrument/name:1199
+msgctxt "Belorussian duda"
+msgid "matstsyanka"
+msgstr ""
 
 #: DB:instrument/name:85
 msgid "mbira"

@@ -2743,6 +2743,14 @@ msgstr ""
 "pecora, con pelliccia all'interno o all'esterno. Ha dai 5 agli 8 fori di "
 "diteggiatura e canne del canto in legno con decorazioni in metallo."
 
+#. name:dudy podhalanskie 
+#: DB:instrument/description:1202
+msgid ""
+"Known since the 16th century, it has 3 drones; one in a separate drone pipe "
+"and two in the chanter (which as three channels), it has no bells and is "
+"mouthblown."
+msgstr ""
+
 #. name:krakebs 
 #: DB:instrument/description:652
 msgid ""
@@ -3752,6 +3760,14 @@ msgid ""
 msgstr ""
 "In origine realizzato in bambù o in legno, ora è in metallo con delle molle "
 "ed è usato nella musica brasiliana."
+
+#. name:dudy wielkopolskie 
+#: DB:instrument/description:1201
+msgid ""
+"Originally played together with the special fiddle mazanki, today with "
+"prepared violin or solo, it has a single chanter with seven finger holes and "
+"a drone pipe folded back on itself twice both ending in curved bells."
+msgstr ""
 
 #. name:clavinet 
 #: DB:instrument/description:175
@@ -6899,6 +6915,13 @@ msgstr ""
 "tradizionalmente per accompagnare il didgeridoo. Ne esistono anche in "
 "versione boomerang."
 
+#. name:Magyar duda 
+#: DB:instrument/description:1200
+msgid ""
+"Used by shepherds and in pagan lifestyle, it has a double bore chanter with "
+"one to 2 drones, historically made of dogskin but today goat is used."
+msgstr ""
+
 #. name:tulum 
 #: DB:instrument/description:1116
 msgid ""
@@ -7288,7 +7311,7 @@ msgstr ""
 "composto da diverse lastre intonate in alluminio, acciaio o bronzo che "
 "vengono percosse per imitare il suono delle campane."
 
-#. name:Matstsyanka 
+#. name:matstsyanka 
 #: DB:instrument/description:1199
 msgid ""
 "Used since ancient times, it is a smaller half round shape with the chanter "

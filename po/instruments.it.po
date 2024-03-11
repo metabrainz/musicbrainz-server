@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-02 02:28+0000\n"
+"PO-Revision-Date: 2024-03-11 04:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -165,6 +165,11 @@ msgstr "arpa irlandese / clàrsach"
 msgid "Lyricon"
 msgstr "lyricon"
 
+#: DB:instrument/name:1200
+msgctxt "Traditional Hungarian bagpipe"
+msgid "Magyar duda"
+msgstr "duda magiara"
+
 #: DB:instrument/name:637
 msgctxt "Mark Stevens' bar chime"
 msgid "Mark tree"
@@ -173,11 +178,6 @@ msgstr "Mark tree"
 #: DB:instrument/name:442
 msgid "Marxophone"
 msgstr "marxofono"
-
-#: DB:instrument/name:1199
-msgctxt "Belorussian duda"
-msgid "Matstsyanka"
-msgstr "matstsyanka"
 
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
@@ -1410,6 +1410,16 @@ msgstr "richiamo per anatre"
 msgid "duduk"
 msgstr "duduk"
 
+#: DB:instrument/name:1202
+msgctxt "Podhale bagpipe"
+msgid "dudy podhalanskie"
+msgstr "dudy del Podhale"
+
+#: DB:instrument/name:1201
+msgctxt "Great Polish bagpipe"
+msgid "dudy wielkopolskie"
+msgstr "dudy della Grande Polonia"
+
 #: DB:instrument/name:851
 msgctxt "indian clay kettle drum"
 msgid "duggi"
@@ -2633,6 +2643,11 @@ msgstr "marimba lumina"
 #: DB:instrument/name:633
 msgid "marímbula"
 msgstr "marímbula"
+
+#: DB:instrument/name:1199
+msgctxt "Belorussian duda"
+msgid "matstsyanka"
+msgstr "matstsyanka"
 
 #: DB:instrument/name:85
 msgid "mbira"
