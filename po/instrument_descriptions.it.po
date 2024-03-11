@@ -27,8 +27,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.3.1\n"
 
 #. name:rebab 
@@ -1798,13 +1798,13 @@ msgid ""
 "a paragraph by Praetorius is the only known information, all reconstructions "
 "are approximations."
 msgstr ""
-"Per la cornamusa francese, vedi <a href=\"/instrument/"
-"fc4a9a4d-3901-4c67-bfe5-5acbcdaef535\">cornamusa del centro Francia</a>.<br /"
-"> Per lo strumento chiamato cornamusa in italiano, vedi <a href=\"/"
-"instrument/1d865ced-d86a-4277-8914-009740e37887\">cornamusa</a>.<br /> "
-"Imparentata con il cromorno, era usata nel Rinascimento. Siccome le uniche "
-"informazioni arrivateci sono un paragrafo scritto da Praetorius, tutte le "
-"ricostruzioni sono approssimazioni."
+"Per la cornamusa francese, vedi <a href=\"/instrument/fc4a9a4d-3901-4c67-"
+"bfe5-5acbcdaef535\">cornamusa del centro Francia</a>.<br /> Per lo strumento "
+"chiamato cornamusa in italiano, vedi <a href=\"/instrument/1d865ced-"
+"d86a-4277-8914-009740e37887\">cornamusa</a>.<br /> Imparentata con il "
+"cromorno, era usata nel Rinascimento. Siccome le uniche informazioni "
+"arrivateci sono un paragrafo scritto da Praetorius, tutte le ricostruzioni "
+"sono approssimazioni."
 
 #. name:siku 
 #: DB:instrument/description:569
@@ -1865,12 +1865,12 @@ msgid ""
 "goatskin, it has a single round stock that all chanters and drones are fixed "
 "into."
 msgstr ""
-"Per il flauto di Pan sudamericano, vedi <a href=\"/instrument/448eeddf-"
-"37a3-49f3-9e46-d46ccd821aaf\">siku</a>.<br /> Per la cornamusa greca dal "
-"nome simile, vedi <a href=\"/instrument/86cf0eb3-b12d-40eb-bc32-"
-"928a1aebe3b1\">tsampouna</a>.<br /> Realizzata con l'intera pelle di una "
-"pecora o capra, ha un solo ceppo a tronco di cono a cui sono fissate tutte "
-"le canne del canto e di bordone."
+"Per il flauto di Pan sudamericano, vedi <a href=\"/"
+"instrument/448eeddf-37a3-49f3-9e46-d46ccd821aaf\">siku</a>.<br /> Per la "
+"cornamusa greca dal nome simile, vedi <a href=\"/instrument/86cf0eb3-"
+"b12d-40eb-bc32-928a1aebe3b1\">tsampouna</a>.<br /> Realizzata con l'intera "
+"pelle di una pecora o capra, ha un solo ceppo a tronco di cono a cui sono "
+"fissate tutte le canne del canto e di bordone."
 
 #. name:reed organ 
 #: DB:instrument/description:204
@@ -1906,10 +1906,11 @@ msgid ""
 msgstr ""
 "Per lo strumento conosciuto come \"musette cinese\", vedi <a href=\"/"
 "instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a>.<br /> Per "
-"l'oboe conosciuto anche come musette, vedi <a href=\"/instrument/"
-"77b29599-96c7-4571-9fae-09e7e42b8175/\">oboe musette</a>.<br /> Conosciuta "
-"anche come musette o musette barocca, era una piccola cornamusa usata "
-"principalmente dalla corte e dalla nobiltà francese nel XVII e XVIII secolo."
+"l'oboe conosciuto anche come musette, vedi <a href=\"/"
+"instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">oboe musette</a>.<br /> "
+"Conosciuta anche come musette o musette barocca, era una piccola cornamusa "
+"usata principalmente dalla corte e dalla nobiltà francese nel XVII e XVIII "
+"secolo."
 
 #. name:fiscorn 
 #: DB:instrument/description:1184
@@ -1949,10 +1950,10 @@ msgid ""
 "of goatskin, it has two chanters and no drones. Its name is a reborrowing of "
 "the Italian."
 msgstr ""
-"Per la cornamusa italiana dal nome simile, vedi <a href=\"/instrument/"
-"7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> Realizzata in "
-"pelle di capra, ha due canne del canto, ma nessuna canna di bordone. Il suo "
-"nome è un prestito di ritorno dall'italiano."
+"Per la cornamusa italiana dal nome simile, vedi <a href=\"/"
+"instrument/7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> "
+"Realizzata in pelle di capra, ha due canne del canto, ma nessuna canna di "
+"bordone. Il suo nome è un prestito di ritorno dall'italiano."
 
 #. name:charumera 
 #: DB:instrument/description:1150
@@ -2741,6 +2742,14 @@ msgstr ""
 "Conosciuta dal XV secolo, è realizzata con l'intera pelle di una capra o "
 "pecora, con pelliccia all'interno o all'esterno. Ha dai 5 agli 8 fori di "
 "diteggiatura e canne del canto in legno con decorazioni in metallo."
+
+#. name:dudy podhalanskie 
+#: DB:instrument/description:1202
+msgid ""
+"Known since the 16th century, it has 3 drones; one in a separate drone pipe "
+"and two in the chanter (which as three channels), it has no bells and is "
+"mouthblown."
+msgstr ""
 
 #. name:krakebs 
 #: DB:instrument/description:652
@@ -3552,12 +3561,12 @@ msgid ""
 "for bagpipes in French, they have two telescoping drones with single reeds "
 "and a double-reed chanter."
 msgstr ""
-"Da non confondere con la <a href=\"/instrument/28527011-9cf4-4dcd-a70c-"
-"22042a92a52c\">cornamusa rinascimentale</a> ad ancia doppia.<br /> Per lo "
-"strumento chiamato cornamusa in italiano, vedi <a href=\"/instrument/"
-"1d865ced-d86a-4277-8914-009740e37887\">cornamusa</a>.<br /> Pur essendo "
-"anche il termine francese generico per la cornamusa, ha due canne di bordone "
-"a coulisse e ad ancia singola e una canna del canto ad ancia doppia."
+"Da non confondere con la <a href=\"/instrument/28527011-9cf4-4dcd-"
+"a70c-22042a92a52c\">cornamusa rinascimentale</a> ad ancia doppia.<br /> Per "
+"lo strumento chiamato cornamusa in italiano, vedi <a href=\"/"
+"instrument/1d865ced-d86a-4277-8914-009740e37887\">cornamusa</a>.<br /> Pur "
+"essendo anche il termine francese generico per la cornamusa, ha due canne di "
+"bordone a coulisse e ad ancia singola e una canna del canto ad ancia doppia."
 
 #. name:dulcian 
 #: DB:instrument/description:496
@@ -3751,6 +3760,14 @@ msgid ""
 msgstr ""
 "In origine realizzato in bambù o in legno, ora è in metallo con delle molle "
 "ed è usato nella musica brasiliana."
+
+#. name:dudy wielkopolskie 
+#: DB:instrument/description:1201
+msgid ""
+"Originally played together with the special fiddle mazanki, today with "
+"prepared violin or solo, it has a single chanter with seven finger holes and "
+"a drone pipe folded back on itself twice both ending in curved bells."
+msgstr ""
 
 #. name:clavinet 
 #: DB:instrument/description:175
@@ -6710,8 +6727,8 @@ msgid ""
 "leather with 2 drones: a bass and a tenor and a chanter with 7-8 finger-"
 "holes."
 msgstr ""
-"Tradizionalmente suonata insieme al <a href=\"/instrument/814816db-3368-4889"
-"-a8cd-aa34bd1043f0\">piffero</a> nelle ensemble tradizionali, la sua sacca è "
+"Tradizionalmente suonata insieme al <a href=\"/instrument/814816db-3368-4889-"
+"a8cd-aa34bd1043f0\">piffero</a> nelle ensemble tradizionali, la sua sacca è "
 "solitamente in pelle di capretto e ha due canne di bordone (basso e tenore) "
 "e una canna del canto con 7-8 fori di diteggiatura."
 
@@ -6897,6 +6914,13 @@ msgstr ""
 "Usato dagli aborigeni australiani per tenere il ritmo nei canti corali e "
 "tradizionalmente per accompagnare il didgeridoo. Ne esistono anche in "
 "versione boomerang."
+
+#. name:Magyar duda 
+#: DB:instrument/description:1200
+msgid ""
+"Used by shepherds and in pagan lifestyle, it has a double bore chanter with "
+"one to 2 drones, historically made of dogskin but today goat is used."
+msgstr ""
 
 #. name:tulum 
 #: DB:instrument/description:1116
@@ -7286,6 +7310,25 @@ msgstr ""
 "Usato talvolta nelle orchestre classiche e nel teatro occidentali, è "
 "composto da diverse lastre intonate in alluminio, acciaio o bronzo che "
 "vengono percosse per imitare il suono delle campane."
+
+#. name:matstsyanka 
+#: DB:instrument/description:1199
+msgid ""
+"Used since ancient times, it is a smaller half round shape with the chanter "
+"in one end and drones in the other, there are two related types; from "
+"northern Belarus and east-south Lithuania one drone one chanter both having "
+"bowed horns at the end. <br /> Secondly; the macianka duda without horns has "
+"3 drones in one hole instead of one."
+msgstr ""
+
+#. name:somu dūdas 
+#: DB:instrument/description:1198
+msgid ""
+"Used since the 16th century, it is made of lamb, kid or in the north, "
+"sealskin. it has1-2 drones and a chanter with 4-7 fingerholes.<br /> <br /> "
+"The name dudy/duda(s) is used for very many folk bagpipes in Europe and "
+"western Asia - see annotation(s) for more."
+msgstr ""
 
 #. name:bonang panerus 
 #: DB:instrument/description:971

@@ -11,13 +11,15 @@
 # Serg Green <email address hidden>, 2016
 # Екатерина Тишина <email address hidden>, 2016
 # Никита Викторович <email address hidden>, 2016
+# Dimlbur <Dimlbur@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: Ekaterina <nawsikaya@bk.ru>, 2020\n"
-"Language-Team: Russian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/ru/)\n"
+"PO-Revision-Date: 2024-02-27 23:28+0000\n"
+"Last-Translator: Dimlbur <Dimlbur@users.noreply.translations.metabrainz."
+"org>\n"
+"Language-Team: Russian <https://translations.metabrainz.org/projects/"
+"musicbrainz/instruments/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,6 +27,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.4\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -32,7 +35,7 @@ msgstr "12-струнная гитара"
 
 #: DB:instrument/name:516
 msgid "17-string bass koto"
-msgstr ""
+msgstr "17-струнное бас-кото"
 
 #: DB:instrument/name:839
 msgctxt "Historical hybrid between English and German style concertinas"
@@ -158,6 +161,11 @@ msgstr ""
 
 #: DB:instrument/name:561
 msgid "Lyricon"
+msgstr ""
+
+#: DB:instrument/name:1200
+msgctxt "Traditional Hungarian bagpipe"
+msgid "Magyar duda"
 msgstr ""
 
 #: DB:instrument/name:637
@@ -1408,6 +1416,16 @@ msgstr ""
 msgid "duduk"
 msgstr "дудук"
 
+#: DB:instrument/name:1202
+msgctxt "Podhale bagpipe"
+msgid "dudy podhalanskie"
+msgstr ""
+
+#: DB:instrument/name:1201
+msgctxt "Great Polish bagpipe"
+msgid "dudy wielkopolskie"
+msgstr ""
+
 #: DB:instrument/name:851
 msgctxt "indian clay kettle drum"
 msgid "duggi"
@@ -2638,6 +2656,11 @@ msgstr ""
 msgid "marímbula"
 msgstr ""
 
+#: DB:instrument/name:1199
+msgctxt "Belorussian duda"
+msgid "matstsyanka"
+msgstr ""
+
 #: DB:instrument/name:85
 msgid "mbira"
 msgstr ""
@@ -3611,6 +3634,11 @@ msgstr ""
 
 #: DB:instrument/name:104
 msgid "snare drum"
+msgstr ""
+
+#: DB:instrument/name:1198
+msgctxt "Latvian bagpipe"
+msgid "somu dūdas"
 msgstr ""
 
 #: DB:instrument/name:284

@@ -191,7 +191,7 @@ const TagEntitiesList = ({
         'See all {num} recordings',
         'See all {num} recordings',
       ), showDownvoted)}
-      {buildTagEntitiesListSection('series', l('Series'), N_ln(
+      {buildTagEntitiesListSection('series', lp('Series', 'plural'), N_ln(
         'See all {num} series',
         'See all {num} series',
       ), showDownvoted)}

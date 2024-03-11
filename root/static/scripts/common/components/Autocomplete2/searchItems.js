@@ -40,7 +40,7 @@ function normalize(input: string): string {
 }
 
 function cleanAndLowerCase(value: string): string {
-  let $c = maybeGetCatalystContext();
+  const $c = maybeGetCatalystContext();
   const bcp47Language = $c
     ? $c.stash.current_language.replace('_', '-')
     : 'en';
@@ -134,7 +134,7 @@ function weightEntry<T: EntityItemT>(
     searchTerms != null,
     'The item to be weighted has not been indexed',
   );
-  let rank = itemAndRank[1];
+  const rank = itemAndRank[1];
   return Math.max(
     ...searchTerms.map((searchTerm) => {
       const searchTermLength = searchTerm.length;

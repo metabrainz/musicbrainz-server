@@ -1,5 +1,10 @@
 version: 2.1
 
+branch_filters: &job_filters
+  filters:
+    branches:
+      ignore: translations
+
 executors:
   musicbrainz-tests:
     docker:
@@ -15,6 +20,8 @@ executors:
 
 jobs:
   js-perl-and-pgtap:
+    environment:
+      TERM: ansi
     executor: musicbrainz-tests
     steps:
       - restore_cache:
@@ -94,5 +101,7 @@ workflows:
   version: 2.1
   build-and-test:
     jobs:
-      - js-perl-and-pgtap
-      - js-perl-and-pgtap-perl-5-dot-30
+      - js-perl-and-pgtap:
+        <<: *job_filters
+      - js-perl-and-pgtap-perl-5-dot-30:
+        <<: *job_filters

@@ -2,10 +2,10 @@
 
 const test = require('tape');
 
-var hadError = false;
+let hadError = false;
 
 function createRow(row) {
-  var rowNode = document.createElement('div');
+  const rowNode = document.createElement('div');
   rowNode.appendChild(document.createTextNode(row));
 
   if (/^# /.test(row)) {
@@ -29,7 +29,7 @@ function createRow(row) {
   return rowNode;
 }
 
-var loggerNode = document.createElement('div');
+const loggerNode = document.createElement('div');
 document.body.appendChild(loggerNode);
 
 test.createStream().on('data', function (row) {

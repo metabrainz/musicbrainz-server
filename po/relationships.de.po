@@ -275,6 +275,22 @@ msgstr ""
 "sein oder „Beats“ von Hip-Hop-Liedern, die mit anderen Texten "
 "wiederverwendet werden können."
 
+#: DB:link_attribute_type/description:1406
+#, fuzzy
+#| msgid ""
+#| "For works that have lyrics, this indicates that those lyrics are not "
+#| "relevant to this recording. Examples include instrumental arrangements, "
+#| "or \"beats\" from hip-hop songs which may be reused with different lyrics."
+msgid ""
+"For works that usually have instruments and vocals, this indicates that the "
+"instrumental parts are not relevant to this recording. Examples include rap "
+"tracks from hip hop songs that can be remixed and used with different beats."
+msgstr ""
+"Bei Werken mit Liedtexten gibt dies an, dass diese Texte nicht für diese "
+"Aufnahme relevant sind. Dies können zum Beispiel instrumentale Arrangements "
+"sein oder „Beats“ von Hip-Hop-Liedern, die mit anderen Texten "
+"wiederverwendet werden können."
+
 #: DB:link_type/link_phrase:934 DB:link_type/link_phrase:713
 msgid "Geonames"
 msgstr "Geonames"
@@ -1614,6 +1630,12 @@ msgid ""
 "release."
 msgstr ""
 
+#: DB:link_type/description:1240
+msgid ""
+"This indicates a release group is an excerpt from another, such as the "
+"highlights of a box set or a long opera."
+msgstr ""
+
 #: DB:link_type/description:1174
 msgid "This indicates an agency that did the art direction for the release."
 msgstr ""
@@ -1664,6 +1686,20 @@ msgstr ""
 msgid "This indicates an artist that did the art direction for the release."
 msgstr ""
 
+#: DB:link_type/description:1236
+#, fuzzy
+#| msgid "This indicates that an artist had a recording contract with a label."
+msgid "This indicates an artist that did the sound effects for the recording."
+msgstr ""
+"Dies gibt an, dass ein Künstler einen Plattenvertrag mit einem Label hatte."
+
+#: DB:link_type/description:1235
+#, fuzzy
+#| msgid "This indicates that an artist had a recording contract with a label."
+msgid "This indicates an artist that did the sound effects for the release."
+msgstr ""
+"Dies gibt an, dass ein Künstler einen Plattenvertrag mit einem Label hatte."
+
 #: DB:link_type/description:151
 msgid ""
 "This indicates an artist who conducted an orchestra, band or choir on this "
@@ -1676,12 +1712,35 @@ msgid ""
 "release."
 msgstr ""
 
+#: DB:link_type/description:1233
+#, fuzzy
+#| msgid "This indicates that an artist had a recording contract with a label."
+msgid "This indicates an artist who did design for the event."
+msgstr ""
+"Dies gibt an, dass ein Künstler einen Plattenvertrag mit einem Label hatte."
+
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
 
+#: DB:link_type/description:1232
+#, fuzzy
+#| msgid ""
+#| "This indicates that a person or firm provided legal representation for "
+#| "the release."
+msgid "This indicates an artist who did illustration for the event."
+msgstr ""
+"Dies gibt an, dass eine Person oder Firma die rechtliche Vertretung für die "
+"Veröfentlichung übernommen hat."
+
 #: DB:link_type/description:927
 msgid "This indicates an artist who did illustration for the release."
+msgstr ""
+
+#: DB:link_type/description:1234
+msgid ""
+"This indicates an artist who did the graphic design for the event, arranging "
+"pieces of content into a coherent and aesthetically-pleasing design."
 msgstr ""
 
 #: DB:link_type/description:27
@@ -1695,6 +1754,12 @@ msgstr ""
 msgid ""
 "This indicates an artist who is responsible for the creative and practical "
 "day-to-day aspects involved with making a musical recording."
+msgstr ""
+
+#: DB:link_type/description:1231
+msgid ""
+"This indicates an artist who provided artwork for the event when no more "
+"specific information is available."
 msgstr ""
 
 #: DB:link_type/description:993
@@ -1958,6 +2023,17 @@ msgid ""
 "This indicates that two instruments are related in a way not covered by "
 "other, more specific relationships."
 msgstr ""
+
+#: DB:link_type/description:1237
+#, fuzzy
+#| msgid ""
+#| "This indicates that an artist was officially employed by a label as a "
+#| "producer."
+msgid ""
+"This indicates the area (usually a city) where a label is headquartered in."
+msgstr ""
+"Dies gibt an, dass ein Künstler offiziell bei einem Label als Produzent "
+"angestellt war."
 
 #: DB:link_type/description:1185
 msgid "This indicates the artist directed video on this release."
@@ -2363,6 +2439,14 @@ msgstr ""
 msgid "This is used to link a work to its corresponding page on Allmusic."
 msgstr ""
 
+#: DB:link_type/description:1238
+msgid ""
+"This is used to link an a cappella version of a song to the original song."
+"<br/><br/>\n"
+"An a cappella version is a version of the song with only the vocal tracks "
+"(for example, a hip hop vocal track without the beat)."
+msgstr ""
+
 #: DB:link_type/description:307
 msgid ""
 "This is used to link an artist to its corresponding page in the "
@@ -2375,6 +2459,15 @@ msgstr ""
 
 #: DB:link_type/description:714
 msgid "This is used to link an artist to its primary concert venue."
+msgstr ""
+
+#: DB:link_type/description:1239
+msgid ""
+"This is used to link an instrumental version of a song to the original song."
+"<br/><br/>\n"
+"An instrumental version is a version of the song with any vocals removed "
+"(for example, a hip hop beat without the rap tracks). For karaoke tracks, "
+"use the karaoke relationship."
 msgstr ""
 
 #: DB:link_type/description:180
@@ -4068,6 +4161,26 @@ msgstr "YouTube-Kanal für"
 msgid "YouTube channels"
 msgstr "YouTube-Kanäle"
 
+#: DB:link_type/name:1238
+msgid "a cappella"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1238
+#, fuzzy
+#| msgid "karaoke version of"
+msgid "a cappella version of"
+msgstr "Karaokeversion von"
+
+#: DB:link_type/link_phrase:1238
+#, fuzzy
+#| msgid "karaoke versions"
+msgid "a cappella versions"
+msgstr "Karaokeversionen"
+
+#: DB:link_attribute_type/name:1406
+msgid "acappella"
+msgstr ""
+
 #: DB:link_attribute_type/name:1345
 msgid "accompanying"
 msgstr ""
@@ -4206,7 +4319,7 @@ msgstr ""
 msgid "artists and repertoire position"
 msgstr ""
 
-#: DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
 msgid "artwork"
 msgstr ""
 
@@ -4728,13 +4841,17 @@ msgstr "Ableitungen"
 msgid "derived from"
 msgstr "abgeleitet von"
 
-#: DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
 msgid "design"
 msgstr "Design"
 
 #: DB:link_type/name:19 DB:link_type/name:130
 msgid "design/illustration"
 msgstr "Design/Illustrationen"
+
+#: DB:link_type/long_link_phrase:1236 DB:link_type/long_link_phrase:1235
+msgid "did sound effects for"
+msgstr ""
 
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
 #: DB:link_type/name:88 DB:link_type/name:171
@@ -4916,6 +5033,14 @@ msgstr ""
 msgid "event artists"
 msgstr ""
 
+#: DB:link_type/link_phrase:1240 DB:link_type/name:1240
+msgid "excerpt from"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1240
+msgid "excerpts"
+msgstr ""
+
 #: DB:link_attribute_type/name:425
 msgid "executive"
 msgstr "leitend"
@@ -5053,7 +5178,8 @@ msgstr "Stamm-Pressung von"
 msgid "glass mastering location for"
 msgstr ""
 
-#: DB:link_type/name:1172 DB:link_type/name:125 DB:link_type/name:27
+#: DB:link_type/name:1172 DB:link_type/name:1234 DB:link_type/name:125
+#: DB:link_type/name:27
 msgid "graphic design"
 msgstr "Grafikdesign"
 
@@ -5223,6 +5349,12 @@ msgstr "hat eine Biografieseite unter"
 #: DB:link_type/long_link_phrase:627
 msgid "has a blog at"
 msgstr "hat ein Blog unter"
+
+#: DB:link_type/long_link_phrase:1238
+#, fuzzy
+#| msgid "has a karaoke version"
+msgid "has a cappella version"
+msgstr "hat eine Karaokeversion"
 
 #: DB:link_type/long_link_phrase:212
 msgid "has a catalog of records at"
@@ -5399,6 +5531,12 @@ msgstr ""
 msgid "has influences of"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1239
+#, fuzzy
+#| msgid "instrument origin"
+msgid "has instrumental version"
+msgstr "Herkunft des Instruments"
+
 #: DB:link_type/long_link_phrase:984 DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
 msgstr ""
@@ -5472,6 +5610,16 @@ msgstr ""
 msgid "has {half:half-}{step}sibling"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:1237
+#, fuzzy
+#| msgid "mastered in"
+msgid "headquartered in"
+msgstr "gemastert in"
+
+#: DB:link_type/name:1237
+msgid "headquarters"
+msgstr ""
+
 #: DB:link_type/link_phrase:794 DB:link_type/name:794 DB:link_type/name:995
 #: DB:link_type/reverse_link_phrase:995
 msgid "held at"
@@ -5522,11 +5670,15 @@ msgstr "Gastgeber bei"
 msgid "hosts"
 msgstr "Gastgeber"
 
+#: DB:link_type/link_phrase:1237
+msgid "houses headquarters for"
+msgstr ""
+
 #: DB:link_type/link_phrase:916 DB:link_type/name:916
 msgid "hybrid of"
 msgstr ""
 
-#: DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
 msgid "illustration"
 msgstr "Illustration"
 
@@ -5595,13 +5747,25 @@ msgstr "Herkunft des Instruments"
 msgid "instrument technician"
 msgstr "Instrument-Techniker"
 
-#: DB:link_attribute_type/name:580
+#: DB:link_attribute_type/name:580 DB:link_type/name:1239
 msgid "instrumental"
 msgstr "instrumental"
 
 #: DB:link_type/name:105
 msgid "instrumental supporting musician"
 msgstr "instrumentaler Begleitmusiker"
+
+#: DB:link_type/reverse_link_phrase:1239
+#, fuzzy
+#| msgid "instrument origin"
+msgid "instrumental version of"
+msgstr "Herkunft des Instruments"
+
+#: DB:link_type/link_phrase:1239
+#, fuzzy
+#| msgid "instrument origin"
+msgid "instrumental versions"
+msgstr "Herkunft des Instruments"
 
 #: DB:link_type/link_phrase:752
 msgid "instruments"
@@ -5690,21 +5854,18 @@ msgstr "ist eine Single/EP, sie stammt aus"
 msgid "is a tribute to"
 msgstr "ist eine Hommage an"
 
-#: DB:link_type/long_link_phrase:278
-msgid ""
-"is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
-"{karaoke} recording of"
-msgstr ""
-"ist {medley:ein|eine} {live} {medley:Medley inklusive einer} {partial:"
-"teilweise} {instrumental:Instrumental-}{cover:Cover-}{karaoke:Karaoke-}"
-"Aufnahme von"
-
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
 msgstr "ist ein {translated:übersetztes} {parody:Parodie-}Cover von"
 
 #: DB:link_type/long_link_phrase:309
 msgid "is an edit of"
+msgstr "ist eine Bearbeitung von"
+
+#: DB:link_type/long_link_phrase:1240
+#, fuzzy
+#| msgid "is an edit of"
+msgid "is an excerpt from"
 msgstr "ist eine Bearbeitung von"
 
 #: DB:link_type/long_link_phrase:926
@@ -5763,6 +5924,19 @@ msgstr "ist die Verwertungsgesellschaft für"
 #: DB:link_type/long_link_phrase:109
 msgid "is the {step}parent of"
 msgstr ""
+
+#: DB:link_type/long_link_phrase:278
+#, fuzzy
+#| msgid ""
+#| "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
+#| "{karaoke} recording of"
+msgid ""
+"is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
+"a} {partial} {instrumental} {cover} {karaoke} recording of"
+msgstr ""
+"ist {medley:ein|eine} {live} {medley:Medley inklusive einer} {partial:"
+"teilweise} {instrumental:Instrumental-}{cover:Cover-}{karaoke:Karaoke-}"
+"Aufnahme von"
 
 #: DB:link_type/long_link_phrase:722
 msgid "is/was a subgroup of"
@@ -6828,7 +7002,8 @@ msgstr "hat rechtliche Vertretung übernommen für"
 msgid "provided {additional} art direction on"
 msgstr "war {additional:zusätzlicher} Artdirector auf"
 
-#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
+#: DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr ""
 
@@ -6844,12 +7019,13 @@ msgstr ""
 msgid "provided {additional} design/illustration on"
 msgstr "gestaltete {additional:zusätzliche} Design/Illustrationen für"
 
-#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:125
-#: DB:link_type/long_link_phrase:27
+#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:1234
+#: DB:link_type/long_link_phrase:125 DB:link_type/long_link_phrase:27
 msgid "provided {additional} graphic design on"
 msgstr "führte {additional:zusätzliches} Grafikdesign durch für"
 
-#: DB:link_type/long_link_phrase:927 DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
+#: DB:link_type/long_link_phrase:1173
 msgid "provided {additional} illustration on"
 msgstr ""
 
@@ -6861,7 +7037,7 @@ msgstr ""
 msgid "provided {additional} {assistant} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 
@@ -7297,6 +7473,17 @@ msgstr "Soprangesang"
 #: DB:link_type/name:133 DB:link_type/name:29
 msgid "sound"
 msgstr ""
+
+#: DB:link_type/name:1236 DB:link_type/name:1235
+#: DB:link_type/reverse_link_phrase:1236 DB:link_type/reverse_link_phrase:1235
+msgid "sound effects"
+msgstr ""
+
+#: DB:link_type/link_phrase:1236 DB:link_type/link_phrase:1235
+#, fuzzy
+#| msgid "launch event for"
+msgid "sound effects for"
+msgstr "Auftaktveranstaltung für"
 
 #: DB:link_type/name:870 DB:link_type/name:291 DB:link_type/name:290
 #: DB:link_type/name:940
@@ -7859,6 +8046,31 @@ msgstr ""
 msgid "youtube music"
 msgstr ""
 
+#: DB:link_type/link_phrase:278
+#, fuzzy
+#| msgid ""
+#| "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
+#| "{karaoke} recording of"
+msgid ""
+"{acappella:a cappella} {live} {medley:medley including a} {partial} "
+"{instrumental} {cover} {karaoke} recording of"
+msgstr ""
+"ist {medley:ein|eine} {live} {medley:Medley inklusive einer} {partial:"
+"teilweise} {instrumental:Instrumental-}{cover:Cover-}{karaoke:Karaoke-}"
+"Aufnahme von"
+
+#: DB:link_type/reverse_link_phrase:278
+#, fuzzy
+#| msgid ""
+#| "{live} {medley:medleys including} {partial} {instrumental} {cover} "
+#| "{karaoke} recordings"
+msgid ""
+"{acappella:a cappella} {live} {medley:medleys including} {partial} "
+"{instrumental} {cover} {karaoke} recordings"
+msgstr ""
+"{live} {medley:Medleys inklusive} {partial:teilweiser} {instrumental:"
+"Instrumental-}{cover:Cover-}{karaoke:Karaoke-}Aufnahmen"
+
 #: DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
 msgstr "{additional:additionally} arrangiert bei"
@@ -8135,7 +8347,8 @@ msgstr "{additional} Arrangement-Örtlichkeit für"
 msgid "{additional} art direction"
 msgstr "{additional:zusätzliche} Artdirection"
 
-#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
+#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr ""
@@ -8172,13 +8385,15 @@ msgstr ""
 msgid "{additional} engineering location for"
 msgstr ""
 
-#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:125
-#: DB:link_type/link_phrase:27 DB:link_type/reverse_link_phrase:1172
+#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:1234
+#: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
+#: DB:link_type/reverse_link_phrase:1172 DB:link_type/reverse_link_phrase:1234
 #: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
 msgid "{additional} graphic design"
 msgstr "{additional:zusätzliches} Grafikdesign"
 
-#: DB:link_type/link_phrase:927 DB:link_type/link_phrase:1173
+#: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
+#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
 #: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
 msgid "{additional} illustration"
 msgstr ""
@@ -8304,7 +8519,8 @@ msgstr ""
 msgid "{additional} {assistant} conductor"
 msgstr ""
 
-#: DB:link_type/link_phrase:928 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
+#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
 msgid "{additional} {assistant} design"
 msgstr ""
 
@@ -8638,6 +8854,12 @@ msgstr ""
 msgid "{entity1} is dedicated to {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1237
+#, fuzzy
+#| msgid "{entity1} was revised in {entity0}"
+msgid "{entity1} is headquartered in {entity0}"
+msgstr "{entity1} wurde überarbeitet in {entity0}"
+
 #: DB:link_type/long_link_phrase:939
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
@@ -8886,22 +9108,6 @@ msgstr "{instrument:%|Instrumente}-Techniker"
 msgid "{instrument:%|instruments} technician for"
 msgstr "{instrument:%|Instrumente}-Techniker für"
 
-#: DB:link_type/link_phrase:278
-msgid ""
-"{live} {medley:medley including a} {partial} {instrumental} {cover} "
-"{karaoke} recording of"
-msgstr ""
-"{live} {medley:Medley inklusive einer} {partial:teilweise} {instrumental:"
-"Instrumental-}{cover:Cover-}{karaoke:Karaoke-}Aufnahme von"
-
-#: DB:link_type/reverse_link_phrase:278
-msgid ""
-"{live} {medley:medleys including} {partial} {instrumental} {cover} {karaoke} "
-"recordings"
-msgstr ""
-"{live} {medley:Medleys inklusive} {partial:teilweiser} {instrumental:"
-"Instrumental-}{cover:Cover-}{karaoke:Karaoke-}Aufnahmen"
-
 #: DB:link_type/link_phrase:109
 msgid "{step}children"
 msgstr ""
@@ -8949,6 +9155,13 @@ msgstr "{vocal:%|vocals} Unterstützung von"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocals} Unterstützung für"
+
+#~ msgid ""
+#~ "{live} {medley:medley including a} {partial} {instrumental} {cover} "
+#~ "{karaoke} recording of"
+#~ msgstr ""
+#~ "{live} {medley:Medley inklusive einer} {partial:teilweise} {instrumental:"
+#~ "Instrumental-}{cover:Cover-}{karaoke:Karaoke-}Aufnahme von"
 
 #~ msgid ""
 #~ "This attribute indicates a version with the lyrics in a different "

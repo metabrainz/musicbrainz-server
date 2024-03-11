@@ -5,6 +5,7 @@ require('./common/immutable-entities.js');
 require('./Control/URLCleanup.js');
 require('./CoverArt.js');
 require('./edit.js');
+require('./edit/utility/getUpdatedTrackArtists.js');
 require('./edit/utility/isUselessMediumTitle.js');
 require('./edit/utility/linkPhrase.js');
 require('./entity.js');

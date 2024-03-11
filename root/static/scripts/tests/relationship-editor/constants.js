@@ -57,8 +57,8 @@ const track: TrackWithRecordingT = {
   isDataTrack: false,
   last_updated: null,
   length: 10000,
-  medium_id: mediumId,
   medium: null,
+  medium_id: mediumId,
   name: 'Track',
   number: '1',
   position: 1,
@@ -68,14 +68,13 @@ const track: TrackWithRecordingT = {
 export const releaseWithMediumsAndReleaseGroup:
   ReleaseWithMediumsAndReleaseGroupT = {
     ...release,
-    releaseGroup: createReleaseGroupObject(),
     mediums: [
       {
         cdtocs: [],
         editsPending: false,
         entityType: 'medium',
-        format_id: null,
         format: null,
+        format_id: null,
         id: mediumId,
         last_updated: null,
         name: '',
@@ -85,6 +84,7 @@ export const releaseWithMediumsAndReleaseGroup:
         tracks: [track],
       },
     ],
+    releaseGroup: createReleaseGroupObject(),
   };
 
 export const emptyRelationship: RelationshipStateT = {

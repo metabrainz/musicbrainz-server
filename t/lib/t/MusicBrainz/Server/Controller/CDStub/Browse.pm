@@ -45,7 +45,7 @@ test 'Browse CD Stubs page contains the expected data' => sub {
         'The page contains the artist name for the one existing CD stub',
     );
     $mech->content_like(
-        qr/YfSgiOEayqN77Irs.VNV.UNJ0Zs-/,
+        qr/YfSgiOEayqN77Irs\.VNV\.UNJ0Zs-/,
         'The page contains the disc id for the one existing CD stub',
     );
     $mech->content_like(

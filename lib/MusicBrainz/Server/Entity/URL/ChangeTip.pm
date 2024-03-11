@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^https?://(?:www.)?changetip.com/tipme/([^/?#]+)$}i) {
+    if ($self->url =~ m{^https?://(?:www\.)?changetip\.com/tipme/([^/?#]+)$}i) {
         return $1 . '.tip.me';
     }
     else {

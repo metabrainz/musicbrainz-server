@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-13 20:29+0000\n"
+"PO-Revision-Date: 2024-02-29 16:28+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.3.1\n"
+"X-Generator: Weblate 5.4\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1442,7 +1442,7 @@ msgstr "Votantes más activos la semana pasada:"
 
 #: ../root/statistics/Editors.js:135
 msgid "Total votes"
-msgstr "Número total de votos"
+msgstr "Votos en total"
 
 #: ../root/statistics/Editors.js:138
 msgid "Top voters overall"
@@ -1499,7 +1499,7 @@ msgstr "Pistas"
 #: ../root/statistics/Index.js:754 ../root/statistics/Index.js:786
 #: ../root/statistics/LanguagesScripts.js:75 ../root/statistics/stats.js:898
 msgid "Works"
-msgstr "Obras:"
+msgstr "Obras"
 
 #: ../root/statistics/Index.js:124 ../root/statistics/stats.js:851
 msgid "URLs"
@@ -1911,7 +1911,7 @@ msgstr "Editores (eliminados):"
 
 #: ../root/statistics/Index.js:1247
 msgid "Open"
-msgstr ""
+msgstr "Pendientes"
 
 #: ../root/statistics/Index.js:1253
 msgid "Applied"
@@ -1919,7 +1919,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1259
 msgid "Voted down"
-msgstr ""
+msgstr "Rechazadas"
 
 #: ../root/statistics/Index.js:1265
 msgid "Failed (dependency):"
@@ -2443,11 +2443,11 @@ msgstr "Calificaciones"
 
 #: ../root/statistics/stats.js:610
 msgid "Artist ratings"
-msgstr "Valoración del artista"
+msgstr "Calificaciones de artistas"
 
 #: ../root/statistics/stats.js:615
 msgid "Label ratings"
-msgstr "Valoraciones de la discográfica"
+msgstr "Calificaciones de discográficas"
 
 #: ../root/statistics/stats.js:620
 msgid "Place ratings"
@@ -2455,15 +2455,15 @@ msgstr ""
 
 #: ../root/statistics/stats.js:625
 msgid "Recording ratings"
-msgstr "Valoraciones de la grabación"
+msgstr "Calificaciones de grabaciones"
 
 #: ../root/statistics/stats.js:630
 msgid "Release group ratings"
-msgstr "Valoraciones del grupo de publicaciones"
+msgstr "Calificaciones de grupos de publicaciones"
 
 #: ../root/statistics/stats.js:635
 msgid "Work ratings"
-msgstr "Valoraciones de la obra"
+msgstr "Calificaciones de obras"
 
 #: ../root/statistics/stats.js:640
 msgid "Recordings with ratings"

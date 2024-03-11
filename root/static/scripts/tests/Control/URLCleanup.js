@@ -3211,10 +3211,10 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['label'],
   },
   {
-                     input_url: 'https://www.junodownload.com/artists/Raito/?facet%5Bsubgenre_id%5D%5B0%5D=12%7C%7C3',
+                     input_url: 'https://www.junodownload.com/artists/Kurwastyle+Project/?facet%5Bsubgenre_id%5D%5B0%5D=12%7C%7C3',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://www.junodownload.com/artists/Raito/',
+            expected_clean_url: 'https://www.junodownload.com/artists/Kurwastyle+Project/',
        only_valid_entity_types: ['artist'],
   },
   {
@@ -4788,7 +4788,7 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['event'],
   },
   {
-                     input_url: 'http://ra.co/labels/2795',
+                     input_url: 'http://es.ra.co/labels/2795',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://ra.co/labels/2795',
@@ -5418,6 +5418,14 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
+                     input_url: 'http://shop.spotify.com/en-US/artist/4O15NlyKLIASxsJ0PrXPfz/product/pink-tape-autographed-digital-album-alternate-cover?utm_medium=&utm_source=&utm_content=artiststore&utm_term=&utm_promo=&container_platform=&utm_campaign=',
+             input_entity_type: 'release',
+limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
+            expected_clean_url: 'https://shop.spotify.com/en-US/artist/4O15NlyKLIASxsJ0PrXPfz/product/pink-tape-autographed-digital-album-alternate-cover',
+       input_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
                      input_url: 'https://spotify.link/auVCkcbzoyb',
              input_entity_type: 'artist',
     expected_relationship_type: undefined,
@@ -5661,6 +5669,13 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.tiktok.com/@officialrandl',
        only_valid_entity_types: ['artist', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.tiktok.com/@mimo_mio/video/7029807544944069894',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.tiktok.com/@mimo_mio/video/7029807544944069894',
+       only_valid_entity_types: ['recording'],
   },
   // Tipeee
   {
@@ -6206,6 +6221,48 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://vk.com/tin_sontsya',
   },
+  {
+                     input_url: 'https://vk.com/audio-2001235442_109235442',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/audio-2001235442_109235442',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://vk.com/music/album/-2000201522_14201522_4f3a68cd0bdf507ba4',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/music/album/-2000201522_14201522',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://m.vk.com/audio?act=audio_playlist-2000201522_14201522',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/music/album/-2000201522_14201522',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://vk.com/artist/shortparis?from=group&z=audio_playlist-2000595165_15595165',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/music/album/-2000595165_15595165',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://m.vk.com/artist/shortparis',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/artist/shortparis',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://vk.com/artist/khleb?z=video-2000471995_63471995',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://vk.com/video-2000471995_63471995',
+       only_valid_entity_types: ['recording'],
+  },
   // vkgy
   {
                      input_url: 'http://www.vk.gy/artists/skull/',
@@ -6578,6 +6635,63 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://id.oclc.org/worldcat/entity/E39PCYRCtHWqdGhtK9yGDjJKwK',
+  },
+  // Yandex
+  {
+                     input_url: 'http://music.yandex.com/artist/168862',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/artist/168862',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://music.yandex.kz/#!/artist/168862',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/artist/168862',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://music.yandex.com/#!/label/2681159',
+             input_entity_type: 'label',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/label/2681159',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://music.yandex.ru/album/22248502',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/album/22248502',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://music.yandex.com/iframe/#album/22248502',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/album/22248502',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://music.yandex.com/iframe/#track/103805357:22248502',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/album/22248502/track/103805357',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://music.yandex.by/album/22248502/track/103805357',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/album/22248502/track/103805357',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://music.yandex.uz/#!/album/22248502/track/103805357',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/album/22248502/track/103805357',
+       only_valid_entity_types: ['recording'],
   },
   // YesAsia
   {

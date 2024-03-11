@@ -46,7 +46,7 @@ test 'CD stub page contains the expected data' => sub {
         'The page content contains the CD stub artist',
     );
     $mech->content_like(
-        qr/YfSgiOEayqN77Irs.VNV.UNJ0Zs-/,
+        qr/YfSgiOEayqN77Irs\.VNV\.UNJ0Zs-/,
         'The page content contains the disc id',
     );
     $mech->content_like(
@@ -72,7 +72,7 @@ test 'CD stub page contains the expected data' => sub {
     );
 
     ok(
-        $mech->uri =~ qr{/cdstub/YfSgiOEayqN77Irs.VNV.UNJ0Zs-/?$},
+        $mech->uri =~ qr{/cdstub/YfSgiOEayqN77Irs\.VNV\.UNJ0Zs-/?$},
         'The user is redirected to the version with the dash',
     );
 };

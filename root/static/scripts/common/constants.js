@@ -168,6 +168,7 @@ export const FAVICON_CLASSES = {
   'music.apple.com': 'applemusic',
   'music.bugs.co.kr': 'bugs',
   'music.migu.cn': 'migumusic',
+  'music.yandex': 'yandex',
   'music.youtube.com': 'youtubemusic',
   'musicapopular.cl': 'musicapopularcl',
   'musik-sammler.de': 'musiksammler',
@@ -251,8 +252,8 @@ export const FAVICON_CLASSES = {
   // eslint-disable-next-line sort-keys
   'vimeo.com': 'vimeo',
   'vk.com': 'vk',
-  'vkdb.jp': 'vkdb',
   'vk.gy': 'vkgy',
+  'vkdb.jp': 'vkdb',
   'vndb.org': 'vndb',
   'vocadb.net': 'vocadb',
   'weibo.com': 'weibo',

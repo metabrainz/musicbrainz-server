@@ -11,11 +11,12 @@ sub query {<<~'SQL'}
       FROM (
         SELECT DISTINCT r.*
           FROM release r
-         WHERE NOT EXISTS (
+         WHERE (r.status IS DISTINCT FROM 4) -- skip pseudo-releases
+           AND NOT EXISTS (
             SELECT 1
               FROM cover_art_archive.cover_art
              WHERE cover_art.release = r.id
-         )
+           )
       ) r
       JOIN artist_credit ac ON r.artist_credit = ac.id
     SQL

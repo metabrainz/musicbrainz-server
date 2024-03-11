@@ -148,7 +148,6 @@ export function generateItems<T: EntityItemT>(
         entityType === 'link_type'
       ) {
         items.push({
-          type: 'action',
           action: {
             showDescriptions: !showDescriptions,
             type: 'toggle-descriptions',
@@ -159,6 +158,7 @@ export function generateItems<T: EntityItemT>(
               ? l('Hide descriptions')
               : l('Show descriptions'),
           separator: true,
+          type: 'action',
         });
       }
     } else if (isInputValueNonEmpty && !hasSelection) {

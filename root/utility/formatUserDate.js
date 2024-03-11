@@ -29,6 +29,7 @@ const formatterCache = new Map<string, Intl$DateTimeFormat>();
  *     Global_Objects/DateTimeFormat
  */
 
+/* eslint-disable sort-keys */
 const patterns = {
   '%A': ['weekday', {weekday: 'long'}],
   '%B': ['month', {month: 'long'}],
@@ -61,6 +62,7 @@ const patterns = {
     year: 'numeric',
   }],
 };
+/* eslint-enable sort-keys */
 
 const TZ_CANCUN = 'America/Cancun';
 const TZ_CHICAGO = 'America/Chicago';

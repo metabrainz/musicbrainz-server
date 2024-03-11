@@ -18,7 +18,7 @@ MB.confirmNavigationFallback = function () {
     return;
   }
 
-  var prevented = false;
+  let prevented = false;
 
   /*
    * This catches the backspace key and asks the user whether they want to
@@ -31,13 +31,13 @@ MB.confirmNavigationFallback = function () {
    * to document.onkeydown and document.onkeypress.
    */
   document.onkeydown = function (event) {
-    if (event.keyCode == 8) {
+    if (event.keyCode === 8) {
       const node = event.srcElement || event.target;
       const tag = node.tagName.toLowerCase();
       const type = (node.type || '').toLowerCase();
       const prevent = !(
-        (tag == 'input' && (type == 'text' || type == 'password')) ||
-        tag == 'textarea'
+        (tag === 'input' && (type === 'text' || type === 'password')) ||
+        tag === 'textarea'
       );
 
       if (prevent && !confirm(

@@ -6,11 +6,12 @@
 # Kristoffer Grundström <email address hidden>, 2014
 # Killinstinct <email address hidden>, 2015
 # Staffan Vilcans, 2014-2015
+# abbedabb <albin@albinolsson.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-30 01:27+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2024-02-19 01:28+0000\n"
+"Last-Translator: abbedabb <albin@albinolsson.com>\n"
 "Language-Team: Swedish <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/sv/>\n"
 "Language: sv\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.4\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -38,7 +39,7 @@ msgstr "acholi"
 #. frequency:1 iso_code_3:ada 
 #: DB:language/name:5
 msgid "Adangme"
-msgstr ""
+msgstr "adangme"
 
 #. frequency:1 iso_code_3:ady 
 #: DB:language/name:6
@@ -98,7 +99,7 @@ msgstr "algonkinspråk"
 #. frequency:1 iso_code_3:alq 
 #: DB:language/name:709
 msgid "Algonquin"
-msgstr ""
+msgstr "algonkinska"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:434
@@ -113,7 +114,7 @@ msgstr "amhariska"
 #. frequency:1 iso_code_3:anp 
 #: DB:language/name:475
 msgid "Angika"
-msgstr ""
+msgstr "angika"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:17
@@ -138,12 +139,12 @@ msgstr "arapaho"
 #. frequency:1 iso_code_3:arw 
 #: DB:language/name:25
 msgid "Arawak"
-msgstr ""
+msgstr "arawak"
 
 #. frequency:1 iso_code_3:pka 
 #: DB:language/name:5403
 msgid "Ardhamāgadhī Prākrit"
-msgstr ""
+msgstr "ardhamāgadhī prākrit"
 
 #. frequency:1 iso_code_3:hye 
 #: DB:language/name:21
@@ -173,7 +174,7 @@ msgstr "athabaskiska språk"
 #. frequency:1 iso_code_3:atj 
 #: DB:language/name:866
 msgid "Atikamekw"
-msgstr ""
+msgstr "atikamekw"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:29
@@ -213,7 +214,7 @@ msgstr "azerbajdzjanska"
 #. frequency:1 iso_code_3:bvd 
 #: DB:language/name:1470
 msgid "Baeggu"
-msgstr ""
+msgstr "baeggu"
 
 #. frequency:1 iso_code_3:ban 
 #: DB:language/name:40
@@ -228,22 +229,22 @@ msgstr "baltiska språk"
 #. frequency:1 iso_code_3:bal 
 #: DB:language/name:38
 msgid "Baluchi"
-msgstr ""
+msgstr "baluchiska"
 
 #. frequency:1 iso_code_3:bam 
 #: DB:language/name:39
 msgid "Bambara"
-msgstr ""
+msgstr "bambara"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:36
 msgid "Bamileke languages"
-msgstr ""
+msgstr "bamilekespråk"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:35
 msgid "Banda languages"
-msgstr ""
+msgstr "bandaspråk"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:55
@@ -253,12 +254,12 @@ msgstr "bantuspråk"
 #. frequency:1 iso_code_3:bas 
 #: DB:language/name:42
 msgid "Basa"
-msgstr ""
+msgstr "basa"
 
 #. frequency:1 iso_code_3:bak 
 #: DB:language/name:37
 msgid "Bashkir"
-msgstr ""
+msgstr "basjkiriska"
 
 #. frequency:1 iso_code_3:eus 
 #: DB:language/name:41
@@ -268,62 +269,62 @@ msgstr "baskiska"
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:59
 msgid "Batak languages"
-msgstr ""
+msgstr "batakspråk"
 
 #. frequency:1 iso_code_3:bar 
 #: DB:language/name:982
 msgid "Bavarian"
-msgstr ""
+msgstr "bayerska"
 
 #. frequency:1 iso_code_3:bej 
 #: DB:language/name:44
 msgid "Beja"
-msgstr ""
+msgstr "beja"
 
 #. frequency:1 iso_code_3:bel 
 #: DB:language/name:45
 msgid "Belarusian"
-msgstr ""
+msgstr "belarusiska"
 
 #. frequency:1 iso_code_3:bem 
 #: DB:language/name:46
 msgid "Bemba"
-msgstr ""
+msgstr "bemba"
 
 #. frequency:1 iso_code_3:ben 
 #: DB:language/name:47
 msgid "Bengali"
-msgstr ""
+msgstr "bengali"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:48
 msgid "Berber languages"
-msgstr ""
+msgstr "berberspråk"
 
 #. frequency:1 iso_code_3:bho 
 #: DB:language/name:49
 msgid "Bhojpuri"
-msgstr ""
+msgstr "bhojpuri"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:50
 msgid "Bihari languages"
-msgstr ""
+msgstr "biharispråk"
 
 #. frequency:1 iso_code_3:bik 
 #: DB:language/name:51
 msgid "Bikol"
-msgstr ""
+msgstr "bikol"
 
 #. frequency:1 iso_code_3:bin 
 #: DB:language/name:52
 msgid "Bini"
-msgstr ""
+msgstr "edo"
 
 #. frequency:1 iso_code_3:bis 
 #: DB:language/name:53
 msgid "Bislama"
-msgstr ""
+msgstr "bislama"
 
 #. frequency:1 iso_code_3:byn 
 #: DB:language/name:64

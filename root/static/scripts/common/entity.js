@@ -76,7 +76,7 @@ import MB from './MB.js';
     }
   }
 
-  var primitiveTypes = /^(boolean|number|string)$/;
+  const primitiveTypes = /^(boolean|number|string)$/;
 
   function toJSON(result, value, key) {
     while (ko.isObservable(value)) {
@@ -106,12 +106,12 @@ import MB from './MB.js';
       return data;
     }
     type = (type || data.entityType || '').replace('-', '_');
-    var entityClass = coreEntityMapping[type];
+    const entityClass = coreEntityMapping[type];
 
     if (!entityClass) {
       throw 'Unknown type of entity: ' + type;
     }
-    var entity = MB.entityCache[data.gid];
+    let entity = MB.entityCache[data.gid];
 
     if (type === 'url') {
       entity = entity || MB.entityCache[data.name];
@@ -161,7 +161,7 @@ import MB from './MB.js';
     }
 
     reactElement(renderParams) {
-      var json = this.toJSON();
+      const json = this.toJSON();
 
       if (this.gid) {
         // XXX needed by the relationship editor
@@ -195,7 +195,7 @@ import MB from './MB.js';
     }
 
     toJSON() {
-      var json = super.toJSON();
+      const json = super.toJSON();
 
       if (this.artistCredit) {
         json.artistCredit = ko.unwrap(this.artistCredit);
@@ -312,7 +312,7 @@ import MB from './MB.js';
          * server, /ws/js...) we may have either releases or release
          * groups here. Assume the latter by default.
          */
-        var appearsOnType = this.appearsOn.entityType || 'release_group';
+        const appearsOnType = this.appearsOn.entityType || 'release_group';
 
         this.appearsOn.results = this.appearsOn.results.map(
           function (appearance) {
@@ -336,7 +336,7 @@ import MB from './MB.js';
     toJSON() {
       return Object.assign(
         super.toJSON(),
-        {isrcs: this.isrcs, appearsOn: this.appearsOn},
+        {appearsOn: this.appearsOn, isrcs: this.isrcs},
       );
     }
   }
@@ -360,7 +360,7 @@ import MB from './MB.js';
     }
 
     toJSON() {
-      var object = super.toJSON();
+      const object = super.toJSON();
 
       if (Array.isArray(this.events)) {
         object.events = cloneArrayDeep(this.events);
@@ -397,13 +397,13 @@ import MB from './MB.js';
     }
 
     getSeriesItems(viewModel) {
-      var type = this.type();
+      const type = this.type();
       if (!type) {
         return [];
       }
 
-      var gid = PART_OF_SERIES_LINK_TYPES[type.item_entity_type];
-      var linkTypeID = linkedEntities.link_type[gid].id;
+      const gid = PART_OF_SERIES_LINK_TYPES[type.item_entity_type];
+      const linkTypeID = linkedEntities.link_type[gid].id;
 
       return this.displayableRelationships(viewModel)().filter(function (r) {
         return r.linkTypeID() === linkTypeID;
@@ -412,9 +412,9 @@ import MB from './MB.js';
 
     toJSON() {
       return Object.assign(super.toJSON(), {
+        orderingTypeID: this.orderingTypeID,
         type: this.type(),
         typeID: this.typeID,
-        orderingTypeID: this.orderingTypeID,
       });
     }
   }
@@ -433,7 +433,7 @@ import MB from './MB.js';
     }
 
     reactElement(renderParams) {
-      var recording = this.recording;
+      const recording = this.recording;
 
       if (!recording) {
         return super.reactElement(renderParams);
@@ -504,22 +504,22 @@ import MB from './MB.js';
    * usually includes a lower-case type name, which is used as the key.
    */
 
-  var coreEntityMapping = {
+  const coreEntityMapping = {
+    area:          Area,
     artist:        Artist,
+    editor:        Editor,
     event:         Event,
     genre:         Genre,
     instrument:    Instrument,
     label:         Label,
-    area:          Area,
     place:         Place,
     recording:     Recording,
     release:       Release,
     release_group: ReleaseGroup,
     series:        Series,
     track:         Track,
-    work:          Work,
     url:           URL,
-    editor:        Editor,
+    work:          Work,
   };
 }());
 

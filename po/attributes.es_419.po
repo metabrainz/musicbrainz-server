@@ -20,8 +20,8 @@ msgid ""
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
 msgstr ""
-"“Motete” es un término que se aplica a diferentes tipos de piezas corales ("
-"por lo general sin acompañamiento). Lo que es exactamente un motete depende "
+"“Motete” es un término que se aplica a diferentes tipos de piezas corales "
+"(por lo general sin acompañamiento). Lo que es exactamente un motete depende "
 "un poco del periodo."
 
 #: DB:work_type/description:5
@@ -3868,6 +3868,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Latvian rights society AKKA/LAA"
 msgstr ""
 
+#: DB:work_attribute_type/description:207
+msgctxt "work_attribute_type"
+msgid "ID for the Lithuanian rights society LATGA"
+msgstr ""
+
 #: DB:work_attribute_type/description:49
 msgctxt "work_attribute_type"
 msgid "ID for the Malaysian rights society MACP"
@@ -4696,6 +4701,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:954
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kōmal riṣabh asāvēri"
+msgstr ""
+
+#: DB:work_attribute_type/name:207
+msgctxt "work_attribute_type"
+msgid "LATGA ID"
 msgstr ""
 
 #: DB:editor_collection_type/name:10

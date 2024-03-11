@@ -102,7 +102,7 @@ const initialReleaseState = createInitialReleaseState(
 );
 
 test('merging duplicate relationships', function (t) {
-  let nonEndedRelationshipWithBeginDate = {
+  const nonEndedRelationshipWithBeginDate = {
     _lineage: [],
     _original: null,
     _status: REL_STATUS_ADD,
@@ -126,7 +126,7 @@ test('merging duplicate relationships', function (t) {
     nonEndedRelationshipWithBeginDate,
   );
 
-  let notDuplicateRelationship1 = {
+  const notDuplicateRelationship1 = {
     ...nonEndedRelationshipWithBeginDate,
     begin_date: null,
     end_date: {day: null, month: null, year: 2002},
@@ -147,12 +147,12 @@ test('merging duplicate relationships', function (t) {
     'relationships were not merged where ended differs',
   );
 
-  let relationshipEnded = {
+  const relationshipEnded = {
     ...nonEndedRelationshipWithBeginDate,
     ended: true,
   };
 
-  let duplicateRelationship = {
+  const duplicateRelationship = {
     ...nonEndedRelationshipWithBeginDate,
     begin_date: null,
     end_date: {day: null, month: null, year: 2002},
@@ -196,14 +196,14 @@ test('merging duplicate relationships', function (t) {
       ended: mergedRelationship?.ended,
     },
     {
-      begin_date: {year: 2001, month: null, day: null},
-      end_date: {year: 2002, month: null, day: null},
+      begin_date: {day: null, month: null, year: 2001},
+      end_date: {day: null, month: null, year: 2002},
       ended: true,
     },
     'date period is merged correctly',
   );
 
-  let notDuplicateRelationship2 = {
+  const notDuplicateRelationship2 = {
     ...nonEndedRelationshipWithBeginDate,
     begin_date: {day: null, month: null, year: 2003},
     end_date: {day: null, month: null, year: 2004},
@@ -223,12 +223,12 @@ test('merging duplicate relationships', function (t) {
     'relationship with different date is not merged',
   );
 
-  let laterRelationship = {
+  const laterRelationship = {
     ...nonEndedRelationshipWithBeginDate,
     ended: true,
   };
 
-  let earlierRelationship = {
+  const earlierRelationship = {
     ...nonEndedRelationshipWithBeginDate,
     begin_date: null,
     end_date: {day: null, month: null, year: 2000},
@@ -249,12 +249,12 @@ test('merging duplicate relationships', function (t) {
     'relationships were not merged where it would lead to invalid date period',
   );
 
-  let emptyDatesRelationship = {
+  const emptyDatesRelationship = {
     ...nonEndedRelationshipWithBeginDate,
     begin_date: null,
   };
 
-  let newDatedRelationship = {
+  const newDatedRelationship = {
     ...nonEndedRelationshipWithBeginDate,
     begin_date: {day: null, month: null, year: 2000},
     end_date: {day: null, month: null, year: 2000},
@@ -280,7 +280,7 @@ test('merging duplicate relationships', function (t) {
     'relationships were merged when one date period was empty',
   );
 
-  let emptyDatesEndedRelationship = {
+  const emptyDatesEndedRelationship = {
     ...nonEndedRelationshipWithBeginDate,
     begin_date: null,
     ended: true,
@@ -806,8 +806,8 @@ test('MBS-12976: Changing a work can cause duplication/key errors', function (t)
 
   const relationship2 = Object.freeze({
     ...relationship1,
-    id: -2,
     entity1: work3,
+    id: -2,
   });
 
   // Start with works A, C

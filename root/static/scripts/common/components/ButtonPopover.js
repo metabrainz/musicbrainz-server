@@ -88,11 +88,11 @@ const ButtonPopover = (props: PropsT): React$MixedElement => {
   }, [returnFocusToButton, toggle]);
 
   const customButtonProps = buttonProps ? {
+    className: buttonProps.className,
     id: buttonProps.id,
     title: empty(buttonProps.title)
       ? undefined
       : unwrapNl<string>(buttonProps.title),
-    className: buttonProps.className,
   } : null;
 
   let buttonElement: React$MixedElement = (

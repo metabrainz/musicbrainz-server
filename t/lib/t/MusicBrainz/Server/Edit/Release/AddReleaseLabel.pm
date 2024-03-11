@@ -114,7 +114,7 @@ test 'Prevents initializing an edit with a duplicate label/catalog number pair' 
             label => $c->model('Label')->get_by_id(2),
             catalog_number => 'ABC-123',
         );
-    }, qr/The label and catalog number in this edit already exist on the release./;
+    }, qr/The label and catalog number in this edit already exist on the release\./;
 };
 
 test 'Displays correctly following label merges' => sub {

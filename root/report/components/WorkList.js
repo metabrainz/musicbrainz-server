@@ -60,7 +60,7 @@ const WorkList = <D: {+work: ?WorkT, ...}>({
           const typeName = result.work?.typeName;
           return (nonEmpty(typeName)
             ? lp_attributes(typeName, 'work_type')
-            : l('Unknown')
+            : lp('Unknown', 'type')
           );
         },
         title: l('Type'),

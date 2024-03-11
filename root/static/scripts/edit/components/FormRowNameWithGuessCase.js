@@ -9,6 +9,7 @@
 
 import type {CowContext} from 'mutate-cow';
 import * as React from 'react';
+import {flushSync} from 'react-dom';
 
 import GuessCase from '../../guess-case/MB/GuessCase/Main.js';
 
@@ -107,6 +108,8 @@ export const FormRowNameWithGuessCase = ({
   isGuessCaseOptionsOpen = false,
   label = addColonText(l('Name')),
 }: PropsT): React$Element<typeof FormRowText> => {
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
+
   function handleNameChange(event: SyntheticKeyboardEvent<HTMLInputElement>) {
     dispatch({
       name: event.currentTarget.value,
@@ -115,7 +118,13 @@ export const FormRowNameWithGuessCase = ({
   }
 
   function handleGuessCase() {
-    dispatch({entity, type: 'guess-case'});
+    flushSync(() => {
+      dispatch({entity, type: 'guess-case'});
+    });
+
+    if (inputRef.current) {
+      inputRef.current.dispatchEvent(new Event('input'));
+    }
   }
 
   const toggleGuessCaseOptions = React.useCallback((
@@ -139,6 +148,7 @@ export const FormRowNameWithGuessCase = ({
     <FormRowText
       className={'with-guesscase' + (guessFeat ? '-guessfeat' : '')}
       field={field}
+      inputRef={inputRef}
       label={label}
       onChange={handleNameChange}
       required

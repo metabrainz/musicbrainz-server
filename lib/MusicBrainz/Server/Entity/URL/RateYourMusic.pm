@@ -9,7 +9,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^https?://(?:www.)?rateyourmusic.com/feature/}i) {
+    if ($self->url =~ m{^https?://(?:www\.)?rateyourmusic\.com/feature/}i) {
         return l('Interview at Rate Your Music');
     } else {
         return 'Rate Your Music';

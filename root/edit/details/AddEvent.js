@@ -74,7 +74,7 @@ const AddEvent = ({edit}: Props): React$MixedElement => {
 
         {nonEmpty(display.time) ? (
           <tr>
-            <th>{addColonText(l('Time'))}</th>
+            <th>{addColonText(lp('Time', 'event'))}</th>
             <td>{display.time}</td>
           </tr>
         ) : null}

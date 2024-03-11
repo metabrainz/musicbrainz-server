@@ -90,7 +90,7 @@ React$Element<typeof ReportLayout> => {
                         <td>
                           {nonEmpty(item.release_group.l_type_name)
                             ? item.release_group.l_type_name
-                            : l('Unknown')}
+                            : lp('Unknown', 'type')}
                         </td>
                       </>
                     ) : (
