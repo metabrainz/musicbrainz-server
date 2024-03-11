@@ -20,6 +20,7 @@ use MusicBrainz::Server::Replication::Packet qw(
     decompress_packet
     retrieve_remote_file
 );
+use Storable qw( retrieve );
 use Sql;
 
 with 'MusicBrainz::Server::Role::FollowForeignKeys';
@@ -75,6 +76,17 @@ This script works by:
         script can be run hourly.
 
 =cut
+
+has foreign_keys_dump => (
+    is => 'ro',
+    isa => 'Str',
+    default => 'foreign_keys',
+    traits => ['Getopt'],
+    cmd_flag => 'foreign-keys-dump',
+    documentation => 'location of foreign keys dump file ' .
+        '(from ./script/dump_foreign_keys.pl) ' .
+        '(default: foreign_keys)',
+);
 
 has replication_access_uri => (
     is => 'ro',
@@ -445,6 +457,10 @@ sub get_current_replication_sequence {
 
 sub run_incremental_dump {
     my ($self, $c, $replication_sequence) = @_;
+
+    unless ($self->_has_foreign_keys_cache) {
+        $self->_foreign_keys_cache(retrieve($self->foreign_keys_dump));
+    }
 
     my $dump_schema = $self->dump_schema;
 
