@@ -2165,6 +2165,14 @@ msgid ""
 "wooden chanters."
 msgstr ""
 
+#. name:dudy podhalanskie 
+#: DB:instrument/description:1202
+msgid ""
+"Known since the 16th century, it has 3 drones; one in a separate drone pipe "
+"and two in the chanter (which as three channels), it has no bells and is "
+"mouthblown."
+msgstr ""
+
 #. name:krakebs 
 #: DB:instrument/description:652
 msgid ""
@@ -2921,6 +2929,14 @@ msgstr ""
 msgid ""
 "Originally made of bamboo or wood, it is now metal with springs and is used "
 "in Brazilian music."
+msgstr ""
+
+#. name:dudy wielkopolskie 
+#: DB:instrument/description:1201
+msgid ""
+"Originally played together with the special fiddle mazanki, today with "
+"prepared violin or solo, it has a single chanter with seven finger holes and "
+"a drone pipe folded back on itself twice both ending in curved bells."
 msgstr ""
 
 #. name:clavinet 
@@ -5775,6 +5791,13 @@ msgid ""
 "traditionally to accompany didgeridoo. There are also Boomerang clapsticks."
 msgstr ""
 
+#. name:Magyar duda 
+#: DB:instrument/description:1200
+msgid ""
+"Used by shepherds and in pagan lifestyle, it has a double bore chanter with "
+"one to 2 drones, historically made of dogskin but today goat is used."
+msgstr ""
+
 #. name:tulum 
 #: DB:instrument/description:1116
 msgid ""
@@ -6064,6 +6087,25 @@ msgid ""
 "Used occasionally in the western classical orchestra and theatre, it "
 "consists of several tuned aluminium, steel or bronze plates, struck to "
 "imitate the sound of bells."
+msgstr ""
+
+#. name:matstsyanka 
+#: DB:instrument/description:1199
+msgid ""
+"Used since ancient times, it is a smaller half round shape with the chanter "
+"in one end and drones in the other, there are two related types; from "
+"northern Belarus and east-south Lithuania one drone one chanter both having "
+"bowed horns at the end. <br /> Secondly; the macianka duda without horns has "
+"3 drones in one hole instead of one."
+msgstr ""
+
+#. name:somu dūdas 
+#: DB:instrument/description:1198
+msgid ""
+"Used since the 16th century, it is made of lamb, kid or in the north, "
+"sealskin. it has1-2 drones and a chanter with 4-7 fingerholes.<br /> <br /> "
+"The name dudy/duda(s) is used for very many folk bagpipes in Europe and "
+"western Asia - see annotation(s) for more."
 msgstr ""
 
 #. name:bonang panerus 

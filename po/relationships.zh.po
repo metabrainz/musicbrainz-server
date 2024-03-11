@@ -4,11 +4,12 @@
 # Gary Liu, 2022
 # suming <331874545@qq.com>, 2023.
 # claybiockiller <clay0305@hotmail.com>, 2023.
+# ycwei982 <ycwei982@outlook.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-04 22:28+0000\n"
-"Last-Translator: claybiockiller <clay0305@hotmail.com>\n"
+"PO-Revision-Date: 2024-02-26 21:28+0000\n"
+"Last-Translator: ycwei982 <ycwei982@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/relationship-types/zh_Hans/>\n"
 "Language: zh\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.4\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -260,6 +261,20 @@ msgid ""
 "For works that have lyrics, this indicates that those lyrics are not "
 "relevant to this recording. Examples include instrumental arrangements, or "
 "\"beats\" from hip-hop songs which may be reused with different lyrics."
+msgstr ""
+"对于有歌词的作品，这表明歌词与录音无关。例子包括器乐曲或者嘻哈歌曲的"
+"\"Beat\"部分，可以和不同的歌词一起重复使用。"
+
+#: DB:link_attribute_type/description:1406
+#, fuzzy
+#| msgid ""
+#| "For works that have lyrics, this indicates that those lyrics are not "
+#| "relevant to this recording. Examples include instrumental arrangements, "
+#| "or \"beats\" from hip-hop songs which may be reused with different lyrics."
+msgid ""
+"For works that usually have instruments and vocals, this indicates that the "
+"instrumental parts are not relevant to this recording. Examples include rap "
+"tracks from hip hop songs that can be remixed and used with different beats."
 msgstr ""
 "对于有歌词的作品，这表明歌词与录音无关。例子包括器乐曲或者嘻哈歌曲的"
 "\"Beat\"部分，可以和不同的歌词一起重复使用。"
@@ -1641,6 +1656,12 @@ msgid ""
 "release."
 msgstr "这表明录音工程师在专辑中负责户外录音工作。"
 
+#: DB:link_type/description:1240
+msgid ""
+"This indicates a release group is an excerpt from another, such as the "
+"highlights of a box set or a long opera."
+msgstr ""
+
 #: DB:link_type/description:1174
 msgid "This indicates an agency that did the art direction for the release."
 msgstr ""
@@ -1691,6 +1712,18 @@ msgstr "这表明艺术家为表演需要重编了某一作品(通常因为乐�
 msgid "This indicates an artist that did the art direction for the release."
 msgstr ""
 
+#: DB:link_type/description:1236
+#, fuzzy
+#| msgid "This indicates an artist cancelled their appearance at an event."
+msgid "This indicates an artist that did the sound effects for the recording."
+msgstr "这表明艺术家在活动中取消出席。"
+
+#: DB:link_type/description:1235
+#, fuzzy
+#| msgid "This indicates an artist cancelled their appearance at an event."
+msgid "This indicates an artist that did the sound effects for the release."
+msgstr "这表明艺术家在活动中取消出席。"
+
 #: DB:link_type/description:151
 msgid ""
 "This indicates an artist who conducted an orchestra, band or choir on this "
@@ -1703,13 +1736,40 @@ msgid ""
 "release."
 msgstr "这表明艺术家在此专辑中指挥了乐团，乐队或合唱团。"
 
+#: DB:link_type/description:1233
+#, fuzzy
+#| msgid "This indicates an artist cancelled their appearance at an event."
+msgid "This indicates an artist who did design for the event."
+msgstr "这表明艺术家在活动中取消出席。"
+
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
 
+#: DB:link_type/description:1232
+#, fuzzy
+#| msgid ""
+#| "This indicates a person or agency who did design or illustration for the "
+#| "track."
+msgid "This indicates an artist who did illustration for the event."
+msgstr "这指的是参与设计音轨或制作音轨插图的个人或机构。"
+
 #: DB:link_type/description:927
 msgid "This indicates an artist who did illustration for the release."
 msgstr ""
+
+#: DB:link_type/description:1234
+#, fuzzy
+#| msgid ""
+#| "This credits the people or agency who did the graphic design, arranging "
+#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
+#| "design."
+msgid ""
+"This indicates an artist who did the graphic design for the event, arranging "
+"pieces of content into a coherent and aesthetically-pleasing design."
+msgstr ""
+"这记载的是平面设计师或机构，他们将内容元素组合为符合一致性和审美要求的封套设"
+"计。"
 
 #: DB:link_type/description:27
 msgid ""
@@ -1723,6 +1783,16 @@ msgid ""
 "This indicates an artist who is responsible for the creative and practical "
 "day-to-day aspects involved with making a musical recording."
 msgstr "这表明艺术家负责录音制作期间的创作和日常实践。"
+
+#: DB:link_type/description:1231
+#, fuzzy
+#| msgid ""
+#| "This indicates an artist who conducted an orchestra, band or choir on "
+#| "this release."
+msgid ""
+"This indicates an artist who provided artwork for the event when no more "
+"specific information is available."
+msgstr "这表明艺术家在此专辑中指挥了乐团，乐队或合唱团。"
 
 #: DB:link_type/description:993
 msgid ""
@@ -1998,6 +2068,15 @@ msgid ""
 "This indicates that two instruments are related in a way not covered by "
 "other, more specific relationships."
 msgstr ""
+
+#: DB:link_type/description:1237
+#, fuzzy
+#| msgid ""
+#| "This indicates that an artist was officially employed by a label as a "
+#| "producer."
+msgid ""
+"This indicates the area (usually a city) where a label is headquartered in."
+msgstr "这表明艺术家正式担任厂牌的制作人。"
 
 #: DB:link_type/description:1185
 msgid "This indicates the artist directed video on this release."
@@ -2415,6 +2494,14 @@ msgstr ""
 msgid "This is used to link a work to its corresponding page on Allmusic."
 msgstr ""
 
+#: DB:link_type/description:1238
+msgid ""
+"This is used to link an a cappella version of a song to the original song."
+"<br/><br/>\n"
+"An a cappella version is a version of the song with only the vocal tracks "
+"(for example, a hip hop vocal track without the beat)."
+msgstr ""
+
 #: DB:link_type/description:307
 msgid ""
 "This is used to link an artist to its corresponding page in the "
@@ -2427,6 +2514,15 @@ msgstr ""
 
 #: DB:link_type/description:714
 msgid "This is used to link an artist to its primary concert venue."
+msgstr ""
+
+#: DB:link_type/description:1239
+msgid ""
+"This is used to link an instrumental version of a song to the original song."
+"<br/><br/>\n"
+"An instrumental version is a version of the song with any vocals removed "
+"(for example, a hip hop beat without the rap tracks). For karaoke tracks, "
+"use the karaoke relationship."
 msgstr ""
 
 #: DB:link_type/description:180
@@ -4155,6 +4251,26 @@ msgstr ""
 msgid "YouTube channels"
 msgstr "YouTube 频道"
 
+#: DB:link_type/name:1238
+msgid "a cappella"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1238
+#, fuzzy
+#| msgid "karaoke version of"
+msgid "a cappella version of"
+msgstr "卡拉OK版本"
+
+#: DB:link_type/link_phrase:1238
+#, fuzzy
+#| msgid "karaoke versions"
+msgid "a cappella versions"
+msgstr "卡拉OK版本"
+
+#: DB:link_attribute_type/name:1406
+msgid "acappella"
+msgstr ""
+
 #: DB:link_attribute_type/name:1345
 msgid "accompanying"
 msgstr ""
@@ -4293,7 +4409,7 @@ msgstr ""
 msgid "artists and repertoire position"
 msgstr ""
 
-#: DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
 msgid "artwork"
 msgstr ""
 
@@ -4725,7 +4841,7 @@ msgstr "封面"
 
 #: DB:link_type/link_phrase:78
 msgid "cover art"
-msgstr "封面图像"
+msgstr "封面插图"
 
 #: DB:link_type/reverse_link_phrase:78
 msgid "cover art for"
@@ -4815,13 +4931,17 @@ msgstr ""
 msgid "derived from"
 msgstr ""
 
-#: DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
 msgid "design"
 msgstr "设计"
 
 #: DB:link_type/name:19 DB:link_type/name:130
 msgid "design/illustration"
 msgstr "设计/插图"
+
+#: DB:link_type/long_link_phrase:1236 DB:link_type/long_link_phrase:1235
+msgid "did sound effects for"
+msgstr ""
 
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
 #: DB:link_type/name:88 DB:link_type/name:171
@@ -5003,6 +5123,14 @@ msgstr ""
 msgid "event artists"
 msgstr ""
 
+#: DB:link_type/link_phrase:1240 DB:link_type/name:1240
+msgid "excerpt from"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1240
+msgid "excerpts"
+msgstr ""
+
 #: DB:link_attribute_type/name:425
 msgid "executive"
 msgstr ""
@@ -5140,7 +5268,8 @@ msgstr "玻璃母盘处理，处理者为"
 msgid "glass mastering location for"
 msgstr ""
 
-#: DB:link_type/name:1172 DB:link_type/name:125 DB:link_type/name:27
+#: DB:link_type/name:1172 DB:link_type/name:1234 DB:link_type/name:125
+#: DB:link_type/name:27
 msgid "graphic design"
 msgstr "平面设计"
 
@@ -5310,6 +5439,12 @@ msgstr "在以下位置有传记页面"
 #: DB:link_type/long_link_phrase:627
 msgid "has a blog at"
 msgstr ""
+
+#: DB:link_type/long_link_phrase:1238
+#, fuzzy
+#| msgid "translated version"
+msgid "has a cappella version"
+msgstr "翻译版本"
 
 #: DB:link_type/long_link_phrase:212
 msgid "has a catalog of records at"
@@ -5486,6 +5621,12 @@ msgstr ""
 msgid "has influences of"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1239
+#, fuzzy
+#| msgid "instrumental"
+msgid "has instrumental version"
+msgstr "纯乐器"
+
 #: DB:link_type/long_link_phrase:984 DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
 msgstr ""
@@ -5559,6 +5700,16 @@ msgstr ""
 msgid "has {half:half-}{step}sibling"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:1237
+#, fuzzy
+#| msgid "mastered in"
+msgid "headquartered in"
+msgstr "母带处理，在"
+
+#: DB:link_type/name:1237
+msgid "headquarters"
+msgstr ""
+
 #: DB:link_type/link_phrase:794 DB:link_type/name:794 DB:link_type/name:995
 #: DB:link_type/reverse_link_phrase:995
 msgid "held at"
@@ -5609,11 +5760,17 @@ msgstr ""
 msgid "hosts"
 msgstr ""
 
+#: DB:link_type/link_phrase:1237
+#, fuzzy
+#| msgid "cut the lacquer for"
+msgid "houses headquarters for"
+msgstr "刻纹，为"
+
 #: DB:link_type/link_phrase:916 DB:link_type/name:916
 msgid "hybrid of"
 msgstr ""
 
-#: DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
 msgid "illustration"
 msgstr "插图"
 
@@ -5682,13 +5839,25 @@ msgstr ""
 msgid "instrument technician"
 msgstr ""
 
-#: DB:link_attribute_type/name:580
+#: DB:link_attribute_type/name:580 DB:link_type/name:1239
 msgid "instrumental"
 msgstr "纯乐器"
 
 #: DB:link_type/name:105
 msgid "instrumental supporting musician"
 msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1239
+#, fuzzy
+#| msgid "instrumental"
+msgid "instrumental version of"
+msgstr "纯乐器"
+
+#: DB:link_type/link_phrase:1239
+#, fuzzy
+#| msgid "instrumental"
+msgid "instrumental versions"
+msgstr "纯乐器"
 
 #: DB:link_type/link_phrase:752
 msgid "instruments"
@@ -5777,18 +5946,16 @@ msgstr ""
 msgid "is a tribute to"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:278
-msgid ""
-"is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
-"{karaoke} recording of"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:309
 msgid "is an edit of"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1240
+msgid "is an excerpt from"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:926
@@ -5847,6 +6014,12 @@ msgstr ""
 #: DB:link_type/long_link_phrase:109
 msgid "is the {step}parent of"
 msgstr "是{step:继}父母，对于"
+
+#: DB:link_type/long_link_phrase:278
+msgid ""
+"is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
+"a} {partial} {instrumental} {cover} {karaoke} recording of"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:722
 msgid "is/was a subgroup of"
@@ -6908,7 +7081,8 @@ msgstr ""
 msgid "provided {additional} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
+#: DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr ""
 
@@ -6924,12 +7098,13 @@ msgstr ""
 msgid "provided {additional} design/illustration on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:125
-#: DB:link_type/long_link_phrase:27
+#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:1234
+#: DB:link_type/long_link_phrase:125 DB:link_type/long_link_phrase:27
 msgid "provided {additional} graphic design on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:927 DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
+#: DB:link_type/long_link_phrase:1173
 msgid "provided {additional} illustration on"
 msgstr ""
 
@@ -6941,7 +7116,7 @@ msgstr ""
 msgid "provided {additional} {assistant} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 
@@ -7382,6 +7557,15 @@ msgstr ""
 
 #: DB:link_type/name:133 DB:link_type/name:29
 msgid "sound"
+msgstr ""
+
+#: DB:link_type/name:1236 DB:link_type/name:1235
+#: DB:link_type/reverse_link_phrase:1236 DB:link_type/reverse_link_phrase:1235
+msgid "sound effects"
+msgstr ""
+
+#: DB:link_type/link_phrase:1236 DB:link_type/link_phrase:1235
+msgid "sound effects for"
 msgstr ""
 
 #: DB:link_type/name:870 DB:link_type/name:291 DB:link_type/name:290
@@ -7943,6 +8127,18 @@ msgstr "youtube"
 msgid "youtube music"
 msgstr "youtube music"
 
+#: DB:link_type/link_phrase:278
+msgid ""
+"{acappella:a cappella} {live} {medley:medley including a} {partial} "
+"{instrumental} {cover} {karaoke} recording of"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:278
+msgid ""
+"{acappella:a cappella} {live} {medley:medleys including} {partial} "
+"{instrumental} {cover} {karaoke} recordings"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
 msgstr ""
@@ -8201,7 +8397,8 @@ msgstr ""
 msgid "{additional} art direction"
 msgstr ""
 
-#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
+#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr ""
@@ -8238,13 +8435,15 @@ msgstr ""
 msgid "{additional} engineering location for"
 msgstr ""
 
-#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:125
-#: DB:link_type/link_phrase:27 DB:link_type/reverse_link_phrase:1172
+#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:1234
+#: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
+#: DB:link_type/reverse_link_phrase:1172 DB:link_type/reverse_link_phrase:1234
 #: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
 msgid "{additional} graphic design"
 msgstr ""
 
-#: DB:link_type/link_phrase:927 DB:link_type/link_phrase:1173
+#: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
+#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
 #: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
 msgid "{additional} illustration"
 msgstr ""
@@ -8370,7 +8569,8 @@ msgstr ""
 msgid "{additional} {assistant} conductor"
 msgstr ""
 
-#: DB:link_type/link_phrase:928 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
+#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
 msgid "{additional} {assistant} design"
 msgstr ""
 
@@ -8679,6 +8879,12 @@ msgstr ""
 msgid "{entity1} is dedicated to {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1237
+#, fuzzy
+#| msgid "{entity1} was manufactured in {entity0}"
+msgid "{entity1} is headquartered in {entity0}"
+msgstr "{entity1} 于 {entity0} 制造"
+
 #: DB:link_type/long_link_phrase:939
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
@@ -8925,18 +9131,6 @@ msgstr ""
 
 #: DB:link_type/link_phrase:986 DB:link_type/link_phrase:987
 msgid "{instrument:%|instruments} technician for"
-msgstr ""
-
-#: DB:link_type/link_phrase:278
-msgid ""
-"{live} {medley:medley including a} {partial} {instrumental} {cover} "
-"{karaoke} recording of"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:278
-msgid ""
-"{live} {medley:medleys including} {partial} {instrumental} {cover} {karaoke} "
-"recordings"
 msgstr ""
 
 #: DB:link_type/link_phrase:109

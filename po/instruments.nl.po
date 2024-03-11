@@ -158,6 +158,11 @@ msgstr "Keltische harp"
 msgid "Lyricon"
 msgstr "Lyricon"
 
+#: DB:instrument/name:1200
+msgctxt "Traditional Hungarian bagpipe"
+msgid "Magyar duda"
+msgstr ""
+
 #: DB:instrument/name:637
 msgctxt "Mark Stevens' bar chime"
 msgid "Mark tree"
@@ -1402,6 +1407,16 @@ msgstr "eendenlokfluitje"
 msgid "duduk"
 msgstr "doedoek"
 
+#: DB:instrument/name:1202
+msgctxt "Podhale bagpipe"
+msgid "dudy podhalanskie"
+msgstr ""
+
+#: DB:instrument/name:1201
+msgctxt "Great Polish bagpipe"
+msgid "dudy wielkopolskie"
+msgstr ""
+
 #: DB:instrument/name:851
 msgctxt "indian clay kettle drum"
 msgid "duggi"
@@ -2626,6 +2641,11 @@ msgstr "marimba lumina"
 msgid "marímbula"
 msgstr "marímbula"
 
+#: DB:instrument/name:1199
+msgctxt "Belorussian duda"
+msgid "matstsyanka"
+msgstr ""
+
 #: DB:instrument/name:85
 msgid "mbira"
 msgstr "duimpiano"
@@ -3600,6 +3620,11 @@ msgstr "spleettrommel"
 #: DB:instrument/name:104
 msgid "snare drum"
 msgstr "kleine trom"
+
+#: DB:instrument/name:1198
+msgctxt "Latvian bagpipe"
+msgid "somu dūdas"
+msgstr ""
 
 #: DB:instrument/name:284
 msgid "song loan"

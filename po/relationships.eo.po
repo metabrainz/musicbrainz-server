@@ -258,6 +258,13 @@ msgid ""
 "\"beats\" from hip-hop songs which may be reused with different lyrics."
 msgstr ""
 
+#: DB:link_attribute_type/description:1406
+msgid ""
+"For works that usually have instruments and vocals, this indicates that the "
+"instrumental parts are not relevant to this recording. Examples include rap "
+"tracks from hip hop songs that can be remixed and used with different beats."
+msgstr ""
+
 #: DB:link_type/link_phrase:934 DB:link_type/link_phrase:713
 msgid "Geonames"
 msgstr ""
@@ -1477,6 +1484,12 @@ msgid ""
 "release."
 msgstr ""
 
+#: DB:link_type/description:1240
+msgid ""
+"This indicates a release group is an excerpt from another, such as the "
+"highlights of a box set or a long opera."
+msgstr ""
+
 #: DB:link_type/description:1174
 msgid "This indicates an agency that did the art direction for the release."
 msgstr ""
@@ -1527,6 +1540,14 @@ msgstr ""
 msgid "This indicates an artist that did the art direction for the release."
 msgstr ""
 
+#: DB:link_type/description:1236
+msgid "This indicates an artist that did the sound effects for the recording."
+msgstr ""
+
+#: DB:link_type/description:1235
+msgid "This indicates an artist that did the sound effects for the release."
+msgstr ""
+
 #: DB:link_type/description:151
 msgid ""
 "This indicates an artist who conducted an orchestra, band or choir on this "
@@ -1539,12 +1560,26 @@ msgid ""
 "release."
 msgstr ""
 
+#: DB:link_type/description:1233
+msgid "This indicates an artist who did design for the event."
+msgstr ""
+
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
 
+#: DB:link_type/description:1232
+msgid "This indicates an artist who did illustration for the event."
+msgstr ""
+
 #: DB:link_type/description:927
 msgid "This indicates an artist who did illustration for the release."
+msgstr ""
+
+#: DB:link_type/description:1234
+msgid ""
+"This indicates an artist who did the graphic design for the event, arranging "
+"pieces of content into a coherent and aesthetically-pleasing design."
 msgstr ""
 
 #: DB:link_type/description:27
@@ -1558,6 +1593,12 @@ msgstr ""
 msgid ""
 "This indicates an artist who is responsible for the creative and practical "
 "day-to-day aspects involved with making a musical recording."
+msgstr ""
+
+#: DB:link_type/description:1231
+msgid ""
+"This indicates an artist who provided artwork for the event when no more "
+"specific information is available."
 msgstr ""
 
 #: DB:link_type/description:993
@@ -1806,6 +1847,11 @@ msgstr ""
 msgid ""
 "This indicates that two instruments are related in a way not covered by "
 "other, more specific relationships."
+msgstr ""
+
+#: DB:link_type/description:1237
+msgid ""
+"This indicates the area (usually a city) where a label is headquartered in."
 msgstr ""
 
 #: DB:link_type/description:1185
@@ -2197,6 +2243,14 @@ msgstr ""
 msgid "This is used to link a work to its corresponding page on Allmusic."
 msgstr ""
 
+#: DB:link_type/description:1238
+msgid ""
+"This is used to link an a cappella version of a song to the original song."
+"<br/><br/>\n"
+"An a cappella version is a version of the song with only the vocal tracks "
+"(for example, a hip hop vocal track without the beat)."
+msgstr ""
+
 #: DB:link_type/description:307
 msgid ""
 "This is used to link an artist to its corresponding page in the "
@@ -2209,6 +2263,15 @@ msgstr ""
 
 #: DB:link_type/description:714
 msgid "This is used to link an artist to its primary concert venue."
+msgstr ""
+
+#: DB:link_type/description:1239
+msgid ""
+"This is used to link an instrumental version of a song to the original song."
+"<br/><br/>\n"
+"An instrumental version is a version of the song with any vocals removed "
+"(for example, a hip hop beat without the rap tracks). For karaoke tracks, "
+"use the karaoke relationship."
 msgstr ""
 
 #: DB:link_type/description:180
@@ -3810,6 +3873,22 @@ msgstr ""
 msgid "YouTube channels"
 msgstr ""
 
+#: DB:link_type/name:1238
+msgid "a cappella"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1238
+msgid "a cappella version of"
+msgstr ""
+
+#: DB:link_type/link_phrase:1238
+msgid "a cappella versions"
+msgstr ""
+
+#: DB:link_attribute_type/name:1406
+msgid "acappella"
+msgstr ""
+
 #: DB:link_attribute_type/name:1345
 msgid "accompanying"
 msgstr ""
@@ -3948,7 +4027,7 @@ msgstr ""
 msgid "artists and repertoire position"
 msgstr ""
 
-#: DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
 msgid "artwork"
 msgstr ""
 
@@ -4468,12 +4547,16 @@ msgstr ""
 msgid "derived from"
 msgstr ""
 
-#: DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
 msgid "design"
 msgstr ""
 
 #: DB:link_type/name:19 DB:link_type/name:130
 msgid "design/illustration"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1236 DB:link_type/long_link_phrase:1235
+msgid "did sound effects for"
 msgstr ""
 
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
@@ -4656,6 +4739,14 @@ msgstr ""
 msgid "event artists"
 msgstr ""
 
+#: DB:link_type/link_phrase:1240 DB:link_type/name:1240
+msgid "excerpt from"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1240
+msgid "excerpts"
+msgstr ""
+
 #: DB:link_attribute_type/name:425
 msgid "executive"
 msgstr ""
@@ -4793,7 +4884,8 @@ msgstr ""
 msgid "glass mastering location for"
 msgstr ""
 
-#: DB:link_type/name:1172 DB:link_type/name:125 DB:link_type/name:27
+#: DB:link_type/name:1172 DB:link_type/name:1234 DB:link_type/name:125
+#: DB:link_type/name:27
 msgid "graphic design"
 msgstr ""
 
@@ -4962,6 +5054,10 @@ msgstr ""
 #: DB:link_type/long_link_phrase:224 DB:link_type/long_link_phrase:199
 #: DB:link_type/long_link_phrase:627
 msgid "has a blog at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1238
+msgid "has a cappella version"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:212
@@ -5139,6 +5235,10 @@ msgstr ""
 msgid "has influences of"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1239
+msgid "has instrumental version"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:984 DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
 msgstr ""
@@ -5212,6 +5312,14 @@ msgstr ""
 msgid "has {half:half-}{step}sibling"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:1237
+msgid "headquartered in"
+msgstr ""
+
+#: DB:link_type/name:1237
+msgid "headquarters"
+msgstr ""
+
 #: DB:link_type/link_phrase:794 DB:link_type/name:794 DB:link_type/name:995
 #: DB:link_type/reverse_link_phrase:995
 msgid "held at"
@@ -5262,11 +5370,15 @@ msgstr ""
 msgid "hosts"
 msgstr ""
 
+#: DB:link_type/link_phrase:1237
+msgid "houses headquarters for"
+msgstr ""
+
 #: DB:link_type/link_phrase:916 DB:link_type/name:916
 msgid "hybrid of"
 msgstr ""
 
-#: DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
 msgid "illustration"
 msgstr ""
 
@@ -5335,12 +5447,20 @@ msgstr ""
 msgid "instrument technician"
 msgstr ""
 
-#: DB:link_attribute_type/name:580
+#: DB:link_attribute_type/name:580 DB:link_type/name:1239
 msgid "instrumental"
 msgstr ""
 
 #: DB:link_type/name:105
 msgid "instrumental supporting musician"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1239
+msgid "instrumental version of"
+msgstr ""
+
+#: DB:link_type/link_phrase:1239
+msgid "instrumental versions"
 msgstr ""
 
 #: DB:link_type/link_phrase:752
@@ -5430,18 +5550,16 @@ msgstr ""
 msgid "is a tribute to"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:278
-msgid ""
-"is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
-"{karaoke} recording of"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:309
 msgid "is an edit of"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1240
+msgid "is an excerpt from"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:926
@@ -5499,6 +5617,12 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:109
 msgid "is the {step}parent of"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:278
+msgid ""
+"is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
+"a} {partial} {instrumental} {cover} {karaoke} recording of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:722
@@ -6561,7 +6685,8 @@ msgstr ""
 msgid "provided {additional} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
+#: DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr ""
 
@@ -6577,12 +6702,13 @@ msgstr ""
 msgid "provided {additional} design/illustration on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:125
-#: DB:link_type/long_link_phrase:27
+#: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:1234
+#: DB:link_type/long_link_phrase:125 DB:link_type/long_link_phrase:27
 msgid "provided {additional} graphic design on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:927 DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
+#: DB:link_type/long_link_phrase:1173
 msgid "provided {additional} illustration on"
 msgstr ""
 
@@ -6594,7 +6720,7 @@ msgstr ""
 msgid "provided {additional} {assistant} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 
@@ -7029,6 +7155,15 @@ msgstr ""
 
 #: DB:link_type/name:133 DB:link_type/name:29
 msgid "sound"
+msgstr ""
+
+#: DB:link_type/name:1236 DB:link_type/name:1235
+#: DB:link_type/reverse_link_phrase:1236 DB:link_type/reverse_link_phrase:1235
+msgid "sound effects"
+msgstr ""
+
+#: DB:link_type/link_phrase:1236 DB:link_type/link_phrase:1235
+msgid "sound effects for"
 msgstr ""
 
 #: DB:link_type/name:870 DB:link_type/name:291 DB:link_type/name:290
@@ -7590,6 +7725,18 @@ msgstr ""
 msgid "youtube music"
 msgstr ""
 
+#: DB:link_type/link_phrase:278
+msgid ""
+"{acappella:a cappella} {live} {medley:medley including a} {partial} "
+"{instrumental} {cover} {karaoke} recording of"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:278
+msgid ""
+"{acappella:a cappella} {live} {medley:medleys including} {partial} "
+"{instrumental} {cover} {karaoke} recordings"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
 msgstr ""
@@ -7848,7 +7995,8 @@ msgstr ""
 msgid "{additional} art direction"
 msgstr ""
 
-#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
+#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr ""
@@ -7885,13 +8033,15 @@ msgstr ""
 msgid "{additional} engineering location for"
 msgstr ""
 
-#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:125
-#: DB:link_type/link_phrase:27 DB:link_type/reverse_link_phrase:1172
+#: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:1234
+#: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
+#: DB:link_type/reverse_link_phrase:1172 DB:link_type/reverse_link_phrase:1234
 #: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
 msgid "{additional} graphic design"
 msgstr ""
 
-#: DB:link_type/link_phrase:927 DB:link_type/link_phrase:1173
+#: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
+#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
 #: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
 msgid "{additional} illustration"
 msgstr ""
@@ -8017,7 +8167,8 @@ msgstr ""
 msgid "{additional} {assistant} conductor"
 msgstr ""
 
-#: DB:link_type/link_phrase:928 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
+#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
 msgid "{additional} {assistant} design"
 msgstr ""
 
@@ -8324,6 +8475,10 @@ msgstr ""
 msgid "{entity1} is dedicated to {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1237
+msgid "{entity1} is headquartered in {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:939
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
@@ -8570,18 +8725,6 @@ msgstr ""
 
 #: DB:link_type/link_phrase:986 DB:link_type/link_phrase:987
 msgid "{instrument:%|instruments} technician for"
-msgstr ""
-
-#: DB:link_type/link_phrase:278
-msgid ""
-"{live} {medley:medley including a} {partial} {instrumental} {cover} "
-"{karaoke} recording of"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:278
-msgid ""
-"{live} {medley:medleys including} {partial} {instrumental} {cover} {karaoke} "
-"recordings"
 msgstr ""
 
 #: DB:link_type/link_phrase:109

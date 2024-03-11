@@ -13,21 +13,24 @@
 # Александр Жибарь <email address hidden>, 2016
 # Дмитрий <email address hidden>, 2014
 # Лёва, 2015
+# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2012-05-24 18:54+0000\n"
-"Last-Translator: Ilya <wileyfoxyx@gmail.com>, 2023\n"
-"Language-Team: Russian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/ru/)\n"
+"PO-Revision-Date: 2024-03-09 12:28+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
+"Language-Team: Russian <https://translations.metabrainz.org/projects/"
+"musicbrainz/statistics/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.4\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -155,14 +158,11 @@ msgstr ""
 "страницах изданий, что сделало их гораздо более заметными."
 
 #: DB:statistics.statistic_event/description:2012-09-01
-#, fuzzy
-#| msgid ""
-#| "After a successful Summer of Code, Ian McEwen joins the MusicBrainz team"
 msgid ""
 "After a successful Summer of Code, Ian McEwen joins the MusicBrainz team."
 msgstr ""
-"После успешного проведения Summer of Code Иэн Макьюэн присоединяется к "
-"команде MusicBrainz"
+"После успешного проведения Summer of Code, Иэн Макьюэн присоединяется к "
+"команде MusicBrainz."
 
 #: DB:statistics.statistic_event/description:2016-11-08
 msgid ""
@@ -260,7 +260,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2003-06-22
 msgid "Artist subscriptions."
-msgstr "Подписчики артиста"
+msgstr "Подписки на исполнителей."
 
 #: DB:statistics.statistic_event/description:2017-04-11
 msgid ""
@@ -932,16 +932,12 @@ msgid ""
 msgstr ""
 
 #: DB:statistics.statistic_event/description:2012-04-30
-#, fuzzy
-#| msgid "The Cover Art Archive is officially released"
 msgid "The Cover Art Archive becomes initially available."
-msgstr "Официально запущен Архив обложек"
+msgstr "Официально запущен Cover Art Archive."
 
 #: DB:statistics.statistic_event/description:2012-10-10
-#, fuzzy
-#| msgid "The Cover Art Archive is officially released"
 msgid "The Cover Art Archive is officially released."
-msgstr "Официально запущен Архив обложек"
+msgstr "Официально запущен Cover Art Archive."
 
 #: DB:statistics.statistic_event/title:2014-05-19
 msgid "The CritiqueBrainz project goes live"
@@ -2160,10 +2156,8 @@ msgid "Series types"
 msgstr "Серия"
 
 #: ../root/statistics/stats.js:43
-#, fuzzy
-#| msgid "Languages"
 msgid "Work languages"
-msgstr "Языки"
+msgstr "Языки произведения"
 
 #: ../root/statistics/stats.js:44
 #, fuzzy
@@ -2327,7 +2321,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:259
 msgid "Release group collections"
-msgstr ""
+msgstr "Коллекции групп изданий"
 
 #: ../root/statistics/stats.js:264
 msgid "Series collections"
@@ -2598,10 +2592,8 @@ msgid "Releases with a medium with no format set that have cover art"
 msgstr ""
 
 #: ../root/statistics/stats.js:702
-#, fuzzy
-#| msgid "Release groups with cover art:"
 msgid "Releases with cover art"
-msgstr "Релиз-группы с обложкой:"
+msgstr "Релизы с обложкой"
 
 #: ../root/statistics/stats.js:707
 #, fuzzy

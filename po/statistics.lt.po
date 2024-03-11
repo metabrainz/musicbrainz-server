@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-31 12:29+0000\n"
+"PO-Revision-Date: 2024-03-08 11:07+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/lt/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
 " n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.4\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -387,7 +387,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
-msgstr ""
+msgstr "Redaguoti paiešką"
 
 #: DB:statistics.statistic_event/description:2007-12-07
 msgid ""
@@ -1195,11 +1195,9 @@ msgid "Countries"
 msgstr ""
 
 #: ../root/statistics/layout.tt:4
-#, fuzzy
-#| msgid "Cover Art"
 msgctxt "plural"
 msgid "Cover art"
-msgstr "Viršelis"
+msgstr "Viršelio apipavidalinimai"
 
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
 #: ../root/statistics/StatisticsLayout.js:94
@@ -1275,7 +1273,7 @@ msgstr ""
 #: ../root/statistics/Relationships.js:124 ../root/statistics/stats.js:33
 #: ../root/statistics/stats.js:49
 msgid "Relationships"
-msgstr ""
+msgstr "Santykiai"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Reset:"
@@ -1287,7 +1285,7 @@ msgstr ""
 
 #: ../root/statistics/timeline.tt:25
 msgid "Timeline graph"
-msgstr ""
+msgstr "Laiko skalės diagrama"
 
 #: ../root/statistics/timeline.tt:16
 msgid "Zoom:"
@@ -1315,7 +1313,7 @@ msgstr "Šalis"
 #: ../root/statistics/Index.js:231 ../root/statistics/Index.js:235
 #: ../root/statistics/Index.js:238 ../root/statistics/stats.js:64
 msgid "Artists"
-msgstr ""
+msgstr "Atlikėjai"
 
 #: ../root/statistics/Countries.js:63 ../root/statistics/CoverArt.js:108
 #: ../root/statistics/Formats.js:56 ../root/statistics/Index.js:100
@@ -1402,7 +1400,7 @@ msgstr ""
 #: ../root/statistics/Index.js:616 ../root/statistics/Index.js:624
 #: ../root/statistics/Index.js:658 ../root/statistics/stats.js:754
 msgid "Release groups"
-msgstr ""
+msgstr "Leidinių grupės"
 
 #: ../root/statistics/CoverArt.js:239
 msgid "Release groups with cover art:"
@@ -1731,10 +1729,8 @@ msgid "No front cover art:"
 msgstr ""
 
 #: ../root/statistics/Index.js:470
-#, fuzzy
-#| msgid "Labels/data quality"
 msgid "Data quality"
-msgstr "Leidyklos / duomenų kokybė"
+msgstr "Duomenų kokybė"
 
 #: ../root/statistics/Index.js:480 ../root/statistics/stats.js:565
 #, fuzzy
@@ -1899,11 +1895,11 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1087
 msgid "Public"
-msgstr ""
+msgstr "Vieša"
 
 #: ../root/statistics/Index.js:1093
 msgid "Private"
-msgstr ""
+msgstr "Privati"
 
 #: ../root/statistics/Index.js:1100
 msgid "With collaborators"

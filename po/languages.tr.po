@@ -5,18 +5,20 @@
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Selim Seven <email address hidden>, 2018
 # zeugma <email address hidden>, 2012
+# brtc <boratici@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: Selim Seven <sevense29@gmail.com>, 2018\n"
-"Language-Team: Turkish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/tr/)\n"
+"PO-Revision-Date: 2024-02-25 19:28+0000\n"
+"Last-Translator: brtc <boratici@gmail.com>\n"
+"Language-Team: Turkish <https://translations.metabrainz.org/projects/"
+"musicbrainz/languages/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Weblate 5.4\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -41,7 +43,7 @@ msgstr ""
 #. frequency:1 iso_code_3:ady 
 #: DB:language/name:6
 msgid "Adyghe"
-msgstr ""
+msgstr "Adigece"
 
 #. frequency:1 iso_code_3:aar 
 #: DB:language/name:1
@@ -116,7 +118,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:17
 msgid "Apache languages"
-msgstr ""
+msgstr "Apaçi dilleri"
 
 #. frequency:2 iso_code_3:ara 
 #: DB:language/name:18
