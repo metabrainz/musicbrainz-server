@@ -36,13 +36,15 @@
 # Иван Стасюк <email address hidden>, 2016
 # й й <email address hidden>, 2016
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
+# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-05 19:46+0000\n"
-"PO-Revision-Date: 2023-11-11 13:27+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@inbox.ru>\n"
+"PO-Revision-Date: 2024-03-09 12:28+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -50,9 +52,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.1\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.4\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -411,7 +413,7 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:144
 msgid "An error occurred: "
-msgstr "Произошла следующая ошибка:"
+msgstr "Возникла ошибка: "
 
 #: ../root/release/edit/information.tt:251
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
@@ -806,11 +808,9 @@ msgstr "Страна"
 
 #: ../root/release_group/set_cover_art.tt:67
 #: ../root/edit/components/EditArtwork.js:36 ../root/user/UserProfile.js:51
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "singular"
 msgid "Cover art"
-msgstr "Обложка:"
+msgstr "Обложка"
 
 #: ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
@@ -6821,6 +6821,7 @@ msgid "URL; [URL]; [URL|label]; [entity-type:MBID|label]"
 msgstr ""
 
 #: ../root/annotation/EditAnnotation.js:135
+#, fuzzy
 msgid ""
 "Because square brackets [] are used to create hyperlinks, you have to use "
 "the encoded html equivalents (<code>&amp;#91;</code> for [) and (<code>&amp;"
@@ -6829,12 +6830,13 @@ msgid ""
 "write <code>&amp;#91;unknown&amp;#93;</code> then it will appear the way you "
 "intended it to show."
 msgstr ""
-"Т.к. квадратные скобки [] используются для создания ссылок, вам следует "
-"использовать html аналоги (<code>&amp;#91;</code> for [) и (<code>&amp;#93;</"
-"code> for ]), в случе, если вы не хотите превращать их в ссылки. \n"
-"Например: если вы использовать [unknown] в аннотации, вам следует написать "
-"<code>&amp;#91;unknown&amp;#93;</code> чтобы это отображалось так, как "
-"должно."
+"Так как квадратные скобки [] используются для создания гиперссылок, вам "
+"следует использовать html-аналоги (<code>&amp;#91;</code> для [) и "
+"(<code>&amp;#93;</code> для ]), в случае, если вы не хотите превращать их в "
+"ссылки.\n"
+"Например, если вы хотите использовать [unknown] в аннотации, вам следует "
+"написать <code>&amp;#91;unknown&amp;#93;</code>, чтобы это отображалось так, "
+"как должно."
 
 #: ../root/area/AreaArtists.js:32 ../root/area/AreaArtists.js:33
 #: ../root/components/EntityTabs.js:23
@@ -7964,7 +7966,7 @@ msgstr "ID диска"
 #| msgid "Cover art:"
 msgctxt "plural"
 msgid "Cover art"
-msgstr "Обложка:"
+msgstr "Обложка"
 
 #: ../root/components/EntityTabs.js:116
 #, fuzzy
@@ -16751,10 +16753,8 @@ msgid "Release collections"
 msgstr "Релиз Коллекций"
 
 #: ../root/user/UserCollections.js:50
-#, fuzzy
-#| msgid "Release Collections"
 msgid "Release group collections"
-msgstr "Релиз Коллекций"
+msgstr "Коллекции групп изданий"
 
 #: ../root/user/UserCollections.js:51
 #, fuzzy
@@ -16975,7 +16975,7 @@ msgstr "подписаться"
 
 #: ../root/user/UserProfile.js:418
 msgid "Languages"
-msgstr ""
+msgstr "Языки"
 
 #: ../root/user/UserProfile.js:493 ../root/user/UserProfile.js:593
 #: ../root/user/UserProfile.js:603 ../root/user/UserProfile.js:613
