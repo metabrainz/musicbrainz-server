@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-05 19:46+0000\n"
-"PO-Revision-Date: 2024-03-11 08:00+0000\n"
+"PO-Revision-Date: 2024-03-11 11:05+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -11270,27 +11270,31 @@ msgid ""
 "it is an ID for something else than an entity (for example, a "
 "{rel_type_table|relationship type})."
 msgstr ""
+"Jokie MusicBrainz {entity_doc|subjektai} neatitinka {mbid_doc|MBID} {mbid}. "
+"Arba jis neteisingas, arba jis buvo skirtas subjektui, kuris vėliau buvo "
+"pašalintas, arba tai yra ne subjekto ID (pavyzdžiui, {rel_type_table|"
+"santykio tipas})."
 
 #: ../root/mbid/NotFound.js:39
 msgid "{mbid} is not a valid {mbid_doc|MBID}."
-msgstr ""
+msgstr "{mbid} nėra tinkamas {mbid_doc|MBID}."
 
 #: ../root/mbid/NotFound.js:47
 msgid "No {mbid_doc|MBID} selected."
-msgstr ""
+msgstr "{mbid_doc|MBID} nepasirinktas."
 
 #: ../root/oauth2/OAuth2Authorize.js:28 ../root/oauth2/OAuth2Authorize.js:29
 #: ../root/oauth2/OAuth2Oob.js:21
 msgid "OAuth authorization"
-msgstr ""
+msgstr "OAuth leidimas"
 
 #: ../root/oauth2/OAuth2Authorize.js:33
 msgid "{app} is requesting permission to:"
-msgstr ""
+msgstr "{app} prašo leidimo:"
 
 #: ../root/oauth2/OAuth2Authorize.js:44
 msgid "Perform the above operations when I'm not using the application"
-msgstr ""
+msgstr "Atlikti pirmiau nurodytas veiksmus, kai nenaudoju programos"
 
 #: ../root/oauth2/OAuth2Authorize.js:59
 msgid "No thanks"
@@ -11302,7 +11306,7 @@ msgstr "Leisti prieigą"
 
 #: ../root/oauth2/OAuth2Error.js:21
 msgid "OAuth authorization error"
-msgstr ""
+msgstr "OAuth leidimo klaida"
 
 #: ../root/oauth2/OAuth2Error.js:22
 msgid "Error: {error}"
@@ -11322,13 +11326,15 @@ msgstr "Jei šis puslapis nenukreipia automatiškai, toliau spausk Pateikti."
 
 #: ../root/oauth2/OAuth2Oob.js:22
 msgid "Success!"
-msgstr ""
+msgstr "Sėkmė."
 
 #: ../root/oauth2/OAuth2Oob.js:25
 msgid ""
 "You have granted access to {app}. Next, return to {app} and copy this token "
 "to complete the authorization process:"
 msgstr ""
+"Tu suteikei prieigą prie {app}. Toliau grįžk į {app} ir nukopijuok šį "
+"prieigos raktą, kad užbaigtum leidimo procesą:"
 
 #: ../root/otherlookup/OtherLookupForm.js:82
 msgid "Artist IPI:"
@@ -11357,7 +11363,7 @@ msgstr "MBID"
 #: ../root/otherlookup/OtherLookupIndex.js:22
 #: ../root/otherlookup/OtherLookupIndex.js:24 ../root/search/SearchIndex.js:34
 msgid "Other lookups"
-msgstr ""
+msgstr "Kiti ieškojimai"
 
 #: ../root/otherlookup/OtherLookupReleaseResults.js:22
 #: ../root/otherlookup/OtherLookupReleaseResults.js:23
@@ -11368,11 +11374,11 @@ msgstr "Paieškos rezultatai"
 
 #: ../root/place/PlaceEvents.js:61
 msgid "This place is not currently associated with any events."
-msgstr ""
+msgstr "Ši vieta šiuo metu nėra susijusi su jokiais renginiais."
 
 #: ../root/place/PlaceMap.js:47
 msgid "A map cannot be shown because this place has no coordinates."
-msgstr ""
+msgstr "Žemėlapio parodyti negalima, nes ši vieta neturi koordinačių."
 
 #: ../root/place/PlaceMerge.js:28 ../root/place/PlaceMerge.js:30
 msgid "Merge places"
