@@ -20,7 +20,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-02 02:28+0000\n"
+"PO-Revision-Date: 2024-03-11 04:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -29,8 +29,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: DB:link_attribute_type/description:1355
@@ -5069,23 +5069,19 @@ msgstr "canali YouTube"
 
 #: DB:link_type/name:1238
 msgid "a cappella"
-msgstr ""
+msgstr "a cappella"
 
 #: DB:link_type/reverse_link_phrase:1238
-#, fuzzy
-#| msgid "karaoke version of"
 msgid "a cappella version of"
-msgstr "versione karaoke di"
+msgstr "versione a cappella di"
 
 #: DB:link_type/link_phrase:1238
-#, fuzzy
-#| msgid "karaoke versions"
 msgid "a cappella versions"
-msgstr "versioni karaoke"
+msgstr "versioni a cappella"
 
 #: DB:link_attribute_type/name:1406
 msgid "acappella"
-msgstr ""
+msgstr "a cappella"
 
 #: DB:link_attribute_type/name:1345
 msgid "accompanying"
@@ -6258,10 +6254,8 @@ msgid "has a blog at"
 msgstr "ha un blog su"
 
 #: DB:link_type/long_link_phrase:1238
-#, fuzzy
-#| msgid "has a karaoke version"
 msgid "has a cappella version"
-msgstr "ha una versione karaoke"
+msgstr "ha la versione a cappella"
 
 #: DB:link_type/long_link_phrase:212
 msgid "has a catalog of records at"
@@ -6290,7 +6284,7 @@ msgstr "ha una pagina di fan su"
 
 #: DB:link_type/long_link_phrase:226
 msgid "has a karaoke version"
-msgstr "ha una versione karaoke"
+msgstr "ha la versione karaoke"
 
 #: DB:link_type/long_link_phrase:213
 msgid "has a logo at"
@@ -6439,10 +6433,8 @@ msgid "has influences of"
 msgstr "ha influenze da"
 
 #: DB:link_type/long_link_phrase:1239
-#, fuzzy
-#| msgid "instrument origin"
 msgid "has instrumental version"
-msgstr "origine dello strumento"
+msgstr "ha la versione strumentale"
 
 #: DB:link_type/long_link_phrase:984 DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
@@ -6666,16 +6658,12 @@ msgid "instrumental supporting musician"
 msgstr "musicista di supporto strumentale"
 
 #: DB:link_type/reverse_link_phrase:1239
-#, fuzzy
-#| msgid "instrument origin"
 msgid "instrumental version of"
-msgstr "origine dello strumento"
+msgstr "versione strumentale di"
 
 #: DB:link_type/link_phrase:1239
-#, fuzzy
-#| msgid "instrument origin"
 msgid "instrumental versions"
-msgstr "origine dello strumento"
+msgstr "versioni strumentali"
 
 #: DB:link_type/link_phrase:752
 msgid "instruments"

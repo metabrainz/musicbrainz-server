@@ -16,17 +16,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-03 15:48+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-03-11 04:28+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.4\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -4195,12 +4196,9 @@ msgid "ID for the Latvian rights society AKKA/LAA"
 msgstr "ID per la società di diritti lettone AKKA/LAA"
 
 #: DB:work_attribute_type/description:207
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Latvian rights society AKKA/LAA"
 msgctxt "work_attribute_type"
 msgid "ID for the Lithuanian rights society LATGA"
-msgstr "ID per la società di diritti lettone AKKA/LAA"
+msgstr "ID per la società di diritti lituana LATGA"
 
 #: DB:work_attribute_type/description:49
 msgctxt "work_attribute_type"
@@ -5042,12 +5040,9 @@ msgid "Kōmal riṣabh asāvēri"
 msgstr "Kōmal riṣabh asāvēri"
 
 #: DB:work_attribute_type/name:207
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "APA ID"
 msgctxt "work_attribute_type"
 msgid "LATGA ID"
-msgstr "ID APA"
+msgstr "ID LATGA"
 
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"

@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-05 19:46+0000\n"
-"PO-Revision-Date: 2024-03-02 02:28+0000\n"
+"PO-Revision-Date: 2024-03-11 04:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -44,8 +44,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -5556,10 +5556,8 @@ msgid "Stream at Tidal"
 msgstr "Streaming su Tidal"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/VK.pm:14
-#, fuzzy
-#| msgid "Stream at Tidal"
 msgid "Stream at VK"
-msgstr "Streaming su Tidal"
+msgstr "Streaming su VK"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Weibo.pm:9
 msgid "Weibo"
@@ -5570,10 +5568,8 @@ msgid "Wikisource"
 msgstr "Wikisource"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Yandex.pm:10
-#, fuzzy
-#| msgid "Stream at Tidal"
 msgid "Stream at Yandex"
-msgstr "Streaming su Tidal"
+msgstr "Streaming su Yandex"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/YouTubeMusic.pm:10
 msgid "Stream at YouTube Music"
@@ -11940,6 +11936,9 @@ msgid ""
 "Keep in mind pseudo-releases generally shouldn’t have cover art. See {doc|"
 "the guidelines for pseudo-releases} for more info."
 msgstr ""
+"Tieni presente che in genere le pseudo-pubblicazioni non dovrebbero avere "
+"copertine. Consulta le {doc|linee guida sulle pseudo-pubblicazioni} per "
+"maggiori informazioni."
 
 #: ../root/release/CoverArt.js:163
 msgctxt "plural, interactive"
@@ -12627,8 +12626,6 @@ msgstr "alias:"
 #: ../root/report/components/ArtistList.js:59
 #: ../root/report/components/ReleaseGroupList.js:63
 #: ../root/report/components/WorkList.js:63
-#, fuzzy
-#| msgid "Unknown"
 msgctxt "type"
 msgid "Unknown"
 msgstr "Sconosciuto"
@@ -14811,11 +14808,9 @@ msgid "Many relationships"
 msgstr "Molte relazioni"
 
 #: ../root/static/scripts/common/components/Cardinality.js:26
-#, fuzzy
-#| msgid "Unknown"
 msgctxt "cardinality"
 msgid "Unknown"
-msgstr "Sconosciuto"
+msgstr "Sconosciuta"
 
 #: ../root/static/scripts/common/components/CollapsibleList.js:87
 msgid "show {n} more"
