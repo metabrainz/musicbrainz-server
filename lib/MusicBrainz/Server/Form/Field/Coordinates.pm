@@ -55,7 +55,7 @@ sub validate {
     }
 
     $self->value(undef);
-    return $self->add_error(l('These coordinates could not be parsed'));
+    return $self->add_error(l('These coordinates could not be parsed.'));
 }
 
 sub deflate_coordinates {

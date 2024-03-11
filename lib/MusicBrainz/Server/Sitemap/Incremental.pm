@@ -7,14 +7,17 @@ use feature 'state';
 
 use Digest::SHA qw( sha1_hex );
 use JSON qw( decode_json );
-use List::AllUtils qw( partition_by );
+use List::AllUtils qw( min partition_by );
 use Moose;
 use Sql;
 
 use MusicBrainz::Server::Constants qw( entities_with );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Log qw( log_info );
-use MusicBrainz::Server::Sitemap::Constants qw( %SITEMAP_SUFFIX_INFO );
+use MusicBrainz::Server::Sitemap::Constants qw(
+    $MAX_SITEMAP_SIZE
+    %SITEMAP_SUFFIX_INFO
+);
 use MusicBrainz::Server::Sitemap::Builder;
 
 extends 'MusicBrainz::Server::Sitemap::Builder';
@@ -217,52 +220,126 @@ sub post_replication_sequence {
     my ($self, $c) = @_;
 
     for my $entity_type (@{ $self->dumped_entity_types }) {
-        # The sitemaps.control columns will be NULL on first run, in which case
-        # we just select all updates for writing.
-        my $all_updates = $c->sql->select_list_of_hashes(
-            "SELECT lm.*
-               FROM sitemaps.${entity_type}_lastmod lm
-              WHERE lm.replication_sequence > COALESCE(
-                (SELECT overall_sitemaps_replication_sequence FROM sitemaps.control), 0)",
+        # In most cases, there should be no need to create batches for the
+        # incremental sitemaps. An exception may occur in cases where the
+        # sitemaps have not run for some time and many changes have
+        # accumulated (MBS-12239).
+        #
+        # The batching code is mostly copied from `build_one_entity` in
+        # `Sitemap::Overall`. However, the logic to always put the last batch
+        # in its own sitemap is not performed here: we're not concerned about
+        # which sitemap a URL starts in for an incremental dump, because the
+        # set of URLs in an incremental dump is inherently unstable (they
+        # change hourly).
+        #
+        # As mentioned previously, it's very unlikely there will be more than
+        # one batch for an incremental dump, anyway, due to the code that
+        # attempts to merge adjacent ones.
+
+        # Find the counts in each potential batch of $MAX_SITEMAP_SIZE.
+        my $raw_batches = $c->sql->select_list_of_hashes(
+            <<~"SQL",
+                SELECT batch, count(id) FROM (
+                    SELECT lm.id, ceil(lm.id / ?::float) AS batch
+                    FROM sitemaps.${entity_type}_lastmod lm
+                    WHERE lm.replication_sequence > COALESCE(
+                        (SELECT overall_sitemaps_replication_sequence
+                        FROM sitemaps.control),
+                        0
+                    )
+                ) q
+                GROUP BY batch
+                ORDER BY batch ASC
+                SQL
+            $MAX_SITEMAP_SIZE,
         );
 
-        my %updates_by_suffix_key = partition_by {
-            $_->{sitemap_suffix_key}
-        } @{$all_updates};
-
-        for my $suffix_key (sort keys %updates_by_suffix_key) {
-            my $updates = $updates_by_suffix_key{$suffix_key};
-
-            my (@base_urls, @paginated_urls);
-            my $urls = {base => \@base_urls, paginated => \@paginated_urls};
-            my $suffix_info = $SITEMAP_SUFFIX_INFO{$entity_type}{$suffix_key};
-
-            for my $update (@{$updates}) {
-                my $opts = $self->create_url_opts(
-                    $c,
-                    $entity_type,
-                    $update->{url},
-                    $suffix_info,
-                    {last_modified => $update->{last_modified}},
-                );
-
-                if ($update->{paginated}) {
-                    push @paginated_urls, $opts;
-                } else {
-                    push @base_urls, $opts;
-                }
-            }
-
-            my %opts = %{$suffix_info};
-            my $filename_suffix = $opts{filename_suffix} // $opts{suffix};
-
-            if ($filename_suffix) {
-                $opts{filename_suffix} = "$filename_suffix-incremental";
+        my $batch = {count => 0, batches => []};
+        my @batches = ($batch);
+        for my $raw_batch (@$raw_batches) {
+            # Add this potential batch to the previous one if the sum will
+            # come out less than $MAX_SITEMAP_SIZE. Otherwise create a new
+            # batch and push the previous one onto the list.
+            if ($batch->{count} + $raw_batch->{count} <= $MAX_SITEMAP_SIZE) {
+                $batch->{count} = $batch->{count} + $raw_batch->{count};
+                push @{$batch->{batches}}, $raw_batch->{batch};
             } else {
-                $opts{filename_suffix} = 'incremental';
+                push @batches, $batch;
+                $batch = {
+                    count => $raw_batch->{count},
+                    batches => [$raw_batch->{batch}],
+                };
             }
+        }
 
-            $self->build_one_suffix($entity_type, 1, $urls, %opts);
+        for my $batch_info (@batches) {
+            my $minimum_batch_number = min(@{ $batch_info->{batches} });
+
+            # The sitemaps.control columns will be NULL on first run, in
+            # which case we just select all updates for writing.
+            my $updates = $c->sql->select_list_of_hashes(
+                <<~"SQL",
+                    SELECT lm.*
+                    FROM sitemaps.${entity_type}_lastmod lm
+                    WHERE ceil(lm.id / ?::float) = any(?)
+                    AND lm.replication_sequence > COALESCE(
+                        (SELECT overall_sitemaps_replication_sequence
+                        FROM sitemaps.control),
+                        0
+                    )
+                    SQL
+                $MAX_SITEMAP_SIZE,
+                $batch_info->{batches},
+            );
+
+            my %updates_by_suffix_key = partition_by {
+                $_->{sitemap_suffix_key}
+            } @{$updates};
+
+            for my $suffix_key (sort keys %updates_by_suffix_key) {
+                my $updates = $updates_by_suffix_key{$suffix_key};
+
+                my (@base_urls, @paginated_urls);
+                my $urls = {
+                    base => \@base_urls,
+                    paginated => \@paginated_urls,
+                };
+                my $suffix_info =
+                    $SITEMAP_SUFFIX_INFO{$entity_type}{$suffix_key};
+
+                for my $update (@{$updates}) {
+                    my $opts = $self->create_url_opts(
+                        $c,
+                        $entity_type,
+                        $update->{url},
+                        $suffix_info,
+                        {last_modified => $update->{last_modified}},
+                    );
+
+                    if ($update->{paginated}) {
+                        push @paginated_urls, $opts;
+                    } else {
+                        push @base_urls, $opts;
+                    }
+                }
+
+                my %opts = %{$suffix_info};
+                my $filename_suffix =
+                    $opts{filename_suffix} // $opts{suffix};
+
+                if ($filename_suffix) {
+                    $opts{filename_suffix} = "$filename_suffix-incremental";
+                } else {
+                    $opts{filename_suffix} = 'incremental';
+                }
+
+                $self->build_one_suffix(
+                    $entity_type,
+                    $minimum_batch_number,
+                    $urls,
+                    %opts,
+                );
+            }
         }
     }
 }

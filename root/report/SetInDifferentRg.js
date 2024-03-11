@@ -33,7 +33,7 @@ const SetInDifferentRg = ({
     entityType="release_group"
     filtered={filtered}
     generated={generated}
-    title={l('Mismatched release groups')}
+    title={l('Release groups that might need to be merged')}
     totalEntries={pager.total_entries}
   >
     <ReleaseGroupList items={items} pager={pager} />

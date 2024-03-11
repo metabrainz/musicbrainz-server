@@ -2223,13 +2223,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-styles@npm:~1.0.0":
-  version: 1.0.0
-  resolution: "ansi-styles@npm:1.0.0"
-  checksum: 940e0422e80025975f7d55ad177da151936094df013f7aa56b062656b81457423cf7f9dea26fb3fc8dc8c1e943eb4c6954736196892a3e825b877bd8acbfe939
-  languageName: node
-  linkType: hard
-
 "ansidiff@npm:^1.0.0":
   version: 1.0.0
   resolution: "ansidiff@npm:1.0.0"
@@ -2687,17 +2680,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:~0.4.0":
-  version: 0.4.0
-  resolution: "chalk@npm:0.4.0"
-  dependencies:
-    ansi-styles: "npm:~1.0.0"
-    has-color: "npm:~0.1.0"
-    strip-ansi: "npm:~0.1.0"
-  checksum: c6ad1d0c341d8e133bf518ca953a80aac5e46f006dc293878cd919e7bed524f6b14893d9b3081737ed0ff4a85d1d9f9a395aad8286a5c0a7dcf3bfd6df5e7aca
-  languageName: node
-  linkType: hard
-
 "charm@npm:0.1.x":
   version: 0.1.2
   resolution: "charm@npm:0.1.2"
@@ -2861,6 +2843,13 @@ __metadata:
   version: 4.1.1
   resolution: "commander@npm:4.1.1"
   checksum: 84a76c08fe6cc08c9c93f62ac573d2907d8e79138999312c92d4155bc2325d487d64d13f669b2000c9f8caf70493c1be2dac74fec3c51d5a04f8bc3ae1830bab
+  languageName: node
+  linkType: hard
+
+"commander@npm:^6.0.0":
+  version: 6.2.1
+  resolution: "commander@npm:6.2.1"
+  checksum: 85748abd9d18c8bc88febed58b98f66b7c591d9b5017cad459565761d7b29ca13b7783ea2ee5ce84bf235897333706c4ce29adf1ce15c8252780e7000e2ce9ea
   languageName: node
   linkType: hard
 
@@ -3153,7 +3142,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"encoding@npm:^0.1.11, encoding@npm:^0.1.12, encoding@npm:^0.1.13":
+"encoding@npm:^0.1.12, encoding@npm:^0.1.13":
   version: 0.1.13
   resolution: "encoding@npm:0.1.13"
   dependencies:
@@ -3937,12 +3926,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gettext-parser@npm:1.1.0":
-  version: 1.1.0
-  resolution: "gettext-parser@npm:1.1.0"
+"gettext-parser@npm:2.0.0":
+  version: 2.0.0
+  resolution: "gettext-parser@npm:2.0.0"
   dependencies:
-    encoding: "npm:^0.1.11"
-  checksum: e197e467119d872f9018e3c5fbe74d8efd6d2a52c3c6b404ad5ed296d7999774dfe8916c8590809f6981a6a88e2b98a41e9e6bdabb4a19d4449eda0c93c2b0b5
+    encoding: "npm:^0.1.12"
+    safe-buffer: "npm:^5.1.2"
+  checksum: 93dcdaf1b4b38bedd9fe9a2944b4ce71196c2b0e263ad4813613c44f76f4bc5e50a1d03b73f43caa83fadf71988a05e753b875bff664d8562f7cc1e16545a1be
   languageName: node
   linkType: hard
 
@@ -3954,6 +3944,25 @@ __metadata:
     readable-stream: "npm:^3.0.6"
     safe-buffer: "npm:^5.1.2"
   checksum: 39aab3247d3e6d24f1e3889fbea8d09edc8253f014cdbd25fc746d3f315a3788c85b0068e40a85681c882293ff85083094cbf8bda828f666faf86a6061535f1e
+  languageName: node
+  linkType: hard
+
+"gettext-parser@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "gettext-parser@npm:1.4.0"
+  dependencies:
+    encoding: "npm:^0.1.12"
+    safe-buffer: "npm:^5.1.1"
+  checksum: c498f38346f5d8dce4731ee4577df4d7e349c808820542be8ccf706a6dae0c8e2cd18505d6cc574e108695963066d3d67d324b88630b3149f96b46078e6b9980
+  languageName: node
+  linkType: hard
+
+"gettext-to-messageformat@npm:0.3.1":
+  version: 0.3.1
+  resolution: "gettext-to-messageformat@npm:0.3.1"
+  dependencies:
+    gettext-parser: "npm:^1.4.0"
+  checksum: 8a31303d0a194c42459701d855a4f7ee8c85cfd99fe0155570244ec6f448d5abb1f19aee106ebda1767c20a91712afcd4d025955314cf512911efdd4d86b6fb9
   languageName: node
   linkType: hard
 
@@ -4098,13 +4107,6 @@ __metadata:
   version: 1.0.2
   resolution: "has-bigints@npm:1.0.2"
   checksum: 724eb1485bfa3cdff6f18d95130aa190561f00b3fcf9f19dc640baf8176b5917c143b81ec2123f8cddb6c05164a198c94b13e1377c497705ccc8e1a80306e83b
-  languageName: node
-  linkType: hard
-
-"has-color@npm:~0.1.0":
-  version: 0.1.7
-  resolution: "has-color@npm:0.1.7"
-  checksum: c764308047c43f48fb421fc2a041b883547f3a3c8204cdfc0e36595da7bdf8ab317251f1511bdd0597e4be2fcf0fa29db5c52df81001e3b0b8d864ef1dbecbe3
   languageName: node
   linkType: hard
 
@@ -5637,7 +5639,7 @@ __metadata:
     path-browserify: "npm:1.0.1"
     pg: "npm:8.3.3"
     pg-cursor: "npm:2.3.3"
-    po2json: "npm:0.4.1"
+    po2json: "https://github.com/mikeedwards/po2json.git#51e2310485bbe35e9e57f2eee238185459ca0eab"
     process: "npm:0.11.10"
     punycode: "npm:2.1.1"
     querystring: "npm:0.2.0"
@@ -5770,16 +5772,6 @@ __metadata:
   bin:
     nodemon: bin/nodemon.js
   checksum: ac490585e976028bab441dc5149203b2a220b91d5e40f0698e3625a2da40c28c306b6f7b4e95e15b60ad1428231337161636de2eca665eb4a7ea2f73b4c3a096
-  languageName: node
-  linkType: hard
-
-"nomnom@npm:1.8.1":
-  version: 1.8.1
-  resolution: "nomnom@npm:1.8.1"
-  dependencies:
-    chalk: "npm:~0.4.0"
-    underscore: "npm:~1.6.0"
-  checksum: d086d5da3043f85e68816fb017d013f209ca987d050893a73672bc8946be3284ed1bf3e0c774679fea88ecc47c2d22f505b5adc37748384622afd544d2076d9c
   languageName: node
   linkType: hard
 
@@ -6366,15 +6358,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"po2json@npm:0.4.1":
-  version: 0.4.1
-  resolution: "po2json@npm:0.4.1"
+"po2json@https://github.com/mikeedwards/po2json.git#51e2310485bbe35e9e57f2eee238185459ca0eab":
+  version: 1.0.0-beta-3
+  resolution: "po2json@https://github.com/mikeedwards/po2json.git#commit=51e2310485bbe35e9e57f2eee238185459ca0eab"
   dependencies:
-    gettext-parser: "npm:1.1.0"
-    nomnom: "npm:1.8.1"
+    commander: "npm:^6.0.0"
+    gettext-parser: "npm:2.0.0"
+    gettext-to-messageformat: "npm:0.3.1"
+  peerDependencies:
+    commander: ^6.0.0
+    gettext-parser: 2.0.0
+    gettext-to-messageformat: 0.3.1
   bin:
     po2json: bin/po2json
-  checksum: 0031749fa5ed887242c48bf4332bae008960813e058f7fb5cbf9f82c0168b49470b912d5cfa82a6ae8bfef96a34368a5dba28c78ff97b73cf301a9582784923d
+  checksum: 9389f5a41610e684fafd097573914c44c03bef1170e0535b665b1aa9067d927ea8b40be35f0a93be90345d315d0f6917c77469df107116eb7b733103bedadd31
   languageName: node
   linkType: hard
 
@@ -7005,7 +7002,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"safe-buffer@npm:^5.0.1, safe-buffer@npm:^5.1.0, safe-buffer@npm:^5.1.2, safe-buffer@npm:~5.2.0":
+"safe-buffer@npm:^5.0.1, safe-buffer@npm:^5.1.0, safe-buffer@npm:^5.1.1, safe-buffer@npm:^5.1.2, safe-buffer@npm:~5.2.0":
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
   checksum: 6501914237c0a86e9675d4e51d89ca3c21ffd6a31642efeba25ad65720bce6921c9e7e974e5be91a786b25aa058b5303285d3c15dbabf983a919f5f630d349f3
@@ -7580,15 +7577,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strip-ansi@npm:~0.1.0":
-  version: 0.1.1
-  resolution: "strip-ansi@npm:0.1.1"
-  bin:
-    strip-ansi: cli.js
-  checksum: f593f30d82c9b3ff694b125aef5c8779aeedab5556ccaacfe62431c895d2ecfcbb7dcf1bdc4172d1a5350a77534a671d8a4c6546b08a676e5ad108c49cc09b0d
-  languageName: node
-  linkType: hard
-
 "strip-bom@npm:^2.0.0":
   version: 2.0.0
   resolution: "strip-bom@npm:2.0.0"
@@ -8071,13 +8059,6 @@ __metadata:
   version: 2.0.5
   resolution: "undefsafe@npm:2.0.5"
   checksum: 96c0466a5fbf395917974a921d5d4eee67bca4b30d3a31ce7e621e0228c479cf893e783a109af6e14329b52fe2f0cb4108665fad2b87b0018c0df6ac771261d5
-  languageName: node
-  linkType: hard
-
-"underscore@npm:~1.6.0":
-  version: 1.6.0
-  resolution: "underscore@npm:1.6.0"
-  checksum: 23db03890dc042984b5a6082f2784969aa1af0110b11486347b84e3e1c5ebc3a83531cfc031097900ccfc88cf2ded43970220d94e388e5b10e56519813d7d029
   languageName: node
   linkType: hard
 

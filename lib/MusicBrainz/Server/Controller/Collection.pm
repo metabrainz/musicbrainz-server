@@ -163,9 +163,7 @@ sub show : Chained('load') PathPart('') {
         $c->model('ReleaseGroupSecondaryType')->load_for_release_groups(@$entities);
         $c->model('ReleaseGroup')->load_has_cover_art(@$entities);
     } elsif ($entity_type eq 'event') {
-        $c->model('EventType')->load(@$entities);
-        $model->load_performers(@$entities);
-        $model->load_locations(@$entities);
+        $c->model('Event')->load_areas(@$entities);
     } elsif ($entity_type eq 'place') {
         $c->model('PlaceType')->load(@$entities);
         $c->model('Area')->load(@$entities);
