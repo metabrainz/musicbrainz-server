@@ -90,7 +90,7 @@ sub remove : Local Edit
         );
 
     $self->error($c, status => HTTP_BAD_REQUEST,
-                 message => l('The provided medium id is not valid.'),
+                 message => l('The provided medium ID is not valid.'),
         ) unless is_database_row_id($medium_id);
 
     my $medium = $c->model('Medium')->get_by_id($medium_id)
@@ -151,7 +151,7 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit
     my $medium_id = $c->req->query_params->{medium}
         or $self->error(
             $c, status => HTTP_BAD_REQUEST,
-            message => l('Please provide a medium ID'),
+            message => l('Please provide a medium ID.'),
         );
     my $medium = $c->model('Medium')->get_by_id($medium_id)
         or $self->error(
@@ -211,7 +211,7 @@ sub attach : Local DenyWhenReadonly Edit
 
     if (my $medium_id = $c->req->query_params->{medium}) {
         $self->error($c, status => HTTP_BAD_REQUEST,
-                     message => l('The provided medium id is not valid'),
+                     message => l('The provided medium ID is not valid.'),
             ) unless is_database_row_id($medium_id);
 
         if ($c->model('MediumCDTOC')->medium_has_cdtoc($medium_id, $cdtoc)) {
@@ -433,7 +433,7 @@ sub move : Local Edit
 
     if (my $medium_id = $c->req->query_params->{medium}) {
         $self->error($c, status => HTTP_BAD_REQUEST,
-                     message => l('The provided medium id is not valid'),
+                     message => l('The provided medium ID is not valid.'),
             ) unless is_database_row_id($medium_id);
 
         my $medium = $c->model('Medium')->get_by_id($medium_id);
