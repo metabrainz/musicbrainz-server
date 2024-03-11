@@ -151,7 +151,7 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit
     my $medium_id = $c->req->query_params->{medium}
         or $self->error(
             $c, status => HTTP_BAD_REQUEST,
-            message => l('Please provide a medium ID'),
+            message => l('Please provide a medium ID.'),
         );
     my $medium = $c->model('Medium')->get_by_id($medium_id)
         or $self->error(
