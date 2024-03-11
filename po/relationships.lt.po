@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-02-19 19:28+0000\n"
+"PO-Revision-Date: 2024-03-06 11:28+0000\n"
 "Last-Translator: \"Vac31.\" <Vaclovas@users.noreply.translations.metabrainz."
 "org>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: DB:link_attribute_type/description:1355
@@ -7367,7 +7367,7 @@ msgstr ""
 #: DB:link_type/link_phrase:811 DB:link_type/link_phrase:816
 #: DB:link_type/link_phrase:817 DB:link_type/link_phrase:938
 msgid "setlist.fm"
-msgstr ""
+msgstr "setlist.fm"
 
 #: DB:link_type/reverse_link_phrase:811 DB:link_type/reverse_link_phrase:816
 #: DB:link_type/reverse_link_phrase:817 DB:link_type/reverse_link_phrase:938
@@ -7377,7 +7377,7 @@ msgstr ""
 #: DB:link_type/name:811 DB:link_type/name:816 DB:link_type/name:817
 #: DB:link_type/name:938
 msgid "setlistfm"
-msgstr ""
+msgstr "setlistfm"
 
 #: DB:link_type/link_phrase:729 DB:link_type/name:729
 msgid "show notes"
@@ -7405,7 +7405,7 @@ msgstr ""
 
 #: DB:link_type/name:11
 msgid "single from"
-msgstr ""
+msgstr "singlas iš"
 
 #: DB:link_type/link_phrase:11
 msgid "single/EP which was taken from"
@@ -7442,7 +7442,7 @@ msgstr ""
 
 #: DB:link_type/name:786 DB:link_type/name:785 DB:link_type/name:787
 msgid "songkick"
-msgstr ""
+msgstr "songkick"
 
 #: DB:link_attribute_type/description:10 DB:link_attribute_type/name:10
 msgid "soprano vocals"
@@ -7455,7 +7455,7 @@ msgstr ""
 #: DB:link_type/name:1236 DB:link_type/name:1235
 #: DB:link_type/reverse_link_phrase:1236 DB:link_type/reverse_link_phrase:1235
 msgid "sound effects"
-msgstr ""
+msgstr "garso efektai"
 
 #: DB:link_type/link_phrase:1236 DB:link_type/link_phrase:1235
 msgid "sound effects for"
@@ -7498,25 +7498,25 @@ msgstr "srautinis perdavimas"
 #: DB:link_type/link_phrase:978 DB:link_type/link_phrase:980
 #: DB:link_type/link_phrase:1005 DB:link_type/link_phrase:979
 msgid "streaming page"
-msgstr ""
+msgstr "srautinis perdavimo puslapis"
 
 #: DB:link_type/reverse_link_phrase:978 DB:link_type/reverse_link_phrase:980
 #: DB:link_type/reverse_link_phrase:1005 DB:link_type/reverse_link_phrase:979
 msgid "streaming page for"
-msgstr ""
+msgstr "srautinis perdavimo puslapis, skirtas"
 
 #: DB:link_type/link_phrase:847 DB:link_type/reverse_link_phrase:923
 msgid "students"
-msgstr ""
+msgstr "studentai"
 
 #: DB:link_type/link_phrase:923 DB:link_type/name:923
 #: DB:link_type/long_link_phrase:923
 msgid "studied at"
-msgstr ""
+msgstr "studijavo"
 
 #: DB:link_attribute_type/name:1310
 msgid "sub"
-msgstr ""
+msgstr "po"
 
 #: DB:link_type/name:1095
 msgid "subgenre"
@@ -8772,7 +8772,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:1237
 msgid "{entity1} is headquartered in {entity0}"
-msgstr ""
+msgstr "{entity1} būstinė yra {entity0}"
 
 #: DB:link_type/long_link_phrase:939
 msgid "{entity1} is licensed under {entity0}"
