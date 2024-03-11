@@ -55,7 +55,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-05 19:46+0000\n"
-"PO-Revision-Date: 2024-03-11 08:00+0000\n"
+"PO-Revision-Date: 2024-03-11 11:05+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -1604,7 +1604,7 @@ msgstr "Área de la discográfica"
 #: ../root/edit/details/EditLabel.js:85
 #: ../root/layout/components/sidebar/LabelSidebar.js:83
 msgid "Label code"
-msgstr ""
+msgstr "Código de discográfica"
 
 #: ../root/label/edit_form.tt:10
 msgid "Label details"
@@ -1915,6 +1915,9 @@ msgid ""
 "2011-05-16; or which remove relationships, entered after 2013-07-08; or "
 "which reorder relationships."
 msgstr ""
+"Nota: solo tenemos suficientes datos para buscar en ediciones introducidas "
+"después de 2011-05-16 (añadir o editar relación) o 2013-07-08 (eliminar "
+"relación), además de todas las ediciones que ordenan relaciones."
 
 #: ../root/release/edit/recordings.tt:120
 msgid "Now loading recording associations..."
@@ -2014,6 +2017,8 @@ msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
 "these types."
 msgstr ""
+"Consulta la {doc|documentación sobre tipos de imágen} para saber más sobre "
+"estos tipos."
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
@@ -2317,6 +2322,8 @@ msgid ""
 "Review the {url|documentation} on release editor seeding and make sure your "
 "data is formatted correctly."
 msgstr ""
+"Consulta la {url|documentación para el pre-rellenado del editor de "
+"publicaciones} y asegúrate de que tus datos tienen el formato correcto."
 
 #: ../root/layout.tt:131
 msgid ""
@@ -3141,7 +3148,7 @@ msgstr "Usar la versión beta"
 
 #: ../root/release/edit/tracklist.tt:68
 msgid "Use custom artist delimiter"
-msgstr ""
+msgstr "Utilizar separador de artistas personalizado"
 
 #: ../root/release/edit/tracklist.tt:261
 msgid "Use the following fields to search for a CD stub."
@@ -3149,7 +3156,7 @@ msgstr "Usa los siguientes campos para buscar un esbozo de CD."
 
 #: ../root/release/edit/tracklist.tt:256
 msgid "Use the following fields to search for an existing medium."
-msgstr ""
+msgstr "Busca un medio existente con los siguientes campos."
 
 #: ../root/release/edit/tracklist.tt:60
 msgid "Use track artists"
@@ -3232,6 +3239,11 @@ msgid ""
 "below in order to attach this disc to another MusicBrainz release, or to add "
 "a new one if the search shows it is missing from the database."
 msgstr ""
+"Hemos encontrado los siguientes discos que coinciden con la información "
+"solicitada. Si no son las publicaciones que estás buscando, puedes buscar "
+"con el formulario de más abajo para asociar el disco a otra publicacion de "
+"MusicBrainz, o para añadir una publicación nueva si la búsqueda no da "
+"resultados."
 
 #: ../root/cdtoc/lookup.tt:12
 msgid "We used disc ID <code>{discid}</code> to look up this information."
@@ -3454,6 +3466,8 @@ msgid ""
 "You’ve seeded some disc IDs that aren’t matched to any medium. If this is "
 "wrong, use the “Attach disc ID” options below."
 msgstr ""
+"Has suministrado IDs de disco que no están asociadas a ningún medio. Si no "
+"es tu intención, utiliza “Asociar ID de disco” más abajo."
 
 #: ../root/release/edit/tracklist.tt:409
 msgid ""
@@ -3461,6 +3475,9 @@ msgid ""
 "tracks below. {valink|Various Artists} should very rarely be used on tracks; "
 "please make sure the artists have been entered correctly."
 msgstr ""
+"Has utiliado el artista de propósito especial {valink|Varios Artistas} en "
+"algunas pistas. Normalmente {valink|Varios Artistas} no es un artista de "
+"pista, asegúrate de que los artistas son correctos."
 
 #: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:50
@@ -3570,7 +3587,7 @@ msgstr "histórica, {begin}-{end}"
 
 #: ../root/edit/search_macros.tt:25
 msgid "in an unspecified order (possibly faster)"
-msgstr ""
+msgstr "sin indicar el orden [puede ser más rápido]"
 
 #: ../root/edit/search_macros.tt:352
 msgid "include"
@@ -3614,7 +3631,7 @@ msgstr "es"
 
 #: ../root/edit/search_macros.tt:362
 msgid "is a beginner"
-msgstr ""
+msgstr "es un principiante"
 
 #: ../root/edit/search_macros.tt:136
 msgid "is after"
@@ -3658,7 +3675,7 @@ msgstr "no es"
 #: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:323
 #: ../root/edit/search_macros.tt:362 ../root/edit/search_macros.tt:389
 msgid "is not in my subscriptions"
-msgstr ""
+msgstr "no está en mis subscripciones"
 
 #: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:362
 msgid "is not me"
@@ -3694,7 +3711,7 @@ msgstr "o arrastra los archivos aquí"
 
 #: ../root/edit/search_macros.tt:25
 msgid "recently closed first"
-msgstr ""
+msgstr "cerradas recientemente primero"
 
 #: ../root/release/edit/recordings.tt:38
 msgid "recording"
@@ -3711,15 +3728,15 @@ msgstr "pista"
 
 #: ../root/edit/search_macros.tt:25
 msgid "voting closing later first"
-msgstr ""
+msgstr "cierre de votación más tardío primero"
 
 #: ../root/edit/search_macros.tt:25
 msgid "voting closing sooner first"
-msgstr ""
+msgstr "cierre de votación más temprano primero"
 
 #: ../root/edit/search_macros.tt:25
 msgid "with recent edit notes first"
-msgstr ""
+msgstr "con notas recientes primero"
 
 #: ../root/cdtoc/lookup.tt:24
 msgid "{artist} - {name}"
@@ -3752,11 +3769,13 @@ msgid ""
 "{link|New notes} have been left on some of your edits. Please make sure to "
 "read them and respond if necessary."
 msgstr ""
+"Hay {link|notas nuevas} en algunas de tus ediciones. Asegúrate de leerlas y "
+"responder si es necesario."
 
 #: ../root/components/common-macros.tt:264
 #: ../root/static/scripts/common/components/EntityLink.js:270
 msgid "{name} – {additional_info}"
-msgstr ""
+msgstr "{name} – {additional_info}"
 
 #: ../root/cdtoc/attach_filter_release.tt:20
 msgid "{num} release found matching your query."
@@ -3768,12 +3787,14 @@ msgstr[2] "Encontramos {num} publicaciones acordes con tu búsqueda."
 #: ../root/components/common-macros.tt:203
 #: ../root/static/scripts/common/components/DescriptiveLink.js:87
 msgid "{place} in {area}"
-msgstr ""
+msgstr "{place} en {area}"
 
 #: ../root/recording/edit_form.tt:39
 msgid ""
 "{recording_length} ({length_info|derived} from the associated track lengths)"
 msgstr ""
+"{recording_length} ({length_info|derivada} de las duraciones de las pistas "
+"asociadas)"
 
 #: ../root/cdtoc/move_search.tt:33
 msgid "{release} by {artist}"
@@ -3781,7 +3802,7 @@ msgstr "{release} de {artist}"
 
 #: ../root/instrument/layout.tt:1 ../root/instrument/InstrumentLayout.js:33
 msgid "{type} “{instrument}”"
-msgstr ""
+msgstr "{type} “{instrument}”"
 
 #: ../root/work/layout.tt:1 ../root/work/WorkLayout.js:30
 msgid "{type} “{work}”"
@@ -3789,7 +3810,7 @@ msgstr "{type} “{work}”"
 
 #: ../root/layout.tt:45 ../root/layout/index.js:132
 msgid "{uri|Return to musicbrainz.org}."
-msgstr ""
+msgstr "{uri|Volver a musicbrainz.org}."
 
 #: ../root/recording/edit_form.tt:10
 msgid ""
@@ -3803,7 +3824,7 @@ msgstr ""
 #: ../root/static/scripts/common/i18n/addColon.js:13
 #: ../root/static/scripts/common/i18n/addColon.js:17
 msgid "{variable}:"
-msgstr ""
+msgstr "{variable}:"
 
 #: ../root/release/edit/layout.tt:61
 msgid "« Previous"
@@ -3813,6 +3834,7 @@ msgstr "« Anterior"
 msgid ""
 "“Last Name, First Name” and “Group, The” are common examples of sort names."
 msgstr ""
+"“Apellido, Nombre” and “Grupo, El” son ejemplos de nombres de ordenación."
 
 #: ../root/components/paginator.tt:19 ../root/components/paginator.tt:31
 #: ../root/components/paginator.tt:39 ../root/components/Paginator.js:94
@@ -3830,6 +3852,13 @@ msgid ""
 "to add it again, but please ensure enough data is added to it this time to "
 "avoid another automatic removal."
 msgstr ""
+"Esta entidad fue eliminada automáticamente porque estaba vacía. Eso "
+"significa que no tenía ninguna relación, ni tampoco grabaciones, "
+"publicaciones ni grupos de publicaciones (si son relevantes para el tipo de "
+"entidad en cuestión). Si crees que esta era una entrada válida que debería "
+"estar en MusicBrainz y aún no tenemos, añádela de nuevo, pero asegúrate de "
+"que esta vez tiene suficiente información para evitar otra eliminación "
+"automática."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:37
 #, perl-brace-format
@@ -3845,8 +3874,14 @@ msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been "
 "automatically accepted and applied."
 msgstr[0] ""
+"Gracias, tu {edit_url|edición} ({edit_ids}) ha sido aceptada y aplicada "
+"automáticamente."
 msgstr[1] ""
+"Gracias, tus {num_edits} {edit_url|ediciones} ({edit_ids}) han sido "
+"aceptadas y aplicadas automáticamente."
 msgstr[2] ""
+"Gracias, tus {num_edits} {edit_url|ediciones} ({edit_ids}) han sido "
+"aceptadas y aplicadas automáticamente."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:131
 #, perl-brace-format
@@ -3857,8 +3892,14 @@ msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered "
 "into the edit queue for peer review."
 msgstr[0] ""
+"Gracias, tu {edit_url|edición} ({edit_ids}) ha sido añadida a la cola de "
+"votación para ser revisada por la comunidad."
 msgstr[1] ""
+"Gracias, tus {num_edits} {edit_url|ediciones} ({edit_ids}) han sido añadidas "
+"a la cola de votación para ser revisadas por la comunidad."
 msgstr[2] ""
+"Gracias, tus {num_edits} {edit_url|ediciones} ({edit_ids}) han sido añadidas "
+"a la cola de votación para ser revisadas por la comunidad."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:139
 #, perl-brace-format
@@ -3871,8 +3912,17 @@ msgid_plural ""
 "with {num_open_edits} in the edit queue for peer review, and the rest "
 "automatically accepted and applied."
 msgstr[0] ""
+"Gracias por tu {edit_url|edición} ({edit_ids}). {num_open_edits} han sido "
+"añadidas a la cola de votación para ser revisadas por la comunidad y el "
+"resto han sido aceptadas y aplicadas automáticamente."
 msgstr[1] ""
+"Gracias por tus {num_edits} {edit_url|ediciones} ({edit_ids}). "
+"{num_open_edits} han sido añadidas a la cola de votación para ser revisadas "
+"por la comunidad y el resto han sido aceptadas y aplicadas automáticamente."
 msgstr[2] ""
+"Gracias por tus {num_edits} {edit_url|ediciones} ({edit_ids}). "
+"{num_open_edits} han sido añadidas a la cola de votación para ser revisadas "
+"por la comunidad y el resto han sido aceptadas y aplicadas automáticamente."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:60
 msgid "The user ID is missing or is in an invalid format."
@@ -3927,6 +3977,8 @@ msgid ""
 "We can't send a password reset email, because we have no email on record for "
 "this user."
 msgstr ""
+"No podemos enviar un correo para restablecer la contraseña, porque no "
+"tenemos una dirección de correo para este usuario."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:241
 msgid "Your password has been reset."
@@ -3969,14 +4021,17 @@ msgid ""
 "re-enter your address in your {settings|account settings}. If that still "
 "doesn’t work, {contact_url|contact us}."
 msgstr ""
+"<strong>No logramos enviarte un correo de verificación.</strong><br/>Vuelve "
+"a introducir to dirección de correo en tus {settings|preferencias de cuenta}"
+", y si eso no funciona, {contact_url|ponte en contacto con nosotros}."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:828
 msgid "There is no OAuth token with these parameters."
-msgstr ""
+msgstr "No hay un token de OAuth con estos parámetros."
 
 #: ../lib/MusicBrainz/Server/Controller/Account/Subscriptions/Collection.pm:22
 msgid "The provided collection ID doesn’t exist."
-msgstr ""
+msgstr "La ID de colección suministrada no existe."
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:738
 msgid "You cannot merge a special purpose artist into another artist"
@@ -4003,17 +4058,17 @@ msgstr "La ID de TOC de CD suministrada no es válida."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:89
 msgid "Please provide a medium ID."
-msgstr ""
+msgstr "Debes suministrar una ID de medio."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:93
 msgid "The provided medium id is not valid."
-msgstr ""
+msgstr "La ID de medio suministrada no es válida."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:99
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:227
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:442
 msgid "The provided medium ID doesn’t exist."
-msgstr ""
+msgstr "La ID de medio suministrada no existe."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:105
 msgid ""
@@ -4025,11 +4080,11 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:154
 msgid "Please provide a medium ID"
-msgstr ""
+msgstr "Debes suministrar una ID de medio"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:159
 msgid "Could not find medium"
-msgstr ""
+msgstr "No encontramos el medio"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:207
 msgid ""
@@ -4066,6 +4121,8 @@ msgstr "La ID de TOC de CD suministrada no existe."
 msgid ""
 "“{id}” is not a valid row ID; the entity might have been merged or removed."
 msgstr ""
+"“{id}” no es una ID de línea válida; es posible que la entidad haya sido "
+"fusionada o eliminada."
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
@@ -4096,15 +4153,15 @@ msgstr "Predeterminada"
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:105
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:123
 msgid "Can’t change edit note"
-msgstr ""
+msgstr "No puedes cambiar la nota"
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:50
 msgid "You can’t change other users’ edit notes."
-msgstr ""
+msgstr "No puedes cambiar las notas de otros usuarios."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:80
 msgid "This note has already been removed."
-msgstr ""
+msgstr "Esta nota ya ha sido eliminada."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:107
 msgid ""
@@ -4112,6 +4169,9 @@ msgid ""
 "If there’s an important reason why it should be changed (for example, it "
 "contains private data), please {contact_url|contact us}."
 msgstr ""
+"No puedes cambiar esta nota porque otro usuario ha respondido. Si hay una "
+"razón importante para cambiarla (por ejemplo, si contiene datos privados), "
+"{contact_url|ponte en contacto con nosotros}."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:125
 msgid ""
@@ -4119,18 +4179,23 @@ msgid ""
 "important reason why it should be changed (for example, it contains private "
 "data), please {contact_url|contact us}."
 msgstr ""
+"No puedes cambiar esta nota porque es demasiado antigua. Si hay una razón "
+"importante para cambiarla (por ejemplo, si contiene datos privados), "
+"{contact_url|ponte en contacto con nosotros}."
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:257
 msgid "You cannot merge a special purpose label into another label."
 msgstr ""
+"No puedes fusionar una discográfica de propósito especial con otra "
+"discográfica."
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:262
 msgid "You cannot merge into Deleted Label."
-msgstr ""
+msgstr "No puedes fusionar una discográfica con Discográfica Eliminada."
 
 #: ../lib/MusicBrainz/Server/Controller/Rating.pm:43
 msgid "The rating should be an integer between 0 and 100."
-msgstr ""
+msgstr "La calificación debe ser un número entero entre 0 y 100."
 
 #: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:72
 #, perl-brace-format
@@ -4155,7 +4220,7 @@ msgstr "No encontramos una imagen con la ID “{id}”."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:68
 msgid "The annotation revision ID must be a positive integer"
-msgstr ""
+msgstr "La ID de la revisión de anotación debe ser un número entero y positivo"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:76
 #, perl-brace-format
@@ -4165,7 +4230,7 @@ msgstr "No encontramos una anotación con la ID “{id}”."
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:91
 #, perl-brace-format
 msgid "The annotation with ID “{id}” is not associated with this entity."
-msgstr ""
+msgstr "La anotación con la ID “{id}” no está asociada a esta entidad."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:230
 msgid "The old and new annotation ids must be unique, positive integers."
@@ -4185,22 +4250,28 @@ msgstr "[desconocido/a]"
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
 msgstr ""
+"Idioma seleccionado. Si no querías hacer esto, puedes {url|volver a "
+"seleccionar “{prev_lang_name}”}."
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:102
 msgid ""
 "If you find any problems with the translation, please {url|help us improve "
 "it}!"
 msgstr ""
+"Si encuentras problemas con la traducción, ¡puedes {url|ayudarnos a "
+"mejorarla}!"
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:323
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
 msgstr ""
+"Nuestro servidor de Redis parece tener problemas, así que algunos sistemas "
+"pueden no funcionar con normalidad."
 
 #: ../lib/MusicBrainz/Server/Controller/Series.pm:158
 msgid "Series that have different entity types cannot be merged."
-msgstr ""
+msgstr "No puedes fusionar series de distintos tipos de entidad."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:305
 #: ../lib/MusicBrainz/Server/Controller/User.pm:331
@@ -4215,10 +4286,12 @@ msgid ""
 "You cannot contact other users because you have not {url|verified your email "
 "address}."
 msgstr ""
+"No puedes escribir a otros usuarios porque no has {url|verificado tu "
+"dirección de correo}."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:333
 msgid "You are not allowed to send messages to editors."
-msgstr ""
+msgstr "No tienes permiso para mandar mensajes a otros editores."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:347
 #, perl-brace-format
@@ -4252,11 +4325,11 @@ msgstr "El tipo de entidad “{type}” no puede tener calificaciones."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:808
 msgid "An error occurred while trying to send your report."
-msgstr ""
+msgstr "Se ha producido un error al intentar enviar tu denuncia."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:812
 msgid "Your report has been sent."
-msgstr ""
+msgstr "Tu denuncia ha sido enviada."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/2/DiscID.pm:104
 msgid "Invalid TOC"
@@ -4267,12 +4340,16 @@ msgid ""
 "An error occurred trying to communicate with the Internet Archive servers. "
 "Please wait a few moments and try again."
 msgstr ""
+"Se ha producido un error en la comunicación con los servidores del Internet "
+"Archive. Espera un poco e inténtalo de nuevo."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:301
 msgid ""
 "We’ve hit a temporary delay while trying to fetch metadata from the Internet "
 "Archive. Please wait a minute and try again."
 msgstr ""
+"Hemos encontrado problemas pasajeros para solicitar metadatos del Internet "
+"Archive. Vuelve a intentarlo en unos minutos."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:417
 #: ../root/release/CoverArtDarkened.js:25
@@ -4290,18 +4367,25 @@ msgid ""
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
 msgstr ""
+"No puedes subir imágenes para esta publicación porque no somos los dueños de "
+"su entrada asociada en el Internet Archive. Por favor, háznoslo saber en "
+"{contact_url} para que podamos arreglarlo."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:708
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
 msgstr ""
+"Debes estar conectado para hacer ediciones. {url|Inicia sesión}, y luego "
+"intenta volver a enviar las ediciones."
 
 #: ../lib/MusicBrainz/Server/ControllerUtils/Delete.pm:25
 msgid ""
 "Since your edit adding this object was still open, that edit has been "
 "cancelled instead of opening a new edit."
 msgstr ""
+"Puesto que tu edición añadiendo esto estaba aún pendiente, hemos cancelado "
+"esa edición en vez de añadir una nueva."
 
 #: ../lib/MusicBrainz/Server/Data/LinkType.pm:214
 #, perl-brace-format
@@ -4314,33 +4398,44 @@ msgid ""
 "Unable to determine which recording {source_recording} should be merged "
 "into. There are multiple valid options: {target_recordings}."
 msgstr ""
+"No podemos determinar con qué grabación fusionar {source_recording}. Hay "
+"varias opciones válidas: {target_recordings}."
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:54
 msgid ""
 "Some mediums being merged don’t have an equivalent on the target release: "
 "either the target release has less mediums, or the positions don’t match."
 msgstr ""
+"Algunos de los medios fusionados no tienen un medio equivalente en la "
+"publicación de destino. O dicha publicación tiene menos medios, o sus "
+"posiciones no coinciden."
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:55
 msgid "The medium positions conflict."
-msgstr ""
+msgstr "Hay un choque en las posiciones de los medios."
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:56
 msgid ""
 "The track counts on at least one set of corresponding mediums do not match."
 msgstr ""
+"Los números de pistas en al menos uno de los conjuntos de medios a fusionar "
+"no coinciden."
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:57
 msgid ""
 "Merging a medium with tracks into one without them is not currently "
 "supported. You can always merge in the other direction!"
 msgstr ""
+"No es posible fusionar un medio con pistas en uno sin ellas. Siempre puedes "
+"fusionar en la dirección contraria."
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:58
 msgid ""
 "Mediums with a pregap track can only be merged with other mediums with a "
 "pregap track."
 msgstr ""
+"Los medios con una pista de precapítulo solo pueden ser fusionados con otros "
+"medios que también la tengan."
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:59
 #, perl-brace-format
@@ -4349,6 +4444,10 @@ msgid ""
 "each want to merge into the other. This is likely because the tracks or "
 "recordings are in an inconsistent order on the releases."
 msgstr ""
+"Hay un intento de fusión circular, ya que dos grabaciones ({recording1} y "
+"{recording2}) serían fusionadas con la otra en direcciones contrarias. La "
+"razón más probable es que las pistas o grabaciones no están en el mismo "
+"orden en las publicaciones."
 
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:160
 msgid "Total"
@@ -4446,6 +4545,9 @@ msgid ""
 "because it conflicted with the gender setting of one of the artists here. "
 "Group artists cannot have a gender."
 msgstr ""
+"El tipo “{artist_type}” no ha sido añadido al artista final porque está en "
+"conflicto con el género de uno de los artistas. Los grupos no pueden tener "
+"género."
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:97
 #, perl-brace-format
@@ -4454,6 +4556,9 @@ msgid ""
 "it conflicted with the group type of one of the artists here. Group artists "
 "cannot have a gender."
 msgstr ""
+"El género “{gender}” no ha sido añadido al artista final porque está en "
+"conflicto con el tipo de uno de los artistas. Los grupos no pueden tener "
+"género."
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
 msgctxt "edit type"
@@ -4895,6 +5000,9 @@ msgid ""
 "relationship type in the documentation. If you still think this should be "
 "removed, please {contact_url|contact us}."
 msgstr ""
+"Esta edición habría eliminado una relación que sirve de ejemplo para su tipo "
+"de relación en la documentación. Si pese a ello sigues pensando que esta "
+"relación debería ser eliminada, {contact_url|ponte en contacto con nosotros}."
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:423
 #, perl-brace-format
@@ -4902,6 +5010,7 @@ msgid ""
 "The “{relationship_type}” relationship between “{entity0}” and “{entity1}” "
 "already exists."
 msgstr ""
+"La relación “{relationship_type}” entre “{entity0}” y “{entity1}” ya existe."
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkAttribute.pm:17
 msgctxt "edit type"
@@ -4993,7 +5102,7 @@ msgstr "(desconocido)"
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:337
 #, perl-brace-format
 msgid "These releases could not be merged: {reason}"
-msgstr ""
+msgstr "No podemos fusionar estas publicaciones: {reason}"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:21
 msgctxt "singular, edit type"
@@ -13765,6 +13874,8 @@ msgstr ""
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:94
 msgid "An error occurred while searching. Click here to try again."
 msgstr ""
+"Se ha producido un error en la búsqueda. Haz clic aquí para intentarlo de "
+"nuevo."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:93
 msgid "Try with direct search instead."
@@ -13900,7 +14011,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:76
 msgid "An error occurred while looking up the MBID you entered."
-msgstr ""
+msgstr "Se ha producido un error al buscar la MBID que introdujiste."
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:82
 msgid "The type of entity you pasted isn’t supported here."
@@ -15673,7 +15784,7 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:277
 msgid "An error occurred:"
-msgstr ""
+msgstr "Se ha producido un error:"
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1523
 msgid "Track relationships"
