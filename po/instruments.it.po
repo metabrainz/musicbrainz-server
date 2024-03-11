@@ -27,8 +27,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: DB:instrument/name:438
@@ -165,6 +165,11 @@ msgstr "arpa irlandese / clàrsach"
 msgid "Lyricon"
 msgstr "lyricon"
 
+#: DB:instrument/name:1200
+msgctxt "Traditional Hungarian bagpipe"
+msgid "Magyar duda"
+msgstr ""
+
 #: DB:instrument/name:637
 msgctxt "Mark Stevens' bar chime"
 msgid "Mark tree"
@@ -173,11 +178,6 @@ msgstr "Mark tree"
 #: DB:instrument/name:442
 msgid "Marxophone"
 msgstr "marxofono"
-
-#: DB:instrument/name:1199
-msgctxt "Belorussian duda"
-msgid "Matstsyanka"
-msgstr "matstsyanka"
 
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
@@ -1410,6 +1410,16 @@ msgstr "richiamo per anatre"
 msgid "duduk"
 msgstr "duduk"
 
+#: DB:instrument/name:1202
+msgctxt "Podhale bagpipe"
+msgid "dudy podhalanskie"
+msgstr ""
+
+#: DB:instrument/name:1201
+msgctxt "Great Polish bagpipe"
+msgid "dudy wielkopolskie"
+msgstr ""
+
 #: DB:instrument/name:851
 msgctxt "indian clay kettle drum"
 msgid "duggi"
@@ -2633,6 +2643,14 @@ msgstr "marimba lumina"
 #: DB:instrument/name:633
 msgid "marímbula"
 msgstr "marímbula"
+
+#: DB:instrument/name:1199
+#, fuzzy
+#| msgctxt "Belorussian duda"
+#| msgid "Matstsyanka"
+msgctxt "Belorussian duda"
+msgid "matstsyanka"
+msgstr "matstsyanka"
 
 #: DB:instrument/name:85
 msgid "mbira"

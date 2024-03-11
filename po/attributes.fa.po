@@ -6,7 +6,7 @@ msgstr ""
 "Language-Team: none\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: DB:work_type/description:9
@@ -3861,6 +3861,11 @@ msgctxt "work_attribute_type"
 msgid "ID for the Latvian rights society AKKA/LAA"
 msgstr ""
 
+#: DB:work_attribute_type/description:207
+msgctxt "work_attribute_type"
+msgid "ID for the Lithuanian rights society LATGA"
+msgstr ""
+
 #: DB:work_attribute_type/description:49
 msgctxt "work_attribute_type"
 msgid "ID for the Malaysian rights society MACP"
@@ -4689,6 +4694,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:954
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kōmal riṣabh asāvēri"
+msgstr ""
+
+#: DB:work_attribute_type/name:207
+msgctxt "work_attribute_type"
+msgid "LATGA ID"
 msgstr ""
 
 #: DB:editor_collection_type/name:10

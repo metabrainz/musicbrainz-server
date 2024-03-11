@@ -25,16 +25,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-02-29 16:28+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: DB:link_attribute_type/description:1355
@@ -273,6 +273,21 @@ msgid ""
 "For works that have lyrics, this indicates that those lyrics are not "
 "relevant to this recording. Examples include instrumental arrangements, or "
 "\"beats\" from hip-hop songs which may be reused with different lyrics."
+msgstr ""
+"Para los trabajos que tienen letra, esto indica que la letra no es relevante "
+"a esta grabación; por ejemplo, los arreglos instrumentales, o los «beats» de "
+"las canciones de hip-hop que pueden reutilizarse con letras diferentes."
+
+#: DB:link_attribute_type/description:1406
+#, fuzzy
+#| msgid ""
+#| "For works that have lyrics, this indicates that those lyrics are not "
+#| "relevant to this recording. Examples include instrumental arrangements, "
+#| "or \"beats\" from hip-hop songs which may be reused with different lyrics."
+msgid ""
+"For works that usually have instruments and vocals, this indicates that the "
+"instrumental parts are not relevant to this recording. Examples include rap "
+"tracks from hip hop songs that can be remixed and used with different beats."
 msgstr ""
 "Para los trabajos que tienen letra, esto indica que la letra no es relevante "
 "a esta grabación; por ejemplo, los arreglos instrumentales, o los «beats» de "
@@ -1528,6 +1543,12 @@ msgid ""
 "release."
 msgstr ""
 
+#: DB:link_type/description:1240
+msgid ""
+"This indicates a release group is an excerpt from another, such as the "
+"highlights of a box set or a long opera."
+msgstr ""
+
 #: DB:link_type/description:1174
 msgid "This indicates an agency that did the art direction for the release."
 msgstr ""
@@ -1577,6 +1598,18 @@ msgstr ""
 #: DB:link_type/description:18
 msgid "This indicates an artist that did the art direction for the release."
 msgstr ""
+
+#: DB:link_type/description:1236
+#, fuzzy
+#| msgid "This indicates the artist directed video on this release."
+msgid "This indicates an artist that did the sound effects for the recording."
+msgstr "Indica que el artista dirigió vídeo en esta publicación."
+
+#: DB:link_type/description:1235
+#, fuzzy
+#| msgid "This indicates the artist directed video on this release."
+msgid "This indicates an artist that did the sound effects for the release."
+msgstr "Indica que el artista dirigió vídeo en esta publicación."
 
 #: DB:link_type/description:151
 msgid ""
@@ -1886,6 +1919,13 @@ msgid ""
 "This indicates that two instruments are related in a way not covered by "
 "other, more specific relationships."
 msgstr ""
+
+#: DB:link_type/description:1237
+#, fuzzy
+#| msgid "This indicates the artist was the director of this video recording."
+msgid ""
+"This indicates the area (usually a city) where a label is headquartered in."
+msgstr "Indica que el artista fue el director de esta grabación de vídeo."
 
 #: DB:link_type/description:1185
 msgid "This indicates the artist directed video on this release."
@@ -2276,6 +2316,14 @@ msgstr ""
 msgid "This is used to link a work to its corresponding page on Allmusic."
 msgstr ""
 
+#: DB:link_type/description:1238
+msgid ""
+"This is used to link an a cappella version of a song to the original song."
+"<br/><br/>\n"
+"An a cappella version is a version of the song with only the vocal tracks "
+"(for example, a hip hop vocal track without the beat)."
+msgstr ""
+
 #: DB:link_type/description:307
 msgid ""
 "This is used to link an artist to its corresponding page in the "
@@ -2288,6 +2336,15 @@ msgstr ""
 
 #: DB:link_type/description:714
 msgid "This is used to link an artist to its primary concert venue."
+msgstr ""
+
+#: DB:link_type/description:1239
+msgid ""
+"This is used to link an instrumental version of a song to the original song."
+"<br/><br/>\n"
+"An instrumental version is a version of the song with any vocals removed "
+"(for example, a hip hop beat without the rap tracks). For karaoke tracks, "
+"use the karaoke relationship."
 msgstr ""
 
 #: DB:link_type/description:180
@@ -3902,6 +3959,26 @@ msgstr "canal de YouTube de"
 msgid "YouTube channels"
 msgstr "canales de YouTube"
 
+#: DB:link_type/name:1238
+msgid "a cappella"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1238
+#, fuzzy
+#| msgid "karaoke version of"
+msgid "a cappella version of"
+msgstr "versión para karaoke de"
+
+#: DB:link_type/link_phrase:1238
+#, fuzzy
+#| msgid "karaoke versions"
+msgid "a cappella versions"
+msgstr "versiones para karaoke"
+
+#: DB:link_attribute_type/name:1406
+msgid "acappella"
+msgstr ""
+
 #: DB:link_attribute_type/name:1345
 msgid "accompanying"
 msgstr ""
@@ -4570,6 +4647,10 @@ msgstr ""
 msgid "design/illustration"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1236 DB:link_type/long_link_phrase:1235
+msgid "did sound effects for"
+msgstr ""
+
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
 #: DB:link_type/name:88 DB:link_type/name:171
 #: DB:link_type/reverse_link_phrase:88 DB:link_type/reverse_link_phrase:171
@@ -4748,6 +4829,14 @@ msgstr ""
 #: DB:link_type/link_phrase:1003 DB:link_type/name:1003
 #: DB:link_type/reverse_link_phrase:1003 DB:link_type/long_link_phrase:1003
 msgid "event artists"
+msgstr ""
+
+#: DB:link_type/link_phrase:1240 DB:link_type/name:1240
+msgid "excerpt from"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1240
+msgid "excerpts"
 msgstr ""
 
 #: DB:link_attribute_type/name:425
@@ -5059,6 +5148,12 @@ msgstr "tiene una biografía en"
 msgid "has a blog at"
 msgstr "tiene un blog en"
 
+#: DB:link_type/long_link_phrase:1238
+#, fuzzy
+#| msgid "has a karaoke version"
+msgid "has a cappella version"
+msgstr "tiene la versión para karaoke"
+
 #: DB:link_type/long_link_phrase:212
 msgid "has a catalog of records at"
 msgstr "tuvo un catalogo de discos en"
@@ -5234,6 +5329,12 @@ msgstr ""
 msgid "has influences of"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1239
+#, fuzzy
+#| msgid "instrumental"
+msgid "has instrumental version"
+msgstr "instrumental"
+
 #: DB:link_type/long_link_phrase:984 DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
 msgstr ""
@@ -5307,6 +5408,16 @@ msgstr ""
 msgid "has {half:half-}{step}sibling"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:1237
+#, fuzzy
+#| msgid "edited in"
+msgid "headquartered in"
+msgstr "editado en"
+
+#: DB:link_type/name:1237
+msgid "headquarters"
+msgstr ""
+
 #: DB:link_type/link_phrase:794 DB:link_type/name:794 DB:link_type/name:995
 #: DB:link_type/reverse_link_phrase:995
 msgid "held at"
@@ -5355,6 +5466,10 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:801
 msgid "hosts"
+msgstr ""
+
+#: DB:link_type/link_phrase:1237
+msgid "houses headquarters for"
 msgstr ""
 
 #: DB:link_type/link_phrase:916 DB:link_type/name:916
@@ -5430,13 +5545,25 @@ msgstr ""
 msgid "instrument technician"
 msgstr "Técnico de instrumento"
 
-#: DB:link_attribute_type/name:580
+#: DB:link_attribute_type/name:580 DB:link_type/name:1239
 msgid "instrumental"
 msgstr "instrumental"
 
 #: DB:link_type/name:105
 msgid "instrumental supporting musician"
 msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1239
+#, fuzzy
+#| msgid "instrumental"
+msgid "instrumental version of"
+msgstr "instrumental"
+
+#: DB:link_type/link_phrase:1239
+#, fuzzy
+#| msgid "instrumental"
+msgid "instrumental versions"
+msgstr "instrumental"
 
 #: DB:link_type/link_phrase:752
 msgid "instruments"
@@ -5525,18 +5652,18 @@ msgstr ""
 msgid "is a tribute to"
 msgstr "es un tributo a"
 
-#: DB:link_type/long_link_phrase:278
-msgid ""
-"is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
-"{karaoke} recording of"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:309
 msgid "is an edit of"
+msgstr "Es una edición de"
+
+#: DB:link_type/long_link_phrase:1240
+#, fuzzy
+#| msgid "is an edit of"
+msgid "is an excerpt from"
 msgstr "Es una edición de"
 
 #: DB:link_type/long_link_phrase:926
@@ -5594,6 +5721,12 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:109
 msgid "is the {step}parent of"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:278
+msgid ""
+"is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
+"a} {partial} {instrumental} {cover} {karaoke} recording of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:722
@@ -7128,6 +7261,15 @@ msgstr "voces soprano"
 msgid "sound"
 msgstr ""
 
+#: DB:link_type/name:1236 DB:link_type/name:1235
+#: DB:link_type/reverse_link_phrase:1236 DB:link_type/reverse_link_phrase:1235
+msgid "sound effects"
+msgstr ""
+
+#: DB:link_type/link_phrase:1236 DB:link_type/link_phrase:1235
+msgid "sound effects for"
+msgstr ""
+
 #: DB:link_type/name:870 DB:link_type/name:291 DB:link_type/name:290
 #: DB:link_type/name:940
 msgid "soundcloud"
@@ -7685,6 +7827,18 @@ msgstr ""
 
 #: DB:link_type/name:1080
 msgid "youtube music"
+msgstr ""
+
+#: DB:link_type/link_phrase:278
+msgid ""
+"{acappella:a cappella} {live} {medley:medley including a} {partial} "
+"{instrumental} {cover} {karaoke} recording of"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:278
+msgid ""
+"{acappella:a cappella} {live} {medley:medleys including} {partial} "
+"{instrumental} {cover} {karaoke} recordings"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:886
@@ -8454,6 +8608,10 @@ msgstr ""
 msgid "{entity1} is dedicated to {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1237
+msgid "{entity1} is headquartered in {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:939
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
@@ -8700,18 +8858,6 @@ msgstr ""
 
 #: DB:link_type/link_phrase:986 DB:link_type/link_phrase:987
 msgid "{instrument:%|instruments} technician for"
-msgstr ""
-
-#: DB:link_type/link_phrase:278
-msgid ""
-"{live} {medley:medley including a} {partial} {instrumental} {cover} "
-"{karaoke} recording of"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:278
-msgid ""
-"{live} {medley:medleys including} {partial} {instrumental} {cover} {karaoke} "
-"recordings"
 msgstr ""
 
 #: DB:link_type/link_phrase:109
