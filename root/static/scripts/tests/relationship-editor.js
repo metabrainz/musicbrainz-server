@@ -304,7 +304,7 @@ test('merging duplicate relationships', function (t) {
 });
 
 test('splitRelationshipByAttributes', function (t) {
-  t.plan(16);
+  t.plan(19);
 
   const lyre = {
     type: {
@@ -663,6 +663,55 @@ test('splitRelationshipByAttributes', function (t) {
       },
     ),
     'second relationship contains drums',
+  );
+
+  // This test ensures tasks are treated the same as instruments and vocals.
+
+  const task = {
+    text_value: 'dancer',
+    type: {
+      gid: '39867b3b-0f1e-40d5-b602-4f3936b7f486',
+    },
+    typeID: 1150,
+    typeName: 'task',
+  };
+
+  const modifiedRelationship6 = {
+    ...existingRelationship,
+    _original: existingRelationship,
+    _status: REL_STATUS_EDIT,
+    attributes: tree.union(
+      existingRelationship.attributes,
+      tree.fromDistinctAscArray([task]),
+      compareLinkAttributeIds,
+      onConflictUseSecondValue,
+    ),
+  };
+  Object.freeze(modifiedRelationship6);
+
+  splitRelationships =
+    splitRelationshipByAttributes(modifiedRelationship6);
+
+  t.ok(
+    splitRelationships.length === 2,
+    'two relationships are returned',
+  );
+  t.ok(
+    splitRelationships[0] === existingRelationship,
+    'first relationship is the original',
+  );
+  t.ok(
+    relationshipsAreIdentical(
+      splitRelationships[1],
+      {
+        ...modifiedRelationship6,
+        _original: null,
+        _status: REL_STATUS_ADD,
+        attributes: tree.fromDistinctAscArray([task]),
+        id: splitRelationships[1].id,
+      },
+    ),
+    'second relationship only contains task',
   );
 
   /*

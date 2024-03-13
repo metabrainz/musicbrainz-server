@@ -51,6 +51,8 @@ export const INSTRUMENT_ROOT_ID = 14;
 
 export const VOCAL_ROOT_ID = 3;
 
+export const TASK_ATTRIBUTE_ID = 1150;
+
 export const AREA_TYPE_COUNTRY = 1;
 
 export const ARTIST_TYPE_PERSON = 1;
