@@ -54,8 +54,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-05 19:46+0000\n"
-"PO-Revision-Date: 2024-03-11 11:05+0000\n"
+"POT-Creation-Date: 2024-03-11 13:08+0200\n"
+"PO-Revision-Date: 2024-03-13 18:42+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -2703,11 +2703,14 @@ msgstr ""
 "eliminar el artista automáticamente en unos días."
 
 #: ../root/place/edit_form.tt:29
+#: ../lib/MusicBrainz/Server/Form/Field/Coordinates.pm:58
 msgid "These coordinates could not be parsed."
 msgstr "No podemos descifrar estas coordenadas."
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
-msgid "This CDTOC is already attached to this medium."
+#, fuzzy
+#| msgid "This CDTOC is already attached to this medium."
+msgid "This CD TOC is already attached to this medium."
 msgstr "Esta TOC de CD ya está asociada a este medio."
 
 #: ../root/release/edit/information.tt:354
@@ -2814,9 +2817,14 @@ msgstr ""
 "contenido del archivo."
 
 #: ../root/release/edit/tracklist.tt:386
+#, fuzzy
+#| msgid ""
+#| "This is almost always incorrect. Please make sure whether you actually "
+#| "wanted a different format (such as “USB Flash Drive” or “Music Card”) or "
+#| "packaging type."
 msgid ""
 "This is almost always incorrect. Please make sure whether you actually "
-"wanted a different format (such as “USB Flash Drive” or “Music Card”) or "
+"wanted a different format (such as “USB Flash Drive” or “Download Card”) or "
 "packaging type."
 msgstr ""
 "Esto es casi siempre incorrecto. Asegúrate de que no quieres seleccionar un "
@@ -3009,8 +3017,8 @@ msgid ""
 "information about this release’s media, remove all media."
 msgstr ""
 "En general, es obligatorio introducir una lista de pistas. Si no tienes "
-"información sobre las pistas, pero sí otra información sobre los medios ("
-"como el número de medios o su formato), puedes seleccionar la casilla “No "
+"información sobre las pistas, pero sí otra información sobre los medios "
+"(como el número de medios o su formato), puedes seleccionar la casilla “No "
 "conozco la lista de pistas de este medio” e introducir la información que sí "
 "tienes. Si no hay ninguna información sobre los medios de esta publicación, "
 "elimínalos."
@@ -4022,8 +4030,8 @@ msgid ""
 "doesn’t work, {contact_url|contact us}."
 msgstr ""
 "<strong>No logramos enviarte un correo de verificación.</strong><br/>Vuelve "
-"a introducir to dirección de correo en tus {settings|preferencias de cuenta}"
-", y si eso no funciona, {contact_url|ponte en contacto con nosotros}."
+"a introducir to dirección de correo en tus {settings|preferencias de "
+"cuenta}, y si eso no funciona, {contact_url|ponte en contacto con nosotros}."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:828
 msgid "There is no OAuth token with these parameters."
@@ -4057,11 +4065,16 @@ msgid "The provided CD TOC ID is not valid."
 msgstr "La ID de TOC de CD suministrada no es válida."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:89
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:154
 msgid "Please provide a medium ID."
 msgstr "Debes suministrar una ID de medio."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:93
-msgid "The provided medium id is not valid."
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:214
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:436
+#, fuzzy
+#| msgid "The provided medium id is not valid."
+msgid "The provided medium ID is not valid."
 msgstr "La ID de medio suministrada no es válida."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:99
@@ -4078,10 +4091,6 @@ msgstr ""
 "La ID de TOC de CD suministrada no existe o no está asociada al medio "
 "suministrado."
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:154
-msgid "Please provide a medium ID"
-msgstr "Debes suministrar una ID de medio"
-
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:159
 msgid "Could not find medium"
 msgstr "No encontramos el medio"
@@ -4097,11 +4106,6 @@ msgstr ""
 "con el programa que utilizado para generarla. Inténtalo de nuevo, y si sigue "
 "sin funcionar házselo saber a los desarrolladores del programa (junto con la "
 "información técnica que encontrarás más abajo)."
-
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:214
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:436
-msgid "The provided medium id is not valid"
-msgstr "La ID de medio suministrada no es válida"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:235
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:449
@@ -5173,8 +5177,14 @@ msgid_plural ""
 "The IPI {ipi} is already in use on {artist_count} artists. Please check "
 "{artist_search|all uses of this IPI}."
 msgstr[0] ""
+"La IPI {ipi} ya está en uso en un artista. Comprueba {artist_search|todos "
+"los usos de esta IPI}."
 msgstr[1] ""
+"La IPI {ipi} ya está en uso en {artist_count} artistas. Comprueba "
+"{artist_search|todos los usos de esta IPI}."
 msgstr[2] ""
+"La IPI {ipi} ya está en uso en {artist_count} artistas. Comprueba "
+"{artist_search|todos los usos de esta IPI}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/IPI.pm:46
 #, perl-brace-format
@@ -5185,8 +5195,14 @@ msgid_plural ""
 "The IPI {ipi} is already in use on {label_count} labels. Please check "
 "{label_search|all uses of this IPI}."
 msgstr[0] ""
+"La IPI {ipi} ya está en uso en una discográfica. Comprueba {label_search|"
+"todos los usos de esta IPI}."
 msgstr[1] ""
+"La IPI {ipi} ya está en uso en {label_count} discográficas. Comprueba "
+"{label_search|todos los usos de esta IPI}."
 msgstr[2] ""
+"La IPI {ipi} ya está en uso en {label_count} discográficas. Comprueba "
+"{label_search|todos los usos de esta IPI}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:40
 #, perl-brace-format
@@ -5197,8 +5213,14 @@ msgid_plural ""
 "The ISNI {isni} is already in use on {artist_count} artists. Please check "
 "{artist_search|all uses of this ISNI}."
 msgstr[0] ""
+"La ISNI {isni} ya está en uso en un artista. Comprueba {artist_search|todos "
+"los usos de esta ISNI}."
 msgstr[1] ""
+"La ISNI {isni} ya está en uso en {artist_count} artistas. Comprueba "
+"{artist_search|todos los usos de esta ISNI}."
 msgstr[2] ""
+"La ISNI {isni} ya está en uso en {artist_count} artistas. Comprueba "
+"{artist_search|todos los usos de esta ISNI}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:46
 #, perl-brace-format
@@ -5209,8 +5231,14 @@ msgid_plural ""
 "The ISNI {isni} is already in use on {label_count} labels. Please check "
 "{label_search|all uses of this ISNI}."
 msgstr[0] ""
+"La ISNI {isni} ya está en uso en una discográfica. Comprueba {label_search|"
+"todos los usos de esta ISNI}."
 msgstr[1] ""
+"La ISNI {isni} ya está en uso en {label_count} discográficas. Comprueba "
+"{label_search|todos los usos de esta ISNI}."
 msgstr[2] ""
+"La ISNI {isni} ya está en uso en {label_count} discográficas. Comprueba "
+"{label_search|todos los usos de esta ISNI}."
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
 msgctxt "edit type"
@@ -5434,13 +5462,13 @@ msgstr "[ninguno]"
 #: ../root/static/scripts/common/utility/displayLinkAttribute.js:39
 #, perl-brace-format
 msgid "{attribute} [{credited_as}]"
-msgstr ""
+msgstr "{attribute} [{credited_as}]"
 
 #: ../lib/MusicBrainz/Server/Entity/LinkAttribute.pm:39
 #: ../root/static/scripts/common/utility/displayLinkAttribute.js:29
 #, perl-brace-format
 msgid "{attribute}: {value}"
-msgstr ""
+msgstr "{attribute}: {value}"
 
 #: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:50
 msgid " &#x2013; ????"
@@ -5471,7 +5499,7 @@ msgstr "{begindate} &#x2013;"
 #: ../root/static/scripts/common/utility/groupRelationships.js:466
 #, perl-brace-format
 msgid "{role} (as {credited_name})"
-msgstr ""
+msgstr "{role} (como {credited_name})"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Anghami.pm:10
 msgid "Stream at Anghami"
@@ -5487,7 +5515,7 @@ msgstr "Escuchar en Boomplay"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/CPDL.pm:9
 msgid "Score(s) at CPDL"
-msgstr ""
+msgstr "Partitura(s) en CPDL"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Deezer.pm:10
 msgid "Stream at Deezer"
@@ -5503,7 +5531,7 @@ msgstr "Proyecto Gutenberg"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/IMSLP.pm:31
 msgid "Score at IMSLP"
-msgstr ""
+msgstr "Partitura en IMSLP"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/MiguMusic.pm:9
 msgid "Stream at Migu Music"
@@ -5515,15 +5543,15 @@ msgstr "Niconico"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/RateYourMusic.pm:13
 msgid "Interview at Rate Your Music"
-msgstr ""
+msgstr "Entrevista en Rate Your Music"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Runeberg.pm:9
 msgid "Project Runeberg"
-msgstr ""
+msgstr "Proyecto Runeberg"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:14
 msgid "Playlists at Spotify"
-msgstr ""
+msgstr "Playlists en Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:16
 msgid "Purchase at Spotify"
@@ -5547,11 +5575,11 @@ msgstr "Escuchar en VK"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Weibo.pm:9
 msgid "Weibo"
-msgstr ""
+msgstr "Weibo"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Wikisource.pm:9
 msgid "Wikisource"
-msgstr ""
+msgstr "Wikisource"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Yandex.pm:10
 msgid "Stream at Yandex"
@@ -5571,12 +5599,14 @@ msgstr "Este alias ya existe."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:48
 msgid "Redirect URL must be entered for web applications."
-msgstr ""
+msgstr "La URL de redirección es obligatoria para las aplicaciones web."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:52
 msgid ""
 "Redirect URL scheme must be either “http” or “https” for web applications."
 msgstr ""
+"El esquema de la URL de redirección para las aplicaciones web debe ser “http”"
+" o “https”."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:59
 #, perl-brace-format
@@ -5591,7 +5621,7 @@ msgstr "Ya existe un área con este código ISO"
 
 #: ../lib/MusicBrainz/Server/Form/Artist.pm:75
 msgid "Group artists cannot have a gender."
-msgstr ""
+msgstr "Los grupos no pueden tener género."
 
 #: ../lib/MusicBrainz/Server/Form/Artist.pm:82
 msgid "Orchestras cannot have a gender."
@@ -5603,7 +5633,7 @@ msgstr "Los coros no pueden tener género."
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:92
 msgid "The collection type must match the type of entities it contains."
-msgstr ""
+msgstr "El tipo de una colección debe coincidir con el de sus contenidos."
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:114
 #, perl-brace-format
@@ -5611,17 +5641,20 @@ msgid ""
 "“{collaborator}” was added more than once. Did you intend to select someone "
 "else?"
 msgstr ""
+"Has añadido a “{collaborator}” más de una vez. ¿Querías añadir a otro editor?"
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:124
 #, perl-brace-format
 msgid ""
 "To add “{editor}” as a collaborator, please select them from the dropdown."
 msgstr ""
+"Para añadir a “{editor}” como colaborador, selecciónalo en la lista "
+"desplegable."
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:129
 #, perl-brace-format
 msgid "Editor “{editor}” does not exist."
-msgstr ""
+msgstr "El editor “{editor}” no existe."
 
 #: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:30
 msgid ""
@@ -5647,15 +5680,11 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:64
 msgid "Please add an artist name for each credit."
-msgstr ""
+msgstr "Debes añadir un nombre de artista para cada crédito."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:79
 msgid "Artist credit field is required"
 msgstr "Es necesario rellenar el campo \"crédito de artista\""
-
-#: ../lib/MusicBrainz/Server/Form/Field/Coordinates.pm:58
-msgid "These coordinates could not be parsed"
-msgstr "No podemos descifrar estas coordenadas."
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:42
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:67
@@ -5676,17 +5705,17 @@ msgstr "Esta MBID no es válida"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ID.pm:15
 msgid "This is not a valid database ID"
-msgstr ""
+msgstr "Esta no es una ID válida para la base de datos"
 
 #: ../lib/MusicBrainz/Server/Form/Field/IPI.pm:15
 #: ../lib/MusicBrainz/Server/Form/Field/IPI.pm:19
 msgid "This is not a valid IPI."
-msgstr ""
+msgstr "Esta IPI no es válida."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISNI.pm:15
 #: ../lib/MusicBrainz/Server/Form/Field/ISNI.pm:19
 msgid "This is not a valid ISNI."
-msgstr ""
+msgstr "Esta ISNI no es válida."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISO_3166_1.pm:15
 msgid "This is not a valid ISO 3166-1 code"
@@ -5729,25 +5758,27 @@ msgstr "fecha no válida"
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:290
 msgid ""
 "You must select a relationship type and target entity for every relationship."
-msgstr ""
+msgstr "Debes seleccionar un tipo y una entidad de destino para cada relación."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Setlist.pm:15
 msgid "Please ensure all lines start with @, * or #, followed by a space."
 msgstr ""
+"Asegúrate de que todas las líneas empiezan por @, * o #, seguidos por un "
+"espacio."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Text.pm:21
 msgid "The characters you’ve entered are invalid or not allowed."
-msgstr ""
+msgstr "Los caracteres introducidos son inválidos o no están permitidos."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Time.pm:19
 msgid "This is not a valid time."
-msgstr ""
+msgstr "Esta hora no es válida."
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:28
 #: ../root/static/scripts/edit/externalLinks.js:753
 #, perl-brace-format
 msgid "Please enter a valid URL, such as “{example_url}”."
-msgstr ""
+msgstr "Introduce una URL válida, como “{example_url}”."
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:33
 msgid "URL protocol must be HTTP, HTTPS or FTP"
@@ -5756,7 +5787,7 @@ msgstr "El protocolo de las URL debe ser HTTP, HTTPS o FTP"
 #: ../lib/MusicBrainz/Server/Form/Filter/Event.pm:31
 msgctxt "event type"
 msgid "[none]"
-msgstr ""
+msgstr "[ninguno]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:38
 msgid "Videos only"
@@ -5771,25 +5802,27 @@ msgid ""
 "Must be a valid date or partial date. Examples: 2006-05-25, "
 "1990-01, ????-01, ..."
 msgstr ""
+"Debe ser una fecha (completa o parcial) válida. Por ejemplo: 2006-05-25, "
+"1990-01, ????-01, ..."
 
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:54
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:63
 msgctxt "release group type"
 msgid "[none]"
-msgstr ""
+msgstr "[ninguno]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:29
 msgid "As performer"
-msgstr ""
+msgstr "Como intérprete"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:30
 msgid "As writer"
-msgstr ""
+msgstr "Como autor"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:37
 msgctxt "work type"
 msgid "[none]"
-msgstr ""
+msgstr "[ninguno]"
 
 #: ../lib/MusicBrainz/Server/Form/Merge.pm:22
 msgid "Please pick the entity you want the others merged into."
@@ -5820,6 +5853,8 @@ msgid ""
 "This recording’s duration is determined by the tracks that are linked to it, "
 "and cannot be changed directly."
 msgstr ""
+"La duración de esta grabación depende de las pistas asociadas, y no puede "
+"ser modificada directamente."
 
 #: ../lib/MusicBrainz/Server/Form/Recording/Standalone.pm:11
 msgid "You must provide an edit note when adding a standalone recording"
@@ -5829,11 +5864,11 @@ msgstr "Debes incluir una nota para añadir una grabación independiente"
 #: ../lib/MusicBrainz/Server/Form/Role/CSRFToken.pm:11
 #: ../lib/MusicBrainz/Server/Form/Role/CSRFToken.pm:77
 msgid "The form you’ve submitted has expired. Please resubmit your request."
-msgstr ""
+msgstr "El formulario que has enviado ha expirado, vuelve a intentarlo."
 
 #: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:28
 msgid "You must provide an edit note"
-msgstr ""
+msgstr "Debes añadir una nota de edición"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:34
 msgid "Invalid URL format"
@@ -5841,11 +5876,11 @@ msgstr "Formato de URL no válido"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:65
 msgid "A language is required."
-msgstr ""
+msgstr "El idioma es obligatorio."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
 msgid "A fluency level is required."
-msgstr ""
+msgstr "El nivel de fluidez es obligatorio."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
 #: ../root/static/scripts/common/constants.js:372
@@ -5918,7 +5953,7 @@ msgstr "Búsqueda directa en la base de datos"
 
 #: ../lib/MusicBrainz/Server/Form/Series.pm:29
 msgid "A type is required."
-msgstr ""
+msgstr "El tipo es obligatorio."
 
 #: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:53
 msgid "The old password is incorrect"
@@ -5957,6 +5992,8 @@ msgid ""
 "The value of this field cannot be longer than {max} characters, but you "
 "entered {actual}."
 msgstr ""
+"El valor de este campo puede tener un máximo de {max} caracteres, pero "
+"introdujiste {actual}."
 
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:44
 msgid "Please enter a password in this field"
@@ -5969,32 +6006,32 @@ msgstr "La contraseña de confirmación no coincide con la contraseña"
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:35
 #: ../root/user/ReportUser.js:48
 msgid "Editor is spamming"
-msgstr ""
+msgstr "El editor está haciendo spam"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:36
 #: ../root/user/ReportUser.js:52
 msgid "Editor is unresponsive to edit notes"
-msgstr ""
+msgstr "El editor no responde a las notas de edición"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:37
 #: ../root/user/ReportUser.js:56
 msgid "Editor intentionally ignores accepted guidelines"
-msgstr ""
+msgstr "El editor ignora deliberadamente las directrices de estilo"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:38
 #: ../root/user/ReportUser.js:60
 msgid "Editor is overzealous in enforcing guidelines as rules"
-msgstr ""
+msgstr "El editor intenta imponer las directrices como reglas en toda ocasión"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:39
 #: ../root/user/ReportUser.js:64
 msgid "Editor engages in overzealous or abusive yes/no voting"
-msgstr ""
+msgstr "El editor vota sí o no de manera abusiva o problemática"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:40
 #: ../root/user/ReportUser.js:69
 msgid "Editor has violated some other part of our Code of Conduct"
-msgstr ""
+msgstr "El editor ha incumplido otra parte del código de conducta"
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:47
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:19
@@ -6025,48 +6062,53 @@ msgstr "Otros"
 msgid ""
 "This username contains invalid characters. (Check for consecutive spaces.)"
 msgstr ""
+"Este nombre de usuario contiene caracteres no válidos. (Comprueba si tiene "
+"espacios consecutivos)."
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:223
 msgid "This username is reserved for internal use."
-msgstr ""
+msgstr "Este nombre de usuario está reservado para uso interno."
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:226
 msgid "Please choose another username, this one is already taken."
-msgstr ""
+msgstr "Elige otro nombre de usuario, este no está disponible."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:64
 msgid "Please select a work attribute type."
-msgstr ""
+msgstr "Debes seleccionar un tipo de atributo."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:71
 msgid "Please enter a work attribute value."
-msgstr ""
+msgstr "Debes introducir un valor para el atributo."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:98
 msgid ""
 "You cannot select “[Multiple languages]” and specific languages at the same "
 "time."
 msgstr ""
+"No puedes seleccionar “[Varios idiomas]” a la vez que uno o más idiomas "
+"específicos."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:103
 msgid "You cannot select “[No lyrics]” and a lyrics language at the same time."
 msgstr ""
+"No puedes seleccionar “[Sin letra]” a la vez que un idioma de las letras."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:108
 msgid "You cannot select the same language more than once."
-msgstr ""
+msgstr "No puedes seleccionar el mismo idioma más de una vez."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:150
 msgid "Unknown work attribute type."
-msgstr ""
+msgstr "Tipo de atributo desconocido."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:159
 msgid "You cannot enter the same attribute and value more than once."
-msgstr ""
+msgstr "No puedes añadir el mismo atributo con el mismo valor más de una vez."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:166
 msgid "This value is not allowed for this work attribute type."
-msgstr ""
+msgstr "Valor no permitido para este tipo de atributo."
 
 #: ../lib/MusicBrainz/Server/Translation.pm:257
 #: ../root/static/scripts/common/i18n/commaList.js:28
@@ -6119,7 +6161,7 @@ msgstr "Introduce tu antigua contraseña debajo, y después la nueva contraseña
 #: ../root/static/scripts/account/components/RegisterForm.js:57
 #: ../root/user/Login.js:101
 msgid "Username"
-msgstr ""
+msgstr "Nombre de usuario"
 
 #: ../root/account/ChangePassword.js:77
 msgid "Old password:"
@@ -6166,12 +6208,17 @@ msgid ""
 "This will also cancel all your open edits and change all of your votes on "
 "any edits currently open to Abstain."
 msgstr ""
+"Todas tus ediciones pendientes serán canceladas, y todos tus votos en "
+"ediciones pendientes serán cambiados a abstenciones."
 
 #: ../root/account/DeleteOwnAccount.js:62
 msgid ""
 "Keep in mind this process might take a fairly long time if you have entered "
 "a lot of tags. If the process times out, please {contact_url|contact us}."
 msgstr ""
+"Ten en cuenta que este proceso puede llevar bastante tiempo si has "
+"introducido muchas etiquetas. Si el proceso tarda tanto que acaba fallando, "
+"{contact_url|ponte en contacto con nosotros}."
 
 #: ../root/account/DeleteOwnAccount.js:71
 msgid "Are you sure you want to delete your account? This cannot be undone!"
@@ -6424,7 +6471,7 @@ msgstr "Aplicaciones"
 #: ../root/account/applications/ApplicationList.js:97
 #: ../root/user/UserProfile.js:306
 msgid "Authorized applications"
-msgstr ""
+msgstr "Aplicaciones autorizadas"
 
 #: ../root/account/applications/ApplicationList.js:101
 msgid ""
@@ -6434,6 +6481,11 @@ msgid ""
 "MusicBrainz account. If you no longer use some of the applications, you can "
 "revoke their access."
 msgstr ""
+"Algunas aplicaciones y páginas web permiten acceder a tus datos privados o "
+"enviar información a MusicBrainz, pero tienen que tener tu permiso para "
+"acceder a tu cuenta. Estas son las aplicaciones que has autorizado a acceder "
+"a tu cuenta de MusicBrainz. Si ya no usas alguna de ellas, puedes retirar el "
+"acceso."
 
 #: ../root/account/applications/ApplicationList.js:115
 #: ../root/account/applications/ApplicationList.js:154
@@ -6446,7 +6498,7 @@ msgstr "Acceso"
 
 #: ../root/account/applications/ApplicationList.js:117
 msgid "Last granted token"
-msgstr ""
+msgstr "Último token"
 
 #: ../root/account/applications/ApplicationList.js:118
 #: ../root/account/applications/ApplicationList.js:158
@@ -6465,7 +6517,7 @@ msgstr "No has autorizado ninguna aplicación."
 #: ../root/account/applications/ApplicationList.js:132
 #: ../root/user/UserProfile.js:322
 msgid "Developer applications"
-msgstr ""
+msgstr "Aplicaciones desarrolladas"
 
 #: ../root/account/applications/ApplicationList.js:136
 msgid ""
@@ -6473,6 +6525,10 @@ msgid ""
 "MusicBrainz API}? {register_url|Register an application} to generate OAuth "
 "tokens. See our {oauth2_doc_url|OAuth documentation} for more details."
 msgstr ""
+"¿Quieres desarrollar una aplicación que use la {mb_api_doc_url|API de "
+"MusicBrainz}? {register_url|Registra una aplicación} para generar tokens de "
+"OAuth. Para saber más, consulta nuestra {oauth2_doc_url|documentación de "
+"OAuth}."
 
 #: ../root/account/applications/ApplicationList.js:156
 msgid "OAuth client ID"
@@ -6484,7 +6540,7 @@ msgstr "Secreto del cliente de OAuth"
 
 #: ../root/account/applications/ApplicationList.js:167
 msgid "You do not have any registered applications."
-msgstr ""
+msgstr "No has registrado ninguna aplicación."
 
 #: ../root/account/applications/EditApplication.js:21
 #: ../root/account/applications/EditApplication.js:22
@@ -6519,11 +6575,11 @@ msgstr "Eliminar aplicación"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:30
 msgid "You’re about to revoke {app}’s permissions to:"
-msgstr ""
+msgstr "Vas a retirar la autorización a {app} para:"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:42
 msgid "Are you sure you want to revoke this application’s access?"
-msgstr ""
+msgstr "¿Seguro que quieres retirar el acceso a esta aplicación?"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:46
 msgctxt "header"
@@ -6542,12 +6598,16 @@ msgid ""
 "You must verify your email address before you can log in to {discourse|"
 "MetaBrainz Community Discourse}."
 msgstr ""
+"Debes verificar tu dirección de correo para iniciar sesión en {discourse|los "
+"foros de Discourse de la comunidad de MetaBrainz}."
 
 #: ../root/account/sso/DiscourseRegistered.js:30
 msgid ""
 "An email has been sent to {addr}. Please check your mailbox and click on the "
 "link in the email to verify your email address."
 msgstr ""
+"Hemos enviado un correo a {addr}. Haz clic en el enlace indicado en el "
+"correo para verificar tu dirección de correo."
 
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:13
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:14
@@ -10231,7 +10291,9 @@ msgid "Social contract"
 msgstr "Contrato social"
 
 #: ../root/layout/components/BottomMenu.js:141
-msgid "Code of conduct"
+#, fuzzy
+#| msgid "Code of conduct"
+msgid "Code of Conduct"
 msgstr "Código de conducta"
 
 #: ../root/layout/components/BottomMenu.js:144
@@ -11553,16 +11615,13 @@ msgid "{relationship_documentation_url|Documentation}"
 msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:176
-msgid "{type0}-{type1} Relationship Types"
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:194
+msgid "{type0}-{type1} relationship types"
 msgstr "Tipos de relación {type0}-{type1}"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:187
 msgid "&lt; Back to all relationship types"
 msgstr "&lt; Volver a la lista de tipos de relación"
-
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:194
-msgid "{type0}-{type1} relationship types"
-msgstr "Tipos de relación {type0}-{type1}"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:214
 msgid "Expand all descriptions"
@@ -12961,16 +13020,17 @@ msgid ""
 "releases in this report should have artwork {caa_how_to|uploaded to the "
 "Cover Art Archive}. Note that the cover art uploaded for a release must "
 "always exactly match the actual art for that specific release (for example, "
-"they should have the same barcode, format, etc.)."
+"they should have the same barcode, format, etc.). This report skips pseudo-"
+"releases, since they should generally not have cover art."
 msgstr ""
 
-#: ../root/report/ReleasesWithoutCaa.js:35
+#: ../root/report/ReleasesWithoutCaa.js:37
 msgid ""
 "We strongly suggest restricting this report to entities in your "
 "subscriptions only for a more manageable list of results."
 msgstr ""
 
-#: ../root/report/ReleasesWithoutCaa.js:40 ../root/report/ReportsIndex.js:365
+#: ../root/report/ReleasesWithoutCaa.js:42 ../root/report/ReportsIndex.js:365
 msgid "Releases without any art in the Cover Art Archive"
 msgstr ""
 
@@ -13033,7 +13093,7 @@ msgstr ""
 msgid "Labels with annotations"
 msgstr "Discográficas con anotaciones"
 
-#: ../root/report/ReportsIndex.js:203
+#: ../root/report/ReportsIndex.js:203 ../root/report/SetInDifferentRg.js:36
 msgid "Release groups that might need to be merged"
 msgstr "Grupos de publicaciones que quizá deban ser fusionados"
 
@@ -13181,10 +13241,6 @@ msgid ""
 "might want to merge them too into one multi-disc release (see "
 "{how_to_merge_releases|How to Merge Releases})."
 msgstr ""
-
-#: ../root/report/SetInDifferentRg.js:36
-msgid "Mismatched release groups"
-msgstr "Grupos de publicaciones que quizá deban ser fusionados"
 
 #: ../root/report/ShouldNotHaveDiscIds.js:24
 msgid ""
@@ -17269,6 +17325,21 @@ msgid ""
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
 msgstr ""
+
+#~ msgid "Please provide a medium ID"
+#~ msgstr "Debes suministrar una ID de medio"
+
+#~ msgid "The provided medium id is not valid"
+#~ msgstr "La ID de medio suministrada no es válida"
+
+#~ msgid "These coordinates could not be parsed"
+#~ msgstr "No podemos descifrar estas coordenadas."
+
+#~ msgid "{type0}-{type1} Relationship Types"
+#~ msgstr "Tipos de relación {type0}-{type1}"
+
+#~ msgid "Mismatched release groups"
+#~ msgstr "Grupos de publicaciones que quizá deban ser fusionados"
 
 #, fuzzy
 #~ msgid "Series"

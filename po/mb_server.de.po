@@ -74,7 +74,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-05 19:46+0000\n"
+"POT-Creation-Date: 2024-03-11 13:08+0200\n"
 "PO-Revision-Date: 2024-01-31 12:28+0000\n"
 "Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
@@ -2658,11 +2658,14 @@ msgstr ""
 "automatisch entfernen kann."
 
 #: ../root/place/edit_form.tt:29
+#: ../lib/MusicBrainz/Server/Form/Field/Coordinates.pm:58
 msgid "These coordinates could not be parsed."
 msgstr "Diese Koordinaten konnten nicht geparst werden."
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
-msgid "This CDTOC is already attached to this medium."
+#, fuzzy
+#| msgid "This CDTOC is already attached to this medium."
+msgid "This CD TOC is already attached to this medium."
 msgstr "Diese CD-TOC ist bereits mit diesem Medium verbunden."
 
 #: ../root/release/edit/information.tt:354
@@ -2774,7 +2777,7 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:386
 msgid ""
 "This is almost always incorrect. Please make sure whether you actually "
-"wanted a different format (such as “USB Flash Drive” or “Music Card”) or "
+"wanted a different format (such as “USB Flash Drive” or “Download Card”) or "
 "packaging type."
 msgstr ""
 
@@ -3996,12 +3999,17 @@ msgid "The provided CD TOC ID is not valid."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:89
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:154
 msgid "Please provide a medium ID."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:93
-msgid "The provided medium id is not valid."
-msgstr ""
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:214
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:436
+#, fuzzy
+#| msgid "The provided medium id is not valid"
+msgid "The provided medium ID is not valid."
+msgstr "Die angegebene Mediums-ID ist ungültig"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:99
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:227
@@ -4015,10 +4023,6 @@ msgid ""
 "medium."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:154
-msgid "Please provide a medium ID"
-msgstr "Gib bitte eine Medium-ID an"
-
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:159
 msgid "Could not find medium"
 msgstr "Medium konnte nicht gefunden werden"
@@ -4030,11 +4034,6 @@ msgid ""
 "your software maker if it persists, including the technical information "
 "below."
 msgstr ""
-
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:214
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:436
-msgid "The provided medium id is not valid"
-msgstr "Die angegebene Mediums-ID ist ungültig"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:235
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:449
@@ -5571,10 +5570,6 @@ msgstr "Bitte wähle einen Künstlernamen für jede Nennung."
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:79
 msgid "Artist credit field is required"
 msgstr "Künstlernennungsfeld muss ausgefüllt werden"
-
-#: ../lib/MusicBrainz/Server/Form/Field/Coordinates.pm:58
-msgid "These coordinates could not be parsed"
-msgstr "Diese Koordinaten konnten nicht erkannt werden"
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:42
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:67
@@ -10254,7 +10249,9 @@ msgid "Social contract"
 msgstr "Gesellschaftsvertrag"
 
 #: ../root/layout/components/BottomMenu.js:141
-msgid "Code of conduct"
+#, fuzzy
+#| msgid "Code of conduct"
+msgid "Code of Conduct"
 msgstr "Verhaltenskodex"
 
 #: ../root/layout/components/BottomMenu.js:144
@@ -11604,16 +11601,13 @@ msgid "{relationship_documentation_url|Documentation}"
 msgstr "{relationship_documentation_url|Dokumentation}"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:176
-msgid "{type0}-{type1} Relationship Types"
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:194
+msgid "{type0}-{type1} relationship types"
 msgstr "{type0}-{type1}-Beziehungstypen"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:187
 msgid "&lt; Back to all relationship types"
 msgstr "&lt; Zurück zu allen Beziehungstypen"
-
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:194
-msgid "{type0}-{type1} relationship types"
-msgstr "{type0}-{type1}-Beziehungstypen"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:214
 msgid "Expand all descriptions"
@@ -13103,16 +13097,17 @@ msgid ""
 "releases in this report should have artwork {caa_how_to|uploaded to the "
 "Cover Art Archive}. Note that the cover art uploaded for a release must "
 "always exactly match the actual art for that specific release (for example, "
-"they should have the same barcode, format, etc.)."
+"they should have the same barcode, format, etc.). This report skips pseudo-"
+"releases, since they should generally not have cover art."
 msgstr ""
 
-#: ../root/report/ReleasesWithoutCaa.js:35
+#: ../root/report/ReleasesWithoutCaa.js:37
 msgid ""
 "We strongly suggest restricting this report to entities in your "
 "subscriptions only for a more manageable list of results."
 msgstr ""
 
-#: ../root/report/ReleasesWithoutCaa.js:40 ../root/report/ReportsIndex.js:365
+#: ../root/report/ReleasesWithoutCaa.js:42 ../root/report/ReportsIndex.js:365
 msgid "Releases without any art in the Cover Art Archive"
 msgstr "Veröffentlichungen ohne Artwork im Cover-Art-Archiv"
 
@@ -13179,7 +13174,7 @@ msgstr "Veranstaltungen mit Anmerkungen"
 msgid "Labels with annotations"
 msgstr "Labels mit Anmerkungen"
 
-#: ../root/report/ReportsIndex.js:203
+#: ../root/report/ReportsIndex.js:203 ../root/report/SetInDifferentRg.js:36
 msgid "Release groups that might need to be merged"
 msgstr "Veröffentlichungsgruppen, die eventuell vereint werden müssen"
 
@@ -13339,10 +13334,6 @@ msgstr ""
 "darstellen, die mit „Teil eines Sets“-Beziehungen verbunden sind, solltest "
 "du sie wahrscheinlich als Veröffentlichungen mit mehreren Medien vereinen "
 "(siehe {how_to_merge_releases|Wie man Veröffentlichungen vereint})."
-
-#: ../root/report/SetInDifferentRg.js:36
-msgid "Mismatched release groups"
-msgstr "Falsch zugeordnete Veröffentlichungsgruppen"
 
 #: ../root/report/ShouldNotHaveDiscIds.js:24
 msgid ""
@@ -17530,6 +17521,18 @@ msgstr ""
 "<strong>Achtung:</strong> Einige der Werke, die du vereinst, haben "
 "unterschiedliche ISWCs. Bitte stelle sicher, dass es sich tatsächlich um die "
 "gleichen Werke handelt und dass du die Vereinigung durchführen willst."
+
+#~ msgid "Please provide a medium ID"
+#~ msgstr "Gib bitte eine Medium-ID an"
+
+#~ msgid "These coordinates could not be parsed"
+#~ msgstr "Diese Koordinaten konnten nicht erkannt werden"
+
+#~ msgid "{type0}-{type1} Relationship Types"
+#~ msgstr "{type0}-{type1}-Beziehungstypen"
+
+#~ msgid "Mismatched release groups"
+#~ msgstr "Falsch zugeordnete Veröffentlichungsgruppen"
 
 #~ msgid "Series"
 #~ msgstr "Serien"
