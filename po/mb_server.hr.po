@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-05 19:46+0000\n"
+"POT-Creation-Date: 2024-03-11 13:08+0200\n"
 "PO-Revision-Date: 2024-01-04 20:28+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations."
 "metabrainz.org>\n"
@@ -2501,11 +2501,12 @@ msgid ""
 msgstr ""
 
 #: ../root/place/edit_form.tt:29
+#: ../lib/MusicBrainz/Server/Form/Field/Coordinates.pm:58
 msgid "These coordinates could not be parsed."
 msgstr ""
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
-msgid "This CDTOC is already attached to this medium."
+msgid "This CD TOC is already attached to this medium."
 msgstr ""
 
 #: ../root/release/edit/information.tt:354
@@ -2592,7 +2593,7 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:386
 msgid ""
 "This is almost always incorrect. Please make sure whether you actually "
-"wanted a different format (such as “USB Flash Drive” or “Music Card”) or "
+"wanted a different format (such as “USB Flash Drive” or “Download Card”) or "
 "packaging type."
 msgstr ""
 
@@ -3701,11 +3702,14 @@ msgid "The provided CD TOC ID is not valid."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:89
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:154
 msgid "Please provide a medium ID."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:93
-msgid "The provided medium id is not valid."
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:214
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:436
+msgid "The provided medium ID is not valid."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:99
@@ -3720,10 +3724,6 @@ msgid ""
 "medium."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:154
-msgid "Please provide a medium ID"
-msgstr ""
-
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:159
 msgid "Could not find medium"
 msgstr ""
@@ -3734,11 +3734,6 @@ msgid ""
 "software you used to generate it. Try again and please report the error to "
 "your software maker if it persists, including the technical information "
 "below."
-msgstr ""
-
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:214
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:436
-msgid "The provided medium id is not valid"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:235
@@ -5277,10 +5272,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:79
 msgid "Artist credit field is required"
-msgstr ""
-
-#: ../lib/MusicBrainz/Server/Form/Field/Coordinates.pm:58
-msgid "These coordinates could not be parsed"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:42
@@ -9730,7 +9721,7 @@ msgid "Social contract"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:141
-msgid "Code of conduct"
+msgid "Code of Conduct"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:144
@@ -11029,15 +11020,12 @@ msgid "{relationship_documentation_url|Documentation}"
 msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:176
-msgid "{type0}-{type1} Relationship Types"
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:194
+msgid "{type0}-{type1} relationship types"
 msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:187
 msgid "&lt; Back to all relationship types"
-msgstr ""
-
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:194
-msgid "{type0}-{type1} relationship types"
 msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:214
@@ -12363,16 +12351,17 @@ msgid ""
 "releases in this report should have artwork {caa_how_to|uploaded to the "
 "Cover Art Archive}. Note that the cover art uploaded for a release must "
 "always exactly match the actual art for that specific release (for example, "
-"they should have the same barcode, format, etc.)."
+"they should have the same barcode, format, etc.). This report skips pseudo-"
+"releases, since they should generally not have cover art."
 msgstr ""
 
-#: ../root/report/ReleasesWithoutCaa.js:35
+#: ../root/report/ReleasesWithoutCaa.js:37
 msgid ""
 "We strongly suggest restricting this report to entities in your "
 "subscriptions only for a more manageable list of results."
 msgstr ""
 
-#: ../root/report/ReleasesWithoutCaa.js:40 ../root/report/ReportsIndex.js:365
+#: ../root/report/ReleasesWithoutCaa.js:42 ../root/report/ReportsIndex.js:365
 msgid "Releases without any art in the Cover Art Archive"
 msgstr ""
 
@@ -12431,7 +12420,7 @@ msgstr ""
 msgid "Labels with annotations"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:203
+#: ../root/report/ReportsIndex.js:203 ../root/report/SetInDifferentRg.js:36
 msgid "Release groups that might need to be merged"
 msgstr ""
 
@@ -12574,10 +12563,6 @@ msgid ""
 "If the releases are discs linked with \"part of set\" relationships, you "
 "might want to merge them too into one multi-disc release (see "
 "{how_to_merge_releases|How to Merge Releases})."
-msgstr ""
-
-#: ../root/report/SetInDifferentRg.js:36
-msgid "Mismatched release groups"
 msgstr ""
 
 #: ../root/report/ShouldNotHaveDiscIds.js:24
