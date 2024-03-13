@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-11 13:08+0200\n"
-"PO-Revision-Date: 2024-03-11 11:05+0000\n"
+"PO-Revision-Date: 2024-03-11 21:28+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -23,8 +23,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -3201,8 +3201,8 @@ msgid ""
 "and following the merge link."
 msgstr ""
 "Kai būsi pasirengęs (-usi) juos sujungti, spausk mygtuką Sujungti. Į šią "
-"sujungimo eilę vis dar gali pridėti daugiau dalykų, tiesiog naršydamas (-a) "
-"po subjektų puslapį ir sekant sujungimo nuorodą."
+"sujungimo eilę vis dar gali pridėti daugiau dalykų, tiesiog naršant po "
+"subjektų puslapį ir sekant sujungimo nuorodą."
 
 #: ../root/layout.tt:112 ../root/layout/components/Footer.js:27
 msgid "Wiki"
@@ -3971,7 +3971,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:738
 msgid "You cannot merge a special purpose artist into another artist"
-msgstr ""
+msgstr "Negalima sujungti ypatingos paskirties atlikėjo su kitu atlikėju."
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:743
 msgid "You cannot merge into Deleted Artist"
@@ -4038,7 +4038,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:422
 msgid "The provided CD TOC ID doesn’t exist."
-msgstr ""
+msgstr "Pateiktas CD TOC ID neegzistuoja."
 
 #: ../lib/MusicBrainz/Server/Controller/Collection.pm:78
 #, perl-brace-format
@@ -4093,6 +4093,9 @@ msgid ""
 "If there’s an important reason why it should be changed (for example, it "
 "contains private data), please {contact_url|contact us}."
 msgstr ""
+"Negali pakeisti šios pastabos, nes į ją jau atsakė kas nors kitas. Jei yra "
+"svarbi priežastis, dėl kurios ją reikėtų keisti (pavyzdžiui, joje privatūs "
+"duomenys), {contact_url|susisiek su mumis}."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:125
 msgid ""
@@ -4100,23 +4103,26 @@ msgid ""
 "important reason why it should be changed (for example, it contains private "
 "data), please {contact_url|contact us}."
 msgstr ""
+"Negali pakeisti šios pastabos, nes ji buvo įvesta per seniai. Jei yra svarbi "
+"priežastis, dėl kurios ją reikėtų pakeisti (pavyzdžiui, joje privatūs "
+"duomenys), {contact_url|susisiek su mumis}."
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:257
 msgid "You cannot merge a special purpose label into another label."
-msgstr ""
+msgstr "Negalima sujungti ypatingos paskirties kompanija su kita kompanija."
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:262
 msgid "You cannot merge into Deleted Label."
-msgstr ""
+msgstr "Negalima sujungti į pašalintą kompaniją."
 
 #: ../lib/MusicBrainz/Server/Controller/Rating.pm:43
 msgid "The rating should be an integer between 0 and 100."
-msgstr ""
+msgstr "Įvertinimas turėtų būti sveikasis skaičius nuo 0 iki 100."
 
 #: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:72
 #, perl-brace-format
 msgid "'{types}' is not a valid pair of types for relationships."
-msgstr ""
+msgstr "{types} nėra tinkama santykių tipų pora."
 
 #: ../lib/MusicBrainz/Server/Controller/Release.pm:615
 msgid ""
@@ -10216,7 +10222,7 @@ msgstr[3] ""
 
 #: ../root/label/LabelIndex.js:101
 msgid "This label does not have any releases."
-msgstr ""
+msgstr "Ši įrašų kompanija neturi jokių leidinių."
 
 #: ../root/label/LabelMerge.js:28 ../root/label/LabelMerge.js:30
 msgid "Merge labels"
@@ -10279,8 +10285,6 @@ msgid "Social contract"
 msgstr "Socialinė sutartis"
 
 #: ../root/layout/components/BottomMenu.js:141
-#, fuzzy
-#| msgid "Code of conduct"
 msgid "Code of Conduct"
 msgstr "Elgesio kodeksas"
 
@@ -11391,10 +11395,12 @@ msgid ""
 "You are about to merge all these places into a single one. Please select the "
 "place all others should be merged into:"
 msgstr ""
+"Netrukus visas šias vietas sujungsi į vieną. Pasirink vietą, į kurią turėtų "
+"būti sujungtos visos kitos:"
 
 #: ../root/place/PlacePerformances.js:33
 msgid "No recordings, releases or release groups are linked to this place."
-msgstr ""
+msgstr "Jokie įrašai, leidiniai ar leidinių grupės nėra susiję su šia vieta."
 
 #: ../root/recording/DeleteRecording.js:34
 #: ../root/recording/DeleteRecording.js:36
@@ -11406,23 +11412,24 @@ msgstr "Pašalinti įrašą"
 msgid ""
 "Please make sure you’re not removing a legitimate {doc_standalone|standalone "
 "recording}."
-msgstr ""
+msgstr "Įsitikink, kad nepašalini teisėto {doc_standalone|atskiro įrašo}."
 
 #: ../root/recording/DeleteRecording.js:57
 msgid "This recording cannot be removed because it is still used on releases."
 msgstr ""
+"Šis įrašas negali būti pašalintas, nes jis vis dar naudojamas leidiniuose."
 
 #: ../root/recording/RecordingFingerprints.js:27
 msgid "Associated AcoustIDs"
-msgstr ""
+msgstr "Susijusios AcoustID"
 
 #: ../root/recording/RecordingHeader.js:40
 msgid "Video by {artist}"
-msgstr ""
+msgstr "Vaizdo kilpas – {artist}"
 
 #: ../root/recording/RecordingHeader.js:41
 msgid "Recording by {artist}"
-msgstr ""
+msgstr "Įrašas – {artist}"
 
 #: ../root/recording/RecordingIndex.js:56
 msgid "Track artist"
@@ -11456,7 +11463,7 @@ msgstr "Pasirodo leidiniuose"
 
 #: ../root/recording/RecordingIndex.js:184
 msgid "No releases found which feature this recording."
-msgstr ""
+msgstr "Nerastas nė vienas leidinys su šiuo įrašu."
 
 #: ../root/recording/RecordingMerge.js:30
 #: ../root/recording/RecordingMerge.js:32
@@ -11468,6 +11475,8 @@ msgid ""
 "You are about to merge all these recordings into a single one. Please select "
 "the recording all others should be merged into:"
 msgstr ""
+"Netrukus visus šiuos įrašus sujungsi į vieną. Pasirink įrašą, į kurį turėtų "
+"būti sujungti visi kiti:"
 
 #: ../root/recording/RecordingMerge.js:41
 msgid ""
@@ -11475,20 +11484,18 @@ msgid ""
 "different ISRCs. Please make sure they are indeed the same recordings and "
 "you wish to continue with the merge."
 msgstr ""
+"<strong>Įspėjimas:</strong> kai kurie įrašai, kuriuos jungi, turi skirtingus "
+"ISRC. Įsitikink, kad tai tikrai tie patys įrašai ir nori tęsti sujungimą."
 
 #: ../root/relationship/RelationshipsHeader.js:23
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:87
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:178
-#, fuzzy
-#| msgid "Edit Relationship Attribute"
 msgid "Relationship attributes"
-msgstr "Redaguoti sąsajos atributą"
+msgstr "Santykių požymiai"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:77
-#, fuzzy
-#| msgid "Edit Relationship Attribute"
 msgid "Relationship attribute"
-msgstr "Redaguoti sąsajos atributą"
+msgstr "Santykio požymis"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:128
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:193
@@ -11498,42 +11505,44 @@ msgstr "UUID:"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:134
 msgid "Parent attribute"
-msgstr ""
+msgstr "Viršpožymis"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:145
 msgid "This attribute supports free text credits"
-msgstr ""
+msgstr "Šis požymis palaiko laisvo teksto įvardijimus."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:151
 msgid "This attribute uses free text values"
-msgstr ""
+msgstr "Šis požymis naudoja laisvojo teksto reikšmes."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:157
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:150
 msgid "Possible values"
-msgstr ""
+msgstr "Galimos reikšmės"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:161
 msgid ""
 "The possible values for this relationship can be seen from the "
 "{instrument_list|instrument list}."
 msgstr ""
+"Galimas šio santykio reikšmes galima matyti iš {instrument_list|instrumentų "
+"sąrašo}."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:182
 msgid "Relationship usage"
-msgstr ""
+msgstr "Santykio naudojimas"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:186
 msgid "This attribute is being used by the following relationship types:"
-msgstr ""
+msgstr "Šis požymis naudojamas šiuose santykių tipuose:"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:200
 msgid "{type0} - {type1}"
-msgstr ""
+msgstr "{type0} – {type1}"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:217
 msgid "This attribute isn’t directly being used by any relationship types."
-msgstr ""
+msgstr "Šis požymis tiesiogiai nėra naudojamas jokiems santykių tipams."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:45
 msgctxt "relationship attribute description"
@@ -11546,11 +11555,11 @@ msgstr "Nerasta jokių santykių požymių."
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:48
 msgid "This relationship type doesn't allow any attributes."
-msgstr ""
+msgstr "Šis santykio tipas neleidžia naudoti jokių požymių."
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:52
 msgid "The following attributes can be used with this relationship type:"
-msgstr ""
+msgstr "Su šiuo santykio tipu gali būti naudojami šie požymiai:"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:73
 msgid "start date"
@@ -11590,7 +11599,7 @@ msgstr "Žiūrėk bendrąsias {url|URL gaires}."
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:265
 msgid ""
 "This relationship type is only used for grouping other relationship types."
-msgstr ""
+msgstr "Šis santykio tipas naudojamas tik kitiems santykių tipams grupuoti."
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:47
 msgid "more"
@@ -11610,31 +11619,31 @@ msgstr "{relationship_documentation_url|Dokumentacija}"
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:176
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:194
 msgid "{type0}-{type1} relationship types"
-msgstr ""
+msgstr "{type0}–{type1} santykių tipai"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:187
 msgid "&lt; Back to all relationship types"
-msgstr ""
+msgstr "&lt; Grįžti į visus santykių tipus"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:214
 msgid "Expand all descriptions"
-msgstr ""
+msgstr "Išskleisti visus aprašymus"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:217
 msgid "Collapse all descriptions"
-msgstr ""
+msgstr "Suskleisti visus aprašymus"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:236
 msgid "No {type0}-{type1} relationship types found."
-msgstr ""
+msgstr "Nerasta {type0}–{type1} santykių tipų."
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:40
 msgid "{type0}-{type1}"
-msgstr ""
+msgstr "{type0}–{type1}"
 
 #: ../root/release/ChangeQuality.js:37
 msgid "Change release data quality"
-msgstr ""
+msgstr "Keisti leidinio duomenų kokybę"
 
 #: ../root/release/ChangeQuality.js:52
 msgid ""
@@ -11642,6 +11651,9 @@ msgid ""
 "is. It is not a mark of how good or bad the music itself is — for that, use "
 "{ratings_doc|ratings}."
 msgstr ""
+"{data_quality_doc|Duomenų kokybė} nurodo, kokie kokybiški yra leidinio "
+"duomenys. Tai nereiškia, kokia gera ar bloga yra pati muzika – tam naudok "
+"{ratings_doc|vertinimus}."
 
 #: ../root/release/CoverArt.js:33
 msgid "250px"
@@ -11699,25 +11711,19 @@ msgid "Add cover art"
 msgstr "Pridėti viršelio apipavidalinimus"
 
 #: ../root/release/CoverArt.js:169
-#, fuzzy
-#| msgid "Reorder cover art"
 msgctxt "plural, interactive"
 msgid "Reorder cover art"
-msgstr "Perskirstyti viršelio paveikslėlį"
+msgstr "Pertvarkyti viršelio apipavidalinimus"
 
 #: ../root/release/CoverArt.js:178
-#, fuzzy
-#| msgid "(no other cover art)"
 msgctxt "plural, interactive"
 msgid "Log in to upload cover art"
-msgstr "(jokio kito viršelio)"
+msgstr "Prisijunk, kad įkeltum viršelio apipavidalinimus"
 
 #: ../root/release/CoverArtDarkened.js:19
-#, fuzzy
-#| msgid "Cannot show cover art"
 msgctxt "plural"
 msgid "Cannot add cover art"
-msgstr "Negalima rodyti viršelio"
+msgstr "Negalima pridėti viršelio apipavidalinimus"
 
 #: ../root/release/CoverArtFields.js:76
 msgid "Choose one or more cover art types for this image"
@@ -11733,25 +11739,30 @@ msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
 msgstr ""
+"Šiame leidinyje nėra jokių pridėtų diskų ID. Norint sužinoti daugiau apie "
+"tai, kaip juos pridėti, žiūrėk {doc|Kaip pridėti disko ID}."
 
 #: ../root/release/DiscIds.js:158
 msgid "This release has no mediums that can have disc IDs."
-msgstr ""
+msgstr "Šis leidinys neturi laikmenų, kurios gali turėti diskų ID."
 
 #: ../root/release/EditRelationships.js:28
 msgid "Edit Relationships: {release}"
-msgstr ""
+msgstr "Redaguoti santykius: {release}"
 
 #: ../root/release/EditRelationships.js:35
 msgid ""
 "To use the batch tools, select some recordings or works using the checkboxes."
 msgstr ""
+"Norint naudoti paketinius įrankius, pasirink kai kuriuos įrašus arba "
+"kūrinius naudojant žymimuosius langelius."
 
 #: ../root/release/EditRelationships.js:42
 msgid ""
 "Please read {relationships_doc|our guidelines for relationships} if you "
 "haven’t already."
 msgstr ""
+"Jei dar to nepadarei, perskaityk {relationships_doc|mūsų santykių gaires}."
 
 #: ../root/release/ReleaseHeader.js:29
 msgid "see all versions of this release, {count} available"
@@ -12971,6 +12982,15 @@ msgid ""
 "they should have the same barcode, format, etc.). This report skips pseudo-"
 "releases, since they should generally not have cover art."
 msgstr ""
+"Ši ataskaita rodo leidinius, kurių Cover Art Archive nėra viršelio "
+"apipavidalinimo. Atsižvelgiant į tai, kad dauguma leidinių turi tam tikrą "
+"viršelio apipavidalinimą, didžioji dauguma šioje ataskaitoje pateiktų "
+"leidinių turėtų turėti viršelio apipavidalinimą {caa_how_to|įkeltą į Cover "
+"Art Archive}. Atkreipk dėmesį, kad įkeltas leidinio viršelio "
+"apipavidalinimas visada turi tiksliai atitikti faktinį to konkretaus "
+"leidinio apipavidalinimą (pavyzdžiui, jie turi turėti tą patį brūkšninį "
+"kodą, formatą ir t. t.). Šioje ataskaitoje praleidžiami pseudoleidiniai, nes "
+"jie paprastai neturėtų turėti viršelių."
 
 #: ../root/report/ReleasesWithoutCaa.js:37
 msgid ""
