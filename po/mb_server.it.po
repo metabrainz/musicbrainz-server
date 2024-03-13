@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-11 13:08+0200\n"
-"PO-Revision-Date: 2024-03-11 04:28+0000\n"
+"PO-Revision-Date: 2024-03-12 04:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -44,8 +44,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -2697,8 +2697,6 @@ msgid "These coordinates could not be parsed."
 msgstr "Non è stato possibile analizzare queste coordinate."
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
-#, fuzzy
-#| msgid "This CDTOC is already attached to this medium."
 msgid "This CD TOC is already attached to this medium."
 msgstr "Questo TOC (indice) CD è già associato a questo supporto."
 
@@ -2807,18 +2805,13 @@ msgstr ""
 "del file."
 
 #: ../root/release/edit/tracklist.tt:386
-#, fuzzy
-#| msgid ""
-#| "This is almost always incorrect. Please make sure whether you actually "
-#| "wanted a different format (such as “USB Flash Drive” or “Music Card”) or "
-#| "packaging type."
 msgid ""
 "This is almost always incorrect. Please make sure whether you actually "
 "wanted a different format (such as “USB Flash Drive” or “Download Card”) or "
 "packaging type."
 msgstr ""
 "Questo è quasi sempre un errore. Assicurati che non intendessi selezionare "
-"un formato diverso (per es. \"Chiave USB\" o \"Music Card\") o un tipo di "
+"un formato diverso (per es. \"Chiave USB\" o \"Download Card\") o un tipo di "
 "confezione diverso."
 
 #: ../root/release_group/set_cover_art.tt:76
@@ -4062,8 +4055,6 @@ msgstr "Inserisci un ID del supporto."
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:93
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:214
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:436
-#, fuzzy
-#| msgid "The provided medium id is not valid."
 msgid "The provided medium ID is not valid."
 msgstr "L'ID del supporto fornito non è valido."
 
@@ -10481,8 +10472,6 @@ msgid "Social contract"
 msgstr "Contratto sociale"
 
 #: ../root/layout/components/BottomMenu.js:141
-#, fuzzy
-#| msgid "Code of conduct"
 msgid "Code of Conduct"
 msgstr "Codice di condotta"
 
@@ -13534,14 +13523,6 @@ msgid "Releases with unlikely language/script pairs"
 msgstr "Pubblicazioni con combinazioni lingua/sistema di scrittura improbabili"
 
 #: ../root/report/ReleasesWithoutCaa.js:24
-#, fuzzy
-#| msgid ""
-#| "This report shows releases that have no cover art in the Cover Art "
-#| "Archive. Given that most releases have some form of cover art, the vast "
-#| "majority of releases in this report should have artwork {caa_how_to|"
-#| "uploaded to the Cover Art Archive}. Note that the cover art uploaded for "
-#| "a release must always exactly match the actual art for that specific "
-#| "release (for example, they should have the same barcode, format, etc.)."
 msgid ""
 "This report shows releases that have no cover art in the Cover Art Archive. "
 "Given that most releases have some form of cover art, the vast majority of "
@@ -13558,7 +13539,8 @@ msgstr ""
 "Nota che le copertine aggiunte a una pubblicazione devono sempre "
 "corrispondere esattamente alle copertine reali di quella specifica "
 "pubblicazione (per esempio, devono avere lo stesso codice a barre, formato, "
-"ecc.)."
+"ecc.). Questo rapporto esclude le pseudo-pubblicazioni, che in genere non "
+"dovrebbero avere copertine."
 
 #: ../root/report/ReleasesWithoutCaa.js:37
 msgid ""
