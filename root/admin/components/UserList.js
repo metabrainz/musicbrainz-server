@@ -11,7 +11,15 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
+import {commaOnlyListText}
+  from '../../static/scripts/common/i18n/commaOnlyList.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
+import {
+  isAddingNotesDisabled,
+  isEditingDisabled,
+  isSpammer,
+  isUntrusted,
+} from '../../static/scripts/common/utility/privileges.js';
 import formatUserDate from '../../utility/formatUserDate.js';
 import loopParity from '../../utility/loopParity.js';
 
@@ -27,6 +35,7 @@ const UserList = ({users}: Props): React$Element<'table'> => {
       <thead>
         <tr>
           <th>{'Editor'}</th>
+          <th>{'Restrictions'}</th>
           <th>{'Member since'}</th>
           <th>{'Website'}</th>
           <th>{'Email'}</th>
@@ -36,45 +45,63 @@ const UserList = ({users}: Props): React$Element<'table'> => {
         </tr>
       </thead>
       <tbody>
-        {users.map((user, index) => (
-          <tr className={loopParity(index)} key={user.name}>
-            <td>
-              <EditorLink editor={user} />
-              {user.deleted ? null : (
-                <>
-                  {' '}
-                  {bracketed(
-                    <a
-                      href={
-                        '/admin/user/delete/' + encodeURIComponent(user.name)
-                      }
-                    >
-                      {'delete'}
-                    </a>,
-                  )}
-                </>
-              )}
-            </td>
-            <td>{formatUserDate($c, user.registration_date)}</td>
-            <td>
-              {nonEmpty(user.website) ? user.website : null}
-            </td>
-            <td>{user.email}</td>
-            <td>
-              {nonEmpty(user.email_confirmation_date) ? (
-                formatUserDate($c, user.email_confirmation_date)
-              ) : null}
-            </td>
-            <td>
-              {nonEmpty(user.last_login_date) ? (
-                formatUserDate($c, user.last_login_date)
-              ) : null}
-            </td>
-            <td>
-              {nonEmpty(user.biography) ? user.biography : null}
-            </td>
-          </tr>
-        ))}
+        {users.map((user, index) => {
+          const restrictions = [];
+          if (isEditingDisabled(user)) {
+            restrictions.push('Editing');
+          }
+          if (isAddingNotesDisabled(user)) {
+            restrictions.push('Notes');
+          }
+          if (isUntrusted(user)) {
+            restrictions.push('Untrusted');
+          }
+          if (isSpammer(user)) {
+            restrictions.push('Spammer');
+          }
+
+          return (
+            <tr className={loopParity(index)} key={user.name}>
+              <td>
+                <EditorLink editor={user} />
+                {user.deleted ? null : (
+                  <>
+                    {' '}
+                    {bracketed(
+                      <a
+                        href={
+                          '/admin/user/delete/' +
+                          encodeURIComponent(user.name)
+                        }
+                      >
+                        {'delete'}
+                      </a>,
+                    )}
+                  </>
+                )}
+              </td>
+              <td>{commaOnlyListText(restrictions)}</td>
+              <td>{formatUserDate($c, user.registration_date)}</td>
+              <td>
+                {nonEmpty(user.website) ? user.website : null}
+              </td>
+              <td>{user.email}</td>
+              <td>
+                {nonEmpty(user.email_confirmation_date) ? (
+                  formatUserDate($c, user.email_confirmation_date)
+                ) : null}
+              </td>
+              <td>
+                {nonEmpty(user.last_login_date) ? (
+                  formatUserDate($c, user.last_login_date)
+                ) : null}
+              </td>
+              <td>
+                {nonEmpty(user.biography) ? user.biography : null}
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
