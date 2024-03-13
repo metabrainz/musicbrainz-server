@@ -173,6 +173,7 @@ INSERT INTO link_attribute_type VALUES (750, NULL, 750, 0, '37da3398-5d1b-4acb-b
 INSERT INTO link_attribute_type VALUES (788, NULL, 788, 0, 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a', 'number', 'This attribute indicates the number of a work in a series.', '2014-05-14 16:39:54.654562+00');
 INSERT INTO link_attribute_type VALUES (830, NULL, 830, 0, 'ebd303c3-7f57-452a-aa3b-d780ebad868d', 'time', 'Local time a band''s performance is scheduled to start, formatted HH:MM.', '2014-11-18 14:34:00.964336+00');
 INSERT INTO link_attribute_type VALUES (921, NULL, 921, 0, 'efd89258-fb07-48e9-acf9-0a54ce03606d', 'cancelled', 'This indicates an artist cancelled their appearance at an event.', '2016-07-04 18:28:11.756249+00');
+INSERT INTO link_attribute_type VALUES (1150, NULL, 1150, 0, '39867b3b-0f1e-40d5-b602-4f3936b7f486', 'task', 'This specifies the credited task(s) for a relationship that can be credited in many different ways, such as "producer", or one that is otherwise generic, such as "miscellaneous support".', '2022-08-25 11:39:02.649033+00');
 
 INSERT INTO link_creditable_attribute_type VALUES (3);
 INSERT INTO link_creditable_attribute_type VALUES (14);

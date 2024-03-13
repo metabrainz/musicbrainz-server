@@ -13,6 +13,7 @@ import {onConflictThrowError} from 'weight-balanced-tree/update';
 import {expect} from '../../../../utility/invariant.js';
 import {
   INSTRUMENT_ROOT_ID,
+  TASK_ATTRIBUTE_ID,
   VOCAL_ROOT_ID,
 } from '../../common/constants.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
@@ -36,11 +37,12 @@ import {
 import getRelationshipEditStatus from './getRelationshipEditStatus.js';
 import relationshipsAreIdentical from './relationshipsAreIdentical.js';
 
-const isInstrumentOrVocal = (linkAttribute: LinkAttrT): boolean => {
+const isSplittableAttribute = (linkAttribute: LinkAttrT): boolean => {
   const linkAttributeType =
     linkedEntities.link_attribute_type[linkAttribute.typeID];
   const rootTypeId = linkAttributeType.root_id;
   return (
+    linkAttribute.typeID === TASK_ATTRIBUTE_ID ||
     rootTypeId === INSTRUMENT_ROOT_ID ||
     rootTypeId === VOCAL_ROOT_ID
   );
@@ -69,7 +71,7 @@ export default function splitRelationshipByAttributes(
   let attributesForExistingRelationship:
     tree.ImmutableTree<LinkAttrT> | null = null;
   /*
-   * Individual instrument and vocal attributes that are to be split
+   * Individual instrument, task and vocal attributes that are to be split
    * into separate relationships.
    */
   let newAttributesToSplit:
@@ -78,17 +80,17 @@ export default function splitRelationshipByAttributes(
   let commonAttributes:
     tree.ImmutableTree<LinkAttrT> | null = null;
   let newAttributes = relationship.attributes;
-  let origInstrumentsAndVocals = tree.fromDistinctAscArray(
+  let origSplittableAttributes = tree.fromDistinctAscArray(
     tree.toArray(origRelationship ? origRelationship.attributes : null)
-      .filter(isInstrumentOrVocal),
+      .filter(isSplittableAttribute),
   );
-  const hasOrigInstrumentsAndVocals = origInstrumentsAndVocals != null;
+  const hasOrigSplittableAttributes = origSplittableAttributes != null;
 
   /*
-   * If this is an existing relationship, split any newly-added instrument
-   * and vocal attributes, but preserve existing ones.  Existing ones can be
-   * removed/split manually, but it's better not to enter any edits the user
-   * didn't intend to, as this can cause confusion.
+   * If this is an existing relationship, split any newly-added instrument,
+   * task and vocal attributes, but preserve existing ones. Existing ones can
+   * be removed/split manually, but it's better not to enter any edits
+   * the user didn't intend to, as this can cause confusion.
    */
   for (
     const comparator of [
@@ -103,7 +105,7 @@ export default function splitRelationshipByAttributes(
       compareLinkAttributeRootIds,
     ]
   ) {
-    for (const origAttribute of tree.iterate(origInstrumentsAndVocals)) {
+    for (const origAttribute of tree.iterate(origSplittableAttributes)) {
       const preservedAttribute: LinkAttrT | void = tree.find(
         newAttributes,
         origAttribute,
@@ -118,7 +120,7 @@ export default function splitRelationshipByAttributes(
           );
         /*
          * Note that the relationship dialog also allows adding two of the
-         * same instrument or vocal with different credits.  This isn't
+         * same instrument, task or vocal with different credits.  This isn't
          * allowed by our database schema, so such attributes are also split
          * into separate relationships.
          */
@@ -141,8 +143,8 @@ export default function splitRelationshipByAttributes(
           preservedAttribute,
           compareLinkAttributes,
         );
-        origInstrumentsAndVocals = tree.remove(
-          origInstrumentsAndVocals,
+        origSplittableAttributes = tree.remove(
+          origSplittableAttributes,
           origAttribute,
           compareLinkAttributeIds,
         );
@@ -151,7 +153,7 @@ export default function splitRelationshipByAttributes(
   }
 
   for (const newAttribute of tree.iterate(newAttributes)) {
-    if (isInstrumentOrVocal(newAttribute)) {
+    if (isSplittableAttribute(newAttribute)) {
       newAttributesToSplit = tree.insertOrThrowIfExists(
         newAttributesToSplit,
         newAttribute,
@@ -199,29 +201,29 @@ export default function splitRelationshipByAttributes(
       'split attribute onto existing relationship',
     ];
     /*
-     * If the existing relationship has no instruments or vocals, add the
-     * first new instrument or vocal to it (MBS-12787).
+     * If the existing relationship has no splittable attributes, add the
+     * first new splittable attribute to it (MBS-12787).
      */
     if (
       newAttributesToSplit != null &&
-      !hasOrigInstrumentsAndVocals
+      !hasOrigSplittableAttributes
     ) {
-      let firstInstrumentOrVocalToSplit;
+      let firstAttributeToSplit;
       for (const attribute of tree.iterate(newAttributesToSplit)) {
-        if (isInstrumentOrVocal(attribute)) {
-          firstInstrumentOrVocalToSplit = attribute;
+        if (isSplittableAttribute(attribute)) {
+          firstAttributeToSplit = attribute;
           break;
         }
       }
-      if (firstInstrumentOrVocalToSplit) {
+      if (firstAttributeToSplit) {
         newAttributesToSplit = tree.remove(
           newAttributesToSplit,
-          firstInstrumentOrVocalToSplit,
+          firstAttributeToSplit,
           compareLinkAttributes,
         );
         attributesForExistingRelationship = tree.insertIfNotExists(
           attributesForExistingRelationship,
-          firstInstrumentOrVocalToSplit,
+          firstAttributeToSplit,
           compareLinkAttributeIds,
         );
       }
