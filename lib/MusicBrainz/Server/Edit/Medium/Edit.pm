@@ -13,6 +13,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_EDIT
     $EDIT_RELEASE_CREATE
 );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Medium::Util qw(
     display_tracklist
@@ -49,7 +50,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_MEDIUM_EDIT }
 sub edit_name { N_lp('Edit medium', 'edit type') }
-sub edit_kind { 'edit' }
+sub edit_kind { $EDIT_KIND_LABELS{'edit'} }
 sub _edit_model { 'Medium' }
 sub edit_template { 'EditMedium' }
 

@@ -25,6 +25,7 @@ sub edit_type { die 'Unimplemented' }
 sub edit_name { die 'Unimplemented' }
 sub edit_kind { die 'Unimplemented' }
 sub l_edit_name { l(shift->edit_name) }
+sub l_edit_kind { l(shift->edit_kind) }
 
 sub edit_template { die 'Unimplemented' }
 

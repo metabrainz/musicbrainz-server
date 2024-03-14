@@ -19,6 +19,18 @@ has_field 'status' => (
     type => 'Multiple',
 );
 
+sub options_kind
+{
+    my $self = shift;
+    my %grouped = MusicBrainz::Server::EditRegistry->grouped_by_kind;
+    return [
+        _sort_hash_value(map {
+            # edit types => edit name
+            join(q(,), map { $_->edit_type } @{ $grouped{$_} }) => $_
+        } keys %grouped),
+    ];
+}
+
 sub options_type
 {
     my $self = shift;

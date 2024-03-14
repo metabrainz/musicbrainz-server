@@ -61,7 +61,12 @@
              CASE 'MusicBrainz::Server::EditSearch::Predicate::VoteCount';
                predicate_vote_count(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::EditIDSet';
-               predicate_set(field.field_name, edit_types, field, 15, 1);
+               SWITCH field.field_name;
+                 CASE 'kind';
+                   predicate_set(field.field_name, edit_kinds, field, 5, 1);
+                 CASE 'type';
+                   predicate_set(field.field_name, edit_types, field, 15, 1);
+               END;
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Set';
                predicate_set(field.field_name, status, field, 8);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::EditNoteContent';
@@ -436,6 +441,7 @@
                    [ 'expire_time', l('Voting closed') ],
                    [ 'close_time', l('Closed') ],
                    [ 'status', lp('Status', 'edit status') ],
+                   [ 'kind', lp('Kind', 'kind of edit') ],
                    [ 'type', l('Type') ],
                    [ 'vote_count', l('Vote tally') ],
                    [ 'edit_note_author', l('Edit note authors'), {requires_login => 1} ],
@@ -478,6 +484,7 @@
   <div id="fields">
     [% predicate_id('id') %]
     [% predicate_date(field_name) FOR field_name=['open_time', 'expire_time', 'close_time'] %]
+    [% predicate_set('kind', edit_kinds, [], 5) %]
     [% predicate_set('type', edit_types, [], 15) %]
     [% predicate_set('status', status, [], 8) %]
     [% predicate_set('release_quality', quality) %]

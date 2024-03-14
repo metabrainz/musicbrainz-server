@@ -6,6 +6,7 @@ use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict );
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
@@ -22,7 +23,7 @@ with 'MusicBrainz::Server::Edit::Release',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_lp('Reorder cover art', 'plural, edit type') }
-sub edit_kind { 'other' }
+sub edit_kind { $EDIT_KIND_LABELS{'other'} }
 sub edit_type { $EDIT_RELEASE_REORDER_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
 sub edit_template { 'ReorderCoverArt' }

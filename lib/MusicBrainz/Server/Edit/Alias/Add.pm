@@ -4,6 +4,7 @@ use namespace::autoclean;
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw( model_to_type boolean_to_json );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -59,7 +60,7 @@ role {
 
     method _alias_model => sub { shift->c->model($model)->alias };
 
-    method edit_kind => sub { 'add' };
+    method edit_kind => sub { $EDIT_KIND_LABELS{'add'} };
     method edit_name => sub { $params->edit_name };
     method edit_type => sub { $params->edit_type };
 
