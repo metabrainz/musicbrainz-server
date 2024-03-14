@@ -30,6 +30,7 @@ export type EventFilterT = $ReadOnly<{
 type RecordingFilterFormT = FormT<{
   ...GenericFilterFormFieldsT,
   +artist_credit_id: FieldT<number>,
+  +hide_bootlegs: FieldT<boolean>,
   +video: FieldT<number>,
 }>;
 
@@ -218,6 +219,23 @@ const FilterForm = ({form}: Props): React$Element<'div'> => (
                     }}
                     style={{maxWidth: '40em'}}
                     uncontrolled
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td
+                  title={l(`Hide recordings that only appear
+                            on bootleg releases`)}
+                >
+                  {addColonText(l('Hide bootleg-only'))}
+                </td>
+                <td>
+                  <input
+                    defaultChecked={form.field.hide_bootlegs.value}
+                    id={'id-' + String(form.field.hide_bootlegs.html_name)}
+                    name={form.field.hide_bootlegs.html_name}
+                    type="checkbox"
+                    value="1"
                   />
                 </td>
               </tr>
