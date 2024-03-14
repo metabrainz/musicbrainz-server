@@ -91,12 +91,30 @@ sub foreign_keys {
 sub build_display_data {
     my ($self, $loaded) = @_;
 
-    my $release = $loaded->{Release}{ $self->data->{entity}{id} } ||
-        Release->new( name => $self->data->{entity}{name} );
+    my $loaded_release = $loaded->{Release}{ $self->data->{entity}{id} };
+
+    # The release used to link (if it still exists) from the release field.
+    my $field_release = $loaded_release ||
+        Release->new(
+            name => $self->data->{entity}{name},
+            # Allow linking to release redirecting to still existing release.
+            $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid}) ? (
+                id => $self->data->{entity}{id},
+                gid => $self->data->{entity}{mbid},
+            ) : (),
+        );
+
+    # The release used (even if merged or removed) to load image from the cover art field.
+    my $artwork_release = $loaded_release ||
+        Release->new(
+            gid => $self->data->{entity}{mbid},
+            id => $self->data->{entity}{id},
+            name => $self->data->{entity}{name},
+        );
 
     my $artwork = $loaded->{Artwork}{ $self->data->{cover_art_id} } ||
         Artwork->new(
-            release => $release,
+            release => $artwork_release,
             id => $self->data->{cover_art_id},
             comment => $self->data->{cover_art_comment},
             exists $self->data->{cover_art_mime_type} ? (mime_type => $self->data->{cover_art_mime_type}) : (),
@@ -109,7 +127,7 @@ sub build_display_data {
     ]);
 
     return {
-        release => to_json_object($release),
+        release => to_json_object($field_release),
         artwork => to_json_object($artwork),
     };
 }

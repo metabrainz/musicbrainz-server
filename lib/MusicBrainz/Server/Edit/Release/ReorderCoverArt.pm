@@ -106,25 +106,41 @@ sub build_display_data {
 
     my %data;
 
-    $data{release} = $loaded->{Release}{ $self->data->{entity}{id} };
-    if (!$data{release} && ($data{release} ||= $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid}))) {
-        $self->c->model('ArtistCredit')->load($data{release});
-    }
+    my $loaded_release = $loaded->{Release}{ $self->data->{entity}{id} };
+    my $gid_loaded_release = $loaded_release || $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid});
+
+    # The release used to link (if it still exists) from the release field.
+    my $field_release = $loaded_release ||
+        Release->new(
+            name => $self->data->{entity}{name},
+            # Allow linking to release redirecting to still existing release.
+            defined $gid_loaded_release ? (
+                id => $self->data->{entity}{id},
+                gid => $self->data->{entity}{mbid},
+            ) : (),
+        );
+
+    $data{release} = to_json_object($field_release);
+
+    # The release used (even if merged or removed) to load image from the cover art field.
+    my $artwork_release = $loaded_release ||
+        Release->new(
+            gid => $self->data->{entity}{mbid},
+            id => $self->data->{entity}{id},
+            name => $self->data->{entity}{name},
+        );
 
     my $artwork;
-    if ($data{release}) {
-        $artwork = $self->c->model('Artwork')->find_by_release($data{release});
+    if ($gid_loaded_release) {
+        $artwork = $self->c->model('Artwork')->find_by_release($gid_loaded_release);
         $self->c->model('CoverArtType')->load_for(@$artwork);
     } else {
-        $data{release} = Release->new( name => $self->data->{entity}{name},
-                                       id => $self->data->{entity}{id},
-                                       gid => $self->data->{entity}{mbid} );
         $artwork = [];
     }
     my %artwork_by_id = map { $_->id => $_ } @$artwork;
 
     for my $undef_artwork (grep { !defined $artwork_by_id{$_->{id}} } @{ $self->data->{old} }) {
-        my $fake_artwork = Artwork->new( release => $data{release}, id => $undef_artwork->{id});
+        my $fake_artwork = Artwork->new( release => $artwork_release, id => $undef_artwork->{id});
         push @$artwork, $fake_artwork;
         $artwork_by_id{$undef_artwork->{id}} = $fake_artwork;
     }
@@ -134,8 +150,6 @@ sub build_display_data {
 
     $data{old} = [ map { to_json_object($artwork_by_id{$_->{id}}) } @old ];
     $data{new} = [ map { to_json_object($artwork_by_id{$_->{id}}) } @new ];
-
-    $data{release} = to_json_object($data{release});
 
     return \%data;
 }
