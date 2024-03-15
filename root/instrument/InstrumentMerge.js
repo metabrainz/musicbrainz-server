@@ -25,12 +25,13 @@ const InstrumentMerge = ({
   form,
   toMerge,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Merge instruments')}>
+  <Layout fullWidth title="Merge instruments">
     <div id="content">
-      <h1>{l('Merge instruments')}</h1>
+      <h1>{'Merge instruments'}</h1>
       <p>
-        {l(`You are about to merge all these instruments into a single one.
-            Please select the instrument all others should be merged into:`)}
+        {l_admin(`You are about to merge all these instruments
+                  into a single one. Please select the instrument
+                  all others should be merged into:`)}
       </p>
       <form method="post">
         <InstrumentList
@@ -48,7 +49,7 @@ const InstrumentMerge = ({
             type="submit"
             value="cancel"
           >
-            {l('Cancel')}
+            {'Cancel'}
           </button>
         </EnterEdit>
       </form>
