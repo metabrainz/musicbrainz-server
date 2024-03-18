@@ -111,6 +111,23 @@ sub find_by_artist
             push @where_query, 'recording.artist_credit = ?';
             push @where_args, $filter{artist_credit_id};
         }
+        if (exists $filter{hide_bootlegs}) {
+            push @where_query, <<~'SQL';
+                (
+                    NOT EXISTS (
+                        SELECT TRUE
+                          FROM track
+                         WHERE track.recording = recording.id
+                    ) OR EXISTS (
+                        SELECT TRUE
+                          FROM release
+                          JOIN medium ON release.id = medium.release
+                          JOIN track ON medium.id = track.medium
+                         WHERE track.recording = recording.id
+                           AND release.status IS DISTINCT FROM 3)
+                )
+                SQL
+        }
     }
 
     if (exists $args{standalone}) {

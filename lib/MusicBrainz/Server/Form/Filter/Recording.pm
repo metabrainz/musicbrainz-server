@@ -21,8 +21,12 @@ has_field 'video' => (
     type => 'Select',
 );
 
+has_field 'hide_bootlegs' => (
+    type => 'Checkbox',
+);
+
 sub filter_field_names {
-    return qw/ disambiguation name artist_credit_id video /;
+    return qw/ disambiguation name artist_credit_id hide_bootlegs video /;
 }
 
 sub options_artist_credit_id {
