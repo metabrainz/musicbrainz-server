@@ -1,11 +1,23 @@
 m4_divert(-1)
 
 m4_define(
+    `keep_apt_cache',
+    `m4_dnl
+rm -f /etc/apt/apt.conf.d/docker-clean && \
+    echo Binary::apt::APT::Keep-Downloaded-Packages \"true\"\; \
+        > /etc/apt/apt.conf.d/keep-cache')
+
+m4_define(
+    `run_with_apt_cache',
+    `m4_dnl
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked')
+
+m4_define(
     `apt_install',
     `m4_dnl
 apt-get update && \
-    apt-get install --no-install-suggests --no-install-recommends -y $1 && \
-    rm -rf /var/lib/apt/lists/*')
+    apt-get install --no-install-suggests --no-install-recommends -y $1')
 
 m4_define(`apt_purge', `apt-get purge --auto-remove -y $1')
 
@@ -16,7 +28,8 @@ m4_define(
     `m4_dnl
 COPY docker/nodesource_pubkey.txt /tmp/
 copy_mb(``package.json yarn.lock .yarnrc.yml ./'')
-RUN cp /tmp/nodesource_pubkey.txt /etc/apt/keyrings/nodesource.asc && \
+run_with_apt_cache \
+    cp /tmp/nodesource_pubkey.txt /etc/apt/keyrings/nodesource.asc && \
     rm /tmp/nodesource_pubkey.txt && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
     apt_install(``git nodejs python3-minimal'') && \
@@ -92,7 +105,8 @@ ENV PERL_CARTON_PATH /home/musicbrainz/carton-local
 ENV PERL_CPANM_OPT --notest --no-interactive
 
 COPY docker/pgdg_pubkey.txt /tmp/
-RUN cp /tmp/pgdg_pubkey.txt /etc/apt/keyrings/pgdg.asc && \
+run_with_apt_cache \
+    cp /tmp/pgdg_pubkey.txt /etc/apt/keyrings/pgdg.asc && \
     rm /tmp/pgdg_pubkey.txt && \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt_install(`mbs_build_deps mbs_run_deps') && \
@@ -127,7 +141,8 @@ m4_define(
     `install_translations',
     `m4_dnl
 copy_mb(``po/ po/'')
-RUN apt_install(``gettext language-pack-de language-pack-el language-pack-es language-pack-et language-pack-fi language-pack-fr language-pack-he language-pack-it language-pack-ja language-pack-nl language-pack-sq make'') && \
+run_with_apt_cache \
+    apt_install(``gettext language-pack-de language-pack-el language-pack-es language-pack-et language-pack-fi language-pack-fr language-pack-he language-pack-it language-pack-ja language-pack-nl language-pack-sq make'') && \
     sudo_mb(``make -C po all_quiet'') && \
     sudo_mb(``make -C po deploy'')')
 
@@ -153,7 +168,8 @@ m4_define(
     `m4_dnl
 COPY docker/lasse_collin_pubkey.txt /tmp/
 
-RUN apt_install(``autoconf automake build-essential gettext libtool'') && \
+run_with_apt_cache \
+    apt_install(``autoconf automake build-essential gettext libtool'') && \
     cd /tmp && \
     sudo_mb(``gpg --import lasse_collin_pubkey.txt'') && \
     rm lasse_collin_pubkey.txt && \
