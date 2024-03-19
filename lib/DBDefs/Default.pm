@@ -364,7 +364,7 @@ sub MAPBOX_ACCESS_TOKEN { '' }
 sub ACTIVE_SCHEMA_SEQUENCE { 28 }
 
 # Disallow OAuth2 requests over plain HTTP
-sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }
+sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER || $self->IS_BETA }
 
 sub USE_ETAGS { 1 }
 
