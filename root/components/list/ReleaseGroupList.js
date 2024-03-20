@@ -157,7 +157,7 @@ const ReleaseGroupList = ({
   sortable,
 }: ReleaseGroupListProps): Array<React$Element<React$FragmentType>> => {
   const groupedReleaseGroups = groupBy(releaseGroups, x => x.typeName ?? '');
-  const tables = [];
+  const tables: Array<React$Element<React$FragmentType>> = [];
   for (const [type, releaseGroupsOfType] of groupedReleaseGroups) {
     tables.push(
       <React.Fragment key={type}>
