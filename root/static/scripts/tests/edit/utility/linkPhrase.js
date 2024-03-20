@@ -33,7 +33,7 @@ test('required attributes are left with forGrouping', function (t) {
    */
   mergeLinkedEntities({
     link_attribute_type: {
-      [10000]: {
+      10000: {
         child_order: 0,
         creditable: true,
         description: 'description',
@@ -46,7 +46,7 @@ test('required attributes are left with forGrouping', function (t) {
         root_gid: 'd8c8f4d4-c7e9-4db9-93c3-319c722ddd98',
         root_id: 10000,
       },
-      [10001]: {
+      10001: {
         child_order: 0,
         creditable: true,
         description: 'description',
@@ -61,11 +61,12 @@ test('required attributes are left with forGrouping', function (t) {
       },
     },
     link_type: {
-      [10000]: {
+      10000: {
         attributes: {
-          [10000]: {
+          10000: {
             max: null,
             min: 1,
+            typeID: 10000,
           },
         },
         cardinality0: 0,
@@ -73,7 +74,9 @@ test('required attributes are left with forGrouping', function (t) {
         child_order: 1,
         deprecated: false,
         description: 'description',
+        documentation: null,
         entityType: 'link_type',
+        examples: null,
         gid: '43faf40a-281f-404f-a338-8efbe7775060',
         has_dates: true,
         id: 10000,
@@ -83,6 +86,7 @@ test('required attributes are left with forGrouping', function (t) {
         orderable_direction: 1,
         parent_id: null,
         reverse_link_phrase: 'supporting {instrument} by',
+        root_id: 10000,
         type0: 'artist',
         type1: 'artist',
       },
@@ -157,11 +161,12 @@ test('MBS-6129: Interpolating link phrases containing %', function (t) {
    */
   mergeLinkedEntities({
     link_type: {
-      [10001]: {
+      10001: {
         attributes: {
-          [3]: {
+          3: {
             max: null,
             min: 0,
+            typeID: 3,
           },
         },
         cardinality0: 0,
@@ -169,7 +174,9 @@ test('MBS-6129: Interpolating link phrases containing %', function (t) {
         child_order: 0,
         deprecated: false,
         description: '',
+        documentation: null,
         entityType: 'link_type',
+        examples: null,
         gid: 'd4013546-019d-4c59-8206-e0a6dec5d03a',
         has_dates: true,
         id: 10001,
@@ -179,6 +186,7 @@ test('MBS-6129: Interpolating link phrases containing %', function (t) {
         orderable_direction: 0,
         parent_id: null,
         reverse_link_phrase: '{vocal:%|vocals}',
+        root_id: 10001,
         type0: 'artist',
         type1: 'artist',
       },

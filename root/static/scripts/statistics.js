@@ -48,13 +48,13 @@ tablesorter.addParser({
 
 $('#countries-table').tablesorter({
   headers: {
-    [0]: {sorter: false},
-    [2]: {sorter: 'fancyNumber'},
-    [3]: {sorter: 'fancyNumber'},
-    [4]: {sorter: 'fancyNumber'},
-    [5]: {sorter: 'fancyNumber'},
-    [6]: {sorter: 'fancyNumber'},
-    [7]: {sorter: 'fancyNumber'},
+    0: {sorter: false},
+    2: {sorter: 'fancyNumber'},
+    3: {sorter: 'fancyNumber'},
+    4: {sorter: 'fancyNumber'},
+    5: {sorter: 'fancyNumber'},
+    6: {sorter: 'fancyNumber'},
+    7: {sorter: 'fancyNumber'},
   },
   // order by descending number of entities, then name
   sortList: [[7, 1], [1, 0]],
@@ -63,10 +63,10 @@ $('#countries-table').tablesorter({
 
 $('#languages-table').tablesorter({
   headers: {
-    [0]: {sorter: false},
-    [2]: {sorter: 'fancyNumber'},
-    [3]: {sorter: 'fancyNumber'},
-    [4]: {sorter: 'fancyNumber'},
+    0: {sorter: false},
+    2: {sorter: 'fancyNumber'},
+    3: {sorter: 'fancyNumber'},
+    4: {sorter: 'fancyNumber'},
   },
   // order by descending number of entities, then name
   sortList: [[4, 1], [1, 0]],
@@ -74,7 +74,7 @@ $('#languages-table').tablesorter({
 });
 
 $('#scripts-table').tablesorter({
-  headers: {[0]: {sorter: false}, [2]: {sorter: 'fancyNumber'}},
+  headers: {0: {sorter: false}, 2: {sorter: 'fancyNumber'}},
   // order by descending number of entities, then name
   sortList: [[2, 1], [1, 0]],
   widgets: ['indexFirstColumn', 'loopParity'],
