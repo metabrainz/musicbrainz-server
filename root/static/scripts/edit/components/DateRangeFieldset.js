@@ -32,10 +32,12 @@ export type ActionT =
 /* eslint-enable ft-flow/sort-keys */
 
 type PropsT = {
+  +children?: React.Node,
   +disabled?: boolean,
   +dispatch: (ActionT) => void,
-  +endedLabel: string,
+  +endedLabel?: string,
   +field: DatePeriodFieldT,
+  +hideEnded?: boolean,
 };
 
 export type StateT = DatePeriodFieldT;
@@ -169,10 +171,12 @@ export function reducer(
 }
 
 const DateRangeFieldset = (React.memo<PropsT>(({
+  children,
   disabled = false,
   dispatch,
   endedLabel,
   field,
+  hideEnded = false,
 }: PropsT): React$Element<React$FragmentType> => {
   const subfields = field.field;
 
@@ -213,15 +217,18 @@ const DateRangeFieldset = (React.memo<PropsT>(({
           field={field}
           includeSubFields={false}
         />
-        <FormRowCheckbox
-          disabled={
-            disabled ||
-            !isDateEmpty(partialDateFromField(subfields.end_date))
-          }
-          field={subfields.ended}
-          label={endedLabel}
-          onChange={hooks.handleEndedChange}
-        />
+        {hideEnded ? null : (
+          <FormRowCheckbox
+            disabled={
+              disabled ||
+              !isDateEmpty(partialDateFromField(subfields.end_date))
+            }
+            field={subfields.ended}
+            label={endedLabel ?? l('Ended')}
+            onChange={hooks.handleEndedChange}
+          />
+        )}
+        {children}
       </fieldset>
     </>
   );

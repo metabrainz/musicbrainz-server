@@ -11,12 +11,14 @@ type Props = {
   +children: React$Node,
   +hasNoLabel?: boolean,
   +hasNoMargin?: boolean,
+  +rowRef?: {-current: HTMLDivElement | null},
 };
 
 const FormRow = ({
   children,
   hasNoLabel = false,
   hasNoMargin = false,
+  rowRef,
   ...props
 }: Props): React$Element<'div'> => (
   <div
@@ -25,6 +27,7 @@ const FormRow = ({
       (hasNoLabel ? ' no-label' : '') +
       (hasNoMargin ? ' no-margin' : '')
     }
+    ref={rowRef}
     {...props}
   >
     {children}

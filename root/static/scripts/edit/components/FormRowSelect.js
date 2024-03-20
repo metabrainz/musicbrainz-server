@@ -24,12 +24,14 @@ type Props = {
   +helpers?: React$Node,
   +label: React$Node,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
+  +onFocus?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   +options: MaybeGroupedOptionsT,
   /*
    * `required` makes the field text bold to indicate a selection is required.
    * Only useful when `allowEmpty` is true.
    */
   +required?: boolean,
+  +rowRef?: {-current: HTMLDivElement | null},
   +uncontrolled?: boolean,
 };
 
@@ -42,8 +44,10 @@ const FormRowSelect = ({
   helpers,
   label,
   onChange,
+  onFocus,
   options,
   required: passedRequired = false,
+  rowRef,
   uncontrolled = false,
 }: Props): React$Element<typeof FormRow> => {
   let required = passedRequired;
@@ -52,13 +56,14 @@ const FormRowSelect = ({
     required = false;
   }
   return (
-    <FormRow>
+    <FormRow rowRef={rowRef}>
       <FormLabel forField={field} label={label} required={required} />
       <SelectField
         allowEmpty={allowEmpty}
         disabled={disabled || frozen}
         field={field}
         onChange={onChange}
+        onFocus={onFocus}
         options={options}
         required={required}
         uncontrolled={uncontrolled}
