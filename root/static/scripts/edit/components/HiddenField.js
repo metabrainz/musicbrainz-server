@@ -9,15 +9,17 @@
 
 type Props = {
   +field: FieldT<number | string>,
+  +value?: string,
 };
 
 const HiddenField = ({
   field,
+  value,
 }: Props): React$Element<'input'> => (
   <input
     name={field.html_name}
     type="hidden"
-    value={field.value}
+    value={value ?? field.value}
   />
 );
 

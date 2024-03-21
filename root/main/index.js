@@ -9,8 +9,8 @@
 
 import he from 'he';
 
-import {ArtworkImage} from '../components/Artwork.js';
 import Layout from '../layout/index.js';
+import {ArtworkImage} from '../static/scripts/common/components/Artwork.js';
 import {CONTACT_URL} from '../static/scripts/common/constants.js';
 import {reduceArtistCredit}
   from '../static/scripts/common/immutable-entities.js';

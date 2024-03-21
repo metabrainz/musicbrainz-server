@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
-import {Artwork} from '../components/Artwork.js';
 import RequestLogin from '../components/RequestLogin.js';
 import {RELEASE_STATUS_PSEUDORELEASE} from '../constants.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import {Artwork} from '../static/scripts/common/components/Artwork.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList.js';
