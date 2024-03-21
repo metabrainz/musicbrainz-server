@@ -53,7 +53,7 @@ type Output = Expand2ReactOutput;
 const textContent = /^[^<>{}]+/;
 const condSubstThenTextContent = /^[^<>{}|]+/;
 const percentSign = /(%)/;
-const linkSubstStart = /^\{([0-9A-z_]+)\|/;
+const linkSubstStart = /^\{([0-9A-z_ ]+)\|/;
 const htmlTagStart = /^<(?=[a-z])/;
 const htmlTagName = /^(a|abbr|br|code|em|h1|h2|h3|h4|h5|h6|hr|li|ol|p|span|strong|ul)(?=[\s\/>])/;
 const htmlTagEnd = /^>/;
