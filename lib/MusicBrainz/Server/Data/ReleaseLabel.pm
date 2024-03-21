@@ -17,11 +17,22 @@ sub _table
     return 'release_label rl';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'rl.id AS rl_id, rl.release AS rl_release, rl.label AS rl_label,
-            rl.catalog_number AS rl_catalog_number';
+    return join q(, ), (
+        'rl.id AS rl_id',
+        'rl.release AS rl_release',
+        'rl.label AS rl_label',
+        'rl.catalog_number AS rl_catalog_number',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

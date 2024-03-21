@@ -12,10 +12,24 @@ use MusicBrainz::Server::Types qw( VoteOption );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-sub _columns
+sub _build_columns
 {
-    return 'id, editor, edit, vote_time, vote, superseded';
+    return join q(, ), qw(
+        id
+        editor
+        edit
+        vote_time
+        vote
+        superseded
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _table
 {

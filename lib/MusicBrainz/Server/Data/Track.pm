@@ -26,12 +26,29 @@ with 'MusicBrainz::Server::Data::Role::EntityModelClass',
 
 sub _type { 'track' }
 
-sub _columns
+sub _build_columns
 {
-    return 'track.id, track.gid, track.name, track.medium, track.recording,
-            track.number, track.position, track.length, track.artist_credit,
-            track.edits_pending, track.is_data_track';
+    return join q(, ), qw(
+        track.id
+        track.gid
+        track.name
+        track.medium
+        track.recording
+        track.number
+        track.position
+        track.length
+        track.artist_credit
+        track.edits_pending
+        track.is_data_track
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping {
     return {

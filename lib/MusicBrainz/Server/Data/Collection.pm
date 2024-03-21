@@ -29,9 +29,25 @@ with 'MusicBrainz::Server::Data::Role::EntityModelClass',
 
 sub _type { 'collection' }
 
-sub _columns {
-    return 'editor_collection.id, editor_collection.gid, editor_collection.editor, editor_collection.name, public, editor_collection.description, editor_collection.type';
+sub _build_columns
+{
+    return join q(, ), qw(
+        editor_collection.id
+        editor_collection.gid
+        editor_collection.editor
+        editor_collection.name
+        editor_collection.public
+        editor_collection.description
+        editor_collection.type
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _id_column {
     return 'id';

@@ -20,10 +20,24 @@ with 'MusicBrainz::Server::Data::Role::Relatable',
 
 sub _type { 'genre' }
 
-sub _columns {
-    return 'genre.id, genre.gid, genre.name COLLATE musicbrainz,
-            genre.comment, genre.edits_pending, genre.last_updated';
+sub _build_columns
+{
+    return join q(, ), (
+        'genre.id',
+        'genre.gid',
+        'genre.name COLLATE musicbrainz',
+        'genre.comment',
+        'genre.edits_pending',
+        'genre.last_updated',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping {
     return {

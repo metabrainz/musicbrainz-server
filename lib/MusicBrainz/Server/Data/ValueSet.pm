@@ -30,11 +30,18 @@ sub _table {
     return $self->entity_type . q(_) . $self->value_type;
 }
 
-sub _columns {
+sub _build_columns {
     my $self = shift;
 
     return $self->entity_type . q(, ) . $self->value_type;
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping {
     my $self = shift;

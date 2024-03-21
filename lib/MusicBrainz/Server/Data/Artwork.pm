@@ -19,17 +19,26 @@ sub _table
         'JOIN cover_art_archive.image_type USING (mime_type)';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'cover_art_archive.cover_art.id,
-            cover_art_archive.cover_art.release,
-            cover_art_archive.cover_art.comment,
-            cover_art_archive.cover_art.edit,
-            cover_art_archive.cover_art.ordering,
-            cover_art_archive.cover_art.edits_pending,
-            cover_art_archive.cover_art.mime_type,
-            cover_art_archive.image_type.suffix';
+    return join q(, ), qw(
+        cover_art_archive.cover_art.id
+        cover_art_archive.cover_art.release
+        cover_art_archive.cover_art.comment
+        cover_art_archive.cover_art.edit
+        cover_art_archive.cover_art.ordering
+        cover_art_archive.cover_art.edits_pending
+        cover_art_archive.cover_art.mime_type
+        cover_art_archive.image_type.suffix
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _id_column
 {

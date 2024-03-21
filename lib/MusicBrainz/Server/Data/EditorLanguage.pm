@@ -12,10 +12,22 @@ sub _table
     return 'editor_language JOIN language ON language.id = editor_language.language';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'language.*, editor, fluency, language AS language_id';
+    return join q(, ), (
+        'language.*',
+        'editor',
+        'fluency',
+        'language AS language_id',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _new_from_row {
     my ($self, $row) = @_;

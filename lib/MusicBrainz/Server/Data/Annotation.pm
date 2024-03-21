@@ -9,11 +9,23 @@ sub _table
     'annotation';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, editor AS editor_id, text, changelog,
-            created AS creation_date';
+    return join q(, ), (
+        'id',
+        'editor AS editor_id',
+        'text',
+        'changelog',
+        'created AS creation_date',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _entity_class
 {

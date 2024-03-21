@@ -17,11 +17,29 @@ sub _table
     return 'autoeditor_election';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, candidate, proposer, seconder_1, seconder_2, status,
-        yes_votes, no_votes, propose_time, open_time, close_time';
+    return join q(, ), qw(
+        id
+        candidate
+        proposer
+        seconder_1
+        seconder_2
+        status
+        yes_votes
+        no_votes
+        propose_time
+        open_time
+        close_time
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

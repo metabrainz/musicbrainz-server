@@ -38,11 +38,25 @@ with 'MusicBrainz::Server::Data::Role::Relatable',
 
 sub _type { 'work' }
 
-sub _columns
+sub _build_columns
 {
-    return 'work.id, work.gid, work.type,
-            work.name COLLATE musicbrainz, work.comment, work.edits_pending, work.last_updated';
+    return join q(, ), (
+        'work.id',
+        'work.gid',
+        'work.type',
+        'work.name COLLATE musicbrainz',
+        'work.comment',
+        'work.edits_pending',
+        'work.last_updated',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

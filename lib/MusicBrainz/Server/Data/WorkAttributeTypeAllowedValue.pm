@@ -15,10 +15,25 @@ sub _table
     return 'work_attribute_type_allowed_value';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, gid, work_attribute_type, value, parent, child_order, description';
+    return join q(, ), qw(
+        id
+        gid
+        work_attribute_type
+        value
+        parent
+        child_order
+        description
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

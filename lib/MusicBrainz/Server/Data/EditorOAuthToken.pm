@@ -17,12 +17,29 @@ sub _table
     return 'editor_oauth_token';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, editor, application, authorization_code, ' .
-           'access_token, refresh_token, expire_time, scope, ' .
-           'code_challenge, code_challenge_method, granted';
+    return join q(, ), qw(
+        id
+        editor
+        application
+        authorization_code
+        access_token
+        refresh_token
+        expire_time
+        scope
+        code_challenge
+        code_challenge_method
+        granted
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

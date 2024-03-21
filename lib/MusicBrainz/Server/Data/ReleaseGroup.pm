@@ -49,15 +49,29 @@ sub _table
             JOIN release_group_meta rgm ON rgm.id = rg.id';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'rg.id, rg.gid, rg.type AS primary_type_id, rg.name COLLATE musicbrainz,
-            rg.artist_credit AS artist_credit_id,
-            rg.comment, rg.edits_pending, rg.last_updated,
-            rgm.first_release_date_year,
-            rgm.first_release_date_month,
-            rgm.first_release_date_day';
+    return join q(, ), (
+        'rg.id',
+        'rg.gid',
+        'rg.type AS primary_type_id',
+        'rg.name COLLATE musicbrainz',
+        'rg.artist_credit AS artist_credit_id',
+        'rg.comment',
+        'rg.edits_pending',
+        'rg.last_updated',
+        'rgm.first_release_date_year',
+        'rgm.first_release_date_month',
+        'rgm.first_release_date_day',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping {
     return {

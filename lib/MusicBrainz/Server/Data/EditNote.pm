@@ -21,10 +21,23 @@ sub _table
     return 'edit_note';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, editor, edit, text, post_time';
+    return join q(, ), qw(
+        id
+        editor
+        edit
+        text
+        post_time
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

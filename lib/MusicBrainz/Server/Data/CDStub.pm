@@ -17,9 +17,9 @@ sub _table
     return 'release_raw JOIN cdtoc_raw ON cdtoc_raw.release = release_raw.id';
 }
 
-sub _columns
+sub _build_columns
 {
-    return join(', ', qw(
+    return join q(, ), qw(
         release_raw.id
         title
         artist
@@ -34,8 +34,15 @@ sub _columns
         track_count
         leadout_offset
         track_offset
-    ));
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

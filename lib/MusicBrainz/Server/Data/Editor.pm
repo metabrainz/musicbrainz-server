@@ -42,14 +42,34 @@ sub _table
     return 'editor';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'editor.id, editor.name COLLATE musicbrainz, password, privs, email, website, bio,
-            member_since, email_confirm_date, last_login_date,
-            EXISTS (SELECT 1 FROM edit WHERE edit.editor = editor.id AND edit.autoedit = 0 AND edit.status = ' . $STATUS_APPLIED . ' OFFSET 9) AS has_ten_accepted_edits,
-            gender, area,
-            birth_date, ha1, deleted';
+    return join q(, ), (
+        'editor.id',
+        'editor.name COLLATE musicbrainz',
+        'password',
+        'privs',
+        'email',
+        'website',
+        'bio',
+        'member_since',
+        'email_confirm_date',
+        'last_login_date',
+        "EXISTS (SELECT 1 FROM edit WHERE edit.editor = editor.id AND edit.autoedit = 0 AND edit.status = $STATUS_APPLIED OFFSET 9) AS has_ten_accepted_edits",
+        'gender',
+        'area',
+        'birth_date',
+        'ha1',
+        'deleted',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _area_columns { [qw( area )] }
 

@@ -11,11 +11,26 @@ sub _table
     return 'edit_note_change';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, edit_note AS edit_note_id, change_editor AS editor_id, ' .
-        'change_time, status, reason, old_note, new_note';
+    return join q(, ), (
+        'id',
+        'edit_note AS edit_note_id',
+        'change_editor AS editor_id',
+        'change_time',
+        'status',
+        'reason',
+        'old_note',
+        'new_note',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _entity_class
 {

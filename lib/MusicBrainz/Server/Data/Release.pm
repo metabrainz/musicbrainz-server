@@ -61,13 +61,32 @@ Readonly::Hash our %RELEASE_MERGE_ERRORS => (
 
 sub _type { 'release' }
 
-sub _columns
+sub _build_columns
 {
-    return 'release.id, release.gid, release.name COLLATE musicbrainz, release.artist_credit AS artist_credit_id,
-            release.release_group, release.status, release.packaging,
-            release.comment, release.edits_pending, release.barcode,
-            release.script, release.language, release.quality, release.last_updated';
+    return join q(, ), (
+        'release.id',
+        'release.gid',
+        'release.name COLLATE musicbrainz',
+        'release.artist_credit AS artist_credit_id',
+        'release.release_group',
+        'release.status',
+        'release.packaging',
+        'release.comment',
+        'release.edits_pending',
+        'release.barcode',
+        'release.script',
+        'release.language',
+        'release.quality',
+        'release.last_updated',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _id_column
 {

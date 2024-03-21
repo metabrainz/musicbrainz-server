@@ -18,10 +18,23 @@ sub _table
     return 'script';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, iso_code, iso_number, name, frequency';
+    return join q(, ), qw(
+        id
+        iso_code
+        iso_number
+        name
+        frequency
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping {
     return {

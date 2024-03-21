@@ -20,11 +20,25 @@ sub _table
     return 'language';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, iso_code_3, iso_code_2t, iso_code_2b, ' .
-           'iso_code_1, name, frequency';
+    return join q(, ), qw(
+        id
+        iso_code_3
+        iso_code_2t
+        iso_code_2b
+        iso_code_1
+        name
+        frequency
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping {
     return {

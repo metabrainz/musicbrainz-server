@@ -16,10 +16,23 @@ sub _table
     return 'isrc';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, isrc, recording, source, edits_pending';
+    return join q(, ), qw(
+        id
+        isrc
+        recording
+        source
+        edits_pending
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {
