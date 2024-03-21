@@ -76,7 +76,7 @@
     "babel-plugin-syntax-hermes-parser": "0.20.1",
     "buffer": "6.0.3",
     "chrome-remote-interface": "0.33.0",
-    "eslint": "8.46.0",
+    "eslint": "8.57.0",
     "eslint-plugin-fb-flow": "0.0.4",
     "eslint-plugin-ft-flow": "3.0.1",
     "eslint-plugin-import": "2.29.0",
