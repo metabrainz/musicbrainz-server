@@ -80,7 +80,7 @@
     "eslint-plugin-fb-flow": "0.0.5",
     "eslint-plugin-ft-flow": "3.0.7",
     "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-react": "7.33.1",
+    "eslint-plugin-react": "7.34.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "file-url": "2.0.2",
