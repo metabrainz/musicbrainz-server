@@ -5065,13 +5065,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"klona@npm:^2.0.4":
-  version: 2.0.6
-  resolution: "klona@npm:2.0.6"
-  checksum: 94eed2c6c2ce99f409df9186a96340558897b3e62a85afdc1ee39103954d2ebe1c1c4e9fe2b0952771771fa96d70055ede8b27962a7021406374fdb695fd4d01
-  languageName: node
-  linkType: hard
-
 "knockout-arraytransforms@https://github.com/mwiencek/knockout-arraytransforms.git#9673e91a4755b92ba4eea5ca03067790dbbd997b":
   version: 2.1.1
   resolution: "knockout-arraytransforms@https://github.com/mwiencek/knockout-arraytransforms.git#commit=9673e91a4755b92ba4eea5ca03067790dbbd997b"
@@ -5111,15 +5104,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"less-loader@npm:10.0.1":
-  version: 10.0.1
-  resolution: "less-loader@npm:10.0.1"
-  dependencies:
-    klona: "npm:^2.0.4"
+"less-loader@npm:12.2.0":
+  version: 12.2.0
+  resolution: "less-loader@npm:12.2.0"
   peerDependencies:
+    "@rspack/core": 0.x || 1.x
     less: ^3.5.0 || ^4.0.0
     webpack: ^5.0.0
-  checksum: c604bb546552addc5211b1d9bf24e83594cf6c667f23f11fed953acfbb259e75bd6ead7d29145d55f924b3d8545d6be51ebcf868e37aedf926e95b40c44ffa25
+  peerDependenciesMeta:
+    "@rspack/core":
+      optional: true
+    webpack:
+      optional: true
+  checksum: 54eea545727930801d2ccc0b586332cd07d0f922b14ab7c8b3f03199944d770ac363081081ed2fda5f23da904336367cb2bb40007c033970dce25f7f9c906ba2
   languageName: node
   linkType: hard
 
@@ -5677,7 +5674,7 @@ __metadata:
     leaflet: "npm:1.6.0"
     leaflet.markercluster: "npm:1.4.1"
     less: "npm:4.1.1"
-    less-loader: "npm:10.0.1"
+    less-loader: "npm:12.2.0"
     less-plugin-clean-css: "npm:1.5.1"
     leven: "npm:2.0.0"
     mutate-cow: "npm:5.0.0"
