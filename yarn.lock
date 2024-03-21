@@ -3749,12 +3749,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-bin@npm:0.228.0":
-  version: 0.228.0
-  resolution: "flow-bin@npm:0.228.0"
+"flow-bin@npm:0.229.0":
+  version: 0.229.0
+  resolution: "flow-bin@npm:0.229.0"
   bin:
     flow: cli.js
-  checksum: 4e1cf35e32a2ca2888cade5abcc659218d7426ec8e701a0bbbf0d1f368df86f80fd1acb69f81f0e51b3a75bfcb46e7f727e5c46b3a4fc602d8043c0950934eba
+  checksum: 04aa70ffd1602870ad8730b123adca9afd03e5a74727a5f5a2c5eb7bf7daba06f0f902810ab4958879706714189a7b5012a25932649372999b6448c2d0c9ec95
   languageName: node
   linkType: hard
 
@@ -5615,7 +5615,7 @@ __metadata:
     fast-diff: "npm:1.2.0"
     file-url: "npm:2.0.2"
     filesize: "npm:2.0.4"
-    flow-bin: "npm:0.228.0"
+    flow-bin: "npm:0.229.0"
     generic-diff: "npm:1.0.1"
     gettext-parser: "npm:3.1.0"
     he: "npm:1.1.1"
