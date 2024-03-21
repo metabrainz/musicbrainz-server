@@ -2657,12 +2657,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-syntax-hermes-parser@npm:0.15.1":
-  version: 0.15.1
-  resolution: "babel-plugin-syntax-hermes-parser@npm:0.15.1"
+"babel-plugin-syntax-hermes-parser@npm:0.20.1":
+  version: 0.20.1
+  resolution: "babel-plugin-syntax-hermes-parser@npm:0.20.1"
   dependencies:
-    hermes-parser: "npm:0.15.1"
-  checksum: 22dc7093c7c65ce0865d6024bc03b764fbf5c5d04c64f71a106c200a335d897e42338f241e51805fcbb275c9e71c43f0894c4eb2990ec1063dfc88482b1a7c8f
+    hermes-parser: "npm:0.20.1"
+  checksum: 67547c16e746e94e9a03d8d2c1b8c9241a804b034281c302af5d38f1155f7d56ee5dd1e46cb078d73eb86d01e0ddfd4498a0e6155d00f1295a2407e356d5c7a1
   languageName: node
   linkType: hard
 
@@ -4464,13 +4464,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-estree@npm:0.15.1":
-  version: 0.15.1
-  resolution: "hermes-estree@npm:0.15.1"
-  checksum: c265d176b5fee0a6038f4711e0fbb68148a555fc1d8554eb6b67c8eb058a5013d3c6a62bde0fa25e1d221af4a08dcbc4d184bc8ab0dfb92c489fa6fc3896d68e
-  languageName: node
-  linkType: hard
-
 "hermes-estree@npm:0.17.0":
   version: 0.17.0
   resolution: "hermes-estree@npm:0.17.0"
@@ -4485,12 +4478,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-parser@npm:0.15.1":
-  version: 0.15.1
-  resolution: "hermes-parser@npm:0.15.1"
-  dependencies:
-    hermes-estree: "npm:0.15.1"
-  checksum: 7c29b94430b71fe99d4ea018fb43499dcbfa9079d94ac5b4b51cff55d3a05ca85a6779b50758b1730df1bb7181f18c1e4d96c4e729f842cb9bd3c1829e3746d5
+"hermes-estree@npm:0.20.1":
+  version: 0.20.1
+  resolution: "hermes-estree@npm:0.20.1"
+  checksum: 86cfb395970f50fdac09ad9784a86b65c7187d02b5f99f0f0321d936aa9ec52d1e07aef02c21b18b649abdec5f6acc02eb6275edf7d33b4d3d23e3fa0af85c41
   languageName: node
   linkType: hard
 
@@ -4509,6 +4500,15 @@ __metadata:
   dependencies:
     hermes-estree: "npm:0.17.1"
   checksum: 5d9119f67e13eb84e06d14735e300763f3e3cafe00ddd0acdf0a58b4365fd78e2aa8efc463658f7b4a26f89541651ef9619bd1c47e93dcbe34e6d840a1a5c9c4
+  languageName: node
+  linkType: hard
+
+"hermes-parser@npm:0.20.1":
+  version: 0.20.1
+  resolution: "hermes-parser@npm:0.20.1"
+  dependencies:
+    hermes-estree: "npm:0.20.1"
+  checksum: b93746028feac7d1dccd54f8b420e8f7d6e0adf9ff0bdbdf9bb1f327198da91ca7f893af62fba99ac9a57bfd5f15dcb90cca40cf4e1a090a6ea8ab2160a02f86
   languageName: node
   linkType: hard
 
@@ -5847,7 +5847,7 @@ __metadata:
     "@sentry/node": "npm:5.10.2"
     babel-loader: "npm:9.1.3"
     babel-plugin-istanbul: "npm:5.2.0"
-    babel-plugin-syntax-hermes-parser: "npm:0.15.1"
+    babel-plugin-syntax-hermes-parser: "npm:0.20.1"
     balanced-match: "npm:0.2.0"
     buffer: "npm:6.0.3"
     canonical-json: "npm:0.0.4"
