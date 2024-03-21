@@ -76,7 +76,8 @@ ALTER TABLE instrument_alias
 
 ALTER TABLE label
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != '');
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT label_code_length CHECK (label_code > 0 AND label_code < 1000000);
 
 ALTER TABLE label_alias
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),

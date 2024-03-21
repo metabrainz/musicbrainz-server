@@ -2467,7 +2467,7 @@ CREATE TABLE label ( -- replicate (verbose)
     end_date_year       SMALLINT,
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
-    label_code          INTEGER CHECK (label_code > 0 AND label_code < 100000),
+    label_code          INTEGER,
     type                INTEGER, -- references label_type.id
     area                INTEGER, -- references area.id
     comment             VARCHAR(255) NOT NULL DEFAULT '',

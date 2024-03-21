@@ -29,7 +29,7 @@ sub format_label_code
 {
     my $self = shift;
     if ($self->label_code) {
-        return sprintf 'LC %05d', $self->label_code;
+        return sprintf 'LC %06d', $self->label_code;
     }
     return '';
 }

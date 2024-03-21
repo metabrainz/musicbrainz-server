@@ -28,7 +28,7 @@ is( $label->type->name, 'Production' );
 
 $label->label_code(123);
 is( $label->label_code, 123 );
-is( $label->format_label_code, 'LC 00123' );
+is( $label->format_label_code, 'LC 000123' );
 
 $label->edits_pending(2);
 is( $label->edits_pending, 2 );
