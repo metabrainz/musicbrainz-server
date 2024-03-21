@@ -221,7 +221,11 @@
   },
   "29": {
     "all": [
-      "20231005-edit-data-idx-link-type.sql"
+      "20231005-edit-data-idx-link-type.sql",
+      "20240223-mbs-13421.sql"
+    ],
+    "master_and_standalone": [
+      "20240223-mbs-13421-fks.sql"
     ]
   }
 }

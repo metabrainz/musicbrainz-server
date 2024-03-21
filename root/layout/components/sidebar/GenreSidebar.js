@@ -15,6 +15,7 @@ import {isRelationshipEditor}
 import ExternalLinks from '../ExternalLinks.js';
 
 import AnnotationLinks from './AnnotationLinks.js';
+import CollectionLinks from './CollectionLinks.js';
 import EditLinks from './EditLinks.js';
 import LastUpdated from './LastUpdated.js';
 import RemoveLink from './RemoveLink.js';
@@ -39,6 +40,9 @@ const GenreSidebar = ({genre}: Props): React$Element<'div'> => {
           </>
         ) : null}
       </EditLinks>
+
+      <CollectionLinks entity={genre} />
+
       <LastUpdated entity={genre} />
     </div>
   );
