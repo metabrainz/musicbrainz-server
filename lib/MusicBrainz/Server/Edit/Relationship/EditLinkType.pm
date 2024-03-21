@@ -35,7 +35,7 @@ sub change_fields
         reverse_link_phrase => Optional[Str],
         long_link_phrase   => Optional[Str],
         description         => Nullable[Str],
-        priority            => Optional[Int],
+        priority            => Optional[Int], # Present in edits before 2024
         attributes          => Optional[ArrayRef[Dict[
             name => Str,
             min  => Nullable[Int],

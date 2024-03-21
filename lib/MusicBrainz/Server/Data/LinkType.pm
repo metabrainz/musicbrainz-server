@@ -31,7 +31,7 @@ sub _columns
 {
     return 'id, parent AS parent_id, gid, name, link_phrase,
             entity_type0 AS entity0_type, entity_type1 AS entity1_type,
-            reverse_link_phrase, description, priority,
+            reverse_link_phrase, description,
             child_order, long_link_phrase, is_deprecated, has_dates,
             entity0_cardinality, entity1_cardinality,
             COALESCE((SELECT direction FROM orderable_link_type
@@ -421,7 +421,6 @@ sub _hash_to_row
             link_phrase
             long_link_phrase
             name
-            priority
             reverse_link_phrase
         ),
     });
