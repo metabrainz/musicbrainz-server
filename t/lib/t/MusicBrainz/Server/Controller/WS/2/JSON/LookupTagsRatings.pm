@@ -19,7 +19,6 @@ test 'artist lookups' => sub {
         '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=tags+genres+ratings' => {
             'isnis' => [],
             'name' => 'BoA',
-            'begin_area' => JSON::null,
             'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
             'type' => 'Person',
             'id' => 'a16d1433-ba89-4f72-a47b-a370add0bb55',
@@ -57,7 +56,6 @@ test 'artist lookups' => sub {
             'gender' => JSON::null,
             'end-area' => JSON::null,
             'begin-area' => JSON::null,
-            'end_area' => JSON::null,
             'tags' => [
                 {
                     'count' => 1,
@@ -101,7 +99,6 @@ test 'artist lookups' => sub {
             'begin-area' => JSON::null,
             'end-area' => JSON::null,
             'gender' => JSON::null,
-            'begin_area' => JSON::null,
             'isnis' => [],
             'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
             'genres' => [
@@ -178,7 +175,6 @@ test 'artist lookups' => sub {
                 },
             ],
             'name' => 'The Chemical Brothers',
-            'end_area' => JSON::null,
             'user-tags' => [
                 {
                     'name' => 'big beat',
@@ -246,7 +242,6 @@ test 'artist lookups' => sub {
             ],
             'gender' => JSON::null,
             'isnis' => [],
-            'begin_area' => JSON::null,
             'country' => JSON::null,
             'ipis' => [],
             'disambiguation' => '',
@@ -287,7 +282,6 @@ test 'artist lookups' => sub {
                 'value' => '4.35',
             },
             'area' => JSON::null,
-            'end_area' => JSON::null,
             'release-groups' => [
                 {
                     'primary-type-id' => 'f529b476-6e62-324f-b0aa-1f3e33d313fc',
