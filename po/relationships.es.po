@@ -24,7 +24,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-07 14:28+0000\n"
+"PO-Revision-Date: 2024-03-22 15:28+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -2947,6 +2947,8 @@ msgid ""
 "legal name (or a more well know performance name if the legal name is "
 "unknown)."
 msgstr ""
+"Enlaza un nombre artístico o seudónimo de un artista con su nombre legal (u "
+"otro nombre artístico más conocido si no se conoce su nombre legal)."
 
 #: DB:link_type/description:309
 msgid ""
@@ -6519,7 +6521,7 @@ msgstr "interpretación"
 
 #: DB:link_type/reverse_link_phrase:108
 msgid "performance name of"
-msgstr ""
+msgstr "nombre artístico de"
 
 #: DB:link_type/link_phrase:887 DB:link_type/name:887
 msgid "performance of"
