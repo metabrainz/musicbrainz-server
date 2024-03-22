@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-02-09 04:28+0000\n"
+"PO-Revision-Date: 2024-03-14 00:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -27,9 +27,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.3.1\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.4\n"
 
 #. name:rebab 
 #: DB:instrument/description:239
@@ -93,12 +93,12 @@ msgstr ""
 "Liuto slide senza tasti risalente al XIII secolo o anteriore, originario "
 "dell'India meridionale e usato nella musica carnatica. Dalla cassa cava in "
 "giaco e con un risuonatore secondario in zucca a fiasco cava, ha 6 corde "
-"principali, 3 corde bordone e 11-12 corde simpatiche, con uno sliding block "
-"in legno duro per variare il tono. La chitra vina sta alla <a href=\"/"
+"principali, 3 corde di bordone e 11-12 corde simpatiche, con uno sliding "
+"block in legno duro per variare il tono. La chitra vina sta alla <a href=\"/"
 "instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">Saraswati vina</a> come la "
 "<a href=\"/instrument/b4d38ac1-7f12-437c-a61a-be2796ffc559\">vichitra vina</"
-"a> dell'India settentrionale sta alla <a href=\"/instrument/aea9661c-"
-"cbda-4bf3-a61d-d78697472f29\">rudra vina</a>."
+"a> dell'India settentrionale sta alla <a href=\"/instrument/aea9661c-cbda-"
+"4bf3-a61d-d78697472f29\">rudra vina</a>."
 
 #. name:kös 
 #: DB:instrument/description:739
@@ -1113,7 +1113,7 @@ msgstr ""
 "usata per riti e meditazione, e per i raga e la musica dhrupad dell'India "
 "settentrionale. Ha due risuonatori in zucca a fiasco essiccata e cassa in "
 "bambù, con 24 tasti in legno, 4 corde principali, 2-3 corde secondarie e una "
-"corda bordone."
+"corda di bordone."
 
 #. name:washtub bass 
 #: DB:instrument/description:96
@@ -1365,10 +1365,10 @@ msgid ""
 "of wood, often an integral case. It has two courses of strings; drone and "
 "melody strings operated by buttons or keys."
 msgstr ""
-"Sviluppato a partire dal <a href=\"/"
-"instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a> giapponese, "
-"è realizzato in legno e spesso ha un contenitore integrale. Ha due ordini di "
-"corde, melodiche e bordone, azionate attraverso bottoni o tasti."
+"Sviluppato a partire dal <a href=\"/instrument/1975ee04-30de-4835-9656-"
+"102ccd49c0c7\">taishogoto</a> giapponese, è realizzato in legno e spesso ha "
+"un contenitore integrale. Ha due ordini di corde, melodiche e di bordone, "
+"azionate attraverso bottoni o tasti."
 
 #. name:biniou 
 #: DB:instrument/description:1117
@@ -1533,11 +1533,11 @@ msgid ""
 "with a possible secondary resonator (tumba) it was invented in 1825 by sitar-"
 "player Ghulam Mohammed who wanted a deeper sound."
 msgstr ""
-"Di fatto un sitar basso, ha 4 corde principali, 3-4 corde chikari (bordone) "
-"e 10-11 corde di risonanza incordate su un largo manico in legno. Realizzato "
-"in zucca a fiasco tagliata a metà e talvolta provvisto di un risuonatore "
-"secondario (tumba), fu inventato nel 1825 dal sitarista Ghulam Mohammed, che "
-"era alla ricerca di un suono più profondo."
+"Di fatto un sitar basso, ha 4 corde principali, 3-4 corde chikari (di "
+"bordone) e 10-11 corde di risonanza incordate su un largo manico in legno. "
+"Realizzato in zucca a fiasco tagliata a metà e talvolta provvisto di un "
+"risuonatore secondario (tumba), fu inventato nel 1825 dal sitarista Ghulam "
+"Mohammed, che era alla ricerca di un suono più profondo."
 
 #. name:harpejji 
 #: DB:instrument/description:894
@@ -1776,7 +1776,7 @@ msgid ""
 "and dance."
 msgstr ""
 "Violino folk originario dell'Hardanger, in Norvegia. Ha 4 corde melodiche e "
-"4 o 5 corde bordone, è riccamente decorato ed è utilizzato nella musica e "
+"4 o 5 corde di bordone, è riccamente decorato ed è utilizzato nella musica e "
 "danza tradizionale \"halling\"."
 
 #. name:tambourine 
@@ -2071,7 +2071,7 @@ msgid ""
 "drone and open fingering, it is accompanied by percussion in folk music."
 msgstr ""
 "Proveniente dalla Sanabria, si distingue dalle altre cornamuse spagnole per "
-"la singola canna di bordone e per la diteggiatura aperta. È accompagnata da "
+"la canna di bordone singola e per la diteggiatura aperta. È accompagnata da "
 "percussioni nella musica tradizionale."
 
 #. name:pluriarc 
@@ -2274,8 +2274,8 @@ msgid ""
 msgstr ""
 "Storicamente uno strumento tradizionale dell'Appalachia, la sua cassa di "
 "risonanza allungata a forma di 8 è realizzata in vari legni e ha spesso dei "
-"fori di risonanza a forma di cuore. Ha 3 o 4 corde in metallo (comprese "
-"corde bordone) ed è dotato di tasti diatonici."
+"fori di risonanza a forma di cuore. Ha 3 o 4 corde in metallo (comprese le "
+"corde di bordone) ed è dotato di tasti diatonici."
 
 #. name:gaita de boto 
 #: DB:instrument/description:1081
@@ -2750,6 +2750,9 @@ msgid ""
 "and two in the chanter (which as three channels), it has no bells and is "
 "mouthblown."
 msgstr ""
+"Conosciuta dal XVI secolo, ha tre bordoni, di cui uno in una canna di "
+"bordone separata e due nella canna del canto (che ha tre canali); non ha "
+"campane ed è azionata a fiato."
 
 #. name:krakebs 
 #: DB:instrument/description:652
@@ -2766,8 +2769,8 @@ msgid ""
 "Lacking the short drone string of its predecessor, it is usually played with "
 "a plectrum and has 22 frets."
 msgstr ""
-"Senza la corda bordone più corta del suo predecessore, è solitamente suonato "
-"con un plettro e ha 22 tasti."
+"Senza la corda di bordone più corta del suo predecessore, è solitamente "
+"suonato con un plettro e ha 22 tasti."
 
 #. name:lamellaphone 
 #: DB:instrument/description:632
@@ -3768,6 +3771,10 @@ msgid ""
 "prepared violin or solo, it has a single chanter with seven finger holes and "
 "a drone pipe folded back on itself twice both ending in curved bells."
 msgstr ""
+"Originariamente suonata insieme al mazanki, un violino folk speciale, oggi "
+"suonata con il violino preparato o da solista, ha una canna del canto "
+"singola con sette fori di diteggiatura e una canna di bordone ripiegata su "
+"sé stessa due volte, entrambe terminanti in padiglioni ricurvi."
 
 #. name:clavinet 
 #: DB:instrument/description:175
@@ -4283,7 +4290,7 @@ msgid ""
 msgstr ""
 "Imparentato con lo strumento ad arco rebab, è suonato in molti paesi, "
 "dall'India all'Afghanistan. È realizzato in legno, ricoperto da una membrana "
-"e ha 3 corde melodiche, 3 corde bordone e 11/12 corde di risonanza."
+"e ha 3 corde melodiche, 3 corde di bordone e 11/12 corde di risonanza."
 
 #. name:gittern 
 #: DB:instrument/description:802
@@ -6901,7 +6908,7 @@ msgid ""
 "pipe both decorated with fur. Used in festivals by marching players "
 "accompanied by percussion."
 msgstr ""
-"Usata almeno a partire dal IX secolo, ha due o tre canne di bordone con "
+"Usata almeno a partire dal IX secolo, ha due o tre canne di bordone, con "
 "sacca e canna entrambe decorate con pelliccia. Usata in occasione di "
 "festival da bande in cui è accompagnata da percussioni."
 
@@ -6921,6 +6928,9 @@ msgid ""
 "Used by shepherds and in pagan lifestyle, it has a double bore chanter with "
 "one to 2 drones, historically made of dogskin but today goat is used."
 msgstr ""
+"Utilizzata dai pastori e nel paganesimo, ha una canna del canto a sezione "
+"doppia e una o due canne di bordone; storicamente realizzata in pelle di "
+"cane, oggi in pelle di capra."
 
 #. name:tulum 
 #: DB:instrument/description:1116
@@ -7007,7 +7017,7 @@ msgstr ""
 "Usata nella tradizione carnatica, prende il nome dalla dea delle arti e "
 "della musica Saraswati ed è conosciuta sin dall'antichità. Un liuto con un "
 "risuonatore acustico in zucca a fiasco, ha 24 tasti fissi e 7 corde in "
-"acciaio (4 corde principali e 3 corde bordone)."
+"acciaio (4 corde principali e 3 corde di bordone)."
 
 #. name:pakhawaj 
 #: DB:instrument/description:502
@@ -7555,8 +7565,8 @@ msgid ""
 "bumblebee or buzzing."
 msgstr ""
 "Con cassa in legno a forma di mezza pera o di pera intera, è parzialmente "
-"dotato di tasti e ha due ordini di corde, melodiche e bordone. Il suo nome "
-"deriva dalle parole germaniche per bombo o ronzio."
+"dotato di tasti e ha due ordini di corde, melodiche e di bordone. Il suo "
+"nome deriva dalle parole germaniche per bombo o ronzio."
 
 #. name:haegeum 
 #: DB:instrument/description:486
