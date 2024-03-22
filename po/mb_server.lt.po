@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-13 20:55+0200\n"
-"PO-Revision-Date: 2024-03-11 21:28+0000\n"
+"PO-Revision-Date: 2024-03-14 12:28+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -23,8 +23,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -11813,7 +11813,7 @@ msgstr ""
 
 #: ../root/report/AnnotationsArtists.js:29
 msgid "This report lists artists with annotations."
-msgstr ""
+msgstr "Šioje ataskaitoje pateikiami atlikėjų sąrašai su anotacijomis."
 
 #: ../root/report/AnnotationsArtists.js:34
 msgid "Artist annotations"
@@ -11833,7 +11833,7 @@ msgstr ""
 
 #: ../root/report/AnnotationsLabels.js:34
 msgid "Label annotations"
-msgstr ""
+msgstr "Įrašų kompanijos anotacijos"
 
 #: ../root/report/AnnotationsPlaces.js:29
 msgid "This report lists places with annotations."
@@ -11889,11 +11889,14 @@ msgid ""
 "like it might have been left behind in error, such as a trailing comma or "
 "“feat.”."
 msgstr ""
+"Šioje ataskaitoje išvardyti atlikėjų įvardijami, kuriuose yra baigiamoji "
+"jungiamoji frazė, kuri, atrodo, galėjo būti palikta per klaidą, pavyzdžiui, "
+"baigiamasis kablelis arba „feat. (su)“."
 
 #: ../root/report/ArtistCreditsWithDubiousTrailingPhrases.js:31
 #: ../root/report/ReportsIndex.js:120
 msgid "Artist credits with dubious trailing join phrases"
-msgstr ""
+msgstr "Atlikėjo įvardijami su abejotinomis baigiamosiomis jungtinėmis frazėmis"
 
 #: ../root/report/ArtistsContainingDisambiguationComments.js:24
 msgid ""
@@ -11901,7 +11904,7 @@ msgid ""
 "name, rather than the actual disambiguation comment field."
 msgstr ""
 "Šioje ataskaitoje išvardyti atlikėjai, kurių pavadinime gali būti išskyrimo "
-"pastabų, o ne tikrasis išskyrimo pastabų laukas."
+"komentarų, o ne tikrasis išskyrimo komentaro laukas."
 
 #: ../root/report/ArtistsContainingDisambiguationComments.js:30
 #: ../root/report/ReportsIndex.js:84
@@ -12007,7 +12010,7 @@ msgstr ""
 
 #: ../root/report/BadAmazonUrls.js:55
 msgid "Bad Amazon URLs"
-msgstr ""
+msgstr "Blogi Amazon URL"
 
 #: ../root/report/BootlegsOnNonBootlegLabels.js:24
 msgid ""
@@ -12073,7 +12076,7 @@ msgstr ""
 
 #: ../root/report/CatNoLooksLikeIsrc.js:40 ../root/report/ReportsIndex.js:327
 msgid "Releases with catalog numbers that look like ISRCs"
-msgstr ""
+msgstr "Leidiniai su katalogo numeriais, kurie atrodo kaip ISRC"
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:28
 msgid ""
@@ -12104,18 +12107,18 @@ msgstr ""
 
 #: ../root/report/CollaborationRelationships.js:49
 msgid "Collaboration"
-msgstr ""
+msgstr "Bendradarbiavimas"
 
 #: ../root/report/CollaborationRelationships.js:50
 msgid "Collaborator"
-msgstr ""
+msgstr "Bendradarbis"
 
 #: ../root/report/CollaborationRelationships.js:68
 #: ../root/report/CollaborationRelationships.js:79
 #: ../root/report/DuplicateArtists.js:116
 #: ../root/report/components/ArtistUrlList.js:74
 msgid "This artist no longer exists."
-msgstr ""
+msgstr "Šis atlikėjas nebeegzistuoja"
 
 #: ../root/report/DeprecatedRelationshipArtists.js:29
 msgid ""
@@ -12275,7 +12278,7 @@ msgstr ""
 
 #: ../root/report/DuplicateArtists.js:99
 msgid "alias:"
-msgstr ""
+msgstr "alternatyvus vardas:"
 
 #: ../root/report/DuplicateArtists.js:109
 #: ../root/report/DuplicateReleaseGroups.js:93
