@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-09 12:28+0000\n"
+"PO-Revision-Date: 2024-03-22 15:28+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -368,7 +368,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
-msgstr "Изменить поиск"
+msgstr "Поиск по правкам"
 
 #: DB:statistics.statistic_event/description:2007-12-07
 msgid ""
