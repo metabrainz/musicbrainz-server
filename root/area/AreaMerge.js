@@ -25,12 +25,12 @@ const AreaMerge = ({
   form,
   toMerge,
 }: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Merge areas')}>
+  <Layout fullWidth title="Merge areas">
     <div id="content">
-      <h1>{l('Merge areas')}</h1>
+      <h1>{'Merge areas'}</h1>
       <p>
-        {l(`You are about to merge all these areas into a single one.
-            Please select the area all others should be merged into:`)}
+        {l_admin(`You are about to merge all these areas into a single one.
+                  Please select the area all others should be merged into:`)}
       </p>
       <form method="post">
         <AreaList
@@ -48,7 +48,7 @@ const AreaMerge = ({
             type="submit"
             value="cancel"
           >
-            {l('Cancel')}
+            {'Cancel'}
           </button>
         </EnterEdit>
       </form>
