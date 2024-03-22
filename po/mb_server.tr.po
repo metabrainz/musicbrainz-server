@@ -12,13 +12,14 @@
 # Onur Çiçek <email address hidden>, 2022
 # portik <email address hidden>, 2013-2014
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# brtc <boratici@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-13 20:55+0200\n"
-"PO-Revision-Date: 2023-08-24 14:27+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2024-03-18 23:28+0000\n"
+"Last-Translator: brtc <boratici@gmail.com>\n"
 "Language-Team: Turkish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/tr/>\n"
 "Language: tr\n"
@@ -26,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.4\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -39,23 +40,26 @@ msgstr "\"C\" tek bir kontrol basamağıdır."
 #: ../root/components/forms.tt:323
 msgid ""
 "\"CC\" is the appropriate for the registrant two-character country code."
-msgstr ""
+msgstr "\"CC\", tescil ettiren iki karakterli ülke kodu için uygundur."
 
 #: ../root/components/forms.tt:312
 msgid "\"DDD\" is a nine digit work identifier."
-msgstr ""
+msgstr "\"DDD\" dokuz haneli bir yapıt tanımlayıcıdır."
 
 #: ../root/components/forms.tt:326
 msgid ""
 "\"NNNNN\" is a unique 5-digit number identifying the particular sound "
 "recording."
 msgstr ""
+"\"NNNNN\", belirli bir ses kaydını tanımlayan 5 haneli benzersiz bir sayıdır."
 
 #: ../root/components/forms.tt:324
 msgid ""
 "\"XXX\" is a three character alphanumeric registrant code, uniquely "
 "identifying the organisation which registered the code."
 msgstr ""
+"\"XXX\", kodu kaydeden kuruluşu benzersiz şekilde tanımlayan, üç karakterli "
+"alfa sayısal tescil kodudur."
 
 #: ../root/components/forms.tt:325
 msgid "\"YY\" is the last two digits of the year of registration."
@@ -74,15 +78,15 @@ msgstr ""
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1562
 #: ../root/utility/tableColumns.js:572
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: ../root/doc/edit_type.tt:43
 msgid "&#10004;"
-msgstr ""
+msgstr "&#10004;"
 
 #: ../root/doc/edit_type.tt:43
 msgid "&#10005;"
-msgstr ""
+msgstr "&#10005;"
 
 #: ../root/release/add_cover_art.tt:104
 msgid "&#x26a0; Error creating edit"
@@ -125,7 +129,7 @@ msgstr "(başka kapak resmi yok)"
 #: ../root/utility/tableColumns.js:513 ../root/utility/tableColumns.js:521
 msgctxt "and"
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../root/release/edit/recordings.tt:137
 msgid ""
@@ -151,6 +155,8 @@ msgid ""
 "A format is required. If you don’t know it, tick the “I don’t know” checkbox "
 "next to the format dropdown."
 msgstr ""
+"Bir biçim gereklidir. Bilmiyorsanız, biçim açılır menüsünün yanındaki "
+"\"Bilmiyorum\" onay kutusunu işaretleyin."
 
 #: ../root/release/edit/information.tt:23
 msgid "A release title is required."
@@ -165,7 +171,7 @@ msgstr ""
 
 #: ../root/doc/edit_type.tt:8
 msgid "Accept"
-msgstr ""
+msgstr "Kabul et"
 
 #: ../root/event/edit_form.tt:22
 msgid ""
@@ -191,7 +197,7 @@ msgstr "Yeni ses kaydı ekle"
 #: ../root/cdtoc/SelectArtistForCDToc.js:110
 #: ../root/cdtoc/SelectArtistForCDToc.js:130
 msgid "Add a new release"
-msgstr ""
+msgstr "Yeni bir sürüm ekle"
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 #, fuzzy
@@ -298,7 +304,7 @@ msgstr "Yeni ses kaydı ekle"
 
 #: ../root/release/edit/tracklist.tt:533
 msgid "Add track(s)"
-msgstr ""
+msgstr "Parça(lar) ekle"
 
 #: ../root/work/create.tt:1 ../root/work/create.tt:2
 #, fuzzy
@@ -320,7 +326,7 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:532
 msgid "Add {num} track(s)"
-msgstr ""
+msgstr "{num} parça ekle"
 
 #: ../root/release/edit/information.tt:247
 msgid "Additional information"
@@ -332,7 +338,7 @@ msgstr ""
 #: ../root/report/PlacesWithoutCoordinates.js:41
 #: ../root/search/components/PlaceResults.js:65
 msgid "Address"
-msgstr ""
+msgstr "Adres"
 
 #: ../root/release/edit/recordings.tt:3
 msgid ""
@@ -349,7 +355,7 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:144
 msgid "An error occurred: "
-msgstr ""
+msgstr "Bir hata oluştu: "
 
 #: ../root/release/edit/information.tt:251
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
@@ -371,7 +377,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:178
 msgctxt "vote"
 msgid "Approve"
-msgstr ""
+msgstr "Onayla"
 
 #: ../root/artist/edit_form.tt:20 ../root/edit/search_macros.tt:434
 #: ../root/label/edit_form.tt:18 ../root/place/edit_form.tt:19
@@ -397,7 +403,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:48
 #: ../root/user/UserProfile.js:49
 msgid "Area"
-msgstr ""
+msgstr "Bölge"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:29
 #: ../root/cdtoc/list.tt:8 ../root/cdtoc/lookup.tt:42
@@ -529,7 +535,7 @@ msgstr ""
 #: ../root/report/ReleasesSameBarcode.js:40
 #: ../root/search/components/ReleaseResults.js:118
 msgid "Barcode"
-msgstr ""
+msgstr "Çizgi im"
 
 #: ../root/cdtoc/lookup.tt:33
 msgid ""
@@ -565,7 +571,7 @@ msgstr "Başlangıç tarihi:"
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:194
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:167
 msgid "Begin date"
-msgstr ""
+msgstr "Başlangıç tarihi"
 
 #: ../root/release/add_cover_art.tt:95 ../root/search/error/InternalError.js:29
 msgid ""
@@ -582,7 +588,7 @@ msgstr "Blog"
 #: ../root/edit/search_macros.tt:399
 msgctxt "user type"
 msgid "Bot"
-msgstr ""
+msgstr "Bot"
 
 #: ../root/layout.tt:124 ../root/layout/components/Footer.js:52
 msgid ""
@@ -593,7 +599,7 @@ msgstr ""
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:211
 msgid "Bug tracker"
-msgstr ""
+msgstr "Hata izleyici"
 
 #: ../root/release/edit/tracklist.tt:6
 msgid "By default, the parser expects the following format:"
@@ -619,7 +625,7 @@ msgstr ""
 
 #: ../root/doc/edit_type.tt:42
 msgid "Can be approved"
-msgstr ""
+msgstr "Onaylanabilir"
 
 #: ../root/layout/merge-helper.tt:34 ../root/release/edit/layout.tt:59
 #: ../root/release/edit/tracklist.tt:117 ../root/area/AreaMerge.js:51
@@ -641,7 +647,7 @@ msgstr "İptal"
 
 #: ../root/release/edit/information.tt:194
 msgid "Cat. No:"
-msgstr ""
+msgstr "Kat. Nu:"
 
 #: ../root/cdtoc/attach_artist_releases.tt:18
 #: ../root/cdtoc/attach_filter_release.tt:32 ../root/cdtoc/list.tt:12
@@ -653,7 +659,7 @@ msgstr ""
 #: ../root/search/components/ReleaseResults.js:117
 #: ../root/utility/tableColumns.js:487 ../root/utility/tableColumns.js:492
 msgid "Catalog#"
-msgstr ""
+msgstr "Katalog#"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -661,7 +667,7 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:237 ../root/release/edit/tracklist.tt:266
 msgid "Close"
-msgstr ""
+msgstr "Kapat"
 
 #: ../root/edit/search_macros.tt:434 ../root/edit/components/EditHeader.js:155
 #: ../root/edit/components/EditSidebar.js:59
@@ -680,13 +686,13 @@ msgstr ""
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
 #: ../root/release_group/set_cover_art.tt:71 ../root/cdstub/CDStubIndex.js:36
 msgid "Comment"
-msgstr ""
+msgstr "Yorum"
 
 #: ../root/place/edit_form.tt:28 ../root/edit/details/AddPlace.js:67
 #: ../root/edit/details/EditPlace.js:86
 #: ../root/layout/components/sidebar/PlaceSidebar.js:99
 msgid "Coordinates"
-msgstr ""
+msgstr "Koordinatlar"
 
 #: ../root/release/edit/recordings.tt:149
 msgid "Copy all track artist credits to associated recordings."
@@ -734,7 +740,7 @@ msgstr ""
 
 #: ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
-msgstr ""
+msgstr "Düzenleme oluşturuluyor..."
 
 #: ../root/release/edit/tracklist.tt:81
 msgid "Custom delimiter"
@@ -788,6 +794,8 @@ msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
 msgstr ""
+"Tarihler YYYY-AA-GG biçimindedir. YYYY-AA veya sadece YYYY gibi kısmi "
+"tarihler uygundur veya tarihi tamamen atlayabilirsiniz."
 
 #: ../root/doc/edit_type.tt:23 ../root/collection/CollectionIndex.js:189
 #: ../root/edit/details/AddInstrument.js:65
@@ -815,7 +823,7 @@ msgstr ""
 #: ../root/elections/ElectionDetails.js:29 ../root/entity/Details.js:91
 #: ../root/entity/Details.js:93
 msgid "Details"
-msgstr ""
+msgstr "Ayrıntılar"
 
 #: ../root/artist/edit_form.tt:14 ../root/event/edit_form.tt:13
 #: ../root/label/edit_form.tt:13 ../root/place/edit_form.tt:13
@@ -857,6 +865,7 @@ msgstr ""
 #: ../root/release/edit/duplicates.tt:40
 msgid "Do not use any of the above releases as a starting point"
 msgstr ""
+"Yukarıdaki sürümlerden herhangi birini başlangıç noktası olarak kullanmayın"
 
 #: ../root/layout.tt:111 ../root/layout/components/Footer.js:26
 msgid "Donate"
@@ -879,7 +888,7 @@ msgstr ""
 
 #: ../root/release/edit/recordings.tt:109
 msgid "Edit"
-msgstr ""
+msgstr "Düzenle"
 
 #: ../root/cdtoc/list.tt:18 ../root/entity/edit.tt:1
 #: ../root/collection/EditCollection.js:32 ../root/release/DiscIds.js:111
@@ -1000,12 +1009,12 @@ msgstr ""
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:209
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:188
 msgid "End date"
-msgstr ""
+msgstr "Bitiş tarihi"
 
 #: ../root/components/forms.tt:258 ../root/components/forms.tt:283
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:111
 msgid "English"
-msgstr ""
+msgstr "İngilizce"
 
 #: ../root/release/edit/tracklist.tt:3
 msgid "Enter a tracklist below:"
@@ -1016,6 +1025,8 @@ msgid ""
 "Enter coordinates manually or click the map to get coordinates from the "
 "marker. If you’re too far out, clicking will zoom instead."
 msgstr ""
+"Koordinatları manuel olarak girin veya işaretçiden koordinatları almak için "
+"haritaya tıklayın. Çok uzaktaysanız tıklamak yerine yakınlaştırır."
 
 #: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:170
 #: ../root/release/edit/layout.tt:58
@@ -1070,7 +1081,7 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:151
 msgid "Expand"
-msgstr ""
+msgstr "Genişlet"
 
 #: ../root/release/edit/tracklist.tt:301
 msgid "Expand medium"
@@ -1129,29 +1140,29 @@ msgstr ""
 #: ../root/report/components/CDTocList.js:49
 #: ../root/search/components/ReleaseResults.js:113
 msgid "Format"
-msgstr ""
+msgstr "Biçim"
 
 #: ../root/layout.tt:113 ../root/layout/components/Footer.js:28
 #: ../root/main/index.js:214
 msgid "Forums"
-msgstr ""
+msgstr "Forumlar"
 
 #: ../root/components/with-pager.tt:5 ../root/components/PaginatedResults.js:52
 msgid "Found {n} result"
 msgid_plural "Found {n} results"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{n} sonuç bulundu"
+msgstr[1] "{n} sonuç bulundu"
 
 #: ../root/components/with-pager.tt:7 ../root/components/PaginatedResults.js:58
 msgid "Found {n} result for \"{q}\""
 msgid_plural "Found {n} results for \"{q}\""
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "\"{q}\" için {n} sonuç bulundu"
+msgstr[1] "\"{q}\" için {n} sonuç bulundu"
 
 #: ../root/components/forms.tt:260 ../root/components/forms.tt:285
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:113
 msgid "French"
-msgstr ""
+msgstr "Fransızca"
 
 #: ../root/cdstub/index.tt:30 ../root/cdstub/CDStubIndex.js:59
 #: ../root/cdtoc/CDTocInfo.js:25
@@ -1165,7 +1176,7 @@ msgstr ""
 #: ../root/static/scripts/account/components/EditProfileForm.js:222
 #: ../root/user/UserProfile.js:272
 msgid "Gender"
-msgstr ""
+msgstr "Cinsiyet"
 
 #: ../root/edit/search_macros.tt:434 ../lib/MusicBrainz/Server/Edit/Genre.pm:7
 #: ../root/edit/details/AddGenre.js:24 ../root/edit/details/EditGenre.js:28
@@ -1224,11 +1235,11 @@ msgstr ""
 
 #: ../root/components/forms.tt:124
 msgid "HH:MM"
-msgstr ""
+msgstr "SS:DD"
 
 #: ../root/release/edit/information.tt:339
 msgid "I confirm that this is the barcode as it appears on the release."
-msgstr ""
+msgstr "Bunun, sürümde görünen çizgi imi olduğunu onaylıyorum."
 
 #: ../root/release/edit/tracklist.tt:390
 msgid "I confirm this is a correct medium format/packaging combination."
@@ -1240,7 +1251,7 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:314
 msgid "I don’t know"
-msgstr ""
+msgstr "Bilmiyorum"
 
 #: ../root/release/edit/tracklist.tt:426
 msgid "I don’t know the tracklist for this medium."
@@ -1261,12 +1272,12 @@ msgstr ""
 #: ../root/edit/details/AddArtist.js:136 ../root/edit/details/AddLabel.js:102
 #: ../root/layout/components/sidebar/SidebarIpis.js:18
 msgid "IPI code"
-msgstr ""
+msgstr "IPI kodu"
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
 #: ../root/edit/details/EditArtist.js:162 ../root/edit/details/EditLabel.js:131
 msgid "IPI codes"
-msgstr ""
+msgstr "IPI kodları"
 
 #: ../root/components/forms.tt:333
 msgid ""
@@ -1282,12 +1293,12 @@ msgstr ""
 #: ../root/edit/details/AddArtist.js:145 ../root/edit/details/AddLabel.js:111
 #: ../root/layout/components/sidebar/SidebarIsnis.js:22
 msgid "ISNI code"
-msgstr ""
+msgstr "ISNI kodu"
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/EditArtist.js:170 ../root/edit/details/EditLabel.js:140
 msgid "ISNI codes"
-msgstr ""
+msgstr "ISNI kodları"
 
 #: ../root/components/forms.tt:342
 msgid ""
@@ -1300,7 +1311,7 @@ msgstr ""
 #: ../root/report/IsrcsWithManyRecordings.js:58
 #: ../root/static/scripts/common/components/IsrcList.js:26
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: ../root/recording/edit_form.tt:45 ../root/report/ReportsIndex.js:616
 #: ../root/search/components/RecordingResults.js:144
@@ -1309,7 +1320,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/IsrcList.js:44
 #: ../root/utility/tableColumns.js:694
 msgid "ISRCs"
-msgstr ""
+msgstr "ISRCler"
 
 #: ../root/work/edit_form.tt:16 ../root/edit/details/AddWork.js:47
 #: ../root/edit/details/EditWork.js:66 ../root/edit/details/RemoveIswc.js:27
@@ -1319,12 +1330,12 @@ msgstr ""
 #: ../root/static/scripts/common/components/IswcList.js:26
 #: ../root/utility/tableColumns.js:708
 msgid "ISWC"
-msgstr ""
+msgstr "ISWC"
 
 #: ../root/work/edit_form.tt:16 ../root/report/ReportsIndex.js:625
 #: ../root/static/scripts/common/components/IswcList.js:44
 msgid "ISWCs"
-msgstr ""
+msgstr "ISWCler"
 
 #: ../root/event/edit_form.tt:26
 msgid ""
@@ -1354,13 +1365,13 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:49
 msgid "If you can't find what you're looking for, you can add a new release:"
-msgstr ""
+msgstr "Aradığınızı bulamıyorsanız yeni bir sürüm ekleyebilirsiniz:"
 
 #: ../root/release/edit/information.tt:330
 msgid ""
 "If you do not know whether the release has a barcode or not, just leave this "
 "blank."
-msgstr ""
+msgstr "Sürümün çizgi imli olup olmadığını bilmiyorsanız bu alanı boş bırakın."
 
 #: ../root/cdtoc/attach_filter_release.tt:75
 msgid ""
@@ -1413,7 +1424,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:50
 msgid "Image not available, please try again later."
-msgstr ""
+msgstr "Görüntü kullanılamıyor, lütfen daha sonra tekrar deneyin."
 
 #: ../root/cdtoc/lookup.tt:28 ../root/cdstub/ImportCDStub.js:100
 msgctxt "interactive"
@@ -1443,7 +1454,7 @@ msgstr ""
 #: ../root/components/forms.tt:267 ../root/components/forms.tt:292
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:131
 msgid "Keep all-uppercase words uppercased"
-msgstr ""
+msgstr "Tamamı büyük harflerle yazılan kelimeleri büyük harfle tutun"
 
 #: ../root/release/edit/recordings.tt:7
 msgid ""
@@ -1555,7 +1566,7 @@ msgstr ""
 #: ../root/search/components/RecordingResults.js:142
 #: ../root/static/scripts/release/components/MediumTable.js:89
 msgid "Length"
-msgstr ""
+msgstr "Süre"
 
 #: ../root/release/edit/tracklist.tt:54
 msgid "Lines contain track artists"
@@ -1563,7 +1574,7 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:31
 msgid "Lines start with a track number"
-msgstr ""
+msgstr "Satırlar bir parça numarasıyla başlar"
 
 #: ../root/release/edit/editnote.tt:15
 msgid "Loading edit previews..."
@@ -1587,7 +1598,7 @@ msgstr "Giriş yap"
 
 #: ../root/release/edit/recordings.tt:186
 msgid "Looking for suggested recordings..."
-msgstr ""
+msgstr "Önerilen kayıtlar aranıyor..."
 
 #: ../root/cdtoc/lookup.tt:3 ../root/cdtoc/lookup.tt:4
 msgid "Lookup CD"
@@ -1597,12 +1608,12 @@ msgstr "CD Arama"
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
 #: ../root/static/scripts/edit/components/PartialDateInput.js:176
 msgid "MM"
-msgstr ""
+msgstr "AA"
 
 #: ../root/components/forms.tt:15 ../root/components/forms.tt:20
 #: ../root/static/scripts/edit/components/EnterEdit.js:63
 msgid "Make all edits votable."
-msgstr ""
+msgstr "Tüm düzenlemeleri oylanabilir yapın."
 
 #: ../root/release/edit/tracklist.tt:246
 msgid "Manual entry"
@@ -1610,7 +1621,7 @@ msgstr ""
 
 #: ../root/cdtoc/lookup.tt:5
 msgid "Matching CDs"
-msgstr ""
+msgstr "Eşleşen CD'ler"
 
 #: ../root/cdtoc/lookup.tt:41 ../root/components/common-macros.tt:507
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
@@ -1644,7 +1655,7 @@ msgstr "Sürümleri birleştirme"
 
 #: ../root/cdtoc/list.tt:63 ../root/release/DiscIds.js:82
 msgid "Move"
-msgstr ""
+msgstr "Taşı"
 
 #: ../root/cdtoc/move_search.tt:1 ../root/cdtoc/move_search.tt:2
 #, fuzzy
@@ -1655,11 +1666,11 @@ msgstr "Disk IDsini taşıma"
 
 #: ../root/release/add_cover_art.tt:44
 msgid "Move file down"
-msgstr ""
+msgstr "Dosyayı aşağı taşı"
 
 #: ../root/release/add_cover_art.tt:42
 msgid "Move file up"
-msgstr ""
+msgstr "Dosyayı yukarı taşı"
 
 #: ../root/release/edit/tracklist.tt:328
 msgid "Move medium down"
@@ -1671,11 +1682,11 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:197
 msgid "Move track down"
-msgstr ""
+msgstr "Parçayı aşağı taşı"
 
 #: ../root/release/edit/tracklist.tt:201
 msgid "Move track up"
-msgstr ""
+msgstr "Parçayı yukarı taşı"
 
 #: ../root/components/forms.tt:226
 #: ../root/components/Aliases/ArtistCreditList.js:50
@@ -1732,7 +1743,7 @@ msgstr ""
 #: ../root/static/scripts/release/components/EditWorkDialog.js:166
 #: ../root/user/UserSubscriptions.js:48
 msgid "Name"
-msgstr ""
+msgstr "Ad"
 
 #: ../root/artist/edit_credit.tt:18 ../root/artist/split.tt:45
 msgid "New artist credit"
@@ -1740,7 +1751,7 @@ msgstr ""
 
 #: ../root/release/add_cover_art.tt:148
 msgid "New image goes here"
-msgstr ""
+msgstr "Yeni görüntü buraya gelecek"
 
 #: ../root/components/paginator.tt:44 ../root/components/paginator.tt:46
 #: ../root/release/edit/macros.tt:53 ../root/components/Paginator.js:140
@@ -1748,22 +1759,22 @@ msgstr ""
 #: ../root/static/scripts/common/artworkViewer.js:42
 #: ../root/static/scripts/release-editor/bindingHandlers.js:41
 msgid "Next"
-msgstr ""
+msgstr "Sonraki"
 
 #: ../root/release/edit/layout.tt:62
 msgid "Next »"
-msgstr ""
+msgstr "Sonraki »"
 
 #: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:309
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:176
 #: ../root/edit/components/Vote.js:93
 msgctxt "vote"
 msgid "No"
-msgstr ""
+msgstr "Hayır"
 
 #: ../root/components/forms.tt:378
 msgid "No description available."
-msgstr ""
+msgstr "Açıklama mevcut değil."
 
 #: ../root/release_group/set_cover_art.tt:96
 msgid "No releases have cover art marked as \"Front\", cannot set cover art."
@@ -1773,22 +1784,22 @@ msgstr ""
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:472
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:88
 msgid "No results"
-msgstr ""
+msgstr "Sonuç yok"
 
 #: ../root/components/search.tt:43
 #: ../root/otherlookup/OtherLookupReleaseResults.js:32
 msgid "No results found."
-msgstr ""
+msgstr "Sonuç bulunamadı."
 
 #: ../root/cdtoc/attach_filter_release.tt:61
 #: ../root/cdtoc/SelectArtistForCDToc.js:102
 #: ../root/search/components/PaginatedSearchResults.js:58
 msgid "No results found. Try refining your search query."
-msgstr ""
+msgstr "Sonuç bulunamadı. Arama sorgunuzu hassaslaştırmayı deneyin."
 
 #: ../root/edit/search_macros.tt:293
 msgid "No vote"
-msgstr ""
+msgstr "Oy yok"
 
 #: ../root/release/edit/tracklist.tt:444
 #: ../root/static/scripts/release-editor/fields.js:212
@@ -1808,7 +1819,7 @@ msgstr ""
 #: ../root/edit/details/historic/MergeReleases.js:55
 #: ../root/user/ReportUser.js:116
 msgid "Note"
-msgstr ""
+msgstr "Not"
 
 #: ../root/release/edit/information.tt:285
 msgid ""
@@ -1849,10 +1860,12 @@ msgid ""
 "Oops! It seems your search parameters are not correct, please double check "
 "your input!"
 msgstr ""
+"Hata! Arama parametreleriniz doğru değil gibi görünüyor, lütfen girişinizi "
+"tekrar kontrol edin!"
 
 #: ../root/release/edit/recordings.tt:139 ../root/release/edit/tracklist.tt:24
 msgid "Options"
-msgstr ""
+msgstr "Seçenekler"
 
 #: ../root/series/edit_form.tt:17 ../root/edit/details/AddSeries.js:52
 #: ../root/edit/details/EditSeries.js:66
@@ -1862,7 +1875,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:71 ../root/components/Artwork.js:77
 msgid "PDF file"
-msgstr ""
+msgstr "PDF dosyası"
 
 #: ../root/release/edit/information.tt:240
 #: ../root/edit/details/AddRelease.js:105
@@ -1886,15 +1899,15 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
 #: ../root/user/UserProfile.js:55
 msgid "Place"
-msgstr ""
+msgstr "Yer"
 
 #: ../root/place/edit_form.tt:10
 msgid "Place details"
-msgstr ""
+msgstr "Yer ayrıntıları"
 
 #: ../root/edit/search_macros.tt:432
 msgid "Please choose a condition"
-msgstr ""
+msgstr "Lütfen bir koşul seçin"
 
 #: ../root/release/edit/information.tt:326
 msgid ""
@@ -1935,7 +1948,7 @@ msgstr ""
 #: ../root/static/scripts/common/artworkViewer.js:38
 #: ../root/static/scripts/release-editor/bindingHandlers.js:44
 msgid "Previous"
-msgstr ""
+msgstr "Önceki"
 
 #: ../root/release/edit/information.tt:95 ../root/release_group/edit_form.tt:16
 #: ../root/edit/details/AddReleaseGroup.js:67
@@ -1951,8 +1964,8 @@ msgstr ""
 #: ../root/static/scripts/common/utility/ratingTooltip.js:13
 msgid "Rate: {rating} star"
 msgid_plural "Rate: {rating} stars"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Değer: {rating} yıldız"
+msgstr[1] "Değer: {rating} yıldız"
 
 #: ../root/edit/search_macros.tt:434
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
@@ -2123,7 +2136,7 @@ msgstr ""
 #: ../root/release/edit/information.tt:3 ../root/release/edit/layout.tt:12
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:121
 msgid "Release information"
-msgstr ""
+msgstr "Sürüm bilgisi"
 
 #: ../root/edit/search_macros.tt:434
 #, fuzzy
@@ -16547,7 +16560,7 @@ msgstr ""
 
 #: ../root/user/UserSubscriptions.js:24
 msgid "Artist subscriptions"
-msgstr ""
+msgstr "Sanatçı abonelikleri"
 
 #: ../root/user/UserSubscriptions.js:25
 #, fuzzy

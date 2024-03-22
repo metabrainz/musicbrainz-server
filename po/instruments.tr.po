@@ -3,18 +3,20 @@
 # Kerem Kuralay, 2015-2016
 # Sertan Şentürk <email address hidden>, 2017
 # portik <email address hidden>, 2014
+# brtc <boratici@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: Sertan Şentürk <sertan.senturk@upf.edu>, 2017\n"
-"Language-Team: Turkish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/tr/)\n"
+"PO-Revision-Date: 2024-03-19 04:28+0000\n"
+"Last-Translator: brtc <boratici@gmail.com>\n"
+"Language-Team: Turkish <https://translations.metabrainz.org/projects/"
+"musicbrainz/instruments/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Weblate 5.4\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -103,7 +105,7 @@ msgstr ""
 
 #: DB:instrument/name:356
 msgid "German harp"
-msgstr ""
+msgstr "Alman arpı"
 
 #: DB:instrument/name:901
 msgctxt "Modern 24-stringed stainless steel kora"
@@ -126,7 +128,7 @@ msgstr ""
 
 #: DB:instrument/name:323
 msgid "Hawaiian guitar"
-msgstr ""
+msgstr "Hawaii gitarı"
 
 #: DB:instrument/name:1011
 msgctxt "Indonesian spike-fiddle used in gamelan"
@@ -144,7 +146,7 @@ msgstr ""
 
 #: DB:instrument/name:355
 msgid "Irish harp / clàrsach"
-msgstr ""
+msgstr "İrlanda arpı"
 
 #: DB:instrument/name:561
 msgid "Lyricon"
@@ -188,7 +190,7 @@ msgstr ""
 
 #: DB:instrument/name:664
 msgid "Paraguayan harp"
-msgstr ""
+msgstr "Paraguay arpı"
 
 #: DB:instrument/name:793
 msgctxt "electromechanical piano"
@@ -203,7 +205,7 @@ msgstr ""
 #: DB:instrument/name:647
 msgctxt "Portugese plucked lute"
 msgid "Portuguese guitar"
-msgstr ""
+msgstr "Portekiz gitarı"
 
 #: DB:instrument/name:576
 msgid "Reactable"
@@ -235,7 +237,7 @@ msgstr ""
 #: DB:instrument/name:451
 msgctxt "Horn-amplified violin"
 msgid "Stroh violin"
-msgstr ""
+msgstr "Stroh keman"
 
 #: DB:instrument/name:934
 msgctxt "electrically actuated lithophone"
@@ -528,7 +530,7 @@ msgstr "bariton saksofon"
 #: DB:instrument/name:917
 msgctxt "Baroque gut string guitar"
 msgid "baroque guitar"
-msgstr ""
+msgstr "barok gitar"
 
 #: DB:instrument/name:897
 msgctxt "Conical bored compact double reed"
@@ -614,7 +616,7 @@ msgstr ""
 #: DB:instrument/name:900
 msgctxt "Sixteenth century precursor of the (violon)cello"
 msgid "bass violin"
-msgstr ""
+msgstr "bas keman"
 
 #: DB:instrument/name:404
 msgid "basset clarinet"
@@ -1138,7 +1140,7 @@ msgstr ""
 
 #: DB:instrument/name:351
 msgid "concert harp"
-msgstr ""
+msgstr "konser arpı"
 
 #: DB:instrument/name:42
 msgid "concertina"
@@ -1463,11 +1465,11 @@ msgstr ""
 
 #: DB:instrument/name:208
 msgid "electric cello"
-msgstr ""
+msgstr "elektro çello"
 
 #: DB:instrument/name:538
 msgid "electric fretless guitar"
-msgstr ""
+msgstr "elektro perdesiz gitar"
 
 #: DB:instrument/name:682
 msgid "electric grand piano"
@@ -1479,7 +1481,7 @@ msgstr "elektrogitar"
 
 #: DB:instrument/name:352
 msgid "electric harp"
-msgstr ""
+msgstr "elektro arp"
 
 #: DB:instrument/name:389
 msgid "electric lap steel guitar"
@@ -1504,7 +1506,7 @@ msgstr ""
 
 #: DB:instrument/name:212
 msgid "electric violin"
-msgstr ""
+msgstr "elektro keman"
 
 #: DB:instrument/name:402
 msgid "electronic drum set"
@@ -1586,7 +1588,7 @@ msgstr ""
 #: DB:instrument/name:938
 msgctxt "Guitar used in flamenco"
 msgid "flamenco guitar"
-msgstr ""
+msgstr "flamenko gitarı"
 
 #: DB:instrument/name:604
 msgid "floppy disk drive"
@@ -1819,7 +1821,7 @@ msgstr ""
 #: DB:instrument/name:765
 msgctxt "Musical Glasses"
 msgid "glass harp"
-msgstr ""
+msgstr "cam arp"
 
 #: DB:instrument/name:165
 msgid "glockenspiel"
@@ -1889,11 +1891,11 @@ msgstr "gitar"
 #: DB:instrument/name:52
 msgctxt "DO NOT USE"
 msgid "guitar family"
-msgstr ""
+msgstr "gitar ailesi"
 
 #: DB:instrument/name:763
 msgid "guitar synthesizer"
-msgstr ""
+msgstr "gitar synthesizer"
 
 #: DB:instrument/name:688
 msgid "guitarrón chileno"
@@ -1979,20 +1981,20 @@ msgstr ""
 
 #: DB:instrument/name:58
 msgid "harp"
-msgstr ""
+msgstr "arp"
 
 #: DB:instrument/name:681
 msgid "harp guitar"
-msgstr ""
+msgstr "arp gitar"
 
 #: DB:instrument/name:894
 msgctxt "Electric guitar-piano tapping instrument"
 msgid "harpejji"
-msgstr ""
+msgstr "harpejji"
 
 #: DB:instrument/name:131
 msgid "harpsichord"
-msgstr ""
+msgstr "klavsen"
 
 #: DB:instrument/name:191
 msgid "heckelphone"
@@ -2600,7 +2602,7 @@ msgstr ""
 
 #: DB:instrument/name:600
 msgid "mandocello"
-msgstr ""
+msgstr "mandoçello"
 
 #: DB:instrument/name:836
 msgctxt "electric guitar / mandolin hybrid"
@@ -2709,7 +2711,7 @@ msgstr ""
 #: DB:instrument/name:80
 msgctxt "Family of mouth plucked idiophones"
 msgid "mouth harp"
-msgstr ""
+msgstr "ağız kopuzu"
 
 #: DB:instrument/name:610
 msgid "mouth organ"
@@ -2819,7 +2821,7 @@ msgstr ""
 
 #: DB:instrument/name:228
 msgid "nyckelharpa"
-msgstr ""
+msgstr "İsveç arpı"
 
 #: DB:instrument/name:8
 msgid "oboe"
@@ -3660,7 +3662,7 @@ msgstr "soprano saksafon"
 
 #: DB:instrument/name:210
 msgid "soprano violin"
-msgstr ""
+msgstr "soprano keman"
 
 #: DB:instrument/name:1191
 msgctxt "Complex Neapolitan bagpipe"
@@ -3981,7 +3983,7 @@ msgstr ""
 
 #: DB:instrument/name:615
 msgid "tenor violin"
-msgstr ""
+msgstr "tenor keman"
 
 #: DB:instrument/name:869
 msgctxt "Catalonian double reed descendant of shawm"
@@ -4102,7 +4104,7 @@ msgstr ""
 #: DB:instrument/name:209
 msgctxt "Smallest member of the new violin family"
 msgid "treble violin"
-msgstr ""
+msgstr "tiz keman"
 
 #: DB:instrument/name:90
 msgid "tres"
@@ -4366,7 +4368,7 @@ msgstr "keman"
 #: DB:instrument/name:59
 msgctxt "Modern violin family"
 msgid "violin family"
-msgstr ""
+msgstr "keman ailesi"
 
 #: DB:instrument/name:898
 msgctxt "New modern streamlined family of violins"
@@ -4375,7 +4377,7 @@ msgstr ""
 
 #: DB:instrument/name:661
 msgid "violino piccolo"
-msgstr ""
+msgstr "küçük keman"
 
 #: DB:instrument/name:834
 #, fuzzy
@@ -4388,7 +4390,7 @@ msgstr "viyola"
 #: DB:instrument/name:693
 msgctxt "for violoncello use \"cello\""
 msgid "violoncello piccolo"
-msgstr ""
+msgstr "küçük çello"
 
 #: DB:instrument/name:420
 msgctxt "Contra/double-bass member of the viol family"
