@@ -52,7 +52,10 @@ MB.Control.ArtistEdit = function () {
           addColonText(lp('Ended', 'artist end date')),
           l('This artist has ended.'),
         );
-        self.changeAreaText(l('Begin area:'), l('End area:'));
+        self.changeAreaText(
+          addColonText(l('Begin area')),
+          addColonText(l('End area')),
+        );
         self.enableGender();
         break;
 
