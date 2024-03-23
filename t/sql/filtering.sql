@@ -28,7 +28,8 @@ INSERT INTO release_group (id, gid, name, artist_credit, type)
            (3402, '98b72608-a824-40c5-b5df-81cf981faf7e', 'Symphonies / Concertos / Choral and Vocal Works', 3400, 1),
            (3403, '33d71de2-d3c6-4906-908e-df59d70b283d', 'Lutosławski', 3400, 1),
            (3404, 'fc9b775a-6c06-3828-b6a4-220b65cfef60', 'String Quartet', 3400, NULL),
-           (3405, '5a52075e-f5eb-3de5-8236-aa21cc05cb1e', 'Jeux vénetiens', 3400, 2);
+           (3405, '5a52075e-f5eb-3de5-8236-aa21cc05cb1e', 'Jeux vénetiens', 3400, 2),
+           (3406, '5a52075e-aaaa-3de5-8236-aa21cc05cb1e', 'Bootlegs vénetiens', 3400, 2);
 
 INSERT INTO release_group_secondary_type_join (release_group, secondary_type)
     VALUES (3403, 6), (3405, 6);
@@ -41,7 +42,12 @@ INSERT INTO release (id, gid, name, artist_credit, status, release_group)
            (3402, '98b72608-a824-40c5-b5df-81cf981faf7a', 'Symphonies / Concertos / Choral and Vocal Works', 3400, 1, 3402),
            (3403, '33d71de2-d3c6-4906-908e-df59d70b283a', 'Lutosławski', 3400, 1, 3403),
            (3404, 'fc9b775a-6c06-3828-b6a4-220b65cfef6a', 'String Quartet', 3400, NULL, 3404),
-           (3405, '5a52075e-f5eb-3de5-8236-aa21cc05cb1a', 'Jeux vénetiens', 3400, 5, 3405);
+           (3405, '5a52075e-f5eb-3de5-8236-aa21cc05cb1a', 'Jeux vénetiens', 3400, 5, 3405),
+           (3406, '5a52075e-aaaa-3de5-8236-aa21cc05cb1a', 'Bootlegs vénetiens', 3400, 3, 3406);
+
+INSERT INTO medium (id, release, position)
+    VALUES (3400, 3400, 1),
+           (3406, 3406, 1);
 
 INSERT INTO label (id, gid, name)
     VALUES (3400, 'ed65f6e2-5454-45a7-8607-e1106d209734', 'Erato'),
@@ -89,6 +95,11 @@ INSERT INTO recording (id, gid, name, artist_credit, video, comment)
            (3401, 'd9c7a74e-3c08-48b1-be2f-5d9a144f2c08', 'Symphony no. 3', 3401, 'f', 'Testy 2'),
            (3402, 'd9c7a74e-3c08-48b1-be2f-5d9a144f2c01', 'Brandenburg Concerto no. 5', 3401, 'f', ''),
            (3403, 'd9c7a74e-3c08-48b1-be2f-5d9a144f2c02', 'Brandenburg Concerto no. 5', 3402, 'f', '');
+
+INSERT INTO track (id, gid, recording, medium, position, number, name, artist_credit)
+    VALUES (3400, 'ce82bfa1-aaaa-494a-aaa0-fc5de79bd54f', 3400, 3400, 1, 1, 'Interludium', 3402), -- to make recording not bootleg-only
+           (3401, 'ce82bfa1-bbbb-494a-aaa0-fc5de79bd54f', 3400, 3406, 1, 1, 'Interludium', 3402),
+           (3402, 'd9c7a74e-aaaa-48b1-be2f-5d9a144f2c08', 3401, 3406, 2, 2, 'Symphony no. 3', 3401);
 
 -- Works
 

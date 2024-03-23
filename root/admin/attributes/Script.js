@@ -13,10 +13,10 @@ import {compare} from '../../static/scripts/common/i18n.js';
 import loopParity from '../../utility/loopParity.js';
 
 const frequencyLabels = {
-  [1]: 'Hidden',
-  [2]: 'Other (uncommon)',
-  [3]: 'Other',
-  [4]: 'Frequently used',
+  1: 'Hidden',
+  2: 'Other (uncommon)',
+  3: 'Other',
+  4: 'Frequently used',
 };
 
 type Props = {

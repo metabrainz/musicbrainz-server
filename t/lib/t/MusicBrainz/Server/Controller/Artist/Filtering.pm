@@ -174,8 +174,8 @@ test 'Release page filtering' => sub {
     my $tx = test_xpath_html($mech->content);
     $tx->is(
         'count(//table[@class="tbl"]/tbody/tr)',
-        '6',
-        'There are six entries in the unfiltered release table',
+        '7',
+        'There are seven entries in the unfiltered release table',
     );
 
     $mech->get_ok(
@@ -473,6 +473,18 @@ test 'Recording page filtering' => sub {
         'count(//table[@class="tbl"]/tbody/tr)',
         '2',
         'There are two entries in the recording table after filtering by disambiguation',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/recordings?filter.hide_bootlegs=1',
+        'Fetched artist recordings page with non-bootleg only option',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '3',
+        'There are three entries in the recording table after filtering by non-bootleg only',
     );
 };
 

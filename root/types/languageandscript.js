@@ -11,7 +11,7 @@
 
 declare type LanguageT = {
   +entityType: 'language',
-  +frequency: number,
+  +frequency: 0 | 1 | 2,
   +id: number,
   +iso_code_1: string | null,
   +iso_code_2b: string | null,
@@ -22,7 +22,7 @@ declare type LanguageT = {
 
 declare type ScriptT = {
   +entityType: 'script',
-  +frequency: number,
+  +frequency: 1 | 2 | 3 | 4,
   +id: number,
   +iso_code: string,
   +iso_number: string | null,

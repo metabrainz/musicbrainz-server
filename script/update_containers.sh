@@ -7,7 +7,7 @@ SCRIPT_NAME=$(basename "$0")
 LIST_METABRAINZ_HOSTS_DEFAULT='../docker-server-configs/scripts/list_nodes.sh'
 
 HELP=$(cat <<EOH
-Usage: $SCRIPT_NAME <prod|beta|test> [<hosts list>]
+Usage: $SCRIPT_NAME <[hyphenated-prefix-]prod|beta|test> [<hosts list>]
 
 Update MusicBrainz website/webservice containers on specified hosts.
 If no (space-delimited) hosts list is specified, update on all hosts
@@ -36,7 +36,7 @@ elif echo "$1" | grep -Eqx -- '-*h(elp)?'
 then
   echo "$HELP"
   exit
-elif echo "$1" | grep -Eqvx 'prod|beta|test'
+elif echo "$1" | grep -Eqvx '([a-z]+-)*prod|beta|test'
 then
   echo >&2 "$SCRIPT_NAME: unrecognized argument: $1"
   echo >&2 "$HELP"
@@ -45,6 +45,7 @@ fi
 
 DEPLOY_ENV=$1
 IMAGE_TAG=${DEPLOY_ENV/prod/production}
+[[ DEPLOY_ENV =~ ^([a-z]+-)+prod$ ]] && IMAGE_TAG=production
 shift
 
 SERVICES="musicbrainz-webservice musicbrainz-website"

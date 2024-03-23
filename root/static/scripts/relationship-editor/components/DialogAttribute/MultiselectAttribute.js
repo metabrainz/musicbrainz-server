@@ -35,10 +35,16 @@ import type {
   DialogMultiselectAttributeActionT,
 } from '../../types/actions.js';
 
-const addAttributeLabels = {
-  [INSTRUMENT_ROOT_ID]: N_lp('Add instrument', 'interactive'),
-  [VOCAL_ROOT_ID]: N_l('Add vocal'),
-};
+function addAttributeLabel(attributeTypeId: ?number): string {
+  switch (attributeTypeId) {
+    case INSTRUMENT_ROOT_ID:
+      return lp('Add instrument', 'interactive');
+    case VOCAL_ROOT_ID:
+      return l('Add vocal');
+    default:
+      return lp('Add another', 'relationship attribute');
+  }
+}
 
 type PropsT = {
   +dispatch: (
@@ -177,7 +183,7 @@ const MultiselectAttribute = (React.memo<PropsT>(({
   dispatch,
 }: PropsT): React$MixedElement => {
   const linkTypeAttributeType = state.type;
-  const addLabel = addAttributeLabels[linkTypeAttributeType.id];
+  const addLabel = addAttributeLabel(linkTypeAttributeType.id);
 
   const multiselectDispatch = React.useCallback((
     action: DialogMultiselectAttributeActionT,
@@ -234,9 +240,7 @@ const MultiselectAttribute = (React.memo<PropsT>(({
 
   return (
     <LinkAttrTypeMultiselect
-      addLabel={addLabel
-        ? addLabel()
-        : lp('Add another', 'relationship attribute')}
+      addLabel={addLabel}
       buildExtraValueChildren={buildExtraValueChildren}
       dispatch={multiselectDispatch}
       state={state}

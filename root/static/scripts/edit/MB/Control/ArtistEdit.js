@@ -52,7 +52,10 @@ MB.Control.ArtistEdit = function () {
           addColonText(lp('Ended', 'artist end date')),
           l('This artist has ended.'),
         );
-        self.changeAreaText(l('Begin area:'), l('End area:'));
+        self.changeAreaText(
+          addColonText(l('Begin area')),
+          addColonText(l('End area')),
+        );
         self.enableGender();
         break;
 
@@ -70,11 +73,14 @@ MB.Control.ArtistEdit = function () {
       case '5':
       case '6':
         self.changeDateText(
-          l('Founded:'),
-          l('Dissolved:'),
+          addColonText(lp('Founded', 'group artist')),
+          addColonText(lp('Dissolved', 'group artist')),
           l('This group has dissolved.'),
         );
-        self.changeAreaText(l('Founded in:'), l('Dissolved in:'));
+        self.changeAreaText(
+          addColonText(lp('Founded in', 'group artist')),
+          addColonText(lp('Dissolved in', 'group artist')),
+        );
         self.disableGender();
         break;
     }
