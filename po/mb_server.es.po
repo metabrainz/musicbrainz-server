@@ -54,8 +54,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-11 13:08+0200\n"
-"PO-Revision-Date: 2024-03-13 18:42+0000\n"
+"POT-Creation-Date: 2024-03-13 20:55+0200\n"
+"PO-Revision-Date: 2024-03-22 20:28+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -4130,20 +4130,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:361
+#: ../root/static/scripts/common/constants.js:363
 msgid "Low"
 msgstr "Baja"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:362
-#: ../root/static/scripts/common/constants.js:363
+#: ../root/static/scripts/common/constants.js:364
+#: ../root/static/scripts/common/constants.js:365
 msgid "Normal"
 msgstr "Normal"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:364
+#: ../root/static/scripts/common/constants.js:366
 msgid "High"
 msgstr "Alta"
 
@@ -5605,8 +5605,8 @@ msgstr "La URL de redirección es obligatoria para las aplicaciones web."
 msgid ""
 "Redirect URL scheme must be either “http” or “https” for web applications."
 msgstr ""
-"El esquema de la URL de redirección para las aplicaciones web debe ser “http”"
-" o “https”."
+"El esquema de la URL de redirección para las aplicaciones web debe ser "
+"“http” o “https”."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:59
 #, perl-brace-format
@@ -5883,22 +5883,22 @@ msgid "A fluency level is required."
 msgstr "El nivel de fluidez es obligatorio."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:372
+#: ../root/static/scripts/common/constants.js:374
 msgid "Basic"
 msgstr "Básico"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:373
+#: ../root/static/scripts/common/constants.js:375
 msgid "Intermediate"
 msgstr "Intermedio"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:371
+#: ../root/static/scripts/common/constants.js:373
 msgid "Advanced"
 msgstr "Avanzado"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:82
-#: ../root/static/scripts/common/constants.js:374
+#: ../root/static/scripts/common/constants.js:376
 msgid "Native"
 msgstr "Nativo"
 
@@ -6241,6 +6241,8 @@ msgid ""
 "We were not able to check your donation status right now. Please try again "
 "later."
 msgstr ""
+"Ahora mismo no podemos comprobar tu condición de donante. Vuelve a "
+"intentarlo más tarde."
 
 #: ../root/account/Donation.js:45
 msgid ""
@@ -6281,6 +6283,8 @@ msgstr "Editar perfil"
 msgid ""
 "See also your {uri|user preferences}, which include your privacy settings."
 msgstr ""
+"Puedes comprobar también {uri|tus preferencias de usuario}, incluidas las "
+"preferencias de privacidad."
 
 #: ../root/account/EmailVerificationStatus.js:19
 msgctxt "header"
@@ -6306,6 +6310,10 @@ msgid ""
 "to reset your password. If you have forgotten your username, {link|retrieve "
 "it} first and then reset your password."
 msgstr ""
+"Introduce tu nombre de usuario y dirección de correo y te enviaremos un "
+"correo con un enlace para restablecer tu contraseña. Si no recuerdas tu "
+"nombre de usuario, {link|recupéralo primero} y luego podrás restablecer tu "
+"contraseña."
 
 #: ../root/account/LostPassword.js:50 ../root/account/LostUsername.js:37
 #: ../root/static/scripts/account/components/EditProfileForm.js:203
@@ -6410,6 +6418,9 @@ msgid ""
 "deleting your account. For more details, see our {doc|GDPR compliance "
 "statement}."
 msgstr ""
+"Puedes eliminar tu información personal de nuestros servicios en cualquier "
+"momento si eliminas tu cuenta de usuario. Para saber más, consulta nuestro "
+"{doc|documento de conformidad con el RGPD}."
 
 #: ../root/account/Register.js:73
 msgid ""
@@ -6424,6 +6435,8 @@ msgid ""
 "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
 "the {fo|forums} or {irc|IRC}."
 msgstr ""
+"¡Puedes seguir nuestro {bl|blog} o nuestra {tw|cuenta de Twitter}! Para "
+"hablar con otros usuarios, puedes usar los {fo|foros} o {irc|IRC}."
 
 #: ../root/account/Register.js:98
 msgid ""
@@ -6666,6 +6679,9 @@ msgid ""
 "to the public under {open|open licenses}, do not submit any copyrighted text "
 "here!"
 msgstr ""
+"Ten en cuenta que todo el contenido que envías a MusicBrainz es puesto a "
+"disposición del público usando {open|licencias abiertas}, así que no debes "
+"introducir texto protegido por copyright en la anotación."
 
 #: ../root/annotation/EditAnnotation.js:62
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:278
@@ -6673,7 +6689,7 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:172
 msgctxt "header"
 msgid "Preview"
-msgstr ""
+msgstr "Previsualización"
 
 #: ../root/annotation/EditAnnotation.js:80
 #: ../root/static/scripts/common/components/Annotation.js:71
@@ -6709,7 +6725,7 @@ msgstr "Encabezados:"
 
 #: ../root/annotation/EditAnnotation.js:114
 msgid "= Title 1 =; == Title 2 ==; === Title 3 ==="
-msgstr ""
+msgstr "= Título 1 =; == Título 2 ==; === Título 3 ==="
 
 #: ../root/annotation/EditAnnotation.js:118
 msgid "Lists:"
@@ -6720,6 +6736,8 @@ msgid ""
 "tab or 4 spaces and: * bullets or 1., a., A., i., I. numbered items "
 "(rendered with 1.)"
 msgstr ""
+"tabulación o 4 espacios y: * para lista no ordenada o 1., a., A., i., I. "
+"para lista ordenada (mostrada como 1.)"
 
 #: ../root/annotation/EditAnnotation.js:125
 msgid "Links:"
@@ -6727,7 +6745,7 @@ msgstr "Enlaces:"
 
 #: ../root/annotation/EditAnnotation.js:127
 msgid "URL; [URL]; [URL|label]; [entity-type:MBID|label]"
-msgstr ""
+msgstr "URL; [URL]; [URL|texto]; [tipo-de-entidad:MBID|texto]"
 
 #: ../root/annotation/EditAnnotation.js:135
 msgid ""
@@ -6769,7 +6787,7 @@ msgstr "Fusionar los artistas seleccionados"
 
 #: ../root/area/AreaArtists.js:60
 msgid "This area is not currently associated with any artists."
-msgstr ""
+msgstr "Esta área no está asociada a ningún artista."
 
 #: ../root/area/AreaEvents.js:32 ../root/area/AreaEvents.js:33
 #: ../root/artist/ArtistEvents.js:41 ../root/artist/ArtistEvents.js:42
@@ -6788,11 +6806,11 @@ msgstr "Fusionar los eventos seleccionados"
 
 #: ../root/area/AreaEvents.js:62
 msgid "This area is not currently associated with any events."
-msgstr ""
+msgstr "Esta área no está asociada a ningún evento."
 
 #: ../root/area/AreaHeader.js:29
 msgid "{area_type} in {parent_areas}"
-msgstr ""
+msgstr "{area_type} en {parent_areas}"
 
 #: ../root/area/AreaLabels.js:32 ../root/area/AreaLabels.js:33
 #: ../root/components/EntityTabs.js:26
@@ -6811,11 +6829,11 @@ msgstr "Fusionar las discográficas seleccionadas"
 
 #: ../root/area/AreaLabels.js:59
 msgid "This area is not currently associated with any labels."
-msgstr ""
+msgstr "Esta área no está asociada a ninguna discográfica."
 
 #: ../root/area/AreaMerge.js:28 ../root/area/AreaMerge.js:30
 msgid "Merge areas"
-msgstr ""
+msgstr "Fusionar áreas"
 
 #: ../root/area/AreaMerge.js:32
 msgid ""
@@ -6836,6 +6854,8 @@ msgid ""
 "A map cannot be shown because no maps service access token has been set for "
 "this server."
 msgstr ""
+"No podemos mostrar un mapa porque este servidor no tiene un token de acceso "
+"para el servicio de mapas."
 
 #: ../root/area/AreaPlaces.js:69
 msgid "Add selected places for merging"
@@ -6843,11 +6863,11 @@ msgstr "Fusionar los lugares seleccionados"
 
 #: ../root/area/AreaPlaces.js:78
 msgid "This area is not currently associated with any places."
-msgstr ""
+msgstr "Esta área no está asociada a ningún lugar."
 
 #: ../root/area/AreaRecordings.js:29
 msgid "This area has no relationships to any recordings."
-msgstr ""
+msgstr "Esta área no tiene relaciones con ninguna grabación."
 
 #: ../root/area/AreaRecordings.js:31 ../root/area/AreaReleases.js:70
 #: ../root/area/AreaWorks.js:31 ../root/artist/ArtistRelationships.js:30
@@ -6888,11 +6908,11 @@ msgstr "Fusionar las publicaciones seleccionadas"
 
 #: ../root/area/AreaReleases.js:60
 msgid "This area is not currently associated with any releases."
-msgstr ""
+msgstr "Esta área no está asociada a ninguna publicación."
 
 #: ../root/area/AreaReleases.js:68
 msgid "This area has no relationships to any releases."
-msgstr ""
+msgstr "Esta área no tiene relaciones con ninguna publicación."
 
 #: ../root/area/AreaUsers.js:26 ../root/area/AreaUsers.js:27
 #: ../root/components/EntityTabs.js:32
@@ -6902,13 +6922,13 @@ msgstr "Usuarios"
 #: ../root/area/AreaUsers.js:31
 msgid "There is currently {num} user in this area."
 msgid_plural "There are currently {num} users in this area."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Hay un usuario en esta área."
+msgstr[1] "Hay {num} usuarios en esta área."
+msgstr[2] "Hay {num} usuarios en esta área."
 
 #: ../root/area/AreaUsers.js:37
 msgid "There are currently no users in this area."
-msgstr ""
+msgstr "No hay usuarios en esta área."
 
 #: ../root/area/AreaWorks.js:25 ../root/artist/ArtistWorks.js:41
 #: ../root/artist/ArtistWorks.js:42 ../root/components/EntityTabs.js:33
@@ -6920,7 +6940,7 @@ msgstr "Obras"
 
 #: ../root/area/AreaWorks.js:29
 msgid "This area has no relationships to any works."
-msgstr ""
+msgstr "Esta área no tiene relaciones con ninguna obra."
 
 #: ../root/area/DeleteArea.js:35 ../root/area/DeleteArea.js:37
 msgctxt "header"
@@ -6949,59 +6969,67 @@ msgstr "Esta búsqueda no encontró ningún evento."
 
 #: ../root/artist/ArtistEvents.js:79
 msgid "This artist is not currently associated with any events."
-msgstr ""
+msgstr "Este artista no está asociado con ningún evento."
 
 #: ../root/artist/ArtistIndex.js:92
 msgid "Show official release groups"
-msgstr ""
+msgstr "Mostrar grupos de publicaciones oficiales"
 
 #: ../root/artist/ArtistIndex.js:99
 msgid "Show all release groups"
-msgstr ""
+msgstr "Mostrar todos los grupos de publicaciones"
 
 #: ../root/artist/ArtistIndex.js:106
 msgid "Show official various artist release groups"
 msgstr ""
+"Mostrar grupos de publicaciones oficiales de múltiples artistas para este "
+"artista"
 
 #: ../root/artist/ArtistIndex.js:113
 msgid "Show all various artist release groups"
 msgstr ""
+"Mostrar todos los grupos de publicaciones de múltiples artistas para este "
+"artista"
 
 #: ../root/artist/ArtistIndex.js:142
 msgid "This artist only has unofficial release groups by various artists."
 msgstr ""
+"Este artista solo tiene grupos de publicaciones no oficiales de múltiples "
+"artistas."
 
 #: ../root/artist/ArtistIndex.js:148
 msgid "Showing all release groups for various artists"
 msgstr ""
+"Mostrando todos los grupos de publicaciones de múltiples artistas para este "
+"artista"
 
 #: ../root/artist/ArtistIndex.js:149
 msgid "This artist does not have any various artists release groups"
-msgstr ""
+msgstr "Este artista no tiene grupos de publicaciones de múltiples artistas"
 
 #: ../root/artist/ArtistIndex.js:158
 msgid "This artist only has release groups by various artists."
-msgstr ""
+msgstr "Este artista solo tiene grupos de publicaciones de múltiples artistas."
 
 #: ../root/artist/ArtistIndex.js:162
 msgid "Showing official release groups for various artists"
-msgstr ""
+msgstr "Mostrando grupos de publicaciones oficiales de múltiples artistas"
 
 #: ../root/artist/ArtistIndex.js:170
 msgid "This artist only has unofficial release groups."
-msgstr ""
+msgstr "Este artista solo tiene grupos de publicaciones no oficiales."
 
 #: ../root/artist/ArtistIndex.js:174
 msgid "Showing all release groups by this artist"
-msgstr ""
+msgstr "Mostrando todos los grupos de publicaciones de este artista"
 
 #: ../root/artist/ArtistIndex.js:185
 msgid "Showing official release groups by this artist"
-msgstr ""
+msgstr "Mostrando grupos de publicaciones oficiales de este artista"
 
 #: ../root/artist/ArtistIndex.js:239
 msgid "Performance name of"
-msgstr ""
+msgstr "Nombre artístico de"
 
 #: ../root/artist/ArtistIndex.js:247
 msgid "Legal name"
@@ -7009,11 +7037,11 @@ msgstr "Nombre legal"
 
 #: ../root/artist/ArtistIndex.js:253 ../root/label/LabelIndex.js:64
 msgid "Previously known as"
-msgstr ""
+msgstr "Nombres anteriores"
 
 #: ../root/artist/ArtistIndex.js:260 ../root/label/LabelIndex.js:71
 msgid "Renamed to"
-msgstr ""
+msgstr "Nombres posteriores"
 
 #: ../root/artist/ArtistIndex.js:268
 msgid "Also performs as"
@@ -7037,6 +7065,8 @@ msgstr "Fusionar las grabaciones seleccionadas"
 #: ../root/artist/ArtistIndex.js:332
 msgid "This artist has no release groups, only standalone recordings."
 msgstr ""
+"Este artista no tiene grupos de publicaciones, solo grabaciones "
+"independientes."
 
 #: ../root/artist/ArtistIndex.js:336
 msgid "No results found that match this search."
@@ -7051,10 +7081,13 @@ msgid ""
 "You are about to merge all these artists into a single one. Please select "
 "the artist all others should be merged into:"
 msgstr ""
+"Vas a fusionar todos estos artistas. Selecciona el artista con el que "
+"quieres fusionar los demás:"
 
 #: ../root/artist/ArtistMerge.js:50
 msgid "You should only use the checkbox above to fix errors (such as typos)."
 msgstr ""
+"Usa la casilla de arriba solo para arreglar errores (erratas, por ejemplo)."
 
 #: ../root/artist/ArtistMerge.js:56
 msgid ""
@@ -7062,12 +7095,17 @@ msgid ""
 "artists will still be combined if you don’t, but the {doc_acs|artist "
 "credits} will be kept as they are now."
 msgstr ""
+"Si uno de los nombres a fusionar aparece en la portada de una publicación, "
+"no uses la casilla. La fusión combinará los artistas, pero mantendrá los "
+"{doc_acs|créditos de artista} tal como están ahora."
 
 #: ../root/artist/ArtistMerge.js:65
 msgid ""
 "Update matching artist and relationship credits to use the target artist’s "
 "name"
 msgstr ""
+"Quiero cambiar los créditos de artista y de relaciones para usar el nombre "
+"del artista de destino"
 
 #: ../root/artist/ArtistRecordings.js:55
 msgid "Show all recordings"
@@ -7075,7 +7113,7 @@ msgstr "Mostrar todas las grabaciones"
 
 #: ../root/artist/ArtistRecordings.js:60
 msgid "Show only standalone recordings"
-msgstr ""
+msgstr "Mostrar solo grabaciones independientes"
 
 #: ../root/artist/ArtistRecordings.js:65
 msgid "Show only videos"
@@ -7083,7 +7121,7 @@ msgstr "Mostrar solo vídeos"
 
 #: ../root/artist/ArtistRecordings.js:73
 msgid "Showing only standalone recordings"
-msgstr ""
+msgstr "Mostrando solo grabaciones independientes"
 
 #: ../root/artist/ArtistRecordings.js:89
 msgid "Showing only videos"
@@ -7091,7 +7129,7 @@ msgstr "Mostrando solo vídeos"
 
 #: ../root/artist/ArtistRecordings.js:105
 msgid "Showing all recordings"
-msgstr ""
+msgstr "Mostrando todas las grabaciones"
 
 #: ../root/artist/ArtistRecordings.js:176
 msgid "No recordings found that match this search."
@@ -7156,6 +7194,7 @@ msgstr "Este artista no está asociado a ninguna obra."
 #: ../root/artist/CannotSplit.js:25
 msgid "This artist is already empty and is awaiting automatic deletion."
 msgstr ""
+"Este artista ya está vacío, y está en la cola para su eliminación automática."
 
 #: ../root/artist/CannotSplit.js:28
 msgid ""
@@ -7221,7 +7260,7 @@ msgstr "Muerto en:"
 #: ../root/artist/utils.js:45
 msgctxt "group artist"
 msgid "Dissolved in"
-msgstr ""
+msgstr "Separados en"
 
 #: ../root/artist/utils.js:47
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:55
@@ -7236,25 +7275,25 @@ msgstr "Muerto:"
 #: ../root/artist/utils.js:62
 msgctxt "group artist"
 msgid "Dissolving"
-msgstr ""
+msgstr "Separación"
 
 #: ../root/artist/utils.js:63
 msgctxt "group artist"
 msgid "Dissolved"
-msgstr ""
+msgstr "Separación"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:93
 msgid "This artist credit is composed of the following artists:"
-msgstr ""
+msgstr "Este crédito de artista contiene los siguientes artistas:"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:103
 msgctxt "artist credit"
 msgid "credited as “{credit}”"
-msgstr ""
+msgstr "con el crédito “{credit}”"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:112
 msgid "Uses"
-msgstr ""
+msgstr "Usos"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:125
 #: ../root/artist_credit/ArtistCreditLayout.js:26
@@ -7270,32 +7309,32 @@ msgstr "Grupos de publicaciones"
 #: ../root/components/TagEntitiesList.js:183
 msgid "See all {num} release groups"
 msgid_plural "See all {num} release groups"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ver todos los {num} grupos de publicaciones"
+msgstr[1] "Ver todos los {num} grupos de publicaciones"
+msgstr[2] "Ver todos los {num} grupos de publicaciones"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:137
 #: ../root/components/TagEntitiesList.js:187
 msgid "See all {num} releases"
 msgid_plural "See all {num} releases"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ver todas las {num} publicaciones"
+msgstr[1] "Ver todas las {num} publicaciones"
+msgstr[2] "Ver todas las {num} publicaciones"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:148
 #: ../root/components/TagEntitiesList.js:191
 msgid "See all {num} recordings"
 msgid_plural "See all {num} recordings"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ver todas las {num} grabaciones"
+msgstr[1] "Ver todas las {num} grabaciones"
+msgstr[2] "Ver todas las {num} grabaciones"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:159
 msgid "See all {num} tracks"
 msgid_plural "See all {num} tracks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ver todas las {num} pistas"
+msgstr[1] "Ver todas las {num} pistas"
+msgstr[2] "Ver todas las {num} pistas"
 
 #: ../root/artist_credit/ArtistCreditLayout.js:25
 #: ../root/collection/CollectionHeader.js:77
@@ -7307,7 +7346,7 @@ msgstr "Resumen"
 #: ../root/artist_credit/ArtistCreditLayout.js:47
 #: ../root/artist_credit/ArtistCreditLayout.js:57
 msgid "Artist credit “{artist_credit}”"
-msgstr ""
+msgstr "Crédito de artista “{artist_credit}”"
 
 #: ../root/artist_credit/EntityList.js:22 ../root/tag/EntityList.js:76
 msgid "{num} recording found"
@@ -7387,6 +7426,8 @@ msgid ""
 "Sorry, <code>{discid}</code> does not match a CD stub. You can try "
 "{search_url|searching for it} instead."
 msgstr ""
+"<code>{discid}</code> no coincide con ningún esbozo de CD. Puedes probar "
+"{search_url|una búsqueda}."
 
 #: ../root/cdstub/DiscIdNotValid.js:19
 msgid "Invalid disc ID"
@@ -7403,7 +7444,7 @@ msgstr "Importar esbozo de CD"
 
 #: ../root/cdstub/ImportCDStub.js:38
 msgid "Please search for the artist you wish to add a new release for:"
-msgstr ""
+msgstr "Busca el artista al que quieres añadir una publicación:"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:46
 msgid ""
@@ -7415,12 +7456,14 @@ msgstr ""
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:73
 msgid "Track length comparison"
-msgstr ""
+msgstr "Comparación de duraciones de las pistas"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:77
 #: ../root/cdtoc/SetTracklistDurations.js:60
 msgid "This edit would only make subsecond changes to track lengths."
 msgstr ""
+"Esta edición solo causaría cambios de menos de un segundo en las duraciones "
+"de las pistas."
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:81
 msgid "CD TOC track lengths"
@@ -7428,7 +7471,7 @@ msgstr "Duración de las pistas en esta TOC de CD"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:83
 msgid "Medium track lengths"
-msgstr ""
+msgstr "Duración de las pistas en el medio"
 
 #: ../root/cdtoc/CDTocInfo.js:21
 msgid "CD TOC details"
@@ -7519,6 +7562,8 @@ msgid ""
 "Click the radio button to select the appropriate artist, or click the "
 "artist’s name to get more info."
 msgstr ""
+"Selecciona el artista apropiado, o haz click en el nombre de un artista para "
+"ver más información."
 
 #: ../root/cdtoc/SelectArtistForCDToc.js:113
 msgid ""
@@ -7526,6 +7571,8 @@ msgid ""
 "release. This will allow you to add this artist and a release at the same "
 "time"
 msgstr ""
+"Si no encuentras el artista que buscas, puedes añadir una nueva publicación. "
+"Podrás añadir el nuevo artista al mismo tiempo."
 
 #: ../root/cdtoc/SetTracklistDurations.js:39
 #: ../root/cdtoc/SetTracklistDurations.js:40
@@ -7547,6 +7594,8 @@ msgstr "Cambios"
 #: ../root/cdtoc/SetTracklistDurations.js:71
 msgid "The medium you are altering is part of the following release: {release}"
 msgstr ""
+"El medio que estás modificando es parte de la siguiente publicación: "
+"{release}"
 
 #: ../root/collection/CollectionHeader.js:37
 msgid "Public collection by {owner}"
@@ -7554,7 +7603,7 @@ msgstr "Colección pública de {owner}"
 
 #: ../root/collection/CollectionHeader.js:40
 msgid "Private collection by {owner}"
-msgstr ""
+msgstr "Colección privada de {owner}"
 
 #: ../root/collection/CollectionHeader.js:55
 msgid "See all of your collections"
@@ -7574,6 +7623,7 @@ msgstr "Editar"
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
+"Contenido oculto para prevenir el spam. Para verlo, {url|inicia sesión}."
 
 #: ../root/collection/CollectionIndex.js:205
 #: ../root/collection/CollectionMerge.js:70
@@ -7588,7 +7638,7 @@ msgstr "Eliminar las entidades seleccionadas de la colección"
 
 #: ../root/collection/CollectionIndex.js:224
 msgid "This collection is empty."
-msgstr ""
+msgstr "Esta colección está vacía."
 
 #: ../root/collection/CollectionLayout.js:34
 msgid "Collection “{collection}”"
@@ -7632,6 +7682,8 @@ msgid ""
 "You are about to merge all these collections into a single one. Please "
 "select the collection all others should be merged into:"
 msgstr ""
+"Vas a fusionar todas estas colecciones. Selecciona la colección con la que "
+"quieres fusionar las demás:"
 
 #: ../root/collection/CollectionMerge.js:129
 msgid ""
@@ -7639,12 +7691,18 @@ msgid ""
 "Please remove some collections from the merge queue until you only have "
 "collections for the same entity type."
 msgstr ""
+"<strong>Advertencia:</strong> Estas colecciones son de distintos tipos de "
+"entidad. Elimina las colecciones incorrectas de la cola de fusión hasta que "
+"solo haya colecciones de un solo tipo de entidad (por ejemplo, solo "
+"colecciones de publicaciones)."
 
 #: ../root/collection/CollectionMerge.js:136
 msgid ""
 "<strong>Warning:</strong> These collections are for different entity types. "
 "Only collections for the same entity type can be merged."
 msgstr ""
+"<strong>Advertencia:</strong> Estas colecciones son de distintos tipos de "
+"entidad. Solo puedes fusionar colecciones del mismo tipo de entidad."
 
 #: ../root/collection/CollectionMerge.js:148
 msgid ""
@@ -7653,15 +7711,19 @@ msgid ""
 "apply. If you merge your private collections into a public one, the final "
 "result will be visible to other users."
 msgstr ""
+"<strong>Advertencia:</strong> Algunas de estas colecciones son públicas y "
+"otras privadas. Ten en cuenta que la privacidad de la colección de destino "
+"será la que se mantenga, así que si fusionas tus colecciones privadas en una "
+"pública, otros usuarios podrán ver la colección fusionada."
 
 #: ../root/collection/CollectionMerge.js:163
 msgid "The merged collection will have the following collaborators:"
-msgstr ""
+msgstr "La colección fusionada tendrá los siguientes colaboradores:"
 
 #: ../root/collection/CollectionMerge.js:174
 msgid ""
 "This process cannot be reverted. Are you sure you want to enter a merge?"
-msgstr ""
+msgstr "Este proceso es irreversible. ¿Seguro que quieres iniciar una fusión?"
 
 #: ../root/collection/CollectionMerge.js:184
 msgid "Confirm"
@@ -7698,7 +7760,7 @@ msgstr "Localización"
 
 #: ../root/components/Aliases/AliasTableRow.js:51
 msgid "primary"
-msgstr ""
+msgstr "primario"
 
 #: ../root/components/Aliases/ArtistCreditList.js:33
 #: ../root/edit/details/AddMedium.js:162 ../root/edit/details/EditMedium.js:570
@@ -7719,7 +7781,7 @@ msgstr ""
 #: ../root/components/Aliases/ArtistCreditList.js:69
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:139
 msgid "see uses"
-msgstr ""
+msgstr "ver usos"
 
 #: ../root/components/Aliases/index.js:49 ../root/components/EntityTabs.js:128
 #: ../root/entity/Aliases.js:32
@@ -7733,6 +7795,9 @@ msgid ""
 "misspellings or variations of the name and are also used to improve search "
 "results. View the {doc|alias documentation} for more details."
 msgstr ""
+"Un alias es un nombre alternativo para una entidad, ya sea una variación del "
+"nombre o un error habitual al escribirlo. Los alias ayudan a mejorar los "
+"resultados de las búsquedas. Consulta {doc|la documentación} para saber más."
 
 #: ../root/components/Aliases/index.js:67
 msgid "{entity} has no aliases."
@@ -7817,6 +7882,8 @@ msgid ""
 "No one has reviewed {entity} yet. Be the first to {write_link|write a "
 "review}."
 msgstr ""
+"Nadie ha reseñado {entity} todavía. ¡Puedes {write_link|escribir la primera "
+"reseña}!"
 
 #: ../root/components/CritiqueBrainzLinks.js:56
 msgid ""
@@ -7826,8 +7893,14 @@ msgid_plural ""
 "There are {reviews_link|{review_count} reviews} on CritiqueBrainz. You can "
 "also {write_link|write your own}."
 msgstr[0] ""
+"Hay {reviews_link|una reseña} en CritiqueBrainz. Siempre puedes {write_link|"
+"escribir una más}."
 msgstr[1] ""
+"Hay {reviews_link|{review_count} reseñas} en CritiqueBrainz. Siempre puedes "
+"{write_link|escribir una más}."
 msgstr[2] ""
+"Hay {reviews_link|{review_count} reseñas} en CritiqueBrainz. Siempre puedes "
+"{write_link|escribir una más}."
 
 #: ../root/components/EntityDeletionHelp.js:24
 msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
@@ -7838,6 +7911,8 @@ msgid ""
 "If it’s a duplicate, {doc_merge|you should probably merge it instead}. If it "
 "just has some small errors, it’s usually better to just fix those."
 msgstr ""
+"Si la entidad está duplicada, {doc_merge|suele ser mejor fusionarla}, y si "
+"tiene solo algunos errores, suele ser mejor arreglarlos."
 
 #: ../root/components/EntityTabs.js:25
 #: ../root/recording/RecordingFingerprints.js:25
@@ -7855,7 +7930,7 @@ msgstr "Interpretaciones"
 
 #: ../root/components/EntityTabs.js:101
 msgid "Disc IDs ({num})"
-msgstr ""
+msgstr "IDs de disco ({num})"
 
 #: ../root/components/EntityTabs.js:104 ../root/release/DiscIds.js:101
 #: ../root/release/DiscIds.js:102 ../root/report/ReportsIndex.js:634
@@ -7902,12 +7977,12 @@ msgstr "Editar relaciones"
 
 #: ../root/components/InstrumentRelTypes.js:32
 msgid "as “{credit}”"
-msgstr ""
+msgstr "como “{credit}”"
 
 #: ../root/components/RelationshipsTable.js:141
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:283
 msgid "See all {num} relationships"
-msgstr ""
+msgstr "Ver todas las {num} relaciones"
 
 #: ../root/components/RelationshipsTable.js:335
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:203
@@ -7915,7 +7990,7 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:212
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:216
 msgid "Credited as"
-msgstr ""
+msgstr "Con el crédito"
 
 #: ../root/components/RelationshipsTable.js:336
 #: ../root/edit/details/AddRelationshipType.js:167
@@ -7929,11 +8004,11 @@ msgstr "Atributos"
 
 #: ../root/components/RelationshipsTable.js:352
 msgid "“{link_phrase}” relationships"
-msgstr ""
+msgstr "Relaciones “{link_phrase}”"
 
 #: ../root/components/RelationshipsTable.js:354
 msgid "Invalid relationship type"
-msgstr ""
+msgstr "Tipo de relación inválido"
 
 #: ../root/components/RelationshipsTable.js:365
 msgid "No relationships of the selected type were found."
@@ -7941,7 +8016,7 @@ msgstr "No encontramos relaciones del tipo seleccionado."
 
 #: ../root/components/RelationshipsTable.js:366
 msgid "The provided relationship type ID is not valid."
-msgstr ""
+msgstr "La ID de tipo de relación suministrada no es válida."
 
 #: ../root/components/ReleaseLanguageScript.js:22
 #: ../root/components/ReleaseLanguageScript.js:28
@@ -7958,15 +8033,15 @@ msgstr "-"
 
 #: ../root/components/TagEntitiesList.js:125
 msgid "Entities where {user} downvoted “{tag}”"
-msgstr ""
+msgstr "Entidades en las que {user} votó en contra de “{tag}”"
 
 #: ../root/components/TagEntitiesList.js:129
 msgid "Entities {user} tagged as “{tag}”"
-msgstr ""
+msgstr "Entidades que {user} etiquetó con “{tag}”"
 
 #: ../root/components/TagEntitiesList.js:133
 msgid "Entities tagged as “{tag}”"
-msgstr ""
+msgstr "Entidades etiquetadas con “{tag}”"
 
 #: ../root/components/TagEntitiesList.js:144
 msgid "{num} entity found"
@@ -7984,23 +8059,23 @@ msgstr "Áreas"
 #: ../root/components/TagEntitiesList.js:159
 msgid "See all {num} areas"
 msgid_plural "See all {num} areas"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ver todas las {num} áreas"
+msgstr[1] "Ver todas las {num} áreas"
+msgstr[2] "Ver todas las {num} áreas"
 
 #: ../root/components/TagEntitiesList.js:163
 msgid "See all {num} artists"
 msgid_plural "See all {num} artists"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ver todos los {num} artistas"
+msgstr[1] "Ver todos los {num} artistas"
+msgstr[2] "Ver todos los {num} artistas"
 
 #: ../root/components/TagEntitiesList.js:167
 msgid "See all {num} events"
 msgid_plural "See all {num} events"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ver todos los {num} eventos"
+msgstr[1] "Ver todos los {num} eventos"
+msgstr[2] "Ver todos los {num} eventos"
 
 #: ../root/components/TagEntitiesList.js:170
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:23
@@ -8011,23 +8086,23 @@ msgstr "Instrumentos"
 #: ../root/components/TagEntitiesList.js:171
 msgid "See all {num} instruments"
 msgid_plural "See all {num} instruments"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ver todos los {num} instrumentos"
+msgstr[1] "Ver todos los {num} instrumentos"
+msgstr[2] "Ver todos los {num} instrumentos"
 
 #: ../root/components/TagEntitiesList.js:175
 msgid "See all {num} labels"
 msgid_plural "See all {num} labels"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ver todas las {num} discográficas"
+msgstr[1] "Ver todas las {num} discográficas"
+msgstr[2] "Ver todas las {num} discográficas"
 
 #: ../root/components/TagEntitiesList.js:179
 msgid "See all {num} places"
 msgid_plural "See all {num} places"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ver todos los {num} lugares"
+msgstr[1] "Ver todos los {num} lugares"
+msgstr[2] "Ver todos los {num} lugares"
 
 #: ../root/components/TagEntitiesList.js:194 ../root/report/ReportsIndex.js:569
 #: ../root/report/components/SeriesList.js:47
@@ -8041,16 +8116,16 @@ msgstr "Series"
 #: ../root/components/TagEntitiesList.js:195
 msgid "See all {num} series"
 msgid_plural "See all {num} series"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ver todas las {num} series"
+msgstr[1] "Ver todas las {num} series"
+msgstr[2] "Ver todas las {num} series"
 
 #: ../root/components/TagEntitiesList.js:199
 msgid "See all {num} works"
 msgid_plural "See all {num} works"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ver todas las {num} obras"
+msgstr[1] "Ver todas las {num} obras"
+msgstr[2] "Ver todas las {num} obras"
 
 #: ../root/components/UserAccountLayout.js:62
 #: ../root/components/UserAccountLayout.js:63
@@ -10094,6 +10169,8 @@ msgid ""
 "You are about to merge all these events into a single one. Please select the "
 "event all others should be merged into:"
 msgstr ""
+"Vas a fusionar todos estos eventos. Selecciona el evento con el que quieres "
+"fusionar los demás:"
 
 #: ../root/futureColumnLabels.js:24
 msgid "ISO 639-1"
@@ -10239,6 +10316,8 @@ msgid ""
 "You are about to merge all these labels into a single one. Please select the "
 "label all others should be merged into:"
 msgstr ""
+"Vas a fusionar todas estas discográficas. Selecciona la discográfica con la "
+"que quieres fusionar las demás:"
 
 #: ../root/label/SpecialPurpose.js:25
 msgid "You may not edit special purpose labels"
@@ -11384,7 +11463,7 @@ msgstr "Resultados de la búsqueda"
 
 #: ../root/place/PlaceEvents.js:61
 msgid "This place is not currently associated with any events."
-msgstr ""
+msgstr "Este lugar no está asociado a ningún evento."
 
 #: ../root/place/PlaceMap.js:47
 msgid "A map cannot be shown because this place has no coordinates."
@@ -11399,6 +11478,8 @@ msgid ""
 "You are about to merge all these places into a single one. Please select the "
 "place all others should be merged into:"
 msgstr ""
+"Vas a fusionar todos estos lugares. Selecciona el lugar con el que quieres "
+"fusionar los demás:"
 
 #: ../root/place/PlacePerformances.js:33
 msgid "No recordings, releases or release groups are linked to this place."
@@ -11476,6 +11557,8 @@ msgid ""
 "You are about to merge all these recordings into a single one. Please select "
 "the recording all others should be merged into:"
 msgstr ""
+"Vas a fusionar todas estas grabaciones. Selecciona la grabación con la que "
+"quieres fusionar las demás:"
 
 #: ../root/recording/RecordingMerge.js:41
 msgid ""
@@ -11797,6 +11880,8 @@ msgid ""
 "You are about to merge all these release groups into a single one. Please "
 "select the release group all others should be merged into:"
 msgstr ""
+"Vas a fusionar todos estos grupos de publicaciones. Selecciona el grupo de "
+"publicaciones con el que quieres fusionar los demás:"
 
 #: ../root/report/AnnotationsArtists.js:29
 msgid "This report lists artists with annotations."
@@ -13634,6 +13719,8 @@ msgid ""
 "You are about to merge all these series into a single one. Please select the "
 "series all others should be merged into:"
 msgstr ""
+"Vas a fusionar todas estas series. Selecciona la serie con la que quieres "
+"fusionar las demás:"
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:96
 msgid "Callback URI"
@@ -15138,7 +15225,7 @@ msgid ""
 "mediums. Recordings between mediums will also be merged, into the recordings "
 "used on the target mediums."
 msgstr ""
-"Esta estrategia fusionará todos los medios en un solo conjunto de medios. "
+"Esta estrategia fusionará todos los medios de las diferentes publicaciones. "
 "Las grabaciones en los medios fusionados serán también fusionadas con las de "
 "los medios de destino."
 
@@ -15316,7 +15403,7 @@ msgstr "Eliminar relación"
 #: ../root/static/scripts/edit/externalLinks.js:1334
 msgctxt "relationship credit"
 msgid "credited as “{credit}”"
-msgstr ""
+msgstr "con el crédito “{credit}”"
 
 #: ../root/static/scripts/edit/externalLinks.js:1358
 msgid "video"
@@ -17318,6 +17405,8 @@ msgid ""
 "You are about to merge all these works into a single one. Please select the "
 "work all others should be merged into:"
 msgstr ""
+"Vas a fusionar todas estas obras. Selecciona la obra con la que quieres "
+"fusionar las demás:"
 
 #: ../root/work/WorkMerge.js:41
 msgid ""

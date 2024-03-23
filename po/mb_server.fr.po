@@ -66,7 +66,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-11 13:08+0200\n"
+"POT-Creation-Date: 2024-03-13 20:55+0200\n"
 "PO-Revision-Date: 2024-03-11 11:05+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
@@ -4142,20 +4142,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:361
+#: ../root/static/scripts/common/constants.js:363
 msgid "Low"
 msgstr "Bas"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:362
-#: ../root/static/scripts/common/constants.js:363
+#: ../root/static/scripts/common/constants.js:364
+#: ../root/static/scripts/common/constants.js:365
 msgid "Normal"
 msgstr "Normal"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:364
+#: ../root/static/scripts/common/constants.js:366
 msgid "High"
 msgstr "Haute"
 
@@ -5915,22 +5915,22 @@ msgid "A fluency level is required."
 msgstr "Un niveau de maîtrise est requis."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:372
+#: ../root/static/scripts/common/constants.js:374
 msgid "Basic"
 msgstr "De base"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:373
+#: ../root/static/scripts/common/constants.js:375
 msgid "Intermediate"
 msgstr "Intermédiaire"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:371
+#: ../root/static/scripts/common/constants.js:373
 msgid "Advanced"
 msgstr "Avancé"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:82
-#: ../root/static/scripts/common/constants.js:374
+#: ../root/static/scripts/common/constants.js:376
 msgid "Native"
 msgstr "Natif"
 
