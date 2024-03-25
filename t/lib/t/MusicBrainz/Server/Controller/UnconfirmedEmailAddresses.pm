@@ -519,6 +519,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::WS::js::Work::search',
   'Controller::WS::js::cdstub',
   'Controller::WS::js::cdstub_search',
+  'Controller::WS::js::check_login',
   'Controller::WS::js::cover_art_upload',
   'Controller::WS::js::default',
   'Controller::WS::js::entities',

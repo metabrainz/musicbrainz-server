@@ -703,7 +703,7 @@ sub edit : Chained('/') PathPart('ws/js/edit') CaptureArgs(0) Edit {
         $c->forward('/ws/js/detach_with_error', ['this server is in read-only mode']);
     }
 
-    $c->forward('/ws/js/check_login', [{
+    $c->forward('/ws/js/cookie_login_or_error', [{
         errorCode => $ERROR_NOT_LOGGED_IN,
         message => l('You must be logged in to submit edits. {url|Log in} ' .
                      'first, and then try submitting your edits again.',

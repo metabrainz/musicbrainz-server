@@ -55,6 +55,9 @@ my $ws_defs = Data::OptList::mkopt([
         method => 'GET',
         optional => [ qw(q artist tracks limit page timestamp) ],
     },
+    'check-login' => {
+        method => 'GET',
+    },
     'cover-art-upload' => {
         method => 'GET',
     },
@@ -308,7 +311,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 {
     my ($self, $c, $gid) = @_;
 
-    $self->check_login($c, 'not logged in');
+    $self->cookie_login_or_error($c, 'not logged in');
 
     my $mime_type = $c->request->params->{mime_type};
     unless ($c->model('CoverArtArchive')->is_valid_mime_type($mime_type)) {
@@ -802,11 +805,30 @@ sub get_json_request_body : Private {
     return $decoded_object;
 }
 
-sub check_login : Private {
+sub cookie_login_or_error : Private {
     my ($self, $c, $error) = @_;
 
     $c->forward('/user/cookie_login') unless $c->user_exists;
     $self->detach_with_error($c, $error) unless $c->user_exists;
+}
+
+sub check_login : Chained('root') PathPart('check-login') {
+    my ($self, $c) = @_;
+
+    $c->forward('/user/cookie_login');
+
+    $c->res->content_type('application/json; charset=utf-8');
+    $c->res->headers->header(
+        'Cache-Control' => 'no-store',
+        'Pragma' => 'no-cache',
+    );
+    $c->res->status(HTTP_OK);
+
+    my $user = $c->user;
+    $c->res->body(encode_json({
+        id => defined $user ? (0 + $user->id) : undef,
+        name => defined $user ? $user->name : undef,
+    }));
 }
 
 no Moose;
