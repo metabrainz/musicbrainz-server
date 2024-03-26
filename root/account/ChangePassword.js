@@ -27,85 +27,82 @@ type ChangePasswordFormT = FormT<{
   +username: FieldT<string>,
 }>;
 
-type Props = {
-  +form: ChangePasswordFormT,
-  +isMandatory?: boolean,
-  +userExists?: boolean,
-};
+component ChangePasswordPageContent(
+  form: ChangePasswordFormT,
+  isMandatory: boolean = false,
+  userExists: boolean = false,
+) {
+  return (
+    <>
+      {isMandatory ? (
+        <p>
+          {exp.l(
+            `Please change your password. Unfortunately we\'ve discovered that
+             secure hashes user\'s passwords were temporarily available for
+             download on our FTP site. While it is extremely unlikely that
+             anyone will be able to derive the original passwords from this
+             mishap, we are requiring all of our users to change their
+             passwords. Sorry for the inconvenience. For more information see
+             {blog|the recent blog post}.`,
+            {blog: 'http://blog.metabrainz.org/?p=1844'},
+          )}
+        </p>
+      ) : null}
 
-const ChangePasswordPageContent = ({
-  form,
-  isMandatory = false,
-  userExists = false,
-}: Props): React.MixedElement => (
-  <>
-    {isMandatory ? (
       <p>
-        {exp.l(
-          `Please change your password. Unfortunately we\'ve discovered that
-           secure hashes user\'s passwords were temporarily available for
-           download on our FTP site. While it is extremely unlikely that
-           anyone will be able to derive the original passwords from this
-           mishap, we are requiring all of our users to change their
-           passwords. Sorry for the inconvenience. For more information see
-           {blog|the recent blog post}.`,
-          {blog: 'http://blog.metabrainz.org/?p=1844'},
-        )}
+        {l(`Please enter your old password below,
+            and then your new password.`)}
       </p>
-    ) : null}
 
-    <p>
-      {l('Please enter your old password below, and then your new password.')}
-    </p>
-
-    <form method="post">
-      <FormCsrfToken form={form} />
-      {userExists ? (
-        <HiddenField field={form.field.username} />
-      ) : (
+      <form method="post">
+        <FormCsrfToken form={form} />
+        {userExists ? (
+          <HiddenField field={form.field.username} />
+        ) : (
+          <FormRowText
+            autoComplete="username"
+            field={form.field.username}
+            label={addColonText(l('Username'))}
+            required
+            uncontrolled
+          />
+        )}
         <FormRowText
-          autoComplete="username"
-          field={form.field.username}
-          label={addColonText(l('Username'))}
+          autoComplete="current-password"
+          field={form.field.old_password}
+          label={l('Old password:')}
           required
+          type="password"
           uncontrolled
         />
-      )}
-      <FormRowText
-        autoComplete="current-password"
-        field={form.field.old_password}
-        label={l('Old password:')}
-        required
-        type="password"
-        uncontrolled
-      />
-      <FormRowText
-        autoComplete="new-password"
-        field={form.field.password}
-        label={l('New password:')}
-        required
-        type="password"
-        uncontrolled
-      />
-      <FormRowText
-        autoComplete="new-password"
-        field={form.field.confirm_password}
-        label={l('Confirm password:')}
-        required
-        type="password"
-        uncontrolled
-      />
-      <FormRow hasNoLabel>
-        <FormSubmit label={lp('Change password', 'interactive')} />
-      </FormRow>
-    </form>
-  </>
-);
+        <FormRowText
+          autoComplete="new-password"
+          field={form.field.password}
+          label={l('New password:')}
+          required
+          type="password"
+          uncontrolled
+        />
+        <FormRowText
+          autoComplete="new-password"
+          field={form.field.confirm_password}
+          label={l('Confirm password:')}
+          required
+          type="password"
+          uncontrolled
+        />
+        <FormRow hasNoLabel>
+          <FormSubmit label={lp('Change password', 'interactive')} />
+        </FormRow>
+      </form>
+    </>
+  );
+}
 
-const ChangePassword = ({
-  form,
-  isMandatory,
-}: Props): React$Element<typeof Layout | typeof UserAccountLayout> => {
+component ChangePassword(
+  form: ChangePasswordFormT,
+  isMandatory?: boolean,
+) {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
 
@@ -132,6 +129,6 @@ const ChangePassword = ({
       <ChangePasswordPageContent form={form} isMandatory={isMandatory} />
     </Layout>
   );
-};
+}
 
 export default ChangePassword;
