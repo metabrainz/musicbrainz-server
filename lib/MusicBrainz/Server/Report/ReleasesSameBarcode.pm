@@ -17,11 +17,11 @@ sub query {
             release r
         WHERE r.barcode IS NOT NULL -- skip unset
         AND r.barcode != '' -- skip [none]
-        AND r.status != 3 -- skip bootlegs
+        AND r.status IS DISTINCT FROM 3 -- skip bootlegs
         AND EXISTS (
             SELECT 1 FROM release r2
                 WHERE lpad(r.barcode, greatest(length(r.barcode), 14), '0') = lpad(r2.barcode, greatest(length(r2.barcode), 14), '0')
-                AND r2.status != 3 -- skip bootlegs
+                AND r2.status IS DISTINCT FROM 3 -- skip bootlegs
                 AND r.release_group != r2.release_group
         )
     };
