@@ -28,7 +28,7 @@ const QuickLinks = ({
   page,
   refineUrlArgs,
   username,
-}: Props): React$Element<React$FragmentType> => {
+}: Props): React.MixedElement => {
   const $c = React.useContext(CatalystContext);
   const isSecureConnection = $c.req.secure;
   const protocol = isSecureConnection ? 'https://' : 'http://';

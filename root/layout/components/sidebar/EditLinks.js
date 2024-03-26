@@ -24,7 +24,7 @@ const EditLinks = ({
   children,
   entity,
   requiresPrivileges = false,
-}: Props): React$Element<React$FragmentType> => {
+}: Props): React.MixedElement => {
   const $c = React.useContext(CatalystContext);
   return (
     <>

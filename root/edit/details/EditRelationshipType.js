@@ -90,7 +90,7 @@ function formatExample(
 
 const EditRelationshipType = ({
   edit,
-}: Props): React$Element<React$FragmentType> => {
+}: Props): React.MixedElement => {
   const display = edit.display_data;
   const name = display.name;
   const oldDescription = display.description?.old ?? '';

@@ -42,7 +42,7 @@ const EditList = ({
   refineUrlArgs,
   username,
   voter,
-}: Props): React$Element<React$FragmentType> => {
+}: Props): React.MixedElement => {
   const $c = React.useContext(SanitizedCatalystContext);
 
   /*

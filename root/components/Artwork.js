@@ -36,7 +36,7 @@ export const ArtworkImage = ({
   artwork,
   hover,
   message,
-}: Props): React$Element<React$FragmentType> => (
+}: Props): React.MixedElement => (
   <>
     <noscript>
       <img src={artwork.small_ia_thumbnail} />

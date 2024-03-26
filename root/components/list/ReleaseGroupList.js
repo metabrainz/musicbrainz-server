@@ -155,9 +155,9 @@ const ReleaseGroupList = ({
   seriesItemNumbers,
   showRatings,
   sortable,
-}: ReleaseGroupListProps): Array<React$Element<React$FragmentType>> => {
+}: ReleaseGroupListProps): Array<React.MixedElement> => {
   const groupedReleaseGroups = groupBy(releaseGroups, x => x.typeName ?? '');
-  const tables: Array<React$Element<React$FragmentType>> = [];
+  const tables: Array<React.MixedElement> = [];
   for (const [type, releaseGroupsOfType] of groupedReleaseGroups) {
     tables.push(
       <React.Fragment key={type}>

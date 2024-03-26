@@ -21,7 +21,7 @@ type Props = {
 
 const AddRelationshipType = ({
   edit,
-}: Props): React$Element<React$FragmentType> => {
+}: Props): React.MixedElement => {
   const display = edit.display_data;
   const entity0Type = ENTITY_NAMES[display.entity0_type]();
   const entity1Type = ENTITY_NAMES[display.entity1_type]();

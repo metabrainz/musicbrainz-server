@@ -31,7 +31,7 @@ const EntityHeader = ({
   page,
   preHeader,
   subHeading,
-}: Props): React$Element<React$FragmentType> => (
+}: Props): React.MixedElement => (
   <>
     <div className={'wrap-anywhere ' + headerClass}>
       {nonEmpty(preHeader) ? preHeader : null}

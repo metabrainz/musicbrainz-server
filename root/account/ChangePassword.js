@@ -37,7 +37,7 @@ const ChangePasswordPageContent = ({
   form,
   isMandatory = false,
   userExists = false,
-}: Props): React$Element<React$FragmentType> => (
+}: Props): React.MixedElement => (
   <>
     {isMandatory ? (
       <p>
