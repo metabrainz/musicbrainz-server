@@ -30,6 +30,8 @@ import {
 } from '../../common/entity2.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
+import getRelationshipLinkType
+  from '../../edit/utility/getRelationshipLinkType.js';
 import type {
   DialogTargetEntityStateT,
   RelationshipStateT,
@@ -40,7 +42,6 @@ import type {
   DialogTargetEntityActionT,
   UpdateTargetEntityAutocompleteActionT,
 } from '../types/actions.js';
-import getRelationshipLinkType from '../utility/getRelationshipLinkType.js';
 import isRelationshipBackward from '../utility/isRelationshipBackward.js';
 
 import DialogEntityCredit, {
