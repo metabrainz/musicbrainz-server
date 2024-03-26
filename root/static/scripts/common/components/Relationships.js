@@ -70,7 +70,7 @@ const Relationships = (React.memo<PropsT>(({
   relationships: passedRelationships,
   showIfEmpty = false,
   source,
-}: PropsT): React$Element<React$FragmentType> => {
+}: PropsT): React.MixedElement => {
   let srcRels = source.relationships;
   let relationships = passedRelationships;
   if (!relationships) {

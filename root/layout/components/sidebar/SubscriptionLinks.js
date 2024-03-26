@@ -20,7 +20,7 @@ type Props = {
 
 const SubscriptionLinks = ({
   entity,
-}: Props): React$Element<React$FragmentType> => {
+}: Props): React.MixedElement => {
   const $c = React.useContext(CatalystContext);
   const entityType = entity.entityType;
   const id = encodeURIComponent(String(entity.id));

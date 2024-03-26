@@ -48,7 +48,7 @@ export const WorkListRow = ({
   showIswcs = false,
   showRatings = false,
   work,
-}: WorkListRowProps): React$Element<React$FragmentType> => {
+}: WorkListRowProps): React.MixedElement => {
   const $c = React.useContext(CatalystContext);
 
   return (

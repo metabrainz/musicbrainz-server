@@ -19,7 +19,7 @@ type Props = {
   +edit: EditUrlEditT,
 };
 
-const EditUrl = ({edit}: Props): React$Element<React$FragmentType> => {
+const EditUrl = ({edit}: Props): React.MixedElement => {
   const display = edit.display_data;
   const description = display.description;
   const uri = display.uri;

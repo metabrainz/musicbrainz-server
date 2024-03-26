@@ -16,7 +16,7 @@ type Props = {
   +cdToc: CDTocT,
 };
 
-const CDTocInfo = ({cdToc}: Props): React$Element<React$FragmentType> => (
+const CDTocInfo = ({cdToc}: Props): React.MixedElement => (
   <>
     <h2>{l('CD TOC details')}</h2>
 

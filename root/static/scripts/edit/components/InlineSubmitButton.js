@@ -13,7 +13,7 @@ type PropsT = {
 
 const InlineSubmitButton = ({
   label,
-}: PropsT): React$Element<React$FragmentType> => (
+}: PropsT): React.MixedElement => (
   <>
     {' '}
     <span className="buttons inline">

@@ -26,7 +26,7 @@ type PropsT = {
 
 const RelationshipPendingEditsWarning = ({
   relationship,
-}: PropsT): React$Element<React$FragmentType> | null => {
+}: PropsT): React.MixedElement | null => {
   const hasPendingEdits = relationship.editsPending;
   const openEditsLink = getOpenEditsLink(relationship);
 

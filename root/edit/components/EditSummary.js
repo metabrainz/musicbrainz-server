@@ -33,7 +33,7 @@ type Props = {
 const EditSummary = ({
   edit,
   index,
-}: Props): React$Element<React$FragmentType> => {
+}: Props): React.MixedElement => {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   const mayAddNote = editorMayAddNote(edit, user);

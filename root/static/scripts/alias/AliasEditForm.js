@@ -201,7 +201,7 @@ const AliasEditForm = ({
   form: initialForm,
   locales,
   searchHintType,
-}: Props): React$Element<React$FragmentType> => {
+}: Props): React.MixedElement => {
   const localeOptions = {
     grouped: false,
     options: locales,

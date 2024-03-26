@@ -17,7 +17,7 @@ export const SidebarProperty = ({
   children,
   className,
   label,
-}: SidebarPropertyProps): React$Element<React$FragmentType> => (
+}: SidebarPropertyProps): React.MixedElement => (
   <>
     <dt>{label}</dt>
     <dd className={className}>

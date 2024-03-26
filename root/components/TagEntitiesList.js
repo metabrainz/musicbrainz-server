@@ -45,7 +45,7 @@ const TagEntitiesList = ({
   tag,
   taggedEntities,
   user,
-}: Props): React$Element<React$FragmentType> => {
+}: Props): React.MixedElement => {
   const $c = React.useContext(CatalystContext);
 
   const totalCount = Object.values(taggedEntities)
