@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-21 00:28+0000\n"
+"PO-Revision-Date: 2024-03-27 19:28+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/lt/>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: DB:link_attribute_type/description:1355
@@ -1079,6 +1079,8 @@ msgid ""
 "Local time a performance was scheduled to start or a program was broadcast, "
 "formatted HH:MM."
 msgstr ""
+"Vietinis laikas, kuriuo turėjo prasidėti spektaklis arba buvo transliuojama "
+"programa, suformatuotas HH:MM."
 
 #: DB:link_attribute_type/description:1060
 msgid "Meane or mean is a young male singer with a voice lower than a treble."
@@ -1179,20 +1181,16 @@ msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"Nukreipia į šios leidyklos Vikiduomenio puslapį, kuris bus naudojamas "
-"Vikipedijos santraukoms gauti"
+"Nukreipia į šios įrašų kompanijos Vikiduomenio puslapį, kuris bus naudojamas "
+"Vikipedijos santraukoms gauti."
 
 #: DB:link_type/description:594
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this area, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"Nukreipia į šios srities Vikiduomenio puslapį, kuris bus naudojamas "
-"Vikipedijos santraukoms gauti"
+"Nukreipia į šios vietos Vikiduomenio puslapį, kuris bus naudojamas "
+"Vikipedijos santraukoms gauti."
 
 #: DB:link_type/description:353
 #, fuzzy
@@ -1482,14 +1480,10 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:1243
-#, fuzzy
-#| msgid ""
-#| "This indicates that a person or agency did the art direction for the "
-#| "recording."
 msgid ""
 "This credits a person or agency who worked on animation for a video "
 "recording."
-msgstr "Tai nurodo, kad įrašo meno vadovavimą kūrė asmuo arba agentūra."
+msgstr "Tai įvardija asmenį arba agentūrą, kuri kūrė vaizdo įrašo animaciją."
 
 #: DB:link_type/description:123
 msgid ""
@@ -7044,10 +7038,8 @@ msgid "provided legal representation for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1243
-#, fuzzy
-#| msgid "provided {additional} art direction on"
 msgid "provided {additional} animation on"
-msgstr "pateikė {additional:papildomą} meno vadovavimą"
+msgstr "pateikė {additional:papildomą} animaciją apie"
 
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:1174
 msgid "provided {additional} art direction on"
@@ -8360,10 +8352,8 @@ msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr ""
 
 #: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
-#, fuzzy
-#| msgid "{additional} art direction"
 msgid "{additional} animation"
-msgstr "{additional:papildomas} meno vadovavimas"
+msgstr "{additional:papildomas} animacija"
 
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"

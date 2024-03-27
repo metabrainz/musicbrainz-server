@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-23 08:52+0000\n"
-"PO-Revision-Date: 2024-03-14 12:28+0000\n"
+"PO-Revision-Date: 2024-03-23 13:28+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -23,8 +23,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -14189,15 +14189,15 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/FilterForm.js:227
 msgid "Hide recordings that only appear on bootleg releases"
-msgstr ""
+msgstr "Slėpti įrašus, kurie pasirodo tik nelegaliuose leidiniuose"
 
 #: ../root/static/scripts/common/components/FilterForm.js:230
 msgid "Hide bootleg-only"
-msgstr ""
+msgstr "Slėpti tik nelegalus"
 
 #: ../root/static/scripts/common/components/FilterForm.js:328
 msgid "Secondary type"
-msgstr ""
+msgstr "Antrinis tipas"
 
 #: ../root/static/scripts/common/components/FingerprintTable.js:69
 msgid "Error loading AcoustIDs: {error}"
