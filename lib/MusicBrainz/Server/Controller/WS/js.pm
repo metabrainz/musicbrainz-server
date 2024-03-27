@@ -808,7 +808,7 @@ sub get_json_request_body : Private {
 sub cookie_login_or_error : Private {
     my ($self, $c, $error) = @_;
 
-    $c->forward('/user/cookie_login') unless $c->user_exists;
+    $c->forward('/user/cookie_login');
     $self->detach_with_error($c, $error) unless $c->user_exists;
 }
 
