@@ -20,8 +20,8 @@ input:-moz-placeholder, // ff 4-18
 input::-webkit-input-placeholder { // webkit
     color: @dark-text;
 }
-input[disabled].lookup-performed,
 input[disabled], input[readonly] { background: @medium-bg; cursor: default; }
+input[disabled].lookup-performed { color: @dark-text; }
 
 /* this is to ensure input/select/textarea elements are all the same
    width if you set the same width on them. (without this a <select>
@@ -132,11 +132,6 @@ form div.checkbox-block div.row {
     border-top: 12px solid transparent;
     border-right: 18px solid @very-light-bg;
     border-bottom: 12px solid transparent;
-}
-
-#artist-credit-bubble .bubble.left-tail:before {
-    top: 50%;
-    top: calc(~"50% - 12px");
 }
 
 .bubble.right-tail:after {
@@ -583,19 +578,19 @@ button.close-dialog {
     cursor: help !important;
 }
 
+button.undo {
+    background-image: data-uri('../images/icons/arrow_undo.png');
+    background-size: 16px;
+}
+
 /*
   Artist credits
   ================================================
 */
 
-@form-open-ac-width: 70px;
-
 .open-ac {
     .styled-button;
-    width: @form-open-ac-width;
-    height: 22px;
-    margin-left: 3px;
-    padding: 0;
+    padding: 0 1em;
 }
 
 .add-artist-credit {
@@ -604,41 +599,30 @@ button.close-dialog {
     text-align: right;
 }
 
-table.artist-credit-editor {
+div.artist-credit-editor {
     width: @form-input-width;
-    border-spacing: 0;
-
-    td {
-        padding: 0;
-        &.open-ac-cell {
-            &, & > button { width: 90px; }
-        }
-    }
-
-    span.autocomplete {
-        &, input.name { width: 100% !important; }
-
-        input.name[disabled] {
-            background: inherit;
-            color: @dark-text;
-            &.lookup-performed { background: @positive-bg; }
-        }
-    }
 }
 
 #artist-credit-bubble {
-    position: absolute;
-    filter: drop-shadow(2px 2px 4px @very-dark-grey);
-    -webkit-filter: drop-shadow(2px 2px 4px @very-dark-grey);
+    background: @very-light-bg;
+    max-width: 800px !important;
 
-    .bubble {
-        input[type=text], span.autocomplete { width: 100%; }
+    #ac-docs, #ac-preview-cell { padding-bottom: 1em; }
 
-        .buttons {
-            button.positive { margin-left: 2em; }
-            margin-top: 1em;
-            width: 100%;
-        }
+    tr.artist-credit-header > th {
+        &:nth-child(1), &:nth-child(2) { width: 40%; }
+    }
+
+    input[type=text], div.autocomplete2 { width: 100%; }
+
+    .removed-ac-name { text-align: right; }
+
+    .buttons {
+        #copy-ac, #paste-ac { float: left; }
+        #next-track-ac, #prev-track-ac, button.positive { float: right; }
+        button.positive { margin-left: 2em; }
+        margin-top: 1em;
+        width: 100%;
     }
 }
 
@@ -768,20 +752,8 @@ button.guess-timezone {
     background-image: data-uri('../images/icons/magnet.png');
 }
 
-.dialog-root {
-    .modal-backdrop {
-        background: #000;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.1;
-    }
-}
-
 .dialog {
-    visibility: hidden;
+    width: max-content;
     padding: 1em;
     position: absolute;
     background: @text-white;
@@ -799,6 +771,9 @@ button.guess-timezone {
 
     &.modal {
         max-width: 500px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
 
         @media @wide {
             max-width: 700px;
@@ -831,43 +806,25 @@ button.guess-timezone {
                 padding: 4px;
             }
         }
+
+        .dialog-content {
+            flex-grow: 1;
+        }
+
+        &.iframe-dialog iframe {
+            height: 100%;
+        }
     }
 
     &.popover {
-        max-width: 500px;
         .border-radius(12px);
-
-        div[data-popper-arrow] {
-            z-index: -1;
-        }
-
-        div[data-popper-arrow]::before {
-            content: "";
-            transform: rotate(45deg);
-            top: 0px;
-            left: 0px;
-            width: 16px;
-            height: 16px;
-            background: @text-white;
-            display: block;
-        }
-
-        &[data-popper-placement^="left"] > div[data-popper-arrow] {
-            right: -9px;
-            &::before {
-                border-right: 1px solid #AAA;
-                border-top: 1px solid #AAA;
-            }
-        }
-
-        &[data-popper-placement^="right"] > div[data-popper-arrow] {
-            left: -9px;
-            &::before {
-                border-left: 1px solid #AAA;
-                border-bottom: 1px solid #AAA;
-            }
-        }
+        > svg { color: @text-white; }
+        &#artist-credit-bubble > svg { color: @very-light-bg; }
     }
+}
+
+.modal-backdrop {
+    background: rgba(0, 0, 0, 0.1);
 }
 
 /* root/static/scripts/common/components/PostParameters.js */

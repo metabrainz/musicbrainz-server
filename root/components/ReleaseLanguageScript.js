@@ -9,7 +9,7 @@
 
 const ReleaseLanguageScript = ({
   release,
-}: {release: ReleaseT}): React$Element<React$FragmentType> => {
+}: {release: ReleaseT}): React.MixedElement => {
   const language = release.language;
   const script = release.script;
 

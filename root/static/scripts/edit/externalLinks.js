@@ -1430,7 +1430,7 @@ export class ExternalLink extends React.Component<LinkProps> {
     setTimeout(() => target.style.backgroundColor = 'initial', 1000);
   }
 
-  render(): React$Element<React$FragmentType> {
+  render(): React.MixedElement {
     const props = this.props;
     const notEmpty = props.relationships.some(link => {
       return !isEmpty(link);

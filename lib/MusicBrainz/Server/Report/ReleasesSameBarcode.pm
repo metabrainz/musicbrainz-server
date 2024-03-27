@@ -12,16 +12,16 @@ sub query {
     q{
         SELECT DISTINCT ON (r.id)
             r.barcode AS barcode, r.id AS release_id, r.release_group AS release_group_id,
-            row_number() OVER (ORDER BY r.barcode, r.name COLLATE musicbrainz)
+            row_number() OVER (ORDER BY lpad(r.barcode, greatest(length(r.barcode), 14), '0'), r.name COLLATE musicbrainz)
         FROM
             release r
         WHERE r.barcode IS NOT NULL -- skip unset
         AND r.barcode != '' -- skip [none]
-        AND r.status != 3 -- skip bootlegs
+        AND r.status IS DISTINCT FROM 3 -- skip bootlegs
         AND EXISTS (
             SELECT 1 FROM release r2
-                WHERE r.barcode = r2.barcode
-                AND r2.status != 3 -- skip bootlegs
+                WHERE lpad(r.barcode, greatest(length(r.barcode), 14), '0') = lpad(r2.barcode, greatest(length(r2.barcode), 14), '0')
+                AND r2.status IS DISTINCT FROM 3 -- skip bootlegs
                 AND r.release_group != r2.release_group
         )
     };

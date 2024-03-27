@@ -32,7 +32,7 @@ const PaginatedResults = ({
   query,
   search = false,
   total = false,
-}: Props): React$Element<React$FragmentType> => {
+}: Props): React.MixedElement => {
   const $c = React.useContext(CatalystContext);
   const paginator = (
     <Paginator

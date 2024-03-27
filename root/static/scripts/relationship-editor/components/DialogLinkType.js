@@ -105,14 +105,24 @@ export function extractLinkTypeSearchTerms(
   ];
 }
 
-export function createInitialState(
+export function createInitialState(options: {
+  disabled?: boolean,
+  id: string,
+  initialFocusRef?: {-current: HTMLInputElement | null},
   linkType: LinkTypeT | null,
+  linkTypeOptions: $ReadOnlyArray<AutocompleteOptionItemT<LinkTypeT>>,
   source: RelatableEntityT,
   targetType: RelatableEntityTypeT,
-  linkTypeOptions: $ReadOnlyArray<AutocompleteOptionItemT<LinkTypeT>>,
-  id: string,
-  disabled?: boolean = false,
-): DialogLinkTypeStateT {
+}): DialogLinkTypeStateT {
+  const {
+    disabled = false,
+    id,
+    initialFocusRef,
+    linkType,
+    linkTypeOptions,
+    source,
+    targetType,
+  } = options;
   return {
     autocomplete: createInitialAutocompleteState<LinkTypeT>({
       containerClass: 'relationship-type',
@@ -120,8 +130,8 @@ export function createInitialState(
       entityType: 'link_type',
       extractSearchTerms: extractLinkTypeSearchTerms,
       id: 'relationship-type-' + id,
-      inputClass: 'relationship-type' +
-        (linkType == null ? ' focus-first' : ''),
+      inputClass: 'relationship-type',
+      inputRef: initialFocusRef,
       inputValue: linkType == null ? '' : formatLinkTypePhrases(linkType),
       placeholder: l('Type or click to search'),
       recentItemsKey: 'link_type-' + source.entityType + '-' + targetType,

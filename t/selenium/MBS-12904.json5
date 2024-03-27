@@ -21,7 +21,7 @@
     },
     {
       command: 'type',
-      target: 'id=entity-artist',
+      target: 'id=ac-source-single-artist',
       value: 'david bowie',
     },
     {
@@ -31,7 +31,7 @@
     },
     {
       command: 'click',
-      target: 'xpath=(//li[contains(@class, "ui-menu-item")][contains(descendant::text(), "David Bowie")])[1]',
+      target: 'xpath=(//ul[@id="ac-source-single-artist-menu"]//li[contains(@class, "option-item")][contains(descendant::text(), "David Bowie")])[1]',
       value: '',
     },
     {

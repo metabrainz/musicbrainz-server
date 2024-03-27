@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import nonEmpty from '../static/scripts/common/utility/nonEmpty.js';
+
 /*
  * If Flow sees a function named `invariant` being called, it will behave
  * as if an exception was thrown inline where the passed condition isn't
@@ -23,7 +25,11 @@ export default function invariant(
   }
 }
 
-export function expect<T>(value: ?T): T {
-  invariant(value != null, 'Expected a non-null value');
+export function expect<T>(value: ?T, description?: string): T {
+  invariant(
+    value != null,
+    'Expected a non-null value' +
+      (nonEmpty(description) ? ` ({description})` : ''),
+  );
   return value;
 }

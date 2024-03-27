@@ -29,7 +29,7 @@ type Props = {
 
 const EditRelationship = ({
   edit,
-}: Props): React$Element<React$FragmentType> => {
+}: Props): React.MixedElement => {
   const oldRels = edit.display_data.relationship.old;
   const newRels = edit.display_data.relationship.new;
   const isDataBroken = oldRels.length !== newRels.length;

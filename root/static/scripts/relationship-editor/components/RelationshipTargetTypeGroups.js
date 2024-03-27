@@ -44,8 +44,6 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
   targetTypeGroups,
   track,
 }: PropsT): React$MixedElement => {
-  const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
-
   const buildPopoverContent = useAddRelationshipDialogContent({
     dispatch,
     preselectedTargetType: null,
@@ -110,7 +108,6 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
               buttonProps={{
                 className: 'add-item with-label add-relationship',
               }}
-              buttonRef={addButtonRef}
               className="relationship-dialog"
               closeOnOutsideClick={false}
               id="add-relationship-dialog"

@@ -260,10 +260,6 @@ export default function guessFeat(entity) {
   entity.artistCredit({
     names: artistCredit.concat(match.artistCredit),
   });
-
-  entity.artistCreditEditorInst?.current?.setState({
-    artistCredit: entity.artistCredit.peek(),
-  });
 }
 
 // For use outside of the release editor.

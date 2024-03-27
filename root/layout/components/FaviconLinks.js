@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const FaviconLinks = (): React$Element<React$FragmentType> => (
+const FaviconLinks = (): React.MixedElement => (
   <>
     <link
       href="/static/images/favicons/apple-touch-icon-57x57.png"
