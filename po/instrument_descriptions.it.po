@@ -27,8 +27,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.4\n"
 
 #. name:rebab 
@@ -97,8 +97,8 @@ msgstr ""
 "block in legno duro per variare il tono. La chitra vina sta alla <a href=\"/"
 "instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">Saraswati vina</a> come la "
 "<a href=\"/instrument/b4d38ac1-7f12-437c-a61a-be2796ffc559\">vichitra vina</"
-"a> dell'India settentrionale sta alla <a href=\"/instrument/aea9661c-cbda-"
-"4bf3-a61d-d78697472f29\">rudra vina</a>."
+"a> dell'India settentrionale sta alla <a href=\"/instrument/aea9661c-"
+"cbda-4bf3-a61d-d78697472f29\">rudra vina</a>."
 
 #. name:kös 
 #: DB:instrument/description:739
@@ -438,6 +438,14 @@ msgid ""
 msgstr ""
 "Il membro di registro medio basso della moderna famiglia dei violini e un "
 "membro di base dell'orchestra sinfonica."
+
+#. name:dudy 
+#: DB:instrument/description:1203
+msgid ""
+"Also known as \"bock\", referencing the goatskin bag, it has been in use "
+"since atleast 1340's. It has a single drone and chanter with single reeds, "
+"modern variants are bellows blown."
+msgstr ""
 
 #. name:classical guitar 
 #: DB:instrument/description:54
@@ -1365,10 +1373,10 @@ msgid ""
 "of wood, often an integral case. It has two courses of strings; drone and "
 "melody strings operated by buttons or keys."
 msgstr ""
-"Sviluppato a partire dal <a href=\"/instrument/1975ee04-30de-4835-9656-"
-"102ccd49c0c7\">taishogoto</a> giapponese, è realizzato in legno e spesso ha "
-"un contenitore integrale. Ha due ordini di corde, melodiche e di bordone, "
-"azionate attraverso bottoni o tasti."
+"Sviluppato a partire dal <a href=\"/"
+"instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a> giapponese, "
+"è realizzato in legno e spesso ha un contenitore integrale. Ha due ordini di "
+"corde, melodiche e di bordone, azionate attraverso bottoni o tasti."
 
 #. name:biniou 
 #: DB:instrument/description:1117
@@ -2577,6 +2585,14 @@ msgstr ""
 "Ha un manico corto e dotato di tasti, con quattro corde in origine in seta, "
 "ma ora solitamente in nylon o in acciaio, e una grande cassa piatta e "
 "rotonda, che gli ha guadagnato il soprannome di \"liuto a forma di luna\"."
+
+#. name:dūdmaišis 
+#: DB:instrument/description:1204
+msgid ""
+"It has a single chanter and drone with a bag made of a variety of animals, "
+"it has fur out and an ornamental goats head. Traditionally played at spring "
+"festivities, recently it has had a resurgence."
+msgstr ""
 
 #. name:sho 
 #: DB:instrument/description:192

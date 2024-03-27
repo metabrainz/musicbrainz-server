@@ -29,8 +29,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: DB:link_attribute_type/description:1355
@@ -1546,6 +1546,18 @@ msgstr ""
 "pubblicazioni, senza effettivamente contribuire alla sua scrittura o "
 "esecuzione."
 
+#: DB:link_type/description:1243
+#, fuzzy
+#| msgid ""
+#| "This credits a person or agency whose photographs are included as part of "
+#| "a recording."
+msgid ""
+"This credits a person or agency who worked on animation for a video "
+"recording."
+msgstr ""
+"Accredita la persona o l'agenzia le cui fotografie sono incluse come parte "
+"di una registrazione."
+
 #: DB:link_type/description:123
 msgid ""
 "This credits a person or agency whose photographs are included as part of a "
@@ -1598,9 +1610,15 @@ msgstr ""
 "(articolo). Questo tipo di relazione va utilizzato in quest'ultimo caso."
 
 #: DB:link_type/description:125
+#, fuzzy
+#| msgid ""
+#| "This credits the people or agency who did the graphic design, arranging "
+#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
+#| "design."
 msgid ""
-"This credits the people or agency who did the graphic design, arranging "
-"pieces of content into a coherent and aesthetically-pleasing sleeve design."
+"This credits the people or agency who did graphic design for a video "
+"recording, arranging pieces of content into a coherent and aesthetically-"
+"pleasing whole."
 msgstr ""
 "Accredita le persone o l'agenzia che hanno curato il progetto grafico, "
 "organizzandone i componenti in un design della custodia coerente e piacevole "
@@ -1910,11 +1928,13 @@ msgstr ""
 
 #: DB:link_type/description:1236
 msgid "This indicates an artist that did the sound effects for the recording."
-msgstr "Indica un artista che ha curato gli effetti sonori della registrazione."
+msgstr ""
+"Indica un artista che ha curato gli effetti sonori della registrazione."
 
 #: DB:link_type/description:1235
 msgid "This indicates an artist that did the sound effects for the release."
-msgstr "Indica un artista che ha curato gli effetti sonori della pubblicazione."
+msgstr ""
+"Indica un artista che ha curato gli effetti sonori della pubblicazione."
 
 #: DB:link_type/description:151
 msgid ""
@@ -1932,6 +1952,12 @@ msgstr ""
 "Indica un artista che ha diretto un'orchestra, una banda o un coro su questa "
 "pubblicazione."
 
+#: DB:link_type/description:1242
+#, fuzzy
+#| msgid "This indicates an artist who did design for the event."
+msgid "This indicates an artist who did design for a video recording."
+msgstr "Indica un artista che ha curato il design dell'evento."
+
 #: DB:link_type/description:1233
 msgid "This indicates an artist who did design for the event."
 msgstr "Indica un artista che ha curato il design dell'evento."
@@ -1939,6 +1965,12 @@ msgstr "Indica un artista che ha curato il design dell'evento."
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr "Indica un artista che ha curato il design della pubblicazione."
+
+#: DB:link_type/description:1244
+#, fuzzy
+#| msgid "This indicates an artist who did illustration for the event."
+msgid "This indicates an artist who did illustration for a video recording."
+msgstr "Indica un artista che ha curato le illustrazioni dell'evento."
 
 #: DB:link_type/description:1232
 msgid "This indicates an artist who did illustration for the event."
@@ -1973,6 +2005,18 @@ msgid ""
 msgstr ""
 "Indica un artista che è responsabile per gli aspetti quotidiani creativi e "
 "pratici che hanno a che fare con la creazione di una registrazione musicale."
+
+#: DB:link_type/description:1241
+#, fuzzy
+#| msgid ""
+#| "This indicates an artist who provided artwork for the event when no more "
+#| "specific information is available."
+msgid ""
+"This indicates an artist who provided artwork for a video recording when no "
+"more specific information is available."
+msgstr ""
+"Indica un artista che ha curato il materiale illustrativo dell'evento quando "
+"non sono disponibili informazioni più specifiche."
 
 #: DB:link_type/description:1231
 msgid ""
@@ -2382,6 +2426,16 @@ msgid ""
 msgstr ""
 "Indica che l'artista è stato il coreografo per questa registrazione video."
 
+#: DB:link_type/description:1245
+#, fuzzy
+#| msgid ""
+#| "This indicates the artist was the choreographer for this video recording."
+msgid ""
+"This indicates the artist was the cinematographer / director of photography "
+"for this video recording."
+msgstr ""
+"Indica che l'artista è stato il coreografo per questa registrazione video."
+
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
 msgstr "Indica che l'artista è stato il regista di questa registrazione video."
@@ -2766,8 +2820,8 @@ msgid ""
 "numerous different ways other than \"karaoke\": instrumental (even if "
 "backing vocals are still present), off vocal, backing track, etc."
 msgstr ""
-"Serve a collegare una versione karaoke di una canzone alla canzone "
-"originale.<br/><br/>\n"
+"Serve a collegare una versione karaoke di una canzone alla canzone originale."
+"<br/><br/>\n"
 "Una versione karaoke è una versione della canzone senza le parti vocali "
 "principali, progettata per essere usata per il karaoke. Le versioni karaoke "
 "sono solitamente prodotte dai master originali togliendo l'audio alla "
@@ -5108,6 +5162,12 @@ msgstr "asin amazon"
 msgid "amount"
 msgstr "quantità"
 
+#: DB:link_type/name:1243
+#, fuzzy
+#| msgid "improvisation"
+msgid "animation"
+msgstr "improvvisazione"
+
 #: DB:link_attribute_type/name:1079
 msgid "anniversary"
 msgstr "anniversario"
@@ -5217,7 +5277,8 @@ msgstr "addetti artisti e repertorio (A&R)"
 msgid "artists and repertoire position"
 msgstr "posizione di addetto artisti e repertorio (A&R)"
 
-#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
+#: DB:link_type/name:1170
 msgid "artwork"
 msgstr "copertine"
 
@@ -5445,6 +5506,18 @@ msgstr "coreografo"
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr "maestro del coro"
+
+#: DB:link_type/name:1245 DB:link_type/reverse_link_phrase:1245
+#, fuzzy
+#| msgid "choreographer"
+msgid "cinematographer"
+msgstr "coreografo"
+
+#: DB:link_type/link_phrase:1245
+#, fuzzy
+#| msgid "discography entry for"
+msgid "cinematographer for"
+msgstr "voce della discografia per"
 
 #: DB:link_attribute_type/name:1204
 msgid "classical music"
@@ -5738,7 +5811,8 @@ msgstr "derivazioni"
 msgid "derived from"
 msgstr "derivato da"
 
-#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1242
+#: DB:link_type/name:1171
 msgid "design"
 msgstr "design"
 
@@ -6571,6 +6645,7 @@ msgid "hybrid of"
 msgstr "ibrido di"
 
 #: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1244
 msgid "illustration"
 msgstr "illustrazioni"
 
@@ -7887,12 +7962,18 @@ msgstr "ha curato le prenotazioni per"
 msgid "provided legal representation for"
 msgstr "ha fornito rappresentanza legale per"
 
+#: DB:link_type/long_link_phrase:1243
+#, fuzzy
+#| msgid "provided {additional} illustration on"
+msgid "provided {additional} animation on"
+msgstr "ha curato le illustrazioni {additional:aggiuntive} di"
+
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:1174
 msgid "provided {additional} art direction on"
 msgstr "ha fornito direzione artistica {additional:aggiuntiva} su"
 
-#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
-#: DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:1241
+#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr "ha curato le copertine {additional:in aggiunta} di"
 
@@ -7914,7 +7995,7 @@ msgid "provided {additional} graphic design on"
 msgstr "ha curato il progetto grafico {additional:aggiuntivo} di"
 
 #: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
-#: DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1173 DB:link_type/long_link_phrase:1244
 msgid "provided {additional} illustration on"
 msgstr "ha curato le illustrazioni {additional:aggiuntive} di"
 
@@ -7929,6 +8010,7 @@ msgstr ""
 "aggiuntiva} su"
 
 #: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1242
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 "ha curato {assistant:da assistente} il design {additional:aggiuntivo} di"
@@ -8798,6 +8880,12 @@ msgstr "ha lavorato come tecnico a"
 msgid "was an orchestra at"
 msgstr "è stata un'orchestra presso"
 
+#: DB:link_type/long_link_phrase:1245
+#, fuzzy
+#| msgid "was {assistant} choreographer for"
+msgid "was cinematographer for"
+msgstr "è stato {assistant:assistente} coreografo per"
+
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
 #: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
 msgid "was commissioned by"
@@ -9234,6 +9322,12 @@ msgstr "{pre:pre-}{re}mastering effettuato {additional:in aggiunta} presso"
 msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr "{pre:pre-}{re}mastering effettuato {additional:in aggiunta} a"
 
+#: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
+#, fuzzy
+#| msgid "{additional} illustration"
+msgid "{additional} animation"
+msgstr "illustrazioni {additional:aggiuntive}"
+
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
 msgstr "luogo {additional:aggiuntivo} di arrangiamento per"
@@ -9243,8 +9337,9 @@ msgstr "luogo {additional:aggiuntivo} di arrangiamento per"
 msgid "{additional} art direction"
 msgstr "direzione artistica {additional:aggiuntiva}"
 
-#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
-#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1241
+#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr "copertine {additional:aggiuntive}"
@@ -9289,8 +9384,9 @@ msgid "{additional} graphic design"
 msgstr "progetto grafico {additional:aggiuntivo}"
 
 #: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
-#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
-#: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
+#: DB:link_type/link_phrase:1173 DB:link_type/link_phrase:1244
+#: DB:link_type/reverse_link_phrase:1232 DB:link_type/reverse_link_phrase:927
+#: DB:link_type/reverse_link_phrase:1173 DB:link_type/reverse_link_phrase:1244
 msgid "{additional} illustration"
 msgstr "illustrazioni {additional:aggiuntive}"
 
@@ -9417,7 +9513,8 @@ msgid "{additional} {assistant} conductor"
 msgstr "{assistant:assistente} direttore d'orchestra {additional:aggiunto}"
 
 #: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
-#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1242 DB:link_type/reverse_link_phrase:1233
+#: DB:link_type/reverse_link_phrase:928 DB:link_type/reverse_link_phrase:1242
 msgid "{additional} {assistant} design"
 msgstr "{assistant:assistenza al} design {additional:aggiuntiva}"
 

@@ -1430,6 +1430,11 @@ msgstr "唤鸭器"
 msgid "duduk"
 msgstr "都都克笛"
 
+#: DB:instrument/name:1203
+msgctxt "Czechian / Bohemian bagpipe"
+msgid "dudy"
+msgstr ""
+
 #: DB:instrument/name:1202
 msgctxt "Podhale bagpipe"
 msgid "dudy podhalanskie"
@@ -1475,6 +1480,11 @@ msgstr "都塔尔"
 #: DB:instrument/name:596
 msgid "duxianqin"
 msgstr "独弦琴"
+
+#: DB:instrument/name:1204
+msgctxt "Lithuanian bagpipe"
+msgid "dūdmaišis"
+msgstr ""
 
 #: DB:instrument/name:327
 msgid "ebow"

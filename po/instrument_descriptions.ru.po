@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-03-11 16:28+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ru/>\n"
 "Language: ru\n"
@@ -23,8 +23,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.4\n"
 
 #. name:rebab 
@@ -352,6 +352,14 @@ msgid ""
 "Also know as violoncello (the \"small large viol\"), it is the medium bass "
 "member of the modern violin family and a principal member of the symphony "
 "orchestra."
+msgstr ""
+
+#. name:dudy 
+#: DB:instrument/description:1203
+msgid ""
+"Also known as \"bock\", referencing the goatskin bag, it has been in use "
+"since atleast 1340's. It has a single drone and chanter with single reeds, "
+"modern variants are bellows blown."
 msgstr ""
 
 #. name:classical guitar 
@@ -1919,6 +1927,14 @@ msgid ""
 "It has a short fretted neck originally with four silk but now usually nylon "
 "or steel strings, and large flat round body, earning it the nickname \"moon "
 "lute\"."
+msgstr ""
+
+#. name:dūdmaišis 
+#: DB:instrument/description:1204
+msgid ""
+"It has a single chanter and drone with a bag made of a variety of animals, "
+"it has fur out and an ornamental goats head. Traditionally played at spring "
+"festivities, recently it has had a resurgence."
 msgstr ""
 
 #. name:sho 

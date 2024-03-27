@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-03-09 12:28+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -30,8 +30,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: DB:link_attribute_type/description:1355
@@ -45,11 +45,12 @@ msgid ""
 "people involved with the label can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Страница в социальной сети — это собственная страница лейбла в <a href="
-"\"https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0"
-"%BD%D0%B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C\">социальной сети</a>, материалы на "
-"которой могут быть опубликованы только людьми, связанными с лейблом. "
-"Например, страница в Facebook, аккаунты в Twitter, Instagram и Flickr."
+"Страница в социальной сети — это собственная страница лейбла в <a "
+"href=\"https://ru.wikipedia.org/wiki/"
+"%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C\">социальной "
+"сети</a>, материалы на которой могут быть опубликованы только людьми, "
+"связанными с лейблом. Например, страница в Facebook, аккаунты в Twitter, "
+"Instagram и Flickr."
 
 #: DB:link_type/description:784
 msgid ""
@@ -59,10 +60,11 @@ msgid ""
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
 "Страница в социальной сети — это страница серии в <a href=\"https://ru."
-"wikipedia.org/wiki/%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%"
-"8F_%D1%81%D0%B5%D1%82%D1%8C\">социальной сети</a>, на которой материалы "
-"могут быть опубликованы только людьми, связанными с серией. Например, "
-"страница в Facebook, аккаунты в Twitter, Instagram и Flickr."
+"wikipedia.org/wiki/"
+"%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C\">социальной "
+"сети</a>, на которой материалы могут быть опубликованы только людьми, "
+"связанными с серией. Например, страница в Facebook, аккаунты в Twitter, "
+"Instagram и Flickr."
 
 #: DB:link_type/description:429
 msgid ""
@@ -71,11 +73,12 @@ msgid ""
 "people involved with the place can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Страница в социальной сети — это собственная страница места в <a href=\"https"
-"://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%"
-"B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C\">социальной сети</a>, на которой "
-"материалы могут быть опубликованы только людьми, связанными с местом. "
-"Например, страница в Facebook, аккаунты в Twitter, Instagram и Flickr."
+"Страница в социальной сети — это собственная страница места в <a "
+"href=\"https://ru.wikipedia.org/wiki/"
+"%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C\">социальной "
+"сети</a>, на которой материалы могут быть опубликованы только людьми, "
+"связанными с местом. Например, страница в Facebook, аккаунты в Twitter, "
+"Instagram и Flickr."
 
 #: DB:link_type/description:192
 msgid ""
@@ -87,15 +90,15 @@ msgid ""
 "post. Examples include Facebook pages and profiles, Last.fm users and "
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Страница в социальной сети — это собственная страница исполнителя в <a href="
-"\"https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0"
-"%BD%D0%B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C\" target=\"_blank\">социальной "
-"сети</a>, материалы на которой могут быть опубликованы только самим "
-"исполнителем (или его представителями). Другие люди могут создать свои "
-"профили и взаимодействовать с исполнителем, например, добавив его в друзья "
-"или оставляя комментарии под публикациями. К таковым можно отнести Страницы "
-"и профили в Facebook, пользователей Last.fm, или аккаунты в Twitter, "
-"Instagram и Flickr."
+"Страница в социальной сети — это собственная страница исполнителя в <a "
+"href=\"https://ru.wikipedia.org/wiki/"
+"%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C\" "
+"target=\"_blank\">социальной сети</a>, материалы на которой могут быть "
+"опубликованы только самим исполнителем (или его представителями). Другие "
+"люди могут создать свои профили и взаимодействовать с исполнителем, "
+"например, добавив его в друзья или оставляя комментарии под публикациями. К "
+"таковым можно отнести Страницы и профили в Facebook, пользователей Last.fm, "
+"или аккаунты в Twitter, Instagram и Flickr."
 
 #: DB:link_type/description:783
 msgid ""
@@ -105,11 +108,12 @@ msgid ""
 "Facebook pages and event entries, and accounts on Twitter, Instagram and "
 "Flickr."
 msgstr ""
-"Страница в социальной сети — это собственная страница мероприятия в <a href="
-"\"https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0"
-"%BD%D0%B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C\">социальной сети</a>, на которой "
-"материалы могут быть опубликованы только людьми, связанными с мероприятием. "
-"Например, страница в Facebook, аккаунты в Twitter, Instagram и Flickr."
+"Страница в социальной сети — это собственная страница мероприятия в <a "
+"href=\"https://ru.wikipedia.org/wiki/"
+"%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C\">социальной "
+"сети</a>, на которой материалы могут быть опубликованы только людьми, "
+"связанными с мероприятием. Например, страница в Facebook, аккаунты в "
+"Twitter, Instagram и Flickr."
 
 #: DB:link_type/link_phrase:77 DB:link_type/reverse_link_phrase:77
 msgid "ASIN"
@@ -1373,6 +1377,12 @@ msgid ""
 "contributing to the writing or performance."
 msgstr ""
 
+#: DB:link_type/description:1243
+msgid ""
+"This credits a person or agency who worked on animation for a video "
+"recording."
+msgstr ""
+
 #: DB:link_type/description:123
 msgid ""
 "This credits a person or agency whose photographs are included as part of a "
@@ -1411,8 +1421,9 @@ msgstr ""
 
 #: DB:link_type/description:125
 msgid ""
-"This credits the people or agency who did the graphic design, arranging "
-"pieces of content into a coherent and aesthetically-pleasing sleeve design."
+"This credits the people or agency who did graphic design for a video "
+"recording, arranging pieces of content into a coherent and aesthetically-"
+"pleasing whole."
 msgstr ""
 
 #: DB:link_type/description:202
@@ -1648,6 +1659,12 @@ msgid ""
 "release."
 msgstr ""
 
+#: DB:link_type/description:1242
+#, fuzzy
+#| msgid "Indicates an artist that performed on this recording."
+msgid "This indicates an artist who did design for a video recording."
+msgstr "Указывает исполнителя, выступавшего на этой записи."
+
 #: DB:link_type/description:1233
 #, fuzzy
 #| msgid "Indicates an artist that performed on this recording."
@@ -1657,6 +1674,12 @@ msgstr "Указывает исполнителя, выступавшего на
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
+
+#: DB:link_type/description:1244
+#, fuzzy
+#| msgid "Indicates an artist that performed on this recording."
+msgid "This indicates an artist who did illustration for a video recording."
+msgstr "Указывает исполнителя, выступавшего на этой записи."
 
 #: DB:link_type/description:1232
 #, fuzzy
@@ -1685,6 +1708,12 @@ msgstr ""
 msgid ""
 "This indicates an artist who is responsible for the creative and practical "
 "day-to-day aspects involved with making a musical recording."
+msgstr ""
+
+#: DB:link_type/description:1241
+msgid ""
+"This indicates an artist who provided artwork for a video recording when no "
+"more specific information is available."
 msgstr ""
 
 #: DB:link_type/description:1231
@@ -1990,6 +2019,14 @@ msgstr ""
 #| msgid "Indicates an artist that performed on this recording."
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
+msgstr "Указывает исполнителя, выступавшего на этой записи."
+
+#: DB:link_type/description:1245
+#, fuzzy
+#| msgid "Indicates an artist that performed on this recording."
+msgid ""
+"This indicates the artist was the cinematographer / director of photography "
+"for this video recording."
 msgstr "Указывает исполнителя, выступавшего на этой записи."
 
 #: DB:link_type/description:962
@@ -4020,6 +4057,12 @@ msgstr ""
 msgid "amount"
 msgstr ""
 
+#: DB:link_type/name:1243
+#, fuzzy
+#| msgid "improvisation"
+msgid "animation"
+msgstr "improvisation"
+
 #: DB:link_attribute_type/name:1079
 msgid "anniversary"
 msgstr ""
@@ -4129,7 +4172,8 @@ msgstr ""
 msgid "artists and repertoire position"
 msgstr ""
 
-#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
+#: DB:link_type/name:1170
 msgid "artwork"
 msgstr ""
 
@@ -4359,6 +4403,18 @@ msgstr "фото"
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr "хормейстер"
+
+#: DB:link_type/name:1245 DB:link_type/reverse_link_phrase:1245
+#, fuzzy
+#| msgid "photography"
+msgid "cinematographer"
+msgstr "фото"
+
+#: DB:link_type/link_phrase:1245
+#, fuzzy
+#| msgid "photography"
+msgid "cinematographer for"
+msgstr "фото"
 
 #: DB:link_attribute_type/name:1204
 msgid "classical music"
@@ -4651,7 +4707,8 @@ msgstr ""
 msgid "derived from"
 msgstr ""
 
-#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1242
+#: DB:link_type/name:1171
 msgid "design"
 msgstr "дизайн"
 
@@ -5487,6 +5544,7 @@ msgid "hybrid of"
 msgstr ""
 
 #: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1244
 msgid "illustration"
 msgstr ""
 
@@ -6795,12 +6853,16 @@ msgstr ""
 msgid "provided legal representation for"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1243
+msgid "provided {additional} animation on"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:1174
 msgid "provided {additional} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
-#: DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:1241
+#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr ""
 
@@ -6822,7 +6884,7 @@ msgid "provided {additional} graphic design on"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
-#: DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1173 DB:link_type/long_link_phrase:1244
 msgid "provided {additional} illustration on"
 msgstr ""
 
@@ -6835,6 +6897,7 @@ msgid "provided {additional} {assistant} art direction on"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1242
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 
@@ -7705,6 +7768,10 @@ msgstr ""
 msgid "was an orchestra at"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1245
+msgid "was cinematographer for"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
 #: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
 msgid "was commissioned by"
@@ -8102,6 +8169,10 @@ msgstr ""
 msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr ""
 
+#: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
+msgid "{additional} animation"
+msgstr ""
+
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
 msgstr ""
@@ -8111,8 +8182,9 @@ msgstr ""
 msgid "{additional} art direction"
 msgstr ""
 
-#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
-#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1241
+#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr ""
@@ -8157,8 +8229,9 @@ msgid "{additional} graphic design"
 msgstr ""
 
 #: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
-#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
-#: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
+#: DB:link_type/link_phrase:1173 DB:link_type/link_phrase:1244
+#: DB:link_type/reverse_link_phrase:1232 DB:link_type/reverse_link_phrase:927
+#: DB:link_type/reverse_link_phrase:1173 DB:link_type/reverse_link_phrase:1244
 msgid "{additional} illustration"
 msgstr ""
 
@@ -8284,7 +8357,8 @@ msgid "{additional} {assistant} conductor"
 msgstr ""
 
 #: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
-#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1242 DB:link_type/reverse_link_phrase:1233
+#: DB:link_type/reverse_link_phrase:928 DB:link_type/reverse_link_phrase:1242
 msgid "{additional} {assistant} design"
 msgstr ""
 

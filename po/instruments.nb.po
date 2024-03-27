@@ -1395,6 +1395,11 @@ msgstr "andeskrik"
 msgid "duduk"
 msgstr ""
 
+#: DB:instrument/name:1203
+msgctxt "Czechian / Bohemian bagpipe"
+msgid "dudy"
+msgstr ""
+
 #: DB:instrument/name:1202
 msgctxt "Podhale bagpipe"
 msgid "dudy podhalanskie"
@@ -1439,6 +1444,11 @@ msgstr ""
 
 #: DB:instrument/name:596
 msgid "duxianqin"
+msgstr ""
+
+#: DB:instrument/name:1204
+msgctxt "Lithuanian bagpipe"
+msgid "dūdmaišis"
 msgstr ""
 
 #: DB:instrument/name:327

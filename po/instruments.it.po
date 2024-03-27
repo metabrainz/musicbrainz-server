@@ -27,8 +27,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: DB:instrument/name:438
@@ -1410,6 +1410,11 @@ msgstr "richiamo per anatre"
 msgid "duduk"
 msgstr "duduk"
 
+#: DB:instrument/name:1203
+msgctxt "Czechian / Bohemian bagpipe"
+msgid "dudy"
+msgstr ""
+
 #: DB:instrument/name:1202
 msgctxt "Podhale bagpipe"
 msgid "dudy podhalanskie"
@@ -1455,6 +1460,11 @@ msgstr "dutar"
 #: DB:instrument/name:596
 msgid "duxianqin"
 msgstr "duxianqin"
+
+#: DB:instrument/name:1204
+msgctxt "Lithuanian bagpipe"
+msgid "dūdmaišis"
+msgstr ""
 
 #: DB:instrument/name:327
 msgid "ebow"

@@ -41,10 +41,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-13 20:55+0200\n"
+"POT-Creation-Date: 2024-03-23 08:52+0000\n"
 "PO-Revision-Date: 2024-03-22 20:28+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -52,8 +52,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -617,8 +617,10 @@ msgstr ""
 "аналогичный релиз уже существует в MusicBrainz. Если вы хотите основать свой "
 "релиз на уже существующем, то выберите его ниже."
 
-#: ../root/artist/edit_form.tt:42 ../root/components/list/ArtistList.js:102
+#: ../root/artist/edit_form.tt:42 ../root/artist/utils.js:19
+#: ../root/components/list/ArtistList.js:102
 #: ../root/search/components/ArtistResults.js:57
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:56
 msgid "Begin area"
 msgstr "Область начала"
 
@@ -700,16 +702,16 @@ msgid "Can be approved"
 msgstr "Может быть одобрено"
 
 #: ../root/layout/merge-helper.tt:34 ../root/release/edit/layout.tt:59
-#: ../root/release/edit/tracklist.tt:117 ../root/area/AreaMerge.js:51
-#: ../root/artist/ArtistMerge.js:79 ../root/collection/CollectionMerge.js:193
+#: ../root/release/edit/tracklist.tt:117 ../root/artist/ArtistMerge.js:79
+#: ../root/collection/CollectionMerge.js:193
 #: ../root/components/ConfirmLayout.js:46 ../root/edit/DeleteNote.js:72
 #: ../root/edit/ModifyNote.js:89 ../root/event/EventMerge.js:54
-#: ../root/instrument/InstrumentMerge.js:51 ../root/label/LabelMerge.js:51
-#: ../root/layout/components/MergeHelper.js:83 ../root/place/PlaceMerge.js:51
-#: ../root/recording/RecordingMerge.js:67 ../root/release/ReleaseMerge.js:68
+#: ../root/label/LabelMerge.js:51 ../root/layout/components/MergeHelper.js:83
+#: ../root/place/PlaceMerge.js:51 ../root/recording/RecordingMerge.js:67
+#: ../root/release/ReleaseMerge.js:68
 #: ../root/release_group/ReleaseGroupMerge.js:52
 #: ../root/series/SeriesMerge.js:51
-#: ../root/static/scripts/common/components/FilterForm.js:377
+#: ../root/static/scripts/common/components/FilterForm.js:395
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:237
 #: ../root/static/scripts/edit/components/URLInputPopover.js:126
 #: ../root/static/scripts/relationship-editor/components/DialogButtons.js:28
@@ -799,7 +801,7 @@ msgstr "Скопировать название издания в группу �
 #: ../root/recording/RecordingIndex.js:60
 #: ../root/release_group/ReleaseGroupIndex.js:171
 #: ../root/search/components/ReleaseResults.js:115
-#: ../root/static/scripts/common/components/FilterForm.js:251
+#: ../root/static/scripts/common/components/FilterForm.js:269
 #: ../root/utility/tableColumns.js:509 ../root/utility/tableColumns.js:521
 msgid "Country"
 msgstr "Страна"
@@ -849,7 +851,7 @@ msgstr "трек"
 #: ../root/search/components/EventResults.js:74
 #: ../root/search/components/ReleaseResults.js:115
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:106
-#: ../root/static/scripts/common/components/FilterForm.js:283
+#: ../root/static/scripts/common/components/FilterForm.js:301
 #: ../root/utility/tableColumns.js:284 ../root/utility/tableColumns.js:289
 #: ../root/utility/tableColumns.js:515 ../root/utility/tableColumns.js:521
 msgid "Date"
@@ -920,7 +922,7 @@ msgstr "Подробнее"
 #: ../root/edit/details/EditRelease.js:93
 #: ../root/edit/details/EditReleaseGroup.js:50
 #: ../root/edit/details/EditSeries.js:48 ../root/edit/details/EditWork.js:59
-#: ../root/static/scripts/common/components/FilterForm.js:353
+#: ../root/static/scripts/common/components/FilterForm.js:371
 msgid "Disambiguation"
 msgstr "Дезамбигурация"
 
@@ -1069,8 +1071,10 @@ msgstr "Редактор"
 msgid "Enable vinyl track numbers"
 msgstr "Включить номера дорожек на виниле"
 
-#: ../root/artist/edit_form.tt:56 ../root/components/list/ArtistList.js:112
+#: ../root/artist/edit_form.tt:56 ../root/artist/utils.js:47
+#: ../root/components/list/ArtistList.js:112
 #: ../root/search/components/ArtistResults.js:59
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:57
 msgid "End area"
 msgstr "Область завершения"
 
@@ -1621,7 +1625,7 @@ msgstr ""
 #: ../root/report/components/LabelUrlList.js:35
 #: ../root/search/components/ReleaseResults.js:116
 #: ../root/search/components/SearchForm.js:40
-#: ../root/static/scripts/common/components/FilterForm.js:235
+#: ../root/static/scripts/common/components/FilterForm.js:253
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
 #: ../root/user/UserProfile.js:54 ../root/utility/tableColumns.js:538
@@ -1857,7 +1861,7 @@ msgstr ""
 #: ../root/search/components/WorkResults.js:54
 #: ../root/static/scripts/account/components/ApplicationForm.js:82
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:199
-#: ../root/static/scripts/common/components/FilterForm.js:168
+#: ../root/static/scripts/common/components/FilterForm.js:169
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:109
 #: ../root/static/scripts/release/components/EditWorkDialog.js:166
 #: ../root/user/UserSubscriptions.js:48
@@ -2563,7 +2567,7 @@ msgstr "Статус"
 #: ../root/edit/details/historic/AddRelease.js:56
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:179
 #: ../root/search/components/ReleaseResults.js:121
-#: ../root/static/scripts/common/components/FilterForm.js:267
+#: ../root/static/scripts/common/components/FilterForm.js:285
 #, fuzzy
 #| msgid "Status"
 msgctxt "release"
@@ -3042,7 +3046,7 @@ msgstr ""
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:205
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:546
-#: ../root/static/scripts/common/components/FilterForm.js:146
+#: ../root/static/scripts/common/components/FilterForm.js:147
 #: ../root/static/scripts/edit/externalLinks.js:1273
 #: ../root/static/scripts/edit/externalLinks.js:1615
 #: ../root/utility/tableColumns.js:654 ../root/utility/tableColumns.js:659
@@ -3140,7 +3144,7 @@ msgstr "Проверка файла..."
 #: ../root/recording/edit_form.tt:44
 #: ../root/edit/details/AddStandaloneRecording.js:64
 #: ../root/edit/details/EditRecording.js:77
-#: ../root/static/scripts/common/components/FilterForm.js:210
+#: ../root/static/scripts/common/components/FilterForm.js:211
 msgid "Video"
 msgstr "Видео"
 
@@ -5860,13 +5864,13 @@ msgctxt "event type"
 msgid "[none]"
 msgstr "[нет]"
 
-#: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:38
+#: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:42
 #, fuzzy
 #| msgid "Video"
 msgid "Videos only"
 msgstr "Видео"
 
-#: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:39
+#: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:43
 msgid "Non-videos only"
 msgstr ""
 
@@ -6884,16 +6888,6 @@ msgstr "Add selected labels for merging"
 msgid "This area is not currently associated with any labels."
 msgstr ""
 
-#: ../root/area/AreaMerge.js:28 ../root/area/AreaMerge.js:30
-msgid "Merge areas"
-msgstr ""
-
-#: ../root/area/AreaMerge.js:32
-msgid ""
-"You are about to merge all these areas into a single one. Please select the "
-"area all others should be merged into:"
-msgstr ""
-
 #: ../root/area/AreaPlaces.js:36 ../root/area/AreaPlaces.js:37
 #: ../root/components/EntityTabs.js:29
 #: ../root/components/TagEntitiesList.js:178 ../root/report/ReportsIndex.js:552
@@ -7247,26 +7241,23 @@ msgid ""
 msgstr ""
 
 #: ../root/artist/utils.js:13
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:65
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:68
 msgid "Born in:"
 msgstr "Место рождения:"
 
 #: ../root/artist/utils.js:17
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:81
 msgctxt "group artist"
 msgid "Founded in"
 msgstr "Место основания"
 
-#: ../root/artist/utils.js:19
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:55
-msgid "Begin area:"
-msgstr "Начал на территории:"
-
 #: ../root/artist/utils.js:26
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:61
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:64
 msgid "Born:"
 msgstr "Дата рождения:"
 
 #: ../root/artist/utils.js:30
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:76
 msgctxt "group artist"
 msgid "Founded"
 msgstr "Дата основания"
@@ -7277,22 +7268,18 @@ msgid "Created"
 msgstr "Дата создания"
 
 #: ../root/artist/utils.js:41
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:65
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:68
 msgid "Died in:"
 msgstr "Место смерти:"
 
 #: ../root/artist/utils.js:45
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:82
 msgctxt "group artist"
 msgid "Dissolved in"
 msgstr "Место распада"
 
-#: ../root/artist/utils.js:47
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:55
-msgid "End area:"
-msgstr "Закончил на территории:"
-
 #: ../root/artist/utils.js:57
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:62
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:65
 msgid "Died:"
 msgstr "Умер:"
 
@@ -7302,6 +7289,7 @@ msgid "Dissolving"
 msgstr ""
 
 #: ../root/artist/utils.js:63
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:77
 msgctxt "group artist"
 msgid "Dissolved"
 msgstr ""
@@ -7988,8 +7976,8 @@ msgid "See all {num} relationships"
 msgstr ""
 
 #: ../root/components/RelationshipsTable.js:335
-#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:203
-#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:211
+#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:209
+#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:217
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:212
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:216
 msgid "Credited as"
@@ -8211,7 +8199,7 @@ msgid "About to close"
 msgstr ""
 
 #: ../root/components/list/EventList.js:109
-#: ../root/static/scripts/common/components/FilterForm.js:335
+#: ../root/static/scripts/common/components/FilterForm.js:353
 msgid "Role"
 msgstr ""
 
@@ -9175,7 +9163,7 @@ msgstr "Удалить"
 
 #: ../root/edit/details/EditArtistCredit.js:26
 #: ../root/report/components/ArtistCreditList.js:29
-#: ../root/static/scripts/common/components/FilterForm.js:127
+#: ../root/static/scripts/common/components/FilterForm.js:128
 msgid "Artist credit"
 msgstr ""
 
@@ -10340,17 +10328,6 @@ msgstr ""
 msgid "No artists found."
 msgstr "Исполнители не найдены."
 
-#: ../root/instrument/InstrumentMerge.js:28
-#: ../root/instrument/InstrumentMerge.js:30
-msgid "Merge instruments"
-msgstr "Объединить инструменты"
-
-#: ../root/instrument/InstrumentMerge.js:32
-msgid ""
-"You are about to merge all these instruments into a single one. Please "
-"select the instrument all others should be merged into:"
-msgstr ""
-
 #: ../root/instrument/List.js:45 ../root/instrument/List.js:47
 #: ../root/layout/components/BottomMenu.js:323
 #, fuzzy
@@ -10918,7 +10895,6 @@ msgid "Label information"
 msgstr "Информация о лейбле"
 
 #: ../root/layout/components/sidebar/LabelSidebar.js:67
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:73
 msgid "Founded:"
 msgstr "Дата основания:"
 
@@ -14367,31 +14343,39 @@ msgstr ""
 msgid "Filter"
 msgstr "Фильтр"
 
-#: ../root/static/scripts/common/components/FilterForm.js:103
+#: ../root/static/scripts/common/components/FilterForm.js:104
 msgid "Filter events"
 msgstr ""
 
-#: ../root/static/scripts/common/components/FilterForm.js:105
+#: ../root/static/scripts/common/components/FilterForm.js:106
 msgid "Filter recordings"
 msgstr "Filter recordings"
 
-#: ../root/static/scripts/common/components/FilterForm.js:107
+#: ../root/static/scripts/common/components/FilterForm.js:108
 msgid "Filter releases"
 msgstr "Filter releases"
 
-#: ../root/static/scripts/common/components/FilterForm.js:109
+#: ../root/static/scripts/common/components/FilterForm.js:110
 msgid "Filter release groups"
 msgstr ""
 
-#: ../root/static/scripts/common/components/FilterForm.js:111
+#: ../root/static/scripts/common/components/FilterForm.js:112
 msgid "Filter works"
 msgstr ""
 
-#: ../root/static/scripts/common/components/FilterForm.js:187
+#: ../root/static/scripts/common/components/FilterForm.js:188
 msgid "Setlist contains"
 msgstr ""
 
-#: ../root/static/scripts/common/components/FilterForm.js:310
+#: ../root/static/scripts/common/components/FilterForm.js:227
+msgid "Hide recordings that only appear on bootleg releases"
+msgstr ""
+
+#: ../root/static/scripts/common/components/FilterForm.js:230
+msgid "Hide bootleg-only"
+msgstr ""
+
+#: ../root/static/scripts/common/components/FilterForm.js:328
 msgid "Secondary type"
 msgstr ""
 
@@ -14779,24 +14763,12 @@ msgctxt "artist end date"
 msgid "Ended"
 msgstr ""
 
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:63
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:66
 msgid "This person is deceased."
 msgstr "Этот человек уже умер."
 
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:74
-msgid "Dissolved:"
-msgstr ""
-
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:75
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:78
 msgid "This group has dissolved."
-msgstr ""
-
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:77
-msgid "Founded in:"
-msgstr "Область основания:"
-
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:77
-msgid "Dissolved in:"
 msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:386
@@ -14833,8 +14805,8 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:662
 #: ../root/static/scripts/edit/URLCleanup.js:925
-#: ../root/static/scripts/edit/URLCleanup.js:4317
-#: ../root/static/scripts/edit/URLCleanup.js:5431
+#: ../root/static/scripts/edit/URLCleanup.js:4318
+#: ../root/static/scripts/edit/URLCleanup.js:5432
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -14887,184 +14859,184 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1532
+#: ../root/static/scripts/edit/URLCleanup.js:1533
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1534
+#: ../root/static/scripts/edit/URLCleanup.js:1535
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2292
+#: ../root/static/scripts/edit/URLCleanup.js:2293
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2983
+#: ../root/static/scripts/edit/URLCleanup.js:2984
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3001
+#: ../root/static/scripts/edit/URLCleanup.js:3002
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3046
+#: ../root/static/scripts/edit/URLCleanup.js:3047
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3074
+#: ../root/static/scripts/edit/URLCleanup.js:3075
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3099
+#: ../root/static/scripts/edit/URLCleanup.js:3100
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4214
+#: ../root/static/scripts/edit/URLCleanup.js:4215
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4926
+#: ../root/static/scripts/edit/URLCleanup.js:4927
 msgid "Only RYM music videos can be linked to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4988
+#: ../root/static/scripts/edit/URLCleanup.js:4989
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5608
+#: ../root/static/scripts/edit/URLCleanup.js:5609
 msgid "Please link to Threads profiles, not threads."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5742
+#: ../root/static/scripts/edit/URLCleanup.js:5743
 msgid "Please link to TikTok profiles, not videos."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6009
+#: ../root/static/scripts/edit/URLCleanup.js:6010
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6023
+#: ../root/static/scripts/edit/URLCleanup.js:6024
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6041
+#: ../root/static/scripts/edit/URLCleanup.js:6042
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6247
+#: ../root/static/scripts/edit/URLCleanup.js:6248
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6424
+#: ../root/static/scripts/edit/URLCleanup.js:6425
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6444
+#: ../root/static/scripts/edit/URLCleanup.js:6445
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6465
+#: ../root/static/scripts/edit/URLCleanup.js:6466
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6483
+#: ../root/static/scripts/edit/URLCleanup.js:6484
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6495
+#: ../root/static/scripts/edit/URLCleanup.js:6496
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6562
+#: ../root/static/scripts/edit/URLCleanup.js:6563
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6587
+#: ../root/static/scripts/edit/URLCleanup.js:6588
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6752
+#: ../root/static/scripts/edit/URLCleanup.js:6753
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6792
+#: ../root/static/scripts/edit/URLCleanup.js:6793
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6837
+#: ../root/static/scripts/edit/URLCleanup.js:6838
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6873
+#: ../root/static/scripts/edit/URLCleanup.js:6874
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6883
+#: ../root/static/scripts/edit/URLCleanup.js:6884
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6893
+#: ../root/static/scripts/edit/URLCleanup.js:6894
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6936
+#: ../root/static/scripts/edit/URLCleanup.js:6937
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6948
+#: ../root/static/scripts/edit/URLCleanup.js:6949
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7159
+#: ../root/static/scripts/edit/URLCleanup.js:7160
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7176
+#: ../root/static/scripts/edit/URLCleanup.js:7177
 #: ../root/static/scripts/edit/externalLinks.js:1073
 msgid "This relationship type combination is invalid."
 msgstr ""
@@ -15523,25 +15495,25 @@ msgstr "Continue"
 msgid "Leave"
 msgstr "Leave"
 
-#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:39
+#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:41
 #, fuzzy
 #| msgid "Add instrument"
 msgctxt "interactive"
 msgid "Add instrument"
 msgstr "Добавить инструмент"
 
-#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:40
+#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:43
 msgid "Add vocal"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:167
-msgid "This attribute is required."
-msgstr "Этот атрибут является обязательным."
-
-#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:239
+#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:45
 msgctxt "relationship attribute"
 msgid "Add another"
 msgstr "Добавить еще"
+
+#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:173
+msgid "This attribute is required."
+msgstr "Этот атрибут является обязательным."
 
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:217
 msgid ""
@@ -17654,6 +17626,18 @@ msgstr ""
 "<strong>Предупреждение:</strong> Некоторые работы, которые вы объединяете, "
 "имеют разные ISWC. Пожалуйста, убедитесь, что это действительно одни и те же "
 "работы и вы хотите продолжить объединение."
+
+#~ msgid "Begin area:"
+#~ msgstr "Начал на территории:"
+
+#~ msgid "End area:"
+#~ msgstr "Закончил на территории:"
+
+#~ msgid "Merge instruments"
+#~ msgstr "Объединить инструменты"
+
+#~ msgid "Founded in:"
+#~ msgstr "Область основания:"
 
 #~ msgid "Series"
 #~ msgstr "Серия"
