@@ -1537,6 +1537,18 @@ msgstr ""
 "ンスではなく、ある種の一般的な創造的なインスピレーションを提供した個人または"
 "機関のクレジットである。"
 
+#: DB:link_type/description:1243
+#, fuzzy
+#| msgid ""
+#| "This credits a person or agency whose photographs are included as part of "
+#| "a recording."
+msgid ""
+"This credits a person or agency who worked on animation for a video "
+"recording."
+msgstr ""
+"これは、写真がレコーディングの一部として含まれている個人または機関のクレジッ"
+"トである。"
+
 #: DB:link_type/description:123
 msgid ""
 "This credits a person or agency whose photographs are included as part of a "
@@ -1584,9 +1596,15 @@ msgstr ""
 "タイプを使用する必要がある。"
 
 #: DB:link_type/description:125
+#, fuzzy
+#| msgid ""
+#| "This credits the people or agency who did the graphic design, arranging "
+#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
+#| "design."
 msgid ""
-"This credits the people or agency who did the graphic design, arranging "
-"pieces of content into a coherent and aesthetically-pleasing sleeve design."
+"This credits the people or agency who did graphic design for a video "
+"recording, arranging pieces of content into a coherent and aesthetically-"
+"pleasing whole."
 msgstr ""
 "これは、グラフィックデザインを行い、コンテンツを一貫性のある見た目に美しいス"
 "リーブデザインに配置した人々または代理店のクレジットである。"
@@ -1882,6 +1900,12 @@ msgstr ""
 "これは、このリリースでオーケストラ、バンド、または合唱団を指揮したアーティス"
 "トを示す。"
 
+#: DB:link_type/description:1242
+#, fuzzy
+#| msgid "This indicates a person or agency who did design for the release."
+msgid "This indicates an artist who did design for a video recording."
+msgstr "これは、リリースの設計を行った個人または代理店を示す。"
+
 #: DB:link_type/description:1233
 #, fuzzy
 #| msgid "This indicates a person or agency who did design for the release."
@@ -1891,6 +1915,13 @@ msgstr "これは、リリースの設計を行った個人または代理店を
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
+
+#: DB:link_type/description:1244
+#, fuzzy
+#| msgid ""
+#| "This indicates a person or agency who did illustration for the release."
+msgid "This indicates an artist who did illustration for a video recording."
+msgstr "これは、リリースのイラストを描いた人物または代理店を示す。"
 
 #: DB:link_type/description:1232
 #, fuzzy
@@ -1930,6 +1961,18 @@ msgid ""
 msgstr ""
 "これは、レコーディングの作成に関連する創造的かつ実用的な日常の側面を担当する"
 "アーティストを示す。"
+
+#: DB:link_type/description:1241
+#, fuzzy
+#| msgid ""
+#| "This indicates a person or agency who provided artwork for the release "
+#| "when no more specific information is available."
+msgid ""
+"This indicates an artist who provided artwork for a video recording when no "
+"more specific information is available."
+msgstr ""
+"これは、具体的な情報が入手出来ない場合にリリース用のアートワークを提供した個"
+"人または代理店を示す。"
 
 #: DB:link_type/description:1231
 #, fuzzy
@@ -2306,6 +2349,14 @@ msgstr ""
 #| msgid "This indicates the artist was the director of this music video."
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
+msgstr "これは、アーティストがこのミュージックビデオの監督であったことを示す。"
+
+#: DB:link_type/description:1245
+#, fuzzy
+#| msgid "This indicates the artist was the director of this music video."
+msgid ""
+"This indicates the artist was the cinematographer / director of photography "
+"for this video recording."
 msgstr "これは、アーティストがこのミュージックビデオの監督であったことを示す。"
 
 #: DB:link_type/description:962
@@ -4923,6 +4974,12 @@ msgstr "Amazon ASIN"
 msgid "amount"
 msgstr ""
 
+#: DB:link_type/name:1243
+#, fuzzy
+#| msgid "improvisation"
+msgid "animation"
+msgstr "即興"
+
 #: DB:link_attribute_type/name:1079
 msgid "anniversary"
 msgstr "記念日"
@@ -5032,7 +5089,8 @@ msgstr ""
 msgid "artists and repertoire position"
 msgstr ""
 
-#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
+#: DB:link_type/name:1170
 msgid "artwork"
 msgstr "アートワーク"
 
@@ -5262,6 +5320,18 @@ msgstr "ディスコグラフィー項目"
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr "コーラスマスター"
+
+#: DB:link_type/name:1245 DB:link_type/reverse_link_phrase:1245
+#, fuzzy
+#| msgid "discography entry"
+msgid "cinematographer"
+msgstr "ディスコグラフィー項目"
+
+#: DB:link_type/link_phrase:1245
+#, fuzzy
+#| msgid "discography entry for"
+msgid "cinematographer for"
+msgstr "次のディスコグラフィー項目"
 
 #: DB:link_attribute_type/name:1204
 msgid "classical music"
@@ -5554,7 +5624,8 @@ msgstr "派生"
 msgid "derived from"
 msgstr "派生元"
 
-#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1242
+#: DB:link_type/name:1171
 msgid "design"
 msgstr "デザイン"
 
@@ -6390,6 +6461,7 @@ msgid "hybrid of"
 msgstr ""
 
 #: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1244
 msgid "illustration"
 msgstr "イラスト"
 
@@ -7700,12 +7772,18 @@ msgstr ""
 msgid "provided legal representation for"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1243
+#, fuzzy
+#| msgid "{additional} arranging location for"
+msgid "provided {additional} animation on"
+msgstr "ここで{additional:補助的に}編曲された作品"
+
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:1174
 msgid "provided {additional} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
-#: DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:1241
+#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr ""
 
@@ -7727,7 +7805,7 @@ msgid "provided {additional} graphic design on"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
-#: DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1173 DB:link_type/long_link_phrase:1244
 msgid "provided {additional} illustration on"
 msgstr ""
 
@@ -7740,6 +7818,7 @@ msgid "provided {additional} {assistant} art direction on"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1242
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 
@@ -8614,6 +8693,12 @@ msgstr ""
 msgid "was an orchestra at"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1245
+#, fuzzy
+#| msgid "{assistant} organists"
+msgid "was cinematographer for"
+msgstr "{assistant}オルガン奏者"
+
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
 #: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
 msgid "was commissioned by"
@@ -9024,6 +9109,12 @@ msgstr ""
 msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr ""
 
+#: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
+#, fuzzy
+#| msgid "{additional} illustration"
+msgid "{additional} animation"
+msgstr "{additional:補助的な}イラスト"
+
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
 msgstr "ここで{additional:補助的に}編曲された作品"
@@ -9033,8 +9124,9 @@ msgstr "ここで{additional:補助的に}編曲された作品"
 msgid "{additional} art direction"
 msgstr "{additional:補助的な}アートディレクション"
 
-#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
-#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1241
+#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr "{additional:補助的な}アートワーク"
@@ -9079,8 +9171,9 @@ msgid "{additional} graphic design"
 msgstr "{additional:補助的な}グラフィックデザイン"
 
 #: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
-#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
-#: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
+#: DB:link_type/link_phrase:1173 DB:link_type/link_phrase:1244
+#: DB:link_type/reverse_link_phrase:1232 DB:link_type/reverse_link_phrase:927
+#: DB:link_type/reverse_link_phrase:1173 DB:link_type/reverse_link_phrase:1244
 msgid "{additional} illustration"
 msgstr "{additional:補助的な}イラスト"
 
@@ -9207,7 +9300,8 @@ msgid "{additional} {assistant} conductor"
 msgstr ""
 
 #: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
-#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1242 DB:link_type/reverse_link_phrase:1233
+#: DB:link_type/reverse_link_phrase:928 DB:link_type/reverse_link_phrase:1242
 msgid "{additional} {assistant} design"
 msgstr ""
 

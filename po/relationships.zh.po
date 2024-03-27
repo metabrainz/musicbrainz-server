@@ -1411,6 +1411,16 @@ msgstr ""
 "这记载的是在专辑组的录制期间提供了一般性创作灵感，但对创作和表演无实质贡献的"
 "个人或机构。"
 
+#: DB:link_type/description:1243
+#, fuzzy
+#| msgid ""
+#| "This credits a person or agency whose photographs are included as part of "
+#| "a recording."
+msgid ""
+"This credits a person or agency who worked on animation for a video "
+"recording."
+msgstr "这记载的是在录音中有照片被采用的个人或机构。"
+
 #: DB:link_type/description:123
 msgid ""
 "This credits a person or agency whose photographs are included as part of a "
@@ -1451,9 +1461,15 @@ msgstr ""
 "况。"
 
 #: DB:link_type/description:125
+#, fuzzy
+#| msgid ""
+#| "This credits the people or agency who did the graphic design, arranging "
+#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
+#| "design."
 msgid ""
-"This credits the people or agency who did the graphic design, arranging "
-"pieces of content into a coherent and aesthetically-pleasing sleeve design."
+"This credits the people or agency who did graphic design for a video "
+"recording, arranging pieces of content into a coherent and aesthetically-"
+"pleasing whole."
 msgstr ""
 "这记载的是平面设计师或机构，他们将内容元素组合为符合一致性和审美要求的封套设"
 "计。"
@@ -1736,6 +1752,12 @@ msgid ""
 "release."
 msgstr "这表明艺术家在此专辑中指挥了乐团，乐队或合唱团。"
 
+#: DB:link_type/description:1242
+#, fuzzy
+#| msgid "This indicates an artist cancelled their appearance at an event."
+msgid "This indicates an artist who did design for a video recording."
+msgstr "这表明艺术家在活动中取消出席。"
+
 #: DB:link_type/description:1233
 #, fuzzy
 #| msgid "This indicates an artist cancelled their appearance at an event."
@@ -1745,6 +1767,14 @@ msgstr "这表明艺术家在活动中取消出席。"
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
+
+#: DB:link_type/description:1244
+#, fuzzy
+#| msgid ""
+#| "This indicates a person or agency who did design or illustration for the "
+#| "track."
+msgid "This indicates an artist who did illustration for a video recording."
+msgstr "这指的是参与设计音轨或制作音轨插图的个人或机构。"
 
 #: DB:link_type/description:1232
 #, fuzzy
@@ -1783,6 +1813,16 @@ msgid ""
 "This indicates an artist who is responsible for the creative and practical "
 "day-to-day aspects involved with making a musical recording."
 msgstr "这表明艺术家负责录音制作期间的创作和日常实践。"
+
+#: DB:link_type/description:1241
+#, fuzzy
+#| msgid ""
+#| "This indicates an artist who conducted an orchestra, band or choir on "
+#| "this release."
+msgid ""
+"This indicates an artist who provided artwork for a video recording when no "
+"more specific information is available."
+msgstr "这表明艺术家在此专辑中指挥了乐团，乐队或合唱团。"
 
 #: DB:link_type/description:1231
 #, fuzzy
@@ -2121,6 +2161,16 @@ msgstr ""
 #| "orchestra or band on this recording."
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
+msgstr "这表明艺术家是录音中乐团或乐队的首席演奏者/领班。"
+
+#: DB:link_type/description:1245
+#, fuzzy
+#| msgid ""
+#| "This indicates an artist who was the concertmaster/leader for an "
+#| "orchestra or band on this recording."
+msgid ""
+"This indicates the artist was the cinematographer / director of photography "
+"for this video recording."
 msgstr "这表明艺术家是录音中乐团或乐队的首席演奏者/领班。"
 
 #: DB:link_type/description:962
@@ -4300,6 +4350,12 @@ msgstr "亚马逊 ASIN"
 msgid "amount"
 msgstr ""
 
+#: DB:link_type/name:1243
+#, fuzzy
+#| msgid "improvisation"
+msgid "animation"
+msgstr "即兴"
+
 #: DB:link_attribute_type/name:1079
 msgid "anniversary"
 msgstr ""
@@ -4409,7 +4465,8 @@ msgstr ""
 msgid "artists and repertoire position"
 msgstr ""
 
-#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
+#: DB:link_type/name:1170
 msgid "artwork"
 msgstr ""
 
@@ -4639,6 +4696,18 @@ msgstr "唱片条目"
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr ""
+
+#: DB:link_type/name:1245 DB:link_type/reverse_link_phrase:1245
+#, fuzzy
+#| msgid "discography entry"
+msgid "cinematographer"
+msgstr "唱片条目"
+
+#: DB:link_type/link_phrase:1245
+#, fuzzy
+#| msgid "discography entry for"
+msgid "cinematographer for"
+msgstr "的唱片条目"
 
 #: DB:link_attribute_type/name:1204
 msgid "classical music"
@@ -4931,7 +5000,8 @@ msgstr ""
 msgid "derived from"
 msgstr ""
 
-#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1242
+#: DB:link_type/name:1171
 msgid "design"
 msgstr "设计"
 
@@ -5771,6 +5841,7 @@ msgid "hybrid of"
 msgstr ""
 
 #: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1244
 msgid "illustration"
 msgstr "插图"
 
@@ -7077,12 +7148,16 @@ msgstr ""
 msgid "provided legal representation for"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1243
+msgid "provided {additional} animation on"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:1174
 msgid "provided {additional} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
-#: DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:1241
+#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr ""
 
@@ -7104,7 +7179,7 @@ msgid "provided {additional} graphic design on"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
-#: DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1173 DB:link_type/long_link_phrase:1244
 msgid "provided {additional} illustration on"
 msgstr ""
 
@@ -7117,6 +7192,7 @@ msgid "provided {additional} {assistant} art direction on"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1242
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 
@@ -7991,6 +8067,12 @@ msgstr ""
 msgid "was an orchestra at"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1245
+#, fuzzy
+#| msgid "discography entry for"
+msgid "was cinematographer for"
+msgstr "的唱片条目"
+
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
 #: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
 msgid "was commissioned by"
@@ -8388,6 +8470,12 @@ msgstr ""
 msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr ""
 
+#: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
+#, fuzzy
+#| msgid "additional"
+msgid "{additional} animation"
+msgstr "额外"
+
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
 msgstr ""
@@ -8397,8 +8485,9 @@ msgstr ""
 msgid "{additional} art direction"
 msgstr ""
 
-#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
-#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1241
+#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr ""
@@ -8443,8 +8532,9 @@ msgid "{additional} graphic design"
 msgstr ""
 
 #: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
-#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
-#: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
+#: DB:link_type/link_phrase:1173 DB:link_type/link_phrase:1244
+#: DB:link_type/reverse_link_phrase:1232 DB:link_type/reverse_link_phrase:927
+#: DB:link_type/reverse_link_phrase:1173 DB:link_type/reverse_link_phrase:1244
 msgid "{additional} illustration"
 msgstr ""
 
@@ -8570,7 +8660,8 @@ msgid "{additional} {assistant} conductor"
 msgstr ""
 
 #: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
-#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1242 DB:link_type/reverse_link_phrase:1233
+#: DB:link_type/reverse_link_phrase:928 DB:link_type/reverse_link_phrase:1242
 msgid "{additional} {assistant} design"
 msgstr ""
 

@@ -414,6 +414,14 @@ msgid ""
 "orchestra."
 msgstr ""
 
+#. name:dudy 
+#: DB:instrument/description:1203
+msgid ""
+"Also known as \"bock\", referencing the goatskin bag, it has been in use "
+"since atleast 1340's. It has a single drone and chanter with single reeds, "
+"modern variants are bellows blown."
+msgstr ""
+
 #. name:classical guitar 
 #: DB:instrument/description:54
 msgid ""
@@ -2059,6 +2067,14 @@ msgid ""
 "It has a short fretted neck originally with four silk but now usually nylon "
 "or steel strings, and large flat round body, earning it the nickname \"moon "
 "lute\"."
+msgstr ""
+
+#. name:dūdmaišis 
+#: DB:instrument/description:1204
+msgid ""
+"It has a single chanter and drone with a bag made of a variety of animals, "
+"it has fur out and an ornamental goats head. Traditionally played at spring "
+"festivities, recently it has had a resurgence."
 msgstr ""
 
 #. name:sho 

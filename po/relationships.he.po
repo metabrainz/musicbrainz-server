@@ -1433,6 +1433,16 @@ msgstr ""
 "מזכה אדם או סוכנות שסיפקו השראה יצירתית כללית לכשהיא במהלך ההקלטה של קבוצת "
 "הוצאה זו, מבלי לתרום בפועל לכתיבה או להופעה."
 
+#: DB:link_type/description:1243
+#, fuzzy
+#| msgid ""
+#| "This credits a person or agency whose photographs are included as part of "
+#| "a recording."
+msgid ""
+"This credits a person or agency who worked on animation for a video "
+"recording."
+msgstr "זיכוי אדם או סוכנות שהתצלומים שלהם הם חלק מהקלטה."
+
 #: DB:link_type/description:123
 msgid ""
 "This credits a person or agency whose photographs are included as part of a "
@@ -1473,9 +1483,15 @@ msgstr ""
 "פרסומי (מאמר). יש להשתמש בסוג קשר זה במקרה האחרון."
 
 #: DB:link_type/description:125
+#, fuzzy
+#| msgid ""
+#| "This credits the people or agency who did the graphic design, arranging "
+#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
+#| "design."
 msgid ""
-"This credits the people or agency who did the graphic design, arranging "
-"pieces of content into a coherent and aesthetically-pleasing sleeve design."
+"This credits the people or agency who did graphic design for a video "
+"recording, arranging pieces of content into a coherent and aesthetically-"
+"pleasing whole."
 msgstr ""
 "מזכה את האנשים או הסוכנות שבצעו את העיצוב הגרפי, תוך שהם מסדרים חלקי תוכן "
 "לעיצוב שרוול לכיד ונעים אסתטית."
@@ -1755,6 +1771,12 @@ msgid ""
 "release."
 msgstr "ציון אמן שנצח על תזמורת, להקה או מקהלה בהוצאה זו."
 
+#: DB:link_type/description:1242
+#, fuzzy
+#| msgid "This indicates a person or agency who did design for the release."
+msgid "This indicates an artist who did design for a video recording."
+msgstr "ציון אדם או סוכנות שעיצבו עבור ההוצאה."
+
 #: DB:link_type/description:1233
 #, fuzzy
 #| msgid "This indicates a person or agency who did design for the release."
@@ -1764,6 +1786,13 @@ msgstr "ציון אדם או סוכנות שעיצבו עבור ההוצאה."
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
+
+#: DB:link_type/description:1244
+#, fuzzy
+#| msgid ""
+#| "This indicates a person or agency who did illustration for the release."
+msgid "This indicates an artist who did illustration for a video recording."
+msgstr "ציון אדם או סוכנות ששאירו עבור ההוצאה."
 
 #: DB:link_type/description:1232
 #, fuzzy
@@ -1803,6 +1832,18 @@ msgid ""
 msgstr ""
 "ציון אמן האחראי להיבטים היומיומיים היצירתיים והמעשיים הכרוכים בביצוע הקלטה "
 "מוזיקלית."
+
+#: DB:link_type/description:1241
+#, fuzzy
+#| msgid ""
+#| "This indicates a person or agency who provided artwork for the release "
+#| "when no more specific information is available."
+msgid ""
+"This indicates an artist who provided artwork for a video recording when no "
+"more specific information is available."
+msgstr ""
+"ציון אדם או סוכנות שבצעו נהול אמנותי עבור הוצאה כאשר מידע מסוים יותר אינו "
+"זמין."
 
 #: DB:link_type/description:1231
 #, fuzzy
@@ -2149,6 +2190,14 @@ msgstr ""
 #| msgid "This indicates the artist was the director of this music video."
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
+msgstr "ציון שאמן היה הבמאי של חוזי המוזיקה."
+
+#: DB:link_type/description:1245
+#, fuzzy
+#| msgid "This indicates the artist was the director of this music video."
+msgid ""
+"This indicates the artist was the cinematographer / director of photography "
+"for this video recording."
 msgstr "ציון שאמן היה הבמאי של חוזי המוזיקה."
 
 #: DB:link_type/description:962
@@ -4629,6 +4678,12 @@ msgstr " asin אמזון"
 msgid "amount"
 msgstr "סכום"
 
+#: DB:link_type/name:1243
+#, fuzzy
+#| msgid "improvisation"
+msgid "animation"
+msgstr "אִלתוּר"
+
 #: DB:link_attribute_type/name:1079
 msgid "anniversary"
 msgstr "יוֹם הַשָׁנָה"
@@ -4738,7 +4793,8 @@ msgstr ""
 msgid "artists and repertoire position"
 msgstr ""
 
-#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
+#: DB:link_type/name:1170
 msgid "artwork"
 msgstr "תמונות עטיפה"
 
@@ -4968,6 +5024,18 @@ msgstr "צילום"
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr "מנהל(ת) מקהלה"
+
+#: DB:link_type/name:1245 DB:link_type/reverse_link_phrase:1245
+#, fuzzy
+#| msgid "photography"
+msgid "cinematographer"
+msgstr "צילום"
+
+#: DB:link_type/link_phrase:1245
+#, fuzzy
+#| msgid "discography entry for"
+msgid "cinematographer for"
+msgstr "רשומת דיסקוגרפיה עבור"
 
 #: DB:link_attribute_type/name:1204
 msgid "classical music"
@@ -5262,7 +5330,8 @@ msgstr "נגזרות"
 msgid "derived from"
 msgstr "נגזר מ־"
 
-#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1242
+#: DB:link_type/name:1171
 msgid "design"
 msgstr "עיצוב"
 
@@ -6104,6 +6173,7 @@ msgid "hybrid of"
 msgstr "הכלאה של"
 
 #: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1244
 msgid "illustration"
 msgstr "איור"
 
@@ -7418,12 +7488,18 @@ msgstr "רישום הזמנות ל־"
 msgid "provided legal representation for"
 msgstr "ייצוג משפטי ל־"
 
+#: DB:link_type/long_link_phrase:1243
+#, fuzzy
+#| msgid "provided {additional} illustration on"
+msgid "provided {additional} animation on"
+msgstr "{additional} איור ב־"
+
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:1174
 msgid "provided {additional} art direction on"
 msgstr "{additional} נהול אמנותי ב־"
 
-#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
-#: DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:1241
+#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr "provided {additional} תמונות עטיפה ב־"
 
@@ -7445,7 +7521,7 @@ msgid "provided {additional} graphic design on"
 msgstr "{additional} עיצוב גרפי ב־"
 
 #: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
-#: DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1173 DB:link_type/long_link_phrase:1244
 msgid "provided {additional} illustration on"
 msgstr "{additional} איור ב־"
 
@@ -7458,6 +7534,7 @@ msgid "provided {additional} {assistant} art direction on"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1242
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 
@@ -8334,6 +8411,12 @@ msgstr ""
 msgid "was an orchestra at"
 msgstr "תזמורת ב־"
 
+#: DB:link_type/long_link_phrase:1245
+#, fuzzy
+#| msgid "was {assistant} organist at"
+msgid "was cinematographer for"
+msgstr "{assistant} אורגניסט ב־"
+
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
 #: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
 msgid "was commissioned by"
@@ -8740,6 +8823,12 @@ msgstr ""
 msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr ""
 
+#: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
+#, fuzzy
+#| msgid "{additional} illustration"
+msgid "{additional} animation"
+msgstr "{additional} איור"
+
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
 msgstr "{additional} אתר עיבוד ל־"
@@ -8749,8 +8838,9 @@ msgstr "{additional} אתר עיבוד ל־"
 msgid "{additional} art direction"
 msgstr "{additional} ניהול אמנותי"
 
-#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
-#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1241
+#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr "{additional} תמונות עטיפה"
@@ -8795,8 +8885,9 @@ msgid "{additional} graphic design"
 msgstr "{additional} עיצוב גרפי"
 
 #: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
-#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
-#: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
+#: DB:link_type/link_phrase:1173 DB:link_type/link_phrase:1244
+#: DB:link_type/reverse_link_phrase:1232 DB:link_type/reverse_link_phrase:927
+#: DB:link_type/reverse_link_phrase:1173 DB:link_type/reverse_link_phrase:1244
 msgid "{additional} illustration"
 msgstr "{additional} איור"
 
@@ -8922,7 +9013,8 @@ msgid "{additional} {assistant} conductor"
 msgstr ""
 
 #: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
-#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1242 DB:link_type/reverse_link_phrase:1233
+#: DB:link_type/reverse_link_phrase:928 DB:link_type/reverse_link_phrase:1242
 msgid "{additional} {assistant} design"
 msgstr ""
 

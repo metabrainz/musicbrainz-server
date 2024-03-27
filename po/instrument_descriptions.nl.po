@@ -440,6 +440,14 @@ msgstr ""
 "een-na-laagst klinkende lid van de moderne vioolfamilie. Het instrument is "
 "een belangrijk onderdeel van moderne symfonieorkesten."
 
+#. name:dudy 
+#: DB:instrument/description:1203
+msgid ""
+"Also known as \"bock\", referencing the goatskin bag, it has been in use "
+"since atleast 1340's. It has a single drone and chanter with single reeds, "
+"modern variants are bellows blown."
+msgstr ""
+
 #. name:classical guitar 
 #: DB:instrument/description:54
 msgid ""
@@ -2618,6 +2626,14 @@ msgstr ""
 "van zijde, maar tegenwoordig van nylon of staal worden gemaakt. Dankzij de "
 "schijfvormige klankkast heeft het instrument de bijnamen maangitaar en "
 "maanciter."
+
+#. name:dūdmaišis 
+#: DB:instrument/description:1204
+msgid ""
+"It has a single chanter and drone with a bag made of a variety of animals, "
+"it has fur out and an ornamental goats head. Traditionally played at spring "
+"festivities, recently it has had a resurgence."
+msgstr ""
 
 #. name:sho 
 #: DB:instrument/description:192

@@ -1,13 +1,17 @@
+# BestSteve <ibmibmibm.tw@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-03-26 12:24+0000\n"
+"Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
+"Language-Team: Chinese (Traditional) <https://translations.metabrainz.org/"
+"projects/musicbrainz/attributes/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.4\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -15,29 +19,31 @@ msgid ""
 "\"Motet\" is a term that applies to different types of (usually "
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
-msgstr ""
+msgstr "「經文歌」是一個適用於不同類型的合唱作品的術語。究竟什麼是一首經文歌相當大程"
+"度上取決於時期。"
 
 #: DB:work_type/description:5
 msgctxt "work_type"
 msgid ""
 "\"Sonata\" is a general term used to describe small scale (very often solo "
 "or solo + keyboard) instrumental works, initially in baroque music."
-msgstr ""
+msgstr "「奏鳴曲」是一個通用術語，用於描述小型(通常是獨奏或獨奏加鍵盤)樂器作品，最初"
+"出現於巴洛克音樂時期。"
 
 #: DB:medium_format/name:205
 msgctxt "medium_format"
 msgid "10\" Acetate"
-msgstr ""
+msgstr "10英吋醋酸鹽唱片"
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
-msgstr ""
+msgstr "10英吋蟲膠唱片"
 
 #: DB:medium_format/name:30
 msgctxt "medium_format"
 msgid "10\" Vinyl"
-msgstr ""
+msgstr "10英吋黑膠唱片"
 
 #: DB:medium_format/name:206
 msgctxt "medium_format"
@@ -112,14 +118,14 @@ msgstr ""
 #: DB:medium_format/description:166
 msgctxt "medium_format"
 msgid "8cm DVD, often used for video singles."
-msgstr ""
+msgstr "8公分的DVD，通常用於單曲影片。"
 
 #: DB:medium_format/description:58
 msgctxt "medium_format"
 msgid ""
 "90 rpm, vertical-cut shellac discs, produced by the Pathé label from 1906 to "
 "1932."
-msgstr ""
+msgstr "每分鐘90轉，垂直切割的蟲膠唱片，由百代(Pathé)從1906年到1932年製造。"
 
 #: DB:release_group_secondary_type/description:1
 msgctxt "release_group_secondary_type"
@@ -152,6 +158,26 @@ msgid ""
 "for example, a various artists soundtrack using pre-released music should be "
 "marked as both a soundtrack and a compilation.</p>"
 msgstr ""
+"<p>為了 MusicBrainz 資料庫的目的，合輯涵蓋了以下類型的發行：</p>\n"
+"\n"
+"<ul>\n"
+"<li>來自各種舊來源的錄音集合(不一定已發行)，合併在一起。例如“精選”、回顧或收"
+"藏類型的發行。</li>\n"
+"<li>各種藝術家的歌曲收藏，通常有同一主題（“情人之歌”）、特定時間段（“1998年熱"
+"門歌曲”）或其他類型的分組（“電影插曲”，“海岸咖啡”系列等）。</li>\n"
+"</ul>\n"
+"\n"
+"<p>MusicBrainz 計畫通常不將以下內容視為合輯：</p>\n"
+"\n"
+"<ul>\n"
+"<li>專輯的重新發行，即使包含額外的曲目。</li>\n"
+"<li>一位藝術家音樂的翻唱專輯。</li>\n"
+"<li>一位古典藝術家作品的新錄音的古典專輯。</li>\n"
+"<li>包含多位藝術家新音樂的合作專輯。</li>\n"
+"</ul>\n"
+"\n"
+"<p>合輯應該與其他類型一起使用，而不是替代其他類型：例如，使用預先發行的音樂的"
+"各種藝術家配樂應該同時標記為配樂和合輯。</p>"
 
 #: DB:release_group_primary_type/description:2
 msgctxt "release_group_primary_type"
@@ -189,6 +215,27 @@ msgid ""
 "songs by two different artists are released on the one disc, typically vinyl."
 "</p>"
 msgstr ""
+"<p>單曲在發行的市場中有不同的定義。</p>\n"
+"\n"
+"<ul>\n"
+"<li>在美國市場，單曲通常包含一首主打歌曲，可能還有幾首額外的曲目或主打曲的混"
+"音版本；單曲通常以其主打歌曲命名；單曲主要是為了在廣播中播放和促進發行銷售而"
+"發行的。</li>\n"
+"<li>英國市場(也包括澳大利亞和歐洲)與美國市場類似，但單曲通常作為雙碟套裝發行"
+"，每張碟都可以單獨購買。它們有時還會有主打曲的較長版本(通常是合併了雙碟版本的"
+"曲目)，非常類似於美國風格的單曲，這稱為“加大單曲”。(在某些情況下，加大單曲的"
+"長度比原來發行的版本還要長！)</li>\n"
+"<li>日本市場更加偏向於單曲。其主要區別因素通常是單曲的長度和售價。直到1995年"
+"，這些單曲通常是使用迷你CD格式發行的，這基本上是一種直徑通常為8公分的小CD。大"
+"約在1995年左右，8公分單曲被淘汰，標準的12公分CD單曲現在更加普遍；通常，1995年"
+"之前的單曲的重新發行將以12公分格式發行，即使它們最初是以8公分格式發行的。日本"
+"單曲通常附帶歌曲的伴奏版本，並且像英國一樣有混音版本的加大單曲。有時，加大單"
+"曲的曲目比EP更多，但由於它們都是相同2-3首歌曲的替代版本，因此仍然被歸類為單曲"
+"。</li>\n"
+"</ul>\n"
+"\n"
+"<p>還有一種名為“分割單曲”的單曲變體，其中兩個不同藝術家的歌曲發行在同一張唱片"
+"上，通常是黑膠唱片。</p>"
 
 #: DB:medium_format/description:95
 msgctxt "medium_format"
@@ -203,7 +250,7 @@ msgctxt "place_type"
 msgid ""
 "A (usually green) space kept available for recreation in an otherwise built "
 "and populated area."
-msgstr ""
+msgstr "一個(通常是綠色的)空間，保留供休閒使用，在其他建築物和人口稠密的地區。"
 
 #: DB:medium_format/description:129
 msgctxt "medium_format"
@@ -246,7 +293,7 @@ msgctxt "work_type"
 msgid ""
 "A ballet is music composed to be used, together with a choreography, for a "
 "ballet dance production."
-msgstr ""
+msgstr "芭蕾是為芭蕾舞劇配合編排的音樂作品，通常與舞蹈動作結合使用。"
 
 #: DB:release_packaging/description:19
 msgctxt "release_packaging"
@@ -258,7 +305,8 @@ msgctxt "work_type"
 msgid ""
 "A cantata is a vocal (often choral) composition with an instrumental "
 "(usually orchestral) accompaniment, typically in several movements."
-msgstr ""
+msgstr "清唱劇是一種以聲樂(通常是合唱)為主的作品，配以樂器(通常是管弦樂)伴奏，通常由"
+"多個樂章組成。"
 
 #: DB:medium_format/description:46
 msgctxt "medium_format"
@@ -280,7 +328,7 @@ msgstr ""
 msgctxt "work_type"
 msgid ""
 "A concerto is a musical work for soloist(s) accompanied by an orchestra."
-msgstr ""
+msgstr "協奏曲是為獨奏家(或多位獨奏家)與管弦樂團伴奏的音樂作品。"
 
 #: DB:event_type/description:4
 msgctxt "event_type"
@@ -288,7 +336,8 @@ msgid ""
 "A convention, expo or trade fair is an event which is not typically "
 "orientated around music performances, but can include them as side "
 "activities."
-msgstr ""
+msgstr "會展、博覽會或貿易展是一個通常不以音樂表演為中心的活動，但可以將其作為附加活"
+"動。"
 
 #: DB:release_status/description:2
 msgctxt "release_status"
@@ -327,7 +376,7 @@ msgstr ""
 #: DB:place_type/description:43
 msgctxt "place_type"
 msgid "A large, permanent outdoor stage, typically with a fixed seating area."
-msgstr ""
+msgstr "一個大型的、永久的戶外舞台，通常附有固定的座位區域。"
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -340,7 +389,8 @@ msgid ""
 "A mass is a choral composition that sets the invariable portions of the "
 "Christian Eucharistic liturgy (Kyrie - Gloria - Credo - Sanctus - Benedictus "
 "- Agnus Dei, with other portions sometimes added) to music."
-msgstr ""
+msgstr "彌撒是一種合唱作品，是基督教聖餐禮儀中的音樂(包括垂憐經 - 光榮頌 - 信經 - "
+"聖哉經 - 降福經 - 羔羊頌，有時還會添加其他部分)。"
 
 #: DB:event_type/description:5
 msgctxt "event_type"
@@ -348,7 +398,8 @@ msgid ""
 "A masterclass or clinic is an event where an artist meets with a small to "
 "medium-sized audience and instructs them individually and/or takes questions "
 "intended to improve the audience members' playing skills."
-msgstr ""
+msgstr "深造班或討論會是一個藝術家與小至中等規模的觀眾見面的活動，並就個人技巧進行指"
+"導，或回答觀眾提出的問題，來提升他們的演奏技巧。"
 
 #: DB:release_packaging/description:56
 msgctxt "release_packaging"
@@ -367,14 +418,14 @@ msgctxt "work_type"
 msgid ""
 "A partita is an instrumental piece composed of a series of variations, and "
 "it's by its current definition very similar to a suite."
-msgstr ""
+msgstr "變奏段是一種由一系列變奏組成的器樂作品，根據其目前的定義，與組曲非常相似。"
 
 #: DB:event_type/description:3
 msgctxt "event_type"
 msgid ""
 "A party, reception or other event held specifically for the launch of a "
 "release."
-msgstr ""
+msgstr "一個專為發行活動舉辦的派對、招待會或其他活動。"
 
 #: DB:release_packaging/description:17
 msgctxt "release_packaging"
@@ -389,11 +440,14 @@ msgid ""
 "href=\"https://en.wikipedia.org/wiki/Concert_performance\">concert "
 "performance</a> without staging)."
 msgstr ""
+"舞台上的一場或多場戲劇、音樂劇、歌劇、芭蕾舞或其他類似作品的表演，以其舞台形"
+"式進行(有別於沒有舞台佈景的<a href=\"https://en.wikipedia.org/wiki/"
+"Concert_performance\">音樂會表演</a>)。"
 
 #: DB:place_type/description:8
 msgctxt "place_type"
 msgid "A place (generally a factory) at which physical media are manufactured."
-msgstr ""
+msgstr "一個(通常是工廠)製造實體媒介的地方。"
 
 #: DB:place_type/description:5
 msgctxt "place_type"
@@ -401,21 +455,22 @@ msgid ""
 "A place consisting of a large enclosed area with a central event space "
 "surrounded by tiered seating for spectators, which can be used for indoor "
 "sports, concerts and other entertainment events."
-msgstr ""
+msgstr "一個由大型封閉區域組成的地方，中心是活動空間，周圍是階梯式座位供觀眾觀賞，可"
+"用於室內運動、音樂會和其他娛樂活動。"
 
 #: DB:place_type/description:1
 msgctxt "place_type"
 msgid ""
 "A place designed for non-live production of music, typically a recording "
 "studio."
-msgstr ""
+msgstr "一個專為音樂的非現場製作而設計的地方，通常是一個錄音室。"
 
 #: DB:place_type/description:2
 msgctxt "place_type"
 msgid ""
 "A place that has live artistic performances as one of its primary functions, "
 "such as a concert hall."
-msgstr ""
+msgstr "一個將現場藝術表演作為其主要功能之一的地方，例如音樂廳。"
 
 #: DB:place_type/description:6
 msgctxt "place_type"
@@ -423,7 +478,8 @@ msgid ""
 "A place that has worship or religious studies as its main function. "
 "Religious buildings often host concerts and serve as recording locations, "
 "especially for classical music."
-msgstr ""
+msgstr "一個以崇拜或宗教研究為主要功能的地方。宗教建築通常舉辦音樂會，並作為錄音場地"
+"，特別是古典音樂的錄音。"
 
 #: DB:place_type/description:4
 msgctxt "place_type"
@@ -431,7 +487,8 @@ msgid ""
 "A place whose main purpose is to host outdoor sport events, typically "
 "consisting of a pitch surrounded by a structure for spectators with no roof, "
 "or a roof which can be retracted."
-msgstr ""
+msgstr "一個主要用於舉辦戶外體育活動的地方，通常由球場包圍，周圍有觀眾看台，沒有屋頂"
+"，或者有可收回的屋頂。"
 
 #: DB:release_status/description:6
 msgctxt "release_status"
@@ -447,14 +504,16 @@ msgid ""
 "A play is a form of literature usually consisting of scripted dialogue "
 "between characters, and intended for theatrical performance rather than just "
 "reading."
-msgstr ""
+msgstr "戲劇是一種文學形式，通常由角色之間的劇本對話組成，旨在舞台表演，而不僅僅是閱"
+"讀。"
 
 #: DB:work_type/description:21
 msgctxt "work_type"
 msgid ""
 "A poem is a literary piece, generally short and in verse, where words are "
 "usually chosen for their sound and for the images and ideas they suggest."
-msgstr ""
+msgstr "詩是一種文學作品，通常簡短並以韻文形式呈現，其詞語通常因為它們的聲音以及所呈"
+"現的意象和思想而被選中。"
 
 #: DB:release_status/description:5
 msgctxt "release_status"
@@ -477,7 +536,7 @@ msgstr ""
 msgctxt "work_type"
 msgid ""
 "A quartet is a musical composition scored for four voices or instruments."
-msgstr ""
+msgstr "四重奏是一種音樂作品，配樂為四個聲部或樂器。"
 
 #: DB:series_type/description:8
 msgctxt "series_type"
@@ -508,7 +567,7 @@ msgctxt "place_type"
 msgid ""
 "A school, university or other similar educational institution (especially, "
 "but not only, one where music is taught)"
-msgstr ""
+msgstr "一個學校、大學或其他類似的教育機構(泛指音樂教育機構)"
 
 #: DB:series_type/description:14
 msgctxt "series_type"
@@ -596,7 +655,8 @@ msgctxt "place_type"
 msgid ""
 "A small venue (such as a jazz club, nightclub or pub) that hosts concerts "
 "and social events. May or may not have a dedicated stage or seating."
-msgstr ""
+msgstr "一個小型場地(如爵士俱樂部、夜總會或酒吧)，可舉辦音樂會和社交活動。可能有專用"
+"的舞台或座位。"
 
 #: DB:work_type/description:15
 msgctxt "work_type"
@@ -605,6 +665,8 @@ msgid ""
 "single entity. In most cases, all of the songs are by the same composer, and "
 "often use words from the same poet or lyricist."
 msgstr ""
+"聯篇歌曲是一組歌曲，旨在按照一定的順序作為一個整體來表演。在大多數情況下，所"
+"有的歌曲都是由同一位作曲家創作的，通常使用同一位詩人或作詞者的文字。"
 
 #: DB:work_type/description:17
 msgctxt "work_type"
@@ -614,13 +676,16 @@ msgid ""
 "form by far in folk and popular music, but also fairly common in a classical "
 "context (\"art songs\")."
 msgstr ""
+"歌曲起源於(在大多數情況下仍然如此)一種為聲音而創作的作品，有或無樂器伴奏，通"
+"過歌唱表演。這是民間音樂和流行音樂中最常見的形式，但在古典音樂中也相當普遍(藝"
+"術歌曲)。"
 
 #: DB:work_type/description:22
 msgctxt "work_type"
 msgid ""
 "A soundtrack is the music that accompanies a film, TV program, videogame, or "
 "even book."
-msgstr ""
+msgstr "配樂是伴隨著電影、電視節目、電動遊戲，甚至書籍的音樂。"
 
 #: DB:release_group_secondary_type/description:2
 msgctxt "release_group_secondary_type"
@@ -658,7 +723,8 @@ msgid ""
 "A suite is an ordered set of instrumental or orchestral pieces normally "
 "performed in a concert setting. They may be extracts from a ballet or opera, "
 "or entirely original movements."
-msgstr ""
+msgstr "組曲是一套有序的器樂或管弦樂曲，通常在音樂會中演奏。它們可能是從芭蕾舞劇或歌"
+"劇中提取的片段，也可能是完全原創的樂章。"
 
 #: DB:work_type/description:18
 msgctxt "work_type"
@@ -666,21 +732,22 @@ msgid ""
 "A symphonic poem is a piece of programmatic orchestral music, usually in a "
 "single movement, that evokes a painting, a landscape, the content of a poem, "
 "a story or novel, or other non-musical source."
-msgstr ""
+msgstr "交響詩是一首具有節目性的管弦樂作品，通常是一個樂章，能呼應一幅畫作、一片風景"
+"、一首詩的內容、一個故事或小說，或其他非音樂的來源。"
 
 #: DB:work_type/description:16
 msgctxt "work_type"
 msgid ""
 "A symphony is an extended composition, almost always scored for orchestra "
 "without soloists."
-msgstr ""
+msgstr "交響曲是一首延伸的作品，幾乎總是為管弦樂團而譜寫，而沒有獨奏家。"
 
 #: DB:place_type/description:45
 msgctxt "place_type"
 msgid ""
 "A temporary outdoor stage erected for a music festival or other similar "
 "event."
-msgstr ""
+msgstr "一個為音樂節或其他類似活動搭建的臨時戶外舞台。"
 
 #: DB:release_packaging/description:2
 msgctxt "release_packaging"
@@ -708,7 +775,8 @@ msgid ""
 "A zarzuela is a Spanish lyric-dramatic work that alternates between spoken "
 "and sung scenes, the latter incorporating operatic and popular song, as well "
 "as dance."
-msgstr ""
+msgstr "西班牙輕歌劇是一種交替著說話和歌唱場景的西班牙抒情戲劇作品，後者融合了歌劇和"
+"流行歌曲，以及舞蹈。"
 
 #: DB:work_attribute_type_allowed_value/value:26
 msgctxt "work_attribute_type_allowed_value"
@@ -908,7 +976,7 @@ msgstr ""
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
 msgid "Album"
-msgstr ""
+msgstr "專輯"
 
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
@@ -923,7 +991,7 @@ msgstr ""
 #: DB:place_type/name:43
 msgctxt "place_type"
 msgid "Amphitheatre"
-msgstr ""
+msgstr "環狀劇場"
 
 #: DB:work_attribute_type_allowed_value/value:855
 msgctxt "work_attribute_type_allowed_value"
@@ -950,6 +1018,10 @@ msgid ""
 "EP is fairly difficult to define; usually it should only be assumed that a "
 "release is an EP if the artist defines it as such."
 msgstr ""
+"EP 是所謂的「延長播放」發行，通常在標題中包含 EP 這些字母。一般來說，EP "
+"會比完整專輯（LP 或「長播放」）短，而且曲目通常是專屬於 EP "
+"的，換句話說，這些曲目不來自先前發行的專輯。EP 的定義相對比較困難；"
+"通常只有在創作者明確定義其為 EP 時，才應該認定某一發行為 EP。"
 
 #: DB:release_group_primary_type/description:1
 msgctxt "release_group_primary_type"
@@ -957,7 +1029,8 @@ msgid ""
 "An album, perhaps better defined as a \"Long Play\" (LP) release, generally "
 "consists of previously unreleased material (unless this type is combined "
 "with secondary types which change that, such as \"Compilation\")."
-msgstr ""
+msgstr "專輯，也許應稱之為「長播放」（LP）發行，通常包含先前未發行的素材(除非該類型與"
+"其他次要類型結合，從而改變了這一點，比如「合輯」)。"
 
 #: DB:release_status/description:4
 msgctxt "release_status"
@@ -973,14 +1046,16 @@ msgid ""
 "An aria is a self-contained piece for one voice usually with orchestral "
 "accompaniment. They are most common inside operas, but also appear in "
 "cantatas, oratorios and even on their own (concert arias)."
-msgstr ""
+msgstr "詠唱調是一首獨立的單聲部作品，通常有管弦樂伴奏。它們在歌劇中最為常見，但也出"
+"現在清唱劇、神劇，甚至獨立的作品中(如音樂會詠唱調)。"
 
 #: DB:work_type/description:25
 msgctxt "work_type"
 msgid ""
 "An audio drama is a dramatized, purely acoustic performance, broadcast on "
 "radio or published on an audio medium (tape, CD, etc.)."
-msgstr ""
+msgstr "聲音劇是一種戲劇化的純聲音表演，通常在廣播電台播放，或者在音訊媒體(磁帶、CD等"
+")上發布。"
 
 #: DB:release_group_secondary_type/description:11
 msgctxt "release_group_secondary_type"
@@ -1001,35 +1076,38 @@ msgid ""
 "An award ceremony is an event which is focused on the granting of prizes, "
 "but often includes musical performances in between the awarding of said "
 "prizes, especially for musical awards."
-msgstr ""
+msgstr "頒獎典禮是一個專注於頒發獎項的活動，但通常在頒獎過程中包括音樂表演，特別是音"
+"樂獎項的頒獎。"
 
 #: DB:release_group_primary_type/description:12
 msgctxt "release_group_primary_type"
 msgid ""
 "An episodic release that was originally broadcast via radio, television, or "
 "the Internet, including podcasts."
-msgstr ""
+msgstr "一系列的發行品，最初是通過廣播、電視或網際網路播放，包括播客。"
 
 #: DB:event_type/description:2
 msgctxt "event_type"
 msgid ""
 "An event where a number of different acts perform across the course of the "
 "day. Larger festivals may be spread across multiple days."
-msgstr ""
+msgstr "一個由許多不同的表演節目在一天之內進行的活動。較大型的音樂節可能持續多天。"
 
 #: DB:event_type/description:1
 msgctxt "event_type"
 msgid ""
 "An individual concert by a single artist or collaboration, often with "
 "supporting artists who perform before the main act."
-msgstr ""
+msgstr "由單一藝術家或合作表演者舉辦的個人音樂會，通常有在主要表演前演出的支援藝術家"
+"。"
 
 #: DB:place_type/description:44
 msgctxt "place_type"
 msgid ""
 "An indoor performance facility with fixed seating, whether for music "
 "(usually, but not always, classical music) or theatre."
-msgstr ""
+msgstr "一個室內表演設施，配有固定座位，可用於音樂(通常是，但不總是古典音樂)或是戲劇"
+"。"
 
 #: DB:release_group_secondary_type/description:4
 msgctxt "release_group_secondary_type"
@@ -1048,6 +1126,9 @@ msgid ""
 "orchestra/ensemble. In true operas all dialog is sung, through arias and "
 "recitatives, but some styles of opera include spoken dialogue."
 msgstr ""
+"歌劇是一種戲劇化的作品(包括台本和樂譜)，供歌手和管弦樂團/合奏團表演。在真正的"
+"歌劇中，所有的對話都是通過詠唱調和鋪陳來演唱的，但有些風格的歌劇包括口語對話"
+"。"
 
 #: DB:work_type/description:11
 msgctxt "work_type"
@@ -1057,6 +1138,8 @@ msgid ""
 "usually not performed theatrically (it lacks costumes, props and strong "
 "character interaction)."
 msgstr ""
+"神劇是一種大型(通常為神聖的)音樂作品，包括管弦樂團、合唱團和獨奏家。雖然具有"
+"角色和情節，但通常不以戲劇形式演出(因為缺乏服裝、道具和強烈的角色互動)。"
 
 #: DB:label_type/description:8
 msgctxt "label_type"
@@ -1069,7 +1152,8 @@ msgid ""
 "An overture is, generally, the instrumental introduction to an opera. "
 "Independent (\"concert\") overtures also exist, which are generally "
 "programmatic works shorter than a symphonic poem."
-msgstr ""
+msgstr "序曲通常是歌劇的器樂引言。另外也有獨立的（\"音樂會\""
+"）序曲，通常是比交響詩更短的作品。"
 
 #: DB:release_status/description:3
 msgctxt "release_status"
@@ -1085,7 +1169,7 @@ msgid ""
 "An étude is an instrumental musical composition, most commonly of "
 "considerable difficulty, usually designed to provide practice material for "
 "perfecting a particular technical skill."
-msgstr ""
+msgstr "練習曲是一種器樂音樂作品，通常極具挑戰性，作為練習特定演奏技巧的資料。"
 
 #: DB:work_attribute_type_allowed_value/value:310
 msgctxt "work_attribute_type_allowed_value"
@@ -1104,7 +1188,7 @@ msgctxt "release_group_primary_type"
 msgid ""
 "Any release that does not fit or can't decisively be placed in any of the "
 "other categories."
-msgstr ""
+msgstr "任何不能明確歸入其他類別的發行品。"
 
 #: DB:work_attribute_type_allowed_value/value:311
 msgctxt "work_attribute_type_allowed_value"
@@ -1169,7 +1253,7 @@ msgstr ""
 #: DB:work_type/name:1
 msgctxt "work_type"
 msgid "Aria"
-msgstr ""
+msgstr "詠唱調"
 
 #: DB:series_type/name:14
 msgctxt "series_type"
@@ -1219,7 +1303,7 @@ msgstr ""
 #: DB:work_type/name:25
 msgctxt "work_type"
 msgid "Audio drama"
-msgstr ""
+msgstr "聲音劇"
 
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
@@ -1234,7 +1318,7 @@ msgstr ""
 #: DB:event_type/name:7
 msgctxt "event_type"
 msgid "Award ceremony"
-msgstr ""
+msgstr "頒獎典禮"
 
 #: DB:series_type/name:15
 msgctxt "series_type"
@@ -1424,7 +1508,7 @@ msgstr ""
 #: DB:work_type/name:2
 msgctxt "work_type"
 msgid "Ballet"
-msgstr ""
+msgstr "芭蕾"
 
 #: DB:work_attribute_type_allowed_value/value:866
 msgctxt "work_attribute_type_allowed_value"
@@ -1459,14 +1543,14 @@ msgstr ""
 #: DB:work_type/name:26
 msgctxt "work_type"
 msgid "Beijing opera"
-msgstr ""
+msgstr "京劇"
 
 #: DB:work_type/description:26
 msgctxt "work_type"
 msgid ""
 "Beijing opera is a form of traditional Chinese theatre which combines music, "
 "vocal performance, mime, dance, and acrobatics."
-msgstr ""
+msgstr "京劇是一種傳統中國戲劇形式，結合了音樂、聲樂、默劇、舞蹈和雜技。"
 
 #: DB:work_attribute_type_allowed_value/value:697
 msgctxt "work_attribute_type_allowed_value"
@@ -1737,7 +1821,7 @@ msgstr ""
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
 msgid "Broadcast"
-msgstr ""
+msgstr "廣播"
 
 #: DB:work_attribute_type_allowed_value/value:885
 msgctxt "work_attribute_type_allowed_value"
@@ -1934,7 +2018,7 @@ msgstr ""
 #: DB:work_type/name:3
 msgctxt "work_type"
 msgid "Cantata"
-msgstr ""
+msgstr "清唱劇"
 
 #: DB:release_packaging/name:4
 msgctxt "release_packaging"
@@ -2034,7 +2118,7 @@ msgstr ""
 #: DB:place_type/name:42
 msgctxt "place_type"
 msgid "Club"
-msgstr ""
+msgstr "俱樂部"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -2044,22 +2128,22 @@ msgstr ""
 #: DB:event_type/name:1
 msgctxt "event_type"
 msgid "Concert"
-msgstr ""
+msgstr "音樂會"
 
 #: DB:place_type/name:44
 msgctxt "place_type"
 msgid "Concert hall / Theatre"
-msgstr ""
+msgstr "音樂廳/劇院"
 
 #: DB:work_type/name:4
 msgctxt "work_type"
 msgid "Concerto"
-msgstr ""
+msgstr "協奏曲"
 
 #: DB:event_type/name:4
 msgctxt "event_type"
 msgid "Convention/Expo"
-msgstr ""
+msgstr "會議/博覽會"
 
 #: DB:medium_format/name:61
 msgctxt "medium_format"
@@ -2717,7 +2801,7 @@ msgstr ""
 #: DB:release_group_primary_type/name:3
 msgctxt "release_group_primary_type"
 msgid "EP"
-msgstr ""
+msgstr "EP"
 
 #: DB:medium_format/name:50
 msgctxt "medium_format"
@@ -2727,7 +2811,7 @@ msgstr ""
 #: DB:place_type/name:7
 msgctxt "place_type"
 msgid "Educational institution"
-msgstr ""
+msgstr "教育機構"
 
 #: DB:instrument_type/name:4
 msgctxt "instrument_type"
@@ -2937,7 +3021,7 @@ msgstr ""
 #: DB:event_type/name:2
 msgctxt "event_type"
 msgid "Festival"
-msgstr ""
+msgstr "音樂節"
 
 #: DB:series_type/name:8
 msgctxt "series_type"
@@ -2947,7 +3031,7 @@ msgstr ""
 #: DB:place_type/name:45
 msgctxt "place_type"
 msgid "Festival stage"
-msgstr ""
+msgstr "音樂節舞台"
 
 #: DB:work_attribute_type_allowed_value/value:372
 msgctxt "work_attribute_type_allowed_value"
@@ -4044,13 +4128,13 @@ msgstr ""
 #: DB:work_type/name:30
 msgctxt "work_type"
 msgid "Incidental music"
-msgstr ""
+msgstr "配樂"
 
 #: DB:work_type/description:30
 msgctxt "work_type"
 msgid ""
 "Incidental music is music written as background for (usually) a theatre play."
-msgstr ""
+msgstr "配樂(通常)是為戲劇演出所寫的背景音樂。"
 
 #: DB:area_type/name:9
 msgctxt "area_type"
@@ -4060,7 +4144,7 @@ msgstr ""
 #: DB:place_type/name:5
 msgctxt "place_type"
 msgid "Indoor arena"
-msgstr ""
+msgstr "室內體育館"
 
 #: DB:editor_collection_type/name:9
 msgctxt "collection_type"
@@ -4774,7 +4858,7 @@ msgstr ""
 #: DB:event_type/name:3
 msgctxt "event_type"
 msgid "Launch event"
-msgstr ""
+msgstr "發表活動"
 
 #: DB:work_attribute_type_allowed_value/value:160
 msgctxt "work_attribute_type_allowed_value"
@@ -4864,7 +4948,7 @@ msgstr ""
 #: DB:work_type/name:7
 msgctxt "work_type"
 msgid "Madrigal"
-msgstr ""
+msgstr "牧歌"
 
 #: DB:work_attribute_type_allowed_value/value:163
 msgctxt "work_attribute_type_allowed_value"
@@ -4949,7 +5033,7 @@ msgstr ""
 #: DB:work_type/name:8
 msgctxt "work_type"
 msgid "Mass"
-msgstr ""
+msgstr "彌撒曲"
 
 #: DB:event_type/name:5
 msgctxt "event_type"
@@ -5189,7 +5273,7 @@ msgstr ""
 #: DB:work_type/name:9
 msgctxt "work_type"
 msgid "Motet"
-msgstr ""
+msgstr "經文歌"
 
 #: DB:work_attribute_type_allowed_value/value:746
 msgctxt "work_attribute_type_allowed_value"
@@ -5282,14 +5366,14 @@ msgstr ""
 #: DB:work_type/name:29
 msgctxt "work_type"
 msgid "Musical"
-msgstr ""
+msgstr "音樂劇"
 
 #: DB:work_type/description:29
 msgctxt "work_type"
 msgid ""
 "Musical theatre is a form of theatrical performance that combines songs, "
 "spoken dialogue, acting, and dance."
-msgstr ""
+msgstr "音樂劇是一種戲劇表演形式，結合了歌曲、說話對白、表演和舞蹈。"
 
 #: DB:work_attribute_type_allowed_value/value:748
 msgctxt "work_attribute_type_allowed_value"
@@ -5829,17 +5913,17 @@ msgstr ""
 #: DB:work_type/name:10
 msgctxt "work_type"
 msgid "Opera"
-msgstr ""
+msgstr "歌劇"
 
 #: DB:work_type/name:24
 msgctxt "work_type"
 msgid "Operetta"
-msgstr ""
+msgstr "輕歌劇"
 
 #: DB:work_type/name:11
 msgctxt "work_type"
 msgid "Oratorio"
-msgstr ""
+msgstr "神劇"
 
 #: DB:artist_type/name:5
 msgctxt "artist_type"
@@ -5874,12 +5958,12 @@ msgstr ""
 #: DB:place_type/name:3
 msgctxt "place_type"
 msgid "Other"
-msgstr ""
+msgstr "其他"
 
 #: DB:release_group_primary_type/name:11
 msgctxt "release_group_primary_type"
 msgid "Other"
-msgstr ""
+msgstr "其他"
 
 #: DB:release_packaging/name:5
 msgctxt "release_packaging"
@@ -5894,7 +5978,7 @@ msgstr ""
 #: DB:work_type/name:12
 msgctxt "work_type"
 msgid "Overture"
-msgstr ""
+msgstr "序曲"
 
 #: DB:editor_collection_type/name:2
 msgctxt "collection_type"
@@ -5949,12 +6033,12 @@ msgstr ""
 #: DB:place_type/name:9
 msgctxt "place_type"
 msgid "Park"
-msgstr ""
+msgstr "公園"
 
 #: DB:work_type/name:13
 msgctxt "work_type"
 msgid "Partita"
-msgstr ""
+msgstr "變奏段"
 
 #: DB:medium_format/name:58
 msgctxt "medium_format"
@@ -6060,7 +6144,7 @@ msgstr ""
 #: DB:work_type/name:28
 msgctxt "work_type"
 msgid "Play"
-msgstr ""
+msgstr "戲劇"
 
 #: DB:medium_format/name:74
 msgctxt "medium_format"
@@ -6080,7 +6164,7 @@ msgstr ""
 #: DB:work_type/name:21
 msgctxt "work_type"
 msgid "Poem"
-msgstr ""
+msgstr "詩"
 
 #: DB:work_attribute_type_allowed_value/value:655
 msgctxt "work_attribute_type_allowed_value"
@@ -6100,7 +6184,7 @@ msgstr ""
 #: DB:place_type/name:8
 msgctxt "place_type"
 msgid "Pressing plant"
-msgstr ""
+msgstr "壓片工廠"
 
 #: DB:label_type/name:3
 msgctxt "label_type"
@@ -6132,7 +6216,7 @@ msgstr ""
 #: DB:work_type/name:23
 msgctxt "work_type"
 msgid "Prose"
-msgstr ""
+msgstr "散文句"
 
 #: DB:release_status/name:4
 msgctxt "release_status"
@@ -6198,7 +6282,7 @@ msgstr ""
 #: DB:work_type/name:14
 msgctxt "work_type"
 msgid "Quartet"
-msgstr ""
+msgstr "四重奏"
 
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"
@@ -6388,7 +6472,7 @@ msgstr ""
 #: DB:place_type/name:6
 msgctxt "place_type"
 msgid "Religious building"
-msgstr ""
+msgstr "宗教建築物"
 
 #: DB:work_attribute_type_allowed_value/value:765
 msgctxt "work_attribute_type_allowed_value"
@@ -6938,7 +7022,7 @@ msgstr ""
 #: DB:release_group_primary_type/name:2
 msgctxt "release_group_primary_type"
 msgid "Single"
-msgstr ""
+msgstr "單曲"
 
 #: DB:work_attribute_type_allowed_value/value:533
 msgctxt "work_attribute_type_allowed_value"
@@ -6983,17 +7067,17 @@ msgstr ""
 #: DB:work_type/name:5
 msgctxt "work_type"
 msgid "Sonata"
-msgstr ""
+msgstr "奏鳴曲"
 
 #: DB:work_type/name:17
 msgctxt "work_type"
 msgid "Song"
-msgstr ""
+msgstr "歌曲"
 
 #: DB:work_type/name:15
 msgctxt "work_type"
 msgid "Song-cycle"
-msgstr ""
+msgstr "聯篇歌曲"
 
 #: DB:series_ordering_type/description:1
 msgctxt "series_ordering_type"
@@ -7010,7 +7094,7 @@ msgstr ""
 #: DB:work_type/name:22
 msgctxt "work_type"
 msgid "Soundtrack"
-msgstr ""
+msgstr "配樂"
 
 #: DB:cover_art_archive.art_type/name:6
 msgctxt "cover_art_type"
@@ -7025,7 +7109,7 @@ msgstr ""
 #: DB:place_type/name:4
 msgctxt "place_type"
 msgid "Stadium"
-msgstr ""
+msgstr "體育場"
 
 #: DB:event_type/name:6
 msgctxt "event_type"
@@ -7045,7 +7129,7 @@ msgstr ""
 #: DB:place_type/name:1
 msgctxt "place_type"
 msgid "Studio"
-msgstr ""
+msgstr "錄音室"
 
 #: DB:area_type/name:2
 msgctxt "area_type"
@@ -7078,7 +7162,7 @@ msgstr ""
 #: DB:work_type/name:6
 msgctxt "work_type"
 msgid "Suite"
-msgstr ""
+msgstr "組曲"
 
 #: DB:work_attribute_type_allowed_value/value:534
 msgctxt "work_attribute_type_allowed_value"
@@ -7183,12 +7267,12 @@ msgstr ""
 #: DB:work_type/name:18
 msgctxt "work_type"
 msgid "Symphonic poem"
-msgstr ""
+msgstr "交響詩"
 
 #: DB:work_type/name:16
 msgctxt "work_type"
 msgid "Symphony"
-msgstr ""
+msgstr "交響曲"
 
 #: DB:work_attribute_type_allowed_value/value:547
 msgctxt "work_attribute_type_allowed_value"
@@ -7481,14 +7565,16 @@ msgid ""
 "The madrigal is a type of secular vocal music composition. In its original "
 "form, it had no instrumental accompaniment, although accompaniment is much "
 "more common in later madrigals."
-msgstr ""
+msgstr "牧歌是一種世俗的聲樂作品。在其最初的形式中，它沒有器樂伴奏，盡管在後來的牧歌"
+"中伴奏更為普遍。"
 
 #: DB:work_type/description:24
 msgctxt "work_type"
 msgid ""
 "The operetta is a genre of light opera, in terms both of music and subject "
 "matter. Operettas are generally short and include spoken parts."
-msgstr ""
+msgstr "輕歌劇是一種輕快的歌劇類型，無論是在音樂還是主題方面都是如此。輕歌劇通常篇幅"
+"短小，並包含說話部分。"
 
 #: DB:cover_art_archive.art_type/description:15
 msgctxt "cover_art_type"
@@ -7555,7 +7641,8 @@ msgid ""
 "This represents literary works written in prose, that is, written in "
 "relatively ordinary language without metrical structure (e.g. novels, short "
 "stories, essays...)."
-msgstr ""
+msgstr "這代表以散文形式寫作的文學作品，也就是使用相對普通的語言，沒有韻律結構(例如小"
+"說、短篇故事、短文等)。"
 
 #: DB:medium_format/description:84
 msgctxt "medium_format"
@@ -7873,7 +7960,7 @@ msgstr ""
 #: DB:place_type/name:2
 msgctxt "place_type"
 msgid "Venue"
-msgstr ""
+msgstr "場地"
 
 #: DB:medium_format/description:59
 msgctxt "medium_format"
@@ -8057,7 +8144,7 @@ msgstr ""
 #: DB:work_type/name:19
 msgctxt "work_type"
 msgid "Zarzuela"
-msgstr ""
+msgstr "西班牙輕歌劇"
 
 #: DB:work_attribute_type_allowed_value/value:591
 msgctxt "work_attribute_type_allowed_value"
@@ -8194,7 +8281,7 @@ msgstr ""
 #: DB:work_type/name:20
 msgctxt "work_type"
 msgid "Étude"
-msgstr ""
+msgstr "練習曲"
 
 #: DB:work_attribute_type_allowed_value/value:653
 msgctxt "work_attribute_type_allowed_value"
