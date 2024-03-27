@@ -8,7 +8,10 @@
  */
 
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
-import {isBot} from '../../static/scripts/common/utility/privileges.js';
+import {
+  isBeginner,
+  isBot,
+} from '../../static/scripts/common/utility/privileges.js';
 
 type Props = {
   +editor: EditorT | null,
@@ -19,7 +22,7 @@ const EditorTypeInfo = ({
 }: Props): React.MixedElement | null => (
   editor == null ? null : (
     <>
-      {editor.is_limited ? (
+      {isBeginner(editor) ? (
         <span className="editor-class">
           {bracketed(
             <span

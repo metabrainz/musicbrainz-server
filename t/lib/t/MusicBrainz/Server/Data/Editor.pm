@@ -236,7 +236,7 @@ test 'Getting/loading existing editors' => sub {
     );
     is(
         $editor->privileges,
-        1+8+32+512,
+        1+8+32+512+8192,
         'The editor has the expected privileges',
     );
 
@@ -470,7 +470,7 @@ test 'Deleting editors removes most information' => sub {
     # Ensure all other attributes are cleared
     my $exclusions = Set::Scalar->new(
         qw( id name password privileges last_login_date languages
-            registration_date preferences ha1 deleted has_ten_accepted_edits
+            registration_date preferences ha1 deleted
       ));
 
     for my $attribute (grep { !$exclusions->contains($_->name) }

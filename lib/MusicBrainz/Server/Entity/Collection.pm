@@ -67,7 +67,6 @@ around TO_JSON => sub {
     $json->{public} = boolean_to_json($self->public);
     $json->{description} = $self->description;
     $json->{description_html} = format_wikitext($self->description);
-    $json->{editor_is_limited} = boolean_to_json(defined $editor ? $editor->is_limited : 0);
     $json->{collaborators} = to_json_array($self->collaborators);
     $json->{item_entity_type} = $self->type->item_entity_type if $self->type;
 

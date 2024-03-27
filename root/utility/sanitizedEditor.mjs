@@ -14,7 +14,8 @@ const publicFlags = 1 | // AUTO_EDITOR_FLAG
                     32 | // WIKI_TRANSCLUSION_FLAG
                     128 | // ACCOUNT_ADMIN_FLAG
                     256 | // LOCATION_EDITOR_FLAG
-                    512; // BANNER_EDITOR_FLAG
+                    512 | // BANNER_EDITOR_FLAG
+                    8192; // BEGINNER_FLAG
 
 function sanitizePrivileges(privileges: number): number {
   return (privileges & publicFlags);
@@ -34,7 +35,6 @@ export default function sanitizedEditor(
     deleted: editor.deleted,
     entityType: 'editor',
     id: editor.id,
-    is_limited: editor.is_limited,
     name: editor.name,
     privileges: sanitizePrivileges(editor.privileges),
   };
