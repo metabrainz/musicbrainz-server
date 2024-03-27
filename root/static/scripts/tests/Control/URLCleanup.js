@@ -4425,7 +4425,14 @@ limited_link_type_combinations: [
                      input_url: 'https://www.operabase.com/artists/megan-esther-grey-101303/en',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://operabase.com/artists/101303',
+            expected_clean_url: 'https://operabase.com/a101303',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.operabase.com/megan-esther-grey-a101303/bio/en',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://operabase.com/a101303',
        only_valid_entity_types: ['artist'],
   },
   {
