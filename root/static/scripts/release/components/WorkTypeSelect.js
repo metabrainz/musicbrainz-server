@@ -27,6 +27,7 @@ function workTypeValue(workType: number | null): string {
 
 type WorkTypeSelectPropsT = {
   +dispatch: (WorkTypeSelectActionT) => void,
+  +initialFocusRef?: {-current: HTMLElement | null},
   +workType: number | null,
 };
 
@@ -35,6 +36,7 @@ const WorkTypeSelect: React$AbstractComponent<
   mixed,
 > = React.memo<WorkTypeSelectPropsT>(({
   dispatch,
+  initialFocusRef,
   workType,
 }: WorkTypeSelectPropsT) => {
   const workTypeOptions: OptionListT = React.useMemo(() => {
@@ -60,6 +62,7 @@ const WorkTypeSelect: React$AbstractComponent<
         <select
           id="work-type"
           onChange={handleWorkTypeChange}
+          ref={initialFocusRef}
           value={workTypeValue(workType)}
         >
           <option value="">{'\xA0'}</option>

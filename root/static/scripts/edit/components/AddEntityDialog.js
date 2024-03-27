@@ -8,8 +8,13 @@
  */
 
 import * as React from 'react';
+import {flushSync} from 'react-dom';
 
+import {expect} from '../../../../utility/invariant.js';
 import Modal from '../../common/components/Modal.js';
+import {
+  findFirstTabbableElement,
+} from '../../common/utility/focusManagement.js';
 
 export const TITLES: {+[entityType: string]: () => string} = {
   area: N_l('Add a new area'),
@@ -32,7 +37,6 @@ type PropsT = {
 };
 
 type InstanceT = {
-  +adjustDialogSize: (WindowProxy) => void,
   +close: () => void,
 };
 
@@ -42,7 +46,6 @@ const AddEntityDialog = ({
   entityType,
   name,
 }: PropsT): React$Element<typeof Modal> => {
-  const dialogRef = React.useRef<HTMLDivElement | null>(null);
   const iframeRef = React.useRef<HTMLIFrameElement | null>(null);
   const instanceRef = React.useRef<InstanceT | null>(null);
   const [isLoading, setLoading] = React.useState(true);
@@ -66,21 +69,19 @@ const AddEntityDialog = ({
     }
 
     contentWindow.containingDialog = instanceRef;
-    adjustDialogSize(contentWindow);
-    setLoading(false);
+
+    flushSync(() => {
+      setLoading(false);
+    });
+
+    const iframeBody = expect(
+      iframeRef.current?.contentDocument.body,
+      'iframe document body',
+    );
+    findFirstTabbableElement(iframeBody, /* skipAnchors = */ true)?.focus();
   };
 
-  const adjustDialogSize = React.useCallback((
-    contentWindow: WindowProxy,
-  ) => {
-    const iframe = iframeRef.current;
-    if (iframe) {
-      iframe.style.height = String(contentWindow.outerHeight) + 'px';
-    }
-  }, [iframeRef]);
-
   instanceRef.current = {
-    adjustDialogSize,
     close,
   };
 
@@ -90,11 +91,9 @@ const AddEntityDialog = ({
       'edit-' + entityType.replace('_', '-') + '.name';
     dialogPath += '?' + nameField + '=' + encodeURIComponent(name);
   }
-
   return (
     <Modal
       className="iframe-dialog"
-      dialogRef={dialogRef}
       id={'add-' + entityType + '-dialog'}
       onClick={handleModalClick}
       onEscape={close}

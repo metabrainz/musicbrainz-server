@@ -91,6 +91,7 @@ function reducer(
 
 type EditWorkDialogPropsT = {
   +closeDialog: () => void,
+  +initialFocusRef?: {-current: HTMLElement | null},
   +rootDispatch: (ReleaseRelationshipEditorActionT) => void,
   +work: WorkT,
 };
@@ -102,6 +103,7 @@ const EditWorkDialog: React$AbstractComponent<
   EditWorkDialogPropsT,
 >(({
   closeDialog,
+  initialFocusRef,
   rootDispatch,
   work,
 }: EditWorkDialogPropsT): React$MixedElement => {
@@ -167,6 +169,7 @@ const EditWorkDialog: React$AbstractComponent<
             <td>
               <input
                 onChange={handleNameChange}
+                ref={initialFocusRef}
                 type="text"
                 value={name}
               />

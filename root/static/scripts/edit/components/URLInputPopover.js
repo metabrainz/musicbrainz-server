@@ -25,7 +25,6 @@ type PropsT = {
 };
 
 const URLInputPopover = (props: PropsT): React$MixedElement => {
-  const popoverButtonRef = React.useRef<HTMLButtonElement | null>(null);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [link, setLink] = React.useState<LinkRelationshipT>(props.link);
 
@@ -147,7 +146,6 @@ const URLInputPopover = (props: PropsT): React$MixedElement => {
         className: 'icon edit-item',
         title: lp('Edit URL', 'interactive'),
       }}
-      buttonRef={popoverButtonRef}
       id="url-input-popover"
       isOpen={isOpen}
       toggle={toggle}

@@ -165,24 +165,22 @@ const NewRelatedWorkHeading = ({
     });
   }, [dispatch, work]);
 
-  const editWorkButtonRef =
-    React.useRef<HTMLButtonElement | null>(null);
-
   const [
     isEditWorkDialogOpen,
     setEditWorkDialogOpen,
   ] = React.useState(false);
 
-  const buildEditWorkPopoverContent = React.useCallback(
-    (closeAndReturnFocus: () => void) => (
-      <EditWorkDialog
-        closeDialog={closeAndReturnFocus}
-        rootDispatch={dispatch}
-        work={work}
-      />
-    ),
-    [dispatch, work],
-  );
+  const buildEditWorkPopoverContent = React.useCallback((
+    closeAndReturnFocus: () => void,
+    initialFocusRef: {-current: HTMLElement | null},
+  ) => (
+    <EditWorkDialog
+      closeDialog={closeAndReturnFocus}
+      initialFocusRef={initialFocusRef}
+      rootDispatch={dispatch}
+      work={work}
+    />
+  ), [dispatch, work]);
 
   return (
     <h3 id={'new-work-' + String(work.id)}>
@@ -200,7 +198,6 @@ const NewRelatedWorkHeading = ({
         buttonProps={{
           className: 'icon edit-item',
         }}
-        buttonRef={editWorkButtonRef}
         className="work-dialog"
         closeOnOutsideClick={false}
         id="edit-work-dialog"
@@ -388,9 +385,6 @@ const RelatedWorksRelationshipEditor = React.memo<
     );
   }
 
-  const addRelatedWorkButtonRef =
-    React.useRef<HTMLButtonElement | null>(null);
-
   const buildNewRelatedWorkRelationshipData = React.useCallback(() => ({
     entity0: recording,
     entity1: createWorkObject({
@@ -429,7 +423,6 @@ const RelatedWorksRelationshipEditor = React.memo<
         buttonProps={{
           className: 'add-item with-label',
         }}
-        buttonRef={addRelatedWorkButtonRef}
         className="relationship-dialog"
         closeOnOutsideClick={false}
         id="add-relationship-dialog"
