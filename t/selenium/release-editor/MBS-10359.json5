@@ -18,7 +18,7 @@
     },
     {
       command: 'click',
-      target: "xpath=//td[contains(@class, 'release-artist')]//span[contains(@class, 'autocomplete')]//img[contains(@class, 'search')]",
+      target: "css=#ac-source-single-artist + button.search",
       value: '',
     },
     {
@@ -28,7 +28,7 @@
     },
     {
       command: 'click',
-      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Bing Crosby')]",
+      target: "xpath=//ul[@id='ac-source-single-artist-menu']//li[contains(@class, 'option-item')][contains(., 'Bing Crosby')]",
       value: '',
     },
     {
@@ -48,7 +48,7 @@
     },
     {
       command: 'click',
-      target: 'xpath=(//div[contains(@id, "artist-credit-bubble")]//span[contains(@class, "autocomplete")])[2]//img[contains(@class, "search")]',
+      target: 'css=#ac-new-3-artist-1 + button.search',
       value: '',
     },
     {
@@ -58,7 +58,7 @@
     },
     {
       command: 'click',
-      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'David Bowie')]",
+      target: "xpath=//ul[@id='ac-new-3-artist-1-menu']//li[contains(@class, 'option-item')][contains(., 'David Bowie')]",
       value: '',
     },
     {
@@ -68,7 +68,7 @@
     },
     {
       command: 'click',
-      target: 'xpath=(//div[contains(@id, "artist-credit-bubble")]//span[contains(@class, "autocomplete")])[2]//img[contains(@class, "search")]',
+      target: 'css=#ac-new-4-artist-1 + button.search',
       value: '',
     },
     {
@@ -78,7 +78,7 @@
     },
     {
       command: 'click',
-      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'David Bowie')]",
+      target: "xpath=//ul[@id='ac-new-4-artist-1-menu']//li[contains(@class, 'option-item')][contains(., 'David Bowie')]",
       value: '',
     },
     {

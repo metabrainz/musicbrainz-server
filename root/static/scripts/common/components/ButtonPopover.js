@@ -146,7 +146,7 @@ const ButtonPopover = (props: PropsT): React$MixedElement => {
           </ErrorBoundary>
           <FloatingArrow
             context={context}
-            fill="white"
+            fill="currentColor"
             height={12}
             ref={arrowRef}
             stroke="#AAA"

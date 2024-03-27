@@ -1,4 +1,5 @@
 /*
+ * @flow strict-local
  * Copyright (C) 2016 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -6,456 +7,554 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import $ from 'jquery';
 import ko from 'knockout';
-import mutate from 'mutate-cow';
+import mutate, {type CowContext} from 'mutate-cow';
 import * as React from 'react';
-import {flushSync} from 'react-dom';
-import * as ReactDOMClient from 'react-dom/client';
 
-import Autocomplete from '../../common/components/Autocomplete.js';
 import {
-  artistCreditsAreEqual,
-  hasArtist,
-  hasVariousArtists,
-  isCompleteArtistCredit,
-  isComplexArtistCredit,
-  reduceArtistCredit,
+  ArtistAutocomplete,
+  createInitialState as createInitialAutocompleteState,
+} from '../../common/components/Autocomplete2.js';
+import {
+  default as autocompleteReducer,
+} from '../../common/components/Autocomplete2/reducer.js';
+import type {
+  ActionT as AutocompleteActionT,
+} from '../../common/components/Autocomplete2/types.js';
+import ButtonPopover from '../../common/components/ButtonPopover.js';
+import {createArtistObject} from '../../common/entity2.js';
+import {
+  reduceArtistCreditNames,
 } from '../../common/immutable-entities.js';
+import {uniqueId} from '../../common/utility/numbers.js';
 import {localStorage} from '../../common/utility/storage.js';
 
+import type {
+  ActionT,
+  ArtistCreditableT,
+  ArtistCreditNameStateT,
+  PropsT,
+  StateT,
+} from './ArtistCreditEditor/types.js';
+import {
+  artistCreditStateToString,
+  incompleteArtistCreditFromState,
+  isArtistCreditStateComplete,
+} from './ArtistCreditEditor/utilities.js';
 import ArtistCreditBubble from './ArtistCreditBubble.js';
 
-function setAutoJoinPhrases(ac) {
-  const names = ac.names;
-  const size = names.length;
+function isNameRemoved(name: ArtistCreditNameStateT): boolean {
+  return name.removed;
+}
+
+function isNameNotRemoved(name: ArtistCreditNameStateT): boolean {
+  return !name.removed;
+}
+
+function setAutoJoinPhrases(
+  namesCtx: CowContext<$ReadOnlyArray<ArtistCreditNameStateT>>,
+): void {
+  const names = namesCtx.read();
+
+  const nonRemovedIndexes = names.reduce((
+    accum: Array<number>,
+    credit: ArtistCreditNameStateT,
+    index: number,
+  ) => {
+    if (!credit.removed) {
+      accum.push(index);
+    }
+    return accum;
+  }, []);
+  const size = nonRemovedIndexes.length;
   const auto = /^(| & |, )$/;
 
   if (size > 0) {
-    const name0 = names[size - 1];
+    const index = nonRemovedIndexes[size - 1];
+    const name0 = names[index];
     if (name0 && name0.automaticJoinPhrase !== false) {
-      names[size - 1] = {...name0, joinPhrase: ''};
+      namesCtx.set(index, 'joinPhrase', '');
     }
   }
 
   if (size > 1) {
-    const name1 = names[size - 2];
+    const index = nonRemovedIndexes[size - 2];
+    const name1 = names[index];
     if (name1 && name1.automaticJoinPhrase !== false &&
         auto.test(name1.joinPhrase)) {
-      names[size - 2] = {...name1, joinPhrase: ' & '};
+      namesCtx.set(index, 'joinPhrase', ' & ');
     }
   }
 
   if (size > 2) {
-    const name2 = names[size - 3];
+    const index = nonRemovedIndexes[size - 3];
+    const name2 = names[index];
     if (name2 && name2.automaticJoinPhrase !== false &&
         auto.test(name2.joinPhrase)) {
-      names[size - 3] = {...name2, joinPhrase: ', '};
+      namesCtx.set(index, 'joinPhrase', ', ');
     }
   }
-
-  return ac;
 }
 
-const makeHiddenInput = (data) => (
-  <input
-    key={data.name}
-    name={data.name}
-    type="hidden"
-    value={nonEmpty(data.value) ? data.value : ''}
-  />
-);
-
-class ArtistCreditEditor extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      artistCredit: ko.unwrap(this.props.entity.artistCredit),
-    };
-
-    this.initialArtistText = '';
-    this.addName = this.addName.bind(this);
-    this.copyArtistCredit = this.copyArtistCredit.bind(this);
-    this.done = this.done.bind(this);
-    this.hide = this.hide.bind(this);
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.pasteArtistCredit = this.pasteArtistCredit.bind(this);
-    this.removeName = this.removeName.bind(this);
-    this.handleBubbleToggle = this.handleBubbleToggle.bind(this);
-  }
-
-  addName() {
-    const ac = setAutoJoinPhrases({
-      names: this.state.artistCredit.names.concat({
-        artist: null,
-        joinPhrase: '',
-        name: '',
-      }),
-    });
-    this.setState({artistCredit: ac}, () => this.positionBubble());
-  }
-
-  removeName(i, event) {
-    // Prevent track artist bubbles from closing.
-    event.stopPropagation();
-
-    const ac = this.state.artistCredit;
-    const newState = mutate(this.state)
-      .update('artistCredit', 'names', (namesCtx) => {
-        namesCtx.write().splice(i, 1);
-      })
-      .final();
-    setAutoJoinPhrases(newState.artistCredit);
-
-    this.setState(newState, () => {
-      this.positionBubble();
-      if (i > 0 && i === ac.names.length - 1) {
-        $('#artist-credit-bubble')
-          .find('.remove-item')
-          .eq(i - 1)
-          .focus();
-      }
-    });
-  }
-
-  handleNameChange(i, update) {
-    this.setState(state => mutate(state)
-      .update('artistCredit', 'names', i, (nameCtx) => {
-        nameCtx.set({...nameCtx.read(), ...update});
-      })
-      .final());
-  }
-
-  copyArtistCredit() {
-    let names = this.state.artistCredit.names;
-
+function removeRemovedCredits(stateCtx: CowContext<StateT>): void {
+  const {id, names} = stateCtx.read();
+  if (names.some(isNameRemoved)) {
+    const namesCtx = stateCtx.get('names');
+    namesCtx.set(names.filter(isNameNotRemoved));
+    const totalNames = stateCtx.read().names.length;
+    for (let i = 0; i < totalNames; i++) {
+      namesCtx.set(i, 'artist', 'id', getArtistCreditNameInputId(id, i));
+    }
     if (!names.length) {
-      names = [{artist: null, joinPhrase: '', name: ''}];
-    }
-
-    localStorage('copiedArtistCredit', JSON.stringify(names));
-  }
-
-  pasteArtistCredit() {
-    const names = JSON.parse(localStorage('copiedArtistCredit') || '[{}]');
-    this.setState({artistCredit: {names}});
-  }
-
-  handleBubbleToggle() {
-    const $bubble = $('#artist-credit-bubble');
-    if ($bubble.is(':visible')) {
-      const inst = $bubble.data('componentInst');
-
-      if (inst.props.doneCallback) {
-        inst.props.doneCallback();
-      }
-
-      if ($bubble.data('target') === this.props.entity) {
-        this.hide();
-        return;
-      }
-    }
-    this.updateBubble(true);
-  }
-
-  positionBubble() {
-    const $bubble = $('#artist-credit-bubble');
-    if (!$bubble.length) {
-      return;
-    }
-
-    const $button = $(this._editButton);
-    const position = {
-      collision: 'fit none',
-      of: $button[0],
-      within: $('body'),
-    };
-    let maxWidth;
-    let tailClass;
-
-    if (this.props.orientation === 'left') {
-      position.my = 'right center';
-      position.at = 'left-15 center';
-      maxWidth = $button.position().left - 64;
-      tailClass = 'right-tail';
-    } else {
-      position.my = 'left center';
-      position.at = 'right+15 center';
-      maxWidth = $('body').innerWidth() - ($button.position().left +
-        $button.outerWidth() + 64);
-      tailClass = 'left-tail';
-    }
-
-    $bubble
-      .css('max-width', maxWidth)
-      .find('.bubble')
-      .removeClass('left-tail right-tail')
-      .addClass(tailClass)
-      .end()
-      .show()
-      .position(position)
-      /*
-       * For some reason this needs to be called twice...
-       * Steps to reproduce: open the release AC bubble, switch to the
-       * tracklist tab, open a track AC bubble.
-       */
-      .position(position);
-  }
-
-  updateBubble(show = false, callback = null) {
-    this.createBubble();
-
-    const $bubble = $('#artist-credit-bubble');
-    const bubbleWasVisible = $bubble.is(':visible');
-
-    /*
-     * `show` implies the bubble should be made visible with a new entity.
-     * If show = false and the bubble isn't visible,
-     * there's no point in updating it.
-     */
-    if (!show && !bubbleWasVisible) {
-      return;
-    }
-
-    /*
-     * Don't hijack the bubble unless show = true or this is for the
-     * currently-open entity.
-     */
-    if (!show && $bubble.data('target') !== this.props.entity) {
-      return;
-    }
-
-    if (show) {
-      this.initialArtistText = reduceArtistCredit(this.state.artistCredit);
-    }
-
-    $bubble
-      .data('target', this.props.entity)
-      .data('componentInst', this);
-
-    let bubbleRoot = $bubble.data('react-root');
-    if (!bubbleRoot) {
-      bubbleRoot = ReactDOMClient.createRoot($bubble[0]);
-      $bubble.data('react-root', bubbleRoot);
-    }
-
-    flushSync(() => {
-      bubbleRoot.render(
-        <ArtistCreditBubble
-          addName={this.addName}
-          artistCredit={this.state.artistCredit}
-          copyArtistCredit={this.copyArtistCredit}
-          done={this.done}
-          hide={this.hide}
-          initialArtistText={this.initialArtistText}
-          onNameChange={this.handleNameChange}
-          pasteArtistCredit={this.pasteArtistCredit}
-          removeName={this.removeName}
-          renderCallback={
-            show ? (() => {
-              this.positionBubble();
-
-              if (!bubbleWasVisible) {
-                $bubble.find(':input:eq(0)').focus();
-                $('#change-matching-artists').prop('checked', false);
-              }
-
-              if (callback) {
-                callback();
-              }
-            }) : null
-          }
-          {...this.props}
-        />,
-      );
-    });
-  }
-
-  hide(stealFocus = true) {
-    const $bubble = $('#artist-credit-bubble').hide();
-    if (stealFocus) {
-      this._editButton.focus();
-    }
-    // Defer until after the doneCallback() executes (if done() called us).
-    setTimeout(function () {
-      $bubble.data('target', null).data('componentInst', null);
-    }, 1);
-  }
-
-  runDoneCallback() {
-    if (this.props.doneCallback) {
-      this.props.doneCallback(this.initialArtistText);
-      this.initialArtistText = '';
+      addEmptyCredit(stateCtx);
     }
   }
+}
 
-  done(stealFocus = true, nextTrack = false) {
-    this.runDoneCallback();
+function getArtistCreditNameInputId(
+  artistCreditEditorId: string,
+  index: number,
+): string {
+  return 'ac-' + artistCreditEditorId + '-artist-' + String(index);
+}
 
-    // XXX The release editor still uses knockout.
-    if (nextTrack) {
-      const entity = this.props.entity;
-      if (entity.entityType === 'track') {
-        const next = entity.medium.tracks()[entity.position()];
-        if (next) {
-          ko.bindingHandlers.artistCreditEditor.nextTrack();
-          return;
-        }
-      }
+function getEmptyArtistCreditNameState(
+  artistCreditEditorId: string,
+  index: number,
+): ArtistCreditNameStateT {
+  const key = uniqueId();
+  return {
+    artist: createInitialAutocompleteState<ArtistT>({
+      entityType: 'artist',
+      id: getArtistCreditNameInputId(artistCreditEditorId, index),
+    }),
+    automaticJoinPhrase: true,
+    joinPhrase: '',
+    key,
+    name: '',
+    removed: false,
+  };
+}
+
+function addEmptyCredit(stateCtx: CowContext<StateT>) {
+  const namesCtx = stateCtx.get('names');
+  namesCtx.write().push(getEmptyArtistCreditNameState(
+    stateCtx.read().id,
+    namesCtx.read().length,
+  ));
+  setAutoJoinPhrases(namesCtx);
+}
+
+export function closeDialog(
+  stateCtx: CowContext<StateT>,
+): void {
+  stateCtx.set('isOpen', false);
+  removeRemovedCredits(stateCtx);
+}
+
+export function reducer(
+  state: StateT,
+  action: ActionT,
+): StateT {
+  const stateCtx = mutate(state);
+  const names = state.names;
+
+  switch (action.type) {
+    case 'copy': {
+      const artistCredit = incompleteArtistCreditFromState(names);
+      localStorage('copiedArtistCredit', JSON.stringify(artistCredit));
+      break;
     }
 
-    this.hide(stealFocus);
-  }
+    case 'open-dialog':
+      stateCtx
+        .set('isOpen', true)
+        .set('changeMatchingTrackArtists', false)
+        .set('initialArtistCreditString',
+             artistCreditStateToString(names))
+        .set('initialBubbleFocus', action.initialFocus);
+      break;
 
-  createBubble() {
-    if (!document.getElementById('artist-credit-bubble')) {
-      const $bubble = $('<div id="artist-credit-bubble"></div>')
-        .hide()
-        .appendTo('body');
+    case 'close-dialog': {
+      closeDialog(stateCtx);
+      break;
+    }
 
-      $('body').on('click.artist-credit-editor', event => {
-        const $target = $(event.target);
-        if (!event.isDefaultPrevented() &&
-            $bubble.is(':visible') &&
-            $target.is(':not(.open-ac)') &&
-            !$bubble.has($target).length &&
-            /*
-             * Close unless focus was moved to a dialog above this one, e.g.
-             * when adding a new entity.
-             */
-            !$target.parents('.ui-dialog').length) {
-          $bubble.data('componentInst').done(false);
+    case 'add-name': {
+      addEmptyCredit(stateCtx);
+      break;
+    }
+
+    case 'update-single-artist-autocomplete': {
+      stateCtx.set('singleArtistAutocomplete', autocompleteReducer<ArtistT>(
+        state.singleArtistAutocomplete,
+        action.action,
+      ));
+      break;
+    }
+
+    case 'edit-artist': {
+      const {index, action: origAction} = action;
+
+      stateCtx.update('names', index, (nameCtx) => {
+        const name = nameCtx.read();
+        const prevInputValue = name.artist.inputValue;
+        const artistAutocomplete = autocompleteReducer<ArtistT>(
+          name.artist,
+          origAction,
+        );
+        nameCtx.set('artist', artistAutocomplete);
+        if (
+          (name.name === prevInputValue) ||
+          (artistAutocomplete.selectedItem && empty(name.name))
+        ) {
+          nameCtx.set('name', artistAutocomplete.inputValue);
         }
       });
-    }
-  }
 
-  componentWillUnmount() {
-    $('body').off('click.artist-credit-editor');
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.onChange &&
-        !artistCreditsAreEqual(
-          prevState.artistCredit, this.state.artistCredit,
-        )) {
-      this.props.onChange(this.state.artistCredit);
+      break;
     }
 
-    this.updateBubble();
+    case 'edit-name': {
+      // eslint-disable-next-line no-unused-vars
+      const {index, type, ...editData} = action;
 
-    $('div.various-artists.warning')
-      .toggle(hasVariousArtists(this.state.artistCredit));
-  }
+      stateCtx.update('names', index, (nameCtx) => {
+        if (editData.automaticJoinPhrase != null) {
+          nameCtx.set('automaticJoinPhrase', editData.automaticJoinPhrase);
+        }
 
-  getHiddenInputs() {
-    let prefix = 'artist_credit.names.';
+        if (editData.joinPhrase != null) {
+          nameCtx.set('joinPhrase', editData.joinPhrase);
+        }
 
-    if (this.props.form) {
-      prefix = this.props.form.name + '.' + prefix;
+        if (editData.name != null) {
+          nameCtx.set('name', editData.name);
+        }
+
+        const {artist, name} = nameCtx.read();
+        if (!artist.selectedItem && artist.inputValue !== name) {
+          nameCtx.set('artist', autocompleteReducer<ArtistT>(artist, {
+            type: 'type-value',
+            value: name,
+          }));
+        }
+      });
+
+      break;
     }
 
-    return this.state.artistCredit.names.flatMap(function (name, i) {
-      const curPrefix = prefix + i + '.';
+    case 'remove-name': {
+      const namesCtx = stateCtx.get('names');
+      namesCtx.set(action.index, 'removed', true);
+      setAutoJoinPhrases(namesCtx);
+      break;
+    }
 
-      return [
-        {name: curPrefix + 'name', value: name.name},
-        {name: curPrefix + 'join_phrase', value: name.joinPhrase},
-        {
-          name: curPrefix + 'artist.name',
-          value: name.artist ? name.artist.name : '',
-        },
-        {
-          name: curPrefix + 'artist.id',
-          value: name.artist ? name.artist.id : '',
-        },
-      ];
-    });
-  }
+    case 'undo-remove-name': {
+      const namesCtx = stateCtx.get('names');
+      namesCtx.set(action.index, 'removed', false);
+      setAutoJoinPhrases(namesCtx);
+      break;
+    }
 
-  render() {
-    const ac = this.state.artistCredit;
-    const entity = {...this.props.entity};
-    entity.artistCredit = {names: ac.names.filter(n => hasArtist(n))};
+    case 'paste': {
+      try {
+        const copiedArtistCreditString = localStorage('copiedArtistCredit');
+        if (copiedArtistCreditString != null) {
+          const artistCredit = JSON.parse(copiedArtistCreditString);
+          stateCtx.set(
+            'names',
+            createInitialNamesState(
+              artistCredit,
+              state.id,
+              /* automaticJoinPhrase = */ false,
+            ),
+          );
+          if (!stateCtx.read().names.length) {
+            addEmptyCredit(stateCtx);
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+      break;
+    }
 
-    /*
-     * The single-artist lookup changes the credit boxes in the doc bubble,
-     * and the credit boxes change the single-artist lookup.
-     */
-    const complex = isComplexArtistCredit(ac);
-    let singleArtistSelection = {name: ''};
-    let singleArtistIsEditable = true;
-
-    if (complex || ac.names.length > 1) {
-      singleArtistSelection.name = reduceArtistCredit(ac);
-      singleArtistIsEditable = false;
-    } else {
-      const firstName = ac.names[0];
-      if (firstName) {
-        if (hasArtist(firstName)) {
-          singleArtistSelection = firstName.artist;
-        } else {
-          singleArtistSelection.name = firstName.name;
+    case 'set-names-from-artist-credit': {
+      let artistCredit = action.artistCredit;
+      const artistCreditCtx = mutate(artistCredit);
+      for (let i = 0; i < artistCredit.names.length; i++) {
+        const name = artistCredit.names[i];
+        if (!name.artist) {
+          artistCreditCtx.set(
+            'names', i, 'artist',
+            createArtistObject({name: name.name}),
+          );
         }
       }
+      // $FlowIgnore[incompatible-cast] - null artists were filled in
+      artistCredit = (artistCreditCtx.final(): ArtistCreditT);
+      stateCtx.set('names',
+                   createInitialNamesState(artistCredit, state.id));
+      break;
     }
 
-    return (
-      <>
-        <table
-          className="artist-credit-editor"
-          key="artist-credit-editor"
-          ref={node => {
-            if (node) {
-              $(node).data('componentInst', this);
-            }
-          }}
-        >
-          <tbody>
-            <tr>
-              <td>
-                <Autocomplete
-                  currentSelection={singleArtistSelection}
-                  disabled={!singleArtistIsEditable}
-                  entity="artist"
-                  inputID={this.props.forLabel}
-                  isLookupPerformed={isCompleteArtistCredit(ac)}
-                  onChange={artist => {
-                    if (singleArtistIsEditable) {
-                      this.setState({
-                        artistCredit: {
-                          names: [{
-                            artist,
-                            joinPhrase: '',
-                            name: artist.name,
-                          }],
-                        },
-                      });
-                    }
-                  }}
-                  showStatus={false}
-                />
-              </td>
-              <td className="open-ac-cell">
-                <button
-                  className="open-ac"
-                  onClick={this.handleBubbleToggle}
-                  ref={button => this._editButton = button}
-                  type="button"
-                >
-                  {lp('Edit', 'verb, interactive')}
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        {this.props.hiddenInputs
-          ? this.getHiddenInputs().map(makeHiddenInput)
-          : null}
-      </>
+    case 'next-track':
+    case 'previous-track':
+    case 'set-change-matching-artists': {
+      invariant(false);
+    }
+  }
+
+  const newState = stateCtx.read();
+  const newSingleArtistAutocomplete =
+    newState.singleArtistAutocomplete;
+  const newNames = newState.names;
+
+  if (
+    state.singleArtistAutocomplete !== newSingleArtistAutocomplete &&
+    isSingleArtistEditableInState(state.names)
+  ) {
+    stateCtx.update('names', 0, (nameCtx) => {
+      const artistName = newSingleArtistAutocomplete.inputValue;
+      nameCtx
+        .set('name', artistName)
+        .set('joinPhrase', '')
+        .get('artist')
+        .set('selectedItem', newSingleArtistAutocomplete.selectedItem)
+        .set('inputValue', artistName);
+    });
+  } else if (names !== newNames) {
+    const firstNameAutocomplete = newNames[0].artist;
+    if (isSingleArtistEditableInState(newNames)) {
+      stateCtx.get('singleArtistAutocomplete')
+        .set('disabled', false)
+        .set('selectedItem', firstNameAutocomplete.selectedItem)
+        .set('inputValue', firstNameAutocomplete.inputValue);
+    } else {
+      stateCtx.get('singleArtistAutocomplete')
+        .set('disabled', true)
+        .set('selectedItem', null)
+        .set('inputValue', artistCreditStateToString(newNames));
+    }
+  }
+
+  stateCtx.get('singleArtistAutocomplete')
+    .set('isLookupPerformed', isArtistCreditStateComplete(newState.names));
+
+  return stateCtx.final();
+}
+
+function isSingleArtistEditableInState(
+  names: $ReadOnlyArray<ArtistCreditNameStateT>,
+): boolean {
+  if (names.filter(isNameNotRemoved).length === 1) {
+    const firstArtist = names[0].artist.selectedItem?.entity;
+    return !(
+      firstArtist &&
+      firstArtist.name !== artistCreditStateToString(names)
     );
   }
+  return false;
 }
+
+function createInitialNamesState(
+  artistCredit: IncompleteArtistCreditT,
+  artistCreditEditorId: string,
+  automaticJoinPhrase?: boolean = true,
+): $ReadOnlyArray<ArtistCreditNameStateT> {
+  const names = artistCredit.names;
+
+  if (!names.length) {
+    return [getEmptyArtistCreditNameState(artistCreditEditorId, 0)];
+  }
+
+  return names.map((name, index) => {
+    const key = uniqueId();
+    const artist = name.artist;
+    let artistName = '';
+    let selectedItem = null;
+    if (artist != null) {
+      artistName = artist.name;
+      if (artist.id) {
+        selectedItem = {
+          entity: artist,
+          id: artist.id,
+          name: artistName,
+          type: 'option',
+        };
+      }
+    }
+    return {
+      artist: createInitialAutocompleteState<ArtistT>({
+        containerClass: 'artist-credit-editor',
+        entityType: 'artist',
+        id: getArtistCreditNameInputId(artistCreditEditorId, index),
+        inputValue: artistName,
+        selectedItem,
+      }),
+      automaticJoinPhrase,
+      joinPhrase: name.joinPhrase ?? '',
+      key,
+      name: name.name || artistName,
+      removed: false,
+    };
+  });
+}
+
+export function createInitialState(
+  initialState: {
+    +activeUser: ActiveEditorT,
+    +entity: ArtistCreditableT,
+    +formName?: string,
+    /*
+     * `id` should uniquely identify the artist credit editor instance
+     * on the page. (Note: Using the entity ID may not suffice, as some
+     * releases will repeat the same recording!)
+     */
+    +id: string,
+    +isOpen?: boolean,
+  },
+): StateT {
+  const {
+    entity,
+    id,
+    isOpen = false,
+    ...otherState
+  } = initialState;
+  const artistCredit: ?ArtistCreditT = ko.unwrap(entity.artistCredit);
+
+  invariant(artistCredit);
+
+  const names = createInitialNamesState(artistCredit, id);
+  const isSingleArtistEditable = isSingleArtistEditableInState(names);
+
+  return {
+    artistCreditString: '',
+    changeMatchingTrackArtists: false,
+    entity,
+    id,
+    initialArtistCreditString: '',
+    isOpen,
+    names,
+    singleArtistAutocomplete: createInitialAutocompleteState<ArtistT>({
+      containerClass: 'artist-credit-editor',
+      disabled: isOpen || !isSingleArtistEditable,
+      entityType: 'artist',
+      id: 'ac-' + id + '-single-artist',
+      inputValue: reduceArtistCreditNames(artistCredit.names),
+      isLookupPerformed: isArtistCreditStateComplete(names),
+      selectedItem: (
+        isSingleArtistEditable
+          ? names[0].artist.selectedItem
+          : null
+      ),
+    }),
+    ...otherState,
+  };
+}
+
+const ArtistCreditEditor = (React.memo<PropsT>(({
+  dispatch,
+  state,
+}: PropsT): React.MixedElement => {
+  const {
+    entity,
+    formName,
+    isOpen,
+    names,
+    singleArtistAutocomplete,
+  } = state;
+
+  // For the single-artist autocomplete.
+  const firstArtistDispatch = React.useCallback((
+    action: AutocompleteActionT<ArtistT>,
+  ) => {
+    dispatch({
+      action,
+      type: 'update-single-artist-autocomplete',
+    });
+  }, [dispatch]);
+
+  const hiddenInputsPrefix = nonEmpty(formName) ? (
+    formName + '.' + 'artist_credit.names.'
+  ) : '';
+
+  const buildPopoverChildren = React.useCallback((
+    closeAndReturnFocus: () => void,
+    initialFocusRef: {-current: HTMLElement | null},
+  ) => (
+    <ArtistCreditBubble
+      closeAndReturnFocus={closeAndReturnFocus}
+      dispatch={dispatch}
+      initialFocusRef={initialFocusRef}
+      state={state}
+    />
+  ), [dispatch, state]);
+
+  const toggleDialog = React.useCallback((open: boolean) => {
+    if (open) {
+      dispatch({type: 'open-dialog'});
+    } else {
+      dispatch({type: 'close-dialog'});
+    }
+  }, [dispatch]);
+
+  const buttonProps = React.useMemo(() => ({
+    className: 'open-ac',
+    id: 'open-ac-' + String(entity.id),
+  }), [entity.id]);
+
+  return (
+    <>
+      <ArtistAutocomplete
+        dispatch={firstArtistDispatch}
+        state={singleArtistAutocomplete}
+      >
+        <ButtonPopover
+          buildChildren={buildPopoverChildren}
+          buttonContent={lp('Edit', 'verb, interactive')}
+          buttonProps={buttonProps}
+          id="artist-credit-bubble"
+          isOpen={isOpen}
+          toggle={toggleDialog}
+        />
+      </ArtistAutocomplete>
+
+      {hiddenInputsPrefix ? (
+        names.filter(isNameNotRemoved).map(function (name, i) {
+          const curPrefix = hiddenInputsPrefix + i + '.';
+          const artistAutocomplete = name.artist;
+          const artist = artistAutocomplete.selectedItem?.entity;
+          return (
+            <React.Fragment key={curPrefix}>
+              <input
+                name={curPrefix + 'name'}
+                type="hidden"
+                value={name.name ?? ''}
+              />
+              <input
+                name={curPrefix + 'join_phrase'}
+                type="hidden"
+                value={name.joinPhrase ?? ''}
+              />
+              <input
+                name={curPrefix + 'artist.name'}
+                type="hidden"
+                value={(artist?.name) ?? artistAutocomplete.inputValue}
+              />
+              <input
+                name={curPrefix + 'artist.id'}
+                type="hidden"
+                value={'' + ((artist?.id) ?? '')}
+              />
+            </React.Fragment>
+          );
+        })
+      ) : null}
+    </>
+  );
+}): React.AbstractComponent<PropsT>);
 
 export default ArtistCreditEditor;

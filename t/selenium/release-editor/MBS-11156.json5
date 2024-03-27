@@ -13,13 +13,8 @@
     },
     {
       command: 'type',
-      target: "xpath=//td[contains(@class, 'release-artist')]//input[contains(@class, 'name')]",
+      target: "id=ac-source-single-artist",
       value: 'Various Artists',
-    },
-    {
-      command: 'fireEvent',
-      target: "xpath=//td[contains(@class, 'release-artist')]//input[contains(@class, 'name')]",
-      value: 'input',
     },
     {
       command: 'pause',
@@ -28,7 +23,7 @@
     },
     {
       command: 'click',
-      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Various Artists')]",
+      target: "xpath=//ul[@id='ac-source-single-artist-menu']//li[contains(@class, 'option-item')][contains(., 'Various Artists')]",
       value: '',
     },
     {
@@ -79,24 +74,19 @@
     // Check that the parsed track does use "Various Artists" from the release artist.
     {
       command: 'assertEval',
-      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').value",
+      target: "document.querySelector('#tracklist input[id$=-single-artist]').value",
       value: '',
     },
     {
       command: 'assertEval',
-      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').classList.contains('lookup-performed')",
+      target: "document.querySelector('#tracklist input[id$=-single-artist]').classList.contains('lookup-performed')",
       value: 'false',
     },
     // Manually set the track artist to "Various Artists".
     {
       command: 'type',
-      target: "xpath=(//div[@id='tracklist']//span[contains(@class, 'artist autocomplete')])[1]//input[contains(@class, 'name')]",
+      target: "css=#tracklist input[id$=-single-artist]",
       value: '89ad4ac3-39f7-470e-963a-56509c546377',
-    },
-    {
-      command: 'fireEvent',
-      target: "xpath=(//div[@id='tracklist']//span[contains(@class, 'artist autocomplete')])[1]//input[contains(@class, 'name')]",
-      value: 'input',
     },
     {
       command: 'pause',
@@ -136,12 +126,12 @@
     },
     {
       command: 'assertEval',
-      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').value",
+      target: "document.querySelector('#tracklist input[id$=-single-artist]').value",
       value: 'Various Artists',
     },
     {
       command: 'assertEval',
-      target: "document.querySelector('#tracklist span.artist.autocomplete input.name').classList.contains('lookup-performed')",
+      target: "document.querySelector('#tracklist input[id$=-single-artist]').classList.contains('lookup-performed')",
       value: 'true',
     },
     {

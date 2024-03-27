@@ -158,6 +158,7 @@ type InitialStateT<T: EntityItemT> = {
   +inputClass?: string,
   +inputRef?: {-current: HTMLInputElement | null},
   +inputValue?: string,
+  +isLookupPerformed?: boolean,
   +labelStyle?: {...},
   +placeholder?: string,
   +recentItemsKey?: string,
@@ -321,7 +322,7 @@ const Autocomplete2 = (React.memo(<T: EntityItemT>(
     disabled = false,
     entityType,
     highlightedIndex,
-    id,
+    id: inputId,
     inputChangeHook,
     inputRef: externalInputRef,
     inputValue,
@@ -616,12 +617,11 @@ const Autocomplete2 = (React.memo(<T: EntityItemT>(
   );
 
   const activeDescendant = highlightedItem
-    ? `${id}-item-${highlightedItem.id}`
+    ? `${inputId}-item-${highlightedItem.id}`
     : null;
-  const inputId = `${id}-input`;
-  const labelId = `${id}-label`;
-  const menuId = `${id}-menu`;
-  const statusId = `${id}-status`;
+  const labelId = `${inputId}-label`;
+  const menuId = `${inputId}-menu`;
+  const statusId = `${inputId}-status`;
 
   useOutsideClickEffect(
     containerRef,
@@ -703,7 +703,7 @@ const Autocomplete2 = (React.memo(<T: EntityItemT>(
   const menuItemElements = React.useMemo(
     () => items.map((item, index) => (
       <AutocompleteItem
-        autocompleteId={id}
+        autocompleteId={inputId}
         dispatch={dispatch}
         formatOptions={
           (
@@ -730,7 +730,7 @@ const Autocomplete2 = (React.memo(<T: EntityItemT>(
       dispatch,
       entityType,
       highlightedItem,
-      id,
+      inputId,
       items,
       selectItem,
       selectedItem,
@@ -879,3 +879,9 @@ const Autocomplete2 = (React.memo(<T: EntityItemT>(
 }): React$AbstractComponent<PropsT<any>, void>);
 
 export default Autocomplete2;
+
+// XXX Until Flow supports https://github.com/facebook/flow/issues/7672
+export const ArtistAutocomplete:
+  React$AbstractComponent<PropsT<ArtistT>, void> =
+  // $FlowIgnore[unclear-type]
+  (Autocomplete2: any);

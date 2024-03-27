@@ -9,6 +9,8 @@
 
 import ko from 'knockout';
 
+import type {ReleaseEditorTrackT} from '../../release-editor/types.js';
+
 import AreaWithContainmentLink from './AreaWithContainmentLink.js';
 import ArtistCreditLink from './ArtistCreditLink.js';
 import EntityLink from './EntityLink.js';
@@ -20,7 +22,7 @@ type DescriptiveLinkProps = {
   +customArtistCredit?: ArtistCreditT,
   +deletedCaption?: string,
   +disableLink?: boolean,
-  +entity: CollectionT | RelatableEntityT,
+  +entity: CollectionT | RelatableEntityT | TrackT | ReleaseEditorTrackT,
   +showDeletedArtists?: boolean,
   +showDisambiguation?: boolean,
   +showEditsPending?: boolean,

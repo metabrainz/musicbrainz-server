@@ -9,7 +9,7 @@
     // MBS-12631: Don't show unselectable (disabled) items when typing.
     {
       command: 'type',
-      target: 'id=attribute-type-test-input',
+      target: 'id=attribute-type-test',
       value: 'im disabled',
     },
     {
@@ -52,7 +52,7 @@
     },
     {
       command: 'type',
-      target: 'id=attribute-type-test-input',
+      target: 'id=attribute-type-test',
       value: '',
     },
     // Close the menu, open it with the down arrow key, and then move to the
@@ -64,7 +64,7 @@
     },
     {
       command: 'sendKeys',
-      target: 'id=attribute-type-test-input',
+      target: 'id=attribute-type-test',
       value: '${KEY_ESC}',
     },
     {
@@ -74,7 +74,7 @@
     },
     {
       command: 'sendKeys',
-      target: 'id=attribute-type-test-input',
+      target: 'id=attribute-type-test',
       value: '${KEY_DOWN}',
     },
     {
@@ -84,7 +84,7 @@
     },
     {
       command: 'sendKeys',
-      target: 'id=attribute-type-test-input',
+      target: 'id=attribute-type-test',
       value: '${KEY_UP}',
     },
     // Check that the scroll position changed.
@@ -102,7 +102,7 @@
     },
     {
       command: 'sendKeys',
-      target: 'id=attribute-type-test-input',
+      target: 'id=attribute-type-test',
       value: '${KEY_ESC}',
     },
     {
@@ -112,7 +112,7 @@
     },
     {
       command: 'sendKeys',
-      target: 'id=attribute-type-test-input',
+      target: 'id=attribute-type-test',
       value: '${KEY_DOWN}',
     },
     {

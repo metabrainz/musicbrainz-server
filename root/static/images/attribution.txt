@@ -41,6 +41,7 @@ Images:
     icons/delete.png
     icons/information.png
     icons/tick.png (recolored to gold by CatQuest)
+    icons/arrow_undo.png
 
 ----------------------------------------------------------------------------
 

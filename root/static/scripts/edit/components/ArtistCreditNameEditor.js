@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2016 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,61 +9,82 @@
 
 import * as React from 'react';
 
-import Autocomplete from '../../common/components/Autocomplete.js';
+import {ArtistAutocomplete} from '../../common/components/Autocomplete2.js';
+import type {
+  ActionT as AutocompleteActionT,
+} from '../../common/components/Autocomplete2/types.js';
 import clean from '../../common/utility/clean.js';
 
-class ArtistCreditNameEditor extends React.Component {
-  constructor(props) {
-    super(props);
+import type {
+  ActionT,
+  ArtistCreditNameStateT,
+} from './ArtistCreditEditor/types.js';
 
-    this.artistName = (props.name.artist?.name) ?? '';
-    this.handleArtistChange = this.handleArtistChange.bind(this);
-    this.handleNameBlur = this.handleNameBlur.bind(this);
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleJoinPhraseBlur = this.handleJoinPhraseBlur.bind(this);
-    this.handleJoinPhraseChange = this.handleJoinPhraseChange.bind(this);
-  }
+type PropsT = {
+  +artistCreditEditorId: string,
+  +dispatch: (ActionT) => void,
+  +index: number,
+  +name: ArtistCreditNameStateT,
+};
 
-  handleArtistChange(artist) {
-    const update = {artist};
-    const artistName = artist ? artist.name : '';
+const ArtistCreditNameEditor = (React.memo<PropsT>(({
+  artistCreditEditorId,
+  dispatch,
+  index,
+  name: artistCreditName,
+}: PropsT): React.MixedElement => {
+  const artistDispatch = React.useCallback((
+    action: AutocompleteActionT<ArtistT>,
+  ) => {
+    dispatch({
+      action,
+      index,
+      type: 'edit-artist',
+    });
+  }, [dispatch, index]);
 
-    if (!artistName || this.artistName === this.props.name.name) {
-      update.name = artistName;
-    }
+  function handleNameBlur(
+    event: SyntheticEvent<HTMLInputElement>,
+  ): void {
+    let newName = clean(event.currentTarget.value);
 
-    this.artistName = artistName;
-    this.props.onChange(update);
-  }
-
-  handleNameBlur(event) {
-    let newName = clean(event.target.value);
-
-    const artist = this.props.name.artist;
+    const artist = artistCreditName.artist.selectedItem?.entity;
     if (newName === '' && artist) {
       newName = artist.name;
     }
 
-    this.props.onChange({name: newName});
+    dispatch({
+      index,
+      name: newName,
+      type: 'edit-name',
+    });
   }
 
-  handleNameChange(event) {
-    this.props.onChange({name: event.target.value});
+  function handleNameChange(
+    event: SyntheticKeyboardEvent<HTMLInputElement>,
+  ): void {
+    dispatch({
+      index,
+      name: event.currentTarget.value,
+      type: 'edit-name',
+    });
   }
 
-  handleJoinPhraseBlur(event) {
-    if (!this.props.name.automaticJoinPhrase) {
+  function handleJoinPhraseBlur(
+    event: SyntheticEvent<HTMLInputElement>,
+  ): void {
+    if (!artistCreditName.automaticJoinPhrase) {
       return;
     }
 
     /*
-     * This is the first value the user has entered into this field. If it is
-     * a simple word (such as "and") or an abbreviation (such as "feat.")
-     * it is likely that it should be surrounded by spaces. Add those spaces
-     * automatically only this first time. Also standardise "feat." according
-     * to our guidelines.
+     * This is the first value the user has entered into this field.
+     * If it is a simple word (such as "and") or an abbreviation (such
+     * as "feat.") it is likely that it should be surrounded by spaces.
+     * Add those spaces automatically only this first time. Also
+     * standardise "feat." according to our guidelines.
      */
-    const currentJoinPhrase = event.target.value;
+    const currentJoinPhrase = event.currentTarget.value;
 
     let joinPhrase = clean(currentJoinPhrase);
     joinPhrase = joinPhrase.replace(/^\s*(feat\.?|ft\.?|featuring)\s*$/i, 'feat.');
@@ -78,62 +100,99 @@ class ArtistCreditNameEditor extends React.Component {
     }
 
     if (joinPhrase !== currentJoinPhrase) {
-      this.props.onChange({joinPhrase});
+      dispatch({
+        index,
+        joinPhrase,
+        type: 'edit-name',
+      });
     }
   }
 
-  handleJoinPhraseChange(event) {
+  function handleJoinPhraseChange(
+    event: SyntheticKeyboardEvent<HTMLInputElement>,
+  ): void {
     // The join phrase has been changed, it should no longer be automatic.
-    this.props.onChange({
+    dispatch({
       automaticJoinPhrase: false,
-      joinPhrase: event.target.value,
+      index,
+      joinPhrase: event.currentTarget.value,
+      type: 'edit-name',
     });
   }
 
-  render() {
-    const {entity, index, name} = this.props;
+  function handleRemove() {
+    if (!artistCreditName.removed) {
+      dispatch({
+        index,
+        type: 'remove-name',
+      });
+    }
+  }
 
-    const id = 'ac-' + (entity.uniqueID || entity.id || 'source');
+  function handleUndo() {
+    if (artistCreditName.removed) {
+      dispatch({
+        index,
+        type: 'undo-remove-name',
+      });
+    }
+  }
 
-    return (
-      <tr>
-        <td>
-          <Autocomplete
-            currentSelection={name.artist || {name: name.name}}
-            entity="artist"
-            inputID={`${id}-artist-${index}`}
-            onChange={this.handleArtistChange}
-          />
+  return (
+    <tr>
+      {artistCreditName.removed ? (
+        <td className="removed-ac-name" colSpan="3">
+          {l('[removed]')}
         </td>
-        <td>
-          <input
-            id={`${id}-credited-as-${index}`}
-            onBlur={this.handleNameBlur}
-            onChange={this.handleNameChange}
-            type="text"
-            value={nonEmpty(name.name) ? name.name : ''}
+      ) : (
+        <>
+          <td>
+            <ArtistAutocomplete
+              dispatch={artistDispatch}
+              state={artistCreditName.artist}
+            />
+          </td>
+          <td>
+            <input
+              id={'ac-' + artistCreditEditorId + '-credited-as-' +
+                  String(index)}
+              onBlur={handleNameBlur}
+              onChange={handleNameChange}
+              type="text"
+              value={artistCreditName.name ?? ''}
+            />
+          </td>
+          <td>
+            <input
+              id={'ac-' + artistCreditEditorId + '-join-phrase-' +
+                  String(index)}
+              onBlur={handleJoinPhraseBlur}
+              onChange={handleJoinPhraseChange}
+              type="text"
+              value={artistCreditName.joinPhrase ?? ''}
+            />
+          </td>
+        </>
+      )}
+      <td className="align-right">
+        {artistCreditName.removed ? (
+          <button
+            className="icon undo"
+            onClick={handleUndo}
+            title={lp('Undo artist credit removal', 'interactive')}
+            type="button"
           />
-        </td>
-        <td>
-          <input
-            id={`${id}-join-phrase-${index}`}
-            onBlur={this.handleJoinPhraseBlur}
-            onChange={this.handleJoinPhraseChange}
-            type="text"
-            value={nonEmpty(name.joinPhrase) ? name.joinPhrase : ''}
-          />
-        </td>
-        <td className="align-right">
+        ) : (
           <button
             className="icon remove-item remove-artist-credit"
-            onClick={this.props.onRemove}
+            onClick={handleRemove}
             title={lp('Remove artist credit', 'interactive')}
             type="button"
           />
-        </td>
-      </tr>
-    );
-  }
-}
+        )}
+      </td>
+    </tr>
+  );
+}): React.AbstractComponent<PropsT>);
 
 export default ArtistCreditNameEditor;

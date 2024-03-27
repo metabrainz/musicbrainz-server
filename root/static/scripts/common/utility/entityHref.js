@@ -21,7 +21,8 @@ type LinkableEntity =
   | {+entityType: 'iswc', +iswc: string, ...}
   | {+entityType: RelatableEntityTypeT, +gid: string, ...}
   | {+entityType: 'collection', +gid: string, ...}
-  | {+entityType: 'link_type', +gid: string, ...};
+  | {+entityType: 'link_type', +gid: string, ...}
+  | {+entityType: 'track', +gid?: string, ...};
 
 function generateHref(
   path: string,
@@ -87,7 +88,7 @@ function entityHref(
       break;
 
     default:
-      if (entityProps.mbid && entity.gid) {
+      if (entityProps.mbid && nonEmpty(entity.gid)) {
         id = ko.unwrap(entity.gid);
       }
   }

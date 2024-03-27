@@ -23,11 +23,6 @@
       value: '5441c29d-3602-4898-b1a1-b77fa23b8e50',
     },
     {
-      command: 'fireEvent',
-      target: 'id=ac-source-artist-0',
-      value: 'input',
-    },
-    {
       command: 'pause',
       target: '1000',
       value: '',
@@ -270,13 +265,8 @@
     // changing an artist field should not cause infinite recursion (MBS-8924)
     {
       command: 'type',
-      target: 'id=entity-artist',
+      target: 'id=ac-source-single-artist',
       value: 'Silent Dawn',
-    },
-    {
-      command: 'fireEvent',
-      target: 'id=entity-artist',
-      value: 'input',
     },
     {
       command: 'assertValue',
@@ -333,7 +323,7 @@
     },
     {
       command: 'sendKeys',
-      target: 'id=ac-new-4-artist-0',
+      target: 'id=ac-new-5-artist-0',
       value: 'test',
     },
     {
@@ -343,12 +333,12 @@
     },
     {
       command: 'mouseOver',
-      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Add a new artist')]",
+      target: "xpath=//div[@id='artist-credit-bubble']//li[contains(@class, 'action-item')][contains(., 'Add a new artist')]",
       value: '',
     },
     {
       command: 'click',
-      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Add a new artist')]",
+      target: "xpath=//div[@id='artist-credit-bubble']//li[contains(@class, 'action-item')][contains(., 'Add a new artist')]",
       value: '',
     },
     {
