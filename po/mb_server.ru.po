@@ -42,9 +42,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-23 08:52+0000\n"
-"PO-Revision-Date: 2024-03-22 20:28+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-03-24 20:28+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -52,13 +52,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
-msgstr "({text})"
+msgstr " ({text})"
 
 #: ../root/components/forms.tt:313
 msgid "\"C\" is a single check digit."
@@ -250,43 +250,31 @@ msgid "Add a new release"
 msgstr "Добавить новое издание"
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
-#, fuzzy
-#| msgid "Add Area"
 msgctxt "header"
 msgid "Add area"
-msgstr "Добавить территорию"
+msgstr "Добавить область"
 
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
-#, fuzzy
-#| msgid "Add artist"
 msgctxt "header"
 msgid "Add artist"
 msgstr "Добавить исполнителя"
 
 #: ../root/release/add_cover_art.tt:1 ../root/release/add_cover_art.tt:8
-#, fuzzy
-#| msgid "Add cover art"
 msgctxt "plural, header"
 msgid "Add cover art"
 msgstr "Добавить обложку"
 
 #: ../root/event/create.tt:1 ../root/event/create.tt:3
-#, fuzzy
-#| msgid "Add event"
 msgctxt "header"
 msgid "Add event"
 msgstr "Добавить событие"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
-#, fuzzy
-#| msgid "Add instrument"
 msgctxt "header"
 msgid "Add instrument"
 msgstr "Добавить инструмент"
 
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
-#, fuzzy
-#| msgid "Add label"
 msgctxt "header"
 msgid "Add label"
 msgstr "Добавить лейбл"
@@ -294,22 +282,16 @@ msgstr "Добавить лейбл"
 #: ../root/release/edit/information.tt:215
 #: ../root/release/edit/information.tt:216
 #: ../root/layout/components/BottomMenu.js:248
-#, fuzzy
-#| msgid "Add label"
 msgctxt "interactive"
 msgid "Add label"
 msgstr "Добавить лейбл"
 
 #: ../root/release/edit/layout.tt:67 ../root/release/edit/tracklist.tt:267
-#, fuzzy
-#| msgid "Add Medium"
 msgctxt "interactive"
 msgid "Add medium"
 msgstr "Добавить носитель"
 
 #: ../root/place/create.tt:1 ../root/place/create.tt:3
-#, fuzzy
-#| msgid "Add Place"
 msgctxt "header"
 msgid "Add place"
 msgstr "Добавить место"
@@ -317,8 +299,6 @@ msgstr "Добавить место"
 #: ../root/release/edit/layout.tt:7
 #: ../root/static/scripts/release-editor/init.js:227
 #: ../root/static/scripts/release-editor/init.js:228
-#, fuzzy
-#| msgid "Add release"
 msgctxt "header"
 msgid "Add release"
 msgstr "Добавить релиз"
@@ -333,23 +313,16 @@ msgid "Add release event"
 msgstr "Добавить выпуск издания"
 
 #: ../root/release_group/create.tt:1 ../root/release_group/create.tt:3
-#, fuzzy
-#| msgid "Add release group"
 msgctxt "header"
 msgid "Add release group"
 msgstr "Добавить группу релиза"
 
 #: ../root/series/create.tt:1 ../root/series/create.tt:3
-#, fuzzy
-#| msgid "Add series"
 msgctxt "header, singular"
 msgid "Add series"
-msgstr "Добавить серии"
+msgstr "Добавить серию"
 
 #: ../root/recording/create.tt:1 ../root/recording/create.tt:3
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add Standalone Recording"
 msgctxt "header"
 msgid "Add standalone recording"
 msgstr "Добавить отдельную запись"
@@ -359,19 +332,14 @@ msgid "Add track(s)"
 msgstr "Добавить трек(и)"
 
 #: ../root/work/create.tt:1 ../root/work/create.tt:2
-#, fuzzy
-#| msgid "Add work"
 msgctxt "header"
 msgid "Add work"
 msgstr "Добавить работу"
 
 #: ../root/work/edit_form.tt:77
-#, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Add Work Attribute"
 msgctxt "interactive"
 msgid "Add work attribute"
-msgstr "Добавить рабочий атрибут"
+msgstr "Добавить атрибут работы"
 
 #: ../root/components/forms.tt:173
 msgid "Add {item}"
@@ -399,17 +367,18 @@ msgid ""
 "recording for each track. Choose “Add a new recording” if an appropriate one "
 "doesn’t exist yet."
 msgstr ""
-"Все треки требуют упорядоченной записи. Нажмите «Редактировать», чтобы "
-"выбрать запись для каждого трека. Выберите «Добавить новую запись», если "
-"подходящей еще нет."
+"Ко всем трекам нужно указать соответствующую запись. Нажмите «Редактировать»"
+", чтобы выбрать запись для каждого трека. Выберите «Добавить новую запись», "
+"если подходящей еще нет."
 
 #: ../root/components/common-macros.tt:569
+#, fuzzy
 msgid ""
 "An entity with that name and disambiguation already exists. You must enter a "
 "unique disambiguation comment."
 msgstr ""
-"Организация с таким названием и с таким дизамбигуацией уже существует. Вы "
-"должны ввести уникальный комментарий для разграничения."
+"Сущность с таким названием и с таким определением уже существует. Вы должны "
+"ввести уникальный комментарий для разграничения."
 
 #: ../root/release/edit/tracklist.tt:144
 msgid "An error occurred: "
@@ -529,10 +498,8 @@ msgid "Artist"
 msgstr "Исполнитель"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Artist Area"
 msgid "Artist area"
-msgstr "Область артиста"
+msgstr "Область исполнителя"
 
 #: ../root/artist/edit_form.tt:10
 #, fuzzy
@@ -553,28 +520,22 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:40
 #: ../root/cdtoc/attach_filter_release.tt:54
-#, fuzzy
-#| msgid "Attach Disc ID"
 msgctxt "interactive"
 msgid "Attach CD TOC"
-msgstr "Attach Disc ID"
+msgstr "Добавить таблицу содержимого CD"
 
 #: ../root/cdtoc/lookup.tt:66 ../root/release/edit/tracklist.tt:478
-#, fuzzy
-#| msgid "Attach Disc ID"
 msgid "Attach disc ID"
-msgstr "Attach Disc ID"
+msgstr "Добавить ID диска"
 
 #: ../root/cdtoc/index.tt:8
 msgid "Attached to releases"
-msgstr ""
+msgstr "Добавлена к релизам"
 
 #: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:73
-#, fuzzy
-#| msgid "Auto-editor"
 msgctxt "user type"
 msgid "Auto-editor"
-msgstr "Авто-редактор"
+msgstr "Авторедактор"
 
 #: ../root/cdtoc/attach_artist_releases.tt:19
 #: ../root/cdtoc/attach_filter_release.tt:33 ../root/cdtoc/list.tt:13
@@ -638,7 +599,7 @@ msgstr "Область начала"
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:194
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:167
 msgid "Begin date"
-msgstr ""
+msgstr "Дата начала"
 
 #: ../root/release/add_cover_art.tt:95 ../root/search/error/InternalError.js:29
 msgid ""
@@ -647,7 +608,7 @@ msgid ""
 "sure to include it!"
 msgstr ""
 "Ниже приводится информация об ошибке. Если вы хотите отправить отчет об "
-"ошибке, вы можете сделать это на странице {bugs | нашего трекера ошибок}. "
+"ошибке, вы можете сделать это на странице {bugs|нашего баг-трекера}. "
 "Информация, представленная ниже, поможет, поэтому обязательно укажите ее!"
 
 #: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:132
@@ -656,8 +617,6 @@ msgid "Blog"
 msgstr "Блог"
 
 #: ../root/edit/search_macros.tt:399
-#, fuzzy
-#| msgid "Bot"
 msgctxt "user type"
 msgid "Bot"
 msgstr "Бот"
@@ -667,13 +626,14 @@ msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
 msgstr ""
+"MusicBrainz поддерживается {MeB|Фондом MetaBrainz}, а также нашими "
+"{spon|спонсорами} и {supp|жертвователями}. Обложки предоставлены проектом "
+"{caa|Cover Art Archive}."
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:211
-#, fuzzy
-#| msgid "Bug Tracker"
 msgid "Bug tracker"
-msgstr "Баг трекер"
+msgstr "Баг-трекер"
 
 #: ../root/release/edit/tracklist.tt:6
 msgid "By default, the parser expects the following format:"
@@ -733,7 +693,7 @@ msgstr "Кат. №:"
 #: ../root/search/components/ReleaseResults.js:117
 #: ../root/utility/tableColumns.js:487 ../root/utility/tableColumns.js:492
 msgid "Catalog#"
-msgstr "Каталог#"
+msgstr "Кат. №"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -746,7 +706,7 @@ msgstr "Закрыть"
 #: ../root/edit/search_macros.tt:434 ../root/edit/components/EditHeader.js:155
 #: ../root/edit/components/EditSidebar.js:59
 msgid "Closed"
-msgstr "Закрыт"
+msgstr "Закрыта"
 
 #: ../root/artist/split.tt:36
 msgid "Collaborators on this artist"
@@ -814,7 +774,7 @@ msgstr "Обложка"
 
 #: ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
-msgstr ""
+msgstr "Создается правка..."
 
 #: ../root/release/edit/tracklist.tt:81
 msgid "Custom delimiter"
@@ -940,9 +900,7 @@ msgstr ""
 
 #: ../root/release/edit/duplicates.tt:40
 msgid "Do not use any of the above releases as a starting point"
-msgstr ""
-"Не использовать ни один из вышеперечисленных изданий в качестве отправной "
-"точки"
+msgstr "Не использовать за основу ни один из вышеперечисленных релизов"
 
 #: ../root/layout.tt:111 ../root/layout/components/Footer.js:26
 msgid "Donate"
@@ -962,7 +920,7 @@ msgid ""
 "Each track in the MusicBrainz database has to be linked to a recording, "
 "choose the appropriate recording or look for it in the database."
 msgstr ""
-"Каждый трек в базе данных MusicBrainz должен быть связан с записью, выберите "
+"Каждый трек в базе данных MusicBrainz должен быть связан с записью; выберите "
 "соответствующую запись или найдите ее в базе данных."
 
 #: ../root/release/edit/recordings.tt:109
@@ -1017,23 +975,17 @@ msgstr "Редактировать обложку"
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18
 #: ../root/static/scripts/edit/components/EnterEditNote.js:48
-#, fuzzy
-#| msgid "Edit notes"
 msgctxt "noun"
 msgid "Edit note"
-msgstr "Edit notes"
+msgstr "Редактировать комментарий"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Edit notes"
 msgid "Edit note authors"
-msgstr "Edit notes"
+msgstr "Редактировать авторов комментария"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Edit notes"
 msgid "Edit note content"
-msgstr "Edit notes"
+msgstr "Редактировать содержание комментария"
 
 #: ../root/components/forms.tt:36 ../root/components/forms.tt:40
 #: ../root/static/scripts/edit/components/EnterEditNote.js:77
@@ -1145,8 +1097,8 @@ msgid ""
 "Even just providing a URL or two is helpful! For more suggestions, see "
 "{doc_how_to|our guide for writing good edit notes}."
 msgstr ""
-"Даже просто ссылка-другая будет полезна! Для дополнительной информации см. "
-"{doc_how_to|our гайд по написанию хороших заметок к правкам}."
+"Даже просто ссылка-другая будет полезна! Для дополнительной информации "
+"смотрите {doc_how_to|наш гайд по написанию хороших комментариев к правкам}."
 
 #: ../root/edit/search_macros.tt:434 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
@@ -2576,7 +2528,7 @@ msgstr "Статус"
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:44
 msgid "Stop using beta site"
-msgstr ""
+msgstr "Не использовать бета-версию"
 
 #: ../root/release/edit/editnote.tt:44
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1869
@@ -3063,7 +3015,7 @@ msgstr "Тип:"
 #: ../root/edit/details/EditCoverArt.js:58
 #: ../root/edit/details/RemoveCoverArt.js:33 ../root/release/CoverArt.js:87
 msgid "Types:"
-msgstr ""
+msgstr "Типы:"
 
 #: ../root/edit/search_macros.tt:434 ../root/url/edit_form.tt:6
 #: ../lib/MusicBrainz/Server/Edit/URL.pm:7 ../root/edit/details/EditUrl.js:32
@@ -3368,6 +3320,9 @@ msgid ""
 "admin has revoked your privileges. If you haven’t already been contacted "
 "about why, please {uri|send us a message}."
 msgstr ""
+"Администратор отозвал ваши привилегии, из-за чего вы сейчас не можете "
+"редактировать, голосовать или оставлять комментарии к правкам. Если вам ещё "
+"не написали почему, пожалуйста, {uri|отправьте нам сообщение}."
 
 #: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:63
 #: ../root/layout/index.js:224
@@ -3376,6 +3331,9 @@ msgid ""
 "has revoked your privileges. If you haven’t already been contacted about "
 "why, please {uri|send us a message}."
 msgstr ""
+"Администратор отозвал ваши привилегии, из-за чего вы сейчас не можете "
+"оставлять или редактировать комментарии к правкам. Если вам ещё не написали "
+"почему, пожалуйста, {uri|отправьте нам сообщение}."
 
 #: ../root/release/edit/tracklist.tt:289
 msgid ""
@@ -4024,7 +3982,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:50
 msgid "You can’t change other users’ edit notes."
-msgstr ""
+msgstr "Вы не можете редактировать чужие комментарии к правкам."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:80
 msgid "This note has already been removed."
@@ -5675,7 +5633,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/URL/YouTubeMusic.pm:10
 msgid "Stream at YouTube Music"
-msgstr ""
+msgstr "Слушать в YouTube Music"
 
 #: ../lib/MusicBrainz/Server/Form/Alias.pm:112
 msgid "This alias can only be a primary alias if a locale is selected"
@@ -6037,7 +5995,7 @@ msgstr "Старый пароль неверен"
 
 #: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:58
 msgid "An account with this name could not be found"
-msgstr "An account with this name could not be found"
+msgstr "Не удалось найти аккаунт с таким именем"
 
 #: ../lib/MusicBrainz/Server/Form/User/Login.pm:16
 msgid "Username field is required"
@@ -6068,6 +6026,8 @@ msgid ""
 "The value of this field cannot be longer than {max} characters, but you "
 "entered {actual}."
 msgstr ""
+"Максимальное количество символов данного поля - {max}. Вы ввели символов: "
+"{actual}."
 
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:44
 msgid "Please enter a password in this field"
@@ -6080,27 +6040,27 @@ msgstr "Подтверждение пароля не совпадает с па�
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:35
 #: ../root/user/ReportUser.js:48
 msgid "Editor is spamming"
-msgstr "Editor is spamming"
+msgstr "Спам"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:36
 #: ../root/user/ReportUser.js:52
 msgid "Editor is unresponsive to edit notes"
-msgstr ""
+msgstr "Редактор не отвечает на комментарии к правкам"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:37
 #: ../root/user/ReportUser.js:56
 msgid "Editor intentionally ignores accepted guidelines"
-msgstr "Editor intentionally ignores accepted guidelines"
+msgstr "Осознанное игнорирование принятых правил"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:38
 #: ../root/user/ReportUser.js:60
 msgid "Editor is overzealous in enforcing guidelines as rules"
-msgstr ""
+msgstr "Редактор слишком усердно применяет рекомендации как правила"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:39
 #: ../root/user/ReportUser.js:64
 msgid "Editor engages in overzealous or abusive yes/no voting"
-msgstr ""
+msgstr "Редактор чрезмерно усердно или оскорбительно голосует «да/нет»"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:40
 #: ../root/user/ReportUser.js:69
@@ -6110,7 +6070,7 @@ msgstr "Редактор нарушил некоторые другие част
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:47
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:19
 msgid "[No lyrics]"
-msgstr "[No lyrics]"
+msgstr "[Без слов]"
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:59
 msgctxt "language optgroup"
@@ -6139,11 +6099,11 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:223
 msgid "This username is reserved for internal use."
-msgstr ""
+msgstr "Данное имя пользователя зарезервировано для внутреннего пользования."
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:226
 msgid "Please choose another username, this one is already taken."
-msgstr "Пожалуйста, выберите другое имя пользователя, это уже занято."
+msgstr "Это имя пользователя уже занято. Пожалуйста, выберите другое."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:64
 msgid "Please select a work attribute type."
@@ -6157,23 +6117,23 @@ msgstr ""
 msgid ""
 "You cannot select “[Multiple languages]” and specific languages at the same "
 "time."
-msgstr ""
+msgstr "Нельзя одновременно выбрать \"[Несколько языков]\" и конкретные языки."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:103
 msgid "You cannot select “[No lyrics]” and a lyrics language at the same time."
-msgstr ""
+msgstr "Нельзя одновременно выбрать \"[Без слов]\" и язык текста."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:108
 msgid "You cannot select the same language more than once."
-msgstr ""
+msgstr "Нельзя выбрать один и тот же язык больше, чем один раз."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:150
 msgid "Unknown work attribute type."
-msgstr "Неизвестный тип атрибута."
+msgstr "Неизвестный тип атрибута работы."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:159
 msgid "You cannot enter the same attribute and value more than once."
-msgstr ""
+msgstr "Нельзя ввести тот же атрибут и значение более одного раза."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:166
 msgid "This value is not allowed for this work attribute type."
@@ -6214,16 +6174,22 @@ msgid ""
 "change their passwords. Sorry for the inconvenience. For more information "
 "see {blog|the recent blog post}."
 msgstr ""
+"Пожалуйста, измените свой пароль. К сожалению, мы обнаружили, что пароли "
+"пользователей с защищенными хешами были временно доступны для загрузки на "
+"нашем FTP-сайте. Хотя крайне маловероятно, что кто-либо сможет получить "
+"исходные пароли в результате этого происшествия, мы требуем от всех наших "
+"пользователей сменить свои пароли. Приносим извинения за неудобства. Для "
+"получения дополнительной информации см. {blog|недавнюю публикацию в блоге}."
 
 #: ../root/account/ChangePassword.js:58
 msgid "Please enter your old password below, and then your new password."
-msgstr ""
+msgstr "Введите ниже ваш старый пароль, и затем ваш новый пароль."
 
 #: ../root/account/ChangePassword.js:69 ../root/account/LostPassword.js:44
 #: ../root/static/scripts/account/components/RegisterForm.js:57
 #: ../root/user/Login.js:101
 msgid "Username"
-msgstr ""
+msgstr "Имя пользователя"
 
 #: ../root/account/ChangePassword.js:77
 msgid "Old password:"
@@ -6295,16 +6261,16 @@ msgstr "Удалить мой аккаунт"
 
 #: ../root/account/Donation.js:32 ../root/account/Donation.js:34
 #: ../root/components/UserAccountTabs.js:94
-#, fuzzy
-#| msgid "Documentation Search"
 msgid "Donation check"
-msgstr "Поиск по документации"
+msgstr "Проверка пожертвования"
 
 #: ../root/account/Donation.js:38
 msgid ""
 "We were not able to check your donation status right now. Please try again "
 "later."
 msgstr ""
+"Мы не смогли проверить статус вашего пожертвования. Пожалуйста, попробуйте "
+"еще раз позднее."
 
 #: ../root/account/Donation.js:45
 msgid ""
@@ -6312,6 +6278,10 @@ msgid ""
 "PayPal donation, then we have not received a notification from PayPal yet. "
 "Please wait a few minutes and reload this page to check again."
 msgstr ""
+"В последнее время мы не получали от вас пожертвований. Если вы только что "
+"сделали пожертвование через PayPal, значит, мы еще не получили уведомление "
+"от PayPal. Пожалуйста, подождите несколько минут и перезагрузите эту "
+"страницу, чтобы проверить еще раз."
 
 #: ../root/account/Donation.js:52
 msgid ""
@@ -6321,7 +6291,7 @@ msgstr ""
 
 #: ../root/account/Donation.js:62
 msgid "Thank you for contributing to MusicBrainz."
-msgstr ""
+msgstr "Спасибо за ваше пожертвование."
 
 #: ../root/account/Donation.js:68
 msgid "You will not be nagged for another {days} days."
@@ -6427,17 +6397,17 @@ msgid ""
 "Your preferences have been saved. Click {link|here} to continue to your user "
 "page."
 msgstr ""
+"Настройки были сохранены. Нажмите {link|здесь}, чтобы вернуться на свою "
+"страницу."
 
 #: ../root/account/Register.js:28 ../root/account/Register.js:35
-#, fuzzy
-#| msgid "Create an Account"
 msgctxt "header"
 msgid "Create an account"
 msgstr "Создать аккаунт"
 
 #: ../root/account/Register.js:31
 msgid "Captcha incorrect. Try again."
-msgstr "Captcha неверна. Попробуйте еще раз."
+msgstr "Капча неверна. Попробуйте еще раз."
 
 #: ../root/account/Register.js:39
 msgid ""
@@ -6449,9 +6419,9 @@ msgid ""
 msgstr ""
 "<strong>Обратите внимание, что любой вклад, делаемый вами в MusicBrainz, "
 "будет считаться общественным достоянием и/или будет доступен под лицензией "
-"Creative Commons by-nc-sa. Кроме того, вы даете MetaBrainz Foundation право "
+"Creative Commons by-nc-sa. Кроме того, вы даете Фонду MetaBrainz право "
 "лицензировать эти данные для коммерческого использования. Пожалуйста, "
-"обратитесь к нашей {doc|license page} за подробностями.</strong>"
+"обратитесь к нашей {doc|странице лицензии} за подробностями.</strong>"
 
 #: ../root/account/Register.js:51
 msgid ""
@@ -6459,6 +6429,10 @@ msgid ""
 "information you choose to provide will not be sold or shared with anyone "
 "else. For full details, please read our {doc|Privacy Policy}."
 msgstr ""
+"MusicBrainz твердо верит в конфиденциальность своих пользователей! Любая "
+"личная информация, которую вы решите предоставить, не будет продаваться или "
+"передаваться кому-либо еще. Для получения полной информации, пожалуйста, "
+"прочитайте нашу {doc|Политику конфиденциальности}."
 
 #: ../root/account/Register.js:61
 msgid ""
@@ -7925,8 +7899,6 @@ msgid "Disc IDs"
 msgstr "ID диска"
 
 #: ../root/components/EntityTabs.js:114
-#, fuzzy
-#| msgid "Cover art:"
 msgctxt "plural"
 msgid "Cover art"
 msgstr "Обложка"
@@ -10470,7 +10442,7 @@ msgstr "Статистика"
 
 #: ../root/layout/components/BottomMenu.js:162
 msgid "Timeline graph"
-msgstr ""
+msgstr "Хронология"
 
 #: ../root/layout/components/BottomMenu.js:165
 msgid "MusicBrainz history"

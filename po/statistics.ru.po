@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-22 15:28+0000\n"
+"PO-Revision-Date: 2024-03-23 13:28+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -215,16 +215,12 @@ msgid "Amazon betas SoundUnwound"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2004-02-24
-#, fuzzy
-#| msgid "Amazon Coverart"
 msgid "Amazon cover art"
-msgstr "Обложки Amazon"
+msgstr "Обложка Amazon"
 
 #: DB:statistics.statistic_event/description:2004-02-24
-#, fuzzy
-#| msgid "Annotation support released."
 msgid "Amazon cover art support released."
-msgstr "Добавлена поддержка аннотаций."
+msgstr "Добавлена поддержка обложек Amazon."
 
 #: DB:statistics.statistic_event/description:2006-07-12
 msgid "An improved release editor and a new site design are released."
@@ -1159,8 +1155,6 @@ msgid "Countries"
 msgstr "Страны"
 
 #: ../root/statistics/layout.tt:4
-#, fuzzy
-#| msgid "Cover Art"
 msgctxt "plural"
 msgid "Cover art"
 msgstr "Обложка"
@@ -1168,14 +1162,10 @@ msgstr "Обложка"
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
 #: ../root/statistics/StatisticsLayout.js:94
 #: ../root/statistics/StatisticsLayout.js:108
-#, fuzzy
-#| msgid "Database Statistics"
 msgid "Database statistics"
 msgstr "Статистика базы данных"
 
 #: ../root/statistics/layout.tt:15
-#, fuzzy
-#| msgid "Database Statistics - {title}"
 msgid "Database statistics - {title}"
 msgstr "Статистика базы данных - {title}"
 
@@ -1216,8 +1206,6 @@ msgid "Legend"
 msgstr ""
 
 #: ../root/statistics/timeline.tt:6 ../root/statistics/timeline.tt:19
-#, fuzzy
-#| msgid "MusicBrainz Events"
 msgid "MusicBrainz events"
 msgstr "События MusicBrainz"
 
@@ -1250,8 +1238,6 @@ msgid "Timeline"
 msgstr "Хронология"
 
 #: ../root/statistics/timeline.tt:25
-#, fuzzy
-#| msgid "Timeline"
 msgid "Timeline graph"
 msgstr "Хронология"
 
@@ -1316,8 +1302,6 @@ msgid "Total"
 msgstr "Итого"
 
 #: ../root/statistics/Countries.js:101
-#, fuzzy
-#| msgid "Unknown Country"
 msgid "Unknown country"
 msgstr "Неизвестная страна"
 
