@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+set -o errexit
+
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
+cd "$MB_SERVER_ROOT"
+
+./script/create_test_db.sh SELENIUM
+
+./admin/psql SELENIUM < ./t/sql/selenium.sql
+
+if [[ $# -gt 0 ]]; then
+    EXTRA_SQL="$1"
+    if [[ -f "$EXTRA_SQL" ]]; then
+        ./admin/psql SELENIUM < "$EXTRA_SQL"
+    fi
+fi
+
+DROP_SQL=$(cat <<'SQL'
+\set ON_ERROR_STOP 1
+DROP EXTENSION IF EXISTS amqp CASCADE;
+DROP SCHEMA IF EXISTS artwork_indexer CASCADE;
+SQL
+)
+echo "$DROP_SQL" | ./admin/psql --system SELENIUM
+
+if [ -z "$SIR_DIR" ]; then
+    SIR_DIR="$MB_SERVER_ROOT"/../sir
+fi
+
+if [ -d "$SIR_DIR" ]; then
+    ./admin/psql --system SELENIUM < "$SIR_DIR"/sql/CreateExtension.sql
+    ./admin/psql SELENIUM < "$SIR_DIR"/sql/CreateFunctions.sql
+    ./admin/psql SELENIUM < "$SIR_DIR"/sql/CreateTriggers.sql
+fi
+
+if [ -z "$ARTWORK_INDEXER_DIR" ]; then
+    ARTWORK_INDEXER_DIR="$MB_SERVER_ROOT"/../artwork-indexer
+fi
+
+if [ -d "$ARTWORK_INDEXER_DIR" ]; then
+    ./admin/psql SELENIUM < "$ARTWORK_INDEXER_DIR"/sql/create.sql ||
+        # This file was renamed to create_schema.sql, though our tests image
+        # still uses the old version.
+        ./admin/psql SELENIUM < "$ARTWORK_INDEXER_DIR"/sql/create_schema.sql
+    ./admin/psql SELENIUM < "$ARTWORK_INDEXER_DIR"/sql/caa_functions.sql
+    ./admin/psql SELENIUM < "$ARTWORK_INDEXER_DIR"/sql/caa_triggers.sql
+    ./admin/psql SELENIUM < "$ARTWORK_INDEXER_DIR"/sql/eaa_functions.sql
+    ./admin/psql SELENIUM < "$ARTWORK_INDEXER_DIR"/sql/eaa_triggers.sql
+fi

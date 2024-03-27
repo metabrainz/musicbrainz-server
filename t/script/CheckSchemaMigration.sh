@@ -61,9 +61,13 @@ fi
 # from the production branch.
 git restore --source=production -- admin/sql
 git restore --source=production -- admin/InitDb.pl
-./admin/InitDb.pl --database $DB2 --createdb --clean --reptype $REPLICATION_TYPE "${WITH_PENDING_ARGS[@]}"
-./admin/psql $DB2 < t/sql/initial.sql
-./admin/psql $DB2 < admin/sql/SetSequences.sql
+./admin/InitDb.pl \
+    --database $DB2 \
+    --createdb \
+    --clean \
+    --reptype $REPLICATION_TYPE \
+    --initial-sql t/sql/initial.sql \
+    "${WITH_PENDING_ARGS[@]}"
 git restore admin/sql
 git clean --force -- admin/sql
 git restore admin/InitDb.pl
