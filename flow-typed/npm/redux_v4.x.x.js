@@ -101,6 +101,4 @@ declare module 'redux' {
   declare export function combineReducers<O: {...}, A>(
     reducers: O
   ): CombinedReducer<$ObjMap<O, <S>(r: Reducer<S, any>) => S>, A>;
-
-  declare export var compose: $Compose;
 }
