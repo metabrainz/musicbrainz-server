@@ -24,8 +24,6 @@ sub serialize
         $body{area} = $entity->area ? serialize_entity($entity->area) : JSON::null;
         $body{'begin-area'} = $entity->begin_area ? serialize_entity($entity->begin_area) : JSON::null;
         $body{'end-area'} = $entity->end_area ? serialize_entity($entity->end_area) : JSON::null;
-        $body{begin_area} = $body{'begin-area'};
-        $body{end_area} = $body{'end-area'};
 
         $body{recordings} = list_of($entity, $inc, $stash, 'recordings')
             if ($inc && $inc->recordings);
