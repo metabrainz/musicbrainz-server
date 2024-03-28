@@ -20,6 +20,9 @@ test 'Editing event art fails if the event art no longer exists' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+eaa');
 
+    my $editor = $c->model('Editor')->get_by_id(1);
+    $c->model('Editor')->update_privileges($editor, { account_admin => 1 });
+
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_EVENT_EDIT_EVENT_ART,
         editor_id => 1,
@@ -41,6 +44,9 @@ test 'Editing event art edits can be accepted' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+eaa');
+
+    my $editor = $c->model('Editor')->get_by_id(1);
+    $c->model('Editor')->update_privileges($editor, { account_admin => 1 });
 
     my $edit = $c->model('Edit')->create(
         edit_type => $EDIT_EVENT_EDIT_EVENT_ART,

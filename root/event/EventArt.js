@@ -16,6 +16,7 @@ import {SanitizedCatalystContext} from '../context.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList.js';
+import {isAccountAdmin} from '../static/scripts/common/utility/privileges.js';
 
 import EventLayout from './EventLayout.js';
 
@@ -76,7 +77,7 @@ const EventArt = ({
                 {' '}
                 <ArtLinks artwork={artwork} />
               </p>
-              {$c.user ? (
+              {isAccountAdmin($c.user) ? (
                 <div className="buttons">
                   <a
                     href={'/event/' + event.gid +
@@ -116,7 +117,7 @@ const EventArt = ({
       )}
 
       {event.may_have_event_art /*:: === true */ ? (
-        $c.user ? (
+        isAccountAdmin($c.user) ? (
           <div className="buttons ui-helper-clearfix">
             <EntityLink
               content={lp('Add event art', 'plural, interactive')}

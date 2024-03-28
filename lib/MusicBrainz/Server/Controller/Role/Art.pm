@@ -200,6 +200,10 @@ role {
         my $art_archive_model = $c->model($art_archive_model_name);
         my $entity_type = $art_archive_model->art_archive_entity;
 
+        if ($entity_type eq 'event' && !$c->user->is_account_admin) {
+            $c->detach('/error_403');
+        }
+
         $self->_darkened_check($c, $entity);
 
         my ($all_artwork) = $self->_load_artwork($c, $entity);
@@ -287,6 +291,10 @@ role {
         my $art_archive_model = $c->model($art_archive_model_name);
         my $entity_type = $art_archive_model->art_archive_entity;
 
+        if ($entity_type eq 'event' && !$c->user->is_account_admin) {
+            $c->detach('/error_403');
+        }
+
         my ($all_artwork, $artwork) =
             $self->_load_artwork($c, $entity, $artwork_id);
 
@@ -350,6 +358,10 @@ role {
         my $art_archive_model = $c->model($art_archive_model_name);
         my $entity_type = $art_archive_model->art_archive_entity;
 
+        if ($entity_type eq 'event' && !$c->user->is_account_admin) {
+            $c->detach('/error_403');
+        }
+
         my ($all_artwork, $artwork) =
             $self->_load_artwork($c, $entity, $artwork_id);
 
@@ -402,6 +414,10 @@ role {
         my $entity = $get_entity->($c);
         my $art_archive_model = $c->model($art_archive_model_name);
         my $entity_type = $art_archive_model->art_archive_entity;
+
+        if ($entity_type eq 'event' && !$c->user->is_account_admin) {
+            $c->detach('/error_403');
+        }
 
         $self->_darkened_check($c, $entity);
 

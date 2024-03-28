@@ -20,6 +20,9 @@ test 'Accepting removes the linked event art' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+eaa');
 
+    my $editor = $c->model('Editor')->get_by_id(10);
+    $c->model('Editor')->update_privileges($editor, { account_admin => 1 });
+
     my $event = $c->model('Event')->get_by_id(59357);
     my @artwork = get_artwork($c, $event);
     is(scalar @artwork, 1, 'artwork exists');
@@ -38,6 +41,9 @@ test 'Rejecting does not make any changes' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+eaa');
+
+    my $editor = $c->model('Editor')->get_by_id(10);
+    $c->model('Editor')->update_privileges($editor, { account_admin => 1 });
 
     my $event = $c->model('Event')->get_by_id(59357);
     my @artwork = get_artwork($c, $event);
