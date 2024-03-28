@@ -19,6 +19,7 @@ const stats = {
     'collection': {label: l_statistics('Collections')},
     'core-entities': {label: l_statistics('Core entities')},
     'cover-art': {hide: true, label: lp_statistics('Cover art', 'plural')},
+    'event-art': {hide: true, label: lp_statistics('Event art', 'plural')},
     'edit-information':
       {hide: true, label: lp_statistics('Edit information', 'noun')},
     'edit-types': {label: lp_statistics('Edit types', 'noun')},
@@ -278,6 +279,11 @@ const stats = {
     color: '#0022dd',
     label: l_statistics('Pieces of cover art'),
   },
+  'count.event.art': {
+    category: 'event-art',
+    color: '#2200dd',
+    label: l_statistics('Pieces of event art'),
+  },
   'count.discid': {
     category: 'other',
     color: '#ff0000',
@@ -433,6 +439,16 @@ const stats = {
     category: 'event-countries',
     color: '#ff0000',
     label: l_statistics('Events with no country set'),
+  },
+  'count.event.has_art': {
+    category: 'event-art',
+    color: '#dd2200',
+    label: l_statistics('Events with event art'),
+  },
+  'count.event.has_front_art': {
+    category: 'event-art',
+    color: '#22dd00',
+    label: l_statistics('Events with front event art'),
   },
   'count.event.type.null': {
     category: 'event-types',

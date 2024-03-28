@@ -16,7 +16,7 @@ type Props = {
   +children: React$Node,
   +entity: EventT,
   +fullWidth?: boolean,
-  +page: string,
+  +page?: string,
   +title?: string,
 };
 

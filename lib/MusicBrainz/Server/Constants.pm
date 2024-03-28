@@ -259,6 +259,10 @@ Readonly our $EDIT_EVENT_ADD_ANNOTATION => 154;
 Readonly our $EDIT_EVENT_ADD_ALIAS => 155;
 Readonly our $EDIT_EVENT_DELETE_ALIAS => 156;
 Readonly our $EDIT_EVENT_EDIT_ALIAS => 157;
+Readonly our $EDIT_EVENT_ADD_EVENT_ART => 158;
+Readonly our $EDIT_EVENT_REMOVE_EVENT_ART => 159;
+Readonly our $EDIT_EVENT_EDIT_EVENT_ART => 1510;
+Readonly our $EDIT_EVENT_REORDER_EVENT_ART => 1511;
 
 Readonly our $EDIT_GENRE_CREATE => 160;
 Readonly our $EDIT_GENRE_EDIT => 161;

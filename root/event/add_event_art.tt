@@ -1,0 +1,178 @@
+[%- WRAPPER "event/layout.tt" title=lp('Add event art', 'plural, header') page='add_event_art' -%]
+  [%- script_manifest('event/eventart.js') -%]
+
+  <script type="text/javascript">
+    MB.event_art_types_json = [% event_art_types_json %];
+  </script>
+
+  <h2>[%- lp('Add event art', 'plural, header') -%]</h2>
+
+  [%~ javascript_required() ~%]
+
+  <div style="display:none">[% warning(l('The Event Art Archive is currently experiencing difficulties. Adding images for this event is unlikely to work at the moment.'), 'eaa-warning') %]</div>
+  <script type="text/javascript">
+    $.getJSON("//s3.us.archive.org/?check_limit=1&accesskey=[% access_key %]&bucket=mbid-[% entity.gid %]", function (data) {
+        if (data.over_limit == 1) {
+            $(".eaa-warning").parent().toggle();
+        }
+    }).fail(function () { $(".eaa-warning").parent().toggle(); });
+  </script>
+
+  [%# Remove query params used to seed fields to avoid a "field must contain a single
+      value" error due to submitting duplicate parameters via the body later. %]
+  <form id="add-event-art" class="event-art" action="[% c.req.uri.path %]" method="post">
+    [%- USE r = FormRenderer(form) -%]
+
+    <div class="add-files row">
+      <label for="files">&nbsp;</label>
+      <input style="position: absolute; top: 0; left: -1000px; "
+             class="add-files" accept="[% mime_types.join(",") %]" type="file" name="files[]" multiple="multiple" />
+      <span class="fileinput-button buttons" style="vertical-align: middle">
+        <button type="button" class="add-files">[%- l('Select images...') -%]</button>
+      </span>
+      <div id="drop-zone">[%- l('or drop files here') -%]</div>
+    </div>
+
+    <table style="width: 100%">
+      <tbody data-bind="foreach: files_to_upload">
+        <tr style="display: flex;">
+          <td class="uploader-preview-column">
+              <img class="uploader-preview-image" data-bind="attr: {src: data_uri()}, visible: data_uri() != ''" />
+              <button type="button" class="icon file-up"
+                     title="[% l('Move file up') %]" style="float: right;"></button>
+              <button type="button" class="icon file-down"
+                     title="[% l('Move file down') %]" style="clear: right; float: right"></button>
+          </td>
+          <td style="width: 65%;">
+            <div class="file-info row">
+              <label>[%- l("File:") -%]</label>
+              <span data-bind="text: name"></span>
+              (<span data-bind="text: size"></span>)
+            </div>
+
+            <div class="event-art-types row" data-bind="visible: status() == 'waiting'">
+              <label>[%- l("Type:") -%]</label>
+              <ul class="event-art-type-checkboxes" data-bind="foreach: types">
+                <li>
+                  <label>
+                    <input type="checkbox" class="type" data-bind="checked: checked, value: id" />
+                    <span data-bind="text: name" />
+                  </label>
+                </li>
+              </ul>
+            </div>
+            <div class="event-art-types-help row" data-bind="visible: status() == 'waiting'">
+              <label>&nbsp;</label>
+              <p style="margin-left: 162px;">[%- l('Please see the {doc|Event Art Types} documentation for a description of these types.', { doc => { href => doc_link('Event_Art/Types'), target => '_blank' } }) -%]</p>
+            </div>
+            <div class="comment row" data-bind="visible: status() == 'waiting'">
+              <label>[%- add_colon(l('Comment')) -%]</label>
+              <input class="comment" type="text" size="47" data-bind="value: comment" />
+            </div>
+          </td>
+          <td style="flex-grow: 1;">
+            <div role="progressbar"
+                 class="ui-progressbar ui-widget ui-widget-content ui-corner-all"
+                 style="width: 100%;">
+              <div class="ui-progressbar-value ui-widget-header ui-corner-left"
+                   data-bind="style: { width: progress() + '%' }">&nbsp;
+              </div>
+            </div>
+            <span data-bind="visible: status() == 'validating'" class="msg">[%- l('Validating file...') -%]</span>
+            <span data-bind="visible: status() == 'waiting'" class="msg">&nbsp;</span>
+            <span data-bind="visible: status() == 'signing'" class="msg">[%- l('Request signature...') -%]</span>
+            <span data-bind="visible: status() == 'uploading'" class="msg">[%- l('Uploading image...') -%]</span>
+            <span data-bind="visible: status() == 'submitting'" class="msg">[%- l('Creating edit...') -%]</span>
+            <span data-bind="visible: status() == 'done'" class="msg success">[%- l('&#x2713; Success') -%]</span>
+            <span data-bind="visible: status() == 'validate_error'" class="msg error">[%- l('&#x26a0; Unrecognized file') -%]</span>
+            <span data-bind="visible: status() == 'sign_error'" class="msg error">[%- l('&#x26a0; Error requesting signature') -%]</span>
+            <!-- ko if: signErrorMessage -->
+              <p data-bind="text: signErrorMessage"></p>
+            <!-- /ko -->
+            <!-- ko if: signErrorDetails -->
+              <p>
+                [%# This message is identical to the one used in root/search/error/internal-error.tt %]
+                [%- l('Below is the error information. If you wish to file a bug report, you may do
+                       so at {bugs|our bug tracker}. The information below will help, so please be
+                       sure to include it!',
+                      {bugs => 'http://tickets.metabrainz.org/'}) -%]
+              </p>
+              <p data-bind="text: signErrorDetails"></p>
+            <!-- /ko -->
+            <span data-bind="visible: status() == 'upload_error'" class="msg error">[%- l('&#x26a0; Error uploading image') -%]</span>
+            <span data-bind="visible: status() == 'slowdown_error'" class="msg error">[%- l('&#x26a0; Server busy, try again later') -%]</span>
+            <span data-bind="visible: status() == 'submit_error'" class="msg error">[%- l('&#x26a0; Error creating edit') -%]</span>
+            <!-- ko if: editErrorMessage -->
+              <p data-bind="text: editErrorMessage"></p>
+            <!-- /ko -->
+            <br />
+            <span class="buttons" data-bind="visible: !busy() && status() != 'done'" style="float: right;">
+               <button type="button" class="cancel-file negative">[%- l('Remove') -%]</button>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="display: none">
+      [%- React.embed(c, 'event/EventArtFields', {
+        form => React.to_json_object(form),
+        typeIdOptions => form.options_type_id,
+      }) -%]
+    </div>
+
+    <div class="row" id="event-art-position-row">
+      <label id="event-art-position-label" class="required">[% add_colon(l('Position')) %]</label>
+
+      [%- IF images.size == 0 -%]
+        <div class="image-position-only">
+          [%- l('(no other event art)') -%]
+        </div>
+      [%- ELSE -%]
+        <div class="image-position">
+        [%- FOR image = images -%]
+          <div class="thumb-position">
+            [%- display_artwork(image) -%]
+            <div style="display: flex; justify-content: space-around;">
+              [% React.embed(c, 'static/scripts/edit/components/InformationIcon', {
+                style => {'align-self' => 'flex-start'},
+                title => l('Types:') _ ' ' _ (comma_only_list(image.l_types) || '-') _
+                        (image.comment ? (' / ' _ add_colon(l('Comment')) _ ' ' _ image.comment) : '')}) %]
+            </div>
+          </div>
+        [%- END -%]
+
+        [%- IF !artwork.id -%]
+          <div class="editimage thumb-position">
+            <div class="image-placeholder">
+              <p>[% l('New image goes here') %]</p>
+            </div>
+            <div>
+              <button type="button" class="left">&larr;</button>
+              <button type="button" class="right" style="float: right;">&rarr;</button>
+            </div>
+          </div>
+        [%- END -%]
+        </div>
+
+        <script type="text/javascript">
+            MB.EventArt.reorder_position();
+        </script>
+      [%- END -%]
+    </div>
+
+    <div style="clear: left;"> </div>
+
+    [%- INCLUDE 'forms/edit-note.tt' -%]
+    [%- make_votable() -%]
+    <div class="row no-label buttons">
+        <button id="add-event-art-submit" type="submit" disabled="disabled"
+                class="submit positive">[% l('Enter edit') %]</button>
+        [% extra %]
+    </div>
+  </form>
+
+  <script type="text/javascript">
+    MB.EventArt.add_art("[%- entity.gid -%]");
+  </script>
+[%- END -%]

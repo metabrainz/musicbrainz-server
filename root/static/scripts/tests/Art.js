@@ -10,7 +10,21 @@ import ko from 'knockout';
 import test from 'tape';
 
 import MB from '../common/MB.js';
-import CoverArt from '../edit/MB/CoverArt.js';
+import Art from '../edit/MB/Art.js';
+
+window[GLOBAL_JS_NAMESPACE] = {
+  $c: {
+    action: {
+      name: 'add_cover_art',
+    },
+    stash: {
+      current_language: 'en',
+    },
+    user: {},
+  },
+};
+
+Art.initialize_context();
 
 MB.cover_art_types_json = [
   {id: 'image/jpeg', l_name: 'jpg'},
@@ -49,7 +63,7 @@ const testFiles = {
 
 function mimeTypeTest(t, filename, expected, expectedState) {
   const input = base64ToBlob(testFiles[filename]);
-  const promise = CoverArt.validate_file(input);
+  const promise = Art.validate_file(input);
 
   promise.done(function (mimeType) {
     t.equal(mimeType, expected, filename);
@@ -96,7 +110,7 @@ test('multifile/ajax upload mime type', function (t) {
 test('cover art types', function (t) {
   t.plan(4);
 
-  const types = CoverArt.cover_art_types();
+  const types = Art.art_types();
   t.equal(types().length, 2, 'two types in observableArray');
   t.equal(types()[0].id, 'image/jpeg', 'first type is image/jpeg');
   t.equal(types()[0].checked(), false, 'jpg not checked');
@@ -112,7 +126,7 @@ test('upload queue', function (t) {
 
   t.plan(8);
 
-  const upvm = new CoverArt.UploadProcessViewModel();
+  const upvm = new Art.UploadProcessViewModel();
   ko.applyBindings(upvm);
 
   t.equal(upvm.files_to_upload().length, 0, 'zero files in upload queue');

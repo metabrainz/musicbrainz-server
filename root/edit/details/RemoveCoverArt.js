@@ -7,60 +7,21 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink.js';
-import {commaOnlyListText}
-  from '../../static/scripts/common/i18n/commaOnlyList.js';
-import EditArtwork from '../components/EditArtwork.js';
+import RemoveArt from './RemoveArt.js';
 
 type Props = {
   +edit: RemoveCoverArtEditT,
 };
 
-const RemoveCoverArt = ({edit}: Props): React$Element<'table'> => {
-  const display = edit.display_data;
-
-  return (
-    <table className="details remove-cover-art">
-      <tr>
-        <th>{addColonText(l('Release'))}</th>
-        <td>
-          <DescriptiveLink entity={display.release} />
-        </td>
-      </tr>
-
-      <tr>
-        <th>{l('Types:')}</th>
-        <td>
-          {display.artwork.types?.length ? (
-            commaOnlyListText(display.artwork.types.map(
-              type => lp_attributes(type, 'cover_art_type'),
-            ))
-          ) : lp('(none)', 'type')}
-        </td>
-      </tr>
-
-      {nonEmpty(display.artwork.filename) ? (
-        <tr>
-          <th>{addColonText(l('Filename'))}</th>
-          <td>
-            <code>
-              {display.artwork.filename}
-            </code>
-          </td>
-        </tr>
-      ) : null}
-
-      {display.artwork.comment ? (
-        <tr>
-          <th>{l('Comment:')}</th>
-          <td>{display.artwork.comment}</td>
-        </tr>
-      ) : null}
-
-      <EditArtwork artwork={display.artwork} release={display.release} />
-    </table>
-  );
-};
+const RemoveCoverArt = ({
+  edit,
+}: Props): React$Element<typeof RemoveArt> => (
+  <RemoveArt
+    archiveName="cover"
+    edit={edit}
+    entityType="release"
+    formattedEntityType={l('Release')}
+  />
+);
 
 export default RemoveCoverArt;

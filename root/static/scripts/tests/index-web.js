@@ -3,7 +3,7 @@
 require('./autocomplete.js');
 require('./common/immutable-entities.js');
 require('./Control/URLCleanup.js');
-require('./CoverArt.js');
+require('./Art.js');
 require('./edit.js');
 require('./edit/utility/getUpdatedTrackArtists.js');
 require('./edit/utility/isUselessMediumTitle.js');

@@ -124,6 +124,21 @@ function buildLinks(
     ));
   }
 
+  if (entityProperties.event_art) {
+    links.push(buildLink(
+      entity.event_art_presence === 'darkened' ? lp('Event art', 'plural') : (
+        texp.lp(
+          'Event art ({num})',
+          'plural',
+          {num: $c.stash.event_artwork_count || 0},
+        )
+      ),
+      entity,
+      'event-art',
+      page,
+    ));
+  }
+
   if (entityProperties.aliases) {
     links.push(buildLink(l('Aliases'), entity, 'aliases', page));
   }

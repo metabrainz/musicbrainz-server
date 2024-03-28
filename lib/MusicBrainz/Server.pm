@@ -828,6 +828,8 @@ sub TO_JSON {
         current_language
         current_language_html
         entity
+        event_artwork
+        event_artwork_count
         genre_map
         globals_script_nonce
         jsonld_data
@@ -899,6 +901,10 @@ sub TO_JSON {
 
     if (my $release_artwork = delete $stash{release_artwork}) {
         $stash{release_artwork} = to_json_object($release_artwork);
+    }
+
+    if (my $event_artwork = delete $stash{event_artwork}) {
+        $stash{event_artwork} = to_json_object($event_artwork);
     }
 
     my $req = $self->req;

@@ -472,7 +472,7 @@ async function handleCommand({command, target, value}, t) {
     case 'assertArtworkJson':
       const artworkJson = JSON.parse(await driver.executeAsyncScript(`
         var callback = arguments[arguments.length - 1];
-        fetch('http://localhost:8081/release/${target}')
+        fetch('http://localhost:8081/${target}')
           .then(x => x.text().then(callback));
       `));
       t.deepEqual2(artworkJson, value);
@@ -681,6 +681,7 @@ const seleniumTests = [
   {name: 'Artist_Credit_Editor.json5', login: true},
   {name: 'Autocomplete2.json5'},
   {name: 'CAA.json5', login: true},
+  {name: 'EAA.json5', login: true},
   {name: 'External_Links_Editor.json5', login: true},
   {name: 'Work_Editor.json5', login: true},
   {name: 'Redirect_Merged_Entities.json5', login: true},

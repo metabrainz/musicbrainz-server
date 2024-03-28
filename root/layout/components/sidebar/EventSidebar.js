@@ -8,12 +8,15 @@
  */
 
 import * as React from 'react';
+import * as ReactDOMServer from 'react-dom/server';
 
+import {Artwork} from '../../../components/Artwork.js';
 import {CatalystContext} from '../../../context.mjs';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage.js';
 import areDatesEqual
   from '../../../static/scripts/common/utility/areDatesEqual.js';
+import entityHref from '../../../static/scripts/common/utility/entityHref.js';
 import isDateEmpty
   from '../../../static/scripts/common/utility/isDateEmpty.js';
 import ExternalLinks from '../ExternalLinks.js';
@@ -39,13 +42,45 @@ const EventSidebar = ({event}: Props): React$Element<'div'> => {
   const $c = React.useContext(CatalystContext);
   const hasBegin = !isDateEmpty(event.begin_date);
   const hasEnd = !isDateEmpty(event.end_date);
+  const eventArtwork = $c.stash.event_artwork;
+  const eventArtPresence = event.event_art_presence;
 
   return (
     <div id="sidebar">
-      <CommonsImage
-        cachedImage={$c.stash.commons_image}
-        entity={event}
-      />
+      {(eventArtPresence === 'present' || !$c.stash.commons_image) ? (
+        <div className="event-art">
+          {eventArtPresence === 'present' && eventArtwork ? (
+            <Artwork
+              artwork={eventArtwork}
+              message={ReactDOMServer.renderToStaticMarkup(exp.l(
+                'Event art failed to load correctly.' +
+                '<br/>{all|View all artwork}.',
+                {all: entityHref(event, 'event-art')},
+              ))}
+            />
+          ) : eventArtPresence === 'darkened' ? (
+            l(`Art for this event has been hidden
+               by the Internet Archive because of a takedown request.`)
+          ) : (
+            <p className="event-art-note" style={{textAlign: 'left'}}>
+              {eventArtPresence === 'present' ? (
+                <>
+                  {l('No front event art available.')}
+                  <br />
+                  <a href={entityHref(event, 'event-art')}>
+                    {l('View all artwork')}
+                  </a>
+                </>
+              ) : l('No event art available.')}
+            </p>
+          )}
+        </div>
+      ) : (
+        <CommonsImage
+          cachedImage={$c.stash.commons_image}
+          entity={event}
+        />
+      )}
 
       <h2 className="event-information">
         {l('Event information')}

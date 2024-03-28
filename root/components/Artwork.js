@@ -40,7 +40,7 @@ export const ArtworkImage = ({
       <img src={artwork.small_ia_thumbnail} />
     </noscript>
     <span
-      className="cover-art-image"
+      className="artwork-image"
       data-huge-thumbnail={artwork.huge_ia_thumbnail}
       data-large-thumbnail={artwork.large_ia_thumbnail}
       data-message={nonEmpty(message)

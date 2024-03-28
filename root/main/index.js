@@ -23,7 +23,7 @@ type BlogEntryT = {
 
 type Props = {
   +blogEntries: $ReadOnlyArray<BlogEntryT> | null,
-  +newestReleases: $ReadOnlyArray<ArtworkT>,
+  +newestReleases: $ReadOnlyArray<ReleaseArtT>,
 };
 
 const Homepage = ({
@@ -261,7 +261,7 @@ const Homepage = ({
 const ReleaseArtwork = ({
   artwork,
 }: {
-  +artwork: ArtworkT,
+  +artwork: ReleaseArtT,
 }) => {
   const release = artwork.release;
   if (!release) {

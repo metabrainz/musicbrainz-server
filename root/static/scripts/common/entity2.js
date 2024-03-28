@@ -131,6 +131,7 @@ export function createEventObject(
     end_date: null,
     ended: false,
     entityType: 'event',
+    event_art_presence: 'absent',
     gid: '',
     id: 0,
     last_updated: null,

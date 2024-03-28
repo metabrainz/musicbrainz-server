@@ -398,6 +398,20 @@ my %stats = (
             };
         },
     },
+    'count.event.has_art' => {
+        DESC => 'Count of events with event art',
+        SQL => 'SELECT COUNT(distinct event) FROM event_art_archive.event_art',
+    },
+    'count.event.has_front_art' => {
+        DESC => 'Count of events with front event art',
+        SQL => 'SELECT COUNT(distinct event) FROM event_art_archive.event_art ea
+                  JOIN event_art_archive.event_art_type eat ON ea.id = eat.id
+                WHERE eat.type_id = 1',
+    },
+    'count.event.art' => {
+        DESC => 'Count of all event art',
+        SQL => 'SELECT count(*) FROM event_art_archive.event_art',
+    },
     'count.genre' => {
         DESC => 'Count of all genres',
         SQL => 'SELECT COUNT(*) FROM genre',

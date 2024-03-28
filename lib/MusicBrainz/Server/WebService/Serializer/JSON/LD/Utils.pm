@@ -74,8 +74,7 @@ sub list_or_single {
 
 =head2 artwork
 
-Provides serialization given an Entity::Artwork. Used by both
-Release and ReleaseGroup, hence being here.
+Provides serialization given an Entity::Role::Art.
 
 =cut
 

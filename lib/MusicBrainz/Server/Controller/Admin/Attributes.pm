@@ -14,6 +14,7 @@ my @models = qw(
     ArtistType
     CollectionType
     CoverArtType
+    EventArtType
     EventType
     Gender
     InstrumentType

@@ -53,9 +53,9 @@ const infoLinks = [
     title: N_l_statistics('Languages/Scripts'),
   },
   {
-    link: '/statistics/coverart',
-    page: 'coverart',
-    title: N_lp_statistics('Cover art', 'plural'),
+    link: '/statistics/images',
+    page: 'images',
+    title: N_l_statistics('Images'),
   },
   {
     link: '/statistics/relationships',

@@ -48,7 +48,7 @@ END; -%]
 END; -%]
 
 [%~ MACRO artwork_hover(artwork) BLOCK -%]
-    [%- IF artwork.l_types; comma_only_list(artwork.l_types) | html; END %][% IF artwork.comment %] ([% artwork.comment | html%])[% END -%]
+    [%- IF artwork.l_type_names; comma_only_list(artwork.l_type_names) | html; END %][% IF artwork.comment %] ([% artwork.comment | html%])[% END -%]
 [%- END -%]
 
 [%- USE JavaScript -%]
@@ -57,7 +57,7 @@ END; -%]
         <img src="[% artwork.small_ia_thumbnail %]" />
     </noscript>
 
-    <span class="cover-art-image"
+    <span class="artwork-image"
         data-small-thumbnail="[% artwork.small_ia_thumbnail %]"
         data-large-thumbnail="[% artwork.large_ia_thumbnail %]"
         data-title="[% artwork_hover(artwork) %]"

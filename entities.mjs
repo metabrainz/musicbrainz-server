@@ -201,6 +201,7 @@ const ENTITIES = {
     date_period: true,
     disambiguation: true,
     edit_table: true,
+    event_art: true,
     last_updated_column: true,
     mbid: {
       indexable: true,
@@ -227,6 +228,12 @@ const ENTITIES = {
   event_alias_type: {
     model: 'EventAliasType',
     table: 'event_alias_type',
+  },
+  event_art_type: {
+    cache: {
+      id: 51,
+    },
+    model: 'EventArtType',
   },
   event_type: {
     model: 'EventType',

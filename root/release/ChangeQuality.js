@@ -25,7 +25,7 @@ type ChangeQualityFormT = FormT<{
 }>;
 
 type Props = {
-  +artwork: ArtworkT,
+  +artwork: ReleaseArtT,
   +form: ChangeQualityFormT,
   +release: ReleaseT,
 };

@@ -134,7 +134,7 @@ declare type AddArtistEditT = $ReadOnly<{
 declare type AddCoverArtEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +artwork: ArtworkT,
+    +artwork: ReleaseArtT,
     +position: number,
     +release: ReleaseT,
   },
@@ -148,6 +148,16 @@ declare type AddDiscIdEditT = $ReadOnly<{
     +medium_cdtoc: MediumCDTocT,
   },
   +edit_type: EDIT_MEDIUM_ADD_DISCID_T,
+}>;
+
+declare type AddEventArtEditT = $ReadOnly<{
+  ...GenericEditT,
+  +display_data: {
+    +artwork: EventArtT,
+    +event: EventT,
+    +position: number,
+  },
+  +edit_type: EDIT_EVENT_ADD_EVENT_ART_T,
 }>;
 
 declare type AddEventEditT = $ReadOnly<{
@@ -719,12 +729,23 @@ declare type EditBarcodesEditT = $ReadOnly<{
 declare type EditCoverArtEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +artwork: ArtworkT,
+    +artwork: ReleaseArtT,
     +comment: CompT<string | null>,
     +release: ReleaseT,
     +types: CompT<$ReadOnlyArray<CoverArtTypeT>>,
   },
   +edit_type: EDIT_RELEASE_EDIT_COVER_ART_T,
+}>;
+
+declare type EditEventArtEditT = $ReadOnly<{
+  ...GenericEditT,
+  +display_data: {
+    +artwork: EventArtT,
+    +comment: CompT<string | null>,
+    +event: EventT,
+    +types: CompT<$ReadOnlyArray<EventArtTypeT>>,
+  },
+  +edit_type: EDIT_EVENT_EDIT_EVENT_ART_T,
 }>;
 
 declare type EditEventEditT = $ReadOnly<{
@@ -1163,7 +1184,7 @@ declare type MoveDiscIdEditT = $ReadOnly<{
 declare type RemoveCoverArtEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +artwork: ArtworkT,
+    +artwork: ReleaseArtT,
     +release: ReleaseT,
   },
   +edit_type: EDIT_RELEASE_REMOVE_COVER_ART_T,
@@ -1194,6 +1215,15 @@ declare type RemoveArtistEditT = $ReadOnly<{
     +entity_type: 'artist',
   },
   +edit_type: EDIT_ARTIST_DELETE_T,
+}>;
+
+declare type RemoveEventArtEditT = $ReadOnly<{
+  ...GenericEditT,
+  +display_data: {
+    +artwork: EventArtT,
+    +event: EventT,
+  },
+  +edit_type: EDIT_EVENT_REMOVE_EVENT_ART_T,
 }>;
 
 declare type RemoveEventEditT = $ReadOnly<{
@@ -1432,11 +1462,21 @@ declare type RemoveReleaseLabelEditT = $ReadOnly<{
 declare type ReorderCoverArtEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +new: $ReadOnlyArray<ArtworkT>,
-    +old: $ReadOnlyArray<ArtworkT>,
+    +new: $ReadOnlyArray<ReleaseArtT>,
+    +old: $ReadOnlyArray<ReleaseArtT>,
     +release: ReleaseT,
   },
   +edit_type: EDIT_RELEASE_REORDER_COVER_ART_T,
+}>;
+
+declare type ReorderEventArtEditT = $ReadOnly<{
+  ...GenericEditT,
+  +display_data: {
+    +event: EventT,
+    +new: $ReadOnlyArray<EventArtT>,
+    +old: $ReadOnlyArray<EventArtT>,
+  },
+  +edit_type: EDIT_EVENT_REORDER_EVENT_ART_T,
 }>;
 
 declare type ReorderMediumsEditT = $ReadOnly<{
@@ -1467,7 +1507,7 @@ declare type ReorderRelationshipsEditT = $ReadOnly<{
 declare type SetCoverArtEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +artwork: CompT<ArtworkT>,
+    +artwork: CompT<ReleaseArtT>,
     +isOldArtworkAutomatic: boolean,
     +release_group: ReleaseGroupT,
   },
@@ -1505,6 +1545,7 @@ declare type CurrentEditT =
   | AddArtistEditT
   | AddCoverArtEditT
   | AddDiscIdEditT
+  | AddEventArtEditT
   | AddEventEditT
   | AddGenreEditT
   | AddInstrumentEditT
@@ -1531,6 +1572,7 @@ declare type CurrentEditT =
   | EditArtistCreditEditT
   | EditBarcodesEditT
   | EditCoverArtEditT
+  | EditEventArtEditT
   | EditEventEditT
   | EditInstrumentEditT
   | EditLabelEditT
@@ -1560,6 +1602,7 @@ declare type CurrentEditT =
   | MoveDiscIdEditT
   | RemoveCoverArtEditT
   | RemoveDiscIdEditT
+  | RemoveEventArtEditT
   | RemoveEntityEditT
   | RemoveIsrcEditT
   | RemoveIswcEditT
@@ -1569,6 +1612,7 @@ declare type CurrentEditT =
   | RemoveRelationshipTypeEditT
   | RemoveReleaseLabelEditT
   | ReorderCoverArtEditT
+  | ReorderEventArtEditT
   | ReorderMediumsEditT
   | ReorderRelationshipsEditT
   | SetCoverArtEditT
