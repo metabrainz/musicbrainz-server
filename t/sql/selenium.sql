@@ -65,8 +65,8 @@ INSERT INTO country_area (area) VALUES
     (241);
 
 INSERT INTO editor VALUES
-    -- privs: BANNER_EDITOR_FLAG | RELATIONSHIP_EDITOR_FLAG
-    (5, 'editor', 520, 'editor@example.com', NULL, NULL, '2018-03-30 00:39:29.175923-05', '2018-03-30 00:39:30.023663-05', '2018-03-30 00:39:29.175923-05', '2018-03-30 00:39:30.023663-05', NULL, NULL, NULL, '{CRYPT}$2a$10$d.6vAYMxGN56ExVNioQnZuLvSmnm3S5QCeSFWQSAo561aYhAEcLqC', '3a115bc4f05ea9856bd4611b75c80bca', false);
+    -- privs: ACCOUNT_ADMIN_FLAG | BANNER_EDITOR_FLAG | RELATIONSHIP_EDITOR_FLAG
+    (5, 'editor', 648, 'editor@example.com', NULL, NULL, '2018-03-30 00:39:29.175923-05', '2018-03-30 00:39:30.023663-05', '2018-03-30 00:39:29.175923-05', '2018-03-30 00:39:30.023663-05', NULL, NULL, NULL, '{CRYPT}$2a$10$d.6vAYMxGN56ExVNioQnZuLvSmnm3S5QCeSFWQSAo561aYhAEcLqC', '3a115bc4f05ea9856bd4611b75c80bca', false);
 
 INSERT INTO event (id, gid, name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, time, type, cancelled, setlist, comment, edits_pending, last_updated, ended) VALUES
     (1606, 'a43f824a-1679-4453-9722-d9ab51fbc85a', 'MusicBrainz Summit 14', 2014, 9, 26, 2014, 9, 28, NULL, NULL, 'f', NULL, '', 0, '2014-12-18 13:00:34.106501+00', 't');

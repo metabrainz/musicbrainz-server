@@ -25,6 +25,9 @@ test 'Reordering event art' => sub {
              VALUES (12346, 59357, 'image/jpeg', 2, 2);
         SQL
 
+    my $editor = $c->model('Editor')->get_by_id(10);
+    $c->model('Editor')->update_privileges($editor, { account_admin => 1 });
+
     $mech->get_ok('/login');
     $mech->submit_form( with_fields => { username => 'eaa_editor', password => 'password' } );
 
