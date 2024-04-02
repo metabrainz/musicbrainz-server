@@ -11,24 +11,18 @@ import ConfirmLayout from '../../components/ConfirmLayout.js';
 
 import {type AttributeT} from './types.js';
 
-type Props = {
-  +attribute: AttributeT,
-  +form: SecureConfirmFormT,
-};
-
-const DeleteAttribute = ({
-  attribute,
-  form,
-}: Props): React$Element<typeof ConfirmLayout> => (
-  <ConfirmLayout
-    form={form}
-    question={exp.l_admin(
-      `Are you sure you wish to remove the
-       <strong>{name}</strong> attribute?`,
-      {name: attribute.name},
-    )}
-    title="Remove attribute"
-  />
-);
+component DeleteAttribute(attribute: AttributeT, form: SecureConfirmFormT) {
+  return (
+    <ConfirmLayout
+      form={form}
+      question={exp.l_admin(
+        `Are you sure you wish to remove the
+         <strong>{name}</strong> attribute?`,
+        {name: attribute.name},
+      )}
+      title="Remove attribute"
+    />
+  );
+}
 
 export default DeleteAttribute;

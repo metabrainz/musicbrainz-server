@@ -23,11 +23,7 @@ import {
 import formatUserDate from '../../utility/formatUserDate.js';
 import loopParity from '../../utility/loopParity.js';
 
-type Props = {
-  +users: $ReadOnlyArray<UnsanitizedEditorT>,
-};
-
-const UserList = ({users}: Props): React$Element<'table'> => {
+component UserList(users: $ReadOnlyArray<UnsanitizedEditorT>) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -105,6 +101,6 @@ const UserList = ({users}: Props): React$Element<'table'> => {
       </tbody>
     </table>
   );
-};
+}
 
 export default UserList;

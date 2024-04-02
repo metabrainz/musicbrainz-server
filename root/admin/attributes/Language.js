@@ -18,15 +18,7 @@ const frequencyLabels = {
   2: 'Frequently used',
 };
 
-type Props = {
-  +attributes: Array<LanguageT>,
-  +model: string,
-};
-
-const Language = ({
-  model,
-  attributes,
-}: Props): React$Element<typeof Layout> => {
+component Language(attributes: Array<LanguageT>, model: string) {
   return (
     <Layout fullWidth title={model || 'Language'}>
       <h1>
@@ -80,6 +72,6 @@ const Language = ({
       </p>
     </Layout>
   );
-};
+}
 
 export default Language;

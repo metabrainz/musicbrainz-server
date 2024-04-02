@@ -12,34 +12,30 @@ import Layout from '../layout/index.js';
 
 import UserList from './components/UserList.js';
 
-type Props = {
-  +ipHash: string,
-  +pager: PagerT,
-  +users: $ReadOnlyArray<UnsanitizedEditorT>,
-};
-
-const IpLookup = ({
-  ipHash,
-  pager,
-  users,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="IP lookup">
-    <div id="content">
-      <h1>{'IP lookup'}</h1>
-      <p>
-        {'IP hash: ' + ipHash}
-      </p>
-      {users.length ? (
-        <PaginatedResults pager={pager}>
-          <UserList users={users} />
-        </PaginatedResults>
-      ) : (
+component IpLookup(
+  ipHash: string,
+  pager: PagerT,
+  users: $ReadOnlyArray<UnsanitizedEditorT>,
+) {
+  return (
+    <Layout fullWidth title="IP lookup">
+      <div id="content">
+        <h1>{'IP lookup'}</h1>
         <p>
-          {'No results'}
+          {'IP hash: ' + ipHash}
         </p>
-      )}
-    </div>
-  </Layout>
-);
+        {users.length ? (
+          <PaginatedResults pager={pager}>
+            <UserList users={users} />
+          </PaginatedResults>
+        ) : (
+          <p>
+            {'No results'}
+          </p>
+        )}
+      </div>
+    </Layout>
+  );
+}
 
 export default IpLookup;

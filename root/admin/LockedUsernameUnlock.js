@@ -12,35 +12,29 @@ import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
-type Props = {
-  +form: SecureConfirmFormT,
-  +username: string,
-};
-
-const LockedUsernameUnlock = ({
-  form,
-  username,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Unlock username">
-    <div id="content">
-      <h1>{'Unlock username'}</h1>
-      <p>
-        {texp.l_admin(
-          `Are you sure you wish to unlock
-           the username “{username}” for reuse?`,
-          {username: username},
-        )}
-      </p>
-      <form method="post" name="confirm">
-        <FormCsrfToken form={form} />
-        <FormSubmit
-          label="Yes, I am sure"
-          name="confirm.submit"
-          value="1"
-        />
-      </form>
-    </div>
-  </Layout>
-);
+component LockedUsernameUnlock(form: SecureConfirmFormT, username: string) {
+  return (
+    <Layout fullWidth title="Unlock username">
+      <div id="content">
+        <h1>{'Unlock username'}</h1>
+        <p>
+          {texp.l_admin(
+            `Are you sure you wish to unlock
+             the username “{username}” for reuse?`,
+            {username: username},
+          )}
+        </p>
+        <form method="post" name="confirm">
+          <FormCsrfToken form={form} />
+          <FormSubmit
+            label="Yes, I am sure"
+            name="confirm.submit"
+            value="1"
+          />
+        </form>
+      </div>
+    </Layout>
+  );
+}
 
 export default LockedUsernameUnlock;

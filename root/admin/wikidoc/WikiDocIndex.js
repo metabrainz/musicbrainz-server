@@ -19,18 +19,11 @@ import {isWikiTranscluder}
 
 import type {WikiDocT} from './types.js';
 
-type PropsT = {
-  +pages: $ReadOnlyArray<WikiDocT>,
-  +updatesRequired: boolean,
-  +wikiIsUnreachable: boolean,
-  +wikiServer: string,
-};
-
-const WikiDocTable = ({
-  pages,
-  updatesRequired,
-  wikiServer,
-}: PropsT) => {
+component WikiDocTable(
+  pages: $ReadOnlyArray<WikiDocT>,
+  updatesRequired: boolean,
+  wikiServer: string,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const columns = React.useMemo(
     () => {
@@ -141,9 +134,12 @@ const WikiDocTable = ({
     columns,
     data: pages,
   });
-};
+}
 
-const WikiDocIndex = (props: PropsT): React$Element<typeof Layout> => {
+component WikiDocIndex(
+  wikiIsUnreachable: boolean,
+  ...wikiDocTableProps: React.PropsOf<WikiDocTable>
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <Layout fullWidth title="Transclusion table">
@@ -180,16 +176,16 @@ const WikiDocIndex = (props: PropsT): React$Element<typeof Layout> => {
           </>
         ) : null}
 
-        {props.wikiIsUnreachable ? (
+        {wikiIsUnreachable ? (
           <p style={{color: 'red', fontWeight: 'bold'}}>
             {'There was a problem accessing the wiki API.'}
           </p>
         ) : null}
       </div>
 
-      <WikiDocTable {...props} />
+      <WikiDocTable {...wikiDocTableProps} />
     </Layout>
   );
-};
+}
 
 export default WikiDocIndex;
