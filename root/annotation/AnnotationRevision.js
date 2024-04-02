@@ -10,17 +10,11 @@
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
-type AnnotationRevisionProps = {
-  +annotation: AnnotationT | null,
-  +entity: AnnotatedEntityT,
-  +numberOfRevisions: number,
-};
-
-const AnnotationRevision = ({
-  annotation,
-  entity,
-  numberOfRevisions,
-}: AnnotationRevisionProps): React$MixedElement => {
+component AnnotationRevision(
+  annotation: AnnotationT | null,
+  entity: AnnotatedEntityT,
+  numberOfRevisions: number,
+) {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
 
@@ -40,6 +34,6 @@ const AnnotationRevision = ({
       />
     </LayoutComponent>
   );
-};
+}
 
 export default AnnotationRevision;
