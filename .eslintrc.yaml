@@ -100,7 +100,7 @@ rules:
   no-shadow-restricted-names: error
   no-sparse-arrays: error
   no-unexpected-multiline: error
-  no-unreachable: error
+  no-unreachable: off #Flow takes care of this
   no-unsafe-finally: error
   no-unsafe-negation: error
   no-unused-vars: [error, {argsIgnorePattern: "^this$"}]
@@ -366,7 +366,7 @@ rules:
   #############################
 
   react-hooks/exhaustive-deps: error
-  react-hooks/rules-of-hooks: error
+  react-hooks/rules-of-hooks: off #Flow takes care of this
 
   ####################################
   # eslint-plugin-simple-import-sort #
