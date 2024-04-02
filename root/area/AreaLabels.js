@@ -16,17 +16,11 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
 
-type Props = {
-  +area: AreaT,
-  +labels: $ReadOnlyArray<LabelT>,
-  +pager: PagerT,
-};
-
-const AreaLabels = ({
-  area,
-  labels,
-  pager,
-}: Props): React$Element<typeof AreaLayout> => {
+component AreaLabels(
+  area: AreaT,
+  labels: $ReadOnlyArray<LabelT>,
+  pager: PagerT,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <AreaLayout entity={area} page="labels" title={l('Labels')}>
@@ -61,6 +55,6 @@ const AreaLabels = ({
       )}
     </AreaLayout>
   );
-};
+}
 
 export default AreaLabels;

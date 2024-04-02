@@ -18,19 +18,12 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
 
-type Props = {
-  +area: AreaT,
-  +mapDataArgs: {places: $ReadOnlyArray<PlaceT>},
-  +pager: PagerT,
-  +places: ?$ReadOnlyArray<PlaceT>,
-};
-
-const AreaPlaces = ({
-  area,
-  mapDataArgs,
-  pager,
-  places,
-}: Props): React$Element<typeof AreaLayout> => {
+component AreaPlaces(
+  area: AreaT,
+  mapDataArgs: {places: $ReadOnlyArray<PlaceT>},
+  pager: PagerT,
+  places: ?$ReadOnlyArray<PlaceT>,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <AreaLayout entity={area} page="places" title={l('Places')}>
@@ -80,6 +73,6 @@ const AreaPlaces = ({
       )}
     </AreaLayout>
   );
-};
+}
 
 export default AreaPlaces;

@@ -16,17 +16,11 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
 
-type Props = {
-  +area: AreaT,
-  +artists: ?$ReadOnlyArray<ArtistT>,
-  +pager: PagerT,
-};
-
-const AreaArtists = ({
-  area,
-  artists,
-  pager,
-}: Props): React$Element<typeof AreaLayout> => {
+component AreaArtists(
+  area: AreaT,
+  artists: ?$ReadOnlyArray<ArtistT>,
+  pager: PagerT,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <AreaLayout entity={area} page="artists" title={l('Artists')}>
@@ -62,6 +56,6 @@ const AreaArtists = ({
       )}
     </AreaLayout>
   );
-};
+}
 
 export default AreaArtists;
