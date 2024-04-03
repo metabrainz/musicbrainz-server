@@ -31,20 +31,10 @@ import loopParity from '../utility/loopParity.js';
 
 import RecordingLayout from './RecordingLayout.js';
 
-type Props = {
-  +numberOfRevisions: number,
-  +pager: PagerT,
-  +recording: RecordingWithArtistCreditT,
-  +tracks: $ReadOnlyArray<$ReadOnlyArray<{...TrackT, +medium: MediumT}>>,
-};
-
-const RecordingAppearancesTable = ({
-  recording,
-  tracks,
-}: {
-  recording: RecordingWithArtistCreditT,
-  tracks: Props['tracks'],
-}) => {
+component RecordingAppearancesTable(
+  recording: React.PropsOf<RecordingIndex>['recording'],
+  tracks: React.PropsOf<RecordingIndex>['tracks'],
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <table className="tbl">
@@ -158,34 +148,36 @@ const RecordingAppearancesTable = ({
       </tbody>
     </table>
   );
-};
+}
 
-const RecordingIndex = ({
-  numberOfRevisions,
-  pager,
-  recording,
-  tracks,
-}: Props): React$Element<typeof RecordingLayout> => (
-  <RecordingLayout entity={recording} page="index">
-    <Annotation
-      annotation={recording.latest_annotation}
-      collapse
-      entity={recording}
-      numberOfRevisions={numberOfRevisions}
-    />
-    <h2 className="appears-on-releases">{l('Appears on releases')}</h2>
-    <PaginatedResults pager={pager}>
-      {tracks?.length ? (
-        <RecordingAppearancesTable
-          recording={recording}
-          tracks={tracks}
-        />
-      ) : (
-        <p>{l('No releases found which feature this recording.')}</p>
-      )}
-    </PaginatedResults>
-    <Relationships source={recording} />
-  </RecordingLayout>
-);
+component RecordingIndex(
+  numberOfRevisions: number,
+  pager: PagerT,
+  recording: RecordingWithArtistCreditT,
+  tracks: $ReadOnlyArray<$ReadOnlyArray<{...TrackT, +medium: MediumT}>>,
+) {
+  return (
+    <RecordingLayout entity={recording} page="index">
+      <Annotation
+        annotation={recording.latest_annotation}
+        collapse
+        entity={recording}
+        numberOfRevisions={numberOfRevisions}
+      />
+      <h2 className="appears-on-releases">{l('Appears on releases')}</h2>
+      <PaginatedResults pager={pager}>
+        {tracks?.length ? (
+          <RecordingAppearancesTable
+            recording={recording}
+            tracks={tracks}
+          />
+        ) : (
+          <p>{l('No releases found which feature this recording.')}</p>
+        )}
+      </PaginatedResults>
+      <Relationships source={recording} />
+    </RecordingLayout>
+  );
+}
 
 export default RecordingIndex;
