@@ -35,21 +35,13 @@ const noEntitiesText = {
   track: N_l('No tracks with this artist credit were found.'),
 };
 
-type Props = {
-  +artistCredit: $ReadOnly<{...ArtistCreditT, +id: number}>,
-  +entities: $ReadOnlyArray<EntityWithArtistCreditsT>,
-  +entityType: string,
-  +page: string,
-  +pager: PagerT,
-};
-
-const EntityList = ({
-  artistCredit,
-  entities,
-  entityType,
-  page,
-  pager,
-}: Props): React$Element<typeof ArtistCreditLayout> => {
+component EntityList(
+  artistCredit: $ReadOnly<{...ArtistCreditT, +id: number}>,
+  entities: $ReadOnlyArray<EntityWithArtistCreditsT>,
+  entityType: string,
+  page: string,
+  pager: PagerT,
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <ArtistCreditLayout artistCredit={artistCredit} page={page}>
@@ -77,6 +69,6 @@ const EntityList = ({
       ) : <p>{noEntitiesText[entityType]()}</p>}
     </ArtistCreditLayout>
   );
-};
+}
 
 export default EntityList;
