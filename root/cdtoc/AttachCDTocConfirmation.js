@@ -22,17 +22,11 @@ import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
 import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 
-type AttachCDTocConfirmationProps = {
-  +cdToc: CDTocT,
-  +form: ConfirmFormT,
-  +medium: $ReadOnly<{...MediumT, +cdtoc_tracks: $ReadOnlyArray<TrackT>}>,
-};
-
-const AttachCDTocConfirmation = ({
-  cdToc,
-  form,
-  medium,
-}: AttachCDTocConfirmationProps): React$Element<typeof Layout> => {
+component AttachCDTocConfirmation(
+  cdToc: CDTocT,
+  form: ConfirmFormT,
+  medium: $ReadOnly<{...MediumT, +cdtoc_tracks: $ReadOnlyArray<TrackT>}>,
+) {
   const newLengths = cdToc.track_details.map(track => track.length_time);
   const oldLengths = medium.cdtoc_tracks.map(track => track.length);
   const release = linkedEntities.release[medium.release_id];
@@ -91,6 +85,6 @@ const AttachCDTocConfirmation = ({
       </form>
     </Layout>
   );
-};
+}
 
 export default AttachCDTocConfirmation;
