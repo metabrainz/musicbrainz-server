@@ -14,26 +14,22 @@ import CollectionEditForm
 import CollectionLayout from './CollectionLayout.js';
 import type {CollectionEditFormT} from './types.js';
 
-type Props = {
-  +collection: CollectionT,
-  +collectionTypes: SelectOptionsT,
-  +form: CollectionEditFormT,
-};
-
-const EditCollection = ({
-  collection,
-  collectionTypes,
-  form,
-}: Props): React$Element<typeof CollectionLayout> => (
-  <CollectionLayout
-    entity={collection}
-    fullWidth
-    page="edit"
-    title={lp('Edit', 'verb, header')}
-  >
-    <CollectionEditForm collectionTypes={collectionTypes} form={form} />
-    {manifest.js('collection/edit')}
-  </CollectionLayout>
-);
+component EditCollection(
+  collection: CollectionT,
+  collectionTypes: SelectOptionsT,
+  form: CollectionEditFormT,
+) {
+  return (
+    <CollectionLayout
+      entity={collection}
+      fullWidth
+      page="edit"
+      title={lp('Edit', 'verb, header')}
+    >
+      <CollectionEditForm collectionTypes={collectionTypes} form={form} />
+      {manifest.js('collection/edit')}
+    </CollectionLayout>
+  );
+}
 
 export default EditCollection;

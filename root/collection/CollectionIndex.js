@@ -157,8 +157,7 @@ const listPicker = (
   }
 };
 
-const CollectionIndex = (props: Props):
-React$Element<typeof CollectionLayout> => {
+component CollectionIndex(...props: Props) {
   const $c = React.useContext(SanitizedCatalystContext);
   const {
     collection,
@@ -224,6 +223,6 @@ React$Element<typeof CollectionLayout> => {
       ) : <p>{l('This collection is empty.')}</p>}
     </CollectionLayout>
   );
-};
+}
 
 export default CollectionIndex;
