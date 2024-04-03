@@ -9,20 +9,14 @@
 
 import Layout from '../layout/index.js';
 
-type Props = {
-  +errorDescription: string,
-  +errorMessage: string,
-};
-
-const OAuth2Error = ({
-  errorDescription,
-  errorMessage,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('OAuth authorization error')}>
-    <h1>{texp.l('Error: {error}', {error: errorMessage})}</h1>
-    <p>{errorDescription}</p>
-    <p>{exp.l('{doc|Learn more}', {doc: '/doc/Development/OAuth2'})}</p>
-  </Layout>
-);
+component OAuth2Error(errorDescription: string, errorMessage: string) {
+  return (
+    <Layout fullWidth title={l('OAuth authorization error')}>
+      <h1>{texp.l('Error: {error}', {error: errorMessage})}</h1>
+      <p>{errorDescription}</p>
+      <p>{exp.l('{doc|Learn more}', {doc: '/doc/Development/OAuth2'})}</p>
+    </Layout>
+  );
+}
 
 export default OAuth2Error;
