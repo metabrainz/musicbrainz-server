@@ -27,27 +27,16 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import LabelLayout from './LabelLayout.js';
 
-type Props = {
-  +eligibleForCleanup: boolean,
-  +label: LabelT,
-  +numberOfRevisions: number,
-  +pager: PagerT,
-  +releases: ?$ReadOnlyArray<ReleaseT>,
-  +renamedFrom: $ReadOnlyArray<LabelT>,
-  +renamedInto: $ReadOnlyArray<LabelT>,
-  +wikipediaExtract: WikipediaExtractT | null,
-};
-
-const LabelIndex = ({
-  eligibleForCleanup,
-  label,
-  numberOfRevisions,
-  pager,
-  releases,
-  renamedFrom,
-  renamedInto,
-  wikipediaExtract,
-}: Props): React$Element<typeof LabelLayout> => {
+component LabelIndex(
+  eligibleForCleanup: boolean,
+  label: LabelT,
+  numberOfRevisions: number,
+  pager: PagerT,
+  releases: ?$ReadOnlyArray<ReleaseT>,
+  renamedFrom: $ReadOnlyArray<LabelT>,
+  renamedInto: $ReadOnlyArray<LabelT>,
+  wikipediaExtract: WikipediaExtractT | null,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <LabelLayout entity={label} page="index">
@@ -103,6 +92,6 @@ const LabelIndex = ({
       {manifest.js('label/index', {async: 'async'})}
     </LabelLayout>
   );
-};
+}
 
 export default LabelIndex;

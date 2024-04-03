@@ -13,32 +13,28 @@ import Relationships
 
 import LabelLayout from './LabelLayout.js';
 
-type Props = {
-  +label: LabelT,
-  +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
-  +pager: ?PagerT,
-};
-
-const LabelRelationships = ({
-  label,
-  pagedLinkTypeGroup,
-  pager,
-}: Props): React$Element<typeof LabelLayout> => (
-  <LabelLayout
-    entity={label}
-    page="relationships"
-    title={l('Relationships')}
-  >
-    {pagedLinkTypeGroup ? null : (
-      <Relationships showIfEmpty source={label} />
-    )}
-    <RelationshipsTable
+component LabelRelationships(
+  label: LabelT,
+  pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
+  pager: ?PagerT,
+) {
+  return (
+    <LabelLayout
       entity={label}
-      heading={l('Appearances')}
-      pagedLinkTypeGroup={pagedLinkTypeGroup}
-      pager={pager}
-    />
-  </LabelLayout>
-);
+      page="relationships"
+      title={l('Relationships')}
+    >
+      {pagedLinkTypeGroup ? null : (
+        <Relationships showIfEmpty source={label} />
+      )}
+      <RelationshipsTable
+        entity={label}
+        heading={l('Appearances')}
+        pagedLinkTypeGroup={pagedLinkTypeGroup}
+        pager={pager}
+      />
+    </LabelLayout>
+  );
+}
 
 export default LabelRelationships;
