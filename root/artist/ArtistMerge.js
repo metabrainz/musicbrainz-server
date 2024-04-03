@@ -18,70 +18,64 @@ import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 import FormRowCheckbox
   from '../static/scripts/edit/components/FormRowCheckbox.js';
 
-type Props = {
-  +form: MergeFormT,
-  +toMerge: $ReadOnlyArray<ArtistT>,
-};
+component ArtistMerge(form: MergeFormT, toMerge: $ReadOnlyArray<ArtistT>) {
+  return (
+    <Layout fullWidth title={l('Merge artists')}>
+      <div id="content">
+        <h1>{l('Merge artists')}</h1>
+        <p>
+          {l(`You are about to merge all these artists into a single one.
+              Please select the artist all others should be merged into:`)}
+        </p>
+        <form method="post">
+          <ArtistList
+            artists={sortByEntityName(toMerge)}
+            mergeForm={form}
+          />
+          <FieldErrors field={form.field.target} />
 
-const ArtistMerge = ({
-  form,
-  toMerge,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Merge artists')}>
-    <div id="content">
-      <h1>{l('Merge artists')}</h1>
-      <p>
-        {l(`You are about to merge all these artists into a single one.
-            Please select the artist all others should be merged into:`)}
-      </p>
-      <form method="post">
-        <ArtistList
-          artists={sortByEntityName(toMerge)}
-          mergeForm={form}
-        />
-        <FieldErrors field={form.field.target} />
+          <FormRowCheckbox
+            field={form.field.rename}
+            help={
+              <>
+                <p>
+                  {l(
+                    `You should only use the checkbox above
+                     to fix errors (such as typos).`,
+                  )}
+                </p>
+                <p>
+                  {exp.l(
+                    `If a name appears on the cover of a release, don’t check
+                     the box: the artists will still be combined if you don’t,
+                     but the {doc_acs|artist credits} will be kept
+                     as they are now.`,
+                    {doc_acs: '/doc/Artist_Credits'},
+                  )}
+                </p>
+              </>
+            }
+            label={l(`Update matching artist and relationship credits to use
+                      the target artist’s name`)}
+            uncontrolled
+          />
 
-        <FormRowCheckbox
-          field={form.field.rename}
-          help={
-            <>
-              <p>
-                {l(
-                  `You should only use the checkbox above
-                   to fix errors (such as typos).`,
-                )}
-              </p>
-              <p>
-                {exp.l(
-                  `If a name appears on the cover of a release, don’t check
-                   the box: the artists will still be combined if you don’t,
-                   but the {doc_acs|artist credits} will be kept
-                   as they are now.`,
-                  {doc_acs: '/doc/Artist_Credits'},
-                )}
-              </p>
-            </>
-          }
-          label={l(`Update matching artist and relationship credits to use
-                    the target artist’s name`)}
-          uncontrolled
-        />
+          <EnterEditNote field={form.field.edit_note} />
 
-        <EnterEditNote field={form.field.edit_note} />
-
-        <EnterEdit form={form}>
-          <button
-            className="negative"
-            name="submit"
-            type="submit"
-            value="cancel"
-          >
-            {l('Cancel')}
-          </button>
-        </EnterEdit>
-      </form>
-    </div>
-  </Layout>
-);
+          <EnterEdit form={form}>
+            <button
+              className="negative"
+              name="submit"
+              type="submit"
+              value="cancel"
+            >
+              {l('Cancel')}
+            </button>
+          </EnterEdit>
+        </form>
+      </div>
+    </Layout>
+  );
+}
 
 export default ArtistMerge;
