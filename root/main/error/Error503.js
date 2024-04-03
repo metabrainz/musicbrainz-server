@@ -9,18 +9,20 @@
 
 import ErrorLayout from './ErrorLayout.js';
 
-const Error503 = (): React$Element<typeof ErrorLayout> => (
-  <ErrorLayout title={l('System busy')}>
-    <p>
-      <strong>
-        {l('The system is overloaded or you are making requests too fast.')}
-      </strong>
-    </p>
+component Error503() {
+  return (
+    <ErrorLayout title={l('System busy')}>
+      <p>
+        <strong>
+          {l('The system is overloaded or you are making requests too fast.')}
+        </strong>
+      </p>
 
-    <p>
-      {l('Please wait a few minutes and repeat your request.')}
-    </p>
-  </ErrorLayout>
-);
+      <p>
+        {l('Please wait a few minutes and repeat your request.')}
+      </p>
+    </ErrorLayout>
+  );
+}
 
 export default Error503;

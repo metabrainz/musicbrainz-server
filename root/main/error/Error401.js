@@ -14,7 +14,7 @@ import {CatalystContext} from '../../context.mjs';
 
 import ErrorLayout from './ErrorLayout.js';
 
-const Error401 = (): React$Element<typeof ErrorLayout> => {
+component Error401() {
   const $c = React.useContext(CatalystContext);
   return (
     <ErrorLayout title={l('Unauthorized request')}>
@@ -28,7 +28,7 @@ const Error401 = (): React$Element<typeof ErrorLayout> => {
         <p>
           {exp.l(
             `You must first {url|add and verify your email address} before
-            being able to edit or add anything to the database.`,
+             being able to edit or add anything to the database.`,
             {url: '/account/edit'},
           )}
         </p>
@@ -43,6 +43,6 @@ const Error401 = (): React$Element<typeof ErrorLayout> => {
       </p>
     </ErrorLayout>
   );
-};
+}
 
 export default Error401;

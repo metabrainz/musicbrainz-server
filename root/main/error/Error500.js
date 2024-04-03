@@ -19,19 +19,12 @@ import ErrorEnvironment from './components/ErrorEnvironment.js';
 import ErrorInfo from './components/ErrorInfo.js';
 import ErrorLayout from './ErrorLayout.js';
 
-type Props = {
-  +edits?: $ReadOnlyArray<GenericEditWithIdT>,
-  +formattedErrors?: $ReadOnlyArray<string>,
-  +hostname?: string,
-  +useLanguages: boolean,
-};
-
-const Error500 = ({
-  edits,
-  formattedErrors,
-  hostname,
-  useLanguages,
-}: Props): React$Element<typeof ErrorLayout> => {
+component Error500(
+  edits?: $ReadOnlyArray<GenericEditWithIdT>,
+  formattedErrors?: $ReadOnlyArray<string>,
+  hostname?: string,
+  useLanguages: boolean,
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <ErrorLayout title={l('Internal server error')}>
@@ -94,6 +87,6 @@ const Error500 = ({
       </p>
     </ErrorLayout>
   );
-};
+}
 
 export default Error500;

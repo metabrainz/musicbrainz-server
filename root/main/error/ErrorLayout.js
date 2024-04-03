@@ -9,21 +9,15 @@
 
 import Layout from '../../layout/index.js';
 
-type Props = {
-  +children: React$Node,
-  +title: string,
-};
-
-const ErrorLayout = ({
-  children,
-  title,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={title}>
-    <div id="content">
-      <h1>{title}</h1>
-      {children}
-    </div>
-  </Layout>
-);
+component ErrorLayout(children: React$Node, title: string) {
+  return (
+    <Layout fullWidth title={title}>
+      <div id="content">
+        <h1>{title}</h1>
+        {children}
+      </div>
+    </Layout>
+  );
+}
 
 export default ErrorLayout;

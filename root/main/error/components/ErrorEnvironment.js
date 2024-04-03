@@ -11,15 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
 
-type Props = {
-  +hostname?: string,
-  +useLanguages?: boolean,
-};
-
-const ErrorEnvironment = ({
-  hostname,
-  useLanguages = false,
-}: Props): React.MixedElement => {
+component ErrorEnvironment(hostname?: string, useLanguages: boolean = false) {
   const $c = React.useContext(CatalystContext);
   return (
     <>
@@ -63,6 +55,6 @@ const ErrorEnvironment = ({
 
     </>
   );
-};
+}
 
 export default ErrorEnvironment;

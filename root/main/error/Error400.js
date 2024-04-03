@@ -14,45 +14,39 @@ import ErrorEnvironment from './components/ErrorEnvironment.js';
 import ErrorInfo from './components/ErrorInfo.js';
 import ErrorLayout from './ErrorLayout.js';
 
-type Props = {
-  +message?: string,
-  +useLanguages: boolean,
-};
+component Error400(message?: string, useLanguages: boolean) {
+  return (
+    <ErrorLayout title={l('Bad request')}>
+      <p>
+        <strong>
+          {l('Sorry, there was a problem with your request.')}
+        </strong>
+      </p>
 
-const Error400 = ({
-  message,
-  useLanguages,
-}: Props): React$Element<typeof ErrorLayout> => (
-  <ErrorLayout title={l('Bad request')}>
-    <p>
-      <strong>
-        {l('Sorry, there was a problem with your request.')}
-      </strong>
-    </p>
+      <ErrorInfo message={message} />
 
-    <ErrorInfo message={message} />
+      <p>
+        {exp.l(
+          'Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
+          {doc: '/doc/MusicBrainz_Documentation', faq: '/doc/FAQ'},
+        )}
+      </p>
 
-    <p>
-      {exp.l(
-        'Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
-        {doc: '/doc/MusicBrainz_Documentation', faq: '/doc/FAQ'},
-      )}
-    </p>
+      <p>
+        {exp.l(
+          `Found a problem on our site? Please {report|report a bug}
+           and include any error message that is shown above.`,
+          {
+            report: bugTrackerURL(),
+          },
+        )}
+      </p>
 
-    <p>
-      {exp.l(
-        `Found a problem on our site? Please {report|report a bug}
-         and include any error message that is shown above.`,
-        {
-          report: bugTrackerURL(),
-        },
-      )}
-    </p>
+      <h2>{l('Technical information')}</h2>
 
-    <h2>{l('Technical information')}</h2>
-
-    <ErrorEnvironment useLanguages={useLanguages} />
-  </ErrorLayout>
-);
+      <ErrorEnvironment useLanguages={useLanguages} />
+    </ErrorLayout>
+  );
+}
 
 export default Error400;
