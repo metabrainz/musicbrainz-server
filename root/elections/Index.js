@@ -11,17 +11,15 @@ import Layout from '../layout/index.js';
 
 import ElectionTable from './ElectionTable/index.js';
 
-type Props = {
-  +elections: $ReadOnlyArray<AutoEditorElectionT>,
-};
-
-const Index = ({elections}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Auto-editor elections')}>
-    <h1>{l('Auto-editor elections')}</h1>
-    {elections.length
-      ? <ElectionTable elections={elections} />
-      : <p>{l('No elections found.')}</p>}
-  </Layout>
-);
+component Index(elections: $ReadOnlyArray<AutoEditorElectionT>) {
+  return (
+    <Layout fullWidth title={l('Auto-editor elections')}>
+      <h1>{l('Auto-editor elections')}</h1>
+      {elections.length
+        ? <ElectionTable elections={elections} />
+        : <p>{l('No elections found.')}</p>}
+    </Layout>
+  );
+}
 
 export default Index;

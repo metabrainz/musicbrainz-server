@@ -13,11 +13,7 @@ import {SanitizedCatalystContext} from '../context.mjs';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import formatUserDate from '../utility/formatUserDate.js';
 
-type PropsT = {
-  +election: AutoEditorElectionT,
-};
-
-const ElectionVotes = ({election}: PropsT): React$Element<'table'> => {
+component ElectionVotes(election: AutoEditorElectionT) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <table className="tbl" style={{width: 'auto'}}>
@@ -43,6 +39,6 @@ const ElectionVotes = ({election}: PropsT): React$Element<'table'> => {
       </tbody>
     </table>
   );
-};
+}
 
 export default ElectionVotes;

@@ -13,11 +13,7 @@ import ElectionDetails from './ElectionDetails.js';
 import ElectionVotes from './ElectionVotes.js';
 import ElectionVoting from './ElectionVoting.js';
 
-type Props = {
-  +election: AutoEditorElectionT,
-};
-
-const Show = ({election}: Props): React$Element<typeof Layout> | null => {
+component Show(election: AutoEditorElectionT) {
   if (!election) {
     return null;
   }
@@ -40,6 +36,6 @@ const Show = ({election}: Props): React$Element<typeof Layout> | null => {
       )}
     </Layout>
   );
-};
+}
 
 export default Show;
