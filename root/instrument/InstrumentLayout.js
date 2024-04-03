@@ -15,21 +15,13 @@ import localizeInstrumentName
 
 import InstrumentHeader from './InstrumentHeader.js';
 
-type Props = {
-  +children: React$Node,
-  +entity: InstrumentT,
-  +fullWidth?: boolean,
-  +page: string,
-  +title?: string,
-};
-
-const InstrumentLayout = ({
-  children,
-  entity: instrument,
-  fullWidth = false,
-  page,
-  title,
-}: Props): React$Element<typeof Layout> => {
+component InstrumentLayout(
+  children: React$Node,
+  entity as instrument: InstrumentT,
+  fullWidth: boolean = false,
+  page: string,
+  title?: string,
+) {
   const nameWithType = texp.l('{type} “{instrument}”', {
     instrument: localizeInstrumentName(instrument),
     type: nonEmpty(instrument.typeName)
@@ -49,6 +41,6 @@ const InstrumentLayout = ({
       {fullWidth ? null : <InstrumentSidebar instrument={instrument} />}
     </Layout>
   );
-};
+}
 
 export default InstrumentLayout;

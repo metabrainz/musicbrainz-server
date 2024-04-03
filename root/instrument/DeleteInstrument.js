@@ -15,42 +15,37 @@ import EnterEditNote
 import InstrumentLayout from './InstrumentLayout.js';
 import type {InstrumentDeleteFormT} from './types.js';
 
-type Props = {
-  +canDelete: boolean,
-  +entity: InstrumentT,
-  +form: InstrumentDeleteFormT,
-  +isReleaseCountry: boolean,
-};
+component DeleteInstrument(
+  canDelete: boolean,
+  entity as instrument: InstrumentT,
+  form: InstrumentDeleteFormT,
+) {
+  return (
+    <InstrumentLayout
+      entity={instrument}
+      fullWidth
+      page="delete"
+      title="Remove instrument"
+    >
+      <h2>{'Remove instrument'}</h2>
 
-const DeleteInstrument = ({
-  canDelete,
-  entity: instrument,
-  form,
-}: Props): React$Element<typeof InstrumentLayout> => (
-  <InstrumentLayout
-    entity={instrument}
-    fullWidth
-    page="delete"
-    title="Remove instrument"
-  >
-    <h2>{'Remove instrument'}</h2>
+      {canDelete ? (
+        <>
+          <EntityDeletionHelp entity={instrument} />
 
-    {canDelete ? (
-      <>
-        <EntityDeletionHelp entity={instrument} />
-
-        <form method="post">
-          <EnterEditNote field={form.field.edit_note} />
-          <EnterEdit form={form} />
-        </form>
-      </>
-    ) : (
-      <p>
-        {l_admin(`This instrument cannot be removed
-                  because there are still relationships attributed to it.`)}
-      </p>
-    )}
-  </InstrumentLayout>
-);
+          <form method="post">
+            <EnterEditNote field={form.field.edit_note} />
+            <EnterEdit form={form} />
+          </form>
+        </>
+      ) : (
+        <p>
+          {l_admin(`This instrument cannot be removed
+                    because there are still relationships attributed to it.`)}
+        </p>
+      )}
+    </InstrumentLayout>
+  );
+}
 
 export default DeleteInstrument;

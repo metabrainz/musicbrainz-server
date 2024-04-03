@@ -13,32 +13,31 @@ import Layout from '../layout/index.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 
-type PropsT = {
-  +instrument_types: $ReadOnlyArray<InstrumentTypeT>,
-  +instruments_by_type: {
-    +[typeId: number]: $ReadOnlyArray<InstrumentT>,
-    +unknown: $ReadOnlyArray<InstrumentT>,
-  },
+type InstrumentsByTypeT = {
+  +[typeId: number]: $ReadOnlyArray<InstrumentT>,
+  +unknown: $ReadOnlyArray<InstrumentT>,
 };
 
-const Instrument = ({instrument}: {+instrument: InstrumentT}) => (
-  <li>
-    <EntityLink entity={instrument} />
-    {instrument.description
-      ? (
-        <>
-          {' — '}
-          {expand2react(l_instrument_descriptions(instrument.description))}
-        </>
-      )
-      : null}
-  </li>
-);
+component Instrument(instrument: InstrumentT) {
+  return (
+    <li>
+      <EntityLink entity={instrument} />
+      {instrument.description
+        ? (
+          <>
+            {' — '}
+            {expand2react(l_instrument_descriptions(instrument.description))}
+          </>
+        )
+        : null}
+    </li>
+  );
+}
 
-const InstrumentList = ({
-  instrument_types: instrumentTypes,
-  instruments_by_type: instrumentsByType,
-}: PropsT): React$Element<typeof Layout> => {
+component InstrumentList(
+  instrument_types as instrumentTypes: $ReadOnlyArray<InstrumentTypeT>,
+  instruments_by_type as instrumentsByType: InstrumentsByTypeT,
+) {
   const unknown = instrumentsByType.unknown;
 
   return (
@@ -77,6 +76,6 @@ const InstrumentList = ({
       </div>
     </Layout>
   );
-};
+}
 
 export default InstrumentList;

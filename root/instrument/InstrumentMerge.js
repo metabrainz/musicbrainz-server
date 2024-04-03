@@ -16,45 +16,42 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 
-type Props = {
-  +form: MergeFormT,
-  +toMerge: $ReadOnlyArray<InstrumentT>,
-};
+component InstrumentMerge(
+  form: MergeFormT,
+  toMerge: $ReadOnlyArray<InstrumentT>,
+) {
+  return (
+    <Layout fullWidth title="Merge instruments">
+      <div id="content">
+        <h1>{'Merge instruments'}</h1>
+        <p>
+          {l_admin(`You are about to merge all these instruments
+                    into a single one. Please select the instrument
+                    all others should be merged into:`)}
+        </p>
+        <form method="post">
+          <InstrumentList
+            instruments={sortByEntityName(toMerge)}
+            mergeForm={form}
+          />
+          <FieldErrors field={form.field.target} />
 
-const InstrumentMerge = ({
-  form,
-  toMerge,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Merge instruments">
-    <div id="content">
-      <h1>{'Merge instruments'}</h1>
-      <p>
-        {l_admin(`You are about to merge all these instruments
-                  into a single one. Please select the instrument
-                  all others should be merged into:`)}
-      </p>
-      <form method="post">
-        <InstrumentList
-          instruments={sortByEntityName(toMerge)}
-          mergeForm={form}
-        />
-        <FieldErrors field={form.field.target} />
+          <EnterEditNote field={form.field.edit_note} />
 
-        <EnterEditNote field={form.field.edit_note} />
-
-        <EnterEdit form={form}>
-          <button
-            className="negative"
-            name="submit"
-            type="submit"
-            value="cancel"
-          >
-            {'Cancel'}
-          </button>
-        </EnterEdit>
-      </form>
-    </div>
-  </Layout>
-);
+          <EnterEdit form={form}>
+            <button
+              className="negative"
+              name="submit"
+              type="submit"
+              value="cancel"
+            >
+              {'Cancel'}
+            </button>
+          </EnterEdit>
+        </form>
+      </div>
+    </Layout>
+  );
+}
 
 export default InstrumentMerge;
