@@ -14,19 +14,12 @@ import chooseLayoutComponent from '../../utility/chooseLayoutComponent.js';
 
 import type {AliasDeleteFormT} from './types.js';
 
-type Props = {
-  +alias: AnyAliasT,
-  +entity: EntityWithAliasesT,
-  +form: AliasDeleteFormT,
-  +type: string,
-};
-
-const DeleteAlias = ({
-  alias,
-  entity,
-  form,
-  type,
-}: Props): React$MixedElement => {
+component DeleteAlias(
+  alias: AnyAliasT,
+  entity: EntityWithAliasesT,
+  form: AliasDeleteFormT,
+  type: string,
+) {
   const LayoutComponent = chooseLayoutComponent(type);
   const header = lp('Remove alias', 'header');
 
@@ -57,6 +50,6 @@ const DeleteAlias = ({
       </form>
     </LayoutComponent>
   );
-};
+}
 
 export default DeleteAlias;

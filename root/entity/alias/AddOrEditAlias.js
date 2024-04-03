@@ -15,23 +15,14 @@ import chooseLayoutComponent from '../../utility/chooseLayoutComponent.js';
 
 import type {AliasEditFormT} from './types.js';
 
-type Props = {
-  +aliasTypes: SelectOptionsT,
-  +entity: EntityWithAliasesT,
-  +form: AliasEditFormT,
-  +formType: string,
-  +locales: SelectOptionsT,
-  +type: string,
-};
-
-const AddOrEditAlias = ({
-  aliasTypes,
-  entity,
-  form,
-  formType,
-  locales,
-  type,
-}: Props): React$MixedElement => {
+component AddOrEditAlias(
+  aliasTypes: SelectOptionsT,
+  entity: EntityWithAliasesT,
+  form: AliasEditFormT,
+  formType: string,
+  locales: SelectOptionsT,
+  type: string,
+) {
   const LayoutComponent = chooseLayoutComponent(type);
   const header = formType === 'add'
     ? lp('Add alias', 'header')
@@ -57,6 +48,6 @@ const AddOrEditAlias = ({
       {manifest.js('alias', {async: 'async'})}
     </LayoutComponent>
   );
-};
+}
 
 export default AddOrEditAlias;

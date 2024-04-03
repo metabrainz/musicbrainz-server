@@ -14,19 +14,12 @@ import {MainTagEditor}
   from '../static/scripts/common/components/TagEditor.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
-type Props = {
-  +allTags: $ReadOnlyArray<AggregatedTagT>,
-  +entity: TaggableEntityT,
-  +moreTags: boolean,
-  +userTags: $ReadOnlyArray<UserTagT>,
-};
-
-const Tags = ({
-  allTags,
-  entity,
-  moreTags,
-  userTags,
-}: Props): React$MixedElement => {
+component Tags(
+  allTags: $ReadOnlyArray<AggregatedTagT>,
+  entity: TaggableEntityT,
+  moreTags: boolean,
+  userTags: $ReadOnlyArray<UserTagT>,
+) {
   const $c = React.useContext(CatalystContext);
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
@@ -46,6 +39,6 @@ const Tags = ({
       />
     </LayoutComponent>
   );
-};
+}
 
 export default Tags;
