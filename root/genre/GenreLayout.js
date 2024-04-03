@@ -12,31 +12,25 @@ import Layout from '../layout/index.js';
 
 import GenreHeader from './GenreHeader.js';
 
-type Props = {
-  +children: React$Node,
-  +entity: GenreT,
-  +fullWidth?: boolean,
-  +page: string,
-  +title?: string,
-};
-
-const GenreLayout = ({
-  children,
-  entity: genre,
-  fullWidth = false,
-  page,
-  title,
-}: Props): React$Element<typeof Layout> => (
-  <Layout
-    title={nonEmpty(title) ? hyphenateTitle(genre.name, title) : genre.name}
-  >
-    <div id="content">
-      <GenreHeader genre={genre} page={page} />
-      {children}
-    </div>
-    {fullWidth ? null : <GenreSidebar genre={genre} />}
-  </Layout>
-);
+component GenreLayout(
+  children: React$Node,
+  entity as genre: GenreT,
+  fullWidth: boolean = false,
+  page: string,
+  title?: string,
+) {
+  return (
+    <Layout
+      title={nonEmpty(title) ? hyphenateTitle(genre.name, title) : genre.name}
+    >
+      <div id="content">
+        <GenreHeader genre={genre} page={page} />
+        {children}
+      </div>
+      {fullWidth ? null : <GenreSidebar genre={genre} />}
+    </Layout>
+  );
+}
 
 
 export default GenreLayout;
