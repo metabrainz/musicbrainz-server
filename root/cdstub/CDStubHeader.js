@@ -10,13 +10,7 @@
 import SubHeader from '../components/SubHeader.js';
 import CDStubLink from '../static/scripts/common/components/CDStubLink.js';
 
-type Props = {
-  +cdstub: CDStubT,
-};
-
-const CDStubHeader = ({
-  cdstub,
-}: Props): React$Element<'div'> => {
+component CDStubHeader(cdstub: CDStubT) {
   const subHeading = exp.l(
     'CD stub by {artist}',
     {artist: cdstub.artist || l('Various Artists')},
@@ -30,6 +24,6 @@ const CDStubHeader = ({
       <SubHeader subHeading={subHeading} />
     </div>
   );
-};
+}
 
 export default CDStubHeader;
