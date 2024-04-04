@@ -13,7 +13,11 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 
 import GenreLayout from './GenreLayout.js';
-import type {GenreDeleteFormT} from './types.js';
+
+type GenreDeleteFormT = FormT<{
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+}>;
 
 component DeleteGenre(entity as genre: GenreT, form: GenreDeleteFormT) {
   return (
