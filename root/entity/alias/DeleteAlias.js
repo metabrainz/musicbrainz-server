@@ -12,7 +12,10 @@ import EnterEditNote
   from '../../static/scripts/edit/components/EnterEditNote.js';
 import chooseLayoutComponent from '../../utility/chooseLayoutComponent.js';
 
-import type {AliasDeleteFormT} from './types.js';
+type AliasDeleteFormT = FormT<{
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+}>;
 
 component DeleteAlias(
   alias: AnyAliasT,
