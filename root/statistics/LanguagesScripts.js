@@ -18,12 +18,6 @@ import loopParity from '../utility/loopParity.js';
 import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, TimelineLink} from './utilities.js';
 
-type LanguagesScriptsStatsT = {
-  +dateCollected: string,
-  +languageStats: $ReadOnlyArray<LanguageStatT>,
-  +scriptStats: $ReadOnlyArray<ScriptStatT>,
-};
-
 type LanguageStatT = {
   +entity: LanguageT | null,
   +releases: number,
@@ -36,11 +30,11 @@ type ScriptStatT = {
   +entity: ScriptT | null,
 };
 
-const LanguagesScripts = ({
-  dateCollected,
-  languageStats,
-  scriptStats,
-}: LanguagesScriptsStatsT): React$Element<typeof StatisticsLayout> => {
+component LanguagesScripts(
+  dateCollected: string,
+  languageStats: $ReadOnlyArray<LanguageStatT>,
+  scriptStats: $ReadOnlyArray<ScriptStatT>,
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <StatisticsLayout
@@ -200,6 +194,6 @@ const LanguagesScripts = ({
       {manifest.js('statistics')}
     </StatisticsLayout>
   );
-};
+}
 
 export default LanguagesScripts;

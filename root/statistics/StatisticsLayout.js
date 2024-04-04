@@ -13,28 +13,20 @@ import Layout from '../layout/index.js';
 import {unwrapNl} from '../static/scripts/common/i18n.js';
 import statisticsLessUrl from '../static/styles/statistics.less';
 
-type StatisticsLayoutPropsT = {
-  +children: React$Node,
-  +fullWidth: boolean,
-  +page: string,
-  +sidebar?: ?React$Node,
-  +title: string,
-};
-
-type TabPropsT = {
-  +link: string,
-  +page: string,
-  +selected: string,
-  +title: string | (() => string | React$MixedElement),
-};
-
-const LinkStatisticsTab = ({link, title, page, selected}: TabPropsT) => (
-  <li className={page === selected ? 'sel' : ''}>
-    <a href={link}>
-      {unwrapNl<string | React$MixedElement>(title)}
-    </a>
-  </li>
-);
+component LinkStatisticsTab(
+  link: string,
+  page: string,
+  selected: string,
+  title: string | (() => string | React$MixedElement),
+) {
+  return (
+    <li className={page === selected ? 'sel' : ''}>
+      <a href={link}>
+        {unwrapNl<string | React$MixedElement>(title)}
+      </a>
+    </li>
+  );
+}
 
 const infoLinks = [
   {
@@ -84,13 +76,13 @@ const infoLinks = [
   },
 ];
 
-const StatisticsLayout = ({
-  children,
-  fullWidth = false,
-  page,
-  sidebar,
-  title,
-}: StatisticsLayoutPropsT): React$Element<typeof Layout> => {
+component StatisticsLayout(
+  children: React$Node,
+  fullWidth: boolean = false,
+  page: string,
+  sidebar?: ?React$Node,
+  title: string,
+) {
   const htmlTitle = hyphenateTitle(l_statistics('Database statistics'),
                                    title);
   return (
@@ -117,6 +109,6 @@ const StatisticsLayout = ({
       {fullWidth ? null : <div id="sidebar">{sidebar}</div>}
     </Layout>
   );
-};
+}
 
 export default StatisticsLayout;

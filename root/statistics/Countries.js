@@ -18,11 +18,6 @@ import loopParity from '../utility/loopParity.js';
 import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, TimelineLink} from './utilities.js';
 
-type CountriesStatsT = {
-  +countryStats: $ReadOnlyArray<CountryStatT>,
-  +dateCollected: string,
-};
-
 type CountryStatT = {
   +artist_count: number,
   +entity: AreaT,
@@ -32,10 +27,10 @@ type CountryStatT = {
   +release_count: number,
 };
 
-const Countries = ({
-  countryStats,
-  dateCollected,
-}: CountriesStatsT): React$Element<typeof StatisticsLayout> => {
+component Countries(
+  countryStats: $ReadOnlyArray<CountryStatT>,
+  dateCollected: string,
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <StatisticsLayout
@@ -204,6 +199,6 @@ const Countries = ({
       {manifest.js('statistics')}
     </StatisticsLayout>
   );
-};
+}
 
 export default Countries;
