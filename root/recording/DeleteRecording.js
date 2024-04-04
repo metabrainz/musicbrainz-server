@@ -13,7 +13,11 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 
 import RecordingLayout from './RecordingLayout.js';
-import type {RecordingDeleteFormT} from './types.js';
+
+type RecordingDeleteFormT = FormT<{
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+}>;
 
 component DeleteRecording(
   canDelete: boolean,
