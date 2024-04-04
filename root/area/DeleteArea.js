@@ -13,7 +13,11 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 
 import AreaLayout from './AreaLayout.js';
-import type {AreaDeleteFormT} from './types.js';
+
+type AreaDeleteFormT = FormT<{
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+}>;
 
 component DeleteArea(
   canDelete: boolean,
