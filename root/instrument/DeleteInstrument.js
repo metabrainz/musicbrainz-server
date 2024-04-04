@@ -13,7 +13,11 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 
 import InstrumentLayout from './InstrumentLayout.js';
-import type {InstrumentDeleteFormT} from './types.js';
+
+type InstrumentDeleteFormT = FormT<{
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+}>;
 
 component DeleteInstrument(
   canDelete: boolean,
