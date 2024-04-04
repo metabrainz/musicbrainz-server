@@ -10,18 +10,20 @@
 import {ArtistResultsInline} from '../search/components/ArtistResults.js';
 
 import TagLookupResults from './Results.js';
-import type {TagLookupResultsPropsT} from './types.js';
 
-const TagLookupArtistResults = (
-  props: TagLookupResultsPropsT<ArtistT>,
-): React$MixedElement => (
-  <TagLookupResults {...props}>
-    <ArtistResultsInline
-      pager={props.pager}
-      query={props.query}
-      results={props.results}
-    />
-  </TagLookupResults>
-);
+component TagLookupArtistResults(...props: {
+  ...React.PropsOf<ArtistResultsInline>,
+  ...React.PropsOf<TagLookupResults>,
+}) {
+  return (
+    <TagLookupResults form={props.form} nag={props.nag}>
+      <ArtistResultsInline
+        pager={props.pager}
+        query={props.query}
+        results={props.results}
+      />
+    </TagLookupResults>
+  );
+}
 
 export default TagLookupArtistResults;
