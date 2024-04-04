@@ -47,7 +47,7 @@ component InstrumentResults(...{
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
       <PaginatedSearchResults
-        buildResult={(result, index) => buildResult(result, index)}
+        buildResult={buildResult}
         columns={
           <>
             <th>{l('Name')}</th>
