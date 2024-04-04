@@ -36,13 +36,13 @@ function buildResult(
   );
 }
 
-const InstrumentResults = ({
+component InstrumentResults(...{
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<InstrumentT>): React$Element<typeof ResultsLayout> => {
+}: ResultsPropsT<InstrumentT>) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
@@ -69,6 +69,6 @@ const InstrumentResults = ({
       ) : null}
     </ResultsLayout>
   );
-};
+}
 
 export default InstrumentResults;

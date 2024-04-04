@@ -9,26 +9,20 @@
 
 import SearchError from '../components/SearchError.js';
 
-type Props = {
-  +form: SearchFormT | TagLookupFormT,
-  +query: string,
-};
-
-const RateLimited = ({
-  form,
-  query,
-}: Props): React$Element<typeof SearchError> => (
-  <SearchError form={form}>
-    <p>
-      {exp.l(
-        `Sorry, but your query “(<code>{query}</code>)” could not be
-         performed, because it appears you’ve been rate-limited.
-         Either the server is overloaded or you’re making
-         a lot of requests all at once.`,
-        {query: query},
-      )}
-    </p>
-  </SearchError>
-);
+component RateLimited(form: SearchFormT | TagLookupFormT, query: string) {
+  return (
+    <SearchError form={form}>
+      <p>
+        {exp.l(
+          `Sorry, but your query “(<code>{query}</code>)” could not be
+           performed, because it appears you’ve been rate-limited.
+           Either the server is overloaded or you’re making
+           a lot of requests all at once.`,
+          {query: query},
+        )}
+      </p>
+    </SearchError>
+  );
+}
 
 export default RateLimited;

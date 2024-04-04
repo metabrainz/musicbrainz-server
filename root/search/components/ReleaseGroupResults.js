@@ -46,13 +46,13 @@ function buildResult(result: SearchResultT<ReleaseGroupT>, index: number) {
   );
 }
 
-const ReleaseGroupResults = ({
+component ReleaseGroupResults(...{
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<ReleaseGroupT>): React$Element<typeof ResultsLayout> => {
+}: ResultsPropsT<ReleaseGroupT>) {
   const $c = React.useContext(CatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
@@ -79,6 +79,6 @@ const ReleaseGroupResults = ({
       ) : null}
     </ResultsLayout>
   );
-};
+}
 
 export default ReleaseGroupResults;

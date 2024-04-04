@@ -9,19 +9,15 @@
 
 import SearchError from '../components/SearchError.js';
 
-type Props = {
-  +form: SearchFormT | TagLookupFormT,
-};
-
-const Invalid = ({
-  form,
-}: Props): React$Element<typeof SearchError> => (
-  <SearchError form={form}>
-    <p>
-      {l(`Your search query was deemed invalid
-          by our ruthless search server.`)}
-    </p>
-  </SearchError>
-);
+component Invalid(form: SearchFormT | TagLookupFormT) {
+  return (
+    <SearchError form={form}>
+      <p>
+        {l(`Your search query was deemed invalid
+            by our ruthless search server.`)}
+      </p>
+    </SearchError>
+  );
+}
 
 export default Invalid;

@@ -9,16 +9,12 @@
 
 import SearchError from '../components/SearchError.js';
 
-type Props = {
-  +form: SearchFormT | TagLookupFormT,
-};
-
-const UriTooLarge = ({
-  form,
-}: Props): React$Element<typeof SearchError> => (
-  <SearchError form={form}>
-    <p>{l('Sorry, your query was too large.')}</p>
-  </SearchError>
-);
+component UriTooLarge(form: SearchFormT | TagLookupFormT) {
+  return (
+    <SearchError form={form}>
+      <p>{l('Sorry, your query was too large.')}</p>
+    </SearchError>
+  );
+}
 
 export default UriTooLarge;

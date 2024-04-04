@@ -9,31 +9,27 @@
 
 import SearchError from '../components/SearchError.js';
 
-type Props = {
-  +form: SearchFormT | TagLookupFormT,
-  +query: string,
-  +type: string,
-};
-
-const NoResults = ({
-  form,
-  query,
-  type,
-}: Props): React$Element<typeof SearchError> => (
-  <SearchError form={form}>
-    <p>
-      {exp.l(
-        `Sorry, but your query “(<code>{query}</code>)”
-         did not find any results of the type “{type}”.
-         Please check you used the correct spelling. 
-         Sometimes searching for fewer or different words may also help.`,
-        {
-          query: query,
-          type: type,
-        },
-      )}
-    </p>
-  </SearchError>
-);
+component NoResults(
+  form: SearchFormT | TagLookupFormT,
+  query: string,
+  type: string,
+) {
+  return (
+    <SearchError form={form}>
+      <p>
+        {exp.l(
+          `Sorry, but your query “(<code>{query}</code>)”
+           did not find any results of the type “{type}”.
+           Please check you used the correct spelling. 
+           Sometimes searching for fewer or different words may also help.`,
+          {
+            query: query,
+            type: type,
+          },
+        )}
+      </p>
+    </SearchError>
+  );
+}
 
 export default NoResults;
