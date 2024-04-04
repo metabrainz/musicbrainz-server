@@ -17,7 +17,11 @@ import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {isWikiTranscluder}
   from '../../static/scripts/common/utility/privileges.js';
 
-import type {WikiDocT} from './types.js';
+type WikiDocT = {
+  +id: string,
+  +version: number,
+  +wiki_version: number,
+};
 
 component WikiDocTable(
   pages: $ReadOnlyArray<WikiDocT>,
