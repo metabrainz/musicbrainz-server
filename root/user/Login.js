@@ -25,28 +25,21 @@ import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import returnUri from '../utility/returnUri.js';
 
-type PropsT = {
-  +isLoginBad?: boolean,
-  +isLoginRequired?: boolean,
-  +isSpammer?: boolean,
-  +loginAction: string,
-  +loginForm: FormT<{
-    +csrf_token: FieldT<string>,
-    +password: FieldT<string>,
-    +remember_me: FieldT<boolean>,
-    +username: FieldT<string>,
-  }>,
-  +postParameters: PostParametersT | null,
-};
+type LoginFormT = FormT<{
+  +csrf_token: FieldT<string>,
+  +password: FieldT<string>,
+  +remember_me: FieldT<boolean>,
+  +username: FieldT<string>,
+}>;
 
-const Login = ({
-  isLoginBad = false,
-  isLoginRequired = false,
-  isSpammer = false,
-  loginAction,
-  loginForm,
-  postParameters,
-}: PropsT): React$Element<typeof Layout> => {
+component Login(
+  isLoginBad: boolean = false,
+  isLoginRequired: boolean = false,
+  isSpammer: boolean = false,
+  loginAction: string,
+  loginForm: LoginFormT,
+  postParameters: PostParametersT | null,
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <Layout fullWidth title={lp('Log in', 'header')}>
@@ -143,6 +136,6 @@ const Login = ({
       {manifest.js('user/login', {async: 'async'})}
     </Layout>
   );
-};
+}
 
 export default Login;

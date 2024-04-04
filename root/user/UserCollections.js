@@ -23,12 +23,6 @@ import {
   subscriptionColumn,
 } from '../utility/tableColumns.js';
 
-type Props = {
-  +collaborativeCollections: CollectionListT,
-  +ownCollections: CollectionListT,
-  +user: AccountLayoutUserT,
-};
-
 type CollectionWithSubscribedT = $ReadOnly<{
   ...CollectionT,
   subscribed: boolean,
@@ -80,21 +74,13 @@ function formatPrivacy(
   );
 }
 
-type CollectionsEntityTypeSectionPropsT = {
-  +activeUserId: number | void,
-  +collections: $ReadOnlyArray<CollectionWithSubscribedT>,
-  +isCollaborative: boolean,
-  +type: string,
-  +user: AccountLayoutUserT,
-};
-
-const CollectionsEntityTypeSection = ({
-  activeUserId,
-  collections,
-  isCollaborative,
-  type,
-  user,
-}: CollectionsEntityTypeSectionPropsT) => {
+component CollectionsEntityTypeSection(
+  activeUserId: number | void,
+  collections: $ReadOnlyArray<CollectionWithSubscribedT>,
+  isCollaborative: boolean,
+  type: string,
+  user: AccountLayoutUserT,
+) {
   const columns = React.useMemo(
     () => {
       const viewingOwnProfile =
@@ -160,13 +146,13 @@ const CollectionsEntityTypeSection = ({
       {table}
     </>
   );
-};
+}
 
-const UserCollections = ({
-  ownCollections,
-  collaborativeCollections,
-  user,
-}: Props): React$Element<typeof UserAccountLayout> => {
+component UserCollections(
+  collaborativeCollections: CollectionListT,
+  ownCollections: CollectionListT,
+  user: AccountLayoutUserT,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const activeUser = $c.user;
   const viewingOwnProfile = !!(activeUser && activeUser.id === user.id);
@@ -231,6 +217,6 @@ const UserCollections = ({
       ) : null}
     </UserAccountLayout>
   );
-};
+}
 
 export default UserCollections;

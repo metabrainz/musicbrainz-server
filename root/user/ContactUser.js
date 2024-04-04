@@ -21,63 +21,59 @@ import FormRowTextLong
   from '../static/scripts/edit/components/FormRowTextLong.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
-type Props = {
-  +form: FormT<{
-    +body: FieldT<string>,
-    +csrf_token: FieldT<string>,
-    +reveal_address: FieldT<boolean>,
-    +send_to_self: FieldT<boolean>,
-    +subject: FieldT<string>,
-  }>,
-  +user: AccountLayoutUserT,
-};
+type ContactUserFormT = FormT<{
+  +body: FieldT<string>,
+  +csrf_token: FieldT<string>,
+  +reveal_address: FieldT<boolean>,
+  +send_to_self: FieldT<boolean>,
+  +subject: FieldT<string>,
+}>;
 
-const ContactUser = ({
-  form,
-  user,
-}: Props): React.Element<typeof UserAccountLayout> => (
-  <UserAccountLayout
-    entity={user}
-    page="report"
-    title={lp('Send email', 'header')}
-  >
-    <h2>{lp('Send email', 'header')}</h2>
+component ContactUser(form: ContactUserFormT, user: AccountLayoutUserT) {
+  return (
+    <UserAccountLayout
+      entity={user}
+      page="report"
+      title={lp('Send email', 'header')}
+    >
+      <h2>{lp('Send email', 'header')}</h2>
 
-    <form className="contact-form" method="post">
-      <FormCsrfToken form={form} />
+      <form className="contact-form" method="post">
+        <FormCsrfToken form={form} />
 
-      <FormRowTextLong
-        field={form.field.subject}
-        label={l('Subject:')}
-        required
-        uncontrolled
-      />
+        <FormRowTextLong
+          field={form.field.subject}
+          label={l('Subject:')}
+          required
+          uncontrolled
+        />
 
-      <FormRowTextArea
-        cols={50}
-        field={form.field.body}
-        label={addColonText(l('Message'))}
-        required
-        rows={10}
-      />
+        <FormRowTextArea
+          cols={50}
+          field={form.field.body}
+          label={addColonText(l('Message'))}
+          required
+          rows={10}
+        />
 
-      <FormRowCheckbox
-        field={form.field.reveal_address}
-        label={l('Reveal my email address')}
-        uncontrolled
-      />
+        <FormRowCheckbox
+          field={form.field.reveal_address}
+          label={l('Reveal my email address')}
+          uncontrolled
+        />
 
-      <FormRowCheckbox
-        field={form.field.send_to_self}
-        label={l('Send a copy to my own email address')}
-        uncontrolled
-      />
+        <FormRowCheckbox
+          field={form.field.send_to_self}
+          label={l('Send a copy to my own email address')}
+          uncontrolled
+        />
 
-      <FormRow hasNoLabel>
-        <FormSubmit label={lp('Send email', 'interactive')} />
-      </FormRow>
-    </form>
-  </UserAccountLayout>
-);
+        <FormRow hasNoLabel>
+          <FormSubmit label={lp('Send email', 'interactive')} />
+        </FormRow>
+      </form>
+    </UserAccountLayout>
+  );
+}
 
 export default ContactUser;

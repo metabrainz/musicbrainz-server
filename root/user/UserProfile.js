@@ -116,44 +116,29 @@ function generateUserTypesList(
   return typesList;
 }
 
-type UserProfilePropertyProps = {
-  +children: React$Node,
-  +className?: string,
-  +name: string,
-};
+component UserProfileProperty(
+  children: React$Node,
+  className?: string,
+  name: string,
+) {
+  return (
+    <tr className={nonEmpty(className) ? className : null}>
+      <th>{name}</th>
+      <td>{children}</td>
+    </tr>
+  );
+}
 
-const UserProfileProperty = ({
-  children,
-  className,
-  name,
-}: UserProfilePropertyProps) => (
-  <tr className={nonEmpty(className) ? className : null}>
-    <th>{name}</th>
-    <td>{children}</td>
-  </tr>
-);
-
-type UserProfileInformationProps = {
-  +applicationCount: number,
-  +ipHashes: $ReadOnlyArray<string>,
-  +restrictions: $ReadOnlyArray<string>,
-  +subscribed: boolean,
-  +subscriberCount: number,
-  +tokenCount: number,
-  +user: UnsanitizedEditorT,
-  +viewingOwnProfile: boolean,
-};
-
-const UserProfileInformation = ({
-  applicationCount,
-  ipHashes,
-  restrictions,
-  subscribed,
-  subscriberCount,
-  tokenCount,
-  user,
-  viewingOwnProfile,
-}: UserProfileInformationProps) => {
+component UserProfileInformation(
+  applicationCount: number,
+  ipHashes: $ReadOnlyArray<string>,
+  restrictions: $ReadOnlyArray<string>,
+  subscribed: boolean,
+  subscriberCount: number,
+  tokenCount: number,
+  user: UnsanitizedEditorT,
+  viewingOwnProfile: boolean,
+) {
   const $c = React.useContext(CatalystContext);
   const showBioAndURL = !!(!user.is_limited || $c.user);
   let memberSince;
@@ -445,21 +430,14 @@ const UserProfileInformation = ({
       </table>
     </>
   );
-};
+}
 
-type UserEditsPropertyProps = {
-  +addedEntities: number,
-  +entityType: string,
-  +name: string,
-  +user: UnsanitizedEditorT,
-};
-
-const UserEditsProperty = ({
-  addedEntities,
-  entityType,
-  name,
-  user,
-}: UserEditsPropertyProps) => {
+component UserEditsProperty(
+  addedEntities: number,
+  entityType: string,
+  name: string,
+  user: UnsanitizedEditorT,
+ ) {
   const $c = React.useContext(CatalystContext);
   const encodedName = encodeURIComponent(user.name);
   const createEditTypes: string = entityType === 'cover_art'
@@ -496,7 +474,7 @@ const UserEditsProperty = ({
       })) : formatCount($c, addedEntities)}
     </UserProfileProperty>
   );
-};
+}
 
 type EditStatsT = {
   +accepted_auto_count: number,
@@ -541,21 +519,13 @@ type EntitiesStatsT = {
   +work: number,
 };
 
-type UserProfileStatisticsProps = {
-  +addedEntities: EntitiesStatsT,
-  +editStats: EditStatsT,
-  +secondaryStats: SecondaryStatsT,
-  +user: UnsanitizedEditorT,
-  +votes: VoteStatsT,
-};
-
-const UserProfileStatistics = ({
-  editStats,
-  user,
-  votes,
-  secondaryStats,
-  addedEntities,
-}: UserProfileStatisticsProps) => {
+component UserProfileStatistics(
+  addedEntities: EntitiesStatsT,
+  editStats: EditStatsT,
+  secondaryStats: SecondaryStatsT,
+  user: UnsanitizedEditorT,
+  votes: VoteStatsT,
+) {
   const $c = React.useContext(CatalystContext);
   const voteTotals = votes.pop();
   const encodedName = encodeURIComponent(user.name);
@@ -877,33 +847,20 @@ const UserProfileStatistics = ({
       ) : null}
     </>
   );
-};
+}
 
-type UserProfileProps = {
-  +addedEntities: EntitiesStatsT,
-  +applicationCount: number,
-  +editStats: EditStatsT,
-  +ipHashes: $ReadOnlyArray<string>,
-  +secondaryStats: SecondaryStatsT,
-  +subscribed: boolean,
-  +subscriberCount: number,
-  +tokenCount: number,
-  +user: UnsanitizedEditorT,
-  +votes: VoteStatsT,
-};
-
-const UserProfile = ({
-  applicationCount,
-  editStats,
-  ipHashes,
-  secondaryStats,
-  subscribed,
-  subscriberCount,
-  tokenCount,
-  user,
-  votes,
-  addedEntities,
-}: UserProfileProps): React$Element<typeof UserAccountLayout> => {
+component UserProfile(
+  addedEntities: EntitiesStatsT,
+  applicationCount: number,
+  editStats: EditStatsT,
+  ipHashes: $ReadOnlyArray<string>,
+  secondaryStats: SecondaryStatsT,
+  subscribed: boolean,
+  subscriberCount: number,
+  tokenCount: number,
+  user: UnsanitizedEditorT,
+  votes: VoteStatsT,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const viewingOwnProfile = $c.user != null && $c.user.id === user.id;
   const adminViewing = $c.user != null && isAccountAdmin($c.user);
@@ -991,6 +948,6 @@ const UserProfile = ({
       )}
     </UserAccountLayout>
   );
-};
+}
 
 export default UserProfile;

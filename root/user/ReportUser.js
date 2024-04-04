@@ -30,16 +30,13 @@ type ReportReasonT =
   | 'unresponsiveness'
   | 'voting';
 
-type Props = {
-  +form: FormT<{
-    +csrf_token: FieldT<string>,
-    +message: FieldT<string>,
-    +reason: FieldT<ReportReasonT>,
-    +reveal_address: FieldT<boolean>,
-    +send_to_self: FieldT<boolean>,
-  }>,
-  +user: AccountLayoutUserT,
-};
+type ReportUserFormT = FormT<{
+  +csrf_token: FieldT<string>,
+  +message: FieldT<string>,
+  +reason: FieldT<ReportReasonT>,
+  +reveal_address: FieldT<boolean>,
+  +send_to_self: FieldT<boolean>,
+}>;
 
 const reportReasonOptions = {
   grouped: false,
@@ -73,114 +70,113 @@ const reportReasonOptions = {
   ],
 };
 
-const ReportUser = ({
-  form,
-  user,
-}: Props): React$Element<typeof UserAccountLayout> => (
-  <UserAccountLayout
-    entity={user}
-    page="report"
-    title={lp('Report user', 'header')}
-  >
-    <h2>{lp('Report user', 'header')}</h2>
+component ReportUser(form: ReportUserFormT, user: AccountLayoutUserT) {
+  return (
+    <UserAccountLayout
+      entity={user}
+      page="report"
+      title={lp('Report user', 'header')}
+    >
+      <h2>{lp('Report user', 'header')}</h2>
 
-    {user.deleted ? (
-      <p>
-        {exp.l(
-          `This user account has already been deleted,
-           so there’s probably no need to report it.
-           If you feel there’s a problem that still needs action,
-           please {link|contact us}.`,
-          {link: CONTACT_URL},
-        )}
-      </p>
-    ) : (
-      <>
+      {user.deleted ? (
         <p>
           {exp.l(
-            `Please review our {uri|Code of Conduct} before
-             sending a report.`,
-            {uri: {href: '/doc/Code_of_Conduct', target: '_blank'}},
+            `This user account has already been deleted,
+             so there’s probably no need to report it.
+             If you feel there’s a problem that still needs action,
+             please {link|contact us}.`,
+            {link: CONTACT_URL},
           )}
         </p>
+      ) : (
+        <>
+          <p>
+            {exp.l(
+              `Please review our {uri|Code of Conduct} before
+               sending a report.`,
+              {uri: {href: '/doc/Code_of_Conduct', target: '_blank'}},
+            )}
+          </p>
 
-        <p>
-          {exp.l(
-            `Your report will be sent to our {uri|account administrators},
-              who will decide what action to take.`,
-            {uri: {href: '/privileged', target: '_blank'}},
-          )}
-        </p>
+          <p>
+            {exp.l(
+              `Your report will be sent to our {uri|account administrators},
+               who will decide what action to take.`,
+              {uri: {href: '/privileged', target: '_blank'}},
+            )}
+          </p>
 
-        <p>
-          <strong>{addColonText(l('Note'))}</strong>
-          {' '}
-          {exp.l(
-            `Be sure to provide direct links to examples of the behaviour
-             you’re reporting (for example, use
-             “<code>https://musicbrainz.org/edit/23</code>”
-             instead of “edit #23”, and use
-             “<code>https://musicbrainz.org/edit/42</code> and
-             <code>https://musicbrainz.org/edit/43</code>”
-             instead of
-             “<code>https://musicbrainz.org/user/SomeUser/edits</code>”).
-             Providing links makes it much easier for the recipients of the
-             report to look into the issues; a report without links is
-             unlikely to be acted on fast, since it will require a lot of
-             additional research.`,
-          )}
-        </p>
+          <p>
+            <strong>{addColonText(l('Note'))}</strong>
+            {' '}
+            {exp.l(
+              `Be sure to provide direct links to examples of the behaviour
+               you’re reporting (for example, use
+               “<code>https://musicbrainz.org/edit/23</code>”
+               instead of “edit #23”, and use
+               “<code>https://musicbrainz.org/edit/42</code> and
+               <code>https://musicbrainz.org/edit/43</code>”
+               instead of
+               “<code>https://musicbrainz.org/user/SomeUser/edits</code>”).
+               Providing links makes it much easier for the recipients of the
+               report to look into the issues; a report without links is
+               unlikely to be acted on fast, since it will require a lot of
+               additional research.`,
+            )}
+          </p>
 
-        <form className="report-form" method="post">
-          <FormCsrfToken form={form} />
+          <form className="report-form" method="post">
+            <FormCsrfToken form={form} />
 
-          <FormRowSelect
-            field={form.field.reason}
-            label={addColonText(l('Reason'))}
-            options={reportReasonOptions}
-            uncontrolled
-          />
+            <FormRowSelect
+              field={form.field.reason}
+              label={addColonText(l('Reason'))}
+              options={reportReasonOptions}
+              uncontrolled
+            />
 
-          <FormRowTextArea
-            cols={50}
-            field={form.field.message}
-            label={addColonText(l('Message'))}
-            required
-            rows={10}
-          />
+            <FormRowTextArea
+              cols={50}
+              field={form.field.message}
+              label={addColonText(l('Message'))}
+              required
+              rows={10}
+            />
 
-          <FormRowCheckbox
-            field={form.field.reveal_address}
-            help={
-              <p>
-                {exp.l(
-                  `If you don’t want our admins to contact you further
-                   regarding this report, you can uncheck the checkbox
-                   above.
-                   <br />
-                   We recommend leaving it checked, so that you can be
-                   contacted if the report is resolved or the admins
-                   need more information.`,
-                )}
-              </p>
-            }
-            label={l('Receive email updates about this report')}
-            uncontrolled
-          />
+            <FormRowCheckbox
+              field={form.field.reveal_address}
+              help={
+                <p>
+                  {exp.l(
+                    `If you don’t want our admins to contact you further
+                     regarding this report, you can uncheck the checkbox
+                     above.
+                     <br />
+                     We recommend leaving it checked, so that you can be
+                     contacted if the report is resolved or the admins
+                     need more information.`,
+                  )}
+                </p>
+              }
+              label={l('Receive email updates about this report')}
+              uncontrolled
+            />
 
-          <FormRowCheckbox
-            field={form.field.send_to_self}
-            label={l('Send a copy to my own email address')}
-            uncontrolled
-          />
+            <FormRowCheckbox
+              field={form.field.send_to_self}
+              label={l('Send a copy to my own email address')}
+              uncontrolled
+            />
 
-          <FormRow hasNoLabel>
-            <FormSubmit label={l('Send')} />
-          </FormRow>
-        </form>
-      </>
-    )}
-  </UserAccountLayout>
-);
+            <FormRow hasNoLabel>
+              <FormSubmit label={l('Send')} />
+            </FormRow>
+          </form>
+        </>
+      )}
+    </UserAccountLayout>
+  );
+}
 
 export default ReportUser;
