@@ -20,32 +20,25 @@ import expand2text from '../static/scripts/common/i18n/expand2text.js';
 import {formatCount} from '../statistics/utilities.js';
 import UserTagFilters from '../user/components/UserTagFilters.js';
 
-type Props = {
-  +showDownvoted?: boolean,
-  +showLink?: boolean,
-  +showVotesSelect?: boolean,
-  +tag: TagT,
-  +taggedEntities: {
-    +[entityType: string]: {
+type TaggedEntitiesT = {
+  +[entityType: string]: {
+    +count: number,
+    +tags: $ReadOnlyArray<{
       +count: number,
-      +tags: $ReadOnlyArray<{
-        +count: number,
-        +entity: TaggableEntityT,
-        +entity_id: number,
-      }>,
-    },
+      +entity: TaggableEntityT,
+      +entity_id: number,
+    }>,
   },
-  +user?: AccountLayoutUserT | EditorT,
 };
 
-const TagEntitiesList = ({
-  showDownvoted = false,
-  showLink = false,
-  showVotesSelect = false,
-  tag,
-  taggedEntities,
-  user,
-}: Props): React.MixedElement => {
+component TagEntitiesList(
+  showDownvoted: boolean = false,
+  showLink: boolean = false,
+  showVotesSelect: boolean = false,
+  tag: TagT,
+  taggedEntities: TaggedEntitiesT,
+  user?: AccountLayoutUserT | EditorT,
+) {
   const $c = React.useContext(CatalystContext);
 
   const totalCount = Object.values(taggedEntities)
@@ -201,6 +194,6 @@ const TagEntitiesList = ({
       ), showDownvoted)}
     </>
   );
-};
+}
 
 export default TagEntitiesList;

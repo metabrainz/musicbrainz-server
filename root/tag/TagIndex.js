@@ -13,21 +13,7 @@ import EntityLink
 
 import TagLayout from './TagLayout.js';
 
-type Props = {
-  +tag: TagT,
-  +taggedEntities: {
-    +[entityType: string]: {
-      +count: number,
-      +tags: $ReadOnlyArray<{
-        +count: number,
-        +entity: TaggableEntityT,
-        +entity_id: number,
-      }>,
-    },
-  },
-};
-
-const TagIndex = (props: Props): React$Element<typeof TagLayout> => {
+component TagIndex(...props: React.PropsOf<TagEntitiesList>) {
   const genre = props.tag.genre;
   return (
     <TagLayout page="" tag={props.tag}>
@@ -44,6 +30,6 @@ const TagIndex = (props: Props): React$Element<typeof TagLayout> => {
       <TagEntitiesList {...props} />
     </TagLayout>
   );
-};
+}
 
 export default TagIndex;
