@@ -13,7 +13,11 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 
 import ReleaseLayout from './ReleaseLayout.js';
-import type {ReleaseDeleteFormT} from './types.js';
+
+type ReleaseDeleteFormT = FormT<{
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+}>;
 
 component DeleteRelease(
   entity as release: ReleaseT,
