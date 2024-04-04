@@ -16,19 +16,12 @@ import type {CreditsModeT} from '../static/scripts/release/types.js';
 
 import ReleaseLayout from './ReleaseLayout.js';
 
-type PropsT = {
-  +creditsMode: CreditsModeT,
-  +noScript: boolean,
-  +numberOfRevisions: number,
-  +release: ReleaseWithMediumsT,
-};
-
-const ReleaseIndex = ({
-  creditsMode,
-  noScript,
-  numberOfRevisions,
-  release,
-}: PropsT): React$Element<typeof ReleaseLayout> => {
+component ReleaseIndex(
+  creditsMode: CreditsModeT,
+  noScript: boolean,
+  numberOfRevisions: number,
+  release: ReleaseWithMediumsT,
+) {
   const {
     link_attribute_type: linkAttributeTypes,
     link_type: linkTypes,
@@ -54,6 +47,6 @@ const ReleaseIndex = ({
       {manifest.js('release/index', {async: 'async'})}
     </ReleaseLayout>
   );
-};
+}
 
 export default ReleaseIndex;

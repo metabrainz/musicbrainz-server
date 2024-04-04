@@ -15,31 +15,28 @@ import EnterEditNote
 import ReleaseLayout from './ReleaseLayout.js';
 import type {ReleaseDeleteFormT} from './types.js';
 
-type Props = {
-  +entity: ReleaseT,
-  +form: ReleaseDeleteFormT,
-};
+component DeleteRelease(
+  entity as release: ReleaseT,
+  form: ReleaseDeleteFormT,
+) {
+  return (
+    <ReleaseLayout
+      entity={release}
+      fullWidth
+      page="delete"
+      title={lp('Remove release', 'header')}
+    >
+      <h2>{lp('Remove release', 'header')}</h2>
 
-const DeleteRelease = ({
-  entity: release,
-  form,
-}: Props): React$Element<typeof ReleaseLayout> => (
-  <ReleaseLayout
-    entity={release}
-    fullWidth
-    page="delete"
-    title={lp('Remove release', 'header')}
-  >
-    <h2>{lp('Remove release', 'header')}</h2>
+      <EntityDeletionHelp entity={release} />
 
-    <EntityDeletionHelp entity={release} />
+      <form method="post">
+        <EnterEditNote field={form.field.edit_note} />
+        <EnterEdit form={form} />
+      </form>
 
-    <form method="post">
-      <EnterEditNote field={form.field.edit_note} />
-      <EnterEdit form={form} />
-    </form>
-
-  </ReleaseLayout>
-);
+    </ReleaseLayout>
+  );
+}
 
 export default DeleteRelease;
