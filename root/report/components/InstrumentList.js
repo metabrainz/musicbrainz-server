@@ -19,15 +19,10 @@ import {
 } from '../../utility/tableColumns.js';
 import type {ReportInstrumentT} from '../types.js';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportInstrumentT>,
-  +pager: PagerT,
-};
-
-const InstrumentList = ({
-  items,
-  pager,
-}: Props): React$Element<typeof PaginatedResults> => {
+component InstrumentList(
+  items: $ReadOnlyArray<ReportInstrumentT>,
+  pager: PagerT,
+) {
   const $c = React.useContext(CatalystContext);
   const existingInstrumentItems = items.reduce((
     result: Array<ReportInstrumentT>,
@@ -88,6 +83,6 @@ const InstrumentList = ({
       {table}
     </PaginatedResults>
   );
-};
+}
 
 export default InstrumentList;

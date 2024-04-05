@@ -16,15 +16,10 @@ import type {ReportReleaseUrlT} from '../types.js';
 
 import RemovedUrlRow from './RemovedUrlRow.js';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportReleaseUrlT>,
-  +pager: PagerT,
-};
-
-const ReleaseUrlList = ({
-  items,
-  pager,
-}: Props): React$Element<typeof PaginatedResults> => {
+component ReleaseUrlList(
+  items: $ReadOnlyArray<ReportReleaseUrlT>,
+  pager: PagerT,
+) {
   let lastGID: string = '';
   let currentGID: string = '';
 
@@ -91,6 +86,6 @@ const ReleaseUrlList = ({
       </table>
     </PaginatedResults>
   );
-};
+}
 
 export default ReleaseUrlList;

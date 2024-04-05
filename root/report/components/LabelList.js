@@ -16,19 +16,12 @@ import {
   defineEntityColumn,
 } from '../../utility/tableColumns.js';
 
-type Props<D: {+label: ?LabelT, ...}> = {
-  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +items: $ReadOnlyArray<D>,
-  +pager: PagerT,
-};
-
-const LabelList = <D: {+label: ?LabelT, ...}>({
-  columnsBefore,
-  columnsAfter,
-  items,
-  pager,
-}: Props<D>): React$Element<typeof PaginatedResults> => {
+component LabelList<D: {+label: ?LabelT, ...}>(
+  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  items: $ReadOnlyArray<D>,
+  pager: PagerT,
+) {
   const existingLabelItems = items.reduce((
     result: Array<D>,
     item,
@@ -63,6 +56,6 @@ const LabelList = <D: {+label: ?LabelT, ...}>({
       {table}
     </PaginatedResults>
   );
-};
+}
 
 export default LabelList;
