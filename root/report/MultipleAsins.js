@@ -11,31 +11,33 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseT} from './types.js';
 
-const MultipleAsins = ({
+component MultipleAsins(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows releases that have more than one Amazon ASIN.
-       In most cases ASINs should map to MusicBrainz releases 1:1, so
-       only one of them will be correct. Just check which ones do not
-       fit the release (because of format, different number of tracks,
-       etc). If the release has a barcode, you can search Amazon for it
-       and see which ASIN matches.`,
-    )}
-    entityType="release"
-    filtered={filtered}
-    generated={generated}
-    title={l('Releases with multiple ASINs')}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows releases that have more than one Amazon ASIN.
+         In most cases ASINs should map to MusicBrainz releases 1:1, so
+         only one of them will be correct. Just check which ones do not
+         fit the release (because of format, different number of tracks,
+         etc). If the release has a barcode, you can search Amazon for it
+         and see which ASIN matches.`,
+      )}
+      entityType="release"
+      filtered={filtered}
+      generated={generated}
+      title={l('Releases with multiple ASINs')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default MultipleAsins;

@@ -11,29 +11,31 @@ import CDTocList from './components/CDTocList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportCDTocT, ReportDataT} from './types.js';
 
-const CDTocDubiousLength = ({
+component CDTocDubiousLength(...{
   canBeFiltered,
   generated,
   filtered,
   items,
   pager,
-}: ReportDataT<ReportCDTocT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows disc IDs indicating a total duration much longer
-       than what a standard CD allows (at least 88 minutes for a CD, or 30
-       minutes for a mini-CD). This usually means a disc ID was generated for
-       the wrong format (SACD) or with a buggy tool.`,
-    )}
-    entityType="discId"
-    filtered={filtered}
-    generated={generated}
-    title={l('Disc IDs with dubious duration')}
-    totalEntries={pager.total_entries}
-  >
-    <CDTocList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportCDTocT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows disc IDs indicating a total duration much longer
+         than what a standard CD allows (at least 88 minutes for a CD, or 30
+         minutes for a mini-CD). This usually means a disc ID was generated
+         for the wrong format (SACD) or with a buggy tool.`,
+      )}
+      entityType="discId"
+      filtered={filtered}
+      generated={generated}
+      title={l('Disc IDs with dubious duration')}
+      totalEntries={pager.total_entries}
+    >
+      <CDTocList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default CDTocDubiousLength;

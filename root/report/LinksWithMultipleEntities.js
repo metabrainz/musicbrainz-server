@@ -24,13 +24,13 @@ type ReportEntryT = {
   +url_id: number,
 };
 
-const LinksWithMultipleEntities = ({
+component LinksWithMultipleEntities(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportEntryT>): React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportEntryT>) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -93,6 +93,6 @@ const LinksWithMultipleEntities = ({
       </PaginatedResults>
     </ReportLayout>
   );
-};
+}
 
 export default LinksWithMultipleEntities;

@@ -17,13 +17,13 @@ import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportIswcT} from './types.js';
 
-const IswcsWithManyWorks = ({
+component IswcsWithManyWorks(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportIswcT>): React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportIswcT>) {
   let lastIswc: string = '';
   let currentIswc: string = '';
 
@@ -93,6 +93,6 @@ const IswcsWithManyWorks = ({
       </PaginatedResults>
     </ReportLayout>
   );
-};
+}
 
 export default IswcsWithManyWorks;

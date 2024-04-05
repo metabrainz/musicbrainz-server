@@ -13,14 +13,13 @@ import useAnnotationColumns from './hooks/useAnnotationColumns.js';
 import {ANNOTATION_REPORT_TEXT} from './constants.js';
 import type {ReportDataT, ReportReleaseGroupAnnotationT} from './types.js';
 
-const AnnotationsReleaseGroups = ({
+component AnnotationsReleaseGroups(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseGroupAnnotationT>):
-React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportReleaseGroupAnnotationT>) {
   const annotationColumns =
     useAnnotationColumns<ReportReleaseGroupAnnotationT>();
 
@@ -42,6 +41,6 @@ React$Element<typeof ReportLayout> => {
       />
     </ReportLayout>
   );
-};
+}
 
 export default AnnotationsReleaseGroups;

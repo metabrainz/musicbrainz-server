@@ -12,11 +12,7 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../context.mjs';
 import uriWith from '../utility/uriWith.js';
 
-type Props = {
-  +filtered: boolean,
-};
-
-const FilterLink = ({filtered = false}: Props): React$Element<'li'> => {
+component FilterLink(filtered: boolean = false) {
   const $c = React.useContext(SanitizedCatalystContext);
   const reqUri = $c.req.uri;
 
@@ -33,6 +29,6 @@ const FilterLink = ({filtered = false}: Props): React$Element<'li'> => {
       )}
     </li>
   );
-};
+}
 
 export default FilterLink;

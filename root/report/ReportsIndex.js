@@ -16,24 +16,17 @@ import {
   isRelationshipEditor,
 } from '../static/scripts/common/utility/privileges.js';
 
-type ReportsIndexEntryProps = {
-  +content: string,
-  +reportName: string,
-};
+component ReportsIndexEntry(content: string, reportName: string) {
+  return (
+    <li>
+      <a href={`/report/${reportName}`}>
+        {content}
+      </a>
+    </li>
+  );
+}
 
-const ReportsIndexEntry = ({
-  content,
-  reportName,
-}: ReportsIndexEntryProps): React$Element<'li'> => (
-  <li>
-    <a href={`/report/${reportName}`}>
-      {content}
-    </a>
-  </li>
-
-);
-
-const ReportsIndex = (): React$Element<typeof Layout> => {
+component ReportsIndex() {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <Layout fullWidth title={l('Reports')}>
@@ -234,14 +227,14 @@ const ReportsIndex = (): React$Element<typeof Layout> => {
           <ReportsIndexEntry
             content={l(
               `Release groups not credited to "Various Artists"
-               but linked to VA`,
+              but linked to VA`,
             )}
             reportName="ReleaseGroupsWithoutVACredit"
           />
           <ReportsIndexEntry
             content={l(
               `Release groups credited to "Various Artists"
-               but not linked to VA`,
+              but not linked to VA`,
             )}
             reportName="ReleaseGroupsWithoutVALink"
           />
@@ -315,7 +308,7 @@ const ReportsIndex = (): React$Element<typeof Layout> => {
           <ReportsIndexEntry
             content={l(
               `Releases where some (but not all) mediums
-               have no format set`,
+              have no format set`,
             )}
             reportName="SomeFormatsUnset"
           />
@@ -336,28 +329,28 @@ const ReportsIndex = (): React$Element<typeof Layout> => {
           <ReportsIndexEntry
             content={l(
               `Translated/Transliterated Pseudo-Releases
-               marked as the original version`,
+              marked as the original version`,
             )}
             reportName="MislinkedPseudoReleases"
           />
           <ReportsIndexEntry
             content={l(
               `Translated/Transliterated Pseudo-Releases
-               not linked to an original version`,
+              not linked to an original version`,
             )}
             reportName="UnlinkedPseudoReleases"
           />
           <ReportsIndexEntry
             content={l(
               `Releases that have Amazon cover art
-               but no Cover Art Archive front cover`,
+              but no Cover Art Archive front cover`,
             )}
             reportName="ReleasesWithAmazonCoverArt"
           />
           <ReportsIndexEntry
             content={l(
               `Releases in the Cover Art Archive
-               where no cover art piece has types`,
+              where no cover art piece has types`,
             )}
             reportName="ReleasesWithCAANoTypes"
           />
@@ -509,14 +502,14 @@ const ReportsIndex = (): React$Element<typeof Layout> => {
           <ReportsIndexEntry
             content={l(
               `Recordings not credited to "Various Artists"
-               but linked to VA`,
+              but linked to VA`,
             )}
             reportName="RecordingsWithoutVACredit"
           />
           <ReportsIndexEntry
             content={l(
               `Recordings credited to "Various Artists"
-               but not linked to VA`,
+              but not linked to VA`,
             )}
             reportName="RecordingsWithoutVALink"
           />
@@ -646,6 +639,6 @@ const ReportsIndex = (): React$Element<typeof Layout> => {
       </div>
     </Layout>
   );
-};
+}
 
 export default ReportsIndex;

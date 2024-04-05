@@ -11,29 +11,31 @@ import EventList from './components/EventList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportEventT} from './types.js';
 
-const DuplicateEvents = ({
+component DuplicateEvents(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportEventT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report lists events happening at the same place
-       on the same date. If there are duplicates (for example,
-       if there are separate events for headliner and supporting artist)
-       please merge them.`,
-    )}
-    entityType="event"
-    filtered={filtered}
-    generated={generated}
-    title={l('Possibly duplicate events')}
-    totalEntries={pager.total_entries}
-  >
-    <EventList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportEventT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report lists events happening at the same place
+         on the same date. If there are duplicates (for example,
+         if there are separate events for headliner and supporting artist)
+         please merge them.`,
+      )}
+      entityType="event"
+      filtered={filtered}
+      generated={generated}
+      title={l('Possibly duplicate events')}
+      totalEntries={pager.total_entries}
+    >
+      <EventList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default DuplicateEvents;

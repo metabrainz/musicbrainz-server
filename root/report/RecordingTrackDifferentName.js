@@ -23,33 +23,34 @@ export type ReportRecordingTrackT = {
   +track_id: number,
 };
 
-const RecordingTrackDifferentName = ({
+component RecordingTrackDifferentName(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingTrackT>):
-React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows recordings that are linked to only one track,
-        yet have a different name than the track. This might mean
-        one of the two needs to be renamed to match the other.`,
-    )}
-    entityType="recording"
-    filtered={filtered}
-    generated={generated}
-    title={l('Recordings with a different name than their only track')}
-    totalEntries={pager.total_entries}
-  >
-    <RecordingList
-      columnsBefore={[trackColumn]}
-      items={items}
-      pager={pager}
-    />
-  </ReportLayout>
-);
+}: ReportDataT<ReportRecordingTrackT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows recordings that are linked to only one track,
+         yet have a different name than the track. This might mean
+         one of the two needs to be renamed to match the other.`,
+      )}
+      entityType="recording"
+      filtered={filtered}
+      generated={generated}
+      title={l('Recordings with a different name than their only track')}
+      totalEntries={pager.total_entries}
+    >
+      <RecordingList
+        columnsBefore={[trackColumn]}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+}
 
 export default RecordingTrackDifferentName;
