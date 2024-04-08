@@ -30,15 +30,10 @@ import Vote from './components/Vote.js';
 import VoteTally from './components/VoteTally.js';
 import getEditDetailsElement from './utility/getEditDetailsElement.js';
 
-type Props = {
-  +edit: $ReadOnly<{...EditT, +id: number}>,
-  +fullWidth?: boolean,
-};
-
-const EditIndex = ({
-  edit,
-  fullWidth = false,
-}: Props): React$Element<typeof Layout> => {
+component EditIndex(
+  edit: $ReadOnly<{...EditT, +id: number}>,
+  fullWidth: boolean = false,
+) {
   const $c = React.useContext(CatalystContext);
   const canAddNote = Boolean($c.user && editorMayAddNote(edit, $c.user));
   const isOwnEdit = Boolean($c.user && $c.user.id === edit.editor_id);
@@ -181,6 +176,6 @@ const EditIndex = ({
       )}
     </Layout>
   );
-};
+}
 
 export default EditIndex;

@@ -13,15 +13,10 @@ import EnterEditNote
 
 import getEditDetailsElement from './utility/getEditDetailsElement.js';
 
-type Props = {
-  +edit: $ReadOnly<{...EditT, +id: number}>,
-  +form: ConfirmFormT,
-};
-
-const CancelEdit = ({
-  edit,
-  form,
-}: Props): React$Element<typeof Layout> => {
+component CancelEdit(
+  edit: $ReadOnly<{...EditT, +id: number}>,
+  form: ConfirmFormT,
+) {
   const detailsElement = getEditDetailsElement(edit);
 
   return (
@@ -59,6 +54,6 @@ const CancelEdit = ({
       </form>
     </Layout>
   );
-};
+}
 
 export default CancelEdit;
