@@ -1654,6 +1654,14 @@ msgid ""
 "instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
 msgstr ""
 
+#. name:hümmelchen 
+#: DB:instrument/description:1205
+msgid ""
+"Having a small bag, it has a soft sound. Its chanter and two drones of "
+"differing length are made of fruitwood. It historically had single reeds, "
+"modern creations are more complex and double-reeded."
+msgstr ""
+
 #. name:kantilan 
 #: DB:instrument/description:975
 msgid ""
@@ -2669,6 +2677,13 @@ msgstr ""
 #. name:saron barung 
 #: DB:instrument/description:1007
 msgid "Often called simply \"saron\", it plays the basic, balungan melody."
+msgstr ""
+
+#. name:neyanban 
+#: DB:instrument/description:1206
+msgid ""
+"Often colourfully decorated, it is known since ancient times in southern "
+"Persia. It has a single reed with a double piped chanter with 6-7 holes."
 msgstr ""
 
 #. name:slapstick 
