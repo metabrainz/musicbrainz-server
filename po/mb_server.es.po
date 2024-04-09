@@ -55,18 +55,18 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-27 21:10+0100\n"
-"PO-Revision-Date: 2024-03-27 19:28+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-04-09 15:04+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.4\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -13821,6 +13821,8 @@ msgid ""
 "You can pick the level you prefer here: your country, region or city. Be as "
 "specific as you want to!"
 msgstr ""
+"Tú decides cuántos detalles quieres dar: puedes escoger tu país, tu región o "
+"tu ciudad."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:262
 msgid "Birth date:"
@@ -13860,7 +13862,7 @@ msgstr "Preferencias regionales"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:166
 msgid "Guess timezone"
-msgstr ""
+msgstr "Inferir zona horaria"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:171
 msgid "Timezone:"
@@ -13881,7 +13883,7 @@ msgstr "Mis suscripciones"
 #: ../root/static/scripts/account/components/PreferencesForm.js:200
 msgctxt "folksonomy"
 msgid "My tags and genres"
-msgstr ""
+msgstr "Mis etiquetas y géneros"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:213
 msgid "Email me about"
@@ -13922,6 +13924,10 @@ msgid ""
 "email address as your username if you are completely sure you are happy with "
 "that."
 msgstr ""
+"El nombre de usuario que has introducido parece una dirección de correo. Ten "
+"en cuenta que tu nombre de usuario será visible para todos los demás "
+"usuarios, así que solo deberías usar tu correo como nombre de usuario si no "
+"te preocupa hacerlo público."
 
 #: ../root/static/scripts/account/components/RegisterForm.js:85
 #: ../root/user/Login.js:108
@@ -13961,7 +13967,7 @@ msgstr "Este es el alias primario para esta localización"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:340
 msgid "This alias is no longer current."
-msgstr ""
+msgstr "Este alias ya no está en uso."
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:101
 msgctxt "annotation"
@@ -13998,21 +14004,23 @@ msgstr "Sin tipo"
 
 #: ../root/static/scripts/area/places-map.js:109
 msgid "{place_name} (closed)"
-msgstr ""
+msgstr "{place_name} (cerrado)"
 
 #: ../root/static/scripts/area/places-map.js:125
 msgid "{place_type}: {place_link} (closed)"
-msgstr ""
+msgstr "{place_type}: {place_link} (cerrado)"
 
 #: ../root/static/scripts/area/places-map.js:130
 msgid "{place_type}: {place_link}"
-msgstr ""
+msgstr "{place_type}: {place_link}"
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:220
 msgid ""
 "Please select the {doc|artist credits} that you want to rename to follow the "
 "new artist name."
 msgstr ""
+"Selecciona los {doc|créditos de artista} que quieres cambiar para que usen "
+"el nuevo nombre del artista."
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:226
 msgid ""
@@ -14020,6 +14028,10 @@ msgid ""
 "new name. Only use this if you are sure the existing credits are incorrect "
 "(such as for typos)."
 msgstr ""
+"Con esto añadirás ediciones adicionales para cambiar cada crédito y usar el "
+"nombre nuevo. Usa esta opción solo si tienes la seguridad de que los "
+"créditos actuales son incorrectos, por ejemplo porque estás arreglando una "
+"errata."
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:231
 msgid ""
@@ -14027,10 +14039,13 @@ msgid ""
 "releases. If an artist has changed their name, but old releases were "
 "credited to the existing name, do not change the artist credit."
 msgstr ""
+"Ten en cuenta que los créditos de artista deberían seguir lo que indica la "
+"publicación. Si un artista ha cambiado de nombre pero sus publicaciones "
+"antiguas usaban el nombre anterior, no cambies sus créditos."
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:255
 msgid "Show less artist credits"
-msgstr ""
+msgstr "Mostrar menos créditos"
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:257
 #: ../root/static/scripts/common/components/Collapsible.js:76
@@ -14039,7 +14054,7 @@ msgstr "Mostrar menos"
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:269
 msgid "Show more artist credits"
-msgstr ""
+msgstr "Mostrar más créditos"
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:271
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:479
@@ -14058,7 +14073,7 @@ msgstr "Permitir que otros usuarios vean esta colección"
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:230
 msgid "Add collection"
-msgstr ""
+msgstr "Añadir colección"
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:232
 msgid "Update collection"
@@ -14066,11 +14081,11 @@ msgstr "Guardar cambios"
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:290
 msgid "Add collaborator"
-msgstr ""
+msgstr "Añadir un colaborador"
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:332
 msgid "Remove collaborator"
-msgstr ""
+msgstr "Eliminar colaborador"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:88
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:94
@@ -14081,16 +14096,16 @@ msgstr ""
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:93
 msgid "Try with direct search instead."
-msgstr ""
+msgstr "Prueba una búsqueda directa."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:94
 msgid "Try with indexed search instead."
-msgstr ""
+msgstr "Prueba una búsqueda indexada."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:126
 #: ../root/static/scripts/common/components/Autocomplete2.js:805
 msgid "Type to search, or paste an MBID"
-msgstr ""
+msgstr "Escribe algo para buscar, o pega una MBID"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:217
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:49
@@ -14112,12 +14127,12 @@ msgstr "¿Lento? Vuelve a la búsqueda indexada."
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:714
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:406
 msgid "standalone recording"
-msgstr ""
+msgstr "grabación independiente"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:808
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:498
 msgid "{release_group_type} by {artist}"
-msgstr ""
+msgstr "{release_group_type} de {artist}"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:1047
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:216
@@ -14167,11 +14182,11 @@ msgstr "Última modificación: {date}."
 
 #: ../root/static/scripts/common/components/ArtistCreditLink.js:49
 msgid "This artist credit has {edit_search|open edits}."
-msgstr ""
+msgstr "Este crédito de artista tiene {edit_search|ediciones pendientes}."
 
 #: ../root/static/scripts/common/components/ArtistCreditLink.js:54
 msgid "This artist credit has open edits."
-msgstr ""
+msgstr "Este crédito de artista tiene ediciones pendientes."
 
 #: ../root/static/scripts/common/components/ArtistRoles.js:29
 msgid "{artist} ({roles})"
@@ -14193,15 +14208,15 @@ msgstr "Mostrar menos artistas"
 
 #: ../root/static/scripts/common/components/AttributeList.js:69
 msgid "Show all attributes"
-msgstr ""
+msgstr "Mostrar todos los atributos"
 
 #: ../root/static/scripts/common/components/AttributeList.js:70
 msgid "Show less attributes"
-msgstr ""
+msgstr "Mostrar menos atributos"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:55
 msgid "Recent items"
-msgstr ""
+msgstr "Últimos usos"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:64
 msgid "Try again with direct search."
@@ -14209,7 +14224,7 @@ msgstr "Prueba con una búsqueda directa."
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:70
 msgid "Try again with indexed search."
-msgstr ""
+msgstr "Prueba con una búsqueda indexada."
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:76
 msgid "An error occurred while looking up the MBID you entered."
@@ -14217,59 +14232,59 @@ msgstr "Se ha producido un error al buscar la MBID que introdujiste."
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:82
 msgid "The type of entity you pasted isn’t supported here."
-msgstr ""
+msgstr "No puedes usar el tipo de entidad que pegaste aquí."
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:127
 msgid "Search for an area"
-msgstr ""
+msgstr "Buscar área"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:129
 msgid "Search for an editor"
-msgstr ""
+msgstr "Buscar editor"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:130
 msgid "Search for an event"
-msgstr ""
+msgstr "Buscar evento"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:131
 msgid "Search for a genre"
-msgstr ""
+msgstr "Buscar género"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:132
 msgid "Search for an instrument"
-msgstr ""
+msgstr "Buscar instrumento"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:133
 msgid "Search for a label"
-msgstr ""
+msgstr "Buscar discográfica"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:135
 msgid "Search for a relationship type"
-msgstr ""
+msgstr "Buscar tipo de relación"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:136
 msgid "Search for a place"
-msgstr ""
+msgstr "Buscar lugar"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:137
 msgid "Search for a recording"
-msgstr ""
+msgstr "Buscar grabación"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:138
 msgid "Search for a release"
-msgstr ""
+msgstr "Buscar publicación"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:139
 msgid "Search for a release group"
-msgstr ""
+msgstr "Buscar grupo de publicaciones"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:140
 msgid "Search for a series"
-msgstr ""
+msgstr "Buscar serie"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:141
 msgid "Search for a work"
-msgstr ""
+msgstr "Buscar obra"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:331
 msgid "{forward_link_phrase} / {backward_link_phrase}"
@@ -14281,15 +14296,15 @@ msgstr "de {artist}"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:461
 msgid "{first_list_item} … {last_list_item}"
-msgstr ""
+msgstr "{first_list_item} … {last_list_item}"
 
 #: ../root/static/scripts/common/components/Autocomplete2/reducer.js:158
 msgid "Hide descriptions"
-msgstr ""
+msgstr "Ocultar descripciones"
 
 #: ../root/static/scripts/common/components/Autocomplete2/reducer.js:159
 msgid "Show descriptions"
-msgstr ""
+msgstr "Mostrar descripciones"
 
 #: ../root/static/scripts/common/components/Autocomplete2/reducer.js:255
 msgid ""
@@ -14335,16 +14350,18 @@ msgstr "Imagen de Wikimedia Commons"
 
 #: ../root/static/scripts/common/components/CritiqueBrainzReview.js:37
 msgid "{review_link|Review} by {author} on {date}"
-msgstr ""
+msgstr "{review_link|Reseña} de {author} el {date}"
 
 #: ../root/static/scripts/common/components/EditorLink.js:19
 msgid ""
 "This editor is missing from this server, and cannot be displayed correctly."
 msgstr ""
+"Este editor no está disponible en este servidor y no podemos mostrarlo "
+"correctamente."
 
 #: ../root/static/scripts/common/components/EditorLink.js:23
 msgid "[missing editor]"
-msgstr ""
+msgstr "[editor no disponible]"
 
 #: ../root/static/scripts/common/components/EntityLink.js:129
 #: ../root/url/UrlIndex.js:31
@@ -14352,26 +14369,31 @@ msgid ""
 "This link has been temporarily disabled because it has been reported as "
 "potentially harmful."
 msgstr ""
+"Este enlace ha sido bloqueado porque sospechamos que puede ser perjudicial."
 
 #: ../root/static/scripts/common/components/EntityLink.js:356
 msgid "This release has artwork in the Cover Art Archive"
-msgstr ""
+msgstr "Esta publicación tiene imágenes en el Cover Art Archive"
 
 #: ../root/static/scripts/common/components/EntityLink.js:370
 msgid "This release group has artwork in the Cover Art Archive"
-msgstr ""
+msgstr "Este grupo de publicaciones tiene imágenes en el Cover Art Archive"
 
 #: ../root/static/scripts/common/components/EntityLink.js:386
 msgid ""
 "High quality: All available data has been added, if possible including cover "
 "art with liner info that proves it"
 msgstr ""
+"Alta calidad: Todos los datos disponibles han sido añadidos, a ser posible "
+"con imágenes que sirvan de prueba"
 
 #: ../root/static/scripts/common/components/EntityLink.js:399
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"
 msgstr ""
+"Baja calidad: La publicación necesita muchas mejoras, o es difícil demostrar "
+"que existe (pero no está claro que sea falsa)"
 
 #: ../root/static/scripts/common/components/Filter.js:64
 msgid "Filter"
@@ -14379,7 +14401,7 @@ msgstr "Filtrar"
 
 #: ../root/static/scripts/common/components/FilterForm.js:104
 msgid "Filter events"
-msgstr ""
+msgstr "Filtrar eventos"
 
 #: ../root/static/scripts/common/components/FilterForm.js:106
 msgid "Filter recordings"
@@ -14395,7 +14417,7 @@ msgstr "Filtrar grupos de publicación"
 
 #: ../root/static/scripts/common/components/FilterForm.js:112
 msgid "Filter works"
-msgstr ""
+msgstr "Filtrar obras"
 
 #: ../root/static/scripts/common/components/FilterForm.js:188
 msgid "Setlist contains"
@@ -14403,19 +14425,19 @@ msgstr "Contenidos del repertorio"
 
 #: ../root/static/scripts/common/components/FilterForm.js:227
 msgid "Hide recordings that only appear on bootleg releases"
-msgstr ""
+msgstr "Ocultar grabaciones que aparecen solo en publicaciones piratas"
 
 #: ../root/static/scripts/common/components/FilterForm.js:230
 msgid "Hide bootleg-only"
-msgstr ""
+msgstr "Ocultar piratas"
 
 #: ../root/static/scripts/common/components/FilterForm.js:328
 msgid "Secondary type"
-msgstr ""
+msgstr "Tipo secundario"
 
 #: ../root/static/scripts/common/components/FingerprintTable.js:69
 msgid "Error loading AcoustIDs: {error}"
-msgstr ""
+msgstr "Error al cargar AcoustIDs: {error}"
 
 #: ../root/static/scripts/common/components/FingerprintTable.js:105
 msgid "Link"
@@ -14494,39 +14516,39 @@ msgstr "{link} no tiene relaciones."
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:52
 msgid "Missing country"
-msgstr ""
+msgstr "País no indicado"
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:69
 msgid "Missing date"
-msgstr ""
+msgstr "Fecha no indicada"
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:94
 msgid "Show all release events"
-msgstr ""
+msgstr "Mostrar todos los lanzamientos"
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:95
 msgid "Show less release events"
-msgstr ""
+msgstr "Mostrar menos lanzamientos"
 
 #: ../root/static/scripts/common/components/ReleaseGroupAppearances.js:36
 msgid "and another {num} release group"
 msgid_plural "and another {num} release groups"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "y un grupo de publicaciones más"
+msgstr[1] "y {num} grupos de publicaciones más"
+msgstr[2] "y {num} grupos de publicaciones más"
 
 #: ../root/static/scripts/common/components/StaticRelationshipsDisplay.js:27
 msgid "{start_track}–{end_track}"
-msgstr ""
+msgstr "{start_track}–{end_track}"
 
 #: ../root/static/scripts/common/components/StaticRelationshipsDisplay.js:93
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:273
 msgid "{num}. {relationship}"
-msgstr ""
+msgstr "{num}. {relationship}"
 
 #: ../root/static/scripts/common/components/StaticRelationshipsDisplay.js:98
 msgid "{relationship} (order: {num})"
-msgstr ""
+msgstr "{relationship} (orden: {num})"
 
 #: ../root/static/scripts/common/components/StaticRelationshipsDisplay.js:110
 msgid "track {tracks}"
@@ -14560,13 +14582,13 @@ msgstr "Votar en contra"
 #: ../root/static/scripts/common/components/TagEditor.js:549
 #: ../root/user/UserTagList.js:99
 msgid "There are no genres to show."
-msgstr ""
+msgstr "No hay géneros que mostrar."
 
 #: ../root/static/scripts/common/components/TagEditor.js:559
 #: ../root/user/UserTagList.js:120
 msgctxt "folksonomy"
 msgid "There are no other tags to show."
-msgstr ""
+msgstr "No hay otras etiquetas que mostrar."
 
 #: ../root/static/scripts/common/components/TagEditor.js:563
 msgctxt "folksonomy"
@@ -14621,6 +14643,8 @@ msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
 "tags."
 msgstr ""
+"Puedes añadir tus propias {tagdocs|etiquetas} más abajo. Utiliza comas para "
+"separar diferentes etiquetas."
 
 #: ../root/static/scripts/common/components/TagEditor.js:652
 msgctxt "folksonomy"
@@ -14655,6 +14679,8 @@ msgid ""
 "Wikipedia content provided under the terms of the {license_link|Creative "
 "Commons BY-SA license}"
 msgstr ""
+"Contenido de Wikipedia utilizado bajo las condiciones de la {license_link|"
+"licencia Creative Commons BY-SA}"
 
 #: ../root/static/scripts/common/components/WorkArtists.js:27
 msgid "Work artists"
@@ -14666,7 +14692,7 @@ msgstr "Has seleccionado {label}."
 
 #: ../root/static/scripts/common/entity.js:262
 msgid "Label code: {code}"
-msgstr ""
+msgstr "Código de discográfica: {code}"
 
 #: ../root/static/scripts/common/entity.js:289
 msgid "You selected {area}."
@@ -14678,7 +14704,7 @@ msgstr "Has seleccionado {releasegroup}."
 
 #: ../root/static/scripts/common/hooks/usePagedMediumTable.js:138
 msgid "Failed to load the medium."
-msgstr ""
+msgstr "No pudimos cargar el medio."
 
 #: ../root/static/scripts/common/hooks/usePagedMediumTable.js:209
 msgid ""
@@ -14703,7 +14729,7 @@ msgstr "[eliminado]"
 
 #: ../root/static/scripts/common/i18n/semicolonOnlyList.js:25
 msgid "{semicolon_only_list_item}; {rest}"
-msgstr ""
+msgstr "{semicolon_only_list_item}; {rest}"
 
 #: ../root/static/scripts/common/utility/bracketed.js:19
 msgid "[{text}]"
@@ -14763,7 +14789,7 @@ msgstr "finalizada"
 
 #: ../root/static/scripts/common/utility/tableColumns.js:24
 msgid "AcoustIDs"
-msgstr ""
+msgstr "AcoustIDs"
 
 #: ../root/static/scripts/common/utility/yesNo.js:11
 msgid "Yes"
@@ -14780,7 +14806,7 @@ msgstr "Inicio:"
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:52
 msgctxt "artist end date"
 msgid "Ended"
-msgstr ""
+msgstr "Finalizó"
 
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:66
 msgid "This person is deceased."
@@ -14803,6 +14829,8 @@ msgid ""
 "This is a link to a search result. Please link to any page in the results "
 "that is relevant to this entity instead, if available."
 msgstr ""
+"Estos son los resultados de una búsqueda. En vez de añadir este enlace, "
+"busca enlaces útiles en los resultados y si encuentras alguno añádelo."
 
 #: ../root/static/scripts/edit/URLCleanup.js:397
 msgid ""
@@ -14818,6 +14846,9 @@ msgid ""
 "release group level with the “lyrics” relationship, rather than directly to "
 "any specific release."
 msgstr ""
+"Esta es una página de letras. Los enlaces a esta página deben añadirse al "
+"grupo de publicaciones usando el tipo relación “letras”, no a una "
+"publicación en concreto."
 
 #: ../root/static/scripts/edit/URLCleanup.js:575
 msgid ""
@@ -14825,6 +14856,9 @@ msgid ""
 "find the appropriate release link for this release, please check the "
 "Releases tab from {album_url|your link}."
 msgstr ""
+"Debes añadir los enlaces de “{album_url_pattern}” de Allmusic al grupo de "
+"publicaciones. Para intentar encontrar un enlace que corresponda a esta "
+"publicación, consulta la pestaña “Releases” de {album_url|tu enlace}."
 
 #: ../root/static/scripts/edit/URLCleanup.js:662
 #: ../root/static/scripts/edit/URLCleanup.js:925
@@ -14834,35 +14868,47 @@ msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr ""
+"Este es un enlace de redirección. Sigue {redirect_url|el enlace} y añade la "
+"URL a la que redirige."
 
 #: ../root/static/scripts/edit/URLCleanup.js:680
 msgid ""
 "This is a link to a user video and should not be added. Please add the "
 "product link instead, if relevant."
 msgstr ""
+"Este es un enlace al vídeo de un usuario y no está permitido añadirlo. "
+"Puedes añadir el enlace del producto, si es relevante."
 
 #: ../root/static/scripts/edit/URLCleanup.js:885
 msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
 msgstr ""
+"Solo los audiolibros de Apple Books son apropiados para MusicBrainz, pero "
+"siempre puedes añadir libros a {bookbrainz_url|BookBrainz}."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1137
 msgid ""
 "Please do not add “{blocked_url_pattern}” links, link to the appropriate "
 "“{wanted_url_pattern}” page instead."
 msgstr ""
+"En vez de añadir enlaces de tipo “{blocked_url_pattern}”, enlaza la página "
+"apropiada de tipo “{wanted_url_pattern}”."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1157
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr ""
+"Debes enlazar a la página principal del artista, no a una publicación o "
+"pista."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1174
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr ""
+"Debes enlazar a la página principal de la discográfica, no a una publicación "
+"o pista."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1196
 msgid ""
@@ -14872,6 +14918,11 @@ msgid ""
 "(“{single_url_pattern}”) instead, and feel free to add this profile link to "
 "the appropriate artist or label."
 msgstr ""
+"Este es un perfil de Bandcamp, no una página para una grabación concreta. Es "
+"posible que ahora mismo muestre solo una grabación, pero eso puede cambiar "
+"si el artista publica más. Busca y añade la página de la grabación "
+"(“{single_url_pattern}”) a esta grabación, y añade este enlace al artista o "
+"la discográfica si es apropiado."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1224
 msgid ""
@@ -14881,38 +14932,55 @@ msgid ""
 "(“{album_url_pattern}” or “{single_url_pattern}”) instead, and feel free to "
 "add this profile link to the appropriate artist or label."
 msgstr ""
+"Este es un perfil de Bandcamp, no una página para una publicación concreta. "
+"Es posible que ahora mismo muestre solo una publicación, pero eso puede "
+"cambiar si el artista publica más. Busca y añade la página de la publicación "
+"(“{album_url_pattern}” o “{single_url_pattern}”) a esta publicación, y añade "
+"este enlace al artista o la discográfica si es apropiado."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1533
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
+"Debes enlazar a la página principal del artista, no a una página de producto."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1535
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
+"Debes enlazar a la página principal de la discográfica, no a una página de "
+"producto."
 
 #: ../root/static/scripts/edit/URLCleanup.js:2293
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
+"Los enlaces de Discogs de tipo “{master_url_pattern}” agrupan varias "
+"publicaciones, así que deberías añadir este enlace al grupo de publicaciones."
 
 #: ../root/static/scripts/edit/URLCleanup.js:2984
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
+"Solo puedes añadir enlaces de IMSLP del tipo “{category_url_pattern}” a un "
+"artista. Debes añadir las páginas de obra a la obra más apropiada."
 
 #: ../root/static/scripts/edit/URLCleanup.js:3002
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
+"Solo puedes añadir enlaces de IMSLP del tipo “{category_url_pattern}” a un "
+"artista. Si hay una página para esta obra en concreto, añádela en vez de "
+"este enlace."
 
 #: ../root/static/scripts/edit/URLCleanup.js:3047
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
+"Los enlaces de Instagram del tipo “{explore_url_pattern}” no están "
+"permitidos. Utiliza una página de perfil, si la hay."
 
 #: ../root/static/scripts/edit/URLCleanup.js:3075
 msgid ""
@@ -14927,6 +14995,7 @@ msgstr ""
 #: ../root/static/scripts/edit/URLCleanup.js:3100
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
+"Esta es una página de uso interno de Instagram y no está permitido añadirla."
 
 #: ../root/static/scripts/edit/URLCleanup.js:4215
 msgid ""
@@ -14934,6 +15003,10 @@ msgid ""
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
+"Los enlaces de Musixmatch del tipo “{album_url_pattern}” no son un buen "
+"equivalente a los grupos de publicaciones de MusicBrainz, así que no está "
+"permitido añadirlos. Siempre puedes añadir enlaces de Musixmatch a los "
+"artistas y las obras apropiadas."
 
 #: ../root/static/scripts/edit/URLCleanup.js:4930
 msgid "Only RYM music videos can be linked to recordings."
@@ -14946,6 +15019,9 @@ msgid ""
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
+"Este es un enlace de Resident Advisor con un formato obsoleto. Visita "
+"{ra_url|el enlace}, asegúrate de que redirige a la página apropiada y, si es "
+"así, añade esa página en vez de esta."
 
 #: ../root/static/scripts/edit/URLCleanup.js:5612
 msgid "Please link to Threads profiles, not threads."
@@ -14953,11 +15029,11 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:5746
 msgid "Please link to TikTok profiles, not videos."
-msgstr ""
+msgstr "Debes enlazar al perfil de TikTok, no a un vídeo en concreto."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6013
 msgid "This is not a profile, but a Twitter documentation page."
-msgstr ""
+msgstr "Este no es un perfil de Twitter sino una página de documentación."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6027
 msgid "Please link to Twitter profiles, not tweets."
@@ -14965,13 +15041,15 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:6045
 msgid "This site does not allow direct links to their images."
-msgstr ""
+msgstr "Esta página no permite enlazar directamente a sus imágenes."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6251
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
+"Debes añadir un enlace del tipo “{allowed_url_pattern}” en vez de uno del "
+"tipo “{current_url_pattern}” como este."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6428
 msgid ""
@@ -14985,30 +15063,40 @@ msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
+"No enlaces directamente a una página de WhoSampled del tipo "
+"“{unwanted_url_pattern}”. Puedes añadir enlaces a las páginas de WhoSampled "
+"para artistas, pistas o álbumes, según sea apropiado."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6469
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
+"Debes añadir los enlaces de WhoSampled del tipo “{album_url_pattern}” a "
+"grupos de publicaciones."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6487
 msgid "Please link WhoSampled artist pages to artists."
-msgstr ""
+msgstr "Debes añadir los enlaces de artista de WhoSampled a un artista."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6499
 msgid "Please link WhoSampled track pages to recordings."
-msgstr ""
+msgstr "Debes añadir los enlaces de pista de WhoSampled a una grabación."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6566
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
+"No está permitido enlazar a una sección específica de un artículo de "
+"Wikipedia. Puedes eliminar “{fragment}” si la página en sí misma es un "
+"enlace apropiado (consulta las {url|directrices})."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6591
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
+"No está permitido enlazar a una página de usuario de Wikipedia. Solo puedes "
+"añadir enlaces a artículos."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6756
 msgid ""
@@ -15016,34 +15104,45 @@ msgid ""
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
+"Este enlace es para una lista de reproducción, que no es lo mismo que un "
+"canal de vídeo y puede no ser oficial. Debes enlazar al canal oficial de "
+"esta entidad, si lo hay."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6796
 msgid "Only video and playlist links are allowed on releases."
-msgstr ""
+msgstr "Solo puedes añadir vídeos y listas de reproducción a una publicación."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6841
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
+"Este enlace es para una lista de reproducción (una publicación), no un "
+"artista. Debes enlazar al canal del artista."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6877
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr ""
+"Debes enlazar a una lista de reproducción (una publicación). Puedes añadir "
+"los enlaces de pista (vídeo) a las grabaciones apropiadas."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6887
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
 msgstr ""
+"Debes enlazar a una lista de reproducción (una publicación). Puedes añadir "
+"el enlace del canal al artista apropiado."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6897
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
 msgstr ""
+"Esto parece un enlace de redirección. Abre {redirect_url|el enlace} y añade "
+"la lista de reproducción (publicación) a la que redirige."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6940
 msgid ""
@@ -15051,6 +15150,9 @@ msgid ""
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
+"Wikipedia no suele tener artículos para publicaciones concretas, así que no "
+"permitimos añadir enlaces de Wikipedia a una publicación. Siempre puedes "
+"añadirlo al grupo de publicaciones, si es apropiado."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6952
 msgid ""
@@ -15058,15 +15160,18 @@ msgid ""
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
+"Wikidata no suele tener páginas para publicaciones concretas, así que no "
+"permitimos añadir enlaces de Wikidata a una publicación. Siempre puedes "
+"añadirlo al grupo de publicaciones, si es apropiado."
 
 #: ../root/static/scripts/edit/URLCleanup.js:7163
 msgid "Some relationship types are missing for this URL."
-msgstr ""
+msgstr "Faltan algunos tipos de relación obligatorios para esta URL."
 
 #: ../root/static/scripts/edit/URLCleanup.js:7180
 #: ../root/static/scripts/edit/externalLinks.js:1073
 msgid "This relationship type combination is invalid."
-msgstr ""
+msgstr "Esta combinación de tipos de relación no es válida."
 
 #: ../root/static/scripts/edit/check-duplicates.js:156
 #: ../root/static/scripts/edit/externalLinks.js:748
@@ -15124,18 +15229,21 @@ msgid ""
 "collaborations. See the {ac|Artist Credit} documentation for more "
 "information."
 msgstr ""
+"Puedes usar esta sección para indicar variaciones en los nombres de artista, "
+"o colaboraciones que incluyan más de un artista. Para saber más, consulta "
+"{ac|la documentación sobre créditos de artista}."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:129
 msgid "[missing track name]"
-msgstr ""
+msgstr "[pista sin nombre]"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:133
 msgid "You haven’t entered a track name yet."
-msgstr ""
+msgstr "Aún no has introducido un nombre para la pista."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:134
 msgid "This track hasn’t been added yet."
-msgstr ""
+msgstr "Esta pista aún no ha sido añadida."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:150
 msgid "Artist in MusicBrainz:"
@@ -15143,11 +15251,11 @@ msgstr "Artista en MusicBrainz:"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:151
 msgid "Artist as credited:"
-msgstr ""
+msgstr "Crédito del artista:"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:152
 msgid "Join phrase:"
-msgstr ""
+msgstr "Frase de unión:"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:175
 msgctxt "interactive"
@@ -15157,10 +15265,12 @@ msgstr "Añadir crédito de artista"
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:209
 msgid "Change all artists on this release that match “{name}”"
 msgstr ""
+"Quiero cambiar todos los artistas en esta publicación con el nombre “{name}”"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:213
 msgid "Change all artists on this release that are currently empty"
 msgstr ""
+"Quiero cambiar todos los artistas en esta publicación que aún están vacíos"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:145
 #, fuzzy
@@ -15185,7 +15295,7 @@ msgstr "Eliminar crédito de artista"
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:201
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:179
 msgid "Copy to end date"
-msgstr ""
+msgstr "Copiar a la fecha de fin"
 
 #: ../root/static/scripts/edit/components/EnterEditNote.js:53
 msgid ""
@@ -15194,14 +15304,19 @@ msgid ""
 "and to users who see the edit years later), but it can also encourage other "
 "users to vote on the edit — thus making it get applied faster."
 msgstr ""
+"Es muy recomendable añadir una {note|nota de edición} que indique el origen "
+"de tu información. No solo explica tus fuentes (importante tanto ahora como "
+"para los usuarios que vean esta edición dentro de varios años), sino que "
+"puede animar a otros usuarios a votar a favor de tu edición y hacer que sea "
+"aplicada más rápidamente."
 
 #: ../root/static/scripts/edit/components/EntityPendingEditsWarning.js:31
 msgid "This entity has {edits_link|open edits}."
-msgstr ""
+msgstr "Esta entidad tiene {edits_link|ediciones pendientes}."
 
 #: ../root/static/scripts/edit/components/EntityPendingEditsWarning.js:36
 msgid "This entity has open edits."
-msgstr ""
+msgstr "Esta entidad tiene ediciones pendientes."
 
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:218
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:202
@@ -15224,7 +15339,7 @@ msgstr "Avísame cuando reciba una nueva nota de edición."
 
 #: ../root/static/scripts/edit/components/PartialDateInput.js:57
 msgid "The date you've entered is not valid"
-msgstr ""
+msgstr "La fecha introducida no es válida"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:24
 msgid "Possible duplicates"
@@ -15236,21 +15351,23 @@ msgstr "Hemos encontrado las siguientes entidades con nombres muy similares:"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:38
 msgid "Yes, I still want to enter “{entity_name}”."
-msgstr ""
+msgstr "Sí, aún quiero utilizar “{entity_name}”."
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:45
 msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "entity from the others."
 msgstr ""
+"Debes añadir una {doc_disambiguation|disambiguación} que ayude a distinguir "
+"esta entidad de las demás."
 
 #: ../root/static/scripts/edit/components/RelationshipPendingEditsWarning.js:38
 msgid "This relationship has {edit_search|open edits}."
-msgstr ""
+msgstr "Esta relación tiene {edit_search|ediciones pendientes}."
 
 #: ../root/static/scripts/edit/components/RelationshipPendingEditsWarning.js:43
 msgid "This relationship has open edits."
-msgstr ""
+msgstr "Esta relación tiene ediciones pendientes."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:52
 msgid ""
@@ -15258,6 +15375,9 @@ msgid ""
 "title. If this is the case, please set the appropriate medium position "
 "instead of adding a title (see {release_style|the guidelines})."
 msgstr ""
+"“{matched_text}” parece indicar el orden del medio, no su título. Si es así, "
+"asegúrate de que el medio está en la posición adecuada en vez de añadir un "
+"título (consulta {release_style|las directrices})."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:116
 msgid ""
@@ -15312,6 +15432,10 @@ msgid ""
 "position. For example, to merge a medium into medium 2 of a release, it will "
 "need to be set as medium 2 of the release being merged."
 msgstr ""
+"Asegúrate de que todos los medios de las publicaciones a fusionar están en "
+"la posición correcta. Por ejemplo, para fusionar un medio con el medio 2 de "
+"la publicación de destino, tiene que ser el medio 2 de la publicación de "
+"origen."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:264
 msgid ""
@@ -15331,7 +15455,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/URLInputPopover.js:96
 msgid "Cleaned up to"
-msgstr ""
+msgstr "Versión normalizada"
 
 #: ../root/static/scripts/edit/components/URLInputPopover.js:147
 msgctxt "interactive"
@@ -15357,35 +15481,46 @@ msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
 "add."
 msgstr ""
+"“{example_url}” solo es un ejemplo. Introduce el enlace concreto que quieras "
+"añadir."
 
 #: ../root/static/scripts/edit/externalLinks.js:768
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
 msgstr ""
+"No puedes enlazar a una URL de MusicBrainz. ¿Querías copiar y pegar otra "
+"cosa?"
 
 #: ../root/static/scripts/edit/externalLinks.js:775
 msgid ""
 "Please don’t enter CritiqueBrainz links — reviews are automatically linked "
 "from the “{reviews_tab_name}” tab."
 msgstr ""
+"No añadas enlaces a CritiqueBrainz. Ya enlazamos a las reseñas desde la "
+"pestaña “{reviews_tab_name}”."
 
 #: ../root/static/scripts/edit/externalLinks.js:783
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr ""
+"No aceptamos enlaces a esta página porque es sospechosa de alojar malware."
 
 #: ../root/static/scripts/edit/externalLinks.js:789
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
 msgstr ""
+"No introduzcas agregadores ni URLs cortas, enlaza siempre a la página de "
+"destino."
 
 #: ../root/static/scripts/edit/externalLinks.js:795
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
 msgstr ""
+"No enlaces a páginas AMP de Google, que requieren una redirección. Enlaza "
+"siempre a la página de destino."
 
 #: ../root/static/scripts/edit/externalLinks.js:802
 msgid ""
@@ -15397,7 +15532,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:809
 msgid "Please select a link type for the URL you’ve entered."
-msgstr ""
+msgstr "Debes seleccionar un tipo de relación para esta URL."
 
 #: ../root/static/scripts/edit/externalLinks.js:829
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1007
@@ -15411,59 +15546,61 @@ msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr ""
+"Esta URL no puede ser utilizada con este tipo de relación o tiene un formato "
+"incorrecto."
 
 #: ../root/static/scripts/edit/externalLinks.js:846
 msgid "This URL is not allowed for the selected link type."
-msgstr ""
+msgstr "Esta URL no puede ser utilizada con este tipo de relación."
 
 #: ../root/static/scripts/edit/externalLinks.js:852
 msgid "This URL is not allowed for areas."
-msgstr ""
+msgstr "No puedes asociar esta URL a un área."
 
 #: ../root/static/scripts/edit/externalLinks.js:855
 msgid "This URL is not allowed for artists."
-msgstr ""
+msgstr "No puedes asociar esta URL a un artista."
 
 #: ../root/static/scripts/edit/externalLinks.js:858
 msgid "This URL is not allowed for events."
-msgstr ""
+msgstr "No puedes asociar esta URL a un evento."
 
 #: ../root/static/scripts/edit/externalLinks.js:861
 msgid "This URL is not allowed for instruments."
-msgstr ""
+msgstr "No puedes asociar esta URL a un instrumento."
 
 #: ../root/static/scripts/edit/externalLinks.js:864
 msgid "This URL is not allowed for labels."
-msgstr ""
+msgstr "No puedes asociar esta URL a una discográfica."
 
 #: ../root/static/scripts/edit/externalLinks.js:867
 msgid "This URL is not allowed for places."
-msgstr ""
+msgstr "No puedes asociar esta URL a un lugar."
 
 #: ../root/static/scripts/edit/externalLinks.js:870
 msgid "This URL is not allowed for recordings."
-msgstr ""
+msgstr "No puedes asociar esta URL a una grabación."
 
 #: ../root/static/scripts/edit/externalLinks.js:873
 msgid "This URL is not allowed for releases."
-msgstr ""
+msgstr "No puedes asociar esta URL a una publicación."
 
 #: ../root/static/scripts/edit/externalLinks.js:876
 msgid "This URL is not allowed for release groups."
-msgstr ""
+msgstr "No puedes asociar esta URL a un grupo de publicaciones."
 
 #: ../root/static/scripts/edit/externalLinks.js:880
 msgid "This URL is not allowed for series."
-msgstr ""
+msgstr "No puedes asociar esta URL a una serie."
 
 #: ../root/static/scripts/edit/externalLinks.js:883
 msgid "This URL is not allowed for works."
-msgstr ""
+msgstr "No puedes asociar esta URL a una obra."
 
 #: ../root/static/scripts/edit/externalLinks.js:1200
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:332
 msgid "{description} ({url|more documentation})"
-msgstr ""
+msgstr "{description} ({url|más documentación})"
 
 #: ../root/static/scripts/edit/externalLinks.js:1260
 msgctxt "interactive"
@@ -15485,15 +15622,15 @@ msgstr "Eliminar enlace"
 
 #: ../root/static/scripts/edit/externalLinks.js:1525
 msgid "Add link"
-msgstr ""
+msgstr "Añadir enlace"
 
 #: ../root/static/scripts/edit/externalLinks.js:1528
 msgid "Add another link"
-msgstr ""
+msgstr "Añadir otro enlace"
 
 #: ../root/static/scripts/edit/externalLinks.js:1641
 msgid "Add another relationship"
-msgstr ""
+msgstr "Añadir otra relación"
 
 #: ../root/static/scripts/guess-case/modes.js:313
 msgid ""
@@ -15501,6 +15638,10 @@ msgid ""
 "short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr ""
+"Este modo empieza casi todas las palabras con mayúscula, salvo algunas "
+"palabras inglesas (artículos y preposiciones cortas). Quizá tengas que "
+"modificar algunas palabras para seguir las {url|directrices de estilo para "
+"títulos en inglés}."
 
 #: ../root/static/scripts/guess-case/modes.js:350
 msgid ""
@@ -15509,6 +15650,12 @@ msgid ""
 "guillemets. Some words may need to be manually capitalised to follow the "
 "{url|French capitalisation guidelines}."
 msgstr ""
+"Este modo empieza la primera palabra de cada frase con mayúscula, pero la "
+"mayor parte de las demás palabras con minúsculas. Además, añade espacios "
+"antes de puntos y coma, dos puntos, signos de exlamación y de interrogación, "
+"y en el interior de las comillas francesas. Quizá tengas que modificar "
+"algunas palabras para seguir las {url|directrices de estilo para títulos en "
+"francés}."
 
 #: ../root/static/scripts/guess-case/modes.js:374
 msgid ""
@@ -15516,6 +15663,10 @@ msgid ""
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr ""
+"Este modo empieza la primera palabra de cada frase con mayúscula, pero la "
+"mayor parte de las demás palabras con minúsculas. Quizá tengas que modificar "
+"algunas palabras, por ejemplo nombres propios, para seguir las {url|"
+"directrices de estilo del idioma apropiado}."
 
 #: ../root/static/scripts/guess-case/modes.js:389
 msgid ""
@@ -15523,6 +15674,9 @@ msgid ""
 "Some words may need to be manually corrected according to the {url|Turkish "
 "language guidelines}."
 msgstr ""
+"Este modo usa las mayúsculas correctas en turco para 'i' ('İ') y 'ı' ('I'). "
+"Quizá tengas que modificar algunas palabras para seguir las {url|directrices "
+"de estilo para títulos en turco}."
 
 #: ../root/static/scripts/main/components/ConfirmSeedButtons.js:31
 msgid "Continue"
@@ -15539,12 +15693,12 @@ msgstr "Añadir instrumento"
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:43
 msgid "Add vocal"
-msgstr ""
+msgstr "Añadir voz"
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:45
 msgctxt "relationship attribute"
 msgid "Add another"
-msgstr ""
+msgstr "Añadir más"
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:173
 msgid "This attribute is required."
@@ -15556,6 +15710,9 @@ msgid ""
 "set the same end date and start date. You can use the arrow button to copy "
 "the begin date to the end date."
 msgstr ""
+"Si quieres indicar que la relación ocurrió en un día en concreto, usa la "
+"misma fecha de inicio y de fin. Puedes usar el botón de la flecha para usar "
+"la fecha de inicio como fecha de fin."
 
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:223
 msgid ""
@@ -15563,16 +15720,23 @@ msgid ""
 "this seems like useful information to store (for example, if someone is no "
 "longer a member of a band), you can indicate it with the checkbox above."
 msgstr ""
+"Si no sabes la fecha de fin pero sabes que la relación ha terminado y esta "
+"información parece útil (por ejemplo, si alguien ya no forma parte de un "
+"grupo), puedes indicarlo con la casilla de más arriba."
 
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:124
 msgid "Change credits for other {entity} relationships on the page."
 msgstr ""
+"Quiero cambiar los créditos para otras relaciones de {entity} en esta página."
 
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:133
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to use this option, "
 "please close this dialog and load all tracks/mediums beforehand."
 msgstr ""
+"Aún no hemos cargado algunas pistas o medios. Si quieres usar esta opción, "
+"cierra este diálogo y carga todas las pistas y los medios, y luego vuelve a "
+"intentarlo."
 
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:149
 msgid "All of these relationships."
@@ -15580,21 +15744,25 @@ msgstr "Todas estas relaciones."
 
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:161
 msgid "Only relationships to {entity_type} entities."
-msgstr ""
+msgstr "Solo relaciones con entidades del tipo “{entity_type}”."
 
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:179
 msgid "Only “{relationship_type}” relationships to {entity_type} entities."
 msgstr ""
+"Solo relaciones del tipo “{relationship_type}” con entidades del tipo "
+"“{entity_type}”."
 
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:204
 msgid ""
 "A credited name is optional. You can leave this field blank to keep the "
 "current name."
 msgstr ""
+"No es obligatorio introducir un crédito, puedes dejar el campo en blanco "
+"para usar el nombre por defecto."
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:44
 msgid "Order"
-msgstr ""
+msgstr "Orden"
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:56
 msgid ""
@@ -15602,6 +15770,9 @@ msgid ""
 "may set its position in the list here (as an alternative to the up- and down-"
 "arrow buttons)."
 msgstr ""
+"Si esta relación tiene un orden concreto en relación a otras del mismo tipo, "
+"puedes indicar su posición aquí (o utilizar las flechas hacia arriba y "
+"abajo)."
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:66
 msgid ""
@@ -15613,7 +15784,7 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:88
 msgid "This relationship type is not allowed with the current series type."
-msgstr ""
+msgstr "Este tipo de relación no está permitido en una serie del tipo indicado."
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:136
 msgid "Type or click to search"
