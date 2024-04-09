@@ -23,27 +23,19 @@ import {
   getLatestVoteForEditor,
 } from '../../utility/edit.js';
 
-type VoteCheckboxProps = {
-  +edit: GenericEditWithIdT,
-  +label: string,
-  +name: string,
-  +user: UnsanitizedEditorT,
-  +value: number,
-};
-
-const VoteCheckbox = ({
-  edit,
-  user,
-  label,
-  name,
-  ...props
-}: VoteCheckboxProps) => {
+component VoteCheckbox(
+  edit: GenericEditWithIdT,
+  label: string,
+  name: string,
+  user: UnsanitizedEditorT,
+  value: number,
+) {
   const latestVote = user
     ? getLatestVoteForEditor(edit, user)
     : null;
   const checked =
-    (latestVote && latestVote.vote === props.value) ||
-    (!latestVote && props.value === EDIT_VOTE_NONE);
+    (latestVote && latestVote.vote === value) ||
+    (!latestVote && value === EDIT_VOTE_NONE);
   return (
     <label htmlFor={`id-${name}-${label}`}>
       <input
@@ -51,24 +43,18 @@ const VoteCheckbox = ({
         id={`id-${name}-${label}`}
         name={name}
         type="radio"
-        {...props}
+        value={value}
       />
       {label}
     </label>
   );
-};
+}
 
-type VoteProps = {
-  +edit: GenericEditWithIdT,
-  +index?: number,
-  +summary?: boolean,
-};
-
-const Vote = ({
-  edit,
-  index = 0,
-  summary = false,
-}: VoteProps): React$Element<'div'> | null => {
+component Vote(
+  edit: GenericEditWithIdT,
+  index: number = 0,
+  summary: boolean = false,
+) {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   if (DBDefs.DB_READ_ONLY || !user || !editorMayVoteOnEdit(edit, user)) {
@@ -112,6 +98,6 @@ const Vote = ({
       {summary ? null : <FormSubmit label={l('Submit vote and note')} />}
     </div>
   );
-};
+}
 
 export default Vote;

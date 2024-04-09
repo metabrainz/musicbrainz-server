@@ -14,21 +14,13 @@ import {CatalystContext} from '../../context.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import uriWith from '../../utility/uriWith.js';
 
-type Props = {
-  +entity?: EditableEntityT | CollectionT,
-  +isSearch?: boolean,
-  +page: string,
-  +refineUrlArgs?: {+[argument: string]: string},
-  +username?: string,
-};
-
-const QuickLinks = ({
-  entity,
-  isSearch = false,
-  page,
-  refineUrlArgs,
-  username,
-}: Props): React.MixedElement => {
+component QuickLinks(
+  entity?: EditableEntityT | CollectionT,
+  isSearch: boolean = false,
+  page: string,
+  refineUrlArgs?: {+[argument: string]: string},
+  username?: string,
+) {
   const $c = React.useContext(CatalystContext);
   const isSecureConnection = $c.req.secure;
   const protocol = isSecureConnection ? 'https://' : 'http://';
@@ -182,47 +174,37 @@ const QuickLinks = ({
       return accum;
     }, [],
   ));
-};
+}
 
-const ListHeader = ({
-  entity,
-  isSearch,
-  page,
-  refineUrlArgs,
-  username,
-}: Props): React$Element<'table'> => (
-  <table className="search-help">
-    <tr>
-      <th>
-        {l('Quick links:')}
-      </th>
-      <td>
-        <QuickLinks
-          entity={entity}
-          isSearch={isSearch}
-          page={page}
-          refineUrlArgs={refineUrlArgs}
-          username={username}
-        />
-      </td>
-    </tr>
-    <tr>
-      <th>
-        {l('Help:')}
-      </th>
-      <td>
-        <a href="/doc/Introduction_to_Voting">
-          {l('Introduction to voting')}
-        </a>
-        {' | '}
-        <a href="/doc/Introduction_to_Editing">
-          {l('Introduction to editing')}
-        </a>
-        {' | '}
-        <a href="/doc/Style">{l('Style guidelines')}</a>
-      </td>
-    </tr>
-  </table>
-);
+component ListHeader(...props: React.PropsOf<QuickLinks>) {
+  return (
+    <table className="search-help">
+      <tr>
+        <th>
+          {l('Quick links:')}
+        </th>
+        <td>
+          <QuickLinks {...props} />
+        </td>
+      </tr>
+      <tr>
+        <th>
+          {l('Help:')}
+        </th>
+        <td>
+          <a href="/doc/Introduction_to_Voting">
+            {l('Introduction to voting')}
+          </a>
+          {' | '}
+          <a href="/doc/Introduction_to_Editing">
+            {l('Introduction to editing')}
+          </a>
+          {' | '}
+          <a href="/doc/Style">{l('Style guidelines')}</a>
+        </td>
+      </tr>
+    </table>
+  );
+}
 
 export default ListHeader;
