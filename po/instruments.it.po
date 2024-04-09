@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-11 04:28+0000\n"
+"PO-Revision-Date: 2024-03-31 15:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -1410,6 +1410,11 @@ msgstr "richiamo per anatre"
 msgid "duduk"
 msgstr "duduk"
 
+#: DB:instrument/name:1203
+msgctxt "Czechian / Bohemian bagpipe"
+msgid "dudy"
+msgstr "dudy"
+
 #: DB:instrument/name:1202
 msgctxt "Podhale bagpipe"
 msgid "dudy podhalanskie"
@@ -1455,6 +1460,11 @@ msgstr "dutar"
 #: DB:instrument/name:596
 msgid "duxianqin"
 msgstr "duxianqin"
+
+#: DB:instrument/name:1204
+msgctxt "Lithuanian bagpipe"
+msgid "dūdmaišis"
+msgstr "dūdmaišis"
 
 #: DB:instrument/name:327
 msgid "ebow"
@@ -2076,6 +2086,11 @@ msgstr "hyoshigi"
 msgctxt "fipple flute from Härjedalen, Sweden"
 msgid "härjedalspipa"
 msgstr "härjedalspipa"
+
+#: DB:instrument/name:1205
+msgctxt "Small German Renaissance bagpipe"
+msgid "hümmelchen"
+msgstr "hümmelchen"
 
 #: DB:instrument/name:674
 msgid "idiophone"
@@ -2789,6 +2804,11 @@ msgstr "tromba naturale"
 #: DB:instrument/name:540
 msgid "ney"
 msgstr "ney"
+
+#: DB:instrument/name:1206
+msgctxt "Iranian single reed bagpipe"
+msgid "neyanban"
+msgstr "neyanban"
 
 #: DB:instrument/name:783
 msgctxt "Māori taonga pūoro small vessel flute"

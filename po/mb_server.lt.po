@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-05 19:46+0000\n"
-"PO-Revision-Date: 2024-03-11 08:00+0000\n"
+"POT-Creation-Date: 2024-03-27 21:10+0100\n"
+"PO-Revision-Date: 2024-04-02 18:28+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -197,7 +197,7 @@ msgstr ""
 "arba pažymėk laukelį, patvirtinantį, kad takelių sąrašas nežinomas."
 
 #: ../root/release/edit/recordings.tt:178
-#: ../root/static/scripts/edit/components/AddEntityDialog.js:21
+#: ../root/static/scripts/edit/components/AddEntityDialog.js:26
 msgid "Add a new recording"
 msgstr "Pridėti naują įrašą"
 
@@ -257,8 +257,8 @@ msgid "Add place"
 msgstr "Pridėti vietą"
 
 #: ../root/release/edit/layout.tt:7
-#: ../root/static/scripts/release-editor/init.js:227
-#: ../root/static/scripts/release-editor/init.js:228
+#: ../root/static/scripts/release-editor/init.js:222
+#: ../root/static/scripts/release-editor/init.js:223
 msgctxt "header"
 msgid "Add release"
 msgstr "Pridėti leidinį"
@@ -447,7 +447,7 @@ msgstr "Teritorija"
 #: ../root/static/scripts/common/constants.js:36
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:50
 #: ../root/static/scripts/common/utility/formatSetlist.js:52
-#: ../root/static/scripts/edit/components/forms.js:29
+#: ../root/static/scripts/edit/components/forms.js:128
 #: ../root/static/scripts/release/components/MediumTable.js:86
 #: ../root/taglookup/Form.js:25 ../root/user/UserProfile.js:50
 msgid "Artist"
@@ -532,8 +532,10 @@ msgstr ""
 "egzistuoja šis panašus leidinys. Jei nori, kad tavo leidinys būtų paremtas "
 "jau egzistuojančiu leidiniu, pasirink jį toliau."
 
-#: ../root/artist/edit_form.tt:42 ../root/components/list/ArtistList.js:102
+#: ../root/artist/edit_form.tt:42 ../root/artist/utils.js:19
+#: ../root/components/list/ArtistList.js:102
 #: ../root/search/components/ArtistResults.js:57
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:56
 msgid "Begin area"
 msgstr "Pradžios teritorija"
 
@@ -611,18 +613,18 @@ msgid "Can be approved"
 msgstr "Gali būti patvirtintas"
 
 #: ../root/layout/merge-helper.tt:34 ../root/release/edit/layout.tt:59
-#: ../root/release/edit/tracklist.tt:117 ../root/area/AreaMerge.js:51
-#: ../root/artist/ArtistMerge.js:79 ../root/collection/CollectionMerge.js:193
+#: ../root/release/edit/tracklist.tt:117 ../root/artist/ArtistMerge.js:79
+#: ../root/collection/CollectionMerge.js:193
 #: ../root/components/ConfirmLayout.js:46 ../root/edit/DeleteNote.js:72
 #: ../root/edit/ModifyNote.js:89 ../root/event/EventMerge.js:54
-#: ../root/instrument/InstrumentMerge.js:51 ../root/label/LabelMerge.js:51
-#: ../root/layout/components/MergeHelper.js:83 ../root/place/PlaceMerge.js:51
-#: ../root/recording/RecordingMerge.js:67 ../root/release/ReleaseMerge.js:68
+#: ../root/label/LabelMerge.js:51 ../root/layout/components/MergeHelper.js:83
+#: ../root/place/PlaceMerge.js:51 ../root/recording/RecordingMerge.js:67
+#: ../root/release/ReleaseMerge.js:68
 #: ../root/release_group/ReleaseGroupMerge.js:52
 #: ../root/series/SeriesMerge.js:51
-#: ../root/static/scripts/common/components/FilterForm.js:377
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:237
-#: ../root/static/scripts/edit/components/URLInputPopover.js:126
+#: ../root/static/scripts/common/components/FilterForm.js:395
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:236
+#: ../root/static/scripts/edit/components/URLInputPopover.js:125
 #: ../root/static/scripts/relationship-editor/components/DialogButtons.js:28
 #: ../root/work/WorkMerge.js:65
 msgid "Cancel"
@@ -710,7 +712,7 @@ msgstr "Kopijuoti leidinio pavadinimą į leidinio grupę"
 #: ../root/recording/RecordingIndex.js:60
 #: ../root/release_group/ReleaseGroupIndex.js:171
 #: ../root/search/components/ReleaseResults.js:115
-#: ../root/static/scripts/common/components/FilterForm.js:251
+#: ../root/static/scripts/common/components/FilterForm.js:269
 #: ../root/utility/tableColumns.js:509 ../root/utility/tableColumns.js:521
 msgid "Country"
 msgstr "Šalis"
@@ -758,7 +760,7 @@ msgstr "Duomenų takeliai"
 #: ../root/search/components/EventResults.js:74
 #: ../root/search/components/ReleaseResults.js:115
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:106
-#: ../root/static/scripts/common/components/FilterForm.js:283
+#: ../root/static/scripts/common/components/FilterForm.js:301
 #: ../root/utility/tableColumns.js:284 ../root/utility/tableColumns.js:289
 #: ../root/utility/tableColumns.js:515 ../root/utility/tableColumns.js:521
 msgid "Date"
@@ -829,7 +831,7 @@ msgstr "Išsami informacija"
 #: ../root/edit/details/EditRelease.js:93
 #: ../root/edit/details/EditReleaseGroup.js:50
 #: ../root/edit/details/EditSeries.js:48 ../root/edit/details/EditWork.js:59
-#: ../root/static/scripts/common/components/FilterForm.js:353
+#: ../root/static/scripts/common/components/FilterForm.js:371
 msgid "Disambiguation"
 msgstr "Išskyrimas"
 
@@ -854,10 +856,10 @@ msgid "Donate"
 msgstr "Aukoti"
 
 #: ../root/release/edit/macros.tt:54
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:166
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:245
-#: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:64
-#: ../root/static/scripts/edit/components/URLInputPopover.js:134
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:59
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:244
+#: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:62
+#: ../root/static/scripts/edit/components/URLInputPopover.js:133
 #: ../root/static/scripts/relationship-editor/components/DialogButtons.js:37
 msgid "Done"
 msgstr "Atlikta"
@@ -888,7 +890,7 @@ msgstr "Redaguoti"
 #: ../root/components/EntityTabs.js:155
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:96
 #: ../root/release/CoverArt.js:111
-#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:447
+#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:517
 #: ../root/user/UserCollections.js:134
 msgctxt "verb, interactive"
 msgid "Edit"
@@ -956,8 +958,10 @@ msgstr "Redaktoriaus (-ės) gairelė"
 msgid "Enable vinyl track numbers"
 msgstr "Įjungti vinilo takelių numerius"
 
-#: ../root/artist/edit_form.tt:56 ../root/components/list/ArtistList.js:112
+#: ../root/artist/edit_form.tt:56 ../root/artist/utils.js:47
+#: ../root/components/list/ArtistList.js:112
 #: ../root/search/components/ArtistResults.js:59
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:57
 msgid "End area"
 msgstr "Pabaigos teritorija"
 
@@ -1256,7 +1260,7 @@ msgstr "ID"
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
 #: ../root/edit/details/AddArtist.js:136 ../root/edit/details/AddLabel.js:102
-#: ../root/layout/components/sidebar/SidebarIpis.js:18
+#: ../root/layout/components/sidebar/SidebarIpis.js:16
 msgid "IPI code"
 msgstr "IPI kodas"
 
@@ -1279,7 +1283,7 @@ msgstr "IRC"
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/AddArtist.js:145 ../root/edit/details/AddLabel.js:111
-#: ../root/layout/components/sidebar/SidebarIsnis.js:22
+#: ../root/layout/components/sidebar/SidebarIsnis.js:20
 msgid "ISNI code"
 msgstr "ISNI kodas"
 
@@ -1438,7 +1442,7 @@ msgstr ""
 "Jei esi tikras (-a), kad Įvairūs atlikėjai naudojami teisingai, patvirtink "
 "tai pirmiau. Kitaip ištaisyk duomenis."
 
-#: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:50
+#: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:48
 msgid "Image not available, please try again later."
 msgstr "Vaizdas nepasiekiamas, pabandyk vėliau."
 
@@ -1531,7 +1535,7 @@ msgstr ""
 #: ../root/report/components/LabelUrlList.js:35
 #: ../root/search/components/ReleaseResults.js:116
 #: ../root/search/components/SearchForm.js:40
-#: ../root/static/scripts/common/components/FilterForm.js:235
+#: ../root/static/scripts/common/components/FilterForm.js:253
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
 #: ../root/user/UserProfile.js:54 ../root/utility/tableColumns.js:538
@@ -1753,9 +1757,9 @@ msgstr "Perkelti takelį aukštyn"
 #: ../root/search/components/WorkResults.js:54
 #: ../root/static/scripts/account/components/ApplicationForm.js:82
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:199
-#: ../root/static/scripts/common/components/FilterForm.js:168
+#: ../root/static/scripts/common/components/FilterForm.js:169
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:109
-#: ../root/static/scripts/release/components/EditWorkDialog.js:166
+#: ../root/static/scripts/release/components/EditWorkDialog.js:168
 #: ../root/user/UserSubscriptions.js:48
 msgid "Name"
 msgstr "Pavadinimas"
@@ -1772,7 +1776,7 @@ msgstr "Naujas vaizdas eina čia"
 #: ../root/release/edit/macros.tt:53 ../root/components/Paginator.js:140
 #: ../root/components/Paginator.js:145
 #: ../root/static/scripts/common/artworkViewer.js:42
-#: ../root/static/scripts/release-editor/bindingHandlers.js:41
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:71
 msgid "Next"
 msgstr "Kitas"
 
@@ -1904,7 +1908,7 @@ msgstr "Parinktys"
 msgid "Ordering type"
 msgstr "Tvarkos tipas"
 
-#: ../root/components/common-macros.tt:71 ../root/components/Artwork.js:77
+#: ../root/components/common-macros.tt:71 ../root/components/Artwork.js:75
 msgid "PDF file"
 msgstr "PDF failas"
 
@@ -1982,7 +1986,7 @@ msgstr "Galimos laikmenos"
 #: ../root/release/edit/macros.tt:52 ../root/components/Paginator.js:72
 #: ../root/components/Paginator.js:77
 #: ../root/static/scripts/common/artworkViewer.js:38
-#: ../root/static/scripts/release-editor/bindingHandlers.js:44
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:81
 msgid "Previous"
 msgstr "Ankstesnis"
 
@@ -2062,7 +2066,7 @@ msgstr "Santykių redaktorius (-ė)"
 #: ../root/edit/details/AddRelationshipType.js:54
 #: ../root/edit/details/EditRelationshipType.js:154
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:91
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:294
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:304
 msgid "Relationship type"
 msgstr "Santykio tipas"
 
@@ -2294,8 +2298,8 @@ msgstr "Raštas"
 #: ../root/layout/components/Search.js:94
 #: ../root/otherlookup/OtherLookupForm.js:44 ../root/search/SearchIndex.js:28
 #: ../root/search/SearchIndex.js:30 ../root/search/components/SearchForm.js:98
-#: ../root/static/scripts/common/components/Autocomplete2.js:810
-#: ../root/static/scripts/common/components/Autocomplete2.js:830
+#: ../root/static/scripts/common/components/Autocomplete2.js:816
+#: ../root/static/scripts/common/components/Autocomplete2.js:836
 #: ../root/static/scripts/common/components/SearchIcon.js:14
 #: ../root/taglookup/Form.js:54
 msgid "Search"
@@ -2466,7 +2470,7 @@ msgstr "Statusas"
 #: ../root/edit/details/historic/AddRelease.js:56
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:179
 #: ../root/search/components/ReleaseResults.js:121
-#: ../root/static/scripts/common/components/FilterForm.js:267
+#: ../root/static/scripts/common/components/FilterForm.js:285
 msgctxt "release"
 msgid "Status"
 msgstr "Būsena"
@@ -2646,11 +2650,14 @@ msgstr ""
 "atlikėją artimiausiomis dienomis."
 
 #: ../root/place/edit_form.tt:29
+#: ../lib/MusicBrainz/Server/Form/Field/Coordinates.pm:58
 msgid "These coordinates could not be parsed."
 msgstr "Šių koordinačių nepavyko išanalizuoti."
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
-msgid "This CDTOC is already attached to this medium."
+#, fuzzy
+#| msgid "This CDTOC is already attached to this medium."
+msgid "This CD TOC is already attached to this medium."
 msgstr "Šis CDTOC jau pridėtas prie šios laikmenos."
 
 #: ../root/release/edit/information.tt:354
@@ -2692,12 +2699,12 @@ msgid "This disc has a hidden pregap track before track 1"
 msgstr "Šis diskas turi paslėptą prieštarpio takelį prieš 1 takelį"
 
 #: ../root/components/common-macros.tt:190
-#: ../root/static/scripts/common/components/EntityLink.js:37
+#: ../root/static/scripts/common/components/EntityLink.js:38
 msgid "This entity has been removed, and cannot be displayed correctly."
 msgstr "Šis subjektas buvo pašalintas ir negali būti rodomas teisingai."
 
 #: ../root/components/common-macros.tt:190
-#: ../root/static/scripts/common/components/EntityLink.js:36
+#: ../root/static/scripts/common/components/EntityLink.js:37
 msgid "This entity will be added by this edit."
 msgstr "Šis subjektas bus pridėtas atliekant šį redagavimą."
 
@@ -2746,7 +2753,7 @@ msgstr ""
 "Tai – MusicBrainz dubliavimo serveris. Jei nori redaguoti ar keisti "
 "duomenis, {uri|grįžk atgal į musicbrainz.org}."
 
-#: ../root/components/common-macros.tt:71 ../root/components/Artwork.js:73
+#: ../root/components/common-macros.tt:71 ../root/components/Artwork.js:71
 msgid ""
 "This is a PDF file, the thumbnail may not show the entire contents of the "
 "file."
@@ -2755,9 +2762,14 @@ msgstr ""
 "turinys."
 
 #: ../root/release/edit/tracklist.tt:386
+#, fuzzy
+#| msgid ""
+#| "This is almost always incorrect. Please make sure whether you actually "
+#| "wanted a different format (such as “USB Flash Drive” or “Music Card”) or "
+#| "packaging type."
 msgid ""
 "This is almost always incorrect. Please make sure whether you actually "
-"wanted a different format (such as “USB Flash Drive” or “Music Card”) or "
+"wanted a different format (such as “USB Flash Drive” or “Download Card”) or "
 "packaging type."
 msgstr ""
 "Tai beveik visada neteisinga. Įsitikink, ar iš tikrųjų norėjai kitokio "
@@ -2821,7 +2833,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:385
-#: ../root/static/scripts/common/components/EntityLink.js:331
+#: ../root/static/scripts/common/components/EntityLink.js:342
 msgid "This recording is a video"
 msgstr "Šis įrašas yra vaizdo klipas."
 
@@ -3017,7 +3029,7 @@ msgstr "Twitter"
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:205
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:546
-#: ../root/static/scripts/common/components/FilterForm.js:146
+#: ../root/static/scripts/common/components/FilterForm.js:147
 #: ../root/static/scripts/edit/externalLinks.js:1273
 #: ../root/static/scripts/edit/externalLinks.js:1615
 #: ../root/utility/tableColumns.js:654 ../root/utility/tableColumns.js:659
@@ -3050,7 +3062,7 @@ msgstr "Tipai:"
 #: ../root/report/components/UrlList.js:46
 #: ../root/static/scripts/common/constants.js:46
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:72
-#: ../root/static/scripts/edit/components/URLInputPopover.js:75
+#: ../root/static/scripts/edit/components/URLInputPopover.js:74
 #: ../root/url/UrlHeader.js:29 ../root/url/UrlIndex.js:25
 msgid "URL"
 msgstr "URL"
@@ -3117,7 +3129,7 @@ msgstr "Patikrinamas failas..."
 #: ../root/recording/edit_form.tt:44
 #: ../root/edit/details/AddStandaloneRecording.js:64
 #: ../root/edit/details/EditRecording.js:77
-#: ../root/static/scripts/common/components/FilterForm.js:210
+#: ../root/static/scripts/common/components/FilterForm.js:211
 msgid "Video"
 msgstr "Vaizdo kilpas"
 
@@ -3193,8 +3205,8 @@ msgid ""
 "and following the merge link."
 msgstr ""
 "Kai būsi pasirengęs (-usi) juos sujungti, spausk mygtuką Sujungti. Į šią "
-"sujungimo eilę vis dar gali pridėti daugiau dalykų, tiesiog naršydamas (-a) "
-"po subjektų puslapį ir sekant sujungimo nuorodą."
+"sujungimo eilę vis dar gali pridėti daugiau dalykų, tiesiog naršant po "
+"subjektų puslapį ir sekant sujungimo nuorodą."
 
 #: ../root/layout.tt:112 ../root/layout/components/Footer.js:27
 msgid "Wiki"
@@ -3415,7 +3427,7 @@ msgstr ""
 "teisingai."
 
 #: ../root/components/common-macros.tt:190
-#: ../root/static/scripts/common/components/EntityLink.js:50
+#: ../root/static/scripts/common/components/EntityLink.js:51
 msgctxt "generic entity"
 msgid "[removed]"
 msgstr "[pašalinta]"
@@ -3459,7 +3471,7 @@ msgid "by"
 msgstr "sukūrė"
 
 #: ../root/components/common-macros.tt:111
-#: ../root/static/scripts/common/components/EntityLink.js:98
+#: ../root/static/scripts/common/components/EntityLink.js:100
 msgctxt "event"
 msgid "cancelled"
 msgstr "atšauktas"
@@ -3497,7 +3509,7 @@ msgstr "redagavimus"
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
 #: ../root/release/edit/tracklist.tt:495 ../root/release/edit/tracklist.tt:510
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:119
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:890
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:902
 msgid "help"
 msgstr "pagalba"
 
@@ -3506,17 +3518,17 @@ msgid "hide tracklist"
 msgstr "slėpti takelių sąrašą"
 
 #: ../root/components/common-macros.tt:102
-#: ../root/static/scripts/common/components/EntityLink.js:119
+#: ../root/static/scripts/common/components/EntityLink.js:121
 msgid "historical"
 msgstr "istorinis"
 
 #: ../root/components/common-macros.tt:100
-#: ../root/static/scripts/common/components/EntityLink.js:121
+#: ../root/static/scripts/common/components/EntityLink.js:123
 msgid "historical, until {end}"
 msgstr "istorinis, iki {end}"
 
 #: ../root/components/common-macros.tt:98
-#: ../root/static/scripts/common/components/EntityLink.js:115
+#: ../root/static/scripts/common/components/EntityLink.js:117
 msgid "historical, {begin}-{end}"
 msgstr "istorinis, {begin}–{end}"
 
@@ -3550,8 +3562,8 @@ msgstr "įtraukta"
 
 #: ../root/components/common-macros.tt:157
 #: ../root/components/common-macros.tt:233
-#: ../root/static/scripts/common/components/EntityLink.js:143
-#: ../root/static/scripts/common/components/EntityLink.js:434
+#: ../root/static/scripts/common/components/EntityLink.js:145
+#: ../root/static/scripts/common/components/EntityLink.js:445
 msgid "info"
 msgstr "informacija"
 
@@ -3695,7 +3707,7 @@ msgid "{doc|Disc ID}:"
 msgstr "{doc|Disko ID}:"
 
 #: ../root/components/common-macros.tt:203 ../root/main/index.js:270
-#: ../root/static/scripts/common/components/DescriptiveLink.js:74
+#: ../root/static/scripts/common/components/DescriptiveLink.js:76
 #: ../root/static/scripts/release-editor/dialogs.js:150
 msgid "{entity} by {artist}"
 msgstr "{entity}, {artist}"
@@ -3709,7 +3721,7 @@ msgstr ""
 "jas perskaityk ir, jei reikia, atsakyk į jas."
 
 #: ../root/components/common-macros.tt:264
-#: ../root/static/scripts/common/components/EntityLink.js:270
+#: ../root/static/scripts/common/components/EntityLink.js:281
 msgid "{name} – {additional_info}"
 msgstr "{name} – {additional_info}"
 
@@ -3722,7 +3734,7 @@ msgstr[2] "Rasta {num} leidinio, atitinkanti užklausą."
 msgstr[3] "Rasta {num} leidinių, atitinkančių užklausą."
 
 #: ../root/components/common-macros.tt:203
-#: ../root/static/scripts/common/components/DescriptiveLink.js:87
+#: ../root/static/scripts/common/components/DescriptiveLink.js:89
 msgid "{place} in {area}"
 msgstr "{place}, {area}"
 
@@ -3963,7 +3975,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:738
 msgid "You cannot merge a special purpose artist into another artist"
-msgstr ""
+msgstr "Negalima sujungti ypatingos paskirties atlikėjo su kitu atlikėju."
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:743
 msgid "You cannot merge into Deleted Artist"
@@ -3983,12 +3995,17 @@ msgid "The provided CD TOC ID is not valid."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:89
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:154
 msgid "Please provide a medium ID."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:93
-msgid "The provided medium id is not valid."
-msgstr ""
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:214
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:436
+#, fuzzy
+#| msgid "The date you've entered is not valid."
+msgid "The provided medium ID is not valid."
+msgstr "Įvesta data yra netinkama."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:99
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:227
@@ -4002,10 +4019,6 @@ msgid ""
 "medium."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:154
-msgid "Please provide a medium ID"
-msgstr "Pateik laikmenos ID."
-
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:159
 msgid "Could not find medium"
 msgstr "Nepavyko rasti laikmena."
@@ -4016,11 +4029,6 @@ msgid ""
 "software you used to generate it. Try again and please report the error to "
 "your software maker if it persists, including the technical information "
 "below."
-msgstr ""
-
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:214
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:436
-msgid "The provided medium id is not valid"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:235
@@ -4034,7 +4042,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:422
 msgid "The provided CD TOC ID doesn’t exist."
-msgstr ""
+msgstr "Pateiktas CD TOC ID neegzistuoja."
 
 #: ../lib/MusicBrainz/Server/Controller/Collection.pm:78
 #, perl-brace-format
@@ -4046,20 +4054,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:361
+#: ../root/static/scripts/common/constants.js:363
 msgid "Low"
 msgstr "Žemas"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:362
-#: ../root/static/scripts/common/constants.js:363
+#: ../root/static/scripts/common/constants.js:364
+#: ../root/static/scripts/common/constants.js:365
 msgid "Normal"
 msgstr "Normalus"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:364
+#: ../root/static/scripts/common/constants.js:366
 msgid "High"
 msgstr "Aukštas"
 
@@ -4089,6 +4097,9 @@ msgid ""
 "If there’s an important reason why it should be changed (for example, it "
 "contains private data), please {contact_url|contact us}."
 msgstr ""
+"Negali pakeisti šios pastabos, nes į ją jau atsakė kas nors kitas. Jei yra "
+"svarbi priežastis, dėl kurios ją reikėtų keisti (pavyzdžiui, joje privatūs "
+"duomenys), {contact_url|susisiek su mumis}."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:125
 msgid ""
@@ -4096,23 +4107,26 @@ msgid ""
 "important reason why it should be changed (for example, it contains private "
 "data), please {contact_url|contact us}."
 msgstr ""
+"Negali pakeisti šios pastabos, nes ji buvo įvesta per seniai. Jei yra svarbi "
+"priežastis, dėl kurios ją reikėtų pakeisti (pavyzdžiui, joje privatūs "
+"duomenys), {contact_url|susisiek su mumis}."
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:257
 msgid "You cannot merge a special purpose label into another label."
-msgstr ""
+msgstr "Negalima sujungti ypatingos paskirties kompanija su kita kompanija."
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:262
 msgid "You cannot merge into Deleted Label."
-msgstr ""
+msgstr "Negalima sujungti į pašalintą kompaniją."
 
 #: ../lib/MusicBrainz/Server/Controller/Rating.pm:43
 msgid "The rating should be an integer between 0 and 100."
-msgstr ""
+msgstr "Įvertinimas turėtų būti sveikasis skaičius nuo 0 iki 100."
 
 #: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:72
 #, perl-brace-format
 msgid "'{types}' is not a valid pair of types for relationships."
-msgstr ""
+msgstr "{types} nėra tinkama santykių tipų pora."
 
 #: ../lib/MusicBrainz/Server/Controller/Release.pm:615
 msgid ""
@@ -4183,7 +4197,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/User.pm:305
 #: ../lib/MusicBrainz/Server/Controller/User.pm:331
 #: ../lib/MusicBrainz/Server/Controller/User.pm:346
-#: ../root/user/ContactUser.js:44 ../root/user/ContactUser.js:46
+#: ../root/user/ContactUser.js:42 ../root/user/ContactUser.js:44
 msgctxt "header"
 msgid "Send email"
 msgstr "Siųsti el. laišką"
@@ -4238,7 +4252,7 @@ msgstr ""
 msgid "Invalid TOC"
 msgstr "Netinkamas TOC."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:288
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:291
 msgid ""
 "An error occurred trying to communicate with the Internet Archive servers. "
 "Please wait a few moments and try again."
@@ -4246,13 +4260,13 @@ msgstr ""
 "Bandant užmegzti ryšį su Interneto archyvo serveriais įvyko klaida. Palauk "
 "kelias akimirkas ir bandyk dar kartą."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:301
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:304
 msgid ""
 "We’ve hit a temporary delay while trying to fetch metadata from the Internet "
 "Archive. Please wait a minute and try again."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:417
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:420
 #: ../root/release/CoverArtDarkened.js:25
 msgid ""
 "The Cover Art Archive has had a takedown request in the past for this "
@@ -4261,7 +4275,7 @@ msgstr ""
 "Anksčiau Cover Art Archive buvo gautas prašymas panaikinti šiam leidiniui "
 "kopiją, todėl negalime leisti įkelti daugiau."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:454
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:457
 #, perl-brace-format
 msgid ""
 "Cover art can’t be uploaded to this release because we don’t own the "
@@ -4269,8 +4283,8 @@ msgid ""
 "so we can resolve this."
 msgstr ""
 "Viršelio apipavidalinimą negalima įkelti į šį leidinį, nes mes neturime "
-"susijusio elemento Interneto archyve. Susisiek su mumis adresu {contact_url}"
-", kad galėtume išspręsti šią problemą."
+"susijusio elemento Interneto archyve. Susisiek su mumis adresu "
+"{contact_url}, kad galėtume išspręsti šią problemą."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:708
 msgid ""
@@ -4912,7 +4926,7 @@ msgstr "Pašalinti ISRC"
 #: ../root/edit/details/ReorderRelationships.js:20
 #: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:199
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:133
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:941
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:957
 msgid "Relationship"
 msgstr "Santykis"
 
@@ -5657,10 +5671,6 @@ msgstr "Pridėk atlikėjo vardą prie kiekvieno įvardijamo."
 msgid "Artist credit field is required"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Field/Coordinates.pm:58
-msgid "These coordinates could not be parsed"
-msgstr ""
-
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:42
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:67
 msgid "The end date cannot precede the begin date."
@@ -5730,7 +5740,7 @@ msgid "invalid date"
 msgstr "netinkama data."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Relationship.pm:95
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:290
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:287
 msgid ""
 "You must select a relationship type and target entity for every relationship."
 msgstr ""
@@ -5762,11 +5772,11 @@ msgctxt "event type"
 msgid "[none]"
 msgstr "[nėra]"
 
-#: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:38
+#: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:42
 msgid "Videos only"
 msgstr "Tik vaizdo kilpus"
 
-#: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:39
+#: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:43
 msgid "Non-videos only"
 msgstr "Tik ne vaizdo kilpus"
 
@@ -5775,8 +5785,8 @@ msgid ""
 "Must be a valid date or partial date. Examples: 2006-05-25, "
 "1990-01, ????-01, ..."
 msgstr ""
-"Turi būti tinkama data arba dalinė data. Pavyzdžiai: 2006-05-25, 1990-01, "
-"????-01, ..."
+"Turi būti tinkama data arba dalinė data. Pavyzdžiai: 2006-05-25, "
+"1990-01, ????-01, ..."
 
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:54
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:63
@@ -5854,22 +5864,22 @@ msgid "A fluency level is required."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:372
+#: ../root/static/scripts/common/constants.js:374
 msgid "Basic"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:373
+#: ../root/static/scripts/common/constants.js:375
 msgid "Intermediate"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:371
+#: ../root/static/scripts/common/constants.js:373
 msgid "Advanced"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:82
-#: ../root/static/scripts/common/constants.js:374
+#: ../root/static/scripts/common/constants.js:376
 msgid "Native"
 msgstr ""
 
@@ -6294,7 +6304,7 @@ msgid ""
 "MusicBrainz account information."
 msgstr ""
 
-#: ../root/account/LostUsername.js:42 ../root/user/ContactUser.js:79
+#: ../root/account/LostUsername.js:42 ../root/user/ContactUser.js:77
 msgctxt "interactive"
 msgid "Send email"
 msgstr ""
@@ -6614,7 +6624,7 @@ msgstr ""
 
 #: ../root/annotation/EditAnnotation.js:62
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:278
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:70
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:123
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:172
 msgctxt "header"
 msgid "Preview"
@@ -6751,18 +6761,6 @@ msgstr ""
 msgid "This area is not currently associated with any labels."
 msgstr "Ši teritorija šiuo metu nėra susijusi su jokiomis leidyklomis."
 
-#: ../root/area/AreaMerge.js:28 ../root/area/AreaMerge.js:30
-msgid "Merge areas"
-msgstr "Sujungti teritorijas"
-
-#: ../root/area/AreaMerge.js:32
-msgid ""
-"You are about to merge all these areas into a single one. Please select the "
-"area all others should be merged into:"
-msgstr ""
-"Netrukus sujungsi visas šias teritorijas į vieną. Pasirink teritoriją, į "
-"kurią turėtų būti sujungtos visos kitos:"
-
 #: ../root/area/AreaPlaces.js:36 ../root/area/AreaPlaces.js:37
 #: ../root/components/EntityTabs.js:29
 #: ../root/components/TagEntitiesList.js:178 ../root/report/ReportsIndex.js:552
@@ -6864,29 +6862,6 @@ msgstr ""
 #: ../root/area/AreaWorks.js:29
 msgid "This area has no relationships to any works."
 msgstr "Ši teritorija neturi jokių santykių su jokiais kūriniais."
-
-#: ../root/area/DeleteArea.js:35 ../root/area/DeleteArea.js:37
-#, fuzzy
-#| msgid "Remove area"
-msgctxt "header"
-msgid "Remove area"
-msgstr "Pašalinti teritoriją"
-
-#: ../root/area/DeleteArea.js:41
-msgid ""
-"This area cannot be removed because it is one of the areas that can be used "
-"as a release country."
-msgstr ""
-"Ši teritorija negali būti pašalinta, nes ji yra viena iš teritorijų, kuri "
-"gali būti naudojama kaip leidinio šalis."
-
-#: ../root/area/DeleteArea.js:55
-msgid ""
-"This area cannot be removed because it is still in use (in artists, labels, "
-"places, relationships or open edits)."
-msgstr ""
-"Šios teritorijos negalima pašalinti, nes ji vis dar naudojama (atlikėjų, "
-"leidyklų, vietų, santykių ar atvirų redagavimų)."
 
 #: ../root/artist/ArtistEvents.js:78
 msgid "No events found that match this search."
@@ -7125,26 +7100,23 @@ msgstr ""
 "negali tiesiogiai keisti šių duomenų."
 
 #: ../root/artist/utils.js:13
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:65
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:68
 msgid "Born in:"
 msgstr ""
 
 #: ../root/artist/utils.js:17
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:81
 msgctxt "group artist"
 msgid "Founded in"
 msgstr ""
 
-#: ../root/artist/utils.js:19
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:55
-msgid "Begin area:"
-msgstr "Pradžios teritorija:"
-
 #: ../root/artist/utils.js:26
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:61
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:64
 msgid "Born:"
 msgstr "Gimė:"
 
 #: ../root/artist/utils.js:30
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:76
 msgctxt "group artist"
 msgid "Founded"
 msgstr "Įkurta"
@@ -7155,22 +7127,18 @@ msgid "Created"
 msgstr "Sukurta"
 
 #: ../root/artist/utils.js:41
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:65
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:68
 msgid "Died in:"
 msgstr "Mirė:"
 
 #: ../root/artist/utils.js:45
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:82
 msgctxt "group artist"
 msgid "Dissolved in"
 msgstr ""
 
-#: ../root/artist/utils.js:47
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:55
-msgid "End area:"
-msgstr "Pabaigos teritorija:"
-
 #: ../root/artist/utils.js:57
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:62
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:65
 msgid "Died:"
 msgstr ""
 
@@ -7180,6 +7148,7 @@ msgid "Dissolving"
 msgstr ""
 
 #: ../root/artist/utils.js:63
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:77
 msgctxt "group artist"
 msgid "Dissolved"
 msgstr ""
@@ -7211,7 +7180,7 @@ msgstr "Leidinių grupės"
 #: ../root/components/TagEntitiesList.js:183
 msgid "See all {num} release groups"
 msgid_plural "See all {num} release groups"
-msgstr[0] "Žiūrėti visas {num} leidinių grupę"
+msgstr[0] "Žiūrėti visas {num} leidinių grupes"
 msgstr[1] "Žiūrėti visas {num} leidinių grupes"
 msgstr[2] "Žiūrėti visas {num} leidinių grupės"
 msgstr[3] "Žiūrėti visas {num} leidinių grupių"
@@ -7519,8 +7488,8 @@ msgstr "Redaguoti"
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
-"Šis turinys paslėptas, kad būtų išvengta šlamšto. Norint jį peržiūrėti, "
-"{url|prisijunk}."
+"Šis turinys paslėptas, kad būtų išvengta šlamšto. Norint jį peržiūrėti, {url|"
+"prisijunk}."
 
 #: ../root/collection/CollectionIndex.js:205
 #: ../root/collection/CollectionMerge.js:70
@@ -7842,13 +7811,13 @@ msgid "as “{credit}”"
 msgstr ""
 
 #: ../root/components/RelationshipsTable.js:141
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:283
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:280
 msgid "See all {num} relationships"
 msgstr ""
 
 #: ../root/components/RelationshipsTable.js:335
-#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:203
-#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:211
+#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:209
+#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:217
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:212
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:216
 msgid "Credited as"
@@ -7859,7 +7828,7 @@ msgstr ""
 #: ../root/edit/details/EditRelationshipType.js:295
 #: ../root/edit/details/RemoveRelationshipType.js:117
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:46
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:536
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:547
 #: ../root/utility/tableColumns.js:671
 msgid "Attributes"
 msgstr "Požymiai"
@@ -8070,7 +8039,7 @@ msgid "About to close"
 msgstr ""
 
 #: ../root/components/list/EventList.js:109
-#: ../root/static/scripts/common/components/FilterForm.js:335
+#: ../root/static/scripts/common/components/FilterForm.js:353
 msgid "Role"
 msgstr ""
 
@@ -9013,7 +8982,7 @@ msgstr "[pašalinta]"
 
 #: ../root/edit/details/EditArtistCredit.js:26
 #: ../root/report/components/ArtistCreditList.js:29
-#: ../root/static/scripts/common/components/FilterForm.js:127
+#: ../root/static/scripts/common/components/FilterForm.js:128
 msgid "Artist credit"
 msgstr ""
 
@@ -9108,7 +9077,7 @@ msgid "Search for the target URL."
 msgstr ""
 
 #: ../root/edit/details/EditWork.js:73
-#: ../root/static/scripts/release/components/WorkTypeSelect.js:58
+#: ../root/static/scripts/release/components/WorkTypeSelect.js:60
 msgid "Work type"
 msgstr ""
 
@@ -10144,33 +10113,8 @@ msgid ""
 "Is a genre missing from the list? Request it by {link|adding a style ticket}."
 msgstr ""
 
-#: ../root/instrument/DeleteInstrument.js:34
-#: ../root/instrument/DeleteInstrument.js:36
-#, fuzzy
-#| msgid "Instrument"
-msgctxt "header"
-msgid "Remove instrument"
-msgstr "Instrumentas"
-
-#: ../root/instrument/DeleteInstrument.js:49
-msgid ""
-"This instrument cannot be removed because there are still relationships "
-"attributed to it."
-msgstr ""
-
 #: ../root/instrument/InstrumentArtists.js:67
 msgid "No artists found."
-msgstr ""
-
-#: ../root/instrument/InstrumentMerge.js:28
-#: ../root/instrument/InstrumentMerge.js:30
-msgid "Merge instruments"
-msgstr ""
-
-#: ../root/instrument/InstrumentMerge.js:32
-msgid ""
-"You are about to merge all these instruments into a single one. Please "
-"select the instrument all others should be merged into:"
 msgstr ""
 
 #: ../root/instrument/List.js:45 ../root/instrument/List.js:47
@@ -10216,7 +10160,7 @@ msgstr[3] ""
 
 #: ../root/label/LabelIndex.js:101
 msgid "This label does not have any releases."
-msgstr ""
+msgstr "Ši įrašų kompanija neturi jokių leidinių."
 
 #: ../root/label/LabelMerge.js:28 ../root/label/LabelMerge.js:30
 msgid "Merge labels"
@@ -10279,7 +10223,7 @@ msgid "Social contract"
 msgstr "Socialinė sutartis"
 
 #: ../root/layout/components/BottomMenu.js:141
-msgid "Code of conduct"
+msgid "Code of Conduct"
 msgstr "Elgesio kodeksas"
 
 #: ../root/layout/components/BottomMenu.js:144
@@ -10728,7 +10672,6 @@ msgid "Label information"
 msgstr ""
 
 #: ../root/layout/components/sidebar/LabelSidebar.js:67
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:73
 msgid "Founded:"
 msgstr ""
 
@@ -11079,8 +11022,8 @@ msgid ""
 "In order to view this page, please visit the main server at {mb|https://"
 "musicbrainz.org/}."
 msgstr ""
-"Norint peržiūrėti šį puslapį, apsilankyk pagrindiniame serveryje adresu "
-"{mb|https://musicbrainz.org/}."
+"Norint peržiūrėti šį puslapį, apsilankyk pagrindiniame serveryje adresu {mb|"
+"https://musicbrainz.org/}."
 
 #: ../root/main/error/TimeoutError.js:25
 msgid "Request timed out"
@@ -11270,27 +11213,31 @@ msgid ""
 "it is an ID for something else than an entity (for example, a "
 "{rel_type_table|relationship type})."
 msgstr ""
+"Jokie MusicBrainz {entity_doc|subjektai} neatitinka {mbid_doc|MBID} {mbid}. "
+"Arba jis neteisingas, arba jis buvo skirtas subjektui, kuris vėliau buvo "
+"pašalintas, arba tai yra ne subjekto ID (pavyzdžiui, {rel_type_table|"
+"santykio tipas})."
 
 #: ../root/mbid/NotFound.js:39
 msgid "{mbid} is not a valid {mbid_doc|MBID}."
-msgstr ""
+msgstr "{mbid} nėra tinkamas {mbid_doc|MBID}."
 
 #: ../root/mbid/NotFound.js:47
 msgid "No {mbid_doc|MBID} selected."
-msgstr ""
+msgstr "{mbid_doc|MBID} nepasirinktas."
 
 #: ../root/oauth2/OAuth2Authorize.js:28 ../root/oauth2/OAuth2Authorize.js:29
 #: ../root/oauth2/OAuth2Oob.js:21
 msgid "OAuth authorization"
-msgstr ""
+msgstr "OAuth leidimas"
 
 #: ../root/oauth2/OAuth2Authorize.js:33
 msgid "{app} is requesting permission to:"
-msgstr ""
+msgstr "{app} prašo leidimo:"
 
 #: ../root/oauth2/OAuth2Authorize.js:44
 msgid "Perform the above operations when I'm not using the application"
-msgstr ""
+msgstr "Atlikti pirmiau nurodytas veiksmus, kai nenaudoju programos"
 
 #: ../root/oauth2/OAuth2Authorize.js:59
 msgid "No thanks"
@@ -11302,7 +11249,7 @@ msgstr "Leisti prieigą"
 
 #: ../root/oauth2/OAuth2Error.js:21
 msgid "OAuth authorization error"
-msgstr ""
+msgstr "OAuth leidimo klaida"
 
 #: ../root/oauth2/OAuth2Error.js:22
 msgid "Error: {error}"
@@ -11322,13 +11269,15 @@ msgstr "Jei šis puslapis nenukreipia automatiškai, toliau spausk Pateikti."
 
 #: ../root/oauth2/OAuth2Oob.js:22
 msgid "Success!"
-msgstr ""
+msgstr "Sėkmė."
 
 #: ../root/oauth2/OAuth2Oob.js:25
 msgid ""
 "You have granted access to {app}. Next, return to {app} and copy this token "
 "to complete the authorization process:"
 msgstr ""
+"Tu suteikei prieigą prie {app}. Toliau grįžk į {app} ir nukopijuok šį "
+"prieigos raktą, kad užbaigtum leidimo procesą:"
 
 #: ../root/otherlookup/OtherLookupForm.js:82
 msgid "Artist IPI:"
@@ -11357,7 +11306,7 @@ msgstr "MBID"
 #: ../root/otherlookup/OtherLookupIndex.js:22
 #: ../root/otherlookup/OtherLookupIndex.js:24 ../root/search/SearchIndex.js:34
 msgid "Other lookups"
-msgstr ""
+msgstr "Kiti ieškojimai"
 
 #: ../root/otherlookup/OtherLookupReleaseResults.js:22
 #: ../root/otherlookup/OtherLookupReleaseResults.js:23
@@ -11368,11 +11317,11 @@ msgstr "Paieškos rezultatai"
 
 #: ../root/place/PlaceEvents.js:61
 msgid "This place is not currently associated with any events."
-msgstr ""
+msgstr "Ši vieta šiuo metu nėra susijusi su jokiais renginiais."
 
 #: ../root/place/PlaceMap.js:47
 msgid "A map cannot be shown because this place has no coordinates."
-msgstr ""
+msgstr "Žemėlapio parodyti negalima, nes ši vieta neturi koordinačių."
 
 #: ../root/place/PlaceMerge.js:28 ../root/place/PlaceMerge.js:30
 msgid "Merge places"
@@ -11383,10 +11332,12 @@ msgid ""
 "You are about to merge all these places into a single one. Please select the "
 "place all others should be merged into:"
 msgstr ""
+"Netrukus visas šias vietas sujungsi į vieną. Pasirink vietą, į kurią turėtų "
+"būti sujungtos visos kitos:"
 
 #: ../root/place/PlacePerformances.js:33
 msgid "No recordings, releases or release groups are linked to this place."
-msgstr ""
+msgstr "Jokie įrašai, leidiniai ar leidinių grupės nėra susiję su šia vieta."
 
 #: ../root/recording/DeleteRecording.js:34
 #: ../root/recording/DeleteRecording.js:36
@@ -11398,23 +11349,24 @@ msgstr "Pašalinti įrašą"
 msgid ""
 "Please make sure you’re not removing a legitimate {doc_standalone|standalone "
 "recording}."
-msgstr ""
+msgstr "Įsitikink, kad nepašalini teisėto {doc_standalone|atskiro įrašo}."
 
 #: ../root/recording/DeleteRecording.js:57
 msgid "This recording cannot be removed because it is still used on releases."
 msgstr ""
+"Šis įrašas negali būti pašalintas, nes jis vis dar naudojamas leidiniuose."
 
 #: ../root/recording/RecordingFingerprints.js:27
 msgid "Associated AcoustIDs"
-msgstr ""
+msgstr "Susijusios AcoustID"
 
 #: ../root/recording/RecordingHeader.js:40
 msgid "Video by {artist}"
-msgstr ""
+msgstr "Vaizdo kilpas – {artist}"
 
 #: ../root/recording/RecordingHeader.js:41
 msgid "Recording by {artist}"
-msgstr ""
+msgstr "Įrašas – {artist}"
 
 #: ../root/recording/RecordingIndex.js:56
 msgid "Track artist"
@@ -11448,7 +11400,7 @@ msgstr "Pasirodo leidiniuose"
 
 #: ../root/recording/RecordingIndex.js:184
 msgid "No releases found which feature this recording."
-msgstr ""
+msgstr "Nerastas nė vienas leidinys su šiuo įrašu."
 
 #: ../root/recording/RecordingMerge.js:30
 #: ../root/recording/RecordingMerge.js:32
@@ -11460,6 +11412,8 @@ msgid ""
 "You are about to merge all these recordings into a single one. Please select "
 "the recording all others should be merged into:"
 msgstr ""
+"Netrukus visus šiuos įrašus sujungsi į vieną. Pasirink įrašą, į kurį turėtų "
+"būti sujungti visi kiti:"
 
 #: ../root/recording/RecordingMerge.js:41
 msgid ""
@@ -11467,20 +11421,18 @@ msgid ""
 "different ISRCs. Please make sure they are indeed the same recordings and "
 "you wish to continue with the merge."
 msgstr ""
+"<strong>Įspėjimas:</strong> kai kurie įrašai, kuriuos jungi, turi skirtingus "
+"ISRC. Įsitikink, kad tai tikrai tie patys įrašai ir nori tęsti sujungimą."
 
 #: ../root/relationship/RelationshipsHeader.js:23
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:87
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:178
-#, fuzzy
-#| msgid "Edit Relationship Attribute"
 msgid "Relationship attributes"
-msgstr "Redaguoti sąsajos atributą"
+msgstr "Santykių požymiai"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:77
-#, fuzzy
-#| msgid "Edit Relationship Attribute"
 msgid "Relationship attribute"
-msgstr "Redaguoti sąsajos atributą"
+msgstr "Santykio požymis"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:128
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:193
@@ -11490,42 +11442,48 @@ msgstr "UUID:"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:134
 msgid "Parent attribute"
-msgstr ""
+msgstr "Viršpožymis"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:145
 msgid "This attribute supports free text credits"
-msgstr ""
+msgstr "Šis požymis palaiko laisvo teksto įvardijimus."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:151
 msgid "This attribute uses free text values"
-msgstr ""
+msgstr "Šis požymis naudoja laisvojo teksto reikšmes."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:157
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:150
 msgid "Possible values"
-msgstr ""
+msgstr "Galimos reikšmės"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:161
+#, fuzzy
+#| msgid ""
+#| "The possible values for this relationship can be seen from the "
+#| "{instrument_list|instrument list}."
 msgid ""
-"The possible values for this relationship can be seen from the "
-"{instrument_list|instrument list}."
+"The possible values for this attribute can be seen from the {instrument_list|"
+"instrument list}."
 msgstr ""
+"Galimas šio santykio reikšmes galima matyti iš {instrument_list|instrumentų "
+"sąrašo}."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:182
 msgid "Relationship usage"
-msgstr ""
+msgstr "Santykio naudojimas"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:186
 msgid "This attribute is being used by the following relationship types:"
-msgstr ""
+msgstr "Šis požymis naudojamas šiuose santykių tipuose:"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:200
 msgid "{type0} - {type1}"
-msgstr ""
+msgstr "{type0} – {type1}"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:217
 msgid "This attribute isn’t directly being used by any relationship types."
-msgstr ""
+msgstr "Šis požymis tiesiogiai nėra naudojamas jokiems santykių tipams."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:45
 msgctxt "relationship attribute description"
@@ -11538,11 +11496,11 @@ msgstr "Nerasta jokių santykių požymių."
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:48
 msgid "This relationship type doesn't allow any attributes."
-msgstr ""
+msgstr "Šis santykio tipas neleidžia naudoti jokių požymių."
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:52
 msgid "The following attributes can be used with this relationship type:"
-msgstr ""
+msgstr "Su šiuo santykio tipu gali būti naudojami šie požymiai:"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:73
 msgid "start date"
@@ -11582,7 +11540,7 @@ msgstr "Žiūrėk bendrąsias {url|URL gaires}."
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:265
 msgid ""
 "This relationship type is only used for grouping other relationship types."
-msgstr ""
+msgstr "Šis santykio tipas naudojamas tik kitiems santykių tipams grupuoti."
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:47
 msgid "more"
@@ -11600,36 +11558,33 @@ msgid "{relationship_documentation_url|Documentation}"
 msgstr "{relationship_documentation_url|Dokumentacija}"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:176
-msgid "{type0}-{type1} Relationship Types"
-msgstr ""
+#: ../root/relationship/linktype/RelationshipTypePairTree.js:194
+msgid "{type0}-{type1} relationship types"
+msgstr "{type0}–{type1} santykių tipai"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:187
 msgid "&lt; Back to all relationship types"
-msgstr ""
-
-#: ../root/relationship/linktype/RelationshipTypePairTree.js:194
-msgid "{type0}-{type1} relationship types"
-msgstr ""
+msgstr "&lt; Grįžti į visus santykių tipus"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:214
 msgid "Expand all descriptions"
-msgstr ""
+msgstr "Išskleisti visus aprašymus"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:217
 msgid "Collapse all descriptions"
-msgstr ""
+msgstr "Suskleisti visus aprašymus"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:236
 msgid "No {type0}-{type1} relationship types found."
-msgstr ""
+msgstr "Nerasta {type0}–{type1} santykių tipų."
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:40
 msgid "{type0}-{type1}"
-msgstr ""
+msgstr "{type0}–{type1}"
 
 #: ../root/release/ChangeQuality.js:37
 msgid "Change release data quality"
-msgstr ""
+msgstr "Keisti leidinio duomenų kokybę"
 
 #: ../root/release/ChangeQuality.js:52
 msgid ""
@@ -11637,6 +11592,9 @@ msgid ""
 "is. It is not a mark of how good or bad the music itself is — for that, use "
 "{ratings_doc|ratings}."
 msgstr ""
+"{data_quality_doc|Duomenų kokybė} nurodo, kokie kokybiški yra leidinio "
+"duomenys. Tai nereiškia, kokia gera ar bloga yra pati muzika – tam naudok "
+"{ratings_doc|vertinimus}."
 
 #: ../root/release/CoverArt.js:33
 msgid "250px"
@@ -11694,25 +11652,19 @@ msgid "Add cover art"
 msgstr "Pridėti viršelio apipavidalinimus"
 
 #: ../root/release/CoverArt.js:169
-#, fuzzy
-#| msgid "Reorder cover art"
 msgctxt "plural, interactive"
 msgid "Reorder cover art"
-msgstr "Perskirstyti viršelio paveikslėlį"
+msgstr "Pertvarkyti viršelio apipavidalinimus"
 
 #: ../root/release/CoverArt.js:178
-#, fuzzy
-#| msgid "(no other cover art)"
 msgctxt "plural, interactive"
 msgid "Log in to upload cover art"
-msgstr "(jokio kito viršelio)"
+msgstr "Prisijunk, kad įkeltum viršelio apipavidalinimus"
 
 #: ../root/release/CoverArtDarkened.js:19
-#, fuzzy
-#| msgid "Cannot show cover art"
 msgctxt "plural"
 msgid "Cannot add cover art"
-msgstr "Negalima rodyti viršelio"
+msgstr "Negalima pridėti viršelio apipavidalinimus"
 
 #: ../root/release/CoverArtFields.js:76
 msgid "Choose one or more cover art types for this image"
@@ -11728,25 +11680,30 @@ msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
 msgstr ""
+"Šiame leidinyje nėra jokių pridėtų diskų ID. Norint sužinoti daugiau apie "
+"tai, kaip juos pridėti, žiūrėk {doc|Kaip pridėti disko ID}."
 
 #: ../root/release/DiscIds.js:158
 msgid "This release has no mediums that can have disc IDs."
-msgstr ""
+msgstr "Šis leidinys neturi laikmenų, kurios gali turėti diskų ID."
 
 #: ../root/release/EditRelationships.js:28
 msgid "Edit Relationships: {release}"
-msgstr ""
+msgstr "Redaguoti santykius: {release}"
 
 #: ../root/release/EditRelationships.js:35
 msgid ""
 "To use the batch tools, select some recordings or works using the checkboxes."
 msgstr ""
+"Norint naudoti paketinius įrankius, pasirink kai kuriuos įrašus arba "
+"kūrinius naudojant žymimuosius langelius."
 
 #: ../root/release/EditRelationships.js:42
 msgid ""
 "Please read {relationships_doc|our guidelines for relationships} if you "
 "haven’t already."
 msgstr ""
+"Jei dar to nepadarei, perskaityk {relationships_doc|mūsų santykių gaires}."
 
 #: ../root/release/ReleaseHeader.js:29
 msgid "see all versions of this release, {count} available"
@@ -11797,7 +11754,7 @@ msgstr ""
 
 #: ../root/report/AnnotationsArtists.js:29
 msgid "This report lists artists with annotations."
-msgstr ""
+msgstr "Šioje ataskaitoje pateikiami atlikėjų sąrašai su anotacijomis."
 
 #: ../root/report/AnnotationsArtists.js:34
 msgid "Artist annotations"
@@ -11817,7 +11774,7 @@ msgstr ""
 
 #: ../root/report/AnnotationsLabels.js:34
 msgid "Label annotations"
-msgstr ""
+msgstr "Įrašų kompanijos anotacijos"
 
 #: ../root/report/AnnotationsPlaces.js:29
 msgid "This report lists places with annotations."
@@ -11873,11 +11830,15 @@ msgid ""
 "like it might have been left behind in error, such as a trailing comma or "
 "“feat.”."
 msgstr ""
+"Šioje ataskaitoje išvardyti atlikėjų įvardijami, kuriuose yra baigiamoji "
+"jungiamoji frazė, kuri, atrodo, galėjo būti palikta per klaidą, pavyzdžiui, "
+"baigiamasis kablelis arba „feat. (su)“."
 
 #: ../root/report/ArtistCreditsWithDubiousTrailingPhrases.js:31
 #: ../root/report/ReportsIndex.js:120
 msgid "Artist credits with dubious trailing join phrases"
 msgstr ""
+"Atlikėjo įvardijami su abejotinomis baigiamosiomis jungtinėmis frazėmis"
 
 #: ../root/report/ArtistsContainingDisambiguationComments.js:24
 msgid ""
@@ -11885,7 +11846,7 @@ msgid ""
 "name, rather than the actual disambiguation comment field."
 msgstr ""
 "Šioje ataskaitoje išvardyti atlikėjai, kurių pavadinime gali būti išskyrimo "
-"pastabų, o ne tikrasis išskyrimo pastabų laukas."
+"komentarų, o ne tikrasis išskyrimo komentaro laukas."
 
 #: ../root/report/ArtistsContainingDisambiguationComments.js:30
 #: ../root/report/ReportsIndex.js:84
@@ -11991,7 +11952,7 @@ msgstr ""
 
 #: ../root/report/BadAmazonUrls.js:55
 msgid "Bad Amazon URLs"
-msgstr ""
+msgstr "Blogi Amazon URL"
 
 #: ../root/report/BootlegsOnNonBootlegLabels.js:24
 msgid ""
@@ -12057,7 +12018,7 @@ msgstr ""
 
 #: ../root/report/CatNoLooksLikeIsrc.js:40 ../root/report/ReportsIndex.js:327
 msgid "Releases with catalog numbers that look like ISRCs"
-msgstr ""
+msgstr "Leidiniai su katalogo numeriais, kurie atrodo kaip ISRC"
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:28
 msgid ""
@@ -12088,18 +12049,18 @@ msgstr ""
 
 #: ../root/report/CollaborationRelationships.js:49
 msgid "Collaboration"
-msgstr ""
+msgstr "Bendradarbiavimas"
 
 #: ../root/report/CollaborationRelationships.js:50
 msgid "Collaborator"
-msgstr ""
+msgstr "Bendradarbis"
 
 #: ../root/report/CollaborationRelationships.js:68
 #: ../root/report/CollaborationRelationships.js:79
 #: ../root/report/DuplicateArtists.js:116
 #: ../root/report/components/ArtistUrlList.js:74
 msgid "This artist no longer exists."
-msgstr ""
+msgstr "Šis atlikėjas nebeegzistuoja"
 
 #: ../root/report/DeprecatedRelationshipArtists.js:29
 msgid ""
@@ -12259,7 +12220,7 @@ msgstr ""
 
 #: ../root/report/DuplicateArtists.js:99
 msgid "alias:"
-msgstr ""
+msgstr "alternatyvus vardas:"
 
 #: ../root/report/DuplicateArtists.js:109
 #: ../root/report/DuplicateReleaseGroups.js:93
@@ -12511,7 +12472,7 @@ msgstr "Išsami informacija apie URL"
 msgid "Usage count"
 msgstr ""
 
-#: ../root/report/LowDataQualityReleases.js:26
+#: ../root/report/LowDataQualityReleases.js:24
 msgid ""
 "This report shows releases that have been marked as having low data quality. "
 "If you have some time, you can review them and try to improve the data as "
@@ -12521,7 +12482,7 @@ msgid ""
 "quality change to remove it from this report."
 msgstr ""
 
-#: ../root/report/LowDataQualityReleases.js:38
+#: ../root/report/LowDataQualityReleases.js:36
 #: ../root/report/ReportsIndex.js:477
 msgid "Releases marked as having low data quality"
 msgstr ""
@@ -12963,16 +12924,26 @@ msgid ""
 "releases in this report should have artwork {caa_how_to|uploaded to the "
 "Cover Art Archive}. Note that the cover art uploaded for a release must "
 "always exactly match the actual art for that specific release (for example, "
-"they should have the same barcode, format, etc.)."
+"they should have the same barcode, format, etc.). This report skips pseudo-"
+"releases, since they should generally not have cover art."
 msgstr ""
+"Ši ataskaita rodo leidinius, kurių Cover Art Archive nėra viršelio "
+"apipavidalinimo. Atsižvelgiant į tai, kad dauguma leidinių turi tam tikrą "
+"viršelio apipavidalinimą, didžioji dauguma šioje ataskaitoje pateiktų "
+"leidinių turėtų turėti viršelio apipavidalinimą {caa_how_to|įkeltą į Cover "
+"Art Archive}. Atkreipk dėmesį, kad įkeltas leidinio viršelio "
+"apipavidalinimas visada turi tiksliai atitikti faktinį to konkretaus "
+"leidinio apipavidalinimą (pavyzdžiui, jie turi turėti tą patį brūkšninį "
+"kodą, formatą ir t. t.). Šioje ataskaitoje praleidžiami pseudoleidiniai, nes "
+"jie paprastai neturėtų turėti viršelių."
 
-#: ../root/report/ReleasesWithoutCaa.js:35
+#: ../root/report/ReleasesWithoutCaa.js:37
 msgid ""
 "We strongly suggest restricting this report to entities in your "
 "subscriptions only for a more manageable list of results."
 msgstr ""
 
-#: ../root/report/ReleasesWithoutCaa.js:40 ../root/report/ReportsIndex.js:365
+#: ../root/report/ReleasesWithoutCaa.js:42 ../root/report/ReportsIndex.js:365
 #, fuzzy
 #| msgid ""
 #| "Only releases with a front cover on the {caa|Cover Art Archive} can be "
@@ -13037,7 +13008,7 @@ msgstr ""
 msgid "Labels with annotations"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:203
+#: ../root/report/ReportsIndex.js:203 ../root/report/SetInDifferentRg.js:36
 msgid "Release groups that might need to be merged"
 msgstr ""
 
@@ -13180,10 +13151,6 @@ msgid ""
 "If the releases are discs linked with \"part of set\" relationships, you "
 "might want to merge them too into one multi-disc release (see "
 "{how_to_merge_releases|How to Merge Releases})."
-msgstr ""
-
-#: ../root/report/SetInDifferentRg.js:36
-msgid "Mismatched release groups"
 msgstr ""
 
 #: ../root/report/ShouldNotHaveDiscIds.js:24
@@ -13877,7 +13844,7 @@ msgid "Try with indexed search instead."
 msgstr ""
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:126
-#: ../root/static/scripts/common/components/Autocomplete2.js:800
+#: ../root/static/scripts/common/components/Autocomplete2.js:805
 msgid "Type to search, or paste an MBID"
 msgstr ""
 
@@ -13929,7 +13896,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/AcoustIdCell.js:116
 #: ../root/static/scripts/common/components/FingerprintTable.js:114
 #: ../root/static/scripts/common/hooks/usePagedMediumTable.js:108
-#: ../root/static/scripts/edit/components/AddEntityDialog.js:101
+#: ../root/static/scripts/edit/components/AddEntityDialog.js:100
 #: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:144
 msgid "Loading..."
 msgstr "Kraunam..."
@@ -14130,22 +14097,22 @@ msgstr ""
 msgid "[missing editor]"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:127
+#: ../root/static/scripts/common/components/EntityLink.js:129
 #: ../root/url/UrlIndex.js:31
 msgid ""
 "This link has been temporarily disabled because it has been reported as "
 "potentially harmful."
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:345
+#: ../root/static/scripts/common/components/EntityLink.js:356
 msgid "This release has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:359
+#: ../root/static/scripts/common/components/EntityLink.js:370
 msgid "This release group has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:375
+#: ../root/static/scripts/common/components/EntityLink.js:386
 msgid ""
 "High quality: All available data has been added, if possible including cover "
 "art with liner info that proves it"
@@ -14153,7 +14120,7 @@ msgstr ""
 "Aukšta kokybė: pridėti visi turimi duomenys, jei įmanoma, įskaitant viršelio "
 "apipavidalinimus ir jį patvirtinančią informaciją."
 
-#: ../root/static/scripts/common/components/EntityLink.js:388
+#: ../root/static/scripts/common/components/EntityLink.js:399
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"
@@ -14163,33 +14130,41 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: ../root/static/scripts/common/components/FilterForm.js:103
+#: ../root/static/scripts/common/components/FilterForm.js:104
 msgid "Filter events"
 msgstr ""
 
-#: ../root/static/scripts/common/components/FilterForm.js:105
+#: ../root/static/scripts/common/components/FilterForm.js:106
 msgid "Filter recordings"
 msgstr ""
 
-#: ../root/static/scripts/common/components/FilterForm.js:107
+#: ../root/static/scripts/common/components/FilterForm.js:108
 msgid "Filter releases"
 msgstr ""
 
-#: ../root/static/scripts/common/components/FilterForm.js:109
+#: ../root/static/scripts/common/components/FilterForm.js:110
 msgid "Filter release groups"
 msgstr ""
 
-#: ../root/static/scripts/common/components/FilterForm.js:111
+#: ../root/static/scripts/common/components/FilterForm.js:112
 msgid "Filter works"
 msgstr ""
 
-#: ../root/static/scripts/common/components/FilterForm.js:187
+#: ../root/static/scripts/common/components/FilterForm.js:188
 msgid "Setlist contains"
 msgstr ""
 
-#: ../root/static/scripts/common/components/FilterForm.js:310
+#: ../root/static/scripts/common/components/FilterForm.js:227
+msgid "Hide recordings that only appear on bootleg releases"
+msgstr "Slėpti įrašus, kurie pasirodo tik nelegaliuose leidiniuose"
+
+#: ../root/static/scripts/common/components/FilterForm.js:230
+msgid "Hide bootleg-only"
+msgstr "Slėpti tik nelegalus"
+
+#: ../root/static/scripts/common/components/FilterForm.js:328
 msgid "Secondary type"
-msgstr ""
+msgstr "Antrinis tipas"
 
 #: ../root/static/scripts/common/components/FingerprintTable.js:69
 msgid "Error loading AcoustIDs: {error}"
@@ -14299,7 +14274,7 @@ msgid "{start_track}–{end_track}"
 msgstr ""
 
 #: ../root/static/scripts/common/components/StaticRelationshipsDisplay.js:93
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:276
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:273
 msgid "{num}. {relationship}"
 msgstr ""
 
@@ -14576,24 +14551,12 @@ msgctxt "artist end date"
 msgid "Ended"
 msgstr ""
 
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:63
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:66
 msgid "This person is deceased."
 msgstr ""
 
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:74
-msgid "Dissolved:"
-msgstr ""
-
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:75
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:78
 msgid "This group has dissolved."
-msgstr ""
-
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:77
-msgid "Founded in:"
-msgstr ""
-
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:77
-msgid "Dissolved in:"
 msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:386
@@ -14632,8 +14595,8 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:662
 #: ../root/static/scripts/edit/URLCleanup.js:925
-#: ../root/static/scripts/edit/URLCleanup.js:4317
-#: ../root/static/scripts/edit/URLCleanup.js:5431
+#: ../root/static/scripts/edit/URLCleanup.js:4318
+#: ../root/static/scripts/edit/URLCleanup.js:5435
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -14691,15 +14654,15 @@ msgstr ""
 "(„{album_url_pattern}“ arba „{single_url_pattern}“) ir nedvejodamas (-a) "
 "pridėk šio profilio nuorodą atitinkamam atlikėjui ar įrašų kompanijai."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1532
+#: ../root/static/scripts/edit/URLCleanup.js:1533
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1534
+#: ../root/static/scripts/edit/URLCleanup.js:1535
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2292
+#: ../root/static/scripts/edit/URLCleanup.js:2293
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
@@ -14707,275 +14670,286 @@ msgstr ""
 "Discogs „{master_url_pattern}“ nuorodos grupuoja kelis leidinius, todėl tai "
 "turėtų būti pridėta į leidinių grupę."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2983
+#: ../root/static/scripts/edit/URLCleanup.js:2984
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3001
+#: ../root/static/scripts/edit/URLCleanup.js:3002
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3046
+#: ../root/static/scripts/edit/URLCleanup.js:3047
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3074
+#: ../root/static/scripts/edit/URLCleanup.js:3075
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3099
+#: ../root/static/scripts/edit/URLCleanup.js:3100
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4214
+#: ../root/static/scripts/edit/URLCleanup.js:4215
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4926
+#: ../root/static/scripts/edit/URLCleanup.js:4930
 msgid "Only RYM music videos can be linked to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4988
+#: ../root/static/scripts/edit/URLCleanup.js:4992
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5608
+#: ../root/static/scripts/edit/URLCleanup.js:5612
 msgid "Please link to Threads profiles, not threads."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5742
+#: ../root/static/scripts/edit/URLCleanup.js:5746
 msgid "Please link to TikTok profiles, not videos."
 msgstr "Pateik nuorodas į TikTok profilius, o ne vaizdo įrašus."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6009
+#: ../root/static/scripts/edit/URLCleanup.js:6013
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6023
+#: ../root/static/scripts/edit/URLCleanup.js:6027
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6041
+#: ../root/static/scripts/edit/URLCleanup.js:6045
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6247
+#: ../root/static/scripts/edit/URLCleanup.js:6251
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6424
+#: ../root/static/scripts/edit/URLCleanup.js:6428
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6444
+#: ../root/static/scripts/edit/URLCleanup.js:6448
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6465
+#: ../root/static/scripts/edit/URLCleanup.js:6469
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6483
+#: ../root/static/scripts/edit/URLCleanup.js:6487
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6495
+#: ../root/static/scripts/edit/URLCleanup.js:6499
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6562
+#: ../root/static/scripts/edit/URLCleanup.js:6566
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6587
+#: ../root/static/scripts/edit/URLCleanup.js:6591
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6752
+#: ../root/static/scripts/edit/URLCleanup.js:6756
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6792
+#: ../root/static/scripts/edit/URLCleanup.js:6796
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6837
+#: ../root/static/scripts/edit/URLCleanup.js:6841
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6873
+#: ../root/static/scripts/edit/URLCleanup.js:6877
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6883
+#: ../root/static/scripts/edit/URLCleanup.js:6887
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6893
+#: ../root/static/scripts/edit/URLCleanup.js:6897
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6936
+#: ../root/static/scripts/edit/URLCleanup.js:6940
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6948
+#: ../root/static/scripts/edit/URLCleanup.js:6952
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7159
+#: ../root/static/scripts/edit/URLCleanup.js:7163
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7176
+#: ../root/static/scripts/edit/URLCleanup.js:7180
 #: ../root/static/scripts/edit/externalLinks.js:1073
 msgid "This relationship type combination is invalid."
 msgstr ""
 
 #: ../root/static/scripts/edit/check-duplicates.js:156
 #: ../root/static/scripts/edit/externalLinks.js:748
-#: ../root/static/scripts/release/components/EditWorkDialog.js:175
+#: ../root/static/scripts/release/components/EditWorkDialog.js:178
 msgid "Required field."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/AddEntityDialog.js:15
+#: ../root/static/scripts/edit/components/AddEntityDialog.js:20
 msgid "Add a new area"
 msgstr "Pridėti naują teritoriją"
 
-#: ../root/static/scripts/edit/components/AddEntityDialog.js:16
+#: ../root/static/scripts/edit/components/AddEntityDialog.js:21
 msgid "Add a new artist"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/AddEntityDialog.js:17
+#: ../root/static/scripts/edit/components/AddEntityDialog.js:22
 msgid "Add a new event"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/AddEntityDialog.js:18
+#: ../root/static/scripts/edit/components/AddEntityDialog.js:23
 msgid "Add a new instrument"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/AddEntityDialog.js:19
+#: ../root/static/scripts/edit/components/AddEntityDialog.js:24
 msgid "Add a new label"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/AddEntityDialog.js:20
+#: ../root/static/scripts/edit/components/AddEntityDialog.js:25
 msgid "Add a new place"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/AddEntityDialog.js:22
+#: ../root/static/scripts/edit/components/AddEntityDialog.js:27
 msgid "Add a new release group"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/AddEntityDialog.js:23
+#: ../root/static/scripts/edit/components/AddEntityDialog.js:28
 msgid "Add a new series"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/AddEntityDialog.js:24
+#: ../root/static/scripts/edit/components/AddEntityDialog.js:29
 msgid "Add a new work"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:60
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:49
+#, fuzzy
+#| msgid "All open edits"
+msgid "Copy credits"
+msgstr "Visi atviri redagavimai"
+
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:56
+#, fuzzy
+#| msgid "Enter edit"
+msgid "Paste credits"
+msgstr "Įvesti redagavimą"
+
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:92
 msgid ""
 "Use the following fields to enter artist name variations and multiple artist "
 "collaborations. See the {ac|Artist Credit} documentation for more "
 "information."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:76
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:129
 msgid "[missing track name]"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:79
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:133
 msgid "You haven’t entered a track name yet."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:80
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:134
 msgid "This track hasn’t been added yet."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:98
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:150
 msgid "Artist in MusicBrainz:"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:99
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:151
 msgid "Artist as credited:"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:100
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:152
 msgid "Join phrase:"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:124
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:175
 #, fuzzy
 #| msgid "Edit Artist Credit"
 msgctxt "interactive"
 msgid "Add artist credit"
 msgstr "Redaguoti atlikėjo kreditą"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:136
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:209
 msgid "Change all artists on this release that match “{name}”"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:140
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:213
 msgid "Change all artists on this release that are currently empty"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:151
-#, fuzzy
-#| msgid "All open edits"
-msgid "Copy credits"
-msgstr "Visi atviri redagavimai"
+#: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:145
+msgid "[removed]"
+msgstr "[pašalinta]"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:158
+#: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:182
 #, fuzzy
-#| msgid "Enter edit"
-msgid "Paste credits"
-msgstr "Įvesti redagavimą"
+#| msgid "Edit Artist Credit"
+msgctxt "interactive"
+msgid "Undo artist credit removal"
+msgstr "Redaguoti atlikėjo kreditą"
 
-#: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:130
+#: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:189
 #, fuzzy
 #| msgid "Remove area"
 msgctxt "interactive"
@@ -15003,12 +14977,12 @@ msgstr ""
 msgid "This entity has open edits."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:219
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:218
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:202
 msgid "This relationship has ended."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:259
+#: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:258
 #, fuzzy
 #| msgid "Edit Attribute"
 msgctxt "interactive"
@@ -15122,11 +15096,11 @@ msgid ""
 "strategy include the following, whose artists differ:"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/URLInputPopover.js:97
+#: ../root/static/scripts/edit/components/URLInputPopover.js:96
 msgid "Cleaned up to"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/URLInputPopover.js:148
+#: ../root/static/scripts/edit/components/URLInputPopover.js:147
 #, fuzzy
 #| msgid "Edit URL"
 msgctxt "interactive"
@@ -15143,9 +15117,9 @@ msgstr "Visi atviri redagavimai"
 msgid "Credited to"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/forms.js:104
+#: ../root/static/scripts/edit/components/forms.js:220
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
-#: ../root/static/scripts/release-editor/init.js:278
+#: ../root/static/scripts/release-editor/init.js:273
 msgid "All of your changes will be lost if you leave this page."
 msgstr ""
 
@@ -15197,7 +15171,7 @@ msgid "Please select a link type for the URL you’ve entered."
 msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:829
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:991
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1007
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:544
 msgid "This relationship already exists."
 msgstr ""
@@ -15258,7 +15232,7 @@ msgid "This URL is not allowed for works."
 msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:1200
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:322
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:332
 msgid "{description} ({url|more documentation})"
 msgstr ""
 
@@ -15335,24 +15309,24 @@ msgstr ""
 msgid "Leave"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:39
+#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:41
 #, fuzzy
 #| msgid "Add Instrument"
 msgctxt "interactive"
 msgid "Add instrument"
 msgstr "Pridėti instrumentą"
 
-#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:40
+#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:43
 msgid "Add vocal"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:167
-msgid "This attribute is required."
-msgstr ""
-
-#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:239
+#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:45
 msgctxt "relationship attribute"
 msgid "Add another"
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:173
+msgid "This attribute is required."
 msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:217
@@ -15418,11 +15392,11 @@ msgstr ""
 msgid "This relationship type is not allowed with the current series type."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:126
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:136
 msgid "Type or click to search"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:309
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:319
 msgid "Please select a relationship type. ({url|more documentation})"
 msgstr ""
 
@@ -15466,17 +15440,17 @@ msgstr ""
 msgid "Related type"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:906
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:918
 msgid ""
 "Warning: This relationship has open edits. {show|Click here} to view these "
 "edits and make sure they do not conflict with your own."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1011
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1027
 msgid "This will add a relationship to all checked recordings."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1014
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1030
 msgid "This will add a relationship to all checked works."
 msgstr ""
 
@@ -15488,18 +15462,18 @@ msgstr ""
 msgid "{target} (as {credited_name})"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:188
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:186
 #, fuzzy
 #| msgid "Edit Relationship Type"
 msgctxt "header"
 msgid "Edit relationship"
 msgstr "Redaguoti sąsajos tipą"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:254
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:251
 msgid "Move entity down"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:261
+#: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:258
 msgid "Move entity up"
 msgstr ""
 
@@ -15551,25 +15525,25 @@ msgstr ""
 msgid "Add another work"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:170
-#: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:54
-#: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:70
-#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:408
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:168
+#: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:52
+#: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:68
+#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:402
 #, fuzzy
 #| msgid "Find Relationships"
 msgctxt "header"
 msgid "Add relationship"
 msgstr "Rasti santykius"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:272
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:269
 msgid "no type"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:311
+#: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:308
 msgid "These relationships have a specific ordering"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:109
+#: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:107
 #, fuzzy
 #| msgid "Find Relationships"
 msgctxt "interactive"
@@ -15599,7 +15573,7 @@ msgid ""
 "continue?"
 msgstr ""
 
-#: ../root/static/scripts/release-editor/bindingHandlers.js:31
+#: ../root/static/scripts/release-editor/bindingHandlers.js:37
 msgid ""
 "This medium has one or more discids which prevent this information from "
 "being changed."
@@ -15645,15 +15619,15 @@ msgstr ""
 msgid "Error loading release: {error}"
 msgstr ""
 
-#: ../root/static/scripts/release-editor/init.js:231
-#: ../root/static/scripts/release-editor/init.js:232
+#: ../root/static/scripts/release-editor/init.js:226
+#: ../root/static/scripts/release-editor/init.js:227
 #, fuzzy
 #| msgid "Edit area"
 msgctxt "header"
 msgid "Edit release"
 msgstr "Redaguoti teritoriją"
 
-#: ../root/static/scripts/release-editor/trackParser.js:497
+#: ../root/static/scripts/release-editor/trackParser.js:502
 msgid "Invalid regular expression."
 msgstr ""
 
@@ -15731,28 +15705,28 @@ msgstr "Įvesta data yra netinkama."
 msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
 msgstr ""
 
-#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:236
+#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:239
 msgid ""
 "This will add a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
 msgstr ""
 
-#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:241
+#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:244
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to add, and are certain they do not already exist on MusicBrainz."
 msgstr ""
 
-#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:323
-#: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:94
+#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:325
+#: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:92
 msgid "To use this tool, select some recordings using the checkboxes below."
 msgstr ""
 
-#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:334
+#: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:336
 msgid "Batch-add new works"
 msgstr ""
 
-#: ../root/static/scripts/release/components/EditWorkDialog.js:162
+#: ../root/static/scripts/release/components/EditWorkDialog.js:164
 #, fuzzy
 #| msgid "Editor"
 msgctxt "header"
@@ -15784,23 +15758,23 @@ msgstr ""
 msgid "Recording artist:"
 msgstr ""
 
-#: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:101
+#: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:99
 msgid "To use this tool, select some works using the checkboxes below."
 msgstr ""
 
-#: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:145
+#: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:142
 msgid "Batch-add a relationship to recordings"
 msgstr ""
 
-#: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:147
+#: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:144
 msgid "[selected recording]"
 msgstr ""
 
-#: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:173
+#: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:170
 msgid "Batch-add a relationship to works"
 msgstr ""
 
-#: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:175
+#: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:172
 msgid "[selected work]"
 msgstr ""
 
@@ -15837,11 +15811,11 @@ msgstr "Rasti santykius"
 msgid "Release group relationships"
 msgstr "Išsami informacija apie leidinių grupę"
 
-#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:343
+#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:340
 msgid "Error loading work relationships: {error}"
 msgstr ""
 
-#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:428
+#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:422
 msgid "Add related work"
 msgstr ""
 
@@ -16200,19 +16174,19 @@ msgstr "Teritorijos informacija"
 msgid "URL details"
 msgstr "Išsami informacija apie URL"
 
-#: ../root/user/ContactUser.js:53
+#: ../root/user/ContactUser.js:51
 msgid "Subject:"
 msgstr ""
 
-#: ../root/user/ContactUser.js:61 ../root/user/ReportUser.js:147
+#: ../root/user/ContactUser.js:59 ../root/user/ReportUser.js:147
 msgid "Message"
 msgstr ""
 
-#: ../root/user/ContactUser.js:68
+#: ../root/user/ContactUser.js:66
 msgid "Reveal my email address"
 msgstr ""
 
-#: ../root/user/ContactUser.js:74 ../root/user/ReportUser.js:173
+#: ../root/user/ContactUser.js:72 ../root/user/ReportUser.js:173
 msgid "Send a copy to my own email address"
 msgstr ""
 
@@ -17431,6 +17405,51 @@ msgstr ""
 "<strong>Įspėjimas:</strong> Kai kurių kūrinių, kuriuos sujungi, ISWC "
 "skirtingi. Įsitikink, kad tai tikrai tie patys kūriniai ir nori tęsti "
 "sujungimą."
+
+#, fuzzy
+#~| msgid "Remove area"
+#~ msgctxt "header"
+#~ msgid "Remove area"
+#~ msgstr "Pašalinti teritoriją"
+
+#~ msgid ""
+#~ "This area cannot be removed because it is one of the areas that can be "
+#~ "used as a release country."
+#~ msgstr ""
+#~ "Ši teritorija negali būti pašalinta, nes ji yra viena iš teritorijų, kuri "
+#~ "gali būti naudojama kaip leidinio šalis."
+
+#~ msgid ""
+#~ "This area cannot be removed because it is still in use (in artists, "
+#~ "labels, places, relationships or open edits)."
+#~ msgstr ""
+#~ "Šios teritorijos negalima pašalinti, nes ji vis dar naudojama (atlikėjų, "
+#~ "leidyklų, vietų, santykių ar atvirų redagavimų)."
+
+#, fuzzy
+#~| msgid "Instrument"
+#~ msgctxt "header"
+#~ msgid "Remove instrument"
+#~ msgstr "Instrumentas"
+
+#~ msgid "Merge areas"
+#~ msgstr "Sujungti teritorijas"
+
+#~ msgid ""
+#~ "You are about to merge all these areas into a single one. Please select "
+#~ "the area all others should be merged into:"
+#~ msgstr ""
+#~ "Netrukus sujungsi visas šias teritorijas į vieną. Pasirink teritoriją, į "
+#~ "kurią turėtų būti sujungtos visos kitos:"
+
+#~ msgid "Begin area:"
+#~ msgstr "Pradžios teritorija:"
+
+#~ msgid "End area:"
+#~ msgstr "Pabaigos teritorija:"
+
+#~ msgid "Please provide a medium ID"
+#~ msgstr "Pateik laikmenos ID."
 
 #~ msgid "Time"
 #~ msgstr "Laikas"

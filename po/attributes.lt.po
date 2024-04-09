@@ -6,9 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-06 11:28+0000\n"
-"Last-Translator: \"Vac31.\" <Vaclovas@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2024-04-09 15:04+0000\n"
+"Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/lt/>\n"
 "Language: lt\n"
@@ -18,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
 " n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -3853,252 +3852,252 @@ msgstr "ICE ID"
 #: DB:work_attribute_type/description:24
 msgctxt "work_attribute_type"
 msgid "ID for the Argentinean rights society SADAIC"
-msgstr ""
+msgstr "Argentinos teisių visuomenės SADAIC identifikatorius."
 
 #: DB:work_attribute_type/description:13
 msgctxt "work_attribute_type"
 msgid "ID for the Australasian rights society APRA"
-msgstr ""
+msgstr "Australazijos teisių visuomenei APRA identifikatorius."
 
 #: DB:work_attribute_type/description:23
 msgctxt "work_attribute_type"
 msgid "ID for the Austrian rights society AKM"
-msgstr ""
+msgstr "Austrijos teisių visuomenės AKM identifikatorius."
 
 #: DB:work_attribute_type/description:73
 msgctxt "work_attribute_type"
 msgid "ID for the Barbadian rights society COSCAP"
-msgstr ""
+msgstr "Barbadoso teisių visuomenės COSCAP identifikatorius."
 
 #: DB:work_attribute_type/description:28
 msgctxt "work_attribute_type"
 msgid "ID for the Belgian rights society SABAM"
-msgstr ""
+msgstr "Belgijos teisių visuomenės SABAM identifikatorius."
 
 #: DB:work_attribute_type/description:61
 msgctxt "work_attribute_type"
 msgid "ID for the Bolivian rights society SOBODAYCOM"
-msgstr ""
+msgstr "Bolivijos teisių visuomenės SOBODAYCOM identifikatorius."
 
 #: DB:work_attribute_type/description:37
 msgctxt "work_attribute_type"
 msgid "ID for the Brazilian rights society ECAD"
-msgstr ""
+msgstr "Brazilijos teisių visuomenės ECAD identifikatorius."
 
 #: DB:work_attribute_type/description:34
 msgctxt "work_attribute_type"
 msgid "ID for the British rights society PRS for Music"
-msgstr ""
+msgstr "Britų teisių visuomenės PRS for Music identifikatorius."
 
 #: DB:work_attribute_type/description:10
 msgctxt "work_attribute_type"
 msgid "ID for the Canadian rights society SOCAN"
-msgstr ""
+msgstr "Kanados teisių visuomenės SOCAN identifikatorius."
 
 #: DB:work_attribute_type/description:53
 msgctxt "work_attribute_type"
 msgid "ID for the Canadian rights society SODRAC"
-msgstr ""
+msgstr "Kanados teisių visuomenės SODRAC identifikatorius."
 
 #: DB:work_attribute_type/description:173
 msgctxt "work_attribute_type"
 msgid "ID for the Chilean rights society SCD"
-msgstr ""
+msgstr "Čilės teisių visuomenės SCD identifikatorius."
 
 #: DB:work_attribute_type/description:71
 msgctxt "work_attribute_type"
 msgid "ID for the Chinese rights society MCSC"
-msgstr ""
+msgstr "Kinijos teisių visuomenės MCSC identifikatorius."
 
 #: DB:work_attribute_type/description:39
 msgctxt "work_attribute_type"
 msgid "ID for the Colombian rights society SAYCO"
-msgstr ""
+msgstr "Kolumbijos teisių visuomenės SAYCO identifikatorius."
 
 #: DB:work_attribute_type/description:44
 msgctxt "work_attribute_type"
 msgid "ID for the Costa Rican rights society ACAM"
-msgstr ""
+msgstr "Kosta Rikos teisių visuomenės ACAM identifikatorius."
 
 #: DB:work_attribute_type/description:47
 msgctxt "work_attribute_type"
 msgid "ID for the Cuban rights society ACDAM"
-msgstr ""
+msgstr "Kubos teisių visuomenės ACDAM identifikatorius."
 
 #: DB:work_attribute_type/description:25
 msgctxt "work_attribute_type"
 msgid "ID for the Czech rights society OSA"
-msgstr ""
+msgstr "Čekijos teisių visuomenės OSA identifikatorius."
 
 #: DB:work_attribute_type/description:51
 msgctxt "work_attribute_type"
 msgid "ID for the Danish rights society KODA"
-msgstr ""
+msgstr "Danijos teisių visuomenės KODA identifikatorius."
 
 #: DB:work_attribute_type/description:60
 msgctxt "work_attribute_type"
 msgid "ID for the Dominican rights society SGACEDOM"
-msgstr ""
+msgstr "Dominikos teisių visuomenės SGACEDOM identifikatorius."
 
 #: DB:work_attribute_type/description:26
 msgctxt "work_attribute_type"
 msgid "ID for the Dutch rights society BUMA/STEMRA"
-msgstr ""
+msgstr "Olandijos teisių visuomenės BUMA/STEMRA identifikatorius."
 
 #: DB:work_attribute_type/description:40
 msgctxt "work_attribute_type"
 msgid "ID for the Ecuadorian rights society SAYCE"
-msgstr ""
+msgstr "Ekvadoro teisių visuomenės SAYCE identifikatorius."
 
 #: DB:work_attribute_type/description:66
 msgctxt "work_attribute_type"
 msgid "ID for the Finnish rights society TEOSTO"
-msgstr ""
+msgstr "Suomijos teisių visuomenės TEOSTO identifikatorius."
 
 #: DB:work_attribute_type/description:21
 msgctxt "work_attribute_type"
 msgid "ID for the French rights society Sacem"
-msgstr ""
+msgstr "Prancūzijos teisių visuomenės SACEM identifikatorius."
 
 #: DB:work_attribute_type/description:9
 msgctxt "work_attribute_type"
 msgid "ID for the German rights society GEMA"
-msgstr ""
+msgstr "Vokietijos teisių visuomenės GEMA identifikatorius."
 
 #: DB:work_attribute_type/description:58
 msgctxt "work_attribute_type"
 msgid "ID for the Guatemalan rights society AEI"
-msgstr ""
+msgstr "Gvatemalos teisių visuomenės AEI identifikatorius."
 
 #: DB:work_attribute_type/description:57
 msgctxt "work_attribute_type"
 msgid "ID for the Honduran rights society AACIMH"
-msgstr ""
+msgstr "Hondūro teisių visuomenės AACIMH identifikatorius."
 
 #: DB:work_attribute_type/description:19
 msgctxt "work_attribute_type"
 msgid "ID for the Hong Kong rights society CASH"
-msgstr ""
+msgstr "Honkongo teisių visuomenės CASH identifikatorius."
 
 #: DB:work_attribute_type/description:48
 msgctxt "work_attribute_type"
 msgid "ID for the Hungarian rights society ARTISJUS"
-msgstr ""
+msgstr "Vengrijos teisių visuomenės ARTISJUS identifikatorius."
 
 #: DB:work_attribute_type/description:54
 msgctxt "work_attribute_type"
 msgid "ID for the Icelandic rights society STEF"
-msgstr ""
+msgstr "Islandijos teisių visuomenės STEF identifikatorius."
 
 #: DB:work_attribute_type/description:70
 msgctxt "work_attribute_type"
 msgid "ID for the Indian rights society IPRS"
-msgstr ""
+msgstr "Indijos teisių visuomenės IPRS identifikatorius."
 
 #: DB:work_attribute_type/description:29
 msgctxt "work_attribute_type"
 msgid "ID for the International Copyright Enterprise"
-msgstr ""
+msgstr "International Copyright Enterprise (ICE) identifikatorius."
 
 #: DB:work_attribute_type/description:52
 msgctxt "work_attribute_type"
 msgid "ID for the Irish rights society IMRO"
-msgstr ""
+msgstr "Airijos teisių visuomenės IMRO identifikatorius."
 
 #: DB:work_attribute_type/description:206
 msgctxt "work_attribute_type"
 msgid "ID for the Israeli rights society ACUM"
-msgstr ""
+msgstr "Izraelio teisių visuomenės ACUM identifikatorius."
 
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"
 msgid "ID for the Italian rights society SIAE"
-msgstr ""
+msgstr "Italijos teisių visuomenės SIAE identifikatorius."
 
 #: DB:work_attribute_type/description:69
 msgctxt "work_attribute_type"
 msgid "ID for the Jamaican rights society JACAP"
-msgstr ""
+msgstr "Jamaikos teisių visuomenės JACAP identifikatorius."
 
 #: DB:work_attribute_type/description:3
 msgctxt "work_attribute_type"
 msgid "ID for the Japanese rights society JASRAC"
-msgstr ""
+msgstr "Japonijos teisių visuomenės JASRAC identifikatorius."
 
 #: DB:work_attribute_type/description:33
 msgctxt "work_attribute_type"
 msgid "ID for the Japanese rights society NexTone"
-msgstr ""
+msgstr "Japonijos teisių visuomenės NexTone identifikatorius."
 
 #: DB:work_attribute_type/description:11
 msgctxt "work_attribute_type"
 msgid "ID for the Korean rights society KOMCA"
-msgstr ""
+msgstr "Korėjos teisių visuomenės KOMCA identifikatorius."
 
 #: DB:work_attribute_type/description:63
 msgctxt "work_attribute_type"
 msgid "ID for the Latvian rights society AKKA/LAA"
-msgstr ""
+msgstr "Latvijos teisių visuomenės AKKA/LAA identifikatorius."
 
 #: DB:work_attribute_type/description:207
 msgctxt "work_attribute_type"
 msgid "ID for the Lithuanian rights society LATGA"
-msgstr "Identifikatorius Lietuvos teisių visuomenei LATGA."
+msgstr "Lietuvos teisių visuomenės LATGA identifikatorius."
 
 #: DB:work_attribute_type/description:49
 msgctxt "work_attribute_type"
 msgid "ID for the Malaysian rights society MACP"
-msgstr ""
+msgstr "Malaizijos teisių visuomenės MACP identifikatorius."
 
 #: DB:work_attribute_type/description:27
 msgctxt "work_attribute_type"
 msgid "ID for the Mexican rights society SACM"
-msgstr ""
+msgstr "Meksikos teisių visuomenės SACM identifikatorius."
 
 #: DB:work_attribute_type/description:59
 msgctxt "work_attribute_type"
 msgid "ID for the Nicaraguan rights society NICAUTOR"
-msgstr ""
+msgstr "Nikaragvos teisių visuomenės NICAUTOR identifikatorius."
 
 #: DB:work_attribute_type/description:67
 msgctxt "work_attribute_type"
 msgid "ID for the Norwegian rights society TONO"
-msgstr ""
+msgstr "Norvegijos teisių visuomenės TONO identifikatorius."
 
 #: DB:work_attribute_type/description:62
 msgctxt "work_attribute_type"
 msgid "ID for the Panamanian rights society SPAC"
-msgstr ""
+msgstr "Panamos teisių visuomenės SPAC identifikatorius."
 
 #: DB:work_attribute_type/description:46
 msgctxt "work_attribute_type"
 msgid "ID for the Paraguayan rights society APA"
-msgstr ""
+msgstr "Paragvajaus teisių visuomenės APA identifikatorius."
 
 #: DB:work_attribute_type/description:41
 msgctxt "work_attribute_type"
 msgid "ID for the Peruvian rights society APDAYC"
-msgstr ""
+msgstr "Peru teisių visuomenės APDAYC identifikatorius."
 
 #: DB:work_attribute_type/description:30
 msgctxt "work_attribute_type"
 msgid "ID for the Polish rights society ZAiKS"
-msgstr ""
+msgstr "Lenkijos teisių visuomenės ZAiKS identifikatorius."
 
 #: DB:work_attribute_type/description:35
 msgctxt "work_attribute_type"
 msgid "ID for the Portuguese rights society SPA"
-msgstr ""
+msgstr "Portugalijos teisių visuomenės SPA identifikatorius."
 
 #: DB:work_attribute_type/description:56
 msgctxt "work_attribute_type"
 msgid "ID for the Salvadoran rights society SACIM"
-msgstr ""
+msgstr "Salvadoro teisių visuomenės SACIM identifikatorius."
 
 #: DB:work_attribute_type/description:45
 msgctxt "work_attribute_type"
 msgid "ID for the Singaporean rights society COMPASS"
-msgstr ""
+msgstr "Singapūro teisių visuomenės COMPASS identifikatorius."
 
 #: DB:work_attribute_type/description:140
 msgctxt "work_attribute_type"
@@ -4198,17 +4197,17 @@ msgstr ""
 #: DB:work_attribute_type/name:52
 msgctxt "work_attribute_type"
 msgid "IMRO ID"
-msgstr ""
+msgstr "IMRO ID"
 
 #: DB:work_attribute_type/name:70
 msgctxt "work_attribute_type"
 msgid "IPRS ID"
-msgstr ""
+msgstr "IPRS ID"
 
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
 msgid "Identifiers"
-msgstr ""
+msgstr "Identifikatoriai"
 
 #: DB:work_attribute_type_allowed_value/value:832
 msgctxt "work_attribute_type_allowed_value"
@@ -4218,18 +4217,20 @@ msgstr ""
 #: DB:label_type/name:9
 msgctxt "label_type"
 msgid "Imprint"
-msgstr ""
+msgstr "Prekinis ženklas"
 
 #: DB:work_type/name:30
 msgctxt "work_type"
 msgid "Incidental music"
-msgstr ""
+msgstr "Sceninė muzika"
 
 #: DB:work_type/description:30
 msgctxt "work_type"
 msgid ""
 "Incidental music is music written as background for (usually) a theatre play."
 msgstr ""
+"Sceninė muzika – muzika, parašyta kaip fonas (dažniausiai) teatro "
+"spektakliui."
 
 #: DB:area_type/name:9
 msgctxt "area_type"

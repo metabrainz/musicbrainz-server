@@ -47,7 +47,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-07 14:28+0000\n"
+"PO-Revision-Date: 2024-03-27 19:28+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -6539,7 +6539,7 @@ msgstr "Prosa"
 #: DB:release_status/name:4
 msgctxt "release_status"
 msgid "Pseudo-Release"
-msgstr "Pseudo-Lanzamiento"
+msgstr "Pseudo-publicación"
 
 #: DB:label_type/name:7
 msgctxt "label_type"

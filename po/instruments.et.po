@@ -1400,6 +1400,11 @@ msgstr ""
 msgid "duduk"
 msgstr "duduk"
 
+#: DB:instrument/name:1203
+msgctxt "Czechian / Bohemian bagpipe"
+msgid "dudy"
+msgstr ""
+
 #: DB:instrument/name:1202
 msgctxt "Podhale bagpipe"
 msgid "dudy podhalanskie"
@@ -1445,6 +1450,11 @@ msgstr ""
 #: DB:instrument/name:596
 msgid "duxianqin"
 msgstr "dúxiánqín"
+
+#: DB:instrument/name:1204
+msgctxt "Lithuanian bagpipe"
+msgid "dūdmaišis"
+msgstr ""
 
 #: DB:instrument/name:327
 msgid "ebow"
@@ -2065,6 +2075,11 @@ msgstr ""
 #: DB:instrument/name:818
 msgctxt "fipple flute from Härjedalen, Sweden"
 msgid "härjedalspipa"
+msgstr ""
+
+#: DB:instrument/name:1205
+msgctxt "Small German Renaissance bagpipe"
+msgid "hümmelchen"
 msgstr ""
 
 #: DB:instrument/name:674
@@ -2779,6 +2794,11 @@ msgstr ""
 #: DB:instrument/name:540
 msgid "ney"
 msgstr "ney"
+
+#: DB:instrument/name:1206
+msgctxt "Iranian single reed bagpipe"
+msgid "neyanban"
+msgstr ""
 
 #: DB:instrument/name:783
 msgctxt "Māori taonga pūoro small vessel flute"

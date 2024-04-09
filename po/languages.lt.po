@@ -1,14 +1,13 @@
 #
 # Translators:
 # Vaclovas lntas (Vac.) <email address hidden>, 2023
-# "Vac31." <gateway_31@protonmail.com>, 2023.
+# "Vac31." <gateway_31@protonmail.com>, 2023, 2024.
 # "Vac31." <Vaclovas@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-02-26 21:28+0000\n"
-"Last-Translator: \"Vac31.\" <Vaclovas@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2024-03-17 01:28+0000\n"
+"Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/lt/>\n"
 "Language: lt\n"
@@ -28,27 +27,27 @@ msgstr "abchazų"
 #. frequency:1 iso_code_3:ace 
 #: DB:language/name:3
 msgid "Achinese"
-msgstr "Ačėnų"
+msgstr "ačenų"
 
 #. frequency:1 iso_code_3:ach 
 #: DB:language/name:4
 msgid "Acoli"
-msgstr "Akolų"
+msgstr "akolų"
 
 #. frequency:1 iso_code_3:ada 
 #: DB:language/name:5
 msgid "Adangme"
-msgstr "Adangmių"
+msgstr "adangmių"
 
 #. frequency:1 iso_code_3:ady 
 #: DB:language/name:6
 msgid "Adyghe"
-msgstr "Adygų"
+msgstr "adygų"
 
 #. frequency:1 iso_code_3:aar 
 #: DB:language/name:1
 msgid "Afar"
-msgstr "Afarų"
+msgstr "afarų"
 
 #. frequency:1 iso_code_3:afh 
 #: DB:language/name:8

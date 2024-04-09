@@ -2,18 +2,20 @@
 # Translators:
 # Hyeon-ho Shin <email address hidden>, 2017
 # SGR Cloud <email address hidden>, 2017
+# ypkim <ypkim.mail@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:20+0000\n"
-"Last-Translator: SGR Cloud <radiomaniamk@gmail.com>, 2017\n"
-"Language-Team: Korean (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/ko/)\n"
+"PO-Revision-Date: 2024-04-08 09:28+0000\n"
+"Last-Translator: ypkim <ypkim.mail@gmail.com>\n"
+"Language-Team: Korean <https://translations.metabrainz.org/projects/"
+"musicbrainz/countries/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.4\n"
 
 #. iso.code:AF 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:1
@@ -303,7 +305,7 @@ msgstr "키프로스"
 #. iso.code:CZ 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:56
 msgid "Czechia"
-msgstr ""
+msgstr "체코"
 
 #. iso.code:XC 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:245
@@ -378,7 +380,7 @@ msgstr "에스토니아"
 #. iso.code:SZ 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:201
 msgid "Eswatini"
-msgstr ""
+msgstr "에스와티니"
 
 #. iso.code:ET 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:68
@@ -853,7 +855,7 @@ msgstr "북한"
 #. iso.code:MK 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:126
 msgid "North Macedonia"
-msgstr ""
+msgstr "북마케도니아"
 
 #. iso.code:MP 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:159
@@ -1198,7 +1200,7 @@ msgstr "투발루"
 #. iso.code:TR 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:214
 msgid "Türkiye"
-msgstr ""
+msgstr "터키"
 
 #. iso.code:VI 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:231
