@@ -10,31 +10,29 @@
 import HistoricReleaseList
   from '../../components/HistoricReleaseList.js';
 
-type Props = {
-  +edit: AddTrackOldHistoricEditT,
-};
+component AddTrackOld(edit: AddTrackOldHistoricEditT) {
+  return (
+    <table className="details add-track">
+      <HistoricReleaseList releases={edit.display_data.releases} />
 
-const AddTrackOld = ({edit}: Props): React$Element<'table'> => (
-  <table className="details add-track">
-    <HistoricReleaseList releases={edit.display_data.releases} />
-
-    <tr>
-      <th>{addColonText(l('Name'))}</th>
-      <td>{edit.display_data.name}</td>
-    </tr>
-
-    {nonEmpty(edit.display_data.artist_name) ? (
       <tr>
-        <th>{l('Artist name:')}</th>
-        <td>{edit.display_data.artist_name}</td>
+        <th>{addColonText(l('Name'))}</th>
+        <td>{edit.display_data.name}</td>
       </tr>
-    ) : null}
 
-    <tr>
-      <th>{addColonText(l('Track number'))}</th>
-      <td>{edit.display_data.position}</td>
-    </tr>
-  </table>
-);
+      {nonEmpty(edit.display_data.artist_name) ? (
+        <tr>
+          <th>{l('Artist name:')}</th>
+          <td>{edit.display_data.artist_name}</td>
+        </tr>
+      ) : null}
+
+      <tr>
+        <th>{addColonText(l('Track number'))}</th>
+        <td>{edit.display_data.position}</td>
+      </tr>
+    </table>
+  );
+}
 
 export default AddTrackOld;

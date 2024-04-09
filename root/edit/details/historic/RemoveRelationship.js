@@ -10,33 +10,31 @@
 import {HistoricRelationship}
   from '../../../static/scripts/common/components/Relationship.js';
 
-type Props = {
-  +edit: RemoveRelationshipHistoricEditT,
-};
-
-const RemoveRelationship = ({edit}: Props): React$Element<'table'> => (
-  <table className="details remove-relationship-historic">
-    <tr>
-      {edit.display_data.relationships.length ? (
-        <>
-          <th>{addColonText(l('Relationships'))}</th>
+component RemoveRelationship(edit: RemoveRelationshipHistoricEditT) {
+  return (
+    <table className="details remove-relationship-historic">
+      <tr>
+        {edit.display_data.relationships.length ? (
+          <>
+            <th>{addColonText(l('Relationships'))}</th>
+            <td>
+              <ul>
+                {edit.display_data.relationships.map(relationship => (
+                  <li key={relationship.id}>
+                    <HistoricRelationship relationship={relationship} />
+                  </li>
+                ))}
+              </ul>
+            </td>
+          </>
+        ) : (
           <td>
-            <ul>
-              {edit.display_data.relationships.map(relationship => (
-                <li key={relationship.id}>
-                  <HistoricRelationship relationship={relationship} />
-                </li>
-              ))}
-            </ul>
+            {l('An error occurred while loading this edit.')}
           </td>
-        </>
-      ) : (
-        <td>
-          {l('An error occurred while loading this edit.')}
-        </td>
-      )}
-    </tr>
-  </table>
-);
+        )}
+      </tr>
+    </table>
+  );
+}
 
 export default RemoveRelationship;

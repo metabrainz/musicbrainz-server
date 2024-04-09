@@ -23,13 +23,7 @@ import {
 import {interpolateText}
   from '../../../static/scripts/edit/utility/linkPhrase.js';
 
-type Props = {
-  +edit: EditRelationshipHistoricEditT,
-};
-
-const EditRelationship = ({
-  edit,
-}: Props): React.MixedElement => {
+component EditRelationship(edit: EditRelationshipHistoricEditT) {
   const oldRels = edit.display_data.relationship.old;
   const newRels = edit.display_data.relationship.new;
   const isDataBroken = oldRels.length !== newRels.length;
@@ -193,6 +187,6 @@ const EditRelationship = ({
       </table>
     </>
   );
-};
+}
 
 export default EditRelationship;
