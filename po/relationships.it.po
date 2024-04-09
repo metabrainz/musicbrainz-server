@@ -20,7 +20,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-12 04:28+0000\n"
+"PO-Revision-Date: 2024-03-31 15:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -29,8 +29,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: DB:link_attribute_type/description:1355
@@ -87,13 +87,13 @@ msgid ""
 "post. Examples include Facebook pages and profiles, Last.fm users and "
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Una pagina di social network è la pagina di artista su un <a href=\"https://"
-"it.wikipedia.org/wiki/Social_network\" target=\"_blank\">social network</a>, "
-"dove solo l'artista (o chi lo gestisce) può postare contenuti. Altre persone "
-"possono creare i loro profili e interagire con l'artista, ad esempio "
-"aggiungendoli come amici o commentando le cose che posta. Alcuni esempi sono "
-"pagine e profili Facebook, utenti Last.fm e account su Twitter, Instagram e "
-"Flickr."
+"Una pagina di social network è la pagina di un artista su un <a href=\"https"
+"://it.wikipedia.org/wiki/Social_network\" target=\"_blank\">social network</"
+"a>, dove solo l'artista (o i suoi agenti) può postare contenuti. Altre "
+"persone possono creare il proprio profilo e interagire con l'artista, ad "
+"esempio aggiungendoli come amici o commentando le cose che posta. Alcuni "
+"esempi sono pagine e profili Facebook, utenti Last.fm e account su Twitter, "
+"Instagram e Flickr."
 
 #: DB:link_type/description:783
 msgid ""
@@ -1399,14 +1399,14 @@ msgstr ""
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written at {entity0}"
 msgstr ""
-"Il testo di {entity1} è stato scritto {additional:in aggiunta} presso "
+"I testi di {entity1} sono stati scritti {additional:in aggiunta} presso "
 "{entity0}"
 
 #: DB:link_type/long_link_phrase:877
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written in {entity0}"
 msgstr ""
-"Il testo di {entity1} è stato scritto {additional:in aggiunta} a {entity0}"
+"I testi di {entity1} sono stati scritti {additional:in aggiunta} a {entity0}"
 
 #: DB:link_type/long_link_phrase:274
 msgid "The score for {entity1} can be downloaded for free at {entity0}"
@@ -1484,8 +1484,8 @@ msgid ""
 "humorous intent. Parodies in most cases have altered lyrics."
 msgstr ""
 "Quest'attributo indica una versione con intenti satirici, ironici o comunque "
-"umoristici. Le parodie hanno nella maggior parte dei casi un testo "
-"modificato."
+"umoristici. Le parodie hanno nella maggior parte dei casi dei testi "
+"modificati."
 
 #: DB:link_attribute_type/description:525
 msgid ""
@@ -1501,9 +1501,9 @@ msgid ""
 "freely, from the original language. This does not apply if an entirely new "
 "set of lyrics have been set to an existing melody."
 msgstr ""
-"Quest'attributo indica che il testo è stato tradotto, letteralmente o "
-"liberamente, dalla lingua originale. Non si applica se un testo "
-"completamente nuovo è stato aggiunto a una melodia esistente."
+"Quest'attributo indica che i testi sono stati tradotti, letteralmente o "
+"liberamente, dalla lingua originale. Non si applica se dei testi "
+"completamente nuovi sono stati aggiunti a una melodia esistente."
 
 #: DB:link_attribute_type/description:582
 msgid ""
@@ -1547,23 +1547,19 @@ msgstr ""
 "esecuzione."
 
 #: DB:link_type/description:1243
-#, fuzzy
-#| msgid ""
-#| "This credits a person or agency whose photographs are included as part of "
-#| "a recording."
 msgid ""
 "This credits a person or agency who worked on animation for a video "
 "recording."
 msgstr ""
-"Accredita la persona o l'agenzia le cui fotografie sono incluse come parte "
-"di una registrazione."
+"Accredita una persona o un'agenzia che ha lavorato sulle animazioni di una "
+"registrazione video."
 
 #: DB:link_type/description:123
 msgid ""
 "This credits a person or agency whose photographs are included as part of a "
 "recording."
 msgstr ""
-"Accredita la persona o l'agenzia le cui fotografie sono incluse come parte "
+"Accredita una persona o un'agenzia le cui fotografie sono incluse come parte "
 "di una registrazione."
 
 #: DB:link_type/description:134
@@ -1924,7 +1920,7 @@ msgstr ""
 #: DB:link_type/description:18
 msgid "This indicates an artist that did the art direction for the release."
 msgstr ""
-"Indica una persona che ha curato la direzione artistica della pubblicazione."
+"Indica un artista che ha curato la direzione artistica della pubblicazione."
 
 #: DB:link_type/description:1236
 msgid "This indicates an artist that did the sound effects for the recording."
@@ -2427,14 +2423,12 @@ msgstr ""
 "Indica che l'artista è stato il coreografo per questa registrazione video."
 
 #: DB:link_type/description:1245
-#, fuzzy
-#| msgid ""
-#| "This indicates the artist was the choreographer for this video recording."
 msgid ""
 "This indicates the artist was the cinematographer / director of photography "
 "for this video recording."
 msgstr ""
-"Indica che l'artista è stato il coreografo per questa registrazione video."
+"Indica che l'artista è stato il direttore della fotografia per questa "
+"registrazione video."
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
@@ -3043,7 +3037,7 @@ msgid ""
 "requirement. For a work that includes significantly more of another than "
 "just a brief quotation, consider using “based on” instead."
 msgstr ""
-"Indica che un'opera comprende una breve citazione del testo di un'altra "
+"Indica che un'opera comprende una breve citazione dei testi di un'altra "
 "opera. Nella maggior parte dei casi la citazione non è accreditata, ma "
 "questo non è un requisito. Se l'opera comprende una parte di un'altra opera "
 "significativamente più grande di una breve citazione, valuta la possibilità "
@@ -3340,11 +3334,11 @@ msgid ""
 "relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" "
 "target=\"_blank\">tribute relationship</a>."
 msgstr ""
-"Collega un gruppo di pubblicazioni all'artista a cui è dedicato. Si "
+"Collega un gruppo di pubblicazioni a un artista a cui è dedicato. Si "
 "riferisce a dediche come per es. \"Quest'album è dedicato alla memoria di "
 "Artista\". Per album tributo che contengono cover dell'artista, utilizza la "
-"<a href=\"/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" "
-"target=\"_blank\">relazione tributo</a>."
+"<a href=\"/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" target="
+"\"_blank\">relazione tributo</a>."
 
 #: DB:link_type/description:65
 msgid ""
@@ -3558,7 +3552,7 @@ msgstr "Collega un'opera all'area in cui ne è stato scritto il libretto."
 
 #: DB:link_type/description:877
 msgid "This links a work with the area its lyrics were written in."
-msgstr "Collega un'opera all'area in cui è stato scritto il suo testo."
+msgstr "Collega un'opera all'area in cui sono stati scritti i suoi testi."
 
 #: DB:link_type/description:886
 msgid "This links a work with the place it was arranged at."
@@ -3586,7 +3580,7 @@ msgstr "Collega un'opera al luogo in cui ne è stato scritto il libretto."
 
 #: DB:link_type/description:878
 msgid "This links a work with the place its lyrics were written at."
-msgstr "Collega un'opera al luogo in cui è stato scritto il suo testo."
+msgstr "Collega un'opera al luogo in cui sono stati scritti i suoi testi."
 
 #: DB:link_type/description:292
 msgid "This links an (fictional) artist to the person that voice acted it."
@@ -5163,10 +5157,8 @@ msgid "amount"
 msgstr "quantità"
 
 #: DB:link_type/name:1243
-#, fuzzy
-#| msgid "improvisation"
 msgid "animation"
-msgstr "improvvisazione"
+msgstr "animazioni"
 
 #: DB:link_attribute_type/name:1079
 msgid "anniversary"
@@ -5508,16 +5500,12 @@ msgid "chorus master"
 msgstr "maestro del coro"
 
 #: DB:link_type/name:1245 DB:link_type/reverse_link_phrase:1245
-#, fuzzy
-#| msgid "choreographer"
 msgid "cinematographer"
-msgstr "coreografo"
+msgstr "direttore della fotografia"
 
 #: DB:link_type/link_phrase:1245
-#, fuzzy
-#| msgid "discography entry for"
 msgid "cinematographer for"
-msgstr "voce della discografia per"
+msgstr "direttore della fotografia per"
 
 #: DB:link_attribute_type/name:1204
 msgid "classical music"
@@ -6511,7 +6499,7 @@ msgstr "ha la sua storia presentata su"
 #: DB:link_type/long_link_phrase:93 DB:link_type/long_link_phrase:197
 #: DB:link_type/long_link_phrase:982
 msgid "has lyrics available at"
-msgstr "ha il testo disponibile su"
+msgstr "ha i testi disponibili su"
 
 #: DB:link_type/long_link_phrase:857
 msgid "has music video"
@@ -7149,15 +7137,15 @@ msgstr "pagina di testi di"
 
 #: DB:link_type/reverse_link_phrase:1047
 msgid "lyrics quoted in"
-msgstr "testo citato in"
+msgstr "testi citati in"
 
 #: DB:link_type/name:878
 msgid "lyrics written at"
-msgstr "testo scritto presso"
+msgstr "testi scritti presso"
 
 #: DB:link_type/name:877
 msgid "lyrics written in"
-msgstr "testo scritto a"
+msgstr "testi scritti a"
 
 #: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:960
 #: DB:link_type/reverse_link_phrase:175
@@ -7963,10 +7951,8 @@ msgid "provided legal representation for"
 msgstr "ha fornito rappresentanza legale per"
 
 #: DB:link_type/long_link_phrase:1243
-#, fuzzy
-#| msgid "provided {additional} illustration on"
 msgid "provided {additional} animation on"
-msgstr "ha curato le illustrazioni {additional:aggiuntive} di"
+msgstr "ha curato le animazioni {additional:aggiuntive} di"
 
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:1174
 msgid "provided {additional} art direction on"
@@ -8072,7 +8058,7 @@ msgstr "purevolume"
 
 #: DB:link_type/link_phrase:1047 DB:link_type/long_link_phrase:1047
 msgid "quotes lyrics from"
-msgstr "cita il testo di"
+msgstr "cita i testi di"
 
 #: DB:link_type/link_phrase:1046 DB:link_type/long_link_phrase:1046
 msgid "quotes music from"
@@ -8881,10 +8867,8 @@ msgid "was an orchestra at"
 msgstr "è stata un'orchestra presso"
 
 #: DB:link_type/long_link_phrase:1245
-#, fuzzy
-#| msgid "was {assistant} choreographer for"
 msgid "was cinematographer for"
-msgstr "è stato {assistant:assistente} coreografo per"
+msgstr "è stato direttore della fotografia per"
 
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
 #: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
@@ -9171,7 +9155,7 @@ msgstr "ha scritto {additional:in aggiunta} il libretto di"
 
 #: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
 msgid "{additional:additionally} wrote the lyrics for"
-msgstr "ha scritto il testo {additional:in aggiunta} per"
+msgstr "ha scritto i testi {additional:in aggiunta} per"
 
 #: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
 #: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
@@ -9323,10 +9307,8 @@ msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr "{pre:pre-}{re}mastering effettuato {additional:in aggiunta} a"
 
 #: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
-#, fuzzy
-#| msgid "{additional} illustration"
 msgid "{additional} animation"
-msgstr "illustrazioni {additional:aggiuntive}"
+msgstr "animazioni {additional:aggiuntive}"
 
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
@@ -9417,7 +9399,7 @@ msgstr "paroliere {additional:aggiunto}"
 
 #: DB:link_type/link_phrase:56 DB:link_type/link_phrase:165
 msgid "{additional} lyrics"
-msgstr "testo {additional:aggiuntivo}"
+msgstr "testi {additional:aggiuntivi}"
 
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
 msgid "{additional} lyrics writing location for"
@@ -9425,11 +9407,11 @@ msgstr "luogo di scrittura dei testi {additional:aggiuntivi} per"
 
 #: DB:link_type/reverse_link_phrase:878
 msgid "{additional} lyrics written at"
-msgstr "testo {additional:aggiuntivo} scritto presso"
+msgstr "testi {additional:aggiuntivi} scritti presso"
 
 #: DB:link_type/reverse_link_phrase:877
 msgid "{additional} lyrics written in"
-msgstr "testo {additional:aggiuntivo} scritto a"
+msgstr "testi {additional:aggiuntivi} scritti a"
 
 #: DB:link_type/link_phrase:757 DB:link_type/link_phrase:758
 #: DB:link_type/link_phrase:694 DB:link_type/link_phrase:696
@@ -9804,7 +9786,7 @@ msgstr "{entity1} ha una pagina di IMDb su {entity0}"
 
 #: DB:link_type/long_link_phrase:271
 msgid "{entity1} has lyrics available at {entity0}"
-msgstr "{entity1} ha il testo disponibile su {entity0}"
+msgstr "{entity1} ha i testi disponibili su {entity0}"
 
 #: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:1175
 #: DB:link_type/long_link_phrase:20

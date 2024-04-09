@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-27 21:10+0100\n"
-"PO-Revision-Date: 2024-03-12 04:28+0000\n"
+"PO-Revision-Date: 2024-03-31 15:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -44,8 +44,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -934,7 +934,7 @@ msgstr "Modifica URL"
 #: ../root/artist/edit_credit.tt:1 ../root/artist/edit_credit.tt:6
 msgctxt "header"
 msgid "Edit artist credit"
-msgstr "Modifica accreditamento dell'artista"
+msgstr "Modifica accreditamento artista"
 
 #: ../root/release/edit_cover_art.tt:1 ../root/release/edit_cover_art.tt:4
 msgctxt "singular, header"
@@ -1806,7 +1806,7 @@ msgstr "Nome"
 
 #: ../root/artist/edit_credit.tt:18 ../root/artist/split.tt:45
 msgid "New artist credit"
-msgstr "Nuovo accreditamento dell'artista"
+msgstr "Nuovo accreditamento artista"
 
 #: ../root/release/add_cover_art.tt:148
 msgid "New image goes here"
@@ -4519,7 +4519,7 @@ msgstr "Modifica alias dell'artista"
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:26
 msgctxt "edit type"
 msgid "Edit artist credit"
-msgstr "Modifica accreditamento dell'artista"
+msgstr "Modifica accreditamento artista"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:16
 msgctxt "edit type"
@@ -6085,8 +6085,8 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Work.pm:103
 msgid "You cannot select “[No lyrics]” and a lyrics language at the same time."
 msgstr ""
-"Non puoi selezionare contemporaneamente “[Nessun testo]” e una lingua del "
-"testo."
+"Non puoi selezionare contemporaneamente “[Nessun testo]” e una lingua dei "
+"testi."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:108
 msgid "You cannot select the same language more than once."
@@ -9098,7 +9098,7 @@ msgstr "Non più attuale"
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:143
 #: ../root/static/scripts/work/edit.js:334
 msgid "Lyrics languages"
-msgstr "Lingue del testo"
+msgstr "Lingue dei testi"
 
 #: ../root/edit/details/ChangeReleaseQuality.js:30
 #: ../root/edit/details/historic/ChangeArtistQuality.js:30
@@ -11677,15 +11677,11 @@ msgid "Possible values"
 msgstr "Valori possibili"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:161
-#, fuzzy
-#| msgid ""
-#| "The possible values for this relationship can be seen from the "
-#| "{instrument_list|instrument list}."
 msgid ""
 "The possible values for this attribute can be seen from the {instrument_list|"
 "instrument list}."
 msgstr ""
-"È possibile consultare i possibili valori di questa relazione "
+"È possibile consultare i possibili valori di quest'attributo "
 "nell'{instrument_list|elenco degli strumenti}."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:182
@@ -14423,8 +14419,8 @@ msgid ""
 "Please select the {doc|artist credits} that you want to rename to follow the "
 "new artist name."
 msgstr ""
-"Seleziona gli {doc|accreditamenti dell'artista} che vuoi rinominare secondo "
-"il nuovo nome dell'artista."
+"Seleziona gli {doc|accreditamenti artista} che vuoi rinominare secondo il "
+"nuovo nome dell'artista."
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:226
 msgid ""
@@ -14831,11 +14827,11 @@ msgstr "La scaletta contiene"
 
 #: ../root/static/scripts/common/components/FilterForm.js:227
 msgid "Hide recordings that only appear on bootleg releases"
-msgstr ""
+msgstr "Nascondi le registrazioni che compaiono solo in pubblicazioni bootleg"
 
 #: ../root/static/scripts/common/components/FilterForm.js:230
 msgid "Hide bootleg-only"
-msgstr ""
+msgstr "Nascondi solo bootleg"
 
 #: ../root/static/scripts/common/components/FilterForm.js:328
 msgid "Secondary type"
@@ -15680,7 +15676,7 @@ msgstr "Connettore:"
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:175
 msgctxt "interactive"
 msgid "Add artist credit"
-msgstr "Aggiungi accreditamento dell'artista"
+msgstr "Aggiungi accreditamento artista"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:209
 msgid "Change all artists on this release that match “{name}”"
@@ -15694,24 +15690,18 @@ msgstr ""
 "Cambia tutti gli artisti su questa pubblicazione che sono attualmente vuoti"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:145
-#, fuzzy
-#| msgctxt "generic entity"
-#| msgid "[removed]"
 msgid "[removed]"
 msgstr "[rimosso]"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:182
-#, fuzzy
-#| msgctxt "interactive"
-#| msgid "Add artist credit"
 msgctxt "interactive"
 msgid "Undo artist credit removal"
-msgstr "Aggiungi accreditamento dell'artista"
+msgstr "Annulla rimozione accreditamento artista"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:189
 msgctxt "interactive"
 msgid "Remove artist credit"
-msgstr "Rimuovi accreditamento dell'artista"
+msgstr "Rimuovi accreditamento artista"
 
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:201
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:179
@@ -16664,7 +16654,7 @@ msgstr ""
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:81
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:147
 msgid "Add lyrics language"
-msgstr "Aggiungi lingua del testo"
+msgstr "Aggiungi lingua dei testi"
 
 #: ../root/static/scripts/work/edit.js:340
 msgctxt "interactive"
@@ -17936,7 +17926,7 @@ msgstr "Iscritto"
 #: ../root/utility/tableColumns.js:821
 msgctxt "header"
 msgid "Lyrics languages"
-msgstr "Lingue del testo"
+msgstr "Lingue dei testi"
 
 #: ../root/vote/VotingIndex.js:34
 msgid "…related to artists in my subscriptions"
