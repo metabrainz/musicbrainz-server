@@ -93,5 +93,5 @@ export default {
     ),
   ],
 
-  target: 'node16.0',
+  target: 'node20',
 };
