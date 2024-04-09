@@ -15,12 +15,7 @@ import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
 import formatIsni from '../../utility/formatIsni.js';
 
-type Props = {
-  +allowNew?: boolean,
-  +edit: AddLabelEditT,
-};
-
-const AddLabel = ({allowNew, edit}: Props): React$MixedElement => {
+component AddLabel(allowNew?: boolean, edit: AddLabelEditT) {
   const display = edit.display_data;
   const type = display.type;
   return (
@@ -117,6 +112,6 @@ const AddLabel = ({allowNew, edit}: Props): React$MixedElement => {
       </table>
     </>
   );
-};
+}
 
 export default AddLabel;

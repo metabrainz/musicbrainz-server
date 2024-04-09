@@ -10,11 +10,7 @@
 import Relationship
   from '../../static/scripts/common/components/Relationship.js';
 
-type Props = {
-  +edit: AddRelationshipEditT,
-};
-
-const AddRelationship = ({edit}: Props): React$MixedElement => {
+component AddRelationship(edit: AddRelationshipEditT) {
   const relationship = edit.display_data.relationship;
   return (
     <table className="details add-relationship">
@@ -45,6 +41,6 @@ const AddRelationship = ({edit}: Props): React$MixedElement => {
       ) : null}
     </table>
   );
-};
+}
 
 export default AddRelationship;

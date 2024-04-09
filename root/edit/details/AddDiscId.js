@@ -11,12 +11,7 @@ import CDTocLink from '../../static/scripts/common/components/CDTocLink.js';
 import MediumLink
   from '../../static/scripts/common/components/MediumLink.js';
 
-type Props = {
-  +allowNew?: boolean,
-  +edit: AddDiscIdEditT,
-};
-
-const AddDiscId = ({allowNew, edit}: Props): React$Element<'table'> => {
+component AddDiscId(allowNew?: boolean, edit: AddDiscIdEditT) {
   const medium = edit.display_data.medium;
   const cdToc = edit.display_data.medium_cdtoc.cdtoc;
 
@@ -38,6 +33,6 @@ const AddDiscId = ({allowNew, edit}: Props): React$Element<'table'> => {
       </tr>
     </table>
   );
-};
+}
 
 export default AddDiscId;

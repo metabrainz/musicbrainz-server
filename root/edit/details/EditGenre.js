@@ -11,11 +11,7 @@ import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 
-type Props = {
-  +edit: EditGenreEditT,
-};
-
-const EditGenre = ({edit}: Props): React$MixedElement => {
+component EditGenre(edit: EditGenreEditT) {
   const display = edit.display_data;
   const comment = display.comment;
   const name = display.name;
@@ -50,6 +46,6 @@ const EditGenre = ({edit}: Props): React$MixedElement => {
       </table>
     </>
   );
-};
+}
 
 export default EditGenre;

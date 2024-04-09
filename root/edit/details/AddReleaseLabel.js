@@ -12,11 +12,7 @@ import DescriptiveLink
 import EntityLink
   from '../../static/scripts/common/components/EntityLink.js';
 
-type Props = {
-  +edit: AddReleaseLabelEditT,
-};
-
-const AddReleaseLabel = ({edit}: Props): React$Element<'table'> => {
+component AddReleaseLabel(edit: AddReleaseLabelEditT) {
   const display = edit.display_data;
 
   return (
@@ -45,6 +41,6 @@ const AddReleaseLabel = ({edit}: Props): React$Element<'table'> => {
       </tr>
     </table>
   );
-};
+}
 
 export default AddReleaseLabel;

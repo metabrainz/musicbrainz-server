@@ -22,11 +22,7 @@ import ReleaseEventsDiff
   from '../../static/scripts/edit/components/edit/ReleaseEventsDiff.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 
-type Props = {
-  +edit: EditReleaseEditT,
-};
-
-const EditRelease = ({edit}: Props): React$MixedElement => {
+component EditRelease(edit: EditReleaseEditT) {
   const display = edit.display_data;
   const name = display.name;
   const artistCredit = display.artist_credit;
@@ -167,6 +163,6 @@ const EditRelease = ({edit}: Props): React$MixedElement => {
       ) : null}
     </table>
   );
-};
+}
 
 export default EditRelease;

@@ -9,13 +9,9 @@
 
 import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 
-type Props = {
-  +edit: RemoveRelationshipAttributeEditT,
-};
-
-const RemoveRelationshipAttribute = ({
-  edit,
-}: Props): React$Element<'table'> => {
+component RemoveRelationshipAttribute(
+  edit: RemoveRelationshipAttributeEditT,
+) {
   const display = edit.display_data;
 
   const rawIconSection = (
@@ -49,6 +45,6 @@ const RemoveRelationshipAttribute = ({
       </tr>
     </table>
   );
-};
+}
 
 export default RemoveRelationshipAttribute;

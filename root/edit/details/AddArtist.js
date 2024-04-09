@@ -21,11 +21,7 @@ import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
 import formatIsni from '../../utility/formatIsni.js';
 
-type Props = {
-  +edit: AddArtistEditT,
-};
-
-const AddArtist = ({edit}: Props): React$MixedElement => {
+component AddArtist(edit: AddArtistEditT) {
   const display = edit.display_data;
   const area = display.area;
   const beginArea = display.begin_area;
@@ -150,6 +146,6 @@ const AddArtist = ({edit}: Props): React$MixedElement => {
       </table>
     </>
   );
-};
+}
 
 export default AddArtist;

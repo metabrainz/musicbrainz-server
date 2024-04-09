@@ -15,11 +15,7 @@ import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 
-type Props = {
-  +edit: EditEventEditT,
-};
-
-const EditEvent = ({edit}: Props): React$Element<'table'> => {
+component EditEvent(edit: EditEventEditT) {
   const display = edit.display_data;
   const name = display.name;
   const comment = display.comment;
@@ -99,6 +95,6 @@ const EditEvent = ({edit}: Props): React$Element<'table'> => {
       ) : null}
     </table>
   );
-};
+}
 
 export default EditEvent;

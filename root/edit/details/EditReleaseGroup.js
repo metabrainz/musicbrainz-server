@@ -16,11 +16,7 @@ import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 
-type Props = {
-  +edit: EditReleaseGroupEditT,
-};
-
-const EditReleaseGroup = ({edit}: Props): React$Element<'table'> => {
+component EditReleaseGroup(edit: EditReleaseGroupEditT) {
   const display = edit.display_data;
   const name = display.name;
   const comment = display.comment;
@@ -99,6 +95,6 @@ const EditReleaseGroup = ({edit}: Props): React$Element<'table'> => {
       ) : null}
     </table>
   );
-};
+}
 
 export default EditReleaseGroup;

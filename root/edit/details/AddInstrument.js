@@ -12,12 +12,7 @@ import EntityLink
 import expand2react from '../../static/scripts/common/i18n/expand2react.js';
 import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 
-type Props = {
-  +allowNew?: boolean,
-  +edit: AddInstrumentEditT,
-};
-
-const AddInstrument = ({allowNew, edit}: Props): React$MixedElement => {
+component AddInstrument(allowNew?: boolean, edit: AddInstrumentEditT) {
   const display = edit.display_data;
   const description = display.description;
   const instrumentType = display.type;
@@ -73,6 +68,6 @@ const AddInstrument = ({allowNew, edit}: Props): React$MixedElement => {
       </table>
     </>
   );
-};
+}
 
 export default AddInstrument;

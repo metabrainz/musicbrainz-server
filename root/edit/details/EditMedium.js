@@ -36,59 +36,18 @@ import diffArtistCredits
 import {DELETE, INSERT} from '../../static/scripts/edit/utility/editDiff.js';
 import loopParity from '../../utility/loopParity.js';
 
-type TracklistChangesAddProps = {
-  +change: TracklistChangesAddT,
-  +changedMbids: boolean,
-};
+component ChangedMbidIcon() {
+  return (
+    <InformationIcon
+      title={l("This track's MBID will change when this edit is applied.")}
+    />
+  );
+}
 
-type TracklistChangesChangeProps = {
-  +change: TracklistChangesChangeT,
-  +changedMbids: boolean,
-  +index: number,
-};
-
-type TracklistChangesRemoveProps = {
-  +change: TracklistChangesRemoveT,
-  +changedMbids: boolean,
-};
-
-type TracklistChangesTableProps = {
-  +changedMbids: boolean,
-  +changes: $ReadOnlyArray<
-    | TracklistChangesAddT
-    | TracklistChangesChangeT
-    | TracklistChangesRemoveT>,
-};
-
-type CondensedTrackACsDiffRowProps = {
-  +endNumber?: string,
-  +newArtistCredit: ArtistCreditT,
-  +oldArtistCredit?: ArtistCreditT,
-  +rowCounter: number,
-  +startNumber: string,
-};
-
-type CondensedTrackACsDiffProps = {
-  +artistCreditChanges: $ReadOnlyArray<
-    | TracklistChangesAddT
-    | TracklistChangesChangeT>,
-};
-
-type Props = {
-  +allowNew?: boolean,
-  +edit: EditMediumEditT,
-};
-
-const ChangedMbidIcon = () => (
-  <InformationIcon
-    title={l("This track's MBID will change when this edit is applied.")}
-  />
-);
-
-const TracklistChangesAdd = ({
-  change,
-  changedMbids,
-}: TracklistChangesAddProps): React$Element<'tr'> => {
+component TracklistChangesAdd(
+  change: TracklistChangesAddT,
+  changedMbids: boolean,
+) {
   const track = change.new_track;
   return (
     <tr className="diff-addition edit-medium-track">
@@ -129,13 +88,13 @@ const TracklistChangesAdd = ({
       ) : null}
     </tr>
   );
-};
+}
 
-const TracklistChangesChange = ({
-  changedMbids,
-  change,
-  index,
-}: TracklistChangesChangeProps): React$Element<'tr'> => {
+component TracklistChangesChange(
+  change: TracklistChangesChangeT,
+  changedMbids: boolean,
+  index: number,
+) {
   const oldTrack = change.old_track;
   const newTrack = change.new_track;
   const artistCreditDiff = diffArtistCredits(
@@ -258,12 +217,12 @@ const TracklistChangesChange = ({
       ) : null}
     </tr>
   );
-};
+}
 
-const TracklistChangesRemove = ({
-  change,
-  changedMbids,
-}: TracklistChangesRemoveProps): React$Element<'tr'> => {
+component TracklistChangesRemove(
+  change: TracklistChangesRemoveT,
+  changedMbids: boolean,
+) {
   const track = change.old_track;
   return (
     <tr className="diff-removal edit-medium-track">
@@ -297,95 +256,103 @@ const TracklistChangesRemove = ({
       <td colSpan={changedMbids ? '5' : '4'} />
     </tr>
   );
-};
+}
 
-const TracklistChangesTable = ({
-  changedMbids,
-  changes,
-}: TracklistChangesTableProps): React$Element<'table'> => (
-  <table className="tbl">
-    <thead>
-      <tr>
-        <th colSpan="4">{l('Old tracklist')}</th>
-        <th colSpan="4">{l('New tracklist')}</th>
-        {changedMbids ? <th /> : null}
-      </tr>
-      <tr>
-        <th>{l('#')}</th>
-        <th>{l('Title')}</th>
-        <th>{l('Artist')}</th>
-        <th>{l('Length')}</th>
-        <th>{l('#')}</th>
-        <th>{l('Title')}</th>
-        <th>{l('Artist')}</th>
-        <th>{l('Length')}</th>
-        {changedMbids ? <th /> : null}
-      </tr>
-    </thead>
-    <tbody>
-      {changes.map((change, index) => {
-        if (change.change_type === 'c' || change.change_type === 'u') {
-          return (
-            <TracklistChangesChange
-              change={change}
-              changedMbids={changedMbids}
-              index={index}
-              key={index}
-            />
-          );
-        } else if (change.change_type === '+') {
-          return (
-            <TracklistChangesAdd
-              change={change}
-              changedMbids={changedMbids}
-              key={index}
-            />
-          );
-        } else if (change.change_type === '-') {
-          return (
-            <TracklistChangesRemove
-              change={change}
-              changedMbids={changedMbids}
-              key={index}
-            />
-          );
-        }
-        return null;
-      })}
-    </tbody>
-  </table>
-);
+component TracklistChangesTable (
+  changedMbids: boolean,
+  changes: $ReadOnlyArray<
+    | TracklistChangesAddT
+    | TracklistChangesChangeT
+    | TracklistChangesRemoveT>,
+) {
+  return (
+    <table className="tbl">
+      <thead>
+        <tr>
+          <th colSpan="4">{l('Old tracklist')}</th>
+          <th colSpan="4">{l('New tracklist')}</th>
+          {changedMbids ? <th /> : null}
+        </tr>
+        <tr>
+          <th>{l('#')}</th>
+          <th>{l('Title')}</th>
+          <th>{l('Artist')}</th>
+          <th>{l('Length')}</th>
+          <th>{l('#')}</th>
+          <th>{l('Title')}</th>
+          <th>{l('Artist')}</th>
+          <th>{l('Length')}</th>
+          {changedMbids ? <th /> : null}
+        </tr>
+      </thead>
+      <tbody>
+        {changes.map((change, index) => {
+          if (change.change_type === 'c' || change.change_type === 'u') {
+            return (
+              <TracklistChangesChange
+                change={change}
+                changedMbids={changedMbids}
+                index={index}
+                key={index}
+              />
+            );
+          } else if (change.change_type === '+') {
+            return (
+              <TracklistChangesAdd
+                change={change}
+                changedMbids={changedMbids}
+                key={index}
+              />
+            );
+          } else if (change.change_type === '-') {
+            return (
+              <TracklistChangesRemove
+                change={change}
+                changedMbids={changedMbids}
+                key={index}
+              />
+            );
+          }
+          return null;
+        })}
+      </tbody>
+    </table>
+  );
+}
 
-const CondensedTrackACsDiffRow = ({
-  endNumber,
-  newArtistCredit,
-  oldArtistCredit,
-  rowCounter,
-  startNumber,
-}: CondensedTrackACsDiffRowProps): React$Element<'tr'> => (
-  <tr className={loopParity(rowCounter)}>
-    <td className="pos t">
-      {nonEmpty(endNumber) && endNumber !== startNumber
-        ? startNumber + '-' + endNumber
-        : startNumber}
-    </td>
-    <td>
-      {oldArtistCredit ? (
-        <ExpandedArtistCredit artistCredit={oldArtistCredit} />
-      ) : null}
-    </td>
-    <td>
-      {newArtistCredit ? (
-        <ExpandedArtistCredit artistCredit={newArtistCredit} />
-      ) : null}
-    </td>
-  </tr>
-);
+component CondensedTrackACsDiffRow(
+  endNumber?: string,
+  newArtistCredit: ArtistCreditT,
+  oldArtistCredit?: ArtistCreditT,
+  rowCounter: number,
+  startNumber: string,
+) {
+  return (
+    <tr className={loopParity(rowCounter)}>
+      <td className="pos t">
+        {nonEmpty(endNumber) && endNumber !== startNumber
+          ? startNumber + '-' + endNumber
+          : startNumber}
+      </td>
+      <td>
+        {oldArtistCredit ? (
+          <ExpandedArtistCredit artistCredit={oldArtistCredit} />
+        ) : null}
+      </td>
+      <td>
+        {newArtistCredit ? (
+          <ExpandedArtistCredit artistCredit={newArtistCredit} />
+        ) : null}
+      </td>
+    </tr>
+  );
+}
 
-const CondensedTrackACsDiff = ({
-  artistCreditChanges,
-}: CondensedTrackACsDiffProps):
-  Array<React$Element<typeof CondensedTrackACsDiffRow>> => {
+component CondensedTrackACsDiff(
+  artistCreditChanges: $ReadOnlyArray<
+    | TracklistChangesAddT
+    | TracklistChangesChangeT>,
+) {
   let thisOldCredit;
   let thisNewCredit;
   let thisPosition = 0;
@@ -440,9 +407,9 @@ const CondensedTrackACsDiff = ({
     }
   });
   return rows;
-};
+}
 
-const EditMedium = ({edit}: Props): React$MixedElement => {
+component EditMedium(edit: EditMediumEditT) {
   const display = edit.display_data;
   const artistCreditChanges = display.artist_credit_changes;
   const changedDataTracks = display.data_track_changes;
@@ -588,6 +555,6 @@ const EditMedium = ({edit}: Props): React$MixedElement => {
       ) : null}
     </table>
   );
-};
+}
 
 export default EditMedium;

@@ -13,11 +13,7 @@ import yesNo from '../../static/scripts/common/utility/yesNo.js';
 import IntentionallyRawIcon
   from '../components/IntentionallyRawIcon.js';
 
-type Props = {
-  +edit: AddRelationshipAttributeEditT,
-};
-
-const AddRelationshipAttribute = ({edit}: Props): React$Element<'table'> => {
+component AddRelationshipAttribute(edit: AddRelationshipAttributeEditT) {
   const display = edit.display_data;
   const description = display.description;
   const parent = display.parent;
@@ -66,6 +62,6 @@ const AddRelationshipAttribute = ({edit}: Props): React$Element<'table'> => {
       </tr>
     </table>
   );
-};
+}
 
 export default AddRelationshipAttribute;

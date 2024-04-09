@@ -10,27 +10,24 @@
 import RelationshipDiff
   from '../../static/scripts/edit/components/edit/RelationshipDiff.js';
 
-type Props = {
-  +edit: EditRelationshipEditT,
-};
-
-const EditRelationship = ({edit}: Props): React$MixedElement => (
-  <table className="details edit-relationship">
-    <RelationshipDiff
-      newRelationship={edit.display_data.new}
-      oldRelationship={edit.display_data.old}
-    />
-    {edit.display_data.unknown_attributes ? (
-      <tr>
-        <th />
-        <td>
-          {l(`This relationship edit also included changes
-              to relationship attributes which no longer exist.`)}
-        </td>
-      </tr>
-    ) : null}
-  </table>
-);
-
+component EditRelationship(edit: EditRelationshipEditT) {
+  return (
+    <table className="details edit-relationship">
+      <RelationshipDiff
+        newRelationship={edit.display_data.new}
+        oldRelationship={edit.display_data.old}
+      />
+      {edit.display_data.unknown_attributes ? (
+        <tr>
+          <th />
+          <td>
+            {l(`This relationship edit also included changes
+                to relationship attributes which no longer exist.`)}
+          </td>
+        </tr>
+      ) : null}
+    </table>
+  );
+}
 
 export default EditRelationship;

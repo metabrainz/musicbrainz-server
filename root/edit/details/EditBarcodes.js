@@ -13,11 +13,7 @@ import formatBarcode
   from '../../static/scripts/common/utility/formatBarcode.js';
 import Diff from '../../static/scripts/edit/components/edit/Diff.js';
 
-type Props = {
-  +edit: EditBarcodesEditT,
-};
-
-const EditBarcodes = ({edit}: Props): React$Element<'table'> => {
+component EditBarcodes(edit: EditBarcodesEditT) {
   const display = edit.display_data;
 
   return (
@@ -57,6 +53,6 @@ const EditBarcodes = ({edit}: Props): React$Element<'table'> => {
       })}
     </table>
   );
-};
+}
 
 export default EditBarcodes;

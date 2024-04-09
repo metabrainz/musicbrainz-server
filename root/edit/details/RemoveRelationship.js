@@ -10,17 +10,17 @@
 import Relationship
   from '../../static/scripts/common/components/Relationship.js';
 
-type Props = {
-  +edit: RemoveRelationshipEditT,
-};
-
-const RemoveRelationship = ({edit}: Props): React$MixedElement => (
-  <table className="details remove-relationship">
-    <tr>
-      <th>{addColonText(l('Relationship'))}</th>
-      <td><Relationship relationship={edit.display_data.relationship} /></td>
-    </tr>
-  </table>
-);
+component RemoveRelationship(edit: RemoveRelationshipEditT) {
+  return (
+    <table className="details remove-relationship">
+      <tr>
+        <th>{addColonText(l('Relationship'))}</th>
+        <td>
+          <Relationship relationship={edit.display_data.relationship} />
+        </td>
+      </tr>
+    </table>
+  );
+}
 
 export default RemoveRelationship;

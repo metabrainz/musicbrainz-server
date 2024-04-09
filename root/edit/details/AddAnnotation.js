@@ -13,11 +13,7 @@ import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName.js';
 import Diff from '../../static/scripts/edit/components/edit/Diff.js';
 
-type Props = {
-  +edit: AddAnnotationEditT,
-};
-
-const AddAnnotation = ({edit}: Props): React$Element<'table'> => {
+component AddAnnotation(edit: AddAnnotationEditT) {
   const display = edit.display_data;
   const entityType = display.entity_type;
   const oldAnnotation = display.old_annotation;
@@ -76,6 +72,6 @@ const AddAnnotation = ({edit}: Props): React$Element<'table'> => {
       ) : null}
     </table>
   );
-};
+}
 
 export default AddAnnotation;

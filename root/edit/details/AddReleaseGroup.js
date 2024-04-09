@@ -12,12 +12,7 @@ import DescriptiveLink from
 import ExpandedArtistCredit from
   '../../static/scripts/common/components/ExpandedArtistCredit.js';
 
-type Props = {
-  +allowNew?: boolean,
-  +edit: AddReleaseGroupEditT,
-};
-
-const AddReleaseGroup = ({allowNew, edit}: Props): React$MixedElement => {
+component AddReleaseGroup(allowNew?: boolean, edit: AddReleaseGroupEditT) {
   const display = edit.display_data;
   const type = display.type;
   const secondaryType = display.secondary_types;
@@ -85,6 +80,6 @@ const AddReleaseGroup = ({allowNew, edit}: Props): React$MixedElement => {
       </table>
     </>
   );
-};
+}
 
 export default AddReleaseGroup;
