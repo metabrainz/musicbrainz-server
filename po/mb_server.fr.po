@@ -67,7 +67,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-27 21:10+0100\n"
-"PO-Revision-Date: 2024-03-11 11:05+0000\n"
+"PO-Revision-Date: 2024-04-09 13:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -77,7 +77,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -1580,6 +1580,9 @@ msgid ""
 "a disc ID! If you unselect it by mistake, please readd the data tracks "
 "before submitting."
 msgstr ""
+"Gardez à l’esprit que désélectionner ceci effacera les pistes si le support "
+"a un ID de disque ! Si vous la désélectionnez par erreur, merci d’ajouter à "
+"nouveau les pistes de données avant de soumettre."
 
 #: ../root/cdtoc/attach_artist_releases.tt:17
 #: ../root/cdtoc/attach_filter_release.tt:31 ../root/cdtoc/list.tt:11
@@ -1934,6 +1937,10 @@ msgid ""
 "2011-05-16; or which remove relationships, entered after 2013-07-08; or "
 "which reorder relationships."
 msgstr ""
+"Attention ! Ceci ne cherche que parmi les modifications de type « Ajouter "
+"une relation » ou « Modifier une relation » entrées après le 2011-05-16, les "
+"modifications de type « Enlever une relation » entrées après le 2013-07-08, "
+"et les modifications de type « Réordonner des relations »."
 
 #: ../root/release/edit/recordings.tt:120
 msgid "Now loading recording associations..."
@@ -2342,6 +2349,8 @@ msgid ""
 "Review the {url|documentation} on release editor seeding and make sure your "
 "data is formatted correctly."
 msgstr ""
+"Relisez la {url|documentation} à propos du pré-remplissage de l’éditeur de "
+"parution et assurez-vous que les données sont correctement formatées."
 
 #: ../root/layout.tt:131
 msgid ""
@@ -2732,10 +2741,8 @@ msgid "These coordinates could not be parsed."
 msgstr "Ces coordonnées n’ont pas pu être analysées."
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
-#, fuzzy
-#| msgid "This CDTOC is already attached to this medium."
 msgid "This CD TOC is already attached to this medium."
-msgstr "Cette TOC (table des matières) de CD est déjà liée à ce support."
+msgstr "Cette TOC (table des matières) de CD est déjà attachée à ce support."
 
 #: ../root/release/edit/information.tt:354
 msgid ""
@@ -2842,19 +2849,14 @@ msgstr ""
 "entier du fichier."
 
 #: ../root/release/edit/tracklist.tt:386
-#, fuzzy
-#| msgid ""
-#| "This is almost always incorrect. Please make sure whether you actually "
-#| "wanted a different format (such as “USB Flash Drive” or “Music Card”) or "
-#| "packaging type."
 msgid ""
 "This is almost always incorrect. Please make sure whether you actually "
 "wanted a different format (such as “USB Flash Drive” or “Download Card”) or "
 "packaging type."
 msgstr ""
 "Ceci est presque toujours incorrect. Veuillez vérifier si vous voulez en "
-"fait sélectionner un autre format (tel que « Clef USB » ou « Carte "
-"musicale ») ou un emballage différente."
+"fait sélectionner un autre format (tel que « Clef USB » ou « Carte de "
+"téléchargement ») ou un emballage différent."
 
 #: ../root/release_group/set_cover_art.tt:76
 msgid "This is the current release group image"
@@ -2990,6 +2992,8 @@ msgid ""
 "To enter a new tracklist, use an existing medium or import a disc from a CD "
 "stub, select the appropriate tab."
 msgstr ""
+"Pour entrer une nouvelle liste de pistes, utiliser un support existant ou un "
+"importer un disque d’une ébauche de CD, sélectionnez l’onglet approprié."
 
 #: ../root/cdstub/index.tt:21 ../root/cdstub/CDStubIndex.js:55
 #: ../root/cdtoc/CDTocInfo.js:42
@@ -3362,6 +3366,11 @@ msgid ""
 "artists, or “{use_track_lengths}” if you have track lengths but want the "
 "parser to ignore them."
 msgstr ""
+"Vous pouvez utiliser les options en-dessous des données à analyser. Par "
+"exemple, vous pouvez décocher « {lines_have_artists} » si vos données ne "
+"mentionnent pas les artistes par piste, ou décocher « {use_track_lengths} » "
+"si vos données contiennent les durées des pistes mais que vous voulez qu’"
+"elles soient ignorées."
 
 #: ../root/release/edit/information.tt:165
 msgid "You cannot use the same country more than once."
@@ -3418,6 +3427,12 @@ msgid ""
 "selecting “{add_a_new_artist}” from the bottom of the search results drop-"
 "down."
 msgstr ""
+"Vous devez sélectionner un artiste pour chaque piste (la couleur d’arrière-"
+"plan de chaque champ artiste doit être verte). Si vous avez entré un artiste "
+"mais que l’arrière-plan reste incolore, cliquez sur la loupe pour chercher "
+"un artiste dans MusicBrainz avec ce nom. Si l’artiste n’est pas encore dans "
+"MusicBrainz, vous pouvez l’y ajouter en sélectionnant « {add_a_new_artist} » "
+"en bas de la liste déroulante des résultats de recherche."
 
 #: ../root/release/edit/information.tt:30
 msgid ""
@@ -3428,6 +3443,12 @@ msgid ""
 "selecting “{add_a_new_artist}” from the bottom of the search results drop-"
 "down."
 msgstr ""
+"Vous devez sélectionner un artiste pour cette parution (la couleur d’arrière-"
+"plan du champ artiste doit être verte). Si vous avez entré un artiste mais "
+"que l’arrière-plan reste incolore, cliquez sur la loupe pour chercher un "
+"artiste dans MusicBrainz avec ce nom. Si l’artiste n’est pas encore dans "
+"MusicBrainz, vous pouvez l’y ajouter en sélectionnant « {add_a_new_artist} » "
+"en bas de la liste déroulante des résultats de recherche."
 
 #: ../root/release/edit/information.tt:56
 msgid "You must select an existing release group."
@@ -4090,10 +4111,8 @@ msgstr "Veuillez fournir un ID de support."
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:93
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:214
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:436
-#, fuzzy
-#| msgid "The provided medium id is not valid."
 msgid "The provided medium ID is not valid."
-msgstr "L’identifiant de support n’est pas valide."
+msgstr "L’ID de support fourni n’est pas valide."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:99
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:227
@@ -4143,19 +4162,21 @@ msgstr "L’identifiant de TOC (table des madières) de CD n’existe pas."
 msgid ""
 "“{id}” is not a valid row ID; the entity might have been merged or removed."
 msgstr ""
+"« {id} » n’est pas un ID de ligne valide ; l’entité a pu avoir été soit "
+"fusionnée soit enlevée."
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
 #: ../root/static/scripts/common/constants.js:363
 msgid "Low"
-msgstr "Bas"
+msgstr "Faible"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
 #: ../root/static/scripts/common/constants.js:364
 #: ../root/static/scripts/common/constants.js:365
 msgid "Normal"
-msgstr "Normal"
+msgstr "Normale"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
@@ -5068,7 +5089,7 @@ msgstr "[enlevé]"
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Reorder.pm:27
 msgctxt "edit type"
 msgid "Reorder relationships"
-msgstr "Réorganiser les relations"
+msgstr "Réordonner les relations"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAlias.pm:11
 msgctxt "edit type"
@@ -5821,14 +5842,12 @@ msgid "[none]"
 msgstr "[aucun]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:42
-#, fuzzy
-#| msgid "Video"
 msgid "Videos only"
-msgstr "Vidéo"
+msgstr "Que les vidéos"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:43
 msgid "Non-videos only"
-msgstr ""
+msgstr "Pas les vidéos"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:95
 msgid ""
@@ -10474,8 +10493,6 @@ msgid "Social contract"
 msgstr "Contrat social"
 
 #: ../root/layout/components/BottomMenu.js:141
-#, fuzzy
-#| msgid "Code of conduct"
 msgid "Code of Conduct"
 msgstr "Code de conduite"
 
@@ -11744,15 +11761,11 @@ msgid "Possible values"
 msgstr "Valeurs possibles"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:161
-#, fuzzy
-#| msgid ""
-#| "The possible values for this relationship can be seen from the "
-#| "{instrument_list|instrument list}."
 msgid ""
 "The possible values for this attribute can be seen from the {instrument_list|"
 "instrument list}."
 msgstr ""
-"Les valeurs possibles pour cette relation peuvent être vues depuis la "
+"Les valeurs possibles pour cet attribut peuvent être vues depuis la "
 "{instrument_list|liste des instruments}."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:182
@@ -11773,11 +11786,9 @@ msgstr ""
 "Cet attribut n’est pas directement utilisé par le moindre type de relation."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:45
-#, fuzzy
-#| msgid "none"
 msgctxt "relationship attribute description"
 msgid "none"
-msgstr "aucun"
+msgstr "aucune"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:168
 msgid "No relationship attributes found."
@@ -11937,6 +11948,9 @@ msgid ""
 "Keep in mind pseudo-releases generally shouldn’t have cover art. See {doc|"
 "the guidelines for pseudo-releases} for more info."
 msgstr ""
+"Gardez à l’esprit que les pseudo-parutions ne devraient généralement pas "
+"avoir d’illustration. Consultez {doc|les recommandations au sujet des pseudo-"
+"parutions} pour plus d’information."
 
 #: ../root/release/CoverArt.js:163
 msgctxt "plural, interactive"
@@ -12284,12 +12298,6 @@ msgid "Bad Amazon URLs"
 msgstr "Mauvaises URLs d’Amazon"
 
 #: ../root/report/BootlegsOnNonBootlegLabels.js:24
-#, fuzzy
-#| msgid ""
-#| "This report shows releases that have at least one “Bootleg Production” "
-#| "label in their labels list, but are not set to status “Bootleg”. These "
-#| "labels pretty much never release non-bootleg releases, so chances are "
-#| "that either the label or the status are wrong."
 msgid ""
 "This report shows releases that are set to status “Bootleg”, but have at "
 "least one label in their labels list which is not “[no label]” nor has the "
@@ -12297,10 +12305,11 @@ msgid ""
 "bootleg releases, so chances are that either the label or the status is "
 "wrong."
 msgstr ""
-"Ce rapport montre les parutions qui ont au moins un label « Production "
-"pirate » dans leur liste de labels, mais qui n’ont pas le statut « Pirate ». "
-"Ces labels ne produisent quasiment aucune parution non-pirate, donc il y a "
-"de fortes chances pour que soit le label soit le statut soit erroné."
+"Ce rapport montre les parutions qui ont le statut « Pirate » et dont au "
+"moins un de leurs labels ne soit ni « [no label] » ni un label de type « "
+"Production pirate ». Ces autres types de labels ne produisent quasiment "
+"aucune parution non-pirate, donc il y a de fortes chances pour que soit le "
+"label soit le statut soit erroné."
 
 #: ../root/report/BootlegsOnNonBootlegLabels.js:33
 #: ../root/report/ReportsIndex.js:466
@@ -12314,6 +12323,10 @@ msgid ""
 "CD). This usually means a disc ID was generated for the wrong format (SACD) "
 "or with a buggy tool."
 msgstr ""
+"Ce rapport liste les ID de disque indiquant une durée totale plus longue que "
+"la capacité d’un CD standard (au moins 88 minutes pour un CD, ou 30 minutes "
+"pour un mini-CD). Ceci signifie généralement que l’ID de disque a été généré "
+"soit pour un autre format (SACD) soit par un logiciel bogué."
 
 #: ../root/report/CDTocDubiousLength.js:32 ../root/report/ReportsIndex.js:638
 msgid "Disc IDs with dubious duration"
@@ -12328,6 +12341,13 @@ msgid ""
 "sure though that no existing lengths clash with the disc ID, or that any "
 "clashes are clear mistakes."
 msgstr ""
+"Ce rapport liste les ID de disque attachés à une parution mais qui ne sont "
+"pas appliqués parce qu’au moins une durée de piste est inconnue pour cette "
+"parution. Cette liste est restreinte aux supports ayant un seul ID de disque "
+"attaché, donc il est très vraisemblable que l’ID de disque puisse être "
+"appliqué sans souci. Assurez-vous tout de même qu’aucune durée n’est en "
+"conflit avec l’ID de disque, ou sinon que ces conflits sont indiscutablement "
+"des erreurs."
 
 #: ../root/report/CDTocNotApplied.js:34 ../root/report/ReportsIndex.js:642
 msgid "Disc IDs attached but not applied"
@@ -12729,6 +12749,14 @@ msgid ""
 "has an album and single with the same name, then there is usually no need to "
 "change anything. In other cases, a disambiguation comment may be helpful."
 msgstr ""
+"Ce rapport liste les groupes de parution ayant des noms et des artistes très "
+"semblables. Si les parutions dans les groupes de parution devraient être "
+"regroupées (voir les {url|recommandations}), ces groupes de parution peuvent "
+"être fusionnés. Si elles ne devraient pas être regroupées mais qu’elles "
+"peuvent être distinguées par leurs types de groupe de parution (par exemple "
+"si un artiste a un album et un single portant le même nom), il n’y a "
+"habituellement rien à changer. Dan les autres cas, un commentaire de "
+"désambiguïsation pourrait être utile."
 
 #: ../root/report/DuplicateReleaseGroups.js:52
 #: ../root/report/ReportsIndex.js:227
@@ -12932,6 +12960,13 @@ msgid ""
 "improved but the data quality wasn’t changed accordingly, just enter a data "
 "quality change to remove it from this report."
 msgstr ""
+"Ce rapport liste les parutions qui ont été marquées comme ayant des données "
+"de faible qualité. Si vous en avez le loisir, vous pouvez revoir ces "
+"parutions et essayer d’améliorer les données autant que possible avant de "
+"marquer la qualité des données comme « Normale » (ou même « Haute », si vous "
+"ajoutez toutes les données possibles !). Si les données ont déjà été "
+"améliorées mais que l’indicateur de qualité des données n’a pas été changé "
+"depuis, ajustez le simplement en fonction."
 
 #: ../root/report/LowDataQualityReleases.js:36
 #: ../root/report/ReportsIndex.js:477
@@ -12961,6 +12996,8 @@ msgid ""
 "This report lists all releases with gaps in the medium numbers (for example, "
 "there is a medium 1 and 3 but no medium 2)."
 msgstr ""
+"Ce rapport liste les parutions ayant des trous entre les numéros de support ("
+"par exemple s’il y a un support 1 et 3 mais pas de support 2)."
 
 #: ../root/report/MediumsWithSequenceIssues.js:30
 msgid "Releases with medium number issues"
@@ -13055,12 +13092,6 @@ msgid "Releases without script"
 msgstr "Parutions sans système d’écriture"
 
 #: ../root/report/NonBootlegsOnBootlegLabels.js:24
-#, fuzzy
-#| msgid ""
-#| "This report shows releases that have at least one “Bootleg Production” "
-#| "label in their labels list, but are not set to status “Bootleg”. These "
-#| "labels pretty much never release non-bootleg releases, so chances are "
-#| "that either the label or the status are wrong."
 msgid ""
 "This report shows releases that have at least one “Bootleg Production” label "
 "in their labels list, but are not set to status “Bootleg”. These labels "
@@ -13202,6 +13233,9 @@ msgid ""
 "This report shows recordings with relationships using dates in the future. "
 "Those are probably typos (such as 2109 instead of 2019)."
 msgstr ""
+"Ce rapport liste les enregistrements ayant des relations datées dans le "
+"futur. Ce sont vraisemblablement des fautes de frappe (telles que 2109 au "
+"lieu de 2019)."
 
 #: ../root/report/RecordingsWithFutureDates.js:61
 msgid "Recordings with relationships having dates in the future"
@@ -13443,6 +13477,11 @@ msgid ""
 "not “Digital Media”. Generally, these should be moved to the appropriate "
 "digital media release. If one doesn’t exist yet, feel free to add it."
 msgstr ""
+"Ce rapport liste les parutions ayant des relations qui s’appliquent au "
+"parutions en ligne (téléchargement / diffusion en flux), mais dont au moins "
+"un support est physique. Généralement ces liens doivent être déplacés vers "
+"la parution en ligne appropriée. Si aucune n’existe dans la base données, n’"
+"hésitez pas à en ajouter une."
 
 #: ../root/report/ReleasesWithDownloadRelationships.js:34
 #: ../root/report/ReportsIndex.js:393
@@ -13470,6 +13509,12 @@ msgid ""
 "format is “Digital Media”. Generally, these should be moved to the "
 "appropriate physical release. If one doesn’t exist yet, feel free to add it."
 msgstr ""
+"Ce rapport montre les parutions qui ont un lieu d’achat par correspondance ("
+"qui par définition ne s’applique qu’aux parutions sur support physique), "
+"mais qui n’ont que des supports de type « Support numérique ». Généralement "
+"ces liens doivent être déplacés vers la parution sur support physique "
+"appropriée. Si aucune n’existe dans la base données, n’hésitez pas à en "
+"ajouter une."
 
 #: ../root/report/ReleasesWithMailOrderRelationships.js:33
 #: ../root/report/ReportsIndex.js:397
@@ -13510,12 +13555,23 @@ msgid ""
 "they should have the same barcode, format, etc.). This report skips pseudo-"
 "releases, since they should generally not have cover art."
 msgstr ""
+"Ce rapport liste les parutions qui n’ont pas d‘illustration dans la Cover "
+"Art Archive. Étant donné que la plupart des parutions ont une forme de "
+"couverture, la grande majorité des parutions de ce rapport devrait avoir une "
+"illustration {caa_how_to|téléversée à la Cover Art Archive}. Veuillez noter "
+"que l’illustration téléversée pour une parution doit correspondre exactement "
+"à cette parution (avec le même type de support, même code-barres, et ainsi "
+"de suite). Ce rapport ne liste pas les pseudo-parutions, car elles ne "
+"devraient généralement pas avoir d’illustration."
 
 #: ../root/report/ReleasesWithoutCaa.js:37
 msgid ""
 "We strongly suggest restricting this report to entities in your "
 "subscriptions only for a more manageable list of results."
 msgstr ""
+"Nous vous conseillons fortement de restreindre ce rapport aux entités "
+"auxquelles vous êtes abonné pour que la liste de résultats soit de taille "
+"raisonnable."
 
 #: ../root/report/ReleasesWithoutCaa.js:42 ../root/report/ReportsIndex.js:365
 msgid "Releases without any art in the Cover Art Archive"
@@ -13677,6 +13733,7 @@ msgstr "Parutions qui ont un ID de disque, mais qui ne devraient pas"
 #: ../root/report/ShowNotesButNotBroadcast.js:37
 msgid "Non-broadcast releases with linked show notes"
 msgstr ""
+"Parutions qui ne sont pas d’une émission et qui ont des notes de spectacle"
 
 #: ../root/report/ReportsIndex.js:506
 msgid "Recordings with annotations"
@@ -13773,6 +13830,17 @@ msgid ""
 "a better type or removed if nothing is a good fit. If the release is indeed "
 "a podcast, the release group type should be set to Broadcast."
 msgstr ""
+"Ce rapport liste les parutions qui ont un lien externe vers des {doc|notes "
+"de spectacle}, mais qui ne sont pas dans un groupe de parution du type « "
+"Émission ». Les notes de spectacle sont destinées aux émissions (ou "
+"assimilés : séries et autres spectacles) diffusées (à la radio, à la télé, "
+"en baladodiffusion ou par d’autres moyens), et ne devraient pas être "
+"utilisés pour lier des notes quelconques à n’importe quelle sorte de "
+"parution. Hélas ce genre de lien est souvent entré de cette façon. Si c’est "
+"le cas, le type de relation pour ce lien externe doit être remplacé par un "
+"type de relation approprié, ou être enlevé autrement. Si la parution est "
+"effectivement celle d’une émission (ou assimilé), le type du groupe de "
+"parution doit être défini comme « Émission »."
 
 #: ../root/report/SingleMediumReleasesWithMediumTitles.js:24
 msgid ""
@@ -13822,6 +13890,11 @@ msgid ""
 "Notice that sometimes this is justified and correct, don't automatically "
 "assume it is a mistake! If you confirm it is a mistake, please correct it."
 msgstr ""
+"Ce rapport liste les parutions dont les titres de pistes incluent leur "
+"propre numéro de piste, par exemple « 1) Le Titre » (au lieu de juste « Le "
+"Titre »). Veuillez noter que cela est parfois justifié et correct, ne "
+"présupposez pas que ce soit forcément une erreur ! Dans le cas où vous "
+"pouvez confirmer que c’est une erreur, merci de la corriger."
 
 #: ../root/report/TracksNamedWithSequence.js:33
 msgid "Releases where track names start with their track number"
@@ -13835,6 +13908,9 @@ msgid ""
 "(for example, there is no \"track 2\"), or with duplicated track numbers "
 "(for example, there are two \"track 4\"s)."
 msgstr ""
+"Ce rapport liste les parutions dont les numéros de piste ne sont pas "
+"continus (par exemple s’il n’y a pas de piste 2), ou avec des numéros de "
+"piste en double (par exemple s’il y a deux pistes 4)."
 
 #: ../root/report/TracksWithSequenceIssues.js:31
 msgid "Releases with track number issues"
@@ -14308,19 +14384,21 @@ msgstr "Envoyez moi un courriel pour"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:216
 msgid "The first “no” vote on any of my edits"
-msgstr ""
+msgstr "Le premier vote « Non » à chacune de mes modifications"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:221
 msgid "Notes on edits I have left notes on"
-msgstr ""
+msgstr "Les notes ajoutées aux modifications auxquelles j’ai écrit une note"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:226
 msgid "Notes on edits I have voted on"
 msgstr ""
+"Les notes ajoutées aux modifications auxquelles j’ai voté « Oui » ou « Non »"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:231
 msgid "Notes on edits I have abstained on"
 msgstr ""
+"Les notes ajoutées aux modifications auxquelles j’ai voté par l’abstention"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:239
 msgid "Send me mails with edits to my subscriptions"
@@ -14448,6 +14526,10 @@ msgid ""
 "new name. Only use this if you are sure the existing credits are incorrect "
 "(such as for typos)."
 msgstr ""
+"Cela entrera des modifications supplémentaires pour que chaque crédit "
+"spécifique utilise le nouveau nom. Utilisez cela uniquement si vous êtes sûr "
+"que les crédits existants sont incorrects (par exemple en cas de fautes de "
+"frappe)."
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:231
 msgid ""
@@ -14747,11 +14829,9 @@ msgid "Many relationships"
 msgstr "Beaucoup de relations"
 
 #: ../root/static/scripts/common/components/Cardinality.js:26
-#, fuzzy
-#| msgid "Unknown"
 msgctxt "cardinality"
 msgid "Unknown"
-msgstr "Inconnu"
+msgstr "Inconnue"
 
 #: ../root/static/scripts/common/components/CollapsibleList.js:87
 msgid "show {n} more"
@@ -14845,10 +14925,11 @@ msgstr "Programme contient"
 #: ../root/static/scripts/common/components/FilterForm.js:227
 msgid "Hide recordings that only appear on bootleg releases"
 msgstr ""
+"Masquer les enregistrements qui n’apparaissent que sur des parutions pirates"
 
 #: ../root/static/scripts/common/components/FilterForm.js:230
 msgid "Hide bootleg-only"
-msgstr ""
+msgstr "Masquer les pirates"
 
 #: ../root/static/scripts/common/components/FilterForm.js:328
 msgid "Secondary type"
@@ -14899,11 +14980,9 @@ msgid "{medium} on {release}"
 msgstr "{medium} sur {release}"
 
 #: ../root/static/scripts/common/components/OrderableDirection.js:22
-#, fuzzy
-#| msgid "None"
 msgctxt "relationship order direction"
 msgid "None"
-msgstr "Aucun"
+msgstr "Aucune"
 
 #: ../root/static/scripts/common/components/OrderableDirection.js:25
 msgid "Forward"
@@ -15434,7 +15513,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:4930
 msgid "Only RYM music videos can be linked to recordings."
-msgstr "Seul les clips RYM peuvent être liés à des enregistrements."
+msgstr "Seuls les clips RYM peuvent être liés à des enregistrements."
 
 #: ../root/static/scripts/edit/URLCleanup.js:4992
 msgid ""
@@ -15451,10 +15530,8 @@ msgid "Please link to Threads profiles, not threads."
 msgstr "Merci de lier à un profil Threads, pas à un fil."
 
 #: ../root/static/scripts/edit/URLCleanup.js:5746
-#, fuzzy
-#| msgid "Please link to Twitter profiles, not tweets."
 msgid "Please link to TikTok profiles, not videos."
-msgstr "Merci de lier au profil Twitter, pas à un tweet."
+msgstr "Merci de lier au profil TikTok, pas à une vidéo."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6013
 msgid "This is not a profile, but a Twitter documentation page."
@@ -15548,12 +15625,16 @@ msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
+"Ceci est un lien (playlist) pour une parution, pas la chaîne d’un artiste. "
+"Veuillez plutôt ajouter un lien vers la chaîne de l’artiste."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6877
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr ""
+"Veuillez plutôt ajouter un lien (playlist) à cette parution. Sinon vous "
+"pouvez ajouter les liens (video) aux enregistrements correspondants."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6887
 msgid ""
@@ -15702,19 +15783,13 @@ msgstr ""
 "manquants."
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:145
-#, fuzzy
-#| msgctxt "generic entity"
-#| msgid "[removed]"
 msgid "[removed]"
-msgstr "[enlevée]"
+msgstr "[supprimé]"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:182
-#, fuzzy
-#| msgctxt "interactive"
-#| msgid "Add artist credit"
 msgctxt "interactive"
 msgid "Undo artist credit removal"
-msgstr "Ajouter un crédit d’artiste"
+msgstr "Annuler la suppression du crédit d'artiste"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:189
 msgctxt "interactive"

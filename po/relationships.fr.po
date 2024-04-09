@@ -41,7 +41,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-02-02 12:28+0000\n"
+"PO-Revision-Date: 2024-04-09 13:28+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
@@ -51,7 +51,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.3.1\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -324,20 +324,15 @@ msgstr ""
 "avec des paroles différentes."
 
 #: DB:link_attribute_type/description:1406
-#, fuzzy
-#| msgid ""
-#| "For works that have lyrics, this indicates that those lyrics are not "
-#| "relevant to this recording. Examples include instrumental arrangements, "
-#| "or \"beats\" from hip-hop songs which may be reused with different lyrics."
 msgid ""
 "For works that usually have instruments and vocals, this indicates that the "
 "instrumental parts are not relevant to this recording. Examples include rap "
 "tracks from hip hop songs that can be remixed and used with different beats."
 msgstr ""
-"Pour les œuvres avec paroles ceci indique que ces paroles n’ont pas "
-"pertinentes à cet enregistrement. Les exemples incluent les arrangements "
-"instrumentaux ou « beats » de chansons hip-hop qui peuvent être réutilisés "
-"avec des paroles différentes."
+"Pour les œuvres qui ont habituellement des instruments et des voix, ceci "
+"indique que les parties instrumentales ne sont pas incluses dans cet "
+"enregistrement. Les exemples incluent les pistes de rap des chansons hip hop "
+"qui peuvent être remixées et utiliser différents « beats »."
 
 #: DB:link_type/link_phrase:934 DB:link_type/link_phrase:713
 msgid "Geonames"
@@ -1081,6 +1076,9 @@ msgid ""
 "Links an award series to the award ceremony series of events where it's "
 "announced and/or awarded."
 msgstr ""
+"Ceci relie une série de récompenses à la série d’événements de cérémonie de "
+"remise de prix au cours desquels les récompenses sont annoncées et/ou "
+"décernées."
 
 #: DB:link_type/description:798
 msgid "Links an event to (one of) its main performer(s)."
@@ -1099,6 +1097,8 @@ msgid ""
 "Links an event to a DJ that appeared in a supporting role (such as DJing "
 "between artists, or closing the night after a concert)."
 msgstr ""
+"Associe un événement à un DJ apparu dans un rôle secondaire (comme faire la "
+"transition entre deux artistes ou clore la soirée après un concert)."
 
 #: DB:link_type/description:800
 msgid ""
@@ -1114,6 +1114,8 @@ msgid ""
 "Links an event to a label or other organization credited for presenting it "
 "(often as “Label presents Event”)."
 msgstr ""
+"Lie un événement à un label ou à une autre organisation créditée pour l’"
+"avoir présenté (souvent sous la forme « Tel label présente tel événement »)."
 
 #: DB:link_type/description:806
 msgid "Links an event to an artist that was a conductor in it."
@@ -1550,16 +1552,12 @@ msgstr ""
 "toutefois contribuer à l’écriture ou à l’interprétation."
 
 #: DB:link_type/description:1243
-#, fuzzy
-#| msgid ""
-#| "This credits a person or agency whose photographs are included as part of "
-#| "a recording."
 msgid ""
 "This credits a person or agency who worked on animation for a video "
 "recording."
 msgstr ""
-"Ceci crédite une personne ou agence dont les photographies sont incluses "
-"comme partie d’un enregistrement."
+"Ceci crédite une personne ou agence qui a travaillé sur l’animation d’un "
+"enregistrement vidéo."
 
 #: DB:link_type/description:123
 msgid ""
@@ -1609,19 +1607,14 @@ msgstr ""
 "relation devrait être utilisé dans ce dernier cas."
 
 #: DB:link_type/description:125
-#, fuzzy
-#| msgid ""
-#| "This credits the people or agency who did the graphic design, arranging "
-#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
-#| "design."
 msgid ""
 "This credits the people or agency who did graphic design for a video "
 "recording, arranging pieces of content into a coherent and aesthetically-"
 "pleasing whole."
 msgstr ""
-"Ceci crédite les personnes ou l’agence ayant réalisé la conception "
-"graphique, arrangé les éléments du contenu en une pochette cohérente et "
-"esthétiquement agréable."
+"Ceci crédite les personnes ou l’agence ayant réalisé la conception graphique "
+"pour un enregistrement vidéo, en arrangeant les éléments du contenu en un "
+"tout cohérent et esthétiquement agréable."
 
 #: DB:link_type/description:202
 msgid ""
@@ -1896,20 +1889,15 @@ msgid "This indicates an artist that did the art direction for the release."
 msgstr ""
 
 #: DB:link_type/description:1236
-#, fuzzy
-#| msgid "This indicates a person or agency who did design for the release."
 msgid "This indicates an artist that did the sound effects for the recording."
 msgstr ""
-"Ceci indique une personne ou agence qui a fait de la conception pour cette "
-"parution."
+"Ceci indique un artiste qui a fait les effets sonores pour cet "
+"enregistrement."
 
 #: DB:link_type/description:1235
-#, fuzzy
-#| msgid "This indicates a person or agency who did design for the release."
 msgid "This indicates an artist that did the sound effects for the release."
 msgstr ""
-"Ceci indique une personne ou agence qui a fait de la conception pour cette "
-"parution."
+"Ceci indique un artiste qui a fait les effets sonores pour cette parution."
 
 #: DB:link_type/description:151
 msgid ""
@@ -1928,59 +1916,41 @@ msgstr ""
 "pour cette parution."
 
 #: DB:link_type/description:1242
-#, fuzzy
-#| msgid "This indicates a person or agency who did design for the release."
 msgid "This indicates an artist who did design for a video recording."
 msgstr ""
-"Ceci indique une personne ou agence qui a fait de la conception pour cette "
-"parution."
+"Ceci indique un artiste qui a fait de la conception pour cet enregistrement "
+"vidéo."
 
 #: DB:link_type/description:1233
-#, fuzzy
-#| msgid "This indicates a person or agency who did design for the release."
 msgid "This indicates an artist who did design for the event."
-msgstr ""
-"Ceci indique une personne ou agence qui a fait de la conception pour cette "
-"parution."
+msgstr "Ceci indique un artiste qui a fait de la conception pour cet événement."
 
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
 
 #: DB:link_type/description:1244
-#, fuzzy
-#| msgid ""
-#| "This indicates a person or agency who did illustration for the release."
 msgid "This indicates an artist who did illustration for a video recording."
 msgstr ""
-"Ceci indique une personne ou agence qui a fait de l’illustration pour cette "
-"parution."
+"Ceci indique un artiste qui a fait de l’illustration pour cet enregistrement "
+"vidéo."
 
 #: DB:link_type/description:1232
-#, fuzzy
-#| msgid ""
-#| "This indicates a person or agency who did illustration for the release."
 msgid "This indicates an artist who did illustration for the event."
 msgstr ""
-"Ceci indique une personne ou agence qui a fait de l’illustration pour cette "
-"parution."
+"Ceci indique un artiste qui a fait de l’illustration pour cet événement."
 
 #: DB:link_type/description:927
 msgid "This indicates an artist who did illustration for the release."
 msgstr ""
 
 #: DB:link_type/description:1234
-#, fuzzy
-#| msgid ""
-#| "This credits the people or agency who did the graphic design, arranging "
-#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
-#| "design."
 msgid ""
 "This indicates an artist who did the graphic design for the event, arranging "
 "pieces of content into a coherent and aesthetically-pleasing design."
 msgstr ""
-"Ceci crédite les personnes ou l’agence ayant réalisé la conception "
-"graphique, arrangé les éléments du contenu en une pochette cohérente et "
+"Ceci crédite les artistes ayant réalisé la conception graphique pour cet "
+"événement, en arrangeant les éléments du contenu en un tout cohérent et "
 "esthétiquement agréable."
 
 #: DB:link_type/description:27
@@ -1999,28 +1969,16 @@ msgstr ""
 "pratiques journaliers inhérents à un enregistrement musical."
 
 #: DB:link_type/description:1241
-#, fuzzy
-#| msgid ""
-#| "This indicates an artist who conducted an orchestra, band or choir on "
-#| "this release."
 msgid ""
 "This indicates an artist who provided artwork for a video recording when no "
 "more specific information is available."
 msgstr ""
-"Ceci indique un artiste qui a dirigé un orchestre, un groupe ou un chœur "
-"pour cette parution."
 
 #: DB:link_type/description:1231
-#, fuzzy
-#| msgid ""
-#| "This indicates an artist who conducted an orchestra, band or choir on "
-#| "this release."
 msgid ""
 "This indicates an artist who provided artwork for the event when no more "
 "specific information is available."
 msgstr ""
-"Ceci indique un artiste qui a dirigé un orchestre, un groupe ou un chœur "
-"pour cette parution."
 
 #: DB:link_type/description:993
 msgid ""
@@ -2336,15 +2294,10 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:1237
-#, fuzzy
-#| msgid ""
-#| "This indicates that an artist was officially employed by a label as a "
-#| "producer."
 msgid ""
 "This indicates the area (usually a city) where a label is headquartered in."
 msgstr ""
-"Ceci indique qu’un artiste était officiellement engagé par un label en tant "
-"que producteur."
+"Ceci indique une région (habituellement une ville) où un label a son siège."
 
 #: DB:link_type/description:1185
 msgid "This indicates the artist directed video on this release."
@@ -2383,19 +2336,19 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:1230
-#, fuzzy
-#| msgid "This indicates the artist was the director of this music video."
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
-msgstr "Ceci indique que l’artiste était le réalisateur de ce clip."
+msgstr ""
+"Ceci indique que l’artiste était le chorégraphe pour cet enregistrement "
+"vidéo."
 
 #: DB:link_type/description:1245
-#, fuzzy
-#| msgid "This indicates the artist was the director of this music video."
 msgid ""
 "This indicates the artist was the cinematographer / director of photography "
 "for this video recording."
-msgstr "Ceci indique que l’artiste était le réalisateur de ce clip."
+msgstr ""
+"Ceci indique que l’artiste était le cinématographe / directeur de la "
+"photographie pour cet enregistrement vidéo."
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
@@ -4947,16 +4900,12 @@ msgid "a cappella"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:1238
-#, fuzzy
-#| msgid "karaoke version of"
 msgid "a cappella version of"
-msgstr "version karaoké de"
+msgstr "version a cappella de"
 
 #: DB:link_type/link_phrase:1238
-#, fuzzy
-#| msgid "karaoke versions"
 msgid "a cappella versions"
-msgstr "versions karaoké"
+msgstr "versions a cappella"
 
 #: DB:link_attribute_type/name:1406
 msgid "acappella"
@@ -4992,10 +4941,8 @@ msgid "amount"
 msgstr "quantité"
 
 #: DB:link_type/name:1243
-#, fuzzy
-#| msgid "improvisation"
 msgid "animation"
-msgstr "improvisation"
+msgstr "animation"
 
 #: DB:link_attribute_type/name:1079
 msgid "anniversary"
@@ -5242,11 +5189,11 @@ msgstr "éditeur du livret pour"
 #: DB:link_type/link_phrase:1228 DB:link_type/name:1228
 #: DB:link_type/long_link_phrase:1228
 msgid "broadcast"
-msgstr ""
+msgstr "émission"
 
 #: DB:link_type/reverse_link_phrase:1228
 msgid "broadcast by"
-msgstr ""
+msgstr "a été diffusé par"
 
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
 #: DB:link_type/name:205 DB:link_type/reverse_link_phrase:205
@@ -5329,26 +5276,20 @@ msgid "choral conducting"
 msgstr ""
 
 #: DB:link_type/name:1230
-#, fuzzy
-#| msgid "photography"
 msgid "choreographer"
-msgstr "photographie"
+msgstr "chorégraphe"
 
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr "chef de chœur"
 
 #: DB:link_type/name:1245 DB:link_type/reverse_link_phrase:1245
-#, fuzzy
-#| msgid "photography"
 msgid "cinematographer"
-msgstr "photographie"
+msgstr "cinématographe"
 
 #: DB:link_type/link_phrase:1245
-#, fuzzy
-#| msgid "discography entry for"
 msgid "cinematographer for"
-msgstr "entrée discographique pour"
+msgstr "cinématographe pour"
 
 #: DB:link_attribute_type/name:1204
 msgid "classical music"
@@ -5836,10 +5777,8 @@ msgid "event artists"
 msgstr ""
 
 #: DB:link_type/link_phrase:1240 DB:link_type/name:1240
-#, fuzzy
-#| msgid "relocated from"
 msgid "excerpt from"
-msgstr "transféré de"
+msgstr "extrait de"
 
 #: DB:link_type/reverse_link_phrase:1240
 msgid "excerpts"
@@ -6155,10 +6094,8 @@ msgid "has a blog at"
 msgstr "a un blogue à"
 
 #: DB:link_type/long_link_phrase:1238
-#, fuzzy
-#| msgid "has a karaoke version"
 msgid "has a cappella version"
-msgstr "a une version karaoké"
+msgstr "a une version a cappella"
 
 #: DB:link_type/long_link_phrase:212
 msgid "has a catalog of records at"
@@ -6336,10 +6273,8 @@ msgid "has influences of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1239
-#, fuzzy
-#| msgid "instrument origin"
 msgid "has instrumental version"
-msgstr "origine"
+msgstr "a une version instrumentale"
 
 #: DB:link_type/long_link_phrase:984 DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
@@ -6415,14 +6350,12 @@ msgid "has {half:half-}{step}sibling"
 msgstr "a pour {half:demi-}{step:beau-}frère ou {half:demi-}{step:belle-}sœur"
 
 #: DB:link_type/reverse_link_phrase:1237
-#, fuzzy
-#| msgid "mastered in"
 msgid "headquartered in"
-msgstr "matricé à"
+msgstr "a son siège à/en"
 
 #: DB:link_type/name:1237
 msgid "headquarters"
-msgstr ""
+msgstr "siège"
 
 #: DB:link_type/link_phrase:794 DB:link_type/name:794 DB:link_type/name:995
 #: DB:link_type/reverse_link_phrase:995
@@ -6475,10 +6408,8 @@ msgid "hosts"
 msgstr "hôtes"
 
 #: DB:link_type/link_phrase:1237
-#, fuzzy
-#| msgid "cut the lacquer for"
 msgid "houses headquarters for"
-msgstr "a gravé la matrice sur laque pour"
+msgstr "abrite le siège de"
 
 #: DB:link_type/link_phrase:916 DB:link_type/name:916
 msgid "hybrid of"
@@ -6563,16 +6494,12 @@ msgid "instrumental supporting musician"
 msgstr "instrumentiste de soutien"
 
 #: DB:link_type/reverse_link_phrase:1239
-#, fuzzy
-#| msgid "instrument origin"
 msgid "instrumental version of"
-msgstr "origine"
+msgstr "version instrumentale de"
 
 #: DB:link_type/link_phrase:1239
-#, fuzzy
-#| msgid "instrument origin"
 msgid "instrumental versions"
-msgstr "origine"
+msgstr "versions instrumentales"
 
 #: DB:link_type/link_phrase:752
 msgid "instruments"
@@ -6670,10 +6597,8 @@ msgid "is an edit of"
 msgstr "est un montage de"
 
 #: DB:link_type/long_link_phrase:1240
-#, fuzzy
-#| msgid "is an edit of"
 msgid "is an excerpt from"
-msgstr "est un montage de"
+msgstr "est un extrait de"
 
 #: DB:link_type/long_link_phrase:926
 msgid "is associated with"
@@ -6733,17 +6658,13 @@ msgid "is the {step}parent of"
 msgstr "est le {step:beau-}père ou la {step:belle-}mère de"
 
 #: DB:link_type/long_link_phrase:278
-#, fuzzy
-#| msgid ""
-#| "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
-#| "{karaoke} recording of"
 msgid ""
 "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
 "a} {partial} {instrumental} {cover} {karaoke} recording of"
 msgstr ""
-"est un {medley:pot-pourri} {live:en public} {medley:incluant un} "
-"enregistrement {karaoke:karaoké} {partial:partiel} {instrumental:"
-"instrumental} {cover:une reprise} de"
+"est un {medley:pot-pourri incluant un} enregistrement {karaoke:karaoké} "
+"{partial:partiel} {acappella:a cappella} {instrumental:instrumental} {live:"
+"en public} {cover:et une reprise} de"
 
 #: DB:link_type/long_link_phrase:722
 msgid "is/was a subgroup of"
@@ -7810,10 +7731,8 @@ msgid "provided legal representation for"
 msgstr "a assuré la représentation juridique pour"
 
 #: DB:link_type/long_link_phrase:1243
-#, fuzzy
-#| msgid "provided {additional} illustration on"
 msgid "provided {additional} animation on"
-msgstr "a assuré l’illustration {additional:supplémentaire} sur"
+msgstr "a assuré l’animation {additional:supplémentaire} sur"
 
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:1174
 msgid "provided {additional} art direction on"
@@ -8727,10 +8646,8 @@ msgid "was an orchestra at"
 msgstr "était un orchestre à"
 
 #: DB:link_type/long_link_phrase:1245
-#, fuzzy
-#| msgid "was {assistant} organist at"
 msgid "was cinematographer for"
-msgstr "était {assistant:assistant d’}organiste à"
+msgstr "était cinématographe pour"
 
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
 #: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
@@ -8784,10 +8701,8 @@ msgid "was {assistant} carillonneur at"
 msgstr "était {assistant} carillonneur à"
 
 #: DB:link_type/long_link_phrase:1230
-#, fuzzy
-#| msgid "was {assistant} organist at"
 msgid "was {assistant} choreographer for"
-msgstr "était {assistant:assistant d’}organiste à"
+msgstr "était {assistant:assistant} chorégraphe de"
 
 #: DB:link_type/long_link_phrase:856
 msgid "was {assistant} organist at"
@@ -8873,30 +8788,22 @@ msgid "youtube music"
 msgstr "youtube music"
 
 #: DB:link_type/link_phrase:278
-#, fuzzy
-#| msgid ""
-#| "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
-#| "{karaoke} recording of"
 msgid ""
 "{acappella:a cappella} {live} {medley:medley including a} {partial} "
 "{instrumental} {cover} {karaoke} recording of"
 msgstr ""
-"est un {medley:pot-pourri} {live:en public} {medley:incluant un} "
-"enregistrement {karaoke:karaoké} {partial:partiel} {instrumental:"
-"instrumental} {cover:une reprise} de"
+"{medley:pot-pourri incluant un} enregistrement {karaoke:karaoké} "
+"{partial:partiel} {acappella:a cappella} {instrumental:instrumental} {live:"
+"en public} {cover:et une reprise} de"
 
 #: DB:link_type/reverse_link_phrase:278
-#, fuzzy
-#| msgid ""
-#| "{live} {medley:medleys including} {partial} {instrumental} {cover} "
-#| "{karaoke} recordings"
 msgid ""
 "{acappella:a cappella} {live} {medley:medleys including} {partial} "
 "{instrumental} {cover} {karaoke} recordings"
 msgstr ""
-"{medley:pot-pourri} {live:en public} {medley:incluant des} enregistrements "
-"{karaoke:karaoké} {partial:partiels} {instrumental:instrumentaux} {cover:des "
-"reprises}"
+"{medley:pot-pourri incluant des} enregistrements {karaoke:karaoké} "
+"{partial:partiels} {acappella:a cappella} {instrumental:instrumentaux} {live:"
+"en public} {cover:et des reprises}"
 
 #: DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
@@ -9166,10 +9073,8 @@ msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr ""
 
 #: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
-#, fuzzy
-#| msgid "{additional} illustration"
 msgid "{additional} animation"
-msgstr "illustration {additional:supplémentaire}"
+msgstr "animation {additional:supplémentaire}"
 
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
@@ -9524,16 +9429,12 @@ msgid "{assistant} carillonneur at"
 msgstr "{assistant} carillonneur à"
 
 #: DB:link_type/reverse_link_phrase:1230
-#, fuzzy
-#| msgid "{assistant} organists"
 msgid "{assistant} choreographer"
-msgstr "{assistant:assistants d’}organistes"
+msgstr "{assistant:assistant} chorégraphe"
 
 #: DB:link_type/link_phrase:1230
-#, fuzzy
-#| msgid "{assistant} organist at"
 msgid "{assistant} choreographer for"
-msgstr "{assistant:assistant d’}organiste à"
+msgstr "{assistant:assistant} chorégraphe de"
 
 #: DB:link_type/link_phrase:856
 msgid "{assistant} organist at"
@@ -9700,10 +9601,8 @@ msgid "{entity1} is dedicated to {entity0}"
 msgstr "{entity1} est dédicacé à {entity0}"
 
 #: DB:link_type/long_link_phrase:1237
-#, fuzzy
-#| msgid "{entity1} was manufactured in {entity0}"
 msgid "{entity1} is headquartered in {entity0}"
-msgstr "{entity1} a été fabriqué en {entity0}"
+msgstr "{entity1} a son siège à/en {entity0}"
 
 #: DB:link_type/long_link_phrase:939
 msgid "{entity1} is licensed under {entity0}"
