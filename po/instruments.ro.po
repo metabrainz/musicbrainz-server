@@ -2073,6 +2073,11 @@ msgctxt "fipple flute from Härjedalen, Sweden"
 msgid "härjedalspipa"
 msgstr ""
 
+#: DB:instrument/name:1205
+msgctxt "Small German Renaissance bagpipe"
+msgid "hümmelchen"
+msgstr ""
+
 #: DB:instrument/name:674
 msgid "idiophone"
 msgstr ""
@@ -2784,6 +2789,11 @@ msgstr ""
 
 #: DB:instrument/name:540
 msgid "ney"
+msgstr ""
+
+#: DB:instrument/name:1206
+msgctxt "Iranian single reed bagpipe"
+msgid "neyanban"
 msgstr ""
 
 #: DB:instrument/name:783
