@@ -42,9 +42,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-27 21:10+0100\n"
-"PO-Revision-Date: 2024-03-24 20:28+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-03-31 15:28+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -52,8 +52,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -179,20 +179,15 @@ msgid "<strong>Warning</strong>:"
 msgstr "<strong>ВНИМАНИЕ</strong>:"
 
 #: ../root/cdtoc/lookup.tt:22
-#, fuzzy
-#| msgid ""
-#| "A CD Stub was found that matches the disc ID you provided. If the below "
-#| "tracklist appears correct, you may use it as a starting point as a new "
-#| "MusicBrainz release"
 msgid ""
 "A CD stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point for a new "
 "MusicBrainz release."
 msgstr ""
-"Обнаружена заглушка компакт-диска, соответствующая указанному вами "
-"идентификатору диска. Если нижеприведенный список треков кажется правильным, "
-"вы можете использовать его в качестве отправной точки при создании нового "
-"издания в MusicBrainz"
+"Обнаружен стаб диска, соответствующий указанному вами идентификатору диска. "
+"Если нижеприведенный список треков кажется правильным, вы можете "
+"использовать его в качестве отправной точки при создании нового релиза в "
+"MusicBrainz"
 
 #: ../root/release/edit/tracklist.tt:323
 msgid ""
@@ -223,18 +218,17 @@ msgid ""
 "for additional info (such as \"Encore\"). [mbid|name] allows linking to "
 "artists and works."
 msgstr ""
+"Добавьте @ в начале строки для обозначения исполнителя, * - для работы/"
+"песни, или # для дополнительной информации. [mbid|имя] позволяет добавлять "
+"ссылки на исполнителей и работы."
 
 #: ../root/release/edit/tracklist.tt:273
-#, fuzzy
-#| msgid ""
-#| "Add a medium by clicking “Add Medium” below, or tick the box confirming "
-#| "the tracklist is unknown."
 msgid ""
 "Add a medium by clicking “Add medium” below, or tick the box confirming the "
 "tracklist is unknown."
 msgstr ""
-"Добавьте носитель, нажав \"Добавить носитель\" ниже, или поставьте галочку, "
-"подтвердив, что треклист неизвестен."
+"Добавьте носитель, нажав кнопку \"Добавить носитель\" ниже, или поставьте "
+"галочку, подтвердив, что трек-лист неизвестен."
 
 #: ../root/release/edit/recordings.tt:178
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:26
@@ -305,12 +299,9 @@ msgstr "Добавить релиз"
 
 #: ../root/release/edit/information.tt:171
 #: ../root/release/edit/information.tt:172
-#, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Add Release Event"
 msgctxt "interactive"
 msgid "Add release event"
-msgstr "Добавить выпуск издания"
+msgstr "Добавить день выхода"
 
 #: ../root/release_group/create.tt:1 ../root/release_group/create.tt:3
 msgctxt "header"
@@ -372,7 +363,6 @@ msgstr ""
 "новую запись», если подходящей еще нет."
 
 #: ../root/components/common-macros.tt:569
-#, fuzzy
 msgid ""
 "An entity with that name and disambiguation already exists. You must enter a "
 "unique disambiguation comment."
@@ -502,10 +492,8 @@ msgid "Artist area"
 msgstr "Область исполнителя"
 
 #: ../root/artist/edit_form.tt:10
-#, fuzzy
-#| msgid "Artist Details"
 msgid "Artist details"
-msgstr "Подробности об артисте"
+msgstr "Об исполнителе"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
@@ -516,7 +504,7 @@ msgstr "Подробности об артисте"
 #: ../root/cdtoc/SelectArtistForCDToc.js:32
 msgctxt "header"
 msgid "Attach CD TOC"
-msgstr ""
+msgstr "Добавить таблицу содержимого CD"
 
 #: ../root/cdtoc/attach_artist_releases.tt:40
 #: ../root/cdtoc/attach_filter_release.tt:54
@@ -789,10 +777,8 @@ msgstr "ДД"
 #: ../root/medium/tracklist.tt:37 ../root/release/edit/tracklist.tt:466
 #: ../root/medium/MediumTracklist.js:53
 #: ../root/static/scripts/release/components/MediumTable.js:128
-#, fuzzy
-#| msgid "track"
 msgid "Data tracks"
-msgstr "трек"
+msgstr "Трек с данными"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
@@ -821,7 +807,7 @@ msgstr "Дата"
 #: ../root/event/edit_form.tt:32
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:184
 msgid "Date period"
-msgstr ""
+msgstr "Период времени"
 
 #: ../root/artist/edit_form.tt:36 ../root/components/forms.tt:210
 #: ../root/event/edit_form.tt:34
@@ -892,11 +878,11 @@ msgstr "Информация об ID диска"
 
 #: ../root/cdtoc/index.tt:3
 msgid "Disc ID “<code>{discid}</code>”"
-msgstr ""
+msgstr "ID диска <code>{discid}</code>"
 
 #: ../root/cdtoc/index.tt:1
 msgid "Disc ID “{discid}”"
-msgstr ""
+msgstr "ID диска {discid}"
 
 #: ../root/release/edit/duplicates.tt:40
 msgid "Do not use any of the above releases as a starting point"
@@ -929,11 +915,9 @@ msgstr "Править"
 
 #: ../root/cdtoc/list.tt:18 ../root/entity/edit.tt:1
 #: ../root/collection/EditCollection.js:32 ../root/release/DiscIds.js:111
-#, fuzzy
-#| msgid "Edit"
 msgctxt "verb, header"
 msgid "Edit"
-msgstr "Править"
+msgstr "Редактировать"
 
 #: ../root/release/edit/recordings.tt:73
 #: ../root/account/applications/ApplicationList.js:41
@@ -949,14 +933,12 @@ msgstr "Править"
 #| msgid "Edit"
 msgctxt "verb, interactive"
 msgid "Edit"
-msgstr "Править"
+msgstr "Редактировать"
 
 #: ../root/url/edit_form.tt:3
-#, fuzzy
-#| msgid "Edit URL"
 msgctxt "header"
 msgid "Edit URL"
-msgstr "Править URL"
+msgstr "Редактировать URL"
 
 #: ../root/artist/edit_credit.tt:1 ../root/artist/edit_credit.tt:6
 #, fuzzy
@@ -966,8 +948,6 @@ msgid "Edit artist credit"
 msgstr "Править исполнителя"
 
 #: ../root/release/edit_cover_art.tt:1 ../root/release/edit_cover_art.tt:4
-#, fuzzy
-#| msgid "Edit cover art"
 msgctxt "singular, header"
 msgid "Edit cover art"
 msgstr "Редактировать обложку"
@@ -990,16 +970,14 @@ msgstr "Редактировать содержание комментария"
 #: ../root/components/forms.tt:36 ../root/components/forms.tt:40
 #: ../root/static/scripts/edit/components/EnterEditNote.js:77
 msgid "Edit note:"
-msgstr ""
+msgstr "Комментарий к правке:"
 
 #: ../root/doc/edit_type.tt:18 ../root/doc/EditTypeList.js:39
 #: ../root/doc/EditTypeList.js:41 ../root/edit/components/EditSidebar.js:99
 #: ../root/layout/components/BottomMenu.js:317
-#, fuzzy
-#| msgid "Edit Types"
 msgctxt "noun"
 msgid "Edit types"
-msgstr "Править типы"
+msgstr "Редактировать типы"
 
 #: ../root/edit/search_macros.tt:434
 msgid "Edited entity"
