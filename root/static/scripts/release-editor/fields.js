@@ -966,6 +966,9 @@ class Release extends mbEntity.Release {
     var errorField = validation.errorField;
     var currentName = data.name;
 
+    // used by ko.bindingHandlers.artistCreditEditor
+    this.uniqueID = 'source';
+
     this.gid = ko.observable(data.gid);
     this.name = ko.observable(currentName);
     this.needsName = errorField(ko.observable(!currentName));

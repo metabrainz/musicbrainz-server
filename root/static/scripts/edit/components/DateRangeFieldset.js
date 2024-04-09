@@ -173,7 +173,7 @@ const DateRangeFieldset = (React.memo<PropsT>(({
   dispatch,
   endedLabel,
   field,
-}: PropsT): React$Element<React$FragmentType> => {
+}: PropsT): React.MixedElement => {
   const subfields = field.field;
 
   const hooks = useDateRangeFieldset(dispatch);

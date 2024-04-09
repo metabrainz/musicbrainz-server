@@ -173,7 +173,7 @@ const RelationshipTypePairTree = ({
       fullWidth
       noIcons
       title={texp.l(
-        '{type0}-{type1} Relationship Types',
+        '{type0}-{type1} relationship types',
         {type0: formattedType0, type1: formattedType1},
       )}
     >

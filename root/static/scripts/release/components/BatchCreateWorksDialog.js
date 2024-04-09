@@ -70,19 +70,20 @@ export function createInitialState(): BatchCreateWorksDialogStateT {
       ended: false,
     }),
     languages: createWorkLanguagesState(),
-    linkType: createDialogLinkTypeState(
-      linkedEntities.link_type[RECORDING_OF_LINK_TYPE_GID],
-      RECORDING_PLACEHOLDER,
-      'work',
-      getDialogLinkTypeOptions(RECORDING_PLACEHOLDER, 'work'),
-      'batch-create-works',
-      true, /* disabled */
+    linkType: createDialogLinkTypeState({
+      linkType: linkedEntities.link_type[RECORDING_OF_LINK_TYPE_GID],
+      source: RECORDING_PLACEHOLDER,
+      targetType: 'work',
+      linkTypeOptions:
+        getDialogLinkTypeOptions(RECORDING_PLACEHOLDER, 'work'),
+      id: 'batch-create-works',
+      disabled: true,
       /*
        * There is only one selectable link type at the moment
        * (recording of), so the autocomplete is disabled. This
        * allows focus to start on "Work Type" instead.
        */
-    ),
+    }),
     workType: null,
   };
 }
@@ -138,6 +139,7 @@ export function reducer(
 
 type BatchCreateWorksDialogContentPropsT = {
   +closeDialog: () => void,
+  +initialFocusRef: {-current: HTMLElement | null},
   +sourceDispatch: (AcceptBatchCreateWorksDialogActionT) => void,
 };
 
@@ -145,6 +147,7 @@ const BatchCreateWorksDialogContent = React.memo<
   BatchCreateWorksDialogContentPropsT,
 >(({
   closeDialog,
+  initialFocusRef,
   sourceDispatch,
 }: BatchCreateWorksDialogContentPropsT): React$Element<'div'> => {
   const [state, dispatch] = React.useReducer(
@@ -253,6 +256,7 @@ const BatchCreateWorksDialogContent = React.memo<
           />
           <WorkTypeSelect
             dispatch={dispatch}
+            initialFocusRef={initialFocusRef}
             workType={workType}
           />
           <WorkLanguageMultiselect
@@ -293,8 +297,6 @@ export const BatchCreateWorksButtonPopover = (React.memo<
   isDisabled,
   isOpen,
 }: BatchCreateWorksButtonPopoverPropsT): React$MixedElement => {
-  const addButtonRef = React.useRef<HTMLButtonElement | null>(null);
-
   const setOpen = React.useCallback((open: boolean) => {
     dispatch({
       location: open ? {
@@ -306,16 +308,16 @@ export const BatchCreateWorksButtonPopover = (React.memo<
     });
   }, [dispatch]);
 
-  const closeDialog = React.useCallback(() => {
-    setOpen(false);
-  }, [setOpen]);
-
-  const buildPopoverContent = React.useCallback(() => (
+  const buildPopoverContent = React.useCallback((
+    closeDialog: () => void,
+    initialFocusRef: {-current: HTMLElement | null},
+  ) => (
     <BatchCreateWorksDialogContent
       closeDialog={closeDialog}
+      initialFocusRef={initialFocusRef}
       sourceDispatch={dispatch}
     />
-  ), [closeDialog, dispatch]);
+  ), [dispatch]);
 
   let tooltipMessage = null;
   if (isDisabled) {
@@ -335,7 +337,6 @@ export const BatchCreateWorksButtonPopover = (React.memo<
           buttonProps={{
             className: 'add-item with-label batch-create-works',
           }}
-          buttonRef={addButtonRef}
           className="relationship-dialog"
           closeOnOutsideClick={false}
           id="batch-create-works-dialog"

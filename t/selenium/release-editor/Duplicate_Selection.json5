@@ -24,7 +24,7 @@
     },
     {
       command: 'focus',
-      target: 'css=span.artist input.name',
+      target: 'id=ac-source-single-artist',
       value: '',
     },
     {
@@ -34,7 +34,7 @@
     },
     {
       command: 'type',
-      target: 'css=span.artist input.name',
+      target: 'id=ac-source-single-artist',
       value: 'imagine',
     },
     {
@@ -49,7 +49,7 @@
     },
     {
       command: 'sendKeys',
-      target: 'css=span.artist input.name',
+      target: 'id=ac-source-single-artist',
       value: '${KEY_ENTER}',
     },
     {

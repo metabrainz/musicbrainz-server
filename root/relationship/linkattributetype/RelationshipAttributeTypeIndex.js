@@ -158,7 +158,7 @@ const RelationshipAttributeTypeIndex = ({
             {isInstrumentRoot ? (
               <p>
                 {exp.l(
-                  `The possible values for this relationship can be seen
+                  `The possible values for this attribute can be seen
                    from the {instrument_list|instrument list}.`,
                   {instrument_list: '/instruments'},
                 )}

@@ -120,7 +120,7 @@
     },
     {
       command: 'assertValue',
-      target: 'css=.release-artist input.name',
+      target: 'id=ac-source-single-artist',
       value: 'Berryz工房',
     },
     {

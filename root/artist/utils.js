@@ -16,7 +16,7 @@ export function artistBeginAreaLabel(typeId: ?number): string {
     case 6:
       return addColonText(lp('Founded in', 'group artist'));
     default:
-      return l('Begin area:');
+      return addColonText(l('Begin area'));
   }
 }
 
@@ -44,7 +44,7 @@ export function artistEndAreaLabel(typeId: ?number): string {
     case 6:
       return addColonText(lp('Dissolved in', 'group artist'));
     default:
-      return l('End area:');
+      return addColonText(l('End area'));
   }
 }
 

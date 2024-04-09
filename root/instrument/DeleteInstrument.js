@@ -31,9 +31,9 @@ const DeleteInstrument = ({
     entity={instrument}
     fullWidth
     page="delete"
-    title={lp('Remove instrument', 'header')}
+    title="Remove instrument"
   >
-    <h2>{lp('Remove instrument', 'header')}</h2>
+    <h2>{'Remove instrument'}</h2>
 
     {canDelete ? (
       <>
@@ -46,8 +46,8 @@ const DeleteInstrument = ({
       </>
     ) : (
       <p>
-        {l(`This instrument cannot be removed
-            because there are still relationships attributed to it.`)}
+        {l_admin(`This instrument cannot be removed
+                  because there are still relationships attributed to it.`)}
       </p>
     )}
   </InstrumentLayout>

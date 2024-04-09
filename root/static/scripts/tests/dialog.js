@@ -14,7 +14,6 @@ const ReactDOMClient = require('react-dom/client');
 
 const Modal = require('../common/components/Modal.js').default;
 const ButtonPopover = require('../common/components/ButtonPopover.js').default;
-const useReturnFocus = require('../common/hooks/useReturnFocus.js').default;
 
 const container = document.createElement('div');
 document.body?.insertBefore(container, document.getElementById('page'));
@@ -59,9 +58,6 @@ const DialogTest = () => {
   );
 
   const modalButtonRef = React.useRef<HTMLButtonElement | null>(null);
-  const popoverButtonRef = React.useRef<HTMLButtonElement | null>(null);
-  const modalDialogRef = React.useRef<HTMLDivElement | null>(null);
-  const focusModalButton = useReturnFocus(modalButtonRef);
 
   const openModal = React.useCallback(() => {
     dispatch({
@@ -71,12 +67,11 @@ const DialogTest = () => {
   }, []);
 
   const closeModal = React.useCallback(() => {
-    focusModalButton.current = true;
     dispatch({
       open: false,
       type: 'toggle-modal',
     });
-  }, [focusModalButton]);
+  }, [dispatch]);
 
   const togglePopover = React.useCallback((open: boolean) => {
     dispatch({open, type: 'toggle-popover'});
@@ -121,7 +116,6 @@ const DialogTest = () => {
         </button>
         {state.isModalOpen ? (
           <Modal
-            dialogRef={modalDialogRef}
             id="modal-test"
             onEscape={closeModal}
             title="Title"
@@ -147,7 +141,6 @@ const DialogTest = () => {
         <ButtonPopover
           buildChildren={buildPopoverChildren}
           buttonContent="Open Popover"
-          buttonRef={popoverButtonRef}
           id="popover-test"
           isOpen={state.isPopoverOpen}
           toggle={togglePopover}

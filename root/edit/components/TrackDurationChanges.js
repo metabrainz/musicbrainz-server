@@ -24,7 +24,7 @@ const TrackDurationChanges = ({
   newLengths,
   oldLabel,
   oldLengths,
-}: Props): React$Element<React$FragmentType> => {
+}: Props): React.MixedElement => {
   const lengthsSize = oldLengths.length;
   const lengthComparisonTables = [];
   for (let i = 0; i < lengthsSize; i++) {

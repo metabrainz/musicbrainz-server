@@ -27,19 +27,9 @@
       value: '',
     },
     {
-      command: 'click',
-      target: "xpath=//td[contains(@class, 'release-artist')]//input[contains(@class, 'name')]",
-      value: '',
-    },
-    {
       command: 'type',
-      target: "xpath=//td[contains(@class, 'release-artist')]//input[contains(@class, 'name')]",
+      target: "id=ac-source-single-artist",
       value: 'nine inch nails',
-    },
-    {
-      command: 'fireEvent',
-      target: "xpath=//td[contains(@class, 'release-artist')]//input[contains(@class, 'name')]",
-      value: 'input',
     },
     {
       command: 'pause',
@@ -48,7 +38,7 @@
     },
     {
       command: 'click',
-      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Nine Inch Nails')]",
+      target: "xpath=//ul[@id='ac-source-single-artist-menu']//li[contains(@class, 'option-item')][contains(., 'Nine Inch Nails')]",
       value: '',
     },
     {

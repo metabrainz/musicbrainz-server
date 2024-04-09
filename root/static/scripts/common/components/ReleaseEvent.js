@@ -18,7 +18,7 @@ type Props = {
 
 const ReleaseEvent = ({
   event,
-}: Props): React$Element<React$FragmentType> => (
+}: Props): React.MixedElement => (
   <>
     {isDateEmpty(event.date) ? null : (
       <>

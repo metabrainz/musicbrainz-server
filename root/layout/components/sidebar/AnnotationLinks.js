@@ -19,7 +19,7 @@ type Props = {
 
 const AnnotationLinks = ({
   entity,
-}: Props): React$Element<React$FragmentType> => {
+}: Props): React.MixedElement => {
   const $c = React.useContext(CatalystContext);
   const numberOfRevisions = $c.stash.number_of_revisions ?? 0;
 

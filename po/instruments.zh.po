@@ -1430,6 +1430,11 @@ msgstr "唤鸭器"
 msgid "duduk"
 msgstr "都都克笛"
 
+#: DB:instrument/name:1203
+msgctxt "Czechian / Bohemian bagpipe"
+msgid "dudy"
+msgstr ""
+
 #: DB:instrument/name:1202
 msgctxt "Podhale bagpipe"
 msgid "dudy podhalanskie"
@@ -1475,6 +1480,11 @@ msgstr "都塔尔"
 #: DB:instrument/name:596
 msgid "duxianqin"
 msgstr "独弦琴"
+
+#: DB:instrument/name:1204
+msgctxt "Lithuanian bagpipe"
+msgid "dūdmaišis"
+msgstr ""
 
 #: DB:instrument/name:327
 msgid "ebow"
@@ -2105,6 +2115,11 @@ msgstr "拍子木"
 msgctxt "fipple flute from Härjedalen, Sweden"
 msgid "härjedalspipa"
 msgstr "瑞典哨笛"
+
+#: DB:instrument/name:1205
+msgctxt "Small German Renaissance bagpipe"
+msgid "hümmelchen"
+msgstr ""
 
 #: DB:instrument/name:674
 msgid "idiophone"
@@ -2818,6 +2833,11 @@ msgstr "自然小号"
 #: DB:instrument/name:540
 msgid "ney"
 msgstr "波斯长笛"
+
+#: DB:instrument/name:1206
+msgctxt "Iranian single reed bagpipe"
+msgid "neyanban"
+msgstr ""
 
 #: DB:instrument/name:783
 msgctxt "Māori taonga pūoro small vessel flute"

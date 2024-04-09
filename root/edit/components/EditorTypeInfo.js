@@ -16,7 +16,7 @@ type Props = {
 
 const EditorTypeInfo = ({
   editor,
-}: Props): React$Element<React$FragmentType> | null => (
+}: Props): React.MixedElement | null => (
   editor == null ? null : (
     <>
       {editor.is_limited ? (

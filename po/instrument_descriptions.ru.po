@@ -9,11 +9,13 @@
 # Андрій Пиндик <email address hidden>, 2017
 # Дмитрий <email address hidden>, 2014
 # cijic <altcode@ya.ru>, 2024.
+# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-02-26 08:28+0000\n"
-"Last-Translator: cijic <altcode@ya.ru>\n"
+"PO-Revision-Date: 2024-03-11 16:28+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ru/>\n"
 "Language: ru\n"
@@ -66,11 +68,10 @@ msgstr ""
 
 #. name:kös 
 #: DB:instrument/description:739
-#, fuzzy
-#| msgid "A Turkish drum used in the traditional Ottoman military bands"
 msgid "A Turkish drum used in the traditional Ottoman military bands."
 msgstr ""
-"Турецкий барабан, использовавшийся в традиционных османских военных оркестрах"
+"Турецкий барабан, использовавшийся в традиционных османских военных "
+"оркестрах."
 
 #. name:tef 
 #: DB:instrument/description:531
@@ -113,21 +114,15 @@ msgstr "Камерный орган — это орган небольшого �
 
 #. name:cuatro 
 #: DB:instrument/description:439
-#, fuzzy
-#| msgid "A class of South-American guitars"
 msgid "A class of South-American guitars."
-msgstr "Класс южноамериканских гитар"
+msgstr "Класс южноамериканских гитар."
 
 #. name:saduk 
 #: DB:instrument/description:804
-#, fuzzy
-#| msgid ""
-#| "A cross between a saxophone and a duduk invented and played by Alexander "
-#| "Berne"
 msgid ""
 "A cross between a saxophone and a duduk invented and played by Alexander "
 "Berne."
-msgstr "Смесь саксофона и дудука. Изобретатель и исполнитель — Александр Берн"
+msgstr "Смесь саксофона и дудука. Изобретатель и исполнитель — Александр Берн."
 
 #. name:cylindrical drum 
 #: DB:instrument/description:658
@@ -359,6 +354,14 @@ msgid ""
 "orchestra."
 msgstr ""
 
+#. name:dudy 
+#: DB:instrument/description:1203
+msgid ""
+"Also known as \"bock\", referencing the goatskin bag, it has been in use "
+"since atleast 1340's. It has a single drone and chanter with single reeds, "
+"modern variants are bellows blown."
+msgstr ""
+
 #. name:classical guitar 
 #: DB:instrument/description:54
 msgid ""
@@ -526,10 +529,8 @@ msgstr ""
 
 #. name:xiao 
 #: DB:instrument/description:484
-#, fuzzy
-#| msgid "Ancient Chinese vertical, end-blown flute made of bamboo"
 msgid "Ancient Chinese vertical, end-blown flute made of bamboo."
-msgstr "Древняя китайская вертикальная флейта из бамбука"
+msgstr "Древняя китайская вертикальная флейта из бамбука."
 
 #. name:gusli 
 #: DB:instrument/description:423
@@ -724,38 +725,30 @@ msgstr ""
 
 #. name:string quintet 
 #: DB:instrument/description:1033
-#, fuzzy
-#| msgid "Chamber ensemble of four players (two violins, one viola, one cello)"
 msgid ""
 "Chamber ensemble of five players (two violins, one viola & one cello, then "
 "either a second viola, a second cello or a double bass)."
 msgstr ""
-"Камерный ансамбль из четырех человек (две скрипки, один альт, одна "
-"виолончель)"
+"Камерный ансамбль из пяти человек (две скрипки, один альт и одна виолончель, "
+"затем либо второй альт, либо вторая виолончель, либо контрабас)."
 
 #. name:string quartet 
 #: DB:instrument/description:908
-#, fuzzy
-#| msgid "Chamber ensemble of four players (two violins, one viola, one cello)"
 msgid "Chamber ensemble of four players (two violins, one viola, one cello)."
 msgstr ""
 "Камерный ансамбль из четырех человек (две скрипки, один альт, одна "
-"виолончель)"
+"виолончель)."
 
 #. name:piano trio 
 #: DB:instrument/description:911
-#, fuzzy
-#| msgid "Chamber ensemble of three players (one piano, one violin, one cello)"
 msgid "Chamber ensemble of three players (one piano, one violin, one cello)."
-msgstr "Камерный ансамбль из трех человек (фортепиано, скрипка, виолончель)"
+msgstr "Камерный ансамбль из трех человек (фортепиано, скрипка, виолончель)."
 
 #. name:string trio 
 #: DB:instrument/description:915
-#, fuzzy
-#| msgid "Chamber ensemble of three players (one violin, one viola, one cello)"
 msgid "Chamber ensemble of three players (one violin, one viola, one cello)."
 msgstr ""
-"Камерный ансамбль из трех человек (одна скрипка, один альт, одна виолончель)"
+"Камерный ансамбль из трех человек (одна скрипка, один альт, одна виолончель)."
 
 #. name:piano duo 
 #: DB:instrument/description:1024
@@ -1694,6 +1687,14 @@ msgid ""
 "instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
 msgstr ""
 
+#. name:hümmelchen 
+#: DB:instrument/description:1205
+msgid ""
+"Having a small bag, it has a soft sound. Its chanter and two drones of "
+"differing length are made of fruitwood. It historically had single reeds, "
+"modern creations are more complex and double-reeded."
+msgstr ""
+
 #. name:kantilan 
 #: DB:instrument/description:975
 msgid ""
@@ -1934,6 +1935,14 @@ msgid ""
 "It has a short fretted neck originally with four silk but now usually nylon "
 "or steel strings, and large flat round body, earning it the nickname \"moon "
 "lute\"."
+msgstr ""
+
+#. name:dūdmaišis 
+#: DB:instrument/description:1204
+msgid ""
+"It has a single chanter and drone with a bag made of a variety of animals, "
+"it has fur out and an ornamental goats head. Traditionally played at spring "
+"festivities, recently it has had a resurgence."
 msgstr ""
 
 #. name:sho 
@@ -2701,6 +2710,13 @@ msgstr ""
 #. name:saron barung 
 #: DB:instrument/description:1007
 msgid "Often called simply \"saron\", it plays the basic, balungan melody."
+msgstr ""
+
+#. name:neyanban 
+#: DB:instrument/description:1206
+msgid ""
+"Often colourfully decorated, it is known since ancient times in southern "
+"Persia. It has a single reed with a double piped chanter with 6-7 holes."
 msgstr ""
 
 #. name:slapstick 
@@ -3583,10 +3599,8 @@ msgstr ""
 
 #. name:tenor viol 
 #: DB:instrument/description:922
-#, fuzzy
-#| msgid "Violone, The largest/deepest member of the Viol family"
 msgid "Tenor member of the viol family."
-msgstr "Виолоне, Самый большой / самый глубокий представитель семейства Виол"
+msgstr "Тенор из семейства скрипичных."
 
 #. name:Cretan lyra 
 #: DB:instrument/description:482
@@ -5644,10 +5658,8 @@ msgstr ""
 
 #. name:fretless bass 
 #: DB:instrument/description:435
-#, fuzzy
-#| msgid "Acoustic guitar without frets."
 msgid "Variety of bass guitars without frets."
-msgstr "Акустическая гитара без ладов."
+msgstr "Разновидность бас-гитар без ладов."
 
 #. name:cymbal 
 #: DB:instrument/description:271
@@ -5683,10 +5695,8 @@ msgstr ""
 
 #. name:violone 
 #: DB:instrument/description:420
-#, fuzzy
-#| msgid "Violone, The largest/deepest member of the Viol family"
 msgid "Violone, The largest/deepest member of the Viol family."
-msgstr "Виолоне, Самый большой / самый глубокий представитель семейства Виол"
+msgstr "Виолоне, cамый большой/глубокий представитель семейства Виол."
 
 #. name:shekere 
 #: DB:instrument/description:381

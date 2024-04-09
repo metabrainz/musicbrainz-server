@@ -28,6 +28,9 @@ Options:
                                 files, without trailing slash (default:
                                 DBDefs->CANONICAL_SERVER)
     --database                  database to use (default: MAINTENANCE)
+    --foreign-keys-dump         location of foreign keys dump file
+                                (from ./script/dump_foreign_keys.pl).
+                                (default: foreign_keys)
     --output-dir                directory to write sitemaps to (default:
                                 root/static/sitemaps/)
     --replication-access-uri    URI to request replication packets from

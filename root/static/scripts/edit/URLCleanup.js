@@ -1315,7 +1315,7 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?((m|www)\\.)?bandsintown\\.com', 'i')],
     restrict: [LINK_TYPES.bandsintown],
     clean: function (url) {
-      let m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/(?:[a-z]{2}\/)?(a(?=rtist|\/)|e(?=vent|\/)|v(?=enue|\/))[a-z]*\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
+      let m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/(?:[a-z]{2}\/)?(a(?=rtist|\/)|e(?=vent|\/)|f|v(?=enue|\/))[a-z]*\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
       if (m) {
         const prefix = m[1];
         const number = m[2];
@@ -1330,7 +1330,7 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www.bandsintown\.com\/(?:([aev])\/)?([^\/?#]+)$/.exec(url);
+      const m = /^https:\/\/www.bandsintown\.com\/(?:([aefv])\/)?([^\/?#]+)$/.exec(url);
       if (m) {
         const prefix = m[1];
         const target = m[2];
@@ -1343,7 +1343,8 @@ const CLEANUPS: CleanupEntries = {
             };
           case LINK_TYPES.bandsintown.event:
             return {
-              result: prefix === 'e' && /^[1-9][0-9]*$/.test(target),
+              result: (prefix === 'e' || prefix === 'f') &&
+                      /^[1-9][0-9]*$/.test(target),
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.bandsintown.place:
@@ -4527,16 +4528,19 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?operabase\\.com', 'i')],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?operabase\.com\/(artists|venues\/[\w-]+|works)\/(?:[^0-9]+)?([0-9]+).*$/, 'https://operabase.com/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?operabase\.com\//, 'https://operabase.com/');
+      url = url.replace(/^https:\/\/operabase\.com\/(venues\/[\w-]+|works)\/(?:[^0-9]+)?([0-9]+).*$/, 'https://operabase.com/$1/$2');
+      url = url.replace(/^https:\/\/operabase\.com\/(?:artists\/(?:[^0-9]+)?|[\w-]+a)([0-9]+).*$/, 'https://operabase.com/a$1');
+      return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/operabase\.com\/(artists|venues|works)\//.exec(url);
+      const m = /^https:\/\/operabase\.com\/(?:(a)|(venues)\/[\w-]+\/|(works)\/)[0-9]+$/.exec(url);
       if (m) {
-        const prefix = m[1];
+        const prefix = m[1] || m[2] || m[3];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
             return {
-              result: prefix === 'artists',
+              result: prefix === 'a',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.place:

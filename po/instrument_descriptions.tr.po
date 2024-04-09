@@ -2,18 +2,20 @@
 # Translators:
 # Kerem Kuralay, 2015
 # Bora Atıcı, 2023
+# brtc <boratici@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: Bora Atıcı, 2023\n"
-"Language-Team: Turkish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/tr/)\n"
+"PO-Revision-Date: 2024-03-19 04:28+0000\n"
+"Last-Translator: brtc <boratici@gmail.com>\n"
+"Language-Team: Turkish <https://translations.metabrainz.org/projects/"
+"musicbrainz/instrument-descriptions/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Weblate 5.4\n"
 
 #. name:rebab 
 #: DB:instrument/description:239
@@ -56,18 +58,16 @@ msgstr ""
 
 #. name:kös 
 #: DB:instrument/description:739
-#, fuzzy
-#| msgid "A Turkish drum used in the traditional Ottoman military bands"
 msgid "A Turkish drum used in the traditional Ottoman military bands."
 msgstr ""
-"Geleneksel Osmanlı mehteran bölüğü tarafından kullanılan bir Türk davulu"
+"Geleneksel Osmanlı mehteran bölüğü tarafından kullanılan bir Türk davulu."
 
 #. name:tef 
 #: DB:instrument/description:531
 msgid ""
 "A Turkish version of tambourine / daf, made from animal skin and played with "
 "the fingers."
-msgstr ""
+msgstr "Hayvan derisinden yapılan ve parmaklarla çalınan tefin Türk versiyonu."
 
 #. name:barrel organ 
 #: DB:instrument/description:490
@@ -79,7 +79,7 @@ msgstr ""
 #. name:bass synthesizer 
 #: DB:instrument/description:456
 msgid "A bass synthesizer is used to create sounds in the bass range."
-msgstr ""
+msgstr "Bas aralığında sesler oluşturmak için bir bas sentezleyici kullanılır."
 
 #. name:bell tree 
 #: DB:instrument/description:479
@@ -96,7 +96,7 @@ msgstr ""
 #. name:cuatro 
 #: DB:instrument/description:439
 msgid "A class of South-American guitars."
-msgstr ""
+msgstr "Güney Amerika gitarlarının bir sınıfı."
 
 #. name:saduk 
 #: DB:instrument/description:804
@@ -104,11 +104,12 @@ msgid ""
 "A cross between a saxophone and a duduk invented and played by Alexander "
 "Berne."
 msgstr ""
+"Alexander Berne tarafından icat edilen ve çalınan saksafon ve duduk karışımı."
 
 #. name:cylindrical drum 
 #: DB:instrument/description:658
 msgid "A cylindrical drum is a straight-sided and generally two-headed drum."
-msgstr ""
+msgstr "Silindirik tambur, düz kenarlı ve genellikle iki başlı bir tamburdur."
 
 #. name:dolceola 
 #: DB:instrument/description:750
@@ -128,6 +129,8 @@ msgid ""
 "A guitar synthesizer is any one of a number of systems that allow a guitar "
 "player to play synthesizer sound."
 msgstr ""
+"Bir gitar synthesizer, bir gitaristin synthesizer sesini çalmasına izin "
+"veren çeşitli sistemlerden biridir."
 
 #. name:hi-hat 
 #: DB:instrument/description:454
@@ -155,6 +158,8 @@ msgid ""
 "A larger version of tef, used to indicate the rhythmic structures (usul) in "
 "makam music."
 msgstr ""
+"Makam müziğindeki ritmik yapıları (usul) belirtmek için kullanılan tefin "
+"daha büyük versiyonu."
 
 #. name:laser harp 
 #: DB:instrument/description:515
@@ -329,6 +334,14 @@ msgid ""
 "Also know as violoncello (the \"small large viol\"), it is the medium bass "
 "member of the modern violin family and a principal member of the symphony "
 "orchestra."
+msgstr ""
+
+#. name:dudy 
+#: DB:instrument/description:1203
+msgid ""
+"Also known as \"bock\", referencing the goatskin bag, it has been in use "
+"since atleast 1340's. It has a single drone and chanter with single reeds, "
+"modern variants are bellows blown."
 msgstr ""
 
 #. name:classical guitar 
@@ -1650,6 +1663,14 @@ msgid ""
 "instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
 msgstr ""
 
+#. name:hümmelchen 
+#: DB:instrument/description:1205
+msgid ""
+"Having a small bag, it has a soft sound. Its chanter and two drones of "
+"differing length are made of fruitwood. It historically had single reeds, "
+"modern creations are more complex and double-reeded."
+msgstr ""
+
 #. name:kantilan 
 #: DB:instrument/description:975
 msgid ""
@@ -1890,6 +1911,14 @@ msgid ""
 "It has a short fretted neck originally with four silk but now usually nylon "
 "or steel strings, and large flat round body, earning it the nickname \"moon "
 "lute\"."
+msgstr ""
+
+#. name:dūdmaišis 
+#: DB:instrument/description:1204
+msgid ""
+"It has a single chanter and drone with a bag made of a variety of animals, "
+"it has fur out and an ornamental goats head. Traditionally played at spring "
+"festivities, recently it has had a resurgence."
 msgstr ""
 
 #. name:sho 
@@ -2657,6 +2686,13 @@ msgstr ""
 #. name:saron barung 
 #: DB:instrument/description:1007
 msgid "Often called simply \"saron\", it plays the basic, balungan melody."
+msgstr ""
+
+#. name:neyanban 
+#: DB:instrument/description:1206
+msgid ""
+"Often colourfully decorated, it is known since ancient times in southern "
+"Persia. It has a single reed with a double piped chanter with 6-7 holes."
 msgstr ""
 
 #. name:slapstick 

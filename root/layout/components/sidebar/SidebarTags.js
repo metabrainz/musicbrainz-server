@@ -57,7 +57,7 @@ const TagList = ({
 
 const SidebarTags = ({
   entity,
-}: SidebarTagsProps): React$Element<React$FragmentType> | null => {
+}: SidebarTagsProps): React.MixedElement | null => {
   const $c = React.useContext(CatalystContext);
   const aggregatedTags = $c.stash.top_tags;
   const more = Boolean($c.stash.more_tags);

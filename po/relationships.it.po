@@ -20,7 +20,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-11 04:28+0000\n"
+"PO-Revision-Date: 2024-03-31 15:28+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -87,13 +87,13 @@ msgid ""
 "post. Examples include Facebook pages and profiles, Last.fm users and "
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Una pagina di social network è la pagina di artista su un <a href=\"https://"
-"it.wikipedia.org/wiki/Social_network\" target=\"_blank\">social network</a>, "
-"dove solo l'artista (o chi lo gestisce) può postare contenuti. Altre persone "
-"possono creare i loro profili e interagire con l'artista, ad esempio "
-"aggiungendoli come amici o commentando le cose che posta. Alcuni esempi sono "
-"pagine e profili Facebook, utenti Last.fm e account su Twitter, Instagram e "
-"Flickr."
+"Una pagina di social network è la pagina di un artista su un <a href=\"https"
+"://it.wikipedia.org/wiki/Social_network\" target=\"_blank\">social network</"
+"a>, dove solo l'artista (o i suoi agenti) può postare contenuti. Altre "
+"persone possono creare il proprio profilo e interagire con l'artista, ad "
+"esempio aggiungendoli come amici o commentando le cose che posta. Alcuni "
+"esempi sono pagine e profili Facebook, utenti Last.fm e account su Twitter, "
+"Instagram e Flickr."
 
 #: DB:link_type/description:783
 msgid ""
@@ -298,20 +298,15 @@ msgstr ""
 "differenti."
 
 #: DB:link_attribute_type/description:1406
-#, fuzzy
-#| msgid ""
-#| "For works that have lyrics, this indicates that those lyrics are not "
-#| "relevant to this recording. Examples include instrumental arrangements, "
-#| "or \"beats\" from hip-hop songs which may be reused with different lyrics."
 msgid ""
 "For works that usually have instruments and vocals, this indicates that the "
 "instrumental parts are not relevant to this recording. Examples include rap "
 "tracks from hip hop songs that can be remixed and used with different beats."
 msgstr ""
-"Per opere che hanno testi, questo indica che quei testi non sono rilevanti "
-"per questa registrazione. Alcuni esempi sono arrangiamenti strumentali o "
-"\"beat\" da canzoni hip-hop che potrebbero essere riutilizzati con testi "
-"differenti."
+"Per opere che solitamente hanno strumenti e voci, questo indica che le parti "
+"strumentali non sono rilevanti per questa registrazione. Alcuni esempi sono "
+"le tracce di rap da canzoni hip-hop che possono essere remixate e utilizzate "
+"con beat differenti."
 
 #: DB:link_type/link_phrase:934 DB:link_type/link_phrase:713
 msgid "Geonames"
@@ -1404,14 +1399,14 @@ msgstr ""
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written at {entity0}"
 msgstr ""
-"Il testo di {entity1} è stato scritto {additional:in aggiunta} presso "
+"I testi di {entity1} sono stati scritti {additional:in aggiunta} presso "
 "{entity0}"
 
 #: DB:link_type/long_link_phrase:877
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written in {entity0}"
 msgstr ""
-"Il testo di {entity1} è stato scritto {additional:in aggiunta} a {entity0}"
+"I testi di {entity1} sono stati scritti {additional:in aggiunta} a {entity0}"
 
 #: DB:link_type/long_link_phrase:274
 msgid "The score for {entity1} can be downloaded for free at {entity0}"
@@ -1489,8 +1484,8 @@ msgid ""
 "humorous intent. Parodies in most cases have altered lyrics."
 msgstr ""
 "Quest'attributo indica una versione con intenti satirici, ironici o comunque "
-"umoristici. Le parodie hanno nella maggior parte dei casi un testo "
-"modificato."
+"umoristici. Le parodie hanno nella maggior parte dei casi dei testi "
+"modificati."
 
 #: DB:link_attribute_type/description:525
 msgid ""
@@ -1506,9 +1501,9 @@ msgid ""
 "freely, from the original language. This does not apply if an entirely new "
 "set of lyrics have been set to an existing melody."
 msgstr ""
-"Quest'attributo indica che il testo è stato tradotto, letteralmente o "
-"liberamente, dalla lingua originale. Non si applica se un testo "
-"completamente nuovo è stato aggiunto a una melodia esistente."
+"Quest'attributo indica che i testi sono stati tradotti, letteralmente o "
+"liberamente, dalla lingua originale. Non si applica se dei testi "
+"completamente nuovi sono stati aggiunti a una melodia esistente."
 
 #: DB:link_attribute_type/description:582
 msgid ""
@@ -1551,12 +1546,20 @@ msgstr ""
 "pubblicazioni, senza effettivamente contribuire alla sua scrittura o "
 "esecuzione."
 
+#: DB:link_type/description:1243
+msgid ""
+"This credits a person or agency who worked on animation for a video "
+"recording."
+msgstr ""
+"Accredita una persona o un'agenzia che ha lavorato sulle animazioni di una "
+"registrazione video."
+
 #: DB:link_type/description:123
 msgid ""
 "This credits a person or agency whose photographs are included as part of a "
 "recording."
 msgstr ""
-"Accredita la persona o l'agenzia le cui fotografie sono incluse come parte "
+"Accredita una persona o un'agenzia le cui fotografie sono incluse come parte "
 "di una registrazione."
 
 #: DB:link_type/description:134
@@ -1603,9 +1606,15 @@ msgstr ""
 "(articolo). Questo tipo di relazione va utilizzato in quest'ultimo caso."
 
 #: DB:link_type/description:125
+#, fuzzy
+#| msgid ""
+#| "This credits the people or agency who did the graphic design, arranging "
+#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
+#| "design."
 msgid ""
-"This credits the people or agency who did the graphic design, arranging "
-"pieces of content into a coherent and aesthetically-pleasing sleeve design."
+"This credits the people or agency who did graphic design for a video "
+"recording, arranging pieces of content into a coherent and aesthetically-"
+"pleasing whole."
 msgstr ""
 "Accredita le persone o l'agenzia che hanno curato il progetto grafico, "
 "organizzandone i componenti in un design della custodia coerente e piacevole "
@@ -1774,7 +1783,7 @@ msgstr "Indica un tecnico che ha eseguito un ruolo tecnico generico."
 
 #: DB:link_type/description:103
 msgid "This indicates a person is a member of a group."
-msgstr "Questo indica che una persona è membro di un gruppo."
+msgstr "Indica che una persona è membro di un gruppo."
 
 #: DB:link_type/description:135 DB:link_type/description:62
 msgid ""
@@ -1846,6 +1855,8 @@ msgid ""
 "This indicates a release group is an excerpt from another, such as the "
 "highlights of a box set or a long opera."
 msgstr ""
+"Indica che un gruppo di pubblicazioni è un estratto di un altro, per esempio "
+"una selezione tratta da un cofanetto o da un'opera lunga."
 
 #: DB:link_type/description:1174
 msgid "This indicates an agency that did the art direction for the release."
@@ -1909,21 +1920,17 @@ msgstr ""
 #: DB:link_type/description:18
 msgid "This indicates an artist that did the art direction for the release."
 msgstr ""
-"Indica una persona che ha curato la direzione artistica della pubblicazione."
+"Indica un artista che ha curato la direzione artistica della pubblicazione."
 
 #: DB:link_type/description:1236
-#, fuzzy
-#| msgid "This indicates an artist that did the art direction for the release."
 msgid "This indicates an artist that did the sound effects for the recording."
 msgstr ""
-"Indica una persona che ha curato la direzione artistica della pubblicazione."
+"Indica un artista che ha curato gli effetti sonori della registrazione."
 
 #: DB:link_type/description:1235
-#, fuzzy
-#| msgid "This indicates an artist that did the art direction for the release."
 msgid "This indicates an artist that did the sound effects for the release."
 msgstr ""
-"Indica una persona che ha curato la direzione artistica della pubblicazione."
+"Indica un artista che ha curato gli effetti sonori della pubblicazione."
 
 #: DB:link_type/description:151
 msgid ""
@@ -1941,6 +1948,12 @@ msgstr ""
 "Indica un artista che ha diretto un'orchestra, una banda o un coro su questa "
 "pubblicazione."
 
+#: DB:link_type/description:1242
+#, fuzzy
+#| msgid "This indicates an artist who did design for the event."
+msgid "This indicates an artist who did design for a video recording."
+msgstr "Indica un artista che ha curato il design dell'evento."
+
 #: DB:link_type/description:1233
 msgid "This indicates an artist who did design for the event."
 msgstr "Indica un artista che ha curato il design dell'evento."
@@ -1948,6 +1961,12 @@ msgstr "Indica un artista che ha curato il design dell'evento."
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr "Indica un artista che ha curato il design della pubblicazione."
+
+#: DB:link_type/description:1244
+#, fuzzy
+#| msgid "This indicates an artist who did illustration for the event."
+msgid "This indicates an artist who did illustration for a video recording."
+msgstr "Indica un artista che ha curato le illustrazioni dell'evento."
 
 #: DB:link_type/description:1232
 msgid "This indicates an artist who did illustration for the event."
@@ -1982,6 +2001,18 @@ msgid ""
 msgstr ""
 "Indica un artista che è responsabile per gli aspetti quotidiani creativi e "
 "pratici che hanno a che fare con la creazione di una registrazione musicale."
+
+#: DB:link_type/description:1241
+#, fuzzy
+#| msgid ""
+#| "This indicates an artist who provided artwork for the event when no more "
+#| "specific information is available."
+msgid ""
+"This indicates an artist who provided artwork for a video recording when no "
+"more specific information is available."
+msgstr ""
+"Indica un artista che ha curato il materiale illustrativo dell'evento quando "
+"non sono disponibili informazioni più specifiche."
 
 #: DB:link_type/description:1231
 msgid ""
@@ -2329,15 +2360,11 @@ msgstr ""
 "altre relazioni più specifiche."
 
 #: DB:link_type/description:1237
-#, fuzzy
-#| msgid ""
-#| "This indicates that an artist was officially employed by a label as a "
-#| "producer."
 msgid ""
 "This indicates the area (usually a city) where a label is headquartered in."
 msgstr ""
-"Indica che un artista è stato impiegato ufficialmente da un'etichetta come "
-"produttore."
+"Indica l'area (solitamente una città) in cui un'etichetta ha la sede "
+"principale."
 
 #: DB:link_type/description:1185
 msgid "This indicates the artist directed video on this release."
@@ -2394,6 +2421,14 @@ msgid ""
 "This indicates the artist was the choreographer for this video recording."
 msgstr ""
 "Indica che l'artista è stato il coreografo per questa registrazione video."
+
+#: DB:link_type/description:1245
+msgid ""
+"This indicates the artist was the cinematographer / director of photography "
+"for this video recording."
+msgstr ""
+"Indica che l'artista è stato il direttore della fotografia per questa "
+"registrazione video."
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
@@ -2779,9 +2814,9 @@ msgid ""
 "numerous different ways other than \"karaoke\": instrumental (even if "
 "backing vocals are still present), off vocal, backing track, etc."
 msgstr ""
-"Serve a collegare la versione karaoke di una canzone alla canzone originale."
+"Serve a collegare una versione karaoke di una canzone alla canzone originale."
 "<br/><br/>\n"
-"La versione karaoke è una versione della canzone senza le parti vocali "
+"Una versione karaoke è una versione della canzone senza le parti vocali "
 "principali, progettata per essere usata per il karaoke. Le versioni karaoke "
 "sono solitamente prodotte dai master originali togliendo l'audio alla "
 "traccia vocale principale o utilizzando filtri di post-elaborazione per "
@@ -2888,6 +2923,10 @@ msgid ""
 "An a cappella version is a version of the song with only the vocal tracks "
 "(for example, a hip hop vocal track without the beat)."
 msgstr ""
+"Serve a collegare una versione a cappella di una canzone alla canzone "
+"originale.<br/><br/>\n"
+"Una versione a cappella è una versione della canzone che ha solo le tracce "
+"vocali (per esempio, una traccia vocale hip-hop senza il beat)."
 
 #: DB:link_type/description:307
 msgid ""
@@ -2914,6 +2953,11 @@ msgid ""
 "(for example, a hip hop beat without the rap tracks). For karaoke tracks, "
 "use the karaoke relationship."
 msgstr ""
+"Serve a collegare una versione strumentale di una canzone alla canzone "
+"originale.<br/><br/>\n"
+"Una versione strumentale è una versione della canzone senza le voci (per "
+"esempio, un beat hip-hop senza le tracce di rap). Per le tracce karaoke, "
+"utilizza la relazione karaoke."
 
 #: DB:link_type/description:180
 msgid "This is used to link the Discogs page for this artist."
@@ -2993,7 +3037,7 @@ msgid ""
 "requirement. For a work that includes significantly more of another than "
 "just a brief quotation, consider using “based on” instead."
 msgstr ""
-"Indica che un'opera comprende una breve citazione del testo di un'altra "
+"Indica che un'opera comprende una breve citazione dei testi di un'altra "
 "opera. Nella maggior parte dei casi la citazione non è accreditata, ma "
 "questo non è un requisito. Se l'opera comprende una parte di un'altra opera "
 "significativamente più grande di una breve citazione, valuta la possibilità "
@@ -3290,11 +3334,11 @@ msgid ""
 "relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" "
 "target=\"_blank\">tribute relationship</a>."
 msgstr ""
-"Collega un gruppo di pubblicazioni all'artista a cui è dedicato. Si "
+"Collega un gruppo di pubblicazioni a un artista a cui è dedicato. Si "
 "riferisce a dediche come per es. \"Quest'album è dedicato alla memoria di "
 "Artista\". Per album tributo che contengono cover dell'artista, utilizza la "
-"<a href=\"/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" "
-"target=\"_blank\">relazione tributo</a>."
+"<a href=\"/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" target="
+"\"_blank\">relazione tributo</a>."
 
 #: DB:link_type/description:65
 msgid ""
@@ -3508,7 +3552,7 @@ msgstr "Collega un'opera all'area in cui ne è stato scritto il libretto."
 
 #: DB:link_type/description:877
 msgid "This links a work with the area its lyrics were written in."
-msgstr "Collega un'opera all'area in cui è stato scritto il suo testo."
+msgstr "Collega un'opera all'area in cui sono stati scritti i suoi testi."
 
 #: DB:link_type/description:886
 msgid "This links a work with the place it was arranged at."
@@ -3536,7 +3580,7 @@ msgstr "Collega un'opera al luogo in cui ne è stato scritto il libretto."
 
 #: DB:link_type/description:878
 msgid "This links a work with the place its lyrics were written at."
-msgstr "Collega un'opera al luogo in cui è stato scritto il suo testo."
+msgstr "Collega un'opera al luogo in cui sono stati scritti i suoi testi."
 
 #: DB:link_type/description:292
 msgid "This links an (fictional) artist to the person that voice acted it."
@@ -5112,6 +5156,10 @@ msgstr "asin amazon"
 msgid "amount"
 msgstr "quantità"
 
+#: DB:link_type/name:1243
+msgid "animation"
+msgstr "animazioni"
+
 #: DB:link_attribute_type/name:1079
 msgid "anniversary"
 msgstr "anniversario"
@@ -5221,7 +5269,8 @@ msgstr "addetti artisti e repertorio (A&R)"
 msgid "artists and repertoire position"
 msgstr "posizione di addetto artisti e repertorio (A&R)"
 
-#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
+#: DB:link_type/name:1170
 msgid "artwork"
 msgstr "copertine"
 
@@ -5449,6 +5498,14 @@ msgstr "coreografo"
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr "maestro del coro"
+
+#: DB:link_type/name:1245 DB:link_type/reverse_link_phrase:1245
+msgid "cinematographer"
+msgstr "direttore della fotografia"
+
+#: DB:link_type/link_phrase:1245
+msgid "cinematographer for"
+msgstr "direttore della fotografia per"
 
 #: DB:link_attribute_type/name:1204
 msgid "classical music"
@@ -5742,7 +5799,8 @@ msgstr "derivazioni"
 msgid "derived from"
 msgstr "derivato da"
 
-#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1242
+#: DB:link_type/name:1171
 msgid "design"
 msgstr "design"
 
@@ -5752,7 +5810,7 @@ msgstr "design/illustrazioni"
 
 #: DB:link_type/long_link_phrase:1236 DB:link_type/long_link_phrase:1235
 msgid "did sound effects for"
-msgstr ""
+msgstr "ha curato gli effetti sonori su"
 
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
 #: DB:link_type/name:88 DB:link_type/name:171
@@ -5935,14 +5993,12 @@ msgid "event artists"
 msgstr "artisti collegati all'evento"
 
 #: DB:link_type/link_phrase:1240 DB:link_type/name:1240
-#, fuzzy
-#| msgid "relocated from"
 msgid "excerpt from"
-msgstr "trasferito da"
+msgstr "estratto da"
 
 #: DB:link_type/reverse_link_phrase:1240
 msgid "excerpts"
-msgstr ""
+msgstr "estratti"
 
 #: DB:link_attribute_type/name:425
 msgid "executive"
@@ -6443,7 +6499,7 @@ msgstr "ha la sua storia presentata su"
 #: DB:link_type/long_link_phrase:93 DB:link_type/long_link_phrase:197
 #: DB:link_type/long_link_phrase:982
 msgid "has lyrics available at"
-msgstr "ha il testo disponibile su"
+msgstr "ha i testi disponibili su"
 
 #: DB:link_type/long_link_phrase:857
 msgid "has music video"
@@ -6511,14 +6567,12 @@ msgstr ""
 "ha il fratell{half:astr}{step:astr}o o la sorell{half:astr}{step:astr}a"
 
 #: DB:link_type/reverse_link_phrase:1237
-#, fuzzy
-#| msgid "mastered in"
 msgid "headquartered in"
-msgstr "masterizzata a"
+msgstr "sede principale a"
 
 #: DB:link_type/name:1237
 msgid "headquarters"
-msgstr ""
+msgstr "sede principale"
 
 #: DB:link_type/link_phrase:794 DB:link_type/name:794 DB:link_type/name:995
 #: DB:link_type/reverse_link_phrase:995
@@ -6571,16 +6625,15 @@ msgid "hosts"
 msgstr "presentatori"
 
 #: DB:link_type/link_phrase:1237
-#, fuzzy
-#| msgid "cut the lacquer for"
 msgid "houses headquarters for"
-msgstr "ha inciso la lacca o acetato per"
+msgstr "ospita la sede principale di"
 
 #: DB:link_type/link_phrase:916 DB:link_type/name:916
 msgid "hybrid of"
 msgstr "ibrido di"
 
 #: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1244
 msgid "illustration"
 msgstr "illustrazioni"
 
@@ -6761,10 +6814,8 @@ msgid "is an edit of"
 msgstr "è un edit di"
 
 #: DB:link_type/long_link_phrase:1240
-#, fuzzy
-#| msgid "is an edit of"
 msgid "is an excerpt from"
-msgstr "è un edit di"
+msgstr "è un estratto da"
 
 #: DB:link_type/long_link_phrase:926
 msgid "is associated with"
@@ -6824,16 +6875,13 @@ msgid "is the {step}parent of"
 msgstr "è il genitore {step:acquisito} di"
 
 #: DB:link_type/long_link_phrase:278
-#, fuzzy
-#| msgid ""
-#| "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
-#| "{karaoke} recording of"
 msgid ""
 "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
 "a} {partial} {instrumental} {cover} {karaoke} recording of"
 msgstr ""
-"è {medley:un medley che comprende} una registrazione {live:dal vivo} "
-"{partial:parziale} {instrumental:strumentale} {cover} {karaoke} di"
+"è {medley:un medley che comprende} una registrazione {acappella:a cappella} "
+"{live:dal vivo} {partial:parziale} {instrumental:strumentale} {cover} "
+"{karaoke} di"
 
 #: DB:link_type/long_link_phrase:722
 msgid "is/was a subgroup of"
@@ -7089,15 +7137,15 @@ msgstr "pagina di testi di"
 
 #: DB:link_type/reverse_link_phrase:1047
 msgid "lyrics quoted in"
-msgstr "testo citato in"
+msgstr "testi citati in"
 
 #: DB:link_type/name:878
 msgid "lyrics written at"
-msgstr "testo scritto presso"
+msgstr "testi scritti presso"
 
 #: DB:link_type/name:877
 msgid "lyrics written in"
-msgstr "testo scritto a"
+msgstr "testi scritti a"
 
 #: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:960
 #: DB:link_type/reverse_link_phrase:175
@@ -7902,12 +7950,16 @@ msgstr "ha curato le prenotazioni per"
 msgid "provided legal representation for"
 msgstr "ha fornito rappresentanza legale per"
 
+#: DB:link_type/long_link_phrase:1243
+msgid "provided {additional} animation on"
+msgstr "ha curato le animazioni {additional:aggiuntive} di"
+
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:1174
 msgid "provided {additional} art direction on"
 msgstr "ha fornito direzione artistica {additional:aggiuntiva} su"
 
-#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
-#: DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:1241
+#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr "ha curato le copertine {additional:in aggiunta} di"
 
@@ -7929,7 +7981,7 @@ msgid "provided {additional} graphic design on"
 msgstr "ha curato il progetto grafico {additional:aggiuntivo} di"
 
 #: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
-#: DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1173 DB:link_type/long_link_phrase:1244
 msgid "provided {additional} illustration on"
 msgstr "ha curato le illustrazioni {additional:aggiuntive} di"
 
@@ -7944,6 +7996,7 @@ msgstr ""
 "aggiuntiva} su"
 
 #: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1242
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 "ha curato {assistant:da assistente} il design {additional:aggiuntivo} di"
@@ -8005,7 +8058,7 @@ msgstr "purevolume"
 
 #: DB:link_type/link_phrase:1047 DB:link_type/long_link_phrase:1047
 msgid "quotes lyrics from"
-msgstr "cita il testo di"
+msgstr "cita i testi di"
 
 #: DB:link_type/link_phrase:1046 DB:link_type/long_link_phrase:1046
 msgid "quotes music from"
@@ -8384,13 +8437,11 @@ msgstr "suono"
 #: DB:link_type/name:1236 DB:link_type/name:1235
 #: DB:link_type/reverse_link_phrase:1236 DB:link_type/reverse_link_phrase:1235
 msgid "sound effects"
-msgstr ""
+msgstr "effetti sonori"
 
 #: DB:link_type/link_phrase:1236 DB:link_type/link_phrase:1235
-#, fuzzy
-#| msgid "launch event for"
 msgid "sound effects for"
-msgstr "evento di lancio per"
+msgstr "effetti sonori su"
 
 #: DB:link_type/name:870 DB:link_type/name:291 DB:link_type/name:290
 #: DB:link_type/name:940
@@ -8815,6 +8866,10 @@ msgstr "ha lavorato come tecnico a"
 msgid "was an orchestra at"
 msgstr "è stata un'orchestra presso"
 
+#: DB:link_type/long_link_phrase:1245
+msgid "was cinematographer for"
+msgstr "è stato direttore della fotografia per"
+
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
 #: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
 msgid "was commissioned by"
@@ -8954,28 +9009,20 @@ msgid "youtube music"
 msgstr "youtube music"
 
 #: DB:link_type/link_phrase:278
-#, fuzzy
-#| msgid ""
-#| "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
-#| "{karaoke} recording of"
 msgid ""
 "{acappella:a cappella} {live} {medley:medley including a} {partial} "
 "{instrumental} {cover} {karaoke} recording of"
 msgstr ""
-"è {medley:un medley che comprende} una registrazione {live:dal vivo} "
-"{partial:parziale} {instrumental:strumentale} {cover} {karaoke} di"
+"{medley:medley che comprende una} registrazione {acappella:a cappella} {live:"
+"dal vivo} {partial:parziale} {instrumental:strumentale} {cover} {karaoke} di"
 
 #: DB:link_type/reverse_link_phrase:278
-#, fuzzy
-#| msgid ""
-#| "{live} {medley:medleys including} {partial} {instrumental} {cover} "
-#| "{karaoke} recordings"
 msgid ""
 "{acappella:a cappella} {live} {medley:medleys including} {partial} "
 "{instrumental} {cover} {karaoke} recordings"
 msgstr ""
-"{medley:medley che comprendono} registrazioni {live:dal vivo} {partial:"
-"parziali} {instrumental:strumentali} {cover} {karaoke}"
+"{medley:medley che comprendono} registrazioni {acappella:a cappella} {live:"
+"dal vivo} {partial:parziali} {instrumental:strumentali} {cover} {karaoke}"
 
 #: DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
@@ -9108,7 +9155,7 @@ msgstr "ha scritto {additional:in aggiunta} il libretto di"
 
 #: DB:link_type/long_link_phrase:56 DB:link_type/long_link_phrase:165
 msgid "{additional:additionally} wrote the lyrics for"
-msgstr "ha scritto il testo {additional:in aggiunta} per"
+msgstr "ha scritto i testi {additional:in aggiunta} per"
 
 #: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
 #: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
@@ -9259,6 +9306,10 @@ msgstr "{pre:pre-}{re}mastering effettuato {additional:in aggiunta} presso"
 msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr "{pre:pre-}{re}mastering effettuato {additional:in aggiunta} a"
 
+#: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
+msgid "{additional} animation"
+msgstr "animazioni {additional:aggiuntive}"
+
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
 msgstr "luogo {additional:aggiuntivo} di arrangiamento per"
@@ -9268,8 +9319,9 @@ msgstr "luogo {additional:aggiuntivo} di arrangiamento per"
 msgid "{additional} art direction"
 msgstr "direzione artistica {additional:aggiuntiva}"
 
-#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
-#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1241
+#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr "copertine {additional:aggiuntive}"
@@ -9314,8 +9366,9 @@ msgid "{additional} graphic design"
 msgstr "progetto grafico {additional:aggiuntivo}"
 
 #: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
-#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
-#: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
+#: DB:link_type/link_phrase:1173 DB:link_type/link_phrase:1244
+#: DB:link_type/reverse_link_phrase:1232 DB:link_type/reverse_link_phrase:927
+#: DB:link_type/reverse_link_phrase:1173 DB:link_type/reverse_link_phrase:1244
 msgid "{additional} illustration"
 msgstr "illustrazioni {additional:aggiuntive}"
 
@@ -9346,7 +9399,7 @@ msgstr "paroliere {additional:aggiunto}"
 
 #: DB:link_type/link_phrase:56 DB:link_type/link_phrase:165
 msgid "{additional} lyrics"
-msgstr "testo {additional:aggiuntivo}"
+msgstr "testi {additional:aggiuntivi}"
 
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
 msgid "{additional} lyrics writing location for"
@@ -9354,11 +9407,11 @@ msgstr "luogo di scrittura dei testi {additional:aggiuntivi} per"
 
 #: DB:link_type/reverse_link_phrase:878
 msgid "{additional} lyrics written at"
-msgstr "testo {additional:aggiuntivo} scritto presso"
+msgstr "testi {additional:aggiuntivi} scritti presso"
 
 #: DB:link_type/reverse_link_phrase:877
 msgid "{additional} lyrics written in"
-msgstr "testo {additional:aggiuntivo} scritto a"
+msgstr "testi {additional:aggiuntivi} scritti a"
 
 #: DB:link_type/link_phrase:757 DB:link_type/link_phrase:758
 #: DB:link_type/link_phrase:694 DB:link_type/link_phrase:696
@@ -9442,7 +9495,8 @@ msgid "{additional} {assistant} conductor"
 msgstr "{assistant:assistente} direttore d'orchestra {additional:aggiunto}"
 
 #: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
-#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1242 DB:link_type/reverse_link_phrase:1233
+#: DB:link_type/reverse_link_phrase:928 DB:link_type/reverse_link_phrase:1242
 msgid "{additional} {assistant} design"
 msgstr "{assistant:assistenza al} design {additional:aggiuntiva}"
 
@@ -9732,7 +9786,7 @@ msgstr "{entity1} ha una pagina di IMDb su {entity0}"
 
 #: DB:link_type/long_link_phrase:271
 msgid "{entity1} has lyrics available at {entity0}"
-msgstr "{entity1} ha il testo disponibile su {entity0}"
+msgstr "{entity1} ha i testi disponibili su {entity0}"
 
 #: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:1175
 #: DB:link_type/long_link_phrase:20
@@ -9791,10 +9845,8 @@ msgid "{entity1} is dedicated to {entity0}"
 msgstr "{entity1} è dedicata a {entity0}"
 
 #: DB:link_type/long_link_phrase:1237
-#, fuzzy
-#| msgid "{entity1} was manufactured in {entity0}"
 msgid "{entity1} is headquartered in {entity0}"
-msgstr "{entity1} è stata fabbricata a {entity0}"
+msgstr "{entity1} ha la sede principale a {entity0}"
 
 #: DB:link_type/long_link_phrase:939
 msgid "{entity1} is licensed under {entity0}"

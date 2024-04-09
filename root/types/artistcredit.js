@@ -29,3 +29,14 @@ declare type ArtistCreditT = {
   +id?: number,
   +names: $ReadOnlyArray<ArtistCreditNameT>,
 };
+
+declare type IncompleteArtistCreditNameT = {
+  +artist: ArtistT | null,
+  +joinPhrase: string,
+  +name: string,
+};
+
+declare type IncompleteArtistCreditT = {
+  +names: $ReadOnlyArray<IncompleteArtistCreditNameT>,
+  ...
+};

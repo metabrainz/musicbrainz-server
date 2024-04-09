@@ -67,7 +67,7 @@ const methodOptions = [
 
 const SearchForm = ({
   form,
-}: Props): React$Element<React$FragmentType> => (
+}: Props): React.MixedElement => (
   <>
     <div className="searchform">
       <form action="/search" method="get">

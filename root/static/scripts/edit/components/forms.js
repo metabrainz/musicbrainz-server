@@ -7,35 +7,129 @@
  */
 
 import ko from 'knockout';
-import {createRef} from 'react';
+import * as React from 'react';
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
 import '../../common/entity.js';
 
+import {createArtistObject} from '../../common/entity2.js';
+import {
+  artistCreditsAreEqual,
+  reduceArtistCredit,
+} from '../../common/immutable-entities.js';
 import MB from '../../common/MB.js';
 
-import ArtistCreditEditor from './ArtistCreditEditor.js';
+import {
+  incompleteArtistCreditFromState,
+} from './ArtistCreditEditor/utilities.js';
+import ArtistCreditEditor, {
+  createInitialState as createArtistCreditEditorState,
+  reducer as artistCreditEditorReducer,
+} from './ArtistCreditEditor.js';
 import FieldErrors from './FieldErrors.js';
 import FormRow from './FormRow.js';
 
+/*
+ * Helper component to keep the ArtistCreditEditor in sync with a Knockout
+ * observable.
+ *
+ *  * When the observable changes, we'll update the component state.
+ *  * When the component state changes, we'll update the observable.
+ *
+ * There are also some release-editor-specific bits to handle the
+ * `changeMatchingTrackArtists` option.
+ */
+export const KnockoutArtistCreditEditor = ({
+  initialState,
+  reducer,
+}) => {
+  const [state, dispatch] = React.useReducer(
+    reducer,
+    initialState,
+  );
+
+  const entity = state.entity;
+  const isOpenRef = React.useRef(state.isOpen);
+  const artistCreditRef = React.useRef(entity.artistCredit.peek());
+
+  React.useEffect(() => {
+    entity.artistCreditDispatch = dispatch;
+    return () => {
+      entity.artistCreditDispatch = null;
+    };
+  }, [entity, dispatch]);
+
+  React.useEffect(() => {
+    const newArtistCredit = incompleteArtistCreditFromState(state.names);
+    if (!artistCreditsAreEqual(newArtistCredit, artistCreditRef.current)) {
+      artistCreditRef.current = newArtistCredit;
+      entity.artistCredit(newArtistCredit);
+    }
+
+    if (isOpenRef.current !== state.isOpen) {
+      isOpenRef.current = state.isOpen;
+
+      if (
+        !state.isOpen &&
+        // The dialog was closed; copy changes to the tracks.
+        entity.entityType === 'track' &&
+        state.changeMatchingTrackArtists
+      ) {
+        entity.medium.release.mediums()
+          .flatMap(medium => medium.tracks())
+          .forEach(function (otherTrack) {
+            if (
+              otherTrack !== entity &&
+              state.initialArtistCreditString ===
+                reduceArtistCredit(otherTrack.artistCredit.peek())
+            ) {
+              otherTrack.artistCredit(newArtistCredit);
+            }
+          });
+      }
+    }
+  }, [
+    entity,
+    state.isOpen,
+    state.names,
+    state.changeMatchingTrackArtists,
+    state.initialArtistCreditString,
+  ]);
+
+  React.useEffect(() => {
+    const subscription = entity.artistCredit.subscribe((newArtistCredit) => {
+      if (newArtistCredit !== artistCreditRef.current) {
+        dispatch({
+          artistCredit: newArtistCredit,
+          type: 'set-names-from-artist-credit',
+        });
+      }
+    });
+    return () => {
+      subscription.dispose();
+    };
+  }, [entity.artistCredit, dispatch]);
+
+  return (
+    <ArtistCreditEditor
+      dispatch={dispatch}
+      state={state}
+    />
+  );
+};
+
 export const FormRowArtistCredit = ({
-  artistCreditEditorRef,
   form,
-  entity,
+  initialState,
 }) => (
   <FormRow>
-    <label className="required" htmlFor="entity-artist">
+    <label className="required" htmlFor="ac-source-single-artist">
       {addColonText(l('Artist'))}
     </label>
-    <ArtistCreditEditor
-      entity={entity}
-      forLabel="entity-artist"
-      form={form}
-      hiddenInputs
-      // eslint-disable-next-line react/jsx-handler-names
-      onChange={entity.artistCredit}
-      ref={artistCreditEditorRef}
+    <KnockoutArtistCreditEditor
+      initialState={initialState}
+      reducer={artistCreditEditorReducer}
     />
     {form ? <FieldErrors field={form.field.artist_credit} /> : null}
   </FormRow>
@@ -44,17 +138,39 @@ export const FormRowArtistCredit = ({
 MB.initializeArtistCredit = function (form, initialArtistCredit) {
   const source = MB.getSourceEntityInstance() ?? {name: ''};
   source.uniqueID = 'source';
-  source.artistCredit = ko.observable(initialArtistCredit);
-  source.artistCreditEditorInst = createRef();
+  source.artistCredit = ko.observable({
+    ...(initialArtistCredit ?? {}),
+    names: (initialArtistCredit?.names ?? []).map((name) => {
+      let artist = name.artist;
+      if (!artist.id) {
+        artist = {
+          ...createArtistObject({name: name.name ?? ''}),
+          ...name.artist,
+        };
+      }
+      return {
+        artist,
+        joinPhrase: name.joinPhrase ?? '',
+        name: name.name ?? '',
+      };
+    }),
+  });
 
+  const initialState = createArtistCreditEditorState({
+    activeUser: window[GLOBAL_JS_NAMESPACE].$c.user,
+    artistCredit: initialArtistCredit,
+    entity: source,
+    formName: form.name,
+    id: 'source',
+  });
   const container = document.getElementById('artist-credit-editor');
   const root = ReactDOMClient.createRoot(container);
+
   flushSync(() => {
     root.render(
       <FormRowArtistCredit
-        artistCreditEditorRef={source.artistCreditEditorInst}
-        entity={source}
         form={form}
+        initialState={initialState}
       />,
     );
   });

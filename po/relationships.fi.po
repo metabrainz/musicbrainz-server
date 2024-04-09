@@ -1337,6 +1337,12 @@ msgid ""
 "contributing to the writing or performance."
 msgstr ""
 
+#: DB:link_type/description:1243
+msgid ""
+"This credits a person or agency who worked on animation for a video "
+"recording."
+msgstr ""
+
 #: DB:link_type/description:123
 msgid ""
 "This credits a person or agency whose photographs are included as part of a "
@@ -1375,8 +1381,9 @@ msgstr ""
 
 #: DB:link_type/description:125
 msgid ""
-"This credits the people or agency who did the graphic design, arranging "
-"pieces of content into a coherent and aesthetically-pleasing sleeve design."
+"This credits the people or agency who did graphic design for a video "
+"recording, arranging pieces of content into a coherent and aesthetically-"
+"pleasing whole."
 msgstr ""
 
 #: DB:link_type/description:202
@@ -1608,12 +1615,20 @@ msgid ""
 "release."
 msgstr ""
 
+#: DB:link_type/description:1242
+msgid "This indicates an artist who did design for a video recording."
+msgstr ""
+
 #: DB:link_type/description:1233
 msgid "This indicates an artist who did design for the event."
 msgstr ""
 
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
+msgstr ""
+
+#: DB:link_type/description:1244
+msgid "This indicates an artist who did illustration for a video recording."
 msgstr ""
 
 #: DB:link_type/description:1232
@@ -1641,6 +1656,12 @@ msgstr ""
 msgid ""
 "This indicates an artist who is responsible for the creative and practical "
 "day-to-day aspects involved with making a musical recording."
+msgstr ""
+
+#: DB:link_type/description:1241
+msgid ""
+"This indicates an artist who provided artwork for a video recording when no "
+"more specific information is available."
 msgstr ""
 
 #: DB:link_type/description:1231
@@ -1941,6 +1962,12 @@ msgstr ""
 #: DB:link_type/description:1230
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
+msgstr ""
+
+#: DB:link_type/description:1245
+msgid ""
+"This indicates the artist was the cinematographer / director of photography "
+"for this video recording."
 msgstr ""
 
 #: DB:link_type/description:962
@@ -3970,6 +3997,12 @@ msgstr ""
 msgid "amount"
 msgstr ""
 
+#: DB:link_type/name:1243
+#, fuzzy
+#| msgid "additional"
+msgid "animation"
+msgstr "lisä"
+
 #: DB:link_attribute_type/name:1079
 msgid "anniversary"
 msgstr ""
@@ -4079,7 +4112,8 @@ msgstr ""
 msgid "artists and repertoire position"
 msgstr ""
 
-#: DB:link_type/name:1231 DB:link_type/name:993 DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
+#: DB:link_type/name:1170
 msgid "artwork"
 msgstr ""
 
@@ -4307,6 +4341,18 @@ msgstr ""
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
 msgstr ""
+
+#: DB:link_type/name:1245 DB:link_type/reverse_link_phrase:1245
+#, fuzzy
+#| msgid "biographies"
+msgid "cinematographer"
+msgstr "elämäkerrat"
+
+#: DB:link_type/link_phrase:1245
+#, fuzzy
+#| msgid "discography page for"
+msgid "cinematographer for"
+msgstr "diskgrafiasivuna"
 
 #: DB:link_attribute_type/name:1204
 msgid "classical music"
@@ -4599,7 +4645,8 @@ msgstr ""
 msgid "derived from"
 msgstr ""
 
-#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1242
+#: DB:link_type/name:1171
 msgid "design"
 msgstr ""
 
@@ -5435,6 +5482,7 @@ msgid "hybrid of"
 msgstr ""
 
 #: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
+#: DB:link_type/name:1244
 msgid "illustration"
 msgstr ""
 
@@ -6743,12 +6791,18 @@ msgstr ""
 msgid "provided legal representation for"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1243
+#, fuzzy
+#| msgid "performed {additional} chorus master on"
+msgid "provided {additional} animation on"
+msgstr "toimi {additional} kuorojohtajana"
+
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:1174
 msgid "provided {additional} art direction on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:993
-#: DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:1241
+#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
 msgstr ""
 
@@ -6770,7 +6824,7 @@ msgid "provided {additional} graphic design on"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
-#: DB:link_type/long_link_phrase:1173
+#: DB:link_type/long_link_phrase:1173 DB:link_type/long_link_phrase:1244
 msgid "provided {additional} illustration on"
 msgstr ""
 
@@ -6783,6 +6837,7 @@ msgid "provided {additional} {assistant} art direction on"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
+#: DB:link_type/long_link_phrase:1242
 msgid "provided {additional} {assistant} design on"
 msgstr ""
 
@@ -7657,6 +7712,12 @@ msgstr ""
 msgid "was an orchestra at"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1245
+#, fuzzy
+#| msgid "discography page for"
+msgid "was cinematographer for"
+msgstr "diskgrafiasivuna"
+
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
 #: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
 msgid "was commissioned by"
@@ -8056,6 +8117,12 @@ msgstr ""
 msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr ""
 
+#: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
+#, fuzzy
+#| msgid "{additional} art direction"
+msgid "{additional} animation"
+msgstr "{additional} taiteellinen johtaminen"
+
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
 msgstr ""
@@ -8065,8 +8132,9 @@ msgstr ""
 msgid "{additional} art direction"
 msgstr "{additional} taiteellinen johtaminen"
 
-#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:993
-#: DB:link_type/link_phrase:1170 DB:link_type/reverse_link_phrase:1231
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1241
+#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
 msgstr ""
@@ -8111,8 +8179,9 @@ msgid "{additional} graphic design"
 msgstr "{additional} graafinen suunnittelu"
 
 #: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
-#: DB:link_type/link_phrase:1173 DB:link_type/reverse_link_phrase:1232
-#: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
+#: DB:link_type/link_phrase:1173 DB:link_type/link_phrase:1244
+#: DB:link_type/reverse_link_phrase:1232 DB:link_type/reverse_link_phrase:927
+#: DB:link_type/reverse_link_phrase:1173 DB:link_type/reverse_link_phrase:1244
 msgid "{additional} illustration"
 msgstr ""
 
@@ -8238,7 +8307,8 @@ msgid "{additional} {assistant} conductor"
 msgstr ""
 
 #: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
-#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/link_phrase:1242 DB:link_type/reverse_link_phrase:1233
+#: DB:link_type/reverse_link_phrase:928 DB:link_type/reverse_link_phrase:1242
 msgid "{additional} {assistant} design"
 msgstr ""
 
@@ -8857,9 +8927,6 @@ msgstr ""
 #~ "language than the original."
 #~ msgstr ""
 #~ "Tämä määrite ilmaisee version, jonka sanoitus ei ole alkuperäiskielinen. "
-
-#~ msgid "performed {additional} chorus master on"
-#~ msgstr "toimi {additional} kuorojohtajana"
 
 #~ msgid "{additional:additionally} conducted"
 #~ msgstr "johti {additional:lisä}kapellimestarina"

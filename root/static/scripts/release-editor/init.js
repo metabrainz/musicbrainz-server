@@ -131,8 +131,6 @@ releaseEditor.init = function (options) {
         const bubbleDoc = $bubble[0].bubbleDoc;
         bubbleDoc.redraw(true /* stealFocus */);
       }
-
-      $('#artist-credit-bubble').hide();
     },
   });
 
@@ -206,9 +204,6 @@ releaseEditor.init = function (options) {
             );
             if (names !== trackAC.names) {
               track.artistCredit({names});
-              track.artistCreditEditorInst?.current?.setState({
-                artistCredit: track.artistCredit.peek(),
-              });
             }
           }
         }

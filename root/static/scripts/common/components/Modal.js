@@ -7,71 +7,139 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {
+  FloatingFocusManager,
+  FloatingNode,
+  FloatingOverlay,
+  FloatingPortal,
+  useDismiss,
+  useFloating,
+  useFloatingNodeId,
+  useInteractions,
+} from '@floating-ui/react';
 import * as React from 'react';
-import {createPortal} from 'react-dom';
 
-import useEventTrap from '../hooks/useEventTrap.js';
+import {expect} from '../../../../utility/invariant.js';
+import {findFirstTabbableElement} from '../utility/focusManagement.js';
 
-import Dialog, {
-  type RequiredPropsT as DialogPropsT,
-  getDialogRootNode,
-  getElementFromRef,
-} from './Dialog.js';
+import ErrorBoundary from './ErrorBoundary.js';
 
 type PropsT = $ReadOnly<{
-  ...DialogPropsT,
+  +children: React$Node,
   +className?: string,
+  +id: string,
   +onClick?: (SyntheticMouseEvent<HTMLDivElement>) => void,
+  +onEscape: (Event) => void,
   +title: string,
 }>;
 
-const Modal = (props: PropsT): React$Portal => {
+const Modal = (props: PropsT): React$MixedElement => {
   const {
+    children,
     className,
-    dialogRef,
     id,
+    onEscape,
+    title,
   } = props;
 
-  const activeElementRef = React.useRef<HTMLElement | null>(null);
+  const nodeId = useFloatingNodeId();
 
-  const returnFocusToDialog = (event: Event) => {
-    const dialogNode = getElementFromRef(dialogRef);
-    event.preventDefault();
-    const activeElement = activeElementRef.current ?? dialogNode;
-    activeElement.focus();
-  };
+  const onOpenChange = React.useCallback((
+    isOpen: boolean,
+    event: Event,
+  ) => {
+    if (!isOpen) {
+      onEscape(event);
+    }
+  }, [onEscape]);
 
-  useEventTrap(
-    'focusin',
-    dialogRef,
-    returnFocusToDialog,
-  );
-
-  useEventTrap(
-    'keydown',
-    dialogRef,
-    returnFocusToDialog,
-  );
-
-  React.useLayoutEffect(() => {
-    const dialogNodeStyle = getElementFromRef(dialogRef).style;
-    dialogNodeStyle.top = String(window.scrollY + 16) + 'px';
+  const {refs, context} = useFloating({
+    nodeId,
+    onOpenChange,
+    open: true,
+    strategy: 'fixed',
   });
 
-  return createPortal(
-    <>
-      <div
-        className="modal-backdrop"
-        onClick={returnFocusToDialog}
-      />
-      <Dialog
-        {...props}
-        activeElementRef={activeElementRef}
-        className={'modal ' + (className ?? '')}
-        trapFocus
-      />
-    </>,
-    getDialogRootNode(id),
+  const dismiss = useDismiss(context, {
+    bubbles: false,
+    escapeKey: true,
+    outsidePress: false,
+  });
+
+  const {getFloatingProps} = useInteractions([
+    dismiss,
+  ]);
+
+  const handleOverlayClick = React.useCallback((
+    event: SyntheticMouseEvent<HTMLDivElement>,
+  ) => {
+    event.stopPropagation();
+    refs.floating.current?.focus();
+  }, [refs.floating]);
+
+  const initialFocusRef = React.useRef<HTMLElement | null>(null);
+
+  React.useEffect(() => {
+    const floatingDiv = refs.floating.current;
+    if (!floatingDiv) {
+      return;
+    }
+    let container = expect(
+      floatingDiv.querySelector('.dialog-content'),
+      '.dialog-content node',
+    );
+    initialFocusRef.current = findFirstTabbableElement(
+      container,
+      /* skipAnchors = */ true,
+    );
+  });
+
+  return (
+    <FloatingNode id={nodeId}>
+      <FloatingPortal id={id}>
+        <FloatingOverlay
+          className="modal-backdrop"
+          lockScroll
+          onClick={handleOverlayClick}
+        >
+          <FloatingFocusManager
+            context={context}
+            initialFocus={initialFocusRef}
+            modal
+          >
+            <div
+              {...getFloatingProps()}
+              className={
+                'dialog modal' + (nonEmpty(className) ? ' ' + className : '')
+              }
+              id={id}
+              ref={refs.setFloating}
+              role="dialog"
+              /*
+               * The negative tab index ensures that clicking the dialog
+               * keeps focus inside the dialog, and doesn't return it to
+               * the <body>.
+               */
+              tabIndex="-1"
+            >
+              <div className="title-bar">
+                <h1>{title}</h1>
+                <button
+                  className="close-dialog icon"
+                  onClick={onEscape}
+                  type="button"
+                />
+              </div>
+              <div className="dialog-content">
+                <ErrorBoundary>
+                  {children}
+                </ErrorBoundary>
+              </div>
+            </div>
+          </FloatingFocusManager>
+        </FloatingOverlay>
+      </FloatingPortal>
+    </FloatingNode>
   );
 };
 

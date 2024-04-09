@@ -35,12 +35,12 @@
     },
     {
       command: 'type',
-      target: 'css=#artist-credit-bubble tbody tr:nth-child(1) input.name',
+      target: 'id=ac-source-artist-0',
       value: '1155431a-d35e-4863-9ae0-e3c24eb61aa9',
     },
     {
       command: 'type',
-      target: 'css=#artist-credit-bubble tbody tr:nth-child(2) input.name',
+      target: 'id=ac-source-artist-1',
       value: 'c5f5dc27-3059-49c0-ae45-5009a01bb9ec',
     },
     {
@@ -62,35 +62,35 @@
     },
     {
       command: 'assertEval',
-      target: "document.querySelectorAll('#tracklist span.artist.autocomplete input.name')[0].value",
+      target: "document.querySelectorAll('#tracklist input[id$=-single-artist]')[0].value",
       value: 'Lethal Bizzle & Super Furry Animals',
     },
     {
       command: 'assertEval',
-      target: "document.querySelectorAll('#tracklist span.artist.autocomplete input.name')[1].value",
+      target: "document.querySelectorAll('#tracklist input[id$=-single-artist]')[1].value",
       value: 'Lethal Bizzle & Super Furry Animals feat. Bing Crosby',
     },
     // These tracks' credits should be unchanged.
     {
       command: 'assertEval',
-      target: "document.querySelectorAll('#tracklist span.artist.autocomplete input.name')[2].value",
+      target: "document.querySelectorAll('#tracklist input[id$=-single-artist]')[2].value",
       value: 'Nine Inch Nails',
     },
     {
       command: 'assertEval',
-      target: "document.querySelectorAll('#tracklist span.artist.autocomplete input.name')[3].value",
+      target: "document.querySelectorAll('#tracklist input[id$=-single-artist]')[3].value",
       value: 'David Bowie',
     },
     {
       command: 'assertEval',
-      target: "document.querySelectorAll('#tracklist span.artist.autocomplete input.name')[4].value",
+      target: "document.querySelectorAll('#tracklist input[id$=-single-artist]')[4].value",
       value: 'Bing Crosby',
     },
     // This track was credited to the new release artists but used ' feat. ' as its join phrase.
     // The join phrase should be updated.
     {
       command: 'assertEval',
-      target: "document.querySelectorAll('#tracklist span.artist.autocomplete input.name')[5].value",
+      target: "document.querySelectorAll('#tracklist input[id$=-single-artist]')[5].value",
       value: 'Lethal Bizzle & Super Furry Animals',
     },
     {

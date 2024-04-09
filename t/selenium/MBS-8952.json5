@@ -13,13 +13,8 @@
     },
     {
       command: 'type',
-      target: "css=td.release-artist span.autocomplete input.name",
+      target: "id=ac-source-single-artist",
       value: 'Nine Inch Nails',
-    },
-    {
-      command: 'click',
-      target: "css=td.release-artist span.autocomplete img.search",
-      value: '',
     },
     {
       command: 'pause',
@@ -28,7 +23,7 @@
     },
     {
       command: 'click',
-      target: "xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Nine Inch Nails')]",
+      target: "xpath=//ul[@id='ac-source-single-artist-menu']//li[contains(@class, 'option-item')][contains(., 'Nine Inch Nails')]",
       value: '',
     },
     {

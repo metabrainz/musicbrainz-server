@@ -7,23 +7,37 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {
+  arrow,
+  autoPlacement,
+  FloatingArrow,
+  FloatingFocusManager,
+  FloatingPortal,
+  FloatingTree,
+  shift,
+  useClick,
+  useDismiss,
+  useFloating,
+  useFloatingParentNodeId,
+  useInteractions,
+} from '@floating-ui/react';
 import * as React from 'react';
 
-import useOutsideClickEffect from '../hooks/useOutsideClickEffect.js';
-import useReturnFocus from '../hooks/useReturnFocus.js';
 import {unwrapNl} from '../i18n.js';
 
-import Popover from './Popover.js';
+import ErrorBoundary from './ErrorBoundary.js';
 
 type PropsT = {
-  +buildChildren: (() => void) => React$Node,
+  +buildChildren: (
+    close: () => void,
+    initialFocusRef: {current: HTMLElement | null},
+  ) => React$Node,
   +buttonContent: React$Node,
   +buttonProps?: {
     className?: string,
     id?: string,
     title?: string | (() => string),
   } | null,
-  +buttonRef: {current: HTMLButtonElement | null},
   +className?: string,
   +closeOnOutsideClick?: boolean,
   +id: string,
@@ -35,9 +49,10 @@ type PropsT = {
 
 const ButtonPopover = (props: PropsT): React$MixedElement => {
   const {
+    buildChildren,
     buttonContent,
     buttonProps = null,
-    buttonRef,
+    className,
     closeOnOutsideClick = true,
     isDisabled = false,
     isOpen,
@@ -48,44 +63,28 @@ const ButtonPopover = (props: PropsT): React$MixedElement => {
   const buttonId = buttonProps?.id;
   const buttonTitle = buttonProps?.title;
 
-  const dialogRef = React.useRef<HTMLDivElement | null>(null);
+  const arrowRef = React.useRef<Element | null>(null);
 
-  useOutsideClickEffect(
-    dialogRef,
-    (event) => {
-      /*
-       * Clicking the opener again registers as an outside
-       * click, but is already handled separately.
-       */
-      if (
-        closeOnOutsideClick &&
-        event.target !== buttonRef.current &&
-        /*
-         * If the event target is the <html> element, the user probably
-         * clicked the scrollbar.
-         */
-        event.target !== document.documentElement
-      ) {
-        /*
-         * Don't return focus here, since the user maybe be clicking
-         * on an unrelated field in the page.
-         */
-        toggle(false);
-      }
-    },
-  );
+  const {refs, floatingStyles, context} = useFloating({
+    open: isOpen,
+    onOpenChange: toggle,
+    middleware: [
+      autoPlacement(),
+      shift(),
+      arrow({element: arrowRef}),
+    ],
+  });
 
-  const returnFocusToButton = useReturnFocus(buttonRef);
+  const click = useClick(context);
+  const dismiss = useDismiss(context, {
+    outsidePress: closeOnOutsideClick,
+    outsidePressEvent: 'click',
+  });
 
-  /*
-   * Triggered when the user (1) toggles the opener button,
-   * (2) hits escape, or (3) tabs out. Returns focus to the opening
-   * button in all three cases.
-   */
-  const closeAndReturnFocus = React.useCallback(() => {
-    returnFocusToButton.current = true;
-    toggle(false);
-  }, [returnFocusToButton, toggle]);
+  const {getReferenceProps, getFloatingProps} = useInteractions([
+    click,
+    dismiss,
+  ]);
 
   const customButtonProps = buttonProps ? {
     className: buttonProps.className,
@@ -97,22 +96,16 @@ const ButtonPopover = (props: PropsT): React$MixedElement => {
 
   let buttonElement: React$MixedElement = (
     <button
+      {...getReferenceProps()}
+      {...customButtonProps}
       aria-controls={isOpen ? dialogProps.id : null}
       aria-haspopup="dialog"
       className={buttonProps?.className}
       disabled={isDisabled}
       id={buttonId}
-      onClick={() => {
-        if (isOpen) {
-          closeAndReturnFocus();
-        } else {
-          toggle(true);
-        }
-      }}
-      ref={buttonRef}
+      ref={refs.setReference}
       title={buttonTitle == null ? null : unwrapNl<string>(buttonTitle)}
       type="button"
-      {...customButtonProps}
     >
       {buttonContent}
     </button>
@@ -122,19 +115,62 @@ const ButtonPopover = (props: PropsT): React$MixedElement => {
     buttonElement = wrapButton(buttonElement);
   }
 
+  const close = React.useCallback(() => {
+    toggle(false);
+  }, [toggle]);
+
+  const initialFocusRef = React.useRef<HTMLElement | null>(null);
+
+  let popoverElement: React$MixedElement | null = isOpen ? (
+    <FloatingPortal>
+      <FloatingFocusManager
+        closeOnFocusOut
+        context={context}
+        initialFocus={initialFocusRef}
+        modal
+        returnFocus
+      >
+        <div
+          {...getFloatingProps()}
+          className={
+            'dialog popover' +
+            (nonEmpty(className) ? ' ' + className : '')
+          }
+          id={dialogProps.id}
+          ref={refs.setFloating}
+          role="dialog"
+          style={floatingStyles}
+        >
+          <ErrorBoundary>
+            {buildChildren(close, initialFocusRef)}
+          </ErrorBoundary>
+          <FloatingArrow
+            context={context}
+            fill="currentColor"
+            height={12}
+            ref={arrowRef}
+            stroke="#AAA"
+            strokeWidth={1}
+            width={24}
+          />
+        </div>
+      </FloatingFocusManager>
+    </FloatingPortal>
+  ) : null;
+
+  const floatingParentNodeId = useFloatingParentNodeId();
+
+  if (floatingParentNodeId === null) {
+    popoverElement = (
+      <FloatingTree>
+        {popoverElement}
+      </FloatingTree>
+    );
+  }
   return (
     <>
       {buttonElement}
-      {isOpen
-        ? (
-          <Popover
-            buttonRef={buttonRef}
-            closeAndReturnFocus={closeAndReturnFocus}
-            dialogRef={dialogRef}
-            {...dialogProps}
-          />
-        )
-        : null}
+      {popoverElement}
     </>
   );
 };

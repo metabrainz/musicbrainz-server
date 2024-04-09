@@ -116,6 +116,121 @@ test 'recording lookup with releases' => sub {
         };
 };
 
+test 'recording lookup with releases, release-groups, and artists' => sub {
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'recording lookup with releases, release-groups, and artists',
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases+release-groups+artists' =>
+        {
+            disambiguation => '',
+            length => 296026,
+            title => 'サマーれげぇ!レインボー',
+            id => '162630d9-36d2-4a8d-ade1-1c77440b34e7',
+            video => JSON::false,
+            'artist-credit' => [
+                {
+                    name => '7人祭',
+                    artist => {
+                        'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
+                        type => 'Group',
+                        name => '7人祭',
+                        disambiguation => '',
+                        id => '802673f0-9b88-4e8a-bb5c-dd01d68b086f',
+                        'sort-name' => '7nin Matsuri',
+                    },
+                    joinphrase => '',
+                },
+            ],
+            releases => [
+                {
+                    id => 'b3b7e934-445b-4c68-a097-730c6a6d47e6',
+                    'release-group' => {
+                        'secondary-types' => [],
+                        'secondary-type-ids' => [],
+                        'primary-type-id' => 'd6038452-8ee0-3f68-affc-2de9a1ede0b9',
+                        title => 'サマーれげぇ!レインボー',
+                        'primary-type' => 'Single',
+                        disambiguation => '',
+                        id => 'b84625af-6229-305f-9f1b-59c0185df016',
+                        releases => [],
+                        'first-release-date' => '2001-07-04',
+                    },
+                    quality => 'high',
+                    status => 'Pseudo-Release',
+                    'status-id' => '41121bb9-3413-3818-8a9a-9742318349aa',
+                    'release-events' => [
+                        {
+                            area => {
+                                'sort-name' => 'Japan',
+                                id => '2db42837-c832-3c27-b4a3-08198f75693c',
+                                type => JSON::null,
+                                'type-id' => JSON::null,
+                                name => 'Japan',
+                                disambiguation => '',
+                                'iso-3166-1-codes' => ['JP'],
+                            },
+                            date => '2001-07-04',
+                        },
+                    ],
+                    barcode => '4942463511227',
+                    country => 'JP',
+                    packaging => JSON::null,
+                    disambiguation => '',
+                    'text-representation' => {
+                        script => 'Latn',
+                        language => 'jpn',
+                    },
+                    title => 'Summer Reggae! Rainbow',
+                    'packaging-id' => JSON::null,
+                    date => '2001-07-04',
+                },
+                {
+                    'release-events' => [
+                        {
+                            area => {
+                                'iso-3166-1-codes' => ['JP'],
+                                id => '2db42837-c832-3c27-b4a3-08198f75693c',
+                                type => JSON::null,
+                                'type-id' => JSON::null,
+                                name => 'Japan',
+                                disambiguation => '',
+                                'sort-name' => 'Japan',
+                            },
+                            date => '2001-07-04',
+                        },
+                    ],
+                    country => 'JP',
+                    barcode => '4942463511227',
+                    packaging => JSON::null,
+                    id => '0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e',
+                    quality => 'normal',
+                    'release-group' => {
+                        'secondary-types' => [],
+                        'secondary-type-ids' => [],
+                        'primary-type-id' => 'd6038452-8ee0-3f68-affc-2de9a1ede0b9',
+                        id => 'b84625af-6229-305f-9f1b-59c0185df016',
+                        'primary-type' => 'Single',
+                        title => 'サマーれげぇ!レインボー',
+                        disambiguation => '',
+                        'first-release-date' => '2001-07-04',
+                        releases => [],
+                    },
+                    status => 'Official',
+                    'status-id' => '4e304316-386d-3409-af2e-78857eec5cfe',
+                    'packaging-id' => JSON::null,
+                    date => '2001-07-04',
+                    title => 'サマーれげぇ!レインボー',
+                    'text-representation' => {
+                        language => 'jpn',
+                        script => 'Jpan',
+                    },
+                    disambiguation => '',
+                },
+            ],
+            'first-release-date' => '2001-07-04',
+        };
+};
+
 test 'lookup recording with official singles' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');

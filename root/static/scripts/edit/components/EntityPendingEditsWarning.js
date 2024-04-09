@@ -19,7 +19,7 @@ type PropsT = {
 
 const EntityPendingEditsWarning = ({
   entity,
-}: PropsT): React$Element<React$FragmentType> | null => {
+}: PropsT): React.MixedElement | null => {
   const hasPendingEdits = Boolean(entity.editsPending);
   const openEditsLink = entityHref(entity, '/open_edits');
 

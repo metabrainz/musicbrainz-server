@@ -21,12 +21,13 @@
 # Wieland Hoffmann <email address hidden>, 2013-2014
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023, 2024.
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# Leonie2 <renkenjakob@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-31 12:28+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2024-04-08 14:28+0000\n"
+"Last-Translator: Leonie2 <renkenjakob@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/de/>\n"
 "Language: de\n"
@@ -34,7 +35,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.4\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -46,7 +47,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2021-04-19
 msgid "1200px thumbnails"
-msgstr ""
+msgstr "1200px Vorschaubilder"
 
 #: DB:statistics.statistic_event/description:2021-04-19
 msgid ""

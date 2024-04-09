@@ -51,7 +51,7 @@
         <td>
           <label>
             [% IF this_medium_has_cdtoc %]
-              <div class="cannot-attach-discid icon img" title="[% l('This CDTOC is already attached to this medium.') %]"></div>            
+              <div class="cannot-attach-discid icon img" title="[% l('This CD TOC is already attached to this medium.') %]"></div>            
             [% ELSIF !medium.may_have_discids %]
               <div class="cannot-attach-discid icon img" title="[% l('This medium format cannot have a disc ID attached.') %]"></div>
             [% ELSE %]
@@ -64,7 +64,7 @@
           </label>
           [% tracklist_toggle %]
           [% IF this_medium_has_cdtoc %]
-            <div class="error">[% l('This CDTOC is already attached to this medium.') %]</div>
+            <div class="error">[% l('This CD TOC is already attached to this medium.') %]</div>
           [% END %]
         </td>
         <td colspan="6"></td>

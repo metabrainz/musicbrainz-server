@@ -44,7 +44,7 @@ const WorkList = ({
   showRatings = false,
   sortable,
   works,
-}: Props): React$Element<React$FragmentType> => {
+}: Props): React.MixedElement => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(

@@ -978,6 +978,13 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.bandsintown.com/v/846942',
        only_valid_entity_types: ['place'],
   },
+  {
+                     input_url: 'https://www.bandsintown.com/f/133106?came_from=263&utm_medium=web&utm_source=home&utm_campaign=festival',
+             input_entity_type: 'event',
+    expected_relationship_type: 'bandsintown',
+            expected_clean_url: 'https://www.bandsintown.com/f/133106',
+       only_valid_entity_types: ['event'],
+  },
   // BBC Events
   {
                      input_url: 'http://bbc.co.uk/events/edhcd4',
@@ -4418,7 +4425,14 @@ limited_link_type_combinations: [
                      input_url: 'https://www.operabase.com/artists/megan-esther-grey-101303/en',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://operabase.com/artists/101303',
+            expected_clean_url: 'https://operabase.com/a101303',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.operabase.com/megan-esther-grey-a101303/bio/en',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://operabase.com/a101303',
        only_valid_entity_types: ['artist'],
   },
   {

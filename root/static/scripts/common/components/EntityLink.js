@@ -11,6 +11,7 @@ import * as Sentry from '@sentry/browser';
 import ko from 'knockout';
 import * as React from 'react';
 
+import type {ReleaseEditorTrackT} from '../../release-editor/types.js';
 import isGreyedOut from '../../url/utility/isGreyedOut.js';
 import localizeAreaName from '../i18n/localizeAreaName.js';
 import localizeInstrumentName from '../i18n/localizeInstrumentName.js';
@@ -67,6 +68,7 @@ const iconClassPicker = {
   release: 'releaselink',
   release_group: 'rglink',
   series: 'serieslink',
+  track: null,
   url: null,
   work: 'worklink',
 };
@@ -151,7 +153,12 @@ type EntityLinkProps = {
   +content?: ?Expand2ReactOutput,
   +deletedCaption?: string,
   +disableLink?: boolean,
-  +entity: RelatableEntityT | CollectionT | LinkTypeT,
+  +entity:
+    | RelatableEntityT
+    | CollectionT
+    | LinkTypeT
+    | TrackT
+    | ReleaseEditorTrackT,
   +hover?: string,
   +nameVariation?: boolean,
   +showCaaPresence?: boolean,
@@ -189,8 +196,10 @@ const EntityLink = ({
 }: EntityLinkProps):
 $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   const hasCustomContent = nonEmpty(passedContent);
+  // $FlowIgnore[sketchy-null-mixed]
   const hasEditsPending = entity.editsPending || false;
   const hasSubPath = nonEmpty(subPath);
+  // $FlowIgnore[prop-missing]
   const comment = nonEmpty(entity.comment) ? ko.unwrap(entity.comment) : '';
 
   let content = passedContent;
@@ -224,15 +233,17 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
       : hover + ' ' + bracketedText(comment);
   }
 
+  const entityName = ko.unwrap(entity.name);
+
   if (entity.entityType === 'area') {
     content = empty(content) ? localizeAreaName(entity) : content;
   } else if (entity.entityType === 'instrument') {
     content = empty(content) ? localizeInstrumentName(entity) : content;
   } else if (entity.entityType === 'link_type') {
-    content = empty(content) ? l_relationships(entity.name) : content;
+    content = empty(content) ? l_relationships(entityName) : content;
   }
 
-  content = empty(content) ? ko.unwrap(entity.name) : content;
+  content = empty(content) ? entityName : content;
 
   if (!ko.unwrap(entity.gid)) {
     if (entity.entityType === 'url') {
@@ -262,17 +273,17 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   // URLs are kind of weird and we probably don't care to set this for them
   if (!hasSubPath && entity.entityType !== 'url') {
     if (nameVariation === undefined && typeof content === 'string') {
-      nameVariation = content !== entity.name;
+      nameVariation = content !== entityName;
     }
 
     if (nameVariation === true) {
       if (nonEmpty(hover)) {
         hover = texp.l('{name} – {additional_info}', {
           additional_info: hover,
-          name: entity.name,
+          name: entityName,
         });
       } else {
-        hover = ko.unwrap(entity.name);
+        hover = entityName;
       }
     }
   }

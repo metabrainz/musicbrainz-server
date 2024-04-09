@@ -26,7 +26,7 @@ type Props = {
 const CoverArtFields = ({
   form,
   typeIdOptions,
-}: Props): React$Element<React$FragmentType> => {
+}: Props): React.MixedElement => {
   const typeIdField = form.field.type_id;
   const selectedTypeIds = new Set(typeIdField.value.map(
     value => String(value),

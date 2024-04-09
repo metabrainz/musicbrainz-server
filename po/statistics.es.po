@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-29 16:28+0000\n"
+"PO-Revision-Date: 2024-03-27 14:28+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -294,7 +294,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2019-08-08
 msgid "Collaborative collections"
-msgstr ""
+msgstr "Colecciones colaborativas"
 
 #: DB:statistics.statistic_event/description:2019-08-08
 msgid ""
@@ -1094,7 +1094,7 @@ msgstr "Período de votación acortado a 7 días"
 
 #: DB:statistics.statistic_event/title:2019-11-12
 msgid "Voting suggestions"
-msgstr ""
+msgstr "Sugerencias de voto"
 
 #: DB:statistics.statistic_event/title:2019-04-26
 msgid "Web service version 1 taken down"

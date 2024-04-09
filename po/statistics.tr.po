@@ -3,19 +3,21 @@
 # ym syserror <email address hidden>, 2012
 # Nikolai Prokoschenko <email address hidden>, 2011
 # portik <email address hidden>, 2013
+# brtc <boratici@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2012-05-24 18:54+0000\n"
-"Last-Translator: portik <yetmisbeskere75@hotmail.com>, 2013\n"
-"Language-Team: Turkish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/tr/)\n"
+"PO-Revision-Date: 2024-03-18 23:28+0000\n"
+"Last-Translator: brtc <boratici@gmail.com>\n"
+"Language-Team: Turkish <https://translations.metabrainz.org/projects/"
+"musicbrainz/statistics/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Weblate 5.4\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -76,7 +78,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2003-04-05
 msgid "A new, much faster search mechanism is added."
-msgstr ""
+msgstr "Yeni, çok daha hızlı bir arama tekniği eklendi."
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
@@ -92,7 +94,7 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2003-11-10
 msgid ""
 "A way to search for edits based on several different criteria is released."
-msgstr ""
+msgstr "Düzenlemeleri birkaç farklı kritere göre aramanın bir yolu yayınlandı."
 
 #: DB:statistics.statistic_event/description:2014-11-19
 msgid ""
@@ -103,7 +105,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2005-04-10
 msgid "Advanced relationships"
-msgstr ""
+msgstr "Gelişmiş ilişkiler"
 
 #: DB:statistics.statistic_event/description:2005-04-10
 msgid ""
@@ -126,17 +128,24 @@ msgid ""
 "After a lot of debate, relationship data starts being displayed on release "
 "pages, making it a lot more visible."
 msgstr ""
+"Pek çok tartışmanın ardından ilişki verileri sürüm sayfalarında "
+"görüntülenmeye başlıyor ve bu da onu çok daha görünür hale getiriyor."
 
 #: DB:statistics.statistic_event/description:2012-09-01
 msgid ""
 "After a successful Summer of Code, Ian McEwen joins the MusicBrainz team."
 msgstr ""
+"Başarılı bir Summer of Code'un ardından Ian McEwen, MusicBrainz ekibine "
+"katıldı."
 
 #: DB:statistics.statistic_event/description:2016-11-08
 msgid ""
 "After many years at Digital West in California, the MetaBrainz project moves "
 "all servers to a much larger dedicated provider in Germany, Hetzner."
 msgstr ""
+"Kaliforniya'daki Digital West'te uzun yıllar geçirdikten sonra MetaBrainz "
+"projesi, tüm sunucuları Almanya'daki çok daha büyük bir özel sağlayıcı olan "
+"Hetzner'e taşıyor."
 
 #: DB:statistics.statistic_event/description:2018-09-10
 msgid ""
@@ -150,6 +159,8 @@ msgid ""
 "After unexpected upheaval on Freenode, MetaBrainz moves all official "
 "channels to Libera.Chat instead."
 msgstr ""
+"Freenode'daki beklenmedik karışıklığın ardından tüm MetaBrainz resmi "
+"kanalları Libera.Chat'e taşıdı."
 
 #: DB:statistics.statistic_event/title:2005-05-22
 msgid "Album languages"
@@ -180,7 +191,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-09-01
 msgid "Amazon betas SoundUnwound"
-msgstr ""
+msgstr "Amazon SoundUnwound'un betasını yapıyor"
 
 #: DB:statistics.statistic_event/title:2004-02-24
 msgid "Amazon cover art"
@@ -202,11 +213,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2004-11-14
 msgid "Annotation support released."
-msgstr ""
+msgstr "Bilgi notu desteği yayınlandı."
 
 #: DB:statistics.statistic_event/title:2004-11-14
 msgid "Annotations"
-msgstr ""
+msgstr "Bilgi notları"
 
 #: DB:statistics.statistic_event/title:2013-05-15
 msgid "Areas, ISNI codes and multiple release events per release"
@@ -214,17 +225,19 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-06-22
 msgid "Artist subscriptions"
-msgstr ""
+msgstr "Sanatçı abonelikleri"
 
 #: DB:statistics.statistic_event/description:2005-02-13
 msgid ""
 "Artist subscriptions made public and various smaller user centric "
 "improvements are released."
 msgstr ""
+"Sanatçı abonelikleri herkese açık hale getirildi ve kullanıcı odaklı çeşitli "
+"küçük iyileştirmeler yayınlandı."
 
 #: DB:statistics.statistic_event/description:2003-06-22
 msgid "Artist subscriptions."
-msgstr ""
+msgstr "Sanatçı abonelikleri."
 
 #: DB:statistics.statistic_event/description:2017-04-11
 msgid ""
@@ -235,27 +248,29 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-07-30
 msgid "BBC dynamic artist pages"
-msgstr ""
+msgstr "BBC dinamik sanatçı sayfaları"
 
 #: DB:statistics.statistic_event/description:2008-07-30
 msgid "BBC launches the dynamic artist pages based on MusicBrainz data."
 msgstr ""
+"BBC, MusicBrainz verilerini temel alan dinamik sanatçı sayfalarını kullanıma "
+"sunuyor."
 
 #: DB:statistics.statistic_event/title:2007-06-28
 msgid "BBC partners with MetaBrainz"
-msgstr ""
+msgstr "BBC, MetaBrainz ile ortak oldu"
 
 #: DB:statistics.statistic_event/title:2018-09-10
 msgid "BookBrainz becomes official MetaBrainz project"
-msgstr ""
+msgstr "BookBrainz resmi MetaBrainz projesi oldu"
 
 #: DB:statistics.statistic_event/title:2012-04-30
 msgid "CAA initial release"
-msgstr ""
+msgstr "CAA'nın ilk sürümü"
 
 #: DB:statistics.statistic_event/title:2012-10-10
 msgid "CAA official release"
-msgstr ""
+msgstr "CAA resmi sürümü"
 
 #: DB:statistics.statistic_event/title:2016-06-20
 msgid "CatQuest becomes Instrument Inserter"
@@ -300,7 +315,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-03-29
 msgid "Dedicated database server"
-msgstr ""
+msgstr "Özel veri tabanı sunucusu"
 
 #: DB:statistics.statistic_event/title:2016-03-01
 msgid "Discourse unifies community communication"
@@ -348,7 +363,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-06-07
 msgid "Email verification"
-msgstr ""
+msgstr "E-posta doğrulama"
 
 #: DB:statistics.statistic_event/description:2012-06-25
 msgid ""
@@ -382,16 +397,20 @@ msgstr ""
 msgid ""
 "Former GSoC student Roman Tsukanov begins working for MetaBrainz part-time."
 msgstr ""
+"Eski GSoC öğrencisi Roman Tsukanov, MetaBrainz için yarı zamanlı çalışmaya "
+"başladı."
 
 #: DB:statistics.statistic_event/title:2015-08-06
 msgid "Frederik \"Freso\" S. Olesen becomes MetaBrainz Community Manager"
-msgstr ""
+msgstr "Frederik \"Freso\" S. Olesen, MetaBrainz Topluluk Yöneticisi oldu"
 
 #: DB:statistics.statistic_event/description:2004-10-10
 msgid ""
 "FreeDB auto import feature turned off and autoeditor elections released. "
 "Unused TRMs pruned from the database."
 msgstr ""
+"FreeDB otomatik içe aktarma özelliği kapatıldı ve otomatik düzenleyici "
+"seçimleri yayınlandı. Kullanılmayan TRM'ler veri tabanından çıkarıldı."
 
 #: DB:statistics.statistic_event/title:2004-10-10
 msgid "FreeDB off/Autoeditors"
@@ -427,15 +446,15 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2012-09-01
 msgid "Ian McEwen hired"
-msgstr ""
+msgstr "Ian McEwen işe alındı"
 
 #: DB:statistics.statistic_event/title:2015-07-17
 msgid "Ian McEwen leaves MetaBrainz"
-msgstr ""
+msgstr "Ian McEwen MetaBrainz'den ayrıldı"
 
 #: DB:statistics.statistic_event/description:2015-07-17
 msgid "Ian McEwen leaves the project for personal reasons."
-msgstr ""
+msgstr "Ian McEwen kişisel nedenlerden dolayı projeden ayrılıyor."
 
 #: DB:statistics.statistic_event/title:2009-06-17
 msgid "Imported CD Baby catalog as CD Stubs"
@@ -448,11 +467,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2004-07-24
 msgid "Improve voting"
-msgstr ""
+msgstr "Oylamayı iyileştirin"
 
 #: DB:statistics.statistic_event/title:2003-04-05
 msgid "Improved search"
-msgstr ""
+msgstr "Geliştirilmiş arama"
 
 #: DB:statistics.statistic_event/description:2013-02-11
 msgid ""
@@ -496,7 +515,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2004-05-09
 msgid "Install scripts"
-msgstr ""
+msgstr "Komut dosyalarını yükleyin"
 
 #: DB:statistics.statistic_event/title:2020-12-31
 msgid "Instrument images, recordings' first release date"
@@ -508,11 +527,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2021-02-01
 msgid "Italian translation released, IPI and ISNI become autoedits"
-msgstr ""
+msgstr "İtalyanca çeviri yayınlandı, IPI ve ISNI otomatik düzenlemeye dönüştü"
 
 #: DB:statistics.statistic_event/title:2021-02-23
 msgid "Kartik Ohri joins the MetaBrainz team"
-msgstr ""
+msgstr "Kartik Ohri MetaBrainz ekibine katıldı"
 
 #: DB:statistics.statistic_event/description:2021-02-23
 msgid ""
@@ -520,6 +539,9 @@ msgid ""
 "AcousticBrainz and CritiqueBrainz, plus the Android app, which he had "
 "already significantly rewritten as a volunteer."
 msgstr ""
+"Kartik Ohri, ListenBrainz, AcousticBrainz ve CritiqueBrainz'in yanı sıra "
+"gönüllü olarak önemli ölçüde yeniden yazdığı Android uygulaması üzerinde "
+"çalışmak üzere MetaBrainz ekibine katılıyor."
 
 #: DB:statistics.statistic_event/description:2009-12-14
 msgid "Kuno Woudt begins working for MusicBrainz full-time."
@@ -544,7 +566,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-09-28
 msgid "Laurent \"zas\" Monin becomes sysadmin"
-msgstr ""
+msgstr "Laurent \"zas\" Monin sistem yöneticisi oluyor"
 
 #: DB:statistics.statistic_event/description:2015-09-28
 msgid ""
@@ -552,6 +574,9 @@ msgid ""
 "administrator, to make sure the servers run properly and help transition to "
 "a new community discussion system."
 msgstr ""
+"Daha çok Zas olarak bilinen Laurent Monin, sunucuların düzgün çalıştığından "
+"emin olmak ve yeni bir topluluk tartışma sistemine geçişe yardımcı olmak "
+"için ekibe özel sistem yöneticisi olarak katılıyor."
 
 #: DB:statistics.statistic_event/description:2003-12-28
 msgid ""
@@ -573,10 +598,15 @@ msgid ""
 "removing URLs from problematic domains, marking URLs from domains that have "
 "been closed as ended, and other similar batch-editing jobs."
 msgstr ""
+"MBBE_Bot, elle yapılması çok zaman alan ancak yine de düzenleme geçmişinde "
+"iz bırakması gereken düzeltmeleri yapmak için yaratılmıştır. Bu genellikle "
+"sorunlu alanlardaki URL'lerin kaldırılmasını, kapatılan alanlardaki "
+"URL'lerin sona erdi olarak işaretlenmesini ve diğer benzer toplu düzenleme "
+"işlerini içerir."
 
 #: DB:statistics.statistic_event/title:2020-10-07
 msgid "MBBE_Bot starts running"
-msgstr ""
+msgstr "MBBE_Bot çalışmaya başlıyor"
 
 #: DB:statistics.statistic_event/title:2005-10-23
 msgid "Menus/Client scripting"
@@ -592,23 +622,24 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-09-23
 msgid "MetaBrainz hires Oliver Charles"
-msgstr ""
+msgstr "MetaBrainz Oliver Charles'ı işe aldı"
 
 #: DB:statistics.statistic_event/title:2005-04-19
 msgid "MetaBrainz launched"
-msgstr ""
+msgstr "MetaBrainz başlatıldı"
 
 #: DB:statistics.statistic_event/title:2016-11-08
 msgid "MetaBrainz projects complete move to European servers"
-msgstr ""
+msgstr "MetaBrainz projeleri Avrupa sunucularına taşınmayı tamamladı"
 
 #: DB:statistics.statistic_event/title:2007-01-20
 msgid "MetaBrainz signs first customer"
-msgstr ""
+msgstr "MetaBrainz ilk müşterisiyle sözleşme imzaladı"
 
 #: DB:statistics.statistic_event/title:2019-06-25
 msgid "MetaBrainz wins copyright troll battle, Wikimedia images dropped"
 msgstr ""
+"MetaBrainz telif hakkı trol savaşını kazandı, Wikimedia görselleri düştü"
 
 #: DB:statistics.statistic_event/description:2008-04-01
 msgid "MetaWeb becomes a MusicBrainz data user."
@@ -616,7 +647,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-04-01
 msgid "MetaWeb signed"
-msgstr ""
+msgstr "MetaWeb imzalandı"
 
 #: DB:statistics.statistic_event/title:2015-11-30
 msgid "More auto-edits"
@@ -640,11 +671,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2012-01-12
 msgid "MusicBrainz adds AcoustID support"
-msgstr ""
+msgstr "MusicBrainz AcoustID desteği ekliyor"
 
 #: DB:statistics.statistic_event/description:2003-03-29
 msgid "MusicBrainz gets its first dedicated database server."
-msgstr ""
+msgstr "MusicBrainz ilk özel veri tabanı sunucusuna kavuştu."
 
 #: DB:statistics.statistic_event/description:2016-02-22
 msgid ""
@@ -654,7 +685,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2006-02-27
 msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
-msgstr ""
+msgstr "MusicBrainz, San Luis Obispo'daki Digital West Networks'e taşındı."
 
 #: DB:statistics.statistic_event/description:2006-03-12
 msgid ""
@@ -1421,7 +1452,7 @@ msgstr ""
 
 #: ../root/statistics/Formats.js:55
 msgid "Format"
-msgstr ""
+msgstr "Biçim"
 
 #: ../root/statistics/Formats.js:57
 msgid "% of total releases"
