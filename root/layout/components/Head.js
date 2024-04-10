@@ -21,13 +21,6 @@ import FaviconLinks from './FaviconLinks.js';
 import globalsScript from './globalsScript.mjs';
 import MetaDescription from './MetaDescription.js';
 
-export type HeadProps = {
-  +isHomepage?: boolean,
-  +noIcons?: boolean,
-  +pager?: PagerT,
-  +title?: string,
-};
-
 const canonRegexp = new RegExp('^(https?:)?//' + DBDefs.WEB_SERVER);
 function canonicalize(url: string) {
   return DBDefs.CANONICAL_SERVER
@@ -64,12 +57,12 @@ const CanonicalLink = ({requestUri}: {+requestUri: string}) => {
   return null;
 };
 
-const Head = ({
-  isHomepage = false,
-  noIcons = false,
-  pager,
-  title,
-}: HeadProps): React$Element<'head'> => {
+component Head(
+  isHomepage: boolean = false,
+  noIcons: boolean = false,
+  pager?: PagerT,
+  title?: string,
+) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -162,6 +155,6 @@ const Head = ({
       ) : null}
     </head>
   );
-};
+}
 
 export default Head;

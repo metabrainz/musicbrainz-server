@@ -66,48 +66,52 @@ function compareTypeOptionEntries(
   );
 }
 
-const SearchOptions = () => (
-  <select id="headerid-type" name="type">
-    {TYPE_OPTION_GROUPS.map((group) => (
-      Object.entries(group)
-        .sort(compareTypeOptionEntries)
-        .map(([key, option]) => {
-          const text = localizedTypeOption(option);
-          if (!text) {
-            return null;
-          }
-          return (
-            <option key={key} value={key}>
-              {text}
-            </option>
-          );
-        })
-      ))}
-  </select>
-);
+component SearchOptions() {
+  return (
+    <select id="headerid-type" name="type">
+      {TYPE_OPTION_GROUPS.map((group) => (
+        Object.entries(group)
+          .sort(compareTypeOptionEntries)
+          .map(([key, option]) => {
+            const text = localizedTypeOption(option);
+            if (!text) {
+              return null;
+            }
+            return (
+              <option key={key} value={key}>
+                {text}
+              </option>
+            );
+          })
+        ))}
+    </select>
+  );
+}
 
-const Search = (): React$Element<'form'> => (
-  <form action="/search" method="get">
-    <input
-      id="headerid-query"
-      name="query"
-      placeholder={l('Search')}
-      required
-      type="text"
-    />
-    {' '}
-    <SearchOptions />
-    {' '}
-    <input
-      id="headerid-method"
-      name="method"
-      type="hidden"
-      value="indexed"
-    />
-    <button type="submit">
-      <SearchIcon />
-    </button>
-  </form>
-);
+component Search() {
+  return (
+    <form action="/search" method="get">
+      <input
+        id="headerid-query"
+        name="query"
+        placeholder={l('Search')}
+        required
+        type="text"
+      />
+      {' '}
+      <SearchOptions />
+      {' '}
+      <input
+        id="headerid-method"
+        name="method"
+        type="hidden"
+        value="indexed"
+      />
+      <button type="submit">
+        <SearchIcon />
+      </button>
+    </form>
+  );
+}
 
 export default Search;

@@ -22,25 +22,29 @@ import {formatUserDateObject} from '../utility/formatUserDate.js';
 import getRequestCookie from '../utility/getRequestCookie.mjs';
 
 import Footer from './components/Footer.js';
-import Head, {type HeadProps} from './components/Head.js';
+import Head from './components/Head.js';
 import Header from './components/Header.js';
 import MergeHelper from './components/MergeHelper.js';
 
-const DismissBannerButton = ({bannerName}: {+bannerName: string}) => (
-  <button
-    className="dismiss-banner remove-item icon"
-    data-banner-name={bannerName}
-    type="button"
-  />
-);
+component DismissBannerButton(bannerName: string) {
+  return (
+    <button
+      className="dismiss-banner remove-item icon"
+      data-banner-name={bannerName}
+      type="button"
+    />
+  );
+}
 
-const BirthdayCakes = () => (
-  <span aria-label={l('Birthday cakes')} role="img">
-    {String.fromCodePoint(0x1F382)}
-    {String.fromCodePoint(0x1F382)}
-    {String.fromCodePoint(0x1F382)}
-  </span>
-);
+component BirthdayCakes() {
+  return (
+    <span aria-label={l('Birthday cakes')} role="img">
+      {String.fromCodePoint(0x1F382)}
+      {String.fromCodePoint(0x1F382)}
+      {String.fromCodePoint(0x1F382)}
+    </span>
+  );
+}
 
 function showBirthdayBanner($c: CatalystContextT) {
   const birthDate = $c.user ? $c.user.birth_date : null;
@@ -55,7 +59,7 @@ function showBirthdayBanner($c: CatalystContextT) {
          !getRequestCookie($c.req, 'birthday_message_dismissed_mtime');
 }
 
-const AnniversaryBanner = () => {
+component AnniversaryBanner() {
   const $c = React.useContext(CatalystContext);
   const registrationDate = $c.user ? $c.user.registration_date : null;
   if (registrationDate == null) {
@@ -100,9 +104,9 @@ const AnniversaryBanner = () => {
   }
 
   return null;
-};
+}
 
-const ServerDetailsBanner = ({url}: {url: string}) => {
+component ServerDetailsBanner(url: string) {
   const returnUrl = new URL(url);
   returnUrl.port = ''; // won't unset it itself when setting host
   returnUrl.host = nonEmpty(DBDefs.BETA_REDIRECT_HOSTNAME)
@@ -156,22 +160,13 @@ const ServerDetailsBanner = ({url}: {url: string}) => {
   }
 
   return null;
-};
+}
 
-export type Props = $ReadOnly<{
-  ...HeadProps,
+component Layout(
   children: React$Node,
-  fullWidth?: boolean,
-}>;
-
-const Layout = ({
-  children,
-  fullWidth = false,
-  isHomepage = false,
-  noIcons,
-  pager,
-  title,
-}: Props): React$Element<'html'> => {
+  fullWidth: boolean = false,
+  ...headProps: React.PropsOf<Head>
+) {
   const $c = React.useContext(CatalystContext);
 
   const showAlert = nonEmpty($c.stash.alert) &&
@@ -188,12 +183,7 @@ const Layout = ({
 
   return (
     <html lang={$c.stash.current_language_html}>
-      <Head
-        isHomepage={isHomepage}
-        noIcons={noIcons}
-        pager={pager}
-        title={title}
-      />
+      <Head {...headProps} />
 
       <body>
         <Header />
@@ -314,7 +304,7 @@ const Layout = ({
 
         <div
           className={(fullWidth ? 'fullwidth ' : '') +
-            (isHomepage ? 'homepage' : '')}
+            (headProps.isHomepage /*:: === true */ ? 'homepage' : '')}
           id="page"
         >
           {children}
@@ -328,6 +318,6 @@ const Layout = ({
       </body>
     </html>
   );
-};
+}
 
 export default Layout;
