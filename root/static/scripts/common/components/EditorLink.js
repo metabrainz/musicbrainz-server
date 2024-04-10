@@ -11,7 +11,7 @@ import defaultAvatarUrl from '../../../images/entity/editor.svg';
 import entityHref from '../utility/entityHref.js';
 import isolateText from '../utility/isolateText.js';
 
-const MissingEditorLink = (): React$Element<'span'> => {
+component MissingEditorLink() {
   return (
     <span
       className="deleted tooltip"
@@ -23,21 +23,14 @@ const MissingEditorLink = (): React$Element<'span'> => {
       {isolateText(l('[missing editor]'))}
     </span>
   );
-};
+}
 
-type Props = {
-  +avatarSize?: number,
-  +content?: string,
-  +editor: ?$ReadOnly<{...EditorT, ...}>,
-  +subPath?: string,
-};
-
-const EditorLink = ({
-  editor,
-  content: passedContent,
-  avatarSize = 15,
-  subPath,
-}: Props): React$Element<typeof MissingEditorLink | 'a'> => {
+component EditorLink(
+  avatarSize?: number = 15,
+  content as passedContent?: string,
+  editor: ?$ReadOnly<{...EditorT, ...}>,
+  subPath?: string,
+) {
   if (!editor) {
     return <MissingEditorLink />;
   }
@@ -65,6 +58,6 @@ const EditorLink = ({
       {isolateText(content)}
     </a>
   );
-};
+}
 
 export default EditorLink;

@@ -10,17 +10,11 @@
 import entityHref from '../utility/entityHref.js';
 import primaryAreaCode from '../utility/primaryAreaCode.js';
 
-type Props = {
-  +className?: string,
-  +country: AreaT,
-  +withLink?: boolean,
-};
-
-const CountryAbbr = ({
-  className,
-  country,
-  withLink = false,
-}: Props): React$Element<'span'> | null => {
+component CountryAbbr(
+  className?: string,
+  country: AreaT,
+  withLink: boolean = false,
+) {
   const primaryCode = primaryAreaCode(country);
   if (empty(primaryCode)) {
     return null;
@@ -45,6 +39,6 @@ const CountryAbbr = ({
       {content}
     </span>
   );
-};
+}
 
 export default CountryAbbr;

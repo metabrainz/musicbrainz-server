@@ -21,34 +21,14 @@ import IswcList from './IswcList.js';
 import RatingStars from './RatingStars.js';
 import WorkArtists from './WorkArtists.js';
 
-type WorkListRowProps = {
-  ...SeriesItemNumbersRoleT,
-  +checkboxes?: string,
-  +showAttributes?: boolean,
-  +showIswcs?: boolean,
-  +showRatings?: boolean,
-  +work: WorkT,
-};
-
-type WorkListEntryProps = {
-  ...SeriesItemNumbersRoleT,
-  +checkboxes?: string,
-  +index: number,
-  +score?: number,
-  +showAttributes?: boolean,
-  +showIswcs?: boolean,
-  +showRatings?: boolean,
-  +work: WorkT,
-};
-
-export const WorkListRow = ({
-  checkboxes,
-  seriesItemNumbers,
-  showAttributes = false,
-  showIswcs = false,
-  showRatings = false,
-  work,
-}: WorkListRowProps): React.MixedElement => {
+export component WorkListRow(
+  checkboxes?: string,
+  seriesItemNumbers?: $ReadOnlyArray<string>,
+  showAttributes: boolean = false,
+  showIswcs: boolean = false,
+  showRatings: boolean = false,
+  work: WorkT,
+) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -128,28 +108,18 @@ export const WorkListRow = ({
       ) : null}
     </>
   );
-};
+}
 
-const WorkListEntry = ({
-  checkboxes,
-  index,
-  score,
-  seriesItemNumbers,
-  showAttributes,
-  showIswcs,
-  showRatings,
-  work,
-}: WorkListEntryProps): React$Element<'tr'> => (
-  <tr className={loopParity(index)} data-score={score ?? null}>
-    <WorkListRow
-      checkboxes={checkboxes}
-      seriesItemNumbers={seriesItemNumbers}
-      showAttributes={showAttributes}
-      showIswcs={showIswcs}
-      showRatings={showRatings}
-      work={work}
-    />
-  </tr>
-);
+component WorkListEntry(
+  index: number,
+  score?: number,
+  ...rowProps: React.PropsOf<WorkListRow>
+) {
+  return (
+    <tr className={loopParity(index)} data-score={score ?? null}>
+      <WorkListRow {...rowProps} />
+    </tr>
+  );
+}
 
 export default WorkListEntry;

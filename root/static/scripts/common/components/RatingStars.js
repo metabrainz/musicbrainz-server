@@ -29,17 +29,7 @@ const ratingURL = (
 
 const ratingInts = [1, 2, 3, 4, 5];
 
-type StaticRatingStarsProps = {
-  +rating: ?number,
-};
-
-type RatingStarsProps = {
-  +entity: RatableT,
-};
-
-export const StaticRatingStars = ({
-  rating,
-}: StaticRatingStarsProps): React$Element<'span'> => {
+export component StaticRatingStars(rating: ?number) {
   const starRating = rating == null ? 0 : (5 * rating / 100);
   return (
     <span className="inline-rating">
@@ -53,9 +43,9 @@ export const StaticRatingStars = ({
       </span>
     </span>
   );
-};
+}
 
-const RatingStars = ({entity}: RatingStarsProps): React$Element<'span'> => {
+component RatingStars(entity: RatableT) {
   const currentStarRating =
     entity.user_rating == null ? 0 : (5 * entity.user_rating / 100);
   const $c = React.useContext(SanitizedCatalystContext);
@@ -103,6 +93,6 @@ const RatingStars = ({entity}: RatingStarsProps): React$Element<'span'> => {
       </span>
     </span>
   );
-};
+}
 
 export default RatingStars;

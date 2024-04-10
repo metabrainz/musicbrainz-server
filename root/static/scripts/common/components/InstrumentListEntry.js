@@ -15,22 +15,7 @@ import expand2react from '../i18n/expand2react.js';
 
 import DescriptiveLink from './DescriptiveLink.js';
 
-type InstrumentListRowProps = {
-  +checkboxes?: string,
-  +instrument: InstrumentT,
-};
-
-type InstrumentListEntryProps = {
-  +checkboxes?: string,
-  +index: number,
-  +instrument: InstrumentT,
-  +score?: number,
-};
-
-const InstrumentListRow = ({
-  checkboxes,
-  instrument,
-}: InstrumentListRowProps) => {
+component InstrumentListRow(checkboxes?: string, instrument: InstrumentT) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <>
@@ -58,20 +43,18 @@ const InstrumentListRow = ({
       </td>
     </>
   );
-};
+}
 
-const InstrumentListEntry = ({
-  checkboxes,
-  index,
-  instrument,
-  score,
-}: InstrumentListEntryProps): React$Element<'tr'> => (
-  <tr className={loopParity(index)} data-score={score ?? null}>
-    <InstrumentListRow
-      checkboxes={checkboxes}
-      instrument={instrument}
-    />
-  </tr>
-);
+component InstrumentListEntry(
+  index: number,
+  score?: number,
+  ...rowProps: React.PropsOf<InstrumentListRow>
+) {
+  return (
+    <tr className={loopParity(index)} data-score={score ?? null}>
+      <InstrumentListRow {...rowProps} />
+    </tr>
+  );
+}
 
 export default InstrumentListEntry;

@@ -10,11 +10,7 @@
 import isolateText from '../utility/isolateText.js';
 import mediumFormatName from '../utility/mediumFormatName.js';
 
-type Props = {
-  +medium: MediumT,
-};
-
-const MediumDescription = ({medium}: Props): Expand2ReactOutput => {
+component MediumDescription(medium: MediumT) {
   const formatAndPosition = texp.l('{medium_format} {position}', {
     medium_format: mediumFormatName(medium),
     position: medium.position,
@@ -29,6 +25,6 @@ const MediumDescription = ({medium}: Props): Expand2ReactOutput => {
     );
   }
   return formatAndPosition;
-};
+}
 
 export default MediumDescription;

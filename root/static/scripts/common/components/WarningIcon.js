@@ -9,12 +9,14 @@
 
 import warningIconUrl from '../../../images/icons/warning.png';
 
-const WarningIcon = (): React$Element<'img'> => (
-  <img
-    alt={l('Warning')}
-    className="warning"
-    src={warningIconUrl}
-  />
-);
+component WarningIcon() {
+  return (
+    <img
+      alt={l('Warning')}
+      className="warning"
+      src={warningIconUrl}
+    />
+  );
+}
 
 export default WarningIcon;

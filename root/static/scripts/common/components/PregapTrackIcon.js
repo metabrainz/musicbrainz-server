@@ -7,11 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const PregapTrackIcon = (): React$Element<'div'> => (
-  <div
-    className="pregap-track icon img"
-    title={l('This track is hidden in the pregap.')}
-  />
-);
+component PregapTrackIcon() {
+  return (
+    <div
+      className="pregap-track icon img"
+      title={l('This track is hidden in the pregap.')}
+    />
+  );
+}
 
 export default PregapTrackIcon;

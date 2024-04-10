@@ -24,11 +24,7 @@ const targetEntityTypes = [
   'work',
 ];
 
-type Props = {
-  +workIds: $ReadOnlyArray<number>,
-};
-
-const RelatedWorks = ({workIds}: Props): React$MixedElement => {
+component RelatedWorks(workIds: $ReadOnlyArray<number>) {
   const parts: Array<React$Node> = [
     /* eslint-disable react/jsx-key */
     <h2 className="related-works">
@@ -49,6 +45,6 @@ const RelatedWorks = ({workIds}: Props): React$MixedElement => {
     );
   }
   return React.createElement(React.Fragment, null, ...parts);
-};
+}
 
 export default RelatedWorks;

@@ -33,7 +33,7 @@ function orderTracks(a: AcoustIdTrackT, b: AcoustIdTrackT) {
   return compareStrings(a.id, b.id);
 }
 
-const FingerprintTable = ({recording}: {recording: RecordingT}) => {
+component FingerprintTable(recording: RecordingT) {
   const [tracks, setTracks] =
     React.useState<$ReadOnlyArray<AcoustIdTrackT>>([]);
   const [isLoaded, setIsLoaded] = React.useState(false);
@@ -113,9 +113,9 @@ const FingerprintTable = ({recording}: {recording: RecordingT}) => {
       <p>{l('This recording does not have any associated AcoustIDs')}</p>
     ) : <p className="loading-message">{l('Loading...')}</p>
   );
-};
+}
 
-export default (hydrate<{recording: RecordingT}>(
+export default (hydrate<React.PropsOf<FingerprintTable>>(
   'div.acoustid-fingerprints',
   FingerprintTable,
-): React$AbstractComponent<{recording: RecordingT}, void>);
+): React$AbstractComponent<React.PropsOf<FingerprintTable>>);

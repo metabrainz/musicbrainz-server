@@ -15,13 +15,7 @@ const buildAppearancesRow = (releaseGroup: ReleaseGroupT) => (
   </li>
 );
 
-type ReleaseGroupAppearancesProps = {
-  +appearances: ReleaseGroupAppearancesT,
-};
-
-const ReleaseGroupAppearances = (
-  {appearances}: ReleaseGroupAppearancesProps,
-): React$Element<'ul'> | null => {
+component ReleaseGroupAppearances(appearances: ReleaseGroupAppearancesT) {
   const releaseGroups = appearances.results;
   const unloadedReleaseGroupCount = appearances.hits - releaseGroups.length;
   return (
@@ -43,6 +37,6 @@ const ReleaseGroupAppearances = (
       </ul>
     ) : null
   );
-};
+}
 
 export default ReleaseGroupAppearances;

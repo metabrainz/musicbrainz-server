@@ -20,21 +20,12 @@ import relationshipDateText from '../utility/relationshipDateText.js';
 
 import DescriptiveLink from './DescriptiveLink.js';
 
-type HistoricRelationshipPropsT = {
-  +relationship: RelationshipT,
-};
-
-type RelationshipPropsT = {
-  +allowNewEntity0?: boolean,
-  +allowNewEntity1?: boolean,
-  +makeEntityLink?: (
-    entity: RelatableEntityT,
-    content: string,
-    relationship: RelationshipT,
-    allowNew: ?boolean,
-  ) => React$MixedElement,
-  +relationship: RelationshipT,
-};
+type MakeEntityLinkT = (
+  entity: RelatableEntityT,
+  content: string,
+  relationship: RelationshipT,
+  allowNew: ?boolean,
+) => React$MixedElement;
 
 const makeDescriptiveLink = (
   entity: RelatableEntityT,
@@ -50,9 +41,7 @@ const makeDescriptiveLink = (
   />
 );
 
-const HistoricRelationshipContent = ({
-  relationship,
-}: {relationship: RelationshipT}) => {
+component HistoricRelationshipContent(relationship: RelationshipT) {
   const linkType = linkedEntities.link_type[relationship.linkTypeID];
   const source = linkedEntities[linkType.type0][relationship.entity0_id];
   const extraAttributes = getExtraAttributes(
@@ -85,14 +74,14 @@ const HistoricRelationshipContent = ({
       ) : null}
     </>
   );
-};
+}
 
-const RelationshipContent = ({
-  allowNewEntity0,
-  allowNewEntity1,
-  makeEntityLink = makeDescriptiveLink,
-  relationship,
-}: RelationshipPropsT) => {
+component RelationshipContent(
+  allowNewEntity0?: boolean,
+  allowNewEntity1?: boolean,
+  makeEntityLink: MakeEntityLinkT = makeDescriptiveLink,
+  relationship: RelationshipT,
+) {
   const backward = relationship.backward;
   const linkType = linkedEntities.link_type[relationship.linkTypeID];
   let entity0 = relationship.entity0;
@@ -153,26 +142,28 @@ const RelationshipContent = ({
       ) : null}
     </>
   );
-};
+}
 
-export const HistoricRelationship = ({
-  relationship,
-}: HistoricRelationshipPropsT): React$MixedElement => (
-  relationship.editsPending ? (
-    <span className="mp mp-rel">
-      <HistoricRelationshipContent relationship={relationship} />
-    </span>
-  ) : <HistoricRelationshipContent relationship={relationship} />
-);
+export component HistoricRelationship(relationship: RelationshipT) {
+  return (
+    relationship.editsPending ? (
+      <span className="mp mp-rel">
+        <HistoricRelationshipContent relationship={relationship} />
+      </span>
+    ) : <HistoricRelationshipContent relationship={relationship} />
+  );
+}
 
-const Relationship = (props: RelationshipPropsT): React$MixedElement => (
-  props.relationship.editsPending ? (
-    <span className="mp mp-rel">
+component Relationship(...props: React.PropsOf<RelationshipContent>) {
+  return (
+    props.relationship.editsPending ? (
+      <span className="mp mp-rel">
+        <RelationshipContent {...props} />
+      </span>
+    ) : (
       <RelationshipContent {...props} />
-    </span>
-  ) : (
-    <RelationshipContent {...props} />
-  )
-);
+    )
+  );
+}
 
 export default Relationship;

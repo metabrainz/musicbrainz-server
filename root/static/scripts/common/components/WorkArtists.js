@@ -18,24 +18,22 @@ const buildWorkArtistRow = (artistCredit: ArtistCreditT) => {
   );
 };
 
-type WorkArtistsProps = {
-  +artists: ?$ReadOnlyArray<ArtistCreditT>,
-};
+component WorkArtists(artists: ?$ReadOnlyArray<ArtistCreditT>) {
+  return (
+    <CollapsibleList
+      ariaLabel={l('Work artists')}
+      buildRow={buildWorkArtistRow}
+      className="work-artists"
+      rows={artists}
+      showAllTitle={l('Show all artists')}
+      showLessTitle={l('Show less artists')}
+      toShowAfter={0}
+      toShowBefore={4}
+    />
+  );
+}
 
-const WorkArtists = ({artists}: WorkArtistsProps) => (
-  <CollapsibleList
-    ariaLabel={l('Work artists')}
-    buildRow={buildWorkArtistRow}
-    className="work-artists"
-    rows={artists}
-    showAllTitle={l('Show all artists')}
-    showLessTitle={l('Show less artists')}
-    toShowAfter={0}
-    toShowBefore={4}
-  />
-);
-
-export default (hydrate<WorkArtistsProps>(
+export default (hydrate<React.PropsOf<WorkArtists>>(
   'div.work-artists-container',
   WorkArtists,
-): React$AbstractComponent<WorkArtistsProps, void>);
+): React$AbstractComponent<React.PropsOf<WorkArtists>, void>);

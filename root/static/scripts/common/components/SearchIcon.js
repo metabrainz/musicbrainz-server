@@ -9,12 +9,14 @@
 
 import searchIconUrl from '../../../images/icons/search.svg';
 
-const SearchIcon = (): React$Element<'img'> => (
-  <img
-    alt={l('Search')}
-    className="search"
-    src={searchIconUrl}
-  />
-);
+component SearchIcon() {
+  return (
+    <img
+      alt={l('Search')}
+      className="search"
+      src={searchIconUrl}
+    />
+  );
+}
 
 export default SearchIcon;

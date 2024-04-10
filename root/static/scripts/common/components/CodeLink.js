@@ -9,11 +9,7 @@
 
 import entityHref from '../utility/entityHref.js';
 
-type Props = {
-  +code: IsrcT | IswcT,
-};
-
-const CodeLink = ({code}: Props): React$MixedElement=> {
+component CodeLink(code: IsrcT | IswcT) {
   let link: React$MixedElement = (
     <a href={entityHref(code)}>
       <bdi>
@@ -26,6 +22,6 @@ const CodeLink = ({code}: Props): React$MixedElement=> {
     link = <span className="mp">{link}</span>;
   }
   return link;
-};
+}
 
 export default CodeLink;
