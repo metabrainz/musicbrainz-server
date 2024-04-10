@@ -44,11 +44,7 @@ import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 import SubscriptionLinks from './SubscriptionLinks.js';
 
-type Props = {
-  +artist: ArtistT,
-};
-
-const ArtistSidebar = ({artist}: Props): React$Element<'div'> => {
+component ArtistSidebar(artist: ArtistT) {
   const $c = React.useContext(CatalystContext);
   const artistAge = age.age(artist);
   const gid = encodeURIComponent(artist.gid);
@@ -198,6 +194,6 @@ const ArtistSidebar = ({artist}: Props): React$Element<'div'> => {
       <LastUpdated entity={artist} />
     </div>
   );
-};
+}
 
 export default ArtistSidebar;

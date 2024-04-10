@@ -19,13 +19,10 @@ const buildSidebarIpi = (ipi: IpiCodeT) => (
   </SidebarProperty>
 );
 
-type Props = {
-  +entity: $ReadOnly<{...IpiCodesRoleT, ...}>,
-};
-
-const SidebarIpis = ({entity}: Props):
-  React.ChildrenArray<React$Element<typeof SidebarProperty>> => (
-  entity.ipi_codes.map(buildSidebarIpi)
-);
+component SidebarIpis(entity: $ReadOnly<{...IpiCodesRoleT, ...}>) {
+  return (
+    entity.ipi_codes.map(buildSidebarIpi)
+  );
+}
 
 export default SidebarIpis;

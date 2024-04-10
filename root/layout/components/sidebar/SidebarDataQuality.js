@@ -11,11 +11,7 @@ import {QUALITY_NAMES} from '../../../static/scripts/common/constants.js';
 
 import {SidebarProperty} from './SidebarProperties.js';
 
-type Props = {
-  +quality: QualityT,
-};
-
-const SidebarDataQuality = ({quality}: Props): React$MixedElement | null => {
+component SidebarDataQuality(quality: QualityT) {
   const name = QUALITY_NAMES.get(quality);
   let qualityClass;
   switch (quality) {
@@ -39,6 +35,6 @@ const SidebarDataQuality = ({quality}: Props): React$MixedElement | null => {
       {name()}
     </SidebarProperty>
   ) : null;
-};
+}
 
 export default SidebarDataQuality;

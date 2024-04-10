@@ -31,11 +31,7 @@ import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 
-type Props = {
-  +event: EventT,
-};
-
-const EventSidebar = ({event}: Props): React$Element<'div'> => {
+component EventSidebar(event: EventT) {
   const $c = React.useContext(CatalystContext);
   const hasBegin = !isDateEmpty(event.begin_date);
   const hasEnd = !isDateEmpty(event.end_date);
@@ -109,6 +105,6 @@ const EventSidebar = ({event}: Props): React$Element<'div'> => {
       <LastUpdated entity={event} />
     </div>
   );
-};
+}
 
 export default EventSidebar;

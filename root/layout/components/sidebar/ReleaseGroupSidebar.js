@@ -25,15 +25,10 @@ import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 
-type Props = {
-  +firstReleaseGid?: string | null,
-  +releaseGroup: ReleaseGroupT,
-};
-
-const ReleaseGroupSidebar = ({
-  firstReleaseGid,
-  releaseGroup,
-}: Props): React$Element<'div'> => {
+component ReleaseGroupSidebar(
+  firstReleaseGid?: string | null,
+  releaseGroup: ReleaseGroupT,
+) {
   const gid = encodeURIComponent(releaseGroup.gid);
   const typeName = releaseGroupType(releaseGroup);
 
@@ -103,6 +98,6 @@ const ReleaseGroupSidebar = ({
       <LastUpdated entity={releaseGroup} />
     </div>
   );
-};
+}
 
 export default ReleaseGroupSidebar;

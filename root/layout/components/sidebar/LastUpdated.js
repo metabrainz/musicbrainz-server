@@ -10,11 +10,7 @@
 import {CatalystContext} from '../../../context.mjs';
 import formatUserDate from '../../../utility/formatUserDate.js';
 
-type Props = {
-  +entity: $ReadOnly<{...LastUpdateRoleT, ...}>,
-};
-
-const LastUpdated = ({entity}: Props): React$Element<'p'> => {
+component LastUpdated(entity: $ReadOnly<{...LastUpdateRoleT, ...}>) {
   const lastUpdated = entity.last_updated;
   return (
     <p className="lastupdate">
@@ -29,6 +25,6 @@ const LastUpdated = ({entity}: Props): React$Element<'p'> => {
       )}
     </p>
   );
-};
+}
 
 export default LastUpdated;
