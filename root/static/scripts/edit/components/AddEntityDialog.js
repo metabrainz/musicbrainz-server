@@ -50,16 +50,6 @@ const AddEntityDialog = ({
   const instanceRef = React.useRef<InstanceT | null>(null);
   const [isLoading, setLoading] = React.useState(true);
 
-  /*
-   * Make sure click events within the dialog don't bubble and cause
-   * side-effects.
-   */
-  const handleModalClick = React.useCallback((
-    event: SyntheticMouseEvent<HTMLDivElement>,
-  ) => {
-    event.stopPropagation();
-  }, []);
-
   const handlePageLoad = (event: SyntheticEvent<HTMLIFrameElement>) => {
     const contentWindow: WindowProxy = event.currentTarget.contentWindow;
 
@@ -95,7 +85,6 @@ const AddEntityDialog = ({
     <Modal
       className="iframe-dialog"
       id={'add-' + entityType + '-dialog'}
-      onClick={handleModalClick}
       onEscape={close}
       title={isLoading ? l('Loading...') : TITLES[entityType]()}
     >
