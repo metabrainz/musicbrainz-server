@@ -48,13 +48,12 @@ python3-minimal
 m4_define(
     `install_javascript',
     `m4_dnl
-COPY docker/nodesource_pubkey.txt /tmp/
 copy_mb(``package.json yarn.lock .yarnrc.yml ./'')
 run_with_apt_cache \
-    cp /tmp/nodesource_pubkey.txt /etc/apt/keyrings/nodesource.asc && \
-    rm /tmp/nodesource_pubkey.txt && \
+    --mount=type=bind,source=docker/nodesource_pubkey.txt,target=/etc/apt/keyrings/nodesource.asc \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
     apt_install(`git nodejs python3-minimal') && \
+    rm -f /etc/apt/sources.list.d/nodesource.list && \
     corepack enable && \
     sudo_mb(``yarn'')
 copy_mb(``babel.config.cjs ./'')')
@@ -130,12 +129,11 @@ m4_define(
 ENV PERL_CARTON_PATH /home/musicbrainz/carton-local
 ENV PERL_CPANM_OPT --notest --no-interactive
 
-COPY docker/pgdg_pubkey.txt /tmp/
 run_with_apt_cache \
-    cp /tmp/pgdg_pubkey.txt /etc/apt/keyrings/pgdg.asc && \
-    rm /tmp/pgdg_pubkey.txt && \
+    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt_install(`mbs_build_deps mbs_run_deps') && \
+    rm -f /etc/apt/sources.list.d/pgdg.list && \
     wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
     cpanm Carton JSON::XS && \
     chown_mb(``$PERL_CARTON_PATH'') && \
@@ -220,13 +218,11 @@ libtool
 m4_define(
     `install_new_xz_utils',
     `m4_dnl
-COPY docker/lasse_collin_pubkey.txt /tmp/
-
 run_with_apt_cache \
+    --mount=type=bind,source=docker/lasse_collin_pubkey.txt,target=/tmp/lasse_collin_pubkey.txt \
     apt_install(`xz_build_deps') && \
     cd /tmp && \
     sudo_mb(``gpg --import lasse_collin_pubkey.txt'') && \
-    rm lasse_collin_pubkey.txt && \
     wget https://tukaani.org/xz/xz-5.2.3.tar.gz && \
     wget https://tukaani.org/xz/xz-5.2.3.tar.gz.sig && \
     sudo_mb(``gpg --verify xz-5.2.3.tar.gz.sig'') && \

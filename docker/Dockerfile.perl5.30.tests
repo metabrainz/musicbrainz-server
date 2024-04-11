@@ -4,10 +4,10 @@ RUN useradd --create-home --shell /bin/bash musicbrainz
 
 WORKDIR /home/musicbrainz
 
-COPY docker/nodesource_pubkey.txt docker/pgdg_pubkey.txt ./
-
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    --mount=type=bind,source=docker/nodesource_pubkey.txt,target=/etc/apt/keyrings/nodesource.asc \
+    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
     rm -f /etc/apt/apt.conf.d/docker-clean && \
     echo Binary::apt::APT::Keep-Downloaded-Packages \"true\"\; \
         > /etc/apt/apt.conf.d/keep-cache && \
@@ -19,10 +19,6 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
         ca-certificates \
         curl \
         gnupg && \
-    mkdir -p /etc/apt/keyrings && \
-    cp nodesource_pubkey.txt /etc/apt/keyrings/nodesource.asc && \
-    cp pgdg_pubkey.txt /etc/apt/keyrings/pgdg.asc && \
-    rm nodesource_pubkey.txt pgdg_pubkey.txt && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt-get update && \
@@ -87,6 +83,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
         virtualenv \
         wget \
         zlib1g-dev && \
+    rm -f /etc/apt/sources.list.d/nodesource.list \
+        /etc/apt/sources.list.d/pgdg.list && \
     add-apt-repository -y ppa:deadsnakes/ppa && \
     apt install \
         --no-install-recommends \
