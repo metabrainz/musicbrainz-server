@@ -134,10 +134,17 @@ run_with_apt_cache \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt_install(`mbs_build_deps mbs_run_deps') && \
     rm -f /etc/apt/sources.list.d/pgdg.list && \
+    # Install cpanm (helpful with installing other Perl modules)
     curl -sSL https://cpanmin.us | perl - App::cpanminus && \
-    cpanm Carton JSON::XS && \
+    cpanm \
+        # Install carton (helpful with installing locked versions)
+        Carton \
+        # Workaround for a bug in carton with installing JSON::XS
+        JSON::XS && \
+    # Install Perl module dependencies for MusicBrainz Server
     chown_mb(``$PERL_CARTON_PATH'') && \
     sudo_mb(``carton install$1'') && \
+    # Clean build dependencies up
     apt_purge(`mbs_build_deps')')
 
 m4_define(

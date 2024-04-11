@@ -96,8 +96,13 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
     systemctl disable rabbitmq-server
 
+# Install cpanm (helpful with installing other Perl modules)
 RUN curl -sSL https://cpanmin.us | perl - App::cpanminus && \
-    cpanm Carton JSON::XS && \
+    cpanm \
+        # Install carton (helpful with installing locked versions)
+        Carton \
+        # Workaround for a bug in carton with installing JSON::XS
+        JSON::XS && \
     rm -rf /root/.cpanm
 
 ENV PERL_CARTON_PATH="/home/musicbrainz/carton-local" \
@@ -105,6 +110,7 @@ ENV PERL_CARTON_PATH="/home/musicbrainz/carton-local" \
 
 COPY --chown=musicbrainz:musicbrainz cpanfile ./
 COPY --chown=musicbrainz:musicbrainz cpanfile.perl5.30.snapshot ./cpanfile.snapshot
+# Install Perl module dependencies for MusicBrainz Server
 RUN sudo -E -H -u musicbrainz carton install --deployment && \
     rm cpanfile cpanfile.snapshot
 
