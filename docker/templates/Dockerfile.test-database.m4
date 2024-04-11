@@ -11,7 +11,7 @@ run_with_apt_cache \
     apt_install(`bzip2 ca-certificates curl sudo')
 
 RUN cd /tmp && \
-    curl -O https://raw.githubusercontent.com/metabrainz/docker-postgres/0daa45e/postgres-master/install_extensions.sh && \
+    curl -sSLO https://raw.githubusercontent.com/metabrainz/docker-postgres/0daa45e/postgres-master/install_extensions.sh && \
     chmod +x install_extensions.sh && \
     ./install_extensions.sh && \
     rm install_extensions.sh

@@ -124,7 +124,7 @@ RUN git clone --depth 1 https://github.com/omniti-labs/pg_amqp.git && \
 ENV SOLR_VERSION 7.7.3
 ENV SOLR_HOME /opt/solr/server/solr
 
-RUN curl -sLO http://archive.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz && \
+RUN curl -sSLO http://archive.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz && \
     tar xzf solr-$SOLR_VERSION.tgz solr-$SOLR_VERSION/bin/install_solr_service.sh --strip-components=2 && \
     ./install_solr_service.sh solr-$SOLR_VERSION.tgz && \
     systemctl disable solr
@@ -169,17 +169,17 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-re
     sudo -E -H -u musicbrainz sh -c 'python3.9 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
     cd /home/musicbrainz
 
-RUN curl -sLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chrome-linux64.zip && \
+RUN curl -sSLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chrome-linux64.zip && \
     unzip chrome-linux64.zip -d /opt && \
     rm chrome-linux64.zip
 
-RUN curl -sLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chromedriver-linux64.zip && \
+RUN curl -sSLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chromedriver-linux64.zip && \
     unzip chromedriver-linux64.zip -d /tmp && \
     mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/ && \
     chmod +x /usr/local/bin/chromedriver && \
     rm -r chromedriver-linux64.zip /tmp/chromedriver-linux64
 
-RUN curl -sLO https://github.com/validator/validator/releases/download/18.11.5/vnu.jar_18.11.5.zip && \
+RUN curl -sSLO https://github.com/validator/validator/releases/download/18.11.5/vnu.jar_18.11.5.zip && \
     unzip -d vnu -j vnu.jar_18.11.5.zip && \
     rm vnu.jar_18.11.5.zip
 
