@@ -218,22 +218,23 @@ libtool
 m4_define(
     `install_new_xz_utils',
     `m4_dnl
+ARG XZ_VERSION=5.2.3
 run_with_apt_cache \
     --mount=type=bind,source=docker/lasse_collin_pubkey.txt,target=/tmp/lasse_collin_pubkey.txt \
     apt_install(`xz_build_deps') && \
     cd /tmp && \
     sudo_mb(``gpg --import lasse_collin_pubkey.txt'') && \
-    wget https://tukaani.org/xz/xz-5.2.3.tar.gz && \
-    wget https://tukaani.org/xz/xz-5.2.3.tar.gz.sig && \
-    sudo_mb(``gpg --verify xz-5.2.3.tar.gz.sig'') && \
+    wget https://tukaani.org/xz/xz-$XZ_VERSION.tar.gz && \
+    wget https://tukaani.org/xz/xz-$XZ_VERSION.tar.gz.sig && \
+    sudo_mb(``gpg --verify xz-$XZ_VERSION.tar.gz.sig'') && \
     rm -fr /home/musicbrainz/.gnupg && \
-    tar xvzf xz-5.2.3.tar.gz && \
-    cd xz-5.2.3 && \
+    tar xvzf xz-$XZ_VERSION.tar.gz && \
+    cd xz-$XZ_VERSION && \
     ./configure --disable-shared --prefix=/usr/local/ && \
     make && \
     make install && \
     cd ../ && \
-    rm -fr xz-5.2.3* && \
+    rm -fr xz-$XZ_VERSION* && \
     apt_purge(`xz_build_deps') && \
     cd /home/musicbrainz')
 
