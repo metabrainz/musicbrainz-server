@@ -271,4 +271,34 @@ run_with_apt_cache \
     apt_purge(`xz_build_deps') && \
     cd /home/musicbrainz')
 
+m4_define(
+    `chrome_for_testing_deps',
+    `m4_dnl
+libgbm1
+libxkbcommon0
+')
+
+m4_define(
+    `search_deps',
+    `m4_dnl
+lsof
+maven
+openjdk-8-jdk
+openjdk-8-jre
+python2
+python2-dev
+rabbitmq-server
+virtualenv
+')
+
+m4_define(
+    `selenium_caa_deps',
+    `m4_dnl
+python3
+python3-dev
+python3-distutils
+python3-venv
+software-properties-common
+')
+
 m4_divert`'m4_dnl
