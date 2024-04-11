@@ -31,7 +31,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     apt-get update && \
     apt-get install --no-install-suggests --no-install-recommends -y build-essential libdb-dev libexpat1-dev libicu-dev libperl-dev libpq-dev libssl-dev libxml2-dev zlib1g-dev pkg-config bzip2 ca-certificates libdb5.3 libexpat1 libicu66 libpq5 libssl1.1 libxml2 moreutils perl postgresql-client-12 postgresql-server-dev-12 zlib1g && \
     rm -f /etc/apt/sources.list.d/pgdg.list && \
-    wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
+    curl -sSL https://cpanmin.us | perl - App::cpanminus && \
     cpanm Carton JSON::XS && \
     mkdir -p $PERL_CARTON_PATH && \
     chown -R musicbrainz:musicbrainz $PERL_CARTON_PATH && \

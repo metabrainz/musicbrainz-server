@@ -134,7 +134,7 @@ run_with_apt_cache \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt_install(`mbs_build_deps mbs_run_deps') && \
     rm -f /etc/apt/sources.list.d/pgdg.list && \
-    wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
+    curl -sSL https://cpanmin.us | perl - App::cpanminus && \
     cpanm Carton JSON::XS && \
     chown_mb(``$PERL_CARTON_PATH'') && \
     sudo_mb(``carton install$1'') && \
@@ -224,8 +224,8 @@ run_with_apt_cache \
     apt_install(`xz_build_deps') && \
     cd /tmp && \
     sudo_mb(``gpg --import lasse_collin_pubkey.txt'') && \
-    wget https://tukaani.org/xz/xz-$XZ_VERSION.tar.gz && \
-    wget https://tukaani.org/xz/xz-$XZ_VERSION.tar.gz.sig && \
+    curl -sSLO https://tukaani.org/xz/xz-$XZ_VERSION.tar.gz && \
+    curl -sSLO https://tukaani.org/xz/xz-$XZ_VERSION.tar.gz.sig && \
     sudo_mb(``gpg --verify xz-$XZ_VERSION.tar.gz.sig'') && \
     rm -fr /home/musicbrainz/.gnupg && \
     tar xvzf xz-$XZ_VERSION.tar.gz && \
