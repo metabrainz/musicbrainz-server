@@ -10,6 +10,7 @@
 /docker/Dockerfile.search-indexes-dump
 /docker/Dockerfile.sitemaps
 /docker/Dockerfile.test-database
+/docker/Dockerfile.tests
 /docker/Dockerfile.webservice
 /docker/Dockerfile.website
 /docker/Dockerfile.website-test

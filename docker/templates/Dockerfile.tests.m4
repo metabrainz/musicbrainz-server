@@ -1,91 +1,79 @@
+m4_include(`macros.m4')m4_dnl
 FROM phusion/baseimage:jammy-1.0.1
 
 RUN useradd --create-home --shell /bin/bash musicbrainz
 
 WORKDIR /home/musicbrainz
 
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+run_with_apt_cache \
     --mount=type=bind,source=docker/nodesource_pubkey.txt,target=/etc/apt/keyrings/nodesource.asc \
     --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
-    rm -f /etc/apt/apt.conf.d/docker-clean && \
-    echo Binary::apt::APT::Keep-Downloaded-Packages \"true\"\; \
-        > /etc/apt/apt.conf.d/keep-cache && \
-    apt-get update && \
-    apt-get install \
-        --no-install-recommends \
-        --no-install-suggests \
-        -y \
-        ca-certificates \
-        curl \
-        gnupg && \
+    keep_apt_cache && \
+    apt_install(``ca-certificates curl gnupg'') && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-    apt-get update && \
-    apt-get install \
-        --no-install-recommends \
-        --no-install-suggests \
-        -y \
-        build-essential \
-        bzip2 \
-        gcc \
-        gettext \
-        git \
-        language-pack-de \
-        language-pack-el \
-        language-pack-es \
-        language-pack-et \
-        language-pack-fi \
-        language-pack-fr \
-        language-pack-he \
-        language-pack-it \
-        language-pack-ja \
-        language-pack-nl \
-        language-pack-sq \
-        libc6-dev \
-        libdb-dev \
-        libdb5.3 \
-        libexpat1 \
-        libexpat1-dev \
-        libgbm1 \
-        libicu-dev \
-        libicu70 \
-        libperl-dev \
-        libpq-dev \
-        libpq5 \
-        libssl-dev \
-        libssl3 \
-        libxkbcommon0 \
-        libxml2 \
-        libxml2-dev \
-        locales \
-        lsof \
-        make \
-        maven \
-        nodejs \
-        openjdk-8-jdk \
-        openjdk-8-jre \
-        openssh-client \
-        perl \
-        pkg-config \
-        postgresql-12 \
-        postgresql-12-pgtap \
-        postgresql-server-dev-12 \
-        python2 \
-        python2-dev \
-        python3 \
-        python3-dev \
-        python3-distutils \
-        python3-venv \
-        rabbitmq-server \
-        redis-server \
-        runit \
-        runit-systemd \
-        software-properties-common \
-        sudo \
-        unzip \
-        virtualenv \
-        zlib1g-dev && \
+    apt_install(`m4_dnl
+        build-essential
+        bzip2
+        gcc
+        gettext
+        git
+        language-pack-de
+        language-pack-el
+        language-pack-es
+        language-pack-et
+        language-pack-fi
+        language-pack-fr
+        language-pack-he
+        language-pack-it
+        language-pack-ja
+        language-pack-nl
+        language-pack-sq
+        libc6-dev
+        libdb-dev
+        libdb5.3
+        libexpat1
+        libexpat1-dev
+        libgbm1
+        libicu-dev
+        libicu70
+        libperl-dev
+        libpq-dev
+        libpq5
+        libssl-dev
+        libssl3
+        libxkbcommon0
+        libxml2
+        libxml2-dev
+        locales
+        lsof
+        make
+        maven
+        nodejs
+        openjdk-8-jdk
+        openjdk-8-jre
+        openssh-client
+        perl
+        pkg-config
+        postgresql-12
+        postgresql-12-pgtap
+        postgresql-server-dev-12
+        python2
+        python2-dev
+        python3
+        python3-dev
+        python3-distutils
+        python3-venv
+        rabbitmq-server
+        redis-server
+        runit
+        runit-systemd
+        software-properties-common
+        sudo
+        unzip
+        virtualenv
+        zlib1g-dev
+        ') && \
     rm -f /etc/apt/sources.list.d/nodesource.list \
         /etc/apt/sources.list.d/pgdg.list && \
     update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
