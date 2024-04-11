@@ -239,39 +239,6 @@ m4_changequote`'m4_dnl
 ENV `GIT_SHA' GIT_SHA')
 
 m4_define(
-    `xz_build_deps',
-    `m4_dnl
-autoconf
-automake
-build-essential
-gettext
-libtool
-')
-
-m4_define(
-    `install_new_xz_utils',
-    `m4_dnl
-ARG XZ_VERSION=5.2.3
-run_with_apt_cache \
-    --mount=type=bind,source=docker/lasse_collin_pubkey.txt,target=/tmp/lasse_collin_pubkey.txt \
-    apt_install(`xz_build_deps') && \
-    cd /tmp && \
-    sudo_mb(``gpg --import lasse_collin_pubkey.txt'') && \
-    curl -sSLO https://tukaani.org/xz/xz-$XZ_VERSION.tar.gz && \
-    curl -sSLO https://tukaani.org/xz/xz-$XZ_VERSION.tar.gz.sig && \
-    sudo_mb(``gpg --verify xz-$XZ_VERSION.tar.gz.sig'') && \
-    rm -fr /home/musicbrainz/.gnupg && \
-    tar xvzf xz-$XZ_VERSION.tar.gz && \
-    cd xz-$XZ_VERSION && \
-    ./configure --disable-shared --prefix=/usr/local/ && \
-    make && \
-    make install && \
-    cd ../ && \
-    rm -fr xz-$XZ_VERSION* && \
-    apt_purge(`xz_build_deps') && \
-    cd /home/musicbrainz')
-
-m4_define(
     `chrome_for_testing_deps',
     `m4_dnl
 libgbm1
