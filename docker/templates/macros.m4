@@ -226,14 +226,14 @@ run_with_apt_cache \
     wget https://tukaani.org/xz/xz-5.2.3.tar.gz && \
     wget https://tukaani.org/xz/xz-5.2.3.tar.gz.sig && \
     sudo_mb(``gpg --verify xz-5.2.3.tar.gz.sig'') && \
-    rm xz-5.2.3.tar.gz.sig && \
+    rm -fr /home/musicbrainz/.gnupg && \
     tar xvzf xz-5.2.3.tar.gz && \
     cd xz-5.2.3 && \
     ./configure --disable-shared --prefix=/usr/local/ && \
     make && \
     make install && \
     cd ../ && \
-    rm -r xz-5.2.3* && \
+    rm -fr xz-5.2.3* && \
     apt_purge(`xz_build_deps') && \
     cd /home/musicbrainz')
 
