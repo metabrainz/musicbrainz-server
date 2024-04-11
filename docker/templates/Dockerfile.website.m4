@@ -1,7 +1,5 @@
 m4_include(`server_base.m4')m4_dnl
 
-ARG DEBIAN_FRONTEND=noninteractive
-
 run_with_apt_cache \
     apt_install(`lsof')
 
