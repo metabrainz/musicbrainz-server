@@ -28,63 +28,52 @@ type InputProps = {
   value?: string,
 };
 
-type CommonProps = {
-  +autoComplete?: string,
-  +children?: React$Node,
-  +className?: string,
-  +disabled?: boolean,
-  +field: FieldT<?string>,
-  +inputRef?: {-current: HTMLInputElement | null},
-  +label: React$Node,
-  +required?: boolean,
-  +size?: number,
-  +type?: string,
-};
+type ControlledPropsT =
+  | $ReadOnly<{onChange: InputOnChange, uncontrolled?: false}>
+  | $ReadOnly<{uncontrolled: true}>;
 
-export type Props =
-  | $ReadOnly<{
-      ...CommonProps,
-      onChange: InputOnChange,
-      uncontrolled?: false,
-    }>
-  | $ReadOnly<{
-      ...CommonProps,
-      uncontrolled: true,
-    }>;
-
-const FormRowText = (props: Props): React$Element<typeof FormRow> => {
-  const field = props.field;
-  const required = props.required ?? false;
-
+component FormRowText(
+  autoComplete?: string,
+  children?: React$Node,
+  className?: string,
+  disabled: boolean = false,
+  field: FieldT<?string>,
+  inputRef?: {-current: HTMLInputElement | null},
+  label: React$Node,
+  required: boolean = false,
+  size?: number,
+  type: string = 'text',
+  ...controlledProps: ControlledPropsT
+) {
   const inputProps: InputProps = {
-    autoComplete: props.autoComplete,
-    className: props.className,
-    disabled: props.disabled ?? false,
+    autoComplete: autoComplete,
+    className: className,
+    disabled: disabled,
     id: 'id-' + field.html_name,
     name: field.html_name,
-    ref: props.inputRef,
+    ref: inputRef,
     required: required,
-    size: props.size,
-    type: props.type ?? 'text',
+    size: size,
+    type: type,
   };
 
   const inputValue = field.value ?? '';
 
-  if (props.uncontrolled /*:: === true */) {
+  if (controlledProps.uncontrolled /*:: === true */) {
     inputProps.defaultValue = inputValue;
   } else {
-    inputProps.onChange = props.onChange;
+    inputProps.onChange = controlledProps.onChange;
     inputProps.value = inputValue;
   }
 
   return (
     <FormRow>
-      <FormLabel forField={field} label={props.label} required={required} />
+      <FormLabel forField={field} label={label} required={required} />
       <input {...inputProps} />
-      {props.children}
+      {children}
       <FieldErrors field={field} />
     </FormRow>
   );
-};
+}
 
 export default FormRowText;

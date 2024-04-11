@@ -28,15 +28,6 @@ export type ActionT =
   | {+type: 'copy-sortname'};
 /* eslint-enable ft-flow/sort-keys */
 
-type PropsT = {
-  +disabled?: boolean,
-  +dispatch: (ActionT) => void,
-  +entity: SortNamedEntityT,
-  +field: FieldT<string | null>,
-  +label?: React$Node,
-  +required?: boolean,
-};
-
 export type StateT = {
   +nameField: FieldT<string | null>,
   +sortNameField: FieldT<string | null>,
@@ -74,14 +65,14 @@ export function runReducer(
   }
 }
 
-export const FormRowSortNameWithGuessCase = ({
-  disabled = false,
-  dispatch,
-  entity,
-  field,
-  label = addColonText(l('Sort name')),
-  required = false,
-}: PropsT): React$Element<typeof FormRowText> => {
+export component FormRowSortNameWithGuessCase(
+  disabled: boolean = false,
+  dispatch: (ActionT) => void,
+  entity: SortNamedEntityT,
+  field: FieldT<string | null>,
+  label: React$Node = addColonText(l('Sort name')),
+  required: boolean = false,
+) {
   const handleSortNameChange = React.useCallback((
     event: SyntheticKeyboardEvent<HTMLInputElement>,
   ) => {
@@ -124,6 +115,6 @@ export const FormRowSortNameWithGuessCase = ({
       />
     </FormRowText>
   );
-};
+}
 
 export default FormRowSortNameWithGuessCase;

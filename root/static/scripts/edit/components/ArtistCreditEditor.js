@@ -33,7 +33,6 @@ import type {
   ActionT,
   ArtistCreditableT,
   ArtistCreditNameStateT,
-  PropsT,
   StateT,
 } from './ArtistCreditEditor/types.js';
 import {
@@ -455,10 +454,10 @@ export function createInitialState(
   };
 }
 
-const ArtistCreditEditor = (React.memo<PropsT>(({
-  dispatch,
-  state,
-}: PropsT): React.MixedElement => {
+component _ArtistCreditEditor(
+  dispatch: (ActionT) => void,
+  state: StateT,
+) {
   const {
     entity,
     formName,
@@ -555,6 +554,10 @@ const ArtistCreditEditor = (React.memo<PropsT>(({
       ) : null}
     </>
   );
-}): React.AbstractComponent<PropsT>);
+}
+
+const ArtistCreditEditor: React.AbstractComponent<
+  React.PropsOf<_ArtistCreditEditor>
+> = React.memo(_ArtistCreditEditor);
 
 export default ArtistCreditEditor;

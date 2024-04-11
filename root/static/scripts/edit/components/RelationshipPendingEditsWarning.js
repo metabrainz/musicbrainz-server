@@ -20,13 +20,9 @@ import type {
 
 import Tooltip from './Tooltip.js';
 
-type PropsT = {
-  +relationship: LinkRelationshipT | RelationshipStateT,
-};
-
-const RelationshipPendingEditsWarning = ({
-  relationship,
-}: PropsT): React.MixedElement | null => {
+component RelationshipPendingEditsWarning(
+  relationship: LinkRelationshipT | RelationshipStateT
+) {
   const hasPendingEdits = relationship.editsPending;
   const openEditsLink = getOpenEditsLink(relationship);
 
@@ -50,6 +46,6 @@ const RelationshipPendingEditsWarning = ({
       />
     </>
   ) : null;
-};
+}
 
 export default RelationshipPendingEditsWarning;

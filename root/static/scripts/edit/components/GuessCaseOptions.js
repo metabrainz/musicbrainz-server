@@ -31,11 +31,6 @@ export type StateT = {
   +upperCaseRoman: boolean,
 };
 
-export type PropsT = $ReadOnly<{
-  ...StateT,
-  +dispatch: (ActionT) => void,
-}>;
-
 export function createInitialState(): StateT {
   return {
     keepUpperCase: gc.CFG_KEEP_UPPERCASED,
@@ -72,12 +67,10 @@ export function runReducer(
   }
 }
 
-const GuessCaseOptions = ({
-  dispatch,
-  keepUpperCase,
-  modeName,
-  upperCaseRoman,
-}: PropsT): React$Element<'div'> => {
+component GuessCaseOptions(
+  dispatch: (ActionT) => void,
+  ...stateProps: StateT
+) {
   function handleModeChange(event: SyntheticEvent<HTMLSelectElement>) {
     const newModeName = event.currentTarget.value;
 
@@ -107,7 +100,7 @@ const GuessCaseOptions = ({
   return (
     <div id="guesscase-options">
       <h1>{l('Guess case options')}</h1>
-      <select onChange={handleModeChange} value={modeName}>
+      <select onChange={handleModeChange} value={stateProps.modeName}>
         <option value="English">{l('English')}</option>
         <option value="Sentence">{l('Sentence')}</option>
         <option value="French">{l('French')}</option>
@@ -120,11 +113,11 @@ const GuessCaseOptions = ({
         </a>,
       )}
       <p>
-        {expand2react(modes[modeName].description ?? '')}
+        {expand2react(modes[stateProps.modeName].description ?? '')}
       </p>
       <label>
         <input
-          checked={keepUpperCase}
+          checked={stateProps.keepUpperCase}
           onChange={handleKeepUpperCaseChanged}
           type="checkbox"
         />
@@ -133,7 +126,7 @@ const GuessCaseOptions = ({
       <br />
       <label>
         <input
-          checked={upperCaseRoman}
+          checked={stateProps.upperCaseRoman}
           onChange={handleUpperCaseRomanChanged}
           type="checkbox"
         />
@@ -141,6 +134,6 @@ const GuessCaseOptions = ({
       </label>
     </div>
   );
-};
+}
 
 export default GuessCaseOptions;

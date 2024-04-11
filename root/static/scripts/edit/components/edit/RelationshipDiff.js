@@ -38,15 +38,11 @@ const diffOnlyB = (
   content: Expand2ReactOutput,
 ) => <span className="diff-only-b">{content}</span>;
 
-type Props = {
-  makeEntityLink?: (
-    entity: RelatableEntityT,
-    content: string,
-    relationship: RelationshipT,
-  ) => React$MixedElement,
-  newRelationship: RelationshipT,
-  oldRelationship: RelationshipT,
-};
+type MakeEntityLinkT = (
+  entity: RelatableEntityT,
+  content: string,
+  relationship: RelationshipT,
+) => React$MixedElement;
 
 const getTypeId = (x: LinkAttrT) => String(x.typeID);
 
@@ -62,11 +58,11 @@ const makeDescriptiveLink = (
   />
 );
 
-const RelationshipDiff = (React.memo(({
-  newRelationship,
-  oldRelationship,
-  makeEntityLink = makeDescriptiveLink,
-}: Props): React.MixedElement => {
+component _RelationshipDiff(
+  makeEntityLink: MakeEntityLinkT = makeDescriptiveLink,
+  newRelationship: RelationshipT,
+  oldRelationship: RelationshipT,
+) {
   const oldAttrs = keyBy(oldRelationship.attributes, getTypeId);
   const newAttrs = keyBy(newRelationship.attributes, getTypeId);
 
@@ -224,6 +220,10 @@ const RelationshipDiff = (React.memo(({
       </tr>
     </>
   );
-}): React$AbstractComponent<Props, void>);
+}
+
+const RelationshipDiff: React$AbstractComponent<
+  React.PropsOf<_RelationshipDiff>
+> = React.memo(_RelationshipDiff);
 
 export default RelationshipDiff;

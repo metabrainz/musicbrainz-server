@@ -17,52 +17,43 @@ import PartialDateInput, {
 
 export type ActionT = PartialDateInputActionT;
 
-type CommonProps = {
-  +children?: React$Node,
-  +disabled?: boolean,
-  +field: PartialDateFieldT,
-  +label: React$Node,
-  +required?: boolean,
-  +yearInputRef?: {current: HTMLInputElement | null},
-};
-
-type Props =
+type ControlledPropsT =
   | $ReadOnly<{
-      ...CommonProps,
       +dispatch: (PartialDateInputActionT) => void,
       +uncontrolled?: false,
     }>
-  | $ReadOnly<{
-      ...CommonProps,
-      +uncontrolled: true,
-    }>;
+  | $ReadOnly<{+uncontrolled: true}>;
 
 export type StateT = PartialDateFieldT;
 
 export const runReducer = runPartialDateInputReducer;
 
-const FormRowPartialDate = ({
-  children,
-  disabled = false,
-  field,
-  label,
-  required = false,
-  ...inputProps
-}: Props): React$Element<typeof FormRow> => (
-  <FormRow>
-    <FormLabel
-      forField={field.field.year}
-      label={label}
-      required={required}
-    />
-    <PartialDateInput
-      disabled={disabled}
-      field={field}
-      {...inputProps}
-    />
-    {children}
-    <FieldErrors field={field} />
-  </FormRow>
-);
+component FormRowPartialDate(
+  children?: React$Node,
+  disabled: boolean = false,
+  field: PartialDateFieldT,
+  label: React$Node,
+  required: boolean = false,
+  yearInputRef?: {current: HTMLInputElement | null},
+  ...controlledProps: ControlledPropsT
+) {
+  return (
+    <FormRow>
+      <FormLabel
+        forField={field.field.year}
+        label={label}
+        required={required}
+      />
+      <PartialDateInput
+        disabled={disabled}
+        field={field}
+        yearInputRef={yearInputRef}
+        {...controlledProps}
+      />
+      {children}
+      <FieldErrors field={field} />
+    </FormRow>
+  );
+}
 
 export default FormRowPartialDate;

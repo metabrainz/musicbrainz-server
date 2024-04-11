@@ -11,29 +11,18 @@ import * as React from 'react';
 
 import ButtonPopover from '../../common/components/ButtonPopover.js';
 
-import GuessCaseOptions, {
-  type PropsT as GuessCaseOptionsPropsT,
-} from './GuessCaseOptions.js';
-
-type Props = $ReadOnly<{
-  +isOpen: boolean,
-  +toggle: (boolean) => void,
-  ...GuessCaseOptionsPropsT,
-}>;
+import GuessCaseOptions from './GuessCaseOptions.js';
 
 const buttonProps = {
   className: 'guesscase-options icon',
   title: N_l('Guess case options'),
 };
 
-const GuessCaseOptionsPopover = (React.memo(({
-  dispatch,
-  isOpen,
-  keepUpperCase,
-  modeName,
-  toggle,
-  upperCaseRoman,
-}: Props): React$Element<typeof ButtonPopover> => {
+component _GuessCaseOptionsPopover(
+  isOpen: boolean,
+  toggle: (boolean) => void,
+  ...guessCaseOptionsProps: React.PropsOf<GuessCaseOptions>
+) {
   const buildChildren = React.useCallback((
     closeAndReturnFocus: () => void,
   ) => (
@@ -43,12 +32,7 @@ const GuessCaseOptionsPopover = (React.memo(({
         closeAndReturnFocus();
       }}
     >
-      <GuessCaseOptions
-        dispatch={dispatch}
-        keepUpperCase={keepUpperCase}
-        modeName={modeName}
-        upperCaseRoman={upperCaseRoman}
-      />
+      <GuessCaseOptions {...guessCaseOptionsProps} />
       <div
         className="buttons"
         style={{marginTop: '1em'}}
@@ -64,12 +48,7 @@ const GuessCaseOptionsPopover = (React.memo(({
         </div>
       </div>
     </form>
-  ), [
-    dispatch,
-    keepUpperCase,
-    modeName,
-    upperCaseRoman,
-  ]);
+  ), [guessCaseOptionsProps]);
 
   return (
     <ButtonPopover
@@ -81,6 +60,10 @@ const GuessCaseOptionsPopover = (React.memo(({
       toggle={toggle}
     />
   );
-}): React$AbstractComponent<Props, void>);
+}
+
+const GuessCaseOptionsPopover: React$AbstractComponent<
+  React.PropsOf<_GuessCaseOptionsPopover>
+> = React.memo(_GuessCaseOptionsPopover);
 
 export default GuessCaseOptionsPopover;

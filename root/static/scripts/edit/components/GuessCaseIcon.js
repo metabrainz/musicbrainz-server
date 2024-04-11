@@ -11,12 +11,14 @@ import guessCaseIconUrl from '../../../images/icons/guesscase.32x32.png';
 
 const style = {float: 'left', margin: '1em'};
 
-const GuessCaseIcon = (): React$Element<'img'> => (
-  <img
-    alt=""
-    src={guessCaseIconUrl}
-    style={style}
-  />
-);
+component GuessCaseIcon() {
+  return (
+    <img
+      alt=""
+      src={guessCaseIconUrl}
+      style={style}
+    />
+  );
+}
 
 export default GuessCaseIcon;

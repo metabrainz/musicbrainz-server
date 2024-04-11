@@ -9,13 +9,7 @@
 
 import setCookie from '../../common/utility/setCookie.js';
 
-type Props = {
-  +checked: boolean,
-};
-
-const NewNotesAlertCheckbox = ({
-  checked,
-}: Props): React$Element<'p'> => {
+component NewNotesAlertCheckbox(checked: boolean) {
   const handlePreferenceChange = (
     event: SyntheticMouseEvent<HTMLInputElement>,
   ) => {
@@ -36,11 +30,11 @@ const NewNotesAlertCheckbox = ({
       </label>
     </p>
   );
-};
+}
 
 export default (
-  hydrate<Props>(
+  hydrate<React.PropsOf<NewNotesAlertCheckbox>>(
     'span.new-notes-alert-checkbox',
     NewNotesAlertCheckbox,
-  ): React$AbstractComponent<Props, void>
+  ): React$AbstractComponent<React.PropsOf<NewNotesAlertCheckbox>, void>
 );
