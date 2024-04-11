@@ -79,27 +79,13 @@ run_with_apt_cache \
     update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
     systemctl disable rabbitmq-server
 
-+ARG CPANMINUS_VERSION=1.7047
-+ARG CPANMINUS_SRC_SUM=963e63c6e1a8725ff2f624e9086396ae150db51dd0a337c3781d09a994af05a5
+set_cpanm_and_carton_env
 
-# Install cpanm (helpful with installing other Perl modules)
-RUN cd /usr/src && \
-    curl -sSLO https://www.cpan.org/authors/id/M/MI/MIYAGAWA/App-cpanminus-$CPANMINUS_VERSION.tar.gz && \
-    echo "$CPANMINUS_SRC_SUM *App-cpanminus-$CPANMINUS_VERSION.tar.gz" | sha256sum --strict --check - && \
-    tar -xzf App-cpanminus-$CPANMINUS_VERSION.tar.gz && \
-    cd - && cd /usr/src/App-cpanminus-$CPANMINUS_VERSION && \
-    perl bin/cpanm . && \
-    cd - && \
-    rm -fr /usr/src/App-cpanminus-$CPANMINUS_VERSION* && \
-    cpanm \
-        # Install carton (helpful with installing locked versions)
-        Carton \
-        # Workaround for a bug in carton with installing JSON::XS
-        JSON::XS && \
+set_cpanm_install_args
+
+RUN \
+    install_cpanm_and_carton && \
     rm -rf /root/.cpanm
-
-ENV PERL_CARTON_PATH="/home/musicbrainz/carton-local" \
-    PERL_CPANM_OPT="--notest --no-interactive"
 
 COPY --chown=musicbrainz:musicbrainz cpanfile cpanfile.snapshot ./
 # Install Perl module dependencies for MusicBrainz Server

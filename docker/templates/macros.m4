@@ -124,20 +124,21 @@ postgresql-server-dev-12
 ')
 
 m4_define(
-    `install_perl_modules',
+    `set_cpanm_and_carton_env',
     `m4_dnl
-ENV PERL_CARTON_PATH /home/musicbrainz/carton-local
-ENV PERL_CPANM_OPT --notest --no-interactive
+ENV PERL_CARTON_PATH="/home/musicbrainz/carton-local" \
+    PERL_CPANM_OPT="--notest --no-interactive"')
 
+m4_define(
+    `set_cpanm_install_args',
+    `m4_dnl
 ARG CPANMINUS_VERSION=1.7047
-ARG CPANMINUS_SRC_SUM=963e63c6e1a8725ff2f624e9086396ae150db51dd0a337c3781d09a994af05a5
+ARG CPANMINUS_SRC_SUM=963e63c6e1a8725ff2f624e9086396ae150db51dd0a337c3781d09a994af05a5')
 
-run_with_apt_cache \
-    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
-    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-    apt_install(`mbs_build_deps mbs_run_deps') && \
-    rm -f /etc/apt/sources.list.d/pgdg.list && \
-    # Install cpanm (helpful with installing other Perl modules)
+m4_define(
+    `install_cpanm_and_carton',
+    `m4_dnl
+# Install cpanm (helpful with installing other Perl modules)
     cd /usr/src && \
     curl -sSLO https://www.cpan.org/authors/id/M/MI/MIYAGAWA/App-cpanminus-$CPANMINUS_VERSION.tar.gz && \
     echo "$CPANMINUS_SRC_SUM *App-cpanminus-$CPANMINUS_VERSION.tar.gz" | sha256sum --strict --check - && \
@@ -150,7 +151,22 @@ run_with_apt_cache \
         # Install carton (helpful with installing locked versions)
         Carton \
         # Workaround for a bug in carton with installing JSON::XS
-        JSON::XS && \
+        JSON::XS')
+
+m4_define(
+    `install_perl_modules',
+    `m4_dnl
+
+set_cpanm_and_carton_env
+
+set_cpanm_install_args
+
+run_with_apt_cache \
+    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
+    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    apt_install(`mbs_build_deps mbs_run_deps') && \
+    rm -f /etc/apt/sources.list.d/pgdg.list && \
+    install_cpanm_and_carton && \
     # Install Perl module dependencies for MusicBrainz Server
     chown_mb(``$PERL_CARTON_PATH'') && \
     sudo_mb(``carton install$1'') && \
