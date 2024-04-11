@@ -3,8 +3,6 @@ m4_include(`server_base.m4')m4_dnl
 run_with_apt_cache \
     apt_install(`lsof')
 
-copy_common_mbs_files
-
 git_info
 
 install_translations()

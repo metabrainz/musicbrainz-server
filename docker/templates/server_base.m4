@@ -14,3 +14,5 @@ copy_mb(`cpanfile cpanfile.snapshot ./')
 install_perl_modules(` --deployment')
 
 RUN chown_mb(`/home/musicbrainz/data-dumps')
+
+copy_common_mbs_files

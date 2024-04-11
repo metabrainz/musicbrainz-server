@@ -1,7 +1,5 @@
 m4_include(`server_base.m4')m4_dnl
 
-copy_common_mbs_files
-
 COPY \
     docker/musicbrainz-webservice/webservice.service \
     /etc/service/webservice/run

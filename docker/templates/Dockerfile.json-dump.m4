@@ -5,8 +5,6 @@ install_new_xz_utils
 RUN chown_mb(`/home/musicbrainz/log') && \
     chown_mb(`/home/musicbrainz/json-dumps/full')
 
-copy_common_mbs_files
-
 COPY docker/musicbrainz-json-dump/crontab /var/spool/cron/crontabs/musicbrainz
 
 RUN chown musicbrainz:musicbrainz /var/spool/cron/crontabs/musicbrainz && \

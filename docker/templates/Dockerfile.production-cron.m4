@@ -5,8 +5,6 @@ install_new_xz_utils
 RUN chown_mb(`/home/musicbrainz/backup') && \
     chown_mb(`/var/ftp/pub/musicbrainz/data')
 
-copy_common_mbs_files
-
 COPY \
     docker/musicbrainz-production-cron/crontab \
     /var/spool/cron/crontabs/musicbrainz
