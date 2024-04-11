@@ -17,11 +17,33 @@ m4_define(
     `apt_install',
     `m4_dnl
 apt-get update && \
-    apt-get install --no-install-suggests --no-install-recommends -y $1')
+    apt-get install --no-install-suggests --no-install-recommends -y \
+m4_patsubst(m4_patsubst(m4_patsubst(m4_patsubst(m4_dnl
+m4_patsubst(m4_patsubst(m4_dnl
+m4_patsubst($1, `^ +', `'), `
+', ` '), ` +$', `'), ` +', `
+'), `^', `        '), `
+', ` \\
+'), ` $', `')')
 
-m4_define(`apt_purge', `apt-get purge --auto-remove -y $1')
+m4_define(`apt_purge', `apt-get purge --auto-remove -y \
+m4_patsubst(m4_patsubst(m4_patsubst(m4_patsubst(m4_dnl
+m4_patsubst(m4_patsubst(m4_dnl
+m4_patsubst($1, `^ +', `'), `
+', ` '), ` +$', `'), ` +', `
+'), `^', `        '), `
+', ` \\
+'), ` $', `')')
 
 m4_define(`sudo_mb', `sudo -E -H -u musicbrainz $1')
+
+m4_define(
+    `mbs_javascript_deps',
+    `m4_dnl
+git
+nodejs
+python3-minimal
+')
 
 m4_define(
     `install_javascript',
@@ -32,7 +54,7 @@ run_with_apt_cache \
     cp /tmp/nodesource_pubkey.txt /etc/apt/keyrings/nodesource.asc && \
     rm /tmp/nodesource_pubkey.txt && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
-    apt_install(``git nodejs python3-minimal'') && \
+    apt_install(`git nodejs python3-minimal') && \
     corepack enable && \
     sudo_mb(``yarn'')
 copy_mb(``babel.config.cjs ./'')')
@@ -54,49 +76,53 @@ RUN chown_mb(``/tmp/ttc'')')
 m4_define(
     `mbs_build_deps',
     `m4_dnl
-build-essential m4_dnl
-libdb-dev m4_dnl
-libexpat1-dev m4_dnl
-libicu-dev m4_dnl
-libperl-dev m4_dnl
-libpq-dev m4_dnl
-libssl-dev m4_dnl
-libxml2-dev m4_dnl
-zlib1g-dev m4_dnl
-pkg-config')
+build-essential
+libdb-dev
+libexpat1-dev
+libicu-dev
+libperl-dev
+libpq-dev
+libssl-dev
+libxml2-dev
+zlib1g-dev
+pkg-config
+')
 
 # postgresql-server-dev-12 provides pg_config, which is needed by InitDb.pl
 # at run-time.
 m4_define(
     `mbs_run_deps',
     `m4_dnl
-bzip2 m4_dnl
-ca-certificates m4_dnl
-libdb5.3 m4_dnl
-libexpat1 m4_dnl
-libicu70 m4_dnl
-libpq5 m4_dnl
-libssl3 m4_dnl
-libxml2 m4_dnl
-moreutils m4_dnl
-perl m4_dnl
-postgresql-client-12 m4_dnl
-postgresql-server-dev-12 m4_dnl
-zlib1g')
+bzip2
+ca-certificates
+libdb5.3
+libexpat1
+libicu70
+libpq5
+libssl3
+libxml2
+moreutils
+perl
+postgresql-client-12
+postgresql-server-dev-12
+zlib1g
+')
 
 m4_define(
     `test_db_run_deps',
     `m4_dnl
-carton m4_dnl
-postgresql-12-pgtap')
+carton
+postgresql-12-pgtap
+')
 
 m4_define(
     `test_db_build_deps',
     `m4_dnl
-gcc m4_dnl
-libc6-dev m4_dnl
-make m4_dnl
-postgresql-server-dev-12')
+gcc
+libc6-dev
+make
+postgresql-server-dev-12
+')
 
 m4_define(
     `install_perl_modules',
@@ -138,11 +164,29 @@ WORKDIR MBS_ROOT
 RUN chown_mb(`MBS_ROOT')')
 
 m4_define(
+    `mbs_translations_deps',
+    `m4_dnl
+gettext
+language-pack-de
+language-pack-el
+language-pack-es
+language-pack-et
+language-pack-fi
+language-pack-fr
+language-pack-he
+language-pack-it
+language-pack-ja
+language-pack-nl
+language-pack-sq
+make
+')
+
+m4_define(
     `install_translations',
     `m4_dnl
 copy_mb(``po/ po/'')
 run_with_apt_cache \
-    apt_install(``gettext language-pack-de language-pack-el language-pack-es language-pack-et language-pack-fi language-pack-fr language-pack-he language-pack-it language-pack-ja language-pack-nl language-pack-sq make'') && \
+    apt_install(`mbs_translations_deps') && \
     sudo_mb(``make -C po all_quiet'') && \
     sudo_mb(``make -C po deploy'')')
 
@@ -164,12 +208,22 @@ m4_changequote`'m4_dnl
 ENV `GIT_SHA' GIT_SHA')
 
 m4_define(
+    `xz_build_deps',
+    `m4_dnl
+autoconf
+automake
+build-essential
+gettext
+libtool
+')
+
+m4_define(
     `install_new_xz_utils',
     `m4_dnl
 COPY docker/lasse_collin_pubkey.txt /tmp/
 
 run_with_apt_cache \
-    apt_install(``autoconf automake build-essential gettext libtool'') && \
+    apt_install(`xz_build_deps') && \
     cd /tmp && \
     sudo_mb(``gpg --import lasse_collin_pubkey.txt'') && \
     rm lasse_collin_pubkey.txt && \
@@ -184,7 +238,7 @@ run_with_apt_cache \
     make install && \
     cd ../ && \
     rm -r xz-5.2.3* && \
-    apt_purge(``autoconf automake libtool'') && \
+    apt_purge(`xz_build_deps') && \
     cd /home/musicbrainz')
 
 m4_divert`'m4_dnl
