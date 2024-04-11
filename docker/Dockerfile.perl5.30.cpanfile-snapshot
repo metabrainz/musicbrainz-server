@@ -24,6 +24,9 @@ COPY --chown=musicbrainz:musicbrainz cpanfile ./
 ENV PERL_CARTON_PATH /home/musicbrainz/carton-local
 ENV PERL_CPANM_OPT --notest --no-interactive
 
+ARG CPANMINUS_VERSION=1.7047
+ARG CPANMINUS_SRC_SUM=963e63c6e1a8725ff2f624e9086396ae150db51dd0a337c3781d09a994af05a5
+
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
@@ -32,7 +35,13 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     apt-get install --no-install-suggests --no-install-recommends -y build-essential libdb-dev libexpat1-dev libicu-dev libperl-dev libpq-dev libssl-dev libxml2-dev zlib1g-dev pkg-config bzip2 ca-certificates libdb5.3 libexpat1 libicu66 libpq5 libssl1.1 libxml2 moreutils perl postgresql-client-12 postgresql-server-dev-12 zlib1g && \
     rm -f /etc/apt/sources.list.d/pgdg.list && \
     # Install cpanm (helpful with installing other Perl modules)
-    curl -sSL https://cpanmin.us | perl - App::cpanminus && \
+    cd /usr/src && \
+    curl -sSLO https://www.cpan.org/authors/id/M/MI/MIYAGAWA/App-cpanminus-$CPANMINUS_VERSION.tar.gz && \
+    echo "$CPANMINUS_SRC_SUM *App-cpanminus-$CPANMINUS_VERSION.tar.gz" | sha256sum --strict --check - && \
+    tar -xzf App-cpanminus-$CPANMINUS_VERSION.tar.gz && \
+    cd App-cpanminus-$CPANMINUS_VERSION && \
+    perl bin/cpanm . && \
+    rm -fr /usr/src/App-cpanminus-$CPANMINUS_VERSION* && \
     cpanm \
         # Install carton (helpful with installing locked versions)
         Carton \
