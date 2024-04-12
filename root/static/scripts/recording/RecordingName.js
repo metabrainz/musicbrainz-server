@@ -17,14 +17,6 @@ import FormRowNameWithGuessCase, {
   runReducer as runFormRowNameWithGuessCaseReducer,
 } from '../edit/components/FormRowNameWithGuessCase.js';
 
-type Props = {
-  +field: FieldT<string>,
-  +recording: {
-    +entityType: 'recording',
-    +name: string,
-  },
-};
-
 function reducer(
   state: NameStateT,
   action: NameActionT,
@@ -34,10 +26,10 @@ function reducer(
   return ctx.final();
 }
 
-export const RecordingName = ({
-  field,
-  recording,
-}: Props): React$Element<typeof FormRowNameWithGuessCase> => {
+export component RecordingName(
+  field: FieldT<string>,
+  recording: {+entityType: 'recording', +name: string},
+) {
   /*
    * State must be moved higher up in the component hierarchy once more
    * of the page is converted to React.
@@ -58,13 +50,13 @@ export const RecordingName = ({
       isGuessCaseOptionsOpen={state.isGuessCaseOptionsOpen}
     />
   );
-};
+}
 
 /*
  * Hydration must be moved higher up in the component hierarchy once
  * more of the page is converted to React.
  */
-export default (hydrate<Props>(
+export default (hydrate<React.PropsOf<RecordingName>>(
   'div.recording-name',
   RecordingName,
-): React$AbstractComponent<Props, void>);
+): React$AbstractComponent<React.PropsOf<RecordingName>, void>);
