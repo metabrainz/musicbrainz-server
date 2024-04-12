@@ -37,7 +37,7 @@ const LockedUsernameSearch = ({
           {exp.l_admin(
             'Enter a username or a {link|POSIX regular expression}.',
             {
-              link: 'https://www.postgresql.org/docs/12/' +
+              link: 'https://www.postgresql.org/docs/16/' +
                 'functions-matching.html#FUNCTIONS-POSIX-REGEXP',
             },
           )}
