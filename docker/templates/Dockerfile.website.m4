@@ -1,10 +1,7 @@
 m4_include(`server_base.m4')m4_dnl
 
-ARG DEBIAN_FRONTEND=noninteractive
-
-RUN apt_install(`lsof')
-
-copy_common_mbs_files
+run_with_apt_cache \
+    apt_install(`lsof')
 
 git_info
 

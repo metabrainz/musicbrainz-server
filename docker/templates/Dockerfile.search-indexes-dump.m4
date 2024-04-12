@@ -1,11 +1,10 @@
 m4_include(`server_base.m4')m4_dnl
 
-RUN apt_install(`jq zstd')
+run_with_apt_cache \
+    apt_install(`jq zstd')
 
 RUN chown_mb(`/home/musicbrainz/log') && \
     chown_mb(`/home/musicbrainz/search-index-dumps')
-
-copy_common_mbs_files
 
 COPY docker/musicbrainz-search-indexes-dump/crontab /var/spool/cron/crontabs/musicbrainz
 

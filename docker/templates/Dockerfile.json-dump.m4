@@ -1,11 +1,9 @@
 m4_include(`server_base.m4')m4_dnl
 
-install_new_xz_utils
-
-RUN chown_mb(`/home/musicbrainz/log') && \
+run_with_apt_cache \
+    apt_install(``xz-utils'') && \
+    chown_mb(`/home/musicbrainz/log') && \
     chown_mb(`/home/musicbrainz/json-dumps/full')
-
-copy_common_mbs_files
 
 COPY docker/musicbrainz-json-dump/crontab /var/spool/cron/crontabs/musicbrainz
 

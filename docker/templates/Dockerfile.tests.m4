@@ -1,102 +1,51 @@
+m4_include(`macros.m4')m4_dnl
 FROM phusion/baseimage:jammy-1.0.1
 
 RUN useradd --create-home --shell /bin/bash musicbrainz
 
 WORKDIR /home/musicbrainz
 
-COPY docker/nodesource_pubkey.txt docker/pgdg_pubkey.txt ./
-
-RUN apt-get update && \
-    apt-get install \
-        --no-install-recommends \
-        --no-install-suggests \
-        -y \
-        ca-certificates \
-        curl \
-        gnupg && \
-    cp nodesource_pubkey.txt /etc/apt/keyrings/nodesource.asc && \
-    cp pgdg_pubkey.txt /etc/apt/keyrings/pgdg.asc && \
-    rm nodesource_pubkey.txt pgdg_pubkey.txt && \
+run_with_apt_cache \
+    --mount=type=bind,source=docker/nodesource_pubkey.txt,target=/etc/apt/keyrings/nodesource.asc \
+    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
+    keep_apt_cache && \
+    apt_install(``ca-certificates curl gnupg'') && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-    apt-get update && \
-    apt-get install \
-        --no-install-recommends \
-        --no-install-suggests \
-        -y \
-        build-essential \
-        bzip2 \
-        gcc \
-        gettext \
-        git \
-        language-pack-de \
-        language-pack-el \
-        language-pack-es \
-        language-pack-et \
-        language-pack-fi \
-        language-pack-fr \
-        language-pack-he \
-        language-pack-it \
-        language-pack-ja \
-        language-pack-nl \
-        language-pack-sq \
-        libc6-dev \
-        libdb-dev \
-        libdb5.3 \
-        libexpat1 \
-        libexpat1-dev \
-        libgbm1 \
-        libicu-dev \
-        libicu70 \
-        libperl-dev \
-        libpq-dev \
-        libpq5 \
-        libssl-dev \
-        libssl3 \
-        libxkbcommon0 \
-        libxml2 \
-        libxml2-dev \
-        locales \
-        lsof \
-        make \
-        maven \
-        nodejs \
-        openjdk-8-jdk \
-        openjdk-8-jre \
-        openssh-client \
-        perl \
-        pkg-config \
-        postgresql-12 \
-        postgresql-12-pgtap \
-        postgresql-server-dev-12 \
-        python2 \
-        python2-dev \
-        python3 \
-        python3-dev \
-        python3-distutils \
-        python3-venv \
-        rabbitmq-server \
-        redis-server \
-        runit \
-        runit-systemd \
-        software-properties-common \
-        sudo \
-        unzip \
-        virtualenv \
-        wget \
-        zlib1g-dev && \
-    rm -rf /var/lib/apt/lists/* && \
+    apt_install(`m4_dnl
+        mbs_build_deps
+        mbs_javascript_deps
+        mbs_run_deps
+        mbs_translations_deps
+        test_db_build_deps
+        chrome_for_testing_deps
+        search_deps
+        selenium_caa_deps
+        locales
+        openssh-client
+        postgresql-12
+        postgresql-12-pgtap
+        redis-server
+        runit
+        runit-systemd
+        sudo
+        unzip
+        ') && \
+    rm -f /etc/apt/sources.list.d/nodesource.list \
+        /etc/apt/sources.list.d/pgdg.list && \
     update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
     systemctl disable rabbitmq-server
 
-RUN wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
-    cpanm Carton JSON::XS && \
+set_cpanm_and_carton_env
+
+set_cpanm_install_args
+
+RUN \
+    install_cpanm_and_carton && \
     rm -rf /root/.cpanm
 
-ENV PERL_CARTON_PATH="/home/musicbrainz/carton-local" \
-    PERL_CPANM_OPT="--notest --no-interactive"
-
 COPY --chown=musicbrainz:musicbrainz cpanfile cpanfile.snapshot ./
+# Install Perl module dependencies for MusicBrainz Server
 RUN sudo -E -H -u musicbrainz carton install --deployment && \
     rm cpanfile cpanfile.snapshot
 
@@ -113,7 +62,7 @@ RUN git clone --depth 1 https://github.com/omniti-labs/pg_amqp.git && \
 ENV SOLR_VERSION 7.7.3
 ENV SOLR_HOME /opt/solr/server/solr
 
-RUN curl -sLO http://archive.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz && \
+RUN curl -sSLO http://archive.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz && \
     tar xzf solr-$SOLR_VERSION.tgz solr-$SOLR_VERSION/bin/install_solr_service.sh --strip-components=2 && \
     ./install_solr_service.sh solr-$SOLR_VERSION.tgz && \
     systemctl disable solr
@@ -158,17 +107,17 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-re
     sudo -E -H -u musicbrainz sh -c 'python3 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
     cd /home/musicbrainz
 
-RUN curl -sLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chrome-linux64.zip && \
+RUN curl -sSLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chrome-linux64.zip && \
     unzip chrome-linux64.zip -d /opt && \
     rm chrome-linux64.zip
 
-RUN curl -sLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chromedriver-linux64.zip && \
+RUN curl -sSLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chromedriver-linux64.zip && \
     unzip chromedriver-linux64.zip -d /tmp && \
     mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/ && \
     chmod +x /usr/local/bin/chromedriver && \
     rm -r chromedriver-linux64.zip /tmp/chromedriver-linux64
 
-RUN curl -sLO https://github.com/validator/validator/releases/download/18.11.5/vnu.jar_18.11.5.zip && \
+RUN curl -sSLO https://github.com/validator/validator/releases/download/18.11.5/vnu.jar_18.11.5.zip && \
     unzip -d vnu -j vnu.jar_18.11.5.zip && \
     rm vnu.jar_18.11.5.zip
 
