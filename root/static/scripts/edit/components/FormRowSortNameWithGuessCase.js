@@ -65,7 +65,7 @@ export function runReducer(
   }
 }
 
-export component FormRowSortNameWithGuessCase(
+component FormRowSortNameWithGuessCase(
   disabled: boolean = false,
   dispatch: (ActionT) => void,
   entity: SortNamedEntityT,

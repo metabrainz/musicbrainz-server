@@ -89,7 +89,7 @@ export function runReducer(
   }
 }
 
-export component FormRowNameWithGuessCase(
+component FormRowNameWithGuessCase(
   dispatch: (ActionT) => void,
   entity: NamedEntityT,
   field: FieldT<string | null>,
