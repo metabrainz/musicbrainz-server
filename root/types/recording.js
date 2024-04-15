@@ -38,7 +38,3 @@ declare type ReleaseGroupAppearancesT = {
 declare type ReleaseGroupAppearancesMapT = {
   +[recordingId: number]: ReleaseGroupAppearancesT,
 };
-
-declare type ReleaseGroupAppearancesRoleT = {
-  +releaseGroupAppearances?: ReleaseGroupAppearancesMapT,
-};
