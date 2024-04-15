@@ -15,13 +15,9 @@ const displayCatno = (catno: string): React$Element<'span'> => (
   </span>
 );
 
-type ReleaseLabelsProps = {
-  +labels?: $ReadOnlyArray<ReleaseLabelT>,
-};
-
-const ReleaseCatnoList = ({
-  labels: releaseLabels,
-}: ReleaseLabelsProps): Expand2ReactOutput | null => {
+component ReleaseCatnoList(
+  labels as releaseLabels: ?$ReadOnlyArray<ReleaseLabelT>,
+) {
   if (!releaseLabels || !releaseLabels.length) {
     return null;
   }
@@ -33,6 +29,6 @@ const ReleaseCatnoList = ({
     }
   }
   return commaOnlyList(Array.from(catnos.values()).map(displayCatno));
-};
+}
 
 export default ReleaseCatnoList;

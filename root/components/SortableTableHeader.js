@@ -24,30 +24,22 @@ function printSortArrows(name: string, order: ?string) {
   );
 }
 
-type Props = {
-  +label: string,
-  +name: string,
-  +order: ?string,
-};
-
-const SortableTableHeader = ({
-  label,
-  name,
-  order,
-}: Props): React$MixedElement => (
-  <CatalystContext.Consumer>
-    {$c => (
-      <a
-        href={uriWith(
-          $c.req.uri,
-          {order: order === name ? '-' + name : name},
-        )}
-      >
-        {label}
-        {printSortArrows(name, order)}
-      </a>
-    )}
-  </CatalystContext.Consumer>
-);
+component SortableTableHeader(label: string, name: string, order: ?string) {
+  return (
+    <CatalystContext.Consumer>
+      {$c => (
+        <a
+          href={uriWith(
+            $c.req.uri,
+            {order: order === name ? '-' + name : name},
+          )}
+        >
+          {label}
+          {printSortArrows(name, order)}
+        </a>
+      )}
+    </CatalystContext.Consumer>
+  );
+}
 
 export default SortableTableHeader;

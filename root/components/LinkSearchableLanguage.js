@@ -12,21 +12,15 @@ import localizeLanguageName
 
 import LinkSearchableProperty from './LinkSearchableProperty.js';
 
-type Props = {
-  +entityType: string,
-  +language: LanguageT,
-};
-
-const LinkSearchableLanguage = ({
-  entityType,
-  language,
-}: Props): React$Element<typeof LinkSearchableProperty> => (
-  <LinkSearchableProperty
-    entityType={entityType}
-    searchField="lang"
-    searchValue={language.iso_code_3 || ''}
-    text={localizeLanguageName(language, entityType === 'work')}
-  />
-);
+component LinkSearchableLanguage(entityType: string, language: LanguageT) {
+  return (
+    <LinkSearchableProperty
+      entityType={entityType}
+      searchField="lang"
+      searchValue={language.iso_code_3 || ''}
+      text={localizeLanguageName(language, entityType === 'work')}
+    />
+  );
+}
 
 export default LinkSearchableLanguage;

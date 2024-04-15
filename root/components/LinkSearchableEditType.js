@@ -11,15 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
 
-type Props = {
-  +editTypeId: string,
-  +text: string,
-};
-
-const LinkSearchableEditType = ({
-  editTypeId,
-  text,
-}: Props): React$MixedElement => {
+component LinkSearchableEditType(editTypeId: string, text: string) {
   const $c = React.useContext(CatalystContext);
   const url = new URL($c.req.uri);
   url.pathname = 'search/edits';
@@ -28,6 +20,6 @@ const LinkSearchableEditType = ({
     '&conditions.0.field=type&conditions.0.operator=%3D' +
     '&conditions.0.args=' + editTypeId;
   return <a href={url.toString()}>{text}</a>;
-};
+}
 
 export default LinkSearchableEditType;

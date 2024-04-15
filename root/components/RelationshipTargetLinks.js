@@ -54,15 +54,10 @@ export function displayDatedExtraAttributes(
   return renderedExtraAttributes;
 }
 
-type Props = {
-  +hiddenArtistCredit?: ?ArtistCreditT,
-  +relationship: RelationshipTargetGroupT,
-};
-
-const RelationshipTargetLinks = ({
-  hiddenArtistCredit,
-  relationship,
-}: Props): React$MixedElement => {
+component RelationshipTargetLinks(
+  hiddenArtistCredit?: ?ArtistCreditT,
+  relationship: RelationshipTargetGroupT,
+) {
   const target = relationship.target;
   const targetCredit = relationship.targetCredit;
   const disableLink = isDisabledLink(relationship.earliestDatePeriod, target);
@@ -100,6 +95,6 @@ const RelationshipTargetLinks = ({
     result = <span className="mp mp-rel">{result}</span>;
   }
   return result;
-};
+}
 
 export default RelationshipTargetLinks;
