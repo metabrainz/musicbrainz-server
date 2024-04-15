@@ -52,27 +52,16 @@ import isRelationshipBackward from '../utility/isRelationshipBackward.js';
 
 import NewWorkLink from './NewWorkLink.js';
 
-type PropsT = {
-  +canBeOrdered: boolean,
-  +dispatch: (RelationshipEditorActionT) => void,
-  +hasOrdering: boolean,
-  +isDialogOpen: boolean,
-  +relationship: RelationshipStateT,
-  +releaseHasUnloadedTracks: boolean,
-  +source: RelatableEntityT,
-  +track: TrackWithRecordingT | null,
-};
-
-const RelationshipItem = (React.memo<PropsT>(({
-  canBeOrdered,
-  dispatch,
-  isDialogOpen,
-  hasOrdering,
-  relationship,
-  releaseHasUnloadedTracks,
-  source,
-  track,
-}: PropsT): React$MixedElement => {
+component _RelationshipItem(
+  canBeOrdered: boolean,
+  dispatch: (RelationshipEditorActionT) => void,
+  hasOrdering: boolean,
+  isDialogOpen: boolean,
+  relationship: RelationshipStateT,
+  releaseHasUnloadedTracks: boolean,
+  source: RelatableEntityT,
+  track: TrackWithRecordingT | null,
+) {
   const backward = isRelationshipBackward(relationship, source);
   const target: RelatableEntityT = backward
     ? relationship.entity0
@@ -290,7 +279,11 @@ const RelationshipItem = (React.memo<PropsT>(({
       ) : null}
     </>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const RelationshipItem: React$AbstractComponent<
+  React.PropsOf<_RelationshipItem>
+> = React.memo(_RelationshipItem);
 
 function getRelationshipStyling(relationship: RelationshipStateT) {
   return 'rel-' + getRelationshipStatusName(relationship);

@@ -16,15 +16,6 @@ import type {
   DialogTextAttributeActionT,
 } from '../../types/actions.js';
 
-type PropsT = {
-  +dispatch: (
-    rootKey: number,
-    action: DialogTextAttributeActionT,
-  ) => void,
-  +inputId: string,
-  +state: DialogTextAttributeStateT,
-};
-
 export function reducer(
   state: DialogTextAttributeStateT,
   action: DialogTextAttributeActionT,
@@ -45,22 +36,31 @@ export function reducer(
   return newState;
 }
 
-const TextAttribute = (React.memo(({
-  dispatch,
-  inputId,
-  state,
-}) => (
-  <input
-    id={inputId}
-    onChange={(event) => {
-      dispatch(state.key, {
-        textValue: event.target.value,
-        type: 'set-text-value',
-      });
-    }}
-    type="text"
-    value={state.textValue}
-  />
-)): React$AbstractComponent<PropsT, mixed>);
+component _TextAttribute(
+  dispatch: (
+    rootKey: number,
+    action: DialogTextAttributeActionT,
+  ) => void,
+  inputId: string,
+  state: DialogTextAttributeStateT,
+) {
+  return (
+    <input
+      id={inputId}
+      onChange={(event) => {
+        dispatch(state.key, {
+          textValue: event.target.value,
+          type: 'set-text-value',
+        });
+      }}
+      type="text"
+      value={state.textValue}
+    />
+  );
+}
+
+const TextAttribute: React$AbstractComponent<
+  React.PropsOf<_TextAttribute>
+> = React.memo(_TextAttribute);
 
 export default TextAttribute;

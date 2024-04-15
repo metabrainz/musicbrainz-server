@@ -25,25 +25,15 @@ import {
 
 import RelationshipTargetTypeGroup from './RelationshipTargetTypeGroup.js';
 
-type PropsT = {
-  +dialogLocation: RelationshipDialogLocationT | null,
-  +dispatch: (RelationshipEditorActionT) => void,
-  +filter?: (RelatableEntityTypeT) => boolean,
-  +releaseHasUnloadedTracks: boolean,
-  +source: RelatableEntityT,
-  +targetTypeGroups: RelationshipTargetTypeGroupsT,
-  +track: TrackWithRecordingT | null,
-};
-
-const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
-  dialogLocation,
-  dispatch,
-  filter,
-  releaseHasUnloadedTracks,
-  source,
-  targetTypeGroups,
-  track,
-}: PropsT): React$MixedElement => {
+component _RelationshipTargetTypeGroups(
+  dialogLocation: RelationshipDialogLocationT | null,
+  dispatch: (RelationshipEditorActionT) => void,
+  filter?: (RelatableEntityTypeT) => boolean,
+  releaseHasUnloadedTracks: boolean,
+  source: RelatableEntityT,
+  targetTypeGroups: RelationshipTargetTypeGroupsT,
+  track: TrackWithRecordingT | null,
+) {
   const buildPopoverContent = useAddRelationshipDialogContent({
     dispatch,
     preselectedTargetType: null,
@@ -121,6 +111,10 @@ const RelationshipTargetTypeGroups = (React.memo<PropsT>(({
       </tbody>
     </table>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const RelationshipTargetTypeGroups: React$AbstractComponent<
+  React.PropsOf<_RelationshipTargetTypeGroups>
+> = React.memo(_RelationshipTargetTypeGroups);
 
 export default RelationshipTargetTypeGroups;

@@ -9,35 +9,35 @@
 
 import * as React from 'react';
 
-type PropsT = {
-  +isDoneDisabled: boolean,
-  +onCancel: () => void,
-  +onDone: () => void,
-};
-
-const DialogButtons = (React.memo<PropsT>(({
-  isDoneDisabled,
-  onCancel,
-  onDone,
-}: PropsT): React$Element<'div'> => (
-  <div
-    className="buttons"
-    style={{marginTop: '1em'}}
-  >
-    <button className="negative" onClick={onCancel} type="button">
-      {l('Cancel')}
-    </button>
-    <div className="buttons-right">
-      <button
-        className="positive"
-        disabled={isDoneDisabled}
-        onClick={onDone}
-        type="button"
-      >
-        {l('Done')}
+component _DialogButtons(
+  isDoneDisabled: boolean,
+  onCancel: () => void,
+  onDone: () => void,
+) {
+  return (
+    <div
+      className="buttons"
+      style={{marginTop: '1em'}}
+    >
+      <button className="negative" onClick={onCancel} type="button">
+        {l('Cancel')}
       </button>
+      <div className="buttons-right">
+        <button
+          className="positive"
+          disabled={isDoneDisabled}
+          onClick={onDone}
+          type="button"
+        >
+          {l('Done')}
+        </button>
+      </div>
     </div>
-  </div>
-)): React$AbstractComponent<PropsT, mixed>);
+  );
+}
+
+const DialogButtons: React$AbstractComponent<
+  React.PropsOf<_DialogButtons>
+> = React.memo(_DialogButtons);
 
 export default DialogButtons;

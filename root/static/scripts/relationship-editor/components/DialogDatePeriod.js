@@ -29,12 +29,6 @@ import {
 } from '../../edit/utility/createField.js';
 import type {DialogDatePeriodStateT} from '../types.js';
 
-type PropsT = {
-  +dispatch: (DateRangeFieldsetActionT) => void,
-  +isHelpVisible: boolean,
-  +state: DialogDatePeriodStateT,
-};
-
 export type ActionT = DateRangeFieldsetActionT;
 
 export function createInitialState(
@@ -145,11 +139,11 @@ export function updateDialogDatePeriodState(
   return newState;
 }
 
-const DialogDatePeriod = (React.memo<PropsT>(({
-  dispatch,
-  isHelpVisible,
-  state,
-}: PropsT): React$MixedElement | null => {
+component _DialogDatePeriod(
+  dispatch: (DateRangeFieldsetActionT) => void,
+  isHelpVisible: boolean,
+  state: DialogDatePeriodStateT,
+) {
   const hooks = useDateRangeFieldset(dispatch);
 
   const field = state.field;
@@ -232,6 +226,10 @@ const DialogDatePeriod = (React.memo<PropsT>(({
       ) : null}
     </>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const DialogDatePeriod: React$AbstractComponent<
+  React.PropsOf<_DialogDatePeriod>
+> = React.memo(_DialogDatePeriod);
 
 export default DialogDatePeriod;

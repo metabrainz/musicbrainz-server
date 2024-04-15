@@ -17,14 +17,6 @@ import type {
   DialogBooleanAttributeActionT,
 } from '../../types/actions.js';
 
-type PropsT = {
-  +dispatch: (
-    rootKey: number,
-    action: DialogBooleanAttributeActionT,
-  ) => void,
-  +state: DialogBooleanAttributeStateT,
-};
-
 export function reducer(
   state: DialogBooleanAttributeStateT,
   action: DialogBooleanAttributeActionT,
@@ -45,26 +37,35 @@ export function reducer(
   return newState;
 }
 
-const BooleanAttribute = (React.memo(({
-  state,
-  dispatch,
-}: PropsT) => (
-  <label>
-    <input
-      checked={state.enabled}
-      className="boolean"
-      id={kebabCase(state.type.name) + '-checkbox'}
-      onChange={(event: SyntheticEvent<HTMLInputElement>) => {
-        dispatch(state.key, {
-          enabled: event.currentTarget.checked,
-          type: 'toggle',
-        });
-      }}
-      type="checkbox"
-    />
-    {' '}
-    {state.type.l_name}
-  </label>
-)): React$AbstractComponent<PropsT, mixed>);
+component _BooleanAttribute(
+  dispatch: (
+    rootKey: number,
+    action: DialogBooleanAttributeActionT,
+  ) => void,
+  state: DialogBooleanAttributeStateT,
+) {
+  return (
+    <label>
+      <input
+        checked={state.enabled}
+        className="boolean"
+        id={kebabCase(state.type.name) + '-checkbox'}
+        onChange={(event: SyntheticEvent<HTMLInputElement>) => {
+          dispatch(state.key, {
+            enabled: event.currentTarget.checked,
+            type: 'toggle',
+          });
+        }}
+        type="checkbox"
+      />
+      {' '}
+      {state.type.l_name}
+    </label>
+  );
+}
+
+const BooleanAttribute: React$AbstractComponent<
+  React.PropsOf<_BooleanAttribute>
+> = React.memo(_BooleanAttribute);
 
 export default BooleanAttribute;
