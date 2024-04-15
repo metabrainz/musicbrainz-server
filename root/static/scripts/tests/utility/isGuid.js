@@ -12,7 +12,7 @@ import test from 'tape';
 import isGuid from '../../common/utility/isGuid.js';
 
 test('isGuid', function (t) {
-  t.plan(4);
+  t.plan(5);
 
   t.ok(
     !isGuid('lol-nope'),
@@ -31,6 +31,11 @@ test('isGuid', function (t) {
 
   t.ok(
     isGuid('89ad4ac3-39f7-470e-963a-56509c546377'),
-    'Valid MBID is a GUID',
+    'Valid MBID with lowercase letters is a GUID',
+  );
+
+  t.ok(
+    isGuid('89AD4AC3-39F7-470E-963A-56509C546377'),
+    'Valid MBID with capital letters is a GUID',
   );
 });

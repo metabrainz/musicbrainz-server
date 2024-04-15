@@ -494,7 +494,7 @@ const Autocomplete2 = (React.memo(<T: EntityItemT>(
         }
       });
 
-      lookupXhr.open('GET', '/ws/js/entity/' + mbidMatch[0]);
+      lookupXhr.open('GET', '/ws/js/entity/' + mbidMatch[0].toLowerCase());
       lookupXhr.send();
     } else if (oldInputValue !== newInputValue) {
       stopRequests();
