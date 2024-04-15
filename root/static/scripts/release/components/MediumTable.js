@@ -17,27 +17,16 @@ import type {ActionT, CreditsModeT} from '../types.js';
 
 import MediumTrackRow from './MediumTrackRow.js';
 
-type PropsT = {
-  +creditsMode: CreditsModeT,
-  +dispatch: (ActionT) => void,
-  +hasUnloadedTracks: boolean,
-  +isExpanded: boolean,
-  +medium: MediumWithRecordingsT,
-  +noScript: boolean,
-  +release: ReleaseWithMediumsT,
-  +tracks: $ReadOnlyArray<TrackWithRecordingT> | null,
-};
-
-const MediumTable = (React.memo<PropsT>(({
-  creditsMode,
-  dispatch,
-  hasUnloadedTracks,
-  isExpanded,
-  medium,
-  noScript,
-  release,
-  tracks,
-}: PropsT) => {
+component _MediumTable(
+  creditsMode: CreditsModeT,
+  dispatch: (ActionT) => void,
+  hasUnloadedTracks: boolean,
+  isExpanded: boolean,
+  medium: MediumWithRecordingsT,
+  noScript: boolean,
+  release: ReleaseWithMediumsT,
+  tracks: $ReadOnlyArray<TrackWithRecordingT> | null,
+) {
   const tableVars = usePagedMediumTable({
     dispatch,
     getColumnCount: (showArtists) => 4 + (showArtists ? 1 : 0),
@@ -146,6 +135,10 @@ const MediumTable = (React.memo<PropsT>(({
       </tbody>
     </table>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const MediumTable: React$AbstractComponent<
+  React.PropsOf<_MediumTable>
+> = React.memo(_MediumTable);
 
 export default MediumTable;

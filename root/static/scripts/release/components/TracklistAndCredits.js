@@ -18,6 +18,7 @@ import StaticRelationshipsDisplay
   from '../../common/components/StaticRelationshipsDisplay.js';
 import WarningIcon from '../../common/components/WarningIcon.js';
 import {l} from '../../common/i18n.js';
+import type {LinkedEntitiesT} from '../../common/linkedEntities.mjs';
 import {
   mergeLinkedEntities,
 } from '../../common/linkedEntities.mjs';
@@ -31,7 +32,6 @@ import type {
   LazyReleaseActionT,
   LazyReleaseStateT,
   LoadedTracksMapT,
-  PropsT,
   StateT,
 } from '../types.js';
 
@@ -244,13 +244,12 @@ export function useReleaseHasUnloadedTracks(
   }, [hasUnloadedTracksPerMedium]);
 }
 
-const TracklistAndCredits = React.memo<PropsT>((props: PropsT) => {
-  const {
-    noScript,
-    release,
-    initialLinkedEntities,
-  } = props;
-
+component _TracklistAndCredits(
+  initialCreditsMode: CreditsModeT,
+  initialLinkedEntities: $ReadOnly<Partial<LinkedEntitiesT>>,
+  noScript: boolean,
+  release: ReleaseWithMediumsT,
+) {
   const setLinkedEntitiesRef = React.useRef(false);
   if (!setLinkedEntitiesRef.current) {
     mergeLinkedEntities(initialLinkedEntities);
@@ -259,7 +258,7 @@ const TracklistAndCredits = React.memo<PropsT>((props: PropsT) => {
 
   const [state, dispatch] = React.useReducer(
     reducer,
-    props.initialCreditsMode,
+    initialCreditsMode,
     createInitialState,
   );
 
@@ -409,9 +408,13 @@ const TracklistAndCredits = React.memo<PropsT>((props: PropsT) => {
       ) : null}
     </>
   );
-});
+}
 
-export default (hydrate<PropsT>(
+const TracklistAndCredits: React$AbstractComponent<
+  React.PropsOf<_TracklistAndCredits>
+> = React.memo(_TracklistAndCredits);
+
+export default (hydrate<React.PropsOf<_TracklistAndCredits>>(
   'div.tracklist-and-credits',
   TracklistAndCredits,
-): React$AbstractComponent<PropsT, void>);
+): React$AbstractComponent<React.PropsOf<_TracklistAndCredits>, void>);
