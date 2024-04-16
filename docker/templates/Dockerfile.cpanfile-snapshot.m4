@@ -9,8 +9,6 @@ run_with_apt_cache \
 
 setup_mbs_root()
 
-RUN chown_mb(`/home/musicbrainz/carton-local')
-
 copy_mb(`cpanfile ./')
 
 install_perl_modules()
