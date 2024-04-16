@@ -154,47 +154,36 @@ COPY docker/musicbrainz-tests/artwork-indexer-config.ini artwork-indexer/config.
 COPY docker/musicbrainz-tests/artwork-redirect-config.ini artwork-redirect/config.ini
 COPY docker/musicbrainz-tests/sir-config.ini sir/config.ini
 
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/artwork-indexer.service \
     /etc/service/artwork-indexer/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/artwork-redirect.service \
     /etc/service/artwork-redirect/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/chrome.service \
     /etc/service/chrome/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/postgresql.service \
     /etc/service/postgresql/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/redis.service \
     /etc/service/redis/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/solr.service \
     /etc/service/solr/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/ssssss.service \
     /etc/service/ssssss/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/template-renderer.service \
     /etc/service/template-renderer/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/vnu.service \
     /etc/service/vnu/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/website.service \
     /etc/service/website/run
-RUN chmod 755 \
-        /etc/service/artwork-indexer/run \
-        /etc/service/artwork-redirect/run \
-        /etc/service/chrome/run \
-        /etc/service/postgresql/run \
-        /etc/service/redis/run \
-        /etc/service/solr/run \
-        /etc/service/ssssss/run \
-        /etc/service/template-renderer/run \
-        /etc/service/vnu/run \
-        /etc/service/website/run
 RUN touch \
     /etc/service/artwork-indexer/down \
     /etc/service/artwork-redirect/down \
@@ -207,15 +196,14 @@ RUN touch \
     /etc/service/vnu/down \
     /etc/service/website/down
 
-COPY \
+COPY --chmod=0755 \
     docker/scripts/start_template_renderer.sh \
     /usr/local/bin/
-RUN chmod 755 \
-        /usr/local/bin/start_template_renderer.sh
 
-COPY docker/scripts/install_svlogd_services.sh /usr/local/bin
-RUN chmod +x /usr/local/bin/install_svlogd_services.sh && \
-    install_svlogd_services.sh \
+COPY --chmod=0755 \
+    docker/scripts/install_svlogd_services.sh \
+    /usr/local/bin/
+RUN install_svlogd_services.sh \
         artwork-indexer \
         artwork-redirect \
         chrome \

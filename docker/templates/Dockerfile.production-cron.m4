@@ -5,12 +5,9 @@ run_with_apt_cache \
     chown_mb(`/home/musicbrainz/backup') && \
     chown_mb(`/var/ftp/pub/musicbrainz/data')
 
-COPY \
+COPY --chown=musicbrainz:musicbrainz --chmod=0600 \
     docker/musicbrainz-production-cron/crontab \
     /var/spool/cron/crontabs/musicbrainz
-
-RUN chown musicbrainz:musicbrainz /var/spool/cron/crontabs/musicbrainz && \
-    chmod 600 /var/spool/cron/crontabs/musicbrainz
 
 ENV MB_CONTAINER_TYPE production-cron
 
