@@ -110,7 +110,7 @@ zlib1g
 m4_define(
     `test_db_run_deps',
     `m4_dnl
-carton
+perl
 postgresql-12-pgtap
 ')
 

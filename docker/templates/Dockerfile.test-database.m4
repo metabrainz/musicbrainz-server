@@ -22,8 +22,11 @@ copy_mb(`docker/musicbrainz-test-database/cpanfile docker/musicbrainz-test-datab
 
 ENV PERL_CPANM_OPT --notest --no-interactive
 
+set_cpanm_install_args
+
 run_with_apt_cache \
     apt_install(`test_db_build_deps test_db_run_deps') && \
+    install_cpanm_and_carton && \
     sudo_mb(`carton install --deployment') && \
     apt_purge(`test_db_build_deps')
 
