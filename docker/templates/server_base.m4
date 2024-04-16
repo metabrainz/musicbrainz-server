@@ -9,7 +9,7 @@ run_with_apt_cache \
 
 setup_mbs_root()
 
-copy_mb(`cpanfile cpanfile.snapshot ./')
+install_perl_and_mbs_run_deps()
 
 install_perl_modules(` --deployment')
 

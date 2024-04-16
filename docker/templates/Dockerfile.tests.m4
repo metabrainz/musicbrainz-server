@@ -5,6 +5,12 @@ RUN useradd --create-home --shell /bin/bash musicbrainz
 
 WORKDIR /home/musicbrainz
 
+set_perl_install_args
+
+set_cpanm_and_carton_env
+
+set_cpanm_install_args
+
 run_with_apt_cache \
     --mount=type=bind,source=docker/nodesource_pubkey.txt,target=/etc/apt/keyrings/nodesource.asc \
     --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
@@ -34,20 +40,17 @@ run_with_apt_cache \
     rm -f /etc/apt/sources.list.d/nodesource.list \
         /etc/apt/sources.list.d/pgdg.list && \
     update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
-    systemctl disable rabbitmq-server
+    systemctl disable rabbitmq-server && \
+    install_ts && \
+    install_perl && \
+    install_cpanm_and_carton
 
-set_cpanm_and_carton_env
-
-set_cpanm_install_args
-
-RUN \
-    install_cpanm_and_carton && \
-    rm -rf /root/.cpanm
-
-COPY --chown=musicbrainz:musicbrainz cpanfile cpanfile.snapshot ./
 # Install Perl module dependencies for MusicBrainz Server
-RUN sudo -E -H -u musicbrainz carton install --deployment && \
-    rm cpanfile cpanfile.snapshot
+RUN with_cpanm_cache \
+    with_cpanfile_and_snapshot \
+    chown_mb(``/home/musicbrainz/.cpanm'') && \
+    chown_mb(``$PERL_CARTON_PATH'') && \
+    sudo -E -H -u musicbrainz carton install --deployment
 
 RUN mkdir musicbrainz-server
 ENV PG_AMQP_COMMIT 240d477
@@ -151,47 +154,36 @@ COPY docker/musicbrainz-tests/artwork-indexer-config.ini artwork-indexer/config.
 COPY docker/musicbrainz-tests/artwork-redirect-config.ini artwork-redirect/config.ini
 COPY docker/musicbrainz-tests/sir-config.ini sir/config.ini
 
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/artwork-indexer.service \
     /etc/service/artwork-indexer/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/artwork-redirect.service \
     /etc/service/artwork-redirect/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/chrome.service \
     /etc/service/chrome/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/postgresql.service \
     /etc/service/postgresql/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/redis.service \
     /etc/service/redis/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/solr.service \
     /etc/service/solr/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/ssssss.service \
     /etc/service/ssssss/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/template-renderer.service \
     /etc/service/template-renderer/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/vnu.service \
     /etc/service/vnu/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-tests/website.service \
     /etc/service/website/run
-RUN chmod 755 \
-        /etc/service/artwork-indexer/run \
-        /etc/service/artwork-redirect/run \
-        /etc/service/chrome/run \
-        /etc/service/postgresql/run \
-        /etc/service/redis/run \
-        /etc/service/solr/run \
-        /etc/service/ssssss/run \
-        /etc/service/template-renderer/run \
-        /etc/service/vnu/run \
-        /etc/service/website/run
 RUN touch \
     /etc/service/artwork-indexer/down \
     /etc/service/artwork-redirect/down \
@@ -204,14 +196,11 @@ RUN touch \
     /etc/service/vnu/down \
     /etc/service/website/down
 
-COPY \
+COPY --chmod=0755 \
     docker/scripts/start_template_renderer.sh \
     /usr/local/bin/
-RUN chmod 755 \
-        /usr/local/bin/start_template_renderer.sh
 
-COPY docker/scripts/install_svlogd_services.sh /usr/local/bin
-RUN chmod +x /usr/local/bin/install_svlogd_services.sh && \
+RUN --mount=type=bind,source=docker/scripts/install_svlogd_services.sh,target=/usr/local/bin/install_svlogd_services.sh \
     install_svlogd_services.sh \
         artwork-indexer \
         artwork-redirect \
@@ -222,8 +211,7 @@ RUN chmod +x /usr/local/bin/install_svlogd_services.sh && \
         ssssss \
         template-renderer \
         vnu \
-        website && \
-    rm /usr/local/bin/install_svlogd_services.sh
+        website
 
 # Allow the musicbrainz user execute any command with sudo.
 # Primarily needed to run rabbitmqctl.

@@ -14,6 +14,20 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked')
 
 m4_define(
+    `with_cpanm_cache',
+    `--mount=type=cache,target=/home/musicbrainz/.cpanm,sharing=locked')
+
+m4_define(
+    `with_cpanfile_only',
+    `--mount=type=bind,source=$1cpanfile,target=cpanfile')
+
+m4_define(
+    `with_cpanfile_and_snapshot',
+    `m4_dnl
+--mount=type=bind,source=$1cpanfile,target=cpanfile \
+    --mount=type=bind,source=$1cpanfile.snapshot,target=cpanfile.snapshot')
+
+m4_define(
     `apt_install',
     `m4_dnl
 apt-get update && \
@@ -79,7 +93,6 @@ build-essential
 libdb-dev
 libexpat1-dev
 libicu-dev
-libperl-dev
 libpq-dev
 libssl-dev
 libxml2-dev
@@ -100,8 +113,6 @@ libicu70
 libpq5
 libssl3
 libxml2
-moreutils
-perl
 postgresql-client-12
 postgresql-server-dev-12
 zlib1g
@@ -110,18 +121,43 @@ zlib1g
 m4_define(
     `test_db_run_deps',
     `m4_dnl
-carton
 postgresql-12-pgtap
 ')
 
 m4_define(
     `test_db_build_deps',
     `m4_dnl
-gcc
-libc6-dev
-make
+build-essential
 postgresql-server-dev-12
 ')
+
+m4_define(
+    `set_perl_install_args',
+    `m4_dnl
+ARG PERL_VERSION=5.38.2
+ARG PERL_SRC_SUM=a0a31534451eb7b83c7d6594a497543a54d488bc90ca00f5e34762577f40655e')
+
+m4_define(
+    `install_perl',
+    `m4_dnl
+# Install Perl from source
+    cd /usr/src && \
+    curl -sSLO https://cpan.metacpan.org/authors/id/P/PE/PEVANS/perl-$PERL_VERSION.tar.gz && \
+    echo "$PERL_SRC_SUM *perl-$PERL_VERSION.tar.gz" | sha256sum --strict --check - && \
+    tar -xzf perl-$PERL_VERSION.tar.gz && \
+    cd - && cd /usr/src/perl-$PERL_VERSION && \
+    gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" && \
+    archBits="$(dpkg-architecture --query DEB_BUILD_ARCH_BITS)" && \
+    archFlag="$([ "$archBits" = "64" ] && echo "-Duse64bitall" || echo "-Duse64bitint")" && \
+    ./Configure \
+        -Darchname="$gnuArch" "$archFlag" \
+        -Duselargefiles -Duseshrplib -Dusethreads \
+        -Dvendorprefix=/usr/local -Dman1dir=none -Dman3dir=none \
+        -des && \
+    make -j$(nproc) && \
+    make install && \
+    cd - && \
+    rm -fr /usr/src/perl-$PERL_VERSION*')
 
 m4_define(
     `set_cpanm_and_carton_env',
@@ -151,11 +187,15 @@ m4_define(
         # Install carton (helpful with installing locked versions)
         Carton \
         # Workaround for a bug in carton with installing JSON::XS
-        JSON::XS')
+        JSON::XS \
+        && \
+    rm -fr /root/.cpanm')
 
 m4_define(
-    `install_perl_modules',
+    `install_perl_and_mbs_run_deps',
     `m4_dnl
+
+set_perl_install_args
 
 set_cpanm_and_carton_env
 
@@ -166,12 +206,37 @@ run_with_apt_cache \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt_install(`mbs_build_deps mbs_run_deps') && \
     rm -f /etc/apt/sources.list.d/pgdg.list && \
+    install_ts && \
+    install_perl && \
     install_cpanm_and_carton && \
+    # Clean build dependencies up
+    apt_purge(`mbs_build_deps')')
+
+m4_define(
+    `install_perl_modules',
+    `m4_dnl
+
+run_with_apt_cache \
+    with_cpanm_cache \
+    m4_ifelse(`$1', ` --deployment', `with_cpanfile_and_snapshot', `with_cpanfile_only') \
+    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
+    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    apt_install(`mbs_build_deps') && \
+    rm -f /etc/apt/sources.list.d/pgdg.list && \
     # Install Perl module dependencies for MusicBrainz Server
+    chown_mb(``/home/musicbrainz/.cpanm'') && \
     chown_mb(``$PERL_CARTON_PATH'') && \
     sudo_mb(``carton install$1'') && \
     # Clean build dependencies up
     apt_purge(`mbs_build_deps')')
+
+m4_define(
+    `install_ts',
+    `m4_dnl
+# Install ts (needed to run admin background task scripts locally)
+    curl -sSL https://git.joeyh.name/index.cgi/moreutils.git/plain/ts?h=0.69 -o /usr/local/bin/ts && \
+    echo "01b67f3d81e6205f01cc0ada87039293ebc56596955225300dd69ec1257124f5 */usr/local/bin/ts" | sha256sum --strict --check - && \
+    chmod +x /usr/local/bin/ts')
 
 m4_define(
     `chown_mb',

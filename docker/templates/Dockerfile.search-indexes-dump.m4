@@ -6,10 +6,9 @@ run_with_apt_cache \
 RUN chown_mb(`/home/musicbrainz/log') && \
     chown_mb(`/home/musicbrainz/search-index-dumps')
 
-COPY docker/musicbrainz-search-indexes-dump/crontab /var/spool/cron/crontabs/musicbrainz
-
-RUN chown musicbrainz:musicbrainz /var/spool/cron/crontabs/musicbrainz && \
-    chmod 600 /var/spool/cron/crontabs/musicbrainz
+COPY --chown=musicbrainz:musicbrainz --chmod=0600 \
+     docker/musicbrainz-search-indexes-dump/crontab \
+     /var/spool/cron/crontabs/musicbrainz
 
 ENV MB_CONTAINER_TYPE search-indexes-dump
 

@@ -18,12 +18,24 @@ RUN cd /tmp && \
 
 setup_mbs_root()
 
-copy_mb(`docker/musicbrainz-test-database/cpanfile docker/musicbrainz-test-database/cpanfile.snapshot ./')
+set_perl_install_args
 
-ENV PERL_CPANM_OPT --notest --no-interactive
+set_cpanm_and_carton_env
+
+set_cpanm_install_args
 
 run_with_apt_cache \
     apt_install(`test_db_build_deps test_db_run_deps') && \
+    install_perl && \
+    install_cpanm_and_carton && \
+    apt_purge(`test_db_build_deps')
+
+run_with_apt_cache \
+    with_cpanm_cache \
+    with_cpanfile_and_snapshot(``docker/musicbrainz-test-database/'') \
+    apt_install(`test_db_build_deps') && \
+    chown_mb(``/home/musicbrainz/.cpanm'') && \
+    chown_mb(``$PERL_CARTON_PATH'') && \
     sudo_mb(`carton install --deployment') && \
     apt_purge(`test_db_build_deps')
 

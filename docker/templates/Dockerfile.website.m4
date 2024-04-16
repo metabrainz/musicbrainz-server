@@ -9,25 +9,18 @@ install_translations()
 
 install_javascript_and_templates
 
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-website/template-renderer.service \
     /etc/service/template-renderer/run
-COPY \
+COPY --chmod=0755 \
     docker/musicbrainz-website/website.service \
     /etc/service/website/run
-RUN chmod 755 \
-        /etc/service/template-renderer/run \
-        /etc/service/website/run
 RUN touch \
         /etc/service/template-renderer/down \
         /etc/service/website/down
 
-COPY \
+COPY --chmod=0755 \
     docker/scripts/start_musicbrainz_server.sh \
     docker/scripts/start_template_renderer.sh \
     docker/musicbrainz-website/dbdefs_to_js.sh \
     /usr/local/bin/
-RUN chmod 755 \
-        /usr/local/bin/start_musicbrainz_server.sh \
-        /usr/local/bin/start_template_renderer.sh \
-        /usr/local/bin/dbdefs_to_js.sh
