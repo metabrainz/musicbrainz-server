@@ -51,7 +51,7 @@ export default {
        * See NormalModuleReplacementPlugin below.
        *
        * mutate-cow is allowed because it's published as an ES module, which
-       * must be converted to CommonJS. Same for po2json. 
+       * must be converted to CommonJS. Same for po2json.
        *
        * weight-balanced-tree is allowed because it needs to be transpiled to
        * remove Flow and ESM syntax; this is also fine because it's free of
