@@ -22,7 +22,7 @@ Prerequisites
     **This document will assume you are using Ubuntu (at least 14.04) for its
     instructions.**
 
-2.  Perl (at least version 5.34)
+2.  Perl (at least version 5.38)
 
     Perl comes bundled with most Linux operating systems, you can check your
     installed version of Perl with:
