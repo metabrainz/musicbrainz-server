@@ -7,6 +7,10 @@ WORKDIR /home/musicbrainz
 
 set_perl_install_args
 
+set_cpanm_and_carton_env
+
+set_cpanm_install_args
+
 run_with_apt_cache \
     --mount=type=bind,source=docker/nodesource_pubkey.txt,target=/etc/apt/keyrings/nodesource.asc \
     --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
@@ -38,13 +42,7 @@ run_with_apt_cache \
     update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
     systemctl disable rabbitmq-server && \
     install_ts && \
-    install_perl
-
-set_cpanm_and_carton_env
-
-set_cpanm_install_args
-
-RUN \
+    install_perl && \
     install_cpanm_and_carton
 
 COPY --chown=musicbrainz:musicbrainz cpanfile cpanfile.snapshot ./
