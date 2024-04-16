@@ -20,7 +20,7 @@ setup_mbs_root()
 
 set_perl_install_args
 
-ENV PERL_CPANM_OPT --notest --no-interactive
+set_cpanm_and_carton_env
 
 set_cpanm_install_args
 
