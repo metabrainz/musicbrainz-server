@@ -178,7 +178,7 @@ m4_define(
     rm -fr /root/.cpanm')
 
 m4_define(
-    `install_perl_modules',
+    `install_perl_and_mbs_run_deps',
     `m4_dnl
 
 set_perl_install_args
@@ -192,12 +192,24 @@ run_with_apt_cache \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt_install(`mbs_build_deps mbs_run_deps') && \
     rm -f /etc/apt/sources.list.d/pgdg.list && \
+    install_ts && \
     install_perl && \
     install_cpanm_and_carton && \
+    # Clean build dependencies up
+    apt_purge(`mbs_build_deps')')
+
+m4_define(
+    `install_perl_modules',
+    `m4_dnl
+
+run_with_apt_cache \
+    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
+    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    apt_install(`mbs_build_deps') && \
+    rm -f /etc/apt/sources.list.d/pgdg.list && \
     # Install Perl module dependencies for MusicBrainz Server
     chown_mb(``$PERL_CARTON_PATH'') && \
     sudo_mb(``carton install$1'') && \
-    install_ts && \
     # Clean build dependencies up
     apt_purge(`mbs_build_deps')')
 
