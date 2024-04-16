@@ -200,10 +200,8 @@ COPY --chmod=0755 \
     docker/scripts/start_template_renderer.sh \
     /usr/local/bin/
 
-COPY --chmod=0755 \
-    docker/scripts/install_svlogd_services.sh \
-    /usr/local/bin/
-RUN install_svlogd_services.sh \
+RUN --mount=type=bind,source=docker/scripts/install_svlogd_services.sh,target=/usr/local/bin/install_svlogd_services.sh \
+    install_svlogd_services.sh \
         artwork-indexer \
         artwork-redirect \
         chrome \
@@ -213,8 +211,7 @@ RUN install_svlogd_services.sh \
         ssssss \
         template-renderer \
         vnu \
-        website && \
-    rm /usr/local/bin/install_svlogd_services.sh
+        website
 
 # Allow the musicbrainz user execute any command with sudo.
 # Primarily needed to run rabbitmqctl.
