@@ -126,6 +126,7 @@ export default [
     // Possible Errors
       'for-direction': 'error',
       'no-async-promise-executor': 'error',
+      'no-await-in-loop': 'error',
       'no-cond-assign': 'warn',
       'no-constant-condition': ['error', {checkLoops: false}],
       'no-control-regex': 'off',
@@ -155,11 +156,51 @@ export default [
 
       // Best Practices
       'block-scoped-var': 'warn',
+      'camelcase': ['warn', {
+        properties: 'never',
+        allow: [
+          'l_admin',
+          'ln_admin',
+          'l_attributes',
+          'ln_attributes',
+          'lp_attributes',
+          'l_countries',
+          'ln_countries',
+          'lp_countries',
+          'l_history',
+          'l_instrument_descriptions',
+          'ln_instrument_descriptions',
+          'lp_instrument_descriptions',
+          'l_instruments',
+          'ln_instruments',
+          'lp_instruments',
+          'l_languages',
+          'ln_languages',
+          'lp_languages',
+          'l_relationships',
+          'ln_relationships',
+          'lp_relationships',
+          'l_scripts',
+          'ln_scripts',
+          'lp_scripts',
+          'l_statistics',
+          'ln_statistics',
+          'lp_statistics',
+          'N_l',
+          'N_ln',
+          'N_lp',
+          'N_l_statistics',
+          'N_lp_statistics',
+          '__webpack_public_path__',
+        ],
+      }],
       'class-methods-use-this': 'off',
       'consistent-return': 'error',
+      'consistent-this': ['warn', 'self'],
       'curly': ['error', 'all'],
       'dot-location': ['warn', 'property'],
       'dot-notation': ['warn', {allowKeywords: true}],
+      'eqeqeq': ['warn', 'smart'],
       'no-alert': 'off',
       'no-else-return': 'warn',
       'no-eq-null': 'off',
@@ -167,7 +208,10 @@ export default [
       'no-global-assign': 'error',
       'no-multi-spaces': ['error', {ignoreEOLComments: true}],
       'no-useless-catch': 'warn',
+      'no-var': 'warn',
+      'prefer-const': 'warn',
       'radix': 'warn',
+      'sort-keys': ['warn', 'asc', {caseSensitive: false, natural: true}],
 
       // Strict Mode
       'strict': 'off',
@@ -273,6 +317,7 @@ export default [
       }],
       'switch-colon-spacing': ['warn', {after: true, before: false}],
       'template-tag-spacing': ['warn', 'never'],
+      'wrap-iife': 'warn',
 
       // ECMAScript 6
       'constructor-super': 'error',
@@ -323,6 +368,8 @@ export default [
       'react/forbid-elements': 'off',
       'react/forbid-prop-types': 'off',
       'react/forbid-foreign-prop-types': 'off',
+      'react/jsx-no-bind': ['warn', {ignoreDOMComponents: true}],
+      'react/no-access-state-in-setstate': 'error',
       'react/no-array-index-key': 'off',
       'react/no-children-prop': 'error',
       'react/no-danger': 'off',
@@ -337,7 +384,9 @@ export default [
       'react/no-direct-mutation-state': 'error',
       'react/no-find-dom-node': 'warn',
       'react/no-is-mounted': 'warn',
+      'react/no-multi-comp': ['warn', {ignoreStateless: true}],
       'react/no-redundant-should-component-update': 'error',
+      'react/no-render-return-value': 'warn',
       'react/no-set-state': 'off',
       'react/no-typos': 'error',
       'react/no-string-refs': 'warn',
@@ -474,6 +523,144 @@ export default [
         ignoreTemplateLiterals: false,
         ignoreRegExpLiterals: true,
       }],
+    },
+  },
+  /*
+   * The following sections disable rules we want to enforce, but haven't
+   * fixed everywhere, only in files with existing issues. This allows us
+   * to enforce them elsewhere in the meantime.
+   * If you fix one rule in any of the files in these sections, please remove
+   * the file from the list; if you fix the last file, remove the section.
+   */
+  {
+    files: [
+      'root/static/scripts/edit/components/withLoadedTypeInfo.js',
+      'root/static/scripts/release/components/ReleaseRelationshipEditor.js',
+    ],
+    rules: {
+      'no-await-in-loop': 'off',
+    },
+  },
+  {
+    files: [
+      'root/static/scripts/common/MB/Control/Autocomplete.js',
+      'root/static/scripts/edit/MB/CoverArt.js',
+      'root/static/scripts/guess-case/MB/Control/GuessCase.js',
+      'root/static/scripts/jquery.flot.musicbrainz_events.js',
+      'root/static/scripts/release-editor/**/*',
+      'root/static/scripts/timeline.js',
+    ],
+    rules: {
+      'eqeqeq': 'off',
+    },
+  },
+  {
+    files: [
+      'root/static/scripts/jquery.flot.musicbrainz_events.js',
+      'root/static/scripts/timeline.js',
+    ],
+    rules: {
+      'wrap-iife': 'off',
+    },
+  },
+  {
+    files: [
+      'root/static/scripts/common/MB/**/*',
+      'root/static/scripts/edit/MB/**/*',
+    ],
+    rules: {
+      'consistent-this': 'off',
+    },
+  },
+  {
+    files: [
+      'root/static/scripts/common/MB/**/*',
+      'root/static/scripts/common/artworkViewer.js',
+      'root/static/scripts/common/coverart.js',
+      'root/static/scripts/common/utility/request.js',
+      'root/static/scripts/edit/MB/**/*',
+      'root/static/scripts/edit/forms.js',
+      'root/static/scripts/guess-case/MB/Control/GuessCase.js',
+      'root/static/scripts/jquery.flot.musicbrainz_events.js',
+      'root/static/scripts/release-editor/**/*',
+      'root/static/scripts/series/edit.js',
+      'root/static/scripts/timeline.js',
+    ],
+    rules: {
+      'no-var': 'off',
+    },
+  },
+  {
+    files: [
+      'root/static/scripts/common/components/Modal.js',
+      'root/static/scripts/edit/ExampleRelationships.js',
+    ],
+    rules: {
+      'prefer-const': 'off',
+    },
+  },
+  {
+    files: [
+      'root/server/components.mjs',
+      'root/static/scripts/common/MB.js',
+      'root/static/scripts/common/MB/**/*',
+      'root/static/scripts/common/artworkViewer.js',
+      'root/static/scripts/common/components/ButtonPopover.js',
+      'root/static/scripts/edit/MB/**/*',
+      'root/static/scripts/edit/forms.js',
+      'root/static/scripts/edit/utility/editDiff.js',
+      'root/static/scripts/guess-case/MB/Control/GuessCase.js',
+      'root/static/scripts/jquery.flot.musicbrainz_events.js',
+      'root/static/scripts/relationship-editor/components/RelationshipDialogContent.js',
+      'root/static/scripts/release-editor/**/*',
+      'root/static/scripts/release/components/BatchCreateWorksDialog.js',
+      'root/static/scripts/series/edit.js',
+      'root/static/scripts/timeline.js',
+      'root/utility/activeSanitizedEditor.mjs',
+    ],
+    rules: {
+      'sort-keys': 'off',
+    },
+  },
+  {
+    files: [
+      'root/static/scripts/common/components/TagEditor.js',
+      'root/static/scripts/edit/externalLinks.js',
+    ],
+    rules: {
+      'react/no-access-state-in-setstate': 'off',
+    },
+  },
+  {
+    files: [
+      'root/static/scripts/edit/externalLinks.js',
+    ],
+    rules: {
+      'react/no-multi-comp': 'off',
+    },
+  },
+  {
+    files: [
+      'root/search/components/ArtistResults.js',
+      'root/search/components/InstrumentResults.js',
+      'root/search/components/RecordingResults.js',
+      'root/search/components/ReleaseResults.js',
+      'root/search/components/WorkResults.js',
+      'root/static/scripts/account/components/EditProfileForm.js',
+      'root/static/scripts/account/components/RegisterForm.js',
+      'root/static/scripts/common/components/TagEditor.js',
+      'root/static/scripts/edit/check-duplicates.js',
+      'root/static/scripts/edit/components/ExternalLinkAttributeDialog.js',
+      'root/static/scripts/edit/components/FormRowNameWithGuessCase.js',
+      'root/static/scripts/edit/components/FormRowSelectList.js',
+      'root/static/scripts/edit/components/ReleaseMergeStrategy.js',
+      'root/static/scripts/edit/components/URLInputPopover.js',
+      'root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js',
+      'root/static/scripts/edit/externalLinks.js',
+      'root/static/scripts/relationship-editor/components/DialogPreview.js',
+    ],
+    rules: {
+      'react/jsx-no-bind': 'off',
     },
   },
 ];
