@@ -27,12 +27,14 @@ set_cpanm_install_args
 run_with_apt_cache \
     apt_install(`test_db_build_deps test_db_run_deps') && \
     install_perl && \
+    chown_mb(``/home/musicbrainz/.cpanm'') && \
     install_cpanm_and_carton && \
     apt_purge(`test_db_build_deps')
 
 copy_mb(`docker/musicbrainz-test-database/cpanfile docker/musicbrainz-test-database/cpanfile.snapshot ./')
 
 run_with_apt_cache \
+    with_cpanm_cache \
     apt_install(`test_db_build_deps') && \
     sudo_mb(`carton install --deployment') && \
     apt_purge(`test_db_build_deps')

@@ -14,6 +14,10 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked')
 
 m4_define(
+    `with_cpanm_cache',
+    `--mount=type=cache,target=/home/musicbrainz/.cpanm,sharing=locked')
+
+m4_define(
     `apt_install',
     `m4_dnl
 apt-get update && \
@@ -203,11 +207,13 @@ m4_define(
     `m4_dnl
 
 run_with_apt_cache \
+    with_cpanm_cache \
     --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt_install(`mbs_build_deps') && \
     rm -f /etc/apt/sources.list.d/pgdg.list && \
     # Install Perl module dependencies for MusicBrainz Server
+    chown_mb(``/home/musicbrainz/.cpanm'') && \
     chown_mb(``$PERL_CARTON_PATH'') && \
     sudo_mb(``carton install$1'') && \
     # Clean build dependencies up
