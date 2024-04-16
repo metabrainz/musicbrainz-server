@@ -8,7 +8,7 @@ branch_filters: &job_filters
 executors:
   musicbrainz-tests:
     docker:
-      - image: metabrainz/musicbrainz-tests:v-2024-01.419
+      - image: metabrainz/musicbrainz-tests:v-2024-04.perl5.38
         user: root
     working_directory: /home/musicbrainz/musicbrainz-server
 
