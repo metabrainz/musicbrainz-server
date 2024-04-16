@@ -18,6 +18,16 @@ m4_define(
     `--mount=type=cache,target=/home/musicbrainz/.cpanm,sharing=locked')
 
 m4_define(
+    `with_cpanfile_only',
+    `--mount=type=bind,source=$1cpanfile,target=cpanfile')
+
+m4_define(
+    `with_cpanfile_and_snapshot',
+    `m4_dnl
+--mount=type=bind,source=$1cpanfile,target=cpanfile \
+    --mount=type=bind,source=$1cpanfile.snapshot,target=cpanfile.snapshot')
+
+m4_define(
     `apt_install',
     `m4_dnl
 apt-get update && \
@@ -208,6 +218,7 @@ m4_define(
 
 run_with_apt_cache \
     with_cpanm_cache \
+    m4_ifelse(`$1', ` --deployment', `with_cpanfile_and_snapshot', `with_cpanfile_only') \
     --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt_install(`mbs_build_deps') && \
