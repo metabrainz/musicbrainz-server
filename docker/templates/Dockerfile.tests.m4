@@ -49,6 +49,7 @@ COPY --chown=musicbrainz:musicbrainz cpanfile cpanfile.snapshot ./
 # Install Perl module dependencies for MusicBrainz Server
 RUN with_cpanm_cache \
     chown_mb(``/home/musicbrainz/.cpanm'') && \
+    chown_mb(``$PERL_CARTON_PATH'') && \
     sudo -E -H -u musicbrainz carton install --deployment && \
     rm cpanfile cpanfile.snapshot
 
