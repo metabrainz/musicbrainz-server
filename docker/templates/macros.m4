@@ -79,7 +79,6 @@ build-essential
 libdb-dev
 libexpat1-dev
 libicu-dev
-libperl-dev
 libpq-dev
 libssl-dev
 libxml2-dev
@@ -100,7 +99,6 @@ libicu70
 libpq5
 libssl3
 libxml2
-perl
 postgresql-client-12
 postgresql-server-dev-12
 zlib1g
@@ -109,18 +107,43 @@ zlib1g
 m4_define(
     `test_db_run_deps',
     `m4_dnl
-perl
 postgresql-12-pgtap
 ')
 
 m4_define(
     `test_db_build_deps',
     `m4_dnl
-gcc
-libc6-dev
-make
+build-essential
 postgresql-server-dev-12
 ')
+
+m4_define(
+    `set_perl_install_args',
+    `m4_dnl
+ARG PERL_VERSION=5.38.2
+ARG PERL_SRC_SUM=a0a31534451eb7b83c7d6594a497543a54d488bc90ca00f5e34762577f40655e')
+
+m4_define(
+    `install_perl',
+    `m4_dnl
+# Install Perl from source
+    cd /usr/src && \
+    curl -sSLO https://cpan.metacpan.org/authors/id/P/PE/PEVANS/perl-$PERL_VERSION.tar.gz && \
+    echo "$PERL_SRC_SUM *perl-$PERL_VERSION.tar.gz" | sha256sum --strict --check - && \
+    tar -xzf perl-$PERL_VERSION.tar.gz && \
+    cd - && cd /usr/src/perl-$PERL_VERSION && \
+    gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" && \
+    archBits="$(dpkg-architecture --query DEB_BUILD_ARCH_BITS)" && \
+    archFlag="$([ "$archBits" = "64" ] && echo "-Duse64bitall" || echo "-Duse64bitint")" && \
+    ./Configure \
+        -Darchname="$gnuArch" "$archFlag" \
+        -Duselargefiles -Duseshrplib -Dusethreads \
+        -Dvendorprefix=/usr/local -Dman1dir=none -Dman3dir=none \
+        -des && \
+    make -j$(nproc) && \
+    make install && \
+    cd - && \
+    rm -fr /usr/src/perl-$PERL_VERSION*')
 
 m4_define(
     `set_cpanm_and_carton_env',
@@ -156,6 +179,8 @@ m4_define(
     `install_perl_modules',
     `m4_dnl
 
+set_perl_install_args
+
 set_cpanm_and_carton_env
 
 set_cpanm_install_args
@@ -165,6 +190,7 @@ run_with_apt_cache \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt_install(`mbs_build_deps mbs_run_deps') && \
     rm -f /etc/apt/sources.list.d/pgdg.list && \
+    install_perl && \
     install_cpanm_and_carton && \
     # Install Perl module dependencies for MusicBrainz Server
     chown_mb(``$PERL_CARTON_PATH'') && \

@@ -5,6 +5,8 @@ RUN useradd --create-home --shell /bin/bash musicbrainz
 
 WORKDIR /home/musicbrainz
 
+set_perl_install_args
+
 run_with_apt_cache \
     --mount=type=bind,source=docker/nodesource_pubkey.txt,target=/etc/apt/keyrings/nodesource.asc \
     --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
@@ -35,7 +37,8 @@ run_with_apt_cache \
         /etc/apt/sources.list.d/pgdg.list && \
     update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
     systemctl disable rabbitmq-server && \
-    install_ts
+    install_ts && \
+    install_perl
 
 set_cpanm_and_carton_env
 
