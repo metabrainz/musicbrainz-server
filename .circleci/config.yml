@@ -12,12 +12,6 @@ executors:
         user: root
     working_directory: /home/musicbrainz/musicbrainz-server
 
-  musicbrainz-tests-perl-5-dot-30:
-    docker:
-      - image: metabrainz/musicbrainz-tests:v-2024-01.419-perl5.30
-        user: root
-    working_directory: /home/musicbrainz/musicbrainz-server
-
 jobs:
   js-perl-and-pgtap:
     environment:
@@ -59,49 +53,9 @@ jobs:
       - store_test_results:
           path: ./junit_output
 
-  js-perl-and-pgtap-perl-5-dot-30:
-    executor: musicbrainz-tests-perl-5-dot-30
-    steps:
-      - restore_cache:
-          keys:
-            - v1-source-{{ .Branch }}-{{ .Revision }}
-            - v1-source-{{ .Branch }}-
-            - v1-source-
-      - checkout
-      - run: |
-          chown -R musicbrainz:musicbrainz .
-          # The checkout step configures git to skip gc, so we run it
-          # here to reduce .git's size before saving it to cache.
-          sudo -E -H -u musicbrainz git gc
-      - save_cache:
-          key: v1-source-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - ".git"
-
-      - restore_cache:
-          keys:
-            - v2-perl-5-dot-30-{{ checksum "yarn.lock" }}
-            - v2-perl-5-dot-30-
-      - run: |
-          chown -R musicbrainz:musicbrainz .
-          corepack enable
-          sudo -E -H -u musicbrainz yarn
-      - save_cache:
-          key: v2-perl-5-dot-30-{{ checksum "yarn.lock" }}
-          paths:
-            - "node_modules"
-
-      - run: |
-          ./docker/musicbrainz-tests/run_circleci_tests.sh
-
-      - store_test_results:
-          path: ./junit_output
-
 workflows:
   version: 2.1
   build-and-test:
     jobs:
       - js-perl-and-pgtap:
-        <<: *job_filters
-      - js-perl-and-pgtap-perl-5-dot-30:
         <<: *job_filters
