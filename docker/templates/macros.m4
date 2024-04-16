@@ -100,7 +100,6 @@ libicu70
 libpq5
 libssl3
 libxml2
-moreutils
 perl
 postgresql-client-12
 postgresql-server-dev-12
@@ -170,8 +169,17 @@ run_with_apt_cache \
     # Install Perl module dependencies for MusicBrainz Server
     chown_mb(``$PERL_CARTON_PATH'') && \
     sudo_mb(``carton install$1'') && \
+    install_ts && \
     # Clean build dependencies up
     apt_purge(`mbs_build_deps')')
+
+m4_define(
+    `install_ts',
+    `m4_dnl
+# Install ts (needed to run admin background task scripts locally)
+    curl -sSL https://git.joeyh.name/index.cgi/moreutils.git/plain/ts?h=0.69 -o /usr/local/bin/ts && \
+    echo "01b67f3d81e6205f01cc0ada87039293ebc56596955225300dd69ec1257124f5 */usr/local/bin/ts" | sha256sum --strict --check - && \
+    chmod +x /usr/local/bin/ts')
 
 m4_define(
     `chown_mb',

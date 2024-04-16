@@ -34,7 +34,8 @@ run_with_apt_cache \
     rm -f /etc/apt/sources.list.d/nodesource.list \
         /etc/apt/sources.list.d/pgdg.list && \
     update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
-    systemctl disable rabbitmq-server
+    systemctl disable rabbitmq-server && \
+    install_ts
 
 set_cpanm_and_carton_env
 
