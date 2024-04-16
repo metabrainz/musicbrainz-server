@@ -45,8 +45,7 @@ set_cpanm_and_carton_env
 set_cpanm_install_args
 
 RUN \
-    install_cpanm_and_carton && \
-    rm -rf /root/.cpanm
+    install_cpanm_and_carton
 
 COPY --chown=musicbrainz:musicbrainz cpanfile cpanfile.snapshot ./
 # Install Perl module dependencies for MusicBrainz Server

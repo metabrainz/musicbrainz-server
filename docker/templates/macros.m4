@@ -173,7 +173,9 @@ m4_define(
         # Install carton (helpful with installing locked versions)
         Carton \
         # Workaround for a bug in carton with installing JSON::XS
-        JSON::XS')
+        JSON::XS \
+        && \
+    rm -fr /root/.cpanm')
 
 m4_define(
     `install_perl_modules',
