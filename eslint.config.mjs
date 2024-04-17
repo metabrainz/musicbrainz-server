@@ -402,6 +402,7 @@ export default [
         props: 'never',
         children: 'ignore',
       }],
+      '@stylistic/jsx/jsx-curly-newline': 'error',
       '@stylistic/jsx/jsx-curly-spacing': ['error', {
         when: 'never',
         children: true,

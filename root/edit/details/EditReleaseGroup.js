@@ -53,7 +53,8 @@ component EditReleaseGroup(edit: EditReleaseGroupEditT) {
           label={
             (newType?.historic || oldType?.historic)
               ? addColonText(l('Type'))
-              : addColonText(l('Primary type'))}
+              : addColonText(l('Primary type'))
+          }
           newContent={newType?.name
             ? (
               newType?.historic

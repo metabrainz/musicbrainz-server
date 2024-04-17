@@ -74,7 +74,8 @@ function buildReleaseStatusTable(
           <td className={
             releaseGroupCreditId === release.artistCredit.id
               ? null
-              : 'artist-credit-variation'}
+              : 'artist-credit-variation'
+          }
           >
             <ArtistCreditLink artistCredit={release.artistCredit} />
           </td>

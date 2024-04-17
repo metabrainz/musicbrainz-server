@@ -158,7 +158,8 @@ component _DialogEntityCredit(
                 <label>
                   <input
                     checked={
-                      state.creditsToChange === 'same-relationship-type'}
+                      state.creditsToChange === 'same-relationship-type'
+                    }
                     name="changed-credits"
                     onChange={handleChangedCreditsSelection}
                     type="radio"

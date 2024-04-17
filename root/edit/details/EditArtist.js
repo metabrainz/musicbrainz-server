@@ -81,9 +81,11 @@ component EditArtist(edit: EditArtistEditT) {
             <FullChangeDiff
               label={addColonText(l('Type'))}
               newContent={
-                type.new ? lp_attributes(type.new.name, 'artist_type') : ''}
+                type.new ? lp_attributes(type.new.name, 'artist_type') : ''
+              }
               oldContent={
-                type.old ? lp_attributes(type.old.name, 'artist_type') : ''}
+                type.old ? lp_attributes(type.old.name, 'artist_type') : ''
+              }
             />
           ) : null}
           {gender ? (
@@ -92,20 +94,24 @@ component EditArtist(edit: EditArtistEditT) {
               newContent={
                 gender.new?.name
                   ? lp_attributes(gender.new.name, 'gender')
-                  : ''}
+                  : ''
+              }
               oldContent={
                 gender.old?.name
                   ? lp_attributes(gender.old.name, 'gender')
-                  : ''}
+                  : ''
+              }
             />
           ) : null}
           {area ? (
             <FullChangeDiff
               label={addColonText(l('Area'))}
               newContent={
-                area.new ? <DescriptiveLink entity={area.new} /> : null}
+                area.new ? <DescriptiveLink entity={area.new} /> : null
+              }
               oldContent={
-                area.old ? <DescriptiveLink entity={area.old} /> : null}
+                area.old ? <DescriptiveLink entity={area.old} /> : null
+              }
             />
           ) : null}
           {beginDate ? (
@@ -122,11 +128,13 @@ component EditArtist(edit: EditArtistEditT) {
               newContent={
                 beginArea.new
                   ? <DescriptiveLink entity={beginArea.new} />
-                  : null}
+                  : null
+              }
               oldContent={
                 beginArea.old
                   ? <DescriptiveLink entity={beginArea.old} />
-                  : null}
+                  : null
+              }
             />
           ) : null}
           {endDate ? (
@@ -141,9 +149,11 @@ component EditArtist(edit: EditArtistEditT) {
             <FullChangeDiff
               label={artistEndAreaLabel(displayTypeId)}
               newContent={
-                endArea.new ? <DescriptiveLink entity={endArea.new} /> : null}
+                endArea.new ? <DescriptiveLink entity={endArea.new} /> : null
+              }
               oldContent={
-                endArea.old ? <DescriptiveLink entity={endArea.old} /> : null}
+                endArea.old ? <DescriptiveLink entity={endArea.old} /> : null
+              }
             />
           ) : null}
           {ended ? (

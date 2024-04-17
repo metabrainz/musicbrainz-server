@@ -236,7 +236,8 @@ const ArtistCreditRenamer = ({
       <div
         className={
           'collapsible-body' +
-          ((tooManyRows && !state.expanded) ? ' collapsed' : '')}
+          ((tooManyRows && !state.expanded) ? ' collapsed' : '')
+        }
         key="artist-credits"
         style={MARGIN_1EM}
       >

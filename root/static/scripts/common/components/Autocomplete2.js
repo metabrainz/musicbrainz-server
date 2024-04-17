@@ -733,7 +733,8 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
     <div
       className={
         'autocomplete2' +
-        (nonEmpty(containerClass) ? ' ' + containerClass : '')}
+        (nonEmpty(containerClass) ? ' ' + containerClass : '')
+      }
       onBlur={handleBlur}
       ref={node => {
         containerRef.current = node;

@@ -136,8 +136,7 @@ component ReleaseGroupList(...props: React.PropsOf<ReleaseGroupListTable>) {
         <h3>
           {type === ''
             ? l('Unspecified type')
-            : releaseGroupType(releaseGroupsOfType[0])
-          }
+            : releaseGroupType(releaseGroupsOfType[0])}
         </h3>
         <ReleaseGroupListTable
           {...props}

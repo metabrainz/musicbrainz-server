@@ -68,8 +68,7 @@ component RecordingAppearancesTable(
                 <th colSpan={$c.session?.tport == null ? 10 : 11}>
                   {status
                     ? lp_attributes(status.name, 'release_status')
-                    : lp('(unknown)', 'release status')
-                  }
+                    : lp('(unknown)', 'release status')}
                 </th>
               </tr>
               {tracksWithReleaseStatus.map((track, index) => {
@@ -99,7 +98,8 @@ component RecordingAppearancesTable(
                     <td className={
                       track.artistCredit.id === recording.artistCredit.id
                         ? null
-                        : 'artist-credit-variation'}
+                        : 'artist-credit-variation'
+                    }
                     >
                       <ArtistCreditLink artistCredit={track.artistCredit} />
                     </td>
