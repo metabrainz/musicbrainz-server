@@ -1,25 +1,73 @@
 m4_divert(-1)
 
 m4_define(
+    `keep_apt_cache',
+    `m4_dnl
+rm -f /etc/apt/apt.conf.d/docker-clean && \
+    echo Binary::apt::APT::Keep-Downloaded-Packages \"true\"\; \
+        > /etc/apt/apt.conf.d/keep-cache')
+
+m4_define(
+    `run_with_apt_cache',
+    `m4_dnl
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked')
+
+m4_define(
+    `with_cpanm_cache',
+    `--mount=type=cache,target=/home/musicbrainz/.cpanm,sharing=locked')
+
+m4_define(
+    `with_cpanfile_only',
+    `--mount=type=bind,source=$1cpanfile,target=cpanfile')
+
+m4_define(
+    `with_cpanfile_and_snapshot',
+    `m4_dnl
+--mount=type=bind,source=$1cpanfile,target=cpanfile \
+    --mount=type=bind,source=$1cpanfile.snapshot,target=cpanfile.snapshot')
+
+m4_define(
     `apt_install',
     `m4_dnl
 apt-get update && \
-    apt-get install --no-install-suggests --no-install-recommends -y $1 && \
-    rm -rf /var/lib/apt/lists/*')
+    apt-get install --no-install-suggests --no-install-recommends -y \
+m4_patsubst(m4_patsubst(m4_patsubst(m4_patsubst(m4_dnl
+m4_patsubst(m4_patsubst(m4_dnl
+m4_patsubst($1, `^ +', `'), `
+', ` '), ` +$', `'), ` +', `
+'), `^', `        '), `
+', ` \\
+'), ` $', `')')
 
-m4_define(`apt_purge', `apt-get purge --auto-remove -y $1')
+m4_define(`apt_purge', `apt-get purge --auto-remove -y \
+m4_patsubst(m4_patsubst(m4_patsubst(m4_patsubst(m4_dnl
+m4_patsubst(m4_patsubst(m4_dnl
+m4_patsubst($1, `^ +', `'), `
+', ` '), ` +$', `'), ` +', `
+'), `^', `        '), `
+', ` \\
+'), ` $', `')')
 
 m4_define(`sudo_mb', `sudo -E -H -u musicbrainz $1')
 
 m4_define(
+    `mbs_javascript_deps',
+    `m4_dnl
+git
+nodejs
+python3-minimal
+')
+
+m4_define(
     `install_javascript',
     `m4_dnl
-COPY docker/nodesource_pubkey.txt /tmp/
 copy_mb(``package.json yarn.lock .yarnrc.yml ./'')
-RUN cp /tmp/nodesource_pubkey.txt /etc/apt/keyrings/nodesource.asc && \
-    rm /tmp/nodesource_pubkey.txt && \
+run_with_apt_cache \
+    --mount=type=bind,source=docker/nodesource_pubkey.txt,target=/etc/apt/keyrings/nodesource.asc \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
-    apt_install(``git nodejs python3-minimal'') && \
+    apt_install(`git nodejs python3-minimal') && \
+    rm -f /etc/apt/sources.list.d/nodesource.list && \
     corepack enable && \
     sudo_mb(``yarn'')
 copy_mb(``babel.config.cjs ./'')')
@@ -41,66 +89,154 @@ RUN chown_mb(``/tmp/ttc'')')
 m4_define(
     `mbs_build_deps',
     `m4_dnl
-build-essential m4_dnl
-libdb-dev m4_dnl
-libexpat1-dev m4_dnl
-libicu-dev m4_dnl
-libperl-dev m4_dnl
-libpq-dev m4_dnl
-libssl-dev m4_dnl
-libxml2-dev m4_dnl
-zlib1g-dev m4_dnl
-pkg-config')
+build-essential
+libdb-dev
+libexpat1-dev
+libicu-dev
+libpq-dev
+libssl-dev
+libxml2-dev
+zlib1g-dev
+pkg-config
+')
 
 # postgresql-server-dev-12 provides pg_config, which is needed by InitDb.pl
 # at run-time.
 m4_define(
     `mbs_run_deps',
     `m4_dnl
-bzip2 m4_dnl
-ca-certificates m4_dnl
-libdb5.3 m4_dnl
-libexpat1 m4_dnl
-libicu70 m4_dnl
-libpq5 m4_dnl
-libssl3 m4_dnl
-libxml2 m4_dnl
-moreutils m4_dnl
-perl m4_dnl
-postgresql-client-12 m4_dnl
-postgresql-server-dev-12 m4_dnl
-zlib1g')
+bzip2
+ca-certificates
+libdb5.3
+libexpat1
+libicu70
+libpq5
+libssl3
+libxml2
+postgresql-client-12
+postgresql-server-dev-12
+zlib1g
+')
 
 m4_define(
     `test_db_run_deps',
     `m4_dnl
-carton m4_dnl
-postgresql-12-pgtap')
+postgresql-12-pgtap
+')
 
 m4_define(
     `test_db_build_deps',
     `m4_dnl
-gcc m4_dnl
-libc6-dev m4_dnl
-make m4_dnl
-postgresql-server-dev-12')
+build-essential
+postgresql-server-dev-12
+')
+
+m4_define(
+    `set_perl_install_args',
+    `m4_dnl
+ARG PERL_VERSION=5.38.2
+ARG PERL_SRC_SUM=a0a31534451eb7b83c7d6594a497543a54d488bc90ca00f5e34762577f40655e')
+
+m4_define(
+    `install_perl',
+    `m4_dnl
+# Install Perl from source
+    cd /usr/src && \
+    curl -sSLO https://cpan.metacpan.org/authors/id/P/PE/PEVANS/perl-$PERL_VERSION.tar.gz && \
+    echo "$PERL_SRC_SUM *perl-$PERL_VERSION.tar.gz" | sha256sum --strict --check - && \
+    tar -xzf perl-$PERL_VERSION.tar.gz && \
+    cd - && cd /usr/src/perl-$PERL_VERSION && \
+    gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" && \
+    archBits="$(dpkg-architecture --query DEB_BUILD_ARCH_BITS)" && \
+    archFlag="$([ "$archBits" = "64" ] && echo "-Duse64bitall" || echo "-Duse64bitint")" && \
+    ./Configure \
+        -Darchname="$gnuArch" "$archFlag" \
+        -Duselargefiles -Duseshrplib -Dusethreads \
+        -Dvendorprefix=/usr/local -Dman1dir=none -Dman3dir=none \
+        -des && \
+    make -j$(nproc) && \
+    make install && \
+    cd - && \
+    rm -fr /usr/src/perl-$PERL_VERSION*')
+
+m4_define(
+    `set_cpanm_and_carton_env',
+    `m4_dnl
+ENV PERL_CARTON_PATH="/home/musicbrainz/carton-local" \
+    PERL_CPANM_OPT="--notest --no-interactive"')
+
+m4_define(
+    `set_cpanm_install_args',
+    `m4_dnl
+ARG CPANMINUS_VERSION=1.7047
+ARG CPANMINUS_SRC_SUM=963e63c6e1a8725ff2f624e9086396ae150db51dd0a337c3781d09a994af05a5')
+
+m4_define(
+    `install_cpanm_and_carton',
+    `m4_dnl
+# Install cpanm (helpful with installing other Perl modules)
+    cd /usr/src && \
+    curl -sSLO https://www.cpan.org/authors/id/M/MI/MIYAGAWA/App-cpanminus-$CPANMINUS_VERSION.tar.gz && \
+    echo "$CPANMINUS_SRC_SUM *App-cpanminus-$CPANMINUS_VERSION.tar.gz" | sha256sum --strict --check - && \
+    tar -xzf App-cpanminus-$CPANMINUS_VERSION.tar.gz && \
+    cd - && cd /usr/src/App-cpanminus-$CPANMINUS_VERSION && \
+    perl bin/cpanm . && \
+    cd - && \
+    rm -fr /usr/src/App-cpanminus-$CPANMINUS_VERSION* && \
+    cpanm \
+        # Install carton (helpful with installing locked versions)
+        Carton \
+        # Workaround for a bug in carton with installing JSON::XS
+        JSON::XS \
+        && \
+    rm -fr /root/.cpanm')
+
+m4_define(
+    `install_perl_and_mbs_run_deps',
+    `m4_dnl
+
+set_perl_install_args
+
+set_cpanm_and_carton_env
+
+set_cpanm_install_args
+
+run_with_apt_cache \
+    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
+    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    apt_install(`mbs_build_deps mbs_run_deps') && \
+    rm -f /etc/apt/sources.list.d/pgdg.list && \
+    install_ts && \
+    install_perl && \
+    install_cpanm_and_carton && \
+    # Clean build dependencies up
+    apt_purge(`mbs_build_deps')')
 
 m4_define(
     `install_perl_modules',
     `m4_dnl
-ENV PERL_CARTON_PATH /home/musicbrainz/carton-local
-ENV PERL_CPANM_OPT --notest --no-interactive
 
-COPY docker/pgdg_pubkey.txt /tmp/
-RUN cp /tmp/pgdg_pubkey.txt /etc/apt/keyrings/pgdg.asc && \
-    rm /tmp/pgdg_pubkey.txt && \
+run_with_apt_cache \
+    with_cpanm_cache \
+    m4_ifelse(`$1', ` --deployment', `with_cpanfile_and_snapshot', `with_cpanfile_only') \
+    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-    apt_install(`mbs_build_deps mbs_run_deps') && \
-    wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
-    cpanm Carton JSON::XS && \
+    apt_install(`mbs_build_deps') && \
+    rm -f /etc/apt/sources.list.d/pgdg.list && \
+    # Install Perl module dependencies for MusicBrainz Server
+    chown_mb(``/home/musicbrainz/.cpanm'') && \
     chown_mb(``$PERL_CARTON_PATH'') && \
     sudo_mb(``carton install$1'') && \
+    # Clean build dependencies up
     apt_purge(`mbs_build_deps')')
+
+m4_define(
+    `install_ts',
+    `m4_dnl
+# Install ts (needed to run admin background task scripts locally)
+    curl -sSL https://git.joeyh.name/index.cgi/moreutils.git/plain/ts?h=0.69 -o /usr/local/bin/ts && \
+    echo "01b67f3d81e6205f01cc0ada87039293ebc56596955225300dd69ec1257124f5 */usr/local/bin/ts" | sha256sum --strict --check - && \
+    chmod +x /usr/local/bin/ts')
 
 m4_define(
     `chown_mb',
@@ -124,10 +260,29 @@ WORKDIR MBS_ROOT
 RUN chown_mb(`MBS_ROOT')')
 
 m4_define(
+    `mbs_translations_deps',
+    `m4_dnl
+gettext
+language-pack-de
+language-pack-el
+language-pack-es
+language-pack-et
+language-pack-fi
+language-pack-fr
+language-pack-he
+language-pack-it
+language-pack-ja
+language-pack-nl
+language-pack-sq
+make
+')
+
+m4_define(
     `install_translations',
     `m4_dnl
 copy_mb(``po/ po/'')
-RUN apt_install(``gettext language-pack-de language-pack-el language-pack-es language-pack-et language-pack-fi language-pack-fr language-pack-he language-pack-it language-pack-ja language-pack-nl language-pack-sq make'') && \
+run_with_apt_cache \
+    apt_install(`mbs_translations_deps') && \
     sudo_mb(``make -C po all_quiet'') && \
     sudo_mb(``make -C po deploy'')')
 
@@ -149,26 +304,33 @@ m4_changequote`'m4_dnl
 ENV `GIT_SHA' GIT_SHA')
 
 m4_define(
-    `install_new_xz_utils',
+    `chrome_for_testing_deps',
     `m4_dnl
-COPY docker/lasse_collin_pubkey.txt /tmp/
+libgbm1
+libxkbcommon0
+')
 
-RUN apt_install(``autoconf automake build-essential gettext libtool'') && \
-    cd /tmp && \
-    sudo_mb(``gpg --import lasse_collin_pubkey.txt'') && \
-    rm lasse_collin_pubkey.txt && \
-    wget https://tukaani.org/xz/xz-5.2.3.tar.gz && \
-    wget https://tukaani.org/xz/xz-5.2.3.tar.gz.sig && \
-    sudo_mb(``gpg --verify xz-5.2.3.tar.gz.sig'') && \
-    rm xz-5.2.3.tar.gz.sig && \
-    tar xvzf xz-5.2.3.tar.gz && \
-    cd xz-5.2.3 && \
-    ./configure --disable-shared --prefix=/usr/local/ && \
-    make && \
-    make install && \
-    cd ../ && \
-    rm -r xz-5.2.3* && \
-    apt_purge(``autoconf automake libtool'') && \
-    cd /home/musicbrainz')
+m4_define(
+    `search_deps',
+    `m4_dnl
+lsof
+maven
+openjdk-8-jdk
+openjdk-8-jre
+python2
+python2-dev
+rabbitmq-server
+virtualenv
+')
+
+m4_define(
+    `selenium_caa_deps',
+    `m4_dnl
+python3
+python3-dev
+python3-distutils
+python3-venv
+software-properties-common
+')
 
 m4_divert`'m4_dnl

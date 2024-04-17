@@ -4,15 +4,7 @@
 /admin/apache/vh_mb_frontend.conf
 /admin/apache/startup.pl
 /admin/replication/hooks/post-process
-/docker/Dockerfile.cpanfile-snapshot
-/docker/Dockerfile.json-dump
-/docker/Dockerfile.production-cron
-/docker/Dockerfile.search-indexes-dump
-/docker/Dockerfile.sitemaps
-/docker/Dockerfile.test-database
-/docker/Dockerfile.webservice
-/docker/Dockerfile.website
-/docker/Dockerfile.website-test
+/docker/Dockerfile.*
 /root/robots.txt
 # Symlinks to node_modules/leaflet/
 /root/static/images/leaflet/layers-2x.png

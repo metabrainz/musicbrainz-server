@@ -27,7 +27,7 @@ SOLR_CORES=(
 )
 
 for CORE in "${SOLR_CORES[@]}"; do
-    curl \
+    curl -sSL \
         "$SEARCH_SERVER/$CORE/update?softCommit=true" \
         --header 'Content-type: text/xml' \
         --data-binary '<delete><query>*:*</query></delete>'

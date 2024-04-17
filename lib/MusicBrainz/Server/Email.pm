@@ -4,7 +4,7 @@ use utf8;
 use Moose;
 use Readonly;
 use Encode qw( encode );
-use Email::Address;
+use Email::Address::XS;
 use Email::Sender::Simple qw( sendmail );
 use Email::MIME;
 use Email::MIME::Creator;
@@ -56,7 +56,7 @@ sub _user_address
     my $quoted_name = _encode_header($user->name);
     my $email = $hidden ? $EMAIL_NOREPLY_ADDR_SPEC : $user->email;
 
-    return Email::Address->new($quoted_name, $email)->format;
+    return Email::Address::XS->new($quoted_name, $email)->format;
 }
 
 sub _message_id
@@ -688,17 +688,17 @@ sub _build_transport
 sub _send_email
 {
     my ($self, $email) = @_;
-    my @all_to = Email::Address->parse($email->header('To'));
+    my @all_to = Email::Address::XS->parse($email->header('To'));
     my $to = $all_to[0];
     return unless $to && $to->address;
 
     my $args = {
         transport => $self->transport,
         to => [
-            map  { $_->address               }
-            grep { defined                   }
-            map  { Email::Address->parse($_) }
-            map  { $email->header($_)        }
+            map  { $_->address                   }
+            grep { defined                       }
+            map  { Email::Address::XS->parse($_) }
+            map  { $email->header($_)            }
                 qw(to cc bcc),
         ],
     };
@@ -706,7 +706,7 @@ sub _send_email
     $email->header_set('BCC'); # removes the header
 
     if ($email->header('Sender')) {
-        my @sender = Email::Address->parse($email->header('Sender'));
+        my @sender = Email::Address::XS->parse($email->header('Sender'));
         $args->{from} = $sender[0]->address;
     }
 

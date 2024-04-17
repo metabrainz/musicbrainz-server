@@ -1,3 +1,5 @@
+requires 'perl' => '5.38.0';
+
 # Dependencies needed only to execute ./admin/InitDb.pl.
 
 requires 'aliased'              => '0.34';

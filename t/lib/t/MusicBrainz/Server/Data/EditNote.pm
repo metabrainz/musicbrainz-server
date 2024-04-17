@@ -136,7 +136,7 @@ test 'Adding edit notes works and sends emails when it should' => sub {
     );
     is(
         $email->get_header('To'),
-        '"editor1" <editor1@example.com>',
+        'editor1 <editor1@example.com>',
         'Email is addressed to editor1',
     );
     my $email_body = $email->object->body_str;
@@ -169,7 +169,7 @@ test 'Adding edit notes works and sends emails when it should' => sub {
     );
     is(
         $email2->get_header('To'),
-        '"editor2" <editor2@example.com>',
+        'editor2 <editor2@example.com>',
         'Email is addressed to editor2',
     );
     my $email2_body = $email2->object->body_str;
@@ -232,7 +232,7 @@ test 'Adding edit notes works and sends emails when it should' => sub {
     $email = $email_transport->shift_deliveries->{email};
     is(
         $email->get_header('To'),
-        '"editor1" <editor1@example.com>',
+        'editor1 <editor1@example.com>',
         'Email was sent to edit creator editor1, despite their preferences',
     );
 
@@ -259,7 +259,7 @@ test 'Adding edit notes works and sends emails when it should' => sub {
     $email = $email_transport->shift_deliveries->{email};
     is(
         $email->get_header('To'),
-        '"editor2" <editor2@example.com>',
+        'editor2 <editor2@example.com>',
         'Email was sent to voter editor2',
     );
 

@@ -176,7 +176,7 @@ test 'Email on first no vote' => sub {
     );
     is(
         $email->get_header('To'),
-        '"editor1" <editor1@example.com>',
+        'editor1 <editor1@example.com>',
         'Email’s To header contains editor email',
     );
 
