@@ -262,7 +262,6 @@ export default [
        * imports rule from simple-import-sort instead.
        */
       'sort-imports': 'off',
-      'template-curly-spacing': ['warn', 'never'],
 
       // eslint-plugin-import
       'import/export': 'error',
@@ -386,6 +385,7 @@ export default [
         after: true,
         before: false,
       }],
+      '@stylistic/js/template-curly-spacing': ['warn', 'never'],
       '@stylistic/js/template-tag-spacing': ['warn', 'never'],
       '@stylistic/js/wrap-iife': 'warn',
 
