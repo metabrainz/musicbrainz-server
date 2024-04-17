@@ -375,9 +375,9 @@ MB.Art.FileUpload = function (file) {
   self.mimeType = ko.observable('');
 
   self.data_uri = ko.computed(function () {
-    if (self.mimeType() == '' || self.dataUriData() == '') {
+    if (self.mimeType() === '' || self.dataUriData() === '') {
       return '';
-    } else if (self.mimeType() == 'application/pdf') {
+    } else if (self.mimeType() === 'application/pdf') {
       return '/static/images/icons/pdf-icon.png';
     }
     return self.dataUriData();
