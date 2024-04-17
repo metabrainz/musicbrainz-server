@@ -30,9 +30,10 @@ run_with_apt_cache \
     install_cpanm_and_carton && \
     apt_purge(`test_db_build_deps')
 
+copy_mb(`docker/musicbrainz-test-database/cpanfile docker/musicbrainz-test-database/cpanfile.snapshot ./')
+
 run_with_apt_cache \
     with_cpanm_cache \
-    with_cpanfile_and_snapshot(``docker/musicbrainz-test-database/'') \
     apt_install(`test_db_build_deps') && \
     chown_mb(``/home/musicbrainz/.cpanm'') && \
     chown_mb(``$PERL_CARTON_PATH'') && \
