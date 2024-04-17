@@ -107,7 +107,7 @@ export default function* updateEntityCredits(
       for (
         const relationship of tree.iterate(linkPhraseGroup.relationships)
       ) {
-        yield *getCreditUpdatesForRelationship(linkTypeGroup, relationship);
+        yield* getCreditUpdatesForRelationship(linkTypeGroup, relationship);
       }
     }
   };
@@ -119,7 +119,7 @@ export default function* updateEntityCredits(
         tree.iterate(targetTypeGroups)
       ) {
         for (const linkTypeGroup of tree.iterate(linkTypeGroups)) {
-          yield *getCreditUpdatesForLinkTypeGroup(linkTypeGroup);
+          yield* getCreditUpdatesForLinkTypeGroup(linkTypeGroup);
         }
       }
       break;
@@ -128,7 +128,7 @@ export default function* updateEntityCredits(
       const linkTypeGroups = findLinkTypeGroupsForSameEntityType();
       if (linkTypeGroups) {
         for (const linkTypeGroup of tree.iterate(linkTypeGroups)) {
-          yield *getCreditUpdatesForLinkTypeGroup(linkTypeGroup);
+          yield* getCreditUpdatesForLinkTypeGroup(linkTypeGroup);
         }
       }
       break;
@@ -141,7 +141,7 @@ export default function* updateEntityCredits(
         compareLinkTypeGroupKeyWithGroup,
       );
       if (linkTypeGroup) {
-        yield *getCreditUpdatesForLinkTypeGroup(linkTypeGroup);
+        yield* getCreditUpdatesForLinkTypeGroup(linkTypeGroup);
       }
       break;
     }

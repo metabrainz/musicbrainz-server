@@ -386,6 +386,7 @@ export default [
       'eslint-plugin-js/template-curly-spacing': ['warn', 'never'],
       'eslint-plugin-js/template-tag-spacing': ['warn', 'never'],
       'eslint-plugin-js/wrap-iife': 'warn',
+      'eslint-plugin-js/yield-star-spacing': ['warn', 'after'],
 
       // eslint-plugin-react
       'react/boolean-prop-naming': 'off',
