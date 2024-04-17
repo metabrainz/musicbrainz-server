@@ -286,6 +286,7 @@ export default [
       '@stylistic/js/array-bracket-newline': ['warn', 'consistent'],
       '@stylistic/js/array-bracket-spacing': ['warn', 'never'],
       '@stylistic/js/array-element-newline': ['warn', 'consistent'],
+      '@stylistic/js/arrow-spacing': 'warn',
       '@stylistic/js/block-spacing': ['warn', 'always'],
       '@stylistic/js/brace-style': ['warn', '1tbs'],
       '@stylistic/js/comma-dangle': ['warn', {
