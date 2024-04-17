@@ -1445,7 +1445,8 @@ component _MediumRelationshipEditors(
         }
         dispatch={dispatch}
         hasUnloadedTracks={
-          hasUnloadedTracksPerMedium.get(medium.id) || false}
+          hasUnloadedTracksPerMedium.get(medium.id) || false
+        }
         isExpanded={isMediumExpanded(expandedMediums, medium)}
         key={medium.id}
         medium={medium}

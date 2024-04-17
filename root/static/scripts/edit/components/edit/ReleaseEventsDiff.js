@@ -58,8 +58,7 @@ const changeSide = (
       {countryDisplay ? <br /> : null}
       {sideB && areReleaseDatesEqual(sideA, sideB)
         ? formatDate(sideA.date)
-        : <span className={CLASS_MAP[type]}>{formatDate(sideA.date)}</span>
-      }
+        : <span className={CLASS_MAP[type]}>{formatDate(sideA.date)}</span>}
     </>
   ) : null;
 

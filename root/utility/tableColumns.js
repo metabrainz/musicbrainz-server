@@ -188,7 +188,8 @@ export function defineCDTocColumn<D>(
           anchorPath={
             typeof props.getAnchor === 'function'
               ? props.getAnchor(original)
-              : ''}
+              : ''
+          }
           cdToc={cdToc}
         />
       ) : null);

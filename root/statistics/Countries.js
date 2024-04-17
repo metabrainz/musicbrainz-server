@@ -116,7 +116,8 @@ component Countries(
                   {hasCountryCode ? (
                     <EntityLink
                       content={
-                        formatCount($c, countryStat.release_count)}
+                        formatCount($c, countryStat.release_count)
+                      }
                       entity={country}
                       subPath="releases"
                     />

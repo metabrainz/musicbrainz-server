@@ -1298,7 +1298,8 @@ const ExternalLinkRelationship =
                             options.push(option);
                           }
                           return options;
-                        }, [])}
+                        }, [])
+                      }
                       type={link.type}
                     />
                   ) : (

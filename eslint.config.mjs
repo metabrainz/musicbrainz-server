@@ -400,6 +400,7 @@ export default [
         props: 'never',
         children: 'ignore',
       }],
+      'eslint-plugin-jsx/jsx-curly-newline': 'error',
       'eslint-plugin-jsx/jsx-curly-spacing': ['error', {
         when: 'never',
         children: true,
