@@ -9,13 +9,14 @@
 # suming <331874545@qq.com>, 2023.
 # claybiockiller <clay0305@hotmail.com>, 2023.
 # yangmouren <yangmouren5618@163.com>, 2023.
+# x1ao4 <kazaf_ken@163.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-09 20:38+0200\n"
-"PO-Revision-Date: 2023-12-03 12:27+0000\n"
-"Last-Translator: yangmouren <yangmouren5618@163.com>\n"
+"PO-Revision-Date: 2024-04-16 13:28+0000\n"
+"Last-Translator: x1ao4 <kazaf_ken@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -11563,6 +11564,7 @@ msgid "FreeDB ID:"
 msgstr "FreeDB ID："
 
 #: ../root/otherlookup/OtherLookupForm.js:107
+#, fuzzy
 msgid "MBID"
 msgstr "MBID"
 
