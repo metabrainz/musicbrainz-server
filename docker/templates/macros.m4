@@ -263,6 +263,7 @@ m4_define(
     `mbs_translations_deps',
     `m4_dnl
 gettext
+git
 language-pack-de
 language-pack-el
 language-pack-es
