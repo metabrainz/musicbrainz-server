@@ -85,6 +85,7 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "flow-bin": "0.236.0",
     "gettext-parser": "4.2.0",
+    "globals": "15.0.0",
     "hermes-eslint": "0.20.1",
     "http-proxy": "1.18.1",
     "json5": "2.2.3",

@@ -395,8 +395,8 @@ If you'd like to test them yourself before submitting a pull request, invoke
     $ prove -lv t/critic.t
 
 For JavaScript, we use eslint. Our rules and other configuration can be found
-in [.eslintrc.yaml](.eslintrc.yaml). To check a file or directory against all
-of these rules, run:
+in [eslint.config.mjs](eslint.config.mjs). To check a file or directory
+against all of these rules, run:
 
     $ ./node_modules/.bin/eslint $file_or_directory
 
@@ -413,11 +413,9 @@ In this case, you'd replace `$rule` with a string defining the specific rule
 you'd like to check, in [levn](https://github.com/gkz/levn) format. For
 example, `'block-scoped-var: [warn]'`. Further documentation on how to specify
 these can be found
-[here](https://eslint.org/docs/user-guide/command-line-interface#--rule),
-but in most cases you can copy rules as-is from .eslintrc.yaml, since the YAML
-syntax is very similar.
+[here](https://eslint.org/docs/user-guide/command-line-interface#--rule).
 
-A second YAML file, [.eslintrc.unfixed.yaml](.eslintrc.unfixed.yaml), lists rules
+A second file, [.eslintrc.unfixed.yaml](.eslintrc.unfixed.yaml), lists rules
 we want to follow but we don't yet enforce. We also have a script to check a file
 or directory against all of these rules,
 [script/check_unfixed_eslint_rules](script/check_unfixed_eslint_rules):
