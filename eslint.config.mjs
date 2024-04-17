@@ -13,6 +13,7 @@ import reactPlugin from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import stylisticJs from '@stylistic/eslint-plugin-js';
+import stylisticJsx from '@stylistic/eslint-plugin-jsx';
 import globals from 'globals';
 import hermesParser from 'hermes-eslint';
 
@@ -110,6 +111,7 @@ export default [
     },
     plugins: {
       '@stylistic/js': stylisticJs,
+      '@stylistic/jsx': stylisticJsx,
       'import': importPlugin,
       'react': reactPlugin,
       'ft-flow': ftFlow,
@@ -449,19 +451,28 @@ export default [
 
       // JSX-specific rules
       'react/jsx-boolean-value': ['warn', 'never'],
-      'react/jsx-closing-bracket-location': ['error', 'tag-aligned'],
-      'react/jsx-closing-tag-location': 'error',
-      'react/jsx-curly-spacing': ['error', {when: 'never', children: true}],
-      'react/jsx-equals-spacing': ['error', 'never'],
+      '@stylistic/jsx/jsx-closing-bracket-location':[
+        'error',
+        'tag-aligned',
+      ],
+      '@stylistic/jsx/jsx-closing-tag-location': 'error',
+      '@stylistic/jsx/jsx-curly-spacing': ['error', {
+        when: 'never',
+        children: true,
+      }],
+      '@stylistic/jsx/jsx-equals-spacing': ['error', 'never'],
       'react/jsx-filename-extension': ['error', {
         extensions: ['.js', '.mjs'],
       }],
-      'react/jsx-first-prop-new-line': ['error', 'multiline-multiprop'],
+      '@stylistic/jsx/jsx-first-prop-new-line': [
+        'error',
+        'multiline-multiprop',
+      ],
       'react/jsx-handler-names': 'warn',
-      'react/jsx-indent': ['error', 2],
-      'react/jsx-indent-props': ['error', 2],
+      '@stylistic/jsx/jsx-indent': ['error', 2],
+      '@stylistic/jsx/jsx-indent-props': ['error', 2],
       'react/jsx-key': 'warn',
-      'react/jsx-max-props-per-line': ['error', {
+      '@stylistic/jsx/jsx-max-props-per-line': ['error', {
         maximum: 1,
         when: 'multiline',
       }],
@@ -470,21 +481,23 @@ export default [
       'react/jsx-no-literals': 'warn',
       'react/jsx-no-target-blank': 'error',
       'react/jsx-no-undef': ['error', {allowGlobals: true}],
-      'react/jsx-one-expression-per-line': ['warn', {allow: 'single-child'}],
-      'react/jsx-curly-brace-presence': ['error', {
+      '@stylistic/jsx/jsx-one-expression-per-line': ['warn', {
+        allow: 'single-child',
+      }],
+      '@stylistic/jsx/jsx-curly-brace-presence': ['error', {
         props: 'never',
         children: 'ignore',
       }],
-      'react/jsx-pascal-case': 'error',
-      'react/jsx-sort-props': 'warn',
-      'react/jsx-tag-spacing': ['error', {beforeClosing: 'never'}],
+      '@stylistic/jsx/jsx-pascal-case': 'error',
+      '@stylistic/jsx/jsx-sort-props': 'warn',
+      '@stylistic/jsx/jsx-tag-spacing': ['error', {beforeClosing: 'never'}],
       /*
        * jsx-uses-react is not implied since
        * https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
        */
       'react/jsx-uses-react': 'off',
       'react/jsx-uses-vars': 'warn',
-      'react/jsx-wrap-multilines': ['error', {
+      '@stylistic/jsx/jsx-wrap-multilines': ['error', {
         declaration: 'parens-new-line',
         assignment: 'parens-new-line',
         return: 'parens-new-line',
