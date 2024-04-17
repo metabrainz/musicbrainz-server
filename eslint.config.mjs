@@ -12,6 +12,7 @@ import importPlugin from 'eslint-plugin-import';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import eslintPluginJs from '@stylistic/eslint-plugin-js';
 import globals from 'globals';
 import hermesParser from 'hermes-eslint';
 
@@ -107,6 +108,7 @@ export default [
       parser: hermesParser,
     },
     plugins: {
+      'eslint-plugin-js': eslintPluginJs,
       'import': importPlugin,
       'react': reactPlugin,
       'ft-flow': ftFlow,
@@ -227,96 +229,118 @@ export default [
       'no-use-before-define': 'off',
 
       // Stylistic Issues
-      'array-bracket-newline': ['warn', 'consistent'],
-      'array-bracket-spacing': ['warn', 'never'],
-      'array-element-newline': ['warn', 'consistent'],
-      'block-spacing': ['warn', 'always'],
-      'brace-style': ['warn', '1tbs'],
-      'comma-dangle': ['warn', {
+      'eslint-plugin-js/array-bracket-newline': ['warn', 'consistent'],
+      'eslint-plugin-js/array-bracket-spacing': ['warn', 'never'],
+      'eslint-plugin-js/array-element-newline': ['warn', 'consistent'],
+      'eslint-plugin-js/block-spacing': ['warn', 'always'],
+      'eslint-plugin-js/brace-style': ['warn', '1tbs'],
+      'eslint-plugin-js/comma-dangle': ['warn', {
         arrays: 'always-multiline',
         objects: 'always-multiline',
         imports: 'always-multiline',
         exports: 'always-multiline',
         functions: 'always-multiline',
       }],
-      'comma-spacing': ['warn', {before: false, after: true}],
-      'comma-style': ['warn', 'last'],
-      'computed-property-spacing': ['warn', 'never', {
+      'eslint-plugin-js/comma-spacing': ['warn', {
+        before: false,
+        after: true,
+      }],
+      'eslint-plugin-js/comma-style': ['warn', 'last'],
+      'eslint-plugin-js/computed-property-spacing': ['warn', 'never', {
         enforceForClassMembers: true,
       }],
-      'eol-last': ['warn', 'always'],
-      'func-call-spacing': ['warn', 'never'],
-      'function-paren-newline': ['warn', 'consistent'],
-      'implicit-arrow-linebreak': ['warn', 'beside'],
-      'indent': ['warn', 2, {
+      'eslint-plugin-js/eol-last': ['warn', 'always'],
+      'eslint-plugin-js/func-call-spacing': ['warn', 'never'],
+      'eslint-plugin-js/function-paren-newline': ['warn', 'consistent'],
+      'eslint-plugin-js/implicit-arrow-linebreak': ['warn', 'beside'],
+      'eslint-plugin-js/indent': ['warn', 2, {
         CallExpression: {arguments: 'first'},
         SwitchCase: 1,
         ignoredNodes: ['JSXElement', 'ArrowFunctionExpression'],
       }],
-      'jsx-quotes': ['warn', 'prefer-double'],
-      'key-spacing': ['warn', {mode: 'minimum'}],
-      'keyword-spacing': ['warn', {before: true, after: true}],
-      'linebreak-style': ['warn', 'unix'],
-      'lines-between-class-members': ['warn', 'always'],
-      'max-len': ['warn', {
+      'eslint-plugin-js/jsx-quotes': ['warn', 'prefer-double'],
+      'eslint-plugin-js/key-spacing': ['warn', {mode: 'minimum'}],
+      'eslint-plugin-js/keyword-spacing': ['warn', {before: true, after: true}],
+      'eslint-plugin-js/linebreak-style': ['warn', 'unix'],
+      'eslint-plugin-js/lines-between-class-members': ['warn', 'always'],
+      'eslint-plugin-js/max-len': ['warn', {
         code: 78,
         ignoreUrls: true,
         ignoreStrings: false,
         ignoreTemplateLiterals: false,
         ignoreRegExpLiterals: true,
       }],
-      'max-statements-per-line': ['warn', {max: 1}],
+      'eslint-plugin-js/max-statements-per-line': ['warn', {max: 1}],
       'multiline-comment-style': ['warn', 'starred-block'],
-      'multiline-ternary': 'off',
+      'eslint-plugin-js/multiline-ternary': 'off',
       'new-cap': 'off',
-      'new-parens': 'warn',
-      'newline-per-chained-call': ['warn', {ignoreChainWithDepth: 3}],
+      'eslint-plugin-js/new-parens': 'warn',
+      'eslint-plugin-js/newline-per-chained-call': ['warn', {
+        ignoreChainWithDepth: 3,
+      }],
       'no-lonely-if': 'warn',
-      'no-mixed-spaces-and-tabs': 'warn',
+      'eslint-plugin-js/no-mixed-spaces-and-tabs': 'warn',
       'no-multi-assign': 'off',
-      'no-multiple-empty-lines': ['warn', {max: 2, maxBOF: 0, maxEOF: 0}],
+      'eslint-plugin-js/no-multiple-empty-lines': ['warn', {
+        max: 2,
+        maxBOF: 0,
+        maxEOF: 0,
+      }],
       'no-negated-condition': 'warn',
       'no-nested-ternary': 'off',
       'no-plusplus': 'off',
-      'no-tabs': 'warn',
+      'eslint-plugin-js/no-tabs': 'warn',
       'no-ternary': 'off',
-      'no-trailing-spaces': 'warn',
+      'eslint-plugin-js/no-trailing-spaces': 'warn',
       'no-underscore-dangle': 'off',
       'no-unneeded-ternary': 'warn',
-      'no-whitespace-before-property': 'warn',
-      'object-curly-newline': ['warn', {multiline: true, consistent: true}],
-      'object-curly-spacing': ['warn', 'never'],
-      'object-property-newline': ['warn', {
+      'eslint-plugin-js/no-whitespace-before-property': 'warn',
+      'eslint-plugin-js/object-curly-newline': ['warn', {
+        multiline: true,
+        consistent: true,
+      }],
+      'eslint-plugin-js/object-curly-spacing': ['warn', 'never'],
+      'eslint-plugin-js/object-property-newline': ['warn', {
         allowAllPropertiesOnSameLine: true,
       }],
       'one-var': ['warn', 'never'],
       'operator-assignment': ['warn', 'always'],
-      'operator-linebreak': ['warn'],
-      'padded-blocks': ['warn', 'never'],
-      'quote-props': ['warn', 'consistent-as-needed', {numbers: true}],
-      'quotes': ['warn', 'single', {
+      'eslint-plugin-js/operator-linebreak': ['warn'],
+      'eslint-plugin-js/padded-blocks': ['warn', 'never'],
+      'eslint-plugin-js/quote-props': ['warn', 'consistent-as-needed', {
+        numbers: true,
+      }],
+      'eslint-plugin-js/quotes': ['warn', 'single', {
         avoidEscape: true,
         allowTemplateLiterals: true,
       }],
-      'semi': ['warn', 'always', {omitLastInOneLineBlock: true}],
-      'semi-spacing': ['warn', {before: false, after: true}],
-      'semi-style': ['warn', 'last'],
-      'space-before-blocks': ['warn', 'always'],
-      'space-before-function-paren': ['warn', {
+      'eslint-plugin-js/semi': ['warn', 'always', {
+        omitLastInOneLineBlock: true,
+      }],
+      'eslint-plugin-js/semi-spacing': ['warn', {before: false, after: true}],
+      'eslint-plugin-js/semi-style': ['warn', 'last'],
+      'eslint-plugin-js/space-before-blocks': ['warn', 'always'],
+      'eslint-plugin-js/space-before-function-paren': ['warn', {
         anonymous: 'always',
         named: 'never',
         asyncArrow: 'always',
       }],
-      'space-in-parens': ['warn', 'never'],
-      'space-infix-ops': ['warn', {int32Hint: true}],
-      'space-unary-ops': ['warn', {words: true, nonwords: false}],
-      'spaced-comment': ['warn', 'always', {
+      'eslint-plugin-js/space-in-parens': ['warn', 'never'],
+      'eslint-plugin-js/space-infix-ops': ['warn', {int32Hint: true}],
+      'eslint-plugin-js/space-unary-ops': ['warn', {
+        words: true,
+        nonwords: false,
+      }],
+      'eslint-plugin-js/spaced-comment': ['warn', 'always', {
         block: {balanced: true},
         markers: [':', '::'],
       }],
-      'switch-colon-spacing': ['warn', {after: true, before: false}],
-      'template-tag-spacing': ['warn', 'never'],
-      'wrap-iife': 'warn',
+      'eslint-plugin-js/switch-colon-spacing': ['warn', {
+        after: true,
+        before: false,
+      }],
+      'eslint-plugin-js/template-tag-spacing': ['warn', 'never'],
+      'eslint-plugin-js/wrap-iife': 'warn',
 
       // ECMAScript 6
       'constructor-super': 'error',
@@ -515,7 +539,7 @@ export default [
   {
     files: ['root/static/scripts/tests/**/*', 't/**/*'],
     rules: {
-      'max-len': ['warn', {
+      'eslint-plugin-js/max-len': ['warn', {
         code: 78,
         ignoreUrls: true,
         ignoreStrings: true,
@@ -559,7 +583,7 @@ export default [
       'root/static/scripts/timeline.js',
     ],
     rules: {
-      'wrap-iife': 'off',
+      'eslint-plugin-js/wrap-iife': 'off',
     },
   },
   {
