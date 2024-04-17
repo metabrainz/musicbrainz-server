@@ -390,6 +390,47 @@ export default [
       'eslint-plugin-js/wrap-iife': 'warn',
       'eslint-plugin-js/yield-star-spacing': ['warn', 'after'],
 
+      // eslint-plugin-jsx
+      'eslint-plugin-jsx/jsx-closing-bracket-location':[
+        'error',
+        'tag-aligned',
+      ],
+      'eslint-plugin-jsx/jsx-closing-tag-location': 'error',
+      'eslint-plugin-jsx/jsx-curly-brace-presence': ['error', {
+        props: 'never',
+        children: 'ignore',
+      }],
+      'eslint-plugin-jsx/jsx-curly-spacing': ['error', {
+        when: 'never',
+        children: true,
+      }],
+      'eslint-plugin-jsx/jsx-equals-spacing': ['error', 'never'],
+      'eslint-plugin-jsx/jsx-first-prop-new-line': [
+        'error',
+        'multiline-multiprop',
+      ],
+      'eslint-plugin-jsx/jsx-indent': ['error', 2],
+      'eslint-plugin-jsx/jsx-indent-props': ['error', 2],
+      'eslint-plugin-jsx/jsx-max-props-per-line': ['error', {
+        maximum: 1,
+        when: 'multiline',
+      }],
+      'eslint-plugin-jsx/jsx-one-expression-per-line': ['warn', {
+        allow: 'single-child',
+      }],
+      'eslint-plugin-jsx/jsx-pascal-case': 'error',
+      'eslint-plugin-jsx/jsx-sort-props': 'warn',
+      'eslint-plugin-jsx/jsx-tag-spacing': ['error', {beforeClosing: 'never'}],
+      'eslint-plugin-jsx/jsx-wrap-multilines': ['error', {
+        declaration: 'parens-new-line',
+        assignment: 'parens-new-line',
+        return: 'parens-new-line',
+        arrow: 'parens-new-line',
+        condition: 'ignore',
+        logical: 'ignore',
+        prop: 'ignore',
+      }],
+
       // eslint-plugin-react
       'react/boolean-prop-naming': 'off',
       'react/button-has-type': 'error',
@@ -449,61 +490,22 @@ export default [
 
       // JSX-specific rules
       'react/jsx-boolean-value': ['warn', 'never'],
-      'eslint-plugin-jsx/jsx-closing-bracket-location':[
-        'error',
-        'tag-aligned',
-      ],
-      'eslint-plugin-jsx/jsx-closing-tag-location': 'error',
-      'eslint-plugin-jsx/jsx-curly-spacing': ['error', {
-        when: 'never',
-        children: true,
-      }],
-      'eslint-plugin-jsx/jsx-equals-spacing': ['error', 'never'],
       'react/jsx-filename-extension': ['error', {
         extensions: ['.js', '.mjs'],
       }],
-      'eslint-plugin-jsx/jsx-first-prop-new-line': [
-        'error',
-        'multiline-multiprop',
-      ],
       'react/jsx-handler-names': 'warn',
-      'eslint-plugin-jsx/jsx-indent': ['error', 2],
-      'eslint-plugin-jsx/jsx-indent-props': ['error', 2],
       'react/jsx-key': 'warn',
-      'eslint-plugin-jsx/jsx-max-props-per-line': ['error', {
-        maximum: 1,
-        when: 'multiline',
-      }],
       'react/jsx-no-comment-textnodes': 'warn',
       'react/jsx-no-duplicate-props': ['error', {ignoreCase: true}],
       'react/jsx-no-literals': 'warn',
       'react/jsx-no-target-blank': 'error',
       'react/jsx-no-undef': ['error', {allowGlobals: true}],
-      'eslint-plugin-jsx/jsx-one-expression-per-line': ['warn', {
-        allow: 'single-child',
-      }],
-      'eslint-plugin-jsx/jsx-curly-brace-presence': ['error', {
-        props: 'never',
-        children: 'ignore',
-      }],
-      'eslint-plugin-jsx/jsx-pascal-case': 'error',
-      'eslint-plugin-jsx/jsx-sort-props': 'warn',
-      'eslint-plugin-jsx/jsx-tag-spacing': ['error', {beforeClosing: 'never'}],
       /*
        * jsx-uses-react is not implied since
        * https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
        */
       'react/jsx-uses-react': 'off',
       'react/jsx-uses-vars': 'warn',
-      'eslint-plugin-jsx/jsx-wrap-multilines': ['error', {
-        declaration: 'parens-new-line',
-        assignment: 'parens-new-line',
-        return: 'parens-new-line',
-        arrow: 'parens-new-line',
-        condition: 'ignore',
-        logical: 'ignore',
-        prop: 'ignore',
-      }],
 
       // eslint-plugin-ft-flow
       'ft-flow/boolean-style': ['warn', 'boolean'],
