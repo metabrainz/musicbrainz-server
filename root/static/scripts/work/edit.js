@@ -73,7 +73,7 @@ const workLanguageOptions: MaybeGroupedOptionsT = {
  * `ActionT, `, which seems to be an ESLint-related bug, or a bug in
  * the parser we use.
  */
-// eslint-disable-next-line func-call-spacing
+// eslint-disable-next-line @stylistic/js/func-call-spacing
 const store = createStore<WorkForm, ActionT, (ActionT) => empty>(function (
   state: WorkForm = form,
   action: ActionT,

@@ -12,6 +12,7 @@ import importPlugin from 'eslint-plugin-import';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import stylisticJs from '@stylistic/eslint-plugin-js';
 import globals from 'globals';
 import hermesParser from 'hermes-eslint';
 
@@ -108,6 +109,7 @@ export default [
       parser: hermesParser,
     },
     plugins: {
+      '@stylistic/js': stylisticJs,
       'import': importPlugin,
       'react': reactPlugin,
       'ft-flow': ftFlow,
@@ -229,96 +231,118 @@ export default [
       'no-use-before-define': 'off',
 
       // Stylistic Issues
-      'array-bracket-newline': ['warn', 'consistent'],
-      'array-bracket-spacing': ['warn', 'never'],
-      'array-element-newline': ['warn', 'consistent'],
-      'block-spacing': ['warn', 'always'],
-      'brace-style': ['warn', '1tbs'],
-      'comma-dangle': ['warn', {
+      '@stylistic/js/array-bracket-newline': ['warn', 'consistent'],
+      '@stylistic/js/array-bracket-spacing': ['warn', 'never'],
+      '@stylistic/js/array-element-newline': ['warn', 'consistent'],
+      '@stylistic/js/block-spacing': ['warn', 'always'],
+      '@stylistic/js/brace-style': ['warn', '1tbs'],
+      '@stylistic/js/comma-dangle': ['warn', {
         arrays: 'always-multiline',
         objects: 'always-multiline',
         imports: 'always-multiline',
         exports: 'always-multiline',
         functions: 'always-multiline',
       }],
-      'comma-spacing': ['warn', {before: false, after: true}],
-      'comma-style': ['warn', 'last'],
-      'computed-property-spacing': ['warn', 'never', {
+      '@stylistic/js/comma-spacing': ['warn', {
+        before: false,
+        after: true,
+      }],
+      '@stylistic/js/comma-style': ['warn', 'last'],
+      '@stylistic/js/computed-property-spacing': ['warn', 'never', {
         enforceForClassMembers: true,
       }],
-      'eol-last': ['warn', 'always'],
-      'func-call-spacing': ['warn', 'never'],
-      'function-paren-newline': ['warn', 'consistent'],
-      'implicit-arrow-linebreak': ['warn', 'beside'],
-      'indent': ['warn', 2, {
+      '@stylistic/js/eol-last': ['warn', 'always'],
+      '@stylistic/js/func-call-spacing': ['warn', 'never'],
+      '@stylistic/js/function-paren-newline': ['warn', 'consistent'],
+      '@stylistic/js/implicit-arrow-linebreak': ['warn', 'beside'],
+      '@stylistic/js/indent': ['warn', 2, {
         CallExpression: {arguments: 'first'},
         SwitchCase: 1,
         ignoredNodes: ['JSXElement', 'ArrowFunctionExpression'],
       }],
-      'jsx-quotes': ['warn', 'prefer-double'],
-      'key-spacing': ['warn', {mode: 'minimum'}],
-      'keyword-spacing': ['warn', {before: true, after: true}],
-      'linebreak-style': ['warn', 'unix'],
-      'lines-between-class-members': ['warn', 'always'],
-      'max-len': ['warn', {
+      '@stylistic/js/jsx-quotes': ['warn', 'prefer-double'],
+      '@stylistic/js/key-spacing': ['warn', {mode: 'minimum'}],
+      '@stylistic/js/keyword-spacing': ['warn', {before: true, after: true}],
+      '@stylistic/js/linebreak-style': ['warn', 'unix'],
+      '@stylistic/js/lines-between-class-members': ['warn', 'always'],
+      '@stylistic/js/max-len': ['warn', {
         code: 78,
         ignoreUrls: true,
         ignoreStrings: false,
         ignoreTemplateLiterals: false,
         ignoreRegExpLiterals: true,
       }],
-      'max-statements-per-line': ['warn', {max: 1}],
+      '@stylistic/js/max-statements-per-line': ['warn', {max: 1}],
       'multiline-comment-style': ['warn', 'starred-block'],
-      'multiline-ternary': 'off',
+      '@stylistic/js/multiline-ternary': 'off',
       'new-cap': 'off',
-      'new-parens': 'warn',
-      'newline-per-chained-call': ['warn', {ignoreChainWithDepth: 3}],
+      '@stylistic/js/new-parens': 'warn',
+      '@stylistic/js/newline-per-chained-call': ['warn', {
+        ignoreChainWithDepth: 3,
+      }],
       'no-lonely-if': 'warn',
-      'no-mixed-spaces-and-tabs': 'warn',
+      '@stylistic/js/no-mixed-spaces-and-tabs': 'warn',
       'no-multi-assign': 'off',
-      'no-multiple-empty-lines': ['warn', {max: 2, maxBOF: 0, maxEOF: 0}],
+      '@stylistic/js/no-multiple-empty-lines': ['warn', {
+        max: 2,
+        maxBOF: 0,
+        maxEOF: 0,
+      }],
       'no-negated-condition': 'warn',
       'no-nested-ternary': 'off',
       'no-plusplus': 'off',
-      'no-tabs': 'warn',
+      '@stylistic/js/no-tabs': 'warn',
       'no-ternary': 'off',
-      'no-trailing-spaces': 'warn',
+      '@stylistic/js/no-trailing-spaces': 'warn',
       'no-underscore-dangle': 'off',
       'no-unneeded-ternary': 'warn',
-      'no-whitespace-before-property': 'warn',
-      'object-curly-newline': ['warn', {multiline: true, consistent: true}],
-      'object-curly-spacing': ['warn', 'never'],
-      'object-property-newline': ['warn', {
+      '@stylistic/js/no-whitespace-before-property': 'warn',
+      '@stylistic/js/object-curly-newline': ['warn', {
+        multiline: true,
+        consistent: true,
+      }],
+      '@stylistic/js/object-curly-spacing': ['warn', 'never'],
+      '@stylistic/js/object-property-newline': ['warn', {
         allowAllPropertiesOnSameLine: true,
       }],
       'one-var': ['warn', 'never'],
       'operator-assignment': ['warn', 'always'],
-      'operator-linebreak': ['warn'],
-      'padded-blocks': ['warn', 'never'],
-      'quote-props': ['warn', 'consistent-as-needed', {numbers: true}],
-      'quotes': ['warn', 'single', {
+      '@stylistic/js/operator-linebreak': ['warn'],
+      '@stylistic/js/padded-blocks': ['warn', 'never'],
+      '@stylistic/js/quote-props': ['warn', 'consistent-as-needed', {
+        numbers: true,
+      }],
+      '@stylistic/js/quotes': ['warn', 'single', {
         avoidEscape: true,
         allowTemplateLiterals: true,
       }],
-      'semi': ['warn', 'always', {omitLastInOneLineBlock: true}],
-      'semi-spacing': ['warn', {before: false, after: true}],
-      'semi-style': ['warn', 'last'],
-      'space-before-blocks': ['warn', 'always'],
-      'space-before-function-paren': ['warn', {
+      '@stylistic/js/semi': ['warn', 'always', {
+        omitLastInOneLineBlock: true,
+      }],
+      '@stylistic/js/semi-spacing': ['warn', {before: false, after: true}],
+      '@stylistic/js/semi-style': ['warn', 'last'],
+      '@stylistic/js/space-before-blocks': ['warn', 'always'],
+      '@stylistic/js/space-before-function-paren': ['warn', {
         anonymous: 'always',
         named: 'never',
         asyncArrow: 'always',
       }],
-      'space-in-parens': ['warn', 'never'],
-      'space-infix-ops': ['warn', {int32Hint: true}],
-      'space-unary-ops': ['warn', {words: true, nonwords: false}],
-      'spaced-comment': ['warn', 'always', {
+      '@stylistic/js/space-in-parens': ['warn', 'never'],
+      '@stylistic/js/space-infix-ops': ['warn', {int32Hint: true}],
+      '@stylistic/js/space-unary-ops': ['warn', {
+        words: true,
+        nonwords: false,
+      }],
+      '@stylistic/js/spaced-comment': ['warn', 'always', {
         block: {balanced: true},
         markers: [':', '::'],
       }],
-      'switch-colon-spacing': ['warn', {after: true, before: false}],
-      'template-tag-spacing': ['warn', 'never'],
-      'wrap-iife': 'warn',
+      '@stylistic/js/switch-colon-spacing': ['warn', {
+        after: true,
+        before: false,
+      }],
+      '@stylistic/js/template-tag-spacing': ['warn', 'never'],
+      '@stylistic/js/wrap-iife': 'warn',
 
       // ECMAScript 6
       'constructor-super': 'error',
@@ -517,7 +541,7 @@ export default [
   {
     files: ['root/static/scripts/tests/**/*', 't/**/*'],
     rules: {
-      'max-len': ['warn', {
+      '@stylistic/js/max-len': ['warn', {
         code: 78,
         ignoreUrls: true,
         ignoreStrings: true,
@@ -561,7 +585,7 @@ export default [
       'root/static/scripts/timeline.js',
     ],
     rules: {
-      'wrap-iife': 'off',
+      '@stylistic/js/wrap-iife': 'off',
     },
   },
   {

@@ -63,7 +63,6 @@ import {
   runReducer as runRelationshipEditorReducer,
 } from '../../relationship-editor/components/RelationshipEditor.js';
 import RelationshipTargetTypeGroups
-  // eslint-disable-next-line max-len
   from '../../relationship-editor/components/RelationshipTargetTypeGroups.js';
 import {
   REL_STATUS_ADD,
