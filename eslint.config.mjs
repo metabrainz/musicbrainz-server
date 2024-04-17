@@ -231,6 +231,58 @@ export default [
       'no-use-before-define': 'off',
 
       // Stylistic Issues
+      'multiline-comment-style': ['warn', 'starred-block'],
+      'new-cap': 'off',
+      'no-lonely-if': 'warn',
+      'no-multi-assign': 'off',
+      'no-negated-condition': 'warn',
+      'no-nested-ternary': 'off',
+      'no-plusplus': 'off',
+      'no-ternary': 'off',
+      'no-underscore-dangle': 'off',
+      'no-unneeded-ternary': 'warn',
+      'one-var': ['warn', 'never'],
+      'operator-assignment': ['warn', 'always'],
+
+      // ECMAScript 6
+      'constructor-super': 'error',
+      'no-class-assign': 'error',
+      'no-const-assign': 'error',
+      'no-dupe-class-members': 'error',
+      /*
+       * no-duplicate-imports does not support Flow 'type' imports, so we use
+       * the import/no-duplicates rule from eslint-plugin-import instead.
+       */
+      'no-duplicate-imports': 'off',
+      'no-new-symbol': 'error',
+      'no-this-before-super': 'error',
+      'no-useless-constructor': 'warn',
+      'no-useless-rename': 'warn',
+      'prefer-numeric-literals': 'warn',
+      'require-yield': 'error',
+      'rest-spread-spacing': ['warn', 'never'],
+      /*
+       * sort-imports does not support Flow 'type' imports, so we use the
+       * imports rule from simple-import-sort instead.
+       */
+      'sort-imports': 'off',
+      'template-curly-spacing': ['warn', 'never'],
+
+      // eslint-plugin-import
+      'import/export': 'error',
+      'import/extensions': ['error', 'ignorePackages'],
+      'import/first': 'warn',
+      'import/newline-after-import': ['warn', {
+        count: 1,
+        exactCount: true,
+        considerComments: true,
+      }],
+      'import/no-commonjs': 'error',
+      'import/no-duplicates': 'warn',
+      'import/no-dynamic-require': 'error',
+      'import/no-unresolved': 'error',
+
+      // @stylistic/js
       '@stylistic/js/array-bracket-newline': ['warn', 'consistent'],
       '@stylistic/js/array-bracket-spacing': ['warn', 'never'],
       '@stylistic/js/array-element-newline': ['warn', 'consistent'],
@@ -273,29 +325,19 @@ export default [
         ignoreRegExpLiterals: true,
       }],
       '@stylistic/js/max-statements-per-line': ['warn', {max: 1}],
-      'multiline-comment-style': ['warn', 'starred-block'],
       '@stylistic/js/multiline-ternary': 'off',
-      'new-cap': 'off',
       '@stylistic/js/new-parens': 'warn',
       '@stylistic/js/newline-per-chained-call': ['warn', {
         ignoreChainWithDepth: 3,
       }],
-      'no-lonely-if': 'warn',
       '@stylistic/js/no-mixed-spaces-and-tabs': 'warn',
-      'no-multi-assign': 'off',
       '@stylistic/js/no-multiple-empty-lines': ['warn', {
         max: 2,
         maxBOF: 0,
         maxEOF: 0,
       }],
-      'no-negated-condition': 'warn',
-      'no-nested-ternary': 'off',
-      'no-plusplus': 'off',
       '@stylistic/js/no-tabs': 'warn',
-      'no-ternary': 'off',
       '@stylistic/js/no-trailing-spaces': 'warn',
-      'no-underscore-dangle': 'off',
-      'no-unneeded-ternary': 'warn',
       '@stylistic/js/no-whitespace-before-property': 'warn',
       '@stylistic/js/object-curly-newline': ['warn', {
         multiline: true,
@@ -305,8 +347,6 @@ export default [
       '@stylistic/js/object-property-newline': ['warn', {
         allowAllPropertiesOnSameLine: true,
       }],
-      'one-var': ['warn', 'never'],
-      'operator-assignment': ['warn', 'always'],
       '@stylistic/js/operator-linebreak': ['warn'],
       '@stylistic/js/padded-blocks': ['warn', 'never'],
       '@stylistic/js/quote-props': ['warn', 'consistent-as-needed', {
@@ -343,44 +383,6 @@ export default [
       }],
       '@stylistic/js/template-tag-spacing': ['warn', 'never'],
       '@stylistic/js/wrap-iife': 'warn',
-
-      // ECMAScript 6
-      'constructor-super': 'error',
-      'no-class-assign': 'error',
-      'no-const-assign': 'error',
-      'no-dupe-class-members': 'error',
-      /*
-       * no-duplicate-imports does not support Flow 'type' imports, so we use
-       * the import/no-duplicates rule from eslint-plugin-import instead.
-       */
-      'no-duplicate-imports': 'off',
-      'no-new-symbol': 'error',
-      'no-this-before-super': 'error',
-      'no-useless-constructor': 'warn',
-      'no-useless-rename': 'warn',
-      'prefer-numeric-literals': 'warn',
-      'require-yield': 'error',
-      'rest-spread-spacing': ['warn', 'never'],
-      /*
-       * sort-imports does not support Flow 'type' imports, so we use the
-       * imports rule from simple-import-sort instead.
-       */
-      'sort-imports': 'off',
-      'template-curly-spacing': ['warn', 'never'],
-
-      // eslint-plugin-import
-      'import/export': 'error',
-      'import/extensions': ['error', 'ignorePackages'],
-      'import/first': 'warn',
-      'import/newline-after-import': ['warn', {
-        count: 1,
-        exactCount: true,
-        considerComments: true,
-      }],
-      'import/no-commonjs': 'error',
-      'import/no-duplicates': 'warn',
-      'import/no-dynamic-require': 'error',
-      'import/no-unresolved': 'error',
 
       // eslint-plugin-react
       'react/boolean-prop-naming': 'off',
