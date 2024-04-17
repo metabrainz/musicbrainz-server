@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-17 01:28+0000\n"
+"PO-Revision-Date: 2024-04-10 09:28+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/lt/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
 " n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -52,207 +52,207 @@ msgstr "afarų"
 #. frequency:1 iso_code_3:afh 
 #: DB:language/name:8
 msgid "Afrihili"
-msgstr "Afrihilių"
+msgstr "afrihilių"
 
 #. frequency:1 iso_code_3:afr 
 #: DB:language/name:9
 msgid "Afrikaans"
-msgstr "Afrikanų"
+msgstr "afrikanų"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:7
 msgid "Afro-Asiatic languages"
-msgstr "Afroazijiečių kalbos"
+msgstr "afroazijiečių kalbos"
 
 #. frequency:1 iso_code_3:ain 
 #: DB:language/name:473
 msgid "Ainu"
-msgstr "Ainų"
+msgstr "ainų"
 
 #. frequency:1 iso_code_3:aka 
 #: DB:language/name:10
 msgid "Akan"
-msgstr "Akanų"
+msgstr "akanų"
 
 #. frequency:1 iso_code_3:akk 
 #: DB:language/name:11
 msgid "Akkadian"
-msgstr "Akadų"
+msgstr "akadų"
 
 #. frequency:1 iso_code_3:sqi 
 #: DB:language/name:12
 msgid "Albanian"
-msgstr "Albanų"
+msgstr "albanų"
 
 #. frequency:1 iso_code_3:ale 
 #: DB:language/name:13
 msgid "Aleut"
-msgstr "Aleutų"
+msgstr "aleutų"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:14
 msgid "Algonquian languages"
-msgstr "Algonkų kalbos"
+msgstr "algonkų kalbos"
 
 #. frequency:1 iso_code_3:alq 
 #: DB:language/name:709
 msgid "Algonquin"
-msgstr "Algonkinų"
+msgstr "algonkinų"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:434
 msgid "Altaic languages"
-msgstr "Altajų kalbos"
+msgstr "altajų kalbos"
 
 #. frequency:1 iso_code_3:amh 
 #: DB:language/name:15
 msgid "Amharic"
-msgstr "Amharų"
+msgstr "amharų"
 
 #. frequency:1 iso_code_3:anp 
 #: DB:language/name:475
 msgid "Angika"
-msgstr "Angikų"
+msgstr "angikų"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:17
 msgid "Apache languages"
-msgstr "Apačių kalbos"
+msgstr "apačių kalbos"
 
 #. frequency:2 iso_code_3:ara 
 #: DB:language/name:18
 msgid "Arabic"
-msgstr "Arabų"
+msgstr "arabų"
 
 #. frequency:1 iso_code_3:arg 
 #: DB:language/name:20
 msgid "Aragonese"
-msgstr "Aragoniečių"
+msgstr "aragoniečių"
 
 #. frequency:1 iso_code_3:arp 
 #: DB:language/name:23
 msgid "Arapaho"
-msgstr "Arapahų"
+msgstr "arapahų"
 
 #. frequency:1 iso_code_3:arw 
 #: DB:language/name:25
 msgid "Arawak"
-msgstr "Aravakų"
+msgstr "aravakų"
 
 #. frequency:1 iso_code_3:pka 
 #: DB:language/name:5403
 msgid "Ardhamāgadhī Prākrit"
-msgstr "Ardhamagadų kalba"
+msgstr "ardhamagadų kalba"
 
 #. frequency:1 iso_code_3:hye 
 #: DB:language/name:21
 msgid "Armenian"
-msgstr "Armėnų"
+msgstr "armėnų"
 
 #. frequency:1 iso_code_3:rup 
 #: DB:language/name:479
 msgid "Aromanian"
-msgstr "Aromanų"
+msgstr "aromanų"
 
 #. frequency:1 iso_code_3:asm 
 #: DB:language/name:26
 msgid "Assamese"
-msgstr "Asamių"
+msgstr "asamių"
 
 #. frequency:1 iso_code_3:ast 
 #: DB:language/name:27
 msgid "Asturian"
-msgstr "Astūriečių"
+msgstr "astūriečių"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:28
 msgid "Athapascan languages"
-msgstr "Atapaskų kalbos"
+msgstr "atapaskų kalbos"
 
 #. frequency:1 iso_code_3:atj 
 #: DB:language/name:866
 msgid "Atikamekw"
-msgstr "Atikamekvų"
+msgstr "atikamekvų"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:29
 msgid "Australian languages"
-msgstr "Australų kalbos"
+msgstr "australų kalbos"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:263
 msgid "Austronesian languages"
-msgstr "Austroneziečių kalbos"
+msgstr "austroneziečių kalbos"
 
 #. frequency:1 iso_code_3:ava 
 #: DB:language/name:30
 msgid "Avaric"
-msgstr "Avarų"
+msgstr "avarų"
 
 #. frequency:1 iso_code_3:ave 
 #: DB:language/name:31
 msgid "Avestan"
-msgstr "Avestų"
+msgstr "avestų"
 
 #. frequency:1 iso_code_3:awa 
 #: DB:language/name:32
 msgid "Awadhi"
-msgstr "Avadų"
+msgstr "avadų"
 
 #. frequency:1 iso_code_3:aym 
 #: DB:language/name:33
 msgid "Aymara"
-msgstr "Aimarų"
+msgstr "aimarų"
 
 #. frequency:1 iso_code_3:aze 
 #: DB:language/name:34
 msgid "Azerbaijani"
-msgstr "Azerbaidžaniečių"
+msgstr "azerbaidžaniečių"
 
 #. frequency:1 iso_code_3:bvd 
 #: DB:language/name:1470
 msgid "Baeggu"
-msgstr "Baeggų"
+msgstr "baeggų"
 
 #. frequency:1 iso_code_3:ban 
 #: DB:language/name:40
 msgid "Balinese"
-msgstr "Balinų"
+msgstr "balinų"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:43
 msgid "Baltic languages"
-msgstr "Baltų kalbos"
+msgstr "baltų kalbos"
 
 #. frequency:1 iso_code_3:bal 
 #: DB:language/name:38
 msgid "Baluchi"
-msgstr "Balučių"
+msgstr "balučių"
 
 #. frequency:1 iso_code_3:bam 
 #: DB:language/name:39
 msgid "Bambara"
-msgstr "Bambarų"
+msgstr "bambarų"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:36
 msgid "Bamileke languages"
-msgstr "Bamilekių kalbos"
+msgstr "bamilekių kalbos"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:35
 msgid "Banda languages"
-msgstr "Bangų kalbos"
+msgstr "bangų kalbos"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:55
 msgid "Bantu languages"
-msgstr "Bantų kalbos"
+msgstr "bantų kalbos"
 
 #. frequency:1 iso_code_3:bas 
 #: DB:language/name:42
 msgid "Basa"
-msgstr "Basų"
+msgstr "basų"
 
 #. frequency:1 iso_code_3:bak 
 #: DB:language/name:37
