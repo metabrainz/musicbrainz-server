@@ -936,10 +936,6 @@ msgstr ""
 msgid "Links a release to the event it was recorded at."
 msgstr "リリースをレコーディングが行われたイベントへリンクします。"
 
-#: DB:link_type/description:865
-msgid "Links a release to the place it was arranged at."
-msgstr "リリースを編曲が行われた場所へリンクします。"
-
 #: DB:link_type/description:820
 msgid "Links a release to the place it was edited at."
 msgstr "リリースを編集が行われた場所へリンクします。"
@@ -1387,7 +1383,7 @@ msgstr "教育機関の教師や学生に教えられた教科を指定する。
 msgid "Spoken vocals (speech)"
 msgstr "口頭言語（スピーチ）"
 
-#: DB:link_type/long_link_phrase:880
+#: DB:link_type/long_link_phrase:880 DB:link_type/long_link_phrase:1249
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written at {entity0}"
 msgstr "{entity1}の台本は{additional:補助的に}{entity0}によって書かれました"
@@ -1397,7 +1393,7 @@ msgid ""
 "The libretto for {entity1} was {additional:additionally} written in {entity0}"
 msgstr "{entity1}の台本は{additional:補助的に}{entity0}によって書かれました"
 
-#: DB:link_type/long_link_phrase:878
+#: DB:link_type/long_link_phrase:878 DB:link_type/long_link_phrase:1250
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written at {entity0}"
 msgstr "{entity1}の歌詞は{additional:補助的に}{entity0}によって書かれました"
@@ -3282,6 +3278,48 @@ msgstr ""
 "Kickstarter や Indiegogo などのクラウドファンディングサイトの関連するクラウド"
 "ファンディングプロジェクトに対しリリースをリンクする。"
 
+#: DB:link_type/description:865
+#, fuzzy
+#| msgid "This links a work with the place it was arranged at."
+msgid "This links a release with the place it was arranged at."
+msgstr "作品を編曲が行われた地域へリンクします。"
+
+#: DB:link_type/description:1251
+#, fuzzy
+#| msgid "This links a work with the place it was composed at."
+msgid "This links a release with the place it was composed at."
+msgstr "作品を作曲が行われた場所へリンクします。"
+
+#: DB:link_type/description:1248
+#, fuzzy
+#| msgid "This links a work with the place it was revised at."
+msgid "This links a release with the place it was revised at."
+msgstr "作品を改訂が行われた場所へリンクします。"
+
+#: DB:link_type/description:1247
+#, fuzzy
+#| msgid "This links a work with the place it was translated at."
+msgid "This links a release with the place it was translated at."
+msgstr "作品を翻訳が行われた場所へリンクします。"
+
+#: DB:link_type/description:1246
+#, fuzzy
+#| msgid "This links a work with the place it was written at."
+msgid "This links a release with the place it was written at."
+msgstr "作品を制作が行われた場所へリンクします。"
+
+#: DB:link_type/description:1249
+#, fuzzy
+#| msgid "This links a work with the place its libretto was written at."
+msgid "This links a release with the place its libretto was written at."
+msgstr "作品を台本が書かれた場所へリンクします。"
+
+#: DB:link_type/description:1250
+#, fuzzy
+#| msgid "This links a work with the place its lyrics were written at."
+msgid "This links a release with the place its lyrics were written at."
+msgstr "作品を作詞が行われた場所へリンクします。"
+
 #: DB:link_type/description:870
 msgid ""
 "This links a series (most commonly, but not necessarily always, a music "
@@ -5000,8 +5038,8 @@ msgstr "ビデオに登場"
 msgid "apple music"
 msgstr ""
 
-#: DB:link_type/name:866 DB:link_type/name:865 DB:link_type/name:886
-#: DB:link_type/reverse_link_phrase:866 DB:link_type/reverse_link_phrase:865
+#: DB:link_type/name:865 DB:link_type/name:866 DB:link_type/name:886
+#: DB:link_type/reverse_link_phrase:866
 msgid "arranged at"
 msgstr "編曲した場所"
 
@@ -5036,7 +5074,7 @@ msgid "arranging"
 msgstr ""
 
 #: DB:link_type/link_phrase:864 DB:link_type/link_phrase:863
-#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:865
+#: DB:link_type/link_phrase:866
 msgid "arranging location for"
 msgstr "ここで編曲されたレコーディング"
 
@@ -5389,7 +5427,7 @@ msgstr "編集する"
 msgid "compiler"
 msgstr "編集者"
 
-#: DB:link_type/name:876
+#: DB:link_type/name:1251 DB:link_type/name:876
 msgid "composed at"
 msgstr ""
 
@@ -6849,7 +6887,7 @@ msgstr "学習レベル"
 msgid "librettist"
 msgstr "台本作者"
 
-#: DB:link_type/name:880
+#: DB:link_type/name:880 DB:link_type/name:1249
 msgid "libretto written at"
 msgstr ""
 
@@ -6857,7 +6895,7 @@ msgstr ""
 msgid "libretto written in"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:880
+#: DB:link_type/reverse_link_phrase:880 DB:link_type/reverse_link_phrase:1249
 msgid "libretto {additional:additionally} written at"
 msgstr "台本が{additional:補助的に}書かれた場所"
 
@@ -6964,7 +7002,7 @@ msgstr "次の歌詞ページ"
 msgid "lyrics quoted in"
 msgstr ""
 
-#: DB:link_type/name:878
+#: DB:link_type/name:878 DB:link_type/name:1250
 msgid "lyrics written at"
 msgstr ""
 
@@ -8090,7 +8128,8 @@ msgstr ""
 msgid "revised"
 msgstr ""
 
-#: DB:link_type/name:882 DB:link_type/reverse_link_phrase:882
+#: DB:link_type/name:882 DB:link_type/name:1248
+#: DB:link_type/reverse_link_phrase:882 DB:link_type/reverse_link_phrase:1248
 msgid "revised at"
 msgstr "改訂された場所"
 
@@ -8103,6 +8142,7 @@ msgid "revised in"
 msgstr "改訂された地域"
 
 #: DB:link_type/link_phrase:881 DB:link_type/link_phrase:882
+#: DB:link_type/link_phrase:1248
 msgid "revising location for"
 msgstr "ここで改訂された作品"
 
@@ -8506,7 +8546,8 @@ msgstr ""
 msgid "translated"
 msgstr ""
 
-#: DB:link_type/name:883 DB:link_type/reverse_link_phrase:883
+#: DB:link_type/name:883 DB:link_type/name:1247
+#: DB:link_type/reverse_link_phrase:883 DB:link_type/reverse_link_phrase:1247
 msgid "translated at"
 msgstr ""
 
@@ -8818,7 +8859,7 @@ msgstr ""
 msgid "writer"
 msgstr "作者"
 
-#: DB:link_type/name:874
+#: DB:link_type/name:874 DB:link_type/name:1246
 msgid "written at"
 msgstr ""
 
@@ -8847,7 +8888,7 @@ msgid ""
 "{instrumental} {cover} {karaoke} recordings"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:886
+#: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
 msgstr ""
 
@@ -8860,7 +8901,7 @@ msgstr ""
 msgid "{additional:additionally} composed"
 msgstr "が{additional:補助的に}作曲した作品は"
 
-#: DB:link_type/reverse_link_phrase:876
+#: DB:link_type/reverse_link_phrase:1251 DB:link_type/reverse_link_phrase:876
 msgid "{additional:additionally} composed at"
 msgstr ""
 
@@ -8959,7 +9000,7 @@ msgstr "{additional:補助的に}翻訳"
 msgid "{additional:additionally} translated in"
 msgstr "{additional:補助的に}翻訳された地域"
 
-#: DB:link_type/reverse_link_phrase:874
+#: DB:link_type/reverse_link_phrase:874 DB:link_type/reverse_link_phrase:1246
 msgid "{additional:additionally} written at"
 msgstr "{additional:補助的に}制作された場所"
 
@@ -9115,7 +9156,8 @@ msgstr ""
 msgid "{additional} animation"
 msgstr "{additional:補助的な}イラスト"
 
-#: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
 msgstr "ここで{additional:補助的に}編曲された作品"
 
@@ -9135,8 +9177,14 @@ msgstr "{additional:補助的な}アートワーク"
 msgid "{additional} composer"
 msgstr "{additional:補助的な}作曲者"
 
-#: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
+#: DB:link_type/link_phrase:875
 msgid "{additional} composing location for"
+msgstr "ここで{additional:補助的に}作曲された作品"
+
+#: DB:link_type/link_phrase:1251 DB:link_type/link_phrase:876
+#, fuzzy
+#| msgid "{additional} composing location for"
+msgid "{additional} composition location for"
 msgstr "ここで{additional:補助的に}作曲された作品"
 
 #: DB:link_type/link_phrase:63 DB:link_type/link_phrase:146
@@ -9191,6 +9239,7 @@ msgid "{additional} libretto"
 msgstr "{additional:補助的な}台本"
 
 #: DB:link_type/link_phrase:879 DB:link_type/link_phrase:880
+#: DB:link_type/link_phrase:1249
 msgid "{additional} libretto writing location for"
 msgstr "ここで{additional:補助的に}台本が書かれた作品"
 
@@ -9207,10 +9256,11 @@ msgid "{additional} lyrics"
 msgstr "{additional:補助的な}歌詞"
 
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
+#: DB:link_type/link_phrase:1250
 msgid "{additional} lyrics writing location for"
 msgstr "ここで{additional:補助的に}作詞された作品"
 
-#: DB:link_type/reverse_link_phrase:878
+#: DB:link_type/reverse_link_phrase:878 DB:link_type/reverse_link_phrase:1250
 msgid "{additional} lyrics written at"
 msgstr "{additional:補助的に}作詞された場所"
 
@@ -9271,6 +9321,7 @@ msgid "{additional} transferring location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
+#: DB:link_type/link_phrase:1247
 msgid "{additional} translating location for"
 msgstr "ここで{additional:補助的に}翻訳された作品"
 
@@ -9283,6 +9334,7 @@ msgid "{additional} writer"
 msgstr "{additional:補助的な}作者"
 
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
+#: DB:link_type/link_phrase:1246
 msgid "{additional} writing location for"
 msgstr "ここで{additional:補助的に}制作された作品"
 
@@ -9648,7 +9700,7 @@ msgstr ""
 msgid "{entity1} presented {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:866 DB:link_type/long_link_phrase:865
+#: DB:link_type/long_link_phrase:866
 msgid "{entity1} was arranged at {entity0}"
 msgstr ""
 
@@ -9732,7 +9784,7 @@ msgstr "{entity1}をレコーディングした場所は{entity0}"
 msgid "{entity1} was remixed for {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:882
+#: DB:link_type/long_link_phrase:882 DB:link_type/long_link_phrase:1248
 msgid "{entity1} was revised at {entity0}"
 msgstr ""
 
@@ -9740,7 +9792,7 @@ msgstr ""
 msgid "{entity1} was revised in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:886
+#: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:886
 msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr ""
 
@@ -9748,7 +9800,7 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:876
+#: DB:link_type/long_link_phrase:1251 DB:link_type/long_link_phrase:876
 msgid "{entity1} was {additional:additionally} composed at {entity0}"
 msgstr ""
 
@@ -9816,7 +9868,7 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} transferred at {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:883
+#: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
 msgid "{entity1} was {additional:additionally} translated at {entity0}"
 msgstr ""
 
@@ -9824,7 +9876,7 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} translated in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:874
+#: DB:link_type/long_link_phrase:874 DB:link_type/long_link_phrase:1246
 msgid "{entity1} was {additional:additionally} written at {entity0}"
 msgstr ""
 
@@ -9924,6 +9976,9 @@ msgstr ""
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr ""
+
+#~ msgid "Links a release to the place it was arranged at."
+#~ msgstr "リリースを編曲が行われた場所へリンクします。"
 
 #~ msgid ""
 #~ "This links a MusicBrainz release to the equivalent entry at Amazon and "

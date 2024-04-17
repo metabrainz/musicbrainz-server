@@ -4304,6 +4304,16 @@ msgctxt "work_attribute_type"
 msgid "ID for the Vietnamese rights society VCPMC"
 msgstr "Een ID van de Vietnamese rechtenorganisatie VCPMC"
 
+#: DB:work_attribute_type/description:208
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the international (formerly US) rights society AMRA"
+msgctxt "work_attribute_type"
+msgid ""
+"ID for the international (but primarily Italian) rights society Soundreef"
+msgstr ""
+"Een ID van de internationale (vroeger Amerikaanse) rechtenorganisatie AMRA"
+
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
@@ -7343,6 +7353,11 @@ msgid ""
 msgstr ""
 "Sorteert de objecten in een serie automatisch aan de hand van de "
 "nummereigenschappen. Maakt hierbij gebruik van een natuurlijke volgorde."
+
+#: DB:work_attribute_type/name:208
+msgctxt "work_attribute_type"
+msgid "Soundreef ID"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:2
 msgctxt "release_group_secondary_type"

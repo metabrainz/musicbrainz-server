@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-09 20:38+0200\n"
+"POT-Creation-Date: 2024-04-17 15:48+0000\n"
 "PO-Revision-Date: 2024-01-04 20:28+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations."
 "metabrainz.org>\n"
@@ -14931,6 +14931,7 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:44
+msgctxt "noun"
 msgid "Order"
 msgstr ""
 
