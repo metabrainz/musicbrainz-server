@@ -45,12 +45,13 @@ run_with_apt_cache \
     install_perl && \
     install_cpanm_and_carton
 
+COPY --chown=musicbrainz:musicbrainz cpanfile cpanfile.snapshot ./
 # Install Perl module dependencies for MusicBrainz Server
 RUN with_cpanm_cache \
-    with_cpanfile_and_snapshot \
     chown_mb(``/home/musicbrainz/.cpanm'') && \
     chown_mb(``$PERL_CARTON_PATH'') && \
-    sudo -E -H -u musicbrainz carton install --deployment
+    sudo -E -H -u musicbrainz carton install --deployment && \
+    rm cpanfile cpanfile.snapshot
 
 RUN mkdir musicbrainz-server
 ENV PG_AMQP_COMMIT 240d477
