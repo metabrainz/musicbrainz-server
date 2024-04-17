@@ -13,6 +13,7 @@ import reactPlugin from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import eslintPluginJs from '@stylistic/eslint-plugin-js';
+import eslintPluginJsx from '@stylistic/eslint-plugin-jsx';
 import globals from 'globals';
 import hermesParser from 'hermes-eslint';
 
@@ -109,6 +110,7 @@ export default [
     },
     plugins: {
       'eslint-plugin-js': eslintPluginJs,
+      'eslint-plugin-jsx': eslintPluginJsx,
       'import': importPlugin,
       'react': reactPlugin,
       'ft-flow': ftFlow,
@@ -447,19 +449,28 @@ export default [
 
       // JSX-specific rules
       'react/jsx-boolean-value': ['warn', 'never'],
-      'react/jsx-closing-bracket-location': ['error', 'tag-aligned'],
-      'react/jsx-closing-tag-location': 'error',
-      'react/jsx-curly-spacing': ['error', {when: 'never', children: true}],
-      'react/jsx-equals-spacing': ['error', 'never'],
+      'eslint-plugin-jsx/jsx-closing-bracket-location':[
+        'error',
+        'tag-aligned',
+      ],
+      'eslint-plugin-jsx/jsx-closing-tag-location': 'error',
+      'eslint-plugin-jsx/jsx-curly-spacing': ['error', {
+        when: 'never',
+        children: true,
+      }],
+      'eslint-plugin-jsx/jsx-equals-spacing': ['error', 'never'],
       'react/jsx-filename-extension': ['error', {
         extensions: ['.js', '.mjs'],
       }],
-      'react/jsx-first-prop-new-line': ['error', 'multiline-multiprop'],
+      'eslint-plugin-jsx/jsx-first-prop-new-line': [
+        'error',
+        'multiline-multiprop',
+      ],
       'react/jsx-handler-names': 'warn',
-      'react/jsx-indent': ['error', 2],
-      'react/jsx-indent-props': ['error', 2],
+      'eslint-plugin-jsx/jsx-indent': ['error', 2],
+      'eslint-plugin-jsx/jsx-indent-props': ['error', 2],
       'react/jsx-key': 'warn',
-      'react/jsx-max-props-per-line': ['error', {
+      'eslint-plugin-jsx/jsx-max-props-per-line': ['error', {
         maximum: 1,
         when: 'multiline',
       }],
@@ -468,21 +479,23 @@ export default [
       'react/jsx-no-literals': 'warn',
       'react/jsx-no-target-blank': 'error',
       'react/jsx-no-undef': ['error', {allowGlobals: true}],
-      'react/jsx-one-expression-per-line': ['warn', {allow: 'single-child'}],
-      'react/jsx-curly-brace-presence': ['error', {
+      'eslint-plugin-jsx/jsx-one-expression-per-line': ['warn', {
+        allow: 'single-child',
+      }],
+      'eslint-plugin-jsx/jsx-curly-brace-presence': ['error', {
         props: 'never',
         children: 'ignore',
       }],
-      'react/jsx-pascal-case': 'error',
-      'react/jsx-sort-props': 'warn',
-      'react/jsx-tag-spacing': ['error', {beforeClosing: 'never'}],
+      'eslint-plugin-jsx/jsx-pascal-case': 'error',
+      'eslint-plugin-jsx/jsx-sort-props': 'warn',
+      'eslint-plugin-jsx/jsx-tag-spacing': ['error', {beforeClosing: 'never'}],
       /*
        * jsx-uses-react is not implied since
        * https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
        */
       'react/jsx-uses-react': 'off',
       'react/jsx-uses-vars': 'warn',
-      'react/jsx-wrap-multilines': ['error', {
+      'eslint-plugin-jsx/jsx-wrap-multilines': ['error', {
         declaration: 'parens-new-line',
         assignment: 'parens-new-line',
         return: 'parens-new-line',
