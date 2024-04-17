@@ -1707,6 +1707,14 @@ msgid ""
 "harmonica."
 msgstr ""
 
+#. name:parkapzuk 
+#: DB:instrument/description:1207
+msgid ""
+"Has a bag made of goat, veal or sheepskin, and a double piped chanter "
+"collected in a single horn. Both wooden chanters have holes; one for melody, "
+"the other for drone."
+msgstr ""
+
 #. name:ghaychak 
 #: DB:instrument/description:931
 msgid ""

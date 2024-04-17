@@ -2972,6 +2972,11 @@ msgctxt "Smallest member of the viol family"
 msgid "pardessus de viole"
 msgstr ""
 
+#: DB:instrument/name:1207
+msgctxt "Armenian double chanter bagpipe"
+msgid "parkapzuk"
+msgstr ""
+
 #: DB:instrument/name:1076
 msgctxt "Polish foot-pedal accordion"
 msgid "pedal accordion"
