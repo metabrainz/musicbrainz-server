@@ -306,6 +306,7 @@ export default [
       'eslint-plugin-js/eol-last': ['warn', 'always'],
       'eslint-plugin-js/func-call-spacing': ['warn', 'never'],
       'eslint-plugin-js/function-paren-newline': ['warn', 'consistent'],
+      'eslint-plugin-js/generator-star-spacing': ['warn', 'after'],
       'eslint-plugin-js/implicit-arrow-linebreak': ['warn', 'beside'],
       'eslint-plugin-js/indent': ['warn', 2, {
         CallExpression: {arguments: 'first'},
