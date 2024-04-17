@@ -139,7 +139,6 @@ export default [
       'no-duplicate-case': 'error',
       'no-empty-character-class': 'error',
       'no-empty': ['error', {allowEmptyCatch: true}],
-      'no-extra-semi': 'warn',
       'no-irregular-whitespace': 'warn',
       'no-misleading-character-class': 'error',
       'no-obj-calls': 'error',
@@ -333,6 +332,7 @@ export default [
       '@stylistic/js/newline-per-chained-call': ['warn', {
         ignoreChainWithDepth: 3,
       }],
+      '@stylistic/js/no-extra-semi': 'warn',
       '@stylistic/js/no-mixed-spaces-and-tabs': 'warn',
       '@stylistic/js/no-multiple-empty-lines': ['warn', {
         max: 2,
