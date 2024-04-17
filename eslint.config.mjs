@@ -207,7 +207,6 @@ export default [
       'no-else-return': 'warn',
       'no-eq-null': 'off',
       'no-global-assign': 'error',
-      'no-multi-spaces': ['error', {ignoreEOLComments: true}],
       'no-useless-catch': 'warn',
       'no-var': 'warn',
       'prefer-const': 'warn',
@@ -334,6 +333,9 @@ export default [
       '@stylistic/js/no-extra-semi': 'warn',
       '@stylistic/js/no-floating-decimal': 'warn',
       '@stylistic/js/no-mixed-spaces-and-tabs': 'warn',
+      '@stylistic/js/no-multi-spaces': ['error', {
+        ignoreEOLComments: true,
+      }],
       '@stylistic/js/no-multiple-empty-lines': ['warn', {
         max: 2,
         maxBOF: 0,

@@ -49,7 +49,7 @@ const LOWER_CASE_WORDS_TURKISH = /^(ve|ile|ya|veya|yahut|ki|mı|mi|mu|mü|mısı
 const UPPER_CASE_WORDS = /^(dj|mc|tv|mtv|ep|lp|ymca|nyc|ny|ussr|usa|r&b|bbc|fm|bc|ac|dc|uk|bpm|ok|nba|rza|gza|odb|dmx|2xlc)$/;
 const ROMAN_NUMERALS = /^m{0,4}(cm|cd|d?c{0,3})(xc|xl|l?x{0,3})(ix|iv|v?i{0,3})$/;
 
-/* eslint-disable no-multi-spaces */
+/* eslint-disable @stylistic/js/no-multi-spaces */
 const PREPROCESS_FIXLIST = [
   // trim spaces from brackets.
   [/(^|\s)([\(\{\[])\s+($|\b)/i, '$2'], // spaces after opening brackets
@@ -99,7 +99,7 @@ const POSTPROCESS_FIXLIST = [
   [/(\b)w([/／])o(\b)/i,            'w$2o'], // w/o should be lowercase
   [/(\b)f([.．/／])(\b)/i,          'f$2'], // f. and f/ should be lowercase
 ];
-/* eslint-enable no-multi-spaces */
+/* eslint-enable @stylistic/js/no-multi-spaces */
 
 function replaceMatch(
   matches: RegExp$matchResult,
