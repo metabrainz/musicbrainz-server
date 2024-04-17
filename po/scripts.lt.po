@@ -1,11 +1,11 @@
 #
 # Translators:
 # Vaclovas lntas (Vac.) <email address hidden>, 2023
-# "Vac31." <gateway_31@protonmail.com>, 2023.
+# "Vac31." <gateway_31@protonmail.com>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-10-09 17:27+0000\n"
+"PO-Revision-Date: 2024-04-10 09:28+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/lt/>\n"
@@ -14,9 +14,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.0.2\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #. frequency:1 iso_code:Afak 
 #: DB:script/name:133
@@ -26,22 +26,22 @@ msgstr "Afaka"
 #. frequency:4 iso_code:Arab 
 #: DB:script/name:18
 msgid "Arabic"
-msgstr "Arabų"
+msgstr "arabų"
 
 #. frequency:3 iso_code:Armn 
 #: DB:script/name:35
 msgid "Armenian"
-msgstr "Armėnų"
+msgstr "armėnų"
 
 #. frequency:1 iso_code:Avst 
 #: DB:script/name:114
 msgid "Avestan"
-msgstr "Avestų"
+msgstr "avestų"
 
 #. frequency:2 iso_code:Bali 
 #: DB:script/name:72
 msgid "Balinese"
-msgstr "Balinų"
+msgstr "balinų"
 
 #. frequency:1 iso_code:Bamu 
 #: DB:script/name:155

@@ -27,8 +27,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.4\n"
 
 #: DB:instrument/name:438
@@ -2976,6 +2976,11 @@ msgstr "pang gu ly hu hmông"
 msgctxt "Smallest member of the viol family"
 msgid "pardessus de viole"
 msgstr "pardessus de viole"
+
+#: DB:instrument/name:1207
+msgctxt "Armenian double chanter bagpipe"
+msgid "parkapzuk"
+msgstr ""
 
 #: DB:instrument/name:1076
 msgctxt "Polish foot-pedal accordion"
