@@ -302,6 +302,7 @@ export default [
       'eslint-plugin-js/computed-property-spacing': ['warn', 'never', {
         enforceForClassMembers: true,
       }],
+      'eslint-plugin-js/dot-location': ['warn', 'property'],
       'eslint-plugin-js/eol-last': ['warn', 'always'],
       'eslint-plugin-js/func-call-spacing': ['warn', 'never'],
       'eslint-plugin-js/function-paren-newline': ['warn', 'consistent'],
