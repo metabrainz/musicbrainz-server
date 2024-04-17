@@ -17,12 +17,12 @@
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 # "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
+# GABG <musicbrainz@gabg.email>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-31 15:28+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-04-15 04:28+0000\n"
+"Last-Translator: GABG <musicbrainz@gabg.email>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/it/>\n"
 "Language: it\n"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -1606,19 +1606,14 @@ msgstr ""
 "(articolo). Questo tipo di relazione va utilizzato in quest'ultimo caso."
 
 #: DB:link_type/description:125
-#, fuzzy
-#| msgid ""
-#| "This credits the people or agency who did the graphic design, arranging "
-#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
-#| "design."
 msgid ""
 "This credits the people or agency who did graphic design for a video "
 "recording, arranging pieces of content into a coherent and aesthetically-"
 "pleasing whole."
 msgstr ""
-"Accredita le persone o l'agenzia che hanno curato il progetto grafico, "
-"organizzandone i componenti in un design della custodia coerente e piacevole "
-"esteticamente."
+"Accredita le persone o l'agenzia che hanno curato il progetto grafico per "
+"una registrazione video, organizzandone i componenti in un design coerente e "
+"piacevole esteticamente."
 
 #: DB:link_type/description:202
 msgid ""
@@ -1949,10 +1944,8 @@ msgstr ""
 "pubblicazione."
 
 #: DB:link_type/description:1242
-#, fuzzy
-#| msgid "This indicates an artist who did design for the event."
 msgid "This indicates an artist who did design for a video recording."
-msgstr "Indica un artista che ha curato il design dell'evento."
+msgstr "Indica un artista che ha curato il design per una registrazione video."
 
 #: DB:link_type/description:1233
 msgid "This indicates an artist who did design for the event."
@@ -1963,10 +1956,9 @@ msgid "This indicates an artist who did design for the release."
 msgstr "Indica un artista che ha curato il design della pubblicazione."
 
 #: DB:link_type/description:1244
-#, fuzzy
-#| msgid "This indicates an artist who did illustration for the event."
 msgid "This indicates an artist who did illustration for a video recording."
-msgstr "Indica un artista che ha curato le illustrazioni dell'evento."
+msgstr ""
+"Indica un artista che ha curato le illustrazioni di una registrazione video."
 
 #: DB:link_type/description:1232
 msgid "This indicates an artist who did illustration for the event."
@@ -2003,16 +1995,12 @@ msgstr ""
 "pratici che hanno a che fare con la creazione di una registrazione musicale."
 
 #: DB:link_type/description:1241
-#, fuzzy
-#| msgid ""
-#| "This indicates an artist who provided artwork for the event when no more "
-#| "specific information is available."
 msgid ""
 "This indicates an artist who provided artwork for a video recording when no "
 "more specific information is available."
 msgstr ""
-"Indica un artista che ha curato il materiale illustrativo dell'evento quando "
-"non sono disponibili informazioni più specifiche."
+"Indica un artista che ha curato il materiale illustrativo di una "
+"registrazione video quando non sono disponibili informazioni più specifiche."
 
 #: DB:link_type/description:1231
 msgid ""
