@@ -4156,6 +4156,15 @@ msgctxt "work_attribute_type"
 msgid "ID for the Vietnamese rights society VCPMC"
 msgstr ""
 
+#: DB:work_attribute_type/description:208
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the international (formerly US) rights society AMRA"
+msgctxt "work_attribute_type"
+msgid ""
+"ID for the international (but primarily Italian) rights society Soundreef"
+msgstr " 国際的な(かつてはアメリカの)権利者団体AMRAのID"
+
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
@@ -7176,6 +7185,11 @@ msgid ""
 "using a natural sort order."
 msgstr ""
 "自然順を使用して、シリーズ内のアイテムを番号属性で自動的に並べ替えする。"
+
+#: DB:work_attribute_type/name:208
+msgctxt "work_attribute_type"
+msgid "Soundreef ID"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:2
 msgctxt "release_group_secondary_type"

@@ -36,7 +36,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-09 20:38+0200\n"
+"POT-Creation-Date: 2024-04-17 15:48+0000\n"
 "PO-Revision-Date: 2024-01-17 09:58+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -16129,6 +16129,9 @@ msgstr ""
 "te behouden."
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:44
+#, fuzzy
+#| msgid "Order"
+msgctxt "noun"
 msgid "Order"
 msgstr "Volgorde"
 

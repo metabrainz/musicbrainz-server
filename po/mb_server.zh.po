@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-09 20:38+0200\n"
+"POT-Creation-Date: 2024-04-17 15:48+0000\n"
 "PO-Revision-Date: 2024-04-16 13:28+0000\n"
 "Last-Translator: x1ao4 <kazaf_ken@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
@@ -15699,6 +15699,9 @@ msgid ""
 msgstr "填写的名称是可选的。您可以将此字段留空以保持当前名称。"
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:44
+#, fuzzy
+#| msgid "Order"
+msgctxt "noun"
 msgid "Order"
 msgstr "排序"
 
