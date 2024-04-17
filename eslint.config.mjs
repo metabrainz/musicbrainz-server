@@ -388,6 +388,7 @@ export default [
       '@stylistic/js/template-curly-spacing': ['warn', 'never'],
       '@stylistic/js/template-tag-spacing': ['warn', 'never'],
       '@stylistic/js/wrap-iife': 'warn',
+      '@stylistic/js/yield-star-spacing': ['warn', 'after'],
 
       // eslint-plugin-react
       'react/boolean-prop-naming': 'off',

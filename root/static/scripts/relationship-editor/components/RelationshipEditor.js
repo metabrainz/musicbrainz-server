@@ -155,7 +155,7 @@ export function* getInitialRelationshipUpdates(
     };
 
     if (target.relationships) {
-      yield *getInitialRelationshipUpdates(
+      yield* getInitialRelationshipUpdates(
         target.relationships,
         target,
       );
@@ -271,7 +271,7 @@ export function* getUpdatesForAcceptedRelationship(
       source,
     );
     if (mergeUpdates) {
-      yield *mergeUpdates;
+      yield* mergeUpdates;
     } else {
       yield {
         onConflict: onConflictKeepTreeValue,
@@ -294,10 +294,10 @@ export function* getUpdatesForAcceptedRelationship(
       newRelationshipState,
     );
     for (const relationshipState of splitRelationships) {
-      yield *mergeAndYieldUpdates(relationshipState);
+      yield* mergeAndYieldUpdates(relationshipState);
     }
   } else {
-    yield *mergeAndYieldUpdates(newRelationshipState);
+    yield* mergeAndYieldUpdates(newRelationshipState);
   }
 }
 

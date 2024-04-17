@@ -38,7 +38,7 @@ export function* findWorkRecordings(
   writableRootState: ReleaseRelationshipEditorStateT,
   work: WorkT,
 ): Generator<RecordingT, void, void> {
-  yield *iterateTargetEntitiesOfType<RecordingT>(
+  yield* iterateTargetEntitiesOfType<RecordingT>(
     findTargetTypeGroups(
       writableRootState.relationshipsBySource,
       work,
