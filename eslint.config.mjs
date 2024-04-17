@@ -128,6 +128,7 @@ export default [
       'no-async-promise-executor': 'error',
       'no-await-in-loop': 'error',
       'no-cond-assign': 'warn',
+      'no-constant-binary-expression': 'error',
       'no-constant-condition': ['error', {checkLoops: false}],
       'no-control-regex': 'off',
       'no-debugger': 'error',
