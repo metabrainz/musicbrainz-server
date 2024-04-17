@@ -4698,8 +4698,3 @@ msgstr ""
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr ""
-
-#: DB:instrument/name:1207
-msgctxt "Armenian double chanter bagpipe"
-msgid "parkapzuk"
-msgstr "parkapzukas"
