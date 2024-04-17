@@ -204,7 +204,6 @@ export default [
       'no-alert': 'off',
       'no-else-return': 'warn',
       'no-eq-null': 'off',
-      'no-floating-decimal': 'warn',
       'no-global-assign': 'error',
       'no-multi-spaces': ['error', {ignoreEOLComments: true}],
       'no-useless-catch': 'warn',
@@ -331,6 +330,7 @@ export default [
         ignoreChainWithDepth: 3,
       }],
       'eslint-plugin-js/no-extra-semi': 'warn',
+      'eslint-plugin-js/no-floating-decimal': 'warn',
       'eslint-plugin-js/no-mixed-spaces-and-tabs': 'warn',
       'eslint-plugin-js/no-multiple-empty-lines': ['warn', {
         max: 2,
