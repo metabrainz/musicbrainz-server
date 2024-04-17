@@ -304,6 +304,7 @@ export default [
       '@stylistic/js/computed-property-spacing': ['warn', 'never', {
         enforceForClassMembers: true,
       }],
+      '@stylistic/js/dot-location': ['warn', 'property'],
       '@stylistic/js/eol-last': ['warn', 'always'],
       '@stylistic/js/func-call-spacing': ['warn', 'never'],
       '@stylistic/js/function-paren-newline': ['warn', 'consistent'],
