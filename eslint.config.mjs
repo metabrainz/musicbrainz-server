@@ -257,7 +257,6 @@ export default [
       'no-useless-rename': 'warn',
       'prefer-numeric-literals': 'warn',
       'require-yield': 'error',
-      'rest-spread-spacing': ['warn', 'never'],
       /*
        * sort-imports does not support Flow 'type' imports, so we use the
        * imports rule from simple-import-sort instead.
@@ -361,6 +360,7 @@ export default [
         avoidEscape: true,
         allowTemplateLiterals: true,
       }],
+      '@stylistic/js/rest-spread-spacing': ['warn', 'never'],
       '@stylistic/js/semi': ['warn', 'always', {
         omitLastInOneLineBlock: true,
       }],
