@@ -284,6 +284,7 @@ export default [
       'eslint-plugin-js/array-bracket-newline': ['warn', 'consistent'],
       'eslint-plugin-js/array-bracket-spacing': ['warn', 'never'],
       'eslint-plugin-js/array-element-newline': ['warn', 'consistent'],
+      'eslint-plugin-js/arrow-spacing': 'warn',
       'eslint-plugin-js/block-spacing': ['warn', 'always'],
       'eslint-plugin-js/brace-style': ['warn', '1tbs'],
       'eslint-plugin-js/comma-dangle': ['warn', {
