@@ -308,6 +308,7 @@ export default [
       '@stylistic/js/eol-last': ['warn', 'always'],
       '@stylistic/js/func-call-spacing': ['warn', 'never'],
       '@stylistic/js/function-paren-newline': ['warn', 'consistent'],
+      '@stylistic/js/generator-star-spacing': ['warn', 'after'],
       '@stylistic/js/implicit-arrow-linebreak': ['warn', 'beside'],
       '@stylistic/js/indent': ['warn', 2, {
         CallExpression: {arguments: 'first'},
