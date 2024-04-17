@@ -206,7 +206,6 @@ export default [
       'no-alert': 'off',
       'no-else-return': 'warn',
       'no-eq-null': 'off',
-      'no-floating-decimal': 'warn',
       'no-global-assign': 'error',
       'no-multi-spaces': ['error', {ignoreEOLComments: true}],
       'no-useless-catch': 'warn',
@@ -333,6 +332,7 @@ export default [
         ignoreChainWithDepth: 3,
       }],
       '@stylistic/js/no-extra-semi': 'warn',
+      '@stylistic/js/no-floating-decimal': 'warn',
       '@stylistic/js/no-mixed-spaces-and-tabs': 'warn',
       '@stylistic/js/no-multiple-empty-lines': ['warn', {
         max: 2,
