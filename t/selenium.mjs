@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import child_process from 'child_process';
+import childProcess from 'child_process';
 import fs from 'fs';
 import http from 'http';
 import path from 'path';
@@ -146,10 +146,10 @@ function wrapChildProcessMethod(methodName) {
         }
       }
 
-      const child = child_process[methodName](
+      const child = childProcess[methodName](
         ...args,
         function (error, stdout, stderr) {
-          result = {error, stdout, stderr};
+          result = {error, stderr, stdout};
           if (exitCode !== null) {
             done();
           }

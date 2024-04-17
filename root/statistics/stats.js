@@ -19,10 +19,10 @@ const stats = {
     'collection': {label: l_statistics('Collections')},
     'core-entities': {label: l_statistics('Core entities')},
     'cover-art': {hide: true, label: lp_statistics('Cover art', 'plural')},
-    'event-art': {hide: true, label: lp_statistics('Event art', 'plural')},
     'edit-information':
       {hide: true, label: lp_statistics('Edit information', 'noun')},
     'edit-types': {label: lp_statistics('Edit types', 'noun')},
+    'event-art': {hide: true, label: lp_statistics('Event art', 'plural')},
     'event-types': {label: l_statistics('Event types')},
     'formats': {label: l_statistics('Formats')},
     'instrument-types': {label: l_statistics('Instrument types')},
@@ -284,11 +284,6 @@ const stats = {
     color: '#0022dd',
     label: l_statistics('Pieces of cover art'),
   },
-  'count.eventart': {
-    category: 'event-art',
-    color: '#2200dd',
-    label: l_statistics('Pieces of event art'),
-  },
   'count.discid': {
     category: 'other',
     color: '#ff0000',
@@ -471,6 +466,11 @@ const stats = {
     label: l_statistics(
       'Events with no type set that have event art',
     ),
+  },
+  'count.eventart': {
+    category: 'event-art',
+    color: '#2200dd',
+    label: l_statistics('Pieces of event art'),
   },
   'count.genre': {
     category: 'core-entities',
