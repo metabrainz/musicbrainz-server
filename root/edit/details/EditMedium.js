@@ -361,7 +361,7 @@ component CondensedTrackACsDiff(
   let endNumber;
   const rows = [];
 
-  artistCreditChanges.map((change, index, array) => {
+  artistCreditChanges.forEach((change, index, array) => {
     const isLast = array.length - 1 === index;
     const oldTrack = change.old_track;
     const newTrack = change.new_track;

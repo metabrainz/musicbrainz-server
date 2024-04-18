@@ -33,7 +33,7 @@ component MediumTracklist(
   let dataTracksStarted = false;
   const tracklist = [];
 
-  tracks.map((track, index) => {
+  tracks.forEach((track, index) => {
     const recording = track.recording;
 
     if (track.isDataTrack && !dataTracksStarted) {

@@ -88,7 +88,9 @@ export default function exportTypeInfo(typeInfo, attrInfo) {
   });
 
   // Sort each list of types alphabetically.
-  Object.values(MB.allowedRelations).forEach(x => x.sort());
+  Object.values(MB.allowedRelations).forEach(x => {
+    x.sort();
+  });
 
   for (const attr of Object.values(linkedEntities.link_attribute_type)) {
     attr.root = linkedEntities.link_attribute_type[attr.root_id];
