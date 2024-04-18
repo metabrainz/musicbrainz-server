@@ -151,6 +151,7 @@ export default [
       'no-sparse-arrays': 'error',
       'no-unexpected-multiline': 'error',
       'no-unreachable': 'off', // Flow takes care of this
+      'no-unreachable-loop': 'error',
       'no-unsafe-finally': 'error',
       'no-unsafe-negation': 'error',
       'no-unused-vars': ['error', {argsIgnorePattern: '^this$'}],

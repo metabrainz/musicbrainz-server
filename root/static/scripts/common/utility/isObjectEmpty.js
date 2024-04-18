@@ -14,6 +14,7 @@
 export default function isObjectEmpty(
   object: {__proto__: null, ...} | {...},
 ): boolean {
+  // eslint-disable-next-line no-unreachable-loop -- intentional here
   for (const key in object) {
     return false;
   }
