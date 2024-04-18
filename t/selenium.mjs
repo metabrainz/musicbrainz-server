@@ -317,6 +317,7 @@ async function selectOption(select, optionLocator) {
   return option.click();
 }
 
+/* eslint-disable no-template-curly-in-string */
 const KEY_CODES = {
   '${KEY_BKSP}': Key.BACK_SPACE,
   '${KEY_DOWN}': Key.ARROW_DOWN,
@@ -329,6 +330,7 @@ const KEY_CODES = {
   '${KEY_UP}': Key.ARROW_UP,
   '${MBS_ROOT}': DBDefs.MB_SERVER_ROOT.replace(/\/$/, ''),
 };
+/* eslint-enable no-template-curly-in-string */
 
 function getPageErrors() {
   return driver.executeScript('return ((window.MB || {}).js_errors || [])');
