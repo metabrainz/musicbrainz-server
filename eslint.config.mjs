@@ -130,31 +130,51 @@ export default [
       // Possible Problems
       'array-callback-return': ['error', {checkForEach: true}],
       'for-direction': 'error',
+      'getter-return': 'off', // We should never use getters
       'no-async-promise-executor': 'error',
       'no-await-in-loop': 'error',
+      'no-compare-neg-zero': 'off',
       'no-cond-assign': 'warn',
       'no-constant-binary-expression': 'error',
       'no-constant-condition': ['error', {checkLoops: false}],
+      'no-constructor-return': 'off', // We should aim not to use classes
       'no-control-regex': 'off',
       'no-debugger': 'error',
       'no-dupe-args': 'error',
+      'no-dupe-else-if': 'error',
       'no-dupe-keys': 'error',
       'no-duplicate-case': 'error',
       'no-empty-character-class': 'error',
+      'no-empty-pattern': 'error',
       'no-empty': ['error', {allowEmptyCatch: true}],
+      'no-ex-assign': 'error',
+      'no-fallthrough': 'error',
+      'no-func-assign': 'off', // Enforced by Flow
+      'no-import-assign': 'off', // Enforced by Flow
+      'no-inner-declarations': 'off', // Not needed in ES6+
+      'no-invalid-regexp': 'error',
       'no-irregular-whitespace': 'warn',
+      'no-loss-of-precision': 'off',
       'no-misleading-character-class': 'error',
       'no-obj-calls': 'error',
+      'no-promise-executor-return': 'error',
       'no-prototype-builtins': 'warn',
       'no-regex-spaces': 'error',
+      'no-self-assign': 'error',
+      'no-self-compare': 'error',
+      'no-setter-return': 'off', // We should never use setters
       'no-shadow-restricted-names': 'error',
       'no-sparse-arrays': 'error',
+      'no-template-curly-in-string': 'warn',
       'no-unexpected-multiline': 'error',
-      'no-unreachable': 'off', // Flow takes care of this
+      'no-unmodified-loop-condition': 'error',
       'no-unreachable-loop': 'error',
       'no-unsafe-finally': 'error',
       'no-unsafe-negation': 'error',
+      'no-unsafe-optional-chaining': 'off', // Enforced by Flow
+      'no-unused-private-class-members': 'off', // We should aim not to use classes
       'no-unused-vars': ['error', {argsIgnorePattern: '^this$'}],
+      'no-useless-backreference': 'off',
       'no-with': 'error',
       'require-atomic-updates': 'error',
       'use-isnan': 'error',
