@@ -242,6 +242,7 @@ export default [
       'consistent-return': 'error',
       'consistent-this': ['warn', 'self'],
       'curly': ['error', 'all'],
+      'default-case-last': 'warn',
       'dot-location': ['warn', 'property'],
       'dot-notation': ['warn', {allowKeywords: true}],
       'eqeqeq': ['warn', 'smart'],
