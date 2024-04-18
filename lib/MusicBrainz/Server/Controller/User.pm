@@ -190,8 +190,7 @@ sub login : Path('/login') ForbiddenOnMirrors RequireSSL SecureForm
     my ($self, $c) = @_;
 
     if ($c->user_exists) {
-        $c->response->redirect($c->uri_for_action('/user/profile',
-                                                 [ $c->user->name ]));
+        $c->redirect_back(fallback => $c->uri_for_action('/user/profile', [ $c->user->name ]));
         $c->detach;
     }
 
