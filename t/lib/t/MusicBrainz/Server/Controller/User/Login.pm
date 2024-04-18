@@ -199,6 +199,8 @@ test 'MBS-13548: obey returnto for already logged in users' => sub {
 
     $mech->get_ok('https://localhost/login?returnto=/doc/About');
     is($mech->uri->path, '/doc/About');
+
+    $enable_ssl->DESTROY;
 };
 
 sub enable_ssl {
