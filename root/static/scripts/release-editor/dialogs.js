@@ -112,7 +112,9 @@ class SearchResult {
   }
 
   requestDone(data) {
-    data.tracks.forEach((track, index) => this.parseTrack(track, index));
+    data.tracks.forEach((track, index) => {
+      this.parseTrack(track, index);
+    });
     Object.assign(this, utils.reuseExistingMediumData(data));
 
     this.loaded(true);

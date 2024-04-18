@@ -127,7 +127,8 @@ export default [
       },
     },
     rules: {
-    // Possible Errors
+      // Possible Problems
+      'array-callback-return': ['error', {checkForEach: true}],
       'for-direction': 'error',
       'no-async-promise-executor': 'error',
       'no-await-in-loop': 'error',

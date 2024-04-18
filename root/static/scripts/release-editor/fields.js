@@ -1047,7 +1047,9 @@ class Release extends mbEntity.Release {
     ko.computed(function () {
       for (const events of groupBy(self.events(), countryID).values()) {
         const isDuplicate = events.filter(nonEmptyEvent).length > 1;
-        events.forEach(e => e.isDuplicate(isDuplicate));
+        events.forEach(e => {
+          e.isDuplicate(isDuplicate);
+        });
       }
     });
 
@@ -1075,7 +1077,9 @@ class Release extends mbEntity.Release {
       const labelsByKey = groupBy(self.labels(), releaseLabelKey);
       for (const labels of labelsByKey.values()) {
         const isDuplicate = labels.filter(nonEmptyReleaseLabel).length > 1;
-        labels.forEach(l => l.isDuplicate(isDuplicate));
+        labels.forEach(l => {
+          l.isDuplicate(isDuplicate);
+        });
       }
     });
 
@@ -1162,7 +1166,9 @@ class Release extends mbEntity.Release {
     var mediums = this.mediums();
 
     if (mediums.length <= 3) {
-      mediums.forEach(m => m.loadTracks());
+      mediums.forEach(m => {
+        m.loadTracks();
+      });
     }
   }
 

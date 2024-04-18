@@ -49,7 +49,7 @@ component CondensedTrackACs(tracks?: $ReadOnlyArray<TrackT>) {
   let endNumber;
   const rows = [];
 
-  tracks.map((track, index, array) => {
+  tracks.forEach((track, index, array) => {
     const isLast = array.length - 1 === index;
     const isNewArtistCredit = thisCredit &&
       !artistCreditsAreEqual(thisCredit, track.artistCredit);

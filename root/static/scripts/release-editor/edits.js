@@ -763,7 +763,9 @@ releaseEditor.orderedEditSubmissions = [
     edits: releaseEditor.edits.discID,
 
     callback: function (release) {
-      release.mediums().forEach(m => m.toc(null));
+      release.mediums().forEach(m => {
+        m.toc(null);
+      });
     },
   },
   {

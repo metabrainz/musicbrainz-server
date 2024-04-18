@@ -60,9 +60,9 @@ export function _createLinkAttributeTypeOptions(
       type: 'option',
     });
   }
-  attr.children?.forEach(child => (
-    void _createLinkAttributeTypeOptions(child, level + 1, result)
-  ));
+  attr.children?.forEach(child => {
+    _createLinkAttributeTypeOptions(child, level + 1, result);
+  });
 }
 
 /*

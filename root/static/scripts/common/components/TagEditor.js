@@ -304,7 +304,9 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
       doRequest({url: url})
         .done(data => this.updateTags(data.updates))
-        .fail(() => items.forEach(x => x.fail()));
+        .fail(() => items.forEach(x => {
+          x.fail();
+        }));
     }
   }
 
