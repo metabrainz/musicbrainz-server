@@ -126,23 +126,32 @@ export default [
       },
     },
     rules: {
-      // Possible Problems
+      // Possible problems
       'array-callback-return': ['error', {checkForEach: true}],
+      'constructor-super': 'error',
       'for-direction': 'error',
       'getter-return': 'off', // We should never use getters
       'no-async-promise-executor': 'error',
       'no-await-in-loop': 'error',
+      'no-class-assign': 'error',
       'no-compare-neg-zero': 'off',
       'no-cond-assign': 'warn',
+      'no-const-assign': 'error',
       'no-constant-binary-expression': 'error',
       'no-constant-condition': ['error', {checkLoops: false}],
       'no-constructor-return': 'off', // We should aim not to use classes
       'no-control-regex': 'off',
       'no-debugger': 'error',
       'no-dupe-args': 'error',
+      'no-dupe-class-members': 'error',
       'no-dupe-else-if': 'error',
       'no-dupe-keys': 'error',
       'no-duplicate-case': 'error',
+      /*
+       * no-duplicate-imports does not support Flow 'type' imports, so we use
+       * the import/no-duplicates rule from eslint-plugin-import instead.
+       */
+      'no-duplicate-imports': 'off',
       'no-empty-character-class': 'error',
       'no-empty-pattern': 'error',
       'no-empty': ['error', {allowEmptyCatch: true}],
@@ -155,6 +164,7 @@ export default [
       'no-irregular-whitespace': 'warn',
       'no-loss-of-precision': 'off',
       'no-misleading-character-class': 'error',
+      'no-new-native-nonconstructor': 'error',
       'no-obj-calls': 'error',
       'no-promise-executor-return': 'error',
       'no-prototype-builtins': 'warn',
@@ -165,6 +175,15 @@ export default [
       'no-shadow-restricted-names': 'error',
       'no-sparse-arrays': 'error',
       'no-template-curly-in-string': 'warn',
+      'no-this-before-super': 'error',
+      /*
+       * no-undef is mostly superfluous as it is checked by Flow; enabling it
+       * actually triggers thousands of false positives because hermes-eslint
+       * doesn't track global types (those defined with `declare type`).
+       * Ideally we could keep no-undef enabled for files that aren't Flow-
+       * typed yet, but we don't maintain a separate config for those.
+       */
+      'no-undef': 'off',
       'no-unexpected-multiline': 'error',
       'no-unmodified-loop-condition': 'error',
       'no-unreachable-loop': 'error',
@@ -173,13 +192,14 @@ export default [
       'no-unsafe-optional-chaining': 'off', // Enforced by Flow
       'no-unused-private-class-members': 'off', // We should aim not to use classes
       'no-unused-vars': ['error', {argsIgnorePattern: '^this$'}],
+      'no-use-before-define': 'off',
       'no-useless-backreference': 'off',
       'no-with': 'error',
       'require-atomic-updates': 'error',
       'use-isnan': 'error',
       'valid-typeof': 'error',
 
-      // Best Practices
+      // Suggestions
       'block-scoped-var': 'warn',
       'camelcase': ['warn', {
         properties: 'never',
@@ -225,33 +245,12 @@ export default [
       'dot-location': ['warn', 'property'],
       'dot-notation': ['warn', {allowKeywords: true}],
       'eqeqeq': ['warn', 'smart'],
+      'multiline-comment-style': ['warn', 'starred-block'],
+      'new-cap': 'off',
       'no-alert': 'off',
       'no-else-return': 'warn',
       'no-eq-null': 'off',
       'no-global-assign': 'error',
-      'no-useless-catch': 'warn',
-      'no-var': 'warn',
-      'prefer-const': 'warn',
-      'radix': 'warn',
-      'sort-keys': ['warn', 'asc', {caseSensitive: false, natural: true}],
-
-      // Strict Mode
-      'strict': 'off',
-
-      /*
-       * Variables
-       * no-undef is mostly superfluous as it is checked by Flow; enabling it
-       * actually triggers thousands of false positives because hermes-eslint
-       * doesn't track global types (those defined with `declare type`).
-       * Ideally we could keep no-undef enabled for files that aren't Flow-
-       * typed yet, but we don't maintain a separate config for those.
-       */
-      'no-undef': 'off',
-      'no-use-before-define': 'off',
-
-      // Stylistic Issues
-      'multiline-comment-style': ['warn', 'starred-block'],
-      'new-cap': 'off',
       'no-lonely-if': 'warn',
       'no-multi-assign': 'off',
       'no-negated-condition': 'warn',
@@ -260,30 +259,25 @@ export default [
       'no-ternary': 'off',
       'no-underscore-dangle': 'off',
       'no-unneeded-ternary': 'warn',
-      'one-var': ['warn', 'never'],
-      'operator-assignment': ['warn', 'always'],
-
-      // ECMAScript 6
-      'constructor-super': 'error',
-      'no-class-assign': 'error',
-      'no-const-assign': 'error',
-      'no-dupe-class-members': 'error',
-      /*
-       * no-duplicate-imports does not support Flow 'type' imports, so we use
-       * the import/no-duplicates rule from eslint-plugin-import instead.
-       */
-      'no-duplicate-imports': 'off',
-      'no-new-native-nonconstructor': 'error',
-      'no-this-before-super': 'error',
+      'no-useless-catch': 'warn',
       'no-useless-constructor': 'warn',
       'no-useless-rename': 'warn',
+      'no-var': 'warn',
+      'one-var': ['warn', 'never'],
+      'operator-assignment': ['warn', 'always'],
+      'prefer-const': 'warn',
       'prefer-numeric-literals': 'warn',
+      'radix': 'warn',
       'require-yield': 'error',
       /*
        * sort-imports does not support Flow 'type' imports, so we use the
        * imports rule from simple-import-sort instead.
        */
       'sort-imports': 'off',
+      'sort-keys': ['warn', 'asc', {caseSensitive: false, natural: true}],
+
+      // Strict Mode
+      'strict': 'off',
 
       // eslint-plugin-import
       'import/export': 'error',
