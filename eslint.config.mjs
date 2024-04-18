@@ -253,7 +253,7 @@ export default [
        * the import/no-duplicates rule from eslint-plugin-import instead.
        */
       'no-duplicate-imports': 'off',
-      'no-new-symbol': 'error',
+      'no-new-native-nonconstructor': 'error',
       'no-this-before-super': 'error',
       'no-useless-constructor': 'warn',
       'no-useless-rename': 'warn',
