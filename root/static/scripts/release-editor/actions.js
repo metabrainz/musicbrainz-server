@@ -288,13 +288,15 @@ const actions = {
       case 'mouseleave':
         track.previewName(null);
         break;
-      default:
+      default: {
         const origName = track.name.peek();
         track.name(
           track.previewName() ?? GuessCase.entities.track.guess(origName),
         );
         track.nameModified(track.name() !== origName);
         track.previewName(null);
+        break;
+      }
     }
   },
 

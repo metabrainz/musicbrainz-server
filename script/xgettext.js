@@ -70,7 +70,7 @@ function extractStringLiteral(node) {
       return node.quasis[0].value.cooked;
 
     // Handle string concatenation
-    case 'BinaryExpression':
+    case 'BinaryExpression': {
       if (node.operator !== '+') {
         return null;
       }
@@ -83,7 +83,7 @@ function extractStringLiteral(node) {
         return null;
       }
       return left + right;
-
+    }
     default:
       return null;
   }
