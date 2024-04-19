@@ -265,6 +265,7 @@ export default [
       'no-useless-catch': 'warn',
       'no-useless-concat': 'warn',
       'no-useless-constructor': 'warn',
+      'no-useless-escape': 'warn',
       'no-useless-rename': 'warn',
       'no-var': 'warn',
       'one-var': ['warn', 'never'],

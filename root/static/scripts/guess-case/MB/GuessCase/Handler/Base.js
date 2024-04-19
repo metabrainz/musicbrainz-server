@@ -111,7 +111,7 @@ class GuessCaseHandler {
        */
       let handled = false;
       if (!gc.regexes.SPECIALCASES) {
-        gc.regexes.SPECIALCASES = /(&|¿|¡|\?|\!|;|:|'|‘|’|‹|›|"|“|”|„|“|«|»|\-|‐|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
+        gc.regexes.SPECIALCASES = /(&|¿|¡|\?|!|;|:|'|‘|’|‹|›|"|“|”|„|“|«|»|-|‐|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
       }
       if (input.matchCurrentWord(gc.regexes.SPECIALCASES)) {
         handled = !!(
@@ -300,7 +300,7 @@ class GuessCaseHandler {
   // Deal with line terminators other than the period (?!;)
   doLineStop(): boolean {
     if (!gc.regexes.LINESTOP) {
-      gc.regexes.LINESTOP = /[\?\!\;]/;
+      gc.regexes.LINESTOP = /[?!;]/;
     }
     if (input.matchCurrentWord(gc.regexes.LINESTOP)) {
       flags.resetContext();
@@ -328,7 +328,7 @@ class GuessCaseHandler {
    */
   doHyphen(): boolean {
     if (!gc.regexes.HYPHEN) {
-      gc.regexes.HYPHEN = /^[\-‐]$/;
+      gc.regexes.HYPHEN = /^[-‐]$/;
     }
     if (input.matchCurrentWord(gc.regexes.HYPHEN)) {
       output.appendWordPreserveWhiteSpace(true);
@@ -377,7 +377,7 @@ class GuessCaseHandler {
    */
   doSlash(): boolean {
     if (!gc.regexes.SLASH) {
-      gc.regexes.SLASH = /[\\\/]/;
+      gc.regexes.SLASH = /[\\/]/;
     }
     if (input.matchCurrentWord(gc.regexes.SLASH)) {
       output.appendWordPreserveWhiteSpace(true);
@@ -471,7 +471,7 @@ class GuessCaseHandler {
    */
   doOpeningBracket(): boolean {
     if (!gc.regexes.OPENBRACKET) {
-      gc.regexes.OPENBRACKET = /[\(\[\{\<]/;
+      gc.regexes.OPENBRACKET = /[([{<]/;
     }
     const currentWord = input.getCurrentWord();
     if (currentWord != null && currentWord.match(gc.regexes.OPENBRACKET)) {
@@ -520,7 +520,7 @@ class GuessCaseHandler {
    */
   doClosingBracket(): boolean {
     if (!gc.regexes.CLOSEBRACKET) {
-      gc.regexes.CLOSEBRACKET = /[\)\]\}\>]/;
+      gc.regexes.CLOSEBRACKET = /[)\]}>]/;
     }
     if (input.matchCurrentWord(gc.regexes.CLOSEBRACKET)) {
       /*
@@ -816,7 +816,7 @@ class GuessCaseHandler {
        * have to check if next word is a "." or a "/"
        */
       if ((currentWord.match(gc.regexes.FEAT_F)) &&
-          nextWord != null && !nextWord.match(/^[\/.]$/)) {
+          nextWord != null && !nextWord.match(/^[/.]$/)) {
         return false;
       }
 

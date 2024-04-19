@@ -32,14 +32,14 @@ import releaseEditor from './viewModel.js';
 const trackParser = releaseEditor.trackParser = {
 
   // These are all different types of dash
-  defaultSeparators: /(\s+[\-‒–—―]\s+|\s*\t\s*)/,
+  defaultSeparators: /(\s+[-‒–—―]\s+|\s*\t\s*)/,
   separators: null,
 
   // Leading "M." is for Japanese releases. MBS-3398
-  trackNumber: /^(?:M[\.\-])?([０-９0-9]+(?:-[０-９0-9]+)?)(?:\.|．|\s?-|:|：|;|,|，|$)?/,
+  trackNumber: /^(?:M[.-])?([０-９0-9]+(?:-[０-９0-9]+)?)(?:\.|．|\s?-|:|：|;|,|，|$)?/,
   vinylNumber: /^([０-９0-9a-z]+)(?:\/[０-９0-9a-z]+)?(?:\.|．|\s?-|:|：|;|,|，|$)?/i,
 
-  trackTime: /\(?((?:[0-9０-９]+[：，．':,.])?[0-9０-９\?]+[：，．':,.][0-5０-５\?][0-9０-９\?])\)?$/,
+  trackTime: /\(?((?:[0-9０-９]+[：，．':,.])?[0-9０-９?]+[：，．':,.][0-5０-５?][0-9０-９?])\)?$/,
 
   options: {
     hasTrackNumbers: optionCookie('trackparser_tracknumbers', true),

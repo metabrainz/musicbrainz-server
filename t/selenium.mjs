@@ -292,7 +292,7 @@ async function selectOption(select, optionLocator) {
       if (value.startsWith('regexp:')) {
         value = new RegExp(value.slice(7));
       } else {
-        value = new RegExp('^\s*' + escapeRegExp(value) + '\s*$');
+        value = new RegExp('^\\s*' + escapeRegExp(value) + '\\s*$');
       }
       option = await select.findElement(async function () {
         const options =

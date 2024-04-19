@@ -29,15 +29,15 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
         // Match empty
         gc.regexes.ARTIST_EMPTY = /^\s*$/i;
         // Match "unknown" and variants
-        gc.regexes.ARTIST_UNKNOWN = /^[\(\[]?\s*Unknown\s*[\)\]]?$/i;
+        gc.regexes.ARTIST_UNKNOWN = /^[([]?\s*Unknown\s*[)\]]?$/i;
         // Match "none" and variants
-        gc.regexes.ARTIST_NONE = /^[\(\[]?\s*none\s*[\)\]]?$/i;
+        gc.regexes.ARTIST_NONE = /^[([]?\s*none\s*[)\]]?$/i;
         // Match "no artist" and variants
-        gc.regexes.ARTIST_NOARTIST = /^[\(\[]?\s*no[\s-]+artist\s*[\)\]]?$/i;
+        gc.regexes.ARTIST_NOARTIST = /^[([]?\s*no[\s-]+artist\s*[)\]]?$/i;
         // Match "not applicable" and variants
-        gc.regexes.ARTIST_NOTAPPLICABLE = /^[\(\[]?\s*not[\s-]+applicable\s*[\)\]]?$/i;
+        gc.regexes.ARTIST_NOTAPPLICABLE = /^[([]?\s*not[\s-]+applicable\s*[)\]]?$/i;
         // Match "n/a" and variants
-        gc.regexes.ARTIST_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
+        gc.regexes.ARTIST_NA = /^[([]?\s*n\s*[\\/]\s*a\s*[)\]]?$/i;
       }
       if (inputString.match(gc.regexes.ARTIST_EMPTY)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;
@@ -81,8 +81,8 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
 
         // Strip Jr./Sr. from the string, and append at the end.
         if (!gc.regexes.SORTNAME_SR) {
-          gc.regexes.SORTNAME_SR = /,\s*Sr[\.]?$/i;
-          gc.regexes.SORTNAME_JR = /,\s*Jr[\.]?$/i;
+          gc.regexes.SORTNAME_SR = /,\s*Sr\.?$/i;
+          gc.regexes.SORTNAME_JR = /,\s*Jr\.?$/i;
         }
 
         if (modifiedArtistName.match(gc.regexes.SORTNAME_SR)) {

@@ -37,8 +37,8 @@ component ChangePasswordPageContent(
       {isMandatory ? (
         <p>
           {exp.l(
-            `Please change your password. Unfortunately we\'ve discovered that
-             secure hashes user\'s passwords were temporarily available for
+            `Please change your password. Unfortunately we've discovered that
+             secure hashes user's passwords were temporarily available for
              download on our FTP site. While it is extremely unlikely that
              anyone will be able to derive the original passwords from this
              mishap, we are requiring all of our users to change their
