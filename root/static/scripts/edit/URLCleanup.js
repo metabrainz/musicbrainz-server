@@ -2167,7 +2167,8 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?(www\\.)?deviantart\\.com', 'i')],
     restrict: [LINK_TYPES.artgallery],
     clean: function (url) {
-      return url = url.replace(/^(?:https?:\/\/)?(?:www\.)?deviantart\.com\/([^/?#]+).*$/, 'https://www.deviantart.com/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?deviantart\.com\/([^/?#]+).*$/, 'https://www.deviantart.com/$1');
+      return url;
     },
     validate: function (url) {
       const m = /^https:\/\/www\.deviantart\.com\/([^/?#]+)$/.exec(url);

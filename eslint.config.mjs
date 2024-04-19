@@ -262,6 +262,7 @@ export default [
       'no-nested-ternary': 'off',
       'no-plusplus': 'off',
       'no-redeclare': 'error',
+      'no-return-assign': 'error',
       'no-ternary': 'off',
       'no-underscore-dangle': 'off',
       'no-unneeded-ternary': 'warn',
