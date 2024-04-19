@@ -58,7 +58,7 @@ export function unformatTrackLength(duration) {
     return parseInt(duration, 10);
   }
 
-  var parts = duration.replace(/[:\.]/, ':').split(':');
+  var parts = duration.replace(/[:.]/, ':').split(':');
   if (parts[0] == '?' || parts[0] == '??' || duration === '') {
     return null;
   }

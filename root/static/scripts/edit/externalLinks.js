@@ -1799,7 +1799,7 @@ function groupLinksByUrl(
 }
 
 const protocolRegex = /^(https?|ftp):$/;
-const hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])$/;
+const hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d-]*[A-z\d])$/;
 
 export function getUnicodeUrl(url: string): string {
   if (!isValidURL(url)) {

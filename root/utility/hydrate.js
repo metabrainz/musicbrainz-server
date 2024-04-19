@@ -81,7 +81,7 @@ if (__DEV__) {
                 'the client. If it\'s relevant to a particular *secure* ' +
                 'page, or only relates to the current authorized user, ' +
                 'you may ignore this warning; but please ensure that ' +
-                `it\'s intended (check key ${JSON.stringify(key)}): ` +
+                `it's intended (check key ${JSON.stringify(key)}): ` +
                 JSON.stringify(data),
               );
             }

@@ -52,8 +52,8 @@ const ROMAN_NUMERALS = /^m{0,4}(cm|cd|d?c{0,3})(xc|xl|l?x{0,3})(ix|iv|v?i{0,3})$
 /* eslint-disable @stylistic/js/no-multi-spaces */
 const PREPROCESS_FIXLIST = [
   // trim spaces from brackets.
-  [/(^|\s)([\(\{\[])\s+($|\b)/i, '$2'], // spaces after opening brackets
-  [/(\b|^)\s+([\)\}\]])($|\b)/i, '$2'], // spaces before closing brackets
+  [/(^|\s)([({[])\s+($|\b)/i, '$2'], // spaces after opening brackets
+  [/(\b|^)\s+([)}\]])($|\b)/i, '$2'], // spaces before closing brackets
 
   // vinyl
   [/(\s|^|\()(\d+)''(\s|$)/i,      '$2"'], // 12'' -> 12"
@@ -360,7 +360,7 @@ export const French: GuessCaseModeT = {
 
   runPostProcess(inputString) {
     return DefaultMode.runPostProcess(inputString)
-      .replace(/([!\?;:]+)/gi, ' $1')
+      .replace(/([!?;:]+)/gi, ' $1')
       .replace(/([«]+)/gi, '$1 ')
       .replace(/([»]+)/gi, ' $1')
       .replace(/^(Le\s|La\s|Les\s|L[’'])(\S+)$/gi,

@@ -8,7 +8,7 @@
  */
 
 // From https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions
-const regExpChars = /([.*+?^=!:${}()|\[\]\/\\])/g;
+const regExpChars = /([.*+?^=!:${}()|[\]/\\])/g;
 
 export default function escapeRegExp(string: string): string {
   return string.replace(regExpChars, '\\$1');
