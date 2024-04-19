@@ -94,7 +94,7 @@ export function getEditStatusDescription(edit: GenericEditWithIdT): string {
 }
 
 export function getEditHeaderClass(edit: GenericEditWithIdT): string {
-  return 'edit-header' + ' ' +
+  return 'edit-header ' +
          getEditStatusClass(edit) + ' ' +
          'edit-' + edit.edit_kind + ' ' +
          kebabCase(edit.edit_name);
