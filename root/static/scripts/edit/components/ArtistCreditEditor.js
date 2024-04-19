@@ -486,7 +486,7 @@ component _ArtistCreditEditor(
   }, [dispatch]);
 
   const hiddenInputsPrefix = nonEmpty(formName) ? (
-    formName + '.' + 'artist_credit.names.'
+    formName + '.artist_credit.names.'
   ) : '';
 
   const buildPopoverChildren = React.useCallback((

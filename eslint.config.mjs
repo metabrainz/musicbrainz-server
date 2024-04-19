@@ -265,6 +265,7 @@ export default [
       'no-underscore-dangle': 'off',
       'no-unneeded-ternary': 'warn',
       'no-useless-catch': 'warn',
+      'no-useless-concat': 'warn',
       'no-useless-constructor': 'warn',
       'no-useless-rename': 'warn',
       'no-var': 'warn',
