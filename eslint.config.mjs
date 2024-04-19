@@ -250,6 +250,7 @@ export default [
       'multiline-comment-style': ['warn', 'starred-block'],
       'new-cap': 'off',
       'no-alert': 'off',
+      'no-case-declarations': 'error',
       'no-else-return': 'warn',
       'no-eq-null': 'off',
       'no-global-assign': 'error',

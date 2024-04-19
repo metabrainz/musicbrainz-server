@@ -148,7 +148,7 @@ export function editorMayApprove(
   }
 
   switch (edit.edit_type) {
-    case EDIT_RELATIONSHIP_DELETE:
+    case EDIT_RELATIONSHIP_DELETE: {
       const linkType = edit.data.relationship?.link?.type;
 
       if (linkType && typeof linkType === 'object') {
@@ -159,8 +159,8 @@ export function editorMayApprove(
         );
       }
       break;
-
-    case EDIT_SERIES_EDIT:
+    }
+    case EDIT_SERIES_EDIT: {
       const oldOrderingType = (edit.data.old?.ordering_type_id) ?? 0;
       const newOrderingType = (edit.data.new?.ordering_type_id) ?? 0;
       // Intentional != since some edit data store numbers as strings
@@ -169,6 +169,7 @@ export function editorMayApprove(
         return false;
       }
       break;
+    }
   }
 
   return conditions.auto_edit;

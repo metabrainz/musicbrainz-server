@@ -471,7 +471,7 @@ async function handleCommand({command, target, value}, t) {
 
   let element;
   switch (command) {
-    case 'assertArtworkJson':
+    case 'assertArtworkJson': {
       const artworkJson = JSON.parse(await driver.executeAsyncScript(`
         var callback = arguments[arguments.length - 1];
         fetch('http://localhost:8081/${target}')
@@ -479,8 +479,8 @@ async function handleCommand({command, target, value}, t) {
       `));
       t.deepEqual2(artworkJson, value);
       break;
-
-    case 'assertAttribute':
+    }
+    case 'assertAttribute': {
       const splitAt = target.indexOf('@');
       const locator = target.slice(0, splitAt);
       const attribute = target.slice(splitAt + 1);
@@ -491,7 +491,7 @@ async function handleCommand({command, target, value}, t) {
         value,
       );
       break;
-
+    }
     case 'assertElementPresent':
       await t.okWithRetry(async () => {
         const elements = await driver.findElements(makeLocator(target));
@@ -506,7 +506,7 @@ async function handleCommand({command, target, value}, t) {
       );
       break;
 
-    case 'assertEditData':
+    case 'assertEditData': {
       const actualEditData = JSON.parse(await driver.executeAsyncScript(`
         var callback = arguments[arguments.length - 1];
         fetch('/edit/${target}/data', {
@@ -517,7 +517,7 @@ async function handleCommand({command, target, value}, t) {
       `));
       t.deepEqual2(actualEditData, value);
       break;
-
+    }
     case 'assertLocationMatches':
       await t.okWithRetry(async () => {
         return new RegExp(target).test(await driver.getCurrentUrl());
