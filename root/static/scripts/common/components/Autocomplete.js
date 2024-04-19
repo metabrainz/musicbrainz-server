@@ -96,7 +96,9 @@ class Autocomplete extends React.Component {
           disabled={disabled}
           id={inputID}
           name={inputName}
-          ref={input => this._nameInput = input}
+          ref={input => {
+            this._nameInput = input;
+          }}
           type="text"
         />
         {children}

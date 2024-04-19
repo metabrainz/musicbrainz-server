@@ -1428,7 +1428,12 @@ export class ExternalLink extends React.Component<LinkProps> {
     }
     target.scrollIntoView();
     target.style.backgroundColor = 'yellow';
-    setTimeout(() => target.style.backgroundColor = 'initial', 1000);
+    setTimeout(
+      () => {
+        target.style.backgroundColor = 'initial';
+      },
+      1000,
+    );
   }
 
   render(): React.MixedElement {
