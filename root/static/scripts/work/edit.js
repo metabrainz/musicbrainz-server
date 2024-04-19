@@ -75,7 +75,7 @@ const workLanguageOptions: MaybeGroupedOptionsT = {
  */
 // eslint-disable-next-line @stylistic/js/func-call-spacing
 const store = createStore<WorkForm, ActionT, (ActionT) => empty>(function (
-  state: WorkForm = form,
+  state: WorkForm = form, // eslint-disable-line default-param-last
   action: ActionT,
 ) {
   switch (action.type) {
