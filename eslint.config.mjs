@@ -261,6 +261,7 @@ export default [
       'no-negated-condition': 'warn',
       'no-nested-ternary': 'off',
       'no-plusplus': 'off',
+      'no-redeclare': 'error',
       'no-ternary': 'off',
       'no-underscore-dangle': 'off',
       'no-unneeded-ternary': 'warn',
