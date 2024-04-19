@@ -179,10 +179,10 @@ class SearchTab {
     this.totalPages = ko.observable(0);
   }
 
-  search(data, event, pageJump) {
+  search(event, pageJump) {
     this.searching(true);
 
-    var data = {
+    const data = {
       q: this.releaseName(),
       artist: this.artistName(),
       tracks: this.trackCount(),
@@ -213,7 +213,7 @@ class SearchTab {
 
   keydownEvent(data, event) {
     if (event.keyCode === 13) { // Enter
-      this.search(data, event);
+      this.search(event);
       return false;
     }
     /*
@@ -225,14 +225,14 @@ class SearchTab {
 
   nextPage() {
     if (this.currentPage() < this.totalPages()) {
-      this.search(this, null, 1);
+      this.search(null, 1);
     }
     return false;
   }
 
   previousPage() {
     if (this.currentPage() > 1) {
-      this.search(this, null, -1);
+      this.search(null, -1);
     }
     return false;
   }
