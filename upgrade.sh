@@ -109,6 +109,12 @@ then
 fi
 
 ################################################################################
+# Update PostgreSQL user privileges
+
+echo `date` : Updating PostgreSQL user privileges
+OUTPUT=`./admin/UpdateDatabasePrivileges.pl 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+################################################################################
 # Re-enable replication
 
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
