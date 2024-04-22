@@ -148,7 +148,7 @@ class GuessCase {
       // Initialise flags for another run.
       flags.init();
 
-      handler = handler || new handlerPicker[handlerName]();
+      handler ||= new handlerPicker[handlerName]();
 
       /*
        * We need to query the handler if the input string is

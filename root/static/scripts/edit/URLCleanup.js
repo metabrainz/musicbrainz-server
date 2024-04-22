@@ -7069,8 +7069,7 @@ function multiple(...types: $ReadOnlyArray<EntityTypeMap>): EntityTypesMap {
   const result: {[entityType: RelatableEntityTypeT]: Array<string>} = {};
   types.forEach(function (type: EntityTypeMap) {
     for (const [entityType, id] of Object.entries(type)) {
-      result[entityType] = result[entityType] || [];
-      result[entityType].push(id);
+      (result[entityType] ||= []).push(id);
     }
   });
   return result;
@@ -7167,7 +7166,7 @@ export class Checker {
       const isRelationshipValid = types.some(
         ids => typeof ids === 'string' ? ids === id : ids.includes(id),
       );
-      validation.result = validation.result && isRelationshipValid;
+      validation.result &&= isRelationshipValid;
       return validation;
     }
     return {

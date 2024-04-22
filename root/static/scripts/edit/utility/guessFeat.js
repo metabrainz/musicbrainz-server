@@ -107,7 +107,7 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
           }
         }
 
-        joinPhrase = joinPhrase || m.joinPhrase;
+        joinPhrase ||= m.joinPhrase;
         credits = credits.concat(m.artistCredit);
         remainder = b.post;
       } else {

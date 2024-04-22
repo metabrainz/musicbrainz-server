@@ -331,7 +331,7 @@ $('body')
 
 // Helper function for use outside the release editor.
 MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
-  vm = vm || {};
+  vm ||= {};
 
   var bubbleDoc = new BubbleDoc();
 

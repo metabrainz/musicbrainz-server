@@ -249,6 +249,7 @@ export default [
       'dot-location': ['warn', 'property'],
       'dot-notation': ['warn', {allowKeywords: true}],
       'eqeqeq': ['warn', 'smart'],
+      'logical-assignment-operators': 'warn',
       'multiline-comment-style': ['warn', 'starred-block'],
       'new-cap': 'off',
       'no-alert': 'off',

@@ -283,7 +283,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       const action =
         `${getTagsPath(this.props.entity)}/${VOTE_ACTIONS[item.vote]}`;
 
-      (actions[action] = actions[action] || []).push(item);
+      (actions[action] ||= []).push(item);
     }
 
     this.pendingVotes.clear();
