@@ -76,7 +76,7 @@ our @EXPORT_OK = (
         $MAX_INITIAL_MEDIUMS $MAX_INITIAL_TRACKS
         $MAX_POSTGRES_INT $MAX_POSTGRES_BIGINT
         $MAX_ONELINE_STRING_LENGTH $MAX_POSTGRES_INDEXED_STRING_BYTES
-        @FULL_TABLE_LIST
+        @FULL_SCHEMA_LIST @FULL_TABLE_LIST
         @CORE_TABLE_LIST
         @DERIVED_TABLE_LIST
         @STATS_TABLE_LIST
@@ -511,6 +511,19 @@ sub entities_with {
 
 Readonly our @RELATABLE_ENTITIES =>
     sort { $a cmp $b } entities_with(['mbid', 'relatable']);
+
+Readonly our @FULL_SCHEMA_LIST => qw(
+    musicbrainz
+    cover_art_archive
+    documentation
+    event_art_archive
+    json_dump
+    report
+    sitemaps
+    statistics
+    wikidocs
+    dbmirror2
+);
 
 Readonly our @CORE_TABLE_LIST => qw(
     alternative_medium
