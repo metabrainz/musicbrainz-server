@@ -52,7 +52,7 @@ class Track {
       this.gid = data.gid;
     }
 
-    data.name = data.name || '';
+    data.name ||= '';
     this.name = ko.observable(data.name);
     this.name.original = data.name;
     this.name.subscribe(this.nameChanged, this);
@@ -272,7 +272,7 @@ class Track {
   }
 
   setRecordingValue(value) {
-    value = value || new mbEntity.Recording({name: this.name()});
+    value ||= new mbEntity.Recording({name: this.name()});
 
     var currentValue = this.recording.peek();
     if (value.gid === currentValue.gid) {
@@ -307,8 +307,7 @@ class Track {
     if (release) {
       release.relatedArtists =
         [...new Set(release.relatedArtists.concat(value.relatedArtists))];
-      release.isProbablyClassical = release.isProbablyClassical ||
-                                    value.isProbablyClassical;
+      release.isProbablyClassical ||= value.isProbablyClassical;
     }
 
     this.recordingValue(value);
@@ -579,7 +578,7 @@ class Medium {
   }
 
   pushTrack(data) {
-    data = data || {};
+    data ||= {};
 
     if (data.position === undefined) {
       data.position = this.tracks().length + (this.hasPregap() ? 0 : 1);
@@ -802,7 +801,7 @@ fields.Medium = Medium;
 
 class ReleaseGroup extends mbEntity.ReleaseGroup {
   constructor(data) {
-    data = data || {};
+    data ||= {};
 
     super(data);
 

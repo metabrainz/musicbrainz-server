@@ -16,7 +16,7 @@ releaseEditor.seedErrors = ko.observable(null);
 
 
 releaseEditor.seed = function (data) {
-  data = data || {seed: {}, errors: []};
+  data ||= {seed: {}, errors: []};
 
   var seed = data.seed;
   this.seededReleaseData = seed;

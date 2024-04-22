@@ -82,7 +82,7 @@ import request from '../../common/utility/request.js';
           name.join_phrase = name.join_phrase.trimEnd();
         }
 
-        name.join_phrase = name.join_phrase || null;
+        name.join_phrase ||= null;
 
         return name;
       });
@@ -131,7 +131,7 @@ import request from '../../common/utility/request.js';
     },
 
     partialDate: function (data) {
-      data = data || {};
+      data ||= {};
 
       return {
         year:   number(data.year),

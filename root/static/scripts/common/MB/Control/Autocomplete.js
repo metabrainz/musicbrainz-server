@@ -322,7 +322,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
   },
 
   setSelection: function (data) {
-    data = data || {};
+    data ||= {};
     var name = ko.unwrap(data.name) || '';
     var hasID = !!(data.id || data.gid);
 

@@ -222,8 +222,7 @@ export class _ExternalLinksEditor
           switch (key) {
             case 'link_type_id':
             case 'text':
-              (urls[index] = urls[index] || {})[key] =
-                decodeURIComponent(value);
+              (urls[index] ||= {})[key] = decodeURIComponent(value);
               break;
           }
         }
@@ -733,8 +732,7 @@ export class _ExternalLinksEditor
     const linkType = link.type
       ? linkedEntities.link_type[link.type] : null;
     // Use existing checker if possible, otherwise create a new one
-    checker = checker ||
-      new URLCleanup.Checker(link.url, this.sourceType);
+    checker ||= new URLCleanup.Checker(link.url, this.sourceType);
     const oldLink = this.oldLinks.get(String(link.relationship));
     const isNewLink = !isPositiveInteger(link.relationship);
     const linkChanged = oldLink && link.url !== oldLink.url;

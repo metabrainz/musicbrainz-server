@@ -122,7 +122,7 @@ class SearchResult {
 
   parseTrack(track, index) {
     track.id = null;
-    track.position = track.position || (index + 1);
+    track.position ||= (index + 1);
     track.number = track.position;
     track.formattedLength = formatTrackLength(track.length);
 
@@ -133,7 +133,7 @@ class SearchResult {
       const release = releaseEditor.rootField.release();
       const releaseArtistCredit = release.artistCredit();
       const releaseArtistName = reduceArtistCredit(releaseArtistCredit);
-      track.artist = track.artist || this.artist || '';
+      track.artist ||= this.artist || '';
       if (track.artist === releaseArtistName) {
         track.artistCredit = releaseArtistCredit;
       } else {

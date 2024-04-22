@@ -79,12 +79,10 @@ export default function exportTypeInfo(typeInfo, attrInfo) {
       return;
     }
 
-    (MB.allowedRelations[type0] = MB.allowedRelations[type0] || [])
-      .push(type1);
+    (MB.allowedRelations[type0] ||= []).push(type1);
 
     if (type0 !== type1) {
-      (MB.allowedRelations[type1] = MB.allowedRelations[type1] || [])
-        .push(type0);
+      (MB.allowedRelations[type1] ||= []).push(type0);
     }
   });
 

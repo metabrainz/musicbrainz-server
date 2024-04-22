@@ -57,9 +57,7 @@ export function exportLinkTypeInfo(
 
     if (item.parent_id == null) {
       const entityTypes = item.type0 + '-' + item.type1;
-      (linkTypeTree[entityTypes] ||
-        (linkTypeTree[entityTypes] = []))
-        .push(item);
+      (linkTypeTree[entityTypes] ||= []).push(item);
     }
   }
 

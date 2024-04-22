@@ -236,11 +236,10 @@ component RelationshipsTable(
         ? target.artistCredit
         : null;
 
-      hasCreditColumn = hasCreditColumn || nonEmpty(sourceCredit);
-      hasAttributeColumn = hasAttributeColumn ||
-        !!(relationship.attributes?.length);
-      hasArtistColumn = hasArtistColumn || (artistCredit != null);
-      hasLengthColumn = hasLengthColumn || (
+      hasCreditColumn ||= nonEmpty(sourceCredit);
+      hasAttributeColumn ||= !!(relationship.attributes?.length);
+      hasArtistColumn ||= (artistCredit != null);
+      hasLengthColumn ||= (
         hasOwnProp(target, 'length') &&
         target.length != null
       );

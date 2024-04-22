@@ -177,7 +177,7 @@ const trackParser = releaseEditor.trackParser = {
       }
 
       const artistName = data.artist ?? '';
-      data.artistCredit = data.artistCredit || {
+      data.artistCredit ||= {
         names: [
           {
             artist: createArtistObject({name: artistName}),
