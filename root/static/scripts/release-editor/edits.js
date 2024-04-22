@@ -253,6 +253,7 @@ releaseEditor.edits = {
                */
 
               var possibleSwap = newMediums.find(
+                // eslint-disable-next-line no-loop-func
                 function (other) {
                   return other.position() === attempt;
                 },
