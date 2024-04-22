@@ -257,6 +257,7 @@ export default [
       'no-eq-null': 'off',
       'no-global-assign': 'error',
       'no-lonely-if': 'warn',
+      'no-loop-func': 'warn',
       'no-multi-assign': 'off',
       'no-negated-condition': 'warn',
       'no-nested-ternary': 'off',
