@@ -25,15 +25,13 @@ export default function isSpecialPurpose(
   },
 ): boolean {
   if (entity.entityType === 'artist') {
-    return !!(
-      (entity.id === DARTIST_ID || entity.id === VARTIST_ID) ||
-      (entity.gid === VARTIST_GID)
-    );
+    return entity.id === DARTIST_ID ||
+      entity.id === VARTIST_ID ||
+      entity.gid === VARTIST_GID;
   } else if (entity.entityType === 'label') {
-    return !!(
-      (entity.id === DLABEL_ID || entity.id === NOLABEL_ID) ||
-      (entity.gid === NOLABEL_GID)
-    );
+    return entity.id === DLABEL_ID ||
+      entity.id === NOLABEL_ID ||
+      entity.gid === NOLABEL_GID;
   }
   return false;
 }

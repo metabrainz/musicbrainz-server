@@ -30,7 +30,7 @@ releaseEditor.seed = function (data) {
   }
 
   if (seed.makeVotable !== undefined) {
-    this.rootField.makeVotable(!!seed.makeVotable);
+    this.rootField.makeVotable(Boolean(seed.makeVotable));
   }
 
   if (this.action === 'add') {

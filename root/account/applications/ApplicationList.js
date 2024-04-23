@@ -63,7 +63,7 @@ const buildTokenRow = (
 
 function formatScopes(token: EditorOAuthTokenT) {
   const lScopes = token.permissions.map(
-    perm => ACCESS_SCOPE_PERMISSIONS[+perm](),
+    perm => ACCESS_SCOPE_PERMISSIONS[Number(perm)](),
   );
 
   if (token.is_offline) {

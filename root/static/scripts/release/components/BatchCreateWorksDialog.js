@@ -156,17 +156,15 @@ component _BatchCreateWorksDialogContent(
     workType,
   } = state;
 
-  const hasErrors = !!(
-    nonEmpty(linkTypeState.error) ||
-    attributes.attributesList.some(x => x.error)
-  );
+  const hasErrors = nonEmpty(linkTypeState.error) ||
+    attributes.attributesList.some(x => x.error);
 
   const datePeriodField = datePeriod.field;
 
-  const hasPendingDateErrors = !!(
+  const hasPendingDateErrors = Boolean(
     datePeriodField.pendingErrors?.length ||
     datePeriodField.field.begin_date.pendingErrors?.length ||
-    datePeriodField.field.end_date.pendingErrors?.length
+    datePeriodField.field.end_date.pendingErrors?.length,
   );
 
   const linkTypeDispatch = React.useCallback((

@@ -121,7 +121,7 @@ export default function prettyPrintRelationshipState(
   result += 'link order: ' + state.linkOrder;
   if (original) {
     if (state.linkOrder !== original.linkOrder) {
-      result += old('' + original.linkOrder);
+      result += old(String(original.linkOrder));
     }
   }
   result += '\n';

@@ -237,7 +237,7 @@ component RelationshipsTable(
         : null;
 
       hasCreditColumn ||= nonEmpty(sourceCredit);
-      hasAttributeColumn ||= !!(relationship.attributes?.length);
+      hasAttributeColumn ||= Boolean(relationship.attributes?.length);
       hasArtistColumn ||= (artistCredit != null);
       hasLengthColumn ||= (
         hasOwnProp(target, 'length') &&

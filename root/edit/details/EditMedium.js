@@ -369,7 +369,7 @@ component CondensedTrackACsDiff(
       !artistCreditsAreEqual(thisOldCredit, oldTrack.artistCredit));
     const isNewNewArtistCredit = Boolean(thisNewCredit &&
       !artistCreditsAreEqual(thisNewCredit, newTrack.artistCredit));
-    const isTherePositionGap = thisPosition + 1 !== +newTrack.position;
+    const isTherePositionGap = thisPosition + 1 !== Number(newTrack.position);
     const isThereMeaningfulPositionGap = isTherePositionGap &&
       (thisOldCredit || thisNewCredit);
     const startNewRow = isNewOldArtistCredit ||
@@ -393,7 +393,7 @@ component CondensedTrackACsDiff(
     }
     thisOldCredit = oldTrack?.artistCredit;
     thisNewCredit = newTrack.artistCredit;
-    thisPosition = +newTrack.position;
+    thisPosition = Number(newTrack.position);
     if (isLast) {
       rows.push(
         <CondensedTrackACsDiffRow

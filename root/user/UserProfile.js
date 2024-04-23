@@ -141,7 +141,7 @@ component UserProfileInformation(
   viewingOwnProfile: boolean,
 ) {
   const $c = React.useContext(CatalystContext);
-  const showBioAndURL = !!(!user.is_limited || $c.user);
+  const showBioAndURL = !user.is_limited || $c.user != null;
   let memberSince;
   if (user.name === 'rob') {
     memberSince = l('The dawn of the project');

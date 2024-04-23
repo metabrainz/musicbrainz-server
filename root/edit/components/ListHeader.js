@@ -28,8 +28,10 @@ component QuickLinks(
   const entityUrlFragment = entity
     ? ENTITIES[entity.entityType].url
     : undefined;
-  const isEntityAllPage = !!entity && page === entity.entityType + '_all';
-  const isEntityOpenPage = !!entity && page === entity.entityType + '_open';
+  const isEntityAllPage = entity != null &&
+    page === entity.entityType + '_all';
+  const isEntityOpenPage = entity != null &&
+    page === entity.entityType + '_open';
 
   const quickLinks = [];
 

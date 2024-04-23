@@ -133,7 +133,7 @@ function cleanRecordingData(data) {
   var clean = utils.cleanWebServiceData(data);
 
   clean.artist = reduceArtistCredit(clean.artistCredit);
-  clean.video = !!data.video;
+  clean.video = Boolean(data.video);
 
   var appearsOn = uniqBy(
     data.releases?.map(function (release) {

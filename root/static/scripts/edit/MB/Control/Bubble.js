@@ -99,7 +99,7 @@ class BubbleBase {
       if ($(this.control).parents('html').length === 0) {
         this.hide(false);
       } else {
-        this.show(this.control, !!stealFocus, true /* isRedraw */);
+        this.show(this.control, Boolean(stealFocus), true /* isRedraw */);
       }
     }
   }
@@ -192,7 +192,7 @@ ko.bindingHandlers.controlsBubble = {
 
     ko.computed({
       read: function () {
-        return !!bubble.canBeShown(viewModel);
+        return Boolean(bubble.canBeShown(viewModel));
       },
       disposeWhenNodeIsRemoved: element,
     })

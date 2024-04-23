@@ -41,7 +41,7 @@ function pushRelationshipHiddenInputs(
   const relPrefix = formName + '.rel.' + index;
 
   if (isDatabaseRowId(relationship.id)) {
-    pushInput(relPrefix, 'relationship_id', '' + relationship.id);
+    pushInput(relPrefix, 'relationship_id', String(relationship.id));
   }
 
   if (relationship._status === REL_STATUS_REMOVE) {
@@ -109,27 +109,27 @@ function pushRelationshipHiddenInputs(
   pushInput(
     relPrefix,
     'period.begin_date.year',
-    '' + (beginDate?.year ?? ''),
+    String(beginDate?.year ?? ''),
   );
   pushInput(
     relPrefix,
     'period.begin_date.month',
-    '' + (beginDate?.month ?? ''),
+    String(beginDate?.month ?? ''),
   );
-  pushInput(relPrefix, 'period.begin_date.day', '' + (beginDate?.day ?? ''));
-  pushInput(relPrefix, 'period.end_date.year', '' + (endDate?.year ?? ''));
-  pushInput(relPrefix, 'period.end_date.month', '' + (endDate?.month ?? ''));
-  pushInput(relPrefix, 'period.end_date.day', '' + (endDate?.day ?? ''));
+  pushInput(relPrefix, 'period.begin_date.day', String(beginDate?.day ?? ''));
+  pushInput(relPrefix, 'period.end_date.year', String(endDate?.year ?? ''));
+  pushInput(relPrefix, 'period.end_date.month', String(endDate?.month ?? ''));
+  pushInput(relPrefix, 'period.end_date.day', String(endDate?.day ?? ''));
   pushInput(relPrefix, 'period.ended', relationship.ended ? '1' : '0');
   pushInput(relPrefix, 'backward', backward ? '1' : '0');
 
   const linkTypeId = relationship.linkTypeID;
   if (linkTypeId != null) {
-    pushInput(relPrefix, 'link_type_id', '' + linkTypeId);
+    pushInput(relPrefix, 'link_type_id', String(linkTypeId));
 
     const linkType = linkedEntities.link_type[linkTypeId];
     if (linkType.orderable_direction !== 0) {
-      pushInput(relPrefix, 'link_order', '' + relationship.linkOrder);
+      pushInput(relPrefix, 'link_order', String(relationship.linkOrder));
     }
   }
 }

@@ -335,8 +335,8 @@ class TimelineCategory {
     self.name = name;
     self.hashIdentifier = 'c-' + name;
     self.label = label;
-    self.enabledByDefault = !!enabledByDefault;
-    self.enabled = ko.observable(!!enabledByDefault);
+    self.enabledByDefault = Boolean(enabledByDefault);
+    self.enabled = ko.observable(Boolean(enabledByDefault));
     // rateLimit to improve reponsiveness of checkboxes
     self.lines = debounceComputed(ko.observableArray([]), 50);
 
@@ -382,8 +382,8 @@ class TimelineLine {
     self.name = name;
     self.hashIdentifier = name.replace(/^count\./, '');
     self.label = label;
-    self.enabledByDefault = !!enabledByDefault;
-    self.enabled = ko.observable(!!enabledByDefault);
+    self.enabledByDefault = Boolean(enabledByDefault);
+    self.enabled = ko.observable(Boolean(enabledByDefault));
     self.loading = ko.observable(false);
     self.data = ko.observable(null);
     self.loaded = ko.observable(null);

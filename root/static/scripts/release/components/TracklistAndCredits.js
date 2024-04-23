@@ -287,9 +287,9 @@ component _TracklistAndCredits(
 
   const hasBottomMediumCredits =
     (bottomMediumCredits?.some(x => x?.length)) ?? false;
-  const hasReleaseCredits = !!(release.relationships?.length);
+  const hasReleaseCredits = Boolean(release.relationships?.length);
   const hasReleaseGroupCredits =
-    !!(release.releaseGroup?.relationships?.length);
+    Boolean(release.releaseGroup?.relationships?.length);
   const hasBottomCredits = (
     hasBottomMediumCredits ||
     hasReleaseCredits ||

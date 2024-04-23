@@ -20,7 +20,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
     type0 = config.type0;
     type1 = config.type1;
     linkTypeName = config.linkTypeName;
-    linkTypeID = +config.linkTypeID;
+    linkTypeID = Number(config.linkTypeID);
 
     jsRoot = config.jsRoot;
 

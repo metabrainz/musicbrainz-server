@@ -550,7 +550,7 @@ component _ArtistCreditEditor(
               <input
                 name={curPrefix + 'artist.id'}
                 type="hidden"
-                value={'' + ((artist?.id) ?? '')}
+                value={String((artist?.id) ?? '')}
               />
             </React.Fragment>
           );

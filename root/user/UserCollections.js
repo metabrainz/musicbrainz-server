@@ -70,8 +70,8 @@ function formatPrivacy(
   isCollaborativeSection: boolean,
 ) {
   return (collection.public ? l('Public') : l('Private')) + (
-    isCollaborativeSection && activeUserId != null && !!collection.editor &&
-    collection.editor.id === activeUserId
+    isCollaborativeSection && activeUserId != null &&
+    collection.editor != null && collection.editor.id === activeUserId
       ? ' ' + l('(your collection)') : ''
   );
 }
@@ -157,7 +157,7 @@ component UserCollections(
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   const activeUser = $c.user;
-  const viewingOwnProfile = !!(activeUser && activeUser.id === user.id);
+  const viewingOwnProfile = activeUser != null && activeUser.id === user.id;
   const ownCollectionTypes = Object.keys(ownCollections);
   const collaborativeCollectionTypes = Object.keys(collaborativeCollections);
 

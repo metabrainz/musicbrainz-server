@@ -264,7 +264,7 @@ import request from '../../common/utility/request.js';
         position:       number(track.position),
         number:         string(track.number),
         length:         number(track.length),
-        is_data_track:  !!ko.unwrap(track.isDataTrack),
+        is_data_track:  Boolean(ko.unwrap(track.isDataTrack)),
       };
     },
 

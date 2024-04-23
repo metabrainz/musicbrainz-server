@@ -126,7 +126,7 @@ function _filterFakeIds(
    */
   const validIds = [];
   for (const id of ids) {
-    if (isGuid(id) || isDatabaseRowId(+id)) {
+    if (isGuid(id) || isDatabaseRowId(Number(id))) {
       validIds.push(id);
     }
   }

@@ -324,7 +324,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
   setSelection: function (data) {
     data ||= {};
     var name = ko.unwrap(data.name) || '';
-    var hasID = !!(data.id || data.gid);
+    var hasID = Boolean(data.id || data.gid);
 
     if (this._value() !== name) {
       this._value(name);
