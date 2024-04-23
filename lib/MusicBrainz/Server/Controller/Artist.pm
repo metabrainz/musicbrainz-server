@@ -147,9 +147,6 @@ after 'load' => sub
     }
 
     my $lang = $c->stash->{current_language} // 'en';
-    # TODO: This loads the artist's aliases to look for a primary alias in the
-    # user's language, but note that aliases are also being loaded by the show
-    # subroutine to get the artist's legal name.
     $c->model('Artist')->load_related_info([$artist], $lang);
     $c->model('ArtistType')->load(map { $_->target } @{ $artist->relationships_by_type('artist') });
     $c->model('Area')->load_containment($artist->area, $artist->begin_area, $artist->end_area);
@@ -289,26 +286,22 @@ sub show : PathPart('') Chained('load')
     if (defined $base_name) {
         $c->model('Relationship')->load_subset(['artist'], $base_name);
         $c->stash( legal_name => $base_name );
-        my $aliases = $c->model('Artist')->alias->find_by_entity_id($base_name->id);
-        $c->model('Artist')->alias_type->load(@$aliases);
         my @aliases = uniq map { $_->name }
                       sort_by { $coll->getSortKey($_->name) }
                       # An alias equal to the artist name already shown isn't useful
                       grep { ($_->name) ne $base_name->name }
                       # A legal name alias marked ended isn't a current legal name
                       grep { !($_->ended) }
-                      grep { ($_->type_name // '') eq 'Legal name' } @$aliases;
+                      grep { ($_->type_name // '') eq 'Legal name' } @{ $base_name->aliases };
         $c->stash( legal_name_artist_aliases => \@aliases );
         $base_name_legal_name_aliases = \@aliases;
         push(@identities, $base_name);
     } else {
-        my $aliases = $c->model('Artist')->alias->find_by_entity_id($artist->id);
-        $c->model('Artist')->alias_type->load(@$aliases);
         my @aliases = uniq map { $_->name }
                       sort_by { $coll->getSortKey($_->name) }
                       # A legal name alias marked ended isn't a current legal name
                       grep { !($_->ended) }
-                      grep { ($_->type_name // '') eq 'Legal name' } @$aliases;
+                      grep { ($_->type_name // '') eq 'Legal name' } @{ $artist->aliases };
         $c->stash( legal_name_aliases => \@aliases );
         $legal_name_aliases = \@aliases;
     }

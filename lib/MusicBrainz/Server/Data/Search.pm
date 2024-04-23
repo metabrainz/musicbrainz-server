@@ -11,6 +11,7 @@ use Data::Dumper;
 use Data::Page;
 use URI::Escape qw( uri_escape_utf8 );
 use List::AllUtils qw( any partition_by );
+use MusicBrainz::Server::Entity::Alias;
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::AreaType;
@@ -58,7 +59,11 @@ use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Data::Tag;
-use MusicBrainz::Server::Data::Utils qw( contains_string ref_to_type );
+use MusicBrainz::Server::Data::Utils qw(
+    contains_string
+    find_best_primary_alias
+    ref_to_type
+);
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( entities_with $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
@@ -741,21 +746,15 @@ sub schema_fixup
     }
 
     if (defined $data->{aliases}) {
-        my $short_user_lang = substr($user_lang, 0, 2);
-        my $best_alias;
-        foreach my $alias (@{$data->{aliases}}) {
-            next if !defined $alias->{locale} || !$alias->{primary};
-            # If we find an exact match for the user's language, use it.
-            if ($alias->{locale} eq $user_lang) {
-                $best_alias = $alias;
-                last;
-            }
-            # Otherwise, favor more-generic aliases (e.g. "en" over "en_US").
-            if (substr($alias->{locale}, 0, 2) eq $short_user_lang &&
-                (!defined $best_alias || length($alias->{locale}) == 2)) {
-                $best_alias = $alias;
-            }
-        }
+        my @aliases = map {
+            MusicBrainz::Server::Entity::Alias->new(
+                sort_name => $_->{sort_name} || '',
+                locale => $_->{locale} || '',
+                name => $_->{name} || '',
+                primary_for_locale => $_->{primary},
+            )
+        } @{ $data->{aliases} };
+        my $best_alias = find_best_primary_alias(\@aliases, $user_lang);
         $data->{primary_alias} = $best_alias->{name} if defined $best_alias;
     }
 

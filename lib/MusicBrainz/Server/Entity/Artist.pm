@@ -25,6 +25,12 @@ has 'sort_name' => (
     isa => 'Str',
 );
 
+has 'aliases' => (
+    is => 'rw',
+    isa => 'ArrayRef[Any]',
+    default => sub { [] },
+);
+
 has 'primary_alias' => (
     is => 'rw',
     isa => 'Str',

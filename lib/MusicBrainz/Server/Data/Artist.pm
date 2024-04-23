@@ -14,6 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     conditional_merge_column_query
     contains_string
+    find_best_primary_alias
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -473,26 +474,16 @@ sub load_related_info {
     $c->model('Gender')->load(@artists);
     $c->model('Area')->load(@artists);
 
-    if (defined $user_lang) {
-        my $short_user_lang = substr($user_lang, 0, 2);
-        my $aliases = $c->model('Artist')->alias->find_by_entity_ids(
-            map { $_->id } @artists,
-        );
-        for my $artist (@artists) {
-            my $best_alias;
-            foreach my $alias (@{$aliases->{$artist->id}}) {
-                next if !defined $alias->locale || !$alias->primary_for_locale;
-                # If we find an exact match for the user's language, use it.
-                if ($alias->locale eq $user_lang) {
-                    $best_alias = $alias;
-                    last;
-                }
-                # Otherwise, favor more-generic aliases (e.g. "en" over "en_US").
-                if (substr($alias->locale, 0, 2) eq $short_user_lang &&
-                    (!defined $best_alias || length($alias->locale) == 2)) {
-                    $best_alias = $alias;
-                }
-            }
+    # Load and save aliases so Controller::Artist::show can use them later.
+    my $artist_aliases = $c->model('Artist')->alias->find_by_entity_ids(
+        map { $_->id } @artists,
+    );
+    for my $artist (@artists) {
+        my @aliases = @{ $artist_aliases->{$artist->id} };
+        $c->model('Artist')->alias_type->load(@aliases);
+        $artist->{aliases} = \@aliases;
+        if (defined $user_lang) {
+            my $best_alias = find_best_primary_alias(\@aliases, $user_lang);
             $artist->{primary_alias} = $best_alias->name if defined $best_alias;
         }
     }
