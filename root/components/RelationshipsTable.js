@@ -232,7 +232,7 @@ component RelationshipsTable(
       }
 
       const target = relationship.target;
-      const artistCredit = hasOwnProp(target, 'artistCredit')
+      const artistCredit = Object.hasOwn(target, 'artistCredit')
         ? target.artistCredit
         : null;
 
@@ -240,7 +240,7 @@ component RelationshipsTable(
       hasAttributeColumn ||= Boolean(relationship.attributes?.length);
       hasArtistColumn ||= (artistCredit != null);
       hasLengthColumn ||= (
-        hasOwnProp(target, 'length') &&
+        Object.hasOwn(target, 'length') &&
         target.length != null
       );
       columnsCount = (

@@ -16,7 +16,7 @@ let defaultExport: (name: string, defaultValue?: string) => string =
   getCookieFallback;
 
 function getCookieFallback(name: string, defaultValue?: string = '') {
-  return hasOwnProp(_cookies, name)
+  return Object.hasOwn(_cookies, name)
     ? _cookies[name]
     : defaultValue;
 }

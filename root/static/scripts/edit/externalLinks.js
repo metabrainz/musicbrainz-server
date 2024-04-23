@@ -1341,7 +1341,7 @@ const ExternalLinkRelationship =
             </label>
           </div>
           {linkType &&
-            hasOwnProp(
+            Object.hasOwn(
               linkType.attributes,
               String(VIDEO_ATTRIBUTE_ID),
             ) ? (

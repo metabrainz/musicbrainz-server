@@ -24,10 +24,6 @@ declare var addColonText: (variable: StrOrNum) => string;
 declare var addQuotes: (variable: Expand2ReactInput) => Expand2ReactOutput;
 declare var addQuotesText: (variable: StrOrNum) => string;
 
-declare var hasOwnProp: (
-  object: interface {},
-  prop: string,
-) => boolean;
 declare var hydrate: (
   <
     Config: {...},

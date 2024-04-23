@@ -53,14 +53,14 @@ function _getStoredMap(): RecentEntitiesT {
 }
 
 function _getGidOrId(object: {...}): string | null {
-  if (hasOwnProp(object, 'gid')) {
+  if (Object.hasOwn(object, 'gid')) {
     // $FlowIgnore[prop-missing]
     const gid = object.gid;
     if (typeof gid === 'string') {
       return gid;
     }
   }
-  if (hasOwnProp(object, 'id')) {
+  if (Object.hasOwn(object, 'id')) {
     // $FlowIgnore[prop-missing]
     const id = object.id;
     /*

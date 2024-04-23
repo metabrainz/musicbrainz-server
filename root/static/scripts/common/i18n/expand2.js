@@ -46,7 +46,7 @@ export class VarArgs<+T> implements VarArgsClass<T> {
   }
 
   has(name: string): boolean {
-    return hasOwnProp(this.data, name);
+    return Object.hasOwn(this.data, name);
   }
 }
 

@@ -326,7 +326,7 @@ export function defineEntityColumn<D>(
   const descriptive = props.descriptive ?? true;
   const sortable = props.sortable ?? false;
   const subPath =
-    hasOwnProp(props, 'subPath')
+    Object.hasOwn(props, 'subPath')
       ? props.subPath
       : '';
 

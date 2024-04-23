@@ -49,7 +49,7 @@ component Edits(
 
   const subHeadingTypeName = localizeTypeNameForEntity(entity);
   let pageSubHeading: Expand2ReactOutput = subHeadingTypeName;
-  if (hasOwnProp(entity, 'artistCredit')) {
+  if (Object.hasOwn(entity, 'artistCredit')) {
     const artistCredit = entity.artistCredit;
     if (!artistCredit) {
       throw new Error(

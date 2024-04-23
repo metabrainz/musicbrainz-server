@@ -34,10 +34,6 @@ Licensed under the MIT license.
 // the actual Flot code
 (function($) {
 
-	// Cache the prototype hasOwnProperty for faster access
-
-	var hasOwnProperty = Object.prototype.hasOwnProperty;
-
     // A shim to provide 'detach' to jQuery versions prior to 1.4.  Using a DOM
     // operation produces the same effect as detach, i.e. removing the element
     // without touching its jQuery data.
@@ -188,7 +184,7 @@ Licensed under the MIT license.
 		// already been rendered, and remove those that are no longer active.
 
 		for (var layerKey in cache) {
-			if (hasOwnProperty.call(cache, layerKey)) {
+			if (Object.hasOwn(cache, layerKey)) {
 
 				var layer = this.getTextLayer(layerKey),
 					layerCache = cache[layerKey];
@@ -196,10 +192,10 @@ Licensed under the MIT license.
 				layer.hide();
 
 				for (var styleKey in layerCache) {
-					if (hasOwnProperty.call(layerCache, styleKey)) {
+					if (Object.hasOwn(layerCache, styleKey)) {
 						var styleCache = layerCache[styleKey];
 						for (var key in styleCache) {
-							if (hasOwnProperty.call(styleCache, key)) {
+							if (Object.hasOwn(styleCache, key)) {
 
 								var positions = styleCache[key].positions;
 
@@ -479,10 +475,10 @@ Licensed under the MIT license.
 			var layerCache = this._textCache[layer];
 			if (layerCache != null) {
 				for (var styleKey in layerCache) {
-					if (hasOwnProperty.call(layerCache, styleKey)) {
+					if (Object.hasOwn(layerCache, styleKey)) {
 						var styleCache = layerCache[styleKey];
 						for (var key in styleCache) {
-							if (hasOwnProperty.call(styleCache, key)) {
+							if (Object.hasOwn(styleCache, key)) {
 								var positions = styleCache[key].positions;
 								for (var i = 0, position; position = positions[i]; i++) {
 									position.active = false;
