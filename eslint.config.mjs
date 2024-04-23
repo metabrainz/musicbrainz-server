@@ -283,6 +283,7 @@ export default [
       'prefer-numeric-literals': 'warn',
       'prefer-object-has-own': 'warn',
       'prefer-object-spread': 'warn',
+      'prefer-regex-literals': 'warn',
       'radix': 'warn',
       'require-yield': 'error',
       /*
