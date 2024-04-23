@@ -316,7 +316,7 @@ import request from '../../common/utility/request.js';
     return function (args, ...rest) {
       args = {...args, edit_type: type};
 
-      callback && callback.apply(null, [args].concat(rest));
+      callback && callback(args, ...rest);
       args.hash = editHash(args);
 
       return args;

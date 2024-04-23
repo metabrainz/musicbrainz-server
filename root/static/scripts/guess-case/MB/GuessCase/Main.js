@@ -146,7 +146,7 @@ class GuessCase {
      */
     return function (
       inputString: string,
-      ...args: $ReadOnlyArray<mixed>
+      isPerson?: boolean = false,
     ): string {
       // Initialise flags for another run.
       flags.init();
@@ -159,13 +159,16 @@ class GuessCase {
        * returned case is indeed a special case.
        */
       const num = handler.checkSpecialCase(inputString);
-      const output = handler.isSpecialCase(num)
-        ? handler.getSpecialCaseFormatted(inputString, num)
-        // if it was not a special case, start guessing
-        // eslint-disable-next-line multiline-comment-style
+      let output;
+      if (handler.isSpecialCase(num)) {
+        output = handler.getSpecialCaseFormatted(inputString, num);
+      } else if (handler instanceof GuessCaseArtistHandler &&
+                 method === 'guessSortName') {
+        output = handler[method](inputString, isPerson);
+      } else {
         // $FlowIgnore[prop-missing]
-        // $FlowIgnore[method-unbinding]
-        : handler[method].apply(handler, args);
+        output = handler[method](inputString);
+      }
 
       return output;
     };
