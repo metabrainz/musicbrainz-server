@@ -281,6 +281,7 @@ export default [
       'operator-assignment': ['warn', 'always'],
       'prefer-const': 'warn',
       'prefer-numeric-literals': 'warn',
+      'prefer-object-spread': 'warn',
       'radix': 'warn',
       'require-yield': 'error',
       /*
