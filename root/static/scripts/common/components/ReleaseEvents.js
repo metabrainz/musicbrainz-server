@@ -84,7 +84,7 @@ component ReleaseEvents(
     <CollapsibleList
       ariaLabel={l('Release events')}
       buildRow={buildReleaseEventRow}
-      buildRowProps={{abbreviated: abbreviated}}
+      buildRowProps={{abbreviated}}
       className={'release-events' + (abbreviated ? ' abbreviated' : ' links')}
       rows={events}
       showAllTitle={l('Show all release events')}

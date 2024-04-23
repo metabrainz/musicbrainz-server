@@ -131,7 +131,7 @@ export function runReducer(
       const month = String(beginDateFields.month.value ?? '');
       const day = String(beginDateFields.day.value ?? '');
       const newEndDate: PartialDateStringsT =
-        {day: day, month: month, year: year};
+        {day, month, year};
       runFormRowPartialDateReducer(
         subfields.get('end_date'),
         {

@@ -37,16 +37,16 @@ component LabelList(
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
-        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
+        ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
       const nameColumn = defineNameColumn<LabelT>({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Label'),
       });
       const typeColumn = defineTypeColumn({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         typeContext: 'label_type',
       });
       const labelCodeColumn = defineTextColumn<LabelT>({
@@ -54,24 +54,24 @@ component LabelList(
         getText: entity => entity.label_code
           ? formatLabelCode(entity.label_code)
           : '',
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Code'),
       });
       const areaColumn = defineEntityColumn<LabelT>({
         columnName: 'area',
         getEntity: entity => entity.area,
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Area'),
       });
       const beginDateColumn = defineBeginDateColumn({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
       });
       const endDateColumn = defineEndDateColumn({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
       });
       const ratingsColumn = defineRatingsColumn<LabelT>({
         getEntity: entity => entity,

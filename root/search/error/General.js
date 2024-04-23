@@ -17,7 +17,7 @@ component General(form: SearchFormT | TagLookupFormT, query: string) {
           `Sorry, but your query “(<code>{query}</code>)” could not be
            performed, due to an error which we are
            not quite able to identify.`,
-          {query: query},
+          {query},
         )}
       </p>
     </SearchError>

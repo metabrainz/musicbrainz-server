@@ -76,7 +76,7 @@ class TimelineViewModel {
       },
     };
     self.zoomArray = ko.computed({
-      read: function () {
+      read() {
         var parts = [self.zoom.xaxis.min(), self.zoom.xaxis.max()];
         if (self.zoom.yaxis.min() || self.zoom.yaxis.max()) {
           parts.push(self.zoom.yaxis.min());
@@ -84,7 +84,7 @@ class TimelineViewModel {
         }
         return parts;
       },
-      write: function (array) {
+      write(array) {
         self.zoom.xaxis.min(array[0]);
         self.zoom.xaxis.max(array[1]);
         if (array.length > 2) {
@@ -94,14 +94,14 @@ class TimelineViewModel {
       },
     });
     self.zoomHashPart = ko.computed({
-      read: function () {
+      read() {
         var parts = self.zoomArray();
         if (parts.filter(Boolean).length > 0) {
           return ['g'].concat(parts).join('/');
         }
         return null;
       },
-      write: function (part) {
+      write(part) {
         if (part) {
           function itemFix(item) {
             return (item === 'null' ? null : parseFloat(item));
@@ -224,7 +224,7 @@ class TimelineViewModel {
     });
 
     ko.computed({
-      read: function () {
+      read() {
         if (self.options.events() &&
             !self.loadedEvents() &&
             !self.loadingEvents()) {
@@ -465,7 +465,7 @@ class TimelineLine {
       min: mean - 3 * standardDeviation,
     };
 
-    return {data: weekData, thresholds: thresholds};
+    return {data: weekData, thresholds};
   }
 
   calculateRateBounds(data, thresholds, dateThresholds) {
@@ -568,7 +568,7 @@ class TimelineLine {
   }
 
   ko.bindingHandlers.flot = {
-    init: function (
+    init(
       element,
       valueAccessor,
       allBindings,
@@ -642,7 +642,7 @@ class TimelineLine {
         plot.draw();
       }, 100));
     },
-    update: function (
+    update(
       element,
       valueAccessor,
       allBindings,
@@ -669,7 +669,7 @@ class TimelineLine {
             timeformat: '%Y/%m/%d',
           };
           options.yaxis = {
-            tickFormatter: function (x) {
+            tickFormatter(x) {
               // XXX: localized number formatting
               return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
             },
@@ -723,7 +723,7 @@ class TimelineLine {
             data = line.rateData().data;
           }
           return {
-            data: data,
+            data,
             label: line.label,
             color: line.color,
           };

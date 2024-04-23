@@ -68,9 +68,9 @@ function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
     .flatMap(c => expandCredit(c, artists, isProbablyClassical));
 
   return {
-    name: name,
-    joinPhrase: joinPhrase,
-    artistCredit: artistCredit,
+    name,
+    joinPhrase,
+    artistCredit,
   };
 }
 
@@ -116,7 +116,7 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
       }
     }
 
-    return {name: clean(name), joinPhrase: joinPhrase, artistCredit: credits};
+    return {name: clean(name), joinPhrase, artistCredit: credits};
   }, {name: str, joinPhrase: '', artistCredit: []});
 }
 
@@ -199,7 +199,7 @@ function expandCredit(fullName, artists, isProbablyClassical) {
     const match = {
       similarity: -1,
       artist: null,
-      name: name,
+      name,
       joinPhrase: fixJoinPhrase(splitParts[i + 1]),
       ...bestArtistMatch(artists, name),
     };
@@ -272,7 +272,7 @@ MB.Control.initGuessFeatButton = function (formName) {
        * Emulate an observable that just reads/writes
        * to the name input directly.
        */
-      name: function () {
+      name() {
         const nameInput = document.getElementById('id-' + formName + '.name');
         if (arguments.length) {
           setInputValueForReact(nameInput, arguments[0]);

@@ -22,10 +22,7 @@ component NoResults(
            did not find any results of the type “{type}”.
            Please check you used the correct spelling. 
            Sometimes searching for fewer or different words may also help.`,
-          {
-            query: query,
-            type: type,
-          },
+          {query, type},
         )}
       </p>
     </SearchError>

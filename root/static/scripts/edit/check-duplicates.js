@@ -200,7 +200,7 @@ MB.initializeDuplicateChecker = function (type) {
 
     requestPending(true);
     promise = request({
-      data: $.param({mbid: sourceEntityGID, name: name, type: type}, true),
+      data: $.param({mbid: sourceEntityGID, name, type}, true),
       url: '/ws/js/check_duplicates',
     })
       .done(function (data) {

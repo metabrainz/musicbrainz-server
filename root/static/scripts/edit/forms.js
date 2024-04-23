@@ -22,7 +22,7 @@ function cmpOptions(a, b) {
 
 MB.forms = {
 
-  buildOptionsTree: function (root, textAttr, valueAttr) {
+  buildOptionsTree(root, textAttr, valueAttr) {
     var options = [];
     var nbsp = String.fromCharCode(160);
 
@@ -62,7 +62,7 @@ MB.forms = {
     return options;
   },
 
-  linkTypeOptions: function (root, backward) {
+  linkTypeOptions(root, backward) {
     function getText(data) {
       return stripAttributes(
         data,
@@ -83,7 +83,7 @@ MB.forms = {
     return options;
   },
 
-  setDisabledOption: function (option, data) {
+  setDisabledOption(option, data) {
     if (data && data.disabled) {
       option.disabled = true;
     }
@@ -93,7 +93,7 @@ MB.forms = {
 
 ko.bindingHandlers.loop = {
 
-  init: function (
+  init(
     parentNode,
     valueAccessor,
     allBindings,
@@ -189,7 +189,7 @@ ko.bindingHandlers.loop = {
               if (node.parentNode) {
                 node.parentNode.removeChild(node);
               }
-              removals.push({node: node, itemID: itemID});
+              removals.push({node, itemID});
             }
           }
           /*
@@ -282,7 +282,7 @@ ko.bindingHandlers.loop = {
     ko.utils.domNodeDisposal.addDisposeCallback(parentNode, nodeDisposal);
 
     update(observableArray.peek().map(function (value, index) {
-      return {status: 'added', value: value, index: index};
+      return {status: 'added', value, index};
     }));
 
     return {controlsDescendantBindings: true};
@@ -319,7 +319,7 @@ ko.virtualElements.allowedBindings.loop = true;
  */
 ko.bindingHandlers.withLabel = {
 
-  update: function (element, valueAccessor, allBindings,
+  update(element, valueAccessor, allBindings,
     viewModel, bindingContext) {
     var name = valueAccessor() + '-' + bindingContext.$index();
 

@@ -60,7 +60,7 @@ component Donation(
               <p>
                 {texp.l(
                   'You will not be nagged for another {days} days.',
-                  {days: days},
+                  {days},
                 )}
               </p>
             ) : (

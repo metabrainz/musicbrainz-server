@@ -45,7 +45,7 @@ component CollapsibleList<T>(
 
   const containerProps = {
     'aria-label': ariaLabel,
-    'className': className,
+    className,
   };
 
   const TO_TRIGGER_COLLAPSE = toShowBefore + toShowAfter + 2;

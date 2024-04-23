@@ -297,7 +297,7 @@ function addLanguage() {
 function editLanguage(i: number, languageId: string) {
   store.dispatch({
     index: i,
-    languageId: languageId,
+    languageId,
     type: 'EDIT_LANGUAGE',
   });
 }

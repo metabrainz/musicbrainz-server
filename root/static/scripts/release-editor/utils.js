@@ -92,7 +92,7 @@ utils.search = function (resource, query, limit, offset) {
     url: '/ws/2/' + resource,
     data: {
       fmt: 'json',
-      query: query,
+      query,
     },
   };
 

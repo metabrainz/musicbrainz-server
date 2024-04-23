@@ -48,7 +48,7 @@ test('expand2', function (t) {
   expandText('A {number}', {number: 1}, 'A 1');
   expandHtml('{null} value', {null: null}, ' value');
   t.equal(error, '');
-  expandHtml('{undefined} value', {undefined: undefined}, ' value');
+  expandHtml('{undefined} value', {undefined}, ' value');
   t.equal(error, '');
 
   expandHtml(

@@ -31,16 +31,16 @@ component InstrumentList(
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
-        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
+        ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
       const nameColumn = defineNameColumn<InstrumentT>({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Instrument'),
       });
       const typeColumn = defineTypeColumn({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         typeContext: 'instrument_type',
       });
 

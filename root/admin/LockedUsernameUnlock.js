@@ -21,7 +21,7 @@ component LockedUsernameUnlock(form: SecureConfirmFormT, username: string) {
           {texp.l_admin(
             `Are you sure you wish to unlock
              the username “{username}” for reuse?`,
-            {username: username},
+            {username},
           )}
         </p>
         <form method="post" name="confirm">

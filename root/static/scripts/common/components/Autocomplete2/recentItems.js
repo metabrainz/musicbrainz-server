@@ -209,7 +209,7 @@ export async function getOrFetchRecentItems<T: EntityItemT>(
       const entity: ?T = linkedEntities[entityType]?.[id];
       if (entity) {
         cachedList.push({
-          entity: entity,
+          entity,
           id: String(entity.id) + '-recent',
           name: getEntityName(entity, isLanguageForWorks),
           type: 'option',

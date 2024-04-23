@@ -627,8 +627,8 @@ export class _ExternalLinksEditor
 
     return {
       allLinks: new Map([...oldLinks, ...newLinks]),
-      newLinks: newLinks,
-      oldLinks: oldLinks,
+      newLinks,
+      oldLinks,
     };
   }
 

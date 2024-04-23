@@ -302,7 +302,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       const url = action + '?tags=' +
         encodeURIComponent(items.map(x => x.tag.name).join(','));
 
-      doRequest({url: url})
+      doRequest({url})
         .done(data => this.updateTags(data.updates))
         .fail(() => items.forEach(x => {
           x.fail();
@@ -432,7 +432,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
           count: t.count,
           tag: {
             entityType: 'tag',
-            genre: genre,
+            genre,
             id: null,
             name: t.tag,
           },
@@ -453,8 +453,8 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   addPendingVote(tag: TagT, vote: VoteT, index: number) {
     this.pendingVotes.set(tag.name, {
       fail: () => this.updateVote(index, vote),
-      tag: tag,
-      vote: vote,
+      tag,
+      vote,
     });
     this.debouncePendingVotes();
   }
@@ -472,19 +472,21 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     this.tagsInput = input;
 
     $(input).autocomplete({
-      focus: function () {
+      focus() {
         return false;
       },
 
-      select: function (this: HTMLInputElement, event, ui) {
+      select(this: HTMLInputElement, event, ui) {
+        // $FlowIgnore[object-this-reference]
         const terms = splitTags(this.value);
         terms.pop();
         terms.push(ui.item.value, '');
+        // $FlowIgnore[object-this-reference]
         this.value = terms.join(', ');
         return false;
       },
 
-      source: function (request, response) {
+      source(request, response) {
         const terms = splitTags(request.term);
         const last = terms.pop();
 

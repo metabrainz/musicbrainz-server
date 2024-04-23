@@ -18,7 +18,7 @@ component RateLimited(form: SearchFormT | TagLookupFormT, query: string) {
            performed, because it appears you’ve been rate-limited.
            Either the server is overloaded or you’re making
            a lot of requests all at once.`,
-          {query: query},
+          {query},
         )}
       </p>
     </SearchError>
