@@ -487,7 +487,7 @@ async function handleCommand({command, target, value}, t, ...args) {
       element = await findElement(locator);
 
       await t.equalWithRetry(
-        async () => element.getAttribute(attribute),
+        () => element.getAttribute(attribute),
         value,
       );
       break;
@@ -501,7 +501,7 @@ async function handleCommand({command, target, value}, t, ...args) {
 
     case 'assertEval':
       await t.equalWithRetry(
-        async () => driver.executeScript(`return String(${target})`),
+        () => driver.executeScript(`return String(${target})`),
         value,
       );
       break;
@@ -526,7 +526,7 @@ async function handleCommand({command, target, value}, t, ...args) {
 
     case 'assertText':
       await t.equalWithRetry(
-        async () => getElementText(target),
+        () => getElementText(target),
         value.trim(),
       );
       break;
@@ -539,14 +539,14 @@ async function handleCommand({command, target, value}, t, ...args) {
 
     case 'assertTitle':
       await t.equalWithRetry(
-        async () => driver.getTitle(),
+        () => driver.getTitle(),
         target,
       );
       break;
 
     case 'assertValue':
       await t.equalWithRetry(
-        async () => findElement(target).getAttribute('value'),
+        () => findElement(target).getAttribute('value'),
         value,
       );
       break;

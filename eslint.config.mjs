@@ -287,6 +287,7 @@ export default [
       'prefer-rest-params': 'warn',
       'prefer-spread': 'warn',
       'radix': 'warn',
+      'require-await': 'warn',
       'require-yield': 'error',
       /*
        * sort-imports does not support Flow 'type' imports, so we use the
