@@ -108,17 +108,12 @@ const getReference = node => (
 
 const getComments = node => ({reference: getReference(node)});
 const msgOrdering = new WeakMap();
-/*
- * This module is not run through Webpack, so don't try to use `hasOwnProp`
- * here. It's not available!
- */
-const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 const addMsg = (data) => {
   const msgid = data.msgid;
   const msgctxt = data.msgctxt || '';
 
-  if (!hasOwnProperty.call(translations, msgctxt)) {
+  if (!Object.hasOwn(translations, msgctxt)) {
     translations[msgctxt] = {};
   }
 

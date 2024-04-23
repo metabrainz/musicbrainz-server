@@ -147,7 +147,7 @@ export default function hydrate<
   }
   return (props: Config) => {
     invariant(
-      !hasOwnProp(props, '$c'),
+      !Object.hasOwn(props, '$c'),
       '`$c` should be accessed using the React context APIs, not props',
     );
     let sanitizedProps: ?SanitizedConfig;

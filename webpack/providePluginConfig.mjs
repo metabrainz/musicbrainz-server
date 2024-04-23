@@ -22,7 +22,6 @@ const lStatisticsPath = path.resolve(i18nPath, 'statistics');
 const hyphenateTitlePath = path.resolve(i18nPath, 'hyphenateTitle');
 const expandPath = path.resolve(i18nPath, 'expand2react');
 const expandTextPath = path.resolve(i18nPath, 'expand2text');
-const hasOwnPropPath = path.resolve(commonPath, 'utility/hasOwnProp');
 const nonEmptyPath = path.resolve(commonPath, 'utility/nonEmpty');
 const hydratePath = path.resolve(MB_SERVER_ROOT, 'root/utility/hydrate');
 const invariantPath = path.resolve(MB_SERVER_ROOT, 'root/utility/invariant');
@@ -33,7 +32,6 @@ const providePluginConfig = {
   'addQuotes': [addQuotesPath, 'default'],
   'addQuotesText': [addQuotesPath, 'addQuotesText'],
   'empty': [nonEmptyPath, 'empty'],
-  'hasOwnProp': [hasOwnPropPath, 'default'],
   'hydrate': [hydratePath, 'default'],
   'hyphenateTitle': [hyphenateTitlePath, 'default'],
   'invariant': [invariantPath, 'default'],

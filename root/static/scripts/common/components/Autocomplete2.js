@@ -449,7 +449,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
       if (staticItems) {
         const option = staticItems.find((item) => (
           item.type === 'option' &&
-          hasOwnProp(item.entity, 'gid') &&
+          Object.hasOwn(item.entity, 'gid') &&
           item.entity.gid === mbidMatch[0]
         ));
         if (option) {

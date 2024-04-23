@@ -54,7 +54,7 @@ function initSearch<T: EntityItemT>(
   }
 
   let searchTerm;
-  if (hasOwnProp(action, 'searchTerm')) {
+  if (Object.hasOwn(action, 'searchTerm')) {
     searchTerm = action.searchTerm;
   } else {
     /*
