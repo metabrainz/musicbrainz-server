@@ -293,6 +293,7 @@ export default [
        */
       'sort-imports': 'off',
       'sort-keys': ['warn', 'asc', {caseSensitive: false, natural: true}],
+      'yoda': 'warn',
 
       /*
        * Strict Mode
