@@ -285,6 +285,7 @@ export default [
       'prefer-object-spread': 'warn',
       'prefer-regex-literals': 'warn',
       'prefer-rest-params': 'warn',
+      'prefer-spread': 'warn',
       'radix': 'warn',
       'require-yield': 'error',
       /*

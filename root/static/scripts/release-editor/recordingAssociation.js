@@ -63,9 +63,7 @@ recordingAssociation.getReleaseGroupRecordings = function (
 
   utils.search('recording', query, 100, offset)
     .done(function (data) {
-      results.push.apply(
-        results, data.recordings.map(cleanRecordingData),
-      );
+      results.push(...data.recordings.map(cleanRecordingData));
 
       var countSoFar = data.offset + 100;
 

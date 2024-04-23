@@ -462,7 +462,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
         return !item.action;
       });
 
-    results.push.apply(results, data);
+    results.push(...data);
 
     this.currentPage = parseInt(pager.current, 10);
     this.totalPages = parseInt(pager.pages, 10);

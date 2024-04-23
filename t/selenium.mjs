@@ -445,12 +445,7 @@ async function handleCommandAndWait({command, target, value}, t) {
 
 async function handleCommand({command, target, value}, t, ...args) {
   if (/AndWait$/.test(command)) {
-    return handleCommandAndWait.apply(
-      null,
-      {command, target, value},
-      t,
-      ...args,
-    );
+    return handleCommandAndWait({command, target, value}, t, ...args);
   }
 
   // Wait for all pending network requests before running the next command.
@@ -611,7 +606,7 @@ async function handleCommand({command, target, value}, t, ...args) {
         .filter(x => x)
         .map(x => KEY_CODES[x] || x);
       element = await findElement(target);
-      await element.sendKeys.apply(element, value);
+      await element.sendKeys(...value);
       break;
 
     case 'type':

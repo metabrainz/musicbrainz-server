@@ -74,7 +74,7 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
     if (type === 'artist') {
       args.push($artistType.val() != 2 /* person */);
     }
-    return guess.sortname.apply(guess, args);
+    return guess.sortname(...args);
   }
 
   $sortname.parent()
