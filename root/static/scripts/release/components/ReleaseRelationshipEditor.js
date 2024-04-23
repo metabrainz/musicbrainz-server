@@ -941,7 +941,7 @@ export const reducer: ((
         );
         const sourceEntityProp = backward ? 'entity1' : 'entity0';
         const targetEntityProp = backward ? 'entity0' : 'entity1';
-        const getBatchUpdates = function* () {
+        function* getBatchUpdates() {
           for (const newSource of tree.iterate(selection)) {
             const target = newRelationshipState[targetEntityProp];
             if (
@@ -964,13 +964,13 @@ export const reducer: ((
               newSource,
             );
           }
-        };
+        }
         updateRelationships(newState, getBatchUpdates());
       }
       break;
     }
     case 'accept-batch-create-works-dialog': {
-      const getBatchUpdates = function* () {
+      function* getBatchUpdates() {
         for (const recording of tree.iterate(state.selectedRecordings)) {
           const mediums =
             expect(state.mediumsByRecordingId.get(recording.id));
@@ -1023,7 +1023,7 @@ export const reducer: ((
             type: ADD_RELATIONSHIP,
           };
         }
-      };
+      }
       updateRelationships(newState, getBatchUpdates());
       break;
     }
@@ -1225,7 +1225,7 @@ export const reducer: ((
       const updatedRelationshipsByKey =
         new Map<string, RelationshipStateT>();
 
-      const updateRelationshipState = function (
+      function updateRelationshipState(
         relationship: RelationshipStateT,
         callback: ({...RelationshipStateT}) => void,
       ) {
@@ -1255,7 +1255,7 @@ export const reducer: ((
             type: ADD_RELATIONSHIP,
           },
         );
-      };
+      }
 
       const updates: Array<RelationshipUpdateT> = [];
       for (let i = 0; i < edits.length; i++) {
@@ -1739,7 +1739,7 @@ component _ReleaseRelationshipEditor() {
   }, [state]);
 
   React.useEffect(() => {
-    const beforeUnload = function (event: BeforeUnloadEvent) {
+    function beforeUnload(event: BeforeUnloadEvent) {
       if (state.submissionInProgress) {
         return undefined;
       }
@@ -1750,7 +1750,7 @@ component _ReleaseRelationshipEditor() {
         return event.returnValue;
       }
       return undefined;
-    };
+    }
     window.addEventListener('beforeunload', beforeUnload);
     return () => {
       window.removeEventListener('beforeunload', beforeUnload);

@@ -66,7 +66,7 @@ export default function* updateEntityCredits(
     return null;
   };
 
-  const getCreditUpdatesForRelationship = function* (
+  function* getCreditUpdatesForRelationship(
     linkTypeGroup: RelationshipLinkTypeGroupT,
     relationship: RelationshipStateT,
   ): Generator<RelationshipUpdateT, void, void> {
@@ -96,9 +96,9 @@ export default function* updateEntityCredits(
         type: ADD_RELATIONSHIP,
       };
     }
-  };
+  }
 
-  const getCreditUpdatesForLinkTypeGroup = function* (
+  function* getCreditUpdatesForLinkTypeGroup(
     linkTypeGroup: RelationshipLinkTypeGroupT,
   ): Generator<RelationshipUpdateT, void, void> {
     for (
@@ -110,7 +110,7 @@ export default function* updateEntityCredits(
         yield* getCreditUpdatesForRelationship(linkTypeGroup, relationship);
       }
     }
-  };
+  }
 
   switch (creditsToChange) {
     case 'all': {

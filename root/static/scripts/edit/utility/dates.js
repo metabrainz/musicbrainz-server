@@ -16,7 +16,7 @@ type PartialDateWithStringsT = {
   +year?: ?StrOrNum,
 };
 
-export const isDateValid = (date: PartialDateWithStringsT): boolean => {
+export function isDateValid(date: PartialDateWithStringsT): boolean {
   let {year: y, month: m, day: d} = date;
 
   y = typeof y === 'number'
@@ -59,13 +59,13 @@ export const isDateValid = (date: PartialDateWithStringsT): boolean => {
 
   // The date is assumed to be valid.
   return true;
-};
+}
 
-export const isYearFourDigits = function (y: string): boolean {
+export function isYearFourDigits(y: string): boolean {
   return (y === null || y === '' || y.length === 4);
-};
+}
 
-export const isDatePeriodValid = function (
+export function isDatePeriodValid(
   a: PartialDateWithStringsT,
   b: PartialDateWithStringsT,
 ): boolean {
@@ -93,4 +93,4 @@ export const isDatePeriodValid = function (
   }
 
   return true;
-};
+}

@@ -42,7 +42,7 @@ const bracketPairs = [['(', ')'], ['[', ']'], ['（', '）'], ['［', '］']];
 function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
   const parts = str.split(featRegex).map(clean);
 
-  const fixFeatJoinPhrase = function (existing) {
+  function fixFeatJoinPhrase(existing) {
     const joinPhrase = isProbablyClassical ? '; ' : existing ? (
       ' ' +
       fromFullwidthLatin(existing)
@@ -54,7 +54,7 @@ function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
     return hasFullwidthLatin(existing)
       ? toFullwidthLatin(joinPhrase)
       : joinPhrase;
-  };
+  }
 
   const name = clean(parts[0]);
 
@@ -182,13 +182,13 @@ function expandCredit(fullName, artists, isProbablyClassical) {
    */
   const bestFullMatch = bestArtistMatch(artists, fullName);
 
-  const fixJoinPhrase = function (existing) {
+  function fixJoinPhrase(existing) {
     const joinPhrase = isProbablyClassical ? ', ' : (existing || ' & ');
 
     return hasFullwidthLatin(existing)
       ? toFullwidthLatin(joinPhrase)
       : joinPhrase;
-  };
+  }
 
   const splitParts = fullName.split(collabRegex);
   const splitMatches = [];

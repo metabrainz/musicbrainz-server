@@ -559,7 +559,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
     }
   }
 
-  const handleMenuMouseDown = function (
+  function handleMenuMouseDown(
     event: SyntheticMouseEvent<HTMLUListElement>,
   ) {
     /*
@@ -568,7 +568,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
      * the input.
      */
     event.preventDefault();
-  };
+  }
 
   const handleOuterClick = React.useCallback(() => {
     stopRequests();

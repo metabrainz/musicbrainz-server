@@ -255,7 +255,7 @@ export function* getUpdatesForAcceptedRelationship(
   newRelationshipState: RelationshipStateT,
   source: RelatableEntityT,
 ): Generator<RelationshipUpdateT, void, void> {
-  const mergeAndYieldUpdates = function* (
+  function* mergeAndYieldUpdates(
     relationshipState: RelationshipStateT,
   ): Generator<RelationshipUpdateT, void, void> {
     const mergeUpdates = mergeRelationship(
@@ -279,7 +279,7 @@ export function* getUpdatesForAcceptedRelationship(
         type: ADD_RELATIONSHIP,
       };
     }
-  };
+  }
 
   const linkType = getRelationshipLinkType(
     newRelationshipState,

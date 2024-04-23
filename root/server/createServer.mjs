@@ -18,7 +18,7 @@ import sanitizedContext from '../utility/sanitizedContext.mjs';
 
 import {badRequest, getResponse} from './response.mjs';
 
-const connectionListener = function (socket) {
+function connectionListener(socket) {
   let expectedBytes = 0;
   let recvBuffer = null;
   let recvBytes = 0;
@@ -30,7 +30,7 @@ const connectionListener = function (socket) {
     recvBytes = 0;
   }
 
-  const receiveData = function (data) {
+  function receiveData(data) {
     if (!recvBuffer) {
       expectedBytes = data.readUInt32LE(0);
       recvBuffer = Buffer.allocUnsafe(expectedBytes);
@@ -80,13 +80,13 @@ const connectionListener = function (socket) {
         receiveData(overflow);
       }
     }
-  };
+  }
 
   socket.on('close', clearRecv);
   socket.on('error', clearRecv);
   socket.on('timeout', clearRecv);
   socket.on('data', receiveData);
-};
+}
 
 function writeResponse(socket, body) {
   const lengthBuffer = Buffer.allocUnsafe(4);

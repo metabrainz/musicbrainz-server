@@ -103,9 +103,9 @@ class TimelineViewModel {
       },
       write: function (part) {
         if (part) {
-          var itemFix = function (item) {
+          function itemFix(item) {
             return (item === 'null' ? null : parseFloat(item));
-          };
+          }
           self.zoomArray(part.split('/').slice(1).map(itemFix));
         } else {
           self.zoomArray([null, null, null, null]);
@@ -493,7 +493,7 @@ class TimelineLine {
 
 (function () {
   // Closure over utility functions.
-  var showTooltip = function (x, y, contents) {
+  function showTooltip(x, y, contents) {
     $('<div id="tooltip">' + contents + '</div>')
       .css({
         'position': 'absolute',
@@ -507,20 +507,20 @@ class TimelineLine {
       })
       .appendTo('body')
       .fadeIn(200);
-  };
+  }
 
-  var removeTooltip = function () {
+  function removeTooltip() {
     $('#tooltip').remove();
-  };
+  }
 
-  var setCursor = function (type) {
+  function setCursor(type) {
     if (!type) {
       type = '';
     }
     $('body').css('cursor', type);
-  };
+  }
 
-  var setItemTooltip = function (item, extra, fixed) {
+  function setItemTooltip(item, extra, fixed) {
     if (!extra) {
       extra = '';
     }
@@ -554,9 +554,9 @@ class TimelineLine {
       date.getFullYear() + '-' + month + '-' + day + ': ' + y +
         ' ' + item.series.label + extra,
     );
-  };
+  }
 
-  var setEventTooltip = function (thisEvent, pos) {
+  function setEventTooltip(thisEvent, pos) {
     removeTooltip();
     setCursor('pointer');
     showTooltip(
@@ -565,7 +565,7 @@ class TimelineLine {
       '<h2 style="margin-top: 0px; padding-top: 0px">' +
         thisEvent.title + '</h2>' + thisEvent.description,
     );
-  };
+  }
 
   ko.bindingHandlers.flot = {
     init: function (
@@ -578,13 +578,13 @@ class TimelineLine {
       var graph = ko.unwrap(valueAccessor());
       var previousPoint = null;
       var currentEvent = null;
-      var reset = function () {
+      function reset() {
         removeTooltip();
         previousPoint = null;
         currentEvent = null;
         $(element).data('plot').changeCurrentEvent({});
         setCursor();
-      };
+      }
       $(element)
         .bind('plothover', function (event, pos, item) {
           if (item) {

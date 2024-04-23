@@ -25,7 +25,7 @@ export default function useEntityNameFromField(
   React.useEffect(() => {
     const nameField = document.getElementById(nameFieldId);
 
-    const handleNameChange = function (event: InputEvent) {
+    function handleNameChange(event: InputEvent) {
       // $FlowIgnore[prop-missing]
       let name: string = event.target.value;
       if (mapName) {
@@ -36,7 +36,7 @@ export default function useEntityNameFromField(
         entityType,
         type: 'update-entity',
       });
-    };
+    }
 
     nameField?.addEventListener('input', handleNameChange);
 
