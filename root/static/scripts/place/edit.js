@@ -35,12 +35,12 @@ const bubble = initializeBubble(
  * This tells it to update its position once it's visible.
  */
 let invalidateSizeRan = false;
-const afterBubbleShow = function () {
+function afterBubbleShow() {
   if (!invalidateSizeRan) {
     map.invalidateSize();
     invalidateSizeRan = true;
   }
-};
+}
 
 const bubbleShow = bubble.show;
 

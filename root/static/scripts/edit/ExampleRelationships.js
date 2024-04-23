@@ -77,7 +77,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
     return self;
   };
 
-  const ViewModel = function () {
+  function ViewModel() {
     return {
       availableEntityTypes: ko.observableArray(),
       currentExample: {
@@ -99,14 +99,14 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
       examples: ko.observableArray(),
       selectedEntityType: ko.observable(),
     };
-  };
+  }
 
   searchUrl = function (mbid) {
     return jsRoot + mbid + '?inc=rels';
   };
 
 
-  const RelationshipSearcher = function () {
+  function RelationshipSearcher() {
     const self = this;
 
     self.query = ko.observable();
@@ -175,7 +175,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
     };
 
     return self;
-  };
+  }
 
   return ERE;
 }(MB.ExampleRelationshipsEditor || {}));

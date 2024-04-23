@@ -54,14 +54,14 @@ export function reduceArtistCreditNames(
   return s;
 }
 
-export const isComplexArtistCredit = function (ac: ArtistCreditT): boolean {
+export function isComplexArtistCredit(ac: ArtistCreditT): boolean {
   const firstName = ac.names[0];
   if (firstName && hasArtist(firstName)) {
     return empty(firstName.name) ||
       firstName.artist.name !== reduceArtistCredit(ac);
   }
   return false;
-};
+}
 
 export function artistCreditsAreEqual(
   a: ArtistCreditT,

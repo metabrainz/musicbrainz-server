@@ -795,18 +795,19 @@ component _RelationshipDialogContent(...props: PropsT) {
       'The selected link type is invalid for these entity types',
     );
 
-    const doAccept = function () {
+    function doAccept() {
       sourceDispatch({
         batchSelectionCount,
         creditsToChangeForSource: sourceEntityState.creditsToChange,
         creditsToChangeForTarget: targetEntityState.creditsToChange,
+        // $FlowIgnore[incompatible-call] -- we know it exists on use
         newRelationshipState,
         oldRelationshipState: initialRelationship,
         sourceEntity: source,
         type: 'update-relationship-state',
       });
       closeDialogWithEvent('accept');
-    };
+    }
 
     if (isDatabaseRowId(initialRelationship.id)) {
       performReactUpdateAndMaintainFocus(

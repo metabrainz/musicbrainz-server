@@ -877,7 +877,7 @@ MB.Control.autocomplete_formatters = {
       );
     }
 
-    var artistRenderer = function (prefix, artists) {
+    function artistRenderer(prefix, artists) {
       if (artists && artists.hits > 0) {
         var toRender = artists.results;
         if (artists.hits > toRender.length) {
@@ -889,7 +889,7 @@ MB.Control.autocomplete_formatters = {
           prefix + ': ' + he.escape(commaOnlyListText(toRender)) + '</span>',
         );
       }
-    };
+    }
 
     if (item.related_artists) {
       artistRenderer(l('Writers'), item.related_artists.writers);
@@ -1029,7 +1029,7 @@ MB.Control.autocomplete_formatters = {
       );
     }
 
-    var entityRenderer = function (prefix, relatedEntities) {
+    function entityRenderer(prefix, relatedEntities) {
       if (relatedEntities && relatedEntities.hits > 0) {
         var toRender = relatedEntities.results;
         if (relatedEntities.hits > toRender.length) {
@@ -1041,7 +1041,7 @@ MB.Control.autocomplete_formatters = {
           prefix + ': ' + he.escape(commaOnlyListText(toRender)) + '</span>',
         );
       }
-    };
+    }
 
     if (item.related_entities) {
       entityRenderer(l('Performers'), item.related_entities.performers);

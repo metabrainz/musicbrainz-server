@@ -266,10 +266,10 @@ export function watchTrackForChanges(track) {
     return;
   }
 
-  var similarTo = function (prop) {
+  function similarTo(prop) {
     return (utils.similarTrackNames(track.name[prop], name) &&
             utils.similarLengths(track.length[prop], length));
-  };
+  }
 
   if (similarTo('saved')) {
     // The current name/length is similar to the saved name/length.

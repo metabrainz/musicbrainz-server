@@ -109,11 +109,11 @@ component _EditWorkDialog(
 
   const isNameBlank = isBlank(name);
 
-  const handleNameChange = function (
+  function handleNameChange(
     event: SyntheticEvent<HTMLInputElement>,
   ) {
     dispatch({name: event.currentTarget.value, type: 'update-name'});
-  };
+  }
 
   const languagesDispatch = React.useCallback((
     action: MultiselectActionT<LanguageT>,
