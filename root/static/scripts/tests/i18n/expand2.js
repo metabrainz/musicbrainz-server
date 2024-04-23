@@ -15,8 +15,8 @@ test('expand2', function (t) {
 
   let error = '';
   const consoleError = console.error;
-  console.error = function () {
-    error = arguments[0];
+  console.error = function (...args) {
+    error = args[0];
   };
 
   function expandText(input, args, output) {

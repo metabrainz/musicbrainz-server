@@ -272,10 +272,10 @@ MB.Control.initGuessFeatButton = function (formName) {
        * Emulate an observable that just reads/writes
        * to the name input directly.
        */
-      name() {
+      name(...args) {
         const nameInput = document.getElementById('id-' + formName + '.name');
-        if (arguments.length) {
-          setInputValueForReact(nameInput, arguments[0]);
+        if (args.length) {
+          setInputValueForReact(nameInput, args[0]);
           return undefined;
         }
         return nameInput.value;

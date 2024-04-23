@@ -144,7 +144,10 @@ class GuessCase {
      * @param {string} is The unprocessed input string.
      * @return {string} The processed string.
      */
-    return function (inputString: string): string {
+    return function (
+      inputString: string,
+      ...args: $ReadOnlyArray<mixed>
+    ): string {
       // Initialise flags for another run.
       flags.init();
 
@@ -162,7 +165,7 @@ class GuessCase {
         // eslint-disable-next-line multiline-comment-style
         // $FlowIgnore[prop-missing]
         // $FlowIgnore[method-unbinding]
-        : handler[method].apply(handler, arguments);
+        : handler[method].apply(handler, args);
 
       return output;
     };

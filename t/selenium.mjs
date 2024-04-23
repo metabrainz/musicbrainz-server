@@ -443,9 +443,14 @@ async function handleCommandAndWait({command, target, value}, t) {
   return driver.wait(until.stalenessOf(html), 30000);
 }
 
-async function handleCommand({command, target, value}, t) {
+async function handleCommand({command, target, value}, t, ...args) {
   if (/AndWait$/.test(command)) {
-    return handleCommandAndWait.apply(null, arguments);
+    return handleCommandAndWait.apply(
+      null,
+      {command, target, value},
+      t,
+      ...args,
+    );
   }
 
   // Wait for all pending network requests before running the next command.

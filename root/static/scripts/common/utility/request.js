@@ -12,36 +12,36 @@ var nextAvailableTime = new Date().getTime();
 var previousDeferred = null;
 var timeout = 1000;
 
-function makeRequest(args, context, deferred) {
-  deferred.jqXHR = $.ajax({dataType: 'json', ...args})
-    .done(function () {
+function makeRequest(ajaxConfig, context, deferred) {
+  deferred.jqXHR = $.ajax({dataType: 'json', ...ajaxConfig})
+    .done(function (...args) {
       if (!deferred.aborted) {
-        deferred.resolveWith(context, arguments);
+        deferred.resolveWith(context, args);
       }
     })
-    .fail(function () {
+    .fail(function (...args) {
       if (!deferred.aborted) {
-        deferred.rejectWith(context, arguments);
+        deferred.rejectWith(context, args);
       }
     });
 
-  deferred.jqXHR.sentData = args.data;
+  deferred.jqXHR.sentData = ajaxConfig.data;
 }
 
-function request(args, context) {
+function request(ajaxConfig, context) {
   var deferred = $.Deferred();
   var now = new Date().getTime();
   var later;
 
   if (nextAvailableTime - now <= 0) {
-    makeRequest(args, context, deferred);
+    makeRequest(ajaxConfig, context, deferred);
 
     // nextAvailableTime is in the past.
     nextAvailableTime = now + timeout;
   } else {
     later = function () {
       if (!deferred.aborted && !deferred.complete) {
-        makeRequest(args, context, deferred);
+        makeRequest(ajaxConfig, context, deferred);
       } else if (deferred.next) {
         deferred.next();
       }
