@@ -296,8 +296,12 @@ export default [
       'sort-imports': 'off',
       'sort-keys': ['warn', 'asc', {caseSensitive: false, natural: true}],
 
-      // Strict Mode
-      'strict': 'off',
+      /*
+       * Strict Mode
+       * It is enforced elsewhere (Webpack) but this tells us off
+       * if we add strict where it is not needed to begin with
+       */
+      'strict': 'warn',
 
       // eslint-plugin-import
       'import/export': 'error',
