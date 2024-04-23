@@ -52,24 +52,24 @@ component ReleaseList(
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
-        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
+        ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers
-        ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
+        ? defineSeriesNumberColumn({seriesItemNumbers})
         : null;
       const nameColumn = defineNameColumn<ReleaseT>({
         descriptive: false, // since ACs are in the next column
-        order: order,
+        order,
         showArtworkPresence: releases
           .some((release) => release.cover_art_presence === 'present'),
-        sortable: sortable,
+        sortable,
         title: l('Release'),
       });
       const artistCreditColumn = defineArtistCreditColumn<ReleaseT>({
         columnName: 'artist',
         getArtistCredit: entity => entity.artistCredit,
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Artist'),
       });
       const formatColumn = defineTextColumn<ReleaseT>({
@@ -78,8 +78,8 @@ component ReleaseList(
           entity => nonEmpty(entity.combined_format_name)
             ? entity.combined_format_name
             : l('[missing media]'),
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Format'),
       });
       const tracksColumn = defineTextColumn<ReleaseT>({
@@ -88,19 +88,19 @@ component ReleaseList(
           entity => nonEmpty(entity.combined_track_count)
             ? entity.combined_track_count
             : lp('-', 'missing data'),
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Tracks'),
       });
       const releaseEventsColumn = defineReleaseEventsColumn({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
       });
       const labelsColumn = filterLabel
         ? null
         : defineReleaseLabelsColumn({
-          order: order,
-          sortable: sortable,
+          order,
+          sortable,
         });
       const catnosColumn = defineReleaseCatnosColumn({
         getLabels: (release: ReleaseT) => {
@@ -112,15 +112,15 @@ component ReleaseList(
             ? filterReleaseLabels(labels, filterLabel)
             : labels;
         },
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
       });
       const barcodeColumn = defineTextColumn<ReleaseT>({
         cellProps: {className: 'barcode-cell'},
         columnName: 'barcode',
         getText: entity => formatBarcode(entity.barcode),
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Barcode'),
       });
       const releaseLanguageColumn = showLanguages
@@ -130,7 +130,7 @@ component ReleaseList(
         : null;
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
         ? defineInstrumentUsageColumn({
-          instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,
+          instrumentCreditsAndRelTypes,
         })
         : null;
       const typeColumn = showType

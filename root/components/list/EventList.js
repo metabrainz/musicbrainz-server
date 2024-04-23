@@ -48,22 +48,22 @@ component EventList(
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
-        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
+        ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers
-        ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
+        ? defineSeriesNumberColumn({seriesItemNumbers})
         : null;
       const nameColumn = defineNameColumn<EventT>({
         descriptive: false, // since dates have their own column
-        order: order,
+        order,
         showArtworkPresence: events
           .some((event) => event.event_art_presence === 'present'),
-        sortable: sortable,
+        sortable,
         title: l('Event'),
       });
       const typeColumn = defineTypeColumn({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         typeContext: 'event_type',
       });
       const artistsColumn = defineArtistRolesColumn<EventT>({
@@ -98,8 +98,8 @@ component EventList(
         : null;
       const dateColumn = defineDatePeriodColumn<EventT>({
         getEntity: entity => entity,
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
       });
       const ratingsColumn = defineRatingsColumn<EventT>({
         getEntity: entity => entity,

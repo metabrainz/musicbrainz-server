@@ -24,14 +24,14 @@ const makeItem = (id: number, name: string) => ({
     free_text: false,
     gid: '',
     id,
-    name: name,
+    name,
     parent_id: null,
     root_gid: '',
     root_id: id,
   },
   id,
   level: 0,
-  name: name,
+  name,
   type: 'option',
 });
 

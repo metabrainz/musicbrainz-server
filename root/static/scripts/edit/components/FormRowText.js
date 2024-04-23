@@ -47,15 +47,15 @@ component FormRowText(
   ...controlledProps: ControlledPropsT
 ) {
   const inputProps: InputProps = {
-    autoComplete: autoComplete,
-    className: className,
-    disabled: disabled,
+    autoComplete,
+    className,
+    disabled,
     id: 'id-' + field.html_name,
     name: field.html_name,
     ref: inputRef,
-    required: required,
-    size: size,
-    type: type,
+    required,
+    size,
+    type,
   };
 
   const inputValue = preview ?? field.value ?? '';

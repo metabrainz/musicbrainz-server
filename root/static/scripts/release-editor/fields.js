@@ -399,7 +399,7 @@ class Medium {
 
     this.hasPregap = ko.computed({
       read: hasPregap,
-      write: function (newValue) {
+      write(newValue) {
         var oldValue = hasPregap();
 
         if (oldValue && !newValue) {
@@ -431,7 +431,7 @@ class Medium {
 
     this.hasDataTracks = ko.computed({
       read: hasDataTracks,
-      write: function (newValue) {
+      write(newValue) {
         var oldValue = hasDataTracks();
 
         if (oldValue && !newValue) {
@@ -785,12 +785,12 @@ class Medium {
       if (multidisc) {
         return texp.l(
           'Medium {position}: {title}',
-          {position: position, title: name},
+          {position, title: name},
         );
       }
       return name;
     } else if (multidisc) {
-      return texp.l('Medium {position}', {position: position});
+      return texp.l('Medium {position}', {position});
     }
     return l('Tracklist');
   }
@@ -948,10 +948,10 @@ class Barcode {
     this.value.equalityComparer = null;
 
     this.none = ko.computed({
-      read: function () {
+      read() {
         return this.barcode() === '';
       },
-      write: function (bool) {
+      write(bool) {
         this.barcode(bool ? '' : null);
       },
       owner: this,

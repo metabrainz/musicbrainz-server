@@ -277,6 +277,7 @@ export default [
       'no-useless-rename': 'warn',
       'no-useless-return': 'warn',
       'no-var': 'warn',
+      'object-shorthand': ['warn', 'always'],
       'one-var': ['warn', 'never'],
       'operator-assignment': ['warn', 'always'],
       'prefer-const': 'warn',

@@ -150,7 +150,7 @@ MB.Control.BubbleDoc = BubbleDoc;
 
 ko.bindingHandlers.show = {
 
-  update: function (element, valueAccessor) {
+  update(element, valueAccessor) {
     element.style.display = ko.unwrap(valueAccessor()) ? 'block' : 'none';
   },
 };
@@ -158,7 +158,7 @@ ko.bindingHandlers.show = {
 
 ko.bindingHandlers.bubble = {
 
-  init: function (element, valueAccessor, allBindingsAccessor,
+  init(element, valueAccessor, allBindingsAccessor,
     viewModel, bindingContext) {
     var bubble = valueAccessor();
     element.bubbleDoc = bubble;
@@ -176,7 +176,7 @@ ko.bindingHandlers.bubble = {
 
 ko.bindingHandlers.controlsBubble = {
 
-  init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+  init(element, valueAccessor, allBindingsAccessor, viewModel) {
     var bubble = valueAccessor();
 
     element.bubbleDoc = bubble;
@@ -191,7 +191,7 @@ ko.bindingHandlers.controlsBubble = {
     }
 
     ko.computed({
-      read: function () {
+      read() {
         return Boolean(bubble.canBeShown(viewModel));
       },
       disposeWhenNodeIsRemoved: element,
@@ -217,7 +217,7 @@ ko.bindingHandlers.controlsBubble = {
 
 ko.bindingHandlers.affectsBubble = {
 
-  init: function (element, valueAccessor) {
+  init(element, valueAccessor) {
     if (!window.MutationObserver) {
       return;
     }

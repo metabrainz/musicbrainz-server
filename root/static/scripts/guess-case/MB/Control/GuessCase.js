@@ -100,7 +100,7 @@ var guessCaseOptions = {
 };
 
 var mode = ko.computed({
-  read: function () {
+  read() {
     var modeName = guessCaseOptions.modeName();
 
     if (modeName !== gc.modeName) {
@@ -113,7 +113,7 @@ var mode = ko.computed({
 });
 
 guessCaseOptions.help = ko.computed({
-  read: function () {
+  read() {
     return mode().description;
   },
   deferEvaluation: true,
@@ -130,7 +130,7 @@ guessCaseOptions.upperCaseRoman.subscribe(function (value) {
 
 ko.bindingHandlers.guessCase = {
 
-  init: function (
+  init(
     element,
     valueAccessor,
     allBindingsAccessor,

@@ -42,7 +42,7 @@ import request from '../../common/utility/request.js';
 
   var fields = edit.fields = {
 
-    annotation: function (entity) {
+    annotation(entity) {
       return {
         entity: nullableString(entity.gid),
 
@@ -51,7 +51,7 @@ import request from '../../common/utility/request.js';
       };
     },
 
-    artistCredit: function (ac) {
+    artistCredit(ac) {
       ac = value(ac);
 
       if (!ac) {
@@ -89,7 +89,7 @@ import request from '../../common/utility/request.js';
       return {names};
     },
 
-    externalLinkRelationship: function (link, source) {
+    externalLinkRelationship(link, source) {
       var editData = {
         id: number(link.relationship),
         linkTypeID: number(link.type),
@@ -121,7 +121,7 @@ import request from '../../common/utility/request.js';
       return editData;
     },
 
-    medium: function (medium) {
+    medium(medium) {
       return {
         name:       string(medium.name),
         format_id:  number(medium.formatID),
@@ -130,7 +130,7 @@ import request from '../../common/utility/request.js';
       };
     },
 
-    partialDate: function (data) {
+    partialDate(data) {
       data ||= {};
 
       return {
@@ -140,7 +140,7 @@ import request from '../../common/utility/request.js';
       };
     },
 
-    recording: function (recording) {
+    recording(recording) {
       return {
         to_edit:        string(recording.gid),
         name:           string(recording.name),
@@ -151,7 +151,7 @@ import request from '../../common/utility/request.js';
       };
     },
 
-    relationship: function (relationship) {
+    relationship(relationship) {
       var data = {
         id:             number(relationship.id),
         linkTypeID:     number(relationship.linkTypeID),
@@ -186,7 +186,7 @@ import request from '../../common/utility/request.js';
       return data;
     },
 
-    relationshipEntity: function (entity) {
+    relationshipEntity(entity) {
       var data = {
         entityType: entity.entityType,
         gid:        nullableString(entity.gid),
@@ -201,7 +201,7 @@ import request from '../../common/utility/request.js';
       return data;
     },
 
-    release: function (release) {
+    release(release) {
       var releaseGroupID = (release.releaseGroup() || {}).id;
 
       var events = compactMap(value(release.events), function (data) {
@@ -228,11 +228,11 @@ import request from '../../common/utility/request.js';
         packaging_id:       number(release.packagingID),
         script_id:          number(release.scriptID),
         status_id:          number(release.statusID),
-        events:             events,
+        events,
       };
     },
 
-    releaseGroup: function (rg) {
+    releaseGroup(rg) {
       return {
         gid:                string(rg.gid),
         primary_type_id:    number(rg.typeID),
@@ -243,7 +243,7 @@ import request from '../../common/utility/request.js';
       };
     },
 
-    releaseLabel: function (releaseLabel) {
+    releaseLabel(releaseLabel) {
       var label = value(releaseLabel.label) || {};
 
       return {
@@ -253,7 +253,7 @@ import request from '../../common/utility/request.js';
       };
     },
 
-    track: function (track) {
+    track(track) {
       var recording = value(track.recording) || {};
 
       return {
@@ -268,7 +268,7 @@ import request from '../../common/utility/request.js';
       };
     },
 
-    work: function (work) {
+    work(work) {
       return {
         name:           string(work.name),
         comment:        string(work.comment),
@@ -445,7 +445,7 @@ import request from '../../common/utility/request.js';
 
       for (const gid of Object.keys(origAttributes)) {
         if (!newAttributes[gid]) {
-          changedAttributes.push({type: {gid: gid}, removed: true});
+          changedAttributes.push({type: {gid}, removed: true});
         }
       }
 

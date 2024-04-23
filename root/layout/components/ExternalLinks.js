@@ -122,7 +122,7 @@ component ExternalLinks(
     } else if (target.show_in_external_links /*:: === true */) {
       otherLinks.push({
         editsPending: relationship.editsPending,
-        entityCredit: entityCredit,
+        entityCredit,
         id: relationship.id,
         url: target,
       });

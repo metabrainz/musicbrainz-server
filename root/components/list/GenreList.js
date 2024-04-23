@@ -38,8 +38,8 @@ const GenreList = ({
         ? defineCheckboxColumn({name: checkboxes})
         : null;
       const nameColumn = defineNameColumn<GenreT>({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Genre'),
       });
 

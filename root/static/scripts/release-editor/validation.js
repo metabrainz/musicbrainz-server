@@ -53,7 +53,7 @@ function showErrorHandler(handler) {
     // Binding may be running before element has been added to the DOM.
     setTimeout(function () {
       ko.computed({
-        read: function () {
+        read() {
           const value = errorField.call(vm);
           const $panel = $element.parents('.ui-tabs-panel');
 

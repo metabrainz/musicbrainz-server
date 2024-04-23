@@ -48,39 +48,39 @@ export component ReleaseGroupListTable(
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
-        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
+        ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers
-        ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
+        ? defineSeriesNumberColumn({seriesItemNumbers})
         : null;
       const yearColumn = defineTextColumn<ReleaseGroupT>({
         cellProps: {className: 'c'},
         columnName: 'year',
         getText: entity => getFirstReleaseYear(entity),
         headerProps: {className: 'year c'},
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Year'),
       });
       const nameColumn = defineNameColumn<ReleaseGroupT>({
         descriptive: false, // since ACs are in the next column
-        order: order,
+        order,
         showArtworkPresence: releaseGroups.some((group) => group.hasCoverArt),
-        sortable: sortable,
+        sortable,
         title: l('Title'),
       });
       const artistCreditColumn = defineArtistCreditColumn<ReleaseGroupT>({
         columnName: 'artist',
         getArtistCredit: entity => entity.artistCredit,
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Artist'),
       });
       const typeColumn = defineTextColumn<ReleaseGroupT>({
         columnName: 'primary-type',
         getText: entity => entity.l_type_name || '',
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Type'),
       });
       const releaseNumberColumn = defineCountColumn<ReleaseGroupT>({

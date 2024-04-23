@@ -253,7 +253,7 @@ import('gettext-parser').then(({default: gettextParser}) => {
   console.log(
     gettextParser.po
       .compile(potFile, {
-        sort: function (a, b) {
+        sort(a, b) {
           return msgOrdering.get(a) - msgOrdering.get(b);
         },
       })

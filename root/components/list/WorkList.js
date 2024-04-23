@@ -40,14 +40,14 @@ component WorkList(
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
-        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
+        ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers
-        ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
+        ? defineSeriesNumberColumn({seriesItemNumbers})
         : null;
       const nameColumn = defineNameColumn<WorkT>({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Work'),
       });
       const writersColumn = defineArtistRolesColumn<WorkT>({
@@ -56,8 +56,8 @@ component WorkList(
         title: l('Writers'),
       });
       const typeColumn = defineTypeColumn({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         typeContext: 'work_type',
       });
       const ratingsColumn = defineRatingsColumn<WorkT>({

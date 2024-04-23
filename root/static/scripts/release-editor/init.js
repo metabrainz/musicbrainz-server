@@ -32,7 +32,7 @@ Object.assign(releaseEditor, {
   activeTabID: ko.observable('#information'),
   activeTabIndex: ko.observable(0),
   loadError: ko.observable(''),
-  loadErrorMessage: function () {
+  loadErrorMessage() {
     return texp.l(
       'Error loading release: {error}',
       {error: releaseEditor.loadError()},
@@ -103,7 +103,7 @@ releaseEditor.init = function (options) {
 
   var $pageContent = $('#release-editor').tabs({
 
-    beforeActivate: function (event, ui) {
+    beforeActivate(event, ui) {
       /*
        * Workaround for buggy dictation software which may not trigger
        * change events after setting input values.
@@ -113,7 +113,7 @@ releaseEditor.init = function (options) {
       }
     },
 
-    activate: function (event, ui) {
+    activate(event, ui) {
       var panel = ui.newPanel;
 
       self.activeTabID(panel.selector)
@@ -393,7 +393,7 @@ releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
 
   this.externalLinks = externalLinks.createExternalLinksEditor({
     sourceData: data,
-    mountPoint: mountPoint,
+    mountPoint,
     errorObservable: this.hasInvalidLinks,
   });
 

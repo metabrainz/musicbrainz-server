@@ -10,7 +10,7 @@ import ko from 'knockout';
 
 // Supports loading a component template from a <script type="text/html">
 ko.components.loaders.unshift({
-  loadTemplate: function (componentName, templateConfig, callback) {
+  loadTemplate(componentName, templateConfig, callback) {
     callback(
       templateConfig.fromScript ? ko.utils.parseHtmlFragment(
         document.getElementById(templateConfig.fromScript).innerHTML,

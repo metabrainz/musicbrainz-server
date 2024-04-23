@@ -97,7 +97,7 @@ TestCls.prototype.deepEqual2 = function (a, b, msg, extra) {
   this._assert(deepEqual(a, b, compareEditDataValues), {
     actual: a,
     expected: b,
-    extra: extra,
+    extra,
     message: defined(msg, 'should be equivalent'),
     operator: 'deepEqual2',
   });

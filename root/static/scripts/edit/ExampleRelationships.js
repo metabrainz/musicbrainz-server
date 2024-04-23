@@ -44,7 +44,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
     ERE.viewModel.availableEntityTypes(availableEntityTypes);
 
     ko.bindingHandlers.checkObject = {
-      init: function (element, valueAccessor, all, vm, bindingContext) {
+      init(element, valueAccessor, all, vm, bindingContext) {
         ko.utils.registerEventHandler(element, 'click', function () {
           const checkedValue = valueAccessor();
           const meValue = bindingContext.$data;
@@ -54,7 +54,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
           }
         });
       },
-      update: function (element, valueAccessor, all, vm, bindingContext) {
+      update(element, valueAccessor, all, vm, bindingContext) {
         const checkedValue = ko.utils.unwrapObservable(valueAccessor());
         const meValue = bindingContext.$data;
 
@@ -81,7 +81,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
     return {
       availableEntityTypes: ko.observableArray(),
       currentExample: {
-        add: function () {
+        add() {
           const ce = this.currentExample;
 
           this.examples.push(

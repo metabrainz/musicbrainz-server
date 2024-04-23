@@ -18,7 +18,7 @@ MB.Control.Area = function (...selectors) {
     return viewModel.area().gid;
   };
 
-  ko.applyBindingsToNode($('#area-bubble')[0], {bubble: bubble});
+  ko.applyBindingsToNode($('#area-bubble')[0], {bubble});
 
   for (const selector of selectors) {
     const $span = $(selector);

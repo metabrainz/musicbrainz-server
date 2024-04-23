@@ -128,7 +128,7 @@ const ArtistCreditField = ({
         field={field}
         options={{
           grouped: false,
-          options: options,
+          options,
         }}
         style={{maxWidth: '40em'}}
         uncontrolled
@@ -147,7 +147,7 @@ const TypeField = ({field, options}: FieldProps): React$Element<'tr'> => (
         field={field}
         options={{
           grouped: false,
-          options: options,
+          options,
         }}
         style={{maxWidth: '40em'}}
         uncontrolled

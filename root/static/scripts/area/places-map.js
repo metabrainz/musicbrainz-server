@@ -64,7 +64,7 @@ if (places.length) {
   };
 
   const markers = L.markerClusterGroup({
-    iconCreateFunction: function (cluster) {
+    iconCreateFunction(cluster) {
       const iconURL = clusterMarkerIconUrl;
 
       return L.divIcon({
@@ -118,7 +118,7 @@ if (places.length) {
     const marker = L.marker(coordinates, {
       clickable: true,
       draggable: false,
-      icon: icon,
+      icon,
       title: placeName,
     }).bindPopup(
       place.ended ? (

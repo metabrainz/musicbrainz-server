@@ -70,7 +70,7 @@ const useRenderedTable = <D>({
     'tbl' + (nonEmpty(passedClassName) ? ' ' + passedClassName : '');
 
   return (
-    <table {...getTableProps({className: className})}>
+    <table {...getTableProps({className})}>
       <thead>
         {headerGroups.map(renderTableHeaderRow)}
       </thead>

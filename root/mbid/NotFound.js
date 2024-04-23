@@ -22,7 +22,7 @@ component MbidNotFound(isGuid: boolean, mbid?: string,
              entity (for example, a {rel_type_table|relationship type}).`,
             {
               entity_doc: '/doc/MusicBrainz_Entity',
-              mbid: mbid,
+              mbid,
               mbid_doc: '/doc/MusicBrainz_Identifier',
               rel_type_table: '/relationships',
             },
@@ -32,7 +32,7 @@ component MbidNotFound(isGuid: boolean, mbid?: string,
             exp.l(
               '{mbid} is not a valid {mbid_doc|MBID}.',
               {
-                mbid: mbid,
+                mbid,
                 mbid_doc: '/doc/MusicBrainz_Identifier',
               },
             )
