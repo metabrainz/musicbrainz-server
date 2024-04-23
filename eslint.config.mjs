@@ -275,6 +275,7 @@ export default [
       'no-useless-constructor': 'warn',
       'no-useless-escape': 'warn',
       'no-useless-rename': 'warn',
+      'no-useless-return': 'warn',
       'no-var': 'warn',
       'one-var': ['warn', 'never'],
       'operator-assignment': ['warn', 'always'],
