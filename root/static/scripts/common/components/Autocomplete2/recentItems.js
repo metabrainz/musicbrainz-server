@@ -184,7 +184,7 @@ const _recentItemsRequests =
   // $FlowIgnore[unclear-type]
   new Map<string, Promise<Array<OptionItemT<any>>>>();
 
-export async function getOrFetchRecentItems<T: EntityItemT>(
+export function getOrFetchRecentItems<T: EntityItemT>(
   entityType: EntityItemT['entityType'],
   key?: string = entityType,
 ): Promise<$ReadOnlyArray<OptionItemT<T>>> {
