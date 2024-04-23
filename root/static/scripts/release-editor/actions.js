@@ -38,7 +38,6 @@ const actions = {
   lastTab: function () {
     this.uiTabs._setOption('active', this.tabCount - 1);
     this.uiTabs.tabs.eq(this.tabCount - 1).focus();
-    return;
   },
 
   adjacentTab: function (direction) {
