@@ -73,7 +73,7 @@ function showErrorHandler(handler) {
 ko.bindingHandlers.showErrorRightAway = {
 
   init: showErrorHandler(function (value, $element) {
-    $element.data('visible', !!value).toggle(!!value);
+    $element.data('visible', Boolean(value)).toggle(Boolean(value));
   }),
 };
 

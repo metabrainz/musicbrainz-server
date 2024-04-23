@@ -67,7 +67,7 @@ export async function isModule(url) {
   if (ext === '.mjs') {
     return true;
   }
-  const isFilePath = !!ext;
+  const isFilePath = ext !== '';
   const dir = isFilePath
     ? dirname(fileURLToPath(url))
     : url;

@@ -20,10 +20,8 @@ import {
 } from '../../utility/editDiff.js';
 
 function areReleaseCountriesEqual(a: ReleaseEventT, b: ReleaseEventT) {
-  return !!(
-    !(a.country || b.country) ||
-    (a.country && b.country && a.country.id === b.country.id)
-  );
+  return !(a.country || b.country) ||
+    (a.country && b.country && a.country.id === b.country.id);
 }
 
 function areReleaseDatesEqual(a: ReleaseEventT, b: ReleaseEventT) {

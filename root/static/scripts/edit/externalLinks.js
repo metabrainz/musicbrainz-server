@@ -494,7 +494,7 @@ export class _ExternalLinksEditor
     index: number,
     event: SyntheticEvent<HTMLSelectElement>,
   ) {
-    const type = +event.currentTarget.value || null;
+    const type = Number(event.currentTarget.value) || null;
     const link = {...this.state.links[index]};
     link.type = type;
     this.setLinkState(index, link);
@@ -737,7 +737,8 @@ export class _ExternalLinksEditor
     const isNewLink = !isPositiveInteger(link.relationship);
     const linkChanged = oldLink && link.url !== oldLink.url;
     const isNewOrChangedLink = (isNewLink || linkChanged);
-    const linkTypeChanged = oldLink && +link.type !== +oldLink.type;
+    const linkTypeChanged = oldLink &&
+      Number(link.type) !== Number(oldLink.type);
 
     if (isEmpty(link)) {
       error = null;
@@ -941,7 +942,8 @@ export class _ExternalLinksEditor
       return HIGHLIGHTS.ADD;
     }
     const oldLink = this.oldLinks.get(String(link.relationship));
-    const linkTypeChanged = oldLink && +link.type !== +oldLink.type;
+    const linkTypeChanged = oldLink &&
+      Number(link.type) !== Number(oldLink.type);
     const creditChanged =
       oldLink && creditableEntityProp &&
       oldLink[creditableEntityProp] !== link[creditableEntityProp];
@@ -963,7 +965,7 @@ export class _ExternalLinksEditor
     const oldLink = this.oldLinks.get(String(link.relationship));
     const linkChanged = oldLink && link.url !== oldLink.url;
     const linkTypeChanged = oldLink &&
-      +link.type !== +oldLink.type;
+      Number(link.type) !== Number(oldLink.type);
 
     return Boolean(linkChanged || linkTypeChanged);
   }
@@ -1041,7 +1043,7 @@ export class _ExternalLinksEditor
             });
 
             // If a link has pending types, it must have only 1 possible type
-            let urlMatchesType = !!links[0].pendingTypes;
+            let urlMatchesType = links[0].pendingTypes != null;
             /*
              * Only validate type combination
              * when every single type has passed validation.
@@ -1098,7 +1100,7 @@ export class _ExternalLinksEditor
                 }
                 handleUrlBlur={
                   (event) => this.handleUrlBlur(
-                    firstLinkIndex, !!duplicate, event, index, canMerge,
+                    firstLinkIndex, duplicate != null, event, index, canMerge,
                   )
                 }
                 handleUrlChange={
@@ -1112,7 +1114,7 @@ export class _ExternalLinksEditor
                 onAddRelationship={(url) => this.addRelationship(url, index)}
                 onTypeBlur={
                   (linkIndex, event) => this.handleTypeBlur(
-                    linkIndex, event, !!duplicate, index, canMerge,
+                    linkIndex, event, duplicate != null, index, canMerge,
                   )
                 }
                 onTypeChange={

@@ -25,7 +25,7 @@ const buildReleaseEventRow = (
   event: ReleaseEventT,
   props: ?BuildRowPropsT,
 ) => {
-  const abbreviated = !!(props?.abbreviated);
+  const abbreviated = props?.abbreviated ?? false;
   const country = event.country;
   const hasDate = !isDateEmpty(event.date);
 

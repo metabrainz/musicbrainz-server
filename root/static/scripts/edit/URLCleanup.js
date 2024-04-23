@@ -5770,7 +5770,7 @@ const CLEANUPS: CleanupEntries = {
     validate: function (url, id) {
       const m = /^https:\/\/www\.tiktok\.com\/@[\w.]+(\/video\/\d+)?$/.exec(url);
       if (m) {
-        const isAVideo = !!m[1];
+        const isAVideo = m[1] != null;
         if (Object.values(LINK_TYPES.streamingfree).includes(id)) {
           return {
             result: isAVideo &&
@@ -6051,7 +6051,7 @@ const CLEANUPS: CleanupEntries = {
             result: false,
           };
         }
-        const isATweet = !!m[2];
+        const isATweet = m[2] != null;
         if (Object.values(LINK_TYPES.streamingfree).includes(id)) {
           return {
             result: isATweet &&

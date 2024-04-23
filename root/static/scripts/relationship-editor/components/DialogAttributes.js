@@ -61,7 +61,7 @@ function createDialogAttributesList(
 
   if (linkType) {
     for (const typeId in linkType.attributes) {
-      const linkTypeAttribute = linkType.attributes[+typeId];
+      const linkTypeAttribute = linkType.attributes[Number(typeId)];
       const rootAttributeType = linkedEntities.link_attribute_type[typeId];
 
       if (__DEV__) {

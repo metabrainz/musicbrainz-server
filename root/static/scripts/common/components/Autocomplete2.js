@@ -241,8 +241,8 @@ component _AutocompleteItem<T: EntityItemT>(
   selectItem: (ItemT<T>) => boolean,
 ) {
   const itemId = `${autocompleteId}-item-${item.id}`;
-  const isDisabled = !!item.disabled;
-  const isSeparator = !!item.separator;
+  const isDisabled = item.disabled === true;
+  const isSeparator = item.separator === true;
 
   /*
    * `item.level` allows showing a hierarchy by indenting each option.
@@ -356,7 +356,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
   const selectItem = React.useCallback((
     item: ItemT<T>,
   ) => {
-    const isDisabled = !!item.disabled;
+    const isDisabled = item.disabled === true;
 
     if (!isDisabled) {
       stopRequests();
@@ -699,12 +699,11 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
             : undefined
         }
         index={index}
-        isHighlighted={!!(highlightedItem && item.id === highlightedItem.id)}
-        isSelected={!!(
-          selectedItem &&
+        isHighlighted={highlightedItem != null &&
+          item.id === highlightedItem.id}
+        isSelected={selectedItem != null &&
           item.type === 'option' &&
-          item.entity.id === selectedItem.id
-        )}
+          item.entity.id === selectedItem.id}
         // $FlowIssue[incompatible-type-arg] until Flow supports https://github.com/facebook/flow/issues/7672
         item={item}
         key={item.id}

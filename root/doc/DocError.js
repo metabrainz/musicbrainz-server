@@ -20,7 +20,7 @@ component DocError(id: string) {
   const $c = React.useContext(CatalystContext);
 
   // We check whether we have a Google Custom Search engine
-  const useGoogleCustomSearch = !!DBDefs.GOOGLE_CUSTOM_SEARCH;
+  const useGoogleCustomSearch = nonEmpty(DBDefs.GOOGLE_CUSTOM_SEARCH);
 
   return (
     <Layout fullWidth title={l('Page not found')}>

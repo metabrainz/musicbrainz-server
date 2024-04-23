@@ -62,7 +62,7 @@ class Autocomplete extends React.Component {
 
     this._subscription = this._currentSelection.subscribe(nextProps.onChange);
 
-    autocomplete.element.prop('disabled', !!nextProps.disabled);
+    autocomplete.element.prop('disabled', Boolean(nextProps.disabled));
     if (next && autocomplete.element.val() !== next.name) {
       autocomplete.element.val(next.name);
     }
@@ -70,7 +70,7 @@ class Autocomplete extends React.Component {
     if (hasOwnProp(nextProps, 'isLookupPerformed')) {
       autocomplete.element.toggleClass(
         'lookup-performed',
-        !!nextProps.isLookupPerformed,
+        Boolean(nextProps.isLookupPerformed),
       );
     }
   }

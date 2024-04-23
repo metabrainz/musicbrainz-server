@@ -114,8 +114,7 @@ class GuessCaseHandler {
         gc.regexes.SPECIALCASES = /(&|¿|¡|\?|!|;|:|'|‘|’|‹|›|"|“|”|„|“|«|»|-|‐|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
       }
       if (input.matchCurrentWord(gc.regexes.SPECIALCASES)) {
-        handled = !!(
-          this.doDoubleQuote() ||
+        handled = this.doDoubleQuote() ||
           this.doSingleQuote() ||
           this.doOpeningBracket() ||
           this.doClosingBracket() ||
@@ -130,8 +129,7 @@ class GuessCaseHandler {
           this.doPlus() ||
           this.doAsterisk() ||
           this.doDiamond() ||
-          this.doPercent()
-        );
+          this.doPercent();
       }
       (
         handled ||

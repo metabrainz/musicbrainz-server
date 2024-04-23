@@ -91,7 +91,7 @@ class Track {
     this.formattedLength = ko.observable(formatTrackLength(data.length, ''));
     this.position = ko.observable(data.position);
     this.number = ko.observable(data.number);
-    this.isDataTrack = ko.observable(!!data.isDataTrack);
+    this.isDataTrack = ko.observable(Boolean(data.isDataTrack));
     this.hasNewRecording = ko.observable(true);
 
     this.updateRecordingTitle = ko.observable(
@@ -219,7 +219,7 @@ class Track {
     var $lengthInput = $('input.track-length', '#track-row-' + this.uniqueID);
     $lengthInput.attr('title', '');
 
-    var hasTooltip = !!$lengthInput.data('ui-tooltip');
+    var hasTooltip = Boolean($lengthInput.data('ui-tooltip'));
 
     if (this.medium.hasInvalidPregapLength()) {
       $lengthInput.attr(
@@ -275,7 +275,7 @@ class Track {
   }
 
   hasExistingRecording() {
-    return !!this.recording().gid;
+    return Boolean(this.recording().gid);
   }
 
   needsRecording() {
@@ -477,7 +477,7 @@ class Medium {
     );
     this.hasTooEarlyFormat = ko.computed(function () {
       const mediumFormatDate = MB.mediumFormatDates[self.formatID()];
-      return !!(mediumFormatDate && self.release.earliestYear() &&
+      return Boolean(mediumFormatDate && self.release.earliestYear() &&
                 self.release.earliestYear() < mediumFormatDate);
     });
     this.confirmedEarlyFormat = ko.observable(this.hasTooEarlyFormat());
@@ -485,7 +485,7 @@ class Medium {
       const isFormatDigital = self.formatID() &&
                               // "Digital Media"
                               self.formatID().toString() === '12';
-      return !!(isFormatDigital &&
+      return Boolean(isFormatDigital &&
                 nonEmpty(self.release.packagingID()) &&
                 self.release.packagingID().toString() !== '7'); // "None"
     });
@@ -515,10 +515,10 @@ class Medium {
      * The medium is considered to be loaded if it has tracks, or if
      * there's no ID to load tracks from.
      */
-    const loaded = !!(
+    const loaded = Boolean(
       this.tracks().length ||
       this.tracksUnknownToUser() ||
-      !(this.id || this.originalID)
+      !(this.id || this.originalID),
     );
 
     if (data.cdtocs) {
@@ -631,11 +631,11 @@ class Medium {
   }
 
   hasExistingTocs() {
-    return !!(this.id && this.cdtocs && this.cdtocs.length);
+    return Boolean(this.id && this.cdtocs && this.cdtocs.length);
   }
 
   hasToc() {
-    return this.hasExistingTocs() || (!!this.toc());
+    return this.hasExistingTocs() || (Boolean(this.toc()));
   }
 
   tocChanged(toc) {
@@ -906,7 +906,7 @@ class ReleaseLabel {
 
     this.needsLabel = ko.computed(function () {
       var label = self.label() || {};
-      return !!(label.name && !label.gid);
+      return Boolean(label.name && !label.gid);
     });
   }
 

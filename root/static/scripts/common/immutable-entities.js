@@ -26,7 +26,7 @@ export const hasVariousArtists =
   (ac: ArtistCreditT): boolean => ac.names.some(isVariousArtist);
 
 export const hasArtist =
-  (name: ArtistCreditNameT): boolean => !!(name.artist && name.artist.gid);
+  (name: ArtistCreditNameT): boolean => nonEmpty(name.artist?.gid);
 
 export const isCompleteArtistCredit =
   (ac: ArtistCreditT): boolean => ac.names.length > 0 &&

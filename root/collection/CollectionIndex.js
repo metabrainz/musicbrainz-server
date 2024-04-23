@@ -176,7 +176,8 @@ component CollectionIndex(...props: Props) {
   } = props;
 
   const user = $c.user;
-  const canRemoveFromCollection = !!user && !!collection.editor &&
+  const canRemoveFromCollection = user != null &&
+    collection.editor != null &&
     (user.id === collection.editor.id ||
       collection.collaborators.some(x => x.id === user.id));
 

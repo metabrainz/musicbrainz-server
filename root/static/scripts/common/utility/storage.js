@@ -12,8 +12,10 @@ export let hasSessionStorage: boolean = false;
 
 // https://bugzilla.mozilla.org/show_bug.cgi?id=365772
 try {
-  hasLocalStorage = !!window.localStorage;
-  hasSessionStorage = !!window.sessionStorage;
+  hasLocalStorage = typeof window.localStorage === 'object' &&
+    window.localStorage != null;
+  hasSessionStorage = typeof window.sessionStorage === 'object' &&
+    window.sessionStorage != null;
 } catch (e) {
   // NOP
 }

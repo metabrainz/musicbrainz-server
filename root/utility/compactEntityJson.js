@@ -143,7 +143,7 @@ export function decompactEntityJson(
       resolved[index] = result;
       for (const objectKeyIndex in value) {
         if (hasOwnProp(value, objectKeyIndex)) {
-          const objectKey = compactedArray[+objectKeyIndex];
+          const objectKey = compactedArray[Number(objectKeyIndex)];
           /*:: invariant(typeof objectKey === 'string'); */
           const objectValueIndex = value[objectKeyIndex];
           /*:: invariant(typeof objectValueIndex === 'number'); */

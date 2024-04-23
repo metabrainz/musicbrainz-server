@@ -28,7 +28,7 @@ test('removing a track should change the track numbers', function (t) {
   actions.removeTrack(tracks[0]);
 
   t.equal(tracks[0], track2, 'first track was removed');
-  t.equal(+track2.number(), 1, 'track has number "1" after removal');
+  t.equal(Number(track2.number()), 1, 'track has number "1" after removal');
 });
 
 test('removing a medium should change the medium positions', function (t) {

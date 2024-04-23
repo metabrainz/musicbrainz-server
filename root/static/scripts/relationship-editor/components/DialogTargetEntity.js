@@ -206,7 +206,7 @@ function selectNewWork(
   const match = newInputValue.match(NEW_WORK_HASH);
   if (match) {
     const newWorkId = match[1];
-    const newWork = linkedEntities.work[+newWorkId];
+    const newWork = linkedEntities.work[Number(newWorkId)];
     if (newWork) {
       return selectItem({
         entity: newWork,
@@ -343,9 +343,9 @@ component _DialogTargetEntity(
     dispatch({action, type: 'update-credit'});
   }, [dispatch]);
 
-  const showTargetCredit = !!(
+  const showTargetCredit = Boolean(
     ENTITIES_WITH_RELATIONSHIP_CREDITS[targetType] &&
-    autocomplete?.selectedItem?.entity
+    autocomplete?.selectedItem?.entity,
   );
 
   return (

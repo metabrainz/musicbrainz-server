@@ -104,7 +104,7 @@ component _DialogEntityCredit(
         <br />
         <label className="change-credits-checkbox">
           <input
-            checked={!!state.creditsToChange}
+            checked={state.creditsToChange !== ''}
             disabled={state.releaseHasUnloadedTracks}
             onChange={handleChangeCreditsChecked}
             type="checkbox"

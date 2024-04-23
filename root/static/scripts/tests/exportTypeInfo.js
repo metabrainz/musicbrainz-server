@@ -16,9 +16,9 @@ function editorMayEditTypes(type0, type1) {
   const types = [type0, type1].sort().join('-');
 
   if (/^area-area|area-url$/.test(types)) {
-    return !!MB.userIsLocationEditor;
+    return Boolean(MB.userIsLocationEditor);
   } else if (/^area-instrument|instrument-instrument|instrument-url$/.test(types)) {
-    return !!MB.userIsRelationshipEditor;
+    return Boolean(MB.userIsRelationshipEditor);
   }
 
   return true;

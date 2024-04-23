@@ -165,7 +165,7 @@ const ArtistCreditRenamer = ({
     // Cache the element list for artists with hundreds of ACs.
     rowsRef.current = artistCredits.map(artistCredit => {
       const id = artistCredit.id;
-      const isChecked = !!initialSelectedArtistCreditIds[id];
+      const isChecked = initialSelectedArtistCreditIds[id] === 1;
       if (isChecked) {
         // This is only safe on first render!
         state.selection.push(artistCredit);

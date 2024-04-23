@@ -613,20 +613,20 @@ component _RelationshipDialogContent(...props: PropsT) {
     !isTargetSelectable(targetEntityState.autocomplete?.selectedItem?.entity)
   );
 
-  const hasErrors = !!(
+  const hasErrors = Boolean(
     nonEmpty(linkTypeState.error) ||
     nonEmpty(sourceEntityState.error) ||
     targetEntityState.error ||
     attributesList.some(x => x.error) ||
     datePeriodField.errors?.length ||
     datePeriodField.field.begin_date.errors?.length ||
-    datePeriodField.field.end_date.errors?.length
+    datePeriodField.field.end_date.errors?.length,
   );
 
-  const hasPendingDateErrors = !!(
+  const hasPendingDateErrors = Boolean(
     datePeriodField.pendingErrors?.length ||
     datePeriodField.field.begin_date.pendingErrors?.length ||
-    datePeriodField.field.end_date.pendingErrors?.length
+    datePeriodField.field.end_date.pendingErrors?.length,
   );
 
   React.useEffect(() => {

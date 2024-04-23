@@ -34,7 +34,7 @@ function hasEntity(
   collection: CollectionT,
 ) {
   const containment = $c.stash.containment;
-  return !!(containment && containment[collection.id]);
+  return containment && containment[collection.id] === 1;
 }
 
 component CollectionAddRemove(
