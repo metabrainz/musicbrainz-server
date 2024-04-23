@@ -44,8 +44,8 @@ function afterBubbleShow() {
 
 const bubbleShow = bubble.show;
 
-bubble.show = function () {
-  bubbleShow.apply(this, arguments);
+bubble.show = function (...args) {
+  bubbleShow.apply(this, args);
   afterBubbleShow();
 };
 

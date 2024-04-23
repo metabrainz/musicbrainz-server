@@ -43,9 +43,9 @@ Object.assign(trackParserDialog, {
   result: ko.observable(null),
   error: ko.observable(''),
 
-  open(medium) {
+  open(medium, ...args) {
     this.setMedium(medium);
-    Dialog.prototype.open.apply(this, arguments);
+    Dialog.prototype.open.apply(this, args);
   },
 
   setMedium(medium) {
@@ -315,7 +315,7 @@ Object.assign(addMediumDialog, {
   cdstubSearch: cdstubSearchTab,
   currentTab: ko.observable(trackParserDialog),
 
-  open() {
+  open(...args) {
     const release = releaseEditor.rootField.release();
     const blankMedium = new fields.Medium({}, release);
 
@@ -332,7 +332,7 @@ Object.assign(addMediumDialog, {
       }
     }
 
-    Dialog.prototype.open.apply(this, arguments);
+    Dialog.prototype.open.apply(this, args);
   },
 
   addMedium() {
