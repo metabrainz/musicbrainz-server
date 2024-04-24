@@ -15,8 +15,9 @@ import * as manifest from '../../static/manifest.mjs';
 import {isAutoEditor}
   from '../../static/scripts/common/utility/privileges.js';
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
-import ListEdit from '../components/ListEdit.js';
-import ListHeader from '../components/ListHeader.js';
+
+import ListEdit from './ListEdit.js';
+import ListHeader from './ListHeader.js';
 
 component EditList(
   editCountLimit: number,

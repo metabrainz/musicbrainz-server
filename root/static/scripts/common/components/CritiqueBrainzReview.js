@@ -10,11 +10,11 @@
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import formatUserDate from '../../../../utility/formatUserDate.js';
 import hydrate from '../../../../utility/hydrate.js';
-import {StaticRatingStars} from '../components/RatingStars.js';
 import DBDefs from '../DBDefs-client.mjs';
 import bracketed from '../utility/bracketed.js';
 
 import Collapsible from './Collapsible.js';
+import {StaticRatingStars} from './RatingStars.js';
 
 const authorHref = (author: CritiqueBrainzUserT) => (
   DBDefs.CRITIQUEBRAINZ_SERVER + '/user/' + author.id

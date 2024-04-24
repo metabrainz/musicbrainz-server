@@ -403,6 +403,7 @@ export default [
       'import/no-duplicates': 'warn',
       'import/no-dynamic-require': 'error',
       'import/no-unresolved': 'error',
+      'import/no-useless-path-segments': 'warn',
 
       // @stylistic/js
       '@stylistic/js/array-bracket-newline': ['warn', 'consistent'],

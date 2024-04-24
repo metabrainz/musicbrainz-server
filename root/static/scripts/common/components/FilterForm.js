@@ -7,8 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import SelectField from '../../common/components/SelectField.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
+
+import SelectField from './SelectField.js';
 
 type GenericFilterFormFieldsT = {
   +disambiguation: FieldT<string>,

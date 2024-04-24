@@ -18,9 +18,10 @@ import type {
   TargetTypeOptionsT,
   TargetTypeOptionT,
 } from '../types.js';
+
 import {
   hasDialogLinkTypeOptions,
-} from '../utility/getDialogLinkTypeOptions.js';
+} from './getDialogLinkTypeOptions.js';
 
 function editorMayEditTypes(
   user: ActiveEditorT,

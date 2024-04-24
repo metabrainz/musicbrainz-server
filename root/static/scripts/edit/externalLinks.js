@@ -42,7 +42,6 @@ import formatDatePeriod from '../common/utility/formatDatePeriod.js';
 import isDateEmpty from '../common/utility/isDateEmpty.js';
 import {hasSessionStorage} from '../common/utility/storage.js';
 import {uniqueId} from '../common/utility/strings.js';
-import {stripAttributes} from '../edit/utility/linkPhrase.js';
 import {
   appendHiddenRelationshipInputs,
 } from '../relationship-editor/utility/prepareHtmlFormSubmission.js';
@@ -60,6 +59,7 @@ import URLInputPopover from './components/URLInputPopover.js';
 import withLoadedTypeInfo from './components/withLoadedTypeInfo.js';
 import isPositiveInteger from './utility/isPositiveInteger.js';
 import isShortenedUrl from './utility/isShortenedUrl.js';
+import {stripAttributes} from './utility/linkPhrase.js';
 import {linkTypeOptions} from './forms.js';
 import type {RelationshipTypeT} from './URLCleanup.js';
 import * as URLCleanup from './URLCleanup.js';

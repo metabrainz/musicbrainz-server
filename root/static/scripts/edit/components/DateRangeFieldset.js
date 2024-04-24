@@ -12,11 +12,11 @@ import * as React from 'react';
 
 import isDateEmpty from '../../common/utility/isDateEmpty.js';
 import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull.js';
-import FieldErrors from '../../edit/components/FieldErrors.js';
 import useDateRangeFieldset from '../hooks/useDateRangeFieldset.js';
 import {isDatePeriodValid} from '../utility/dates.js';
 import {applyAllPendingErrors} from '../utility/subfieldErrors.js';
 
+import FieldErrors from './FieldErrors.js';
 import FormRowCheckbox from './FormRowCheckbox.js';
 import FormRowPartialDate, {
   type ActionT as FormRowPartialDateActionT,

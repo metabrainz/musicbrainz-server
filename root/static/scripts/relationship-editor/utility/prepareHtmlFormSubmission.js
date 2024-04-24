@@ -22,14 +22,15 @@ import type {
   RelationshipEditorStateT,
   RelationshipStateT,
 } from '../types.js';
+
 import {
   compareLinkAttributeIds,
-} from '../utility/compareRelationships.js';
+} from './compareRelationships.js';
 import {
   findTargetTypeGroups,
   iterateRelationshipsInTargetTypeGroups,
-} from '../utility/findState.js';
-import isRelationshipBackward from '../utility/isRelationshipBackward.js';
+} from './findState.js';
+import isRelationshipBackward from './isRelationshipBackward.js';
 
 function pushRelationshipHiddenInputs(
   formName: string,
