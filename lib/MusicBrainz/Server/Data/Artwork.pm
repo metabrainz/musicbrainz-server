@@ -197,7 +197,9 @@ sub load_for_release_groups
         WHERE release.release_group IN (' . placeholders(@ids) . q{)
         AND is_front = true
         AND cover_art_presence != 'darkened'
-        ORDER BY release.release_group, release.status, release_group_cover_art.release,
+        ORDER BY release.release_group, release_group_cover_art.release,
+          (CASE WHEN release.status = 3
+           THEN 1 ELSE 0 END),
           (CASE WHEN 'Raw/Unedited' = any(cover_art_archive.index_listing.types)
            THEN 1 ELSE 0 END),
           release_event.date_year, release_event.date_month,
