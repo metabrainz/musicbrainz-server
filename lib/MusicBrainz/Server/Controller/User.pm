@@ -189,6 +189,8 @@ sub login : Path('/login') ForbiddenOnMirrors RequireSSL SecureForm
 {
     my ($self, $c) = @_;
 
+    $c->res->header('Referrer-Policy' => 'strict-origin-when-cross-origin');
+
     if ($c->user_exists) {
         $c->redirect_back(fallback => $c->uri_for_action('/user/profile', [ $c->user->name ]));
         $c->detach;
