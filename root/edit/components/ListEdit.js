@@ -11,10 +11,11 @@ import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../context.mjs';
 import {getEditStatusClass} from '../../utility/edit.js';
-import EditHeader from '../components/EditHeader.js';
-import EditNotes from '../components/EditNotes.js';
-import EditSummary from '../components/EditSummary.js';
 import getEditDetailsElement from '../utility/getEditDetailsElement.js';
+
+import EditHeader from './EditHeader.js';
+import EditNotes from './EditNotes.js';
+import EditSummary from './EditSummary.js';
 
 component ListEdit(
   edit: $ReadOnly<{...EditT, +id: number}>,

@@ -26,7 +26,7 @@ import {memoizeWithDefault} from '../../common/utility/memoize.js';
 import {fixedWidthInteger} from '../../common/utility/strings.js';
 import type {
   RelationshipStateT,
-} from '../../relationship-editor/types.js';
+} from '../types.js';
 
 /*
  * Link attributes are sorted by root ID and ID.  In the relationship dialog,

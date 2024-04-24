@@ -15,16 +15,11 @@ import {
   ln as lnActual,
   lp as lpActual,
 } from '../i18n.js';
+
 import {
   l_admin as lAdminActual,
   ln_admin as lnAdminActual,
-} from '../i18n/admin.js';
-import {
-  l_statistics as lStatisticsActual,
-  ln_statistics as lnStatisticsActual,
-  lp_statistics as lpStatisticsActual,
-} from '../i18n/statistics.js';
-
+} from './admin.js';
 import expand, {
   type NO_MATCH,
   type Parser,
@@ -47,6 +42,11 @@ import expand, {
   substEnd,
   VarArgs,
 } from './expand2.js';
+import {
+  l_statistics as lStatisticsActual,
+  ln_statistics as lnStatisticsActual,
+  lp_statistics as lpStatisticsActual,
+} from './statistics.js';
 
 type Input = Expand2ReactInput;
 type Output = Expand2ReactOutput;

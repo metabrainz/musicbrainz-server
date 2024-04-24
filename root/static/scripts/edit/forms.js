@@ -13,7 +13,8 @@ import {compare} from '../common/i18n.js';
 import MB from '../common/MB.js';
 import {last} from '../common/utility/arrays.js';
 import debounce from '../common/utility/debounce.js';
-import {stripAttributes} from '../edit/utility/linkPhrase.js';
+
+import {stripAttributes} from './utility/linkPhrase.js';
 
 function cmpOptions(a, b) {
   return (a.data.child_order - b.data.child_order) ||

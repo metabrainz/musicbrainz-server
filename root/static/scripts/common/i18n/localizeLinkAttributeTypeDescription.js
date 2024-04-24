@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {INSTRUMENT_ROOT_ID} from '../../common/constants.js';
+import {INSTRUMENT_ROOT_ID} from '../constants.js';
 
 function localizeLinkAttributeTypeDescription(type: LinkAttrTypeT): string {
   if (!type.description) {
