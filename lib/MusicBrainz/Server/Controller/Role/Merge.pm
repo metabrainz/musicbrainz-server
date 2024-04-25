@@ -4,6 +4,10 @@ use MooseX::Role::Parameterized;
 use namespace::autoclean;
 
 use List::AllUtils qw( any nsort_by uniq );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELEASEGROUP_MERGE
+    $EDITOR_MODBOT
+);
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Log qw( log_assertion );
@@ -194,7 +198,7 @@ role {
 
         my %entity_id = map { $_->id => $_ } @$entities;
 
-        my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
+        my $new_id = $form->field('target')->value or die q{Couldn't figure out new_id};
         my $new = $entity_id{$new_id};
         my @old_ids = grep { $_ != $new_id } @{ $form->field('merging')->value };
 
@@ -202,21 +206,58 @@ role {
 
         $c->model('MB')->with_transaction(sub {
             if ($params->edit_type) {
-                $self->_insert_edit(
-                    $c, $form,
-                    edit_type => $params->edit_type,
-                    new_entity => {
-                        id => $new->id,
-                        name => $new->name,
-                        $self->_extra_entity_data($c, $form, $new),
+                $self->edit_action($c,
+                    form        => $params->merge_form,
+                    type        => $params->edit_type,
+                    edit_args   => {
+                        new_entity => {
+                            id => $new->id,
+                            name => $new->name,
+                            $self->_extra_entity_data($c, $form, $new),
+                        },
+                        old_entities => [ map +{
+                            id => $entity_id{$_}->id,
+                            name => $entity_id{$_}->name,
+                            $self->_extra_entity_data($c, $form, $entity_id{$_}),
+                        }, @old_ids ],
+                        (map { $_->name => $_->value } $form->edit_fields),
+                        $self->_merge_parameters($c, $form, $entities),
                     },
-                    old_entities => [ map +{
-                        id => $entity_id{$_}->id,
-                        name => $entity_id{$_}->name,
-                        $self->_extra_entity_data($c, $form, $entity_id{$_}),
-                    }, @old_ids ],
-                    (map { $_->name => $_->value } $form->edit_fields),
-                    $self->_merge_parameters($c, $form, $entities),
+                    on_creation => sub {
+                        my ($edit, $form) = @_;
+
+                        if ($c->namespace eq 'release' && $form->field('merge_rgs')->value) {
+                            my $edit_id = $edit->id;
+
+                            my $rg_edit = $c->model('Edit')->create(
+                                edit_type => $EDIT_RELEASEGROUP_MERGE,
+                                editor_id => $c->user->id,
+                                old_entities => [ map +{
+                                    id => $entity_id{$_}->release_group->id,
+                                    name => $entity_id{$_}->release_group->name,
+                                }, @old_ids ],
+                                new_entity => {
+                                    id => $new->release_group->id,
+                                    name => $new->release_group->name,
+                                },
+                            );
+                            my $rg_edit_id = $rg_edit->id;
+                            $c->model('EditNote')->add_note(
+                                $rg_edit_id,
+                                {
+                                    text => "These release groups are being merged in connection with a release merge in edit #$edit_id.",
+                                    editor_id => $EDITOR_MODBOT,
+                                },
+                            );
+                            $c->model('EditNote')->add_note(
+                                $edit_id,
+                                {
+                                    text => "The associated release groups are being merged in edit #$rg_edit_id.",
+                                    editor_id => $EDITOR_MODBOT,
+                                },
+                            );
+                        }
+                    },
                 );
             } elsif ($c->namespace eq 'collection') {
                 $c->model('Collection')->merge(
