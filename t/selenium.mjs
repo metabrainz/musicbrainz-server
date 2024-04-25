@@ -11,7 +11,6 @@ import fs from 'fs';
 import http from 'http';
 import path from 'path';
 
-import defined from 'defined';
 import httpProxy from 'http-proxy';
 import JSON5 from 'json5';
 import webdriver from 'selenium-webdriver';
@@ -98,7 +97,7 @@ TestCls.prototype.deepEqual2 = function (a, b, msg, extra) {
     actual: a,
     expected: b,
     extra,
-    message: defined(msg, 'should be equivalent'),
+    message: msg ?? 'should be equivalent',
     operator: 'deepEqual2',
   });
 };

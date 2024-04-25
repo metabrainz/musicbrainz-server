@@ -402,6 +402,7 @@ export default [
       'import/no-commonjs': 'error',
       'import/no-duplicates': 'warn',
       'import/no-dynamic-require': 'error',
+      'import/no-extraneous-dependencies': 'error',
       'import/no-unresolved': 'error',
       'import/no-useless-path-segments': 'warn',
 
