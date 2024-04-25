@@ -748,14 +748,19 @@ sub schema_fixup
     if (defined $data->{aliases}) {
         my @aliases = map {
             MusicBrainz::Server::Entity::Alias->new(
-                sort_name => $_->{sort_name} || '',
-                locale => $_->{locale} || '',
-                name => $_->{name} || '',
+                name => $_->{name} // '',
+                sort_name => $_->{sort_name} // '',
+                locale => $_->{locale} // '',
                 primary_for_locale => $_->{primary},
             )
         } @{ $data->{aliases} };
         my $best_alias = find_best_primary_alias(\@aliases, $user_lang);
         $data->{primary_alias} = $best_alias->{name} if defined $best_alias;
+
+        # The aliases returned by the search API aren't Entity::Alias objects,
+        # so clear them to prevent validation from failing if this is an
+        # Entity::Artist.
+        $data->{aliases} = [];
     }
 
     if ($type eq 'work') {

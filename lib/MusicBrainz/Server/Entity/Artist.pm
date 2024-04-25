@@ -27,7 +27,7 @@ has 'sort_name' => (
 
 has 'aliases' => (
     is => 'rw',
-    isa => 'ArrayRef[Any]',
+    isa => 'ArrayRef[MusicBrainz::Server::Entity::Alias]',
     default => sub { [] },
 );
 

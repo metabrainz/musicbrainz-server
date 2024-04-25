@@ -478,13 +478,14 @@ sub load_related_info {
     my $artist_aliases = $c->model('Artist')->alias->find_by_entity_ids(
         map { $_->id } @artists,
     );
+    my @all_aliases = map { @$_ } values %$artist_aliases;
+    $c->model('Artist')->alias_type->load(@all_aliases);
     for my $artist (@artists) {
         my @aliases = @{ $artist_aliases->{$artist->id} };
-        $c->model('Artist')->alias_type->load(@aliases);
-        $artist->{aliases} = \@aliases;
+        $artist->aliases(\@aliases);
         if (defined $user_lang) {
             my $best_alias = find_best_primary_alias(\@aliases, $user_lang);
-            $artist->{primary_alias} = $best_alias->name if defined $best_alias;
+            $artist->primary_alias($best_alias->name) if defined $best_alias;
         }
     }
 }
