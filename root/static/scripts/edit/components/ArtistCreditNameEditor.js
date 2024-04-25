@@ -142,7 +142,7 @@ const ArtistCreditNameEditor = (React.memo<PropsT>(({
     <tr>
       {artistCreditName.removed ? (
         <td className="removed-ac-name" colSpan="3">
-          {l('[removed]')}
+          {lp('[removed]', 'artist credit name')}
         </td>
       ) : (
         <>
