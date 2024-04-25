@@ -13,7 +13,7 @@ import PaginatedResults from '../components/PaginatedResults.js';
 import ReleaseCatnoList from '../components/ReleaseCatnoList.js';
 import ReleaseLabelList from '../components/ReleaseLabelList.js';
 import {CatalystContext} from '../context.mjs';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
@@ -120,7 +120,7 @@ component RecordingAppearancesTable(
                     </td>
                     <td>
                       <ReleaseEvents events={release.events} />
-                      {manifest.js(
+                      {manifest(
                         'common/components/ReleaseEvents',
                         {async: 'async'},
                       )}

@@ -13,7 +13,7 @@ import ReleaseCatnoList from '../../components/ReleaseCatnoList.js';
 import ReleaseLabelList from '../../components/ReleaseLabelList.js';
 import ReleaseLanguageScript from '../../components/ReleaseLanguageScript.js';
 import {CatalystContext} from '../../context.mjs';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
@@ -63,10 +63,7 @@ function buildResult(
       </td>
       <td>
         <ReleaseEvents events={release.events} />
-        {manifest.js(
-          'common/components/ReleaseEvents',
-          {async: 'async'},
-        )}
+        {manifest('common/components/ReleaseEvents', {async: 'async'})}
       </td>
       <td>
         <ReleaseLabelList labels={release.labels} />
@@ -153,7 +150,7 @@ component ReleaseResults(...{
           })}
         </p>
       ) : null}
-      {manifest.js('common/components/TaggerIcon', {async: 'async'})}
+      {manifest('common/components/TaggerIcon', {async: 'async'})}
     </ResultsLayout>
   );
 }

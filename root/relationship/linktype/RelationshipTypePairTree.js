@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../context.mjs';
 import Layout from '../../layout/index.js';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import Cardinality
   from '../../static/scripts/common/components/Cardinality.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
@@ -165,7 +165,7 @@ component RelationshipTypePairTree(root: LinkTypeT) {
         {type0: formattedType0, type1: formattedType1},
       )}
     >
-      {manifest.js('edit')}
+      {manifest('edit')}
       <div id="content">
         <RelationshipsHeader />
 

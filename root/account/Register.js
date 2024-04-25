@@ -9,7 +9,7 @@
 
 import {CONTACT_URL} from '../constants.js';
 import Layout from '../layout/index.js';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import RegisterForm, {type RegisterFormT}
   from '../static/scripts/account/components/RegisterForm.js';
 import Warning from '../static/scripts/common/components/Warning.js';
@@ -61,7 +61,7 @@ component Register(
       </p>
 
       <RegisterForm captcha={captcha} form={form} />
-      {manifest.js('account/components/RegisterForm', {async: 'async'})}
+      {manifest('account/components/RegisterForm', {async: 'async'})}
 
       <p>
         {exp.l(

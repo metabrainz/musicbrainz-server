@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
@@ -88,10 +88,7 @@ component EditReleaseLabel(edit: EditReleaseLabelEditT) {
           <th>{addColonText(l('Release events'))}</th>
           <td colSpan="2">
             <ReleaseEvents events={releaseEvents} />
-            {manifest.js(
-              'common/components/ReleaseEvents',
-              {async: 'async'},
-            )}
+            {manifest('common/components/ReleaseEvents', {async: 'async'})}
           </td>
         </tr>
       ) : firstDate || firstCountry ? (

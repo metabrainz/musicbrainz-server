@@ -15,7 +15,7 @@ import ReleaseGroupList from '../components/list/ReleaseGroupList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay.js';
 import {SanitizedCatalystContext} from '../context.mjs';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
@@ -298,7 +298,7 @@ component ArtistIndex(
         <FooterSwitch {...footerSwitchProps} />
       )}
 
-      {manifest.js('artist/index', {async: 'async'})}
+      {manifest('artist/index', {async: 'async'})}
     </ArtistLayout>
   );
 }

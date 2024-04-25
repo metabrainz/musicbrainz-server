@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import {
   attributesColumn,
   defineArtistRolesColumn,
@@ -95,10 +95,10 @@ component WorkList(
   return (
     <>
       {table}
-      {manifest.js('common/components/ArtistRoles', {async: 'async'})}
-      {manifest.js('common/components/AttributeList', {async: 'async'})}
-      {manifest.js('common/components/IswcList', {async: 'async'})}
-      {manifest.js('common/components/WorkArtists', {async: 'async'})}
+      {manifest('common/components/ArtistRoles', {async: 'async'})}
+      {manifest('common/components/AttributeList', {async: 'async'})}
+      {manifest('common/components/IswcList', {async: 'async'})}
+      {manifest('common/components/WorkArtists', {async: 'async'})}
     </>
   );
 }

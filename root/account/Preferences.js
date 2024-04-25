@@ -13,7 +13,7 @@ import UserAccountLayout, {
   sanitizedAccountLayoutUser,
 } from '../components/UserAccountLayout.js';
 import {CatalystContext} from '../context.mjs';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import type {PreferencesFormPropsT}
   from '../static/scripts/account/components/PreferencesForm.js';
 import PreferencesForm
@@ -32,7 +32,7 @@ component Preferences(...props: PreferencesFormPropsT) {
       title={l('Preferences')}
     >
       <PreferencesForm {...props} />
-      {manifest.js('account/preferences')}
+      {manifest('account/preferences')}
     </UserAccountLayout>
   );
 }

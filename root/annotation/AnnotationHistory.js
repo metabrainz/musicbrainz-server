@@ -9,7 +9,7 @@
 
 import ENTITIES from '../../entities.mjs';
 import PaginatedResults from '../components/PaginatedResults.js';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import AnnotationHistoryTable
   from '../static/scripts/annotation/AnnotationHistoryTable.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
@@ -49,7 +49,7 @@ component AnnotationHistory(
               </div>
             ) : null}
           </PaginatedResults>
-          {manifest.js('annotation/AnnotationHistoryTable', {async: 'async'})}
+          {manifest('annotation/AnnotationHistoryTable', {async: 'async'})}
         </form>
       ) : (
         <p>

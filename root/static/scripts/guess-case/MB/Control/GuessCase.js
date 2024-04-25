@@ -131,4 +131,6 @@ ko.bindingHandlers.guessCase = {
 
 ko.virtualElements.allowedBindings.guessCase = true;
 
-export const initializeGuessCase = MB.Control.initializeGuessCase;
+const initializeGuessCase = MB.Control.initializeGuessCase;
+
+export default initializeGuessCase;

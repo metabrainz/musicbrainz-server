@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../../context.mjs';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import {isAutoEditor}
   from '../../static/scripts/common/utility/privileges.js';
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
@@ -114,7 +114,7 @@ component EditList(
         </div>
       ) : null}
 
-      {manifest.js('voting')}
+      {manifest('voting')}
 
       {isAutoEditor($c.user) ? (
         <script

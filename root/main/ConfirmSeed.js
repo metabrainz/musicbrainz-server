@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import PostParameters, {
   type PostParametersT,
 } from '../static/scripts/common/components/PostParameters.js';
@@ -58,7 +58,7 @@ component ConfirmSeed(
         {postParameters ? <PostParameters params={postParameters} /> : null}
         <ConfirmSeedButtons autoSubmit={autoSubmit} />
       </form>
-      {manifest.js('confirm-seed', {async: 'async'})}
+      {manifest('confirm-seed', {async: 'async'})}
     </Layout>
   );
 }

@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import TracklistAndCredits
@@ -44,7 +44,7 @@ component ReleaseIndex(
         noScript={noScript}
         release={release}
       />
-      {manifest.js('release/index', {async: 'async'})}
+      {manifest('release/index', {async: 'async'})}
     </ReleaseLayout>
   );
 }

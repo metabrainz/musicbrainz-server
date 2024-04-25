@@ -12,7 +12,7 @@ import type {ColumnOptionsNoValue} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
 import useTable from '../../hooks/useTable.js';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import {
   defineArtistRolesColumn,
   defineDatePeriodColumn,
@@ -92,7 +92,7 @@ component EventList<D: {+event: ?EventT, ...}>(
   return (
     <PaginatedResults pager={pager}>
       {table}
-      {manifest.js('common/components/ArtistRoles', {async: 'async'})}
+      {manifest('common/components/ArtistRoles', {async: 'async'})}
     </PaginatedResults>
   );
 }

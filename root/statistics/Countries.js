@@ -11,7 +11,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import loopParity from '../utility/loopParity.js';
 
@@ -197,7 +197,7 @@ component Countries(
           })}
         </tbody>
       </table>
-      {manifest.js('statistics')}
+      {manifest('statistics')}
     </StatisticsLayout>
   );
 }

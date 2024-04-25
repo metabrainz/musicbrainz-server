@@ -12,7 +12,7 @@ import type {ColumnOptions} from 'react-table';
 
 import {SanitizedCatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import ReleaseGroupAppearances
   from '../../static/scripts/common/components/ReleaseGroupAppearances.js';
 import formatTrackLength
@@ -153,8 +153,8 @@ component RecordingList(
   return (
     <>
       {table}
-      {manifest.js('common/components/AcoustIdCell', {async: 'async'})}
-      {manifest.js('common/components/IsrcList', {async: 'async'})}
+      {manifest('common/components/AcoustIdCell', {async: 'async'})}
+      {manifest('common/components/IsrcList', {async: 'async'})}
     </>
   );
 }
