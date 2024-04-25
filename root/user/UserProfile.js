@@ -305,15 +305,13 @@ const UserProfileInformation = ({
               <UserProfileProperty
                 name={addColonText(l('Authorized applications'))}
               >
-                {tokenCount}
-                {viewingOwnProfile ? (
-                  <>
-                    {' '}
-                    <a href="/account/applications" rel="nofollow">
-                      {bracketedText(l('see list'))}
-                    </a>
-                  </>
-                ) : null}
+                {viewingOwnProfile ? (exp.l(
+                  '{count} ({url|view list})',
+                  {
+                    count: tokenCount,
+                    url: '/account/applications',
+                  },
+                )) : tokenCount}
               </UserProfileProperty>
             ) : null}
 
@@ -321,15 +319,13 @@ const UserProfileInformation = ({
               <UserProfileProperty
                 name={addColonText(l('Developer applications'))}
               >
-                {applicationCount}
-                {viewingOwnProfile ? (
-                  <>
-                    {' '}
-                    <a href="/account/applications" rel="nofollow">
-                      {bracketedText(l('see list'))}
-                    </a>
-                  </>
-                ) : null}
+                {viewingOwnProfile ? (exp.l(
+                  '{count} ({url|view list})',
+                  {
+                    count: applicationCount,
+                    url: '/account/applications',
+                  },
+                )) : applicationCount}
               </UserProfileProperty>
             ) : null}
           </>
