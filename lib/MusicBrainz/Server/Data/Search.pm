@@ -757,10 +757,10 @@ sub schema_fixup
         my $best_alias = find_best_primary_alias(\@aliases, $user_lang);
         $data->{primary_alias} = $best_alias->{name} if defined $best_alias;
 
-        # The aliases returned by the search API aren't Entity::Alias objects,
-        # so clear them to prevent validation from failing if this is an
-        # Entity::Artist.
-        $data->{aliases} = [];
+        # Save the new objects so validation will pass, but note that the search
+        # API doesn't include all attributes that are present in Entity::Alias,
+        # e.g. no IDs.
+        $data->{aliases} = \@aliases;
     }
 
     if ($type eq 'work') {

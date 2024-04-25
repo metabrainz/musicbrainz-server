@@ -84,7 +84,7 @@ const Comment = ({
       {bracketed(
         <bdi key="comment">
           {nonEmpty(alias) ? (
-            <i title={l('Primary alias in your language')}>
+            <i title={l('Primary alias')}>
               {alias + (nonEmpty(comment) ? ', ' : '')}
             </i>
           ) : null}
