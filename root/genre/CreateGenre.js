@@ -8,7 +8,7 @@
  */
 
 import Layout from '../layout/index.js';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import GenreEditForm
   from '../static/scripts/genre/components/GenreEditForm.js';
 
@@ -21,8 +21,8 @@ component CreateGenre(form: GenreFormT) {
         <h1>{'Add a new genre'}</h1>
         <GenreEditForm form={form} />
       </div>
-      {manifest.js('genre/components/GenreEditForm', {async: 'async'})}
-      {manifest.js('relationship-editor', {async: 'async'})}
+      {manifest('genre/components/GenreEditForm', {async: 'async'})}
+      {manifest('relationship-editor', {async: 'async'})}
     </Layout>
   );
 }

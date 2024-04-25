@@ -12,7 +12,7 @@ import * as React from 'react';
 import LinkSearchableLanguage
   from '../../../components/LinkSearchableLanguage.js';
 import {CatalystContext} from '../../../context.mjs';
-import * as manifest from '../../../static/manifest.mjs';
+import manifest from '../../../static/manifest.mjs';
 import AttributeList
   from '../../../static/scripts/common/components/AttributeList.js';
 import CommonsImage from
@@ -79,10 +79,7 @@ component WorkSidebar(work: WorkT) {
             {iswcs.length ? (
               <>
                 <IswcList isSidebar iswcs={iswcs} />
-                {manifest.js(
-                  'common/components/IswcList',
-                  {async: 'async'},
-                )}
+                {manifest('common/components/IswcList', {async: 'async'})}
               </>
             ) : null}
           </SidebarProperties>
@@ -91,10 +88,7 @@ component WorkSidebar(work: WorkT) {
             <>
               <h2 className="work-attributes">{l('Work attributes')}</h2>
               <AttributeList attributes={attributes} isSidebar />
-              {manifest.js(
-                'common/components/AttributeList',
-                {async: 'async'},
-              )}
+              {manifest('common/components/AttributeList', {async: 'async'})}
             </>
           ) : null}
         </>

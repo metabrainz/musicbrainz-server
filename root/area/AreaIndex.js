@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import Relationships
   from '../static/scripts/common/components/Relationships.js';
@@ -34,7 +34,7 @@ component AreaIndex(
         entity={area}
       />
       <Relationships source={area} />
-      {manifest.js('area/index', {async: 'async'})}
+      {manifest('area/index', {async: 'async'})}
     </AreaLayout>
   );
 }

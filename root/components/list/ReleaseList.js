@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import filterReleaseLabels
   from '../../static/scripts/common/utility/filterReleaseLabels.js';
 import formatBarcode
@@ -197,8 +197,8 @@ component ReleaseList(
   return (
     <>
       {table}
-      {manifest.js('common/components/ReleaseEvents', {async: 'async'})}
-      {manifest.js('common/components/TaggerIcon', {async: 'async'})}
+      {manifest('common/components/ReleaseEvents', {async: 'async'})}
+      {manifest('common/components/TaggerIcon', {async: 'async'})}
     </>
   );
 }

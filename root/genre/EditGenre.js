@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import GenreEditForm
   from '../static/scripts/genre/components/GenreEditForm.js';
 
@@ -23,8 +23,8 @@ component EditGenre(entity: GenreT, form: GenreFormT) {
       title="Edit genre"
     >
       <GenreEditForm form={form} />
-      {manifest.js('genre/components/GenreEditForm', {async: 'async'})}
-      {manifest.js('relationship-editor', {async: 'async'})}
+      {manifest('genre/components/GenreEditForm', {async: 'async'})}
+      {manifest('relationship-editor', {async: 'async'})}
     </GenreLayout>
   );
 }

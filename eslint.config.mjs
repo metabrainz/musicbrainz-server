@@ -405,6 +405,7 @@ export default [
       'import/no-extraneous-dependencies': 'error',
       'import/no-unresolved': 'error',
       'import/no-useless-path-segments': 'warn',
+      'import/prefer-default-export': ['warn', {target: 'single'}],
 
       // @stylistic/js
       '@stylistic/js/array-bracket-newline': ['warn', 'consistent'],

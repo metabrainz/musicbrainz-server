@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import ReleaseRelationshipEditor
   from '../static/scripts/release/components/ReleaseRelationshipEditor.js';
 
@@ -53,7 +53,7 @@ component EditRelationships() {
         <ReleaseRelationshipEditor />
       </div>
 
-      {manifest.js('release/edit-relationships', {async: 'async'})}
+      {manifest('release/edit-relationships', {async: 'async'})}
     </Layout>
   );
 }

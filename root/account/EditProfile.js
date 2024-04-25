@@ -13,7 +13,7 @@ import UserAccountLayout, {
   sanitizedAccountLayoutUser,
 } from '../components/UserAccountLayout.js';
 import {CatalystContext} from '../context.mjs';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import type {EditProfileFormPropsT}
   from '../static/scripts/account/components/EditProfileForm.js';
 import EditProfileForm
@@ -40,7 +40,7 @@ component EditProfile(...props: EditProfileFormPropsT) {
         )}
       </p>
       <EditProfileForm {...props} />
-      {manifest.js('account/edit')}
+      {manifest('account/edit')}
     </UserAccountLayout>
   );
 }

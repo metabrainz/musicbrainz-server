@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList.js';
 import localizeArtistRoles
@@ -141,7 +141,7 @@ component EventList(
   return (
     <>
       {table}
-      {manifest.js('common/components/ArtistRoles', {async: 'async'})}
+      {manifest('common/components/ArtistRoles', {async: 'async'})}
     </>
   );
 }

@@ -46,7 +46,7 @@ function pathTo(manifest: string) {
 }
 
 const jsExt = /\.js(?:on)?$/;
-export function js(
+function manifest(
   manifest: string,
   extraAttrs?: {+'async'?: 'async', +'data-args'?: mixed} | null = null,
 ): React$Element<'script'> {
@@ -62,3 +62,5 @@ export function js(
     />
   );
 }
+
+export default manifest;

@@ -12,7 +12,7 @@ import * as React from 'react';
 
 import LinkSearchableProperty from '../components/LinkSearchableProperty.js';
 import {CatalystContext} from '../context.mjs';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import loopParity from '../utility/loopParity.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
@@ -191,7 +191,7 @@ component LanguagesScripts(
           </tbody>
         </table>
       </div>
-      {manifest.js('statistics')}
+      {manifest('statistics')}
     </StatisticsLayout>
   );
 }

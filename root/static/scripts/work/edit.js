@@ -23,12 +23,12 @@ import getScriptArgs from '../common/utility/getScriptArgs.js';
 import parseIntegerOrNull from '../common/utility/parseIntegerOrNull.js';
 import FormRowSelectList from '../edit/components/FormRowSelectList.js';
 import {buildOptionsTree} from '../edit/forms.js';
-import {initializeBubble} from '../edit/MB/Control/Bubble.js';
+import initializeBubble from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
 import {createCompoundFieldFromObject} from '../edit/utility/createField.js';
 import {pushCompoundField, pushField} from '../edit/utility/pushField.js';
 import subfieldErrors from '../edit/utility/subfieldErrors.js';
-import {initializeGuessCase} from '../guess-case/MB/Control/GuessCase.js';
+import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 const scriptArgs = getScriptArgs();
 

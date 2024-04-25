@@ -31,4 +31,6 @@ MB.Control.Area = function (...selectors) {
   }
 };
 
-export const initializeArea = MB.Control.Area;
+const initializeArea = MB.Control.Area;
+
+export default initializeArea;

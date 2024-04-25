@@ -345,4 +345,6 @@ MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
   return bubbleDoc;
 };
 
-export const initializeBubble = MB.Control.initializeBubble;
+const initializeBubble = MB.Control.initializeBubble;
+
+export default initializeBubble;
