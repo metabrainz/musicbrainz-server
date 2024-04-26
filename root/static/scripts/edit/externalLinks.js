@@ -1481,7 +1481,7 @@ export class ExternalLink extends React.Component<LinkProps> {
     }
 
     return (
-      <React.Fragment>
+      <>
         <tr
           className="external-link-item"
           id={`external-link-${props.index}`}
@@ -1649,7 +1649,7 @@ export class ExternalLink extends React.Component<LinkProps> {
             </td>
           </tr>
         ) : null}
-      </React.Fragment>
+      </>
     );
   }
 }

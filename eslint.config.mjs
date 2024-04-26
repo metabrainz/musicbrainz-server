@@ -624,6 +624,7 @@ export default [
       'react/forbid-elements': 'off',
       'react/forbid-prop-types': 'off',
       'react/forbid-foreign-prop-types': 'off',
+      'react/jsx-fragments': ['warn', 'syntax'],
       'react/jsx-no-bind': ['warn', {ignoreDOMComponents: true}],
       'react/no-access-state-in-setstate': 'error',
       'react/no-array-index-key': 'off',
