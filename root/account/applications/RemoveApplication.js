@@ -9,18 +9,14 @@
 
 import ConfirmLayout from '../../components/ConfirmLayout.js';
 
-type Props = {
-  +form: SecureConfirmFormT,
-};
-
-const RemoveApplication = ({
-  form,
-}: Props): React$Element<typeof ConfirmLayout> => (
-  <ConfirmLayout
-    form={form}
-    question={l('Are you sure you want to remove this application?')}
-    title={lp('Remove application', 'header')}
-  />
-);
+component RemoveApplication(form: SecureConfirmFormT) {
+  return (
+    <ConfirmLayout
+      form={form}
+      question={l('Are you sure you want to remove this application?')}
+      title={lp('Remove application', 'header')}
+    />
+  );
+}
 
 export default RemoveApplication;

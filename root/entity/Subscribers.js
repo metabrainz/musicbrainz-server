@@ -16,20 +16,12 @@ import isSpecialPurpose
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
-type Props = {
-  +entity: SubscribableEntityT,
-  +isSpecialEntity: boolean,
-  +privateEditors: number,
-  +publicEditors: $ReadOnlyArray<EditorT>,
-  +subscribed: boolean,
-};
-
-const Subscribers = ({
-  entity,
-  privateEditors,
-  publicEditors,
-  subscribed,
-}: Props): React$MixedElement => {
+component Subscribers(
+  entity: SubscribableEntityT,
+  privateEditors: number,
+  publicEditors: $ReadOnlyArray<EditorT>,
+  subscribed: boolean,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
@@ -166,6 +158,6 @@ const Subscribers = ({
       )}
     </LayoutComponent>
   );
-};
+}
 
 export default Subscribers;

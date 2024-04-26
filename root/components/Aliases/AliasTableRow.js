@@ -16,7 +16,7 @@ import formatEndDate
 import isolateText from '../../static/scripts/common/utility/isolateText.js';
 
 type Props = {
-  +alias: AnyAiasT,
+  +alias: AnyAliasT,
   +allowEditing: boolean,
   +entity: EntityWithAliasesT,
   +row: string,

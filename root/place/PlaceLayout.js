@@ -12,31 +12,25 @@ import Layout from '../layout/index.js';
 
 import PlaceHeader from './PlaceHeader.js';
 
-type Props = {
-  +children: React$Node,
-  +entity: PlaceT,
-  +fullWidth?: boolean,
-  +page: string,
-  +title?: string,
-};
-
-const PlaceLayout = ({
-  children,
-  entity: place,
-  fullWidth = false,
-  page,
-  title,
-}: Props): React$Element<typeof Layout> => (
-  <Layout
-    title={nonEmpty(title) ? hyphenateTitle(place.name, title) : place.name}
-  >
-    <div id="content">
-      <PlaceHeader page={page} place={place} />
-      {children}
-    </div>
-    {fullWidth ? null : <PlaceSidebar place={place} />}
-  </Layout>
-);
+component PlaceLayout(
+  children: React$Node,
+  entity as place: PlaceT,
+  fullWidth: boolean = false,
+  page: string,
+  title?: string,
+) {
+  return (
+    <Layout
+      title={nonEmpty(title) ? hyphenateTitle(place.name, title) : place.name}
+    >
+      <div id="content">
+        <PlaceHeader page={page} place={place} />
+        {children}
+      </div>
+      {fullWidth ? null : <PlaceSidebar place={place} />}
+    </Layout>
+  );
+}
 
 
 export default PlaceLayout;

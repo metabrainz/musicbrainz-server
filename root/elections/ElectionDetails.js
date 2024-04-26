@@ -16,11 +16,7 @@ import bracketed from '../static/scripts/common/utility/bracketed.js';
 import formatUserDate from '../utility/formatUserDate.js';
 import {votesVisible} from '../utility/voting.js';
 
-type PropsT = {
-  +election: AutoEditorElectionT,
-};
-
-const ElectionDetails = ({election}: PropsT): React$MixedElement => {
+component ElectionDetails(election: AutoEditorElectionT) {
   const $c = React.useContext(CatalystContext);
   const voteCount = election.votes.length;
   const abstainCount = voteCount - (election.yes_votes + election.no_votes);
@@ -138,6 +134,6 @@ const ElectionDetails = ({election}: PropsT): React$MixedElement => {
       </table>
     </>
   );
-};
+}
 
 export default ElectionDetails;

@@ -29,62 +29,53 @@ import {isRelationshipEditor}
   from '../../static/scripts/common/utility/privileges.js';
 import {upperFirst} from '../../static/scripts/common/utility/strings.js';
 
-type UsedAttributesListProps = {
-  +attributes?: $ReadOnlyArray<LinkAttrTypeT>,
-  +relType: LinkTypeT,
-};
+component UsedAttributesList(
+  attributes?: $ReadOnlyArray<LinkAttrTypeT>,
+  relType: LinkTypeT,
+) {
+  return (
+    <>
+      <h2>{l('Attributes')}</h2>
+      {!attributes?.length && !relType.has_dates ? (
+        <p>{l('This relationship type doesn\'t allow any attributes.')}</p>
+      ) : (
+        <>
+          <p>
+            {l(`The following attributes can be used
+                with this relationship type:`)}
+          </p>
+          {attributes ? (
+            attributes.map(attributeType => (
+              <React.Fragment key={attributeType.id}>
+                <h3>
+                  <a href={'/relationship-attribute/' + attributeType.gid}>
+                    {l_relationships(attributeType.name)}
+                  </a>
+                </h3>
+                <p>
+                  {expand2react(l_relationships(
+                    attributeType.description,
+                  ))}
+                </p>
+              </React.Fragment>
+            ))
+          ) : null}
+          {relType.has_dates ? (
+            <>
+              <h3>{l('start date')}</h3>
+              <p />
 
-type Props = {
-  +relType: LinkTypeT,
-};
+              <h3>{l('end date')}</h3>
+              <p />
+            </>
+          ) : null}
+        </>
+      )}
+    </>
+  );
+}
 
-const UsedAttributesList = ({
-  attributes,
-  relType,
-}: UsedAttributesListProps) => (
-  <>
-    <h2>{l('Attributes')}</h2>
-    {!attributes?.length && !relType.has_dates ? (
-      <p>{l('This relationship type doesn\'t allow any attributes.')}</p>
-    ) : (
-      <>
-        <p>
-          {l(`The following attributes can be used
-              with this relationship type:`)}
-        </p>
-        {attributes ? (
-          attributes.map(attributeType => (
-            <React.Fragment key={attributeType.id}>
-              <h3>
-                <a href={'/relationship-attribute/' + attributeType.gid}>
-                  {l_relationships(attributeType.name)}
-                </a>
-              </h3>
-              <p>
-                {expand2react(l_relationships(
-                  attributeType.description,
-                ))}
-              </p>
-            </React.Fragment>
-          ))
-        ) : null}
-        {relType.has_dates ? (
-          <>
-            <h3>{l('start date')}</h3>
-            <p />
-
-            <h3>{l('end date')}</h3>
-            <p />
-          </>
-        ) : null}
-      </>
-    )}
-  </>
-);
-
-const RelationshipTypeIndex = ({
-  relType,
-}: Props): React$Element<typeof Layout> => {
+component RelationshipTypeIndex(relType: LinkTypeT) {
   const $c = React.useContext(SanitizedCatalystContext);
   const childrenTypes = relType.children || [];
   const typeName = upperFirst(l_relationships(relType.name));
@@ -269,6 +260,6 @@ const RelationshipTypeIndex = ({
       </div>
     </Layout>
   );
-};
+}
 
 export default RelationshipTypeIndex;

@@ -16,14 +16,6 @@ import {sortByNumber} from '../static/scripts/common/utility/arrays.js';
 import {formatCount} from '../statistics/utilities.js';
 import loopParity from '../utility/loopParity.js';
 
-type Props = {
-  +genreMaxCount: number,
-  +genres: $ReadOnlyArray<AggregatedTagT>,
-  +showList?: boolean,
-  +tagMaxCount: number,
-  +tags: $ReadOnlyArray<AggregatedTagT>,
-};
-
 function getTagSize(count: number, tagMaxCount: number) {
   const percent = count / tagMaxCount * 100;
   if (percent < 1) {
@@ -90,13 +82,13 @@ function generateTagList(
   );
 }
 
-const TagCloud = ({
-  genreMaxCount,
-  genres,
-  showList = false,
-  tagMaxCount,
-  tags,
-}: Props): React$Element<typeof Layout> => {
+component TagCloud(
+  genreMaxCount: number,
+  genres: $ReadOnlyArray<AggregatedTagT>,
+  showList: boolean = false,
+  tagMaxCount: number,
+  tags: $ReadOnlyArray<AggregatedTagT>,
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <Layout fullWidth title={lp('Tags', 'folksonomy')}>
@@ -131,6 +123,6 @@ const TagCloud = ({
       </div>
     </Layout>
   );
-};
+}
 
 export default TagCloud;

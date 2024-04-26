@@ -18,19 +18,12 @@ import formatSetlist from '../static/scripts/common/utility/formatSetlist.js';
 
 import EventLayout from './EventLayout.js';
 
-type Props = {
-  +eligibleForCleanup: boolean,
-  +event: EventT,
-  +numberOfRevisions: number,
-  +wikipediaExtract: WikipediaExtractT,
-};
-
-const EventIndex = ({
-  eligibleForCleanup,
-  event,
-  numberOfRevisions,
-  wikipediaExtract,
-}: Props): React$Element<typeof EventLayout> => {
+component EventIndex(
+  eligibleForCleanup: boolean,
+  event: EventT,
+  numberOfRevisions: number,
+  wikipediaExtract: WikipediaExtractT,
+) {
   const setlist = event.setlist;
 
   return (
@@ -60,6 +53,6 @@ const EventIndex = ({
       {manifest.js('event/index', {async: 'async'})}
     </EventLayout>
   );
-};
+}
 
 export default EventIndex;

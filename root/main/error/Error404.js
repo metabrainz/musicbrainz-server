@@ -20,13 +20,7 @@ import ErrorLayout from './ErrorLayout.js';
  * looking similar to how this template looks.
  */
 
-type Props = {
-  +message?: string,
-};
-
-const Error404 = ({
-  message,
-}: Props): React$Element<typeof ErrorLayout> => {
+component Error404(message?: string) {
   const $c = React.useContext(CatalystContext);
   return (
     <ErrorLayout title={l('Page not found')}>
@@ -50,7 +44,7 @@ const Error404 = ({
       <p>
         {exp.l(
           `Found a broken link on our site? Please {report|report a bug}
-            and include any error message that is shown above.`,
+           and include any error message that is shown above.`,
           {
             report: bugTrackerURL(
               'Nonexistent page: ' + $c.req.uri + '\n' +
@@ -61,6 +55,6 @@ const Error404 = ({
       </p>
     </ErrorLayout>
   );
-};
+}
 
 export default Error404;

@@ -15,17 +15,11 @@ import AnnotationHistoryTable
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
-type AnnotationHistoryProps = {
-  +annotations: $ReadOnlyArray<AnnotationT>,
-  +entity: AnnotatedEntityT,
-  +pager: PagerT,
-};
-
-const AnnotationHistory = ({
-  annotations,
-  entity,
-  pager,
-}: AnnotationHistoryProps): React$MixedElement => {
+component AnnotationHistory(
+  annotations: $ReadOnlyArray<AnnotationT>,
+  entity: AnnotatedEntityT,
+  pager: PagerT,
+) {
   const entityType = entity.entityType;
   const entityUrlFragment = ENTITIES[entityType].url;
   const baseUrl = `/${entityUrlFragment}/${entity.gid}`;
@@ -64,6 +58,6 @@ const AnnotationHistory = ({
       )}
     </LayoutComponent>
   );
-};
+}
 
 export default AnnotationHistory;

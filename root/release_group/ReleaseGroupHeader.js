@@ -11,15 +11,7 @@ import EntityHeader from '../components/EntityHeader.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 
-type Props = {
-  page: string,
-  releaseGroup: ReleaseGroupT,
-};
-
-const ReleaseGroupHeader = ({
-  releaseGroup,
-  page,
-}: Props): React$Element<typeof EntityHeader> => {
+component ReleaseGroupHeader(page: string, releaseGroup: ReleaseGroupT) {
   return (
     <EntityHeader
       entity={releaseGroup}
@@ -32,6 +24,6 @@ const ReleaseGroupHeader = ({
       })}
     />
   );
-};
+}
 
 export default ReleaseGroupHeader;

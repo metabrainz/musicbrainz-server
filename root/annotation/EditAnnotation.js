@@ -23,19 +23,12 @@ type EditAnnotationFormT = FormT<{
   +text: FieldT<string>,
 }>;
 
-type EditAnnotationProps = {
-  +entity: AnnotatedEntityT,
-  +form: EditAnnotationFormT,
-  +preview?: string,
-  +showPreview?: boolean,
-};
-
-const EditAnnotation = ({
-  entity,
-  form,
-  preview,
-  showPreview = false,
-}: EditAnnotationProps): React$MixedElement => {
+component EditAnnotation(
+  entity: AnnotatedEntityT,
+  form: EditAnnotationFormT,
+  preview?: string,
+  showPreview?: boolean = false,
+) {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
 
@@ -143,6 +136,6 @@ const EditAnnotation = ({
       </p>
     </LayoutComponent>
   );
-};
+}
 
 export default EditAnnotation;

@@ -10,7 +10,7 @@
 import AliasTableRow from './AliasTableRow.js';
 
 type Props = {
-  +aliases: $ReadOnlyArray<AnyAiasT>,
+  +aliases: $ReadOnlyArray<AnyAliasT>,
   +allowEditing: boolean,
   +entity: EntityWithAliasesT,
 };

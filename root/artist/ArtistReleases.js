@@ -20,27 +20,16 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ArtistLayout from './ArtistLayout.js';
 
-type Props = {
-  +ajaxFilterFormUrl: string,
-  +artist: ArtistT,
-  +filterForm: ?ReleaseFilterT,
-  +hasFilter: boolean,
-  +pager: PagerT,
-  +releases: $ReadOnlyArray<ReleaseT>,
-  +showingVariousArtistsOnly: boolean,
-  +wantVariousArtistsOnly: boolean,
-};
-
-const ArtistReleases = ({
-  ajaxFilterFormUrl,
-  artist,
-  filterForm,
-  hasFilter,
-  pager,
-  releases,
-  showingVariousArtistsOnly,
-  wantVariousArtistsOnly,
-}: Props): React$Element<typeof ArtistLayout> => {
+component ArtistReleases(
+  ajaxFilterFormUrl: string,
+  artist: ArtistT,
+  filterForm: ?ReleaseFilterT,
+  hasFilter: boolean,
+  pager: PagerT,
+  releases: $ReadOnlyArray<ReleaseT>,
+  showingVariousArtistsOnly: boolean,
+  wantVariousArtistsOnly: boolean,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <ArtistLayout entity={artist} page="releases" title={l('Releases')}>
@@ -102,6 +91,6 @@ const ArtistReleases = ({
       )}
     </ArtistLayout>
   );
-};
+}
 
 export default ArtistReleases;

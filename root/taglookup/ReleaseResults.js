@@ -10,18 +10,20 @@
 import {ReleaseResultsInline} from '../search/components/ReleaseResults.js';
 
 import TagLookupResults from './Results.js';
-import type {TagLookupResultsPropsT} from './types.js';
 
-const TagLookupReleaseResults = (
-  props: TagLookupResultsPropsT<ReleaseT>,
-): React$MixedElement => (
-  <TagLookupResults {...props}>
-    <ReleaseResultsInline
-      pager={props.pager}
-      query={props.query}
-      results={props.results}
-    />
-  </TagLookupResults>
-);
+component TagLookupReleaseResults(...props: {
+  ...React.PropsOf<ReleaseResultsInline>,
+  ...React.PropsOf<TagLookupResults>,
+}) {
+  return (
+    <TagLookupResults form={props.form} nag={props.nag}>
+      <ReleaseResultsInline
+        pager={props.pager}
+        query={props.query}
+        results={props.results}
+      />
+    </TagLookupResults>
+  );
+}
 
 export default TagLookupReleaseResults;

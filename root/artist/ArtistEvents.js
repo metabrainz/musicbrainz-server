@@ -19,23 +19,14 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ArtistLayout from './ArtistLayout.js';
 
-type Props = {
-  +ajaxFilterFormUrl: string,
-  +artist: ArtistT,
-  +events: $ReadOnlyArray<EventT>,
-  +filterForm: ?EventFilterT,
-  +hasFilter: boolean,
-  +pager: PagerT,
-};
-
-const ArtistEvents = ({
-  ajaxFilterFormUrl,
-  artist,
-  events,
-  filterForm,
-  hasFilter,
-  pager,
-}: Props): React$Element<typeof ArtistLayout> => {
+component ArtistEvents(
+  ajaxFilterFormUrl: string,
+  artist: ArtistT,
+  events: $ReadOnlyArray<EventT>,
+  filterForm: ?EventFilterT,
+  hasFilter: boolean,
+  pager: PagerT,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <ArtistLayout entity={artist} page="events" title={l('Events')}>
@@ -81,6 +72,6 @@ const ArtistEvents = ({
       )}
     </ArtistLayout>
   );
-};
+}
 
 export default ArtistEvents;

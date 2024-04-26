@@ -27,22 +27,10 @@ import {
   removeFromMergeColumn,
 } from '../utility/tableColumns.js';
 
-type Props = {
-  +form: MergeFormT,
-  +privaciesDiffer?: boolean,
-  +toMerge: $ReadOnlyArray<CollectionT>,
-  +typesDiffer?: boolean,
-};
-
-type CollectionMergeTablePropsT = {
-  +collections: $ReadOnlyArray<CollectionT>,
-  +form: MergeFormT,
-};
-
-const CollectionMergeTable = ({
-  collections,
-  form,
-}: CollectionMergeTablePropsT) => {
+component CollectionMergeTable(
+  collections: $ReadOnlyArray<CollectionT>,
+  form: MergeFormT,
+) {
   const columns = React.useMemo(
     () => {
       const checkboxColumn = defineCheckboxColumn({mergeForm: form});
@@ -95,14 +83,14 @@ const CollectionMergeTable = ({
   );
 
   return useTable<CollectionT>({columns, data: collections});
-};
+}
 
-const CollectionMerge = ({
-  form,
-  privaciesDiffer,
-  toMerge,
-  typesDiffer,
-}: Props): React$Element<typeof Layout> => {
+component CollectionMerge(
+  form: MergeFormT,
+  privaciesDiffer?: boolean,
+  toMerge: $ReadOnlyArray<CollectionT>,
+  typesDiffer?: boolean,
+) {
   const collections = sortByString(toMerge, collection => collection.name);
   const collaborators = sortByString(
     uniqBy(
@@ -197,6 +185,6 @@ const CollectionMerge = ({
       </div>
     </Layout>
   );
-};
+}
 
 export default CollectionMerge;

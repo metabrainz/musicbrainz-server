@@ -18,15 +18,10 @@ import PostParameters, {
 import ConfirmSeedButtons
   from '../static/scripts/main/components/ConfirmSeedButtons.js';
 
-type Props = {
-  +origin: string,
-  +postParameters: PostParametersT | null,
-};
-
-const ConfirmSeed = ({
-  origin,
-  postParameters,
-}: Props): React$Element<typeof Layout> => {
+component ConfirmSeed(
+  origin: string,
+  postParameters: PostParametersT | null,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const title = l('Confirm form submission');
 
@@ -66,6 +61,6 @@ const ConfirmSeed = ({
       {manifest.js('confirm-seed', {async: 'async'})}
     </Layout>
   );
-};
+}
 
 export default ConfirmSeed;

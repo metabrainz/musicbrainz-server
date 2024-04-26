@@ -20,15 +20,10 @@ import formatTrackLength
 import loopParity from '../utility/loopParity.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
-type PropsT = {
-  +isrcs: $ReadOnlyArray<IsrcT>,
-  +recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
-};
-
-const Index = ({
-  isrcs,
-  recordings,
-}: PropsT): React$Element<typeof Layout> => {
+component Index(
+  isrcs: $ReadOnlyArray<IsrcT>,
+  recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const userExists = !!$c.user;
   const isrc = isrcs[0];
@@ -104,6 +99,6 @@ const Index = ({
       </form>
     </Layout>
   );
-};
+}
 
 export default Index;

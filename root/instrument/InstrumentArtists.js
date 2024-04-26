@@ -16,19 +16,12 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import InstrumentLayout from './InstrumentLayout.js';
 
-type Props = {|
-  ...InstrumentCreditsAndRelTypesRoleT,
-  +artists: $ReadOnlyArray<ArtistT>,
-  +instrument: InstrumentT,
-  +pager: PagerT,
-|};
-
-const InstrumentArtists = ({
-  artists,
-  instrument,
-  instrumentCreditsAndRelTypes,
-  pager,
-}: Props): React$Element<typeof InstrumentLayout> => {
+component InstrumentArtists(
+  artists: $ReadOnlyArray<ArtistT>,
+  instrument: InstrumentT,
+  instrumentCreditsAndRelTypes: InstrumentCreditsAndRelTypesT,
+  pager: PagerT,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <InstrumentLayout
@@ -69,6 +62,6 @@ const InstrumentArtists = ({
       )}
     </InstrumentLayout>
   );
-};
+}
 
 export default InstrumentArtists;

@@ -13,50 +13,49 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 
 import AreaLayout from './AreaLayout.js';
-import type {AreaDeleteFormT} from './types.js';
 
-type Props = {
-  +canDelete: boolean,
-  +entity: AreaT,
-  +form: AreaDeleteFormT,
-  +isReleaseCountry: boolean,
-};
+type AreaDeleteFormT = FormT<{
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+}>;
 
-const DeleteArea = ({
-  canDelete,
-  entity: area,
-  form,
-  isReleaseCountry,
-}: Props): React$Element<typeof AreaLayout> => (
-  <AreaLayout
-    entity={area}
-    fullWidth
-    page="delete"
-    title="Remove area"
-  >
-    <h2>{'Remove area'}</h2>
+component DeleteArea(
+  canDelete: boolean,
+  entity as area: AreaT,
+  form: AreaDeleteFormT,
+  isReleaseCountry: boolean,
+) {
+  return (
+    <AreaLayout
+      entity={area}
+      fullWidth
+      page="delete"
+      title="Remove area"
+    >
+      <h2>{'Remove area'}</h2>
 
-    {isReleaseCountry ? (
-      <p>
-        {l_admin(`This area cannot be removed because it is one of the areas
-                  that can be used as a release country.`)}
-      </p>
-    ) : canDelete ? (
-      <>
-        <EntityDeletionHelp entity={area} />
+      {isReleaseCountry ? (
+        <p>
+          {l_admin(`This area cannot be removed because it is one of the areas
+                    that can be used as a release country.`)}
+        </p>
+      ) : canDelete ? (
+        <>
+          <EntityDeletionHelp entity={area} />
 
-        <form method="post">
-          <EnterEditNote field={form.field.edit_note} />
-          <EnterEdit form={form} />
-        </form>
-      </>
-    ) : (
-      <p>
-        {l_admin(`This area cannot be removed because it is still in use (in
-                  artists, labels, places, relationships or open edits).`)}
-      </p>
-    )}
-  </AreaLayout>
-);
+          <form method="post">
+            <EnterEditNote field={form.field.edit_note} />
+            <EnterEdit form={form} />
+          </form>
+        </>
+      ) : (
+        <p>
+          {l_admin(`This area cannot be removed because it is still in use (in
+                    artists, labels, places, relationships or open edits).`)}
+        </p>
+      )}
+    </AreaLayout>
+  );
+}
 
 export default DeleteArea;

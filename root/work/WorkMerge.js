@@ -16,58 +16,54 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 
-type Props = {
-  +form: MergeFormT,
-  +iswcsDiffer?: boolean,
-  +toMerge: $ReadOnlyArray<WorkT>,
-};
+component WorkMerge(
+  form: MergeFormT,
+  iswcsDiffer?: boolean = false,
+  toMerge: $ReadOnlyArray<WorkT>,
+) {
+  return (
+    <Layout fullWidth title={l('Merge works')}>
+      <div id="content">
+        <h1>{l('Merge works')}</h1>
+        <p>
+          {l(`You are about to merge all these works into a single one.
+              Please select the work all others should be merged into:`)}
+        </p>
+        {iswcsDiffer ? (
+          <div className="warning warning-iswcs-differ">
+            <p>
+              {exp.l(
+                `<strong>Warning:</strong> Some of the works you’re
+                 merging have different ISWCs. Please make sure they are
+                 indeed the same works and you wish to continue with
+                 the merge.`,
+              )}
+            </p>
+          </div>
+        ) : null}
+        <form method="post">
+          <WorkList
+            mergeForm={form}
+            works={sortByEntityName(toMerge)}
+          />
+          <FieldErrors field={form.field.target} />
 
-const WorkMerge = ({
-  form,
-  iswcsDiffer = false,
-  toMerge,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Merge works')}>
-    <div id="content">
-      <h1>{l('Merge works')}</h1>
-      <p>
-        {l(`You are about to merge all these works into a single one.
-            Please select the work all others should be merged into:`)}
-      </p>
-      {iswcsDiffer ? (
-        <div className="warning warning-iswcs-differ">
-          <p>
-            {exp.l(
-              `<strong>Warning:</strong> Some of the works you’re
-               merging have different ISWCs. Please make sure they are
-               indeed the same works and you wish to continue with
-               the merge.`,
-            )}
-          </p>
-        </div>
-      ) : null}
-      <form method="post">
-        <WorkList
-          mergeForm={form}
-          works={sortByEntityName(toMerge)}
-        />
-        <FieldErrors field={form.field.target} />
+          <EnterEditNote field={form.field.edit_note} />
 
-        <EnterEditNote field={form.field.edit_note} />
-
-        <EnterEdit form={form}>
-          <button
-            className="negative"
-            name="submit"
-            type="submit"
-            value="cancel"
-          >
-            {l('Cancel')}
-          </button>
-        </EnterEdit>
-      </form>
-    </div>
-  </Layout>
-);
+          <EnterEdit form={form}>
+            <button
+              className="negative"
+              name="submit"
+              type="submit"
+              value="cancel"
+            >
+              {l('Cancel')}
+            </button>
+          </EnterEdit>
+        </form>
+      </div>
+    </Layout>
+  );
+}
 
 export default WorkMerge;

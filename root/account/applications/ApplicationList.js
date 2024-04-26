@@ -19,13 +19,6 @@ import {commaOnlyListText}
 import formatUserDate from '../../utility/formatUserDate.js';
 import loopParity from '../../utility/loopParity.js';
 
-type Props = {
-  +applications: $ReadOnlyArray<ApplicationT>,
-  +appsPager: PagerT,
-  +tokens: $ReadOnlyArray<EditorOAuthTokenT>,
-  +tokensPager: PagerT,
-};
-
 const buildApplicationRow = (application: ApplicationT, index: number) => (
   <tr className={loopParity(index)} key={application.id}>
     <td>{application.name}</td>
@@ -82,12 +75,12 @@ function formatScopes(token: EditorOAuthTokenT) {
   return commaOnlyListText(lScopes);
 }
 
-const ApplicationList = ({
-  applications,
-  appsPager,
-  tokens,
-  tokensPager,
-}: Props): React$Element<typeof Layout> => {
+component ApplicationList(
+  applications: $ReadOnlyArray<ApplicationT>,
+  appsPager: PagerT,
+  tokens: $ReadOnlyArray<EditorOAuthTokenT>,
+  tokensPager: PagerT,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
 
   return (
@@ -168,6 +161,6 @@ const ApplicationList = ({
         )}
     </Layout>
   );
-};
+}
 
 export default ApplicationList;

@@ -19,43 +19,39 @@ type ResetPasswordFormT = FormT<{
   +password: FieldT<string>,
 }>;
 
-type Props = {
-  +form: ResetPasswordFormT,
-};
+component ResetPassword(form: ResetPasswordFormT) {
+  return (
+    <Layout fullWidth title={lp('Reset password', 'header')}>
+      <h1>{lp('Reset password', 'header')}</h1>
 
-const ResetPassword = ({
-  form,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={lp('Reset password', 'header')}>
-    <h1>{lp('Reset password', 'header')}</h1>
+      <p>
+        {l('Set a new password for your MusicBrainz account.')}
+      </p>
 
-    <p>
-      {l('Set a new password for your MusicBrainz account.')}
-    </p>
-
-    <form method="post">
-      <FormCsrfToken form={form} />
-      <FormRowText
-        autoComplete="new-password"
-        field={form.field.password}
-        label={l('New password:')}
-        required
-        type="password"
-        uncontrolled
-      />
-      <FormRowText
-        autoComplete="new-password"
-        field={form.field.confirm_password}
-        label={l('Confirm password:')}
-        required
-        type="password"
-        uncontrolled
-      />
-      <FormRow hasNoLabel>
-        <FormSubmit label={lp('Reset password', 'interactive')} />
-      </FormRow>
-    </form>
-  </Layout>
-);
+      <form method="post">
+        <FormCsrfToken form={form} />
+        <FormRowText
+          autoComplete="new-password"
+          field={form.field.password}
+          label={l('New password:')}
+          required
+          type="password"
+          uncontrolled
+        />
+        <FormRowText
+          autoComplete="new-password"
+          field={form.field.confirm_password}
+          label={l('Confirm password:')}
+          required
+          type="password"
+          uncontrolled
+        />
+        <FormRow hasNoLabel>
+          <FormSubmit label={lp('Reset password', 'interactive')} />
+        </FormRow>
+      </form>
+    </Layout>
+  );
+}
 
 export default ResetPassword;

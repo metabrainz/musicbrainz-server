@@ -13,15 +13,10 @@ import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
 
-type Props = {
-  +page: string,
-  +recording: RecordingWithArtistCreditT,
-};
-
-const RecordingHeader = ({
-  recording,
-  page,
-}: Props): React$Element<typeof EntityHeader> => {
+component RecordingHeader(
+  page: string,
+  recording: RecordingWithArtistCreditT,
+) {
   const lArgs = {
     artist: <ArtistCreditLink artistCredit={recording.artistCredit} />,
   };
@@ -41,6 +36,6 @@ const RecordingHeader = ({
         : exp.l('Recording by {artist}', lArgs)}
     />
   );
-};
+}
 
 export default RecordingHeader;

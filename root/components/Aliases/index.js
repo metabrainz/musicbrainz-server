@@ -36,7 +36,7 @@ function canEdit($c: CatalystContextT, entityType: string) {
 }
 
 type Props = {
-  +aliases: ?$ReadOnlyArray<AnyAiasT>,
+  +aliases: ?$ReadOnlyArray<AnyAliasT>,
   +entity: EntityWithAliasesT,
 };
 

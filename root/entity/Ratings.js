@@ -19,21 +19,13 @@ import {
 import {ENTITIES} from '../static/scripts/common/constants.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
-type Props = {
-  +entity: RatableT | ReviewableT,
-  +mostPopularReview: CritiqueBrainzReviewT,
-  +mostRecentReview: CritiqueBrainzReviewT,
-  +privateRatingCount: number,
-  +publicRatings: $ReadOnlyArray<RatingT>,
-};
-
-const Ratings = ({
-  entity,
-  mostPopularReview,
-  mostRecentReview,
-  privateRatingCount,
-  publicRatings,
-}: Props): React$MixedElement => {
+component Ratings(
+  entity: RatableT | ReviewableT,
+  mostPopularReview: CritiqueBrainzReviewT,
+  mostRecentReview: CritiqueBrainzReviewT,
+  privateRatingCount: number,
+  publicRatings: $ReadOnlyArray<RatingT>,
+) {
   const entityType = entity.entityType;
   const entityProperties = ENTITIES[entity.entityType];
   const LayoutComponent = chooseLayoutComponent(entityType);
@@ -110,6 +102,6 @@ const Ratings = ({
       {manifest.js('reviews')}
     </LayoutComponent>
   );
-};
+}
 
 export default Ratings;

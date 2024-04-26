@@ -22,15 +22,7 @@ type DeleteUserFormT = FormT<{
   +allow_reuse: FieldT<boolean>,
 }>;
 
-type Props = {
-  +form: DeleteUserFormT,
-  +user: AccountLayoutUserT,
-};
-
-const DeleteUser = ({
-  form,
-  user,
-}: Props): React$Element<typeof UserAccountLayout> => {
+component DeleteUser(form: DeleteUserFormT, user: AccountLayoutUserT) {
   return (
     <UserAccountLayout
       entity={user}
@@ -67,6 +59,6 @@ const DeleteUser = ({
       </form>
     </UserAccountLayout>
   );
-};
+}
 
 export default DeleteUser;

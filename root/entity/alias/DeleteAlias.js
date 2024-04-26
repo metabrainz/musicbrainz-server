@@ -12,21 +12,17 @@ import EnterEditNote
   from '../../static/scripts/edit/components/EnterEditNote.js';
 import chooseLayoutComponent from '../../utility/chooseLayoutComponent.js';
 
-import type {AliasDeleteFormT} from './types.js';
+type AliasDeleteFormT = FormT<{
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+}>;
 
-type Props = {
-  +alias: AnyAiasT,
-  +entity: EntityWithAliasesT,
-  +form: AliasDeleteFormT,
-  +type: string,
-};
-
-const DeleteAlias = ({
-  alias,
-  entity,
-  form,
-  type,
-}: Props): React$MixedElement => {
+component DeleteAlias(
+  alias: AnyAliasT,
+  entity: EntityWithAliasesT,
+  form: AliasDeleteFormT,
+  type: string,
+) {
   const LayoutComponent = chooseLayoutComponent(type);
   const header = lp('Remove alias', 'header');
 
@@ -57,6 +53,6 @@ const DeleteAlias = ({
       </form>
     </LayoutComponent>
   );
-};
+}
 
 export default DeleteAlias;

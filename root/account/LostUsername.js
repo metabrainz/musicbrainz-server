@@ -19,30 +19,28 @@ type LostUsernameFormT = FormT<{
   +email: FieldT<string>,
 }>;
 
-type Props = {
-  +form: LostUsernameFormT,
-};
-
-const LostUsername = (props: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Lost username')}>
-    <h1>{l('Lost username')}</h1>
-    <p>
-      {l(`Enter your email address below and we will send you an email with
-          your MusicBrainz account information.`)}
-    </p>
-    <form method="post">
-      <FormCsrfToken form={props.form} />
-      <FormRowEmailLong
-        field={props.form.field.email}
-        label={addColonText(l('Email'))}
-        required
-        uncontrolled
-      />
-      <FormRow hasNoLabel>
-        <FormSubmit label={lp('Send email', 'interactive')} />
-      </FormRow>
-    </form>
-  </Layout>
-);
+component LostUsername(form: LostUsernameFormT) {
+  return (
+    <Layout fullWidth title={l('Lost username')}>
+      <h1>{l('Lost username')}</h1>
+      <p>
+        {l(`Enter your email address below and we will send you an email with
+            your MusicBrainz account information.`)}
+      </p>
+      <form method="post">
+        <FormCsrfToken form={form} />
+        <FormRowEmailLong
+          field={form.field.email}
+          label={addColonText(l('Email'))}
+          required
+          uncontrolled
+        />
+        <FormRow hasNoLabel>
+          <FormSubmit label={lp('Send email', 'interactive')} />
+        </FormRow>
+      </form>
+    </Layout>
+  );
+}
 
 export default LostUsername;

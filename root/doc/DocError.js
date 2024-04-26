@@ -16,13 +16,7 @@ import bugTrackerURL from '../static/scripts/common/utility/bugTrackerURL.js';
 
 import DocSearchBox from './components/DocSearchBox.js';
 
-type Props = {
-  +id: string,
-};
-
-const DocError = ({
-  id,
-}: Props): React$Element<typeof Layout> => {
+component DocError(id: string) {
   const $c = React.useContext(CatalystContext);
 
   // We check whether we have a Google Custom Search engine
@@ -64,6 +58,6 @@ const DocError = ({
       </div>
     </Layout>
   );
-};
+}
 
 export default DocError;

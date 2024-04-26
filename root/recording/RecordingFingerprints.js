@@ -12,22 +12,18 @@ import FingerprintTable
 
 import RecordingLayout from './RecordingLayout.js';
 
-type Props = {
-  +recording: RecordingWithArtistCreditT,
-};
+component RecordingFingerprints(recording: RecordingWithArtistCreditT) {
+  return (
+    <RecordingLayout
+      entity={recording}
+      page="fingerprints"
+      title={l('Fingerprints')}
+    >
+      <h2 id="acoustids">{l('Associated AcoustIDs')}</h2>
 
-const RecordingFingerprints = ({
-  recording,
-}: Props): React$Element<typeof RecordingLayout> => (
-  <RecordingLayout
-    entity={recording}
-    page="fingerprints"
-    title={l('Fingerprints')}
-  >
-    <h2 id="acoustids">{l('Associated AcoustIDs')}</h2>
-
-    <FingerprintTable recording={recording} />
-  </RecordingLayout>
-);
+      <FingerprintTable recording={recording} />
+    </RecordingLayout>
+  );
+}
 
 export default RecordingFingerprints;

@@ -11,17 +11,11 @@ import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
-type DetailsProps = {
-  +entity: CollectableEntityT,
-  +privateCollectionCount: number,
-  +publicCollections: $ReadOnlyArray<CollectionT>,
-};
-
-const Details = ({
-  entity,
-  publicCollections,
-  privateCollectionCount,
-}: DetailsProps): React$MixedElement => {
+component Details(
+  entity: CollectableEntityT,
+  privateCollectionCount: number,
+  publicCollections: $ReadOnlyArray<CollectionT>,
+) {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
   const publicCollectionCount = publicCollections.length;
@@ -87,6 +81,6 @@ const Details = ({
       )}
     </LayoutComponent>
   );
-};
+}
 
 export default Details;

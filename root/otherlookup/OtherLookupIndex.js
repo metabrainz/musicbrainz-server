@@ -12,19 +12,15 @@ import Layout from '../layout/index.js';
 import OtherLookupForm from './OtherLookupForm.js';
 import type {OtherLookupFormT} from './types.js';
 
-type Props = {
-  +form: OtherLookupFormT,
-};
-
-const OtherLookupIndex = ({
-  form,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Other lookups')}>
-    <div className="content">
-      <h1>{l('Other lookups')}</h1>
-      <OtherLookupForm form={form} />
-    </div>
-  </Layout>
-);
+component OtherLookupIndex(form: OtherLookupFormT) {
+  return (
+    <Layout fullWidth title={l('Other lookups')}>
+      <div className="content">
+        <h1>{l('Other lookups')}</h1>
+        <OtherLookupForm form={form} />
+      </div>
+    </Layout>
+  );
+}
 
 export default OtherLookupIndex;

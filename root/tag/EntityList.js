@@ -102,41 +102,21 @@ function getTagEntityListHeading(
   );
 }
 
-type EntityListContentProps = {
-  +entityTags: $ReadOnlyArray<{
-    +count?: number,
-    +entity: TaggableEntityT,
-    +entity_id: number,
-  }>,
-  +entityType: string,
-  +pager: PagerT,
-  +showDownvoted?: boolean,
-  +showVotesSelect?: boolean,
-  +tag: string,
-  +user?: AccountLayoutUserT,
-};
+type EntityTagsT = $ReadOnlyArray<{
+  +count?: number,
+  +entity: TaggableEntityT,
+  +entity_id: number,
+}>;
 
-type EntityListProps = {
-  +entityTags: $ReadOnlyArray<{
-    +count: number,
-    +entity: TaggableEntityT,
-    +entity_id: number,
-  }>,
-  +entityType: string,
-  +page: string,
-  +pager: PagerT,
-  +tag: TagT,
-};
-
-export const EntityListContent = ({
-  entityTags,
-  entityType,
-  pager,
-  showDownvoted = false,
-  showVotesSelect = false,
-  tag,
-  user,
-}: EntityListContentProps): React.MixedElement => {
+export component EntityListContent(
+  entityTags: EntityTagsT,
+  entityType: string,
+  pager: PagerT,
+  showDownvoted: boolean = false,
+  showVotesSelect: boolean = false,
+  tag: string,
+  user?: AccountLayoutUserT,
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <>
@@ -169,23 +149,25 @@ export const EntityListContent = ({
       </PaginatedResults>
     </>
   );
-};
+}
 
-const EntityList = ({
-  entityTags,
-  entityType,
-  page,
-  pager,
-  tag,
-}: EntityListProps): React$Element<typeof TagLayout> => (
-  <TagLayout page={page} tag={tag}>
-    <EntityListContent
-      entityTags={entityTags}
-      entityType={entityType}
-      pager={pager}
-      tag={tag.name}
-    />
-  </TagLayout>
-);
+component EntityList(
+  entityTags: EntityTagsT,
+  entityType: string,
+  page: string,
+  pager: PagerT,
+  tag: TagT,
+) {
+  return (
+    <TagLayout page={page} tag={tag}>
+      <EntityListContent
+        entityTags={entityTags}
+        entityType={entityType}
+        pager={pager}
+        tag={tag.name}
+      />
+    </TagLayout>
+  );
+}
 
 export default EntityList;

@@ -9,21 +9,17 @@
 
 import StatusPage from '../components/StatusPage.js';
 
-type Props = {
-  +discId: string,
-};
-
-const DiscIdNotValid = ({
-  discId,
-}: Props): React$Element<typeof StatusPage> => (
-  <StatusPage title={l('Invalid disc ID')}>
-    <p>
-      {exp.l(
-        'Sorry, <code>{discid}</code> is not a valid disc ID.',
-        {discid: discId},
-      )}
-    </p>
-  </StatusPage>
-);
+component DiscIdNotValid(discId: string) {
+  return (
+    <StatusPage title={l('Invalid disc ID')}>
+      <p>
+        {exp.l(
+          'Sorry, <code>{discid}</code> is not a valid disc ID.',
+          {discid: discId},
+        )}
+      </p>
+    </StatusPage>
+  );
+}
 
 export default DiscIdNotValid;

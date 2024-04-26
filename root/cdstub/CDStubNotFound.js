@@ -9,25 +9,21 @@
 
 import StatusPage from '../components/StatusPage.js';
 
-type Props = {
-  +discId: string,
-};
-
-const CDStubNotFound = ({
-  discId,
-}: Props): React$Element<typeof StatusPage> => (
-  <StatusPage title={l('CD stub not found')}>
-    <p>
-      {exp.l(
-        `Sorry, <code>{discid}</code> does not match a CD stub.
-         You can try {search_url|searching for it} instead.`,
-        {
-          discid: discId,
-          search_url: '/search',
-        },
-      )}
-    </p>
-  </StatusPage>
-);
+component CDStubNotFound(discId: string) {
+  return (
+    <StatusPage title={l('CD stub not found')}>
+      <p>
+        {exp.l(
+          `Sorry, <code>{discid}</code> does not match a CD stub.
+           You can try {search_url|searching for it} instead.`,
+          {
+            discid: discId,
+            search_url: '/search',
+          },
+        )}
+      </p>
+    </StatusPage>
+  );
+}
 
 export default CDStubNotFound;

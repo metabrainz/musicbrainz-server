@@ -12,30 +12,26 @@ import Layout from '../layout/index.js';
 
 import ArtistHeader from './ArtistHeader.js';
 
-type Props = {
-  +children: React$Node,
-  +entity: ArtistT,
-  +fullWidth?: boolean,
-  +page: string,
-  +title?: string,
-};
-
-const ArtistLayout = ({
-  children,
-  entity: artist,
-  fullWidth = false,
-  page,
-  title,
-}: Props): React$Element<typeof Layout> => (
-  <Layout
-    title={nonEmpty(title) ? hyphenateTitle(artist.name, title) : artist.name}
-  >
-    <div id="content">
-      <ArtistHeader artist={artist} page={page} />
-      {children}
-    </div>
-    {fullWidth ? null : <ArtistSidebar artist={artist} />}
-  </Layout>
-);
+component ArtistLayout(
+  children: React$Node,
+  entity as artist: ArtistT,
+  fullWidth: boolean = false,
+  page: string,
+  title?: string,
+) {
+  return (
+    <Layout
+      title={nonEmpty(title)
+        ? hyphenateTitle(artist.name, title)
+        : artist.name}
+    >
+      <div id="content">
+        <ArtistHeader artist={artist} page={page} />
+        {children}
+      </div>
+      {fullWidth ? null : <ArtistSidebar artist={artist} />}
+    </Layout>
+  );
+}
 
 export default ArtistLayout;

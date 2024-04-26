@@ -10,13 +10,11 @@
 import Layout from '../layout/index.js';
 import {compare} from '../static/scripts/common/i18n.js';
 
-type EditTypeListProps = {
-  +editTypesByCategory: {
-    +[editCategory: string]: $ReadOnlyArray<{
-      +editName: string,
-      +id: number,
-    }>,
-  },
+type EditTypesByCategoryT = {
+  +[editCategory: string]: $ReadOnlyArray<{
+    +editName: string,
+    +id: number,
+  }>,
 };
 
 // We want Historic to be sorted last, but otherwise alphabetical order
@@ -30,9 +28,7 @@ function cmpCategories(a: string, b: string) {
   return compare(a, b);
 }
 
-const EditTypeList = ({
-  editTypesByCategory,
-}: EditTypeListProps): React$Element<typeof Layout> => {
+component EditTypeList(editTypesByCategory: EditTypesByCategoryT) {
   const sortedCategories =
     Object.keys(editTypesByCategory).sort(cmpCategories);
   return (
@@ -60,6 +56,6 @@ const EditTypeList = ({
       </div>
     </Layout>
   );
-};
+}
 
 export default EditTypeList;

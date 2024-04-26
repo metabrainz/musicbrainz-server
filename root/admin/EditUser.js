@@ -50,15 +50,7 @@ type EditUserFormT = FormT<{
   +wiki_transcluder: FieldT<boolean>,
 }>;
 
-type Props = {
-  +form: EditUserFormT,
-  +user: AccountLayoutUserT,
-};
-
-const EditUser = ({
-  form,
-  user,
-}: Props): React$Element<typeof UserAccountLayout> => {
+component EditUser(form: EditUserFormT, user: AccountLayoutUserT) {
   const $c = React.useContext(CatalystContext);
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
 
@@ -182,6 +174,6 @@ const EditUser = ({
       </form>
     </UserAccountLayout>
   );
-};
+}
 
 export default EditUser;

@@ -12,57 +12,56 @@ import formatEntityTypeName
   from '../../static/scripts/common/utility/formatEntityTypeName.js';
 import RelationshipsHeader from '../RelationshipsHeader.js';
 
-type Props = {
-  +table: $ReadOnlyArray<$ReadOnlyArray<$ReadOnlyArray<string>>>,
-  +types: $ReadOnlyArray<string>,
-};
-
-const TypesTable = ({table, types}: Props) => (
-  <table className="wikitable">
-    <tr>
-      <th />
-      {types.map(type => (
-        <th key={type}>{formatEntityTypeName(type)}</th>
-      ))}
-    </tr>
-
-    {table.map((row, index) => (
-      <tr key={'row' + types[index]}>
-        <th>{formatEntityTypeName(types[index])}</th>
-        {types.map((type, index) => {
-          const cellTypes = row[index];
-
-          return (
-            <td key={'cell' + index}>
-              {cellTypes ? (
-                <a href={'/relationships/' + cellTypes.join('-')}>
-                  {texp.l(
-                    '{type0}-{type1}',
-                    {
-                      type0: formatEntityTypeName(cellTypes[0]),
-                      type1: formatEntityTypeName(cellTypes[1]),
-                    },
-                  )}
-                </a>
-              ) : null}
-            </td>
-          );
-        })}
+component TypesTable(
+  table: $ReadOnlyArray<$ReadOnlyArray<$ReadOnlyArray<string>>>,
+  types: $ReadOnlyArray<string>,
+) {
+  return (
+    <table className="wikitable">
+      <tr>
+        <th />
+        {types.map(type => (
+          <th key={type}>{formatEntityTypeName(type)}</th>
+        ))}
       </tr>
-    ))}
-  </table>
-);
 
-const RelationshipTypesList = ({
-  table,
-  types,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth noIcons title={l('Relationship types')}>
-    <div className="wikicontent" id="content">
-      <RelationshipsHeader page="relationships" />
-      <TypesTable table={table} types={types} />
-    </div>
-  </Layout>
-);
+      {table.map((row, index) => (
+        <tr key={'row' + types[index]}>
+          <th>{formatEntityTypeName(types[index])}</th>
+          {types.map((type, index) => {
+            const cellTypes = row[index];
+
+            return (
+              <td key={'cell' + index}>
+                {cellTypes ? (
+                  <a href={'/relationships/' + cellTypes.join('-')}>
+                    {texp.l(
+                      '{type0}-{type1}',
+                      {
+                        type0: formatEntityTypeName(cellTypes[0]),
+                        type1: formatEntityTypeName(cellTypes[1]),
+                      },
+                    )}
+                  </a>
+                ) : null}
+              </td>
+            );
+          })}
+        </tr>
+      ))}
+    </table>
+  );
+}
+
+component RelationshipTypesList(...props: React.PropsOf<TypesTable>) {
+  return (
+    <Layout fullWidth noIcons title={l('Relationship types')}>
+      <div className="wikicontent" id="content">
+        <RelationshipsHeader page="relationships" />
+        <TypesTable {...props} />
+      </div>
+    </Layout>
+  );
+}
 
 export default RelationshipTypesList;

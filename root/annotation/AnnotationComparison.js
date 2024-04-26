@@ -17,19 +17,12 @@ import {DELETE, INSERT} from '../static/scripts/edit/utility/editDiff.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 import formatUserDate from '../utility/formatUserDate.js';
 
-type AnnotationComparisonProps = {
-  +entity: AnnotatedEntityT,
-  +newAnnotation: AnnotationT,
-  +numberOfRevisions: number,
-  +oldAnnotation: AnnotationT,
-};
-
-const AnnotationComparison = ({
-  entity,
-  newAnnotation,
-  numberOfRevisions,
-  oldAnnotation,
-}: AnnotationComparisonProps): React$MixedElement => {
+component AnnotationComparison(
+  entity: AnnotatedEntityT,
+  newAnnotation: AnnotationT,
+  numberOfRevisions: number,
+  oldAnnotation: AnnotationT,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const entityType = entity.entityType;
   const entityUrlFragment = ENTITIES[entityType].url;
@@ -92,6 +85,6 @@ const AnnotationComparison = ({
       </div>
     </LayoutComponent>
   );
-};
+}
 
 export default AnnotationComparison;

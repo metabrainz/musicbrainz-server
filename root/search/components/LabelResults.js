@@ -49,13 +49,13 @@ function buildResult(result: SearchResultT<LabelT>, index: number) {
   );
 }
 
-const LabelResults = ({
+component LabelResults(...{
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<LabelT>): React$Element<typeof ResultsLayout> => {
+}: ResultsPropsT<LabelT>) {
   const $c = React.useContext(CatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
@@ -84,6 +84,6 @@ const LabelResults = ({
       ) : null}
     </ResultsLayout>
   );
-};
+}
 
 export default LabelResults;

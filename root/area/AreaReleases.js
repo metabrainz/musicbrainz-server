@@ -17,19 +17,12 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
 
-type Props = {
-  +area: AreaT,
-  +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
-  +pager: PagerT,
-  +releases: ?$ReadOnlyArray<ReleaseT>,
-};
-
-const AreaReleases = ({
-  area,
-  pagedLinkTypeGroup,
-  pager,
-  releases,
-}: Props): React$Element<typeof AreaLayout> => {
+component AreaReleases(
+  area: AreaT,
+  pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
+  pager: PagerT,
+  releases: ?$ReadOnlyArray<ReleaseT>,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <AreaLayout entity={area} page="releases" title={l('Releases')}>
@@ -73,6 +66,6 @@ const AreaReleases = ({
       />
     </AreaLayout>
   );
-};
+}
 
 export default AreaReleases;

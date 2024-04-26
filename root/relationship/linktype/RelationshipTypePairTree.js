@@ -24,17 +24,7 @@ import {isRelationshipEditor}
 import RelationshipsHeader from '../RelationshipsHeader.js';
 import compareChildren from '../utility/compareChildren.js';
 
-type RelationshipTypeDetailsProps = {
-  +relType: LinkTypeT,
-};
-
-type RelationshipTypePairTreeProps = {
-  +root: LinkTypeT,
-};
-
-const RelationshipTypeDetails = ({
-  relType,
-}: RelationshipTypeDetailsProps): React$Element<'li'> => {
+component RelationshipTypeDetails(relType: LinkTypeT) {
   const $c = React.useContext(SanitizedCatalystContext);
   const childrenTypes = relType.children || [];
   return (
@@ -156,11 +146,9 @@ const RelationshipTypeDetails = ({
       ) : null}
     </li>
   );
-};
+}
 
-const RelationshipTypePairTree = ({
-  root,
-}: RelationshipTypePairTreeProps): React$Element<typeof Layout> => {
+component RelationshipTypePairTree(root: LinkTypeT) {
   const $c = React.useContext(SanitizedCatalystContext);
   const childrenTypes = root.children || [];
   const type0 = root.type0;
@@ -241,6 +229,6 @@ const RelationshipTypePairTree = ({
       </div>
     </Layout>
   );
-};
+}
 
 export default RelationshipTypePairTree;

@@ -9,22 +9,24 @@
 
 import StatisticsLayout from './StatisticsLayout.js';
 
-const NoStatistics = (): React$Element<typeof StatisticsLayout> => (
-  <StatisticsLayout
-    fullWidth
-    page="index"
-    title={l_statistics('No statistics')}
-  >
-    <h2>{l_statistics('No statistics')}</h2>
-    <p>
-      {exp.l_statistics(
-        `Statistics have never been collected for this server. If you are the
-         administrator for this server, you should run
-         <code>./admin/CollectStats.pl</code> or import
-         <code>mbdump-stats.tar.bz2</code>.`,
-      )}
-    </p>
-  </StatisticsLayout>
-);
+component NoStatistics() {
+  return (
+    <StatisticsLayout
+      fullWidth
+      page="index"
+      title={l_statistics('No statistics')}
+    >
+      <h2>{l_statistics('No statistics')}</h2>
+      <p>
+        {exp.l_statistics(
+          `Statistics have never been collected for this server. If you are
+           the administrator for this server, you should run
+           <code>./admin/CollectStats.pl</code> or import
+           <code>mbdump-stats.tar.bz2</code>.`,
+        )}
+      </p>
+    </StatisticsLayout>
+  );
+}
 
 export default NoStatistics;

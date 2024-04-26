@@ -13,33 +13,31 @@ import isGreyedOut from '../static/scripts/url/utility/isGreyedOut.js';
 
 import UrlLayout from './UrlLayout.js';
 
-type Props = {
-  +url: UrlT,
-};
-
-const UrlIndex = ({url}: Props): React$Element<typeof UrlLayout> => (
-  <UrlLayout entity={url} page="index" title={l('URL information')}>
-    <h2 className="url-details">{l('URL details')}</h2>
-    <table className="details">
-      <tr>
-        <th>{addColonText(l('URL'))}</th>
-        <td>
-          {isGreyedOut(url.href_url)
-            ? (
-              <span
-                className="deleted"
-                title={l(`This link has been temporarily disabled because
-                          it has been reported as potentially harmful.`)}
-              >
-                {url.href_url}
-              </span>
-            ) : <a href={url.href_url}>{url.pretty_name}</a>
-          }
-        </td>
-      </tr>
-    </table>
-    <Relationships source={url} />
-  </UrlLayout>
-);
+component UrlIndex(url: UrlT) {
+  return (
+    <UrlLayout entity={url} page="index" title={l('URL information')}>
+      <h2 className="url-details">{l('URL details')}</h2>
+      <table className="details">
+        <tr>
+          <th>{addColonText(l('URL'))}</th>
+          <td>
+            {isGreyedOut(url.href_url)
+              ? (
+                <span
+                  className="deleted"
+                  title={l(`This link has been temporarily disabled because
+                            it has been reported as potentially harmful.`)}
+                >
+                  {url.href_url}
+                </span>
+              ) : <a href={url.href_url}>{url.pretty_name}</a>
+            }
+          </td>
+        </tr>
+      </table>
+      <Relationships source={url} />
+    </UrlLayout>
+  );
+}
 
 export default UrlIndex;
