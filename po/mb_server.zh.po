@@ -12,13 +12,15 @@
 # x1ao4 <kazaf_ken@163.com>, 2024.
 # claybiockiller <claybiockiller@users.noreply.translations.metabrainz.org>, 2024.
 # suming <suming@users.noreply.translations.metabrainz.org>, 2024.
+# yangmouren <yangmouren@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-17 15:48+0000\n"
 "PO-Revision-Date: 2024-04-17 17:40+0000\n"
-"Last-Translator: suming <suming@users.noreply.translations.metabrainz.org>\n"
+"Last-Translator: yangmouren <yangmouren@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -1446,8 +1448,7 @@ msgstr "如果您不知道此实体的代码，将此栏留空即可。"
 msgid ""
 "If you don’t select an existing release group, a new one will be added with "
 "the types selected below."
-msgstr ""
-"如果您没有选择现有存在的版本组，则将添加一个新的版本组，其中包含下面选择的类"
+msgstr "如果您没有选择现有存在的版本组，则将添加一个新的版本组，其中包含下面选择的类"
 "型。"
 
 #: ../root/release/edit/tracklist.tt:5
