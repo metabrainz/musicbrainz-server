@@ -76,7 +76,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-17 15:48+0000\n"
 "PO-Revision-Date: 2024-04-17 17:31+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
+"org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
 "Language: de\n"
@@ -636,9 +637,9 @@ msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
 msgstr ""
-"Bereitgestellt von der {MeB|MetaBrainz-Stiftung} und unseren {spon|"
-"Sponsoren} und {supp|Unterstützern}. Cover-Art zur Verfügung gestellt vom "
-"{caa|Cover-Art-Archiv}."
+"Bereitgestellt von der {MeB|MetaBrainz-Stiftung} und unseren {spon|Sponsoren}"
+" und {supp|Unterstützern}. Cover-Art zur Verfügung gestellt vom {caa|Cover-"
+"Art-Archiv}."
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:211
@@ -4154,8 +4155,7 @@ msgstr "Keine Anmerkung mit der ID „{id}“ gefunden."
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:91
 #, perl-brace-format
 msgid "The annotation with ID “{id}” is not associated with this entity."
-msgstr ""
-"Die Anmerkung mit der ID „{id}“ ist nicht mit diesem Objekt assoziiert."
+msgstr "Die Anmerkung mit der ID „{id}“ ist nicht mit diesem Objekt assoziiert."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:230
 msgid "The old and new annotation ids must be unique, positive integers."
@@ -14054,8 +14054,8 @@ msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on "
 "{date}. {current|View current revision}."
 msgstr ""
-"Dies ist eine {history|alte Revision} dieser Anmerkung, bearbeitet von "
-"{user} am {date}. {current|Aktuelle Revision anzeigen}."
+"Dies ist eine {history|alte Revision} dieser Anmerkung, bearbeitet von {user}"
+" am {date}. {current|Aktuelle Revision anzeigen}."
 
 #: ../root/static/scripts/common/components/Annotation.js:114
 msgid "Annotation last modified on {date}."
