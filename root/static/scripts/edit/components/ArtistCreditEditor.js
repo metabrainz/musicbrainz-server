@@ -288,8 +288,7 @@ export function reducer(
         const name = artistCredit.names[i];
         if (!name.artist) {
           artistCreditCtx.set(
-            'names', i, 'artist',
-            createArtistObject({name: name.name}),
+            'names', i, 'artist', createArtistObject({name: name.name}),
           );
         }
       }

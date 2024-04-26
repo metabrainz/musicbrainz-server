@@ -463,7 +463,10 @@ export default [
       }],
       'eslint-plugin-js/dot-location': ['warn', 'property'],
       'eslint-plugin-js/eol-last': ['warn', 'always'],
-      'eslint-plugin-js/func-call-spacing': ['warn', 'never'],
+      'eslint-plugin-js/function-call-argument-newline': [
+        'warn',
+        'consistent',
+      ],
       'eslint-plugin-js/function-paren-newline': ['warn', 'consistent'],
       'eslint-plugin-js/generator-star-spacing': ['warn', 'after'],
       'eslint-plugin-js/implicit-arrow-linebreak': ['warn', 'beside'],

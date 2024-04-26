@@ -58,8 +58,13 @@ class ApplicationForm extends React.Component<Props, State> {
   handleOauthRedirectURIChange(e: SyntheticEvent<HTMLInputElement>) {
     const selectedOauthRedirectURI = e.currentTarget.value;
     this.setState(prevState => mutate(prevState)
-      .set('form', 'field', 'oauth_redirect_uri', 'value',
-           selectedOauthRedirectURI)
+      .set(
+        'form',
+        'field',
+        'oauth_redirect_uri',
+        'value',
+        selectedOauthRedirectURI,
+      )
       .final());
   }
 

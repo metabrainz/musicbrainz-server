@@ -39,7 +39,8 @@ component PaginatedResults(
         <p className="pageselector-results">
           {(total || empty(query)) ? (
             texp.ln(
-              'Found {n} result', 'Found {n} results',
+              'Found {n} result',
+              'Found {n} results',
               pager.total_entries,
               {n: formatCount($c, pager.total_entries)},
             )

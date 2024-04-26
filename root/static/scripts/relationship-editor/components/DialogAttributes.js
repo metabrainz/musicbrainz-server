@@ -175,7 +175,8 @@ function getLinkAttributesFromState(
         if (attributeState.enabled) {
           const linkAttributeType = attributeState.type;
           return tree.insert(
-            accum, {
+            accum,
+            {
               type: {
                 gid: linkAttributeType.gid,
               },
@@ -197,7 +198,8 @@ function getLinkAttributesFromState(
             valueAttribute.autocomplete.selectedItem?.entity;
           if (linkAttributeType) {
             newAccum = tree.insertIfNotExists(
-              newAccum, {
+              newAccum,
+              {
                 credited_as: clean(valueAttribute.creditedAs),
                 type: {
                   gid: linkAttributeType.gid,
@@ -217,7 +219,8 @@ function getLinkAttributesFromState(
 
         if (nonEmpty(textValue)) {
           return tree.insert(
-            accum, {
+            accum,
+            {
               text_value: textValue,
               type: {
                 gid: linkAttributeType.gid,
