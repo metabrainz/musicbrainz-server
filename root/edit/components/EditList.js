@@ -48,7 +48,7 @@ component EditList(
    * paginator also knows this is an exact number of pages.
    */
   const totalVisibleEdits =
-    pager.entries_per_page * (pager.current_page - 1) + editCountLimit;
+    (pager.entries_per_page * (pager.current_page - 1)) + editCountLimit;
   const isDubiousNumberOfEdits = pager.total_entries === totalVisibleEdits;
   const mightBeMoreEdits = guessSearch && isDubiousNumberOfEdits;
 

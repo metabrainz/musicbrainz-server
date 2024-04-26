@@ -113,8 +113,8 @@ class GuessCaseInput {
   }
 
   hasMoreWords(): boolean {
-    return (this.wordIndex === 0 && this.getLength() > 0 ||
-            this.wordIndex - 1 < this.getLength());
+    return ((this.wordIndex === 0 && this.getLength() > 0) ||
+            (this.wordIndex - 1 < this.getLength()));
   }
 
   isIndexAtEnd(): boolean {

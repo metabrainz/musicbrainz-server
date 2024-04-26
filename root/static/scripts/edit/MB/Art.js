@@ -487,13 +487,13 @@ MB.Art.FileUpload = function (file) {
 
     switch (step) {
       case 1:
-        self.progress(0 + value * 0.1);
+        self.progress(0 + (value * 0.1));
         break;
       case 2:
-        self.progress(10 + value * 0.8);
+        self.progress(10 + (value * 0.8));
         break;
       case 3:
-        self.progress(90 + value * 0.1);
+        self.progress(90 + (value * 0.1));
         break;
     }
   };

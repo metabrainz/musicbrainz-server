@@ -495,6 +495,7 @@ export default [
       }],
       'eslint-plugin-js/no-extra-semi': 'warn',
       'eslint-plugin-js/no-floating-decimal': 'warn',
+      'eslint-plugin-js/no-mixed-operators': 'warn',
       'eslint-plugin-js/no-mixed-spaces-and-tabs': 'warn',
       'eslint-plugin-js/no-multi-spaces': ['error', {
         ignoreEOLComments: true,
