@@ -3,13 +3,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # danBLOO <danielplinplon@gmail.com>, 2024.
+# danBLOO <danBLOO@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-17 15:48+0000\n"
 "PO-Revision-Date: 2024-04-17 17:40+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: danBLOO <danBLOO@users.noreply.translations.metabrainz.org>"
+"\n"
 "Language-Team: Spanish (Latin America) <https://translations.metabrainz.org/"
 "projects/musicbrainz/server/es_419/>\n"
 "Language: es_419\n"
