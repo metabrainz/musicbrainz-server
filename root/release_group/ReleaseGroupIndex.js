@@ -13,6 +13,7 @@ import CleanupBanner from '../components/CleanupBanner.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import ReleaseCatnoList from '../components/ReleaseCatnoList.js';
 import ReleaseLabelList from '../components/ReleaseLabelList.js';
+import ReleaseLanguageScript from '../components/ReleaseLanguageScript.js';
 import {CatalystContext} from '../context.mjs';
 import * as manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
@@ -54,7 +55,7 @@ function buildReleaseStatusTable(
     <React.Fragment key={status ? status.name : 'no-status'}>
       <tr className="subh">
         {$c.user ? <th /> : null}
-        <th colSpan={$c.session?.tport == null ? 8 : 9}>
+        <th colSpan={$c.session?.tport == null ? 9 : 10}>
           {status?.name
             ? lp_attributes(status.name, 'release_status')
             : lp('(unknown)', 'release status')}
@@ -107,6 +108,9 @@ function buildReleaseStatusTable(
             <ReleaseCatnoList labels={release.labels} />
           </td>
           <td className="barcode-cell">{formatBarcode(release.barcode)}</td>
+          <td>
+            <ReleaseLanguageScript release={release} />
+          </td>
           {$c.session?.tport == null ? null : (
             <td>
               <TaggerIcon entityType="release" gid={release.gid} />
@@ -172,6 +176,7 @@ const ReleaseGroupIndex = ({
                     <th>{l('Label')}</th>
                     <th>{l('Catalog#')}</th>
                     <th>{l('Barcode')}</th>
+                    <th>{l('Language')}</th>
                     {$c.session?.tport == null
                       ? null
                       : <th>{lp('Tagger', 'audio file metadata')}</th>}
