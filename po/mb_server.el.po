@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-17 15:48+0000\n"
-"PO-Revision-Date: 2023-08-18 12:53+0000\n"
+"PO-Revision-Date: 2024-04-17 17:31+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Greek <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/el/>\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -6456,8 +6456,8 @@ msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
 "documentation} before {con|contacting us}."
 msgstr ""
-"Αν έχετε απορίες παρακαλούμε δείτε τις {faq|Συχνές Ερωτήσεις} ή την {doc|"
-"τεκμηρίωση} πριν {con|επικοινωνήσετε μαζί μας}. "
+"Αν έχετε απορίες παρακαλούμε δείτε τις {faq|Συχνές Ερωτήσεις} ή την "
+"{doc|τεκμηρίωση} πριν {con|επικοινωνήσετε μαζί μας}. "
 
 #: ../root/account/Register.js:85
 msgid ""
@@ -8351,8 +8351,8 @@ msgstr "Η ψήφος μου:"
 #: ../root/edit/EditIndex.js:122
 msgid "You are not currently able to vote on this edit. ({url|Details})"
 msgstr ""
-"Δεν μπορείτε να ψηφίσετε για αυτή την επεξεργασία αυτή τη στιγμή. ({url|"
-"Λεπτομέρειες})"
+"Δεν μπορείτε να ψηφίσετε για αυτή την επεξεργασία αυτή τη στιγμή. "
+"({url|Λεπτομέρειες})"
 
 #: ../root/edit/EditIndex.js:132
 msgid "Testing features"
@@ -9516,8 +9516,7 @@ msgstr "Ψήφοι υπέρ/κατά:"
 #: ../root/elections/ElectionDetails.js:81
 msgid ""
 "The tally of votes cast will only be shown when the election is complete."
-msgstr ""
-"Το άθροισμα των ψήφων θα εμφανιστεί μόνο μόλις ολοκληρωθεί η ψηφοφορία."
+msgstr "Το άθροισμα των ψήφων θα εμφανιστεί μόνο μόλις ολοκληρωθεί η ψηφοφορία."
 
 #: ../root/elections/ElectionDetails.js:89
 #: ../root/elections/ElectionTable/index.js:23
@@ -12442,9 +12441,9 @@ msgstr ""
 "από τους συνδέσμους είναι σωστός. Απλώς ελέγξτε αν η κυκλοφορία του "
 "MusicBrainz ταιριάζει με την κυκλοφορία στο Discogs (ψάξτε για τη μορφή, "
 "λίστα κομματιών, χώρα κυκλοφορίας κτλ). Επίσης μπορεί να βρείτε κάποια "
-"Discogs URLs να συνδέονται με πολλούς δίσκους μίας κυκλοφορίας πολλών "
-"δίσκων: απλά συγχωνεύστε τες (δείτε {how_to_merge_releases|Πως να "
-"συγχωνεύετε κυκλοφορίες})."
+"Discogs URLs να συνδέονται με πολλούς δίσκους μίας κυκλοφορίας πολλών δίσκων:"
+" απλά συγχωνεύστε τες (δείτε {how_to_merge_releases|Πως να συγχωνεύετε "
+"κυκλοφορίες})."
 
 #: ../root/report/DiscogsLinksWithMultipleReleases.js:37
 #: ../root/report/ReportsIndex.js:284
@@ -13117,8 +13116,7 @@ msgstr ""
 
 #: ../root/report/ReleasesToConvert.js:32 ../root/report/ReportsIndex.js:255
 msgid "Releases which might need converting to \"multiple artists\""
-msgstr ""
-"Κυκλοφορίες που ίσως πρέπει να μετατραπούν σε \"πολλαπλών καλλιτεχνών\""
+msgstr "Κυκλοφορίες που ίσως πρέπει να μετατραπούν σε \"πολλαπλών καλλιτεχνών\""
 
 #: ../root/report/ReleasesWithAmazonCoverArt.js:24
 msgid ""

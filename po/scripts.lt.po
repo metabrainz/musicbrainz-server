@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-04-10 09:28+0000\n"
+"PO-Revision-Date: 2024-04-25 12:42+0000\n"
 "Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/lt/>\n"
@@ -61,12 +61,12 @@ msgstr "Batakų"
 #. frequency:3 iso_code:Beng 
 #: DB:script/name:53
 msgid "Bengali"
-msgstr "Bengalų"
+msgstr "bengalų"
 
 #. frequency:1 iso_code:Blis 
 #: DB:script/name:95
 msgid "Blissymbols"
-msgstr "Bliuzo simbolių"
+msgstr "bliuzo simbolių"
 
 #. frequency:1 iso_code:Phlv 
 #: DB:script/name:123
@@ -91,7 +91,7 @@ msgstr "Brailių"
 #. frequency:2 iso_code:Bugi 
 #: DB:script/name:75
 msgid "Buginese"
-msgstr "Buginų"
+msgstr "buginų"
 
 #. frequency:2 iso_code:Buhd 
 #: DB:script/name:78
@@ -121,7 +121,7 @@ msgstr "Čamų"
 #. frequency:2 iso_code:Cher 
 #: DB:script/name:88
 msgid "Cherokee"
-msgstr "Čerokių"
+msgstr "čerokių"
 
 #. frequency:1 iso_code:Cirt 
 #: DB:script/name:45

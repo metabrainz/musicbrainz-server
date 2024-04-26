@@ -65,18 +65,19 @@
 # c8ba6e46576070595b2ba64068f9a431_0cfbcb2, 2012
 # c8ba6e46576070595b2ba64068f9a431_0cfbcb2, 2012
 # yvanz, 2018
-# chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
+# chaban <chaban@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023, 2024.
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023, 2024.
-# aerozol <aerozol@users.noreply.translations.metabrainz.org>, 2023.
-# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023.
+# aerozol <aerozol@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-17 15:48+0000\n"
-"PO-Revision-Date: 2024-01-31 12:28+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2024-04-17 17:31+0000\n"
+"Last-Translator: aerozol <aerozol@users.noreply.translations.metabrainz.org>"
+"\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
 "Language: de\n"
@@ -84,7 +85,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -379,9 +380,9 @@ msgid ""
 "recording for each track. Choose “Add a new recording” if an appropriate one "
 "doesn’t exist yet."
 msgstr ""
-"Alle Tracks benötigen eine zugehörige Aufnahme. Klicken Sie auf "
-"„Bearbeiten“, um eine Aufnahme für jeden Track auszuwählen. Wählen Sie „Neue "
-"Aufnahme hinzufügen“, wenn keine passende Aufnahme vorhanden ist."
+"Alle Tracks benötigen eine zugehörige Aufnahme. Klicken Sie auf „Bearbeiten“"
+", um eine Aufnahme für jeden Track auszuwählen. Wählen Sie „Neue Aufnahme "
+"hinzufügen“, wenn keine passende Aufnahme vorhanden ist."
 
 #: ../root/components/common-macros.tt:569
 msgid ""
@@ -636,9 +637,9 @@ msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
 msgstr ""
-"Bereitgestellt von der {MeB|MetaBrainz-Stiftung} und unseren {spon|"
-"Sponsoren} und {supp|Unterstützern}. Cover-Art zur Verfügung gestellt vom "
-"{caa|Cover-Art-Archiv}."
+"Bereitgestellt von der {MeB|MetaBrainz-Stiftung} und unseren {spon|Sponsoren}"
+" und {supp|Unterstützern}. Cover-Art zur Verfügung gestellt vom {caa|Cover-"
+"Art-Archiv}."
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:211
@@ -1073,8 +1074,8 @@ msgid ""
 "Enter the delimiter that separates the track name from the artist name "
 "(valid {url|regular expressions} are accepted)."
 msgstr ""
-"Gib das Trennzeichen ein, das den Titelnamen vom Künstlernamen trennt "
-"(gültige {url|reguläre Ausdrücke} werden akzeptiert)."
+"Gib das Trennzeichen ein, das den Titelnamen vom Künstlernamen trennt ("
+"gültige {url|reguläre Ausdrücke} werden akzeptiert)."
 
 #: ../root/edit/search_macros.tt:434
 msgid "Entered"
@@ -1299,8 +1300,8 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:413
 msgid "I confirm this is an intentional use of Various Artists on tracks."
 msgstr ""
-"Ich bestätige, dass dies eine beabsichtigte Verwendung von „Diverse "
-"Künstler“ für die Titel ist."
+"Ich bestätige, dass dies eine beabsichtigte Verwendung von „Diverse Künstler“"
+" für die Titel ist."
 
 #: ../root/release/edit/tracklist.tt:314
 msgid "I don’t know"
@@ -1832,8 +1833,8 @@ msgstr ""
 #: ../root/release_group/set_cover_art.tt:96
 msgid "No releases have cover art marked as \"Front\", cannot set cover art."
 msgstr ""
-"Keine Veröffentlichungen haben Cover-Art, das als „Vorderseite“ markiert "
-"ist; kann Cover-Art nicht festlegen."
+"Keine Veröffentlichungen haben Cover-Art, das als „Vorderseite“ markiert ist;"
+" kann Cover-Art nicht festlegen."
 
 #: ../root/release/edit/tracklist.tt:140
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:472
@@ -2312,8 +2313,8 @@ msgstr ""
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
-"Serverversion: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</"
-"span>"
+"Serverversion: <span class=\"tooltip\" title=\"{msg}\">{branch} "
+"({sha})</span>"
 
 #: ../root/release/edit/information.tt:117
 #: ../root/edit/details/AddRelease.js:98
@@ -2544,8 +2545,7 @@ msgstr "Das Anmerkungsfeld funktioniert wie ein Mini-Wiki."
 
 #: ../root/release/edit/information.tt:297
 msgid "The catalog number you have entered looks like an Amazon ASIN."
-msgstr ""
-"Die von dir eingegebene Katalognummer scheint eine Amazon-ASIN zu sein."
+msgstr "Die von dir eingegebene Katalognummer scheint eine Amazon-ASIN zu sein."
 
 #: ../root/layout.tt:90 ../root/layout/index.js:290
 msgid ""
@@ -2657,9 +2657,9 @@ msgstr ""
 "Es gibt keine Aufnahmen, Veröffentlichungsgruppe, Veröffentlichungen oder "
 "Titel, die nur {name} zugeschrieben werden. Solltest du versuchen, {name} zu "
 "entfernen, so bearbeite alle Künstlernennungen am Ende der {alias_uri|Alias}-"
-"Registerkarte und entferne stattdessen alle bestehenden {rel_uri|"
-"Beziehungen}, damit ModBot diesen Künstler in den kommenden Tagen "
-"automatisch entfernen kann."
+"Registerkarte und entferne stattdessen alle bestehenden {rel_uri|Beziehungen}"
+", damit ModBot diesen Künstler in den kommenden Tagen automatisch entfernen "
+"kann."
 
 #: ../root/place/edit_form.tt:29
 #: ../lib/MusicBrainz/Server/Form/Field/Coordinates.pm:58
@@ -2680,12 +2680,12 @@ msgid ""
 "can quote a source to support a point you're making, you should never enter "
 "promotional texts or other artist or label-owned texts into the annotation."
 msgstr ""
-"Diese Anmerkung wird unter einer offenen Lizenz (<a href=\"{url}\" "
-"target=\"_blank\">CC BY-NC-SA 3.0</a>) veröffentlicht und sollte daher "
-"keinen Text enthalten, den man nicht unter dieser Lizenz veröffentlichen "
-"darf. Du kannst zwar eine Quelle zitieren, um deine Position zu stützen, "
-"aber du solltest niemals Werbetexte oder andere Künstler- oder Label-"
-"bezogene Texte in die Anmerkung eintragen."
+"Diese Anmerkung wird unter einer offenen Lizenz (<a href=\"{url}\" target="
+"\"_blank\">CC BY-NC-SA 3.0</a>) veröffentlicht und sollte daher keinen Text "
+"enthalten, den man nicht unter dieser Lizenz veröffentlichen darf. Du kannst "
+"zwar eine Quelle zitieren, um deine Position zu stützen, aber du solltest "
+"niemals Werbetexte oder andere Künstler- oder Label-bezogene Texte in die "
+"Anmerkung eintragen."
 
 #: ../root/artist/edit_form.tt:53
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:53
@@ -2716,8 +2716,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:38
 msgid "This entity has been removed, and cannot be displayed correctly."
-msgstr ""
-"Dieses Objekt wurde gelöscht und kann nicht korrekt dargestellt werden."
+msgstr "Dieses Objekt wurde gelöscht und kann nicht korrekt dargestellt werden."
 
 #: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:37
@@ -3917,8 +3916,8 @@ msgid ""
 "We can't send a password reset email, because we have no email on record for "
 "this user."
 msgstr ""
-"Wir können keine Passwort-Zurücksetzen-E-Mail schicken, weil wir keine E-"
-"Mail-Adresse für diesen Benutzer haben."
+"Wir können keine Passwort-Zurücksetzen-E-Mail schicken, weil wir keine E"
+"-Mail-Adresse für diesen Benutzer haben."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:241
 msgid "Your password has been reset."
@@ -4156,8 +4155,7 @@ msgstr "Keine Anmerkung mit der ID „{id}“ gefunden."
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:91
 #, perl-brace-format
 msgid "The annotation with ID “{id}” is not associated with this entity."
-msgstr ""
-"Die Anmerkung mit der ID „{id}“ ist nicht mit diesem Objekt assoziiert."
+msgstr "Die Anmerkung mit der ID „{id}“ ist nicht mit diesem Objekt assoziiert."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:230
 msgid "The old and new annotation ids must be unique, positive integers."
@@ -4178,8 +4176,8 @@ msgstr "[unbekannt]"
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
 msgstr ""
-"Sprache gesetzt. Wenn das nicht beabsichtigt war, {url|auf "
-"„{prev_lang_name}“ zurücksetzen}."
+"Sprache gesetzt. Wenn das nicht beabsichtigt war, {url|auf „{prev_lang_name}“"
+" zurücksetzen}."
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:102
 msgid ""
@@ -5689,8 +5687,8 @@ msgid ""
 "Must be a valid date or partial date. Examples: 2006-05-25, "
 "1990-01, ????-01, ..."
 msgstr ""
-"Muss ein gültiges Datum oder Teil-Datum sein. Beispiele: 2006-05-25, "
-"1990-01, ????-01, …"
+"Muss ein gültiges Datum oder Teil-Datum sein. Beispiele: 2006-05-25, 1990-"
+"01, ????-01, …"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:54
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:63
@@ -5958,8 +5956,7 @@ msgstr "Dieser Benutzername ist für internen Gebrauch reserviert."
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:226
 msgid "Please choose another username, this one is already taken."
-msgstr ""
-"Bitte wähle einen anderen Benutzernamen. Dieser wird bereits verwendet."
+msgstr "Bitte wähle einen anderen Benutzernamen. Dieser wird bereits verwendet."
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:64
 msgid "Please select a work attribute type."
@@ -6286,8 +6283,8 @@ msgstr ""
 "Gemeinfreiheit (Public Domain) entlassen und/oder unter einer Creative-"
 "Commons-BY-NC-SA-Lizenz lizenziert wird. Darüber hinaus gibst du der "
 "MetaBrainz-Stiftung das Recht, diese Daten zur kommerziellen Nutzung zu "
-"lizenzieren. Weitere Details findest du auf unserer {doc|Lizenzseite}.</"
-"strong>"
+"lizenzieren. Weitere Details findest du auf unserer "
+"{doc|Lizenzseite}.</strong>"
 
 #: ../root/account/Register.js:51
 msgid ""
@@ -6297,8 +6294,8 @@ msgid ""
 msgstr ""
 "MusicBrainz ist die Privatsphäre seiner Benutzer sehr wichtig! Nichts von "
 "den persönlichen Angaben, die du hier machst, wird jemals an Andere verkauft "
-"oder weitergegeben. Zu den Einzelheiten lies bitte unsere {doc|"
-"Datenschutzerklärung}."
+"oder weitergegeben. Zu den Einzelheiten lies bitte unsere "
+"{doc|Datenschutzerklärung}."
 
 #: ../root/account/Register.js:61
 msgid ""
@@ -6427,9 +6424,9 @@ msgid ""
 "MusicBrainz API}? {register_url|Register an application} to generate OAuth "
 "tokens. See our {oauth2_doc_url|OAuth documentation} for more details."
 msgstr ""
-"Willst du eine Anwendung entwickeln, die die {mb_api_doc_url|MusicBrainz-"
-"API} verwendet? {register_url|Registriere eine Anwendung}, um OAuth-Tokens "
-"zu generieren. Siehe unsere {oauth2_doc_url|OAuth-Dokumentation} für nähere "
+"Willst du eine Anwendung entwickeln, die die {mb_api_doc_url|MusicBrainz-API}"
+" verwendet? {register_url|Registriere eine Anwendung}, um OAuth-Tokens zu "
+"generieren. Siehe unsere {oauth2_doc_url|OAuth-Dokumentation} für nähere "
 "Informationen."
 
 #: ../root/account/applications/ApplicationList.js:156
@@ -6642,11 +6639,11 @@ msgid ""
 "intended it to show."
 msgstr ""
 "Da eckige Klammern [] benutzt werden, um Links zu erstellen, musst du die "
-"kodierten HTML-Äquivalente (<code>&amp;#91;</code> für [) und (<code>&amp;"
-"#93;</code> für ]) benutzen, wenn du nicht willst, dass sie in Links "
-"umgewandelt werden. Beispiel: Wenn du in der Anmerkung [unknown] benutzen "
-"willst, musst du <code>&amp;#91;unknown&amp;#93;</code> schreiben, damit es "
-"wie von dir beabsichtigt angezeigt wird."
+"kodierten HTML-Äquivalente (<code>&amp;#91;</code> für [) und "
+"(<code>&amp;#93;</code> für ]) benutzen, wenn du nicht willst, dass sie in "
+"Links umgewandelt werden. Beispiel: Wenn du in der Anmerkung [unknown] "
+"benutzen willst, musst du <code>&amp;#91;unknown&amp;#93;</code> schreiben, "
+"damit es wie von dir beabsichtigt angezeigt wird."
 
 #: ../root/area/AreaArtists.js:32 ../root/area/AreaArtists.js:33
 #: ../root/components/EntityTabs.js:23
@@ -7450,8 +7447,8 @@ msgstr "Bearbeiten"
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
-"Dieser Inhalt ist versteckt, um Spam zu verhindern. Bitte {url|melde dich "
-"an}, um ihn zu sehen."
+"Dieser Inhalt ist versteckt, um Spam zu verhindern. Bitte {url|melde dich an}"
+", um ihn zu sehen."
 
 #: ../root/collection/CollectionIndex.js:205
 #: ../root/collection/CollectionMerge.js:70
@@ -7985,8 +7982,8 @@ msgid_plural ""
 msgstr[0] ""
 "Schließt in <span class=\"tooltip\" title=\"{exactdate}\">{num} Stunde</span>"
 msgstr[1] ""
-"Schließt in <span class=\"tooltip\" title=\"{exactdate}\">{num} Stunden</"
-"span>"
+"Schließt in <span class=\"tooltip\" title=\"{exactdate}\">{num} "
+"Stunden</span>"
 
 #: ../root/components/VotingPeriod.js:58
 msgid ""
@@ -7996,8 +7993,8 @@ msgid_plural ""
 msgstr[0] ""
 "Schließt in <span class=\"tooltip\" title=\"{exactdate}\">{num} Minute</span>"
 msgstr[1] ""
-"Schließt in <span class=\"tooltip\" title=\"{exactdate}\">{num} Minuten</"
-"span>"
+"Schließt in <span class=\"tooltip\" title=\"{exactdate}\">{num} "
+"Minuten</span>"
 
 #: ../root/components/VotingPeriod.js:66
 msgid "About to close"
@@ -8488,8 +8485,8 @@ msgid ""
 "writing edit notes!"
 msgstr ""
 "Bearbeitungsbemerkungen unterstützen {doc_formatting|eine begrenzte Anzahl "
-"von Wiki-Formatierungsoptionen}. Bitte beachte immer den {doc_coc|"
-"Verhaltenskodex}, wenn du Bemerkungen schreibst!"
+"von Wiki-Formatierungsoptionen}. Bitte beachte immer den "
+"{doc_coc|Verhaltenskodex}, wenn du Bemerkungen schreibst!"
 
 #: ../root/edit/components/EditNotes.js:55
 msgid "No edit notes have been added."
@@ -8502,8 +8499,8 @@ msgstr "Bearbeitungsbemerkung hinzufügen"
 #: ../root/edit/components/EditNotes.js:78
 msgid "You are not currently able to add notes to this edit. ({url|Details})"
 msgstr ""
-"Du kannst derzeit keine Bemerkungen zu dieser Bearbeitung abgegeben. ({url|"
-"Details})"
+"Du kannst derzeit keine Bemerkungen zu dieser Bearbeitung abgegeben. "
+"({url|Details})"
 
 #: ../root/edit/components/EditSidebar.js:48
 msgid "Opened:"
@@ -8566,8 +8563,8 @@ msgid ""
 "This field is intentionally left as it was originally entered (untranslated, "
 "unformatted)."
 msgstr ""
-"Dieses Feld wird bewusst so belassen, wie es ursprünglich eingegeben wurde "
-"(unübersetzt, unformatiert)."
+"Dieses Feld wird bewusst so belassen, wie es ursprünglich eingegeben wurde ("
+"unübersetzt, unformatiert)."
 
 #: ../root/edit/components/ListHeader.js:49
 msgid "Open edits for {user}"
@@ -9203,8 +9200,8 @@ msgid ""
 "Medium <span class=\"new\">{new}</span> (moved from position <span "
 "class=\"old\">{old}</span>)"
 msgstr ""
-"Medium <span class=\"new\">{new}</span> (verschoben von Position <span "
-"class=\"old\">{old}</span>)"
+"Medium <span class=\"new\">{new}</span> (verschoben von Position <span class="
+"\"old\">{old}</span>)"
 
 #: ../root/edit/details/ReorderRelationships.js:21
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:157
@@ -9646,8 +9643,8 @@ msgid ""
 "perform an {search_url|edit search} instead."
 msgstr ""
 "Tut uns leid, wir konnten keine Bearbeitung mit dieser Bearbeitungs-ID "
-"finden. Du könntest stattdessen versuchen, eine {search_url|"
-"Bearbeitungssuche} durchzuführen."
+"finden. Du könntest stattdessen versuchen, eine "
+"{search_url|Bearbeitungssuche} durchzuführen."
 
 #: ../root/entity/NotFound.js:66
 msgctxt "header"
@@ -10996,8 +10993,8 @@ msgid ""
 "In order to view this page, please visit the main server at {mb|https://"
 "musicbrainz.org/}."
 msgstr ""
-"Um diese Seite zu betrachten, besuche bitte den Hauptserver unter {mb|"
-"https://musicbrainz.org/}."
+"Um diese Seite zu betrachten, besuche bitte den Hauptserver unter "
+"{mb|https://musicbrainz.org/}."
 
 #: ../root/main/error/TimeoutError.js:25
 msgid "Request timed out"
@@ -12045,8 +12042,8 @@ msgid ""
 msgstr ""
 "Dieser Report listet Künstler auf, die Zusammenarbeitsbeziehungen haben, "
 "aber keine URL-Beziehungen. Wenn diese Zusammenarbeit ihren eigenen "
-"unabhängigen Namen hat, unternimm nichts weiter. Wenn der Name in der Form "
-"„X mit Y“ oder „X & Y“ ist, solltest du ihn wahrscheinlich aufteilen. Siehe "
+"unabhängigen Namen hat, unternimm nichts weiter. Wenn der Name in der Form „"
+"X mit Y“ oder „X & Y“ ist, solltest du ihn wahrscheinlich aufteilen. Siehe "
 "{how_to_split_artists|Wie man Künstler aufteilt}."
 
 #: ../root/report/CollaborationRelationships.js:42
@@ -12231,10 +12228,10 @@ msgstr ""
 "identifizieren. Wenn es sich bei zwei Künstlern eigentlich um den gleichen "
 "handelt, vereine sie bitte (denk daran, {how_to_write_edit_notes|eine "
 "Bearbeitungsbemerkung zu schreiben} und deinen Nachweis mit anzugeben). Sind "
-"sie jedoch unterschiedlich, so gib ihnen {disambiguation_comment|"
-"Unterscheidungskommentare} (und sobald eine Gruppe von ähnlich benannten "
-"Künstlern Unterscheidungskommentare hat, werden sie hier nicht mehr "
-"auftauchen)."
+"sie jedoch unterschiedlich, so gib ihnen "
+"{disambiguation_comment|Unterscheidungskommentare} (und sobald eine Gruppe "
+"von ähnlich benannten Künstlern Unterscheidungskommentare hat, werden sie "
+"hier nicht mehr auftauchen)."
 
 #: ../root/report/DuplicateArtists.js:55 ../root/report/ReportsIndex.js:71
 msgid "Possibly duplicate artists"
@@ -12603,9 +12600,10 @@ msgstr ""
 "ein einziges Äquivalent in Discogs haben, und es dürfte daher nur einer der "
 "Links korrekt sein. Überprüfe einfach, welcher davon nicht auf die "
 "Veröffentlichung passt (wegen unterschiedlichem Format, Anzahl Titeln etc.). "
-"„Master“-Discogs-Seiten gehören auf die Ebene der {release_group|"
-"Veröffentlichungsgruppen}, nicht auf die Veröffentlichungsebene, und sollten "
-"auch von Veröffentlichungen entfernt werden."
+"„Master“-Discogs-Seiten gehören auf die Ebene der "
+"{release_group|Veröffentlichungsgruppen}, nicht auf die "
+"Veröffentlichungsebene, und sollten auch von Veröffentlichungen entfernt "
+"werden."
 
 #: ../root/report/MultipleDiscogsLinks.js:36
 msgid "Releases with multiple Discogs links"
@@ -13087,9 +13085,9 @@ msgstr ""
 "Falls du am Bearbeitungsprozess teilnehmen willst, aber nicht so recht "
 "weißt, wo du anfangen sollst, könnten die folgenden Reporte einen guten "
 "Einstieg bilden. Diese Reporte durchstreifen die Datenbank nach Daten, die "
-"möglicherweise korrigiert werden müssen, entweder um mit den {style|"
-"Stilrichtlinien} übereinzustimmen, oder in anderen Fällen, wo administrative "
-"„Aufräumarbeiten“ nötig sind."
+"möglicherweise korrigiert werden müssen, entweder um mit den "
+"{style|Stilrichtlinien} übereinzustimmen, oder in anderen Fällen, wo "
+"administrative „Aufräumarbeiten“ nötig sind."
 
 #: ../root/report/ReportsIndex.js:75
 msgid "Artists which have collaboration relationships"
@@ -13269,8 +13267,8 @@ msgstr ""
 "Paar von Veröffentlichungsgruppen aufgelistet ist, sollten sie "
 "wahrscheinlich vereint werden. Wenn die Veröffentlichungen einzelne Medien "
 "darstellen, die mit „Teil eines Sets“-Beziehungen verbunden sind, solltest "
-"du sie wahrscheinlich als Veröffentlichungen mit mehreren Medien vereinen "
-"(siehe {how_to_merge_releases|Wie man Veröffentlichungen vereint})."
+"du sie wahrscheinlich als Veröffentlichungen mit mehreren Medien vereinen ("
+"siehe {how_to_merge_releases|Wie man Veröffentlichungen vereint})."
 
 #: ../root/report/ShouldNotHaveDiscIds.js:24
 msgid ""
@@ -13567,8 +13565,7 @@ msgstr ""
 
 #: ../root/search/components/ReleaseResults.js:151
 msgid "Alternatively, you may {uri|add a new release}."
-msgstr ""
-"Stattdessen kannst du auch {uri|eine neue Veröffentlichung hinzufügen}."
+msgstr "Stattdessen kannst du auch {uri|eine neue Veröffentlichung hinzufügen}."
 
 #: ../root/search/components/ResultsLayout.js:38
 msgid "Last updated: {date}"
@@ -13697,8 +13694,7 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:208
 msgid "If you change your email address, you will be required to verify it."
-msgstr ""
-"Wenn du deine E-Mail-Adresse änderst, musst du sie nochmals bestätigen."
+msgstr "Wenn du deine E-Mail-Adresse änderst, musst du sie nochmals bestätigen."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:215
 msgid "Website"
@@ -14057,8 +14053,8 @@ msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on "
 "{date}. {current|View current revision}."
 msgstr ""
-"Dies ist eine {history|alte Revision} dieser Anmerkung, bearbeitet von "
-"{user} am {date}. {current|Aktuelle Revision anzeigen}."
+"Dies ist eine {history|alte Revision} dieser Anmerkung, bearbeitet von {user}"
+" am {date}. {current|Aktuelle Revision anzeigen}."
 
 #: ../root/static/scripts/common/components/Annotation.js:114
 msgid "Annotation last modified on {date}."
@@ -16534,8 +16530,7 @@ msgstr ""
 
 #: ../root/user/ReportUser.js:101
 msgid "Please review our {uri|Code of Conduct} before sending a report."
-msgstr ""
-"Bitte lies unseren {uri|Verhaltenskodex}, bevor du eine Meldung machst."
+msgstr "Bitte lies unseren {uri|Verhaltenskodex}, bevor du eine Meldung machst."
 
 #: ../root/user/ReportUser.js:109
 msgid ""

@@ -5,7 +5,7 @@
 #
 # Translators:
 # Vaclovas lntas (Vac.) <email address hidden>, 2023
-# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023, 2024.
 # "Vac31." <gateway_31@protonmail.com>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # "Vac31." <Vaclovas@users.noreply.translations.metabrainz.org>, 2024.
@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-17 15:48+0000\n"
-"PO-Revision-Date: 2024-04-02 18:28+0000\n"
-"Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
+"PO-Revision-Date: 2024-04-17 17:36+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
 "Language: lt\n"
@@ -23,9 +23,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.4\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -138,8 +138,8 @@ msgid ""
 msgstr ""
 "<strong>Pastaba:</strong> klasikinėje muzikoje {csg_recording_artist|įrašų "
 "atlikėjai} beveik visada turėtų skirtis nuo {csg_track_artist|takelių "
-"atlikėjų}, todėl redaguojant klasikinės muzikos leidinį nenaudok parinkties "
-"„kopijuoti atlikėjų įrašus“, nebent esi tikras (-a), kad tai gera idėja!"
+"atlikėjų}, todėl redaguojant klasikinės muzikos leidinį nenaudok parinkties „"
+"kopijuoti atlikėjų įrašus“, nebent esi tikras (-a), kad tai gera idėja!"
 
 #: ../root/components/common-macros.tt:484 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
@@ -185,8 +185,8 @@ msgid ""
 "artists and works."
 msgstr ""
 "Eilutės pradžioje pridėk „@ “, kad pažymėti atlikėjus, „* “ – kūrinį / "
-"dainą, „# “ – papildomą informaciją (pavyzdžiui, „Encore“). [mbid|"
-"pavadinimas] leidžia nurodyti nuorodas į atlikėjus ir kūrinius."
+"dainą, „# “ – papildomą informaciją (pavyzdžiui, „Encore“). "
+"[mbid|pavadinimas] leidžia nurodyti nuorodas į atlikėjus ir kūrinius."
 
 #: ../root/release/edit/tracklist.tt:273
 msgid ""
@@ -580,8 +580,9 @@ msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
 msgstr ""
-"Pristato {MeB|MetaBrainz fondas} ir mūsų {spon|rėmėjai} bei {supp|"
-"palaikytojai}. Viršelio apipavidalinimą pateikė {caa|Cover Art Archive}."
+"Pristato {MeB|MetaBrainz fondas} ir mūsų {spon|rėmėjai} bei "
+"{supp|palaikytojai}. Viršelio apipavidalinimą pateikė {caa|Cover Art "
+"Archive}."
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:211
@@ -1012,8 +1013,8 @@ msgid ""
 "Enter the delimiter that separates the track name from the artist name "
 "(valid {url|regular expressions} are accepted)."
 msgstr ""
-"Įvesk skirtuką, kuris atskiria takelio pavadinimą nuo atlikėjo vardo "
-"(priimamos galiojančios {url|reguliarios raiškinios})."
+"Įvesk skirtuką, kuris atskiria takelio pavadinimą nuo atlikėjo vardo ("
+"priimamos galiojančios {url|reguliarios raiškinios})."
 
 #: ../root/edit/search_macros.tt:434
 msgid "Entered"
@@ -1248,8 +1249,7 @@ msgstr "Nežinau šios laikmenos takelių sąrašo."
 
 #: ../root/release/edit/tracklist.tt:280
 msgid "I have no information about this release’s media and tracklist."
-msgstr ""
-"Neturiu jokios informacijos apie šio leidinio mediją ir takelių sąrašą."
+msgstr "Neturiu jokios informacijos apie šio leidinio mediją ir takelių sąrašą."
 
 #: ../root/edit/search_macros.tt:434 ../root/futureColumnLabels.js:22
 #: ../root/futureColumnLabels.js:38
@@ -1949,8 +1949,8 @@ msgid ""
 "Please enter the barcode of the release you are entering, see <a "
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
 msgstr ""
-"Įvesk įvedamo leidinio brūkšninį kodą. Žiūrėk <a href=\"{url}\" "
-"target=\"_blank\">Brūkšninis kodas</a>, kur rasi daugiau informacijos."
+"Įvesk įvedamo leidinio brūkšninį kodą. Žiūrėk <a href=\"{url}\" target="
+"\"_blank\">Brūkšninis kodas</a>, kur rasi daugiau informacijos."
 
 #: ../root/layout/merge-helper.tt:24
 #: ../root/layout/components/MergeHelper.js:58
@@ -2344,8 +2344,8 @@ msgid ""
 "Select a release to which the disc ID <code>{discid}</code>. should be moved "
 "to."
 msgstr ""
-"Pasirink leidinį, į kurį turėtų būti perkeltas disko ID <code>{discid}</"
-"code>."
+"Pasirink leidinį, į kurį turėtų būti perkeltas disko ID "
+"<code>{discid}</code>."
 
 #: ../root/components/forms.tt:369
 msgid ""
@@ -2958,8 +2958,8 @@ msgid ""
 "this medium” checkbox above and enter the available info. If you have no "
 "information about this release’s media, remove all media."
 msgstr ""
-"Takeliai reikalingi. Jei jų nežinai, bet žinai tam tikrą informaciją "
-"(pavyzdžiui, medijos formatą ar skaičių), pažymėk aukščiau esantį žymimąjį "
+"Takeliai reikalingi. Jei jų nežinai, bet žinai tam tikrą informaciją ("
+"pavyzdžiui, medijos formatą ar skaičių), pažymėk aukščiau esantį žymimąjį "
 "langelį „Nežinau takelių sąrašo šiai medijai“ ir įvesk turimą informaciją. "
 "Jei neturi jokios informacijos apie šio leidinio laikmenas, pašalink visas "
 "medijas."
@@ -3421,10 +3421,9 @@ msgid ""
 "tracks below. {valink|Various Artists} should very rarely be used on tracks; "
 "please make sure the artists have been entered correctly."
 msgstr ""
-"Kai kuriuose žemiau esančiuose takeliuose naudojai {valink|Įvairūs "
-"atlikėjai} ypatingos paskirties atlikėją. {valink|Įvairūs atlikėjai} labai "
-"retai turėtų būti naudojami takeliuose, įsitikink, kad atlikėjai įvesti "
-"teisingai."
+"Kai kuriuose žemiau esančiuose takeliuose naudojai {valink|Įvairūs atlikėjai}"
+" ypatingos paskirties atlikėją. {valink|Įvairūs atlikėjai} labai retai "
+"turėtų būti naudojami takeliuose, įsitikink, kad atlikėjai įvesti teisingai."
 
 #: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:51
@@ -4283,8 +4282,8 @@ msgid ""
 "so we can resolve this."
 msgstr ""
 "Viršelio apipavidalinimą negalima įkelti į šį leidinį, nes mes neturime "
-"susijusio elemento Interneto archyve. Susisiek su mumis adresu "
-"{contact_url}, kad galėtume išspręsti šią problemą."
+"susijusio elemento Interneto archyve. Susisiek su mumis adresu {contact_url}"
+", kad galėtume išspręsti šią problemą."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:708
 msgid ""
@@ -5785,8 +5784,8 @@ msgid ""
 "Must be a valid date or partial date. Examples: 2006-05-25, "
 "1990-01, ????-01, ..."
 msgstr ""
-"Turi būti tinkama data arba dalinė data. Pavyzdžiai: 2006-05-25, "
-"1990-01, ????-01, ..."
+"Turi būti tinkama data arba dalinė data. Pavyzdžiai: 2006-05-25, 1990-01, "
+"????-01, ..."
 
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:54
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:63
@@ -7488,8 +7487,8 @@ msgstr "Redaguoti"
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
-"Šis turinys paslėptas, kad būtų išvengta šlamšto. Norint jį peržiūrėti, {url|"
-"prisijunk}."
+"Šis turinys paslėptas, kad būtų išvengta šlamšto. Norint jį peržiūrėti, "
+"{url|prisijunk}."
 
 #: ../root/collection/CollectionIndex.js:205
 #: ../root/collection/CollectionMerge.js:70
@@ -9452,8 +9451,8 @@ msgstr ""
 #: ../root/elections/ElectionVoting.js:27
 msgid "To find out if you can vote for this candidate, please {url|log in}."
 msgstr ""
-"Norėdamas (-a) sužinoti, ar gali balsuoti už šį kandidatą (-ę), {url|"
-"prisijunk}."
+"Norėdamas (-a) sužinoti, ar gali balsuoti už šį kandidatą (-ę), "
+"{url|prisijunk}."
 
 #: ../root/elections/ElectionVoting.js:36
 msgid "You cannot vote for this candidate, because you are not an auto-editor."
@@ -11022,8 +11021,8 @@ msgid ""
 "In order to view this page, please visit the main server at {mb|https://"
 "musicbrainz.org/}."
 msgstr ""
-"Norint peržiūrėti šį puslapį, apsilankyk pagrindiniame serveryje adresu {mb|"
-"https://musicbrainz.org/}."
+"Norint peržiūrėti šį puslapį, apsilankyk pagrindiniame serveryje adresu "
+"{mb|https://musicbrainz.org/}."
 
 #: ../root/main/error/TimeoutError.js:25
 msgid "Request timed out"
@@ -11837,8 +11836,7 @@ msgstr ""
 #: ../root/report/ArtistCreditsWithDubiousTrailingPhrases.js:31
 #: ../root/report/ReportsIndex.js:120
 msgid "Artist credits with dubious trailing join phrases"
-msgstr ""
-"Atlikėjo įvardijami su abejotinomis baigiamosiomis jungtinėmis frazėmis"
+msgstr "Atlikėjo įvardijami su abejotinomis baigiamosiomis jungtinėmis frazėmis"
 
 #: ../root/report/ArtistsContainingDisambiguationComments.js:24
 msgid ""
@@ -17247,8 +17245,7 @@ msgstr "Atviri redagavimai su bent 1 balsu „Ne“"
 
 #: ../root/vote/VotingIndex.js:217
 msgid "Open edits with both “Yes” and “No” votes (controversial edits)"
-msgstr ""
-"Atviri redagavimai su balsais „Taip“ ir „Ne“ (prieštaringi redagavimai)"
+msgstr "Atviri redagavimai su balsais „Taip“ ir „Ne“ (prieštaringi redagavimai)"
 
 #: ../root/vote/VotingIndex.js:229
 msgid "Edits by beginners"

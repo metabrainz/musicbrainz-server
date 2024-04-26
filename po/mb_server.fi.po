@@ -28,16 +28,16 @@
 # Timo Martikainen <email address hidden>, 2012-2014
 # yvanz, 2018
 # yvanz, 2018
-# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-17 15:48+0000\n"
-"PO-Revision-Date: 2024-01-04 14:54+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-04-17 17:32+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Finnish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fi/>\n"
 "Language: fi\n"
@@ -45,7 +45,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -207,8 +207,8 @@ msgid ""
 "artists and works."
 msgstr ""
 "Lisää \"@ \" rivin alkuun merkitäksesi artistin, \"* \" merkitsemiseksi "
-"teoksen/kappaleen, \"# \" merkitäksesi lisätietoja (kuten \"Encore\"). [mbid|"
-"name] mahdollistaa artistien ja teoksien linkittämisen."
+"teoksen/kappaleen, \"# \" merkitäksesi lisätietoja (kuten \"Encore\"). "
+"[mbid|name] mahdollistaa artistien ja teoksien linkittämisen."
 
 #: ../root/release/edit/tracklist.tt:273
 #, fuzzy
@@ -636,9 +636,9 @@ msgid ""
 "so at {bugs|our bug tracker}. The information below will help, so please be "
 "sure to include it!"
 msgstr ""
-"Alta löydät tietoja virheestä. Voit halutessasi lisätä virheraportin {bugs|"
-"virheidenseurantaamme}. Alta löytyvä tieto helpottaa vian paikallistamista, "
-"joten muistathan sisällyttää sen raporttiisi!"
+"Alta löydät tietoja virheestä. Voit halutessasi lisätä virheraportin "
+"{bugs|virheidenseurantaamme}. Alta löytyvä tieto helpottaa vian "
+"paikallistamista, joten muistathan sisällyttää sen raporttiisi!"
 
 #: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:132
 #: ../root/layout/components/Footer.js:33
@@ -1212,8 +1212,8 @@ msgid ""
 "For more information, check the {doc_doc|documentation} and {doc_styleguide|"
 "style guidelines}."
 msgstr ""
-"Lisätietoja saat {doc_doc|dokumentaatiosta} ja {doc_styleguide|"
-"tyyliohjeistuksesta}."
+"Lisätietoja saat {doc_doc|dokumentaatiosta} ja "
+"{doc_styleguide|tyyliohjeistuksesta}."
 
 #: ../root/event/edit_form.tt:3 ../root/label/edit_form.tt:3
 #: ../root/place/edit_form.tt:3 ../root/work/edit_form.tt:4
@@ -2039,8 +2039,8 @@ msgid ""
 "Please enter the barcode of the release you are entering, see <a "
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
 msgstr ""
-"Syötä tämän julkaisun viivakoodi. Halutessasi katso lisätietoja <a "
-"href=\"{url}\">viivakoodista</a>."
+"Syötä tämän julkaisun viivakoodi. Halutessasi katso lisätietoja <a href=\""
+"{url}\">viivakoodista</a>."
 
 #: ../root/layout/merge-helper.tt:24
 #: ../root/layout/components/MergeHelper.js:58
@@ -2059,8 +2059,7 @@ msgstr "Katso {doc|kansitaidemuotojen dokumentaatiosta} tarkemmat tiedot."
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
-msgstr ""
-"Valitse tallenne johon haluat liittää tämän CD-levyn sisällysluettelon."
+msgstr "Valitse tallenne johon haluat liittää tämän CD-levyn sisällysluettelon."
 
 #: ../root/cdtoc/list.tt:6 ../root/release/add_cover_art.tt:125
 #: ../root/release/reorder_cover_art.tt:10
@@ -2391,8 +2390,7 @@ msgstr ""
 #: ../root/layout.tt:131
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
-msgstr ""
-"Ajossa: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
+msgstr "Ajossa: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
 #: ../root/release/edit/information.tt:117
 #: ../root/edit/details/AddRelease.js:98
@@ -4188,8 +4186,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:68
 msgid "The annotation revision ID must be a positive integer"
-msgstr ""
-"Lisätietokentän version tunnisteen tulee olla positiivinen kokonaisluku"
+msgstr "Lisätietokentän version tunnisteen tulee olla positiivinen kokonaisluku"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:76
 #, perl-brace-format
@@ -6426,8 +6423,7 @@ msgstr ""
 
 #: ../root/account/DeleteOwnAccount.js:71
 msgid "Are you sure you want to delete your account? This cannot be undone!"
-msgstr ""
-"Haluatko varmasti poistaa käyttäjätilisi? Tätä toimintoa ei voi kumota!"
+msgstr "Haluatko varmasti poistaa käyttäjätilisi? Tätä toimintoa ei voi kumota!"
 
 #: ../root/account/DeleteOwnAccount.js:82
 #, fuzzy
@@ -6618,8 +6614,8 @@ msgstr ""
 "<strong>Huomaa että työpanoksesi tullaan julkaisemaan vapaasti yleiseen "
 "käyttöön (Public Domain) ja/tai Creative Commons by-nc-sa-lisenssin "
 "alaisena. Lisäksi annat MetaBrainz-säätiölle oikeuden lisensoida tätä dataa "
-"kaupalliseen käyttöön. Tutustu {doc|lisenssisivuumme} saadaksesi lisätietoja."
-"</strong>"
+"kaupalliseen käyttöön. Tutustu {doc|lisenssisivuumme} saadaksesi "
+"lisätietoja.</strong>"
 
 #: ../root/account/Register.js:51
 msgid ""
@@ -6857,8 +6853,8 @@ msgid ""
 "You must verify your email address before you can log in to {discourse|"
 "MetaBrainz Community Discourse}."
 msgstr ""
-"Sähköpostiosoite tulee vahvistaa ennen kuin voit kirjautua{discourse|"
-"MetaBrainz-yhteisön discourseen}."
+"Sähköpostiosoite tulee vahvistaa ennen kuin voit kirjautua{discourse"
+"|MetaBrainz-yhteisön discourseen}."
 
 #: ../root/account/sso/DiscourseRegistered.js:30
 msgid ""
@@ -7010,8 +7006,8 @@ msgstr ""
 "käyttää html-koodattuja vastineita (<code>&amp;#91;</code> merkille [) ja "
 "(<code>&amp;#93;</code> merkille ]), ellei niiden haluta muuttuvan "
 "linkeiksi. Esimerkiksi: Jos halutaan käyttää artistia [tuntematon] "
-"lisätietokentässä, niin se tulee kirjoittaa <code>&amp;#91;tuntematon&amp;"
-"#93;</code>, jotta se näkyy halutusti."
+"lisätietokentässä, niin se tulee kirjoittaa "
+"<code>&amp;#91;tuntematon&amp;#93;</code>, jotta se näkyy halutusti."
 
 #: ../root/area/AreaArtists.js:32 ../root/area/AreaArtists.js:33
 #: ../root/components/EntityTabs.js:23
@@ -8639,8 +8635,7 @@ msgstr "Ääneni: "
 
 #: ../root/edit/EditIndex.js:122
 msgid "You are not currently able to vote on this edit. ({url|Details})"
-msgstr ""
-"Et voi tällä hetkellä äänestää tästä muokkauksesta. ({url|Lisätietoja})"
+msgstr "Et voi tällä hetkellä äänestää tästä muokkauksesta. ({url|Lisätietoja})"
 
 #: ../root/edit/EditIndex.js:132
 msgid "Testing features"
@@ -9620,8 +9615,8 @@ msgid ""
 "Medium <span class=\"new\">{new}</span> (moved from position <span "
 "class=\"old\">{old}</span>)"
 msgstr ""
-"Tallenne <span class=\"new\">{new}</span> (siirretty paikasta <span "
-"class=\"old\">{old}</span>)"
+"Tallenne <span class=\"new\">{new}</span> (siirretty paikasta <span class="
+"\"old\">{old}</span>)"
 
 #: ../root/edit/details/ReorderRelationships.js:21
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:157
@@ -11555,8 +11550,8 @@ msgid ""
 "In order to view this page, please visit the main server at {mb|https://"
 "musicbrainz.org/}."
 msgstr ""
-"Nähdäksesi tämän sivun, siirry pääpalvelimelle osoitteeseen {mb|https://"
-"musicbrainz.org/}."
+"Nähdäksesi tämän sivun, siirry pääpalvelimelle osoitteeseen "
+"{mb|https://musicbrainz.org/}."
 
 #: ../root/main/error/TimeoutError.js:25
 #, fuzzy
@@ -12520,8 +12515,8 @@ msgstr ""
 "Tämä raportti näyttää Amazon web-osoitteet, jotka ovat yhdistetty useisiin "
 "julkaisuihin. Yleensä Amazon ASIN-koodin tulisi vastata yksi yhteen "
 "MusicBrainzin julkaisun kanssa, joten vain yksi linkeistä on oikein. "
-"Tarkista mikä MusicBrainzin julkaisu sopii Amazonin julkaisuun "
-"(julkaisumuoto, kappalelista jne). Jos julkaisussa on viivakoodi, voit etsiä "
+"Tarkista mikä MusicBrainzin julkaisu sopii Amazonin julkaisuun ("
+"julkaisumuoto, kappalelista jne). Jos julkaisussa on viivakoodi, voit etsiä "
 "sillä Amazonista ja katsoa mikä ASIN vastaa sitä. Jotkut ASIN-koodit "
 "saattavat olla yhdistettynä myös useisiin saman julkaisun eri levyihin. Ne "
 "tulee sulauttaa (katso {how_to_merge_releases|kuinka sulauttaa julkaisut})."
@@ -12805,8 +12800,8 @@ msgstr ""
 "Tämä raportti näyttää Discogs web-osoitteet, jotka on yhdistetty useisiin "
 "julkaisuihin. Yleensä Discogsin julkaisun tulisi vastata yksi yhteen "
 "MusicBrainzin julkaisun kanssa, joten vain yksi linkeistä on oikein. "
-"Tarkista mikä MusicBrainzin julkaisu sopii Discogsin julkaisuun "
-"(julkaisumuoto, kappalelista, julkaisumaa jne). Jotkut Discogs-linkit "
+"Tarkista mikä MusicBrainzin julkaisu sopii Discogsin julkaisuun ("
+"julkaisumuoto, kappalelista, julkaisumaa jne). Jotkut Discogs-linkit "
 "saattavat olla yhdistettynä myös useisiin saman julkaisun eri levyihin. Ne "
 "tulee sulauttaa (katso {how_to_merge_releases|kuinka sulauttaa julkaisut})."
 
@@ -13532,8 +13527,7 @@ msgstr ""
 
 #: ../root/report/ReleasesToConvert.js:32 ../root/report/ReportsIndex.js:255
 msgid "Releases which might need converting to \"multiple artists\""
-msgstr ""
-"Julkaisut, jotka saattavat vaatia muunnoksen usean artistin julkaisuksi"
+msgstr "Julkaisut, jotka saattavat vaatia muunnoksen usean artistin julkaisuksi"
 
 #: ../root/report/ReleasesWithAmazonCoverArt.js:24
 msgid ""
@@ -15545,8 +15539,8 @@ msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
-"Linkit Wikipedian artikkeleiden kohtiin ovat kiellettyjä. Poista "
-"“{fragment}” mikäli se vielä jäljellä. Katso {url|ohjeistus}."
+"Linkit Wikipedian artikkeleiden kohtiin ovat kiellettyjä. Poista “{fragment}”"
+" mikäli se vielä jäljellä. Katso {url|ohjeistus}."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6591
 msgid ""
@@ -17137,8 +17131,8 @@ msgstr "Sijainti-editorit"
 #: ../root/user/PrivilegedUsers.js:94
 msgid "Location editors are users who can add or modify {uri|areas}."
 msgstr ""
-"Sijainti-editorit ovat käyttäjiä, jotka voivat lisätä ja muokata {uri|"
-"areas}. "
+"Sijainti-editorit ovat käyttäjiä, jotka voivat lisätä ja muokata {uri|areas}"
+". "
 
 #: ../root/user/PrivilegedUsers.js:100
 msgid "The following {count} users are location editors:"

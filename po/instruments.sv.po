@@ -6,18 +6,20 @@
 # Killinstinct <email address hidden>, 2015
 # Staffan Vilcans, 2015
 # Staffan Vilcans, 2017
+# Autom <filipbengtsson@live.se>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: Henrik Mattsson-Mårn <h@reglage.net>, 2020\n"
-"Language-Team: Swedish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/sv/)\n"
+"PO-Revision-Date: 2024-04-21 14:42+0000\n"
+"Last-Translator: Autom <filipbengtsson@live.se>\n"
+"Language-Team: Swedish <https://translations.metabrainz.org/projects/"
+"musicbrainz/instruments/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -79,7 +81,7 @@ msgstr ""
 
 #: DB:instrument/name:574
 msgid "E-flat clarinet"
-msgstr ""
+msgstr "E♭-klarinett"
 
 #: DB:instrument/name:441
 msgid "EWI"
@@ -302,7 +304,7 @@ msgstr "akustisk gitarr"
 
 #: DB:instrument/name:65
 msgid "aeolian harp"
-msgstr "Eolsharpa"
+msgstr "eolsharpa"
 
 #: DB:instrument/name:717
 msgctxt "Brazillian rattle-gourd"

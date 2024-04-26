@@ -9,18 +9,20 @@
 # Robin Björnsvik <email address hidden>, 2013
 # Staffan Vilcans, 2015
 # Tom Sawyer, 2022
+# Autom <filipbengtsson@live.se>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: Tom Sawyer, 2022\n"
-"Language-Team: Swedish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/sv/)\n"
+"PO-Revision-Date: 2024-04-21 14:42+0000\n"
+"Last-Translator: Autom <filipbengtsson@live.se>\n"
+"Language-Team: Swedish <https://translations.metabrainz.org/projects/"
+"musicbrainz/attributes/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -29,6 +31,8 @@ msgid ""
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
 msgstr ""
+"”Motett” används för att beskriva olika typer av körverk (vanligen utan "
+"ackompanjemang). Vad som räknas som en motett beror på tidsperioden."
 
 #: DB:work_type/description:5
 msgctxt "work_type"
@@ -36,11 +40,14 @@ msgid ""
 "\"Sonata\" is a general term used to describe small scale (very often solo "
 "or solo + keyboard) instrumental works, initially in baroque music."
 msgstr ""
+"”Sonat” är en allmän term för mindre instrumentala verk (vanligen "
+"solostycken eller solo + klaviaturinstrument), ursprungligen från "
+"barockmusiken."
 
 #: DB:medium_format/name:205
 msgctxt "medium_format"
 msgid "10\" Acetate"
-msgstr ""
+msgstr "10 tum acetat"
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
@@ -55,7 +62,7 @@ msgstr "10 tum vinyl"
 #: DB:medium_format/name:206
 msgctxt "medium_format"
 msgid "12\" Acetate"
-msgstr ""
+msgstr "12 tum acetat"
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
@@ -75,17 +82,17 @@ msgstr "12 tum vinyl"
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
-msgstr "3,5-tumsdiskett"
+msgstr "3½-tumsdiskett"
 
 #: DB:medium_format/name:91
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
-msgstr ""
+msgstr "5¼-tumsdiskett"
 
 #: DB:medium_format/name:204
 msgctxt "medium_format"
 msgid "7\" Acetate"
-msgstr ""
+msgstr "7 tum acetat"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -125,7 +132,7 @@ msgstr "8 cm CD+G"
 #: DB:medium_format/description:166
 msgctxt "medium_format"
 msgid "8cm DVD, often used for video singles."
-msgstr ""
+msgstr "8 cm DVD, används ofta för videosinglar."
 
 #: DB:medium_format/description:58
 msgctxt "medium_format"
@@ -133,6 +140,8 @@ msgid ""
 "90 rpm, vertical-cut shellac discs, produced by the Pathé label from 1906 to "
 "1932."
 msgstr ""
+"90 rpm, vertikalt skurna schellack-skivor, producerade av Pathé mellan 1906 "
+"och 1932."
 
 #: DB:release_group_secondary_type/description:1
 msgctxt "release_group_secondary_type"
@@ -216,7 +225,7 @@ msgctxt "place_type"
 msgid ""
 "A (usually green) space kept available for recreation in an otherwise built "
 "and populated area."
-msgstr ""
+msgstr "Ett grönområde avsett för rekreation i stadsmiljö."
 
 #: DB:medium_format/description:129
 msgctxt "medium_format"
@@ -225,6 +234,9 @@ msgid ""
 "often in the first track, that will have to be skipped in many audio "
 "players. Relatively common in old video game CDs."
 msgstr ""
+"En CD med både ljud och data i samma session. Datan ligger ofta som första "
+"spåret och måste hoppas över i många skivspelare. Ganska vanligt med gamla "
+"videospelsskivor."
 
 #: DB:medium_format/description:42
 msgctxt "medium_format"
@@ -233,6 +245,9 @@ msgid ""
 "they are properly separated, audio players will not try to play the data "
 "session and it won't be part of the disc ID for the CD."
 msgstr ""
+"En CD med två sessioner, en med ljud och en med data. Eftersom de är korrekt "
+"separerade kommer skivspelare inte försöka spela datasessionen, som inte "
+"heller ingår i CD:ns skiv-id."
 
 #: DB:release_group_secondary_type/description:8
 msgctxt "release_group_secondary_type"
@@ -266,7 +281,7 @@ msgstr ""
 #: DB:release_packaging/description:19
 msgctxt "release_packaging"
 msgid "A box usually containing multiple discs as part of a boxed set."
-msgstr ""
+msgstr "En låda, ofta innehållande flera skivor som utgör en samling."
 
 #: DB:work_type/description:3
 msgctxt "work_type"
@@ -274,6 +289,8 @@ msgid ""
 "A cantata is a vocal (often choral) composition with an instrumental "
 "(usually orchestral) accompaniment, typically in several movements."
 msgstr ""
+"En kantat är en komposition för sång (ofta körsång) med ett instrumentalt "
+"ackompanjemang (vanligen av en orkester), bestående av en eller flera satser."
 
 #: DB:medium_format/description:46
 msgctxt "medium_format"
@@ -283,6 +300,9 @@ msgid ""
 "with physical releases but sometimes sold as a standalone item (especially "
 "in Asia)."
 msgstr ""
+"Ett kort eller annat föremål som inte innehåller själva musiken, utan en kod "
+"för digital nerladdning. Den följer ibland med fysiska utgåvor men säljs "
+"ibland separat (särskilt i Asien)."
 
 #: DB:label_type/description:10
 msgctxt "label_type"
@@ -290,12 +310,14 @@ msgid ""
 "A company that manufactures physical releases (such as pressing CDs or vinyl "
 "records)."
 msgstr ""
+"Ett företag som tillverkar fysiska utgåvor (exempelvis pressning av CD- "
+"eller vinylskivor)."
 
 #: DB:work_type/description:4
 msgctxt "work_type"
 msgid ""
 "A concerto is a musical work for soloist(s) accompanied by an orchestra."
-msgstr ""
+msgstr "En konsert är ett musikverk för solist(er) med orkesterackompanjemang."
 
 #: DB:event_type/description:4
 msgctxt "event_type"
@@ -304,6 +326,8 @@ msgid ""
 "orientated around music performances, but can include them as side "
 "activities."
 msgstr ""
+"En utställning, mässa eller konvent som inte har musikframträdanden som "
+"huvudsyfte, men kan erbjuda sådana som sidoaktiviteter."
 
 #: DB:release_status/description:2
 msgctxt "release_status"
@@ -312,6 +336,9 @@ msgid ""
 "release (e.g. pre-release versions, releases included with a magazine, "
 "versions supplied to radio DJs for air-play)."
 msgstr ""
+"En gratisutgåva eller utgåva ämnad att marknadsföra en kommande officiell "
+"släppning (till exempel förhandsversioner, inbundet i tidskrifter eller "
+"versioner skänkta till radiostationer för utsändning)."
 
 #: DB:artist_type/description:2
 msgctxt "artist_type"
@@ -319,6 +346,8 @@ msgid ""
 "A grouping of multiple musicians who perform together (in some cases, some "
 "or all of the members might differ in different performances or recordings)."
 msgstr ""
+"En grupp musiker som framträder tillsammans (i vissa fall kan medlemmar "
+"bytas ut mellan framträdanden eller inspelningar)."
 
 #: DB:instrument_type/description:7
 msgctxt "instrument_type"
@@ -326,6 +355,8 @@ msgid ""
 "A grouping of related but different instruments, like the different violin-"
 "like instruments"
 msgstr ""
+"En gruppering av besläktade men olika instrument, som de olika fiolliknande "
+"instrumenten"
 
 #: DB:label_type/description:5
 msgctxt "label_type"
@@ -342,7 +373,7 @@ msgstr ""
 #: DB:place_type/description:43
 msgctxt "place_type"
 msgid "A large, permanent outdoor stage, typically with a fixed seating area."
-msgstr ""
+msgstr "En stor permanent utomhusscen, ofta med fasta sittplatser."
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -356,6 +387,9 @@ msgid ""
 "Christian Eucharistic liturgy (Kyrie - Gloria - Credo - Sanctus - Benedictus "
 "- Agnus Dei, with other portions sometimes added) to music."
 msgstr ""
+"En mässa är ett körverk för de fasta delarna i den kristna nattvardsliturgin "
+"(Kyrie–Gloria–Credo–Sanctus–Benedictus–Agnus Dei, ibland med andra delar "
+"tillagda)."
 
 #: DB:event_type/description:5
 msgctxt "event_type"
@@ -394,7 +428,7 @@ msgstr ""
 #: DB:release_packaging/description:17
 msgctxt "release_packaging"
 msgid "A perfect bound book with a sleeve at the end to hold a CD"
-msgstr ""
+msgstr "En inbunden bok med en CD-ficka på bakre pärmen"
 
 #: DB:event_type/description:6
 msgctxt "event_type"
@@ -4718,12 +4752,9 @@ msgid "Kōmal riṣabh asāvēri"
 msgstr ""
 
 #: DB:work_attribute_type/name:207
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "GEMA ID"
 msgctxt "work_attribute_type"
 msgid "LATGA ID"
-msgstr "GEMA ID"
+msgstr "LATGA-id"
 
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"
