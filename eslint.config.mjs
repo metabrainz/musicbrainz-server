@@ -568,6 +568,7 @@ export default [
       '@stylistic/js/yield-star-spacing': ['warn', 'after'],
 
       // @stylistic/jsx
+      '@stylistic/jsx/jsx-child-element-spacing': 'warn',
       '@stylistic/jsx/jsx-closing-bracket-location': [
         'error',
         'tag-aligned',
@@ -593,10 +594,13 @@ export default [
         maximum: 1,
         when: 'multiline',
       }],
+      '@stylistic/jsx/jsx-newline': 'off',
       '@stylistic/jsx/jsx-one-expression-per-line': ['warn', {
         allow: 'single-child',
       }],
       '@stylistic/jsx/jsx-pascal-case': 'error',
+      '@stylistic/jsx/jsx-props-no-multi-spaces': 'off', // in eslint-js
+      '@stylistic/jsx/jsx-self-closing-comp': 'error',
       '@stylistic/jsx/jsx-sort-props': 'warn',
       '@stylistic/jsx/jsx-tag-spacing': ['error', {beforeClosing: 'never'}],
       '@stylistic/jsx/jsx-wrap-multilines': ['error', {
