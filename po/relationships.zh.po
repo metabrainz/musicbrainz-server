@@ -5,11 +5,12 @@
 # suming <331874545@qq.com>, 2023.
 # claybiockiller <clay0305@hotmail.com>, 2023.
 # ycwei982 <ycwei982@outlook.com>, 2024.
+# AshPigeon <1433821055@qq.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-02-26 21:28+0000\n"
-"Last-Translator: ycwei982 <ycwei982@outlook.com>\n"
+"PO-Revision-Date: 2024-04-25 06:42+0000\n"
+"Last-Translator: AshPigeon <1433821055@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/relationship-types/zh_Hans/>\n"
 "Language: zh\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -66,6 +67,11 @@ msgid ""
 "post. Examples include Facebook pages and profiles, Last.fm users and "
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
+"社交网络页面是艺术家自己在<a href=\"https://en.wikipedia.org/wiki/"
+"Social_networking_service\" target=\"_blank\">社交网络</a>上的个人资料页面，"
+"只有他们(或他们的管理人员)才能发布内容。其他人可以创建自己的个人资料并与艺术"
+"家互动，例如通过添加他们为朋友或评论他们发布的内容。例子包括Facebook页面和个"
+"人资料，最后。Twitter、Instagram和Flickr上的fm用户和账户。"
 
 #: DB:link_type/description:783
 msgid ""
@@ -353,7 +359,7 @@ msgstr ""
 msgid ""
 "Indicates a page that reviews the release (group) in question, whether it be "
 "in text, audio or video form."
-msgstr ""
+msgstr "指示查看所讨论的版本(组)的页面，无论是文本、音频还是视频形式。"
 
 #: DB:link_type/description:1083
 msgid "Indicates a page with an official schedule for an event series."
@@ -561,13 +567,13 @@ msgstr "指初次演出作品的艺术家；多与古典音乐相关"
 msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
-msgstr ""
+msgstr "表示此版本的作曲家，即编写音乐的艺术家(不一定是歌词)。"
 
 #: DB:link_type/description:168
 msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
-msgstr ""
+msgstr "表示该作品的作曲家，即写音乐的艺术家(不一定是歌词)。"
 
 #: DB:link_type/description:845
 #, fuzzy
@@ -841,7 +847,7 @@ msgstr "将专辑链接到重混音地区。仅在具体地点未知时使用！
 msgid ""
 "Links a release to the area it was transferred in (for example from an old "
 "tape to digital). Use only when the place is unknown!"
-msgstr ""
+msgstr "将一个版本链接到它被转移的区域(例如从旧磁带到数字磁带)。只在地点不明时使用!"
 
 #: DB:link_type/description:967
 msgid ""
@@ -903,7 +909,7 @@ msgstr "将专辑链接到重混音工作所在地点。"
 msgid ""
 "Links a release to the place it was transferred at (for example from an old "
 "tape to digital)."
-msgstr ""
+msgstr "链接一个专辑到它被转换的地方(例如从旧磁带到数字)。"
 
 #: DB:link_type/description:954
 msgid ""
@@ -952,7 +958,8 @@ msgstr "将活动链接到其支持表演者(之一)(又称开幕嘉宾或暖场
 msgid ""
 "Links an event to a DJ that appeared in a supporting role (such as DJing "
 "between artists, or closing the night after a concert)."
-msgstr ""
+msgstr "将一个活动与一个次要角色的DJ联系起来(例如，在两个艺术家之间切换或在一场音乐会"
+"后结束夜晚)。"
 
 #: DB:link_type/description:800
 msgid ""
@@ -965,7 +972,8 @@ msgstr ""
 msgid ""
 "Links an event to a label or other organization credited for presenting it "
 "(often as “Label presents Event”)."
-msgstr ""
+msgstr "将一个事件与一个标签或其他组织联系起来(通常以“这个标签展示了这个事件”的形式)"
+"。"
 
 #: DB:link_type/description:806
 msgid "Links an event to an artist that was a conductor in it."
@@ -975,7 +983,8 @@ msgstr "将活动链接到作为指挥的艺术家。"
 msgid ""
 "Links an event to an artist who was a VJ during it, either as the background "
 "for someone else’s musical performance or as its own performance."
-msgstr ""
+msgstr "将事件链接到在事件期间担任VJ的艺术家，可以作为其他人音乐表演的背景，也可以作"
+"为自己的表演。"
 
 #: DB:link_type/description:1084
 msgid "Links an event to an engineer or sound technician who worked on it."
