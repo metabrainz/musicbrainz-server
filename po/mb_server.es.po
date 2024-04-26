@@ -55,17 +55,17 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-17 15:48+0000\n"
-"PO-Revision-Date: 2024-04-09 15:04+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-04-17 17:31+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.4.3\n"
 
 #: ../root/components/common-macros.tt:12
@@ -694,8 +694,7 @@ msgstr "N.º de catálogo"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
-msgstr ""
-"Haz clic en Editar para cambiar las grabaciones asociadas a este disco."
+msgstr "Haz clic en Editar para cambiar las grabaciones asociadas a este disco."
 
 #: ../root/release/edit/tracklist.tt:237 ../root/release/edit/tracklist.tt:266
 msgid "Close"
@@ -1279,8 +1278,7 @@ msgstr "Este es el código de barras tal y como aparece en la publicación."
 
 #: ../root/release/edit/tracklist.tt:390
 msgid "I confirm this is a correct medium format/packaging combination."
-msgstr ""
-"Confirmo que se trata de una combinación correcta de formato y empaque."
+msgstr "Confirmo que se trata de una combinación correcta de formato y empaque."
 
 #: ../root/release/edit/tracklist.tt:413
 msgid "I confirm this is an intentional use of Various Artists on tracks."
@@ -1391,8 +1389,8 @@ msgid ""
 "\"<code>&amp;amp;</code>\" respectively."
 msgstr ""
 "En caso necesario, puedes escapar los caracteres \"[\", \"]\" y \"&\" "
-"utilizando las entidades HTML \"<code>&amp;lsqb;</code>\", \"<code>&amp;rsqb;"
-"</code>\", y \"<code>&amp;amp;</code>\" respectivamente."
+"utilizando las entidades HTML \"<code>&amp;lsqb;</code>\", \""
+"<code>&amp;rsqb;</code>\", y \"<code>&amp;amp;</code>\" respectivamente."
 
 #: ../root/release/edit/recordings.tt:134
 msgid ""
@@ -1540,13 +1538,12 @@ msgid ""
 "elsewhere and the durations are significantly different, consider adding a "
 "new recording instead."
 msgstr ""
-"Ten en cuenta que {doc_link|recalcularemos las duraciones de las "
-"grabaciones} si la duración de una pista asociada a la grabación cambia. O "
-"sea, que si corriges la duración de una pista en esta publicación y la "
-"grabación no tiene otras pistas asociadas, ¡no añadas una grabación nueva! "
-"La duración de la grabación cambiará también. Si la grabación tiene más "
-"pistas asociadas y las duraciones no coinciden, quizá sea mejor añadir una "
-"grabación nueva."
+"Ten en cuenta que {doc_link|recalcularemos las duraciones de las grabaciones}"
+" si la duración de una pista asociada a la grabación cambia. O sea, que si "
+"corriges la duración de una pista en esta publicación y la grabación no "
+"tiene otras pistas asociadas, ¡no añadas una grabación nueva! La duración de "
+"la grabación cambiará también. Si la grabación tiene más pistas asociadas y "
+"las duraciones no coinciden, quizá sea mejor añadir una grabación nueva."
 
 #: ../root/release/edit/tracklist.tt:502
 msgid ""
@@ -2333,8 +2330,8 @@ msgstr ""
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
-"Versión actual: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</"
-"span>"
+"Versión actual: <span class=\"tooltip\" title=\"{msg}\">{branch} "
+"({sha})</span>"
 
 #: ../root/release/edit/information.tt:117
 #: ../root/edit/details/AddRelease.js:98
@@ -2400,8 +2397,8 @@ msgid ""
 "Select a release to which the disc ID <code>{discid}</code>. should be moved "
 "to."
 msgstr ""
-"Elige la publicación a la que quieres mover la ID de disco <code>{discid}</"
-"code>."
+"Elige la publicación a la que quieres mover la ID de disco "
+"<code>{discid}</code>."
 
 #: ../root/components/forms.tt:369
 msgid ""
@@ -2605,8 +2602,8 @@ msgid ""
 "See the {doc_link|documentation} for more info about using the filters."
 msgstr ""
 "Los filtros que aparecen a continuación te permiten encontrar solo las "
-"ediciones que cumplen criterios específicos. Consulta la {doc_link|"
-"documentación} para saber más sobre el uso de los filtros."
+"ediciones que cumplen criterios específicos. Consulta la "
+"{doc_link|documentación} para saber más sobre el uso de los filtros."
 
 #: ../root/release/edit/information.tt:314
 msgid ""
@@ -3021,8 +3018,8 @@ msgid ""
 "information about this release’s media, remove all media."
 msgstr ""
 "En general, es obligatorio introducir una lista de pistas. Si no tienes "
-"información sobre las pistas, pero sí otra información sobre los medios "
-"(como el número de medios o su formato), puedes seleccionar la casilla “No "
+"información sobre las pistas, pero sí otra información sobre los medios ("
+"como el número de medios o su formato), puedes seleccionar la casilla “No "
 "conozco la lista de pistas de este medio” e introducir la información que sí "
 "tienes. Si no hay ninguna información sobre los medios de esta publicación, "
 "elimínalos."
@@ -4002,8 +3999,7 @@ msgstr "Falta al menos un parámetro necesario."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:267
 msgid "Sorry, this password reset link has expired."
-msgstr ""
-"Lo sentimos, este enlace de restablecimiento de contraseña ha caducado."
+msgstr "Lo sentimos, este enlace de restablecimiento de contraseña ha caducado."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:341
 msgid "There is no user with this email"
@@ -4034,8 +4030,8 @@ msgid ""
 "doesn’t work, {contact_url|contact us}."
 msgstr ""
 "<strong>No logramos enviarte un correo de verificación.</strong><br/>Vuelve "
-"a introducir to dirección de correo en tus {settings|preferencias de "
-"cuenta}, y si eso no funciona, {contact_url|ponte en contacto con nosotros}."
+"a introducir to dirección de correo en tus {settings|preferencias de cuenta}"
+", y si eso no funciona, {contact_url|ponte en contacto con nosotros}."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:828
 msgid "There is no OAuth token with these parameters."
@@ -4052,8 +4048,8 @@ msgstr "No puedes fusionar un artista de propósito especial con otro artista"
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:743
 msgid "You cannot merge into Deleted Artist"
 msgstr ""
-"No puedes fusionar otro artista con la entidad para artistas eliminados "
-"“Deleted Artist”."
+"No puedes fusionar otro artista con la entidad para artistas eliminados “"
+"Deleted Artist”."
 
 #: ../lib/MusicBrainz/Server/Controller/AutoEditorElections.pm:87
 #, perl-brace-format
@@ -4304,8 +4300,7 @@ msgstr "No tienes permiso para mandar mensajes a otros editores."
 #: ../lib/MusicBrainz/Server/Controller/User.pm:347
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
-msgstr ""
-"El editor {name} no tiene una dirección de correo asociada a su cuenta."
+msgstr "El editor {name} no tiene una dirección de correo asociada a su cuenta."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:361
 #: ../root/account/LostPasswordSent.js:15
@@ -5609,8 +5604,8 @@ msgstr "La URL de redirección es obligatoria para las aplicaciones web."
 msgid ""
 "Redirect URL scheme must be either “http” or “https” for web applications."
 msgstr ""
-"El esquema de la URL de redirección para las aplicaciones web debe ser "
-"“http” o “https”."
+"El esquema de la URL de redirección para las aplicaciones web debe ser “http”"
+" o “https”."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:59
 #, perl-brace-format
@@ -6341,8 +6336,8 @@ msgid ""
 "us}."
 msgstr ""
 "Te hemos enviado las instrucciones para restablecer tu contraseña. Si no "
-"recibes el correo o sigues teniendo problemas para conectarte, {link|"
-"avísanos}."
+"recibes el correo o sigues teniendo problemas para conectarte, "
+"{link|avísanos}."
 
 #: ../root/account/LostUsername.js:27 ../root/account/LostUsername.js:28
 #: ../root/account/LostUsernameSent.js:15
@@ -6369,8 +6364,8 @@ msgid ""
 "us}."
 msgstr ""
 "Te hemos enviado la información sobre tu cuenta de MusicBrainz. Si no "
-"recibes el correo o sigues teniendo problemas para conectarte, {link|"
-"avísanos}."
+"recibes el correo o sigues teniendo problemas para conectarte, "
+"{link|avísanos}."
 
 #: ../root/account/Preferences.js:34 ../root/account/PreferencesSaved.js:18
 #: ../root/components/UserAccountTabs.js:82
@@ -6433,8 +6428,8 @@ msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
 "documentation} before {con|contacting us}."
 msgstr ""
-"Si tienes alguna pregunta, consulta las {faq|preguntas frequentes} y la {doc|"
-"documentación} antes de {con|ponerte en contacto con nosotros}."
+"Si tienes alguna pregunta, consulta las {faq|preguntas frequentes} y la "
+"{doc|documentación} antes de {con|ponerte en contacto con nosotros}."
 
 #: ../root/account/Register.js:85
 msgid ""
@@ -8138,8 +8133,7 @@ msgid ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} day</span>"
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} days</span>"
-msgstr[0] ""
-"Cierra en <span class=\"tooltip\" title=\"{exactdate}\">un día</span>"
+msgstr[0] "Cierra en <span class=\"tooltip\" title=\"{exactdate}\">un día</span>"
 msgstr[1] ""
 "Cierra en <span class=\"tooltip\" title=\"{exactdate}\">{num} días</span>"
 msgstr[2] ""
@@ -8150,8 +8144,7 @@ msgid ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} hour</span>"
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} hours</span>"
-msgstr[0] ""
-"Cierra en <span class=\"tooltip\" title=\"{exactdate}\">una hora</span>"
+msgstr[0] "Cierra en <span class=\"tooltip\" title=\"{exactdate}\">una hora</span>"
 msgstr[1] ""
 "Cierra en <span class=\"tooltip\" title=\"{exactdate}\">{num} horas</span>"
 msgstr[2] ""
@@ -9392,8 +9385,8 @@ msgid ""
 "Medium <span class=\"new\">{new}</span> (moved from position <span "
 "class=\"old\">{old}</span>)"
 msgstr ""
-"Medio <span class=\"new\">{new}</span> (movido desde la posición <span "
-"class=\"old\">{old}</span>)"
+"Medio <span class=\"new\">{new}</span> (movido desde la posición <span class="
+"\"old\">{old}</span>)"
 
 #: ../root/edit/details/ReorderRelationships.js:21
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:157
@@ -9535,9 +9528,9 @@ msgid ""
 "This edit was a \"Merge Releases (Various Artists)\" edit which additionally "
 "set the release artist to Various Artists."
 msgstr ""
-"Esta edición histórica es del tipo “Fusionar publicaciones (Varios "
-"Artistas)”, que también cambiaba el artista de la publicación de destino a "
-"“Varios Artistas”."
+"Esta edición histórica es del tipo “Fusionar publicaciones (Varios Artistas)”"
+", que también cambiaba el artista de la publicación de destino a “Varios "
+"Artistas”."
 
 #: ../root/edit/details/historic/MoveRelease.js:26
 msgid "Change track artists:"
@@ -9617,8 +9610,7 @@ msgstr "(privado)"
 
 #: ../root/elections/ElectionVoting.js:27
 msgid "To find out if you can vote for this candidate, please {url|log in}."
-msgstr ""
-"Para comprobar si puedes votar por este candidato, {url|inicia sesión}."
+msgstr "Para comprobar si puedes votar por este candidato, {url|inicia sesión}."
 
 #: ../root/elections/ElectionVoting.js:36
 msgid "You cannot vote for this candidate, because you are not an auto-editor."
@@ -9637,8 +9629,8 @@ msgid ""
 "been found."
 msgstr ""
 "La votación aún no ha comenzado. Si quieres apoyar a este candidato, puedes "
-"avalar su nominación. Si no lo apoyas, ten en cuenta que no podrás votar No "
-"(o abstenerte) hasta que haya dos avales."
+"avalar su nominación. Si no lo apoyas, ten en cuenta que no podrás votar No ("
+"o abstenerte) hasta que haya dos avales."
 
 #: ../root/elections/ElectionVoting.js:53
 msgid "Voting is closed."
@@ -11197,8 +11189,8 @@ msgid ""
 "In order to view this page, please visit the main server at {mb|https://"
 "musicbrainz.org/}."
 msgstr ""
-"Para ver esta página, visita el servidor principal en {mb|https://"
-"musicbrainz.org/}."
+"Para ver esta página, visita el servidor principal en {mb|https://musicbrainz"
+".org/}."
 
 #: ../root/main/error/TimeoutError.js:25
 msgid "Request timed out"
@@ -11290,8 +11282,7 @@ msgstr ""
 #: ../root/main/index.js:91
 msgid ""
 "{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
-msgstr ""
-"{about|Más información} &#x2014; {faq|FAQs} &#x2014; {contact|Contacto}"
+msgstr "{about|Más información} &#x2014; {faq|FAQs} &#x2014; {contact|Contacto}"
 
 #: ../root/main/index.js:103
 msgid ""
@@ -11389,10 +11380,10 @@ msgid ""
 "it is an ID for something else than an entity (for example, a "
 "{rel_type_table|relationship type})."
 msgstr ""
-"Ninguna {entity_doc|entidad de MusicBrainz} está asociada a la {mbid_doc|"
-"MBID} {mbid}. Puede ser que sea incorrecta, que estuviese asociada a una "
-"entidad que ha sido eliminada, o que esté asociada a algo que no sea una "
-"entidad (por ejemplo, un {rel_type_table|tipo de relación})."
+"Ninguna {entity_doc|entidad de MusicBrainz} está asociada a la "
+"{mbid_doc|MBID} {mbid}. Puede ser que sea incorrecta, que estuviese asociada "
+"a una entidad que ha sido eliminada, o que esté asociada a algo que no sea "
+"una entidad (por ejemplo, un {rel_type_table|tipo de relación})."
 
 #: ../root/mbid/NotFound.js:39
 msgid "{mbid} is not a valid {mbid_doc|MBID}."
@@ -13789,8 +13780,8 @@ msgid ""
 "for installed applications."
 msgstr ""
 "La URI de callback es opcional para las aplicaciones instaladas, pero si la "
-"utilizas debe ser una cadena de DNS inversa, como en <code>org.example.app://"
-"auth</code>."
+"utilizas debe ser una cadena de DNS inversa, como en <code>org.example."
+"app://auth</code>."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:195
 msgid ""
@@ -15010,8 +15001,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:4930
 msgid "Only RYM music videos can be linked to recordings."
-msgstr ""
-"Solo las páginas de videoclips de RYM pueden asociarse a una grabación."
+msgstr "Solo las páginas de videoclips de RYM pueden asociarse a una grabación."
 
 #: ../root/static/scripts/edit/URLCleanup.js:4992
 msgid ""
@@ -15787,8 +15777,7 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:88
 msgid "This relationship type is not allowed with the current series type."
-msgstr ""
-"Este tipo de relación no está permitido en una serie del tipo indicado."
+msgstr "Este tipo de relación no está permitido en una serie del tipo indicado."
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:136
 msgid "Type or click to search"
