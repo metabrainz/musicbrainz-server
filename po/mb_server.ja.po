@@ -38,13 +38,14 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 # julian45 <techieboy45@gmail.com>, 2023.
 # yyb987 <tyui54-a93@yahoo.com>, 2023.
+# yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-17 15:48+0000\n"
 "PO-Revision-Date: 2024-04-17 17:32+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
 "Language: ja\n"
@@ -215,8 +216,7 @@ msgstr ""
 msgid ""
 "Add a medium by clicking “Add medium” below, or tick the box confirming the "
 "tracklist is unknown."
-msgstr ""
-"下の「メディアを追加」ボタンをクリックしてメディアを追加するか、トラックリス"
+msgstr "下の「メディアを追加」ボタンをクリックしてメディアを追加するか、トラックリス"
 "トが不明である場合はチェックボックスを選択してください。"
 
 #: ../root/release/edit/recordings.tt:178
@@ -614,8 +614,8 @@ msgid ""
 "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
 msgstr ""
 "{MeB|MetaBrainz Foundation}と私達の{spon|スポンサー}、{supp|サポーター}によっ"
-"て提供されています。{caa|Cover Art Archive}によりカバーアートが提供されていま"
-"す。"
+"て提供されています。{caa|Cover Art "
+"Archive}によりカバーアートが提供されています。"
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:211
@@ -10850,10 +10850,10 @@ msgid ""
 "based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
 "MusicBrainz {free|free and open source}."
 msgstr ""
-"MusicBrainzはカリフォルニアを拠点とする非営利団体{uri|MetaBrainz Foundation}"
-"によって運営されています。MetaBrainz FoundationはMusicBrainzを{free|フリーか"
-"つオープンソース}で提供し続けるために設立された、内国歳入法第501条C項3号に基"
-"づく非課税の団体です。"
+"MusicBrainzはカリフォルニアを拠点とする非営利団体{uri|MetaBrainz "
+"Foundation}によって運営されています。MetaBrainz FoundationはMusicBrainzを{fre"
+"e|フリーかつオープンソース}で提供し続けるために設立された、内国歳入法第501条C"
+"項3号に基づく非課税の団体です。"
 
 #: ../root/main/index.js:116
 msgid "MetaBrainz blog"
