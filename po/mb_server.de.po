@@ -68,7 +68,7 @@
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023, 2024.
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023, 2024.
-# aerozol <aerozol@users.noreply.translations.metabrainz.org>, 2023.
+# aerozol <aerozol@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
 msgid ""
 msgstr ""
@@ -76,7 +76,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-17 15:48+0000\n"
 "PO-Revision-Date: 2024-04-17 17:31+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"Last-Translator: aerozol <aerozol@users.noreply.translations.metabrainz.org>"
+"\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
 "Language: de\n"
