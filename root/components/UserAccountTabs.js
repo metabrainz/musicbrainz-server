@@ -97,8 +97,7 @@ function buildTabs(
     ));
   }
 
-  if (showAdmin ||
-    DBDefs.DB_STAGING_TESTING_FEATURES && $c.user) {
+  if (showAdmin || (DBDefs.DB_STAGING_TESTING_FEATURES && $c.user)) {
     tabs.push(buildTab(
       page,
       l_admin('Edit user'),

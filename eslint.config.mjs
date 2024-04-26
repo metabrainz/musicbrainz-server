@@ -498,6 +498,7 @@ export default [
       }],
       '@stylistic/js/no-extra-semi': 'warn',
       '@stylistic/js/no-floating-decimal': 'warn',
+      '@stylistic/js/no-mixed-operators': 'warn',
       '@stylistic/js/no-mixed-spaces-and-tabs': 'warn',
       '@stylistic/js/no-multi-spaces': ['error', {
         ignoreEOLComments: true,

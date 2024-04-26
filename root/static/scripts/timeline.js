@@ -446,8 +446,8 @@ class TimelineLine {
       for (var i = 0; i < days; i++) {
         count++;
         mean += changeValue;
-        sCurrent = a * changeValue + (1 - a) * sPrev;
-        weekData.push([datePrev + (i + 1) * oneDay, sCurrent]);
+        sCurrent = (a * changeValue) + ((1 - a) * sPrev);
+        weekData.push([datePrev + ((i + 1) * oneDay), sCurrent]);
         sPrev = sCurrent;
       }
       dataPrev = value[1];
@@ -457,12 +457,12 @@ class TimelineLine {
 
     var deviationSum = weekData.reduce(function (sum, next) {
       var toSquare = next[1] - mean;
-      return sum + toSquare * toSquare;
+      return sum + (toSquare * toSquare);
     }, 0);
     var standardDeviation = Math.sqrt(deviationSum / count);
     var thresholds = {
-      max: mean + 3 * standardDeviation,
-      min: mean - 3 * standardDeviation,
+      max: mean + (3 * standardDeviation),
+      min: mean - (3 * standardDeviation),
     };
 
     return {data: weekData, thresholds};

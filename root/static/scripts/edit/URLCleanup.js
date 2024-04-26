@@ -1304,8 +1304,8 @@ const CLEANUPS: CleanupEntries = {
         switch (id) {
           case LINK_TYPES.bandsintown.artist:
             return {
-              result: prefix === undefined && target !== undefined ||
-                prefix === 'a' && /^[1-9][0-9]*$/.test(target),
+              result: (prefix === undefined && target !== undefined) ||
+                (prefix === 'a' && /^[1-9][0-9]*$/.test(target)),
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.bandsintown.event:
@@ -1541,7 +1541,7 @@ const CLEANUPS: CleanupEntries = {
         const frBnF = m[1];
         const phbt = '0123456789bcdfghjkmnpqrstvwxz';
         const controlChar = phbt[Array.from(frBnF).reduce((sum, c, i) => {
-          return sum + phbt.indexOf(c) * (i + 3);
+          return sum + (phbt.indexOf(c) * (i + 3));
         }, 2) % 29];
         url = 'https://catalogue.bnf.fr/ark:/12148/cb' + frBnF + controlChar;
       } else {
@@ -6785,7 +6785,7 @@ function anyCombinationOf(
   const result = [];
   const numCombinations = (1 << types.length) - 1;
   for (let i = 1; i <= numCombinations; i++) {
-    const combination = types.filter((e2, j) => i & 1 << j);
+    const combination = types.filter((e2, j) => i & (1 << j));
     if (combination.length === 0) {
       // The empty subset is technically valid, but not of interest to us
       continue;

@@ -122,9 +122,9 @@ component UserSubscriptions(
                       summary.editor > 0 || summary.label > 0 ||
                       summary.series > 0;
   const title = titleByEntityType[type]();
-  const hasPrivateSubscriptions =
-    visiblePrivateCollections?.length ||
-    hiddenPrivateCollectionCount != null && hiddenPrivateCollectionCount > 0;
+  const hasPrivateSubscriptions = visiblePrivateCollections?.length || (
+    hiddenPrivateCollectionCount != null && hiddenPrivateCollectionCount > 0
+  );
 
   return (
     <UserAccountLayout

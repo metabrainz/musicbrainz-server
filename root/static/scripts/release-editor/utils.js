@@ -254,7 +254,7 @@ function base64(s) {
   let i;
   let b10;
   var x = [];
-  var imax = s.length - s.length % 3;
+  var imax = s.length - (s.length % 3);
 
   for (i = 0; i < imax; i += 3) {
     b10 = (s.charCodeAt(i) << 16) |
