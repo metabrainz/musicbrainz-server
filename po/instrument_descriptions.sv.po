@@ -1,18 +1,20 @@
 #
 # Translators:
 # A. Regnander <email address hidden>, 2017
+# Autom <filipbengtsson@live.se>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: A. Regnander <anton_r_3@hotmail.com>, 2017\n"
-"Language-Team: Swedish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/sv/)\n"
+"PO-Revision-Date: 2024-04-21 14:42+0000\n"
+"Last-Translator: Autom <filipbengtsson@live.se>\n"
+"Language-Team: Swedish <https://translations.metabrainz.org/projects/"
+"musicbrainz/instrument-descriptions/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #. name:rebab 
 #: DB:instrument/description:239
@@ -75,7 +77,7 @@ msgstr ""
 #. name:bass synthesizer 
 #: DB:instrument/description:456
 msgid "A bass synthesizer is used to create sounds in the bass range."
-msgstr ""
+msgstr "En synthbas används för att skapa ljud i basregistret."
 
 #. name:bell tree 
 #: DB:instrument/description:479
@@ -87,12 +89,12 @@ msgstr ""
 #. name:chamber organ 
 #: DB:instrument/description:471
 msgid "A chamber organ is a small pipe organ."
-msgstr ""
+msgstr "En kistorgel är en liten piporgel."
 
 #. name:cuatro 
 #: DB:instrument/description:439
 msgid "A class of South-American guitars."
-msgstr ""
+msgstr "En familj sydamerikanska gitarrer."
 
 #. name:saduk 
 #: DB:instrument/description:804
@@ -100,11 +102,14 @@ msgid ""
 "A cross between a saxophone and a duduk invented and played by Alexander "
 "Berne."
 msgstr ""
+"Ett mellanting mellan saxofon och duduk uppfunnen och spelad av Alexander "
+"Berne."
 
 #. name:cylindrical drum 
 #: DB:instrument/description:658
 msgid "A cylindrical drum is a straight-sided and generally two-headed drum."
 msgstr ""
+"En cylindrisk trumma med raka sidor och vanligen ett skinn på vardera sida."
 
 #. name:dolceola 
 #: DB:instrument/description:750
@@ -4674,8 +4679,8 @@ msgid ""
 "The spilåpipa is a Swedish fipple flute with eight finger-holes on the top, "
 "but no thumb-holes. It has a modal tuning."
 msgstr ""
-"Spilåpipan är en svensk is a Swedish pipflöjt med åtta fingerhål på "
-"ovansidan, men ingen tumhål. Den har en modal stämning."
+"Spilåpipan är en svensk pipflöjt med åtta fingerhål på ovansidan, men ingen "
+"tumhål. Den har en modal stämning."
 
 #. name:suka 
 #: DB:instrument/description:730
