@@ -445,6 +445,7 @@ export default [
       '@stylistic/js/array-bracket-newline': ['warn', 'consistent'],
       '@stylistic/js/array-bracket-spacing': ['warn', 'never'],
       '@stylistic/js/array-element-newline': ['warn', 'consistent'],
+      '@stylistic/js/arrow-parens': 'off',	
       '@stylistic/js/arrow-spacing': 'warn',
       '@stylistic/js/block-spacing': ['warn', 'always'],
       '@stylistic/js/brace-style': ['warn', '1tbs'],
@@ -469,7 +470,7 @@ export default [
         'warn',
         'consistent',
       ],
-      '@stylistic/js/func-call-spacing': ['warn', 'never'],
+      '@stylistic/js/function-call-spacing': ['warn', 'never'],
       '@stylistic/js/function-paren-newline': ['warn', 'consistent'],
       '@stylistic/js/generator-star-spacing': ['warn', 'after'],
       '@stylistic/js/implicit-arrow-linebreak': ['warn', 'beside'],
@@ -482,6 +483,7 @@ export default [
       '@stylistic/js/key-spacing': ['warn', {mode: 'minimum'}],
       '@stylistic/js/keyword-spacing': ['warn', {before: true, after: true}],
       '@stylistic/js/linebreak-style': ['warn', 'unix'],
+      '@stylistic/js/lines-around-comment': 'off',
       '@stylistic/js/lines-between-class-members': ['warn', 'always'],
       '@stylistic/js/max-len': ['warn', {
         code: 78,
@@ -496,6 +498,8 @@ export default [
       '@stylistic/js/newline-per-chained-call': ['warn', {
         ignoreChainWithDepth: 3,
       }],
+      '@stylistic/js/no-confusing-arrow': 'off',
+      '@stylistic/js/no-extra-parens': 'off',
       '@stylistic/js/no-extra-semi': 'warn',
       '@stylistic/js/no-floating-decimal': 'warn',
       '@stylistic/js/no-mixed-operators': 'warn',
@@ -511,6 +515,7 @@ export default [
       '@stylistic/js/no-tabs': 'warn',
       '@stylistic/js/no-trailing-spaces': 'warn',
       '@stylistic/js/no-whitespace-before-property': 'warn',
+      '@stylistic/js/nonblock-statement-body-position': 'warn',
       '@stylistic/js/object-curly-newline': ['warn', {
         multiline: true,
         consistent: true,
@@ -519,8 +524,10 @@ export default [
       '@stylistic/js/object-property-newline': ['warn', {
         allowAllPropertiesOnSameLine: true,
       }],
+      '@stylistic/js/one-var-declaration-per-line': 'warn',
       '@stylistic/js/operator-linebreak': ['warn'],
       '@stylistic/js/padded-blocks': ['warn', 'never'],
+      '@stylistic/js/padding-line-between-statements': 'off',
       '@stylistic/js/quote-props': ['warn', 'consistent-as-needed', {
         numbers: true,
       }],
@@ -557,10 +564,11 @@ export default [
       '@stylistic/js/template-curly-spacing': ['warn', 'never'],
       '@stylistic/js/template-tag-spacing': ['warn', 'never'],
       '@stylistic/js/wrap-iife': 'warn',
+      '@stylistic/js/wrap-regex': 'off',
       '@stylistic/js/yield-star-spacing': ['warn', 'after'],
 
       // @stylistic/jsx
-      '@stylistic/jsx/jsx-closing-bracket-location':[
+      '@stylistic/jsx/jsx-closing-bracket-location': [
         'error',
         'tag-aligned',
       ],
