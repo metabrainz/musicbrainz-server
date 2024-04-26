@@ -82,7 +82,8 @@ releaseEditor.init = function (options) {
    * preventDefault if necessary.
    */
   $(document).on(
-    'keydown', '#release-editor :input:not(:button, textarea)',
+    'keydown',
+    '#release-editor :input:not(:button, textarea)',
     function (event) {
       if (event.which === 13 && !event.isDefaultPrevented()) {
         /*

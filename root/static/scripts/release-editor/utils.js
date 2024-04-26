@@ -45,7 +45,8 @@ utils.computedWith = function (callback, observable, defaultValue) {
 utils.withRelease = function (read, defaultValue) {
   return utils.computedWith(
     read,
-    releaseEditor.rootField.release, defaultValue,
+    releaseEditor.rootField.release,
+    defaultValue,
   );
 };
 

@@ -465,6 +465,10 @@ export default [
       }],
       '@stylistic/js/dot-location': ['warn', 'property'],
       '@stylistic/js/eol-last': ['warn', 'always'],
+      '@stylistic/js/function-call-argument-newline': [
+        'warn',
+        'consistent',
+      ],
       '@stylistic/js/func-call-spacing': ['warn', 'never'],
       '@stylistic/js/function-paren-newline': ['warn', 'consistent'],
       '@stylistic/js/generator-star-spacing': ['warn', 'after'],

@@ -85,8 +85,14 @@ const store = createStore<WorkForm, ActionT, (ActionT) => empty>(function (
 
     case 'EDIT_LANGUAGE':
       state = mutate(state)
-        .set('field', 'languages', 'field', action.index, 'value',
-             parseIntegerOrNull(action.languageId))
+        .set(
+          'field',
+          'languages',
+          'field',
+          action.index,
+          'value',
+          parseIntegerOrNull(action.languageId),
+        )
         .final();
       break;
 

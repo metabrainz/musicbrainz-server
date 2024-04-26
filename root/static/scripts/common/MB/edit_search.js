@@ -73,10 +73,13 @@ $(function () {
       .remove();
 
     newCondition.find('button.remove-item').show();
-  }).on('click', 'ul.conditions li.condition button.remove-item',
-        function () {
-          $(this).parent('li').remove();
-        })
+  }).on(
+    'click',
+    'ul.conditions li.condition button.remove-item',
+    function () {
+      $(this).parent('li').remove();
+    },
+  )
     .on('change', 'ul.conditions select.field', function () {
       const val = $(this).val();
       const $replacement = $('#fields .field-' + val).clone();

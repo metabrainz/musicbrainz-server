@@ -44,15 +44,15 @@ export function runReducer(
     }
     case 'guess-case-sortname': {
       newState.set(
-        'sortNameField', 'value',
+        'sortNameField',
+        'value',
         guessSortName(newState.read().nameField.value ?? '', action.entity),
       );
       break;
     }
     case 'copy-sortname': {
       newState.set(
-        'sortNameField', 'value',
-        newState.read().nameField.value ?? '',
+        'sortNameField', 'value', newState.read().nameField.value ?? '',
       );
       break;
     }
