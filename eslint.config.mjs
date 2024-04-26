@@ -566,7 +566,8 @@ export default [
       'eslint-plugin-js/yield-star-spacing': ['warn', 'after'],
 
       // eslint-plugin-jsx
-      'eslint-plugin-jsx/jsx-closing-bracket-location':[
+      'eslint-plugin-jsx/jsx-child-element-spacing': 'warn',
+      'eslint-plugin-jsx/jsx-closing-bracket-location': [
         'error',
         'tag-aligned',
       ],
@@ -591,10 +592,13 @@ export default [
         maximum: 1,
         when: 'multiline',
       }],
+      'eslint-plugin-jsx/jsx-newline': 'off',
       'eslint-plugin-jsx/jsx-one-expression-per-line': ['warn', {
         allow: 'single-child',
       }],
       'eslint-plugin-jsx/jsx-pascal-case': 'error',
+      'eslint-plugin-jsx/jsx-props-no-multi-spaces': 'off', // in eslint-js
+      'eslint-plugin-jsx/jsx-self-closing-comp': 'error',
       'eslint-plugin-jsx/jsx-sort-props': 'warn',
       'eslint-plugin-jsx/jsx-tag-spacing': ['error', {beforeClosing: 'never'}],
       'eslint-plugin-jsx/jsx-wrap-multilines': ['error', {
