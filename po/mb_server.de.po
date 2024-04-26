@@ -76,7 +76,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-17 15:48+0000\n"
 "PO-Revision-Date: 2024-04-17 17:31+0000\n"
-"Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
 "Language: de\n"
@@ -379,9 +379,9 @@ msgid ""
 "recording for each track. Choose “Add a new recording” if an appropriate one "
 "doesn’t exist yet."
 msgstr ""
-"Alle Tracks benötigen eine zugehörige Aufnahme. Klicken Sie auf "
-"„Bearbeiten“, um eine Aufnahme für jeden Track auszuwählen. Wählen Sie „Neue "
-"Aufnahme hinzufügen“, wenn keine passende Aufnahme vorhanden ist."
+"Alle Tracks benötigen eine zugehörige Aufnahme. Klicken Sie auf „Bearbeiten“"
+", um eine Aufnahme für jeden Track auszuwählen. Wählen Sie „Neue Aufnahme "
+"hinzufügen“, wenn keine passende Aufnahme vorhanden ist."
 
 #: ../root/components/common-macros.tt:569
 msgid ""
@@ -1299,8 +1299,8 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:413
 msgid "I confirm this is an intentional use of Various Artists on tracks."
 msgstr ""
-"Ich bestätige, dass dies eine beabsichtigte Verwendung von „Diverse "
-"Künstler“ für die Titel ist."
+"Ich bestätige, dass dies eine beabsichtigte Verwendung von „Diverse Künstler“"
+" für die Titel ist."
 
 #: ../root/release/edit/tracklist.tt:314
 msgid "I don’t know"
@@ -4175,8 +4175,8 @@ msgstr "[unbekannt]"
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
 msgstr ""
-"Sprache gesetzt. Wenn das nicht beabsichtigt war, {url|auf "
-"„{prev_lang_name}“ zurücksetzen}."
+"Sprache gesetzt. Wenn das nicht beabsichtigt war, {url|auf „{prev_lang_name}“"
+" zurücksetzen}."
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:102
 msgid ""
@@ -5686,8 +5686,8 @@ msgid ""
 "Must be a valid date or partial date. Examples: 2006-05-25, "
 "1990-01, ????-01, ..."
 msgstr ""
-"Muss ein gültiges Datum oder Teil-Datum sein. Beispiele: 2006-05-25, "
-"1990-01, ????-01, …"
+"Muss ein gültiges Datum oder Teil-Datum sein. Beispiele: 2006-05-25, 1990-"
+"01, ????-01, …"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:54
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:63
@@ -8484,8 +8484,8 @@ msgid ""
 "writing edit notes!"
 msgstr ""
 "Bearbeitungsbemerkungen unterstützen {doc_formatting|eine begrenzte Anzahl "
-"von Wiki-Formatierungsoptionen}. Bitte beachte immer den {doc_coc|"
-"Verhaltenskodex}, wenn du Bemerkungen schreibst!"
+"von Wiki-Formatierungsoptionen}. Bitte beachte immer den "
+"{doc_coc|Verhaltenskodex}, wenn du Bemerkungen schreibst!"
 
 #: ../root/edit/components/EditNotes.js:55
 msgid "No edit notes have been added."
@@ -16529,8 +16529,7 @@ msgstr ""
 
 #: ../root/user/ReportUser.js:101
 msgid "Please review our {uri|Code of Conduct} before sending a report."
-msgstr ""
-"Bitte lies unseren {uri|Verhaltenskodex}, bevor du eine Meldung machst."
+msgstr "Bitte lies unseren {uri|Verhaltenskodex}, bevor du eine Meldung machst."
 
 #: ../root/user/ReportUser.js:109
 msgid ""
