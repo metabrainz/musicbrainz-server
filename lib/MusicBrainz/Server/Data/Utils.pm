@@ -44,6 +44,7 @@ our @EXPORT_OK = qw(
     copy_escape
     coordinates_to_hash
     datetime_to_iso8601
+    find_best_primary_alias
     generate_gid
     generate_token
     get_area_containment_join
@@ -768,6 +769,35 @@ sub contains_string {
 
     return 0 unless defined $array_ref;
     return any { $_ eq $string } @$array_ref;
+}
+
+# Given an array of MusicBrainz::Server::Entity::Alias objects and the UI
+# language, try to find a localized primary alias to display to the user.
+sub find_best_primary_alias {
+    my ($aliases_ref, $lang) = @_;
+
+    my $short_lang = substr($lang, 0, 2);
+    my ($best, $fallback);
+    foreach my $alias (@$aliases_ref) {
+        next if !defined $alias->locale || !$alias->primary_for_locale;
+
+        # If we find an exact match for the user's language, use it.
+        return $alias if $alias->locale eq $lang;
+
+        # Otherwise, favor more-generic aliases (e.g. "en" over "en_US").
+        if (substr($alias->locale, 0, 2) eq $short_lang &&
+            (!defined $best || length($alias->locale) == 2)) {
+            $best = $alias;
+        }
+        # If we find an English alias, use it as a fallback. This is likely
+        # better than nothing in many cases, since English aliases often apply
+        # to all Latin-script languages.
+        if (substr($alias->locale, 0, 2) eq 'en' &&
+            (!defined $fallback || length($alias->locale) == 2)) {
+            $fallback = $alias;
+        }
+    }
+    return $best || $fallback;
 }
 
 1;
