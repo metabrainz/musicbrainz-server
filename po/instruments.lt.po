@@ -1,12 +1,12 @@
 #
 # Translators:
 # "Vac31." <Vaclovas@users.noreply.translations.metabrainz.org>, 2024.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-05 12:28+0000\n"
-"Last-Translator: \"Vac31.\" <Vaclovas@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2024-04-17 16:17+0000\n"
+"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/lt/>\n"
 "Language: lt\n"
@@ -14,9 +14,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.4\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
