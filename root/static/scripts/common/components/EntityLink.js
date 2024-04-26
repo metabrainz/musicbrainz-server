@@ -13,6 +13,7 @@ import * as React from 'react';
 
 import type {ReleaseEditorTrackT} from '../../release-editor/types.js';
 import isGreyedOut from '../../url/utility/isGreyedOut.js';
+import commaOnlyList from '../i18n/commaOnlyList.js';
 import localizeAreaName from '../i18n/localizeAreaName.js';
 import localizeInstrumentName from '../i18n/localizeInstrumentName.js';
 import bracketed, {bracketedText} from '../utility/bracketed.js';
@@ -77,23 +78,27 @@ const Comment = ({
   alias,
   className,
   comment,
-}: {+alias?: string, +className: string, +comment: string}) => (
-  <>
-    {' '}
-    <span className={className}>
-      {bracketed(
-        <bdi key="comment">
-          {nonEmpty(alias) ? (
-            <i title={l('Primary alias')}>
-              {alias + (nonEmpty(comment) ? ', ' : '')}
-            </i>
-          ) : null}
-          {comment}
-        </bdi>,
-      )}
-    </span>
-  </>
-);
+}: {+alias?: string, +className: string, +comment: string}) => {
+  const aliasElement = nonEmpty(alias)
+    ? <i title={l('Primary alias')}>{alias}</i>
+    : null;
+  return (
+    <>
+      {' '}
+      <span className={className}>
+        {bracketed(
+          <bdi key="comment">
+            {nonEmpty(aliasElement) ? (
+              nonEmpty(comment) ? (
+                commaOnlyList([aliasElement, comment])
+              ) : aliasElement
+            ) : comment}
+          </bdi>,
+        )}
+      </span>
+    </>
+  );
+};
 
 const EventDisambiguation = ({
   event,
