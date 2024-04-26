@@ -443,6 +443,7 @@ export default [
       'eslint-plugin-js/array-bracket-newline': ['warn', 'consistent'],
       'eslint-plugin-js/array-bracket-spacing': ['warn', 'never'],
       'eslint-plugin-js/array-element-newline': ['warn', 'consistent'],
+      'eslint-plugin-js/arrow-parens': 'off',	
       'eslint-plugin-js/arrow-spacing': 'warn',
       'eslint-plugin-js/block-spacing': ['warn', 'always'],
       'eslint-plugin-js/brace-style': ['warn', '1tbs'],
@@ -467,6 +468,7 @@ export default [
         'warn',
         'consistent',
       ],
+      'eslint-plugin-js/function-call-spacing': ['warn', 'never'],
       'eslint-plugin-js/function-paren-newline': ['warn', 'consistent'],
       'eslint-plugin-js/generator-star-spacing': ['warn', 'after'],
       'eslint-plugin-js/implicit-arrow-linebreak': ['warn', 'beside'],
@@ -479,6 +481,7 @@ export default [
       'eslint-plugin-js/key-spacing': ['warn', {mode: 'minimum'}],
       'eslint-plugin-js/keyword-spacing': ['warn', {before: true, after: true}],
       'eslint-plugin-js/linebreak-style': ['warn', 'unix'],
+      'eslint-plugin-js/lines-around-comment': 'off',
       'eslint-plugin-js/lines-between-class-members': ['warn', 'always'],
       'eslint-plugin-js/max-len': ['warn', {
         code: 78,
@@ -493,6 +496,8 @@ export default [
       'eslint-plugin-js/newline-per-chained-call': ['warn', {
         ignoreChainWithDepth: 3,
       }],
+      'eslint-plugin-js/no-confusing-arrow': 'off',
+      'eslint-plugin-js/no-extra-parens': 'off',
       'eslint-plugin-js/no-extra-semi': 'warn',
       'eslint-plugin-js/no-floating-decimal': 'warn',
       'eslint-plugin-js/no-mixed-operators': 'warn',
@@ -508,6 +513,7 @@ export default [
       'eslint-plugin-js/no-tabs': 'warn',
       'eslint-plugin-js/no-trailing-spaces': 'warn',
       'eslint-plugin-js/no-whitespace-before-property': 'warn',
+      'eslint-plugin-js/nonblock-statement-body-position': 'warn',
       'eslint-plugin-js/object-curly-newline': ['warn', {
         multiline: true,
         consistent: true,
@@ -516,8 +522,10 @@ export default [
       'eslint-plugin-js/object-property-newline': ['warn', {
         allowAllPropertiesOnSameLine: true,
       }],
+      'eslint-plugin-js/one-var-declaration-per-line': 'warn',
       'eslint-plugin-js/operator-linebreak': ['warn'],
       'eslint-plugin-js/padded-blocks': ['warn', 'never'],
+      'eslint-plugin-js/padding-line-between-statements': 'off',
       'eslint-plugin-js/quote-props': ['warn', 'consistent-as-needed', {
         numbers: true,
       }],
@@ -554,6 +562,7 @@ export default [
       'eslint-plugin-js/template-curly-spacing': ['warn', 'never'],
       'eslint-plugin-js/template-tag-spacing': ['warn', 'never'],
       'eslint-plugin-js/wrap-iife': 'warn',
+      'eslint-plugin-js/wrap-regex': 'off',
       'eslint-plugin-js/yield-star-spacing': ['warn', 'after'],
 
       // eslint-plugin-jsx
