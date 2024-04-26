@@ -7,13 +7,15 @@
 # Nick Conrads <email address hidden>, 2020
 # Yuza Tea <email address hidden>, 2021
 # hashflu <minwuekim@gmail.com>, 2024.
+# hashflu <hashflu@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-17 15:48+0000\n"
 "PO-Revision-Date: 2024-04-17 17:36+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: hashflu <hashflu@users.noreply.translations.metabrainz.org>"
+"\n"
 "Language-Team: Korean <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ko/>\n"
 "Language: ko\n"
