@@ -221,6 +221,7 @@ sub _with_primary_alias {
 
     $renderer //= \&get_entity_json;
 
+    # TODO: Consider updating this function to call find_best_primary_alias().
     my @output;
     if (@$results) {
         my $munge_lang = sub {

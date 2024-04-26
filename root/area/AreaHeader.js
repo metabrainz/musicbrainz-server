@@ -13,15 +13,7 @@ import AreaContainmentLink
 import localizeTypeNameForEntity
   from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
 
-type Props = {
-  +area: AreaT,
-  +page: string,
-};
-
-const AreaHeader = ({
-  area,
-  page,
-}: Props): React$Element<typeof EntityHeader> => {
+component AreaHeader(area: AreaT, page: string) {
   const areaType = localizeTypeNameForEntity(area);
   let subHeading: Expand2ReactOutput = areaType;
   if (area.containment?.length) {
@@ -39,6 +31,6 @@ const AreaHeader = ({
       subHeading={subHeading}
     />
   );
-};
+}
 
 export default AreaHeader;

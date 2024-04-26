@@ -9,23 +9,25 @@
 
 import ErrorLayout from './ErrorLayout.js';
 
-const MirrorError404 = (): React$Element<typeof ErrorLayout> => (
-  <ErrorLayout title={l('Page not found')}>
-    <p>
-      <strong>
-        {l(`Sorry, the page you're looking for
-            is not available on a mirror server.`)}
-      </strong>
-    </p>
+component MirrorError404() {
+  return (
+    <ErrorLayout title={l('Page not found')}>
+      <p>
+        <strong>
+          {l(`Sorry, the page you're looking for
+              is not available on a mirror server.`)}
+        </strong>
+      </p>
 
-    <p>
-      {exp.l(
-        `In order to view this page, please visit the main server
-         at {mb|https://musicbrainz.org/}.`,
-        {mb: {className: 'external', href: 'https://musicbrainz.org/'}},
-      )}
-    </p>
-  </ErrorLayout>
-);
+      <p>
+        {exp.l(
+          `In order to view this page, please visit the main server
+           at {mb|https://musicbrainz.org/}.`,
+          {mb: {className: 'external', href: 'https://musicbrainz.org/'}},
+        )}
+      </p>
+    </ErrorLayout>
+  );
+}
 
 export default MirrorError404;

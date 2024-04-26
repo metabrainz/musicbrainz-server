@@ -9,10 +9,12 @@
 
 /* eslint-disable no-unused-vars */
 
+declare type InstrumentCreditsAndRelTypesT = {
+  +[entityGid: string]: $ReadOnlyArray<string>,
+};
+
 declare type InstrumentCreditsAndRelTypesRoleT = {
-  +instrumentCreditsAndRelTypes?: {
-    +[entityGid: string]: $ReadOnlyArray<string>,
-  },
+  +instrumentCreditsAndRelTypes?: InstrumentCreditsAndRelTypesT,
 };
 
 // MusicBrainz::Server::Entity::Instrument::TO_JSON

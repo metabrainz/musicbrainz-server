@@ -16,31 +16,27 @@ import WikipediaExtract
 
 import AreaLayout from './AreaLayout.js';
 
-type Props = {
-  +area: AreaT,
-  +numberOfRevisions: number,
-  +wikipediaExtract: WikipediaExtractT | null,
-};
-
-const AreaIndex = ({
-  area,
-  numberOfRevisions,
-  wikipediaExtract,
-}: Props): React$Element<typeof AreaLayout> => (
-  <AreaLayout entity={area} page="index">
-    <Annotation
-      annotation={area.latest_annotation}
-      collapse
-      entity={area}
-      numberOfRevisions={numberOfRevisions}
-    />
-    <WikipediaExtract
-      cachedWikipediaExtract={wikipediaExtract}
-      entity={area}
-    />
-    <Relationships source={area} />
-    {manifest.js('area/index', {async: 'async'})}
-  </AreaLayout>
-);
+component AreaIndex(
+  area: AreaT,
+  numberOfRevisions: number,
+  wikipediaExtract: WikipediaExtractT | null,
+) {
+  return (
+    <AreaLayout entity={area} page="index">
+      <Annotation
+        annotation={area.latest_annotation}
+        collapse
+        entity={area}
+        numberOfRevisions={numberOfRevisions}
+      />
+      <WikipediaExtract
+        cachedWikipediaExtract={wikipediaExtract}
+        entity={area}
+      />
+      <Relationships source={area} />
+      {manifest.js('area/index', {async: 'async'})}
+    </AreaLayout>
+  );
+}
 
 export default AreaIndex;

@@ -11,21 +11,15 @@ import EntityHeader from '../components/EntityHeader.js';
 import localizeTypeNameForEntity
   from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
 
-type Props = {
-  page: string,
-  place: PlaceT,
-};
-
-const PlaceHeader = ({
-  place,
-  page,
-}: Props): React$Element<typeof EntityHeader> => (
-  <EntityHeader
-    entity={place}
-    headerClass="placeheader"
-    page={page}
-    subHeading={localizeTypeNameForEntity(place)}
-  />
-);
+component PlaceHeader(page: string, place: PlaceT) {
+  return (
+    <EntityHeader
+      entity={place}
+      headerClass="placeheader"
+      page={page}
+      subHeading={localizeTypeNameForEntity(place)}
+    />
+  );
+}
 
 export default PlaceHeader;

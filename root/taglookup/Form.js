@@ -13,48 +13,46 @@ import FormRowTextLong
   from '../static/scripts/edit/components/FormRowTextLong.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
-type Props = {
-  +form: TagLookupFormT,
-};
-
-const TagLookupForm = ({form}: Props): React$Element<'div'> => (
-  <div className="searchform">
-    <form action="/taglookup/index" method="get">
-      <FormRowTextLong
-        field={form.field.artist}
-        label={addColonText(l('Artist'))}
-        uncontrolled
-      />
-      <FormRowTextLong
-        field={form.field.release}
-        label={addColonText(l('Release'))}
-        uncontrolled
-      />
-      <FormRowText
-        field={form.field.tracknum}
-        label={addColonText(l('Track number'))}
-        uncontrolled
-      />
-      <FormRowTextLong
-        field={form.field.track}
-        label={addColonText(l('Track'))}
-        uncontrolled
-      />
-      <FormRowText
-        field={form.field.duration}
-        label={addColonText(l('Duration'))}
-        uncontrolled
-      />
-      <FormRowTextLong
-        field={form.field.filename}
-        label={addColonText(l('Filename'))}
-        uncontrolled
-      />
-      <FormRow hasNoLabel>
-        <FormSubmit label={l('Search')} />
-      </FormRow>
-    </form>
-  </div>
-);
+component TagLookupForm(form: TagLookupFormT) {
+  return (
+    <div className="searchform">
+      <form action="/taglookup/index" method="get">
+        <FormRowTextLong
+          field={form.field.artist}
+          label={addColonText(l('Artist'))}
+          uncontrolled
+        />
+        <FormRowTextLong
+          field={form.field.release}
+          label={addColonText(l('Release'))}
+          uncontrolled
+        />
+        <FormRowText
+          field={form.field.tracknum}
+          label={addColonText(l('Track number'))}
+          uncontrolled
+        />
+        <FormRowTextLong
+          field={form.field.track}
+          label={addColonText(l('Track'))}
+          uncontrolled
+        />
+        <FormRowText
+          field={form.field.duration}
+          label={addColonText(l('Duration'))}
+          uncontrolled
+        />
+        <FormRowTextLong
+          field={form.field.filename}
+          label={addColonText(l('Filename'))}
+          uncontrolled
+        />
+        <FormRow hasNoLabel>
+          <FormSubmit label={l('Search')} />
+        </FormRow>
+      </form>
+    </div>
+  );
+}
 
 export default TagLookupForm;

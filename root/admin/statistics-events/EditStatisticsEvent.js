@@ -11,16 +11,12 @@ import Layout from '../../layout/index.js';
 
 import StatisticsEventEditForm from './StatisticsEventEditForm.js';
 
-type PropsT = {
-  +form: StatisticsEventFormT,
-};
-
-const EditStatisticsEvent = ({
-  form,
-}: PropsT): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Edit statistics event">
-    <StatisticsEventEditForm form={form} />
-  </Layout>
-);
+component EditStatisticsEvent(form: StatisticsEventFormT) {
+  return (
+    <Layout fullWidth title="Edit statistics event">
+      <StatisticsEventEditForm form={form} />
+    </Layout>
+  );
+}
 
 export default EditStatisticsEvent;

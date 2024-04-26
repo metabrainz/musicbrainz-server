@@ -14,27 +14,23 @@ import TagLookupForm from '../taglookup/Form.js';
 
 import SearchForm from './components/SearchForm.js';
 
-type Props = {
-  +otherLookupForm: OtherLookupFormT,
-  +searchForm: SearchFormT,
-  +tagLookupForm: TagLookupFormT,
-};
-
-const SearchIndex = ({
-  otherLookupForm,
-  searchForm,
-  tagLookupForm,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Search')}>
-    <div id="content">
-      <h1>{l('Search')}</h1>
-      <SearchForm form={searchForm} />
-      <h2>{lp('Tag lookup', 'audio file metadata')}</h2>
-      <TagLookupForm form={tagLookupForm} />
-      <h2>{l('Other lookups')}</h2>
-      <OtherLookupForm form={otherLookupForm} />
-    </div>
-  </Layout>
-);
+component SearchIndex(
+  otherLookupForm: OtherLookupFormT,
+  searchForm: SearchFormT,
+  tagLookupForm: TagLookupFormT,
+) {
+  return (
+    <Layout fullWidth title={l('Search')}>
+      <div id="content">
+        <h1>{l('Search')}</h1>
+        <SearchForm form={searchForm} />
+        <h2>{lp('Tag lookup', 'audio file metadata')}</h2>
+        <TagLookupForm form={tagLookupForm} />
+        <h2>{l('Other lookups')}</h2>
+        <OtherLookupForm form={otherLookupForm} />
+      </div>
+    </Layout>
+  );
+}
 
 export default SearchIndex;

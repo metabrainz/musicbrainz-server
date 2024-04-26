@@ -14,23 +14,14 @@ import EditList from '../edit/components/EditList.js';
 import Layout from '../layout/index.js';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 
-type Props = {
-  +editCountLimit: number,
-  +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
-  +pager: PagerT,
-  +refineUrlArgs?: {+[argument: string]: string},
-  +user: UnsanitizedEditorT,
-  +voter?: UnsanitizedEditorT,
-};
-
-const UserEdits = ({
-  editCountLimit,
-  edits,
-  pager,
-  refineUrlArgs,
-  user,
-  voter,
-}: Props): React$Element<typeof Layout> => {
+component UserEdits(
+  editCountLimit: number,
+  edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
+  pager: PagerT,
+  refineUrlArgs?: {+[argument: string]: string},
+  user: UnsanitizedEditorT,
+  voter?: UnsanitizedEditorT,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const titleParam = {name: user.name};
   const headingParam = {name: <EditorLink editor={user} />};
@@ -93,6 +84,6 @@ const UserEdits = ({
       </div>
     </Layout>
   );
-};
+}
 
 export default UserEdits;

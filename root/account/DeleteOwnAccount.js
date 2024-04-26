@@ -22,13 +22,7 @@ type DeleteOwnAccountFormT = FormT<{
   ...SecureConfirmFormT,
 }>;
 
-type Props = {
-  +form: DeleteOwnAccountFormT,
-};
-
-const DeleteOwnAccount = ({
-  form,
-}: Props): React$Element<typeof UserAccountLayout> => {
+component DeleteOwnAccount(form: DeleteOwnAccountFormT) {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
 
@@ -85,6 +79,6 @@ const DeleteOwnAccount = ({
       </form>
     </UserAccountLayout>
   );
-};
+}
 
 export default DeleteOwnAccount;

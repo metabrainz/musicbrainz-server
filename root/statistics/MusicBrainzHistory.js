@@ -10,38 +10,34 @@
 import Layout from '../layout/index.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 
-type PropsT = {
-  +events: $ReadOnlyArray<StatisticsEventT>,
-};
-
-const MusicBrainzHistory = ({
-  events,
-}: PropsT): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l_statistics('History')}>
-    <h1>{l_statistics('Our glorious history')}</h1>
-    {events.length
-      ? events.map((event) => {
-        const title = exp.l_statistics(
-          '{date} - {title}',
-          {date: event.date, title: event.title},
-        );
-        return (
-          <div key={event.date}>
-            <h2>
-              {event.link ? (
-                <a href={event.link}>{title}</a>
-              ) : title}
-            </h2>
-            <p>{expand2react(event.description)}</p>
-            <hr />
-          </div>
-        );
-      }) : (
-        <p>
-          {l_statistics('It seems we have no history to show at all!')}
-        </p>
-      )}
-  </Layout>
-);
+component MusicBrainzHistory(events: $ReadOnlyArray<StatisticsEventT>) {
+  return (
+    <Layout fullWidth title={l_statistics('History')}>
+      <h1>{l_statistics('Our glorious history')}</h1>
+      {events.length
+        ? events.map((event) => {
+          const title = exp.l_statistics(
+            '{date} - {title}',
+            {date: event.date, title: event.title},
+          );
+          return (
+            <div key={event.date}>
+              <h2>
+                {event.link ? (
+                  <a href={event.link}>{title}</a>
+                ) : title}
+              </h2>
+              <p>{expand2react(event.description)}</p>
+              <hr />
+            </div>
+          );
+        }) : (
+          <p>
+            {l_statistics('It seems we have no history to show at all!')}
+          </p>
+        )}
+    </Layout>
+  );
+}
 
 export default MusicBrainzHistory;

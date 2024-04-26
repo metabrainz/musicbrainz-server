@@ -9,25 +9,21 @@
 
 import ArtistLayout from './ArtistLayout.js';
 
-type Props = {
-  +artist: ArtistT,
-};
-
-const SpecialPurpose = ({
-  artist,
-}: Props): React$Element<typeof ArtistLayout> => (
-  <ArtistLayout
-    entity={artist}
-    fullWidth
-    page="special_purpose"
-    title={l('Cannot edit')}
-  >
-    <h2>{l('You may not edit special purpose artists')}</h2>
-    <p>
-      {l(`The artist you are trying to edit is a special purpose artist,
-          and you may not make direct changes to this data.`)}
-    </p>
-  </ArtistLayout>
-);
+component SpecialPurpose(artist: ArtistT) {
+  return (
+    <ArtistLayout
+      entity={artist}
+      fullWidth
+      page="special_purpose"
+      title={l('Cannot edit')}
+    >
+      <h2>{l('You may not edit special purpose artists')}</h2>
+      <p>
+        {l(`The artist you are trying to edit is a special purpose artist,
+            and you may not make direct changes to this data.`)}
+      </p>
+    </ArtistLayout>
+  );
+}
 
 export default SpecialPurpose;

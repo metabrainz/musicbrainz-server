@@ -46,13 +46,13 @@ function buildResult(result: SearchResultT<PlaceT>, index: number) {
   );
 }
 
-const PlaceResults = ({
+component PlaceResults(...{
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<PlaceT>): React$Element<typeof ResultsLayout> => {
+}: ResultsPropsT<PlaceT>) {
   const $c = React.useContext(CatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
@@ -81,6 +81,6 @@ const PlaceResults = ({
       ) : null}
     </ResultsLayout>
   );
-};
+}
 
 export default PlaceResults;

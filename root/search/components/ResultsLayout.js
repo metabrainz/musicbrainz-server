@@ -15,17 +15,11 @@ import formatUserDate from '../../utility/formatUserDate.js';
 
 import SearchForm from './SearchForm.js';
 
-type Props = {
-  +children: React$Node,
-  +form: SearchFormT,
-  +lastUpdated?: string,
-};
-
-const ResultsLayout = ({
-  children,
-  form,
-  lastUpdated,
-}: Props): React$Element<typeof Layout> => {
+component ResultsLayout(
+  children: React$Node,
+  form: SearchFormT,
+  lastUpdated?: string,
+) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -45,6 +39,6 @@ const ResultsLayout = ({
       </div>
     </Layout>
   );
-};
+}
 
 export default ResultsLayout;

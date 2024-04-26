@@ -15,15 +15,7 @@ import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
 import bracketed from '../static/scripts/common/utility/bracketed.js';
 
-type Props = {
-  +page?: string,
-  +release: ReleaseT,
-};
-
-const ReleaseHeader = ({
-  release,
-  page,
-}: Props): React$Element<typeof EntityHeader> => {
+component ReleaseHeader(page?: string, release: ReleaseT) {
   const rgLink = release.releaseGroup
     ? texp.ln(
       'see all versions of this release, {count} available',
@@ -64,6 +56,6 @@ const ReleaseHeader = ({
       subHeading={subHeading}
     />
   );
-};
+}
 
 export default ReleaseHeader;

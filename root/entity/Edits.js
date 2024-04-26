@@ -16,24 +16,14 @@ import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import localizeTypeNameForEntity
   from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
 
-type Props = {
-  +editCountLimit: number,
-  +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
-  +entity: EditableEntityT | CollectionT,
-  +pager: PagerT,
-  +refineUrlArgs?: {+[argument: string]: string},
-  +showingOpenOnly: boolean,
-  +user: UnsanitizedEditorT,
-};
-
-const Edits = ({
-  editCountLimit,
-  edits,
-  entity,
-  pager,
-  refineUrlArgs,
-  showingOpenOnly,
-}: Props): React$Element<typeof Layout> => {
+component Edits(
+  editCountLimit: number,
+  edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
+  entity: EditableEntityT | CollectionT,
+  pager: PagerT,
+  refineUrlArgs?: {+[argument: string]: string},
+  showingOpenOnly: boolean,
+) {
   const entityTypeClass = entity.entityType === 'release_group'
     ? 'rg'
     : entity.entityType;
@@ -94,6 +84,6 @@ const Edits = ({
       </div>
     </Layout>
   );
-};
+}
 
 export default Edits;

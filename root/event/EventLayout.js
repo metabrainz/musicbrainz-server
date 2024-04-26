@@ -12,30 +12,24 @@ import Layout from '../layout/index.js';
 
 import EventHeader from './EventHeader.js';
 
-type Props = {
-  +children: React$Node,
-  +entity: EventT,
-  +fullWidth?: boolean,
-  +page: string,
-  +title?: string,
-};
-
-const EventLayout = ({
-  children,
-  entity: event,
-  fullWidth = false,
-  page,
-  title,
-}: Props): React$Element<typeof Layout> => (
-  <Layout
-    title={nonEmpty(title) ? hyphenateTitle(event.name, title) : event.name}
-  >
-    <div id="content">
-      <EventHeader event={event} page={page} />
-      {children}
-    </div>
-    {fullWidth ? null : <EventSidebar event={event} />}
-  </Layout>
-);
+component EventLayout(
+  children: React$Node,
+  entity as event: EventT,
+  fullWidth: boolean = false,
+  page: string,
+  title?: string,
+) {
+  return (
+    <Layout
+      title={nonEmpty(title) ? hyphenateTitle(event.name, title) : event.name}
+    >
+      <div id="content">
+        <EventHeader event={event} page={page} />
+        {children}
+      </div>
+      {fullWidth ? null : <EventSidebar event={event} />}
+    </Layout>
+  );
+}
 
 export default EventLayout;

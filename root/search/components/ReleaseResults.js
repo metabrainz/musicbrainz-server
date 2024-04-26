@@ -96,11 +96,11 @@ function buildResult(
   );
 }
 
-export const ReleaseResultsInline = ({
+export component ReleaseResultsInline(...{
   pager,
   query,
   results,
-}: InlineResultsPropsT<ReleaseT>): React$MixedElement => {
+}: InlineResultsPropsT<ReleaseT>) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -129,15 +129,15 @@ export const ReleaseResultsInline = ({
       results={results}
     />
   );
-};
+}
 
-const ReleaseResults = ({
+component ReleaseResults(...{
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<ReleaseT>): React$Element<typeof ResultsLayout> => {
+}: ResultsPropsT<ReleaseT>) {
   const $c = React.useContext(CatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
@@ -156,6 +156,6 @@ const ReleaseResults = ({
       {manifest.js('common/components/TaggerIcon', {async: 'async'})}
     </ResultsLayout>
   );
-};
+}
 
 export default ReleaseResults;

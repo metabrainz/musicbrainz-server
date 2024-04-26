@@ -9,21 +9,15 @@
 
 import EntityHeader from '../components/EntityHeader.js';
 
-type Props = {
-  +label: LabelT,
-  +page: string,
-};
-
-const LabelHeader = ({
-  label,
-  page,
-}: Props): React$Element<typeof EntityHeader> => (
-  <EntityHeader
-    entity={label}
-    headerClass="labelheader"
-    page={page}
-    subHeading={l('Label')}
-  />
-);
+component LabelHeader(label: LabelT, page: string) {
+  return (
+    <EntityHeader
+      entity={label}
+      headerClass="labelheader"
+      page={page}
+      subHeading={l('Label')}
+    />
+  );
+}
 
 export default LabelHeader;

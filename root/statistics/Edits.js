@@ -21,17 +21,11 @@ type EditCategoryT = {
   +edit_type: string,
 };
 
-type EditsStatsT = {
-  +dateCollected: string,
-  +stats: {[statName: string]: number},
-  +statsByCategory: {[editCategory: string]: $ReadOnlyArray<EditCategoryT>},
-};
-
-const Edits = ({
-  dateCollected,
-  stats,
-  statsByCategory,
-}: EditsStatsT): React$Element<typeof StatisticsLayout> => {
+component Edits(
+  dateCollected: string,
+  stats: {[statName: string]: number},
+  statsByCategory: {[editCategory: string]: $ReadOnlyArray<EditCategoryT>},
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <StatisticsLayout fullWidth page="edits" title={l_statistics('Edits')}>
@@ -100,6 +94,6 @@ const Edits = ({
       )}
     </StatisticsLayout>
   );
-};
+}
 
 export default Edits;

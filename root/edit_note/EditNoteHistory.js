@@ -18,19 +18,7 @@ import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import bracketed from '../static/scripts/common/utility/bracketed.js';
 import formatUserDate from '../utility/formatUserDate.js';
 
-type EditNoteHistoryTableProps = {
-  +changes: $ReadOnlyArray<EditNoteChangeT>,
-};
-
-type EditNoteHistoryProps = {
-  +changes: $ReadOnlyArray<EditNoteChangeT>,
-  +noteUrl: string,
-  +pager: PagerT,
-};
-
-const EditNoteHistoryTable = ({
-  changes,
-}: EditNoteHistoryTableProps): React$Element<'table'> => {
+component EditNoteHistoryTable(changes: $ReadOnlyArray<EditNoteChangeT>) {
   const $c = React.useContext(SanitizedCatalystContext);
 
   return (
@@ -75,30 +63,32 @@ const EditNoteHistoryTable = ({
       </tbody>
     </table>
   );
-};
+}
 
-const EditNoteHistory = ({
-  changes,
-  noteUrl,
-  pager,
-}: EditNoteHistoryProps): React$MixedElement => (
-  <Layout fullWidth title="Edit note change history">
-    <h2>{'Edit note change history'}</h2>
-    {changes.length ? (
-      <PaginatedResults pager={pager}>
-        <EditNoteHistoryTable changes={changes} />
-      </PaginatedResults>
-    ) : (
-      <p>
-        {'This edit note has no change history.'}
+component EditNoteHistory(
+  changes: $ReadOnlyArray<EditNoteChangeT>,
+  noteUrl: string,
+  pager: PagerT,
+) {
+  return (
+    <Layout fullWidth title="Edit note change history">
+      <h2>{'Edit note change history'}</h2>
+      {changes.length ? (
+        <PaginatedResults pager={pager}>
+          <EditNoteHistoryTable changes={changes} />
+        </PaginatedResults>
+      ) : (
+        <p>
+          {'This edit note has no change history.'}
+        </p>
+      )}
+      <p className="small">
+        <a href={noteUrl}>
+          {'Go to the edit note'}
+        </a>
       </p>
-    )}
-    <p className="small">
-      <a href={noteUrl}>
-        {'Go to the edit note'}
-      </a>
-    </p>
-  </Layout>
-);
+    </Layout>
+  );
+}
 
 export default EditNoteHistory;

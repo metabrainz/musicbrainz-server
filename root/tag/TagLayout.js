@@ -12,13 +12,6 @@ import Tabs from '../components/Tabs.js';
 import Layout from '../layout/index.js';
 import TagLink from '../static/scripts/common/components/TagLink.js';
 
-type Props = {
-  +children: React$Node,
-  +page: string,
-  +tag: TagT,
-  +title?: string,
-};
-
 const tabLinks: $ReadOnlyArray<[string, () => string]> = [
   ['', N_l('Overview')],
   ['/artist', N_l('Artists')],
@@ -34,45 +27,47 @@ const tabLinks: $ReadOnlyArray<[string, () => string]> = [
   ['/event', N_l('Events')],
 ];
 
-const TagLayout = ({
-  children,
-  page,
-  tag,
-  title,
-}: Props): React$Element<typeof Layout> => (
-  <Layout
-    fullWidth
-    title={
-      nonEmpty(title)
-        ? hyphenateTitle(
-          texp.lp('Tag “{tag}”', 'folksonomy', {tag: tag.name}),
-          title,
-        ) : texp.lp('Tag “{tag}”', 'folksonomy', {tag: tag.name})
-    }
-  >
-    <div id="content">
-      <div className="tagheader">
-        <h1>
-          {exp.lp(
-            'Tag “{tag}”',
-            'folksonomy',
-            {tag: <TagLink tag={tag.name} />},
-          )}
-        </h1>
-        <SubHeader subHeading={lp('Tag', 'folksonomy')} />
+component TagLayout(
+  children: React$Node,
+  page: string,
+  tag: TagT,
+  title?: string,
+) {
+  return (
+    <Layout
+      fullWidth
+      title={
+        nonEmpty(title)
+          ? hyphenateTitle(
+            texp.lp('Tag “{tag}”', 'folksonomy', {tag: tag.name}),
+            title,
+          ) : texp.lp('Tag “{tag}”', 'folksonomy', {tag: tag.name})
+      }
+    >
+      <div id="content">
+        <div className="tagheader">
+          <h1>
+            {exp.lp(
+              'Tag “{tag}”',
+              'folksonomy',
+              {tag: <TagLink tag={tag.name} />},
+            )}
+          </h1>
+          <SubHeader subHeading={lp('Tag', 'folksonomy')} />
+        </div>
+        <Tabs>
+          {tabLinks.map(link => (
+            <li className={page === link[0] ? 'sel' : ''} key={link[0]}>
+              <a href={'/tag/' + encodeURIComponent(tag.name) + link[0]}>
+                {link[1]()}
+              </a>
+            </li>
+          ))}
+        </Tabs>
+        {children}
       </div>
-      <Tabs>
-        {tabLinks.map(link => (
-          <li className={page === link[0] ? 'sel' : ''} key={link[0]}>
-            <a href={'/tag/' + encodeURIComponent(tag.name) + link[0]}>
-              {link[1]()}
-            </a>
-          </li>
-        ))}
-      </Tabs>
-      {children}
-    </div>
-  </Layout>
-);
+    </Layout>
+  );
+}
 
 export default TagLayout;

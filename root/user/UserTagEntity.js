@@ -16,17 +16,10 @@ import {EntityListContent} from '../tag/EntityList.js';
 
 import {getTagListHeading, getTagListUrl} from './UserTagList.js';
 
-type UserTagEntityProps = {
-  +entityTags: $ReadOnlyArray<{
-    +entity: TaggableEntityT,
-    +entity_id: number,
-  }>,
-  +entityType: string,
-  +pager: PagerT,
-  +showDownvoted?: boolean,
-  +tag: TagT,
-  +user: AccountLayoutUserT,
-};
+type EntityTagsT = $ReadOnlyArray<{
+  +entity: TaggableEntityT,
+  +entity_id: number,
+}>;
 
 function getAllEntitiesTagUrl(
   user: string,
@@ -40,48 +33,50 @@ function getAllEntitiesTagUrl(
   );
 }
 
-const UserTagEntity = ({
-  entityTags,
-  entityType,
-  pager,
-  showDownvoted = false,
-  tag,
-  user,
-}: UserTagEntityProps): React$Element<typeof UserAccountLayout> => (
-  <UserAccountLayout entity={user} page="tags">
-    <nav className="breadcrumb">
-      <ol>
-        <li>
-          <a href={getTagListUrl(user.name, showDownvoted)}>
-            {getTagListHeading(user.name, showDownvoted)}
-          </a>
-        </li>
-        <li>
-          <a
-            href={getAllEntitiesTagUrl(
-              user.name,
-              tag.name,
-              showDownvoted,
-            )}
-          >
-            {tag.name}
-          </a>
-        </li>
-        <li>
-          {formatPluralEntityTypeName(entityType)}
-        </li>
-      </ol>
-    </nav>
-    <EntityListContent
-      entityTags={entityTags}
-      entityType={entityType}
-      pager={pager}
-      showDownvoted={showDownvoted}
-      showVotesSelect
-      tag={tag.name}
-      user={user}
-    />
-  </UserAccountLayout>
-);
+component UserTagEntity(
+  entityTags: EntityTagsT,
+  entityType: string,
+  pager: PagerT,
+  showDownvoted: boolean = false,
+  tag: TagT,
+  user: AccountLayoutUserT,
+) {
+  return (
+    <UserAccountLayout entity={user} page="tags">
+      <nav className="breadcrumb">
+        <ol>
+          <li>
+            <a href={getTagListUrl(user.name, showDownvoted)}>
+              {getTagListHeading(user.name, showDownvoted)}
+            </a>
+          </li>
+          <li>
+            <a
+              href={getAllEntitiesTagUrl(
+                user.name,
+                tag.name,
+                showDownvoted,
+              )}
+            >
+              {tag.name}
+            </a>
+          </li>
+          <li>
+            {formatPluralEntityTypeName(entityType)}
+          </li>
+        </ol>
+      </nav>
+      <EntityListContent
+        entityTags={entityTags}
+        entityType={entityType}
+        pager={pager}
+        showDownvoted={showDownvoted}
+        showVotesSelect
+        tag={tag.name}
+        user={user}
+      />
+    </UserAccountLayout>
+  );
+}
 
 export default UserTagEntity;

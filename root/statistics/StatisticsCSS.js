@@ -9,12 +9,14 @@
 
 import statisticsLessUrl from '../static/styles/statistics.less';
 
-const StatisticsCSS = (): React$Element<'link'> => (
-  <link
-    href={statisticsLessUrl}
-    rel="stylesheet"
-    type="text/css"
-  />
-);
+component StatisticsCSS() {
+  return (
+    <link
+      href={statisticsLessUrl}
+      rel="stylesheet"
+      type="text/css"
+    />
+  );
+}
 
 export default StatisticsCSS;

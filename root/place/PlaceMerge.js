@@ -16,44 +16,38 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 
-type Props = {
-  +form: MergeFormT,
-  +toMerge: $ReadOnlyArray<PlaceT>,
-};
+component PlaceMerge(form: MergeFormT, toMerge: $ReadOnlyArray<PlaceT>) {
+  return (
+    <Layout fullWidth title={l('Merge places')}>
+      <div id="content">
+        <h1>{l('Merge places')}</h1>
+        <p>
+          {l(`You are about to merge all these places into a single one.
+              Please select the place all others should be merged into:`)}
+        </p>
+        <form method="post">
+          <PlaceList
+            mergeForm={form}
+            places={sortByEntityName(toMerge)}
+          />
+          <FieldErrors field={form.field.target} />
 
-const PlaceMerge = ({
-  form,
-  toMerge,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Merge places')}>
-    <div id="content">
-      <h1>{l('Merge places')}</h1>
-      <p>
-        {l(`You are about to merge all these places into a single one.
-            Please select the place all others should be merged into:`)}
-      </p>
-      <form method="post">
-        <PlaceList
-          mergeForm={form}
-          places={sortByEntityName(toMerge)}
-        />
-        <FieldErrors field={form.field.target} />
+          <EnterEditNote field={form.field.edit_note} />
 
-        <EnterEditNote field={form.field.edit_note} />
-
-        <EnterEdit form={form}>
-          <button
-            className="negative"
-            name="submit"
-            type="submit"
-            value="cancel"
-          >
-            {l('Cancel')}
-          </button>
-        </EnterEdit>
-      </form>
-    </div>
-  </Layout>
-);
+          <EnterEdit form={form}>
+            <button
+              className="negative"
+              name="submit"
+              type="submit"
+              value="cancel"
+            >
+              {l('Cancel')}
+            </button>
+          </EnterEdit>
+        </form>
+      </div>
+    </Layout>
+  );
+}
 
 export default PlaceMerge;

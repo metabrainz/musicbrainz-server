@@ -17,36 +17,31 @@ import WikipediaExtract
 
 import PlaceLayout from './PlaceLayout.js';
 
-type Props = {
-  +eligibleForCleanup: boolean,
-  +numberOfRevisions: number,
-  +place: PlaceT,
-  +wikipediaExtract: WikipediaExtractT | null,
-};
-
-const PlaceIndex = ({
-  eligibleForCleanup,
-  numberOfRevisions,
-  place,
-  wikipediaExtract,
-}: Props): React$Element<typeof PlaceLayout> => (
-  <PlaceLayout entity={place} page="index">
-    {eligibleForCleanup ? (
-      <CleanupBanner entityType="place" />
-    ) : null}
-    <Annotation
-      annotation={place.latest_annotation}
-      collapse
-      entity={place}
-      numberOfRevisions={numberOfRevisions}
-    />
-    <WikipediaExtract
-      cachedWikipediaExtract={wikipediaExtract}
-      entity={place}
-    />
-    <Relationships source={place} />
-    {manifest.js('place/index', {async: 'async'})}
-  </PlaceLayout>
-);
+component PlaceIndex(
+  eligibleForCleanup: boolean,
+  numberOfRevisions: number,
+  place: PlaceT,
+  wikipediaExtract: WikipediaExtractT | null,
+) {
+  return (
+    <PlaceLayout entity={place} page="index">
+      {eligibleForCleanup ? (
+        <CleanupBanner entityType="place" />
+      ) : null}
+      <Annotation
+        annotation={place.latest_annotation}
+        collapse
+        entity={place}
+        numberOfRevisions={numberOfRevisions}
+      />
+      <WikipediaExtract
+        cachedWikipediaExtract={wikipediaExtract}
+        entity={place}
+      />
+      <Relationships source={place} />
+      {manifest.js('place/index', {async: 'async'})}
+    </PlaceLayout>
+  );
+}
 
 export default PlaceIndex;

@@ -14,32 +14,26 @@ import localizeAreaName
 
 import AreaHeader from './AreaHeader.js';
 
-type Props = {
-  +children: React$Node,
-  +entity: AreaT,
-  +fullWidth?: boolean,
-  +page: string,
-  +title?: string,
-};
-
-const AreaLayout = ({
-  children,
-  entity: area,
-  fullWidth = false,
-  page,
-  title,
-}: Props): React$Element<typeof Layout> => (
-  <Layout
-    title={nonEmpty(title)
-      ? hyphenateTitle(localizeAreaName(area), title)
-      : localizeAreaName(area)}
-  >
-    <div id="content">
-      <AreaHeader area={area} page={page} />
-      {children}
-    </div>
-    {fullWidth ? null : <AreaSidebar area={area} />}
-  </Layout>
-);
+component AreaLayout(
+  children: React$Node,
+  entity as area: AreaT,
+  fullWidth: boolean = false,
+  page: string,
+  title?: string,
+) {
+  return (
+    <Layout
+      title={nonEmpty(title)
+        ? hyphenateTitle(localizeAreaName(area), title)
+        : localizeAreaName(area)}
+    >
+      <div id="content">
+        <AreaHeader area={area} page={page} />
+        {children}
+      </div>
+      {fullWidth ? null : <AreaSidebar area={area} />}
+    </Layout>
+  );
+}
 
 export default AreaLayout;

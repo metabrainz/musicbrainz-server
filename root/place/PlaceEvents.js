@@ -16,17 +16,11 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import PlaceLayout from './PlaceLayout.js';
 
-type Props = {
-  +events: $ReadOnlyArray<EventT>,
-  +pager: PagerT,
-  +place: PlaceT,
-};
-
-const PlaceEvents = ({
-  events,
-  pager,
-  place,
-}: Props): React$Element<typeof PlaceLayout> => {
+component PlaceEvents(
+  events: $ReadOnlyArray<EventT>,
+  pager: PagerT,
+  place: PlaceT,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <PlaceLayout entity={place} page="events" title={l('Events')}>
@@ -63,6 +57,6 @@ const PlaceEvents = ({
       )}
     </PlaceLayout>
   );
-};
+}
 
 export default PlaceEvents;

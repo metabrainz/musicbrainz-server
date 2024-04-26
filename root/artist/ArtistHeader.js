@@ -11,15 +11,7 @@ import EntityHeader from '../components/EntityHeader.js';
 import localizeTypeNameForEntity
   from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
 
-type Props = {
-  +artist: ArtistT,
-  +page: string,
-};
-
-const ArtistHeader = ({
-  artist,
-  page,
-}: Props): React$Element<typeof EntityHeader> => {
+component ArtistHeader(artist: ArtistT, page: string) {
   let headerClass = 'artistheader';
   if (nonEmpty(artist.typeName)) {
     headerClass += ` ${artist.typeName.toLowerCase()}-icon`;
@@ -32,6 +24,6 @@ const ArtistHeader = ({
       subHeading={localizeTypeNameForEntity(artist)}
     />
   );
-};
+}
 
 export default ArtistHeader;

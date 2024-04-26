@@ -69,7 +69,7 @@ declare type WorkAliasTypeT = OptionTreeT<'work_alias_type'>;
 
 declare type WorkAliasT = AliasT<WorkAliasTypeT>;
 
-declare type AnyAiasT = AliasT<
+declare type AnyAliasT = AliasT<
  | AreaAliasTypeT
  | ArtistAliasTypeT
  | EventAliasTypeT

@@ -13,46 +13,44 @@ import FormCsrfToken
 import FormRowText from '../../static/scripts/edit/components/FormRowText.js';
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
-type Props = {
-  +currentVersion: number,
-  +form: FormT<{
-    +csrf_token: FieldT<string>,
-    +version: FieldT<string>,
-  }>,
-  +page: string,
-};
+type EditWikiDocFormT = FormT<{
+  +csrf_token: FieldT<string>,
+  +version: FieldT<string>,
+}>;
 
-const EditWikiDoc = ({
-  currentVersion,
-  form,
-  page,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Update page">
-    <div id="content">
-      <h1>{'Update page'}</h1>
-      <form method="post">
-        <FormCsrfToken form={form} />
-        <div className="row">
-          <label>{'Page:'}</label>
-          <span>{page}</span>
-        </div>
-        <div className="row">
-          <label>{'Current version:'}</label>
-          <span>{currentVersion}</span>
-        </div>
-        <FormRowText
-          field={form.field.version}
-          label="New version:"
-          required
-          type="number"
-          uncontrolled
-        />
-        <div className="row no-label">
-          <FormSubmit label="Update" />
-        </div>
-      </form>
-    </div>
-  </Layout>
-);
+component EditWikiDoc(
+  currentVersion: number,
+  form: EditWikiDocFormT,
+  page: string,
+) {
+  return (
+    <Layout fullWidth title="Update page">
+      <div id="content">
+        <h1>{'Update page'}</h1>
+        <form method="post">
+          <FormCsrfToken form={form} />
+          <div className="row">
+            <label>{'Page:'}</label>
+            <span>{page}</span>
+          </div>
+          <div className="row">
+            <label>{'Current version:'}</label>
+            <span>{currentVersion}</span>
+          </div>
+          <FormRowText
+            field={form.field.version}
+            label="New version:"
+            required
+            type="number"
+            uncontrolled
+          />
+          <div className="row no-label">
+            <FormSubmit label="Update" />
+          </div>
+        </form>
+      </div>
+    </Layout>
+  );
+}
 
 export default EditWikiDoc;

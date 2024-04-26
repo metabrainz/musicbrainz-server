@@ -14,6 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     conditional_merge_column_query
     contains_string
+    find_best_primary_alias
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -465,12 +466,28 @@ sub _hash_to_row
 }
 
 sub load_related_info {
-    my ($self, @artists) = @_;
+    my ($self, $artists_ref, $user_lang) = @_;
 
     my $c = $self->c;
+    my @artists = @{$artists_ref};
     $c->model('ArtistType')->load(@artists);
     $c->model('Gender')->load(@artists);
     $c->model('Area')->load(@artists);
+
+    # Load and save aliases so Controller::Artist::show can use them later.
+    my $artist_aliases = $c->model('Artist')->alias->find_by_entity_ids(
+        map { $_->id } @artists,
+    );
+    my @all_aliases = map { @$_ } values %$artist_aliases;
+    $c->model('Artist')->alias_type->load(@all_aliases);
+    for my $artist (@artists) {
+        my @aliases = @{ $artist_aliases->{$artist->id} };
+        $artist->aliases(\@aliases);
+        if (defined $user_lang) {
+            my $best_alias = find_best_primary_alias(\@aliases, $user_lang);
+            $artist->primary_alias($best_alias->name) if defined $best_alias;
+        }
+    }
 }
 
 sub load_meta

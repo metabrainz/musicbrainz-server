@@ -11,21 +11,15 @@ import EntityHeader from '../components/EntityHeader.js';
 import localizeTypeNameForEntity
   from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
 
-type Props = {
-  +event: EventT,
-  +page: string,
-};
-
-const EventHeader = ({
-  event,
-  page,
-}: Props): React$Element<typeof EntityHeader> => (
-  <EntityHeader
-    entity={event}
-    headerClass="eventheader"
-    page={page}
-    subHeading={localizeTypeNameForEntity(event)}
-  />
-);
+component EventHeader(event: EventT, page: string) {
+  return (
+    <EntityHeader
+      entity={event}
+      headerClass="eventheader"
+      page={page}
+      subHeading={localizeTypeNameForEntity(event)}
+    />
+  );
+}
 
 export default EventHeader;

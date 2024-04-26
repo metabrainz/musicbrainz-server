@@ -19,87 +19,82 @@ import InlineSubmitButton
 
 import CDStubLayout from './CDStubLayout.js';
 
-type Props = {
-  +artists: $ReadOnlyArray<SearchResultT<ArtistT>>,
-  +cdstub: CDStubT,
-  +form: SearchFormT,
-  +pager: PagerT,
-};
+component ImportCDStub(
+  artists: $ReadOnlyArray<SearchResultT<ArtistT>>,
+  cdstub: CDStubT,
+  form: SearchFormT,
+  pager: PagerT,
+) {
+  return (
+    <CDStubLayout entity={cdstub}>
+      <h2>{lp('Import CD stub', 'header')}</h2>
+      <p>
+        {l(`Please search for the artist you wish
+            to add a new release for:`)}
+      </p>
 
-const ImportCDStub = ({
-  artists,
-  cdstub,
-  form,
-  pager,
-}: Props): React$Element<typeof CDStubLayout> => (
-  <CDStubLayout entity={cdstub}>
-    <h2>{lp('Import CD stub', 'header')}</h2>
-    <p>
-      {l(`Please search for the artist you wish
-          to add a new release for:`)}
-    </p>
+      <form method="post">
+        <FormRowText
+          field={form.field.query}
+          label={addColonText(l('Artist'))}
+          required
+          uncontrolled
+        >
+          <InlineSubmitButton label={l('Search')} />
+        </FormRowText>
+      </form>
 
-    <form method="post">
-      <FormRowText
-        field={form.field.query}
-        label={addColonText(l('Artist'))}
-        required
-        uncontrolled
-      >
-        <InlineSubmitButton label={l('Search')} />
-      </FormRowText>
-    </form>
+      <form action="/release/add" method="post">
+        <input name="name" type="hidden" value={cdstub.title} />
+        <input name="barcode" type="hidden" value={cdstub.barcode} />
+        <input name="mediums.0.toc" type="hidden" value={cdstub.toc} />
+        <input name="mediums.0.format" type="hidden" value="CD" />
 
-    <form action="/release/add" method="post">
-      <input name="name" type="hidden" value={cdstub.title} />
-      <input name="barcode" type="hidden" value={cdstub.barcode} />
-      <input name="mediums.0.toc" type="hidden" value={cdstub.toc} />
-      <input name="mediums.0.format" type="hidden" value="CD" />
-
-      {cdstub.tracks.map((track, index) => (
-        <React.Fragment key={index}>
-          <input
-            name={`mediums.0.track.${index}.name`}
-            type="hidden"
-            value={track.title}
-          />
-          <input
-            name={`mediums.0.track.${index}.length`}
-            type="hidden"
-            value={track.length}
-          />
-          {track.artist ? (
+        {cdstub.tracks.map((track, index) => (
+          <React.Fragment key={index}>
             <input
-              name={`mediums.0.track.${index}.artist_credit.names.0.name`}
+              name={`mediums.0.track.${index}.name`}
               type="hidden"
-              value={track.artist}
+              value={track.title}
             />
-          ) : null}
-        </React.Fragment>
-      ))}
-
-      <PaginatedResults pager={pager}>
-        <ul>
-          {artists.map((artist, index) => (
-            <li key={index}>
+            <input
+              name={`mediums.0.track.${index}.length`}
+              type="hidden"
+              value={track.length}
+            />
+            {track.artist ? (
               <input
-                id="id.artist_credit.names.0.mbid"
-                name="artist_credit.names.0.mbid"
-                type="radio"
-                value={artist.entity.gid}
+                name={`mediums.0.track.${index}.artist_credit.names.0.name`}
+                type="hidden"
+                value={track.artist}
               />
-              {' '}
-              <label htmlFor="id.artist_credit.names.0.mbid">
-                <EntityLink entity={artist.entity} />
-              </label>
-            </li>
-          ))}
-        </ul>
-      </PaginatedResults>
+            ) : null}
+          </React.Fragment>
+        ))}
 
-      <FormSubmit label={lp('Import CD stub', 'interactive')} />
-    </form>
-  </CDStubLayout>
-);
+        <PaginatedResults pager={pager}>
+          <ul>
+            {artists.map((artist, index) => (
+              <li key={index}>
+                <input
+                  id="id.artist_credit.names.0.mbid"
+                  name="artist_credit.names.0.mbid"
+                  type="radio"
+                  value={artist.entity.gid}
+                />
+                {' '}
+                <label htmlFor="id.artist_credit.names.0.mbid">
+                  <EntityLink entity={artist.entity} />
+                </label>
+              </li>
+            ))}
+          </ul>
+        </PaginatedResults>
+
+        <FormSubmit label={lp('Import CD stub', 'interactive')} />
+      </form>
+    </CDStubLayout>
+  );
+}
 
 export default ImportCDStub;

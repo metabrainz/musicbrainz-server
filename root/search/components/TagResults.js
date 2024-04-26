@@ -36,27 +36,29 @@ function buildResult(
   );
 }
 
-const TagResults = ({
+component TagResults(...{
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<TagT>): React$Element<typeof ResultsLayout> => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    <PaginatedSearchResults
-      buildResult={buildResult}
-      columns={
-        <>
-          <th>{l('Name')}</th>
-          <th>{l('Genre')}</th>
-        </>
-      }
-      pager={pager}
-      query={query}
-      results={results}
-    />
-  </ResultsLayout>
-);
+}: ResultsPropsT<TagT>) {
+  return (
+    <ResultsLayout form={form} lastUpdated={lastUpdated}>
+      <PaginatedSearchResults
+        buildResult={buildResult}
+        columns={
+          <>
+            <th>{l('Name')}</th>
+            <th>{l('Genre')}</th>
+          </>
+        }
+        pager={pager}
+        query={query}
+        results={results}
+      />
+    </ResultsLayout>
+  );
+}
 
 export default TagResults;

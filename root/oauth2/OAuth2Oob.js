@@ -9,26 +9,20 @@
 
 import Layout from '../layout/index.js';
 
-type Props = {
-  +application: ApplicationT,
-  +code: string,
-};
-
-const OAuth2Oob = ({
-  application,
-  code,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('OAuth authorization')}>
-    <h1>{l('Success!')}</h1>
-    <p>
-      {texp.l(
-        `You have granted access to {app}. Next, return to {app} and
-         copy this token to complete the authorization process:`,
-        {app: application.name},
-      )}
-    </p>
-    <p><code>{code}</code></p>
-  </Layout>
-);
+component OAuth2Oob(application: ApplicationT, code: string) {
+  return (
+    <Layout fullWidth title={l('OAuth authorization')}>
+      <h1>{l('Success!')}</h1>
+      <p>
+        {texp.l(
+          `You have granted access to {app}. Next, return to {app} and
+           copy this token to complete the authorization process:`,
+          {app: application.name},
+        )}
+      </p>
+      <p><code>{code}</code></p>
+    </Layout>
+  );
+}
 
 export default OAuth2Oob;

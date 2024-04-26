@@ -10,21 +10,19 @@
 
 import Layout from '../../layout/index.js';
 
-type Props = {
-  +models: Array<string>,
-};
-
-const Attributes = ({models}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Attributes">
-    <h1>{'Attributes'}</h1>
-    <ul>
-      {models.sort().map((item) => (
-        <li key={item}>
-          <a href={'/admin/attributes/' + item}>{item}</a>
-        </li>
-      ))}
-    </ul>
-  </Layout>
-);
+component Attributes(models: Array<string>) {
+  return (
+    <Layout fullWidth title="Attributes">
+      <h1>{'Attributes'}</h1>
+      <ul>
+        {models.sort().map((item) => (
+          <li key={item}>
+            <a href={'/admin/attributes/' + item}>{item}</a>
+          </li>
+        ))}
+      </ul>
+    </Layout>
+  );
+}
 
 export default Attributes;

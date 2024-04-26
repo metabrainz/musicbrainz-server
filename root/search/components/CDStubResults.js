@@ -29,28 +29,30 @@ function buildResult(result: SearchResultT<CDStubT>, index: number) {
   );
 }
 
-const CDStubResults = ({
+component CDStubResults(...{
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<CDStubT>): React$Element<typeof ResultsLayout> => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    <PaginatedSearchResults
-      buildResult={buildResult}
-      columns={
-        <>
-          <th>{l('CD stub')}</th>
-          <th>{l('Artist')}</th>
-          <th>{l('Tracks')}</th>
-        </>
-      }
-      pager={pager}
-      query={query}
-      results={results}
-    />
-  </ResultsLayout>
-);
+}: ResultsPropsT<CDStubT>) {
+  return (
+    <ResultsLayout form={form} lastUpdated={lastUpdated}>
+      <PaginatedSearchResults
+        buildResult={buildResult}
+        columns={
+          <>
+            <th>{l('CD stub')}</th>
+            <th>{l('Artist')}</th>
+            <th>{l('Tracks')}</th>
+          </>
+        }
+        pager={pager}
+        query={query}
+        results={results}
+      />
+    </ResultsLayout>
+  );
+}
 
 export default CDStubResults;

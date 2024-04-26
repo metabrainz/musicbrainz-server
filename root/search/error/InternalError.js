@@ -9,33 +9,27 @@
 
 import SearchError from '../components/SearchError.js';
 
-type Props = {
-  +error: string,
-  +form: SearchFormT | TagLookupFormT,
-};
-
-const InternalError = ({
-  error,
-  form,
-}: Props): React$Element<typeof SearchError> => (
-  <SearchError form={form}>
-    <p>
-      {l(`The search server could not fulfill your request
-          due to an internal error. This is usually only
-          temporary, so please retry your search again later.`)}
-    </p>
-    <p>
-      {exp.l(
-        `Below is the error information. If you wish to file
-         a bug report, you may do so at {bugs|our bug tracker}.
-         The information below will help, so please be sure to include it!`,
-        {bugs: 'http://tickets.metabrainz.org/'},
-      )}
-    </p>
-    <pre>
-      {error}
-    </pre>
-  </SearchError>
-);
+component InternalError(error: string, form: SearchFormT | TagLookupFormT) {
+  return (
+    <SearchError form={form}>
+      <p>
+        {l(`The search server could not fulfill your request
+            due to an internal error. This is usually only
+            temporary, so please retry your search again later.`)}
+      </p>
+      <p>
+        {exp.l(
+          `Below is the error information. If you wish to file
+           a bug report, you may do so at {bugs|our bug tracker}.
+           The information below will help, so please be sure to include it!`,
+          {bugs: 'http://tickets.metabrainz.org/'},
+        )}
+      </p>
+      <pre>
+        {error}
+      </pre>
+    </SearchError>
+  );
+}
 
 export default InternalError;

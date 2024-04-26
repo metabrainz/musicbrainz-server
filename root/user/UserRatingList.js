@@ -17,11 +17,8 @@ import DescriptiveLink
 import RatingStars, {StaticRatingStars}
   from '../static/scripts/common/components/RatingStars.js';
 
-type Props = {
-  +ratings: {
-    +[entityType: RatableEntityTypeT]: $ReadOnlyArray<RatableT>,
-  },
-  +user: AccountLayoutUserT,
+type UserRatingsT = {
+  +[entityType: RatableEntityTypeT]: $ReadOnlyArray<RatableT>,
 };
 
 export const headingText: {+[entity: RatableEntityTypeT]: () => string} = {
@@ -34,10 +31,7 @@ export const headingText: {+[entity: RatableEntityTypeT]: () => string} = {
   work: N_l('Work ratings'),
 };
 
-const UserRatingList = ({
-  ratings,
-  user,
-}: Props): React$Element<typeof UserAccountLayout> => {
+component UserRatingList(ratings: UserRatingsT, user: AccountLayoutUserT) {
   const $c = React.useContext(SanitizedCatalystContext);
   const hasRatings = Object.values(ratings).some(
     entityTypeRatings => entityTypeRatings.length > 0,
@@ -85,6 +79,6 @@ const UserRatingList = ({
       )}
     </UserAccountLayout>
   );
-};
+}
 
 export default UserRatingList;

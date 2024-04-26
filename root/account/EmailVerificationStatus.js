@@ -9,22 +9,18 @@
 
 import StatusPage from '../components/StatusPage.js';
 
-type Props = {
-  +message?: string,
-};
-
-const EmailVerificationStatus = ({
-  message,
-}: Props): React$Element<typeof StatusPage> => (
-  <StatusPage title={lp('Email verification', 'header')}>
-    <p>
-      {nonEmpty(message)
-        ? message
-        : l(`Thank you, your email address has now been verified! If you still
-             can't edit, please try to log out and log in again.`)
-      }
-    </p>
-  </StatusPage>
-);
+component EmailVerificationStatus(message?: string) {
+  return (
+    <StatusPage title={lp('Email verification', 'header')}>
+      <p>
+        {nonEmpty(message)
+          ? message
+          : l(`Thank you, your email address has now been verified! If you
+               still can't edit, please try to log out and log in again.`)
+        }
+      </p>
+    </StatusPage>
+  );
+}
 
 export default EmailVerificationStatus;

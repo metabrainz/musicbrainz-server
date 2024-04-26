@@ -12,29 +12,25 @@ import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 import CollectionLayout from './CollectionLayout.js';
 
-type Props = {
-  +collection: CollectionT,
-};
+component DeleteCollection(collection: CollectionT) {
+  return (
+    <CollectionLayout
+      entity={collection}
+      fullWidth
+      page="delete"
+      title={l('Remove')}
+    >
+      <h2>{l('Remove collection')}</h2>
+      <p>
+        {exp.l('Are you sure you want to remove the collection {collection}?',
+               {collection: <EntityLink entity={collection} />})}
+      </p>
+      <form method="post">
+        <FormSubmit label={l('Remove collection')} />
+      </form>
 
-const DeleteCollection = ({
-  collection,
-}: Props): React$Element<typeof CollectionLayout> => (
-  <CollectionLayout
-    entity={collection}
-    fullWidth
-    page="delete"
-    title={l('Remove')}
-  >
-    <h2>{l('Remove collection')}</h2>
-    <p>
-      {exp.l('Are you sure you want to remove the collection {collection}?',
-             {collection: <EntityLink entity={collection} />})}
-    </p>
-    <form method="post">
-      <FormSubmit label={l('Remove collection')} />
-    </form>
-
-  </CollectionLayout>
-);
+    </CollectionLayout>
+  );
+}
 
 export default DeleteCollection;

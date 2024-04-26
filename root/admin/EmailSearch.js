@@ -14,81 +14,81 @@ import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 import UserList from './components/UserList.js';
 
-type Props = {
-  +form: FormT<{
-    +email: FieldT<string>,
-  }>,
-  +pager?: PagerT,
-  +results?: $ReadOnlyArray<UnsanitizedEditorT>,
-};
+type EmailSearchFormT = FormT<{
+  +email: FieldT<string>,
+}>;
 
-const EmailSearch = ({
-  form,
-  pager,
-  results,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Search users by email">
-    <div id="content">
-      <h1>{'Search users by email'}</h1>
+component EmailSearch(
+  form: EmailSearchFormT,
+  pager?: PagerT,
+  results?: $ReadOnlyArray<UnsanitizedEditorT>,
+) {
+  return (
+    <Layout fullWidth title="Search users by email">
+      <div id="content">
+        <h1>{'Search users by email'}</h1>
 
-      <form action="/admin/email-search" method="post">
-        <p>
-          {exp.l_admin(
-            'Enter a {link|POSIX regular expression}.',
-            {
-              link: 'https://www.postgresql.org/docs/12/' +
-                'functions-matching.html#FUNCTIONS-POSIX-REGEXP',
-            },
-          )}
-        </p>
-        <p>
-          {exp.l_admin(
-            `Since periods (<code>.</code>) and tags preceded with a
-             <code>+</code> sign on the user side of the address (that is,
-             before the <code>@</code> sign) are often used as “free aliases”
-             by email providers, both of these are ignored from the registered
-             email addresses by this search to help you find address aliases.
-             Please remove these parts from the user side of the address.
-             Don’t forget you still need to escape periods with a backslash
-             (<code>\\.</code>) in the host side of your search, otherwise
-             they’ll be understood as special regular expression characters!
-             For example, <code>user@host\\.name</code> search will match both
-             <code>user@host.name</code> and
-             <code>us.er+alias@host.name</code>, but neither
-             <code>user@sub.host.name</code> nor <code>user@host-name</code>.
-             Counter-example: <code>us\\.er\\+alias@host\\.name</code> search
-             will match neither <code>us.er+alias@host.name</code> nor
-             <code>user@host.name</code> email addresses.`,
-          )}
-        </p>
+        <form action="/admin/email-search" method="post">
+          <p>
+            {exp.l_admin(
+              'Enter a {link|POSIX regular expression}.',
+              {
+                link: 'https://www.postgresql.org/docs/12/' +
+                  'functions-matching.html#FUNCTIONS-POSIX-REGEXP',
+              },
+            )}
+          </p>
+          <p>
+            {exp.l_admin(
+              `Since periods (<code>.</code>) and tags preceded with a
+               <code>+</code> sign on the user side of the address (that is,
+               before the <code>@</code> sign) are often used
+               as “free aliases” by email providers,
+               both of these are ignored from the registered email addresses
+               by this search to help you find address aliases.
+               Please remove these parts from the user side of the address.
+               Don’t forget you still need to escape periods with a backslash
+               (<code>\\.</code>) in the host side of your search, otherwise
+               they’ll be understood as special regular expression characters!
+               For example, <code>user@host\\.name</code> search will match
+               both <code>user@host.name</code> and
+               <code>us.er+alias@host.name</code>, but neither
+               <code>user@sub.host.name</code>
+               nor <code>user@host-name</code>.
+               Counter-example: <code>us\\.er\\+alias@host\\.name</code>
+               search will match neither <code>us.er+alias@host.name</code>
+               nor <code>user@host.name</code> email addresses.`,
+            )}
+          </p>
 
-        <FormRowText
-          field={form.field.email}
-          label="Email:"
-          size={50}
-          uncontrolled
-        />
-
-        <div className="row no-label">
-          <FormSubmit
-            label="Search"
-            name="emailsearch.submit"
-            value="1"
+          <FormRowText
+            field={form.field.email}
+            label="Email:"
+            size={50}
+            uncontrolled
           />
-        </div>
 
-        {results ? (
-          results.length && pager ? (
-            <PaginatedResults pager={pager}>
-              <UserList users={results} />
-            </PaginatedResults>
-          ) : (
-            <p>{'No results found.'}</p>
-          )
-        ) : null}
-      </form>
-    </div>
-  </Layout>
-);
+          <div className="row no-label">
+            <FormSubmit
+              label="Search"
+              name="emailsearch.submit"
+              value="1"
+            />
+          </div>
+
+          {results ? (
+            results.length && pager ? (
+              <PaginatedResults pager={pager}>
+                <UserList users={results} />
+              </PaginatedResults>
+            ) : (
+              <p>{'No results found.'}</p>
+            )
+          ) : null}
+        </form>
+      </div>
+    </Layout>
+  );
+}
 
 export default EmailSearch;

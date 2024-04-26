@@ -14,15 +14,7 @@ import EditorLink from '../../static/scripts/common/components/EditorLink.js';
 import formatUserDate from '../../utility/formatUserDate.js';
 import {votesVisible} from '../../utility/voting.js';
 
-type RowProps = {
-  +election: AutoEditorElectionT,
-  +index: number,
-};
-
-const ElectionTableRow = ({
-  election,
-  index,
-}: RowProps): React$Element<'tr'> => {
+component ElectionTableRow(election: AutoEditorElectionT, index: number) {
   const $c = React.useContext(CatalystContext);
   return (
     <tr className={index % 2 ? 'even' : 'odd'}>
@@ -60,22 +52,18 @@ const ElectionTableRow = ({
       <td><a href={`/election/${election.id}`}>{l('View details')}</a></td>
     </tr>
   );
-};
+}
 
-type Props = {
-  +elections: $ReadOnlyArray<AutoEditorElectionT>,
-};
-
-const ElectionTableRows = ({
-  elections,
-}: Props): $ReadOnlyArray<React$Element<typeof ElectionTableRow>> => (
-  elections.map((election, index) => (
-    <ElectionTableRow
-      election={election}
-      index={index}
-      key={election.id}
-    />
-  ))
-);
+component ElectionTableRows(elections: $ReadOnlyArray<AutoEditorElectionT>) {
+  return (
+    elections.map((election, index) => (
+      <ElectionTableRow
+        election={election}
+        index={index}
+        key={election.id}
+      />
+    ))
+  );
+}
 
 export default ElectionTableRows;

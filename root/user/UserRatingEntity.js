@@ -20,19 +20,12 @@ import RatingStars, {StaticRatingStars}
 
 import {headingText} from './UserRatingList.js';
 
-type UserTagEntityProps = {
-  +entityType: RatableEntityTypeT,
-  +pager: PagerT,
-  +ratings: $ReadOnlyArray<RatableT>,
-  +user: AccountLayoutUserT,
-};
-
-const UserRatingEntity = ({
-  entityType,
-  pager,
-  ratings,
-  user,
-}: UserTagEntityProps): React$Element<typeof UserAccountLayout> => {
+component UserRatingEntity(
+  entityType: RatableEntityTypeT,
+  pager: PagerT,
+  ratings: $ReadOnlyArray<RatableT>,
+  user: AccountLayoutUserT,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const title = headingText[entityType]();
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
@@ -59,6 +52,6 @@ const UserRatingEntity = ({
       )}
     </UserAccountLayout>
   );
-};
+}
 
 export default UserRatingEntity;

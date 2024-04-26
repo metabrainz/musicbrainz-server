@@ -35,7 +35,10 @@ declare type ReleaseGroupAppearancesT = {
   +results: $ReadOnlyArray<ReleaseGroupT>,
 };
 
+declare type ReleaseGroupAppearancesMapT = {
+  +[recordingId: number]: ReleaseGroupAppearancesT,
+};
+
 declare type ReleaseGroupAppearancesRoleT = {
-  +releaseGroupAppearances?:
-    {+[recordingId: number]: ReleaseGroupAppearancesT},
+  +releaseGroupAppearances?: ReleaseGroupAppearancesMapT,
 };

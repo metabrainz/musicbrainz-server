@@ -14,25 +14,22 @@ import CollectionEditForm
 
 import type {CollectionEditFormT} from './types.js';
 
-type Props = {
-  +collectionTypes: SelectOptionsT,
-  +form: CollectionEditFormT,
-};
-
-const CreateCollection = ({
-  collectionTypes,
-  form,
-}: Props): React$Element<typeof Layout> => (
-  <Layout
-    fullWidth
-    title={lp('Add a new collection', 'header')}
-  >
-    <div id="content">
-      <h1>{lp('Add a new collection', 'header')}</h1>
-      <CollectionEditForm collectionTypes={collectionTypes} form={form} />
-      {manifest.js('collection/edit')}
-    </div>
-  </Layout>
-);
+component CreateCollection(
+  collectionTypes: SelectOptionsT,
+  form: CollectionEditFormT,
+) {
+  return (
+    <Layout
+      fullWidth
+      title={lp('Add a new collection', 'header')}
+    >
+      <div id="content">
+        <h1>{lp('Add a new collection', 'header')}</h1>
+        <CollectionEditForm collectionTypes={collectionTypes} form={form} />
+        {manifest.js('collection/edit')}
+      </div>
+    </Layout>
+  );
+}
 
 export default CreateCollection;

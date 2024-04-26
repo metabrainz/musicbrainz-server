@@ -17,42 +17,38 @@ import WikipediaExtract
 
 import GenreLayout from './GenreLayout.js';
 
-type Props = {
-  +genre: GenreT,
-  +numberOfRevisions: number,
-  +wikipediaExtract: WikipediaExtractT | null,
-};
-
-const GenreIndex = ({
-  genre,
-  numberOfRevisions,
-  wikipediaExtract,
-}: Props): React$Element<typeof GenreLayout> => (
-  <GenreLayout
-    entity={genre}
-    page="index"
-    title={l('Genre information')}
-  >
-    <h2>{lp('Associated tags', 'folksonomy')}</h2>
-    <table className="details">
-      <tr>
-        <th>{addColonText(lp('Primary tag', 'folksonomy'))}</th>
-        <td><TagLink showIcon tag={genre.name} /></td>
-      </tr>
-    </table>
-    <WikipediaExtract
-      cachedWikipediaExtract={wikipediaExtract}
+component GenreIndex(
+  genre: GenreT,
+  numberOfRevisions: number,
+  wikipediaExtract: WikipediaExtractT | null,
+) {
+  return (
+    <GenreLayout
       entity={genre}
-    />
-    <Annotation
-      annotation={genre.latest_annotation}
-      collapse
-      entity={genre}
-      numberOfRevisions={numberOfRevisions}
-    />
-    <Relationships source={genre} />
-    {manifest.js('genre/index', {async: 'async'})}
-  </GenreLayout>
-);
+      page="index"
+      title={l('Genre information')}
+    >
+      <h2>{lp('Associated tags', 'folksonomy')}</h2>
+      <table className="details">
+        <tr>
+          <th>{addColonText(lp('Primary tag', 'folksonomy'))}</th>
+          <td><TagLink showIcon tag={genre.name} /></td>
+        </tr>
+      </table>
+      <WikipediaExtract
+        cachedWikipediaExtract={wikipediaExtract}
+        entity={genre}
+      />
+      <Annotation
+        annotation={genre.latest_annotation}
+        collapse
+        entity={genre}
+        numberOfRevisions={numberOfRevisions}
+      />
+      <Relationships source={genre} />
+      {manifest.js('genre/index', {async: 'async'})}
+    </GenreLayout>
+  );
+}
 
 export default GenreIndex;

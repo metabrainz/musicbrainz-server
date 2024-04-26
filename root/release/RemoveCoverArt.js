@@ -17,17 +17,11 @@ import EnterEditNote
 
 import ReleaseLayout from './ReleaseLayout.js';
 
-type Props = {
-  +artwork: ArtworkT,
-  +form: ConfirmFormT,
-  +release: ReleaseT,
-};
-
-const RemoveCoverArt = ({
-  artwork,
-  form,
-  release,
-}: Props): React$Element<typeof ReleaseLayout> => {
+component RemoveCoverArt(
+  artwork: ArtworkT,
+  form: ConfirmFormT,
+  release: ReleaseT,
+) {
   const title = lp('Remove cover art', 'singular, header');
 
   return (
@@ -52,6 +46,6 @@ const RemoveCoverArt = ({
       </form>
     </ReleaseLayout>
   );
-};
+}
 
 export default RemoveCoverArt;
