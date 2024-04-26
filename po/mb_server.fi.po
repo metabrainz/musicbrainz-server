@@ -28,7 +28,7 @@
 # Timo Martikainen <email address hidden>, 2012-2014
 # yvanz, 2018
 # yvanz, 2018
-# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
@@ -36,7 +36,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-17 15:48+0000\n"
 "PO-Revision-Date: 2024-04-17 17:32+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: Finnish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fi/>\n"
 "Language: fi\n"
@@ -6613,8 +6613,8 @@ msgstr ""
 "<strong>Huomaa että työpanoksesi tullaan julkaisemaan vapaasti yleiseen "
 "käyttöön (Public Domain) ja/tai Creative Commons by-nc-sa-lisenssin "
 "alaisena. Lisäksi annat MetaBrainz-säätiölle oikeuden lisensoida tätä dataa "
-"kaupalliseen käyttöön. Tutustu {doc|lisenssisivuumme} saadaksesi lisätietoja."
-"</strong>"
+"kaupalliseen käyttöön. Tutustu {doc|lisenssisivuumme} saadaksesi "
+"lisätietoja.</strong>"
 
 #: ../root/account/Register.js:51
 msgid ""
