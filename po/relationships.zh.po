@@ -847,7 +847,8 @@ msgstr "将专辑链接到重混音地区。仅在具体地点未知时使用！
 msgid ""
 "Links a release to the area it was transferred in (for example from an old "
 "tape to digital). Use only when the place is unknown!"
-msgstr "将一个版本链接到它被转移的区域(例如从旧磁带到数字磁带)。只在地点不明时使用!"
+msgstr ""
+"将一个版本链接到它被转移的区域(例如从旧磁带到数字磁带)。只在地点不明时使用!"
 
 #: DB:link_type/description:967
 msgid ""
@@ -958,7 +959,8 @@ msgstr "将活动链接到其支持表演者(之一)(又称开幕嘉宾或暖场
 msgid ""
 "Links an event to a DJ that appeared in a supporting role (such as DJing "
 "between artists, or closing the night after a concert)."
-msgstr "将一个活动与一个次要角色的DJ联系起来(例如，在两个艺术家之间切换或在一场音乐会"
+msgstr ""
+"将一个活动与一个次要角色的DJ联系起来(例如，在两个艺术家之间切换或在一场音乐会"
 "后结束夜晚)。"
 
 #: DB:link_type/description:800
@@ -972,8 +974,9 @@ msgstr ""
 msgid ""
 "Links an event to a label or other organization credited for presenting it "
 "(often as “Label presents Event”)."
-msgstr "将一个事件与一个标签或其他组织联系起来(通常以“这个标签展示了这个事件”的形式)"
-"。"
+msgstr ""
+"将一个事件与一个标签或其他组织联系起来(通常以“这个标签展示了这个事件”的形"
+"式)。"
 
 #: DB:link_type/description:806
 msgid "Links an event to an artist that was a conductor in it."
@@ -983,7 +986,8 @@ msgstr "将活动链接到作为指挥的艺术家。"
 msgid ""
 "Links an event to an artist who was a VJ during it, either as the background "
 "for someone else’s musical performance or as its own performance."
-msgstr "将事件链接到在事件期间担任VJ的艺术家，可以作为其他人音乐表演的背景，也可以作"
+msgstr ""
+"将事件链接到在事件期间担任VJ的艺术家，可以作为其他人音乐表演的背景，也可以作"
 "为自己的表演。"
 
 #: DB:link_type/description:1084
@@ -4172,6 +4176,11 @@ msgid ""
 "Label”."
 msgstr ""
 
+#: DB:link_type/description:1252 DB:link_type/description:1253
+msgid ""
+"Use this relationship for credits like “Recording was edited by X for Label”."
+msgstr ""
+
 #: DB:link_type/description:946
 msgid ""
 "Use this relationship for credits like “Recording was mixed by X for Label”."
@@ -4904,6 +4913,10 @@ msgstr ""
 msgid "contracted arrangement for"
 msgstr ""
 
+#: DB:link_type/link_phrase:1252 DB:link_type/link_phrase:1253
+msgid "contracted editing for"
+msgstr ""
+
 #: DB:link_type/link_phrase:952
 msgid "contracted manufacturing for"
 msgstr ""
@@ -5165,6 +5178,13 @@ msgstr ""
 #: DB:link_type/name:819 DB:link_type/name:820
 msgid "edited at"
 msgstr "编辑于"
+
+#: DB:link_type/name:1252 DB:link_type/name:1253
+#: DB:link_type/reverse_link_phrase:1252 DB:link_type/reverse_link_phrase:1253
+#, fuzzy
+#| msgid "editor"
+msgid "edited for"
+msgstr "编辑"
 
 #: DB:link_type/name:822 DB:link_type/name:821
 msgid "edited in"
@@ -9072,6 +9092,12 @@ msgstr ""
 #: DB:link_type/long_link_phrase:795
 msgid "{entity1} was available at {entity0}"
 msgstr ""
+
+#: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
+#, fuzzy
+#| msgid "{entity1} was held at {entity0}"
+msgid "{entity1} was edited for {entity0}"
+msgstr "{entity1} 于 {entity0} 举行"
 
 #: DB:link_type/long_link_phrase:954
 msgid "{entity1} was glass mastered at {entity0}"

@@ -19,8 +19,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.3\n"
 
 #. frequency:1 iso_code_3:abk 
@@ -1962,6 +1962,13 @@ msgstr "Lingue pracrite"
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "Provenzale antico (fino al 1500)"
+
+#. frequency:1 iso_code_3:prg 
+#: DB:language/name:5521
+#, fuzzy
+#| msgid "Russian"
+msgid "Prussian"
+msgstr "Russo"
 
 #. frequency:1 iso_code_3:pan 
 #: DB:language/name:330

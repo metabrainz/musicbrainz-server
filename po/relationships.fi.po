@@ -3810,6 +3810,11 @@ msgid ""
 "Label”."
 msgstr ""
 
+#: DB:link_type/description:1252 DB:link_type/description:1253
+msgid ""
+"Use this relationship for credits like “Recording was edited by X for Label”."
+msgstr ""
+
 #: DB:link_type/description:946
 msgid ""
 "Use this relationship for credits like “Recording was mixed by X for Label”."
@@ -4540,6 +4545,10 @@ msgstr "sopimus"
 msgid "contracted arrangement for"
 msgstr ""
 
+#: DB:link_type/link_phrase:1252 DB:link_type/link_phrase:1253
+msgid "contracted editing for"
+msgstr ""
+
 #: DB:link_type/link_phrase:952
 msgid "contracted manufacturing for"
 msgstr ""
@@ -4800,6 +4809,11 @@ msgstr ""
 
 #: DB:link_type/name:819 DB:link_type/name:820
 msgid "edited at"
+msgstr ""
+
+#: DB:link_type/name:1252 DB:link_type/name:1253
+#: DB:link_type/reverse_link_phrase:1252 DB:link_type/reverse_link_phrase:1253
+msgid "edited for"
 msgstr ""
 
 #: DB:link_type/name:822 DB:link_type/name:821
@@ -8713,6 +8727,12 @@ msgstr ""
 #: DB:link_type/long_link_phrase:795
 msgid "{entity1} was available at {entity0}"
 msgstr ""
+
+#: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
+#, fuzzy
+#| msgid "{entity1} is dedicated to {entity0}"
+msgid "{entity1} was edited for {entity0}"
+msgstr "{entity1} on omistettu kohteelle {entity0}"
 
 #: DB:link_type/long_link_phrase:954
 msgid "{entity1} was glass mastered at {entity0}"

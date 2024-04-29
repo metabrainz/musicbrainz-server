@@ -4716,6 +4716,17 @@ msgstr ""
 "この関係は、「レコーディングはX レベールによってアレンジされた」などのクレ"
 "ジットに使用する。"
 
+#: DB:link_type/description:1252 DB:link_type/description:1253
+#, fuzzy
+#| msgid ""
+#| "Use this relationship for credits like \"Recording was mixed by X for "
+#| "Label\""
+msgid ""
+"Use this relationship for credits like “Recording was edited by X for Label”."
+msgstr ""
+"この関係は、「レコーディングはレーベルのXによってミックスされた」などのクレ"
+"ジットに使用する。"
+
 #: DB:link_type/description:946
 #, fuzzy
 #| msgid ""
@@ -5519,6 +5530,10 @@ msgstr ""
 msgid "contracted arrangement for"
 msgstr ""
 
+#: DB:link_type/link_phrase:1252 DB:link_type/link_phrase:1253
+msgid "contracted editing for"
+msgstr ""
+
 #: DB:link_type/link_phrase:952
 msgid "contracted manufacturing for"
 msgstr ""
@@ -5780,6 +5795,13 @@ msgstr ""
 #: DB:link_type/name:819 DB:link_type/name:820
 msgid "edited at"
 msgstr ""
+
+#: DB:link_type/name:1252 DB:link_type/name:1253
+#: DB:link_type/reverse_link_phrase:1252 DB:link_type/reverse_link_phrase:1253
+#, fuzzy
+#| msgid "editor"
+msgid "edited for"
+msgstr "編集者"
 
 #: DB:link_type/name:822 DB:link_type/name:821
 msgid "edited in"
@@ -9715,6 +9737,12 @@ msgstr ""
 #: DB:link_type/long_link_phrase:795
 msgid "{entity1} was available at {entity0}"
 msgstr ""
+
+#: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
+#, fuzzy
+#| msgid "{entity1} was mixed for {entity0}"
+msgid "{entity1} was edited for {entity0}"
+msgstr "{entity1}をミックスしたのは{entity0}"
 
 #: DB:link_type/long_link_phrase:954
 msgid "{entity1} was glass mastered at {entity0}"

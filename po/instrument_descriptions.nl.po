@@ -7381,6 +7381,14 @@ msgstr ""
 "koperen vellen die zijn ingeklemd tussen twee grotere stukken hout die aan "
 "een uiteinde zijn samengebonden."
 
+#. name:mashak 
+#: DB:instrument/description:1208
+msgid ""
+"Used in rural weddings, it has twin single reed pipes, one melody, one "
+"drone. It is becoming increasingly rare due to being displaced by Scottish "
+"Highland pipes."
+msgstr ""
+
 #. name:sistrum 
 #: DB:instrument/description:370
 msgid ""
