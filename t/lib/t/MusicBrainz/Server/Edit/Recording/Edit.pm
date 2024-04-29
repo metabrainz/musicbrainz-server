@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Edit::Recording::Edit;
+use utf8;
 use strict;
 use warnings;
 

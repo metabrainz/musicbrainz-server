@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Edit::Medium::Edit;
+use utf8;
 use strict;
 use warnings;
 
