@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Edit::Recording::Edit;
+use utf8;
 use strict;
 use warnings;
 
@@ -13,6 +14,9 @@ BEGIN { use MusicBrainz::Server::Edit::Recording::Edit }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
+
+use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
+use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
 
 test all => sub {
 
@@ -145,6 +149,59 @@ test 'Submitting a recording edit with an undef comment' => sub {
     );
 
     ok !exception { $edit->accept }, 'accepted edit';
+};
+
+test 'Creating a recording edit with an overlong name (MBS-13555)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_recording');
+    my $recording = $c->model('Recording')->get_by_id(1);
+
+    my $exception = exception {
+        $c->model('Edit')->create(
+            edit_type => $EDIT_RECORDING_EDIT,
+            editor_id => 1,
+            to_edit => $recording,
+            name => ('𝄞𝄵𝅘𝅥𝅘𝅥𝅮𝅘𝅥𝅮𝅘𝅥𝅮𝄾𝅘𝅥𝄀𝅘𝅥𝅮𝅘𝅥𝅮𝅘𝅥𝅮𝄾𝆑𝅗𝅥𝄂' x 64),
+            comment => '',
+        );
+    };
+    ok (
+      defined $exception,
+      '1024 four-byte characters string is an overlong name for a recording',
+    );
+    isa_ok($exception, 'MusicBrainz::Server::Edit::Exceptions::OverlongString');
+};
+
+test 'Creating a recording edit with an overlong artist credit (MBS-13562)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_recording');
+    my $recording = $c->model('Recording')->get_by_id(1);
+
+    my $exception = exception {
+            $c->model('Edit')->create(
+                edit_type => $EDIT_RECORDING_EDIT,
+                editor_id => 1,
+                to_edit => $recording,
+                name => 'Recording',
+                comment => '',
+                artist_credit => ArtistCredit->new(
+                    names => [
+                        ArtistCreditName->new(
+                            name => 'ArtistCreditName',
+                            join_phrase => ('𝄞𝄵𝅘𝅥𝅘𝅥𝅮𝅘𝅥𝅮𝅘𝅥𝅮𝄾𝅘𝅥𝄀𝅘𝅥𝅮𝅘𝅥𝅮𝅘𝅥𝅮𝄾𝆑𝅗𝅥𝄂' x 64),
+                            artist => $c->model('Artist')->get_by_id(1),
+                        )]),
+            );
+    };
+    ok (
+      defined $exception,
+      '1024 four-byte characters string is an overlong artist credit for a recording',
+    );
+    isa_ok($exception, 'MusicBrainz::Server::Edit::Exceptions::OverlongString');
 };
 
 sub create_edit {

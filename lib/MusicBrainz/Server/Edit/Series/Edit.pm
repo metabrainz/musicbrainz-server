@@ -24,7 +24,10 @@ with 'MusicBrainz::Server::Edit::Series',
         create_edit_type => $EDIT_SERIES_CREATE,
         entity_type => 'series',
      },
-     'MusicBrainz::Server::Edit::Role::CheckDuplicates';
+     'MusicBrainz::Server::Edit::Role::CheckDuplicates',
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{new}{name} },
+     };
 
 sub edit_type { $EDIT_SERIES_EDIT }
 sub edit_name { N_lp('Edit series', 'edit type') }

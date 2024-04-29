@@ -854,6 +854,7 @@ sub TO_JSON {
         hide_merge_helper
         makes_no_changes
         new_edit_notes
+        overlong_string
     );
 
     my %stash;

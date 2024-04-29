@@ -66,6 +66,7 @@ declare type CatalystStashT = {
   +new_edit_notes_mtime?: number | null,
   +number_of_collections?: number,
   +number_of_revisions?: number,
+  +overlong_string?: boolean,
   +own_collections?: $ReadOnlyArray<CollectionT>,
   +release_artwork?: ArtworkT,
   +release_artwork_count?: number,

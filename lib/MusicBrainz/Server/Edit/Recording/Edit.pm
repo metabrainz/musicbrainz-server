@@ -33,6 +33,9 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities',
         create_edit_type => $EDIT_RECORDING_CREATE,
         entity_type => 'recording',
      },
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{new}{name} },
+     },
      'MusicBrainz::Server::Edit::Role::EditArtistCredit',
      'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::CheckForConflicts';

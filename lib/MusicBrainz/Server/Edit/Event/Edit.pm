@@ -35,6 +35,9 @@ with 'MusicBrainz::Server::Edit::CheckForConflicts',
         create_edit_type => $EDIT_EVENT_CREATE,
         entity_type => 'event',
      },
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{new}{name} },
+     },
      'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_name { N_lp('Edit event', 'edit type') }

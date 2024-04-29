@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use Clone qw(clone);
-use List::AllUtils qw( all uniq );
+use List::AllUtils qw( all any uniq );
 use MooseX::Types::Moose qw( Str Int Bool );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
@@ -18,6 +18,9 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_preview
 );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
+use MusicBrainz::Server::Validation qw(
+    is_overlong_string
+);
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 use aliased 'MusicBrainz::Server::Entity::Track';
@@ -77,6 +80,19 @@ sub check_track_hash {
     die 'Track positions are non-contiguous (MBS-7846)'
         unless ($track_pos[0] == 0 || $track_pos[0] == 1)
             && scalar @track_pos == $track_pos[-1] - $track_pos[0] + 1;
+    die 'Track name is overlong (MBS-13536)'
+        if any {
+            is_overlong_string($_->{name})
+        } @$tracks;
+    die 'Track artist credit is overlong (MBS-13562)'
+        if any {
+            my $track_artist_credit_name = '';
+            for my $part (@{ $_->{artist_credit}{names} }) {
+                $track_artist_credit_name .= $part->{name} . $part->{join_phrase};
+            }
+
+            is_overlong_string($track_artist_credit_name)
+        } @$tracks;
 }
 
 sub tracklist_foreign_keys {
