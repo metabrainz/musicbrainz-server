@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-04-24 20:42+0000\n"
+"PO-Revision-Date: 2024-04-27 18:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -2658,6 +2658,11 @@ msgstr "marimba lumina"
 #: DB:instrument/name:633
 msgid "marímbula"
 msgstr "marímbula"
+
+#: DB:instrument/name:1208
+msgctxt "Northern Indian bagpipe"
+msgid "mashak"
+msgstr "mashak"
 
 #: DB:instrument/name:1199
 msgctxt "Belorussian duda"

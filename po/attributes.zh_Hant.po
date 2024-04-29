@@ -1,9 +1,10 @@
 # BestSteve <ibmibmibm.tw@gmail.com>, 2024.
+# Evergarden <minna1012@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2024-03-26 12:24+0000\n"
-"Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
+"PO-Revision-Date: 2024-04-28 14:42+0000\n"
+"Last-Translator: Evergarden <minna1012@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translations.metabrainz.org/"
 "projects/musicbrainz/attributes/zh_Hant/>\n"
 "Language: zh_Hant\n"
@@ -11,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -50,67 +51,72 @@ msgstr "10英吋黑膠唱片"
 #: DB:medium_format/name:206
 msgctxt "medium_format"
 msgid "12\" Acetate"
-msgstr ""
+msgstr "12 英寸醋酸纖維"
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
 msgid "12\" LaserDisc"
-msgstr ""
+msgstr "12英吋雷射光碟"
 
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
-msgstr ""
+msgstr "12英吋蟲膠"
 
 #: DB:medium_format/name:31
 msgctxt "medium_format"
 msgid "12\" Vinyl"
-msgstr ""
+msgstr "12 吋黑膠"
+
+#: DB:medium_format/name:207
+msgctxt "medium_format"
+msgid "3\" Vinyl"
+msgstr "3\" 乙烯基"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
-msgstr ""
+msgstr "3.5 吋軟碟"
 
 #: DB:medium_format/name:91
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
-msgstr ""
+msgstr "5.25吋軟盤"
 
 #: DB:medium_format/name:204
 msgctxt "medium_format"
 msgid "7\" Acetate"
-msgstr ""
+msgstr "7\" 醋酸纖維"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
 msgid "7\" Flexi-disc"
-msgstr ""
+msgstr "7 吋軟碟"
 
 #: DB:medium_format/name:56
 msgctxt "medium_format"
 msgid "7\" Shellac"
-msgstr ""
+msgstr "7吋蟲膠"
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
 msgid "7\" Vinyl"
-msgstr ""
+msgstr "7 吋黑膠"
 
 #: DB:medium_format/name:71
 msgctxt "medium_format"
 msgid "8\" LaserDisc"
-msgstr ""
+msgstr "8吋雷射光碟"
 
 #: DB:medium_format/name:78
 msgctxt "medium_format"
 msgid "8-Track Cartridge"
-msgstr ""
+msgstr "8軌唱頭"
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
 msgid "8cm CD"
-msgstr ""
+msgstr "8 公分光碟"
 
 #: DB:medium_format/name:40
 msgctxt "medium_format"
@@ -245,7 +251,8 @@ msgid ""
 "A \"digital collectible\" device, mostly used for k-pop music, that is "
 "connected to a phone via Bluetooth or headphone jack and unlocks the release "
 "for listening in a companion app for a limited period of time."
-msgstr ""
+msgstr "一種 \"數字收藏 \"設備，主要用於 k-pop 音樂，通過藍牙或耳機插孔與手機連接，在"
+"限定時間內通過配套應用程序解鎖發行的音樂以供收聽。"
 
 #: DB:place_type/description:9
 msgctxt "place_type"
@@ -260,7 +267,8 @@ msgid ""
 "A CD that contains both audio and data in the same session. The data is "
 "often in the first track, that will have to be skipped in many audio "
 "players. Relatively common in old video game CDs."
-msgstr ""
+msgstr "在同一片段中包含音訊和資料的光碟。資料通常在第一軌，在許多音訊播放器中必須跳"
+"過。在老式電玩 CD 中比較常見。"
 
 #: DB:medium_format/description:42
 msgctxt "medium_format"
@@ -268,7 +276,8 @@ msgid ""
 "A CD that contains two sessions, one with audio and one with data. Since "
 "they are properly separated, audio players will not try to play the data "
 "session and it won't be part of the disc ID for the CD."
-msgstr ""
+msgstr "一張光碟包含兩個片段，一個是音訊片段，一個是資料片段。由於它們被正確分開，音"
+"訊播放器將不會嘗試播放資料片段，它也不會成為光碟 ID 的一部分。"
 
 #: DB:release_group_secondary_type/description:8
 msgctxt "release_group_secondary_type"
@@ -279,11 +288,14 @@ msgid ""
 "manner, and the DJ who does this modification is usually (although not "
 "always) credited in a fairly prominent way."
 msgstr ""
+"DJ 混音（DJ-mix）是將幾段錄音逐一播放的序列，每段錄音都經過修改，使其融合成一"
+"段連續的音樂。 DJ 混音版要求以某種方式對錄音進行修改，而進行修改的 DJ "
+"通常（儘管不一定）會以相當顯著的方式註明。"
 
 #: DB:work_attribute_type_allowed_value/value:794
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Dorian"
-msgstr ""
+msgstr "一個多利安"
 
 #: DB:work_attribute_type_allowed_value/value:806
 msgctxt "work_attribute_type_allowed_value"
@@ -300,7 +312,7 @@ msgstr "芭蕾是為芭蕾舞劇配合編排的音樂作品，通常與舞蹈動
 #: DB:release_packaging/description:19
 msgctxt "release_packaging"
 msgid "A box usually containing multiple discs as part of a boxed set."
-msgstr ""
+msgstr "通常包含多張光碟的盒式套裝。"
 
 #: DB:work_type/description:3
 msgctxt "work_type"
@@ -319,13 +331,16 @@ msgid ""
 "with physical releases but sometimes sold as a standalone item (especially "
 "in Asia)."
 msgstr ""
+"一種卡片（或其他類似的實體支援），它並不直接包含音樂本身，但提供了下載數位音"
+"樂的程式碼。通常與實體唱片捆綁銷售，但有時也作為獨立商品出售（尤其是在亞洲）"
+"。"
 
 #: DB:label_type/description:10
 msgctxt "label_type"
 msgid ""
 "A company that manufactures physical releases (such as pressing CDs or vinyl "
 "records)."
-msgstr ""
+msgstr "生產實體發行產品（如壓制 CD 或黑膠唱片）的公司。"
 
 #: DB:work_type/description:4
 msgctxt "work_type"
@@ -349,33 +364,36 @@ msgid ""
 "A give-away release or a release intended to promote an upcoming official "
 "release (e.g. pre-release versions, releases included with a magazine, "
 "versions supplied to radio DJs for air-play)."
-msgstr ""
+msgstr "免費發行版或旨在宣傳即將發行的官方發行版的發行版（例如，預發行版、包含在雜誌"
+"中的發行版、提供給電台DJ播放的版本）。"
 
 #: DB:artist_type/description:2
 msgctxt "artist_type"
 msgid ""
 "A grouping of multiple musicians who perform together (in some cases, some "
 "or all of the members might differ in different performances or recordings)."
-msgstr ""
+msgstr "由多名音樂家組成的組合，他們共同演出（在某些情況下，部分或全部成員在不同的演"
+"出或錄音中可能會有所不同）。"
 
 #: DB:instrument_type/description:7
 msgctxt "instrument_type"
 msgid ""
 "A grouping of related but different instruments, like the different violin-"
 "like instruments"
-msgstr ""
+msgstr "相關但不同樂器的組合，如不同的小提琴類樂器"
 
 #: DB:label_type/description:5
 msgctxt "label_type"
 msgid "A label that primarily puts out unsanctioned (bootleg) releases."
-msgstr ""
+msgstr "一個主要發行未經許可（盜版）產品的廠牌。"
 
 #: DB:release_packaging/description:55
 msgctxt "release_packaging"
 msgid ""
 "A large cardboard box often used until the mid-1990s to sell CDs in North "
 "America, so that they would fit existing vinyl racks in stores."
-msgstr ""
+msgstr "直到 1990 年代中期，北美地區在銷售 CD "
+"時經常使用的一種大紙箱，以便將其放置在商店現有的黑膠唱片架上。"
 
 #: DB:place_type/description:43
 msgctxt "place_type"
@@ -385,7 +403,7 @@ msgstr "一個大型的、永久的戶外舞台，通常附有固定的座位區
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
-msgstr ""
+msgstr "一個主要的"
 
 #: DB:work_type/description:8
 msgctxt "work_type"
@@ -412,12 +430,13 @@ msgctxt "release_packaging"
 msgid ""
 "A minimalistic plastic case where the back and front are kept together by a "
 "small hinge. Most commonly used for cheap promotion / DIY releases."
-msgstr ""
+msgstr "一種簡約的塑膠盒，其背面和正面透過一個小鉸鏈連接在一起。最常用於廉價促銷/DIY "
+"發行。"
 
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
 msgid "A minor"
-msgstr ""
+msgstr "未成年人"
 
 #: DB:work_type/description:13
 msgctxt "work_type"
@@ -437,7 +456,7 @@ msgstr "一個專為發行活動舉辦的派對、招待會或其他活動。"
 #: DB:release_packaging/description:17
 msgctxt "release_packaging"
 msgid "A perfect bound book with a sleeve at the end to hold a CD"
-msgstr ""
+msgstr "一本完美裝訂的書，末端有一個封套，可容納 CD"
 
 #: DB:event_type/description:6
 msgctxt "event_type"
@@ -506,7 +525,8 @@ msgid ""
 "A planned official release that was cancelled before being released, but for "
 "which enough info is known to still confidently list it (e.g. it was "
 "available for preorder)."
-msgstr ""
+msgstr "計劃發布的正式版本，在發布前已取消，但有足夠的資訊仍可有把握地將其列入清單（"
+"例如，可用於預購）。"
 
 #: DB:work_type/description:28
 msgctxt "work_type"
@@ -535,6 +555,8 @@ msgid ""
 "replace it with a new version with some changes or to just retire it "
 "altogether (e.g. because of legal issues)."
 msgstr ""
+"一個以前的官方發行，在發行後被藝術家和/或他們的唱片公司主動從發行中撤回，無論"
+"是用一個有一些變化的新版本取代它，還是完全退出市場（例如，由於法律的問題）。"
 
 #: DB:release_group_secondary_type/description:10
 msgctxt "release_group_secondary_type"
@@ -542,7 +564,8 @@ msgid ""
 "A promotional release mostly meant to have limited circulation and "
 "demonstrate the sound of an artist to record labels, publishers and other "
 "artists."
-msgstr ""
+msgstr "一種宣傳版本，主要用於有限發行，向唱片公司、出版商和其他藝術家展示藝術家的聲"
+"音。"
 
 #: DB:work_type/description:14
 msgctxt "work_type"
@@ -553,26 +576,27 @@ msgstr "四重奏是一種音樂作品，配樂為四個聲部或樂器。"
 #: DB:series_type/description:8
 msgctxt "series_type"
 msgid "A recurring festival, usually happening annually in the same location."
-msgstr ""
+msgstr "定期舉辦的節日，通常每年在同一地點舉行。"
 
 #: DB:release_group_secondary_type/description:12
 msgctxt "release_group_secondary_type"
 msgid ""
 "A release mostly consisting of field recordings (such as nature sounds or "
 "city/industrial noise)."
-msgstr ""
+msgstr "主要由現場錄音（如自然聲音或城市/工業噪音）組成的版本。"
 
 #: DB:release_group_secondary_type/description:7
 msgctxt "release_group_secondary_type"
 msgid "A release that primarily contains remixed material."
-msgstr ""
+msgstr "主要包含混音材料的版本。"
 
 #: DB:release_group_secondary_type/description:6
 msgctxt "release_group_secondary_type"
 msgid ""
 "A release that was recorded live. Generally this means \"with an audience\", "
 "be it in person, through the radio or in another similar way."
-msgstr ""
+msgstr "現場錄製的版本。一般來說，這意味著 \"與觀眾 \"見面"
+"，無論是當面、通過廣播或其他類似方式。"
 
 #: DB:place_type/description:7
 msgctxt "place_type"
@@ -584,47 +608,47 @@ msgstr "一個學校、大學或其他類似的教育機構(泛指音樂教育�
 #: DB:series_type/description:14
 msgctxt "series_type"
 msgid "A series of artists honoured by the same award."
-msgstr ""
+msgstr "一系列藝術家榮獲同一獎項。"
 
 #: DB:series_type/description:13
 msgctxt "series_type"
 msgid "A series of artists."
-msgstr ""
+msgstr "一系列藝術家。"
 
 #: DB:series_type/description:15
 msgctxt "series_type"
 msgid "A series of award ceremonies, usually one per year."
-msgstr ""
+msgstr "一系列頒獎儀式，通常每年舉行一次。"
 
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "A series of events."
-msgstr ""
+msgstr "一系列活動。"
 
 #: DB:series_type/description:9
 msgctxt "series_type"
 msgid "A series of performances of the same show at the same venue."
-msgstr ""
+msgstr "同一場演出在同一地點的一系列表演。"
 
 #: DB:series_type/description:48
 msgctxt "series_type"
 msgid "A series of recordings honoured by the same award."
-msgstr ""
+msgstr "一系列錄音榮獲同一獎項。"
 
 #: DB:series_type/description:3
 msgctxt "series_type"
 msgid "A series of recordings."
-msgstr ""
+msgstr "一系列錄音。"
 
 #: DB:series_type/description:7
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in different locations."
-msgstr ""
+msgstr "藝術家在不同地點舉辦的一系列相關音樂會。"
 
 #: DB:series_type/description:12
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in the same location."
-msgstr ""
+msgstr "藝術家在同一地點舉辦的一系列相關音樂會。"
 
 #: DB:series_type/description:80
 msgctxt "series_type"
@@ -5938,6 +5962,14 @@ msgstr ""
 #: DB:release_status/name:1
 msgctxt "release_status"
 msgid "Official"
+msgstr ""
+
+#: DB:medium_format/description:207
+msgctxt "medium_format"
+msgid ""
+"One-sided 3\" vinyl records to be played with purpose-built players, "
+"originally developed in Japan and now mostly found as a Record Store Day "
+"curiosity."
 msgstr ""
 
 #: DB:work_type/name:10

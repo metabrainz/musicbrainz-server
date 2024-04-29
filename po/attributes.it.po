@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-04-24 20:42+0000\n"
+"PO-Revision-Date: 2024-04-27 18:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -84,6 +84,11 @@ msgstr "Gommalacca 12\" (30 cm)"
 msgctxt "medium_format"
 msgid "12\" Vinyl"
 msgstr "Vinile 12\" (30 cm)"
+
+#: DB:medium_format/name:207
+msgctxt "medium_format"
+msgid "3\" Vinyl"
+msgstr "Vinile 3\" (7,6 cm)"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
@@ -584,7 +589,7 @@ msgid ""
 "such as a concert hall."
 msgstr ""
 "Un luogo che fa delle esibizioni artistiche dal vivo una delle sue funzioni "
-"primarie, come per esempio una sala concerti."
+"principali, come per esempio una sala concerti."
 
 #: DB:place_type/description:6
 msgctxt "place_type"
@@ -6181,6 +6186,17 @@ msgstr "Obi"
 msgctxt "release_status"
 msgid "Official"
 msgstr "Ufficiale"
+
+#: DB:medium_format/description:207
+msgctxt "medium_format"
+msgid ""
+"One-sided 3\" vinyl records to be played with purpose-built players, "
+"originally developed in Japan and now mostly found as a Record Store Day "
+"curiosity."
+msgstr ""
+"Dischi in vinile da 3\" (7,6 cm) da riprodurre con lettori costruiti "
+"appositamente; originariamente sviluppati in Giappone, oggi si trovano "
+"principalmente come curiosità nei Record Store Day."
 
 #: DB:work_type/name:10
 msgctxt "work_type"

@@ -2699,6 +2699,14 @@ msgstr "marimba lumina"
 msgid "marímbula"
 msgstr "マリンブラ"
 
+#: DB:instrument/name:1208
+#, fuzzy
+#| msgctxt "Latin-American tube rattle"
+#| msgid "shakers"
+msgctxt "Northern Indian bagpipe"
+msgid "mashak"
+msgstr "シェーカー"
+
 #: DB:instrument/name:1199
 msgctxt "Belorussian duda"
 msgid "matstsyanka"

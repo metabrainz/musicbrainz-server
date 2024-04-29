@@ -66,6 +66,14 @@ msgctxt "medium_format"
 msgid "12\" Vinyl"
 msgstr "12\" vinyl"
 
+#: DB:medium_format/name:207
+#, fuzzy
+#| msgctxt "medium_format"
+#| msgid "7\" Vinyl"
+msgctxt "medium_format"
+msgid "3\" Vinyl"
+msgstr "7\" vinyl"
+
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
@@ -5838,6 +5846,14 @@ msgstr ""
 msgctxt "release_status"
 msgid "Official"
 msgstr "Oficiálne"
+
+#: DB:medium_format/description:207
+msgctxt "medium_format"
+msgid ""
+"One-sided 3\" vinyl records to be played with purpose-built players, "
+"originally developed in Japan and now mostly found as a Record Store Day "
+"curiosity."
+msgstr ""
 
 #: DB:work_type/name:10
 msgctxt "work_type"

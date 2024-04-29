@@ -5452,6 +5452,14 @@ msgid ""
 "of wood tied together by a string at one end."
 msgstr ""
 
+#. name:mashak 
+#: DB:instrument/description:1208
+msgid ""
+"Used in rural weddings, it has twin single reed pipes, one melody, one "
+"drone. It is becoming increasingly rare due to being displaced by Scottish "
+"Highland pipes."
+msgstr ""
+
 #. name:sistrum 
 #: DB:instrument/description:370
 msgid ""

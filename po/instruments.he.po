@@ -2688,6 +2688,14 @@ msgstr "מרימבה לומינה"
 msgid "marímbula"
 msgstr "מרימבולה"
 
+#: DB:instrument/name:1208
+#, fuzzy
+#| msgctxt "Latin-American tube rattle"
+#| msgid "shakers"
+msgctxt "Northern Indian bagpipe"
+msgid "mashak"
+msgstr "שייקרים"
+
 #: DB:instrument/name:1199
 msgctxt "Belorussian duda"
 msgid "matstsyanka"
