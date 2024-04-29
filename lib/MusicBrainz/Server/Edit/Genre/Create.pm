@@ -16,7 +16,10 @@ use aliased 'MusicBrainz::Server::Entity::Genre';
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Genre',
-     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{name} },
+     };
 
 sub edit_name { N_lp('Add genre', 'edit type') }
 sub edit_type { $EDIT_GENRE_CREATE }

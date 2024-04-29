@@ -91,6 +91,13 @@
         </div>
         [% END %]
 
+        [% IF overlong_string %]
+        <div class="banner warning-header">
+            <p>[% l('Some text you entered is overlong! Please shorten it,
+                     and if necessary enter the full text in the annotation for reference.') %]</p>
+        </div>
+        [% END %]
+
         [% IF c.sessionid.defined AND c.flash.message %]
             <div class="banner flash">
                 <p>

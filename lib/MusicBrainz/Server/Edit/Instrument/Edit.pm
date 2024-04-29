@@ -21,7 +21,10 @@ use aliased 'MusicBrainz::Server::Entity::Instrument';
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::CheckForConflicts',
      'MusicBrainz::Server::Edit::Instrument',
-     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{new}{name} },
+     };
 
 sub edit_name { N_lp('Edit instrument', 'edit type') }
 sub edit_type { $EDIT_INSTRUMENT_EDIT }

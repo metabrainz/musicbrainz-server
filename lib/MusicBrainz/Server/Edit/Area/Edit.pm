@@ -26,6 +26,9 @@ extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::CheckForConflicts',
      'MusicBrainz::Server::Edit::Area',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{new}{name} },
+     },
      'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_name { N_lp('Edit area', 'edit type') }
