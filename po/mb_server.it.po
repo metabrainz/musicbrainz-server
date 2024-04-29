@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-26 13:24-0500\n"
-"PO-Revision-Date: 2024-04-24 20:42+0000\n"
+"PO-Revision-Date: 2024-04-27 18:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -44,8 +44,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.4.3\n"
 
 #: ../root/components/common-macros.tt:12
@@ -2036,7 +2036,7 @@ msgstr "Precedente"
 #: ../root/edit/details/AddReleaseGroup.js:67
 #: ../root/edit/details/EditReleaseGroup.js:60
 msgid "Primary type"
-msgstr "Tipo primario"
+msgstr "Tipo principale"
 
 #: ../root/components/search.tt:9 ../root/search/components/SearchForm.js:71
 msgid "Query:"
@@ -5576,8 +5576,7 @@ msgstr "Streaming su YouTube Music"
 #: ../lib/MusicBrainz/Server/Form/Alias.pm:112
 msgid "This alias can only be a primary alias if a locale is selected"
 msgstr ""
-"Quest'alias può essere un alias primario solo in uno specifico ambiente "
-"linguistico"
+"Un alias può essere principale solo in uno specifico ambiente linguistico"
 
 #: ../lib/MusicBrainz/Server/Form/Alias.pm:124
 msgid "This alias already exists."
@@ -7725,7 +7724,7 @@ msgstr "Ambiente linguistico"
 
 #: ../root/components/Aliases/AliasTableRow.js:51
 msgid "primary"
-msgstr "primario"
+msgstr "principale"
 
 #: ../root/components/Aliases/ArtistCreditList.js:33
 #: ../root/edit/details/AddMedium.js:162 ../root/edit/details/EditMedium.js:570
@@ -9083,7 +9082,7 @@ msgstr "visualizza tutti gli alias"
 #: ../root/edit/details/AddRemoveAlias.js:75
 #: ../root/edit/details/EditAlias.js:103
 msgid "Primary for locale"
-msgstr "Primario per l'ambiente linguistico"
+msgstr "Principale per l'ambiente linguistico"
 
 #: ../root/edit/details/AddRemoveAlias.js:104
 #: ../root/edit/details/EditAlias.js:129
@@ -9137,7 +9136,7 @@ msgstr "Visualizza confronto"
 
 #: ../root/edit/details/EditAlias.js:71
 msgid "primary for {locale}"
-msgstr "primario per {locale}"
+msgstr "principale per {locale}"
 
 #: ../root/edit/details/EditAlias.js:78
 msgctxt "alias"
@@ -10270,7 +10269,7 @@ msgstr "Tag associati"
 #: ../root/genre/GenreIndex.js:34
 msgctxt "folksonomy"
 msgid "Primary tag"
-msgstr "Tag primario"
+msgstr "Tag principale"
 
 #: ../root/genre/GenreListPage.js:15 ../root/genre/GenreListPage.js:17
 #: ../root/layout/components/BottomMenu.js:326
@@ -14362,7 +14361,7 @@ msgstr "Nome alias:"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:325
 msgid "This is the primary alias for this locale"
-msgstr "Questo è l'alias primario per quest'ambiente linguistico"
+msgstr "Questo è l'alias principale per quest'ambiente linguistico"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:340
 msgid "This alias is no longer current."
@@ -14762,11 +14761,8 @@ msgid "[missing editor]"
 msgstr "[editor mancante]"
 
 #: ../root/static/scripts/common/components/EntityLink.js:83
-#, fuzzy
-#| msgctxt "folksonomy"
-#| msgid "Primary tag"
 msgid "Primary alias"
-msgstr "Tag primario"
+msgstr "Alias principale"
 
 #: ../root/static/scripts/common/components/EntityLink.js:144
 #: ../root/url/UrlIndex.js:28

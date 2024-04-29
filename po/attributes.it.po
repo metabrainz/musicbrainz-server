@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-04-24 20:42+0000\n"
+"PO-Revision-Date: 2024-04-27 18:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -25,8 +25,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.4.3\n"
 
 #: DB:work_type/description:9
@@ -86,12 +86,9 @@ msgid "12\" Vinyl"
 msgstr "Vinile 12\" (30 cm)"
 
 #: DB:medium_format/name:207
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "7\" Vinyl"
 msgctxt "medium_format"
 msgid "3\" Vinyl"
-msgstr "Vinile 7\" (17,5 cm)"
+msgstr "Vinile 3\" (7,6 cm)"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
@@ -592,7 +589,7 @@ msgid ""
 "such as a concert hall."
 msgstr ""
 "Un luogo che fa delle esibizioni artistiche dal vivo una delle sue funzioni "
-"primarie, come per esempio una sala concerti."
+"principali, come per esempio una sala concerti."
 
 #: DB:place_type/description:6
 msgctxt "place_type"
@@ -6197,6 +6194,9 @@ msgid ""
 "originally developed in Japan and now mostly found as a Record Store Day "
 "curiosity."
 msgstr ""
+"Dischi in vinile da 3\" (7,6 cm) da riprodurre con lettori costruiti "
+"appositamente; originariamente sviluppati in Giappone, oggi si trovano "
+"principalmente come curiosità nei Record Store Day."
 
 #: DB:work_type/name:10
 msgctxt "work_type"

@@ -8,23 +8,24 @@
 # salo.rock, 2012
 # salo.rock, 2021,2023
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
-# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-03 15:50+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-04-27 18:42+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1969,7 +1970,7 @@ msgstr "Supporti con almeno un ID disco:"
 
 #: ../root/statistics/Index.js:603
 msgid "Primary types"
-msgstr "Tipi primari"
+msgstr "Tipi principali"
 
 #: ../root/statistics/Index.js:632 ../root/statistics/Index.js:666
 #: ../root/statistics/Index.js:723 ../root/statistics/Index.js:751
@@ -2794,7 +2795,7 @@ msgstr "Gruppi di pubblicazioni che hanno copertine selezionate dagli utenti"
 
 #: ../root/statistics/stats.js:771
 msgid "Release groups with no primary type set"
-msgstr "Gruppi di pubblicazioni senza un tipo primario impostato"
+msgstr "Gruppi di pubblicazioni senza un tipo principale impostato"
 
 #: ../root/statistics/stats.js:776
 msgid "Release groups with no secondary type set"

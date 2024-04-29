@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-04-24 20:42+0000\n"
+"PO-Revision-Date: 2024-04-27 18:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -30,8 +30,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.4.3\n"
 
 #: DB:link_attribute_type/description:1355
@@ -4918,15 +4918,11 @@ msgstr ""
 "per Etichetta\"."
 
 #: DB:link_type/description:1252 DB:link_type/description:1253
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like “Recording was remixed by X for "
-#| "Label”."
 msgid ""
 "Use this relationship for credits like “Recording was edited by X for Label”."
 msgstr ""
-"Usa questa relazione per accreditamenti come \"Registrazione remixata da X "
-"per Etichetta\"."
+"Usa questa relazione per accreditamenti come \"Editing della registrazione a "
+"cura di X per Etichetta\"."
 
 #: DB:link_type/description:946
 msgid ""
@@ -5682,10 +5678,8 @@ msgid "contracted arrangement for"
 msgstr "ha stipulato un contratto di arrangiamento per"
 
 #: DB:link_type/link_phrase:1252 DB:link_type/link_phrase:1253
-#, fuzzy
-#| msgid "contracted remixing for"
 msgid "contracted editing for"
-msgstr "ha stipulato un contratto di remissaggio per"
+msgstr "ha stipulato un contratto di editing per"
 
 #: DB:link_type/link_phrase:952
 msgid "contracted manufacturing for"
@@ -5952,10 +5946,8 @@ msgstr "editing effettuato presso"
 
 #: DB:link_type/name:1252 DB:link_type/name:1253
 #: DB:link_type/reverse_link_phrase:1252 DB:link_type/reverse_link_phrase:1253
-#, fuzzy
-#| msgid "remixed for"
 msgid "edited for"
-msgstr "remixata per"
+msgstr "editing effettuato per"
 
 #: DB:link_type/name:822 DB:link_type/name:821
 msgid "edited in"
@@ -9936,10 +9928,8 @@ msgid "{entity1} was available at {entity0}"
 msgstr "{entity1} è stata disponibile su {entity0}"
 
 #: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
-#, fuzzy
-#| msgid "{entity1} was remixed for {entity0}"
 msgid "{entity1} was edited for {entity0}"
-msgstr "{entity1} è stata remixata per {entity0}"
+msgstr "{entity1} ha ricevuto l'editing per {entity0}"
 
 #: DB:link_type/long_link_phrase:954
 msgid "{entity1} was glass mastered at {entity0}"
