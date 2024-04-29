@@ -22,6 +22,12 @@ role {
     with 'MusicBrainz::Server::Edit::Alias',
          "MusicBrainz::Server::Edit::$model",
          'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+         'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+            get_string => sub { shift->{name} },
+         },
+         'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+            get_string => sub { shift->{sort_name} },
+         },
          'MusicBrainz::Server::Edit::Role::DatePeriod';
 
     has data => (

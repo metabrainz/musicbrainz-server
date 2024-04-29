@@ -15,6 +15,9 @@ use base 'Exporter';
         is_positive_integer
         is_database_row_id
         is_database_bigint_id
+        is_database_indexable_string
+        has_at_most_oneline_string_length
+        is_overlong_string
         is_guid
         trim_in_place
         is_valid_iswc
@@ -51,7 +54,10 @@ use List::AllUtils qw( any );
 use Encode qw( decode encode );
 use Scalar::Util qw( looks_like_number );
 use Text::Unaccent::PurePerl qw( unac_string_utf16 );
-use MusicBrainz::Server::Constants qw( $MAX_POSTGRES_INT $MAX_POSTGRES_BIGINT );
+use MusicBrainz::Server::Constants qw(
+    $MAX_POSTGRES_INT $MAX_POSTGRES_BIGINT
+    $MAX_ONELINE_STRING_LENGTH $MAX_POSTGRES_INDEXED_STRING_BYTES
+);
 use MusicBrainz::Server::Data::Utils qw(
     contains_number
     remove_lineformatting_characters
@@ -96,6 +102,28 @@ sub is_database_bigint_id {
     my $t = shift;
 
     is_positive_integer($t) and $t <= $MAX_POSTGRES_BIGINT;
+}
+
+sub is_database_indexable_string {
+    my $t = shift;
+
+    use bytes;
+    length($t) <= $MAX_POSTGRES_INDEXED_STRING_BYTES;
+}
+
+sub has_at_most_oneline_string_length {
+    my $t = shift;
+
+    length($t) <= $MAX_ONELINE_STRING_LENGTH;
+}
+
+sub is_overlong_string {
+    my $t = shift;
+
+    defined($t) && !(
+        has_at_most_oneline_string_length($t) &&
+        is_database_indexable_string($t)
+    );
 }
 
 sub is_guid

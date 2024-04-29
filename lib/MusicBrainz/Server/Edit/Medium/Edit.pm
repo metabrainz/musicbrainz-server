@@ -42,6 +42,9 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Role::AllowAmending' => {
         create_edit_type => $EDIT_RELEASE_CREATE,
         entity_type => 'release',
+     },
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{new}{name} },
      };
 
 use aliased 'MusicBrainz::Server::Entity::Medium';

@@ -26,6 +26,12 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Role::Insert',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
      'MusicBrainz::Server::Edit::Role::CheckDuplicates',
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{name} },
+     },
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{sort_name} },
+     },
      'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_name { N_lp('Add artist', 'edit type') }

@@ -21,7 +21,10 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Place',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
      'MusicBrainz::Server::Edit::Role::DatePeriod',
-     'MusicBrainz::Server::Edit::Role::CheckDuplicates';
+     'MusicBrainz::Server::Edit::Role::CheckDuplicates',
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{name} },
+     };
 
 sub edit_name { N_lp('Add place', 'edit type') }
 sub edit_type { $EDIT_PLACE_CREATE }
