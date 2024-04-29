@@ -66,7 +66,7 @@ const getDialogLinkTypeOptions = (
   if (source.entityType === 'series') {
     const seriesTypeId = source.typeID;
     if (seriesTypeId != null) {
-      const seriesType = linkedEntities.series_type[String(seriesTypeId)];
+      const seriesType = linkedEntities.series_type[seriesTypeId];
       if (seriesType) {
         seriesItemType = seriesType.item_entity_type;
       }

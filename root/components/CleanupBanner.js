@@ -46,7 +46,7 @@ const cleanupBannerStrings = {
   ),
 };
 
-component CleanupBanner(entityType: string) {
+component CleanupBanner(entityType: EntityWithAutoCleanupTypeT) {
   return (
     <p className="cleanup">
       {cleanupBannerStrings[entityType]()}

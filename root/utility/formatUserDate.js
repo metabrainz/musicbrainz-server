@@ -30,7 +30,12 @@ const formatterCache = new Map<string, Intl$DateTimeFormat>();
  */
 
 /* eslint-disable sort-keys */
-const patterns = {
+const patterns: {
+  +[pattern: string]: [
+    property: string | null,
+    options: Intl$DateTimeFormatOptions,
+  ],
+} = {
   '%A': ['weekday', {weekday: 'long'}],
   '%B': ['month', {month: 'long'}],
   '%H': ['hour', {hour: '2-digit', hourCycle: 'h23'}],
@@ -83,7 +88,9 @@ const TZ_SOFIA = 'Europe/Sofia';
  * DateTime::TimeZone, which does not define all of these as hard-coded
  * offsets, but takes DST into account where it makes sense to.
  */
-const timeZoneFallbacks = {
+const timeZoneFallbacks: {
+  +[shortName: string]: string,
+} = {
   CET: TZ_PARIS,
   CST6CDT: TZ_CHICAGO,
   EET: TZ_SOFIA,
@@ -120,14 +127,14 @@ function formatDateUsingPattern(
     try {
       formatter = new Intl.DateTimeFormat(
         locale,
-        Object.assign({timeZone: timezone}, options),
+        {timeZone: timezone, ...options},
       );
     } catch (e) {
       if (e instanceof RangeError && /time zone/.test(e.message)) {
         const fallback = timeZoneFallbacks[timezone] ?? 'UTC';
         formatter = new Intl.DateTimeFormat(
           locale,
-          Object.assign({timeZone: fallback}, options),
+          {timeZone: fallback, ...options},
         );
       } else {
         throw e;
@@ -135,7 +142,7 @@ function formatDateUsingPattern(
     }
     formatterCache.set(cacheKey, formatter);
   }
-  if (property) {
+  if (property !== null) {
     const result = formatter.formatToParts(date);
     for (let i = 0; i < result.length; i++) {
       const part = result[i];

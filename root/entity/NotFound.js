@@ -13,8 +13,15 @@ import expand2react from '../static/scripts/common/i18n/expand2react.js';
 
 const defaultSearchArgs = {search_url: '/search'};
 
+type NotFoundPagesPropsT = {
+  +args: {genre_list?: string, search_url?: string},
+  +footer: React.Node | null,
+  +message: () => string,
+  +title: () => string,
+};
+
 /* eslint-disable sort-keys */
-const notFoundPages = {
+const notFoundPages: {[namespace: string]: NotFoundPagesPropsT} = {
   'area': {
     title: N_lp('Area not found', 'header'),
     message: N_l(
@@ -232,7 +239,7 @@ const notFoundPages = {
 };
 /* eslint-enable sort-keys */
 
-component NotFound(namespace: string) {
+component NotFound(namespace: $Keys<typeof notFoundPages>) {
   const parameters = notFoundPages[namespace];
   return (
     <NotFoundComponent title={parameters.title()}>

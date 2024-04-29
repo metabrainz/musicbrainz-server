@@ -185,7 +185,7 @@ const _recentItemsRequests =
   new Map<string, Promise<Array<OptionItemT<any>>>>();
 
 export async function getOrFetchRecentItems<T: EntityItemT>(
-  entityType: string,
+  entityType: EntityItemT['entityType'],
   key?: string = entityType,
 ): Promise<$ReadOnlyArray<OptionItemT<T>>> {
   const ids = _getRecentEntityIds(key);
@@ -205,6 +205,7 @@ export async function getOrFetchRecentItems<T: EntityItemT>(
 
     // Convert ids to an array since we delete in the loop.
     for (const id of Array.from(ids)) {
+      // $FlowIgnore[incompatible-type]
       const entity: ?T = linkedEntities[entityType]?.[id];
       if (entity) {
         cachedList.push({

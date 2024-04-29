@@ -15,7 +15,9 @@ import localizeLanguageName
 
 component AddWork(edit: AddWorkEditT) {
   const display = edit.display_data;
-  const attributes = display.attributes ?? {};
+  const attributes:
+    $NonMaybeType<AddWorkEditT['display_data']['attributes']> =
+    display.attributes ?? {};
   const type = display.type;
   const language = display.language;
   const languages = display.languages;
