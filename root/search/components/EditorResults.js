@@ -38,11 +38,7 @@ component EditorResults(...{
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
       <PaginatedSearchResults
         buildResult={buildResult}
-        columns={
-          <>
-            <th>{l('Name')}</th>
-          </>
-        }
+        columns={<th>{l('Name')}</th>}
         pager={pager}
         query={query}
         results={results}
