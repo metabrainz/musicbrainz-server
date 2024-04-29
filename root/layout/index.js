@@ -298,8 +298,9 @@ const Layout = ({
           <div className="banner warning-header">
             <p>
               {l(
-                `Some text you entered is overlong, please fix the text or
-                 shorten it and use annotation for the full text instead.`,
+                `Some text you entered is overlong! Please shorten it,
+                 and if necessary enter the full text in the annotation
+                 for reference.`,
               )}
             </p>
           </div>
