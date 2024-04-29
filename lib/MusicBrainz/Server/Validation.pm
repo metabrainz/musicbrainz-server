@@ -15,6 +15,7 @@ use base 'Exporter';
         is_positive_integer
         is_database_row_id
         is_database_bigint_id
+        has_at_most_oneline_string_length
         is_guid
         trim_in_place
         is_valid_iswc
@@ -51,7 +52,10 @@ use List::AllUtils qw( any );
 use Encode qw( decode encode );
 use Scalar::Util qw( looks_like_number );
 use Text::Unaccent::PurePerl qw( unac_string_utf16 );
-use MusicBrainz::Server::Constants qw( $MAX_POSTGRES_INT $MAX_POSTGRES_BIGINT );
+use MusicBrainz::Server::Constants qw(
+    $MAX_POSTGRES_INT $MAX_POSTGRES_BIGINT
+    $MAX_ONELINE_STRING_LENGTH $MAX_POSTGRES_INDEXED_STRING_BYTES
+);
 use MusicBrainz::Server::Data::Utils qw(
     contains_number
     remove_lineformatting_characters
@@ -96,6 +100,12 @@ sub is_database_bigint_id {
     my $t = shift;
 
     is_positive_integer($t) and $t <= $MAX_POSTGRES_BIGINT;
+}
+
+sub has_at_most_oneline_string_length {
+    my $t = shift;
+
+    length($t) <= $MAX_ONELINE_STRING_LENGTH;
 }
 
 sub is_guid

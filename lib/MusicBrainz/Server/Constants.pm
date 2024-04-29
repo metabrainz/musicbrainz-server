@@ -75,6 +75,7 @@ our @EXPORT_OK = (
         $LABEL_RENAME_LINK_TYPE
         $MAX_INITIAL_MEDIUMS $MAX_INITIAL_TRACKS
         $MAX_POSTGRES_INT $MAX_POSTGRES_BIGINT
+        $MAX_ONELINE_STRING_LENGTH
         @FULL_TABLE_LIST
         @CORE_TABLE_LIST
         @DERIVED_TABLE_LIST
@@ -425,6 +426,8 @@ Readonly our $MAX_INITIAL_TRACKS => 100;
 
 Readonly our $MAX_POSTGRES_INT => 2147483647;
 Readonly our $MAX_POSTGRES_BIGINT => 9223372036854775807;
+
+Readonly our $MAX_ONELINE_STRING_LENGTH => 1024;
 
 Readonly our $CONTACT_URL => 'https://metabrainz.org/contact'; # Converted to React/JSX at root/static/scripts/common/constants.js
 
@@ -1072,6 +1075,21 @@ Row ID for the Deleted Artist entity
 =item $NOLABEL_ID, $NOLABEL_GID
 
 Row ID and GID for the special label "[no label]"
+
+=item $MAX_ONELINE_STRING_LENGTH
+
+Maximum number of characters for a one-line string that is otherwise unlimited
+in the database schema.
+
+It is set to 1024, initially in order to prevent MBS-13536 from happening
+again, because multiple-bytes characters in Postgres can take up to 4 bytes
+and the maximum size for the index type is affected by the block size which
+is generally set to 8192 bytes when compiling Postgres, and also because no
+legitimate examples have been found or are to be expected beyond this length.
+
+The main reason is to bring a reasonable bound for otherwise unlimited titles,
+not only to prevent index issues, but also to make it easier to use for other
+pieces of software accessing this data, and even to improve the data quality.
 
 =back
 
