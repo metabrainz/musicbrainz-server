@@ -172,51 +172,49 @@ component _DateRangeFieldset(
   const hooks = useDateRangeFieldset(dispatch);
 
   return (
-    <>
-      <fieldset>
-        <legend>{l('Date period')}</legend>
-        <p>
-          {l(`Dates are in the format YYYY-MM-DD.
-              Partial dates such as YYYY-MM or just YYYY are OK,
-              or you can omit the date entirely.`)}
-        </p>
-        <FormRowPartialDate
+    <fieldset>
+      <legend>{l('Date period')}</legend>
+      <p>
+        {l(`Dates are in the format YYYY-MM-DD.
+            Partial dates such as YYYY-MM or just YYYY are OK,
+            or you can omit the date entirely.`)}
+      </p>
+      <FormRowPartialDate
+        disabled={disabled}
+        dispatch={hooks.beginDateDispatch}
+        field={subfields.begin_date}
+        label={addColonText(l('Begin date'))}
+        yearInputRef={hooks.beginYearInputRef}
+      >
+        <button
+          className="icon copy-date"
           disabled={disabled}
-          dispatch={hooks.beginDateDispatch}
-          field={subfields.begin_date}
-          label={addColonText(l('Begin date'))}
-          yearInputRef={hooks.beginYearInputRef}
-        >
-          <button
-            className="icon copy-date"
-            disabled={disabled}
-            onClick={hooks.handleDateCopy}
-            title={l('Copy to end date')}
-            type="button"
-          />
-        </FormRowPartialDate>
-        <FormRowPartialDate
-          disabled={disabled}
-          dispatch={hooks.endDateDispatch}
-          field={subfields.end_date}
-          label={addColonText(l('End date'))}
-          yearInputRef={hooks.endYearInputRef}
+          onClick={hooks.handleDateCopy}
+          title={l('Copy to end date')}
+          type="button"
         />
-        <FieldErrors
-          field={field}
-          includeSubFields={false}
-        />
-        <FormRowCheckbox
-          disabled={
-            disabled ||
-            !isDateEmpty(partialDateFromField(subfields.end_date))
-          }
-          field={subfields.ended}
-          label={endedLabel}
-          onChange={hooks.handleEndedChange}
-        />
-      </fieldset>
-    </>
+      </FormRowPartialDate>
+      <FormRowPartialDate
+        disabled={disabled}
+        dispatch={hooks.endDateDispatch}
+        field={subfields.end_date}
+        label={addColonText(l('End date'))}
+        yearInputRef={hooks.endYearInputRef}
+      />
+      <FieldErrors
+        field={field}
+        includeSubFields={false}
+      />
+      <FormRowCheckbox
+        disabled={
+          disabled ||
+          !isDateEmpty(partialDateFromField(subfields.end_date))
+        }
+        field={subfields.ended}
+        label={endedLabel}
+        onChange={hooks.handleEndedChange}
+      />
+    </fieldset>
   );
 }
 

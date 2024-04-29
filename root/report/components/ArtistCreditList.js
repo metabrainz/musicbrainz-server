@@ -29,14 +29,12 @@ component ArtistCreditList(
           {items.map((item, index) => (
             <tr className={loopParity(index)} key={item.artist_credit_id}>
               {item.artist_credit ? (
-                <>
-                  <td>
-                    <ArtistCreditUsageLink
-                      artistCredit={item.artist_credit}
-                      showEditsPending
-                    />
-                  </td>
-                </>
+                <td>
+                  <ArtistCreditUsageLink
+                    artistCredit={item.artist_credit}
+                    showEditsPending
+                  />
+                </td>
               ) : (
                 <td>
                   {l('This artist credit no longer exists.')}

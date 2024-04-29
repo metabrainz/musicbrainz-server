@@ -626,6 +626,7 @@ export default [
       'react/forbid-foreign-prop-types': 'off',
       'react/jsx-fragments': ['warn', 'syntax'],
       'react/jsx-no-bind': ['warn', {ignoreDOMComponents: true}],
+      'react/jsx-no-useless-fragment': 'warn',
       'react/no-access-state-in-setstate': 'error',
       'react/no-array-index-key': 'off',
       'react/no-children-prop': 'error',
