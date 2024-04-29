@@ -55,18 +55,18 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-26 13:24-0500\n"
-"PO-Revision-Date: 2024-04-25 17:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-04-29 16:42+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.4.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -14363,11 +14363,8 @@ msgid "[missing editor]"
 msgstr "[editor no disponible]"
 
 #: ../root/static/scripts/common/components/EntityLink.js:83
-#, fuzzy
-#| msgctxt "folksonomy"
-#| msgid "Primary tag"
 msgid "Primary alias"
-msgstr "Etiqueta principal"
+msgstr "Alias principal"
 
 #: ../root/static/scripts/common/components/EntityLink.js:144
 #: ../root/url/UrlIndex.js:28
@@ -14431,11 +14428,11 @@ msgstr "Contenidos del repertorio"
 
 #: ../root/static/scripts/common/components/FilterForm.js:227
 msgid "Hide recordings that only appear on bootleg releases"
-msgstr "Ocultar grabaciones que aparecen solo en publicaciones piratas"
+msgstr "Ocultar grabaciones que aparecen solo en publicaciones no autorizadas"
 
 #: ../root/static/scripts/common/components/FilterForm.js:230
 msgid "Hide bootleg-only"
-msgstr "Ocultar piratas"
+msgstr "Ocultar no autorizados"
 
 #: ../root/static/scripts/common/components/FilterForm.js:328
 msgid "Secondary type"

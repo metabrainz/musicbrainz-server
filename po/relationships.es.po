@@ -24,18 +24,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-27 14:28+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-04-29 21:42+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.4\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -279,19 +279,15 @@ msgstr ""
 "las canciones de hip-hop que pueden reutilizarse con letras diferentes."
 
 #: DB:link_attribute_type/description:1406
-#, fuzzy
-#| msgid ""
-#| "For works that have lyrics, this indicates that those lyrics are not "
-#| "relevant to this recording. Examples include instrumental arrangements, "
-#| "or \"beats\" from hip-hop songs which may be reused with different lyrics."
 msgid ""
 "For works that usually have instruments and vocals, this indicates that the "
 "instrumental parts are not relevant to this recording. Examples include rap "
 "tracks from hip hop songs that can be remixed and used with different beats."
 msgstr ""
-"Para los trabajos que tienen letra, esto indica que la letra no es relevante "
-"a esta grabación; por ejemplo, los arreglos instrumentales, o los «beats» de "
-"las canciones de hip-hop que pueden reutilizarse con letras diferentes."
+"Para las obras que suelen tener una parte instrumental y una vocal, esto "
+"indica que la parte instrumental no es relevante para esta grabación. Por "
+"ejemplo, las pistas vocales a cappella de rap que pueden combinarse con "
+"diferents beats para las remezclas."
 
 #: DB:link_type/link_phrase:934 DB:link_type/link_phrase:713
 msgid "Geonames"
@@ -1551,6 +1547,8 @@ msgid ""
 "This indicates a release group is an excerpt from another, such as the "
 "highlights of a box set or a long opera."
 msgstr ""
+"Indica que un grupo de publicaciones es un extracto de otro, por ejemplo los "
+"mejores momentos de una caja recopilatoria o una ópera muy larga."
 
 #: DB:link_type/description:1174
 msgid "This indicates an agency that did the art direction for the release."
@@ -1603,16 +1601,12 @@ msgid "This indicates an artist that did the art direction for the release."
 msgstr ""
 
 #: DB:link_type/description:1236
-#, fuzzy
-#| msgid "This indicates the artist directed video on this release."
 msgid "This indicates an artist that did the sound effects for the recording."
-msgstr "Indica que el artista dirigió vídeo en esta publicación."
+msgstr "Indica que el artista hizo los efectos de sonido para esta grabación."
 
 #: DB:link_type/description:1235
-#, fuzzy
-#| msgid "This indicates the artist directed video on this release."
 msgid "This indicates an artist that did the sound effects for the release."
-msgstr "Indica que el artista dirigió vídeo en esta publicación."
+msgstr "Indica que el artista hizo los efectos de sonido para esta publicación."
 
 #: DB:link_type/description:151
 msgid ""
@@ -1627,32 +1621,27 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:1242
-#, fuzzy
-#| msgid "This indicates the artist directed video on this release."
 msgid "This indicates an artist who did design for a video recording."
-msgstr "Indica que el artista dirigió vídeo en esta publicación."
+msgstr ""
+"Indica que el artista se encargó del diseño para esta grabación de vídeo."
 
 #: DB:link_type/description:1233
-#, fuzzy
-#| msgid "This indicates the artist directed video on this release."
 msgid "This indicates an artist who did design for the event."
-msgstr "Indica que el artista dirigió vídeo en esta publicación."
+msgstr "Indica que el artista se encargó del diseño para este evento."
 
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
 msgstr ""
 
 #: DB:link_type/description:1244
-#, fuzzy
-#| msgid "This indicates the artist directed video on this release."
 msgid "This indicates an artist who did illustration for a video recording."
-msgstr "Indica que el artista dirigió vídeo en esta publicación."
+msgstr ""
+"Indica que el artista se encargó de las ilustraciones para esta grabación de "
+"vídeo."
 
 #: DB:link_type/description:1232
-#, fuzzy
-#| msgid "This indicates the artist directed video on this release."
 msgid "This indicates an artist who did illustration for the event."
-msgstr "Indica que el artista dirigió vídeo en esta publicación."
+msgstr "Indica que el artista se encargó de las ilustraciones para este evento."
 
 #: DB:link_type/description:927
 msgid "This indicates an artist who did illustration for the release."
@@ -1915,6 +1904,8 @@ msgid ""
 "This indicates that the recording is not of the entire work, such as "
 "excerpts from, conclusion of, etc."
 msgstr ""
+"Indica que la grabación no es de la obra completa, sino de un extracto, la "
+"conclusión, etc."
 
 #: DB:link_attribute_type/description:578
 msgid "This indicates that the recording is of a live performance."
@@ -1942,11 +1933,10 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:1237
-#, fuzzy
-#| msgid "This indicates the artist was the director of this video recording."
 msgid ""
 "This indicates the area (usually a city) where a label is headquartered in."
-msgstr "Indica que el artista fue el director de esta grabación de vídeo."
+msgstr ""
+"Indica el área (normalmente una ciudad) donde la discográfica tiene su sede."
 
 #: DB:link_type/description:1185
 msgid "This indicates the artist directed video on this release."
@@ -1990,13 +1980,12 @@ msgid ""
 msgstr "Indica que el artista fue el coreógrafo de esta grabación de vídeo."
 
 #: DB:link_type/description:1245
-#, fuzzy
-#| msgid ""
-#| "This indicates the artist was the choreographer for this video recording."
 msgid ""
 "This indicates the artist was the cinematographer / director of photography "
 "for this video recording."
-msgstr "Indica que el artista fue el coreógrafo de esta grabación de vídeo."
+msgstr ""
+"Indica que el artista fue el director de fotografía para esta grabación de "
+"vídeo."
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
@@ -2736,46 +2725,33 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:865
-#, fuzzy
-#| msgid "This links a release to a license under which it is available."
 msgid "This links a release with the place it was arranged at."
-msgstr "Conecta una publicación a una licencia bajo la cual está disponible."
+msgstr "Enlaza una publicación con el lugar en el que se hicieron los arreglos."
 
 #: DB:link_type/description:1251
-#, fuzzy
-#| msgid "This links an artist to its page at Bandcamp."
 msgid "This links a release with the place it was composed at."
-msgstr "Esto enlaza un artista con su página en Bandcamp."
+msgstr "Enlaza una publicación con el lugar en el que fue compuesta."
 
 #: DB:link_type/description:1248
-#, fuzzy
-#| msgid "This links a release to a license under which it is available."
 msgid "This links a release with the place it was revised at."
-msgstr "Conecta una publicación a una licencia bajo la cual está disponible."
+msgstr "Enlaza una publicación con el lugar en el que fue revisada."
 
 #: DB:link_type/description:1247
-#, fuzzy
-#| msgid "This links a release to a license under which it is available."
 msgid "This links a release with the place it was translated at."
-msgstr "Conecta una publicación a una licencia bajo la cual está disponible."
+msgstr "Enlaza una publicación con el lugar en el que fue traducida."
 
 #: DB:link_type/description:1246
-#, fuzzy
-#| msgid "This links a release to a license under which it is available."
 msgid "This links a release with the place it was written at."
-msgstr "Conecta una publicación a una licencia bajo la cual está disponible."
+msgstr "Enlaza una publicación con el lugar en el que fue escrita."
 
 #: DB:link_type/description:1249
-#, fuzzy
-#| msgid "This links a release to a license under which it is available."
 msgid "This links a release with the place its libretto was written at."
-msgstr "Conecta una publicación a una licencia bajo la cual está disponible."
+msgstr "Enlaza una publicación con el lugar en el que fue escrito su libreto."
 
 #: DB:link_type/description:1250
-#, fuzzy
-#| msgid "This links a release to a license under which it is available."
 msgid "This links a release with the place its lyrics were written at."
-msgstr "Conecta una publicación a una licencia bajo la cual está disponible."
+msgstr ""
+"Enlaza una publicación con el lugar en el que fueron escritas sus letras."
 
 #: DB:link_type/description:870
 msgid ""
@@ -4043,16 +4019,12 @@ msgid "a cappella"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:1238
-#, fuzzy
-#| msgid "karaoke version of"
 msgid "a cappella version of"
-msgstr "versión para karaoke de"
+msgstr "versión a cappella de"
 
 #: DB:link_type/link_phrase:1238
-#, fuzzy
-#| msgid "karaoke versions"
 msgid "a cappella versions"
-msgstr "versiones para karaoke"
+msgstr "versiones a cappella"
 
 #: DB:link_attribute_type/name:1406
 msgid "acappella"
@@ -4088,10 +4060,8 @@ msgid "amount"
 msgstr ""
 
 #: DB:link_type/name:1243
-#, fuzzy
-#| msgid "additional"
 msgid "animation"
-msgstr "adicional"
+msgstr "animación"
 
 #: DB:link_attribute_type/name:1079
 msgid "anniversary"
@@ -4433,16 +4403,12 @@ msgid "chorus master"
 msgstr ""
 
 #: DB:link_type/name:1245 DB:link_type/reverse_link_phrase:1245
-#, fuzzy
-#| msgid "biographies"
 msgid "cinematographer"
-msgstr "biografías"
+msgstr "director de fotografía"
 
 #: DB:link_type/link_phrase:1245
-#, fuzzy
-#| msgid "discography page for"
 msgid "cinematographer for"
-msgstr "página de discografía de"
+msgstr "director de fotografía en"
 
 #: DB:link_attribute_type/name:1204
 msgid "classical music"
@@ -4862,10 +4828,8 @@ msgstr "editado en"
 
 #: DB:link_type/name:1252 DB:link_type/name:1253
 #: DB:link_type/reverse_link_phrase:1252 DB:link_type/reverse_link_phrase:1253
-#, fuzzy
-#| msgid "edited at"
 msgid "edited for"
-msgstr "editado en"
+msgstr "editado para"
 
 #: DB:link_type/name:822 DB:link_type/name:821
 msgid "edited in"
@@ -4943,11 +4907,11 @@ msgstr ""
 
 #: DB:link_type/link_phrase:1240 DB:link_type/name:1240
 msgid "excerpt from"
-msgstr ""
+msgstr "extracto de"
 
 #: DB:link_type/reverse_link_phrase:1240
 msgid "excerpts"
-msgstr ""
+msgstr "extractos"
 
 #: DB:link_attribute_type/name:425
 msgid "executive"
@@ -5259,10 +5223,8 @@ msgid "has a blog at"
 msgstr "tiene un blog en"
 
 #: DB:link_type/long_link_phrase:1238
-#, fuzzy
-#| msgid "has a karaoke version"
 msgid "has a cappella version"
-msgstr "tiene la versión para karaoke"
+msgstr "tiene la versión a cappella"
 
 #: DB:link_type/long_link_phrase:212
 msgid "has a catalog of records at"
@@ -5440,10 +5402,8 @@ msgid "has influences of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1239
-#, fuzzy
-#| msgid "instrumental"
 msgid "has instrumental version"
-msgstr "instrumental"
+msgstr "tiene la versión instrumental"
 
 #: DB:link_type/long_link_phrase:984 DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
@@ -5519,10 +5479,8 @@ msgid "has {half:half-}{step}sibling"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:1237
-#, fuzzy
-#| msgid "edited in"
 msgid "headquartered in"
-msgstr "editado en"
+msgstr "con sede en"
 
 #: DB:link_type/name:1237
 msgid "headquarters"
@@ -5665,16 +5623,12 @@ msgid "instrumental supporting musician"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:1239
-#, fuzzy
-#| msgid "instrumental"
 msgid "instrumental version of"
-msgstr "instrumental"
+msgstr "versión instrumental de"
 
 #: DB:link_type/link_phrase:1239
-#, fuzzy
-#| msgid "instrumental"
 msgid "instrumental versions"
-msgstr "instrumental"
+msgstr "versiones instrumentales"
 
 #: DB:link_type/link_phrase:752
 msgid "instruments"
@@ -5772,10 +5726,8 @@ msgid "is an edit of"
 msgstr "Es una edición de"
 
 #: DB:link_type/long_link_phrase:1240
-#, fuzzy
-#| msgid "is an edit of"
 msgid "is an excerpt from"
-msgstr "Es una edición de"
+msgstr "es un extracto de"
 
 #: DB:link_type/long_link_phrase:926
 msgid "is associated with"
@@ -6897,10 +6849,8 @@ msgid "provided legal representation for"
 msgstr "ofreció representación legal para"
 
 #: DB:link_type/long_link_phrase:1243
-#, fuzzy
-#| msgid "provided {additional} design/illustration on"
 msgid "provided {additional} animation on"
-msgstr "diseño / ilustración {additional}"
+msgstr "animación {additional:adicional} en"
 
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:1174
 msgid "provided {additional} art direction on"
@@ -7815,10 +7765,8 @@ msgid "was an orchestra at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1245
-#, fuzzy
-#| msgid "discography page for"
 msgid "was cinematographer for"
-msgstr "página de discografía de"
+msgstr "fue director de fotografía en"
 
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
 #: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
@@ -8228,10 +8176,8 @@ msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr ""
 
 #: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
-#, fuzzy
-#| msgid "{additional} art direction"
 msgid "{additional} animation"
-msgstr "dirección artística {additional:adicional}"
+msgstr "animación {additional:adicional}"
 
 #: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
 #: DB:link_type/link_phrase:886
@@ -8259,10 +8205,8 @@ msgid "{additional} composing location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:1251 DB:link_type/link_phrase:876
-#, fuzzy
-#| msgid "{additional} composer"
 msgid "{additional} composition location for"
-msgstr "compositor {additional:adicional}"
+msgstr "lugar de composición {additional:adicional}"
 
 #: DB:link_type/link_phrase:63 DB:link_type/link_phrase:146
 #: DB:link_type/reverse_link_phrase:63 DB:link_type/reverse_link_phrase:146
