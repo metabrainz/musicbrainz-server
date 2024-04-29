@@ -9,13 +9,14 @@
 # "Vac31." <gateway_31@protonmail.com>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # "Vac31." <Vaclovas@users.noreply.translations.metabrainz.org>, 2024.
+# Vaclovas Intas <gateway_31@protonmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-26 13:24-0500\n"
-"PO-Revision-Date: 2024-04-17 17:36+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2024-04-28 14:42+0000\n"
+"Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
 "Language: lt\n"
@@ -23,9 +24,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.4.3\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -14097,11 +14098,8 @@ msgid "[missing editor]"
 msgstr ""
 
 #: ../root/static/scripts/common/components/EntityLink.js:83
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit area alias"
 msgid "Primary alias"
-msgstr "Redaguoti teritorijos alternatyvųjį pavadinimą"
+msgstr "Pagrindinis pseudonimas"
 
 #: ../root/static/scripts/common/components/EntityLink.js:144
 #: ../root/url/UrlIndex.js:28
@@ -14109,14 +14107,16 @@ msgid ""
 "This link has been temporarily disabled because it has been reported as "
 "potentially harmful."
 msgstr ""
+"Ši nuoroda buvo laikinai išjungta, nes buvo pranešta, kad ji gali būti "
+"pavojinga."
 
 #: ../root/static/scripts/common/components/EntityLink.js:371
 msgid "This release has artwork in the Cover Art Archive"
-msgstr ""
+msgstr "Šis leidinys turi paveikslų projekte Cover Art Archive."
 
 #: ../root/static/scripts/common/components/EntityLink.js:385
 msgid "This release group has artwork in the Cover Art Archive"
-msgstr ""
+msgstr "Ši leidinių grupė turi paveikslų projekte Cover Art Archive."
 
 #: ../root/static/scripts/common/components/EntityLink.js:401
 msgid ""
