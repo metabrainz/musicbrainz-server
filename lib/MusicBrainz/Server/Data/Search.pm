@@ -11,6 +11,7 @@ use Data::Dumper;
 use Data::Page;
 use URI::Escape qw( uri_escape_utf8 );
 use List::AllUtils qw( any partition_by );
+use MusicBrainz::Server::Entity::Alias;
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::AreaType;
@@ -738,6 +739,22 @@ sub schema_fixup
                     join_phrase => $namecredit->{joinphrase} || '' } );
         }
         $data->{'artist_credit'} = MusicBrainz::Server::Entity::ArtistCredit->new( { names => \@credits } );
+    }
+
+    if (defined $data->{aliases}) {
+        my @aliases = map {
+            MusicBrainz::Server::Entity::Alias->new(
+                name => $_->{name} // '',
+                sort_name => $_->{sort_name} // '',
+                locale => $_->{locale} // '',
+                primary_for_locale => $_->{primary},
+            )
+        } @{ $data->{aliases} };
+
+        # Save the new objects so validation will pass, but note that the search
+        # API doesn't include all attributes that are present in Entity::Alias,
+        # e.g. no IDs.
+        $data->{aliases} = \@aliases;
     }
 
     if ($type eq 'work') {
