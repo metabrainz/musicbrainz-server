@@ -1097,7 +1097,8 @@ pieces of software accessing this data, and even to improve the data quality.
 Maximum number of bytes for a string to be indexable by Postgres.
 
 It is set to 2704, in order to prevent MBS-13555 from happening again,
-because Postgres actually fits up to three items on every page and
+because Postgres actually fits up to three items on every page
+following the btree method which is used by default and
 the block size is generally set to 8192 bytes when compiling Postgres.
 
 =back

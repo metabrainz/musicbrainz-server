@@ -14,6 +14,7 @@ use Exception::Class ( ## no critic 'ProhibitUnusedImport'
     'MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable',
     'MusicBrainz::Server::Edit::Exceptions::Forbidden',
     'MusicBrainz::Server::Edit::Exceptions::NeedsDisambiguation',
+    'MusicBrainz::Server::Edit::Exceptions::OverlongString',
 );
 
 1;

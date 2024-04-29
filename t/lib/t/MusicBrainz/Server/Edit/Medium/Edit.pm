@@ -14,6 +14,7 @@ use MusicBrainz::Server::Constants qw( :edit_status $EDIT_MEDIUM_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 use MusicBrainz::Server::Edit::Medium::Util qw( tracks_to_hash );
 use MusicBrainz::Server::Validation qw( is_guid );
+use Try::Tiny;
 
 BEGIN { use MusicBrainz::Server::Edit::Medium::Edit }
 
@@ -710,6 +711,74 @@ test 'Tracklist merging (MBS-8752 / MBS-7475)' => sub {
     cmp_deeply($got_tracklist_hash, $expected_tracklist_hash);
 };
 
+test 'Creating a medium edit with an overlong track name (MBS-13536)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
+
+    my $medium = $c->model('Medium')->get_by_id(1);
+    my $delete_me = $c->model('Recording')->insert({
+        name => 'Recording',
+        artist_credit => 1,
+    });
+
+    try {
+        like exception {
+            create_edit($c, $medium, [
+                Track->new(
+                    artist_credit => $c->model('ArtistCredit')->get_by_id(1),
+                    is_data_track => 0,
+                    name => ('𝄞𝄵𝅘𝅥𝅘𝅥𝅮𝅘𝅥𝅮𝅘𝅥𝅮𝄾𝅘𝅥𝄀𝅘𝅥𝅮𝅘𝅥𝅮𝅘𝅥𝅮𝄾𝆑𝅗𝅥𝄂' x 64),
+                    number => 1,
+                    position => 1,
+                    recording_id => $delete_me->{id},
+                ),
+            ]);
+        },
+        qr/Track name is overlong/,
+        '1024 four-byte characters string is an overlong name for a track';
+    };
+};
+
+test 'Creating a medium edit with an overlong track artist credit (MBS-13562)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
+
+    my $medium = $c->model('Medium')->get_by_id(1);
+    my $delete_me = $c->model('Recording')->insert({
+        name => 'Recording',
+        artist_credit => 1,
+    });
+
+    try {
+        like exception {
+            create_edit($c, $medium, [
+                Track->new(
+                    artist_credit => ArtistCredit->new(
+                        names => [
+                            ArtistCreditName->new(
+                                name => 'ArtistCreditName',
+                                join_phrase => ('𝄞𝄵𝅘𝅥𝅘𝅥𝅮𝅘𝅥𝅮𝅘𝅥𝅮𝄾𝅘𝅥𝄀𝅘𝅥𝅮𝅘𝅥𝅮𝅘𝅥𝅮𝄾𝆑𝅗𝅥𝄂' x 64),
+                                artist => Artist->new(
+                                    id => 2,
+                                    name => 'Artist',
+                                ),
+                            )]),
+                    is_data_track => 0,
+                    name => 'Track',
+                    number => 1,
+                    position => 1,
+                    recording_id => $delete_me->{id},
+                ),
+            ]);
+        },
+        qr/Track artist credit is overlong/,
+        '1024 four-byte characters string is an overlong artist credit for a track';
+    };
+};
 
 test 'Fail edits using cached deleted recordings (MBS-8858)' => sub {
     my $test = shift;

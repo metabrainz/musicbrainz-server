@@ -80,6 +80,8 @@ sub _insert_edit {
             $c->stash(needs_disambiguation => 1);
         } elsif (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::DuplicateViolation') {
             $c->stash(duplicate_violation => 1);
+        } elsif (ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::OverlongString') {
+            $c->stash(overlong_string => 1);
         } else {
             croak 'The edit could not be created. Exception (' . (ref ne '' ? ref : 'string') . '): ' . $_;
         }
@@ -199,7 +201,8 @@ sub edit_action
         if ($opts{redirect} && !$opts{no_redirect} &&
                 ($edit || !$c->stash->{makes_no_changes}) &&
                 !$c->stash->{needs_disambiguation} &&
-                !$c->stash->{duplicate_violation}) {
+                !$c->stash->{duplicate_violation} &&
+                !$c->stash->{overlong_string}) {
             $opts{redirect}->();
             $c->detach;
         }

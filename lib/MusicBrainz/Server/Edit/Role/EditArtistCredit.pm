@@ -9,6 +9,9 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Edit::Utils qw(
     clean_submitted_artist_credits
 );
+use MusicBrainz::Server::Validation qw(
+    is_overlong_string
+);
 
 around initialize => sub {
     my ($orig, $self, %opts) = @_;
@@ -22,7 +25,17 @@ around initialize => sub {
         my $new_artist_credit = clean_submitted_artist_credits($opts{artist_credit});
 
         $opts{artist_credit} = $new_artist_credit;
-        delete $opts{artist_credit} if Compare($old_artist_credit, $new_artist_credit);
+        if (Compare($old_artist_credit, $new_artist_credit)) {
+            delete $opts{artist_credit};
+        } else {
+            my $new_artist_credit_full_name = '';
+            for my $part (@{ $new_artist_credit->{names} }) {
+              $new_artist_credit_full_name .= $part->{name} . $part->{join_phrase};
+            }
+
+            MusicBrainz::Server::Edit::Exceptions::OverlongString->throw
+                if is_overlong_string($new_artist_credit_full_name);
+        }
     }
 
     $self->$orig(%opts);

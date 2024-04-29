@@ -38,7 +38,10 @@ with 'MusicBrainz::Server::Edit::CheckForConflicts',
         create_edit_type => $EDIT_PLACE_CREATE,
         entity_type => 'place',
      },
-     'MusicBrainz::Server::Edit::Role::CheckDuplicates';
+     'MusicBrainz::Server::Edit::Role::CheckDuplicates',
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{new}{name} },
+     };
 
 sub edit_name { N_lp('Edit place', 'edit type') }
 sub edit_type { $EDIT_PLACE_EDIT }

@@ -17,6 +17,7 @@ use base 'Exporter';
         is_database_bigint_id
         is_database_indexable_string
         has_at_most_oneline_string_length
+        is_overlong_string
         is_guid
         trim_in_place
         is_valid_iswc
@@ -114,6 +115,15 @@ sub has_at_most_oneline_string_length {
     my $t = shift;
 
     length($t) <= $MAX_ONELINE_STRING_LENGTH;
+}
+
+sub is_overlong_string {
+    my $t = shift;
+
+    defined($t) && !(
+        has_at_most_oneline_string_length($t) &&
+        is_database_indexable_string($t)
+    );
 }
 
 sub is_guid

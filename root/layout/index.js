@@ -294,6 +294,17 @@ const Layout = ({
           </div>
         ) : null}
 
+        {$c.stash.overlong_string /*:: === true */ ? (
+          <div className="banner warning-header">
+            <p>
+              {l(
+                `Some text you entered is overlong, please fix the text or
+                 shorten it and use annotation for the full text instead.`,
+              )}
+            </p>
+          </div>
+        ) : null}
+
         {nonEmpty($c.sessionid) && nonEmpty($c.flash.message) ? (
           <div className="banner flash">
             <p dangerouslySetInnerHTML={{__html: $c.flash.message}} />

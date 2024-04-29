@@ -30,6 +30,9 @@ with 'MusicBrainz::Server::Edit::Work::RelatedEntities',
         create_edit_type => $EDIT_WORK_CREATE,
         entity_type => 'work',
      },
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{new}{name} },
+     },
      'MusicBrainz::Server::Edit::Role::ValueSet' => {
         prop_name => 'attributes',
         get_current => sub { shift->current_instance->attributes },
