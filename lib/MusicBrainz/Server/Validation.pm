@@ -15,6 +15,7 @@ use base 'Exporter';
         is_positive_integer
         is_database_row_id
         is_database_bigint_id
+        is_database_indexable_string
         has_at_most_oneline_string_length
         is_guid
         trim_in_place
@@ -100,6 +101,13 @@ sub is_database_bigint_id {
     my $t = shift;
 
     is_positive_integer($t) and $t <= $MAX_POSTGRES_BIGINT;
+}
+
+sub is_database_indexable_string {
+    my $t = shift;
+
+    use bytes;
+    length($t) <= $MAX_POSTGRES_INDEXED_STRING_BYTES;
 }
 
 sub has_at_most_oneline_string_length {
