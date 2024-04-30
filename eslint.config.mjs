@@ -616,19 +616,67 @@ export default [
       // eslint-plugin-react
       'react/boolean-prop-naming': 'off',
       'react/button-has-type': 'error',
+      'react/checked-requires-onchange-or-readonly': 'warn',
       'react/default-props-match-prop-types': 'off',
       'react/destructuring-assignment': 'off',
       'react/display-name': 'off',
       'react/forbid-component-props': 'off',
       'react/forbid-dom-props': 'off',
       'react/forbid-elements': 'off',
-      'react/forbid-prop-types': 'off',
       'react/forbid-foreign-prop-types': 'off',
+      'react/forbid-prop-types': 'off',
+      'react/function-component-definition': 'off',
+      'react/hook-use-state': 'warn',
+      'react/iframe-missing-sandbox': 'off',
+      'react/jsx-boolean-value': ['warn', 'never'],
+      'react/jsx-child-element-spacing': 'off', // in eslint-jsx
+      'react/jsx-closing-bracket-location': 'off', // in eslint-jsx
+      'react/jsx-closing-tag-location': 'off', // in eslint-jsx
+      'react/jsx-curly-brace-presence': 'off', // in eslint-jsx
+      'react/jsx-curly-newline': 'off', // in eslint-jsx
+      'react/jsx-curly-spacing': 'off', // in eslint-jsx
+      'react/jsx-equals-spacing': 'off', // in eslint-jsx
+      'react/jsx-filename-extension': ['error', {
+        extensions: ['.js', '.mjs'],
+      }],
+      'react/jsx-first-prop-new-line': 'off', // in eslint-jsx
       'react/jsx-fragments': ['warn', 'syntax'],
+      'react/jsx-handler-names': 'warn',
+      'react/jsx-indent': 'off', // in eslint-jsx
+      'react/jsx-indent-props': 'off', // in eslint-jsx
+      'react/jsx-key': 'warn',
+      'react/jsx-max-depth': 'off',
+      'react/jsx-max-props-per-line': 'off', // in eslint-jsx
+      'react/jsx-newline': 'off', // in eslint-jsx
       'react/jsx-no-bind': ['warn', {ignoreDOMComponents: true}],
+      'react/jsx-no-comment-textnodes': 'warn',
+      'react/jsx-no-constructed-context-values': 'error',
+      'react/jsx-no-duplicate-props': ['error', {ignoreCase: true}],
+      'react/jsx-no-leaked-render': 'off', // false positives
+      'react/jsx-no-literals': 'warn',
+      'react/jsx-no-script-url': 'error',
+      'react/jsx-no-target-blank': 'error',
+      'react/jsx-no-undef': ['error', {allowGlobals: true}],
       'react/jsx-no-useless-fragment': 'warn',
+      'react/jsx-one-expression-per-line': 'off', // in eslint-jsx
+      'react/jsx-pascal-case': 'off', // in eslint-jsx
+      'react/jsx-props-no-multi-spaces': 'off', // in eslint-js
+      'react/jsx-props-no-spreading': 'off',
+      'react/jsx-sort-default-props': 'off', // deprecated
+      'react/jsx-sort-props': 'off', // in eslint-jsx
+      'react/jsx-space-before-closing': 'off', // deprecated
+      'react/jsx-tag-spacing': 'off', // in eslint-jsx
+      /*
+       * jsx-uses-react is not implied since
+       * https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
+       */
+      'react/jsx-uses-react': 'off',
+      'react/jsx-uses-vars': 'warn',
+      'react/jsx-wrap-multilines': 'off', // in eslint-jsx
       'react/no-access-state-in-setstate': 'error',
+      'react/no-adjacent-inline-elements': 'warn',
       'react/no-array-index-key': 'off',
+      'react/no-arrow-function-lifecycle': 'off',
       'react/no-children-prop': 'error',
       'react/no-danger': 'off',
       'react/no-danger-with-children': 'error',
@@ -641,21 +689,28 @@ export default [
       'react/no-did-update-set-state': 'error',
       'react/no-direct-mutation-state': 'error',
       'react/no-find-dom-node': 'warn',
+      'react/no-invalid-html-attribute': 'warn',
       'react/no-is-mounted': 'warn',
       'react/no-multi-comp': ['warn', {ignoreStateless: true}],
+      'react/no-namespace': 'off',
+      'react/no-object-type-as-default-prop': 'warn',
       'react/no-redundant-should-component-update': 'error',
       'react/no-render-return-value': 'warn',
       'react/no-set-state': 'off',
-      'react/no-typos': 'error',
       'react/no-string-refs': 'warn',
       'react/no-this-in-sfc': 'error',
+      'react/no-typos': 'error',
       'react/no-unescaped-entities': 'error',
       'react/no-unknown-property': 'error',
+      'react/no-unsafe': 'off',
       'react/no-unstable-nested-components': 'warn',
+      'react/no-unused-class-component-methods': 'off',
       'react/no-unused-prop-types': 'off',
       'react/no-unused-state': 'error',
       'react/no-will-update-set-state': 'error',
       'react/prefer-es6-class': 'off',
+      'react/prefer-exact-props': 'off',
+      'react/prefer-read-only-props': 'off',
       'react/prefer-stateless-function': 'warn',
       'react/prop-types': 'off',
       /*
@@ -666,31 +721,14 @@ export default [
       'react/require-default-props': 'off',
       'react/require-optimization': 'off',
       'react/require-render-return': 'error',
-      'react/self-closing-comp': 'error',
+      'react/self-closing-comp': 'off', // in eslint-jsx
       'react/sort-comp': 'off',
       'react/sort-default-props': 'warn',
       'react/sort-prop-types': 'off',
+      'react/state-in-constructor': 'off',
+      'react/static-property-placement': 'off',
       'react/style-prop-object': 'error',
       'react/void-dom-elements-no-children': 'error',
-
-      // JSX-specific rules
-      'react/jsx-boolean-value': ['warn', 'never'],
-      'react/jsx-filename-extension': ['error', {
-        extensions: ['.js', '.mjs'],
-      }],
-      'react/jsx-handler-names': 'warn',
-      'react/jsx-key': 'warn',
-      'react/jsx-no-comment-textnodes': 'warn',
-      'react/jsx-no-duplicate-props': ['error', {ignoreCase: true}],
-      'react/jsx-no-literals': 'warn',
-      'react/jsx-no-target-blank': 'error',
-      'react/jsx-no-undef': ['error', {allowGlobals: true}],
-      /*
-       * jsx-uses-react is not implied since
-       * https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
-       */
-      'react/jsx-uses-react': 'off',
-      'react/jsx-uses-vars': 'warn',
 
       // eslint-plugin-ft-flow
       'ft-flow/boolean-style': ['warn', 'boolean'],
