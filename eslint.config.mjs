@@ -651,6 +651,7 @@ export default [
       'react/no-this-in-sfc': 'error',
       'react/no-unescaped-entities': 'error',
       'react/no-unknown-property': 'error',
+      'react/no-unstable-nested-components': 'warn',
       'react/no-unused-prop-types': 'off',
       'react/no-unused-state': 'error',
       'react/no-will-update-set-state': 'error',
