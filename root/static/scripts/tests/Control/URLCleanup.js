@@ -3578,10 +3578,10 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['event'],
   },
   {
-                     input_url: 'https://www.livenation.com/event/vvG1YZ9E0hGPpD/the-smashing-pumpkins-the-world-is-a-vampire-tour',
+                     input_url: 'https://www.livenation.com/event/1A_Zkv-Gketafdb/conan-gray-found-heaven-on-tour',
              input_entity_type: 'event',
     expected_relationship_type: 'ticketing',
-            expected_clean_url: 'https://www.livenation.com/event/vvG1YZ9E0hGPpD',
+            expected_clean_url: 'https://www.livenation.com/event/1A_Zkv-Gketafdb',
        only_valid_entity_types: ['event'],
   },
   {
