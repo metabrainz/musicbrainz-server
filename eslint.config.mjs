@@ -733,6 +733,7 @@ export default [
       // eslint-plugin-ft-flow
       'ft-flow/boolean-style': ['warn', 'boolean'],
       'ft-flow/delimiter-dangle': ['warn', 'always-multiline'],
+      'ft-flow/enforce-suppression-code': 'warn',
       'ft-flow/generic-spacing': 'off',
       'ft-flow/no-dupe-keys': 'error',
       'ft-flow/no-flow-fix-me-comments': 'off',

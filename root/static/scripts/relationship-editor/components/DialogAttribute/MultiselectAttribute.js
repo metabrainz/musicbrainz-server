@@ -221,6 +221,7 @@ component MultiselectAttributeComponent(
 
   // XXX: https://github.com/facebook/flow/issues/7672
   const LinkAttrTypeMultiselect = (
+    // eslint-disable-next-line ft-flow/enforce-suppression-code
     // $FlowIgnore
     Multiselect:
       React$AbstractComponent<

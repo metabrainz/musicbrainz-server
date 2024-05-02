@@ -260,10 +260,8 @@ function accumulateDialogAttributeByRootId(
   return result;
 }
 
-// XXX Until Flow supports https://github.com/facebook/flow/issues/7672
 const LinkTypeAutocomplete:
   React$AbstractComponent<AutocompletePropsT<LinkTypeT>, void> =
-  // $FlowIgnore
   Autocomplete2;
 
 component _DialogLinkType(
