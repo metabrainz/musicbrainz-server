@@ -163,4 +163,15 @@ test 'Unknown collection fails gracefully' => sub {
     is($mech->status, HTTP_NOT_FOUND, 'Non-existing collection 404s');
 };
 
+test 'MBS-13570: Can show an artist collection' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    $mech->get_ok('/collection/4ef57e84-4d9c-4da3-9621-6a71de8f227d');
+    $mech->content_like(
+        qr/Led Zeppelin/,
+        'Artist is visible on the collection page',
+    );
+};
+
 1;
