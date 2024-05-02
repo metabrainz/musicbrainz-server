@@ -5571,6 +5571,13 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
        only_valid_entity_types: ['event'],
   },
   {
+                     input_url: 'https://www.ticketmaster.com/event/Z7r9jZ1A7FeqE',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.com/event/Z7r9jZ1A7FeqE',
+       only_valid_entity_types: ['event'],
+  },
+  {
                      input_url: 'https://www.ticketmaster.co.uk/pendulum-premium-package-suites-leeds-24-03-2024/event/1F005F0AFB9A3A6F',
              input_entity_type: 'event',
     expected_relationship_type: 'ticketing',

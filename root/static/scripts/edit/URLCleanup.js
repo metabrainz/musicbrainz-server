@@ -5624,11 +5624,11 @@ const CLEANUPS: CleanupEntries = {
     )],
     restrict: [LINK_TYPES.ticketing],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(?:[\w-]+\/)?(artist|event|venue)\/(?:[\w-]+\/)?([0-9A-F]+).*$/, 'https://www.ticketmaster.$1/$2/$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(?:[\w-]+\/)?(artist|event|venue)\/(?:[\w-]+\/)?(\w+).*$/, 'https://www.ticketmaster.$1/$2/$3');
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|venue)\/[0-9A-F]+$/.exec(url);
+      const m = /^https:\/\/www\.ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|venue)\/\w+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
