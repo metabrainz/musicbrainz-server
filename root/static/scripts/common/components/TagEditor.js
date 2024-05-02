@@ -219,8 +219,8 @@ type TagEditorState = {
 };
 
 type TagUpdateT =
-  | { +count: number, +deleted?: false, +tag: string, +vote: 1 | -1 }
-  | { +deleted: true, +tag: string, +vote: 0 };
+  | {+count: number, +deleted?: false, +tag: string, +vote: 1 | -1}
+  | {+deleted: true, +tag: string, +vote: 0};
 
 type PendingVoteT = {
   fail: () => void,
