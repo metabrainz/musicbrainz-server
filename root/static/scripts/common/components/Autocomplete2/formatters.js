@@ -12,7 +12,7 @@ import * as React from 'react';
 import {stripAttributes} from '../../../edit/utility/linkPhrase.js';
 import {INSTRUMENT_ROOT_ID} from '../../constants.js';
 import {unwrapNl} from '../../i18n.js';
-import {commaOnlyListText} from '../../i18n/commaOnlyList.js';
+import commaOnlyList, {commaOnlyListText} from '../../i18n/commaOnlyList.js';
 import localizeLanguageName from '../../i18n/localizeLanguageName.js';
 import localizeLinkAttributeTypeDescription
   from '../../i18n/localizeLinkAttributeTypeDescription.js';
@@ -77,13 +77,13 @@ function formatGeneric(
           | PlaceT
           | ReleaseT
           | WorkT,
-  extraInfo: ?((Array<string>) => void),
+  extraInfo: ?((Array<React.MixedElement | string>) => void),
 ) {
   const name = formatName(entity);
-  const info = [];
+  const info: Array<React.MixedElement | string> = [];
 
   if (nonEmpty(entity.primaryAlias) && entity.primaryAlias !== name) {
-    info.push(entity.primaryAlias);
+    info.push(<i title={l('Primary alias')}>{entity.primaryAlias}</i>);
   }
 
   if (nonEmpty(entity.comment)) {
@@ -98,7 +98,7 @@ function formatGeneric(
     <>
       {name}
       {info.length ? (
-        showExtraInfo(bracketedText(commaOnlyListText(info)))
+        showExtraInfo(bracketed(commaOnlyList(info)))
       ) : null}
     </>
   );
@@ -115,8 +115,8 @@ function formatArtist(artist: ArtistT) {
     empty(artist.primaryAlias) &&
     isNonLatin(artist.name)
   ) {
-    extraInfo = (info: Array<string>) => {
-      info.unshift(sortName);
+    extraInfo = (info: Array<React.MixedElement | string>) => {
+      info.unshift(<i title={l('Sort name')}>{sortName}</i>);
     };
   }
 
