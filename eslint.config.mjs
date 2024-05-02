@@ -740,6 +740,7 @@ export default [
       'ft-flow/no-mutable-array': 'off',
       'ft-flow/no-primitive-constructor-types': 'error',
       'ft-flow/no-types-missing-file-annotation': 'warn',
+      'ft-flow/object-type-curly-spacing': 'warn',
       'ft-flow/object-type-delimiter': ['warn', 'comma'],
       'ft-flow/require-exact-type': 'off',
       'ft-flow/require-indexer-name': ['warn', 'always'],
