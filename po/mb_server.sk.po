@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-26 13:24-0500\n"
+"POT-Creation-Date: 2024-04-29 23:24+0000\n"
 "PO-Revision-Date: 2024-04-17 17:39+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Slovak <https://translations.metabrainz.org/projects/"
@@ -569,7 +569,7 @@ msgid ""
 "sure to include it!"
 msgstr ""
 
-#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:132
+#: ../root/layout.tt:123 ../root/layout/components/ExternalLinks.js:132
 #: ../root/layout/components/Footer.js:33
 msgid "Blog"
 msgstr ""
@@ -579,13 +579,13 @@ msgctxt "user type"
 msgid "Bot"
 msgstr ""
 
-#: ../root/layout.tt:124 ../root/layout/components/Footer.js:52
+#: ../root/layout.tt:131 ../root/layout/components/Footer.js:52
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
 msgstr ""
 
-#: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
+#: ../root/layout.tt:122 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
 msgid "Bug tracker"
 msgstr ""
@@ -853,7 +853,7 @@ msgstr ""
 msgid "Do not use any of the above releases as a starting point"
 msgstr ""
 
-#: ../root/layout.tt:111 ../root/layout/components/Footer.js:26
+#: ../root/layout.tt:118 ../root/layout/components/Footer.js:26
 msgid "Donate"
 msgstr ""
 
@@ -1128,7 +1128,7 @@ msgstr ""
 msgid "Format"
 msgstr ""
 
-#: ../root/layout.tt:113 ../root/layout/components/Footer.js:28
+#: ../root/layout.tt:120 ../root/layout/components/Footer.js:28
 #: ../root/main/index.js:212
 msgid "Forums"
 msgstr ""
@@ -1275,7 +1275,7 @@ msgid ""
 "management. Check {ipi_doc|the documentation} for more info."
 msgstr ""
 
-#: ../root/layout.tt:114
+#: ../root/layout.tt:121
 msgid "IRC"
 msgstr ""
 
@@ -1529,7 +1529,7 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: ../root/layout.tt:138 ../root/layout/components/Footer.js:85
+#: ../root/layout.tt:145 ../root/layout/components/Footer.js:85
 msgid "Last replication packet received at {datetime}"
 msgstr ""
 
@@ -2236,7 +2236,7 @@ msgid ""
 "data is formatted correctly."
 msgstr ""
 
-#: ../root/layout.tt:131
+#: ../root/layout.tt:138
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
@@ -2382,6 +2382,12 @@ msgid ""
 "highlighted tabs and correct any visible errors."
 msgstr ""
 
+#: ../root/layout.tt:96 ../root/layout/index.js:301
+msgid ""
+"Some text you entered is overlong! Please shorten it, and if necessary enter "
+"the full text in the annotation for reference."
+msgstr ""
+
 #: ../root/components/forms.tt:239 ../root/components/Aliases/AliasTable.js:23
 #: ../root/components/list/ArtistList.js:73 ../root/edit/details/AddArea.js:47
 #: ../root/edit/details/AddArtist.js:56 ../root/edit/details/AddLabel.js:47
@@ -2423,7 +2429,7 @@ msgctxt "release"
 msgid "Status"
 msgstr ""
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:44
+#: ../root/layout.tt:126 ../root/layout/components/Footer.js:44
 msgid "Stop using beta site"
 msgstr ""
 
@@ -2832,7 +2838,7 @@ msgstr ""
 msgid "Turkish"
 msgstr "Turecky"
 
-#: ../root/layout.tt:117 ../root/layout/components/Footer.js:34
+#: ../root/layout.tt:124 ../root/layout/components/Footer.js:34
 msgid "Twitter"
 msgstr ""
 
@@ -2946,7 +2952,7 @@ msgstr ""
 msgid "Uppercase Roman numerals"
 msgstr ""
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:45
+#: ../root/layout.tt:126 ../root/layout/components/Footer.js:45
 msgid "Use beta site"
 msgstr ""
 
@@ -3053,7 +3059,7 @@ msgid ""
 "and following the merge link."
 msgstr ""
 
-#: ../root/layout.tt:112 ../root/layout/components/Footer.js:27
+#: ../root/layout.tt:119 ../root/layout/components/Footer.js:27
 msgid "Wiki"
 msgstr ""
 
@@ -3605,7 +3611,7 @@ msgstr ""
 msgid "'{id}' is not a valid MusicBrainz ID"
 msgstr "„{id}“ nie je platný identifikátor MusicBrainz"
 
-#: ../lib/MusicBrainz/Server/Controller.pm:125
+#: ../lib/MusicBrainz/Server/Controller.pm:127
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been automatically accepted "
@@ -3618,7 +3624,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: ../lib/MusicBrainz/Server/Controller.pm:131
+#: ../lib/MusicBrainz/Server/Controller.pm:133
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been entered into the edit "
@@ -3631,7 +3637,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: ../lib/MusicBrainz/Server/Controller.pm:139
+#: ../lib/MusicBrainz/Server/Controller.pm:141
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been entered, with "
@@ -4117,7 +4123,7 @@ msgctxt "edit type"
 msgid "Add area annotation"
 msgstr "Anotácia"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:26
 #, fuzzy
 #| msgid "Add release"
 msgctxt "edit type"
@@ -4138,7 +4144,7 @@ msgctxt "edit type"
 msgid "Remove area alias"
 msgstr "Odstrániť prezývku vydavateľstva"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:34
 #, fuzzy
 #| msgid "Edit release"
 msgctxt "edit type"
@@ -4173,7 +4179,7 @@ msgctxt "edit type"
 msgid "Add artist annotation"
 msgstr "Pridať prezývku umelca"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:37
 #, fuzzy
 #| msgid "Add artist"
 msgctxt "edit type"
@@ -4194,7 +4200,7 @@ msgctxt "edit type"
 msgid "Remove artist alias"
 msgstr "Odstrániť prezývku umelca"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:48
 #, fuzzy
 #| msgid "Edit artist"
 msgctxt "edit type"
@@ -4252,7 +4258,7 @@ msgctxt "edit type"
 msgid "Add event annotation"
 msgstr "Anotácia"
 
-#: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 #, fuzzy
 #| msgid "Add release"
 msgctxt "edit type"
@@ -4273,7 +4279,7 @@ msgctxt "edit type"
 msgid "Remove event alias"
 msgstr "Odstrániť prezývku vydavateľstva"
 
-#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:40
+#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:43
 #, fuzzy
 #| msgid "Edit release"
 msgctxt "edit type"
@@ -4308,7 +4314,7 @@ msgctxt "edit type"
 msgid "Add genre annotation"
 msgstr "Anotácia"
 
-#: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:24
 #, fuzzy
 #| msgid "Add release"
 msgctxt "edit type"
@@ -4329,7 +4335,7 @@ msgctxt "edit type"
 msgid "Remove genre alias"
 msgstr "Odstrániť prezývku vydavateľstva"
 
-#: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:25
 #, fuzzy
 #| msgid "Edit release"
 msgctxt "edit type"
@@ -4365,7 +4371,7 @@ msgid "Add relationship"
 msgstr "Pridať vzťah"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:22
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:34
 #, fuzzy
 #| msgid "Add release"
 msgctxt "edit type"
@@ -4404,7 +4410,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseName.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveRelease.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveReleaseToRG.pm:18
-#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:47
+#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:50
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:31
 #, fuzzy
 #| msgid "Edit release"
@@ -4442,7 +4448,7 @@ msgstr "Odstrániť udalosť vydania (historické)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
-#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:43
+#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:46
 #, fuzzy
 #| msgid "Edit recording"
 msgctxt "edit type"
@@ -4551,7 +4557,7 @@ msgctxt "edit type"
 msgid "Add instrument annotation"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:20
+#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:23
 msgctxt "edit type"
 msgid "Add instrument"
 msgstr ""
@@ -4570,7 +4576,7 @@ msgctxt "edit type"
 msgid "Remove instrument alias"
 msgstr "Odstrániť prezývku umelca"
 
-#: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:29
 #, fuzzy
 #| msgid "Edit artist"
 msgctxt "edit type"
@@ -4605,7 +4611,7 @@ msgctxt "edit type"
 msgid "Add label annotation"
 msgstr "Pridať prezývku vydavateľstvu"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:30
+#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:33
 #, fuzzy
 #| msgid "Add label"
 msgctxt "edit type"
@@ -4619,7 +4625,7 @@ msgctxt "edit type"
 msgid "Remove label"
 msgstr "Odstrániť vydavateľstvo"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:45
 #, fuzzy
 #| msgid "Edit label"
 msgctxt "edit type"
@@ -4640,7 +4646,7 @@ msgctxt "edit type"
 msgid "Merge labels"
 msgstr "Zlúčiť vydavateľstvá"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:34
 #, fuzzy
 #| msgid "Add medium"
 msgctxt "edit type"
@@ -4654,7 +4660,7 @@ msgctxt "edit type"
 msgid "Remove medium"
 msgstr "Odstrániť médium"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:51
+#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:54
 #, fuzzy
 #| msgid "Edit medium"
 msgctxt "edit type"
@@ -4681,7 +4687,7 @@ msgctxt "edit type"
 msgid "Add place annotation"
 msgstr "Anotácia"
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:29
 #, fuzzy
 #| msgid "Add label"
 msgctxt "edit type"
@@ -4702,7 +4708,7 @@ msgctxt "edit type"
 msgid "Remove place alias"
 msgstr "Odstrániť prezývku vydavateľstva"
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:43
+#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:46
 #, fuzzy
 #| msgid "Edit label"
 msgctxt "edit type"
@@ -4742,7 +4748,7 @@ msgctxt "edit type"
 msgid "Add ISRCs"
 msgstr "Pridať ISRC"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:29
 #, fuzzy
 #| msgid "Edit recording"
 msgctxt "edit type"
@@ -4885,7 +4891,7 @@ msgctxt "edit type"
 msgid "Add release label"
 msgstr "Pridať vydavateľstvo vydania"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:112
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:115
 #, fuzzy
 #| msgid "Remove medium"
 msgctxt "release group"
@@ -4981,7 +4987,7 @@ msgctxt "edit type"
 msgid "Add release group annotation"
 msgstr "Pridať skupinu vydaní"
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:28
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:31
 #, fuzzy
 #| msgid "Add release group"
 msgctxt "edit type"
@@ -5002,7 +5008,7 @@ msgctxt "edit type"
 msgid "Remove release group alias"
 msgstr "Odstrániť skupinu vydaní"
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:45
 #, fuzzy
 #| msgid "Edit release group"
 msgctxt "edit type"
@@ -5096,7 +5102,7 @@ msgctxt "edit type"
 msgid "Add series annotation"
 msgstr "Anotácia"
 
-#: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:27
 #, fuzzy
 #| msgid "Add artist"
 msgctxt "edit type"
@@ -5117,7 +5123,7 @@ msgctxt "edit type"
 msgid "Remove series alias"
 msgstr "Odstrániť prezývku umelca"
 
-#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:30
+#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:33
 #, fuzzy
 #| msgid "Edit artist"
 msgctxt "edit type"
@@ -5217,7 +5223,7 @@ msgctxt "edit type"
 msgid "Add ISWCs"
 msgstr "Pridať ISRC"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:18
+#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:21
 msgctxt "edit type"
 msgid "Add work"
 msgstr ""
@@ -5236,7 +5242,7 @@ msgctxt "edit type"
 msgid "Remove work alias"
 msgstr "Odstrániť prezývku umelca"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:90
+#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:93
 #, fuzzy
 #| msgid "Editor"
 msgctxt "edit type"

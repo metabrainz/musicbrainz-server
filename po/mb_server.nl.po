@@ -36,7 +36,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-26 13:24-0500\n"
+"POT-Creation-Date: 2024-04-29 23:24+0000\n"
 "PO-Revision-Date: 2024-04-17 17:33+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -588,7 +588,7 @@ msgstr ""
 "kan je dat doen op {bugs|onze bugtracker}. Voeg de onderstaande informatie "
 "aan de melding toe. Dit help ons om het probleem op te lossen!"
 
-#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:132
+#: ../root/layout.tt:123 ../root/layout/components/ExternalLinks.js:132
 #: ../root/layout/components/Footer.js:33
 msgid "Blog"
 msgstr "Weblog"
@@ -598,7 +598,7 @@ msgctxt "user type"
 msgid "Bot"
 msgstr "Robot"
 
-#: ../root/layout.tt:124 ../root/layout/components/Footer.js:52
+#: ../root/layout.tt:131 ../root/layout/components/Footer.js:52
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
@@ -607,7 +607,7 @@ msgstr ""
 "{supp|partners}. Hoesafbeeldingen worden geleverd door het {caa|Cover Art "
 "Archive}."
 
-#: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
+#: ../root/layout.tt:122 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
 msgid "Bug tracker"
 msgstr "Bugtracker"
@@ -878,7 +878,7 @@ msgstr "Disc-ID “{discid}”"
 msgid "Do not use any of the above releases as a starting point"
 msgstr "Gebruik geen van de bovenstaande uitgaven als uitgangspunt"
 
-#: ../root/layout.tt:111 ../root/layout/components/Footer.js:26
+#: ../root/layout.tt:118 ../root/layout/components/Footer.js:26
 msgid "Donate"
 msgstr "Doneren"
 
@@ -1156,7 +1156,7 @@ msgstr "Lees de {doc_doc|documentatie} voor meer informatie."
 msgid "Format"
 msgstr "Type medium"
 
-#: ../root/layout.tt:113 ../root/layout/components/Footer.js:28
+#: ../root/layout.tt:120 ../root/layout/components/Footer.js:28
 #: ../root/main/index.js:212
 msgid "Forums"
 msgstr "Forum"
@@ -1304,7 +1304,7 @@ msgstr ""
 "van muziekrechten toegewezen. Zie {ipi_doc|de documentatie} voor meer "
 "informatie."
 
-#: ../root/layout.tt:114
+#: ../root/layout.tt:121
 msgid "IRC"
 msgstr "Chat"
 
@@ -1604,7 +1604,7 @@ msgstr "Platenmaatschappijdetails"
 msgid "Language"
 msgstr "Taal"
 
-#: ../root/layout.tt:138 ../root/layout/components/Footer.js:85
+#: ../root/layout.tt:145 ../root/layout/components/Footer.js:85
 msgid "Last replication packet received at {datetime}"
 msgstr "Laatste replicatiepakket ontvangen op {datetime}"
 
@@ -2308,7 +2308,7 @@ msgstr ""
 "Lees de {url|documentatie} over het invullen van de uitgavebewerker en zorg "
 "ervoor dat de gegevens de juiste opmaak hebben."
 
-#: ../root/layout.tt:131
+#: ../root/layout.tt:138
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr "Draait <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
@@ -2468,6 +2468,12 @@ msgstr ""
 "Er zijn fouten gevonden in de gegevens die je hebt ingevoerd. Klik op de "
 "uitgelichte tabbladen en verbeter de fouten."
 
+#: ../root/layout.tt:96 ../root/layout/index.js:301
+msgid ""
+"Some text you entered is overlong! Please shorten it, and if necessary enter "
+"the full text in the annotation for reference."
+msgstr ""
+
 #: ../root/components/forms.tt:239 ../root/components/Aliases/AliasTable.js:23
 #: ../root/components/list/ArtistList.js:73 ../root/edit/details/AddArea.js:47
 #: ../root/edit/details/AddArtist.js:56 ../root/edit/details/AddLabel.js:47
@@ -2507,7 +2513,7 @@ msgctxt "release"
 msgid "Status"
 msgstr "Status"
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:44
+#: ../root/layout.tt:126 ../root/layout/components/Footer.js:44
 msgid "Stop using beta site"
 msgstr "Bètasite niet meer gebruiken"
 
@@ -3011,7 +3017,7 @@ msgstr "Transclusieredacteur"
 msgid "Turkish"
 msgstr "Turks"
 
-#: ../root/layout.tt:117 ../root/layout/components/Footer.js:34
+#: ../root/layout.tt:124 ../root/layout/components/Footer.js:34
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -3125,7 +3131,7 @@ msgstr "Afbeelding aan het uploaden"
 msgid "Uppercase Roman numerals"
 msgstr "Schrijf Romeinse cijfers met hoofdletters"
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:45
+#: ../root/layout.tt:126 ../root/layout/components/Footer.js:45
 msgid "Use beta site"
 msgstr "Bètasite gebruiken"
 
@@ -3246,7 +3252,7 @@ msgstr ""
 "toevoegen door naar de pagina van het object te gaan en de link samenvoegen "
 "te volgen."
 
-#: ../root/layout.tt:112 ../root/layout/components/Footer.js:27
+#: ../root/layout.tt:119 ../root/layout/components/Footer.js:27
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -3853,7 +3859,7 @@ msgstr ""
 msgid "'{id}' is not a valid MusicBrainz ID"
 msgstr "‘{id}’ is geen geldige MusicBrainz-ID"
 
-#: ../lib/MusicBrainz/Server/Controller.pm:125
+#: ../lib/MusicBrainz/Server/Controller.pm:127
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been automatically accepted "
@@ -3868,7 +3874,7 @@ msgstr[1] ""
 "Bedankt, je {num_edits} {edit_url|bewerkingen} ({edit_ids}) zijn automatisch "
 "geaccepteerd en doorgevoerd."
 
-#: ../lib/MusicBrainz/Server/Controller.pm:131
+#: ../lib/MusicBrainz/Server/Controller.pm:133
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been entered into the edit "
@@ -3883,7 +3889,7 @@ msgstr[1] ""
 "Bedankt, je {num_edits} {edit_url|bewerkingen} ({edit_ids}) zijn toegevoegd "
 "aan de lijst met open bewerkingen, zodat er op kan worden gestemd."
 
-#: ../lib/MusicBrainz/Server/Controller.pm:139
+#: ../lib/MusicBrainz/Server/Controller.pm:141
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been entered, with "
@@ -4458,7 +4464,7 @@ msgctxt "edit type"
 msgid "Add area annotation"
 msgstr "Aantekening aan het gebied toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:26
 msgctxt "edit type"
 msgid "Add area"
 msgstr "Gebied toevoegen"
@@ -4473,7 +4479,7 @@ msgctxt "edit type"
 msgid "Remove area alias"
 msgstr "Alias van het gebied verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:34
 msgctxt "edit type"
 msgid "Edit area"
 msgstr "Gebied bewerken"
@@ -4498,7 +4504,7 @@ msgctxt "edit type"
 msgid "Add artist annotation"
 msgstr "Aantekening aan de artiest toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:37
 msgctxt "edit type"
 msgid "Add artist"
 msgstr "Artiest toevoegen"
@@ -4513,7 +4519,7 @@ msgctxt "edit type"
 msgid "Remove artist alias"
 msgstr "Alias van de artiest verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:48
 msgctxt "edit type"
 msgid "Edit artist"
 msgstr "Artiest bewerken"
@@ -4565,7 +4571,7 @@ msgctxt "edit type"
 msgid "Add event annotation"
 msgstr "Aantekening aan het evenement toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 msgctxt "edit type"
 msgid "Add event"
 msgstr "Evenement toevoegen"
@@ -4580,7 +4586,7 @@ msgctxt "edit type"
 msgid "Remove event alias"
 msgstr "Alias van het evenement verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:40
+#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:43
 msgctxt "edit type"
 msgid "Edit event"
 msgstr "Evenement bewerken"
@@ -4605,7 +4611,7 @@ msgctxt "edit type"
 msgid "Add genre annotation"
 msgstr "Aantekening aan het genre toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:24
 msgctxt "edit type"
 msgid "Add genre"
 msgstr "Genre toevoegen"
@@ -4620,7 +4626,7 @@ msgctxt "edit type"
 msgid "Remove genre alias"
 msgstr "Alias van het genre verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:25
 msgctxt "edit type"
 msgid "Edit genre"
 msgstr "Genre bewerken"
@@ -4648,7 +4654,7 @@ msgid "Add relationship"
 msgstr "Relatie toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:22
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:34
 msgctxt "edit type"
 msgid "Add release"
 msgstr "Uitgave toevoegen"
@@ -4681,7 +4687,7 @@ msgstr "Gegevenskwaliteit van de artiest veranderen (historisch)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseName.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveRelease.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveReleaseToRG.pm:18
-#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:47
+#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:50
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:31
 msgctxt "edit type"
 msgid "Edit release"
@@ -4713,7 +4719,7 @@ msgstr "Uitgavegebeurtenissen bewerken (historisch)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
-#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:43
+#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:46
 msgctxt "edit type"
 msgid "Edit recording"
 msgstr "Opname bewerken"
@@ -4796,7 +4802,7 @@ msgctxt "edit type"
 msgid "Add instrument annotation"
 msgstr "Aantekening aan het instrument toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:20
+#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:23
 msgctxt "edit type"
 msgid "Add instrument"
 msgstr "Instrument toevoegen"
@@ -4811,7 +4817,7 @@ msgctxt "edit type"
 msgid "Remove instrument alias"
 msgstr "Alias van het instrument verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:29
 msgctxt "edit type"
 msgid "Edit instrument"
 msgstr "Instrument bewerken"
@@ -4836,7 +4842,7 @@ msgctxt "edit type"
 msgid "Add label annotation"
 msgstr "Aantekening aan de platenmaatschappij toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:30
+#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:33
 msgctxt "edit type"
 msgid "Add label"
 msgstr "Platenmaatschappij toevoegen"
@@ -4846,7 +4852,7 @@ msgctxt "edit type"
 msgid "Remove label"
 msgstr "Platenmaatschappij verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:45
 msgctxt "edit type"
 msgid "Edit label"
 msgstr "Platenmaatschappij bewerken"
@@ -4861,7 +4867,7 @@ msgctxt "edit type"
 msgid "Merge labels"
 msgstr "Platenmaatschappijen samenvoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:34
 msgctxt "edit type"
 msgid "Add medium"
 msgstr "Medium toevoegen"
@@ -4871,7 +4877,7 @@ msgctxt "edit type"
 msgid "Remove medium"
 msgstr "Medium verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:51
+#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:54
 msgctxt "edit type"
 msgid "Edit medium"
 msgstr "Medium bewerken"
@@ -4894,7 +4900,7 @@ msgctxt "edit type"
 msgid "Add place annotation"
 msgstr "Aantekening aan de plaats toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:29
 msgctxt "edit type"
 msgid "Add place"
 msgstr "Plaats toevoegen"
@@ -4909,7 +4915,7 @@ msgctxt "edit type"
 msgid "Remove place alias"
 msgstr "Alias van de plaats verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:43
+#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:46
 msgctxt "edit type"
 msgid "Edit place"
 msgstr "Plaats bewerken"
@@ -4939,7 +4945,7 @@ msgctxt "edit type"
 msgid "Add ISRCs"
 msgstr "ISRC’s toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:29
 msgctxt "edit type"
 msgid "Add standalone recording"
 msgstr "Losse opname toevoegen"
@@ -5054,7 +5060,7 @@ msgctxt "edit type"
 msgid "Add release label"
 msgstr "Platenmaatschappij aan de uitgave toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:112
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:115
 #, fuzzy
 #| msgid "[removed]"
 msgctxt "release group"
@@ -5128,7 +5134,7 @@ msgctxt "edit type"
 msgid "Add release group annotation"
 msgstr "Aantekening aan de uitgavegroep toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:28
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:31
 msgctxt "edit type"
 msgid "Add release group"
 msgstr "Uitgavegroep toevoegen"
@@ -5143,7 +5149,7 @@ msgctxt "edit type"
 msgid "Remove release group alias"
 msgstr "Alias van de uitgavegroep verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:45
 msgctxt "edit type"
 msgid "Edit release group"
 msgstr "Uitgavegroep bewerken"
@@ -5233,7 +5239,7 @@ msgctxt "edit type"
 msgid "Add series annotation"
 msgstr "Aantekening aan de serie toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:27
 msgctxt "edit type"
 msgid "Add series"
 msgstr "Serie toevoegen"
@@ -5248,7 +5254,7 @@ msgctxt "edit type"
 msgid "Remove series alias"
 msgstr "Alias van de serie verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:30
+#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:33
 msgctxt "edit type"
 msgid "Edit series"
 msgstr "Serie bewerken"
@@ -5332,7 +5338,7 @@ msgctxt "edit type"
 msgid "Add ISWCs"
 msgstr "ISWC’s toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:18
+#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:21
 msgctxt "edit type"
 msgid "Add work"
 msgstr "Compositie toevoegen"
@@ -5347,7 +5353,7 @@ msgctxt "edit type"
 msgid "Remove work alias"
 msgstr "Alias van de compositie verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:90
+#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:93
 msgctxt "edit type"
 msgid "Edit work"
 msgstr "Compositie bewerken"

@@ -5848,7 +5848,7 @@ msgstr ""
 #: DB:medium_format/description:207
 msgctxt "medium_format"
 msgid ""
-"One-sided 3\" vinyl records to be played with purpose-built players, "
+"One-sided 3\" vinyl records to be played with purpose-built players; "
 "originally developed in Japan and now mostly found as a Record Store Day "
 "curiosity."
 msgstr ""

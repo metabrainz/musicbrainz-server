@@ -25,8 +25,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.4.3\n"
 
 #: DB:work_type/description:9
@@ -6188,9 +6188,15 @@ msgid "Official"
 msgstr "Ufficiale"
 
 #: DB:medium_format/description:207
+#, fuzzy
+#| msgctxt "medium_format"
+#| msgid ""
+#| "One-sided 3\" vinyl records to be played with purpose-built players, "
+#| "originally developed in Japan and now mostly found as a Record Store Day "
+#| "curiosity."
 msgctxt "medium_format"
 msgid ""
-"One-sided 3\" vinyl records to be played with purpose-built players, "
+"One-sided 3\" vinyl records to be played with purpose-built players; "
 "originally developed in Japan and now mostly found as a Record Store Day "
 "curiosity."
 msgstr ""

@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-26 13:24-0500\n"
+"POT-Creation-Date: 2024-04-29 23:24+0000\n"
 "PO-Revision-Date: 2024-04-17 17:40+0000\n"
 "Last-Translator: x1ao4 <kazaf_ken@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
@@ -610,7 +610,7 @@ msgstr ""
 "以下是错误信息。如果您想提交一份缺陷报告，您可以前往 {bugs|我们的缺陷追踪"
 "器}。请务必在报告中包含以下的信息！"
 
-#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:132
+#: ../root/layout.tt:123 ../root/layout/components/ExternalLinks.js:132
 #: ../root/layout/components/Footer.js:33
 msgid "Blog"
 msgstr "博客"
@@ -622,7 +622,7 @@ msgctxt "user type"
 msgid "Bot"
 msgstr "机器人"
 
-#: ../root/layout.tt:124 ../root/layout/components/Footer.js:52
+#: ../root/layout.tt:131 ../root/layout/components/Footer.js:52
 #, fuzzy
 #| msgid ""
 #| "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
@@ -634,7 +634,7 @@ msgstr ""
 "由 {MeB|MetaBrainz 基金会} 和我们的 {spon|赞助商} 和 {supp|支持者} 为您呈现。"
 "专辑封面图片由 {caa|Cover Art Archive} 提供。"
 
-#: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
+#: ../root/layout.tt:122 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
 #, fuzzy
 #| msgid "Bug Tracker"
@@ -912,7 +912,7 @@ msgstr "唱片 ID “{discid}”"
 msgid "Do not use any of the above releases as a starting point"
 msgstr "请勿使用上述任何版本作为起点"
 
-#: ../root/layout.tt:111 ../root/layout/components/Footer.js:26
+#: ../root/layout.tt:118 ../root/layout/components/Footer.js:26
 msgid "Donate"
 msgstr "捐助"
 
@@ -1202,7 +1202,7 @@ msgstr "如需更多信息，请查看 {doc_doc|文档}。"
 msgid "Format"
 msgstr "格式"
 
-#: ../root/layout.tt:113 ../root/layout/components/Footer.js:28
+#: ../root/layout.tt:120 ../root/layout/components/Footer.js:28
 #: ../root/main/index.js:212
 msgid "Forums"
 msgstr "论坛"
@@ -1347,7 +1347,7 @@ msgstr ""
 "IPI编号由CISAC向音乐版权管理\"利益相关方\"分配。如需更多信息，请查看{ipi_doc|"
 "文档}。"
 
-#: ../root/layout.tt:114
+#: ../root/layout.tt:121
 msgid "IRC"
 msgstr "IRC"
 
@@ -1621,7 +1621,7 @@ msgstr "厂牌详情"
 msgid "Language"
 msgstr "语言"
 
-#: ../root/layout.tt:138 ../root/layout/components/Footer.js:85
+#: ../root/layout.tt:145 ../root/layout/components/Footer.js:85
 msgid "Last replication packet received at {datetime}"
 msgstr "上一次收到副本数据包是在 {datetime}"
 
@@ -2349,7 +2349,7 @@ msgid ""
 "data is formatted correctly."
 msgstr "查看关于专辑编辑器制种的{url|文档}，确保您的数据格式正确。"
 
-#: ../root/layout.tt:131
+#: ../root/layout.tt:138
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
@@ -2510,6 +2510,12 @@ msgid ""
 "highlighted tabs and correct any visible errors."
 msgstr "您输入的数据中有错误。点击高亮的选项卡并修正所有可见的错误。"
 
+#: ../root/layout.tt:96 ../root/layout/index.js:301
+msgid ""
+"Some text you entered is overlong! Please shorten it, and if necessary enter "
+"the full text in the annotation for reference."
+msgstr ""
+
 #: ../root/components/forms.tt:239 ../root/components/Aliases/AliasTable.js:23
 #: ../root/components/list/ArtistList.js:73 ../root/edit/details/AddArea.js:47
 #: ../root/edit/details/AddArtist.js:56 ../root/edit/details/AddLabel.js:47
@@ -2553,7 +2559,7 @@ msgctxt "release"
 msgid "Status"
 msgstr "状态"
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:44
+#: ../root/layout.tt:126 ../root/layout/components/Footer.js:44
 msgid "Stop using beta site"
 msgstr "停止使用测试版网站"
 
@@ -2995,7 +3001,7 @@ msgstr "位置编辑者"
 msgid "Turkish"
 msgstr "土耳其语"
 
-#: ../root/layout.tt:117 ../root/layout/components/Footer.js:34
+#: ../root/layout.tt:124 ../root/layout/components/Footer.js:34
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -3109,7 +3115,7 @@ msgstr "正在上传图片..."
 msgid "Uppercase Roman numerals"
 msgstr "大写罗马数字"
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:45
+#: ../root/layout.tt:126 ../root/layout/components/Footer.js:45
 msgid "Use beta site"
 msgstr "使用测试版网站"
 
@@ -3223,7 +3229,7 @@ msgstr ""
 "当您准备合并这些时，只需单击“合并”按钮。您仍然可以通过简单地浏览实体页面并点"
 "击合并链接向该合并队列添加更多内容。"
 
-#: ../root/layout.tt:112 ../root/layout/components/Footer.js:27
+#: ../root/layout.tt:119 ../root/layout/components/Footer.js:27
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -3791,7 +3797,7 @@ msgstr ""
 msgid "'{id}' is not a valid MusicBrainz ID"
 msgstr "'{id}' 不是一个有效的MusicBrainz的 ID"
 
-#: ../lib/MusicBrainz/Server/Controller.pm:125
+#: ../lib/MusicBrainz/Server/Controller.pm:127
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been automatically accepted "
@@ -3802,7 +3808,7 @@ msgid_plural ""
 msgstr[0] ""
 "谢谢，您的 {num_edits} 个 {edit_url|编辑} ({edit_ids}) 已被自动批准并生效。"
 
-#: ../lib/MusicBrainz/Server/Controller.pm:131
+#: ../lib/MusicBrainz/Server/Controller.pm:133
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been entered into the edit "
@@ -3813,7 +3819,7 @@ msgid_plural ""
 msgstr[0] ""
 "谢谢，您的 {num_edits} 个 {edit_url|编辑} ({edit_ids}) 已经进入编辑审查队列。"
 
-#: ../lib/MusicBrainz/Server/Controller.pm:139
+#: ../lib/MusicBrainz/Server/Controller.pm:141
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been entered, with "
@@ -4320,7 +4326,7 @@ msgctxt "edit type"
 msgid "Add area annotation"
 msgstr "添加地区注释"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:26
 #, fuzzy
 #| msgid "Add area"
 msgctxt "edit type"
@@ -4341,7 +4347,7 @@ msgctxt "edit type"
 msgid "Remove area alias"
 msgstr "移除地区别名"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:34
 #, fuzzy
 #| msgid "Edit area"
 msgctxt "edit type"
@@ -4376,7 +4382,7 @@ msgctxt "edit type"
 msgid "Add artist annotation"
 msgstr "添加艺术家注释"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:37
 #, fuzzy
 #| msgid "Add artist"
 msgctxt "edit type"
@@ -4397,7 +4403,7 @@ msgctxt "edit type"
 msgid "Remove artist alias"
 msgstr "删除艺术家别名"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:48
 #, fuzzy
 #| msgid "Edit artist"
 msgctxt "edit type"
@@ -4455,7 +4461,7 @@ msgctxt "edit type"
 msgid "Add event annotation"
 msgstr "添加事件注释"
 
-#: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 #, fuzzy
 #| msgid "Add event"
 msgctxt "edit type"
@@ -4476,7 +4482,7 @@ msgctxt "edit type"
 msgid "Remove event alias"
 msgstr "移除事件别名"
 
-#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:40
+#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:43
 #, fuzzy
 #| msgid "Edit event"
 msgctxt "edit type"
@@ -4511,7 +4517,7 @@ msgctxt "edit type"
 msgid "Add genre annotation"
 msgstr "添加流派注释"
 
-#: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:24
 #, fuzzy
 #| msgid "Add genre"
 msgctxt "edit type"
@@ -4532,7 +4538,7 @@ msgctxt "edit type"
 msgid "Remove genre alias"
 msgstr "移除流派别名"
 
-#: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:25
 #, fuzzy
 #| msgid "Edit genre"
 msgctxt "edit type"
@@ -4568,7 +4574,7 @@ msgid "Add relationship"
 msgstr "添加关系"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:22
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:34
 #, fuzzy
 #| msgid "Add release"
 msgctxt "edit type"
@@ -4611,7 +4617,7 @@ msgstr "更改艺术家质量（历史）"
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseName.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveRelease.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveReleaseToRG.pm:18
-#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:47
+#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:50
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:31
 #, fuzzy
 #| msgid "Edit release"
@@ -4653,7 +4659,7 @@ msgstr "编辑专辑事件（历史）"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
-#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:43
+#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:46
 #, fuzzy
 #| msgid "Edit recording"
 msgctxt "edit type"
@@ -4766,7 +4772,7 @@ msgctxt "edit type"
 msgid "Add instrument annotation"
 msgstr "添加乐器注释"
 
-#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:20
+#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:23
 #, fuzzy
 #| msgid "Add instrument"
 msgctxt "edit type"
@@ -4787,7 +4793,7 @@ msgctxt "edit type"
 msgid "Remove instrument alias"
 msgstr "移除乐器别名"
 
-#: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:29
 #, fuzzy
 #| msgid "Edit instrument"
 msgctxt "edit type"
@@ -4822,7 +4828,7 @@ msgctxt "edit type"
 msgid "Add label annotation"
 msgstr "添加唱片公司注释"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:30
+#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:33
 #, fuzzy
 #| msgid "Add label"
 msgctxt "edit type"
@@ -4836,7 +4842,7 @@ msgctxt "edit type"
 msgid "Remove label"
 msgstr "删除唱片公司"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:45
 #, fuzzy
 #| msgid "Edit label"
 msgctxt "edit type"
@@ -4857,7 +4863,7 @@ msgctxt "edit type"
 msgid "Merge labels"
 msgstr "合并唱片公司"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:34
 #, fuzzy
 #| msgid "Add medium"
 msgctxt "edit type"
@@ -4871,7 +4877,7 @@ msgctxt "edit type"
 msgid "Remove medium"
 msgstr "移除媒体"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:51
+#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:54
 #, fuzzy
 #| msgid "Edit medium"
 msgctxt "edit type"
@@ -4898,7 +4904,7 @@ msgctxt "edit type"
 msgid "Add place annotation"
 msgstr "添加地点注释"
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:29
 #, fuzzy
 #| msgid "Add place"
 msgctxt "edit type"
@@ -4919,7 +4925,7 @@ msgctxt "edit type"
 msgid "Remove place alias"
 msgstr "移除地点别名"
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:43
+#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:46
 #, fuzzy
 #| msgid "Edit place"
 msgctxt "edit type"
@@ -4961,7 +4967,7 @@ msgctxt "edit type"
 msgid "Add ISRCs"
 msgstr "添加 ISRC"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:29
 #, fuzzy
 #| msgid "Add standalone recording"
 msgctxt "edit type"
@@ -5104,7 +5110,7 @@ msgctxt "edit type"
 msgid "Add release label"
 msgstr "添加专辑的制作公司"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:112
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:115
 #, fuzzy
 #| msgid "[removed]"
 msgctxt "release group"
@@ -5200,7 +5206,7 @@ msgctxt "edit type"
 msgid "Add release group annotation"
 msgstr "添加专辑组注释"
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:28
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:31
 #, fuzzy
 #| msgid "Add release group"
 msgctxt "edit type"
@@ -5221,7 +5227,7 @@ msgctxt "edit type"
 msgid "Remove release group alias"
 msgstr "移除专辑组别名"
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:45
 #, fuzzy
 #| msgid "Edit release group"
 msgctxt "edit type"
@@ -5303,7 +5309,7 @@ msgctxt "edit type"
 msgid "Add series annotation"
 msgstr "添加系列注释"
 
-#: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:27
 #, fuzzy
 #| msgid "Add series"
 msgctxt "edit type"
@@ -5324,7 +5330,7 @@ msgctxt "edit type"
 msgid "Remove series alias"
 msgstr "移除系列别名"
 
-#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:30
+#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:33
 #, fuzzy
 #| msgid "Edit series"
 msgctxt "edit type"
@@ -5440,7 +5446,7 @@ msgctxt "edit type"
 msgid "Add ISWCs"
 msgstr "加 ISWC"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:18
+#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:21
 #, fuzzy
 #| msgid "Add work"
 msgctxt "edit type"
@@ -5461,7 +5467,7 @@ msgctxt "edit type"
 msgid "Remove work alias"
 msgstr "删除作品别名"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:90
+#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:93
 #, fuzzy
 #| msgid "Edit work"
 msgctxt "edit type"
