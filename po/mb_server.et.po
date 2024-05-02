@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-26 13:24-0500\n"
+"POT-Creation-Date: 2024-04-29 23:24+0000\n"
 "PO-Revision-Date: 2024-04-17 17:31+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations."
 "metabrainz.org>\n"
@@ -568,7 +568,7 @@ msgstr ""
 "{bugs|veahaldussüsteemis}. Allolev teave aitab viga parandada, nii et lisa "
 "see kindlasti kirjeldusse!"
 
-#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:132
+#: ../root/layout.tt:123 ../root/layout/components/ExternalLinks.js:132
 #: ../root/layout/components/Footer.js:33
 msgid "Blog"
 msgstr "Blogi"
@@ -578,7 +578,7 @@ msgctxt "user type"
 msgid "Bot"
 msgstr "Bot"
 
-#: ../root/layout.tt:124 ../root/layout/components/Footer.js:52
+#: ../root/layout.tt:131 ../root/layout/components/Footer.js:52
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
@@ -586,7 +586,7 @@ msgstr ""
 "MusicBrainzi taga seisavad {MeB|MetaBrainz Foundation} ning {spon|sponsorid} "
 "ja {supp|toetajad}. Kaanepiltidega varustab {caa|Kaanepildiarhiiv}."
 
-#: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
+#: ../root/layout.tt:122 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
 msgid "Bug tracker"
 msgstr "Veahaldus"
@@ -854,7 +854,7 @@ msgstr "Plaadi-ID „{discid}”"
 msgid "Do not use any of the above releases as a starting point"
 msgstr "Lähtekohana ei kasutata ühtki ülalolevat väljalaset"
 
-#: ../root/layout.tt:111 ../root/layout/components/Footer.js:26
+#: ../root/layout.tt:118 ../root/layout/components/Footer.js:26
 msgid "Donate"
 msgstr "Anneta"
 
@@ -1125,7 +1125,7 @@ msgstr "Lisateabe saamiseks vaata {doc_doc|dokumentatsiooni}."
 msgid "Format"
 msgstr "Formaat"
 
-#: ../root/layout.tt:113 ../root/layout/components/Footer.js:28
+#: ../root/layout.tt:120 ../root/layout/components/Footer.js:28
 #: ../root/main/index.js:212
 msgid "Forums"
 msgstr "Foorumid"
@@ -1268,7 +1268,7 @@ msgid ""
 "management. Check {ipi_doc|the documentation} for more info."
 msgstr ""
 
-#: ../root/layout.tt:114
+#: ../root/layout.tt:121
 msgid "IRC"
 msgstr "IRC"
 
@@ -1527,7 +1527,7 @@ msgstr "Plaadifirma üksikasjad"
 msgid "Language"
 msgstr "Keel"
 
-#: ../root/layout.tt:138 ../root/layout/components/Footer.js:85
+#: ../root/layout.tt:145 ../root/layout/components/Footer.js:85
 msgid "Last replication packet received at {datetime}"
 msgstr "Viimane replikatsioonipakett saadud {datetime}"
 
@@ -2219,7 +2219,7 @@ msgstr ""
 "Vaata üle väljalasketoimetile andmete söötmise {url|dokumentatsioon} ja "
 "kontrolli, et andmed oleks vormistatud korrektselt."
 
-#: ../root/layout.tt:131
+#: ../root/layout.tt:138
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr "Haru: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
@@ -2370,6 +2370,12 @@ msgid ""
 "highlighted tabs and correct any visible errors."
 msgstr ""
 
+#: ../root/layout.tt:96 ../root/layout/index.js:301
+msgid ""
+"Some text you entered is overlong! Please shorten it, and if necessary enter "
+"the full text in the annotation for reference."
+msgstr ""
+
 #: ../root/components/forms.tt:239 ../root/components/Aliases/AliasTable.js:23
 #: ../root/components/list/ArtistList.js:73 ../root/edit/details/AddArea.js:47
 #: ../root/edit/details/AddArtist.js:56 ../root/edit/details/AddLabel.js:47
@@ -2409,7 +2415,7 @@ msgctxt "release"
 msgid "Status"
 msgstr "Staatus"
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:44
+#: ../root/layout.tt:126 ../root/layout/components/Footer.js:44
 msgid "Stop using beta site"
 msgstr "Lõpeta beetasaidi kasutamine"
 
@@ -2853,7 +2859,7 @@ msgstr "Transklusioonitoimetaja"
 msgid "Turkish"
 msgstr "Türgi"
 
-#: ../root/layout.tt:117 ../root/layout/components/Footer.js:34
+#: ../root/layout.tt:124 ../root/layout/components/Footer.js:34
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -2967,7 +2973,7 @@ msgstr "Pildi üleslaadimine..."
 msgid "Uppercase Roman numerals"
 msgstr "Rooma numbrid suurtähtedega"
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:45
+#: ../root/layout.tt:126 ../root/layout/components/Footer.js:45
 msgid "Use beta site"
 msgstr "Kasuta beetasaiti"
 
@@ -3079,7 +3085,7 @@ msgstr ""
 "Kui oled valmis neid mestima, klõpsa lihtsalt „Mesti”. Rohkemate mestitavate "
 "lisamiseks liigu nende lehele ja klõpsa linki „Mesti”."
 
-#: ../root/layout.tt:112 ../root/layout/components/Footer.js:27
+#: ../root/layout.tt:119 ../root/layout/components/Footer.js:27
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -3646,7 +3652,7 @@ msgstr ""
 msgid "'{id}' is not a valid MusicBrainz ID"
 msgstr "„{id}” ei ole kehtiv MusicBrainzi ID"
 
-#: ../lib/MusicBrainz/Server/Controller.pm:125
+#: ../lib/MusicBrainz/Server/Controller.pm:127
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been automatically accepted "
@@ -3660,7 +3666,7 @@ msgstr[1] ""
 "Aitäh, {num_edits} {edit_url|toimetust} ({edit_ids}) on vastuvõetud ja "
 "rakendatud."
 
-#: ../lib/MusicBrainz/Server/Controller.pm:131
+#: ../lib/MusicBrainz/Server/Controller.pm:133
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been entered into the edit "
@@ -3675,7 +3681,7 @@ msgstr[1] ""
 "Aitäh, {num_edits} {edit_url|toimetust} ({edit_ids}) on sisestatud ja ootab "
 "teistelt kasutajatelt ülevaatamist."
 
-#: ../lib/MusicBrainz/Server/Controller.pm:139
+#: ../lib/MusicBrainz/Server/Controller.pm:141
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been entered, with "
@@ -4183,7 +4189,7 @@ msgctxt "edit type"
 msgid "Add area annotation"
 msgstr "Piirkonna annotatsiooni lisamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:26
 msgctxt "edit type"
 msgid "Add area"
 msgstr "Piirkonna lisamine"
@@ -4198,7 +4204,7 @@ msgctxt "edit type"
 msgid "Remove area alias"
 msgstr "Piirkonna aliase eemaldamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:34
 msgctxt "edit type"
 msgid "Edit area"
 msgstr "Piirkonna toimetamine"
@@ -4223,7 +4229,7 @@ msgctxt "edit type"
 msgid "Add artist annotation"
 msgstr "Artisti annotatsiooni lisamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:37
 msgctxt "edit type"
 msgid "Add artist"
 msgstr "Artisti lisamine"
@@ -4238,7 +4244,7 @@ msgctxt "edit type"
 msgid "Remove artist alias"
 msgstr "Artisti aliase eemaldamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:48
 msgctxt "edit type"
 msgid "Edit artist"
 msgstr "Artisti muutmine"
@@ -4284,7 +4290,7 @@ msgctxt "edit type"
 msgid "Add event annotation"
 msgstr "Sündmuse annotatsiooni lisamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 msgctxt "edit type"
 msgid "Add event"
 msgstr "Sündmuse lisamine"
@@ -4299,7 +4305,7 @@ msgctxt "edit type"
 msgid "Remove event alias"
 msgstr "Sündmuse aliase eemaldamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:40
+#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:43
 msgctxt "edit type"
 msgid "Edit event"
 msgstr "Sündmuse muutmine"
@@ -4324,7 +4330,7 @@ msgctxt "edit type"
 msgid "Add genre annotation"
 msgstr "Muusikastiili annotatsiooni lisamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:24
 msgctxt "edit type"
 msgid "Add genre"
 msgstr "Lisa muusikastiil"
@@ -4339,7 +4345,7 @@ msgctxt "edit type"
 msgid "Remove genre alias"
 msgstr "Muusikastiili aliase eemaldamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:25
 msgctxt "edit type"
 msgid "Edit genre"
 msgstr "Muusikastiili toimetamine"
@@ -4367,7 +4373,7 @@ msgid "Add relationship"
 msgstr "Seose lisamine"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:22
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:34
 msgctxt "edit type"
 msgid "Add release"
 msgstr "Väljalaske lisamine"
@@ -4400,7 +4406,7 @@ msgstr "Artisti andmekvaliteedi muutmine (ajalooline)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseName.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveRelease.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveReleaseToRG.pm:18
-#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:47
+#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:50
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:31
 msgctxt "edit type"
 msgid "Edit release"
@@ -4432,7 +4438,7 @@ msgstr "Väljalaskesündmuste muutmine (ajalooline)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
-#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:43
+#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:46
 msgctxt "edit type"
 msgid "Edit recording"
 msgstr "Salvestise toimetamine"
@@ -4515,7 +4521,7 @@ msgctxt "edit type"
 msgid "Add instrument annotation"
 msgstr "Instrumendi annotatsiooni lisamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:20
+#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:23
 msgctxt "edit type"
 msgid "Add instrument"
 msgstr "Instrumendi lisamine"
@@ -4530,7 +4536,7 @@ msgctxt "edit type"
 msgid "Remove instrument alias"
 msgstr "Instrumendi aliase eemaldamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:29
 msgctxt "edit type"
 msgid "Edit instrument"
 msgstr "Instrumendi muutmine"
@@ -4555,7 +4561,7 @@ msgctxt "edit type"
 msgid "Add label annotation"
 msgstr "Plaadifirma annotatsiooni lisamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:30
+#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:33
 msgctxt "edit type"
 msgid "Add label"
 msgstr "Plaadifirma lisamine"
@@ -4565,7 +4571,7 @@ msgctxt "edit type"
 msgid "Remove label"
 msgstr "Plaadifirma eemaldamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:45
 msgctxt "edit type"
 msgid "Edit label"
 msgstr "Plaadifirma toimetamine"
@@ -4580,7 +4586,7 @@ msgctxt "edit type"
 msgid "Merge labels"
 msgstr "Plaadifirmade mestimine"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:34
 msgctxt "edit type"
 msgid "Add medium"
 msgstr "Helikandja lisamine"
@@ -4590,7 +4596,7 @@ msgctxt "edit type"
 msgid "Remove medium"
 msgstr "Helikandja eemaldamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:51
+#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:54
 msgctxt "edit type"
 msgid "Edit medium"
 msgstr "Helikandja muutmine"
@@ -4611,7 +4617,7 @@ msgctxt "edit type"
 msgid "Add place annotation"
 msgstr "Koha annotatsiooni lisamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:29
 msgctxt "edit type"
 msgid "Add place"
 msgstr "Koha lisamine"
@@ -4626,7 +4632,7 @@ msgctxt "edit type"
 msgid "Remove place alias"
 msgstr "Koha aliase eemaldamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:43
+#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:46
 msgctxt "edit type"
 msgid "Edit place"
 msgstr "Koha toimetamine"
@@ -4656,7 +4662,7 @@ msgctxt "edit type"
 msgid "Add ISRCs"
 msgstr "ISRC-de lisamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:29
 msgctxt "edit type"
 msgid "Add standalone recording"
 msgstr "Eraldiseisva salvestise lisamine"
@@ -4767,7 +4773,7 @@ msgctxt "edit type"
 msgid "Add release label"
 msgstr "Väljalaskele plaadifirma lisamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:112
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:115
 #, fuzzy
 #| msgid "[removed]"
 msgctxt "release group"
@@ -4841,7 +4847,7 @@ msgctxt "edit type"
 msgid "Add release group annotation"
 msgstr "Väljalaskerühma annotatsiooni lisamine"
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:28
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:31
 msgctxt "edit type"
 msgid "Add release group"
 msgstr "Väljalaskerühma lisamine"
@@ -4856,7 +4862,7 @@ msgctxt "edit type"
 msgid "Remove release group alias"
 msgstr "Väljalaskerühma aliase eemaldamine"
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:45
 msgctxt "edit type"
 msgid "Edit release group"
 msgstr "Väljalaskerühma toimetamine"
@@ -4930,7 +4936,7 @@ msgctxt "edit type"
 msgid "Add series annotation"
 msgstr "Seeria annotatsiooni lisamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:27
 msgctxt "edit type"
 msgid "Add series"
 msgstr "Seeria lisamine"
@@ -4945,7 +4951,7 @@ msgctxt "edit type"
 msgid "Remove series alias"
 msgstr "Seeria aliase eemaldamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:30
+#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:33
 msgctxt "edit type"
 msgid "Edit series"
 msgstr "Seeria muutmine"
@@ -5029,7 +5035,7 @@ msgctxt "edit type"
 msgid "Add ISWCs"
 msgstr "ISWC-de lisamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:18
+#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:21
 msgctxt "edit type"
 msgid "Add work"
 msgstr "Teose lisamine"
@@ -5044,7 +5050,7 @@ msgctxt "edit type"
 msgid "Remove work alias"
 msgstr "Teose aliase eemaldamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:90
+#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:93
 msgctxt "edit type"
 msgid "Edit work"
 msgstr "Teose muutmine"

@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-26 13:24-0500\n"
-"PO-Revision-Date: 2024-04-28 14:42+0000\n"
+"POT-Creation-Date: 2024-04-29 23:24+0000\n"
+"PO-Revision-Date: 2024-04-30 08:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -566,7 +566,7 @@ msgstr ""
 "riktą, galima tai padaryti {bugs|mūsų riktų sekiklioje}. Toliau pateikta "
 "informacija padės, todėl būtinai ją įtrauk!"
 
-#: ../root/layout.tt:116 ../root/layout/components/ExternalLinks.js:132
+#: ../root/layout.tt:123 ../root/layout/components/ExternalLinks.js:132
 #: ../root/layout/components/Footer.js:33
 msgid "Blog"
 msgstr "Tinklaraštis"
@@ -576,7 +576,7 @@ msgctxt "user type"
 msgid "Bot"
 msgstr "Botas"
 
-#: ../root/layout.tt:124 ../root/layout/components/Footer.js:52
+#: ../root/layout.tt:131 ../root/layout/components/Footer.js:52
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
@@ -584,7 +584,7 @@ msgstr ""
 "Pristato {MeB|MetaBrainz fondas} ir mūsų {spon|rėmėjai} bei {supp|"
 "palaikytojai}. Viršelio apipavidalinimą pateikė {caa|Cover Art Archive}."
 
-#: ../root/layout.tt:115 ../root/layout/components/Footer.js:32
+#: ../root/layout.tt:122 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
 msgid "Bug tracker"
 msgstr "Riktų sekiklis"
@@ -852,7 +852,7 @@ msgstr "Disko ID „{discid}“"
 msgid "Do not use any of the above releases as a starting point"
 msgstr "Nenaudoti nė vieno iš pirmiau minėtų leidinių kaip pradinio taško"
 
-#: ../root/layout.tt:111 ../root/layout/components/Footer.js:26
+#: ../root/layout.tt:118 ../root/layout/components/Footer.js:26
 msgid "Donate"
 msgstr "Aukoti"
 
@@ -1128,7 +1128,7 @@ msgstr "Daugiau informacijos rasi {doc_doc|dokumentuose}."
 msgid "Format"
 msgstr "Formatas"
 
-#: ../root/layout.tt:113 ../root/layout/components/Footer.js:28
+#: ../root/layout.tt:120 ../root/layout/components/Footer.js:28
 #: ../root/main/index.js:212
 msgid "Forums"
 msgstr "Forumai"
@@ -1278,7 +1278,7 @@ msgstr ""
 "IPI kodus suteikia CISAC „suinteresuotosioms organizacijoms“ muzikos teisių "
 "valdymo srityje. Daugiau informacijos rasi {ipi_doc|dokumentuose}."
 
-#: ../root/layout.tt:114
+#: ../root/layout.tt:121
 msgid "IRC"
 msgstr "IRC"
 
@@ -1569,7 +1569,7 @@ msgstr "Išsami informacija apie įrašų kompaniją"
 msgid "Language"
 msgstr "Kalba"
 
-#: ../root/layout.tt:138 ../root/layout/components/Footer.js:85
+#: ../root/layout.tt:145 ../root/layout/components/Footer.js:85
 msgid "Last replication packet received at {datetime}"
 msgstr "Paskutinis kopijavimo paketas gautas {datetime}"
 
@@ -2275,7 +2275,7 @@ msgstr ""
 "Peržiūrėk {url|dokumentaciją} apie leidinių rengyklės sėklinimą ir "
 "įsitikink, kad duomenys suformatuoti teisingai."
 
-#: ../root/layout.tt:131
+#: ../root/layout.tt:138
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
@@ -2437,6 +2437,14 @@ msgstr ""
 "Tavo įvestuose duomenyse aptikta klaidų. Spustelėk paryškintus skirtukus ir "
 "ištaisyk matomas klaidas."
 
+#: ../root/layout.tt:96 ../root/layout/index.js:301
+msgid ""
+"Some text you entered is overlong! Please shorten it, and if necessary enter "
+"the full text in the annotation for reference."
+msgstr ""
+"Kai kuris įvestas tekstas per ilgas. Sutrumpink jį ir, jei reikia, į "
+"anotaciją įvesk visą tekstą, kad galėtum juo remtis."
+
 #: ../root/components/forms.tt:239 ../root/components/Aliases/AliasTable.js:23
 #: ../root/components/list/ArtistList.js:73 ../root/edit/details/AddArea.js:47
 #: ../root/edit/details/AddArtist.js:56 ../root/edit/details/AddLabel.js:47
@@ -2476,7 +2484,7 @@ msgctxt "release"
 msgid "Status"
 msgstr "Būsena"
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:44
+#: ../root/layout.tt:126 ../root/layout/components/Footer.js:44
 msgid "Stop using beta site"
 msgstr "Nustoti naudoti beta svetainę"
 
@@ -2974,7 +2982,7 @@ msgstr "Transkursijos redaktorius (-ė)"
 msgid "Turkish"
 msgstr "Turkų"
 
-#: ../root/layout.tt:117 ../root/layout/components/Footer.js:34
+#: ../root/layout.tt:124 ../root/layout/components/Footer.js:34
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -3090,7 +3098,7 @@ msgstr "Įkeliamas vaizdas..."
 msgid "Uppercase Roman numerals"
 msgstr "Padaryti romėniškus skaitmenis didžiosiomis raidėmis"
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:45
+#: ../root/layout.tt:126 ../root/layout/components/Footer.js:45
 msgid "Use beta site"
 msgstr "Naudoti beta versijos svetainę"
 
@@ -3208,7 +3216,7 @@ msgstr ""
 "sujungimo eilę vis dar gali pridėti daugiau dalykų, tiesiog naršant po "
 "subjektų puslapį ir sekant sujungimo nuorodą."
 
-#: ../root/layout.tt:112 ../root/layout/components/Footer.js:27
+#: ../root/layout.tt:119 ../root/layout/components/Footer.js:27
 msgid "Wiki"
 msgstr "Viki"
 
@@ -3811,7 +3819,7 @@ msgstr ""
 msgid "'{id}' is not a valid MusicBrainz ID"
 msgstr "„{id}“ nėra tinkamas MusicBrainz ID."
 
-#: ../lib/MusicBrainz/Server/Controller.pm:125
+#: ../lib/MusicBrainz/Server/Controller.pm:127
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been automatically accepted "
@@ -3832,7 +3840,7 @@ msgstr[3] ""
 "Ačiū, tavo {num_edits} {edit_url|redagavimų} buvo automatiškai priimti ir "
 "pritaikyti."
 
-#: ../lib/MusicBrainz/Server/Controller.pm:131
+#: ../lib/MusicBrainz/Server/Controller.pm:133
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been entered into the edit "
@@ -3853,7 +3861,7 @@ msgstr[3] ""
 "Ačiū, tavo {num_edits} {edit_url|redagavimų} ({edit_ids}) buvo įtraukti į "
 "redagavimo eilę tarpusavio peržiūrai."
 
-#: ../lib/MusicBrainz/Server/Controller.pm:139
+#: ../lib/MusicBrainz/Server/Controller.pm:141
 #, perl-brace-format
 msgid ""
 "Thank you, your {edit_url|edit} ({edit_ids}) has been entered, with "
@@ -4363,7 +4371,7 @@ msgctxt "edit type"
 msgid "Add area annotation"
 msgstr "Pridėti teritorijos anotaciją"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:26
 msgctxt "edit type"
 msgid "Add area"
 msgstr "Pridėti teritoriją"
@@ -4378,7 +4386,7 @@ msgctxt "edit type"
 msgid "Remove area alias"
 msgstr "Pašalinti teritorijos alternatyvųjį pavadinimą"
 
-#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:34
 msgctxt "edit type"
 msgid "Edit area"
 msgstr "Redaguoti teritoriją"
@@ -4403,7 +4411,7 @@ msgctxt "edit type"
 msgid "Add artist annotation"
 msgstr "Pridėti atlikėjo anotaciją"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:37
 msgctxt "edit type"
 msgid "Add artist"
 msgstr "Pridėti atlikėją"
@@ -4418,7 +4426,7 @@ msgctxt "edit type"
 msgid "Remove artist alias"
 msgstr "Pašalinti atlikėjo alternatyvųjį vardą"
 
-#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:48
 msgctxt "edit type"
 msgid "Edit artist"
 msgstr "Redaguoti atlikėją"
@@ -4464,7 +4472,7 @@ msgctxt "edit type"
 msgid "Add event annotation"
 msgstr "Pridėti renginio anotaciją"
 
-#: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 msgctxt "edit type"
 msgid "Add event"
 msgstr "Pridėti renginį"
@@ -4481,7 +4489,7 @@ msgctxt "edit type"
 msgid "Remove event alias"
 msgstr "Pašalinti teritorijos slapyvardį"
 
-#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:40
+#: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:43
 msgctxt "edit type"
 msgid "Edit event"
 msgstr "Redaguoti renginį"
@@ -4510,7 +4518,7 @@ msgctxt "edit type"
 msgid "Add genre annotation"
 msgstr "Pridėti teritorijos anotaciją"
 
-#: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:24
 #, fuzzy
 #| msgid "Add Series"
 msgctxt "edit type"
@@ -4527,7 +4535,7 @@ msgctxt "edit type"
 msgid "Remove genre alias"
 msgstr "Pašalinti žanros alternatyvųjį pavadinimą"
 
-#: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:25
 msgctxt "edit type"
 msgid "Edit genre"
 msgstr "Redaguoti žanrą"
@@ -4559,7 +4567,7 @@ msgid "Add relationship"
 msgstr "Rasti santykius"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:22
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:34
 msgctxt "edit type"
 msgid "Add release"
 msgstr "Pridėti leidinį"
@@ -4592,7 +4600,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseName.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveRelease.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveReleaseToRG.pm:18
-#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:47
+#: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:50
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:31
 #, fuzzy
 #| msgid "Edit area"
@@ -4630,7 +4638,7 @@ msgstr "Redaguoti išleidimo įvykius (istorinis)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
-#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:43
+#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:46
 msgctxt "edit type"
 msgid "Edit recording"
 msgstr "Redaguoti įrašą"
@@ -4725,7 +4733,7 @@ msgctxt "edit type"
 msgid "Add instrument annotation"
 msgstr "Pridėti instrumento anotaciją"
 
-#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:20
+#: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:23
 msgctxt "edit type"
 msgid "Add instrument"
 msgstr "Pridėti instrumentą"
@@ -4740,7 +4748,7 @@ msgctxt "edit type"
 msgid "Remove instrument alias"
 msgstr "Pašalinti instrumento alternatyvųjį pavadinimą"
 
-#: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:29
 msgctxt "edit type"
 msgid "Edit instrument"
 msgstr "Redaguoti instrumentą"
@@ -4765,7 +4773,7 @@ msgctxt "edit type"
 msgid "Add label annotation"
 msgstr "Pridėti įrašų kompanijos anotaciją"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:30
+#: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:33
 msgctxt "edit type"
 msgid "Add label"
 msgstr "Pridėti įrašų kompaniją"
@@ -4775,7 +4783,7 @@ msgctxt "edit type"
 msgid "Remove label"
 msgstr "Pašalinti įrašų kompaniją"
 
-#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:45
 msgctxt "edit type"
 msgid "Edit label"
 msgstr "Redaguoti įrašų kompaniją"
@@ -4790,7 +4798,7 @@ msgctxt "edit type"
 msgid "Merge labels"
 msgstr "Sujungti įrašų kompanijas"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:31
+#: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:34
 msgctxt "edit type"
 msgid "Add medium"
 msgstr "Pridėti laikmeną"
@@ -4800,7 +4808,7 @@ msgctxt "edit type"
 msgid "Remove medium"
 msgstr "Pašalinti laikmeną"
 
-#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:51
+#: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:54
 msgctxt "edit type"
 msgid "Edit medium"
 msgstr "Redaguoti laikmeną"
@@ -4825,7 +4833,7 @@ msgctxt "edit type"
 msgid "Add place annotation"
 msgstr "Pridėti teritorijos anotaciją"
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:29
 #, fuzzy
 #| msgid "Add Place"
 msgctxt "edit type"
@@ -4846,7 +4854,7 @@ msgctxt "edit type"
 msgid "Remove place alias"
 msgstr "Pašalinti teritorijos slapyvardį"
 
-#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:43
+#: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:46
 #, fuzzy
 #| msgid "Edit area"
 msgctxt "edit type"
@@ -4886,7 +4894,7 @@ msgctxt "edit type"
 msgid "Add ISRCs"
 msgstr "Pridėti ISRC"
 
-#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:26
+#: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:29
 msgctxt "edit type"
 msgid "Add standalone recording"
 msgstr "Pridėti atskirą įrašą"
@@ -5014,7 +5022,7 @@ msgctxt "edit type"
 msgid "Add release label"
 msgstr "Pridėti leidinio įrašų kompaniją"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:112
+#: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:115
 msgctxt "release group"
 msgid "[removed]"
 msgstr "[pašalinta]"
@@ -5094,7 +5102,7 @@ msgctxt "edit type"
 msgid "Add release group annotation"
 msgstr "Pridėti leidinių grupės anotaciją"
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:28
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:31
 msgctxt "edit type"
 msgid "Add release group"
 msgstr "Pridėti leidinių grupę"
@@ -5111,7 +5119,7 @@ msgctxt "edit type"
 msgid "Remove release group alias"
 msgstr "Pašalinti teritorijos slapyvardį"
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:42
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:45
 msgctxt "edit type"
 msgid "Edit release group"
 msgstr "Redaguoti leidinių grupę"
@@ -5217,7 +5225,7 @@ msgctxt "edit type"
 msgid "Add series annotation"
 msgstr "Pridėti teritorijos anotaciją"
 
-#: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:27
 #, fuzzy
 #| msgid "Add Series"
 msgctxt "edit type"
@@ -5238,7 +5246,7 @@ msgctxt "edit type"
 msgid "Remove series alias"
 msgstr "Pašalinti teritorijos slapyvardį"
 
-#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:30
+#: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:33
 #, fuzzy
 #| msgid "Edit area"
 msgctxt "edit type"
@@ -5332,7 +5340,7 @@ msgctxt "edit type"
 msgid "Add ISWCs"
 msgstr "Pridėti ISWC"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:18
+#: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:21
 msgctxt "edit type"
 msgid "Add work"
 msgstr "Pridėti kūrinį"
@@ -5349,7 +5357,7 @@ msgctxt "edit type"
 msgid "Remove work alias"
 msgstr "Pašalinti teritorijos slapyvardį"
 
-#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:90
+#: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:93
 #, fuzzy
 #| msgid "Editor"
 msgctxt "edit type"
