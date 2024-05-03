@@ -1093,7 +1093,7 @@ const CLEANUPS: CleanupEntries = {
   },
   'bandcamp': {
     match: [new RegExp(
-      '^(https?://)?(((?!daily)[^/])+\\.)?bandcamp\\.com' +
+      '^(https?://)?(((?!daily\\.)[^/])+\\.)?bandcamp\\.com' +
       '(?!/(?:campaign|merch)/)',
       'i',
     )],
@@ -6970,7 +6970,7 @@ entitySpecificRules.release = function (url) {
 
 // Disallow non-daily Bandcamp URLs at release group level
 entitySpecificRules.release_group = function (url) {
-  if (/^(https?:\/\/)?(((?!daily)[^/])+\.)?bandcamp\.com/.test(url)) {
+  if (/^(https?:\/\/)?(((?!daily\.)[^/])+\.)?bandcamp\.com/.test(url)) {
     return {
       result: false,
       target: ERROR_TARGETS.ENTITY,
