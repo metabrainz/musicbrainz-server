@@ -2,6 +2,8 @@ package t::MusicBrainz::Server::Controller::Label::Edit;
 use strict;
 use warnings;
 
+use utf8;
+
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
@@ -154,6 +156,35 @@ test 'Editing a label' => sub {
     $mech->text_contains(
         '2003-04-15',
         'The edit page contains the new end date',
+    );
+};
+
+test 'Cannot set too large label code' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get('/login');
+    $mech->submit_form(
+        with_fields => { username => 'new_editor', password => 'password' },
+    );
+
+    $mech->get_ok(
+        '/label/46f0f4cd-8aab-4b33-b698-f459faf64190/edit',
+        'Fetched the label editing page',
+    );
+    html_ok($mech->content);
+
+    $mech->submit_form(with_fields => {
+        'edit-label.label_code' => 1234567,
+    });
+
+    html_ok($mech->content);
+    $mech->content_contains(
+        'must be greater than 0 and 6 digits at most',
+        'Can’t submit 7 digit label code',
     );
 };
 
