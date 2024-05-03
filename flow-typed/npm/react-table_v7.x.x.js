@@ -45,11 +45,11 @@ declare module 'react-table' {
     +render: (type: 'Header' | string, props?: {...}) => React.Node,
   };
 
-  declare export type HeaderGroup = {
+  declare export type HeaderGroup = $ReadOnly<{
     ...$ReadOnly<ColumnInstance>,
     +getHeaderGroupProps: (props?: {...}) => {...},
     +headers: $ReadOnlyArray<ColumnInstance>,
-  };
+  }>;
 
   declare export type Cell<+V> = {
     +column: ColumnInstance,
