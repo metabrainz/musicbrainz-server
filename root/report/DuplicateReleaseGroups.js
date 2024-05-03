@@ -16,10 +16,10 @@ import loopParity from '../utility/loopParity.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseGroupT} from './types.js';
 
-type ReportReleaseGroupWithKeyT = {
+type ReportReleaseGroupWithKeyT = $ReadOnly<{
   ...ReportReleaseGroupT,
   +key: string,
-};
+}>;
 
 component DuplicateReleaseGroups(...{
   canBeFiltered,

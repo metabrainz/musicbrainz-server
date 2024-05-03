@@ -35,7 +35,7 @@ export function compareWorkWithWorkState(
 }
 
 export function* findWorkRecordings(
-  writableRootState: ReleaseRelationshipEditorStateT,
+  writableRootState: {...ReleaseRelationshipEditorStateT},
   work: WorkT,
 ): Generator<RecordingT, void, void> {
   yield* iterateTargetEntitiesOfType<RecordingT>(
@@ -49,7 +49,7 @@ export function* findWorkRecordings(
 }
 
 export default function updateWorkStates(
-  writableRootState: ReleaseRelationshipEditorStateT,
+  writableRootState: {...ReleaseRelationshipEditorStateT},
   works: Iterable<WorkT>,
   updateWorkState: (MediumWorkStateT) => MediumWorkStateT,
 ): void {

@@ -34,14 +34,14 @@ export const ADD_RELATIONSHIP: 1 = 1;
 export const REMOVE_RELATIONSHIP: 2 = 2;
 
 function workHasNoRecordings(
-  writableRootState: ReleaseRelationshipEditorStateT,
+  writableRootState: {...ReleaseRelationshipEditorStateT},
   work: WorkT,
 ): boolean {
   return findWorkRecordings(writableRootState, work).next().done;
 }
 
 export default function updateReleaseRelationships(
-  writableRootState: ReleaseRelationshipEditorStateT,
+  writableRootState: {...ReleaseRelationshipEditorStateT},
   updates: Iterable<RelationshipUpdateT>,
 ): void {
   invariant(

@@ -315,7 +315,7 @@ export type MediumStateTreeT = tree.ImmutableTree<[
   MediumRecordingStateTreeT,
 ]> | null;
 
-export type ReleaseRelationshipEditorStateT = {
+export type ReleaseRelationshipEditorStateT = $ReadOnly<{
   ...$Exact<LazyReleaseStateT>,
   ...$Exact<RelationshipEditorStateT>,
   +editNoteField: FieldT<string>,
@@ -329,7 +329,7 @@ export type ReleaseRelationshipEditorStateT = {
   +selectedWorks: tree.ImmutableTree<WorkT> | null,
   +submissionError: ?string,
   +submissionInProgress: boolean,
-};
+}>;
 
 export type RelationshipSourceGroupsContextT = {
   +existing: RelationshipSourceGroupsT,

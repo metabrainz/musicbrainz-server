@@ -782,7 +782,7 @@ export default [
       'ft-flow/type-import-style': 'off',
       'ft-flow/union-intersection-spacing': ['warn', 'always'],
       'ft-flow/use-flow-type': 'off',
-      'ft-flow/use-read-only-spread': 'off',
+      'ft-flow/use-read-only-spread': 'warn',
       'ft-flow/valid-syntax': 'off',
 
       // eslint-plugin-fb-flow
