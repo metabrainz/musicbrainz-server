@@ -31,7 +31,7 @@ fi
 # used in DBDefs.pm for MIGRATION_TEST1, MIGRATION_TEST2, and SYSTEM.
 : ${PGPORT:=5432}
 : ${KEEP_TEST_DBS:=0}
-: ${PENDING_SO:='/usr/lib/postgresql/12/lib/pending.so'}
+: ${PENDING_SO:='/usr/lib/postgresql/16/lib/pending.so'}
 
 function drop_test_dbs() {
     if [[ "$KEEP_TEST_DBS" == "0" ]]; then

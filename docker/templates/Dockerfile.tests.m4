@@ -29,8 +29,8 @@ run_with_apt_cache \
         selenium_caa_deps
         locales
         openssh-client
-        postgresql-12
-        postgresql-12-pgtap
+        postgresql-16
+        postgresql-16-pgtap
         redis-server
         runit
         runit-systemd
@@ -135,7 +135,7 @@ RUN mkdir -p "$PGDATA" && \
     chown -R postgres:postgres "$PGHOME" && \
     cd "$PGHOME" && \
     chmod 700 "$PGDATA" && \
-    sudo -u postgres /usr/lib/postgresql/12/bin/initdb \
+    sudo -u postgres /usr/lib/postgresql/16/bin/initdb \
         --data-checksums \
         --encoding utf8 \
         --locale en_US.UTF8 \
