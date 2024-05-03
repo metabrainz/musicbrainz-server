@@ -7,7 +7,24 @@ use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 with 'MusicBrainz::Server::Data::Role::OptionsTree';
 
-sub _columns { 'id, gid, name, parent AS parent_id, child_order, description' }
+sub _build_columns
+{
+    return join q(, ), (
+        'id',
+        'gid',
+        'name',
+        'parent AS parent_id',
+        'child_order',
+        'description',
+    );
+}
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub load {
     my ($self, @objs) = @_;

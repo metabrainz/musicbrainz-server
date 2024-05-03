@@ -33,15 +33,37 @@ sub _table
     return $self->table;
 }
 
-sub _columns
+sub _build_columns
 {
     my $self = shift;
-    return sprintf '%s.id, name, sort_name, %s, locale,
-                    edits_pending, begin_date_year, begin_date_month,
-                    begin_date_day, end_date_year, end_date_month,
-                    end_date_day, type AS type_id, primary_for_locale, ended',
-        $self->table, $self->type;
+    my $table = $self->table;
+    my $type = $self->type;
+
+    return join q(, ), (
+        "$table.id",
+        'name',
+        'sort_name',
+        $type,
+        'locale',
+        'edits_pending',
+        'begin_date_year',
+        'begin_date_month',
+        'begin_date_day',
+        'end_date_year',
+        'end_date_month',
+        'end_date_day',
+        'type AS type_id',
+        'primary_for_locale',
+        'ended',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

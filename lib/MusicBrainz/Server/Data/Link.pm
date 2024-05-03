@@ -25,11 +25,27 @@ sub _table
     return 'link';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, link_type, begin_date_year, begin_date_month, begin_date_day,
-            end_date_year, end_date_month, end_date_day, ended';
+    return join q(, ), qw(
+        id
+        link_type
+        begin_date_year
+        begin_date_month
+        begin_date_day
+        end_date_year
+        end_date_month
+        end_date_day
+        ended
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

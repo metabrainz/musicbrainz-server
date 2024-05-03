@@ -14,10 +14,23 @@ sub _table
     return 'track_raw';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, release, title, artist, sequence';
+    return join q(, ), qw(
+        id
+        release
+        title
+        artist
+        sequence
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {
