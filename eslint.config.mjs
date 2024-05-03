@@ -787,6 +787,7 @@ export default [
 
       // eslint-plugin-fb-flow
       'fb-flow/use-indexed-access-type': 'error',
+      'fb-flow/use-exact-by-default-object-type': 'warn',
 
       // eslint-plugin-react-hooks
       'react-hooks/exhaustive-deps': 'error',
