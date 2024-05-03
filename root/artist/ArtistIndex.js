@@ -33,50 +33,15 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ArtistLayout from './ArtistLayout.js';
 
-type FooterSwitchProps = {
-  +artist: ArtistT,
-  +hasDefault: boolean,
-  +hasExtra: boolean,
-  +hasVariousArtists: boolean,
-  +hasVariousArtistsExtra: boolean,
-  +includingAllStatuses: boolean,
-  +showingVariousArtistsOnly: boolean,
-};
-
-type Props = {
-  +ajaxFilterFormUrl: string,
-  +artist: ArtistT,
-  +baseName: ?ArtistT,
-  +baseNameLegalNameAliases: ?$ReadOnlyArray<string>,
-  +eligibleForCleanup: boolean,
-  +filterForm: ?ReleaseGroupFilterT,
-  +hasDefault: boolean,
-  +hasExtra: boolean,
-  +hasFilter: boolean,
-  +hasVariousArtists: boolean,
-  +hasVariousArtistsExtra: boolean,
-  +includingAllStatuses: boolean,
-  +legalNameAliases: ?$ReadOnlyArray<string>,
-  +numberOfRevisions: number,
-  +otherIdentities: $ReadOnlyArray<ArtistT>,
-  +pager: PagerT,
-  +recordings: ?$ReadOnlyArray<RecordingWithArtistCreditT>,
-  +releaseGroups: ?$ReadOnlyArray<ReleaseGroupT>,
-  +renamedFrom: $ReadOnlyArray<ArtistT>,
-  +renamedInto: $ReadOnlyArray<ArtistT>,
-  +showingVariousArtistsOnly: boolean,
-  +wikipediaExtract: WikipediaExtractT,
-};
-
-const FooterSwitch = ({
-  artist,
-  hasDefault,
-  hasExtra,
-  hasVariousArtists,
-  hasVariousArtistsExtra,
-  includingAllStatuses,
-  showingVariousArtistsOnly,
-}: FooterSwitchProps): React$Element<'p' | React$FragmentType> => {
+component FooterSwitch(
+  artist: ArtistT,
+  hasDefault: boolean,
+  hasExtra: boolean,
+  hasVariousArtists: boolean,
+  hasVariousArtistsExtra: boolean,
+  includingAllStatuses: boolean,
+  showingVariousArtistsOnly: boolean,
+) {
   const artistLink = entityHref(artist);
 
   function buildLinks(
@@ -192,35 +157,30 @@ const FooterSwitch = ({
       </p>
     )
   );
-};
+}
 
-const ArtistIndex = ({
-  ajaxFilterFormUrl,
-  artist,
-  baseName,
-  baseNameLegalNameAliases,
-  eligibleForCleanup,
-  filterForm,
-  hasDefault,
-  hasExtra,
-  hasFilter,
-  hasVariousArtists,
-  hasVariousArtistsExtra,
-  includingAllStatuses,
-  legalNameAliases,
-  numberOfRevisions,
-  otherIdentities,
-  pager,
-  recordings,
-  releaseGroups,
-  renamedFrom,
-  renamedInto,
-  showingVariousArtistsOnly,
-  wikipediaExtract,
-}: Props): React$Element<typeof ArtistLayout> => {
+component ArtistIndex(
+  ajaxFilterFormUrl: string,
+  baseName: ?ArtistT,
+  baseNameLegalNameAliases: ?$ReadOnlyArray<string>,
+  eligibleForCleanup: boolean,
+  filterForm: ?ReleaseGroupFilterT,
+  hasFilter: boolean,
+  legalNameAliases: ?$ReadOnlyArray<string>,
+  numberOfRevisions: number,
+  otherIdentities: $ReadOnlyArray<ArtistT>,
+  pager: PagerT,
+  recordings: ?$ReadOnlyArray<RecordingWithArtistCreditT>,
+  releaseGroups: ?$ReadOnlyArray<ReleaseGroupT>,
+  renamedFrom: $ReadOnlyArray<ArtistT>,
+  renamedInto: $ReadOnlyArray<ArtistT>,
+  wikipediaExtract: WikipediaExtractT,
+  ...footerSwitchProps: React.PropsOf<FooterSwitch>
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const existingRecordings = recordings?.length ? recordings : null;
   const existingReleaseGroups = releaseGroups?.length ? releaseGroups : null;
+  const artist = footerSwitchProps.artist;
 
   return (
     <ArtistLayout entity={artist} page="index">
@@ -335,20 +295,12 @@ const ArtistIndex = ({
       ) : (!existingReleaseGroups && hasFilter) ? (
         <p>{l('No results found that match this search.')}</p>
       ) : (
-        <FooterSwitch
-          artist={artist}
-          hasDefault={hasDefault}
-          hasExtra={hasExtra}
-          hasVariousArtists={hasVariousArtists}
-          hasVariousArtistsExtra={hasVariousArtistsExtra}
-          includingAllStatuses={includingAllStatuses}
-          showingVariousArtistsOnly={showingVariousArtistsOnly}
-        />
+        <FooterSwitch {...footerSwitchProps} />
       )}
 
       {manifest.js('artist/index', {async: 'async'})}
     </ArtistLayout>
   );
-};
+}
 
 export default ArtistIndex;

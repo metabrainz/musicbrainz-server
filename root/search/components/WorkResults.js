@@ -37,18 +37,18 @@ function buildResult(
   );
 }
 
-const WorkResults = ({
+component WorkResults(...{
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<WorkT>): React$Element<typeof ResultsLayout> => {
+}: ResultsPropsT<WorkT>) {
   const $c = React.useContext(CatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
       <PaginatedSearchResults
-        buildResult={(result, index) => buildResult(result, index)}
+        buildResult={buildResult}
         columns={
           <>
             <th>{l('Name')}</th>
@@ -72,6 +72,6 @@ const WorkResults = ({
       ) : null}
     </ResultsLayout>
   );
-};
+}
 
 export default WorkResults;

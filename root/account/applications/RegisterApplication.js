@@ -14,20 +14,18 @@ import type {ApplicationFormT}
 import ApplicationForm
   from '../../static/scripts/account/components/ApplicationForm.js';
 
-type Props = {
-  +form: ApplicationFormT,
-};
-
-const RegisterApplication = (props: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={lp('Register application', 'header')}>
-    <h1>{lp('Register application', 'header')}</h1>
-    <ApplicationForm
-      action="register"
-      form={props.form}
-      submitLabel={lp('Register application', 'interactive')}
-    />
-    {manifest.js('account/applications/register', {async: 'async'})}
-  </Layout>
-);
+component RegisterApplication(form: ApplicationFormT) {
+  return (
+    <Layout fullWidth title={lp('Register application', 'header')}>
+      <h1>{lp('Register application', 'header')}</h1>
+      <ApplicationForm
+        action="register"
+        form={form}
+        submitLabel={lp('Register application', 'interactive')}
+      />
+      {manifest.js('account/applications/register', {async: 'async'})}
+    </Layout>
+  );
+}
 
 export default RegisterApplication;

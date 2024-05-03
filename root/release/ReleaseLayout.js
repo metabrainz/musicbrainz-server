@@ -14,21 +14,13 @@ import {reduceArtistCredit}
 
 import ReleaseHeader from './ReleaseHeader.js';
 
-type Props = {
-  +children: React$Node,
-  +entity: ReleaseT,
-  +fullWidth?: boolean,
-  +page?: string,
-  +title?: string,
-};
-
-const ReleaseLayout = ({
-  children,
-  entity: release,
-  fullWidth = false,
-  page,
-  title,
-}: Props): React$Element<typeof Layout> => {
+component ReleaseLayout(
+  children: React$Node,
+  entity as release: ReleaseT,
+  fullWidth: boolean = false,
+  page?: string,
+  title?: string,
+) {
   const mainTitle = texp.l('Release “{name}” by {artist}', {
     artist: reduceArtistCredit(release.artistCredit),
     name: release.name,
@@ -44,6 +36,6 @@ const ReleaseLayout = ({
       {fullWidth ? null : <ReleaseSidebar release={release} />}
     </Layout>
   );
-};
+}
 
 export default ReleaseLayout;

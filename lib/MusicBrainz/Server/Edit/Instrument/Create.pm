@@ -15,7 +15,10 @@ use aliased 'MusicBrainz::Server::Entity::Instrument';
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Instrument',
-     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{name} },
+     };
 
 sub edit_name { N_lp('Add instrument', 'edit type') }
 sub edit_type { $EDIT_INSTRUMENT_CREATE }

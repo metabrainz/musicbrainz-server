@@ -11,35 +11,29 @@ import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength.js';
 import loopParity from '../utility/loopParity.js';
 
-type Props = {
-  +cdstub: CDStubT,
-  +showArtists?: boolean,
-};
-
-const CDStubInfo = ({
-  cdstub,
-  showArtists = false,
-}: Props): React$Element<'table'> => (
-  <table className="tbl">
-    <thead>
-      <tr>
-        <th className="pos t">{l('#')}</th>
-        <th>{l('Title')}</th>
-        {showArtists ? <th>{l('Artist')}</th> : null}
-        <th className="treleases">{l('Length')}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {cdstub.tracks.map((track, index) => (
-        <tr className={loopParity(index)} key={index}>
-          <td>{track.sequence}</td>
-          <td>{track.title}</td>
-          {showArtists ? <td>{track.artist}</td> : null}
-          <td>{formatTrackLength(track.length)}</td>
+component CDStubInfo(cdstub: CDStubT, showArtists: boolean = false) {
+  return (
+    <table className="tbl">
+      <thead>
+        <tr>
+          <th className="pos t">{l('#')}</th>
+          <th>{l('Title')}</th>
+          {showArtists ? <th>{l('Artist')}</th> : null}
+          <th className="treleases">{l('Length')}</th>
         </tr>
-      ))}
-    </tbody>
-  </table>
-);
+      </thead>
+      <tbody>
+        {cdstub.tracks.map((track, index) => (
+          <tr className={loopParity(index)} key={index}>
+            <td>{track.sequence}</td>
+            <td>{track.title}</td>
+            {showArtists ? <td>{track.artist}</td> : null}
+            <td>{formatTrackLength(track.length)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
 
 export default CDStubInfo;

@@ -11,19 +11,15 @@ import Layout from '../../layout/index.js';
 
 import StatisticsEventEditForm from './StatisticsEventEditForm.js';
 
-type PropsT = {
-  +form: StatisticsEventFormT,
-};
-
-const CreateStatisticsEvent = ({
-  form,
-}: PropsT): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Add a new statistics event">
-    <div id="content">
-      <h1>{'Add a new statistics event'}</h1>
-      <StatisticsEventEditForm form={form} />
-    </div>
-  </Layout>
-);
+component CreateStatisticsEvent(form: StatisticsEventFormT) {
+  return (
+    <Layout fullWidth title="Add a new statistics event">
+      <div id="content">
+        <h1>{'Add a new statistics event'}</h1>
+        <StatisticsEventEditForm form={form} />
+      </div>
+    </Layout>
+  );
+}
 
 export default CreateStatisticsEvent;

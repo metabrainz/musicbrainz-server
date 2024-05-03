@@ -11,21 +11,15 @@ import EntityHeader from '../components/EntityHeader.js';
 import localizeTypeNameForEntity
   from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
 
-type Props = {
-  +instrument: InstrumentT,
-  +page: string,
-};
-
-const InstrumentHeader = ({
-  instrument,
-  page,
-}: Props): React$Element<typeof EntityHeader> => (
-  <EntityHeader
-    entity={instrument}
-    headerClass="instrumentheader"
-    page={page}
-    subHeading={localizeTypeNameForEntity(instrument)}
-  />
-);
+component InstrumentHeader(instrument: InstrumentT, page: string) {
+  return (
+    <EntityHeader
+      entity={instrument}
+      headerClass="instrumentheader"
+      page={page}
+      subHeading={localizeTypeNameForEntity(instrument)}
+    />
+  );
+}
 
 export default InstrumentHeader;

@@ -28,105 +28,89 @@ const titleByEntityType = {
   series: N_l('Series subscriptions'),
 };
 
-type UserSubscriptionsTableProps = {
-  +entities: $ReadOnlyArray<SubscribableEntityT>,
-  +viewingOwnProfile: boolean,
-};
-
-const UserSubscriptionsTable = ({
-  entities,
-  viewingOwnProfile,
-}: UserSubscriptionsTableProps): React$Element<'table'> => (
-  <table className="tbl">
-    <thead>
-      <tr>
-        {viewingOwnProfile ? (
-          <th className="checkbox-cell">
-            <input type="checkbox" />
-          </th>
-        ) : null}
-        <th>{l('Name')}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {entities.map((entity, index) => (
-        <tr className={loopParity(index)} key={entity.id}>
+component UserSubscriptionsTable(
+  entities: $ReadOnlyArray<SubscribableEntityT>,
+  viewingOwnProfile: boolean,
+) {
+  return (
+    <table className="tbl">
+      <thead>
+        <tr>
           {viewingOwnProfile ? (
-            <td>
-              <input name="id" type="checkbox" value={entity.id} />
-            </td>
+            <th className="checkbox-cell">
+              <input type="checkbox" />
+            </th>
           ) : null}
-          <td>
-            {entity.entityType === 'editor'
-              ? <EditorLink editor={entity} />
-              : <EntityLink entity={entity} />}
-          </td>
+          <th>{l('Name')}</th>
         </tr>
-      ))}
-    </tbody>
-  </table>
-);
+      </thead>
+      <tbody>
+        {entities.map((entity, index) => (
+          <tr className={loopParity(index)} key={entity.id}>
+            {viewingOwnProfile ? (
+              <td>
+                <input name="id" type="checkbox" value={entity.id} />
+              </td>
+            ) : null}
+            <td>
+              {entity.entityType === 'editor'
+                ? <EditorLink editor={entity} />
+                : <EntityLink entity={entity} />}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
 
-type UserSubscriptionsSectionProps = {
-  +action: string,
-  +entities: $ReadOnlyArray<SubscribableEntityT>,
-  +pager: PagerT,
-  +viewingOwnProfile: boolean,
-};
-
-const UserSubscriptionsSection = ({
-  action,
-  entities,
-  pager,
-  viewingOwnProfile,
-}: UserSubscriptionsSectionProps): React$Element<typeof PaginatedResults> => (
-  viewingOwnProfile ? (
-    <PaginatedResults pager={pager}>
-      <form action={action} method="post">
+component UserSubscriptionsSection(
+  action: string,
+  entities: $ReadOnlyArray<SubscribableEntityT>,
+  pager: PagerT,
+  viewingOwnProfile: boolean,
+) {
+  return (
+    viewingOwnProfile ? (
+      <PaginatedResults pager={pager}>
+        <form action={action} method="post">
+          <UserSubscriptionsTable
+            entities={entities}
+            viewingOwnProfile={viewingOwnProfile}
+          />
+          <div className="row">
+            <FormSubmit label={l('Unsubscribe')} />
+          </div>
+        </form>
+      </PaginatedResults>
+    ) : (
+      <PaginatedResults pager={pager}>
         <UserSubscriptionsTable
           entities={entities}
           viewingOwnProfile={viewingOwnProfile}
         />
-        <div className="row">
-          <FormSubmit label={l('Unsubscribe')} />
-        </div>
-      </form>
-    </PaginatedResults>
-  ) : (
-    <PaginatedResults pager={pager}>
-      <UserSubscriptionsTable
-        entities={entities}
-        viewingOwnProfile={viewingOwnProfile}
-      />
-    </PaginatedResults>
-  )
-);
+      </PaginatedResults>
+    )
+  );
+}
 
-type UserSubscriptionsProps = {
-  +entities: $ReadOnlyArray<SubscribableEntityT>,
-  +hiddenPrivateCollectionCount?: number,
-  +pager: PagerT,
-  +summary: {
-    +artist: number,
-    +collection: number,
-    +editor: number,
-    +label: number,
-    +series: number,
-  },
-  +type: SubscribableEntityTypeT,
-  +user: AccountLayoutUserT,
-  +visiblePrivateCollections?: $ReadOnlyArray<CollectionT>,
+type SubscriptionsSummaryT = {
+  +artist: number,
+  +collection: number,
+  +editor: number,
+  +label: number,
+  +series: number,
 };
 
-const UserSubscriptions = ({
-  entities,
-  hiddenPrivateCollectionCount,
-  pager,
-  summary,
-  type,
-  user,
-  visiblePrivateCollections,
-}: UserSubscriptionsProps): React$Element<typeof UserAccountLayout> => {
+component UserSubscriptions(
+  entities: $ReadOnlyArray<SubscribableEntityT>,
+  hiddenPrivateCollectionCount?: number,
+  pager: PagerT,
+  summary: SubscriptionsSummaryT,
+  type: SubscribableEntityTypeT,
+  user: AccountLayoutUserT,
+  visiblePrivateCollections?: $ReadOnlyArray<CollectionT>,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
   const isAdminViewingPrivate = Boolean(
@@ -295,6 +279,6 @@ const UserSubscriptions = ({
       )}
     </UserAccountLayout>
   );
-};
+}
 
 export default UserSubscriptions;

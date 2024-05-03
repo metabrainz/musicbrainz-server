@@ -11,28 +11,24 @@ import RelationshipsTable from '../components/RelationshipsTable.js';
 
 import AreaLayout from './AreaLayout.js';
 
-type Props = {
-  +area: AreaT,
-  +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
-  +pager: ?PagerT,
-};
-
-const AreaRecordings = ({
-  area,
-  pagedLinkTypeGroup,
-  pager,
-}: Props): React$Element<typeof AreaLayout> => (
-  <AreaLayout entity={area} page="recordings" title={l('Recordings')}>
-    <RelationshipsTable
-      entity={area}
-      fallbackMessage={l(
-        'This area has no relationships to any recordings.',
-      )}
-      heading={l('Relationships')}
-      pagedLinkTypeGroup={pagedLinkTypeGroup}
-      pager={pager}
-    />
-  </AreaLayout>
-);
+component AreaRecordings(
+  area: AreaT,
+  pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
+  pager: ?PagerT,
+) {
+  return (
+    <AreaLayout entity={area} page="recordings" title={l('Recordings')}>
+      <RelationshipsTable
+        entity={area}
+        fallbackMessage={l(
+          'This area has no relationships to any recordings.',
+        )}
+        heading={l('Relationships')}
+        pagedLinkTypeGroup={pagedLinkTypeGroup}
+        pager={pager}
+      />
+    </AreaLayout>
+  );
+}
 
 export default AreaRecordings;

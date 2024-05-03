@@ -9,13 +9,7 @@
 
 import ReleaseLayout from './ReleaseLayout.js';
 
-type Props = {
-  +release: ReleaseT,
-};
-
-const CoverArtDarkened = ({
-  release,
-}: Props): React$Element<typeof ReleaseLayout> => {
+component CoverArtDarkened(release: ReleaseT) {
   const title = lp('Cannot add cover art', 'plural');
 
   return (
@@ -27,6 +21,6 @@ const CoverArtDarkened = ({
       </p>
     </ReleaseLayout>
   );
-};
+}
 
 export default CoverArtDarkened;

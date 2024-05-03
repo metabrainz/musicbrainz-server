@@ -10,18 +10,12 @@
 import StatusPage from '../components/StatusPage.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 
-type Props = {
-  +message: string,
-  +title: string,
-};
-
-const UserMessage = ({
-  message,
-  title,
-}: Props): React$Element<typeof StatusPage> => (
-  <StatusPage title={title}>
-    <p>{expand2react(message)}</p>
-  </StatusPage>
-);
+component UserMessage(message: string, title: string) {
+  return (
+    <StatusPage title={title}>
+      <p>{expand2react(message)}</p>
+    </StatusPage>
+  );
+}
 
 export default UserMessage;

@@ -9,31 +9,27 @@
 
 import Layout from '../../layout/index.js';
 
-type Props = {
-  +emailAddress: string,
-};
-
-const DiscourseRegistered = ({
-  emailAddress,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={lp('Account created', 'header')}>
-    <h2>{lp('Account created', 'header')}</h2>
-    <p style={{fontSize: '1.2em'}}>
-      {exp.l(
-        `You must verify your email address before you can
-         log in to {discourse|MetaBrainz Community Discourse}.`,
-        {discourse: 'https://community.metabrainz.org/'},
-      )}
-    </p>
-    <p>
-      {exp.l(
-        `An email has been sent to {addr}. Please check your
-         mailbox and click on the link in the email to verify
-         your email address.`,
-        {addr: <code>{emailAddress}</code>},
-      )}
-    </p>
-  </Layout>
-);
+component DiscourseRegistered(emailAddress: string) {
+  return (
+    <Layout fullWidth title={lp('Account created', 'header')}>
+      <h2>{lp('Account created', 'header')}</h2>
+      <p style={{fontSize: '1.2em'}}>
+        {exp.l(
+          `You must verify your email address before you can
+           log in to {discourse|MetaBrainz Community Discourse}.`,
+          {discourse: 'https://community.metabrainz.org/'},
+        )}
+      </p>
+      <p>
+        {exp.l(
+          `An email has been sent to {addr}. Please check your
+           mailbox and click on the link in the email to verify
+           your email address.`,
+          {addr: <code>{emailAddress}</code>},
+        )}
+      </p>
+    </Layout>
+  );
+}
 
 export default DiscourseRegistered;

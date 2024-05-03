@@ -15,23 +15,14 @@ import {reduceArtistCredit}
 
 import ReleaseGroupHeader from './ReleaseGroupHeader.js';
 
-type Props = {
-  +children: React$Node,
-  +entity: ReleaseGroupT,
-  +firstReleaseGid?: string | null,
-  +fullWidth?: boolean,
-  +page: string,
-  +title?: string,
-};
-
-const ReleaseGroupLayout = ({
-  children,
-  entity: releaseGroup,
-  firstReleaseGid,
-  fullWidth = false,
-  page,
-  title,
-}: Props): React$Element<typeof Layout> => {
+component ReleaseGroupLayout(
+  children: React$Node,
+  entity as releaseGroup: ReleaseGroupT,
+  firstReleaseGid?: string | null,
+  fullWidth: boolean = false,
+  page: string,
+  title?: string,
+) {
   const mainTitle = texp.l('Release group “{name}” by {artist}', {
     artist: reduceArtistCredit(releaseGroup.artistCredit),
     name: releaseGroup.name,
@@ -52,6 +43,6 @@ const ReleaseGroupLayout = ({
       )}
     </Layout>
   );
-};
+}
 
 export default ReleaseGroupLayout;

@@ -11,4 +11,6 @@ setup_mbs_root()
 
 install_perl_and_mbs_run_deps()
 
+copy_mb(`cpanfile ./')
+
 install_perl_modules()

@@ -21,6 +21,12 @@ extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Alias',
      'MusicBrainz::Server::Edit::CheckForConflicts',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{new}{name} },
+     },
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{new}{sort_name} },
+     },
      'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub _alias_model { die 'Not implemented' }

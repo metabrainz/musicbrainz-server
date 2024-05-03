@@ -16,30 +16,20 @@ import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 import formatUserDate from '../utility/formatUserDate.js';
 
-type WSLinkProps = {
-  +entityGid: string,
-  +entityProperties: {
-    +aliases?: {+[edit_type: string]: number},
-    +artist_credits?: boolean,
-    +url: string,
-    ...
-  },
-  +entityType: NonUrlRelatableEntityTypeT,
-  +isJson?: boolean,
-  +isSecureConnection: boolean,
+type EntityPropertiesT = {
+  +aliases?: {+[edit_type: string]: number},
+  +artist_credits?: boolean,
+  +url: string,
+  ...
 };
 
-type DetailsProps = {
-  +entity: NonUrlRelatableEntityT,
-};
-
-const WSLink = ({
-  entityGid,
-  entityProperties,
-  entityType,
-  isJson = false,
-  isSecureConnection,
-}: WSLinkProps) => {
+component WSLink(
+  entityGid: string,
+  entityProperties: EntityPropertiesT,
+  entityType: NonUrlRelatableEntityTypeT,
+  isJson: boolean = false,
+  isSecureConnection: boolean,
+) {
   const inc = [];
   const entityTypeForUrl = entityProperties.url
     ? entityProperties.url : entityType;
@@ -70,11 +60,9 @@ const WSLink = ({
   return (
     <a href={urlObject.href}>{urlObject.href}</a>
   );
-};
+}
 
-const Details = ({
-  entity,
-}: DetailsProps): React$MixedElement => {
+component Details(entity: NonUrlRelatableEntityT) {
   const $c = React.useContext(CatalystContext);
   const entityType = entity.entityType;
   const entityProperties = ENTITIES[entityType];
@@ -155,6 +143,6 @@ const Details = ({
       </table>
     </LayoutComponent>
   );
-};
+}
 
 export default Details;

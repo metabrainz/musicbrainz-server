@@ -13,50 +13,47 @@ import UserAccountLayout, {type AccountLayoutUserT}
 
 import {getTagListHeading, getTagListUrl} from './UserTagList.js';
 
-type Props = {
-  +showDownvoted?: boolean,
-  +tag: TagT,
-  +taggedEntities: {
-    +[entityType: string]: {
+type TaggedEntitiesT = {
+  +[entityType: string]: {
+    +count: number,
+    +tags: $ReadOnlyArray<{
       +count: number,
-      +tags: $ReadOnlyArray<{
-        +count: number,
-        +entity: TaggableEntityT,
-        +entity_id: number,
-      }>,
-    },
+      +entity: TaggableEntityT,
+      +entity_id: number,
+    }>,
   },
-  +user: AccountLayoutUserT,
 };
 
-const UserTag = ({
-  showDownvoted = false,
-  tag,
-  taggedEntities,
-  user,
-}: Props): React$Element<typeof UserAccountLayout> => (
-  <UserAccountLayout entity={user} page="tags">
-    <nav className="breadcrumb">
-      <ol>
-        <li>
-          <a href={getTagListUrl(user.name, showDownvoted)}>
-            {getTagListHeading(user.name, showDownvoted)}
-          </a>
-        </li>
-        <li>
-          {tag.name}
-        </li>
-      </ol>
-    </nav>
-    <TagEntitiesList
-      showDownvoted={showDownvoted}
-      showLink
-      showVotesSelect
-      tag={tag}
-      taggedEntities={taggedEntities}
-      user={user}
-    />
-  </UserAccountLayout>
-);
+component UserTag(
+  showDownvoted: boolean = false,
+  tag: TagT,
+  taggedEntities: TaggedEntitiesT,
+  user: AccountLayoutUserT,
+) {
+  return (
+    <UserAccountLayout entity={user} page="tags">
+      <nav className="breadcrumb">
+        <ol>
+          <li>
+            <a href={getTagListUrl(user.name, showDownvoted)}>
+              {getTagListHeading(user.name, showDownvoted)}
+            </a>
+          </li>
+          <li>
+            {tag.name}
+          </li>
+        </ol>
+      </nav>
+      <TagEntitiesList
+        showDownvoted={showDownvoted}
+        showLink
+        showVotesSelect
+        tag={tag}
+        taggedEntities={taggedEntities}
+        user={user}
+      />
+    </UserAccountLayout>
+  );
+}
 
 export default UserTag;

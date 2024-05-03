@@ -19,9 +19,7 @@ import type {PreferencesFormPropsT}
 import PreferencesForm
   from '../static/scripts/account/components/PreferencesForm.js';
 
-const Preferences = (
-  props: PreferencesFormPropsT,
-): React$Element<typeof UserAccountLayout> | null => {
+component Preferences(...props: PreferencesFormPropsT) {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   if (!user) {
@@ -37,6 +35,6 @@ const Preferences = (
       {manifest.js('account/preferences')}
     </UserAccountLayout>
   );
-};
+}
 
 export default Preferences;

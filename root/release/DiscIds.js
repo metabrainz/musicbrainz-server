@@ -22,23 +22,11 @@ import loopParity from '../utility/loopParity.js';
 
 import ReleaseLayout from './ReleaseLayout.js';
 
-type CDTocRowProps = {
-  +index: number,
-  +mediumCDToc: MediumCDTocT,
-  +showEditColumn: boolean,
-};
-
-type Props = {
-  +hasCDTocs: boolean,
-  +mediumCDTocs: $ReadOnlyArray<MediumCDTocT>,
-  +release: ReleaseT,
-};
-
-const CDTocRow = ({
-  index,
-  mediumCDToc,
-  showEditColumn,
-}: CDTocRowProps) => {
+component CDTocRow(
+  index: number,
+  mediumCDToc: MediumCDTocT,
+  showEditColumn: boolean,
+) {
   const cdtoc = mediumCDToc.cdtoc;
   const medium = mediumCDToc.medium;
   if (!medium) {
@@ -85,13 +73,13 @@ const CDTocRow = ({
       ) : null}
     </tr>
   );
-};
+}
 
-const DiscIds = ({
-  hasCDTocs,
-  mediumCDTocs,
-  release,
-}: Props): React$Element<typeof ReleaseLayout> => {
+component DiscIds(
+  hasCDTocs: boolean,
+  mediumCDTocs: $ReadOnlyArray<MediumCDTocT>,
+  release: ReleaseT,
+) {
   const $c = React.useContext(CatalystContext);
   const showEditColumn = Boolean($c.user);
 
@@ -159,6 +147,6 @@ const DiscIds = ({
       )}
     </ReleaseLayout>
   );
-};
+}
 
 export default DiscIds;

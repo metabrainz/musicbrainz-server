@@ -21,15 +21,7 @@ type DocPageT = {
   +version: number,
 };
 
-type Props = {
-  +id: string,
-  +page: DocPageT,
-};
-
-const DocPage = ({
-  id,
-  page,
-}: Props): React$Element<typeof Layout> => {
+component DocPage(id: string, page: DocPageT) {
   let doc = '';
   let lastDoc = '';
   // We check whether we have a Google Custom Search engine
@@ -102,6 +94,6 @@ const DocPage = ({
       </div>
     </Layout>
   );
-};
+}
 
 export default DocPage;

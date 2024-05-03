@@ -11,19 +11,22 @@ import Layout from '../layout/index.js';
 
 import TagLookupForm from './Form.js';
 import TagLookupNagSection from './Nag.js';
-import type {TagLookupResultsPropsT} from './types.js';
 
-const TagLookupResults = <T>(
-  props: TagLookupResultsPropsT<T>,
-): React$Element<typeof Layout> => (
-  <Layout fullWidth title={lp('Tag lookup results', 'audio file metadata')}>
-    <div className="content">
-      <h1>{lp('Tag lookup results', 'audio file metadata')}</h1>
-      {props.nag ? <TagLookupNagSection /> : null}
-      {props.children}
-      <TagLookupForm form={props.form} />
-    </div>
-  </Layout>
-);
+component TagLookupResults(
+  children: React$Node,
+  form: TagLookupFormT,
+  nag: boolean,
+) {
+  return (
+    <Layout fullWidth title={lp('Tag lookup results', 'audio file metadata')}>
+      <div className="content">
+        <h1>{lp('Tag lookup results', 'audio file metadata')}</h1>
+        {nag ? <TagLookupNagSection /> : null}
+        {children}
+        <TagLookupForm form={form} />
+      </div>
+    </Layout>
+  );
+}
 
 export default TagLookupResults;

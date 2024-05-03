@@ -35,6 +35,9 @@ with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities',
         create_edit_type => $EDIT_RELEASEGROUP_CREATE,
         entity_type => 'release_group',
      },
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{new}{name} },
+     },
      'MusicBrainz::Server::Edit::Role::EditArtistCredit',
      'MusicBrainz::Server::Edit::Role::Preview';
 

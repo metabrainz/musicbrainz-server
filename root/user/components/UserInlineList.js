@@ -11,18 +11,18 @@
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
 import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList.js';
 
-type Props = {
-  +editors: $ReadOnlyArray<EditorT>,
-};
-
-const UserInlineList = ({editors}: Props): React$Element<'p'> => (
-  <p>
-    {editors.length ? (
-      commaOnlyList(
-        editors.map(editor => <EditorLink editor={editor} key={editor.id} />),
-      )
-    ) : l('No users found')}
-  </p>
-);
+component UserInlineList(editors: $ReadOnlyArray<EditorT>) {
+  return (
+    <p>
+      {editors.length ? (
+        commaOnlyList(
+          editors.map(
+            editor => <EditorLink editor={editor} key={editor.id} />,
+          ),
+        )
+      ) : l('No users found')}
+    </p>
+  );
+}
 
 export default UserInlineList;

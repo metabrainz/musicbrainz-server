@@ -16,21 +16,13 @@ import {
 
 import RecordingHeader from './RecordingHeader.js';
 
-type Props = {
-  +children: React$Node,
-  +entity: RecordingWithArtistCreditT,
-  +fullWidth?: boolean,
-  +page: string,
-  +title?: string,
-};
-
-const RecordingLayout = ({
-  children,
-  entity: recording,
-  fullWidth = false,
-  page,
-  title,
-}: Props): React$Element<typeof Layout> => {
+component RecordingLayout(
+  children: React$Node,
+  entity as recording: RecordingWithArtistCreditT,
+  fullWidth: boolean = false,
+  page: string,
+  title?: string,
+) {
   const titleArgs = {
     artist: reduceArtistCredit(recording.artistCredit),
     name: recording.name,
@@ -49,7 +41,7 @@ const RecordingLayout = ({
       {fullWidth ? null : <RecordingSidebar recording={recording} />}
     </Layout>
   );
-};
+}
 
 
 export default RecordingLayout;

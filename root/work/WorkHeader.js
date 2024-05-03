@@ -11,21 +11,15 @@ import EntityHeader from '../components/EntityHeader.js';
 import localizeTypeNameForEntity
   from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
 
-type Props = {
-  page: string,
-  work: WorkT,
-};
-
-const WorkHeader = ({
-  work,
-  page,
-}: Props): React$Element<typeof EntityHeader> => (
-  <EntityHeader
-    entity={work}
-    headerClass="workheader"
-    page={page}
-    subHeading={localizeTypeNameForEntity(work)}
-  />
-);
+component WorkHeader(page: string, work: WorkT) {
+  return (
+    <EntityHeader
+      entity={work}
+      headerClass="workheader"
+      page={page}
+      subHeading={localizeTypeNameForEntity(work)}
+    />
+  );
+}
 
 export default WorkHeader;

@@ -27,26 +27,28 @@ function buildResult(result: SearchResultT<EditorT>, index: number) {
   );
 }
 
-const EditorResults = ({
+component EditorResults(...{
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<EditorT>): React$Element<typeof ResultsLayout> => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    <PaginatedSearchResults
-      buildResult={buildResult}
-      columns={
-        <>
-          <th>{l('Name')}</th>
-        </>
-      }
-      pager={pager}
-      query={query}
-      results={results}
-    />
-  </ResultsLayout>
-);
+}: ResultsPropsT<EditorT>) {
+  return (
+    <ResultsLayout form={form} lastUpdated={lastUpdated}>
+      <PaginatedSearchResults
+        buildResult={buildResult}
+        columns={
+          <>
+            <th>{l('Name')}</th>
+          </>
+        }
+        pager={pager}
+        query={query}
+        results={results}
+      />
+    </ResultsLayout>
+  );
+}
 
 export default EditorResults;

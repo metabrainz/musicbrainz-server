@@ -21,7 +21,10 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities',
      'MusicBrainz::Server::Edit::ReleaseGroup',
-     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{name} },
+     };
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 

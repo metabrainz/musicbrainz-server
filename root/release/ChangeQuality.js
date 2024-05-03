@@ -24,16 +24,7 @@ type ChangeQualityFormT = FormT<{
   +submit: FieldT<string>,
 }>;
 
-type Props = {
-  +artwork: ArtworkT,
-  +form: ChangeQualityFormT,
-  +release: ReleaseT,
-};
-
-const ChangeQuality = ({
-  form,
-  release,
-}: Props): React$Element<typeof ReleaseLayout> => {
+component ChangeQuality(form: ChangeQualityFormT, release: ReleaseT) {
   const title = l('Change release data quality');
   const qualityOptions = {
     grouped: false,
@@ -73,6 +64,6 @@ const ChangeQuality = ({
       </form>
     </ReleaseLayout>
   );
-};
+}
 
 export default ChangeQuality;

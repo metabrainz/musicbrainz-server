@@ -28023,7 +28023,7 @@ msgstr ""
 msgid "Providencia Sign Language"
 msgstr ""
 
-#. frequency:0 iso_code_3:prg 
+#. frequency:1 iso_code_3:prg 
 #: DB:language/name:5521
 msgid "Prussian"
 msgstr ""

@@ -33,6 +33,9 @@ with 'MusicBrainz::Server::Edit::Label',
      'MusicBrainz::Server::Edit::Role::ISNI',
      'MusicBrainz::Server::Edit::Role::DatePeriod',
      'MusicBrainz::Server::Edit::Role::CheckDuplicates',
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{new}{name} },
+     },
      'MusicBrainz::Server::Edit::Role::AllowAmending' => {
         create_edit_type => $EDIT_LABEL_CREATE,
         entity_type => 'label',

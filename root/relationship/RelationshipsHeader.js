@@ -10,36 +10,36 @@
 import Tabs from '../components/Tabs.js';
 import buildTab from '../utility/buildTab.js';
 
-const RelationshipTabs = ({page}: {page?: string}) => (
-  <>
-    {buildTab(
-      page,
-      l('Relationship types'),
-      '/relationships',
-      'relationships',
-    )}
-    {buildTab(
-      page,
-      l('Relationship attributes'),
-      '/relationship-attributes',
-      'attributes',
-    )}
-  </>
-);
+component RelationshipTabs(page?: string) {
+  return (
+    <>
+      {buildTab(
+        page,
+        l('Relationship types'),
+        '/relationships',
+        'relationships',
+      )}
+      {buildTab(
+        page,
+        l('Relationship attributes'),
+        '/relationship-attributes',
+        'attributes',
+      )}
+    </>
+  );
+}
 
-type Props = {
-  +page?: string,
-};
-
-const RelationshipsHeader = ({page}: Props): React$MixedElement => (
-  <>
-    <div className="relationshipsheader">
-      <h1>{l('Relationships')}</h1>
-    </div>
-    <Tabs>
-      <RelationshipTabs page={page} />
-    </Tabs>
-  </>
-);
+component RelationshipsHeader(page?: string) {
+  return (
+    <>
+      <div className="relationshipsheader">
+        <h1>{l('Relationships')}</h1>
+      </div>
+      <Tabs>
+        <RelationshipTabs page={page} />
+      </Tabs>
+    </>
+  );
+}
 
 export default RelationshipsHeader;

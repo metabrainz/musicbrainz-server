@@ -17,15 +17,7 @@ import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import bracketed from '../static/scripts/common/utility/bracketed.js';
 
-type Props = {
-  +collection: CollectionT,
-  +page: string,
-};
-
-const CollectionHeader = ({
-  collection,
-  page,
-}: Props): React.MixedElement => {
+component CollectionHeader(collection: CollectionT, page: string) {
   const $c = React.useContext(SanitizedCatalystContext);
   const owner = collection.editor;
   const viewingOwnCollection = Boolean(
@@ -101,6 +93,6 @@ const CollectionHeader = ({
       </Tabs>
     </>
   );
-};
+}
 
 export default CollectionHeader;

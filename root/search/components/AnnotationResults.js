@@ -39,28 +39,30 @@ function buildResult(result: SearchResultT<AnnotationT>, index: number) {
   );
 }
 
-const AnnotationResults = ({
+component AnnotationResults(...{
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<AnnotationT>): React$Element<typeof ResultsLayout> => (
-  <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    <PaginatedSearchResults
-      buildResult={buildResult}
-      columns={
-        <>
-          <th>{l('Type')}</th>
-          <th>{l('Name')}</th>
-          <th>{l('Annotation')}</th>
-        </>
-      }
-      pager={pager}
-      query={query}
-      results={results}
-    />
-  </ResultsLayout>
-);
+}: ResultsPropsT<AnnotationT>) {
+  return (
+    <ResultsLayout form={form} lastUpdated={lastUpdated}>
+      <PaginatedSearchResults
+        buildResult={buildResult}
+        columns={
+          <>
+            <th>{l('Type')}</th>
+            <th>{l('Name')}</th>
+            <th>{l('Annotation')}</th>
+          </>
+        }
+        pager={pager}
+        query={query}
+        results={results}
+      />
+    </ResultsLayout>
+  );
+}
 
 export default AnnotationResults;

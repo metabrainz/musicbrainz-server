@@ -40,13 +40,13 @@ function buildResult(
   );
 }
 
-const SeriesResults = ({
+component SeriesResults(...{
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<SeriesT>): React$Element<typeof ResultsLayout> => {
+}: ResultsPropsT<SeriesT>) {
   const $c = React.useContext(CatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
@@ -72,6 +72,6 @@ const SeriesResults = ({
       ) : null}
     </ResultsLayout>
   );
-};
+}
 
 export default SeriesResults;

@@ -17,41 +17,37 @@ import expand2react from '../static/scripts/common/i18n/expand2react.js';
 
 import InstrumentLayout from './InstrumentLayout.js';
 
-type Props = {
-  +instrument: InstrumentT,
-  +numberOfRevisions: number,
-  +wikipediaExtract: WikipediaExtractT | null,
-};
-
-const InstrumentIndex = ({
-  instrument,
-  numberOfRevisions,
-  wikipediaExtract,
-}: Props): React$Element<typeof InstrumentLayout> => (
-  <InstrumentLayout entity={instrument} page="index">
-    {instrument.description ? (
-      <>
-        <h2>{l('Description')}</h2>
-        <p>
-          {expand2react(
-            l_instrument_descriptions(instrument.description),
-          )}
-        </p>
-      </>
-    ) : null}
-    <Annotation
-      annotation={instrument.latest_annotation}
-      collapse
-      entity={instrument}
-      numberOfRevisions={numberOfRevisions}
-    />
-    <WikipediaExtract
-      cachedWikipediaExtract={wikipediaExtract}
-      entity={instrument}
-    />
-    <Relationships source={instrument} />
-    {manifest.js('instrument/index', {async: 'async'})}
-  </InstrumentLayout>
-);
+component InstrumentIndex(
+  instrument: InstrumentT,
+  numberOfRevisions: number,
+  wikipediaExtract: WikipediaExtractT | null,
+) {
+  return (
+    <InstrumentLayout entity={instrument} page="index">
+      {instrument.description ? (
+        <>
+          <h2>{l('Description')}</h2>
+          <p>
+            {expand2react(
+              l_instrument_descriptions(instrument.description),
+            )}
+          </p>
+        </>
+      ) : null}
+      <Annotation
+        annotation={instrument.latest_annotation}
+        collapse
+        entity={instrument}
+        numberOfRevisions={numberOfRevisions}
+      />
+      <WikipediaExtract
+        cachedWikipediaExtract={wikipediaExtract}
+        entity={instrument}
+      />
+      <Relationships source={instrument} />
+      {manifest.js('instrument/index', {async: 'async'})}
+    </InstrumentLayout>
+  );
+}
 
 export default InstrumentIndex;

@@ -96,24 +96,14 @@ const listPicker = (
   }
 };
 
-type SeriesIndexProps = {
-  ...SeriesItemNumbersRoleT,
-  +eligibleForCleanup: boolean,
-  +listProps: ListPickerProps,
-  +numberOfRevisions: number,
-  +pager: PagerT,
-  +series: $ReadOnly<{...SeriesT, +type: SeriesTypeT}>,
-  +wikipediaExtract: WikipediaExtractT | null,
-};
-
-const SeriesIndex = ({
-  eligibleForCleanup,
-  listProps,
-  numberOfRevisions,
-  pager,
-  series,
-  wikipediaExtract,
-}: SeriesIndexProps): React$Element<typeof SeriesLayout> => {
+component SeriesIndex(
+  eligibleForCleanup: boolean,
+  listProps: ListPickerProps,
+  numberOfRevisions: number,
+  pager: PagerT,
+  series: $ReadOnly<{...SeriesT, +type: SeriesTypeT}>,
+  wikipediaExtract: WikipediaExtractT | null,
+) {
   const seriesEntityType = series.type.item_entity_type;
   return (
     <SeriesLayout entity={series} page="index">
@@ -147,6 +137,6 @@ const SeriesIndex = ({
       {manifest.js('series/index', {async: 'async'})}
     </SeriesLayout>
   );
-};
+}
 
 export default SeriesIndex;

@@ -11,18 +11,20 @@ import {RecordingResultsInline}
   from '../search/components/RecordingResults.js';
 
 import TagLookupResults from './Results.js';
-import type {TagLookupResultsPropsT} from './types.js';
 
-const TagLookupRecordingResults = (
-  props: TagLookupResultsPropsT<RecordingWithArtistCreditT>,
-): React$MixedElement => (
-  <TagLookupResults {...props}>
-    <RecordingResultsInline
-      pager={props.pager}
-      query={props.query}
-      results={props.results}
-    />
-  </TagLookupResults>
-);
+component TagLookupRecordingResults(...props: {
+  ...React.PropsOf<RecordingResultsInline>,
+  ...React.PropsOf<TagLookupResults>,
+}) {
+  return (
+    <TagLookupResults form={props.form} nag={props.nag}>
+      <RecordingResultsInline
+        pager={props.pager}
+        query={props.query}
+        results={props.results}
+      />
+    </TagLookupResults>
+  );
+}
 
 export default TagLookupRecordingResults;

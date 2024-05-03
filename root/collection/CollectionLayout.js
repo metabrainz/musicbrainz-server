@@ -13,23 +13,14 @@ import Layout from '../layout/index.js';
 
 import CollectionHeader from './CollectionHeader.js';
 
-type Props = {
-  +children: React$Node,
-  +entity: CollectionT,
-  +fullWidth?: boolean,
-  +page: string,
-  +recordingMbids?: $ReadOnlyArray<string> | null,
-  +title?: string,
-};
-
-const CollectionLayout = ({
-  children,
-  entity: collection,
-  fullWidth = false,
-  page,
-  recordingMbids,
-  title,
-}: Props): React$Element<typeof Layout> => {
+component CollectionLayout(
+  children: React$Node,
+  entity as collection: CollectionT,
+  fullWidth: boolean = false,
+  page: string,
+  recordingMbids?: $ReadOnlyArray<string> | null,
+  title?: string,
+) {
   const mainTitle = texp.l(
     'Collection “{collection}”',
     {collection: collection.name},
@@ -54,6 +45,6 @@ const CollectionLayout = ({
       )}
     </Layout>
   );
-};
+}
 
 export default CollectionLayout;

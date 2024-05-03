@@ -9,24 +9,21 @@
 
 import ConfirmLayout from '../../components/ConfirmLayout.js';
 
-type Props = {
-  +form: SecureConfirmFormT,
-  +type: LinkAttrTypeT,
-};
-
-const DeleteRelationshipAttributeType = ({
-  form,
-  type,
-}: Props): React$Element<typeof ConfirmLayout> => (
-  <ConfirmLayout
-    form={form}
-    question={exp.l_admin(
-      `Are you sure you wish to remove the
-       <strong>{link_attr_type}</strong> relationship attribute?`,
-      {link_attr_type: type.name},
-    )}
-    title="Remove relationship attribute"
-  />
-);
+component DeleteRelationshipAttributeType(
+  form: SecureConfirmFormT,
+  type: LinkAttrTypeT,
+) {
+  return (
+    <ConfirmLayout
+      form={form}
+      question={exp.l_admin(
+        `Are you sure you wish to remove the
+         <strong>{link_attr_type}</strong> relationship attribute?`,
+        {link_attr_type: type.name},
+      )}
+      title="Remove relationship attribute"
+    />
+  );
+}
 
 export default DeleteRelationshipAttributeType;

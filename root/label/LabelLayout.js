@@ -12,31 +12,24 @@ import Layout from '../layout/index.js';
 
 import LabelHeader from './LabelHeader.js';
 
-type Props = {
-  +children: React$Node,
-  +entity: LabelT,
-  +fullWidth?: boolean,
-  +page: string,
-  +title?: string,
-};
-
-const LabelLayout = ({
-  children,
-  entity: label,
-  fullWidth = false,
-  page,
-  title,
-}: Props): React$Element<typeof Layout> => (
-  <Layout
-    title={nonEmpty(title) ? hyphenateTitle(label.name, title) : label.name}
-  >
-    <div id="content">
-      <LabelHeader label={label} page={page} />
-      {children}
-    </div>
-    {fullWidth ? null : <LabelSidebar label={label} />}
-  </Layout>
-);
-
+component LabelLayout(
+  children: React$Node,
+  entity as label: LabelT,
+  fullWidth: boolean = false,
+  page: string,
+  title?: string,
+) {
+  return (
+    <Layout
+      title={nonEmpty(title) ? hyphenateTitle(label.name, title) : label.name}
+    >
+      <div id="content">
+        <LabelHeader label={label} page={page} />
+        {children}
+      </div>
+      {fullWidth ? null : <LabelSidebar label={label} />}
+    </Layout>
+  );
+}
 
 export default LabelLayout;

@@ -9,26 +9,24 @@
 
 import NotFound from '../components/NotFound.js';
 
-type Props = {
-  +tag: string,
-};
-
-const TagNotFound = ({tag}: Props): React$Element<typeof NotFound> => (
-  <NotFound title={lp('Tag not used', 'folksonomy')}>
-    <p>
-      {texp.l(
-        'No MusicBrainz entities have yet been tagged with "{tag}".',
-        {tag: tag},
-      )}
-    </p>
-    <p>
-      {exp.l(
-        `If you wish to use this tag, please {url|search} for the entity first
-         and apply the tag using the sidebar.`,
-        {url: '/search'},
-      )}
-    </p>
-  </NotFound>
-);
+component TagNotFound(tag: string) {
+  return (
+    <NotFound title={lp('Tag not used', 'folksonomy')}>
+      <p>
+        {texp.l(
+          'No MusicBrainz entities have yet been tagged with "{tag}".',
+          {tag: tag},
+        )}
+      </p>
+      <p>
+        {exp.l(
+          `If you wish to use this tag, please {url|search} for the entity
+          first and apply the tag using the sidebar.`,
+          {url: '/search'},
+        )}
+      </p>
+    </NotFound>
+  );
+}
 
 export default TagNotFound;

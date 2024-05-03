@@ -20,23 +20,10 @@ import {upperFirst} from '../../static/scripts/common/utility/strings.js';
 import RelationshipsHeader from '../RelationshipsHeader.js';
 import compareChildren from '../utility/compareChildren.js';
 
-type AttributeTreeProps = {
-  +attribute: LinkAttrTypeT,
-};
-
-type AttributeDetailsProps = {
-  +attribute: LinkAttrTypeT,
-  +topLevel?: boolean,
-};
-
-type AttributesListProps = {
-  +root: LinkAttrTypeT,
-};
-
-const AttributeDetails = ({
-  attribute,
-  topLevel = false,
-}: AttributeDetailsProps) => {
+component AttributeDetails(
+  attribute: LinkAttrTypeT,
+  topLevel: boolean = false,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const isInstrumentRoot = attribute.id === 14;
   const childrenAttrs = attribute.children || [];
@@ -95,11 +82,9 @@ const AttributeDetails = ({
       </>
     )
   );
-};
+}
 
-const AttributeTree = ({
-  attribute,
-}: AttributeTreeProps): React$Element<'li'> => {
+component AttributeTree(attribute: LinkAttrTypeT) {
   const childrenAttrs = attribute.children || [];
   return (
     <li style={{marginTop: '0.25em'}}>
@@ -124,9 +109,9 @@ const AttributeTree = ({
       ) : null}
     </li>
   );
-};
+}
 
-const AttributesList = ({root}: AttributesListProps) => {
+component AttributesList(root: LinkAttrTypeT) {
   const childrenAttrs = root.children || [];
   return (
     childrenAttrs.length ? (
@@ -168,11 +153,9 @@ const AttributesList = ({root}: AttributesListProps) => {
       <p>{l('No relationship attributes found.')}</p>
     )
   );
-};
+}
 
-const RelationshipAttributeTypesList = ({
-  root,
-}: AttributesListProps): React$Element<typeof Layout> => {
+component RelationshipAttributeTypesList(root: LinkAttrTypeT) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <Layout fullWidth noIcons title={l('Relationship attributes')}>
@@ -189,6 +172,6 @@ const RelationshipAttributeTypesList = ({
       </div>
     </Layout>
   );
-};
+}
 
 export default RelationshipAttributeTypesList;

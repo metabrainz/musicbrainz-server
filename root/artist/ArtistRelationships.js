@@ -13,32 +13,28 @@ import Relationships
 
 import ArtistLayout from './ArtistLayout.js';
 
-type Props = {
-  +artist: ArtistT,
-  +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
-  +pager: ?PagerT,
-};
-
-const ArtistRelationships = ({
-  artist,
-  pagedLinkTypeGroup,
-  pager,
-}: Props): React$Element<typeof ArtistLayout> => (
-  <ArtistLayout
-    entity={artist}
-    page="relationships"
-    title={l('Relationships')}
-  >
-    {pagedLinkTypeGroup ? null : (
-      <Relationships showIfEmpty source={artist} />
-    )}
-    <RelationshipsTable
+component ArtistRelationships(
+  artist: ArtistT,
+  pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
+  pager: ?PagerT,
+) {
+  return (
+    <ArtistLayout
       entity={artist}
-      heading={l('Appearances')}
-      pagedLinkTypeGroup={pagedLinkTypeGroup}
-      pager={pager}
-    />
-  </ArtistLayout>
-);
+      page="relationships"
+      title={l('Relationships')}
+    >
+      {pagedLinkTypeGroup ? null : (
+        <Relationships showIfEmpty source={artist} />
+      )}
+      <RelationshipsTable
+        entity={artist}
+        heading={l('Appearances')}
+        pagedLinkTypeGroup={pagedLinkTypeGroup}
+        pager={pager}
+      />
+    </ArtistLayout>
+  );
+}
 
 export default ArtistRelationships;

@@ -21,35 +21,13 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ArtistLayout from './ArtistLayout.js';
 
-type FooterSwitchProps = {
-  +artist: ArtistT,
-  +hasStandalone: boolean,
-  +hasVideo: boolean,
-  +standaloneOnly: boolean,
-  +videoOnly: boolean,
-};
-
-type Props = {
-  ...ReleaseGroupAppearancesRoleT,
-  +ajaxFilterFormUrl: string,
-  +artist: ArtistT,
-  +filterForm: ?RecordingFilterT,
-  +hasFilter: boolean,
-  +hasStandalone: boolean,
-  +hasVideo: boolean,
-  +pager: PagerT,
-  +recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
-  +standaloneOnly: boolean,
-  +videoOnly: boolean,
-};
-
-const FooterSwitch = ({
-  artist,
-  hasStandalone,
-  hasVideo,
-  standaloneOnly,
-  videoOnly,
-}: FooterSwitchProps): React$Element<'p'> => {
+component FooterSwitch(
+  artist: ArtistT,
+  hasStandalone: boolean,
+  hasVideo: boolean,
+  standaloneOnly: boolean,
+  videoOnly: boolean,
+) {
   const showAllLink = (
     <a href={`/artist/${artist.gid}/recordings`}>
       {l('Show all recordings')}
@@ -121,22 +99,19 @@ const FooterSwitch = ({
       )}
     </p>
   );
-};
+}
 
-const ArtistRecordings = ({
-  ajaxFilterFormUrl,
-  artist,
-  filterForm,
-  hasFilter,
-  hasStandalone,
-  hasVideo,
-  pager,
-  recordings,
-  releaseGroupAppearances,
-  standaloneOnly,
-  videoOnly,
-}: Props): React$Element<typeof ArtistLayout> => {
+component ArtistRecordings(
+  ajaxFilterFormUrl: string,
+  filterForm: ?RecordingFilterT,
+  hasFilter: boolean,
+  pager: PagerT,
+  recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
+  releaseGroupAppearances?: ReleaseGroupAppearancesMapT,
+  ...footerSwitchProps: React.PropsOf<FooterSwitch>
+) {
   const $c = React.useContext(SanitizedCatalystContext);
+  const artist = footerSwitchProps.artist;
   return (
     <ArtistLayout
       entity={artist}
@@ -178,15 +153,9 @@ const ArtistRecordings = ({
         </p>
       )}
 
-      <FooterSwitch
-        artist={artist}
-        hasStandalone={hasStandalone}
-        hasVideo={hasVideo}
-        standaloneOnly={standaloneOnly}
-        videoOnly={videoOnly}
-      />
+      <FooterSwitch {...footerSwitchProps} />
     </ArtistLayout>
   );
-};
+}
 
 export default ArtistRecordings;

@@ -22,14 +22,7 @@ import {isRelationshipEditor}
 import {upperFirst} from '../../static/scripts/common/utility/strings.js';
 import compareChildren from '../utility/compareChildren.js';
 
-type Props = {
-  +attribute: LinkAttrTypeT,
-  +relationships: Array<LinkTypeT>,
-};
-
-const AttributeTree = ({
-  attribute,
-}: {attribute: LinkAttrTypeT}): React$Element<'li'> => {
+component AttributeTree(attribute: LinkAttrTypeT) {
   const childrenAttrs = attribute.children || [];
   return (
     <li style={{marginTop: '0.25em'}}>
@@ -62,12 +55,12 @@ const AttributeTree = ({
       ) : null}
     </li>
   );
-};
+}
 
-const RelationshipAttributeTypeIndex = ({
-  attribute,
-  relationships,
-}: Props): React$Element<typeof Layout> => {
+component RelationshipAttributeTypeIndex(
+  attribute: LinkAttrTypeT,
+  relationships: Array<LinkTypeT>,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const isInstrumentRoot = attribute.id === 14;
   const isInstrumentChild = attribute.root_id === 14 && !isInstrumentRoot;
@@ -221,6 +214,6 @@ const RelationshipAttributeTypeIndex = ({
       </div>
     </Layout>
   );
-};
+}
 
 export default RelationshipAttributeTypeIndex;

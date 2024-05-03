@@ -15,15 +15,6 @@ import mapRange from '../static/scripts/common/utility/mapRange.js';
 import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 
-type CoverArtStatsT = {
-  +dateCollected: string,
-  +releaseFormatStats: $ReadOnlyArray<CoverArtReleaseFormatStatT>,
-  +releaseStatusStats: $ReadOnlyArray<CoverArtReleaseStatusStatT>,
-  +releaseTypeStats: $ReadOnlyArray<CoverArtReleaseTypeStatT>,
-  +stats: {[statName: string]: number},
-  +typeStats: $ReadOnlyArray<CoverArtTypeStatT>,
-};
-
 type CoverArtReleaseFormatStatT = {
   +format: string,
   +stat_name: string,
@@ -52,14 +43,14 @@ const nameOrNull = (name: string, defaultName: string) => {
   return name;
 };
 
-const CoverArt = ({
-  dateCollected,
-  releaseTypeStats,
-  releaseStatusStats,
-  releaseFormatStats,
-  stats,
-  typeStats,
-}: CoverArtStatsT): React$Element<typeof StatisticsLayout> => {
+component CoverArt(
+  dateCollected: string,
+  releaseFormatStats: $ReadOnlyArray<CoverArtReleaseFormatStatT>,
+  releaseStatusStats: $ReadOnlyArray<CoverArtReleaseStatusStatT>,
+  releaseTypeStats: $ReadOnlyArray<CoverArtReleaseTypeStatT>,
+  stats: {[statName: string]: number},
+  typeStats: $ReadOnlyArray<CoverArtTypeStatT>,
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <StatisticsLayout
@@ -402,6 +393,6 @@ const CoverArt = ({
       )}
     </StatisticsLayout>
   );
-};
+}
 
 export default CoverArt;

@@ -13,35 +13,33 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 
 import GenreLayout from './GenreLayout.js';
-import type {GenreDeleteFormT} from './types.js';
 
-type Props = {
-  +entity: GenreT,
-  +form: GenreDeleteFormT,
-};
+type GenreDeleteFormT = FormT<{
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+}>;
 
-const DeleteGenre = ({
-  entity: genre,
-  form,
-}: Props): React$Element<typeof GenreLayout> => (
-  <GenreLayout
-    entity={genre}
-    fullWidth
-    page="delete"
-    title="Remove genre"
-  >
-    <h2>{'Remove genre'}</h2>
-    <p>
-      {exp.l_admin('Are you sure you want to remove the genre {genre}?',
-                   {genre: <EntityLink entity={genre} />})}
-    </p>
+component DeleteGenre(entity as genre: GenreT, form: GenreDeleteFormT) {
+  return (
+    <GenreLayout
+      entity={genre}
+      fullWidth
+      page="delete"
+      title="Remove genre"
+    >
+      <h2>{'Remove genre'}</h2>
+      <p>
+        {exp.l_admin('Are you sure you want to remove the genre {genre}?',
+                     {genre: <EntityLink entity={genre} />})}
+      </p>
 
-    <form method="post">
-      <EnterEditNote field={form.field.edit_note} />
-      <EnterEdit form={form} />
-    </form>
+      <form method="post">
+        <EnterEditNote field={form.field.edit_note} />
+        <EnterEdit form={form} />
+      </form>
 
-  </GenreLayout>
-);
+    </GenreLayout>
+  );
+}
 
 export default DeleteGenre;

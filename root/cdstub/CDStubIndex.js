@@ -15,15 +15,7 @@ import formatTrackLength
 import CDStubInfo from './CDStubInfo.js';
 import CDStubLayout from './CDStubLayout.js';
 
-type Props = {
-  +cdstub: CDStubT,
-  +showArtists: boolean,
-};
-
-const CDStubIndex = ({
-  cdstub,
-  showArtists,
-}: Props): React$Element<typeof CDStubLayout> => {
+component CDStubIndex(cdstub: CDStubT, showArtists: boolean) {
   const totalLength = cdstub.tracks.reduce(
     (length, track) => length + track.length,
     0,
@@ -62,6 +54,6 @@ const CDStubIndex = ({
       </table>
     </CDStubLayout>
   );
-};
+}
 
 export default CDStubIndex;

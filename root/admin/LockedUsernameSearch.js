@@ -14,83 +14,81 @@ import FormRowCheckbox
 import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
-type Props = {
-  +form: FormT<{
-    +use_regular_expression: FieldT<boolean>,
-    +username: FieldT<string>,
-  }>,
-  +results?: $ReadOnlyArray<string>,
-  +showResults: boolean,
-};
+type LockedUsernameSearchFormT = FormT<{
+  +use_regular_expression: FieldT<boolean>,
+  +username: FieldT<string>,
+}>;
 
-const LockedUsernameSearch = ({
-  form,
-  results,
-  showResults,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Search locked usernames">
-    <div id="content">
-      <h1>{'Search locked usernames'}</h1>
+component LockedUsernameSearch(
+  form: LockedUsernameSearchFormT,
+  results?: $ReadOnlyArray<string>,
+  showResults: boolean,
+) {
+  return (
+    <Layout fullWidth title="Search locked usernames">
+      <div id="content">
+        <h1>{'Search locked usernames'}</h1>
 
-      <form action="/admin/locked-usernames/search" method="post">
-        <p>
-          {exp.l_admin(
-            'Enter a username or a {link|POSIX regular expression}.',
-            {
-              link: 'https://www.postgresql.org/docs/16/' +
-                'functions-matching.html#FUNCTIONS-POSIX-REGEXP',
-            },
-          )}
-        </p>
-
-        <FormRowText
-          field={form.field.username}
-          label="Username:"
-          size={50}
-          uncontrolled
-        />
-
-        <FormRowCheckbox
-          field={form.field.use_regular_expression}
-          label="Search using regular expression"
-          uncontrolled
-        />
-
-        <div className="row no-label">
-          <FormSubmit
-            label="Search"
-            name="lockedusernamesearch.submit"
-            value="1"
-          />
-        </div>
-
-        {showResults ? (
-          <>
-            <h3>{'Matching locked names:'}</h3>
-            {results?.length ? (
-              <ul>
-                {results.map(result => (
-                  <li key={result}>
-                    {result}
-                    {' '}
-                    {bracketed(
-                      <a href={`/admin/locked-usernames/unlock/${result}`}>
-                        {'unlock'}
-                      </a>,
-                    )}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>
-                {'No locked usernames matched your search.'}
-              </p>
+        <form action="/admin/locked-usernames/search" method="post">
+          <p>
+            {exp.l_admin(
+              'Enter a username or a {link|POSIX regular expression}.',
+              {
+                link: 'https://www.postgresql.org/docs/16/' +
+                  'functions-matching.html#FUNCTIONS-POSIX-REGEXP',
+              },
             )}
-          </>
-        ) : null}
-      </form>
-    </div>
-  </Layout>
-);
+          </p>
+
+          <FormRowText
+            field={form.field.username}
+            label="Username:"
+            size={50}
+            uncontrolled
+          />
+
+          <FormRowCheckbox
+            field={form.field.use_regular_expression}
+            label="Search using regular expression"
+            uncontrolled
+          />
+
+          <div className="row no-label">
+            <FormSubmit
+              label="Search"
+              name="lockedusernamesearch.submit"
+              value="1"
+            />
+          </div>
+
+          {showResults ? (
+            <>
+              <h3>{'Matching locked names:'}</h3>
+              {results?.length ? (
+                <ul>
+                  {results.map(result => (
+                    <li key={result}>
+                      {result}
+                      {' '}
+                      {bracketed(
+                        <a href={`/admin/locked-usernames/unlock/${result}`}>
+                          {'unlock'}
+                        </a>,
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>
+                  {'No locked usernames matched your search.'}
+                </p>
+              )}
+            </>
+          ) : null}
+        </form>
+      </div>
+    </Layout>
+  );
+}
 
 export default LockedUsernameSearch;

@@ -9,16 +9,12 @@
 
 import StatusPage from '../components/StatusPage.js';
 
-type Props = {
-  +message: string,
-};
-
-const ResetPasswordStatus = ({
-  message,
-}: Props): React$Element<typeof StatusPage> => (
-  <StatusPage title={lp('Reset password', 'header')}>
-    <p>{message}</p>
-  </StatusPage>
-);
+component ResetPasswordStatus(message: string) {
+  return (
+    <StatusPage title={lp('Reset password', 'header')}>
+      <p>{message}</p>
+    </StatusPage>
+  );
+}
 
 export default ResetPasswordStatus;

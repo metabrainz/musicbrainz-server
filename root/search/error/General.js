@@ -9,24 +9,19 @@
 
 import SearchError from '../components/SearchError.js';
 
-type Props = {
-  +form: SearchFormT | TagLookupFormT,
-  +query: string,
-};
-
-const General = ({
-  form,
-  query,
-}: Props): React$Element<typeof SearchError> => (
-  <SearchError form={form}>
-    <p>
-      {exp.l(
-        `Sorry, but your query “(<code>{query}</code>)” could not be
-         performed, due to an error which we are not quite able to identify.`,
-        {query: query},
-      )}
-    </p>
-  </SearchError>
-);
+component General(form: SearchFormT | TagLookupFormT, query: string) {
+  return (
+    <SearchError form={form}>
+      <p>
+        {exp.l(
+          `Sorry, but your query “(<code>{query}</code>)” could not be
+           performed, due to an error which we are
+           not quite able to identify.`,
+          {query: query},
+        )}
+      </p>
+    </SearchError>
+  );
+}
 
 export default General;

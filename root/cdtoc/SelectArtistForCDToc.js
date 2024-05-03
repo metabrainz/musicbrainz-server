@@ -16,19 +16,12 @@ import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import InlineSubmitButton
   from '../static/scripts/edit/components/InlineSubmitButton.js';
 
-type Props = {
-  +form: SearchFormT,
-  +pager?: PagerT,
-  +results?: $ReadOnlyArray<SearchResultT<ArtistT>>,
-  +tocString: StrOrNum,
-};
-
-const SelectArtistForCDToc = ({
-  form,
-  pager,
-  results,
-  tocString,
-}: Props): React$Element<typeof Layout> => {
+component SelectArtistForCDToc(
+  form: SearchFormT,
+  pager?: PagerT,
+  results?: $ReadOnlyArray<SearchResultT<ArtistT>>,
+  tocString: StrOrNum,
+) {
   const title = lp('Attach CD TOC', 'header');
 
   return (
@@ -131,6 +124,6 @@ const SelectArtistForCDToc = ({
       </form>
     </Layout>
   );
-};
+}
 
 export default SelectArtistForCDToc;

@@ -18,6 +18,9 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Event',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
+        get_string => sub { shift->{name} },
+     },
      'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_name { N_lp('Add event', 'edit type') }

@@ -14,25 +14,19 @@ import GenreEditForm
 import GenreLayout from './GenreLayout.js';
 import type {GenreFormT} from './types.js';
 
-type Props = {
-  +entity: GenreT,
-  +form: GenreFormT,
-};
-
-const EditGenre = ({
-  entity,
-  form,
-}: Props): React$Element<typeof GenreLayout> => (
-  <GenreLayout
-    entity={entity}
-    fullWidth
-    page="edit"
-    title="Edit genre"
-  >
-    <GenreEditForm form={form} />
-    {manifest.js('genre/components/GenreEditForm', {async: 'async'})}
-    {manifest.js('relationship-editor', {async: 'async'})}
-  </GenreLayout>
-);
+component EditGenre(entity: GenreT, form: GenreFormT) {
+  return (
+    <GenreLayout
+      entity={entity}
+      fullWidth
+      page="edit"
+      title="Edit genre"
+    >
+      <GenreEditForm form={form} />
+      {manifest.js('genre/components/GenreEditForm', {async: 'async'})}
+      {manifest.js('relationship-editor', {async: 'async'})}
+    </GenreLayout>
+  );
+}
 
 export default EditGenre;

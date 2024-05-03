@@ -16,32 +16,17 @@ import loopParity from '../utility/loopParity.js';
 import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount} from './utilities.js';
 
-type EditorsStatsT = {
-  +dateCollected: string,
-  +topEditors: $ReadOnlyArray<EditorStatT>,
-  +topRecentlyActiveEditors: $ReadOnlyArray<EditorStatT>,
-  +topRecentlyActiveVoters: $ReadOnlyArray<EditorStatT>,
-  +topVoters: $ReadOnlyArray<EditorStatT>,
-};
-
-type EditorStatsTableProps = {
-  countLabel: string,
-  dataPoints: $ReadOnlyArray<EditorStatT>,
-  editorLabel: string,
-  tableLabel: string,
-};
-
 type EditorStatT = {
   +count: number,
   +editor: EditorT,
 };
 
-const EditorStatsTable = ({
-  countLabel,
-  dataPoints,
-  editorLabel,
-  tableLabel,
-}: EditorStatsTableProps) => {
+component EditorStatsTable(
+  countLabel: string,
+  dataPoints: $ReadOnlyArray<EditorStatT>,
+  editorLabel: string,
+  tableLabel: string,
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <>
@@ -87,58 +72,64 @@ const EditorStatsTable = ({
       </table>
     </>
   );
-};
+}
 
-const Editors = ({
-  dateCollected,
-  topEditors,
-  topRecentlyActiveEditors,
-  topRecentlyActiveVoters,
-  topVoters,
-}: EditorsStatsT): React$Element<typeof StatisticsLayout> => (
-  <StatisticsLayout fullWidth page="editors" title={l_statistics('Editors')}>
-    <p>
-      {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
-    </p>
-    <p>
-      {l_statistics(`For the vote statistics, only yes or no votes are
-                     counted, abstain votes are not counted.`)}
-    </p>
-    <div
-      style={{display: 'inline-block', float: 'left', marginRight: '50px'}}
+component Editors(
+  dateCollected: string,
+  topEditors: $ReadOnlyArray<EditorStatT>,
+  topRecentlyActiveEditors: $ReadOnlyArray<EditorStatT>,
+  topRecentlyActiveVoters: $ReadOnlyArray<EditorStatT>,
+  topVoters: $ReadOnlyArray<EditorStatT>,
+) {
+  return (
+    <StatisticsLayout
+      fullWidth
+      page="editors"
+      title={l_statistics('Editors')}
     >
-      <h2 style={{marginTop: 0}}>{l_statistics('Editors')}</h2>
-      <EditorStatsTable
-        countLabel={l_statistics('Open and applied edits in past week')}
-        dataPoints={topRecentlyActiveEditors}
-        editorLabel={l_statistics('Editor')}
-        tableLabel={l_statistics('Most active editors in the past week')}
-      />
-      <EditorStatsTable
-        countLabel={l_statistics('Total applied edits')}
-        dataPoints={topEditors}
-        editorLabel={l_statistics('Editor')}
-        tableLabel={l_statistics('Top editors overall')}
-      />
-    </div>
-    <div
-      style={{display: 'inline-block', float: 'left', marginRight: '50px'}}
-    >
-      <h2 style={{marginTop: 0}}>{l_statistics('Voters')}</h2>
-      <EditorStatsTable
-        countLabel={l_statistics('Votes in past week')}
-        dataPoints={topRecentlyActiveVoters}
-        editorLabel={l_statistics('Voter')}
-        tableLabel={l_statistics('Most active voters in the past week')}
-      />
-      <EditorStatsTable
-        countLabel={l_statistics('Total votes')}
-        dataPoints={topVoters}
-        editorLabel={l_statistics('Voter')}
-        tableLabel={l_statistics('Top voters overall')}
-      />
-    </div>
-  </StatisticsLayout>
-);
+      <p>
+        {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
+      </p>
+      <p>
+        {l_statistics(`For the vote statistics, only yes or no votes are
+                       counted, abstain votes are not counted.`)}
+      </p>
+      <div
+        style={{display: 'inline-block', float: 'left', marginRight: '50px'}}
+      >
+        <h2 style={{marginTop: 0}}>{l_statistics('Editors')}</h2>
+        <EditorStatsTable
+          countLabel={l_statistics('Open and applied edits in past week')}
+          dataPoints={topRecentlyActiveEditors}
+          editorLabel={l_statistics('Editor')}
+          tableLabel={l_statistics('Most active editors in the past week')}
+        />
+        <EditorStatsTable
+          countLabel={l_statistics('Total applied edits')}
+          dataPoints={topEditors}
+          editorLabel={l_statistics('Editor')}
+          tableLabel={l_statistics('Top editors overall')}
+        />
+      </div>
+      <div
+        style={{display: 'inline-block', float: 'left', marginRight: '50px'}}
+      >
+        <h2 style={{marginTop: 0}}>{l_statistics('Voters')}</h2>
+        <EditorStatsTable
+          countLabel={l_statistics('Votes in past week')}
+          dataPoints={topRecentlyActiveVoters}
+          editorLabel={l_statistics('Voter')}
+          tableLabel={l_statistics('Most active voters in the past week')}
+        />
+        <EditorStatsTable
+          countLabel={l_statistics('Total votes')}
+          dataPoints={topVoters}
+          editorLabel={l_statistics('Voter')}
+          tableLabel={l_statistics('Top voters overall')}
+        />
+      </div>
+    </StatisticsLayout>
+  );
+}
 
 export default Editors;

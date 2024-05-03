@@ -29,6 +29,8 @@ use MusicBrainz::Server::Validation qw(
     is_valid_partial_date
     is_database_row_id
     is_database_bigint_id
+    is_database_indexable_string
+    has_at_most_oneline_string_length
     is_valid_edit_note
 );
 
@@ -80,6 +82,21 @@ test 'Test is_database_bigint_id' => sub {
     ok(!is_database_bigint_id(9223372036854775808), '(max postgres bigint + 1) is not a bigint ID');
     ok(!is_database_bigint_id(0), 'zero is not a bigint ID');
     ok(!is_database_bigint_id(-1), 'negative integer is not a bigint ID');
+};
+
+test 'Test is_database_indexable_string' => sub {
+    ok(is_database_indexable_string(undef), 'undef is an indexable string');
+    ok(is_database_indexable_string(''), '"" is an indexable string');
+    ok(is_database_indexable_string('0123456789ABCDEF' x 169), '2704 single-byte characters string is an indexable string');
+    ok(!is_database_indexable_string(('0123456789ABCDEF' x 169) . '0'), '2705 single-byte characters string is not an indexable string');
+    ok(!is_database_indexable_string('𝄞𝄵𝅘𝅥𝅘𝅥𝅮𝅘𝅥𝅮𝅘𝅥𝅮𝄾𝅘𝅥𝄀𝅘𝅥𝅮𝅘𝅥𝅮𝅘𝅥𝅮𝄾𝆑𝅗𝅥𝄂' x 64), '1024 four-byte characters string is not an indexable string');
+};
+
+test 'Test has_at_most_oneline_string_length' => sub {
+    ok(has_at_most_oneline_string_length(undef), 'undef has under one-line string length');
+    ok(has_at_most_oneline_string_length(''), '"" has under one-line string length');
+    ok(has_at_most_oneline_string_length('0123456789ABCDEF' x 64), '1024 characters string has one-line string length');
+    ok(!has_at_most_oneline_string_length(('0123456789ABCDEF' x 64) . '0'), '1025 characters string has over one-line string length');
 };
 
 test 'Test is_guid' => sub {

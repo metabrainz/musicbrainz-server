@@ -17,7 +17,7 @@ import ReleaseRelationshipEditor
 
 import ReleaseHeader from './ReleaseHeader.js';
 
-const EditRelationships = (): React$Element<typeof Layout> => {
+component EditRelationships() {
   const $c = React.useContext(CatalystContext);
   const release = $c.stash.source_entity;
   invariant(release?.entityType === 'release');
@@ -56,6 +56,6 @@ const EditRelationships = (): React$Element<typeof Layout> => {
       {manifest.js('release/edit-relationships', {async: 'async'})}
     </Layout>
   );
-};
+}
 
 export default EditRelationships;

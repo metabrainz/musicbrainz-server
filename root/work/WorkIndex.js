@@ -18,46 +18,39 @@ import WikipediaExtract
 
 import WorkLayout from './WorkLayout.js';
 
-type Props = {
-  +eligibleForCleanup: boolean,
-  +numberOfRevisions: number,
-  +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
-  +pager: ?PagerT,
-  +wikipediaExtract: WikipediaExtractT | null,
-  +work: WorkT,
-};
-
-const WorkIndex = ({
-  eligibleForCleanup,
-  numberOfRevisions,
-  pagedLinkTypeGroup,
-  pager,
-  wikipediaExtract,
-  work,
-}: Props): React$Element<typeof WorkLayout> => (
-  <WorkLayout entity={work} page="index">
-    {eligibleForCleanup ? (
-      <CleanupBanner entityType="work" />
-    ) : null}
-    <Annotation
-      annotation={work.latest_annotation}
-      collapse
-      entity={work}
-      numberOfRevisions={numberOfRevisions}
-    />
-    <WikipediaExtract
-      cachedWikipediaExtract={wikipediaExtract}
-      entity={work}
-    />
-    <Relationships source={work} />
-    <RelationshipsTable
-      entity={work}
-      heading={l('Recordings')}
-      pagedLinkTypeGroup={pagedLinkTypeGroup}
-      pager={pager}
-    />
-    {manifest.js('work/index', {async: 'async'})}
-  </WorkLayout>
-);
+component WorkIndex(
+  eligibleForCleanup: boolean,
+  numberOfRevisions: number,
+  pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
+  pager: ?PagerT,
+  wikipediaExtract: WikipediaExtractT | null,
+  work: WorkT,
+) {
+  return (
+    <WorkLayout entity={work} page="index">
+      {eligibleForCleanup ? (
+        <CleanupBanner entityType="work" />
+      ) : null}
+      <Annotation
+        annotation={work.latest_annotation}
+        collapse
+        entity={work}
+        numberOfRevisions={numberOfRevisions}
+      />
+      <WikipediaExtract
+        cachedWikipediaExtract={wikipediaExtract}
+        entity={work}
+      />
+      <Relationships source={work} />
+      <RelationshipsTable
+        entity={work}
+        heading={l('Recordings')}
+        pagedLinkTypeGroup={pagedLinkTypeGroup}
+        pager={pager}
+      />
+      {manifest.js('work/index', {async: 'async'})}
+    </WorkLayout>
+  );
+}
 
 export default WorkIndex;

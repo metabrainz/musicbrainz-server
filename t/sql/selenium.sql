@@ -14,6 +14,7 @@ INSERT INTO area (id, gid, name, type, edits_pending, last_updated, begin_date_y
     (73, '08310658-51eb-3801-80de-5a0739207115', 'France', 1, 0, '2013-05-27 12:50:32.702645+00', NULL, NULL,  NULL,  NULL,  NULL,  NULL, 'f', ''),
     (96, '0373cdff-eac8-3fbc-92dc-36a607da06d1', 'Hong Kong', 1, 0, '2013-11-03 06:25:22.345722+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (107, '2db42837-c832-3c27-b4a3-08198f75693c', 'Japan', 1, 0, '2013-05-27 12:29:56.162248+00', NULL, NULL,  NULL,  NULL,  NULL,  NULL, 'f', ''),
+    (176, '1f1fc3a4-9500-39b8-9f10-f0a465557eef', 'Russia', 1, 0, '2015-01-01 23:56:40.841959+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (194, '471c46a7-afc5-31c4-923c-d0444f5053a4', 'Spain', 1, 0, '2013-05-27 13:08:54.580681+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1, 0, '2013-05-16 11:06:19.67235+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 1, 0, '2013-06-15 18:06:39.59323+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
@@ -36,11 +37,15 @@ INSERT INTO musicbrainz.artist (id, gid, name, sort_name, begin_date_year, begin
     (347, 'b7ffd2af-418f-4be2-bdd1-22f8b48613da', 'Nine Inch Nails', 'Nine Inch Nails', 1988, NULL, NULL, NULL, NULL, NULL, 2, 222, NULL, '', 0, '2018-11-29 21:00:53.245938+00', '0', 5241, NULL),
     (956, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 'David Bowie', 'Bowie, David', 1947, 1, 8, 2016, 1, 10, 1, 221, 1, '', 0, '2019-01-10 03:00:28.692936+00', '1', 39872, 7020),
     (20211, 'c5f5dc27-3059-49c0-ae45-5009a01bb9ec', 'Super Furry Animals', 'Super Furry Animals', 1995, NULL, NULL, NULL, NULL, NULL, 2, 221, NULL, '', 0, '2013-09-02 02:19:54.215306+00', '0', 3813, NULL),
+    (122653, '9ddd7abc-9e1b-471d-8031-583bc6bc8be9', 'Пётр Ильич Чайковский', 'Tchaikovsky, Pyotr Ilyich', 1840, 5, 7, 1893, 11, 6, 1, 176, 1, 'Russian romantic composer', 0, '2024-03-03 19:00:35.180814+00', '1', null, null),
     (237981, '1155431a-d35e-4863-9ae0-e3c24eb61aa9', 'Lethal Bizzle', 'Lethal Bizzle', 1984, 9, 14, NULL, NULL, NULL, 1, 221, 1, '', 0, '2016-02-07 18:20:11.786086+00', '0', 55331, NULL),
     (1647244, '4f74991f-0156-427a-88db-9b2ac293dd42', 'The David Bowie Knives', 'David Bowie Knives, The', NULL, NULL, NULL, NULL, NULL, NULL, 2, 96, NULL, '', 0, '2018-04-11 10:07:10.225834+00', '0', NULL, NULL);
 
 INSERT INTO artist_alias (id, artist, name, locale, edits_pending, last_updated, type, sort_name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, primary_for_locale, ended) VALUES
-  (37382, 237981, 'Lethal B', NULL, 0, '2012-05-15 18:57:13.252186+00', NULL, 'Lethal B', NULL, NULL, NULL, NULL, NULL, NULL, 'f', 'f');
+    (37382, 237981, 'Lethal B', NULL, 0, '2012-05-15 18:57:13.252186+00', NULL, 'Lethal B', NULL, NULL, NULL, NULL, NULL, NULL, 'f', 'f'),
+    (47312, 122653, 'Tchaikovsky', 'en', 0, '2023-12-16 12:19:16.654394+00', 1, 'Tchaikovsky', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0'),
+    (145041, 122653, 'Pyotr Ilyich Tchaikovsky', 'en', 0, '2014-03-07 01:00:15.732186+00', 1, 'Tchaikovsky, Pyotr Ilyich', NULL, NULL, NULL, NULL, NULL, NULL, '1', '0'),
+    (300696, 122653, 'Piotr Ilitch Tchaïkovski', 'fr', 0, '2020-07-06 19:45:45.103713+00', 2, 'Tchaïkovski, Piotr Ilitch', NULL, NULL, NULL, NULL, NULL, NULL, '1', '0');
 
 INSERT INTO artist_credit (id, name, artist_count, ref_count, created, edits_pending, gid) VALUES
     (347, 'Nine Inch Nails', 1, 1, '2011-05-16 16:32:11.963929+00', 0, '19fe2154-9a0c-3ad5-a736-b46beea954d4'),
@@ -61,6 +66,7 @@ INSERT INTO country_area (area) VALUES
     (13),
     (73),
     (107),
+    (176),
     (222),
     (241);
 

@@ -16,6 +16,13 @@ extends 'MusicBrainz::Server::Exceptions::InvalidInput';
 
 has 'duplicates' => ( is => 'ro', isa => 'ArrayRef' );
 
+package MusicBrainz::Server::Exceptions::OverlongString;
+use Moose;
+use namespace::autoclean;
+extends 'MusicBrainz::Server::Exceptions::InvalidInput';
+
+has 'overlong' => ( is => 'ro', isa => 'ArrayRef[Str]' );
+
 package MusicBrainz::Server::Exceptions::DuplicateViolation;
 use Moose;
 use namespace::autoclean;

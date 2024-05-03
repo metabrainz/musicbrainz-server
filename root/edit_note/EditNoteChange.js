@@ -14,15 +14,7 @@ import nonEmpty from '../static/scripts/common/utility/nonEmpty.js';
 import DiffSide from '../static/scripts/edit/components/edit/DiffSide.js';
 import {DELETE, INSERT} from '../static/scripts/edit/utility/editDiff.js';
 
-type EditNoteChangeProps = {
-  +change: EditNoteChangeT,
-  +noteUrl: string,
-};
-
-const EditNoteChange = ({
-  change,
-  noteUrl,
-}: EditNoteChangeProps): React$MixedElement => {
+component EditNoteChange(change: EditNoteChangeT, noteUrl: string) {
   const editor = linkedEntities.editor[change.change_editor_id];
 
   return (
@@ -71,6 +63,6 @@ const EditNoteChange = ({
       </p>
     </Layout>
   );
-};
+}
 
 export default EditNoteChange;

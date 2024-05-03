@@ -20,19 +20,12 @@ import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength.js';
 import loopParity from '../utility/loopParity.js';
 
-type Props = {
-  +allowNew?: boolean,
-  +showArtists?: boolean,
-  +showRatings?: boolean,
-  +tracks?: $ReadOnlyArray<TrackT>,
-};
-
-const MediumTracklist = ({
-  allowNew,
-  showArtists = false,
-  showRatings = false,
-  tracks,
-}: Props): Array<React$Element<'tr'>> => {
+component MediumTracklist(
+  allowNew?: boolean,
+  showArtists: boolean = false,
+  showRatings: boolean = false,
+  tracks?: $ReadOnlyArray<TrackT>,
+) {
   if (!tracks) {
     return [];
   }
@@ -105,6 +98,6 @@ const MediumTracklist = ({
   });
 
   return tracklist;
-};
+}
 
 export default MediumTracklist;

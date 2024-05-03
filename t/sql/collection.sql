@@ -1,12 +1,12 @@
 SET client_min_messages TO 'warning';
 
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
+    VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Led Zeppelin', 'Led Zeppelin');
 
 INSERT INTO artist_credit (id, name, artist_count, gid)
-    VALUES (1, 'Name', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
+    VALUES (1, 'Led Zeppelin', 1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7');
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
-    VALUES (1, 1, 'Name', 0, '');
+    VALUES (1, 1, 'Led Zeppelin', 0, '');
 
 INSERT INTO release_group (id, gid, name, artist_credit)
     VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'Arrival', 1);
@@ -41,10 +41,14 @@ INSERT INTO editor_collection (id, gid, editor, name, public, description, type)
            (4, '24375a7a-a4bd-11e4-a92c-3b5e54a633eb', 1, 'event_collection2', FALSE, '', 4),
            (5, '24375a7a-a4bd-11e4-a92c-3b5e54a633ec', 1, 'work_collection', FALSE, '', 15),
            (6, 'a34c079d-374e-4436-9448-da92dedef3cb', 2, 'collection2_priv', FALSE, 'Private Testy!', 1),
-           (7, 'a34c079d-374e-4436-9448-da92dedef3ce', 2, 'collection3_priv', FALSE, 'Collab Testy!', 1);
+           (7, 'a34c079d-374e-4436-9448-da92dedef3ce', 2, 'collection3_priv', FALSE, 'Collab Testy!', 1),
+           (8, '4ef57e84-4d9c-4da3-9621-6a71de8f227d', 1, 'artist_collection', TRUE, '', 8);
 
 INSERT INTO editor_collection_collaborator(collection, editor)
     VALUES (2, 1), (3, 2), (4, 2), (4, 3), (7, 1);
+
+INSERT INTO editor_collection_artist (collection, artist)
+    VALUES (8, 1);
 
 INSERT INTO editor_collection_release (collection, release)
     VALUES (1, 1), (1, 3), (2, 2), (2, 4);
