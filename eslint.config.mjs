@@ -788,6 +788,9 @@ export default [
       // eslint-plugin-fb-flow
       'fb-flow/use-indexed-access-type': 'error',
       'fb-flow/use-exact-by-default-object-type': 'warn',
+      'fb-flow/use-flow-enums': 'warn',
+      'fb-flow/flow-enums-default-if-possible': 'warn',
+      'fb-flow/no-flow-enums-object-mapping': 'off',
 
       // eslint-plugin-react-hooks
       'react-hooks/exhaustive-deps': 'error',
