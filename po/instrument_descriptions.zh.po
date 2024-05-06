@@ -2088,6 +2088,14 @@ msgstr ""
 "口琴/手风琴的混合体，为装有按钮/琴键的可以接纳气流的手风琴风箱，但是使用者像"
 "演奏口琴那样向乐器中吹入空气。"
 
+#. name:parkapzuk 
+#: DB:instrument/description:1207
+msgid ""
+"Has a bag made of goat, veal or sheepskin, and a double piped chanter "
+"collected in a single horn. Both wooden chanters have holes; one for melody, "
+"the other for drone."
+msgstr ""
+
 #. name:ghaychak 
 #: DB:instrument/description:931
 msgid ""
@@ -6605,6 +6613,14 @@ msgid ""
 msgstr ""
 "用于皇家典礼中，演奏时用其击打手掌，由置于两片较大木片且在一端用线系在一起的"
 "多个木片，象牙和黄铜片构成，"
+
+#. name:mashak 
+#: DB:instrument/description:1208
+msgid ""
+"Used in rural weddings, it has twin single reed pipes, one melody, one "
+"drone. It is becoming increasingly rare due to being displaced by Scottish "
+"Highland pipes."
+msgstr ""
 
 #. name:sistrum 
 #: DB:instrument/description:370

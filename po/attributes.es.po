@@ -47,18 +47,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-27 19:28+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2024-04-29 21:42+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
-"X-Generator: Weblate 5.4\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -115,6 +115,11 @@ msgstr "Disco de goma laca de 12\""
 msgctxt "medium_format"
 msgid "12\" Vinyl"
 msgstr "Disco de vinilo de 12\""
+
+#: DB:medium_format/name:207
+msgctxt "medium_format"
+msgid "3\" Vinyl"
+msgstr "Vinilo de 3″"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
@@ -476,7 +481,8 @@ msgstr ""
 #: DB:label_type/description:5
 msgctxt "label_type"
 msgid "A label that primarily puts out unsanctioned (bootleg) releases."
-msgstr "Sello que publica principalmente ediciones no autorizadas (piratas)."
+msgstr ""
+"Sello que publica principalmente publicaciones no autorizadas (piratas)."
 
 #: DB:release_packaging/description:55
 msgctxt "release_packaging"
@@ -518,10 +524,9 @@ msgid ""
 "medium-sized audience and instructs them individually and/or takes questions "
 "intended to improve the audience members' playing skills."
 msgstr ""
-"Una clase magistral u clínica es un evento donde un artista se reúne con una "
-"audiencia de tamaño pequeño o mediano y les instruye individualmente y/o "
-"recibe preguntas con el propósito de mejorar las habilidades musicales de la "
-"audiencia."
+"Una clase magistral o clínica es un evento donde un artista se reúne con una "
+"audiencia pequeña o mediana e instruye a los asistentes individualmente y/o "
+"recibe preguntas con el propósito de mejorar sus habilidades musicales."
 
 #: DB:release_packaging/description:56
 msgctxt "release_packaging"
@@ -1020,12 +1025,9 @@ msgid "ACDAM ID"
 msgstr "ID de ACDAM"
 
 #: DB:work_attribute_type/name:206
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ACAM ID"
 msgctxt "work_attribute_type"
 msgid "ACUM ID"
-msgstr "ID de ACAM"
+msgstr "ID de ACUM"
 
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
@@ -2045,12 +2047,12 @@ msgstr "Libreto"
 #: DB:release_status/name:3
 msgctxt "release_status"
 msgid "Bootleg"
-msgstr "Bootleg"
+msgstr "No autorizada"
 
 #: DB:label_type/name:5
 msgctxt "label_type"
 msgid "Bootleg Production"
-msgstr "Producción de bootlegs"
+msgstr "Producción de pub. no autorizadas"
 
 #: DB:cover_art_archive.art_type/name:49
 msgctxt "cover_art_type"
@@ -3456,6 +3458,7 @@ msgid "Garuḍadhvani"
 msgstr "Garuḍadhvani"
 
 #: DB:release_packaging/name:12
+#, fuzzy
 msgctxt "release_packaging"
 msgid "Gatefold Cover"
 msgstr "Gatefold Cover"
@@ -4189,12 +4192,9 @@ msgid "ID for the Irish rights society IMRO"
 msgstr "ID para la sociedad irlandesa de derechos IMRO"
 
 #: DB:work_attribute_type/description:206
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Austrian rights society AKM"
 msgctxt "work_attribute_type"
 msgid "ID for the Israeli rights society ACUM"
-msgstr "ID de la sociedad austriaca de derechos AKM"
+msgstr "ID de la sociedad israelí de derechos ACUM"
 
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"
@@ -4227,12 +4227,9 @@ msgid "ID for the Latvian rights society AKKA/LAA"
 msgstr "ID para la sociedad letona de derechos AKKA/LAA"
 
 #: DB:work_attribute_type/description:207
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Latvian rights society AKKA/LAA"
 msgctxt "work_attribute_type"
 msgid "ID for the Lithuanian rights society LATGA"
-msgstr "ID para la sociedad letona de derechos AKKA/LAA"
+msgstr "ID para la sociedad lituana de derechos LATGA"
 
 #: DB:work_attribute_type/description:49
 msgctxt "work_attribute_type"
@@ -4364,6 +4361,14 @@ msgstr "Identificación para la sociedad venezolana de derechos SACVEN"
 msgctxt "work_attribute_type"
 msgid "ID for the Vietnamese rights society VCPMC"
 msgstr "Identificación para la sociedad de derechos vietnamita VCPMC"
+
+#: DB:work_attribute_type/description:208
+msgctxt "work_attribute_type"
+msgid ""
+"ID for the international (but primarily Italian) rights society Soundreef"
+msgstr ""
+"Identificación de la sociedad internacional de derechos Soundreef "
+"(principalmente italiana)"
 
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
@@ -5076,12 +5081,9 @@ msgid "Kōmal riṣabh asāvēri"
 msgstr "Kōmal riṣabh asāvēri"
 
 #: DB:work_attribute_type/name:207
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "APA ID"
 msgctxt "work_attribute_type"
 msgid "LATGA ID"
-msgstr "ID de APA"
+msgstr "ID de LATGA"
 
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"
@@ -5336,7 +5338,7 @@ msgstr "Misa"
 #: DB:event_type/name:5
 msgctxt "event_type"
 msgid "Masterclass/Clinic"
-msgstr "Masterclass/Clinic"
+msgstr "Clase magistral / clínica"
 
 #: DB:cover_art_archive.art_type/name:15
 msgctxt "cover_art_type"
@@ -5501,7 +5503,7 @@ msgstr "CD en modo mixto"
 #: DB:release_group_secondary_type/name:9
 msgctxt "release_group_secondary_type"
 msgid "Mixtape/Street"
-msgstr "Mixtape/Street"
+msgstr "Mixtape / Street album"
 
 #: DB:work_attribute_type_allowed_value/value:981
 msgctxt "work_attribute_type_allowed_value"
@@ -6213,6 +6215,24 @@ msgstr "Obi"
 msgctxt "release_status"
 msgid "Official"
 msgstr "Oficial"
+
+#: DB:medium_format/description:207
+#, fuzzy
+#| msgctxt "medium_format"
+#| msgid ""
+#| "One-sided 3\" vinyl records to be played with purpose-built players, "
+#| "originally developed in Japan and now mostly found as a Record Store Day "
+#| "curiosity."
+msgctxt "medium_format"
+msgid ""
+"One-sided 3\" vinyl records to be played with purpose-built players; "
+"originally developed in Japan and now mostly found as a Record Store Day "
+"curiosity."
+msgstr ""
+"Discos de vinilo de 3\" y una sola cara, que requieren tocadiscos "
+"especiales. El formato fue creado en Japón, pero en la actualidad se usa "
+"principalmente para discos de coleccionista vendidos durante el Record Store "
+"Day."
 
 #: DB:work_type/name:10
 msgctxt "work_type"
@@ -7407,6 +7427,11 @@ msgid ""
 msgstr ""
 "Clasifica los elementos en las series automáticamente por sus atributos "
 "numéricos, usando un orden de clasificación natural."
+
+#: DB:work_attribute_type/name:208
+msgctxt "work_attribute_type"
+msgid "Soundreef ID"
+msgstr "ID de Soundreef"
 
 #: DB:release_group_secondary_type/name:2
 msgctxt "release_group_secondary_type"

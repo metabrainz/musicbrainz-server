@@ -100,6 +100,14 @@ msgctxt "medium_format"
 msgid "12\" Vinyl"
 msgstr "Vinyle 30 cm (12 po)"
 
+#: DB:medium_format/name:207
+#, fuzzy
+#| msgctxt "medium_format"
+#| msgid "7\" Vinyl"
+msgctxt "medium_format"
+msgid "3\" Vinyl"
+msgstr "Vinyle 18 cm (7 po)"
+
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
@@ -4350,6 +4358,17 @@ msgctxt "work_attribute_type"
 msgid "ID for the Vietnamese rights society VCPMC"
 msgstr "ID pour la VCPMC, société vietnamienne de gestion des droits"
 
+#: DB:work_attribute_type/description:208
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the international (formerly US) rights society AMRA"
+msgctxt "work_attribute_type"
+msgid ""
+"ID for the international (but primarily Italian) rights society Soundreef"
+msgstr ""
+"ID pour l’AMRA, société internationale (initialement états-unienne) de "
+"gestion des droits"
+
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
@@ -6199,6 +6218,14 @@ msgctxt "release_status"
 msgid "Official"
 msgstr "Officiel"
 
+#: DB:medium_format/description:207
+msgctxt "medium_format"
+msgid ""
+"One-sided 3\" vinyl records to be played with purpose-built players; "
+"originally developed in Japan and now mostly found as a Record Store Day "
+"curiosity."
+msgstr ""
+
 #: DB:work_type/name:10
 msgctxt "work_type"
 msgid "Opera"
@@ -7394,6 +7421,11 @@ msgid ""
 msgstr ""
 "Trie les éléments de la série automatiquement par leurs attributs "
 "numériques, en utilisant un ordre de tri naturel."
+
+#: DB:work_attribute_type/name:208
+msgctxt "work_attribute_type"
+msgid "Soundreef ID"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:2
 msgctxt "release_group_secondary_type"

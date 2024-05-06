@@ -17,10 +17,11 @@
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 # "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
+# GABG <musicbrainz@gabg.email>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-31 15:28+0000\n"
+"PO-Revision-Date: 2024-04-27 18:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -31,7 +32,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -87,13 +88,13 @@ msgid ""
 "post. Examples include Facebook pages and profiles, Last.fm users and "
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Una pagina di social network è la pagina di un artista su un <a href=\"https"
-"://it.wikipedia.org/wiki/Social_network\" target=\"_blank\">social network</"
-"a>, dove solo l'artista (o i suoi agenti) può postare contenuti. Altre "
-"persone possono creare il proprio profilo e interagire con l'artista, ad "
-"esempio aggiungendoli come amici o commentando le cose che posta. Alcuni "
-"esempi sono pagine e profili Facebook, utenti Last.fm e account su Twitter, "
-"Instagram e Flickr."
+"Una pagina di social network è la pagina di un artista su un <a "
+"href=\"https://it.wikipedia.org/wiki/Social_network\" "
+"target=\"_blank\">social network</a>, dove solo l'artista (o i suoi agenti) "
+"può postare contenuti. Altre persone possono creare il proprio profilo e "
+"interagire con l'artista, ad esempio aggiungendoli come amici o commentando "
+"le cose che posta. Alcuni esempi sono pagine e profili Facebook, utenti Last."
+"fm e account su Twitter, Instagram e Flickr."
 
 #: DB:link_type/description:783
 msgid ""
@@ -954,10 +955,6 @@ msgstr ""
 msgid "Links a release to the event it was recorded at."
 msgstr "Collega una pubblicazione all'evento in cui è stata registrata."
 
-#: DB:link_type/description:865
-msgid "Links a release to the place it was arranged at."
-msgstr "Collega una pubblicazione al luogo in cui è stata arrangiata."
-
 #: DB:link_type/description:820
 msgid "Links a release to the place it was edited at."
 msgstr "Collega una pubblicazione al luogo in cui ne è stato fatto l'editing."
@@ -1382,7 +1379,7 @@ msgstr ""
 msgid "Spoken vocals (speech)"
 msgstr "Voce parlata"
 
-#: DB:link_type/long_link_phrase:880
+#: DB:link_type/long_link_phrase:880 DB:link_type/long_link_phrase:1249
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written at {entity0}"
 msgstr ""
@@ -1395,7 +1392,7 @@ msgid ""
 msgstr ""
 "Il libretto di {entity1} è stato scritto {additional:in aggiunta} a {entity0}"
 
-#: DB:link_type/long_link_phrase:878
+#: DB:link_type/long_link_phrase:878 DB:link_type/long_link_phrase:1250
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written at {entity0}"
 msgstr ""
@@ -1606,19 +1603,14 @@ msgstr ""
 "(articolo). Questo tipo di relazione va utilizzato in quest'ultimo caso."
 
 #: DB:link_type/description:125
-#, fuzzy
-#| msgid ""
-#| "This credits the people or agency who did the graphic design, arranging "
-#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
-#| "design."
 msgid ""
 "This credits the people or agency who did graphic design for a video "
 "recording, arranging pieces of content into a coherent and aesthetically-"
 "pleasing whole."
 msgstr ""
-"Accredita le persone o l'agenzia che hanno curato il progetto grafico, "
-"organizzandone i componenti in un design della custodia coerente e piacevole "
-"esteticamente."
+"Accredita le persone o l'agenzia che hanno curato il progetto grafico per "
+"una registrazione video, organizzandone i componenti in un design coerente e "
+"piacevole esteticamente."
 
 #: DB:link_type/description:202
 msgid ""
@@ -1949,10 +1941,8 @@ msgstr ""
 "pubblicazione."
 
 #: DB:link_type/description:1242
-#, fuzzy
-#| msgid "This indicates an artist who did design for the event."
 msgid "This indicates an artist who did design for a video recording."
-msgstr "Indica un artista che ha curato il design dell'evento."
+msgstr "Indica un artista che ha curato il design per una registrazione video."
 
 #: DB:link_type/description:1233
 msgid "This indicates an artist who did design for the event."
@@ -1963,10 +1953,9 @@ msgid "This indicates an artist who did design for the release."
 msgstr "Indica un artista che ha curato il design della pubblicazione."
 
 #: DB:link_type/description:1244
-#, fuzzy
-#| msgid "This indicates an artist who did illustration for the event."
 msgid "This indicates an artist who did illustration for a video recording."
-msgstr "Indica un artista che ha curato le illustrazioni dell'evento."
+msgstr ""
+"Indica un artista che ha curato le illustrazioni di una registrazione video."
 
 #: DB:link_type/description:1232
 msgid "This indicates an artist who did illustration for the event."
@@ -2003,16 +1992,12 @@ msgstr ""
 "pratici che hanno a che fare con la creazione di una registrazione musicale."
 
 #: DB:link_type/description:1241
-#, fuzzy
-#| msgid ""
-#| "This indicates an artist who provided artwork for the event when no more "
-#| "specific information is available."
 msgid ""
 "This indicates an artist who provided artwork for a video recording when no "
 "more specific information is available."
 msgstr ""
-"Indica un artista che ha curato il materiale illustrativo dell'evento quando "
-"non sono disponibili informazioni più specifiche."
+"Indica un artista che ha curato il materiale illustrativo di una "
+"registrazione video quando non sono disponibili informazioni più specifiche."
 
 #: DB:link_type/description:1231
 msgid ""
@@ -3337,8 +3322,8 @@ msgstr ""
 "Collega un gruppo di pubblicazioni a un artista a cui è dedicato. Si "
 "riferisce a dediche come per es. \"Quest'album è dedicato alla memoria di "
 "Artista\". Per album tributo che contengono cover dell'artista, utilizza la "
-"<a href=\"/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" target="
-"\"_blank\">relazione tributo</a>."
+"<a href=\"/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" "
+"target=\"_blank\">relazione tributo</a>."
 
 #: DB:link_type/description:65
 msgid ""
@@ -3428,6 +3413,36 @@ msgid ""
 msgstr ""
 "Collega una pubblicazione al progetto di crowdfunding dedicatole su un sito "
 "come Kickstarter o Indiegogo."
+
+#: DB:link_type/description:865
+msgid "This links a release with the place it was arranged at."
+msgstr "Collega una pubblicazione al luogo in cui è stata arrangiata."
+
+#: DB:link_type/description:1251
+msgid "This links a release with the place it was composed at."
+msgstr "Collega una pubblicazione al luogo in cui è stata composta."
+
+#: DB:link_type/description:1248
+msgid "This links a release with the place it was revised at."
+msgstr "Collega una pubblicazione al luogo in cui è stata rivista."
+
+#: DB:link_type/description:1247
+msgid "This links a release with the place it was translated at."
+msgstr "Collega una pubblicazione al luogo in cui è stata tradotta."
+
+#: DB:link_type/description:1246
+msgid "This links a release with the place it was written at."
+msgstr "Collega una pubblicazione al luogo in cui è stata scritta."
+
+#: DB:link_type/description:1249
+msgid "This links a release with the place its libretto was written at."
+msgstr ""
+"Collega una pubblicazione al luogo in cui ne è stato scritto il libretto."
+
+#: DB:link_type/description:1250
+msgid "This links a release with the place its lyrics were written at."
+msgstr ""
+"Collega una pubblicazione al luogo in cui sono stati scritti i suoi testi."
 
 #: DB:link_type/description:870
 msgid ""
@@ -4902,6 +4917,13 @@ msgstr ""
 "Usa questa relazione per accreditamenti come \"Registrazione arrangiata da X "
 "per Etichetta\"."
 
+#: DB:link_type/description:1252 DB:link_type/description:1253
+msgid ""
+"Use this relationship for credits like “Recording was edited by X for Label”."
+msgstr ""
+"Usa questa relazione per accreditamenti come \"Editing della registrazione a "
+"cura di X per Etichetta\"."
+
 #: DB:link_type/description:946
 msgid ""
 "Use this relationship for credits like “Recording was mixed by X for Label”."
@@ -5180,8 +5202,8 @@ msgstr "compare nel video"
 msgid "apple music"
 msgstr "apple music"
 
-#: DB:link_type/name:866 DB:link_type/name:865 DB:link_type/name:886
-#: DB:link_type/reverse_link_phrase:866 DB:link_type/reverse_link_phrase:865
+#: DB:link_type/name:865 DB:link_type/name:866 DB:link_type/name:886
+#: DB:link_type/reverse_link_phrase:866
 msgid "arranged at"
 msgstr "arrangiata presso"
 
@@ -5216,7 +5238,7 @@ msgid "arranging"
 msgstr "arrangiamento"
 
 #: DB:link_type/link_phrase:864 DB:link_type/link_phrase:863
-#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:865
+#: DB:link_type/link_phrase:866
 msgid "arranging location for"
 msgstr "luogo di arrangiamento per"
 
@@ -5563,7 +5585,7 @@ msgstr "compilata in"
 msgid "compiler"
 msgstr "compilatore"
 
-#: DB:link_type/name:876
+#: DB:link_type/name:1251 DB:link_type/name:876
 msgid "composed at"
 msgstr "composta presso"
 
@@ -5654,6 +5676,10 @@ msgstr "contratto"
 #: DB:link_type/link_phrase:949 DB:link_type/link_phrase:948
 msgid "contracted arrangement for"
 msgstr "ha stipulato un contratto di arrangiamento per"
+
+#: DB:link_type/link_phrase:1252 DB:link_type/link_phrase:1253
+msgid "contracted editing for"
+msgstr "ha stipulato un contratto di editing per"
 
 #: DB:link_type/link_phrase:952
 msgid "contracted manufacturing for"
@@ -5917,6 +5943,11 @@ msgstr "edit di"
 #: DB:link_type/name:819 DB:link_type/name:820
 msgid "edited at"
 msgstr "editing effettuato presso"
+
+#: DB:link_type/name:1252 DB:link_type/name:1253
+#: DB:link_type/reverse_link_phrase:1252 DB:link_type/reverse_link_phrase:1253
+msgid "edited for"
+msgstr "editing effettuato per"
 
 #: DB:link_type/name:822 DB:link_type/name:821
 msgid "edited in"
@@ -7024,7 +7055,7 @@ msgstr "livello di studi"
 msgid "librettist"
 msgstr "librettista"
 
-#: DB:link_type/name:880
+#: DB:link_type/name:880 DB:link_type/name:1249
 msgid "libretto written at"
 msgstr "libretto scritto presso"
 
@@ -7032,7 +7063,7 @@ msgstr "libretto scritto presso"
 msgid "libretto written in"
 msgstr "libretto scritto a"
 
-#: DB:link_type/reverse_link_phrase:880
+#: DB:link_type/reverse_link_phrase:880 DB:link_type/reverse_link_phrase:1249
 msgid "libretto {additional:additionally} written at"
 msgstr "libretto scritto {additional:in aggiunta} presso"
 
@@ -7139,7 +7170,7 @@ msgstr "pagina di testi di"
 msgid "lyrics quoted in"
 msgstr "testi citati in"
 
-#: DB:link_type/name:878
+#: DB:link_type/name:878 DB:link_type/name:1250
 msgid "lyrics written at"
 msgstr "testi scritti presso"
 
@@ -8269,7 +8300,8 @@ msgstr "recensioni"
 msgid "revised"
 msgstr "ha rivisto"
 
-#: DB:link_type/name:882 DB:link_type/reverse_link_phrase:882
+#: DB:link_type/name:882 DB:link_type/name:1248
+#: DB:link_type/reverse_link_phrase:882 DB:link_type/reverse_link_phrase:1248
 msgid "revised at"
 msgstr "rivista presso"
 
@@ -8282,6 +8314,7 @@ msgid "revised in"
 msgstr "rivista a"
 
 #: DB:link_type/link_phrase:881 DB:link_type/link_phrase:882
+#: DB:link_type/link_phrase:1248
 msgid "revising location for"
 msgstr "luogo di revisione per"
 
@@ -8679,7 +8712,8 @@ msgstr "elenco di tracce traslitterato/tradotto"
 msgid "translated"
 msgstr "tradotta"
 
-#: DB:link_type/name:883 DB:link_type/reverse_link_phrase:883
+#: DB:link_type/name:883 DB:link_type/name:1247
+#: DB:link_type/reverse_link_phrase:883 DB:link_type/reverse_link_phrase:1247
 msgid "translated at"
 msgstr "tradotta presso"
 
@@ -8991,7 +9025,7 @@ msgstr "opere eseguite per la prima volta"
 msgid "writer"
 msgstr "autore"
 
-#: DB:link_type/name:874
+#: DB:link_type/name:874 DB:link_type/name:1246
 msgid "written at"
 msgstr "scritta presso"
 
@@ -9024,7 +9058,7 @@ msgstr ""
 "{medley:medley che comprendono} registrazioni {acappella:a cappella} {live:"
 "dal vivo} {partial:parziali} {instrumental:strumentali} {cover} {karaoke}"
 
-#: DB:link_type/reverse_link_phrase:886
+#: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
 msgstr "arrangiata {additional:in aggiunta} presso"
 
@@ -9037,7 +9071,7 @@ msgstr "arrangiata {additional:in aggiunta} a"
 msgid "{additional:additionally} composed"
 msgstr "ha composto {additional:in aggiunta}"
 
-#: DB:link_type/reverse_link_phrase:876
+#: DB:link_type/reverse_link_phrase:1251 DB:link_type/reverse_link_phrase:876
 msgid "{additional:additionally} composed at"
 msgstr "ha composto {additional:in aggiunta} presso"
 
@@ -9136,7 +9170,7 @@ msgstr "ha tradotto {additional:in aggiunta}"
 msgid "{additional:additionally} translated in"
 msgstr "è stata tradotta {additional:in aggiunta} a"
 
-#: DB:link_type/reverse_link_phrase:874
+#: DB:link_type/reverse_link_phrase:874 DB:link_type/reverse_link_phrase:1246
 msgid "{additional:additionally} written at"
 msgstr "scritta {additional:in aggiunta} presso"
 
@@ -9310,7 +9344,8 @@ msgstr "{pre:pre-}{re}mastering effettuato {additional:in aggiunta} a"
 msgid "{additional} animation"
 msgstr "animazioni {additional:aggiuntive}"
 
-#: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
 msgstr "luogo {additional:aggiuntivo} di arrangiamento per"
 
@@ -9330,8 +9365,12 @@ msgstr "copertine {additional:aggiuntive}"
 msgid "{additional} composer"
 msgstr "compositore {additional:aggiunto}"
 
-#: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
+#: DB:link_type/link_phrase:875
 msgid "{additional} composing location for"
+msgstr "luogo {additional:aggiuntivo} di composizione per"
+
+#: DB:link_type/link_phrase:1251 DB:link_type/link_phrase:876
+msgid "{additional} composition location for"
 msgstr "luogo {additional:aggiuntivo} di composizione per"
 
 #: DB:link_type/link_phrase:63 DB:link_type/link_phrase:146
@@ -9386,6 +9425,7 @@ msgid "{additional} libretto"
 msgstr "libretto {additional:aggiuntivo}"
 
 #: DB:link_type/link_phrase:879 DB:link_type/link_phrase:880
+#: DB:link_type/link_phrase:1249
 msgid "{additional} libretto writing location for"
 msgstr "luogo {additional:aggiuntivo} di scrittura del libretto per"
 
@@ -9402,10 +9442,11 @@ msgid "{additional} lyrics"
 msgstr "testi {additional:aggiuntivi}"
 
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
+#: DB:link_type/link_phrase:1250
 msgid "{additional} lyrics writing location for"
 msgstr "luogo di scrittura dei testi {additional:aggiuntivi} per"
 
-#: DB:link_type/reverse_link_phrase:878
+#: DB:link_type/reverse_link_phrase:878 DB:link_type/reverse_link_phrase:1250
 msgid "{additional} lyrics written at"
 msgstr "testi {additional:aggiuntivi} scritti presso"
 
@@ -9465,6 +9506,7 @@ msgid "{additional} transferring location for"
 msgstr "luogo {additional:aggiuntivo} di trasferimento per"
 
 #: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
+#: DB:link_type/link_phrase:1247
 msgid "{additional} translating location for"
 msgstr "luogo {additional:aggiuntivo} di traduzione per"
 
@@ -9477,6 +9519,7 @@ msgid "{additional} writer"
 msgstr "autore {additional:aggiunto}"
 
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
+#: DB:link_type/link_phrase:1246
 msgid "{additional} writing location for"
 msgstr "luogo {additional:aggiuntivo} di scrittura per"
 
@@ -9868,7 +9911,7 @@ msgstr "{entity1} è/è stato il locale per concerti principale di {entity0}"
 msgid "{entity1} presented {entity0}"
 msgstr "{entity1} ha presentato {entity0}"
 
-#: DB:link_type/long_link_phrase:866 DB:link_type/long_link_phrase:865
+#: DB:link_type/long_link_phrase:866
 msgid "{entity1} was arranged at {entity0}"
 msgstr "{entity1} è stata arrangiata presso {entity0}"
 
@@ -9883,6 +9926,10 @@ msgstr "{entity1} è stata arrangiata a {entity0}"
 #: DB:link_type/long_link_phrase:795
 msgid "{entity1} was available at {entity0}"
 msgstr "{entity1} è stata disponibile su {entity0}"
+
+#: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
+msgid "{entity1} was edited for {entity0}"
+msgstr "{entity1} ha ricevuto l'editing per {entity0}"
 
 #: DB:link_type/long_link_phrase:954
 msgid "{entity1} was glass mastered at {entity0}"
@@ -9952,7 +9999,7 @@ msgstr "{entity1} è stata registrata presso {entity0}"
 msgid "{entity1} was remixed for {entity0}"
 msgstr "{entity1} è stata remixata per {entity0}"
 
-#: DB:link_type/long_link_phrase:882
+#: DB:link_type/long_link_phrase:882 DB:link_type/long_link_phrase:1248
 msgid "{entity1} was revised at {entity0}"
 msgstr "{entity1} è stata rivista presso {entity0}"
 
@@ -9960,7 +10007,7 @@ msgstr "{entity1} è stata rivista presso {entity0}"
 msgid "{entity1} was revised in {entity0}"
 msgstr "{entity1} è stata rivista a {entity0}"
 
-#: DB:link_type/long_link_phrase:886
+#: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:886
 msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr "{entity1} è stata arrangiata {additional:in aggiunta} presso {entity0}"
 
@@ -9968,7 +10015,7 @@ msgstr "{entity1} è stata arrangiata {additional:in aggiunta} presso {entity0}"
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr "{entity1} è stata arrangiata {additional:in aggiunta} a {entity0}"
 
-#: DB:link_type/long_link_phrase:876
+#: DB:link_type/long_link_phrase:1251 DB:link_type/long_link_phrase:876
 msgid "{entity1} was {additional:additionally} composed at {entity0}"
 msgstr "{entity1} è stata composta {additional:in aggiunta} presso {entity0}"
 
@@ -10040,7 +10087,7 @@ msgstr "{entity1} è stato girato {additional:in aggiunta} a {entity0}"
 msgid "{entity1} was {additional:additionally} transferred at {entity0}"
 msgstr "{entity1} è stata trasferita {additional:in aggiunta} presso {entity0}"
 
-#: DB:link_type/long_link_phrase:883
+#: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
 msgid "{entity1} was {additional:additionally} translated at {entity0}"
 msgstr "{entity1} è stata tradotta {additional:in aggiunta} presso {entity0}"
 
@@ -10048,7 +10095,7 @@ msgstr "{entity1} è stata tradotta {additional:in aggiunta} presso {entity0}"
 msgid "{entity1} was {additional:additionally} translated in {entity0}"
 msgstr "{entity1} è stata tradotta {additional:in aggiunta} a {entity0}"
 
-#: DB:link_type/long_link_phrase:874
+#: DB:link_type/long_link_phrase:874 DB:link_type/long_link_phrase:1246
 msgid "{entity1} was {additional:additionally} written at {entity0}"
 msgstr "{entity1} è stata scritta {additional:in aggiunta} presso {entity0}"
 
@@ -10156,6 +10203,9 @@ msgstr "supporto {vocal:%|alla voce} da parte di"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "supporto {vocal:%|alla voce} per"
+
+#~ msgid "Links a release to the place it was arranged at."
+#~ msgstr "Collega una pubblicazione al luogo in cui è stata arrangiata."
 
 #~ msgid ""
 #~ "{live} {medley:medley including a} {partial} {instrumental} {cover} "

@@ -24,16 +24,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-01-31 19:29+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.3.1\n"
 
 #. frequency:1 iso_code_3:abk 
@@ -1975,6 +1975,13 @@ msgstr "Prácritas, lenguas"
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "Provenzal antiguo (hasta 1500)"
+
+#. frequency:1 iso_code_3:prg 
+#: DB:language/name:5521
+#, fuzzy
+#| msgid "Russian"
+msgid "Prussian"
+msgstr "Ruso"
 
 #. frequency:1 iso_code_3:pan 
 #: DB:language/name:330

@@ -958,10 +958,6 @@ msgstr "Dit koppelt een uitgave aan de persoon die de lakplaat heeft gesneden."
 msgid "Links a release to the event it was recorded at."
 msgstr "Dit koppelt de uitgave aan het evenement waarbij ze werd opgenomen."
 
-#: DB:link_type/description:865
-msgid "Links a release to the place it was arranged at."
-msgstr "Dit koppelt de uitgave aan de plaats waar ze werd gearrangeerd."
-
 #: DB:link_type/description:820
 msgid "Links a release to the place it was edited at."
 msgstr "Dit koppelt de uitgave aan de plaats waar ze werd geëdit."
@@ -1381,7 +1377,7 @@ msgstr ""
 msgid "Spoken vocals (speech)"
 msgstr "Gesproken vocalen (spraak)"
 
-#: DB:link_type/long_link_phrase:880
+#: DB:link_type/long_link_phrase:880 DB:link_type/long_link_phrase:1249
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written at {entity0}"
 msgstr ""
@@ -1395,7 +1391,7 @@ msgstr ""
 "Het libretto van {entity1} werd {additional:aanvullend} geschreven in "
 "{entity0}"
 
-#: DB:link_type/long_link_phrase:878
+#: DB:link_type/long_link_phrase:878 DB:link_type/long_link_phrase:1250
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written at {entity0}"
 msgstr ""
@@ -3406,6 +3402,50 @@ msgstr ""
 "Dit koppelt een uitgave aan een gerelateerd project op een "
 "crowdfundingwebsite zoals Kickstarter of Indiegogo."
 
+#: DB:link_type/description:865
+#, fuzzy
+#| msgid "This links a work with the place it was arranged at."
+msgid "This links a release with the place it was arranged at."
+msgstr "Dit koppelt een compositie aan de plaats waar ze werd gearrangeerd."
+
+#: DB:link_type/description:1251
+#, fuzzy
+#| msgid "This links a work with the place it was composed at."
+msgid "This links a release with the place it was composed at."
+msgstr "Dit koppelt een compositie aan de plaats waar ze werd gecomponeerd."
+
+#: DB:link_type/description:1248
+#, fuzzy
+#| msgid "This links a work with the place it was revised at."
+msgid "This links a release with the place it was revised at."
+msgstr "Dit koppelt een compositie aan de plaats waar ze werd herzien."
+
+#: DB:link_type/description:1247
+#, fuzzy
+#| msgid "This links a work with the place it was translated at."
+msgid "This links a release with the place it was translated at."
+msgstr "Dit koppelt een compositie aan de plaats waar ze werd vertaald."
+
+#: DB:link_type/description:1246
+#, fuzzy
+#| msgid "This links a work with the place it was written at."
+msgid "This links a release with the place it was written at."
+msgstr "Dit koppelt een compositie aan de plaats waar ze werd geschreven."
+
+#: DB:link_type/description:1249
+#, fuzzy
+#| msgid "This links a work with the place its libretto was written at."
+msgid "This links a release with the place its libretto was written at."
+msgstr ""
+"Dit koppelt een compositie aan de plaats waar het libretto werd geschreven."
+
+#: DB:link_type/description:1250
+#, fuzzy
+#| msgid "This links a work with the place its lyrics were written at."
+msgid "This links a release with the place its lyrics were written at."
+msgstr ""
+"Dit koppelt een compositie aan de plaats waar de tekst werd geschreven."
+
 #: DB:link_type/description:870
 msgid ""
 "This links a series (most commonly, but not necessarily always, a music "
@@ -4815,6 +4855,17 @@ msgstr ""
 "Gebruik dit voor vermeldingen zoals “Opname werd door X voor "
 "Platenmaatschappij Y gearrangeerd”."
 
+#: DB:link_type/description:1252 DB:link_type/description:1253
+#, fuzzy
+#| msgid ""
+#| "Use this relationship for credits like “Recording was remixed by X for "
+#| "Label”."
+msgid ""
+"Use this relationship for credits like “Recording was edited by X for Label”."
+msgstr ""
+"Gebruik dit voor vermeldingen zoals “Opname werd door X voor "
+"Platenmaatschappij Y gemixt”."
+
 #: DB:link_type/description:946
 msgid ""
 "Use this relationship for credits like “Recording was mixed by X for Label”."
@@ -5101,8 +5152,8 @@ msgstr "is te zien in de clip van"
 msgid "apple music"
 msgstr "Apple Music"
 
-#: DB:link_type/name:866 DB:link_type/name:865 DB:link_type/name:886
-#: DB:link_type/reverse_link_phrase:866 DB:link_type/reverse_link_phrase:865
+#: DB:link_type/name:865 DB:link_type/name:866 DB:link_type/name:886
+#: DB:link_type/reverse_link_phrase:866
 msgid "arranged at"
 msgstr "gearrangeerd bij"
 
@@ -5137,7 +5188,7 @@ msgid "arranging"
 msgstr "arrangeren"
 
 #: DB:link_type/link_phrase:864 DB:link_type/link_phrase:863
-#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:865
+#: DB:link_type/link_phrase:866
 msgid "arranging location for"
 msgstr "hier gearrangeerd"
 
@@ -5489,7 +5540,7 @@ msgstr "samengesteld in"
 msgid "compiler"
 msgstr "samensteller"
 
-#: DB:link_type/name:876
+#: DB:link_type/name:1251 DB:link_type/name:876
 msgid "composed at"
 msgstr "gecomponeerd bij"
 
@@ -5580,6 +5631,12 @@ msgstr "contract"
 #: DB:link_type/link_phrase:949 DB:link_type/link_phrase:948
 msgid "contracted arrangement for"
 msgstr "gearrangeerd in opdracht van"
+
+#: DB:link_type/link_phrase:1252 DB:link_type/link_phrase:1253
+#, fuzzy
+#| msgid "contracted remixing for"
+msgid "contracted editing for"
+msgstr "geremixt in opdracht van"
 
 #: DB:link_type/link_phrase:952
 msgid "contracted manufacturing for"
@@ -5842,6 +5899,13 @@ msgstr "edit van"
 #: DB:link_type/name:819 DB:link_type/name:820
 msgid "edited at"
 msgstr "geëdit bij"
+
+#: DB:link_type/name:1252 DB:link_type/name:1253
+#: DB:link_type/reverse_link_phrase:1252 DB:link_type/reverse_link_phrase:1253
+#, fuzzy
+#| msgid "remixed for"
+msgid "edited for"
+msgstr "geremixt voor"
 
 #: DB:link_type/name:822 DB:link_type/name:821
 msgid "edited in"
@@ -6968,7 +7032,7 @@ msgstr "onderwijsniveau"
 msgid "librettist"
 msgstr "librettist"
 
-#: DB:link_type/name:880
+#: DB:link_type/name:880 DB:link_type/name:1249
 msgid "libretto written at"
 msgstr "libretto geschreven bij"
 
@@ -6976,7 +7040,7 @@ msgstr "libretto geschreven bij"
 msgid "libretto written in"
 msgstr "libretto geschreven in"
 
-#: DB:link_type/reverse_link_phrase:880
+#: DB:link_type/reverse_link_phrase:880 DB:link_type/reverse_link_phrase:1249
 msgid "libretto {additional:additionally} written at"
 msgstr "libretto {additional:aanvullend} geschreven bij"
 
@@ -7083,7 +7147,7 @@ msgstr "tekst van"
 msgid "lyrics quoted in"
 msgstr "tekst geciteerd in"
 
-#: DB:link_type/name:878
+#: DB:link_type/name:878 DB:link_type/name:1250
 msgid "lyrics written at"
 msgstr "teksten geschreven bij"
 
@@ -8212,7 +8276,8 @@ msgstr "recensies"
 msgid "revised"
 msgstr "herzien"
 
-#: DB:link_type/name:882 DB:link_type/reverse_link_phrase:882
+#: DB:link_type/name:882 DB:link_type/name:1248
+#: DB:link_type/reverse_link_phrase:882 DB:link_type/reverse_link_phrase:1248
 msgid "revised at"
 msgstr "herzien bij"
 
@@ -8225,6 +8290,7 @@ msgid "revised in"
 msgstr "herzien in"
 
 #: DB:link_type/link_phrase:881 DB:link_type/link_phrase:882
+#: DB:link_type/link_phrase:1248
 msgid "revising location for"
 msgstr "hier herzien"
 
@@ -8624,7 +8690,8 @@ msgstr "getranscribeerd/vertaald"
 msgid "translated"
 msgstr "vertaald"
 
-#: DB:link_type/name:883 DB:link_type/reverse_link_phrase:883
+#: DB:link_type/name:883 DB:link_type/name:1247
+#: DB:link_type/reverse_link_phrase:883 DB:link_type/reverse_link_phrase:1247
 msgid "translated at"
 msgstr "vertaald bij"
 
@@ -8938,7 +9005,7 @@ msgstr "bracht in première"
 msgid "writer"
 msgstr "schrijver"
 
-#: DB:link_type/name:874
+#: DB:link_type/name:874 DB:link_type/name:1246
 msgid "written at"
 msgstr "geschreven bij"
 
@@ -8979,7 +9046,7 @@ msgstr ""
 "{live:live} {medley:medley met }{partial:gedeeltelijke }{instrumental:"
 "instrumentale }{cover:cover}{karaoke:karaoke}opnamen"
 
-#: DB:link_type/reverse_link_phrase:886
+#: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
 msgstr "{additional:aanvullend} gearrangeerd bij"
 
@@ -8992,7 +9059,7 @@ msgstr "{additional:aanvullend} gearrangeerd in"
 msgid "{additional:additionally} composed"
 msgstr "componeerde {additional:aanvullend}"
 
-#: DB:link_type/reverse_link_phrase:876
+#: DB:link_type/reverse_link_phrase:1251 DB:link_type/reverse_link_phrase:876
 msgid "{additional:additionally} composed at"
 msgstr "{additional:aanvullend} gecomponeerd bij"
 
@@ -9091,7 +9158,7 @@ msgstr "{additional:aanvullend} vertaalde"
 msgid "{additional:additionally} translated in"
 msgstr "{additional:aanvullend} vertaald in"
 
-#: DB:link_type/reverse_link_phrase:874
+#: DB:link_type/reverse_link_phrase:874 DB:link_type/reverse_link_phrase:1246
 msgid "{additional:additionally} written at"
 msgstr "{additional:aanvullend} geschreven bij"
 
@@ -9267,7 +9334,8 @@ msgstr "{additional:aanvullend} ge{pre:pre}{re}masterd in"
 msgid "{additional} animation"
 msgstr "{additional:aanvullende} illustratie"
 
-#: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
 msgstr "hier {additional:aanvullend }geschreven"
 
@@ -9287,8 +9355,14 @@ msgstr "{additional:aanvullend} artwork"
 msgid "{additional} composer"
 msgstr "{additional:aanvullend} componist"
 
-#: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
+#: DB:link_type/link_phrase:875
 msgid "{additional} composing location for"
+msgstr "hier {additional:aanvullend }gecomponeerd"
+
+#: DB:link_type/link_phrase:1251 DB:link_type/link_phrase:876
+#, fuzzy
+#| msgid "{additional} composing location for"
+msgid "{additional} composition location for"
 msgstr "hier {additional:aanvullend }gecomponeerd"
 
 #: DB:link_type/link_phrase:63 DB:link_type/link_phrase:146
@@ -9343,6 +9417,7 @@ msgid "{additional} libretto"
 msgstr "{additional:aanvullend} libretto"
 
 #: DB:link_type/link_phrase:879 DB:link_type/link_phrase:880
+#: DB:link_type/link_phrase:1249
 msgid "{additional} libretto writing location for"
 msgstr ""
 "is de locatie waar het libretto {additional:aanvullend} geschreven werd"
@@ -9360,10 +9435,11 @@ msgid "{additional} lyrics"
 msgstr "{additional:aanvullende} tekst"
 
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
+#: DB:link_type/link_phrase:1250
 msgid "{additional} lyrics writing location for"
 msgstr "{additional:aanvullende} schrijflocatie van de tekst van"
 
-#: DB:link_type/reverse_link_phrase:878
+#: DB:link_type/reverse_link_phrase:878 DB:link_type/reverse_link_phrase:1250
 msgid "{additional} lyrics written at"
 msgstr "{additional:aanvullende} tekst geschreven bij"
 
@@ -9423,6 +9499,7 @@ msgid "{additional} transferring location for"
 msgstr "{additional:aanvullende} overzetlocatie van"
 
 #: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
+#: DB:link_type/link_phrase:1247
 msgid "{additional} translating location for"
 msgstr "{additional:aanvullende} vertaallocatie van"
 
@@ -9435,6 +9512,7 @@ msgid "{additional} writer"
 msgstr "{additional:aanvullend} schrijver"
 
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
+#: DB:link_type/link_phrase:1246
 msgid "{additional} writing location for"
 msgstr "{additional:aanvullende} schrijflocatie van"
 
@@ -9836,7 +9914,7 @@ msgstr "{entity1} is of was de standaard concertlocatie van {entity0}"
 msgid "{entity1} presented {entity0}"
 msgstr "{entity1} presenteerde {entity0}"
 
-#: DB:link_type/long_link_phrase:866 DB:link_type/long_link_phrase:865
+#: DB:link_type/long_link_phrase:866
 msgid "{entity1} was arranged at {entity0}"
 msgstr "{entity1} werd gearrangeerd bij {entity0}"
 
@@ -9851,6 +9929,12 @@ msgstr "{entity1} werd gearrangeerd in {entity0}"
 #: DB:link_type/long_link_phrase:795
 msgid "{entity1} was available at {entity0}"
 msgstr "{entity1} was verkrijgbaar bij {entity0}"
+
+#: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
+#, fuzzy
+#| msgid "{entity1} was remixed for {entity0}"
+msgid "{entity1} was edited for {entity0}"
+msgstr "{entity1} werd geremixt voor {entity0}"
 
 #: DB:link_type/long_link_phrase:954
 msgid "{entity1} was glass mastered at {entity0}"
@@ -9920,7 +10004,7 @@ msgstr "{entity1} werd opgenomen bij {entity0}"
 msgid "{entity1} was remixed for {entity0}"
 msgstr "{entity1} werd geremixt voor {entity0}"
 
-#: DB:link_type/long_link_phrase:882
+#: DB:link_type/long_link_phrase:882 DB:link_type/long_link_phrase:1248
 msgid "{entity1} was revised at {entity0}"
 msgstr "{entity1} werd herzien bij {entity0}"
 
@@ -9928,7 +10012,7 @@ msgstr "{entity1} werd herzien bij {entity0}"
 msgid "{entity1} was revised in {entity0}"
 msgstr "{entity1} werd herzien in {entity0}"
 
-#: DB:link_type/long_link_phrase:886
+#: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:886
 msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} gearrangeerd bij {entity0}"
 
@@ -9936,7 +10020,7 @@ msgstr "{entity1} werd {additional:aanvullend} gearrangeerd bij {entity0}"
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} gearrangeerd in {entity0}"
 
-#: DB:link_type/long_link_phrase:876
+#: DB:link_type/long_link_phrase:1251 DB:link_type/long_link_phrase:876
 msgid "{entity1} was {additional:additionally} composed at {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} gecomponeerd bij {entity0}"
 
@@ -10010,7 +10094,7 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} transferred at {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} overgezet bij {entity0}"
 
-#: DB:link_type/long_link_phrase:883
+#: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
 msgid "{entity1} was {additional:additionally} translated at {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} vertaald bij {entity0}"
 
@@ -10018,7 +10102,7 @@ msgstr "{entity1} werd {additional:aanvullend} vertaald bij {entity0}"
 msgid "{entity1} was {additional:additionally} translated in {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} vertaald in {entity0}"
 
-#: DB:link_type/long_link_phrase:874
+#: DB:link_type/long_link_phrase:874 DB:link_type/long_link_phrase:1246
 msgid "{entity1} was {additional:additionally} written at {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} geschreven bij {entity0}"
 
@@ -10122,6 +10206,9 @@ msgstr "{vocal:%|vocale} ondersteuning door"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocale} ondersteuning voor"
+
+#~ msgid "Links a release to the place it was arranged at."
+#~ msgstr "Dit koppelt de uitgave aan de plaats waar ze werd gearrangeerd."
 
 #~ msgid ""
 #~ "{live} {medley:medley including a} {partial} {instrumental} {cover} "

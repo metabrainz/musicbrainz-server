@@ -872,10 +872,6 @@ msgstr "קישור הוצאה למהנדס שביצע את חיתוך הלכה."
 msgid "Links a release to the event it was recorded at."
 msgstr "קישור ההוצאה לארוע בו הוקלטה."
 
-#: DB:link_type/description:865
-msgid "Links a release to the place it was arranged at."
-msgstr "קישור ההוצאה למקום בו עובדה."
-
 #: DB:link_type/description:820
 msgid "Links a release to the place it was edited at."
 msgstr "קישור ההוצאה למקום בו נערכה."
@@ -1295,7 +1291,7 @@ msgstr "ציון הנושא אותו מורה לימד במוסד ו/או תלמ
 msgid "Spoken vocals (speech)"
 msgstr "קולות דיבור (דיבור)"
 
-#: DB:link_type/long_link_phrase:880
+#: DB:link_type/long_link_phrase:880 DB:link_type/long_link_phrase:1249
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written at {entity0}"
 msgstr "הליברטו ל־{entity1} {additional:additionally} נכתב ב־{entity0}"
@@ -1305,7 +1301,7 @@ msgid ""
 "The libretto for {entity1} was {additional:additionally} written in {entity0}"
 msgstr "הליברטו ל־{entity1} {additional:additionally} נכתב ב־{entity0}"
 
-#: DB:link_type/long_link_phrase:878
+#: DB:link_type/long_link_phrase:878 DB:link_type/long_link_phrase:1250
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written at {entity0}"
 msgstr "התמליל ל־{entity1} {additional:additionally} נכתב ב־{entity0}"
@@ -3052,6 +3048,48 @@ msgid ""
 "site like Kickstarter or Indiegogo."
 msgstr "קישור הוצאה לפרופיל שלה באתר גיוס-המונים כגון קיקסטארט או אינדיגוגו."
 
+#: DB:link_type/description:865
+#, fuzzy
+#| msgid "This links a work with the place it was arranged at."
+msgid "This links a release with the place it was arranged at."
+msgstr "קישור יצירה למקום בו עובדה."
+
+#: DB:link_type/description:1251
+#, fuzzy
+#| msgid "This links a work with the place it was composed at."
+msgid "This links a release with the place it was composed at."
+msgstr "קישור יצירה למקום בו הולחנה."
+
+#: DB:link_type/description:1248
+#, fuzzy
+#| msgid "This links a work with the place it was revised at."
+msgid "This links a release with the place it was revised at."
+msgstr "קישור יצירה למקום בו הֻגַּהּה."
+
+#: DB:link_type/description:1247
+#, fuzzy
+#| msgid "This links a work with the place it was translated at."
+msgid "This links a release with the place it was translated at."
+msgstr "קישור יצירה למקום בו תורגמה."
+
+#: DB:link_type/description:1246
+#, fuzzy
+#| msgid "This links a work with the place it was written at."
+msgid "This links a release with the place it was written at."
+msgstr "קישור יצירה למקום בו נכתבה."
+
+#: DB:link_type/description:1249
+#, fuzzy
+#| msgid "This links a work with the place its libretto was written at."
+msgid "This links a release with the place its libretto was written at."
+msgstr "קישור יצירה למקום בו נכתב הלִיברִטו."
+
+#: DB:link_type/description:1250
+#, fuzzy
+#| msgid "This links a work with the place its lyrics were written at."
+msgid "This links a release with the place its lyrics were written at."
+msgstr "קישור יצירה למקום בו נכתב התַּמְלִיל."
+
 #: DB:link_type/description:870
 msgid ""
 "This links a series (most commonly, but not necessarily always, a music "
@@ -4391,6 +4429,16 @@ msgid ""
 msgstr ""
 "שימוש בקשר־גומלין זה למזכים כגון \"הקלטה עובדה על־ידי X עבור חברת תקליטים\""
 
+#: DB:link_type/description:1252 DB:link_type/description:1253
+#, fuzzy
+#| msgid ""
+#| "Use this relationship for credits like \"Recording was mixed by X for "
+#| "Label\""
+msgid ""
+"Use this relationship for credits like “Recording was edited by X for Label”."
+msgstr ""
+"שימוש בקשר־גומלין זה למזכים כגון \"הקלטה עורבלה על־ידי X עבור חברת תקליטים\""
+
 #: DB:link_type/description:946
 #, fuzzy
 #| msgid ""
@@ -4704,8 +4752,8 @@ msgstr "מופיע בחוזי"
 msgid "apple music"
 msgstr ""
 
-#: DB:link_type/name:866 DB:link_type/name:865 DB:link_type/name:886
-#: DB:link_type/reverse_link_phrase:866 DB:link_type/reverse_link_phrase:865
+#: DB:link_type/name:865 DB:link_type/name:866 DB:link_type/name:886
+#: DB:link_type/reverse_link_phrase:866
 msgid "arranged at"
 msgstr "עובד ב־"
 
@@ -4740,7 +4788,7 @@ msgid "arranging"
 msgstr ""
 
 #: DB:link_type/link_phrase:864 DB:link_type/link_phrase:863
-#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:865
+#: DB:link_type/link_phrase:866
 msgid "arranging location for"
 msgstr "אתר עיבוד ל־"
 
@@ -5093,7 +5141,7 @@ msgstr "הודר ב־"
 msgid "compiler"
 msgstr "מַהְדֵר"
 
-#: DB:link_type/name:876
+#: DB:link_type/name:1251 DB:link_type/name:876
 msgid "composed at"
 msgstr "הולחן ב־"
 
@@ -5184,6 +5232,12 @@ msgstr "חוזה"
 #: DB:link_type/link_phrase:949 DB:link_type/link_phrase:948
 msgid "contracted arrangement for"
 msgstr "עִבּוּד חוזי ל־"
+
+#: DB:link_type/link_phrase:1252 DB:link_type/link_phrase:1253
+#, fuzzy
+#| msgid "contracted mixing for"
+msgid "contracted editing for"
+msgstr "ערבול מתוקף חוזה ל־"
 
 #: DB:link_type/link_phrase:952
 msgid "contracted manufacturing for"
@@ -5448,6 +5502,13 @@ msgstr "עריכה של"
 #: DB:link_type/name:819 DB:link_type/name:820
 msgid "edited at"
 msgstr "נערך ב־"
+
+#: DB:link_type/name:1252 DB:link_type/name:1253
+#: DB:link_type/reverse_link_phrase:1252 DB:link_type/reverse_link_phrase:1253
+#, fuzzy
+#| msgid "editor"
+msgid "edited for"
+msgstr "עורך"
 
 #: DB:link_type/name:822 DB:link_type/name:821
 msgid "edited in"
@@ -6569,7 +6630,7 @@ msgstr "רמת השכלה"
 msgid "librettist"
 msgstr "ליברטיסט"
 
-#: DB:link_type/name:880
+#: DB:link_type/name:880 DB:link_type/name:1249
 msgid "libretto written at"
 msgstr "ליברטו נכתב ב־"
 
@@ -6577,7 +6638,7 @@ msgstr "ליברטו נכתב ב־"
 msgid "libretto written in"
 msgstr "ליברטו נכתב ב־"
 
-#: DB:link_type/reverse_link_phrase:880
+#: DB:link_type/reverse_link_phrase:880 DB:link_type/reverse_link_phrase:1249
 msgid "libretto {additional:additionally} written at"
 msgstr "ליברטו {additional:additionally} נכתב ב־"
 
@@ -6684,7 +6745,7 @@ msgstr "עמוד תמליל עבור"
 msgid "lyrics quoted in"
 msgstr ""
 
-#: DB:link_type/name:878
+#: DB:link_type/name:878 DB:link_type/name:1250
 msgid "lyrics written at"
 msgstr "תמליל נכתב ב־"
 
@@ -7806,7 +7867,8 @@ msgstr "בקורות"
 msgid "revised"
 msgstr "הֻגַּהּ"
 
-#: DB:link_type/name:882 DB:link_type/reverse_link_phrase:882
+#: DB:link_type/name:882 DB:link_type/name:1248
+#: DB:link_type/reverse_link_phrase:882 DB:link_type/reverse_link_phrase:1248
 msgid "revised at"
 msgstr "הֻגַּהּ ב־"
 
@@ -7819,6 +7881,7 @@ msgid "revised in"
 msgstr "הֻגַּהּ ב־"
 
 #: DB:link_type/link_phrase:881 DB:link_type/link_phrase:882
+#: DB:link_type/link_phrase:1248
 msgid "revising location for"
 msgstr "אתר הגהה ל־"
 
@@ -8224,7 +8287,8 @@ msgstr "תעתיק רשימת רצועות"
 msgid "translated"
 msgstr "תורגם"
 
-#: DB:link_type/name:883 DB:link_type/reverse_link_phrase:883
+#: DB:link_type/name:883 DB:link_type/name:1247
+#: DB:link_type/reverse_link_phrase:883 DB:link_type/reverse_link_phrase:1247
 msgid "translated at"
 msgstr "תורגם ב־"
 
@@ -8538,7 +8602,7 @@ msgstr "יצירות בכורה"
 msgid "writer"
 msgstr "כותב"
 
-#: DB:link_type/name:874
+#: DB:link_type/name:874 DB:link_type/name:1246
 msgid "written at"
 msgstr "נכתב ב־"
 
@@ -8567,7 +8631,7 @@ msgid ""
 "{instrumental} {cover} {karaoke} recordings"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:886
+#: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
 msgstr "{additional:additionally} עובד ב־"
 
@@ -8580,7 +8644,7 @@ msgstr "{additional:additionally} עובד ב־"
 msgid "{additional:additionally} composed"
 msgstr "{additional:additionally} הולחן"
 
-#: DB:link_type/reverse_link_phrase:876
+#: DB:link_type/reverse_link_phrase:1251 DB:link_type/reverse_link_phrase:876
 msgid "{additional:additionally} composed at"
 msgstr "{additional:additionally} הולחן ב־"
 
@@ -8679,7 +8743,7 @@ msgstr "{additional:additionally} תורגם"
 msgid "{additional:additionally} translated in"
 msgstr "{additional:additionally} תורגם ב־"
 
-#: DB:link_type/reverse_link_phrase:874
+#: DB:link_type/reverse_link_phrase:874 DB:link_type/reverse_link_phrase:1246
 msgid "{additional:additionally} written at"
 msgstr "{additional:additionally} נכתב ב־"
 
@@ -8829,7 +8893,8 @@ msgstr ""
 msgid "{additional} animation"
 msgstr "{additional} איור"
 
-#: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
 msgstr "{additional} אתר עיבוד ל־"
 
@@ -8849,8 +8914,14 @@ msgstr "{additional} תמונות עטיפה"
 msgid "{additional} composer"
 msgstr "{additional} מלחין"
 
-#: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
+#: DB:link_type/link_phrase:875
 msgid "{additional} composing location for"
+msgstr "{additional} אתר הלחנה של"
+
+#: DB:link_type/link_phrase:1251 DB:link_type/link_phrase:876
+#, fuzzy
+#| msgid "{additional} composing location for"
+msgid "{additional} composition location for"
 msgstr "{additional} אתר הלחנה של"
 
 #: DB:link_type/link_phrase:63 DB:link_type/link_phrase:146
@@ -8905,6 +8976,7 @@ msgid "{additional} libretto"
 msgstr "{additional} ליברטו"
 
 #: DB:link_type/link_phrase:879 DB:link_type/link_phrase:880
+#: DB:link_type/link_phrase:1249
 msgid "{additional} libretto writing location for"
 msgstr "{additional} אתר כתיבת הליברטו של"
 
@@ -8921,10 +8993,11 @@ msgid "{additional} lyrics"
 msgstr "{additional} תמליל"
 
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
+#: DB:link_type/link_phrase:1250
 msgid "{additional} lyrics writing location for"
 msgstr "{additional} אתר כתיבת התמליל של"
 
-#: DB:link_type/reverse_link_phrase:878
+#: DB:link_type/reverse_link_phrase:878 DB:link_type/reverse_link_phrase:1250
 msgid "{additional} lyrics written at"
 msgstr "{additional} תמליל נכתב ב־"
 
@@ -8984,6 +9057,7 @@ msgid "{additional} transferring location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
+#: DB:link_type/link_phrase:1247
 msgid "{additional} translating location for"
 msgstr "{additional} אתר תרגום של"
 
@@ -8996,6 +9070,7 @@ msgid "{additional} writer"
 msgstr "{additional} כותב"
 
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
+#: DB:link_type/link_phrase:1246
 msgid "{additional} writing location for"
 msgstr "{additional} אתר כתיבה ל־"
 
@@ -9353,7 +9428,7 @@ msgstr "{entity1} האַכְסַנְיָה העיקרית של קונצ'רט {en
 msgid "{entity1} presented {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:866 DB:link_type/long_link_phrase:865
+#: DB:link_type/long_link_phrase:866
 msgid "{entity1} was arranged at {entity0}"
 msgstr "{entity1} עובד ב־{entity0}"
 
@@ -9368,6 +9443,12 @@ msgstr "{entity1} עובד ב־{entity0}"
 #: DB:link_type/long_link_phrase:795
 msgid "{entity1} was available at {entity0}"
 msgstr "{entity1} היה זמין ב־{entity0}"
+
+#: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
+#, fuzzy
+#| msgid "{entity1} was mixed for {entity0}"
+msgid "{entity1} was edited for {entity0}"
+msgstr "{entity1} עורבל עבור {entity0}"
 
 #: DB:link_type/long_link_phrase:954
 msgid "{entity1} was glass mastered at {entity0}"
@@ -9437,7 +9518,7 @@ msgstr "{entity1} הוקלט ב־{entity0}"
 msgid "{entity1} was remixed for {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:882
+#: DB:link_type/long_link_phrase:882 DB:link_type/long_link_phrase:1248
 msgid "{entity1} was revised at {entity0}"
 msgstr "{entity1} מוּגָה ב־{entity0}"
 
@@ -9445,7 +9526,7 @@ msgstr "{entity1} מוּגָה ב־{entity0}"
 msgid "{entity1} was revised in {entity0}"
 msgstr "{entity1} מוּגָה ב־{entity0}"
 
-#: DB:link_type/long_link_phrase:886
+#: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:886
 msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr "{entity1} {additional:additionally} עובד ב־{entity0}"
 
@@ -9453,7 +9534,7 @@ msgstr "{entity1} {additional:additionally} עובד ב־{entity0}"
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr "{entity1} {additional:additionally} עובד ב־{entity0}"
 
-#: DB:link_type/long_link_phrase:876
+#: DB:link_type/long_link_phrase:1251 DB:link_type/long_link_phrase:876
 msgid "{entity1} was {additional:additionally} composed at {entity0}"
 msgstr "{entity1} {additional:additionally} הולחן ב־{entity0}"
 
@@ -9521,7 +9602,7 @@ msgstr "{entity1} {additional:additionally} צולם ב־{entity0}"
 msgid "{entity1} was {additional:additionally} transferred at {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:883
+#: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
 msgid "{entity1} was {additional:additionally} translated at {entity0}"
 msgstr "{entity1} {additional:additionally} תורגם ב־{entity0}"
 
@@ -9529,7 +9610,7 @@ msgstr "{entity1} {additional:additionally} תורגם ב־{entity0}"
 msgid "{entity1} was {additional:additionally} translated in {entity0}"
 msgstr "{entity1} {additional:additionally} תורגם ב־{entity0}"
 
-#: DB:link_type/long_link_phrase:874
+#: DB:link_type/long_link_phrase:874 DB:link_type/long_link_phrase:1246
 msgid "{entity1} was {additional:additionally} written at {entity0}"
 msgstr "{entity1} {additional:additionally} נכתב ב־{entity0}"
 
@@ -9630,6 +9711,9 @@ msgstr "תמיכה על־ידי {vocal:%|vocals}"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "תמיכה עבור {vocal:%|vocals}"
+
+#~ msgid "Links a release to the place it was arranged at."
+#~ msgstr "קישור ההוצאה למקום בו עובדה."
 
 #~ msgid ""
 #~ "This links a MusicBrainz release to the equivalent entry at Amazon and "

@@ -2,11 +2,12 @@
 # Translators:
 # Vaclovas lntas (Vac.) <email address hidden>, 2023
 # "Vac31." <gateway_31@protonmail.com>, 2023.
+# Vaclovas Intas <gateway_31@protonmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-12 13:27+0000\n"
-"Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
+"PO-Revision-Date: 2024-04-29 11:42+0000\n"
+"Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/countries/lt/>\n"
 "Language: lt\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
 " n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #. iso.code:AF 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:1
@@ -786,7 +787,7 @@ msgstr "Mozambikas"
 #. iso.code:MM 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:146
 msgid "Myanmar"
-msgstr "Mianmaras"
+msgstr "mianmaras"
 
 #. iso.code:NA 
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:147

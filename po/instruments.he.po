@@ -2688,6 +2688,14 @@ msgstr "מרימבה לומינה"
 msgid "marímbula"
 msgstr "מרימבולה"
 
+#: DB:instrument/name:1208
+#, fuzzy
+#| msgctxt "Latin-American tube rattle"
+#| msgid "shakers"
+msgctxt "Northern Indian bagpipe"
+msgid "mashak"
+msgstr "שייקרים"
+
 #: DB:instrument/name:1199
 msgctxt "Belorussian duda"
 msgid "matstsyanka"
@@ -3005,6 +3013,11 @@ msgstr "פאנג גו ליי הו המונג"
 msgctxt "Smallest member of the viol family"
 msgid "pardessus de viole"
 msgstr "פרדסוס דה ויולה"
+
+#: DB:instrument/name:1207
+msgctxt "Armenian double chanter bagpipe"
+msgid "parkapzuk"
+msgstr ""
 
 #: DB:instrument/name:1076
 msgctxt "Polish foot-pedal accordion"
