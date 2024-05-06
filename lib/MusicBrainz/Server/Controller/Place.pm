@@ -6,36 +6,39 @@ use namespace::autoclean;
 extends 'MusicBrainz::Server::Controller';
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model           => 'Place',
-    relationships   => {
-        cardinal    => ['edit'],
-        default     => ['url'],
-        subset      => {
-            show => [qw( area artist label place url work series instrument )],
-            performances => [qw( url )],
+        model           => 'Place',
+        relationships   => {
+            cardinal    => ['edit'],
+            default     => ['url'],
+            subset      => {
+                show => [qw( area artist label place url work series instrument )],
+                performances => [qw( url )],
+            },
+            paged_subset => {
+                performances => [qw( recording release release_group work )],
+            },
         },
-        paged_subset => {
-            performances => [qw( recording release release_group work )],
+     },
+     'MusicBrainz::Server::Controller::Role::LoadWithRowID',
+     'MusicBrainz::Server::Controller::Role::Annotation',
+     'MusicBrainz::Server::Controller::Role::Alias',
+     'MusicBrainz::Server::Controller::Role::Cleanup',
+     'MusicBrainz::Server::Controller::Role::Details',
+     'MusicBrainz::Server::Controller::Role::EditListing',
+     'MusicBrainz::Server::Controller::Role::Rating',
+     'MusicBrainz::Server::Controller::Role::Tag',
+     'MusicBrainz::Server::Controller::Role::WikipediaExtract',
+     'MusicBrainz::Server::Controller::Role::CommonsImage',
+     'MusicBrainz::Server::Controller::Role::EditRelationships',
+     'MusicBrainz::Server::Controller::Role::JSONLD' => {
+        endpoints => {
+            show => {copy_stash => ['top_tags']},
+            aliases => {copy_stash => ['aliases']},
         },
-    },
-};
-with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
-with 'MusicBrainz::Server::Controller::Role::Annotation';
-with 'MusicBrainz::Server::Controller::Role::Alias';
-with 'MusicBrainz::Server::Controller::Role::Cleanup';
-with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::Rating';
-with 'MusicBrainz::Server::Controller::Role::Tag';
-with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
-with 'MusicBrainz::Server::Controller::Role::CommonsImage';
-with 'MusicBrainz::Server::Controller::Role::EditRelationships';
-with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {copy_stash => ['top_tags']}, aliases => {copy_stash => ['aliases']}},
-};
-with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'place',
-};
+     },
+     'MusicBrainz::Server::Controller::Role::Collection' => {
+        entity_type => 'place',
+     };
 
 use Data::Page;
 use HTTP::Status qw( :constants );

@@ -19,8 +19,6 @@ use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw( l lp );
 use Try::Tiny;
 
-with 'MusicBrainz::Server::Controller::Role::Subscribe';
-
 use MusicBrainz::Server::Constants qw(
     $BOT_FLAG
     $AUTO_EDITOR_FLAG
@@ -33,7 +31,8 @@ use MusicBrainz::Server::Constants qw(
     entities_with
 );
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
+with 'MusicBrainz::Server::Controller::Role::Subscribe',
+     'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'user',
     model => 'Editor',
 };

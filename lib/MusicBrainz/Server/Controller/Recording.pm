@@ -6,24 +6,29 @@ use namespace::autoclean;
 extends 'MusicBrainz::Server::Controller';
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    entity_name     => 'recording',
-    model           => 'Recording',
-    relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
-};
-with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
-with 'MusicBrainz::Server::Controller::Role::Annotation';
-with 'MusicBrainz::Server::Controller::Role::Alias';
-with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::Rating';
-with 'MusicBrainz::Server::Controller::Role::Tag';
-with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::EditRelationships';
-with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {copy_stash => ['top_tags']}, aliases => {copy_stash => ['aliases']}},
-};
-with 'MusicBrainz::Server::Controller::Role::Collection' => {
-    entity_type => 'recording',
-};
+        entity_name     => 'recording',
+        model           => 'Recording',
+        relationships   => {
+            all => ['show'], cardinal => ['edit'], default => ['url'],
+        },
+     },
+     'MusicBrainz::Server::Controller::Role::LoadWithRowID',
+     'MusicBrainz::Server::Controller::Role::Annotation',
+     'MusicBrainz::Server::Controller::Role::Alias',
+     'MusicBrainz::Server::Controller::Role::Details',
+     'MusicBrainz::Server::Controller::Role::Rating',
+     'MusicBrainz::Server::Controller::Role::Tag';
+     'MusicBrainz::Server::Controller::Role::EditListing',
+     'MusicBrainz::Server::Controller::Role::EditRelationships',
+     'MusicBrainz::Server::Controller::Role::JSONLD' => {
+        endpoints => {
+            show => {copy_stash => ['top_tags']},
+            aliases => {copy_stash => ['aliases']},
+        },
+     },
+    'MusicBrainz::Server::Controller::Role::Collection' => {
+        entity_type => 'recording',
+     };
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE
