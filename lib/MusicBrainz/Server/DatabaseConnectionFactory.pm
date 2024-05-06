@@ -42,10 +42,21 @@ sub get_connection
     confess "There is no configuration in DBDefs for database $key but one is required"
         unless defined $database;
 
+    my $read_only = 0;
+    if ($key eq 'READONLY' || $key eq 'PROD_STANDBY') {
+        $read_only = 1;
+    }
+
     if ($opts{fresh}) {
-        return $connector_class->new( database => $database );
+        return $connector_class->new(
+            database => $database,
+            read_only => $read_only,
+        );
     } else {
-        $connections{ $key } ||= $connector_class->new( database => $database );
+        $connections{ $key } ||= $connector_class->new(
+            database => $database,
+            read_only => $read_only,
+        );
         return $connections{ $key };
     }
 }
