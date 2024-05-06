@@ -1,6 +1,8 @@
 m4_include(`macros.m4')m4_dnl
 FROM phusion/baseimage:jammy-1.0.1
 
+SHELL ["/bin/bash", "-c"]
+
 RUN useradd --create-home --shell /bin/bash musicbrainz
 
 WORKDIR /home/musicbrainz
@@ -62,18 +64,24 @@ RUN git clone --depth 1 https://github.com/omniti-labs/pg_amqp.git && \
     make install && \
     cd /home/musicbrainz
 
-RUN curl -sSLO https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11%2B9/OpenJDK17U-jdk_x64_linux_hotspot_17.0.11_9.tar.gz && \
-    tar xzf OpenJDK17U-jdk_x64_linux_hotspot_17.0.11_9.tar.gz && \
-    mv jdk-17.0.11+9 /usr/local/jdk && \
+ARG OPENJDK_VERSION=17.0.11+9
+ARG OPENJDK_SRC_SUM=aa7fb6bb342319d227a838af5c363bfa1b4a670c209372f9e6585bd79da6220c
+
+RUN curl -sSLO https://github.com/adoptium/temurin17-binaries/releases/download/jdk-${OPENJDK_VERSION/+/%2B}/OpenJDK17U-jdk_x64_linux_hotspot_${OPENJDK_VERSION/+/_}.tar.gz && \
+    echo "$OPENJDK_SRC_SUM *OpenJDK17U-jdk_x64_linux_hotspot_${OPENJDK_VERSION/+/_}.tar.gz" | sha256sum --strict --check - && \
+    tar xzf OpenJDK17U-jdk_x64_linux_hotspot_${OPENJDK_VERSION/+/_}.tar.gz && \
+    mv "jdk-$OPENJDK_VERSION" /usr/local/jdk && \
     update-alternatives --install /usr/bin/java java /usr/local/jdk/bin/java 10000 && \
     update-alternatives --set java /usr/local/jdk/bin/java && \
-    rm OpenJDK17U-jdk_x64_linux_hotspot_17.0.11_9.tar.gz
+    rm OpenJDK17U-jdk_x64_linux_hotspot_${OPENJDK_VERSION/+/_}.tar.gz
 ENV JAVA_HOME /usr/local/jdk
 ENV PATH $JAVA_HOME/bin:$PATH
 
-ENV SOLR_VERSION 9.4.0
+ARG SOLR_VERSION=9.4.0
+ARG SOLR_SRC_SUM=7147caaec5290049b721f9a4e8b0c09b1775315fc4aa790fa7a88a783a45a61815b3532a938731fd583e91195492c4176f3c87d0438216dab26a07a4da51c1f5
 
 RUN curl -sSLO http://archive.apache.org/dist/solr/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz && \
+    echo "$SOLR_SRC_SUM *solr-$SOLR_VERSION.tgz" | sha512sum --strict --check - && \
     tar xzf solr-$SOLR_VERSION.tgz solr-$SOLR_VERSION/bin/install_solr_service.sh --strip-components=2 && \
     ./install_solr_service.sh solr-$SOLR_VERSION.tgz && \
     systemctl disable solr
