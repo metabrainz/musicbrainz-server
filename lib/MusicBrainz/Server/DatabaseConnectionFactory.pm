@@ -39,15 +39,13 @@ sub get_connection
     load_class($connector_class);
 
     my $database = $class->get($key);
+    confess "There is no configuration in DBDefs for database $key but one is required"
+        unless defined $database;
 
     if ($opts{fresh}) {
         return $connector_class->new( database => $database );
     } else {
-        $connections{ $key } ||= do {
-            confess "There is no configuration in DBDefs for database $key but one is required" unless defined($database);
-            $connector_class->new( database => $database );
-        };
-
+        $connections{ $key } ||= $connector_class->new( database => $database );
         return $connections{ $key };
     }
 }
