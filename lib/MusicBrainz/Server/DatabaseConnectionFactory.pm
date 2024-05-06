@@ -62,6 +62,11 @@ sub connector_class
     return $connector_class;
 }
 
+sub exists {
+    my ($class, $name) = @_;
+    return exists $databases{$name};
+}
+
 sub get {
     my ($class, $name) = @_;
 

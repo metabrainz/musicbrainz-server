@@ -410,7 +410,7 @@ sub SanityCheck
     if ($REPTYPE == RT_MIRROR)
     {
         warn "Warning: this is a mirror replication server, but there is no READONLY connection defined\n"
-            unless Databases->get('READONLY');
+            unless Databases->exists('READONLY');
     }
 
     if ($REPTYPE == RT_MASTER)
