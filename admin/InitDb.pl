@@ -120,7 +120,7 @@ sub InstallExtension
 sub CreateReplicationFunction
 {
     # Now connect to that database
-    my $mb = Databases->get_connection('SYSMB');
+    my $mb = Databases->get_connection('SYSTEM_' . $databaseName);
     my $sql = Sql->new( $mb->conn );
 
     $sql->auto_commit;
