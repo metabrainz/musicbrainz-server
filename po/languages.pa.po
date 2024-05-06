@@ -1953,6 +1953,11 @@ msgstr ""
 msgid "Provençal, Old (to 1500)"
 msgstr ""
 
+#. frequency:1 iso_code_3:prg 
+#: DB:language/name:5521
+msgid "Prussian"
+msgstr ""
+
 #. frequency:1 iso_code_3:pan 
 #: DB:language/name:330
 msgid "Punjabi"

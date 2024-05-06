@@ -2269,6 +2269,14 @@ msgstr ""
 "wordt aangevoerd door de speler die als net als bij een mondharmonica op het "
 "instrument blaast."
 
+#. name:parkapzuk 
+#: DB:instrument/description:1207
+msgid ""
+"Has a bag made of goat, veal or sheepskin, and a double piped chanter "
+"collected in a single horn. Both wooden chanters have holes; one for melody, "
+"the other for drone."
+msgstr ""
+
 #. name:ghaychak 
 #: DB:instrument/description:931
 msgid ""
@@ -7372,6 +7380,14 @@ msgstr ""
 "de palm aan te slaan. Hij is gemaakt van meerdere stukken hout, ivoor en "
 "koperen vellen die zijn ingeklemd tussen twee grotere stukken hout die aan "
 "een uiteinde zijn samengebonden."
+
+#. name:mashak 
+#: DB:instrument/description:1208
+msgid ""
+"Used in rural weddings, it has twin single reed pipes, one melody, one "
+"drone. It is becoming increasingly rare due to being displaced by Scottish "
+"Highland pipes."
+msgstr ""
 
 #. name:sistrum 
 #: DB:instrument/description:370

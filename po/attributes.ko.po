@@ -2,11 +2,13 @@
 # Translators:
 # 황다운 <email address hidden>, 2018
 # hashflu <minwuekim@gmail.com>, 2024.
+# hashflu <hashflu@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-26 13:28+0000\n"
-"Last-Translator: hashflu <minwuekim@gmail.com>\n"
+"PO-Revision-Date: 2024-05-02 17:37+0000\n"
+"Last-Translator: hashflu <hashflu@users.noreply.translations.metabrainz.org>"
+"\n"
 "Language-Team: Korean <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ko/>\n"
 "Language: ko\n"
@@ -14,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -69,6 +71,11 @@ msgstr "12인치 셸락"
 msgctxt "medium_format"
 msgid "12\" Vinyl"
 msgstr "12인치 비닐"
+
+#: DB:medium_format/name:207
+msgctxt "medium_format"
+msgid "3\" Vinyl"
+msgstr "3인치 레코드판"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
@@ -4007,6 +4014,12 @@ msgctxt "work_attribute_type"
 msgid "ID for the Vietnamese rights society VCPMC"
 msgstr ""
 
+#: DB:work_attribute_type/description:208
+msgctxt "work_attribute_type"
+msgid ""
+"ID for the international (but primarily Italian) rights society Soundreef"
+msgstr ""
+
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
@@ -5837,6 +5850,14 @@ msgctxt "release_status"
 msgid "Official"
 msgstr ""
 
+#: DB:medium_format/description:207
+msgctxt "medium_format"
+msgid ""
+"One-sided 3\" vinyl records to be played with purpose-built players; "
+"originally developed in Japan and now mostly found as a Record Store Day "
+"curiosity."
+msgstr ""
+
 #: DB:work_type/name:10
 msgctxt "work_type"
 msgid "Opera"
@@ -7011,6 +7032,11 @@ msgctxt "series_ordering_type"
 msgid ""
 "Sorts the items in the series automatically by their number attributes, "
 "using a natural sort order."
+msgstr ""
+
+#: DB:work_attribute_type/name:208
+msgctxt "work_attribute_type"
+msgid "Soundreef ID"
 msgstr ""
 
 #: DB:release_group_secondary_type/name:2

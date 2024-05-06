@@ -602,6 +602,8 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
 {
     my ($self, $c) = @_;
 
+    $c->res->header('Referrer-Policy' => 'strict-origin-when-cross-origin');
+
     if ($c->user_exists) {
         $c->response->redirect($c->uri_for_action('/user/profile',
                                                  [ $c->user->name ]));

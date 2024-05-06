@@ -6,7 +6,7 @@ msgstr ""
 "Language-Team: none\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. frequency:1 iso_code_3:abk 
@@ -1947,6 +1947,11 @@ msgstr ""
 #. frequency:1 iso_code_3:pro 
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
+msgstr ""
+
+#. frequency:1 iso_code_3:prg 
+#: DB:language/name:5521
+msgid "Prussian"
 msgstr ""
 
 #. frequency:1 iso_code_3:pan 
