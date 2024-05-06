@@ -39,7 +39,6 @@ run_with_apt_cache \
         ') && \
     rm -f /etc/apt/sources.list.d/nodesource.list \
         /etc/apt/sources.list.d/pgdg.list && \
-    update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
     systemctl disable rabbitmq-server && \
     install_ts && \
     install_perl && \
@@ -63,15 +62,23 @@ RUN git clone --depth 1 https://github.com/omniti-labs/pg_amqp.git && \
     make install && \
     cd /home/musicbrainz
 
-ENV SOLR_VERSION 7.7.3
-ENV SOLR_HOME /opt/solr/server/solr
+RUN curl -sSLO https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11%2B9/OpenJDK17U-jdk_x64_linux_hotspot_17.0.11_9.tar.gz && \
+    tar xzf OpenJDK17U-jdk_x64_linux_hotspot_17.0.11_9.tar.gz && \
+    mv jdk-17.0.11+9 /usr/local/jdk && \
+    update-alternatives --install /usr/bin/java java /usr/local/jdk/bin/java 10000 && \
+    update-alternatives --set java /usr/local/jdk/bin/java && \
+    rm OpenJDK17U-jdk_x64_linux_hotspot_17.0.11_9.tar.gz
+ENV JAVA_HOME /usr/local/jdk
+ENV PATH $JAVA_HOME/bin:$PATH
 
-RUN curl -sSLO http://archive.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz && \
+ENV SOLR_VERSION 9.4.0
+
+RUN curl -sSLO http://archive.apache.org/dist/solr/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz && \
     tar xzf solr-$SOLR_VERSION.tgz solr-$SOLR_VERSION/bin/install_solr_service.sh --strip-components=2 && \
     ./install_solr_service.sh solr-$SOLR_VERSION.tgz && \
     systemctl disable solr
 
-ENV MB_SOLR_TAG v3.4.2
+ENV MB_SOLR_TAG master
 
 # Steps taken from https://github.com/metabrainz/mb-solr/blob/master/Dockerfile
 RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recursive https://github.com/metabrainz/mb-solr.git && \
@@ -79,13 +86,11 @@ RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recurs
     mvn install && \
     cd ../../mb-solr && \
     mvn package -DskipTests && \
-    mkdir -p /opt/solr/lib $SOLR_HOME && \
     cp target/mb-solr-0.0.1-SNAPSHOT-jar-with-dependencies.jar /opt/solr/lib/ && \
     cd .. && \
-    cp -R mbsssss $SOLR_HOME/mycores/ && \
-    sed -i'' 's|</solr>|<str name="sharedLib">/opt/solr/lib</str></solr>|' $SOLR_HOME/solr.xml && \
-    mkdir $SOLR_HOME/data && \
-    chown -R solr:solr /opt/solr/ && \
+    mkdir -p /var/solr/data/mycores/mbsssss && \
+    cp -R mbsssss /var/solr/data/mycores/mbsssss && \
+    chown -R solr:solr /opt/solr/ /var/solr/data/ && \
     cd /home/musicbrainz
 
 ENV SIR_TAG v3.0.1
