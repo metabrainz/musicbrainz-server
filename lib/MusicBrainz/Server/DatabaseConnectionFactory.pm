@@ -106,6 +106,14 @@ sub get {
             # NOTE-ROFLAG-1: We still set the `read_only` flag in
             # `get_connection` above.
             $database = $databases{READWRITE};
+        } elsif ($name =~ /^READONLY_(.+)$/) {
+            my $base_dbdef_key = $1;
+            my $base_db = $class->get($base_dbdef_key);
+            $database = $base_db->meta->clone_object(
+                $base_db,
+                read_only => 1,
+            );
+            $class->register_database($name, $database);
         } elsif ($name =~ /^SYSTEM_(.+)$/) {
             my $base_dbdef_key = $1;
             my $system = $class->get('SYSTEM');
