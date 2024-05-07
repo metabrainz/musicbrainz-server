@@ -46,7 +46,8 @@ sub get_connection
     if (
         $key eq 'READONLY' ||
         $key eq 'PROD_STANDBY' ||
-        $database->read_only
+        $database->read_only ||
+        $opts{read_only}
     ) {
         # NOTE-ROFLAG-1: This is assumed in the READONLY fallback strategy
         # below.
@@ -59,11 +60,22 @@ sub get_connection
             read_only => $read_only,
         );
     } else {
-        $connections{ $key } ||= $connector_class->new(
-            database => $database,
-            read_only => $read_only,
-        );
-        return $connections{ $key };
+        my $connection = $connections{$key};
+        if (
+            defined $connection &&
+            $read_only != $connection->read_only
+        ) {
+            die "The read_only flag requested for the $key database " .
+                'does not match an existing cached connector.';
+        }
+        if (!defined $connection) {
+            $connection = $connector_class->new(
+                database => $database,
+                read_only => $read_only,
+            );
+            $connections{$key} = $connection;
+        }
+        return $connection;
     }
 }
 
