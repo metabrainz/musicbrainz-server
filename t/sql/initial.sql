@@ -88,9 +88,9 @@ INSERT INTO instrument_type VALUES (3, 'Percussion instrument', NULL, 3, NULL, '
 INSERT INTO instrument_type VALUES (4, 'Electronic instrument', NULL, 4, NULL, '98df6cec-95e5-3cbc-9a2d-7ea6c8be6f3c');
 INSERT INTO instrument_type VALUES (5, 'Other instrument', NULL, 5, NULL, '01ba5777-02dd-347d-94a1-73e3db00215d');
 
-ALTER TABLE instrument DISABLE TRIGGER a_ins_instrument;
+ALTER TABLE instrument DISABLE TRIGGER ALL;
 INSERT INTO instrument VALUES (137, 'b3eac5f9-7859-4416-ac39-7154e2e8d348', 'piano', 2, 0, '2014-08-22 17:04:47.913121+00', '', '');
-ALTER TABLE instrument ENABLE TRIGGER a_ins_instrument;
+ALTER TABLE instrument ENABLE TRIGGER ALL;
 
 INSERT INTO instrument_alias VALUES (996, 137, 'Klavier', 'de', 0, '2014-08-20 17:28:48.384047+00', 1, 'Klavier', NULL, NULL, NULL, NULL, NULL, NULL, 't', 'f');
 
