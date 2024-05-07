@@ -23,6 +23,9 @@ with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+with 'MusicBrainz::Server::Controller::Role::Collection' => {
+    entity_type => 'genre',
+};
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_GENRE_CREATE
@@ -66,6 +69,11 @@ sub _redirect_to_genre {
     my ($self, $c, $gid) = @_;
     $c->response->redirect($c->uri_for_action($self->action_for('show'), [ $gid ]));
 }
+
+after [qw( show collections details aliases )] => sub {
+    my ($self, $c) = @_;
+    $self->_stash_collections($c);
+};
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Genre',

@@ -667,6 +667,16 @@ ALTER TABLE editor_collection_event
    FOREIGN KEY (event)
    REFERENCES event(id);
 
+ALTER TABLE editor_collection_genre
+   ADD CONSTRAINT editor_collection_genre_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_genre
+   ADD CONSTRAINT editor_collection_genre_fk_genre
+   FOREIGN KEY (genre)
+   REFERENCES genre(id);
+
 ALTER TABLE editor_collection_gid_redirect
    ADD CONSTRAINT editor_collection_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)

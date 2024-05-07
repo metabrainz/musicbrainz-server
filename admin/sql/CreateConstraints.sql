@@ -41,7 +41,7 @@ ALTER TABLE artist_alias
 ALTER TABLE editor_collection_type
       ADD CONSTRAINT allowed_collection_entity_type CHECK (
           entity_type IN (
-            'area', 'artist', 'event', 'instrument', 'label',
+            'area', 'artist', 'event', 'genre', 'instrument', 'label',
             'place', 'recording', 'release', 'release_group',
             'series', 'work'
           )
