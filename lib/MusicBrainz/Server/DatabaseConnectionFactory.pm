@@ -48,6 +48,8 @@ sub get_connection
         $key eq 'PROD_STANDBY' ||
         $database->read_only
     ) {
+        # NOTE-ROFLAG-1: This is assumed in the READONLY fallback strategy
+        # below.
         $read_only = 1;
     }
 
@@ -87,6 +89,10 @@ sub get {
 
     unless (defined $database) {
         if ($name eq 'MAINTENANCE') {
+            $database = $databases{READWRITE};
+        } elsif ($name eq 'READONLY') {
+            # NOTE-ROFLAG-1: We still set the `read_only` flag in
+            # `get_connection` above.
             $database = $databases{READWRITE};
         } elsif ($name =~ /^SYSTEM_(.+)$/) {
             my $base_dbdef_key = $1;
