@@ -29,6 +29,7 @@ has 'connector' => (
     handles => [ 'dbh', 'sql', 'conn' ],
     lazy_build => 1,
     clearer => 'clear_connector',
+    predicate => 'has_connector',
 );
 
 has 'database' => (

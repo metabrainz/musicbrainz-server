@@ -448,7 +448,7 @@ before dispatch => sub {
     } else {
         # Use a fresh database connection for every request, and
         # remember to disconnect at the end.
-        $ctx->connector->refresh;
+        $ctx->connector->refresh if $ctx->has_connector;
     }
 
     # Any time `TO_JSON` is called on an Entity, it may add other
@@ -463,7 +463,7 @@ after dispatch => sub {
 
     my $ctx = $self->model('MB')->context;
 
-    $ctx->connector->disconnect;
+    $ctx->connector->disconnect if $ctx->has_connector;
     $ctx->store->disconnect;
     $ctx->cache->disconnect;
 
