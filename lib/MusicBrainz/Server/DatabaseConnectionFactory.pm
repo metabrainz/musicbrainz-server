@@ -43,7 +43,11 @@ sub get_connection
         unless defined $database;
 
     my $read_only = 0;
-    if ($key eq 'READONLY' || $key eq 'PROD_STANDBY') {
+    if (
+        $key eq 'READONLY' ||
+        $key eq 'PROD_STANDBY' ||
+        $database->read_only
+    ) {
         $read_only = 1;
     }
 

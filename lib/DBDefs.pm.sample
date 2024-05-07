@@ -60,6 +60,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         password        => 'musicbrainz',
 #       host            => '',
 #       port            => '',
+        read_only   => 1,
     },
     # How to connect for administrative access
     SYSTEM    => {
@@ -86,6 +87,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 #       password        => '',
 #       host            => '',
 #       port            => '5432',
+#       read_only    => 1,
 #   },
 );
 
