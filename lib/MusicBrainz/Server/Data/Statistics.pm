@@ -2064,7 +2064,7 @@ sub recalculate {
     }
 
     if (my $calculate = $definition->{CALC}) {
-        my $output = $calculate->($self, $self->sql);
+        my $output = $calculate->($self, $self->prefer_ro_sql);
         if (ref($output) eq 'HASH')
         {
             $self->insert($output_file, %$output);
