@@ -2057,18 +2057,14 @@ sub recalculate {
     return if $definition->{NONREPLICATED} && DBDefs->REPLICATION_TYPE == RT_MIRROR;
     return if $definition->{PRIVATE} && DBDefs->REPLICATION_TYPE != RT_MASTER;
 
-    my $db = $definition->{DB} || 'READWRITE';
-    my $sql = $db eq 'READWRITE' ? $self->sql
-            : die "Unknown database: $db";
-
     if (my $query = $definition->{SQL}) {
-        my $value = $sql->select_single_value($query);
+        my $value = $self->sql->select_single_value($query);
                 $self->insert($output_file, $statistic => $value);
         return;
     }
 
     if (my $calculate = $definition->{CALC}) {
-        my $output = $calculate->($self, $sql);
+        my $output = $calculate->($self, $self->sql);
         if (ref($output) eq 'HASH')
         {
             $self->insert($output_file, %$output);
