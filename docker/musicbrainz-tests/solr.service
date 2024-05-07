@@ -2,6 +2,5 @@
 
 exec sudo -u solr /opt/solr/bin/solr start \
     -f \
-    -s "$SOLR_HOME" \
     -Dsolr.autoSoftCommit.maxDocs=10 \
     -Dsolr.autoSoftCommit.maxTime=1000
