@@ -6437,7 +6437,7 @@ __metadata:
     webpack-node-externals: "npm:3.0.0"
     weight-balanced-tree: "npm:0.6.1"
     whatwg-fetch: "npm:3.4.0"
-    xgettext-js: "https://github.com/metabrainz/xgettext-js#0301681a479c1796ff6850c9bd2a169074386d92"
+    xgettext-js: "https://github.com/metabrainz/xgettext-js#3087b3b77c62db622bcf2244697acebb4170a836"
     yargs: "npm:3.10.0"
   languageName: unknown
   linkType: soft
@@ -9446,14 +9446,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"xgettext-js@https://github.com/metabrainz/xgettext-js#0301681a479c1796ff6850c9bd2a169074386d92":
+"xgettext-js@https://github.com/metabrainz/xgettext-js#3087b3b77c62db622bcf2244697acebb4170a836":
   version: 3.0.0
-  resolution: "xgettext-js@https://github.com/metabrainz/xgettext-js.git#commit=0301681a479c1796ff6850c9bd2a169074386d92"
+  resolution: "xgettext-js@https://github.com/metabrainz/xgettext-js.git#commit=3087b3b77c62db622bcf2244697acebb4170a836"
   dependencies:
     estree-walker: "npm:^0.6.1"
     hermes-parser: "npm:0.17.0"
     lodash: "npm:^4.17.15"
-  checksum: 4d1630968254598fcb4b712c93f50ee9762d54545d5afc0b8fd380013c5d02270446bb1d2705e6e725ff935a4babce6f632a99e2e565189bc886f9c54f882ea6
+  checksum: 0e222b389a4dfa67af11fa7f940f24d86679edf804b4839bbbd8f28da4fb0f8c5ca54b7f7d461046c6d2f2df0dcba7fb0e8771df14c47ab2167c0000b55434be
   languageName: node
   linkType: hard
 
