@@ -103,5 +103,5 @@
     "xgettext-js": "https://github.com/metabrainz/xgettext-js#3087b3b77c62db622bcf2244697acebb4170a836"
   },
   "private": true,
-  "packageManager": "yarn@4.0.1"
+  "packageManager": "yarn@4.2.2"
 }
