@@ -7926,9 +7926,9 @@ msgstr "reconstruit"
 msgid "reconstructed by"
 msgstr "reconstruit par"
 
-#: DB:link_type/name:809 DB:link_type/name:810 DB:link_type/name:693
-#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:809
-#: DB:link_type/reverse_link_phrase:810
+#: DB:link_type/name:810 DB:link_type/name:809 DB:link_type/name:693
+#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:810
+#: DB:link_type/reverse_link_phrase:809
 msgid "recorded at"
 msgstr "enregistré à"
 
@@ -7978,7 +7978,7 @@ msgstr "poste d’ingénieur du son à"
 msgid "recording engineers"
 msgstr "ingénieurs du son"
 
-#: DB:link_type/link_phrase:809 DB:link_type/link_phrase:810
+#: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
 msgid "recording location for"
 msgstr "lieu d’enregistrement de"
 
@@ -9793,10 +9793,6 @@ msgstr "{entity1} était précédemment attribué à {entity0}"
 msgid "{entity1} was printed in {entity0}"
 msgstr "{entity1} a été imprimé en {entity0}"
 
-#: DB:link_type/long_link_phrase:809 DB:link_type/long_link_phrase:810
-msgid "{entity1} was recorded at  {entity0}"
-msgstr "{entity1} a été enregistré à {entity0}"
-
 #: DB:link_type/long_link_phrase:1178
 msgid "{entity1} was remixed for {entity0}"
 msgstr ""
@@ -9861,6 +9857,7 @@ msgstr "{entity1} a été produit {additional:supplémentairement} à {entity0}"
 msgid "{entity1} was {additional:additionally} produced in {entity0}"
 msgstr "{entity1} a été produit {additional:supplémentairement} en {entity0}"
 
+#: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
 #: DB:link_type/long_link_phrase:693 DB:link_type/long_link_phrase:695
 msgid "{entity1} was {additional:additionally} recorded at {entity0}"
 msgstr "{entity1} a été enregistré {additional:supplémentairement} à {entity0}"
@@ -9886,8 +9883,14 @@ msgstr "{entity1} a été tourné {additional:supplémentairement} à {entity0}"
 msgid "{entity1} was {additional:additionally} shot in {entity0}"
 msgstr "{entity1} a été tourné {additional:supplémentairement} en {entity0}"
 
-#: DB:link_type/long_link_phrase:1181 DB:link_type/long_link_phrase:1182
+#: DB:link_type/long_link_phrase:1182
 msgid "{entity1} was {additional:additionally} transferred at {entity0}"
+msgstr "{entity1} a {additional:en plus} été transférée à {entity0}"
+
+#: DB:link_type/long_link_phrase:1181
+#, fuzzy
+#| msgid "{entity1} was {additional:additionally} transferred at {entity0}"
+msgid "{entity1} was {additional:additionally} transferred in {entity0}"
 msgstr "{entity1} a {additional:en plus} été transférée à {entity0}"
 
 #: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
@@ -10001,6 +10004,9 @@ msgstr "{vocal:%|voix} de soutien par"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|voix} de soutien pour"
+
+#~ msgid "{entity1} was recorded at  {entity0}"
+#~ msgstr "{entity1} a été enregistré à {entity0}"
 
 #~ msgid "Indicates a webpage that reviews the event in question."
 #~ msgstr ""

@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
-" n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.5.2\n"
 
 #: DB:link_attribute_type/description:1355
@@ -7330,9 +7330,9 @@ msgstr "rekonstruota"
 msgid "reconstructed by"
 msgstr ""
 
-#: DB:link_type/name:809 DB:link_type/name:810 DB:link_type/name:693
-#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:809
-#: DB:link_type/reverse_link_phrase:810
+#: DB:link_type/name:810 DB:link_type/name:809 DB:link_type/name:693
+#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:810
+#: DB:link_type/reverse_link_phrase:809
 msgid "recorded at"
 msgstr ""
 
@@ -7382,7 +7382,7 @@ msgstr ""
 msgid "recording engineers"
 msgstr ""
 
-#: DB:link_type/link_phrase:809 DB:link_type/link_phrase:810
+#: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
 msgid "recording location for"
 msgstr ""
 
@@ -9145,10 +9145,6 @@ msgstr ""
 msgid "{entity1} was printed in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:809 DB:link_type/long_link_phrase:810
-msgid "{entity1} was recorded at  {entity0}"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:1178
 msgid "{entity1} was remixed for {entity0}"
 msgstr ""
@@ -9209,6 +9205,7 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} produced in {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
 #: DB:link_type/long_link_phrase:693 DB:link_type/long_link_phrase:695
 msgid "{entity1} was {additional:additionally} recorded at {entity0}"
 msgstr ""
@@ -9233,9 +9230,18 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} shot in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:1181 DB:link_type/long_link_phrase:1182
+#: DB:link_type/long_link_phrase:1182
 msgid "{entity1} was {additional:additionally} transferred at {entity0}"
 msgstr ""
+
+#: DB:link_type/long_link_phrase:1181
+#, fuzzy
+#| msgid ""
+#| "The libretto for {entity1} was {additional:additionally} written in "
+#| "{entity0}"
+msgid "{entity1} was {additional:additionally} transferred in {entity0}"
+msgstr ""
+"Libretas {entity1} buvo {additional:papildomai} parašytas vietoje {entity0}"
 
 #: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
 msgid "{entity1} was {additional:additionally} translated at {entity0}"

@@ -8092,9 +8092,9 @@ msgstr "reconstrueerde"
 msgid "reconstructed by"
 msgstr "gereconstrueerd door"
 
-#: DB:link_type/name:809 DB:link_type/name:810 DB:link_type/name:693
-#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:809
-#: DB:link_type/reverse_link_phrase:810
+#: DB:link_type/name:810 DB:link_type/name:809 DB:link_type/name:693
+#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:810
+#: DB:link_type/reverse_link_phrase:809
 msgid "recorded at"
 msgstr "opgenomen bij"
 
@@ -8144,7 +8144,7 @@ msgstr "in dienst als opnametechnicus bij"
 msgid "recording engineers"
 msgstr "opnametechnici"
 
-#: DB:link_type/link_phrase:809 DB:link_type/link_phrase:810
+#: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
 msgid "recording location for"
 msgstr "opnamelocatie van"
 
@@ -10005,10 +10005,6 @@ msgstr "{entity1} werd eerder toegeschreven aan {entity0}"
 msgid "{entity1} was printed in {entity0}"
 msgstr "{entity1} werd gedrukt in {entity0}"
 
-#: DB:link_type/long_link_phrase:809 DB:link_type/long_link_phrase:810
-msgid "{entity1} was recorded at  {entity0}"
-msgstr "{entity1} werd opgenomen bij {entity0}"
-
 #: DB:link_type/long_link_phrase:1178
 msgid "{entity1} was remixed for {entity0}"
 msgstr "{entity1} werd geremixt voor {entity0}"
@@ -10071,6 +10067,7 @@ msgstr "{entity1} werd {additional:aanvullend} geproduceerd bij {entity0}"
 msgid "{entity1} was {additional:additionally} produced in {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} geproduceerd in {entity0}"
 
+#: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
 #: DB:link_type/long_link_phrase:693 DB:link_type/long_link_phrase:695
 msgid "{entity1} was {additional:additionally} recorded at {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} opgenomen bij {entity0}"
@@ -10099,8 +10096,14 @@ msgstr ""
 "de videoclip van {entity1} werd {additional:aanvullend} opgenomen in "
 "{entity0}"
 
-#: DB:link_type/long_link_phrase:1181 DB:link_type/long_link_phrase:1182
+#: DB:link_type/long_link_phrase:1182
 msgid "{entity1} was {additional:additionally} transferred at {entity0}"
+msgstr "{entity1} werd {additional:aanvullend} overgezet bij {entity0}"
+
+#: DB:link_type/long_link_phrase:1181
+#, fuzzy
+#| msgid "{entity1} was {additional:additionally} transferred at {entity0}"
+msgid "{entity1} was {additional:additionally} transferred in {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} overgezet bij {entity0}"
 
 #: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
@@ -10215,6 +10218,9 @@ msgstr "{vocal:%|vocale} ondersteuning door"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocale} ondersteuning voor"
+
+#~ msgid "{entity1} was recorded at  {entity0}"
+#~ msgstr "{entity1} werd opgenomen bij {entity0}"
 
 #~ msgid "Indicates a webpage that reviews the event in question."
 #~ msgstr ""
