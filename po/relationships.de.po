@@ -7247,9 +7247,9 @@ msgstr "rekonstruiert"
 msgid "reconstructed by"
 msgstr "rekonstruiert von"
 
-#: DB:link_type/name:809 DB:link_type/name:810 DB:link_type/name:693
-#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:809
-#: DB:link_type/reverse_link_phrase:810
+#: DB:link_type/name:810 DB:link_type/name:809 DB:link_type/name:693
+#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:810
+#: DB:link_type/reverse_link_phrase:809
 msgid "recorded at"
 msgstr "aufgenommen bei"
 
@@ -7299,7 +7299,7 @@ msgstr "Aufnahmetechniker bei"
 msgid "recording engineers"
 msgstr "Aufnahmetechniker"
 
-#: DB:link_type/link_phrase:809 DB:link_type/link_phrase:810
+#: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
 msgid "recording location for"
 msgstr "Aufnahmeort für"
 
@@ -9122,10 +9122,6 @@ msgstr ""
 msgid "{entity1} was printed in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:809 DB:link_type/long_link_phrase:810
-msgid "{entity1} was recorded at  {entity0}"
-msgstr "{entity1} wurde in {entity0} aufgenommen"
-
 #: DB:link_type/long_link_phrase:1178
 msgid "{entity1} was remixed for {entity0}"
 msgstr ""
@@ -9186,6 +9182,7 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} produced in {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
 #: DB:link_type/long_link_phrase:693 DB:link_type/long_link_phrase:695
 msgid "{entity1} was {additional:additionally} recorded at {entity0}"
 msgstr ""
@@ -9210,9 +9207,19 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} shot in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:1181 DB:link_type/long_link_phrase:1182
+#: DB:link_type/long_link_phrase:1182
 msgid "{entity1} was {additional:additionally} transferred at {entity0}"
 msgstr ""
+
+#: DB:link_type/long_link_phrase:1181
+#, fuzzy
+#| msgid ""
+#| "The libretto for {entity1} was {additional:additionally} written in "
+#| "{entity0}"
+msgid "{entity1} was {additional:additionally} transferred in {entity0}"
+msgstr ""
+"Das Libretto für {entity1} wurde {additional:zusätzlich} in {entity0} "
+"geschrieben"
 
 #: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
 msgid "{entity1} was {additional:additionally} translated at {entity0}"
@@ -9321,6 +9328,9 @@ msgstr "{vocal:%|vocals} Unterstützung von"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocals} Unterstützung für"
+
+#~ msgid "{entity1} was recorded at  {entity0}"
+#~ msgstr "{entity1} wurde in {entity0} aufgenommen"
 
 #~ msgid "This is used to link a label to its corresponding Wikipedia page."
 #~ msgstr ""

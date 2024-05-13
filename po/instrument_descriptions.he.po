@@ -2726,6 +2726,18 @@ msgid ""
 "pipes."
 msgstr ""
 
+#. name:mezwed 
+#: DB:instrument/description:1209
+msgid ""
+"Not to be confused with the Libyan shawm also known as zukra or zurna.<br /> "
+"Not to be confused with <a href=\"/"
+"instrument/826a3a61-75ce-4620-9890-241f118d99e9\">mijwiz</a> or the similar "
+"zummara.<br /> <br /> Also do not confuse with \"mizmar\" a general Arabian "
+"term for several reed instruments, players of the same as well as a dance. "
+"<br /><br /> Used in traditional music together with drums, it has a small "
+"bag made of ewe or goat and double chanters with bells made of cowhorn."
+msgstr ""
+
 #. name:ghijak 
 #: DB:instrument/description:932
 msgid ""

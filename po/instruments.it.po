@@ -27,8 +27,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.4.3\n"
 
 #: DB:instrument/name:438
@@ -2701,6 +2701,11 @@ msgstr "membranofono"
 msgctxt "Arrangement of struck tuned metal bars."
 msgid "metallophone"
 msgstr "metallofono"
+
+#: DB:instrument/name:1209
+msgctxt "Tunisian and Algerian bagpipe"
+msgid "mezwed"
+msgstr ""
 
 #: DB:instrument/name:876
 msgctxt "twin bamboo single reed pipe"

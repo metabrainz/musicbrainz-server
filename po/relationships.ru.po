@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-05-10 20:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -30,8 +30,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.5.3\n"
 
 #: DB:link_attribute_type/description:1355
@@ -700,8 +700,8 @@ msgid ""
 "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</"
 "a>."
 msgstr ""
-"Указывает на издателя релиза. Не путать с <a href=\"/doc/Label\" target="
-"\"_blank\">лейблом</a>."
+"Указывает на издателя релиза. Не путать с <a href=\"/doc/Label\" "
+"target=\"_blank\">лейблом</a>."
 
 #: DB:link_type/description:161
 msgid ""
@@ -1003,8 +1003,8 @@ msgid ""
 "Links an event to a label or other organization credited for presenting it "
 "(often as “Label presents Event”)."
 msgstr ""
-"Связывает событие с лейблом или другой организацией, представляющей его ("
-"типа \"Лейбл представляет Событие\")."
+"Связывает событие с лейблом или другой организацией, представляющей его "
+"(типа \"Лейбл представляет Событие\")."
 
 #: DB:link_type/description:806
 msgid "Links an event to an artist that was a conductor in it."
@@ -1219,8 +1219,8 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Издатели должны добавляться к работам. Помните, что издатель - это "
-"<strong>не</strong> то же самое, что и <a href=\"/doc/Label\" target=\"_blank"
-"\">лейбл</a>."
+"<strong>не</strong> то же самое, что и <a href=\"/doc/Label\" "
+"target=\"_blank\">лейбл</a>."
 
 #: DB:link_type/link_phrase:174
 msgid "PureVolume"
@@ -1470,10 +1470,10 @@ msgstr ""
 "Описывает ситуацию, когда лейбл сменил свое имя (например, чисто для "
 "эстетических причин, или в результате покупки/продажи/выделения). Особенно "
 "следите за случаями, когда проходят объединение/разделение/реструктуризация "
-"компании. Например, не стоит переименовывать лейбл <a href=\"/label/"
-"99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> в <a href=\"/label/"
-"4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music Group</a>, так как "
-"Verve продолжила свою работу как самостоятельный импринт."
+"компании. Например, не стоит переименовывать лейбл <a href=\"/"
+"label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> в <a href=\"/"
+"label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music Group</a>, так "
+"как Verve продолжила свою работу как самостоятельный импринт."
 
 #: DB:link_type/description:1079
 msgid ""
@@ -7064,9 +7064,9 @@ msgstr ""
 msgid "reconstructed by"
 msgstr ""
 
-#: DB:link_type/name:809 DB:link_type/name:810 DB:link_type/name:693
-#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:809
-#: DB:link_type/reverse_link_phrase:810
+#: DB:link_type/name:810 DB:link_type/name:809 DB:link_type/name:693
+#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:810
+#: DB:link_type/reverse_link_phrase:809
 msgid "recorded at"
 msgstr ""
 
@@ -7116,7 +7116,7 @@ msgstr ""
 msgid "recording engineers"
 msgstr "recording engineers"
 
-#: DB:link_type/link_phrase:809 DB:link_type/link_phrase:810
+#: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
 msgid "recording location for"
 msgstr ""
 
@@ -8871,10 +8871,6 @@ msgstr ""
 msgid "{entity1} was printed in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:809 DB:link_type/long_link_phrase:810
-msgid "{entity1} was recorded at  {entity0}"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:1178
 msgid "{entity1} was remixed for {entity0}"
 msgstr ""
@@ -8935,6 +8931,7 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} produced in {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
 #: DB:link_type/long_link_phrase:693 DB:link_type/long_link_phrase:695
 msgid "{entity1} was {additional:additionally} recorded at {entity0}"
 msgstr ""
@@ -8959,8 +8956,12 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} shot in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:1181 DB:link_type/long_link_phrase:1182
+#: DB:link_type/long_link_phrase:1182
 msgid "{entity1} was {additional:additionally} transferred at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1181
+msgid "{entity1} was {additional:additionally} transferred in {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
