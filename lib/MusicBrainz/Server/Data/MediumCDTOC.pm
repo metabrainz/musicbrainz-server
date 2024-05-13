@@ -20,10 +20,22 @@ sub _table
     return 'medium_cdtoc';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'medium_cdtoc.id, medium, cdtoc, edits_pending';
+    return join q(, ), qw(
+        medium_cdtoc.id
+        medium
+        cdtoc
+        edits_pending
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

@@ -10,7 +10,22 @@ with 'MusicBrainz::Server::Data::Role::Sql';
 
 sub _table { 'statistics.statistic' }
 
-sub _columns { 'id, date_collected, name, value' }
+sub _build_columns
+{
+    return join q(, ), qw(
+        id
+        date_collected
+        name
+        value
+    );
+}
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _entity_class
 {

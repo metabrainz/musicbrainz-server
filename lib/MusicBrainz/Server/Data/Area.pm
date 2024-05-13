@@ -37,14 +37,35 @@ Readonly my @CODE_TYPES => qw( iso_3166_1 iso_3166_2 iso_3166_3 );
 
 sub _type { 'area' }
 
-sub _columns {
-    return 'area.id, area.gid, area.name COLLATE musicbrainz, area.comment, area.type, ' .
-           'area.edits_pending, area.begin_date_year, area.begin_date_month, area.begin_date_day, ' .
-           'area.end_date_year, area.end_date_month, area.end_date_day, area.ended, area.last_updated, ' .
-           '(SELECT array_agg(code) FROM iso_3166_1 WHERE iso_3166_1.area = area.id) AS iso_3166_1, ' .
-           '(SELECT array_agg(code) FROM iso_3166_2 WHERE iso_3166_2.area = area.id) AS iso_3166_2, ' .
-           '(SELECT array_agg(code) FROM iso_3166_3 WHERE iso_3166_3.area = area.id) AS iso_3166_3';
+sub _build_columns
+{
+    return join q(, ), (
+        'area.id',
+        'area.gid',
+        'area.name COLLATE musicbrainz',
+        'area.comment',
+        'area.type',
+        'area.edits_pending',
+        'area.begin_date_year',
+        'area.begin_date_month',
+        'area.begin_date_day',
+        'area.end_date_year',
+        'area.end_date_month',
+        'area.end_date_day',
+        'area.ended',
+        'area.last_updated',
+        '(SELECT array_agg(code) FROM iso_3166_1 WHERE iso_3166_1.area = area.id) AS iso_3166_1',
+        '(SELECT array_agg(code) FROM iso_3166_2 WHERE iso_3166_2.area = area.id) AS iso_3166_2',
+        '(SELECT array_agg(code) FROM iso_3166_3 WHERE iso_3166_3.area = area.id) AS iso_3166_3',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _id_column
 {

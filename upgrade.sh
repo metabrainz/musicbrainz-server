@@ -13,7 +13,7 @@ source admin/config.sh
 : ${DATABASE:=MAINTENANCE}
 : ${SKIP_EXPORT:=0}
 
-NEW_SCHEMA_SEQUENCE=28
+NEW_SCHEMA_SEQUENCE=29
 OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))
 
 RT_MASTER=1
@@ -107,6 +107,12 @@ then
     echo `date` : Enabling last_updated triggers
     OUTPUT=`./admin/psql --system "$DATABASE" < ./admin/sql/EnableLastUpdatedTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
+
+################################################################################
+# Update PostgreSQL user privileges
+
+echo `date` : Updating PostgreSQL user privileges
+OUTPUT=`./admin/UpdateDatabasePrivileges.pl 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 ################################################################################
 # Re-enable replication

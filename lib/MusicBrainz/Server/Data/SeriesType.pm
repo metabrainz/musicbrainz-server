@@ -14,9 +14,25 @@ sub _table {
     return 'series_type';
 }
 
-sub _columns {
-    return 'id, gid, name, entity_type, parent, child_order, description';
+sub _build_columns
+{
+    return join q(, ), qw(
+        id
+        gid
+        name
+        entity_type
+        parent
+        child_order
+        description
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping {
     return {

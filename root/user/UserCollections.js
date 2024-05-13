@@ -36,6 +36,7 @@ const collectionsListTitles = {
   area: N_l('Area collections'),
   artist: N_l('Artist collections'),
   event: N_l('Event collections'),
+  genre: N_l('Genre collections'),
   instrument: N_l('Instrument collections'),
   label: N_l('Label collections'),
   place: N_l('Place collections'),

@@ -10,7 +10,7 @@ with 'MusicBrainz::Server::Form::Role::Edit';
 
 sub edit_field_names {
     qw( parent_id child_order name link_phrase reverse_link_phrase
-        long_link_phrase description priority attributes documentation
+        long_link_phrase description attributes documentation
         is_deprecated has_dates entity0_cardinality entity1_cardinality
         orderable_direction );
 }
@@ -54,12 +54,6 @@ has_field 'long_link_phrase' => (
 has_field 'description' => (
     type => 'Text',
     not_nullable => 1,
-);
-
-has_field 'priority' => (
-    type => '+MusicBrainz::Server::Form::Field::Integer',
-    required => 1,
-    default => 0,
 );
 
 has_field 'attributes' => (

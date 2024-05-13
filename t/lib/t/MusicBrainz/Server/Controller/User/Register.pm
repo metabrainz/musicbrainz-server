@@ -16,6 +16,7 @@ test 'Registering without verifying an email address' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
     $mech->get_ok('/register', 'Fetch registration page');
+    $mech->header_is('referrer-policy', 'strict-origin-when-cross-origin');
     $mech->submit_form( with_fields => {
         'register.username' => 'brand_new_editor',
         'register.password' => 'ıaa2',

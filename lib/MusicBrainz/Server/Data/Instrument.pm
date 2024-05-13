@@ -34,10 +34,26 @@ with 'MusicBrainz::Server::Data::Role::Relatable',
 
 sub _type { 'instrument' }
 
-sub _columns {
-    return 'instrument.id, instrument.gid, instrument.type, instrument.name COLLATE musicbrainz,
-            instrument.comment, instrument.description, instrument.edits_pending, instrument.last_updated';
+sub _build_columns
+{
+    return join q(, ), (
+        'instrument.id',
+        'instrument.gid',
+        'instrument.type',
+        'instrument.name COLLATE musicbrainz',
+        'instrument.comment',
+        'instrument.description',
+        'instrument.edits_pending',
+        'instrument.last_updated',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping {
     return {

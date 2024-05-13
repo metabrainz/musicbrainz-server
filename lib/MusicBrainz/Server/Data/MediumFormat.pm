@@ -17,10 +17,26 @@ sub _table
     return 'medium_format';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, gid, name, year, parent, child_order, has_discids, description';
+    return join q(, ), qw(
+        id
+        gid
+        name
+        year
+        parent
+        child_order
+        has_discids
+        description
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping {
     return {
