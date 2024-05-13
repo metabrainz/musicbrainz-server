@@ -13,9 +13,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-11 16:28+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-05-03 19:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ru/>\n"
 "Language: ru\n"
@@ -23,9 +23,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.4\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #. name:rebab 
 #: DB:instrument/description:239
@@ -4839,10 +4839,8 @@ msgstr ""
 
 #. name:treble viol 
 #: DB:instrument/description:921
-#, fuzzy
-#| msgid "Violone, The largest/deepest member of the Viol family"
 msgid "The treble, descant or soprano member of the viol family."
-msgstr "Виолоне, Самый большой / самый глубокий представитель семейства Виол"
+msgstr "Дискантный или сопрано-представитель семейства виол."
 
 #. name:trống bông 
 #: DB:instrument/description:305

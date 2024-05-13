@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-01 18:42+0000\n"
+"PO-Revision-Date: 2024-05-10 20:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -30,7 +30,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.2\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -38,11 +38,11 @@ msgstr "Руководство \"Не группировать\" отброше�
 
 #: DB:statistics.statistic_event/title:2017-04-11
 msgid "\"feat.\" standardization dropped"
-msgstr ""
+msgstr "Прекращение стандартизации \"feat.\""
 
 #: DB:statistics.statistic_event/title:2021-04-19
 msgid "1200px thumbnails"
-msgstr ""
+msgstr "Обложки в 1200 пикселей"
 
 #: DB:statistics.statistic_event/description:2021-04-19
 msgid ""
@@ -387,10 +387,12 @@ msgid ""
 "Empty labels, release groups and works are now auto-removed after 24 hours "
 "of being unused, in the same way artists already were before."
 msgstr ""
+"Пустые лейблы, группы релизов и работы теперь удаляются спустя 24 часа их "
+"неиспользования, так же, как и у исполнителей."
 
 #: DB:statistics.statistic_event/title:2012-06-25
 msgid "Empty labels, release groups and works start being auto-removed"
-msgstr ""
+msgstr "Автоудаление пустых лейблов, групп релизов и работ"
 
 #: DB:statistics.statistic_event/description:2014-09-17
 msgid ""
@@ -1325,10 +1327,8 @@ msgid "Pieces of cover art:"
 msgstr ""
 
 #: ../root/statistics/CoverArt.js:110
-#, fuzzy
-#| msgid "By Release Group Type"
 msgid "By release group type"
-msgstr "По типу релиз группы"
+msgstr "По типу группы релизов"
 
 #: ../root/statistics/CoverArt.js:129 ../root/statistics/CoverArt.js:307
 msgid "No type"
@@ -1345,10 +1345,8 @@ msgid "No status"
 msgstr "Нет статуса"
 
 #: ../root/statistics/CoverArt.js:185
-#, fuzzy
-#| msgid "By Release Format"
 msgid "By release format"
-msgstr "По формату выпуска"
+msgstr "По формату релиза"
 
 #: ../root/statistics/CoverArt.js:204
 msgid "No format"
@@ -1358,7 +1356,7 @@ msgstr "Нет формата"
 #: ../root/statistics/Index.js:599 ../root/statistics/Index.js:607
 #: ../root/statistics/Index.js:641 ../root/statistics/stats.js:754
 msgid "Release groups"
-msgstr "Релиз-группы"
+msgstr "Группы релизов"
 
 #: ../root/statistics/CoverArt.js:230
 msgid "Release groups with cover art:"
@@ -1404,11 +1402,11 @@ msgstr "Нет данных для отображения."
 msgid ""
 "For the vote statistics, only yes or no votes are counted, abstain votes are "
 "not counted."
-msgstr ""
+msgstr "В статистике по голосам учитываются только голоса \"да\" или \"нет\"."
 
 #: ../root/statistics/Editors.js:102
 msgid "Open and applied edits in past week"
-msgstr "Открыть и применить правки за прошлую неделю"
+msgstr "Открытые и принятые правки за прошлую неделю"
 
 #: ../root/statistics/Editors.js:104 ../root/statistics/Editors.js:110
 msgid "Editor"
@@ -1444,7 +1442,7 @@ msgstr "Самые активные голосовавшие прошлой не
 
 #: ../root/statistics/Editors.js:125
 msgid "Total votes"
-msgstr ""
+msgstr "Всего голосов"
 
 #: ../root/statistics/Editors.js:128
 msgid "Top voters overall"
@@ -1456,28 +1454,26 @@ msgstr "Статистика редактирования отсутствует
 
 #: ../root/statistics/Formats.js:38 ../root/statistics/Formats.js:44
 msgid "Release/Medium Formats"
-msgstr ""
+msgstr "Релизы/форматы носителей"
 
 #: ../root/statistics/Formats.js:49
 msgid "Format"
-msgstr "Format"
+msgstr "Формат"
 
 #: ../root/statistics/Formats.js:51
 msgid "% of total releases"
-msgstr ""
+msgstr "% от общего количества релизов"
 
 #: ../root/statistics/Formats.js:52 ../root/statistics/Index.js:87
 #: ../root/statistics/Index.js:555 ../root/statistics/stats.js:530
 msgid "Mediums"
-msgstr ""
+msgstr "Носители"
 
 #: ../root/statistics/Formats.js:53
 msgid "% of total mediums"
-msgstr ""
+msgstr "% от общего количества носителей"
 
 #: ../root/statistics/Formats.js:87
-#, fuzzy
-#| msgid "Unknown Format"
 msgid "Unknown format"
 msgstr "Неизвестный формат"
 
@@ -1655,8 +1651,6 @@ msgid "by a single artist:"
 msgstr ""
 
 #: ../root/statistics/Index.js:379
-#, fuzzy
-#| msgid "Release Status"
 msgid "Release status"
 msgstr "Статус релиза"
 
@@ -1665,10 +1659,8 @@ msgid "No status set"
 msgstr "Не установлен статус"
 
 #: ../root/statistics/Index.js:405
-#, fuzzy
-#| msgid "Release Languages"
 msgid "Release packaging"
-msgstr "Языки релиза"
+msgstr "Формат упаковки релиза"
 
 #: ../root/statistics/Index.js:424
 msgid "No packaging set"
@@ -1767,8 +1759,6 @@ msgid "None"
 msgstr "Нет"
 
 #: ../root/statistics/Index.js:637
-#, fuzzy
-#| msgid "Secondary Types"
 msgid "Secondary types"
 msgstr "Вторичные типы"
 
@@ -2271,11 +2261,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:219
 msgid "Instrument collections"
-msgstr ""
+msgstr "Коллекции инструментов"
 
 #: ../root/statistics/stats.js:224
 msgid "Label collections"
-msgstr ""
+msgstr "Коллекции лейблов"
 
 #: ../root/statistics/stats.js:229
 msgid "Collections of type Maybe attending"
@@ -2287,11 +2277,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:239
 msgid "Place collections"
-msgstr ""
+msgstr "Коллекции мест"
 
 #: ../root/statistics/stats.js:244
 msgid "Recording collections"
-msgstr ""
+msgstr "Коллекции записей"
 
 #: ../root/statistics/stats.js:249
 msgid "Collections of type Release"
@@ -2303,7 +2293,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:259
 msgid "Release group collections"
-msgstr "Коллекции групп изданий"
+msgstr "Коллекции групп релизов"
 
 #: ../root/statistics/stats.js:264
 msgid "Series collections"
@@ -2315,7 +2305,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:274
 msgid "Work collections"
-msgstr ""
+msgstr "Коллекции работ"
 
 #: ../root/statistics/stats.js:295
 msgid "Applied edits"
@@ -2467,7 +2457,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:535
 msgid "Mediums with no format set"
-msgstr ""
+msgstr "Носители без выбранного формата"
 
 #: ../root/statistics/stats.js:540
 msgid "Mediums with disc IDs"
@@ -2567,11 +2557,11 @@ msgstr "Релизы без обложки"
 
 #: ../root/statistics/stats.js:690
 msgid "Releases with a medium with no format set"
-msgstr ""
+msgstr "Релизы с носителем без выбранного формата"
 
 #: ../root/statistics/stats.js:696
 msgid "Releases with a medium with no format set that have cover art"
-msgstr ""
+msgstr "Релизы с обложкой и носителем без выбранного формата"
 
 #: ../root/statistics/stats.js:702
 msgid "Releases with cover art"
@@ -2637,39 +2627,39 @@ msgstr ""
 
 #: ../root/statistics/stats.js:801
 msgid "Votes for/against area tags"
-msgstr ""
+msgstr "Голоса за/против тегов областей"
 
 #: ../root/statistics/stats.js:806
 msgid "Votes for/against artist tags"
-msgstr ""
+msgstr "Голоса за/против тегов исполнителей"
 
 #: ../root/statistics/stats.js:811
 msgid "Votes for/against instrument tags"
-msgstr ""
+msgstr "Голоса за/против тегов инструментов"
 
 #: ../root/statistics/stats.js:816
 msgid "Votes for/against label tags"
-msgstr ""
+msgstr "Голоса за/против тегов лейблов"
 
 #: ../root/statistics/stats.js:821
 msgid "Votes for/against recording tags"
-msgstr ""
+msgstr "Голоса за/против тегов записей"
 
 #: ../root/statistics/stats.js:826
 msgid "Votes for/against release tags"
-msgstr ""
+msgstr "Голоса за/против тегов релизов"
 
 #: ../root/statistics/stats.js:831
 msgid "Votes for/against release group tags"
-msgstr ""
+msgstr "Голоса за/против тегов групп релизов"
 
 #: ../root/statistics/stats.js:836
 msgid "Votes for/against series tags"
-msgstr ""
+msgstr "Голоса за/против тегов серий"
 
 #: ../root/statistics/stats.js:841
 msgid "Votes for/against work tags"
-msgstr ""
+msgstr "Голоса за/против тегов работ"
 
 #: ../root/statistics/stats.js:867
 msgid "Abstentions"
@@ -2791,7 +2781,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:1098
 msgid "Releases with a medium of format “{format}” that have cover art"
-msgstr ""
+msgstr "Релизы с обложкой и носителем типа \"{format}\""
 
 #: ../root/statistics/stats.js:1111
 msgid "{type} instruments"
