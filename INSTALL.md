@@ -29,12 +29,12 @@ Prerequisites
 
         perl -v
 
-3.  PostgreSQL (at least version 12)
+3.  PostgreSQL (at least version 16)
 
-    PostgreSQL version 12 or higher is required, along with its development
+    PostgreSQL version 16 or higher is required, along with its development
     libraries. To install using packages, run the following:
 
-        POSTGRES_VERSION=12 \
+        POSTGRES_VERSION=16 \
         sudo apt-get install \
             postgresql-${POSTGRES_VERSION} \
             postgresql-contrib-${POSTGRES_VERSION} \

@@ -16,10 +16,23 @@ sub _table
     return 'iswc';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, iswc, work, source, edits_pending';
+    return join q(, ), qw(
+        id
+        iswc
+        work
+        source
+        edits_pending
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

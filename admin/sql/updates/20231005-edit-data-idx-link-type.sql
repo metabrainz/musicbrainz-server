@@ -2,9 +2,9 @@
 
 BEGIN;
 
-DROP INDEX CONCURRENTLY IF EXISTS edit_data_idx_link_type;
+DROP INDEX IF EXISTS edit_data_idx_link_type;
 
-CREATE INDEX CONCURRENTLY edit_data_idx_link_type ON edit_data USING GIN (
+CREATE INDEX edit_data_idx_link_type ON edit_data USING GIN (
     array_remove(ARRAY[
                      (data#>>'{link_type,id}')::int,
                      (data#>>'{link,link_type,id}')::int,

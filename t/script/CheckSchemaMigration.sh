@@ -31,7 +31,7 @@ fi
 # used in DBDefs.pm for MIGRATION_TEST1, MIGRATION_TEST2, and SYSTEM.
 : ${PGPORT:=5432}
 : ${KEEP_TEST_DBS:=0}
-: ${PENDING_SO:='/usr/lib/postgresql/12/lib/pending.so'}
+: ${PENDING_SO:='/usr/lib/postgresql/16/lib/pending.so'}
 
 function drop_test_dbs() {
     if [[ "$KEEP_TEST_DBS" == "0" ]]; then
@@ -61,10 +61,12 @@ fi
 # from the production branch.
 git restore --source=production -- admin/sql
 git restore --source=production -- admin/InitDb.pl
+git restore --source=production -- t/sql/initial.sql
 ./admin/InitDb.pl --database $DB2 --createdb --clean --reptype $REPLICATION_TYPE "${WITH_PENDING_ARGS[@]}"
 ./admin/psql $DB2 < t/sql/initial.sql
 ./admin/psql $DB2 < admin/sql/SetSequences.sql
 git restore admin/sql
+git restore t/sql
 git clean --force -- admin/sql
 git restore admin/InitDb.pl
 

@@ -4,9 +4,24 @@ use namespace::autoclean;
 
 with 'MusicBrainz::Server::Data::Role::InsertUpdateDelete';
 
-sub _columns {
-    return 'id, gid, name, parent, child_order, description';
+sub _build_columns
+{
+    return join q(, ), qw(
+        id
+        gid
+        name
+        parent
+        child_order
+        description
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping {
     return {

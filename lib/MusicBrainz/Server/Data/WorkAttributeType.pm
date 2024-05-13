@@ -17,10 +17,26 @@ sub _table
     return 'work_attribute_type';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, gid, name, free_text, parent, child_order, comment, description';
+    return join q(, ), qw(
+        id
+        gid
+        name
+        free_text
+        parent
+        child_order
+        comment
+        description
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

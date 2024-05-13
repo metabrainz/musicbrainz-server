@@ -58,12 +58,28 @@ sub _table
     return 'edit JOIN edit_data ON edit.id = edit_data.edit';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'edit.id, edit.editor, edit.open_time, edit.expire_time, edit.close_time,
-            edit_data.data, edit.language, edit.type,
-            edit.autoedit, edit.status';
+    return join q(, ), qw(
+        edit.id
+        edit.editor
+        edit.open_time
+        edit.expire_time
+        edit.close_time
+        edit_data.data
+        edit.language
+        edit.type
+        edit.autoedit
+        edit.status
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _new_from_row
 {

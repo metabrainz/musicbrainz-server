@@ -15,10 +15,24 @@ sub _table
     return 'cdtoc';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, discid, freedb_id, track_count, leadout_offset, track_offset';
+    return join q(, ), qw(
+        id
+        discid
+        freedb_id
+        track_count
+        leadout_offset
+        track_offset
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

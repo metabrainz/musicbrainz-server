@@ -31,8 +31,8 @@ run_with_apt_cache \
         selenium_caa_deps
         locales
         openssh-client
-        postgresql-12
-        postgresql-12-pgtap
+        postgresql-16
+        postgresql-16-pgtap
         redis-server
         runit
         runit-systemd
@@ -91,6 +91,8 @@ ENV MB_SOLR_TAG master
 # Steps taken from https://github.com/metabrainz/mb-solr/blob/master/Dockerfile
 RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recursive https://github.com/metabrainz/mb-solr.git && \
     cd mb-solr/mmd-schema/brainz-mmd2-jaxb && \
+    # Assume that Java classes have been regenerated and patched
+    find src/main/java -type f -print0 | xargs -0 touch && \
     mvn install && \
     cd ../../mb-solr && \
     mvn package -DskipTests && \
@@ -148,7 +150,7 @@ RUN mkdir -p "$PGDATA" && \
     chown -R postgres:postgres "$PGHOME" && \
     cd "$PGHOME" && \
     chmod 700 "$PGDATA" && \
-    sudo -u postgres /usr/lib/postgresql/12/bin/initdb \
+    sudo -u postgres /usr/lib/postgresql/16/bin/initdb \
         --data-checksums \
         --encoding utf8 \
         --locale en_US.UTF8 \
