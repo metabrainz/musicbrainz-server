@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-29 23:24+0000\n"
+"POT-Creation-Date: 2024-05-02 12:35-0500\n"
 "PO-Revision-Date: 2024-04-17 17:39+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations."
 "metabrainz.org>\n"
@@ -2472,6 +2472,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/ArtistSidebar.js:78
 #: ../root/report/DuplicateArtists.js:68
 #: ../root/search/components/ArtistResults.js:53
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:119
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:82
 msgid "Sort name"
 msgstr ""
@@ -14088,6 +14089,13 @@ msgstr ""
 msgid "Search for a work"
 msgstr ""
 
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:86
+#: ../root/static/scripts/common/components/EntityLink.js:83
+#, fuzzy
+#| msgid "Primary Type:"
+msgid "Primary alias"
+msgstr "Primär typ:"
+
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:331
 msgid "{forward_link_phrase} / {backward_link_phrase}"
 msgstr ""
@@ -14157,12 +14165,6 @@ msgstr ""
 #: ../root/static/scripts/common/components/EditorLink.js:23
 msgid "[missing editor]"
 msgstr ""
-
-#: ../root/static/scripts/common/components/EntityLink.js:83
-#, fuzzy
-#| msgid "Primary Type:"
-msgid "Primary alias"
-msgstr "Primär typ:"
 
 #: ../root/static/scripts/common/components/EntityLink.js:144
 #: ../root/url/UrlIndex.js:28

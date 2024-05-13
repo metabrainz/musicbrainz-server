@@ -401,7 +401,11 @@ msgstr ""
 "Tregon një vëlla/motër me të cilin artisti ka vetëm një prind të përbashkët"
 
 #: DB:link_type/description:842
-msgid "Indicates a webpage that reviews the event in question."
+#, fuzzy
+#| msgid "Indicates a webpage that reviews the event in question."
+msgid ""
+"Indicates a webpage that reviews the event in question, whether it be in "
+"text, audio or video form."
 msgstr "Tregon një faqe web që shqyrton veprimtarinë në fjalë."
 
 #: DB:link_type/description:958
@@ -1255,6 +1259,12 @@ msgstr "Shpie te faqja në Wikipedia për këtë veprimtari."
 #: DB:link_type/description:731
 msgid "Points to the Wikipedia page for this instrument."
 msgstr "Shpie te faqja në Wikipedia për këtë instrument."
+
+#: DB:link_type/description:216
+#, fuzzy
+#| msgid "Points to the Wikipedia page for this place"
+msgid "Points to the Wikipedia page for this label."
+msgstr "Shpie te faqja në Wikipedia për këtë vend."
 
 #: DB:link_type/description:595
 #, fuzzy
@@ -2391,10 +2401,6 @@ msgstr ""
 
 #: DB:link_type/description:213
 msgid "This is used to link a label to an image of its logo."
-msgstr ""
-
-#: DB:link_type/description:216
-msgid "This is used to link a label to its corresponding Wikipedia page."
 msgstr ""
 
 #: DB:link_type/description:977
@@ -4103,16 +4109,16 @@ msgstr "faqe në Wikidata për"
 
 #: DB:link_type/link_phrase:179 DB:link_type/link_phrase:595
 #: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:731
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:789
+#: DB:link_type/link_phrase:731 DB:link_type/link_phrase:89
+#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:789
 #: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
 #: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:179
 #: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
-#: DB:link_type/reverse_link_phrase:731 DB:link_type/reverse_link_phrase:89
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:731
+#: DB:link_type/reverse_link_phrase:89 DB:link_type/reverse_link_phrase:216
 #: DB:link_type/reverse_link_phrase:789
 msgid "Wikipedia page for"
 msgstr "faqe në Wikipedia për"
@@ -5341,8 +5347,8 @@ msgstr "ka një faqe në Wikidata te"
 
 #: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:595
 #: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:731
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:789
+#: DB:link_type/long_link_phrase:731 DB:link_type/long_link_phrase:89
+#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:789
 msgid "has a Wikipedia page at"
 msgstr "ka një faqe nē Wikipedia te"
 
@@ -5418,7 +5424,7 @@ msgstr ""
 msgid "has a picture at"
 msgstr "ka foto te"
 
-#: DB:link_type/long_link_phrase:842 DB:link_type/long_link_phrase:94
+#: DB:link_type/long_link_phrase:94 DB:link_type/long_link_phrase:842
 msgid "has a review page at"
 msgstr "ka një faqe shqyrtimesh te"
 
@@ -7291,15 +7297,15 @@ msgstr ""
 msgid "residency by"
 msgstr ""
 
-#: DB:link_type/name:842 DB:link_type/name:94
+#: DB:link_type/name:94 DB:link_type/name:842
 msgid "review"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:842 DB:link_type/reverse_link_phrase:94
+#: DB:link_type/reverse_link_phrase:94 DB:link_type/reverse_link_phrase:842
 msgid "review page for"
 msgstr ""
 
-#: DB:link_type/link_phrase:842 DB:link_type/link_phrase:94
+#: DB:link_type/link_phrase:94 DB:link_type/link_phrase:842
 msgid "reviews"
 msgstr ""
 
@@ -7992,8 +7998,8 @@ msgid "wikidata"
 msgstr "wikidata"
 
 #: DB:link_type/name:179 DB:link_type/name:595 DB:link_type/name:355
-#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:216
-#: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
+#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:731
+#: DB:link_type/name:89 DB:link_type/name:216 DB:link_type/name:789
 msgid "wikipedia"
 msgstr "wikipedia"
 
