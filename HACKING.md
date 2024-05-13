@@ -369,7 +369,7 @@ script:
  * `PENDING_SO` - if also specifying `REPLICATION_TYPE=1` (master), this is
    the path to dbmirror's pending.so, which will be forwarded to InitDb.pl
    via the `--with-pending` flag.
-   (default: /usr/lib/postgresql/12/lib/pending.so)
+   (default: /usr/lib/postgresql/16/lib/pending.so)
 
 To check the migration scripts for a standalone setup with postgres running
 on port 25432, you may for example run:

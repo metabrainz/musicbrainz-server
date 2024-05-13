@@ -15,12 +15,22 @@ sub _table
     return 'work_attribute';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, work_attribute_type AS type_id, ' .
-           'work_attribute_type_allowed_value AS value_id, ' .
-           'work_attribute_text AS value';
+    return join q(, ), (
+        'id',
+        'work_attribute_type AS type_id',
+        'work_attribute_type_allowed_value AS value_id',
+        'work_attribute_text AS value',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

@@ -8,6 +8,7 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use DBDefs;
+use MusicBrainz::Server::Constants qw( @FULL_SCHEMA_LIST );
 use MusicBrainz::Server::Replication qw( :replication_type );
 
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
@@ -49,8 +50,8 @@ sub RequireMinimumPostgreSQLVersion
 
     my $version = $sql->select_single_value(q{SELECT current_setting('server_version_num')});
 
-    if ($version < 12000) {
-        die 'MusicBrainz requires PostgreSQL 12 or later';
+    if ($version < 160000) {
+        die 'MusicBrainz requires PostgreSQL 16 or later';
     }
 }
 
@@ -238,18 +239,7 @@ sub CreateRelations
     $ENV{'PGPASSWORD'} = $DB->password;
 
     system(sprintf(qq(echo "CREATE SCHEMA %s" | $psql $opts), $_))
-        for (qw(
-            musicbrainz
-            cover_art_archive
-            documentation
-            event_art_archive
-            json_dump
-            report
-            sitemaps
-            statistics
-            wikidocs
-            dbmirror2
-        ));
+        for @FULL_SCHEMA_LIST;
     die "\nFailed to create schema\n" if ($CHILD_ERROR >> 8);
 
     RunSQLScript($SYSMB, 'Extensions.sql', 'Installing extensions');

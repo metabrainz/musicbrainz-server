@@ -90,7 +90,7 @@ zlib1g-dev
 pkg-config
 ')
 
-# postgresql-server-dev-12 provides pg_config, which is needed by InitDb.pl
+# postgresql-server-dev-16 provides pg_config, which is needed by InitDb.pl
 # at run-time.
 m4_define(
     `mbs_run_deps',
@@ -103,22 +103,22 @@ libicu70
 libpq5
 libssl3
 libxml2
-postgresql-client-12
-postgresql-server-dev-12
+postgresql-client-16
+postgresql-server-dev-16
 zlib1g
 ')
 
 m4_define(
     `test_db_run_deps',
     `m4_dnl
-postgresql-12-pgtap
+postgresql-16-pgtap
 ')
 
 m4_define(
     `test_db_build_deps',
     `m4_dnl
 build-essential
-postgresql-server-dev-12
+postgresql-server-dev-16
 ')
 
 m4_define(

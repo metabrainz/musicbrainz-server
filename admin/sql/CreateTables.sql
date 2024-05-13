@@ -2467,7 +2467,7 @@ CREATE TABLE label ( -- replicate (verbose)
     end_date_year       SMALLINT,
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
-    label_code          INTEGER CHECK (label_code > 0 AND label_code < 100000),
+    label_code          INTEGER,
     type                INTEGER, -- references label_type.id
     area                INTEGER, -- references area.id
     comment             VARCHAR(255) NOT NULL DEFAULT '',
@@ -2729,7 +2729,6 @@ CREATE TABLE link_type ( -- replicate
     link_phrase         VARCHAR(255) NOT NULL,
     reverse_link_phrase VARCHAR(255) NOT NULL,
     long_link_phrase    VARCHAR(255) NOT NULL,
-    priority            INTEGER NOT NULL DEFAULT 0,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     is_deprecated       BOOLEAN NOT NULL DEFAULT false,
     has_dates           BOOLEAN NOT NULL DEFAULT true,
@@ -2796,6 +2795,14 @@ CREATE TABLE editor_collection_artist (
 CREATE TABLE editor_collection_event (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
     event INTEGER NOT NULL, -- PK, references event.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
+    comment TEXT DEFAULT '' NOT NULL
+);
+
+CREATE TABLE editor_collection_genre (
+    collection INTEGER NOT NULL, -- PK, references editor_collection.id
+    genre INTEGER NOT NULL, -- PK, references genre.id
     added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
     comment TEXT DEFAULT '' NOT NULL

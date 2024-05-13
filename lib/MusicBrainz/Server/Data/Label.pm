@@ -45,13 +45,34 @@ with 'MusicBrainz::Server::Data::Role::Relatable',
 
 sub _type { 'label' }
 
-sub _columns
+sub _build_columns
 {
-    return 'label.id, label.gid, label.name COLLATE musicbrainz, ' .
-           'label.type, label.area, label.edits_pending, label.label_code, ' .
-           'label.begin_date_year, label.begin_date_month, label.begin_date_day, ' .
-           'label.end_date_year, label.end_date_month, label.end_date_day, label.ended, label.comment, label.last_updated';
+    return join q(, ), (
+        'label.id',
+        'label.gid',
+        'label.name COLLATE musicbrainz',
+        'label.type',
+        'label.area',
+        'label.edits_pending',
+        'label.label_code',
+        'label.begin_date_year',
+        'label.begin_date_month',
+        'label.begin_date_day',
+        'label.end_date_year',
+        'label.end_date_month',
+        'label.end_date_day',
+        'label.ended',
+        'label.comment',
+        'label.last_updated',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _id_column
 {

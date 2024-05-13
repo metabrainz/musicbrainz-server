@@ -41,7 +41,7 @@ ALTER TABLE artist_alias
 ALTER TABLE editor_collection_type
       ADD CONSTRAINT allowed_collection_entity_type CHECK (
           entity_type IN (
-            'area', 'artist', 'event', 'instrument', 'label',
+            'area', 'artist', 'event', 'genre', 'instrument', 'label',
             'place', 'recording', 'release', 'release_group',
             'series', 'work'
           )
@@ -76,7 +76,8 @@ ALTER TABLE instrument_alias
 
 ALTER TABLE label
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != '');
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT label_code_length CHECK (label_code > 0 AND label_code < 1000000);
 
 ALTER TABLE label_alias
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),

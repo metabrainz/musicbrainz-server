@@ -48,28 +48,45 @@ sub _table
         ') AS ins ON ins.instrument_gid = link_attribute_type.gid';
 }
 
-sub _columns
+sub _build_columns
 {
-    return 'id, parent, child_order, gid, name, description, root, ' .
-           'lat_root.root_name, ' .
-           'lat_root.root_gid, ' .
-           'lat_parent.parent_name, ' .
-           'lat_parent.parent_gid, ' .
-           'COALESCE(
-                (SELECT TRUE FROM link_text_attribute_type
-                 WHERE attribute_type = link_attribute_type.id),
-                false
-            ) AS free_text, ' .
-           'COALESCE(
-                (SELECT TRUE FROM link_creditable_attribute_type
-                 WHERE attribute_type = link_attribute_type.id),
-                false
-            ) AS creditable, ' .
-           q{COALESCE(ins.instrument_comment, '') AS instrument_comment, } .
-           'ins.instrument_type_id, ' .
-           q{COALESCE(ins.instrument_type_name, '') AS instrument_type_name, } .
-           'ins.instrument_aliases';
+    return join q(, ), (
+        'id',
+        'parent',
+        'child_order',
+        'gid',
+        'name',
+        'description',
+        'root',
+        'lat_root.root_name',
+        'lat_root.root_gid',
+        'lat_parent.parent_name',
+        'lat_parent.parent_gid',
+        'COALESCE(
+            (SELECT TRUE
+               FROM link_text_attribute_type
+              WHERE attribute_type = link_attribute_type.id),
+            false
+        ) AS free_text',
+        'COALESCE(
+            (SELECT TRUE
+               FROM link_creditable_attribute_type
+              WHERE attribute_type = link_attribute_type.id),
+            false
+        ) AS creditable',
+        q{COALESCE(ins.instrument_comment, '') AS instrument_comment},
+        'ins.instrument_type_id',
+        q{COALESCE(ins.instrument_type_name, '') AS instrument_type_name},
+        'ins.instrument_aliases',
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping
 {

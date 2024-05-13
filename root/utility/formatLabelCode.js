@@ -10,5 +10,5 @@
 import {fixedWidthInteger} from '../static/scripts/common/utility/strings.js';
 
 export default function formatLabelCode(code: number): string {
-  return 'LC ' + fixedWidthInteger(code, 5);
+  return 'LC ' + fixedWidthInteger(code, 6);
 }

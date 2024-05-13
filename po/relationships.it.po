@@ -30,8 +30,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.5.3\n"
 
 #: DB:link_attribute_type/description:1355
@@ -8110,9 +8110,9 @@ msgstr "ha ricostruito"
 msgid "reconstructed by"
 msgstr "ricostruita da"
 
-#: DB:link_type/name:809 DB:link_type/name:810 DB:link_type/name:693
-#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:809
-#: DB:link_type/reverse_link_phrase:810
+#: DB:link_type/name:810 DB:link_type/name:809 DB:link_type/name:693
+#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:810
+#: DB:link_type/reverse_link_phrase:809
 msgid "recorded at"
 msgstr "registrata presso"
 
@@ -8162,7 +8162,7 @@ msgstr "posizione di tecnico di registrazione presso"
 msgid "recording engineers"
 msgstr "tecnici di registrazione"
 
-#: DB:link_type/link_phrase:809 DB:link_type/link_phrase:810
+#: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
 msgid "recording location for"
 msgstr "luogo di registrazione per"
 
@@ -9994,10 +9994,6 @@ msgstr "{entity1} è stata precedentemente attribuita a {entity0}"
 msgid "{entity1} was printed in {entity0}"
 msgstr "{entity1} è stata stampata a {entity0}"
 
-#: DB:link_type/long_link_phrase:809 DB:link_type/long_link_phrase:810
-msgid "{entity1} was recorded at  {entity0}"
-msgstr "{entity1} è stata registrata presso {entity0}"
-
 #: DB:link_type/long_link_phrase:1178
 msgid "{entity1} was remixed for {entity0}"
 msgstr "{entity1} è stata remixata per {entity0}"
@@ -10062,6 +10058,7 @@ msgstr "{entity1} è stata prodotta {additional:in aggiunta} presso {entity0}"
 msgid "{entity1} was {additional:additionally} produced in {entity0}"
 msgstr "{entity1} è stata prodotta {additional:in aggiunta} a {entity0}"
 
+#: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
 #: DB:link_type/long_link_phrase:693 DB:link_type/long_link_phrase:695
 msgid "{entity1} was {additional:additionally} recorded at {entity0}"
 msgstr "{entity1} è stata registrata {additional:in aggiunta} presso {entity0}"
@@ -10086,8 +10083,14 @@ msgstr "{entity1} è stato girato {additional:in aggiunta} presso {entity0}"
 msgid "{entity1} was {additional:additionally} shot in {entity0}"
 msgstr "{entity1} è stato girato {additional:in aggiunta} a {entity0}"
 
-#: DB:link_type/long_link_phrase:1181 DB:link_type/long_link_phrase:1182
+#: DB:link_type/long_link_phrase:1182
 msgid "{entity1} was {additional:additionally} transferred at {entity0}"
+msgstr "{entity1} è stata trasferita {additional:in aggiunta} presso {entity0}"
+
+#: DB:link_type/long_link_phrase:1181
+#, fuzzy
+#| msgid "{entity1} was {additional:additionally} transferred at {entity0}"
+msgid "{entity1} was {additional:additionally} transferred in {entity0}"
 msgstr "{entity1} è stata trasferita {additional:in aggiunta} presso {entity0}"
 
 #: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
@@ -10206,6 +10209,9 @@ msgstr "supporto {vocal:%|alla voce} da parte di"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "supporto {vocal:%|alla voce} per"
+
+#~ msgid "{entity1} was recorded at  {entity0}"
+#~ msgstr "{entity1} è stata registrata presso {entity0}"
 
 #~ msgid "Indicates a webpage that reviews the event in question."
 #~ msgstr "Indica una pagina web che recensisce l'evento in questione."

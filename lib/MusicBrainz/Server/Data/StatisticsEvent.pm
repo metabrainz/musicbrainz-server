@@ -21,9 +21,22 @@ sub _id_column
     return 'statistic_event.date';
 }
 
-sub _columns {
-    return 'date, title, description, link';
+sub _build_columns
+{
+    return join q(, ), qw(
+        date
+        title
+        description
+        link
+    );
 }
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub _column_mapping {
     return {

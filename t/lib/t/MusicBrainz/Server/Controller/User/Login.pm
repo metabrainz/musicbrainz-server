@@ -29,6 +29,7 @@ test all => sub {
 
     $mech->get_ok('https://localhost/login');
     html_ok($mech->content);
+    $mech->header_is('referrer-policy', 'strict-origin-when-cross-origin');
     $mech->submit_form( with_fields => { username => '', password => '' } );
     $mech->content_contains('Username field is required');
     $mech->content_contains('Password field is required');
