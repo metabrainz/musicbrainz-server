@@ -1,12 +1,13 @@
 #
 # Translators:
 # "Vac31." <gateway_31@protonmail.com>, 2023, 2024.
+# Vaclovas Intas <gateway_31@protonmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-31 21:29+0000\n"
-"Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
+"PO-Revision-Date: 2024-05-03 14:42+0000\n"
+"Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/lt/>\n"
 "Language: lt\n"
@@ -14,9 +15,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.4\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1297,7 +1298,7 @@ msgstr ""
 #: ../root/statistics/LanguagesScripts.js:46
 #: ../root/statistics/Relationships.js:93
 msgid "Last updated: {date}"
-msgstr ""
+msgstr "Paskutinį kartą atnaujinta: {data}"
 
 #: ../root/statistics/Countries.js:48 ../root/statistics/Editors.js:37
 #: ../root/statistics/Formats.js:48 ../root/statistics/LanguagesScripts.js:59
@@ -1963,7 +1964,7 @@ msgstr "tik patvirtintu el. paštu:"
 
 #: ../root/statistics/Index.js:1209
 msgid "inactive:"
-msgstr ""
+msgstr "neaktyvi:"
 
 #: ../root/statistics/Index.js:1214
 msgid "Editors (deleted):"

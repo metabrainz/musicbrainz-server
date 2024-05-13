@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-04-28 14:42+0000\n"
+"PO-Revision-Date: 2024-05-02 22:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/lt/>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.5.2\n"
 
 #: DB:link_attribute_type/description:1355
@@ -410,22 +410,17 @@ msgstr ""
 "motiną."
 
 #: DB:link_type/description:842
-#, fuzzy
-#| msgid ""
-#| "Indicates a page that reviews the release (group) in question, whether it "
-#| "be in text, audio or video form."
 msgid ""
 "Indicates a webpage that reviews the event in question, whether it be in "
 "text, audio or video form."
 msgstr ""
-"Nurodo puslapį, kuriame apžvelgiamas atitinkamas leidinys (grupė) – tekstu, "
-"garso ar vaizdo įrašu forma."
+"Nurodo tinklalapį, kuriame apžvelgiamas atitinkamas renginys – tekstu, garso "
+"ar vaizdo įrašu."
 
 #: DB:link_type/description:958
 msgid "Indicates a webpage where you can download a label's releases for free."
 msgstr ""
-"Nurodo tinklalapį, kuriame galima nemokamai atsisiųsti įrašo kompanijos "
-"leidinius."
+"Nurodo tinklalapį, kuriame galima nemokamai atsisiųsti leidyklos leidinius."
 
 #: DB:link_type/description:177
 msgid "Indicates a webpage where you can download an artist's work for free."
@@ -1267,10 +1262,8 @@ msgid "Points to the Wikipedia page for this instrument."
 msgstr "Nukreipia į šio instrumento Vikipedijos puslapį."
 
 #: DB:link_type/description:216
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this place."
 msgid "Points to the Wikipedia page for this label."
-msgstr "Nukreipia į šios vietos Vikipedijos puslapį."
+msgstr "Nukreipia į šios leidyklos Vikipedijos puslapį."
 
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place."

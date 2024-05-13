@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-02 12:35-0500\n"
-"PO-Revision-Date: 2024-04-30 08:42+0000\n"
+"PO-Revision-Date: 2024-05-12 17:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -24,9 +24,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.5.2\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -987,7 +987,7 @@ msgstr "Pabaigos data"
 #: ../root/components/forms.tt:258 ../root/components/forms.tt:283
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:111
 msgid "English"
-msgstr "Anglų"
+msgstr "anglų"
 
 #: ../root/release/edit/tracklist.tt:3
 msgid "Enter a tracklist below:"
@@ -1152,7 +1152,7 @@ msgstr[3] "Rasta {n} rezultatų „{q}“"
 #: ../root/components/forms.tt:260 ../root/components/forms.tt:285
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:113
 msgid "French"
-msgstr "Prancūzų"
+msgstr "prancūzų"
 
 #: ../root/cdstub/index.tt:30 ../root/cdstub/CDStubIndex.js:51
 #: ../root/cdtoc/CDTocInfo.js:22
@@ -2542,7 +2542,7 @@ msgstr "Tavo sėklinimose duomenyse buvo toliau nurodytų klaidų:"
 
 #: ../root/release/edit/information.tt:163
 msgid "The date you've entered is not valid."
-msgstr "Įvesta data yra netinkama."
+msgstr "Įvesta data nėra netinkama."
 
 #: ../root/release/edit/information.tt:361
 msgid ""
@@ -6507,8 +6507,6 @@ msgid "Edit application"
 msgstr "Redaguoti programą"
 
 #: ../root/account/applications/EditApplication.js:23
-#, fuzzy
-#| msgid "Update"
 msgctxt "verb, data, interactive"
 msgid "Update"
 msgstr "Atnaujinti"
@@ -13451,7 +13449,7 @@ msgstr ""
 
 #: ../root/search/components/ResultsLayout.js:32
 msgid "Last updated: {date}"
-msgstr ""
+msgstr "Paskutinį kartą atnaujinta: {data}"
 
 #: ../root/search/components/SearchError.js:20
 #, fuzzy
