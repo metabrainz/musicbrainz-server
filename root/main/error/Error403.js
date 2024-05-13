@@ -15,7 +15,7 @@ import bugTrackerURL
 
 import ErrorLayout from './ErrorLayout.js';
 
-const Error403 = (): React$Element<typeof ErrorLayout> => {
+component Error403() {
   const $c = React.useContext(CatalystContext);
   return (
     <ErrorLayout title={l('Forbidden request')}>
@@ -33,8 +33,8 @@ const Error403 = (): React$Element<typeof ErrorLayout> => {
       <p>
         {exp.l(
           `If you followed a link on our site to get here,
-          please {report|report a bug} and the URL
-          of the page that sent you here.`,
+           please {report|report a bug} and the URL
+           of the page that sent you here.`,
           {
             report: bugTrackerURL(
               'Forbidden page: ' + $c.req.uri + '\n' +
@@ -45,6 +45,6 @@ const Error403 = (): React$Element<typeof ErrorLayout> => {
       </p>
     </ErrorLayout>
   );
-};
+}
 
 export default Error403;

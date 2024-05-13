@@ -12,30 +12,26 @@ import Layout from '../layout/index.js';
 
 import SeriesHeader from './SeriesHeader.js';
 
-type Props = {
-  +children: React$Node,
-  +entity: SeriesT,
-  +fullWidth?: boolean,
-  +page: string,
-  +title?: string,
-};
-
-const SeriesLayout = ({
-  children,
-  entity: series,
-  fullWidth = false,
-  page,
-  title,
-}: Props): React$Element<typeof Layout> => (
-  <Layout
-    title={nonEmpty(title) ? hyphenateTitle(series.name, title) : series.name}
-  >
-    <div id="content">
-      <SeriesHeader page={page} series={series} />
-      {children}
-    </div>
-    {fullWidth ? null : <SeriesSidebar series={series} />}
-  </Layout>
-);
+component SeriesLayout(
+  children: React$Node,
+  entity as series: SeriesT,
+  fullWidth: boolean = false,
+  page: string,
+  title?: string,
+) {
+  return (
+    <Layout
+      title={nonEmpty(title)
+        ? hyphenateTitle(series.name, title)
+        : series.name}
+    >
+      <div id="content">
+        <SeriesHeader page={page} series={series} />
+        {children}
+      </div>
+      {fullWidth ? null : <SeriesSidebar series={series} />}
+    </Layout>
+  );
+}
 
 export default SeriesLayout;

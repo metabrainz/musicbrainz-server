@@ -15,11 +15,6 @@ import loopParity from '../../utility/loopParity.js';
 
 import {type AttributeT} from './types.js';
 
-type Props = {
-  +attributes: Array<AttributeT>,
-  +model: string,
-};
-
 const renderAttributesHeaderAccordingToModel = (model: string) => {
   switch (model) {
     case 'MediumFormat': {
@@ -62,61 +57,64 @@ const renderAttributes = (attribute: AttributeT) => {
   }
 };
 
-const Attribute = ({
-  attributes,
-  model,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={model}>
-    <h1>
-      <a href="/admin/attributes">{'Attributes'}</a>
-      {' / ' + model}
-    </h1>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{'ID'}</th>
-          <th>{'Name'}</th>
-          <th>{'Description'}</th>
-          <th>{'MBID'}</th>
-          <th>{'Child order'}</th>
-          <th>{'Parent ID'}</th>
-          {renderAttributesHeaderAccordingToModel(model)}
-          <th>{'Actions'}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {attributes ? attributes
-          .sort((a, b) => compare(a.name, b.name))
-          .map((attribute, index) => (
-            <tr className={loopParity(index)} key={attribute.id}>
-              <td>{attribute.id}</td>
-              <td>{attribute.name}</td>
-              <td>{exp.l_admin(attribute.description)}</td>
-              <td>{attribute.gid}</td>
-              <td>{attribute.child_order}</td>
-              <td>{attribute.parent_id}</td>
-              {renderAttributes(attribute)}
-              <td>
-                <a href={`/admin/attributes/${model}/edit/${attribute.id}`}>
-                  {'Edit'}
-                </a>
-                {' | '}
-                <a href={`/admin/attributes/${model}/delete/${attribute.id}`}>
-                  {'Remove'}
-                </a>
-              </td>
-            </tr>
-          )) : null}
-      </tbody>
-    </table>
-    <p>
-      <span className="buttons">
-        <a href={`/admin/attributes/${model}/create`}>
-          {'Add new attribute'}
-        </a>
-      </span>
-    </p>
-  </Layout>
-);
+component Attribute(attributes: Array<AttributeT>, model: string) {
+  return (
+    <Layout fullWidth title={model}>
+      <h1>
+        <a href="/admin/attributes">{'Attributes'}</a>
+        {' / ' + model}
+      </h1>
+      <table className="tbl">
+        <thead>
+          <tr>
+            <th>{'ID'}</th>
+            <th>{'Name'}</th>
+            <th>{'Description'}</th>
+            <th>{'MBID'}</th>
+            <th>{'Child order'}</th>
+            <th>{'Parent ID'}</th>
+            {renderAttributesHeaderAccordingToModel(model)}
+            <th>{'Actions'}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {attributes ? attributes
+            .sort((a, b) => compare(a.name, b.name))
+            .map((attribute, index) => (
+              <tr className={loopParity(index)} key={attribute.id}>
+                <td>{attribute.id}</td>
+                <td>{attribute.name}</td>
+                <td>{exp.l_admin(attribute.description)}</td>
+                <td>{attribute.gid}</td>
+                <td>{attribute.child_order}</td>
+                <td>{attribute.parent_id}</td>
+                {renderAttributes(attribute)}
+                <td>
+                  <a
+                    href={`/admin/attributes/${model}/edit/${attribute.id}`}
+                  >
+                    {'Edit'}
+                  </a>
+                  {' | '}
+                  <a
+                    href={`/admin/attributes/${model}/delete/${attribute.id}`}
+                  >
+                    {'Remove'}
+                  </a>
+                </td>
+              </tr>
+            )) : null}
+        </tbody>
+      </table>
+      <p>
+        <span className="buttons">
+          <a href={`/admin/attributes/${model}/create`}>
+            {'Add new attribute'}
+          </a>
+        </span>
+      </p>
+    </Layout>
+  );
+}
 
 export default Attribute;

@@ -1,9 +1,10 @@
 # BestSteve <ibmibmibm.tw@gmail.com>, 2024.
+# Evergarden <minna1012@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2024-03-26 12:24+0000\n"
-"Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
+"PO-Revision-Date: 2024-04-28 14:42+0000\n"
+"Last-Translator: Evergarden <minna1012@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translations.metabrainz.org/"
 "projects/musicbrainz/attributes/zh_Hant/>\n"
 "Language: zh_Hant\n"
@@ -11,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -19,7 +20,8 @@ msgid ""
 "\"Motet\" is a term that applies to different types of (usually "
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
-msgstr "「經文歌」是一個適用於不同類型的合唱作品的術語。究竟什麼是一首經文歌相當大程"
+msgstr ""
+"「經文歌」是一個適用於不同類型的合唱作品的術語。究竟什麼是一首經文歌相當大程"
 "度上取決於時期。"
 
 #: DB:work_type/description:5
@@ -27,7 +29,8 @@ msgctxt "work_type"
 msgid ""
 "\"Sonata\" is a general term used to describe small scale (very often solo "
 "or solo + keyboard) instrumental works, initially in baroque music."
-msgstr "「奏鳴曲」是一個通用術語，用於描述小型(通常是獨奏或獨奏加鍵盤)樂器作品，最初"
+msgstr ""
+"「奏鳴曲」是一個通用術語，用於描述小型(通常是獨奏或獨奏加鍵盤)樂器作品，最初"
 "出現於巴洛克音樂時期。"
 
 #: DB:medium_format/name:205
@@ -48,67 +51,72 @@ msgstr "10英吋黑膠唱片"
 #: DB:medium_format/name:206
 msgctxt "medium_format"
 msgid "12\" Acetate"
-msgstr ""
+msgstr "12 英寸醋酸纖維"
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
 msgid "12\" LaserDisc"
-msgstr ""
+msgstr "12英吋雷射光碟"
 
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
-msgstr ""
+msgstr "12英吋蟲膠"
 
 #: DB:medium_format/name:31
 msgctxt "medium_format"
 msgid "12\" Vinyl"
-msgstr ""
+msgstr "12 吋黑膠"
+
+#: DB:medium_format/name:207
+msgctxt "medium_format"
+msgid "3\" Vinyl"
+msgstr "3\" 乙烯基"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
-msgstr ""
+msgstr "3.5 吋軟碟"
 
 #: DB:medium_format/name:91
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
-msgstr ""
+msgstr "5.25吋軟盤"
 
 #: DB:medium_format/name:204
 msgctxt "medium_format"
 msgid "7\" Acetate"
-msgstr ""
+msgstr "7\" 醋酸纖維"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
 msgid "7\" Flexi-disc"
-msgstr ""
+msgstr "7 吋軟碟"
 
 #: DB:medium_format/name:56
 msgctxt "medium_format"
 msgid "7\" Shellac"
-msgstr ""
+msgstr "7吋蟲膠"
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
 msgid "7\" Vinyl"
-msgstr ""
+msgstr "7 吋黑膠"
 
 #: DB:medium_format/name:71
 msgctxt "medium_format"
 msgid "8\" LaserDisc"
-msgstr ""
+msgstr "8吋雷射光碟"
 
 #: DB:medium_format/name:78
 msgctxt "medium_format"
 msgid "8-Track Cartridge"
-msgstr ""
+msgstr "8軌唱頭"
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
 msgid "8cm CD"
-msgstr ""
+msgstr "8 公分光碟"
 
 #: DB:medium_format/name:40
 msgctxt "medium_format"
@@ -221,17 +229,17 @@ msgstr ""
 "<li>在美國市場，單曲通常包含一首主打歌曲，可能還有幾首額外的曲目或主打曲的混"
 "音版本；單曲通常以其主打歌曲命名；單曲主要是為了在廣播中播放和促進發行銷售而"
 "發行的。</li>\n"
-"<li>英國市場(也包括澳大利亞和歐洲)與美國市場類似，但單曲通常作為雙碟套裝發行"
-"，每張碟都可以單獨購買。它們有時還會有主打曲的較長版本(通常是合併了雙碟版本的"
-"曲目)，非常類似於美國風格的單曲，這稱為“加大單曲”。(在某些情況下，加大單曲的"
-"長度比原來發行的版本還要長！)</li>\n"
-"<li>日本市場更加偏向於單曲。其主要區別因素通常是單曲的長度和售價。直到1995年"
-"，這些單曲通常是使用迷你CD格式發行的，這基本上是一種直徑通常為8公分的小CD。大"
-"約在1995年左右，8公分單曲被淘汰，標準的12公分CD單曲現在更加普遍；通常，1995年"
-"之前的單曲的重新發行將以12公分格式發行，即使它們最初是以8公分格式發行的。日本"
-"單曲通常附帶歌曲的伴奏版本，並且像英國一樣有混音版本的加大單曲。有時，加大單"
-"曲的曲目比EP更多，但由於它們都是相同2-3首歌曲的替代版本，因此仍然被歸類為單曲"
-"。</li>\n"
+"<li>英國市場(也包括澳大利亞和歐洲)與美國市場類似，但單曲通常作為雙碟套裝發"
+"行，每張碟都可以單獨購買。它們有時還會有主打曲的較長版本(通常是合併了雙碟版本"
+"的曲目)，非常類似於美國風格的單曲，這稱為“加大單曲”。(在某些情況下，加大單曲"
+"的長度比原來發行的版本還要長！)</li>\n"
+"<li>日本市場更加偏向於單曲。其主要區別因素通常是單曲的長度和售價。直到1995"
+"年，這些單曲通常是使用迷你CD格式發行的，這基本上是一種直徑通常為8公分的小CD。"
+"大約在1995年左右，8公分單曲被淘汰，標準的12公分CD單曲現在更加普遍；通常，1995"
+"年之前的單曲的重新發行將以12公分格式發行，即使它們最初是以8公分格式發行的。日"
+"本單曲通常附帶歌曲的伴奏版本，並且像英國一樣有混音版本的加大單曲。有時，加大"
+"單曲的曲目比EP更多，但由於它們都是相同2-3首歌曲的替代版本，因此仍然被歸類為單"
+"曲。</li>\n"
 "</ul>\n"
 "\n"
 "<p>還有一種名為“分割單曲”的單曲變體，其中兩個不同藝術家的歌曲發行在同一張唱片"
@@ -244,6 +252,8 @@ msgid ""
 "connected to a phone via Bluetooth or headphone jack and unlocks the release "
 "for listening in a companion app for a limited period of time."
 msgstr ""
+"一種 \"數字收藏 \"設備，主要用於 k-pop 音樂，通過藍牙或耳機插孔與手機連接，在"
+"限定時間內通過配套應用程序解鎖發行的音樂以供收聽。"
 
 #: DB:place_type/description:9
 msgctxt "place_type"
@@ -259,6 +269,8 @@ msgid ""
 "often in the first track, that will have to be skipped in many audio "
 "players. Relatively common in old video game CDs."
 msgstr ""
+"在同一片段中包含音訊和資料的光碟。資料通常在第一軌，在許多音訊播放器中必須跳"
+"過。在老式電玩 CD 中比較常見。"
 
 #: DB:medium_format/description:42
 msgctxt "medium_format"
@@ -267,6 +279,8 @@ msgid ""
 "they are properly separated, audio players will not try to play the data "
 "session and it won't be part of the disc ID for the CD."
 msgstr ""
+"一張光碟包含兩個片段，一個是音訊片段，一個是資料片段。由於它們被正確分開，音"
+"訊播放器將不會嘗試播放資料片段，它也不會成為光碟 ID 的一部分。"
 
 #: DB:release_group_secondary_type/description:8
 msgctxt "release_group_secondary_type"
@@ -277,11 +291,14 @@ msgid ""
 "manner, and the DJ who does this modification is usually (although not "
 "always) credited in a fairly prominent way."
 msgstr ""
+"DJ 混音（DJ-mix）是將幾段錄音逐一播放的序列，每段錄音都經過修改，使其融合成一"
+"段連續的音樂。 DJ 混音版要求以某種方式對錄音進行修改，而進行修改的 DJ 通常"
+"（儘管不一定）會以相當顯著的方式註明。"
 
 #: DB:work_attribute_type_allowed_value/value:794
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Dorian"
-msgstr ""
+msgstr "一個多利安"
 
 #: DB:work_attribute_type_allowed_value/value:806
 msgctxt "work_attribute_type_allowed_value"
@@ -298,14 +315,15 @@ msgstr "芭蕾是為芭蕾舞劇配合編排的音樂作品，通常與舞蹈動
 #: DB:release_packaging/description:19
 msgctxt "release_packaging"
 msgid "A box usually containing multiple discs as part of a boxed set."
-msgstr ""
+msgstr "通常包含多張光碟的盒式套裝。"
 
 #: DB:work_type/description:3
 msgctxt "work_type"
 msgid ""
 "A cantata is a vocal (often choral) composition with an instrumental "
 "(usually orchestral) accompaniment, typically in several movements."
-msgstr "清唱劇是一種以聲樂(通常是合唱)為主的作品，配以樂器(通常是管弦樂)伴奏，通常由"
+msgstr ""
+"清唱劇是一種以聲樂(通常是合唱)為主的作品，配以樂器(通常是管弦樂)伴奏，通常由"
 "多個樂章組成。"
 
 #: DB:medium_format/description:46
@@ -316,13 +334,16 @@ msgid ""
 "with physical releases but sometimes sold as a standalone item (especially "
 "in Asia)."
 msgstr ""
+"一種卡片（或其他類似的實體支援），它並不直接包含音樂本身，但提供了下載數位音"
+"樂的程式碼。通常與實體唱片捆綁銷售，但有時也作為獨立商品出售（尤其是在亞"
+"洲）。"
 
 #: DB:label_type/description:10
 msgctxt "label_type"
 msgid ""
 "A company that manufactures physical releases (such as pressing CDs or vinyl "
 "records)."
-msgstr ""
+msgstr "生產實體發行產品（如壓制 CD 或黑膠唱片）的公司。"
 
 #: DB:work_type/description:4
 msgctxt "work_type"
@@ -336,7 +357,8 @@ msgid ""
 "A convention, expo or trade fair is an event which is not typically "
 "orientated around music performances, but can include them as side "
 "activities."
-msgstr "會展、博覽會或貿易展是一個通常不以音樂表演為中心的活動，但可以將其作為附加活"
+msgstr ""
+"會展、博覽會或貿易展是一個通常不以音樂表演為中心的活動，但可以將其作為附加活"
 "動。"
 
 #: DB:release_status/description:2
@@ -346,6 +368,8 @@ msgid ""
 "release (e.g. pre-release versions, releases included with a magazine, "
 "versions supplied to radio DJs for air-play)."
 msgstr ""
+"免費發行版或旨在宣傳即將發行的官方發行版的發行版（例如，預發行版、包含在雜誌"
+"中的發行版、提供給電台DJ播放的版本）。"
 
 #: DB:artist_type/description:2
 msgctxt "artist_type"
@@ -353,18 +377,20 @@ msgid ""
 "A grouping of multiple musicians who perform together (in some cases, some "
 "or all of the members might differ in different performances or recordings)."
 msgstr ""
+"由多名音樂家組成的組合，他們共同演出（在某些情況下，部分或全部成員在不同的演"
+"出或錄音中可能會有所不同）。"
 
 #: DB:instrument_type/description:7
 msgctxt "instrument_type"
 msgid ""
 "A grouping of related but different instruments, like the different violin-"
 "like instruments"
-msgstr ""
+msgstr "相關但不同樂器的組合，如不同的小提琴類樂器"
 
 #: DB:label_type/description:5
 msgctxt "label_type"
 msgid "A label that primarily puts out unsanctioned (bootleg) releases."
-msgstr ""
+msgstr "一個主要發行未經許可（盜版）產品的廠牌。"
 
 #: DB:release_packaging/description:55
 msgctxt "release_packaging"
@@ -372,6 +398,8 @@ msgid ""
 "A large cardboard box often used until the mid-1990s to sell CDs in North "
 "America, so that they would fit existing vinyl racks in stores."
 msgstr ""
+"直到 1990 年代中期，北美地區在銷售 CD 時經常使用的一種大紙箱，以便將其放置在"
+"商店現有的黑膠唱片架上。"
 
 #: DB:place_type/description:43
 msgctxt "place_type"
@@ -381,7 +409,7 @@ msgstr "一個大型的、永久的戶外舞台，通常附有固定的座位區
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
-msgstr ""
+msgstr "一個主要的"
 
 #: DB:work_type/description:8
 msgctxt "work_type"
@@ -389,8 +417,9 @@ msgid ""
 "A mass is a choral composition that sets the invariable portions of the "
 "Christian Eucharistic liturgy (Kyrie - Gloria - Credo - Sanctus - Benedictus "
 "- Agnus Dei, with other portions sometimes added) to music."
-msgstr "彌撒是一種合唱作品，是基督教聖餐禮儀中的音樂(包括垂憐經 - 光榮頌 - 信經 - "
-"聖哉經 - 降福經 - 羔羊頌，有時還會添加其他部分)。"
+msgstr ""
+"彌撒是一種合唱作品，是基督教聖餐禮儀中的音樂(包括垂憐經 - 光榮頌 - 信經 - 聖"
+"哉經 - 降福經 - 羔羊頌，有時還會添加其他部分)。"
 
 #: DB:event_type/description:5
 msgctxt "event_type"
@@ -398,7 +427,8 @@ msgid ""
 "A masterclass or clinic is an event where an artist meets with a small to "
 "medium-sized audience and instructs them individually and/or takes questions "
 "intended to improve the audience members' playing skills."
-msgstr "深造班或討論會是一個藝術家與小至中等規模的觀眾見面的活動，並就個人技巧進行指"
+msgstr ""
+"深造班或討論會是一個藝術家與小至中等規模的觀眾見面的活動，並就個人技巧進行指"
 "導，或回答觀眾提出的問題，來提升他們的演奏技巧。"
 
 #: DB:release_packaging/description:56
@@ -407,18 +437,21 @@ msgid ""
 "A minimalistic plastic case where the back and front are kept together by a "
 "small hinge. Most commonly used for cheap promotion / DIY releases."
 msgstr ""
+"一種簡約的塑膠盒，其背面和正面透過一個小鉸鏈連接在一起。最常用於廉價促銷/DIY "
+"發行。"
 
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
 msgid "A minor"
-msgstr ""
+msgstr "未成年人"
 
 #: DB:work_type/description:13
 msgctxt "work_type"
 msgid ""
 "A partita is an instrumental piece composed of a series of variations, and "
 "it's by its current definition very similar to a suite."
-msgstr "變奏段是一種由一系列變奏組成的器樂作品，根據其目前的定義，與組曲非常相似。"
+msgstr ""
+"變奏段是一種由一系列變奏組成的器樂作品，根據其目前的定義，與組曲非常相似。"
 
 #: DB:event_type/description:3
 msgctxt "event_type"
@@ -430,7 +463,7 @@ msgstr "一個專為發行活動舉辦的派對、招待會或其他活動。"
 #: DB:release_packaging/description:17
 msgctxt "release_packaging"
 msgid "A perfect bound book with a sleeve at the end to hold a CD"
-msgstr ""
+msgstr "一本完美裝訂的書，末端有一個封套，可容納 CD"
 
 #: DB:event_type/description:6
 msgctxt "event_type"
@@ -455,7 +488,8 @@ msgid ""
 "A place consisting of a large enclosed area with a central event space "
 "surrounded by tiered seating for spectators, which can be used for indoor "
 "sports, concerts and other entertainment events."
-msgstr "一個由大型封閉區域組成的地方，中心是活動空間，周圍是階梯式座位供觀眾觀賞，可"
+msgstr ""
+"一個由大型封閉區域組成的地方，中心是活動空間，周圍是階梯式座位供觀眾觀賞，可"
 "用於室內運動、音樂會和其他娛樂活動。"
 
 #: DB:place_type/description:1
@@ -478,8 +512,9 @@ msgid ""
 "A place that has worship or religious studies as its main function. "
 "Religious buildings often host concerts and serve as recording locations, "
 "especially for classical music."
-msgstr "一個以崇拜或宗教研究為主要功能的地方。宗教建築通常舉辦音樂會，並作為錄音場地"
-"，特別是古典音樂的錄音。"
+msgstr ""
+"一個以崇拜或宗教研究為主要功能的地方。宗教建築通常舉辦音樂會，並作為錄音場"
+"地，特別是古典音樂的錄音。"
 
 #: DB:place_type/description:4
 msgctxt "place_type"
@@ -487,8 +522,9 @@ msgid ""
 "A place whose main purpose is to host outdoor sport events, typically "
 "consisting of a pitch surrounded by a structure for spectators with no roof, "
 "or a roof which can be retracted."
-msgstr "一個主要用於舉辦戶外體育活動的地方，通常由球場包圍，周圍有觀眾看台，沒有屋頂"
-"，或者有可收回的屋頂。"
+msgstr ""
+"一個主要用於舉辦戶外體育活動的地方，通常由球場包圍，周圍有觀眾看台，沒有屋"
+"頂，或者有可收回的屋頂。"
 
 #: DB:release_status/description:6
 msgctxt "release_status"
@@ -497,6 +533,8 @@ msgid ""
 "which enough info is known to still confidently list it (e.g. it was "
 "available for preorder)."
 msgstr ""
+"計劃發布的正式版本，在發布前已取消，但有足夠的資訊仍可有把握地將其列入清單"
+"（例如，可用於預購）。"
 
 #: DB:work_type/description:28
 msgctxt "work_type"
@@ -504,7 +542,8 @@ msgid ""
 "A play is a form of literature usually consisting of scripted dialogue "
 "between characters, and intended for theatrical performance rather than just "
 "reading."
-msgstr "戲劇是一種文學形式，通常由角色之間的劇本對話組成，旨在舞台表演，而不僅僅是閱"
+msgstr ""
+"戲劇是一種文學形式，通常由角色之間的劇本對話組成，旨在舞台表演，而不僅僅是閱"
 "讀。"
 
 #: DB:work_type/description:21
@@ -512,7 +551,8 @@ msgctxt "work_type"
 msgid ""
 "A poem is a literary piece, generally short and in verse, where words are "
 "usually chosen for their sound and for the images and ideas they suggest."
-msgstr "詩是一種文學作品，通常簡短並以韻文形式呈現，其詞語通常因為它們的聲音以及所呈"
+msgstr ""
+"詩是一種文學作品，通常簡短並以韻文形式呈現，其詞語通常因為它們的聲音以及所呈"
 "現的意象和思想而被選中。"
 
 #: DB:release_status/description:5
@@ -523,6 +563,8 @@ msgid ""
 "replace it with a new version with some changes or to just retire it "
 "altogether (e.g. because of legal issues)."
 msgstr ""
+"一個以前的官方發行，在發行後被藝術家和/或他們的唱片公司主動從發行中撤回，無論"
+"是用一個有一些變化的新版本取代它，還是完全退出市場（例如，由於法律的問題）。"
 
 #: DB:release_group_secondary_type/description:10
 msgctxt "release_group_secondary_type"
@@ -531,6 +573,8 @@ msgid ""
 "demonstrate the sound of an artist to record labels, publishers and other "
 "artists."
 msgstr ""
+"一種宣傳版本，主要用於有限發行，向唱片公司、出版商和其他藝術家展示藝術家的聲"
+"音。"
 
 #: DB:work_type/description:14
 msgctxt "work_type"
@@ -541,19 +585,19 @@ msgstr "四重奏是一種音樂作品，配樂為四個聲部或樂器。"
 #: DB:series_type/description:8
 msgctxt "series_type"
 msgid "A recurring festival, usually happening annually in the same location."
-msgstr ""
+msgstr "定期舉辦的節日，通常每年在同一地點舉行。"
 
 #: DB:release_group_secondary_type/description:12
 msgctxt "release_group_secondary_type"
 msgid ""
 "A release mostly consisting of field recordings (such as nature sounds or "
 "city/industrial noise)."
-msgstr ""
+msgstr "主要由現場錄音（如自然聲音或城市/工業噪音）組成的版本。"
 
 #: DB:release_group_secondary_type/description:7
 msgctxt "release_group_secondary_type"
 msgid "A release that primarily contains remixed material."
-msgstr ""
+msgstr "主要包含混音材料的版本。"
 
 #: DB:release_group_secondary_type/description:6
 msgctxt "release_group_secondary_type"
@@ -561,6 +605,8 @@ msgid ""
 "A release that was recorded live. Generally this means \"with an audience\", "
 "be it in person, through the radio or in another similar way."
 msgstr ""
+"現場錄製的版本。一般來說，這意味著 \"與觀眾 \"見面，無論是當面、通過廣播或其"
+"他類似方式。"
 
 #: DB:place_type/description:7
 msgctxt "place_type"
@@ -572,47 +618,47 @@ msgstr "一個學校、大學或其他類似的教育機構(泛指音樂教育�
 #: DB:series_type/description:14
 msgctxt "series_type"
 msgid "A series of artists honoured by the same award."
-msgstr ""
+msgstr "一系列藝術家榮獲同一獎項。"
 
 #: DB:series_type/description:13
 msgctxt "series_type"
 msgid "A series of artists."
-msgstr ""
+msgstr "一系列藝術家。"
 
 #: DB:series_type/description:15
 msgctxt "series_type"
 msgid "A series of award ceremonies, usually one per year."
-msgstr ""
+msgstr "一系列頒獎儀式，通常每年舉行一次。"
 
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "A series of events."
-msgstr ""
+msgstr "一系列活動。"
 
 #: DB:series_type/description:9
 msgctxt "series_type"
 msgid "A series of performances of the same show at the same venue."
-msgstr ""
+msgstr "同一場演出在同一地點的一系列表演。"
 
 #: DB:series_type/description:48
 msgctxt "series_type"
 msgid "A series of recordings honoured by the same award."
-msgstr ""
+msgstr "一系列錄音榮獲同一獎項。"
 
 #: DB:series_type/description:3
 msgctxt "series_type"
 msgid "A series of recordings."
-msgstr ""
+msgstr "一系列錄音。"
 
 #: DB:series_type/description:7
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in different locations."
-msgstr ""
+msgstr "藝術家在不同地點舉辦的一系列相關音樂會。"
 
 #: DB:series_type/description:12
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in the same location."
-msgstr ""
+msgstr "藝術家在同一地點舉辦的一系列相關音樂會。"
 
 #: DB:series_type/description:80
 msgctxt "series_type"
@@ -655,7 +701,8 @@ msgctxt "place_type"
 msgid ""
 "A small venue (such as a jazz club, nightclub or pub) that hosts concerts "
 "and social events. May or may not have a dedicated stage or seating."
-msgstr "一個小型場地(如爵士俱樂部、夜總會或酒吧)，可舉辦音樂會和社交活動。可能有專用"
+msgstr ""
+"一個小型場地(如爵士俱樂部、夜總會或酒吧)，可舉辦音樂會和社交活動。可能有專用"
 "的舞台或座位。"
 
 #: DB:work_type/description:15
@@ -723,7 +770,8 @@ msgid ""
 "A suite is an ordered set of instrumental or orchestral pieces normally "
 "performed in a concert setting. They may be extracts from a ballet or opera, "
 "or entirely original movements."
-msgstr "組曲是一套有序的器樂或管弦樂曲，通常在音樂會中演奏。它們可能是從芭蕾舞劇或歌"
+msgstr ""
+"組曲是一套有序的器樂或管弦樂曲，通常在音樂會中演奏。它們可能是從芭蕾舞劇或歌"
 "劇中提取的片段，也可能是完全原創的樂章。"
 
 #: DB:work_type/description:18
@@ -732,8 +780,9 @@ msgid ""
 "A symphonic poem is a piece of programmatic orchestral music, usually in a "
 "single movement, that evokes a painting, a landscape, the content of a poem, "
 "a story or novel, or other non-musical source."
-msgstr "交響詩是一首具有節目性的管弦樂作品，通常是一個樂章，能呼應一幅畫作、一片風景"
-"、一首詩的內容、一個故事或小說，或其他非音樂的來源。"
+msgstr ""
+"交響詩是一首具有節目性的管弦樂作品，通常是一個樂章，能呼應一幅畫作、一片風"
+"景、一首詩的內容、一個故事或小說，或其他非音樂的來源。"
 
 #: DB:work_type/description:16
 msgctxt "work_type"
@@ -775,7 +824,8 @@ msgid ""
 "A zarzuela is a Spanish lyric-dramatic work that alternates between spoken "
 "and sung scenes, the latter incorporating operatic and popular song, as well "
 "as dance."
-msgstr "西班牙輕歌劇是一種交替著說話和歌唱場景的西班牙抒情戲劇作品，後者融合了歌劇和"
+msgstr ""
+"西班牙輕歌劇是一種交替著說話和歌唱場景的西班牙抒情戲劇作品，後者融合了歌劇和"
 "流行歌曲，以及舞蹈。"
 
 #: DB:work_attribute_type_allowed_value/value:26
@@ -1018,10 +1068,10 @@ msgid ""
 "EP is fairly difficult to define; usually it should only be assumed that a "
 "release is an EP if the artist defines it as such."
 msgstr ""
-"EP 是所謂的「延長播放」發行，通常在標題中包含 EP 這些字母。一般來說，EP "
-"會比完整專輯（LP 或「長播放」）短，而且曲目通常是專屬於 EP "
-"的，換句話說，這些曲目不來自先前發行的專輯。EP 的定義相對比較困難；"
-"通常只有在創作者明確定義其為 EP 時，才應該認定某一發行為 EP。"
+"EP 是所謂的「延長播放」發行，通常在標題中包含 EP 這些字母。一般來說，EP 會比"
+"完整專輯（LP 或「長播放」）短，而且曲目通常是專屬於 EP 的，換句話說，這些曲目"
+"不來自先前發行的專輯。EP 的定義相對比較困難；通常只有在創作者明確定義其為 EP "
+"時，才應該認定某一發行為 EP。"
 
 #: DB:release_group_primary_type/description:1
 msgctxt "release_group_primary_type"
@@ -1029,7 +1079,8 @@ msgid ""
 "An album, perhaps better defined as a \"Long Play\" (LP) release, generally "
 "consists of previously unreleased material (unless this type is combined "
 "with secondary types which change that, such as \"Compilation\")."
-msgstr "專輯，也許應稱之為「長播放」（LP）發行，通常包含先前未發行的素材(除非該類型與"
+msgstr ""
+"專輯，也許應稱之為「長播放」（LP）發行，通常包含先前未發行的素材(除非該類型與"
 "其他次要類型結合，從而改變了這一點，比如「合輯」)。"
 
 #: DB:release_status/description:4
@@ -1046,7 +1097,8 @@ msgid ""
 "An aria is a self-contained piece for one voice usually with orchestral "
 "accompaniment. They are most common inside operas, but also appear in "
 "cantatas, oratorios and even on their own (concert arias)."
-msgstr "詠唱調是一首獨立的單聲部作品，通常有管弦樂伴奏。它們在歌劇中最為常見，但也出"
+msgstr ""
+"詠唱調是一首獨立的單聲部作品，通常有管弦樂伴奏。它們在歌劇中最為常見，但也出"
 "現在清唱劇、神劇，甚至獨立的作品中(如音樂會詠唱調)。"
 
 #: DB:work_type/description:25
@@ -1054,8 +1106,9 @@ msgctxt "work_type"
 msgid ""
 "An audio drama is a dramatized, purely acoustic performance, broadcast on "
 "radio or published on an audio medium (tape, CD, etc.)."
-msgstr "聲音劇是一種戲劇化的純聲音表演，通常在廣播電台播放，或者在音訊媒體(磁帶、CD等"
-")上發布。"
+msgstr ""
+"聲音劇是一種戲劇化的純聲音表演，通常在廣播電台播放，或者在音訊媒體(磁帶、CD"
+"等)上發布。"
 
 #: DB:release_group_secondary_type/description:11
 msgctxt "release_group_secondary_type"
@@ -1076,7 +1129,8 @@ msgid ""
 "An award ceremony is an event which is focused on the granting of prizes, "
 "but often includes musical performances in between the awarding of said "
 "prizes, especially for musical awards."
-msgstr "頒獎典禮是一個專注於頒發獎項的活動，但通常在頒獎過程中包括音樂表演，特別是音"
+msgstr ""
+"頒獎典禮是一個專注於頒發獎項的活動，但通常在頒獎過程中包括音樂表演，特別是音"
 "樂獎項的頒獎。"
 
 #: DB:release_group_primary_type/description:12
@@ -1091,23 +1145,26 @@ msgctxt "event_type"
 msgid ""
 "An event where a number of different acts perform across the course of the "
 "day. Larger festivals may be spread across multiple days."
-msgstr "一個由許多不同的表演節目在一天之內進行的活動。較大型的音樂節可能持續多天。"
+msgstr ""
+"一個由許多不同的表演節目在一天之內進行的活動。較大型的音樂節可能持續多天。"
 
 #: DB:event_type/description:1
 msgctxt "event_type"
 msgid ""
 "An individual concert by a single artist or collaboration, often with "
 "supporting artists who perform before the main act."
-msgstr "由單一藝術家或合作表演者舉辦的個人音樂會，通常有在主要表演前演出的支援藝術家"
-"。"
+msgstr ""
+"由單一藝術家或合作表演者舉辦的個人音樂會，通常有在主要表演前演出的支援藝術"
+"家。"
 
 #: DB:place_type/description:44
 msgctxt "place_type"
 msgid ""
 "An indoor performance facility with fixed seating, whether for music "
 "(usually, but not always, classical music) or theatre."
-msgstr "一個室內表演設施，配有固定座位，可用於音樂(通常是，但不總是古典音樂)或是戲劇"
-"。"
+msgstr ""
+"一個室內表演設施，配有固定座位，可用於音樂(通常是，但不總是古典音樂)或是戲"
+"劇。"
 
 #: DB:release_group_secondary_type/description:4
 msgctxt "release_group_secondary_type"
@@ -1127,8 +1184,8 @@ msgid ""
 "recitatives, but some styles of opera include spoken dialogue."
 msgstr ""
 "歌劇是一種戲劇化的作品(包括台本和樂譜)，供歌手和管弦樂團/合奏團表演。在真正的"
-"歌劇中，所有的對話都是通過詠唱調和鋪陳來演唱的，但有些風格的歌劇包括口語對話"
-"。"
+"歌劇中，所有的對話都是通過詠唱調和鋪陳來演唱的，但有些風格的歌劇包括口語對"
+"話。"
 
 #: DB:work_type/description:11
 msgctxt "work_type"
@@ -1152,8 +1209,9 @@ msgid ""
 "An overture is, generally, the instrumental introduction to an opera. "
 "Independent (\"concert\") overtures also exist, which are generally "
 "programmatic works shorter than a symphonic poem."
-msgstr "序曲通常是歌劇的器樂引言。另外也有獨立的（\"音樂會\""
-"）序曲，通常是比交響詩更短的作品。"
+msgstr ""
+"序曲通常是歌劇的器樂引言。另外也有獨立的（\"音樂會\"）序曲，通常是比交響詩更"
+"短的作品。"
 
 #: DB:release_status/description:3
 msgctxt "release_status"
@@ -4080,6 +4138,12 @@ msgctxt "work_attribute_type"
 msgid "ID for the Vietnamese rights society VCPMC"
 msgstr ""
 
+#: DB:work_attribute_type/description:208
+msgctxt "work_attribute_type"
+msgid ""
+"ID for the international (but primarily Italian) rights society Soundreef"
+msgstr ""
+
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
@@ -5910,6 +5974,14 @@ msgctxt "release_status"
 msgid "Official"
 msgstr ""
 
+#: DB:medium_format/description:207
+msgctxt "medium_format"
+msgid ""
+"One-sided 3\" vinyl records to be played with purpose-built players; "
+"originally developed in Japan and now mostly found as a Record Store Day "
+"curiosity."
+msgstr ""
+
 #: DB:work_type/name:10
 msgctxt "work_type"
 msgid "Opera"
@@ -7086,6 +7158,11 @@ msgid ""
 "using a natural sort order."
 msgstr ""
 
+#: DB:work_attribute_type/name:208
+msgctxt "work_attribute_type"
+msgid "Soundreef ID"
+msgstr ""
+
 #: DB:release_group_secondary_type/name:2
 msgctxt "release_group_secondary_type"
 msgid "Soundtrack"
@@ -7565,7 +7642,8 @@ msgid ""
 "The madrigal is a type of secular vocal music composition. In its original "
 "form, it had no instrumental accompaniment, although accompaniment is much "
 "more common in later madrigals."
-msgstr "牧歌是一種世俗的聲樂作品。在其最初的形式中，它沒有器樂伴奏，盡管在後來的牧歌"
+msgstr ""
+"牧歌是一種世俗的聲樂作品。在其最初的形式中，它沒有器樂伴奏，盡管在後來的牧歌"
 "中伴奏更為普遍。"
 
 #: DB:work_type/description:24
@@ -7573,7 +7651,8 @@ msgctxt "work_type"
 msgid ""
 "The operetta is a genre of light opera, in terms both of music and subject "
 "matter. Operettas are generally short and include spoken parts."
-msgstr "輕歌劇是一種輕快的歌劇類型，無論是在音樂還是主題方面都是如此。輕歌劇通常篇幅"
+msgstr ""
+"輕歌劇是一種輕快的歌劇類型，無論是在音樂還是主題方面都是如此。輕歌劇通常篇幅"
 "短小，並包含說話部分。"
 
 #: DB:cover_art_archive.art_type/description:15
@@ -7641,7 +7720,8 @@ msgid ""
 "This represents literary works written in prose, that is, written in "
 "relatively ordinary language without metrical structure (e.g. novels, short "
 "stories, essays...)."
-msgstr "這代表以散文形式寫作的文學作品，也就是使用相對普通的語言，沒有韻律結構(例如小"
+msgstr ""
+"這代表以散文形式寫作的文學作品，也就是使用相對普通的語言，沒有韻律結構(例如小"
 "說、短篇故事、短文等)。"
 
 #: DB:medium_format/description:84

@@ -20,17 +20,11 @@ import EnterEditNote
 import CDTocInfo from './CDTocInfo.js';
 import {areFormattedLengthsEqual} from './utils.js';
 
-type SetTracklistDurationsProps = {
-  +cdToc: CDTocT,
-  +form: ConfirmFormT,
-  +medium: $ReadOnly<{...MediumT, +cdtoc_tracks: $ReadOnlyArray<TrackT>}>,
-};
-
-const SetTracklistDurations = ({
-  cdToc,
-  form,
-  medium,
-}: SetTracklistDurationsProps): React$Element<typeof Layout> => {
+component SetTracklistDurations(
+  cdToc: CDTocT,
+  form: ConfirmFormT,
+  medium: $ReadOnly<{...MediumT, +cdtoc_tracks: $ReadOnlyArray<TrackT>}>,
+) {
   const newLengths = cdToc.track_details.map(track => track.length_time);
   const oldLengths = medium.cdtoc_tracks.map(track => track.length);
   const release = linkedEntities.release[medium.release_id];
@@ -80,6 +74,6 @@ const SetTracklistDurations = ({
       </form>
     </Layout>
   );
-};
+}
 
 export default SetTracklistDurations;

@@ -401,7 +401,11 @@ msgstr ""
 "Tregon një vëlla/motër me të cilin artisti ka vetëm një prind të përbashkët"
 
 #: DB:link_type/description:842
-msgid "Indicates a webpage that reviews the event in question."
+#, fuzzy
+#| msgid "Indicates a webpage that reviews the event in question."
+msgid ""
+"Indicates a webpage that reviews the event in question, whether it be in "
+"text, audio or video form."
 msgstr "Tregon një faqe web që shqyrton veprimtarinë në fjalë."
 
 #: DB:link_type/description:958
@@ -916,10 +920,6 @@ msgstr ""
 msgid "Links a release to the event it was recorded at."
 msgstr "Lidh një hedhje në qarkullim me veprimtarinë ku u incizua."
 
-#: DB:link_type/description:865
-msgid "Links a release to the place it was arranged at."
-msgstr "Lidh një hedhje në qarkullim me vendin ku u orkestrua."
-
 #: DB:link_type/description:820
 msgid "Links a release to the place it was edited at."
 msgstr "Lidh një hedhje në qarkullim me vendin ku u përpunua."
@@ -1260,6 +1260,12 @@ msgstr "Shpie te faqja në Wikipedia për këtë veprimtari."
 msgid "Points to the Wikipedia page for this instrument."
 msgstr "Shpie te faqja në Wikipedia për këtë instrument."
 
+#: DB:link_type/description:216
+#, fuzzy
+#| msgid "Points to the Wikipedia page for this place"
+msgid "Points to the Wikipedia page for this label."
+msgstr "Shpie te faqja në Wikipedia për këtë vend."
+
 #: DB:link_type/description:595
 #, fuzzy
 #| msgid "Points to the Wikipedia page for this place"
@@ -1345,7 +1351,7 @@ msgstr ""
 msgid "Spoken vocals (speech)"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:880
+#: DB:link_type/long_link_phrase:880 DB:link_type/long_link_phrase:1249
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written at {entity0}"
 msgstr ""
@@ -1355,7 +1361,7 @@ msgid ""
 "The libretto for {entity1} was {additional:additionally} written in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:878
+#: DB:link_type/long_link_phrase:878 DB:link_type/long_link_phrase:1250
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written at {entity0}"
 msgstr ""
@@ -2397,10 +2403,6 @@ msgstr ""
 msgid "This is used to link a label to an image of its logo."
 msgstr ""
 
-#: DB:link_type/description:216
-msgid "This is used to link a label to its corresponding Wikipedia page."
-msgstr ""
-
 #: DB:link_type/description:977
 msgid ""
 "This is used to link a label to its corresponding page in the "
@@ -2847,6 +2849,48 @@ msgid ""
 "This links a release to the relevant crowdfunding project at a crowdfunding "
 "site like Kickstarter or Indiegogo."
 msgstr ""
+
+#: DB:link_type/description:865
+#, fuzzy
+#| msgid "This links a work with the place it was arranged at."
+msgid "This links a release with the place it was arranged at."
+msgstr "Kjo lidh një vepër me vendin ku u orkestrua."
+
+#: DB:link_type/description:1251
+#, fuzzy
+#| msgid "This links a work with the place it was composed at."
+msgid "This links a release with the place it was composed at."
+msgstr "Kjo lidh një vepër me vendin ku u kompozua."
+
+#: DB:link_type/description:1248
+#, fuzzy
+#| msgid "This links a work with the place it was revised at."
+msgid "This links a release with the place it was revised at."
+msgstr "Kjo lidh një vepër me vendin ku u rishikua."
+
+#: DB:link_type/description:1247
+#, fuzzy
+#| msgid "This links a work with the place it was translated at."
+msgid "This links a release with the place it was translated at."
+msgstr "Kjo lidh një vepër me vendin ku u përkthye."
+
+#: DB:link_type/description:1246
+#, fuzzy
+#| msgid "This links a work with the place it was written at."
+msgid "This links a release with the place it was written at."
+msgstr "Kjo lidh një vepër me vendin ku u shkrua."
+
+#: DB:link_type/description:1249
+#, fuzzy
+#| msgid "This links a work with the area its libretto was written in."
+msgid "This links a release with the place its libretto was written at."
+msgstr "Lidh një incizim me vendin ku iu inxhinierimi."
+
+#: DB:link_type/description:1250
+#, fuzzy
+#| msgid "This links a work with the area its lyrics were written in."
+msgid "This links a release with the place its lyrics were written at."
+msgstr "Kjo lidh një vepër me zonën ku u shkruan vargjet e saj."
 
 #: DB:link_type/description:870
 msgid ""
@@ -3918,6 +3962,11 @@ msgid ""
 "Label”."
 msgstr ""
 
+#: DB:link_type/description:1252 DB:link_type/description:1253
+msgid ""
+"Use this relationship for credits like “Recording was edited by X for Label”."
+msgstr ""
+
 #: DB:link_type/description:946
 msgid ""
 "Use this relationship for credits like “Recording was mixed by X for Label”."
@@ -4060,16 +4109,16 @@ msgstr "faqe në Wikidata për"
 
 #: DB:link_type/link_phrase:179 DB:link_type/link_phrase:595
 #: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:731
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:789
+#: DB:link_type/link_phrase:731 DB:link_type/link_phrase:89
+#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:789
 #: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
 #: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:179
 #: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
-#: DB:link_type/reverse_link_phrase:731 DB:link_type/reverse_link_phrase:89
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:731
+#: DB:link_type/reverse_link_phrase:89 DB:link_type/reverse_link_phrase:216
 #: DB:link_type/reverse_link_phrase:789
 msgid "Wikipedia page for"
 msgstr "faqe në Wikipedia për"
@@ -4167,8 +4216,8 @@ msgstr "shfaqet në video"
 msgid "apple music"
 msgstr ""
 
-#: DB:link_type/name:866 DB:link_type/name:865 DB:link_type/name:886
-#: DB:link_type/reverse_link_phrase:866 DB:link_type/reverse_link_phrase:865
+#: DB:link_type/name:865 DB:link_type/name:866 DB:link_type/name:886
+#: DB:link_type/reverse_link_phrase:866
 msgid "arranged at"
 msgstr "orkestruar më"
 
@@ -4203,7 +4252,7 @@ msgid "arranging"
 msgstr ""
 
 #: DB:link_type/link_phrase:864 DB:link_type/link_phrase:863
-#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:865
+#: DB:link_type/link_phrase:866
 msgid "arranging location for"
 msgstr "vend orkestrimi për"
 
@@ -4556,7 +4605,7 @@ msgstr ""
 msgid "compiler"
 msgstr ""
 
-#: DB:link_type/name:876
+#: DB:link_type/name:1251 DB:link_type/name:876
 msgid "composed at"
 msgstr "kompozuar më"
 
@@ -4646,6 +4695,10 @@ msgstr ""
 
 #: DB:link_type/link_phrase:949 DB:link_type/link_phrase:948
 msgid "contracted arrangement for"
+msgstr ""
+
+#: DB:link_type/link_phrase:1252 DB:link_type/link_phrase:1253
+msgid "contracted editing for"
 msgstr ""
 
 #: DB:link_type/link_phrase:952
@@ -4909,6 +4962,13 @@ msgstr ""
 #: DB:link_type/name:819 DB:link_type/name:820
 msgid "edited at"
 msgstr ""
+
+#: DB:link_type/name:1252 DB:link_type/name:1253
+#: DB:link_type/reverse_link_phrase:1252 DB:link_type/reverse_link_phrase:1253
+#, fuzzy
+#| msgid "dedicated to"
+msgid "edited for"
+msgstr "kushtuar"
 
 #: DB:link_type/name:822 DB:link_type/name:821
 msgid "edited in"
@@ -5287,8 +5347,8 @@ msgstr "ka një faqe në Wikidata te"
 
 #: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:595
 #: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:731
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:789
+#: DB:link_type/long_link_phrase:731 DB:link_type/long_link_phrase:89
+#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:789
 msgid "has a Wikipedia page at"
 msgstr "ka një faqe nē Wikipedia te"
 
@@ -5364,7 +5424,7 @@ msgstr ""
 msgid "has a picture at"
 msgstr "ka foto te"
 
-#: DB:link_type/long_link_phrase:842 DB:link_type/long_link_phrase:94
+#: DB:link_type/long_link_phrase:94 DB:link_type/long_link_phrase:842
 msgid "has a review page at"
 msgstr "ka një faqe shqyrtimesh te"
 
@@ -6018,7 +6078,7 @@ msgstr "shkallë studimesh"
 msgid "librettist"
 msgstr "ibretist"
 
-#: DB:link_type/name:880
+#: DB:link_type/name:880 DB:link_type/name:1249
 msgid "libretto written at"
 msgstr "libret i shkruar më"
 
@@ -6026,7 +6086,7 @@ msgstr "libret i shkruar më"
 msgid "libretto written in"
 msgstr "libret i shkruar në"
 
-#: DB:link_type/reverse_link_phrase:880
+#: DB:link_type/reverse_link_phrase:880 DB:link_type/reverse_link_phrase:1249
 msgid "libretto {additional:additionally} written at"
 msgstr ""
 
@@ -6133,7 +6193,7 @@ msgstr "faqe vargjesh për"
 msgid "lyrics quoted in"
 msgstr ""
 
-#: DB:link_type/name:878
+#: DB:link_type/name:878 DB:link_type/name:1250
 msgid "lyrics written at"
 msgstr "vargje të shkruar më"
 
@@ -7237,15 +7297,15 @@ msgstr ""
 msgid "residency by"
 msgstr ""
 
-#: DB:link_type/name:842 DB:link_type/name:94
+#: DB:link_type/name:94 DB:link_type/name:842
 msgid "review"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:842 DB:link_type/reverse_link_phrase:94
+#: DB:link_type/reverse_link_phrase:94 DB:link_type/reverse_link_phrase:842
 msgid "review page for"
 msgstr ""
 
-#: DB:link_type/link_phrase:842 DB:link_type/link_phrase:94
+#: DB:link_type/link_phrase:94 DB:link_type/link_phrase:842
 msgid "reviews"
 msgstr ""
 
@@ -7253,7 +7313,8 @@ msgstr ""
 msgid "revised"
 msgstr ""
 
-#: DB:link_type/name:882 DB:link_type/reverse_link_phrase:882
+#: DB:link_type/name:882 DB:link_type/name:1248
+#: DB:link_type/reverse_link_phrase:882 DB:link_type/reverse_link_phrase:1248
 msgid "revised at"
 msgstr ""
 
@@ -7266,6 +7327,7 @@ msgid "revised in"
 msgstr ""
 
 #: DB:link_type/link_phrase:881 DB:link_type/link_phrase:882
+#: DB:link_type/link_phrase:1248
 msgid "revising location for"
 msgstr ""
 
@@ -7669,7 +7731,8 @@ msgstr ""
 msgid "translated"
 msgstr "përkthyer"
 
-#: DB:link_type/name:883 DB:link_type/reverse_link_phrase:883
+#: DB:link_type/name:883 DB:link_type/name:1247
+#: DB:link_type/reverse_link_phrase:883 DB:link_type/reverse_link_phrase:1247
 msgid "translated at"
 msgstr "përkthyer më"
 
@@ -7935,8 +7998,8 @@ msgid "wikidata"
 msgstr "wikidata"
 
 #: DB:link_type/name:179 DB:link_type/name:595 DB:link_type/name:355
-#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:216
-#: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
+#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:731
+#: DB:link_type/name:89 DB:link_type/name:216 DB:link_type/name:789
 msgid "wikipedia"
 msgstr "wikipedia"
 
@@ -7981,7 +8044,7 @@ msgstr ""
 msgid "writer"
 msgstr "shkrimtar"
 
-#: DB:link_type/name:874
+#: DB:link_type/name:874 DB:link_type/name:1246
 msgid "written at"
 msgstr "shkruar më"
 
@@ -8010,7 +8073,7 @@ msgid ""
 "{instrumental} {cover} {karaoke} recordings"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:886
+#: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
 msgstr ""
 
@@ -8023,7 +8086,7 @@ msgstr ""
 msgid "{additional:additionally} composed"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:876
+#: DB:link_type/reverse_link_phrase:1251 DB:link_type/reverse_link_phrase:876
 msgid "{additional:additionally} composed at"
 msgstr ""
 
@@ -8122,7 +8185,7 @@ msgstr ""
 msgid "{additional:additionally} translated in"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:874
+#: DB:link_type/reverse_link_phrase:874 DB:link_type/reverse_link_phrase:1246
 msgid "{additional:additionally} written at"
 msgstr ""
 
@@ -8263,7 +8326,8 @@ msgstr ""
 msgid "{additional} animation"
 msgstr ""
 
-#: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
 msgstr ""
 
@@ -8283,8 +8347,12 @@ msgstr ""
 msgid "{additional} composer"
 msgstr ""
 
-#: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
+#: DB:link_type/link_phrase:875
 msgid "{additional} composing location for"
+msgstr ""
+
+#: DB:link_type/link_phrase:1251 DB:link_type/link_phrase:876
+msgid "{additional} composition location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:63 DB:link_type/link_phrase:146
@@ -8339,6 +8407,7 @@ msgid "{additional} libretto"
 msgstr ""
 
 #: DB:link_type/link_phrase:879 DB:link_type/link_phrase:880
+#: DB:link_type/link_phrase:1249
 msgid "{additional} libretto writing location for"
 msgstr ""
 
@@ -8355,10 +8424,11 @@ msgid "{additional} lyrics"
 msgstr ""
 
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
+#: DB:link_type/link_phrase:1250
 msgid "{additional} lyrics writing location for"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:878
+#: DB:link_type/reverse_link_phrase:878 DB:link_type/reverse_link_phrase:1250
 msgid "{additional} lyrics written at"
 msgstr ""
 
@@ -8418,6 +8488,7 @@ msgid "{additional} transferring location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
+#: DB:link_type/link_phrase:1247
 msgid "{additional} translating location for"
 msgstr ""
 
@@ -8430,6 +8501,7 @@ msgid "{additional} writer"
 msgstr ""
 
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
+#: DB:link_type/link_phrase:1246
 msgid "{additional} writing location for"
 msgstr ""
 
@@ -8783,7 +8855,7 @@ msgstr ""
 msgid "{entity1} presented {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:866 DB:link_type/long_link_phrase:865
+#: DB:link_type/long_link_phrase:866
 msgid "{entity1} was arranged at {entity0}"
 msgstr "{entity1} qe orkestruar më {entity0}"
 
@@ -8798,6 +8870,12 @@ msgstr "{entity1} qe orkestruar në {entity0}"
 #: DB:link_type/long_link_phrase:795
 msgid "{entity1} was available at {entity0}"
 msgstr ""
+
+#: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
+#, fuzzy
+#| msgid "{entity1} was arranged for {entity0}"
+msgid "{entity1} was edited for {entity0}"
+msgstr "{entity1} qe orkestruar për {entity0}"
 
 #: DB:link_type/long_link_phrase:954
 msgid "{entity1} was glass mastered at {entity0}"
@@ -8867,7 +8945,7 @@ msgstr ""
 msgid "{entity1} was remixed for {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:882
+#: DB:link_type/long_link_phrase:882 DB:link_type/long_link_phrase:1248
 msgid "{entity1} was revised at {entity0}"
 msgstr ""
 
@@ -8875,7 +8953,7 @@ msgstr ""
 msgid "{entity1} was revised in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:886
+#: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:886
 msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr ""
 
@@ -8883,7 +8961,7 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:876
+#: DB:link_type/long_link_phrase:1251 DB:link_type/long_link_phrase:876
 msgid "{entity1} was {additional:additionally} composed at {entity0}"
 msgstr ""
 
@@ -8951,7 +9029,7 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} transferred at {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:883
+#: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
 msgid "{entity1} was {additional:additionally} translated at {entity0}"
 msgstr ""
 
@@ -8959,7 +9037,7 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} translated in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:874
+#: DB:link_type/long_link_phrase:874 DB:link_type/long_link_phrase:1246
 msgid "{entity1} was {additional:additionally} written at {entity0}"
 msgstr ""
 
@@ -9058,6 +9136,9 @@ msgstr ""
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr ""
+
+#~ msgid "Links a release to the place it was arranged at."
+#~ msgstr "Lidh një hedhje në qarkullim me vendin ku u orkestrua."
 
 #~ msgid "Indicates a webpage that reviews the release (group) in question."
 #~ msgstr ""

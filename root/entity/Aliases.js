@@ -11,17 +11,11 @@ import ArtistCreditList from '../components/Aliases/ArtistCreditList.js';
 import AliasesComponent from '../components/Aliases/index.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
-type Props = {
-  +aliases: $ReadOnlyArray<AnyAiasT>,
-  +artistCredits?: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
-  +entity: EntityWithAliasesT,
-};
-
-const Aliases = ({
-  aliases,
-  artistCredits,
-  entity,
-}: Props): React$MixedElement => {
+component Aliases(
+  aliases: $ReadOnlyArray<AnyAliasT>,
+  artistCredits?: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
+  entity: EntityWithAliasesT,
+) {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
 
@@ -40,6 +34,6 @@ const Aliases = ({
       ) : null}
     </LayoutComponent>
   );
-};
+}
 
 export default Aliases;

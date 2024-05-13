@@ -35,15 +35,6 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ReleaseGroupLayout from './ReleaseGroupLayout.js';
 
-type Props = {
-  +eligibleForCleanup: boolean,
-  +numberOfRevisions: number,
-  +pager: PagerT,
-  +releaseGroup: ReleaseGroupT,
-  +releases: $ReadOnlyArray<$ReadOnlyArray<ReleaseT>>,
-  +wikipediaExtract: WikipediaExtractT | null,
-};
-
 function buildReleaseStatusTable(
   $c: CatalystContextT,
   releaseStatusGroup: $ReadOnlyArray<ReleaseT>,
@@ -118,14 +109,14 @@ function buildReleaseStatusTable(
   );
 }
 
-const ReleaseGroupIndex = ({
-  eligibleForCleanup,
-  pager,
-  numberOfRevisions,
-  releaseGroup,
-  releases,
-  wikipediaExtract,
-}: Props): React$Element<typeof ReleaseGroupLayout> => {
+component ReleaseGroupIndex(
+  eligibleForCleanup: boolean,
+  numberOfRevisions: number,
+  pager: PagerT,
+  releaseGroup: ReleaseGroupT,
+  releases: $ReadOnlyArray<$ReadOnlyArray<ReleaseT>>,
+  wikipediaExtract: WikipediaExtractT | null,
+) {
   const $c = React.useContext(CatalystContext);
   const firstReleaseGid = releases.length ? releases[0][0].gid : null;
 
@@ -201,6 +192,6 @@ const ReleaseGroupIndex = ({
       {manifest.js('common/components/TaggerIcon', {async: 'async'})}
     </ReleaseGroupLayout>
   );
-};
+}
 
 export default ReleaseGroupIndex;

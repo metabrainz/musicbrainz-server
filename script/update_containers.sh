@@ -152,7 +152,7 @@ do
       while [[ $(
         ssh "$host" \
           docker exec "$container" \
-            curl -I -s -o /dev/null -w "%{http_code}" 'http://localhost:5000'
+            curl -I -sSL -o /dev/null -w "%{http_code}" 'http://localhost:5000'
       ) -ne 200 ]]
       do
         echo "$host: Waiting for $container to come back up..."

@@ -16,44 +16,38 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 
-type Props = {
-  +form: MergeFormT,
-  +toMerge: $ReadOnlyArray<LabelT>,
-};
+component LabelMerge(form: MergeFormT, toMerge: $ReadOnlyArray<LabelT>) {
+  return (
+    <Layout fullWidth title={l('Merge labels')}>
+      <div id="content">
+        <h1>{l('Merge labels')}</h1>
+        <p>
+          {l(`You are about to merge all these labels into a single one.
+              Please select the label all others should be merged into:`)}
+        </p>
+        <form method="post">
+          <LabelList
+            labels={sortByEntityName(toMerge)}
+            mergeForm={form}
+          />
+          <FieldErrors field={form.field.target} />
 
-const LabelMerge = ({
-  form,
-  toMerge,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Merge labels')}>
-    <div id="content">
-      <h1>{l('Merge labels')}</h1>
-      <p>
-        {l(`You are about to merge all these labels into a single one.
-            Please select the label all others should be merged into:`)}
-      </p>
-      <form method="post">
-        <LabelList
-          labels={sortByEntityName(toMerge)}
-          mergeForm={form}
-        />
-        <FieldErrors field={form.field.target} />
+          <EnterEditNote field={form.field.edit_note} />
 
-        <EnterEditNote field={form.field.edit_note} />
-
-        <EnterEdit form={form}>
-          <button
-            className="negative"
-            name="submit"
-            type="submit"
-            value="cancel"
-          >
-            {l('Cancel')}
-          </button>
-        </EnterEdit>
-      </form>
-    </div>
-  </Layout>
-);
+          <EnterEdit form={form}>
+            <button
+              className="negative"
+              name="submit"
+              type="submit"
+              value="cancel"
+            >
+              {l('Cancel')}
+            </button>
+          </EnterEdit>
+        </form>
+      </div>
+    </Layout>
+  );
+}
 
 export default LabelMerge;

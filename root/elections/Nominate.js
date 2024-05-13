@@ -10,24 +10,18 @@
 import ConfirmLayout from '../components/ConfirmLayout.js';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 
-type Props = {
-  +candidate: EditorT,
-  +form: SecureConfirmFormT,
-};
-
-const Nominate = ({
-  candidate,
-  form,
-}: Props): React$Element<typeof ConfirmLayout> => (
-  <ConfirmLayout
-    form={form}
-    question={exp.l(
-      `Are you sure you want to nominate the editor {editor}
-       for auto-editor status?`,
-      {editor: <EditorLink editor={candidate} key="editor" />},
-    )}
-    title={l('Nominate a candidate for auto-editor')}
-  />
-);
+component Nominate(candidate: EditorT, form: SecureConfirmFormT) {
+  return (
+    <ConfirmLayout
+      form={form}
+      question={exp.l(
+        `Are you sure you want to nominate the editor {editor}
+         for auto-editor status?`,
+        {editor: <EditorLink editor={candidate} key="editor" />},
+      )}
+      title={l('Nominate a candidate for auto-editor')}
+    />
+  );
+}
 
 export default Nominate;

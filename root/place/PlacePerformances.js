@@ -11,32 +11,27 @@ import RelationshipsTable from '../components/RelationshipsTable.js';
 
 import PlaceLayout from './PlaceLayout.js';
 
-type Props = {
-  +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
-  +pager: ?PagerT,
-  +place: PlaceT,
-};
-
-const PlacePerformances = ({
-  pagedLinkTypeGroup,
-  pager,
-  place,
-}: Props): React$Element<typeof PlaceLayout> => (
-  <PlaceLayout
-    entity={place}
-    page="performances"
-    title={l('Performances')}
-  >
-    <RelationshipsTable
+component PlacePerformances(
+  pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
+  pager: ?PagerT,
+  place: PlaceT,
+) {
+  return (
+    <PlaceLayout
       entity={place}
-      fallbackMessage={l(
-        'No recordings, releases or release groups are linked to this place.',
-      )}
-      heading={l('Performances')}
-      pagedLinkTypeGroup={pagedLinkTypeGroup}
-      pager={pager}
-    />
-  </PlaceLayout>
-);
+      page="performances"
+      title={l('Performances')}
+    >
+      <RelationshipsTable
+        entity={place}
+        fallbackMessage={l(`No recordings, releases or release groups
+                            are linked to this place.`)}
+        heading={l('Performances')}
+        pagedLinkTypeGroup={pagedLinkTypeGroup}
+        pager={pager}
+      />
+    </PlaceLayout>
+  );
+}
 
 export default PlacePerformances;

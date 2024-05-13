@@ -16,7 +16,7 @@ RSYNC_SOLRCLOUD_BACKUPS_BANDWIDTH="$(perl -Ilib -e 'use DBDefs; print DBDefs->SO
 RSYNC_SOLRCLOUD_BACKUPS_CIPHER_SPEC="$(perl -Ilib -e 'use DBDefs; print DBDefs->SOLRCLOUD_SSH_CIPHER_SPEC;')"
 SOLRCLOUD_COLLECTIONS_API="$(perl -Ilib -e 'use DBDefs; print DBDefs->SOLRCLOUD_COLLECTIONS_API;')"
 RSYNC_SOLRCLOUD_BACKUPS_HOST="$(
-    curl -sS "$SOLRCLOUD_COLLECTIONS_API?action=OVERSEERSTATUS" \
+    curl -sSL "$SOLRCLOUD_COLLECTIONS_API?action=OVERSEERSTATUS" \
         | jq -r '.leader' \
         | sed 's/:.*//'
 )"

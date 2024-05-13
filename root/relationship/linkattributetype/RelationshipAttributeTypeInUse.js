@@ -9,25 +9,21 @@
 
 import Layout from '../../layout/index.js';
 
-type Props = {
-  +type: LinkAttrTypeT,
-};
-
-const RelationshipAttributeTypeInUse = ({
-  type,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Relationship attribute in use">
-    <div className="content">
-      <h1>{'Relationship attribute in use'}</h1>
-      <p>
-        {texp.l_admin(
-          `The relationship attribute type “{type}” can’t be removed
-           because it’s still in use.`,
-          {type: type.name},
-        )}
-      </p>
-    </div>
-  </Layout>
-);
+component RelationshipAttributeTypeInUse(type: LinkAttrTypeT) {
+  return (
+    <Layout fullWidth title="Relationship attribute in use">
+      <div className="content">
+        <h1>{'Relationship attribute in use'}</h1>
+        <p>
+          {texp.l_admin(
+            `The relationship attribute type “{type}” can’t be removed
+             because it’s still in use.`,
+            {type: type.name},
+          )}
+        </p>
+      </div>
+    </Layout>
+  );
+}
 
 export default RelationshipAttributeTypeInUse;

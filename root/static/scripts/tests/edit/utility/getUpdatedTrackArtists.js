@@ -121,11 +121,7 @@ test('getUpdatedTrackArtists', function (t) {
       oldRel: [name('A', '1', ' & ', 'a'), name('B', '2')],
       newRel: [name('A', '1', ' & '), name('B', '2')],
       want: [
-        /*
-         * TODO: As discussed in MBS-13273, the first artist's credited-as
-         * name should be removed here.
-         */
-        name('A', '1', ' & ', 'a'),
+        name('A', '1', ' & '),
         name('B', '2', ' feat. '),
         name('C', '3'),
       ],
@@ -156,8 +152,7 @@ test('getUpdatedTrackArtists', function (t) {
       track: [name('A & B', '1', ' feat. '), name('C', '2')],
       oldRel: [name('A', '3', ' & '), name('B', '4')],
       newRel: [name('D', '5')],
-      // TODO: This should be updated like the non-feat. version.
-      want: [name('A & B', '1', ' feat. '), name('C', '2')],
+      want: [name('D', '5', ' feat. '), name('C', '2')],
     },
     {
       desc: 'old name but diff. entity (multiple vs. single)',
@@ -175,10 +170,8 @@ test('getUpdatedTrackArtists', function (t) {
       ],
       oldRel: [name('A & B', '4')],
       newRel: [name('D', '5')],
-      // TODO: This should be updated like the non-feat. version.
       want: [
-        name('A', '1', ' & '),
-        name('B', '2', ' feat. '),
+        name('D', '5', ' feat. '),
         name('C', '3'),
       ],
     },

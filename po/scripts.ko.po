@@ -1,18 +1,21 @@
 #
 # Translators:
 # Yuza Tea <email address hidden>, 2021
+# hashflu <hashflu@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:21+0000\n"
-"Last-Translator: Yuza Tea <yuzatea.wm@gmail.com>, 2021\n"
-"Language-Team: Korean (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/ko/)\n"
+"PO-Revision-Date: 2024-05-02 16:46+0000\n"
+"Last-Translator: hashflu <hashflu@users.noreply.translations.metabrainz.org>"
+"\n"
+"Language-Team: Korean <https://translations.metabrainz.org/projects/"
+"musicbrainz/scripts/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #. frequency:1 iso_code:Afak 
 #: DB:script/name:133
@@ -312,7 +315,7 @@ msgstr ""
 #. frequency:1 iso_code:Java 
 #: DB:script/name:73
 msgid "Javanese"
-msgstr ""
+msgstr "자바어"
 
 #. frequency:1 iso_code:Jurc 
 #: DB:script/name:134

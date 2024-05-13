@@ -16,44 +16,40 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 
-type Props = {
-  +form: MergeFormT,
-  +toMerge: $ReadOnlyArray<AreaT>,
-};
+component AreaMerge(form: MergeFormT, toMerge: $ReadOnlyArray<AreaT>) {
+  return (
+    <Layout fullWidth title="Merge areas">
+      <div id="content">
+        <h1>{'Merge areas'}</h1>
+        <p>
+          {l_admin(
+            `You are about to merge all these areas into a single one.
+             Please select the area all others should be merged into:`,
+          )}
+        </p>
+        <form method="post">
+          <AreaList
+            areas={sortByEntityName(toMerge)}
+            mergeForm={form}
+          />
+          <FieldErrors field={form.field.target} />
 
-const AreaMerge = ({
-  form,
-  toMerge,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Merge areas">
-    <div id="content">
-      <h1>{'Merge areas'}</h1>
-      <p>
-        {l_admin(`You are about to merge all these areas into a single one.
-                  Please select the area all others should be merged into:`)}
-      </p>
-      <form method="post">
-        <AreaList
-          areas={sortByEntityName(toMerge)}
-          mergeForm={form}
-        />
-        <FieldErrors field={form.field.target} />
+          <EnterEditNote field={form.field.edit_note} />
 
-        <EnterEditNote field={form.field.edit_note} />
-
-        <EnterEdit form={form}>
-          <button
-            className="negative"
-            name="submit"
-            type="submit"
-            value="cancel"
-          >
-            {'Cancel'}
-          </button>
-        </EnterEdit>
-      </form>
-    </div>
-  </Layout>
-);
+          <EnterEdit form={form}>
+            <button
+              className="negative"
+              name="submit"
+              type="submit"
+              value="cancel"
+            >
+              {'Cancel'}
+            </button>
+          </EnterEdit>
+        </form>
+      </div>
+    </Layout>
+  );
+}
 
 export default AreaMerge;

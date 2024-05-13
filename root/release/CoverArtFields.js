@@ -12,21 +12,18 @@ import FormRow from '../static/scripts/edit/components/FormRow.js';
 import FormRowTextLong
   from '../static/scripts/edit/components/FormRowTextLong.js';
 
-type Props = {
-  +form: FormT<{
-    +comment: FieldT<string | null>,
-    +nonce: FieldT<string>,
-    +position?: FieldT<number>,
-    +type_id: FieldT<Array<StrOrNum>>,
-    ...
-  }>,
-  +typeIdOptions: SelectOptionsT,
-};
+type CoverArtFieldsFormT = FormT<{
+  +comment: FieldT<string | null>,
+  +nonce: FieldT<string>,
+  +position?: FieldT<number>,
+  +type_id: FieldT<Array<StrOrNum>>,
+  ...
+}>;
 
-const CoverArtFields = ({
-  form,
-  typeIdOptions,
-}: Props): React.MixedElement => {
+component CoverArtFields(
+  form: CoverArtFieldsFormT,
+  typeIdOptions: SelectOptionsT,
+) {
   const typeIdField = form.field.type_id;
   const selectedTypeIds = new Set(typeIdField.value.map(
     value => String(value),
@@ -93,6 +90,6 @@ const CoverArtFields = ({
       />
     </>
   );
-};
+}
 
 export default CoverArtFields;

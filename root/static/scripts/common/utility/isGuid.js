@@ -9,7 +9,7 @@
 
 import {MBID_REGEXP} from '../constants.js';
 
-const MBID_ONLY_REGEXP = new RegExp('^' + MBID_REGEXP.source + '$');
+const MBID_ONLY_REGEXP = new RegExp('^' + MBID_REGEXP.source + '$', 'i');
 
 export default function isGuid(str: string): boolean {
   return str.length === 36 && MBID_ONLY_REGEXP.test(str);

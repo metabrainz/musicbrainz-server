@@ -12,21 +12,13 @@ import Layout from '../layout/index.js';
 
 import WorkHeader from './WorkHeader.js';
 
-type Props = {
-  +children: React$Node,
-  +entity: WorkT,
-  +fullWidth?: boolean,
-  +page: string,
-  +title?: string,
-};
-
-const WorkLayout = ({
-  children,
-  entity: work,
-  fullWidth = false,
-  page,
-  title,
-}: Props): React$Element<typeof Layout> => {
+component WorkLayout(
+  children: React$Node,
+  entity as work: WorkT,
+  fullWidth: boolean = false,
+  page: string,
+  title?: string,
+) {
   const mainTitle = texp.l('{type} “{work}”', {
     type: nonEmpty(work.typeName)
       ? lp_attributes(work.typeName, 'work_type')
@@ -44,6 +36,6 @@ const WorkLayout = ({
       {fullWidth ? null : <WorkSidebar work={work} />}
     </Layout>
   );
-};
+}
 
 export default WorkLayout;

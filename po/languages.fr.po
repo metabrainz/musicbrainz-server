@@ -10,11 +10,11 @@
 # AO <email address hidden>, 2015
 # AO <email address hidden>, 2014-2015
 # yvanz, 2016-2023
-# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-24 09:54+0000\n"
+"PO-Revision-Date: 2024-05-13 15:06+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/fr/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -1965,6 +1965,11 @@ msgstr "Prâkrit, langues"
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "Occitan, Ancien (jusqu’à 1500)"
+
+#. frequency:1 iso_code_3:prg 
+#: DB:language/name:5521
+msgid "Prussian"
+msgstr "Prussien"
 
 #. frequency:1 iso_code_3:pan 
 #: DB:language/name:330

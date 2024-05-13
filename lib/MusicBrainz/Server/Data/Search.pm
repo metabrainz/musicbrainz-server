@@ -59,7 +59,11 @@ use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Data::Tag;
-use MusicBrainz::Server::Data::Utils qw( contains_string ref_to_type );
+use MusicBrainz::Server::Data::Utils qw(
+    contains_string
+    find_best_primary_alias
+    ref_to_type
+);
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( entities_with $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
@@ -420,7 +424,7 @@ sub schema_fixup_type {
 # matches up with the data returned from the DB for easy object creation
 sub schema_fixup
 {
-    my ($self, $data, $type) = @_;
+    my ($self, $data, $type, $user_lang) = @_;
 
     return unless (ref($data) eq 'HASH');
 
@@ -686,7 +690,7 @@ sub schema_fixup
 
             my %entity = %{ $rel->{$entity_type} };
 
-            $self->schema_fixup(\%entity, $entity_type);
+            $self->schema_fixup(\%entity, $entity_type, $user_lang);
 
             # The search server returns the MBID in the 'id' attribute, so we
             # need to delete that. (`schema_fixup` copies it to gid.)
@@ -717,13 +721,13 @@ sub schema_fixup
         next if $k eq '_extra';
         if (ref($data->{$k}) eq 'HASH')
         {
-            $self->schema_fixup($data->{$k}, $type);
+            $self->schema_fixup($data->{$k}, $type, $user_lang);
         }
         if (ref($data->{$k}) eq 'ARRAY')
         {
             foreach my $item (@{$data->{$k}})
             {
-                $self->schema_fixup($item, $type);
+                $self->schema_fixup($item, $type, $user_lang);
             }
         }
     }
@@ -750,6 +754,8 @@ sub schema_fixup
                 primary_for_locale => $_->{primary},
             )
         } @{ $data->{aliases} };
+        my $best_alias = find_best_primary_alias(\@aliases, $user_lang);
+        $data->{primary_alias} = $best_alias->{name} if defined $best_alias;
 
         # Save the new objects so validation will pass, but note that the search
         # API doesn't include all attributes that are present in Entity::Alias,
@@ -839,7 +845,7 @@ sub escape_query
 
 sub external_search
 {
-    my ($self, $type, $query, $limit, $page, $adv) = @_;
+    my ($self, $type, $query, $limit, $page, $adv, $user_lang) = @_;
 
     my $entity_model = $self->c->model( type_to_model($type) )->_entity_class;
     load_class($entity_model);
@@ -923,7 +929,7 @@ sub external_search
 
         foreach my $t (@{$data->{$xmltype}})
         {
-            $self->schema_fixup($t, $type);
+            $self->schema_fixup($t, $type, $user_lang);
             push @results, MusicBrainz::Server::Entity::SearchResult->new(
                     position => $pos++,
                     score  => $t->{score},

@@ -5,11 +5,12 @@
 # suming <331874545@qq.com>, 2023.
 # claybiockiller <clay0305@hotmail.com>, 2023.
 # ycwei982 <ycwei982@outlook.com>, 2024.
+# AshPigeon <1433821055@qq.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-02-26 21:28+0000\n"
-"Last-Translator: ycwei982 <ycwei982@outlook.com>\n"
+"PO-Revision-Date: 2024-04-25 06:42+0000\n"
+"Last-Translator: AshPigeon <1433821055@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/relationship-types/zh_Hans/>\n"
 "Language: zh\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -66,6 +67,11 @@ msgid ""
 "post. Examples include Facebook pages and profiles, Last.fm users and "
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
+"社交网络页面是艺术家自己在<a href=\"https://en.wikipedia.org/wiki/"
+"Social_networking_service\" target=\"_blank\">社交网络</a>上的个人资料页面，"
+"只有他们(或他们的管理人员)才能发布内容。其他人可以创建自己的个人资料并与艺术"
+"家互动，例如通过添加他们为朋友或评论他们发布的内容。例子包括Facebook页面和个"
+"人资料，最后。Twitter、Instagram和Flickr上的fm用户和账户。"
 
 #: DB:link_type/description:783
 msgid ""
@@ -353,7 +359,7 @@ msgstr ""
 msgid ""
 "Indicates a page that reviews the release (group) in question, whether it be "
 "in text, audio or video form."
-msgstr ""
+msgstr "指示查看所讨论的版本(组)的页面，无论是文本、音频还是视频形式。"
 
 #: DB:link_type/description:1083
 msgid "Indicates a page with an official schedule for an event series."
@@ -387,8 +393,14 @@ msgid "Indicates a sibling with whom the artist has only one parent in common."
 msgstr "指艺术家同父异母或同母异父的兄弟姐妹"
 
 #: DB:link_type/description:842
-msgid "Indicates a webpage that reviews the event in question."
-msgstr "指含有活动评价的网页。"
+#, fuzzy
+#| msgid ""
+#| "Indicates a page that reviews the release (group) in question, whether it "
+#| "be in text, audio or video form."
+msgid ""
+"Indicates a webpage that reviews the event in question, whether it be in "
+"text, audio or video form."
+msgstr "指示查看所讨论的版本(组)的页面，无论是文本、音频还是视频形式。"
 
 #: DB:link_type/description:958
 msgid "Indicates a webpage where you can download a label's releases for free."
@@ -561,13 +573,13 @@ msgstr "指初次演出作品的艺术家；多与古典音乐相关"
 msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
-msgstr ""
+msgstr "表示此版本的作曲家，即编写音乐的艺术家(不一定是歌词)。"
 
 #: DB:link_type/description:168
 msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
-msgstr ""
+msgstr "表示该作品的作曲家，即写音乐的艺术家(不一定是歌词)。"
 
 #: DB:link_type/description:845
 #, fuzzy
@@ -842,6 +854,7 @@ msgid ""
 "Links a release to the area it was transferred in (for example from an old "
 "tape to digital). Use only when the place is unknown!"
 msgstr ""
+"将一个版本链接到它被转移的区域(例如从旧磁带到数字磁带)。只在地点不明时使用!"
 
 #: DB:link_type/description:967
 msgid ""
@@ -856,10 +869,6 @@ msgstr "将专辑链接到刻纹技师。"
 #: DB:link_type/description:810
 msgid "Links a release to the event it was recorded at."
 msgstr "将专辑链接到录制活动。"
-
-#: DB:link_type/description:865
-msgid "Links a release to the place it was arranged at."
-msgstr "将专辑链接到编曲地点。"
 
 #: DB:link_type/description:820
 msgid "Links a release to the place it was edited at."
@@ -907,7 +916,7 @@ msgstr "将专辑链接到重混音工作所在地点。"
 msgid ""
 "Links a release to the place it was transferred at (for example from an old "
 "tape to digital)."
-msgstr ""
+msgstr "链接一个专辑到它被转换的地方(例如从旧磁带到数字)。"
 
 #: DB:link_type/description:954
 msgid ""
@@ -957,6 +966,8 @@ msgid ""
 "Links an event to a DJ that appeared in a supporting role (such as DJing "
 "between artists, or closing the night after a concert)."
 msgstr ""
+"将一个活动与一个次要角色的DJ联系起来(例如，在两个艺术家之间切换或在一场音乐会"
+"后结束夜晚)。"
 
 #: DB:link_type/description:800
 msgid ""
@@ -970,6 +981,8 @@ msgid ""
 "Links an event to a label or other organization credited for presenting it "
 "(often as “Label presents Event”)."
 msgstr ""
+"将一个事件与一个标签或其他组织联系起来(通常以“这个标签展示了这个事件”的形"
+"式)。"
 
 #: DB:link_type/description:806
 msgid "Links an event to an artist that was a conductor in it."
@@ -980,6 +993,8 @@ msgid ""
 "Links an event to an artist who was a VJ during it, either as the background "
 "for someone else’s musical performance or as its own performance."
 msgstr ""
+"将事件链接到在事件期间担任VJ的艺术家，可以作为其他人音乐表演的背景，也可以作"
+"为自己的表演。"
 
 #: DB:link_type/description:1084
 msgid "Links an event to an engineer or sound technician who worked on it."
@@ -1191,6 +1206,12 @@ msgstr "指向此活动的维基百科页。"
 msgid "Points to the Wikipedia page for this instrument."
 msgstr "指向此乐器的维基百科页。"
 
+#: DB:link_type/description:216
+#, fuzzy
+#| msgid "Points to the Wikipedia page for this place"
+msgid "Points to the Wikipedia page for this label."
+msgstr "指向此地点的维基百科页。"
+
 #: DB:link_type/description:595
 #, fuzzy
 #| msgid "Points to the Wikipedia page for this place"
@@ -1278,7 +1299,7 @@ msgstr "指明教师在教育机构和/或单独授课中向学生教授的学�
 msgid "Spoken vocals (speech)"
 msgstr "念白人声 (演讲)"
 
-#: DB:link_type/long_link_phrase:880
+#: DB:link_type/long_link_phrase:880 DB:link_type/long_link_phrase:1249
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written at {entity0}"
 msgstr "{entity1}的歌剧剧本由{entity0}{additional:额外}撰写"
@@ -1288,7 +1309,7 @@ msgid ""
 "The libretto for {entity1} was {additional:additionally} written in {entity0}"
 msgstr "{entity1}的歌剧剧本由{entity0}{additional:额外}撰写"
 
-#: DB:link_type/long_link_phrase:878
+#: DB:link_type/long_link_phrase:878 DB:link_type/long_link_phrase:1250
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written at {entity0}"
 msgstr "{entity1}的歌词由{entity0}{additional:额外}撰写"
@@ -2474,10 +2495,6 @@ msgstr ""
 msgid "This is used to link a label to an image of its logo."
 msgstr ""
 
-#: DB:link_type/description:216
-msgid "This is used to link a label to its corresponding Wikipedia page."
-msgstr ""
-
 #: DB:link_type/description:977
 msgid ""
 "This is used to link a label to its corresponding page in the "
@@ -2941,6 +2958,48 @@ msgid ""
 "This links a release to the relevant crowdfunding project at a crowdfunding "
 "site like Kickstarter or Indiegogo."
 msgstr "这将专辑指向Kickstarter或者Indiegogo一类众筹网站上的众筹项目。"
+
+#: DB:link_type/description:865
+#, fuzzy
+#| msgid "Links a release to the place it was arranged at."
+msgid "This links a release with the place it was arranged at."
+msgstr "将专辑链接到编曲地点。"
+
+#: DB:link_type/description:1251
+#, fuzzy
+#| msgid "Links a release to the place it was pressed at."
+msgid "This links a release with the place it was composed at."
+msgstr "将专辑链接到压盘地点。"
+
+#: DB:link_type/description:1248
+#, fuzzy
+#| msgid "Links a release to the place it was remixed at."
+msgid "This links a release with the place it was revised at."
+msgstr "将专辑链接到重混音工作所在地点。"
+
+#: DB:link_type/description:1247
+#, fuzzy
+#| msgid "Links a release to the place it was arranged at."
+msgid "This links a release with the place it was translated at."
+msgstr "将专辑链接到编曲地点。"
+
+#: DB:link_type/description:1246
+#, fuzzy
+#| msgid "This links a work with the place its libretto was written at."
+msgid "This links a release with the place it was written at."
+msgstr "这将作品链接到歌剧剧本的撰写地点。"
+
+#: DB:link_type/description:1249
+#, fuzzy
+#| msgid "This links a work with the place its libretto was written at."
+msgid "This links a release with the place its libretto was written at."
+msgstr "这将作品链接到歌剧剧本的撰写地点。"
+
+#: DB:link_type/description:1250
+#, fuzzy
+#| msgid "This links a work with the place its libretto was written at."
+msgid "This links a release with the place its lyrics were written at."
+msgstr "这将作品链接到歌剧剧本的撰写地点。"
 
 #: DB:link_type/description:870
 msgid ""
@@ -4125,6 +4184,11 @@ msgid ""
 "Label”."
 msgstr ""
 
+#: DB:link_type/description:1252 DB:link_type/description:1253
+msgid ""
+"Use this relationship for credits like “Recording was edited by X for Label”."
+msgstr ""
+
 #: DB:link_type/description:946
 msgid ""
 "Use this relationship for credits like “Recording was mixed by X for Label”."
@@ -4267,16 +4331,16 @@ msgstr "维基数据页，关于"
 
 #: DB:link_type/link_phrase:179 DB:link_type/link_phrase:595
 #: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:731
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:789
+#: DB:link_type/link_phrase:731 DB:link_type/link_phrase:89
+#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:789
 #: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
 #: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:179
 #: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
-#: DB:link_type/reverse_link_phrase:731 DB:link_type/reverse_link_phrase:89
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:731
+#: DB:link_type/reverse_link_phrase:89 DB:link_type/reverse_link_phrase:216
 #: DB:link_type/reverse_link_phrase:789
 msgid "Wikipedia page for"
 msgstr "维基百科页，关于"
@@ -4376,8 +4440,8 @@ msgstr "出现在视频中"
 msgid "apple music"
 msgstr "Apple Music"
 
-#: DB:link_type/name:866 DB:link_type/name:865 DB:link_type/name:886
-#: DB:link_type/reverse_link_phrase:866 DB:link_type/reverse_link_phrase:865
+#: DB:link_type/name:865 DB:link_type/name:866 DB:link_type/name:886
+#: DB:link_type/reverse_link_phrase:866
 msgid "arranged at"
 msgstr "编曲，在"
 
@@ -4412,7 +4476,7 @@ msgid "arranging"
 msgstr ""
 
 #: DB:link_type/link_phrase:864 DB:link_type/link_phrase:863
-#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:865
+#: DB:link_type/link_phrase:866
 msgid "arranging location for"
 msgstr ""
 
@@ -4765,7 +4829,7 @@ msgstr ""
 msgid "compiler"
 msgstr ""
 
-#: DB:link_type/name:876
+#: DB:link_type/name:1251 DB:link_type/name:876
 msgid "composed at"
 msgstr "作曲地"
 
@@ -4855,6 +4919,10 @@ msgstr ""
 
 #: DB:link_type/link_phrase:949 DB:link_type/link_phrase:948
 msgid "contracted arrangement for"
+msgstr ""
+
+#: DB:link_type/link_phrase:1252 DB:link_type/link_phrase:1253
+msgid "contracted editing for"
 msgstr ""
 
 #: DB:link_type/link_phrase:952
@@ -5118,6 +5186,13 @@ msgstr ""
 #: DB:link_type/name:819 DB:link_type/name:820
 msgid "edited at"
 msgstr "编辑于"
+
+#: DB:link_type/name:1252 DB:link_type/name:1253
+#: DB:link_type/reverse_link_phrase:1252 DB:link_type/reverse_link_phrase:1253
+#, fuzzy
+#| msgid "editor"
+msgid "edited for"
+msgstr "编辑"
 
 #: DB:link_type/name:822 DB:link_type/name:821
 msgid "edited in"
@@ -5496,8 +5571,8 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:595
 #: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:731
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:789
+#: DB:link_type/long_link_phrase:731 DB:link_type/long_link_phrase:89
+#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:789
 msgid "has a Wikipedia page at"
 msgstr "在以下位置有维基百科页面"
 
@@ -5573,7 +5648,7 @@ msgstr ""
 msgid "has a picture at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:842 DB:link_type/long_link_phrase:94
+#: DB:link_type/long_link_phrase:94 DB:link_type/long_link_phrase:842
 msgid "has a review page at"
 msgstr ""
 
@@ -6229,7 +6304,7 @@ msgstr ""
 msgid "librettist"
 msgstr ""
 
-#: DB:link_type/name:880
+#: DB:link_type/name:880 DB:link_type/name:1249
 msgid "libretto written at"
 msgstr ""
 
@@ -6237,7 +6312,7 @@ msgstr ""
 msgid "libretto written in"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:880
+#: DB:link_type/reverse_link_phrase:880 DB:link_type/reverse_link_phrase:1249
 msgid "libretto {additional:additionally} written at"
 msgstr ""
 
@@ -6344,7 +6419,7 @@ msgstr "歌词页，关于"
 msgid "lyrics quoted in"
 msgstr ""
 
-#: DB:link_type/name:878
+#: DB:link_type/name:878 DB:link_type/name:1250
 msgid "lyrics written at"
 msgstr "歌词作于某地点"
 
@@ -7448,15 +7523,15 @@ msgstr "驻留演出"
 msgid "residency by"
 msgstr "驻留演出，表演者为"
 
-#: DB:link_type/name:842 DB:link_type/name:94
+#: DB:link_type/name:94 DB:link_type/name:842
 msgid "review"
 msgstr "评论"
 
-#: DB:link_type/reverse_link_phrase:842 DB:link_type/reverse_link_phrase:94
+#: DB:link_type/reverse_link_phrase:94 DB:link_type/reverse_link_phrase:842
 msgid "review page for"
 msgstr "评论页，关于"
 
-#: DB:link_type/link_phrase:842 DB:link_type/link_phrase:94
+#: DB:link_type/link_phrase:94 DB:link_type/link_phrase:842
 msgid "reviews"
 msgstr "评论"
 
@@ -7464,7 +7539,8 @@ msgstr "评论"
 msgid "revised"
 msgstr "修订"
 
-#: DB:link_type/name:882 DB:link_type/reverse_link_phrase:882
+#: DB:link_type/name:882 DB:link_type/name:1248
+#: DB:link_type/reverse_link_phrase:882 DB:link_type/reverse_link_phrase:1248
 msgid "revised at"
 msgstr "修订于"
 
@@ -7477,6 +7553,7 @@ msgid "revised in"
 msgstr "修订于"
 
 #: DB:link_type/link_phrase:881 DB:link_type/link_phrase:882
+#: DB:link_type/link_phrase:1248
 msgid "revising location for"
 msgstr ""
 
@@ -7880,7 +7957,8 @@ msgstr ""
 msgid "translated"
 msgstr "翻译"
 
-#: DB:link_type/name:883 DB:link_type/reverse_link_phrase:883
+#: DB:link_type/name:883 DB:link_type/name:1247
+#: DB:link_type/reverse_link_phrase:883 DB:link_type/reverse_link_phrase:1247
 msgid "translated at"
 msgstr "翻译于某地点"
 
@@ -8146,8 +8224,8 @@ msgid "wikidata"
 msgstr "维基数据"
 
 #: DB:link_type/name:179 DB:link_type/name:595 DB:link_type/name:355
-#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:216
-#: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
+#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:731
+#: DB:link_type/name:89 DB:link_type/name:216 DB:link_type/name:789
 msgid "wikipedia"
 msgstr "维基百科"
 
@@ -8192,7 +8270,7 @@ msgstr ""
 msgid "writer"
 msgstr "作者"
 
-#: DB:link_type/name:874
+#: DB:link_type/name:874 DB:link_type/name:1246
 msgid "written at"
 msgstr ""
 
@@ -8221,7 +8299,7 @@ msgid ""
 "{instrumental} {cover} {karaoke} recordings"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:886
+#: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
 msgstr ""
 
@@ -8234,7 +8312,7 @@ msgstr ""
 msgid "{additional:additionally} composed"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:876
+#: DB:link_type/reverse_link_phrase:1251 DB:link_type/reverse_link_phrase:876
 msgid "{additional:additionally} composed at"
 msgstr ""
 
@@ -8333,7 +8411,7 @@ msgstr ""
 msgid "{additional:additionally} translated in"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:874
+#: DB:link_type/reverse_link_phrase:874 DB:link_type/reverse_link_phrase:1246
 msgid "{additional:additionally} written at"
 msgstr ""
 
@@ -8476,7 +8554,8 @@ msgstr ""
 msgid "{additional} animation"
 msgstr "额外"
 
-#: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
 msgstr ""
 
@@ -8496,9 +8575,15 @@ msgstr ""
 msgid "{additional} composer"
 msgstr ""
 
-#: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
+#: DB:link_type/link_phrase:875
 msgid "{additional} composing location for"
 msgstr ""
+
+#: DB:link_type/link_phrase:1251 DB:link_type/link_phrase:876
+#, fuzzy
+#| msgid "additional"
+msgid "{additional} composition location for"
+msgstr "额外"
 
 #: DB:link_type/link_phrase:63 DB:link_type/link_phrase:146
 #: DB:link_type/reverse_link_phrase:63 DB:link_type/reverse_link_phrase:146
@@ -8552,6 +8637,7 @@ msgid "{additional} libretto"
 msgstr ""
 
 #: DB:link_type/link_phrase:879 DB:link_type/link_phrase:880
+#: DB:link_type/link_phrase:1249
 msgid "{additional} libretto writing location for"
 msgstr ""
 
@@ -8568,10 +8654,11 @@ msgid "{additional} lyrics"
 msgstr ""
 
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
+#: DB:link_type/link_phrase:1250
 msgid "{additional} lyrics writing location for"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:878
+#: DB:link_type/reverse_link_phrase:878 DB:link_type/reverse_link_phrase:1250
 msgid "{additional} lyrics written at"
 msgstr ""
 
@@ -8631,6 +8718,7 @@ msgid "{additional} transferring location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
+#: DB:link_type/link_phrase:1247
 msgid "{additional} translating location for"
 msgstr ""
 
@@ -8643,6 +8731,7 @@ msgid "{additional} writer"
 msgstr ""
 
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
+#: DB:link_type/link_phrase:1246
 msgid "{additional} writing location for"
 msgstr ""
 
@@ -8996,7 +9085,7 @@ msgstr ""
 msgid "{entity1} presented {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:866 DB:link_type/long_link_phrase:865
+#: DB:link_type/long_link_phrase:866
 msgid "{entity1} was arranged at {entity0}"
 msgstr ""
 
@@ -9011,6 +9100,12 @@ msgstr ""
 #: DB:link_type/long_link_phrase:795
 msgid "{entity1} was available at {entity0}"
 msgstr ""
+
+#: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
+#, fuzzy
+#| msgid "{entity1} was held at {entity0}"
+msgid "{entity1} was edited for {entity0}"
+msgstr "{entity1} 于 {entity0} 举行"
 
 #: DB:link_type/long_link_phrase:954
 msgid "{entity1} was glass mastered at {entity0}"
@@ -9080,7 +9175,7 @@ msgstr "{entity1} 录制于 {entity0}"
 msgid "{entity1} was remixed for {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:882
+#: DB:link_type/long_link_phrase:882 DB:link_type/long_link_phrase:1248
 msgid "{entity1} was revised at {entity0}"
 msgstr ""
 
@@ -9088,7 +9183,7 @@ msgstr ""
 msgid "{entity1} was revised in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:886
+#: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:886
 msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr ""
 
@@ -9096,7 +9191,7 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:876
+#: DB:link_type/long_link_phrase:1251 DB:link_type/long_link_phrase:876
 msgid "{entity1} was {additional:additionally} composed at {entity0}"
 msgstr ""
 
@@ -9164,7 +9259,7 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} transferred at {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:883
+#: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
 msgid "{entity1} was {additional:additionally} translated at {entity0}"
 msgstr ""
 
@@ -9172,7 +9267,7 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} translated in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:874
+#: DB:link_type/long_link_phrase:874 DB:link_type/long_link_phrase:1246
 msgid "{entity1} was {additional:additionally} written at {entity0}"
 msgstr ""
 
@@ -9271,6 +9366,9 @@ msgstr ""
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr ""
+
+#~ msgid "Indicates a webpage that reviews the event in question."
+#~ msgstr "指含有活动评价的网页。"
 
 #~ msgid ""
 #~ "This attribute indicates a version with the lyrics in a different "

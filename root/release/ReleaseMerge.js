@@ -20,59 +20,56 @@ import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 import ReleaseMergeStrategy
   from '../static/scripts/edit/components/ReleaseMergeStrategy.js';
 
-type Props = {
-  +badRecordingMerges?:
-    $ReadOnlyArray<$ReadOnlyArray<RecordingWithArtistCreditT>>,
-  +form: MergeReleasesFormT,
-  +mediums: $ReadOnlyArray<MediumT>,
-  +toMerge: $ReadOnlyArray<ReleaseT>,
-};
+type BadRecordingMergesT =
+  $ReadOnlyArray<$ReadOnlyArray<RecordingWithArtistCreditT>>;
 
-const ReleaseMerge = ({
-  badRecordingMerges,
-  form,
-  mediums,
-  toMerge,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Merge releases')}>
-    <div id="content">
-      <h1>{l('Merge releases')}</h1>
-      <p>
-        {l(`You are about to merge the following releases into a single
-            release. Please select the release which you would
-            like other releases to be merged into:`)}
-      </p>
-      <form method="post">
-        <ReleaseList
-          mergeForm={form}
-          releases={sortByEntityName(toMerge)}
-        />
-        <FieldErrors field={form.field.target} />
+component ReleaseMerge(
+  badRecordingMerges?: BadRecordingMergesT,
+  form: MergeReleasesFormT,
+  mediums: $ReadOnlyArray<MediumT>,
+  toMerge: $ReadOnlyArray<ReleaseT>,
+) {
+  return (
+    <Layout fullWidth title={l('Merge releases')}>
+      <div id="content">
+        <h1>{l('Merge releases')}</h1>
+        <p>
+          {l(`You are about to merge the following releases into a single
+              release. Please select the release which you would
+              like other releases to be merged into:`)}
+        </p>
+        <form method="post">
+          <ReleaseList
+            mergeForm={form}
+            releases={sortByEntityName(toMerge)}
+          />
+          <FieldErrors field={form.field.target} />
 
-        <ReleaseMergeStrategy
-          badRecordingMerges={badRecordingMerges}
-          form={form}
-          mediums={mediums}
-          releases={linkedEntities.release}
-        />
+          <ReleaseMergeStrategy
+            badRecordingMerges={badRecordingMerges}
+            form={form}
+            mediums={mediums}
+            releases={linkedEntities.release}
+          />
 
-        <EnterEditNote field={form.field.edit_note} />
+          <EnterEditNote field={form.field.edit_note} />
 
-        <EnterEdit form={form}>
-          <button
-            className="negative"
-            name="submit"
-            type="submit"
-            value="cancel"
-          >
-            {l('Cancel')}
-          </button>
-        </EnterEdit>
-      </form>
-    </div>
+          <EnterEdit form={form}>
+            <button
+              className="negative"
+              name="submit"
+              type="submit"
+              value="cancel"
+            >
+              {l('Cancel')}
+            </button>
+          </EnterEdit>
+        </form>
+      </div>
 
-    {manifest.js('edit')}
-  </Layout>
-);
+      {manifest.js('edit')}
+    </Layout>
+  );
+}
 
 export default ReleaseMerge;

@@ -39,39 +39,41 @@ function buildResult(result: SearchResultT<ArtistT>, index: number) {
   );
 }
 
-export const ArtistResultsInline = ({
+export component ArtistResultsInline(...{
   pager,
   query,
   results,
-}: InlineResultsPropsT<ArtistT>): React$MixedElement => (
-  <PaginatedSearchResults
-    buildResult={(result, index) => buildResult(result, index)}
-    columns={
-      <>
-        <th>{l('Name')}</th>
-        <th>{l('Sort name')}</th>
-        <th>{l('Type')}</th>
-        <th>{l('Gender')}</th>
-        <th>{l('Area')}</th>
-        <th>{l('Begin')}</th>
-        <th>{l('Begin area')}</th>
-        <th>{l('End')}</th>
-        <th>{l('End area')}</th>
-      </>
-    }
-    pager={pager}
-    query={query}
-    results={results}
-  />
-);
+}: InlineResultsPropsT<ArtistT>) {
+  return (
+    <PaginatedSearchResults
+      buildResult={buildResult}
+      columns={
+        <>
+          <th>{l('Name')}</th>
+          <th>{l('Sort name')}</th>
+          <th>{l('Type')}</th>
+          <th>{l('Gender')}</th>
+          <th>{l('Area')}</th>
+          <th>{l('Begin')}</th>
+          <th>{l('Begin area')}</th>
+          <th>{l('End')}</th>
+          <th>{l('End area')}</th>
+        </>
+      }
+      pager={pager}
+      query={query}
+      results={results}
+    />
+  );
+}
 
-const ArtistResults = ({
+component ArtistResults(...{
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<ArtistT>): React$Element<typeof ResultsLayout> => {
+}: ResultsPropsT<ArtistT>) {
   const $c = React.useContext(CatalystContext);
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
@@ -90,6 +92,6 @@ const ArtistResults = ({
       ) : null}
     </ResultsLayout>
   );
-};
+}
 
 export default ArtistResults;

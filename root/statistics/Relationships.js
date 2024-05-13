@@ -17,12 +17,6 @@ import formatEntityTypeName
 import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 
-export type RelationshipsStatsT = {
-  +dateCollected: string,
-  +stats: {[statName: string]: number},
-  +types: {[relationshipTable: string]: RelationshipTypeT},
-};
-
 declare type RelationshipTypeT = {
   +entity_types: $ReadOnlyArray<string>,
   +tree: {[entityTypes: string]: Array<LinkTypeT>},
@@ -35,21 +29,13 @@ function comparePhrases(a: LinkTypeT, b: LinkTypeT) {
   );
 }
 
-type TypeRowsPropsT = {
-  +base: string,
-  +indent: number,
-  +parent: string,
-  +stats: { [statName: string]: number },
-  +type: LinkTypeT,
-};
-
-const TypeRows = ({
-  base,
-  indent,
-  parent,
-  stats,
-  type,
-}: TypeRowsPropsT): React$MixedElement => {
+component TypeRows(
+  base: string,
+  indent: number,
+  parent: string,
+  stats: { [statName: string]: number },
+  type: LinkTypeT,
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <>
@@ -89,13 +75,13 @@ const TypeRows = ({
       ) : null}
     </>
   );
-};
+}
 
-const Relationships = ({
-  dateCollected,
-  stats,
-  types,
-}: RelationshipsStatsT): React$Element<typeof StatisticsLayout> => {
+component Relationships(
+  dateCollected: string,
+  stats: {[statName: string]: number},
+  types: {[relationshipTable: string]: RelationshipTypeT},
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <StatisticsLayout
@@ -185,6 +171,6 @@ const Relationships = ({
       )}
     </StatisticsLayout>
   );
-};
+}
 
 export default Relationships;

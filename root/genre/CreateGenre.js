@@ -14,21 +14,17 @@ import GenreEditForm
 
 import type {GenreFormT} from './types.js';
 
-type Props = {
-  +form: GenreFormT,
-};
-
-const CreateGenre = ({
-  form,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Add a new genre">
-    <div id="content">
-      <h1>{'Add a new genre'}</h1>
-      <GenreEditForm form={form} />
-    </div>
-    {manifest.js('genre/components/GenreEditForm', {async: 'async'})}
-    {manifest.js('relationship-editor', {async: 'async'})}
-  </Layout>
-);
+component CreateGenre(form: GenreFormT) {
+  return (
+    <Layout fullWidth title="Add a new genre">
+      <div id="content">
+        <h1>{'Add a new genre'}</h1>
+        <GenreEditForm form={form} />
+      </div>
+      {manifest.js('genre/components/GenreEditForm', {async: 'async'})}
+      {manifest.js('relationship-editor', {async: 'async'})}
+    </Layout>
+  );
+}
 
 export default CreateGenre;

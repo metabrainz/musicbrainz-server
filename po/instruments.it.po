@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-31 15:28+0000\n"
+"PO-Revision-Date: 2024-04-27 18:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -2659,6 +2659,11 @@ msgstr "marimba lumina"
 msgid "marímbula"
 msgstr "marímbula"
 
+#: DB:instrument/name:1208
+msgctxt "Northern Indian bagpipe"
+msgid "mashak"
+msgstr "mashak"
+
 #: DB:instrument/name:1199
 msgctxt "Belorussian duda"
 msgid "matstsyanka"
@@ -2976,6 +2981,11 @@ msgstr "pang gu ly hu hmông"
 msgctxt "Smallest member of the viol family"
 msgid "pardessus de viole"
 msgstr "pardessus de viole"
+
+#: DB:instrument/name:1207
+msgctxt "Armenian double chanter bagpipe"
+msgid "parkapzuk"
+msgstr "parkapzuk"
 
 #: DB:instrument/name:1076
 msgctxt "Polish foot-pedal accordion"

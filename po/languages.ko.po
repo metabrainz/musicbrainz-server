@@ -2,11 +2,13 @@
 # Translators:
 # 6 0, 2022
 # Yuza Tea <email address hidden>, 2021
+# hashflu <hashflu@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-30 01:27+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2024-05-02 16:46+0000\n"
+"Last-Translator: hashflu <hashflu@users.noreply.translations.metabrainz.org>"
+"\n"
 "Language-Team: Korean <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/ko/>\n"
 "Language: ko\n"
@@ -14,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -354,7 +356,7 @@ msgstr "브르타뉴어"
 #. frequency:1 iso_code_3:box 
 #: DB:language/name:1322
 msgid "Buamu"
-msgstr ""
+msgstr "봐무어"
 
 #. frequency:1 iso_code_3:bug 
 #: DB:language/name:61
@@ -379,7 +381,7 @@ msgstr "버마어"
 #. frequency:1 iso_code_3:bsk 
 #: DB:language/name:1406
 msgid "Burushaski"
-msgstr ""
+msgstr "부루샤스키어"
 
 #. frequency:1 iso_code_3:cad 
 #: DB:language/name:65
@@ -924,7 +926,7 @@ msgstr "그로닝스어"
 #. frequency:1 iso_code_3:gcf 
 #: DB:language/name:2386
 msgid "Guadeloupean Creole French"
-msgstr ""
+msgstr "과들루프 크리올"
 
 #. frequency:1 iso_code_3:grn 
 #: DB:language/name:160
@@ -1004,17 +1006,17 @@ msgstr "힌디어"
 #. frequency:1 iso_code_3:hmo 
 #: DB:language/name:174
 msgid "Hiri Motu"
-msgstr ""
+msgstr "히리 모투"
 
 #. frequency:0 iso_code_3:hit 
 #: DB:language/name:172
 msgid "Hittite"
-msgstr ""
+msgstr "히타이트어"
 
 #. frequency:1 iso_code_3:hmn 
 #: DB:language/name:173
 msgid "Hmong"
-msgstr ""
+msgstr "몽어"
 
 #. frequency:1 iso_code_3:hun 
 #: DB:language/name:176
@@ -1024,12 +1026,12 @@ msgstr "헝가리어"
 #. frequency:1 iso_code_3:hup 
 #: DB:language/name:177
 msgid "Hupa"
-msgstr ""
+msgstr "후파"
 
 #. frequency:1 iso_code_3:iba 
 #: DB:language/name:178
 msgid "Iban"
-msgstr ""
+msgstr "이반어"
 
 #. frequency:1 iso_code_3:isl 
 #: DB:language/name:180
@@ -1039,32 +1041,32 @@ msgstr "아이슬란드어"
 #. frequency:1 iso_code_3:ido 
 #: DB:language/name:181
 msgid "Ido"
-msgstr ""
+msgstr "이도"
 
 #. frequency:1 iso_code_3:ibo 
 #: DB:language/name:179
 msgid "Igbo"
-msgstr ""
+msgstr "이보어"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:183
 msgid "Ijo languages"
-msgstr ""
+msgstr "이조어"
 
 #. frequency:1 iso_code_3:ilo 
 #: DB:language/name:186
 msgid "Iloko"
-msgstr ""
+msgstr "일로카노어"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:188
 msgid "Indic languages"
-msgstr ""
+msgstr "인도아리아어군"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:190
 msgid "Indo-European languages"
-msgstr ""
+msgstr "인도유럽어족"
 
 #. frequency:1 iso_code_3:ind 
 #: DB:language/name:189
@@ -1074,12 +1076,12 @@ msgstr "인도네시아어"
 #. frequency:1 iso_code_3:izh 
 #: DB:language/name:2967
 msgid "Ingrian"
-msgstr ""
+msgstr "잉그리아어"
 
 #. frequency:1 iso_code_3:inh 
 #: DB:language/name:191
 msgid "Ingush"
-msgstr ""
+msgstr "인구시어"
 
 #. frequency:1 iso_code_3:moe 
 #: DB:language/name:4369
@@ -1109,7 +1111,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:193
 msgid "Iranian languages"
-msgstr ""
+msgstr "이란어군"
 
 #. frequency:1 iso_code_3:gle 
 #: DB:language/name:149
@@ -1149,7 +1151,7 @@ msgstr "일본어"
 #. frequency:1 iso_code_3:jav 
 #: DB:language/name:196
 msgid "Javanese"
-msgstr ""
+msgstr "자바어"
 
 #. frequency:1 iso_code_3:tmr 
 #: DB:language/name:6526
@@ -1955,6 +1957,13 @@ msgstr ""
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr ""
+
+#. frequency:1 iso_code_3:prg 
+#: DB:language/name:5521
+#, fuzzy
+#| msgid "Russian"
+msgid "Prussian"
+msgstr "러시아어"
 
 #. frequency:1 iso_code_3:pan 
 #: DB:language/name:330

@@ -19,9 +19,7 @@ import type {EditProfileFormPropsT}
 import EditProfileForm
   from '../static/scripts/account/components/EditProfileForm.js';
 
-const EditProfile = (
-  props: EditProfileFormPropsT,
-): React$Element<typeof UserAccountLayout> | null => {
+component EditProfile(...props: EditProfileFormPropsT) {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   if (!user) {
@@ -45,6 +43,6 @@ const EditProfile = (
       {manifest.js('account/edit')}
     </UserAccountLayout>
   );
-};
+}
 
 export default EditProfile;

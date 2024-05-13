@@ -9,25 +9,21 @@
 
 import LabelLayout from './LabelLayout.js';
 
-type Props = {
-  +label: LabelT,
-};
-
-const SpecialPurpose = ({
-  label,
-}: Props): React$Element<typeof LabelLayout> => (
-  <LabelLayout
-    entity={label}
-    fullWidth
-    page="special_purpose"
-    title={l('Cannot edit')}
-  >
-    <h2>{l('You may not edit special purpose labels')}</h2>
-    <p>
-      {l(`The label you are trying to edit is a special purpose label,
-          and you may not make direct changes to this data.`)}
-    </p>
-  </LabelLayout>
-);
+component SpecialPurpose(label: LabelT) {
+  return (
+    <LabelLayout
+      entity={label}
+      fullWidth
+      page="special_purpose"
+      title={l('Cannot edit')}
+    >
+      <h2>{l('You may not edit special purpose labels')}</h2>
+      <p>
+        {l(`The label you are trying to edit is a special purpose label,
+            and you may not make direct changes to this data.`)}
+      </p>
+    </LabelLayout>
+  );
+}
 
 export default SpecialPurpose;

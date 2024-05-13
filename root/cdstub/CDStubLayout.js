@@ -12,17 +12,11 @@ import Layout from '../layout/index.js';
 
 import CDStubHeader from './CDStubHeader.js';
 
-type Props = {
-  +children: React$Node,
-  +entity: CDStubT,
-  +fullWidth?: boolean,
-};
-
-const CDStubLayout = ({
-  children,
-  entity: cdstub,
-  fullWidth = false,
-}: Props): React$Element<typeof Layout> => {
+component CDStubLayout(
+  children: React$Node,
+  entity as cdstub: CDStubT,
+  fullWidth: boolean = false,
+) {
   const title = texp.l(
     'CD stub “{title}” by {artist}',
     {
@@ -40,6 +34,6 @@ const CDStubLayout = ({
       {fullWidth ? null : <CDStubSidebar cdstub={cdstub} />}
     </Layout>
   );
-};
+}
 
 export default CDStubLayout;

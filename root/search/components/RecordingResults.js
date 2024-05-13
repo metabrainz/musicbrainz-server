@@ -125,12 +125,11 @@ function buildResult(
   );
 }
 
-export const RecordingResultsInline = ({
+export component RecordingResultsInline(...{
   pager,
   query,
   results,
-}: InlineResultsPropsT<RecordingWithArtistCreditT>):
-React$MixedElement => {
+}: InlineResultsPropsT<RecordingWithArtistCreditT>) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -156,16 +155,15 @@ React$MixedElement => {
       results={results}
     />
   );
-};
+}
 
-const RecordingResults = ({
+component RecordingResults(...{
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<RecordingWithArtistCreditT>):
-React$Element<typeof ResultsLayout> => {
+}: ResultsPropsT<RecordingWithArtistCreditT>) {
   const $c = React.useContext(CatalystContext);
   linenum = 0;
   return (
@@ -186,6 +184,6 @@ React$Element<typeof ResultsLayout> => {
       {manifest.js('common/components/TaggerIcon', {async: 'async'})}
     </ResultsLayout>
   );
-};
+}
 
 export default RecordingResults;

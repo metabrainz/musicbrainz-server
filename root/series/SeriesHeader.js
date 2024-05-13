@@ -11,21 +11,15 @@ import EntityHeader from '../components/EntityHeader.js';
 import localizeTypeNameForEntity
   from '../static/scripts/common/i18n/localizeTypeNameForEntity.js';
 
-type Props = {
-  page: string,
-  series: SeriesT,
-};
-
-const SeriesHeader = ({
-  series,
-  page,
-}: Props): React$Element<typeof EntityHeader> => (
-  <EntityHeader
-    entity={series}
-    headerClass="seriesheader"
-    page={page}
-    subHeading={localizeTypeNameForEntity(series)}
-  />
-);
+component SeriesHeader(page: string, series: SeriesT) {
+  return (
+    <EntityHeader
+      entity={series}
+      headerClass="seriesheader"
+      page={page}
+      subHeading={localizeTypeNameForEntity(series)}
+    />
+  );
+}
 
 export default SeriesHeader;

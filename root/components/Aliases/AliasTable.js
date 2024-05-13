@@ -10,7 +10,7 @@
 import AliasTableBody from './AliasTableBody.js';
 
 type Props = {
-  +aliases: $ReadOnlyArray<AnyAiasT>,
+  +aliases: $ReadOnlyArray<AnyAliasT>,
   +allowEditing: boolean,
   +entity: EntityWithAliasesT,
 };

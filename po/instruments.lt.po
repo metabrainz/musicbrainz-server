@@ -1,12 +1,13 @@
 #
 # Translators:
 # "Vac31." <Vaclovas@users.noreply.translations.metabrainz.org>, 2024.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
+# Vaclovas Intas <gateway_31@protonmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-05 12:28+0000\n"
-"Last-Translator: \"Vac31.\" <Vaclovas@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2024-04-28 04:42+0000\n"
+"Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/lt/>\n"
 "Language: lt\n"
@@ -14,9 +15,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.4\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -1382,7 +1383,7 @@ msgstr ""
 #: DB:instrument/name:120
 msgctxt "drum programming"
 msgid "drum machine"
-msgstr ""
+msgstr "ritmo mašina"
 
 #: DB:instrument/name:101
 msgctxt "Set of drums in modern music"
@@ -2646,6 +2647,11 @@ msgstr ""
 msgid "marímbula"
 msgstr ""
 
+#: DB:instrument/name:1208
+msgctxt "Northern Indian bagpipe"
+msgid "mashak"
+msgstr ""
+
 #: DB:instrument/name:1199
 msgctxt "Belorussian duda"
 msgid "matstsyanka"
@@ -2962,6 +2968,11 @@ msgstr ""
 #: DB:instrument/name:924
 msgctxt "Smallest member of the viol family"
 msgid "pardessus de viole"
+msgstr ""
+
+#: DB:instrument/name:1207
+msgctxt "Armenian double chanter bagpipe"
+msgid "parkapzuk"
 msgstr ""
 
 #: DB:instrument/name:1076

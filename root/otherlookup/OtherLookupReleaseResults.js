@@ -10,28 +10,22 @@
 import ReleaseList from '../components/list/ReleaseList.js';
 import Layout from '../layout/index.js';
 
-type Props = {
-  +pager: PagerT,
-  +query: string,
-  +results: $ReadOnlyArray<ReleaseT>,
-};
-
-const OtherLookupReleaseResults = ({
-  results,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Search results')}>
-    <h1>{l('Search results')}</h1>
-    {results.length ? (
-      <ReleaseList
-        releases={results}
-        showLanguages
-        showStatus
-        showType
-      />
-    ) : (
-      <p>{l('No results found.')}</p>
-    )}
-  </Layout>
-);
+component OtherLookupReleaseResults(results: $ReadOnlyArray<ReleaseT>) {
+  return (
+    <Layout fullWidth title={l('Search results')}>
+      <h1>{l('Search results')}</h1>
+      {results.length ? (
+        <ReleaseList
+          releases={results}
+          showLanguages
+          showStatus
+          showType
+        />
+      ) : (
+        <p>{l('No results found.')}</p>
+      )}
+    </Layout>
+  );
+}
 
 export default OtherLookupReleaseResults;

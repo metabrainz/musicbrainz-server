@@ -10,24 +10,18 @@
 import EntityHeader from '../components/EntityHeader.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-type Props = {
-  page: string,
-  url: UrlT,
-};
-
-const UrlHeader = ({
-  url,
-  page,
-}: Props): React$Element<typeof EntityHeader> => (
-  <EntityHeader
-    entity={url}
-    headerClass="urlheader"
-    heading={
-      <EntityLink content={url.decoded} entity={url} />
-    }
-    page={page}
-    subHeading={l('URL')}
-  />
-);
+component UrlHeader(page: string, url: UrlT) {
+  return (
+    <EntityHeader
+      entity={url}
+      headerClass="urlheader"
+      heading={
+        <EntityLink content={url.decoded} entity={url} />
+      }
+      page={page}
+      subHeading={l('URL')}
+    />
+  );
+}
 
 export default UrlHeader;

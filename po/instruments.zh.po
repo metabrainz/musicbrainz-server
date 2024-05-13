@@ -3,11 +3,13 @@
 # Gary Liu, 2022
 # 子民 貪婪國的, 2022
 # claybiockiller <clay0305@hotmail.com>, 2023.
+# AshPigeon <1433821055@qq.com>, 2024.
+# darlingz <yagamidai@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-04 22:28+0000\n"
-"Last-Translator: claybiockiller <clay0305@hotmail.com>\n"
+"PO-Revision-Date: 2024-05-04 09:42+0000\n"
+"Last-Translator: darlingz <yagamidai@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/instruments/zh_Hans/>\n"
 "Language: zh\n"
@@ -15,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -154,7 +156,7 @@ msgstr "电单簧管"
 #: DB:instrument/name:1200
 msgctxt "Traditional Hungarian bagpipe"
 msgid "Magyar duda"
-msgstr ""
+msgstr "匈牙利风笛"
 
 #: DB:instrument/name:637
 msgctxt "Mark Stevens' bar chime"
@@ -365,12 +367,9 @@ msgid "amadinda"
 msgstr "阿玛丁达"
 
 #: DB:instrument/name:809
-#, fuzzy
-#| msgctxt "mongolian mouth harp"
-#| msgid "aman khuur"
 msgctxt "Mongolian mouth harp"
 msgid "aman khuur"
-msgstr "口弦"
+msgstr "口弦琴"
 
 #: DB:instrument/name:813
 msgctxt "uses analogue circuits to produce sound"
@@ -389,7 +388,7 @@ msgstr "踝响"
 #: DB:instrument/name:1068
 msgctxt "Andean single row panpipe"
 msgid "antara"
-msgstr ""
+msgstr "安塔拉排箫"
 
 #: DB:instrument/name:720
 msgctxt "Tuned metal shape."
@@ -667,7 +666,7 @@ msgstr "铃"
 #: DB:instrument/name:1072
 msgctxt "Set of tuned metal plates used in western orchestra"
 msgid "bell plate"
-msgstr ""
+msgstr "钟音板"
 
 #: DB:instrument/name:479
 msgid "bell tree"
@@ -714,7 +713,7 @@ msgstr "宾锡塔琴"
 #: DB:instrument/name:1117
 msgctxt "Small Breton bagpipe"
 msgid "biniou"
-msgstr ""
+msgstr "布列塔尼风笛"
 
 #: DB:instrument/name:884
 msgid "birbynė"
@@ -726,7 +725,7 @@ msgstr "毕尔宾内管"
 #| msgid "birch lur"
 msgctxt "wooden natural brass"
 msgid "birch lur"
-msgstr "桦木卢尔号"
+msgstr "桦木卢尔号（一种斯堪的纳维亚半岛的管乐器）"
 
 #: DB:instrument/name:824
 #, fuzzy
@@ -734,7 +733,7 @@ msgstr "桦木卢尔号"
 #| msgid "bisernica"
 msgctxt "prim, small Serbo-Croatian plucked string instrument"
 msgid "bisernica"
-msgstr "碧森尼卡琴"
+msgstr "碧森尼卡琴/坦布里卡(Tamburica)琴"
 
 #: DB:instrument/name:70
 msgid "biwa"
@@ -761,9 +760,10 @@ msgid "bombarde"
 msgstr "大芦管"
 
 #: DB:instrument/name:1071
+#, fuzzy
 msgctxt "Andean bass-drum"
 msgid "bombo legüero"
-msgstr ""
+msgstr "南美低音鼓"
 
 #: DB:instrument/name:969
 msgctxt "Family of bronze gong-chime sets used in Javanese gamelan"
@@ -904,7 +904,7 @@ msgstr "铁沙铃"
 #: DB:instrument/name:1195
 msgctxt "Auvergnat bagpipe"
 msgid "cabrette"
-msgstr ""
+msgstr "芦笛"
 
 #: DB:instrument/name:903
 msgctxt "Brazilian Samba snare-drum"
@@ -999,7 +999,7 @@ msgstr "恰朗哥琴"
 #: DB:instrument/name:1150
 msgctxt "Japanese double-reed"
 msgid "charumera"
-msgstr ""
+msgstr "日本唢呐"
 
 #: DB:instrument/name:640
 msgid "chau gong"
@@ -1024,12 +1024,9 @@ msgid "ching"
 msgstr "泰国镲"
 
 #: DB:instrument/name:821
-#, fuzzy
-#| msgctxt "oboe-like double-reed from South-America"
-#| msgid "chirimía"
 msgctxt "oboe-like double reed from South America"
 msgid "chirimía"
-msgstr "笛号"
+msgstr "玛雅长笛"
 
 #: DB:instrument/name:822
 msgctxt "pair of double-reed and drum. from South America."
@@ -1073,7 +1070,7 @@ msgstr "细管低音号"
 #: DB:instrument/name:1194
 msgctxt "Romanian & Moldovan bagpipe"
 msgid "cimpoi"
-msgstr ""
+msgstr "罗马尼亚风笛"
 
 #: DB:instrument/name:761
 msgid "citole"
@@ -1089,12 +1086,9 @@ msgid "cizhonghu"
 msgstr "次中胡"
 
 #: DB:instrument/name:904
-#, fuzzy
-#| msgctxt "egyptian ancient clappers"
-#| msgid "clapper"
 msgctxt "Egyptian ancient clappers"
 msgid "clapper"
-msgstr "拍板类"
+msgstr "钟锤"
 
 #: DB:instrument/name:955
 msgctxt "Ancient Aboriginal rhythm stick"
@@ -1148,12 +1142,13 @@ msgstr "弦管风琴"
 #: DB:instrument/name:1185
 msgctxt "Folk/classical Catalonian music ensemble"
 msgid "cobla"
-msgstr ""
+msgstr "加泰罗尼亚长笛"
 
 #: DB:instrument/name:1189
+#, fuzzy
 msgctxt "Catalonian ancient cobla ensemble"
 msgid "cobla de tres quartans"
-msgstr ""
+msgstr "加泰罗尼亚传统乐器合奏"
 
 #: DB:instrument/name:414
 msgid "concert flute"
@@ -1210,11 +1205,9 @@ msgid "cor anglais"
 msgstr "英国管"
 
 #: DB:instrument/name:510
-#, fuzzy
-#| msgid "cornamuse"
 msgctxt "Renaissance capped double-reed"
 msgid "cornamuse"
-msgstr "柯纳慕斯管"
+msgstr "直管"
 
 #: DB:instrument/name:1190
 msgctxt "French two-drone bagpipes"
@@ -2688,6 +2681,14 @@ msgstr "马林巴卢米纳"
 msgid "marímbula"
 msgstr "马林布拉"
 
+#: DB:instrument/name:1208
+#, fuzzy
+#| msgctxt "Latin-American tube rattle"
+#| msgid "shakers"
+msgctxt "Northern Indian bagpipe"
+msgid "mashak"
+msgstr "沙铃类"
+
 #: DB:instrument/name:1199
 msgctxt "Belorussian duda"
 msgid "matstsyanka"
@@ -3005,6 +3006,11 @@ msgstr "旁古丽胡赫蒙笛"
 msgctxt "Smallest member of the viol family"
 msgid "pardessus de viole"
 msgstr "最高音维奥尔琴"
+
+#: DB:instrument/name:1207
+msgctxt "Armenian double chanter bagpipe"
+msgid "parkapzuk"
+msgstr ""
 
 #: DB:instrument/name:1076
 msgctxt "Polish foot-pedal accordion"

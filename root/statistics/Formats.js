@@ -17,12 +17,6 @@ import loopParity from '../utility/loopParity.js';
 import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 
-type FormatsStatsT = {
-  +dateCollected: string,
-  +formatStats: $ReadOnlyArray<FormatStatT>,
-  +stats: {[statName: string]: number},
-};
-
 type FormatStatT = {
   +entity: MediumFormatT | null,
   +medium_count: number,
@@ -31,11 +25,11 @@ type FormatStatT = {
   +release_stat: string,
 };
 
-const Formats = ({
-  dateCollected,
-  formatStats,
-  stats,
-}: FormatsStatsT): React$Element<typeof StatisticsLayout> => {
+component Formats(
+  dateCollected: string,
+  formatStats: $ReadOnlyArray<FormatStatT>,
+  stats: {[statName: string]: number},
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <StatisticsLayout
@@ -131,6 +125,6 @@ const Formats = ({
       </table>
     </StatisticsLayout>
   );
-};
+}
 
 export default Formats;

@@ -3,11 +3,12 @@
 # Vaclovas lntas (Vac.) <email address hidden>, 2023
 # "Vac31." <gateway_31@protonmail.com>, 2023, 2024.
 # "Vac31." <Vaclovas@users.noreply.translations.metabrainz.org>, 2024.
+# Vaclovas Intas <gateway_31@protonmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-04-09 15:04+0000\n"
-"Last-Translator: \"Vac31.\" <gateway_31@protonmail.com>\n"
+"PO-Revision-Date: 2024-05-12 17:42+0000\n"
+"Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/lt/>\n"
 "Language: lt\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
 " n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -36,19 +37,19 @@ msgid ""
 "\"Sonata\" is a general term used to describe small scale (very often solo "
 "or solo + keyboard) instrumental works, initially in baroque music."
 msgstr ""
-"„Sonata“ – bendras terminas, vartojamas apibūdinti nedidelės apimties (labai "
-"dažnai solo arba solo + klavišiniai) instrumentinius kūrinius, iš pradžių "
-"baroko muzikoje."
+"„Sonata“ – tai bendras terminas, vartojamas apibūdinti nedidelės apimties ("
+"labai dažnai solo arba solo + klavišiniai) instrumentinius kūrinius, iš "
+"pradžių baroko muzikoje."
 
 #: DB:medium_format/name:205
 msgctxt "medium_format"
 msgid "10\" Acetate"
-msgstr "10 colių acetatas"
+msgstr "10” (25,4 cm) acetatas"
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
-msgstr "10 colių šelakas"
+msgstr "10” (25,4 cm) šelakas"
 
 #: DB:medium_format/name:30
 msgctxt "medium_format"
@@ -75,10 +76,15 @@ msgctxt "medium_format"
 msgid "12\" Vinyl"
 msgstr "12 colių vinilas"
 
+#: DB:medium_format/name:207
+msgctxt "medium_format"
+msgid "3\" Vinyl"
+msgstr "3” (7,62 cm) vinilas"
+
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
-msgstr "3,5 colio diskelis"
+msgstr "3,5” (8,89 cm) diskelis"
 
 #: DB:medium_format/name:91
 msgctxt "medium_format"
@@ -3852,147 +3858,147 @@ msgstr "ICE ID"
 #: DB:work_attribute_type/description:24
 msgctxt "work_attribute_type"
 msgid "ID for the Argentinean rights society SADAIC"
-msgstr "Argentinos teisių visuomenės SADAIC identifikatorius."
+msgstr "Argentinos teisių organizacijos SADAIC identifikatorius."
 
 #: DB:work_attribute_type/description:13
 msgctxt "work_attribute_type"
 msgid "ID for the Australasian rights society APRA"
-msgstr "Australazijos teisių visuomenei APRA identifikatorius."
+msgstr "Australazijos teisių organizacijos APRA identifikatorius."
 
 #: DB:work_attribute_type/description:23
 msgctxt "work_attribute_type"
 msgid "ID for the Austrian rights society AKM"
-msgstr "Austrijos teisių visuomenės AKM identifikatorius."
+msgstr "Austrijos teisių organizacijos AKM identifikatorius."
 
 #: DB:work_attribute_type/description:73
 msgctxt "work_attribute_type"
 msgid "ID for the Barbadian rights society COSCAP"
-msgstr "Barbadoso teisių visuomenės COSCAP identifikatorius."
+msgstr "Barbadoso teisių organizacijos COSCAP identifikatorius."
 
 #: DB:work_attribute_type/description:28
 msgctxt "work_attribute_type"
 msgid "ID for the Belgian rights society SABAM"
-msgstr "Belgijos teisių visuomenės SABAM identifikatorius."
+msgstr "Belgijos teisių organizacijos SABAM identifikatorius."
 
 #: DB:work_attribute_type/description:61
 msgctxt "work_attribute_type"
 msgid "ID for the Bolivian rights society SOBODAYCOM"
-msgstr "Bolivijos teisių visuomenės SOBODAYCOM identifikatorius."
+msgstr "Bolivijos teisių organizacijos SOBODAYCOM identifikatorius."
 
 #: DB:work_attribute_type/description:37
 msgctxt "work_attribute_type"
 msgid "ID for the Brazilian rights society ECAD"
-msgstr "Brazilijos teisių visuomenės ECAD identifikatorius."
+msgstr "Brazilijos teisių organizacijos ECAD identifikatorius."
 
 #: DB:work_attribute_type/description:34
 msgctxt "work_attribute_type"
 msgid "ID for the British rights society PRS for Music"
-msgstr "Britų teisių visuomenės PRS for Music identifikatorius."
+msgstr "Britų teisių organizacijos PRS for Music identifikatorius."
 
 #: DB:work_attribute_type/description:10
 msgctxt "work_attribute_type"
 msgid "ID for the Canadian rights society SOCAN"
-msgstr "Kanados teisių visuomenės SOCAN identifikatorius."
+msgstr "Kanados teisių organizacijos SOCAN identifikatorius."
 
 #: DB:work_attribute_type/description:53
 msgctxt "work_attribute_type"
 msgid "ID for the Canadian rights society SODRAC"
-msgstr "Kanados teisių visuomenės SODRAC identifikatorius."
+msgstr "Kanados teisių organizacijos SODRAC identifikatorius."
 
 #: DB:work_attribute_type/description:173
 msgctxt "work_attribute_type"
 msgid "ID for the Chilean rights society SCD"
-msgstr "Čilės teisių visuomenės SCD identifikatorius."
+msgstr "Čilės teisių organizacijos SCD identifikatorius."
 
 #: DB:work_attribute_type/description:71
 msgctxt "work_attribute_type"
 msgid "ID for the Chinese rights society MCSC"
-msgstr "Kinijos teisių visuomenės MCSC identifikatorius."
+msgstr "Kinijos teisių organizacijos MCSC identifikatorius."
 
 #: DB:work_attribute_type/description:39
 msgctxt "work_attribute_type"
 msgid "ID for the Colombian rights society SAYCO"
-msgstr "Kolumbijos teisių visuomenės SAYCO identifikatorius."
+msgstr "Kolumbijos teisių organizacijos SAYCO identifikatorius."
 
 #: DB:work_attribute_type/description:44
 msgctxt "work_attribute_type"
 msgid "ID for the Costa Rican rights society ACAM"
-msgstr "Kosta Rikos teisių visuomenės ACAM identifikatorius."
+msgstr "Kosta Rikos teisių organizacijos ACAM identifikatorius."
 
 #: DB:work_attribute_type/description:47
 msgctxt "work_attribute_type"
 msgid "ID for the Cuban rights society ACDAM"
-msgstr "Kubos teisių visuomenės ACDAM identifikatorius."
+msgstr "Kubos teisių organizacijos ACDAM identifikatorius."
 
 #: DB:work_attribute_type/description:25
 msgctxt "work_attribute_type"
 msgid "ID for the Czech rights society OSA"
-msgstr "Čekijos teisių visuomenės OSA identifikatorius."
+msgstr "Čekijos teisių organizacijos OSA identifikatorius."
 
 #: DB:work_attribute_type/description:51
 msgctxt "work_attribute_type"
 msgid "ID for the Danish rights society KODA"
-msgstr "Danijos teisių visuomenės KODA identifikatorius."
+msgstr "Danijos teisių organizacijos KODA identifikatorius."
 
 #: DB:work_attribute_type/description:60
 msgctxt "work_attribute_type"
 msgid "ID for the Dominican rights society SGACEDOM"
-msgstr "Dominikos teisių visuomenės SGACEDOM identifikatorius."
+msgstr "Dominikos teisių organizacijos SGACEDOM identifikatorius."
 
 #: DB:work_attribute_type/description:26
 msgctxt "work_attribute_type"
 msgid "ID for the Dutch rights society BUMA/STEMRA"
-msgstr "Olandijos teisių visuomenės BUMA/STEMRA identifikatorius."
+msgstr "Olandijos teisių organizacijos BUMA/STEMRA identifikatorius."
 
 #: DB:work_attribute_type/description:40
 msgctxt "work_attribute_type"
 msgid "ID for the Ecuadorian rights society SAYCE"
-msgstr "Ekvadoro teisių visuomenės SAYCE identifikatorius."
+msgstr "Ekvadoro teisių organizacijos SAYCE identifikatorius."
 
 #: DB:work_attribute_type/description:66
 msgctxt "work_attribute_type"
 msgid "ID for the Finnish rights society TEOSTO"
-msgstr "Suomijos teisių visuomenės TEOSTO identifikatorius."
+msgstr "Suomijos teisių organizacijos TEOSTO identifikatorius."
 
 #: DB:work_attribute_type/description:21
 msgctxt "work_attribute_type"
 msgid "ID for the French rights society Sacem"
-msgstr "Prancūzijos teisių visuomenės SACEM identifikatorius."
+msgstr "Prancūzijos teisių organizacijos SACEM identifikatorius."
 
 #: DB:work_attribute_type/description:9
 msgctxt "work_attribute_type"
 msgid "ID for the German rights society GEMA"
-msgstr "Vokietijos teisių visuomenės GEMA identifikatorius."
+msgstr "Vokietijos teisių organizacijos GEMA identifikatorius."
 
 #: DB:work_attribute_type/description:58
 msgctxt "work_attribute_type"
 msgid "ID for the Guatemalan rights society AEI"
-msgstr "Gvatemalos teisių visuomenės AEI identifikatorius."
+msgstr "Gvatemalos teisių organizacijos AEI identifikatorius."
 
 #: DB:work_attribute_type/description:57
 msgctxt "work_attribute_type"
 msgid "ID for the Honduran rights society AACIMH"
-msgstr "Hondūro teisių visuomenės AACIMH identifikatorius."
+msgstr "Hondūro teisių organizacijos AACIMH identifikatorius."
 
 #: DB:work_attribute_type/description:19
 msgctxt "work_attribute_type"
 msgid "ID for the Hong Kong rights society CASH"
-msgstr "Honkongo teisių visuomenės CASH identifikatorius."
+msgstr "Honkongo teisių organizacijos CASH identifikatorius."
 
 #: DB:work_attribute_type/description:48
 msgctxt "work_attribute_type"
 msgid "ID for the Hungarian rights society ARTISJUS"
-msgstr "Vengrijos teisių visuomenės ARTISJUS identifikatorius."
+msgstr "Vengrijos teisių organizacijos ARTISJUS identifikatorius."
 
 #: DB:work_attribute_type/description:54
 msgctxt "work_attribute_type"
 msgid "ID for the Icelandic rights society STEF"
-msgstr "Islandijos teisių visuomenės STEF identifikatorius."
+msgstr "Islandijos teisių organizacijos STEF identifikatorius."
 
 #: DB:work_attribute_type/description:70
 msgctxt "work_attribute_type"
 msgid "ID for the Indian rights society IPRS"
-msgstr "Indijos teisių visuomenės IPRS identifikatorius."
+msgstr "Indijos teisių organizacijos IPRS identifikatorius."
 
 #: DB:work_attribute_type/description:29
 msgctxt "work_attribute_type"
@@ -4002,197 +4008,211 @@ msgstr "International Copyright Enterprise (ICE) identifikatorius."
 #: DB:work_attribute_type/description:52
 msgctxt "work_attribute_type"
 msgid "ID for the Irish rights society IMRO"
-msgstr "Airijos teisių visuomenės IMRO identifikatorius."
+msgstr "Airijos teisių organizacijos IMRO identifikatorius."
 
 #: DB:work_attribute_type/description:206
 msgctxt "work_attribute_type"
 msgid "ID for the Israeli rights society ACUM"
-msgstr "Izraelio teisių visuomenės ACUM identifikatorius."
+msgstr "Izraelio teisių organizacijos ACUM identifikatorius."
 
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"
 msgid "ID for the Italian rights society SIAE"
-msgstr "Italijos teisių visuomenės SIAE identifikatorius."
+msgstr "Italijos teisių organizacijos SIAE identifikatorius."
 
 #: DB:work_attribute_type/description:69
 msgctxt "work_attribute_type"
 msgid "ID for the Jamaican rights society JACAP"
-msgstr "Jamaikos teisių visuomenės JACAP identifikatorius."
+msgstr "Jamaikos teisių organizacijos JACAP identifikatorius."
 
 #: DB:work_attribute_type/description:3
 msgctxt "work_attribute_type"
 msgid "ID for the Japanese rights society JASRAC"
-msgstr "Japonijos teisių visuomenės JASRAC identifikatorius."
+msgstr "Japonijos teisių organizacijos JASRAC identifikatorius."
 
 #: DB:work_attribute_type/description:33
 msgctxt "work_attribute_type"
 msgid "ID for the Japanese rights society NexTone"
-msgstr "Japonijos teisių visuomenės NexTone identifikatorius."
+msgstr "Japonijos teisių organizacijos NexTone identifikatorius."
 
 #: DB:work_attribute_type/description:11
 msgctxt "work_attribute_type"
 msgid "ID for the Korean rights society KOMCA"
-msgstr "Korėjos teisių visuomenės KOMCA identifikatorius."
+msgstr "Korėjos teisių organizacijos KOMCA identifikatorius."
 
 #: DB:work_attribute_type/description:63
 msgctxt "work_attribute_type"
 msgid "ID for the Latvian rights society AKKA/LAA"
-msgstr "Latvijos teisių visuomenės AKKA/LAA identifikatorius."
+msgstr "Latvijos teisių organizacijos AKKA/LAA identifikatorius."
 
 #: DB:work_attribute_type/description:207
 msgctxt "work_attribute_type"
 msgid "ID for the Lithuanian rights society LATGA"
-msgstr "Lietuvos teisių visuomenės LATGA identifikatorius."
+msgstr "Lietuvos teisių organizacijos LATGA identifikatorius."
 
 #: DB:work_attribute_type/description:49
 msgctxt "work_attribute_type"
 msgid "ID for the Malaysian rights society MACP"
-msgstr "Malaizijos teisių visuomenės MACP identifikatorius."
+msgstr "Malaizijos teisių organizacijos MACP identifikatorius."
 
 #: DB:work_attribute_type/description:27
 msgctxt "work_attribute_type"
 msgid "ID for the Mexican rights society SACM"
-msgstr "Meksikos teisių visuomenės SACM identifikatorius."
+msgstr "Meksikos teisių organizacijos SACM identifikatorius."
 
 #: DB:work_attribute_type/description:59
 msgctxt "work_attribute_type"
 msgid "ID for the Nicaraguan rights society NICAUTOR"
-msgstr "Nikaragvos teisių visuomenės NICAUTOR identifikatorius."
+msgstr "Nikaragvos teisių organizacijos NICAUTOR identifikatorius."
 
 #: DB:work_attribute_type/description:67
 msgctxt "work_attribute_type"
 msgid "ID for the Norwegian rights society TONO"
-msgstr "Norvegijos teisių visuomenės TONO identifikatorius."
+msgstr "Norvegijos teisių organizacijos TONO identifikatorius."
 
 #: DB:work_attribute_type/description:62
 msgctxt "work_attribute_type"
 msgid "ID for the Panamanian rights society SPAC"
-msgstr "Panamos teisių visuomenės SPAC identifikatorius."
+msgstr "Panamos teisių organizacijos SPAC identifikatorius."
 
 #: DB:work_attribute_type/description:46
 msgctxt "work_attribute_type"
 msgid "ID for the Paraguayan rights society APA"
-msgstr "Paragvajaus teisių visuomenės APA identifikatorius."
+msgstr "Paragvajaus teisių organizacijos APA identifikatorius."
 
 #: DB:work_attribute_type/description:41
 msgctxt "work_attribute_type"
 msgid "ID for the Peruvian rights society APDAYC"
-msgstr "Peru teisių visuomenės APDAYC identifikatorius."
+msgstr "Peru teisių organizacijos APDAYC identifikatorius."
 
 #: DB:work_attribute_type/description:30
 msgctxt "work_attribute_type"
 msgid "ID for the Polish rights society ZAiKS"
-msgstr "Lenkijos teisių visuomenės ZAiKS identifikatorius."
+msgstr "Lenkijos teisių organizacijos ZAiKS identifikatorius."
 
 #: DB:work_attribute_type/description:35
 msgctxt "work_attribute_type"
 msgid "ID for the Portuguese rights society SPA"
-msgstr "Portugalijos teisių visuomenės SPA identifikatorius."
+msgstr "Portugalijos teisių organizacijos SPA identifikatorius."
 
 #: DB:work_attribute_type/description:56
 msgctxt "work_attribute_type"
 msgid "ID for the Salvadoran rights society SACIM"
-msgstr "Salvadoro teisių visuomenės SACIM identifikatorius."
+msgstr "Salvadoro teisių organizacijos SACIM identifikatorius."
 
 #: DB:work_attribute_type/description:45
 msgctxt "work_attribute_type"
 msgid "ID for the Singaporean rights society COMPASS"
-msgstr "Singapūro teisių visuomenės COMPASS identifikatorius."
+msgstr "Singapūro teisių organizacijos COMPASS identifikatorius."
 
 #: DB:work_attribute_type/description:140
 msgctxt "work_attribute_type"
 msgid "ID for the Slovenian rights society SAZAS"
-msgstr ""
+msgstr "Slovėnijos teisių organizacijos SAZAS identifikatorius."
 
 #: DB:work_attribute_type/description:68
 msgctxt "work_attribute_type"
 msgid "ID for the South African rights society SAMRO"
-msgstr ""
+msgstr "Pietų Afrikos teisių organizacijos SAMRO identifikatorius."
 
 #: DB:work_attribute_type/description:20
 msgctxt "work_attribute_type"
 msgid "ID for the Spanish rights society SGAE"
-msgstr ""
+msgstr "Ispanijos teisių organizacijos SGAE identifikatorius."
 
 #: DB:work_attribute_type/description:50
 msgctxt "work_attribute_type"
 msgid "ID for the Swedish rights society STIM"
-msgstr ""
+msgstr "Švedijos teisių organizacijos STIM identifikatorius."
 
 #: DB:work_attribute_type/description:18
 msgctxt "work_attribute_type"
 msgid "ID for the Swiss rights society SUISA"
-msgstr ""
+msgstr "Šveicarijos teisių organizacijos SUISA identifikatorius."
 
 #: DB:work_attribute_type/description:12
 msgctxt "work_attribute_type"
 msgid "ID for the Taiwanese rights society MÜST"
-msgstr ""
+msgstr "Taivano teisių organizacijos MÜST identifikatorius."
 
 #: DB:work_attribute_type/description:72
 msgctxt "work_attribute_type"
 msgid "ID for the Thai rights society MCT"
-msgstr ""
+msgstr "Tailando teisių organizacijos MCT identifikatorius."
 
 #: DB:work_attribute_type/description:65
 msgctxt "work_attribute_type"
 msgid "ID for the Trinidadian and Tobagonian rights society COTT"
-msgstr ""
+msgstr "Trinidado ir Tobagono teisių organizacijos COTT identifikatorius."
 
 #: DB:work_attribute_type/description:6
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society ASCAP"
-msgstr ""
+msgstr "JAV teisių organizacijos ASCAP identifikatorius."
 
 #: DB:work_attribute_type/description:7
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society BMI"
-msgstr ""
+msgstr "JAV teisių organizacijos BMI identifikatorius."
 
 #: DB:work_attribute_type/description:106
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society GMR"
-msgstr ""
+msgstr "JAV teisių organizacijos GMR identifikatorius."
 
 #: DB:work_attribute_type/description:8
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society SESAC"
-msgstr ""
+msgstr "JAV teisių organizacijos SESAC identifikatorius."
 
 #: DB:work_attribute_type/description:43
 msgctxt "work_attribute_type"
 msgid "ID for the Uruguayan rights society AGADU"
-msgstr ""
+msgstr "Urugvajaus teisių organizacijos AGADU identifikatorius."
 
 #: DB:work_attribute_type/description:42
 msgctxt "work_attribute_type"
 msgid "ID for the Venezuelan rights society SACVEN"
-msgstr ""
+msgstr "Venesuelos teisių organizacijos SACVEN identifikatorius."
 
 #: DB:work_attribute_type/description:107
 msgctxt "work_attribute_type"
 msgid "ID for the Vietnamese rights society VCPMC"
+msgstr "Vietnamo teisių organizacijos VCPMC identifikatorius."
+
+#: DB:work_attribute_type/description:208
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the international (formerly US) rights society AMRA"
+msgctxt "work_attribute_type"
+msgid ""
+"ID for the international (but primarily Italian) rights society Soundreef"
 msgstr ""
+"Tarptautinės (anksčiau JAV) teisių organizacijos AMRA identifikatorius."
 
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
 msgstr ""
+"Tarptautinės (anksčiau JAV) teisių organizacijos AMRA identifikatorius."
 
 #: DB:work_attribute_type/description:55
 msgctxt "work_attribute_type"
 msgid "ID for the international rights society consortium LatinNet"
 msgstr ""
+"Tarptautinio teisių organizacijos konsorciumo LatinNet identifikatorius."
 
 #: DB:work_attribute_type/description:22
 msgctxt "work_attribute_type"
 msgid "ID for the private licensing company CCLI"
-msgstr ""
+msgstr "Privačios licencijas teikiančios kompanijos CCLI identifikatorius."
 
 #: DB:work_attribute_type/description:64
 msgctxt "work_attribute_type"
 msgid "ID for the private licensing company HFA (Harry Fox Agency)"
 msgstr ""
+"Privačios licencijas teikiančios kompanijos HFA (Harry Fox Agency) "
+"identifikatorius."
 
 #: DB:work_attribute_type/name:52
 msgctxt "work_attribute_type"
@@ -4212,7 +4232,7 @@ msgstr "Identifikatoriai"
 #: DB:work_attribute_type_allowed_value/value:832
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ikvāi"
-msgstr ""
+msgstr "Ikvāi"
 
 #: DB:label_type/name:9
 msgctxt "label_type"
@@ -4235,82 +4255,82 @@ msgstr ""
 #: DB:area_type/name:9
 msgctxt "area_type"
 msgid "Indigenous territory / reserve"
-msgstr ""
+msgstr "Vietinių gyventojų teritorija / rezervatas"
 
 #: DB:place_type/name:5
 msgctxt "place_type"
 msgid "Indoor arena"
-msgstr ""
+msgstr "Uždara arena"
 
 #: DB:editor_collection_type/name:9
 msgctxt "collection_type"
 msgid "Instrument collection"
-msgstr ""
+msgstr "Instrumentų kolekcija"
 
 #: DB:instrument_alias_type/name:1
 msgctxt "alias_type"
 msgid "Instrument name"
-msgstr ""
+msgstr "Instrumento pavadinimas"
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
 msgid "Interview"
-msgstr ""
+msgstr "Interviu"
 
 #: DB:work_attribute_type_allowed_value/value:427
 msgctxt "work_attribute_type_allowed_value"
 msgid "Irak"
-msgstr ""
+msgstr "Irak"
 
 #: DB:work_attribute_type_allowed_value/value:428
 msgctxt "work_attribute_type_allowed_value"
 msgid "Irakaşiran"
-msgstr ""
+msgstr "Irakaşiran"
 
 #: DB:work_attribute_type_allowed_value/value:739
 msgctxt "work_attribute_type_allowed_value"
 msgid "Iraksak"
-msgstr ""
+msgstr "Iraksak"
 
 #: DB:work_attribute_type_allowed_value/value:429
 msgctxt "work_attribute_type_allowed_value"
 msgid "Isfahan"
-msgstr ""
+msgstr "Isfahan"
 
 #: DB:work_attribute_type_allowed_value/value:430
 msgctxt "work_attribute_type_allowed_value"
 msgid "Isfahan Ruy-i Neva"
-msgstr ""
+msgstr "Isfahan Ruy-i Neva"
 
 #: DB:work_attribute_type_allowed_value/value:431
 msgctxt "work_attribute_type_allowed_value"
 msgid "Isfahan Zemzeme"
-msgstr ""
+msgstr "Isfahan Zemzeme"
 
 #: DB:work_attribute_type_allowed_value/value:434
 msgctxt "work_attribute_type_allowed_value"
 msgid "Isfahan-ı Cedid"
-msgstr ""
+msgstr "Isfahan-ı Cedid"
 
 #: DB:work_attribute_type_allowed_value/value:432
 msgctxt "work_attribute_type_allowed_value"
 msgid "Isfahanbuselik"
-msgstr ""
+msgstr "Isfahanbuselik"
 
 #: DB:work_attribute_type_allowed_value/value:433
 msgctxt "work_attribute_type_allowed_value"
 msgid "Isfahanek"
-msgstr ""
+msgstr "Isfahanek"
 
 #: DB:work_attribute_type_allowed_value/value:435
 msgctxt "work_attribute_type_allowed_value"
 msgid "Isfahani"
-msgstr ""
+msgstr "Isfahani"
 
 #: DB:area_type/name:6
 msgctxt "area_type"
 msgid "Island"
-msgstr ""
+msgstr "Sala"
 
 #: DB:area_type/description:6
 msgctxt "area_type"
@@ -4319,36 +4339,39 @@ msgid ""
 "own, e.g. Skye. These are not considered when displaying the parent areas "
 "for a given area."
 msgstr ""
+"Sala naudojama saloms ir atolams, kurie nesudaro atskirų padalinių, pvz., "
+"Skajaus sala (Skye). Į jas neatsižvelgiama rodant tam tikros teritorijos "
+"pagrindines teritorijas."
 
 #: DB:work_attribute_type/name:69
 msgctxt "work_attribute_type"
 msgid "JACAP ID"
-msgstr ""
+msgstr "JACAP ID"
 
 #: DB:work_attribute_type/name:3
 msgctxt "work_attribute_type"
 msgid "JASRAC ID"
-msgstr ""
+msgstr "JASRAC ID"
 
 #: DB:work_attribute_type_allowed_value/value:114
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jaganmōhini"
-msgstr ""
+msgstr "Jaganmōhini"
 
 #: DB:work_attribute_type_allowed_value/value:927
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jaijaivanti"
-msgstr ""
+msgstr "Jaijaivanti"
 
 #: DB:work_attribute_type_allowed_value/value:928
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jait kalyāṇ"
-msgstr ""
+msgstr "Jait kalyāṇ"
 
 #: DB:work_attribute_type_allowed_value/value:115
 msgctxt "work_attribute_type_allowed_value"
 msgid "Janaranjani"
-msgstr ""
+msgstr "Janaranjani"
 
 #: DB:release_packaging/description:21
 msgctxt "release_packaging"
@@ -4356,525 +4379,527 @@ msgid ""
 "Japanese case that holds an 8cm CD. It is rectangular but can be snapped to "
 "make it more compact (hence the name)."
 msgstr ""
+"Japoniškas dėklas, kuriame telpa 8 cm CD. Jis yra stačiakampio formos, bet "
+"gali būti užlenkiamas, kad būtų kompaktiškesnis (iš čia ir pavadinimas)."
 
 #: DB:work_attribute_type_allowed_value/value:929
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jaunpuri"
-msgstr ""
+msgstr "Jaunpuri"
 
 #: DB:work_attribute_type_allowed_value/value:116
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jaya manōhari"
-msgstr ""
+msgstr "Jaya manōhari"
 
 #: DB:work_attribute_type_allowed_value/value:117
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jayantasēna"
-msgstr ""
+msgstr "Jayantasēna"
 
 #: DB:work_attribute_type_allowed_value/value:118
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jayantaśrī"
-msgstr ""
+msgstr "Jayantaśrī"
 
 #: DB:work_attribute_type_allowed_value/value:930
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jayavantī tōḍī"
-msgstr ""
+msgstr "Jayavantī tōḍī"
 
 #: DB:work_attribute_type_allowed_value/value:833
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jaṭ"
-msgstr ""
+msgstr "Jaṭ"
 
 #: DB:release_packaging/name:1
 msgctxt "release_packaging"
 msgid "Jewel Case"
-msgstr ""
+msgstr "Dėklas"
 
 #: DB:work_attribute_type_allowed_value/value:119
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jhankāradhvani"
-msgstr ""
+msgstr "Jhankāradhvani"
 
 #: DB:work_attribute_type_allowed_value/value:834
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jhaptāl"
-msgstr ""
+msgstr "Jhaptāl"
 
 #: DB:work_attribute_type_allowed_value/value:931
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jhinjhaṭ mān̄j"
-msgstr ""
+msgstr "Jhinjhaṭ mān̄j"
 
 #: DB:work_attribute_type_allowed_value/value:932
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jhinjhōṭi"
-msgstr ""
+msgstr "Jhinjhōṭi"
 
 #: DB:work_attribute_type_allowed_value/value:835
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jhūmrā"
-msgstr ""
+msgstr "Jhūmrā"
 
 #: DB:work_attribute_type_allowed_value/value:120
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jingala"
-msgstr ""
+msgstr "Jingala"
 
 #: DB:work_attribute_type_allowed_value/value:124
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jyōti svarūpiṇi"
-msgstr ""
+msgstr "Jyōti svarūpiṇi"
 
 #: DB:work_attribute_type_allowed_value/value:121
 #: DB:work_attribute_type_allowed_value/value:933
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jōg"
-msgstr ""
+msgstr "Jōg"
 
 #: DB:work_attribute_type_allowed_value/value:122
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jōgiya"
-msgstr ""
+msgstr "Jōgiya"
 
 #: DB:work_attribute_type_allowed_value/value:934
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jōgiyā"
-msgstr ""
+msgstr "Jōgiyā"
 
 #: DB:work_attribute_type_allowed_value/value:935
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jōgiyā asavāri"
-msgstr ""
+msgstr "Jōgiyā asavāri"
 
 #: DB:work_attribute_type_allowed_value/value:936
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jōgkauns"
-msgstr ""
+msgstr "Jōgkauns"
 
 #: DB:work_attribute_type_allowed_value/value:123
 msgctxt "work_attribute_type_allowed_value"
 msgid "Jōnpuri"
-msgstr ""
+msgstr "Jōnpuri"
 
 #: DB:work_attribute_type/name:51
 msgctxt "work_attribute_type"
 msgid "KODA ID"
-msgstr ""
+msgstr "KODA ID"
 
 #: DB:work_attribute_type/name:11
 msgctxt "work_attribute_type"
 msgid "KOMCA ID"
-msgstr ""
+msgstr "KOMCA ID"
 
 #: DB:work_attribute_type_allowed_value/value:621
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kalenderi"
-msgstr ""
+msgstr "Kalenderi"
 
 #: DB:work_attribute_type_allowed_value/value:128
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kalgaḍa"
-msgstr ""
+msgstr "Kalgaḍa"
 
 #: DB:work_attribute_type_allowed_value/value:939
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kalyāṇ"
-msgstr ""
+msgstr "Kalyāṇ"
 
 #: DB:work_attribute_type_allowed_value/value:130
 #: DB:work_attribute_type_allowed_value/value:940
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kalyāṇi"
-msgstr ""
+msgstr "Kalyāṇi"
 
 #: DB:work_attribute_type_allowed_value/value:127
 #: DB:work_attribute_type_allowed_value/value:937
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kalāvati"
-msgstr ""
+msgstr "Kalāvati"
 
 #: DB:work_attribute_type_allowed_value/value:938
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kalāśrī"
-msgstr ""
+msgstr "Kalāśrī"
 
 #: DB:work_attribute_type_allowed_value/value:131
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kamalāmanōhari"
-msgstr ""
+msgstr "Kamalāmanōhari"
 
 #: DB:work_attribute_type_allowed_value/value:622
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kamet"
-msgstr ""
+msgstr "Kamet"
 
 #: DB:work_attribute_type_allowed_value/value:133
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kamās"
-msgstr ""
+msgstr "Kamās"
 
 #: DB:work_attribute_type_allowed_value/value:137
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kannaḍa gaula"
-msgstr ""
+msgstr "Kannaḍa gaula"
 
 #: DB:work_attribute_type_allowed_value/value:623
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kanto"
-msgstr ""
+msgstr "Kanto"
 
 #: DB:work_attribute_type_allowed_value/value:742
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kapalı Curcuna"
-msgstr ""
+msgstr "Kapalı Curcuna"
 
 #: DB:work_attribute_type_allowed_value/value:624
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kar"
-msgstr ""
+msgstr "Kar"
 
 #: DB:work_attribute_type_allowed_value/value:626
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kar-ı Natık"
-msgstr ""
+msgstr "Kar-ı Natık"
 
 #: DB:work_attribute_type_allowed_value/value:627
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kar-ı Nev"
-msgstr ""
+msgstr "Kar-ı Nev"
 
 #: DB:work_attribute_type_allowed_value/value:437
 msgctxt "work_attribute_type_allowed_value"
 msgid "Karabağı"
-msgstr ""
+msgstr "Karabağı"
 
 #: DB:work_attribute_type_allowed_value/value:141
 msgctxt "work_attribute_type_allowed_value"
 msgid "Karaharapriya"
-msgstr ""
+msgstr "Karaharapriya"
 
 #: DB:work_attribute_type_allowed_value/value:438
 msgctxt "work_attribute_type_allowed_value"
 msgid "Karcığar"
-msgstr ""
+msgstr "Karcığar"
 
 #: DB:work_attribute_type_allowed_value/value:625
 msgctxt "work_attribute_type_allowed_value"
 msgid "Karçe"
-msgstr ""
+msgstr "Karçe"
 
 #: DB:work_attribute_type_allowed_value/value:628
 msgctxt "work_attribute_type_allowed_value"
 msgid "Karşılama"
-msgstr ""
+msgstr "Karşılama"
 
 #: DB:work_attribute_type_allowed_value/value:142
 msgctxt "work_attribute_type_allowed_value"
 msgid "Karṇaranjani"
-msgstr ""
+msgstr "Karṇaranjani"
 
 #: DB:work_attribute_type_allowed_value/value:143
 msgctxt "work_attribute_type_allowed_value"
 msgid "Karṇāṭaka behāg"
-msgstr ""
+msgstr "Karṇāṭaka behāg"
 
 #: DB:work_attribute_type_allowed_value/value:144
 msgctxt "work_attribute_type_allowed_value"
 msgid "Karṇāṭaka dēvagāndhāri"
-msgstr ""
+msgstr "Karṇāṭaka dēvagāndhāri"
 
 #: DB:work_attribute_type_allowed_value/value:145
 msgctxt "work_attribute_type_allowed_value"
 msgid "Karṇāṭaka kāpi"
-msgstr ""
+msgstr "Karṇāṭaka kāpi"
 
 #: DB:work_attribute_type_allowed_value/value:146
 msgctxt "work_attribute_type_allowed_value"
 msgid "Karṇāṭaka śudda sāvēri"
-msgstr ""
+msgstr "Karṇāṭaka śudda sāvēri"
 
 #: DB:work_attribute_type_allowed_value/value:629
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kasaphavası"
-msgstr ""
+msgstr "Kasaphavası"
 
 #: DB:work_attribute_type_allowed_value/value:147
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kathanakutūhalaṁ"
-msgstr ""
+msgstr "Kathanakutūhalaṁ"
 
 #: DB:work_attribute_type_allowed_value/value:743
 msgctxt "work_attribute_type_allowed_value"
 msgid "Katikofti"
-msgstr ""
+msgstr "Katikofti"
 
 #: DB:work_attribute_type_allowed_value/value:945
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kaunsī kānaḍā"
-msgstr ""
+msgstr "Kaunsī kānaḍā"
 
 #: DB:work_attribute_type_allowed_value/value:946
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kauśik dhvani"
-msgstr ""
+msgstr "Kauśik dhvani"
 
 #: DB:work_attribute_type_allowed_value/value:129
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kaḷyāṇa vasantaṁ"
-msgstr ""
+msgstr "Kaḷyāṇa vasantaṁ"
 
 #: DB:work_attribute_type_allowed_value/value:125
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kaḷā sāvēri"
-msgstr ""
+msgstr "Kaḷā sāvēri"
 
 #: DB:work_attribute_type_allowed_value/value:126
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kaḷānidhi"
-msgstr ""
+msgstr "Kaḷānidhi"
 
 #: DB:work_attribute_type_allowed_value/value:439
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kebüter"
-msgstr ""
+msgstr "Kebüter"
 
 #: DB:work_attribute_type_allowed_value/value:150
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kedāraṁ"
-msgstr ""
+msgstr "Kedāraṁ"
 
 #: DB:release_packaging/name:6
 msgctxt "release_packaging"
 msgid "Keep Case"
-msgstr ""
+msgstr "DVD dėklas"
 
 #: DB:work_attribute_type/name:1
 msgctxt "work_attribute_type"
 msgid "Key"
-msgstr ""
+msgstr "Klavišas"
 
 #: DB:work_attribute_type_allowed_value/value:950
 msgctxt "work_attribute_type_allowed_value"
 msgid "Khambāvati"
-msgstr ""
+msgstr "Khambāvati"
 
 #: DB:work_attribute_type_allowed_value/value:948
 msgctxt "work_attribute_type_allowed_value"
 msgid "Khamāj"
-msgstr ""
+msgstr "Khamāj"
 
 #: DB:work_attribute_type_allowed_value/value:949
 msgctxt "work_attribute_type_allowed_value"
 msgid "Khamāj bahār"
-msgstr ""
+msgstr "Khamāj bahār"
 
 #: DB:work_attribute_type_allowed_value/value:282
 msgctxt "work_attribute_type_allowed_value"
 msgid "Khaṇḍa chāpu"
-msgstr ""
+msgstr "Khaṇḍa chāpu"
 
 #: DB:work_attribute_type_allowed_value/value:293
 msgctxt "work_attribute_type_allowed_value"
 msgid "Khaṇḍa-jāti tripuṭa"
-msgstr ""
+msgstr "Khaṇḍa-jāti tripuṭa"
 
 #: DB:work_attribute_type_allowed_value/value:294
 msgctxt "work_attribute_type_allowed_value"
 msgid "Khaṇḍa-jāti ēka"
-msgstr ""
+msgstr "Khaṇḍa-jāti ēka"
 
 #: DB:work_attribute_type_allowed_value/value:951
 msgctxt "work_attribute_type_allowed_value"
 msgid "Khaṭa"
-msgstr ""
+msgstr "Khaṭa"
 
 #: DB:work_attribute_type_allowed_value/value:952
 msgctxt "work_attribute_type_allowed_value"
 msgid "Khokar"
-msgstr ""
+msgstr "Khokar"
 
 #: DB:work_attribute_type_allowed_value/value:837
 msgctxt "work_attribute_type_allowed_value"
 msgid "Khēmtāl"
-msgstr ""
+msgstr "Khēmtāl"
 
 #: DB:medium_format/name:95
 msgctxt "medium_format"
 msgid "KiT Album"
-msgstr ""
+msgstr "KiT albumas"
 
 #: DB:work_attribute_type_allowed_value/value:630
 msgctxt "work_attribute_type_allowed_value"
 msgid "Koda"
-msgstr ""
+msgstr "Koda"
 
 #: DB:work_attribute_type_allowed_value/value:631
 msgctxt "work_attribute_type_allowed_value"
 msgid "Koşma"
-msgstr ""
+msgstr "Koşma"
 
 #: DB:work_attribute_type_allowed_value/value:155
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kuntalavarāḷi"
-msgstr ""
+msgstr "Kuntalavarāḷi"
 
 #: DB:work_attribute_type_allowed_value/value:955
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kuntavarāli"
-msgstr ""
+msgstr "Kuntavarāli"
 
 #: DB:work_attribute_type_allowed_value/value:633
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kur'an-ı Kerim"
-msgstr ""
+msgstr "Kur'an-ı Kerim"
 
 #: DB:work_attribute_type_allowed_value/value:156
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kurinji"
-msgstr ""
+msgstr "Kurinji"
 
 #: DB:work_attribute_type_allowed_value/value:632
 msgctxt "work_attribute_type_allowed_value"
 msgid "Köçekçe"
-msgstr ""
+msgstr "Köçekçe"
 
 #: DB:work_attribute_type_allowed_value/value:634
 msgctxt "work_attribute_type_allowed_value"
 msgid "Küpe"
-msgstr ""
+msgstr "Küpe"
 
 #: DB:work_attribute_type_allowed_value/value:442
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kürdi"
-msgstr ""
+msgstr "Kürdi"
 
 #: DB:work_attribute_type_allowed_value/value:443
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kürdi Gerdaniye"
-msgstr ""
+msgstr "Kürdi Gerdaniye"
 
 #: DB:work_attribute_type_allowed_value/value:444
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kürdilihicazkar"
-msgstr ""
+msgstr "Kürdilihicazkar"
 
 #: DB:work_attribute_type_allowed_value/value:635
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kürthavası"
-msgstr ""
+msgstr "Kürthavası"
 
 #: DB:work_attribute_type_allowed_value/value:440
 msgctxt "work_attribute_type_allowed_value"
 msgid "Küçek"
-msgstr ""
+msgstr "Küçek"
 
 #: DB:work_attribute_type_allowed_value/value:441
 msgctxt "work_attribute_type_allowed_value"
 msgid "Küçekneva"
-msgstr ""
+msgstr "Küçekneva"
 
 #: DB:work_attribute_type_allowed_value/value:132
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kāmaranjani"
-msgstr ""
+msgstr "Kāmaranjani"
 
 #: DB:work_attribute_type_allowed_value/value:134
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kāmavardani/Pantuvarāḷi"
-msgstr ""
+msgstr "Kāmavardani / Pantuvarāḷi"
 
 #: DB:work_attribute_type_allowed_value/value:941
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kāmbhōji"
-msgstr ""
+msgstr "Kāmbhōji"
 
 #: DB:work_attribute_type_allowed_value/value:942
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kāmōdvanti"
-msgstr ""
+msgstr "Kāmōdvanti"
 
 #: DB:work_attribute_type_allowed_value/value:136
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kānaḍa"
-msgstr ""
+msgstr "Kānaḍa"
 
 #: DB:work_attribute_type_allowed_value/value:943
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kānaḍā"
-msgstr ""
+msgstr "Kānaḍā"
 
 #: DB:work_attribute_type_allowed_value/value:138
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kāntāmaṇi"
-msgstr ""
+msgstr "Kāntāmaṇi"
 
 #: DB:work_attribute_type_allowed_value/value:944
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kāphī"
-msgstr ""
+msgstr "Kāphī"
 
 #: DB:work_attribute_type_allowed_value/value:139
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kāpi"
-msgstr ""
+msgstr "Kāpi"
 
 #: DB:work_attribute_type_allowed_value/value:140
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kāpi nārāyaṇi"
-msgstr ""
+msgstr "Kāpi nārāyaṇi"
 
 #: DB:work_attribute_type_allowed_value/value:148
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kāvaḍicindu"
-msgstr ""
+msgstr "Kāvaḍicindu"
 
 #: DB:work_attribute_type_allowed_value/value:135
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kāṁbhōji"
-msgstr ""
+msgstr "Kāṁbhōji"
 
 #: DB:work_attribute_type_allowed_value/value:947
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kēdār"
-msgstr ""
+msgstr "Kēdār"
 
 #: DB:work_attribute_type_allowed_value/value:149
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kēdāragauḷa"
-msgstr ""
+msgstr "Kēdāragauḷa"
 
 #: DB:work_attribute_type_allowed_value/value:836
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kēharvā"
-msgstr ""
+msgstr "Kēharvā"
 
 #: DB:work_attribute_type_allowed_value/value:152
 #: DB:work_attribute_type_allowed_value/value:953
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kīravāṇi"
-msgstr ""
+msgstr "Kīravāṇi"
 
 #: DB:work_attribute_type_allowed_value/value:151
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kīraṇāvaḷi"
-msgstr ""
+msgstr "Kīraṇāvaḷi"
 
 #: DB:work_attribute_type_allowed_value/value:153
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kōkiladhvani"
-msgstr ""
+msgstr "Kōkiladhvani"
 
 #: DB:work_attribute_type_allowed_value/value:154
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kōkilapriya"
-msgstr ""
+msgstr "Kōkilapriya"
 
 #: DB:work_attribute_type_allowed_value/value:954
 msgctxt "work_attribute_type_allowed_value"
 msgid "Kōmal riṣabh asāvēri"
-msgstr ""
+msgstr "Kōmal riṣabh asāvēri"
 
 #: DB:work_attribute_type/name:207
 msgctxt "work_attribute_type"
@@ -4884,562 +4909,562 @@ msgstr "LATGA ID"
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"
 msgid "Label collection"
-msgstr ""
+msgstr "Įrašų kompanijos kolekcija"
 
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
 msgid "Label name"
-msgstr ""
+msgstr "Įrašų kompanijos pavadinimas"
 
 #: DB:work_attribute_type_allowed_value/value:956
 msgctxt "work_attribute_type_allowed_value"
 msgid "Lagan gāndhār"
-msgstr ""
+msgstr "Lagan gāndhār"
 
 #: DB:work_attribute_type_allowed_value/value:445
 msgctxt "work_attribute_type_allowed_value"
 msgid "Lalegül"
-msgstr ""
+msgstr "Lalegül"
 
 #: DB:work_attribute_type_allowed_value/value:957
 msgctxt "work_attribute_type_allowed_value"
 msgid "Lalit"
-msgstr ""
+msgstr "Lalit"
 
 #: DB:work_attribute_type_allowed_value/value:958
 msgctxt "work_attribute_type_allowed_value"
 msgid "Lalit bhaṭiyār"
-msgstr ""
+msgstr "Lalit bhaṭiyār"
 
 #: DB:work_attribute_type_allowed_value/value:959
 msgctxt "work_attribute_type_allowed_value"
 msgid "Lalit bibhās"
-msgstr ""
+msgstr "Lalit bibhās"
 
 #: DB:work_attribute_type_allowed_value/value:960
 msgctxt "work_attribute_type_allowed_value"
 msgid "Lalit pañcam"
-msgstr ""
+msgstr "Lalit pañcam"
 
 #: DB:work_attribute_type_allowed_value/value:961
 msgctxt "work_attribute_type_allowed_value"
 msgid "Lalit Śuddh Dhaivat"
-msgstr ""
+msgstr "Lalit Śuddh Dhaivat"
 
 #: DB:work_attribute_type_allowed_value/value:157
 msgctxt "work_attribute_type_allowed_value"
 msgid "Lalita"
-msgstr ""
+msgstr "Lalita"
 
 #: DB:work_attribute_type_allowed_value/value:158
 msgctxt "work_attribute_type_allowed_value"
 msgid "Lalita pancamaṁ"
-msgstr ""
+msgstr "Lalita pancamaṁ"
 
 #: DB:medium_format/name:5
 msgctxt "medium_format"
 msgid "LaserDisc"
-msgstr ""
+msgstr "Lazerinis diskas"
 
 #: DB:work_attribute_type/name:55
 msgctxt "work_attribute_type"
 msgid "LatinNet ID"
-msgstr ""
+msgstr "LatinNet ID"
 
 #: DB:work_attribute_type_allowed_value/value:159
 msgctxt "work_attribute_type_allowed_value"
 msgid "Latāngi"
-msgstr ""
+msgstr "Latāngi"
 
 #: DB:event_type/name:3
 msgctxt "event_type"
 msgid "Launch event"
-msgstr ""
+msgstr "Išleidimo renginys"
 
 #: DB:work_attribute_type_allowed_value/value:160
 msgctxt "work_attribute_type_allowed_value"
 msgid "Lavāngi"
-msgstr ""
+msgstr "Lavāngi"
 
 #: DB:work_attribute_type_allowed_value/value:962
 msgctxt "work_attribute_type_allowed_value"
 msgid "Laṅkēśrī"
-msgstr ""
+msgstr "Laṅkēśrī"
 
 #: DB:artist_alias_type/name:2
 msgctxt "alias_type"
 msgid "Legal name"
-msgstr ""
+msgstr "legalus vardas"
 
 #: DB:work_attribute_type_allowed_value/value:744
 msgctxt "work_attribute_type_allowed_value"
 msgid "Lenk Fahte"
-msgstr ""
+msgstr "Lenk Fahte"
 
 #: DB:cover_art_archive.art_type/name:12
 msgctxt "cover_art_type"
 msgid "Liner"
-msgstr ""
+msgstr "Įdėklas"
 
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
 msgid "Live"
-msgstr ""
+msgstr "Gyvai"
 
 #: DB:work_attribute_type_allowed_value/value:636
 msgctxt "work_attribute_type_allowed_value"
 msgid "Longa"
-msgstr ""
+msgstr "Longa"
 
 #: DB:release_packaging/name:55
 msgctxt "release_packaging"
 msgid "Longbox"
-msgstr ""
+msgstr "Ilga dėžutė"
 
 #: DB:work_attribute_type/name:49
 msgctxt "work_attribute_type"
 msgid "MACP ID"
-msgstr ""
+msgstr "MACP ID"
 
 #: DB:work_attribute_type/name:71
 msgctxt "work_attribute_type"
 msgid "MCSC ID"
-msgstr ""
+msgstr "MCSC ID"
 
 #: DB:work_attribute_type/name:72
 msgctxt "work_attribute_type"
 msgid "MCT ID"
-msgstr ""
+msgstr "MCT ID"
 
 #: DB:work_attribute_type_allowed_value/value:963
 msgctxt "work_attribute_type_allowed_value"
 msgid "Madhmad sāraṅg"
-msgstr ""
+msgstr "Madhmad sāraṅg"
 
 #: DB:work_attribute_type_allowed_value/value:964
 msgctxt "work_attribute_type_allowed_value"
 msgid "Madhukauns"
-msgstr ""
+msgstr "Madhukauns"
 
 #: DB:work_attribute_type_allowed_value/value:965
 msgctxt "work_attribute_type_allowed_value"
 msgid "Madhuvanti"
-msgstr ""
+msgstr "Madhuvanti"
 
 #: DB:work_attribute_type_allowed_value/value:161
 msgctxt "work_attribute_type_allowed_value"
 msgid "Madhyamā varāḷi"
-msgstr ""
+msgstr "Madhyamā varāḷi"
 
 #: DB:work_attribute_type_allowed_value/value:162
 msgctxt "work_attribute_type_allowed_value"
 msgid "Madhyamāvati"
-msgstr ""
+msgstr "Madhyamāvati"
 
 #: DB:work_attribute_type_allowed_value/value:295
 msgctxt "work_attribute_type_allowed_value"
 msgid "Madhyādi"
-msgstr ""
+msgstr "Madhyādi"
 
 #: DB:work_type/name:7
 msgctxt "work_type"
 msgid "Madrigal"
-msgstr ""
+msgstr "Madrigalas"
 
 #: DB:work_attribute_type_allowed_value/value:163
 msgctxt "work_attribute_type_allowed_value"
 msgid "Maduvanti"
-msgstr ""
+msgstr "Maduvanti"
 
 #: DB:work_attribute_type_allowed_value/value:637
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mahfelsürmesi"
-msgstr ""
+msgstr "Mahfelsürmesi"
 
 #: DB:work_attribute_type_allowed_value/value:446
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mahur"
-msgstr ""
+msgstr "Mahur"
 
 #: DB:work_attribute_type_allowed_value/value:447
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mahurbuselik"
-msgstr ""
+msgstr "Mahurbuselik"
 
 #: DB:work_attribute_type_allowed_value/value:448
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mahurhan"
-msgstr ""
+msgstr "Mahurhan"
 
 #: DB:work_attribute_type_allowed_value/value:296
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mahālakṣmi"
-msgstr ""
+msgstr "Mahālakṣmi"
 
 #: DB:work_attribute_type/name:15
 msgctxt "work_attribute_type"
 msgid "Makam (Ottoman, Turkish)"
-msgstr ""
+msgstr "Makamas (osmanų, turkų)"
 
 #: DB:work_attribute_type_allowed_value/value:164
 msgctxt "work_attribute_type_allowed_value"
 msgid "Malahari"
-msgstr ""
+msgstr "Malahari"
 
 #: DB:work_attribute_type_allowed_value/value:166
 msgctxt "work_attribute_type_allowed_value"
 msgid "Malayamārutaṁ"
-msgstr ""
+msgstr "Malayamārutaṁ"
 
 #: DB:gender/name:1
 msgctxt "gender"
 msgid "Male"
-msgstr ""
+msgstr "Vyras"
 
 #: DB:work_attribute_type_allowed_value/value:638
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mandra"
-msgstr ""
+msgstr "Mandra"
 
 #: DB:work_attribute_type_allowed_value/value:168
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mandāri"
-msgstr ""
+msgstr "Mandāri"
 
 #: DB:series_ordering_type/name:2
 msgctxt "series_ordering_type"
 msgid "Manual"
-msgstr ""
+msgstr "Rankinis"
 
 #: DB:label_type/name:10
 msgctxt "label_type"
 msgid "Manufacturer"
-msgstr ""
+msgstr "Gamintojas"
 
 #: DB:work_attribute_type_allowed_value/value:172
 msgctxt "work_attribute_type_allowed_value"
 msgid "Manōranjani"
-msgstr ""
+msgstr "Manōranjani"
 
 #: DB:work_attribute_type_allowed_value/value:639
 msgctxt "work_attribute_type_allowed_value"
 msgid "Marş"
-msgstr ""
+msgstr "Marş"
 
 #: DB:work_type/name:8
 msgctxt "work_type"
 msgid "Mass"
-msgstr ""
+msgstr "Mišios"
 
 #: DB:event_type/name:5
 msgctxt "event_type"
 msgid "Masterclass/Clinic"
-msgstr ""
+msgstr "Meistriškumo klasė / klinika"
 
 #: DB:cover_art_archive.art_type/name:15
 msgctxt "cover_art_type"
 msgid "Matrix/Runout"
-msgstr ""
+msgstr "Matrica / baigtis"
 
 #: DB:work_attribute_type_allowed_value/value:449
 msgctxt "work_attribute_type_allowed_value"
 msgid "Maver"
-msgstr ""
+msgstr "Maver"
 
 #: DB:work_attribute_type_allowed_value/value:450
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mavera"
-msgstr ""
+msgstr "Mavera"
 
 #: DB:work_attribute_type_allowed_value/value:451
 msgctxt "work_attribute_type_allowed_value"
 msgid "Maveraünnehir"
-msgstr ""
+msgstr "Maveraünnehir"
 
 #: DB:editor_collection_type/name:6
 msgctxt "collection_type"
 msgid "Maybe attending"
-msgstr ""
+msgstr "Galbūt dalyvaus"
 
 #: DB:work_attribute_type_allowed_value/value:452
 msgctxt "work_attribute_type_allowed_value"
 msgid "Maye"
-msgstr ""
+msgstr "Maye"
 
 #: DB:work_attribute_type_allowed_value/value:175
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mayūra sāvēri"
-msgstr ""
+msgstr "Mayūra sāvēri"
 
 #: DB:work_attribute_type_allowed_value/value:970
 msgctxt "work_attribute_type_allowed_value"
 msgid "Maṅgal bhairav"
-msgstr ""
+msgstr "Maṅgal bhairav"
 
 #: DB:work_attribute_type_allowed_value/value:170
 msgctxt "work_attribute_type_allowed_value"
 msgid "Maṇirangu"
-msgstr ""
+msgstr "Maṇirangu"
 
 #: DB:work_attribute_type_allowed_value/value:286
 msgctxt "work_attribute_type_allowed_value"
 msgid "Maṭhya"
-msgstr ""
+msgstr "Maṭhya"
 
 #: DB:work_attribute_type_allowed_value/value:838
 msgctxt "work_attribute_type_allowed_value"
 msgid "Maṭṭā"
-msgstr ""
+msgstr "Maṭṭā"
 
 #: DB:work_attribute_type_allowed_value/value:453
 msgctxt "work_attribute_type_allowed_value"
 msgid "Meclis Efruz"
-msgstr ""
+msgstr "Meclis Efruz"
 
 #: DB:work_attribute_type_allowed_value/value:640
 msgctxt "work_attribute_type_allowed_value"
 msgid "Medhal"
-msgstr ""
+msgstr "Medhal"
 
 #: DB:cover_art_archive.art_type/name:4
 msgctxt "cover_art_type"
 msgid "Medium"
-msgstr ""
+msgstr "Laikmena"
 
 #: DB:work_attribute_type_allowed_value/value:176
 msgctxt "work_attribute_type_allowed_value"
 msgid "Meghamalhar"
-msgstr ""
+msgstr "Meghamalhar"
 
 #: DB:work_attribute_type_allowed_value/value:641
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mehter"
-msgstr ""
+msgstr "Mehter"
 
 #: DB:work_attribute_type_allowed_value/value:642
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mersiye"
-msgstr ""
+msgstr "Mersiye"
 
 #: DB:release_packaging/name:54
 msgctxt "release_packaging"
 msgid "Metal Tin"
-msgstr ""
+msgstr "Metalinė skarda"
 
 #: DB:work_attribute_type_allowed_value/value:745
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mevlevi Evferi"
-msgstr ""
+msgstr "Mevlevi Evferi"
 
 #: DB:work_attribute_type_allowed_value/value:643
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mevlidişerif"
-msgstr ""
+msgstr "Mevlidişerif"
 
 #: DB:medium_format/name:83
 msgctxt "medium_format"
 msgid "Microcassette"
-msgstr ""
+msgstr "Mikrokasetė"
 
 #: DB:area_type/name:8
 msgctxt "area_type"
 msgid "Military base"
-msgstr ""
+msgstr "Karinė bazė"
 
 #: DB:medium_format/name:166
 msgctxt "medium_format"
 msgid "MiniDVD"
-msgstr ""
+msgstr "MiniDVD"
 
 #: DB:medium_format/name:168
 msgctxt "medium_format"
 msgid "MiniDVD-Audio"
-msgstr ""
+msgstr "MiniDVD-Audio"
 
 #: DB:medium_format/name:169
 msgctxt "medium_format"
 msgid "MiniDVD-Video"
-msgstr ""
+msgstr "MiniDVD-Video"
 
 #: DB:medium_format/name:6
 msgctxt "medium_format"
 msgid "MiniDisc"
-msgstr ""
+msgstr "Minidiskas"
 
 #: DB:medium_format/name:165
 msgctxt "medium_format"
 msgid "Minimax CD"
-msgstr ""
+msgstr "Minimax CD"
 
 #: DB:medium_format/name:167
 msgctxt "medium_format"
 msgid "Minimax DVD"
-msgstr ""
+msgstr "Minimax DVD"
 
 #: DB:medium_format/name:170
 msgctxt "medium_format"
 msgid "Minimax DVD-Audio"
-msgstr ""
+msgstr "Minimax DVD-Audio"
 
 #: DB:medium_format/name:171
 msgctxt "medium_format"
 msgid "Minimax DVD-Video"
-msgstr ""
+msgstr "Minimax DVD-Video"
 
 #: DB:work_attribute_type_allowed_value/value:644
 msgctxt "work_attribute_type_allowed_value"
 msgid "Miraciye"
-msgstr ""
+msgstr "Miraciye"
 
 #: DB:medium_format/name:129
 msgctxt "medium_format"
 msgid "Mixed Mode CD"
-msgstr ""
+msgstr "Mikso režimo CD"
 
 #: DB:release_group_secondary_type/name:9
 msgctxt "release_group_secondary_type"
 msgid "Mixtape/Street"
-msgstr ""
+msgstr "Mikso juosta / gatvė"
 
 #: DB:work_attribute_type_allowed_value/value:981
 msgctxt "work_attribute_type_allowed_value"
 msgid "Miyām̐ kī sāraṅg"
-msgstr ""
+msgstr "Miyām̐ kī sāraṅg"
 
 #: DB:work_attribute_type_allowed_value/value:982
 msgctxt "work_attribute_type_allowed_value"
 msgid "Miyām̐ malhār"
-msgstr ""
+msgstr "Miyām̐ malhār"
 
 #: DB:work_attribute_type_allowed_value/value:281
 msgctxt "work_attribute_type_allowed_value"
 msgid "Miśra chāpu"
-msgstr ""
+msgstr "Miśra chāpu"
 
 #: DB:work_attribute_type_allowed_value/value:977
 msgctxt "work_attribute_type_allowed_value"
 msgid "Miśra gārā"
-msgstr ""
+msgstr "Miśra gārā"
 
 #: DB:work_attribute_type_allowed_value/value:978
 msgctxt "work_attribute_type_allowed_value"
 msgid "Miśra kaliṅgaḍā"
-msgstr ""
+msgstr "Miśra kaliṅgaḍā"
 
 #: DB:work_attribute_type_allowed_value/value:177
 msgctxt "work_attribute_type_allowed_value"
 msgid "Miśra khamāj"
-msgstr ""
+msgstr "Miśra khamāj"
 
 #: DB:work_attribute_type_allowed_value/value:979
 msgctxt "work_attribute_type_allowed_value"
 msgid "Miśra māṇḍ"
-msgstr ""
+msgstr "Miśra māṇḍ"
 
 #: DB:work_attribute_type_allowed_value/value:178
 msgctxt "work_attribute_type_allowed_value"
 msgid "Miśra pahāḍi"
-msgstr ""
+msgstr "Miśra pahāḍi"
 
 #: DB:work_attribute_type_allowed_value/value:980
 msgctxt "work_attribute_type_allowed_value"
 msgid "Miśra pīlū"
-msgstr ""
+msgstr "Miśra pīlū"
 
 #: DB:work_attribute_type_allowed_value/value:180
 msgctxt "work_attribute_type_allowed_value"
 msgid "Miśra yaman"
-msgstr ""
+msgstr "Miśra yaman"
 
 #: DB:work_attribute_type_allowed_value/value:179
 msgctxt "work_attribute_type_allowed_value"
 msgid "Miśra śivaranjani"
-msgstr ""
+msgstr "Miśra śivaranjani"
 
 #: DB:work_attribute_type_allowed_value/value:287
 msgctxt "work_attribute_type_allowed_value"
 msgid "Miśra-jāti jhaṁpe"
-msgstr ""
+msgstr "Miśra-jāti jhaṁpe"
 
 #: DB:work_attribute_type_allowed_value/value:297
 msgctxt "work_attribute_type_allowed_value"
 msgid "Miśra-jāti rūpaka"
-msgstr ""
+msgstr "Miśra-jāti rūpaka"
 
 #: DB:work_type/name:9
 msgctxt "work_type"
 msgid "Motet"
-msgstr ""
+msgstr "Motetas"
 
 #: DB:work_attribute_type_allowed_value/value:746
 msgctxt "work_attribute_type_allowed_value"
 msgid "Muaşşer"
-msgstr ""
+msgstr "Muaşşer"
 
 #: DB:work_attribute_type_allowed_value/value:454
 msgctxt "work_attribute_type_allowed_value"
 msgid "Muhalif"
-msgstr ""
+msgstr "Muhalif"
 
 #: DB:work_attribute_type_allowed_value/value:455
 msgctxt "work_attribute_type_allowed_value"
 msgid "Muhalif-i Irak"
-msgstr ""
+msgstr "Muhalif-i Irak"
 
 #: DB:work_attribute_type_allowed_value/value:456
 msgctxt "work_attribute_type_allowed_value"
 msgid "Muhalif-i Rast"
-msgstr ""
+msgstr "Muhalif-i Rast"
 
 #: DB:work_attribute_type_allowed_value/value:457
 msgctxt "work_attribute_type_allowed_value"
 msgid "Muhalif-i Uşşak"
-msgstr ""
+msgstr "Muhalif-i Uşşak"
 
 #: DB:work_attribute_type_allowed_value/value:747
 msgctxt "work_attribute_type_allowed_value"
 msgid "Muhammes"
-msgstr ""
+msgstr "Muhammes"
 
 #: DB:work_attribute_type_allowed_value/value:458
 msgctxt "work_attribute_type_allowed_value"
 msgid "Muhayyer"
-msgstr ""
+msgstr "Muhayyer"
 
 #: DB:work_attribute_type_allowed_value/value:459
 msgctxt "work_attribute_type_allowed_value"
 msgid "Muhayyer Sünbüle"
-msgstr ""
+msgstr "Muhayyer Sünbüle"
 
 #: DB:work_attribute_type_allowed_value/value:462
 msgctxt "work_attribute_type_allowed_value"
 msgid "Muhayyer Zengüle"
-msgstr ""
+msgstr "Muhayyer Zengüle"
 
 #: DB:work_attribute_type_allowed_value/value:460
 msgctxt "work_attribute_type_allowed_value"
 msgid "Muhayyerbuselik"
-msgstr ""
+msgstr "Muhayyerbuselik"
 
 #: DB:work_attribute_type_allowed_value/value:461
 msgctxt "work_attribute_type_allowed_value"
 msgid "Muhayyerkürdi"
-msgstr ""
+msgstr "Muhayyerkürdi"
 
 #: DB:work_attribute_type_allowed_value/value:183
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mukhāri"
-msgstr ""
+msgstr "Mukhāri"
 
 #: DB:work_attribute_type_allowed_value/value:983
 msgctxt "work_attribute_type_allowed_value"
 msgid "Multāni"
-msgstr ""
+msgstr "Multāni"
 
 #: DB:area_type/name:4
 msgctxt "area_type"
 msgid "Municipality"
-msgstr ""
+msgstr "Savivaldybė"
 
 #: DB:area_type/description:4
 msgctxt "area_type"
@@ -5448,21 +5473,24 @@ msgid ""
 "municipalities, often contain a single city and a few surrounding villages. "
 "Rural municipalities typically group several villages together."
 msgstr ""
+"Savivaldybė – tai nedideli administraciniai vienetai, kuriuos miestų "
+"savivaldybėse dažnai sudaro vienas miestas ir keli aplinkiniai kaimai. Kaimo "
+"savivaldybės paprastai jungia kelis kaimus."
 
 #: DB:work_attribute_type_allowed_value/value:645
 msgctxt "work_attribute_type_allowed_value"
 msgid "Murabba"
-msgstr ""
+msgstr "Murabba"
 
 #: DB:work_attribute_type_allowed_value/value:811
 msgctxt "work_attribute_type_allowed_value"
 msgid "Murabba Beste "
-msgstr ""
+msgstr "Murabba Beste "
 
 #: DB:work_type/name:29
 msgctxt "work_type"
 msgid "Musical"
-msgstr ""
+msgstr "Muzikinis"
 
 #: DB:work_type/description:29
 msgctxt "work_type"
@@ -5470,827 +5498,840 @@ msgid ""
 "Musical theatre is a form of theatrical performance that combines songs, "
 "spoken dialogue, acting, and dance."
 msgstr ""
+"Muzikinis teatras – tai teatro spektaklis, kuriame jungiamos dainos, "
+"kalbantys dialogai, vaidyba ir šokis."
 
 #: DB:work_attribute_type_allowed_value/value:748
 msgctxt "work_attribute_type_allowed_value"
 msgid "Muzaaf Devr-i Kebir"
-msgstr ""
+msgstr "Muzaaf Devr-i Kebir"
 
 #: DB:work_attribute_type/name:12
 msgctxt "work_attribute_type"
 msgid "MÜST ID"
-msgstr ""
+msgstr "MÜST ID"
 
 #: DB:work_attribute_type_allowed_value/value:463
 msgctxt "work_attribute_type_allowed_value"
 msgid "Müberka"
-msgstr ""
+msgstr "Müberka"
 
 #: DB:work_attribute_type_allowed_value/value:646
 msgctxt "work_attribute_type_allowed_value"
 msgid "Münacaat"
-msgstr ""
+msgstr "Münacaat"
 
 #: DB:work_attribute_type_allowed_value/value:464
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mürekkep Isfahan"
-msgstr ""
+msgstr "Mürekkep Isfahan"
 
 #: DB:work_attribute_type_allowed_value/value:749
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mürekkep Nimsofyan"
-msgstr ""
+msgstr "Mürekkep Nimsofyan"
 
 #: DB:work_attribute_type_allowed_value/value:750
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mürekkep Semai/Üçleme"
-msgstr ""
+msgstr "Mürekkep Semai / Üçleme"
 
 #: DB:work_attribute_type_allowed_value/value:751
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mürekkep Sofyan"
-msgstr ""
+msgstr "Mürekkep Sofyan"
 
 #: DB:work_attribute_type_allowed_value/value:465
 msgctxt "work_attribute_type_allowed_value"
 msgid "Müselles"
-msgstr ""
+msgstr "Müselles"
 
 #: DB:work_attribute_type_allowed_value/value:752
 msgctxt "work_attribute_type_allowed_value"
 msgid "Müsemmen"
-msgstr ""
+msgstr "Müsemmen"
 
 #: DB:work_attribute_type_allowed_value/value:753
 msgctxt "work_attribute_type_allowed_value"
 msgid "Müsemmen II"
-msgstr ""
+msgstr "Müsemmen II"
 
 #: DB:work_attribute_type_allowed_value/value:466
 msgctxt "work_attribute_type_allowed_value"
 msgid "Müstear"
-msgstr ""
+msgstr "Müstear"
 
 #: DB:work_attribute_type_allowed_value/value:467
 msgctxt "work_attribute_type_allowed_value"
 msgid "Müşküye"
-msgstr ""
+msgstr "Müşküye"
 
 #: DB:work_attribute_type_allowed_value/value:966
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mājh khamāj"
-msgstr ""
+msgstr "Mājh khamāj"
 
 #: DB:work_attribute_type_allowed_value/value:967
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mālava"
-msgstr ""
+msgstr "Mālava"
 
 #: DB:work_attribute_type_allowed_value/value:968
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mālkauns"
-msgstr ""
+msgstr "Mālkauns"
 
 #: DB:work_attribute_type_allowed_value/value:969
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mālāvati"
-msgstr ""
+msgstr "Mālāvati"
 
 #: DB:work_attribute_type_allowed_value/value:167
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mānavati"
-msgstr ""
+msgstr "Mānavati"
 
 #: DB:work_attribute_type_allowed_value/value:171
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mānji"
-msgstr ""
+msgstr "Mānji"
 
 #: DB:work_attribute_type_allowed_value/value:169
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mānḍu"
-msgstr ""
+msgstr "Mānḍu"
 
 #: DB:work_attribute_type_allowed_value/value:173
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mārgahindōḷaṁ"
-msgstr ""
+msgstr "Mārgahindōḷaṁ"
 
 #: DB:work_attribute_type_allowed_value/value:971
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mārvā"
-msgstr ""
+msgstr "Mārvā"
 
 #: DB:work_attribute_type_allowed_value/value:972
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mārvāśrī mārvā"
-msgstr ""
+msgstr "Mārvāśrī mārvā"
 
 #: DB:work_attribute_type_allowed_value/value:973
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mārūbihāg"
-msgstr ""
+msgstr "Mārūbihāg"
 
 #: DB:work_attribute_type_allowed_value/value:174
 msgctxt "work_attribute_type_allowed_value"
 msgid "Māyāmāḷavagauḷa"
-msgstr ""
+msgstr "Māyāmāḷavagauḷa"
 
 #: DB:work_attribute_type_allowed_value/value:165
 msgctxt "work_attribute_type_allowed_value"
 msgid "Māḷavi"
-msgstr ""
+msgstr "Māḷavi"
 
 #: DB:work_attribute_type_allowed_value/value:974
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mēgh"
-msgstr ""
+msgstr "Mēgh"
 
 #: DB:work_attribute_type_allowed_value/value:975
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mēgh malahār"
-msgstr ""
+msgstr "Mēgh malahār"
 
 #: DB:work_attribute_type_allowed_value/value:976
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mīrā malhār"
-msgstr ""
+msgstr "Mīrā malhār"
 
 #: DB:work_attribute_type_allowed_value/value:181
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mōhan kaḷyāṇi"
-msgstr ""
+msgstr "Mōhan kaḷyāṇi"
 
 #: DB:work_attribute_type_allowed_value/value:182
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mōhanaṁ"
-msgstr ""
+msgstr "Mōhanaṁ"
 
 #: DB:work_attribute_type/name:59
 msgctxt "work_attribute_type"
 msgid "NICAUTOR ID"
-msgstr ""
+msgstr "NICAUTOR ID"
 
 #: DB:work_attribute_type_allowed_value/value:647
 msgctxt "work_attribute_type_allowed_value"
 msgid "Naat"
-msgstr ""
+msgstr "Naat"
 
 #: DB:work_attribute_type_allowed_value/value:984
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nagaḍ"
-msgstr ""
+msgstr "Nagaḍ"
 
 #: DB:work_attribute_type_allowed_value/value:648
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nakış"
-msgstr ""
+msgstr "Nakış"
 
 #: DB:work_attribute_type_allowed_value/value:809
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nakış Ağırsemai"
-msgstr ""
+msgstr "Nakış Ağırsemai"
 
 #: DB:work_attribute_type_allowed_value/value:808
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nakış Beste"
-msgstr ""
+msgstr "Nakış Beste"
 
 #: DB:work_attribute_type_allowed_value/value:810
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nakış Yürüksemai"
-msgstr ""
+msgstr "Nakış Yürüksemai"
 
 #: DB:work_attribute_type_allowed_value/value:985
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nanād"
-msgstr ""
+msgstr "Nanād"
 
 #: DB:work_attribute_type_allowed_value/value:468
 msgctxt "work_attribute_type_allowed_value"
 msgid "Narefte"
-msgstr ""
+msgstr "Narefte"
 
 #: DB:work_attribute_type_allowed_value/value:649
 msgctxt "work_attribute_type_allowed_value"
 msgid "Natipeygamberi"
-msgstr ""
+msgstr "Natipeygamberi"
 
 #: DB:work_attribute_type_allowed_value/value:196
 msgctxt "work_attribute_type_allowed_value"
 msgid "Navarasa kannaḍa"
-msgstr ""
+msgstr "Navarasa kannaḍa"
 
 #: DB:work_attribute_type_allowed_value/value:195
 msgctxt "work_attribute_type_allowed_value"
 msgid "Navarāgamālika"
-msgstr ""
+msgstr "Navarāgamālika"
 
 #: DB:work_attribute_type_allowed_value/value:197
 msgctxt "work_attribute_type_allowed_value"
 msgid "Navrōj"
-msgstr ""
+msgstr "Navrōj"
 
 #: DB:work_attribute_type_allowed_value/value:754
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nazlı Düyek"
-msgstr ""
+msgstr "Nazlı Düyek"
 
 #: DB:work_attribute_type_allowed_value/value:187
 msgctxt "work_attribute_type_allowed_value"
 msgid "Naḷinakānti"
-msgstr ""
+msgstr "Naḷinakānti"
 
 #: DB:work_attribute_type_allowed_value/value:986
 msgctxt "work_attribute_type_allowed_value"
 msgid "Naṭ bhairav"
-msgstr ""
+msgstr "Naṭ bhairav"
 
 #: DB:work_attribute_type_allowed_value/value:987
 msgctxt "work_attribute_type_allowed_value"
 msgid "Naṭ bihāg"
-msgstr ""
+msgstr "Naṭ bihāg"
 
 #: DB:work_attribute_type_allowed_value/value:988
 msgctxt "work_attribute_type_allowed_value"
 msgid "Naṭ kāmōd"
-msgstr ""
+msgstr "Naṭ kāmōd"
 
 #: DB:work_attribute_type_allowed_value/value:989
 msgctxt "work_attribute_type_allowed_value"
 msgid "Naṭ malhār"
-msgstr ""
+msgstr "Naṭ malhār"
 
 #: DB:work_attribute_type_allowed_value/value:990
 msgctxt "work_attribute_type_allowed_value"
 msgid "Naṭ nārāyaṇ"
-msgstr ""
+msgstr "Naṭ nārāyaṇ"
 
 #: DB:work_attribute_type_allowed_value/value:191
 msgctxt "work_attribute_type_allowed_value"
 msgid "Naṭabhairavi"
-msgstr ""
+msgstr "Naṭabhairavi"
 
 #: DB:work_attribute_type_allowed_value/value:194
 msgctxt "work_attribute_type_allowed_value"
 msgid "Naṭanārāyaṇi"
-msgstr ""
+msgstr "Naṭanārāyaṇi"
 
 #: DB:work_attribute_type_allowed_value/value:469
 msgctxt "work_attribute_type_allowed_value"
 msgid "Necd-i Hüseyni"
-msgstr ""
+msgstr "Necd-i Hüseyni"
 
 #: DB:work_attribute_type_allowed_value/value:650
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nefes"
-msgstr ""
+msgstr "Nefes"
 
 #: DB:work_attribute_type_allowed_value/value:470
 msgctxt "work_attribute_type_allowed_value"
 msgid "Neresin"
-msgstr ""
+msgstr "Neresin"
 
 #: DB:work_attribute_type_allowed_value/value:472
 msgctxt "work_attribute_type_allowed_value"
 msgid "Neva"
-msgstr ""
+msgstr "Neva"
 
 #: DB:work_attribute_type_allowed_value/value:473
 msgctxt "work_attribute_type_allowed_value"
 msgid "Neva Bağdat"
-msgstr ""
+msgstr "Neva Bağdat"
 
 #: DB:work_attribute_type_allowed_value/value:474
 msgctxt "work_attribute_type_allowed_value"
 msgid "Neva Dilkeş"
-msgstr ""
+msgstr "Neva Dilkeş"
 
 #: DB:work_attribute_type_allowed_value/value:475
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nevabuselik"
-msgstr ""
+msgstr "Nevabuselik"
 
 #: DB:work_attribute_type_allowed_value/value:476
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nevakürdi"
-msgstr ""
+msgstr "Nevakürdi"
 
 #: DB:work_attribute_type_allowed_value/value:477
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nevaziş"
-msgstr ""
+msgstr "Nevaziş"
 
 #: DB:work_attribute_type_allowed_value/value:478
 msgctxt "work_attribute_type_allowed_value"
 msgid "Neveda"
-msgstr ""
+msgstr "Neveda"
 
 #: DB:work_attribute_type_allowed_value/value:479
 msgctxt "work_attribute_type_allowed_value"
 msgid "Neveser"
-msgstr ""
+msgstr "Neveser"
 
 #: DB:work_attribute_type_allowed_value/value:480
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nevkeş"
-msgstr ""
+msgstr "Nevkeş"
 
 #: DB:work_attribute_type_allowed_value/value:481
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nevruz"
-msgstr ""
+msgstr "Nevruz"
 
 #: DB:work_attribute_type_allowed_value/value:482
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nevruzi Rumi"
-msgstr ""
+msgstr "Nevruzi Rumi"
 
 #: DB:work_attribute_type/name:33
 msgctxt "work_attribute_type"
 msgid "NexTone ID"
-msgstr ""
+msgstr "NexTone ID"
 
 #: DB:work_attribute_type_allowed_value/value:471
 msgctxt "work_attribute_type_allowed_value"
 msgid "Neşataver"
-msgstr ""
+msgstr "Neşataver"
 
 #: DB:work_attribute_type_allowed_value/value:483
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nigar"
-msgstr ""
+msgstr "Nigar"
 
 #: DB:work_attribute_type_allowed_value/value:484
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nihavend-i Kebir"
-msgstr ""
+msgstr "Nihavend-i Kebir"
 
 #: DB:work_attribute_type_allowed_value/value:485
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nihavend-i Rumi"
-msgstr ""
+msgstr "Nihavend-i Rumi"
 
 #: DB:work_attribute_type_allowed_value/value:486
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nihavent"
-msgstr ""
+msgstr "Nihavent"
 
 #: DB:work_attribute_type_allowed_value/value:487
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nikriz"
-msgstr ""
+msgstr "Nikriz"
 
 #: DB:work_attribute_type_allowed_value/value:755
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nimberefşan"
-msgstr ""
+msgstr "Nimberefşan"
 
 #: DB:work_attribute_type_allowed_value/value:757
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nimdevir"
-msgstr ""
+msgstr "Nimdevir"
 
 #: DB:work_attribute_type_allowed_value/value:758
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nimevsat"
-msgstr ""
+msgstr "Nimevsat"
 
 #: DB:work_attribute_type_allowed_value/value:759
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nimhafif"
-msgstr ""
+msgstr "Nimhafif"
 
 #: DB:work_attribute_type_allowed_value/value:760
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nimsakil"
-msgstr ""
+msgstr "Nimsakil"
 
 #: DB:work_attribute_type_allowed_value/value:761
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nimsofyan"
-msgstr ""
+msgstr "Nimsofyan"
 
 #: DB:work_attribute_type_allowed_value/value:756
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nimçember"
-msgstr ""
+msgstr "Nimçember"
 
 #: DB:work_attribute_type_allowed_value/value:651
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ninni"
-msgstr ""
+msgstr "Ninni"
 
 #: DB:work_attribute_type_allowed_value/value:200
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nirōṣita"
-msgstr ""
+msgstr "Nirōṣita"
 
 #: DB:work_attribute_type_allowed_value/value:488
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nişabur"
-msgstr ""
+msgstr "Nişabur"
 
 #: DB:work_attribute_type_allowed_value/value:489
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nişaburek"
-msgstr ""
+msgstr "Nişaburek"
 
 #: DB:work_attribute_type_allowed_value/value:490
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nişabureyn"
-msgstr ""
+msgstr "Nişabureyn"
 
 #: DB:gender/name:5
 msgctxt "gender"
 msgid "Non-binary"
-msgstr ""
+msgstr "ne dvejetainis"
 
 #: DB:release_group_secondary_type/description:3
 msgctxt "release_group_secondary_type"
 msgid "Non-music spoken word releases."
-msgstr ""
+msgstr "Nemuzikiniai šnekamosios kalbos leidiniai."
 
 #: DB:release_packaging/name:7
 msgctxt "release_packaging"
 msgid "None"
-msgstr ""
+msgstr "nėra"
 
 #: DB:gender/name:4
 msgctxt "gender"
 msgid "Not applicable"
-msgstr ""
+msgstr "netaikytina"
 
 #: DB:work_attribute_type_allowed_value/value:491
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nuşingül"
-msgstr ""
+msgstr "Nuşingül"
 
 #: DB:work_attribute_type_allowed_value/value:492
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nühüft"
-msgstr ""
+msgstr "Nühüft"
 
 #: DB:work_attribute_type_allowed_value/value:184
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nādanāmakriya"
-msgstr ""
+msgstr "Nādanāmakriya"
 
 #: DB:work_attribute_type_allowed_value/value:185
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nāga gāndhāri"
-msgstr ""
+msgstr "Nāga gāndhāri"
 
 #: DB:work_attribute_type_allowed_value/value:186
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nāgasvarāvaḷi"
-msgstr ""
+msgstr "Nāgasvarāvaḷi"
 
 #: DB:work_attribute_type_allowed_value/value:188
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nārāyaṇi"
-msgstr ""
+msgstr "Nārāyaṇi"
 
 #: DB:work_attribute_type_allowed_value/value:189
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nāsikabhūṣaṇi"
-msgstr ""
+msgstr "Nāsikabhūṣaṇi"
 
 #: DB:work_attribute_type_allowed_value/value:198
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nāyaki"
-msgstr ""
+msgstr "Nāyaki"
 
 #: DB:work_attribute_type_allowed_value/value:991
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nāyakī kānaḍā"
-msgstr ""
+msgstr "Nāyakī kānaḍā"
 
 #: DB:work_attribute_type_allowed_value/value:190
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nāṭa"
-msgstr ""
+msgstr "Nāṭa"
 
 #: DB:work_attribute_type_allowed_value/value:192
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nāṭakapriya"
-msgstr ""
+msgstr "Nāṭakapriya"
 
 #: DB:work_attribute_type_allowed_value/value:193
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nāṭakurinji"
-msgstr ""
+msgstr "Nāṭakurinji"
 
 #: DB:work_attribute_type_allowed_value/value:992
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nīlāmbari"
-msgstr ""
+msgstr "Nīlāmbari"
 
 #: DB:work_attribute_type_allowed_value/value:199
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nīlāṁbari"
-msgstr ""
+msgstr "Nīlāṁbari"
 
 #: DB:work_attribute_type/name:25
 msgctxt "work_attribute_type"
 msgid "OSA ID"
-msgstr ""
+msgstr "OSA ID"
 
 #: DB:cover_art_archive.art_type/name:5
 msgctxt "cover_art_type"
 msgid "Obi"
-msgstr ""
+msgstr "obis"
 
 #: DB:release_status/name:1
 msgctxt "release_status"
 msgid "Official"
+msgstr "oficialus"
+
+#: DB:medium_format/description:207
+msgctxt "medium_format"
+msgid ""
+"One-sided 3\" vinyl records to be played with purpose-built players; "
+"originally developed in Japan and now mostly found as a Record Store Day "
+"curiosity."
 msgstr ""
+"Vienpusės 3” (7,62 cm) vinilinės plokštelės, skirtos leisti ypatingai tam "
+"skirtais leistuvais, iš pradžių sukurtos Japonijoje, o dabar dažniausiai "
+"sutinkamos kaip Record Store Day įdomybė."
 
 #: DB:work_type/name:10
 msgctxt "work_type"
 msgid "Opera"
-msgstr ""
+msgstr "opera"
 
 #: DB:work_type/name:24
 msgctxt "work_type"
 msgid "Operetta"
-msgstr ""
+msgstr "operetė"
 
 #: DB:work_type/name:11
 msgctxt "work_type"
 msgid "Oratorio"
-msgstr ""
+msgstr "oratorija"
 
 #: DB:artist_type/name:5
 msgctxt "artist_type"
 msgid "Orchestra"
-msgstr ""
+msgstr "orkestras"
 
 #: DB:label_type/name:4
 msgctxt "label_type"
 msgid "Original Production"
-msgstr ""
+msgstr "originali produkcija"
 
 #: DB:artist_type/name:3
 msgctxt "artist_type"
 msgid "Other"
-msgstr ""
+msgstr "kita"
 
 #: DB:cover_art_archive.art_type/name:8
 msgctxt "cover_art_type"
 msgid "Other"
-msgstr ""
+msgstr "kita"
 
 #: DB:gender/name:3
 msgctxt "gender"
 msgid "Other"
-msgstr ""
+msgstr "kita"
 
 #: DB:medium_format/name:13
 msgctxt "medium_format"
 msgid "Other"
-msgstr ""
+msgstr "kita"
 
 #: DB:place_type/name:3
 msgctxt "place_type"
 msgid "Other"
-msgstr ""
+msgstr "kita"
 
 #: DB:release_group_primary_type/name:11
 msgctxt "release_group_primary_type"
 msgid "Other"
-msgstr ""
+msgstr "kita"
 
 #: DB:release_packaging/name:5
 msgctxt "release_packaging"
 msgid "Other"
-msgstr ""
+msgstr "kita"
 
 #: DB:instrument_type/name:5
 msgctxt "instrument_type"
 msgid "Other instrument"
-msgstr ""
+msgstr "kitas instrumentas"
 
 #: DB:work_type/name:12
 msgctxt "work_type"
 msgid "Overture"
-msgstr ""
+msgstr "uvertiūra"
 
 #: DB:editor_collection_type/name:2
 msgctxt "collection_type"
 msgid "Owned music"
-msgstr ""
+msgstr "turima muzika"
 
 #: DB:editor_collection_type/name:17
 msgctxt "collection_type"
 msgid "Owned recordings"
-msgstr ""
+msgstr "turimi įrašai"
 
 #: DB:work_attribute_type_allowed_value/value:762
 msgctxt "work_attribute_type_allowed_value"
 msgid "Oynak"
-msgstr ""
+msgstr "Oynak"
 
 #: DB:work_attribute_type_allowed_value/value:652
 msgctxt "work_attribute_type_allowed_value"
 msgid "Oyunhavası"
-msgstr ""
+msgstr "Oyunhavası"
 
 #: DB:work_attribute_type/name:34
 msgctxt "work_attribute_type"
 msgid "PRS tune code"
-msgstr ""
+msgstr "PRS tune kodas"
 
 #: DB:work_attribute_type_allowed_value/value:993
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pahāḍi"
-msgstr ""
+msgstr "Pahāḍi"
 
 #: DB:work_attribute_type_allowed_value/value:839
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pan̄cam savārī"
-msgstr ""
+msgstr "Pan̄cam savārī"
 
 #: DB:work_attribute_type_allowed_value/value:840
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pan̄jābī "
-msgstr ""
+msgstr "Pan̄jābī "
 
 #: DB:work_attribute_type_allowed_value/value:994
 msgctxt "work_attribute_type_allowed_value"
 msgid "Paraj"
-msgstr ""
+msgstr "Paraj"
 
 #: DB:work_attribute_type_allowed_value/value:203
 msgctxt "work_attribute_type_allowed_value"
 msgid "Paras"
-msgstr ""
+msgstr "Paras"
 
 #: DB:place_type/name:9
 msgctxt "place_type"
 msgid "Park"
-msgstr ""
+msgstr "parkas"
 
 #: DB:work_type/name:13
 msgctxt "work_type"
 msgid "Partita"
-msgstr ""
+msgstr "partita"
 
 #: DB:medium_format/name:58
 msgctxt "medium_format"
 msgid "Pathé disc"
-msgstr ""
+msgstr "Pathé diskas"
 
 #: DB:work_attribute_type_allowed_value/value:995
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pañcam"
-msgstr ""
+msgstr "Pañcam"
 
 #: DB:work_attribute_type_allowed_value/value:996
 msgctxt "work_attribute_type_allowed_value"
 msgid "Paṭaman̄jari"
-msgstr ""
+msgstr "Paṭaman̄jari"
 
 #: DB:work_attribute_type_allowed_value/value:204
 #: DB:work_attribute_type_allowed_value/value:997
 msgctxt "work_attribute_type_allowed_value"
 msgid "Paṭdīp"
-msgstr ""
+msgstr "Paṭdīp"
 
 #: DB:work_attribute_type_allowed_value/value:493
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pençgah"
-msgstr ""
+msgstr "Pençgah"
 
 #: DB:work_attribute_type_allowed_value/value:494
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pençgah-ı Asl"
-msgstr ""
+msgstr "Pençgah-ı Asl"
 
 #: DB:work_attribute_type_allowed_value/value:495
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pençgah-ı Zaid"
-msgstr ""
+msgstr "Pençgah-ı Zaid"
 
 #: DB:instrument_type/name:3
 msgctxt "instrument_type"
 msgid "Percussion instrument"
-msgstr ""
+msgstr "perkusinis instrumentas"
 
 #: DB:work_attribute_type_allowed_value/value:496
 msgctxt "work_attribute_type_allowed_value"
 msgid "Perr-i Zerrin"
-msgstr ""
+msgstr "Perr-i Zerrin"
 
 #: DB:artist_type/name:1
 msgctxt "artist_type"
 msgid "Person"
-msgstr ""
+msgstr "asmuo"
 
 #: DB:work_attribute_type_allowed_value/value:497
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pesendide"
-msgstr ""
+msgstr "Pesendide"
 
 #: DB:work_attribute_type_allowed_value/value:498
 msgctxt "work_attribute_type_allowed_value"
 msgid "Peyk-i Neşat"
-msgstr ""
+msgstr "Peyk-i Neşat"
 
 #: DB:work_attribute_type_allowed_value/value:499
 msgctxt "work_attribute_type_allowed_value"
 msgid "Peyk-i Safa"
-msgstr ""
+msgstr "Peyk-i Safa"
 
 #: DB:work_attribute_type_allowed_value/value:654
 msgctxt "work_attribute_type_allowed_value"
 msgid "Peşrev"
-msgstr ""
+msgstr "Peşrev"
 
 #: DB:medium_format/name:73
 msgctxt "medium_format"
 msgid "Phonograph record"
-msgstr ""
+msgstr "fonografinė plokštelė"
 
 #: DB:medium_format/name:15
 msgctxt "medium_format"
 msgid "Piano Roll"
-msgstr ""
+msgstr "fortepijono ritinys"
 
 #: DB:editor_collection_type/name:11
 msgctxt "collection_type"
 msgid "Place collection"
-msgstr ""
+msgstr "vietos kolekcija"
 
 #: DB:place_alias_type/name:1
 msgctxt "alias_type"
 msgid "Place name"
-msgstr ""
+msgstr "Vietos pavadinimas"
 
 #: DB:release_packaging/description:20
 msgctxt "release_packaging"
 msgid "Plastic CD tray inside a cardboard slipcover"
-msgstr ""
+msgstr "Plastikinis CD dėklas, esantis kartoniniame dėkle."
 
 #: DB:release_packaging/name:18
 msgctxt "release_packaging"
 msgid "Plastic Sleeve"
-msgstr ""
+msgstr "plastikinė įmautė"
 
 #: DB:work_type/name:28
 msgctxt "work_type"
 msgid "Play"
-msgstr ""
+msgstr "pjesė"
 
 #: DB:medium_format/name:74
 msgctxt "medium_format"
 msgid "PlayTape"
-msgstr ""
+msgstr "PlayTape"
 
 #: DB:medium_format/name:45
 msgctxt "medium_format"
 msgid "Playbutton"
-msgstr ""
+msgstr "Playbutton"
 
 #: DB:series_type/name:80
 msgctxt "series_type"
 msgid "Podcast"
-msgstr ""
+msgstr "tinklalaidė"
 
 #: DB:work_type/name:21
 msgctxt "work_type"
 msgid "Poem"
-msgstr ""
+msgstr "eilėraštis"
 
 #: DB:work_attribute_type_allowed_value/value:655
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pop şarkısı"
-msgstr ""
+msgstr "Pop şarkısı"
 
 #: DB:cover_art_archive.art_type/name:11
 msgctxt "cover_art_type"
 msgid "Poster"
-msgstr ""
+msgstr "plakatas"
 
 #: DB:work_attribute_type_allowed_value/value:998
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pratāpavarāli"
-msgstr ""
+msgstr "Pratāpavarāli"
 
 #: DB:place_type/name:8
 msgctxt "place_type"
 msgid "Pressing plant"
-msgstr ""
+msgstr "presavimo gamykla"
 
 #: DB:label_type/name:3
 msgctxt "label_type"
 msgid "Production"
-msgstr ""
+msgstr "produkcija"
 
 #: DB:release_status/name:2
 msgctxt "release_status"
 msgid "Promotion"
-msgstr ""
+msgstr "produkto rėmimas"
 
 #: DB:release_group_secondary_type/description:9
 msgctxt "release_group_secondary_type"
@@ -6308,689 +6349,701 @@ msgid ""
 "are distinct from demos in that they are designed for release directly to "
 "the public and fans; not to labels."
 msgstr ""
+"Reklaminio pobūdžio (bet nebūtinai nemokamus) mikso juostus ir gatvės "
+"albumus dažnai išleidžia atlikėjai, norėdami reklamuoti naujus atlikėjus "
+"arba žinomų atlikėjų būsimus studijinius albumus. Kartais jie taip pat "
+"naudojami siekiant išlaikyti gerbėjų dėmesį tarp studijinių leidinių ir yra "
+"labiausiai paplitę repo ir hiphopo žanruose. Dažniausiai jų nesankcionuoja "
+"atlikėjo leidykla, jie gali neturėti tinkamų pavyzdžių ar dainų leidimų ir "
+"labai skirtis gamybos ir įrašų kokybe. Nors mikso juostai paprastai yra "
+"sumiksuoti didžėjaus, jie skiriasi nuo komercinių didžėjaus miksų (kurie "
+"paprastai laikomi rinkiniais) ir pasižymi tuo, kad juose daug naujos "
+"medžiagos, įskaitant originalią produkciją arba originalų vokalą ant kitų "
+"atlikėjų instrumentų. Nuo demo versijų jie skiriasi tuo, kad yra skirti "
+"išleisti tiesiogiai visuomenei ir gerbėjams, o ne leidykloms."
 
 #: DB:work_type/name:23
 msgctxt "work_type"
 msgid "Prose"
-msgstr ""
+msgstr "proza"
 
 #: DB:release_status/name:4
 msgctxt "release_status"
 msgid "Pseudo-Release"
-msgstr ""
+msgstr "pseudoleidinys"
 
 #: DB:label_type/name:7
 msgctxt "label_type"
 msgid "Publisher"
-msgstr ""
+msgstr "leidėjas"
 
 #: DB:work_attribute_type_allowed_value/value:999
 msgctxt "work_attribute_type_allowed_value"
 msgid "Puriyā"
-msgstr ""
+msgstr "Puriyā"
 
 #: DB:work_attribute_type_allowed_value/value:1000
 msgctxt "work_attribute_type_allowed_value"
 msgid "Puriyā dhanaśrī"
-msgstr ""
+msgstr "Puriyā dhanaśrī"
 
 #: DB:work_attribute_type_allowed_value/value:1001
 msgctxt "work_attribute_type_allowed_value"
 msgid "Puriyā kalyāṇ"
-msgstr ""
+msgstr "Puriyā kalyāṇ"
 
 #: DB:work_attribute_type_allowed_value/value:205
 msgctxt "work_attribute_type_allowed_value"
 msgid "Puṇṇāgavarāḷi"
-msgstr ""
+msgstr "Puṇṇāgavarāḷi"
 
 #: DB:work_attribute_type_allowed_value/value:209
 msgctxt "work_attribute_type_allowed_value"
 msgid "Puṣpalatika"
-msgstr ""
+msgstr "Puṣpalatika"
 
 #: DB:work_attribute_type_allowed_value/value:202
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pālamanjari"
-msgstr ""
+msgstr "Pālamanjari"
 
 #: DB:work_attribute_type_allowed_value/value:201
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pāḍi"
-msgstr ""
+msgstr "Pāḍi"
 
 #: DB:work_attribute_type_allowed_value/value:208
 #: DB:work_attribute_type_allowed_value/value:1002
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pūrvi"
-msgstr ""
+msgstr "Pūrvi"
 
 #: DB:work_attribute_type_allowed_value/value:206
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pūrṇa ṣaḍjaṁ"
-msgstr ""
+msgstr "Pūrṇa ṣaḍjaṁ"
 
 #: DB:work_attribute_type_allowed_value/value:207
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pūrṇacandrika"
-msgstr ""
+msgstr "Pūrṇacandrika"
 
 #: DB:work_type/name:14
 msgctxt "work_type"
 msgid "Quartet"
-msgstr ""
+msgstr "kvartetas"
 
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rahatfeza"
-msgstr ""
+msgstr "Rahatfeza"
 
 #: DB:work_attribute_type_allowed_value/value:501
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rahatülervah"
-msgstr ""
+msgstr "Rahatülervah"
 
 #: DB:work_attribute_type_allowed_value/value:763
 msgctxt "work_attribute_type_allowed_value"
 msgid "Raksaksağı"
-msgstr ""
+msgstr "Raksaksağı"
 
 #: DB:work_attribute_type_allowed_value/value:798
 msgctxt "work_attribute_type_allowed_value"
 msgid "Raksaksağı II"
-msgstr ""
+msgstr "Raksaksağı II"
 
 #: DB:work_attribute_type_allowed_value/value:764
 msgctxt "work_attribute_type_allowed_value"
 msgid "Raksan"
-msgstr ""
+msgstr "Raksan"
 
 #: DB:work_attribute_type_allowed_value/value:502
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ramiş-i Can"
-msgstr ""
+msgstr "Ramiş-i Can"
 
 #: DB:work_attribute_type_allowed_value/value:215
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ranjani"
-msgstr ""
+msgstr "Ranjani"
 
 #: DB:work_attribute_type_allowed_value/value:216
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rasikapriya"
-msgstr ""
+msgstr "Rasikapriya"
 
 #: DB:work_attribute_type_allowed_value/value:503
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rast"
-msgstr ""
+msgstr "Rast"
 
 #: DB:work_attribute_type_allowed_value/value:506
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rast Haveran"
-msgstr ""
+msgstr "Rast Haveran"
 
 #: DB:work_attribute_type_allowed_value/value:513
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rast-Maye"
-msgstr ""
+msgstr "Rast-Maye"
 
 #: DB:work_attribute_type_allowed_value/value:507
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rast-ı Atik"
-msgstr ""
+msgstr "Rast-ı Atik"
 
 #: DB:work_attribute_type_allowed_value/value:508
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rast-ı Cedid"
-msgstr ""
+msgstr "Rast-ı Cedid"
 
 #: DB:work_attribute_type_allowed_value/value:509
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rast-ı Rumi"
-msgstr ""
+msgstr "Rast-ı Rumi"
 
 #: DB:work_attribute_type_allowed_value/value:510
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rast-ı Sağır"
-msgstr ""
+msgstr "Rast-ı Sağır"
 
 #: DB:work_attribute_type_allowed_value/value:511
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rast-ı Sultani"
-msgstr ""
+msgstr "Rast-ı Sultani"
 
 #: DB:work_attribute_type_allowed_value/value:504
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rastaşiran"
-msgstr ""
+msgstr "Rastaşiran"
 
 #: DB:work_attribute_type_allowed_value/value:505
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rastdilara"
-msgstr ""
+msgstr "Rastdilara"
 
 #: DB:work_attribute_type_allowed_value/value:512
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rastkürdi"
-msgstr ""
+msgstr "Rastkürdi"
 
 #: DB:work_attribute_type_allowed_value/value:217
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ratipati priya"
-msgstr ""
+msgstr "Ratipati priya"
 
 #: DB:work_attribute_type_allowed_value/value:218
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ravicandrika"
-msgstr ""
+msgstr "Ravicandrika"
 
 #: DB:cover_art_archive.art_type/name:14
 msgctxt "cover_art_type"
 msgid "Raw/Unedited"
-msgstr ""
+msgstr "Neapdorotas / neredaguotas"
 
 #: DB:series_type/name:48
 msgctxt "series_type"
 msgid "Recording award"
-msgstr ""
+msgstr "įrašo apdovanojimas"
 
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
 msgid "Recording collection"
-msgstr ""
+msgstr "įrašų kolekcija"
 
 #: DB:recording_alias_type/name:1
 msgctxt "alias_type"
 msgid "Recording name"
-msgstr ""
+msgstr "įrašo pavadinimas"
 
 #: DB:series_type/name:3
 msgctxt "series_type"
 msgid "Recording series"
-msgstr ""
+msgstr "įrašų serija"
 
 #: DB:medium_format/name:10
 msgctxt "medium_format"
 msgid "Reel-to-reel"
-msgstr ""
+msgstr "juostinis"
 
 #: DB:work_attribute_type_allowed_value/value:514
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rehavi"
-msgstr ""
+msgstr "Rehavi"
 
 #: DB:label_type/name:6
 msgctxt "label_type"
 msgid "Reissue Production"
-msgstr ""
+msgstr "pakartotinio leidinio kūrimas"
 
 #: DB:work_attribute_type_allowed_value/value:515
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rekb-i Zavil"
-msgstr ""
+msgstr "Rekb-i Zavil"
 
 #: DB:editor_collection_type/name:1
 msgctxt "collection_type"
 msgid "Release collection"
-msgstr ""
+msgstr "leidinių kolekcija"
 
 #: DB:series_type/name:47
 msgctxt "series_type"
 msgid "Release group award"
-msgstr ""
+msgstr "leidinių grupės apdovanojimas"
 
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
 msgid "Release group collection"
-msgstr ""
+msgstr "leidinių grupės kolekcija"
 
 #: DB:release_group_alias_type/name:1
 msgctxt "alias_type"
 msgid "Release group name"
-msgstr ""
+msgstr "leidinio grupės pavadinimas"
 
 #: DB:series_type/name:1
 msgctxt "series_type"
 msgid "Release group series"
-msgstr ""
+msgstr "leidinių grupės serija"
 
 #: DB:release_alias_type/name:1
 msgctxt "alias_type"
 msgid "Release name"
-msgstr ""
+msgstr "leidinio pavadinimas"
 
 #: DB:series_type/name:2
 msgctxt "series_type"
 msgid "Release series"
-msgstr ""
+msgstr "leidinių serija"
 
 #: DB:place_type/name:6
 msgctxt "place_type"
 msgid "Religious building"
-msgstr ""
+msgstr "religinis pastatas"
 
 #: DB:work_attribute_type_allowed_value/value:765
 msgctxt "work_attribute_type_allowed_value"
 msgid "Remel"
-msgstr ""
+msgstr "Remel"
 
 #: DB:release_group_secondary_type/name:7
 msgctxt "release_group_secondary_type"
 msgid "Remix"
-msgstr ""
+msgstr "remiksas"
 
 #: DB:work_attribute_type_allowed_value/value:516
 msgctxt "work_attribute_type_allowed_value"
 msgid "Reng-i Dil"
-msgstr ""
+msgstr "Reng-i Dil"
 
 #: DB:series_type/name:12
 msgctxt "series_type"
 msgid "Residency"
-msgstr ""
+msgstr "rezidencija"
 
 #: DB:work_attribute_type_allowed_value/value:517
 msgctxt "work_attribute_type_allowed_value"
 msgid "Revnaknüma"
-msgstr ""
+msgstr "Revnaknüma"
 
 #: DB:work_attribute_type_allowed_value/value:518
 msgctxt "work_attribute_type_allowed_value"
 msgid "Reyya"
-msgstr ""
+msgstr "Reyya"
 
 #: DB:label_type/name:8
 msgctxt "label_type"
 msgid "Rights Society"
-msgstr ""
+msgstr "teisių organizacija"
 
 #: DB:work_attribute_type_allowed_value/value:222
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rudrapriya"
-msgstr ""
+msgstr "Rudrapriya"
 
 #: DB:work_attribute_type_allowed_value/value:519
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ruhnüvaz"
-msgstr ""
+msgstr "Ruhnüvaz"
 
 #: DB:work_attribute_type_allowed_value/value:656
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rumeli Türküsü"
-msgstr ""
+msgstr "Rumeli Türküsü"
 
 #: DB:series_type/name:9
 msgctxt "series_type"
 msgid "Run"
-msgstr ""
+msgstr "bėgimas"
 
 #: DB:work_attribute_type_allowed_value/value:521
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ruy-i Dilara"
-msgstr ""
+msgstr "Ruy-i Dilara"
 
 #: DB:work_attribute_type_allowed_value/value:520
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ruy-i Irak"
-msgstr ""
+msgstr "Ruy-i Irak"
 
 #: DB:work_attribute_type_allowed_value/value:600
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ruy-i Neva"
-msgstr ""
+msgstr "Ruy-i Neva"
 
 #: DB:work_attribute_type/name:4
 msgctxt "work_attribute_type"
 msgid "Rāga (Carnatic)"
-msgstr ""
+msgstr "raga (karnatų)"
 
 #: DB:work_attribute_type/name:32
 msgctxt "work_attribute_type"
 msgid "Rāga (Hindustani)"
-msgstr ""
+msgstr "raga (hindustaniečių)"
 
 #: DB:work_attribute_type_allowed_value/value:1003
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rāgamalikā"
-msgstr ""
+msgstr "Rāgamalikā"
 
 #: DB:work_attribute_type_allowed_value/value:210
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rāgamālika"
-msgstr ""
+msgstr "Rāgamālika"
 
 #: DB:work_attribute_type_allowed_value/value:211
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rāgavinōdini"
-msgstr ""
+msgstr "Rāgavinōdini"
 
 #: DB:work_attribute_type_allowed_value/value:212
 #: DB:work_attribute_type_allowed_value/value:1004
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rāgēśrī"
-msgstr ""
+msgstr "Rāgēśrī"
 
 #: DB:work_attribute_type_allowed_value/value:1005
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rāj kalyāṇ"
-msgstr ""
+msgstr "Rāj kalyāṇ"
 
 #: DB:work_attribute_type_allowed_value/value:213
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rāma manōhari"
-msgstr ""
+msgstr "Rāma manōhari"
 
 #: DB:work_attribute_type_allowed_value/value:1006
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rāmakali"
-msgstr ""
+msgstr "Rāmakali"
 
 #: DB:work_attribute_type_allowed_value/value:214
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rāmapriya"
-msgstr ""
+msgstr "Rāmapriya"
 
 #: DB:work_attribute_type_allowed_value/value:1007
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rāmdāsī malhār"
-msgstr ""
+msgstr "Rāmdāsī malhār"
 
 #: DB:work_attribute_type_allowed_value/value:219
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rēvagupti"
-msgstr ""
+msgstr "Rēvagupti"
 
 #: DB:work_attribute_type_allowed_value/value:220
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rēvati"
-msgstr ""
+msgstr "Rēvati"
 
 #: DB:work_attribute_type_allowed_value/value:221
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rītigauḷa"
-msgstr ""
+msgstr "Rītigauḷa"
 
 #: DB:work_attribute_type_allowed_value/value:841
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rūpak"
-msgstr ""
+msgstr "Rūpak"
 
 #: DB:work_attribute_type_allowed_value/value:280
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rūpaka"
-msgstr ""
+msgstr "Rūpaka"
 
 #: DB:work_attribute_type/name:28
 msgctxt "work_attribute_type"
 msgid "SABAM ID"
-msgstr ""
+msgstr "SABAM ID"
 
 #: DB:medium_format/name:3
 msgctxt "medium_format"
 msgid "SACD"
-msgstr ""
+msgstr "SACD"
 
 #: DB:medium_format/name:84
 msgctxt "medium_format"
 msgid "SACD (2 channels)"
-msgstr ""
+msgstr "SACD (2 kanalai)"
 
 #: DB:medium_format/name:85
 msgctxt "medium_format"
 msgid "SACD (multichannel)"
-msgstr ""
+msgstr "SACD (daugiakanalis)"
 
 #: DB:work_attribute_type/name:21
 msgctxt "work_attribute_type"
 msgid "SACEM ID"
-msgstr ""
+msgstr "SACEM ID"
 
 #: DB:work_attribute_type/name:56
 msgctxt "work_attribute_type"
 msgid "SACIM ID"
-msgstr ""
+msgstr "SACIM ID"
 
 #: DB:work_attribute_type/name:27
 msgctxt "work_attribute_type"
 msgid "SACM ID"
-msgstr ""
+msgstr "SACM ID"
 
 #: DB:work_attribute_type/name:42
 msgctxt "work_attribute_type"
 msgid "SACVEN ID"
-msgstr ""
+msgstr "SACVEN ID"
 
 #: DB:work_attribute_type/name:24
 msgctxt "work_attribute_type"
 msgid "SADAIC ID"
-msgstr ""
+msgstr "SADAIC ID"
 
 #: DB:work_attribute_type/name:68
 msgctxt "work_attribute_type"
 msgid "SAMRO ID"
-msgstr ""
+msgstr "SAMRO ID"
 
 #: DB:work_attribute_type/name:40
 msgctxt "work_attribute_type"
 msgid "SAYCE ID"
-msgstr ""
+msgstr "SAYCE ID"
 
 #: DB:work_attribute_type/name:39
 msgctxt "work_attribute_type"
 msgid "SAYCO ID"
-msgstr ""
+msgstr "SAYCO ID"
 
 #: DB:work_attribute_type/name:140
 msgctxt "work_attribute_type"
 msgid "SAZAS ID"
-msgstr ""
+msgstr "SAZAS ID"
 
 #: DB:work_attribute_type/name:173
 msgctxt "work_attribute_type"
 msgid "SCD ID"
-msgstr ""
+msgstr "SCD ID"
 
 #: DB:medium_format/name:62
 msgctxt "medium_format"
 msgid "SD Card"
-msgstr ""
+msgstr "SD kortelė"
 
 #: DB:work_attribute_type/name:8
 msgctxt "work_attribute_type"
 msgid "SESAC ID"
-msgstr ""
+msgstr "SESAC ID"
 
 #: DB:work_attribute_type/name:60
 msgctxt "work_attribute_type"
 msgid "SGACEDOM ID"
-msgstr ""
+msgstr "SGACEDOM ID"
 
 #: DB:work_attribute_type/name:20
 msgctxt "work_attribute_type"
 msgid "SGAE ID"
-msgstr ""
+msgstr "SGAE ID"
 
 #: DB:medium_format/name:36
 msgctxt "medium_format"
 msgid "SHM-CD"
-msgstr ""
+msgstr "SHM-CD"
 
 #: DB:medium_format/name:57
 msgctxt "medium_format"
 msgid "SHM-SACD"
-msgstr ""
+msgstr "SHM-SACD"
 
 #: DB:medium_format/name:89
 msgctxt "medium_format"
 msgid "SHM-SACD (2 channels)"
-msgstr ""
+msgstr "SHM-SACD (2 kanalai)"
 
 #: DB:medium_format/name:88
 msgctxt "medium_format"
 msgid "SHM-SACD (multichannel)"
-msgstr ""
+msgstr "SHM-SACD (daugiakanalis)"
 
 #: DB:work_attribute_type/name:36
 msgctxt "work_attribute_type"
 msgid "SIAE ID"
-msgstr ""
+msgstr "SIAE ID"
 
 #: DB:work_attribute_type/name:61
 msgctxt "work_attribute_type"
 msgid "SOBODAYCOM ID"
-msgstr ""
+msgstr "SOBODAYCOM ID"
 
 #: DB:work_attribute_type/name:10
 msgctxt "work_attribute_type"
 msgid "SOCAN ID"
-msgstr ""
+msgstr "SOCAN ID"
 
 #: DB:work_attribute_type/name:53
 msgctxt "work_attribute_type"
 msgid "SODRAC ID"
-msgstr ""
+msgstr "SODRAC ID"
 
 #: DB:work_attribute_type/name:35
 msgctxt "work_attribute_type"
 msgid "SPA ID"
-msgstr ""
+msgstr "SPA ID"
 
 #: DB:work_attribute_type/name:62
 msgctxt "work_attribute_type"
 msgid "SPAC ID"
-msgstr ""
+msgstr "SPAC ID"
 
 #: DB:work_attribute_type/name:54
 msgctxt "work_attribute_type"
 msgid "STEF ID"
-msgstr ""
+msgstr "STEF ID"
 
 #: DB:work_attribute_type/name:50
 msgctxt "work_attribute_type"
 msgid "STIM ID"
-msgstr ""
+msgstr "STIM ID"
 
 #: DB:work_attribute_type/name:18
 msgctxt "work_attribute_type"
 msgid "SUISA ID"
-msgstr ""
+msgstr "SUISA ID"
 
 #: DB:medium_format/name:23
 msgctxt "medium_format"
 msgid "SVCD"
-msgstr ""
+msgstr "SVCD"
 
 #: DB:work_attribute_type_allowed_value/value:522
 msgctxt "work_attribute_type_allowed_value"
 msgid "Saba"
-msgstr ""
+msgstr "Saba"
 
 #: DB:work_attribute_type_allowed_value/value:523
 msgctxt "work_attribute_type_allowed_value"
 msgid "Saba Zemzeme"
-msgstr ""
+msgstr "Saba Zemzeme"
 
 #: DB:work_attribute_type_allowed_value/value:524
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sabaaşiran"
-msgstr ""
+msgstr "Sabaaşiran"
 
 #: DB:work_attribute_type_allowed_value/value:525
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sababuselik"
-msgstr ""
+msgstr "Sababuselik"
 
 #: DB:work_attribute_type_allowed_value/value:526
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sabakürdi"
-msgstr ""
+msgstr "Sabakürdi"
 
 #: DB:work_attribute_type_allowed_value/value:1008
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sahanā"
-msgstr ""
+msgstr "Sahanā"
 
 #: DB:work_attribute_type_allowed_value/value:223
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sahānā"
-msgstr ""
+msgstr "Sahānā"
 
 #: DB:work_attribute_type_allowed_value/value:1009
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sahēlī tōḍī"
-msgstr ""
+msgstr "Sahēlī tōḍī"
 
 #: DB:work_attribute_type_allowed_value/value:767
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sakil"
-msgstr ""
+msgstr "Sakil"
 
 #: DB:work_attribute_type_allowed_value/value:658
 msgctxt "work_attribute_type_allowed_value"
 msgid "Salatüselam"
-msgstr ""
+msgstr "Salatüselam"
 
 #: DB:work_attribute_type_allowed_value/value:657
 msgctxt "work_attribute_type_allowed_value"
 msgid "Salatıümmiye"
-msgstr ""
+msgstr "Salatıümmiye"
 
 #: DB:work_attribute_type_allowed_value/value:1010
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sampūrṇa mālkauns"
-msgstr ""
+msgstr "Sampūrṇa mālkauns"
 
 #: DB:work_attribute_type_allowed_value/value:1011
 msgctxt "work_attribute_type_allowed_value"
 msgid "San̄jari"
-msgstr ""
+msgstr "San̄jari"
 
 #: DB:work_attribute_type_allowed_value/value:231
 #: DB:work_attribute_type_allowed_value/value:1014
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sarasvati"
-msgstr ""
+msgstr "Sarasvati"
 
 #: DB:work_attribute_type_allowed_value/value:232
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sarasvatī manōhari"
-msgstr ""
+msgstr "Sarasvatī manōhari"
 
 #: DB:work_attribute_type_allowed_value/value:230
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sarasāngi"
-msgstr ""
+msgstr "Sarasāngi"
 
 #: DB:work_attribute_type_allowed_value/value:233
 msgctxt "work_attribute_type_allowed_value"
 msgid "Saurāṣtraṁ"
-msgstr ""
+msgstr "Saurāṣtraṁ"
 
 #: DB:work_attribute_type_allowed_value/value:1017
 msgctxt "work_attribute_type_allowed_value"
 msgid "Saurāṣṭram"
-msgstr ""
+msgstr "Saurāṣṭram"
 
 #: DB:work_attribute_type_allowed_value/value:659
 msgctxt "work_attribute_type_allowed_value"
 msgid "Savt"
-msgstr ""
+msgstr "Savt"
 
 #: DB:work_attribute_type_allowed_value/value:660
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sazeseri"
-msgstr ""
+msgstr "Sazeseri"
 
 #: DB:work_attribute_type_allowed_value/value:527
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sazkar"
-msgstr ""
+msgstr "Sazkar"
 
 #: DB:work_attribute_type_allowed_value/value:661
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sazsemaisi"
-msgstr ""
+msgstr "Sazsemaisi"
 
 #: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
 #: DB:place_alias_type/name:2 DB:recording_alias_type/name:2
@@ -7000,82 +7053,82 @@ msgstr ""
 #: DB:event_alias_type/name:2
 msgctxt "alias_type"
 msgid "Search hint"
-msgstr ""
+msgstr "paieškos užuomina"
 
 #: DB:work_attribute_type_allowed_value/value:528
 msgctxt "work_attribute_type_allowed_value"
 msgid "Segah"
-msgstr ""
+msgstr "Segah"
 
 #: DB:work_attribute_type_allowed_value/value:529
 msgctxt "work_attribute_type_allowed_value"
 msgid "Segah Araban"
-msgstr ""
+msgstr "Segah Araban"
 
 #: DB:work_attribute_type_allowed_value/value:530
 msgctxt "work_attribute_type_allowed_value"
 msgid "Segah Maye"
-msgstr ""
+msgstr "Segah Maye"
 
 #: DB:work_attribute_type_allowed_value/value:662
 msgctxt "work_attribute_type_allowed_value"
 msgid "Selam"
-msgstr ""
+msgstr "Selam"
 
 #: DB:work_attribute_type_allowed_value/value:531
 msgctxt "work_attribute_type_allowed_value"
 msgid "Selmek"
-msgstr ""
+msgstr "Selmek"
 
 #: DB:work_attribute_type_allowed_value/value:768
 msgctxt "work_attribute_type_allowed_value"
 msgid "Semai"
-msgstr ""
+msgstr "Semai"
 
 #: DB:work_attribute_type_allowed_value/value:235
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sencuruṭṭi"
-msgstr ""
+msgstr "Sencuruṭṭi"
 
 #: DB:work_attribute_type_allowed_value/value:532
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sengendaz"
-msgstr ""
+msgstr "Sengendaz"
 
 #: DB:work_attribute_type_allowed_value/value:766
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sengin Türkaksağı"
-msgstr ""
+msgstr "Sengin Türkaksağı"
 
 #: DB:work_attribute_type_allowed_value/value:769
 msgctxt "work_attribute_type_allowed_value"
 msgid "Senginsemai"
-msgstr ""
+msgstr "Senginsemai"
 
 #: DB:work_attribute_type_allowed_value/value:770
 msgctxt "work_attribute_type_allowed_value"
 msgid "Serbest"
-msgstr ""
+msgstr "Serbest"
 
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
 msgid "Series collection"
-msgstr ""
+msgstr "serijų kolekcija"
 
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
 msgid "Series name"
-msgstr ""
+msgstr "serijos pavadinimas"
 
 #: DB:work_attribute_type_allowed_value/value:663
 msgctxt "work_attribute_type_allowed_value"
 msgid "Seyir"
-msgstr ""
+msgstr "Seyir"
 
 #: DB:medium_format/name:53
 msgctxt "medium_format"
 msgid "Shellac"
-msgstr ""
+msgstr "šelakas"
 
 #: DB:medium_format/description:53
 msgctxt "medium_format"
@@ -7083,97 +7136,99 @@ msgid ""
 "Shellac records were the most predominant type of gramophone record during "
 "the first half of the 20th century."
 msgstr ""
+"20-ojo amžiaus pirmoje pusėje labiausiai paplitusi gramofono plokštelių "
+"rūšis buvo šelako plokštelės."
 
 #: DB:work_attribute_type_allowed_value/value:236
 msgctxt "work_attribute_type_allowed_value"
 msgid "Simhavāhini"
-msgstr ""
+msgstr "Simhavāhini"
 
 #: DB:work_attribute_type_allowed_value/value:237
 #: DB:work_attribute_type_allowed_value/value:1018
 msgctxt "work_attribute_type_allowed_value"
 msgid "Simhēndra madhyamaṁ"
-msgstr ""
+msgstr "Simhēndra madhyamaṁ"
 
 #: DB:work_attribute_type_allowed_value/value:1019
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sindhu bhairavi"
-msgstr ""
+msgstr "Sindhu bhairavi"
 
 #: DB:work_attribute_type_allowed_value/value:238
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sindhubhairavi"
-msgstr ""
+msgstr "Sindhubhairavi"
 
 #: DB:work_attribute_type_allowed_value/value:239
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sindhumandāri"
-msgstr ""
+msgstr "Sindhumandāri"
 
 #: DB:work_attribute_type_allowed_value/value:1020
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sindhūra"
-msgstr ""
+msgstr "Sindhūra"
 
 #: DB:release_group_primary_type/name:2
 msgctxt "release_group_primary_type"
 msgid "Single"
-msgstr ""
+msgstr "singlas"
 
 #: DB:work_attribute_type_allowed_value/value:533
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sipihr"
-msgstr ""
+msgstr "Sipihr"
 
 #: DB:work_attribute_type_allowed_value/value:664
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sirto"
-msgstr ""
+msgstr "Sirto"
 
 #: DB:work_attribute_type_allowed_value/value:843
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sitārkhānī"
-msgstr ""
+msgstr "Sitārkhānī"
 
 #: DB:release_packaging/name:20
 msgctxt "release_packaging"
 msgid "Slidepack"
-msgstr ""
+msgstr "pakuotė su slankmačiu (Slidepack)"
 
 #: DB:release_packaging/name:2
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
-msgstr ""
+msgstr "plonas dėklas"
 
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"
 msgid "Snap Case"
-msgstr ""
+msgstr "užsegamas dėklas"
 
 #: DB:release_packaging/name:21
 msgctxt "release_packaging"
 msgid "SnapPack"
-msgstr ""
+msgstr "pakuotė su užsegimu (SnapPack)"
 
 #: DB:work_attribute_type_allowed_value/value:771
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sofyan"
-msgstr ""
+msgstr "Sofyan"
 
 #: DB:work_type/name:5
 msgctxt "work_type"
 msgid "Sonata"
-msgstr ""
+msgstr "sonata"
 
 #: DB:work_type/name:17
 msgctxt "work_type"
 msgid "Song"
-msgstr ""
+msgstr "daina"
 
 #: DB:work_type/name:15
 msgctxt "work_type"
 msgid "Song-cycle"
-msgstr ""
+msgstr "dainos ciklas"
 
 #: DB:series_ordering_type/description:1
 msgctxt "series_ordering_type"
@@ -7181,56 +7236,63 @@ msgid ""
 "Sorts the items in the series automatically by their number attributes, "
 "using a natural sort order."
 msgstr ""
+"Automatiškai surūšiuoja serijos elementus pagal jų skaičių požymius, "
+"naudojant natūralią rūšiavimo tvarką."
+
+#: DB:work_attribute_type/name:208
+msgctxt "work_attribute_type"
+msgid "Soundreef ID"
+msgstr "Soundreef ID"
 
 #: DB:release_group_secondary_type/name:2
 msgctxt "release_group_secondary_type"
 msgid "Soundtrack"
-msgstr ""
+msgstr "garso takelis"
 
 #: DB:work_type/name:22
 msgctxt "work_type"
 msgid "Soundtrack"
-msgstr ""
+msgstr "garso takelis"
 
 #: DB:cover_art_archive.art_type/name:6
 msgctxt "cover_art_type"
 msgid "Spine"
-msgstr ""
+msgstr "knygos nugarėlė"
 
 #: DB:release_group_secondary_type/name:3
 msgctxt "release_group_secondary_type"
 msgid "Spokenword"
-msgstr ""
+msgstr "šnekama kalba"
 
 #: DB:place_type/name:4
 msgctxt "place_type"
 msgid "Stadium"
-msgstr ""
+msgstr "stadionas"
 
 #: DB:event_type/name:6
 msgctxt "event_type"
 msgid "Stage performance"
-msgstr ""
+msgstr "scenos atlikimas"
 
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"
 msgid "Sticker"
-msgstr ""
+msgstr "lipdukas"
 
 #: DB:instrument_type/name:2
 msgctxt "instrument_type"
 msgid "String instrument"
-msgstr ""
+msgstr "styginis instrumentas"
 
 #: DB:place_type/name:1
 msgctxt "place_type"
 msgid "Studio"
-msgstr ""
+msgstr "studija"
 
 #: DB:area_type/name:2
 msgctxt "area_type"
 msgid "Subdivision"
-msgstr ""
+msgstr "padalinys"
 
 #: DB:area_type/description:2
 msgctxt "area_type"
@@ -7239,326 +7301,329 @@ msgid ""
 "California, Ontario, Okinawa. These are considered when displaying the "
 "parent areas for a given area."
 msgstr ""
+"Padalinys naudojamas pagrindiniams šalies administraciniams padaliniams, "
+"pvz., Kalifornija, Ontarijas, Okinavos valstija. Į juos atsižvelgiama rodant "
+"tam tikros teritorijos pagrindines teritorijas."
 
 #: DB:work_attribute_type_allowed_value/value:244
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sucaritra"
-msgstr ""
+msgstr "Sucaritra"
 
 #: DB:work_attribute_type_allowed_value/value:1035
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sugharaī"
-msgstr ""
+msgstr "Sugharaī"
 
 #: DB:work_attribute_type_allowed_value/value:1036
 msgctxt "work_attribute_type_allowed_value"
 msgid "Suhā"
-msgstr ""
+msgstr "Suhā"
 
 #: DB:work_type/name:6
 msgctxt "work_type"
 msgid "Suite"
-msgstr ""
+msgstr "siuita"
 
 #: DB:work_attribute_type_allowed_value/value:534
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sultani"
-msgstr ""
+msgstr "Sultani"
 
 #: DB:work_attribute_type_allowed_value/value:535
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sultani Irak"
-msgstr ""
+msgstr "Sultani Irak"
 
 #: DB:work_attribute_type_allowed_value/value:536
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sultanıbuselik"
-msgstr ""
+msgstr "Sultanıbuselik"
 
 #: DB:work_attribute_type_allowed_value/value:537
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sultanıcedid"
-msgstr ""
+msgstr "Sultanıcedid"
 
 #: DB:work_attribute_type_allowed_value/value:538
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sultanıeviç"
-msgstr ""
+msgstr "Sultanıeviç"
 
 #: DB:work_attribute_type_allowed_value/value:539
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sultanıhüzzam"
-msgstr ""
+msgstr "Sultanıhüzzam"
 
 #: DB:work_attribute_type_allowed_value/value:540
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sultanısegah"
-msgstr ""
+msgstr "Sultanısegah"
 
 #: DB:work_attribute_type_allowed_value/value:541
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sultanıyegah"
-msgstr ""
+msgstr "Sultanıyegah"
 
 #: DB:work_attribute_type_allowed_value/value:250
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sumanēśaranjani"
-msgstr ""
+msgstr "Sumanēśaranjani"
 
 #: DB:work_attribute_type_allowed_value/value:251
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sunādavinōdini"
-msgstr ""
+msgstr "Sunādavinōdini"
 
 #: DB:release_packaging/name:16
 msgctxt "release_packaging"
 msgid "Super Jewel Box"
-msgstr ""
+msgstr "super dėžutė"
 
 #: DB:work_attribute_type_allowed_value/value:1037
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sur malhār"
-msgstr ""
+msgstr "Sur malhār"
 
 #: DB:work_attribute_type_allowed_value/value:1038
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sur sugharai"
-msgstr ""
+msgstr "Sur sugharai"
 
 #: DB:work_attribute_type_allowed_value/value:252
 msgctxt "work_attribute_type_allowed_value"
 msgid "Suraṭi"
-msgstr ""
+msgstr "Suraṭi"
 
 #: DB:work_attribute_type_allowed_value/value:542
 msgctxt "work_attribute_type_allowed_value"
 msgid "Suzidil"
-msgstr ""
+msgstr "Suzidil"
 
 #: DB:work_attribute_type_allowed_value/value:543
 msgctxt "work_attribute_type_allowed_value"
 msgid "Suzidilara"
-msgstr ""
+msgstr "Suzidilara"
 
 #: DB:work_attribute_type_allowed_value/value:544
 msgctxt "work_attribute_type_allowed_value"
 msgid "Suzinak"
-msgstr ""
+msgstr "Suzinak"
 
 #: DB:work_attribute_type_allowed_value/value:546
 msgctxt "work_attribute_type_allowed_value"
 msgid "Suzinak Zirgüle"
-msgstr ""
+msgstr "Suzinak Zirgüle"
 
 #: DB:work_attribute_type_allowed_value/value:545
 msgctxt "work_attribute_type_allowed_value"
 msgid "Suzinak-ı Nev"
-msgstr ""
+msgstr "Suzinak-ı Nev"
 
 #: DB:work_attribute_type_allowed_value/value:253
 msgctxt "work_attribute_type_allowed_value"
 msgid "Svararanjani"
-msgstr ""
+msgstr "Svararanjani"
 
 #: DB:work_type/name:18
 msgctxt "work_type"
 msgid "Symphonic poem"
-msgstr ""
+msgstr "simfoninė poema"
 
 #: DB:work_type/name:16
 msgctxt "work_type"
 msgid "Symphony"
-msgstr ""
+msgstr "simfonija"
 
 #: DB:work_attribute_type_allowed_value/value:547
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sünbüle"
-msgstr ""
+msgstr "Sünbüle"
 
 #: DB:work_attribute_type_allowed_value/value:772
 msgctxt "work_attribute_type_allowed_value"
 msgid "Süreyya"
-msgstr ""
+msgstr "Süreyya"
 
 #: DB:work_attribute_type_allowed_value/value:548
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sürurefza"
-msgstr ""
+msgstr "Sürurefza"
 
 #: DB:work_attribute_type_allowed_value/value:224
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sālaga bhairavi"
-msgstr ""
+msgstr "Sālaga bhairavi"
 
 #: DB:work_attribute_type_allowed_value/value:225
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sāma"
-msgstr ""
+msgstr "Sāma"
 
 #: DB:work_attribute_type_allowed_value/value:229
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sāranga"
-msgstr ""
+msgstr "Sāranga"
 
 #: DB:work_attribute_type_allowed_value/value:1013
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sāraṅg"
-msgstr ""
+msgstr "Sāraṅg"
 
 #: DB:work_attribute_type_allowed_value/value:228
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sārāmati"
-msgstr ""
+msgstr "Sārāmati"
 
 #: DB:work_attribute_type_allowed_value/value:1015
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sāvanī"
-msgstr ""
+msgstr "Sāvanī"
 
 #: DB:work_attribute_type_allowed_value/value:1016
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sāvanī bihāg"
-msgstr ""
+msgstr "Sāvanī bihāg"
 
 #: DB:work_attribute_type_allowed_value/value:234
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sāvēri"
-msgstr ""
+msgstr "Sāvēri"
 
 #: DB:work_attribute_type_allowed_value/value:1023
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sōhinī"
-msgstr ""
+msgstr "Sōhinī"
 
 #: DB:work_attribute_type_allowed_value/value:1024
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sōhinī bahār"
-msgstr ""
+msgstr "Sōhinī bahār"
 
 #: DB:work_attribute_type_allowed_value/value:1025
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sōhōnī bhaṭiyār"
-msgstr ""
+msgstr "Sōhōnī bhaṭiyār"
 
 #: DB:work_attribute_type_allowed_value/value:1026
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sōrath"
-msgstr ""
+msgstr "Sōrath"
 
 #: DB:work_attribute_type_allowed_value/value:844
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sūltāl"
-msgstr ""
+msgstr "Sūltāl"
 
 #: DB:work_attribute_type/name:66
 msgctxt "work_attribute_type"
 msgid "TEOSTO ID"
-msgstr ""
+msgstr "TEOSTO ID"
 
 #: DB:work_attribute_type/name:67
 msgctxt "work_attribute_type"
 msgid "TONO ID"
-msgstr ""
+msgstr "TONO ID"
 
 #: DB:work_attribute_type_allowed_value/value:573
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tahir"
-msgstr ""
+msgstr "Tahir"
 
 #: DB:work_attribute_type_allowed_value/value:574
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tahirbuselik"
-msgstr ""
+msgstr "Tahirbuselik"
 
 #: DB:work_attribute_type_allowed_value/value:667
 msgctxt "work_attribute_type_allowed_value"
 msgid "Taksim"
-msgstr ""
+msgstr "Taksim"
 
 #: DB:work_attribute_type_allowed_value/value:255
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tanarūpi"
-msgstr ""
+msgstr "Tanarūpi"
 
 #: DB:work_attribute_type_allowed_value/value:668
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tango"
-msgstr ""
+msgstr "Tango"
 
 #: DB:work_attribute_type_allowed_value/value:1040
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tankēśrī"
-msgstr ""
+msgstr "Tankēśrī"
 
 #: DB:work_attribute_type_allowed_value/value:575
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tarz-ı Cedid"
-msgstr ""
+msgstr "Tarz-ı Cedid"
 
 #: DB:work_attribute_type_allowed_value/value:576
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tarz-ı Cihan"
-msgstr ""
+msgstr "Tarz-ı Cihan"
 
 #: DB:work_attribute_type_allowed_value/value:577
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tarz-ı Nevin"
-msgstr ""
+msgstr "Tarz-ı Nevin"
 
 #: DB:work_attribute_type_allowed_value/value:669
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tavşanca"
-msgstr ""
+msgstr "Tavşanca"
 
 #: DB:work_attribute_type_allowed_value/value:578
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tebriz"
-msgstr ""
+msgstr "Tebriz"
 
 #: DB:medium_format/name:90
 msgctxt "medium_format"
 msgid "Tefifon"
-msgstr ""
+msgstr "Tefifon"
 
 #: DB:work_attribute_type_allowed_value/value:774
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tek Vuruş"
-msgstr ""
+msgstr "Tek Vuruş"
 
 #: DB:work_attribute_type_allowed_value/value:670
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tekbir"
-msgstr ""
+msgstr "Tekbir"
 
 #: DB:work_attribute_type_allowed_value/value:671
 msgctxt "work_attribute_type_allowed_value"
 msgid "Temcidmünacatı"
-msgstr ""
+msgstr "Temcidmünacatı"
 
 #: DB:work_attribute_type_allowed_value/value:579
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tereşşüd"
-msgstr ""
+msgstr "Tereşşüd"
 
 #: DB:work_attribute_type_allowed_value/value:672
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tesbih"
-msgstr ""
+msgstr "Tesbih"
 
 #: DB:work_attribute_type_allowed_value/value:673
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tesbihilahi"
-msgstr ""
+msgstr "Tesbihilahi"
 
 #: DB:work_attribute_type_allowed_value/value:680
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tevhid"
-msgstr ""
+msgstr "Tevhid"
 
 #: DB:work_attribute_type_allowed_value/value:674
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tevşihilahi"
-msgstr ""
+msgstr "Tevşihilahi"
 
 #: DB:medium_format/description:70
 msgctxt "medium_format"
@@ -7566,6 +7631,7 @@ msgid ""
 "The CD layer of a DVDplus. The DVD layer should be added as a separate "
 "medium."
 msgstr ""
+"DVDplius CD lygmuo. DVD lygmuo turėtų būti pridėta kaip atskira laikmena."
 
 #: DB:medium_format/description:67
 msgctxt "medium_format"
@@ -7573,6 +7639,8 @@ msgid ""
 "The CD layer of a DualDisc. The DVD layer should be added as a separate "
 "medium."
 msgstr ""
+"Dvigubo disko CD lygmuo. DVD lygmuo turėtų būti pridėta kaip atskira "
+"laikmena."
 
 #: DB:medium_format/description:63
 msgctxt "medium_format"
@@ -7580,6 +7648,8 @@ msgid ""
 "The CD layer of a hybrid SACD. The SACD layer should be added as a separate "
 "medium."
 msgstr ""
+"Hibridinio SACD CD lygmuo. SACD lygmuo turėtų būti pridėta kaip atskira "
+"laikmena."
 
 #: DB:medium_format/description:82
 msgctxt "medium_format"
@@ -7587,6 +7657,8 @@ msgid ""
 "The CD side of a vinyl + CD VinylDisc. The vinyl side should be added as a "
 "separate medium."
 msgstr ""
+"Vinilo ir CD vinilinio disko CD pusė. Vinilo pusė turėtų būti pridėta kaip "
+"atskira laikmena."
 
 #: DB:medium_format/description:60
 msgctxt "medium_format"
@@ -7596,6 +7668,10 @@ msgid ""
 "TV set using a special needle and high-density groove system similar to "
 "phonograph records."
 msgstr ""
+"Capacitance Electronic Disc (CED) – tai RCA sukurta analoginė vaizdo diskų "
+"peržiūros sistema, kurioje vaizdo ir garso įrašus buvo galima atkurti "
+"televizoriuje naudojant ypatingą adatą ir didelio tankio griovelių sistemą, "
+"panašią į fonografo plokštelių."
 
 #: DB:medium_format/description:68
 msgctxt "medium_format"
@@ -7603,6 +7679,8 @@ msgid ""
 "The DVD (audio) layer of a DVDplus. The CD layer should be added as a "
 "separate medium."
 msgstr ""
+"DVDplius DVD (garso) lygmuo. CD lygmuo turėtų būti pridėta kaip atskira "
+"laikmena."
 
 #: DB:medium_format/description:65
 msgctxt "medium_format"
@@ -7610,6 +7688,8 @@ msgid ""
 "The DVD (audio) layer of a DualDisc. The CD layer should be added as a "
 "separate medium."
 msgstr ""
+"Dvigubo disko DVD (garso) lygmuo. CD lygmuo turėtų būti pridėta kaip atskira "
+"laikmena."
 
 #: DB:medium_format/description:69
 msgctxt "medium_format"
@@ -7617,6 +7697,8 @@ msgid ""
 "The DVD (video) layer of a DVDplus. The CD layer should be added as a "
 "separate medium."
 msgstr ""
+"DVDplius DVD (vaizdo) lygmuo. CD lygmuo turėtų būti pridėta kaip atskira "
+"laikmena."
 
 #: DB:medium_format/description:66
 msgctxt "medium_format"
@@ -7624,6 +7706,8 @@ msgid ""
 "The DVD (video) layer of a DualDisc. The CD layer should be added as a "
 "separate medium."
 msgstr ""
+"Dvigubo disko DVD (vaizdo) lygmuo. CD lygmuo turėtų būti pridėta kaip "
+"atskira laikmena."
 
 #: DB:medium_format/description:130
 msgctxt "medium_format"
@@ -7632,6 +7716,9 @@ msgid ""
 "Audio or DVD-Video (or it includes both). The CD layer should be added as a "
 "separate medium."
 msgstr ""
+"Dvigubo disko DVD lygmuo, kai neaišku, ar tai turėtų būti DVD-Audio, ar DVD-"
+"Video diskas (arba jame yra abu lygmiai). CD lygmuo turėtų būti pridėta kaip "
+"atskira laikmena."
 
 #: DB:medium_format/description:80
 msgctxt "medium_format"
@@ -7639,6 +7726,8 @@ msgid ""
 "The DVD side of a vinyl + DVD VinylDisc. The vinyl side should be added as a "
 "separate medium."
 msgstr ""
+"Vinilo ir DVD vinilo disko DVD pusė. Vinilo pusė turėtų būti pridėta kaip "
+"atskira laikmena."
 
 #: DB:medium_format/description:64
 msgctxt "medium_format"
@@ -7646,6 +7735,8 @@ msgid ""
 "The SACD layer of a hybrid SACD. The CD layer should be added as a separate "
 "medium."
 msgstr ""
+"Hibridinio SACD SACD lygmuo. CD lygmuo turėtų būti pridėta kaip atskira "
+"laikmena."
 
 #: DB:cover_art_archive.art_type/description:49
 msgctxt "cover_art_type"
@@ -7654,6 +7745,9 @@ msgid ""
 "packaging options, the one perpendicular to and below front, back and "
 "spines)."
 msgstr ""
+"Dėžutės ar kitos panašios pakuotės dugnas (labiausiai paplitusių šešiapusių "
+"pakuočių atveju – statmenas priekinei, galinei ir knygos nugarėlei dalims ir "
+"žemiau jų)."
 
 #: DB:work_type/description:7
 msgctxt "work_type"
@@ -7662,6 +7756,9 @@ msgid ""
 "form, it had no instrumental accompaniment, although accompaniment is much "
 "more common in later madrigals."
 msgstr ""
+"Madrigalas – tai pasaulietinės vokalinės muzikos kūrinys. Iš pradžių jis "
+"neturėjo instrumentinio akompanimento, nors vėlesniuose madriguose "
+"akompanimentas yra daug dažnesnis."
 
 #: DB:work_type/description:24
 msgctxt "work_type"
@@ -7816,22 +7913,22 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:48
 msgctxt "cover_art_type"
 msgid "Top"
-msgstr ""
+msgstr "viršus"
 
 #: DB:series_type/name:7
 msgctxt "series_type"
 msgid "Tour"
-msgstr ""
+msgstr "turas"
 
 #: DB:cover_art_archive.art_type/name:7
 msgctxt "cover_art_type"
 msgid "Track"
-msgstr ""
+msgstr "takelis"
 
 #: DB:cover_art_archive.art_type/name:9
 msgctxt "cover_art_type"
 msgid "Tray"
-msgstr ""
+msgstr "padėklas"
 
 #: DB:work_attribute_type_allowed_value/value:1046
 msgctxt "work_attribute_type_allowed_value"
@@ -7901,12 +7998,12 @@ msgstr ""
 #: DB:medium_format/name:28
 msgctxt "medium_format"
 msgid "UMD"
-msgstr ""
+msgstr "UMD"
 
 #: DB:medium_format/name:26
 msgctxt "medium_format"
 msgid "USB Flash Drive"
-msgstr ""
+msgstr "USB atmintinė"
 
 #: DB:work_attribute_type_allowed_value/value:258
 msgctxt "work_attribute_type_allowed_value"
@@ -7934,6 +8031,9 @@ msgid ""
 "Indian reserves/reservations in North America and indigenous territories in "
 "Central and South America."
 msgstr ""
+"Naudojamas pusiau autonominėms teritorijoms, kurias valdo vietinės tautos, "
+"pavyzdžiui, indėnų rezervatams ir (arba) rezervatams Šiaurės Amerikoje ir "
+"vietinių gyventojų teritorijoms Centrinėje ir Pietų Amerikoje."
 
 #: DB:work_attribute_type/name:17
 msgctxt "work_attribute_type"
@@ -7968,22 +8068,22 @@ msgstr ""
 #: DB:medium_format/name:22
 msgctxt "medium_format"
 msgid "VCD"
-msgstr ""
+msgstr "VCD"
 
 #: DB:work_attribute_type/name:107
 msgctxt "work_attribute_type"
 msgid "VCPMC ID"
-msgstr ""
+msgstr "VCPMC ID"
 
 #: DB:medium_format/name:59
 msgctxt "medium_format"
 msgid "VHD"
-msgstr ""
+msgstr "VHD"
 
 #: DB:medium_format/name:21
 msgctxt "medium_format"
 msgid "VHS"
-msgstr ""
+msgstr "VHS"
 
 #: DB:work_attribute_type_allowed_value/value:261
 msgctxt "work_attribute_type_allowed_value"
@@ -8053,7 +8153,7 @@ msgstr ""
 #: DB:place_type/name:2
 msgctxt "place_type"
 msgid "Venue"
-msgstr ""
+msgstr "muzikinė vieta"
 
 #: DB:medium_format/description:59
 msgctxt "medium_format"
@@ -8061,6 +8161,8 @@ msgid ""
 "Video High Density (VHD) was a videodisc format which was marketed "
 "predominantly in Japan by JVC."
 msgstr ""
+"Video High Density (VHD) buvo vaizdo diskų formatas, kurį daugiausia "
+"Japonijoje pardavinėjo JVC."
 
 #: DB:work_attribute_type_allowed_value/value:273
 msgctxt "work_attribute_type_allowed_value"
@@ -8080,27 +8182,27 @@ msgstr ""
 #: DB:medium_format/name:7
 msgctxt "medium_format"
 msgid "Vinyl"
-msgstr ""
+msgstr "vinilas"
 
 #: DB:medium_format/name:48
 msgctxt "medium_format"
 msgid "VinylDisc"
-msgstr ""
+msgstr "VinylDisc"
 
 #: DB:medium_format/name:82
 msgctxt "medium_format"
 msgid "VinylDisc (CD side)"
-msgstr ""
+msgstr "VinylDisc (CD pusė)"
 
 #: DB:medium_format/name:80
 msgctxt "medium_format"
 msgid "VinylDisc (DVD side)"
-msgstr ""
+msgstr "VinylDisc (DVD pusė)"
 
 #: DB:medium_format/name:81
 msgctxt "medium_format"
 msgid "VinylDisc (Vinyl side)"
-msgstr ""
+msgstr "VinylDisc (vinilo pusė)"
 
 #: DB:work_attribute_type_allowed_value/value:259
 #: DB:work_attribute_type_allowed_value/value:1047
@@ -8136,62 +8238,62 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:13
 msgctxt "cover_art_type"
 msgid "Watermark"
-msgstr ""
+msgstr "vandenženklis"
 
 #: DB:medium_format/name:14
 msgctxt "medium_format"
 msgid "Wax Cylinder"
-msgstr ""
+msgstr "fonografinis cilindras"
 
 #: DB:instrument_type/name:1
 msgctxt "instrument_type"
 msgid "Wind instrument"
-msgstr ""
+msgstr "pučiamasis instrumentas"
 
 #: DB:editor_collection_type/name:3
 msgctxt "collection_type"
 msgid "Wishlist"
-msgstr ""
+msgstr "pageidavimų sąrašas"
 
 #: DB:release_status/name:5
 msgctxt "release_status"
 msgid "Withdrawn"
-msgstr ""
+msgstr "panaikintas"
 
 #: DB:series_type/name:46
 msgctxt "series_type"
 msgid "Work award"
-msgstr ""
+msgstr "kūrinių apdovanojimas"
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"
 msgid "Work collection"
-msgstr ""
+msgstr "kūrinių kolekcija"
 
 #: DB:work_alias_type/name:1
 msgctxt "alias_type"
 msgid "Work name"
-msgstr ""
+msgstr "kūrinio pavadinimas"
 
 #: DB:series_type/name:4
 msgctxt "series_type"
 msgid "Work series"
-msgstr ""
+msgstr "kūrinių serija"
 
 #: DB:work_attribute_type_allowed_value/value:277
 msgctxt "work_attribute_type_allowed_value"
 msgid "Yadukula kāṁbōji"
-msgstr ""
+msgstr "Yadukula kāṁbōji"
 
 #: DB:work_attribute_type_allowed_value/value:1048
 msgctxt "work_attribute_type_allowed_value"
 msgid "Yaman kalyāṇ"
-msgstr ""
+msgstr "Yaman kalyāṇ"
 
 #: DB:work_attribute_type_allowed_value/value:1049
 msgctxt "work_attribute_type_allowed_value"
 msgid "Yamanī bilāval"
-msgstr ""
+msgstr "Yamanī bilāval"
 
 #: DB:work_attribute_type_allowed_value/value:278
 msgctxt "work_attribute_type_allowed_value"
@@ -8227,7 +8329,7 @@ msgstr ""
 #: DB:work_attribute_type/name:30
 msgctxt "work_attribute_type"
 msgid "ZAiKS ID"
-msgstr ""
+msgstr "ZAiKS ID"
 
 #: DB:work_attribute_type_allowed_value/value:780
 msgctxt "work_attribute_type_allowed_value"
@@ -8237,7 +8339,7 @@ msgstr ""
 #: DB:work_type/name:19
 msgctxt "work_type"
 msgid "Zarzuela"
-msgstr ""
+msgstr "zarzuela"
 
 #: DB:work_attribute_type_allowed_value/value:591
 msgctxt "work_attribute_type_allowed_value"
@@ -8297,7 +8399,7 @@ msgstr ""
 #: DB:medium_format/name:77
 msgctxt "medium_format"
 msgid "Zip Disk"
-msgstr ""
+msgstr "Talpusis diskelis"
 
 #: DB:work_attribute_type_allowed_value/value:599
 msgctxt "work_attribute_type_allowed_value"
@@ -8476,275 +8578,275 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:740
 msgctxt "work_attribute_type_allowed_value"
 msgid "İki Bir"
-msgstr ""
+msgstr "İki Bir"
 
 #: DB:work_attribute_type_allowed_value/value:741
 msgctxt "work_attribute_type_allowed_value"
 msgid "İkiz Aksak"
-msgstr ""
+msgstr "İkiz Aksak"
 
 #: DB:work_attribute_type_allowed_value/value:620
 msgctxt "work_attribute_type_allowed_value"
 msgid "İlahi"
-msgstr ""
+msgstr "İlahi"
 
 #: DB:work_attribute_type_allowed_value/value:226
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śankarābharaṇaṁ"
-msgstr ""
+msgstr "Śankarābharaṇaṁ"
 
 #: DB:work_attribute_type_allowed_value/value:1012
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śaṅkara"
-msgstr ""
+msgstr "Śaṅkara"
 
 #: DB:work_attribute_type_allowed_value/value:842
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śikhar"
-msgstr ""
+msgstr "Śikhar"
 
 #: DB:work_attribute_type_allowed_value/value:1021
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śivamat bhairav"
-msgstr ""
+msgstr "Śivamat bhairav"
 
 #: DB:work_attribute_type_allowed_value/value:240
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śivaranjani"
-msgstr ""
+msgstr "Śivaranjani"
 
 #: DB:work_attribute_type_allowed_value/value:1022
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śivaran̄jani"
-msgstr ""
+msgstr "Śivaran̄jani"
 
 #: DB:work_attribute_type_allowed_value/value:241
 #: DB:work_attribute_type_allowed_value/value:1027
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śrī"
-msgstr ""
+msgstr "Śrī"
 
 #: DB:work_attribute_type_allowed_value/value:242
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śrīranjani"
-msgstr ""
+msgstr "Śrīranjani"
 
 #: DB:work_attribute_type_allowed_value/value:1028
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śubhalakṣmi"
-msgstr ""
+msgstr "Śubhalakṣmi"
 
 #: DB:work_attribute_type_allowed_value/value:243
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śubhapantuvarāḷi"
-msgstr ""
+msgstr "Śubhapantuvarāḷi"
 
 #: DB:work_attribute_type_allowed_value/value:245
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śudda sārang"
-msgstr ""
+msgstr "Śudda sārang"
 
 #: DB:work_attribute_type_allowed_value/value:246
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śudda sāvēri"
-msgstr ""
+msgstr "Śudda sāvēri"
 
 #: DB:work_attribute_type_allowed_value/value:247
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śuddadhanyāsi"
-msgstr ""
+msgstr "Śuddadhanyāsi"
 
 #: DB:work_attribute_type_allowed_value/value:248
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śuddasīmantini"
-msgstr ""
+msgstr "Śuddasīmantini"
 
 #: DB:work_attribute_type_allowed_value/value:1029
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śuddh baradi"
-msgstr ""
+msgstr "Śuddh baradi"
 
 #: DB:work_attribute_type_allowed_value/value:1030
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śuddh basant"
-msgstr ""
+msgstr "Śuddh basant"
 
 #: DB:work_attribute_type_allowed_value/value:1031
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śuddh kalyāṇ"
-msgstr ""
+msgstr "Śuddh kalyāṇ"
 
 #: DB:work_attribute_type_allowed_value/value:1032
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śuddh mārū"
-msgstr ""
+msgstr "Śuddh mārū"
 
 #: DB:work_attribute_type_allowed_value/value:1033
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śuddh naṭa"
-msgstr ""
+msgstr "Śuddh naṭa"
 
 #: DB:work_attribute_type_allowed_value/value:1034
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śuddh sāraṅg"
-msgstr ""
+msgstr "Śuddh sāraṅg"
 
 #: DB:work_attribute_type_allowed_value/value:1039
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śyām kalyāṇ"
-msgstr ""
+msgstr "Śyām kalyāṇ"
 
 #: DB:work_attribute_type_allowed_value/value:254
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śyāṁ kaḷyāṇ"
-msgstr ""
+msgstr "Śyāṁ kaḷyāṇ"
 
 #: DB:work_attribute_type_allowed_value/value:249
 msgctxt "work_attribute_type_allowed_value"
 msgid "Śūḷiṇi"
-msgstr ""
+msgstr "Śūḷiṇi"
 
 #: DB:work_attribute_type_allowed_value/value:773
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şark Devr-i Revanı"
-msgstr ""
+msgstr "Şark Devr-i Revanı"
 
 #: DB:work_attribute_type_allowed_value/value:665
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şarkı"
-msgstr ""
+msgstr "Şarkı"
 
 #: DB:work_attribute_type_allowed_value/value:549
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şedaraban"
-msgstr ""
+msgstr "Şedaraban"
 
 #: DB:work_attribute_type_allowed_value/value:550
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şedd-i Saba"
-msgstr ""
+msgstr "Şedd-i Saba"
 
 #: DB:work_attribute_type_allowed_value/value:551
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şehnaz"
-msgstr ""
+msgstr "Şehnaz"
 
 #: DB:work_attribute_type_allowed_value/value:554
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şehnaz Nişaburek"
-msgstr ""
+msgstr "Şehnaz Nişaburek"
 
 #: DB:work_attribute_type_allowed_value/value:552
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şehnazbuselik"
-msgstr ""
+msgstr "Şehnazbuselik"
 
 #: DB:work_attribute_type_allowed_value/value:553
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şehnazhaveran"
-msgstr ""
+msgstr "Şehnazhaveran"
 
 #: DB:work_attribute_type_allowed_value/value:555
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şemsefruz"
-msgstr ""
+msgstr "Şemsefruz"
 
 #: DB:work_attribute_type_allowed_value/value:556
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şeref-i Hamidi"
-msgstr ""
+msgstr "Şeref-i Hamidi"
 
 #: DB:work_attribute_type_allowed_value/value:557
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şerefnuma"
-msgstr ""
+msgstr "Şerefnuma"
 
 #: DB:work_attribute_type_allowed_value/value:558
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şevk"
-msgstr ""
+msgstr "Şevk"
 
 #: DB:work_attribute_type_allowed_value/value:561
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şevk-i Cedid"
-msgstr ""
+msgstr "Şevk-i Cedid"
 
 #: DB:work_attribute_type_allowed_value/value:563
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şevk-i Cihan"
-msgstr ""
+msgstr "Şevk-i Cihan"
 
 #: DB:work_attribute_type_allowed_value/value:562
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şevk-i Dil"
-msgstr ""
+msgstr "Şevk-i Dil"
 
 #: DB:work_attribute_type_allowed_value/value:564
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şevk-i Serab"
-msgstr ""
+msgstr "Şevk-i Serab"
 
 #: DB:work_attribute_type_allowed_value/value:559
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şevkaver"
-msgstr ""
+msgstr "Şevkaver"
 
 #: DB:work_attribute_type_allowed_value/value:560
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şevkefza"
-msgstr ""
+msgstr "Şevkefza"
 
 #: DB:work_attribute_type_allowed_value/value:565
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şevknüma"
-msgstr ""
+msgstr "Şevknüma"
 
 #: DB:work_attribute_type_allowed_value/value:566
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şevkutarab"
-msgstr ""
+msgstr "Şevkutarab"
 
 #: DB:work_attribute_type_allowed_value/value:567
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şinaver"
-msgstr ""
+msgstr "Şinaver"
 
 #: DB:work_attribute_type_allowed_value/value:568
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şiraz"
-msgstr ""
+msgstr "Şiraz"
 
 #: DB:work_attribute_type_allowed_value/value:569
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şivekar"
-msgstr ""
+msgstr "Şivekar"
 
 #: DB:work_attribute_type_allowed_value/value:570
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şivekeş"
-msgstr ""
+msgstr "Şivekeş"
 
 #: DB:work_attribute_type_allowed_value/value:571
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şivenüma"
-msgstr ""
+msgstr "Şivenüma"
 
 #: DB:work_attribute_type_allowed_value/value:572
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şuri"
-msgstr ""
+msgstr "Şuri"
 
 #: DB:work_attribute_type_allowed_value/value:666
 msgctxt "work_attribute_type_allowed_value"
 msgid "Şuğul"
-msgstr ""
+msgstr "Şuğul"
 
 #: DB:work_attribute_type_allowed_value/value:894
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ḍāgori"
-msgstr ""
+msgstr "Ḍāgori"
 
 #: DB:work_attribute_type_allowed_value/value:227
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ṣanmukhapriya"
-msgstr ""
+msgstr "Ṣanmukhapriya"

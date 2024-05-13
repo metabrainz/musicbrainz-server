@@ -16,11 +16,7 @@ import {
 import {canCancel, canSecond, canVote, isInvolved}
   from '../utility/voting.js';
 
-type PropsT = {
-  +election: AutoEditorElectionT,
-};
-
-const ElectionVoting = ({election}: PropsT): React$MixedElement => {
+component ElectionVoting(election: AutoEditorElectionT) {
   const $c = React.useContext(CatalystContext);
 
   let message = exp.l(
@@ -116,6 +112,6 @@ const ElectionVoting = ({election}: PropsT): React$MixedElement => {
       ) : null}
     </>
   );
-};
+}
 
 export default ElectionVoting;

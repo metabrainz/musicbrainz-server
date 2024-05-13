@@ -16,39 +16,22 @@ import mapRange from '../static/scripts/common/utility/mapRange.js';
 import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 
-type MainStatsT = {
-  +areaTypes: $ReadOnlyArray<AreaTypeT>,
-  +dateCollected: string,
-  +eventTypes: $ReadOnlyArray<EventTypeT>,
-  +instrumentTypes: $ReadOnlyArray<InstrumentTypeT>,
-  +labelTypes: $ReadOnlyArray<LabelTypeT>,
-  +packagings: $ReadOnlyArray<ReleasePackagingT>,
-  +placeTypes: $ReadOnlyArray<PlaceTypeT>,
-  +primaryTypes: $ReadOnlyArray<ReleaseGroupTypeT>,
-  +secondaryTypes: $ReadOnlyArray<ReleaseGroupSecondaryTypeT>,
-  +seriesTypes: $ReadOnlyArray<SeriesTypeT>,
-  +stats: {[statName: string]: number},
-  +statuses: $ReadOnlyArray<ReleaseStatusT>,
-  +workAttributeTypes: $ReadOnlyArray<WorkAttributeTypeT>,
-  +workTypes: $ReadOnlyArray<WorkTypeT>,
-};
-
-const Index = ({
-  areaTypes,
-  dateCollected,
-  eventTypes,
-  instrumentTypes,
-  labelTypes,
-  packagings,
-  placeTypes,
-  primaryTypes,
-  secondaryTypes,
-  seriesTypes,
-  stats,
-  statuses,
-  workAttributeTypes,
-  workTypes,
-}: MainStatsT): React$Element<typeof StatisticsLayout> => {
+component Index(
+  areaTypes: $ReadOnlyArray<AreaTypeT>,
+  dateCollected: string,
+  eventTypes: $ReadOnlyArray<EventTypeT>,
+  instrumentTypes: $ReadOnlyArray<InstrumentTypeT>,
+  labelTypes: $ReadOnlyArray<LabelTypeT>,
+  packagings: $ReadOnlyArray<ReleasePackagingT>,
+  placeTypes: $ReadOnlyArray<PlaceTypeT>,
+  primaryTypes: $ReadOnlyArray<ReleaseGroupTypeT>,
+  secondaryTypes: $ReadOnlyArray<ReleaseGroupSecondaryTypeT>,
+  seriesTypes: $ReadOnlyArray<SeriesTypeT>,
+  stats: {[statName: string]: number},
+  statuses: $ReadOnlyArray<ReleaseStatusT>,
+  workAttributeTypes: $ReadOnlyArray<WorkAttributeTypeT>,
+  workTypes: $ReadOnlyArray<WorkTypeT>,
+) {
   const $c = React.useContext(CatalystContext);
 
   const nonGroupCount = stats['count.artist.type.null'] +
@@ -1364,6 +1347,6 @@ const Index = ({
       </table>
     </StatisticsLayout>
   );
-};
+}
 
 export default Index;

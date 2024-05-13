@@ -19,11 +19,13 @@
 # Лёва, 2015
 # Сергей Салин <email address hidden>, 2017
 # SoundwaveUwU <1337soundwave1337+musicbrainz@gmail.com>, 2023.
+# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-10-13 11:27+0000\n"
-"Last-Translator: SoundwaveUwU <1337soundwave1337+musicbrainz@gmail.com>\n"
+"PO-Revision-Date: 2024-05-09 23:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/ru/>\n"
 "Language: ru\n"
@@ -31,14 +33,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.0.2\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
 msgid "Abkhazian"
-msgstr "Абхазский"
+msgstr "абхазский"
 
 #. frequency:1 iso_code_3:ace 
 #: DB:language/name:3
@@ -113,7 +115,7 @@ msgstr "алгонкинские языки"
 #. frequency:1 iso_code_3:alq 
 #: DB:language/name:709
 msgid "Algonquin"
-msgstr "Алгонквинский"
+msgstr "алгонквинский"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:434
@@ -208,7 +210,7 @@ msgstr "аварский"
 #. frequency:1 iso_code_3:ave 
 #: DB:language/name:31
 msgid "Avestan"
-msgstr "авестийский"
+msgstr "Авестийский"
 
 #. frequency:1 iso_code_3:awa 
 #: DB:language/name:32
@@ -348,7 +350,7 @@ msgstr "билин"
 #. frequency:0 iso_code_3:zbl 
 #: DB:language/name:482
 msgid "Blissymbols"
-msgstr "блиссимволика"
+msgstr "Блиссимволика"
 
 #. frequency:1 iso_code_3:brx 
 #: DB:language/name:1394
@@ -378,7 +380,7 @@ msgstr "Буаму"
 #. frequency:1 iso_code_3:bug 
 #: DB:language/name:61
 msgid "Buginese"
-msgstr "бугийский"
+msgstr "Бугийский"
 
 #. frequency:1 iso_code_3:bul 
 #: DB:language/name:62
@@ -953,7 +955,7 @@ msgstr "гуарани"
 #. frequency:1 iso_code_3:guj 
 #: DB:language/name:161
 msgid "Gujarati"
-msgstr "гуджарати"
+msgstr "Гуджарати"
 
 #. frequency:1 iso_code_3:gnn 
 #: DB:language/name:2511
@@ -998,7 +1000,7 @@ msgstr "гавайский"
 #. frequency:1 iso_code_3:heb 
 #: DB:language/name:167
 msgid "Hebrew"
-msgstr "иврит"
+msgstr "Иврит"
 
 #. frequency:1 iso_code_3:her 
 #: DB:language/name:168
@@ -1974,6 +1976,11 @@ msgstr "Пракрит языки"
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "Провансальский, старый (до 1500)"
+
+#. frequency:1 iso_code_3:prg 
+#: DB:language/name:5521
+msgid "Prussian"
+msgstr "прусский"
 
 #. frequency:1 iso_code_3:pan 
 #: DB:language/name:330

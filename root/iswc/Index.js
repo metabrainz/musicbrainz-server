@@ -16,12 +16,10 @@ import WorkListEntry
   from '../static/scripts/common/components/WorkListEntry.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
-type Props = {
-  +iswcs: $ReadOnlyArray<IswcT>,
-  +works: $ReadOnlyArray<WorkT>,
-};
-
-const Index = ({iswcs, works}: Props): React$Element<typeof Layout> => {
+component Index(
+  iswcs: $ReadOnlyArray<IswcT>,
+  works: $ReadOnlyArray<WorkT>,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const userExists = !!$c.user;
   const iswc = iswcs[0];
@@ -84,6 +82,6 @@ const Index = ({iswcs, works}: Props): React$Element<typeof Layout> => {
       </form>
     </Layout>
   );
-};
+}
 
 export default Index;

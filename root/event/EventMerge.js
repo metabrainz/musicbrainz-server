@@ -16,47 +16,41 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 
-type Props = {
-  +form: MergeFormT,
-  +toMerge: $ReadOnlyArray<EventT>,
-};
+component EventMerge(form: MergeFormT, toMerge: $ReadOnlyArray<EventT>) {
+  return (
+    <Layout fullWidth title={l('Merge events')}>
+      <div id="content">
+        <h1>{l('Merge events')}</h1>
+        <p>
+          {l(`You are about to merge all these events into a single one.
+              Please select the event all others should be merged into:`)}
+        </p>
+        <form method="post">
+          <EventList
+            events={sortByEntityName(toMerge)}
+            mergeForm={form}
+            showArtists
+            showLocation
+            showType
+          />
+          <FieldErrors field={form.field.target} />
 
-const EventMerge = ({
-  form,
-  toMerge,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Merge events')}>
-    <div id="content">
-      <h1>{l('Merge events')}</h1>
-      <p>
-        {l(`You are about to merge all these events into a single one.
-            Please select the event all others should be merged into:`)}
-      </p>
-      <form method="post">
-        <EventList
-          events={sortByEntityName(toMerge)}
-          mergeForm={form}
-          showArtists
-          showLocation
-          showType
-        />
-        <FieldErrors field={form.field.target} />
+          <EnterEditNote field={form.field.edit_note} />
 
-        <EnterEditNote field={form.field.edit_note} />
-
-        <EnterEdit form={form}>
-          <button
-            className="negative"
-            name="submit"
-            type="submit"
-            value="cancel"
-          >
-            {l('Cancel')}
-          </button>
-        </EnterEdit>
-      </form>
-    </div>
-  </Layout>
-);
+          <EnterEdit form={form}>
+            <button
+              className="negative"
+              name="submit"
+              type="submit"
+              value="cancel"
+            >
+              {l('Cancel')}
+            </button>
+          </EnterEdit>
+        </form>
+      </div>
+    </Layout>
+  );
+}
 
 export default EventMerge;

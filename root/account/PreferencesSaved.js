@@ -12,7 +12,7 @@ import * as React from 'react';
 import StatusPage from '../components/StatusPage.js';
 import {SanitizedCatalystContext} from '../context.mjs';
 
-const PreferencesSaved = (): React$Element<typeof StatusPage> => {
+component PreferencesSaved() {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <StatusPage title={l('Preferences')}>
@@ -29,6 +29,6 @@ const PreferencesSaved = (): React$Element<typeof StatusPage> => {
       </p>
     </StatusPage>
   );
-};
+}
 
 export default PreferencesSaved;

@@ -9,19 +9,21 @@
 
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
-const DocSearchBox = (): React$Element<'div'> => (
-  <div className="wikidoc-search">
-    <form action="/search" method="get">
-      <input name="type" type="hidden" value="doc" />
-      <input
-        name="query"
-        placeholder={l('Search the documentation...')}
-        type="text"
-      />
-      {' '}
-      <FormSubmit className="inline" label={l('Search')} />
-    </form>
-  </div>
-);
+component DocSearchBox() {
+  return (
+    <div className="wikidoc-search">
+      <form action="/search" method="get">
+        <input name="type" type="hidden" value="doc" />
+        <input
+          name="query"
+          placeholder={l('Search the documentation...')}
+          type="text"
+        />
+        {' '}
+        <FormSubmit className="inline" label={l('Search')} />
+      </form>
+    </div>
+  );
+}
 
 export default DocSearchBox;

@@ -29,10 +29,10 @@ then
     FTP_DATA_URL='http://ftp.musicbrainz.org/pub/musicbrainz/data'
 
     echo `date`: Retrieving LATEST from FTP
-    LATEST=$(curl "$FTP_DATA_URL"/fullexport/LATEST)
+    LATEST=$(curl -sSL "$FTP_DATA_URL"/fullexport/LATEST)
 
     echo `date`: Retrieving mbdump-derived.tar.bz2 from FTP
-    curl \
+    curl -L \
         -o "$DUMP_FILE" \
         "$FTP_DATA_URL"/fullexport/"$LATEST"/mbdump-derived.tar.bz2
 fi

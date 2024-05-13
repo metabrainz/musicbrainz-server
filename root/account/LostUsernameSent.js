@@ -10,19 +10,21 @@
 import StatusPage from '../components/StatusPage.js';
 import {CONTACT_URL} from '../constants.js';
 
-const LostUsernameSent = (): React$Element<typeof StatusPage> => (
-  <StatusPage
-    title={hyphenateTitle(l('Lost username'), lp('Email sent', 'header'))}
-  >
-    <p>
-      {exp.l(
-        `We've sent you information about your MusicBrainz account.
-         If you don't receive this email or still have problems
-         logging in, please {link|contact us}.`,
-        {link: CONTACT_URL},
-      )}
-    </p>
-  </StatusPage>
-);
+component LostUsernameSent() {
+  return (
+    <StatusPage
+      title={hyphenateTitle(l('Lost username'), lp('Email sent', 'header'))}
+    >
+      <p>
+        {exp.l(
+          `We've sent you information about your MusicBrainz account.
+           If you don't receive this email or still have problems
+           logging in, please {link|contact us}.`,
+          {link: CONTACT_URL},
+        )}
+      </p>
+    </StatusPage>
+  );
+}
 
 export default LostUsernameSent;

@@ -12,36 +12,32 @@ import FormCsrfToken
   from '../../static/scripts/edit/components/FormCsrfToken.js';
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
-type Props = {
-  +form: SecureConfirmFormT,
-  +page: string,
-};
-
-const DeleteWikiDoc = ({
-  form,
-  page,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title="Remove page">
-    <div id="content">
-      <h1>{'Remove page'}</h1>
-      <p>
-        {exp.l_admin(`Are you sure you wish to remove the page
-                      “{page_uri|{page_name}}” from the transclusion table?`,
-                     {
-                       page_name: page,
-                       page_uri: '/doc/' + encodeURIComponent(page),
-                     })}
-      </p>
-      <form method="post" name="confirm">
-        <FormCsrfToken form={form} />
-        <FormSubmit
-          label="Yes, I am sure"
-          name="confirm.submit"
-          value="1"
-        />
-      </form>
-    </div>
-  </Layout>
-);
+component DeleteWikiDoc(form: SecureConfirmFormT, page: string) {
+  return (
+    <Layout fullWidth title="Remove page">
+      <div id="content">
+        <h1>{'Remove page'}</h1>
+        <p>
+          {exp.l_admin(
+            `Are you sure you wish to remove the page
+             “{page_uri|{page_name}}” from the transclusion table?`,
+            {
+              page_name: page,
+              page_uri: '/doc/' + encodeURIComponent(page),
+            },
+          )}
+        </p>
+        <form method="post" name="confirm">
+          <FormCsrfToken form={form} />
+          <FormSubmit
+            label="Yes, I am sure"
+            name="confirm.submit"
+            value="1"
+          />
+        </form>
+      </div>
+    </Layout>
+  );
+}
 
 export default DeleteWikiDoc;

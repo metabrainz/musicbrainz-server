@@ -2649,6 +2649,14 @@ msgstr ""
 msgid "marímbula"
 msgstr ""
 
+#: DB:instrument/name:1208
+#, fuzzy
+#| msgctxt "Latin-American tube rattle"
+#| msgid "shakers"
+msgctxt "Northern Indian bagpipe"
+msgid "mashak"
+msgstr "sahistid"
+
 #: DB:instrument/name:1199
 msgctxt "Belorussian duda"
 msgid "matstsyanka"
@@ -2965,6 +2973,11 @@ msgstr "pang gu ly hu hmông"
 #: DB:instrument/name:924
 msgctxt "Smallest member of the viol family"
 msgid "pardessus de viole"
+msgstr ""
+
+#: DB:instrument/name:1207
+msgctxt "Armenian double chanter bagpipe"
+msgid "parkapzuk"
 msgstr ""
 
 #: DB:instrument/name:1076

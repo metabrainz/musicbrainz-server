@@ -21,41 +21,39 @@ type LostPasswordFormT = FormT<{
   +username: FieldT<string>,
 }>;
 
-type Props = {
-  +form: LostPasswordFormT,
-};
-
-const LostPassword = (props: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Lost password')}>
-    <h1>{l('Lost password')}</h1>
-    <p>
-      {exp.l(
-        `Enter your username and email below. We will send you an
-         email with a link to reset your password. If you have
-         forgotten your username, {link|retrieve it} first and then
-         reset your password.`,
-        {link: '/lost-username'},
-      )}
-    </p>
-    <form method="post">
-      <FormCsrfToken form={props.form} />
-      <FormRowText
-        field={props.form.field.username}
-        label={addColonText(l('Username'))}
-        required
-        uncontrolled
-      />
-      <FormRowEmailLong
-        field={props.form.field.email}
-        label={addColonText(l('Email'))}
-        required
-        uncontrolled
-      />
-      <FormRow hasNoLabel>
-        <FormSubmit label={lp('Reset password', 'interactive')} />
-      </FormRow>
-    </form>
-  </Layout>
-);
+component LostPassword(form: LostPasswordFormT) {
+  return (
+    <Layout fullWidth title={l('Lost password')}>
+      <h1>{l('Lost password')}</h1>
+      <p>
+        {exp.l(
+          `Enter your username and email below. We will send you an
+           email with a link to reset your password. If you have
+           forgotten your username, {link|retrieve it} first and then
+           reset your password.`,
+          {link: '/lost-username'},
+        )}
+      </p>
+      <form method="post">
+        <FormCsrfToken form={form} />
+        <FormRowText
+          field={form.field.username}
+          label={addColonText(l('Username'))}
+          required
+          uncontrolled
+        />
+        <FormRowEmailLong
+          field={form.field.email}
+          label={addColonText(l('Email'))}
+          required
+          uncontrolled
+        />
+        <FormRow hasNoLabel>
+          <FormSubmit label={lp('Reset password', 'interactive')} />
+        </FormRow>
+      </form>
+    </Layout>
+  );
+}
 
 export default LostPassword;

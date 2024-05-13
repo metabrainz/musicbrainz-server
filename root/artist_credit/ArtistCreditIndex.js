@@ -22,19 +22,9 @@ import {formatCount} from '../statistics/utilities.js';
 
 import ArtistCreditLayout from './ArtistCreditLayout.js';
 
-type Props = {
-  +artistCredit: $ReadOnly<{...ArtistCreditT, +id: number}>,
-  +creditedEntities: {
-    +[entityType: string]: {
-      +count: number,
-      +entities: $ReadOnlyArray<EntityWithArtistCreditsT>,
-    },
-  },
-};
-
 function buildSection(
   $c: CatalystContextT,
-  props: Props,
+  props: React.PropsOf<ArtistCreditIndex>,
   entityType: string,
   title: string,
   seeAllMessage: $Call<typeof N_ln, string, string>,
@@ -80,9 +70,17 @@ function buildSection(
   );
 }
 
-const ArtistCreditIndex = (
-  props: Props,
-): React$Element<typeof ArtistCreditLayout> => {
+component ArtistCreditIndex(
+  ...props: {
+    artistCredit: $ReadOnly<{...ArtistCreditT, +id: number}>,
+    creditedEntities: {
+      +[entityType: string]: {
+        +count: number,
+        +entities: $ReadOnlyArray<EntityWithArtistCreditsT>,
+      },
+    },
+  }
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <ArtistCreditLayout
@@ -163,6 +161,6 @@ const ArtistCreditIndex = (
       )}
     </ArtistCreditLayout>
   );
-};
+}
 
 export default ArtistCreditIndex;

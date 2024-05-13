@@ -13,19 +13,17 @@ import type {ApplicationFormT}
 import ApplicationForm
   from '../../static/scripts/account/components/ApplicationForm.js';
 
-type Props = {
-  +form: ApplicationFormT,
-};
-
-const EditApplication = (props: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={lp('Edit application', 'header')}>
-    <h1>{lp('Edit application', 'header')}</h1>
-    <ApplicationForm
-      action="edit"
-      form={props.form}
-      submitLabel={lp('Update', 'verb, data, interactive')}
-    />
-  </Layout>
-);
+component EditApplication(form: ApplicationFormT) {
+  return (
+    <Layout fullWidth title={lp('Edit application', 'header')}>
+      <h1>{lp('Edit application', 'header')}</h1>
+      <ApplicationForm
+        action="edit"
+        form={form}
+        submitLabel={lp('Update', 'verb, data, interactive')}
+      />
+    </Layout>
+  );
+}
 
 export default EditApplication;

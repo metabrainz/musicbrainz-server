@@ -28,24 +28,36 @@ test 'Viewing your own collections' => sub {
     my $tx = test_xpath_html($mech->content);
 
     $tx->is('count(//div[@id="page"]//table)',
-            4, 'three collection lists are present');
+            5, 'four collection lists are present');
 
     $tx->is('count(//div[@id="page"]//table[1]//th)',
-            7, 'release collection list has 7 cols');
+            7, 'artist collection list has 7 cols');
 
     $tx->is('count(//div[@id="page"]//table[2]//th)',
             7, 'event collection list has 7 cols');
 
-    $tx->is('//div[@id="page"]//table[1]/tbody/tr[1]/td[3]',
-            2, 'number of releases is correct');
-
-    $tx->is('//div[@id="page"]//table[2]/tbody/tr[1]/td[3]',
-            2, 'number of releases is correct');
+    $tx->is('count(//div[@id="page"]//table[3]//th)',
+            7, 'release collection list has 7 cols');
 
     $tx->is('count(//div[@id="page"]//table[4]//th)',
+            7, 'work collection list has 7 cols');
+
+    $tx->is('//div[@id="page"]//table[1]/tbody/tr[1]/td[3]',
+            1, 'number of artists is correct');
+
+    $tx->is('//div[@id="page"]//table[2]/tbody/tr[1]/td[3]',
+            2, 'number of events is correct');
+
+    $tx->is('//div[@id="page"]//table[3]/tbody/tr[1]/td[3]',
+            2, 'number of releases is correct');
+
+    $tx->is('//div[@id="page"]//table[4]/tbody/tr[1]/td[3]',
+            2, 'number of works is correct');
+
+    $tx->is('count(//div[@id="page"]//table[5]//th)',
             6, 'collaborative release collection list has 6 cols');
 
-    $tx->is('count(//div[@id="page"]//table[4]//tbody/tr)',
+    $tx->is('count(//div[@id="page"]//table[5]//tbody/tr)',
             2, 'collaborative release collection list has 2 collections');
 };
 

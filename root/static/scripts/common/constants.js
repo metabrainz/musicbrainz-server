@@ -321,7 +321,7 @@ export const SERIES_ORDERING_TYPE_AUTOMATIC = 1;
 export const SERIES_ORDERING_TYPE_MANUAL = 2;
 
 export const MBID_REGEXP: RegExp =
-  /[0-9a-f]{8}-[0-9a-f]{4}-[345][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/;
+  /[0-9a-f]{8}-[0-9a-f]{4}-[345][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i;
 
 export const VARTIST_GID = '89ad4ac3-39f7-470e-963a-56509c546377';
 

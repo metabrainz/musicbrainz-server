@@ -12,29 +12,22 @@ import Layout from '../layout/index.js';
 
 import UrlHeader from './UrlHeader.js';
 
-type Props = {
-  +children: React$Node,
-  +entity: UrlT,
-  +fullWidth?: boolean,
-  +page: string,
-  +title?: string,
-};
-
-const UrlLayout = ({
-  children,
-  entity: url,
-  fullWidth = false,
-  page,
-  title,
-}: Props): React$Element<typeof Layout> => (
-  <Layout title={title}>
-    <div id="content">
-      <UrlHeader page={page} url={url} />
-      {children}
-    </div>
-    {fullWidth ? null : <UrlSidebar url={url} />}
-  </Layout>
-);
-
+component UrlLayout(
+  children: React$Node,
+  entity as url: UrlT,
+  fullWidth: boolean = false,
+  page: string,
+  title?: string,
+) {
+  return (
+    <Layout title={title}>
+      <div id="content">
+        <UrlHeader page={page} url={url} />
+        {children}
+      </div>
+      {fullWidth ? null : <UrlSidebar url={url} />}
+    </Layout>
+  );
+}
 
 export default UrlLayout;

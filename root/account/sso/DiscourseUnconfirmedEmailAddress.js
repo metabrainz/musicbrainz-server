@@ -9,17 +9,19 @@
 
 import Layout from '../../layout/index.js';
 
-const DiscourseUnconfirmedEmailAddress = (): React$Element<typeof Layout> => (
-  <Layout fullWidth title={lp('Unverified email address', 'header')}>
-    <h2>{lp('Unverified email address', 'header')}</h2>
-    <p>
-      {exp.l(
-        `You must verify your email address before you can
-         log in to {discourse|MetaBrainz Community Discourse}.`,
-        {discourse: 'https://community.metabrainz.org/'},
-      )}
-    </p>
-  </Layout>
-);
+component DiscourseUnconfirmedEmailAddress() {
+  return (
+    <Layout fullWidth title={lp('Unverified email address', 'header')}>
+      <h2>{lp('Unverified email address', 'header')}</h2>
+      <p>
+        {exp.l(
+          `You must verify your email address before you can
+           log in to {discourse|MetaBrainz Community Discourse}.`,
+          {discourse: 'https://community.metabrainz.org/'},
+        )}
+      </p>
+    </Layout>
+  );
+}
 
 export default DiscourseUnconfirmedEmailAddress;
