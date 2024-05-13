@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-04-27 18:42+0000\n"
+"PO-Revision-Date: 2024-05-10 14:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -30,9 +30,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.4.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -421,16 +421,12 @@ msgstr ""
 "Indica un fratello o sorella con cui l'artista ha un solo genitore in comune."
 
 #: DB:link_type/description:842
-#, fuzzy
-#| msgid ""
-#| "Indicates a page that reviews the release (group) in question, whether it "
-#| "be in text, audio or video form."
 msgid ""
 "Indicates a webpage that reviews the event in question, whether it be in "
 "text, audio or video form."
 msgstr ""
-"Indica una pagina che recensisce il gruppo di pubblicazioni o la "
-"pubblicazione in questione, che sia in forma testuale, audio o video."
+"Indica una pagina che recensisce l'evento in questione, che sia in forma "
+"testuale, audio o video."
 
 #: DB:link_type/description:958
 msgid "Indicates a webpage where you can download a label's releases for free."
@@ -1298,10 +1294,8 @@ msgid "Points to the Wikipedia page for this instrument."
 msgstr "Indica la pagina di Wikipedia su questo strumento."
 
 #: DB:link_type/description:216
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this place."
 msgid "Points to the Wikipedia page for this label."
-msgstr "Indica la pagina di Wikipedia su questo luogo."
+msgstr "Indica la pagina di Wikipedia su quest'etichetta."
 
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place."
@@ -2435,7 +2429,7 @@ msgstr "Indica che l'artista è stato il regista di questa registrazione video."
 
 #: DB:link_type/description:991
 msgid "This indicates the artist was the owner of this label."
-msgstr "Indica che l'artista è stato il proprietario di questa etichetta."
+msgstr "Indica che l'artista è stato il proprietario di quest'etichetta."
 
 #: DB:link_type/description:988
 msgid ""
