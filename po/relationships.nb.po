@@ -1,18 +1,21 @@
 #
 # Translators:
 # CatQuest, The Endeavouring Cat, 2012
+# "ApeKattQuest, MonkeyPython" <ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: CatQuest, The Endeavouring Cat, 2012\n"
-"Language-Team: Norwegian Bokmål (http://app.transifex.com/musicbrainz/"
-"musicbrainz/language/nb/)\n"
+"PO-Revision-Date: 2024-05-08 12:42+0000\n"
+"Last-Translator: \"ApeKattQuest, MonkeyPython\" "
+"<ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>\n"
+"Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
+"projects/musicbrainz/relationship-types/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -79,8 +82,9 @@ msgid "Allmusic page for"
 msgstr "Allmusic siden til"
 
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
+#, fuzzy
 msgid "Apple Music"
-msgstr ""
+msgstr "Apple Music"
 
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
@@ -101,7 +105,7 @@ msgstr "BBC Music siden til"
 #: DB:link_type/link_phrase:1092 DB:link_type/link_phrase:718
 #: DB:link_type/link_phrase:719
 msgid "Bandcamp"
-msgstr ""
+msgstr "Bandcamp"
 
 #: DB:link_type/reverse_link_phrase:1092 DB:link_type/reverse_link_phrase:718
 #: DB:link_type/reverse_link_phrase:719
@@ -111,7 +115,7 @@ msgstr ""
 #: DB:link_type/link_phrase:861 DB:link_type/link_phrase:862
 #: DB:link_type/link_phrase:860
 msgid "Bandsintown"
-msgstr ""
+msgstr "Bandsintown"
 
 #: DB:link_type/reverse_link_phrase:861 DB:link_type/reverse_link_phrase:862
 #: DB:link_type/reverse_link_phrase:860
@@ -124,7 +128,7 @@ msgstr ""
 #: DB:link_type/name:853 DB:link_type/name:1167 DB:link_type/name:854
 #: DB:link_type/name:850 DB:link_type/reverse_link_phrase:854
 msgid "BookBrainz"
-msgstr ""
+msgstr "BookBrainz"
 
 #: DB:link_type/link_phrase:854 DB:link_type/reverse_link_phrase:851
 #: DB:link_type/reverse_link_phrase:852 DB:link_type/reverse_link_phrase:853
@@ -142,7 +146,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:981 DB:link_type/name:981
 msgid "CPDL"
-msgstr ""
+msgstr "CPDL"
 
 #: DB:link_type/reverse_link_phrase:981
 msgid "CPDL page for"
@@ -150,7 +154,7 @@ msgstr ""
 
 #: DB:link_type/name:227 DB:link_type/name:8
 msgid "DJ-mix"
-msgstr ""
+msgstr "DJ-miks"
 
 #: DB:link_type/link_phrase:227 DB:link_type/link_phrase:8
 msgid "DJ-mix of"
@@ -170,7 +174,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:43
 msgid "DJ-mixed {medium}"
-msgstr ""
+msgstr "DJ-mikset {medium}"
 
 #: DB:link_type/reverse_link_phrase:155
 msgid "DJ-mixer"
@@ -178,7 +182,7 @@ msgstr "DJ-mikser"
 
 #: DB:link_type/reverse_link_phrase:43
 msgid "DJ-mixer {medium}"
-msgstr ""
+msgstr "DJ-mikser {medium}"
 
 #: DB:link_type/reverse_link_phrase:227
 msgid "DJ-mixes"
@@ -249,7 +253,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:934 DB:link_type/link_phrase:713
 msgid "Geonames"
-msgstr ""
+msgstr "Geonames"
 
 #: DB:link_type/reverse_link_phrase:934 DB:link_type/reverse_link_phrase:713
 msgid "Geonames page for"
@@ -279,7 +283,7 @@ msgstr "IMDb siden til"
 
 #: DB:link_type/link_phrase:754 DB:link_type/name:754
 msgid "IMSLP"
-msgstr ""
+msgstr "IMSLP"
 
 #: DB:link_type/reverse_link_phrase:754
 msgid "IMSLP page for"

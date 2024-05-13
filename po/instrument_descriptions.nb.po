@@ -1,17 +1,20 @@
 #
 # Translators:
+# "ApeKattQuest, MonkeyPython" <ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Norwegian Bokmål (http://app.transifex.com/musicbrainz/"
-"musicbrainz/language/nb/)\n"
+"PO-Revision-Date: 2024-05-08 12:42+0000\n"
+"Last-Translator: \"ApeKattQuest, MonkeyPython\" "
+"<ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>\n"
+"Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
+"projects/musicbrainz/instrument-descriptions/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #. name:rebab 
 #: DB:instrument/description:239
@@ -5644,7 +5647,7 @@ msgstr ""
 #. name:cymbal 
 #: DB:instrument/description:271
 msgid "Various types of cymbal. Also called chũm chọe."
-msgstr ""
+msgstr "Forskellige typer cymbaler, kalles også chũm chọe."
 
 #. name:Blaster Beam 
 #: DB:instrument/description:852
@@ -5660,6 +5663,8 @@ msgid ""
 "e564de057dcc\">xeremies</a>, the main difference being that here all the "
 "drones are functional."
 msgstr ""
+"Veldig lik <a href=\"/instrument/21d5d4ec-f8ef-44dc-b02f-e564de057dcc\""
+">xeremies</a>, den største forskjellen er at her er alle borduner i bruk."
 
 #. name:percussion 
 #: DB:instrument/description:99
