@@ -394,7 +394,11 @@ msgid "Indicates a sibling with whom the artist has only one parent in common."
 msgstr "ציון אח או אחות של אמן עם הורה משותף אחד בלבד"
 
 #: DB:link_type/description:842
-msgid "Indicates a webpage that reviews the event in question."
+#, fuzzy
+#| msgid "Indicates a webpage that reviews the event in question."
+msgid ""
+"Indicates a webpage that reviews the event in question, whether it be in "
+"text, audio or video form."
 msgstr "ציון עמוד מרשתת המבקר את הארוע המדובר."
 
 #: DB:link_type/description:958
@@ -1205,6 +1209,12 @@ msgstr "הפניה לעמוד ויקיפדיה של ארוע זה."
 #: DB:link_type/description:731
 msgid "Points to the Wikipedia page for this instrument."
 msgstr "הפניה לעמוד ויקיפדיה של כלי נגינה זה."
+
+#: DB:link_type/description:216
+#, fuzzy
+#| msgid "Points to the Wikipedia page for this place"
+msgid "Points to the Wikipedia page for this label."
+msgstr "הפניה לעמוד ויקיפדיה של מקום זה."
 
 #: DB:link_type/description:595
 #, fuzzy
@@ -2546,10 +2556,6 @@ msgstr ""
 #: DB:link_type/description:213
 msgid "This is used to link a label to an image of its logo."
 msgstr "משמש לקישור חברת תקליטים לתמונת הסַמְלִיל שלה."
-
-#: DB:link_type/description:216
-msgid "This is used to link a label to its corresponding Wikipedia page."
-msgstr "משמש לקישור חברת תקליטים לעמוד הויקיפדיה שלה."
 
 #: DB:link_type/description:977
 msgid ""
@@ -4643,16 +4649,16 @@ msgstr "עמוד ויקיפדיה עבור"
 
 #: DB:link_type/link_phrase:179 DB:link_type/link_phrase:595
 #: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:731
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:789
+#: DB:link_type/link_phrase:731 DB:link_type/link_phrase:89
+#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:789
 #: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr "ויקיפדיה"
 
 #: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:179
 #: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
-#: DB:link_type/reverse_link_phrase:731 DB:link_type/reverse_link_phrase:89
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:731
+#: DB:link_type/reverse_link_phrase:89 DB:link_type/reverse_link_phrase:216
 #: DB:link_type/reverse_link_phrase:789
 msgid "Wikipedia page for"
 msgstr "עמוד ויקיפדיה עבור"
@@ -5889,8 +5895,8 @@ msgstr "קיים עמוד ויקיפדיה ב־"
 
 #: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:595
 #: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:731
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:789
+#: DB:link_type/long_link_phrase:731 DB:link_type/long_link_phrase:89
+#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:789
 msgid "has a Wikipedia page at"
 msgstr "קיים עמוד ויקיפדיה ב־"
 
@@ -5966,7 +5972,7 @@ msgstr "קיים עמוד חסות ב־"
 msgid "has a picture at"
 msgstr "קיימת תמונה ב־"
 
-#: DB:link_type/long_link_phrase:842 DB:link_type/long_link_phrase:94
+#: DB:link_type/long_link_phrase:94 DB:link_type/long_link_phrase:842
 msgid "has a review page at"
 msgstr "קיים עמוד פיורמוזיק ב־"
 
@@ -7851,15 +7857,15 @@ msgstr "רצף הופעות"
 msgid "residency by"
 msgstr "רצף הופעות"
 
-#: DB:link_type/name:842 DB:link_type/name:94
+#: DB:link_type/name:94 DB:link_type/name:842
 msgid "review"
 msgstr "בקורות"
 
-#: DB:link_type/reverse_link_phrase:842 DB:link_type/reverse_link_phrase:94
+#: DB:link_type/reverse_link_phrase:94 DB:link_type/reverse_link_phrase:842
 msgid "review page for"
 msgstr "עמוד בקורת עבור"
 
-#: DB:link_type/link_phrase:842 DB:link_type/link_phrase:94
+#: DB:link_type/link_phrase:94 DB:link_type/link_phrase:842
 msgid "reviews"
 msgstr "בקורות"
 
@@ -8556,8 +8562,8 @@ msgid "wikidata"
 msgstr "ויקידטה"
 
 #: DB:link_type/name:179 DB:link_type/name:595 DB:link_type/name:355
-#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:216
-#: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
+#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:731
+#: DB:link_type/name:89 DB:link_type/name:216 DB:link_type/name:789
 msgid "wikipedia"
 msgstr "ויקיפדיה"
 
@@ -9711,6 +9717,9 @@ msgstr "תמיכה על־ידי {vocal:%|vocals}"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "תמיכה עבור {vocal:%|vocals}"
+
+#~ msgid "This is used to link a label to its corresponding Wikipedia page."
+#~ msgstr "משמש לקישור חברת תקליטים לעמוד הויקיפדיה שלה."
 
 #~ msgid "Links a release to the place it was arranged at."
 #~ msgstr "קישור ההוצאה למקום בו עובדה."

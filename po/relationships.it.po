@@ -30,8 +30,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.4.3\n"
 
 #: DB:link_attribute_type/description:1355
@@ -421,8 +421,16 @@ msgstr ""
 "Indica un fratello o sorella con cui l'artista ha un solo genitore in comune."
 
 #: DB:link_type/description:842
-msgid "Indicates a webpage that reviews the event in question."
-msgstr "Indica una pagina web che recensisce l'evento in questione."
+#, fuzzy
+#| msgid ""
+#| "Indicates a page that reviews the release (group) in question, whether it "
+#| "be in text, audio or video form."
+msgid ""
+"Indicates a webpage that reviews the event in question, whether it be in "
+"text, audio or video form."
+msgstr ""
+"Indica una pagina che recensisce il gruppo di pubblicazioni o la "
+"pubblicazione in questione, che sia in forma testuale, audio o video."
 
 #: DB:link_type/description:958
 msgid "Indicates a webpage where you can download a label's releases for free."
@@ -1288,6 +1296,12 @@ msgstr "Indica la pagina di Wikipedia su questo evento."
 #: DB:link_type/description:731
 msgid "Points to the Wikipedia page for this instrument."
 msgstr "Indica la pagina di Wikipedia su questo strumento."
+
+#: DB:link_type/description:216
+#, fuzzy
+#| msgid "Points to the Wikipedia page for this place."
+msgid "Points to the Wikipedia page for this label."
+msgstr "Indica la pagina di Wikipedia su questo luogo."
 
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place."
@@ -2812,11 +2826,6 @@ msgstr ""
 #: DB:link_type/description:213
 msgid "This is used to link a label to an image of its logo."
 msgstr "Serve a collegare un'etichetta a un'immagine del suo logo."
-
-#: DB:link_type/description:216
-msgid "This is used to link a label to its corresponding Wikipedia page."
-msgstr ""
-"Serve a collegare un'etichetta alla sua pagina corrispondente su Wikipedia."
 
 #: DB:link_type/description:977
 msgid ""
@@ -5099,16 +5108,16 @@ msgstr "pagina di Wikidata su"
 
 #: DB:link_type/link_phrase:179 DB:link_type/link_phrase:595
 #: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:731
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:789
+#: DB:link_type/link_phrase:731 DB:link_type/link_phrase:89
+#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:789
 #: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
 #: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:179
 #: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
-#: DB:link_type/reverse_link_phrase:731 DB:link_type/reverse_link_phrase:89
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:731
+#: DB:link_type/reverse_link_phrase:89 DB:link_type/reverse_link_phrase:216
 #: DB:link_type/reverse_link_phrase:789
 msgid "Wikipedia page for"
 msgstr "pagina di Wikipedia su"
@@ -6326,8 +6335,8 @@ msgstr "ha la pagina di Wikidata"
 
 #: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:595
 #: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:731
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:789
+#: DB:link_type/long_link_phrase:731 DB:link_type/long_link_phrase:89
+#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:789
 msgid "has a Wikipedia page at"
 msgstr "ha la pagina di Wikipedia"
 
@@ -6401,7 +6410,7 @@ msgstr "ha una pagina di patrocinio su"
 msgid "has a picture at"
 msgstr "ha una foto su"
 
-#: DB:link_type/long_link_phrase:842 DB:link_type/long_link_phrase:94
+#: DB:link_type/long_link_phrase:94 DB:link_type/long_link_phrase:842
 msgid "has a review page at"
 msgstr "ha una pagina di recensione su"
 
@@ -8284,15 +8293,15 @@ msgstr "residency"
 msgid "residency by"
 msgstr "residency di"
 
-#: DB:link_type/name:842 DB:link_type/name:94
+#: DB:link_type/name:94 DB:link_type/name:842
 msgid "review"
 msgstr "recensione"
 
-#: DB:link_type/reverse_link_phrase:842 DB:link_type/reverse_link_phrase:94
+#: DB:link_type/reverse_link_phrase:94 DB:link_type/reverse_link_phrase:842
 msgid "review page for"
 msgstr "pagina di recensione di"
 
-#: DB:link_type/link_phrase:842 DB:link_type/link_phrase:94
+#: DB:link_type/link_phrase:94 DB:link_type/link_phrase:842
 msgid "reviews"
 msgstr "recensioni"
 
@@ -8979,8 +8988,8 @@ msgid "wikidata"
 msgstr "wikidata"
 
 #: DB:link_type/name:179 DB:link_type/name:595 DB:link_type/name:355
-#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:216
-#: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
+#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:731
+#: DB:link_type/name:89 DB:link_type/name:216 DB:link_type/name:789
 msgid "wikipedia"
 msgstr "wikipedia"
 
@@ -10203,6 +10212,14 @@ msgstr "supporto {vocal:%|alla voce} da parte di"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "supporto {vocal:%|alla voce} per"
+
+#~ msgid "Indicates a webpage that reviews the event in question."
+#~ msgstr "Indica una pagina web che recensisce l'evento in questione."
+
+#~ msgid "This is used to link a label to its corresponding Wikipedia page."
+#~ msgstr ""
+#~ "Serve a collegare un'etichetta alla sua pagina corrispondente su "
+#~ "Wikipedia."
 
 #~ msgid "Links a release to the place it was arranged at."
 #~ msgstr "Collega una pubblicazione al luogo in cui è stata arrangiata."

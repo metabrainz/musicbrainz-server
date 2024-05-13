@@ -393,8 +393,14 @@ msgid "Indicates a sibling with whom the artist has only one parent in common."
 msgstr "指艺术家同父异母或同母异父的兄弟姐妹"
 
 #: DB:link_type/description:842
-msgid "Indicates a webpage that reviews the event in question."
-msgstr "指含有活动评价的网页。"
+#, fuzzy
+#| msgid ""
+#| "Indicates a page that reviews the release (group) in question, whether it "
+#| "be in text, audio or video form."
+msgid ""
+"Indicates a webpage that reviews the event in question, whether it be in "
+"text, audio or video form."
+msgstr "指示查看所讨论的版本(组)的页面，无论是文本、音频还是视频形式。"
 
 #: DB:link_type/description:958
 msgid "Indicates a webpage where you can download a label's releases for free."
@@ -1199,6 +1205,12 @@ msgstr "指向此活动的维基百科页。"
 #: DB:link_type/description:731
 msgid "Points to the Wikipedia page for this instrument."
 msgstr "指向此乐器的维基百科页。"
+
+#: DB:link_type/description:216
+#, fuzzy
+#| msgid "Points to the Wikipedia page for this place"
+msgid "Points to the Wikipedia page for this label."
+msgstr "指向此地点的维基百科页。"
 
 #: DB:link_type/description:595
 #, fuzzy
@@ -2481,10 +2493,6 @@ msgstr ""
 
 #: DB:link_type/description:213
 msgid "This is used to link a label to an image of its logo."
-msgstr ""
-
-#: DB:link_type/description:216
-msgid "This is used to link a label to its corresponding Wikipedia page."
 msgstr ""
 
 #: DB:link_type/description:977
@@ -4323,16 +4331,16 @@ msgstr "维基数据页，关于"
 
 #: DB:link_type/link_phrase:179 DB:link_type/link_phrase:595
 #: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:731
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:789
+#: DB:link_type/link_phrase:731 DB:link_type/link_phrase:89
+#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:789
 #: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
 #: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:179
 #: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
-#: DB:link_type/reverse_link_phrase:731 DB:link_type/reverse_link_phrase:89
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:731
+#: DB:link_type/reverse_link_phrase:89 DB:link_type/reverse_link_phrase:216
 #: DB:link_type/reverse_link_phrase:789
 msgid "Wikipedia page for"
 msgstr "维基百科页，关于"
@@ -5563,8 +5571,8 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:595
 #: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:731
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:789
+#: DB:link_type/long_link_phrase:731 DB:link_type/long_link_phrase:89
+#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:789
 msgid "has a Wikipedia page at"
 msgstr "在以下位置有维基百科页面"
 
@@ -5640,7 +5648,7 @@ msgstr ""
 msgid "has a picture at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:842 DB:link_type/long_link_phrase:94
+#: DB:link_type/long_link_phrase:94 DB:link_type/long_link_phrase:842
 msgid "has a review page at"
 msgstr ""
 
@@ -7515,15 +7523,15 @@ msgstr "驻留演出"
 msgid "residency by"
 msgstr "驻留演出，表演者为"
 
-#: DB:link_type/name:842 DB:link_type/name:94
+#: DB:link_type/name:94 DB:link_type/name:842
 msgid "review"
 msgstr "评论"
 
-#: DB:link_type/reverse_link_phrase:842 DB:link_type/reverse_link_phrase:94
+#: DB:link_type/reverse_link_phrase:94 DB:link_type/reverse_link_phrase:842
 msgid "review page for"
 msgstr "评论页，关于"
 
-#: DB:link_type/link_phrase:842 DB:link_type/link_phrase:94
+#: DB:link_type/link_phrase:94 DB:link_type/link_phrase:842
 msgid "reviews"
 msgstr "评论"
 
@@ -8216,8 +8224,8 @@ msgid "wikidata"
 msgstr "维基数据"
 
 #: DB:link_type/name:179 DB:link_type/name:595 DB:link_type/name:355
-#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:216
-#: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
+#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:731
+#: DB:link_type/name:89 DB:link_type/name:216 DB:link_type/name:789
 msgid "wikipedia"
 msgstr "维基百科"
 
@@ -9358,6 +9366,9 @@ msgstr ""
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr ""
+
+#~ msgid "Indicates a webpage that reviews the event in question."
+#~ msgstr "指含有活动评价的网页。"
 
 #~ msgid ""
 #~ "This attribute indicates a version with the lyrics in a different "

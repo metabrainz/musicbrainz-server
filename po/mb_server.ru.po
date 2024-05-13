@@ -41,10 +41,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-29 23:24+0000\n"
+"POT-Creation-Date: 2024-05-02 12:35-0500\n"
 "PO-Revision-Date: 2024-05-01 18:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -52,8 +52,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.5.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -2440,6 +2440,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/ArtistSidebar.js:78
 #: ../root/report/DuplicateArtists.js:68
 #: ../root/search/components/ArtistResults.js:53
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:119
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:82
 msgid "Sort name"
 msgstr ""
@@ -14110,6 +14111,14 @@ msgstr ""
 msgid "Search for a work"
 msgstr ""
 
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:86
+#: ../root/static/scripts/common/components/EntityLink.js:83
+#, fuzzy
+#| msgctxt "folksonomy"
+#| msgid "Primary tag"
+msgid "Primary alias"
+msgstr "Основной тег"
+
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:331
 msgid "{forward_link_phrase} / {backward_link_phrase}"
 msgstr ""
@@ -14181,13 +14190,6 @@ msgstr ""
 #: ../root/static/scripts/common/components/EditorLink.js:23
 msgid "[missing editor]"
 msgstr ""
-
-#: ../root/static/scripts/common/components/EntityLink.js:83
-#, fuzzy
-#| msgctxt "folksonomy"
-#| msgid "Primary tag"
-msgid "Primary alias"
-msgstr "Основной тег"
 
 #: ../root/static/scripts/common/components/EntityLink.js:144
 #: ../root/url/UrlIndex.js:28

@@ -417,9 +417,16 @@ msgstr ""
 "Dit geeft aan dat een broer of zus maar één gemeenschappelijke ouder heeft."
 
 #: DB:link_type/description:842
-msgid "Indicates a webpage that reviews the event in question."
+#, fuzzy
+#| msgid ""
+#| "Indicates a page that reviews the release (group) in question, whether it "
+#| "be in text, audio or video form."
+msgid ""
+"Indicates a webpage that reviews the event in question, whether it be in "
+"text, audio or video form."
 msgstr ""
-"Dit verwijst naar een internetpagina met een recensie van het evenement."
+"Dit geeft een recensie van de uitgave(groep) aan, zowel in de vorm van "
+"tekst, audio of video."
 
 #: DB:link_type/description:958
 msgid "Indicates a webpage where you can download a label's releases for free."
@@ -1286,6 +1293,12 @@ msgstr "Dit verwijst naar de Wikipedia-pagina over dit evenement."
 #: DB:link_type/description:731
 msgid "Points to the Wikipedia page for this instrument."
 msgstr "Dit verwijst naar de Wikipedia-pagina over dit instrument."
+
+#: DB:link_type/description:216
+#, fuzzy
+#| msgid "Points to the Wikipedia page for this place."
+msgid "Points to the Wikipedia page for this label."
+msgstr "Dit verwijst naar de Wikipedia-pagina over deze plaats."
 
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place."
@@ -2834,10 +2847,6 @@ msgstr ""
 #: DB:link_type/description:213
 msgid "This is used to link a label to an image of its logo."
 msgstr "Dit koppelt een platenmaatschappij aan een afbeelding van haar logo."
-
-#: DB:link_type/description:216
-msgid "This is used to link a label to its corresponding Wikipedia page."
-msgstr "Dit koppelt een platenmaatschappij aan haar Wikipedia-pagina."
 
 #: DB:link_type/description:977
 msgid ""
@@ -5043,16 +5052,16 @@ msgstr "Wikidata-pagina over"
 
 #: DB:link_type/link_phrase:179 DB:link_type/link_phrase:595
 #: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:731
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:789
+#: DB:link_type/link_phrase:731 DB:link_type/link_phrase:89
+#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:789
 #: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
 #: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:179
 #: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
-#: DB:link_type/reverse_link_phrase:731 DB:link_type/reverse_link_phrase:89
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:731
+#: DB:link_type/reverse_link_phrase:89 DB:link_type/reverse_link_phrase:216
 #: DB:link_type/reverse_link_phrase:789
 msgid "Wikipedia page for"
 msgstr "Wikipedia-pagina over"
@@ -6286,8 +6295,8 @@ msgstr "heeft een Wikidata-pagina op"
 
 #: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:595
 #: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:731
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:789
+#: DB:link_type/long_link_phrase:731 DB:link_type/long_link_phrase:89
+#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:789
 msgid "has a Wikipedia page at"
 msgstr "heeft een Wikipedia-pagina op"
 
@@ -6363,7 +6372,7 @@ msgstr "heeft een pagina voor donaties op"
 msgid "has a picture at"
 msgstr "heeft een afbeelding op"
 
-#: DB:link_type/long_link_phrase:842 DB:link_type/long_link_phrase:94
+#: DB:link_type/long_link_phrase:94 DB:link_type/long_link_phrase:842
 msgid "has a review page at"
 msgstr "heeft een recensie op"
 
@@ -8260,15 +8269,15 @@ msgstr "residentie"
 msgid "residency by"
 msgstr "residentie van"
 
-#: DB:link_type/name:842 DB:link_type/name:94
+#: DB:link_type/name:94 DB:link_type/name:842
 msgid "review"
 msgstr "recensie"
 
-#: DB:link_type/reverse_link_phrase:842 DB:link_type/reverse_link_phrase:94
+#: DB:link_type/reverse_link_phrase:94 DB:link_type/reverse_link_phrase:842
 msgid "review page for"
 msgstr "recensie voor"
 
-#: DB:link_type/link_phrase:842 DB:link_type/link_phrase:94
+#: DB:link_type/link_phrase:94 DB:link_type/link_phrase:842
 msgid "reviews"
 msgstr "recensies"
 
@@ -8959,8 +8968,8 @@ msgid "wikidata"
 msgstr "Wikidata"
 
 #: DB:link_type/name:179 DB:link_type/name:595 DB:link_type/name:355
-#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:216
-#: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
+#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:731
+#: DB:link_type/name:89 DB:link_type/name:216 DB:link_type/name:789
 msgid "wikipedia"
 msgstr "Wikipedia"
 
@@ -10206,6 +10215,13 @@ msgstr "{vocal:%|vocale} ondersteuning door"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocale} ondersteuning voor"
+
+#~ msgid "Indicates a webpage that reviews the event in question."
+#~ msgstr ""
+#~ "Dit verwijst naar een internetpagina met een recensie van het evenement."
+
+#~ msgid "This is used to link a label to its corresponding Wikipedia page."
+#~ msgstr "Dit koppelt een platenmaatschappij aan haar Wikipedia-pagina."
 
 #~ msgid "Links a release to the place it was arranged at."
 #~ msgstr "Dit koppelt de uitgave aan de plaats waar ze werd gearrangeerd."

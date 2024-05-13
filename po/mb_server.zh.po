@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-29 23:24+0000\n"
+"POT-Creation-Date: 2024-05-02 12:35-0500\n"
 "PO-Revision-Date: 2024-04-17 17:40+0000\n"
 "Last-Translator: x1ao4 <kazaf_ken@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
@@ -2525,6 +2525,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/ArtistSidebar.js:78
 #: ../root/report/DuplicateArtists.js:68
 #: ../root/search/components/ArtistResults.js:53
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:119
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:82
 msgid "Sort name"
 msgstr "排序名称"
@@ -14327,6 +14328,13 @@ msgstr "搜索系列"
 msgid "Search for a work"
 msgstr "搜索作品"
 
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:86
+#: ../root/static/scripts/common/components/EntityLink.js:83
+#, fuzzy
+#| msgid "Primary tag"
+msgid "Primary alias"
+msgstr "主要标签"
+
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:331
 msgid "{forward_link_phrase} / {backward_link_phrase}"
 msgstr "{forward_link_phrase} / {backward_link_phrase}"
@@ -14395,12 +14403,6 @@ msgstr ""
 #: ../root/static/scripts/common/components/EditorLink.js:23
 msgid "[missing editor]"
 msgstr "[缺失编辑者]"
-
-#: ../root/static/scripts/common/components/EntityLink.js:83
-#, fuzzy
-#| msgid "Primary tag"
-msgid "Primary alias"
-msgstr "主要标签"
 
 #: ../root/static/scripts/common/components/EntityLink.js:144
 #: ../root/url/UrlIndex.js:28
