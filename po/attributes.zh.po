@@ -6,11 +6,13 @@
 # claybiockiller <clay0305@hotmail.com>, 2023.
 # itodouble <itodouble@outlook.com>, 2023.
 # DyingSlacker <2391773977@outlook.com>, 2023.
+# hesheng <tsuru00@outlook.com>, 2024.
+# LiarOnce <liaronce@hotmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-25 11:28+0000\n"
-"Last-Translator: DyingSlacker <2391773977@outlook.com>\n"
+"PO-Revision-Date: 2024-05-06 14:42+0000\n"
+"Last-Translator: LiarOnce <liaronce@hotmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/attributes/zh_Hans/>\n"
 "Language: zh\n"
@@ -18,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -75,12 +77,9 @@ msgid "12\" Vinyl"
 msgstr "12\" 唱片"
 
 #: DB:medium_format/name:207
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "7\" Vinyl"
 msgctxt "medium_format"
 msgid "3\" Vinyl"
-msgstr "7\" 唱片"
+msgstr "3\" 黑胶"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
@@ -310,12 +309,12 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:794
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Dorian"
-msgstr "A Dorian"
+msgstr "多利亚"
 
 #: DB:work_attribute_type_allowed_value/value:806
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Mixolydian"
-msgstr "A Mixolydian"
+msgstr "混合利底亚"
 
 #: DB:work_type/description:2
 msgctxt "work_type"
@@ -596,7 +595,7 @@ msgctxt "release_group_secondary_type"
 msgid ""
 "A release mostly consisting of field recordings (such as nature sounds or "
 "city/industrial noise)."
-msgstr "主要由现场录音组成的发行(例如自然声音或城市/工业噪音)"
+msgstr "主要由现场录音组成的发行(例如自然声音或城市/工业噪音)。"
 
 #: DB:release_group_secondary_type/description:7
 msgctxt "release_group_secondary_type"
@@ -876,12 +875,9 @@ msgid "ACDAM ID"
 msgstr "ACDAM ID"
 
 #: DB:work_attribute_type/name:206
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ACAM ID"
 msgctxt "work_attribute_type"
 msgid "ACUM ID"
-msgstr "ACAM ID"
+msgstr "ACUM ID"
 
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
@@ -981,7 +977,7 @@ msgstr "Acemtarab"
 #: DB:medium_format/name:203
 msgctxt "medium_format"
 msgid "Acetate"
-msgstr ""
+msgstr "醋酸酯唱片"
 
 #: DB:work_attribute_type_allowed_value/value:848
 msgctxt "work_attribute_type_allowed_value"
@@ -1056,7 +1052,7 @@ msgstr "Ambikā"
 #: DB:place_type/name:43
 msgctxt "place_type"
 msgid "Amphitheatre"
-msgstr ""
+msgstr "大型露天剧场"
 
 #: DB:work_attribute_type_allowed_value/value:855
 msgctxt "work_attribute_type_allowed_value"
@@ -2190,7 +2186,7 @@ msgstr "贝壳型碟片盒"
 #: DB:place_type/name:42
 msgctxt "place_type"
 msgid "Club"
-msgstr ""
+msgstr "俱乐部"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -2205,7 +2201,7 @@ msgstr "音乐会"
 #: DB:place_type/name:44
 msgctxt "place_type"
 msgid "Concert hall / Theatre"
-msgstr ""
+msgstr "音乐厅/剧院"
 
 #: DB:work_type/name:4
 msgctxt "work_type"
@@ -3108,7 +3104,7 @@ msgstr "艺术节"
 #: DB:place_type/name:45
 msgctxt "place_type"
 msgid "Festival stage"
-msgstr ""
+msgstr "节日舞台"
 
 #: DB:work_attribute_type_allowed_value/value:372
 msgctxt "work_attribute_type_allowed_value"
@@ -3133,7 +3129,7 @@ msgstr "Feth-i Hicaz"
 #: DB:release_group_secondary_type/name:12
 msgctxt "release_group_secondary_type"
 msgid "Field recording"
-msgstr ""
+msgstr "实地录音"
 
 #: DB:work_attribute_type_allowed_value/value:734
 msgctxt "work_attribute_type_allowed_value"
@@ -3141,16 +3137,11 @@ msgid "Fireng-i Fer"
 msgstr "Fireng-i Fer"
 
 #: DB:medium_format/description:73
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid ""
-#| "Flat discs with grooves used in phonographs/gramophones. For shellac and "
-#| "vinyl records, use that specifically"
 msgctxt "medium_format"
 msgid ""
 "Flat discs with grooves used in phonographs/gramophones. For shellac and "
 "vinyl records, use that specifically."
-msgstr "留声机里使用的带沟槽的碟片，专门用于胶木和黑胶唱片的录制"
+msgstr "留声机里使用的带沟槽的碟片，专门用于胶木和黑胶唱片的录制。"
 
 #: DB:medium_format/name:51
 msgctxt "medium_format"
@@ -3176,7 +3167,7 @@ msgctxt "gender"
 msgid ""
 "For cases where gender just doesn't apply at all (like companies entered as "
 "artists)."
-msgstr "在区分性别无用的情况下。（就像大公司以艺术家的身份加入一样）"
+msgstr "在区分性别无用的情况下（就像大公司以艺术家的身份加入一样）。"
 
 #: DB:work_attribute_type/name:16
 msgctxt "work_attribute_type"
@@ -3892,7 +3883,7 @@ msgstr "加拿大著作权协会SODRAC ID"
 #: DB:work_attribute_type/description:173
 msgctxt "work_attribute_type"
 msgid "ID for the Chilean rights society SCD"
-msgstr ""
+msgstr "智利著作权协会SCD标识符"
 
 #: DB:work_attribute_type/description:71
 msgctxt "work_attribute_type"
@@ -3995,12 +3986,9 @@ msgid "ID for the Irish rights society IMRO"
 msgstr "爱尔兰著作权协会IMRO ID"
 
 #: DB:work_attribute_type/description:206
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Austrian rights society AKM"
 msgctxt "work_attribute_type"
 msgid "ID for the Israeli rights society ACUM"
-msgstr "奥地利著作权协会AKM ID"
+msgstr "奥地利著作权协会ACUM ID"
 
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"
@@ -4033,12 +4021,9 @@ msgid "ID for the Latvian rights society AKKA/LAA"
 msgstr "拉脱维亚著作权协会AKKA/LAA ID"
 
 #: DB:work_attribute_type/description:207
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Latvian rights society AKKA/LAA"
 msgctxt "work_attribute_type"
 msgid "ID for the Lithuanian rights society LATGA"
-msgstr "拉脱维亚著作权协会AKKA/LAA ID"
+msgstr "拉脱维亚著作权协会LATGA ID"
 
 #: DB:work_attribute_type/description:49
 msgctxt "work_attribute_type"
@@ -4098,7 +4083,7 @@ msgstr "新加坡著作权协会COMPASS ID"
 #: DB:work_attribute_type/description:140
 msgctxt "work_attribute_type"
 msgid "ID for the Slovenian rights society SAZAS"
-msgstr ""
+msgstr "斯洛文尼亚著作权协会 SAZAS ID"
 
 #: DB:work_attribute_type/description:68
 msgctxt "work_attribute_type"
@@ -4171,13 +4156,10 @@ msgid "ID for the Vietnamese rights society VCPMC"
 msgstr "越南著作权协会ID VCPMC"
 
 #: DB:work_attribute_type/description:208
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the international (formerly US) rights society AMRA"
 msgctxt "work_attribute_type"
 msgid ""
 "ID for the international (but primarily Italian) rights society Soundreef"
-msgstr "国际（以前为美国）版权协会AMRA ID"
+msgstr "国际（但主要是意大利）权利协会 Soundreef ID"
 
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
@@ -4882,12 +4864,9 @@ msgid "Kōmal riṣabh asāvēri"
 msgstr "Kōmal riṣabh asāvēri"
 
 #: DB:work_attribute_type/name:207
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "APA ID"
 msgctxt "work_attribute_type"
 msgid "LATGA ID"
-msgstr "APA ID"
+msgstr "LATGA ID"
 
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"
@@ -5257,17 +5236,17 @@ msgstr "军事基地"
 #: DB:medium_format/name:166
 msgctxt "medium_format"
 msgid "MiniDVD"
-msgstr ""
+msgstr "迷你 DVD"
 
 #: DB:medium_format/name:168
 msgctxt "medium_format"
 msgid "MiniDVD-Audio"
-msgstr ""
+msgstr "迷你 DVD 音频"
 
 #: DB:medium_format/name:169
 msgctxt "medium_format"
 msgid "MiniDVD-Video"
-msgstr ""
+msgstr "迷你DVD视频"
 
 #: DB:medium_format/name:6
 msgctxt "medium_format"
@@ -5277,22 +5256,22 @@ msgstr "MiniDisc"
 #: DB:medium_format/name:165
 msgctxt "medium_format"
 msgid "Minimax CD"
-msgstr ""
+msgstr "迷你 CD"
 
 #: DB:medium_format/name:167
 msgctxt "medium_format"
 msgid "Minimax DVD"
-msgstr ""
+msgstr "迷你 DVD"
 
 #: DB:medium_format/name:170
 msgctxt "medium_format"
 msgid "Minimax DVD-Audio"
-msgstr ""
+msgstr "迷你 DVD 音频"
 
 #: DB:medium_format/name:171
 msgctxt "medium_format"
 msgid "Minimax DVD-Video"
-msgstr ""
+msgstr "迷你 DVD 视频"
 
 #: DB:work_attribute_type_allowed_value/value:644
 msgctxt "work_attribute_type_allowed_value"
@@ -6022,7 +6001,8 @@ msgid ""
 "One-sided 3\" vinyl records to be played with purpose-built players; "
 "originally developed in Japan and now mostly found as a Record Store Day "
 "curiosity."
-msgstr ""
+msgstr "单面3英寸的黑胶唱片，需要用特制的唱机播放；最初在日本开发，现在大多作为唱片店"
+"日的新奇物品出现。"
 
 #: DB:work_type/name:10
 msgctxt "work_type"
@@ -6273,7 +6253,7 @@ msgstr "播放键"
 #: DB:series_type/name:80
 msgctxt "series_type"
 msgid "Podcast"
-msgstr ""
+msgstr "播客"
 
 #: DB:work_type/name:21
 msgctxt "work_type"
@@ -6808,12 +6788,12 @@ msgstr "SAYCO ID"
 #: DB:work_attribute_type/name:140
 msgctxt "work_attribute_type"
 msgid "SAZAS ID"
-msgstr ""
+msgstr "SAZAS ID"
 
 #: DB:work_attribute_type/name:173
 msgctxt "work_attribute_type"
 msgid "SCD ID"
-msgstr ""
+msgstr "SCD ID"
 
 #: DB:medium_format/name:62
 msgctxt "medium_format"
@@ -7209,7 +7189,7 @@ msgstr "按各项目自身属性为系列排序，使用自然顺序。"
 #: DB:work_attribute_type/name:208
 msgctxt "work_attribute_type"
 msgid "Soundreef ID"
-msgstr ""
+msgstr "Soundreef 标识符"
 
 #: DB:release_group_secondary_type/name:2
 msgctxt "release_group_secondary_type"
@@ -8363,7 +8343,7 @@ msgstr "ambiguous"
 #: DB:medium_format/name:164
 msgctxt "medium_format"
 msgid "microSD"
-msgstr ""
+msgstr "microSD"
 
 #: DB:medium_format/name:27
 msgctxt "medium_format"

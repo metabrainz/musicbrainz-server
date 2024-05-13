@@ -1,22 +1,25 @@
 #
 # Translators:
 # Kurt-Håkon Eilertsen <email address hidden>, 2014
+# "ApeKattQuest, MonkeyPython" <ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: Kurt-Håkon Eilertsen <kurt@kheds.com>, 2014\n"
-"Language-Team: Norwegian Bokmål (http://app.transifex.com/musicbrainz/"
-"musicbrainz/language/nb/)\n"
+"PO-Revision-Date: 2024-05-08 12:42+0000\n"
+"Last-Translator: \"ApeKattQuest, MonkeyPython\" "
+"<ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>\n"
+"Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
+"projects/musicbrainz/instruments/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
-msgstr "12 strengs gitar"
+msgstr "12 stringsgitar"
 
 #: DB:instrument/name:516
 msgid "17-string bass koto"
@@ -1389,7 +1392,7 @@ msgstr ""
 
 #: DB:instrument/name:649
 msgid "duck call"
-msgstr "andeskrik"
+msgstr "lokkefløyte"
 
 #: DB:instrument/name:397
 msgid "duduk"
@@ -1461,7 +1464,7 @@ msgstr "effekter"
 
 #: DB:instrument/name:51
 msgid "electric bass guitar"
-msgstr "elektrisk bass gitar"
+msgstr "elektrisk bassgitar"
 
 #: DB:instrument/name:208
 msgid "electric cello"

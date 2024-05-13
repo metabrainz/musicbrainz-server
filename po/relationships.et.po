@@ -347,7 +347,9 @@ msgid "Indicates a sibling with whom the artist has only one parent in common."
 msgstr ""
 
 #: DB:link_type/description:842
-msgid "Indicates a webpage that reviews the event in question."
+msgid ""
+"Indicates a webpage that reviews the event in question, whether it be in "
+"text, audio or video form."
 msgstr ""
 
 #: DB:link_type/description:958
@@ -1063,6 +1065,10 @@ msgstr ""
 
 #: DB:link_type/description:731
 msgid "Points to the Wikipedia page for this instrument."
+msgstr ""
+
+#: DB:link_type/description:216
+msgid "Points to the Wikipedia page for this label."
 msgstr ""
 
 #: DB:link_type/description:595
@@ -2184,10 +2190,6 @@ msgstr ""
 
 #: DB:link_type/description:213
 msgid "This is used to link a label to an image of its logo."
-msgstr ""
-
-#: DB:link_type/description:216
-msgid "This is used to link a label to its corresponding Wikipedia page."
 msgstr ""
 
 #: DB:link_type/description:977
@@ -3894,16 +3896,16 @@ msgstr ""
 
 #: DB:link_type/link_phrase:179 DB:link_type/link_phrase:595
 #: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:731
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:789
+#: DB:link_type/link_phrase:731 DB:link_type/link_phrase:89
+#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:789
 #: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
 #: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:179
 #: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
-#: DB:link_type/reverse_link_phrase:731 DB:link_type/reverse_link_phrase:89
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:731
+#: DB:link_type/reverse_link_phrase:89 DB:link_type/reverse_link_phrase:216
 #: DB:link_type/reverse_link_phrase:789
 msgid "Wikipedia page for"
 msgstr ""
@@ -5130,8 +5132,8 @@ msgstr "evib Wikidata lehte"
 
 #: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:595
 #: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:731
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:789
+#: DB:link_type/long_link_phrase:731 DB:link_type/long_link_phrase:89
+#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:789
 msgid "has a Wikipedia page at"
 msgstr "evib Wikipedia lehte"
 
@@ -5207,7 +5209,7 @@ msgstr ""
 msgid "has a picture at"
 msgstr "evib pilti"
 
-#: DB:link_type/long_link_phrase:842 DB:link_type/long_link_phrase:94
+#: DB:link_type/long_link_phrase:94 DB:link_type/long_link_phrase:842
 msgid "has a review page at"
 msgstr "evib ülevaatelehte"
 
@@ -7078,15 +7080,15 @@ msgstr ""
 msgid "residency by"
 msgstr ""
 
-#: DB:link_type/name:842 DB:link_type/name:94
+#: DB:link_type/name:94 DB:link_type/name:842
 msgid "review"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:842 DB:link_type/reverse_link_phrase:94
+#: DB:link_type/reverse_link_phrase:94 DB:link_type/reverse_link_phrase:842
 msgid "review page for"
 msgstr ""
 
-#: DB:link_type/link_phrase:842 DB:link_type/link_phrase:94
+#: DB:link_type/link_phrase:94 DB:link_type/link_phrase:842
 msgid "reviews"
 msgstr "Ülevaated"
 
@@ -7777,8 +7779,8 @@ msgid "wikidata"
 msgstr "Wikidata"
 
 #: DB:link_type/name:179 DB:link_type/name:595 DB:link_type/name:355
-#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:216
-#: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
+#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:731
+#: DB:link_type/name:89 DB:link_type/name:216 DB:link_type/name:789
 msgid "wikipedia"
 msgstr "Wikipedia"
 

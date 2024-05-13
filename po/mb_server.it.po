@@ -34,8 +34,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-29 23:24+0000\n"
-"PO-Revision-Date: 2024-04-27 18:42+0000\n"
+"POT-Creation-Date: 2024-05-02 12:35-0500\n"
+"PO-Revision-Date: 2024-05-10 14:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -44,9 +44,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.4.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -2007,8 +2007,8 @@ msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
 "these types."
 msgstr ""
-"Vai alla documentazione sui {doc|tipi di copertine} per una descrizione di "
-"questi tipi."
+"Consulta la documentazione sui {doc|tipi di copertine} per una descrizione "
+"di questi tipi."
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
@@ -2484,6 +2484,8 @@ msgid ""
 "Some text you entered is overlong! Please shorten it, and if necessary enter "
 "the full text in the annotation for reference."
 msgstr ""
+"Il testo che hai inserito è troppo lungo! Accorcialo e, se necessario, "
+"inserisci il testo completo per riferimento nell'annotazione."
 
 #: ../root/components/forms.tt:239 ../root/components/Aliases/AliasTable.js:23
 #: ../root/components/list/ArtistList.js:73 ../root/edit/details/AddArea.js:47
@@ -2494,6 +2496,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/ArtistSidebar.js:78
 #: ../root/report/DuplicateArtists.js:68
 #: ../root/search/components/ArtistResults.js:53
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:119
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:82
 msgid "Sort name"
 msgstr "Nome di ordinamento"
@@ -2830,7 +2833,7 @@ msgstr "Questa è l'immagine attuale del gruppo di pubblicazioni"
 
 #: ../root/label/edit_form.tt:36
 msgid "This label has ended."
-msgstr "Questa etichetta non è più in attività."
+msgstr "Quest'etichetta non è più in attività."
 
 #: ../root/release/edit/information.tt:209
 msgid "This label/catalog number pair already exists."
@@ -7803,7 +7806,7 @@ msgid ""
 "automatically in the next few days. If this is not intended, please add more "
 "data to this label."
 msgstr ""
-"Questa etichetta non ha relazioni né pubblicazioni e sarà rimossa "
+"Quest'etichetta non ha relazioni né pubblicazioni e sarà rimossa "
 "automaticamente nei prossimi giorni. Se vuoi evitare che ciò succeda, "
 "aggiungi più dati."
 
@@ -8550,7 +8553,7 @@ msgid ""
 "of cover art, please see the {coverart|release's cover art page}."
 msgstr ""
 "Non è possibile visualizzare la cronologia di questa copertina. Per l'elenco "
-"attuale delle copertine, vai alla {coverart|pagina delle copertine della "
+"attuale delle copertine, consulta la {coverart|pagina delle copertine della "
 "pubblicazione}."
 
 #: ../root/edit/components/EditArtwork.js:32
@@ -10347,7 +10350,7 @@ msgstr[2] "Associato a {num} opere"
 
 #: ../root/label/LabelIndex.js:90
 msgid "This label does not have any releases."
-msgstr "Questa etichetta non ha nessuna pubblicazione."
+msgstr "Quest'etichetta non ha nessuna pubblicazione."
 
 #: ../root/label/LabelMerge.js:21 ../root/label/LabelMerge.js:23
 msgid "Merge labels"
@@ -13911,7 +13914,7 @@ msgstr "Quest'accreditamento artista non esiste più."
 
 #: ../root/report/components/LabelUrlList.js:75
 msgid "This label no longer exists."
-msgstr "Questa etichetta non esiste più."
+msgstr "Quest'etichetta non esiste più."
 
 #: ../root/report/components/ReleaseUrlList.js:83
 msgid "This release no longer exists."
@@ -14689,6 +14692,11 @@ msgstr "Cerca una serie"
 msgid "Search for a work"
 msgstr "Cerca un'opera"
 
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:86
+#: ../root/static/scripts/common/components/EntityLink.js:83
+msgid "Primary alias"
+msgstr "Alias principale"
+
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:331
 msgid "{forward_link_phrase} / {backward_link_phrase}"
 msgstr "{forward_link_phrase} / {backward_link_phrase}"
@@ -14765,10 +14773,6 @@ msgstr ""
 #: ../root/static/scripts/common/components/EditorLink.js:23
 msgid "[missing editor]"
 msgstr "[editor mancante]"
-
-#: ../root/static/scripts/common/components/EntityLink.js:83
-msgid "Primary alias"
-msgstr "Alias principale"
 
 #: ../root/static/scripts/common/components/EntityLink.js:144
 #: ../root/url/UrlIndex.js:28

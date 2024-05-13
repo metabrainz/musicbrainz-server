@@ -50,23 +50,24 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # 0x1026 <me@hugovidafe.dev>, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
+# eigenric <ricardoruizfdez@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-29 23:24+0000\n"
-"PO-Revision-Date: 2024-04-29 16:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"POT-Creation-Date: 2024-05-02 12:35-0500\n"
+"PO-Revision-Date: 2024-05-13 11:42+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -2497,6 +2498,8 @@ msgid ""
 "Some text you entered is overlong! Please shorten it, and if necessary enter "
 "the full text in the annotation for reference."
 msgstr ""
+"El texto que introduciste es demasiado largo. Por favor, acórtelo, y si es "
+"necesario introduzca el texto completo en la anotación para referencia."
 
 #: ../root/components/forms.tt:239 ../root/components/Aliases/AliasTable.js:23
 #: ../root/components/list/ArtistList.js:73 ../root/edit/details/AddArea.js:47
@@ -2507,6 +2510,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/ArtistSidebar.js:78
 #: ../root/report/DuplicateArtists.js:68
 #: ../root/search/components/ArtistResults.js:53
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:119
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:82
 msgid "Sort name"
 msgstr "Nombre de ordenación"
@@ -8012,8 +8016,8 @@ msgstr "Entidades etiquetadas con “{tag}”"
 msgid "{num} entity found"
 msgid_plural "{num} entities found"
 msgstr[0] "Encontramos una entidad"
-msgstr[1] "Encontramos {n} entidades"
-msgstr[2] "Encontramos {n} entidades"
+msgstr[1] "Encontramos {num} entidades"
+msgstr[2] "Encontramos {num} entidades"
 
 #: ../root/components/TagEntitiesList.js:151
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:13
@@ -12038,6 +12042,8 @@ msgid ""
 "as their name. The disambiguation should be removed or, if it is needed, "
 "improved."
 msgstr ""
+"Este reporte lista artistas que tienen su desambiguación configurada como su "
+"nombre. La desambiguación debería ser eliminada o, si es necesario, mejorada."
 
 #: ../root/report/ArtistsDisambiguationSameName.js:31
 #: ../root/report/ReportsIndex.js:111
@@ -12052,6 +12058,11 @@ msgid ""
 "type. If it is not, please make sure that the “member of” relationships are "
 "in the right direction and are correct."
 msgstr ""
+"Este informe lista artistas que tiene su tipo fijado a otro distinto de "
+"Grupo (o tipo derivado) pero podría ser un grupo, porque pueden tener otros "
+"artistas listados como miembros. Si encuentras un artista aquí que es de "
+"hecho un grupo, cambia su tipo. Si no, por favor asegúrate que \"miembro de\""
+" relaciones están en la dirección correcta y són correctos."
 
 #: ../root/report/ArtistsThatMayBeGroups.js:34
 #: ../root/report/ReportsIndex.js:59
@@ -14291,6 +14302,11 @@ msgstr "Buscar serie"
 msgid "Search for a work"
 msgstr "Buscar obra"
 
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:86
+#: ../root/static/scripts/common/components/EntityLink.js:83
+msgid "Primary alias"
+msgstr "Alias principal"
+
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:331
 msgid "{forward_link_phrase} / {backward_link_phrase}"
 msgstr "{forward_link_phrase} / {backward_link_phrase}"
@@ -14367,10 +14383,6 @@ msgstr ""
 #: ../root/static/scripts/common/components/EditorLink.js:23
 msgid "[missing editor]"
 msgstr "[editor no disponible]"
-
-#: ../root/static/scripts/common/components/EntityLink.js:83
-msgid "Primary alias"
-msgstr "Alias principal"
 
 #: ../root/static/scripts/common/components/EntityLink.js:144
 #: ../root/url/UrlIndex.js:28

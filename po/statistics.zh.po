@@ -4,12 +4,13 @@
 # Gary Liu, 2022
 # suming <331874545@qq.com>, 2023.
 # claybiockiller <clay0305@hotmail.com>, 2023.
+# darlingz <yagamidai@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-11-04 22:28+0000\n"
-"Last-Translator: claybiockiller <clay0305@hotmail.com>\n"
+"PO-Revision-Date: 2024-05-04 09:42+0000\n"
+"Last-Translator: darlingz <yagamidai@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -95,7 +96,8 @@ msgid ""
 "A very substantial schema change release adds a new entity type (areas), "
 "support for ISNI codes for artists and labels, and the possibility to have "
 "more than one release event on one release."
-msgstr ""
+msgstr "一个非常重要的架构改动版本，引入了新的实体类型（区域），"
+"支持艺术家和唱片公司的 ISNI 代码，并允许一个发行拥有多个发行事件/活动。"
 
 #: DB:statistics.statistic_event/description:2003-11-10
 msgid ""

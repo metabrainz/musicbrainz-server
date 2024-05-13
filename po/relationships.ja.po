@@ -421,7 +421,11 @@ msgid "Indicates a sibling with whom the artist has only one parent in common."
 msgstr "アーティストに共通の親が1人しかない兄弟を示す"
 
 #: DB:link_type/description:842
-msgid "Indicates a webpage that reviews the event in question."
+#, fuzzy
+#| msgid "Indicates a webpage that reviews the event in question."
+msgid ""
+"Indicates a webpage that reviews the event in question, whether it be in "
+"text, audio or video form."
 msgstr "イベントについてレビューするWebページを示します。"
 
 #: DB:link_type/description:958
@@ -1297,6 +1301,12 @@ msgstr "このイベントのWikipediaページを指します。"
 #: DB:link_type/description:731
 msgid "Points to the Wikipedia page for this instrument."
 msgstr "この楽器での Wikidata ページを指す。"
+
+#: DB:link_type/description:216
+#, fuzzy
+#| msgid "Points to the Wikipedia page for this place"
+msgid "Points to the Wikipedia page for this label."
+msgstr "この場所のWikipediaページを指します"
 
 #: DB:link_type/description:595
 #, fuzzy
@@ -2725,11 +2735,6 @@ msgstr ""
 #: DB:link_type/description:213
 msgid "This is used to link a label to an image of its logo."
 msgstr "これは、ラベルをそのロゴの画像にリンクするために使用される。"
-
-#: DB:link_type/description:216
-msgid "This is used to link a label to its corresponding Wikipedia page."
-msgstr ""
-"これは、レーベルをWikipedia上の対応するページにリンクするために使われます。"
 
 #: DB:link_type/description:977
 msgid ""
@@ -4940,16 +4945,16 @@ msgstr "次のWikidataページ"
 
 #: DB:link_type/link_phrase:179 DB:link_type/link_phrase:595
 #: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:731
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:789
+#: DB:link_type/link_phrase:731 DB:link_type/link_phrase:89
+#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:789
 #: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
 #: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:179
 #: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
-#: DB:link_type/reverse_link_phrase:731 DB:link_type/reverse_link_phrase:89
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:731
+#: DB:link_type/reverse_link_phrase:89 DB:link_type/reverse_link_phrase:216
 #: DB:link_type/reverse_link_phrase:789
 msgid "Wikipedia page for"
 msgstr "次のWikipediaページ"
@@ -6180,8 +6185,8 @@ msgstr "のWikidataページのURLは"
 
 #: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:595
 #: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:731
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:789
+#: DB:link_type/long_link_phrase:731 DB:link_type/long_link_phrase:89
+#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:789
 msgid "has a Wikipedia page at"
 msgstr "のWikipediaページのURLは"
 
@@ -6255,7 +6260,7 @@ msgstr ""
 msgid "has a picture at"
 msgstr "の画像のURLは"
 
-#: DB:link_type/long_link_phrase:842 DB:link_type/long_link_phrase:94
+#: DB:link_type/long_link_phrase:94 DB:link_type/long_link_phrase:842
 msgid "has a review page at"
 msgstr ""
 
@@ -8134,15 +8139,15 @@ msgstr ""
 msgid "residency by"
 msgstr ""
 
-#: DB:link_type/name:842 DB:link_type/name:94
+#: DB:link_type/name:94 DB:link_type/name:842
 msgid "review"
 msgstr "レビュー"
 
-#: DB:link_type/reverse_link_phrase:842 DB:link_type/reverse_link_phrase:94
+#: DB:link_type/reverse_link_phrase:94 DB:link_type/reverse_link_phrase:842
 msgid "review page for"
 msgstr "次のレビューページ"
 
-#: DB:link_type/link_phrase:842 DB:link_type/link_phrase:94
+#: DB:link_type/link_phrase:94 DB:link_type/link_phrase:842
 msgid "reviews"
 msgstr ""
 
@@ -8835,8 +8840,8 @@ msgid "wikidata"
 msgstr "wikidata"
 
 #: DB:link_type/name:179 DB:link_type/name:595 DB:link_type/name:355
-#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:216
-#: DB:link_type/name:731 DB:link_type/name:89 DB:link_type/name:789
+#: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:731
+#: DB:link_type/name:89 DB:link_type/name:216 DB:link_type/name:789
 msgid "wikipedia"
 msgstr "wikipedia"
 
@@ -10004,6 +10009,11 @@ msgstr ""
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr ""
+
+#~ msgid "This is used to link a label to its corresponding Wikipedia page."
+#~ msgstr ""
+#~ "これは、レーベルをWikipedia上の対応するページにリンクするために使われま"
+#~ "す。"
 
 #~ msgid "Links a release to the place it was arranged at."
 #~ msgstr "リリースを編曲が行われた場所へリンクします。"

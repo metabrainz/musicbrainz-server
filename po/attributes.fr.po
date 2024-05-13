@@ -32,7 +32,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-04-08 14:28+0000\n"
+"PO-Revision-Date: 2024-05-13 15:06+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/fr/>\n"
@@ -42,7 +42,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -4359,14 +4359,11 @@ msgid "ID for the Vietnamese rights society VCPMC"
 msgstr "ID pour la VCPMC, société vietnamienne de gestion des droits"
 
 #: DB:work_attribute_type/description:208
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the international (formerly US) rights society AMRA"
 msgctxt "work_attribute_type"
 msgid ""
 "ID for the international (but primarily Italian) rights society Soundreef"
 msgstr ""
-"ID pour l’AMRA, société internationale (initialement états-unienne) de "
+"ID pour Soundreef, société internationale (mais surtout italienne) de "
 "gestion des droits"
 
 #: DB:work_attribute_type/description:38
@@ -6225,6 +6222,9 @@ msgid ""
 "originally developed in Japan and now mostly found as a Record Store Day "
 "curiosity."
 msgstr ""
+"Disques vinyles de 3 pouces à une seule face qui peuvent être lus avec des "
+"lecteurs spécialement conçus pour ; développés à l'origine au Japon et qui "
+"font maintenant principalement la curiosité lors du Record Store Day."
 
 #: DB:work_type/name:10
 msgctxt "work_type"
@@ -7425,7 +7425,7 @@ msgstr ""
 #: DB:work_attribute_type/name:208
 msgctxt "work_attribute_type"
 msgid "Soundreef ID"
-msgstr ""
+msgstr "ID Soundreef"
 
 #: DB:release_group_secondary_type/name:2
 msgctxt "release_group_secondary_type"
