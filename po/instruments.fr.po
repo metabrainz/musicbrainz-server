@@ -2713,6 +2713,11 @@ msgctxt "Arrangement of struck tuned metal bars."
 msgid "metallophone"
 msgstr "métallophone"
 
+#: DB:instrument/name:1209
+msgctxt "Tunisian and Algerian bagpipe"
+msgid "mezwed"
+msgstr ""
+
 #: DB:instrument/name:876
 msgctxt "twin bamboo single reed pipe"
 msgid "mijwiz"

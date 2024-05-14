@@ -55,18 +55,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 12:35-0500\n"
+"POT-Creation-Date: 2024-05-13 15:56+0000\n"
 "PO-Revision-Date: 2024-05-13 11:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -118,7 +118,7 @@ msgstr "\"YY\" son los últimos dos dígitos del año de registro."
 #: ../root/recording/RecordingIndex.js:43
 #: ../root/static/scripts/release/components/MediumTable.js:83
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1562
-#: ../root/utility/tableColumns.js:572
+#: ../root/utility/tableColumns.js:573
 msgid "#"
 msgstr "#"
 
@@ -168,7 +168,7 @@ msgstr "(no hay otras imágenes)"
 #: ../root/recording/RecordingIndex.js:50
 #: ../root/release_group/ReleaseGroupIndex.js:162
 #: ../root/search/components/ReleaseResults.js:115
-#: ../root/utility/tableColumns.js:513 ../root/utility/tableColumns.js:521
+#: ../root/utility/tableColumns.js:514 ../root/utility/tableColumns.js:522
 msgctxt "and"
 msgid "/"
 msgstr "/"
@@ -213,7 +213,7 @@ msgid "A release title is required."
 msgstr "Debes indicar el título de la publicación."
 
 #: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:309
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:175
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:189
 #: ../root/edit/components/Vote.js:100
 msgctxt "vote"
 msgid "Abstain"
@@ -402,7 +402,7 @@ msgid "Applied edit count of editor"
 msgstr "Ediciones aplicadas del editor"
 
 #: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:309
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:178
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:192
 msgctxt "vote"
 msgid "Approve"
 msgstr "Aprobación"
@@ -689,7 +689,7 @@ msgstr "N.º de cat.:"
 #: ../root/recording/RecordingIndex.js:52
 #: ../root/release_group/ReleaseGroupIndex.js:164
 #: ../root/search/components/ReleaseResults.js:117
-#: ../root/utility/tableColumns.js:487 ../root/utility/tableColumns.js:492
+#: ../root/utility/tableColumns.js:488 ../root/utility/tableColumns.js:493
 msgid "Catalog#"
 msgstr "N.º de catálogo"
 
@@ -764,7 +764,7 @@ msgstr "Copiar el título de la publicación al grupo de publicaciones"
 #: ../root/release_group/ReleaseGroupIndex.js:162
 #: ../root/search/components/ReleaseResults.js:115
 #: ../root/static/scripts/common/components/FilterForm.js:269
-#: ../root/utility/tableColumns.js:509 ../root/utility/tableColumns.js:521
+#: ../root/utility/tableColumns.js:510 ../root/utility/tableColumns.js:522
 msgid "Country"
 msgstr "País"
 
@@ -812,8 +812,8 @@ msgstr "Pistas de datos"
 #: ../root/search/components/ReleaseResults.js:115
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:106
 #: ../root/static/scripts/common/components/FilterForm.js:301
-#: ../root/utility/tableColumns.js:284 ../root/utility/tableColumns.js:289
-#: ../root/utility/tableColumns.js:515 ../root/utility/tableColumns.js:521
+#: ../root/utility/tableColumns.js:285 ../root/utility/tableColumns.js:290
+#: ../root/utility/tableColumns.js:516 ../root/utility/tableColumns.js:522
 msgid "Date"
 msgstr "Fecha"
 
@@ -833,7 +833,7 @@ msgstr ""
 "El formato de fecha es AAAA-MM-DD. Puedes usar fechas parciales, como AAAA-"
 "MM o simplemente AAAA, u omitir la fecha."
 
-#: ../root/doc/edit_type.tt:23 ../root/collection/CollectionIndex.js:188
+#: ../root/doc/edit_type.tt:23 ../root/collection/CollectionIndex.js:197
 #: ../root/edit/details/AddInstrument.js:65
 #: ../root/edit/details/AddRelationshipAttribute.js:42
 #: ../root/edit/details/AddRelationshipType.js:72
@@ -851,7 +851,7 @@ msgstr ""
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:76
 #: ../root/search/components/InstrumentResults.js:55
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:211
-#: ../root/utility/tableColumns.js:681
+#: ../root/utility/tableColumns.js:682
 msgid "Description"
 msgstr "Descripción"
 
@@ -942,7 +942,7 @@ msgstr "Editar"
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:89
 #: ../root/release/CoverArt.js:106
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:517
-#: ../root/user/UserCollections.js:120
+#: ../root/user/UserCollections.js:121
 msgctxt "verb, interactive"
 msgid "Edit"
 msgstr "Editar"
@@ -1216,8 +1216,9 @@ msgid "Gender"
 msgstr "Género"
 
 #: ../root/edit/search_macros.tt:434 ../lib/MusicBrainz/Server/Edit/Genre.pm:7
-#: ../root/edit/details/AddGenre.js:24 ../root/edit/details/EditGenre.js:28
-#: ../root/genre/GenreHeader.js:22 ../root/search/components/TagResults.js:53
+#: ../root/components/list/GenreList.js:43 ../root/edit/details/AddGenre.js:24
+#: ../root/edit/details/EditGenre.js:28 ../root/genre/GenreHeader.js:22
+#: ../root/search/components/TagResults.js:53
 #: ../root/static/scripts/common/constants.js:38
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
 #: ../root/tag/TagIndex.js:22
@@ -1366,7 +1367,7 @@ msgstr "ISRC"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:721
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:410
 #: ../root/static/scripts/common/components/IsrcList.js:44
-#: ../root/utility/tableColumns.js:694
+#: ../root/utility/tableColumns.js:695
 msgid "ISRCs"
 msgstr "ISRCs"
 
@@ -1376,7 +1377,7 @@ msgstr "ISRCs"
 #: ../root/report/IswcsWithManyWorks.js:49
 #: ../root/search/components/WorkResults.js:57
 #: ../root/static/scripts/common/components/IswcList.js:26
-#: ../root/utility/tableColumns.js:708
+#: ../root/utility/tableColumns.js:709
 msgid "ISWC"
 msgstr "ISWC"
 
@@ -1596,8 +1597,8 @@ msgstr ""
 #: ../root/static/scripts/common/components/FilterForm.js:253
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
-#: ../root/user/UserProfile.js:54 ../root/utility/tableColumns.js:538
-#: ../root/utility/tableColumns.js:543
+#: ../root/user/UserProfile.js:54 ../root/utility/tableColumns.js:539
+#: ../root/utility/tableColumns.js:544
 msgid "Label"
 msgstr "Discográfica"
 
@@ -1622,7 +1623,7 @@ msgstr "Detalles de la discográfica"
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:191
 #: ../root/report/IswcsWithManyWorks.js:54
 #: ../root/search/components/ReleaseResults.js:119
-#: ../root/utility/tableColumns.js:559
+#: ../root/utility/tableColumns.js:560
 msgid "Language"
 msgstr "Idioma"
 
@@ -1843,7 +1844,7 @@ msgid "Next »"
 msgstr "Siguiente »"
 
 #: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:309
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:176
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:190
 #: ../root/edit/components/Vote.js:93
 msgctxt "vote"
 msgid "No"
@@ -2248,7 +2249,7 @@ msgstr "Publicación “{name}” de {artist}"
 #: ../root/release/CoverArt.js:112 ../root/release/DiscIds.js:66
 #: ../root/static/scripts/account/components/EditProfileForm.js:300
 #: ../root/static/scripts/edit/components/Multiselect.js:210
-#: ../root/user/UserCollections.js:121
+#: ../root/user/UserCollections.js:122
 msgid "Remove"
 msgstr "Eliminar"
 
@@ -2259,7 +2260,7 @@ msgstr "Eliminar atributo"
 #: ../root/components/common-macros.tt:576
 #: ../root/components/common-macros.tt:584
 #: ../root/components/RemoveFromMergeTableCell.js:39
-#: ../root/utility/tableColumns.js:727 ../root/utility/tableColumns.js:737
+#: ../root/utility/tableColumns.js:728 ../root/utility/tableColumns.js:738
 msgid "Remove from merge"
 msgstr "Eliminar de la fusión"
 
@@ -2565,7 +2566,7 @@ msgstr "Intercambiar títulos de pista y artistas"
 #: ../root/search/components/RecordingResults.js:147
 #: ../root/search/components/ReleaseResults.js:124
 #: ../root/static/scripts/common/components/TaggerIcon.js:82
-#: ../root/utility/tableColumns.js:782
+#: ../root/utility/tableColumns.js:783
 msgctxt "audio file metadata"
 msgid "Tagger"
 msgstr "Etiquetador"
@@ -3097,7 +3098,7 @@ msgstr "Twitter"
 #: ../root/static/scripts/common/components/FilterForm.js:147
 #: ../root/static/scripts/edit/externalLinks.js:1273
 #: ../root/static/scripts/edit/externalLinks.js:1615
-#: ../root/utility/tableColumns.js:654 ../root/utility/tableColumns.js:659
+#: ../root/utility/tableColumns.js:655 ../root/utility/tableColumns.js:660
 msgid "Type"
 msgstr "Tipo"
 
@@ -3310,7 +3311,7 @@ msgid "YYYY"
 msgstr "AAAA"
 
 #: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:309
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:177
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:191
 #: ../root/edit/components/Vote.js:86
 msgctxt "vote"
 msgid "Yes"
@@ -4029,7 +4030,7 @@ msgstr ""
 msgid "Your password has been changed."
 msgstr "Tu contraseña se ha cambiado."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:745
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:747
 msgid ""
 "<strong>We were unable to send you a verification email.</strong><br/>Please "
 "re-enter your address in your {settings|account settings}. If that still "
@@ -4039,7 +4040,7 @@ msgstr ""
 "a introducir to dirección de correo en tus {settings|preferencias de "
 "cuenta}, y si eso no funciona, {contact_url|ponte en contacto con nosotros}."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:828
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:830
 msgid "There is no OAuth token with these parameters."
 msgstr "No hay un token de OAuth con estos parámetros."
 
@@ -4281,15 +4282,15 @@ msgstr ""
 msgid "Series that have different entity types cannot be merged."
 msgstr "No puedes fusionar series de distintos tipos de entidad."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:304
-#: ../lib/MusicBrainz/Server/Controller/User.pm:330
-#: ../lib/MusicBrainz/Server/Controller/User.pm:345
+#: ../lib/MusicBrainz/Server/Controller/User.pm:306
+#: ../lib/MusicBrainz/Server/Controller/User.pm:332
+#: ../lib/MusicBrainz/Server/Controller/User.pm:347
 #: ../root/user/ContactUser.js:37 ../root/user/ContactUser.js:39
 msgctxt "header"
 msgid "Send email"
 msgstr "Enviar correo"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:305
+#: ../lib/MusicBrainz/Server/Controller/User.pm:307
 msgid ""
 "You cannot contact other users because you have not {url|verified your email "
 "address}."
@@ -4297,24 +4298,24 @@ msgstr ""
 "No puedes escribir a otros usuarios porque no has {url|verificado tu "
 "dirección de correo}."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:332
+#: ../lib/MusicBrainz/Server/Controller/User.pm:334
 msgid "You are not allowed to send messages to editors."
 msgstr "No tienes permiso para mandar mensajes a otros editores."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:346
+#: ../lib/MusicBrainz/Server/Controller/User.pm:348
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr ""
 "El editor {name} no tiene una dirección de correo asociada a su cuenta."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:360
+#: ../lib/MusicBrainz/Server/Controller/User.pm:362
 #: ../root/account/LostPasswordSent.js:16
 #: ../root/account/LostUsernameSent.js:16
 msgctxt "header"
 msgid "Email sent"
 msgstr "Correo enviado"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:361
+#: ../lib/MusicBrainz/Server/Controller/User.pm:363
 #, perl-brace-format
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
@@ -4322,20 +4323,20 @@ msgid ""
 msgstr ""
 "¡El correo ha sido enviado! Haz clic {link|aquí} para ir al perfil de {user}."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:389
+#: ../lib/MusicBrainz/Server/Controller/User.pm:391
 msgid "Your message could not be sent"
 msgstr "No se pudo enviar tu mensaje"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:552
+#: ../lib/MusicBrainz/Server/Controller/User.pm:554
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "El tipo de entidad “{type}” no puede tener calificaciones."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:807
+#: ../lib/MusicBrainz/Server/Controller/User.pm:809
 msgid "An error occurred while trying to send your report."
 msgstr "Se ha producido un error al intentar enviar tu denuncia."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:811
+#: ../lib/MusicBrainz/Server/Controller/User.pm:813
 msgid "Your report has been sent."
 msgstr "Tu denuncia ha sido enviada."
 
@@ -4395,7 +4396,7 @@ msgstr ""
 "Puesto que tu edición añadiendo esto estaba aún pendiente, hemos cancelado "
 "esa edición en vez de añadir una nueva."
 
-#: ../lib/MusicBrainz/Server/Data/LinkType.pm:214
+#: ../lib/MusicBrainz/Server/Data/LinkType.pm:232
 #, perl-brace-format
 msgid "{t0}-{t1} relationships"
 msgstr "relaciones {t0}-{t1}"
@@ -4457,7 +4458,7 @@ msgstr ""
 "razón más probable es que las pistas o grabaciones no están en el mismo "
 "orden en las publicaciones."
 
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:160
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:174
 msgid "Total"
 msgstr "Total"
 
@@ -5746,7 +5747,9 @@ msgid "This is not a valid ISWC"
 msgstr "Este no es un ISWC válido"
 
 #: ../lib/MusicBrainz/Server/Form/Field/LabelCode.pm:17
-msgid "Label codes must be greater than 0 and 5 digits at most"
+#, fuzzy
+#| msgid "Label codes must be greater than 0 and 5 digits at most"
+msgid "Label codes must be greater than 0 and 6 digits at most"
 msgstr ""
 "Los códigos de discográfica deben ser números enteros mayores que 0, y tener "
 "un máximo de 5 dígitos"
@@ -6782,7 +6785,7 @@ msgstr ""
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:896
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:554
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
-#: ../root/tag/TagLayout.js:17 ../root/utility/tableColumns.js:802
+#: ../root/tag/TagLayout.js:17 ../root/utility/tableColumns.js:803
 msgid "Artists"
 msgstr "Artistas"
 
@@ -7469,7 +7472,7 @@ msgstr "Detalles de la pista:"
 #: ../root/cdtoc/CDTocInfo.js:47
 #: ../root/edit/details/historic/RemoveTrack.js:23
 #: ../root/search/components/RecordingResults.js:148
-#: ../root/taglookup/Form.js:37 ../root/utility/tableColumns.js:794
+#: ../root/taglookup/Form.js:37 ../root/utility/tableColumns.js:795
 msgid "Track"
 msgstr "Pista"
 
@@ -7481,7 +7484,7 @@ msgstr "Inicio"
 #: ../root/search/components/ArtistResults.js:59
 #: ../root/search/components/LabelResults.js:71
 #: ../root/search/components/PlaceResults.js:68
-#: ../root/utility/tableColumns.js:304 ../root/utility/tableColumns.js:309
+#: ../root/utility/tableColumns.js:305 ../root/utility/tableColumns.js:310
 msgid "End"
 msgstr "Fin"
 
@@ -7587,25 +7590,25 @@ msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "Editar"
 
-#: ../root/collection/CollectionIndex.js:193 ../root/user/UserProfile.js:332
+#: ../root/collection/CollectionIndex.js:202 ../root/user/UserProfile.js:332
 #: ../root/user/UserProfile.js:393
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
 "Contenido oculto para prevenir el spam. Para verlo, {url|inicia sesión}."
 
-#: ../root/collection/CollectionIndex.js:204
+#: ../root/collection/CollectionIndex.js:213
 #: ../root/collection/CollectionMerge.js:58
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:222
-#: ../root/user/UserCollections.js:104
+#: ../root/user/UserCollections.js:105
 msgid "Collaborators"
 msgstr "Colaboradores"
 
-#: ../root/collection/CollectionIndex.js:218
+#: ../root/collection/CollectionIndex.js:227
 msgid "Remove selected items from collection"
 msgstr "Eliminar las entidades seleccionadas de la colección"
 
-#: ../root/collection/CollectionIndex.js:223
+#: ../root/collection/CollectionIndex.js:232
 msgid "This collection is empty."
 msgstr "Esta colección está vacía."
 
@@ -7615,7 +7618,7 @@ msgstr "Colección “{collection}”"
 
 #: ../root/collection/CollectionMerge.js:38
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:52
-#: ../root/user/UserCollections.js:89
+#: ../root/user/UserCollections.js:90
 msgid "Collection"
 msgstr "Colección"
 
@@ -7627,17 +7630,17 @@ msgstr "Tipo de entidad"
 msgid "Entities"
 msgstr "Entidades"
 
-#: ../root/collection/CollectionMerge.js:65 ../root/user/UserCollections.js:70
+#: ../root/collection/CollectionMerge.js:65 ../root/user/UserCollections.js:71
 msgid "Public"
 msgstr "Pública"
 
-#: ../root/collection/CollectionMerge.js:66 ../root/user/UserCollections.js:70
+#: ../root/collection/CollectionMerge.js:66 ../root/user/UserCollections.js:71
 msgid "Private"
 msgstr "Privada"
 
 #: ../root/collection/CollectionMerge.js:67
 #: ../root/static/scripts/account/components/PreferencesForm.js:190
-#: ../root/user/UserCollections.js:115
+#: ../root/user/UserCollections.js:116
 msgid "Privacy"
 msgstr "Privacidad"
 
@@ -7967,7 +7970,7 @@ msgstr "Con el crédito"
 #: ../root/edit/details/RemoveRelationshipType.js:117
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:38
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:547
-#: ../root/utility/tableColumns.js:671
+#: ../root/utility/tableColumns.js:672
 msgid "Attributes"
 msgstr "Atributos"
 
@@ -8123,9 +8126,9 @@ msgstr "Suscriptores"
 
 #: ../root/components/UserAccountTabs.js:57 ../root/entity/Collections.js:27
 #: ../root/entity/Collections.js:29
-#: ../root/layout/components/sidebar/CollectionLinks.js:48
+#: ../root/layout/components/sidebar/CollectionLinks.js:49
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:17
-#: ../root/user/UserCollections.js:166
+#: ../root/user/UserCollections.js:167
 msgid "Collections"
 msgstr "Colecciones"
 
@@ -10556,7 +10559,7 @@ msgstr "Índice de la documentación"
 #: ../root/relationship/RelationshipsHeader.js:18
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:103
 #: ../root/relationship/linktype/RelationshipTypesList.js:58
-#: ../root/utility/tableColumns.js:373
+#: ../root/utility/tableColumns.js:374
 msgid "Relationship types"
 msgstr "Tipos de relación"
 
@@ -10613,8 +10616,8 @@ msgid "My data"
 msgstr "Mis datos"
 
 #: ../root/layout/components/TopMenu.js:88
-#: ../root/layout/components/sidebar/CollectionLinks.js:50
-#: ../root/user/UserCollections.js:168
+#: ../root/layout/components/sidebar/CollectionLinks.js:51
+#: ../root/user/UserCollections.js:169
 msgid "My collections"
 msgstr "Mis colecciones"
 
@@ -10722,54 +10725,60 @@ msgid "You have no event collections!"
 msgstr "¡No tienes colecciones de eventos!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:26
+#, fuzzy
+#| msgid "You have no series collections!"
+msgid "You have no genre collections!"
+msgstr "¡No tienes colecciones de series!"
+
+#: ../root/layout/components/sidebar/CollectionLinks.js:27
 msgid "You have no instrument collections!"
 msgstr "¡No tienes colecciones de instrumentos!"
 
-#: ../root/layout/components/sidebar/CollectionLinks.js:27
+#: ../root/layout/components/sidebar/CollectionLinks.js:28
 msgid "You have no label collections!"
 msgstr "¡No tienes colecciones de discográficas!"
 
-#: ../root/layout/components/sidebar/CollectionLinks.js:28
+#: ../root/layout/components/sidebar/CollectionLinks.js:29
 msgid "You have no place collections!"
 msgstr "¡No tienes colecciones de lugares!"
 
-#: ../root/layout/components/sidebar/CollectionLinks.js:29
+#: ../root/layout/components/sidebar/CollectionLinks.js:30
 msgid "You have no recording collections!"
 msgstr "¡No tienes colecciones de grabaciones!"
 
-#: ../root/layout/components/sidebar/CollectionLinks.js:30
+#: ../root/layout/components/sidebar/CollectionLinks.js:31
 msgid "You have no release collections!"
 msgstr "¡No tienes colecciones de publicaciones!"
 
-#: ../root/layout/components/sidebar/CollectionLinks.js:31
+#: ../root/layout/components/sidebar/CollectionLinks.js:32
 msgid "You have no release group collections!"
 msgstr "¡No tienes colecciones de grupos de publicaciones!"
 
-#: ../root/layout/components/sidebar/CollectionLinks.js:32
+#: ../root/layout/components/sidebar/CollectionLinks.js:33
 msgid "You have no series collections!"
 msgstr "¡No tienes colecciones de series!"
 
-#: ../root/layout/components/sidebar/CollectionLinks.js:33
+#: ../root/layout/components/sidebar/CollectionLinks.js:34
 msgid "You have no work collections!"
 msgstr "¡No tienes colecciones de obras!"
 
-#: ../root/layout/components/sidebar/CollectionLinks.js:44
+#: ../root/layout/components/sidebar/CollectionLinks.js:45
 msgid "Add to a new collection"
 msgstr "Añadir a una nueva colección"
 
-#: ../root/layout/components/sidebar/CollectionLinks.js:46
-#: ../root/user/UserCollections.js:189
+#: ../root/layout/components/sidebar/CollectionLinks.js:47
+#: ../root/user/UserCollections.js:190
 msgid "Collaborative collections"
 msgstr "Colecciones colaborativas"
 
-#: ../root/layout/components/sidebar/CollectionLinks.js:57
+#: ../root/layout/components/sidebar/CollectionLinks.js:58
 msgid "Found in {num} user collection"
 msgid_plural "Found in {num} user collections"
 msgstr[0] "En una colección"
 msgstr[1] "En {num} colecciones"
 msgstr[2] "En {num} colecciones"
 
-#: ../root/layout/components/sidebar/CollectionLinks.js:66
+#: ../root/layout/components/sidebar/CollectionLinks.js:67
 msgid "Other collections"
 msgstr "Otras colecciones"
 
@@ -10953,7 +10962,7 @@ msgstr "Licencia"
 
 #: ../root/layout/components/sidebar/SidebarRating.js:25
 #: ../root/static/scripts/release/components/MediumTable.js:88
-#: ../root/utility/tableColumns.js:466
+#: ../root/utility/tableColumns.js:467
 msgid "Rating"
 msgstr "Calificación"
 
@@ -12061,8 +12070,8 @@ msgstr ""
 "Este informe lista artistas que tiene su tipo fijado a otro distinto de "
 "Grupo (o tipo derivado) pero podría ser un grupo, porque pueden tener otros "
 "artistas listados como miembros. Si encuentras un artista aquí que es de "
-"hecho un grupo, cambia su tipo. Si no, por favor asegúrate que \"miembro de\""
-" relaciones están en la dirección correcta y són correctos."
+"hecho un grupo, cambia su tipo. Si no, por favor asegúrate que \"miembro "
+"de\" relaciones están en la dirección correcta y són correctos."
 
 #: ../root/report/ArtistsThatMayBeGroups.js:34
 #: ../root/report/ReportsIndex.js:59
@@ -13644,7 +13653,7 @@ msgstr "Buscar en la documentación"
 #: ../root/search/components/EventResults.js:78
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:1049
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:220
-#: ../root/utility/tableColumns.js:388
+#: ../root/utility/tableColumns.js:389
 msgctxt "event location"
 msgid "Location"
 msgstr "Ubicación"
@@ -16856,63 +16865,69 @@ msgid "Event collections"
 msgstr "Colecciones de eventos"
 
 #: ../root/user/UserCollections.js:39
+#, fuzzy
+#| msgid "Merge collections"
+msgid "Genre collections"
+msgstr "Fusionar colecciones"
+
+#: ../root/user/UserCollections.js:40
 msgid "Instrument collections"
 msgstr "Colecciones de instrumentos"
 
-#: ../root/user/UserCollections.js:40
+#: ../root/user/UserCollections.js:41
 msgid "Label collections"
 msgstr "Collecciones de discográficas"
 
-#: ../root/user/UserCollections.js:41
+#: ../root/user/UserCollections.js:42
 msgid "Place collections"
 msgstr "Colecciones de lugares"
 
-#: ../root/user/UserCollections.js:42
+#: ../root/user/UserCollections.js:43
 msgid "Recording collections"
 msgstr "Colecciones de grabaciones"
 
-#: ../root/user/UserCollections.js:43
+#: ../root/user/UserCollections.js:44
 msgid "Release collections"
 msgstr "Colecciones de publicaciones"
 
-#: ../root/user/UserCollections.js:44
+#: ../root/user/UserCollections.js:45
 msgid "Release group collections"
 msgstr "Colecciones de grupos de publicaciones"
 
-#: ../root/user/UserCollections.js:45
+#: ../root/user/UserCollections.js:46
 msgctxt "plural"
 msgid "Series collections"
 msgstr "Colecciones de series"
 
-#: ../root/user/UserCollections.js:46
+#: ../root/user/UserCollections.js:47
 msgid "Work collections"
 msgstr "Colecciones de obras"
 
-#: ../root/user/UserCollections.js:58
+#: ../root/user/UserCollections.js:59
 msgid "{collaborator_number} (including you)"
 msgstr "{collaborator_number} (te incluye)"
 
-#: ../root/user/UserCollections.js:73
+#: ../root/user/UserCollections.js:74
 msgid "(your collection)"
 msgstr "(tu colección)"
 
-#: ../root/user/UserCollections.js:183
+#: ../root/user/UserCollections.js:184
 msgid "You have no collections."
 msgstr "No tienes colecciones."
 
-#: ../root/user/UserCollections.js:185
+#: ../root/user/UserCollections.js:186
 msgid "{user} has no public collections."
 msgstr "{user} no tiene colecciones públicas."
 
-#: ../root/user/UserCollections.js:204
+#: ../root/user/UserCollections.js:205
 msgid "You aren’t collaborating in any collections."
 msgstr "No colaboras en ninguna colección."
 
-#: ../root/user/UserCollections.js:206
+#: ../root/user/UserCollections.js:207
 msgid "{user} isn’t collaborating in any public collections."
 msgstr "{user} no colabora en ninguna colección pública."
 
-#: ../root/user/UserCollections.js:214
+#: ../root/user/UserCollections.js:215
 msgctxt "interactive"
 msgid "Add a new collection"
 msgstr "Añadir colección"
@@ -17512,21 +17527,21 @@ msgstr ""
 msgid "This edit was cancelled."
 msgstr "Esta edición fue cancelada."
 
-#: ../root/utility/tableColumns.js:750
+#: ../root/utility/tableColumns.js:751
 msgctxt "header"
 msgid "Relationship type"
 msgstr "Tipo de relación"
 
-#: ../root/utility/tableColumns.js:765
+#: ../root/utility/tableColumns.js:766
 msgctxt "header"
 msgid "Ordering type"
 msgstr "Tipo de ordenación"
 
-#: ../root/utility/tableColumns.js:773
+#: ../root/utility/tableColumns.js:774
 msgid "Subscribed"
 msgstr "Suscrito/a"
 
-#: ../root/utility/tableColumns.js:821
+#: ../root/utility/tableColumns.js:822
 msgctxt "header"
 msgid "Lyrics languages"
 msgstr "Idiomas de la letra"

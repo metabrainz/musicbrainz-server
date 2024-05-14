@@ -7680,9 +7680,9 @@ msgstr "שוחזר"
 msgid "reconstructed by"
 msgstr "שוחזר על ידי"
 
-#: DB:link_type/name:809 DB:link_type/name:810 DB:link_type/name:693
-#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:809
-#: DB:link_type/reverse_link_phrase:810
+#: DB:link_type/name:810 DB:link_type/name:809 DB:link_type/name:693
+#: DB:link_type/name:695 DB:link_type/reverse_link_phrase:810
+#: DB:link_type/reverse_link_phrase:809
 msgid "recorded at"
 msgstr "הוקלט ב־"
 
@@ -7732,7 +7732,7 @@ msgstr "משרת מהנדס הקלטה ב־"
 msgid "recording engineers"
 msgstr "מהנדסי הקלטה"
 
-#: DB:link_type/link_phrase:809 DB:link_type/link_phrase:810
+#: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
 msgid "recording location for"
 msgstr " אתר הקלטה של"
 
@@ -9516,10 +9516,6 @@ msgstr "{entity1} יוחס קודם ל־{entity0}"
 msgid "{entity1} was printed in {entity0}"
 msgstr "{entity1} הודפס ב־{entity0}"
 
-#: DB:link_type/long_link_phrase:809 DB:link_type/long_link_phrase:810
-msgid "{entity1} was recorded at  {entity0}"
-msgstr "{entity1} הוקלט ב־{entity0}"
-
 #: DB:link_type/long_link_phrase:1178
 msgid "{entity1} was remixed for {entity0}"
 msgstr ""
@@ -9580,6 +9576,7 @@ msgstr "{entity1} {additional:additionally} הופק ב־{entity0}"
 msgid "{entity1} was {additional:additionally} produced in {entity0}"
 msgstr "{entity1} {additional:additionally} הופק ב־{entity0}"
 
+#: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
 #: DB:link_type/long_link_phrase:693 DB:link_type/long_link_phrase:695
 msgid "{entity1} was {additional:additionally} recorded at {entity0}"
 msgstr "{entity1} {additional:additionally} הוקלט ב־{entity0}"
@@ -9604,9 +9601,15 @@ msgstr "{entity1} {additional:additionally} צולם ב־{entity0}"
 msgid "{entity1} was {additional:additionally} shot in {entity0}"
 msgstr "{entity1} {additional:additionally} צולם ב־{entity0}"
 
-#: DB:link_type/long_link_phrase:1181 DB:link_type/long_link_phrase:1182
+#: DB:link_type/long_link_phrase:1182
 msgid "{entity1} was {additional:additionally} transferred at {entity0}"
 msgstr ""
+
+#: DB:link_type/long_link_phrase:1181
+#, fuzzy
+#| msgid "{entity1} was {additional:additionally} translated in {entity0}"
+msgid "{entity1} was {additional:additionally} transferred in {entity0}"
+msgstr "{entity1} {additional:additionally} תורגם ב־{entity0}"
 
 #: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
 msgid "{entity1} was {additional:additionally} translated at {entity0}"
@@ -9717,6 +9720,9 @@ msgstr "תמיכה על־ידי {vocal:%|vocals}"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "תמיכה עבור {vocal:%|vocals}"
+
+#~ msgid "{entity1} was recorded at  {entity0}"
+#~ msgstr "{entity1} הוקלט ב־{entity0}"
 
 #~ msgid "This is used to link a label to its corresponding Wikipedia page."
 #~ msgstr "משמש לקישור חברת תקליטים לעמוד הויקיפדיה שלה."
