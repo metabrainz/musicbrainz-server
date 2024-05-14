@@ -40,6 +40,11 @@ var newReleaseLabels = utils.withRelease(function (release) {
 
 const getReleaseLabel = x => String(x.release_label ?? '');
 
+const getReleaseLabelKey = (releaseLabel) => (
+  String(releaseLabel.label ?? '') + '\0' +
+  clean(releaseLabel.catalog_number)
+);
+
 releaseEditor.edits = {
 
   releaseGroup: function (release) {
@@ -106,10 +111,17 @@ releaseEditor.edits = {
 
   releaseLabel: function (release) {
     var newLabels = newReleaseLabels().map(MB.edit.fields.releaseLabel);
-    var oldLabels = release.labels.original();
+    var oldLabels = release.labels.original().slice(0);
 
-    var newLabelsByID = keyBy(newLabels, getReleaseLabel);
-    var oldLabelsByID = keyBy(oldLabels, getReleaseLabel);
+    const newLabelsByID = keyBy(
+      newLabels.filter((releaseLabel) => (
+        nonEmpty(getReleaseLabel(releaseLabel))
+      )),
+      getReleaseLabel,
+    );
+    const oldLabelsByID = keyBy(oldLabels, getReleaseLabel);
+    const newLabelsByKey = keyBy(newLabels, getReleaseLabelKey);
+    const oldLabelsByKey = keyBy(oldLabels, getReleaseLabelKey);
 
     var edits = [];
 
@@ -123,20 +135,57 @@ releaseEditor.edits = {
           // Edit ReleaseLabel
           edits.push(MB.edit.releaseEditReleaseLabel(newLabel));
         }
-      } else {
-        // Add ReleaseLabel
-        newLabel = {...newLabel};
+      } else if (!oldLabelsByKey.has(getReleaseLabelKey(newLabel))) {
+        /*
+         * If there's a removed release label with the same label or
+         * catalog number, we can edit rather than remove it.
+         */
+        let oldLabel;
+        let oldLabelIndex = -1;
 
-        if (newLabel.label || newLabel.catalog_number) {
-          newLabel.release = release.gid() || null;
-          edits.push(MB.edit.releaseAddReleaseLabel(newLabel));
+        if (newLabel.label) {
+          oldLabelIndex = oldLabels.findIndex(
+            (releaseLabel) => (
+              !newLabelsByKey.has(getReleaseLabelKey(releaseLabel)) &&
+              releaseLabel.label === newLabel.label
+            ),
+          );
+        }
+        if (oldLabelIndex < 0 && nonEmpty(newLabel.catalog_number)) {
+          oldLabelIndex = oldLabels.findIndex(
+            (releaseLabel) => (
+              !newLabelsByKey.has(getReleaseLabelKey(releaseLabel)) &&
+              releaseLabel.catalog_number === newLabel.catalog_number
+            ),
+          );
+        }
+        if (oldLabelIndex >= 0) {
+          oldLabel = oldLabels[oldLabelIndex];
+          oldLabels.splice(oldLabelIndex, 1);
+        }
+
+        if (oldLabel && !deepEqual(newLabel, oldLabel)) {
+          // Edit ReleaseLabel
+          edits.push(MB.edit.releaseEditReleaseLabel({
+            ...newLabel,
+            release_label: oldLabel.release_label,
+          }));
+        } else {
+          // Add ReleaseLabel
+          newLabel = {...newLabel};
+
+          if (newLabel.label || newLabel.catalog_number) {
+            newLabel.release = release.gid() || null;
+            edits.push(MB.edit.releaseAddReleaseLabel(newLabel));
+          }
         }
       }
     }
 
     for (let oldLabel of oldLabels) {
       const id = getReleaseLabel(oldLabel);
-      const newLabel = newLabelsByID.get(id);
+      const newLabel = newLabelsByID.get(id) ??
+        newLabelsByKey.get(getReleaseLabelKey(oldLabel));
 
       if (!newLabel || !(newLabel.label || newLabel.catalog_number)) {
         // Delete ReleaseLabel
