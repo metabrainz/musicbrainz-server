@@ -283,7 +283,9 @@ copy_mb(``admin/ admin/'')
 copy_mb(``app.psgi entities.json entities.mjs ./'')
 copy_mb(``bin/ bin/'')
 copy_mb(``lib/ lib/'')
-copy_mb(``script/functions.sh script/git_info script/'')')
+copy_mb(``script/create_test_db.sh script/database_exists script/dump_foreign_keys.pl script/functions.sh script/git_info script/'')
+mkdir -p t/sql && \
+copy_mb(``t/sql/initial.sql t/sql/'')')
 
 m4_define(
     `git_info',
