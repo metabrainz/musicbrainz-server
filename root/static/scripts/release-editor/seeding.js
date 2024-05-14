@@ -8,6 +8,8 @@
 
 import ko from 'knockout';
 
+import releaseLabelKey from '../common/utility/releaseLabelKey.js';
+
 import fields from './fields.js';
 import utils from './utils.js';
 import releaseEditor from './viewModel.js';
@@ -94,7 +96,51 @@ releaseEditor.seedRelease = function (release, data) {
   }
 
   if (data.labels) {
-    release.labels(utils.mapChild(release, data.labels, fields.ReleaseLabel));
+    const seededReleaseLabels =
+      utils.mapChild(release, data.labels, fields.ReleaseLabel);
+    const existingReleaseLabelsByKey = new Map(
+      release.labels.peek().map(
+        (releaseLabel) => [releaseLabelKey(releaseLabel), releaseLabel],
+      ),
+    );
+    const seededReleaseLabelsByKey = new Map(
+      seededReleaseLabels.map(
+        (releaseLabel) => [releaseLabelKey(releaseLabel), releaseLabel],
+      ),
+    );
+    release.labels(
+      seededReleaseLabels.map(
+        (seededReleaseLabel) => {
+          let existingReleaseLabel = existingReleaseLabelsByKey.get(
+            releaseLabelKey(seededReleaseLabel),
+          );
+          const seededLabel = seededReleaseLabel.label.peek();
+          if (!existingReleaseLabel && nonEmpty(seededLabel?.gid)) {
+            /*
+             * If there's an existing release label with the same label, we
+             * can potentially edit its catalog number instead of replacing
+             * it.
+             */
+            existingReleaseLabel = release.labels.peek().find(
+              (releaseLabel) => (
+                (releaseLabel.label.peek()?.gid) === seededLabel.gid &&
+                /*
+                 * Don't clobber an existing release label that's been
+                 * preserved in the seeded parameters.
+                 */
+                !seededReleaseLabelsByKey.has(releaseLabelKey(releaseLabel))
+              ),
+            );
+            if (existingReleaseLabel) {
+              existingReleaseLabel.catalogNumber(
+                seededReleaseLabel.catalogNumber.peek(),
+              );
+            }
+          }
+          return existingReleaseLabel ?? seededReleaseLabel;
+        },
+      ),
+    );
   }
 
   if (data.releaseGroup) {
