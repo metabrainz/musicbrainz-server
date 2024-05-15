@@ -138,8 +138,12 @@ sub _where_filter
             push @params, $filter->{artist_credit_id};
         }
         if (exists $filter->{label_id}) {
-            push @query, 'EXISTS (SELECT 1 FROM release_label rl WHERE rl.release = release.id AND rl.label = ?)';
-            push @params, $filter->{label_id};
+            if ($filter->{label_id} eq '-1') {
+                push @query, '(NOT EXISTS (SELECT 1 FROM release_label rl WHERE rl.release = release.id) OR EXISTS (SELECT 1 FROM release_label rl WHERE rl.release = release.id AND rl.label IS NULL))';
+            } else {
+                push @query, 'EXISTS (SELECT 1 FROM release_label rl WHERE rl.release = release.id AND rl.label = ?)';
+                push @params, $filter->{label_id};
+            }
         }
         if (exists $filter->{status} && $filter->{status}) {
             my @statuses = ref($filter->{status}) ? @{ $filter->{status} } : ( $filter->{status} );
@@ -149,8 +153,12 @@ sub _where_filter
             }
         }
         if (exists $filter->{status_id}) {
-            push @query, 'release.status = ?';
-            push @params, $filter->{status_id};
+            if ($filter->{status_id} eq '-1') {
+                push @query, 'release.status IS NULL';
+            } else {
+                push @query, 'release.status = ?';
+                push @params, $filter->{status_id};
+            }
         }
         if (exists $filter->{type} && $filter->{type}) {
             my @types = ref($filter->{type}) ? @{ $filter->{type} } : ( $filter->{type} );
@@ -172,12 +180,19 @@ sub _where_filter
         }
         my $country_id_filter = $filter->{country_id};
         my $date_filter = $filter->{date};
-        if (defined $country_id_filter || defined $date_filter) {
+        if (defined $country_id_filter && $country_id_filter eq '-1'
+            && !defined $date_filter) {
+            push @query, '(NOT EXISTS (SELECT 1 FROM release_event re WHERE re.release = release.id) OR EXISTS (SELECT 1 FROM release_event re WHERE re.release = release.id AND country IS NULL))';
+        } elsif (defined $country_id_filter || defined $date_filter) {
             my $country_date_query = 'release.id IN (SELECT release FROM release_event WHERE ';
             my @country_date_conditions;
             if (defined $country_id_filter) {
-                push @country_date_conditions, 'country = ?';
-                push @params, $country_id_filter;
+                if ($country_id_filter eq '-1') {
+                    push @country_date_conditions, 'country IS NULL';
+                } else {
+                    push @country_date_conditions, 'country = ?';
+                    push @params, $country_id_filter;
+                }
             }
             if (defined $date_filter) {
                 my $date = MusicBrainz::Server::Entity::PartialDate->new($date_filter);

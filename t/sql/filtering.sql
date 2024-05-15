@@ -50,13 +50,12 @@ INSERT INTO medium (id, release, position)
            (3406, 3406, 1);
 
 INSERT INTO label (id, gid, name)
-    VALUES (3400, 'ed65f6e2-5454-45a7-8607-e1106d209734', 'Erato'),
-           (3401, '5a584032-dcef-41bb-9f8b-19540116fb1c', 'Deutsche Grammophon'),
+    VALUES (3401, '5a584032-dcef-41bb-9f8b-19540116fb1c', 'Deutsche Grammophon'),
            (3402, '615fa478-3901-42b8-80bc-bf58b1ff0e03', 'Naxos'),
            (3403, '157afde4-4bf5-4039-8ad2-5a15acc85176', '[no label]');
 
 INSERT INTO release_label (release, label, catalog_number)
-    VALUES (3400, 3400, '4509-91711-2'),
+    VALUES (3400, NULL, '4509-91711-2'),
            (3401, 3401, '0289 479 4518'),
            (3402, 3402, '8.501066'),
            (3403, 3403, NULL),

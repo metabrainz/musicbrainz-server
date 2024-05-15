@@ -230,6 +230,23 @@ test 'Release page filtering' => sub {
     );
 
     $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases?filter.status_id=-1',
+        'Fetched artist releases page with status filter "[none]"',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '1',
+        'There is one entry in the release table after filtering by no status',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        'String Quartet',
+        'The entry is named "String Quartet"',
+    );
+
+    $mech->get_ok(
         '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases?filter.date=2010',
         'Fetched artist releases page with date filter',
     );
@@ -264,6 +281,23 @@ test 'Release page filtering' => sub {
     );
 
     $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases?filter.label_id=-1',
+        'Fetched artist releases page with label filter "[none]"',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '2',
+        'There are two entries in the release table after filtering by no label',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        'Concerto for Orchestra / Symphony no. 3',
+        'The first entry is named "Concerto for Orchestra / Symphony no. 3"',
+    );
+
+    $mech->get_ok(
         '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases?filter.country_id=221',
         'Fetched artist releases page with country filter',
     );
@@ -278,6 +312,40 @@ test 'Release page filtering' => sub {
         '//table[@class="tbl"]/tbody/tr[1]/td[1]',
         'Concerto for Orchestra / Symphony no. 3',
         'The first entry is named "Concerto for Orchestra / Symphony no. 3"',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases?filter.country_id=-1',
+        'Fetched artist releases page with country filter "[none]"',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '4',
+        'There are four entries in the release table after filtering by no country',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        'Symphonies / Concertos / Choral and Vocal Works',
+        'The first entry is named "Symphonies / Concertos / Choral and Vocal Works"',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases?filter.country_id=-1&filter.date=2010',
+        'Fetched artist releases page with both date filter and country filter "[none]"',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '2',
+        'There are two entries in the release table after filtering by no country + date 2010',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        'Lutosławski',
+        'The first entry is named "Lutosławski"',
     );
 
     $mech->get_ok(

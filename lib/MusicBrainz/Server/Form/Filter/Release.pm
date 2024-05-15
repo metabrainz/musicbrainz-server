@@ -4,7 +4,7 @@ use warnings;
 
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Data::Utils qw( non_empty );
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( l lp );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 extends 'MusicBrainz::Server::Form::Filter::Generic';
@@ -68,6 +68,7 @@ sub options_artist_credit_id {
 sub options_country_id {
     my ($self, $field) = @_;
     return [
+        { value => '-1', label => lp('[none]', 'release country') },
         map +{ value => $_->id, label => $_->name },
         @{ $self->countries },
     ];
@@ -76,6 +77,7 @@ sub options_country_id {
 sub options_label_id {
     my ($self, $field) = @_;
     return [
+        { value => '-1', label => lp('[none]', 'release label') },
         map +{ value => $_->id, label => $_->name },
         @{ $self->labels },
     ];
@@ -84,6 +86,7 @@ sub options_label_id {
 sub options_status_id {
     my ($self, $field) = @_;
     return [
+        { value => '-1', label => lp('[none]', 'release status') },
         map +{ value => $_->id, label => $_->name },
         @{ $self->statuses },
     ];
