@@ -382,6 +382,8 @@ sub STAT_TTL { shift->DEVELOPMENT_SERVER() ? undef : 1200 }
 # Please activate the officially approved languages here. Not every .po
 # file is active because we might have fully translated languages which
 # are not yet properly supported, like right-to-left languages
+#
+# The corresponding language packs must be installed; See NOTE-LANGUAGES-1
 sub MB_LANGUAGES {qw()}
 
 # Should the site fall back to browser settings when trying to set a language

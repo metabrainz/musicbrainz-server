@@ -252,7 +252,7 @@ m4_define(`with_beta_translations', m4_ifelse(GIT_BRANCH, `beta', 1, GIT_BRANCH,
 m4_define(`with_test_translations', m4_ifelse(GIT_BRANCH, `test', 1, 0))
 m4_define(
     `mbs_translations_deps',
-    `m4_dnl
+    `m4_dnl NOTE-LANGUAGES-1: These language packs must match the definition(s) of MB_LANGUAGES in deployment.
 gettext
 git
 language-pack-de
