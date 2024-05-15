@@ -804,6 +804,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'label'],
   },
   {
+                     input_url: 'https://dailythompsonband.bandcamp.com/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'bandcamp',
+            expected_clean_url: 'https://dailythompsonband.bandcamp.com/',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
                      input_url: 'https://bandcamp.com/tag/ambient-noise-wall?tab=highlights',
              input_entity_type: 'genre',
     expected_relationship_type: 'bandcamp',
