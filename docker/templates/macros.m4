@@ -248,22 +248,37 @@ RUN useradd --create-home --shell /bin/bash musicbrainz
 WORKDIR MBS_ROOT
 RUN chown_mb(`MBS_ROOT')')
 
+m4_define(`with_beta_translations', m4_ifelse(GIT_BRANCH, `beta', 1, GIT_BRANCH, `test', 1, 0))
+m4_define(`with_test_translations', m4_ifelse(GIT_BRANCH, `test', 1, 0))
 m4_define(
     `mbs_translations_deps',
-    `m4_dnl
+    `m4_dnl NOTE-LANGUAGES-1: These language packs must match the definition(s) of MB_LANGUAGES in deployment.
 gettext
 git
 language-pack-de
+language-pack-fr
+language-pack-it
+language-pack-nl
+m4_ifelse(with_beta_translations, 1, `m4_dnl
 language-pack-el
 language-pack-es
 language-pack-et
 language-pack-fi
-language-pack-fr
 language-pack-he
-language-pack-it
 language-pack-ja
-language-pack-nl
-language-pack-sq
+language-pack-sq')
+m4_ifelse(with_test_translations, 1, `m4_dnl
+language-pack-da
+language-pack-eo
+language-pack-hr
+language-pack-nb
+language-pack-oc
+language-pack-pl
+language-pack-ru
+language-pack-sv
+language-pack-tr
+language-pack-zh-hans
+language-pack-zh-hant')
 make
 ')
 
