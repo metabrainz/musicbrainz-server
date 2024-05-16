@@ -180,6 +180,10 @@ function getEntityName(
   }
 }
 
+const _recentItemsRequests =
+  // $FlowIgnore[unclear-type]
+  new Map<string, Promise<Array<OptionItemT<any>>>>();
+
 export async function getOrFetchRecentItems<T: EntityItemT>(
   entityType: string,
   key?: string = entityType,
@@ -217,7 +221,11 @@ export async function getOrFetchRecentItems<T: EntityItemT>(
   if (ids.size) {
     const rowIds = _filterFakeIds(ids);
     if (rowIds.length) {
-      return fetch(
+      let fetchPromise = _recentItemsRequests.get(key);
+      if (fetchPromise) {
+        return fetchPromise;
+      }
+      fetchPromise = fetch(
         '/ws/js/entities/' +
         entityType + '/' +
         rowIds.join('+'),
@@ -246,7 +254,12 @@ export async function getOrFetchRecentItems<T: EntityItemT>(
         }
 
         return cachedList;
-      });
+      })
+        .finally(() => {
+          _recentItemsRequests.delete(key);
+        });
+
+      _recentItemsRequests.set(key, fetchPromise);
     }
   }
 
