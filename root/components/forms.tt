@@ -133,7 +133,8 @@
     [% END %]
 [%- END -%]
 
-[%- MACRO form_row_text_list(r, field_name, label, item_name) BLOCK -%]
+[%- MACRO form_row_text_list(r, field_name, label, item_name) BLOCK # Converted to React at root/static/scripts/edit/components/FormTowTextList.js
+-%] 
     [% WRAPPER form_row %]
       <label>[% label || r.form.field(field_name).label %]</label>
       <div class="form-row-text-list">
