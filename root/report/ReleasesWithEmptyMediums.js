@@ -11,28 +11,30 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseT} from './types.js';
 
-const ReleasesWithEmptyMediums = ({
+component ReleasesWithEmptyMediums(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows releases with at least one medium
-       that is missing a tracklist. If you can find the tracklist,
-       please help complete the data!`,
-    )}
-    entityType="release"
-    filtered={filtered}
-    generated={generated}
-    title={l('Releases with empty mediums')}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows releases with at least one medium
+         that is missing a tracklist. If you can find the tracklist,
+         please help complete the data!`,
+      )}
+      entityType="release"
+      filtered={filtered}
+      generated={generated}
+      title={l('Releases with empty mediums')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default ReleasesWithEmptyMediums;

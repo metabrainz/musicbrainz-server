@@ -13,14 +13,13 @@ import useAnnotationColumns from './hooks/useAnnotationColumns.js';
 import {ANNOTATION_REPORT_TEXT} from './constants.js';
 import type {ReportDataT, ReportPlaceAnnotationT} from './types.js';
 
-const AnnotationsPlaces = ({
+component AnnotationsPlaces(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportPlaceAnnotationT>):
-React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportPlaceAnnotationT>) {
   const annotationColumns = useAnnotationColumns<ReportPlaceAnnotationT>();
 
   return (
@@ -41,6 +40,6 @@ React$Element<typeof ReportLayout> => {
       />
     </ReportLayout>
   );
-};
+}
 
 export default AnnotationsPlaces;

@@ -11,27 +11,29 @@ import RecordingList from './components/RecordingList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportRecordingT} from './types.js';
 
-const RecordingsWithVaryingTrackLengths = ({
+component RecordingsWithVaryingTrackLengths(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows recordings where the linked tracks
-       have times that vary by more than 30 seconds.`,
-    )}
-    entityType="recording"
-    filtered={filtered}
-    generated={generated}
-    title={l('Recordings with varying track times')}
-    totalEntries={pager.total_entries}
-  >
-    <RecordingList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportRecordingT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows recordings where the linked tracks
+        have times that vary by more than 30 seconds.`,
+      )}
+      entityType="recording"
+      filtered={filtered}
+      generated={generated}
+      title={l('Recordings with varying track times')}
+      totalEntries={pager.total_entries}
+    >
+      <RecordingList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default RecordingsWithVaryingTrackLengths;

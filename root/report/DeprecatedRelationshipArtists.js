@@ -15,32 +15,33 @@ import ArtistList from './components/ArtistList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportArtistRelationshipT, ReportDataT} from './types.js';
 
-const DeprecatedRelationshipArtists = ({
+component DeprecatedRelationshipArtists(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistRelationshipT>):
-React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report lists artists which have relationships using
-       deprecated and grouping-only relationship types.`,
-    )}
-    entityType="artist"
-    filtered={filtered}
-    generated={generated}
-    title={l('Artists with deprecated relationships')}
-    totalEntries={pager.total_entries}
-  >
-    <ArtistList
-      columnsBefore={[relTypeColumn]}
-      items={items}
-      pager={pager}
-    />
-  </ReportLayout>
-);
+}: ReportDataT<ReportArtistRelationshipT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report lists artists which have relationships using
+         deprecated and grouping-only relationship types.`,
+      )}
+      entityType="artist"
+      filtered={filtered}
+      generated={generated}
+      title={l('Artists with deprecated relationships')}
+      totalEntries={pager.total_entries}
+    >
+      <ArtistList
+        columnsBefore={[relTypeColumn]}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+}
 
 export default DeprecatedRelationshipArtists;

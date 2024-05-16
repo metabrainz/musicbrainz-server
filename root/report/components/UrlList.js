@@ -14,19 +14,12 @@ import PaginatedResults from '../../components/PaginatedResults.js';
 import useTable from '../../hooks/useTable.js';
 import {defineLinkColumn} from '../../utility/tableColumns.js';
 
-type Props<D: {+url: ?UrlT, ...}> = {
-  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +items: $ReadOnlyArray<D>,
-  +pager: PagerT,
-};
-
-const UrlList = <D: {+url: ?UrlT, ...}>({
-  columnsBefore,
-  columnsAfter,
-  items,
-  pager,
-}: Props<D>): React$Element<typeof PaginatedResults> => {
+component UrlList<D: {+url: ?UrlT, ...}>(
+  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  items: $ReadOnlyArray<D>,
+  pager: PagerT,
+) {
   const existingUrlItems = items.reduce((
     result: Array<D>,
     item,
@@ -69,6 +62,6 @@ const UrlList = <D: {+url: ?UrlT, ...}>({
       {table}
     </PaginatedResults>
   );
-};
+}
 
 export default UrlList;

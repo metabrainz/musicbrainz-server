@@ -11,26 +11,28 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseT} from './types.js';
 
-const ReleasesWithNoMediums = ({
+component ReleasesWithNoMediums(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      'This report shows releases without any mediums (no tracklist).',
-    )}
-    entityType="release"
-    filtered={filtered}
-    generated={generated}
-    title={l('Releases with no mediums')}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        'This report shows releases without any mediums (no tracklist).',
+      )}
+      entityType="release"
+      filtered={filtered}
+      generated={generated}
+      title={l('Releases with no mediums')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default ReleasesWithNoMediums;

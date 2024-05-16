@@ -15,13 +15,13 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseUrlT} from './types.js';
 
-const BadAmazonUrls = ({
+component BadAmazonUrls(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseUrlT>): React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportReleaseUrlT>) {
   const urlColumn = {
     Cell: ({row: {original}}: CellRenderProps<ReportReleaseUrlT, empty>) => {
       const url = original.url;
@@ -62,6 +62,6 @@ const BadAmazonUrls = ({
       />
     </ReportLayout>
   );
-};
+}
 
 export default BadAmazonUrls;

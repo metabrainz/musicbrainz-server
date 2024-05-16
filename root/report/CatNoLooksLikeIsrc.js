@@ -12,13 +12,13 @@ import ReportLayout from './components/ReportLayout.js';
 import useCatNoColumn from './hooks/useCatNoColumn.js';
 import type {ReportDataT, ReportReleaseCatNoT} from './types.js';
 
-const CatNoLooksLikeIsrc = ({
+component CatNoLooksLikeIsrc(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseCatNoT>): React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportReleaseCatNoT>) {
   const catNoColumn = useCatNoColumn<ReportReleaseCatNoT>();
 
   return (
@@ -47,6 +47,6 @@ const CatNoLooksLikeIsrc = ({
       />
     </ReportLayout>
   );
-};
+}
 
 export default CatNoLooksLikeIsrc;

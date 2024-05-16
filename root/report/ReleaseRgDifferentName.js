@@ -15,14 +15,13 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseReleaseGroupT} from './types.js';
 
-const ReleaseRgDifferentName = ({
+component ReleaseRgDifferentName(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseReleaseGroupT>):
-React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportReleaseReleaseGroupT>) {
   const releaseGroupColumn = defineEntityColumn<ReportReleaseReleaseGroupT>({
     columnName: 'release_group',
     descriptive: false,
@@ -51,6 +50,6 @@ React$Element<typeof ReportLayout> => {
       />
     </ReportLayout>
   );
-};
+}
 
 export default ReleaseRgDifferentName;

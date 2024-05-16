@@ -11,28 +11,30 @@ import LabelList from './components/LabelList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportLabelT} from './types.js';
 
-const LabelsDisambiguationSameName = ({
+component LabelsDisambiguationSameName(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportLabelT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report lists labels that have their disambiguation set
-       to be the same as their name.
-       The disambiguation should be removed or, if it is needed, improved.`,
-    )}
-    entityType="label"
-    filtered={filtered}
-    generated={generated}
-    title={l('Labels with disambiguation the same as the name')}
-    totalEntries={pager.total_entries}
-  >
-    <LabelList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportLabelT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report lists labels that have their disambiguation set
+         to be the same as their name.
+         The disambiguation should be removed or, if it is needed, improved.`,
+      )}
+      entityType="label"
+      filtered={filtered}
+      generated={generated}
+      title={l('Labels with disambiguation the same as the name')}
+      totalEntries={pager.total_entries}
+    >
+      <LabelList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default LabelsDisambiguationSameName;

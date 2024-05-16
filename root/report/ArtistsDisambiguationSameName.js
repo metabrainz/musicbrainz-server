@@ -11,28 +11,30 @@ import ArtistList from './components/ArtistList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportArtistT, ReportDataT} from './types.js';
 
-const ArtistsDisambiguationSameName = ({
+component ArtistsDisambiguationSameName(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report lists artists that have their disambiguation set
-       to be the same as their name.
-       The disambiguation should be removed or, if it is needed, improved.`,
-    )}
-    entityType="artist"
-    filtered={filtered}
-    generated={generated}
-    title={l('Artists with disambiguation the same as the name')}
-    totalEntries={pager.total_entries}
-  >
-    <ArtistList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportArtistT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report lists artists that have their disambiguation set
+         to be the same as their name.
+         The disambiguation should be removed or, if it is needed, improved.`,
+      )}
+      entityType="artist"
+      filtered={filtered}
+      generated={generated}
+      title={l('Artists with disambiguation the same as the name')}
+      totalEntries={pager.total_entries}
+    >
+      <ArtistList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default ArtistsDisambiguationSameName;

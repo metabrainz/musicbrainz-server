@@ -12,13 +12,13 @@ import ReportLayout from './components/ReportLayout.js';
 import useReleaseLanguageColumn from './hooks/useReleaseLanguageColumn.js';
 import type {ReportDataT, ReportReleaseT} from './types.js';
 
-const NoScript = ({
+component NoScript(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportReleaseT>) {
   const releaseLanguageColumn = useReleaseLanguageColumn<ReportReleaseT>();
 
   return (
@@ -42,6 +42,6 @@ const NoScript = ({
       />
     </ReportLayout>
   );
-};
+}
 
 export default NoScript;

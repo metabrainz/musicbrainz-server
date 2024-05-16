@@ -16,13 +16,13 @@ import EditorList from './components/EditorList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportEditorT} from './types.js';
 
-const LimitedEditors = ({
+component LimitedEditors(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportEditorT>): React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportEditorT>) {
   const $c = React.useContext(CatalystContext);
   return (
     <ReportLayout
@@ -44,6 +44,6 @@ const LimitedEditors = ({
       )}
     </ReportLayout>
   );
-};
+}
 
 export default LimitedEditors;

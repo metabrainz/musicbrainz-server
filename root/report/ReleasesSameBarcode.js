@@ -26,13 +26,13 @@ type ReportRowT = {
   +row_number: number,
 };
 
-const ReleasesSameBarcode = ({
+component ReleasesSameBarcode(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportRowT>): React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportRowT>) {
   const barcodeColumn = defineTextColumn<ReportRowT>({
     cellProps: {className: 'barcode-cell'},
     columnName: 'barcode',
@@ -68,6 +68,6 @@ const ReleasesSameBarcode = ({
       />
     </ReportLayout>
   );
-};
+}
 
 export default ReleasesSameBarcode;

@@ -9,17 +9,19 @@
 
 import Layout from '../layout/index.js';
 
-const ReportNotAvailable = (): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Error')}>
-    <div id="content">
-      <h1>{l('Error')}</h1>
+component ReportNotAvailable() {
+  return (
+    <Layout fullWidth title={l('Error')}>
+      <div id="content">
+        <h1>{l('Error')}</h1>
 
-      <p>
-        {l(`We are sorry, but data for this report is not available
-            right now.`)}
-      </p>
-    </div>
-  </Layout>
-);
+        <p>
+          {l(`We are sorry, but data for this report is not available
+              right now.`)}
+        </p>
+      </div>
+    </Layout>
+  );
+}
 
 export default ReportNotAvailable;

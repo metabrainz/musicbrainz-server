@@ -19,15 +19,10 @@ import {
 } from '../../utility/tableColumns.js';
 import type {ReportEditorT} from '../types.js';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportEditorT>,
-  +pager: PagerT,
-};
-
-const EditorList = ({
-  items,
-  pager,
-}: Props): React$Element<typeof PaginatedResults> => {
+component EditorList(
+  items: $ReadOnlyArray<ReportEditorT>,
+  pager: PagerT,
+) {
   const existingEditorItems = items.reduce((
     result: Array<ReportEditorT>,
     item,
@@ -105,6 +100,6 @@ const EditorList = ({
       {table}
     </PaginatedResults>
   );
-};
+}
 
 export default EditorList;

@@ -21,19 +21,12 @@ import {
   defineTextColumn,
 } from '../../utility/tableColumns.js';
 
-type Props<D: {+event: ?EventT, ...}> = {
-  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +items: $ReadOnlyArray<D>,
-  +pager: PagerT,
-};
-
-const EventList = <D: {+event: ?EventT, ...}>({
-  columnsBefore,
-  columnsAfter,
-  items,
-  pager,
-}: Props<D>): React$Element<typeof PaginatedResults> => {
+component EventList<D: {+event: ?EventT, ...}>(
+  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  items: $ReadOnlyArray<D>,
+  pager: PagerT,
+) {
   const existingEventItems = items.reduce((
     result: Array<D>,
     item,
@@ -102,6 +95,6 @@ const EventList = <D: {+event: ?EventT, ...}>({
       {manifest.js('common/components/ArtistRoles', {async: 'async'})}
     </PaginatedResults>
   );
-};
+}
 
 export default EventList;
