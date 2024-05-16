@@ -46,6 +46,7 @@ require('./utility/formatTrackLength.js');
 require('./utility/formatUserDate.js');
 require('./utility/fullwidthLatin.js');
 require('./utility/getSortName.js');
+require('./utility/groupRelationships.js');
 require('./utility/isolateText.js');
 require('./utility/isBlank.js');
 require('./utility/isDatabaseRowId.js');

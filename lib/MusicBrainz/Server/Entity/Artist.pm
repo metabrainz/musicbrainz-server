@@ -4,6 +4,7 @@ use Moose;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $VARTIST_GID );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Annotation',
@@ -90,13 +91,13 @@ around TO_JSON => sub {
 
     return {
         %{$self->$orig},
-        $self->begin_area ? (begin_area => $self->begin_area->TO_JSON) : (),
-        $self->end_area ? (end_area => $self->end_area->TO_JSON) : (),
-        $self->gender ? (gender => $self->gender->TO_JSON) : (),
+        begin_area => to_json_object($self->begin_area),
+        end_area => to_json_object($self->end_area),
+        gender => to_json_object($self->gender),
         $self->primary_alias ? (primaryAlias => $self->primary_alias) : (),
-        begin_area_id => $self->begin_area_id,
-        end_area_id => $self->end_area_id,
-        gender_id => $self->gender_id,
+        begin_area_id => defined $self->begin_area_id ? (0 + $self->begin_area_id) : undef,
+        end_area_id => defined $self->end_area_id ? (0 + $self->end_area_id) : undef,
+        gender_id => defined $self->gender_id ? (0 + $self->gender_id) : undef,
         sort_name => $self->sort_name,
     };
 };

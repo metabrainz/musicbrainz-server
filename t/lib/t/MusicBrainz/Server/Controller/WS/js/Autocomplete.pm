@@ -23,14 +23,17 @@ test all => sub {
         '/artist?q=David&direct=true' =>
             [ {
                 'area' => undef,
+                'begin_area' => undef,
                 'begin_area_id' => undef,
                 'begin_date' => undef,
                 'comment' => '',
                 'editsPending' => JSON::false,
+                'end_area' => undef,
                 'end_area_id' => undef,
                 'end_date' => undef,
                 'ended' => JSON::false,
                 'entityType' => 'artist',
+                'gender' => undef,
                 'gender_id' => undef,
                 'gid' => '5441c29d-3602-4898-b1a1-b77fa23b8e50',
                 'id' => 5,

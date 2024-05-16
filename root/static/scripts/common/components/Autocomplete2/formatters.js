@@ -292,6 +292,7 @@ function formatLinkAttributeType(
     return formatInstrument({
       comment: type.instrument_comment ?? '',
       description: type.description,
+      editsPending: false,
       entityType: 'instrument',
       gid: type.gid,
       id: 0,
