@@ -540,6 +540,10 @@ component ReportsIndex() {
             content={l('Video recordings in non-video mediums')}
             reportName="VideosInNonVideoMediums"
           />
+          <ReportsIndexEntry
+            content={l('Non-video recordings with video relationships')}
+            reportName="VideoRelationshipsOnNonVideos"
+          />
         </ul>
 
         <h2>{l('Places')}</h2>

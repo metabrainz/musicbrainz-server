@@ -311,6 +311,7 @@ export default {
   'report/TracksWithoutTimes': (): Promise<mixed> => import('../report/TracksWithoutTimes.js'),
   'report/TracksWithSequenceIssues': (): Promise<mixed> => import('../report/TracksWithSequenceIssues.js'),
   'report/UnlinkedPseudoReleases': (): Promise<mixed> => import('../report/UnlinkedPseudoReleases.js'),
+  'report/VideoRelationshipsOnNonVideos': (): Promise<mixed> => import('../report/VideoRelationshipsOnNonVideos.js'),
   'report/VideosInNonVideoMediums': (): Promise<mixed> => import('../report/VideosInNonVideoMediums.js'),
   'report/WikidataLinksWithMultipleEntities': (): Promise<mixed> => import('../report/WikidataLinksWithMultipleEntities.js'),
   'report/WorkSameTypeAsParent': (): Promise<mixed> => import('../report/WorkSameTypeAsParent.js'),
