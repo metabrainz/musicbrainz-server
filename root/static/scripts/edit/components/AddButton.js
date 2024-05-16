@@ -12,15 +12,14 @@ component AddButton(
   label?: string,
 ) {
   if (label == null) {
-    return <button type="button" className="add-item" onClick={onClick} />;
+    return <button className="add-item" onClick={onClick} type="button" />;
   }
-      
+
   return (
-    <button type="button" className="with-label add-item" onClick={onClick}>
+    <button className="with-label add-item" onClick={onClick} type="button">
       {l(label)}
     </button>
   );
-};
-  
+}
+
 export default AddButton;
-  

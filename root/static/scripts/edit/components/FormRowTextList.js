@@ -16,21 +16,21 @@ import FormRow from './FormRow.js';
 import RemoveButton from './RemoveButton.js';
 
 type TextListRowProps = {
+  +index?: number,
   +name: string,
-  +value?: string,
-  +template?: boolean,
   +onChange?: (event: SyntheticEvent<HTMLInputElement>) => void,
   +onRemove?: (event: SyntheticEvent<HTMLInputElement>) => void,
-  +index?: number,
+  +template?: boolean,
+  +value?: string,
 };
 
 component TextListRow(...{
+  index = 0,
   name,
-  value = "",
-  template = false,
   onChange = () => {},
   onRemove = () => {},
-  index = 0
+  template = false,
+  value = '',
 }: TextListRowProps) {
   if (template) {
     return (
@@ -113,8 +113,6 @@ component FormRowTextList(
       <div className="form-row-text-list">
         <TextListRow
           name={repeatable.html_name}
-          onChange={() => {}}
-          onRemove={() => {}}
           template
         />
 
