@@ -62,6 +62,7 @@ declare type CommentRoleT = {
 declare type RelatableEntityRoleT<+T> = {
   ...EntityRoleT<T>,
   ...LastUpdateRoleT,
+  ...PendingEditsRoleT,
   +gid: string,
   +name: string,
   +paged_relationship_groups?: {
