@@ -9,6 +9,8 @@
 
 import Relationship
   from '../../static/scripts/common/components/Relationship.js';
+import RelationshipDocsTooltip
+  from '../components/RelationshipDocsTooltip.js';
 
 type Props = {
   +edit: AddRelationshipEditT,
@@ -17,33 +19,36 @@ type Props = {
 const AddRelationship = ({edit}: Props): React$MixedElement => {
   const relationship = edit.display_data.relationship;
   return (
-    <table className="details add-relationship">
-      <tr>
-        <th>{addColonText(l('Relationship'))}</th>
-        <td>
-          <Relationship
-            allowNewEntity0={relationship.entity0_id === 0}
-            allowNewEntity1={relationship.entity1_id === 0}
-            relationship={relationship}
-          />
-        </td>
-      </tr>
-      {edit.display_data.relationship.linkOrder ? (
+    <>
+      <RelationshipDocsTooltip relationships={[relationship]} />
+      <table className="details add-relationship">
         <tr>
-          <th>{l('Link order:')}</th>
-          <td>{edit.display_data.relationship.linkOrder}</td>
-        </tr>
-      ) : null}
-      {edit.display_data.unknown_attributes ? (
-        <tr>
-          <th />
+          <th>{addColonText(l('Relationship'))}</th>
           <td>
-            {l(`This relationship edit also included changes
-                to relationship attributes which no longer exist.`)}
+            <Relationship
+              allowNewEntity0={relationship.entity0_id === 0}
+              allowNewEntity1={relationship.entity1_id === 0}
+              relationship={relationship}
+            />
           </td>
         </tr>
-      ) : null}
-    </table>
+        {edit.display_data.relationship.linkOrder ? (
+          <tr>
+            <th>{l('Link order:')}</th>
+            <td>{edit.display_data.relationship.linkOrder}</td>
+          </tr>
+        ) : null}
+        {edit.display_data.unknown_attributes ? (
+          <tr>
+            <th />
+            <td>
+              {l(`This relationship edit also included changes
+                  to relationship attributes which no longer exist.`)}
+            </td>
+          </tr>
+        ) : null}
+      </table>
+    </>
   );
 };
 
