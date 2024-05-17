@@ -361,40 +361,63 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   }
 
   if (showCaaPresence) {
-    if (entity.entityType === 'release' &&
-        entity.cover_art_presence === 'present') {
-      content = (
-        <React.Fragment key="caa">
-          <a href={'/release/' + entity.gid + '/cover-art'}>
+    if (entity.entityType === 'release') {
+      if (entity.cover_art_presence === 'present') {
+        content = (
+          <React.Fragment key="caa">
+            <a href={'/release/' + entity.gid + '/cover-art'}>
+              <span
+                className="caa-icon"
+                title={l('This release has artwork in the Cover Art Archive')}
+              />
+            </a>
+            {content}
+          </React.Fragment>
+        );
+      } else {
+        content = (
+          <React.Fragment key="caa">
             <span
-              className="caa-icon"
-              title={l('This release has artwork in the Cover Art Archive')}
+              className="blank-icon"
             />
-          </a>
-          {content}
-        </React.Fragment>
-      );
+            {content}
+          </React.Fragment>
+        );
+      }
     }
 
-    if (entity.entityType === 'release_group' && entity.hasCoverArt) {
-      content = (
-        <React.Fragment key="caa">
-          <span
-            className="caa-icon"
-            title={l(
-              'This release group has artwork in the Cover Art Archive',
-            )}
-          />
-          {content}
-        </React.Fragment>
-      );
+    if (entity.entityType === 'release_group') {
+      if (entity.hasCoverArt) {
+        content = (
+          <React.Fragment key="caa">
+            <span
+              className="caa-icon"
+              title={l(
+                'This release group has artwork in the Cover Art Archive',
+              )}
+            />
+            {content}
+          </React.Fragment>
+        );
+      } else {
+        content = (
+          <React.Fragment key="caa">
+            <span
+              className="blank-icon"
+            />
+            {content}
+          </React.Fragment>
+        );
+      }
     }
   }
+
 
   if (!hasSubPath && entity.entityType === 'release') {
     if (entity.quality === 2) {
       content = (
-        <>
+        <React.Fragment key="quality">
+          {content}
           <span
             className="high-data-quality"
             title={l(
@@ -402,12 +425,12 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
                including cover art with liner info that proves it`,
             )}
           />
-          {content}
-        </>
+        </React.Fragment>
       );
     } else if (entity.quality === 0) {
       content = (
         <React.Fragment key="quality">
+          {content}
           <span
             className="low-data-quality"
             title={l(
@@ -415,7 +438,6 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
                is hard to prove (but it’s not clearly fake)`,
             )}
           />
-          {content}
         </React.Fragment>
       );
     }
