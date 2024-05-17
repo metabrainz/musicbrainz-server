@@ -29,11 +29,11 @@ component ReorderArt(
 
   const historyMessage = entity.gid ? (
     expand2html(
-      l(`We are unable to display history for this piece of artwork.
-         See {artpage|all current artwork}.`),
+      l(`We are unable to display history for this image.
+         See {artpage|all current images}.`),
       {artpage: entityHref(entity, archiveName + '-art')},
     )
-  ) : l('We are unable to display history for this piece of artwork.');
+  ) : l('We are unable to display history for this image.');
 
   return (
     <table className={'details reorder-' + archiveName + '-art'}>
