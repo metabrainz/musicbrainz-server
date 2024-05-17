@@ -135,7 +135,7 @@ const EventArt = ({
         ) : (
           <p>
             <RequestLogin
-              text={lp('Log in to upload event art', 'plural, interactive')}
+              text={lp('Log in to upload images', 'plural, interactive')}
             />
           </p>
         )

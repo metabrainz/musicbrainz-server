@@ -145,7 +145,7 @@ component CoverArt(
         ) : (
           <p>
             <RequestLogin
-              text={lp('Log in to upload cover art', 'plural, interactive')}
+              text={lp('Log in to upload images', 'plural, interactive')}
             />
           </p>
         )
