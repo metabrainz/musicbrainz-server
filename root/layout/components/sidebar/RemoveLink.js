@@ -12,17 +12,9 @@ import * as React from 'react';
 import {CatalystContext} from '../../../context.mjs';
 import entityHref from '../../../static/scripts/common/utility/entityHref.js';
 
-type Props = {
-  +entity:
-    | AreaT
-    | GenreT
-    | InstrumentT
-    | LabelT
-    | RecordingT
-    | ReleaseT,
-};
-
-const RemoveLink = ({entity}: Props): React$Element<'li'> | null => {
+component RemoveLink(
+  entity: AreaT | GenreT | InstrumentT | LabelT | RecordingT | ReleaseT,
+) {
   const $c = React.useContext(CatalystContext);
   if (!$c.stash.can_delete /*:: === true */) {
     return null;
@@ -35,6 +27,6 @@ const RemoveLink = ({entity}: Props): React$Element<'li'> | null => {
       </a>
     </li>
   );
-};
+}
 
 export default RemoveLink;

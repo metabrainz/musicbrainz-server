@@ -36,11 +36,7 @@ import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 import SubscriptionLinks from './SubscriptionLinks.js';
 
-type Props = {
-  +label: LabelT,
-};
-
-const LabelSidebar = ({label}: Props): React$Element<'div'> => {
+component LabelSidebar(label: LabelT) {
   const $c = React.useContext(CatalystContext);
   const labelAge = age.age(label);
   const gid = encodeURIComponent(label.gid);
@@ -126,6 +122,6 @@ const LabelSidebar = ({label}: Props): React$Element<'div'> => {
       <LastUpdated entity={label} />
     </div>
   );
-};
+}
 
 export default LabelSidebar;

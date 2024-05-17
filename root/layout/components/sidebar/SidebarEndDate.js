@@ -16,41 +16,32 @@ import {displayAge} from '../../../utility/age.js';
 
 import {SidebarProperty} from './SidebarProperties.js';
 
-type Props = {
-  +age?: [number, number, number] | null,
-  +entity:
-    | AreaT
-    | ArtistT
-    | EventT
-    | LabelT
-    | PlaceT,
-  +label: string,
-};
-
-const SidebarEndDate = ({
-  age,
-  entity,
-  label,
-}: Props): React$MixedElement | null => (
-  isDateEmpty(entity.end_date) ? (
-    entity.ended ? (
+component SidebarEndDate(
+  age?: [number, number, number] | null,
+  entity: AreaT | ArtistT | EventT | LabelT | PlaceT,
+  label: string,
+) {
+  return (
+    isDateEmpty(entity.end_date) ? (
+      entity.ended ? (
+        <SidebarProperty className="end-date" label={label}>
+          {lp('[unknown]', 'date')}
+        </SidebarProperty>
+      ) : null
+    ) : (
       <SidebarProperty className="end-date" label={label}>
-        {lp('[unknown]', 'date')}
+        {formatDate(entity.end_date)}
+        {age ? (
+          ' ' + bracketedText(
+            displayAge(
+              age,
+              entity.entityType === 'artist' && entity.typeID === 1,
+            ),
+          )
+        ) : null}
       </SidebarProperty>
-    ) : null
-  ) : (
-    <SidebarProperty className="end-date" label={label}>
-      {formatDate(entity.end_date)}
-      {age ? (
-        ' ' + bracketedText(
-          displayAge(
-            age,
-            entity.entityType === 'artist' && entity.typeID === 1,
-          ),
-        )
-      ) : null}
-    </SidebarProperty>
-  )
-);
+    )
+  );
+}
 
 export default SidebarEndDate;

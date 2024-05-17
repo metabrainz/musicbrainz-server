@@ -7,34 +7,22 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-type SidebarPropertyProps = {
-  +children: React$Node,
-  +className: string,
-  +label: string,
-};
+export component SidebarProperty(
+  children: React$Node,
+  className: string,
+  label: string,
+) {
+  return (
+    <>
+      <dt>{label}</dt>
+      <dd className={className}>
+        {children}
+      </dd>
+    </>
+  );
+}
 
-export const SidebarProperty = ({
-  children,
-  className,
-  label,
-}: SidebarPropertyProps): React.MixedElement => (
-  <>
-    <dt>{label}</dt>
-    <dd className={className}>
-      {children}
-    </dd>
-  </>
-);
-
-type SidebarPropertiesProps = {
-  +children: React$Node,
-  +className?: string,
-};
-
-export const SidebarProperties = ({
-  className,
-  children,
-}: SidebarPropertiesProps): React$Element<'dl'> => {
+export component SidebarProperties(children: React$Node, className?: string) {
   let _className = 'properties';
   if (nonEmpty(className)) {
     _className += ' ' + className;
@@ -44,4 +32,4 @@ export const SidebarProperties = ({
       {children}
     </dl>
   );
-};
+}

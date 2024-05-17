@@ -20,11 +20,7 @@ import EditLinks from './EditLinks.js';
 import LastUpdated from './LastUpdated.js';
 import RemoveLink from './RemoveLink.js';
 
-type Props = {
-  +genre: GenreT,
-};
-
-const GenreSidebar = ({genre}: Props): React$Element<'div'> => {
+component GenreSidebar(genre: GenreT) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -46,6 +42,6 @@ const GenreSidebar = ({genre}: Props): React$Element<'div'> => {
       <LastUpdated entity={genre} />
     </div>
   );
-};
+}
 
 export default GenreSidebar;

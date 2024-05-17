@@ -18,20 +18,10 @@ import TagLink from '../../../static/scripts/common/components/TagLink.js';
 import commaOnlyList
   from '../../../static/scripts/common/i18n/commaOnlyList.js';
 
-type TagListProps = {
-  +entity: TaggableEntityT,
-  +isGenreList?: boolean,
-  +tags: ?$ReadOnlyArray<AggregatedTagT>,
-};
-
-type SidebarTagsProps = {
-  +entity: TaggableEntityT,
-};
-
-const TagList = ({
-  isGenreList = false,
-  tags,
-}: TagListProps) => {
+component TagList(
+  isGenreList: boolean = false,
+  tags: ?$ReadOnlyArray<AggregatedTagT>,
+) {
   const upvotedTags = tags ? tags.filter(tag => tag.count > 0) : null;
   const links = upvotedTags ? upvotedTags.reduce((
     accum: Array<React$Element<typeof TagLink>>,
@@ -53,11 +43,9 @@ const TagList = ({
       : lp('(none)', 'folksonomy tag');
   }
   return commaOnlyList(links);
-};
+}
 
-const SidebarTags = ({
-  entity,
-}: SidebarTagsProps): React.MixedElement | null => {
+component SidebarTags(entity: TaggableEntityT) {
   const $c = React.useContext(CatalystContext);
   const aggregatedTags = $c.stash.top_tags;
   const more = Boolean($c.stash.more_tags);
@@ -82,21 +70,14 @@ const SidebarTags = ({
               <h3>{l('Genres')}</h3>
               <div className="genre-list">
                 <p>
-                  <TagList
-                    entity={entity}
-                    isGenreList
-                    tags={aggregatedTags}
-                  />
+                  <TagList isGenreList tags={aggregatedTags} />
                 </p>
               </div>
 
               <h3>{lp('Other tags', 'folksonomy')}</h3>
               <div id="sidebar-tag-list">
                 <p>
-                  <TagList
-                    entity={entity}
-                    tags={aggregatedTags}
-                  />
+                  <TagList tags={aggregatedTags} />
                 </p>
               </div>
 
@@ -112,6 +93,6 @@ const SidebarTags = ({
       </>
     )
   );
-};
+}
 
 export default SidebarTags;

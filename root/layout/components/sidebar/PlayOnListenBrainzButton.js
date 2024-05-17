@@ -10,11 +10,6 @@
 import listenBrainzIconUrl
   from '../../../static/images/icons/listenbrainz.png';
 
-type Props = {
-  +entityType: 'release' | 'recording',
-  +mbids: string | $ReadOnlyArray<string>,
-};
-
 function getListenBrainzLink(
   entityType: 'release' | 'recording',
   mbids: string | $ReadOnlyArray<string>,
@@ -38,10 +33,10 @@ function getListenBrainzLink(
   return null;
 }
 
-const PlayOnListenBrainzButton = ({
-  entityType,
-  mbids,
-}: Props): React$Element<'a'> | null => {
+component PlayOnListenBrainzButton(
+  entityType: 'release' | 'recording',
+  mbids: string | $ReadOnlyArray<string>,
+) {
   const link = getListenBrainzLink(entityType, mbids);
 
   if (link == null) {
@@ -64,6 +59,6 @@ const PlayOnListenBrainzButton = ({
       {l('Play on ListenBrainz')}
     </a>
   );
-};
+}
 
 export default PlayOnListenBrainzButton;

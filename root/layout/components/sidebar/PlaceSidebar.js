@@ -33,11 +33,7 @@ import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 
-type Props = {
-  +place: PlaceT,
-};
-
-const PlaceSidebar = ({place}: Props): React$Element<'div'> => {
+component PlaceSidebar(place: PlaceT) {
   const $c = React.useContext(CatalystContext);
   const placeAge = age.age(place);
   const gid = encodeURIComponent(place.gid);
@@ -138,6 +134,6 @@ const PlaceSidebar = ({place}: Props): React$Element<'div'> => {
       <LastUpdated entity={place} />
     </div>
   );
-};
+}
 
 export default PlaceSidebar;

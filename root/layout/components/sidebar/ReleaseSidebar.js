@@ -47,11 +47,7 @@ import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 
-type Props = {
-  +release: ReleaseT,
-};
-
-const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
+component ReleaseSidebar(release: ReleaseT) {
   const $c = React.useContext(CatalystContext);
 
   const releaseGroup = release.releaseGroup;
@@ -309,6 +305,6 @@ const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
       <LastUpdated entity={release} />
     </div>
   );
-};
+}
 
 export default ReleaseSidebar;
