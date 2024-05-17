@@ -31,26 +31,8 @@ import {
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
 
-type Props = {
-  ...InstrumentCreditsAndRelTypesRoleT,
-  ...ReleaseGroupAppearancesRoleT,
-  ...SeriesItemNumbersRoleT,
-  +checkboxes?: string,
-  +lengthClass?: string,
-  +mergeForm?: MergeFormT,
-  +order?: string,
-  +recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
-  +showAcoustIds?: boolean,
-  +showExpandedArtistCredits?: boolean,
-  +showInstrumentCreditsAndRelTypes?: boolean,
-  +showRatings?: boolean,
-  +showReleaseGroups?: boolean,
-  +sortable?: boolean,
-};
-
 function defineReleaseGroupAppearancesColumn(
-  releaseGroupAppearances:
-    ReleaseGroupAppearancesRoleT['releaseGroupAppearances'] | void,
+  releaseGroupAppearances: ReleaseGroupAppearancesMapT | void,
 ): ColumnOptions<RecordingT, ReleaseGroupAppearancesT> {
   return {
     Cell: ({row: {original}}) => releaseGroupAppearances &&
@@ -64,22 +46,22 @@ function defineReleaseGroupAppearancesColumn(
   };
 }
 
-const RecordingList = ({
-  checkboxes,
-  instrumentCreditsAndRelTypes,
-  lengthClass,
-  mergeForm,
-  order,
-  recordings,
-  releaseGroupAppearances,
-  seriesItemNumbers,
-  showAcoustIds = false,
-  showExpandedArtistCredits = false,
-  showInstrumentCreditsAndRelTypes = false,
-  showRatings = false,
-  showReleaseGroups = false,
-  sortable,
-}: Props): React$MixedElement => {
+component RecordingList(
+  checkboxes?: string,
+  instrumentCreditsAndRelTypes?: InstrumentCreditsAndRelTypesT,
+  lengthClass?: string,
+  mergeForm?: MergeFormT,
+  order?: string,
+  recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
+  releaseGroupAppearances?: ReleaseGroupAppearancesMapT,
+  seriesItemNumbers?: $ReadOnlyArray<string>,
+  showAcoustIds: boolean = false,
+  showExpandedArtistCredits: boolean = false,
+  showInstrumentCreditsAndRelTypes: boolean = false,
+  showRatings: boolean = false,
+  showReleaseGroups: boolean = false,
+  sortable?: boolean,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
 
   const columns = React.useMemo(
@@ -175,6 +157,6 @@ const RecordingList = ({
       {manifest.js('common/components/IsrcList', {async: 'async'})}
     </>
   );
-};
+}
 
 export default RecordingList;

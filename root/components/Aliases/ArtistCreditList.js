@@ -18,15 +18,10 @@ import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import loopParity from '../../utility/loopParity.js';
 
-type Props = {
-  +artistCredits: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
-  +entity: ArtistT,
-};
-
-const ArtistCreditList = ({
-  artistCredits,
-  entity,
-}: Props): React.MixedElement => {
+component ArtistCreditList(
+  artistCredits: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
+  entity: ArtistT,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <>
@@ -89,6 +84,6 @@ const ArtistCreditList = ({
       </table>
     </>
   );
-};
+}
 
 export default ArtistCreditList;

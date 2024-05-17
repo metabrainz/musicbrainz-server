@@ -169,22 +169,18 @@ function buildLinks(
   return links;
 }
 
-type Props = {
-  +editTab: ?React$Element<typeof EntityTabLink>,
-  +entity: RelatableEntityT,
-  +page?: string,
-};
-
-const EntityTabs = ({
-  editTab,
-  entity,
-  page,
-}: Props): React$Element<typeof Tabs> => (
-  <Tabs>
-    <CatalystContext.Consumer>
-      {($c: CatalystContextT) => buildLinks($c, entity, page, editTab)}
-    </CatalystContext.Consumer>
-  </Tabs>
-);
+component EntityTabs(
+  editTab: ?React$Element<typeof EntityTabLink>,
+  entity: RelatableEntityT,
+  page?: string,
+) {
+  return (
+    <Tabs>
+      <CatalystContext.Consumer>
+        {($c: CatalystContextT) => buildLinks($c, entity, page, editTab)}
+      </CatalystContext.Consumer>
+    </Tabs>
+  );
+}
 
 export default EntityTabs;

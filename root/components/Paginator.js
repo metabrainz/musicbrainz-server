@@ -16,13 +16,6 @@ import uriWith from '../utility/uriWith.js';
 type PageQueryParam = 'apps_page' | 'page' | 'tokens_page';
 type PageQueryObject = {[pageVar: PageQueryParam]: number, ...};
 
-type Props = {
-  +guessSearch?: boolean,
-  +hash?: string,
-  +pager: PagerT,
-  +pageVar?: PageQueryParam,
-};
-
 function uriPage(
   uri: string,
   pageVar: PageQueryParam,
@@ -39,12 +32,12 @@ function uriPage(
     (nonEmpty(hash) ? '#' + hash : '');
 }
 
-const Paginator = ({
-  guessSearch = false,
-  hash,
-  pager,
-  pageVar = 'page',
-}: Props): React$Element<'nav'> | null => {
+component Paginator(
+  guessSearch: boolean = false,
+  hash?: string,
+  pager: PagerT,
+  pageVar?: PageQueryParam = 'page',
+) {
   const $c = React.useContext(SanitizedCatalystContext);
 
   const lastPage = pager.last_page;
@@ -150,6 +143,6 @@ const Paginator = ({
       </ul>
     </nav>
   );
-};
+}
 
 export default Paginator;

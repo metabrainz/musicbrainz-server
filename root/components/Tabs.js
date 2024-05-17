@@ -7,16 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-type Props = {
-  +children: React$Node,
-};
-
-const Tabs = ({children}: Props): React$Element<'div'> => (
-  <div className="tabs">
-    <ul className="tabs">
-      {children}
-    </ul>
-  </div>
-);
+component Tabs(children: React$Node) {
+  return (
+    <div className="tabs">
+      <ul className="tabs">
+        {children}
+      </ul>
+    </div>
+  );
+}
 
 export default Tabs;

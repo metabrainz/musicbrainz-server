@@ -24,23 +24,14 @@ import {
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
 
-type Props = {
-  +checkboxes?: string,
-  +labels: $ReadOnlyArray<LabelT>,
-  +mergeForm?: MergeFormT,
-  +order?: string,
-  +showRatings?: boolean,
-  +sortable?: boolean,
-};
-
-const LabelList = ({
-  checkboxes,
-  labels,
-  mergeForm,
-  order,
-  showRatings = false,
-  sortable,
-}: Props): React$Element<'table'> => {
+component LabelList(
+  checkboxes?: string,
+  labels: $ReadOnlyArray<LabelT>,
+  mergeForm?: MergeFormT,
+  order?: string,
+  showRatings: boolean = false,
+  sortable?: boolean,
+) {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -110,6 +101,6 @@ const LabelList = ({
   );
 
   return useTable<LabelT>({columns, data: labels});
-};
+}
 
 export default LabelList;

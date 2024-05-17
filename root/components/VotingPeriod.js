@@ -13,13 +13,7 @@ import {SanitizedCatalystContext} from '../context.mjs';
 import {formatUserDateObject} from '../utility/formatUserDate.js';
 import parseIsoDate from '../utility/parseIsoDate.js';
 
-type PropsT = {
-  +closingDate: string,
-};
-
-const VotingPeriod = ({
-  closingDate,
-}: PropsT): Expand2ReactOutput | null => {
+component VotingPeriod(closingDate: string) {
   const $c = React.useContext(SanitizedCatalystContext);
   const date = parseIsoDate(closingDate);
   if (!date) {
@@ -64,6 +58,6 @@ const VotingPeriod = ({
     );
   }
   return l('About to close');
-};
+}
 
 export default VotingPeriod;

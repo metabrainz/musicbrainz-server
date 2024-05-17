@@ -18,21 +18,13 @@ import {
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
 
-type Props = {
-  +areas: $ReadOnlyArray<AreaT>,
-  +checkboxes?: string,
-  +mergeForm?: MergeFormT,
-  +order?: string,
-  +sortable?: boolean,
-};
-
-const AreaList = ({
-  areas,
-  checkboxes,
-  mergeForm,
-  order,
-  sortable,
-}: Props): React$Element<'table'> => {
+component AreaList(
+  areas: $ReadOnlyArray<AreaT>,
+  checkboxes?: string,
+  mergeForm?: MergeFormT,
+  order?: string,
+  sortable?: boolean,
+) {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -62,6 +54,6 @@ const AreaList = ({
   );
 
   return useTable<AreaT>({columns, data: areas});
-};
+}
 
 export default AreaList;

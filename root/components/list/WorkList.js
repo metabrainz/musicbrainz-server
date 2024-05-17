@@ -26,25 +26,15 @@ import {
   workLanguagesColumn,
 } from '../../utility/tableColumns.js';
 
-type Props = {
-  ...SeriesItemNumbersRoleT,
-  +checkboxes?: string,
-  +mergeForm?: MergeFormT,
-  +order?: string,
-  +showRatings?: boolean,
-  +sortable?: boolean,
-  +works: $ReadOnlyArray<WorkT>,
-};
-
-const WorkList = ({
-  checkboxes,
-  mergeForm,
-  order,
-  seriesItemNumbers,
-  showRatings = false,
-  sortable,
-  works,
-}: Props): React.MixedElement => {
+component WorkList(
+  checkboxes?: string,
+  mergeForm?: MergeFormT,
+  order?: string,
+  seriesItemNumbers?: $ReadOnlyArray<string>,
+  showRatings: boolean = false,
+  sortable?: boolean,
+  works: $ReadOnlyArray<WorkT>,
+) {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -111,6 +101,6 @@ const WorkList = ({
       {manifest.js('common/components/WorkArtists', {async: 'async'})}
     </>
   );
-};
+}
 
 export default WorkList;

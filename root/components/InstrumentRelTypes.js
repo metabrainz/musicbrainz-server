@@ -11,32 +11,29 @@ import {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList.js';
 import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
 
-type Props = {
-  ...InstrumentCreditsAndRelTypesRoleT,
-  +entity: ArtistT | RecordingT | ReleaseT,
-};
-
-const InstrumentRelTypes = ({
-  entity,
-  instrumentCreditsAndRelTypes,
-}: Props): string | null => (
-  instrumentCreditsAndRelTypes &&
-    instrumentCreditsAndRelTypes[entity.gid] ? (
-      commaOnlyListText(
-        instrumentCreditsAndRelTypes[entity.gid].map(json => {
-          const relType = JSON.parse(json);
-          let listElement = l_relationships(relType.typeName);
-          if (relType.credit) {
-            listElement = listElement + ' ' +
-              bracketedText(texp.l(
-                'as “{credit}”',
-                {credit: relType.credit},
-              ));
-          }
-          return listElement;
-        }),
-      )
-    ) : null
-);
+component InstrumentRelTypes(
+  entity: ArtistT | RecordingT | ReleaseT,
+  instrumentCreditsAndRelTypes?: InstrumentCreditsAndRelTypesT,
+) {
+  return (
+    instrumentCreditsAndRelTypes &&
+      instrumentCreditsAndRelTypes[entity.gid] ? (
+        commaOnlyListText(
+          instrumentCreditsAndRelTypes[entity.gid].map(json => {
+            const relType = JSON.parse(json);
+            let listElement = l_relationships(relType.typeName);
+            if (relType.credit) {
+              listElement = listElement + ' ' +
+                bracketedText(texp.l(
+                  'as “{credit}”',
+                  {credit: relType.credit},
+                ));
+            }
+            return listElement;
+          }),
+        )
+      ) : null
+  );
+}
 
 export default InstrumentRelTypes;

@@ -14,25 +14,15 @@ import {formatCount} from '../statistics/utilities.js';
 
 import Paginator from './Paginator.js';
 
-type Props = {
-  +children: React$Node,
-  +guessSearch?: boolean,
-  +pager: PagerT,
-  +pageVar?: 'apps_page' | 'page' | 'tokens_page',
-  +query?: string,
-  +search?: boolean,
-  +total?: boolean,
-};
-
-const PaginatedResults = ({
-  children,
-  guessSearch = false,
-  pager,
-  pageVar,
-  query,
-  search = false,
-  total = false,
-}: Props): React.MixedElement => {
+component PaginatedResults(
+  children: React$Node,
+  guessSearch: boolean = false,
+  pager: PagerT,
+  pageVar?: 'apps_page' | 'page' | 'tokens_page',
+  query?: string,
+  search: boolean = false,
+  total: boolean = false,
+) {
   const $c = React.useContext(CatalystContext);
   const paginator = (
     <Paginator
@@ -70,6 +60,6 @@ const PaginatedResults = ({
       {paginator}
     </>
   );
-};
+}
 
 export default PaginatedResults;

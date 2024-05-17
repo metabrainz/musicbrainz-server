@@ -9,16 +9,13 @@
 
 import Layout from '../layout/index.js';
 
-type Props = {
-  +children: React$Node,
-  +title: string,
-};
-
-const StatusPage = ({title, children}: Props): React$MixedElement => (
-  <Layout fullWidth title={title}>
-    <h1>{title}</h1>
-    {children}
-  </Layout>
-);
+component StatusPage(children: React$Node, title: string) {
+  return (
+    <Layout fullWidth title={title}>
+      <h1>{title}</h1>
+      {children}
+    </Layout>
+  );
+}
 
 export default StatusPage;

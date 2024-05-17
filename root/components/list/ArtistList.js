@@ -25,33 +25,19 @@ import {
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
 
-type Props = {
-  ...InstrumentCreditsAndRelTypesRoleT,
-  ...SeriesItemNumbersRoleT,
-  +artists: $ReadOnlyArray<ArtistT>,
-  +checkboxes?: string,
-  +mergeForm?: MergeFormT,
-  +order?: string,
-  +showBeginEnd?: boolean,
-  +showInstrumentCreditsAndRelTypes?: boolean,
-  +showRatings?: boolean,
-  +showSortName?: boolean,
-  +sortable?: boolean,
-};
-
-const ArtistList = ({
-  artists,
-  checkboxes,
-  instrumentCreditsAndRelTypes,
-  mergeForm,
-  order,
-  seriesItemNumbers,
-  showBeginEnd = false,
-  showInstrumentCreditsAndRelTypes = false,
-  showRatings = false,
-  showSortName = false,
-  sortable,
-}: Props): React$Element<'table'> => {
+component ArtistList(
+  artists: $ReadOnlyArray<ArtistT>,
+  checkboxes?: string,
+  instrumentCreditsAndRelTypes?: InstrumentCreditsAndRelTypesT,
+  mergeForm?: MergeFormT,
+  order?: string,
+  seriesItemNumbers?: $ReadOnlyArray<string>,
+  showBeginEnd: boolean = false,
+  showInstrumentCreditsAndRelTypes: boolean = false,
+  showRatings: boolean = false,
+  showSortName: boolean = false,
+  sortable?: boolean,
+) {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -154,6 +140,6 @@ const ArtistList = ({
   );
 
   return useTable<ArtistT>({columns, data: artists});
-};
+}
 
 export default ArtistList;
