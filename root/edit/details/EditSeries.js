@@ -12,11 +12,7 @@ import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 
-type Props = {
-  +edit: EditSeriesEditT,
-};
-
-const EditSeries = ({edit}: Props): React$Element<'table'> => {
+component EditSeries(edit: EditSeriesEditT) {
   const display = edit.display_data;
   const name = display.name;
   const series = display.series;
@@ -79,6 +75,6 @@ const EditSeries = ({edit}: Props): React$Element<'table'> => {
       </tbody>
     </table>
   );
-};
+}
 
 export default EditSeries;

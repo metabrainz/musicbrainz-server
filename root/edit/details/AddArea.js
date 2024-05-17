@@ -15,11 +15,7 @@ import formatDate from '../../static/scripts/common/utility/formatDate.js';
 import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
 
-type Props = {
-  +edit: AddAreaEditT,
-};
-
-const AddArea = ({edit}: Props): React$MixedElement => {
+component AddArea(edit: AddAreaEditT) {
   const display = edit.display_data;
   const areaType = display.type;
 
@@ -105,6 +101,6 @@ const AddArea = ({edit}: Props): React$MixedElement => {
       </table>
     </>
   );
-};
+}
 
 export default AddArea;

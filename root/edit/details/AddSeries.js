@@ -9,11 +9,7 @@
 
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 
-type Props = {
-  +edit: AddSeriesEditT,
-};
-
-const AddSeries = ({edit}: Props): React$MixedElement => {
+component AddSeries(edit: AddSeriesEditT) {
   const type = edit.display_data.type;
   const orderingType = edit.display_data.ordering_type;
 
@@ -59,6 +55,6 @@ const AddSeries = ({edit}: Props): React$MixedElement => {
       </table>
     </>
   );
-};
+}
 
 export default AddSeries;

@@ -11,32 +11,27 @@ import Layout from '../layout/index.js';
 
 import EditList from './components/EditList.js';
 
-type Props = {
-  +editCountLimit: number,
-  +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
-  +pager: PagerT,
-  +refineUrlArgs?: {+[argument: string]: string},
-};
-
-const SubscribedEditorEdits = ({
-  editCountLimit,
-  edits,
-  pager,
-  refineUrlArgs,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Edits by your subscribed editors')}>
-    <div id="content">
-      <h1>{l('Edits by your subscribed editors')}</h1>
-      <EditList
-        editCountLimit={editCountLimit}
-        edits={edits}
-        guessSearch
-        page="subscribed_editors"
-        pager={pager}
-        refineUrlArgs={refineUrlArgs}
-      />
-    </div>
-  </Layout>
-);
+component SubscribedEditorEdits(
+  editCountLimit: number,
+  edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
+  pager: PagerT,
+  refineUrlArgs?: {+[argument: string]: string},
+) {
+  return (
+    <Layout fullWidth title={l('Edits by your subscribed editors')}>
+      <div id="content">
+        <h1>{l('Edits by your subscribed editors')}</h1>
+        <EditList
+          editCountLimit={editCountLimit}
+          edits={edits}
+          guessSearch
+          page="subscribed_editors"
+          pager={pager}
+          refineUrlArgs={refineUrlArgs}
+        />
+      </div>
+    </Layout>
+  );
+}
 
 export default SubscribedEditorEdits;

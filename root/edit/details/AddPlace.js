@@ -14,11 +14,7 @@ import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
 import {formatCoordinates} from '../../utility/coordinates.js';
 
-type Props = {
-  +edit: AddPlaceEditT,
-};
-
-const AddPlace = ({edit}: Props): React$MixedElement => {
+component AddPlace(edit: AddPlaceEditT) {
   const display = edit.display_data;
   const type = display.type;
   const place = display.place;
@@ -88,6 +84,6 @@ const AddPlace = ({edit}: Props): React$MixedElement => {
       </table>
     </>
   );
-};
+}
 
 export default AddPlace;

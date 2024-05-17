@@ -10,11 +10,7 @@
 import DescriptiveLink from
   '../../static/scripts/common/components/DescriptiveLink.js';
 
-type Props = {
-  +edit: ReorderMediumsEditT,
-};
-
-const ReorderMediums = ({edit}: Props): React$Element<'table'> => {
+component ReorderMediums(edit: ReorderMediumsEditT) {
   const display = edit.display_data;
   let isFirstMediumChange = true;
 
@@ -68,6 +64,6 @@ const ReorderMediums = ({edit}: Props): React$Element<'table'> => {
       })}
     </table>
   );
-};
+}
 
 export default ReorderMediums;

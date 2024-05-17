@@ -10,25 +10,23 @@
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
 
-type Props = {
-  +edit: RemoveReleasesHistoricEditT,
-};
-
-const RemoveReleases = ({edit}: Props): React$Element<'table'> => (
-  <table className="details remove-releases">
-    <tr>
-      <th>{addColonText(l('Releases'))}</th>
-      <td colSpan="2">
-        <ul>
-          {edit.display_data.releases.map((release, index) => (
-            <li key={index}>
-              <DescriptiveLink entity={release} />
-            </li>
-          ))}
-        </ul>
-      </td>
-    </tr>
-  </table>
-);
+component RemoveReleases(edit: RemoveReleasesHistoricEditT) {
+  return (
+    <table className="details remove-releases">
+      <tr>
+        <th>{addColonText(l('Releases'))}</th>
+        <td colSpan="2">
+          <ul>
+            {edit.display_data.releases.map((release, index) => (
+              <li key={index}>
+                <DescriptiveLink entity={release} />
+              </li>
+            ))}
+          </ul>
+        </td>
+      </tr>
+    </table>
+  );
+}
 
 export default RemoveReleases;

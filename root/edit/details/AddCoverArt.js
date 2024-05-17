@@ -13,11 +13,7 @@ import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList.js';
 import EditArtwork from '../components/EditArtwork.js';
 
-type Props = {
-  +edit: AddCoverArtEditT,
-};
-
-const AddCoverArt = ({edit}: Props): React$Element<'table'> => {
+component AddCoverArt(edit: AddCoverArtEditT) {
   const display = edit.display_data;
 
   return (
@@ -59,6 +55,6 @@ const AddCoverArt = ({edit}: Props): React$Element<'table'> => {
       <EditArtwork artwork={display.artwork} release={display.release} />
     </table>
   );
-};
+}
 
 export default AddCoverArt;

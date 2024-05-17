@@ -24,9 +24,7 @@ function countVotes(
   );
 }
 
-const VoteTally = ({edit}: {
-  edit: GenericEditWithIdT,
-}): Expand2ReactOutput => {
+component VoteTally(edit: GenericEditWithIdT) {
   if (edit.auto_edit) {
     return <strong>{l('automatically applied')}</strong>;
   }
@@ -43,6 +41,6 @@ const VoteTally = ({edit}: {
       },
     )
   );
-};
+}
 
 export default VoteTally;

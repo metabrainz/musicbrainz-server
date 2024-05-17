@@ -13,11 +13,7 @@ import DescriptiveLink
 import expand2html from '../../static/scripts/common/i18n/expand2html.js';
 import entityHref from '../../static/scripts/common/utility/entityHref.js';
 
-type Props = {
-  +edit: ReorderCoverArtEditT,
-};
-
-const ReorderCoverArt = ({edit}: Props): React$Element<'table'> => {
+component ReorderCoverArt(edit: ReorderCoverArtEditT) {
   const display = edit.display_data;
   const oldArt = display.old;
   const newArt = display.new;
@@ -65,6 +61,6 @@ const ReorderCoverArt = ({edit}: Props): React$Element<'table'> => {
       </tr>
     </table>
   );
-};
+}
 
 export default ReorderCoverArt;

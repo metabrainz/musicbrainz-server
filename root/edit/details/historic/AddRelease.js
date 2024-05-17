@@ -16,11 +16,7 @@ import formatTrackLength
 import HistoricReleaseList
   from '../../components/HistoricReleaseList.js';
 
-type Props = {
-  +edit: AddReleaseHistoricEditT,
-};
-
-const AddRelease = ({edit}: Props): React$Element<'table'> => {
+component AddRelease(edit: AddReleaseHistoricEditT) {
   const display = edit.display_data;
   const artist = display.artist;
   const type = display.type;
@@ -155,6 +151,6 @@ const AddRelease = ({edit}: Props): React$Element<'table'> => {
       </tr>
     </table>
   );
-};
+}
 
 export default AddRelease;

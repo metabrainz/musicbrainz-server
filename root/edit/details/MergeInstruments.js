@@ -9,25 +9,23 @@
 
 import InstrumentList from '../../components/list/InstrumentList.js';
 
-type Props = {
-  +edit: MergeInstrumentsEditT,
-};
-
-const MergeInstruments = ({edit}: Props): React$Element<'table'> => (
-  <table className="details merge-instruments">
-    <tr>
-      <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
-      <td>
-        <InstrumentList instruments={edit.display_data.old} />
-      </td>
-    </tr>
-    <tr>
-      <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
-      <td>
-        <InstrumentList instruments={[edit.display_data.new]} />
-      </td>
-    </tr>
-  </table>
-);
+component MergeInstruments(edit: MergeInstrumentsEditT) {
+  return (
+    <table className="details merge-instruments">
+      <tr>
+        <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
+        <td>
+          <InstrumentList instruments={edit.display_data.old} />
+        </td>
+      </tr>
+      <tr>
+        <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
+        <td>
+          <InstrumentList instruments={[edit.display_data.new]} />
+        </td>
+      </tr>
+    </table>
+  );
+}
 
 export default MergeInstruments;

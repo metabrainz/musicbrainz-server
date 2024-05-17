@@ -9,25 +9,23 @@
 
 import AreaList from '../../components/list/AreaList.js';
 
-type Props = {
-  +edit: MergeAreasEditT,
-};
-
-const MergeAreas = ({edit}: Props): React$Element<'table'> => (
-  <table className="details merge-areas">
-    <tr>
-      <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
-      <td>
-        <AreaList areas={edit.display_data.old} />
-      </td>
-    </tr>
-    <tr>
-      <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
-      <td>
-        <AreaList areas={[edit.display_data.new]} />
-      </td>
-    </tr>
-  </table>
-);
+component MergeAreas(edit: MergeAreasEditT) {
+  return (
+    <table className="details merge-areas">
+      <tr>
+        <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
+        <td>
+          <AreaList areas={edit.display_data.old} />
+        </td>
+      </tr>
+      <tr>
+        <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
+        <td>
+          <AreaList areas={[edit.display_data.new]} />
+        </td>
+      </tr>
+    </table>
+  );
+}
 
 export default MergeAreas;

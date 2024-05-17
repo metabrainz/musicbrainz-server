@@ -27,10 +27,6 @@ import formatTrackLength from
   '../../static/scripts/common/utility/formatTrackLength.js';
 import loopParity from '../../utility/loopParity.js';
 
-type Props = {
-  +edit: MergeReleasesEditT,
-};
-
 const strategyDescriptions = {
   append: N_l('Append mediums to target release'),
   merge: N_l('Merge mediums and recordings'),
@@ -218,9 +214,7 @@ function getHtmlVars(
   return htmlArgs;
 }
 
-const MergeReleases = ({
-  edit,
-}: Props): React.MixedElement => {
+component MergeReleases(edit: MergeReleasesEditT) {
   const display = edit.display_data;
   const emptyReleases = display.empty_releases;
   const changes = display.changes;
@@ -363,6 +357,6 @@ const MergeReleases = ({
       </table>
     </>
   );
-};
+}
 
 export default MergeReleases;

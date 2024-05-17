@@ -9,13 +9,7 @@
 
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 
-type Props = {
-  +edit: ChangeWikiDocEditT,
-};
-
-const ChangeWikiDoc = ({
-  edit,
-}: Props): React$Element<'table'> => {
+component ChangeWikiDoc(edit: ChangeWikiDocEditT) {
   const display = edit.display_data;
   const page = display.page;
   const oldVersion = display.old_version;
@@ -82,6 +76,6 @@ const ChangeWikiDoc = ({
       ) : null}
     </table>
   );
-};
+}
 
 export default ChangeWikiDoc;

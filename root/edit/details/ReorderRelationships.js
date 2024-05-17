@@ -10,27 +10,25 @@
 import Relationship
   from '../../static/scripts/common/components/Relationship.js';
 
-type Props = {
-  +edit: ReorderRelationshipsEditT,
-};
-
-const ReorderRelationships = ({edit}: Props): React$MixedElement => (
-  <table className="details reorder-relationships">
-    <tr>
-      <th className="align-left wide">{l('Relationship')}</th>
-      <th className="narrow">{l('Old order')}</th>
-      <th className="narrow">{l('New order')}</th>
-    </tr>
-    {edit.display_data.relationships.map((reorder, index) => (
-      <tr key={index}>
-        <td className="wide">
-          <Relationship relationship={reorder.relationship} />
-        </td>
-        <td className="align-right narrow old">{reorder.old_order}</td>
-        <td className="align-right narrow new">{reorder.new_order}</td>
+component ReorderRelationships(edit: ReorderRelationshipsEditT) {
+  return (
+    <table className="details reorder-relationships">
+      <tr>
+        <th className="align-left wide">{l('Relationship')}</th>
+        <th className="narrow">{l('Old order')}</th>
+        <th className="narrow">{l('New order')}</th>
       </tr>
-    ))}
-  </table>
-);
+      {edit.display_data.relationships.map((reorder, index) => (
+        <tr key={index}>
+          <td className="wide">
+            <Relationship relationship={reorder.relationship} />
+          </td>
+          <td className="align-right narrow old">{reorder.old_order}</td>
+          <td className="align-right narrow new">{reorder.new_order}</td>
+        </tr>
+      ))}
+    </table>
+  );
+}
 
 export default ReorderRelationships;

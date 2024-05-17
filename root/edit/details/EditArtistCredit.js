@@ -12,11 +12,7 @@ import ArtistCreditUsageLink
 import ExpandedArtistCredit from
   '../../static/scripts/common/components/ExpandedArtistCredit.js';
 
-type Props = {
-  +edit: EditArtistCreditEditT,
-};
-
-const EditArtistCredit = ({edit}: Props): React$Element<'table'> => {
+component EditArtistCredit(edit: EditArtistCreditEditT) {
   const display = edit.display_data;
 
   return (
@@ -47,6 +43,6 @@ const EditArtistCredit = ({edit}: Props): React$Element<'table'> => {
       </tbody>
     </table>
   );
-};
+}
 
 export default EditArtistCredit;

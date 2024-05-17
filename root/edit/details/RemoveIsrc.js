@@ -13,11 +13,7 @@ import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 
-type Props = {
-  +edit: RemoveIsrcEditT,
-};
-
-const RemoveIsrc = ({edit}: Props): React$Element<'table'> => {
+component RemoveIsrc(edit: RemoveIsrcEditT) {
   const isrc = edit.display_data.isrc;
   const recording = linkedEntities.recording[isrc.recording_id];
 
@@ -33,6 +29,6 @@ const RemoveIsrc = ({edit}: Props): React$Element<'table'> => {
       </tr>
     </table>
   );
-};
+}
 
 export default RemoveIsrc;

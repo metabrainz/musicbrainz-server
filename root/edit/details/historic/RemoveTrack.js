@@ -12,23 +12,21 @@ import DescriptiveLink
 import HistoricReleaseList
   from '../../components/HistoricReleaseList.js';
 
-type Props = {
-  +edit: RemoveTrackHistoricEditT,
-};
-
-const RemoveTrack = ({edit}: Props): React$Element<'table'> => (
-  <table className="details remove-track">
-    <HistoricReleaseList releases={edit.display_data.releases} />
-    <tr>
-      <th>{addColonText(l('Track'))}</th>
-      <td>
-        <DescriptiveLink
-          content={edit.display_data.name}
-          entity={edit.display_data.recording}
-        />
-      </td>
-    </tr>
-  </table>
-);
+component RemoveTrack(edit: RemoveTrackHistoricEditT) {
+  return (
+    <table className="details remove-track">
+      <HistoricReleaseList releases={edit.display_data.releases} />
+      <tr>
+        <th>{addColonText(l('Track'))}</th>
+        <td>
+          <DescriptiveLink
+            content={edit.display_data.name}
+            entity={edit.display_data.recording}
+          />
+        </td>
+      </tr>
+    </table>
+  );
+}
 
 export default RemoveTrack;

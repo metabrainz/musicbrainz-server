@@ -11,27 +11,25 @@ import CDTocLink
   from '../../../static/scripts/common/components/CDTocLink.js';
 import HistoricReleaseList from '../../components/HistoricReleaseList.js';
 
-type Props = {
-  +edit: MoveDiscIdHistoricEditT,
-};
-
-const MoveDiscId = ({edit}: Props): React$Element<'table'> => (
-  <table className="details move-discid">
-    <tr>
-      <th>{addColonText(l('Disc ID'))}</th>
-      <td>
-        <CDTocLink cdToc={edit.display_data.cdtoc} />
-      </td>
-    </tr>
-    <HistoricReleaseList
-      label={l('From:')}
-      releases={edit.display_data.old_releases}
-    />
-    <HistoricReleaseList
-      label={l('To:')}
-      releases={edit.display_data.new_releases}
-    />
-  </table>
-);
+component MoveDiscId(edit: MoveDiscIdHistoricEditT) {
+  return (
+    <table className="details move-discid">
+      <tr>
+        <th>{addColonText(l('Disc ID'))}</th>
+        <td>
+          <CDTocLink cdToc={edit.display_data.cdtoc} />
+        </td>
+      </tr>
+      <HistoricReleaseList
+        label={l('From:')}
+        releases={edit.display_data.old_releases}
+      />
+      <HistoricReleaseList
+        label={l('To:')}
+        releases={edit.display_data.new_releases}
+      />
+    </table>
+  );
+}
 
 export default MoveDiscId;

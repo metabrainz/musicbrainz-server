@@ -18,21 +18,13 @@ import {
 import EditNote from './EditNote.js';
 import EditNoteHelp from './EditNoteHelp.js';
 
-type Props = {
-  +edit: GenericEditWithIdT,
-  +hide?: boolean,
-  +index?: number,
-  +isOnEditPage?: boolean,
-  +verbose?: boolean,
-};
-
-const EditNotes = ({
-  edit,
-  hide = false,
-  index = 0,
-  isOnEditPage,
-  verbose = true,
-}: Props): React$Element<'div'> => {
+component EditNotes(
+  edit: GenericEditWithIdT,
+  hide: boolean = false,
+  index: number = 0,
+  isOnEditPage?: boolean,
+  verbose: boolean = true,
+) {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   const mayAddNote = editorMayAddNote(edit, user);
@@ -84,6 +76,6 @@ const EditNotes = ({
       )}
     </div>
   );
-};
+}
 
 export default EditNotes;

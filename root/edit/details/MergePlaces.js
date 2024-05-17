@@ -9,25 +9,23 @@
 
 import PlaceList from '../../components/list/PlaceList.js';
 
-type Props = {
-  +edit: MergePlacesEditT,
-};
-
-const MergePlaces = ({edit}: Props): React$Element<'table'> => (
-  <table className="details merge-place">
-    <tr>
-      <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
-      <td>
-        <PlaceList places={edit.display_data.old} />
-      </td>
-    </tr>
-    <tr>
-      <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
-      <td>
-        <PlaceList places={[edit.display_data.new]} />
-      </td>
-    </tr>
-  </table>
-);
+component MergePlaces(edit: MergePlacesEditT) {
+  return (
+    <table className="details merge-place">
+      <tr>
+        <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
+        <td>
+          <PlaceList places={edit.display_data.old} />
+        </td>
+      </tr>
+      <tr>
+        <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
+        <td>
+          <PlaceList places={[edit.display_data.new]} />
+        </td>
+      </tr>
+    </table>
+  );
+}
 
 export default MergePlaces;

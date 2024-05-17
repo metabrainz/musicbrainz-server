@@ -17,11 +17,7 @@ import FullChangeDiff from
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 import {formatCoordinates} from '../../utility/coordinates.js';
 
-type Props = {
-  +edit: EditPlaceEditT,
-};
-
-const EditPlace = ({edit}: Props): React$Element<'table'> => {
+component EditPlace(edit: EditPlaceEditT) {
   const display = edit.display_data;
   const address = display.address;
   const area = display.area;
@@ -114,6 +110,6 @@ const EditPlace = ({edit}: Props): React$Element<'table'> => {
       </tbody>
     </table>
   );
-};
+}
 
 export default EditPlace;

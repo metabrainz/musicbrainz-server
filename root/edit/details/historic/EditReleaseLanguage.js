@@ -10,58 +10,56 @@
 import {HistoricReleaseListContent}
   from '../../components/HistoricReleaseList.js';
 
-type Props = {
-  +edit: EditReleaseLanguageHistoricEditT,
-};
+component EditReleaseLanguage(edit: EditReleaseLanguageHistoricEditT) {
+  return (
+    <table className="details edit-release">
+      <tr>
+        <th>{addColonText(lp('Old', 'release language'))}</th>
+        <td>
+          <table>
+            {edit.display_data.old.map((change, index) => (
+              <tr key={index}>
+                <td className="old">
+                  {texp.l(
+                    'Language: {language}, script: {script}',
+                    {
+                      language: change.language
+                        ? l_languages(change.language.name)
+                        : '?',
+                      script: change.script
+                        ? l_scripts(change.script.name)
+                        : '?',
+                    },
+                  )}
+                </td>
+                <td>
+                  <HistoricReleaseListContent releases={change.releases} />
+                </td>
+              </tr>
+            ))}
+          </table>
+        </td>
+      </tr>
 
-const EditReleaseLanguage = ({edit}: Props): React$Element<'table'> => (
-  <table className="details edit-release">
-    <tr>
-      <th>{addColonText(lp('Old', 'release language'))}</th>
-      <td>
-        <table>
-          {edit.display_data.old.map((change, index) => (
-            <tr key={index}>
-              <td className="old">
-                {texp.l(
-                  'Language: {language}, script: {script}',
-                  {
-                    language: change.language
-                      ? l_languages(change.language.name)
-                      : '?',
-                    script: change.script
-                      ? l_scripts(change.script.name)
-                      : '?',
-                  },
-                )}
-              </td>
-              <td>
-                <HistoricReleaseListContent releases={change.releases} />
-              </td>
-            </tr>
-          ))}
-        </table>
-      </td>
-    </tr>
+      <tr>
+        <th>{l('New language:')}</th>
+        <td className="new">
+          {edit.display_data.language
+            ? l_languages(edit.display_data.language.name)
+            : '?'}
+        </td>
+      </tr>
 
-    <tr>
-      <th>{l('New language:')}</th>
-      <td className="new">
-        {edit.display_data.language
-          ? l_languages(edit.display_data.language.name)
-          : '?'}
-      </td>
-    </tr>
-
-    <tr>
-      <th>{l('New script:')}</th>
-      <td className="new">
-        {edit.display_data.script
-          ? l_scripts(edit.display_data.script.name)
-          : '?'}
-      </td>
-    </tr>
-  </table>
-);
+      <tr>
+        <th>{l('New script:')}</th>
+        <td className="new">
+          {edit.display_data.script
+            ? l_scripts(edit.display_data.script.name)
+            : '?'}
+        </td>
+      </tr>
+    </table>
+  );
+}
 
 export default EditReleaseLanguage;

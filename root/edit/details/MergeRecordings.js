@@ -9,33 +9,31 @@
 
 import RecordingList from '../../components/list/RecordingList.js';
 
-type Props = {
-  +edit: MergeRecordingsEditT,
-};
-
-const MergeRecordings = ({edit}: Props): React$Element<'table'> => (
-  <table className="details merge-recordings">
-    <tr>
-      <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
-      <td>
-        <RecordingList
-          lengthClass={edit.display_data.large_spread ? 'warn-lengths' : ''}
-          recordings={edit.display_data.old}
-          showExpandedArtistCredits
-        />
-      </td>
-    </tr>
-    <tr>
-      <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
-      <td>
-        <RecordingList
-          lengthClass={edit.display_data.large_spread ? 'warn-lengths' : ''}
-          recordings={[edit.display_data.new]}
-          showExpandedArtistCredits
-        />
-      </td>
-    </tr>
-  </table>
-);
+component MergeRecordings(edit: MergeRecordingsEditT) {
+  return (
+    <table className="details merge-recordings">
+      <tr>
+        <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
+        <td>
+          <RecordingList
+            lengthClass={edit.display_data.large_spread ? 'warn-lengths' : ''}
+            recordings={edit.display_data.old}
+            showExpandedArtistCredits
+          />
+        </td>
+      </tr>
+      <tr>
+        <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
+        <td>
+          <RecordingList
+            lengthClass={edit.display_data.large_spread ? 'warn-lengths' : ''}
+            recordings={[edit.display_data.new]}
+            showExpandedArtistCredits
+          />
+        </td>
+      </tr>
+    </table>
+  );
+}
 
 export default MergeRecordings;

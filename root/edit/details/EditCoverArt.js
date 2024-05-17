@@ -15,10 +15,6 @@ import Diff from '../../static/scripts/edit/components/edit/Diff.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 import EditArtwork from '../components/EditArtwork.js';
 
-type Props = {
-  +edit: EditCoverArtEditT,
-};
-
 function displayCoverArtTypes(types: $ReadOnlyArray<CoverArtTypeT>) {
   if (types?.length) {
     return commaOnlyListText(types.map(
@@ -28,7 +24,7 @@ function displayCoverArtTypes(types: $ReadOnlyArray<CoverArtTypeT>) {
   return '';
 }
 
-const EditCoverArt = ({edit}: Props): React$Element<'table'> => {
+component EditCoverArt(edit: EditCoverArtEditT) {
   const display = edit.display_data;
   const comment = display.comment;
   const types = display.types;
@@ -77,6 +73,6 @@ const EditCoverArt = ({edit}: Props): React$Element<'table'> => {
       />
     </table>
   );
-};
+}
 
 export default EditCoverArt;

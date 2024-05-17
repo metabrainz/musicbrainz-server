@@ -15,11 +15,7 @@ import ReleaseEvents
   from '../../static/scripts/common/components/ReleaseEvents.js';
 import commaList from '../../static/scripts/common/i18n/commaList.js';
 
-type Props = {
-  +edit: SetCoverArtEditT,
-};
-
-const SetCoverArt = ({edit}: Props): React$Element<'table'> => {
+component SetCoverArt(edit: SetCoverArtEditT) {
   const display = edit.display_data;
   const oldArt = display.artwork.old;
   const newArt = display.artwork.new;
@@ -88,6 +84,6 @@ const SetCoverArt = ({edit}: Props): React$Element<'table'> => {
       {manifest.js('common/components/ReleaseEvents', {async: 'async'})}
     </table>
   );
-};
+}
 
 export default SetCoverArt;

@@ -10,11 +10,7 @@
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 
-type Props = {
-  +edit: AddGenreEditT,
-};
-
-const AddGenre = ({edit}: Props): React$MixedElement => {
+component AddGenre(edit: AddGenreEditT) {
   const display = edit.display_data;
 
   return (
@@ -45,6 +41,6 @@ const AddGenre = ({edit}: Props): React$MixedElement => {
       </table>
     </>
   );
-};
+}
 
 export default AddGenre;

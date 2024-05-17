@@ -19,11 +19,7 @@ import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
 import isolateText from '../../static/scripts/common/utility/isolateText.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
 
-type Props = {
-  edit: AddRemoveAliasEditT,
-};
-
-const AddRemoveAlias = ({edit}: Props): React$Element<'table'> => {
+component AddRemoveAlias(edit: AddRemoveAliasEditT) {
   const display = edit.display_data;
   const entityType = display.entity_type;
   const entity = display[entityType];
@@ -108,6 +104,6 @@ const AddRemoveAlias = ({edit}: Props): React$Element<'table'> => {
       </tbody>
     </table>
   );
-};
+}
 
 export default AddRemoveAlias;

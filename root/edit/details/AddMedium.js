@@ -17,44 +17,27 @@ import {artistCreditsAreEqual}
   from '../../static/scripts/common/immutable-entities.js';
 import loopParity from '../../utility/loopParity.js';
 
-type CondensedTrackACsRowProps = {
-  +artistCredit: ArtistCreditT,
-  +endNumber?: string,
-  +rowCounter: number,
-  +startNumber: string,
-};
+component CondensedTrackACsRow(
+  artistCredit: ArtistCreditT,
+  endNumber?: string,
+  rowCounter: number,
+  startNumber: string,
+) {
+  return (
+    <tr className={loopParity(rowCounter)}>
+      <td className="pos t">
+        {nonEmpty(endNumber) && endNumber !== startNumber
+          ? startNumber + '-' + endNumber
+          : startNumber}
+      </td>
+      <td>
+        <ExpandedArtistCredit artistCredit={artistCredit} />
+      </td>
+    </tr>
+  );
+}
 
-type CondensedTrackACsProps = {
-  +tracks?: $ReadOnlyArray<TrackT>,
-};
-
-type Props = {
-  +allowNew?: boolean,
-  +edit: AddMediumEditT,
-};
-
-const CondensedTrackACsRow = ({
-  artistCredit,
-  endNumber,
-  rowCounter,
-  startNumber,
-}: CondensedTrackACsRowProps): React$Element<'tr'> => (
-  <tr className={loopParity(rowCounter)}>
-    <td className="pos t">
-      {nonEmpty(endNumber) && endNumber !== startNumber
-        ? startNumber + '-' + endNumber
-        : startNumber}
-    </td>
-    <td>
-      <ExpandedArtistCredit artistCredit={artistCredit} />
-    </td>
-  </tr>
-);
-
-const CondensedTrackACs = ({
-  tracks,
-}: CondensedTrackACsProps):
-  Array<React$Element<typeof CondensedTrackACsRow>> => {
+component CondensedTrackACs(tracks?: $ReadOnlyArray<TrackT>) {
   if (!tracks) {
     return [];
   }
@@ -100,9 +83,9 @@ const CondensedTrackACs = ({
     }
   });
   return rows;
-};
+}
 
-const AddMedium = ({allowNew, edit}: Props): React$MixedElement => {
+component AddMedium(allowNew?: boolean, edit: AddMediumEditT) {
   const display = edit.display_data;
   const format = display.format;
 
@@ -177,6 +160,6 @@ const AddMedium = ({allowNew, edit}: Props): React$MixedElement => {
       ) : null}
     </table>
   );
-};
+}
 
 export default AddMedium;

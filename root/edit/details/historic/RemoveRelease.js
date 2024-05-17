@@ -12,11 +12,7 @@ import ArtistCreditLink
 import HistoricReleaseList
   from '../../components/HistoricReleaseList.js';
 
-type Props = {
-  +edit: RemoveReleaseHistoricEditT,
-};
-
-const RemoveRelease = ({edit}: Props): React$Element<'table'> => {
+component RemoveRelease(edit: RemoveReleaseHistoricEditT) {
   const artistCredit = edit.display_data.artist_credit;
   return (
     <table className="details remove-release">
@@ -31,6 +27,6 @@ const RemoveRelease = ({edit}: Props): React$Element<'table'> => {
       ) : null}
     </table>
   );
-};
+}
 
 export default RemoveRelease;

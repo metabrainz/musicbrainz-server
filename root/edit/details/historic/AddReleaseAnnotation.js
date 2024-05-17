@@ -9,11 +9,7 @@
 
 import HistoricReleaseList from '../../components/HistoricReleaseList.js';
 
-type Props = {
-  +edit: AddReleaseAnnotationHistoricEditT,
-};
-
-const AddReleaseAnnotation = ({edit}: Props): React$Element<'table'> => {
+component AddReleaseAnnotation(edit: AddReleaseAnnotationHistoricEditT) {
   const display = edit.display_data;
 
   return (
@@ -48,6 +44,6 @@ const AddReleaseAnnotation = ({edit}: Props): React$Element<'table'> => {
       ) : null}
     </table>
   );
-};
+}
 
 export default AddReleaseAnnotation;

@@ -11,11 +11,7 @@ import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import {ENTITY_NAMES} from '../../static/scripts/common/constants.js';
 
-type Props = {
-  +edit: RemoveEntityEditT,
-};
-
-const RemoveEntity = ({edit}: Props): React$Element<'table'> => {
+component RemoveEntity(edit: RemoveEntityEditT) {
   const display = edit.display_data;
 
   return (
@@ -26,6 +22,6 @@ const RemoveEntity = ({edit}: Props): React$Element<'table'> => {
       </tr>
     </table>
   );
-};
+}
 
 export default RemoveEntity;

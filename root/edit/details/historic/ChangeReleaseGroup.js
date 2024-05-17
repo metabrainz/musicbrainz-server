@@ -11,26 +11,24 @@ import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
 import HistoricReleaseList from '../../components/HistoricReleaseList.js';
 
-type Props = {
-  +edit: ChangeReleaseGroupHistoricEditT,
-};
-
-const ChangeReleaseGroup = ({edit}: Props): React$Element<'table'> => (
-  <table className="details change-release-group">
-    <HistoricReleaseList
-      colSpan="2"
-      releases={edit.display_data.releases}
-    />
-    <tr>
-      <th>{addColonText(l('Release group'))}</th>
-      <td className="old">
-        <DescriptiveLink entity={edit.display_data.release_group.old} />
-      </td>
-      <td className="new">
-        <DescriptiveLink entity={edit.display_data.release_group.new} />
-      </td>
-    </tr>
-  </table>
-);
+component ChangeReleaseGroup(edit: ChangeReleaseGroupHistoricEditT) {
+  return (
+    <table className="details change-release-group">
+      <HistoricReleaseList
+        colSpan="2"
+        releases={edit.display_data.releases}
+      />
+      <tr>
+        <th>{addColonText(l('Release group'))}</th>
+        <td className="old">
+          <DescriptiveLink entity={edit.display_data.release_group.old} />
+        </td>
+        <td className="new">
+          <DescriptiveLink entity={edit.display_data.release_group.new} />
+        </td>
+      </tr>
+    </table>
+  );
+}
 
 export default ChangeReleaseGroup;
