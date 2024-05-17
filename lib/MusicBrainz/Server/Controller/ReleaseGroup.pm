@@ -13,7 +13,11 @@ use MusicBrainz::Server::Constants qw(
     %ENTITIES
 );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
-use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
+use MusicBrainz::Server::Entity::Util::JSON qw(
+    to_json_array
+    to_json_hash
+    to_json_object
+);
 use MusicBrainz::Server::Entity::Util::Release qw( group_by_release_status );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -160,7 +164,19 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
     my ($self, $c, $id) = @_;
 
     my $entity = $c->stash->{entity};
-    return unless $entity->can_set_cover_art;
+    unless ($entity->can_set_cover_art) {
+        # No point running anything else, just return and let it say nope
+        my %props = (
+            entity => $entity->TO_JSON,
+        );
+
+        $c->stash(
+            component_path => 'release_group/SetCoverArt.js',
+            component_props => \%props,
+            current_view => 'Node',
+        );
+        return;
+    }
 
     my ($releases, undef) = $c->model('Release')->find_by_release_group(
         $entity->id);
@@ -183,13 +199,6 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
         ? $c->model('Release')->get_by_gid($form->field('release')->value)
         : $cover_art_release;
 
-    $c->stash({
-        form => $form,
-        artwork => \%artwork_map,
-        all_releases => $releases,
-        selected_release => $selected_release,
-        });
-
     if ($form_valid)
     {
         my $edit;
@@ -209,6 +218,19 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
             $c->detach;
         }
     }
+
+    my %props = (
+        artwork => to_json_hash(\%artwork_map),
+        allReleases => to_json_array($releases),
+        entity => $entity->TO_JSON,
+        form => $form->TO_JSON,
+    );
+
+    $c->stash(
+        component_path => 'release_group/SetCoverArt.js',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 1;
