@@ -493,7 +493,15 @@ sub _art_upload {
                     );
                     $self->detach_with_error(
                         $c,
-                        { message => $opts{bad_owner_message} },
+                        {
+                            message => l(
+                                'Images can’t be uploaded here because ' .
+                                'we don’t own the associated item at ' .
+                                'the Internet Archive. Please contact us ' .
+                                'at {contact_url} so we can resolve this.',
+                                {contact_url => $CONTACT_URL},
+                            ),
+                        },
                     );
                 }
             }
