@@ -55,7 +55,7 @@ component EventSidebar(event: EventT) {
               ))}
             />
           ) : eventArtPresence === 'darkened' ? (
-            l(`Artwork for this event has been hidden
+            l(`Images for this item have been hidden
                by the Internet Archive because of a takedown request.`)
           ) : (
             <p className="event-art-note" style={{textAlign: 'left'}}>

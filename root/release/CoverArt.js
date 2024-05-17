@@ -37,7 +37,7 @@ component CoverArt(
 
       {release.cover_art_presence === 'darkened' ? (
         <p>
-          {l(`Cover art for this release has been hidden
+          {l(`Images for this item have been hidden
               by the Internet Archive because of a takedown request.`)}
         </p>
       ) : coverArt.length ? (

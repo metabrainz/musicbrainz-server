@@ -42,7 +42,7 @@ const EventArt = ({
 
       {event.event_art_presence === 'darkened' ? (
         <p>
-          {l(`Artwork for this event has been hidden
+          {l(`Images for this item have been hidden
               by the Internet Archive because of a takedown request.`)}
         </p>
       ) : eventArt.length ? (
