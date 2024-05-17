@@ -35,6 +35,7 @@ my %field_map = (
     open_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
     close_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
     expire_time => 'MusicBrainz::Server::EditSearch::Predicate::Date',
+    kind => 'MusicBrainz::Server::EditSearch::Predicate::EditIDSet',
     type => 'MusicBrainz::Server::EditSearch::Predicate::EditIDSet',
     status => 'MusicBrainz::Server::EditSearch::Predicate::Set',
     vote_count => 'MusicBrainz::Server::EditSearch::Predicate::VoteCount',
