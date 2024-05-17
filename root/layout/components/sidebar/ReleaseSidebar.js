@@ -101,7 +101,7 @@ component ReleaseSidebar(release: ReleaseT) {
                   {l('View all artwork')}
                 </a>
               </>
-            ) : l('No cover art available.')}
+            ) : l('No images available.')}
           </p>
         )}
       </div>

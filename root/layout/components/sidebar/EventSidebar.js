@@ -67,7 +67,7 @@ component EventSidebar(event: EventT) {
                     {l('View all artwork')}
                   </a>
                 </>
-              ) : l('No event art available.')}
+              ) : l('No images available.')}
             </p>
           )}
         </div>
