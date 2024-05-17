@@ -9,7 +9,7 @@
 
   [%~ javascript_required() ~%]
 
-  <div style="display:none">[% warning(l('The Event Art Archive is currently experiencing difficulties. Adding images for this event is unlikely to work at the moment.'), 'eaa-warning') %]</div>
+  <div style="display:none">[% warning(l('The Internet Archive is currently experiencing difficulties. Adding images is unlikely to work at the moment.'), 'eaa-warning') %]</div>
   <script type="text/javascript">
     $.getJSON("//s3.us.archive.org/?check_limit=1&accesskey=[% access_key %]&bucket=mbid-[% entity.gid %]", function (data) {
         if (data.over_limit == 1) {
