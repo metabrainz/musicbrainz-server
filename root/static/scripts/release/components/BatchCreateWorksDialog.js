@@ -137,19 +137,11 @@ export function reducer(
   return newState;
 }
 
-type BatchCreateWorksDialogContentPropsT = {
-  +closeDialog: () => void,
-  +initialFocusRef: {-current: HTMLElement | null},
-  +sourceDispatch: (AcceptBatchCreateWorksDialogActionT) => void,
-};
-
-const BatchCreateWorksDialogContent = React.memo<
-  BatchCreateWorksDialogContentPropsT,
->(({
-  closeDialog,
-  initialFocusRef,
-  sourceDispatch,
-}: BatchCreateWorksDialogContentPropsT): React$Element<'div'> => {
+component _BatchCreateWorksDialogContent(
+  closeDialog: () => void,
+  initialFocusRef: {-current: HTMLElement | null},
+  sourceDispatch: (AcceptBatchCreateWorksDialogActionT) => void,
+) {
   const [state, dispatch] = React.useReducer(
     reducer,
     null,
@@ -282,21 +274,16 @@ const BatchCreateWorksDialogContent = React.memo<
       />
     </div>
   );
-});
+}
 
-type BatchCreateWorksButtonPopoverPropsT = {
-  +dispatch: (ReleaseRelationshipEditorActionT) => void,
-  +isDisabled: boolean,
-  +isOpen: boolean,
-};
+const BatchCreateWorksDialogContent =
+  React.memo(_BatchCreateWorksDialogContent);
 
-export const BatchCreateWorksButtonPopover = (React.memo<
-  BatchCreateWorksButtonPopoverPropsT,
->(({
-  dispatch,
-  isDisabled,
-  isOpen,
-}: BatchCreateWorksButtonPopoverPropsT): React$MixedElement => {
+component _BatchCreateWorksButtonPopover(
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  isDisabled: boolean,
+  isOpen: boolean,
+) {
   const setOpen = React.useCallback((open: boolean) => {
     dispatch({
       location: open ? {
@@ -347,4 +334,8 @@ export const BatchCreateWorksButtonPopover = (React.memo<
       }
     />
   );
-}): React$AbstractComponent<BatchCreateWorksButtonPopoverPropsT, mixed>);
+}
+
+export const BatchCreateWorksButtonPopover: React$AbstractComponent<
+  React.PropsOf<_BatchCreateWorksButtonPopover>
+> = React.memo(_BatchCreateWorksButtonPopover);

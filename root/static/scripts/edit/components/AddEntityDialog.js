@@ -29,36 +29,19 @@ export const TITLES: {+[entityType: string]: () => string} = {
   work: N_l('Add a new work'),
 };
 
-type PropsT = {
-  +callback: (NonUrlRelatableEntityT) => void,
-  +close: () => void,
-  +entityType: string,
-  +name?: string,
-};
-
 type InstanceT = {
   +close: () => void,
 };
 
-const AddEntityDialog = ({
-  callback,
-  close,
-  entityType,
-  name,
-}: PropsT): React$Element<typeof Modal> => {
+component AddEntityDialog(
+  callback: (NonUrlRelatableEntityT) => void,
+  close: () => void,
+  entityType: string,
+  name?: string,
+) {
   const iframeRef = React.useRef<HTMLIFrameElement | null>(null);
   const instanceRef = React.useRef<InstanceT | null>(null);
   const [isLoading, setLoading] = React.useState(true);
-
-  /*
-   * Make sure click events within the dialog don't bubble and cause
-   * side-effects.
-   */
-  const handleModalClick = React.useCallback((
-    event: SyntheticMouseEvent<HTMLDivElement>,
-  ) => {
-    event.stopPropagation();
-  }, []);
 
   const handlePageLoad = (event: SyntheticEvent<HTMLIFrameElement>) => {
     const contentWindow: WindowProxy = event.currentTarget.contentWindow;
@@ -81,9 +64,11 @@ const AddEntityDialog = ({
     findFirstTabbableElement(iframeBody, /* skipAnchors = */ true)?.focus();
   };
 
-  instanceRef.current = {
-    close,
-  };
+  React.useEffect(() => {
+    instanceRef.current = {
+      close,
+    };
+  }, [close, instanceRef]);
 
   let dialogPath = '/' + entityType + '/create';
   if (nonEmpty(name)) {
@@ -95,7 +80,6 @@ const AddEntityDialog = ({
     <Modal
       className="iframe-dialog"
       id={'add-' + entityType + '-dialog'}
-      onClick={handleModalClick}
       onEscape={close}
       title={isLoading ? l('Loading...') : TITLES[entityType]()}
     >
@@ -109,6 +93,6 @@ const AddEntityDialog = ({
       />
     </Modal>
   );
-};
+}
 
 export default AddEntityDialog;

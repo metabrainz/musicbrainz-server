@@ -509,21 +509,13 @@ export function reducer(
   return newState;
 }
 
-type AttributesSectionPropsT = {
-  +attributesState: DialogAttributesStateT,
-  +canEditDates: boolean,
-  +datePeriod: DialogDatePeriodStateT,
-  +dispatch: (DialogActionT) => void,
-  +isHelpVisible: boolean,
-};
-
-const AttributesSection = (React.memo<AttributesSectionPropsT>(({
-  attributesState,
-  canEditDates,
-  datePeriod,
-  dispatch,
-  isHelpVisible,
-}) => {
+component _AttributesSection(
+  attributesState: DialogAttributesStateT,
+  canEditDates: boolean,
+  datePeriod: DialogDatePeriodStateT,
+  dispatch: (DialogActionT) => void,
+  isHelpVisible: boolean,
+) {
   const attributesDispatch = React.useCallback((
     action: DialogAttributeActionT,
   ) => {
@@ -567,11 +559,11 @@ const AttributesSection = (React.memo<AttributesSectionPropsT>(({
       </table>
     </>
   ) : null;
-}): React$AbstractComponent<AttributesSectionPropsT, mixed>);
+}
 
-const RelationshipDialogContent = (React.memo<PropsT>((
-  props: PropsT,
-): React$MixedElement => {
+const AttributesSection = React.memo(_AttributesSection);
+
+component _RelationshipDialogContent(...props: PropsT) {
   const {
     batchSelectionCount,
     closeDialog,
@@ -967,7 +959,6 @@ const RelationshipDialogContent = (React.memo<PropsT>((
             targetType={targetEntityState.targetType}
           />
           <DialogTargetEntity
-            allowedTypes={targetTypeOptions}
             backward={backward}
             dispatch={targetEntityDispatch}
             linkType={selectedLinkType}
@@ -1019,7 +1010,11 @@ const RelationshipDialogContent = (React.memo<PropsT>((
       />
     </div>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const RelationshipDialogContent: React$AbstractComponent<
+  React.PropsOf<_RelationshipDialogContent>
+> = React.memo(_RelationshipDialogContent);
 
 function getBatchSelectionMessage(sourceType: RelatableEntityTypeT) {
   switch (sourceType) {

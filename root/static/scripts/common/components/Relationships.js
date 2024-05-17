@@ -58,19 +58,13 @@ const displayTargets: DisplayTargets = {
   ],
 };
 
-type PropsT = {
-  +noRelationshipsHeading?: boolean,
-  +relationships?: $ReadOnlyArray<RelationshipTargetTypeGroupT>,
-  +showIfEmpty?: boolean,
-  +source: RelatableEntityT,
-};
-
-const Relationships = (React.memo<PropsT>(({
-  noRelationshipsHeading = false,
-  relationships: passedRelationships,
-  showIfEmpty = false,
-  source,
-}: PropsT): React.MixedElement => {
+component _Relationship(
+  noRelationshipsHeading: boolean = false,
+  relationships as passedRelationships?:
+    $ReadOnlyArray<RelationshipTargetTypeGroupT>,
+  showIfEmpty: boolean = false,
+  source: RelatableEntityT,
+) {
   let srcRels = source.relationships;
   let relationships = passedRelationships;
   if (!relationships) {
@@ -131,6 +125,9 @@ const Relationships = (React.memo<PropsT>(({
       ) : null}
     </>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const Relationships: React$AbstractComponent<React.PropsOf<_Relationship>> =
+  React.memo(_Relationship);
 
 export default Relationships;

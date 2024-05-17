@@ -17,34 +17,20 @@ export type BuildRowPropsT = {
   abbreviated?: boolean,
 };
 
-type Props<T> = {
-  +ariaLabel: string,
-  +buildRow:
+component CollapsibleList<T>(
+  ariaLabel: string,
+  buildRow:
     (T, ?BuildRowPropsT) => React$Element<'li' | typeof SidebarProperty>,
-  +buildRowProps?: BuildRowPropsT,
-  +className: string,
-  +ContainerElement?: 'dl' | 'ul',
-  +InnerElement?: 'p' | 'li' | 'div',
-  +rows: ?$ReadOnlyArray<T>,
-  +showAllTitle: string,
-  +showLessTitle: string,
-  +toShowAfter: number,
-  +toShowBefore: number,
-};
-
-const CollapsibleList = <T>({
-  ariaLabel,
-  buildRow,
-  buildRowProps,
-  className,
-  ContainerElement = 'ul',
-  InnerElement = 'li',
-  rows,
-  showAllTitle,
-  showLessTitle,
-  toShowAfter,
-  toShowBefore,
-}: Props<T>): React$MixedElement | null => {
+  buildRowProps?: BuildRowPropsT,
+  className: string,
+  ContainerElement?: 'dl' | 'ul' = 'ul',
+  InnerElement?: 'p' | 'li' | 'div' = 'li',
+  rows: ?$ReadOnlyArray<T>,
+  showAllTitle: string,
+  showLessTitle: string,
+  toShowAfter: number,
+  toShowBefore: number,
+) {
   const [expanded, setExpanded] = React.useState<boolean>(false);
 
   const expand = (event: SyntheticMouseEvent<HTMLAnchorElement>) => {
@@ -114,6 +100,6 @@ const CollapsibleList = <T>({
       )
     ) : null
   );
-};
+}
 
 export default CollapsibleList;

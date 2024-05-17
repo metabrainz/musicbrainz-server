@@ -19,10 +19,6 @@ type RelationT = {
   +roles: $ReadOnlyArray<string>,
 };
 
-type ArtistRolesProps = {
-  +relations: $ReadOnlyArray<RelationT>,
-};
-
 const buildArtistRoleRow = (relation: RelationT) => {
   return (
     <li key={relation.entity.id + '-' + relation.credit}>
@@ -39,22 +35,22 @@ const buildArtistRoleRow = (relation: RelationT) => {
   );
 };
 
-const ArtistRoles = ({
-  relations,
-}: ArtistRolesProps): React$MixedElement => (
-  <CollapsibleList
-    ariaLabel={l('Artist roles')}
-    buildRow={buildArtistRoleRow}
-    className="artist-roles"
-    rows={relations}
-    showAllTitle={l('Show all artists')}
-    showLessTitle={l('Show less artists')}
-    toShowAfter={0}
-    toShowBefore={4}
-  />
-);
+component ArtistRoles(relations: $ReadOnlyArray<RelationT>) {
+  return (
+    <CollapsibleList
+      ariaLabel={l('Artist roles')}
+      buildRow={buildArtistRoleRow}
+      className="artist-roles"
+      rows={relations}
+      showAllTitle={l('Show all artists')}
+      showLessTitle={l('Show less artists')}
+      toShowAfter={0}
+      toShowBefore={4}
+    />
+  );
+}
 
-export default (hydrate<ArtistRolesProps>(
+export default (hydrate<React.PropsOf<ArtistRoles>>(
   'div.artist-roles-container',
   ArtistRoles,
-): React$AbstractComponent<ArtistRolesProps, void>);
+): React$AbstractComponent<React.PropsOf<ArtistRoles>>);

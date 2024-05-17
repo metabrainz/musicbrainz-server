@@ -9,16 +9,13 @@
 
 import informationIconUrl from '../../../images/icons/information.png';
 
-type Props = {
-  className?: string,
-  title?: string,
-};
-
-const InformationIcon = (props: Props): React$Element<'img'> => (
-  <img
-    src={informationIconUrl}
-    {...props}
-  />
-);
+component InformationIcon(...props: {className?: string, title?: string}) {
+  return (
+    <img
+      src={informationIconUrl}
+      {...props}
+    />
+  );
+}
 
 export default InformationIcon;

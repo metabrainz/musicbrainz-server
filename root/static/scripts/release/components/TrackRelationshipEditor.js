@@ -43,15 +43,10 @@ import {
 
 import EditWorkDialog from './EditWorkDialog.js';
 
-type TrackLinkPropsT = {
-  +showArtists: boolean,
-  +track: TrackWithRecordingT,
-};
-
-const TrackLink = React.memo<TrackLinkPropsT>(({
-  showArtists,
-  track,
-}) => {
+component _TrackLink(
+  showArtists: boolean,
+  track: TrackWithRecordingT,
+) {
   let trackLink: Expand2ReactOutput;
   if (showArtists) {
     trackLink = (
@@ -82,38 +77,30 @@ const TrackLink = React.memo<TrackLinkPropsT>(({
       {bracketedText(formatTrackLength(track.length))}
     </>
   );
-});
+}
 
-type WorkLinkPropsT = {
-  +work: WorkT,
-};
+const TrackLink = React.memo(_TrackLink);
 
-const WorkLink = React.memo<WorkLinkPropsT>(({
-  work,
-}) => (
-  <EntityLink
-    allowNew
-    className="wrap-anywhere"
-    entity={work}
-    target="_blank"
-  />
-));
+component _WorkLink(work: WorkT) {
+  return (
+    <EntityLink
+      allowNew
+      className="wrap-anywhere"
+      entity={work}
+      target="_blank"
+    />
+  );
+}
 
-type RelatedWorkHeadingPropsT = {
-  +dispatch: (ReleaseRelationshipEditorActionT) => void,
-  +isRemoved: boolean,
-  +isSelected: boolean,
-  +removeWorkButton: React$MixedElement,
-  +work: WorkT,
-};
+const WorkLink = React.memo(_WorkLink);
 
-const RelatedWorkHeading = ({
-  dispatch,
-  isRemoved,
-  isSelected,
-  removeWorkButton,
-  work,
-}: RelatedWorkHeadingPropsT) => {
+component RelatedWorkHeading(
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  isRemoved: boolean,
+  isSelected: boolean,
+  removeWorkButton: React$MixedElement,
+  work: WorkT,
+) {
   const selectWork = React.useCallback((
     event: SyntheticEvent<HTMLInputElement>,
   ) => {
@@ -147,14 +134,14 @@ const RelatedWorkHeading = ({
       {workLink}
     </h3>
   );
-};
+}
 
-const NewRelatedWorkHeading = ({
-  dispatch,
-  isSelected,
-  removeWorkButton,
-  work,
-}: RelatedWorkHeadingPropsT) => {
+component NewRelatedWorkHeading(
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  isSelected: boolean,
+  removeWorkButton: React$MixedElement,
+  work: WorkT,
+) {
   const selectWork = React.useCallback((
     event: SyntheticEvent<HTMLInputElement>,
   ) => {
@@ -208,29 +195,19 @@ const NewRelatedWorkHeading = ({
       <NewWorkLink work={work} />
     </h3>
   );
-};
-
-type RelatedWorkRelationshipEditorPropsT = {
-  +dialogLocation: RelationshipDialogLocationT | null,
-  +dispatch: (ReleaseRelationshipEditorActionT) => void,
-  +relatedWork: MediumWorkStateT,
-  +releaseHasUnloadedTracks: boolean,
-  +track: TrackWithRecordingT,
-};
+}
 
 const filterRecordings = (
   targetType: RelatableEntityTypeT,
 ) => targetType !== 'recording';
 
-const RelatedWorkRelationshipEditor = React.memo<
-  RelatedWorkRelationshipEditorPropsT,
->(({
-  dialogLocation,
-  dispatch,
-  relatedWork,
-  releaseHasUnloadedTracks,
-  track,
-}) => {
+component _RelatedWorkRelationshipEditor(
+  dialogLocation: RelationshipDialogLocationT | null,
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  relatedWork: MediumWorkStateT,
+  releaseHasUnloadedTracks: boolean,
+  track: TrackWithRecordingT,
+) {
   const work = relatedWork.work;
   const isNewWork = work._fromBatchCreateWorksDialog === true;
   const hasLoadedRelationships = work.relationships != null;
@@ -313,18 +290,24 @@ const RelatedWorkRelationshipEditor = React.memo<
     relatedWork.targetTypeGroups,
   ]);
 
-  const RelatedWorkHeadingComponent =
-    isNewWork ? NewRelatedWorkHeading : RelatedWorkHeading;
-
   return (
     <>
-      <RelatedWorkHeadingComponent
-        dispatch={dispatch}
-        isRemoved={isWorkRemoved}
-        isSelected={relatedWork.isSelected}
-        removeWorkButton={removeWorkButton}
-        work={work}
-      />
+      {isNewWork ? (
+        <NewRelatedWorkHeading
+          dispatch={dispatch}
+          isSelected={relatedWork.isSelected}
+          removeWorkButton={removeWorkButton}
+          work={work}
+        />
+      ) : (
+        <RelatedWorkHeading
+          dispatch={dispatch}
+          isRemoved={isWorkRemoved}
+          isSelected={relatedWork.isSelected}
+          removeWorkButton={removeWorkButton}
+          work={work}
+        />
+      )}
       <RelationshipTargetTypeGroups
         dialogLocation={dialogLocation}
         dispatch={dispatch}
@@ -344,27 +327,19 @@ const RelatedWorkRelationshipEditor = React.memo<
       ) : null}
     </>
   );
-});
+}
 
-type RelatedWorksRelationshipEditorPropsT = {
-  +dialogLocation: RelationshipDialogLocationT | null,
-  +dispatch: (ReleaseRelationshipEditorActionT) => void,
-  +recording: RecordingT,
-  +relatedWorks: MediumWorkStateTreeT | null,
-  +releaseHasUnloadedTracks: boolean,
-  +track: TrackWithRecordingT,
-};
+const RelatedWorkRelationshipEditor =
+  React.memo(_RelatedWorkRelationshipEditor);
 
-const RelatedWorksRelationshipEditor = React.memo<
-  RelatedWorksRelationshipEditorPropsT,
->(({
-  dialogLocation,
-  dispatch,
-  recording,
-  relatedWorks,
-  releaseHasUnloadedTracks,
-  track,
-}) => {
+component _RelatedWorksRelationshipEditor(
+  dialogLocation: RelationshipDialogLocationT | null,
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  recording: RecordingT,
+  relatedWorks: MediumWorkStateTreeT | null,
+  releaseHasUnloadedTracks: boolean,
+  track: TrackWithRecordingT,
+) {
   const relatedWorkElements = [];
   for (const relatedWork of tree.iterate(relatedWorks)) {
     relatedWorkElements.push(
@@ -436,25 +411,19 @@ const RelatedWorksRelationshipEditor = React.memo<
       {relatedWorkElements}
     </td>
   );
-});
+}
 
-type TrackRelationshipEditorPropsT = {
-  +dialogLocation: RelationshipDialogLocationT | null,
-  +dispatch: (ReleaseRelationshipEditorActionT) => void,
-  +recordingState: MediumRecordingStateT,
-  +releaseHasUnloadedTracks: boolean,
-  +showArtists: boolean,
-  +track: TrackWithRecordingT,
-};
+const RelatedWorksRelationshipEditor =
+  React.memo(_RelatedWorksRelationshipEditor);
 
-const TrackRelationshipEditor = (React.memo<TrackRelationshipEditorPropsT>(({
-  dialogLocation,
-  dispatch,
-  recordingState,
-  releaseHasUnloadedTracks,
-  showArtists,
-  track,
-}: TrackRelationshipEditorPropsT) => {
+component _TrackRelationshipEditor(
+  dialogLocation: RelationshipDialogLocationT | null,
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  recordingState: MediumRecordingStateT,
+  releaseHasUnloadedTracks: boolean,
+  showArtists: boolean,
+  track: TrackWithRecordingT,
+) {
   const selectRecording = React.useCallback((
     event: SyntheticEvent<HTMLInputElement>,
   ) => {
@@ -525,7 +494,11 @@ const TrackRelationshipEditor = (React.memo<TrackRelationshipEditorPropsT>(({
       />
     </tr>
   );
-}): React$AbstractComponent<TrackRelationshipEditorPropsT, mixed>);
+}
+
+const TrackRelationshipEditor: React$AbstractComponent<
+  React.PropsOf<_TrackRelationshipEditor>
+> = React.memo(_TrackRelationshipEditor);
 
 TrackRelationshipEditor.displayName = 'TrackRelationshipEditor';
 

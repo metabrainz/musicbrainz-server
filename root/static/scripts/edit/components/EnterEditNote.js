@@ -10,36 +10,26 @@
 import FieldErrors from './FieldErrors.js';
 import FormRow from './FormRow.js';
 
-type CommonProps = {
-  +field: FieldT<string>,
-  +hideHelp?: boolean,
-};
-
-type Props =
+type ControlledPropsT =
   | $ReadOnly<{
-      ...CommonProps,
       controlled: true,
       onChange: (event: SyntheticEvent<HTMLTextAreaElement>) => void,
     }>
-  | $ReadOnly<{
-      ...CommonProps,
-      controlled?: false,
-    }>;
+  | $ReadOnly<{controlled?: false}>;
 
-const EnterEditNote = ({
-  field,
-  hideHelp = false,
-  ...otherProps
-}: Props):
-React$Element<'fieldset'> => {
+component EnterEditNote(
+  field: FieldT<string>,
+  hideHelp: boolean = false,
+  ...controlledProps: ControlledPropsT
+) {
   const textAreaProps: {
     defaultValue?: string,
     onChange?: (event: SyntheticEvent<HTMLTextAreaElement>) => void,
     value?: string,
   } = {};
-  if (otherProps.controlled) {
+  if (controlledProps.controlled /*:: === true */) {
     textAreaProps.value = field.value;
-    textAreaProps.onChange = otherProps.onChange;
+    textAreaProps.onChange = controlledProps.onChange;
   } else {
     textAreaProps.defaultValue = field.value;
   }
@@ -87,6 +77,6 @@ React$Element<'fieldset'> => {
       </FormRow>
     </fieldset>
   );
-};
+}
 
 export default EnterEditNote;

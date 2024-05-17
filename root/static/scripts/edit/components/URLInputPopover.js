@@ -17,25 +17,23 @@ import type {
 } from '../externalLinks.js';
 import {ERROR_TARGETS} from '../URLCleanup.js';
 
-type PropsT = {
+component URLInputPopover(
   cleanupUrl: (string) => string,
-  link: LinkRelationshipT,
+  link as passedLink: LinkRelationshipT,
   onConfirm: (string) => void,
   validateLink: (LinkRelationshipT | LinkStateT) => ErrorT | null,
-};
-
-const URLInputPopover = (props: PropsT): React$MixedElement => {
+) {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const [link, setLink] = React.useState<LinkRelationshipT>(props.link);
+  const [link, setLink] = React.useState<LinkRelationshipT>(passedLink);
 
   React.useEffect(() => {
-    setLink(props.link);
-  }, [props.link]);
+    setLink(passedLink);
+  }, [passedLink]);
 
   const toggle = (open: boolean) => {
     // Will be called by ButtonPopover when closed by losing focus
     if (!open) {
-      props.onConfirm(link.rawUrl);
+      onConfirm(link.rawUrl);
     }
     setIsOpen(open);
   };
@@ -45,19 +43,19 @@ const URLInputPopover = (props: PropsT): React$MixedElement => {
     setLink({
       ...link,
       rawUrl,
-      url: props.cleanupUrl(rawUrl),
+      url: cleanupUrl(rawUrl),
     });
   };
 
   const handleConfirm = (closeCallback: () => void) => {
-    props.onConfirm(link.rawUrl);
+    onConfirm(link.rawUrl);
     closeCallback();
   };
 
   const buildPopoverChildren = (
     closeAndReturnFocus: () => void,
   ) => {
-    const error = props.validateLink(link);
+    const error = validateLink(link);
     return (
       <form
         onSubmit={(event: SyntheticEvent<HTMLFormElement>) => {
@@ -116,7 +114,7 @@ const URLInputPopover = (props: PropsT): React$MixedElement => {
             className="negative"
             onClick={() => {
               // Reset input field value
-              setLink(props.link);
+              setLink(passedLink);
               // Avoid calling toggle() otherwise changes will be saved
               setIsOpen(false);
             }}
@@ -151,6 +149,6 @@ const URLInputPopover = (props: PropsT): React$MixedElement => {
       toggle={toggle}
     />
   );
-};
+}
 
 export default URLInputPopover;

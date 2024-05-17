@@ -85,12 +85,6 @@ import RelationshipTargetTypeGroups from './RelationshipTargetTypeGroups.js';
 MB.relationshipEditor.getRelationshipStateId = getRelationshipStateId;
 MB.tree = tree;
 
-export type PropsT = {
-  +dispatch: (RelationshipEditorActionT) => void,
-  +formName: string,
-  +state: RelationshipEditorStateT,
-};
-
 export type InitialStateArgsT = {
   +formName: string,
   +seededRelationships: ?$ReadOnlyArray<SeededRelationshipT>,
@@ -577,15 +571,11 @@ export const ErrorMessage:
     </div>
   ));
 
-const RelationshipEditor = (
-  props: PropsT,
-): React$Element<'fieldset'> | null => {
-  const {
-    dispatch,
-    formName,
-    state,
-  } = props;
-
+component RelationshipEditor(
+  dispatch: (RelationshipEditorActionT) => void,
+  formName: string,
+  state: RelationshipEditorStateT,
+) {
   const reducerError = state.reducerError;
 
   const submissionInProgress = React.useRef(false);
@@ -671,6 +661,6 @@ const RelationshipEditor = (
       </div>
     </fieldset>
   );
-};
+}
 
 export default RelationshipEditor;

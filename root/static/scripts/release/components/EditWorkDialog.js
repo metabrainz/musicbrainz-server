@@ -89,24 +89,12 @@ function reducer(
   return newState;
 }
 
-type EditWorkDialogPropsT = {
-  +closeDialog: () => void,
-  +initialFocusRef?: {-current: HTMLElement | null},
-  +rootDispatch: (ReleaseRelationshipEditorActionT) => void,
-  +work: WorkT,
-};
-
-const EditWorkDialog: React$AbstractComponent<
-  EditWorkDialogPropsT,
-  mixed,
-> = React.memo<
-  EditWorkDialogPropsT,
->(({
-  closeDialog,
-  initialFocusRef,
-  rootDispatch,
-  work,
-}: EditWorkDialogPropsT): React$MixedElement => {
+component _EditWorkDialog(
+  closeDialog: () => void,
+  initialFocusRef?: {-current: HTMLElement | null},
+  rootDispatch: (ReleaseRelationshipEditorActionT) => void,
+  work: WorkT,
+) {
   const [state, dispatch] = React.useReducer(
     reducer,
     work,
@@ -197,6 +185,10 @@ const EditWorkDialog: React$AbstractComponent<
       />
     </div>
   );
-});
+}
+
+const EditWorkDialog: React$AbstractComponent<
+  React.PropsOf<_EditWorkDialog>
+> = React.memo(_EditWorkDialog);
 
 export default EditWorkDialog;

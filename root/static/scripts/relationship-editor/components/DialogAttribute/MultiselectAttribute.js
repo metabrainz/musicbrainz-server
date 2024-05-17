@@ -46,14 +46,6 @@ function addAttributeLabel(attributeTypeId: ?number): string {
   }
 }
 
-type PropsT = {
-  +dispatch: (
-    rootKey: number,
-    action: DialogMultiselectAttributeActionT,
-  ) => void,
-  +state: DialogMultiselectAttributeStateT,
-};
-
 export function _createLinkAttributeTypeOptions(
   attr: LinkAttrTypeT,
   level: number = 0,
@@ -178,10 +170,13 @@ export function reducer(
   return newState;
 }
 
-const MultiselectAttribute = (React.memo<PropsT>(({
-  state,
-  dispatch,
-}: PropsT): React$MixedElement => {
+component MultiselectAttributeComponent(
+  dispatch: (
+    rootKey: number,
+    action: DialogMultiselectAttributeActionT,
+  ) => void,
+  state: DialogMultiselectAttributeStateT,
+) {
   const linkTypeAttributeType = state.type;
   const addLabel = addAttributeLabel(linkTypeAttributeType.id);
 
@@ -246,6 +241,12 @@ const MultiselectAttribute = (React.memo<PropsT>(({
       state={state}
     />
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+type MultiselectAttributeMemoT =
+  React$AbstractComponent<React.PropsOf<MultiselectAttributeComponent>>;
+
+const MultiselectAttribute: MultiselectAttributeMemoT =
+  React.memo(MultiselectAttributeComponent);
 
 export default MultiselectAttribute;

@@ -14,15 +14,7 @@
 
 import * as React from 'react';
 
-type TooltipProps = {
-  +content: React$Node,
-  +target: React$Node,
-};
-
-const Tooltip = ({
-  content,
-  target,
-}: TooltipProps): React$Element<'span'> => {
+component Tooltip(content: React$Node, target: React$Node) {
   const containerRef = React.useRef<HTMLSpanElement | null>(null);
 
   React.useEffect(() => {
@@ -46,6 +38,6 @@ const Tooltip = ({
       ) : null}
     </span>
   );
-};
+}
 
 export default Tooltip;

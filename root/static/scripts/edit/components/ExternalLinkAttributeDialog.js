@@ -33,12 +33,6 @@ import DateRangeFieldset, {
 import UrlRelationshipCreditFieldset
   from './UrlRelationshipCreditFieldset.js';
 
-type PropsT = {
-  creditableEntityProp: 'entity0_credit' | 'entity1_credit' | null,
-  onConfirm: ($ReadOnly<Partial<LinkStateT>>) => void,
-  relationship: LinkRelationshipT,
-};
-
 type StateT = {
   +credit: FieldT<string | null>,
   +datePeriodField: DatePeriodFieldT,
@@ -51,14 +45,16 @@ type ActionT =
       +type: 'update-date-period',
     }
   | {
-      +props: PropsT,
+      +props: React.PropsOf<ExternalLinkAttributeDialog>,
       +type: 'update-initial-date-period',
     }
   | {+credit: string, +type: 'update-relationship-credit'}
   | {+type: 'reset'}
   | {+type: 'show-all-pending-errors'};
 
-const createInitialState = (props: PropsT): StateT => {
+const createInitialState = (
+  props: React.PropsOf<ExternalLinkAttributeDialog>,
+): StateT => {
   const relationship = props.relationship;
   const beginDate = relationship.begin_date;
   const endDate = relationship.end_date;
@@ -139,7 +135,11 @@ const reducer = (state: StateT, action: ActionT): StateT => {
   return ctx.final();
 };
 
-const ExternalLinkAttributeDialog = (props: PropsT): React$MixedElement => {
+component ExternalLinkAttributeDialog(...props: {
+  creditableEntityProp: 'entity0_credit' | 'entity1_credit' | null,
+  onConfirm: ($ReadOnly<Partial<LinkStateT>>) => void,
+  relationship: LinkRelationshipT,
+}) {
   const [open, setOpen] = React.useState(false);
 
   const [state, dispatch] = React.useReducer(
@@ -262,6 +262,6 @@ const ExternalLinkAttributeDialog = (props: PropsT): React$MixedElement => {
       toggle={onToggle}
     />
   );
-};
+}
 
 export default ExternalLinkAttributeDialog;

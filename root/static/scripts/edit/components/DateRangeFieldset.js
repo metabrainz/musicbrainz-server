@@ -31,13 +31,6 @@ export type ActionT =
   | {+type: 'copy-date'};
 /* eslint-enable ft-flow/sort-keys */
 
-type PropsT = {
-  +disabled?: boolean,
-  +dispatch: (ActionT) => void,
-  +endedLabel: string,
-  +field: DatePeriodFieldT,
-};
-
 export type StateT = DatePeriodFieldT;
 
 export function partialDateFromField(
@@ -168,12 +161,12 @@ export function reducer(
   return ctx.final();
 }
 
-const DateRangeFieldset = (React.memo<PropsT>(({
-  disabled = false,
-  dispatch,
-  endedLabel,
-  field,
-}: PropsT): React.MixedElement => {
+component _DateRangeFieldset(
+  disabled: boolean = false,
+  dispatch: (ActionT) => void,
+  endedLabel: string,
+  field: DatePeriodFieldT,
+) {
   const subfields = field.field;
 
   const hooks = useDateRangeFieldset(dispatch);
@@ -225,6 +218,10 @@ const DateRangeFieldset = (React.memo<PropsT>(({
       </fieldset>
     </>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const DateRangeFieldset: React$AbstractComponent<
+  React.PropsOf<_DateRangeFieldset>
+> = React.memo(_DateRangeFieldset);
 
 export default DateRangeFieldset;

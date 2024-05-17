@@ -29,30 +29,27 @@ const buildIswcSidebarRow = (iswc: IswcT) => (
   </SidebarProperty>
 );
 
-type IswcListProps = {|
-  +isSidebar?: boolean,
-  +iswcs: ?$ReadOnlyArray<IswcT>,
-|};
+component IswcList(
+  iswcs: ?$ReadOnlyArray<IswcT>,
+  isSidebar: boolean = false,
+) {
+  return (
+    <CollapsibleList
+      ContainerElement={isSidebar ? 'dl' : 'ul'}
+      InnerElement={isSidebar ? 'div' : 'li'}
+      ariaLabel={l('ISWCs')}
+      buildRow={isSidebar ? buildIswcSidebarRow : buildIswcListRow}
+      className={isSidebar ? 'properties iswcs' : 'iswcs'}
+      rows={iswcs}
+      showAllTitle={l('Show all ISWCs')}
+      showLessTitle={l('Show less ISWCs')}
+      toShowAfter={1}
+      toShowBefore={2}
+    />
+  );
+}
 
-const IswcList = ({
-  iswcs,
-  isSidebar = false,
-}: IswcListProps) => (
-  <CollapsibleList
-    ContainerElement={isSidebar ? 'dl' : 'ul'}
-    InnerElement={isSidebar ? 'div' : 'li'}
-    ariaLabel={l('ISWCs')}
-    buildRow={isSidebar ? buildIswcSidebarRow : buildIswcListRow}
-    className={isSidebar ? 'properties iswcs' : 'iswcs'}
-    rows={iswcs}
-    showAllTitle={l('Show all ISWCs')}
-    showLessTitle={l('Show less ISWCs')}
-    toShowAfter={1}
-    toShowBefore={2}
-  />
-);
-
-export default (hydrate<IswcListProps>(
+export default (hydrate<React.PropsOf<IswcList>>(
   'div.iswc-list-container',
   IswcList,
-): React$AbstractComponent<IswcListProps, void>);
+): React$AbstractComponent<React.PropsOf<IswcList>>);

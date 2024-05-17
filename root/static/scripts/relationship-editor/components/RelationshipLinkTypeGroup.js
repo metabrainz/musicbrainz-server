@@ -18,25 +18,15 @@ import type {RelationshipEditorActionT} from '../types/actions.js';
 
 import RelationshipPhraseGroup from './RelationshipPhraseGroup.js';
 
-type PropsT = {
-  +dialogLocation: RelationshipDialogLocationT | null,
-  +dispatch: (RelationshipEditorActionT) => void,
-  +linkTypeGroup: RelationshipLinkTypeGroupT,
-  +releaseHasUnloadedTracks: boolean,
-  +source: RelatableEntityT,
-  +targetType: RelatableEntityTypeT,
-  +track: TrackWithRecordingT | null,
-};
-
-const RelationshipLinkTypeGroup = (React.memo<PropsT>(({
-  dialogLocation,
-  dispatch,
-  linkTypeGroup,
-  releaseHasUnloadedTracks,
-  source,
-  targetType,
-  track,
-}: PropsT) => {
+component _RelationshipLinkTypeGroup(
+  dialogLocation: RelationshipDialogLocationT | null,
+  dispatch: (RelationshipEditorActionT) => void,
+  linkTypeGroup: RelationshipLinkTypeGroupT,
+  releaseHasUnloadedTracks: boolean,
+  source: RelatableEntityT,
+  targetType: RelatableEntityTypeT,
+  track: TrackWithRecordingT | null,
+) {
   const elements = [];
   for (const linkPhraseGroup of tree.iterate(linkTypeGroup.phraseGroups)) {
     elements.push(
@@ -60,6 +50,10 @@ const RelationshipLinkTypeGroup = (React.memo<PropsT>(({
     );
   }
   return elements;
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const RelationshipLinkTypeGroup: React$AbstractComponent<
+  React.PropsOf<_RelationshipLinkTypeGroup>
+> = React.memo(_RelationshipLinkTypeGroup);
 
 export default RelationshipLinkTypeGroup;

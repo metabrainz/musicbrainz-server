@@ -34,19 +34,12 @@ function splitText(text: string, split: string = '') {
   return text.split(new RegExp(splitRegExp, 'u'));
 }
 
-type Props = {
-  +filter: EditType,
-  +newText: string,
-  +oldText: string,
-  +split?: string,
-};
-
-const DiffSide = ({
-  filter,
-  newText,
-  oldText,
-  split = '',
-}: Props): React$MixedElement | string => {
+component DiffSide(
+  filter: EditType,
+  newText: string,
+  oldText: string,
+  split: string = '',
+) {
   const stack = [];
   const splitMatch = new RegExp('^(?:' + split + ')$');
 
@@ -132,6 +125,6 @@ const DiffSide = ({
     null,
     ...children,
   ) : (children.length ? children[0] : '');
-};
+}
 
 export default DiffSide;

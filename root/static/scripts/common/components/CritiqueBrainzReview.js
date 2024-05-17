@@ -16,11 +16,6 @@ import bracketed from '../utility/bracketed.js';
 
 import Collapsible from './Collapsible.js';
 
-type Props = {
-  +review: CritiqueBrainzReviewT,
-  +title: string,
-};
-
 const authorHref = (author: CritiqueBrainzUserT) => (
   DBDefs.CRITIQUEBRAINZ_SERVER + '/user/' + author.id
 );
@@ -29,35 +24,37 @@ const reviewHref = (review: CritiqueBrainzReviewT) => (
   DBDefs.CRITIQUEBRAINZ_SERVER + '/review/' + review.id
 );
 
-const CritiqueBrainzReview = ({review, title}: Props) => (
-  <>
-    <h3>{title}</h3>
-    <p className="review-metadata">
-      <SanitizedCatalystContext.Consumer>
-        {$c => exp.l('{review_link|Review} by {author} on {date}', {
-          author: (
-            <a href={authorHref(review.author)} key="author">
-              {review.author.name}
-            </a>
-          ),
-          date: formatUserDate($c, review.created, {dateOnly: true}),
-          review_link: {href: reviewHref(review), key: 'review_link'},
-        })}
-      </SanitizedCatalystContext.Consumer>
-      {review.rating == null ? null : (
-        <>
-          {' '}
-          {bracketed(
-            <StaticRatingStars rating={review.rating} />,
-          )}
-        </>
-      )}
-    </p>
-    <Collapsible className="review" html={review.body} />
-  </>
-);
+component CritiqueBrainzReview(review: CritiqueBrainzReviewT, title: string) {
+  return (
+    <>
+      <h3>{title}</h3>
+      <p className="review-metadata">
+        <SanitizedCatalystContext.Consumer>
+          {$c => exp.l('{review_link|Review} by {author} on {date}', {
+            author: (
+              <a href={authorHref(review.author)} key="author">
+                {review.author.name}
+              </a>
+            ),
+            date: formatUserDate($c, review.created, {dateOnly: true}),
+            review_link: {href: reviewHref(review), key: 'review_link'},
+          })}
+        </SanitizedCatalystContext.Consumer>
+        {review.rating == null ? null : (
+          <>
+            {' '}
+            {bracketed(
+              <StaticRatingStars rating={review.rating} />,
+            )}
+          </>
+        )}
+      </p>
+      <Collapsible className="review" html={review.body} />
+    </>
+  );
+}
 
-export default (hydrate<Props, Props>(
+export default (hydrate<React.PropsOf<CritiqueBrainzReview>>(
   'div.critiquebrainz-review',
   CritiqueBrainzReview,
-): React$AbstractComponent<Props, void>);
+): React$AbstractComponent<React.PropsOf<CritiqueBrainzReview>>);

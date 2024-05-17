@@ -47,12 +47,6 @@ import TextAttribute, {
   reducer as textAttributeReducer,
 } from './DialogAttribute/TextAttribute.js';
 
-type PropsT = {
-  +dispatch: (DialogAttributeActionT) => void,
-  +isHelpVisible: boolean,
-  +state: $ReadOnly<{...DialogAttributesStateT, ...}>,
-};
-
 const DIALOG_ATTRIBUTE_ORDER = {
   checkbox: 1,
   multiselect: 3,
@@ -341,11 +335,11 @@ const wrapAttributeElement = (
   </div>
 );
 
-const DialogAttributes = (React.memo<PropsT>(({
-  dispatch,
-  isHelpVisible,
-  state,
-}: PropsT): React$MixedElement | null => {
+component _DialogAttributes(
+  dispatch: (DialogAttributeActionT) => void,
+  isHelpVisible: boolean,
+  state: $ReadOnly<{...DialogAttributesStateT, ...}>,
+) {
   const booleanAttributeDispatch = React.useCallback((
     rootKey: number,
     action: DialogBooleanAttributeActionT,
@@ -477,6 +471,10 @@ const DialogAttributes = (React.memo<PropsT>(({
       ))}
     </>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const DialogAttributes: React$AbstractComponent<
+  React.PropsOf<_DialogAttributes>
+> = React.memo(_DialogAttributes);
 
 export default DialogAttributes;

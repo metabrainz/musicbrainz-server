@@ -31,16 +31,6 @@ import DialogEntityCredit, {
   reducer as dialogEntityCreditReducer,
 } from './DialogEntityCredit.js';
 
-type PropsT = {
-  +backward: boolean,
-  +batchSelectionCount?: number,
-  +dispatch: (DialogEntityCreditActionT) => void,
-  +linkType: ?LinkTypeT,
-  +source: RelatableEntityT,
-  +state: DialogSourceEntityStateT,
-  +targetType: RelatableEntityTypeT,
-};
-
 export function getSourceError(
   source: RelatableEntityT | null,
   linkType: LinkTypeT | null,
@@ -93,15 +83,15 @@ export function reducer(
   return dialogEntityCreditReducer(state, action);
 }
 
-const DialogSourceEntity = (React.memo<PropsT>(({
-  backward,
-  batchSelectionCount,
-  dispatch,
-  linkType,
-  source,
-  state,
-  targetType,
-}: PropsT): React$MixedElement => {
+component _DialogSourceEntity(
+  backward: boolean,
+  batchSelectionCount?: number,
+  dispatch: (DialogEntityCreditActionT) => void,
+  linkType: ?LinkTypeT,
+  source: RelatableEntityT,
+  state: DialogSourceEntityStateT,
+  targetType: RelatableEntityTypeT,
+) {
   const sourceType = source.entityType;
   return (
     <tr>
@@ -141,6 +131,10 @@ const DialogSourceEntity = (React.memo<PropsT>(({
       </td>
     </tr>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const DialogSourceEntity: React$AbstractComponent<
+  React.PropsOf<_DialogSourceEntity>
+> = React.memo(_DialogSourceEntity);
 
 export default DialogSourceEntity;

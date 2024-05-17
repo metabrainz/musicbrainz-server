@@ -7,11 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const DataTrackIcon = (): React$Element<'div'> => (
-  <div
-    className="data-track icon img"
-    title={l('This track is a data track.')}
-  />
-);
+component DataTrackIcon() {
+  return (
+    <div
+      className="data-track icon img"
+      title={l('This track is a data track.')}
+    />
+  );
+}
 
 export default DataTrackIcon;

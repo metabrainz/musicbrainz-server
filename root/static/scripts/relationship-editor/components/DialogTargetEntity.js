@@ -48,15 +48,6 @@ import DialogEntityCredit, {
   reducer as dialogEntityCreditReducer,
 } from './DialogEntityCredit.js';
 
-type PropsT = {
-  +allowedTypes: TargetTypeOptionsT | null,
-  +backward: boolean,
-  +dispatch: (DialogTargetEntityActionT) => void,
-  +linkType: ?LinkTypeT,
-  +source: RelatableEntityT,
-  +state: DialogTargetEntityStateT,
-};
-
 const INCORRECT_SERIES_ENTITY_MESSAGES = {
   artist: N_l('The series you’ve selected is for artists.'),
   event: N_l('The series you’ve selected is for events.'),
@@ -312,17 +303,13 @@ const TargetAutocomplete:
   // $FlowIgnore[incompatible-type]
   Autocomplete2;
 
-const DialogTargetEntity = (React.memo<PropsT>((
-  props: PropsT,
-): React$MixedElement => {
-  const {
-    backward,
-    dispatch,
-    linkType,
-    source,
-    state,
-  } = props;
-
+component _DialogTargetEntity(
+  backward: boolean,
+  dispatch: (DialogTargetEntityActionT) => void,
+  linkType: ?LinkTypeT,
+  source: RelatableEntityT,
+  state: DialogTargetEntityStateT,
+) {
   const autocomplete = state.autocomplete;
   const targetType = state.targetType;
 
@@ -398,6 +385,10 @@ const DialogTargetEntity = (React.memo<PropsT>((
       </td>
     </tr>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const DialogTargetEntity: React$AbstractComponent<
+  React.PropsOf<_DialogTargetEntity>
+> = React.memo(_DialogTargetEntity);
 
 export default DialogTargetEntity;

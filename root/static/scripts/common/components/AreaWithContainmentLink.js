@@ -11,27 +11,21 @@ import commaOnlyList from '../../common/i18n/commaOnlyList.js';
 
 import EntityLink from './EntityLink.js';
 
-type Props = {
-  +allowNew?: boolean,
-  +area: AreaT,
-  +className?: string,
-  +content?: Expand2ReactOutput,
-  +deletedCaption?: string,
-  +disableLink?: boolean,
-  +showDisambiguation?: boolean,
-  +showEditsPending?: boolean,
-  +showIcon?: boolean,
-  +subPath?: string,
-  +target?: '_blank',
-};
-
-const AreaWithContainmentLink = ({
-  area,
-  showDisambiguation = true,
-  showEditsPending = true,
-  showIcon = false,
-  ...props
-}: Props): Expand2ReactOutput => {
+component AreaWithContainmentLink(
+  area: AreaT,
+  showDisambiguation: boolean = true,
+  showEditsPending: boolean = true,
+  showIcon: boolean = false,
+  ...topLevelProps: {
+    allowNew?: boolean,
+    className?: string,
+    content?: Expand2ReactOutput,
+    deletedCaption?: string,
+    disableLink?: boolean,
+    subPath?: string,
+    target?: '_blank',
+  }
+) {
   const sharedProps = {
     showDisambiguation,
     showEditsPending,
@@ -42,7 +36,7 @@ const AreaWithContainmentLink = ({
     <EntityLink
       entity={area}
       key={0}
-      {...props}
+      {...topLevelProps}
       {...sharedProps}
     />
   );
@@ -56,6 +50,6 @@ const AreaWithContainmentLink = ({
       />
     ))),
   ) : areaLink;
-};
+}
 
 export default AreaWithContainmentLink;

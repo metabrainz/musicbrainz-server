@@ -24,9 +24,7 @@ import useEntityNameFromField
 
 type PropsT = InitialStateArgsT;
 
-let UrlRelationshipEditor:
-  React$AbstractComponent<PropsT, void> =
-(props: PropsT) => {
+component _UrlRelationshipEditor(...props: PropsT) {
   const [state, dispatch] = React.useReducer(
     reducer,
     props,
@@ -63,16 +61,16 @@ let UrlRelationshipEditor:
       state={state}
     />
   );
-};
+}
 
-UrlRelationshipEditor =
-  withLoadedTypeInfoForRelationshipEditor<PropsT, void>(
-    UrlRelationshipEditor,
+const NonHydratedUrlRelationshipEditor: React$AbstractComponent<PropsT> =
+  withLoadedTypeInfoForRelationshipEditor<PropsT>(
+    _UrlRelationshipEditor,
   );
 
-UrlRelationshipEditor = hydrate<PropsT>(
+const UrlRelationshipEditor = (hydrate<PropsT>(
   'div.relationship-editor',
-  UrlRelationshipEditor,
-);
+  NonHydratedUrlRelationshipEditor,
+): React$AbstractComponent<PropsT>);
 
 export default UrlRelationshipEditor;

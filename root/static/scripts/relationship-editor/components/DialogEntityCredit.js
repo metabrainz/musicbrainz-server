@@ -19,16 +19,6 @@ import type {
   DialogEntityCreditActionT,
 } from '../types/actions.js';
 
-type PropsT = {
-  +backward: boolean,
-  +dispatch: (DialogEntityCreditActionT) => void,
-  +entityName: string,
-  +forEntity: string,
-  +linkType: ?LinkTypeT,
-  +state: $ReadOnly<{...DialogEntityCreditStateT, ...}>,
-  +targetType: RelatableEntityTypeT,
-};
-
 export function createInitialState(
   creditedAs: string,
   releaseHasUnloadedTracks: boolean,
@@ -64,15 +54,15 @@ export function reducer<T: $ReadOnly<{...DialogEntityCreditStateT, ...}>>(
   return newState;
 }
 
-const DialogEntityCredit = (React.memo<PropsT, void>(({
-  backward,
-  dispatch,
-  entityName,
-  forEntity,
-  linkType,
-  state,
-  targetType,
-}: PropsT): React$MixedElement => {
+component _DialogEntityCredit(
+  backward: boolean,
+  dispatch: (DialogEntityCreditActionT) => void,
+  entityName: string,
+  forEntity: string,
+  linkType: ?LinkTypeT,
+  state: $ReadOnly<{...DialogEntityCreditStateT, ...}>,
+  targetType: RelatableEntityTypeT,
+) {
   const origCredit = React.useRef(state.creditedAs || '');
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const inputId = React.useId();
@@ -222,6 +212,10 @@ const DialogEntityCredit = (React.memo<PropsT, void>(({
       {changeCreditsSection}
     </div>
   );
-}): React$AbstractComponent<PropsT, void>);
+}
+
+const DialogEntityCredit: React$AbstractComponent<
+  React.PropsOf<_DialogEntityCredit>
+> = React.memo(_DialogEntityCredit);
 
 export default DialogEntityCredit;

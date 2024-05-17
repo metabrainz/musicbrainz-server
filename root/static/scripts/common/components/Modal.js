@@ -24,24 +24,13 @@ import {findFirstTabbableElement} from '../utility/focusManagement.js';
 
 import ErrorBoundary from './ErrorBoundary.js';
 
-type PropsT = $ReadOnly<{
-  +children: React$Node,
-  +className?: string,
-  +id: string,
-  +onClick?: (SyntheticMouseEvent<HTMLDivElement>) => void,
-  +onEscape: (Event) => void,
-  +title: string,
-}>;
-
-const Modal = (props: PropsT): React$MixedElement => {
-  const {
-    children,
-    className,
-    id,
-    onEscape,
-    title,
-  } = props;
-
+component Modal(
+  children: React$Node,
+  className?: string,
+  id: string,
+  onEscape: (Event) => void,
+  title: string,
+) {
   const nodeId = useFloatingNodeId();
 
   const onOpenChange = React.useCallback((
@@ -141,6 +130,6 @@ const Modal = (props: PropsT): React$MixedElement => {
       </FloatingPortal>
     </FloatingNode>
   );
-};
+}
 
 export default Modal;

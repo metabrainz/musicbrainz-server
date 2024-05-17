@@ -21,19 +21,12 @@ import entityHref from '../utility/entityHref.js';
 import formatDatePeriod from '../utility/formatDatePeriod.js';
 import isolateText from '../utility/isolateText.js';
 
-type DeletedLinkProps = {
-  +allowNew: boolean,
-  +className?: string,
-  +deletedCaption?: string,
-  +name: ?Expand2ReactOutput,
-};
-
-export const DeletedLink = ({
-  allowNew,
-  className,
-  deletedCaption,
-  name,
-}: DeletedLinkProps): React$Element<'span'> => {
+export component DeletedLink(
+  allowNew: boolean,
+  className?: string,
+  deletedCaption?: string,
+  name: ?Expand2ReactOutput,
+) {
   const caption = nonEmpty(deletedCaption) ? deletedCaption : (allowNew
     ? l('This entity will be added by this edit.')
     : l('This entity has been removed, and cannot be displayed correctly.'));
@@ -52,7 +45,7 @@ export const DeletedLink = ({
         : lp('[removed]', 'generic entity'))}
     </span>
   );
-};
+}
 
 const iconClassPicker = {
   area: 'arealink',
@@ -74,11 +67,11 @@ const iconClassPicker = {
   work: 'worklink',
 };
 
-const Comment = ({
-  alias,
-  className,
-  comment,
-}: {+alias?: string, +className: string, +comment: string}) => {
+component Comment(
+  alias?: string,
+  className: string,
+  comment: string,
+) {
   const aliasElement = nonEmpty(alias)
     ? <i title={l('Primary alias')}>{alias}</i>
     : null;
@@ -98,12 +91,9 @@ const Comment = ({
       </span>
     </>
   );
-};
+}
 
-const EventDisambiguation = ({
-  event,
-  showDate,
-}: {+event: EventT, +showDate: boolean}) => {
+component EventDisambiguation(event: EventT, showDate: boolean) {
   const dates = formatDatePeriod(event);
   if ((!dates || !showDate) && !event.cancelled) {
     return null;
@@ -116,9 +106,9 @@ const EventDisambiguation = ({
         : null}
     </>
   );
-};
+}
 
-const AreaDisambiguation = ({area}: {+area: AreaT}) => {
+component AreaDisambiguation(area: AreaT) {
   if (!area.ended) {
     return null;
   }
@@ -139,77 +129,58 @@ const AreaDisambiguation = ({area}: {+area: AreaT}) => {
   }
 
   return <Comment className="historical" comment={comment} />;
-};
+}
 
 const disabledLinkText = N_l(`This link has been temporarily disabled because
                               it has been reported as potentially harmful.`);
 
-const NoInfoURL = ({allowNew, url}: {+allowNew: boolean, +url: string}) => (
-  <>
-    {isGreyedOut(url) ? (
-      <span
-        className="deleted"
-        title={disabledLinkText()}
-      >
-        {isolateText(url)}
-      </span>
-    ) : <a className="wrap-anywhere" href={url}>{url}</a>}
-    {' '}
-    <DeletedLink
-      allowNew={allowNew}
-      name={bracketedText(l('info'), {type: '[]'})}
-    />
-  </>
-);
+component NoInfoURL(allowNew: boolean, url: string) {
+  return (
+    <>
+      {isGreyedOut(url) ? (
+        <span
+          className="deleted"
+          title={disabledLinkText()}
+        >
+          {isolateText(url)}
+        </span>
+      ) : <a className="wrap-anywhere" href={url}>{url}</a>}
+      {' '}
+      <DeletedLink
+        allowNew={allowNew}
+        name={bracketedText(l('info'), {type: '[]'})}
+      />
+    </>
+  );
+}
 
-/* eslint-disable sort-keys, ft-flow/sort-keys */
-type EntityLinkProps = {
-  +allowNew?: boolean,
-  +content?: ?Expand2ReactOutput,
-  +deletedCaption?: string,
-  +disableLink?: boolean,
-  +entity:
+component EntityLink(
+  allowNew: boolean = false,
+  content as passedContent?: ?Expand2ReactOutput,
+  deletedCaption?: string,
+  disableLink: boolean = false,
+  entity:
     | RelatableEntityT
     | CollectionT
     | LinkTypeT
     | TrackT
     | ReleaseEditorTrackT,
-  +hover?: string,
-  +nameVariation?: boolean,
-  +showCaaPresence?: boolean,
-  +showDeleted?: boolean,
-  +showDisambiguation?: boolean | 'hover',
-  +showEditsPending?: boolean,
-  +showEventDate?: boolean,
-  +showIcon?: boolean,
-  +subPath?: string,
-
-  // ...anchorProps
-  className?: string,
-  href?: string,
-  title?: string,
-  +target?: '_blank',
-};
-/* eslint-enable sort-keys, ft-flow/sort-keys */
-
-const EntityLink = ({
-  allowNew = false,
-  content: passedContent,
-  deletedCaption,
-  disableLink = false,
-  entity,
-  hover: passedHover,
-  nameVariation: passedNameVariation,
-  showCaaPresence = false,
-  showDeleted = true,
-  showDisambiguation: passedShowDisambiguation,
-  showEditsPending = true,
-  showEventDate = true,
-  showIcon: passedShowIcon = false,
-  subPath,
-  ...anchorProps
-}: EntityLinkProps):
-$ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
+  hover as passedHover?: string,
+  nameVariation as passedNameVariation?: boolean,
+  showCaaPresence: boolean = false,
+  showDeleted: boolean = true,
+  showDisambiguation as passedShowDisambiguation?: boolean | 'hover',
+  showEditsPending: boolean = true,
+  showEventDate: boolean = true,
+  showIcon as passedShowIcon?: boolean = false,
+  subPath?: string,
+  ...passedAnchorProps: {
+    className?: string,
+    href?: string,
+    +target?: '_blank',
+    title?: string,
+  }
+) {
   const hasCustomContent = nonEmpty(passedContent);
   // $FlowIgnore[sketchy-null-mixed]
   const hasEditsPending = entity.editsPending || false;
@@ -222,6 +193,7 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   let nameVariation = passedNameVariation;
   let showDisambiguation = passedShowDisambiguation;
   let showIcon = passedShowIcon;
+  const anchorProps = {...passedAnchorProps};
 
   if (nameVariation === undefined &&
     nonEmpty(content) && typeof content !== 'string'
@@ -497,6 +469,6 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
   }
 
   return React.createElement(React.Fragment, null, ...parts);
-};
+}
 
 export default EntityLink;

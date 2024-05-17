@@ -37,16 +37,6 @@ export type ActionT =
   | {+type: 'set-name', +name: string};
 /* eslint-enable ft-flow/sort-keys */
 
-type PropsT = {
-  +dispatch: (ActionT) => void,
-  +entity: NamedEntityT,
-  +field: FieldT<string | null>,
-  +guessCaseOptions: GuessCaseOptionsStateT,
-  +guessFeat?: boolean,
-  +isGuessCaseOptionsOpen: boolean,
-  +label?: React$Node,
-};
-
 export type StateT = {
   +field: FieldT<string | null>,
   +guessCaseOptions: GuessCaseOptionsStateT,
@@ -99,15 +89,15 @@ export function runReducer(
   }
 }
 
-export const FormRowNameWithGuessCase = ({
-  dispatch,
-  entity,
-  field,
-  guessCaseOptions,
-  guessFeat = false,
-  isGuessCaseOptionsOpen = false,
-  label = addColonText(l('Name')),
-}: PropsT): React$Element<typeof FormRowText> => {
+component FormRowNameWithGuessCase(
+  dispatch: (ActionT) => void,
+  entity: NamedEntityT,
+  field: FieldT<string | null>,
+  guessCaseOptions: GuessCaseOptionsStateT,
+  guessFeat: boolean = false,
+  isGuessCaseOptionsOpen: boolean = false,
+  label: React$Node = addColonText(l('Name')),
+) {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
 
   function handleNameChange(event: SyntheticKeyboardEvent<HTMLInputElement>) {
@@ -175,6 +165,6 @@ export const FormRowNameWithGuessCase = ({
       />
     </FormRowText>
   );
-};
+}
 
 export default FormRowNameWithGuessCase;
