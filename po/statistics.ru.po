@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-10 20:42+0000\n"
+"PO-Revision-Date: 2024-05-16 19:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -30,7 +30,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1093,7 +1093,7 @@ msgstr "Период голосования сокращён до 7 дней"
 
 #: DB:statistics.statistic_event/title:2019-11-12
 msgid "Voting suggestions"
-msgstr ""
+msgstr "Предложения по голосованию"
 
 #: DB:statistics.statistic_event/title:2019-04-26
 msgid "Web service version 1 taken down"
@@ -1987,7 +1987,7 @@ msgstr "Скрипты"
 
 #: ../root/statistics/LanguagesScripts.js:149
 msgid "Script"
-msgstr "Скрипт"
+msgstr "Написание"
 
 #: ../root/statistics/LanguagesScripts.js:166
 msgid "Unknown script"
@@ -2241,7 +2241,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:194
 msgid "Area collections"
-msgstr ""
+msgstr "Коллекции областей"
 
 #: ../root/statistics/stats.js:199
 msgid "Artist collections"
@@ -2497,11 +2497,11 @@ msgstr "Рейтинги"
 
 #: ../root/statistics/stats.js:610
 msgid "Artist ratings"
-msgstr "Рейтинги исполнителей"
+msgstr "Оценки исполнителей"
 
 #: ../root/statistics/stats.js:615
 msgid "Label ratings"
-msgstr ""
+msgstr "Оценки лейблов"
 
 #: ../root/statistics/stats.js:620
 msgid "Place ratings"
@@ -2663,7 +2663,7 @@ msgstr "Голоса за/против тегов работ"
 
 #: ../root/statistics/stats.js:867
 msgid "Abstentions"
-msgstr ""
+msgstr "Возражения"
 
 #: ../root/statistics/stats.js:872
 msgid "Approvals"
