@@ -32,11 +32,15 @@ has 'connector' => (
     predicate => 'has_connector',
 );
 
+sub is_globally_read_only {
+    return DBDefs->DB_READ_ONLY || DBDefs->REPLICATION_TYPE == RT_MIRROR;
+}
+
 has 'database' => (
     is => 'rw',
     isa => 'Str',
     default => sub {
-        DBDefs->DB_READ_ONLY || DBDefs->REPLICATION_TYPE == RT_MIRROR
+        shift->is_globally_read_only
             ? 'READONLY'
             : 'READWRITE';
     },
