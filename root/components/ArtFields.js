@@ -94,7 +94,7 @@ component ArtFields(...{
       </FormRow>
       <FormRowTextLong
         field={form.field.comment}
-        label={l('Comment:')}
+        label={addColonText(l('Comment'))}
         uncontrolled
       />
     </>

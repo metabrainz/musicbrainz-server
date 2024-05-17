@@ -71,7 +71,7 @@ component EditArt(
 
       {comment ? (
         <WordDiff
-          label={l('Comment:')}
+          label={addColonText(l('Comment'))}
           newText={comment.new ?? ''}
           oldText={comment.old ?? ''}
         />

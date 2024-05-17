@@ -55,7 +55,7 @@ component AddArt(
 
       {display.artwork.comment ? (
         <tr>
-          <th>{l('Comment:')}</th>
+          <th>{addColonText(l('Comment'))}</th>
           <td>{display.artwork.comment}</td>
         </tr>
       ) : null}
