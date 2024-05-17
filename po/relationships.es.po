@@ -24,18 +24,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-06 14:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-05-17 13:59+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -418,16 +418,12 @@ msgid "Indicates a sibling with whom the artist has only one parent in common."
 msgstr ""
 
 #: DB:link_type/description:842
-#, fuzzy
-#| msgid ""
-#| "Indicates a page that reviews the release (group) in question, whether it "
-#| "be in text, audio or video form."
 msgid ""
 "Indicates a webpage that reviews the event in question, whether it be in "
 "text, audio or video form."
 msgstr ""
-"Indica una página que reseña el grupo de publicaciones en cuestión, ya sea "
-"en formato de texto, audio o video."
+"Indica una página que reseña el evento en cuestión, ya sea en formato de "
+"texto, audio o video."
 
 #: DB:link_type/description:958
 msgid "Indicates a webpage where you can download a label's releases for free."
@@ -1229,10 +1225,8 @@ msgid "Points to the Wikipedia page for this instrument."
 msgstr "Indica la página de Wikipedia para este instrumento."
 
 #: DB:link_type/description:216
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this place."
 msgid "Points to the Wikipedia page for this label."
-msgstr "Indica la página de Wikipedia para este lugar."
+msgstr "Indica la página de Wikipedia para esta discográfica."
 
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place."
@@ -1682,6 +1676,8 @@ msgid ""
 "This indicates an agency who provided artwork for the release when no more "
 "specific information is available."
 msgstr ""
+"Indica una agencia que suministró material gráfico para la publicación en "
+"casos donde no hay información más específica disponible."
 
 #: DB:link_type/description:895
 msgid ""
@@ -1781,18 +1777,24 @@ msgid ""
 "This indicates an artist who provided artwork for a video recording when no "
 "more specific information is available."
 msgstr ""
+"Indica un artista que suministró material gráfico para la grabación de vídeo "
+"en casos donde no hay información más específica disponible."
 
 #: DB:link_type/description:1231
 msgid ""
 "This indicates an artist who provided artwork for the event when no more "
 "specific information is available."
 msgstr ""
+"Indica un artista que suministró material gráfico para el evento en casos "
+"donde no hay información más específica disponible."
 
 #: DB:link_type/description:993
 msgid ""
 "This indicates an artist who provided artwork for the release when no more "
 "specific information is available."
 msgstr ""
+"Indica un artista que suministró material gráfico para la publicación en "
+"casos donde no hay información más específica disponible."
 
 #: DB:link_type/description:760
 msgid ""
@@ -4320,7 +4322,7 @@ msgstr ""
 #: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
 #: DB:link_type/name:1170
 msgid "artwork"
-msgstr "portada"
+msgstr "material gráfico"
 
 #: DB:link_attribute_type/name:526
 msgid "assistant"
@@ -7002,7 +7004,7 @@ msgstr ""
 #: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:1241
 #: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
-msgstr ""
+msgstr "suministró material gráfico {additional:adicional} para"
 
 #: DB:link_type/long_link_phrase:63 DB:link_type/long_link_phrase:146
 msgid "provided {additional} creative direction on"
@@ -8337,7 +8339,7 @@ msgstr "dirección artística {additional:adicional}"
 #: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
-msgstr ""
+msgstr "material gráfico {additional:adicional}"
 
 #: DB:link_type/reverse_link_phrase:55 DB:link_type/reverse_link_phrase:168
 msgid "{additional} composer"
@@ -9038,8 +9040,6 @@ msgid "{entity1} was {additional:additionally} transferred at {entity0}"
 msgstr "{entity1} fue transferida {additional:adicionalmente} en {entity0}"
 
 #: DB:link_type/long_link_phrase:1181
-#, fuzzy
-#| msgid "{entity1} was {additional:additionally} transferred at {entity0}"
 msgid "{entity1} was {additional:additionally} transferred in {entity0}"
 msgstr "{entity1} fue transferida {additional:adicionalmente} en {entity0}"
 
