@@ -83,8 +83,8 @@ component ReleaseSidebar(release: ReleaseT) {
           <Artwork
             artwork={releaseArtwork}
             message={ReactDOMServer.renderToStaticMarkup(exp.l(
-              'Front cover image failed to load correctly.' +
-              '<br/>{all|View all artwork}.',
+              'Image failed to load correctly.' +
+              '<br/>{all|View all images}.',
               {all: entityHref(release, 'cover-art')},
             ))}
           />

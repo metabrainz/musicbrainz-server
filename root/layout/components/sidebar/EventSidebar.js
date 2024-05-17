@@ -49,8 +49,8 @@ component EventSidebar(event: EventT) {
             <Artwork
               artwork={eventArtwork}
               message={ReactDOMServer.renderToStaticMarkup(exp.l(
-                'Event art failed to load correctly.' +
-                '<br/>{all|View all artwork}.',
+                'Image failed to load correctly.' +
+                '<br/>{all|View all images}.',
                 {all: entityHref(event, 'event-art')},
               ))}
             />
