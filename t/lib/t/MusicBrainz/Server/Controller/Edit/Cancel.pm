@@ -14,7 +14,7 @@ use MusicBrainz::Server::Constants qw(
 
 with 't::Context', 't::Mechanize';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether an editor's open edits can be cancelled, whether
 the cancel page leaves edit notes appropriately, and whether cancelling edits
@@ -204,3 +204,13 @@ sub prepare {
 }
 
 1;
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2011 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

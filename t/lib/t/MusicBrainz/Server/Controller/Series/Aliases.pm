@@ -9,7 +9,7 @@ with 't::Edit';
 with 't::Mechanize';
 with 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether series aliases are correctly listed on the series
 alias page.
@@ -34,3 +34,13 @@ test 'Series alias appears on alias page content' => sub {
 };
 
 1;
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2014 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut
