@@ -318,12 +318,6 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
         $c,
         $gid,
         art_archive_model => $c->model('CoverArtArchive'),
-        # Uses the same string as in root/release/CoverArtDarkened.js
-        darkened_message => l(
-            'The Cover Art Archive has had a takedown ' .
-            'request in the past for this release, so we ' .
-            'are unable to allow any more uploads.',
-        ),
         bad_owner_message => l(
             'Cover art can’t be uploaded to this release ' .
             'because we don’t own the associated item at ' .
@@ -342,12 +336,6 @@ sub event_art_upload : Chained('root') PathPart('event-art-upload') Args(1)
         $c,
         $gid,
         art_archive_model => $c->model('EventArtArchive'),
-        # Uses the same string as in root/event/EventArtDarkened.js
-        darkened_message => l(
-            'The Event Art Archive has had a takedown ' .
-            'request in the past for this event, so we ' .
-            'are unable to allow any more uploads.',
-        ),
         bad_owner_message => l(
             'Event art can’t be uploaded to this event ' .
             'because we don’t own the associated item at ' .
@@ -468,7 +456,13 @@ sub _art_upload {
                 if ($item_metadata->{is_dark}) {
                     $self->detach_with_error(
                         $c,
-                        { message => $opts{darkened_message} },
+                        {
+                            message => l(
+                                'The Internet Archive has had a takedown ' .
+                                'request in the past for this item, so we ' .
+                                'are unable to allow any more uploads.',
+                            ),
+                        },
                     );
                 }
 

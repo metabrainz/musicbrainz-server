@@ -22,8 +22,8 @@ const EventArtDarkened = ({
     <EventLayout entity={event} page="event-art" title={title}>
       <h2>{title}</h2>
       <p>
-        {l(`The Event Art Archive has had a takedown request in the past
-            for this event, so we are unable to allow any more uploads.`)}
+        {l(`The Internet Archive has had a takedown request in the past
+            for this item, so we are unable to allow any more uploads.`)}
       </p>
     </EventLayout>
   );
