@@ -4443,6 +4443,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://www.operabase.com/bbc-symphony-orchestra-o10152/en',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://operabase.com/o10152',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'operabase.com/venues/united-states/abravanel-hall-5916/en',
              input_entity_type: 'place',
     expected_relationship_type: 'otherdatabases',
