@@ -20,15 +20,7 @@ import getRequestCookie from '../utility/getRequestCookie.mjs';
 
 import EditNoteListEntry from './components/EditNoteListEntry.js';
 
-type Props = {
-  +editNotes: $ReadOnlyArray<EditNoteT>,
-  +pager: PagerT,
-};
-
-const NotesReceived = ({
-  editNotes,
-  pager,
-}: Props): React$Element<typeof Layout> => {
+component NotesReceived(editNotes: $ReadOnlyArray<EditNoteT>, pager: PagerT) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -72,6 +64,6 @@ const NotesReceived = ({
       {manifest.js('edit/components/NewNotesAlertCheckbox', {async: 'async'})}
     </Layout>
   );
-};
+}
 
 export default NotesReceived;

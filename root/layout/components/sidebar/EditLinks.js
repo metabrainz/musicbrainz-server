@@ -14,17 +14,11 @@ import {CatalystContext} from '../../../context.mjs';
 import EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
 
-type Props = {
-  +children?: React$Node,
-  +entity: EditableEntityT,
-  +requiresPrivileges?: boolean,
-};
-
-const EditLinks = ({
-  children,
-  entity,
-  requiresPrivileges = false,
-}: Props): React.MixedElement => {
+component EditLinks(
+  children?: React$Node,
+  entity: EditableEntityT,
+  requiresPrivileges: boolean = false,
+) {
   const $c = React.useContext(CatalystContext);
   return (
     <>
@@ -55,6 +49,6 @@ const EditLinks = ({
       </ul>
     </>
   );
-};
+}
 
 export default EditLinks;

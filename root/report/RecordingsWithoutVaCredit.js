@@ -11,27 +11,30 @@ import RecordingList from './components/RecordingList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportRecordingT} from './types.js';
 
-const RecordingsWithoutVaCredit = ({
+component RecordingsWithoutVaCredit(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows recordings linked to the Various Artists entity
-       without "Various Artists" as the credited name.`,
-    )}
-    entityType="recording"
-    filtered={filtered}
-    generated={generated}
-    title={l('Recordings not credited to "Various Artists" but linked to VA')}
-    totalEntries={pager.total_entries}
-  >
-    <RecordingList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportRecordingT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows recordings linked to the Various Artists entity
+         without "Various Artists" as the credited name.`,
+      )}
+      entityType="recording"
+      filtered={filtered}
+      generated={generated}
+      title={l(`Recordings not credited to "Various Artists"
+                but linked to VA`)}
+      totalEntries={pager.total_entries}
+    >
+      <RecordingList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default RecordingsWithoutVaCredit;

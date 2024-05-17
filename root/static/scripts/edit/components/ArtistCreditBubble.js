@@ -156,79 +156,65 @@ const ArtistCreditPreview = (React.memo<ArtistCreditPreviewPropsT>(({
   );
 }));
 
-type AddArtistCreditRowPropsT = {
-  +dispatch: (ActionT) => void,
-};
+component _AddArtistCreditRow(dispatch: (ActionT) => void) {
+  return (
+    <tr>
+      <td className="align-right" colSpan="4">
+        <button
+          className="add-item with-label"
+          onClick={() => dispatch({type: 'add-name'})}
+          type="button"
+        >
+          {lp('Add artist credit', 'interactive')}
+        </button>
+      </td>
+    </tr>
+  );
+}
 
-const AddArtistCreditRow = (React.memo<
-  AddArtistCreditRowPropsT,
->(({
-  dispatch,
-}) => (
-  <tr>
-    <td className="align-right" colSpan="4">
-      <button
-        className="add-item with-label"
-        onClick={() => dispatch({type: 'add-name'})}
-        type="button"
-      >
-        {lp('Add artist credit', 'interactive')}
-      </button>
-    </td>
-  </tr>
-)));
+const AddArtistCreditRow = React.memo(_AddArtistCreditRow);
 
-type ChangeMatchingTrackArtistsRowPropsT = {
-  +changeMatchingTrackArtists: boolean | void,
-  +dispatch: (ActionT) => void,
-  +initialArtistCreditString: string,
-};
+component _ChangeMatchingTrackArtistsRow(
+  changeMatchingTrackArtists: boolean | void,
+  dispatch: (ActionT) => void,
+  initialArtistCreditString: string,
+) {
+  return (
+    <div>
+      <label>
+        <input
+          checked={changeMatchingTrackArtists === true}
+          id="change-matching-artists"
+          onChange={
+            (event: SyntheticEvent<HTMLInputElement>) => dispatch({
+              checked: event.currentTarget.checked,
+              type: 'set-change-matching-artists',
+            })
+          }
+          type="checkbox"
+        />
+        {initialArtistCreditString ? (
+          texp.l(
+            'Change all artists on this release that match “{name}”',
+            {name: initialArtistCreditString},
+          )
+        ) : (
+          l('Change all artists on this release that are currently empty')
+        )}
+      </label>
+    </div>
+  );
+}
 
-const ChangeMatchingTrackArtistsRow = (React.memo<
-  ChangeMatchingTrackArtistsRowPropsT,
->(({
-  changeMatchingTrackArtists,
-  dispatch,
-  initialArtistCreditString,
-}) => (
-  <div>
-    <label>
-      <input
-        checked={changeMatchingTrackArtists === true}
-        id="change-matching-artists"
-        onChange={
-          (event: SyntheticEvent<HTMLInputElement>) => dispatch({
-            checked: event.currentTarget.checked,
-            type: 'set-change-matching-artists',
-          })
-        }
-        type="checkbox"
-      />
-      {initialArtistCreditString ? (
-        texp.l(
-          'Change all artists on this release that match “{name}”',
-          {name: initialArtistCreditString},
-        )
-      ) : (
-        l('Change all artists on this release that are currently empty')
-      )}
-    </label>
-  </div>
-)));
+const ChangeMatchingTrackArtistsRow =
+  React.memo(_ChangeMatchingTrackArtistsRow);
 
-type ArtistCreditBubblePropsT = {
-  +closeAndReturnFocus: () => void,
-  +dispatch: (ActionT) => void,
-  +initialFocusRef: {-current: HTMLElement | null},
-  +state: ArtistCreditStateT,
-};
-
-const ArtistCreditBubble = (React.memo<ArtistCreditBubblePropsT>(({
-  closeAndReturnFocus,
-  dispatch,
-  initialFocusRef,
-  state,
-}: ArtistCreditBubblePropsT): React$MixedElement => {
+component _ArtistCreditBubble(
+  closeAndReturnFocus: () => void,
+  dispatch: (ActionT) => void,
+  initialFocusRef: {-current: HTMLElement | null},
+  state: ArtistCreditStateT,
+) {
   const {
     changeMatchingTrackArtists,
     editsPending,
@@ -314,6 +300,10 @@ const ArtistCreditBubble = (React.memo<ArtistCreditBubblePropsT>(({
       />
     </form>
   );
-}): React.AbstractComponent<ArtistCreditBubblePropsT>);
+}
+
+const ArtistCreditBubble: React.AbstractComponent<
+  React.PropsOf<_ArtistCreditBubble>
+> = React.memo(_ArtistCreditBubble);
 
 export default ArtistCreditBubble;

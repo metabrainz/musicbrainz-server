@@ -1414,23 +1414,14 @@ export const reducer: ((
   return newState;
 });
 
-type MediumRelationshipEditorsPropsT = {
-  +dialogLocation: RelationshipDialogLocationT | null,
-  +dispatch: (ReleaseRelationshipEditorActionT) => void,
-  +expandedMediums: $ReadOnlyMap<number, boolean>,
-  +loadedTracks: LoadedTracksMapT,
-  +mediums: MediumStateTreeT,
-  +release: ReleaseWithMediumsT,
-};
-
-const MediumRelationshipEditors = React.memo(({
-  dialogLocation,
-  dispatch,
-  expandedMediums,
-  loadedTracks,
-  mediums,
-  release,
-}: MediumRelationshipEditorsPropsT) => {
+component _MediumRelationshipEditors(
+  dialogLocation: RelationshipDialogLocationT | null,
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  expandedMediums: $ReadOnlyMap<number, boolean>,
+  loadedTracks: LoadedTracksMapT,
+  mediums: MediumStateTreeT,
+  release: ReleaseWithMediumsT,
+) {
   const hasUnloadedTracksPerMedium =
     useUnloadedTracksMap(release.mediums, loadedTracks);
   const hasUnloadedTracks =
@@ -1459,31 +1450,21 @@ const MediumRelationshipEditors = React.memo(({
     );
   }
   return mediumElements;
-});
+}
 
-type TrackRelationshipsSectionPropsT = {
-  +dialogLocation: RelationshipDialogLocationT | null,
-  +dispatch: (ReleaseRelationshipEditorActionT) => void,
-  +expandedMediums: $ReadOnlyMap<number, boolean>,
-  +loadedTracks: LoadedTracksMapT,
-  +mediums: MediumStateTreeT,
-  +release: ReleaseWithMediumsT,
-  +releaseHasUnloadedTracks: boolean,
-  +selectedRecordings: tree.ImmutableTree<RecordingT> | null,
-  +selectedWorks: tree.ImmutableTree<WorkT> | null,
-};
+const MediumRelationshipEditors = React.memo(_MediumRelationshipEditors);
 
-const TrackRelationshipsSection = React.memo(({
-  dialogLocation,
-  dispatch,
-  expandedMediums,
-  loadedTracks,
-  mediums,
-  release,
-  releaseHasUnloadedTracks,
-  selectedRecordings,
-  selectedWorks,
-}: TrackRelationshipsSectionPropsT) => {
+component _TrackRelationshipsSection(
+  dialogLocation: RelationshipDialogLocationT | null,
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  expandedMediums: $ReadOnlyMap<number, boolean>,
+  loadedTracks: LoadedTracksMapT,
+  mediums: MediumStateTreeT,
+  release: ReleaseWithMediumsT,
+  releaseHasUnloadedTracks: boolean,
+  selectedRecordings: tree.ImmutableTree<RecordingT> | null,
+  selectedWorks: tree.ImmutableTree<WorkT> | null,
+) {
   const recordingCount = selectedRecordings ? selectedRecordings.size : 0;
   const workCount = selectedWorks ? selectedWorks.size : 0;
 
@@ -1613,23 +1594,17 @@ const TrackRelationshipsSection = React.memo(({
       )}
     </>
   );
-});
+}
 
-type ReleaseRelationshipSectionPropsT = {
-  +dialogLocation: RelationshipDialogLocationT | null,
-  +dispatch: (ReleaseRelationshipEditorActionT) => void,
-  +relationshipsBySource: RelationshipSourceGroupsT,
-  +release: ReleaseWithMediumsT,
-  +releaseHasUnloadedTracks: boolean,
-};
+const TrackRelationshipsSection = React.memo(_TrackRelationshipsSection);
 
-const ReleaseRelationshipSection = React.memo(({
-  dialogLocation,
-  dispatch,
-  relationshipsBySource,
-  release,
-  releaseHasUnloadedTracks,
-}: ReleaseRelationshipSectionPropsT) => {
+component _ReleaseRelationshipSection(
+  dialogLocation: RelationshipDialogLocationT | null,
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  relationshipsBySource: RelationshipSourceGroupsT,
+  release: ReleaseWithMediumsT,
+  releaseHasUnloadedTracks: boolean,
+) {
   if (dialogLocation != null) {
     invariant(dialogLocation.source.id === release.id);
   }
@@ -1656,23 +1631,17 @@ const ReleaseRelationshipSection = React.memo(({
       </div>
     </>
   );
-});
+}
 
-type ReleaseGroupRelationshipSectionPropsT = {
-  +dialogLocation: RelationshipDialogLocationT | null,
-  +dispatch: (ReleaseRelationshipEditorActionT) => void,
-  +relationshipsBySource: RelationshipSourceGroupsT,
-  +releaseGroup: ReleaseGroupT,
-  +releaseHasUnloadedTracks: boolean,
-};
+const ReleaseRelationshipSection = React.memo(_ReleaseRelationshipSection);
 
-const ReleaseGroupRelationshipSection = React.memo(({
-  dialogLocation,
-  dispatch,
-  relationshipsBySource,
-  releaseGroup,
-  releaseHasUnloadedTracks,
-}: ReleaseGroupRelationshipSectionPropsT) => {
+component _ReleaseGroupRelationshipSection(
+  dialogLocation: RelationshipDialogLocationT | null,
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  relationshipsBySource: RelationshipSourceGroupsT,
+  releaseGroup: ReleaseGroupT,
+  releaseHasUnloadedTracks: boolean,
+) {
   if (dialogLocation != null) {
     invariant(dialogLocation.source.id === releaseGroup.id);
   }
@@ -1699,10 +1668,12 @@ const ReleaseGroupRelationshipSection = React.memo(({
       </div>
     </>
   );
-});
+}
 
-let ReleaseRelationshipEditor: React$AbstractComponent<{}, void> = (
-): React$MixedElement => {
+const ReleaseGroupRelationshipSection =
+  React.memo(_ReleaseGroupRelationshipSection);
+
+component _ReleaseRelationshipEditor() {
   const [state, dispatch] = React.useReducer(
     reducer,
     null,
@@ -1873,17 +1844,17 @@ let ReleaseRelationshipEditor: React$AbstractComponent<{}, void> = (
       </form>
     </RelationshipSourceGroupsContext.Provider>
   );
-};
+}
 
-ReleaseRelationshipEditor =
-  withLoadedTypeInfoForRelationshipEditor<{}, void>(
-    ReleaseRelationshipEditor,
+const NonHydratedReleaseRelationshipEditor: React$AbstractComponent<{}> =
+  withLoadedTypeInfoForRelationshipEditor<{}>(
+    _ReleaseRelationshipEditor,
     ['language', 'work_type'],
   );
 
-ReleaseRelationshipEditor = hydrate<{}>(
+const ReleaseRelationshipEditor = (hydrate<{}>(
   'div.release-relationship-editor',
-  ReleaseRelationshipEditor,
-);
+  NonHydratedReleaseRelationshipEditor,
+): React$AbstractComponent<{}, void>);
 
 export default ReleaseRelationshipEditor;

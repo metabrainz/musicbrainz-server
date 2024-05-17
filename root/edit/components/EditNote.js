@@ -26,14 +26,6 @@ import parseIsoDate from '../../utility/parseIsoDate.js';
 
 import EditorTypeInfo from './EditorTypeInfo.js';
 
-type PropsT = {
-  +edit: GenericEditWithIdT,
-  +editNote: EditNoteT,
-  +index: number,
-  +isOnEditPage?: boolean,
-  +showEditControls?: boolean,
-};
-
 function returnNoteAnchor(edit: GenericEditWithIdT, index: number) {
   return `note-${edit.id}-${index + 1}`;
 }
@@ -55,13 +47,13 @@ function returnVoteClass(vote: ?VoteT, isOwner: boolean) {
   return className;
 }
 
-const EditNote = ({
-  edit,
-  editNote,
-  index,
-  isOnEditPage = false,
-  showEditControls = true,
-}: PropsT): React$Element<'div'> => {
+component EditNote(
+  edit: GenericEditWithIdT,
+  editNote: EditNoteT,
+  index: number,
+  isOnEditPage: boolean = false,
+  showEditControls: boolean = true,
+) {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   const allEditNotes = edit.edit_notes;
@@ -254,6 +246,6 @@ const EditNote = ({
       )}
     </div>
   );
-};
+}
 
 export default EditNote;

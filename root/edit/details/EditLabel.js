@@ -19,11 +19,7 @@ import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 
-type Props = {
-  +edit: EditLabelEditT,
-};
-
-const EditLabel = ({edit}: Props): React$Element<'table'> => {
+component EditLabel(edit: EditLabelEditT) {
   const display = edit.display_data;
   const name = display.name;
   const sortName = display.sort_name;
@@ -146,6 +142,6 @@ const EditLabel = ({edit}: Props): React$Element<'table'> => {
       </tbody>
     </table>
   );
-};
+}
 
 export default EditLabel;

@@ -18,20 +18,13 @@ import {
 } from '../../static/scripts/common/immutable-entities.js';
 import {arraysEqual} from '../../static/scripts/common/utility/arrays.js';
 
-type Props = {
-  +allowNew?: boolean,
-  +edit: RemoveMediumEditT,
-};
-
 const areTracksEqual = (a: TrackT, b: TrackT) => (
   a.name === b.name &&
   artistCreditsAreEqual(a.artistCredit, b.artistCredit) &&
   a.length === b.length
 );
 
-const RemoveMedium = ({
-  edit,
-}: Props): React.MixedElement => {
+component RemoveMedium(edit: RemoveMediumEditT) {
   const display = edit.display_data;
   const originalTracklist = display.tracks ?? [];
   const currentTracklist = display.medium.tracks ?? [];
@@ -112,6 +105,6 @@ const RemoveMedium = ({
       </table>
     </>
   );
-};
+}
 
 export default RemoveMedium;

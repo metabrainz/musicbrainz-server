@@ -21,26 +21,14 @@ type MinimalAnnotatedEntityT = {
   +latest_annotation?: AnnotationT,
 };
 
-type Props = {
-  +annotation: ?AnnotationT,
-  +collapse?: boolean,
-  +entity: $ReadOnly<{
-    ...MinimalAnnotatedEntityT,
-    ...
-  }>,
-  +numberOfRevisions: number,
-  +showChangeLog?: boolean,
-  +showEmpty?: boolean,
-};
-
-const Annotation = ({
-  annotation,
-  collapse = false,
-  entity,
-  numberOfRevisions,
-  showChangeLog = false,
-  showEmpty = false,
-}: Props) => {
+component Annotation(
+  annotation: ?AnnotationT,
+  collapse: boolean = false,
+  entity: $ReadOnly<{...MinimalAnnotatedEntityT, ...}>,
+  numberOfRevisions: number,
+  showChangeLog: boolean = false,
+  showEmpty: boolean = false,
+) {
   const annotationIsEmpty = empty(annotation?.text);
   if (!annotation || (annotationIsEmpty && !showEmpty)) {
     return null;
@@ -120,13 +108,13 @@ const Annotation = ({
       </SanitizedCatalystContext.Consumer>
     </>
   );
-};
+}
 
-export default (hydrate<Props>(
+export default (hydrate<React.PropsOf<Annotation>>(
   'div.annotation',
   Annotation,
   function (props) {
-    const newProps: {...Props} = {...props};
+    const newProps: {...React.PropsOf<Annotation>} = {...props};
     const entity = props.entity;
     const annotation = props.annotation;
 
@@ -153,4 +141,4 @@ export default (hydrate<Props>(
     newProps.entity = newEntity;
     return newProps;
   },
-): React$AbstractComponent<Props, void>);
+): React$AbstractComponent<React.PropsOf<Annotation>>);

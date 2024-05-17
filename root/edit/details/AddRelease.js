@@ -17,12 +17,7 @@ import ReleaseEvents
 import formatBarcode
   from '../../static/scripts/common/utility/formatBarcode.js';
 
-type Props = {
-  +allowNew?: boolean,
-  +edit: AddReleaseEditT,
-};
-
-const AddRelease = ({allowNew, edit}: Props): React$MixedElement => {
+component AddRelease(allowNew?: boolean, edit: AddReleaseEditT) {
   const display = edit.display_data;
   const language = display.language;
   const packaging = display.packaging;
@@ -133,6 +128,6 @@ const AddRelease = ({allowNew, edit}: Props): React$MixedElement => {
       </table>
     </>
   );
-};
+}
 
 export default AddRelease;

@@ -460,6 +460,7 @@ If you intend to run a server with translations, there are a few steps to follow
 
 5.  Add the languages to `MB_LANGUAGES` in DBDefs.pm. These should be formatted
     {lang}-{country}, such as 'es', or 'fr-ca', in a space-separated list.
+    The corresponding language packs must be installed.
 
 6.  Ensure you have a system locale for any languages you want to use. For many
     languages, this will suffice:

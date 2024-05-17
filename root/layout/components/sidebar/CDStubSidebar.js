@@ -18,11 +18,7 @@ import {
 
 import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 
-type Props = {
-  +cdstub: CDStubT,
-};
-
-const CDStubSidebar = ({cdstub}: Props): React$Element<'div'> => {
+component CDStubSidebar(cdstub: CDStubT) {
   const artistField =
     escapeLuceneValue(cdstub.artist || l('Various Artists'));
   const releaseField = escapeLuceneValue(cdstub.title);
@@ -100,6 +96,6 @@ const CDStubSidebar = ({cdstub}: Props): React$Element<'div'> => {
       </ul>
     </div>
   );
-};
+}
 
 export default CDStubSidebar;

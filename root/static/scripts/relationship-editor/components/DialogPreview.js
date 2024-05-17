@@ -24,15 +24,6 @@ import getBatchSelectionMessage from '../utility/getBatchSelectionMessage.js';
 import relationshipsHaveSamePhraseGroup
   from '../utility/relationshipsHaveSamePhraseGroup.js';
 
-type PropsT = {
-  +backward: boolean,
-  +batchSelectionCount: number | void,
-  +dispatch: ({+type: 'change-direction'}) => void,
-  +newRelationship: RelationshipStateT | null,
-  +oldRelationship: RelationshipStateT | null,
-  +source: RelatableEntityT,
-};
-
 const createRelationshipTFromState = (
   relationship: RelationshipStateT,
   source: RelatableEntityT,
@@ -75,14 +66,14 @@ function relationshipsAreIdenticalIgnoringLinkOrder(
   );
 }
 
-const DialogPreview = (React.memo<PropsT>(({
-  backward,
-  batchSelectionCount,
-  dispatch,
-  source,
-  newRelationship,
-  oldRelationship,
-}: PropsT): React$MixedElement => {
+component _DialogPreview(
+  backward: boolean,
+  batchSelectionCount: number | void,
+  dispatch: ({+type: 'change-direction'}) => void,
+  newRelationship: RelationshipStateT | null,
+  oldRelationship: RelationshipStateT | null,
+  source: RelatableEntityT,
+) {
   function changeDirection() {
     dispatch({type: 'change-direction'});
   }
@@ -239,6 +230,10 @@ const DialogPreview = (React.memo<PropsT>(({
       ) : null}
     </>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const DialogPreview: React$AbstractComponent<
+  React.PropsOf<_DialogPreview>
+> = React.memo(_DialogPreview);
 
 export default DialogPreview;

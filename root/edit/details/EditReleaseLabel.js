@@ -18,11 +18,7 @@ import formatBarcode
 import formatDate from '../../static/scripts/common/utility/formatDate.js';
 import Diff from '../../static/scripts/edit/components/edit/Diff.js';
 
-type Props = {
-  +edit: EditReleaseLabelEditT,
-};
-
-const EditReleaseLabel = ({edit}: Props): React$Element<'table'> => {
+component EditReleaseLabel(edit: EditReleaseLabelEditT) {
   const display = edit.display_data;
   const barcode = display.barcode;
   const catNo = display.catalog_number;
@@ -134,6 +130,6 @@ const EditReleaseLabel = ({edit}: Props): React$Element<'table'> => {
       ) : null}
     </table>
   );
-};
+}
 
 export default EditReleaseLabel;

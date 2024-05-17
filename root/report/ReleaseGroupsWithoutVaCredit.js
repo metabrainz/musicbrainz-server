@@ -11,29 +11,31 @@ import ReleaseGroupList from './components/ReleaseGroupList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseGroupT} from './types.js';
 
-const ReleaseGroupsWithoutVaCredit = ({
+component ReleaseGroupsWithoutVaCredit(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseGroupT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows release groups linked to the Various Artists
-       entity without "Various Artists" as the credited name.`,
-    )}
-    entityType="release_group"
-    filtered={filtered}
-    generated={generated}
-    title={l(
-      'Release groups not credited to "Various Artists" but linked to VA',
-    )}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseGroupList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseGroupT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows release groups linked to the Various Artists
+         entity without "Various Artists" as the credited name.`,
+      )}
+      entityType="release_group"
+      filtered={filtered}
+      generated={generated}
+      title={l(
+        'Release groups not credited to "Various Artists" but linked to VA',
+      )}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseGroupList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default ReleaseGroupsWithoutVaCredit;

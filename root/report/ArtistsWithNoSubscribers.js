@@ -11,28 +11,30 @@ import ArtistList from './components/ArtistList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportArtistT, ReportDataT} from './types.js';
 
-const ArtistsWithNoSubscribers = ({
+component ArtistsWithNoSubscribers(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report lists artists that have no editors subscribed to them,
-       and whose changes may therefore be under-reviewed. Artists with
-       more release groups and more open edits are listed first.`,
-    )}
-    entityType="artist"
-    filtered={filtered}
-    generated={generated}
-    title={l('Artists with no subscribers')}
-    totalEntries={pager.total_entries}
-  >
-    <ArtistList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportArtistT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report lists artists that have no editors subscribed to them,
+         and whose changes may therefore be under-reviewed. Artists with
+         more release groups and more open edits are listed first.`,
+      )}
+      entityType="artist"
+      filtered={filtered}
+      generated={generated}
+      title={l('Artists with no subscribers')}
+      totalEntries={pager.total_entries}
+    >
+      <ArtistList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default ArtistsWithNoSubscribers;

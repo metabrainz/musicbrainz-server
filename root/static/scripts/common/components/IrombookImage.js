@@ -7,15 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-type Props = {
-  +entity: InstrumentT,
-};
-
 function isIrombookImage(url: UrlT): boolean {
   return /https:\/\/static\.metabrainz\.org\/irombook\//.test(url.href_url);
 }
 
-const IrombookImage = ({entity}: Props): React$Element<'div'> | null => {
+component IrombookImage(entity: InstrumentT) {
   const relationships = entity.relationships;
 
   if (!relationships) {
@@ -43,6 +39,6 @@ const IrombookImage = ({entity}: Props): React$Element<'div'> | null => {
       </span>
     </div>
   ) : null;
-};
+}
 
 export default IrombookImage;

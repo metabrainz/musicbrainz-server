@@ -12,17 +12,11 @@ import {getEditHeaderClass} from '../../utility/edit.js';
 
 import EditNote from './EditNote.js';
 
-type PropsT = {
-  +edit: GenericEditWithIdT,
-  +editNote: EditNoteT,
-  +showEditControls?: boolean,
-};
-
-const EditNoteListEntry = ({
-  edit,
-  editNote,
-  showEditControls,
-}: PropsT): React$Element<'div'> => {
+component EditNoteListEntry(
+  edit: GenericEditWithIdT,
+  editNote: EditNoteT,
+  showEditControls?: boolean,
+) {
   const editTitle = texp.l(
     'Edit #{id} - {name}',
     {id: edit.id, name: l(edit.edit_name)},
@@ -43,6 +37,6 @@ const EditNoteListEntry = ({
       />
     </div>
   );
-};
+}
 
 export default EditNoteListEntry;

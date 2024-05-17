@@ -27,18 +27,6 @@ import type {
 
 import TrackRelationshipEditor from './TrackRelationshipEditor.js';
 
-type PropsT = {
-  +dialogLocation: RelationshipDialogLocationT | null,
-  +dispatch: (ReleaseRelationshipEditorActionT) => void,
-  +hasUnloadedTracks: boolean,
-  +isExpanded: boolean,
-  +medium: MediumWithRecordingsT,
-  +recordingStates: MediumRecordingStateTreeT | null,
-  +release: ReleaseWithMediumsT,
-  +releaseHasUnloadedTracks: boolean,
-  +tracks: $ReadOnlyArray<TrackWithRecordingT> | null,
-};
-
 export type WritableReleasePathsT = Map<number, Set<number>>;
 
 const getColumnCount = () => 3;
@@ -71,17 +59,17 @@ function handleLinkedEntitiesForMedium(
   }
 }
 
-const MediumRelationshipEditor = (React.memo<PropsT>(({
-  dialogLocation,
-  dispatch,
-  hasUnloadedTracks,
-  isExpanded,
-  medium,
-  recordingStates,
-  release,
-  releaseHasUnloadedTracks,
-  tracks,
-}: PropsT) => {
+component _MediumRelationshipEditor(
+  dialogLocation: RelationshipDialogLocationT | null,
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  hasUnloadedTracks: boolean,
+  isExpanded: boolean,
+  medium: MediumWithRecordingsT,
+  recordingStates: MediumRecordingStateTreeT | null,
+  release: ReleaseWithMediumsT,
+  releaseHasUnloadedTracks: boolean,
+  tracks: $ReadOnlyArray<TrackWithRecordingT> | null,
+) {
   const tableVars = usePagedMediumTable({
     dispatch,
     getColumnCount,
@@ -198,6 +186,10 @@ const MediumRelationshipEditor = (React.memo<PropsT>(({
       </tbody>
     </>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const MediumRelationshipEditor: React$AbstractComponent<
+  React.PropsOf<_MediumRelationshipEditor>
+> = React.memo(_MediumRelationshipEditor);
 
 export default MediumRelationshipEditor;

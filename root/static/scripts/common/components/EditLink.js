@@ -9,22 +9,18 @@
 
 import {editHref} from '../utility/entityHref.js';
 
-type Props = {
-  +content: string,
-  +edit: GenericEditWithIdT,
-  +subPath?: string,
-};
-
-const EditLink = ({
-  edit,
-  content,
-  subPath,
-}: Props): React$Element<'a'> => (
-  <a href={editHref(edit, subPath)}>
-    <bdi>
-      {content}
-    </bdi>
-  </a>
-);
+component EditLink(
+  content: string,
+  edit: GenericEditWithIdT,
+  subPath?: string,
+) {
+  return (
+    <a href={editHref(edit, subPath)}>
+      <bdi>
+        {content}
+      </bdi>
+    </a>
+  );
+}
 
 export default EditLink;

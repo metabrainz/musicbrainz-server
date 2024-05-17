@@ -16,19 +16,12 @@ import {
   defineEntityColumn,
 } from '../../utility/tableColumns.js';
 
-type Props<D: {+place: ?PlaceT, ...}> = {
-  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +items: $ReadOnlyArray<D>,
-  +pager: PagerT,
-};
-
-const PlaceList = <D: {+place: ?PlaceT, ...}>({
-  columnsBefore,
-  columnsAfter,
-  items,
-  pager,
-}: Props<D>): React$Element<typeof PaginatedResults> => {
+component PlaceList<D: {+place: ?PlaceT, ...}>(
+  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  items: $ReadOnlyArray<D>,
+  pager: PagerT,
+) {
   const existingPlaceItems = items.reduce((
     result: Array<D>,
     item,
@@ -63,6 +56,6 @@ const PlaceList = <D: {+place: ?PlaceT, ...}>({
       {table}
     </PaginatedResults>
   );
-};
+}
 
 export default PlaceList;

@@ -27,11 +27,7 @@ import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 
-type Props = {
-  +recording: RecordingWithArtistCreditT,
-};
-
-const RecordingSidebar = ({recording}: Props): React$Element<'div'> => {
+component RecordingSidebar(recording: RecordingWithArtistCreditT) {
   const firstReleaseYear = recording.first_release_date?.year;
 
   return (
@@ -103,6 +99,6 @@ const RecordingSidebar = ({recording}: Props): React$Element<'div'> => {
       <LastUpdated entity={recording} />
     </div>
   );
-};
+}
 
 export default RecordingSidebar;

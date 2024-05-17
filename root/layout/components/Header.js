@@ -11,16 +11,18 @@ import BottomMenu from './BottomMenu.js';
 import HeaderLogo from './HeaderLogo.js';
 import TopMenu from './TopMenu.js';
 
-const Header = (): React$Element<'div'> => (
-  <div className="header">
-    <a className="logo" href="/" title="MusicBrainz">
-      <HeaderLogo />
-    </a>
-    <div className="right">
-      <TopMenu />
-      <BottomMenu />
+component Header() {
+  return (
+    <div className="header">
+      <a className="logo" href="/" title="MusicBrainz">
+        <HeaderLogo />
+      </a>
+      <div className="right">
+        <TopMenu />
+        <BottomMenu />
+      </div>
     </div>
-  </div>
-);
+  );
+}
 
 export default Header;

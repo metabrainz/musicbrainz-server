@@ -15,37 +15,21 @@ import AreaWithContainmentLink from './AreaWithContainmentLink.js';
 import ArtistCreditLink from './ArtistCreditLink.js';
 import EntityLink from './EntityLink.js';
 
-type DescriptiveLinkProps = {
-  +allowNew?: boolean,
-  +className?: string,
-  +content?: Expand2ReactOutput,
-  +customArtistCredit?: ArtistCreditT,
-  +deletedCaption?: string,
-  +disableLink?: boolean,
-  +entity: CollectionT | RelatableEntityT | TrackT | ReleaseEditorTrackT,
-  +showDeletedArtists?: boolean,
-  +showDisambiguation?: boolean,
-  +showEditsPending?: boolean,
-  +showIcon?: boolean,
-  +subPath?: string,
-  +target?: '_blank',
-};
-
-const DescriptiveLink = ({
-  allowNew,
-  className,
-  content,
-  customArtistCredit,
-  deletedCaption,
-  disableLink = false,
-  entity,
-  showDeletedArtists = true,
-  showDisambiguation = true,
-  showEditsPending = true,
-  showIcon = false,
-  subPath,
-  target,
-}: DescriptiveLinkProps): Expand2ReactOutput | React$Node => {
+component DescriptiveLink(
+  allowNew?: boolean,
+  className?: string,
+  content?: Expand2ReactOutput,
+  customArtistCredit?: ArtistCreditT,
+  deletedCaption?: string,
+  disableLink: boolean = false,
+  entity: CollectionT | RelatableEntityT | TrackT | ReleaseEditorTrackT,
+  showDeletedArtists: boolean = true,
+  showDisambiguation: boolean = true,
+  showEditsPending: boolean = true,
+  showIcon: boolean = false,
+  subPath?: string,
+  target?: '_blank',
+) {
   const sharedProps = {
     showDisambiguation,
     showEditsPending,
@@ -99,6 +83,6 @@ const DescriptiveLink = ({
   }
 
   return link;
-};
+}
 
 export default DescriptiveLink;

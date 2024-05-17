@@ -27,39 +27,25 @@ import {unwrapNl} from '../i18n.js';
 
 import ErrorBoundary from './ErrorBoundary.js';
 
-type PropsT = {
-  +buildChildren: (
+component ButtonPopover(
+  buildChildren: (
     close: () => void,
     initialFocusRef: {current: HTMLElement | null},
   ) => React$Node,
-  +buttonContent: React$Node,
-  +buttonProps?: {
+  buttonContent: React$Node,
+  buttonProps?: {
     className?: string,
     id?: string,
     title?: string | (() => string),
   } | null,
-  +className?: string,
-  +closeOnOutsideClick?: boolean,
-  +id: string,
-  +isDisabled?: boolean,
-  +isOpen: boolean,
-  +toggle: (boolean) => void,
-  +wrapButton?: (React$MixedElement) => React$MixedElement,
-};
-
-const ButtonPopover = (props: PropsT): React$MixedElement => {
-  const {
-    buildChildren,
-    buttonContent,
-    buttonProps = null,
-    className,
-    closeOnOutsideClick = true,
-    isDisabled = false,
-    isOpen,
-    toggle,
-    wrapButton,
-    ...dialogProps
-  } = props;
+  className?: string,
+  closeOnOutsideClick: boolean = true,
+  isDisabled: boolean = false,
+  isOpen: boolean,
+  toggle: (boolean) => void,
+  wrapButton?: (React$MixedElement) => React$MixedElement,
+  ...dialogProps: {id: string}
+) {
   const buttonId = buttonProps?.id;
   const buttonTitle = buttonProps?.title;
 
@@ -142,6 +128,7 @@ const ButtonPopover = (props: PropsT): React$MixedElement => {
           style={floatingStyles}
         >
           <ErrorBoundary>
+            {/* $FlowIgnore[react-rule-unsafe-ref] */}
             {buildChildren(close, initialFocusRef)}
           </ErrorBoundary>
           <FloatingArrow
@@ -173,6 +160,6 @@ const ButtonPopover = (props: PropsT): React$MixedElement => {
       {popoverElement}
     </>
   );
-};
+}
 
 export default ButtonPopover;

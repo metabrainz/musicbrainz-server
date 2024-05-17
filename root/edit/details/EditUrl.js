@@ -15,11 +15,7 @@ import DiffSide from '../../static/scripts/edit/components/edit/DiffSide.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 import {DELETE, INSERT} from '../../static/scripts/edit/utility/editDiff.js';
 
-type Props = {
-  +edit: EditUrlEditT,
-};
-
-const EditUrl = ({edit}: Props): React.MixedElement => {
+component EditUrl(edit: EditUrlEditT) {
   const display = edit.display_data;
   const description = display.description;
   const uri = display.uri;
@@ -87,6 +83,6 @@ const EditUrl = ({edit}: Props): React.MixedElement => {
       ) : null}
     </>
   );
-};
+}
 
 export default EditUrl;

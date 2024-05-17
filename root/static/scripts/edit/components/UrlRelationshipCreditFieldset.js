@@ -12,17 +12,12 @@ import FormRowText from './FormRowText.js';
 
 export type ActionT = {+credit: string, +type: 'update-relationship-credit'};
 
-type PropsT = {
-  +dispatch: (ActionT) => void,
-  +field: FieldT<string | null>,
-};
-
 export type StateT = DatePeriodFieldT;
 
-const UrlRelationshipCreditFieldset = ({
-  dispatch,
-  field,
-}: PropsT): React$Element<'fieldset'> => {
+component UrlRelationshipCreditFieldset(
+  dispatch: (ActionT) => void,
+  field: FieldT<string | null>,
+) {
   function handleCreditChange(
     event: SyntheticKeyboardEvent<HTMLInputElement>,
   ) {
@@ -46,6 +41,6 @@ const UrlRelationshipCreditFieldset = ({
       />
     </fieldset>
   );
-};
+}
 
 export default UrlRelationshipCreditFieldset;

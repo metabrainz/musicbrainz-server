@@ -76,29 +76,26 @@ const buildReleaseEventRow = (
   );
 };
 
-type ReleaseEventsProps = {|
-  +abbreviated?: boolean,
-  +events: ?$ReadOnlyArray<ReleaseEventT>,
-|};
+component ReleaseEvents(
+  abbreviated: boolean = true,
+  events: ?$ReadOnlyArray<ReleaseEventT>,
+) {
+  return (
+    <CollapsibleList
+      ariaLabel={l('Release events')}
+      buildRow={buildReleaseEventRow}
+      buildRowProps={{abbreviated: abbreviated}}
+      className={'release-events' + (abbreviated ? ' abbreviated' : ' links')}
+      rows={events}
+      showAllTitle={l('Show all release events')}
+      showLessTitle={l('Show less release events')}
+      toShowAfter={1}
+      toShowBefore={2}
+    />
+  );
+}
 
-const ReleaseEvents = ({
-  abbreviated = true,
-  events,
-}: ReleaseEventsProps) => (
-  <CollapsibleList
-    ariaLabel={l('Release events')}
-    buildRow={buildReleaseEventRow}
-    buildRowProps={{abbreviated: abbreviated}}
-    className={'release-events' + (abbreviated ? ' abbreviated' : ' links')}
-    rows={events}
-    showAllTitle={l('Show all release events')}
-    showLessTitle={l('Show less release events')}
-    toShowAfter={1}
-    toShowBefore={2}
-  />
-);
-
-export default (hydrate<ReleaseEventsProps>(
+export default (hydrate<React.PropsOf<ReleaseEvents>>(
   'div.release-events-container',
   ReleaseEvents,
-): React$AbstractComponent<ReleaseEventsProps, void>);
+): React$AbstractComponent<React.PropsOf<ReleaseEvents>>);

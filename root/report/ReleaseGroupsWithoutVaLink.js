@@ -11,29 +11,31 @@ import ReleaseGroupList from './components/ReleaseGroupList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseGroupT} from './types.js';
 
-const ReleaseGroupsWithoutVaLink = ({
+component ReleaseGroupsWithoutVaLink(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseGroupT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows release groups with "Various Artists" as the
-       credited name but not linked to the Various Artists entity.`,
-    )}
-    entityType="release_group"
-    filtered={filtered}
-    generated={generated}
-    title={l(
-      'Release groups credited to "Various Artists" but not linked to VA',
-    )}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseGroupList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseGroupT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows release groups with "Various Artists" as the
+         credited name but not linked to the Various Artists entity.`,
+      )}
+      entityType="release_group"
+      filtered={filtered}
+      generated={generated}
+      title={l(
+        'Release groups credited to "Various Artists" but not linked to VA',
+      )}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseGroupList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default ReleaseGroupsWithoutVaLink;

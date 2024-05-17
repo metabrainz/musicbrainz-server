@@ -42,14 +42,6 @@ import {
   createInitialState as createDialogAttributesState,
 } from './DialogAttributes.js';
 
-type PropsT = {
-  +dispatch: (DialogLinkTypeActionT) => void,
-  +isHelpVisible: boolean,
-  +source: RelatableEntityT,
-  +state: DialogLinkTypeStateT,
-  +targetType: RelatableEntityTypeT,
-};
-
 function getLinkTypeError(
   linkType: ?LinkTypeT,
   source: RelatableEntityT,
@@ -274,13 +266,13 @@ const LinkTypeAutocomplete:
   // $FlowIgnore
   Autocomplete2;
 
-const DialogLinkType = (React.memo<PropsT>(({
-  dispatch,
-  isHelpVisible,
-  source,
-  state,
-  targetType,
-}: PropsT): React$Element<'tr'> => {
+component _DialogLinkType(
+  dispatch: (DialogLinkTypeActionT) => void,
+  isHelpVisible: boolean,
+  source: RelatableEntityT,
+  state: DialogLinkTypeStateT,
+  targetType: RelatableEntityTypeT,
+) {
   const {
     autocomplete,
     error,
@@ -343,6 +335,10 @@ const DialogLinkType = (React.memo<PropsT>(({
       </td>
     </tr>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const DialogLinkType: React$AbstractComponent<
+  React.PropsOf<_DialogLinkType>
+> = React.memo(_DialogLinkType);
 
 export default DialogLinkType;

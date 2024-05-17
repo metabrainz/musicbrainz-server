@@ -16,15 +16,9 @@ export type PostParametersT = {
   ...
 };
 
-type PropsT = {
-  +params: PostParametersT,
-};
-
 const textAreaRegExp = /(^|\.)(annotation|edit_note)$/;
 
-const PostParameters = ({
-  params,
-}: PropsT): React$MixedElement => {
+component PostParameters(params: PostParametersT) {
   const [expanded, setExpanded] = React.useState(false);
 
   const sortedParams:
@@ -91,9 +85,9 @@ const PostParameters = ({
       </table>
     </>
   );
-};
+}
 
 export default (hydrate(
   'div.post-parameters',
   PostParameters,
-): React$AbstractComponent<PropsT, void>);
+): React$AbstractComponent<React.PropsOf<PostParameters>>);

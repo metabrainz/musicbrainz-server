@@ -12,19 +12,12 @@ import formatTrackLength
 import DiffSide from '../../static/scripts/edit/components/edit/DiffSide.js';
 import {DELETE, INSERT} from '../../static/scripts/edit/utility/editDiff.js';
 
-type Props = {
-  +newLabel?: string,
-  +newLengths: $ReadOnlyArray<number | null>,
-  +oldLabel?: string,
-  +oldLengths: $ReadOnlyArray<number | null>,
-};
-
-const TrackDurationChanges = ({
-  newLabel,
-  newLengths,
-  oldLabel,
-  oldLengths,
-}: Props): React.MixedElement => {
+component TrackDurationChanges(
+  newLabel?: string,
+  newLengths: $ReadOnlyArray<number | null>,
+  oldLabel?: string,
+  oldLengths: $ReadOnlyArray<number | null>,
+) {
   const lengthsSize = oldLengths.length;
   const lengthComparisonTables = [];
   for (let i = 0; i < lengthsSize; i++) {
@@ -68,6 +61,6 @@ const TrackDurationChanges = ({
       {lengthComparisonTables}
     </>
   );
-};
+}
 
 export default TrackDurationChanges;

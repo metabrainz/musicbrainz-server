@@ -28,13 +28,6 @@ export type AccountLayoutUserT = {
   +privileges: number,
 };
 
-type Props = {
-  +children: React$Node,
-  +entity: AccountLayoutUserT,
-  +page: string,
-  +title?: string,
-};
-
 export function sanitizedAccountLayoutUser(
   editor: UnsanitizedEditorT,
 ): AccountLayoutUserT {
@@ -49,26 +42,26 @@ export function sanitizedAccountLayoutUser(
   };
 }
 
-const UserAccountLayout = ({
-  children,
-  entity: user,
-  page,
-  title,
-  ...layoutProps
-}: Props): React$Element<typeof Layout> => (
-  <Layout
-    fullWidth
-    title={nonEmpty(title)
-      ? hyphenateTitle(texp.l('Editor “{user}”', {user: user.name}), title)
-      : texp.l('Editor “{user}”', {user: user.name})}
-    {...layoutProps}
-  >
-    <h1>
-      <EditorLink avatarSize={32} editor={user} />
-    </h1>
-    <UserAccountTabs page={page} user={user} />
-    {children}
-  </Layout>
-);
+component UserAccountLayout(
+  children: React$Node,
+  entity as user: AccountLayoutUserT,
+  page: string,
+  title?: string,
+) {
+  return (
+    <Layout
+      fullWidth
+      title={nonEmpty(title)
+        ? hyphenateTitle(texp.l('Editor “{user}”', {user: user.name}), title)
+        : texp.l('Editor “{user}”', {user: user.name})}
+    >
+      <h1>
+        <EditorLink avatarSize={32} editor={user} />
+      </h1>
+      <UserAccountTabs page={page} user={user} />
+      {children}
+    </Layout>
+  );
+}
 
 export default UserAccountLayout;

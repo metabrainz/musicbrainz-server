@@ -21,19 +21,12 @@ import formatTrackLength
   from '../../common/utility/formatTrackLength.js';
 import type {CreditsModeT} from '../types.js';
 
-type PropsT = {
-  +creditsMode: CreditsModeT,
-  +index: number,
-  +showArtists?: boolean,
-  +track: TrackWithRecordingT,
-};
-
-const MediumTrackRow = (React.memo<PropsT>(({
-  creditsMode,
-  index,
-  track,
-  showArtists = false,
-}: PropsT) => {
+component _MediumTrackRow(
+  creditsMode: CreditsModeT,
+  index: number,
+  showArtists: boolean = false,
+  track: TrackWithRecordingT,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const recordingAC = track.recording?.artistCredit;
 
@@ -89,6 +82,10 @@ const MediumTrackRow = (React.memo<PropsT>(({
       </td>
     </tr>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const MediumTrackRow: React$AbstractComponent<
+  React.PropsOf<_MediumTrackRow>
+> = React.memo(_MediumTrackRow);
 
 export default MediumTrackRow;

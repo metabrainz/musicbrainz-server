@@ -9,30 +9,28 @@
 
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-type Props = {
-  +content: string,
-  +disabled?: boolean,
-  +entity: RelatableEntityT | CollectionT,
-  +selected: boolean,
-  +subPath: string,
-};
-
-const EntityTabLink = ({
-  disabled = false,
-  selected,
-  ...linkProps
-}: Props): React$Element<'li'> => (
-  <li
-    className={
-      selected || disabled
-        ? (selected ? 'sel' : '') +
-          (selected && disabled ? ' ' : '') +
-          (disabled ? 'disabled' : '')
-        : null
-    }
-  >
-    <EntityLink {...linkProps} />
-  </li>
-);
+component EntityTabLink(
+  disabled: boolean = false,
+  selected: boolean,
+  ...linkProps: {
+    +content: string,
+    +entity: RelatableEntityT | CollectionT,
+    +subPath: string,
+  }
+) {
+  return (
+    <li
+      className={
+        selected || disabled
+          ? (selected ? 'sel' : '') +
+            (selected && disabled ? ' ' : '') +
+            (disabled ? 'disabled' : '')
+          : null
+      }
+    >
+      <EntityLink {...linkProps} />
+    </li>
+  );
+}
 
 export default EntityTabLink;

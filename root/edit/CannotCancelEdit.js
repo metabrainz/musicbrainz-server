@@ -10,11 +10,7 @@
 import Layout from '../layout/index.js';
 import EditLink from '../static/scripts/common/components/EditLink.js';
 
-type Props = {
-  +edit: GenericEditWithIdT,
-};
-
-const CannotCancelEdit = ({edit}: Props): React$Element<typeof Layout> => {
+component CannotCancelEdit(edit: GenericEditWithIdT) {
   const editDisplay = 'edit #' + edit.id;
   const editIsClosed = !edit.is_open;
   const editLink = <EditLink content={editDisplay} edit={edit} />;
@@ -34,6 +30,6 @@ const CannotCancelEdit = ({edit}: Props): React$Element<typeof Layout> => {
       </p>
     </Layout>
   );
-};
+}
 
 export default CannotCancelEdit;

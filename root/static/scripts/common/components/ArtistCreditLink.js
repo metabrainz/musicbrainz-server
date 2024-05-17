@@ -12,22 +12,7 @@ import Tooltip from '../../edit/components/Tooltip.js';
 
 import EntityLink, {DeletedLink} from './EntityLink.js';
 
-type Props = {
-  +artistCredit: ArtistCreditT,
-  +showDeleted?: boolean,
-  +showDisambiguation?: boolean,
-  +showEditsPending?: boolean,
-  +showIcon?: boolean,
-  +target?: '_blank',
-};
-
-type MpIconProps = {
-  +artistCredit: ArtistCreditT,
-};
-
-export const MpIcon = (hydrate<MpIconProps>('span.ac-mp', (
-  {artistCredit}: MpIconProps,
-): React$MixedElement => {
+component _MpIcon(artistCredit: ArtistCreditT) {
   let editSearch =
     '/search/edits?auto_edit_filter=&order=desc&negation=0' +
     '&combinator=and&conditions.0.field=type&conditions.0.operator=%3D' +
@@ -58,16 +43,21 @@ export const MpIcon = (hydrate<MpIconProps>('span.ac-mp', (
       }
     />
   );
-}): React$AbstractComponent<MpIconProps, void>);
+}
 
-const ArtistCreditLink = ({
-  artistCredit,
-  showDeleted = true,
-  showDisambiguation = false,
-  showEditsPending = true,
-  showIcon = false,
-  ...props
-}: Props): React$Node => {
+export const MpIcon = (hydrate<React.PropsOf<_MpIcon>>(
+  'span.ac-mp',
+  _MpIcon,
+): React$AbstractComponent<React.PropsOf<_MpIcon>>);
+
+component ArtistCreditLink(
+  artistCredit: ArtistCreditT,
+  showDeleted: boolean = true,
+  showDisambiguation: boolean = false,
+  showEditsPending: boolean = true,
+  showIcon: boolean = false,
+  target?: '_blank',
+) {
   const names = artistCredit.names;
   const parts: Array<React$Node> = [];
   for (let i = 0; i < names.length; i++) {
@@ -83,7 +73,7 @@ const ArtistCreditLink = ({
           showDisambiguation={showDisambiguation}
           showEditsPending={showEditsPending && !artistCredit.editsPending}
           showIcon={showIcon}
-          target={props.target}
+          target={target}
         />,
       );
     } else {
@@ -106,6 +96,6 @@ const ArtistCreditLink = ({
     );
   }
   return parts;
-};
+}
 
 export default ArtistCreditLink;

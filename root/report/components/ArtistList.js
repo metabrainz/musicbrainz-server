@@ -17,21 +17,13 @@ import {
   defineTextColumn,
 } from '../../utility/tableColumns.js';
 
-type Props<D: {+artist: ?ArtistT, ...}> = {
-  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +items: $ReadOnlyArray<D>,
-  +pager: PagerT,
-  +subPath?: string,
-};
-
-const ArtistList = <D: {+artist: ?ArtistT, ...}>({
-  columnsBefore,
-  columnsAfter,
-  items,
-  pager,
-  subPath,
-}: Props<D>): React$Element<typeof PaginatedResults> => {
+component ArtistList<D: {+artist: ?ArtistT, ...}>(
+  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  items: $ReadOnlyArray<D>,
+  pager: PagerT,
+  subPath?: string,
+) {
   const existingArtistItems = items.reduce((
     result: Array<D>,
     item,
@@ -82,6 +74,6 @@ const ArtistList = <D: {+artist: ?ArtistT, ...}>({
       {table}
     </PaginatedResults>
   );
-};
+}
 
 export default ArtistList;

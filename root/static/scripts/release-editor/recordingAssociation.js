@@ -51,6 +51,7 @@ recordingAssociation.getReleaseGroupRecordings = function (
   releaseGroup,
   offset,
   results,
+  failures = 0,
 ) {
   if (!releaseGroup || !releaseGroup.gid) {
     return;
@@ -73,19 +74,23 @@ recordingAssociation.getReleaseGroupRecordings = function (
           releaseGroup,
           countSoFar,
           results,
+          failures,
         );
       } else {
         releaseGroupRecordings(results);
       }
     })
     .fail(function () {
-      setTimeout(
-        recordingAssociation.getReleaseGroupRecordings,
-        5000,
-        releaseGroup,
-        offset,
-        results,
-      );
+      if (failures < 5) {
+        setTimeout(
+          recordingAssociation.getReleaseGroupRecordings,
+          5000,
+          releaseGroup,
+          offset,
+          results,
+          failures + 1,
+        );
+      }
     });
 };
 

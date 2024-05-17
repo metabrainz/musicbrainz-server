@@ -21,23 +21,9 @@ export type ActionT =
   | {+type: 'show-pending-errors'};
 /* eslint-enable ft-flow/sort-keys */
 
-type CommonProps = {
-  +disabled?: boolean,
-  +field: PartialDateFieldT,
-  +yearInputRef?: {current: HTMLInputElement | null},
-};
-
-type Props =
-  | $ReadOnly<{
-      ...CommonProps,
-      +dispatch: (ActionT) => void,
-      +uncontrolled?: false,
-    }>
-  | $ReadOnly<{
-      ...CommonProps,
-      +dispatch?: void,
-      +uncontrolled: true,
-    }>;
+type ControlledPropsT =
+  | $ReadOnly<{+dispatch: (ActionT) => void, +uncontrolled?: false}>
+  | $ReadOnly<{+dispatch?: void, +uncontrolled: true}>;
 
 export type StateT = PartialDateFieldT;
 
@@ -101,16 +87,17 @@ type DatePartPropsT = {
   value?: StrOrNum,
 };
 
-const PartialDateInput = (props: Props): React$Element<'span'> => {
-  const disabled = props.disabled ?? false;
-  const field = props.field;
-  const yearInputRef = props.yearInputRef;
-
+component PartialDateInput(
+  disabled: boolean = false,
+  field: PartialDateFieldT,
+  yearInputRef?: {current: HTMLInputElement | null},
+  ...controlledProps: ControlledPropsT
+) {
   const yearProps: DatePartPropsT = {};
   const monthProps: DatePartPropsT = {};
   const dayProps: DatePartPropsT = {};
 
-  if (props.uncontrolled) {
+  if (controlledProps.uncontrolled /*:: === true */) {
     yearProps.defaultValue = field.field.year.value;
     monthProps.defaultValue = field.field.month.value;
     dayProps.defaultValue = field.field.day.value;
@@ -119,7 +106,7 @@ const PartialDateInput = (props: Props): React$Element<'span'> => {
       event: SyntheticEvent<HTMLInputElement>,
       fieldName: 'year' | 'month' | 'day',
     ) => {
-      props.dispatch({
+      controlledProps.dispatch({
         // $FlowIssue[invalid-computed-prop]
         date: {[fieldName]: event.currentTarget.value},
         type: 'set-date',
@@ -127,7 +114,7 @@ const PartialDateInput = (props: Props): React$Element<'span'> => {
     };
 
     const handleBlur = () => {
-      props.dispatch({type: 'show-pending-errors'});
+      controlledProps.dispatch({type: 'show-pending-errors'});
     };
 
     yearProps.onBlur = handleBlur;
@@ -192,6 +179,6 @@ const PartialDateInput = (props: Props): React$Element<'span'> => {
       />
     </span>
   );
-};
+}
 
 export default PartialDateInput;

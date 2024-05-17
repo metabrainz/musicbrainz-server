@@ -12,21 +12,18 @@ import linkedEntities from '../linkedEntities.mjs';
 import DescriptiveLink from './DescriptiveLink.js';
 import MediumDescription from './MediumDescription.js';
 
-type Props = {
-  +allowNew?: boolean,
-  +medium: MediumT,
-};
-
-const MediumLink = ({allowNew, medium}: Props): Expand2ReactOutput => (
-  exp.l('{medium} on {release}', {
-    medium: <MediumDescription medium={medium} />,
-    release: (
-      <DescriptiveLink
-        allowNew={allowNew}
-        entity={linkedEntities.release[medium.release_id]}
-      />
-    ),
-  })
-);
+component MediumLink(allowNew?: boolean, medium: MediumT) {
+  return (
+    exp.l('{medium} on {release}', {
+      medium: <MediumDescription medium={medium} />,
+      release: (
+        <DescriptiveLink
+          allowNew={allowNew}
+          entity={linkedEntities.release[medium.release_id]}
+        />
+      ),
+    })
+  );
+}
 
 export default MediumLink;

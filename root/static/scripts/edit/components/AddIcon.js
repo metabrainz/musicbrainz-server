@@ -9,11 +9,13 @@
 
 import addIconUrl from '../../../images/icons/add.png';
 
-const AddIcon = (): React$Element<'img'> => (
-  <img
-    className="bottom"
-    src={addIconUrl}
-  />
-);
+component AddIcon() {
+  return (
+    <img
+      className="bottom"
+      src={addIconUrl}
+    />
+  );
+}
 
 export default AddIcon;

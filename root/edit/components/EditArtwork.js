@@ -11,17 +11,11 @@ import {Artwork} from '../../components/Artwork.js';
 import expand2html from '../../static/scripts/common/i18n/expand2html.js';
 import entityHref from '../../static/scripts/common/utility/entityHref.js';
 
-type Props = {
-  +artwork: ArtworkT,
-  +colSpan?: number,
-  +release: ReleaseT,
-};
-
-const EditArtwork = ({
-  artwork,
-  colSpan,
-  release,
-}: Props): React$Element<'tr'> => {
+component EditArtwork(
+  artwork: ArtworkT,
+  colSpan?: number,
+  release: ReleaseT,
+ ) {
   const historyMessage = release.gid ? (
     expand2html(
       l(`We are unable to display history for this cover
@@ -39,6 +33,6 @@ const EditArtwork = ({
       </td>
     </tr>
   );
-};
+}
 
 export default EditArtwork;

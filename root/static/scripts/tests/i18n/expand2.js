@@ -41,8 +41,7 @@ test('expand2', function (t) {
   expandHtml(
     'Some &quot;plain&quot; text',
     null,
-    // empty comment added by React
-    '<!-- -->Some &quot;plain&quot; text',
+    'Some &quot;plain&quot; text',
   );
   expandText('An {apple_fruit}', null, 'An {apple_fruit}');
   expandText('An {apple_fruit}', {apple_fruit: 'apple'}, 'An apple');

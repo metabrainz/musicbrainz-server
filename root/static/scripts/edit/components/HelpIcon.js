@@ -9,28 +9,24 @@
 
 import Tooltip from './Tooltip.js';
 
-type PropsT = {
-  +content: React$Node,
-};
-
 const ICON_STYLE = {
   display: 'inline-block',
   marginLeft: '10px',
   verticalAlign: 'text-top',
 };
 
-const HelpIcon = ({
-  content,
-}: PropsT): React$MixedElement => (
-  <Tooltip
-    content={content}
-    target={
-      <span
-        className="img icon help"
-        style={ICON_STYLE}
-      />
-    }
-  />
-);
+component HelpIcon(content: React$Node) {
+  return (
+    <Tooltip
+      content={content}
+      target={
+        <span
+          className="img icon help"
+          style={ICON_STYLE}
+        />
+      }
+    />
+  );
+}
 
 export default HelpIcon;

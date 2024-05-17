@@ -11,27 +11,29 @@ import EventList from './components/EventList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportEventT} from './types.js';
 
-const EventSequenceNotInSeries = ({
+component EventSequenceNotInSeries(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportEventT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report lists events where the event name indicates that it
-       may have to be part of a series or a larger event.`,
-    )}
-    entityType="event"
-    filtered={filtered}
-    generated={generated}
-    title={l('Events which should be part of series or larger event')}
-    totalEntries={pager.total_entries}
-  >
-    <EventList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportEventT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report lists events where the event name indicates that it
+         may have to be part of a series or a larger event.`,
+      )}
+      entityType="event"
+      filtered={filtered}
+      generated={generated}
+      title={l('Events which should be part of series or larger event')}
+      totalEntries={pager.total_entries}
+    >
+      <EventList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default EventSequenceNotInSeries;

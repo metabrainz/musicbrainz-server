@@ -494,6 +494,9 @@ export default function groupRelationships(
       cmpRelationshipPhraseGroups,
     );
 
+    // MBS-13588
+    phraseGroup.linkTypeInfo[0].editsPending ||= relationship.editsPending;
+
     const targetCredit = backward
       ? relationship.entity0_credit
       : relationship.entity1_credit;

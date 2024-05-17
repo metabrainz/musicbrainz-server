@@ -11,11 +11,7 @@ import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import {QUALITY_NAMES} from '../../static/scripts/common/constants.js';
 
-type Props = {
-  +edit: ChangeReleaseQualityEditT,
-};
-
-const ChangeReleaseQuality = ({edit}: Props): React$Element<'table'> => {
+component ChangeReleaseQuality(edit: ChangeReleaseQualityEditT) {
   const oldQuality = QUALITY_NAMES.get(edit.display_data.quality.old);
   const newQuality = QUALITY_NAMES.get(edit.display_data.quality.new);
   return (
@@ -33,6 +29,6 @@ const ChangeReleaseQuality = ({edit}: Props): React$Element<'table'> => {
       </tr>
     </table>
   );
-};
+}
 
 export default ChangeReleaseQuality;

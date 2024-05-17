@@ -17,11 +17,7 @@ import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 import IntentionallyRawIcon
   from '../components/IntentionallyRawIcon.js';
 
-type Props = {
-  +edit: EditRelationshipAttributeEditT,
-};
-
-const EditRelationshipAttribute = ({edit}: Props): React$Element<'table'> => {
+component EditRelationshipAttribute(edit: EditRelationshipAttributeEditT) {
   const display = edit.display_data;
   const childOrder = display.child_order;
   const oldDescription = display.description.old ?? '';
@@ -113,6 +109,6 @@ const EditRelationshipAttribute = ({edit}: Props): React$Element<'table'> => {
       ) : null}
     </table>
   );
-};
+}
 
 export default EditRelationshipAttribute;

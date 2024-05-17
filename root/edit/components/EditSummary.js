@@ -25,15 +25,10 @@ import returnUri from '../../utility/returnUri.js';
 
 import Vote from './Vote.js';
 
-type Props = {
-  +edit: GenericEditWithIdT,
-  +index: number,
-};
-
-const EditSummary = ({
-  edit,
-  index,
-}: Props): React.MixedElement => {
+component EditSummary(
+  edit: GenericEditWithIdT,
+  index: number,
+) {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   const mayAddNote = editorMayAddNote(edit, user);
@@ -99,6 +94,6 @@ const EditSummary = ({
         </div>) : null}
     </>
   );
-};
+}
 
 export default EditSummary;

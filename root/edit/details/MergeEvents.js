@@ -9,35 +9,33 @@
 
 import EventList from '../../components/list/EventList.js';
 
-type Props = {
-  +edit: MergeEventsEditT,
-};
-
-const MergeEvents = ({edit}: Props): React$Element<'table'> => (
-  <table className="details merge-events">
-    <tr>
-      <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
-      <td>
-        <EventList
-          events={edit.display_data.old}
-          showArtists
-          showLocation
-          showType
-        />
-      </td>
-    </tr>
-    <tr>
-      <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
-      <td>
-        <EventList
-          events={[edit.display_data.new]}
-          showArtists
-          showLocation
-          showType
-        />
-      </td>
-    </tr>
-  </table>
-);
+component MergeEvents(edit: MergeEventsEditT) {
+  return (
+    <table className="details merge-events">
+      <tr>
+        <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
+        <td>
+          <EventList
+            events={edit.display_data.old}
+            showArtists
+            showLocation
+            showType
+          />
+        </td>
+      </tr>
+      <tr>
+        <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
+        <td>
+          <EventList
+            events={[edit.display_data.new]}
+            showArtists
+            showLocation
+            showType
+          />
+        </td>
+      </tr>
+    </table>
+  );
+}
 
 export default MergeEvents;

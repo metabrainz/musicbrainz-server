@@ -11,29 +11,31 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseT} from './types.js';
 
-const UnlinkedPseudoReleases = ({
+component UnlinkedPseudoReleases(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows releases with status Pseudo-Release that aren’t
-       linked via the translation/transliteration relationship to an
-       original version. This could be because the original version is
-       missing, or just because the release status is wrongly set.`,
-    )}
-    entityType="release"
-    filtered={filtered}
-    generated={generated}
-    title={l('Unlinked pseudo-releases')}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows releases with status Pseudo-Release that aren’t
+         linked via the translation/transliteration relationship to an
+         original version. This could be because the original version is
+         missing, or just because the release status is wrongly set.`,
+      )}
+      entityType="release"
+      filtered={filtered}
+      generated={generated}
+      title={l('Unlinked pseudo-releases')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default UnlinkedPseudoReleases;

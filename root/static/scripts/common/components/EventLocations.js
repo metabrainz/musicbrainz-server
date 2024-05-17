@@ -9,23 +9,21 @@
 
 import DescriptiveLink from './DescriptiveLink.js';
 
-type Props = {
-  +event: EventT,
-};
-
-const EventLocations = ({event}: Props): React$Element<'ul'> => (
-  <ul>
-    {event.places.map(place => (
-      <li key={place.entity.id}>
-        <DescriptiveLink content={place.credit} entity={place.entity} />
-      </li>
-    ))}
-    {event.areas.map(area => (
-      <li key={area.entity.id}>
-        <DescriptiveLink content={area.credit} entity={area.entity} />
-      </li>
-    ))}
-  </ul>
-);
+component EventLocations(event: EventT) {
+  return (
+    <ul>
+      {event.places.map(place => (
+        <li key={place.entity.id}>
+          <DescriptiveLink content={place.credit} entity={place.entity} />
+        </li>
+      ))}
+      {event.areas.map(area => (
+        <li key={area.entity.id}>
+          <DescriptiveLink content={area.credit} entity={area.entity} />
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default EventLocations;

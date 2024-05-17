@@ -24,19 +24,10 @@ const buildErrorListItem = (
   return <li key={index}>{error}</li>;
 };
 
-type Props = {
-  +field: AnyFieldT,
-  +hasHtmlErrors?: boolean,
-  +includeSubFields?: boolean,
-};
-
-export const FieldErrorsList = ({
-  hasHtmlErrors,
-  errors,
-}: {
-  +errors: ?$ReadOnlyArray<string>,
-  +hasHtmlErrors: boolean,
-}): React$Element<'ul'> | null => {
+export component FieldErrorsList(
+  errors: ?$ReadOnlyArray<string>,
+  hasHtmlErrors: boolean,
+) {
   if (errors?.length) {
     return (
       <ul className="errors">
@@ -47,13 +38,13 @@ export const FieldErrorsList = ({
     );
   }
   return null;
-};
+}
 
-const FieldErrors = ({
-  field,
-  hasHtmlErrors = false,
-  includeSubFields = true,
-}: Props): React$Element<typeof FieldErrorsList> | null => {
+component FieldErrors(
+  field: AnyFieldT,
+  hasHtmlErrors: boolean = false,
+  includeSubFields: boolean = true,
+ ) {
   if (!field) {
     return null;
   }
@@ -66,6 +57,6 @@ const FieldErrors = ({
       hasHtmlErrors={hasHtmlErrors}
     />
   );
-};
+}
 
 export default FieldErrors;

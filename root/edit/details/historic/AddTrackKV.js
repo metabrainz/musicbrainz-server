@@ -14,11 +14,7 @@ import formatTrackLength
 import HistoricReleaseList
   from '../../components/HistoricReleaseList.js';
 
-type Props = {
-  +edit: AddTrackKVHistoricEditT,
-};
-
-const AddTrackKV = ({edit}: Props): React$Element<'table'> => {
+component AddTrackKV(edit: AddTrackKVHistoricEditT) {
   const display = edit.display_data;
   const artist = display.artist;
 
@@ -56,6 +52,6 @@ const AddTrackKV = ({edit}: Props): React$Element<'table'> => {
       </tr>
     </table>
   );
-};
+}
 
 export default AddTrackKV;

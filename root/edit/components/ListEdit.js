@@ -16,17 +16,11 @@ import EditNotes from '../components/EditNotes.js';
 import EditSummary from '../components/EditSummary.js';
 import getEditDetailsElement from '../utility/getEditDetailsElement.js';
 
-type Props = {
-  +edit: $ReadOnly<{...EditT, +id: number}>,
-  +index: number,
-  +voter?: UnsanitizedEditorT,
-};
-
-const ListEdit = ({
-  edit,
-  index,
-  voter,
-}: Props): React$Element<'div'> => {
+component ListEdit(
+  edit: $ReadOnly<{...EditT, +id: number}>,
+  index: number,
+  voter?: UnsanitizedEditorT,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const editStatusClass = getEditStatusClass(edit);
   const detailsElement = getEditDetailsElement(edit);
@@ -59,6 +53,6 @@ const ListEdit = ({
       ) : null}
     </div>
   );
-};
+}
 
 export default ListEdit;

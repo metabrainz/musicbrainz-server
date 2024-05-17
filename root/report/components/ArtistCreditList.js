@@ -13,44 +13,41 @@ import ArtistCreditUsageLink
 import loopParity from '../../utility/loopParity.js';
 import type {ReportArtistCreditT} from '../types.js';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportArtistCreditT>,
-  +pager: PagerT,
-};
-
-const ArtistCreditList = ({
-  items,
-  pager,
-}: Props): React$Element<typeof PaginatedResults> => (
-  <PaginatedResults pager={pager}>
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>{l('Artist credit')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.artist_credit_id}>
-            {item.artist_credit ? (
-              <>
-                <td>
-                  <ArtistCreditUsageLink
-                    artistCredit={item.artist_credit}
-                    showEditsPending
-                  />
-                </td>
-              </>
-            ) : (
-              <td>
-                {l('This artist credit no longer exists.')}
-              </td>
-            )}
+component ArtistCreditList(
+  items: $ReadOnlyArray<ReportArtistCreditT>,
+  pager: PagerT,
+) {
+  return (
+    <PaginatedResults pager={pager}>
+      <table className="tbl">
+        <thead>
+          <tr>
+            <th>{l('Artist credit')}</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
-  </PaginatedResults>
-);
+        </thead>
+        <tbody>
+          {items.map((item, index) => (
+            <tr className={loopParity(index)} key={item.artist_credit_id}>
+              {item.artist_credit ? (
+                <>
+                  <td>
+                    <ArtistCreditUsageLink
+                      artistCredit={item.artist_credit}
+                      showEditsPending
+                    />
+                  </td>
+                </>
+              ) : (
+                <td>
+                  {l('This artist credit no longer exists.')}
+                </td>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </PaginatedResults>
+  );
+}
 
 export default ArtistCreditList;

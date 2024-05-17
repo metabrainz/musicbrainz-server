@@ -24,37 +24,17 @@ import type {
 
 import {BatchCreateWorksButtonPopover} from './BatchCreateWorksDialog.js';
 
-type PropsT = {
-  +dialogLocation: RelationshipDialogLocationT | null,
-  +dispatch: (ReleaseRelationshipEditorActionT) => void,
-  +recordingSelectionCount: number,
-  +releaseHasUnloadedTracks: boolean,
-  +workSelectionCount: number,
-};
-
-type BatchAddRelationshipButtonPopoverPropsT = {
-  +batchSelectionCount: number,
-  +buttonClassName: string,
-  +buttonContent: string,
-  +dispatch: (ReleaseRelationshipEditorActionT) => void,
-  +entityPlaceholder: string,
-  +isOpen: boolean,
-  +popoverId: string,
-  +releaseHasUnloadedTracks: boolean,
-  +sourceType: RelatableEntityTypeT,
-};
-
-const BatchAddRelationshipButtonPopover = ({
-  batchSelectionCount,
-  buttonClassName,
-  buttonContent,
-  dispatch,
-  entityPlaceholder,
-  isOpen,
-  popoverId,
-  releaseHasUnloadedTracks,
-  sourceType,
-}: BatchAddRelationshipButtonPopoverPropsT) => {
+component BatchAddRelationshipButtonPopover(
+  batchSelectionCount: number,
+  buttonClassName: string,
+  buttonContent: string,
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  entityPlaceholder: string,
+  isOpen: boolean,
+  popoverId: string,
+  releaseHasUnloadedTracks: boolean,
+  sourceType: RelatableEntityTypeT,
+) {
   const sourcePlaceholder = createRelatableEntityObject(sourceType, {
     name: entityPlaceholder,
   });
@@ -122,15 +102,15 @@ const BatchAddRelationshipButtonPopover = ({
       }
     />
   );
-};
+}
 
-const RelationshipEditorBatchTools = (React.memo<PropsT>(({
-  dialogLocation,
-  dispatch,
-  recordingSelectionCount,
-  releaseHasUnloadedTracks,
-  workSelectionCount,
-}: PropsT): React$Element<'table'> => {
+component _RelationshipEditorBatchTools(
+  dialogLocation: RelationshipDialogLocationT | null,
+  dispatch: (ReleaseRelationshipEditorActionT) => void,
+  recordingSelectionCount: number,
+  releaseHasUnloadedTracks: boolean,
+  workSelectionCount: number,
+) {
   return (
     <table id="batch-tools">
       <tbody>
@@ -183,6 +163,10 @@ const RelationshipEditorBatchTools = (React.memo<PropsT>(({
       </tbody>
     </table>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const RelationshipEditorBatchTools: React$AbstractComponent<
+  React.PropsOf<_RelationshipEditorBatchTools>
+> = React.memo(_RelationshipEditorBatchTools);
 
 export default RelationshipEditorBatchTools;

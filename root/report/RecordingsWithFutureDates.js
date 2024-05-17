@@ -18,14 +18,13 @@ import RecordingList from './components/RecordingList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportRecordingRelationshipT} from './types.js';
 
-const RecordingsWithFutureDates = ({
+component RecordingsWithFutureDates(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingRelationshipT>):
-React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportRecordingRelationshipT>) {
   const extraColumns = React.useMemo(
     () => {
       const beginDateColumn = defineTextColumn<ReportRecordingRelationshipT>({
@@ -68,6 +67,6 @@ React$Element<typeof ReportLayout> => {
       />
     </ReportLayout>
   );
-};
+}
 
 export default RecordingsWithFutureDates;

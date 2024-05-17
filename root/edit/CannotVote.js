@@ -9,13 +9,15 @@
 
 import Layout from '../layout/index.js';
 
-const CannotVote = (): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Error voting on edits')}>
-    <h1>{l('Error voting on edits')}</h1>
-    <p>
-      {l('You’re not currently allowed to vote, please read the banner.')}
-    </p>
-  </Layout>
-);
+component CannotVote() {
+  return (
+    <Layout fullWidth title={l('Error voting on edits')}>
+      <h1>{l('Error voting on edits')}</h1>
+      <p>
+        {l('You’re not currently allowed to vote, please read the banner.')}
+      </p>
+    </Layout>
+  );
+}
 
 export default CannotVote;

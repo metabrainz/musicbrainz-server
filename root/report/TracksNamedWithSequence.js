@@ -11,30 +11,32 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseT} from './types.js';
 
-const TracksNamedWithSequence = ({
+component TracksNamedWithSequence(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report aims to identify releases where track names include
-       their own track number, such as "1) Some Name" (instead of just
-       "Some Name"). Notice that sometimes this is justified and correct,
-       don't automatically assume it is a mistake! If you confirm it
-       is a mistake, please correct it.`,
-    )}
-    entityType="release"
-    filtered={filtered}
-    generated={generated}
-    title={l('Releases where track names start with their track number')}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report aims to identify releases where track names include
+         their own track number, such as "1) Some Name" (instead of just
+         "Some Name"). Notice that sometimes this is justified and correct,
+         don't automatically assume it is a mistake! If you confirm it
+         is a mistake, please correct it.`,
+      )}
+      entityType="release"
+      filtered={filtered}
+      generated={generated}
+      title={l('Releases where track names start with their track number')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default TracksNamedWithSequence;

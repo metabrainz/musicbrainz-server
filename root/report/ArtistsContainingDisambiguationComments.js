@@ -11,27 +11,29 @@ import ArtistList from './components/ArtistList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportArtistT, ReportDataT} from './types.js';
 
-const ArtistsContainingDisambiguationComments = ({
+component ArtistsContainingDisambiguationComments(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report lists artists that may have disambiguation comments
-       in their name, rather than the actual disambiguation comment field.`,
-    )}
-    entityType="artist"
-    filtered={filtered}
-    generated={generated}
-    title={l('Artists containing disambiguation comments in their name')}
-    totalEntries={pager.total_entries}
-  >
-    <ArtistList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportArtistT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report lists artists that may have disambiguation comments
+         in their name, rather than the actual disambiguation comment field.`,
+      )}
+      entityType="artist"
+      filtered={filtered}
+      generated={generated}
+      title={l('Artists containing disambiguation comments in their name')}
+      totalEntries={pager.total_entries}
+    >
+      <ArtistList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default ArtistsContainingDisambiguationComments;

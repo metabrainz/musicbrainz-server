@@ -16,14 +16,12 @@ const makeLink = (
   key: number,
 ) => <EntityLink entity={area} key={key} />;
 
-type Props = {
-  +area: AreaT,
-};
-
-const AreaContainmentLink = ({area}: Props): Expand2ReactOutput | null => (
-  area.containment
-    ? commaOnlyList(area.containment.map(makeLink))
-    : null
-);
+component AreaContainmentLink(area: AreaT) {
+  return (
+    area.containment
+      ? commaOnlyList(area.containment.map(makeLink))
+      : null
+  );
+}
 
 export default AreaContainmentLink;

@@ -32,7 +32,7 @@ type SharedElementProps = {
   name?: string,
   onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   required?: boolean,
-  style?: {},
+  style?: {maxWidth?: string},
 };
 
 type MultipleSelectElementProps = {
@@ -50,53 +50,27 @@ type SelectElementProps = {
   ...
 };
 
-type SharedFieldProps = {
-  +allowEmpty?: boolean,
-  +className?: string,
-  +disabled?: boolean,
-  +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
-  +options: MaybeGroupedOptionsT,
-  +required?: boolean,
-  +uncontrolled?: boolean,
-};
-
-type MultipleSelectFieldProps = {
-  +field: FieldT<?Array<StrOrNum>>,
-  ...SharedFieldProps,
-  ...
-};
-
-type SelectFieldProps = {
-  +field: FieldT<?StrOrNum>,
-  ...SharedFieldProps,
-  ...
-};
-
-export const MultipleSelectField = ({
-  allowEmpty = true,
-  disabled = false,
-  field,
-  onChange,
-  options,
-  required,
-  uncontrolled = false,
-  ...props
-}: MultipleSelectFieldProps): React$Element<'select'> => {
-  const selectProps: MultipleSelectElementProps = {...props, multiple: true};
+export component MultipleSelectField(
+  allowEmpty: boolean = true,
+  field: FieldT<?Array<StrOrNum>>,
+  options: MaybeGroupedOptionsT,
+  uncontrolled: boolean = false,
+  ...passedSelectProps: MultipleSelectElementProps
+) {
+  const selectProps = {...passedSelectProps, multiple: true};
 
   if (selectProps.className === undefined) {
     selectProps.className = 'with-button';
   }
 
-  selectProps.disabled = disabled;
+  selectProps.disabled = passedSelectProps.disabled || false;
   selectProps.id = 'id-' + field.html_name;
   selectProps.name = field.html_name;
-  selectProps.required = required;
 
   if (uncontrolled) {
     selectProps.defaultValue = field.value || [];
+    selectProps.onChange = undefined;
   } else {
-    selectProps.onChange = onChange;
     selectProps.value = field.value || [];
   }
 
@@ -110,33 +84,29 @@ export const MultipleSelectField = ({
         : options.options.map(buildOption)}
     </select>
   );
-};
+}
 
-const SelectField = ({
-  allowEmpty = true,
-  disabled = false,
-  field,
-  onChange,
-  options,
-  required,
-  uncontrolled = false,
-  ...props
-}: SelectFieldProps): React$Element<'select'> => {
-  const selectProps: SelectElementProps = props;
+component SelectField(
+  allowEmpty: boolean = true,
+  field: FieldT<?StrOrNum>,
+  options: MaybeGroupedOptionsT,
+  uncontrolled: boolean = false,
+  ...passedSelectProps: SelectElementProps
+ ) {
+  const selectProps = {...passedSelectProps};
 
   if (selectProps.className === undefined) {
     selectProps.className = 'with-button';
   }
 
-  selectProps.disabled = disabled;
+  selectProps.disabled = passedSelectProps.disabled || false;
   selectProps.id = 'id-' + field.html_name;
   selectProps.name = field.html_name;
-  selectProps.required = required;
 
   if (uncontrolled) {
     selectProps.defaultValue = getSelectValue(field, options, allowEmpty);
+    selectProps.onChange = undefined;
   } else {
-    selectProps.onChange = onChange;
     selectProps.value = getSelectValue(field, options, allowEmpty);
   }
 
@@ -150,6 +120,6 @@ const SelectField = ({
         : options.options.map(buildOption)}
     </select>
   );
-};
+}
 
 export default SelectField;

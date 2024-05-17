@@ -11,30 +11,31 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseT} from './types.js';
 
-const ReleasesWithCaaNoTypes = ({
+component ReleasesWithCaaNoTypes(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows releases which have cover art in the Cover Art
-       Archive, but where none of it has any types set. This often means
-       a front cover was added, but not marked as such.`,
-    )}
-    entityType="release"
-    filtered={filtered}
-    generated={generated}
-    title={l(
-      'Releases in the Cover Art Archive where no cover art piece has types',
-    )}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows releases which have cover art in the Cover Art
+         Archive, but where none of it has any types set. This often means
+         a front cover was added, but not marked as such.`,
+      )}
+      entityType="release"
+      filtered={filtered}
+      generated={generated}
+      title={l(`Releases in the Cover Art Archive
+                where no cover art piece has types`)}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default ReleasesWithCaaNoTypes;

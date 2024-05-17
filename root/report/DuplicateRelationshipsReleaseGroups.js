@@ -11,27 +11,29 @@ import ReleaseGroupList from './components/ReleaseGroupList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseGroupT} from './types.js';
 
-const DuplicateRelationshipsReleaseGroups = ({
+component DuplicateRelationshipsReleaseGroups(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseGroupT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report lists release groups which have multiple relationships
-       to the same entity using the same relationship type.`,
-    )}
-    entityType="release_group"
-    filtered={filtered}
-    generated={generated}
-    title={l('Release groups with possible duplicate relationships')}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseGroupList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseGroupT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report lists release groups which have multiple relationships
+         to the same entity using the same relationship type.`,
+      )}
+      entityType="release_group"
+      filtered={filtered}
+      generated={generated}
+      title={l('Release groups with possible duplicate relationships')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseGroupList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default DuplicateRelationshipsReleaseGroups;

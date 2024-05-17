@@ -26,15 +26,7 @@ function buildTaggerLink(
   return `http://127.0.0.1:${tport}/${path}?id=${gid}`;
 }
 
-type Props = {
-  +entityType: 'recording' | 'release',
-  +gid: string,
-};
-
-const TaggerIcon = ({
-  entityType,
-  gid,
-}: Props): React$MixedElement | null => {
+component TaggerIcon(entityType: 'recording' | 'release', gid: string) {
   const $c = React.useContext(SanitizedCatalystContext);
 
   const tport = $c.session?.tport;
@@ -84,11 +76,11 @@ const TaggerIcon = ({
       />
     </a>
   );
-};
+}
 
 export default (
-  hydrate<Props>(
+  hydrate<React.PropsOf<TaggerIcon>>(
     'span.tagger-icon',
     TaggerIcon,
-  ): React$AbstractComponent<Props, void>
+  ): React$AbstractComponent<React.PropsOf<TaggerIcon>, void>
 );

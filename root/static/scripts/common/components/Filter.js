@@ -14,12 +14,7 @@ import setCookie from '../utility/setCookie.js';
 
 import FilterForm, {type FilterFormT} from './FilterForm.js';
 
-type Props = {
-  +ajaxFormUrl: string,
-  +initialFilterForm: ?FilterFormT,
-};
-
-const Filter = ({ajaxFormUrl, initialFilterForm}: Props) => {
+component Filter(ajaxFormUrl: string, initialFilterForm: ?FilterFormT) {
   const [filterForm, setFilterForm] = React.useState<?FilterFormT>(
     initialFilterForm,
   );
@@ -70,9 +65,9 @@ const Filter = ({ajaxFormUrl, initialFilterForm}: Props) => {
       ) : null}
     </>
   );
-};
+}
 
 export default (
-  hydrate<Props>('div.filter', Filter):
-  React$AbstractComponent<Props, void>
+  hydrate<React.PropsOf<Filter>>('div.filter', Filter):
+  React$AbstractComponent<React.PropsOf<Filter>>
 );

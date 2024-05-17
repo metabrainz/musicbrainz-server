@@ -10,46 +10,31 @@
 import FieldErrors from './FieldErrors.js';
 import FormRow from './FormRow.js';
 
-type CommonProps = {
-  +disabled?: boolean,
-  +field: FieldT<boolean>,
-  +hasNoLabel?: boolean,
-  +hasNoMargin?: boolean,
-  +help?: React$Node,
-  +label: React$Node,
-};
-
-type Props =
+type ControlledPropsT =
   | $ReadOnly<{
-      ...CommonProps,
       onChange: (event: SyntheticEvent<HTMLInputElement>) => void,
       uncontrolled?: false,
     }>
-  | $ReadOnly<{
-      ...CommonProps,
-      onChange?: void,
-      uncontrolled: true,
-    }>;
+  | $ReadOnly<{onChange?: void, uncontrolled: true}>;
 
-const FormRowCheckbox = ({
-  disabled,
-  field,
-  hasNoLabel = true,
-  hasNoMargin = false,
-  help,
-  label,
-  onChange,
-  uncontrolled,
-}: Props): React$Element<typeof FormRow> => {
+component FormRowCheckbox(
+  disabled?: boolean,
+  field: FieldT<boolean>,
+  hasNoLabel: boolean = true,
+  hasNoMargin: boolean = false,
+  help?: React$Node,
+  label: React$Node,
+  ...controlledProps: ControlledPropsT
+) {
   const extraProps: {
     checked?: boolean,
     defaultChecked?: boolean,
     onChange?: (event: SyntheticEvent<HTMLInputElement>) => void,
   } = {};
-  if (uncontrolled) {
+  if (controlledProps.uncontrolled /*:: === true */) {
     extraProps.defaultChecked = field.value;
   } else {
-    extraProps.onChange = onChange;
+    extraProps.onChange = controlledProps.onChange;
     extraProps.checked = field.value;
   }
 
@@ -63,7 +48,6 @@ const FormRowCheckbox = ({
           disabled={disabled}
           id={'id-' + String(field.html_name)}
           name={field.html_name}
-          onChange={onChange}
           type="checkbox"
           value="1"
           {...extraProps}
@@ -79,6 +63,6 @@ const FormRowCheckbox = ({
       ) : null}
     </FormRow>
   );
-};
+}
 
 export default FormRowCheckbox;

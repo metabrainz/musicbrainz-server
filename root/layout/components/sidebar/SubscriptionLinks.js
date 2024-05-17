@@ -14,13 +14,7 @@ import EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
 import {returnToCurrentPage} from '../../../utility/returnUri.js';
 
-type Props = {
-  +entity: SubscribableEntityWithSidebarT,
-};
-
-const SubscriptionLinks = ({
-  entity,
-}: Props): React.MixedElement => {
+component SubscriptionLinks(entity: SubscribableEntityWithSidebarT) {
   const $c = React.useContext(CatalystContext);
   const entityType = entity.entityType;
   const id = encodeURIComponent(String(entity.id));
@@ -63,6 +57,6 @@ const SubscriptionLinks = ({
       </ul>
     </>
   );
-};
+}
 
 export default SubscriptionLinks;

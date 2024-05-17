@@ -184,11 +184,7 @@ function workDescription(work: WorkT) {
   return desc;
 }
 
-type Props = {
-  +entity: ?RelatableEntityT,
-};
-
-const MetaDescription = ({entity}: Props): React$Element<'meta'> | null => {
+component MetaDescription(entity: ?RelatableEntityT) {
   if (!entity) {
     return null;
   }
@@ -220,6 +216,6 @@ const MetaDescription = ({entity}: Props): React$Element<'meta'> | null => {
     return <meta content={desc.join(', ')} name="description" />;
   }
   return null;
-};
+}
 
 export default MetaDescription;

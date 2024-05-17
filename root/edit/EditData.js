@@ -16,21 +16,17 @@ import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName.js';
 import {getEditStatusName} from '../utility/edit.js';
 
-type Props = {
-  +edit: GenericEditWithIdT,
-  +rawData: string,
-  +relatedEntities: {
-    +[type: EditableEntityTypeT]: {
-      +[entityId: string]: EditableEntityT,
-    },
+type RelatedEntitiesT = {
+  +[type: EditableEntityTypeT]: {
+    +[entityId: string]: EditableEntityT,
   },
 };
 
-const EditData = ({
-  edit,
-  rawData,
-  relatedEntities,
-}: Props): React$Element<typeof Layout> => {
+component EditData(
+  edit: GenericEditWithIdT,
+  rawData: string,
+  relatedEntities: RelatedEntitiesT,
+) {
   const title = texp.l('Edit data for edit #{id}', {id: edit.id});
   const relatedEntityTypes = Object.keys(relatedEntities).sort();
 
@@ -99,6 +95,6 @@ const EditData = ({
       </p>
     </Layout>
   );
-};
+}
 
 export default EditData;

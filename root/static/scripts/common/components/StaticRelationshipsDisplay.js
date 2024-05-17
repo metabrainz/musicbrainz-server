@@ -54,15 +54,11 @@ function getTrackRanges(trackSet: Set<TrackT>) {
   return commaOnlyListText(ranges.map(formatTrackRange));
 }
 
-type PropsT = {
-  +hiddenArtistCredit?: ?ArtistCreditT,
-  +relationships: $ReadOnlyArray<RelationshipTargetTypeGroupT>,
-};
-
-const StaticRelationshipsDisplay = (React.memo<PropsT>(({
-  hiddenArtistCredit,
-  relationships: groupedRelationships,
-}: PropsT): Array<React$Element<'table'>> => {
+component _StaticRelationshipsDisplay(
+  hiddenArtistCredit?: ?ArtistCreditT,
+  relationships as groupedRelationships:
+    $ReadOnlyArray<RelationshipTargetTypeGroupT>,
+) {
   const tables = [];
 
   for (let i = 0; i < groupedRelationships.length; i++) {
@@ -143,6 +139,10 @@ const StaticRelationshipsDisplay = (React.memo<PropsT>(({
   }
 
   return tables;
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const StaticRelationshipsDisplay: React$AbstractComponent<
+  React.PropsOf<_StaticRelationshipsDisplay>
+> = React.memo(_StaticRelationshipsDisplay);
 
 export default StaticRelationshipsDisplay;

@@ -12,11 +12,7 @@ import DescriptiveLink
 import WordDiff
   from '../../../static/scripts/edit/components/edit/WordDiff.js';
 
-type Props = {
-  +edit: EditTrackHistoricEditT,
-};
-
-const EditTrack = ({edit}: Props): React$Element<'table'> => {
+component EditTrack(edit: EditTrackHistoricEditT) {
   const display = edit.display_data;
   const artist = display.artist;
   const position = display.position;
@@ -51,6 +47,6 @@ const EditTrack = ({edit}: Props): React$Element<'table'> => {
       ) : null}
     </table>
   );
-};
+}
 
 export default EditTrack;

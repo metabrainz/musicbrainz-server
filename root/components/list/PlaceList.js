@@ -23,23 +23,14 @@ import {
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
 
-type Props = {
-  +checkboxes?: string,
-  +mergeForm?: MergeFormT,
-  +order?: string,
-  +places: $ReadOnlyArray<PlaceT>,
-  +showRatings?: boolean,
-  +sortable?: boolean,
-};
-
-const PlaceList = ({
-  checkboxes,
-  mergeForm,
-  order,
-  places,
-  showRatings = false,
-  sortable,
-}: Props): React$Element<'table'> => {
+component PlaceList(
+  checkboxes?: string,
+  mergeForm?: MergeFormT,
+  order?: string,
+  places: $ReadOnlyArray<PlaceT>,
+  showRatings: boolean = false,
+  sortable?: boolean,
+) {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -100,6 +91,6 @@ const PlaceList = ({
   );
 
   return useTable<PlaceT>({columns, data: places});
-};
+}
 
 export default PlaceList;

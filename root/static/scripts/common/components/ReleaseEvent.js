@@ -12,24 +12,20 @@ import isDateEmpty from '../utility/isDateEmpty.js';
 
 import EntityLink from './EntityLink.js';
 
-type Props = {
-  +event: ReleaseEventT,
-};
-
-const ReleaseEvent = ({
-  event,
-}: Props): React.MixedElement => (
-  <>
-    {isDateEmpty(event.date) ? null : (
-      <>
-        <span className="release-date">
-          {formatDate(event.date)}
-        </span>
-        {' '}
-      </>
-    )}
-    {event.country ? <EntityLink entity={event.country} /> : null}
-  </>
-);
+component ReleaseEvent(event: ReleaseEventT) {
+  return (
+    <>
+      {isDateEmpty(event.date) ? null : (
+        <>
+          <span className="release-date">
+            {formatDate(event.date)}
+          </span>
+          {' '}
+        </>
+      )}
+      {event.country ? <EntityLink entity={event.country} /> : null}
+    </>
+  );
+}
 
 export default ReleaseEvent;

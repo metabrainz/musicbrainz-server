@@ -12,33 +12,27 @@ import EntityLink
 import RatingStars
   from '../../../static/scripts/common/components/RatingStars.js';
 
-type Props = {
-  +entity: RatableT,
-  +heading?: string,
-};
-
-const SidebarRating = ({
-  entity,
-  heading,
-}: Props): React.MixedElement => (
-  <>
-    <h2 className="rating">{nonEmpty(heading) ? heading : l('Rating')}</h2>
-    <p>
-      <RatingStars entity={entity} />
-      {/* $FlowIgnore[sketchy-null-number] */}
-      {entity.rating_count ? (
-        <>
-          {' ('}
-          <EntityLink
-            content={l('see all ratings')}
-            entity={entity}
-            subPath="ratings"
-          />
-          {')'}
-        </>
-      ) : null}
-    </p>
-  </>
-);
+component SidebarRating(entity: RatableT, heading?: string) {
+  return (
+    <>
+      <h2 className="rating">{nonEmpty(heading) ? heading : l('Rating')}</h2>
+      <p>
+        <RatingStars entity={entity} />
+        {/* $FlowIgnore[sketchy-null-number] */}
+        {entity.rating_count ? (
+          <>
+            {' ('}
+            <EntityLink
+              content={l('see all ratings')}
+              entity={entity}
+              subPath="ratings"
+            />
+            {')'}
+          </>
+        ) : null}
+      </p>
+    </>
+  );
+}
 
 export default SidebarRating;

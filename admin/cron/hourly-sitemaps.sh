@@ -14,13 +14,9 @@ cd "$MB_SERVER_ROOT"
 . ./admin/functions.sh
 make_temp_dir
 
-# Create a clean test database from which to dump foreign keys.
-export REPLICATION_TYPE=3 # RT_STANDALONE
-./script/create_test_db.sh TEST
-
 FK_DUMP="$TEMP_DIR"/foreign_keys
 ./script/dump_foreign_keys.pl \
-    --database TEST \
+    --database READONLY \
     --output "$FK_DUMP"
 
 ./admin/BuildIncrementalSitemaps.pl \

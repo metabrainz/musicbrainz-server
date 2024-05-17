@@ -17,21 +17,13 @@ import {
   defineEntityColumn,
 } from '../../utility/tableColumns.js';
 
-type Props<D: {+release: ?ReleaseT, ...}> = {
-  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +items: $ReadOnlyArray<D>,
-  +pager: PagerT,
-  +subPath?: string,
-};
-
-const ReleaseList = <D: {+release: ?ReleaseT, ...}>({
-  columnsBefore,
-  columnsAfter,
-  items,
-  pager,
-  subPath,
-}: Props<D>): React$Element<typeof PaginatedResults> => {
+component ReleaseList<D: {+release: ?ReleaseT, ...}>(
+  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  items: $ReadOnlyArray<D>,
+  pager: PagerT,
+  subPath?: string,
+) {
   const existingReleaseItems = items.reduce((
     result: Array<D>,
     item,
@@ -75,6 +67,6 @@ const ReleaseList = <D: {+release: ?ReleaseT, ...}>({
       {table}
     </PaginatedResults>
   );
-};
+}
 
 export default ReleaseList;

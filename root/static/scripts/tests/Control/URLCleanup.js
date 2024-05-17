@@ -804,6 +804,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'label'],
   },
   {
+                     input_url: 'https://dailythompsonband.bandcamp.com/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'bandcamp',
+            expected_clean_url: 'https://dailythompsonband.bandcamp.com/',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
                      input_url: 'https://bandcamp.com/tag/ambient-noise-wall?tab=highlights',
              input_entity_type: 'genre',
     expected_relationship_type: 'bandcamp',
@@ -3578,10 +3585,10 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['event'],
   },
   {
-                     input_url: 'https://www.livenation.com/event/vvG1YZ9E0hGPpD/the-smashing-pumpkins-the-world-is-a-vampire-tour',
+                     input_url: 'https://www.livenation.com/event/1A_Zkv-Gketafdb/conan-gray-found-heaven-on-tour',
              input_entity_type: 'event',
     expected_relationship_type: 'ticketing',
-            expected_clean_url: 'https://www.livenation.com/event/vvG1YZ9E0hGPpD',
+            expected_clean_url: 'https://www.livenation.com/event/1A_Zkv-Gketafdb',
        only_valid_entity_types: ['event'],
   },
   {
@@ -4433,6 +4440,13 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://operabase.com/a101303',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.operabase.com/bbc-symphony-orchestra-o10152/en',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://operabase.com/o10152',
        only_valid_entity_types: ['artist'],
   },
   {
@@ -5568,6 +5582,13 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
              input_entity_type: 'event',
     expected_relationship_type: 'ticketing',
             expected_clean_url: 'https://www.ticketmaster.com/event/00005ED3057A881F',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.com/event/Z7r9jZ1A7FeqE',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.com/event/Z7r9jZ1A7FeqE',
        only_valid_entity_types: ['event'],
   },
   {

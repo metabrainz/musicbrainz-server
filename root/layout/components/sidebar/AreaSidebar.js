@@ -30,11 +30,7 @@ import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 
-type Props = {
-  +area: AreaT,
-};
-
-const AreaSidebar = ({area}: Props): React$Element<'div'> => {
+component AreaSidebar(area: AreaT) {
   const $c = React.useContext(CatalystContext);
   const areaAge = age.age(area);
 
@@ -120,6 +116,6 @@ const AreaSidebar = ({area}: Props): React$Element<'div'> => {
       <LastUpdated entity={area} />
     </div>
   );
-};
+}
 
 export default AreaSidebar;

@@ -28,10 +28,6 @@ import FullChangeDiff from
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 
-type Props = {
-  +edit: EditRelationshipTypeEditT,
-};
-
 function formatLongLinkPhrase(longLinkPhrase: string): string {
   let formattedPhrase = longLinkPhrase;
   if (longLinkPhrase && !longLinkPhrase.match('{entity0}')) {
@@ -88,9 +84,7 @@ function formatExample(
   );
 }
 
-const EditRelationshipType = ({
-  edit,
-}: Props): React.MixedElement => {
+component EditRelationshipType(edit: EditRelationshipTypeEditT) {
   const display = edit.display_data;
   const name = display.name;
   const oldDescription = display.description?.old ?? '';
@@ -350,6 +344,6 @@ const EditRelationshipType = ({
       </table>
     </>
   );
-};
+}
 
 export default EditRelationshipType;

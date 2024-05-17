@@ -230,7 +230,7 @@ export function createInitialState<T: EntityItemT>(
   return state;
 }
 
-type AutocompleteItemPropsT<T: EntityItemT> = {
+component _AutocompleteItem<T: EntityItemT>(
   autocompleteId: string,
   dispatch: (ActionT<T>) => void,
   formatOptions?: ?FormatOptionsT,
@@ -239,18 +239,7 @@ type AutocompleteItemPropsT<T: EntityItemT> = {
   isSelected: boolean,
   item: ItemT<T>,
   selectItem: (ItemT<T>) => boolean,
-};
-
-const AutocompleteItem = React.memo(<T: EntityItemT>({
-  autocompleteId,
-  dispatch,
-  formatOptions,
-  index,
-  isHighlighted,
-  isSelected,
-  item,
-  selectItem,
-}: AutocompleteItemPropsT<T>): React$MixedElement => {
+) {
   const itemId = `${autocompleteId}-item-${item.id}`;
   const isDisabled = !!item.disabled;
   const isSeparator = !!item.separator;
@@ -309,11 +298,11 @@ const AutocompleteItem = React.memo(<T: EntityItemT>({
       {formatItem<T>(item, formatOptions)}
     </li>
   );
-});
+}
 
-const Autocomplete2 = (React.memo(<T: EntityItemT>(
-  props: PropsT<T>,
-): React$Element<'div'> => {
+const AutocompleteItem = React.memo(_AutocompleteItem);
+
+component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
   const {dispatch, state} = props;
 
   const {
@@ -875,8 +864,11 @@ const Autocomplete2 = (React.memo(<T: EntityItemT>(
       ) : null}
     </div>
   );
+}
+
 // $FlowIgnore[unclear-type]
-}): React$AbstractComponent<PropsT<any>, void>);
+const Autocomplete2: React$AbstractComponent<PropsT<any>, mixed> =
+  React.memo(_Autocomplete2);
 
 export default Autocomplete2;
 

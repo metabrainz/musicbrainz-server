@@ -15,13 +15,13 @@ import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportCollaborationT, ReportDataT} from './types.js';
 
-const CollaborationRelationships = ({
+component CollaborationRelationships(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportCollaborationT>): React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportCollaborationT>) {
   let lastID = 0;
   let currentID = 0;
 
@@ -88,6 +88,6 @@ const CollaborationRelationships = ({
       </PaginatedResults>
     </ReportLayout>
   );
-};
+}
 
 export default CollaborationRelationships;

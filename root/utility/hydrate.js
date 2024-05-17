@@ -99,7 +99,7 @@ export default function hydrate<
   SanitizedConfig = Config,
 >(
   containerSelector: string,
-  Component: React$AbstractComponent<Config | SanitizedConfig, void>,
+  Component: React$AbstractComponent<Config | SanitizedConfig>,
   mungeProps?: (Config) => SanitizedConfig,
 ): React$AbstractComponent<Config, void> {
   const [containerTag, ...classes] = containerSelector.split('.');

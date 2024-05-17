@@ -11,27 +11,29 @@ import RecordingList from './components/RecordingList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportRecordingT} from './types.js';
 
-const DuplicateRelationshipsRecordings = ({
+component DuplicateRelationshipsRecordings(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report lists recordings which have multiple relationships
-       to the same entity using the same relationship type.`,
-    )}
-    entityType="recording"
-    filtered={filtered}
-    generated={generated}
-    title={l('Recordings with possible duplicate relationships')}
-    totalEntries={pager.total_entries}
-  >
-    <RecordingList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportRecordingT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report lists recordings which have multiple relationships
+         to the same entity using the same relationship type.`,
+      )}
+      entityType="recording"
+      filtered={filtered}
+      generated={generated}
+      title={l('Recordings with possible duplicate relationships')}
+      totalEntries={pager.total_entries}
+    >
+      <RecordingList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default DuplicateRelationshipsRecordings;

@@ -15,32 +15,33 @@ import PlaceList from './components/PlaceList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportPlaceRelationshipT} from './types.js';
 
-const DeprecatedRelationshipPlaces = ({
+component DeprecatedRelationshipPlaces(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportPlaceRelationshipT>):
-React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report lists places which have relationships using
-       deprecated and grouping-only relationship types.`,
-    )}
-    entityType="place"
-    filtered={filtered}
-    generated={generated}
-    title={l('Places with deprecated relationships')}
-    totalEntries={pager.total_entries}
-  >
-    <PlaceList
-      columnsBefore={[relTypeColumn]}
-      items={items}
-      pager={pager}
-    />
-  </ReportLayout>
-);
+}: ReportDataT<ReportPlaceRelationshipT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report lists places which have relationships using
+        deprecated and grouping-only relationship types.`,
+      )}
+      entityType="place"
+      filtered={filtered}
+      generated={generated}
+      title={l('Places with deprecated relationships')}
+      totalEntries={pager.total_entries}
+    >
+      <PlaceList
+        columnsBefore={[relTypeColumn]}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+}
 
 export default DeprecatedRelationshipPlaces;

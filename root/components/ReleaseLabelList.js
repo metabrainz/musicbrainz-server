@@ -15,15 +15,11 @@ const displayLabel = (label: LabelT) => (
   <EntityLink entity={label} />
 );
 
-type ReleaseLabelsProps = {
-  +labels: ?$ReadOnlyArray<ReleaseLabelT>,
-};
-
 const getLabelGid = (x: LabelT) => x.gid;
 
-const ReleaseLabelList = ({
-  labels: releaseLabels,
-}: ReleaseLabelsProps): Expand2ReactOutput | null => {
+component ReleaseLabelList(
+  labels as releaseLabels: ?$ReadOnlyArray<ReleaseLabelT>,
+) {
   if (!releaseLabels || !releaseLabels.length) {
     return null;
   }
@@ -35,6 +31,6 @@ const ReleaseLabelList = ({
     }
   }
   return commaOnlyList(uniqBy(labels, getLabelGid).map(displayLabel));
-};
+}
 
 export default ReleaseLabelList;

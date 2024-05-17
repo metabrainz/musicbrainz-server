@@ -23,13 +23,7 @@ import {
 } from '../../utility/edit.js';
 import formatUserDate from '../../utility/formatUserDate.js';
 
-type Props = {
-  +edit: GenericEditWithIdT,
-};
-
-const EditSidebar = ({
-  edit,
-}: Props): React$Element<'div'> => {
+component EditSidebar(edit: GenericEditWithIdT) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <div id="sidebar">
@@ -100,6 +94,6 @@ const EditSidebar = ({
       </ul>
     </div>
   );
-};
+}
 
 export default EditSidebar;

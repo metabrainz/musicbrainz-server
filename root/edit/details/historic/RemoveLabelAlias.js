@@ -7,17 +7,15 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-type Props = {
-  +edit: RemoveLabelAliasHistoricEditT,
-};
-
-const RemoveLabelAlias = ({edit}: Props): React$Element<'table'> => (
-  <table className="details remove-label-alias">
-    <tr>
-      <th>{addColonText(l('Alias'))}</th>
-      <td>{edit.display_data.alias}</td>
-    </tr>
-  </table>
-);
+component RemoveLabelAlias(edit: RemoveLabelAliasHistoricEditT) {
+  return (
+    <table className="details remove-label-alias">
+      <tr>
+        <th>{addColonText(l('Alias'))}</th>
+        <td>{edit.display_data.alias}</td>
+      </tr>
+    </table>
+  );
+}
 
 export default RemoveLabelAlias;

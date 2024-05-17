@@ -11,26 +11,24 @@ import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
 import HistoricReleaseList from '../../components/HistoricReleaseList.js';
 
-type Props = {
-  +edit: ChangeReleaseArtistHistoricEditT,
-};
-
-const ChangeReleaseArtist = ({edit}: Props): React$Element<'table'> => (
-  <table className="details change-release-artist">
-    <HistoricReleaseList
-      colSpan="2"
-      releases={edit.display_data.releases}
-    />
-    <tr>
-      <th>{addColonText(l('Artist'))}</th>
-      <td className="old">
-        <DescriptiveLink entity={edit.display_data.artist.old} />
-      </td>
-      <td className="new">
-        <DescriptiveLink entity={edit.display_data.artist.new} />
-      </td>
-    </tr>
-  </table>
-);
+component ChangeReleaseArtist(edit: ChangeReleaseArtistHistoricEditT) {
+  return (
+    <table className="details change-release-artist">
+      <HistoricReleaseList
+        colSpan="2"
+        releases={edit.display_data.releases}
+      />
+      <tr>
+        <th>{addColonText(l('Artist'))}</th>
+        <td className="old">
+          <DescriptiveLink entity={edit.display_data.artist.old} />
+        </td>
+        <td className="new">
+          <DescriptiveLink entity={edit.display_data.artist.new} />
+        </td>
+      </tr>
+    </table>
+  );
+}
 
 export default ChangeReleaseArtist;

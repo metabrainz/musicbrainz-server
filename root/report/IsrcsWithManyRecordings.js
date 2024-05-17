@@ -20,13 +20,13 @@ import formatTrackLength
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportIsrcT} from './types.js';
 
-const IsrcsWithManyRecordings = ({
+component IsrcsWithManyRecordings(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportIsrcT>): React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportIsrcT>) {
   let lastIsrc: string = '';
   let currentIsrc: string = '';
 
@@ -108,6 +108,6 @@ const IsrcsWithManyRecordings = ({
       </PaginatedResults>
     </ReportLayout>
   );
-};
+}
 
 export default IsrcsWithManyRecordings;

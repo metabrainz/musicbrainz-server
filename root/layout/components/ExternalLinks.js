@@ -30,21 +30,13 @@ function faviconClass(urlEntity: UrlT) {
   return (matchingClass || 'no') + '-favicon';
 }
 
-type ExternalLinkProps = {
-  +className?: string,
-  +editsPending: boolean,
-  +entityCredit: string,
-  +text?: string,
-  +url: UrlT,
-};
-
-const ExternalLink = ({
-  className,
-  editsPending,
-  entityCredit,
-  text,
-  url,
-}: ExternalLinkProps) => {
+component ExternalLink(
+  className?: string,
+  editsPending: boolean,
+  entityCredit: string,
+  text?: string,
+  url: UrlT,
+) {
   let element: Expand2ReactOutput = (
     <a href={url.href_url}>
       {nonEmpty(text) ? text : url.sidebar_name}
@@ -71,19 +63,13 @@ const ExternalLink = ({
       {element}
     </li>
   );
-};
+}
 
-type Props = {
+component ExternalLinks(
   empty: boolean,
   entity: RelatableEntityT,
   heading?: string,
-};
-
-const ExternalLinks = ({
-  entity,
-  empty,
-  heading,
-}: Props): React$MixedElement | null => {
+) {
   const relationships = entity.relationships;
   if (!relationships) {
     return null;
@@ -183,6 +169,6 @@ const ExternalLinks = ({
       </ul>
     </>
   );
-};
+}
 
 export default ExternalLinks;

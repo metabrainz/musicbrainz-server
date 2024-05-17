@@ -7,9 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const ReleaseLanguageScript = ({
-  release,
-}: {release: ReleaseT}): React.MixedElement => {
+component ReleaseLanguageScript(release: ReleaseT) {
   const language = release.language;
   const script = release.script;
 
@@ -28,6 +26,6 @@ const ReleaseLanguageScript = ({
       ) : lp('-', 'missing data')}
     </>
   );
-};
+}
 
 export default ReleaseLanguageScript;

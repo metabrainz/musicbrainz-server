@@ -13,13 +13,7 @@ import {CatalystContext} from '../../../context.mjs';
 import entityHref from '../../../static/scripts/common/utility/entityHref.js';
 import returnUri from '../../../utility/returnUri.js';
 
-type Props = {
-  +entity: AnnotatedEntityT,
-};
-
-const AnnotationLinks = ({
-  entity,
-}: Props): React.MixedElement => {
+component AnnotationLinks(entity: AnnotatedEntityT) {
   const $c = React.useContext(CatalystContext);
   const numberOfRevisions = $c.stash.number_of_revisions ?? 0;
 
@@ -47,6 +41,6 @@ const AnnotationLinks = ({
       ) : null}
     </>
   );
-};
+}
 
 export default AnnotationLinks;

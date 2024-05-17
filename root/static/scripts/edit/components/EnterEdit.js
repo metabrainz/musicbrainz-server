@@ -7,43 +7,29 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-type CommonProps = {
-  +children?: React$Node,
-  +childrenFirst?: boolean,
-  +disabled?: boolean,
-  +form: FormT<{
-    +make_votable: FieldT<boolean>,
-    ...
-  }>,
-};
-
-type Props =
+type ControlledPropsT =
   | $ReadOnly<{
-      ...CommonProps,
       controlled: true,
       onChange: (event: SyntheticEvent<HTMLInputElement>) => void,
     }>
-  | $ReadOnly<{
-      ...CommonProps,
-      controlled?: false,
-    }>;
+  | $ReadOnly<{controlled?: false}>;
 
-const EnterEdit = ({
-  children,
-  childrenFirst = false,
-  disabled = false,
-  form,
-  ...otherProps
-}: Props): React$MixedElement => {
+component EnterEdit(
+  children?: React$Node,
+  childrenFirst: boolean = false,
+  disabled: boolean = false,
+  form: FormT<{+make_votable: FieldT<boolean>, ...}>,
+  ...controlledProps: ControlledPropsT
+) {
   const isMakeVotableChecked = form.field.make_votable.value;
   const makeVotableProps: {
     checked?: boolean,
     defaultChecked?: boolean,
     onChange?: (event: SyntheticEvent<HTMLInputElement>) => void,
   } = {};
-  if (otherProps.controlled) {
+  if (controlledProps.controlled /*:: === true */) {
     makeVotableProps.checked = isMakeVotableChecked;
-    makeVotableProps.onChange = otherProps.onChange;
+    makeVotableProps.onChange = controlledProps.onChange;
   } else {
     makeVotableProps.defaultChecked = isMakeVotableChecked;
   }
@@ -77,6 +63,6 @@ const EnterEdit = ({
       </div>
     </>
   );
-};
+}
 
 export default EnterEdit;
