@@ -180,6 +180,10 @@ function getEntityName(
   }
 }
 
+const _recentItemsRequests =
+  // $FlowIgnore[unclear-type]
+  new Map<string, Promise<Array<OptionItemT<any>>>>();
+
 export async function getOrFetchRecentItems<T: EntityItemT>(
   entityType: string,
   key?: string = entityType,
@@ -217,36 +221,47 @@ export async function getOrFetchRecentItems<T: EntityItemT>(
   if (ids.size) {
     const rowIds = _filterFakeIds(ids);
     if (rowIds.length) {
-      return fetch(
+      let fetchPromise = _recentItemsRequests.get(key);
+      if (fetchPromise) {
+        return fetchPromise;
+      }
+      fetchPromise = fetch(
         '/ws/js/entities/' +
         entityType + '/' +
         rowIds.join('+'),
-      ).then((resp) => {
-        if (!resp.ok) {
-          return null;
-        }
-        return resp.json();
-      }).then((data: WsJsEntitiesDataT<T> | null) => {
-        if (!data) {
-          return cachedList;
-        }
-
-        const results = data.results;
-
-        for (const id of ids) {
-          const entity = results[id];
-          if (entity && entity.entityType === entityType) {
-            cachedList.push({
-              entity,
-              id: String(entity.id) + '-recent',
-              name: getEntityName(entity),
-              type: 'option',
-            });
+      )
+        .then((resp) => {
+          if (!resp.ok) {
+            return null;
           }
-        }
+          return resp.json();
+        })
+        .then((data: WsJsEntitiesDataT<T> | null) => {
+          if (!data) {
+            return cachedList;
+          }
 
-        return cachedList;
-      });
+          const results = data.results;
+
+          for (const id of ids) {
+            const entity = results[id];
+            if (entity && entity.entityType === entityType) {
+              cachedList.push({
+                entity,
+                id: String(entity.id) + '-recent',
+                name: getEntityName(entity),
+                type: 'option',
+              });
+            }
+          }
+
+          return cachedList;
+        })
+        .finally(() => {
+          _recentItemsRequests.delete(key);
+        });
+
+      _recentItemsRequests.set(key, fetchPromise);
     }
   }
 
