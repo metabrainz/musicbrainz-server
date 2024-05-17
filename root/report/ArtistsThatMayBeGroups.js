@@ -24,10 +24,14 @@ component ArtistsThatMayBeGroups(...{
       description={l(
         `This report lists artists that have their type set to other
          than Group (or a subtype of Group) but may be a group,
-         because they have other artists listed as members. If you find
-         that an artist here is indeed a group, change its type. If it is
-         not, please make sure that the “member of” relationships are
-         in the right direction and are correct.`,
+         because they have other artists listed as members or use other
+         relationships that are generally meant for groups only (either in
+         both directions, such as “subgroup” and “renamed”, or in one, such as
+         “artistic director”, “conductor” and “composer-in-residence”).
+         If you find that an artist here is indeed a group, change its type.
+         If it is not, please make sure that the “member of” relationships are
+         in the right direction and are correct, whether “renamed into” needs
+         to be turned into “performs as” relationships, and so on.`,
       )}
       entityType="artist"
       filtered={filtered}

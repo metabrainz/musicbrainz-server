@@ -15,7 +15,11 @@ sub query {<<~'SQL'}
             OR
             artist.type IS NULL
          )
-         AND link.link_type IN (722)), -- subgroup
+         AND link.link_type IN (
+            722, -- subgroup
+            1079 -- renamed into
+         )
+       ),
        possible_groups_entity1 AS (
          SELECT artist.id, artist.name
          FROM artist
@@ -33,7 +37,8 @@ sub query {<<~'SQL'}
             305, -- conductor position
             965, -- artistic director
             855, -- composer-in-residence
-            722  -- subgroup
+            722, -- subgroup
+            1079 -- renamed into
          )
        )
   SELECT possible_groups.id AS artist_id,
