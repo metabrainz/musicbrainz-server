@@ -111,6 +111,7 @@ my @all = qw(
     TracksWithoutTimes
     TracksWithSequenceIssues
     UnlinkedPseudoReleases
+    VideoRelationshipsOnNonVideos
     VideosInNonVideoMediums
     WikidataLinksWithMultipleEntities
     WorkSameTypeAsParent
@@ -214,6 +215,7 @@ use MusicBrainz::Server::Report::TracksNamedWithSequence;
 use MusicBrainz::Server::Report::TracksWithoutTimes;
 use MusicBrainz::Server::Report::TracksWithSequenceIssues;
 use MusicBrainz::Server::Report::UnlinkedPseudoReleases;
+use MusicBrainz::Server::Report::VideoRelationshipsOnNonVideos;
 use MusicBrainz::Server::Report::VideosInNonVideoMediums;
 use MusicBrainz::Server::Report::WikidataLinksWithMultipleEntities;
 use MusicBrainz::Server::Report::WorkSameTypeAsParent;
