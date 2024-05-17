@@ -20,18 +20,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-04-25 17:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-05-17 13:59+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.4.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -120,8 +120,8 @@ msgid ""
 "is announced in cooperation with the Music Technology Group at Universitat "
 "Pompeu Fabra."
 msgstr ""
-"AcousticBrainz, que pretende ser una fuente de información acústica "
-"colaborativa  para la música, es anunciado en cooperación con el Grupo de "
+"AcousticBrainz, que pretende ser una fuente colaborativa de información "
+"acústica sobre la música, es anunciado en cooperación con el Grupo de "
 "Tecnología Musical de la Universidad Pompeu Fabra."
 
 #: DB:statistics.statistic_event/title:2005-04-10
@@ -324,7 +324,7 @@ msgstr "Subir Imagen de Portada"
 
 #: DB:statistics.statistic_event/title:2003-03-29
 msgid "Dedicated database server"
-msgstr "Servidor dedicado de base de datos "
+msgstr "Servidor dedicado de base de datos"
 
 #: DB:statistics.statistic_event/title:2016-03-01
 msgid "Discourse unifies community communication"
@@ -554,7 +554,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2009-12-14
 msgid "Kuno Woudt begins working for MusicBrainz full-time."
-msgstr "Kuno Woudt empieza a trabajar a tiempo completo para MusicBrainz"
+msgstr "Kuno Woudt empieza a trabajar a tiempo completo para MusicBrainz."
 
 #: DB:statistics.statistic_event/title:2009-12-14
 msgid "Kuno Woudt hired as full-time developer"
@@ -738,11 +738,12 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2008-09-23
 msgid "Oliver Charles becomes employee #1 of MetaBrainz Foundation."
 msgstr ""
-"Oliver Charles se convierte en el primer empleado de la MetaBrainz Foundation"
+"Oliver Charles se convierte en el primer empleado de la MetaBrainz "
+"Foundation."
 
 #: DB:statistics.statistic_event/description:2010-06-18
 msgid "Oliver Charles begins working for MusicBrainz full-time."
-msgstr "Oliver Charles empieza a trabajar a tiempo completo para MusicBrainz"
+msgstr "Oliver Charles empieza a trabajar a tiempo completo para MusicBrainz."
 
 #: DB:statistics.statistic_event/title:2010-06-18
 msgid "Oliver Charles joins MusicBrainz full-time"
@@ -1390,7 +1391,7 @@ msgstr[2] "con {num} imágenes:"
 
 #: ../root/statistics/CoverArt.js:371
 msgid "with 30 or more pieces of cover art:"
-msgstr "con 30 o más imágenes."
+msgstr "con 30 o más imágenes:"
 
 #: ../root/statistics/Editors.js:67
 msgid "There is no data to display here."
@@ -1414,7 +1415,7 @@ msgstr "Editor"
 
 #: ../root/statistics/Editors.js:105
 msgid "Most active editors in the past week"
-msgstr "Editores más activos la semana pasada:"
+msgstr "Editores más activos la semana pasada"
 
 #: ../root/statistics/Editors.js:108
 msgid "Total applied edits"
@@ -1438,7 +1439,7 @@ msgstr "Votante"
 
 #: ../root/statistics/Editors.js:122
 msgid "Most active voters in the past week"
-msgstr "Votantes más activos la semana pasada:"
+msgstr "Votantes más activos la semana pasada"
 
 #: ../root/statistics/Editors.js:125
 msgid "Total votes"
@@ -1584,11 +1585,11 @@ msgstr "de tipo Grupo:"
 
 #: ../root/statistics/Index.js:239
 msgid "of type Orchestra:"
-msgstr "de tipo Orquesta"
+msgstr "de tipo Orquesta:"
 
 #: ../root/statistics/Index.js:245
 msgid "of type Choir:"
-msgstr "de tipo Coro"
+msgstr "de tipo Coro:"
 
 #: ../root/statistics/Index.js:251
 msgid "of type Character:"
@@ -1738,9 +1739,8 @@ msgstr "Tipos principales"
 #: ../root/statistics/Index.js:785 ../root/statistics/Index.js:813
 #: ../root/statistics/Index.js:841 ../root/statistics/Index.js:895
 #: ../root/statistics/Index.js:923
-#, fuzzy
 msgid "None"
-msgstr "Ninguno"
+msgstr "Ninguno/a"
 
 #: ../root/statistics/Index.js:637
 msgid "Secondary types"
@@ -1899,7 +1899,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1203
 msgid "validated email only:"
-msgstr "sólo direcciones de correo validadas"
+msgstr "solo direcciones de correo validadas:"
 
 #: ../root/statistics/Index.js:1209
 msgid "inactive:"
@@ -2403,7 +2403,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:535
 msgid "Mediums with no format set"
-msgstr "Medios sin formato definido:"
+msgstr "Medios sin formato indicado"
 
 #: ../root/statistics/stats.js:540
 msgid "Mediums with disc IDs"

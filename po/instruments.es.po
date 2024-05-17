@@ -19,23 +19,24 @@
 # t0n3t <email address hidden>, 2012
 # reosarevok <reosarevok@gmail.com>, 2023.
 # Yllelder <yllelder@gmail.com>, 2023.
-# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # ChurruKa <churruka@hangar18.cc>, 2023.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-12 09:57+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-05-17 13:59+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -1203,8 +1204,6 @@ msgid "cor anglais"
 msgstr ""
 
 #: DB:instrument/name:510
-#, fuzzy
-#| msgid "cornamuse"
 msgctxt "Renaissance capped double-reed"
 msgid "cornamuse"
 msgstr "cornamusa"
@@ -1239,8 +1238,6 @@ msgid "crotales"
 msgstr "crótalos"
 
 #: DB:instrument/name:348
-#, fuzzy
-#| msgid "crumhorn"
 msgctxt "Curved capped double reed"
 msgid "crumhorn"
 msgstr "cromorno"

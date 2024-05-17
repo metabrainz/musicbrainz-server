@@ -20,9 +20,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-10 20:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-05-17 12:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -30,9 +30,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.3\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -3580,6 +3580,11 @@ msgid ""
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
+"Данный тип отношений связывает лейбл с сайтом, где музыку можно прослушать "
+"легально по подписке, например, Apple Music.\n"
+"\n"
+"Если сайт разрешает прослушать музыку бесплатно, используйте тип \"слушать "
+"бесплатно\"."
 
 #: DB:link_type/description:997
 msgid ""
@@ -5659,7 +5664,7 @@ msgstr "импровизация"
 
 #: DB:link_type/link_phrase:894 DB:link_type/name:894
 msgid "included in"
-msgstr "included in"
+msgstr "в составе"
 
 #: DB:link_type/reverse_link_phrase:894
 msgid "includes"
@@ -5849,7 +5854,7 @@ msgstr "назван в честь"
 
 #: DB:link_type/name:108
 msgid "is person"
-msgstr "is person"
+msgstr "является человеком"
 
 #: DB:link_type/long_link_phrase:738
 msgid "is related to"
@@ -6393,7 +6398,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1201
 msgid "music production"
-msgstr "music production"
+msgstr "музыкальное производство"
 
 #: DB:link_type/reverse_link_phrase:1046
 msgid "music quoted in"
@@ -6405,7 +6410,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1203
 msgid "music therapy"
-msgstr "music therapy"
+msgstr "музыкальная терапия"
 
 #: DB:link_type/name:857
 msgid "music video"
@@ -6449,7 +6454,7 @@ msgstr "myspace"
 #: DB:link_type/name:975 DB:link_type/name:974 DB:link_type/name:1000
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
 msgid "named after"
-msgstr "named after"
+msgstr "названо в честь"
 
 #: DB:link_type/link_phrase:935 DB:link_type/name:935
 #: DB:link_type/reverse_link_phrase:935 DB:link_type/long_link_phrase:935
@@ -6508,7 +6513,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1053
 msgid "optional"
-msgstr "optional"
+msgstr "дополнительно"
 
 #: DB:link_type/name:807
 msgid "orchestra"
@@ -6516,7 +6521,7 @@ msgstr "оркестр"
 
 #: DB:link_type/link_phrase:807
 msgid "orchestra at"
-msgstr "orchestra at"
+msgstr "оркестр в"
 
 #: DB:link_type/long_link_phrase:150 DB:link_type/long_link_phrase:45
 msgid "orchestra {additional:additionally} performed"
@@ -6524,7 +6529,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:807
 msgid "orchestras"
-msgstr "orchestras"
+msgstr "оркестры"
 
 #: DB:link_type/name:316
 msgid "orchestration"
@@ -6647,12 +6652,12 @@ msgstr "partial"
 #: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
 #: DB:link_type/name:281
 msgid "parts"
-msgstr "parts"
+msgstr "части"
 
 #: DB:link_type/name:901 DB:link_type/name:900 DB:link_type/name:898
 #: DB:link_type/name:899 DB:link_type/name:897
 msgid "patronage"
-msgstr "patronage"
+msgstr "патронаж"
 
 #: DB:link_type/link_phrase:901 DB:link_type/link_phrase:900
 #: DB:link_type/link_phrase:898 DB:link_type/link_phrase:899
@@ -6914,11 +6919,11 @@ msgstr "продюсеры"
 #: DB:link_type/long_link_phrase:160 DB:link_type/long_link_phrase:59
 #: DB:link_type/long_link_phrase:72
 msgid "production"
-msgstr "production"
+msgstr "производство"
 
 #: DB:link_type/name:37 DB:link_type/name:132
 msgid "programming"
-msgstr "programming"
+msgstr "программирование"
 
 #: DB:link_type/link_phrase:359 DB:link_type/name:359
 #: DB:link_type/long_link_phrase:359
@@ -7126,7 +7131,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:201
 msgid "reissuing the catalog of"
-msgstr "reissuing the catalog of"
+msgstr "перевыпускает каталог"
 
 #: DB:link_type/link_phrase:738 DB:link_type/reverse_link_phrase:738
 msgid "related instruments"
@@ -7134,7 +7139,7 @@ msgstr ""
 
 #: DB:link_type/name:738
 msgid "related to"
-msgstr "related to"
+msgstr "имеет связи с"
 
 #: DB:link_type/link_phrase:3
 msgid "released in support of"
@@ -7462,7 +7467,7 @@ msgstr "прослушать бесплатно"
 
 #: DB:link_type/link_phrase:268 DB:link_type/link_phrase:85
 msgid "stream {video} for free"
-msgstr ""
+msgstr "смотреть {video} бесплатно"
 
 #: DB:link_type/name:978 DB:link_type/name:980 DB:link_type/name:1005
 #: DB:link_type/name:979
@@ -7514,15 +7519,15 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:722
 msgid "subgroups"
-msgstr "subgroups"
+msgstr "подгруппы"
 
 #: DB:link_attribute_type/name:1125
 msgid "subject"
-msgstr "subject"
+msgstr "субъект"
 
 #: DB:link_type/link_phrase:823 DB:link_type/name:823
 msgid "subseries"
-msgstr "subseries"
+msgstr "подсерии"
 
 #: DB:link_type/reverse_link_phrase:823
 msgid "subseries of"
@@ -7530,7 +7535,7 @@ msgstr "subseries of"
 
 #: DB:link_type/link_phrase:200
 msgid "subsidiaries"
-msgstr "subsidiaries"
+msgstr "подразделения"
 
 #: DB:link_type/name:736
 msgid "subtype"
@@ -7604,11 +7609,11 @@ msgstr ""
 
 #: DB:link_type/name:847 DB:link_type/name:893
 msgid "teacher"
-msgstr "teacher"
+msgstr "учитель"
 
 #: DB:link_type/reverse_link_phrase:847 DB:link_type/reverse_link_phrase:893
 msgid "teachers"
-msgstr "teachers"
+msgstr "учителя"
 
 #: DB:link_attribute_type/description:11 DB:link_attribute_type/name:11
 msgid "tenor vocals"
@@ -7633,7 +7638,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:830
 msgid "time"
-msgstr "time"
+msgstr "время"
 
 #: DB:link_type/name:859
 msgid "tour"
@@ -7649,7 +7654,7 @@ msgstr "tour in support of"
 
 #: DB:link_type/link_phrase:859
 msgid "tours"
-msgstr "tours"
+msgstr "туры"
 
 #: DB:link_type/name:1179
 msgid "transfer"
@@ -7726,13 +7731,13 @@ msgstr ""
 
 #: DB:link_type/link_phrase:936
 msgid "tribute events"
-msgstr "tribute events"
+msgstr "мероприятия-трибьюты"
 
 #: DB:link_type/link_phrase:728 DB:link_type/name:936
 #: DB:link_type/reverse_link_phrase:936 DB:link_type/reverse_link_phrase:65
 #: DB:link_type/reverse_link_phrase:970
 msgid "tribute to"
-msgstr "tribute to"
+msgstr "является трибьютом"
 
 #: DB:link_type/reverse_link_phrase:736
 msgid "type of"
@@ -8290,10 +8295,8 @@ msgid "{additional} composing location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:1251 DB:link_type/link_phrase:876
-#, fuzzy
-#| msgid "printing location for"
 msgid "{additional} composition location for"
-msgstr "printing location for"
+msgstr "{additional} место композиции для"
 
 #: DB:link_type/link_phrase:63 DB:link_type/link_phrase:146
 #: DB:link_type/reverse_link_phrase:63 DB:link_type/reverse_link_phrase:146
@@ -9062,7 +9065,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:268 DB:link_type/long_link_phrase:85
 msgid "{video} can be streamed for free at"
-msgstr ""
+msgstr "{video} можно посмотреть бесплатно на"
 
 #: DB:link_type/reverse_link_phrase:107
 msgid "{vocal:%|vocals} support by"

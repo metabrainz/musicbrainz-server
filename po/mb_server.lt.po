@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-13 15:56+0000\n"
-"PO-Revision-Date: 2024-05-12 17:42+0000\n"
+"PO-Revision-Date: 2024-05-15 13:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -24,9 +24,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.5.3\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -5735,11 +5735,9 @@ msgid "This is not a valid ISWC"
 msgstr "Tai nėra tinkamas ISWC."
 
 #: ../lib/MusicBrainz/Server/Form/Field/LabelCode.pm:17
-#, fuzzy
-#| msgid "Label codes must be greater than 0 and 5 digits at most"
 msgid "Label codes must be greater than 0 and 6 digits at most"
 msgstr ""
-"Įrašų kompanijos kodai turi būti didesni nei 0 ir turėti ne daugiau kaip 5 "
+"Leidyklos kodai turi būti didesni nei 0 ir turėti ne daugiau kaip 6 "
 "skaitmenis."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Length.pm:31
@@ -10576,10 +10574,8 @@ msgid "You have no event collections!"
 msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:26
-#, fuzzy
-#| msgid "You have no area collections!"
 msgid "You have no genre collections!"
-msgstr "Neturi jokių teritorijų kolekcijų!"
+msgstr "Neturi jokių žanrų kolekcijų."
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:27
 msgid "You have no instrument collections!"
@@ -16427,10 +16423,8 @@ msgid "Event collections"
 msgstr "Teritorijos kolekcijos"
 
 #: ../root/user/UserCollections.js:39
-#, fuzzy
-#| msgid "Merge collections"
 msgid "Genre collections"
-msgstr "Sujungti kolekcijas"
+msgstr "Žanrų kolekcijos"
 
 #: ../root/user/UserCollections.js:40
 #, fuzzy
