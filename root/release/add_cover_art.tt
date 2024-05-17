@@ -126,7 +126,7 @@
 
       [%- IF images.size == 0 -%]
         <div class="image-position-only">
-          [%- l('(no other cover art)') -%]
+          [%- l('(no other images)') -%]
         </div>
       [%- ELSE -%]
         <div class="image-position">
