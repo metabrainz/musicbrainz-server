@@ -14,6 +14,7 @@ import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportRecordingT} from './types.js';
 
 const videoRelationships = [
+  'animation',
   'artwork',
   'choreographer',
   'cinematographer',
