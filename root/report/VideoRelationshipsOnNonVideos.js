@@ -41,7 +41,7 @@ component VideoRelationshipsOnNonVideos(...{
          be moved to a related video recording.`,
         {
           relationship_list: commaOnlyList(
-            videoRelationships.map(x => '“' + l_relationships(x) + '”'),
+            videoRelationships.map(x => addQuotesText(l_relationships(x))),
           ),
         },
       )}
