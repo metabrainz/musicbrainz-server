@@ -16,6 +16,7 @@ const commonPath =
   path.resolve(MB_SERVER_ROOT, 'root/static/scripts/common/');
 const i18nPath = path.resolve(commonPath, 'i18n');
 const addColonPath = path.resolve(i18nPath, 'addColon');
+const addQuotesPath = path.resolve(i18nPath, 'addQuotes');
 const lAdminPath = path.resolve(i18nPath, 'admin');
 const lStatisticsPath = path.resolve(i18nPath, 'statistics');
 const hyphenateTitlePath = path.resolve(i18nPath, 'hyphenateTitle');
@@ -29,6 +30,8 @@ const invariantPath = path.resolve(MB_SERVER_ROOT, 'root/utility/invariant');
 const providePluginConfig = {
   'addColon': [addColonPath, 'default'],
   'addColonText': [addColonPath, 'addColonText'],
+  'addQuotes': [addQuotesPath, 'default'],
+  'addQuotesText': [addQuotesPath, 'addQuotesText'],
   'empty': [nonEmptyPath, 'empty'],
   'hasOwnProp': [hasOwnPropPath, 'default'],
   'hydrate': [hydratePath, 'default'],

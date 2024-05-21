@@ -22,6 +22,7 @@ sub query {<<~'SQL'}
                   1230, -- choreographer
                   1241, -- artwork
                   1242, -- design
+                  1243, -- animation
                   1244, -- illustration
                   1245  -- cinematographer
                  )
