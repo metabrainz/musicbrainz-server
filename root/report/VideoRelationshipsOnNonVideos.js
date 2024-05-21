@@ -7,13 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
+import commaList from '../static/scripts/common/i18n/commaList.js';
 
 import RecordingList from './components/RecordingList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportRecordingT} from './types.js';
 
 const videoRelationships = [
+  'animation',
   'artwork',
   'choreographer',
   'cinematographer',
@@ -40,8 +41,8 @@ component VideoRelationshipsOnNonVideos(...{
          Either they should be marked as video, or the relationships should
          be moved to a related video recording.`,
         {
-          relationship_list: commaOnlyList(
-            videoRelationships.map(x => '“' + l_relationships(x) + '”'),
+          relationship_list: commaList(
+            videoRelationships.map(x => addQuotesText(l_relationships(x))),
           ),
         },
       )}

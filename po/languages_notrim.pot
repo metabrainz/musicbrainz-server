@@ -28078,7 +28078,7 @@ msgstr ""
 msgid "Pukapuka"
 msgstr ""
 
-#. frequency:0 iso_code_3:fuc 
+#. frequency:1 iso_code_3:fuc 
 #: DB:language/name:2321
 msgid "Pulaar"
 msgstr ""

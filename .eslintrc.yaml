@@ -28,6 +28,8 @@ globals:
   MUSICBRAINZ_RUNNING_TESTS: readonly
   addColon: readonly
   addColonText: readonly
+  addQuotes: readonly
+  addQuotesText: readonly
   empty: readonly
   hasOwnProp: readonly
   hydrate: readonly
