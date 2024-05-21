@@ -98,7 +98,7 @@ const EventArt = ({
 
           <p>
             {exp.l(
-              `These images provided by the {eaa|Event Art Archive}.
+              `These images are part of the {eaa|Event Art Archive}.
                You can also see them at the {ia|Internet Archive}.`,
               {
                 eaa: '//eventartarchive.org',
