@@ -93,7 +93,7 @@ component CoverArt(
 
           <p>
             {exp.l(
-              `These images provided by the {caa|Cover Art Archive}.
+              `These images are part of the {caa|Cover Art Archive}.
                You can also see them at the {ia|Internet Archive}.`,
               {
                 caa: '//coverartarchive.org',

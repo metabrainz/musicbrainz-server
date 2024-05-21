@@ -33,10 +33,8 @@ const RemoveEventArt = ({
       <h2>{title}</h2>
       <p>
         {exp.l(
-          `Are you sure you wish to remove the art below from {event}?`,
-          {
-            event: <EntityLink entity={event} />,
-          },
+          `Are you sure you wish to remove the image below from {entity}?`,
+          {entity: <EntityLink entity={event} />},
         )}
       </p>
       <p className="artwork">
