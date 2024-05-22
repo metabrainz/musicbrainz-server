@@ -111,7 +111,7 @@ RUN sudo -E -H -u musicbrainz git clone --branch $SIR_TAG https://github.com/met
     sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install --upgrade pip; pip install -r requirements.txt; pip install git+https://github.com/esnme/ultrajson.git@7d0f4fb7e911120fd09075049233b587936b0a65' && \
     cd /home/musicbrainz
 
-ENV ARTWORK_INDEXER_COMMIT 427bf0d
+ENV ARTWORK_INDEXER_COMMIT 78c5ee2
 
 RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-indexer.git && \
     cd artwork-indexer && \
