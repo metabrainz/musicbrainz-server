@@ -119,7 +119,7 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-in
     sudo -E -H -u musicbrainz sh -c 'python3.11 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
     cd /home/musicbrainz
 
-ENV ARTWORK_REDIRECT_COMMIT c632ecf
+ENV ARTWORK_REDIRECT_COMMIT 9863559
 
 RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-redirect.git && \
     cd artwork-redirect && \
