@@ -854,10 +854,10 @@ sub external_search
     $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
 
-    my $search_url_string;
+    my $search_url_string = DBDefs->SEARCH_SCHEME;
     if (DBDefs->SEARCH_ENGINE eq 'LUCENE' || DBDefs->SEARCH_SERVER eq DBDefs::Default->SEARCH_SERVER) {
         my $dismax = $adv ? 'false' : 'true';
-        $search_url_string = "http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=jsonnew&dismax=$dismax&web=1";
+        $search_url_string .= "://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=jsonnew&dismax=$dismax&web=1";
     } else {
         my $endpoint = 'advanced';
         if (!$adv)
@@ -871,7 +871,7 @@ sub external_search
                 $endpoint = 'select';
             }
         }
-        $search_url_string = "http://%s/%s/$endpoint?q=%s&start=%s&rows=%s&wt=mbjson";
+        $search_url_string .= "://%s/%s/$endpoint?q=%s&start=%s&rows=%s&wt=mbjson";
      }
 
     my $search_url = sprintf($search_url_string,
