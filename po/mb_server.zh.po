@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-21 14:41+0000\n"
+"POT-Creation-Date: 2024-05-23 11:01-0500\n"
 "PO-Revision-Date: 2024-04-17 17:40+0000\n"
 "Last-Translator: x1ao4 <kazaf_ken@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
@@ -86,27 +86,27 @@ msgstr "&#10004;"
 msgid "&#10005;"
 msgstr "&#10005;"
 
-#: ../root/release/add_cover_art.tt:104
+#: ../root/event/add_event_art.tt:104 ../root/release/add_cover_art.tt:104
 msgid "&#x26a0; Error creating edit"
 msgstr "&#x26a0; 编辑错误"
 
-#: ../root/release/add_cover_art.tt:88
+#: ../root/event/add_event_art.tt:88 ../root/release/add_cover_art.tt:88
 msgid "&#x26a0; Error requesting signature"
 msgstr "&#x26a0; 请求签名错误"
 
-#: ../root/release/add_cover_art.tt:102
+#: ../root/event/add_event_art.tt:102 ../root/release/add_cover_art.tt:102
 msgid "&#x26a0; Error uploading image"
 msgstr "&#x26a0; 图片上传错误"
 
-#: ../root/release/add_cover_art.tt:103
+#: ../root/event/add_event_art.tt:103 ../root/release/add_cover_art.tt:103
 msgid "&#x26a0; Server busy, try again later"
 msgstr "&#x26a0; 服务器繁忙，请稍后重试"
 
-#: ../root/release/add_cover_art.tt:87
+#: ../root/event/add_event_art.tt:87 ../root/release/add_cover_art.tt:87
 msgid "&#x26a0; Unrecognized file"
 msgstr "&#x26a0; 文件无法识别"
 
-#: ../root/release/add_cover_art.tt:86
+#: ../root/event/add_event_art.tt:86 ../root/release/add_cover_art.tt:86
 msgid "&#x2713; Success"
 msgstr "&#x2713; 成功"
 
@@ -114,8 +114,10 @@ msgstr "&#x2713; 成功"
 msgid "(add a new recording)"
 msgstr "(新增录音)"
 
-#: ../root/release/add_cover_art.tt:129
-msgid "(no other cover art)"
+#: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
+#, fuzzy
+#| msgid "(no other cover art)"
+msgid "(no other images)"
 msgstr "(无其他封面)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
@@ -238,6 +240,13 @@ msgstr "添加封面"
 #| msgid "Add event"
 msgctxt "header"
 msgid "Add event"
+msgstr "添加事件"
+
+#: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
+#, fuzzy
+#| msgid "Add event"
+msgctxt "plural, header"
+msgid "Add event art"
 msgstr "添加事件"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
@@ -601,7 +610,8 @@ msgstr "开始地区："
 msgid "Begin date"
 msgstr "开始日期"
 
-#: ../root/release/add_cover_art.tt:95 ../root/search/error/InternalError.js:22
+#: ../root/event/add_event_art.tt:95 ../root/release/add_cover_art.tt:95
+#: ../root/search/error/InternalError.js:22
 msgid ""
 "Below is the error information. If you wish to file a bug report, you may do "
 "so at {bugs|our bug tracker}. The information below will help, so please be "
@@ -629,7 +639,7 @@ msgstr "机器人"
 #| "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
-"{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
+"{supp|supporters}."
 msgstr ""
 "由 {MeB|MetaBrainz 基金会} 和我们的 {spon|赞助商} 和 {supp|支持者} 为您呈现。"
 "专辑封面图片由 {caa|Cover Art Archive} 提供。"
@@ -722,9 +732,13 @@ msgstr "此艺术家的合作编辑者"
 msgid "Collapse medium"
 msgstr "崩溃介质"
 
-#: ../root/cdstub/index.tt:3 ../root/release/add_cover_art.tt:69
-#: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
+#: ../root/cdstub/index.tt:3 ../root/event/add_event_art.tt:69
+#: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
+#: ../root/release/add_cover_art.tt:69 ../root/release/add_cover_art.tt:137
+#: ../root/release/reorder_cover_art.tt:19
 #: ../root/release_group/set_cover_art.tt:71 ../root/cdstub/CDStubIndex.js:28
+#: ../root/components/ArtFields.js:97 ../root/edit/details/AddArt.js:58
+#: ../root/edit/details/EditArt.js:74 ../root/edit/details/RemoveArt.js:60
 msgid "Comment"
 msgstr "注释"
 
@@ -773,14 +787,14 @@ msgid "Country"
 msgstr "地区"
 
 #: ../root/release_group/set_cover_art.tt:67
-#: ../root/edit/components/EditArtwork.js:30 ../root/user/UserProfile.js:51
+#: ../root/edit/components/EditArtwork.js:26 ../root/user/UserProfile.js:51
 #, fuzzy
 #| msgid "Cover art:"
 msgctxt "singular"
 msgid "Cover art"
 msgstr "封面："
 
-#: ../root/release/add_cover_art.tt:85
+#: ../root/event/add_event_art.tt:85 ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
 msgstr "正在创建编辑"
 
@@ -813,7 +827,7 @@ msgstr "数据音轨"
 #: ../root/edit/details/historic/AddRelease.js:117
 #: ../root/edit/details/historic/EditReleaseEvents.js:106
 #: ../root/elections/ElectionVotes.js:24
-#: ../root/layout/components/sidebar/EventSidebar.js:57
+#: ../root/layout/components/sidebar/EventSidebar.js:92
 #: ../root/recording/RecordingIndex.js:50
 #: ../root/release_group/ReleaseGroupIndex.js:162
 #: ../root/search/components/EventResults.js:74
@@ -865,7 +879,7 @@ msgstr ""
 msgid "Description"
 msgstr "描述"
 
-#: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:147
+#: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:162
 #: ../root/elections/ElectionDetails.js:25 ../root/entity/Details.js:79
 #: ../root/entity/Details.js:81
 msgid "Details"
@@ -950,9 +964,9 @@ msgstr "修改"
 #: ../root/components/Aliases/AliasTableRow.js:55
 #: ../root/components/Aliases/ArtistCreditList.js:75
 #: ../root/components/Aliases/ArtistCreditList.js:77
-#: ../root/components/EntityTabs.js:155
+#: ../root/components/EntityTabs.js:170 ../root/event/EventArt.js:86
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:89
-#: ../root/release/CoverArt.js:106
+#: ../root/release/CoverArt.js:81
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:516
 #: ../root/user/UserCollections.js:121
 #, fuzzy
@@ -981,6 +995,13 @@ msgstr "编辑艺术家名单"
 msgctxt "singular, header"
 msgid "Edit cover art"
 msgstr "编辑封面"
+
+#: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:4
+#, fuzzy
+#| msgid "Edit event"
+msgctxt "singular, header"
+msgid "Edit event art"
+msgstr "编辑事件"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18
@@ -1059,7 +1080,7 @@ msgstr "结束地区："
 #: ../root/edit/details/EditPlace.js:97
 #: ../root/elections/ElectionTable/index.js:20
 #: ../root/layout/components/sidebar/AreaSidebar.js:60
-#: ../root/layout/components/sidebar/EventSidebar.js:67
+#: ../root/layout/components/sidebar/EventSidebar.js:102
 #: ../root/report/RecordingsWithFutureDates.js:38
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:202
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:182
@@ -1082,8 +1103,8 @@ msgid ""
 msgstr ""
 "手动输入坐标或点击地图以从标记获取坐标。如果你离得太远，请点击进行缩放。"
 
-#: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:170
-#: ../root/release/edit/layout.tt:58
+#: ../root/components/forms.tt:51 ../root/event/add_event_art.tt:170
+#: ../root/release/add_cover_art.tt:170 ../root/release/edit/layout.tt:58
 #: ../root/static/scripts/edit/components/EnterEdit.js:60
 msgid "Enter edit"
 msgstr "输入编辑"
@@ -1120,7 +1141,11 @@ msgstr ""
 #: ../root/edit/search_macros.tt:434 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
 #: ../root/components/list/EventList.js:60 ../root/edit/details/AddEvent.js:23
-#: ../root/edit/details/EditEvent.js:31 ../root/layout/components/Search.js:27
+#: ../root/edit/details/AddEventArt.js:21 ../root/edit/details/EditEvent.js:31
+#: ../root/edit/details/EditEventArt.js:23
+#: ../root/edit/details/RemoveEventArt.js:23
+#: ../root/edit/details/ReorderEventArt.js:23
+#: ../root/layout/components/Search.js:27
 #: ../root/report/components/EventList.js:46
 #: ../root/search/components/SearchForm.js:45
 #: ../root/static/scripts/common/constants.js:37
@@ -1159,7 +1184,7 @@ msgstr "过期操作"
 msgid "External links"
 msgstr "外部链接"
 
-#: ../root/release/add_cover_art.tt:48
+#: ../root/event/add_event_art.tt:48 ../root/release/add_cover_art.tt:48
 msgid "File:"
 msgstr "文件："
 
@@ -1622,7 +1647,7 @@ msgstr "厂牌详情"
 msgid "Language"
 msgstr "语言"
 
-#: ../root/layout.tt:145 ../root/layout/components/Footer.js:85
+#: ../root/layout.tt:144 ../root/layout/components/Footer.js:83
 msgid "Last replication packet received at {datetime}"
 msgstr "上一次收到副本数据包是在 {datetime}"
 
@@ -1747,11 +1772,11 @@ msgctxt "header"
 msgid "Move disc ID"
 msgstr "移动唱片编号"
 
-#: ../root/release/add_cover_art.tt:44
+#: ../root/event/add_event_art.tt:44 ../root/release/add_cover_art.tt:44
 msgid "Move file down"
 msgstr "下移文件"
 
-#: ../root/release/add_cover_art.tt:42
+#: ../root/event/add_event_art.tt:42 ../root/release/add_cover_art.tt:42
 msgid "Move file up"
 msgstr "上移文件"
 
@@ -1834,7 +1859,7 @@ msgstr "名称"
 msgid "New artist credit"
 msgstr "新艺术家名单"
 
-#: ../root/release/add_cover_art.tt:148
+#: ../root/event/add_event_art.tt:148 ../root/release/add_cover_art.tt:148
 #, fuzzy
 #| msgid "New Image Goes Here"
 msgid "New image goes here"
@@ -2017,9 +2042,19 @@ msgid ""
 "the \"merge\" link."
 msgstr "请转到其他要合并的实体页面，并选择“合并”链接。"
 
-#: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:79
+#: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:23
 msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
+"these types."
+msgstr "关于这些类型的描述，请查看 {doc|封面图片类型} 文档。"
+
+#: ../root/event/add_event_art.tt:66 ../root/event/EventArtFields.js:23
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Please see the {doc|Event Art Types} documentation for a description of "
 "these types."
 msgstr "关于这些类型的描述，请查看 {doc|封面图片类型} 文档。"
 
@@ -2027,7 +2062,8 @@ msgstr "关于这些类型的描述，请查看 {doc|封面图片类型} 文档�
 msgid "Please select the medium you wish to attach this CD TOC to."
 msgstr "请选择要附加此 CD 目录的媒介。"
 
-#: ../root/cdtoc/list.tt:6 ../root/release/add_cover_art.tt:125
+#: ../root/cdtoc/list.tt:6 ../root/event/add_event_art.tt:125
+#: ../root/event/reorder_event_art.tt:10 ../root/release/add_cover_art.tt:125
 #: ../root/release/reorder_cover_art.tt:10
 #: ../root/edit/details/AddMedium.js:106 ../root/edit/details/EditMedium.js:434
 msgid "Position"
@@ -2137,18 +2173,18 @@ msgstr "关联类型"
 #: ../lib/MusicBrainz/Server/Edit/Release.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
 #: ../root/components/list/ReleaseList.js:65
-#: ../root/edit/details/AddCoverArt.js:22 ../root/edit/details/AddMedium.js:96
+#: ../root/edit/details/AddCoverArt.js:18 ../root/edit/details/AddMedium.js:96
 #: ../root/edit/details/AddRelease.js:32
 #: ../root/edit/details/AddReleaseLabel.js:22
 #: ../root/edit/details/ChangeReleaseQuality.js:20
 #: ../root/edit/details/EditBarcodes.js:34
-#: ../root/edit/details/EditCoverArt.js:35
+#: ../root/edit/details/EditCoverArt.js:18
 #: ../root/edit/details/EditRelease.js:42
 #: ../root/edit/details/EditReleaseLabel.js:38
 #: ../root/edit/details/MergeReleases.js:229
-#: ../root/edit/details/RemoveCoverArt.js:22
+#: ../root/edit/details/RemoveCoverArt.js:18
 #: ../root/edit/details/RemoveReleaseLabel.js:22
-#: ../root/edit/details/ReorderCoverArt.js:30
+#: ../root/edit/details/ReorderCoverArt.js:18
 #: ../root/edit/details/ReorderMediums.js:21
 #: ../root/edit/details/historic/EditReleaseEvents.js:105
 #: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:19
@@ -2254,14 +2290,14 @@ msgid "Release “{name}” by {artist}"
 msgstr "{artist} 的专辑 “{name}”"
 
 #: ../root/cdtoc/list.tt:60 ../root/edit/search_macros.tt:122
-#: ../root/release/add_cover_art.tt:110
+#: ../root/event/add_event_art.tt:110 ../root/release/add_cover_art.tt:110
 #: ../root/account/applications/ApplicationList.js:38
 #: ../root/collection/CollectionHeader.js:85
 #: ../root/collection/DeleteCollection.js:21
-#: ../root/components/Aliases/AliasTableRow.js:59
+#: ../root/components/Aliases/AliasTableRow.js:59 ../root/event/EventArt.js:92
 #: ../root/layout/components/sidebar/RemoveLink.js:26
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:95
-#: ../root/release/CoverArt.js:112 ../root/release/DiscIds.js:66
+#: ../root/release/CoverArt.js:87 ../root/release/DiscIds.js:66
 #: ../root/static/scripts/account/components/EditProfileForm.js:300
 #: ../root/static/scripts/edit/components/Multiselect.js:210
 #: ../root/user/UserCollections.js:122
@@ -2322,7 +2358,14 @@ msgctxt "plural, header"
 msgid "Reorder cover art"
 msgstr "重排封面"
 
-#: ../root/release/add_cover_art.tt:83
+#: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
+#, fuzzy
+#| msgid "Reorder cover art"
+msgctxt "plural, header"
+msgid "Reorder event art"
+msgstr "重排封面"
+
+#: ../root/event/add_event_art.tt:83 ../root/release/add_cover_art.tt:83
 msgid "Request signature..."
 msgstr "请求签名..."
 
@@ -2350,7 +2393,7 @@ msgid ""
 "data is formatted correctly."
 msgstr "查看关于专辑编辑器制种的{url|文档}，确保您的数据格式正确。"
 
-#: ../root/layout.tt:138
+#: ../root/layout.tt:137
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
@@ -2431,7 +2474,7 @@ msgid ""
 "seem to match any type, just leave this blank."
 msgstr "从列表中选择任一类型来查看其描述。如果作品不匹配任何类型，留空即可。"
 
-#: ../root/release/add_cover_art.tt:31
+#: ../root/event/add_event_art.tt:31 ../root/release/add_cover_art.tt:31
 msgid "Select images..."
 msgstr "选择图片..."
 
@@ -2591,10 +2634,14 @@ msgctxt "audio file metadata"
 msgid "Tagger"
 msgstr "分类者"
 
-#: ../root/release/add_cover_art.tt:12
+#: ../root/event/add_event_art.tt:12 ../root/release/add_cover_art.tt:12
+#, fuzzy
+#| msgid ""
+#| "The Cover Art Archive is currently experiencing difficulties. Adding "
+#| "images for this release is unlikely to work at the moment."
 msgid ""
-"The Cover Art Archive is currently experiencing difficulties. Adding images "
-"for this release is unlikely to work at the moment."
+"The Internet Archive is currently experiencing difficulties. Adding images "
+"is unlikely to work at the moment."
 msgstr "Cover Art Archive 目前遇到了问题。现在可能无法为此专辑添加图片。"
 
 #: ../root/release/edit/information.tt:348
@@ -2907,7 +2954,7 @@ msgstr "此音轨隐藏在前置间隙中。"
 
 #: ../root/event/edit_form.tt:40 ../root/components/list/EventList.js:78
 #: ../root/edit/details/AddEvent.js:73 ../root/edit/details/EditEvent.js:84
-#: ../root/layout/components/sidebar/EventSidebar.js:76
+#: ../root/layout/components/sidebar/EventSidebar.js:111
 #: ../root/report/components/EventList.js:70
 #: ../root/search/components/EventResults.js:75
 #, fuzzy
@@ -3012,6 +3059,7 @@ msgstr "Twitter"
 #: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/account/applications/ApplicationList.js:148
 #: ../root/components/Aliases/AliasTable.js:21
+#: ../root/components/ArtFields.js:64
 #: ../root/components/list/ReleaseGroupList.js:84
 #: ../root/components/list/ReleaseList.js:139
 #: ../root/edit/details/AddArea.js:57 ../root/edit/details/AddArtist.js:65
@@ -3031,7 +3079,7 @@ msgstr "Twitter"
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:60
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:155
 #: ../root/layout/components/sidebar/SidebarType.js:21
-#: ../root/release/CoverArtFields.js:51 ../root/report/DuplicateArtists.js:69
+#: ../root/report/DuplicateArtists.js:69
 #: ../root/report/DuplicateReleaseGroups.js:60
 #: ../root/report/IswcsWithManyWorks.js:53
 #: ../root/report/components/ArtistList.js:54
@@ -3064,15 +3112,15 @@ msgstr "Twitter"
 msgid "Type"
 msgstr "类型"
 
-#: ../root/release/add_cover_art.tt:54
+#: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 msgid "Type:"
 msgstr "类型："
 
+#: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
-#: ../root/release_group/set_cover_art.tt:69
-#: ../root/edit/details/AddCoverArt.js:29
-#: ../root/edit/details/EditCoverArt.js:54
-#: ../root/edit/details/RemoveCoverArt.js:29 ../root/release/CoverArt.js:82
+#: ../root/release_group/set_cover_art.tt:69 ../root/edit/details/AddArt.js:37
+#: ../root/edit/details/EditArt.js:65 ../root/edit/details/RemoveArt.js:37
+#: ../root/event/EventArt.js:62 ../root/release/CoverArt.js:57
 msgid "Types:"
 msgstr "类型："
 
@@ -3107,7 +3155,7 @@ msgstr "更改录音艺术家名单以匹配音轨艺术家名单。"
 msgid "Update the recording title to match the track title."
 msgstr "更新音轨名以匹配音轨标题。"
 
-#: ../root/release/add_cover_art.tt:84
+#: ../root/event/add_event_art.tt:84 ../root/release/add_cover_art.tt:84
 msgid "Uploading image..."
 msgstr "正在上传图片..."
 
@@ -3148,7 +3196,7 @@ msgstr "使用音轨编号"
 msgid "Use track titles"
 msgstr "使用音轨标题"
 
-#: ../root/release/add_cover_art.tt:81
+#: ../root/event/add_event_art.tt:81 ../root/release/add_cover_art.tt:81
 msgid "Validating file..."
 msgstr "正在验证文件..."
 
@@ -3652,7 +3700,7 @@ msgstr "最旧优先"
 msgid "on"
 msgstr "在"
 
-#: ../root/release/add_cover_art.tt:33
+#: ../root/event/add_event_art.tt:33 ../root/release/add_cover_art.tt:33
 msgid "or drop files here"
 msgstr "或拖拽文件到此处"
 
@@ -4097,19 +4145,10 @@ msgstr "评分必须是 0 到 100 之间的整数。"
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr "‘{types}’ 不是有效的关联类型组合。"
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:615
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:482
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "此合并策略不适用于您选择的专辑。"
-
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:644
-msgid "This release has no artwork."
-msgstr "此专辑没有图片。"
-
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:650
-#, perl-brace-format
-msgid "Found no artwork with ID “{id}”."
-msgstr "找不到ID为“{id}”的图片。"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:68
 msgid "The annotation revision ID must be a positive integer"
@@ -4128,6 +4167,11 @@ msgstr "ID 为 “{id}” 的注释未关联到此实体。"
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:230
 msgid "The old and new annotation ids must be unique, positive integers."
 msgstr "新的和旧的注解代码必须一致，并且是正整数。"
+
+#: ../lib/MusicBrainz/Server/Controller/Role/Art.pm:132
+#, perl-brace-format
+msgid "Found no artwork with ID “{id}”."
+msgstr "找不到ID为“{id}”的图片。"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:222
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:99
@@ -4222,31 +4266,47 @@ msgstr "您的报告已发送。"
 msgid "Invalid TOC"
 msgstr "目录无效"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:291
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:294
 msgid ""
 "An error occurred trying to communicate with the Internet Archive servers. "
 "Please wait a few moments and try again."
 msgstr "连接 Internet Archive 服务器时发生了错误。请等待几分钟后再试。"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:304
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:307
 msgid ""
 "We’ve hit a temporary delay while trying to fetch metadata from the Internet "
 "Archive. Please wait a minute and try again."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:420
-#: ../root/release/CoverArtDarkened.js:19
-msgid ""
-"The Cover Art Archive has had a takedown request in the past for this "
-"release, so we are unable to allow any more uploads."
-msgstr ""
-
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:457
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:322
 #, perl-brace-format
 msgid ""
 "Cover art can’t be uploaded to this release because we don’t own the "
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:340
+#, perl-brace-format
+msgid ""
+"Event art can’t be uploaded to this event because we don’t own the "
+"associated item at the Internet Archive. Please contact us at {contact_url} "
+"so we can resolve this."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:461
+#: ../root/event/EventArtDarkened.js:25 ../root/release/CoverArtDarkened.js:19
+msgid ""
+"The Internet Archive has had a takedown request in the past for this item, "
+"so we are unable to allow any more uploads."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:498
+#, perl-brace-format
+msgid ""
+"Images can’t be uploaded here because we don’t own the associated item at "
+"the Internet Archive. Please contact us at {contact_url} so we can resolve "
+"this."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:708
@@ -4462,6 +4522,13 @@ msgctxt "edit type"
 msgid "Add event annotation"
 msgstr "添加事件注释"
 
+#: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
+#, fuzzy
+#| msgid "Add event"
+msgctxt "singular, edit type"
+msgid "Add event art"
+msgstr "添加事件"
+
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 #, fuzzy
 #| msgid "Add event"
@@ -4497,12 +4564,33 @@ msgctxt "edit type"
 msgid "Edit event alias"
 msgstr "编辑事件别名"
 
+#: ../lib/MusicBrainz/Server/Edit/Event/EditEventArt.pm:15
+#, fuzzy
+#| msgid "Edit event"
+msgctxt "singular, edit type"
+msgid "Edit event art"
+msgstr "编辑事件"
+
 #: ../lib/MusicBrainz/Server/Edit/Event/Merge.pm:11
 #, fuzzy
 #| msgid "Merge events"
 msgctxt "edit type"
 msgid "Merge events"
 msgstr "合并事件"
+
+#: ../lib/MusicBrainz/Server/Edit/Event/RemoveEventArt.pm:15
+#, fuzzy
+#| msgid "Remove event"
+msgctxt "singular, edit type"
+msgid "Remove event art"
+msgstr "移除事件"
+
+#: ../lib/MusicBrainz/Server/Edit/Event/ReorderEventArt.pm:15
+#, fuzzy
+#| msgid "Reorder cover art"
+msgctxt "plural, edit type"
+msgid "Reorder event art"
+msgstr "重排封面"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAlias.pm:11
 #, fuzzy
@@ -5097,7 +5185,7 @@ msgctxt "edit type"
 msgid "Add release alias"
 msgstr "添加专辑别名"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:15
 #, fuzzy
 #| msgid "Add cover art"
 msgctxt "singular, edit type"
@@ -5146,7 +5234,7 @@ msgctxt "edit type"
 msgid "Edit barcodes"
 msgstr "编辑条形码"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:14
 #, fuzzy
 #| msgid "Edit cover art"
 msgctxt "singular, edit type"
@@ -5172,14 +5260,14 @@ msgstr "(未知)"
 msgid "These releases could not be merged: {reason}"
 msgstr "这些专辑无法被合并：{reason}"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:15
 #, fuzzy
 #| msgid "Remove cover art"
 msgctxt "singular, edit type"
 msgid "Remove cover art"
 msgstr "移除封面"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:14
 #, fuzzy
 #| msgid "Reorder cover art"
 msgctxt "plural, edit type"
@@ -6001,7 +6089,7 @@ msgstr "此录音的时长由其链接的音轨决定，无法直接更改。"
 msgid "You must provide an edit note when adding a standalone recording"
 msgstr "添加独立录音时必须提供编辑备注"
 
-#: ../lib/MusicBrainz/Server/Form/Release/AddCoverArt.pm:59
+#: ../lib/MusicBrainz/Server/Form/Role/AddArt.pm:59
 #: ../lib/MusicBrainz/Server/Form/Role/CSRFToken.pm:11
 #: ../lib/MusicBrainz/Server/Form/Role/CSRFToken.pm:77
 msgid "The form you’ve submitted has expired. Please resubmit your request."
@@ -7849,7 +7937,7 @@ msgstr ""
 msgid "see uses"
 msgstr ""
 
-#: ../root/components/Aliases/index.js:49 ../root/components/EntityTabs.js:128
+#: ../root/components/Aliases/index.js:49 ../root/components/EntityTabs.js:143
 #: ../root/entity/Aliases.js:26
 msgid "Aliases"
 msgstr "别名"
@@ -7872,6 +7960,22 @@ msgstr "{entity} 没有别名。"
 msgctxt "interactive"
 msgid "Add a new alias"
 msgstr "添加一个新别名"
+
+#: ../root/components/ArtLinks.js:17
+msgid "250px"
+msgstr "250px"
+
+#: ../root/components/ArtLinks.js:23
+msgid "500px"
+msgstr "500px"
+
+#: ../root/components/ArtLinks.js:29
+msgid "1200px"
+msgstr "1200px"
+
+#: ../root/components/ArtLinks.js:33
+msgid "original"
+msgstr "原始"
 
 #: ../root/components/CleanupBanner.js:12
 msgid ""
@@ -7999,7 +8103,21 @@ msgctxt "plural"
 msgid "Cover art ({num})"
 msgstr "封面 ({num})"
 
-#: ../root/components/EntityTabs.js:132
+#: ../root/components/EntityTabs.js:129
+#, fuzzy
+#| msgid "Event ratings"
+msgctxt "plural"
+msgid "Event art"
+msgstr "活动评分"
+
+#: ../root/components/EntityTabs.js:131
+#, fuzzy
+#| msgid "Cover Art ({num})"
+msgctxt "plural"
+msgid "Event art ({num})"
+msgstr "封面 ({num})"
+
+#: ../root/components/EntityTabs.js:147
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:31
 #: ../root/layout/components/sidebar/SidebarTags.js:68
 #: ../root/static/scripts/common/components/TagEditor.js:674
@@ -8011,20 +8129,20 @@ msgctxt "folksonomy"
 msgid "Tags"
 msgstr "标签"
 
-#: ../root/components/EntityTabs.js:141 ../root/entity/Ratings.js:38
+#: ../root/components/EntityTabs.js:156 ../root/entity/Ratings.js:38
 #: ../root/entity/Ratings.js:82
 #: ../root/static/scripts/edit/externalLinks.js:777
 msgid "Reviews"
 msgstr "评论"
 
-#: ../root/components/EntityTabs.js:142
+#: ../root/components/EntityTabs.js:157
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:42
 #: ../root/user/UserProfile.js:822 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
 msgstr "评分"
 
-#: ../root/components/EntityTabs.js:162
+#: ../root/components/EntityTabs.js:177
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:282
 msgid "Edit relationships"
 msgstr "编辑关联"
@@ -8075,8 +8193,8 @@ msgstr "提供的关联类型 ID 无效。"
 #: ../root/components/ReleaseLanguageScript.js:20
 #: ../root/components/ReleaseLanguageScript.js:26
 #: ../root/components/list/ReleaseList.js:89
-#: ../root/edit/details/MergeReleases.js:54 ../root/release/CoverArt.js:88
-#: ../root/release_group/ReleaseGroupIndex.js:85
+#: ../root/edit/details/MergeReleases.js:54 ../root/event/EventArt.js:68
+#: ../root/release/CoverArt.js:63 ../root/release_group/ReleaseGroupIndex.js:85
 #: ../root/search/components/ReleaseResults.js:62
 #: ../root/static/scripts/common/components/ReleaseEvents.js:54
 #: ../root/static/scripts/common/components/ReleaseEvents.js:71
@@ -8591,17 +8709,27 @@ msgid ""
 "subscribed to."
 msgstr ""
 
-#: ../root/edit/components/EditArtwork.js:21
-#: ../root/edit/details/ReorderCoverArt.js:21
-msgid ""
-"We are unable to display history for this cover art. For a current listing "
-"of cover art, please see the {coverart|release's cover art page}."
-msgstr ""
-"无法显示此封面图片的历史。关于当前的封面图片列表，请查看 {coverart|专辑的封面"
-"图片页面}。"
+#: ../root/edit/components/EditArtwork.js:23
+#, fuzzy
+#| msgid "Event ratings"
+msgctxt "singular"
+msgid "Event art"
+msgstr "活动评分"
 
-#: ../root/edit/components/EditArtwork.js:26
-msgid "We are unable to display history for this cover art."
+#: ../root/edit/components/EditArtwork.js:32
+#: ../root/edit/details/ReorderArt.js:32
+#, fuzzy
+#| msgid "We are unable to display history for this cover art."
+msgid ""
+"We are unable to display history for this image. See {artpage|all current "
+"images}."
+msgstr "无法显示此封面的历史。"
+
+#: ../root/edit/components/EditArtwork.js:36
+#: ../root/edit/details/ReorderArt.js:36
+#, fuzzy
+#| msgid "We are unable to display history for this cover art."
+msgid "We are unable to display history for this image."
 msgstr "无法显示此封面的历史。"
 
 #: ../root/edit/components/EditHeader.js:46
@@ -8920,29 +9048,20 @@ msgctxt "area ended boolean"
 msgid "Ended"
 msgstr ""
 
-#: ../root/edit/details/AddArtist.js:125 ../root/edit/details/EditArtist.js:151
-msgctxt "artist ended boolean"
-msgid "Ended"
-msgstr ""
-
-#: ../root/edit/details/AddCoverArt.js:35
-#: ../root/edit/details/RemoveCoverArt.js:35
+#: ../root/edit/details/AddArt.js:43 ../root/edit/details/RemoveArt.js:43
 msgctxt "type"
 msgid "(none)"
 msgstr "(无)"
 
-#: ../root/edit/details/AddCoverArt.js:40
-#: ../root/edit/details/EditCoverArt.js:43
-#: ../root/edit/details/RemoveCoverArt.js:41 ../root/taglookup/Form.js:47
+#: ../root/edit/details/AddArt.js:48 ../root/edit/details/EditArt.js:54
+#: ../root/edit/details/RemoveArt.js:49 ../root/taglookup/Form.js:47
 msgid "Filename"
 msgstr "文件名"
 
-#: ../root/edit/details/AddCoverArt.js:50
-#: ../root/edit/details/EditCoverArt.js:63
-#: ../root/edit/details/RemoveCoverArt.js:52
-#: ../root/release/CoverArtFields.js:88
-msgid "Comment:"
-msgstr "评论："
+#: ../root/edit/details/AddArtist.js:125 ../root/edit/details/EditArtist.js:151
+msgctxt "artist ended boolean"
+msgid "Ended"
+msgstr ""
 
 #: ../root/edit/details/AddEvent.js:46 ../root/edit/details/EditEvent.js:50
 msgctxt "event"
@@ -9134,6 +9253,10 @@ msgstr ""
 #| msgid "Lyrics Languages"
 msgid "Lyrics languages"
 msgstr "歌词语言"
+
+#: ../root/edit/details/BetaOnlyEdit.js:29
+msgid "This edit can currently only be viewed on the {beta|beta server}."
+msgstr ""
 
 #: ../root/edit/details/ChangeReleaseQuality.js:26
 #: ../root/edit/details/historic/ChangeArtistQuality.js:26
@@ -9405,11 +9528,11 @@ msgstr "原始音轨列表"
 msgid "Current tracklist"
 msgstr "现有音轨列表"
 
-#: ../root/edit/details/ReorderCoverArt.js:37
+#: ../root/edit/details/ReorderArt.js:49
 msgid "Old positions:"
 msgstr "旧位置："
 
-#: ../root/edit/details/ReorderCoverArt.js:49
+#: ../root/edit/details/ReorderArt.js:61
 msgid "New positions:"
 msgstr "新位置："
 
@@ -9650,7 +9773,7 @@ msgid "View details"
 msgstr "查看详情"
 
 #: ../root/elections/ElectionTable/index.js:19
-#: ../root/layout/components/sidebar/EventSidebar.js:63
+#: ../root/layout/components/sidebar/EventSidebar.js:98
 msgid "Start date"
 msgstr "开始日期"
 
@@ -10234,6 +10357,84 @@ msgstr "您正在移除别名 <em>{alias}</em>。"
 msgid "Please review the {doc|alias documentation} before entering this edit."
 msgstr "请在执行编辑前浏览 {doc|别名文档}。"
 
+#: ../root/event/EventArt.js:33
+#, fuzzy
+#| msgid "Event ratings"
+msgctxt "plural, header"
+msgid "Event art"
+msgstr "活动评分"
+
+#: ../root/event/EventArt.js:39
+#, fuzzy
+#| msgid "Cannot show cover art"
+msgctxt "plural, header"
+msgid "Cannot show event art"
+msgstr "无法显示封面图片"
+
+#: ../root/event/EventArt.js:45
+#: ../root/layout/components/sidebar/EventSidebar.js:58
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:92
+#: ../root/release/CoverArt.js:40
+msgid ""
+"Images for this item have been hidden by the Internet Archive because of a "
+"takedown request."
+msgstr ""
+
+#: ../root/event/EventArt.js:76 ../root/release/CoverArt.js:71
+msgid "All sizes:"
+msgstr "所有尺寸:"
+
+#: ../root/event/EventArt.js:101
+#, fuzzy
+#| msgid ""
+#| "These images provided by the {caa|Cover Art Archive}. You can also see "
+#| "them at the {ia|Internet Archive}."
+msgid ""
+"These images are part of the {eaa|Event Art Archive}. You can also see them "
+"at the {ia|Internet Archive}."
+msgstr ""
+"这些图片由{caa|封面艺术档案馆}提供。你也可以在{ia|互联网档案}看到它们。"
+
+#: ../root/event/EventArt.js:113
+#, fuzzy
+#| msgid "We do not currently have any cover art for {release}."
+msgid "We do not currently have any event art for {event}."
+msgstr "目前没有 {release} 的封面图片。"
+
+#: ../root/event/EventArt.js:123
+#, fuzzy
+#| msgid "Add event"
+msgctxt "plural, interactive"
+msgid "Add event art"
+msgstr "添加事件"
+
+#: ../root/event/EventArt.js:129
+#, fuzzy
+#| msgid "Reorder cover art"
+msgctxt "plural, interactive"
+msgid "Reorder event art"
+msgstr "重排封面"
+
+#: ../root/event/EventArt.js:138 ../root/release/CoverArt.js:148
+#, fuzzy
+#| msgid "Log in to upload cover art"
+msgctxt "plural, interactive"
+msgid "Log in to upload images"
+msgstr "登录以上传封面图片"
+
+#: ../root/event/EventArtDarkened.js:19
+#, fuzzy
+#| msgid "Cannot Add Cover Art"
+msgctxt "plural"
+msgid "Cannot add event art"
+msgstr "无法添加封面图片"
+
+#: ../root/event/EventArtFields.js:21
+#, fuzzy
+#| msgid "Choose one or more cover art types for this image"
+msgid "Choose one or more event art types for this image"
+msgstr "为此图像选择一个或多个封面类型"
+
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
 msgstr "合并事件"
@@ -10243,6 +10444,21 @@ msgid ""
 "You are about to merge all these events into a single one. Please select the "
 "event all others should be merged into:"
 msgstr ""
+
+#: ../root/event/RemoveEventArt.js:29
+#, fuzzy
+#| msgid "Remove event"
+msgctxt "singular, header"
+msgid "Remove event art"
+msgstr "移除事件"
+
+#: ../root/event/RemoveEventArt.js:36 ../root/release/RemoveCoverArt.js:31
+#, fuzzy
+#| msgid ""
+#| "Are you sure you wish to remove the below cover art from {release} by "
+#| "{artist}?"
+msgid "Are you sure you wish to remove the image below from {entity}?"
+msgstr "确定要从 {artist} 的 {release} 移除以下的封面图片吗？"
 
 #: ../root/futureColumnLabels.js:24
 msgid "ISO 639-1"
@@ -10678,7 +10894,7 @@ msgstr "浏览所有关联"
 msgid "Chat (IRC)"
 msgstr "聊天（IRC）"
 
-#: ../root/layout/components/Footer.js:66
+#: ../root/layout/components/Footer.js:64
 msgid "Running: {git_details}"
 msgstr "正在运行：{git_details}"
 
@@ -10944,7 +11160,33 @@ msgctxt "interactive"
 msgid "Log in to edit"
 msgstr "登录以编辑"
 
-#: ../root/layout/components/sidebar/EventSidebar.js:47
+#: ../root/layout/components/sidebar/EventSidebar.js:52
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:86
+#, fuzzy
+#| msgid ""
+#| "Front cover image failed to load correctly.<br/>{all|View all artwork}."
+msgid "Image failed to load correctly.<br/>{all|View all images}."
+msgstr "无法正常加载正面封面图片。<br/>{all|浏览所有图片}。"
+
+#: ../root/layout/components/sidebar/EventSidebar.js:64
+#, fuzzy
+#| msgid "No cover art available."
+msgid "No poster available."
+msgstr "无可用的封面图片。"
+
+#: ../root/layout/components/sidebar/EventSidebar.js:67
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:101
+msgid "View all artwork"
+msgstr "浏览所有图片"
+
+#: ../root/layout/components/sidebar/EventSidebar.js:70
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:104
+#, fuzzy
+#| msgid "No front cover image available."
+msgid "No images available."
+msgstr "无可用的正面封面图片。"
+
+#: ../root/layout/components/sidebar/EventSidebar.js:82
 msgid "Event information"
 msgstr "事件信息"
 
@@ -11023,28 +11265,9 @@ msgctxt "singular, interactive"
 msgid "Set cover art"
 msgstr "设置封面"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:86
-msgid "Front cover image failed to load correctly.<br/>{all|View all artwork}."
-msgstr "无法正常加载正面封面图片。<br/>{all|浏览所有图片}。"
-
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:92
-#: ../root/release/CoverArt.js:65
-msgid ""
-"Cover art for this release has been hidden by the Internet Archive because "
-"of a takedown request."
-msgstr ""
-
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:98
 msgid "No front cover image available."
 msgstr "无可用的正面封面图片。"
-
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:101
-msgid "View all artwork"
-msgstr "浏览所有图片"
-
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:104
-msgid "No cover art available."
-msgstr "无可用的封面图片。"
 
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:150
 msgid "Additional details"
@@ -11902,30 +12125,14 @@ msgid ""
 "{ratings_doc|ratings}."
 msgstr ""
 
-#: ../root/release/CoverArt.js:27
-msgid "250px"
-msgstr "250px"
-
-#: ../root/release/CoverArt.js:33
-msgid "500px"
-msgstr "500px"
-
-#: ../root/release/CoverArt.js:39
-msgid "1200px"
-msgstr "1200px"
-
-#: ../root/release/CoverArt.js:43
-msgid "original"
-msgstr "原始"
-
-#: ../root/release/CoverArt.js:53
+#: ../root/release/CoverArt.js:28
 #, fuzzy
 #| msgid "Cover art:"
 msgctxt "plural, header"
 msgid "Cover art"
 msgstr "封面："
 
-#: ../root/release/CoverArt.js:59
+#: ../root/release/CoverArt.js:34
 #, fuzzy
 #| msgid "Cannot show cover art"
 msgctxt "plural, header"
@@ -11933,46 +12140,39 @@ msgid "Cannot show cover art"
 msgstr "无法显示封面图片"
 
 #: ../root/release/CoverArt.js:96
-msgid "All sizes:"
-msgstr "所有尺寸:"
-
-#: ../root/release/CoverArt.js:121
+#, fuzzy
+#| msgid ""
+#| "These images provided by the {caa|Cover Art Archive}. You can also see "
+#| "them at the {ia|Internet Archive}."
 msgid ""
-"These images provided by the {caa|Cover Art Archive}. You can also see them "
+"These images are part of the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr ""
 "这些图片由{caa|封面艺术档案馆}提供。你也可以在{ia|互联网档案}看到它们。"
 
-#: ../root/release/CoverArt.js:134
+#: ../root/release/CoverArt.js:109
 msgid "We do not currently have any cover art for {release}."
 msgstr "目前没有 {release} 的封面图片。"
 
-#: ../root/release/CoverArt.js:141
+#: ../root/release/CoverArt.js:116
 msgid ""
 "Keep in mind pseudo-releases generally shouldn’t have cover art. See {doc|"
 "the guidelines for pseudo-releases} for more info."
 msgstr ""
 
-#: ../root/release/CoverArt.js:158
+#: ../root/release/CoverArt.js:133
 #, fuzzy
 #| msgid "Add cover art"
 msgctxt "plural, interactive"
 msgid "Add cover art"
 msgstr "添加封面"
 
-#: ../root/release/CoverArt.js:164
+#: ../root/release/CoverArt.js:139
 #, fuzzy
 #| msgid "Reorder cover art"
 msgctxt "plural, interactive"
 msgid "Reorder cover art"
 msgstr "重排封面"
-
-#: ../root/release/CoverArt.js:173
-#, fuzzy
-#| msgid "Log in to upload cover art"
-msgctxt "plural, interactive"
-msgid "Log in to upload cover art"
-msgstr "登录以上传封面图片"
 
 #: ../root/release/CoverArtDarkened.js:13
 #, fuzzy
@@ -11981,7 +12181,7 @@ msgctxt "plural"
 msgid "Cannot add cover art"
 msgstr "无法添加封面图片"
 
-#: ../root/release/CoverArtFields.js:73
+#: ../root/release/CoverArtFields.js:21
 msgid "Choose one or more cover art types for this image"
 msgstr "为此图像选择一个或多个封面类型"
 
@@ -12036,18 +12236,12 @@ msgid ""
 "select the release which you would like other releases to be merged into:"
 msgstr ""
 
-#: ../root/release/RemoveCoverArt.js:25
+#: ../root/release/RemoveCoverArt.js:24
 #, fuzzy
 #| msgid "Remove cover art"
 msgctxt "singular, header"
 msgid "Remove cover art"
 msgstr "移除封面"
-
-#: ../root/release/RemoveCoverArt.js:32
-msgid ""
-"Are you sure you wish to remove the below cover art from {release} by "
-"{artist}?"
-msgstr "确定要从 {artist} 的 {release} 移除以下的封面图片吗？"
 
 #: ../root/release_group/ReleaseGroupHeader.js:20
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:814
@@ -17773,6 +17967,19 @@ msgid ""
 msgstr ""
 "<strong>警告：</strong> 你正在合并的作品中有一些拥有不同的ISWC编号。请先确保"
 "这些作品确实为相同作品，然后再继续进行合并。"
+
+#~ msgid "This release has no artwork."
+#~ msgstr "此专辑没有图片。"
+
+#~ msgid ""
+#~ "We are unable to display history for this cover art. For a current "
+#~ "listing of cover art, please see the {coverart|release's cover art page}."
+#~ msgstr ""
+#~ "无法显示此封面图片的历史。关于当前的封面图片列表，请查看 {coverart|专辑的"
+#~ "封面图片页面}。"
+
+#~ msgid "Comment:"
+#~ msgstr "评论："
 
 #, fuzzy
 #~| msgid "Remove area"

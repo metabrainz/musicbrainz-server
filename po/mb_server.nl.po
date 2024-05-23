@@ -36,7 +36,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-21 14:41+0000\n"
+"POT-Creation-Date: 2024-05-23 11:01-0500\n"
 "PO-Revision-Date: 2024-04-17 17:33+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -109,27 +109,27 @@ msgstr "&#10004;"
 msgid "&#10005;"
 msgstr "&#10005;"
 
-#: ../root/release/add_cover_art.tt:104
+#: ../root/event/add_event_art.tt:104 ../root/release/add_cover_art.tt:104
 msgid "&#x26a0; Error creating edit"
 msgstr "&#x26a0; fout bij het aanmaken van een bewerking"
 
-#: ../root/release/add_cover_art.tt:88
+#: ../root/event/add_event_art.tt:88 ../root/release/add_cover_art.tt:88
 msgid "&#x26a0; Error requesting signature"
 msgstr "&#x26a0; fout bij een aanvragen van een ondertekening"
 
-#: ../root/release/add_cover_art.tt:102
+#: ../root/event/add_event_art.tt:102 ../root/release/add_cover_art.tt:102
 msgid "&#x26a0; Error uploading image"
 msgstr "&#x26a0; fout bij het uploaden van een afbeelding"
 
-#: ../root/release/add_cover_art.tt:103
+#: ../root/event/add_event_art.tt:103 ../root/release/add_cover_art.tt:103
 msgid "&#x26a0; Server busy, try again later"
 msgstr "&#x26a0; de server is overbelast, probeer het later opnieuw"
 
-#: ../root/release/add_cover_art.tt:87
+#: ../root/event/add_event_art.tt:87 ../root/release/add_cover_art.tt:87
 msgid "&#x26a0; Unrecognized file"
 msgstr "&#x26a0; bestand niet herkend"
 
-#: ../root/release/add_cover_art.tt:86
+#: ../root/event/add_event_art.tt:86 ../root/release/add_cover_art.tt:86
 msgid "&#x2713; Success"
 msgstr "&#x2713; succes"
 
@@ -137,8 +137,10 @@ msgstr "&#x2713; succes"
 msgid "(add a new recording)"
 msgstr "(nieuwe opname toevoegen)"
 
-#: ../root/release/add_cover_art.tt:129
-msgid "(no other cover art)"
+#: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
+#, fuzzy
+#| msgid "(no other cover art)"
+msgid "(no other images)"
 msgstr "(geen andere afbeeldingen)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
@@ -250,6 +252,14 @@ msgstr "Afbeeldingen toevoegen"
 #: ../root/event/create.tt:1 ../root/event/create.tt:3
 msgctxt "header"
 msgid "Add event"
+msgstr "Evenement toevoegen"
+
+#: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
+#, fuzzy
+#| msgctxt "header"
+#| msgid "Add event"
+msgctxt "plural, header"
+msgid "Add event art"
 msgstr "Evenement toevoegen"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
@@ -578,7 +588,8 @@ msgstr "Begingebied"
 msgid "Begin date"
 msgstr "Begindatum"
 
-#: ../root/release/add_cover_art.tt:95 ../root/search/error/InternalError.js:22
+#: ../root/event/add_event_art.tt:95 ../root/release/add_cover_art.tt:95
+#: ../root/search/error/InternalError.js:22
 msgid ""
 "Below is the error information. If you wish to file a bug report, you may do "
 "so at {bugs|our bug tracker}. The information below will help, so please be "
@@ -599,9 +610,13 @@ msgid "Bot"
 msgstr "Robot"
 
 #: ../root/layout.tt:131 ../root/layout/components/Footer.js:52
+#, fuzzy
+#| msgid ""
+#| "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
+#| "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
-"{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
+"{supp|supporters}."
 msgstr ""
 "Aangeboden door de {MeB|MetaBrainz Foundation} en onze {spon|sponsors} en "
 "{supp|partners}. Hoesafbeeldingen worden geleverd door het {caa|Cover Art "
@@ -693,9 +708,13 @@ msgstr "Samenwerkers aan deze artiest"
 msgid "Collapse medium"
 msgstr "Medium inklappen"
 
-#: ../root/cdstub/index.tt:3 ../root/release/add_cover_art.tt:69
-#: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
+#: ../root/cdstub/index.tt:3 ../root/event/add_event_art.tt:69
+#: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
+#: ../root/release/add_cover_art.tt:69 ../root/release/add_cover_art.tt:137
+#: ../root/release/reorder_cover_art.tt:19
 #: ../root/release_group/set_cover_art.tt:71 ../root/cdstub/CDStubIndex.js:28
+#: ../root/components/ArtFields.js:97 ../root/edit/details/AddArt.js:58
+#: ../root/edit/details/EditArt.js:74 ../root/edit/details/RemoveArt.js:60
 msgid "Comment"
 msgstr "Opmerking"
 
@@ -745,12 +764,12 @@ msgid "Country"
 msgstr "Land"
 
 #: ../root/release_group/set_cover_art.tt:67
-#: ../root/edit/components/EditArtwork.js:30 ../root/user/UserProfile.js:51
+#: ../root/edit/components/EditArtwork.js:26 ../root/user/UserProfile.js:51
 msgctxt "singular"
 msgid "Cover art"
 msgstr "Afbeelding"
 
-#: ../root/release/add_cover_art.tt:85
+#: ../root/event/add_event_art.tt:85 ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
 msgstr "Bewerking aan het aanmaken"
 
@@ -781,7 +800,7 @@ msgstr "Datanummers"
 #: ../root/edit/details/historic/AddRelease.js:117
 #: ../root/edit/details/historic/EditReleaseEvents.js:106
 #: ../root/elections/ElectionVotes.js:24
-#: ../root/layout/components/sidebar/EventSidebar.js:57
+#: ../root/layout/components/sidebar/EventSidebar.js:92
 #: ../root/recording/RecordingIndex.js:50
 #: ../root/release_group/ReleaseGroupIndex.js:162
 #: ../root/search/components/EventResults.js:74
@@ -831,7 +850,7 @@ msgstr ""
 msgid "Description"
 msgstr "Omschrijving"
 
-#: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:147
+#: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:162
 #: ../root/elections/ElectionDetails.js:25 ../root/entity/Details.js:79
 #: ../root/entity/Details.js:81
 msgid "Details"
@@ -914,9 +933,9 @@ msgstr "Bewerken"
 #: ../root/components/Aliases/AliasTableRow.js:55
 #: ../root/components/Aliases/ArtistCreditList.js:75
 #: ../root/components/Aliases/ArtistCreditList.js:77
-#: ../root/components/EntityTabs.js:155
+#: ../root/components/EntityTabs.js:170 ../root/event/EventArt.js:86
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:89
-#: ../root/release/CoverArt.js:106
+#: ../root/release/CoverArt.js:81
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:516
 #: ../root/user/UserCollections.js:121
 msgctxt "verb, interactive"
@@ -937,6 +956,14 @@ msgstr "Vermelding van artiest bewerken"
 msgctxt "singular, header"
 msgid "Edit cover art"
 msgstr "Afbeelding bewerken"
+
+#: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:4
+#, fuzzy
+#| msgctxt "edit type"
+#| msgid "Edit event"
+msgctxt "singular, header"
+msgid "Edit event art"
+msgstr "Evenement bewerken"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18
@@ -1003,7 +1030,7 @@ msgstr "Eindgebied"
 #: ../root/edit/details/EditPlace.js:97
 #: ../root/elections/ElectionTable/index.js:20
 #: ../root/layout/components/sidebar/AreaSidebar.js:60
-#: ../root/layout/components/sidebar/EventSidebar.js:67
+#: ../root/layout/components/sidebar/EventSidebar.js:102
 #: ../root/report/RecordingsWithFutureDates.js:38
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:202
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:182
@@ -1028,8 +1055,8 @@ msgstr ""
 "over te nemen. Als je te ver bent uitgezoomd, wordt de map ingezoomd als je "
 "erop klikt."
 
-#: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:170
-#: ../root/release/edit/layout.tt:58
+#: ../root/components/forms.tt:51 ../root/event/add_event_art.tt:170
+#: ../root/release/add_cover_art.tt:170 ../root/release/edit/layout.tt:58
 #: ../root/static/scripts/edit/components/EnterEdit.js:60
 msgid "Enter edit"
 msgstr "Bewerking invoeren"
@@ -1072,7 +1099,11 @@ msgstr ""
 #: ../root/edit/search_macros.tt:434 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
 #: ../root/components/list/EventList.js:60 ../root/edit/details/AddEvent.js:23
-#: ../root/edit/details/EditEvent.js:31 ../root/layout/components/Search.js:27
+#: ../root/edit/details/AddEventArt.js:21 ../root/edit/details/EditEvent.js:31
+#: ../root/edit/details/EditEventArt.js:23
+#: ../root/edit/details/RemoveEventArt.js:23
+#: ../root/edit/details/ReorderEventArt.js:23
+#: ../root/layout/components/Search.js:27
 #: ../root/report/components/EventList.js:46
 #: ../root/search/components/SearchForm.js:45
 #: ../root/static/scripts/common/constants.js:37
@@ -1109,7 +1140,7 @@ msgstr "Actie bij het verlopen"
 msgid "External links"
 msgstr "Externe websites"
 
-#: ../root/release/add_cover_art.tt:48
+#: ../root/event/add_event_art.tt:48 ../root/release/add_cover_art.tt:48
 msgid "File:"
 msgstr "Bestand:"
 
@@ -1605,7 +1636,7 @@ msgstr "Platenmaatschappijdetails"
 msgid "Language"
 msgstr "Taal"
 
-#: ../root/layout.tt:145 ../root/layout/components/Footer.js:85
+#: ../root/layout.tt:144 ../root/layout/components/Footer.js:83
 msgid "Last replication packet received at {datetime}"
 msgstr "Laatste replicatiepakket ontvangen op {datetime}"
 
@@ -1720,11 +1751,11 @@ msgctxt "header"
 msgid "Move disc ID"
 msgstr "Disc-ID verplaatsen"
 
-#: ../root/release/add_cover_art.tt:44
+#: ../root/event/add_event_art.tt:44 ../root/release/add_cover_art.tt:44
 msgid "Move file down"
 msgstr "Bestand omlaag verplaatsen"
 
-#: ../root/release/add_cover_art.tt:42
+#: ../root/event/add_event_art.tt:42 ../root/release/add_cover_art.tt:42
 msgid "Move file up"
 msgstr "Bestand omhoog verplaatsen"
 
@@ -1805,7 +1836,7 @@ msgstr "Naam"
 msgid "New artist credit"
 msgstr "Nieuwe vermelding van een artiest"
 
-#: ../root/release/add_cover_art.tt:148
+#: ../root/event/add_event_art.tt:148 ../root/release/add_cover_art.tt:148
 msgid "New image goes here"
 msgstr "Nieuwe afbeelding komt hier"
 
@@ -1998,9 +2029,20 @@ msgstr ""
 "Ga eerst naar de pagina’s van de andere objecten die je wil samenvoegen en "
 "klik dan op “Samenvoegen”."
 
-#: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:79
+#: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:23
 msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
+"these types."
+msgstr ""
+"Lees de {doc|documentatie over afbeeldingstypes} voor een beschrijving."
+
+#: ../root/event/add_event_art.tt:66 ../root/event/EventArtFields.js:23
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Please see the {doc|Event Art Types} documentation for a description of "
 "these types."
 msgstr ""
 "Lees de {doc|documentatie over afbeeldingstypes} voor een beschrijving."
@@ -2009,7 +2051,8 @@ msgstr ""
 msgid "Please select the medium you wish to attach this CD TOC to."
 msgstr "Selecteer het medium waar je deze TOC aan wil toevoegen."
 
-#: ../root/cdtoc/list.tt:6 ../root/release/add_cover_art.tt:125
+#: ../root/cdtoc/list.tt:6 ../root/event/add_event_art.tt:125
+#: ../root/event/reorder_event_art.tt:10 ../root/release/add_cover_art.tt:125
 #: ../root/release/reorder_cover_art.tt:10
 #: ../root/edit/details/AddMedium.js:106 ../root/edit/details/EditMedium.js:434
 msgid "Position"
@@ -2112,18 +2155,18 @@ msgstr "Relatietype"
 #: ../lib/MusicBrainz/Server/Edit/Release.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
 #: ../root/components/list/ReleaseList.js:65
-#: ../root/edit/details/AddCoverArt.js:22 ../root/edit/details/AddMedium.js:96
+#: ../root/edit/details/AddCoverArt.js:18 ../root/edit/details/AddMedium.js:96
 #: ../root/edit/details/AddRelease.js:32
 #: ../root/edit/details/AddReleaseLabel.js:22
 #: ../root/edit/details/ChangeReleaseQuality.js:20
 #: ../root/edit/details/EditBarcodes.js:34
-#: ../root/edit/details/EditCoverArt.js:35
+#: ../root/edit/details/EditCoverArt.js:18
 #: ../root/edit/details/EditRelease.js:42
 #: ../root/edit/details/EditReleaseLabel.js:38
 #: ../root/edit/details/MergeReleases.js:229
-#: ../root/edit/details/RemoveCoverArt.js:22
+#: ../root/edit/details/RemoveCoverArt.js:18
 #: ../root/edit/details/RemoveReleaseLabel.js:22
-#: ../root/edit/details/ReorderCoverArt.js:30
+#: ../root/edit/details/ReorderCoverArt.js:18
 #: ../root/edit/details/ReorderMediums.js:21
 #: ../root/edit/details/historic/EditReleaseEvents.js:105
 #: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:19
@@ -2217,14 +2260,14 @@ msgid "Release “{name}” by {artist}"
 msgstr "Uitgave ‘{name}’ van {artist}"
 
 #: ../root/cdtoc/list.tt:60 ../root/edit/search_macros.tt:122
-#: ../root/release/add_cover_art.tt:110
+#: ../root/event/add_event_art.tt:110 ../root/release/add_cover_art.tt:110
 #: ../root/account/applications/ApplicationList.js:38
 #: ../root/collection/CollectionHeader.js:85
 #: ../root/collection/DeleteCollection.js:21
-#: ../root/components/Aliases/AliasTableRow.js:59
+#: ../root/components/Aliases/AliasTableRow.js:59 ../root/event/EventArt.js:92
 #: ../root/layout/components/sidebar/RemoveLink.js:26
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:95
-#: ../root/release/CoverArt.js:112 ../root/release/DiscIds.js:66
+#: ../root/release/CoverArt.js:87 ../root/release/DiscIds.js:66
 #: ../root/static/scripts/account/components/EditProfileForm.js:300
 #: ../root/static/scripts/edit/components/Multiselect.js:210
 #: ../root/user/UserCollections.js:122
@@ -2279,7 +2322,15 @@ msgctxt "plural, header"
 msgid "Reorder cover art"
 msgstr "Volgorde veranderen"
 
-#: ../root/release/add_cover_art.tt:83
+#: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
+#, fuzzy
+#| msgctxt "plural, header"
+#| msgid "Reorder cover art"
+msgctxt "plural, header"
+msgid "Reorder event art"
+msgstr "Volgorde veranderen"
+
+#: ../root/event/add_event_art.tt:83 ../root/release/add_cover_art.tt:83
 msgid "Request signature..."
 msgstr "Ondertekeningsverzoek"
 
@@ -2309,7 +2360,7 @@ msgstr ""
 "Lees de {url|documentatie} over het invullen van de uitgavebewerker en zorg "
 "ervoor dat de gegevens de juiste opmaak hebben."
 
-#: ../root/layout.tt:138
+#: ../root/layout.tt:137
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr "Draait <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
@@ -2389,7 +2440,7 @@ msgstr ""
 "Selecteer een type uit deze lijst om een omschrijving te zien. Als er geen "
 "passend type voor deze compositie tussen zit, kan je het type leeg laten."
 
-#: ../root/release/add_cover_art.tt:31
+#: ../root/event/add_event_art.tt:31 ../root/release/add_cover_art.tt:31
 msgid "Select images..."
 msgstr "Bestanden selecteren …"
 
@@ -2543,10 +2594,14 @@ msgctxt "audio file metadata"
 msgid "Tagger"
 msgstr "Tagger"
 
-#: ../root/release/add_cover_art.tt:12
+#: ../root/event/add_event_art.tt:12 ../root/release/add_cover_art.tt:12
+#, fuzzy
+#| msgid ""
+#| "The Cover Art Archive is currently experiencing difficulties. Adding "
+#| "images for this release is unlikely to work at the moment."
 msgid ""
-"The Cover Art Archive is currently experiencing difficulties. Adding images "
-"for this release is unlikely to work at the moment."
+"The Internet Archive is currently experiencing difficulties. Adding images "
+"is unlikely to work at the moment."
 msgstr ""
 "Het Cover Art Archive ondervindt op het moment problemen. Waarschijnlijk "
 "lukt het nu niet om afbeeldingen voor deze uitgave toe te voegen."
@@ -2919,7 +2974,7 @@ msgstr "Dit nummer zit verborgen in de pregapruimte."
 
 #: ../root/event/edit_form.tt:40 ../root/components/list/EventList.js:78
 #: ../root/edit/details/AddEvent.js:73 ../root/edit/details/EditEvent.js:84
-#: ../root/layout/components/sidebar/EventSidebar.js:76
+#: ../root/layout/components/sidebar/EventSidebar.js:111
 #: ../root/report/components/EventList.js:70
 #: ../root/search/components/EventResults.js:75
 #, fuzzy
@@ -3028,6 +3083,7 @@ msgstr "Twitter"
 #: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/account/applications/ApplicationList.js:148
 #: ../root/components/Aliases/AliasTable.js:21
+#: ../root/components/ArtFields.js:64
 #: ../root/components/list/ReleaseGroupList.js:84
 #: ../root/components/list/ReleaseList.js:139
 #: ../root/edit/details/AddArea.js:57 ../root/edit/details/AddArtist.js:65
@@ -3047,7 +3103,7 @@ msgstr "Twitter"
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:60
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:155
 #: ../root/layout/components/sidebar/SidebarType.js:21
-#: ../root/release/CoverArtFields.js:51 ../root/report/DuplicateArtists.js:69
+#: ../root/report/DuplicateArtists.js:69
 #: ../root/report/DuplicateReleaseGroups.js:60
 #: ../root/report/IswcsWithManyWorks.js:53
 #: ../root/report/components/ArtistList.js:54
@@ -3080,15 +3136,15 @@ msgstr "Twitter"
 msgid "Type"
 msgstr "Type"
 
-#: ../root/release/add_cover_art.tt:54
+#: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 msgid "Type:"
 msgstr "Type:"
 
+#: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
-#: ../root/release_group/set_cover_art.tt:69
-#: ../root/edit/details/AddCoverArt.js:29
-#: ../root/edit/details/EditCoverArt.js:54
-#: ../root/edit/details/RemoveCoverArt.js:29 ../root/release/CoverArt.js:82
+#: ../root/release_group/set_cover_art.tt:69 ../root/edit/details/AddArt.js:37
+#: ../root/edit/details/EditArt.js:65 ../root/edit/details/RemoveArt.js:37
+#: ../root/event/EventArt.js:62 ../root/release/CoverArt.js:57
 msgid "Types:"
 msgstr "Types:"
 
@@ -3123,7 +3179,7 @@ msgstr "Kopieer de artiest van het nummer naar de artiest van de opname."
 msgid "Update the recording title to match the track title."
 msgstr "Kopieer de titel van het nummer naar de titel van de opname."
 
-#: ../root/release/add_cover_art.tt:84
+#: ../root/event/add_event_art.tt:84 ../root/release/add_cover_art.tt:84
 msgid "Uploading image..."
 msgstr "Afbeelding aan het uploaden"
 
@@ -3164,7 +3220,7 @@ msgstr "Nummerposities gebruiken"
 msgid "Use track titles"
 msgstr "Nummertitels gebruiken"
 
-#: ../root/release/add_cover_art.tt:81
+#: ../root/event/add_event_art.tt:81 ../root/release/add_cover_art.tt:81
 msgid "Validating file..."
 msgstr "Bestand wordt gevalideerd"
 
@@ -3704,7 +3760,7 @@ msgstr "oudste eerst"
 msgid "on"
 msgstr "op"
 
-#: ../root/release/add_cover_art.tt:33
+#: ../root/event/add_event_art.tt:33 ../root/release/add_cover_art.tt:33
 msgid "or drop files here"
 msgstr "of bestanden hierheen slepen"
 
@@ -4197,21 +4253,12 @@ msgstr "De waardering moet een integer tussen 0 en 100 zijn."
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr "‘{types}’ is geen geldig paar relatietypes."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:615
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:482
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr ""
 "Deze samenvoegingsstrategie kan niet worden toegepast op de uitgaven die je "
 "hebt geselecteerd."
-
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:644
-msgid "This release has no artwork."
-msgstr "Deze uitgave heeft geen afbeelding."
-
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:650
-#, perl-brace-format
-msgid "Found no artwork with ID “{id}”."
-msgstr "Geen afbeelding met de ID ‘{id}’ gevonden."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:68
 msgid "The annotation revision ID must be a positive integer"
@@ -4233,6 +4280,11 @@ msgid "The old and new annotation ids must be unique, positive integers."
 msgstr ""
 "De oude en nieuwe ID van de aantekening moeten unieke positieve integers "
 "zijn."
+
+#: ../lib/MusicBrainz/Server/Controller/Role/Art.pm:132
+#, perl-brace-format
+msgid "Found no artwork with ID “{id}”."
+msgstr "Geen afbeelding met de ID ‘{id}’ gevonden."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:222
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:99
@@ -4336,7 +4388,7 @@ msgstr "Je rapport is verstuurd."
 msgid "Invalid TOC"
 msgstr "Ongeldige TOC"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:291
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:294
 msgid ""
 "An error occurred trying to communicate with the Internet Archive servers. "
 "Please wait a few moments and try again."
@@ -4344,7 +4396,7 @@ msgstr ""
 "Bij de communicatie met de servers van het Internet Archive is een fout "
 "opgetreden. Wacht even en probeer het dan nog een keer."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:304
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:307
 msgid ""
 "We’ve hit a temporary delay while trying to fetch metadata from the Internet "
 "Archive. Please wait a minute and try again."
@@ -4352,22 +4404,56 @@ msgstr ""
 "Tijdens het ophalen van metadata van het Internet Archive ondervonden we een "
 "tijdelijke vertraging. Wacht een minuutje en probeer het dan opnieuw."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:420
-#: ../root/release/CoverArtDarkened.js:19
-msgid ""
-"The Cover Art Archive has had a takedown request in the past for this "
-"release, so we are unable to allow any more uploads."
-msgstr ""
-"Het Cover Art Archive heeft in het verleden het verzoek gekregen om "
-"afbeeldingen voor deze uitgave te verwijderen, dus we kunnen je ze niet meer "
-"laten toevoegen."
-
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:457
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:322
 #, perl-brace-format
 msgid ""
 "Cover art can’t be uploaded to this release because we don’t own the "
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
+msgstr ""
+"Aan deze uitgave kunnen geen afbeeldingen worden toegevoegd omdat het "
+"bijbehorende object in het Internet Archive niet van ons is. Neem via "
+"{contact_url} contact met ons op, zodat we het kunnen oplossen."
+
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:340
+#, fuzzy, perl-brace-format
+#| msgid ""
+#| "Cover art can’t be uploaded to this release because we don’t own the "
+#| "associated item at the Internet Archive. Please contact us at "
+#| "{contact_url} so we can resolve this."
+msgid ""
+"Event art can’t be uploaded to this event because we don’t own the "
+"associated item at the Internet Archive. Please contact us at {contact_url} "
+"so we can resolve this."
+msgstr ""
+"Aan deze uitgave kunnen geen afbeeldingen worden toegevoegd omdat het "
+"bijbehorende object in het Internet Archive niet van ons is. Neem via "
+"{contact_url} contact met ons op, zodat we het kunnen oplossen."
+
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:461
+#: ../root/event/EventArtDarkened.js:25 ../root/release/CoverArtDarkened.js:19
+#, fuzzy
+#| msgid ""
+#| "The Cover Art Archive has had a takedown request in the past for this "
+#| "release, so we are unable to allow any more uploads."
+msgid ""
+"The Internet Archive has had a takedown request in the past for this item, "
+"so we are unable to allow any more uploads."
+msgstr ""
+"Het Cover Art Archive heeft in het verleden het verzoek gekregen om "
+"afbeeldingen voor deze uitgave te verwijderen, dus we kunnen je ze niet meer "
+"laten toevoegen."
+
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:498
+#, fuzzy, perl-brace-format
+#| msgid ""
+#| "Cover art can’t be uploaded to this release because we don’t own the "
+#| "associated item at the Internet Archive. Please contact us at "
+#| "{contact_url} so we can resolve this."
+msgid ""
+"Images can’t be uploaded here because we don’t own the associated item at "
+"the Internet Archive. Please contact us at {contact_url} so we can resolve "
+"this."
 msgstr ""
 "Aan deze uitgave kunnen geen afbeeldingen worden toegevoegd omdat het "
 "bijbehorende object in het Internet Archive niet van ons is. Neem via "
@@ -4572,6 +4658,14 @@ msgctxt "edit type"
 msgid "Add event annotation"
 msgstr "Aantekening aan het evenement toevoegen"
 
+#: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
+#, fuzzy
+#| msgctxt "header"
+#| msgid "Add event"
+msgctxt "singular, edit type"
+msgid "Add event art"
+msgstr "Evenement toevoegen"
+
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 msgctxt "edit type"
 msgid "Add event"
@@ -4597,10 +4691,34 @@ msgctxt "edit type"
 msgid "Edit event alias"
 msgstr "Alias van het evenement bewerken"
 
+#: ../lib/MusicBrainz/Server/Edit/Event/EditEventArt.pm:15
+#, fuzzy
+#| msgctxt "edit type"
+#| msgid "Edit event"
+msgctxt "singular, edit type"
+msgid "Edit event art"
+msgstr "Evenement bewerken"
+
 #: ../lib/MusicBrainz/Server/Edit/Event/Merge.pm:11
 msgctxt "edit type"
 msgid "Merge events"
 msgstr "Evenementen samenvoegen"
+
+#: ../lib/MusicBrainz/Server/Edit/Event/RemoveEventArt.pm:15
+#, fuzzy
+#| msgctxt "edit type"
+#| msgid "Remove event"
+msgctxt "singular, edit type"
+msgid "Remove event art"
+msgstr "Evenement verwijderen"
+
+#: ../lib/MusicBrainz/Server/Edit/Event/ReorderEventArt.pm:15
+#, fuzzy
+#| msgctxt "plural, edit type"
+#| msgid "Reorder cover art"
+msgctxt "plural, edit type"
+msgid "Reorder event art"
+msgstr "Volgorde veranderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAlias.pm:11
 msgctxt "edit type"
@@ -5051,7 +5169,7 @@ msgctxt "edit type"
 msgid "Add release alias"
 msgstr "Alias aan de uitgave toevoegen"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:15
 msgctxt "singular, edit type"
 msgid "Add cover art"
 msgstr "Afbeeldingen toevoegen"
@@ -5088,7 +5206,7 @@ msgctxt "edit type"
 msgid "Edit barcodes"
 msgstr "Streepjescodes bewerken"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:14
 msgctxt "singular, edit type"
 msgid "Edit cover art"
 msgstr "Afbeelding bewerken"
@@ -5110,12 +5228,12 @@ msgstr "(onbekend)"
 msgid "These releases could not be merged: {reason}"
 msgstr "Deze uitgaven kunnen niet worden samengevoegd: {reason}"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:15
 msgctxt "singular, edit type"
 msgid "Remove cover art"
 msgstr "Afbeelding verwijderen"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:14
 msgctxt "plural, edit type"
 msgid "Reorder cover art"
 msgstr "Volgorde veranderen"
@@ -5882,7 +6000,7 @@ msgstr ""
 msgid "You must provide an edit note when adding a standalone recording"
 msgstr "Je moet een notitie toevoegen als je een losse opname toevoegt."
 
-#: ../lib/MusicBrainz/Server/Form/Release/AddCoverArt.pm:59
+#: ../lib/MusicBrainz/Server/Form/Role/AddArt.pm:59
 #: ../lib/MusicBrainz/Server/Form/Role/CSRFToken.pm:11
 #: ../lib/MusicBrainz/Server/Form/Role/CSRFToken.pm:77
 msgid "The form you’ve submitted has expired. Please resubmit your request."
@@ -7760,7 +7878,7 @@ msgstr ""
 msgid "see uses"
 msgstr "gebruik bekijken"
 
-#: ../root/components/Aliases/index.js:49 ../root/components/EntityTabs.js:128
+#: ../root/components/Aliases/index.js:49 ../root/components/EntityTabs.js:143
 #: ../root/entity/Aliases.js:26
 msgid "Aliases"
 msgstr "Aliassen"
@@ -7785,6 +7903,22 @@ msgstr "{entity} heeft geen aliassen."
 msgctxt "interactive"
 msgid "Add a new alias"
 msgstr "Nieuwe alias toevoegen"
+
+#: ../root/components/ArtLinks.js:17
+msgid "250px"
+msgstr "250 px"
+
+#: ../root/components/ArtLinks.js:23
+msgid "500px"
+msgstr "500 px"
+
+#: ../root/components/ArtLinks.js:29
+msgid "1200px"
+msgstr "1200 px"
+
+#: ../root/components/ArtLinks.js:33
+msgid "original"
+msgstr "Origineel"
 
 #: ../root/components/CleanupBanner.js:12
 msgid ""
@@ -7926,7 +8060,22 @@ msgctxt "plural"
 msgid "Cover art ({num})"
 msgstr "Afbeelding(en) ({num})"
 
-#: ../root/components/EntityTabs.js:132
+#: ../root/components/EntityTabs.js:129
+#, fuzzy
+#| msgid "Event ratings"
+msgctxt "plural"
+msgid "Event art"
+msgstr "Waarderingen van evenementen"
+
+#: ../root/components/EntityTabs.js:131
+#, fuzzy
+#| msgctxt "plural"
+#| msgid "Cover art ({num})"
+msgctxt "plural"
+msgid "Event art ({num})"
+msgstr "Afbeelding(en) ({num})"
+
+#: ../root/components/EntityTabs.js:147
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:31
 #: ../root/layout/components/sidebar/SidebarTags.js:68
 #: ../root/static/scripts/common/components/TagEditor.js:674
@@ -7936,20 +8085,20 @@ msgctxt "folksonomy"
 msgid "Tags"
 msgstr "Tags"
 
-#: ../root/components/EntityTabs.js:141 ../root/entity/Ratings.js:38
+#: ../root/components/EntityTabs.js:156 ../root/entity/Ratings.js:38
 #: ../root/entity/Ratings.js:82
 #: ../root/static/scripts/edit/externalLinks.js:777
 msgid "Reviews"
 msgstr "Recensies"
 
-#: ../root/components/EntityTabs.js:142
+#: ../root/components/EntityTabs.js:157
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:42
 #: ../root/user/UserProfile.js:822 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
 msgstr "Waarderingen"
 
-#: ../root/components/EntityTabs.js:162
+#: ../root/components/EntityTabs.js:177
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:282
 msgid "Edit relationships"
 msgstr "Relaties bewerken"
@@ -8000,8 +8149,8 @@ msgstr "De ingevoerde relatietype-ID is niet geldig."
 #: ../root/components/ReleaseLanguageScript.js:20
 #: ../root/components/ReleaseLanguageScript.js:26
 #: ../root/components/list/ReleaseList.js:89
-#: ../root/edit/details/MergeReleases.js:54 ../root/release/CoverArt.js:88
-#: ../root/release_group/ReleaseGroupIndex.js:85
+#: ../root/edit/details/MergeReleases.js:54 ../root/event/EventArt.js:68
+#: ../root/release/CoverArt.js:63 ../root/release_group/ReleaseGroupIndex.js:85
 #: ../root/search/components/ReleaseResults.js:62
 #: ../root/static/scripts/common/components/ReleaseEvents.js:54
 #: ../root/static/scripts/common/components/ReleaseEvents.js:71
@@ -8538,18 +8687,27 @@ msgstr ""
 "geabonneerd en bewerkingen voor objecten in een collectie waarop je bent "
 "geabonneerd."
 
-#: ../root/edit/components/EditArtwork.js:21
-#: ../root/edit/details/ReorderCoverArt.js:21
-msgid ""
-"We are unable to display history for this cover art. For a current listing "
-"of cover art, please see the {coverart|release's cover art page}."
-msgstr ""
-"We kunnen de geschiedenis van deze afbeelding niet laten zien. Zie de "
-"{coverart|pagina met afbeeldingen} voor alle afbeeldingen die we van deze "
-"uitgave hebben."
+#: ../root/edit/components/EditArtwork.js:23
+#, fuzzy
+#| msgid "Event ratings"
+msgctxt "singular"
+msgid "Event art"
+msgstr "Waarderingen van evenementen"
 
-#: ../root/edit/components/EditArtwork.js:26
-msgid "We are unable to display history for this cover art."
+#: ../root/edit/components/EditArtwork.js:32
+#: ../root/edit/details/ReorderArt.js:32
+#, fuzzy
+#| msgid "We are unable to display history for this cover art."
+msgid ""
+"We are unable to display history for this image. See {artpage|all current "
+"images}."
+msgstr "We kunnen de geschiedenis van deze afbeelding niet laten zien."
+
+#: ../root/edit/components/EditArtwork.js:36
+#: ../root/edit/details/ReorderArt.js:36
+#, fuzzy
+#| msgid "We are unable to display history for this cover art."
+msgid "We are unable to display history for this image."
 msgstr "We kunnen de geschiedenis van deze afbeelding niet laten zien."
 
 #: ../root/edit/components/EditHeader.js:46
@@ -8878,29 +9036,20 @@ msgctxt "area ended boolean"
 msgid "Ended"
 msgstr "Beëindigd"
 
-#: ../root/edit/details/AddArtist.js:125 ../root/edit/details/EditArtist.js:151
-msgctxt "artist ended boolean"
-msgid "Ended"
-msgstr "Beëindigd"
-
-#: ../root/edit/details/AddCoverArt.js:35
-#: ../root/edit/details/RemoveCoverArt.js:35
+#: ../root/edit/details/AddArt.js:43 ../root/edit/details/RemoveArt.js:43
 msgctxt "type"
 msgid "(none)"
 msgstr "(geen)"
 
-#: ../root/edit/details/AddCoverArt.js:40
-#: ../root/edit/details/EditCoverArt.js:43
-#: ../root/edit/details/RemoveCoverArt.js:41 ../root/taglookup/Form.js:47
+#: ../root/edit/details/AddArt.js:48 ../root/edit/details/EditArt.js:54
+#: ../root/edit/details/RemoveArt.js:49 ../root/taglookup/Form.js:47
 msgid "Filename"
 msgstr "Bestandsnaam"
 
-#: ../root/edit/details/AddCoverArt.js:50
-#: ../root/edit/details/EditCoverArt.js:63
-#: ../root/edit/details/RemoveCoverArt.js:52
-#: ../root/release/CoverArtFields.js:88
-msgid "Comment:"
-msgstr "Opmerking:"
+#: ../root/edit/details/AddArtist.js:125 ../root/edit/details/EditArtist.js:151
+msgctxt "artist ended boolean"
+msgid "Ended"
+msgstr "Beëindigd"
 
 #: ../root/edit/details/AddEvent.js:46 ../root/edit/details/EditEvent.js:50
 msgctxt "event"
@@ -9092,6 +9241,10 @@ msgstr "Beëindigd"
 #: ../root/static/scripts/work/edit.js:334
 msgid "Lyrics languages"
 msgstr "Talen van de tekst"
+
+#: ../root/edit/details/BetaOnlyEdit.js:29
+msgid "This edit can currently only be viewed on the {beta|beta server}."
+msgstr ""
 
 #: ../root/edit/details/ChangeReleaseQuality.js:26
 #: ../root/edit/details/historic/ChangeArtistQuality.js:26
@@ -9366,11 +9519,11 @@ msgstr "Oorspronkelijke nummerlijst"
 msgid "Current tracklist"
 msgstr "Huidige nummerlijst"
 
-#: ../root/edit/details/ReorderCoverArt.js:37
+#: ../root/edit/details/ReorderArt.js:49
 msgid "Old positions:"
 msgstr "Oude posities:"
 
-#: ../root/edit/details/ReorderCoverArt.js:49
+#: ../root/edit/details/ReorderArt.js:61
 msgid "New positions:"
 msgstr "Nieuwe posities:"
 
@@ -9610,7 +9763,7 @@ msgid "View details"
 msgstr "Details bekijken"
 
 #: ../root/elections/ElectionTable/index.js:19
-#: ../root/layout/components/sidebar/EventSidebar.js:63
+#: ../root/layout/components/sidebar/EventSidebar.js:98
 msgid "Start date"
 msgstr "Begindatum"
 
@@ -10195,6 +10348,96 @@ msgid "Please review the {doc|alias documentation} before entering this edit."
 msgstr ""
 "Lees de documentatie over {doc|aliassen} voordat je deze bewerking indient."
 
+#: ../root/event/EventArt.js:33
+#, fuzzy
+#| msgid "Event ratings"
+msgctxt "plural, header"
+msgid "Event art"
+msgstr "Waarderingen van evenementen"
+
+#: ../root/event/EventArt.js:39
+#, fuzzy
+#| msgctxt "plural, header"
+#| msgid "Cannot show cover art"
+msgctxt "plural, header"
+msgid "Cannot show event art"
+msgstr "De afbeelding kan niet worden getoond"
+
+#: ../root/event/EventArt.js:45
+#: ../root/layout/components/sidebar/EventSidebar.js:58
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:92
+#: ../root/release/CoverArt.js:40
+#, fuzzy
+#| msgid ""
+#| "Cover art for this release has been hidden by the Internet Archive "
+#| "because of a takedown request."
+msgid ""
+"Images for this item have been hidden by the Internet Archive because of a "
+"takedown request."
+msgstr ""
+"De afbeeldingen voor deze uitgave zijn door het Internet Archive vanwege een "
+"verwijderingsverzoek verborgen."
+
+#: ../root/event/EventArt.js:76 ../root/release/CoverArt.js:71
+msgid "All sizes:"
+msgstr "Alle groottes:"
+
+#: ../root/event/EventArt.js:101
+#, fuzzy
+#| msgid ""
+#| "These images provided by the {caa|Cover Art Archive}. You can also see "
+#| "them at the {ia|Internet Archive}."
+msgid ""
+"These images are part of the {eaa|Event Art Archive}. You can also see them "
+"at the {ia|Internet Archive}."
+msgstr ""
+"Deze afbeeldingen worden geleverd door het {caa|Cover Art Archive}. Je kan "
+"ze ook bekijken bij het {ia|Internet Archive}."
+
+#: ../root/event/EventArt.js:113
+#, fuzzy
+#| msgid "We do not currently have any cover art for {release}."
+msgid "We do not currently have any event art for {event}."
+msgstr "We hebben momenteel geen afbeelding van {release}."
+
+#: ../root/event/EventArt.js:123
+#, fuzzy
+#| msgctxt "header"
+#| msgid "Add event"
+msgctxt "plural, interactive"
+msgid "Add event art"
+msgstr "Evenement toevoegen"
+
+#: ../root/event/EventArt.js:129
+#, fuzzy
+#| msgctxt "plural, interactive"
+#| msgid "Reorder cover art"
+msgctxt "plural, interactive"
+msgid "Reorder event art"
+msgstr "Volgorde veranderen"
+
+#: ../root/event/EventArt.js:138 ../root/release/CoverArt.js:148
+#, fuzzy
+#| msgctxt "plural, interactive"
+#| msgid "Log in to upload cover art"
+msgctxt "plural, interactive"
+msgid "Log in to upload images"
+msgstr "Meld je aan om afbeeldingen toe te voegen"
+
+#: ../root/event/EventArtDarkened.js:19
+#, fuzzy
+#| msgctxt "plural"
+#| msgid "Cannot add cover art"
+msgctxt "plural"
+msgid "Cannot add event art"
+msgstr "Kan geen afbeelding toevoegen"
+
+#: ../root/event/EventArtFields.js:21
+#, fuzzy
+#| msgid "Choose one or more cover art types for this image"
+msgid "Choose one or more event art types for this image"
+msgstr "Kies één of meer types voor deze afbeelding"
+
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
 msgstr "Evenementen samenvoegen"
@@ -10206,6 +10449,24 @@ msgid ""
 msgstr ""
 "Je staat op het punt om al deze evenementen samen te voegen. Selecteer het "
 "evenement waarnaar je de andere wil samenvoegen:"
+
+#: ../root/event/RemoveEventArt.js:29
+#, fuzzy
+#| msgctxt "edit type"
+#| msgid "Remove event"
+msgctxt "singular, header"
+msgid "Remove event art"
+msgstr "Evenement verwijderen"
+
+#: ../root/event/RemoveEventArt.js:36 ../root/release/RemoveCoverArt.js:31
+#, fuzzy
+#| msgid ""
+#| "Are you sure you wish to remove the below cover art from {release} by "
+#| "{artist}?"
+msgid "Are you sure you wish to remove the image below from {entity}?"
+msgstr ""
+"Weet je zeker dat je de onderstaande afbeelding van {release} van {artist} "
+"wil verwijderen?"
 
 #: ../root/futureColumnLabels.js:24
 msgid "ISO 639-1"
@@ -10593,7 +10854,7 @@ msgstr "Alle relaties bekijken"
 msgid "Chat (IRC)"
 msgstr "Chat (IRC)"
 
-#: ../root/layout/components/Footer.js:66
+#: ../root/layout/components/Footer.js:64
 msgid "Running: {git_details}"
 msgstr "Draait: {git_details}"
 
@@ -10832,7 +11093,35 @@ msgctxt "interactive"
 msgid "Log in to edit"
 msgstr "Meld je aan om te bewerken"
 
-#: ../root/layout/components/sidebar/EventSidebar.js:47
+#: ../root/layout/components/sidebar/EventSidebar.js:52
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:86
+#, fuzzy
+#| msgid ""
+#| "Front cover image failed to load correctly.<br/>{all|View all artwork}."
+msgid "Image failed to load correctly.<br/>{all|View all images}."
+msgstr ""
+"De afbeelding van de voorkant is niet goed geladen.<br/>{all|Bekijk alle "
+"afbeeldingen}."
+
+#: ../root/layout/components/sidebar/EventSidebar.js:64
+#, fuzzy
+#| msgid "No cover art available."
+msgid "No poster available."
+msgstr "Geen afbeelding beschikbaar."
+
+#: ../root/layout/components/sidebar/EventSidebar.js:67
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:101
+msgid "View all artwork"
+msgstr "Bekijk alle afbeeldingen"
+
+#: ../root/layout/components/sidebar/EventSidebar.js:70
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:104
+#, fuzzy
+#| msgid "No front cover image available."
+msgid "No images available."
+msgstr "Geen afbeelding van de voorkant beschikbaar."
+
+#: ../root/layout/components/sidebar/EventSidebar.js:82
 msgid "Event information"
 msgstr "Informatie over het evenement"
 
@@ -10909,32 +11198,9 @@ msgctxt "singular, interactive"
 msgid "Set cover art"
 msgstr "Afbeelding instellen"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:86
-msgid "Front cover image failed to load correctly.<br/>{all|View all artwork}."
-msgstr ""
-"De afbeelding van de voorkant is niet goed geladen.<br/>{all|Bekijk alle "
-"afbeeldingen}."
-
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:92
-#: ../root/release/CoverArt.js:65
-msgid ""
-"Cover art for this release has been hidden by the Internet Archive because "
-"of a takedown request."
-msgstr ""
-"De afbeeldingen voor deze uitgave zijn door het Internet Archive vanwege een "
-"verwijderingsverzoek verborgen."
-
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:98
 msgid "No front cover image available."
 msgstr "Geen afbeelding van de voorkant beschikbaar."
-
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:101
-msgid "View all artwork"
-msgstr "Bekijk alle afbeeldingen"
-
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:104
-msgid "No cover art available."
-msgstr "Geen afbeelding beschikbaar."
 
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:150
 msgid "Additional details"
@@ -11804,75 +12070,54 @@ msgstr ""
 "een uitgave zijn. Het heeft niets te maken met de kwaliteit van de muziek, "
 "daar gebruik je {ratings_doc|waarderingen} voor."
 
-#: ../root/release/CoverArt.js:27
-msgid "250px"
-msgstr "250 px"
-
-#: ../root/release/CoverArt.js:33
-msgid "500px"
-msgstr "500 px"
-
-#: ../root/release/CoverArt.js:39
-msgid "1200px"
-msgstr "1200 px"
-
-#: ../root/release/CoverArt.js:43
-msgid "original"
-msgstr "Origineel"
-
-#: ../root/release/CoverArt.js:53
+#: ../root/release/CoverArt.js:28
 msgctxt "plural, header"
 msgid "Cover art"
 msgstr "Afbeelding"
 
-#: ../root/release/CoverArt.js:59
+#: ../root/release/CoverArt.js:34
 msgctxt "plural, header"
 msgid "Cannot show cover art"
 msgstr "De afbeelding kan niet worden getoond"
 
 #: ../root/release/CoverArt.js:96
-msgid "All sizes:"
-msgstr "Alle groottes:"
-
-#: ../root/release/CoverArt.js:121
+#, fuzzy
+#| msgid ""
+#| "These images provided by the {caa|Cover Art Archive}. You can also see "
+#| "them at the {ia|Internet Archive}."
 msgid ""
-"These images provided by the {caa|Cover Art Archive}. You can also see them "
+"These images are part of the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr ""
 "Deze afbeeldingen worden geleverd door het {caa|Cover Art Archive}. Je kan "
 "ze ook bekijken bij het {ia|Internet Archive}."
 
-#: ../root/release/CoverArt.js:134
+#: ../root/release/CoverArt.js:109
 msgid "We do not currently have any cover art for {release}."
 msgstr "We hebben momenteel geen afbeelding van {release}."
 
-#: ../root/release/CoverArt.js:141
+#: ../root/release/CoverArt.js:116
 msgid ""
 "Keep in mind pseudo-releases generally shouldn’t have cover art. See {doc|"
 "the guidelines for pseudo-releases} for more info."
 msgstr ""
 
-#: ../root/release/CoverArt.js:158
+#: ../root/release/CoverArt.js:133
 msgctxt "plural, interactive"
 msgid "Add cover art"
 msgstr "Afbeeldingen toevoegen"
 
-#: ../root/release/CoverArt.js:164
+#: ../root/release/CoverArt.js:139
 msgctxt "plural, interactive"
 msgid "Reorder cover art"
 msgstr "Volgorde veranderen"
-
-#: ../root/release/CoverArt.js:173
-msgctxt "plural, interactive"
-msgid "Log in to upload cover art"
-msgstr "Meld je aan om afbeeldingen toe te voegen"
 
 #: ../root/release/CoverArtDarkened.js:13
 msgctxt "plural"
 msgid "Cannot add cover art"
 msgstr "Kan geen afbeelding toevoegen"
 
-#: ../root/release/CoverArtFields.js:73
+#: ../root/release/CoverArtFields.js:21
 msgid "Choose one or more cover art types for this image"
 msgstr "Kies één of meer types voor deze afbeelding"
 
@@ -11934,18 +12179,10 @@ msgstr ""
 "Je staat op het punt de volgende uitgaven tot één uitgave samen te voegen. "
 "Selecteer de uitgave waarnaar de andere uitgaven moeten worden samengevoegd:"
 
-#: ../root/release/RemoveCoverArt.js:25
+#: ../root/release/RemoveCoverArt.js:24
 msgctxt "singular, header"
 msgid "Remove cover art"
 msgstr "Afbeelding verwijderen"
-
-#: ../root/release/RemoveCoverArt.js:32
-msgid ""
-"Are you sure you wish to remove the below cover art from {release} by "
-"{artist}?"
-msgstr ""
-"Weet je zeker dat je de onderstaande afbeelding van {release} van {artist} "
-"wil verwijderen?"
 
 #: ../root/release_group/ReleaseGroupHeader.js:20
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:814
@@ -18260,6 +18497,20 @@ msgstr ""
 "<strong>Waarschuwing:</strong> een paar van de composities die je wil "
 "samenvoegen, hebben verschillende ISWC’s. Controleer voordat je de "
 "composities samenvoegt of het echt dezelfde compositie is."
+
+#~ msgid "This release has no artwork."
+#~ msgstr "Deze uitgave heeft geen afbeelding."
+
+#~ msgid ""
+#~ "We are unable to display history for this cover art. For a current "
+#~ "listing of cover art, please see the {coverart|release's cover art page}."
+#~ msgstr ""
+#~ "We kunnen de geschiedenis van deze afbeelding niet laten zien. Zie de "
+#~ "{coverart|pagina met afbeeldingen} voor alle afbeeldingen die we van deze "
+#~ "uitgave hebben."
+
+#~ msgid "Comment:"
+#~ msgstr "Opmerking:"
 
 #~ msgid "see list"
 #~ msgstr "bekijk de lijst"

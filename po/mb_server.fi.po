@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-21 14:41+0000\n"
+"POT-Creation-Date: 2024-05-23 11:01-0500\n"
 "PO-Revision-Date: 2024-04-17 17:32+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations."
 "metabrainz.org>\n"
@@ -107,27 +107,27 @@ msgstr "&#10004;"
 msgid "&#10005;"
 msgstr "&#10005;"
 
-#: ../root/release/add_cover_art.tt:104
+#: ../root/event/add_event_art.tt:104 ../root/release/add_cover_art.tt:104
 msgid "&#x26a0; Error creating edit"
 msgstr "&#x26a0; Virhe muokkausta luotaessa"
 
-#: ../root/release/add_cover_art.tt:88
+#: ../root/event/add_event_art.tt:88 ../root/release/add_cover_art.tt:88
 msgid "&#x26a0; Error requesting signature"
 msgstr "&#x26a0; Virhe pyydettäessä allekirjoitusta"
 
-#: ../root/release/add_cover_art.tt:102
+#: ../root/event/add_event_art.tt:102 ../root/release/add_cover_art.tt:102
 msgid "&#x26a0; Error uploading image"
 msgstr "&#x26a0; Virhe lähetettäessä kuvaa"
 
-#: ../root/release/add_cover_art.tt:103
+#: ../root/event/add_event_art.tt:103 ../root/release/add_cover_art.tt:103
 msgid "&#x26a0; Server busy, try again later"
 msgstr "&#x26a0; Palvelin on kiireellinen, yritä myöhemmin uudestaan"
 
-#: ../root/release/add_cover_art.tt:87
+#: ../root/event/add_event_art.tt:87 ../root/release/add_cover_art.tt:87
 msgid "&#x26a0; Unrecognized file"
 msgstr "&#x26a0; Tuntematon tiedostomuoto"
 
-#: ../root/release/add_cover_art.tt:86
+#: ../root/event/add_event_art.tt:86 ../root/release/add_cover_art.tt:86
 msgid "&#x2713; Success"
 msgstr "&#x2713; Onnistui"
 
@@ -135,8 +135,10 @@ msgstr "&#x2713; Onnistui"
 msgid "(add a new recording)"
 msgstr "(lisää uusi äänite)"
 
-#: ../root/release/add_cover_art.tt:129
-msgid "(no other cover art)"
+#: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
+#, fuzzy
+#| msgid "(no other cover art)"
+msgid "(no other images)"
 msgstr "(ei muuta kansitaidetta)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
@@ -261,6 +263,13 @@ msgstr "Lisää kansitaidetta"
 #| msgid "Add event"
 msgctxt "header"
 msgid "Add event"
+msgstr "Lisää tapahtuma"
+
+#: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
+#, fuzzy
+#| msgid "Add event"
+msgctxt "plural, header"
+msgid "Add event art"
 msgstr "Lisää tapahtuma"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
@@ -630,7 +639,8 @@ msgstr "Aloitusalue:"
 msgid "Begin date"
 msgstr "Alkanut"
 
-#: ../root/release/add_cover_art.tt:95 ../root/search/error/InternalError.js:22
+#: ../root/event/add_event_art.tt:95 ../root/release/add_cover_art.tt:95
+#: ../root/search/error/InternalError.js:22
 msgid ""
 "Below is the error information. If you wish to file a bug report, you may do "
 "so at {bugs|our bug tracker}. The information below will help, so please be "
@@ -659,7 +669,7 @@ msgstr "Botti"
 #| "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
-"{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
+"{supp|supporters}."
 msgstr ""
 "Palvelun mahdollistaa {MeB|MetaBrainz-säätiö} ja {spon|sponsorimme} sekä "
 "{supp|tukijamme}. Kansitaiteen tarjoaa {caa|Cover Art Archive}."
@@ -754,9 +764,13 @@ msgstr ""
 msgid "Collapse medium"
 msgstr "Supista tallenne"
 
-#: ../root/cdstub/index.tt:3 ../root/release/add_cover_art.tt:69
-#: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
+#: ../root/cdstub/index.tt:3 ../root/event/add_event_art.tt:69
+#: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
+#: ../root/release/add_cover_art.tt:69 ../root/release/add_cover_art.tt:137
+#: ../root/release/reorder_cover_art.tt:19
 #: ../root/release_group/set_cover_art.tt:71 ../root/cdstub/CDStubIndex.js:28
+#: ../root/components/ArtFields.js:97 ../root/edit/details/AddArt.js:58
+#: ../root/edit/details/EditArt.js:74 ../root/edit/details/RemoveArt.js:60
 msgid "Comment"
 msgstr "Kommentti"
 
@@ -805,14 +819,14 @@ msgid "Country"
 msgstr "Maa"
 
 #: ../root/release_group/set_cover_art.tt:67
-#: ../root/edit/components/EditArtwork.js:30 ../root/user/UserProfile.js:51
+#: ../root/edit/components/EditArtwork.js:26 ../root/user/UserProfile.js:51
 #, fuzzy
 #| msgid "Cover art:"
 msgctxt "singular"
 msgid "Cover art"
 msgstr "Kansitaide:"
 
-#: ../root/release/add_cover_art.tt:85
+#: ../root/event/add_event_art.tt:85 ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
 msgstr "Luodaan muokkausta..."
 
@@ -845,7 +859,7 @@ msgstr "Dataraidat"
 #: ../root/edit/details/historic/AddRelease.js:117
 #: ../root/edit/details/historic/EditReleaseEvents.js:106
 #: ../root/elections/ElectionVotes.js:24
-#: ../root/layout/components/sidebar/EventSidebar.js:57
+#: ../root/layout/components/sidebar/EventSidebar.js:92
 #: ../root/recording/RecordingIndex.js:50
 #: ../root/release_group/ReleaseGroupIndex.js:162
 #: ../root/search/components/EventResults.js:74
@@ -897,7 +911,7 @@ msgstr ""
 msgid "Description"
 msgstr "Kuvaus"
 
-#: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:147
+#: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:162
 #: ../root/elections/ElectionDetails.js:25 ../root/entity/Details.js:79
 #: ../root/entity/Details.js:81
 msgid "Details"
@@ -982,9 +996,9 @@ msgstr "Muokkaa"
 #: ../root/components/Aliases/AliasTableRow.js:55
 #: ../root/components/Aliases/ArtistCreditList.js:75
 #: ../root/components/Aliases/ArtistCreditList.js:77
-#: ../root/components/EntityTabs.js:155
+#: ../root/components/EntityTabs.js:170 ../root/event/EventArt.js:86
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:89
-#: ../root/release/CoverArt.js:106
+#: ../root/release/CoverArt.js:81
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:516
 #: ../root/user/UserCollections.js:121
 #, fuzzy
@@ -1013,6 +1027,13 @@ msgstr "Muokkaa kirjoitusasua"
 msgctxt "singular, header"
 msgid "Edit cover art"
 msgstr "Muokkaa kansitaidetta"
+
+#: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:4
+#, fuzzy
+#| msgid "Edit event"
+msgctxt "singular, header"
+msgid "Edit event art"
+msgstr "Muokkaa tapahtumaa"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18
@@ -1091,7 +1112,7 @@ msgstr "Lopetusalue:"
 #: ../root/edit/details/EditPlace.js:97
 #: ../root/elections/ElectionTable/index.js:20
 #: ../root/layout/components/sidebar/AreaSidebar.js:60
-#: ../root/layout/components/sidebar/EventSidebar.js:67
+#: ../root/layout/components/sidebar/EventSidebar.js:102
 #: ../root/report/RecordingsWithFutureDates.js:38
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:202
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:182
@@ -1113,8 +1134,8 @@ msgid ""
 "marker. If you’re too far out, clicking will zoom instead."
 msgstr ""
 
-#: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:170
-#: ../root/release/edit/layout.tt:58
+#: ../root/components/forms.tt:51 ../root/event/add_event_art.tt:170
+#: ../root/release/add_cover_art.tt:170 ../root/release/edit/layout.tt:58
 #: ../root/static/scripts/edit/components/EnterEdit.js:60
 msgid "Enter edit"
 msgstr "Lisää muokkaus"
@@ -1151,7 +1172,11 @@ msgstr ""
 #: ../root/edit/search_macros.tt:434 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
 #: ../root/components/list/EventList.js:60 ../root/edit/details/AddEvent.js:23
-#: ../root/edit/details/EditEvent.js:31 ../root/layout/components/Search.js:27
+#: ../root/edit/details/AddEventArt.js:21 ../root/edit/details/EditEvent.js:31
+#: ../root/edit/details/EditEventArt.js:23
+#: ../root/edit/details/RemoveEventArt.js:23
+#: ../root/edit/details/ReorderEventArt.js:23
+#: ../root/layout/components/Search.js:27
 #: ../root/report/components/EventList.js:46
 #: ../root/search/components/SearchForm.js:45
 #: ../root/static/scripts/common/constants.js:37
@@ -1190,7 +1215,7 @@ msgstr "Päättymiskäytäntö"
 msgid "External links"
 msgstr "Ulkopuoliset linkit"
 
-#: ../root/release/add_cover_art.tt:48
+#: ../root/event/add_event_art.tt:48 ../root/release/add_cover_art.tt:48
 msgid "File:"
 msgstr "Tiedosto:"
 
@@ -1647,7 +1672,7 @@ msgstr "Lisätietoja levymerkistä"
 msgid "Language"
 msgstr "Kieli"
 
-#: ../root/layout.tt:145 ../root/layout/components/Footer.js:85
+#: ../root/layout.tt:144 ../root/layout/components/Footer.js:83
 msgid "Last replication packet received at {datetime}"
 msgstr "Viimeisin kopiointipaketti vastaanotettu {datetime}"
 
@@ -1772,11 +1797,11 @@ msgctxt "header"
 msgid "Move disc ID"
 msgstr "Siirrä levyn tunniste"
 
-#: ../root/release/add_cover_art.tt:44
+#: ../root/event/add_event_art.tt:44 ../root/release/add_cover_art.tt:44
 msgid "Move file down"
 msgstr "Siirrä tiedostoa alas"
 
-#: ../root/release/add_cover_art.tt:42
+#: ../root/event/add_event_art.tt:42 ../root/release/add_cover_art.tt:42
 msgid "Move file up"
 msgstr "Siirrä tiedostoa ylös"
 
@@ -1859,7 +1884,7 @@ msgstr "Nimi"
 msgid "New artist credit"
 msgstr "Uusi tekijänimi"
 
-#: ../root/release/add_cover_art.tt:148
+#: ../root/event/add_event_art.tt:148 ../root/release/add_cover_art.tt:148
 #, fuzzy
 #| msgid "New Image Goes Here"
 msgid "New image goes here"
@@ -2052,9 +2077,19 @@ msgstr ""
 "Siirry muiden kohteiden sivuille jotka aiot sulauttaa, ja paina linkkiä "
 "\"sulauta\"."
 
-#: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:79
+#: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:23
 msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
+"these types."
+msgstr "Katso {doc|kansitaidemuotojen dokumentaatiosta} tarkemmat tiedot."
+
+#: ../root/event/add_event_art.tt:66 ../root/event/EventArtFields.js:23
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Please see the {doc|Event Art Types} documentation for a description of "
 "these types."
 msgstr "Katso {doc|kansitaidemuotojen dokumentaatiosta} tarkemmat tiedot."
 
@@ -2063,7 +2098,8 @@ msgid "Please select the medium you wish to attach this CD TOC to."
 msgstr ""
 "Valitse tallenne johon haluat liittää tämän CD-levyn sisällysluettelon."
 
-#: ../root/cdtoc/list.tt:6 ../root/release/add_cover_art.tt:125
+#: ../root/cdtoc/list.tt:6 ../root/event/add_event_art.tt:125
+#: ../root/event/reorder_event_art.tt:10 ../root/release/add_cover_art.tt:125
 #: ../root/release/reorder_cover_art.tt:10
 #: ../root/edit/details/AddMedium.js:106 ../root/edit/details/EditMedium.js:434
 msgid "Position"
@@ -2174,18 +2210,18 @@ msgstr "Yhteyden tyyppi"
 #: ../lib/MusicBrainz/Server/Edit/Release.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
 #: ../root/components/list/ReleaseList.js:65
-#: ../root/edit/details/AddCoverArt.js:22 ../root/edit/details/AddMedium.js:96
+#: ../root/edit/details/AddCoverArt.js:18 ../root/edit/details/AddMedium.js:96
 #: ../root/edit/details/AddRelease.js:32
 #: ../root/edit/details/AddReleaseLabel.js:22
 #: ../root/edit/details/ChangeReleaseQuality.js:20
 #: ../root/edit/details/EditBarcodes.js:34
-#: ../root/edit/details/EditCoverArt.js:35
+#: ../root/edit/details/EditCoverArt.js:18
 #: ../root/edit/details/EditRelease.js:42
 #: ../root/edit/details/EditReleaseLabel.js:38
 #: ../root/edit/details/MergeReleases.js:229
-#: ../root/edit/details/RemoveCoverArt.js:22
+#: ../root/edit/details/RemoveCoverArt.js:18
 #: ../root/edit/details/RemoveReleaseLabel.js:22
-#: ../root/edit/details/ReorderCoverArt.js:30
+#: ../root/edit/details/ReorderCoverArt.js:18
 #: ../root/edit/details/ReorderMediums.js:21
 #: ../root/edit/details/historic/EditReleaseEvents.js:105
 #: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:19
@@ -2291,14 +2327,14 @@ msgid "Release “{name}” by {artist}"
 msgstr "Julkaisu “{name}” artistilta {artist}"
 
 #: ../root/cdtoc/list.tt:60 ../root/edit/search_macros.tt:122
-#: ../root/release/add_cover_art.tt:110
+#: ../root/event/add_event_art.tt:110 ../root/release/add_cover_art.tt:110
 #: ../root/account/applications/ApplicationList.js:38
 #: ../root/collection/CollectionHeader.js:85
 #: ../root/collection/DeleteCollection.js:21
-#: ../root/components/Aliases/AliasTableRow.js:59
+#: ../root/components/Aliases/AliasTableRow.js:59 ../root/event/EventArt.js:92
 #: ../root/layout/components/sidebar/RemoveLink.js:26
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:95
-#: ../root/release/CoverArt.js:112 ../root/release/DiscIds.js:66
+#: ../root/release/CoverArt.js:87 ../root/release/DiscIds.js:66
 #: ../root/static/scripts/account/components/EditProfileForm.js:300
 #: ../root/static/scripts/edit/components/Multiselect.js:210
 #: ../root/user/UserCollections.js:122
@@ -2359,7 +2395,14 @@ msgctxt "plural, header"
 msgid "Reorder cover art"
 msgstr "Uudelleenjärjestä kansitaide"
 
-#: ../root/release/add_cover_art.tt:83
+#: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
+#, fuzzy
+#| msgid "Reorder cover art"
+msgctxt "plural, header"
+msgid "Reorder event art"
+msgstr "Uudelleenjärjestä kansitaide"
+
+#: ../root/event/add_event_art.tt:83 ../root/release/add_cover_art.tt:83
 msgid "Request signature..."
 msgstr "Pyydä allekirjoitusta..."
 
@@ -2389,7 +2432,7 @@ msgstr ""
 "Tarkastele {url|dokumentaatiota} julkaisumuokkaimen alustamisesta ja "
 "varmista, että syöttämäsi data on muotoiltu oikein."
 
-#: ../root/layout.tt:138
+#: ../root/layout.tt:137
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
@@ -2473,7 +2516,7 @@ msgstr ""
 "Valitse jokin tyyppi listasta nähdäksesi sen kuvauksen. Jos teos ei tunnu "
 "sopivan mihinkään tyyppiin, jätä valinta tyhjäksi."
 
-#: ../root/release/add_cover_art.tt:31
+#: ../root/event/add_event_art.tt:31 ../root/release/add_cover_art.tt:31
 msgid "Select images..."
 msgstr "Valitse kuvat..."
 
@@ -2629,10 +2672,14 @@ msgctxt "audio file metadata"
 msgid "Tagger"
 msgstr "Luokittelija"
 
-#: ../root/release/add_cover_art.tt:12
+#: ../root/event/add_event_art.tt:12 ../root/release/add_cover_art.tt:12
+#, fuzzy
+#| msgid ""
+#| "The Cover Art Archive is currently experiencing difficulties. Adding "
+#| "images for this release is unlikely to work at the moment."
 msgid ""
-"The Cover Art Archive is currently experiencing difficulties. Adding images "
-"for this release is unlikely to work at the moment."
+"The Internet Archive is currently experiencing difficulties. Adding images "
+"is unlikely to work at the moment."
 msgstr ""
 "Cover Art Archive -sivustolla on juuri nyt ongelmia. Kuvien lisääminen tälle "
 "julkaisulle tuskin toimii tällä hetkellä."
@@ -2960,7 +3007,7 @@ msgstr ""
 
 #: ../root/event/edit_form.tt:40 ../root/components/list/EventList.js:78
 #: ../root/edit/details/AddEvent.js:73 ../root/edit/details/EditEvent.js:84
-#: ../root/layout/components/sidebar/EventSidebar.js:76
+#: ../root/layout/components/sidebar/EventSidebar.js:111
 #: ../root/report/components/EventList.js:70
 #: ../root/search/components/EventResults.js:75
 #, fuzzy
@@ -3065,6 +3112,7 @@ msgstr "Twitter"
 #: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/account/applications/ApplicationList.js:148
 #: ../root/components/Aliases/AliasTable.js:21
+#: ../root/components/ArtFields.js:64
 #: ../root/components/list/ReleaseGroupList.js:84
 #: ../root/components/list/ReleaseList.js:139
 #: ../root/edit/details/AddArea.js:57 ../root/edit/details/AddArtist.js:65
@@ -3084,7 +3132,7 @@ msgstr "Twitter"
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:60
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:155
 #: ../root/layout/components/sidebar/SidebarType.js:21
-#: ../root/release/CoverArtFields.js:51 ../root/report/DuplicateArtists.js:69
+#: ../root/report/DuplicateArtists.js:69
 #: ../root/report/DuplicateReleaseGroups.js:60
 #: ../root/report/IswcsWithManyWorks.js:53
 #: ../root/report/components/ArtistList.js:54
@@ -3117,15 +3165,15 @@ msgstr "Twitter"
 msgid "Type"
 msgstr "Tyyppi"
 
-#: ../root/release/add_cover_art.tt:54
+#: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 msgid "Type:"
 msgstr "Tyyppi:"
 
+#: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
-#: ../root/release_group/set_cover_art.tt:69
-#: ../root/edit/details/AddCoverArt.js:29
-#: ../root/edit/details/EditCoverArt.js:54
-#: ../root/edit/details/RemoveCoverArt.js:29 ../root/release/CoverArt.js:82
+#: ../root/release_group/set_cover_art.tt:69 ../root/edit/details/AddArt.js:37
+#: ../root/edit/details/EditArt.js:65 ../root/edit/details/RemoveArt.js:37
+#: ../root/event/EventArt.js:62 ../root/release/CoverArt.js:57
 msgid "Types:"
 msgstr "Tyypit:"
 
@@ -3162,7 +3210,7 @@ msgstr ""
 msgid "Update the recording title to match the track title."
 msgstr "Päivitä äänitteen nimi täsmäämään kappaleen nimeen."
 
-#: ../root/release/add_cover_art.tt:84
+#: ../root/event/add_event_art.tt:84 ../root/release/add_cover_art.tt:84
 msgid "Uploading image..."
 msgstr "Lähetetään kuvaa..."
 
@@ -3203,7 +3251,7 @@ msgstr "Käytä kappalenumeroita"
 msgid "Use track titles"
 msgstr "Käytä kappaleiden nimiä"
 
-#: ../root/release/add_cover_art.tt:81
+#: ../root/event/add_event_art.tt:81 ../root/release/add_cover_art.tt:81
 msgid "Validating file..."
 msgstr "Varmistetaan tiedostoa..."
 
@@ -3719,7 +3767,7 @@ msgstr "vanhin ensin"
 msgid "on"
 msgstr "päivänä"
 
-#: ../root/release/add_cover_art.tt:33
+#: ../root/event/add_event_art.tt:33 ../root/release/add_cover_art.tt:33
 msgid "or drop files here"
 msgstr "tai pudota tiedostot tähän"
 
@@ -4177,20 +4225,11 @@ msgstr ""
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr "'{types}' ei ole kelvollinen pari yhteystyypeiksi."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:615
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:482
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr ""
 "Tämä sulauttamistapa ei ole mahdollinen julkaisuille, jotka ovat valittuna."
-
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:644
-msgid "This release has no artwork."
-msgstr "Tällä julkaisulla ei ole kansitaidetta."
-
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:650
-#, perl-brace-format
-msgid "Found no artwork with ID “{id}”."
-msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:68
 msgid "The annotation revision ID must be a positive integer"
@@ -4212,6 +4251,11 @@ msgid "The old and new annotation ids must be unique, positive integers."
 msgstr ""
 "Vanhan, sekä uuden lisätietokentän tunnisteiden tulee olla ainutkertaisia, "
 "positiivisia kokonaislukuja."
+
+#: ../lib/MusicBrainz/Server/Controller/Role/Art.pm:132
+#, perl-brace-format
+msgid "Found no artwork with ID “{id}”."
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:222
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:99
@@ -4310,33 +4354,53 @@ msgstr "Ilmoituksesi on lähetetty."
 msgid "Invalid TOC"
 msgstr "Sisällysluettelo ei ole kelvollinen"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:291
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:294
 msgid ""
 "An error occurred trying to communicate with the Internet Archive servers. "
 "Please wait a few moments and try again."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:304
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:307
 msgid ""
 "We’ve hit a temporary delay while trying to fetch metadata from the Internet "
 "Archive. Please wait a minute and try again."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:420
-#: ../root/release/CoverArtDarkened.js:19
-msgid ""
-"The Cover Art Archive has had a takedown request in the past for this "
-"release, so we are unable to allow any more uploads."
-msgstr ""
-"Cover Art Archivelle on tullut pyyntöjä poistaa materiaalia tästä "
-"julkaisusta, joten tähän ei voida sallia lähetettävän yhtään enempää."
-
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:457
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:322
 #, perl-brace-format
 msgid ""
 "Cover art can’t be uploaded to this release because we don’t own the "
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:340
+#, perl-brace-format
+msgid ""
+"Event art can’t be uploaded to this event because we don’t own the "
+"associated item at the Internet Archive. Please contact us at {contact_url} "
+"so we can resolve this."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:461
+#: ../root/event/EventArtDarkened.js:25 ../root/release/CoverArtDarkened.js:19
+#, fuzzy
+#| msgid ""
+#| "The Cover Art Archive has had a takedown request in the past for this "
+#| "release, so we are unable to allow any more uploads."
+msgid ""
+"The Internet Archive has had a takedown request in the past for this item, "
+"so we are unable to allow any more uploads."
+msgstr ""
+"Cover Art Archivelle on tullut pyyntöjä poistaa materiaalia tästä "
+"julkaisusta, joten tähän ei voida sallia lähetettävän yhtään enempää."
+
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:498
+#, perl-brace-format
+msgid ""
+"Images can’t be uploaded here because we don’t own the associated item at "
+"the Internet Archive. Please contact us at {contact_url} so we can resolve "
+"this."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:708
@@ -4557,6 +4621,13 @@ msgctxt "edit type"
 msgid "Add event annotation"
 msgstr "Lisää tapahtumalle lisätietoja"
 
+#: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
+#, fuzzy
+#| msgid "Add event"
+msgctxt "singular, edit type"
+msgid "Add event art"
+msgstr "Lisää tapahtuma"
+
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 #, fuzzy
 #| msgid "Add event"
@@ -4592,12 +4663,33 @@ msgctxt "edit type"
 msgid "Edit event alias"
 msgstr "Muokkaa tapahtuman aliasta"
 
+#: ../lib/MusicBrainz/Server/Edit/Event/EditEventArt.pm:15
+#, fuzzy
+#| msgid "Edit event"
+msgctxt "singular, edit type"
+msgid "Edit event art"
+msgstr "Muokkaa tapahtumaa"
+
 #: ../lib/MusicBrainz/Server/Edit/Event/Merge.pm:11
 #, fuzzy
 #| msgid "Merge events"
 msgctxt "edit type"
 msgid "Merge events"
 msgstr "Sulauta tapahtumat"
+
+#: ../lib/MusicBrainz/Server/Edit/Event/RemoveEventArt.pm:15
+#, fuzzy
+#| msgid "Remove event"
+msgctxt "singular, edit type"
+msgid "Remove event art"
+msgstr "Poista tapahtuma"
+
+#: ../lib/MusicBrainz/Server/Edit/Event/ReorderEventArt.pm:15
+#, fuzzy
+#| msgid "Reorder cover art"
+msgctxt "plural, edit type"
+msgid "Reorder event art"
+msgstr "Uudelleenjärjestä kansitaide"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAlias.pm:11
 #, fuzzy
@@ -5192,7 +5284,7 @@ msgctxt "edit type"
 msgid "Add release alias"
 msgstr "Lisää julkaisulle alias"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:15
 #, fuzzy
 #| msgid "Add cover art"
 msgctxt "singular, edit type"
@@ -5241,7 +5333,7 @@ msgctxt "edit type"
 msgid "Edit barcodes"
 msgstr "Muokkaa viivakoodeja"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:14
 #, fuzzy
 #| msgid "Edit cover art"
 msgctxt "singular, edit type"
@@ -5267,14 +5359,14 @@ msgstr "(tuntematon)"
 msgid "These releases could not be merged: {reason}"
 msgstr "Näitä julkaisuja ei pidä sulauttaa yhteen: {reason}"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:15
 #, fuzzy
 #| msgid "Remove cover art"
 msgctxt "singular, edit type"
 msgid "Remove cover art"
 msgstr "Poista kansitaidetta"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:14
 #, fuzzy
 #| msgid "Reorder cover art"
 msgctxt "plural, edit type"
@@ -6097,7 +6189,7 @@ msgstr ""
 msgid "You must provide an edit note when adding a standalone recording"
 msgstr "Muokkausmerkintä vaaditaan lisättäessä yksittäinen äänite"
 
-#: ../lib/MusicBrainz/Server/Form/Release/AddCoverArt.pm:59
+#: ../lib/MusicBrainz/Server/Form/Role/AddArt.pm:59
 #: ../lib/MusicBrainz/Server/Form/Role/CSRFToken.pm:11
 #: ../lib/MusicBrainz/Server/Form/Role/CSRFToken.pm:77
 msgid "The form you’ve submitted has expired. Please resubmit your request."
@@ -7995,7 +8087,7 @@ msgstr ""
 msgid "see uses"
 msgstr ""
 
-#: ../root/components/Aliases/index.js:49 ../root/components/EntityTabs.js:128
+#: ../root/components/Aliases/index.js:49 ../root/components/EntityTabs.js:143
 #: ../root/entity/Aliases.js:26
 msgid "Aliases"
 msgstr "Aliakset"
@@ -8021,6 +8113,22 @@ msgstr "Entiteetillä {entity} ei ole aliaksia."
 msgctxt "interactive"
 msgid "Add a new alias"
 msgstr "Lisää alias"
+
+#: ../root/components/ArtLinks.js:17
+msgid "250px"
+msgstr "250 pikseliä"
+
+#: ../root/components/ArtLinks.js:23
+msgid "500px"
+msgstr "500 pikseliä"
+
+#: ../root/components/ArtLinks.js:29
+msgid "1200px"
+msgstr "1200px"
+
+#: ../root/components/ArtLinks.js:33
+msgid "original"
+msgstr "alkuperäinen"
 
 #: ../root/components/CleanupBanner.js:12
 msgid ""
@@ -8166,7 +8274,21 @@ msgctxt "plural"
 msgid "Cover art ({num})"
 msgstr "Kansitaide ({num})"
 
-#: ../root/components/EntityTabs.js:132
+#: ../root/components/EntityTabs.js:129
+#, fuzzy
+#| msgid "Event ratings"
+msgctxt "plural"
+msgid "Event art"
+msgstr "Tapahtuma-arvostelut"
+
+#: ../root/components/EntityTabs.js:131
+#, fuzzy
+#| msgid "Cover Art ({num})"
+msgctxt "plural"
+msgid "Event art ({num})"
+msgstr "Kansitaide ({num})"
+
+#: ../root/components/EntityTabs.js:147
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:31
 #: ../root/layout/components/sidebar/SidebarTags.js:68
 #: ../root/static/scripts/common/components/TagEditor.js:674
@@ -8178,20 +8300,20 @@ msgctxt "folksonomy"
 msgid "Tags"
 msgstr "Luokitukset"
 
-#: ../root/components/EntityTabs.js:141 ../root/entity/Ratings.js:38
+#: ../root/components/EntityTabs.js:156 ../root/entity/Ratings.js:38
 #: ../root/entity/Ratings.js:82
 #: ../root/static/scripts/edit/externalLinks.js:777
 msgid "Reviews"
 msgstr "Arvostelut"
 
-#: ../root/components/EntityTabs.js:142
+#: ../root/components/EntityTabs.js:157
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:42
 #: ../root/user/UserProfile.js:822 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
 msgstr "Arvosteluja"
 
-#: ../root/components/EntityTabs.js:162
+#: ../root/components/EntityTabs.js:177
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:282
 msgid "Edit relationships"
 msgstr "Muokkaa yhteyksiä"
@@ -8242,8 +8364,8 @@ msgstr ""
 #: ../root/components/ReleaseLanguageScript.js:20
 #: ../root/components/ReleaseLanguageScript.js:26
 #: ../root/components/list/ReleaseList.js:89
-#: ../root/edit/details/MergeReleases.js:54 ../root/release/CoverArt.js:88
-#: ../root/release_group/ReleaseGroupIndex.js:85
+#: ../root/edit/details/MergeReleases.js:54 ../root/event/EventArt.js:68
+#: ../root/release/CoverArt.js:63 ../root/release_group/ReleaseGroupIndex.js:85
 #: ../root/search/components/ReleaseResults.js:62
 #: ../root/static/scripts/common/components/ReleaseEvents.js:54
 #: ../root/static/scripts/common/components/ReleaseEvents.js:71
@@ -8794,17 +8916,27 @@ msgid ""
 "subscribed to."
 msgstr ""
 
-#: ../root/edit/components/EditArtwork.js:21
-#: ../root/edit/details/ReorderCoverArt.js:21
-msgid ""
-"We are unable to display history for this cover art. For a current listing "
-"of cover art, please see the {coverart|release's cover art page}."
-msgstr ""
-"Tämän kansitaiteen aiempaa tilannetta ei voida esittää. Tämänhetkisen listan "
-"kansitaiteesta saa {coverart|julkaisun kansitaidesivulta}."
+#: ../root/edit/components/EditArtwork.js:23
+#, fuzzy
+#| msgid "Event ratings"
+msgctxt "singular"
+msgid "Event art"
+msgstr "Tapahtuma-arvostelut"
 
-#: ../root/edit/components/EditArtwork.js:26
-msgid "We are unable to display history for this cover art."
+#: ../root/edit/components/EditArtwork.js:32
+#: ../root/edit/details/ReorderArt.js:32
+#, fuzzy
+#| msgid "We are unable to display history for this cover art."
+msgid ""
+"We are unable to display history for this image. See {artpage|all current "
+"images}."
+msgstr "Tämän kansitaiteen aiempaa tilannetta ei voida esittää. "
+
+#: ../root/edit/components/EditArtwork.js:36
+#: ../root/edit/details/ReorderArt.js:36
+#, fuzzy
+#| msgid "We are unable to display history for this cover art."
+msgid "We are unable to display history for this image."
 msgstr "Tämän kansitaiteen aiempaa tilannetta ei voida esittää. "
 
 #: ../root/edit/components/EditHeader.js:46
@@ -9121,29 +9253,20 @@ msgctxt "area ended boolean"
 msgid "Ended"
 msgstr ""
 
-#: ../root/edit/details/AddArtist.js:125 ../root/edit/details/EditArtist.js:151
-msgctxt "artist ended boolean"
-msgid "Ended"
-msgstr ""
-
-#: ../root/edit/details/AddCoverArt.js:35
-#: ../root/edit/details/RemoveCoverArt.js:35
+#: ../root/edit/details/AddArt.js:43 ../root/edit/details/RemoveArt.js:43
 msgctxt "type"
 msgid "(none)"
 msgstr "(ei mitään)"
 
-#: ../root/edit/details/AddCoverArt.js:40
-#: ../root/edit/details/EditCoverArt.js:43
-#: ../root/edit/details/RemoveCoverArt.js:41 ../root/taglookup/Form.js:47
+#: ../root/edit/details/AddArt.js:48 ../root/edit/details/EditArt.js:54
+#: ../root/edit/details/RemoveArt.js:49 ../root/taglookup/Form.js:47
 msgid "Filename"
 msgstr "Tiedostonimi"
 
-#: ../root/edit/details/AddCoverArt.js:50
-#: ../root/edit/details/EditCoverArt.js:63
-#: ../root/edit/details/RemoveCoverArt.js:52
-#: ../root/release/CoverArtFields.js:88
-msgid "Comment:"
-msgstr "Kommentti:"
+#: ../root/edit/details/AddArtist.js:125 ../root/edit/details/EditArtist.js:151
+msgctxt "artist ended boolean"
+msgid "Ended"
+msgstr ""
 
 #: ../root/edit/details/AddEvent.js:46 ../root/edit/details/EditEvent.js:50
 msgctxt "event"
@@ -9337,6 +9460,10 @@ msgstr ""
 #| msgid "Lyrics Languages"
 msgid "Lyrics languages"
 msgstr "Sanoituksen kielet"
+
+#: ../root/edit/details/BetaOnlyEdit.js:29
+msgid "This edit can currently only be viewed on the {beta|beta server}."
+msgstr ""
 
 #: ../root/edit/details/ChangeReleaseQuality.js:26
 #: ../root/edit/details/historic/ChangeArtistQuality.js:26
@@ -9615,11 +9742,11 @@ msgstr "Alkuperäinen kappalelista"
 msgid "Current tracklist"
 msgstr "Nykyinen kappalelista"
 
-#: ../root/edit/details/ReorderCoverArt.js:37
+#: ../root/edit/details/ReorderArt.js:49
 msgid "Old positions:"
 msgstr "Vanhat sijainnit:"
 
-#: ../root/edit/details/ReorderCoverArt.js:49
+#: ../root/edit/details/ReorderArt.js:61
 msgid "New positions:"
 msgstr "Uudet sijainnit:"
 
@@ -9863,7 +9990,7 @@ msgid "View details"
 msgstr "Näytä lisätiedot"
 
 #: ../root/elections/ElectionTable/index.js:19
-#: ../root/layout/components/sidebar/EventSidebar.js:63
+#: ../root/layout/components/sidebar/EventSidebar.js:98
 msgid "Start date"
 msgstr "Aloitus"
 
@@ -10486,6 +10613,91 @@ msgstr "Olet poistamassa aliaksen <em>{alias}</em>."
 msgid "Please review the {doc|alias documentation} before entering this edit."
 msgstr "Kertaa {doc|dokumentaatio aliaksista} ennen tätä muokkausta."
 
+#: ../root/event/EventArt.js:33
+#, fuzzy
+#| msgid "Event ratings"
+msgctxt "plural, header"
+msgid "Event art"
+msgstr "Tapahtuma-arvostelut"
+
+#: ../root/event/EventArt.js:39
+#, fuzzy
+#| msgid "Cannot show cover art"
+msgctxt "plural, header"
+msgid "Cannot show event art"
+msgstr "Kansitaidetta ei voi näyttää"
+
+#: ../root/event/EventArt.js:45
+#: ../root/layout/components/sidebar/EventSidebar.js:58
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:92
+#: ../root/release/CoverArt.js:40
+#, fuzzy
+#| msgid ""
+#| "Cover art for this release has been hidden by the Internet Archive "
+#| "because of a takedown request."
+msgid ""
+"Images for this item have been hidden by the Internet Archive because of a "
+"takedown request."
+msgstr ""
+"Tämän julkaisun kansitaide on piilotettu Internet Archive-sivuston toimesta "
+"poistopyynnön takia."
+
+#: ../root/event/EventArt.js:76 ../root/release/CoverArt.js:71
+msgid "All sizes:"
+msgstr "Kaikki koot:"
+
+#: ../root/event/EventArt.js:101
+#, fuzzy
+#| msgid ""
+#| "These images provided by the {caa|Cover Art Archive}. You can also see "
+#| "them at the {ia|Internet Archive}."
+msgid ""
+"These images are part of the {eaa|Event Art Archive}. You can also see them "
+"at the {ia|Internet Archive}."
+msgstr ""
+"Nämä kuvat tarjoaa {caa|Cover Art Archive}. Löydät ne myös {ia|Internet "
+"Archive}sta."
+
+#: ../root/event/EventArt.js:113
+#, fuzzy
+#| msgid "We do not currently have any cover art for {release}."
+msgid "We do not currently have any event art for {event}."
+msgstr "Kansitaidetta ei julkaisulle {release}. "
+
+#: ../root/event/EventArt.js:123
+#, fuzzy
+#| msgid "Add event"
+msgctxt "plural, interactive"
+msgid "Add event art"
+msgstr "Lisää tapahtuma"
+
+#: ../root/event/EventArt.js:129
+#, fuzzy
+#| msgid "Reorder cover art"
+msgctxt "plural, interactive"
+msgid "Reorder event art"
+msgstr "Uudelleenjärjestä kansitaide"
+
+#: ../root/event/EventArt.js:138 ../root/release/CoverArt.js:148
+#, fuzzy
+#| msgid "Log in to upload cover art"
+msgctxt "plural, interactive"
+msgid "Log in to upload images"
+msgstr "Sisäänkirjaudu lisätäksesi kansitaidetta"
+
+#: ../root/event/EventArtDarkened.js:19
+#, fuzzy
+#| msgid "Cannot Add Cover Art"
+msgctxt "plural"
+msgid "Cannot add event art"
+msgstr "Kansitaidetta ei voi lisätä"
+
+#: ../root/event/EventArtFields.js:21
+#, fuzzy
+#| msgid "Choose one or more cover art types for this image"
+msgid "Choose one or more event art types for this image"
+msgstr "Valitse kuvalle yksi tai useampi kansitaiteen muoto"
+
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
 msgstr "Sulauta tapahtumat"
@@ -10495,6 +10707,23 @@ msgid ""
 "You are about to merge all these events into a single one. Please select the "
 "event all others should be merged into:"
 msgstr ""
+
+#: ../root/event/RemoveEventArt.js:29
+#, fuzzy
+#| msgid "Remove event"
+msgctxt "singular, header"
+msgid "Remove event art"
+msgstr "Poista tapahtuma"
+
+#: ../root/event/RemoveEventArt.js:36 ../root/release/RemoveCoverArt.js:31
+#, fuzzy
+#| msgid ""
+#| "Are you sure you wish to remove the below cover art from {release} by "
+#| "{artist}?"
+msgid "Are you sure you wish to remove the image below from {entity}?"
+msgstr ""
+"Haluatko varmasti poistaa alapuolella olevan kansitaiteen artistin {artist} "
+"julkaisusta {release}?"
 
 #: ../root/futureColumnLabels.js:24
 msgid "ISO 639-1"
@@ -10932,7 +11161,7 @@ msgstr "Näytä kaikki yhteydet"
 msgid "Chat (IRC)"
 msgstr ""
 
-#: ../root/layout/components/Footer.js:66
+#: ../root/layout/components/Footer.js:64
 msgid "Running: {git_details}"
 msgstr "Suoritetaan: {git_details}"
 
@@ -11199,7 +11428,35 @@ msgctxt "interactive"
 msgid "Log in to edit"
 msgstr "Sisäänkirjaudu muokataksesi"
 
-#: ../root/layout/components/sidebar/EventSidebar.js:47
+#: ../root/layout/components/sidebar/EventSidebar.js:52
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:86
+#, fuzzy
+#| msgid ""
+#| "Front cover image failed to load correctly.<br/>{all|View all artwork}."
+msgid "Image failed to load correctly.<br/>{all|View all images}."
+msgstr ""
+"Kansitaiteen lataaminen ei onnistunut. <br/>{all|Näytä kaikki "
+"kuvamateriaali}."
+
+#: ../root/layout/components/sidebar/EventSidebar.js:64
+#, fuzzy
+#| msgid "No cover art available."
+msgid "No poster available."
+msgstr "Kansitaidetta ei saatavilla."
+
+#: ../root/layout/components/sidebar/EventSidebar.js:67
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:101
+msgid "View all artwork"
+msgstr "Näytä kaikki kansitaide"
+
+#: ../root/layout/components/sidebar/EventSidebar.js:70
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:104
+#, fuzzy
+#| msgid "No front cover image available."
+msgid "No images available."
+msgstr "Kansikuvaa ei saatavilla."
+
+#: ../root/layout/components/sidebar/EventSidebar.js:82
 msgid "Event information"
 msgstr "Tapahtuman tiedot"
 
@@ -11278,32 +11535,9 @@ msgctxt "singular, interactive"
 msgid "Set cover art"
 msgstr "Aseta kansitaide"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:86
-msgid "Front cover image failed to load correctly.<br/>{all|View all artwork}."
-msgstr ""
-"Kansitaiteen lataaminen ei onnistunut. <br/>{all|Näytä kaikki "
-"kuvamateriaali}."
-
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:92
-#: ../root/release/CoverArt.js:65
-msgid ""
-"Cover art for this release has been hidden by the Internet Archive because "
-"of a takedown request."
-msgstr ""
-"Tämän julkaisun kansitaide on piilotettu Internet Archive-sivuston toimesta "
-"poistopyynnön takia."
-
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:98
 msgid "No front cover image available."
 msgstr "Kansikuvaa ei saatavilla."
-
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:101
-msgid "View all artwork"
-msgstr "Näytä kaikki kansitaide"
-
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:104
-msgid "No cover art available."
-msgstr "Kansitaidetta ei saatavilla."
 
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:150
 msgid "Additional details"
@@ -12188,30 +12422,14 @@ msgid ""
 "{ratings_doc|ratings}."
 msgstr ""
 
-#: ../root/release/CoverArt.js:27
-msgid "250px"
-msgstr "250 pikseliä"
-
-#: ../root/release/CoverArt.js:33
-msgid "500px"
-msgstr "500 pikseliä"
-
-#: ../root/release/CoverArt.js:39
-msgid "1200px"
-msgstr "1200px"
-
-#: ../root/release/CoverArt.js:43
-msgid "original"
-msgstr "alkuperäinen"
-
-#: ../root/release/CoverArt.js:53
+#: ../root/release/CoverArt.js:28
 #, fuzzy
 #| msgid "Cover art:"
 msgctxt "plural, header"
 msgid "Cover art"
 msgstr "Kansitaide:"
 
-#: ../root/release/CoverArt.js:59
+#: ../root/release/CoverArt.js:34
 #, fuzzy
 #| msgid "Cannot show cover art"
 msgctxt "plural, header"
@@ -12219,47 +12437,40 @@ msgid "Cannot show cover art"
 msgstr "Kansitaidetta ei voi näyttää"
 
 #: ../root/release/CoverArt.js:96
-msgid "All sizes:"
-msgstr "Kaikki koot:"
-
-#: ../root/release/CoverArt.js:121
+#, fuzzy
+#| msgid ""
+#| "These images provided by the {caa|Cover Art Archive}. You can also see "
+#| "them at the {ia|Internet Archive}."
 msgid ""
-"These images provided by the {caa|Cover Art Archive}. You can also see them "
+"These images are part of the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr ""
 "Nämä kuvat tarjoaa {caa|Cover Art Archive}. Löydät ne myös {ia|Internet "
 "Archive}sta."
 
-#: ../root/release/CoverArt.js:134
+#: ../root/release/CoverArt.js:109
 msgid "We do not currently have any cover art for {release}."
 msgstr "Kansitaidetta ei julkaisulle {release}. "
 
-#: ../root/release/CoverArt.js:141
+#: ../root/release/CoverArt.js:116
 msgid ""
 "Keep in mind pseudo-releases generally shouldn’t have cover art. See {doc|"
 "the guidelines for pseudo-releases} for more info."
 msgstr ""
 
-#: ../root/release/CoverArt.js:158
+#: ../root/release/CoverArt.js:133
 #, fuzzy
 #| msgid "Add cover art"
 msgctxt "plural, interactive"
 msgid "Add cover art"
 msgstr "Lisää kansitaidetta"
 
-#: ../root/release/CoverArt.js:164
+#: ../root/release/CoverArt.js:139
 #, fuzzy
 #| msgid "Reorder cover art"
 msgctxt "plural, interactive"
 msgid "Reorder cover art"
 msgstr "Uudelleenjärjestä kansitaide"
-
-#: ../root/release/CoverArt.js:173
-#, fuzzy
-#| msgid "Log in to upload cover art"
-msgctxt "plural, interactive"
-msgid "Log in to upload cover art"
-msgstr "Sisäänkirjaudu lisätäksesi kansitaidetta"
 
 #: ../root/release/CoverArtDarkened.js:13
 #, fuzzy
@@ -12268,7 +12479,7 @@ msgctxt "plural"
 msgid "Cannot add cover art"
 msgstr "Kansitaidetta ei voi lisätä"
 
-#: ../root/release/CoverArtFields.js:73
+#: ../root/release/CoverArtFields.js:21
 msgid "Choose one or more cover art types for this image"
 msgstr "Valitse kuvalle yksi tai useampi kansitaiteen muoto"
 
@@ -12330,20 +12541,12 @@ msgid ""
 "select the release which you would like other releases to be merged into:"
 msgstr ""
 
-#: ../root/release/RemoveCoverArt.js:25
+#: ../root/release/RemoveCoverArt.js:24
 #, fuzzy
 #| msgid "Remove cover art"
 msgctxt "singular, header"
 msgid "Remove cover art"
 msgstr "Poista kansitaidetta"
-
-#: ../root/release/RemoveCoverArt.js:32
-msgid ""
-"Are you sure you wish to remove the below cover art from {release} by "
-"{artist}?"
-msgstr ""
-"Haluatko varmasti poistaa alapuolella olevan kansitaiteen artistin {artist} "
-"julkaisusta {release}?"
 
 #: ../root/release_group/ReleaseGroupHeader.js:20
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:814
@@ -18290,6 +18493,19 @@ msgid ""
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
 msgstr ""
+
+#~ msgid "This release has no artwork."
+#~ msgstr "Tällä julkaisulla ei ole kansitaidetta."
+
+#~ msgid ""
+#~ "We are unable to display history for this cover art. For a current "
+#~ "listing of cover art, please see the {coverart|release's cover art page}."
+#~ msgstr ""
+#~ "Tämän kansitaiteen aiempaa tilannetta ei voida esittää. Tämänhetkisen "
+#~ "listan kansitaiteesta saa {coverart|julkaisun kansitaidesivulta}."
+
+#~ msgid "Comment:"
+#~ msgstr "Kommentti:"
 
 #, fuzzy
 #~| msgid "Remove area"
