@@ -118,7 +118,7 @@
     // Wait for the artwork-indexer to catch up.
     {
       command: 'pause',
-      target: '2000',
+      target: '3000',
       value: '',
     },
     {
@@ -172,7 +172,7 @@
     },
     {
       command: 'pause',
-      target: '2000',
+      target: '3000',
       value: '',
     },
     {
@@ -183,7 +183,7 @@
     // Wait for the artwork-indexer to catch up.
     {
       command: 'pause',
-      target: '2000',
+      target: '3000',
       value: '',
     },
     // `approved` should be true for both images in index.json now.
@@ -298,7 +298,7 @@
     // Wait for the artwork-indexer to catch up.
     {
       command: 'pause',
-      target: '2000',
+      target: '3000',
       value: '',
     },
     {
@@ -403,7 +403,7 @@
     // Wait for the artwork-indexer to catch up.
     {
       command: 'pause',
-      target: '2000',
+      target: '3000',
       value: '',
     },
     {
@@ -498,7 +498,7 @@
     // Wait for the artwork-indexer to catch up.
     {
       command: 'pause',
-      target: '2000',
+      target: '3000',
       value: '',
     },
     {
