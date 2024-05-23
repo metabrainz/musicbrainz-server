@@ -198,8 +198,8 @@ test 'MBS-13548: obey returnto for already logged in users' => sub {
     );
     is($mech->uri->path, '/user/new_editor');
 
-    $mech->get_ok('https://localhost/login?returnto=/doc/About');
-    is($mech->uri->path, '/doc/About');
+    $mech->get_ok('https://localhost/login?returnto=/statistics');
+    is($mech->uri->path, '/statistics');
 
     $enable_ssl->DESTROY;
 };
