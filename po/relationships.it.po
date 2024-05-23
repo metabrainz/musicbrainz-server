@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-10 14:42+0000\n"
+"PO-Revision-Date: 2024-05-23 02:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -30,9 +30,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -10088,10 +10088,8 @@ msgid "{entity1} was {additional:additionally} transferred at {entity0}"
 msgstr "{entity1} è stata trasferita {additional:in aggiunta} presso {entity0}"
 
 #: DB:link_type/long_link_phrase:1181
-#, fuzzy
-#| msgid "{entity1} was {additional:additionally} transferred at {entity0}"
 msgid "{entity1} was {additional:additionally} transferred in {entity0}"
-msgstr "{entity1} è stata trasferita {additional:in aggiunta} presso {entity0}"
+msgstr "{entity1} è stata trasferita {additional:in aggiunta} a {entity0}"
 
 #: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
 msgid "{entity1} was {additional:additionally} translated at {entity0}"

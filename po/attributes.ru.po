@@ -27,7 +27,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-15 18:42+0000\n"
+"PO-Revision-Date: 2024-05-19 14:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -204,9 +204,9 @@ msgstr ""
 "<li>коллекция записей из различных старых источников (необязательно раннее "
 "выпущенных), объединенных вместе (например, альбом \"best of\" или "
 "ретроспективный релиз);</li>\n"
-"<li>или коллекция песен разных исполнителей, обычно на конкретную тему ("
-"\"Песни о любви\"), из конкретного временного периода (\"Песня года-1998\"), "
-"или других.</li>\n"
+"<li>или коллекция песен разных исполнителей, обычно на конкретную тему "
+"(\"Песни о любви\"), из конкретного временного периода (\"Песня "
+"года-1998\"), или других.</li>\n"
 "</ul>\n"
 "\n"
 "<p>Проект MusicBrainz обычно не считает сборниками:</p>\n"
@@ -343,8 +343,8 @@ msgid ""
 msgstr ""
 "Карточка (или другое похожее физическое устройство), которое содержит не "
 "саму музыку, а код для ее цифровой загрузки. Обычно поставляется с "
-"физическими релизами, но иногда продается как самостоятельный товар ("
-"особенно в странах Азии)."
+"физическими релизами, но иногда продается как самостоятельный товар "
+"(особенно в странах Азии)."
 
 #: DB:label_type/description:10
 msgctxt "label_type"
@@ -521,7 +521,8 @@ msgctxt "place_type"
 msgid ""
 "A place designed for non-live production of music, typically a recording "
 "studio."
-msgstr "Место для неконцертного исполнения музыки (обычно, студия звукозаписи)."
+msgstr ""
+"Место для неконцертного исполнения музыки (обычно, студия звукозаписи)."
 
 #: DB:place_type/description:2
 msgctxt "place_type"
@@ -529,8 +530,8 @@ msgid ""
 "A place that has live artistic performances as one of its primary functions, "
 "such as a concert hall."
 msgstr ""
-"Место, используемое, в первую очередь, для живых выступлений артистов ("
-"например, концертный зал)."
+"Место, используемое, в первую очередь, для живых выступлений артистов "
+"(например, концертный зал)."
 
 #: DB:place_type/description:6
 msgctxt "place_type"
@@ -3385,6 +3386,14 @@ msgstr ""
 msgctxt "work_attribute_type_allowed_value"
 msgid "Gaṁbhīra vāṇi"
 msgstr ""
+
+#: DB:editor_collection_type/name:16
+#, fuzzy
+#| msgctxt "collection_type"
+#| msgid "Event collection"
+msgctxt "collection_type"
+msgid "Genre collection"
+msgstr "Коллекция событий"
 
 #: DB:work_attribute_type_allowed_value/value:376
 msgctxt "work_attribute_type_allowed_value"
@@ -8350,7 +8359,7 @@ msgstr ""
 #: DB:work_attribute_type/name:30
 msgctxt "work_attribute_type"
 msgid "ZAiKS ID"
-msgstr ""
+msgstr "ZAiKS ID"
 
 #: DB:work_attribute_type_allowed_value/value:780
 msgctxt "work_attribute_type_allowed_value"
@@ -8420,7 +8429,7 @@ msgstr ""
 #: DB:medium_format/name:77
 msgctxt "medium_format"
 msgid "Zip Disk"
-msgstr ""
+msgstr "Zip-диск"
 
 #: DB:work_attribute_type_allowed_value/value:599
 msgctxt "work_attribute_type_allowed_value"
@@ -8437,7 +8446,7 @@ msgstr ""
 #: DB:medium_format/name:164
 msgctxt "medium_format"
 msgid "microSD"
-msgstr ""
+msgstr "microSD"
 
 #: DB:medium_format/name:27
 msgctxt "medium_format"

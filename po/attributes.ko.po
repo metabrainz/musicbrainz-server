@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-05-02 17:37+0000\n"
-"Last-Translator: hashflu <hashflu@users.noreply.translations.metabrainz.org>"
-"\n"
+"Last-Translator: hashflu <hashflu@users.noreply.translations.metabrainz."
+"org>\n"
 "Language-Team: Korean <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ko/>\n"
 "Language: ko\n"
@@ -3176,6 +3176,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:91
 msgctxt "work_attribute_type_allowed_value"
 msgid "Gaṁbhīra vāṇi"
+msgstr ""
+
+#: DB:editor_collection_type/name:16
+msgctxt "collection_type"
+msgid "Genre collection"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:376

@@ -3316,7 +3316,7 @@ msgstr ""
 "切莫与波斯鲁特琴<a href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">"
 "盖查克琴</a>混淆。"
 
-#. name:cornemuse du centre 
+#. name:cornemuse du Centre 
 #: DB:instrument/description:1190
 msgid ""
 "Not to be confused with the Renaissance double-reed <a href=\"/"
