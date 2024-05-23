@@ -1124,7 +1124,7 @@ msgid ""
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2014-03-17
-#: ../root/statistics/stats.js:42
+#: ../root/statistics/stats.js:43
 msgid "Work attributes"
 msgstr ""
 
@@ -1173,13 +1173,6 @@ msgstr "בקרות"
 msgid "Countries"
 msgstr "מדינות"
 
-#: ../root/statistics/layout.tt:4
-#, fuzzy
-#| msgid "Cover Art"
-msgctxt "plural"
-msgid "Cover art"
-msgstr "תמונת עטיפה"
-
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
 #: ../root/statistics/StatisticsLayout.js:86
 #: ../root/statistics/StatisticsLayout.js:100
@@ -1204,7 +1197,7 @@ msgstr "עורכים"
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:31
 #: ../root/statistics/Edits.js:35 ../root/statistics/Edits.js:44
 #: ../root/statistics/Index.js:1221 ../root/statistics/Index.js:1224
-#: ../root/statistics/Index.js:1273 ../root/statistics/stats.js:290
+#: ../root/statistics/Index.js:1273 ../root/statistics/stats.js:296
 msgid "Edits"
 msgstr "עריכות"
 
@@ -1214,13 +1207,17 @@ msgstr "עריכות"
 msgid "Exact values (items vs. day)"
 msgstr "ערכים מדויקים (פריטים לעומת יום)"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/stats.js:26
+#: ../root/statistics/layout.tt:4 ../root/statistics/stats.js:27
 msgid "Formats"
 msgstr "תבניות:"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Hover and click on vertical lines"
 msgstr "רחוף והקשה על קווים אנכיים"
+
+#: ../root/statistics/layout.tt:4 ../root/statistics/Images.js:63
+msgid "Images"
+msgstr ""
 
 #: ../root/statistics/layout.tt:4
 msgid "Languages/Scripts"
@@ -1255,8 +1252,8 @@ msgstr "תרשים יחס שינוי"
 #: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:146
 #: ../root/statistics/Relationships.js:90
 #: ../root/statistics/Relationships.js:95
-#: ../root/statistics/Relationships.js:110 ../root/statistics/stats.js:33
-#: ../root/statistics/stats.js:49
+#: ../root/statistics/Relationships.js:110 ../root/statistics/stats.js:34
+#: ../root/statistics/stats.js:50
 msgid "Relationships"
 msgstr "קשרי־גומלין"
 
@@ -1278,9 +1275,9 @@ msgstr "תרשים ציר זמן"
 msgid "Zoom:"
 msgstr "מקד:"
 
-#: ../root/statistics/Countries.js:42 ../root/statistics/CoverArt.js:62
-#: ../root/statistics/Editors.js:91 ../root/statistics/Edits.js:33
-#: ../root/statistics/Formats.js:41 ../root/statistics/Index.js:66
+#: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:91
+#: ../root/statistics/Edits.js:33 ../root/statistics/Formats.js:41
+#: ../root/statistics/Images.js:66 ../root/statistics/Index.js:66
 #: ../root/statistics/LanguagesScripts.js:46
 #: ../root/statistics/Relationships.js:93
 msgid "Last updated: {date}"
@@ -1298,34 +1295,34 @@ msgstr "מדינה"
 
 #: ../root/statistics/Countries.js:54 ../root/statistics/Index.js:75
 #: ../root/statistics/Index.js:214 ../root/statistics/Index.js:218
-#: ../root/statistics/Index.js:221 ../root/statistics/stats.js:64
+#: ../root/statistics/Index.js:221 ../root/statistics/stats.js:65
 msgid "Artists"
 msgstr "אמנים"
 
-#: ../root/statistics/Countries.js:58 ../root/statistics/CoverArt.js:99
-#: ../root/statistics/Formats.js:50 ../root/statistics/Index.js:83
+#: ../root/statistics/Countries.js:58 ../root/statistics/Formats.js:50
+#: ../root/statistics/Images.js:127 ../root/statistics/Index.js:83
 #: ../root/statistics/Index.js:357 ../root/statistics/Index.js:360
 #: ../root/statistics/Index.js:382 ../root/statistics/Index.js:408
 #: ../root/statistics/Index.js:434 ../root/statistics/Index.js:456
 #: ../root/statistics/Index.js:511 ../root/statistics/LanguagesScripts.js:65
-#: ../root/statistics/LanguagesScripts.js:153 ../root/statistics/stats.js:670
+#: ../root/statistics/LanguagesScripts.js:153 ../root/statistics/stats.js:686
 msgid "Releases"
 msgstr "הוצאות"
 
 #: ../root/statistics/Countries.js:62 ../root/statistics/Index.js:99
 #: ../root/statistics/Index.js:702 ../root/statistics/Index.js:709
-#: ../root/statistics/stats.js:510
+#: ../root/statistics/stats.js:526
 msgid "Labels"
 msgstr "חברות תקליטים"
 
 #: ../root/statistics/Countries.js:66 ../root/statistics/Index.js:127
-#: ../root/statistics/Index.js:902 ../root/statistics/stats.js:430
+#: ../root/statistics/Index.js:902 ../root/statistics/stats.js:436
 msgid "Events"
 msgstr "ארועים"
 
 #: ../root/statistics/Countries.js:70 ../root/statistics/Index.js:115
 #: ../root/statistics/Index.js:820 ../root/statistics/Index.js:827
-#: ../root/statistics/stats.js:545
+#: ../root/statistics/stats.js:561
 msgid "Places"
 msgstr "מקומות"
 
@@ -1339,99 +1336,6 @@ msgstr "סך כל"
 #| msgid "Unknown Country"
 msgid "Unknown country"
 msgstr "מדינה לא ידועה"
-
-#: ../root/statistics/CoverArt.js:64
-msgid "Basics"
-msgstr "בסיסי"
-
-#: ../root/statistics/CoverArt.js:67 ../root/statistics/CoverArt.js:104
-#: ../root/statistics/CoverArt.js:284
-msgid "No cover art statistics available."
-msgstr "סטטיסטיקת תמונות עטיפה לא זמינה."
-
-#: ../root/statistics/CoverArt.js:73 ../root/statistics/CoverArt.js:114
-#: ../root/statistics/CoverArt.js:151 ../root/statistics/CoverArt.js:189
-#: ../root/statistics/CoverArt.js:328
-msgid "Releases with cover art:"
-msgstr "‮הוצאה עם תמונת עטיפה:"
-
-#: ../root/statistics/CoverArt.js:88 ../root/statistics/CoverArt.js:293
-msgid "Pieces of cover art:"
-msgstr "פריטי תמונת עטיפה:"
-
-#: ../root/statistics/CoverArt.js:110
-#, fuzzy
-#| msgid "By Release Group Type"
-msgid "By release group type"
-msgstr "לפי סוג קבוצה"
-
-#: ../root/statistics/CoverArt.js:129 ../root/statistics/CoverArt.js:307
-msgid "No type"
-msgstr "אין סוג"
-
-#: ../root/statistics/CoverArt.js:147
-#, fuzzy
-#| msgid "By Release Status"
-msgid "By release status"
-msgstr "לפי מצב הוצאה"
-
-#: ../root/statistics/CoverArt.js:166
-msgid "No status"
-msgstr "אין מצב"
-
-#: ../root/statistics/CoverArt.js:185
-#, fuzzy
-#| msgid "By Release Format"
-msgid "By release format"
-msgstr "לפי תבנית הוצאה"
-
-#: ../root/statistics/CoverArt.js:204
-msgid "No format"
-msgstr "אין תבנית"
-
-#: ../root/statistics/CoverArt.js:225 ../root/statistics/Index.js:79
-#: ../root/statistics/Index.js:599 ../root/statistics/Index.js:607
-#: ../root/statistics/Index.js:641 ../root/statistics/stats.js:754
-msgid "Release groups"
-msgstr "‮קבוצת הוצאה"
-
-#: ../root/statistics/CoverArt.js:230
-msgid "Release groups with cover art:"
-msgstr "‮קבוצות הוצאה עם תמונת עטיפה"
-
-#: ../root/statistics/CoverArt.js:241
-msgid "manually selected:"
-msgstr "בחירה ידנית:"
-
-#: ../root/statistics/CoverArt.js:263
-msgid "automatically inferred:"
-msgstr "הסכמה אוטומטית:"
-
-#: ../root/statistics/CoverArt.js:281 ../root/statistics/stats.js:279
-msgid "Pieces of cover art"
-msgstr "פריטי תמונת עטיפה"
-
-#: ../root/statistics/CoverArt.js:290
-#, fuzzy
-#| msgid "By Cover Art Type"
-msgid "By cover art type"
-msgstr "לפי סוג תמונת עטיפה"
-
-#: ../root/statistics/CoverArt.js:325
-msgid "Per release"
-msgstr "הוצאה מוקדמת"
-
-#: ../root/statistics/CoverArt.js:341
-msgid "with {num} piece of cover art:"
-msgid_plural "with {num} pieces of cover art:"
-msgstr[0] "עם חלק  {num} של תמונת עטיפה:"
-msgstr[1] "עם {num} חלקים של תמונת עטיפה:"
-msgstr[2] "עם {num} חלקים של תמונת עטיפה:"
-msgstr[3] "עם  {num} פירטי תמונת עטיפה:"
-
-#: ../root/statistics/CoverArt.js:371
-msgid "with 30 or more pieces of cover art:"
-msgstr "עם 30 פריטי תמונת עטיפה ויותר:"
 
 #: ../root/statistics/Editors.js:67
 msgid "There is no data to display here."
@@ -1506,7 +1410,7 @@ msgid "% of total releases"
 msgstr "% מסך כל ההוצאות"
 
 #: ../root/statistics/Formats.js:52 ../root/statistics/Index.js:87
-#: ../root/statistics/Index.js:555 ../root/statistics/stats.js:530
+#: ../root/statistics/Index.js:555 ../root/statistics/stats.js:546
 msgid "Mediums"
 msgstr "מדיה"
 
@@ -1520,6 +1424,116 @@ msgstr "% מסך כל המדיה"
 msgid "Unknown format"
 msgstr "תַּבְנִית לא ידועה"
 
+#: ../root/statistics/Images.js:68
+msgid "Basics"
+msgstr "בסיסי"
+
+#: ../root/statistics/Images.js:71
+#, fuzzy
+#| msgid "No edit statistics available."
+msgid "No image statistics available."
+msgstr "סטטיסטיקת עריכה לא זמינה."
+
+#: ../root/statistics/Images.js:77 ../root/statistics/Images.js:142
+#: ../root/statistics/Images.js:179 ../root/statistics/Images.js:217
+#: ../root/statistics/Images.js:356
+msgid "Releases with cover art:"
+msgstr "‮הוצאה עם תמונת עטיפה:"
+
+#: ../root/statistics/Images.js:92 ../root/statistics/Images.js:321
+msgid "Pieces of cover art:"
+msgstr "פריטי תמונת עטיפה:"
+
+#: ../root/statistics/Images.js:101
+#, fuzzy
+#| msgid "Releases with cover art:"
+msgid "Events with event art"
+msgstr "‮הוצאה עם תמונת עטיפה:"
+
+#: ../root/statistics/Images.js:116 ../root/statistics/stats.js:285
+#, fuzzy
+#| msgid "Pieces of cover art"
+msgid "Pieces of event art"
+msgstr "פריטי תמונת עטיפה"
+
+#: ../root/statistics/Images.js:132 ../root/statistics/Images.js:312
+msgid "No cover art statistics available."
+msgstr "סטטיסטיקת תמונות עטיפה לא זמינה."
+
+#: ../root/statistics/Images.js:138
+#, fuzzy
+#| msgid "By Release Group Type"
+msgid "By release group type"
+msgstr "לפי סוג קבוצה"
+
+#: ../root/statistics/Images.js:157 ../root/statistics/Images.js:335
+msgid "No type"
+msgstr "אין סוג"
+
+#: ../root/statistics/Images.js:175
+#, fuzzy
+#| msgid "By Release Status"
+msgid "By release status"
+msgstr "לפי מצב הוצאה"
+
+#: ../root/statistics/Images.js:194
+msgid "No status"
+msgstr "אין מצב"
+
+#: ../root/statistics/Images.js:213
+#, fuzzy
+#| msgid "By Release Format"
+msgid "By release format"
+msgstr "לפי תבנית הוצאה"
+
+#: ../root/statistics/Images.js:232
+msgid "No format"
+msgstr "אין תבנית"
+
+#: ../root/statistics/Images.js:253 ../root/statistics/Index.js:79
+#: ../root/statistics/Index.js:599 ../root/statistics/Index.js:607
+#: ../root/statistics/Index.js:641 ../root/statistics/stats.js:770
+msgid "Release groups"
+msgstr "‮קבוצת הוצאה"
+
+#: ../root/statistics/Images.js:258
+msgid "Release groups with cover art:"
+msgstr "‮קבוצות הוצאה עם תמונת עטיפה"
+
+#: ../root/statistics/Images.js:269
+msgid "manually selected:"
+msgstr "בחירה ידנית:"
+
+#: ../root/statistics/Images.js:291
+msgid "automatically inferred:"
+msgstr "הסכמה אוטומטית:"
+
+#: ../root/statistics/Images.js:309 ../root/statistics/stats.js:280
+msgid "Pieces of cover art"
+msgstr "פריטי תמונת עטיפה"
+
+#: ../root/statistics/Images.js:318
+#, fuzzy
+#| msgid "By Cover Art Type"
+msgid "By cover art type"
+msgstr "לפי סוג תמונת עטיפה"
+
+#: ../root/statistics/Images.js:353
+msgid "Per release"
+msgstr "הוצאה מוקדמת"
+
+#: ../root/statistics/Images.js:369
+msgid "with {num} piece of cover art:"
+msgid_plural "with {num} pieces of cover art:"
+msgstr[0] "עם חלק  {num} של תמונת עטיפה:"
+msgstr[1] "עם {num} חלקים של תמונת עטיפה:"
+msgstr[2] "עם {num} חלקים של תמונת עטיפה:"
+msgstr[3] "עם  {num} פירטי תמונת עטיפה:"
+
+#: ../root/statistics/Images.js:399
+msgid "with 30 or more pieces of cover art:"
+msgstr "עם 30 פריטי תמונת עטיפה ויותר:"
+
 #: ../root/statistics/Index.js:68
 msgid "Basic metadata"
 msgstr "נתוני־על בסיסים"
@@ -1532,35 +1546,35 @@ msgstr "ישויות ליבה"
 
 #: ../root/statistics/Index.js:91 ../root/statistics/Index.js:673
 #: ../root/statistics/Index.js:677 ../root/statistics/Index.js:680
-#: ../root/statistics/stats.js:655
+#: ../root/statistics/stats.js:671
 msgid "Recordings"
 msgstr "הקלטות"
 
-#: ../root/statistics/Index.js:95 ../root/statistics/stats.js:846
+#: ../root/statistics/Index.js:95 ../root/statistics/stats.js:862
 msgid "Tracks"
 msgstr "רצועות"
 
 #: ../root/statistics/Index.js:103 ../root/statistics/Index.js:730
 #: ../root/statistics/Index.js:737 ../root/statistics/Index.js:769
-#: ../root/statistics/LanguagesScripts.js:69 ../root/statistics/stats.js:898
+#: ../root/statistics/LanguagesScripts.js:69 ../root/statistics/stats.js:914
 msgid "Works"
 msgstr "יצירות"
 
-#: ../root/statistics/Index.js:107 ../root/statistics/stats.js:851
+#: ../root/statistics/Index.js:107 ../root/statistics/stats.js:867
 msgid "URLs"
 msgstr "מעני url"
 
 #: ../root/statistics/Index.js:111 ../root/statistics/Index.js:792
-#: ../root/statistics/Index.js:799 ../root/statistics/stats.js:54
+#: ../root/statistics/Index.js:799 ../root/statistics/stats.js:55
 msgid "Areas"
 msgstr "אזורים"
 
 #: ../root/statistics/Index.js:123 ../root/statistics/Index.js:872
-#: ../root/statistics/Index.js:879 ../root/statistics/stats.js:450
+#: ../root/statistics/Index.js:879 ../root/statistics/stats.js:466
 msgid "Instruments"
 msgstr "כלי נגינה"
 
-#: ../root/statistics/Index.js:131 ../root/statistics/stats.js:445
+#: ../root/statistics/Index.js:131 ../root/statistics/stats.js:461
 msgid "Genres"
 msgstr "סוגה"
 
@@ -1576,7 +1590,7 @@ msgstr "עורכים (תקפים/נמחקו):"
 
 #: ../root/statistics/Index.js:150 ../root/statistics/Index.js:930
 #: ../root/statistics/Index.js:934 ../root/statistics/Index.js:937
-#: ../root/statistics/stats.js:19 ../root/statistics/stats.js:174
+#: ../root/statistics/stats.js:19 ../root/statistics/stats.js:175
 msgid "Collections"
 msgstr "אוספים"
 
@@ -1594,7 +1608,7 @@ msgstr "דירוגים (גָּלְמִי / מקובץ):"
 msgid "Identifiers"
 msgstr "מזהים"
 
-#: ../root/statistics/Index.js:180 ../root/statistics/stats.js:525
+#: ../root/statistics/Index.js:180 ../root/statistics/stats.js:541
 msgid "MBIDs"
 msgstr ""
 
@@ -1607,19 +1621,19 @@ msgid "ISWCs (all / unique):"
 msgstr "ISWCs (הכל/יחדי):"
 
 #: ../root/statistics/Index.js:196 ../root/statistics/Index.js:503
-#: ../root/statistics/Index.js:506 ../root/statistics/stats.js:284
+#: ../root/statistics/Index.js:506 ../root/statistics/stats.js:290
 msgid "Disc IDs"
 msgstr "מזהי תקליטור"
 
-#: ../root/statistics/Index.js:200 ../root/statistics/stats.js:154
+#: ../root/statistics/Index.js:200 ../root/statistics/stats.js:155
 msgid "Barcodes"
 msgstr "ברקוד"
 
-#: ../root/statistics/Index.js:204 ../root/statistics/stats.js:460
+#: ../root/statistics/Index.js:204 ../root/statistics/stats.js:476
 msgid "IPIs"
 msgstr "IPIs"
 
-#: ../root/statistics/Index.js:208 ../root/statistics/stats.js:475
+#: ../root/statistics/Index.js:208 ../root/statistics/stats.js:491
 msgid "ISNIs"
 msgstr "ISNIs"
 
@@ -1739,7 +1753,7 @@ msgstr "אין תמונות עטיפה - חזית:"
 msgid "Data quality"
 msgstr "איכות נתונים"
 
-#: ../root/statistics/Index.js:463 ../root/statistics/stats.js:565
+#: ../root/statistics/Index.js:463 ../root/statistics/stats.js:581
 #, fuzzy
 #| msgid "High Data Quality"
 msgid "High data quality"
@@ -1751,19 +1765,19 @@ msgstr "איכות נתונים גבוהה"
 msgid "Default data quality"
 msgstr "איכות נתונים ברירת מחדל:"
 
-#: ../root/statistics/Index.js:479 ../root/statistics/stats.js:575
+#: ../root/statistics/Index.js:479 ../root/statistics/stats.js:591
 #, fuzzy
 #| msgid "Normal Data Quality"
 msgid "Normal data quality"
 msgstr "איכות נתונים תקנית"
 
-#: ../root/statistics/Index.js:486 ../root/statistics/stats.js:580
+#: ../root/statistics/Index.js:486 ../root/statistics/stats.js:596
 #, fuzzy
 #| msgid "Unknown Data Quality"
 msgid "Unknown data quality"
 msgstr "איכות נתונים לא ידועה"
 
-#: ../root/statistics/Index.js:495 ../root/statistics/stats.js:570
+#: ../root/statistics/Index.js:495 ../root/statistics/stats.js:586
 #, fuzzy
 #| msgid "Low Data Quality"
 msgid "Low data quality"
@@ -1817,7 +1831,7 @@ msgstr "ללא"
 msgid "Secondary types"
 msgstr "סוגים משניים"
 
-#: ../root/statistics/Index.js:685 ../root/statistics/stats.js:856
+#: ../root/statistics/Index.js:685 ../root/statistics/stats.js:872
 msgid "Videos"
 msgstr ""
 
@@ -2013,7 +2027,7 @@ msgid "Yesterday:"
 msgstr "אתמול:"
 
 #: ../root/statistics/Index.js:1293 ../root/statistics/Index.js:1296
-#: ../root/statistics/Index.js:1329 ../root/statistics/stats.js:862
+#: ../root/statistics/Index.js:1329 ../root/statistics/stats.js:878
 msgid "Votes"
 msgstr "הצבעות"
 
@@ -2109,680 +2123,690 @@ msgstr "מדינות אמן"
 msgid "Artist types and genders"
 msgstr "סוגי ומגדרי אמן"
 
-#: ../root/statistics/stats.js:25
+#: ../root/statistics/stats.js:26
 #, fuzzy
 #| msgid "Events"
 msgid "Event types"
 msgstr "ארועים"
 
-#: ../root/statistics/stats.js:27
+#: ../root/statistics/stats.js:28
 #, fuzzy
 #| msgid "Instruments"
 msgid "Instrument types"
 msgstr "כלי נגינה"
 
-#: ../root/statistics/stats.js:28
+#: ../root/statistics/stats.js:29
 #, fuzzy
 #| msgid "Label Countries"
 msgid "Label countries"
 msgstr "מדינות חברת תקליטים"
 
-#: ../root/statistics/stats.js:29
+#: ../root/statistics/stats.js:30
 #, fuzzy
 #| msgid "Labels"
 msgid "Label types"
 msgstr "חברות תקליטים"
 
-#: ../root/statistics/stats.js:31
+#: ../root/statistics/stats.js:32
 #, fuzzy
 #| msgid "Places"
 msgid "Place types"
 msgstr "מקומות"
 
-#: ../root/statistics/stats.js:34
+#: ../root/statistics/stats.js:35
 #, fuzzy
 #| msgid "Release Countries"
 msgid "Release countries"
 msgstr "מדינות ההוצאה"
 
-#: ../root/statistics/stats.js:35
+#: ../root/statistics/stats.js:36
 #, fuzzy
 #| msgid "Release groups"
 msgid "Release group types"
 msgstr "‮קבוצת הוצאה"
 
-#: ../root/statistics/stats.js:36
+#: ../root/statistics/stats.js:37
 #, fuzzy
 #| msgid "Release Languages"
 msgid "Release languages"
 msgstr "שפות הוצאה"
 
-#: ../root/statistics/stats.js:37
+#: ../root/statistics/stats.js:38
 #, fuzzy
 #| msgid "Release Packaging"
 msgid "Release packagings"
 msgstr "אריזת הוצאה"
 
-#: ../root/statistics/stats.js:38
+#: ../root/statistics/stats.js:39
 #, fuzzy
 #| msgid "Release Data Quality"
 msgid "Release data quality"
 msgstr "איכות נתוני הוצאה"
 
-#: ../root/statistics/stats.js:39
+#: ../root/statistics/stats.js:40
 #, fuzzy
 #| msgid "Release Scripts"
 msgid "Release scripts"
 msgstr "כיתוב הוצאה"
 
-#: ../root/statistics/stats.js:40
+#: ../root/statistics/stats.js:41
 #, fuzzy
 #| msgid "Release Status"
 msgid "Release statuses"
 msgstr "מצב הוצאה"
 
-#: ../root/statistics/stats.js:41
+#: ../root/statistics/stats.js:42
 #, fuzzy
 #| msgctxt "plural"
 #| msgid "Series"
 msgid "Series types"
 msgstr "סדרה"
 
-#: ../root/statistics/stats.js:43
+#: ../root/statistics/stats.js:44
 #, fuzzy
 #| msgid "Languages"
 msgid "Work languages"
 msgstr "שפות"
 
-#: ../root/statistics/stats.js:44
+#: ../root/statistics/stats.js:45
 #, fuzzy
 #| msgid "No type"
 msgid "Work types"
 msgstr "אין סוג"
 
-#: ../root/statistics/stats.js:59
+#: ../root/statistics/stats.js:60
 msgid "Areas with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:69
+#: ../root/statistics/stats.js:70
 msgid "Artists with no appearances in artist credits"
 msgstr "אמנים שלא מופיעים במזכה אמן"
 
-#: ../root/statistics/stats.js:74
+#: ../root/statistics/stats.js:75
 msgid "Artists with no country set"
 msgstr "הוגדרו אמנים ללא מדינה"
 
-#: ../root/statistics/stats.js:79
+#: ../root/statistics/stats.js:80
 #, fuzzy
 #| msgid "Female Artists"
 msgid "Female artists"
 msgstr "אמנית"
 
-#: ../root/statistics/stats.js:84
+#: ../root/statistics/stats.js:85
 #, fuzzy
 #| msgid "Male Artists"
 msgid "Male artists"
 msgstr "אמן"
 
-#: ../root/statistics/stats.js:89
+#: ../root/statistics/stats.js:90
 msgid "Non-binary Artists"
 msgstr ""
 
-#: ../root/statistics/stats.js:94
+#: ../root/statistics/stats.js:95
 #, fuzzy
 #| msgid "Gender not applicable:"
 msgid "Gender not applicable"
 msgstr "מגדר לא יישים:"
 
-#: ../root/statistics/stats.js:99
+#: ../root/statistics/stats.js:100
 msgid "Artists with no gender set (non-group artists)"
 msgstr ""
 
-#: ../root/statistics/stats.js:104
+#: ../root/statistics/stats.js:105
 msgid "Artists with gender set to Other"
 msgstr ""
 
-#: ../root/statistics/stats.js:109
+#: ../root/statistics/stats.js:110
 msgid "Artists with at least one artist credit appearance"
 msgstr "אמנים שמופיעים מזכה אמן אחד לפחות"
 
-#: ../root/statistics/stats.js:114
+#: ../root/statistics/stats.js:115
 msgid "Characters"
 msgstr "תווים"
 
-#: ../root/statistics/stats.js:119
+#: ../root/statistics/stats.js:120
 msgid "Choirs"
 msgstr "מקהלה"
 
-#: ../root/statistics/stats.js:124
+#: ../root/statistics/stats.js:125
 msgid "Groups"
 msgstr "קבוצות"
 
-#: ../root/statistics/stats.js:129
+#: ../root/statistics/stats.js:130
 msgid "Artists with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:134
+#: ../root/statistics/stats.js:135
 msgid "Orchestras"
 msgstr "תזמורת"
 
-#: ../root/statistics/stats.js:139
+#: ../root/statistics/stats.js:140
 msgid "Artists with type set to Other"
 msgstr ""
 
-#: ../root/statistics/stats.js:144
+#: ../root/statistics/stats.js:145
 msgid "Persons"
 msgstr "אנשים"
 
-#: ../root/statistics/stats.js:149
+#: ../root/statistics/stats.js:150
 #, fuzzy
 #| msgid "Artist Credits"
 msgid "Artist credits"
 msgstr "מזכה אמן"
 
-#: ../root/statistics/stats.js:159
+#: ../root/statistics/stats.js:160
 #, fuzzy
 #| msgid "CD Stubs (all time / current):"
 msgid "CD stubs (current)"
 msgstr "ספח תקליטור (כל הזמנים / נוכחי)"
 
-#: ../root/statistics/stats.js:164
+#: ../root/statistics/stats.js:165
 msgid "CD stubs (ever submitted)"
 msgstr ""
 
-#: ../root/statistics/stats.js:169
+#: ../root/statistics/stats.js:170
 #, fuzzy
 #| msgid "CDStub tracks"
 msgid "CD stub tracks"
 msgstr "ספחי תקליטור לרצועות"
 
-#: ../root/statistics/stats.js:179
+#: ../root/statistics/stats.js:180
 msgid "Collections with collaborators"
 msgstr ""
 
-#: ../root/statistics/stats.js:184
+#: ../root/statistics/stats.js:185
 msgid "Private collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:189
+#: ../root/statistics/stats.js:190
 msgid "Public collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:194
+#: ../root/statistics/stats.js:195
 msgid "Area collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:199
+#: ../root/statistics/stats.js:200
 msgid "Artist collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:204
+#: ../root/statistics/stats.js:205
 msgid "Collections of type Attending"
 msgstr ""
 
-#: ../root/statistics/stats.js:209
+#: ../root/statistics/stats.js:210
 msgid "Collections of type Event"
 msgstr ""
 
-#: ../root/statistics/stats.js:214
+#: ../root/statistics/stats.js:215
 msgid "Event collections (all types)"
 msgstr ""
 
-#: ../root/statistics/stats.js:219
+#: ../root/statistics/stats.js:220
 msgid "Instrument collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:224
+#: ../root/statistics/stats.js:225
 msgid "Label collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:229
+#: ../root/statistics/stats.js:230
 msgid "Collections of type Maybe attending"
 msgstr ""
 
-#: ../root/statistics/stats.js:234
+#: ../root/statistics/stats.js:235
 msgid "Collections of type Owned music"
 msgstr ""
 
-#: ../root/statistics/stats.js:239
+#: ../root/statistics/stats.js:240
 msgid "Place collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:244
+#: ../root/statistics/stats.js:245
 msgid "Recording collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:249
+#: ../root/statistics/stats.js:250
 msgid "Collections of type Release"
 msgstr ""
 
-#: ../root/statistics/stats.js:254
+#: ../root/statistics/stats.js:255
 msgid "Release collections (all types)"
 msgstr ""
 
-#: ../root/statistics/stats.js:259
+#: ../root/statistics/stats.js:260
 msgid "Release group collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:264
+#: ../root/statistics/stats.js:265
 msgid "Series collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:269
+#: ../root/statistics/stats.js:270
 msgid "Collections of type Wishlist"
 msgstr ""
 
-#: ../root/statistics/stats.js:274
+#: ../root/statistics/stats.js:275
 msgid "Work collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:295
+#: ../root/statistics/stats.js:301
 msgid "Applied edits"
 msgstr "עריכות שהוחלו"
 
-#: ../root/statistics/stats.js:300
+#: ../root/statistics/stats.js:306
 msgid "Cancelled edits"
 msgstr "עריכות שבוטלו"
 
-#: ../root/statistics/stats.js:305
+#: ../root/statistics/stats.js:311
 msgid "Error edits"
 msgstr "שגיאות עריכה"
 
-#: ../root/statistics/stats.js:310
+#: ../root/statistics/stats.js:316
 msgid "Edits that have failed dependency checks"
 msgstr ""
 
-#: ../root/statistics/stats.js:315
+#: ../root/statistics/stats.js:321
 msgid "Edits that have failed prerequisite checks"
 msgstr ""
 
-#: ../root/statistics/stats.js:320
+#: ../root/statistics/stats.js:326
 msgid "Edits that have been voted down"
 msgstr ""
 
-#: ../root/statistics/stats.js:331
+#: ../root/statistics/stats.js:337
 msgid "Edits per day"
 msgstr "עריכות ליום"
 
-#: ../root/statistics/stats.js:336
+#: ../root/statistics/stats.js:342
 msgid "Edits per week"
 msgstr "עריכות לשבוע"
 
-#: ../root/statistics/stats.js:342
+#: ../root/statistics/stats.js:348
 msgid "Editors (all)"
 msgstr "עורכים (הכל)"
 
-#: ../root/statistics/stats.js:347
+#: ../root/statistics/stats.js:353
 msgid "Editors who edited or voted in the last week"
 msgstr ""
 
-#: ../root/statistics/stats.js:353
+#: ../root/statistics/stats.js:359
 msgid "Editors (deleted)"
 msgstr "עורכים (נמחקו)"
 
-#: ../root/statistics/stats.js:358
+#: ../root/statistics/stats.js:364
 msgid "Editors who submitted edits in the last week"
 msgstr ""
 
-#: ../root/statistics/stats.js:364
+#: ../root/statistics/stats.js:370
 msgid "Editors (current)"
 msgstr ""
 
-#: ../root/statistics/stats.js:370
+#: ../root/statistics/stats.js:376
 msgid "Editors (current) who have ever been active"
 msgstr ""
 
-#: ../root/statistics/stats.js:375
+#: ../root/statistics/stats.js:381
 msgid "Editors who have registered applications"
 msgstr ""
 
-#: ../root/statistics/stats.js:380
+#: ../root/statistics/stats.js:386
 msgid "Editors who use collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:385
+#: ../root/statistics/stats.js:391
 msgid "Editors who have made edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:390
+#: ../root/statistics/stats.js:396
 msgid "Editors who have written edit notes"
 msgstr ""
 
-#: ../root/statistics/stats.js:395
+#: ../root/statistics/stats.js:401
 msgid "Editors who have added ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:400
+#: ../root/statistics/stats.js:406
 msgid "Editors who use subscriptions"
 msgstr ""
 
-#: ../root/statistics/stats.js:410
+#: ../root/statistics/stats.js:416
 msgid "Editors who have voted on edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:415
+#: ../root/statistics/stats.js:421
 msgid "Editors who have not been active at all"
 msgstr ""
 
-#: ../root/statistics/stats.js:420
+#: ../root/statistics/stats.js:426
 msgid "Editors who have only validated their email"
 msgstr ""
 
-#: ../root/statistics/stats.js:425
+#: ../root/statistics/stats.js:431
 msgid "Editors who voted in the last week"
 msgstr ""
 
-#: ../root/statistics/stats.js:435
+#: ../root/statistics/stats.js:441
 msgid "Events with no country set"
 msgstr ""
 
-#: ../root/statistics/stats.js:440
+#: ../root/statistics/stats.js:446
+#, fuzzy
+#| msgid "Releases with CAA Cover Art"
+msgid "Events with EAA event art"
+msgstr "‮הוצאה עם תמונת עטיפה CAA"
+
+#: ../root/statistics/stats.js:451
+msgid "Events with an EAA poster"
+msgstr ""
+
+#: ../root/statistics/stats.js:456
 msgid "Events with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:455
+#: ../root/statistics/stats.js:471
 msgid "Instruments with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:465
+#: ../root/statistics/stats.js:481
 msgid "Artist IPIs"
 msgstr "אמן IP‮I"
 
-#: ../root/statistics/stats.js:470
+#: ../root/statistics/stats.js:486
 msgid "Label IPIs"
 msgstr "IPI של חברת תקליטים"
 
-#: ../root/statistics/stats.js:480
+#: ../root/statistics/stats.js:496
 msgid "Artist ISNIs"
 msgstr "ISNI אמן:"
 
-#: ../root/statistics/stats.js:485
+#: ../root/statistics/stats.js:501
 msgid "Label ISNIs"
 msgstr " ISNI של חברת תקליטים"
 
-#: ../root/statistics/stats.js:490
+#: ../root/statistics/stats.js:506
 msgid "ISRCs (unique)"
 msgstr ""
 
-#: ../root/statistics/stats.js:495
+#: ../root/statistics/stats.js:511
 msgid "ISRCs (all uses)"
 msgstr ""
 
-#: ../root/statistics/stats.js:500
+#: ../root/statistics/stats.js:516
 msgid "ISWCs (unique)"
 msgstr ""
 
-#: ../root/statistics/stats.js:505
+#: ../root/statistics/stats.js:521
 msgid "ISWCs (all uses)"
 msgstr ""
 
-#: ../root/statistics/stats.js:515
+#: ../root/statistics/stats.js:531
 msgid "Labels with no country set"
 msgstr "הוגדרו חברות תקליטים ללא מדינה"
 
-#: ../root/statistics/stats.js:520
+#: ../root/statistics/stats.js:536
 msgid "Labels with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:535
+#: ../root/statistics/stats.js:551
 msgid "Mediums with no format set"
 msgstr "מדיה ללא הגדרת תַּבְנִית"
 
-#: ../root/statistics/stats.js:540
+#: ../root/statistics/stats.js:556
 #, fuzzy
 #| msgid "Mediums with Disc IDs"
 msgid "Mediums with disc IDs"
 msgstr "מדיה עם מזהי תקליטור:"
 
-#: ../root/statistics/stats.js:550
+#: ../root/statistics/stats.js:566
 msgid "Places with no country set"
 msgstr ""
 
-#: ../root/statistics/stats.js:555
+#: ../root/statistics/stats.js:571
 msgid "Places with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:560
+#: ../root/statistics/stats.js:576
 msgid "Default (Normal + Unknown) Data Quality"
 msgstr ""
 
-#: ../root/statistics/stats.js:585
+#: ../root/statistics/stats.js:601
 msgid "Entities with ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:590
+#: ../root/statistics/stats.js:606
 msgid "Artists with ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:595
+#: ../root/statistics/stats.js:611
 msgid "Labels with ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:600
+#: ../root/statistics/stats.js:616
 msgid "Places with ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:605
+#: ../root/statistics/stats.js:621
 msgid "Ratings"
 msgstr "דֵּרוּגים"
 
-#: ../root/statistics/stats.js:610
+#: ../root/statistics/stats.js:626
 msgid "Artist ratings"
 msgstr "תגי אמן"
 
-#: ../root/statistics/stats.js:615
+#: ../root/statistics/stats.js:631
 msgid "Label ratings"
 msgstr "דירוג חברת תקליטים"
 
-#: ../root/statistics/stats.js:620
+#: ../root/statistics/stats.js:636
 msgid "Place ratings"
 msgstr "דירוגי מקום"
 
-#: ../root/statistics/stats.js:625
+#: ../root/statistics/stats.js:641
 msgid "Recording ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:630
+#: ../root/statistics/stats.js:646
 msgid "Release group ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:635
+#: ../root/statistics/stats.js:651
 msgid "Work ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:640
+#: ../root/statistics/stats.js:656
 msgid "Recordings with ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:645
+#: ../root/statistics/stats.js:661
 msgid "Release groups with ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:650
+#: ../root/statistics/stats.js:666
 msgid "Works with ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:660
+#: ../root/statistics/stats.js:676
 msgid "Recordings with ISRCs"
 msgstr "הקלטות עם ISRCs"
 
-#: ../root/statistics/stats.js:665
+#: ../root/statistics/stats.js:681
 msgid "Standalone recordings"
 msgstr "הקלטה עצמאית"
 
-#: ../root/statistics/stats.js:675
+#: ../root/statistics/stats.js:691
 msgid "Releases with no country set"
 msgstr "הוגדרו הוצאות ללא מדינה"
 
-#: ../root/statistics/stats.js:680
+#: ../root/statistics/stats.js:696
 #, fuzzy
 #| msgid "Releases with CAA Cover Art"
 msgid "Releases with CAA cover art"
 msgstr "‮הוצאה עם תמונת עטיפה CAA"
 
-#: ../root/statistics/stats.js:685
+#: ../root/statistics/stats.js:701
 #, fuzzy
 #| msgid "Releases with cover art:"
 msgid "Releases with no cover art"
 msgstr "‮הוצאה עם תמונת עטיפה:"
 
-#: ../root/statistics/stats.js:690
+#: ../root/statistics/stats.js:706
 msgid "Releases with a medium with no format set"
 msgstr ""
 
-#: ../root/statistics/stats.js:696
+#: ../root/statistics/stats.js:712
 msgid "Releases with a medium with no format set that have cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:702
+#: ../root/statistics/stats.js:718
 #, fuzzy
 #| msgid "Releases with cover art:"
 msgid "Releases with cover art"
 msgstr "‮הוצאה עם תמונת עטיפה:"
 
-#: ../root/statistics/stats.js:707
+#: ../root/statistics/stats.js:723
 #, fuzzy
 #| msgid "Releases with Disc IDs"
 msgid "Releases with disc IDs"
 msgstr "הוצאות עם מזהה תקליטור"
 
-#: ../root/statistics/stats.js:712
+#: ../root/statistics/stats.js:728
 msgid "Releases with no language set"
 msgstr "הוצאות ללא הגדרת שפה"
 
-#: ../root/statistics/stats.js:717
+#: ../root/statistics/stats.js:733
 msgid "Releases not credited to Various Artists"
 msgstr ""
 
-#: ../root/statistics/stats.js:722
+#: ../root/statistics/stats.js:738
 msgid "Releases with no packaging set"
 msgstr ""
 
-#: ../root/statistics/stats.js:727
+#: ../root/statistics/stats.js:743
 msgid "Releases with no script set"
 msgstr "הוצאות ללא הגדרת כיתוב"
 
-#: ../root/statistics/stats.js:732
+#: ../root/statistics/stats.js:748
 msgid "Releases with no status set"
 msgstr ""
 
-#: ../root/statistics/stats.js:737
+#: ../root/statistics/stats.js:753
 msgid "Releases with no status set that have cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:743
+#: ../root/statistics/stats.js:759
 msgid "Releases in groups with no type set that have cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:749
+#: ../root/statistics/stats.js:765
 msgid "Releases credited to Various Artists"
 msgstr ""
 
-#: ../root/statistics/stats.js:760
+#: ../root/statistics/stats.js:776
 msgid "Release groups with automatically inferred cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:766
+#: ../root/statistics/stats.js:782
 msgid "Release groups with user-selected cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:771
+#: ../root/statistics/stats.js:787
 msgid "Release groups with no primary type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:776
+#: ../root/statistics/stats.js:792
 msgid "Release groups with no secondary type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:786
+#: ../root/statistics/stats.js:802
 msgid "Series with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:801
+#: ../root/statistics/stats.js:817
 msgid "Votes for/against area tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:806
+#: ../root/statistics/stats.js:822
 msgid "Votes for/against artist tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:811
+#: ../root/statistics/stats.js:827
 msgid "Votes for/against instrument tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:816
+#: ../root/statistics/stats.js:832
 msgid "Votes for/against label tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:821
+#: ../root/statistics/stats.js:837
 msgid "Votes for/against recording tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:826
+#: ../root/statistics/stats.js:842
 msgid "Votes for/against release tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:831
+#: ../root/statistics/stats.js:847
 msgid "Votes for/against release group tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:836
+#: ../root/statistics/stats.js:852
 msgid "Votes for/against series tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:841
+#: ../root/statistics/stats.js:857
 msgid "Votes for/against work tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:867
+#: ../root/statistics/stats.js:883
 msgid "Abstentions"
 msgstr "הימנעות"
 
-#: ../root/statistics/stats.js:872
+#: ../root/statistics/stats.js:888
 msgid "Approvals"
 msgstr ""
 
-#: ../root/statistics/stats.js:877
+#: ../root/statistics/stats.js:893
 #, fuzzy
 #| msgid "No Votes"
 msgid "No votes"
 msgstr "הצבעות 'לא'"
 
-#: ../root/statistics/stats.js:883
+#: ../root/statistics/stats.js:899
 msgid "Votes per day"
 msgstr "הצבעות ליום"
 
-#: ../root/statistics/stats.js:888
+#: ../root/statistics/stats.js:904
 msgid "Votes per week"
 msgstr "הצבעות לשבוע"
 
-#: ../root/statistics/stats.js:893
+#: ../root/statistics/stats.js:909
 #, fuzzy
 #| msgid "Yes Votes"
 msgid "Yes votes"
 msgstr "הצבעות 'כן'"
 
-#: ../root/statistics/stats.js:903
+#: ../root/statistics/stats.js:919
 msgid "Works with no attributes"
 msgstr ""
 
-#: ../root/statistics/stats.js:908
+#: ../root/statistics/stats.js:924
 msgid "Works with ISWCs"
 msgstr "יצירות עם ISWCs"
 
-#: ../root/statistics/stats.js:913
+#: ../root/statistics/stats.js:929
 msgid "Works with no language set"
 msgstr ""
 
-#: ../root/statistics/stats.js:918
+#: ../root/statistics/stats.js:934
 msgid "Works with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:920
+#: ../root/statistics/stats.js:936
 msgid "/day"
 msgstr "/יום"
 
-#: ../root/statistics/stats.js:930
+#: ../root/statistics/stats.js:946
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] "הוצאות עם מזהה תקליטור {n} "
@@ -2790,7 +2814,7 @@ msgstr[1] "הוצאות עם {n} מזהי תקליטור"
 msgstr[2] "הוצאות עם {n} מזהי תקליטור"
 msgstr[3] "הוצאות עם {n} מזהי תקליטור"
 
-#: ../root/statistics/stats.js:941
+#: ../root/statistics/stats.js:957
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] "מדיה עם מזהה תקליטורים {n}:"
@@ -2798,7 +2822,7 @@ msgstr[1] "מדיה עם מזהי {n} תקליטורים:"
 msgstr[2] "מדיה עם מזהי {n} תקליטורים:"
 msgstr[3] "מדיה עם מזהי {n} תקליטורים:"
 
-#: ../root/statistics/stats.js:952
+#: ../root/statistics/stats.js:968
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] "הקלטות עם הוצאה {n}"
@@ -2806,7 +2830,7 @@ msgstr[1] "הקלטות עם {n} הוצאות"
 msgstr[2] "הקלטות עם {n} הוצאות"
 msgstr[3] "הקלטות עם {n} הוצאות"
 
-#: ../root/statistics/stats.js:963
+#: ../root/statistics/stats.js:979
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] "קבוצות הוצאה עם הוצאה {n}"
@@ -2814,125 +2838,131 @@ msgstr[1] "קבוצות הוצאה עם {n} הוצאות"
 msgstr[2] "קבוצות הוצאה עם {n} הוצאות"
 msgstr[3] "קבוצות הוצאה עם  {n} הוצאות"
 
-#: ../root/statistics/stats.js:1016
+#: ../root/statistics/stats.js:1032
 msgid "{type} areas"
 msgstr ""
 
-#: ../root/statistics/stats.js:1028
+#: ../root/statistics/stats.js:1044
 msgid "{country} artists"
 msgstr "אמנים {country}"
 
-#: ../root/statistics/stats.js:1034
+#: ../root/statistics/stats.js:1050
 msgid "{country} events"
 msgstr ""
 
-#: ../root/statistics/stats.js:1040
+#: ../root/statistics/stats.js:1056
 msgid "{country} labels"
 msgstr "חברות תקליטים {country} "
 
-#: ../root/statistics/stats.js:1046
+#: ../root/statistics/stats.js:1062
 msgid "{country} places"
 msgstr ""
 
-#: ../root/statistics/stats.js:1052
+#: ../root/statistics/stats.js:1068
 msgid "{country} releases"
 msgstr "הוצאות {country}"
 
-#: ../root/statistics/stats.js:1063
+#: ../root/statistics/stats.js:1079
 msgid "{type} edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:1074
+#: ../root/statistics/stats.js:1090
 msgid "{type} events"
 msgstr ""
 
-#: ../root/statistics/stats.js:1085
+#: ../root/statistics/stats.js:1101
 msgid "{name} releases"
 msgstr "הוצאות {name}"
 
-#: ../root/statistics/stats.js:1091
+#: ../root/statistics/stats.js:1107
 msgid "{name} mediums"
 msgstr "מדיה {name}"
 
-#: ../root/statistics/stats.js:1098
+#: ../root/statistics/stats.js:1114
 msgid "Releases with a medium of format “{format}” that have cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1111
+#: ../root/statistics/stats.js:1127
 msgid "{type} instruments"
 msgstr ""
 
-#: ../root/statistics/stats.js:1122
+#: ../root/statistics/stats.js:1138
 msgid "{type} labels"
 msgstr ""
 
-#: ../root/statistics/stats.js:1133
+#: ../root/statistics/stats.js:1149
 msgid "{language} releases"
 msgstr "הוצאות {language}"
 
-#: ../root/statistics/stats.js:1140
+#: ../root/statistics/stats.js:1156
 msgid "{language} works"
 msgstr ""
 
-#: ../root/statistics/stats.js:1152
+#: ../root/statistics/stats.js:1168
 msgid "Releases with packaging “{packaging}”"
 msgstr ""
 
-#: ../root/statistics/stats.js:1165
+#: ../root/statistics/stats.js:1181
 msgid "{type} places"
 msgstr ""
 
-#: ../root/statistics/stats.js:1173
+#: ../root/statistics/stats.js:1189
 msgid "{first_entity_type}-{second_entity_type} Relationships"
-msgstr ""
-
-#: ../root/statistics/stats.js:1192
-msgid ""
-"{first_entity_type_name}-{second_entity_type_name} "
-"“{relationship_type_name}” relationships"
 msgstr ""
 
 #: ../root/statistics/stats.js:1208
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
+"“{relationship_type_name}” relationships"
+msgstr ""
+
+#: ../root/statistics/stats.js:1224
+msgid ""
+"{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships including child relationship types"
 msgstr ""
 
-#: ../root/statistics/stats.js:1231 ../root/statistics/stats.js:1251
+#: ../root/statistics/stats.js:1247 ../root/statistics/stats.js:1267
 msgid "{type} release groups"
 msgstr ""
 
-#: ../root/statistics/stats.js:1238
+#: ../root/statistics/stats.js:1254
 msgid "Releases in groups of type “{type}” with cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1262
+#: ../root/statistics/stats.js:1278
 msgid "{script} releases"
 msgstr "הוצאות {script}"
 
-#: ../root/statistics/stats.js:1273
+#: ../root/statistics/stats.js:1289
 msgid "{type} series"
 msgstr ""
 
-#: ../root/statistics/stats.js:1284
+#: ../root/statistics/stats.js:1300
 msgid "{status} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:1291
+#: ../root/statistics/stats.js:1307
 msgid "Releases of status “{status}” with cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1308
+#: ../root/statistics/stats.js:1324
 msgid "Works with attribute “{attribute}”"
 msgstr ""
 
-#: ../root/statistics/stats.js:1321
+#: ../root/statistics/stats.js:1337
 msgid "{type} works"
 msgstr ""
 
 #: ../root/statistics/utilities.js:40
 msgid "See on timeline"
 msgstr "ראו על גבי ציר הזמן"
+
+#, fuzzy
+#~| msgid "Cover Art"
+#~ msgctxt "plural"
+#~ msgid "Cover art"
+#~ msgstr "תמונת עטיפה"
 
 #~ msgctxt "plural"
 #~ msgid "Series"

@@ -44,7 +44,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-21 14:41+0000\n"
+"POT-Creation-Date: 2024-05-23 11:01-0500\n"
 "PO-Revision-Date: 2024-04-17 17:32+0000\n"
 "Last-Translator: julian45 <julian45@users.noreply.translations.metabrainz."
 "org>\n"
@@ -113,27 +113,27 @@ msgstr "&#10004;"
 msgid "&#10005;"
 msgstr "&#10005;"
 
-#: ../root/release/add_cover_art.tt:104
+#: ../root/event/add_event_art.tt:104 ../root/release/add_cover_art.tt:104
 msgid "&#x26a0; Error creating edit"
 msgstr "&#x26a0; 編集の作成中にエラーが発生しました"
 
-#: ../root/release/add_cover_art.tt:88
+#: ../root/event/add_event_art.tt:88 ../root/release/add_cover_art.tt:88
 msgid "&#x26a0; Error requesting signature"
 msgstr "&#x26a0; 署名の取得中にエラーが発生しました"
 
-#: ../root/release/add_cover_art.tt:102
+#: ../root/event/add_event_art.tt:102 ../root/release/add_cover_art.tt:102
 msgid "&#x26a0; Error uploading image"
 msgstr "&#x26a0; 画像のアップロード中にエラーが発生しました"
 
-#: ../root/release/add_cover_art.tt:103
+#: ../root/event/add_event_art.tt:103 ../root/release/add_cover_art.tt:103
 msgid "&#x26a0; Server busy, try again later"
 msgstr "&#x26a0; サーバーが混みあっています。後でもう一度試してください"
 
-#: ../root/release/add_cover_art.tt:87
+#: ../root/event/add_event_art.tt:87 ../root/release/add_cover_art.tt:87
 msgid "&#x26a0; Unrecognized file"
 msgstr "&#x26a0; 認識できないファイルです"
 
-#: ../root/release/add_cover_art.tt:86
+#: ../root/event/add_event_art.tt:86 ../root/release/add_cover_art.tt:86
 msgid "&#x2713; Success"
 msgstr "&#x2713; 成功"
 
@@ -141,8 +141,10 @@ msgstr "&#x2713; 成功"
 msgid "(add a new recording)"
 msgstr "(新しいレコーディングを追加)"
 
-#: ../root/release/add_cover_art.tt:129
-msgid "(no other cover art)"
+#: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
+#, fuzzy
+#| msgid "(no other cover art)"
+msgid "(no other images)"
 msgstr "(他のカバーアートなし)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
@@ -254,6 +256,14 @@ msgstr "カバーアートを追加"
 #: ../root/event/create.tt:1 ../root/event/create.tt:3
 msgctxt "header"
 msgid "Add event"
+msgstr "イベントを追加"
+
+#: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
+#, fuzzy
+#| msgctxt "header"
+#| msgid "Add event"
+msgctxt "plural, header"
+msgid "Add event art"
 msgstr "イベントを追加"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
@@ -593,7 +603,8 @@ msgstr "開始地域:"
 msgid "Begin date"
 msgstr "開始日"
 
-#: ../root/release/add_cover_art.tt:95 ../root/search/error/InternalError.js:22
+#: ../root/event/add_event_art.tt:95 ../root/release/add_cover_art.tt:95
+#: ../root/search/error/InternalError.js:22
 #, fuzzy
 msgid ""
 "Below is the error information. If you wish to file a bug report, you may do "
@@ -615,9 +626,13 @@ msgid "Bot"
 msgstr "ボット"
 
 #: ../root/layout.tt:131 ../root/layout/components/Footer.js:52
+#, fuzzy
+#| msgid ""
+#| "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
+#| "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
-"{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
+"{supp|supporters}."
 msgstr ""
 "{MeB|MetaBrainz Foundation}と私達の{spon|スポンサー}、{supp|サポーター}によっ"
 "て提供されています。{caa|Cover Art Archive}によりカバーアートが提供されていま"
@@ -709,9 +724,13 @@ msgstr ""
 msgid "Collapse medium"
 msgstr "メディアを折りたたむ"
 
-#: ../root/cdstub/index.tt:3 ../root/release/add_cover_art.tt:69
-#: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
+#: ../root/cdstub/index.tt:3 ../root/event/add_event_art.tt:69
+#: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
+#: ../root/release/add_cover_art.tt:69 ../root/release/add_cover_art.tt:137
+#: ../root/release/reorder_cover_art.tt:19
 #: ../root/release_group/set_cover_art.tt:71 ../root/cdstub/CDStubIndex.js:28
+#: ../root/components/ArtFields.js:97 ../root/edit/details/AddArt.js:58
+#: ../root/edit/details/EditArt.js:74 ../root/edit/details/RemoveArt.js:60
 msgid "Comment"
 msgstr "コメント"
 
@@ -760,12 +779,12 @@ msgid "Country"
 msgstr "国"
 
 #: ../root/release_group/set_cover_art.tt:67
-#: ../root/edit/components/EditArtwork.js:30 ../root/user/UserProfile.js:51
+#: ../root/edit/components/EditArtwork.js:26 ../root/user/UserProfile.js:51
 msgctxt "singular"
 msgid "Cover art"
 msgstr "カバーアート"
 
-#: ../root/release/add_cover_art.tt:85
+#: ../root/event/add_event_art.tt:85 ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
 msgstr "編集を作成中…"
 
@@ -798,7 +817,7 @@ msgstr "データトラック"
 #: ../root/edit/details/historic/AddRelease.js:117
 #: ../root/edit/details/historic/EditReleaseEvents.js:106
 #: ../root/elections/ElectionVotes.js:24
-#: ../root/layout/components/sidebar/EventSidebar.js:57
+#: ../root/layout/components/sidebar/EventSidebar.js:92
 #: ../root/recording/RecordingIndex.js:50
 #: ../root/release_group/ReleaseGroupIndex.js:162
 #: ../root/search/components/EventResults.js:74
@@ -848,7 +867,7 @@ msgstr ""
 msgid "Description"
 msgstr "説明"
 
-#: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:147
+#: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:162
 #: ../root/elections/ElectionDetails.js:25 ../root/entity/Details.js:79
 #: ../root/entity/Details.js:81
 msgid "Details"
@@ -931,9 +950,9 @@ msgstr "編集"
 #: ../root/components/Aliases/AliasTableRow.js:55
 #: ../root/components/Aliases/ArtistCreditList.js:75
 #: ../root/components/Aliases/ArtistCreditList.js:77
-#: ../root/components/EntityTabs.js:155
+#: ../root/components/EntityTabs.js:170 ../root/event/EventArt.js:86
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:89
-#: ../root/release/CoverArt.js:106
+#: ../root/release/CoverArt.js:81
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:516
 #: ../root/user/UserCollections.js:121
 msgctxt "verb, interactive"
@@ -954,6 +973,14 @@ msgstr "アーティストクレジットを編集"
 msgctxt "singular, header"
 msgid "Edit cover art"
 msgstr "カバーアートを編集"
+
+#: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:4
+#, fuzzy
+#| msgctxt "edit type"
+#| msgid "Edit event"
+msgctxt "singular, header"
+msgid "Edit event art"
+msgstr "イベントを編集"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18
@@ -1028,7 +1055,7 @@ msgstr "終了地域:"
 #: ../root/edit/details/EditPlace.js:97
 #: ../root/elections/ElectionTable/index.js:20
 #: ../root/layout/components/sidebar/AreaSidebar.js:60
-#: ../root/layout/components/sidebar/EventSidebar.js:67
+#: ../root/layout/components/sidebar/EventSidebar.js:102
 #: ../root/report/RecordingsWithFutureDates.js:38
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:202
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:182
@@ -1050,8 +1077,8 @@ msgid ""
 "marker. If you’re too far out, clicking will zoom instead."
 msgstr ""
 
-#: ../root/components/forms.tt:51 ../root/release/add_cover_art.tt:170
-#: ../root/release/edit/layout.tt:58
+#: ../root/components/forms.tt:51 ../root/event/add_event_art.tt:170
+#: ../root/release/add_cover_art.tt:170 ../root/release/edit/layout.tt:58
 #: ../root/static/scripts/edit/components/EnterEdit.js:60
 msgid "Enter edit"
 msgstr "編集を送信"
@@ -1089,7 +1116,11 @@ msgstr ""
 #: ../root/edit/search_macros.tt:434 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
 #: ../root/components/list/EventList.js:60 ../root/edit/details/AddEvent.js:23
-#: ../root/edit/details/EditEvent.js:31 ../root/layout/components/Search.js:27
+#: ../root/edit/details/AddEventArt.js:21 ../root/edit/details/EditEvent.js:31
+#: ../root/edit/details/EditEventArt.js:23
+#: ../root/edit/details/RemoveEventArt.js:23
+#: ../root/edit/details/ReorderEventArt.js:23
+#: ../root/layout/components/Search.js:27
 #: ../root/report/components/EventList.js:46
 #: ../root/search/components/SearchForm.js:45
 #: ../root/static/scripts/common/constants.js:37
@@ -1126,7 +1157,7 @@ msgstr "行動を満了"
 msgid "External links"
 msgstr "外部リンク"
 
-#: ../root/release/add_cover_art.tt:48
+#: ../root/event/add_event_art.tt:48 ../root/release/add_cover_art.tt:48
 msgid "File:"
 msgstr "ファイル:"
 
@@ -1595,7 +1626,7 @@ msgstr "レーベルの詳細"
 msgid "Language"
 msgstr "言語"
 
-#: ../root/layout.tt:145 ../root/layout/components/Footer.js:85
+#: ../root/layout.tt:144 ../root/layout/components/Footer.js:83
 msgid "Last replication packet received at {datetime}"
 msgstr ""
 
@@ -1712,11 +1743,11 @@ msgctxt "header"
 msgid "Move disc ID"
 msgstr "ディスク ID を移動"
 
-#: ../root/release/add_cover_art.tt:44
+#: ../root/event/add_event_art.tt:44 ../root/release/add_cover_art.tt:44
 msgid "Move file down"
 msgstr "ファイルを上に移動"
 
-#: ../root/release/add_cover_art.tt:42
+#: ../root/event/add_event_art.tt:42 ../root/release/add_cover_art.tt:42
 msgid "Move file up"
 msgstr "ファイルを下に移動"
 
@@ -1799,7 +1830,7 @@ msgstr "名前"
 msgid "New artist credit"
 msgstr "新しいアーティストクレジット"
 
-#: ../root/release/add_cover_art.tt:148
+#: ../root/event/add_event_art.tt:148 ../root/release/add_cover_art.tt:148
 msgid "New image goes here"
 msgstr ""
 
@@ -1980,9 +2011,15 @@ msgid ""
 "the \"merge\" link."
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:79
+#: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:23
 msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
+"these types."
+msgstr ""
+
+#: ../root/event/add_event_art.tt:66 ../root/event/EventArtFields.js:23
+msgid ""
+"Please see the {doc|Event Art Types} documentation for a description of "
 "these types."
 msgstr ""
 
@@ -1990,7 +2027,8 @@ msgstr ""
 msgid "Please select the medium you wish to attach this CD TOC to."
 msgstr ""
 
-#: ../root/cdtoc/list.tt:6 ../root/release/add_cover_art.tt:125
+#: ../root/cdtoc/list.tt:6 ../root/event/add_event_art.tt:125
+#: ../root/event/reorder_event_art.tt:10 ../root/release/add_cover_art.tt:125
 #: ../root/release/reorder_cover_art.tt:10
 #: ../root/edit/details/AddMedium.js:106 ../root/edit/details/EditMedium.js:434
 msgid "Position"
@@ -2094,18 +2132,18 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Release.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
 #: ../root/components/list/ReleaseList.js:65
-#: ../root/edit/details/AddCoverArt.js:22 ../root/edit/details/AddMedium.js:96
+#: ../root/edit/details/AddCoverArt.js:18 ../root/edit/details/AddMedium.js:96
 #: ../root/edit/details/AddRelease.js:32
 #: ../root/edit/details/AddReleaseLabel.js:22
 #: ../root/edit/details/ChangeReleaseQuality.js:20
 #: ../root/edit/details/EditBarcodes.js:34
-#: ../root/edit/details/EditCoverArt.js:35
+#: ../root/edit/details/EditCoverArt.js:18
 #: ../root/edit/details/EditRelease.js:42
 #: ../root/edit/details/EditReleaseLabel.js:38
 #: ../root/edit/details/MergeReleases.js:229
-#: ../root/edit/details/RemoveCoverArt.js:22
+#: ../root/edit/details/RemoveCoverArt.js:18
 #: ../root/edit/details/RemoveReleaseLabel.js:22
-#: ../root/edit/details/ReorderCoverArt.js:30
+#: ../root/edit/details/ReorderCoverArt.js:18
 #: ../root/edit/details/ReorderMediums.js:21
 #: ../root/edit/details/historic/EditReleaseEvents.js:105
 #: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:19
@@ -2209,14 +2247,14 @@ msgid "Release “{name}” by {artist}"
 msgstr "{artist}のリリース「{name}」"
 
 #: ../root/cdtoc/list.tt:60 ../root/edit/search_macros.tt:122
-#: ../root/release/add_cover_art.tt:110
+#: ../root/event/add_event_art.tt:110 ../root/release/add_cover_art.tt:110
 #: ../root/account/applications/ApplicationList.js:38
 #: ../root/collection/CollectionHeader.js:85
 #: ../root/collection/DeleteCollection.js:21
-#: ../root/components/Aliases/AliasTableRow.js:59
+#: ../root/components/Aliases/AliasTableRow.js:59 ../root/event/EventArt.js:92
 #: ../root/layout/components/sidebar/RemoveLink.js:26
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:95
-#: ../root/release/CoverArt.js:112 ../root/release/DiscIds.js:66
+#: ../root/release/CoverArt.js:87 ../root/release/DiscIds.js:66
 #: ../root/static/scripts/account/components/EditProfileForm.js:300
 #: ../root/static/scripts/edit/components/Multiselect.js:210
 #: ../root/user/UserCollections.js:122
@@ -2273,7 +2311,15 @@ msgctxt "plural, header"
 msgid "Reorder cover art"
 msgstr "カバーアートを並べ替え"
 
-#: ../root/release/add_cover_art.tt:83
+#: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
+#, fuzzy
+#| msgctxt "plural, header"
+#| msgid "Reorder cover art"
+msgctxt "plural, header"
+msgid "Reorder event art"
+msgstr "カバーアートを並べ替え"
+
+#: ../root/event/add_event_art.tt:83 ../root/release/add_cover_art.tt:83
 msgid "Request signature..."
 msgstr ""
 
@@ -2301,7 +2347,7 @@ msgid ""
 "data is formatted correctly."
 msgstr ""
 
-#: ../root/layout.tt:138
+#: ../root/layout.tt:137
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
@@ -2376,7 +2422,7 @@ msgid ""
 "seem to match any type, just leave this blank."
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:31
+#: ../root/event/add_event_art.tt:31 ../root/release/add_cover_art.tt:31
 msgid "Select images..."
 msgstr "画像を選択…"
 
@@ -2531,10 +2577,10 @@ msgctxt "audio file metadata"
 msgid "Tagger"
 msgstr "タグ者"
 
-#: ../root/release/add_cover_art.tt:12
+#: ../root/event/add_event_art.tt:12 ../root/release/add_cover_art.tt:12
 msgid ""
-"The Cover Art Archive is currently experiencing difficulties. Adding images "
-"for this release is unlikely to work at the moment."
+"The Internet Archive is currently experiencing difficulties. Adding images "
+"is unlikely to work at the moment."
 msgstr ""
 
 #: ../root/release/edit/information.tt:348
@@ -2843,7 +2889,7 @@ msgstr "このトラックはプリギャップに隠されています。"
 
 #: ../root/event/edit_form.tt:40 ../root/components/list/EventList.js:78
 #: ../root/edit/details/AddEvent.js:73 ../root/edit/details/EditEvent.js:84
-#: ../root/layout/components/sidebar/EventSidebar.js:76
+#: ../root/layout/components/sidebar/EventSidebar.js:111
 #: ../root/report/components/EventList.js:70
 #: ../root/search/components/EventResults.js:75
 #, fuzzy
@@ -2946,6 +2992,7 @@ msgstr "Twitter"
 #: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/account/applications/ApplicationList.js:148
 #: ../root/components/Aliases/AliasTable.js:21
+#: ../root/components/ArtFields.js:64
 #: ../root/components/list/ReleaseGroupList.js:84
 #: ../root/components/list/ReleaseList.js:139
 #: ../root/edit/details/AddArea.js:57 ../root/edit/details/AddArtist.js:65
@@ -2965,7 +3012,7 @@ msgstr "Twitter"
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:60
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:155
 #: ../root/layout/components/sidebar/SidebarType.js:21
-#: ../root/release/CoverArtFields.js:51 ../root/report/DuplicateArtists.js:69
+#: ../root/report/DuplicateArtists.js:69
 #: ../root/report/DuplicateReleaseGroups.js:60
 #: ../root/report/IswcsWithManyWorks.js:53
 #: ../root/report/components/ArtistList.js:54
@@ -2998,15 +3045,15 @@ msgstr "Twitter"
 msgid "Type"
 msgstr "タイプ"
 
-#: ../root/release/add_cover_art.tt:54
+#: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 msgid "Type:"
 msgstr "タイプ:"
 
+#: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
-#: ../root/release_group/set_cover_art.tt:69
-#: ../root/edit/details/AddCoverArt.js:29
-#: ../root/edit/details/EditCoverArt.js:54
-#: ../root/edit/details/RemoveCoverArt.js:29 ../root/release/CoverArt.js:82
+#: ../root/release_group/set_cover_art.tt:69 ../root/edit/details/AddArt.js:37
+#: ../root/edit/details/EditArt.js:65 ../root/edit/details/RemoveArt.js:37
+#: ../root/event/EventArt.js:62 ../root/release/CoverArt.js:57
 msgid "Types:"
 msgstr "タイプ:"
 
@@ -3041,7 +3088,7 @@ msgstr ""
 msgid "Update the recording title to match the track title."
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:84
+#: ../root/event/add_event_art.tt:84 ../root/release/add_cover_art.tt:84
 msgid "Uploading image..."
 msgstr "画像をアップロード中……"
 
@@ -3082,7 +3129,7 @@ msgstr "トラック番号を使用"
 msgid "Use track titles"
 msgstr "トラックタイトルを使用"
 
-#: ../root/release/add_cover_art.tt:81
+#: ../root/event/add_event_art.tt:81 ../root/release/add_cover_art.tt:81
 msgid "Validating file..."
 msgstr "ファイルを検証中です..."
 
@@ -3577,7 +3624,7 @@ msgstr "最古順"
 msgid "on"
 msgstr ""
 
-#: ../root/release/add_cover_art.tt:33
+#: ../root/event/add_event_art.tt:33 ../root/release/add_cover_art.tt:33
 msgid "or drop files here"
 msgstr "またはここにファイルをドロップ"
 
@@ -4027,19 +4074,10 @@ msgstr ""
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:615
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:482
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "このマージ方法は選択されたリリースに適用できません。"
-
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:644
-msgid "This release has no artwork."
-msgstr ""
-
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:650
-#, perl-brace-format
-msgid "Found no artwork with ID “{id}”."
-msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:68
 msgid "The annotation revision ID must be a positive integer"
@@ -4058,6 +4096,11 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:230
 msgid "The old and new annotation ids must be unique, positive integers."
 msgstr "新旧の注釈 ID は、ユニークな正の整数でなければなりません。"
+
+#: ../lib/MusicBrainz/Server/Controller/Role/Art.pm:132
+#, perl-brace-format
+msgid "Found no artwork with ID “{id}”."
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:222
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:99
@@ -4152,31 +4195,47 @@ msgstr "レポートは送信されました。"
 msgid "Invalid TOC"
 msgstr "不正なTOCです"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:291
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:294
 msgid ""
 "An error occurred trying to communicate with the Internet Archive servers. "
 "Please wait a few moments and try again."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:304
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:307
 msgid ""
 "We’ve hit a temporary delay while trying to fetch metadata from the Internet "
 "Archive. Please wait a minute and try again."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:420
-#: ../root/release/CoverArtDarkened.js:19
-msgid ""
-"The Cover Art Archive has had a takedown request in the past for this "
-"release, so we are unable to allow any more uploads."
-msgstr ""
-
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:457
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:322
 #, perl-brace-format
 msgid ""
 "Cover art can’t be uploaded to this release because we don’t own the "
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:340
+#, perl-brace-format
+msgid ""
+"Event art can’t be uploaded to this event because we don’t own the "
+"associated item at the Internet Archive. Please contact us at {contact_url} "
+"so we can resolve this."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:461
+#: ../root/event/EventArtDarkened.js:25 ../root/release/CoverArtDarkened.js:19
+msgid ""
+"The Internet Archive has had a takedown request in the past for this item, "
+"so we are unable to allow any more uploads."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:498
+#, perl-brace-format
+msgid ""
+"Images can’t be uploaded here because we don’t own the associated item at "
+"the Internet Archive. Please contact us at {contact_url} so we can resolve "
+"this."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:708
@@ -4353,6 +4412,14 @@ msgctxt "edit type"
 msgid "Add event annotation"
 msgstr "イベントの注釈を追加"
 
+#: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
+#, fuzzy
+#| msgctxt "header"
+#| msgid "Add event"
+msgctxt "singular, edit type"
+msgid "Add event art"
+msgstr "イベントを追加"
+
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 msgctxt "edit type"
 msgid "Add event"
@@ -4378,10 +4445,34 @@ msgctxt "edit type"
 msgid "Edit event alias"
 msgstr "イベントの別名を編集"
 
+#: ../lib/MusicBrainz/Server/Edit/Event/EditEventArt.pm:15
+#, fuzzy
+#| msgctxt "edit type"
+#| msgid "Edit event"
+msgctxt "singular, edit type"
+msgid "Edit event art"
+msgstr "イベントを編集"
+
 #: ../lib/MusicBrainz/Server/Edit/Event/Merge.pm:11
 msgctxt "edit type"
 msgid "Merge events"
 msgstr "イベントをマージ"
+
+#: ../lib/MusicBrainz/Server/Edit/Event/RemoveEventArt.pm:15
+#, fuzzy
+#| msgctxt "edit type"
+#| msgid "Remove event"
+msgctxt "singular, edit type"
+msgid "Remove event art"
+msgstr "イベントを削除"
+
+#: ../lib/MusicBrainz/Server/Edit/Event/ReorderEventArt.pm:15
+#, fuzzy
+#| msgctxt "plural, edit type"
+#| msgid "Reorder cover art"
+msgctxt "plural, edit type"
+msgid "Reorder event art"
+msgstr "カバーアートを並べ替え"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAlias.pm:11
 msgctxt "edit type"
@@ -4830,7 +4921,7 @@ msgctxt "edit type"
 msgid "Add release alias"
 msgstr "リリースの別名を追加"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:15
 msgctxt "singular, edit type"
 msgid "Add cover art"
 msgstr "カバーアートを追加"
@@ -4867,7 +4958,7 @@ msgctxt "edit type"
 msgid "Edit barcodes"
 msgstr "バーコードを編集"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:23
+#: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:14
 msgctxt "singular, edit type"
 msgid "Edit cover art"
 msgstr "カバーアートを編集"
@@ -4889,12 +4980,12 @@ msgstr "(不明)"
 msgid "These releases could not be merged: {reason}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:15
 msgctxt "singular, edit type"
 msgid "Remove cover art"
 msgstr "カバーアートを削除"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:24
+#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:14
 msgctxt "plural, edit type"
 msgid "Reorder cover art"
 msgstr "カバーアートを並べ替え"
@@ -5642,7 +5733,7 @@ msgstr ""
 msgid "You must provide an edit note when adding a standalone recording"
 msgstr "スタンドアロンレコーディングを追加する際には、編集メモが必要です"
 
-#: ../lib/MusicBrainz/Server/Form/Release/AddCoverArt.pm:59
+#: ../lib/MusicBrainz/Server/Form/Role/AddArt.pm:59
 #: ../lib/MusicBrainz/Server/Form/Role/CSRFToken.pm:11
 #: ../lib/MusicBrainz/Server/Form/Role/CSRFToken.pm:77
 msgid "The form you’ve submitted has expired. Please resubmit your request."
@@ -7434,7 +7525,7 @@ msgstr ""
 msgid "see uses"
 msgstr "使用例を見る"
 
-#: ../root/components/Aliases/index.js:49 ../root/components/EntityTabs.js:128
+#: ../root/components/Aliases/index.js:49 ../root/components/EntityTabs.js:143
 #: ../root/entity/Aliases.js:26
 msgid "Aliases"
 msgstr "別名"
@@ -7455,6 +7546,22 @@ msgstr "{entity}に別名がありません。"
 msgctxt "interactive"
 msgid "Add a new alias"
 msgstr "新しい別名を追加"
+
+#: ../root/components/ArtLinks.js:17
+msgid "250px"
+msgstr "250px"
+
+#: ../root/components/ArtLinks.js:23
+msgid "500px"
+msgstr "500px"
+
+#: ../root/components/ArtLinks.js:29
+msgid "1200px"
+msgstr "1200px"
+
+#: ../root/components/ArtLinks.js:33
+msgid "original"
+msgstr "オリジナル"
 
 #: ../root/components/CleanupBanner.js:12
 msgid ""
@@ -7585,7 +7692,22 @@ msgctxt "plural"
 msgid "Cover art ({num})"
 msgstr "カバーアート({num})"
 
-#: ../root/components/EntityTabs.js:132
+#: ../root/components/EntityTabs.js:129
+#, fuzzy
+#| msgid "Event ratings"
+msgctxt "plural"
+msgid "Event art"
+msgstr "イベントの評価"
+
+#: ../root/components/EntityTabs.js:131
+#, fuzzy
+#| msgctxt "plural"
+#| msgid "Cover art ({num})"
+msgctxt "plural"
+msgid "Event art ({num})"
+msgstr "カバーアート({num})"
+
+#: ../root/components/EntityTabs.js:147
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:31
 #: ../root/layout/components/sidebar/SidebarTags.js:68
 #: ../root/static/scripts/common/components/TagEditor.js:674
@@ -7595,20 +7717,20 @@ msgctxt "folksonomy"
 msgid "Tags"
 msgstr "タグ"
 
-#: ../root/components/EntityTabs.js:141 ../root/entity/Ratings.js:38
+#: ../root/components/EntityTabs.js:156 ../root/entity/Ratings.js:38
 #: ../root/entity/Ratings.js:82
 #: ../root/static/scripts/edit/externalLinks.js:777
 msgid "Reviews"
 msgstr "レビュー"
 
-#: ../root/components/EntityTabs.js:142
+#: ../root/components/EntityTabs.js:157
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:42
 #: ../root/user/UserProfile.js:822 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
 msgstr "評価"
 
-#: ../root/components/EntityTabs.js:162
+#: ../root/components/EntityTabs.js:177
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:282
 msgid "Edit relationships"
 msgstr "関係を編集"
@@ -7659,8 +7781,8 @@ msgstr ""
 #: ../root/components/ReleaseLanguageScript.js:20
 #: ../root/components/ReleaseLanguageScript.js:26
 #: ../root/components/list/ReleaseList.js:89
-#: ../root/edit/details/MergeReleases.js:54 ../root/release/CoverArt.js:88
-#: ../root/release_group/ReleaseGroupIndex.js:85
+#: ../root/edit/details/MergeReleases.js:54 ../root/event/EventArt.js:68
+#: ../root/release/CoverArt.js:63 ../root/release_group/ReleaseGroupIndex.js:85
 #: ../root/search/components/ReleaseResults.js:62
 #: ../root/static/scripts/common/components/ReleaseEvents.js:54
 #: ../root/static/scripts/common/components/ReleaseEvents.js:71
@@ -8168,15 +8290,27 @@ msgid ""
 "subscribed to."
 msgstr ""
 
-#: ../root/edit/components/EditArtwork.js:21
-#: ../root/edit/details/ReorderCoverArt.js:21
-msgid ""
-"We are unable to display history for this cover art. For a current listing "
-"of cover art, please see the {coverart|release's cover art page}."
-msgstr ""
+#: ../root/edit/components/EditArtwork.js:23
+#, fuzzy
+#| msgid "Event ratings"
+msgctxt "singular"
+msgid "Event art"
+msgstr "イベントの評価"
 
-#: ../root/edit/components/EditArtwork.js:26
-msgid "We are unable to display history for this cover art."
+#: ../root/edit/components/EditArtwork.js:32
+#: ../root/edit/details/ReorderArt.js:32
+#, fuzzy
+#| msgid "We are unable to display history for this cover art."
+msgid ""
+"We are unable to display history for this image. See {artpage|all current "
+"images}."
+msgstr "このカバーアートの履歴を表示できません。"
+
+#: ../root/edit/components/EditArtwork.js:36
+#: ../root/edit/details/ReorderArt.js:36
+#, fuzzy
+#| msgid "We are unable to display history for this cover art."
+msgid "We are unable to display history for this image."
 msgstr "このカバーアートの履歴を表示できません。"
 
 #: ../root/edit/components/EditHeader.js:46
@@ -8485,29 +8619,20 @@ msgctxt "area ended boolean"
 msgid "Ended"
 msgstr ""
 
-#: ../root/edit/details/AddArtist.js:125 ../root/edit/details/EditArtist.js:151
-msgctxt "artist ended boolean"
-msgid "Ended"
-msgstr ""
-
-#: ../root/edit/details/AddCoverArt.js:35
-#: ../root/edit/details/RemoveCoverArt.js:35
+#: ../root/edit/details/AddArt.js:43 ../root/edit/details/RemoveArt.js:43
 msgctxt "type"
 msgid "(none)"
 msgstr "(なし)"
 
-#: ../root/edit/details/AddCoverArt.js:40
-#: ../root/edit/details/EditCoverArt.js:43
-#: ../root/edit/details/RemoveCoverArt.js:41 ../root/taglookup/Form.js:47
+#: ../root/edit/details/AddArt.js:48 ../root/edit/details/EditArt.js:54
+#: ../root/edit/details/RemoveArt.js:49 ../root/taglookup/Form.js:47
 msgid "Filename"
 msgstr "ファイル名"
 
-#: ../root/edit/details/AddCoverArt.js:50
-#: ../root/edit/details/EditCoverArt.js:63
-#: ../root/edit/details/RemoveCoverArt.js:52
-#: ../root/release/CoverArtFields.js:88
-msgid "Comment:"
-msgstr "コメント:"
+#: ../root/edit/details/AddArtist.js:125 ../root/edit/details/EditArtist.js:151
+msgctxt "artist ended boolean"
+msgid "Ended"
+msgstr ""
 
 #: ../root/edit/details/AddEvent.js:46 ../root/edit/details/EditEvent.js:50
 msgctxt "event"
@@ -8697,6 +8822,10 @@ msgstr ""
 #: ../root/static/scripts/work/edit.js:334
 msgid "Lyrics languages"
 msgstr "歌詞言語"
+
+#: ../root/edit/details/BetaOnlyEdit.js:29
+msgid "This edit can currently only be viewed on the {beta|beta server}."
+msgstr ""
 
 #: ../root/edit/details/ChangeReleaseQuality.js:26
 #: ../root/edit/details/historic/ChangeArtistQuality.js:26
@@ -8964,11 +9093,11 @@ msgstr ""
 msgid "Current tracklist"
 msgstr ""
 
-#: ../root/edit/details/ReorderCoverArt.js:37
+#: ../root/edit/details/ReorderArt.js:49
 msgid "Old positions:"
 msgstr "前のポジション:"
 
-#: ../root/edit/details/ReorderCoverArt.js:49
+#: ../root/edit/details/ReorderArt.js:61
 msgid "New positions:"
 msgstr "新しいポジション:"
 
@@ -9205,7 +9334,7 @@ msgid "View details"
 msgstr "詳細を表示"
 
 #: ../root/elections/ElectionTable/index.js:19
-#: ../root/layout/components/sidebar/EventSidebar.js:63
+#: ../root/layout/components/sidebar/EventSidebar.js:98
 msgid "Start date"
 msgstr "開始日"
 
@@ -9810,6 +9939,90 @@ msgstr ""
 msgid "Please review the {doc|alias documentation} before entering this edit."
 msgstr ""
 
+#: ../root/event/EventArt.js:33
+#, fuzzy
+#| msgid "Event ratings"
+msgctxt "plural, header"
+msgid "Event art"
+msgstr "イベントの評価"
+
+#: ../root/event/EventArt.js:39
+#, fuzzy
+#| msgctxt "plural, header"
+#| msgid "Cannot show cover art"
+msgctxt "plural, header"
+msgid "Cannot show event art"
+msgstr "カバーアートを表示できません"
+
+#: ../root/event/EventArt.js:45
+#: ../root/layout/components/sidebar/EventSidebar.js:58
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:92
+#: ../root/release/CoverArt.js:40
+msgid ""
+"Images for this item have been hidden by the Internet Archive because of a "
+"takedown request."
+msgstr ""
+
+#: ../root/event/EventArt.js:76 ../root/release/CoverArt.js:71
+msgid "All sizes:"
+msgstr "すべてのサイズ:"
+
+#: ../root/event/EventArt.js:101
+#, fuzzy
+#| msgid ""
+#| "These images provided by the {caa|Cover Art Archive}. You can also see "
+#| "them at the {ia|Internet Archive}."
+msgid ""
+"These images are part of the {eaa|Event Art Archive}. You can also see them "
+"at the {ia|Internet Archive}."
+msgstr ""
+"この画像は{caa|Cover Art Archive}により提供されています。{ia|Internet "
+"Archive}も参照してください。"
+
+#: ../root/event/EventArt.js:113
+#, fuzzy
+#| msgid "We do not currently have any cover art for {release}."
+msgid "We do not currently have any event art for {event}."
+msgstr "現在「{release}」のカバーアートはありません。"
+
+#: ../root/event/EventArt.js:123
+#, fuzzy
+#| msgctxt "header"
+#| msgid "Add event"
+msgctxt "plural, interactive"
+msgid "Add event art"
+msgstr "イベントを追加"
+
+#: ../root/event/EventArt.js:129
+#, fuzzy
+#| msgctxt "plural, interactive"
+#| msgid "Reorder cover art"
+msgctxt "plural, interactive"
+msgid "Reorder event art"
+msgstr "カバーアートを並べ替え"
+
+#: ../root/event/EventArt.js:138 ../root/release/CoverArt.js:148
+#, fuzzy
+#| msgctxt "plural, interactive"
+#| msgid "Log in to upload cover art"
+msgctxt "plural, interactive"
+msgid "Log in to upload images"
+msgstr "ログインしてカバーアートをアップロード"
+
+#: ../root/event/EventArtDarkened.js:19
+#, fuzzy
+#| msgctxt "plural"
+#| msgid "Cannot add cover art"
+msgctxt "plural"
+msgid "Cannot add event art"
+msgstr "カバーアートを追加できません"
+
+#: ../root/event/EventArtFields.js:21
+#, fuzzy
+#| msgid "Choose one or more cover art types for this image"
+msgid "Choose one or more event art types for this image"
+msgstr "この画像に一つまた複数のカバーアート種類を選択してください"
+
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
 msgstr "イベントをマージ"
@@ -9819,6 +10032,22 @@ msgid ""
 "You are about to merge all these events into a single one. Please select the "
 "event all others should be merged into:"
 msgstr ""
+
+#: ../root/event/RemoveEventArt.js:29
+#, fuzzy
+#| msgctxt "edit type"
+#| msgid "Remove event"
+msgctxt "singular, header"
+msgid "Remove event art"
+msgstr "イベントを削除"
+
+#: ../root/event/RemoveEventArt.js:36 ../root/release/RemoveCoverArt.js:31
+#, fuzzy
+#| msgid ""
+#| "Are you sure you wish to remove the below cover art from {release} by "
+#| "{artist}?"
+msgid "Are you sure you wish to remove the image below from {entity}?"
+msgstr "本当に{artist}の{release}から以下のカバーアートを削除しますか？"
 
 #: ../root/futureColumnLabels.js:24
 msgid "ISO 639-1"
@@ -10233,7 +10462,7 @@ msgstr "全関連を表示"
 msgid "Chat (IRC)"
 msgstr "チャット(IRC)"
 
-#: ../root/layout/components/Footer.js:66
+#: ../root/layout/components/Footer.js:64
 msgid "Running: {git_details}"
 msgstr "実行中: {git_details}"
 
@@ -10483,7 +10712,30 @@ msgctxt "interactive"
 msgid "Log in to edit"
 msgstr "ログインして編集"
 
-#: ../root/layout/components/sidebar/EventSidebar.js:47
+#: ../root/layout/components/sidebar/EventSidebar.js:52
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:86
+msgid "Image failed to load correctly.<br/>{all|View all images}."
+msgstr ""
+
+#: ../root/layout/components/sidebar/EventSidebar.js:64
+#, fuzzy
+#| msgid "No cover art available."
+msgid "No poster available."
+msgstr "カバーアートがありません。"
+
+#: ../root/layout/components/sidebar/EventSidebar.js:67
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:101
+msgid "View all artwork"
+msgstr "全ての画像を見る"
+
+#: ../root/layout/components/sidebar/EventSidebar.js:70
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:104
+#, fuzzy
+#| msgid "No front cover image available."
+msgid "No images available."
+msgstr "カバー前面画像がありません。"
+
+#: ../root/layout/components/sidebar/EventSidebar.js:82
 msgid "Event information"
 msgstr "イベントの情報"
 
@@ -10560,28 +10812,9 @@ msgctxt "singular, interactive"
 msgid "Set cover art"
 msgstr "カバーアートを設定"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:86
-msgid "Front cover image failed to load correctly.<br/>{all|View all artwork}."
-msgstr ""
-
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:92
-#: ../root/release/CoverArt.js:65
-msgid ""
-"Cover art for this release has been hidden by the Internet Archive because "
-"of a takedown request."
-msgstr ""
-
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:98
 msgid "No front cover image available."
 msgstr "カバー前面画像がありません。"
-
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:101
-msgid "View all artwork"
-msgstr "全ての画像を見る"
-
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:104
-msgid "No cover art available."
-msgstr "カバーアートがありません。"
 
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:150
 msgid "Additional details"
@@ -11431,75 +11664,54 @@ msgid ""
 "{ratings_doc|ratings}."
 msgstr ""
 
-#: ../root/release/CoverArt.js:27
-msgid "250px"
-msgstr "250px"
-
-#: ../root/release/CoverArt.js:33
-msgid "500px"
-msgstr "500px"
-
-#: ../root/release/CoverArt.js:39
-msgid "1200px"
-msgstr "1200px"
-
-#: ../root/release/CoverArt.js:43
-msgid "original"
-msgstr "オリジナル"
-
-#: ../root/release/CoverArt.js:53
+#: ../root/release/CoverArt.js:28
 msgctxt "plural, header"
 msgid "Cover art"
 msgstr "カバーアート"
 
-#: ../root/release/CoverArt.js:59
+#: ../root/release/CoverArt.js:34
 msgctxt "plural, header"
 msgid "Cannot show cover art"
 msgstr "カバーアートを表示できません"
 
 #: ../root/release/CoverArt.js:96
-msgid "All sizes:"
-msgstr "すべてのサイズ:"
-
-#: ../root/release/CoverArt.js:121
+#, fuzzy
+#| msgid ""
+#| "These images provided by the {caa|Cover Art Archive}. You can also see "
+#| "them at the {ia|Internet Archive}."
 msgid ""
-"These images provided by the {caa|Cover Art Archive}. You can also see them "
+"These images are part of the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr ""
 "この画像は{caa|Cover Art Archive}により提供されています。{ia|Internet "
 "Archive}も参照してください。"
 
-#: ../root/release/CoverArt.js:134
+#: ../root/release/CoverArt.js:109
 msgid "We do not currently have any cover art for {release}."
 msgstr "現在「{release}」のカバーアートはありません。"
 
-#: ../root/release/CoverArt.js:141
+#: ../root/release/CoverArt.js:116
 msgid ""
 "Keep in mind pseudo-releases generally shouldn’t have cover art. See {doc|"
 "the guidelines for pseudo-releases} for more info."
 msgstr ""
 
-#: ../root/release/CoverArt.js:158
+#: ../root/release/CoverArt.js:133
 msgctxt "plural, interactive"
 msgid "Add cover art"
 msgstr "カバーアートを追加"
 
-#: ../root/release/CoverArt.js:164
+#: ../root/release/CoverArt.js:139
 msgctxt "plural, interactive"
 msgid "Reorder cover art"
 msgstr "カバーアートを並べ替え"
-
-#: ../root/release/CoverArt.js:173
-msgctxt "plural, interactive"
-msgid "Log in to upload cover art"
-msgstr "ログインしてカバーアートをアップロード"
 
 #: ../root/release/CoverArtDarkened.js:13
 msgctxt "plural"
 msgid "Cannot add cover art"
 msgstr "カバーアートを追加できません"
 
-#: ../root/release/CoverArtFields.js:73
+#: ../root/release/CoverArtFields.js:21
 msgid "Choose one or more cover art types for this image"
 msgstr "この画像に一つまた複数のカバーアート種類を選択してください"
 
@@ -11554,16 +11766,10 @@ msgid ""
 "select the release which you would like other releases to be merged into:"
 msgstr ""
 
-#: ../root/release/RemoveCoverArt.js:25
+#: ../root/release/RemoveCoverArt.js:24
 msgctxt "singular, header"
 msgid "Remove cover art"
 msgstr "カバーアートを削除"
-
-#: ../root/release/RemoveCoverArt.js:32
-msgid ""
-"Are you sure you wish to remove the below cover art from {release} by "
-"{artist}?"
-msgstr "本当に{artist}の{release}から以下のカバーアートを削除しますか？"
 
 #: ../root/release_group/ReleaseGroupHeader.js:20
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:814
@@ -17077,6 +17283,9 @@ msgid ""
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
 msgstr ""
+
+#~ msgid "Comment:"
+#~ msgstr "コメント:"
 
 #~ msgid "see list"
 #~ msgstr "リストを表示"
