@@ -4,6 +4,7 @@ set -e
 
 cd "$(dirname "${BASH_SOURCE[0]}")/../"
 
+SEARCH_SCHEME=$(perl -Ilib -e 'use DBDefs; print DBDefs->SEARCH_SCHEME;')
 SEARCH_SERVER=$(perl -Ilib -e 'use DBDefs; print DBDefs->SEARCH_SERVER;')
 
 declare -a SOLR_CORES
@@ -28,7 +29,7 @@ SOLR_CORES=(
 
 for CORE in "${SOLR_CORES[@]}"; do
     curl -sSL \
-        "$SEARCH_SERVER/$CORE/update?softCommit=true" \
+        "$SEARCH_SCHEME://$SEARCH_SERVER/$CORE/update?softCommit=true" \
         --header 'Content-type: text/xml' \
         --data-binary '<delete><query>*:*</query></delete>'
 done
