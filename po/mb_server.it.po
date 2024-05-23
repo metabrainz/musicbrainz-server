@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-21 14:41+0000\n"
-"PO-Revision-Date: 2024-05-10 14:42+0000\n"
+"PO-Revision-Date: 2024-05-23 02:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -44,9 +44,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -5738,12 +5738,10 @@ msgid "This is not a valid ISWC"
 msgstr "Questo non è un ISWC valido"
 
 #: ../lib/MusicBrainz/Server/Form/Field/LabelCode.pm:17
-#, fuzzy
-#| msgid "Label codes must be greater than 0 and 5 digits at most"
 msgid "Label codes must be greater than 0 and 6 digits at most"
 msgstr ""
 "I label code (codici di etichetta) devono essere superiori a 0 e avere al "
-"massimo 5 cifre"
+"massimo 6 cifre"
 
 #: ../lib/MusicBrainz/Server/Form/Field/Length.pm:31
 msgid "Not a valid time. Must be in the format MM:SS"
@@ -5799,25 +5797,16 @@ msgid "Non-videos only"
 msgstr "Solo non-video"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:71
-#, fuzzy
-#| msgctxt "barcode"
-#| msgid "[none]"
 msgctxt "release country"
 msgid "[none]"
 msgstr "[nessuno]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:80
-#, fuzzy
-#| msgctxt "barcode"
-#| msgid "[none]"
 msgctxt "release label"
 msgid "[none]"
-msgstr "[nessuno]"
+msgstr "[nessuna]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:89
-#, fuzzy
-#| msgctxt "barcode"
-#| msgid "[none]"
 msgctxt "release status"
 msgid "[none]"
 msgstr "[nessuno]"
@@ -10785,10 +10774,8 @@ msgid "You have no event collections!"
 msgstr "Non hai nessuna collezione di eventi!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:22
-#, fuzzy
-#| msgid "You have no series collections!"
 msgid "You have no genre collections!"
-msgstr "Non hai nessuna collezione di serie!"
+msgstr "Non hai nessuna collezione di generi!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:23
 msgid "You have no instrument collections!"
@@ -12134,13 +12121,6 @@ msgid "Artists with disambiguation the same as the name"
 msgstr "Artisti con commento di disambiguazione uguale al nome"
 
 #: ../root/report/ArtistsThatMayBeGroups.js:25
-#, fuzzy
-#| msgid ""
-#| "This report lists artists that have their type set to other than Group "
-#| "(or a subtype of Group) but may be a group, because they have other "
-#| "artists listed as members. If you find that an artist here is indeed a "
-#| "group, change its type. If it is not, please make sure that the “member "
-#| "of” relationships are in the right direction and are correct."
 msgid ""
 "This report lists artists that have their type set to other than Group (or a "
 "subtype of Group) but may be a group, because they have other artists listed "
@@ -12154,9 +12134,15 @@ msgid ""
 msgstr ""
 "Questo rapporto elenca gli artisti il cui tipo non è impostato su Gruppo (o "
 "un sottotipo di Gruppo), ma che potrebbero essere gruppi poiché hanno altri "
-"artisti elencati come membri. Se scopri che un artista tra questi è davvero "
-"un gruppo, modificane il tipo. Se non lo è, assicurati che le relazioni "
-"\"membro di\" siano state inserite nella giusta direzione e siano corrette."
+"artisti elencati come membri o poiché utilizzano altre relazioni che sono "
+"solitamente pensate solo per i gruppi (che sia in entrambe le direzioni, "
+"come \"sottogruppo di\" e \"rinominato/a in\", o in una sola direzione, come "
+"\"direttore artistico\", \"direttore d'orchestra\" e \"compositore in "
+"residenza\"). Se scopri che un artista tra questi è davvero un gruppo, "
+"modificane il tipo. Se non lo è, assicurati che le relazioni \"membro di\" "
+"siano state inserite nella giusta direzione e siano corrette, che le "
+"relazioni \"rinominato/a in\" non vadano trasformate in relazioni \"si "
+"esibisce come\", e così via."
 
 #: ../root/report/ArtistsThatMayBeGroups.js:39
 #: ../root/report/ReportsIndex.js:52
@@ -13707,10 +13693,8 @@ msgstr "Registrazioni video su supporti non video"
 
 #: ../root/report/ReportsIndex.js:544
 #: ../root/report/VideoRelationshipsOnNonVideos.js:52
-#, fuzzy
-#| msgid "Recordings with deprecated relationships"
 msgid "Non-video recordings with video relationships"
-msgstr "Registrazioni con relazioni obsolete"
+msgstr "Registrazioni non video con relazioni video"
 
 #: ../root/report/ReportsIndex.js:557
 msgid "Places with annotations"
@@ -13910,6 +13894,11 @@ msgid ""
 "marked as video, or the relationships should be moved to a related video "
 "recording."
 msgstr ""
+"Questo rapporto mostra le registrazioni non contrassegnate come video, ma "
+"che utilizzano relazioni pensate solo per le registrazioni video "
+"({relationship_list}). O queste registrazioni dovrebbero essere "
+"contrassegnate come video, o le relazioni dovrebbero essere spostate in una "
+"registrazione video collegata."
 
 #: ../root/report/VideosInNonVideoMediums.js:25
 msgid ""
@@ -13920,15 +13909,6 @@ msgstr ""
 "compaiono in almeno un supporto non compatibile con i video."
 
 #: ../root/report/VideosInNonVideoMediums.js:30
-#, fuzzy
-#| msgid ""
-#| "There are two main possibilities here: either the recording being marked "
-#| "as a video is correct, but the format is not (a CD should be a VCD, for "
-#| "example), or the recording is being used for both a video and and audio-"
-#| "only recording, in which case the two should be split since video "
-#| "recordings should always be separate. If you split the recordings, "
-#| "consider whether it makes sense to link them with a {doc_link|music video "
-#| "relationship}."
 msgid ""
 "There are two main possibilities here: either the recording being marked as "
 "a video is correct, but the format is not (a CD should be a VCD, for "
@@ -15201,10 +15181,8 @@ msgstr "Carica tutte le tracce..."
 
 #: ../root/static/scripts/common/i18n/addQuotes.js:13
 #: ../root/static/scripts/common/i18n/addQuotes.js:17
-#, fuzzy
-#| msgid "{variable}:"
 msgid "“{variable}”"
-msgstr "{variable}:"
+msgstr "“{variable}”"
 
 #: ../root/static/scripts/common/i18n/hyphenateTitle.js:14
 msgid "{title} - {subtitle}"
@@ -15775,8 +15753,6 @@ msgstr ""
 "Cambia tutti gli artisti su questa pubblicazione che sono attualmente vuoti"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:138
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "artist credit name"
 msgid "[removed]"
 msgstr "[rimosso]"
@@ -17341,10 +17317,8 @@ msgid "Event collections"
 msgstr "Collezioni di eventi"
 
 #: ../root/user/UserCollections.js:39
-#, fuzzy
-#| msgid "Merge collections"
 msgid "Genre collections"
-msgstr "Unisci collezioni"
+msgstr "Collezioni di generi"
 
 #: ../root/user/UserCollections.js:40
 msgid "Instrument collections"
