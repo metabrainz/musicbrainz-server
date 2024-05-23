@@ -21,7 +21,7 @@ declare type ReleaseGroupT = $ReadOnly<{
   ...RatableRoleT,
   ...ReviewableRoleT,
   ...TypeRoleT<ReleaseGroupTypeT>,
-  +cover_art?: ArtworkT,
+  +cover_art?: ReleaseArtT,
   +firstReleaseDate: string | null,
   +hasCoverArt: boolean,
   +l_type_name: string | null,

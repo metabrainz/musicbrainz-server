@@ -9,7 +9,7 @@
 
   [%~ javascript_required() ~%]
 
-  <div style="display:none">[% warning(l('The Cover Art Archive is currently experiencing difficulties. Adding images for this release is unlikely to work at the moment.'), 'caa-warning') %]</div>
+  <div style="display:none">[% warning(l('The Internet Archive is currently experiencing difficulties. Adding images is unlikely to work at the moment.'), 'caa-warning') %]</div>
   <script type="text/javascript">
     $.getJSON("//s3.us.archive.org/?check_limit=1&accesskey=[% access_key %]&bucket=mbid-[% entity.gid %]", function (data) {
         if (data.over_limit == 1) {
@@ -126,7 +126,7 @@
 
       [%- IF images.size == 0 -%]
         <div class="image-position-only">
-          [%- l('(no other cover art)') -%]
+          [%- l('(no other images)') -%]
         </div>
       [%- ELSE -%]
         <div class="image-position">
@@ -136,7 +136,7 @@
             <div style="display: flex; justify-content: space-around;">
               [% React.embed(c, 'static/scripts/edit/components/InformationIcon', {
                 style => {'align-self' => 'flex-start'},
-                title => l('Types:') _ ' ' _ (comma_only_list(image.l_types) || '-') _ 
+                title => l('Types:') _ ' ' _ (comma_only_list(image.l_type_names) || '-') _
                         (image.comment ? (' / ' _ add_colon(l('Comment')) _ ' ' _ image.comment) : '')}) %]
             </div>
           </div>
@@ -173,6 +173,6 @@
   </form>
 
   <script type="text/javascript">
-    MB.CoverArt.add_cover_art("[%- entity.gid -%]");
+    MB.CoverArt.add_art("[%- entity.gid -%]");
   </script>
 [%- END -%]

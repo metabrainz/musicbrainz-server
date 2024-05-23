@@ -6,4 +6,4 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import '../edit/MB/CoverArt.js';
+import '../edit/MB/Art.js';

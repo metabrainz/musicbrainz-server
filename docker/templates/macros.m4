@@ -333,10 +333,11 @@ virtualenv
 m4_define(
     `selenium_caa_deps',
     `m4_dnl
-python3
-python3-dev
-python3-distutils
-python3-venv
+imagemagick
+python3.11
+python3.11-dev
+python3.11-distutils
+python3.11-venv
 software-properties-common
 ')
 

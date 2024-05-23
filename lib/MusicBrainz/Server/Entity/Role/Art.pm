@@ -1,40 +1,35 @@
-package MusicBrainz::Server::Entity::Artwork;
+package MusicBrainz::Server::Entity::Role::Art;
 
-use Moose;
 use DBDefs;
-use MusicBrainz::Server::Entity::CoverArtType;
+use Moose::Role;
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 
-extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::PendingEdits';
+
+requires qw( _entity _ia_entity _download_prefix );
+
+has types => (
+    is => 'rw',
+);
+
+sub type_names {
+    my $self = shift;
+    return [] unless $self->types;
+    return [ map { $_->name } @{ $self->types } ];
+}
+
+sub l_type_names {
+    my $self = shift;
+    return [] unless $self->types;
+    return [ map { $_->l_name } @{ $self->types } ];
+}
 
 has comment => (
     is => 'rw',
     isa => 'Str',
 );
 
-has cover_art_types => (
-    is => 'rw',
-    isa => 'ArrayRef[MusicBrainz::Server::Entity::CoverArtType]',
-);
-
-sub types {
-    my $self = shift;
-    return [] unless $self->cover_art_types;
-    return [ map { $_->name } @{ $self->cover_art_types } ];
-}
-
-sub l_types {
-    my $self = shift;
-    return [] unless $self->cover_art_types;
-    return [ map { $_->l_name } @{ $self->cover_art_types } ];
-}
-
 has is_front => (
-    is => 'rw',
-    isa => 'Bool',
-);
-
-has is_back => (
     is => 'rw',
     isa => 'Bool',
 );
@@ -59,25 +54,16 @@ has suffix => (
     isa => 'Str',
 );
 
-has release_id => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has release => (
-    is => 'rw',
-    isa => 'Release',
-);
-
-sub _url_prefix
-{
+sub _url_prefix {
     my ($self, $suffix) = @_;
+
+    my $entity = $self->_entity;
 
     return join(
         '/',
-        DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX,
-        'release',
-        $self->release->gid,
+        $self->_download_prefix,
+        $ENTITIES{ $entity->entity_type }{url},
+        $entity->gid,
         $self->id,
     ) . ($suffix // '');
 }
@@ -87,13 +73,13 @@ sub _ia_url_prefix {
 
     $suffix //= '';
 
-    my $download_prefix = DBDefs->COVER_ART_ARCHIVE_IA_DOWNLOAD_PREFIX;
+    my $download_prefix = DBDefs->INTERNET_ARCHIVE_IA_DOWNLOAD_PREFIX;
     unless ($download_prefix) {
         $suffix =~ s/_thumb([0-9]+)\.jpg/-$1.jpg/;
         return $self->_url_prefix($suffix);
     }
 
-    my $mbid_part = 'mbid-' . $self->release->gid;
+    my $mbid_part = 'mbid-' . $self->_ia_entity->gid;
 
     return join(
         '/',
@@ -103,13 +89,13 @@ sub _ia_url_prefix {
     ) . $suffix;
 }
 
-sub filename
-{
+sub filename {
     my $self = shift;
 
-    return undef unless $self->release->gid && $self->suffix;
+    my $gid = $self->_ia_entity->gid;
+    return undef unless $gid && $self->suffix;
 
-    return sprintf('mbid-%s-%d.%s', $self->release->gid, $self->id, $self->suffix);
+    return sprintf('mbid-%s-%d.%s', $gid, $self->id, $self->suffix);
 }
 
 sub image {
@@ -133,7 +119,7 @@ sub huge_thumbnail { my $self = shift; return $self->_url_prefix('-1200.jpg'); }
 # "original" links still point to the public API at coverartarchive.org via
 # small_thumbnail, large_thumbnail, etc.
 #
-# COVER_ART_ARCHIVE_IA_DOWNLOAD_PREFIX is required to be configured in
+# INTERNET_ARCHIVE_IA_DOWNLOAD_PREFIX is required to be configured in
 # DBDefs.pm; if it isn't, we fall back to using the configured redirect
 # service.
 sub small_ia_thumbnail { shift->_ia_url_prefix('_thumb250.jpg') }
@@ -156,18 +142,17 @@ sub TO_JSON {
         small_ia_thumbnail => $self->small_ia_thumbnail,
         small_thumbnail => $self->small_thumbnail,
         suffix => $self->suffix,
-        types => $self->types,
+        types => $self->type_names,
     };
 
-    if (my $release = $self->release) {
-        $json->{release} = $release->TO_JSON;
+    if (my $entity = $self->_ia_entity) {
+        $json->{ $entity->entity_type } = $entity->TO_JSON;
     }
 
     return $json;
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT AND LICENSE

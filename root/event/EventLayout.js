@@ -16,7 +16,7 @@ component EventLayout(
   children: React$Node,
   entity as event: EventT,
   fullWidth: boolean = false,
-  page: string,
+  page?: string,
   title?: string,
 ) {
   return (

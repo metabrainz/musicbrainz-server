@@ -23,7 +23,7 @@ type BlogEntryT = {
 
 component Homepage(
   blogEntries: $ReadOnlyArray<BlogEntryT> | null,
-  newestReleases: $ReadOnlyArray<ArtworkT>,
+  newestReleases: $ReadOnlyArray<ReleaseArtT>,
 ) {
   return (
     <Layout
@@ -260,7 +260,7 @@ component Homepage(
   );
 }
 
-component ReleaseArtwork(artwork: ArtworkT) {
+component ReleaseArtwork(artwork: ReleaseArtT) {
   const release = artwork.release;
   if (!release) {
     return null;
