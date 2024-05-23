@@ -23,9 +23,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-09 23:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-05-23 14:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/ru/>\n"
 "Language: ru\n"
@@ -33,9 +33,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.3\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -140,7 +140,7 @@ msgstr "апачские языки"
 #. frequency:2 iso_code_3:ara 
 #: DB:language/name:18
 msgid "Arabic"
-msgstr "арабский"
+msgstr "арабское"
 
 #. frequency:1 iso_code_3:arg 
 #: DB:language/name:20
@@ -165,7 +165,7 @@ msgstr "Ардхамагадхи Пракрит"
 #. frequency:1 iso_code_3:hye 
 #: DB:language/name:21
 msgid "Armenian"
-msgstr "армянский"
+msgstr "армянское"
 
 #. frequency:1 iso_code_3:rup 
 #: DB:language/name:479
@@ -210,7 +210,7 @@ msgstr "аварский"
 #. frequency:1 iso_code_3:ave 
 #: DB:language/name:31
 msgid "Avestan"
-msgstr "Авестийский"
+msgstr "авестийский"
 
 #. frequency:1 iso_code_3:awa 
 #: DB:language/name:32
@@ -350,7 +350,7 @@ msgstr "билин"
 #. frequency:0 iso_code_3:zbl 
 #: DB:language/name:482
 msgid "Blissymbols"
-msgstr "Блиссимволика"
+msgstr "блиссимволика"
 
 #. frequency:1 iso_code_3:brx 
 #: DB:language/name:1394
@@ -380,7 +380,7 @@ msgstr "Буаму"
 #. frequency:1 iso_code_3:bug 
 #: DB:language/name:61
 msgid "Buginese"
-msgstr "Бугийский"
+msgstr "бугийский"
 
 #. frequency:1 iso_code_3:bul 
 #: DB:language/name:62
@@ -1000,7 +1000,7 @@ msgstr "гавайский"
 #. frequency:1 iso_code_3:heb 
 #: DB:language/name:167
 msgid "Hebrew"
-msgstr "Иврит"
+msgstr "иврит"
 
 #. frequency:1 iso_code_3:her 
 #: DB:language/name:168
@@ -1425,7 +1425,7 @@ msgstr "Лаосский"
 #. frequency:1 iso_code_3:lat 
 #: DB:language/name:238
 msgid "Latin"
-msgstr "латинский"
+msgstr "латиница"
 
 #. frequency:1 iso_code_3:lav 
 #: DB:language/name:239
@@ -1935,12 +1935,12 @@ msgstr "Персидский"
 #. frequency:0 iso_code_3:peo 
 #: DB:language/name:333
 msgid "Persian, Old (ca.600-400 B.C.)"
-msgstr "Персидский, Старый (600-400)"
+msgstr "староперсидский (ок. 600-400 до н.э.)"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:335
 msgid "Philippine languages"
-msgstr "Филиппинские языки"
+msgstr "филиппинские языки"
 
 #. frequency:0 iso_code_3:phn 
 #: DB:language/name:336
@@ -1970,12 +1970,12 @@ msgstr "португальский"
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:341
 msgid "Prakrit languages"
-msgstr "Пракрит языки"
+msgstr "языки Пракрит"
 
 #. frequency:1 iso_code_3:pro 
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
-msgstr "Провансальский, старый (до 1500)"
+msgstr "старопровансальский (до 1500 г.)"
 
 #. frequency:1 iso_code_3:prg 
 #: DB:language/name:5521
@@ -1985,7 +1985,7 @@ msgstr "прусский"
 #. frequency:1 iso_code_3:fuc 
 #: DB:language/name:2321
 msgid "Pulaar"
-msgstr ""
+msgstr "фула"
 
 #. frequency:1 iso_code_3:pan 
 #: DB:language/name:330

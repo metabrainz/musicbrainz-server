@@ -42,9 +42,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-21 14:41+0000\n"
-"PO-Revision-Date: 2024-05-20 19:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-05-23 14:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -52,8 +52,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -2754,6 +2754,8 @@ msgid ""
 "This is a MusicBrainz mirror server. To edit or make changes to the data, "
 "please {uri|return to musicbrainz.org}."
 msgstr ""
+"Это сервер-зеркало MusicBrainz. Чтобы вносить правки или другие изменения в "
+"данные, пожалуйста, {uri|вернитесь на musicbrainz.org}."
 
 #: ../root/components/common-macros.tt:71 ../root/components/Artwork.js:66
 msgid ""
@@ -3692,7 +3694,7 @@ msgstr "{type} “{work}”"
 
 #: ../root/layout.tt:45 ../root/layout/index.js:136
 msgid "{uri|Return to musicbrainz.org}."
-msgstr "{uri|Return to musicbrainz.org}."
+msgstr "{uri|Вернуться на musicbrainz.org}."
 
 #: ../root/recording/edit_form.tt:10
 msgid ""
@@ -12340,13 +12342,15 @@ msgstr ""
 #: ../root/report/DuplicateRelationshipsArtists.js:33
 #: ../root/report/ReportsIndex.js:86
 msgid "Artists with possible duplicate relationships"
-msgstr ""
+msgstr "Исполнители с возможными отношениями-дубликатами"
 
 #: ../root/report/DuplicateRelationshipsLabels.js:25
 msgid ""
 "This report lists labels which have multiple relationships to the same "
 "entity using the same relationship type."
 msgstr ""
+"В отчете перечислены лейблы с несколькими одинаковыми отношениями с той же "
+"сущностью."
 
 #: ../root/report/DuplicateRelationshipsLabels.js:31
 #: ../root/report/ReportsIndex.js:175
