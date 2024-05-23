@@ -6,6 +6,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_EVENT_REORDER_EVENT_ART );
 use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Event';
 
 sub edit_kind { 'other' }
 sub edit_name { N_lp('Reorder event art', 'plural, edit type') }

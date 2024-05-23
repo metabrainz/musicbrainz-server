@@ -6,6 +6,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_EVENT_EDIT_EVENT_ART );
 use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Event';
 
 sub edit_kind { 'edit' }
 sub edit_name { N_lp('Edit event art', 'singular, edit type') }
