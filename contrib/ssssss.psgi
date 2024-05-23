@@ -115,13 +115,21 @@ sub check_authorization_header
 {
     my ($request) = @_;
     my $auth = $request->header('authorization');
+    my $collection = $request->header('x-archive-meta-collection');
 
     my ($user, $pass) = $auth =~ /^LOW ([^:]+):(.+)$/;
     if (
         !defined $user ||
         !defined $pass ||
-        $user ne DBDefs->INTERNET_ARCHIVE_ACCESS_KEY ||
-        $pass ne DBDefs->INTERNET_ARCHIVE_SECRET_KEY
+        !((
+            $collection eq 'coverartarchive' &&
+            $user eq DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY &&
+            $pass eq DBDefs->COVER_ART_ARCHIVE_SECRET_KEY
+        ) || (
+            $collection eq 'eventartarchive' &&
+            $user eq DBDefs->EVENT_ART_ARCHIVE_ACCESS_KEY &&
+            $pass eq DBDefs->EVENT_ART_ARCHIVE_SECRET_KEY
+        ))
     ) {
         my $response = $request->new_response(403);
         $response->content_type('text/xml');
