@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-17 20:21+0200\n"
-"PO-Revision-Date: 2024-05-15 13:42+0000\n"
+"PO-Revision-Date: 2024-05-19 19:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -24,8 +24,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -5790,25 +5790,16 @@ msgid "Non-videos only"
 msgstr "Tik ne vaizdo kilpus"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:71
-#, fuzzy
-#| msgctxt "barcode"
-#| msgid "[none]"
 msgctxt "release country"
 msgid "[none]"
 msgstr "[nėra]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:80
-#, fuzzy
-#| msgctxt "barcode"
-#| msgid "[none]"
 msgctxt "release label"
 msgid "[none]"
 msgstr "[nėra]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:89
-#, fuzzy
-#| msgctxt "barcode"
-#| msgid "[none]"
 msgctxt "release status"
 msgid "[none]"
 msgstr "[nėra]"
@@ -11914,6 +11905,15 @@ msgid ""
 "direction and are correct, whether “renamed into” needs to be turned into "
 "“performs as” relationships, and so on."
 msgstr ""
+"Ši ataskaita nurodo atlikėjus, kurių tipas – kitas nei grupė (arba grupės "
+"potipis), bet kurie gali būti grupė, nes jų nariais yra kiti atlikėjai arba "
+"naudojami kiti santykiai, kurie paprastai skirti tik grupėms (abiem "
+"kryptimis, pvz., „pogrupis“ ir „pervadinta“, arba viena kryptimi, pvz., „"
+"meno vadovas“, „dirigentas“ ir „reziduojantis kompozitorius“). Jei "
+"pastebėsi, kad čia esantis atlikėjas iš tiesų yra grupė, pakeisk jo tipą. "
+"Jei nėra, įsitikink, kad „narys“ santykiai nukreipti tinkama kryptimi ir yra "
+"teisingi, ar „pervadinta į“ reikia paversti į „atlieka kaip“ santykius ir "
+"panašiai."
 
 #: ../root/report/ArtistsThatMayBeGroups.js:39
 #: ../root/report/ReportsIndex.js:52
@@ -13143,7 +13143,7 @@ msgstr ""
 #: ../root/report/ReportsIndex.js:544
 #: ../root/report/VideoRelationshipsOnNonVideos.js:51
 msgid "Non-video recordings with video relationships"
-msgstr ""
+msgstr "Ne vaizdo įrašai su vaizdo santykiais"
 
 #: ../root/report/ReportsIndex.js:557
 msgid "Places with annotations"
@@ -13295,12 +13295,18 @@ msgid ""
 "marked as video, or the relationships should be moved to a related video "
 "recording."
 msgstr ""
+"Ši ataskaita rodo įrašus, kurie nepažymėti kaip vaizdo įrašai, bet kuriuose "
+"naudojami tik vaizdo įrašams skirti santykiai ({relationship_list}). Juos "
+"reikėtų pažymėti kaip vaizdo įrašus arba santykius perkelti į susijusį "
+"vaizdo įrašą."
 
 #: ../root/report/VideosInNonVideoMediums.js:25
 msgid ""
 "This report shows recordings marked as video, but that appear in at least "
 "one medium that does not support videos."
 msgstr ""
+"Ši ataskaita rodo įrašus, pažymėtus kaip vaizdo įrašai, bet rodomus bent "
+"vienoje laikmenoje, kuri nepalaiko vaizdo įrašų."
 
 #: ../root/report/VideosInNonVideoMediums.js:30
 msgid ""
@@ -14997,18 +15003,14 @@ msgid "Change all artists on this release that are currently empty"
 msgstr ""
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:138
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "artist credit name"
 msgid "[removed]"
 msgstr "[pašalinta]"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:175
-#, fuzzy
-#| msgid "Edit Artist Credit"
 msgctxt "interactive"
 msgid "Undo artist credit removal"
-msgstr "Redaguoti atlikėjo kreditą"
+msgstr "Atšaukti atlikėjo įvardijimo pašalinimą"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:182
 #, fuzzy
