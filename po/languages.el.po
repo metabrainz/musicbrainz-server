@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-05-08 23:42+0000\n"
-"Last-Translator: zemeles <zemeles@users.noreply.translations.metabrainz.org>"
-"\n"
+"Last-Translator: zemeles <zemeles@users.noreply.translations.metabrainz."
+"org>\n"
 "Language-Team: Greek <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/el/>\n"
 "Language: el\n"
@@ -1965,6 +1965,11 @@ msgstr "Προβηγκιανά, Αρχαία (μέχρι το 1500)"
 #| msgid "Russian"
 msgid "Prussian"
 msgstr "Ρώσικα"
+
+#. frequency:1 iso_code_3:fuc 
+#: DB:language/name:2321
+msgid "Pulaar"
+msgstr ""
 
 #. frequency:1 iso_code_3:pan 
 #: DB:language/name:330

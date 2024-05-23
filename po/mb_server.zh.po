@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-17 20:21+0200\n"
+"POT-Creation-Date: 2024-05-21 14:41+0000\n"
 "PO-Revision-Date: 2024-04-17 17:40+0000\n"
 "Last-Translator: x1ao4 <kazaf_ken@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
@@ -13408,7 +13408,7 @@ msgid "Video recordings in non-video mediums"
 msgstr "非视频媒介的视频记录"
 
 #: ../root/report/ReportsIndex.js:544
-#: ../root/report/VideoRelationshipsOnNonVideos.js:51
+#: ../root/report/VideoRelationshipsOnNonVideos.js:52
 #, fuzzy
 #| msgid "Recordings with deprecated relationships"
 msgid "Non-video recordings with video relationships"
@@ -13560,7 +13560,7 @@ msgstr ""
 msgid "Unlinked pseudo-releases"
 msgstr ""
 
-#: ../root/report/VideoRelationshipsOnNonVideos.js:38
+#: ../root/report/VideoRelationshipsOnNonVideos.js:39
 msgid ""
 "This report shows recordings not marked as video, but that use relationships "
 "meant only for video recordings ({relationship_list}). Either they should be "
@@ -14822,6 +14822,13 @@ msgstr ""
 #: ../root/static/scripts/common/hooks/usePagedMediumTable.js:226
 msgid "Load all tracks..."
 msgstr "加载所有音轨..."
+
+#: ../root/static/scripts/common/i18n/addQuotes.js:13
+#: ../root/static/scripts/common/i18n/addQuotes.js:17
+#, fuzzy
+#| msgid "{variable}:"
+msgid "“{variable}”"
+msgstr "{variable}:"
 
 #: ../root/static/scripts/common/i18n/hyphenateTitle.js:14
 msgid "{title} - {subtitle}"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-17 20:21+0200\n"
+"POT-Creation-Date: 2024-05-21 14:41+0000\n"
 "PO-Revision-Date: 2024-04-17 17:35+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Galician <https://translations.metabrainz.org/projects/"
@@ -12365,7 +12365,7 @@ msgid "Video recordings in non-video mediums"
 msgstr ""
 
 #: ../root/report/ReportsIndex.js:544
-#: ../root/report/VideoRelationshipsOnNonVideos.js:51
+#: ../root/report/VideoRelationshipsOnNonVideos.js:52
 msgid "Non-video recordings with video relationships"
 msgstr ""
 
@@ -12507,7 +12507,7 @@ msgstr ""
 msgid "Unlinked pseudo-releases"
 msgstr ""
 
-#: ../root/report/VideoRelationshipsOnNonVideos.js:38
+#: ../root/report/VideoRelationshipsOnNonVideos.js:39
 msgid ""
 "This report shows recordings not marked as video, but that use relationships "
 "meant only for video recordings ({relationship_list}). Either they should be "
@@ -13690,6 +13690,11 @@ msgstr ""
 
 #: ../root/static/scripts/common/hooks/usePagedMediumTable.js:226
 msgid "Load all tracks..."
+msgstr ""
+
+#: ../root/static/scripts/common/i18n/addQuotes.js:13
+#: ../root/static/scripts/common/i18n/addQuotes.js:17
+msgid "“{variable}”"
 msgstr ""
 
 #: ../root/static/scripts/common/i18n/hyphenateTitle.js:14

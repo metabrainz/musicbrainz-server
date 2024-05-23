@@ -1965,6 +1965,11 @@ msgstr ""
 msgid "Prussian"
 msgstr "বেলারুশী"
 
+#. frequency:1 iso_code_3:fuc 
+#: DB:language/name:2321
+msgid "Pulaar"
+msgstr ""
+
 #. frequency:1 iso_code_3:pan 
 #: DB:language/name:330
 msgid "Punjabi"

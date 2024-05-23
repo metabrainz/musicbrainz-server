@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-17 20:21+0200\n"
+"POT-Creation-Date: 2024-05-21 14:41+0000\n"
 "PO-Revision-Date: 2024-05-19 19:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
@@ -24,8 +24,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
-" n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -11908,8 +11908,8 @@ msgstr ""
 "Ši ataskaita nurodo atlikėjus, kurių tipas – kitas nei grupė (arba grupės "
 "potipis), bet kurie gali būti grupė, nes jų nariais yra kiti atlikėjai arba "
 "naudojami kiti santykiai, kurie paprastai skirti tik grupėms (abiem "
-"kryptimis, pvz., „pogrupis“ ir „pervadinta“, arba viena kryptimi, pvz., „"
-"meno vadovas“, „dirigentas“ ir „reziduojantis kompozitorius“). Jei "
+"kryptimis, pvz., „pogrupis“ ir „pervadinta“, arba viena kryptimi, pvz., "
+"„meno vadovas“, „dirigentas“ ir „reziduojantis kompozitorius“). Jei "
 "pastebėsi, kad čia esantis atlikėjas iš tiesų yra grupė, pakeisk jo tipą. "
 "Jei nėra, įsitikink, kad „narys“ santykiai nukreipti tinkama kryptimi ir yra "
 "teisingi, ar „pervadinta į“ reikia paversti į „atlieka kaip“ santykius ir "
@@ -13141,7 +13141,7 @@ msgid "Video recordings in non-video mediums"
 msgstr ""
 
 #: ../root/report/ReportsIndex.js:544
-#: ../root/report/VideoRelationshipsOnNonVideos.js:51
+#: ../root/report/VideoRelationshipsOnNonVideos.js:52
 msgid "Non-video recordings with video relationships"
 msgstr "Ne vaizdo įrašai su vaizdo santykiais"
 
@@ -13288,7 +13288,7 @@ msgstr ""
 msgid "Unlinked pseudo-releases"
 msgstr ""
 
-#: ../root/report/VideoRelationshipsOnNonVideos.js:38
+#: ../root/report/VideoRelationshipsOnNonVideos.js:39
 msgid ""
 "This report shows recordings not marked as video, but that use relationships "
 "meant only for video recordings ({relationship_list}). Either they should be "
@@ -14524,6 +14524,13 @@ msgstr ""
 #: ../root/static/scripts/common/hooks/usePagedMediumTable.js:226
 msgid "Load all tracks..."
 msgstr ""
+
+#: ../root/static/scripts/common/i18n/addQuotes.js:13
+#: ../root/static/scripts/common/i18n/addQuotes.js:17
+#, fuzzy
+#| msgid "{variable}:"
+msgid "“{variable}”"
+msgstr "{variable}:"
 
 #: ../root/static/scripts/common/i18n/hyphenateTitle.js:14
 msgid "{title} - {subtitle}"
