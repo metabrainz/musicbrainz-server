@@ -42,9 +42,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-17 20:21+0200\n"
-"PO-Revision-Date: 2024-05-16 19:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-05-20 19:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -52,8 +52,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -5300,30 +5300,30 @@ msgstr "Этот оператор не поддерживается"
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:91
 msgctxt "autoeditor election status"
 msgid "Awaiting 1st seconder"
-msgstr ""
+msgstr "Ждем первого секунданта"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:92
 msgctxt "autoeditor election status"
 msgid "Awaiting 2nd seconder"
-msgstr ""
+msgstr "Ждем второго секунданта"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:93
 #, perl-brace-format
 msgctxt "autoeditor election status"
 msgid "Voting open since {date}"
-msgstr ""
+msgstr "Голосование открыто с {date}"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:94
 #, perl-brace-format
 msgctxt "autoeditor election status"
 msgid "Accepted at {date}"
-msgstr ""
+msgstr "Принято {date}"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:95
 #, perl-brace-format
 msgctxt "autoeditor election status"
 msgid "Declined at {date}"
-msgstr ""
+msgstr "Отклонено {date}"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:96
 #, perl-brace-format
@@ -5354,7 +5354,7 @@ msgstr "Принято"
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:104
 msgctxt "autoeditor election status (short)"
 msgid "Declined"
-msgstr ""
+msgstr "Отклонено"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:105
 msgctxt "autoeditor election status (short)"
@@ -5363,11 +5363,9 @@ msgstr "Отменены"
 
 #: ../lib/MusicBrainz/Server/Entity/Barcode.pm:18
 #: ../root/static/scripts/common/utility/formatBarcode.js:15
-#, fuzzy
-#| msgid "[none]"
 msgctxt "barcode"
 msgid "[none]"
-msgstr "[нет]"
+msgstr "[отсутствует]"
 
 #: ../lib/MusicBrainz/Server/Entity/LinkAttribute.pm:35
 #: ../root/static/scripts/common/utility/displayLinkAttribute.js:39
@@ -5410,91 +5408,91 @@ msgstr "{begindate} &#x2013;"
 #: ../root/static/scripts/common/utility/groupRelationships.js:466
 #, perl-brace-format
 msgid "{role} (as {credited_name})"
-msgstr "{role} (as {credited_name})"
+msgstr "{role} (как {credited_name})"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Anghami.pm:10
 msgid "Stream at Anghami"
-msgstr ""
+msgstr "Слушать в Anghami"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Audiomack.pm:10
 msgid "Stream at Audiomack"
-msgstr ""
+msgstr "Слушать в Audiomack"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Boomplay.pm:10
 msgid "Stream at Boomplay"
-msgstr ""
+msgstr "Слушать в Boomplay"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/CPDL.pm:9
 msgid "Score(s) at CPDL"
-msgstr ""
+msgstr "Партитура(-ы) на CPDL"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Deezer.pm:10
 msgid "Stream at Deezer"
-msgstr ""
+msgstr "Слушать в Deezer"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Dogmazic.pm:10
 msgid "Stream at Dogmazic"
-msgstr ""
+msgstr "Слушать в Dogmazic"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Gutenberg.pm:9
 msgid "Project Gutenberg"
-msgstr ""
+msgstr "Проект «Гутенберг»"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/IMSLP.pm:31
 msgid "Score at IMSLP"
-msgstr ""
+msgstr "Партитура на IMSLP"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/MiguMusic.pm:9
 msgid "Stream at Migu Music"
-msgstr ""
+msgstr "Слушать в Migu Music"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/NicoNicoVideo.pm:9
 msgid "Niconico"
-msgstr ""
+msgstr "Niconico"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/RateYourMusic.pm:13
 msgid "Interview at Rate Your Music"
-msgstr ""
+msgstr "Интервью на Rate Your Music"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Runeberg.pm:9
 msgid "Project Runeberg"
-msgstr ""
+msgstr "Проект «Рунеберг»"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:14
 msgid "Playlists at Spotify"
-msgstr ""
+msgstr "Плейлисты в Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:16
 msgid "Purchase at Spotify"
-msgstr ""
+msgstr "Купить в Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:18
 msgid "Stream at Spotify"
-msgstr ""
+msgstr "Слушать в Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Tidal.pm:14
 msgid "Purchase at Tidal"
-msgstr ""
+msgstr "Купить в Tidal"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Tidal.pm:16
 msgid "Stream at Tidal"
-msgstr ""
+msgstr "Слушать в Tidal"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/VK.pm:14
 msgid "Stream at VK"
-msgstr ""
+msgstr "Слушать в VK Музыке"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Weibo.pm:9
 msgid "Weibo"
-msgstr ""
+msgstr "Weibo"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Wikisource.pm:9
 msgid "Wikisource"
-msgstr ""
+msgstr "Викитека"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Yandex.pm:10
 msgid "Stream at Yandex"
-msgstr ""
+msgstr "Слушать в Яндекс Музыке"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/YouTubeMusic.pm:10
 msgid "Stream at YouTube Music"
@@ -5502,11 +5500,11 @@ msgstr "Слушать в YouTube Music"
 
 #: ../lib/MusicBrainz/Server/Form/Alias.pm:112
 msgid "This alias can only be a primary alias if a locale is selected"
-msgstr ""
+msgstr "Этот псевдоним может быть основным, если выбран язык"
 
 #: ../lib/MusicBrainz/Server/Form/Alias.pm:124
 msgid "This alias already exists."
-msgstr ""
+msgstr "Этот псевдоним уже существует."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:48
 msgid "Redirect URL must be entered for web applications."
@@ -5526,19 +5524,19 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Area.pm:88
 msgid "An area already exists with this ISO code"
-msgstr ""
+msgstr "Область с этим кодом ISO уже существует"
 
 #: ../lib/MusicBrainz/Server/Form/Artist.pm:75
 msgid "Group artists cannot have a gender."
-msgstr ""
+msgstr "У исполнителей типа \"Группа\" не может быть пола."
 
 #: ../lib/MusicBrainz/Server/Form/Artist.pm:82
 msgid "Orchestras cannot have a gender."
-msgstr ""
+msgstr "У оркестров не может быть пола."
 
 #: ../lib/MusicBrainz/Server/Form/Artist.pm:89
 msgid "Choirs cannot have a gender."
-msgstr ""
+msgstr "У хоров не может быть пола."
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:92
 msgid "The collection type must match the type of entities it contains."
@@ -5550,17 +5548,21 @@ msgid ""
 "“{collaborator}” was added more than once. Did you intend to select someone "
 "else?"
 msgstr ""
+"Пользователь {collaborator} был добавлен более одного раза. Может вы хотели "
+"выбрать кого-то другого?"
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:124
 #, perl-brace-format
 msgid ""
 "To add “{editor}” as a collaborator, please select them from the dropdown."
 msgstr ""
+"Чтобы добавить пользователя {editor} как соавтора, выберите его из "
+"выпадающего меню."
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:129
 #, perl-brace-format
 msgid "Editor “{editor}” does not exist."
-msgstr ""
+msgstr "Редактор {editor} не существует."
 
 #: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:30
 msgid ""
@@ -5603,16 +5605,16 @@ msgstr "Недопустимый идентификатор FreeDB"
 
 #: ../lib/MusicBrainz/Server/Form/Field/GID.pm:15
 msgid "This is not a valid MBID"
-msgstr "Это не является допустимым MBID"
+msgstr "Недопустимый MBID"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ID.pm:15
 msgid "This is not a valid database ID"
-msgstr ""
+msgstr "Недопустимый ID базы данных"
 
 #: ../lib/MusicBrainz/Server/Form/Field/IPI.pm:15
 #: ../lib/MusicBrainz/Server/Form/Field/IPI.pm:19
 msgid "This is not a valid IPI."
-msgstr ""
+msgstr "Этот код IPI не является допустимым."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISNI.pm:15
 #: ../lib/MusicBrainz/Server/Form/Field/ISNI.pm:19
@@ -5649,7 +5651,7 @@ msgstr "Коды лейбла должны содержать от одной д
 
 #: ../lib/MusicBrainz/Server/Form/Field/Length.pm:31
 msgid "Not a valid time. Must be in the format MM:SS"
-msgstr "Не допустимое время. Должно быть в формате MM:SS"
+msgstr "Недопустимое время. Должно быть в формате ММ:СС"
 
 #: ../lib/MusicBrainz/Server/Form/Field/PartialDate.pm:68
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:103
@@ -5690,14 +5692,12 @@ msgid "[none]"
 msgstr "[нет]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:42
-#, fuzzy
-#| msgid "Video"
 msgid "Videos only"
-msgstr "Видео"
+msgstr "Только видео"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:43
 msgid "Non-videos only"
-msgstr ""
+msgstr "Только не-видео"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:71
 #, fuzzy
@@ -5734,20 +5734,20 @@ msgstr "[отсутствует]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:29
 msgid "As performer"
-msgstr ""
+msgstr "Как исполнитель"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:30
 msgid "As writer"
-msgstr ""
+msgstr "Как автор"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:37
 msgctxt "work type"
 msgid "[none]"
-msgstr "[нет]"
+msgstr "[отсутствует]"
 
 #: ../lib/MusicBrainz/Server/Form/Merge.pm:22
 msgid "Please pick the entity you want the others merged into."
-msgstr ""
+msgstr "Выберите сущность, в которую вы хотите объединить другие."
 
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:54
 #: ../root/edit/details/MergeReleases.js:31
@@ -5763,7 +5763,7 @@ msgstr "Объединение носителей и записей"
 
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:66
 msgid "Another medium is already in this position"
-msgstr ""
+msgstr "Другой носитель уже находится в этой позиции"
 
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:69
 msgid "Positions must be greater than 0"
@@ -5787,7 +5787,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:28
 msgid "You must provide an edit note"
-msgstr ""
+msgstr "Комментарий к правке обязателен"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:34
 msgid "Invalid URL format"
@@ -5795,26 +5795,26 @@ msgstr "Недопустимый формат URL-адреса"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:65
 msgid "A language is required."
-msgstr ""
+msgstr "Выберите язык."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:71
 msgid "A fluency level is required."
-msgstr ""
+msgstr "Выберите уровень владения языком."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
 #: ../root/static/scripts/common/constants.js:374
 msgid "Basic"
-msgstr "Основной"
+msgstr "Начальный"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
 #: ../root/static/scripts/common/constants.js:375
 msgid "Intermediate"
-msgstr "Промежуточный"
+msgstr "Intermediate (средний)"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
 #: ../root/static/scripts/common/constants.js:373
 msgid "Advanced"
-msgstr "Расширенный"
+msgstr "Продвинутый"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:82
 #: ../root/static/scripts/common/constants.js:376
@@ -5823,11 +5823,11 @@ msgstr "Родной"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:96
 msgid "You must supply a complete birth date for us to display your age."
-msgstr ""
+msgstr "Укажите полную дату рождения, чтобы мы смогли показывать ваш возраст."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:100
 msgid "Birth year must be after 1900"
-msgstr ""
+msgstr "Год рождения должен быть после 1900 года"
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
 #: ../root/layout/components/Search.js:45
@@ -5875,7 +5875,7 @@ msgstr "Прямой поиск по базе данных"
 
 #: ../lib/MusicBrainz/Server/Form/Series.pm:29
 msgid "A type is required."
-msgstr ""
+msgstr "Выберите тип."
 
 #: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:53
 msgid "The old password is incorrect"
@@ -5984,6 +5984,8 @@ msgstr "Другие"
 msgid ""
 "This username contains invalid characters. (Check for consecutive spaces.)"
 msgstr ""
+"Имя пользователя содержит недопустимые символы. Проверьте наличие "
+"последовательных пробелов"
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:223
 msgid "This username is reserved for internal use."
@@ -6025,7 +6027,7 @@ msgstr "Нельзя ввести тот же атрибут и значение
 
 #: ../lib/MusicBrainz/Server/Form/Work.pm:166
 msgid "This value is not allowed for this work attribute type."
-msgstr ""
+msgstr "Это значение не разрешено для данного типа атрибута работы."
 
 #: ../lib/MusicBrainz/Server/Translation.pm:257
 #: ../root/static/scripts/common/i18n/commaList.js:28
@@ -6093,17 +6095,13 @@ msgid "Confirm password:"
 msgstr "Подтвердить пароль:"
 
 #: ../root/account/ChangePassword.js:95
-#, fuzzy
-#| msgid "Change Password"
 msgctxt "interactive"
 msgid "Change password"
-msgstr "Смена пароля"
+msgstr "Сменить пароль"
 
 #: ../root/account/ChangePassword.js:114 ../root/account/ChangePassword.js:116
 #: ../root/account/ChangePassword.js:127 ../root/account/ChangePassword.js:128
 #: ../root/components/UserAccountTabs.js:88
-#, fuzzy
-#| msgid "Change Password"
 msgctxt "header"
 msgid "Change password"
 msgstr "Смена пароля"
@@ -6111,8 +6109,6 @@ msgstr "Смена пароля"
 #: ../root/account/DeleteOwnAccount.js:35
 #: ../root/account/DeleteOwnAccount.js:37
 #: ../root/components/UserAccountTabs.js:114
-#, fuzzy
-#| msgid "Delete Account"
 msgctxt "header"
 msgid "Delete account"
 msgstr "Удалить аккаунт"
@@ -16176,7 +16172,7 @@ msgstr ""
 
 #: ../root/tag/TagCloud.js:54
 msgid "'{tag}' has been used {num} times"
-msgstr "'{tag}' был использован {num} раз"
+msgstr "Тег \"{tag}\" использовался раз: {num}"
 
 #: ../root/tag/TagCloud.js:99
 msgid "These are the most used genres and other tags in the database."

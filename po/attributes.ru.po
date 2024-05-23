@@ -27,9 +27,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-15 18:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-05-19 14:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ru/>\n"
 "Language: ru\n"
@@ -37,8 +37,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.5.4\n"
 
 #: DB:work_type/description:9
@@ -8359,7 +8359,7 @@ msgstr ""
 #: DB:work_attribute_type/name:30
 msgctxt "work_attribute_type"
 msgid "ZAiKS ID"
-msgstr ""
+msgstr "ZAiKS ID"
 
 #: DB:work_attribute_type_allowed_value/value:780
 msgctxt "work_attribute_type_allowed_value"
@@ -8429,7 +8429,7 @@ msgstr ""
 #: DB:medium_format/name:77
 msgctxt "medium_format"
 msgid "Zip Disk"
-msgstr ""
+msgstr "Zip-диск"
 
 #: DB:work_attribute_type_allowed_value/value:599
 msgctxt "work_attribute_type_allowed_value"
@@ -8446,7 +8446,7 @@ msgstr ""
 #: DB:medium_format/name:164
 msgctxt "medium_format"
 msgid "microSD"
-msgstr ""
+msgstr "microSD"
 
 #: DB:medium_format/name:27
 msgctxt "medium_format"
