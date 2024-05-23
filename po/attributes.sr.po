@@ -3182,6 +3182,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Gaṁbhīra vāṇi"
 msgstr ""
 
+#: DB:editor_collection_type/name:16
+msgctxt "collection_type"
+msgid "Genre collection"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:376
 msgctxt "work_attribute_type_allowed_value"
 msgid "Gerdaniye"

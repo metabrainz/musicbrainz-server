@@ -25,8 +25,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.5.3\n"
 
 #: DB:work_type/description:9
@@ -3496,6 +3496,14 @@ msgstr "Gaṁbhīra nāṭa"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Gaṁbhīra vāṇi"
 msgstr "Gaṁbhīra vāṇi"
+
+#: DB:editor_collection_type/name:16
+#, fuzzy
+#| msgctxt "collection_type"
+#| msgid "Series collection"
+msgctxt "collection_type"
+msgid "Genre collection"
+msgstr "Collezione di serie"
 
 #: DB:work_attribute_type_allowed_value/value:376
 msgctxt "work_attribute_type_allowed_value"

@@ -1202,8 +1202,11 @@ msgid "cornamuse"
 msgstr "cornamusa rinascimentale"
 
 #: DB:instrument/name:1190
+#, fuzzy
+#| msgctxt "French two-drone bagpipes"
+#| msgid "cornemuse du centre"
 msgctxt "French two-drone bagpipes"
-msgid "cornemuse du centre"
+msgid "cornemuse du Centre"
 msgstr "cornamusa del centro Francia"
 
 #: DB:instrument/name:25

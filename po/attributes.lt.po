@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
-" n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.5.3\n"
 
 #: DB:work_type/description:9
@@ -37,8 +37,8 @@ msgid ""
 "\"Sonata\" is a general term used to describe small scale (very often solo "
 "or solo + keyboard) instrumental works, initially in baroque music."
 msgstr ""
-"„Sonata“ – tai bendras terminas, vartojamas apibūdinti nedidelės apimties ("
-"labai dažnai solo arba solo + klavišiniai) instrumentinius kūrinius, iš "
+"„Sonata“ – tai bendras terminas, vartojamas apibūdinti nedidelės apimties "
+"(labai dažnai solo arba solo + klavišiniai) instrumentinius kūrinius, iš "
 "pradžių baroko muzikoje."
 
 #: DB:medium_format/name:205
@@ -3343,6 +3343,14 @@ msgstr ""
 msgctxt "work_attribute_type_allowed_value"
 msgid "Gaṁbhīra vāṇi"
 msgstr ""
+
+#: DB:editor_collection_type/name:16
+#, fuzzy
+#| msgctxt "collection_type"
+#| msgid "Series collection"
+msgctxt "collection_type"
+msgid "Genre collection"
+msgstr "serijų kolekcija"
 
 #: DB:work_attribute_type_allowed_value/value:376
 msgctxt "work_attribute_type_allowed_value"
