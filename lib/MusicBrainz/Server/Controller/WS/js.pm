@@ -318,6 +318,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
         $c,
         $gid,
         art_archive_model => $c->model('CoverArtArchive'),
+        art_archive_owner => 'caa@musicbrainz.org',
         bad_owner_message => l(
             'Cover art can’t be uploaded to this release ' .
             'because we don’t own the associated item at ' .
@@ -336,6 +337,7 @@ sub event_art_upload : Chained('root') PathPart('event-art-upload') Args(1)
         $c,
         $gid,
         art_archive_model => $c->model('EventArtArchive'),
+        art_archive_owner => 'eventartarchive@metabrainz.org',
         bad_owner_message => l(
             'Event art can’t be uploaded to this event ' .
             'because we don’t own the associated item at ' .
@@ -352,6 +354,7 @@ sub _art_upload {
     $self->cookie_login_or_error($c, 'not logged in');
 
     my $art_archive_model = $opts{art_archive_model};
+    my $art_archive_owner = $opts{art_archive_owner};
 
     my $mime_type = $c->request->params->{mime_type};
     unless ($art_archive_model->is_valid_mime_type($mime_type)) {
@@ -377,10 +380,11 @@ sub _art_upload {
         my $bucket_uri = URI->new(DBDefs->INTERNET_ARCHIVE_UPLOAD_PREFIXER($bucket));
         $bucket_uri->scheme('https');
 
-        if (
+        my $is_development_environment = (
             (DBDefs->DEVELOPMENT_SERVER || DBDefs->DB_STAGING_TESTING_FEATURES) &&
             $bucket_uri->authority !~ m/\.archive\.org$/
-        ) {
+        );
+        if ($is_development_environment) {
             # This allows using contrib/ssssss.psgi for testing, but
             # we have two checks to make sure we're not leaking
             # credentials over HTTP in production.
@@ -482,7 +486,15 @@ sub _art_upload {
                     );
                 }
 
-                if ($uploader ne 'caa@musicbrainz.org') {
+                if (
+                    (
+                        !$is_development_environment &&
+                        $uploader ne $art_archive_owner
+                    ) || (
+                        $is_development_environment &&
+                        $uploader ne 'ssssss@musicbrainz.org'
+                    )
+                ) {
                     send_message_to_sentry(
                         "Bad uploader for $archive art item at $ia_metadata_uri",
                         build_request_and_user_context($c),
