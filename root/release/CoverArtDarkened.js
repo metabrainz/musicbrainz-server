@@ -16,8 +16,8 @@ component CoverArtDarkened(release: ReleaseT) {
     <ReleaseLayout entity={release} page="cover-art" title={title}>
       <h2>{title}</h2>
       <p>
-        {l(`The Cover Art Archive has had a takedown request in the past
-            for this release, so we are unable to allow any more uploads.`)}
+        {l(`The Internet Archive has had a takedown request in the past
+            for this item, so we are unable to allow any more uploads.`)}
       </p>
     </ReleaseLayout>
   );

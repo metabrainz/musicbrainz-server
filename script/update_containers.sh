@@ -45,7 +45,7 @@ fi
 
 DEPLOY_ENV=$1
 IMAGE_TAG=${DEPLOY_ENV/prod/production}
-[[ DEPLOY_ENV =~ ^([a-z]+-)+prod$ ]] && IMAGE_TAG=production
+[[ $DEPLOY_ENV =~ ^([a-z]+-)+prod$ ]] && IMAGE_TAG=production
 shift
 
 SERVICES="musicbrainz-webservice musicbrainz-website"

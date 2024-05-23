@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import ArtLinks from '../components/ArtLinks.js';
 import {Artwork} from '../components/Artwork.js';
 import RequestLogin from '../components/RequestLogin.js';
 import {RELEASE_STATUS_PSEUDORELEASE} from '../constants.js';
@@ -19,34 +20,8 @@ import {commaOnlyListText}
 
 import ReleaseLayout from './ReleaseLayout.js';
 
-component CoverArtLinks(artwork: ArtworkT) {
-  return (
-    <>
-      {artwork.small_thumbnail ? (
-        <>
-          <a href={artwork.small_thumbnail}>{l('250px')}</a>
-          {' | '}
-        </>
-      ) : null}
-      {artwork.large_thumbnail ? (
-        <>
-          <a href={artwork.large_thumbnail}>{l('500px')}</a>
-          {' | '}
-        </>
-      ) : null}
-      {artwork.huge_thumbnail ? (
-        <>
-          <a href={artwork.huge_thumbnail}>{l('1200px')}</a>
-          {' | '}
-        </>
-      ) : null}
-      <a href={artwork.image}>{l('original')}</a>
-    </>
-  );
-}
-
 component CoverArt(
-  coverArt: $ReadOnlyArray<ArtworkT>,
+  coverArt: $ReadOnlyArray<ReleaseArtT>,
   release: ReleaseT,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
@@ -62,7 +37,7 @@ component CoverArt(
 
       {release.cover_art_presence === 'darkened' ? (
         <p>
-          {l(`Cover art for this release has been hidden
+          {l(`Images for this item have been hidden
               by the Internet Archive because of a takedown request.`)}
         </p>
       ) : coverArt.length ? (
@@ -95,7 +70,7 @@ component CoverArt(
               <p className="small">
                 {l('All sizes:')}
                 {' '}
-                <CoverArtLinks artwork={artwork} />
+                <ArtLinks artwork={artwork} />
               </p>
               {$c.user ? (
                 <div className="buttons">
@@ -118,7 +93,7 @@ component CoverArt(
 
           <p>
             {exp.l(
-              `These images provided by the {caa|Cover Art Archive}.
+              `These images are part of the {caa|Cover Art Archive}.
                You can also see them at the {ia|Internet Archive}.`,
               {
                 caa: '//coverartarchive.org',
@@ -170,7 +145,7 @@ component CoverArt(
         ) : (
           <p>
             <RequestLogin
-              text={lp('Log in to upload cover art', 'plural, interactive')}
+              text={lp('Log in to upload images', 'plural, interactive')}
             />
           </p>
         )

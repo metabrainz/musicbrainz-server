@@ -20,11 +20,6 @@
       value: '',
     },
     {
-      command: 'check',
-      target: "id=id-add-cover-art.edit_note",
-      value: 'seeded note',
-    },
-    {
       command: 'sendKeys',
       target: "xpath=(//input[contains(@class, 'comment')])[1]",
       value: 'front',
@@ -41,7 +36,7 @@
     },
     {
       command: 'runScript',
-      target: 'window.COVER_ART_IMAGE_ID = 135',
+      target: 'window.ARTWORK_IMAGE_ID = 135',
       value: '',
     },
     {
@@ -128,7 +123,7 @@
     },
     {
       command: 'assertArtworkJson',
-      target: 'dd245091-b21e-48a3-b59a-f9b8ed8a0469',
+      target: 'release/dd245091-b21e-48a3-b59a-f9b8ed8a0469',
       value: {
         images: [
           {
@@ -194,7 +189,7 @@
     // `approved` should be true for both images in index.json now.
     {
       command: 'assertArtworkJson',
-      target: 'dd245091-b21e-48a3-b59a-f9b8ed8a0469',
+      target: 'release/dd245091-b21e-48a3-b59a-f9b8ed8a0469',
       value: {
         images: [
           {
@@ -308,7 +303,7 @@
     },
     {
       command: 'assertArtworkJson',
-      target: 'dd245091-b21e-48a3-b59a-f9b8ed8a0469',
+      target: 'release/dd245091-b21e-48a3-b59a-f9b8ed8a0469',
       value: {
         images: [
           {
@@ -413,7 +408,7 @@
     },
     {
       command: 'assertArtworkJson',
-      target: 'dd245091-b21e-48a3-b59a-f9b8ed8a0469',
+      target: 'release/dd245091-b21e-48a3-b59a-f9b8ed8a0469',
       value: {
         images: [
           {
@@ -508,7 +503,7 @@
     },
     {
       command: 'assertArtworkJson',
-      target: 'dd245091-b21e-48a3-b59a-f9b8ed8a0469',
+      target: 'release/dd245091-b21e-48a3-b59a-f9b8ed8a0469',
       value: {
         images: [
           {

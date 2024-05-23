@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Form::CoverArt;
+package MusicBrainz::Server::Form::ReleaseCoverArt;
 use strict;
 use warnings;
 
@@ -7,17 +7,7 @@ use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 
 extends 'MusicBrainz::Server::Form';
 
-sub edit_field_names { qw( comment type_id position ) }
-
-has_field 'comment' => (
-    type => '+MusicBrainz::Server::Form::Field::Text',
-    not_nullable => 1,
-);
-
-has_field 'type_id' => (
-    type      => 'Select',
-    multiple  => 1,
-);
+with 'MusicBrainz::Server::Form::Role::Art';
 
 sub options_type_id { select_options_tree(shift->ctx, 'CoverArtType') }
 

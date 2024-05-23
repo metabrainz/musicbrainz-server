@@ -66,7 +66,7 @@ after 'load' => sub {
 
     $c->model('ReleaseGroupType')->load($rg);
     $c->model('ArtistCredit')->load($rg);
-    $c->model('Artwork')->load_for_release_groups($rg);
+    $c->model('CoverArt')->load_for_release_groups($rg);
 };
 
 sub show : Chained('load') PathPart('') {
@@ -169,7 +169,7 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
     $c->model('ArtistCredit')->load(@$releases);
 
     my @non_darkened_releases = grep { $_->may_have_cover_art } @$releases;
-    my $artwork = $c->model('Artwork')->find_front_cover_by_release(@non_darkened_releases);
+    my $artwork = $c->model('CoverArt')->find_front_cover_by_release(@non_darkened_releases);
     $c->model('CoverArtType')->load_for(@$artwork);
     my %artwork_map = map { $_->release->id => $_ } @$artwork;
 

@@ -1,10 +1,9 @@
-package MusicBrainz::Server::Entity::Artwork::ReleaseGroup;
+package MusicBrainz::Server::Entity::ReleaseGroupArt;
 
 use Moose;
 use DBDefs;
-use MusicBrainz::Server::Entity::CoverArtType;
 
-extends 'MusicBrainz::Server::Entity::Artwork';
+extends 'MusicBrainz::Server::Entity::ReleaseArt';
 
 has release_group_id => (
     is => 'rw',
@@ -15,6 +14,8 @@ has release_group => (
     is => 'rw',
     isa => 'ReleaseGroup',
 );
+
+sub _entity { shift->release_group }
 
 sub _url_prefix
 {

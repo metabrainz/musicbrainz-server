@@ -94,6 +94,23 @@ has 'areas' => (
     },
 );
 
+has 'event_art' => (
+    isa       => 'MusicBrainz::Server::Entity::EventArt',
+    is        => 'rw',
+    predicate => 'has_loaded_event_art',
+);
+
+has 'event_art_presence' => (
+    isa => 'Str',
+    is => 'rw',
+);
+
+sub may_have_event_art {
+    my $event_art_presence = shift->event_art_presence;
+
+    return !defined $event_art_presence || $event_art_presence ne 'darkened';
+}
+
 sub related_series {
     my $self = shift;
     return uniq_by { $_->id }
@@ -119,6 +136,8 @@ around TO_JSON => sub {
             entity => to_json_object($_->{entity}),
         }, $self->all_areas],
         cancelled => boolean_to_json($self->cancelled),
+        event_art_presence => $self->event_art_presence,
+        may_have_event_art => boolean_to_json($self->may_have_event_art),
         performers => [map +{
             credit => $_->{credit},
             entity => to_json_object($_->{entity}),

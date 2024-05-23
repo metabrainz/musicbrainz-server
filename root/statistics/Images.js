@@ -43,7 +43,7 @@ const nameOrNull = (name: string, defaultName: string) => {
   return name;
 };
 
-component CoverArt(
+component Images(
   dateCollected: string,
   releaseFormatStats: $ReadOnlyArray<CoverArtReleaseFormatStatT>,
   releaseStatusStats: $ReadOnlyArray<CoverArtReleaseStatusStatT>,
@@ -52,19 +52,23 @@ component CoverArt(
   typeStats: $ReadOnlyArray<CoverArtTypeStatT>,
 ) {
   const $c = React.useContext(CatalystContext);
+  const noImageStatistics = (
+    stats['count.release.has_caa'] < 1 &&
+    stats['count.event.has_eaa'] < 1
+  );
   return (
     <StatisticsLayout
       fullWidth
-      page="coverart"
-      title={lp_statistics('Cover art', 'plural')}
+      page="images"
+      title={l_statistics('Images')}
     >
       <p>
         {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
       </p>
       <h2>{l_statistics('Basics')}</h2>
-      {stats['count.release.has_caa'] < 1 ? (
+      {noImageStatistics ? (
         <p>
-          {l_statistics('No cover art statistics available.')}
+          {l_statistics('No image statistics available.')}
         </p>
       ) : (
         <table className="database-statistics">
@@ -90,6 +94,30 @@ component CoverArt(
                 {formatCount($c, stats['count.coverart'])}
                 {' '}
                 <TimelineLink statName="count.coverart" />
+              </td>
+              <td />
+            </tr>
+            <tr>
+              <th>{addColonText(l_statistics('Events with event art'))}</th>
+              <td>
+                {formatCount($c, stats['count.event.has_eaa'])}
+                {' '}
+                <TimelineLink statName="count.event.has_eaa" />
+              </td>
+              <td>
+                {formatPercentage(
+                  $c,
+                  stats['count.event.has_eaa'] / stats['count.event'],
+                  1,
+                )}
+              </td>
+            </tr>
+            <tr>
+              <th>{addColonText(l_statistics('Pieces of event art'))}</th>
+              <td>
+                {formatCount($c, stats['count.eventart'])}
+                {' '}
+                <TimelineLink statName="count.eventart" />
               </td>
               <td />
             </tr>
@@ -395,4 +423,4 @@ component CoverArt(
   );
 }
 
-export default CoverArt;
+export default Images;

@@ -15,6 +15,7 @@ import AddArtist from '../details/AddArtist.js';
 import AddCoverArt from '../details/AddCoverArt.js';
 import AddDiscId from '../details/AddDiscId.js';
 import AddEvent from '../details/AddEvent.js';
+import AddEventArt from '../details/AddEventArt.js';
 import AddGenre from '../details/AddGenre.js';
 import AddInstrument from '../details/AddInstrument.js';
 import AddIsrcs from '../details/AddIsrcs.js';
@@ -41,6 +42,7 @@ import EditArtistCredit from '../details/EditArtistCredit.js';
 import EditBarcodes from '../details/EditBarcodes.js';
 import EditCoverArt from '../details/EditCoverArt.js';
 import EditEvent from '../details/EditEvent.js';
+import EditEventArt from '../details/EditEventArt.js';
 import EditGenre from '../details/EditGenre.js';
 import EditInstrument from '../details/EditInstrument.js';
 import EditLabel from '../details/EditLabel.js';
@@ -104,6 +106,7 @@ import MoveDiscId from '../details/MoveDiscId.js';
 import RemoveCoverArt from '../details/RemoveCoverArt.js';
 import RemoveDiscId from '../details/RemoveDiscId.js';
 import RemoveEntity from '../details/RemoveEntity.js';
+import RemoveEventArt from '../details/RemoveEventArt.js';
 import RemoveIsrc from '../details/RemoveIsrc.js';
 import RemoveIswc from '../details/RemoveIswc.js';
 import RemoveMedium from '../details/RemoveMedium.js';
@@ -113,6 +116,7 @@ import RemoveRelationshipAttribute
 import RemoveRelationshipType from '../details/RemoveRelationshipType.js';
 import RemoveReleaseLabel from '../details/RemoveReleaseLabel.js';
 import ReorderCoverArt from '../details/ReorderCoverArt.js';
+import ReorderEventArt from '../details/ReorderEventArt.js';
 import ReorderMediums from '../details/ReorderMediums.js';
 import ReorderRelationships from '../details/ReorderRelationships.js';
 import SetCoverArt from '../details/SetCoverArt.js';
@@ -141,6 +145,8 @@ export default function getEditDetailsElement(
       return <AddArtist edit={edit} />;
     case EDIT_TYPES.EDIT_RELEASE_ADD_COVER_ART:
       return <AddCoverArt edit={edit} />;
+    case EDIT_TYPES.EDIT_EVENT_ADD_EVENT_ART:
+      return <AddEventArt edit={edit} />;
     case EDIT_TYPES.EDIT_MEDIUM_ADD_DISCID:
       return <AddDiscId edit={edit} />;
     case EDIT_TYPES.EDIT_EVENT_CREATE:
@@ -229,6 +235,8 @@ export default function getEditDetailsElement(
       return <EditBarcodes edit={edit} />;
     case EDIT_TYPES.EDIT_RELEASE_EDIT_COVER_ART:
       return <EditCoverArt edit={edit} />;
+    case EDIT_TYPES.EDIT_EVENT_EDIT_EVENT_ART:
+      return <EditEventArt edit={edit} />;
     case EDIT_TYPES.EDIT_EVENT_EDIT:
       return <EditEvent edit={edit} />;
     case EDIT_TYPES.EDIT_GENRE_EDIT:
@@ -290,6 +298,8 @@ export default function getEditDetailsElement(
       return <MoveDiscId edit={edit} />;
     case EDIT_TYPES.EDIT_RELEASE_REMOVE_COVER_ART:
       return <RemoveCoverArt edit={edit} />;
+    case EDIT_TYPES.EDIT_EVENT_REMOVE_EVENT_ART:
+      return <RemoveEventArt edit={edit} />;
     case EDIT_TYPES.EDIT_MEDIUM_REMOVE_DISCID:
       return <RemoveDiscId edit={edit} />;
     case EDIT_TYPES.EDIT_AREA_DELETE:
@@ -321,6 +331,8 @@ export default function getEditDetailsElement(
       return <RemoveReleaseLabel edit={edit} />;
     case EDIT_TYPES.EDIT_RELEASE_REORDER_COVER_ART:
       return <ReorderCoverArt edit={edit} />;
+    case EDIT_TYPES.EDIT_EVENT_REORDER_EVENT_ART:
+      return <ReorderEventArt edit={edit} />;
     case EDIT_TYPES.EDIT_RELEASE_REORDER_MEDIUMS:
       return <ReorderMediums edit={edit} />;
     case EDIT_TYPES.EDIT_RELATIONSHIPS_REORDER:

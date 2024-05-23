@@ -49,11 +49,7 @@ psql -U musicbrainz -f sql/CreateTriggers.sql musicbrainz_selenium
 
 # Install the artwork_indexer schema into musicbrainz_selenium.
 cd /home/musicbrainz/artwork-indexer
-psql -U musicbrainz -f sql/create.sql musicbrainz_selenium
-psql -U musicbrainz -f sql/caa_functions.sql musicbrainz_selenium
-psql -U musicbrainz -f sql/caa_triggers.sql musicbrainz_selenium
-psql -U musicbrainz -f sql/eaa_functions.sql musicbrainz_selenium
-psql -U musicbrainz -f sql/eaa_triggers.sql musicbrainz_selenium
+sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python indexer.py --setup-schema'
 
 cd /home/musicbrainz/musicbrainz-server
 

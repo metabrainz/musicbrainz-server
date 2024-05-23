@@ -8,9 +8,8 @@
  */
 
 import {Artwork} from '../components/Artwork.js';
-import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink.js';
-import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import DescriptiveLink
+  from '../static/scripts/common/components/DescriptiveLink.js';
 import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
 import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
@@ -18,7 +17,7 @@ import EnterEditNote
 import ReleaseLayout from './ReleaseLayout.js';
 
 component RemoveCoverArt(
-  artwork: ArtworkT,
+  artwork: ReleaseArtT,
   form: ConfirmFormT,
   release: ReleaseT,
 ) {
@@ -29,12 +28,8 @@ component RemoveCoverArt(
       <h2>{title}</h2>
       <p>
         {exp.l(
-          `Are you sure you wish to remove the below cover art
-           from {release} by {artist}?`,
-          {
-            artist: <ArtistCreditLink artistCredit={release.artistCredit} />,
-            release: <EntityLink entity={release} />,
-          },
+          `Are you sure you wish to remove the image below from {entity}?`,
+          {entity: <DescriptiveLink entity={release} />},
         )}
       </p>
       <p className="artwork">

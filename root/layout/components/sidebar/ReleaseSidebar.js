@@ -83,13 +83,13 @@ component ReleaseSidebar(release: ReleaseT) {
           <Artwork
             artwork={releaseArtwork}
             message={ReactDOMServer.renderToStaticMarkup(exp.l(
-              'Front cover image failed to load correctly.' +
-              '<br/>{all|View all artwork}.',
+              'Image failed to load correctly.' +
+              '<br/>{all|View all images}.',
               {all: entityHref(release, 'cover-art')},
             ))}
           />
         ) : release.cover_art_presence === 'darkened' ? (
-          l(`Cover art for this release has been hidden
+          l(`Images for this item have been hidden
              by the Internet Archive because of a takedown request.`)
         ) : (
           <p className="cover-art-note" style={{textAlign: 'left'}}>
@@ -101,7 +101,7 @@ component ReleaseSidebar(release: ReleaseT) {
                   {l('View all artwork')}
                 </a>
               </>
-            ) : l('No cover art available.')}
+            ) : l('No images available.')}
           </p>
         )}
       </div>

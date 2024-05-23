@@ -72,7 +72,7 @@ has 'release_count' => (
 );
 
 has 'cover_art' => (
-    isa       => 'MusicBrainz::Server::Entity::Artwork::ReleaseGroup',
+    isa       => 'MusicBrainz::Server::Entity::ReleaseGroupArt',
     is        => 'rw',
     predicate => 'has_loaded_cover_art',
 );
