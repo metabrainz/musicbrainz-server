@@ -226,7 +226,7 @@ sub handle_get {
     if ($request->path_info =~ m{^/metadata/}) {
         my $response = $request->new_response(200);
         $response->content_type('application/json; charset=UTF-8');
-        $response->body(q({"is_dark":false,"metadata":{"uploader":"caa@musicbrainz.org"}}));
+        $response->body(q({"is_dark":false,"metadata":{"uploader":"ssssss@musicbrainz.org"}}));
         return $response;
     }
 
