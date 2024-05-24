@@ -16,7 +16,7 @@ sub query_to_list {
 
     map {
         $builder->($self, $_)
-    } @{ $self->c->sql->select_list_of_hashes($query, @$args) };
+    } @{ $self->c->prefer_ro_sql->select_list_of_hashes($query, @$args) };
 }
 
 sub query_to_list_limited {
@@ -77,7 +77,7 @@ sub query_to_list_limited {
         my $row = $_;
         $total_row_count = delete $row->{total_row_count};
         $builder->($self, $row);
-    } @{$self->c->sql->select_list_of_hashes($query, @args)};
+    } @{$self->c->prefer_ro_sql->select_list_of_hashes($query, @args)};
 
     if (!defined $hits) {
         $hits = ($total_row_count // 0) + ($offset // 0);

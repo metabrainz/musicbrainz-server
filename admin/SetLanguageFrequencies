@@ -23,6 +23,7 @@ use constant PRESELECTED_LANGUAGES => qw(
 
 my $c = MusicBrainz::Server::Context->create_script_context;
 my $sql = $c->sql;
+my $ro_sql = $c->prefer_ro_sql;
 
 #
 # Set the frequency attribute of the language table.
@@ -40,7 +41,7 @@ foreach my $code ( PRESELECTED_LANGUAGES )
 # Calculate language frequencies
 #
 
-$sql->select(<<'EOF', MAX_TOP_LANGUAGES + scalar(PRESELECTED_LANGUAGES));
+$ro_sql->select(<<'EOF', MAX_TOP_LANGUAGES + scalar(PRESELECTED_LANGUAGES));
     SELECT              language, COUNT(*)
     FROM                release
     WHERE NOT   language IS NULL
@@ -51,14 +52,14 @@ EOF
 
 
 # put at most MAX_TOP_LANGUAGES into %languages
-while ( my ($language, $count) = $sql->next_row() )
+while ( my ($language, $count) = $ro_sql->next_row() )
 {
     last if keys(%languages) >= MAX_TOP_LANGUAGES;
 
     $languages{ $language } = 1;
 }
 
-$sql->finish();
+$ro_sql->finish();
 
 print 'New top languages: ', join(' ', keys %languages), "\n";
 

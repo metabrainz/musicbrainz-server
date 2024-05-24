@@ -48,7 +48,7 @@ sub run {
     log_info { 'Checking all unreferenced rows.' };
 
     my @unreferenced_rows = @{
-        $self->c->sql->select_list_of_lists(<<~'SQL');
+        $self->c->prefer_ro_sql->select_list_of_lists(<<~'SQL');
               SELECT table_name,
                      array_agg(row_id) AS row_ids
                 FROM unreferenced_row_log
