@@ -60,7 +60,7 @@ component ReleaseList(
       const nameColumn = defineNameColumn<ReleaseT>({
         descriptive: false, // since ACs are in the next column
         order: order,
-        showCaaPresence: true,
+        showArtworkPresence: true,
         sortable: sortable,
         title: l('Release'),
       });

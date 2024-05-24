@@ -189,6 +189,7 @@ sub direct : Private
         $c->model('SeriesOrderingType')->load(@entities);
     }
     elsif ($type eq 'event') {
+        $c->model('Event')->load_meta(@entities);
         $c->model('Event')->load_related_info(@entities);
         $c->model('Event')->load_areas(@entities);
     }

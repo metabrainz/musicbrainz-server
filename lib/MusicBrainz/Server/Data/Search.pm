@@ -960,6 +960,7 @@ sub external_search
         {
             my @entities = map { $_->entity } @results;
             $self->c->model('Event')->load_ids(@entities);
+            $self->c->model('Event')->load_meta(@entities);
             $self->c->model('Event')->load_related_info(@entities);
             $self->c->model('Event')->load_areas(@entities);
         }
