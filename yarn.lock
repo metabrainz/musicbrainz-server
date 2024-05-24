@@ -3078,10 +3078,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"balanced-match@npm:0.2.0":
-  version: 0.2.0
-  resolution: "balanced-match@npm:0.2.0"
-  checksum: 10c0/976240382e057ca52bebb9f324613a3e6af36e374be8b5932b821953217e57cb4d1471585a6eb0069a03d4eb22c308c6a3520d1061f94f017f9c48d2c050cbaa
+"balanced-match@npm:3.0.1":
+  version: 3.0.1
+  resolution: "balanced-match@npm:3.0.1"
+  checksum: 10c0/ac8dd63a5b260610c2cbda982f436e964c1b9ae8764d368a523769da40a31710abd6e19f0fdf1773c4ad7b2ea7ba7b285d547375dc723f6e754369835afc8e9f
   languageName: node
   linkType: hard
 
@@ -6647,7 +6647,7 @@ __metadata:
     babel-loader: "npm:9.1.3"
     babel-plugin-istanbul: "npm:6.1.1"
     babel-plugin-syntax-hermes-parser: "npm:0.20.1"
-    balanced-match: "npm:0.2.0"
+    balanced-match: "npm:3.0.1"
     buffer: "npm:6.0.3"
     canonical-json: "npm:0.0.4"
     chrome-remote-interface: "npm:0.33.0"
