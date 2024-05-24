@@ -42,9 +42,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-23 11:01-0500\n"
-"PO-Revision-Date: 2024-05-23 14:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-05-24 19:23+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -52,8 +52,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -621,16 +621,12 @@ msgid "Bot"
 msgstr "Бот"
 
 #: ../root/layout.tt:131 ../root/layout/components/Footer.js:52
-#, fuzzy
-#| msgid ""
-#| "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
-#| "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}."
 msgstr ""
-"Проект {MeB|Фонда MetaBrainz}, при поддержке наших {spon|спонсоров} и {supp|"
-"жертвователей}. Обложки предоставлены проектом {caa|Cover Art Archive}."
+"Проект {MeB|Фонда MetaBrainz}, при поддержке наших {spon|спонсоров} и "
+"{supp|жертвователей}."
 
 #: ../root/layout.tt:122 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
@@ -2816,7 +2812,7 @@ msgstr ""
 msgid ""
 "This is a PDF file, the thumbnail may not show the entire contents of the "
 "file."
-msgstr ""
+msgstr "Это PDF-файл, обложка может не показывать всё содержимое файла."
 
 #: ../root/release/edit/tracklist.tt:386
 msgid ""
@@ -4340,7 +4336,7 @@ msgstr "Добавить аннотацию к зоне"
 #: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:26
 msgctxt "edit type"
 msgid "Add area"
-msgstr "Добавить зону"
+msgstr "Добавление области"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Delete.pm:10
 msgctxt "edit type"
@@ -4724,79 +4720,67 @@ msgstr "Удаление псевдонима инструмента"
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:29
 msgctxt "edit type"
 msgid "Edit instrument"
-msgstr "Править инструмент"
+msgstr "Правка инструмента"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/EditAlias.pm:12
 msgctxt "edit type"
 msgid "Edit instrument alias"
-msgstr "Править псевдоним инструмента"
+msgstr "Правка псевдонима инструмента"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Merge.pm:11
 msgctxt "edit type"
 msgid "Merge instruments"
-msgstr "Объединить инструменты"
+msgstr "Объединение инструментов"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAlias.pm:11
 msgctxt "edit type"
 msgid "Add label alias"
-msgstr "Добавить псевдоним лейбла"
+msgstr "Добавление псевдонима лейбла"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add label annotation"
 msgctxt "edit type"
 msgid "Add label annotation"
-msgstr "Добавить пояснение к лейблу"
+msgstr "Добавление аннотации к лейблу"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:33
-#, fuzzy
-#| msgid "Add label"
 msgctxt "edit type"
 msgid "Add label"
-msgstr "Добавить лейбл"
+msgstr "Добавление лейбла"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Delete.pm:12
-#, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove label"
-msgstr "Удалить лейбл"
+msgstr "Удаление лейбла"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:45
-#, fuzzy
-#| msgid "Edit label"
 msgctxt "edit type"
 msgid "Edit label"
-msgstr "Изменить лейбл"
+msgstr "Правка лейбла"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit label alias"
 msgctxt "edit type"
 msgid "Edit label alias"
-msgstr "Править лэйбл псевдоним"
+msgstr "Изменение псевдонима лейбла"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Merge.pm:12
-#, fuzzy
-#| msgid "Merge labels"
 msgctxt "edit type"
 msgid "Merge labels"
-msgstr "Объединить лейблы"
+msgstr "Объединение лейблов"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:34
 msgctxt "edit type"
 msgid "Add medium"
-msgstr "Добавить носитель"
+msgstr "Добавление носителя"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Delete.pm:23
 msgctxt "edit type"
 msgid "Remove medium"
-msgstr "Удалить носитель"
+msgstr "Удаление носителя"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:54
 msgctxt "edit type"
 msgid "Edit medium"
-msgstr "Редактировать носитель"
+msgstr "Правка носителя"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:169
 msgid ""
@@ -4805,124 +4789,89 @@ msgid ""
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Add place alias"
-msgstr "Добавить метку псевдонима"
+msgstr "Добавление псевдонима места"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add label annotation"
 msgctxt "edit type"
 msgid "Add place annotation"
-msgstr "Добавить пояснение к лейблу"
+msgstr "Добавление аннотации к месту"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:29
-#, fuzzy
-#| msgid "Add Place"
 msgctxt "edit type"
 msgid "Add place"
-msgstr "Добавить место"
+msgstr "Добавление места"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Delete.pm:10
-#, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove place"
-msgstr "Удалить лейбл"
+msgstr "Удаление места"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/DeleteAlias.pm:15
-#, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove place alias"
-msgstr "Удалить псевдоним лейбла"
+msgstr "Удаление псевдонима места"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:46
-#, fuzzy
-#| msgid "Edit label"
 msgctxt "edit type"
 msgid "Edit place"
-msgstr "Изменить лейбл"
+msgstr "Правка места"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit label alias"
 msgctxt "edit type"
 msgid "Edit place alias"
-msgstr "Править лэйбл псевдоним"
+msgstr "Правка псевдонима места"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Merge.pm:11
-#, fuzzy
-#| msgid "Merge labels"
 msgctxt "edit type"
 msgid "Merge places"
-msgstr "Объединить лейблы"
+msgstr "Объединение мест"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add recording"
 msgctxt "edit type"
 msgid "Add recording alias"
-msgstr "Добавить запись"
+msgstr "Добавление псевдонима записи"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add artist annotation"
 msgctxt "edit type"
 msgid "Add recording annotation"
-msgstr "Добавить аннотацию исполнителя"
+msgstr "Добавление аннотации к записи"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddISRCs.pm:23
-#, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "edit type"
 msgid "Add ISRCs"
-msgstr "Добавить ISRCs"
+msgstr "Добавление кода(-ов) ISRC"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:29
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add Standalone Recording"
 msgctxt "edit type"
 msgid "Add standalone recording"
-msgstr "Добавить отдельную запись"
+msgstr "Добавление отдельной записи"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Delete.pm:12
-#, fuzzy
-#| msgid "Remove recording"
 msgctxt "edit type"
 msgid "Remove recording"
-msgstr "Удалить запись"
+msgstr "Удаление записи"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/DeleteAlias.pm:15
-#, fuzzy
-#| msgid "Remove recording"
 msgctxt "edit type"
 msgid "Remove recording alias"
-msgstr "Удалить запись"
+msgstr "Удаление псевдонима записи"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit recording"
 msgctxt "edit type"
 msgid "Edit recording alias"
-msgstr "Править запись"
+msgstr "Правка псевдонима записи"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Merge.pm:15
-#, fuzzy
-#| msgid "Merge recordings"
 msgctxt "edit type"
 msgid "Merge recordings"
-msgstr "Объединить записи"
+msgstr "Объединение записей"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/RemoveISRC.pm:21
-#, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "edit type"
 msgid "Remove ISRC"
-msgstr "Удалить ISRC"
+msgstr "Удаление кода ISRC"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship.pm:16
 #: ../root/edit/details/AddRelationship.js:18
@@ -4932,21 +4881,17 @@ msgstr "Удалить ISRC"
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:124
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:949
 msgid "Relationship"
-msgstr "Связь"
+msgstr "Отношение"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkAttribute.pm:16
-#, fuzzy
-#| msgid "Add relationship attribute"
 msgctxt "edit type"
 msgid "Add relationship attribute"
-msgstr "Добавить связь атрибутов"
+msgstr "Добавление атрибута отношения"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkType.pm:15
-#, fuzzy
-#| msgid "Add relationship type"
 msgctxt "edit type"
 msgid "Add relationship type"
-msgstr "Добавить тип связи"
+msgstr "Добавление типа отношения"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:295
 msgid ""
@@ -4954,6 +4899,9 @@ msgid ""
 "relationship type in the documentation. If you still think this should be "
 "removed, please {contact_url|contact us}."
 msgstr ""
+"Данная правка удалит отношение, установленное в качестве примера в "
+"документации. Если вы думаете, что его все-таки стоит удалить, пожалуйста, "
+"{contact_url|напишите нам}."
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:423
 #, perl-brace-format
@@ -4961,69 +4909,53 @@ msgid ""
 "The “{relationship_type}” relationship between “{entity0}” and “{entity1}” "
 "already exists."
 msgstr ""
+"Отношение типа \"{relationship_type}\" между сущностями \"{entity0}\" и \""
+"{entity1}\" уже существует."
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkAttribute.pm:17
-#, fuzzy
-#| msgid "Edit relationship attribute"
 msgctxt "edit type"
 msgid "Edit relationship attribute"
-msgstr "Редактировать связь атрибутов"
+msgstr "Правка атрибута отношения"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkType.pm:23
-#, fuzzy
-#| msgid "Edit relationship type"
 msgctxt "edit type"
 msgid "Edit relationship type"
-msgstr "Редактировать связь типа"
+msgstr "Правка типа отношения"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkAttribute.pm:13
-#, fuzzy
-#| msgid "Remove relationship attribute"
 msgctxt "edit type"
 msgid "Remove relationship attribute"
-msgstr "Удалить связь атрибутов"
+msgstr "Удаление атрибута отношения"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:14
-#, fuzzy
-#| msgid "Remove relationship type"
 msgctxt "edit type"
 msgid "Remove relationship type"
-msgstr "Удалить тип связи"
+msgstr "Удаление типа отношения"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
-#, fuzzy
-#| msgid "Remove"
 msgctxt "relationship attribute type"
 msgid "[removed]"
-msgstr "Удалить"
+msgstr "[удален]"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Reorder.pm:27
-#, fuzzy
-#| msgid "Remove relationship"
 msgctxt "edit type"
 msgid "Reorder relationships"
-msgstr "Удалить связь"
+msgstr "Изменение порядка отношений"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add release label"
 msgctxt "edit type"
 msgid "Add release alias"
-msgstr "Добавить лейбл релиза"
+msgstr "Добавление псевдонима релиза"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:15
-#, fuzzy
-#| msgid "Add cover art"
 msgctxt "singular, edit type"
 msgid "Add cover art"
-msgstr "Добавить обложку"
+msgstr "Добавление обложки"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:19
-#, fuzzy
-#| msgid "Add release label"
 msgctxt "edit type"
 msgid "Add release label"
-msgstr "Добавить лейбл релиза"
+msgstr "Добавление лейбла релиза"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:115
 msgctxt "release group"
@@ -5031,46 +4963,34 @@ msgid "[removed]"
 msgstr "[удалена]"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteAlias.pm:15
-#, fuzzy
-#| msgid "Remove release label"
 msgctxt "edit type"
 msgid "Remove release alias"
-msgstr "Удалить лейбл релиза"
+msgstr "Удаление псевдонима релиза"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:21
-#, fuzzy
-#| msgid "Remove release label"
 msgctxt "edit type"
 msgid "Remove release label"
-msgstr "Удалить лейбл релиза"
+msgstr "Удаление лейбла релиза"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit release label"
 msgctxt "edit type"
 msgid "Edit release alias"
-msgstr "Править лейбл релиза"
+msgstr "Правка псевдонима релиза"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditBarcodes.pm:20
-#, fuzzy
-#| msgid "Edit barcodes"
 msgctxt "edit type"
 msgid "Edit barcodes"
-msgstr "Редактировать штрих-коды"
+msgstr "Правка штрих-кодов"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:14
-#, fuzzy
-#| msgid "Edit cover art"
 msgctxt "singular, edit type"
 msgid "Edit cover art"
-msgstr "Редактировать обложку"
+msgstr "Правка обложки"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:27
-#, fuzzy
-#| msgid "Edit release label"
 msgctxt "edit type"
 msgid "Edit release label"
-msgstr "Править лейбл релиза"
+msgstr "Правка лейбла релиза"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:98
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:184
@@ -5082,26 +5002,22 @@ msgstr "(неизвестен)"
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:337
 #, perl-brace-format
 msgid "These releases could not be merged: {reason}"
-msgstr ""
+msgstr "Эти релизы нельзя объединить. Причина: {reason}"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:15
-#, fuzzy
-#| msgid "Remove cover art"
 msgctxt "singular, edit type"
 msgid "Remove cover art"
-msgstr "Удалить обложку"
+msgstr "Удаление обложки"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:14
-#, fuzzy
-#| msgid "Remove cover art"
 msgctxt "plural, edit type"
 msgid "Reorder cover art"
-msgstr "Удалить обложку"
+msgstr "Изменение порядка обложек"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderMediums.pm:20
 msgctxt "edit type"
 msgid "Reorder mediums"
-msgstr "Изменить порядок носителей"
+msgstr "Изменение порядка носителей"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAlias.pm:11
 msgctxt "edit type"
@@ -5185,9 +5101,17 @@ msgid_plural ""
 "The ISNI {isni} is already in use on {artist_count} artists. Please check "
 "{artist_search|all uses of this ISNI}."
 msgstr[0] ""
+"Код ISNI {isni} уже используется в {artist_count} исполнителе. Пожалуйста, "
+"проверьте {artist_search|все случаи использования данного ISNI}."
 msgstr[1] ""
+"Код ISNI {isni} уже используется в {artist_count} исполнителях. Пожалуйста, "
+"проверьте {artist_search|все случаи использования данного ISNI}."
 msgstr[2] ""
+"Код ISNI {isni} уже используется в {artist_count} исполнителях. Пожалуйста, "
+"проверьте {artist_search|все случаи использования данного ISNI}."
 msgstr[3] ""
+"Код ISNI {isni} уже используется в {artist_count} исполнителях. Пожалуйста, "
+"проверьте {artist_search|все случаи использования данного ISNI}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:46
 #, perl-brace-format
@@ -5198,96 +5122,82 @@ msgid_plural ""
 "The ISNI {isni} is already in use on {label_count} labels. Please check "
 "{label_search|all uses of this ISNI}."
 msgstr[0] ""
+"Код ISNI {isni} уже используется в {label_count} лейбле. Пожалуйста, "
+"проверьте {label_search|все случаи использования данного ISNI}."
 msgstr[1] ""
+"Код ISNI {isni} уже используется в {label_count} лейблах. Пожалуйста, "
+"проверьте {label_search|все случаи использования данного ISNI}."
 msgstr[2] ""
+"Код ISNI {isni} уже используется в {label_count} лейблах. Пожалуйста, "
+"проверьте {label_search|все случаи использования данного ISNI}."
 msgstr[3] ""
+"Код ISNI {isni} уже используется в {label_count} лейблах. Пожалуйста, "
+"проверьте {label_search|все случаи использования данного ISNI}."
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add series alias"
-msgstr "Добавить альтернативное имя"
+msgstr "Добавление псевдонима серии"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add artist annotation"
 msgctxt "edit type"
 msgid "Add series annotation"
-msgstr "Добавить аннотацию исполнителя"
+msgstr "Добавление аннотации к серии"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:27
-#, fuzzy
-#| msgid "Add series"
 msgctxt "edit type"
 msgid "Add series"
-msgstr "Добавить серии"
+msgstr "Добавление серии"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Delete.pm:12
-#, fuzzy
-#| msgid "Remove genre"
 msgctxt "edit type"
 msgid "Remove series"
-msgstr "Remove genre"
+msgstr "Удаление серии"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/DeleteAlias.pm:16
-#, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove series alias"
-msgstr "Удалить псевдоним исполнителя"
+msgstr "Удаление псевдонима серии"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:33
-#, fuzzy
-#| msgid "Edit User"
 msgctxt "edit type"
 msgid "Edit series"
-msgstr "Править пользователя"
+msgstr "Правка серии"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/EditAlias.pm:12
-#, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit series alias"
-msgstr "Изменить псевдоним артиста"
+msgstr "Правка псевдонима серии"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Merge.pm:11
-#, fuzzy
-#| msgid "Merge Process"
 msgctxt "edit type"
 msgid "Merge series"
-msgstr "Слияние"
+msgstr "Объединение серий"
 
 #: ../lib/MusicBrainz/Server/Edit/URL/Edit.pm:26
-#, fuzzy
-#| msgid "Edit URL"
 msgctxt "edit type"
 msgid "Edit URL"
-msgstr "Править URL"
+msgstr "Правка URL"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/utility/edit.js:47
-#, fuzzy
-#| msgid "Open"
 msgctxt "adjective, edit status"
 msgid "Open"
-msgstr "Открытые"
+msgstr "Открыта"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/utility/edit.js:40
-#, fuzzy
-#| msgid "Applied"
 msgctxt "edit status"
 msgid "Applied"
-msgstr "Одобрено"
+msgstr "Принята"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:273 ../root/utility/edit.js:45
 msgctxt "edit status"
 msgid "Failed vote"
-msgstr ""
+msgstr "Неудавшееся голосование"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:274 ../root/utility/edit.js:43
 msgctxt "edit status"
 msgid "Failed dependency"
-msgstr ""
+msgstr "Неудавшаяся зависимость"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:275 ../root/utility/edit.js:42
 #, fuzzy
@@ -5315,84 +5225,62 @@ msgstr "Отменена"
 
 #: ../lib/MusicBrainz/Server/Edit/WikiDoc.pm:7
 msgid "Wiki documentation"
-msgstr "Вики документация"
+msgstr "Вики-документация"
 
 #: ../lib/MusicBrainz/Server/Edit/WikiDoc/Change.pm:16
-#, fuzzy
-#| msgid "Change WikiDoc"
 msgctxt "edit type"
 msgid "Change WikiDoc"
-msgstr "Изменить ВикиДок"
+msgstr "Правка WikiDoc"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add work alias"
 msgctxt "edit type"
 msgid "Add work alias"
-msgstr "Добавить рабочий псевдоним"
+msgstr "Добавление псевдонима к работе"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add annotation"
 msgctxt "edit type"
 msgid "Add work annotation"
-msgstr "Добавить аннотацию"
+msgstr "Добавление аннотации к работе"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:21
-#, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "edit type"
 msgid "Add ISWCs"
-msgstr "Добавить ISRCs"
+msgstr "Добавление кодов ISWC"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:21
-#, fuzzy
-#| msgid "Add work"
 msgctxt "edit type"
 msgid "Add work"
-msgstr "Добавить работу"
+msgstr "Добавление работы"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Delete.pm:11
-#, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove work"
-msgstr "Удалить дорожку"
+msgstr "Удаление работы"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/DeleteAlias.pm:16
-#, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove work alias"
-msgstr "Удалить псевдоним исполнителя"
+msgstr "Удаление псевдонима работы"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:93
-#, fuzzy
-#| msgid "Edit work"
 msgctxt "edit type"
 msgid "Edit work"
-msgstr "Править работу"
+msgstr "Правка работы"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/EditAlias.pm:13
-#, fuzzy
-#| msgid "Edit work alias"
 msgctxt "edit type"
 msgid "Edit work alias"
-msgstr "Править рабочий псевдоним"
+msgstr "Правка псевдонима работы"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Merge.pm:12
-#, fuzzy
-#| msgid "Merge works"
 msgctxt "edit type"
 msgid "Merge works"
-msgstr "Объединить работы"
+msgstr "Объединение работ"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/RemoveISWC.pm:23
-#, fuzzy
-#| msgid "Remove ISWC"
 msgctxt "edit type"
 msgid "Remove ISWC"
-msgstr "Удалить ISWC"
+msgstr "Удаление ISWC"
 
 #: ../lib/MusicBrainz/Server/EditSearch/Predicate.pm:67
 msgid "This operator is not supported"
@@ -5482,27 +5370,27 @@ msgstr "{attribute}: {value}"
 
 #: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:50
 msgid " &#x2013; ????"
-msgstr " &#x2013; ????"
+msgstr " по ????"
 
 #: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:56
 #, perl-brace-format
 msgid "{begindate} &#x2013; {enddate}"
-msgstr "{begindate} &#x2013; {enddate}"
+msgstr "с {begindate} по {enddate}"
 
 #: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:60
 #, perl-brace-format
 msgid "&#x2013; {enddate}"
-msgstr "&#x2013; {enddate}"
+msgstr "по {enddate}"
 
 #: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:64
 #, perl-brace-format
 msgid "{begindate} &#x2013; ????"
-msgstr "{begindate} &#x2013; ????"
+msgstr "с {begindate} по ????"
 
 #: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:66
 #, perl-brace-format
 msgid "{begindate} &#x2013;"
-msgstr "{begindate} &#x2013;"
+msgstr "с {begindate} по"
 
 #: ../lib/MusicBrainz/Server/Entity/Role/Relatable.pm:59
 #: ../root/static/scripts/common/utility/groupRelationships.js:460
@@ -5641,7 +5529,7 @@ msgstr "У хоров не может быть пола."
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:92
 msgid "The collection type must match the type of entities it contains."
-msgstr ""
+msgstr "Тип коллекции должен совпадать с типом сущностей, которые она содержит."
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:114
 #, perl-brace-format
@@ -5670,6 +5558,8 @@ msgid ""
 "You must provide an edit note. If you want to blank the note, please remove "
 "it instead."
 msgstr ""
+"Введите комментарий к правке. Если вы хотите сделать его пустым, пожалуйста, "
+"удалите комментарий."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:51
 #, perl-brace-format
@@ -5682,6 +5572,9 @@ msgid ""
 "Artist \"{artist}\" is unlinked, please select an existing artist. You may "
 "need to add a new artist to MusicBrainz first."
 msgstr ""
+"Исполнитель \"{artist}\" сейчас не связан; пожалуйста, выберите "
+"существующего исполнителя. Возможно, вам потребуется сначала добавить нового "
+"исполнителя в MusicBrainz."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:64
 msgid "Please add an artist name for each credit."
@@ -5694,7 +5587,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:42
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:60
 msgid "The end date cannot precede the begin date."
-msgstr ""
+msgstr "Дата конца не может быть раньше даты начала."
 
 #: ../lib/MusicBrainz/Server/Form/Field/DiscID.pm:15
 msgid "This is not a valid disc ID"
@@ -5724,31 +5617,29 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISO_3166_1.pm:15
 msgid "This is not a valid ISO 3166-1 code"
-msgstr "Это не действительный код по ISO 3166-1"
+msgstr "Это недействительный код по ISO 3166-1"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISO_3166_2.pm:15
 msgid "This is not a valid ISO 3166-2 code"
-msgstr "Это не действительный код по ISO 3166-2"
+msgstr "Это недействительный код по ISO 3166-2"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISO_3166_3.pm:15
 msgid "This is not a valid ISO 3166-3 code"
-msgstr "Это не действительный код по ISO 3166-3"
+msgstr "Это недействительный код по ISO 3166-3"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISRC.pm:17
 #: ../lib/MusicBrainz/Server/Form/Field/ISRC.pm:21
 msgid "This is not a valid ISRC."
-msgstr "Это не является допустимым ISRC."
+msgstr "Это недействительный ISRC."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISWC.pm:15
 #: ../lib/MusicBrainz/Server/Form/Field/ISWC.pm:19
 msgid "This is not a valid ISWC"
-msgstr "Это не является допустимым ISWC"
+msgstr "Это недействительный ISWC"
 
 #: ../lib/MusicBrainz/Server/Form/Field/LabelCode.pm:17
-#, fuzzy
-#| msgid "Label codes must be greater than 0 and 5 digits at most"
 msgid "Label codes must be greater than 0 and 6 digits at most"
-msgstr "Коды лейбла должны содержать от одной до пяти цифр"
+msgstr "Коды лейбла должны содержать от одной до шести цифр"
 
 #: ../lib/MusicBrainz/Server/Form/Field/Length.pm:31
 msgid "Not a valid time. Must be in the format MM:SS"
@@ -5768,10 +5659,12 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Field/Setlist.pm:15
 msgid "Please ensure all lines start with @, * or #, followed by a space."
 msgstr ""
+"Пожалуйста, убедитесь, что все строки начинаются с символов @, * или #, и "
+"пробелом после них."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Text.pm:21
 msgid "The characters you’ve entered are invalid or not allowed."
-msgstr ""
+msgstr "Введенные символы не действительны или не разрешены."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Time.pm:19
 msgid "This is not a valid time."
@@ -5781,7 +5674,7 @@ msgstr "Некорректное время."
 #: ../root/static/scripts/edit/externalLinks.js:753
 #, perl-brace-format
 msgid "Please enter a valid URL, such as “{example_url}”."
-msgstr ""
+msgstr "Пожалуйста, введите допустимый URL, например, \"{example_url}\"."
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:33
 msgid "URL protocol must be HTTP, HTTPS or FTP"
@@ -5826,6 +5719,8 @@ msgid ""
 "Must be a valid date or partial date. Examples: 2006-05-25, "
 "1990-01, ????-01, ..."
 msgstr ""
+"Введите корректную полную или частичную дату. Примеры: 2006-05-25, 1990-01, "
+"????-01, ..."
 
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:54
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:63
@@ -5875,6 +5770,8 @@ msgid ""
 "This recording’s duration is determined by the tracks that are linked to it, "
 "and cannot be changed directly."
 msgstr ""
+"Длительность записи определяется связанными с ней треками, и не может быть "
+"изменена напрямую."
 
 #: ../lib/MusicBrainz/Server/Form/Recording/Standalone.pm:11
 msgid "You must provide an edit note when adding a standalone recording"
@@ -5910,7 +5807,7 @@ msgstr "Начальный"
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
 #: ../root/static/scripts/common/constants.js:375
 msgid "Intermediate"
-msgstr "Intermediate (средний)"
+msgstr "Средний"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
 #: ../root/static/scripts/common/constants.js:373
@@ -6193,7 +6090,7 @@ msgstr "Новый пароль:"
 #: ../root/account/ChangePassword.js:89 ../root/account/ResetPassword.js:44
 #: ../root/static/scripts/account/components/RegisterForm.js:85
 msgid "Confirm password:"
-msgstr "Подтвердить пароль:"
+msgstr "Подтвердите пароль:"
 
 #: ../root/account/ChangePassword.js:95
 msgctxt "interactive"
@@ -7234,7 +7131,7 @@ msgstr "Место распада"
 #: ../root/artist/utils.js:57
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:65
 msgid "Died:"
-msgstr "Умер:"
+msgstr "Дата смерти:"
 
 #: ../root/artist/utils.js:62
 msgctxt "group artist"
@@ -14918,6 +14815,8 @@ msgid ""
 "Please link to a specific video. Add channel pages to the relevant artist, "
 "label, etc. instead."
 msgstr ""
+"Пожалуйста, добавьте ссылку на конкретное видео. Ссылки на каналы стоит "
+"добавлять связанным исполнителям, лейблам, и т.д."
 
 #: ../root/static/scripts/edit/URLCleanup.js:402
 msgid ""
@@ -15135,12 +15034,16 @@ msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr ""
+"Пожалуйста, добавьте ссылку на конкретный релиз (плейлист). Ссылки на треки "
+"(видео) стоит добавлять к связанным записям."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6888
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
 msgstr ""
+"Пожалуйста, добавьте ссылку на конкретный релиз (плейлист). Ссылки на каналы "
+"стоит добавлять к связанным исполнителям."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6898
 msgid ""
@@ -15502,7 +15405,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:809
 msgid "Please select a link type for the URL you’ve entered."
-msgstr ""
+msgstr "Пожалуйста, выберите тип ссылки для введенного URL."
 
 #: ../root/static/scripts/edit/externalLinks.js:829
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:998
@@ -15594,7 +15497,7 @@ msgstr "Удалить ссылку"
 
 #: ../root/static/scripts/edit/externalLinks.js:1525
 msgid "Add link"
-msgstr ""
+msgstr "Добавить ссылку"
 
 #: ../root/static/scripts/edit/externalLinks.js:1528
 msgid "Add another link"
@@ -16553,7 +16456,7 @@ msgstr "Отправить копию на мой адрес электронн�
 #: ../root/user/Login.js:45 ../root/user/Login.js:46
 msgctxt "header"
 msgid "Log in"
-msgstr "Войти"
+msgstr "Вход в аккаунт"
 
 #: ../root/user/Login.js:50
 msgid "You need to be logged in to view this page."
