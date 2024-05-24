@@ -3547,10 +3547,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:0.4.1":
-  version: 0.4.1
-  resolution: "cookie@npm:0.4.1"
-  checksum: 10c0/4d7bc798df3d0f34035977949cd6b7d05bbab47d7dcb868667f460b578a550cd20dec923832b8a3a107ef35aba091a3975e14f79efacf6e39282dc0fed6db4a1
+"cookie@npm:0.6.0":
+  version: 0.6.0
+  resolution: "cookie@npm:0.6.0"
+  checksum: 10c0/f2318b31af7a31b4ddb4a678d024514df5e705f9be5909a192d7f116cfb6d45cbacf96a473fa733faa95050e7cff26e7832bb3ef94751592f1387b71c8956686
   languageName: node
   linkType: hard
 
@@ -6651,7 +6651,7 @@ __metadata:
     buffer: "npm:6.0.3"
     canonical-json: "npm:0.0.4"
     chrome-remote-interface: "npm:0.33.0"
-    cookie: "npm:0.4.1"
+    cookie: "npm:0.6.0"
     core-js: "npm:3.6.5"
     deep-freeze-strict: "npm:1.1.1"
     detect-node: "npm:2.0.3"
