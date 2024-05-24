@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-23 02:42+0000\n"
+"PO-Revision-Date: 2024-05-24 16:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -1287,7 +1287,7 @@ msgstr "Indica la pagina di Wikipedia su quest'artista."
 
 #: DB:link_type/description:789
 msgid "Points to the Wikipedia page for this event."
-msgstr "Indica la pagina di Wikipedia su questo evento."
+msgstr "Indica la pagina di Wikipedia su quest'evento."
 
 #: DB:link_type/description:731
 msgid "Points to the Wikipedia page for this instrument."
@@ -2682,7 +2682,7 @@ msgstr "Indica che il video è stato girato in questo luogo."
 
 #: DB:link_type/description:966
 msgid "This indicates the video was shot at/during this event."
-msgstr "Indica che il video è stato girato a o durante questo evento."
+msgstr "Indica che il video è stato girato a o durante quest'evento."
 
 #: DB:link_type/description:964
 msgid "This indicates the video was shot in this area."
