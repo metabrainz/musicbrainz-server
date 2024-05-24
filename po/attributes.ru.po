@@ -27,7 +27,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-19 14:42+0000\n"
+"PO-Revision-Date: 2024-05-24 19:23+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -5985,7 +5985,7 @@ msgstr ""
 #: DB:gender/name:5
 msgctxt "gender"
 msgid "Non-binary"
-msgstr ""
+msgstr "Небинарный человек"
 
 #: DB:release_group_secondary_type/description:3
 msgctxt "release_group_secondary_type"
@@ -6000,7 +6000,7 @@ msgstr "Нет"
 #: DB:gender/name:4
 msgctxt "gender"
 msgid "Not applicable"
-msgstr ""
+msgstr "Не применимо"
 
 #: DB:work_attribute_type_allowed_value/value:491
 msgctxt "work_attribute_type_allowed_value"
@@ -6123,37 +6123,37 @@ msgstr "Оригинальная продукция"
 #: DB:artist_type/name:3
 msgctxt "artist_type"
 msgid "Other"
-msgstr "Другие"
+msgstr "Другое"
 
 #: DB:cover_art_archive.art_type/name:8
 msgctxt "cover_art_type"
 msgid "Other"
-msgstr "Другие"
+msgstr "Другой"
 
 #: DB:gender/name:3
 msgctxt "gender"
 msgid "Other"
-msgstr "Другие"
+msgstr "Другой"
 
 #: DB:medium_format/name:13
 msgctxt "medium_format"
 msgid "Other"
-msgstr "Другие"
+msgstr "Другой"
 
 #: DB:place_type/name:3
 msgctxt "place_type"
 msgid "Other"
-msgstr "Другие"
+msgstr "Другое"
 
 #: DB:release_group_primary_type/name:11
 msgctxt "release_group_primary_type"
 msgid "Other"
-msgstr "Другие"
+msgstr "Другой"
 
 #: DB:release_packaging/name:5
 msgctxt "release_packaging"
 msgid "Other"
-msgstr "Другие"
+msgstr "Другая"
 
 #: DB:instrument_type/name:5
 msgctxt "instrument_type"
@@ -6274,7 +6274,7 @@ msgstr ""
 #: DB:artist_type/name:1
 msgctxt "artist_type"
 msgid "Person"
-msgstr "Парсона"
+msgstr "Человек"
 
 #: DB:work_attribute_type_allowed_value/value:497
 msgctxt "work_attribute_type_allowed_value"

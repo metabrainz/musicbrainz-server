@@ -1,11 +1,12 @@
 #
 # Translators:
 # goliv <goliv04053@tutanota.com>, 2023.
+# Felipe Silva <musicbrainz@felipeqq2.rocks>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-11-30 18:27+0000\n"
-"Last-Translator: goliv <goliv04053@tutanota.com>\n"
+"PO-Revision-Date: 2024-05-24 01:42+0000\n"
+"Last-Translator: Felipe Silva <musicbrainz@felipeqq2.rocks>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/pt/>\n"
 "Language: pt\n"
@@ -14,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.2.1\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -684,7 +685,7 @@ msgstr ""
 #. frequency:2 iso_code_3:eng 
 #: DB:language/name:120
 msgid "English"
-msgstr ""
+msgstr "Inglês"
 
 #. frequency:1 iso_code_3:enm 
 #: DB:language/name:121
@@ -764,7 +765,7 @@ msgstr ""
 #. frequency:2 iso_code_3:fra 
 #: DB:language/name:134
 msgid "French"
-msgstr ""
+msgstr "Francês"
 
 #. frequency:0 iso_code_3:frm 
 #: DB:language/name:135
@@ -1709,7 +1710,7 @@ msgstr ""
 #. frequency:1 iso_code_3:nau 
 #: DB:language/name:294
 msgid "Nauru"
-msgstr ""
+msgstr "Nauru"
 
 #. frequency:1 iso_code_3:nav 
 #: DB:language/name:295
@@ -2446,7 +2447,7 @@ msgstr ""
 #. frequency:1 iso_code_3:tkl 
 #: DB:language/name:420
 msgid "Tokelau"
-msgstr ""
+msgstr "Toquelau"
 
 #. frequency:1 iso_code_3:tok 
 #: DB:language/name:7845
@@ -2506,7 +2507,7 @@ msgstr ""
 #. frequency:1 iso_code_3:tvl 
 #: DB:language/name:435
 msgid "Tuvalu"
-msgstr ""
+msgstr "Tuvalu"
 
 #. frequency:1 iso_code_3:tyv 
 #: DB:language/name:437

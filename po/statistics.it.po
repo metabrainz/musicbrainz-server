@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-04-27 18:42+0000\n"
+"PO-Revision-Date: 2024-05-24 16:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -23,9 +23,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.4.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1436,7 +1436,7 @@ msgstr "Soffermati e clicca sulle righe verticali"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Images.js:63
 msgid "Images"
-msgstr ""
+msgstr "Immagini"
 
 #: ../root/statistics/layout.tt:4
 msgid "Languages/Scripts"
@@ -1636,10 +1636,8 @@ msgid "Basics"
 msgstr "Generali"
 
 #: ../root/statistics/Images.js:71
-#, fuzzy
-#| msgid "No edit statistics available."
 msgid "No image statistics available."
-msgstr "Non è disponibile nessuna statistica sulle modifiche."
+msgstr "Non è disponibile nessuna statistica sulle immagini."
 
 #: ../root/statistics/Images.js:77 ../root/statistics/Images.js:142
 #: ../root/statistics/Images.js:179 ../root/statistics/Images.js:217
@@ -1652,16 +1650,12 @@ msgid "Pieces of cover art:"
 msgstr "Immagini di copertina:"
 
 #: ../root/statistics/Images.js:101
-#, fuzzy
-#| msgid "Events with no type set"
 msgid "Events with event art"
-msgstr "Eventi senza un tipo impostato"
+msgstr "Eventi con manifesti"
 
 #: ../root/statistics/Images.js:116 ../root/statistics/stats.js:285
-#, fuzzy
-#| msgid "Pieces of cover art"
 msgid "Pieces of event art"
-msgstr "Immagini di copertina"
+msgstr "Immagini di manifesti"
 
 #: ../root/statistics/Images.js:132 ../root/statistics/Images.js:312
 msgid "No cover art statistics available."
@@ -2610,16 +2604,12 @@ msgid "Events with no country set"
 msgstr "Eventi senza un Paese impostato"
 
 #: ../root/statistics/stats.js:446
-#, fuzzy
-#| msgid "Events with no country set"
 msgid "Events with EAA event art"
-msgstr "Eventi senza un Paese impostato"
+msgstr "Eventi con manifesti dall'EAA"
 
 #: ../root/statistics/stats.js:451
-#, fuzzy
-#| msgid "Events with no type set"
 msgid "Events with an EAA poster"
-msgstr "Eventi senza un tipo impostato"
+msgstr "Eventi con un poster dall'EAA"
 
 #: ../root/statistics/stats.js:456
 msgid "Events with no type set"
