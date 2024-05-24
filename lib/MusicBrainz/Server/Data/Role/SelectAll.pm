@@ -9,7 +9,7 @@ parameter 'order_by' => (
 
 role
 {
-    requires '_columns', '_table', '_dbh', '_new_from_row', '_type';
+    requires '_columns', '_table', '_new_from_row', '_type';
 
     my $params = shift;
 

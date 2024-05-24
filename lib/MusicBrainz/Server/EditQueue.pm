@@ -55,10 +55,11 @@ sub process_edits
     }
 
     my $sql = $self->c->sql;
+    my $ro_sql = $self->c->prefer_ro_sql;
 
     $self->log->debug("Selecting eligible edit IDs\n");
     my $interval = DateTime::Format::Pg->format_interval($MINIMUM_RESPONSE_PERIOD);
-    my $edit_ids = $sql->select_single_column_array('
+    my $edit_ids = $ro_sql->select_single_column_array('
         SELECT id
           FROM edit
                LEFT JOIN (

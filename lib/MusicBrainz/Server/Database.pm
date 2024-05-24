@@ -26,6 +26,12 @@ has 'port' => (
     is  => 'rw',
 );
 
+has 'read_only' => (
+    isa => 'Bool',
+    is  => 'rw',
+    default => 0,
+);
+
 sub shell_args
 {
     my $self = shift;

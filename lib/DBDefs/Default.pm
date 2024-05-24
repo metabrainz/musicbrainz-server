@@ -450,6 +450,32 @@ sub DISCOURSE_SSO_SECRET { '' }
 # of security on the MusicBrainz production site.
 sub NONCE_SECRET { '' }
 
+# `USE_RO_DATABASE_CONNECTOR` signals to MusicBrainz Server that it may open
+# an additional database connector per request that it can send read-only
+# queries to. In production this may be used to distribute read-only queries
+# to a PostgreSQL standby instance. (We avoid using this connector on the
+# website if a logged-in user exists, so as not to subject them to potential
+# replication lag while editing.)
+#
+# `USE_RO_DATABASE_CONNECTOR` is not enabled by default, because it's only
+# useful if a separate standby exists. It's also wasteful to potentially open
+# another connector per request if it's otherwise identical to the default
+# connection handle.
+#
+# If enabled, the connector will point to the `READONLY` database.
+#
+# This setting is ignored if `DB_READ_ONLY` is enabled, or if the
+# `REPLICATION_TYPE` is `RT_MIRROR`, because the default connection handle
+# already points to the `READONLY` database in those cases. If it's needed to
+# distribute read-only queries for a mirror database to a standby, haproxy
+# can be used.
+#
+# We don't define which queries the server will send to the RO connector; any
+# transactions that don't perform writes may be redirected, but it depends on
+# which parts of the server code have been updated to actually use the
+# connector.
+sub USE_RO_DATABASE_CONNECTOR { 0 }
+
 # When enabled, if Catalyst receives a request with an `mb-set-database`
 # header, all database queries will go to the specified database instead of
 # READWRITE, as defined in the DatabaseConnectionFactory->register_databases

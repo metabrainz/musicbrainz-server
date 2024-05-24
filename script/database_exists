@@ -14,10 +14,10 @@ if ($ARGV[0])
 {
     my $dbname = uc($ARGV[0]);
 
-    my $db = Databases->get($dbname);
     die "There is no configuration in DBDefs for database $dbname"
-        unless defined $db;
+        unless Databases->exists($dbname);
 
+    my $db = Databases->get($dbname);
     my $dbh = Databases->get_connection($dbname);
     $dbh->sql->quiet(1);
 

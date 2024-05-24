@@ -51,7 +51,7 @@ my $c = MusicBrainz::Server::Context->create_script_context;
 
 # Find mediums with at least one track to fix
 log_info { 'Finding candidate mediums' } if $verbose;
-my @medium_ids = @{ $c->sql->select_single_column_array(
+my @medium_ids = @{ $c->prefer_ro_sql->select_single_column_array(
     'SELECT DISTINCT m.id
        FROM medium m
        JOIN medium_cdtoc mcd ON mcd.medium = m.id
