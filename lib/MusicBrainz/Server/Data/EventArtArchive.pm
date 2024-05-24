@@ -8,6 +8,8 @@ with 'MusicBrainz::Server::Data::Role::ArtArchive';
 sub art_archive_name { 'event' }
 sub art_archive_entity { 'event' }
 sub art_archive_type_booleans { qw( is_front ) }
+sub art_archive_s3_access_key { DBDefs->EVENT_ART_ARCHIVE_ACCESS_KEY }
+sub art_archive_s3_secret_key { DBDefs->EVENT_ART_ARCHIVE_SECRET_KEY }
 sub art_model_name { 'EventArt' }
 sub download_prefix { DBDefs->EVENT_ART_ARCHIVE_DOWNLOAD_PREFIX }
 

@@ -8,6 +8,8 @@ with 'MusicBrainz::Server::Data::Role::ArtArchive';
 sub art_archive_name { 'cover' }
 sub art_archive_entity { 'release' }
 sub art_archive_type_booleans { qw( is_front is_back ) }
+sub art_archive_s3_access_key { DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY }
+sub art_archive_s3_secret_key { DBDefs->COVER_ART_ARCHIVE_SECRET_KEY }
 sub art_model_name { 'CoverArt' }
 sub download_prefix { DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX }
 

@@ -16,6 +16,8 @@ requires 'art_archive_entity';
 # Attributes in the index_listing view that indicate artwork type
 # (e.g. is_front, is_back).
 requires 'art_archive_type_booleans';
+requires 'art_archive_s3_access_key';
+requires 'art_archive_s3_secret_key';
 requires 'art_model_name';
 requires 'download_prefix';
 
@@ -141,8 +143,8 @@ sub post_fields {
     my $suffix = $self->image_type_suffix($mime_type);
 
     # We have one access key for both the coverartarchive and eventartarchive.
-    my $access_key = $opts->{access_key} // DBDefs->INTERNET_ARCHIVE_ACCESS_KEY;
-    my $secret_key = $opts->{secret_key} // DBDefs->INTERNET_ARCHIVE_SECRET_KEY;
+    my $access_key = $opts->{access_key} // $self->art_archive_s3_access_key;
+    my $secret_key = $opts->{secret_key} // $self->art_archive_s3_secret_key;
     my $filename = "mbid-$mbid-$id.$suffix";
 
     my $archive = $self->art_archive_name;

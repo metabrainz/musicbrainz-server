@@ -395,8 +395,8 @@ sub _art_upload {
         $s3_request->header(
             'authorization' => sprintf(
                 'LOW %s:%s',
-                DBDefs->INTERNET_ARCHIVE_ACCESS_KEY,
-                DBDefs->INTERNET_ARCHIVE_SECRET_KEY,
+                $art_archive_model->art_archive_s3_access_key,
+                $art_archive_model->art_archive_s3_secret_key,
             ),
         );
         $s3_request->header('x-archive-meta-collection' => "${archive}artarchive");

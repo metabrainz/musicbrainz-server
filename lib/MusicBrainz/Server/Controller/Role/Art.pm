@@ -219,7 +219,7 @@ role {
             mime_types => [ map {
                 $_->{mime_type}
             } @{ $art_archive_model->mime_types } ],
-            access_key => DBDefs->INTERNET_ARCHIVE_ACCESS_KEY // '',
+            access_key => $art_archive_model->art_archive_s3_access_key // '',
             "${archive}_art_types_json" => $c->json->encode(
                 [ map {
                     { name => $_->name, l_name => $_->l_name, id => $_->id }
