@@ -32,7 +32,7 @@ function buildResult(result: SearchResultT<ReleaseGroupT>, index: number) {
       key={releaseGroup.id}
     >
       <td>
-        <EntityLink entity={releaseGroup} showCaaPresence />
+        <EntityLink entity={releaseGroup} showArtworkPresence />
       </td>
       <td>
         <ArtistCreditLink artistCredit={releaseGroup.artistCredit} />

@@ -35,7 +35,12 @@ import {compare} from '../../../static/scripts/common/i18n.js';
 import linkedEntities
   from '../../../static/scripts/common/linkedEntities.mjs';
 
-const LICENSE_CLASSES = {
+const LICENSE_CLASSES: {
+  +[license: string]: {
+    +icon: string,
+    +pattern: RegExp,
+  },
+} = {
   ArtLibre: {
     icon: artLibreIconUrl,
     pattern: /artlibre\.org\/licence\/lal/,

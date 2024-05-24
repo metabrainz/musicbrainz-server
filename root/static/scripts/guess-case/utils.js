@@ -15,7 +15,7 @@ import gc from './MB/GuessCase/Main.js';
 import output from './MB/GuessCase/Output.js';
 import * as flags from './flags.js';
 import * as modes from './modes.js';
-import type {GuessCaseModeT} from './types.js';
+import type {GuessCaseModeNameT, GuessCaseModeT} from './types.js';
 
 /*
  * Words which are turned to lowercase if in brackets, but
@@ -362,4 +362,15 @@ export function titleStringByMode(
   }
 
   return outputString;
+}
+
+export function isGuessCaseModeName(
+  modeName: string,
+): modeName is GuessCaseModeNameT {
+  return (
+    modeName === 'English' ||
+    modeName === 'French' ||
+    modeName === 'Sentence' ||
+    modeName === 'Turkish'
+  );
 }

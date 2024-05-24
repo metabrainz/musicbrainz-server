@@ -659,7 +659,14 @@ span.ac-mp {
     margin-left: -5px;
 }
 
-span.caa-icon {
+/*
+ * .caa-icon was kept for userscript compatibility.
+ * .eaa-icon was added in case it's useful for scripts to distinguish
+ * between them.
+ */
+span.artwork-icon,
+span.caa-icon,
+span.eaa-icon {
     background-image: data-uri('../images/icons/picture.png');
     background-repeat: no-repeat;
     display: inline-block;

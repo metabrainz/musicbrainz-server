@@ -415,7 +415,7 @@ export function defineNameColumn<T: NonUrlRelatableEntityT | CollectionT>(
   props: {
     ...OrderableProps,
     +descriptive?: boolean,
-    +showCaaPresence?: boolean,
+    +showArtworkPresence?: boolean,
     +title: string,
   },
 ): ColumnOptions<T, string> {
@@ -429,8 +429,8 @@ export function defineNameColumn<T: NonUrlRelatableEntityT | CollectionT>(
         : (
           <EntityLink
             entity={original}
+            showArtworkPresence={props.showArtworkPresence}
             // Event lists show date in its own column
-            showCaaPresence={props.showCaaPresence}
             showEventDate={false}
           />
         )

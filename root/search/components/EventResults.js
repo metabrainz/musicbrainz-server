@@ -33,7 +33,12 @@ function buildResult(result: SearchResultT<EventT>, index: number) {
   return (
     <tr className={loopParity(index)} data-score={score} key={event.id}>
       <td>
-        <EntityLink entity={event} showDisambiguation showEventDate={false} />
+        <EntityLink
+          entity={event}
+          showArtworkPresence
+          showDisambiguation
+          showEventDate={false}
+        />
       </td>
       <td>{formatDatePeriod(event)}</td>
       <td>{event.time}</td>

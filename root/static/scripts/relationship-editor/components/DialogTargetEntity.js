@@ -97,7 +97,7 @@ export function getTargetError(
       seriesTypeId != null,
       'Existing series must have a type set',
     );
-    const seriesType = linkedEntities.series_type[String(seriesTypeId)];
+    const seriesType = linkedEntities.series_type[seriesTypeId];
     const seriesItemType = seriesType.item_entity_type;
     if (
       linkType &&

@@ -135,6 +135,21 @@ declare type EntityWithArtistCreditsT =
   | ReleaseT
   | TrackT;
 
+declare type EntityWithArtistCreditsTypeT =
+  | 'recording'
+  | 'release_group'
+  | 'release'
+  | 'track';
+
+declare type EntityWithAutoCleanupTypeT =
+  | 'artist'
+  | 'event'
+  | 'label'
+  | 'place'
+  | 'release_group'
+  | 'series'
+  | 'work';
+
 declare type DatePeriodRoleT = {
   +begin_date: PartialDateT | null,
   +end_date: PartialDateT | null,

@@ -70,7 +70,7 @@ function getLinkTypeError(
   ) {
     const seriesType = source.typeID == null
       ? null
-      : linkedEntities.series_type['' + source.typeID];
+      : linkedEntities.series_type[source.typeID];
     if (seriesType) {
       const itemEntityTypeOfLinkType = linkType.type0 === 'series'
         ? linkType.type1

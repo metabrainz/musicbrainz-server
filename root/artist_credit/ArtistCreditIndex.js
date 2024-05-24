@@ -25,7 +25,7 @@ import ArtistCreditLayout from './ArtistCreditLayout.js';
 function buildSection(
   $c: CatalystContextT,
   props: React.PropsOf<ArtistCreditIndex>,
-  entityType: string,
+  entityType: EntityWithArtistCreditsTypeT,
   title: string,
   seeAllMessage: $Call<typeof N_ln, string, string>,
   listId: string,

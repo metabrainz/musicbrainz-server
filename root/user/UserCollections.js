@@ -29,7 +29,8 @@ type CollectionWithSubscribedT = $ReadOnly<{
 }>;
 
 type CollectionListT = {
-  +[entityType: string]: $ReadOnlyArray<CollectionWithSubscribedT>,
+  +[entityType: CollectableEntityTypeT]:
+    $ReadOnlyArray<CollectionWithSubscribedT>,
 };
 
 const collectionsListTitles = {
@@ -79,7 +80,7 @@ component CollectionsEntityTypeSection(
   activeUserId: number | void,
   collections: $ReadOnlyArray<CollectionWithSubscribedT>,
   isCollaborative: boolean,
-  type: string,
+  type: CollectableEntityTypeT,
   user: AccountLayoutUserT,
 ) {
   const columns = React.useMemo(

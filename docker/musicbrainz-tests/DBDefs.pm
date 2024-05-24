@@ -115,7 +115,7 @@ sub DATASTORE_REDIS_ARGS {
     };
 }
 
-sub DB_SCHEMA_SEQUENCE { 28 }
+sub DB_SCHEMA_SEQUENCE { 29 }
 
 sub DB_STAGING_TESTING_FEATURES { 1 }
 
@@ -133,7 +133,7 @@ sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
 sub MB_LANGUAGES { qw( de el es es-419 et fi fr he it ja nl sq en ) }
 
-sub ACTIVE_SCHEMA_SEQUENCE { 28 }
+sub ACTIVE_SCHEMA_SEQUENCE { 29 }
 
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;

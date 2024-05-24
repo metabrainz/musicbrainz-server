@@ -27,7 +27,7 @@ function faviconClass(urlEntity: UrlT) {
     }
   }
 
-  return (matchingClass || 'no') + '-favicon';
+  return (matchingClass ?? 'no') + '-favicon';
 }
 
 component ExternalLink(

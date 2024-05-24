@@ -15,7 +15,9 @@ import expand2text from '../../static/scripts/common/i18n/expand2text.js';
 import formatUserDate from '../../utility/formatUserDate.js';
 import FilterLink from '../FilterLink.js';
 
-const countTextPicker = {
+const countTextPicker: {
+  +[entityType: string]: () => string,
+} = {
   artist: N_l('Total artists found: {count}'),
   artist_credit: N_l('Total artist credits found: {count}'),
   discId: N_l('Total discIDs found: {count}'),

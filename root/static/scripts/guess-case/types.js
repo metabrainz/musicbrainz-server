@@ -22,3 +22,9 @@ export type GuessCaseModeT = {
   +toLowerCase: (string) => string,
   +toUpperCase: (string) => string,
 };
+
+export type GuessCaseModeNameT =
+  | 'English'
+  | 'French'
+  | 'Sentence'
+  | 'Turkish';

@@ -56,6 +56,7 @@ component EventList(
       const nameColumn = defineNameColumn<EventT>({
         descriptive: false, // since dates have their own column
         order: order,
+        showArtworkPresence: true,
         sortable: sortable,
         title: l('Event'),
       });
