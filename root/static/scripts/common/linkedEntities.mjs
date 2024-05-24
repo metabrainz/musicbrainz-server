@@ -134,7 +134,7 @@ export type LinkedEntitiesT = {
     [seriesOrderingTypeId: number]: SeriesOrderingTypeT,
   },
   series_type: {
-    [seriesTypeId: string]: SeriesTypeT,
+    [seriesTypeId: number]: SeriesTypeT,
   },
   url: {
     [urlId: number]: UrlT,
@@ -149,7 +149,7 @@ export type LinkedEntitiesT = {
     [workAttributeTypeId: number]: WorkAttributeTypeT,
   },
   work_type: {
-    [workTypeId: string]: WorkTypeT,
+    [workTypeId: number]: WorkTypeT,
   },
 };
 

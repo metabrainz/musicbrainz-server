@@ -21,7 +21,7 @@ component AddOrEditAlias(
   form: AliasEditFormT,
   formType: string,
   locales: SelectOptionsT,
-  type: string,
+  type: EntityWithAliasesTypeT,
 ) {
   const LayoutComponent = chooseLayoutComponent(type);
   const header = formType === 'add'

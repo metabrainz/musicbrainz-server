@@ -39,7 +39,7 @@ type PropsT = InitialStateArgsT;
 function getSeriesType(typeId: number | null): SeriesTypeT | null {
   return typeId == null
     ? null
-    : linkedEntities.series_type[String(typeId)];
+    : linkedEntities.series_type[typeId];
 }
 
 component _SeriesRelationshipEditor(...props: PropsT) {

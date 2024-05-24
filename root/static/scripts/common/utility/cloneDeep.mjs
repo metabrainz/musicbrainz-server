@@ -50,7 +50,7 @@ export function cloneArrayDeep<T>(
 // $FlowIgnore[method-unbinding]
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
-function _cloneObjectDeep<T: {...}>(
+function _cloneObjectDeep<T: {+[key: string]: any}>(
   object: T,
   seen: WeakMap<any, any>,
 ): T {
