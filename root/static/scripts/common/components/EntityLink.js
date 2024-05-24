@@ -339,7 +339,7 @@ component EntityLink(
           <React.Fragment key="eaa">
             <a href={'/event/' + entity.gid + '/event-art'}>
               <span
-                className="artwork-icon"
+                className="artwork-icon eaa-icon"
                 title={l('This event has artwork in the Event Art Archive')}
               />
             </a>
@@ -364,7 +364,7 @@ component EntityLink(
           <React.Fragment key="caa">
             <a href={'/release/' + entity.gid + '/cover-art'}>
               <span
-                className="artwork-icon"
+                className="artwork-icon caa-icon"
                 title={l('This release has artwork in the Cover Art Archive')}
               />
             </a>
@@ -388,7 +388,7 @@ component EntityLink(
         content = (
           <React.Fragment key="caa">
             <span
-              className="artwork-icon"
+              className="artwork-icon caa-icon"
               title={l(
                 'This release group has artwork in the Cover Art Archive',
               )}
