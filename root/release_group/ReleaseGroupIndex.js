@@ -64,7 +64,7 @@ function buildReleaseStatusTable(
               </td>
             ) : null}
           <td>
-            <EntityLink entity={release} showCaaPresence />
+            <EntityLink entity={release} showArtworkPresence />
           </td>
           {/* The class being added is for usage with userscripts */}
           <td className={
