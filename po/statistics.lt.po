@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-03 14:42+0000\n"
+"PO-Revision-Date: 2024-05-24 19:24+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/lt/>\n"
@@ -15,9 +15,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.5.2\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1222,10 +1222,8 @@ msgid "Edits"
 msgstr "Redagavimai"
 
 #: ../root/statistics/timeline.tt:28
-#, fuzzy
-#| msgid "Exact Values (items vs. day)"
 msgid "Exact values (items vs. day)"
-msgstr "Tikslios vertės (elementai ir diena)"
+msgstr "Tikslios reikšmės (elementai prieš dieną)"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/stats.js:27
 msgid "Formats"
@@ -1237,11 +1235,11 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Images.js:63
 msgid "Images"
-msgstr ""
+msgstr "Vaizdai"
 
 #: ../root/statistics/layout.tt:4
 msgid "Languages/Scripts"
-msgstr ""
+msgstr "Kalbos / raštai"
 
 #: ../root/statistics/timeline.tt:2
 msgid "Legend"
@@ -1444,13 +1442,13 @@ msgstr ""
 
 #: ../root/statistics/Images.js:71
 msgid "No image statistics available."
-msgstr ""
+msgstr "Vaizdų statistikos nėra."
 
 #: ../root/statistics/Images.js:77 ../root/statistics/Images.js:142
 #: ../root/statistics/Images.js:179 ../root/statistics/Images.js:217
 #: ../root/statistics/Images.js:356
 msgid "Releases with cover art:"
-msgstr ""
+msgstr "Leidiniai su viršelio apipavidalinimais:"
 
 #: ../root/statistics/Images.js:92 ../root/statistics/Images.js:321
 msgid "Pieces of cover art:"
@@ -1458,11 +1456,11 @@ msgstr ""
 
 #: ../root/statistics/Images.js:101
 msgid "Events with event art"
-msgstr ""
+msgstr "Renginiai su renginio apipavidalinimais"
 
 #: ../root/statistics/Images.js:116 ../root/statistics/stats.js:285
 msgid "Pieces of event art"
-msgstr ""
+msgstr "Renginio apipavidalinimo dalys"
 
 #: ../root/statistics/Images.js:132 ../root/statistics/Images.js:312
 msgid "No cover art statistics available."
@@ -2447,11 +2445,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:446
 msgid "Events with EAA event art"
-msgstr ""
+msgstr "Renginiai su EAA renginio apipavidalinimais"
 
 #: ../root/statistics/stats.js:451
 msgid "Events with an EAA poster"
-msgstr ""
+msgstr "Renginiai su EAA plakatu"
 
 #: ../root/statistics/stats.js:456
 msgid "Events with no type set"

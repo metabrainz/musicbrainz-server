@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-23 11:01-0500\n"
-"PO-Revision-Date: 2024-05-19 19:42+0000\n"
+"PO-Revision-Date: 2024-05-24 16:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -24,8 +24,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -116,10 +116,8 @@ msgid "(add a new recording)"
 msgstr "(pridėti naują įrašą)"
 
 #: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
-#, fuzzy
-#| msgid "(no other cover art)"
 msgid "(no other images)"
-msgstr "(nėra kito viršelio)"
+msgstr "(nėra kitų vaizdų)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
@@ -233,12 +231,9 @@ msgid "Add event"
 msgstr "Pridėti renginį"
 
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add event"
 msgctxt "plural, header"
 msgid "Add event art"
-msgstr "Pridėti renginį"
+msgstr "Pridėti renginių apipavidalinimus"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 msgctxt "header"
@@ -588,16 +583,12 @@ msgid "Bot"
 msgstr "Botas"
 
 #: ../root/layout.tt:131 ../root/layout/components/Footer.js:52
-#, fuzzy
-#| msgid ""
-#| "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
-#| "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}."
 msgstr ""
-"Pristato {MeB|MetaBrainz fondas} ir mūsų {spon|rėmėjai} bei {supp|"
-"palaikytojai}. Viršelio apipavidalinimą pateikė {caa|Cover Art Archive}."
+"Pristato {MeB|MetaBrainz fondas} ir mūsų {spon|rėmėjai} bei "
+"{supp|palaikytojai}."
 
 #: ../root/layout.tt:122 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
@@ -932,12 +923,9 @@ msgid "Edit cover art"
 msgstr "Redaguoti viršelio apipavidalinimą"
 
 #: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:4
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit event"
 msgctxt "singular, header"
 msgid "Edit event art"
-msgstr "Redaguoti renginį"
+msgstr "Redaguoti renginio apipavidalinimą"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18
@@ -2002,15 +1990,12 @@ msgstr ""
 "Žiūrėk {doc|Cover Art Types} dokumentaciją, kad sužinotum šių tipų aprašymą."
 
 #: ../root/event/add_event_art.tt:66 ../root/event/EventArtFields.js:23
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Please see the {doc|Event Art Types} documentation for a description of "
 "these types."
 msgstr ""
-"Žiūrėk {doc|Cover Art Types} dokumentaciją, kad sužinotum šių tipų aprašymą."
+"Žiūrėk {doc|renginių apipavidalinimų tipų} dokumentaciją, kad sužinotum šių "
+"tipų aprašymą."
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
@@ -2290,16 +2275,13 @@ msgid "Reorder cover art"
 msgstr "Perskirstyti viršelių apipavidalinimus"
 
 #: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
-#, fuzzy
-#| msgctxt "plural, header"
-#| msgid "Reorder cover art"
 msgctxt "plural, header"
 msgid "Reorder event art"
-msgstr "Perskirstyti viršelių apipavidalinimus"
+msgstr "Pertvarkyti renginių apipavidalinimus"
 
 #: ../root/event/add_event_art.tt:83 ../root/release/add_cover_art.tt:83
 msgid "Request signature..."
-msgstr "Prašyti parašo…"
+msgstr "Prašoma parašo…"
 
 #: ../root/release/edit/tracklist.tt:525
 msgid "Reset track numbers"
@@ -2566,20 +2548,16 @@ msgid "Tagger"
 msgstr "Žymeklis"
 
 #: ../root/event/add_event_art.tt:12 ../root/release/add_cover_art.tt:12
-#, fuzzy
-#| msgid ""
-#| "The Cover Art Archive is currently experiencing difficulties. Adding "
-#| "images for this release is unlikely to work at the moment."
 msgid ""
 "The Internet Archive is currently experiencing difficulties. Adding images "
 "is unlikely to work at the moment."
 msgstr ""
-"Cover Art Archive dabar susiduria su sunkumais. Pridėti šio leidinio vaizdus "
-"šiuo metu greičiausiai nepavyks."
+"Internet Archive šiuo metu susiduria su sunkumais. Pridėti vaizdus šiuo metu "
+"greičiausiai nepavyks."
 
 #: ../root/release/edit/information.tt:348
 msgid "The annotation field functions like a miniature wiki."
-msgstr "Anotacijų laukas veikia kaip miniatiūrinė viki."
+msgstr "Anotacijo laukas veikia kaip miniatiūrinė viki."
 
 #: ../root/release/edit/information.tt:297
 msgid "The catalog number you have entered looks like an Amazon ASIN."
@@ -4339,47 +4317,35 @@ msgstr ""
 "{contact_url}, kad galėtume išspręsti šią problemą."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:340
-#, fuzzy, perl-brace-format
-#| msgid ""
-#| "Cover art can’t be uploaded to this release because we don’t own the "
-#| "associated item at the Internet Archive. Please contact us at "
-#| "{contact_url} so we can resolve this."
+#, perl-brace-format
 msgid ""
 "Event art can’t be uploaded to this event because we don’t own the "
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
 msgstr ""
-"Viršelio apipavidalinimą negalima įkelti į šį leidinį, nes mes neturime "
-"susijusio elemento Interneto archyve. Susisiek su mumis adresu "
-"{contact_url}, kad galėtume išspręsti šią problemą."
+"Renginio apipavidalinimą negalima įkelti į šį renginį, nes mes neturime "
+"susijusio elemento Internet Archive. Susisiek su mumis adresu {contact_url}, "
+"kad galėtume išspręsti šią problemą."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:461
 #: ../root/event/EventArtDarkened.js:25 ../root/release/CoverArtDarkened.js:19
-#, fuzzy
-#| msgid ""
-#| "The Cover Art Archive has had a takedown request in the past for this "
-#| "release, so we are unable to allow any more uploads."
 msgid ""
 "The Internet Archive has had a takedown request in the past for this item, "
 "so we are unable to allow any more uploads."
 msgstr ""
-"Anksčiau Cover Art Archive buvo gautas prašymas panaikinti šiam leidiniui "
-"kopiją, todėl negalime leisti įkelti daugiau."
+"Anksčiau Internet Archive buvo gavęs panaikinimo prašymą šiai elementui, "
+"todėl negalime leisti įkelti daugiau."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:498
-#, fuzzy, perl-brace-format
-#| msgid ""
-#| "Cover art can’t be uploaded to this release because we don’t own the "
-#| "associated item at the Internet Archive. Please contact us at "
-#| "{contact_url} so we can resolve this."
+#, perl-brace-format
 msgid ""
 "Images can’t be uploaded here because we don’t own the associated item at "
 "the Internet Archive. Please contact us at {contact_url} so we can resolve "
 "this."
 msgstr ""
-"Viršelio apipavidalinimą negalima įkelti į šį leidinį, nes mes neturime "
-"susijusio elemento Interneto archyve. Susisiek su mumis adresu "
-"{contact_url}, kad galėtume išspręsti šią problemą."
+"Vaizdus negalima įkelti čia, nes mums nepriklauso susijęs elementas, esantis "
+"Internet Archive. Susisiek su mumis adresu {contact_url}, kad galėtume "
+"išspręsti šią problemą."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:708
 msgid ""
@@ -4560,12 +4526,9 @@ msgid "Add event annotation"
 msgstr "Pridėti renginio anotaciją"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add event"
 msgctxt "singular, edit type"
 msgid "Add event art"
-msgstr "Pridėti renginį"
+msgstr "Pridėti renginio apipavidalinimą"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 msgctxt "edit type"
@@ -4595,12 +4558,9 @@ msgid "Edit event alias"
 msgstr "Redaguoti renginio alternatyvųjį pavadinimą"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditEventArt.pm:15
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit event"
 msgctxt "singular, edit type"
 msgid "Edit event art"
-msgstr "Redaguoti renginį"
+msgstr "Redaguoti renginio apipavidalinimą"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Merge.pm:11
 msgctxt "edit type"
@@ -4608,41 +4568,29 @@ msgid "Merge events"
 msgstr "Sujungti renginius"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/RemoveEventArt.pm:15
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove event"
 msgctxt "singular, edit type"
 msgid "Remove event art"
-msgstr "Pašalinti renginį"
+msgstr "Pašalinti renginio apipavidalinimą"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/ReorderEventArt.pm:15
-#, fuzzy
-#| msgctxt "plural, edit type"
-#| msgid "Reorder cover art"
 msgctxt "plural, edit type"
 msgid "Reorder event art"
-msgstr "Perskirstyti viršelio apipavidalinimus"
+msgstr "Pertvarkyti renginio apipavidalinimus"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAlias.pm:11
-#, fuzzy
-#| msgid "Add area alias"
 msgctxt "edit type"
 msgid "Add genre alias"
-msgstr "Pridėti teritorijos slapyvardį"
+msgstr "Pridėti žanro pseudonimą"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAnnotation.pm:11
-#, fuzzy
-#| msgid "Add area annotation"
 msgctxt "edit type"
 msgid "Add genre annotation"
-msgstr "Pridėti teritorijos anotaciją"
+msgstr "Pridėti žanro anotaciją"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:24
-#, fuzzy
-#| msgid "Add Series"
 msgctxt "edit type"
 msgid "Add genre"
-msgstr "Pridėti seriją"
+msgstr "Pridėti žanrą"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Delete.pm:10
 msgctxt "edit type"
@@ -7935,19 +7883,14 @@ msgid "Cover art ({num})"
 msgstr "Viršelio apipavidalinimai ({num})"
 
 #: ../root/components/EntityTabs.js:129
-#, fuzzy
-#| msgid "Event"
 msgctxt "plural"
 msgid "Event art"
-msgstr "Renginys"
+msgstr "Renginio apipavidalinimai"
 
 #: ../root/components/EntityTabs.js:131
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Cover art ({num})"
 msgctxt "plural"
 msgid "Event art ({num})"
-msgstr "Viršelio apipavidalinimai ({num})"
+msgstr "Renginio apipavidalinimai ({num})"
 
 #: ../root/components/EntityTabs.js:147
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:31
@@ -8565,11 +8508,9 @@ msgid ""
 msgstr ""
 
 #: ../root/edit/components/EditArtwork.js:23
-#, fuzzy
-#| msgid "Event"
 msgctxt "singular"
 msgid "Event art"
-msgstr "Renginys"
+msgstr "Renginio apipavidalinimas"
 
 #: ../root/edit/components/EditArtwork.js:32
 #: ../root/edit/details/ReorderArt.js:32
@@ -8577,13 +8518,13 @@ msgid ""
 "We are unable to display history for this image. See {artpage|all current "
 "images}."
 msgstr ""
+"Negalime rodyti šio vaizdo istorijos. Žiūrėk {artpage|visus dabartinius "
+"vaizdus}."
 
 #: ../root/edit/components/EditArtwork.js:36
 #: ../root/edit/details/ReorderArt.js:36
-#, fuzzy
-#| msgid "We are unable to display this cover art."
 msgid "We are unable to display history for this image."
-msgstr "Šio viršelio paveikslėlio rodyti negalime."
+msgstr "Negalime rodyti šio vaizdo istorijos."
 
 #: ../root/edit/components/EditHeader.js:46
 #: ../root/edit/components/EditNoteListEntry.js:21
@@ -9107,6 +9048,7 @@ msgstr "Dainos žodžių kalbos"
 #: ../root/edit/details/BetaOnlyEdit.js:29
 msgid "This edit can currently only be viewed on the {beta|beta server}."
 msgstr ""
+"Šį redagavimą šiuo metu galima peržiūrėti tik {beta|beta versijos serveryje}."
 
 #: ../root/edit/details/ChangeReleaseQuality.js:26
 #: ../root/edit/details/historic/ChangeArtistQuality.js:26
@@ -10212,19 +10154,14 @@ msgid "Please review the {doc|alias documentation} before entering this edit."
 msgstr ""
 
 #: ../root/event/EventArt.js:33
-#, fuzzy
-#| msgid "Event"
 msgctxt "plural, header"
 msgid "Event art"
-msgstr "Renginys"
+msgstr "Renginio apipavidalinimus"
 
 #: ../root/event/EventArt.js:39
-#, fuzzy
-#| msgctxt "plural, header"
-#| msgid "Cannot show cover art"
 msgctxt "plural, header"
 msgid "Cannot show event art"
-msgstr "Negalima rodyti viršelio apipavidalinimus."
+msgstr "Negalima rodyti renginio apipavidalinimus"
 
 #: ../root/event/EventArt.js:45
 #: ../root/layout/components/sidebar/EventSidebar.js:58
@@ -10234,70 +10171,52 @@ msgid ""
 "Images for this item have been hidden by the Internet Archive because of a "
 "takedown request."
 msgstr ""
+"Internet Archive paslėpė šio elemento vaizdus, nes buvo gautas panaikinimo "
+"prašymas."
 
 #: ../root/event/EventArt.js:76 ../root/release/CoverArt.js:71
 msgid "All sizes:"
 msgstr "Visi dydžiai:"
 
 #: ../root/event/EventArt.js:101
-#, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {eaa|Event Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr ""
-"Šiuos vaizdus pateikė {caa|Cover Art Archive}. Juos taip pat galima pamatyti "
-"{ia|Interneto archyve}."
+"Šie vaizdai yra {caa|Event Art Archive} dalis. Juos taip pat galima pamatyti "
+"{ia|Internet Archive}."
 
 #: ../root/event/EventArt.js:113
-#, fuzzy
-#| msgid "We do not currently have any cover art for {release}."
 msgid "We do not currently have any event art for {event}."
-msgstr "Šiuo metu neturime jokio viršelio apipavidalinimo, skirto {release}."
+msgstr "Šiuo metu neturime jokio renginio apipavidalinimo, skirto {event}."
 
 #: ../root/event/EventArt.js:123
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add event"
 msgctxt "plural, interactive"
 msgid "Add event art"
-msgstr "Pridėti renginį"
+msgstr "Pridėti renginio apipavidalinimus"
 
 #: ../root/event/EventArt.js:129
-#, fuzzy
-#| msgctxt "plural, interactive"
-#| msgid "Reorder cover art"
 msgctxt "plural, interactive"
 msgid "Reorder event art"
-msgstr "Pertvarkyti viršelio apipavidalinimus"
+msgstr "Pertvarkyti renginio apipavidalinimus"
 
 #: ../root/event/EventArt.js:138 ../root/release/CoverArt.js:148
-#, fuzzy
-#| msgctxt "plural, interactive"
-#| msgid "Log in to upload cover art"
 msgctxt "plural, interactive"
 msgid "Log in to upload images"
-msgstr "Prisijunk, kad įkeltum viršelio apipavidalinimus"
+msgstr "Prisijunk, kad įkeltum vaizdus"
 
 #: ../root/event/EventArtDarkened.js:19
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Cannot add cover art"
 msgctxt "plural"
 msgid "Cannot add event art"
-msgstr "Negalima pridėti viršelio apipavidalinimus"
+msgstr "Negalima pridėti renginio apipavidalinimus"
 
 #: ../root/event/EventArtFields.js:21
-#, fuzzy
-#| msgid "Choose one or more cover art types for this image"
 msgid "Choose one or more event art types for this image"
-msgstr "Pasirink vieną ar daugiau šio vaizdo viršelio apipavidalinimo tipų."
+msgstr "Pasirink vieną ar daugiau šio vaizdo renginio apipavidalinimo tipų."
 
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
-msgstr ""
+msgstr "Sujungti renginius"
 
 #: ../root/event/EventMerge.js:25
 msgid ""
@@ -10306,22 +10225,13 @@ msgid ""
 msgstr ""
 
 #: ../root/event/RemoveEventArt.js:29
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove event"
 msgctxt "singular, header"
 msgid "Remove event art"
-msgstr "Pašalinti renginį"
+msgstr "Pašalinti renginio apipavidalinimą"
 
 #: ../root/event/RemoveEventArt.js:36 ../root/release/RemoveCoverArt.js:31
-#, fuzzy
-#| msgid ""
-#| "Are you sure you wish to remove the below cover art from {release} by "
-#| "{artist}?"
 msgid "Are you sure you wish to remove the image below from {entity}?"
-msgstr ""
-"Ar tikrai nori pašalinti toliau pateiktą viršelio apipavidalinimą iš "
-"{release}, kurį išleido {artist}?"
+msgstr "Ar tikrai nori pašalinti toliau pateiktą vaizdą iš {entity}?"
 
 #: ../root/futureColumnLabels.js:24
 msgid "ISO 639-1"
@@ -10943,13 +10853,11 @@ msgstr "Prisijungti, kad redaguoti"
 #: ../root/layout/components/sidebar/EventSidebar.js:52
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:86
 msgid "Image failed to load correctly.<br/>{all|View all images}."
-msgstr ""
+msgstr "Vaizdo nepavyko pakrauti teisingai.<br/>{all|Peržiūrėti visus vaizdus}."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:64
-#, fuzzy
-#| msgid "No description available."
 msgid "No poster available."
-msgstr "Aprašymo nėra."
+msgstr "Plakato nėra."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:67
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:101
@@ -10958,10 +10866,8 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/EventSidebar.js:70
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:104
-#, fuzzy
-#| msgid "No description available."
 msgid "No images available."
-msgstr "Aprašymo nėra."
+msgstr "Vaizdų nėra."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:82
 msgid "Event information"
@@ -11892,16 +11798,12 @@ msgid "Cannot show cover art"
 msgstr "Negalima rodyti viršelio apipavidalinimus."
 
 #: ../root/release/CoverArt.js:96
-#, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr ""
-"Šiuos vaizdus pateikė {caa|Cover Art Archive}. Juos taip pat galima pamatyti "
-"{ia|Interneto archyve}."
+"Šie vaizdai yra {caa|Cover Art Archive} dalis. Juos taip pat galima pamatyti "
+"{ia|Internet Archive} svetainėje."
 
 #: ../root/release/CoverArt.js:109
 msgid "We do not currently have any cover art for {release}."
@@ -14758,14 +14660,12 @@ msgstr ""
 
 #: ../root/static/scripts/common/i18n/addQuotes.js:13
 #: ../root/static/scripts/common/i18n/addQuotes.js:17
-#, fuzzy
-#| msgid "{variable}:"
 msgid "“{variable}”"
-msgstr "{variable}:"
+msgstr "„{variable}“:"
 
 #: ../root/static/scripts/common/i18n/hyphenateTitle.js:14
 msgid "{title} - {subtitle}"
-msgstr ""
+msgstr "{title} – {subtitle}"
 
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:15
 msgctxt "language"
