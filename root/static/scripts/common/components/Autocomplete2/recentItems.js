@@ -263,6 +263,7 @@ export async function getOrFetchRecentItems<T: EntityItemT>(
         });
 
       _recentItemsRequests.set(key, fetchPromise);
+      return fetchPromise;
     }
   }
 
