@@ -200,10 +200,6 @@ role {
         my $art_archive_model = $c->model($art_archive_model_name);
         my $entity_type = $art_archive_model->art_archive_entity;
 
-        if ($entity_type eq 'event' && !$c->user->is_account_admin) {
-            $c->detach('/error_403');
-        }
-
         $self->_darkened_check($c, $entity);
 
         my ($all_artwork) = $self->_load_artwork($c, $entity);
@@ -219,7 +215,7 @@ role {
             mime_types => [ map {
                 $_->{mime_type}
             } @{ $art_archive_model->mime_types } ],
-            access_key => DBDefs->INTERNET_ARCHIVE_ACCESS_KEY // '',
+            access_key => $art_archive_model->art_archive_s3_access_key // '',
             "${archive}_art_types_json" => $c->json->encode(
                 [ map {
                     { name => $_->name, l_name => $_->l_name, id => $_->id }
@@ -291,10 +287,6 @@ role {
         my $art_archive_model = $c->model($art_archive_model_name);
         my $entity_type = $art_archive_model->art_archive_entity;
 
-        if ($entity_type eq 'event' && !$c->user->is_account_admin) {
-            $c->detach('/error_403');
-        }
-
         my ($all_artwork, $artwork) =
             $self->_load_artwork($c, $entity, $artwork_id);
 
@@ -358,10 +350,6 @@ role {
         my $art_archive_model = $c->model($art_archive_model_name);
         my $entity_type = $art_archive_model->art_archive_entity;
 
-        if ($entity_type eq 'event' && !$c->user->is_account_admin) {
-            $c->detach('/error_403');
-        }
-
         my ($all_artwork, $artwork) =
             $self->_load_artwork($c, $entity, $artwork_id);
 
@@ -414,10 +402,6 @@ role {
         my $entity = $get_entity->($c);
         my $art_archive_model = $c->model($art_archive_model_name);
         my $entity_type = $art_archive_model->art_archive_entity;
-
-        if ($entity_type eq 'event' && !$c->user->is_account_admin) {
-            $c->detach('/error_403');
-        }
 
         $self->_darkened_check($c, $entity);
 

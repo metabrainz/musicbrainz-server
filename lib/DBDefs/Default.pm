@@ -351,8 +351,10 @@ sub RECAPTCHA_PRIVATE_KEY { return undef }
 
 # Internet Archive public/private keys
 # (for coverartarchive.org and eventartarchive.org).
-sub INTERNET_ARCHIVE_ACCESS_KEY { }
-sub INTERNET_ARCHIVE_SECRET_KEY { }
+sub COVER_ART_ARCHIVE_ACCESS_KEY { }
+sub COVER_ART_ARCHIVE_SECRET_KEY { }
+sub EVENT_ART_ARCHIVE_ACCESS_KEY { }
+sub EVENT_ART_ARCHIVE_SECRET_KEY { }
 sub INTERNET_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//%s.s3.us.archive.org/', shift) }
 sub INTERNET_ARCHIVE_IA_DOWNLOAD_PREFIX { '//archive.org/download' }
 sub INTERNET_ARCHIVE_IA_METADATA_PREFIX { 'https://archive.org/metadata' }

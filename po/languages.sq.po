@@ -1962,6 +1962,11 @@ msgstr "Provençale, e Vjetër (deri më 1500)"
 msgid "Prussian"
 msgstr "Rusisht"
 
+#. frequency:1 iso_code_3:fuc 
+#: DB:language/name:2321
+msgid "Pulaar"
+msgstr ""
+
 #. frequency:1 iso_code_3:pan 
 #: DB:language/name:330
 msgid "Punjabi"

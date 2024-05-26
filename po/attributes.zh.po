@@ -3319,6 +3319,14 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Gaṁbhīra vāṇi"
 msgstr "Gaṁbhīra vāṇi"
 
+#: DB:editor_collection_type/name:16
+#, fuzzy
+#| msgctxt "collection_type"
+#| msgid "Series collection"
+msgctxt "collection_type"
+msgid "Genre collection"
+msgstr "系列收藏"
+
 #: DB:work_attribute_type_allowed_value/value:376
 msgctxt "work_attribute_type_allowed_value"
 msgid "Gerdaniye"
@@ -6001,7 +6009,8 @@ msgid ""
 "One-sided 3\" vinyl records to be played with purpose-built players; "
 "originally developed in Japan and now mostly found as a Record Store Day "
 "curiosity."
-msgstr "单面3英寸的黑胶唱片，需要用特制的唱机播放；最初在日本开发，现在大多作为唱片店"
+msgstr ""
+"单面3英寸的黑胶唱片，需要用特制的唱机播放；最初在日本开发，现在大多作为唱片店"
 "日的新奇物品出现。"
 
 #: DB:work_type/name:10

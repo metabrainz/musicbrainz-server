@@ -1218,7 +1218,7 @@ msgstr "קורנמוז"
 
 #: DB:instrument/name:1190
 msgctxt "French two-drone bagpipes"
-msgid "cornemuse du centre"
+msgid "cornemuse du Centre"
 msgstr ""
 
 #: DB:instrument/name:25

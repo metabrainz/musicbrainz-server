@@ -20,9 +20,6 @@ test 'Accepting Add Event Art edit' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
     MusicBrainz::Server::Test->prepare_test_database($c, '+event');
 
-    my $editor = $c->model('Editor')->get_by_id(1);
-    $c->model('Editor')->update_privileges($editor, { account_admin => 1 });
-
     my $event = $c->model('Event')->get_by_id(59357);
     my $edit = create_edit($c, $event);
     my @artwork = @{ $c->model('EventArt')->find_by_event($event) };
@@ -57,9 +54,6 @@ test 'Rejecting cleans up pending artwork' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
     MusicBrainz::Server::Test->prepare_test_database($c, '+event');
-
-    my $editor = $c->model('Editor')->get_by_id(1);
-    $c->model('Editor')->update_privileges($editor, { account_admin => 1 });
 
     my $event = $c->model('Event')->get_by_id(59357);
     my $edit = create_edit($c, $event);

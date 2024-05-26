@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-04-27 18:42+0000\n"
+"PO-Revision-Date: 2024-05-23 02:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -1969,6 +1969,11 @@ msgstr "Provenzale antico (fino al 1500)"
 #: DB:language/name:5521
 msgid "Prussian"
 msgstr "Prussiano"
+
+#. frequency:1 iso_code_3:fuc 
+#: DB:language/name:2321
+msgid "Pulaar"
+msgstr "Pulaar"
 
 #. frequency:1 iso_code_3:pan 
 #: DB:language/name:330

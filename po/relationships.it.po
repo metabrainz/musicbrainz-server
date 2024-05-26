@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-10 14:42+0000\n"
+"PO-Revision-Date: 2024-05-24 16:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -30,9 +30,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -1287,7 +1287,7 @@ msgstr "Indica la pagina di Wikipedia su quest'artista."
 
 #: DB:link_type/description:789
 msgid "Points to the Wikipedia page for this event."
-msgstr "Indica la pagina di Wikipedia su questo evento."
+msgstr "Indica la pagina di Wikipedia su quest'evento."
 
 #: DB:link_type/description:731
 msgid "Points to the Wikipedia page for this instrument."
@@ -2682,7 +2682,7 @@ msgstr "Indica che il video è stato girato in questo luogo."
 
 #: DB:link_type/description:966
 msgid "This indicates the video was shot at/during this event."
-msgstr "Indica che il video è stato girato a o durante questo evento."
+msgstr "Indica che il video è stato girato a o durante quest'evento."
 
 #: DB:link_type/description:964
 msgid "This indicates the video was shot in this area."
@@ -10088,10 +10088,8 @@ msgid "{entity1} was {additional:additionally} transferred at {entity0}"
 msgstr "{entity1} è stata trasferita {additional:in aggiunta} presso {entity0}"
 
 #: DB:link_type/long_link_phrase:1181
-#, fuzzy
-#| msgid "{entity1} was {additional:additionally} transferred at {entity0}"
 msgid "{entity1} was {additional:additionally} transferred in {entity0}"
-msgstr "{entity1} è stata trasferita {additional:in aggiunta} presso {entity0}"
+msgstr "{entity1} è stata trasferita {additional:in aggiunta} a {entity0}"
 
 #: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
 msgid "{entity1} was {additional:additionally} translated at {entity0}"

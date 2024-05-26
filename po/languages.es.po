@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-31 19:29+0000\n"
+"PO-Revision-Date: 2024-05-17 13:59+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -34,7 +34,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.3.1\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -1978,10 +1978,13 @@ msgstr "Provenzal antiguo (hasta 1500)"
 
 #. frequency:1 iso_code_3:prg 
 #: DB:language/name:5521
-#, fuzzy
-#| msgid "Russian"
 msgid "Prussian"
-msgstr "Ruso"
+msgstr "Prusiano"
+
+#. frequency:1 iso_code_3:fuc 
+#: DB:language/name:2321
+msgid "Pulaar"
+msgstr ""
 
 #. frequency:1 iso_code_3:pan 
 #: DB:language/name:330

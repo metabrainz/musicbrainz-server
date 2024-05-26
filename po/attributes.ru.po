@@ -27,7 +27,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-09 23:42+0000\n"
+"PO-Revision-Date: 2024-05-24 19:23+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -39,7 +39,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -204,9 +204,9 @@ msgstr ""
 "<li>коллекция записей из различных старых источников (необязательно раннее "
 "выпущенных), объединенных вместе (например, альбом \"best of\" или "
 "ретроспективный релиз);</li>\n"
-"<li>или коллекция песен разных исполнителей, обычно на конкретную тему ("
-"\"Песни о любви\"), из конкретного временного периода (\"Песня года-1998\"), "
-"или других.</li>\n"
+"<li>или коллекция песен разных исполнителей, обычно на конкретную тему "
+"(\"Песни о любви\"), из конкретного временного периода (\"Песня "
+"года-1998\"), или других.</li>\n"
 "</ul>\n"
 "\n"
 "<p>Проект MusicBrainz обычно не считает сборниками:</p>\n"
@@ -321,7 +321,7 @@ msgstr "Музыка для использования с хореографие
 #: DB:release_packaging/description:19
 msgctxt "release_packaging"
 msgid "A box usually containing multiple discs as part of a boxed set."
-msgstr ""
+msgstr "Коробка, обычно содержащая несколько дисков как часть набора."
 
 #: DB:work_type/description:3
 msgctxt "work_type"
@@ -343,8 +343,8 @@ msgid ""
 msgstr ""
 "Карточка (или другое похожее физическое устройство), которое содержит не "
 "саму музыку, а код для ее цифровой загрузки. Обычно поставляется с "
-"физическими релизами, но иногда продается как самостоятельный товар ("
-"особенно в странах Азии)."
+"физическими релизами, но иногда продается как самостоятельный товар "
+"(особенно в странах Азии)."
 
 #: DB:label_type/description:10
 msgctxt "label_type"
@@ -458,6 +458,9 @@ msgid ""
 "A minimalistic plastic case where the back and front are kept together by a "
 "small hinge. Most commonly used for cheap promotion / DIY releases."
 msgstr ""
+"Минималистичный пластмассовый контейнер, в котором перед и зад скреплены "
+"небольшой петлей. Обычно используется в дешевых промо-релизах или "
+"самопальных релизах."
 
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
@@ -518,7 +521,8 @@ msgctxt "place_type"
 msgid ""
 "A place designed for non-live production of music, typically a recording "
 "studio."
-msgstr "Место для неконцертного исполнения музыки (обычно, студия звукозаписи)."
+msgstr ""
+"Место для неконцертного исполнения музыки (обычно, студия звукозаписи)."
 
 #: DB:place_type/description:2
 msgctxt "place_type"
@@ -526,8 +530,8 @@ msgid ""
 "A place that has live artistic performances as one of its primary functions, "
 "such as a concert hall."
 msgstr ""
-"Место, используемое, в первую очередь, для живых выступлений артистов ("
-"например, концертный зал)."
+"Место, используемое, в первую очередь, для живых выступлений артистов "
+"(например, концертный зал)."
 
 #: DB:place_type/description:6
 msgctxt "place_type"
@@ -704,7 +708,7 @@ msgstr "Серия групп релизов, содержащие эпизод�
 #: DB:series_type/description:47
 msgctxt "series_type"
 msgid "A series of release groups honoured by the same award."
-msgstr ""
+msgstr "Серия групп релизов, награжденных одной и той же наградой."
 
 #: DB:series_type/description:1
 msgctxt "series_type"
@@ -903,40 +907,37 @@ msgstr "Ля диез минор"
 #: DB:work_attribute_type/name:57
 msgctxt "work_attribute_type"
 msgid "AACIMH ID"
-msgstr ""
+msgstr "AACIMH ID"
 
 #: DB:work_attribute_type/name:44
 msgctxt "work_attribute_type"
 msgid "ACAM ID"
-msgstr ""
+msgstr "ACAM ID"
 
 #: DB:work_attribute_type/name:47
 msgctxt "work_attribute_type"
 msgid "ACDAM ID"
-msgstr ""
+msgstr "ACDAM ID"
 
 #: DB:work_attribute_type/name:206
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "SACM ID"
 msgctxt "work_attribute_type"
 msgid "ACUM ID"
-msgstr "SACM ID"
+msgstr "ACUM ID"
 
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
 msgid "AEI ID"
-msgstr ""
+msgstr "AEI ID"
 
 #: DB:work_attribute_type/name:43
 msgctxt "work_attribute_type"
 msgid "AGADU ID"
-msgstr ""
+msgstr "AGADU ID"
 
 #: DB:work_attribute_type/name:63
 msgctxt "work_attribute_type"
 msgid "AKKA/LAA ID"
-msgstr ""
+msgstr "AKKA/LAA ID"
 
 #: DB:work_attribute_type/name:23
 msgctxt "work_attribute_type"
@@ -946,17 +947,17 @@ msgstr "AKM ID"
 #: DB:work_attribute_type/name:38
 msgctxt "work_attribute_type"
 msgid "AMRA ID"
-msgstr ""
+msgstr "AMRA ID"
 
 #: DB:work_attribute_type/name:46
 msgctxt "work_attribute_type"
 msgid "APA ID"
-msgstr ""
+msgstr "APA ID"
 
 #: DB:work_attribute_type/name:41
 msgctxt "work_attribute_type"
 msgid "APDAYC ID"
-msgstr ""
+msgstr "APDAYC ID"
 
 #: DB:work_attribute_type/name:13
 msgctxt "work_attribute_type"
@@ -966,7 +967,7 @@ msgstr "APRA ID"
 #: DB:work_attribute_type/name:48
 msgctxt "work_attribute_type"
 msgid "ARTISJUS ID"
-msgstr ""
+msgstr "ARTISJUS ID"
 
 #: DB:work_attribute_type/name:6
 msgctxt "work_attribute_type"
@@ -1123,6 +1124,11 @@ msgid ""
 "EP is fairly difficult to define; usually it should only be assumed that a "
 "release is an EP if the artist defines it as such."
 msgstr ""
+"Мини-альбом (или чаще всего EP, от \"Extended Play\") обычно короче обычного "
+"альбома (LP, от \"Long Play\"), а треки обычно эксклюзивны для конкретного "
+"EP и не появлялись где-то еще до этого. Довольно трудно отличить EP от "
+"сингла; обычно стоит предполагать, что релиз является EP, только если "
+"исполнитель так его определяет."
 
 #: DB:release_group_primary_type/description:1
 msgctxt "release_group_primary_type"
@@ -1131,6 +1137,9 @@ msgid ""
 "consists of previously unreleased material (unless this type is combined "
 "with secondary types which change that, such as \"Compilation\")."
 msgstr ""
+"Альбом (или иногда LP, от \"Long Play\") обычно состоит из ранее "
+"невыпущенного материала (только если этот тип не совмещен с дополнительными "
+"типами, которые это изменяет, например, \"Сборник\")."
 
 #: DB:release_status/description:4
 msgctxt "release_status"
@@ -1140,8 +1149,8 @@ msgid ""
 "release using the transl(iter)ation relationship."
 msgstr ""
 "Альтернативная версия релиза, где названия были изменены. Они не "
-"соответствуют какому-либо реальному выпуску и должны быть привязаны к "
-"исходному выпуску с использованием транслитерации."
+"соответствуют какому-либо реальному релизу и должны быть привязаны к "
+"исходному релизу с использованием транслитерации."
 
 #: DB:work_type/description:1
 msgctxt "work_type"
@@ -1150,7 +1159,7 @@ msgid ""
 "accompaniment. They are most common inside operas, but also appear in "
 "cantatas, oratorios and even on their own (concert arias)."
 msgstr ""
-"Ария - это самостоятельная пьеса для одного голоса, обычно с оркестровым "
+"Ария — самостоятельная пьеса для одного голоса, обычно с оркестровым "
 "аккомпанементом. Они наиболее часто встречаются внутри опер, но также "
 "появляются в кантатах, ораториях и даже сами по себе (концертные арии)."
 
@@ -1160,9 +1169,9 @@ msgid ""
 "An audio drama is a dramatized, purely acoustic performance, broadcast on "
 "radio or published on an audio medium (tape, CD, etc.)."
 msgstr ""
-"Звуковая драма - это драматизированная, чисто акустическая "
-"производительность, трансляция по радио или публикация на аудио носителе "
-"(лента, компакт-диск и т. д.)."
+"Аудиодрама (радиоспектакль, радиопостановка) — это драматизированная, чисто "
+"акустическое выступление, транслируемое по радио или опубликованное на "
+"аудионосителе (кассете, компакт-диске и т. д.)."
 
 #: DB:release_group_secondary_type/description:11
 msgctxt "release_group_secondary_type"
@@ -1198,8 +1207,8 @@ msgid ""
 "An event where a number of different acts perform across the course of the "
 "day. Larger festivals may be spread across multiple days."
 msgstr ""
-"Событие, в котором в течение дня совершается ряд различных действий. Большие "
-"фестивали могут распространяться в течение нескольких дней."
+"Событие, в котором в течение дня совершается ряд различных выступлений. "
+"Большие фестивали могут длиться в течение нескольких дней."
 
 #: DB:event_type/description:1
 msgctxt "event_type"
@@ -1378,12 +1387,12 @@ msgstr "Ария"
 #: DB:series_type/name:14
 msgctxt "series_type"
 msgid "Artist award"
-msgstr ""
+msgstr "Премия для исполнителей"
 
 #: DB:editor_collection_type/name:8
 msgctxt "collection_type"
 msgid "Artist collection"
-msgstr ""
+msgstr "Коллекция исполнителей"
 
 #: DB:artist_alias_type/name:1
 msgctxt "alias_type"
@@ -1393,7 +1402,7 @@ msgstr "Имя исполнителя"
 #: DB:series_type/name:13
 msgctxt "series_type"
 msgid "Artist series"
-msgstr ""
+msgstr "Серия исполнителей"
 
 #: DB:work_attribute_type_allowed_value/value:693
 msgctxt "work_attribute_type_allowed_value"
@@ -1418,12 +1427,12 @@ msgstr ""
 #: DB:release_group_secondary_type/name:11
 msgctxt "release_group_secondary_type"
 msgid "Audio drama"
-msgstr "Аудио драма"
+msgstr "Аудиодрама"
 
 #: DB:work_type/name:25
 msgctxt "work_type"
 msgid "Audio drama"
-msgstr "Аудио драма"
+msgstr "Аудиодрама"
 
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
@@ -1438,12 +1447,12 @@ msgstr "Автоматически"
 #: DB:event_type/name:7
 msgctxt "event_type"
 msgid "Award ceremony"
-msgstr ""
+msgstr "Церемония награждения"
 
 #: DB:series_type/name:15
 msgctxt "series_type"
 msgid "Award ceremony"
-msgstr ""
+msgstr "Церемония награждения"
 
 #: DB:work_attribute_type_allowed_value/value:694
 msgctxt "work_attribute_type_allowed_value"
@@ -1737,12 +1746,12 @@ msgstr ""
 #: DB:medium_format/name:131
 msgctxt "medium_format"
 msgid "Betacam SP"
-msgstr ""
+msgstr "Betacam SP"
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"
 msgid "Betamax"
-msgstr "Бетамакс"
+msgstr "Betamax"
 
 #: DB:work_attribute_type_allowed_value/value:329
 msgctxt "work_attribute_type_allowed_value"
@@ -1893,7 +1902,7 @@ msgstr "Blu-ray"
 #: DB:medium_format/name:79
 msgctxt "medium_format"
 msgid "Blu-ray-R"
-msgstr ""
+msgstr "Blu-ray-R"
 
 #: DB:medium_format/name:35
 msgctxt "medium_format"
@@ -1918,7 +1927,7 @@ msgstr "Бутлег"
 #: DB:label_type/name:5
 msgctxt "label_type"
 msgid "Bootleg Production"
-msgstr ""
+msgstr "Производство бутлегов"
 
 #: DB:cover_art_archive.art_type/name:49
 msgctxt "cover_art_type"
@@ -1928,7 +1937,7 @@ msgstr ""
 #: DB:release_packaging/name:19
 msgctxt "release_packaging"
 msgid "Box"
-msgstr ""
+msgstr "Коробка"
 
 #: DB:work_attribute_type_allowed_value/value:607
 msgctxt "work_attribute_type_allowed_value"
@@ -2084,12 +2093,12 @@ msgstr "CED"
 #: DB:work_attribute_type/name:45
 msgctxt "work_attribute_type"
 msgid "COMPASS ID"
-msgstr ""
+msgstr "COMPASS ID"
 
 #: DB:work_attribute_type/name:73
 msgctxt "work_attribute_type"
 msgid "COSCAP ID"
-msgstr ""
+msgstr "COSCAP ID"
 
 #: DB:work_attribute_type/name:65
 msgctxt "work_attribute_type"
@@ -2145,7 +2154,7 @@ msgstr "Кантата"
 #: DB:release_packaging/name:4
 msgctxt "release_packaging"
 msgid "Cardboard/Paper Sleeve"
-msgstr ""
+msgstr "Картонный/бумажный конверт"
 
 #: DB:medium_format/name:9
 msgctxt "medium_format"
@@ -2256,7 +2265,7 @@ msgstr "Концерт"
 #: DB:place_type/name:44
 msgctxt "place_type"
 msgid "Concert hall / Theatre"
-msgstr ""
+msgstr "Концертный зал / театр"
 
 #: DB:work_type/name:4
 msgctxt "work_type"
@@ -2266,10 +2275,9 @@ msgstr "Концерт"
 #: DB:event_type/name:4
 msgctxt "event_type"
 msgid "Convention/Expo"
-msgstr "Конвенция/Экспо"
+msgstr "Конвенция/выставка"
 
 #: DB:medium_format/name:61
-#, fuzzy
 msgctxt "medium_format"
 msgid "Copy Control CD"
 msgstr "Copy Control CD"
@@ -2283,10 +2291,10 @@ msgid ""
 "Macrovision's Cactus Data Shield (CDS) and SunnComm's MediaMax."
 msgstr ""
 "Copy Control CD (CCCD) является общим термином для компакт-дисков, "
-"выпущенных 2001-2006 годах, содержащих программное обеспечение, которое "
-"якобы предназначено для предотвращения копирования диска. Существует ряд "
-"вариантов программного обеспечения: наиболее известными являются Macrovision "
-"Cactus Data Shield (CDS) и MediaMax от SunnComm."
+"выпущенных около 2001-2006 годов, содержащих программное обеспечение, "
+"которое якобы предназначено для предотвращения копирования диска. Существует "
+"ряд вариантов программного обеспечения: наиболее известными являются "
+"Macrovision Cactus Data Shield (CDS) и MediaMax от SunnComm."
 
 #: DB:area_type/name:1
 msgctxt "area_type"
@@ -2300,7 +2308,7 @@ msgid ""
 "g. United States."
 msgstr ""
 "Страна используется для областей, включенных (или ранее включенных) в ISO "
-"3166-1, например. Соединенные Штаты."
+"3166-1, например, Россия."
 
 #: DB:area_type/name:7
 msgctxt "area_type"
@@ -2317,7 +2325,7 @@ msgid ""
 msgstr ""
 "Графство используется для небольших административных подразделений страны, "
 "которые не являются основными административными подразделениями, но также не "
-"являются муниципалитетами, например. округов в США. Они не учитываются при "
+"являются муниципалитетами, например, округов в США. Они не учитываются при "
 "отображении родительских областей для данной области."
 
 #: DB:work_attribute_type_allowed_value/value:608
@@ -2429,17 +2437,17 @@ msgstr "DVD"
 #: DB:medium_format/name:18
 msgctxt "medium_format"
 msgid "DVD-Audio"
-msgstr "DVD-Аудио"
+msgstr "DVD-Audio"
 
 #: DB:medium_format/name:92
 msgctxt "medium_format"
 msgid "DVD-R Video"
-msgstr ""
+msgstr "DVD-R Video"
 
 #: DB:medium_format/name:19
 msgctxt "medium_format"
 msgid "DVD-Video"
-msgstr "DVD-Видео"
+msgstr "DVD-Video"
 
 #: DB:medium_format/name:47
 msgctxt "medium_format"
@@ -2449,7 +2457,7 @@ msgstr "DVDplus"
 #: DB:medium_format/name:70
 msgctxt "medium_format"
 msgid "DVDplus (CD side)"
-msgstr "DVDplus (CD сторона)"
+msgstr "DVDplus (CD-сторона)"
 
 #: DB:medium_format/name:68
 msgctxt "medium_format"
@@ -2524,17 +2532,17 @@ msgstr "CD с данными"
 #: DB:medium_format/name:94
 msgctxt "medium_format"
 msgid "Data DVD"
-msgstr ""
+msgstr "DVD с данными"
 
 #: DB:medium_format/name:93
 msgctxt "medium_format"
 msgid "Data DVD-R"
-msgstr ""
+msgstr "DVD-R с данными"
 
 #: DB:medium_format/name:128
 msgctxt "medium_format"
 msgid "DataPlay"
-msgstr ""
+msgstr "DataPlay"
 
 #: DB:release_group_secondary_type/name:10
 msgctxt "release_group_secondary_type"
@@ -2640,12 +2648,12 @@ msgstr ""
 #: DB:release_packaging/name:17
 msgctxt "release_packaging"
 msgid "Digibook"
-msgstr ""
+msgstr "Диджибук"
 
 #: DB:release_packaging/name:89
 msgctxt "release_packaging"
 msgid "Digifile"
-msgstr ""
+msgstr "Диджифайл"
 
 #: DB:release_packaging/name:3
 msgctxt "release_packaging"
@@ -2655,7 +2663,7 @@ msgstr "Диджипак"
 #: DB:medium_format/name:12
 msgctxt "medium_format"
 msgid "Digital Media"
-msgstr "Цифровое медиа"
+msgstr "Цифровой носитель"
 
 #: DB:work_attribute_type_allowed_value/value:345
 msgctxt "work_attribute_type_allowed_value"
@@ -2720,7 +2728,7 @@ msgstr "Район"
 #: DB:area_type/description:5
 msgctxt "area_type"
 msgid "District is used for a division of a large city, e.g. Queens."
-msgstr "Район используется для разделения большого города, например. Queens."
+msgstr "Район используется для разделения большого города, например, Арбат."
 
 #: DB:work_attribute_type_allowed_value/value:611
 msgctxt "work_attribute_type_allowed_value"
@@ -2745,12 +2753,12 @@ msgstr "Двойной диск"
 #: DB:medium_format/name:67
 msgctxt "medium_format"
 msgid "DualDisc (CD side)"
-msgstr "DualDisc (CD сторона)"
+msgstr "DualDisc (CD-сторона)"
 
 #: DB:medium_format/name:130
 msgctxt "medium_format"
 msgid "DualDisc (DVD side)"
-msgstr ""
+msgstr "DualDisc (DVD-сторона)"
 
 #: DB:medium_format/name:65
 msgctxt "medium_format"
@@ -2765,7 +2773,7 @@ msgstr "DualDisc (DVD-Video сторона)"
 #: DB:work_attribute_type_allowed_value/value:612
 msgctxt "work_attribute_type_allowed_value"
 msgid "Durak"
-msgstr "Стоп"
+msgstr "Дурак"
 
 #: DB:work_attribute_type_allowed_value/value:726
 msgctxt "work_attribute_type_allowed_value"
@@ -2956,12 +2964,12 @@ msgstr "Электронный инструмент"
 #: DB:medium_format/name:42
 msgctxt "medium_format"
 msgid "Enhanced CD"
-msgstr "Расширенный CD"
+msgstr "Enhanced CD"
 
 #: DB:instrument_type/name:6
 msgctxt "instrument_type"
 msgid "Ensemble"
-msgstr ""
+msgstr "Ансамбль"
 
 #: DB:work_attribute_type_allowed_value/value:356
 msgctxt "work_attribute_type_allowed_value"
@@ -2981,17 +2989,17 @@ msgstr ""
 #: DB:editor_collection_type/name:4
 msgctxt "collection_type"
 msgid "Event collection"
-msgstr ""
+msgstr "Коллекция событий"
 
 #: DB:event_alias_type/name:1
 msgctxt "alias_type"
 msgid "Event name"
-msgstr "Название мероприятия"
+msgstr "Название события"
 
 #: DB:series_type/name:6
 msgctxt "series_type"
 msgid "Event series"
-msgstr ""
+msgstr "Серия событий"
 
 #: DB:work_attribute_type_allowed_value/value:729
 msgctxt "work_attribute_type_allowed_value"
@@ -3166,7 +3174,7 @@ msgstr "Фестиваль"
 #: DB:place_type/name:45
 msgctxt "place_type"
 msgid "Festival stage"
-msgstr ""
+msgstr "Фестивальная сцена"
 
 #: DB:work_attribute_type_allowed_value/value:372
 msgctxt "work_attribute_type_allowed_value"
@@ -3227,7 +3235,7 @@ msgctxt "gender"
 msgid ""
 "For cases where gender just doesn't apply at all (like companies entered as "
 "artists)."
-msgstr ""
+msgstr "Для случаев, когда пол вообще не применим (например, для компаний)."
 
 #: DB:work_attribute_type/name:16
 msgctxt "work_attribute_type"
@@ -3297,7 +3305,7 @@ msgstr "GEMA ID"
 #: DB:work_attribute_type/name:106
 msgctxt "work_attribute_type"
 msgid "GMR ID"
-msgstr ""
+msgstr "GMR ID"
 
 #: DB:work_attribute_type_allowed_value/value:88
 msgctxt "work_attribute_type_allowed_value"
@@ -3378,6 +3386,14 @@ msgstr ""
 msgctxt "work_attribute_type_allowed_value"
 msgid "Gaṁbhīra vāṇi"
 msgstr ""
+
+#: DB:editor_collection_type/name:16
+#, fuzzy
+#| msgctxt "collection_type"
+#| msgid "Event collection"
+msgctxt "collection_type"
+msgid "Genre collection"
+msgstr "Коллекция событий"
 
 #: DB:work_attribute_type_allowed_value/value:376
 msgctxt "work_attribute_type_allowed_value"
@@ -3523,7 +3539,7 @@ msgstr "HDCD"
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
 msgid "HFA ID"
-msgstr ""
+msgstr "HFA ID"
 
 #: DB:medium_format/name:37
 msgctxt "medium_format"
@@ -3798,22 +3814,22 @@ msgstr "Гибридный SACD"
 #: DB:medium_format/name:63
 msgctxt "medium_format"
 msgid "Hybrid SACD (CD layer)"
-msgstr "Гибридный SACD (CD слой)"
+msgstr "Гибридный SACD (CD-слой)"
 
 #: DB:medium_format/name:64
 msgctxt "medium_format"
 msgid "Hybrid SACD (SACD layer)"
-msgstr "Гибридный SACD (SACD слой)"
+msgstr "Гибридный SACD (SACD-слой)"
 
 #: DB:medium_format/name:87
 msgctxt "medium_format"
 msgid "Hybrid SACD (SACD layer, 2 channels)"
-msgstr ""
+msgstr "Гибридный SACD (SACD-слой, 2 канала)"
 
 #: DB:medium_format/name:86
 msgctxt "medium_format"
 msgid "Hybrid SACD (SACD layer, multichannel)"
-msgstr ""
+msgstr "Гибридный SACD (SACD-слой, мультиканальный)"
 
 #: DB:work_attribute_type_allowed_value/value:418
 msgctxt "work_attribute_type_allowed_value"
@@ -4270,7 +4286,7 @@ msgstr ""
 #: DB:label_type/name:9
 msgctxt "label_type"
 msgid "Imprint"
-msgstr ""
+msgstr "Импринт"
 
 #: DB:work_type/name:30
 msgctxt "work_type"
@@ -4298,7 +4314,7 @@ msgstr "Крытая арена"
 #: DB:editor_collection_type/name:9
 msgctxt "collection_type"
 msgid "Instrument collection"
-msgstr ""
+msgstr "Коллекция инструментов"
 
 #: DB:instrument_alias_type/name:1
 msgctxt "alias_type"
@@ -5969,7 +5985,7 @@ msgstr ""
 #: DB:gender/name:5
 msgctxt "gender"
 msgid "Non-binary"
-msgstr ""
+msgstr "Небинарный человек"
 
 #: DB:release_group_secondary_type/description:3
 msgctxt "release_group_secondary_type"
@@ -5984,7 +6000,7 @@ msgstr "Нет"
 #: DB:gender/name:4
 msgctxt "gender"
 msgid "Not applicable"
-msgstr ""
+msgstr "Не применимо"
 
 #: DB:work_attribute_type_allowed_value/value:491
 msgctxt "work_attribute_type_allowed_value"
@@ -6107,37 +6123,37 @@ msgstr "Оригинальная продукция"
 #: DB:artist_type/name:3
 msgctxt "artist_type"
 msgid "Other"
-msgstr "Другие"
+msgstr "Другое"
 
 #: DB:cover_art_archive.art_type/name:8
 msgctxt "cover_art_type"
 msgid "Other"
-msgstr "Другие"
+msgstr "Другой"
 
 #: DB:gender/name:3
 msgctxt "gender"
 msgid "Other"
-msgstr "Другие"
+msgstr "Другой"
 
 #: DB:medium_format/name:13
 msgctxt "medium_format"
 msgid "Other"
-msgstr "Другие"
+msgstr "Другой"
 
 #: DB:place_type/name:3
 msgctxt "place_type"
 msgid "Other"
-msgstr "Другие"
+msgstr "Другое"
 
 #: DB:release_group_primary_type/name:11
 msgctxt "release_group_primary_type"
 msgid "Other"
-msgstr "Другие"
+msgstr "Другой"
 
 #: DB:release_packaging/name:5
 msgctxt "release_packaging"
 msgid "Other"
-msgstr "Другие"
+msgstr "Другая"
 
 #: DB:instrument_type/name:5
 msgctxt "instrument_type"
@@ -6258,7 +6274,7 @@ msgstr ""
 #: DB:artist_type/name:1
 msgctxt "artist_type"
 msgid "Person"
-msgstr "Парсона"
+msgstr "Человек"
 
 #: DB:work_attribute_type_allowed_value/value:497
 msgctxt "work_attribute_type_allowed_value"
@@ -8343,7 +8359,7 @@ msgstr ""
 #: DB:work_attribute_type/name:30
 msgctxt "work_attribute_type"
 msgid "ZAiKS ID"
-msgstr ""
+msgstr "ZAiKS ID"
 
 #: DB:work_attribute_type_allowed_value/value:780
 msgctxt "work_attribute_type_allowed_value"
@@ -8413,7 +8429,7 @@ msgstr ""
 #: DB:medium_format/name:77
 msgctxt "medium_format"
 msgid "Zip Disk"
-msgstr ""
+msgstr "Zip-диск"
 
 #: DB:work_attribute_type_allowed_value/value:599
 msgctxt "work_attribute_type_allowed_value"
@@ -8430,7 +8446,7 @@ msgstr ""
 #: DB:medium_format/name:164
 msgctxt "medium_format"
 msgid "microSD"
-msgstr ""
+msgstr "microSD"
 
 #: DB:medium_format/name:27
 msgctxt "medium_format"

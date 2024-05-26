@@ -360,8 +360,10 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 
 # Internet Archive public/private keys
 # (for coverartarchive.org and eventartarchive.org).
-# sub INTERNET_ARCHIVE_ACCESS_KEY { }
-# sub INTERNET_ARCHIVE_SECRET_KEY { }
+# sub COVER_ART_ARCHIVE_ACCESS_KEY { }
+# sub COVER_ART_ARCHIVE_SECRET_KEY { }
+# sub EVENT_ART_ARCHIVE_ACCESS_KEY { }
+# sub EVENT_ART_ARCHIVE_SECRET_KEY { }
 # sub INTERNET_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//%s.s3.us.archive.org/', shift) }
 
 # sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { '//coverartarchive.org' }
