@@ -12,6 +12,12 @@
       target: 'document.getElementById("id-edit-series.type_id").value.trim() === ""',
       value: 'true',
     },
+    // Wait for the SeriesRelationshipEditor to initialize.
+    {
+        command: 'pause',
+        target: '500',
+        value: '',
+    },
     {
       command: 'select',
       target: 'id=id-edit-series.type_id',
@@ -215,6 +221,12 @@
       command: 'assertLocationMatches',
       target: '\\/series\\/create',
       value: '',
+    },
+    // Wait for the SeriesRelationshipEditor to initialize.
+    {
+        command: 'pause',
+        target: '500',
+        value: '',
     },
     {
       command: 'type',
