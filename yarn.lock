@@ -5104,12 +5104,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"he@npm:1.1.1":
-  version: 1.1.1
-  resolution: "he@npm:1.1.1"
+"he@npm:1.2.0":
+  version: 1.2.0
+  resolution: "he@npm:1.2.0"
   bin:
     he: bin/he
-  checksum: 10c0/3cf48cb072e58922c76832a34b0789a86acf27c4c492cb2934ce71a7709c136fafb6762cca0eb24e8fef6e936b29c3e8ee07769f4513e2aa937735324483dedb
+  checksum: 10c0/a27d478befe3c8192f006cdd0639a66798979dfa6e2125c6ac582a19a5ebfec62ad83e8382e6036170d873f46e4536a7e795bf8b95bf7c247f4cc0825ccc8c17
   languageName: node
   linkType: hard
 
@@ -6668,7 +6668,7 @@ __metadata:
     flow-bin: "npm:0.236.0"
     generic-diff: "npm:1.0.1"
     gettext-parser: "npm:3.1.0"
-    he: "npm:1.1.1"
+    he: "npm:1.2.0"
     hermes-eslint: "npm:0.20.1"
     http-proxy: "npm:1.18.1"
     imports-loader: "npm:5.0.0"
