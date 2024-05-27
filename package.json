@@ -53,7 +53,6 @@
     "pg-cursor": "2.10.5",
     "po2json": "https://github.com/mikeedwards/po2json.git#51e2310485bbe35e9e57f2eee238185459ca0eab",
     "punycode": "2.3.1",
-    "querystring": "0.2.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-table": "7.8.0",
