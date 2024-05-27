@@ -6094,19 +6094,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet.markercluster@npm:1.4.1":
-  version: 1.4.1
-  resolution: "leaflet.markercluster@npm:1.4.1"
+"leaflet.markercluster@npm:1.5.3":
+  version: 1.5.3
+  resolution: "leaflet.markercluster@npm:1.5.3"
   peerDependencies:
-    leaflet: ~1.3.1
-  checksum: 10c0/08c9faad98417bfa3f04f839e553d31f93f9c9c9ad246a2d55b9c94f7b7eb66b7b88acd986f6be77657344a4b0a62d05cf803c0421079588fd45be76a9f7b3d5
+    leaflet: ^1.3.1
+  checksum: 10c0/ce2d4065da00c727f5b05fe4568e5239ebd2556e45d859307ff9c44a6f7ecb9658cd91d055f5723d93f3e491c48949cf78109f50533b0b36b9a226e4d339213f
   languageName: node
   linkType: hard
 
-"leaflet@npm:1.6.0":
-  version: 1.6.0
-  resolution: "leaflet@npm:1.6.0"
-  checksum: 10c0/d93e5db9b75e7ffb537292198e635b2223cb04bb4c317c8d599a97cbc8efe21151b95e2230e9428524ccb9007936dfe30500dc4c3ab4ef2353208fdb553582ea
+"leaflet@npm:1.9.4":
+  version: 1.9.4
+  resolution: "leaflet@npm:1.9.4"
+  checksum: 10c0/f639441dbb7eb9ae3fcd29ffd7d3508f6c6106892441634b0232fafb9ffb1588b05a8244ec7085de2c98b5ed703894df246898477836cfd0ce5b96d4717b5ca1
   languageName: node
   linkType: hard
 
@@ -6677,8 +6677,8 @@ __metadata:
     json5: "npm:2.1.3"
     knockout: "https://github.com/mwiencek/knockout.git#a09f0778844130a89af438971ad6229ab81e26b3"
     knockout-arraytransforms: "https://github.com/mwiencek/knockout-arraytransforms.git#9673e91a4755b92ba4eea5ca03067790dbbd997b"
-    leaflet: "npm:1.6.0"
-    leaflet.markercluster: "npm:1.4.1"
+    leaflet: "npm:1.9.4"
+    leaflet.markercluster: "npm:1.5.3"
     less: "npm:4.1.1"
     less-loader: "npm:12.2.0"
     less-plugin-clean-css: "npm:1.5.1"
