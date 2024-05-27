@@ -48,7 +48,7 @@
     "less-plugin-clean-css": "1.5.1",
     "leven": "4.0.0",
     "mutate-cow": "5.0.0",
-    "nodemon": "2.0.20",
+    "nodemon": "3.1.1",
     "pg": "8.3.3",
     "pg-cursor": "2.3.3",
     "po2json": "https://github.com/mikeedwards/po2json.git#51e2310485bbe35e9e57f2eee238185459ca0eab",
