@@ -6675,7 +6675,7 @@ __metadata:
     pg-cursor: "npm:2.10.5"
     po2json: "https://github.com/mikeedwards/po2json.git#51e2310485bbe35e9e57f2eee238185459ca0eab"
     process: "npm:0.11.10"
-    punycode: "npm:2.1.1"
+    punycode: "npm:2.3.1"
     querystring: "npm:0.2.0"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
@@ -7590,14 +7590,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"punycode@npm:2.1.1":
-  version: 2.1.1
-  resolution: "punycode@npm:2.1.1"
-  checksum: 10c0/83815ca9b9177f055771f31980cbec7ffaef10257d50a95ab99b4a30f0404846e85fa6887ee1bbc0aaddb7bad6d96e2fa150a016051ff0f6b92be4ad613ddca8
-  languageName: node
-  linkType: hard
-
-"punycode@npm:^2.1.0":
+"punycode@npm:2.3.1, punycode@npm:^2.1.0":
   version: 2.3.1
   resolution: "punycode@npm:2.3.1"
   checksum: 10c0/14f76a8206bc3464f794fb2e3d3cc665ae416c01893ad7a02b23766eb07159144ee612ad67af5e84fa4479ccfe67678c4feb126b0485651b302babf66f04f9e9
