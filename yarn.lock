@@ -4503,10 +4503,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"filesize@npm:2.0.4":
-  version: 2.0.4
-  resolution: "filesize@npm:2.0.4"
-  checksum: 10c0/831ff34fde8c9aa9018216828cff129886902c14759e6df76eda9b1d0d723caa47f74d1cd7d5d6db885bb7bf0d713083a227f5825804d30ffa8867c518344184
+"filesize@npm:10.1.2":
+  version: 10.1.2
+  resolution: "filesize@npm:10.1.2"
+  checksum: 10c0/1f3a81231047924e3c6181ef1596bf56c83cc65e407130d9b83a3c6a603894261dce89013d15c6e3e4d636845128360c21c64c4700a243f0d8662e168c2fd781
   languageName: node
   linkType: hard
 
@@ -6664,7 +6664,7 @@ __metadata:
     eslint-plugin-simple-import-sort: "npm:^7.0.0"
     fast-diff: "npm:1.3.0"
     file-url: "npm:2.0.2"
-    filesize: "npm:2.0.4"
+    filesize: "npm:10.1.2"
     flow-bin: "npm:0.236.0"
     generic-diff: "npm:1.0.1"
     gettext-parser: "npm:3.1.0"

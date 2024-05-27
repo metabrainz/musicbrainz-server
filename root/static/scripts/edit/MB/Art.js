@@ -7,7 +7,7 @@
  */
 
 import * as Sentry from '@sentry/browser';
-import filesize from 'filesize';
+import {filesize} from 'filesize';
 import $ from 'jquery';
 import ko from 'knockout';
 
