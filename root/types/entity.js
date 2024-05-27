@@ -23,19 +23,7 @@ declare type EntityWithAliasesT =
   | SeriesT
   | WorkT;
 
-declare type EntityWithAliasesTypeT =
-  | 'area'
-  | 'artist'
-  | 'event'
-  | 'genre'
-  | 'instrument'
-  | 'label'
-  | 'place'
-  | 'recording'
-  | 'release_group'
-  | 'release'
-  | 'series'
-  | 'work';
+declare type EntityWithAliasesTypeT = EntityWithAliasesT['entityType'];
 
 declare type EntityWithSeriesMapT = {
   'artist': ArtistT,
@@ -85,19 +73,7 @@ declare type CollectableEntityT =
   | SeriesT
   | WorkT;
 
-declare type CollectableEntityTypeT =
-  | 'area'
-  | 'artist'
-  | 'event'
-  | 'genre'
-  | 'instrument'
-  | 'label'
-  | 'place'
-  | 'recording'
-  | 'release_group'
-  | 'release'
-  | 'series'
-  | 'work';
+declare type CollectableEntityTypeT = CollectableEntityT['entityType'];
 
 declare type EditableEntityT =
   | AreaT
@@ -114,20 +90,7 @@ declare type EditableEntityT =
   | UrlT
   | WorkT;
 
-declare type EditableEntityTypeT =
-  | 'area'
-  | 'artist'
-  | 'event'
-  | 'genre'
-  | 'instrument'
-  | 'label'
-  | 'place'
-  | 'recording'
-  | 'release_group'
-  | 'release'
-  | 'series'
-  | 'url'
-  | 'work';
+declare type EditableEntityTypeT = EditableEntityT['entityType'];
 
 declare type EntityWithArtistCreditsT =
   | RecordingT
@@ -136,10 +99,7 @@ declare type EntityWithArtistCreditsT =
   | TrackT;
 
 declare type EntityWithArtistCreditsTypeT =
-  | 'recording'
-  | 'release_group'
-  | 'release'
-  | 'track';
+  EntityWithArtistCreditsT['entityType'];
 
 declare type EntityWithAutoCleanupTypeT =
   | 'artist'
@@ -177,19 +137,7 @@ declare type MergeableEntityT =
   | SeriesT
   | WorkT;
 
-declare type MergeableEntityTypeT =
-  | 'area'
-  | 'artist'
-  | 'collection'
-  | 'event'
-  | 'instrument'
-  | 'label'
-  | 'place'
-  | 'recording'
-  | 'release_group'
-  | 'release'
-  | 'series'
-  | 'work';
+declare type MergeableEntityTypeT = MergeableEntityT['entityType'];
 
 declare type PendingEditsRoleT = {
   +editsPending: boolean,
@@ -240,18 +188,7 @@ declare type RelatableEntityT =
   | UrlT;
 
 declare type NonUrlRelatableEntityTypeT =
-  | 'area'
-  | 'artist'
-  | 'event'
-  | 'genre'
-  | 'instrument'
-  | 'label'
-  | 'place'
-  | 'recording'
-  | 'release_group'
-  | 'release'
-  | 'series'
-  | 'work';
+  NonUrlRelatableEntityT['entityType'];
 
 declare type RelatableEntityTypeT =
   | NonUrlRelatableEntityTypeT
@@ -267,12 +204,7 @@ declare type SubscribableEntityWithSidebarT =
   | LabelT
   | SeriesT;
 
-declare type SubscribableEntityTypeT =
-  | 'artist'
-  | 'collection'
-  | 'editor'
-  | 'label'
-  | 'series';
+declare type SubscribableEntityTypeT = SubscribableEntityT['entityType'];
 
 declare type TaggableEntityT =
   | AreaT
@@ -287,18 +219,7 @@ declare type TaggableEntityT =
   | SeriesT
   | WorkT;
 
-declare type TaggableEntityTypeT =
-  | 'area'
-  | 'artist'
-  | 'event'
-  | 'instrument'
-  | 'label'
-  | 'place'
-  | 'recording'
-  | 'release_group'
-  | 'release'
-  | 'series'
-  | 'work';
+declare type TaggableEntityTypeT = TaggableEntityT['entityType'];
 
 declare type TypeRoleT<T> = {
   +typeID: number | null,
