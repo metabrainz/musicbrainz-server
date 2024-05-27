@@ -1,0 +1,74 @@
+{
+  title: 'MBS-13604',
+  commands: [
+    {
+      command: 'open',
+      target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit',
+      value: '',
+    },
+    // First set the first track AC to match the release AC.
+    {
+      command: 'pause',
+      target: '250',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#tracklist']",
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=ac-18674665-single-artist',
+      value: '5441c29d-3602-4898-b1a1-b77fa23b8e50',
+    },
+    {
+      command: 'pause',
+      target: '250',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#information']",
+      value: '',
+    },
+    // Clear the release AC.
+    {
+      command: 'type',
+      target: "id=ac-source-single-artist",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#tracklist']",
+      value: '',
+    },
+    // The track AC should now be empty.
+    {
+      command: 'assertEval',
+      target: 'window.document.getElementById("ac-18674665-single-artist").value',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "id=ac-18674665-single-artist",
+      value: '',
+    },
+    // The recent items menu should be visible after focusing the track AC.
+    {
+      command: 'click',
+      target: "id=ac-18674665-single-artist-item-956-recent",
+      value: '',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
+    },
+  ],
+}
