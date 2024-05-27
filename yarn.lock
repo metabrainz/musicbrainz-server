@@ -4457,10 +4457,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-diff@npm:1.2.0":
-  version: 1.2.0
-  resolution: "fast-diff@npm:1.2.0"
-  checksum: 10c0/2fbcb23957fb0bc920832a94ba627b860400f9cce45e1594e931dabf62e858369a58c6c2603e2ecc4f7679580f710b5b5b6e698a355a9a9bfcfd93c06c7c4350
+"fast-diff@npm:1.3.0":
+  version: 1.3.0
+  resolution: "fast-diff@npm:1.3.0"
+  checksum: 10c0/5c19af237edb5d5effda008c891a18a585f74bf12953be57923f17a3a4d0979565fc64dbc73b9e20926b9d895f5b690c618cbb969af0cf022e3222471220ad29
   languageName: node
   linkType: hard
 
@@ -6662,7 +6662,7 @@ __metadata:
     eslint-plugin-react: "npm:7.34.1"
     eslint-plugin-react-hooks: "npm:4.6.0"
     eslint-plugin-simple-import-sort: "npm:^7.0.0"
-    fast-diff: "npm:1.2.0"
+    fast-diff: "npm:1.3.0"
     file-url: "npm:2.0.2"
     filesize: "npm:2.0.4"
     flow-bin: "npm:0.236.0"
