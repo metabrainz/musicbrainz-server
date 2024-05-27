@@ -3776,10 +3776,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"detect-node@npm:2.0.3":
-  version: 2.0.3
-  resolution: "detect-node@npm:2.0.3"
-  checksum: 10c0/3c7a059b1c71db6f48a79f67b4e6a4d3546885b946286a02cab67d007591c50b31697bcc317210d03221892fb2fef91d4e218ec50bd84dbe9625740a130e334b
+"detect-node@npm:2.1.0":
+  version: 2.1.0
+  resolution: "detect-node@npm:2.1.0"
+  checksum: 10c0/f039f601790f2e9d4654e499913259a798b1f5246ae24f86ab5e8bd4aaf3bce50484234c494f11fb00aecb0c6e2733aa7b1cf3f530865640b65fbbd65b2c4e09
   languageName: node
   linkType: hard
 
@@ -6654,7 +6654,7 @@ __metadata:
     cookie: "npm:0.6.0"
     core-js: "npm:3.37.1"
     deep-freeze-strict: "npm:1.1.1"
-    detect-node: "npm:2.0.3"
+    detect-node: "npm:2.1.0"
     eslint: "npm:8.57.0"
     eslint-plugin-fb-flow: "npm:0.0.5"
     eslint-plugin-ft-flow: "npm:3.0.7"
