@@ -20,7 +20,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-24 19:24+0000\n"
+"PO-Revision-Date: 2024-05-26 22:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -2036,17 +2036,19 @@ msgstr ""
 
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
-msgstr ""
+msgstr "Указывает на исполнителя, который вдохновил имя этого исполнителя."
 
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
-msgstr ""
+msgstr "Указывает на исполнителя, который вдохновил имя этого места."
 
 #: DB:link_type/description:1000
 msgid ""
 "This indicates the artist that inspired this series' name, for example for "
 "an award named after a musician."
 msgstr ""
+"Указывает на исполнителя, который вдохновил имя этой серии, например, "
+"премия, названная в честь музыканта."
 
 #: DB:link_type/description:1186
 msgid ""
@@ -2248,7 +2250,7 @@ msgstr ""
 
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
-msgstr ""
+msgstr "Указывает на группу релизов, которая вдохновила имя этого исполнителя."
 
 #: DB:link_type/description:349
 msgid ""
@@ -2273,18 +2275,27 @@ msgid ""
 "This indicates the work is dedicated to a specific area. This is most common "
 "for classical works, but also exists in other genres to a degree."
 msgstr ""
+"Указывает, что работа посвящена определенной области. Это наиболее "
+"характерно для классических произведений, но в той или иной степени "
+"встречается и в других жанрах."
 
 #: DB:link_type/description:922
 msgid ""
 "This indicates the work is dedicated to a specific organization. This is "
 "most common for classical works, but also exists in other genres to a degree."
 msgstr ""
+"Указывает, что работа посвящена определенной организации. Это наиболее "
+"характерно для классических произведений, но в той или иной степени "
+"встречается и в других жанрах."
 
 #: DB:link_type/description:846
 msgid ""
 "This indicates the work is dedicated to a specific person. This is most "
 "common for classical works, but also exists in other genres to a degree."
 msgstr ""
+"Указывает, что работа посвящена определенному человеку. Это наиболее "
+"характерно для классических произведений, но в той или иной степени "
+"встречается и в других жанрах."
 
 #: DB:link_type/description:983
 msgid ""
@@ -2292,10 +2303,13 @@ msgid ""
 "educational institution). This is most common for classical works, but also "
 "exists in other genres to a degree."
 msgstr ""
+"Указывает, что работа посвящена определенному месту (например, "
+"образовательному учреждению). Это наиболее характерно для классических "
+"произведений, но в той или иной степени встречается и в других жанрах."
 
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
-msgstr ""
+msgstr "Указывает на работу, которая вдохновила имя этого исполнителя."
 
 #: DB:link_type/description:915
 msgid "This indicates where a feed for this podcast can be found."
@@ -2585,6 +2599,8 @@ msgid ""
 "This links a concert tour with a release group (generally an album) the tour "
 "is connected with."
 msgstr ""
+"Связывает концертный тур с группой релизов (обычно релизов альбома), с "
+"которой связан тур."
 
 #: DB:link_type/description:1092
 msgid "This links a genre to its page at Bandcamp."
@@ -2750,6 +2766,13 @@ msgid ""
 "honor the label. Often they are various artist compilations, but a single "
 "artist can perform the entire tribute album."
 msgstr ""
+"Связывает группу релизов с лейблом, чтобы обозначить, что это трибьют-"
+"альбом. Трибьют-альбомы чаще всего имеют название типа \"Трибьют лейблу\" "
+"или \"Трибьют исполнителям от лейбла\", и они состоят из каверов песен, "
+"выпущенных лейблом, исполненными другими (чаще всего, неизвестными) "
+"исполнителями, чтобы дать честь лейблу. Часто это сборники песен разных "
+"исполнителей, хотя трибьют-альбом может быть исполнен и целиком одним "
+"исполнителем."
 
 #: DB:link_type/description:868
 msgid ""
@@ -2759,6 +2782,11 @@ msgid ""
 "relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" "
 "target=\"_blank\">tribute relationship</a>."
 msgstr ""
+"Связывает группу релизов с исполнителем, которому она посвящена. "
+"Предназначено для посвящений типа \"Этот альбом посвящен памяти Исполнителя\""
+". Для трибьют-альбомов, состоящих из каверов песен исполнителя, используйте "
+"<a href=\"/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" target="
+"\"_blank\">отношение трибьюта</a>."
 
 #: DB:link_type/description:65
 msgid ""
@@ -2769,6 +2797,12 @@ msgid ""
 "they are various artist compilations, but a single artist can perform the "
 "entire tribute album."
 msgstr ""
+"Связывает группу релизов с исполнителем, чтобы обозначить, что это трибьют-"
+"альбом. Трибьют-альбомы чаще всего имеют название типа «Трибьют исполнителю»"
+", и они состоят из каверов песен целевого исполнителя, исполненными другими ("
+"чаще всего, неизвестными) исполнителями, чтобы дать честь исполнителю. Часто "
+"это сборники песен разных исполнителей, хотя трибьют-альбом может быть "
+"исполнен и целиком одним исполнителем."
 
 #: DB:link_type/description:1176
 msgid ""
@@ -3600,6 +3634,11 @@ msgid ""
 "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
 "ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr ""
+"Этот тип отношений используется для обозначения того, что группа релизов "
+"является кавером на другую группу релизов (когда исполнитель исполняет "
+"альбом другого исполнителя на свой манер).<br/>\n"
+"Для отдельных песен, см <a href=\"/relationship/a3005666-a872-32c3-ad06-"
+"98af558e99b0\">этот тип отношений</a>."
 
 #: DB:link_type/description:1229
 msgid ""
@@ -3742,6 +3781,9 @@ msgid ""
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated "
 "to cataloguing the music of video games and anime."
 msgstr ""
+"Этот тип отношений связывает лейбл с соответствующей страницей на <a href="
+"\"http://vgmdb.net/\">VGMdb</a>. VGMdb — это сетевой проект, посвященный "
+"каталогизации музыки из видеоигр и аниме."
 
 #: DB:link_type/description:838
 msgid ""
@@ -3754,6 +3796,9 @@ msgid ""
 "page at <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community "
 "project dedicated to cataloguing the music of video games and anime."
 msgstr ""
+"Этот тип отношений связывает место (обычно студию) с соответствующей "
+"страницей на <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb — это сетевой "
+"проект, посвященный каталогизации музыки из видеоигр и аниме."
 
 #: DB:link_type/description:861
 msgid ""
@@ -3782,6 +3827,9 @@ msgid ""
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated "
 "to cataloguing the music of video games and anime."
 msgstr ""
+"Этот тип отношений связывает релиз с соответствующей страницей на <a href="
+"\"http://vgmdb.net/\">VGMdb</a>. VGMdb — это сетевой проект, посвященный "
+"каталогизации музыки из видеоигр и аниме."
 
 #: DB:link_type/description:938
 msgid ""
@@ -3801,6 +3849,9 @@ msgid ""
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated "
 "to cataloguing the music of video games and anime."
 msgstr ""
+"Этот тип отношений связывает исполнителя с соответствующей страницей на <a "
+"href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb — это сетевой проект, "
+"посвященный каталогизации музыки из видеоигр и аниме."
 
 #: DB:link_type/description:862
 msgid ""
@@ -3848,6 +3899,9 @@ msgid ""
 "href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community project dedicated "
 "to cataloguing the music of video games and anime."
 msgstr ""
+"Этот тип отношений связывает событие с соответствующей страницей на <a href="
+"\"http://vgmdb.net/\">VGMdb</a>. VGMdb — это сетевой проект, посвященный "
+"каталогизации музыки из видеоигр и аниме."
 
 #: DB:link_type/description:860
 msgid ""
@@ -4770,7 +4824,7 @@ msgstr ""
 
 #: DB:link_type/name:63 DB:link_type/name:146
 msgid "creative direction"
-msgstr ""
+msgstr "креативное руководство"
 
 #: DB:link_type/reverse_link_phrase:115
 msgid "creative persons"
@@ -4810,7 +4864,7 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:846 DB:link_type/reverse_link_phrase:922
 #: DB:link_type/reverse_link_phrase:914 DB:link_type/reverse_link_phrase:868
 msgid "dedicated to"
-msgstr ""
+msgstr "посвящено"
 
 #: DB:link_type/link_phrase:983 DB:link_type/link_phrase:846
 #: DB:link_type/link_phrase:922 DB:link_type/link_phrase:914
@@ -4824,7 +4878,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:868
 msgid "dedications"
-msgstr ""
+msgstr "посвящения"
 
 #: DB:link_type/name:737
 msgid "derivation"
@@ -5569,7 +5623,7 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:741 DB:link_type/reverse_link_phrase:996
 #: DB:link_type/long_link_phrase:818
 msgid "has parts"
-msgstr ""
+msgstr "имеет части"
 
 #: DB:link_type/link_phrase:723 DB:link_type/long_link_phrase:723
 msgid "has personal label"
@@ -5733,7 +5787,7 @@ msgstr "информационная страница"
 #: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
 #: DB:link_type/reverse_link_phrase:974
 msgid "inspired the name of"
-msgstr ""
+msgstr "вдохновило имя"
 
 #: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
 msgid "instrument"
@@ -6045,15 +6099,15 @@ msgstr ""
 
 #: DB:link_type/name:796 DB:link_type/name:797
 msgid "launch event"
-msgstr ""
+msgstr "церемония запуска"
 
 #: DB:link_type/link_phrase:796 DB:link_type/link_phrase:797
 msgid "launch event for"
-msgstr ""
+msgstr "церемония запуска для"
 
 #: DB:link_type/reverse_link_phrase:796 DB:link_type/reverse_link_phrase:797
 msgid "launch events"
-msgstr ""
+msgstr "церемонии запуска"
 
 #: DB:link_attribute_type/name:4
 msgid "lead vocals"
@@ -7006,7 +7060,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:63 DB:link_type/long_link_phrase:146
 msgid "provided {additional} creative direction on"
-msgstr ""
+msgstr "предоставил {additional:дополнительное} креативное руководство"
 
 #: DB:link_type/long_link_phrase:1171
 msgid "provided {additional} design on"
@@ -7768,7 +7822,7 @@ msgstr "трибьют"
 
 #: DB:link_type/link_phrase:65 DB:link_type/link_phrase:970
 msgid "tribute albums"
-msgstr ""
+msgstr "трибьют-альбомы"
 
 #: DB:link_type/reverse_link_phrase:728
 msgid "tribute artists"
@@ -7879,7 +7933,7 @@ msgstr "was a conductor at"
 
 #: DB:link_type/long_link_phrase:796 DB:link_type/long_link_phrase:797
 msgid "was a launch event for"
-msgstr ""
+msgstr "было церемонией запуска для"
 
 #: DB:link_type/long_link_phrase:798
 msgid "was a main performer at"
@@ -7944,7 +7998,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:760 DB:link_type/long_link_phrase:759
 msgid "was the {guest} concertmaster for"
-msgstr ""
+msgstr "был {guest:приглашенным} концертмейстером для"
 
 #: DB:link_type/long_link_phrase:986 DB:link_type/long_link_phrase:987
 msgid "was the {instrument:%|instruments} technician for"
@@ -8346,7 +8400,7 @@ msgstr "{additional} место композиции для"
 #: DB:link_type/link_phrase:63 DB:link_type/link_phrase:146
 #: DB:link_type/reverse_link_phrase:63 DB:link_type/reverse_link_phrase:146
 msgid "{additional} creative direction"
-msgstr ""
+msgstr "{additional:дополнительное} креативное руководство"
 
 #: DB:link_type/link_phrase:1171 DB:link_type/reverse_link_phrase:1171
 msgid "{additional} design"
@@ -8698,7 +8752,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:154 DB:link_type/long_link_phrase:49
 msgid "{entity1} contains {additional} samples by {entity0}"
-msgstr ""
+msgstr "{entity1} содержит {additional:дополнительные} семплы от {entity0}"
 
 #: DB:link_type/long_link_phrase:312
 msgid "{entity1} has VIAF ID at {entity0}"
@@ -8763,7 +8817,7 @@ msgstr ""
 #: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:1175
 #: DB:link_type/long_link_phrase:20
 msgid "{entity1} has {additional} photography by {entity0}"
-msgstr ""
+msgstr "{entity1} содержит {additional:дополнительные} фотографии от {entity0}"
 
 #: DB:link_type/long_link_phrase:918
 msgid "{entity1} invented {entity0}"
@@ -8783,11 +8837,11 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:994
 msgid "{entity1} is a residency by {entity0}"
-msgstr ""
+msgstr "{entity1} является резиденцией исполнителя {entity0}"
 
 #: DB:link_type/long_link_phrase:859
 msgid "{entity1} is a tour by {entity0}"
-msgstr ""
+msgstr "{entity1} является туром исполнителя {entity0}"
 
 #: DB:link_type/long_link_phrase:1082
 msgid "{entity1} is a translated version of {entity0}"
@@ -8813,7 +8867,7 @@ msgstr ""
 #: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:914
 #: DB:link_type/long_link_phrase:868
 msgid "{entity1} is dedicated to {entity0}"
-msgstr ""
+msgstr "{entity1} посвящено {entity0}"
 
 #: DB:link_type/long_link_phrase:1237
 msgid "{entity1} is headquartered in {entity0}"
@@ -8833,7 +8887,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:714
 msgid "{entity1} is/was the primary concert venue of {entity0}"
-msgstr ""
+msgstr "{entity1} был/является основным концертным помещением для {entity0}"
 
 #: DB:link_type/long_link_phrase:1168
 msgid "{entity1} presented {entity0}"
@@ -9054,11 +9108,11 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:760 DB:link_type/reverse_link_phrase:759
 msgid "{guest} concertmaster"
-msgstr ""
+msgstr "{guest:приглашенный} концертмейстер"
 
 #: DB:link_type/link_phrase:760 DB:link_type/link_phrase:759
 msgid "{guest} concertmaster for"
-msgstr ""
+msgstr "{guest:приглашенный} концертмейстер для"
 
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "{half:half-}{step}siblings"

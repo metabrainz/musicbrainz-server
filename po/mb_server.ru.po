@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-23 11:01-0500\n"
-"PO-Revision-Date: 2024-05-24 19:23+0000\n"
+"PO-Revision-Date: 2024-05-27 15:01+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -1237,7 +1237,7 @@ msgstr "Пол"
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
 #: ../root/tag/TagIndex.js:22
 msgid "Genre"
-msgstr "Genre"
+msgstr "Жанр"
 
 #: ../root/components/forms.tt:228 ../root/release/edit/information.tt:14
 #: ../root/release/edit/tracklist.tt:527
@@ -3107,7 +3107,7 @@ msgstr "Загрузка изображения..."
 #: ../root/components/forms.tt:272 ../root/components/forms.tt:297
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:133
 msgid "Uppercase Roman numerals"
-msgstr ""
+msgstr "Оставить римские цифры в верхнем регистре"
 
 #: ../root/layout.tt:126 ../root/layout/components/Footer.js:45
 msgid "Use beta site"
@@ -3238,7 +3238,7 @@ msgstr "Работа"
 #: ../root/layout/components/sidebar/WorkSidebar.js:92
 #: ../root/static/scripts/common/components/AttributeList.js:61
 msgid "Work attributes"
-msgstr ""
+msgstr "Атрибуты работы"
 
 #: ../root/work/edit_form.tt:11
 msgid "Work details"
@@ -3734,7 +3734,7 @@ msgstr ""
 
 #: ../root/cdtoc/move_search.tt:33
 msgid "{release} by {artist}"
-msgstr ""
+msgstr "{release} - {artist}"
 
 #: ../root/instrument/layout.tt:1 ../root/instrument/InstrumentLayout.js:25
 msgid "{type} “{instrument}”"
@@ -4500,37 +4500,37 @@ msgstr "Удалить обложку"
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAlias.pm:11
 msgctxt "edit type"
 msgid "Add genre alias"
-msgstr "Добавить псевдоним жанра"
+msgstr "Добавление псевдонима жанра"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add genre annotation"
-msgstr "Добавить аннотацию к жанру"
+msgstr "Добавление аннотации к жанру"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:24
 msgctxt "edit type"
 msgid "Add genre"
-msgstr "Добавить жанр"
+msgstr "Добавление жанра"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Delete.pm:10
 msgctxt "edit type"
 msgid "Remove genre"
-msgstr "Убрать жанр"
+msgstr "Удаление жанра"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/DeleteAlias.pm:16
 msgctxt "edit type"
 msgid "Remove genre alias"
-msgstr "Удалить псевдоним жанра"
+msgstr "Удаление псевдонима жанра"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:25
 msgctxt "edit type"
 msgid "Edit genre"
-msgstr "Редактировать жанр"
+msgstr "Правка жанра"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/EditAlias.pm:12
 msgctxt "edit type"
 msgid "Edit genre alias"
-msgstr "Править псевдоним жанра"
+msgstr "Правка псевдонима жанра"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic.pm:10 ../root/doc/EditTypeList.js:22
 #: ../root/doc/EditTypeList.js:25
@@ -8445,10 +8445,8 @@ msgstr "Открытые правки"
 
 #: ../root/edit/SubscribedEditorEdits.js:21
 #: ../root/edit/SubscribedEditorEdits.js:23
-#, fuzzy
-#| msgid "All edits for your subscribed editors"
 msgid "Edits by your subscribed editors"
-msgstr "Все правки редакторов, на которые вы подписаны"
+msgstr "Правки редакторов, на которые вы подписаны"
 
 #: ../root/edit/SubscribedEdits.js:21 ../root/edit/SubscribedEdits.js:23
 #, fuzzy
@@ -10575,7 +10573,7 @@ msgstr "Голосование по правкам"
 #: ../root/layout/components/BottomMenu.js:282
 #: ../root/report/ReportsIndex.js:32 ../root/report/ReportsIndex.js:34
 msgid "Reports"
-msgstr "Жалобы"
+msgstr "Отчеты"
 
 #: ../root/layout/components/BottomMenu.js:298 ../root/main/index.js:172
 msgid "Beginners guide"
@@ -10683,7 +10681,7 @@ msgstr "Правки для подписанных сущностей"
 
 #: ../root/layout/components/TopMenu.js:102
 msgid "Edits by subscribed editors"
-msgstr "Правки от подписанных редакторов"
+msgstr "Правки редакторов, на которые я подписан"
 
 #: ../root/layout/components/TopMenu.js:106
 msgid "Notes left on my edits"
@@ -13841,11 +13839,9 @@ msgid "My subscriptions"
 msgstr "Мои подписки"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:200
-#, fuzzy
-#| msgid "Add a new genre"
 msgctxt "folksonomy"
 msgid "My tags and genres"
-msgstr "Add a new genre"
+msgstr "Мои теги и жанры"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:213
 #, fuzzy
@@ -14206,7 +14202,7 @@ msgstr "Поиск мероприятий"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:131
 msgid "Search for a genre"
-msgstr ""
+msgstr "Поиск жанра"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:132
 msgid "Search for an instrument"
@@ -14547,7 +14543,7 @@ msgstr "Голос \"против\""
 #: ../root/static/scripts/common/components/TagEditor.js:549
 #: ../root/user/UserTagList.js:92
 msgid "There are no genres to show."
-msgstr ""
+msgstr "Нет доступных для показа жанров."
 
 #: ../root/static/scripts/common/components/TagEditor.js:559
 #: ../root/user/UserTagList.js:115
@@ -14751,27 +14747,27 @@ msgstr ""
 
 #: ../root/static/scripts/common/utility/relationshipDateText.js:29
 msgid "from {begin_date} until {end_date}"
-msgstr ""
+msgstr "с {begin_date} по {end_date}"
 
 #: ../root/static/scripts/common/utility/relationshipDateText.js:34
 msgid "from {date} to ????"
-msgstr ""
+msgstr "с {date} по ????"
 
 #: ../root/static/scripts/common/utility/relationshipDateText.js:36
 msgid "from {date} to present"
-msgstr ""
+msgstr "с {date} по н.в."
 
 #: ../root/static/scripts/common/utility/relationshipDateText.js:38
 msgid "until {date}"
-msgstr ""
+msgstr "по {date}"
 
 #: ../root/static/scripts/common/utility/relationshipDateText.js:40
 msgid "ended"
-msgstr ""
+msgstr "завершено"
 
 #: ../root/static/scripts/common/utility/tableColumns.js:24
 msgid "AcoustIDs"
-msgstr ""
+msgstr "AcoustID"
 
 #: ../root/static/scripts/common/utility/yesNo.js:11
 msgid "Yes"
@@ -14783,12 +14779,12 @@ msgstr "Нет"
 
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:51
 msgid "Began:"
-msgstr ""
+msgstr "Дата начала:"
 
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:52
 msgctxt "artist end date"
 msgid "Ended"
-msgstr ""
+msgstr "Завершено"
 
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:66
 msgid "This person is deceased."
@@ -14796,19 +14792,23 @@ msgstr "Этот человек умер."
 
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:78
 msgid "This group has dissolved."
-msgstr ""
+msgstr "Эта группа распалась."
 
 #: ../root/static/scripts/edit/URLCleanup.js:386
 msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
 msgstr ""
+"Добавьте ссылку на канал, а не конкретное видео. Видео должны быть связаны с "
+"подходящими записями или релизами."
 
 #: ../root/static/scripts/edit/URLCleanup.js:392
 msgid ""
 "This is a link to a search result. Please link to any page in the results "
 "that is relevant to this entity instead, if available."
 msgstr ""
+"Это ссылка на поисковую машину. Пожалуйста, лучше добавьте связанную с этой "
+"сущностью ссылку из результатов поиска, если такая есть."
 
 #: ../root/static/scripts/edit/URLCleanup.js:397
 msgid ""
@@ -14824,6 +14824,9 @@ msgid ""
 "release group level with the “lyrics” relationship, rather than directly to "
 "any specific release."
 msgstr ""
+"Это сайт с текстами песен. Как таковые, ссылки на сайт должны быть добавлены "
+"на уровне группы релизов с отношением типа \"тексты песен\", а не к любому "
+"конкретному релизу."
 
 #: ../root/static/scripts/edit/URLCleanup.js:575
 msgid ""
@@ -14831,6 +14834,9 @@ msgid ""
 "find the appropriate release link for this release, please check the "
 "Releases tab from {album_url|your link}."
 msgstr ""
+"Ссылки сервиса Allmusic \"{album_url_pattern}\" стоит добавлять к группам "
+"релизов. Чтобы найти подходящую ссылку для этого релиза, проверьте вкладку "
+"\"Releases\" из {album_url|вашей ссылки}."
 
 #: ../root/static/scripts/edit/URLCleanup.js:662
 #: ../root/static/scripts/edit/URLCleanup.js:925
@@ -14840,6 +14846,8 @@ msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr ""
+"Это ссылка-перенаправление. Пожалуйста, пройдите по {redirect_url|ссылке} и "
+"добавьте ту, на которую она перенаправляет."
 
 #: ../root/static/scripts/edit/URLCleanup.js:680
 msgid ""
@@ -14852,23 +14860,32 @@ msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
 msgstr ""
+"В MusicBrainz могут быть добавлены ссылки только на аудиокниги в приложении "
+"Apple Books. Ссылки на текстовые книги лучше стоит добавить на "
+"{bookbrainz_url|BookBrainz}."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1137
 msgid ""
 "Please do not add “{blocked_url_pattern}” links, link to the appropriate "
 "“{wanted_url_pattern}” page instead."
 msgstr ""
+"Пожалуйста, не добавляйте ссылки типа \"{blocked_url_pattern}\". Лучше "
+"добавьте подходящую ссылку формата \"{wanted_url_pattern}\"."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1157
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr ""
+"Пожалуйста, добавьте ссылку на основную страницу исполнителя, а не "
+"конкретного альбома или трека."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1174
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr ""
+"Пожалуйста, добавьте ссылку на основную страницу лейбла, а не конкретного "
+"альбома или трека."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1196
 msgid ""
@@ -14878,6 +14895,11 @@ msgid ""
 "(“{single_url_pattern}”) instead, and feel free to add this profile link to "
 "the appropriate artist or label."
 msgstr ""
+"Это профиль на Bandcamp, а не страница конкретной записи. Хотя на ней сейчас "
+"показана только одна запись, это может измениться, когда исполнитель "
+"выпустит ещё. Найдите и добавьте подходящую страницу записи (\""
+"{single_url_pattern}\"), а эту страницу профиля - к подходящему исполнителю "
+"или лейблу."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1224
 msgid ""
@@ -14887,6 +14909,11 @@ msgid ""
 "(“{album_url_pattern}” or “{single_url_pattern}”) instead, and feel free to "
 "add this profile link to the appropriate artist or label."
 msgstr ""
+"Это профиль на Bandcamp, а не страница конкретного релиза. Хотя на ней "
+"сейчас показан только один релиз, это может измениться, когда исполнитель "
+"выпустит ещё. Найдите и добавьте подходящую страницу релиза (\""
+"{album_url_pattern}\" или \"{single_url_pattern}\"), а эту страницу профиля -"
+" к подходящему исполнителю или лейблу."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1533
 msgid "Please link to the main page for the artist, not a specific product."
@@ -14919,6 +14946,8 @@ msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
+"Ссылки на Instagram (\"{explore_url_pattern}\") не разрешены. Добавьте "
+"ссылку на конкретный профиль, если такая имеется."
 
 #: ../root/static/scripts/edit/URLCleanup.js:3075
 msgid ""
@@ -14929,7 +14958,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:3100
 msgid "This is an internal Instagram page and should not be added."
-msgstr ""
+msgstr "Не стоит добавлять внутренние страницы Instagram."
 
 #: ../root/static/scripts/edit/URLCleanup.js:4215
 msgid ""
@@ -14951,23 +14980,23 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:5613
 msgid "Please link to Threads profiles, not threads."
-msgstr ""
+msgstr "Добавьте ссылки на профили в Threads, а не отдельные ветки."
 
 #: ../root/static/scripts/edit/URLCleanup.js:5747
 msgid "Please link to TikTok profiles, not videos."
-msgstr ""
+msgstr "Добавьте ссылки на профили в TikTok, а не отдельные видео."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6014
 msgid "This is not a profile, but a Twitter documentation page."
-msgstr ""
+msgstr "Это страница документации Твиттера, а не профиля."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6028
 msgid "Please link to Twitter profiles, not tweets."
-msgstr ""
+msgstr "Добавьте ссылки на профили в Твиттере, а не отдельные твиты."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6046
 msgid "This site does not allow direct links to their images."
-msgstr ""
+msgstr "На этом сайте запрещены прямые ссылки к изображениям."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6252
 msgid ""
@@ -14981,6 +15010,8 @@ msgid ""
 "it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
+"В ссылке есть незакодированный символ \"?\" или \"#\". Проверьте, стоит ли "
+"ее убрать, или это ошибка и ссылка неправильно закодирована."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6449
 msgid ""
@@ -15005,12 +15036,16 @@ msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
+"Ссылки на отдельные разделы статей Википедии запрещены. Уберите \"{fragment}"
+"\" из ссылки и ознакомьтесь с {url|руководством}."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6592
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
+"Ссылки на страницы пользователей Википедии не разрешены. Добавляйте ссылки "
+"только на конкретные статьи."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6757
 msgid ""
@@ -15021,13 +15056,15 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:6797
 msgid "Only video and playlist links are allowed on releases."
-msgstr ""
+msgstr "В релизах разрешены ссылки только на видео или плейлисты."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6842
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
+"Это ссылка релиза (плейлиста), а не канала исполнителя. Пожалуйста, добавьте "
+"ссылку на канал исполнителя."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6878
 msgid ""
@@ -15082,7 +15119,7 @@ msgstr "Обязательное поле."
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:20
 msgid "Add a new area"
-msgstr ""
+msgstr "Добавить новую область"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:21
 msgid "Add a new artist"
@@ -15090,11 +15127,11 @@ msgstr "Добавить нового исполнителя"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:22
 msgid "Add a new event"
-msgstr ""
+msgstr "Добавить новое событие"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:23
 msgid "Add a new instrument"
-msgstr ""
+msgstr "Добавить новый инструмент"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:24
 msgid "Add a new label"
@@ -15102,31 +15139,27 @@ msgstr "Добавить новый лейбл"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:25
 msgid "Add a new place"
-msgstr ""
+msgstr "Добавить новое место"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:27
 msgid "Add a new release group"
-msgstr "Добавить новую релиз группу"
+msgstr "Добавить новую группу релизов"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:28
 msgid "Add a new series"
-msgstr ""
+msgstr "Добавить новую серию"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:29
 msgid "Add a new work"
-msgstr ""
+msgstr "Добавить новую работу"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:49
-#, fuzzy
-#| msgid "Open edits"
 msgid "Copy credits"
-msgstr "Открытые изменения"
+msgstr "Копировать участников"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:56
-#, fuzzy
-#| msgid "Last edited"
 msgid "Paste credits"
-msgstr "Последнее редактирование"
+msgstr "Вставить участников"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:92
 msgid ""
@@ -15134,18 +15167,20 @@ msgid ""
 "collaborations. See the {ac|Artist Credit} documentation for more "
 "information."
 msgstr ""
+"Используйте поля иже, чтобы ввести вариации имени исполнителя и коллаборации "
+"с несколькими исполнителями. Подробнее в {ac|документации}."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:129
 msgid "[missing track name]"
-msgstr ""
+msgstr "[отсутствует название трека]"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:133
 msgid "You haven’t entered a track name yet."
-msgstr ""
+msgstr "Вы еще не ввели название трека."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:134
 msgid "This track hasn’t been added yet."
-msgstr ""
+msgstr "Этот трек еще не был добавлен."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:150
 msgid "Artist in MusicBrainz:"
@@ -15157,43 +15192,35 @@ msgstr "Исполнитель как указан:"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:152
 msgid "Join phrase:"
-msgstr "Присоединяющаяся фраза:"
+msgstr "Присоединяющая фраза:"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:168
-#, fuzzy
-#| msgid "Add artist"
 msgctxt "interactive"
 msgid "Add artist credit"
-msgstr "Добавить исполнителя"
+msgstr "Добавить кредитс исполнителя"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:198
 msgid "Change all artists on this release that match “{name}”"
-msgstr ""
+msgstr "Изменить всех исполнителей в этом релизе, совпадающих с \"{name}\""
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:202
 msgid "Change all artists on this release that are currently empty"
-msgstr ""
+msgstr "Изменить всех исполнителей в этом релизе, которые сейчас пусты"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:138
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "artist credit name"
 msgid "[removed]"
 msgstr "[удалено]"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:175
-#, fuzzy
-#| msgid "Add artist"
 msgctxt "interactive"
 msgid "Undo artist credit removal"
-msgstr "Добавить исполнителя"
+msgstr "Отменить удаление кредитса"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:182
-#, fuzzy
-#| msgid "Remove artist"
 msgctxt "interactive"
 msgid "Remove artist credit"
-msgstr "Удалить исполнителя"
+msgstr "Удалить кредитс исполнителя"
 
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:194
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:173
@@ -15207,6 +15234,11 @@ msgid ""
 "and to users who see the edit years later), but it can also encourage other "
 "users to vote on the edit — thus making it get applied faster."
 msgstr ""
+"Настоятельно рекомендуется добавить {note|комментарий к правке} с описанием, "
+"где вы взяли информацию. Это не только покажет источники, откуда взята "
+"информация (как сейчас, так и тем, кто увидит правку много лет спустя), но и "
+"поощрит других пользователей голосовать за Вашу правку, что позволит принять "
+"её быстрее."
 
 #: ../root/static/scripts/edit/components/EntityPendingEditsWarning.js:25
 msgid "This entity has {edits_link|open edits}."
@@ -15219,21 +15251,17 @@ msgstr "У этой сущности есть открытые правки."
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:218
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:196
 msgid "This relationship has ended."
-msgstr "Эта связь прекратилась."
+msgstr "Это отношение прекратилась."
 
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:258
-#, fuzzy
-#| msgid "Edit Attributes"
 msgctxt "interactive"
 msgid "Edit attributes"
 msgstr "Править атрибуты"
 
 #: ../root/static/scripts/edit/components/Multiselect.js:197
-#, fuzzy
-#| msgid "Remove"
 msgctxt "generic row"
 msgid "[removed]"
-msgstr "Удалить"
+msgstr "[удалено]"
 
 #: ../root/static/scripts/edit/components/NewNotesAlertCheckbox.js:29
 msgid "Show me an alert whenever I receive a new edit note."
@@ -15241,21 +15269,19 @@ msgstr "Показывать уведомление при получении н
 
 #: ../root/static/scripts/edit/components/PartialDateInput.js:43
 msgid "The date you've entered is not valid"
-msgstr ""
+msgstr "Введенная дата не корректна"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:19
-#, fuzzy
-#| msgid "Release Duplicates"
 msgid "Possible duplicates"
-msgstr "Дубликаты релизов"
+msgstr "Возможные дубликаты"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:20
 msgid "We found the following entities with very similar names:"
-msgstr ""
+msgstr "Мы нашли релизы с очень похожими именами:"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:33
 msgid "Yes, I still want to enter “{entity_name}”."
-msgstr ""
+msgstr "Да, я всё еще хочу ввести релиз \"{entity_name}\"."
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:40
 msgid ""
@@ -15279,6 +15305,9 @@ msgid ""
 "title. If this is the case, please set the appropriate medium position "
 "instead of adding a title (see {release_style|the guidelines})."
 msgstr ""
+"Похоже, что \"{matched_text}\" обозначает порядок носителя, а не его "
+"название. Если это так, назначьте соответствующее положение носителя, а не "
+"добавляйте название (см. {release_style|документацию})."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:111
 msgid ""
@@ -15287,6 +15316,11 @@ msgid ""
 "continuous, but all medium positions must be positive, and multiple mediums "
 "cannot be in the same position"
 msgstr ""
+"В этой стратегии объединения будут использованы все носители из всех "
+"релизов. Вы можете указать новый порядок носителей. Порядок не обязательно "
+"должен быть непрерывным, но все позиции носителей должны быть "
+"положительными, и несколько носителей не могут находиться в одной и той же "
+"позиции"
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:126
 msgid "New position:"
@@ -15310,11 +15344,16 @@ msgid ""
 "mediums. Recordings between mediums will also be merged, into the recordings "
 "used on the target mediums."
 msgstr ""
+"Эта стратегия объединения объединит все носители в единый набор носителей. "
+"Записи между носителями также будут объединены в записи, используемые на "
+"целевых носителях."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:245
 msgid ""
 "This requires that corresponding mediums have the same number of tracks."
 msgstr ""
+"Для этого необходимо, чтобы соответствующие носители имели одинаковое "
+"количество треков."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:249
 msgid ""
@@ -15322,26 +15361,32 @@ msgid ""
 "position. For example, to merge a medium into medium 2 of a release, it will "
 "need to be set as medium 2 of the release being merged."
 msgstr ""
+"Убедитесь, что все носители в объединяемых релизах находятся в правильном "
+"положении. Например, чтобы объединить носитель с носителем 2 релиза, он "
+"должен быть установлен как носитель 2 объединяемого релиза."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:259
 msgid ""
 "The recording artists do not match! Perhaps you meant to use the \"append "
 "mediums\" merge strategy?"
 msgstr ""
+"Исполнители записей не совпадают! Возможно, вы хотели использовать стратегию "
+"объединения «Добавление носителей в целевой релиз»?"
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:264
 msgid ""
 "The recordings that will be merged if you continue with the current merge "
 "strategy include the following, whose artists differ:"
 msgstr ""
+"Записи, которые будут объединены, если вы продолжите использовать текущую "
+"стратегию объединения, включают следующие записи, исполнители которых "
+"различаются:"
 
 #: ../root/static/scripts/edit/components/URLInputPopover.js:94
 msgid "Cleaned up to"
-msgstr ""
+msgstr "Очищено до"
 
 #: ../root/static/scripts/edit/components/URLInputPopover.js:145
-#, fuzzy
-#| msgid "Edit URL"
 msgctxt "interactive"
 msgid "Edit URL"
 msgstr "Править URL"
@@ -15360,7 +15405,7 @@ msgstr ""
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
 #: ../root/static/scripts/release-editor/init.js:273
 msgid "All of your changes will be lost if you leave this page."
-msgstr ""
+msgstr "Все ваши изменения будут потеряны, если вы покинете эту страницу."
 
 #: ../root/static/scripts/edit/externalLinks.js:760
 msgid ""
@@ -15505,7 +15550,7 @@ msgstr "Добавить еще ссылку"
 
 #: ../root/static/scripts/edit/externalLinks.js:1641
 msgid "Add another relationship"
-msgstr ""
+msgstr "Добавить еще отношение"
 
 #: ../root/static/scripts/guess-case/modes.js:313
 msgid ""
@@ -15513,6 +15558,10 @@ msgid ""
 "short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr ""
+"В этом режиме почти все слова пишутся с заглавной буквы, а некоторые слова ("
+"в основном артикли и короткие предлоги) - со строчной. Некоторые слова могут "
+"потребовать ручной прописной буквы, чтобы соответствовать {url|нормам "
+"написания слов в английском языке}."
 
 #: ../root/static/scripts/guess-case/modes.js:350
 msgid ""
@@ -15521,6 +15570,11 @@ msgid ""
 "guillemets. Some words may need to be manually capitalised to follow the "
 "{url|French capitalisation guidelines}."
 msgstr ""
+"В этом режиме названия пишутся с заглавной буквы, как в режиме предложения, "
+"но при этом вставляются пробелы перед точками с запятой, двоеточиями, "
+"восклицательными и вопросительными знаками, а также внутри гильом. Некоторые "
+"слова могут потребовать ручного ввода заглавных букв в соответствии с {url|"
+"нормами написания слов на французском языке}."
 
 #: ../root/static/scripts/guess-case/modes.js:374
 msgid ""
@@ -15528,6 +15582,10 @@ msgid ""
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr ""
+"В этом режиме первое слово предложения пишется заглавными буквами, "
+"большинство остальных слов - строчными. Некоторые слова, часто собственные "
+"существительные, могут потребовать ручного исправления в соответствии с {url|"
+"языковыми нормами}."
 
 #: ../root/static/scripts/guess-case/modes.js:389
 msgid ""
@@ -15535,6 +15593,9 @@ msgid ""
 "Some words may need to be manually corrected according to the {url|Turkish "
 "language guidelines}."
 msgstr ""
+"Этот режим обрабатывает написание турецких букв 'i' ('İ') и 'ı' ('I'). "
+"Некоторые слова могут потребовать ручной коррекции в соответствии с {url|"
+"нормами турецкого языка}."
 
 #: ../root/static/scripts/main/components/ConfirmSeedButtons.js:25
 msgid "Continue"
@@ -15676,7 +15737,7 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogTargetType.js:38
 msgid "Related type"
-msgstr ""
+msgstr "Связанный тип"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:910
 msgid ""
@@ -15731,7 +15792,7 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:36
 msgid "Add another genre"
-msgstr ""
+msgstr "Добавить еще жанр"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:37
 msgid "Add another instrument"
@@ -16317,27 +16378,23 @@ msgid "Show as a list instead."
 msgstr ""
 
 #: ../root/tag/TagCloud.js:115
-#, fuzzy
-#| msgid "No edit notes have been added."
 msgctxt "folksonomy"
 msgid "No genre tags have been used yet."
-msgstr "Нет комментариев к правке."
+msgstr "Ни одного тега жанра не было использовано."
 
 #: ../root/tag/TagCloud.js:117
 msgid "Other tags"
 msgstr ""
 
 #: ../root/tag/TagCloud.js:122
-#, fuzzy
-#| msgid "No edit notes have been added."
 msgctxt "folksonomy"
 msgid "No non-genre tags have been used yet."
-msgstr "Нет комментариев к правке."
+msgstr "Ни одного нежанрового тега не было использовано."
 
 #: ../root/tag/TagIndex.js:24
 msgctxt "folksonomy"
 msgid "This tag is associated with the genre {genre}."
-msgstr ""
+msgstr "Этот тег связан с жанром \"{genre}\"."
 
 #: ../root/tag/TagLayout.js:42 ../root/tag/TagLayout.js:44
 #: ../root/tag/TagLayout.js:51
@@ -17563,37 +17620,37 @@ msgstr "Все правки от начинающих редакторов, сд
 #: ../root/vote/VotingIndex.js:292
 msgid "All \"Add release/medium\" edits by beginner editors"
 msgstr ""
-"Все правки типов \"Добавление релиза/носителя\", сделанные начинающими "
-"редакторами"
+"Все правки типов \"Добавление релиза/носителя\", сделанные "
+"редакторами-новичками"
 
 #: ../root/vote/VotingIndex.js:299
 msgid ""
 "All \"Add release/medium\" edits by beginner editors made less than 2 weeks "
 "ago"
 msgstr ""
-"Все правки типов \"Добавление релиза/носителя\", сделанные начинающими "
-"редакторами менее 2 недель назад"
+"Все правки типов \"Добавление релиза/носителя\", сделанные редакторами-"
+"новичками менее 2 недель назад"
 
 #: ../root/vote/VotingIndex.js:307
 msgid "All \"Add artist\" edits by beginner editors"
 msgstr ""
-"Все правки типа \"Добавление исполнителя\", сделанные начинающими редакторами"
+"Все правки типа \"Добавление исполнителя\", сделанные редакторами-новичками"
 
 #: ../root/vote/VotingIndex.js:313
 msgid "All \"Add artist\" edits by beginner editors made less than 2 weeks ago"
 msgstr ""
-"Все правки типа \"Добавление исполнителя\", сделанные начинающими "
-"редакторами менее 2 недель назад"
+"Все правки типа \"Добавление исполнителя\", сделанные редакторами-новичками "
+"менее 2 недель назад"
 
 #: ../root/vote/VotingIndex.js:320
 msgid "All open destructive edits by beginner editors"
-msgstr "Все открытые деструктивные правки, сделанные начинающими редакторами"
+msgstr "Все открытые деструктивные правки, сделанные редакторами-новичками"
 
 #: ../root/vote/VotingIndex.js:329
 msgid "All open unreviewed edits (0 votes) by beginner editors"
 msgstr ""
-"Все открытые непроверенные правки (с нулем голосов), сделанные начинающими "
-"редакторами"
+"Все открытые непроверенные правки (с нулем голосов), сделанные "
+"редакторами-новичками"
 
 #: ../root/vote/VotingIndex.js:341 ../root/vote/VotingIndex.js:363
 msgid "All edits"
@@ -17609,8 +17666,8 @@ msgid ""
 msgstr ""
 "Иногда по какой-то причине вы можете захотеть просто проверить все правки. "
 "Если вы чувствуете, что перегруженность длинным списком правок — это как раз "
-"то, что доктор прописал, просто проверьте поиск ниже! Не забывайте, что вы "
-"всегда можете поэкспериментировать с различными фильтрами поиска правок, "
+"то, что доктор прописал, просто используйте запросы ниже! Не забывайте, что "
+"вы всегда можете поэкспериментировать с различными фильтрами поиска правок, "
 "чтобы немного ограничить количество отображаемых правок и сделать его более "
 "управляемым"
 
