@@ -5986,7 +5986,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jszip@npm:^3.1.5":
+"jszip@npm:^3.10.1":
   version: 3.10.1
   resolution: "jszip@npm:3.10.1"
   dependencies:
@@ -6648,7 +6648,7 @@ __metadata:
     react-is: "npm:18.3.1"
     react-table: "npm:7.8.0"
     redux: "npm:4.2.0"
-    selenium-webdriver: "npm:4.0.0-alpha.5"
+    selenium-webdriver: "npm:4.21.0"
     shell-quote: "npm:1.8.1"
     shelljs: "npm:0.8.5"
     sliced: "npm:1.0.1"
@@ -6999,13 +6999,6 @@ __metadata:
   version: 1.0.2
   resolution: "os-homedir@npm:1.0.2"
   checksum: 10c0/6be4aa67317ee247b8d46142e243fb4ef1d2d65d3067f54bfc5079257a2f4d4d76b2da78cba7af3cb3f56dbb2e4202e0c47f26171d11ca1ed4008d842c90363f
-  languageName: node
-  linkType: hard
-
-"os-tmpdir@npm:~1.0.1":
-  version: 1.0.2
-  resolution: "os-tmpdir@npm:1.0.2"
-  checksum: 10c0/f438450224f8e2687605a8dd318f0db694b6293c5d835ae509a69e97c8de38b6994645337e5577f5001115470414638978cc49da1cdcc25106dad8738dc69990
   languageName: node
   linkType: hard
 
@@ -8136,7 +8129,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sax@npm:>=0.6.0, sax@npm:^1.2.4":
+"sax@npm:^1.2.4":
   version: 1.3.0
   resolution: "sax@npm:1.3.0"
   checksum: 10c0/599dbe0ba9d8bd55e92d920239b21d101823a6cedff71e542589303fa0fa8f3ece6cf608baca0c51be846a2e88365fac94a9101a9c341d94b98e30c4deea5bea
@@ -8175,15 +8168,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"selenium-webdriver@npm:4.0.0-alpha.5":
-  version: 4.0.0-alpha.5
-  resolution: "selenium-webdriver@npm:4.0.0-alpha.5"
+"selenium-webdriver@npm:4.21.0":
+  version: 4.21.0
+  resolution: "selenium-webdriver@npm:4.21.0"
   dependencies:
-    jszip: "npm:^3.1.5"
-    rimraf: "npm:^2.6.3"
-    tmp: "npm:0.0.30"
-    xml2js: "npm:^0.4.19"
-  checksum: 10c0/5891971ac3f0ae95beda8ea3f319cb44cb259df92e6f54aeec13f44c9f72e5b40c4949d46b1c331e8bc0af20cd4ae449dc474afbd20cc7181f0ca1c75566f8a0
+    jszip: "npm:^3.10.1"
+    tmp: "npm:^0.2.3"
+    ws: "npm:>=8.16.0"
+  checksum: 10c0/d8c0df10cceee84843e1e306c0a1bdfe61c3174ecb7e538111ccb1a0dac0d4b30d635b1958476382eef8246ec50c2bd9b5054c08d5c007933b03807aca194d53
   languageName: node
   linkType: hard
 
@@ -9064,12 +9056,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tmp@npm:0.0.30":
-  version: 0.0.30
-  resolution: "tmp@npm:0.0.30"
-  dependencies:
-    os-tmpdir: "npm:~1.0.1"
-  checksum: 10c0/ebaa6fb9a6f355294a8aa85d9bcbfba992eb333d7bd9c1ec97902e3935cd4c8ed7b482c1b0b446a52d3ff1f9ca075d3d6aef368876969c86304c3c59f0c6cce7
+"tmp@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "tmp@npm:0.2.3"
+  checksum: 10c0/3e809d9c2f46817475b452725c2aaa5d11985cf18d32a7a970ff25b568438e2c076c2e8609224feef3b7923fa9749b74428e3e634f6b8e520c534eef2fd24125
   languageName: node
   linkType: hard
 
@@ -9651,6 +9641,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ws@npm:>=8.16.0":
+  version: 8.17.0
+  resolution: "ws@npm:8.17.0"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ">=5.0.2"
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 10c0/55241ec93a66fdfc4bf4f8bc66c8eb038fda2c7a4ee8f6f157f2ca7dc7aa76aea0c0da0bf3adb2af390074a70a0e45456a2eaf80e581e630b75df10a64b0a990
+  languageName: node
+  linkType: hard
+
 "ws@npm:^7.2.0":
   version: 7.5.9
   resolution: "ws@npm:7.5.9"
@@ -9677,27 +9682,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"xml2js@npm:^0.4.19":
-  version: 0.4.23
-  resolution: "xml2js@npm:0.4.23"
-  dependencies:
-    sax: "npm:>=0.6.0"
-    xmlbuilder: "npm:~11.0.0"
-  checksum: 10c0/a3f41c9afc46d5bd0bea4070e5108777b605fd5ce2ebb978a68fd4c75513978ad5939f8135664ffea6f1adb342f391b1ba1584ed7955123b036e9ab8a1d26566
-  languageName: node
-  linkType: hard
-
 "xmlbuilder@npm:10.1.1":
   version: 10.1.1
   resolution: "xmlbuilder@npm:10.1.1"
   checksum: 10c0/26c465e8bd16b4e882d39c2e2a29bb277434d254717aa05df117dd0009041d92855426714b2d1a6a5f76983640349f4edb80073b6ae374e0e6c3d13029ea8237
-  languageName: node
-  linkType: hard
-
-"xmlbuilder@npm:~11.0.0":
-  version: 11.0.1
-  resolution: "xmlbuilder@npm:11.0.1"
-  checksum: 10c0/74b979f89a0a129926bc786b913459bdbcefa809afaa551c5ab83f89b1915bdaea14c11c759284bb9b931e3b53004dbc2181e21d3ca9553eeb0b2a7b4e40c35b
   languageName: node
   linkType: hard
 
