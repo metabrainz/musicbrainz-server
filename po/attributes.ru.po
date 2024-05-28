@@ -27,7 +27,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-24 19:23+0000\n"
+"PO-Revision-Date: 2024-05-26 22:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -498,6 +498,10 @@ msgid ""
 "href=\"https://en.wikipedia.org/wiki/Concert_performance\">concert "
 "performance</a> without staging)."
 msgstr ""
+"Выступление из одной или более постановок, мюзиклов, опер, балетов или "
+"других похожих работ на сцене в их поставленной форме (в отличие от<a href="
+"\"https://en.wikipedia.org/wiki/Concert_performance\">концертного "
+"высупления</a> без сценировки)."
 
 #: DB:place_type/description:8
 msgctxt "place_type"
@@ -723,7 +727,7 @@ msgstr "Серия релизов."
 #: DB:series_type/description:46
 msgctxt "series_type"
 msgid "A series of works honoured by the same award."
-msgstr ""
+msgstr "Серия работ, награжденных одной и той же наградой."
 
 #: DB:series_type/description:5
 msgctxt "series_type"
@@ -741,6 +745,9 @@ msgid ""
 "A small venue (such as a jazz club, nightclub or pub) that hosts concerts "
 "and social events. May or may not have a dedicated stage or seating."
 msgstr ""
+"Маленькое помещение (джаз-клуб, ночной клуб или паб), которое проводит "
+"концерты и социальные мероприятия. Может иметь или не иметь отдельную сцену "
+"или сидения."
 
 #: DB:work_type/description:15
 msgctxt "work_type"
@@ -786,10 +793,9 @@ msgid ""
 "interesting to MusicBrainz than their data properties."
 msgstr ""
 "Саундтрек — это музыкальная партитура к фильму, телесериалу, сценическому "
-"шоу, видеоигре или другому средству. Компакт-диски с аудиодорожками к "
-"видеоиграм следует классифицировать как саундтреки, поскольку музыкальные "
-"свойства компакт-дисков представляют для MusicBrainz больший интерес, чем "
-"свойства данных."
+"шоу, видеоигре или т.п. Компакт-диски с аудиодорожками к видеоиграм следует "
+"классифицировать как саундтреки, поскольку музыкальные свойства компакт-"
+"дисков представляют для MusicBrainz больший интерес, чем свойства данных."
 
 #: DB:instrument_type/description:6
 msgctxt "instrument_type"
@@ -1097,7 +1103,7 @@ msgstr ""
 #: DB:place_type/name:43
 msgctxt "place_type"
 msgid "Amphitheatre"
-msgstr ""
+msgstr "Амфитеатр"
 
 #: DB:work_attribute_type_allowed_value/value:855
 msgctxt "work_attribute_type_allowed_value"
@@ -1193,6 +1199,8 @@ msgid ""
 "but often includes musical performances in between the awarding of said "
 "prizes, especially for musical awards."
 msgstr ""
+"Мероприятие, сфокусированное на выдаче призов, но чаще всего включающее "
+"музыкальные выступления между награждениями, особенно на музыкальных премиях."
 
 #: DB:release_group_primary_type/description:12
 msgctxt "release_group_primary_type"
@@ -1216,8 +1224,8 @@ msgid ""
 "An individual concert by a single artist or collaboration, often with "
 "supporting artists who perform before the main act."
 msgstr ""
-"Индивидуальный концерт одного артиста или несколько, часто с поддержкой "
-"артистов, которые выступают перед основным актом."
+"Индивидуальный концерт одного или нескольких исполнителей, часто с "
+"поддержкой артистов, которые выступают перед основным выступлением."
 
 #: DB:place_type/description:44
 msgctxt "place_type"
@@ -1225,6 +1233,9 @@ msgid ""
 "An indoor performance facility with fixed seating, whether for music "
 "(usually, but not always, classical music) or theatre."
 msgstr ""
+"Крытое концертное помещение с фиксированным количеством сидячих мест, "
+"используемое для исполнения музыки (обычно, но не всегда, классической "
+"музыки) или театра."
 
 #: DB:release_group_secondary_type/description:4
 msgctxt "release_group_secondary_type"
@@ -2250,7 +2261,7 @@ msgstr ""
 #: DB:place_type/name:42
 msgctxt "place_type"
 msgid "Club"
-msgstr ""
+msgstr "Клуб"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -5029,7 +5040,7 @@ msgstr ""
 #: DB:event_type/name:3
 msgctxt "event_type"
 msgid "Launch event"
-msgstr ""
+msgstr "Церемония запуска"
 
 #: DB:work_attribute_type_allowed_value/value:160
 msgctxt "work_attribute_type_allowed_value"
@@ -5184,7 +5195,7 @@ msgstr ""
 #: DB:series_ordering_type/name:2
 msgctxt "series_ordering_type"
 msgid "Manual"
-msgstr "Руководство"
+msgstr "Вручную"
 
 #: DB:label_type/name:10
 msgctxt "label_type"
@@ -5209,7 +5220,7 @@ msgstr "Масса"
 #: DB:event_type/name:5
 msgctxt "event_type"
 msgid "Masterclass/Clinic"
-msgstr ""
+msgstr "Мастер-класс"
 
 #: DB:cover_art_archive.art_type/name:15
 msgctxt "cover_art_type"
@@ -5374,7 +5385,7 @@ msgstr ""
 #: DB:release_group_secondary_type/name:9
 msgctxt "release_group_secondary_type"
 msgid "Mixtape/Street"
-msgstr ""
+msgstr "Микстейп/уличный"
 
 #: DB:work_attribute_type_allowed_value/value:981
 msgctxt "work_attribute_type_allowed_value"
@@ -5444,7 +5455,7 @@ msgstr ""
 #: DB:work_type/name:9
 msgctxt "work_type"
 msgid "Motet"
-msgstr ""
+msgstr "Мотет"
 
 #: DB:work_attribute_type_allowed_value/value:746
 msgctxt "work_attribute_type_allowed_value"
@@ -6218,7 +6229,7 @@ msgstr ""
 #: DB:place_type/name:9
 msgctxt "place_type"
 msgid "Park"
-msgstr ""
+msgstr "Парк"
 
 #: DB:work_type/name:13
 msgctxt "work_type"
@@ -6329,7 +6340,7 @@ msgstr ""
 #: DB:work_type/name:28
 msgctxt "work_type"
 msgid "Play"
-msgstr "Воспроизвоести"
+msgstr "Постановка"
 
 #: DB:medium_format/name:74
 msgctxt "medium_format"
@@ -6344,7 +6355,7 @@ msgstr "Кнопка воспроизведения"
 #: DB:series_type/name:80
 msgctxt "series_type"
 msgid "Podcast"
-msgstr ""
+msgstr "Подкаст"
 
 #: DB:work_type/name:21
 msgctxt "work_type"
@@ -6397,6 +6408,19 @@ msgid ""
 "are distinct from demos in that they are designed for release directly to "
 "the public and fans; not to labels."
 msgstr ""
+"Микстейпы и уличные альбомы часто выпускаются исполнителями в рекламных "
+"целях (но не обязательно бесплатно), чтобы продвинуть новых исполнителей или "
+"грядущие студийные альбомы известных артистов. Они также иногда используются "
+"для привлечения внимания фанатов между студийными релизами и наиболее "
+"распространены в жанрах рэп и хип-хоп. Они часто не санкционированы лейблом "
+"исполнителя, могут не иметь надлежащих разрешений на использование сэмплов "
+"или песен и сильно различаться по качеству производства и записи. Хотя "
+"микстейпы обычно микшируются диджеями, они отличаются от коммерческих DJ-"
+"миксов (которые обычно считаются сборниками) и определяются наличием "
+"значительной доли нового материала, включая оригинальное производство или "
+"оригинальный вокал поверх инструментальных композиций других исполнителей. "
+"Они отличаются от демо-записей тем, что предназначены для выпуска "
+"непосредственно для публики и фанатов, а не для лейблов."
 
 #: DB:work_type/name:23
 msgctxt "work_type"
@@ -6582,7 +6606,7 @@ msgstr ""
 #: DB:series_type/name:48
 msgctxt "series_type"
 msgid "Recording award"
-msgstr ""
+msgstr "Премия для записей"
 
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
@@ -6597,7 +6621,7 @@ msgstr "Имя записи"
 #: DB:series_type/name:3
 msgctxt "series_type"
 msgid "Recording series"
-msgstr ""
+msgstr "Серия записей"
 
 #: DB:medium_format/name:10
 msgctxt "medium_format"
@@ -6627,7 +6651,7 @@ msgstr ""
 #: DB:series_type/name:47
 msgctxt "series_type"
 msgid "Release group award"
-msgstr ""
+msgstr "Премия для групп релизов"
 
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
@@ -6642,7 +6666,7 @@ msgstr "Название Релиз группы"
 #: DB:series_type/name:1
 msgctxt "series_type"
 msgid "Release group series"
-msgstr ""
+msgstr "Серия групп релизов"
 
 #: DB:release_alias_type/name:1
 msgctxt "alias_type"
@@ -6652,7 +6676,7 @@ msgstr "Название релиза"
 #: DB:series_type/name:2
 msgctxt "series_type"
 msgid "Release series"
-msgstr ""
+msgstr "Серия релизов"
 
 #: DB:place_type/name:6
 msgctxt "place_type"
@@ -6677,7 +6701,7 @@ msgstr ""
 #: DB:series_type/name:12
 msgctxt "series_type"
 msgid "Residency"
-msgstr ""
+msgstr "Резиденция"
 
 #: DB:work_attribute_type_allowed_value/value:517
 msgctxt "work_attribute_type_allowed_value"
@@ -7149,7 +7173,7 @@ msgstr ""
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
 msgid "Series collection"
-msgstr ""
+msgstr "Коллекция серий"
 
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
@@ -7298,17 +7322,17 @@ msgstr ""
 #: DB:release_group_secondary_type/name:3
 msgctxt "release_group_secondary_type"
 msgid "Spokenword"
-msgstr ""
+msgstr "Устная речь"
 
 #: DB:place_type/name:4
 msgctxt "place_type"
 msgid "Stadium"
-msgstr ""
+msgstr "Стадион"
 
 #: DB:event_type/name:6
 msgctxt "event_type"
 msgid "Stage performance"
-msgstr ""
+msgstr "Сценическое выступление"
 
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"
@@ -7846,6 +7870,8 @@ msgid ""
 "This indicates an individual person, be it under its legal name (“John "
 "Lennon”), or a performance name (“Sting”)."
 msgstr ""
+"Обозначает человека, будь то под его настоящим именем (\"Джон Леннон\"), или "
+"сценическим прозвищем (\"Стинг\")."
 
 #: DB:artist_type/description:5
 msgctxt "artist_type"
@@ -8183,7 +8209,7 @@ msgstr ""
 #: DB:place_type/name:2
 msgctxt "place_type"
 msgid "Venue"
-msgstr ""
+msgstr "Площадка"
 
 #: DB:medium_format/description:59
 msgctxt "medium_format"
@@ -8293,7 +8319,7 @@ msgstr ""
 #: DB:series_type/name:46
 msgctxt "series_type"
 msgid "Work award"
-msgstr ""
+msgstr "Премия за работы"
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"
@@ -8308,7 +8334,7 @@ msgstr "Название работы"
 #: DB:series_type/name:4
 msgctxt "series_type"
 msgid "Work series"
-msgstr ""
+msgstr "Серия работ"
 
 #: DB:work_attribute_type_allowed_value/value:277
 msgctxt "work_attribute_type_allowed_value"
@@ -8369,7 +8395,7 @@ msgstr ""
 #: DB:work_type/name:19
 msgctxt "work_type"
 msgid "Zarzuela"
-msgstr ""
+msgstr "Сарсуэла"
 
 #: DB:work_attribute_type_allowed_value/value:591
 msgctxt "work_attribute_type_allowed_value"

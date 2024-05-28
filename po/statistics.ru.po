@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-16 19:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-05-26 15:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/ru/>\n"
 "Language: ru\n"
@@ -28,8 +28,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.5.4\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
@@ -377,6 +377,9 @@ msgid ""
 "Edits made by editors to their own release additions within 1 hour of adding "
 "them are now auto-edits, as are \"Add recording\" and \"Remove alias\" edits."
 msgstr ""
+"Правки, сделанные редакторами к добавленным ими релизами в течение часа "
+"после их добавления (например, правки типов \"Добавление записи\" и "
+"\"Удаление псевдонима\"), теперь являются автоправками."
 
 #: DB:statistics.statistic_event/title:2003-06-07
 msgid "Email verification"
@@ -1109,7 +1112,7 @@ msgstr ""
 #: DB:statistics.statistic_event/title:2014-03-17
 #: ../root/statistics/stats.js:43
 msgid "Work attributes"
-msgstr ""
+msgstr "Атрибуты работы"
 
 #: DB:statistics.statistic_event/description:2014-03-17
 msgid ""
@@ -2713,7 +2716,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:919
 msgid "Works with no attributes"
-msgstr ""
+msgstr "Работы без атрибутов"
 
 #: ../root/statistics/stats.js:924
 msgid "Works with ISWCs"

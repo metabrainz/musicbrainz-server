@@ -62,13 +62,14 @@
 # yvanz, 2018
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# BlueCamille <BlueCamille@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-23 11:01-0500\n"
-"PO-Revision-Date: 2024-04-17 17:32+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"PO-Revision-Date: 2024-05-25 18:42+0000\n"
+"Last-Translator: BlueCamille <BlueCamille@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -78,7 +79,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -171,10 +172,8 @@ msgid "(add a new recording)"
 msgstr "(ajouter un nouvel enregistrement)"
 
 #: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
-#, fuzzy
-#| msgid "(no other cover art)"
 msgid "(no other images)"
-msgstr "(aucune autre Illustration)"
+msgstr "(aucune autre image)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10

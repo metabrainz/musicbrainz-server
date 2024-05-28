@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-23 11:01-0500\n"
-"PO-Revision-Date: 2024-05-24 16:42+0000\n"
+"PO-Revision-Date: 2024-05-28 14:53+0000\n"
 "Last-Translator: Felipe Silva <musicbrainz@felipeqq2.rocks>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pt/>\n"
@@ -1670,48 +1670,46 @@ msgstr ""
 #: ../root/layout/merge-helper.tt:30
 #: ../root/layout/components/MergeHelper.js:67
 #: ../root/layout/components/sidebar/MergeLink.js:30
-#, fuzzy
-#| msgid "Merge"
 msgctxt "interactive"
 msgid "Merge"
-msgstr "Unir"
+msgstr "Combinar"
 
 #: ../root/layout/merge-helper.tt:3 ../root/layout/components/MergeHelper.js:26
 msgid "Merge process"
-msgstr ""
+msgstr "Processo de combinação"
 
 #: ../root/cdtoc/list.tt:63 ../root/release/DiscIds.js:70
 msgid "Move"
-msgstr ""
+msgstr "Mover"
 
 #: ../root/cdtoc/move_search.tt:1 ../root/cdtoc/move_search.tt:2
 msgctxt "header"
 msgid "Move disc ID"
-msgstr ""
+msgstr "Mover ID do disco"
 
 #: ../root/event/add_event_art.tt:44 ../root/release/add_cover_art.tt:44
 msgid "Move file down"
-msgstr ""
+msgstr "Mover arquivo para baixo"
 
 #: ../root/event/add_event_art.tt:42 ../root/release/add_cover_art.tt:42
 msgid "Move file up"
-msgstr ""
+msgstr "Mover arquivo para cima"
 
 #: ../root/release/edit/tracklist.tt:328
 msgid "Move medium down"
-msgstr ""
+msgstr "Mover meio para baixo"
 
 #: ../root/release/edit/tracklist.tt:329
 msgid "Move medium up"
-msgstr ""
+msgstr "Mover meio para cima"
 
 #: ../root/release/edit/tracklist.tt:197
 msgid "Move track down"
-msgstr ""
+msgstr "Mover faixa para baixo"
 
 #: ../root/release/edit/tracklist.tt:201
 msgid "Move track up"
-msgstr ""
+msgstr "Mover faixa para cima"
 
 #: ../root/components/forms.tt:226
 #: ../root/components/Aliases/ArtistCreditList.js:45
@@ -1768,11 +1766,11 @@ msgstr ""
 #: ../root/static/scripts/release/components/EditWorkDialog.js:156
 #: ../root/user/UserSubscriptions.js:44
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: ../root/artist/edit_credit.tt:18 ../root/artist/split.tt:45
 msgid "New artist credit"
-msgstr ""
+msgstr "Novo crédito do artista"
 
 #: ../root/event/add_event_art.tt:148 ../root/release/add_cover_art.tt:148
 msgid "New image goes here"
@@ -1844,7 +1842,7 @@ msgstr ""
 #: ../root/edit/details/historic/MergeReleases.js:52
 #: ../root/user/ReportUser.js:111
 msgid "Note"
-msgstr ""
+msgstr "Nota"
 
 #: ../root/release/edit/information.tt:285
 msgid ""
