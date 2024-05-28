@@ -6660,7 +6660,7 @@ __metadata:
     tap-junit: "npm:3.1.0"
     tape: "npm:4.7.0"
     terser-webpack-plugin: "npm:5.3.10"
-    utf8: "npm:2.1.2"
+    utf8: "npm:3.0.0"
     webpack: "npm:5.91.0"
     webpack-node-externals: "npm:3.0.0"
     weight-balanced-tree: "npm:0.6.1"
@@ -9357,10 +9357,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"utf8@npm:2.1.2":
-  version: 2.1.2
-  resolution: "utf8@npm:2.1.2"
-  checksum: 10c0/1f1d0f1c58e35338c03d377338d28dae8bd66dd6417a428a2e7c83fe87f52339573cd5bf51eb5119451b74b5b66cdc7e6f9e4d6d45f4581fd99c2f07ef118cb3
+"utf8@npm:3.0.0":
+  version: 3.0.0
+  resolution: "utf8@npm:3.0.0"
+  checksum: 10c0/675d008bab65fc463ce718d5cae8fd4c063540f269e4f25afebce643098439d53e7164bb1f193e0c3852825c7e3e32fbd8641163d19a618dbb53f1f09acb0d5a
   languageName: node
   linkType: hard
 

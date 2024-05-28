@@ -97,7 +97,7 @@
     "tap-difflet": "0.7.2",
     "tap-junit": "3.1.0",
     "tape": "4.7.0",
-    "utf8": "2.1.2",
+    "utf8": "3.0.0",
     "xgettext-js": "https://github.com/metabrainz/xgettext-js#3087b3b77c62db622bcf2244697acebb4170a836"
   },
   "private": true,
