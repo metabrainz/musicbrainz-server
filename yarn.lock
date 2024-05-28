@@ -6683,7 +6683,7 @@ __metadata:
     webpack: "npm:5.91.0"
     webpack-node-externals: "npm:3.0.0"
     weight-balanced-tree: "npm:0.6.1"
-    whatwg-fetch: "npm:3.4.0"
+    whatwg-fetch: "npm:3.6.20"
     xgettext-js: "https://github.com/metabrainz/xgettext-js#3087b3b77c62db622bcf2244697acebb4170a836"
     yargs: "npm:3.10.0"
   languageName: unknown
@@ -9487,10 +9487,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"whatwg-fetch@npm:3.4.0":
-  version: 3.4.0
-  resolution: "whatwg-fetch@npm:3.4.0"
-  checksum: 10c0/6616b1ab0ed183a4258aa7fc4e64d23364f80e850596037108b0247a7d123c0237cc68c4886554a2144f3c82325a77d8c35c5853c8d75c85bf29667ee9b23b1c
+"whatwg-fetch@npm:3.6.20":
+  version: 3.6.20
+  resolution: "whatwg-fetch@npm:3.6.20"
+  checksum: 10c0/fa972dd14091321d38f36a4d062298df58c2248393ef9e8b154493c347c62e2756e25be29c16277396046d6eaa4b11bd174f34e6403fff6aaca9fb30fa1ff46d
   languageName: node
   linkType: hard
 

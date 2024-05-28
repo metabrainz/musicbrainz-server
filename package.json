@@ -67,7 +67,7 @@
     "webpack": "5.91.0",
     "webpack-node-externals": "3.0.0",
     "weight-balanced-tree": "0.6.1",
-    "whatwg-fetch": "3.4.0",
+    "whatwg-fetch": "3.6.20",
     "yargs": "3.10.0"
   },
   "devDependencies": {
