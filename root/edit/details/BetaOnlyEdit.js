@@ -23,6 +23,7 @@ component BetaOnlyEdit(edit: EditT) {
     const betaUri = new URL($c.req.uri);
     betaUri.host = DBDefs.BETA_REDIRECT_HOSTNAME;
     betaUri.pathname = '/edit/' + encodeURIComponent(String(editId));
+    betaUri.search = '';
     return (
       <p>
         {exp.l(
