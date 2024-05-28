@@ -60,7 +60,7 @@
     "shell-quote": "1.8.1",
     "shelljs": "0.8.5",
     "sliced": "1.0.1",
-    "sucrase": "3.23.0",
+    "sucrase": "3.35.0",
     "tabbable": "6.2.0",
     "tablesorter": "2.31.3",
     "terser-webpack-plugin": "5.3.10",
