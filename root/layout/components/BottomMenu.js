@@ -137,6 +137,9 @@ component AboutMenu() {
           <a href="https://metabrainz.org/gdpr">{l('GDPR compliance')}</a>
         </li>
         <li>
+          <a href="/doc/Copyright_DMCA">{l('Copyright / DMCA Issues')}</a>
+        </li>
+        <li>
           <a href="/doc/Data_Removal_Policy">{l('Data removal policy')}</a>
         </li>
         <li className="separator">
