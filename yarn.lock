@@ -3535,7 +3535,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"content-type@npm:^1.0.5":
+"content-type@npm:^1.0.4, content-type@npm:^1.0.5":
   version: 1.0.5
   resolution: "content-type@npm:1.0.5"
   checksum: 10c0/b76ebed15c000aee4678c3707e0860cb6abd4e680a598c0a26e17f0bfae723ec9cc2802f0ff1bc6e4d80603719010431d2231018373d4dde10f9ccff9dadf5af
@@ -4824,13 +4824,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gettext-parser@npm:2.0.0":
-  version: 2.0.0
-  resolution: "gettext-parser@npm:2.0.0"
+"gettext-parser@npm:4.2.0":
+  version: 4.2.0
+  resolution: "gettext-parser@npm:4.2.0"
   dependencies:
-    encoding: "npm:^0.1.12"
-    safe-buffer: "npm:^5.1.2"
-  checksum: 10c0/93dcdaf1b4b38bedd9fe9a2944b4ce71196c2b0e263ad4813613c44f76f4bc5e50a1d03b73f43caa83fadf71988a05e753b875bff664d8562f7cc1e16545a1be
+    content-type: "npm:^1.0.4"
+    encoding: "npm:^0.1.13"
+    readable-stream: "npm:^3.6.0"
+    safe-buffer: "npm:^5.2.1"
+  checksum: 10c0/15e28f7da173c1a2baa390fede49522b11dbd9ee036acfab5971cf23f917354413cd94ba02cbfdb3d5a19b21471f8ec10b5d439e17a8130c788be18f5377bce7
   languageName: node
   linkType: hard
 
@@ -6664,7 +6666,7 @@ __metadata:
     path-browserify: "npm:1.0.1"
     pg: "npm:8.11.5"
     pg-cursor: "npm:2.10.5"
-    po2json: "https://github.com/mikeedwards/po2json.git#51e2310485bbe35e9e57f2eee238185459ca0eab"
+    po2json: "https://github.com/metabrainz/po2json.git#905dd32b286c80b973ca3c7c27f31d0ef1f4e65b"
     process: "npm:0.11.10"
     punycode: "npm:2.3.1"
     react: "npm:18.3.1"
@@ -7427,20 +7429,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"po2json@https://github.com/mikeedwards/po2json.git#51e2310485bbe35e9e57f2eee238185459ca0eab":
-  version: 1.0.0-beta-3
-  resolution: "po2json@https://github.com/mikeedwards/po2json.git#commit=51e2310485bbe35e9e57f2eee238185459ca0eab"
+"po2json@https://github.com/metabrainz/po2json.git#905dd32b286c80b973ca3c7c27f31d0ef1f4e65b":
+  version: 1.0.0-beta-4
+  resolution: "po2json@https://github.com/metabrainz/po2json.git#commit=905dd32b286c80b973ca3c7c27f31d0ef1f4e65b"
   dependencies:
     commander: "npm:^6.0.0"
-    gettext-parser: "npm:2.0.0"
+    gettext-parser: "npm:4.2.0"
     gettext-to-messageformat: "npm:0.3.1"
   peerDependencies:
     commander: ^6.0.0
-    gettext-parser: 2.0.0
+    gettext-parser: 4.2.0
     gettext-to-messageformat: 0.3.1
   bin:
     po2json: bin/po2json
-  checksum: 10c0/9389f5a41610e684fafd097573914c44c03bef1170e0535b665b1aa9067d927ea8b40be35f0a93be90345d315d0f6917c77469df107116eb7b733103bedadd31
+  checksum: 10c0/12e4b0e9a785dc1184a4ec1c187f0f6d154933350c6c9ad407394cd125883a62ccbd4e5c38868a2740f6b4261c43a434d5527ddba88821455ee5c8b748aff3d1
   languageName: node
   linkType: hard
 
@@ -7716,7 +7718,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"readable-stream@npm:^3.5.0":
+"readable-stream@npm:^3.5.0, readable-stream@npm:^3.6.0":
   version: 3.6.2
   resolution: "readable-stream@npm:3.6.2"
   dependencies:
@@ -8123,7 +8125,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"safe-buffer@npm:^5.0.1, safe-buffer@npm:^5.1.0, safe-buffer@npm:^5.1.1, safe-buffer@npm:^5.1.2, safe-buffer@npm:^5.2.1, safe-buffer@npm:~5.2.0":
+"safe-buffer@npm:^5.0.1, safe-buffer@npm:^5.1.0, safe-buffer@npm:^5.1.1, safe-buffer@npm:^5.2.1, safe-buffer@npm:~5.2.0":
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
   checksum: 10c0/6501914237c0a86e9675d4e51d89ca3c21ffd6a31642efeba25ad65720bce6921c9e7e974e5be91a786b25aa058b5303285d3c15dbabf983a919f5f630d349f3
