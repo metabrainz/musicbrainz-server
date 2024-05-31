@@ -315,6 +315,8 @@ export const RECORDING_OF_LINK_TYPE_GID: string =
 
 export const RT_MIRROR = 2;
 
+export const TIME_ATTRIBUTE = 'ebd303c3-7f57-452a-aa3b-d780ebad868d';
+
 export const SERIES_ORDERING_ATTRIBUTE =
   'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';
 
