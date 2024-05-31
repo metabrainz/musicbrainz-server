@@ -164,7 +164,7 @@ test('compareRelationships: Basic comparisons', function (t) {
 test('compareRelationships: Series comparisons', function (t) {
   t.plan(4);
 
-  const recording = createArtistObject({
+  const recording = createRecordingObject({
     id: 1,
     name: 'Recording',
   });
