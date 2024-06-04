@@ -5830,9 +5830,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jed@https://github.com/mwiencek/Jed.git#cd3f71b7479b9c587990a0fa27ae9fdafbd9d9d9":
+"jed@https://github.com/metabrainz/Jed.git#cd3f71b7479b9c587990a0fa27ae9fdafbd9d9d9":
   version: 1.1.1
-  resolution: "jed@https://github.com/mwiencek/Jed.git#commit=cd3f71b7479b9c587990a0fa27ae9fdafbd9d9d9"
+  resolution: "jed@https://github.com/metabrainz/Jed.git#commit=cd3f71b7479b9c587990a0fa27ae9fdafbd9d9d9"
   checksum: 10c0/336d5a2a111f7ae48cdf6d2f6567f600fe5a703654e5bb71295b083333c45f25c1e1c76da0d99033c2a3fc16e0b8e4bbe94e0677b0ae12e56bd01ceb9c1fce3c
   languageName: node
   linkType: hard
@@ -6621,7 +6621,7 @@ __metadata:
     hermes-eslint: "npm:0.20.1"
     http-proxy: "npm:1.18.1"
     imports-loader: "npm:5.0.0"
-    jed: "https://github.com/mwiencek/Jed.git#cd3f71b7479b9c587990a0fa27ae9fdafbd9d9d9"
+    jed: "https://github.com/metabrainz/Jed.git#cd3f71b7479b9c587990a0fa27ae9fdafbd9d9d9"
     jquery: "npm:1.11.2"
     json5: "npm:2.2.3"
     knockout: "https://github.com/mwiencek/knockout.git#a09f0778844130a89af438971ad6229ab81e26b3"
