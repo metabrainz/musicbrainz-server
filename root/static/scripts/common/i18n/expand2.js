@@ -276,7 +276,7 @@ export const createCondSubstParser = <T, V: Expand2ReactInput>(
  * of type V, and produce an expansion result of type T.
  *
  * So in the case of expand2react, the types would be:
- * expand<string | React$Element<any>, string | number | React$Element<any>>;
+ * expand<string | React.Element<any>, string | number | React.Element<any>>;
  *
  * And for expand2text they'd be:
  * expand<string, string | number>;

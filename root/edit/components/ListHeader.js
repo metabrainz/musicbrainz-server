@@ -168,7 +168,7 @@ component QuickLinks(
     );
   }
   return React.createElement(React.Fragment, null, ...quickLinks.reduce(
-    (accum: Array<React$Node>, link, index) => {
+    (accum: Array<React.Node>, link, index) => {
       accum.push(link);
       if (index < (quickLinks.length - 1)) {
         accum.push(' | ');

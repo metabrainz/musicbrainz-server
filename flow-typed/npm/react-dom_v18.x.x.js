@@ -61,7 +61,7 @@ declare module 'react-dom_shared-types' {
 
   declare type ReactEmpty = null | void | boolean;
 
-  declare type ReactNodeList = ReactEmpty | React$Node;
+  declare type ReactNodeList = ReactEmpty | React.Node;
 
   // Mutable source version can be anything (e.g. number, string, immutable data structure)
   // so long as it changes every time any part of the source changes.
@@ -111,20 +111,20 @@ declare module 'react-dom' {
     componentOrElement: Element | ?React$Component<any, any>
   ): null | Element | Text;
 
-  declare function render<ElementType: React$ElementType>(
-    element: React$Element<ElementType>,
+  declare function render<ElementType: React.ElementType>(
+    element: React.Element<ElementType>,
     container: Element,
     callback?: () => void
-  ): React$ElementRef<ElementType>;
+  ): React.ElementRef<ElementType>;
 
-  declare function hydrate<ElementType: React$ElementType>(
-    element: React$Element<ElementType>,
+  declare function hydrate<ElementType: React.ElementType>(
+    element: React.Element<ElementType>,
     container: Element,
     callback?: () => void
-  ): React$ElementRef<ElementType>;
+  ): React.ElementRef<ElementType>;
 
   declare function createPortal(
-    node: React$Node,
+    node: React.Node,
     container: Element
   ): React$Portal;
 
@@ -142,13 +142,13 @@ declare module 'react-dom' {
   ): void;
 
   declare function unstable_renderSubtreeIntoContainer<
-    ElementType: React$ElementType
+    ElementType: React.ElementType
   >(
     parentComponent: React$Component<any, any>,
-    nextElement: React$Element<ElementType>,
+    nextElement: React.Element<ElementType>,
     container: any,
     callback?: () => void
-  ): React$ElementRef<ElementType>;
+  ): React.ElementRef<ElementType>;
 }
 
 declare module 'react-dom/client' {
@@ -204,14 +204,14 @@ declare module 'react-dom/client' {
 declare module 'react-dom/server' {
   declare var version: string;
 
-  declare function renderToString(element: React$Node): string;
+  declare function renderToString(element: React.Node): string;
 
-  declare function renderToStaticMarkup(element: React$Node): string;
+  declare function renderToStaticMarkup(element: React.Node): string;
 
-  declare function renderToNodeStream(element: React$Node): stream$Readable;
+  declare function renderToNodeStream(element: React.Node): stream$Readable;
 
   declare function renderToStaticNodeStream(
-    element: React$Node
+    element: React.Node
   ): stream$Readable;
 }
 
@@ -229,19 +229,19 @@ declare module 'react-dom/test-utils' {
   };
 
   declare function renderIntoDocument(
-    instance: React$Element<any>
+    instance: React.Element<any>
   ): React$Component<any, any>;
 
   declare function mockComponent(
-    componentClass: React$ElementType,
+    componentClass: React.ElementType,
     mockTagName?: string
   ): { [key: string]: mixed, ... };
 
-  declare function isElement(element: React$Element<any>): boolean;
+  declare function isElement(element: React.Element<any>): boolean;
 
   declare function isElementOfType(
-    element: React$Element<any>,
-    componentClass: React$ElementType
+    element: React.Element<any>,
+    componentClass: React.ElementType
   ): boolean;
 
   declare function isDOMComponent(instance: any): boolean;
@@ -252,7 +252,7 @@ declare module 'react-dom/test-utils' {
 
   declare function isCompositeComponentWithType(
     instance: React$Component<any, any>,
-    componentClass: React$ElementType
+    componentClass: React.ElementType
   ): boolean;
 
   declare function findAllInRenderedTree(
@@ -282,12 +282,12 @@ declare module 'react-dom/test-utils' {
 
   declare function scryRenderedComponentsWithType(
     tree: React$Component<any, any>,
-    componentClass: React$ElementType
+    componentClass: React.ElementType
   ): Array<React$Component<any, any>>;
 
   declare function findRenderedComponentWithType(
     tree: React$Component<any, any>,
-    componentClass: React$ElementType
+    componentClass: React.ElementType
   ): ?React$Component<any, any>;
 
   declare function act(callback: () => void | Thenable): Thenable;

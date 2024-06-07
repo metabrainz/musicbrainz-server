@@ -41,8 +41,8 @@ const layoutPicker = {
 
 export default function chooseLayoutComponent(
   typeName: string,
-): React$ComponentType<{
-  +children: React$Node,
+): React.ComponentType<{
+  +children: React.Node,
   +entity: NonUrlRelatableEntityT | EditorT | CollectionT,
   +fullWidth?: boolean,
   +page?: string,

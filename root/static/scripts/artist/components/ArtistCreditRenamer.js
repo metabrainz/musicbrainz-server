@@ -152,7 +152,7 @@ const ArtistCreditRenamer = ({
   initialSelectedArtistCreditIds,
 }: ArtistCreditRenamerPropsT): React$MixedElement | null => {
   const rowsRef = React.useRef<
-    $ReadOnlyArray<React$Element<typeof ArtistCreditRow>> | null,
+    $ReadOnlyArray<React.Element<typeof ArtistCreditRow>> | null,
   >(null);
 
   const [state, dispatch] = React.useReducer(
@@ -319,4 +319,4 @@ const ArtistCreditRenamer = ({
 export default (hydrate<ArtistCreditRenamerPropsT>(
   'div.artist-credit-renamer',
   ArtistCreditRenamer,
-): React$AbstractComponent<ArtistCreditRenamerPropsT, void>);
+): React.AbstractComponent<ArtistCreditRenamerPropsT, void>);

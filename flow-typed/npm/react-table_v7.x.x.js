@@ -22,16 +22,16 @@ declare module 'react-table' {
      * `D` contravariant above.
      */
     +accessor?: (D) => V,
-    +Cell?: React$AbstractComponent<CellRenderProps<D, V>, mixed>,
-    +Header?: React$ComponentType<mixed> | React$Node,
+    +Cell?: React.AbstractComponent<CellRenderProps<D, V>, mixed>,
+    +Header?: React.ComponentType<mixed> | React.Node,
     +id?: string,
     ...
   };
 
   declare export type ColumnOptionsNoValue<-D> = {
     +accessor?: (D) => mixed,
-    +Cell?: React$AbstractComponent<CellRenderProps<D, empty>, mixed>,
-    +Header?: React$ComponentType<mixed> | React$Node,
+    +Cell?: React.AbstractComponent<CellRenderProps<D, empty>, mixed>,
+    +Header?: React.ComponentType<mixed> | React.Node,
     +id?: string,
     ...
   };
@@ -42,7 +42,7 @@ declare module 'react-table' {
     +getHeaderProps: (props?: {...}) => {...},
     // Not actually part of react-table but our own expansion of it
     +headerProps?: {[attribute: string]: string},
-    +render: (type: 'Header' | string, props?: {...}) => React$Node,
+    +render: (type: 'Header' | string, props?: {...}) => React.Node,
   };
 
   declare export type HeaderGroup = {
@@ -54,7 +54,7 @@ declare module 'react-table' {
   declare export type Cell<+V> = {
     +column: ColumnInstance,
     +getCellProps: (props?: {...}) => {...},
-    +render: (type: 'Cell' | string, userProps?: {...}) => React$Node,
+    +render: (type: 'Cell' | string, userProps?: {...}) => React.Node,
     +value: V,
   };
 

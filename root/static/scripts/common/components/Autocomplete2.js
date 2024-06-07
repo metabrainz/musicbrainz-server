@@ -863,13 +863,13 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
 }
 
 // $FlowIgnore[unclear-type]
-const Autocomplete2: React$AbstractComponent<PropsT<any>, mixed> =
+const Autocomplete2: React.AbstractComponent<PropsT<any>, mixed> =
   React.memo(_Autocomplete2);
 
 export default Autocomplete2;
 
 // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
 export const ArtistAutocomplete:
-  React$AbstractComponent<PropsT<ArtistT>, void> =
+  React.AbstractComponent<PropsT<ArtistT>, void> =
   // $FlowIgnore[unclear-type]
   (Autocomplete2: any);

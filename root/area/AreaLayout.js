@@ -15,7 +15,7 @@ import localizeAreaName
 import AreaHeader from './AreaHeader.js';
 
 component AreaLayout(
-  children: React$Node,
+  children: React.Node,
   entity as area: AreaT,
   fullWidth: boolean = false,
   page: string,

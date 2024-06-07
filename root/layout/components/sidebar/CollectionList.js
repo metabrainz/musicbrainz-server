@@ -117,7 +117,7 @@ component CollectionList(
   ownCollectionsNoneText: string,
   sectionClass: string,
   userExists: boolean,
-  usersLink: React$Element<EntityLink>,
+  usersLink: React.Element<EntityLink>,
   usersLinkHeader: string,
 ) {
   return (

@@ -13,7 +13,7 @@ import Layout from '../layout/index.js';
 import EventHeader from './EventHeader.js';
 
 component EventLayout(
-  children: React$Node,
+  children: React.Node,
   entity as event: EventT,
   fullWidth: boolean = false,
   page?: string,

@@ -38,7 +38,7 @@ const renderTableCell = (cell: Cell<mixed>) => (
   </td>
 );
 
-const renderTableRow = <D>(row: Row<D>, i: number): React$Element<'tr'> => (
+const renderTableRow = <D>(row: Row<D>, i: number): React.Element<'tr'> => (
   <tr {...row.getRowProps({className: loopParity(i)})}>
     {row.cells.map(renderTableCell)}
   </tr>
@@ -54,7 +54,7 @@ const useRenderedTable = <D>({
   className: passedClassName,
   columns,
   data,
-}: Props<D>): React$Element<'table'> => {
+}: Props<D>): React.Element<'table'> => {
   const {
     getTableProps,
     getTableBodyProps,

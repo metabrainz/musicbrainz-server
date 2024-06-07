@@ -157,7 +157,7 @@ class PreferencesForm extends React.Component<Props, State> {
       .final());
   }
 
-  render(): React$Element<'form'> {
+  render(): React.Element<'form'> {
     const field = this.state.form.field;
     return (
       <form method="post">
@@ -287,4 +287,4 @@ export type PreferencesFormPropsT = Props;
 export default (hydrate<Props>(
   'div.preferences-form',
   PreferencesForm,
-): React$AbstractComponent<Props, void>);
+): React.AbstractComponent<Props, void>);

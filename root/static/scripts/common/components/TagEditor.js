@@ -97,7 +97,7 @@ const VoteButton = ({
   text,
   title,
   vote,
-}: VoteButtonPropsT): React$Element<'button'> => {
+}: VoteButtonPropsT): React.Element<'button'> => {
   const isActive = vote === currentVote;
   const className = 'tag-vote tag-' + VOTE_ACTIONS[vote];
   const buttonTitle = isActive
@@ -122,7 +122,7 @@ const VoteButton = ({
 const UpvoteButton = ({
   callback,
   currentVote,
-}: GenericVoteButtonPropsT): React$Element<typeof VoteButton> => (
+}: GenericVoteButtonPropsT): React.Element<typeof VoteButton> => (
   <VoteButton
     activeTitle={lp('You’ve upvoted this tag', 'folksonomy')}
     callback={callback}
@@ -136,7 +136,7 @@ const UpvoteButton = ({
 const DownvoteButton = ({
   callback,
   currentVote,
-}: GenericVoteButtonPropsT): React$Element<typeof VoteButton> => (
+}: GenericVoteButtonPropsT): React.Element<typeof VoteButton> => (
   <VoteButton
     activeTitle={lp('You’ve downvoted this tag', 'folksonomy')}
     callback={callback}
@@ -157,7 +157,7 @@ const VoteButtons = ({
   callback,
   count,
   currentVote,
-}: VoteButtonsPropsT): React$Element<'span'> => {
+}: VoteButtonsPropsT): React.Element<'span'> => {
   const $c = React.useContext(SanitizedCatalystContext);
 
   let className = '';
@@ -194,7 +194,7 @@ const TagRow = ({
   currentVote,
   index,
   tag,
-}: TagRowPropsT): React$Element<'li'> => (
+}: TagRowPropsT): React.Element<'li'> => (
   <li className={loopParity(index)} key={tag.name}>
     <TagLink tag={tag.name} />
     <VoteButtons
@@ -666,7 +666,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
     }
   },
   minimalEntity,
-): React$AbstractComponent<TagEditorProps, void>);
+): React.AbstractComponent<TagEditorProps, void>);
 
 export const SidebarTagEditor = (hydrate<TagEditorProps>(
   'div.sidebar-tags',
@@ -724,7 +724,7 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
     }
   },
   minimalEntity,
-): React$AbstractComponent<TagEditorProps, void>);
+): React.AbstractComponent<TagEditorProps, void>);
 
 function createInitialTagState(
   aggregatedTags: $ReadOnlyArray<AggregatedTagT>,

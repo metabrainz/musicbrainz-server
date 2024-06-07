@@ -1013,7 +1013,7 @@ component _RelationshipDialogContent(...props: PropsT) {
   );
 }
 
-const RelationshipDialogContent: React$AbstractComponent<
+const RelationshipDialogContent: React.AbstractComponent<
   React.PropsOf<_RelationshipDialogContent>
 > = React.memo(_RelationshipDialogContent);
 

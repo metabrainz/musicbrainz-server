@@ -34,12 +34,12 @@ type ControlledPropsT =
 
 component FormRowText(
   autoComplete?: string,
-  children?: React$Node,
+  children?: React.Node,
   className?: string,
   disabled: boolean = false,
   field: FieldT<?string>,
   inputRef?: {-current: HTMLInputElement | null},
-  label: React$Node,
+  label: React.Node,
   preview?: string | null = null,
   required: boolean = false,
   size?: number,

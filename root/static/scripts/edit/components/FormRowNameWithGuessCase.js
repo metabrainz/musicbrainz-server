@@ -95,7 +95,7 @@ component FormRowNameWithGuessCase(
   guessCaseOptions: GuessCaseOptionsStateT,
   guessFeat: boolean = false,
   isGuessCaseOptionsOpen: boolean = false,
-  label: React$Node = addColonText(l('Name')),
+  label: React.Node = addColonText(l('Name')),
 ) {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const [preview, setPreview] = React.useState<string | null>(null);

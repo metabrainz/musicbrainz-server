@@ -222,7 +222,7 @@ component _RelationshipDiff(
   );
 }
 
-const RelationshipDiff: React$AbstractComponent<
+const RelationshipDiff: React.AbstractComponent<
   React.PropsOf<_RelationshipDiff>
 > = React.memo(_RelationshipDiff);
 

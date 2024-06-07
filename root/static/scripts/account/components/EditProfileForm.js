@@ -197,7 +197,7 @@ class EditProfileForm extends React.Component<Props, State> {
     });
   }
 
-  render(): React$Element<'form'> {
+  render(): React.Element<'form'> {
     const form = this.state.form;
     const field = form.field;
     const areaField = field.area.field;
@@ -353,5 +353,5 @@ export type EditProfileFormPropsT = Props;
 
 export default (
   hydrate<Props>('div.edit-profile-form', EditProfileForm):
-  React$AbstractComponent<Props, void>
+  React.AbstractComponent<Props, void>
 );

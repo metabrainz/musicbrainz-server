@@ -134,5 +134,5 @@ export default (
   hydrate<React.PropsOf<AcoustIdCell>>(
     'div.acoustids',
     AcoustIdCell,
-  ): React$AbstractComponent<React.PropsOf<AcoustIdCell>>
+  ): React.AbstractComponent<React.PropsOf<AcoustIdCell>>
 );

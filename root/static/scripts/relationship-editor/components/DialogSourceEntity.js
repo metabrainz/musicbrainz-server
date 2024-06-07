@@ -34,7 +34,7 @@ import DialogEntityCredit, {
 export function getSourceError(
   source: RelatableEntityT | null,
   linkType: LinkTypeT | null,
-): React$Node {
+): React.Node {
   if (
     source &&
     linkType &&
@@ -133,7 +133,7 @@ component _DialogSourceEntity(
   );
 }
 
-const DialogSourceEntity: React$AbstractComponent<
+const DialogSourceEntity: React.AbstractComponent<
   React.PropsOf<_DialogSourceEntity>
 > = React.memo(_DialogSourceEntity);
 
