@@ -12,8 +12,8 @@ import {DELETE, INSERT} from '../../utility/editDiff.js';
 import DiffSide from './DiffSide.js';
 
 component Diff(
-  extraNew?: React$Node,
-  extraOld?: React$Node,
+  extraNew?: React.Node,
+  extraOld?: React.Node,
   label: string,
   newText: string,
   oldText: string,

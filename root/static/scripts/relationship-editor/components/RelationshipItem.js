@@ -281,7 +281,7 @@ component _RelationshipItem(
   );
 }
 
-const RelationshipItem: React$AbstractComponent<
+const RelationshipItem: React.AbstractComponent<
   React.PropsOf<_RelationshipItem>
 > = React.memo(_RelationshipItem);
 

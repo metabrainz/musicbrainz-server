@@ -10,7 +10,7 @@
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
 component EntityDeletionHelp(
-  children?: React$Node,
+  children?: React.Node,
   entity: ManuallyRemovableEntityT,
 ) {
   return (

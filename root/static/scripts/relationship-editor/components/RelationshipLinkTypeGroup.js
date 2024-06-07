@@ -52,7 +52,7 @@ component _RelationshipLinkTypeGroup(
   return elements;
 }
 
-const RelationshipLinkTypeGroup: React$AbstractComponent<
+const RelationshipLinkTypeGroup: React.AbstractComponent<
   React.PropsOf<_RelationshipLinkTypeGroup>
 > = React.memo(_RelationshipLinkTypeGroup);
 

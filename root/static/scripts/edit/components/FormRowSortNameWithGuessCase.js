@@ -68,7 +68,7 @@ component FormRowSortNameWithGuessCase(
   dispatch: (ActionT) => void,
   entity: SortNamedEntityT,
   field: FieldT<string | null>,
-  label: React$Node = addColonText(l('Sort name')),
+  label: React.Node = addColonText(l('Sort name')),
   required: boolean = false,
 ) {
   const handleSortNameChange = React.useCallback((

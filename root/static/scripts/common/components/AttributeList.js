@@ -73,4 +73,4 @@ component AttributeList(
 export default (hydrate<React.PropsOf<AttributeList>>(
   'div.entity-attributes-container',
   AttributeList,
-): React$AbstractComponent<React.PropsOf<AttributeList>>);
+): React.AbstractComponent<React.PropsOf<AttributeList>>);

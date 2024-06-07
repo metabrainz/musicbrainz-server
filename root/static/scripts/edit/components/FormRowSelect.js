@@ -21,8 +21,8 @@ component FormRowSelect(
   field: FieldT<number | string>,
   frozen: boolean = false,
   hasHtmlErrors?: boolean,
-  helpers?: React$Node,
-  label: React$Node,
+  helpers?: React.Node,
+  label: React.Node,
   onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   options: MaybeGroupedOptionsT,
   /*

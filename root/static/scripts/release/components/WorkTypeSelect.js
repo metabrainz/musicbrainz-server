@@ -68,7 +68,7 @@ component _WorkTypeSelect(
   );
 }
 
-const WorkTypeSelect: React$AbstractComponent<
+const WorkTypeSelect: React.AbstractComponent<
   React.PropsOf<_WorkTypeSelect>
 > = React.memo(_WorkTypeSelect);
 

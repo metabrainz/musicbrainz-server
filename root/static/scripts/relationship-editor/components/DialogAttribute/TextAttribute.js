@@ -59,7 +59,7 @@ component _TextAttribute(
   );
 }
 
-const TextAttribute: React$AbstractComponent<
+const TextAttribute: React.AbstractComponent<
   React.PropsOf<_TextAttribute>
 > = React.memo(_TextAttribute);
 

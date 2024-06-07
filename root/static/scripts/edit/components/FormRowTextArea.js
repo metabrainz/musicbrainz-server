@@ -14,7 +14,7 @@ import FormRow from './FormRow.js';
 component FormRowTextArea(
   cols: number = 80,
   field: FieldT<string>,
-  label: React$Node,
+  label: React.Node,
   required: boolean = false,
   rows: number = 5,
 ) {

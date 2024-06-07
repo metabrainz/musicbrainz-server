@@ -22,8 +22,8 @@ component FormRowCheckbox(
   field: FieldT<boolean>,
   hasNoLabel: boolean = true,
   hasNoMargin: boolean = false,
-  help?: React$Node,
-  label: React$Node,
+  help?: React.Node,
+  label: React.Node,
   ...controlledProps: ControlledPropsT
 ) {
   const extraProps: {

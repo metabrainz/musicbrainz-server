@@ -495,7 +495,7 @@ component _TrackRelationshipEditor(
   );
 }
 
-const TrackRelationshipEditor: React$AbstractComponent<
+const TrackRelationshipEditor: React.AbstractComponent<
   React.PropsOf<_TrackRelationshipEditor>
 > = React.memo(_TrackRelationshipEditor);
 

@@ -25,7 +25,7 @@ const targetEntityTypes = [
 ];
 
 component RelatedWorks(workIds: $ReadOnlyArray<number>) {
-  const parts: Array<React$Node> = [
+  const parts: Array<React.Node> = [
     /* eslint-disable react/jsx-key */
     <h2 className="related-works">
       {l('Related works')}

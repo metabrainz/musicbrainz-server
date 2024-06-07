@@ -14,7 +14,7 @@ import Layout from '../layout/index.js';
 import CollectionHeader from './CollectionHeader.js';
 
 component CollectionLayout(
-  children: React$Node,
+  children: React.Node,
   entity as collection: CollectionT,
   fullWidth: boolean = false,
   page: string,

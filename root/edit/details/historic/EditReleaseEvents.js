@@ -14,7 +14,7 @@ import formatDate from '../../../static/scripts/common/utility/formatDate.js';
 function buildEventComp(
   event: OldReleaseEventCompT,
   key: string,
-): React$Element<'tr'> {
+): React.Element<'tr'> {
   return (
     <tr key={key}>
       <td>
@@ -71,7 +71,7 @@ function buildEventComp(
 function buildEvent(
   event: OldReleaseEventT,
   key: string,
-): React$Element<'tr'> {
+): React.Element<'tr'> {
   return (
     <tr key={key}>
       <td>

@@ -17,7 +17,7 @@ component FormRowSelectList<S: {+id: number, ...}>(
   addLabel: string,
   getSelectField: (S) => FieldT<?StrOrNum>,
   hideAddButton: boolean = false,
-  label: React$Node,
+  label: React.Node,
   onAdd: (event: SyntheticEvent<HTMLButtonElement>) => void,
   onEdit: (index: number, value: string) => void,
   onRemove: (index: number) => void,

@@ -49,7 +49,7 @@ export type StateT<T: EntityItemT> = {
 };
 
 export type PropsT<T: EntityItemT> = {
-  +children?: React$Node,
+  +children?: React.Node,
   +dispatch: (ActionT<T>) => void,
   +state: StateT<T>,
 };

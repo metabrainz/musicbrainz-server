@@ -84,7 +84,7 @@ component _MediumTrackRow(
   );
 }
 
-const MediumTrackRow: React$AbstractComponent<
+const MediumTrackRow: React.AbstractComponent<
   React.PropsOf<_MediumTrackRow>
 > = React.memo(_MediumTrackRow);
 

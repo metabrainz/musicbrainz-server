@@ -9,7 +9,7 @@
 
 import Layout from '../layout/index.js';
 
-component StatusPage(children: React$Node, title: string) {
+component StatusPage(children: React.Node, title: string) {
   return (
     <Layout fullWidth title={title}>
       <h1>{title}</h1>

@@ -20,7 +20,7 @@ export type BuildRowPropsT = {
 component CollapsibleList<T>(
   ariaLabel: string,
   buildRow:
-    (T, ?BuildRowPropsT) => React$Element<'li' | typeof SidebarProperty>,
+    (T, ?BuildRowPropsT) => React.Element<'li' | typeof SidebarProperty>,
   buildRowProps?: BuildRowPropsT,
   className: string,
   ContainerElement?: 'dl' | 'ul' = 'ul',

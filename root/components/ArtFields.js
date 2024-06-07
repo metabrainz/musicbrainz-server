@@ -26,8 +26,8 @@ export type CommonProps = {
 type Props = $ReadOnly<{
   ...CommonProps,
   +archiveName: 'cover' | 'event',
-  +chooseMessage: React$Node,
-  +documentationMessage: React$Node,
+  +chooseMessage: React.Node,
+  +documentationMessage: React.Node,
 }>;
 
 component ArtFields(...{

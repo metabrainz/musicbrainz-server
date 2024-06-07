@@ -63,7 +63,7 @@ component _UrlRelationshipEditor(...props: PropsT) {
   );
 }
 
-const NonHydratedUrlRelationshipEditor: React$AbstractComponent<PropsT> =
+const NonHydratedUrlRelationshipEditor: React.AbstractComponent<PropsT> =
   withLoadedTypeInfoForRelationshipEditor<PropsT>(
     _UrlRelationshipEditor,
   );
@@ -71,6 +71,6 @@ const NonHydratedUrlRelationshipEditor: React$AbstractComponent<PropsT> =
 const UrlRelationshipEditor = (hydrate<PropsT>(
   'div.relationship-editor',
   NonHydratedUrlRelationshipEditor,
-): React$AbstractComponent<PropsT>);
+): React.AbstractComponent<PropsT>);
 
 export default UrlRelationshipEditor;

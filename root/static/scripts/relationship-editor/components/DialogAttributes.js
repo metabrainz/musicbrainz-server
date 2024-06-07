@@ -476,7 +476,7 @@ component _DialogAttributes(
   );
 }
 
-const DialogAttributes: React$AbstractComponent<
+const DialogAttributes: React.AbstractComponent<
   React.PropsOf<_DialogAttributes>
 > = React.memo(_DialogAttributes);
 

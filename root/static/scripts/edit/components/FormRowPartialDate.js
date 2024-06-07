@@ -29,10 +29,10 @@ export type StateT = PartialDateFieldT;
 export const runReducer = runPartialDateInputReducer;
 
 component FormRowPartialDate(
-  children?: React$Node,
+  children?: React.Node,
   disabled: boolean = false,
   field: PartialDateFieldT,
-  label: React$Node,
+  label: React.Node,
   required: boolean = false,
   yearInputRef?: {current: HTMLInputElement | null},
   ...controlledProps: ControlledPropsT

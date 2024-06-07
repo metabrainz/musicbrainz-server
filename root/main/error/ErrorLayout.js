@@ -9,7 +9,7 @@
 
 import Layout from '../../layout/index.js';
 
-component ErrorLayout(children: React$Node, title: string) {
+component ErrorLayout(children: React.Node, title: string) {
   return (
     <Layout fullWidth title={title}>
       <div id="content">

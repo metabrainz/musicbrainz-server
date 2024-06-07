@@ -299,7 +299,7 @@ export function reducer(
 
 // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
 const TargetAutocomplete:
-  React$AbstractComponent<AutocompletePropsT<NonUrlRelatableEntityT>, void> =
+  React.AbstractComponent<AutocompletePropsT<NonUrlRelatableEntityT>, void> =
   // $FlowIgnore[incompatible-type]
   Autocomplete2;
 
@@ -387,7 +387,7 @@ component _DialogTargetEntity(
   );
 }
 
-const DialogTargetEntity: React$AbstractComponent<
+const DialogTargetEntity: React.AbstractComponent<
   React.PropsOf<_DialogTargetEntity>
 > = React.memo(_DialogTargetEntity);
 

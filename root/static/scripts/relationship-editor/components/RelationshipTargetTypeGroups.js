@@ -113,7 +113,7 @@ component _RelationshipTargetTypeGroups(
   );
 }
 
-const RelationshipTargetTypeGroups: React$AbstractComponent<
+const RelationshipTargetTypeGroups: React.AbstractComponent<
   React.PropsOf<_RelationshipTargetTypeGroups>
 > = React.memo(_RelationshipTargetTypeGroups);
 

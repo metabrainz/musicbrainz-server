@@ -119,7 +119,7 @@ type FieldProps = {
 const ArtistCreditField = ({
   field,
   options,
-}: FieldProps): React$Element<'tr'> => (
+}: FieldProps): React.Element<'tr'> => (
   <tr>
     <td>
       {addColonText(l('Artist credit'))}
@@ -138,7 +138,7 @@ const ArtistCreditField = ({
   </tr>
 );
 
-const TypeField = ({field, options}: FieldProps): React$Element<'tr'> => (
+const TypeField = ({field, options}: FieldProps): React.Element<'tr'> => (
   <tr>
     <td>
       {addColonText(l('Type'))}

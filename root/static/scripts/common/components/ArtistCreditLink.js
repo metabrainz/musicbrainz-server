@@ -48,7 +48,7 @@ component _MpIcon(artistCredit: ArtistCreditT) {
 export const MpIcon = (hydrate<React.PropsOf<_MpIcon>>(
   'span.ac-mp',
   _MpIcon,
-): React$AbstractComponent<React.PropsOf<_MpIcon>>);
+): React.AbstractComponent<React.PropsOf<_MpIcon>>);
 
 component ArtistCreditLink(
   artistCredit: ArtistCreditT,
@@ -59,7 +59,7 @@ component ArtistCreditLink(
   target?: '_blank',
 ) {
   const names = artistCredit.names;
-  const parts: Array<React$Node> = [];
+  const parts: Array<React.Node> = [];
   for (let i = 0; i < names.length; i++) {
     const credit = names[i];
     const artist = credit.artist;

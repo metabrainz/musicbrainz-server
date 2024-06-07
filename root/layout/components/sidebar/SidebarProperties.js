@@ -8,7 +8,7 @@
  */
 
 export component SidebarProperty(
-  children: React$Node,
+  children: React.Node,
   className: string,
   label: string,
 ) {
@@ -22,7 +22,7 @@ export component SidebarProperty(
   );
 }
 
-export component SidebarProperties(children: React$Node, className?: string) {
+export component SidebarProperties(children: React.Node, className?: string) {
   let _className = 'properties';
   if (nonEmpty(className)) {
     _className += ' ' + className;
