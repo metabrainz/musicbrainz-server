@@ -588,6 +588,7 @@ export default [
         'error',
         'multiline-multiprop',
       ],
+      '@stylistic/jsx/jsx-function-call-newline': ['warn', 'multiline'],
       '@stylistic/jsx/jsx-indent': ['error', 2],
       '@stylistic/jsx/jsx-indent-props': ['error', 2],
       '@stylistic/jsx/jsx-max-props-per-line': ['error', {
@@ -596,7 +597,7 @@ export default [
       }],
       '@stylistic/jsx/jsx-newline': 'off',
       '@stylistic/jsx/jsx-one-expression-per-line': ['warn', {
-        allow: 'single-child',
+        allow: 'single-line',
       }],
       '@stylistic/jsx/jsx-pascal-case': 'error',
       '@stylistic/jsx/jsx-props-no-multi-spaces': 'off', // in eslint-js
@@ -611,6 +612,7 @@ export default [
         condition: 'ignore',
         logical: 'ignore',
         prop: 'ignore',
+        propertyValue: 'parens',
       }],
 
       // eslint-plugin-react
