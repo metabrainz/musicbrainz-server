@@ -20,8 +20,8 @@ component CoverArtFields(...{
       archiveName="cover"
       chooseMessage={l('Choose one or more cover art types for this image')}
       documentationMessage={exp.l(
-        `Please see the {doc|Cover Art Types} documentation
-         for a description of these types.`,
+        `Select all types that apply. See the {doc|Cover Art Types}
+         documentation for their descriptions.`,
         {doc: {href: '/doc/Cover_Art/Types', target: '_blank'}},
       )}
       form={form}
