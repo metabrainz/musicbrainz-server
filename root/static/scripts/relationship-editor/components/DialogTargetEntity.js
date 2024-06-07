@@ -299,7 +299,7 @@ export function reducer(
 
 // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
 const TargetAutocomplete:
-  React.AbstractComponent<AutocompletePropsT<NonUrlRelatableEntityT>, void> =
+  React.AbstractComponent<AutocompletePropsT<NonUrlRelatableEntityT>> =
   // $FlowIgnore[incompatible-type]
   Autocomplete2;
 
