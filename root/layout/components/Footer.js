@@ -26,8 +26,8 @@ component Footer() {
         <a className="internal" href={DONATE_URL}>{l('Donate')}</a>
         <a className="internal" href="//wiki.musicbrainz.org/">{l('Wiki')}</a>
         <a className="internal" href="https://community.metabrainz.org/">{l('Forums')}</a>
-        <a className="internal" href="/doc/Communication/IRC">
-          {l('Chat (IRC)')}
+        <a className="internal" href="/doc/Communication/ChatBrainz">
+          {l('Chat')}
         </a>
         <a className="internal" href="http://tickets.metabrainz.org/">{l('Bug tracker')}</a>
         <a className="internal" href="https://blog.metabrainz.org/">{l('Blog')}</a>
