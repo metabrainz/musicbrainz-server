@@ -61,7 +61,7 @@ component ArtFields(...{
       ) : null}
       <FormRow>
         <fieldset className={`${archiveName}-art-types row`}>
-          <legend>{addColonText(l('Type'))}</legend>
+          <legend>{addColonText(l('Types'))}</legend>
           <ul className={`${archiveName}-art-type-checkboxes`}>
             {typeIdOptions.map(option => (
               <li key={option.value}>
