@@ -12,7 +12,6 @@
 const path = require('path');
 
 const CDP = require('chrome-remote-interface');
-const fileUrl = require('file-url');
 const utf8 = require('utf8');
 
 CDP((client) => {
@@ -62,8 +61,10 @@ CDP((client) => {
       exit(1);
     });
 
+    const url = require('url');
+
     return Page.navigate({
-      url: fileUrl(
+      url: url.pathToFileURL(
         path.resolve(__dirname, '../root/static/scripts/tests/web.html'),
       ),
     });

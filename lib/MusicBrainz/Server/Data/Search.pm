@@ -754,8 +754,10 @@ sub schema_fixup
                 primary_for_locale => $_->{primary},
             )
         } @{ $data->{aliases} };
-        my $best_alias = find_best_primary_alias(\@aliases, $user_lang);
-        $data->{primary_alias} = $best_alias->{name} if defined $best_alias;
+        if (defined $user_lang) {
+            my $best_alias = find_best_primary_alias(\@aliases, $user_lang);
+            $data->{primary_alias} = $best_alias->{name} if defined $best_alias;
+        }
 
         # Save the new objects so validation will pass, but note that the search
         # API doesn't include all attributes that are present in Entity::Alias,

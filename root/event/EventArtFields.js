@@ -20,8 +20,8 @@ const EventArtFields = ({
       archiveName="event"
       chooseMessage={l('Choose one or more event art types for this image')}
       documentationMessage={exp.l(
-        `Please see the {doc|Event Art Types} documentation
-         for a description of these types.`,
+        `Select all types that apply. See the {doc|Event Art Types}
+         documentation for their descriptions.`,
         {doc: {href: '/doc/Event_Art/Types', target: '_blank'}},
       )}
       form={form}

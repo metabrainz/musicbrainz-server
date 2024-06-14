@@ -10,10 +10,8 @@
 declare module 'po2json' {
   import type {JedOptions} from 'jed';
 
-  declare module.exports: {
-    parseFileSync: (
-      fileName: string,
-      options: {domain: string, format: 'jed'}
-    ) => JedOptions,
-  };
+  declare export function parseFileSync(
+    fileName: string,
+    options: {domain: string, format: 'jed'}
+  ): JedOptions;
 }

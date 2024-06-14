@@ -1014,6 +1014,14 @@ msgid ""
 "the Internet, including podcasts."
 msgstr ""
 
+#: DB:event_type/description:40
+msgctxt "event_type"
+msgid ""
+"An event in which the participants perform live and a winner is then chosen "
+"(as opposed to an award ceremony where awards are presented for previously "
+"released or performed music)."
+msgstr ""
+
 #: DB:event_type/description:2
 msgctxt "event_type"
 msgid ""
@@ -2038,6 +2046,11 @@ msgstr ""
 #: DB:place_type/name:42
 msgctxt "place_type"
 msgid "Club"
+msgstr ""
+
+#: DB:event_type/name:40
+msgctxt "event_type"
+msgid "Competition"
 msgstr ""
 
 #: DB:release_group_secondary_type/name:1
@@ -7761,11 +7774,19 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Udaya ravicandrika"
 msgstr ""
 
+#: DB:cover_art_archive.art_type/description:13
+msgctxt "cover_art_type"
+msgid ""
+"Use in combination with any other appropriate types for images that are "
+"watermarked and are not desirable for tagging (but can be used for "
+"reference)."
+msgstr ""
+
 #: DB:cover_art_archive.art_type/description:14
 msgctxt "cover_art_type"
 msgid ""
-"Use for images that need work to be used for tagging (but can possibly "
-"already be used for reference)"
+"Use in combination with any other appropriate types for images that need "
+"work to be used for tagging (but can possibly already be used for reference)."
 msgstr ""
 
 #: DB:area_type/description:8

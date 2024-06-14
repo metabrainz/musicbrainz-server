@@ -11,7 +11,7 @@ import fs from 'fs';
 import path from 'path';
 
 import type {JedOptions} from 'jed';
-import po2json from 'po2json';
+import {parseFileSync} from 'po2json';
 
 import MB_SERVER_ROOT from '../../utility/serverRootDir.mjs';
 
@@ -43,7 +43,7 @@ export function find(domain: string, locale: string): string {
 }
 
 export function loadFromPath(fpath: string, domain: string): JedOptions {
-  return po2json.parseFileSync(fpath, {domain, format: 'jed'});
+  return parseFileSync(fpath, {domain, format: 'jed'});
 }
 
 export function load(

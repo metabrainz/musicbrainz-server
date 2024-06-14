@@ -51,7 +51,7 @@
             </div>
 
             <div class="cover-art-types row" data-bind="visible: status() == 'waiting'">
-              <label>[%- l("Type:") -%]</label>
+              <label>[%- add_colon(l("Types")) -%]</label>
               <ul class="cover-art-type-checkboxes" data-bind="foreach: types">
                 <li>
                   <label>
@@ -63,7 +63,7 @@
             </div>
             <div class="cover-art-types-help row" data-bind="visible: status() == 'waiting'">
               <label>&nbsp;</label>
-              <p style="margin-left: 162px;">[%- l('Please see the {doc|Cover Art Types} documentation for a description of these types.', { doc => { href => doc_link('Cover_Art/Types'), target => '_blank' } }) -%]</p>
+              <p style="margin-left: 162px;">[%- l('Select all types that apply. See the {doc|Cover Art Types} documentation for a description of these types.', { doc => { href => doc_link('Cover_Art/Types'), target => '_blank' } }) -%]</p>
             </div>
             <div class="comment row" data-bind="visible: status() == 'waiting'">
               <label>[%- add_colon(l('Comment')) -%]</label>
