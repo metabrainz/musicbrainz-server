@@ -74,7 +74,7 @@ Once the image is built you can begin the deployment.
 ### Announce the deployment
 
 Because any deployment may cause issues for MusicBrainz users and MetaBrainz staff,
-each deployment should be announced through the IRC channel and the website’s banner.
+each deployment should be announced through the chat and the website’s banner.
 
 [Set the banner message](https://musicbrainz.org/admin/banner/edit) to
 
