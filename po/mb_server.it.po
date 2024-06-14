@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-28 14:51+0000\n"
-"PO-Revision-Date: 2024-05-24 16:42+0000\n"
+"PO-Revision-Date: 2024-06-02 00:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -44,8 +44,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -4263,7 +4263,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/Role/Art.pm:132
 #, perl-brace-format
 msgid "Found no artwork with ID “{id}”."
-msgstr "Nessuna copertina con ID “{id}” trovata."
+msgstr "Nessuna immagine con ID “{id}” trovata."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:222
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:99
@@ -10612,7 +10612,7 @@ msgstr "Conformità con la GDPR"
 
 #: ../root/layout/components/BottomMenu.js:141
 msgid "Copyright and DMCA compliance"
-msgstr ""
+msgstr "Copyright e conformità con il DMCA"
 
 #: ../root/layout/components/BottomMenu.js:145
 msgid "Data removal policy"
@@ -11056,7 +11056,7 @@ msgstr "Nessun poster disponibile."
 #: ../root/layout/components/sidebar/EventSidebar.js:67
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:101
 msgid "View all artwork"
-msgstr "Visualizza tutte le copertine"
+msgstr "Visualizza tutte le immagini"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:70
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:104
@@ -14968,19 +14968,16 @@ msgstr ""
 "segnalato come potenzialmente pericoloso."
 
 #: ../root/static/scripts/common/components/EntityLink.js:343
-#, fuzzy
-#| msgid "This release has artwork in the Cover Art Archive"
 msgid "This event has artwork in the Event Art Archive"
-msgstr "Questa pubblicazione ha delle copertine nel Cover Art Archive"
+msgstr "Quest'evento ha delle immagini nell'Event Art Archive"
 
 #: ../root/static/scripts/common/components/EntityLink.js:368
 msgid "This release has artwork in the Cover Art Archive"
-msgstr "Questa pubblicazione ha delle copertine nel Cover Art Archive"
+msgstr "Questa pubblicazione ha delle immagini nel Cover Art Archive"
 
 #: ../root/static/scripts/common/components/EntityLink.js:393
 msgid "This release group has artwork in the Cover Art Archive"
-msgstr ""
-"Questo gruppo di pubblicazioni ha delle copertine nel Cover Art Archive"
+msgstr "Questo gruppo di pubblicazioni ha delle immagini nel Cover Art Archive"
 
 #: ../root/static/scripts/common/components/EntityLink.js:421
 msgid ""
