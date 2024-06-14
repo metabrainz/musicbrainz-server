@@ -32,7 +32,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-13 15:06+0000\n"
+"PO-Revision-Date: 2024-05-31 18:42+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/fr/>\n"
@@ -101,12 +101,9 @@ msgid "12\" Vinyl"
 msgstr "Vinyle 30 cm (12 po)"
 
 #: DB:medium_format/name:207
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "7\" Vinyl"
 msgctxt "medium_format"
 msgid "3\" Vinyl"
-msgstr "Vinyle 18 cm (7 po)"
+msgstr "Vinyle 8 cm (3 po)"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
@@ -3518,12 +3515,9 @@ msgid "Gaṁbhīra vāṇi"
 msgstr "Gambhîra vâni"
 
 #: DB:editor_collection_type/name:16
-#, fuzzy
-#| msgctxt "collection_type"
-#| msgid "Series collection"
 msgctxt "collection_type"
 msgid "Genre collection"
-msgstr "Collection de séries"
+msgstr "Collection de genres"
 
 #: DB:work_attribute_type_allowed_value/value:376
 msgctxt "work_attribute_type_allowed_value"

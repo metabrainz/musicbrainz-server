@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-23 14:42+0000\n"
+"PO-Revision-Date: 2024-06-12 21:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -35,7 +35,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.5.5\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -710,12 +710,12 @@ msgstr "английский"
 #. frequency:1 iso_code_3:enm 
 #: DB:language/name:121
 msgid "English, Middle (1100-1500)"
-msgstr "среднеанглийский (1100—1500)"
+msgstr "среднеанглийский (1100—1500 гг.)"
 
 #. frequency:1 iso_code_3:ang 
 #: DB:language/name:16
 msgid "English, Old (ca.450-1100)"
-msgstr "древнеанглийский (около 450—1100)"
+msgstr "древнеанглийский (около 450—1100 гг.)"
 
 #. frequency:1 iso_code_3:myv 
 #: DB:language/name:290
@@ -790,12 +790,12 @@ msgstr "французский"
 #. frequency:0 iso_code_3:frm 
 #: DB:language/name:135
 msgid "French, Middle (ca.1400-1600)"
-msgstr "среднефранцузский (около 1400 — 1600)"
+msgstr "среднефранцузский (около 1400 — 1600 гг.)"
 
 #. frequency:1 iso_code_3:fro 
 #: DB:language/name:136
 msgid "French, Old (842-ca.1400)"
-msgstr "старофранцузский (842 — около 1400)"
+msgstr "старофранцузский (842 — около 1400 гг.)"
 
 #. frequency:1 iso_code_3:frs 
 #: DB:language/name:485
@@ -875,22 +875,22 @@ msgstr "немецкий"
 #. frequency:1 iso_code_3:nds 
 #: DB:language/name:299
 msgid "German, Low"
-msgstr "нижненемецкий язык"
+msgstr "нижненемецкий"
 
 #. frequency:1 iso_code_3:gmh 
 #: DB:language/name:152
 msgid "German, Middle High (ca.1050-1500)"
-msgstr "средневерхненемецкий (ок. 1050 — 1500)"
+msgstr "средневерхненемецкий (ок. 1050 — 1500 гг.)"
 
 #. frequency:1 iso_code_3:goh 
 #: DB:language/name:153
 msgid "German, Old High (ca.750-1050)"
-msgstr "древневерхненемецкий (ок. 750 — 1050)"
+msgstr "древневерхненемецкий (ок. 750 — 1050 гг.)"
 
 #. frequency:1 iso_code_3:gsw 
 #: DB:language/name:476
 msgid "German, Swiss"
-msgstr "швейцарский немецкий язык"
+msgstr "швейцарский немецкий"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:143
@@ -945,7 +945,7 @@ msgstr "гронингенское наречие"
 #. frequency:1 iso_code_3:gcf 
 #: DB:language/name:2386
 msgid "Guadeloupean Creole French"
-msgstr "Гваделупский креольский французский"
+msgstr "гваделупский креольский французский"
 
 #. frequency:1 iso_code_3:grn 
 #: DB:language/name:160
@@ -955,12 +955,12 @@ msgstr "гуарани"
 #. frequency:1 iso_code_3:guj 
 #: DB:language/name:161
 msgid "Gujarati"
-msgstr "Гуджарати"
+msgstr "гуджарати"
 
 #. frequency:1 iso_code_3:gnn 
 #: DB:language/name:2511
 msgid "Gumatj"
-msgstr "Гумач"
+msgstr "гумач"
 
 #. frequency:1 iso_code_3:guf 
 #: DB:language/name:2581
@@ -970,12 +970,12 @@ msgstr "гупапаунгу"
 #. frequency:1 iso_code_3:gyn 
 #: DB:language/name:2638
 msgid "Guyanese Creole English"
-msgstr "Гайанский креольский"
+msgstr "гайанский креольский английский"
 
 #. frequency:1 iso_code_3:gwi 
 #: DB:language/name:162
 msgid "Gwich'in"
-msgstr "гвичинов"
+msgstr "кучинский"
 
 #. frequency:1 iso_code_3:hai 
 #: DB:language/name:163
@@ -985,7 +985,7 @@ msgstr "хайда"
 #. frequency:1 iso_code_3:hat 
 #: DB:language/name:164
 msgid "Haitian Creole"
-msgstr "гаитяно креольский"
+msgstr "гаитяно-креольский"
 
 #. frequency:1 iso_code_3:hau 
 #: DB:language/name:165
@@ -1015,7 +1015,7 @@ msgstr "хилигайнон"
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:170
 msgid "Himachali languages"
-msgstr "химачали языки"
+msgstr "языки химачали"
 
 #. frequency:2 iso_code_3:hin 
 #: DB:language/name:171
@@ -1050,7 +1050,7 @@ msgstr "хупа"
 #. frequency:1 iso_code_3:iba 
 #: DB:language/name:178
 msgid "Iban"
-msgstr "ибанский язык"
+msgstr "ибанский"
 
 #. frequency:1 iso_code_3:isl 
 #: DB:language/name:180
@@ -1070,12 +1070,12 @@ msgstr "игбо"
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:183
 msgid "Ijo languages"
-msgstr "Иджоидные языки"
+msgstr "иджоидные языки"
 
 #. frequency:1 iso_code_3:ilo 
 #: DB:language/name:186
 msgid "Iloko"
-msgstr "Илоко"
+msgstr "илоко"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:188
@@ -1105,7 +1105,7 @@ msgstr "ингушский"
 #. frequency:1 iso_code_3:moe 
 #: DB:language/name:4369
 msgid "Innu"
-msgstr "Инну"
+msgstr "инну"
 
 #. frequency:1 iso_code_3:ina 
 #: DB:language/name:187
@@ -1140,12 +1140,12 @@ msgstr "ирландский"
 #. frequency:0 iso_code_3:mga 
 #: DB:language/name:270
 msgid "Irish, Middle (900-1200)"
-msgstr "Среднеирландский (900-1200)"
+msgstr "среднеирландский (900-1200 гг.)"
 
 #. frequency:0 iso_code_3:sga 
 #: DB:language/name:369
 msgid "Irish, Old (to 900)"
-msgstr "Древнеирландский (до 900)"
+msgstr "древнеирландский (до 900 г.)"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:194
@@ -1160,7 +1160,7 @@ msgstr "итальянский"
 #. frequency:1 iso_code_3:jam 
 #: DB:language/name:2980
 msgid "Jamaican Creole English"
-msgstr "Ямайский Креольский Английский"
+msgstr "ямайский креольский английский"
 
 #. frequency:2 iso_code_3:jpn 
 #: DB:language/name:198
@@ -1175,7 +1175,7 @@ msgstr "яванский"
 #. frequency:1 iso_code_3:tmr 
 #: DB:language/name:6526
 msgid "Jewish Babylonian Aramaic (ca. 200-1200 CE)"
-msgstr "Вавилонский иудейско-арамейский язык (приблизительно 200-1200 н. э.)"
+msgstr "вавилонский иудейско-арамейский язык (ок. 200-1200 гг. н. э.)"
 
 #. frequency:1 iso_code_3:jrb 
 #: DB:language/name:200
@@ -1190,12 +1190,12 @@ msgstr "иудео-персидский"
 #. frequency:1 iso_code_3:kbd 
 #: DB:language/name:212
 msgid "Kabardian"
-msgstr "кабардинка"
+msgstr "кабардино-черкесский"
 
 #. frequency:1 iso_code_3:kea 
 #: DB:language/name:3185
 msgid "Kabuverdianu"
-msgstr "Кабувердьяну"
+msgstr "кабувердьяну"
 
 #. frequency:1 iso_code_3:kab 
 #: DB:language/name:202
@@ -1210,57 +1210,57 @@ msgstr "качин"
 #. frequency:1 iso_code_3:xal 
 #: DB:language/name:459
 msgid "Kalmyk"
-msgstr "Калмыцкий"
+msgstr "калмыцкий"
 
 #. frequency:1 iso_code_3:kam 
 #: DB:language/name:205
 msgid "Kamba"
-msgstr "Камба"
+msgstr "камба"
 
 #. frequency:1 iso_code_3:kan 
 #: DB:language/name:206
 msgid "Kannada"
-msgstr "Каннада"
+msgstr "каннада"
 
 #. frequency:1 iso_code_3:kau 
 #: DB:language/name:209
 msgid "Kanuri"
-msgstr "Канури"
+msgstr "канури"
 
 #. frequency:1 iso_code_3:kaa 
 #: DB:language/name:201
 msgid "Kara-Kalpak"
-msgstr "Каракалпакский"
+msgstr "каракалпакский"
 
 #. frequency:1 iso_code_3:krc 
 #: DB:language/name:227
 msgid "Karachay-Balkar"
-msgstr "Карачаево-Балкарский"
+msgstr "карачаево-балкарский"
 
 #. frequency:1 iso_code_3:krl 
 #: DB:language/name:477
 msgid "Karelian"
-msgstr "Карельский"
+msgstr "карельский"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:207
 msgid "Karen languages"
-msgstr "Каренские языки"
+msgstr "каренские языки"
 
 #. frequency:1 iso_code_3:kas 
 #: DB:language/name:208
 msgid "Kashmiri"
-msgstr "Кашмирский"
+msgstr "кашмирский"
 
 #. frequency:1 iso_code_3:csb 
 #: DB:language/name:96
 msgid "Kashubian"
-msgstr "Кашубский"
+msgstr "кашубский"
 
 #. frequency:0 iso_code_3:kaw 
 #: DB:language/name:210
 msgid "Kawi"
-msgstr "Кави"
+msgstr "кави"
 
 #. frequency:1 iso_code_3:kaz 
 #: DB:language/name:211
@@ -1275,17 +1275,17 @@ msgstr "ханты"
 #. frequency:1 iso_code_3:kha 
 #: DB:language/name:213
 msgid "Khasi"
-msgstr "Хаси"
+msgstr "хаси"
 
 #. frequency:1 iso_code_3:khm 
 #: DB:language/name:215
 msgid "Khmer, Central"
-msgstr "Кхмерский Центральный"
+msgstr "центрально-кхмерский"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:214
 msgid "Khoisan languages"
-msgstr "Койсанские языки"
+msgstr "койсанские языки"
 
 #. frequency:0 iso_code_3:kho 
 #: DB:language/name:216
@@ -1300,12 +1300,12 @@ msgstr "кикуйю"
 #. frequency:1 iso_code_3:kmb 
 #: DB:language/name:220
 msgid "Kimbundu"
-msgstr "Кимбундийский"
+msgstr "кимбундийский"
 
 #. frequency:1 iso_code_3:kin 
 #: DB:language/name:218
 msgid "Kinyarwanda"
-msgstr "Киньяруанда"
+msgstr "киньяруанда"
 
 #. frequency:1 iso_code_3:kir 
 #: DB:language/name:219
@@ -1315,22 +1315,22 @@ msgstr "киргизский"
 #. frequency:1 iso_code_3:tlh 
 #: DB:language/name:421
 msgid "Klingon"
-msgstr "Клингонский"
+msgstr "клингонский"
 
 #. frequency:1 iso_code_3:kom 
 #: DB:language/name:222
 msgid "Komi"
-msgstr "Коми"
+msgstr "коми"
 
 #. frequency:1 iso_code_3:kon 
 #: DB:language/name:223
 msgid "Kongo"
-msgstr "Конго"
+msgstr "конго"
 
 #. frequency:1 iso_code_3:kok 
 #: DB:language/name:221
 msgid "Konkani"
-msgstr "Конкани"
+msgstr "конкани"
 
 #. frequency:2 iso_code_3:kor 
 #: DB:language/name:224

@@ -24,7 +24,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-17 13:59+0000\n"
+"PO-Revision-Date: 2024-06-05 12:42+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -241,14 +241,14 @@ msgid ""
 "Describes the fact a person was contracted by a place as a mastering "
 "engineer."
 msgstr ""
-"Describe el hecho de que alguien ha sido contratado en un lugar como "
+"Indica que el artista tiene un contrato con un lugar (como un estudio) como "
 "ingeniero de masterización."
 
 #: DB:link_type/description:703
 msgid ""
 "Describes the fact a person was contracted by a place as a mixing engineer."
 msgstr ""
-"Describe el hecho de que alguien ha sido contratado en un lugar como "
+"Indica que el artista tiene un contrato con un lugar (como un estudio) como "
 "ingeniero de mezcla."
 
 #: DB:link_type/description:702
@@ -256,13 +256,13 @@ msgid ""
 "Describes the fact a person was contracted by a place as a recording "
 "engineer."
 msgstr ""
-"Describe el hecho de que alguien ha sido contratado en un lugar como "
+"Indica que el artista tiene un contrato con un lugar (como un estudio) como "
 "ingeniero de grabación."
 
 #: DB:link_type/description:701
 msgid "Describes the fact a person was contracted by a place as an engineer."
 msgstr ""
-"Describe el hecho de que alguien ha sido contratado en un lugar como "
+"Indica que el artista tiene un contrato con un lugar (como un estudio) como "
 "ingeniero."
 
 #: DB:link_type/description:357
@@ -271,7 +271,7 @@ msgstr "Indica que una obra es o ha sido el himno de un área."
 
 #: DB:link_type/description:356
 msgid "Designates that one area is contained by another."
-msgstr "Indica que una área está contenida en otra."
+msgstr "Indica que un área está contenida en otra."
 
 #: DB:link_type/link_phrase:1089 DB:link_type/link_phrase:180
 #: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
@@ -301,9 +301,10 @@ msgid ""
 "relevant to this recording. Examples include instrumental arrangements, or "
 "\"beats\" from hip-hop songs which may be reused with different lyrics."
 msgstr ""
-"Para los trabajos que tienen letra, esto indica que la letra no es relevante "
-"a esta grabación; por ejemplo, los arreglos instrumentales, o los «beats» de "
-"las canciones de hip-hop que pueden reutilizarse con letras diferentes."
+"Esto indica que pese a que la obra tiene letra, la letra no es relevante "
+"para esta grabación; por ejemplo porque es una grabación de un arreglo "
+"instrumental, o el “beat” de una canción de hip-hop que puede reutilizarse "
+"con una letra diferente."
 
 #: DB:link_attribute_type/description:1406
 msgid ""
@@ -397,7 +398,7 @@ msgstr ""
 
 #: DB:link_type/description:109
 msgid "Indicates a parent-child relationship."
-msgstr "Indica una relación padre-hijo."
+msgstr "Indica una relación entre padre/madre e hijo/a."
 
 #: DB:link_type/description:396
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place."
@@ -646,11 +647,11 @@ msgstr "Indica el liricista para esta publicación."
 
 #: DB:link_type/description:165
 msgid "Indicates the lyricist for this work."
-msgstr "Indica el letrista de este trabajo."
+msgstr "Indica el letrista de esta obra."
 
 #: DB:link_type/description:42
 msgid "Indicates the mastering engineer for this work."
-msgstr "Indica el ingeniero de masterización de este trabajo."
+msgstr "Indica el ingeniero de masterización de esta publicación."
 
 #: DB:link_type/description:219
 msgid "Indicates the official homepage for a label."
@@ -676,8 +677,8 @@ msgstr "Indica la página web oficial de un evento."
 msgid ""
 "Indicates the person who translated the lyrics/libretto for this release."
 msgstr ""
-"Indica la persona que ha traducido las letras/el libreto para este "
-"lanzamiento."
+"Indica la persona que ha traducido las letras o el libreto para esta "
+"publicación."
 
 #: DB:link_type/description:872
 msgid "Indicates the person who translated the lyrics/libretto for this work."
@@ -1309,7 +1310,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:561
 msgid "Spoken vocals (speech)"
-msgstr "Voz hablada (habla)"
+msgstr "Voz hablada"
 
 #: DB:link_type/long_link_phrase:880 DB:link_type/long_link_phrase:1249
 msgid ""
@@ -3186,7 +3187,7 @@ msgstr ""
 
 #: DB:link_type/description:111
 msgid "This links artists who were married."
-msgstr "Esto enlaza artistas que se han casado."
+msgstr "Indica que dos artistas están o estuvieron casados."
 
 #: DB:link_type/description:315
 msgid ""
@@ -4089,13 +4090,13 @@ msgstr ""
 #: DB:link_type/link_phrase:920 DB:link_type/link_phrase:1001
 #: DB:link_type/reverse_link_phrase:312
 msgid "VIAF ID"
-msgstr "Id. VIAF"
+msgstr "ID de VIAF"
 
 #: DB:link_type/link_phrase:312 DB:link_type/reverse_link_phrase:311
 #: DB:link_type/reverse_link_phrase:310 DB:link_type/reverse_link_phrase:920
 #: DB:link_type/reverse_link_phrase:1001
 msgid "VIAF ID for"
-msgstr "Id. VIAF para"
+msgstr "ID de VIAF para"
 
 #: DB:link_type/name:1163 DB:link_type/reverse_link_phrase:1163
 msgid "VJ"
@@ -4224,7 +4225,7 @@ msgstr "himno de"
 
 #: DB:link_type/link_phrase:858 DB:link_type/long_link_phrase:858
 msgid "appears on video"
-msgstr "aparece en el video"
+msgstr "aparece en el vídeo"
 
 #: DB:link_type/name:1131 DB:link_type/name:1130
 msgid "apple music"
@@ -4301,11 +4302,11 @@ msgstr ""
 
 #: DB:link_type/name:965 DB:link_type/reverse_link_phrase:965
 msgid "artistic director"
-msgstr ""
+msgstr "director artístico"
 
 #: DB:link_type/link_phrase:965
 msgid "artistic director for"
-msgstr ""
+msgstr "director artístico de"
 
 #: DB:link_type/name:135 DB:link_type/name:62
 msgid "artists and repertoire"
@@ -4627,11 +4628,11 @@ msgstr ""
 
 #: DB:link_type/name:937 DB:link_type/name:855
 msgid "composer-in-residence"
-msgstr ""
+msgstr "compositor residente"
 
 #: DB:link_type/link_phrase:937 DB:link_type/link_phrase:855
 msgid "composer-in-residence at"
-msgstr ""
+msgstr "compositor residente en"
 
 #: DB:link_type/reverse_link_phrase:937 DB:link_type/reverse_link_phrase:855
 msgid "composers-in-residence"
@@ -4654,19 +4655,19 @@ msgstr ""
 
 #: DB:link_type/name:806 DB:link_type/name:46 DB:link_type/name:151
 msgid "conductor"
-msgstr ""
+msgstr "director"
 
 #: DB:link_type/link_phrase:806
 msgid "conductor at"
-msgstr ""
+msgstr "director para"
 
 #: DB:link_type/name:305
 msgid "conductor position"
-msgstr ""
+msgstr "posición de director"
 
 #: DB:link_type/reverse_link_phrase:806
 msgid "conductors"
-msgstr ""
+msgstr "directores"
 
 #: DB:link_type/reverse_link_phrase:925
 msgid "connected with"
@@ -5947,7 +5948,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:965
 msgid "is/was artistic director for"
-msgstr ""
+msgstr "es/fue director artístico de"
 
 #: DB:link_type/long_link_phrase:203
 msgid "is/was distributing the catalog of"
@@ -5977,7 +5978,9 @@ msgstr ""
 msgid ""
 "is/was {assistant:an|a} {assistant} {principal} {guest} conductor {emeritus} "
 "for"
-msgstr "director {assistant} {principal} {guest} {emeritus} de"
+msgstr ""
+"es/fue director {assistant:asistente} {principal:titular} {guest:invitado} "
+"{emeritus:emérito} de"
 
 #: DB:link_attribute_type/name:1132
 msgid "jazz"
@@ -7556,7 +7559,7 @@ msgstr ""
 
 #: DB:link_type/name:722
 msgid "subgroup"
-msgstr ""
+msgstr "subgrupo"
 
 #: DB:link_type/link_phrase:722
 msgid "subgroup of"
@@ -7871,11 +7874,11 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:937 DB:link_type/long_link_phrase:855
 msgid "was a composer-in-residence at"
-msgstr ""
+msgstr "fue compositor residente en"
 
 #: DB:link_type/long_link_phrase:806
 msgid "was a conductor at"
-msgstr ""
+msgstr "fue director en"
 
 #: DB:link_type/long_link_phrase:796 DB:link_type/long_link_phrase:797
 msgid "was a launch event for"
@@ -8514,7 +8517,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
 msgid "{additional} {assistant} conductor"
-msgstr ""
+msgstr "director {assistant:asistente} {additional:adicional}"
 
 #: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
 #: DB:link_type/link_phrase:1242 DB:link_type/reverse_link_phrase:1233

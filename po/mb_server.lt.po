@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-23 11:01-0500\n"
-"PO-Revision-Date: 2024-05-24 16:42+0000\n"
+"POT-Creation-Date: 2024-05-28 14:51+0000\n"
+"PO-Revision-Date: 2024-06-08 16:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -247,7 +247,7 @@ msgstr "Pridėti įrašų kompaniją"
 
 #: ../root/release/edit/information.tt:215
 #: ../root/release/edit/information.tt:216
-#: ../root/layout/components/BottomMenu.js:244
+#: ../root/layout/components/BottomMenu.js:249
 msgctxt "interactive"
 msgid "Add label"
 msgstr "Pridėti įrašų kompaniją"
@@ -587,8 +587,8 @@ msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}."
 msgstr ""
-"Pristato {MeB|MetaBrainz fondas} ir mūsų {spon|rėmėjai} bei "
-"{supp|palaikytojai}."
+"Pristato {MeB|MetaBrainz fondas} ir mūsų {spon|rėmėjai} bei {supp|"
+"palaikytojai}."
 
 #: ../root/layout.tt:122 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
@@ -768,7 +768,7 @@ msgstr "Duomenų takeliai"
 #: ../root/layout/components/sidebar/EventSidebar.js:92
 #: ../root/recording/RecordingIndex.js:50
 #: ../root/release_group/ReleaseGroupIndex.js:162
-#: ../root/search/components/EventResults.js:74
+#: ../root/search/components/EventResults.js:79
 #: ../root/search/components/ReleaseResults.js:115
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:106
 #: ../root/static/scripts/common/components/FilterForm.js:298
@@ -815,7 +815,7 @@ msgstr ""
 msgid "Description"
 msgstr "Aprašymas"
 
-#: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:162
+#: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:164
 #: ../root/elections/ElectionDetails.js:25 ../root/entity/Details.js:79
 #: ../root/entity/Details.js:81
 msgid "Details"
@@ -833,7 +833,7 @@ msgstr "Išsami informacija"
 #: ../root/edit/details/AddReleaseGroup.js:52
 #: ../root/edit/details/AddSeries.js:34
 #: ../root/edit/details/AddStandaloneRecording.js:48
-#: ../root/edit/details/AddWork.js:37 ../root/edit/details/EditArea.js:62
+#: ../root/edit/details/AddWork.js:39 ../root/edit/details/EditArea.js:62
 #: ../root/edit/details/EditArtist.js:75 ../root/edit/details/EditEvent.js:43
 #: ../root/edit/details/EditGenre.js:40
 #: ../root/edit/details/EditInstrument.js:47
@@ -898,11 +898,11 @@ msgstr "Redaguoti"
 #: ../root/components/Aliases/AliasTableRow.js:55
 #: ../root/components/Aliases/ArtistCreditList.js:75
 #: ../root/components/Aliases/ArtistCreditList.js:77
-#: ../root/components/EntityTabs.js:170 ../root/event/EventArt.js:86
+#: ../root/components/EntityTabs.js:172 ../root/event/EventArt.js:85
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:89
 #: ../root/release/CoverArt.js:81
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:516
-#: ../root/user/UserCollections.js:121
+#: ../root/user/UserCollections.js:122
 msgctxt "verb, interactive"
 msgid "Edit"
 msgstr "Redaguoti"
@@ -949,7 +949,7 @@ msgstr "Redagavimo pastaba:"
 
 #: ../root/doc/edit_type.tt:18 ../root/doc/EditTypeList.js:35
 #: ../root/doc/EditTypeList.js:37 ../root/edit/components/EditSidebar.js:93
-#: ../root/layout/components/BottomMenu.js:315
+#: ../root/layout/components/BottomMenu.js:320
 msgctxt "noun"
 msgid "Edit types"
 msgstr "Redagavimo tipai"
@@ -1000,7 +1000,7 @@ msgid "End date"
 msgstr "Pabaigos data"
 
 #: ../root/components/forms.tt:258 ../root/components/forms.tt:283
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:104
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:106
 msgid "English"
 msgstr "anglų"
 
@@ -1058,7 +1058,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:434 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
-#: ../root/components/list/EventList.js:60 ../root/edit/details/AddEvent.js:23
+#: ../root/components/list/EventList.js:61 ../root/edit/details/AddEvent.js:23
 #: ../root/edit/details/AddEventArt.js:21 ../root/edit/details/EditEvent.js:31
 #: ../root/edit/details/EditEventArt.js:23
 #: ../root/edit/details/RemoveEventArt.js:23
@@ -1156,20 +1156,20 @@ msgstr "Forumai"
 msgid "Found {n} result"
 msgid_plural "Found {n} results"
 msgstr[0] "Rastas {n} rezultatas"
-msgstr[1] "Rasta {n} rezultatai"
+msgstr[1] "Rasti {n} rezultatai"
 msgstr[2] "Rasta {n} rezultato"
 msgstr[3] "Rasta {n} rezultatų"
 
 #: ../root/components/with-pager.tt:7 ../root/components/PaginatedResults.js:48
 msgid "Found {n} result for \"{q}\""
 msgid_plural "Found {n} results for \"{q}\""
-msgstr[0] "Rastas {n} rezultatas „{q}“"
-msgstr[1] "Rasta {n} rezultatai „{q}“"
-msgstr[2] "Rasta {n} rezultato „{q}“"
-msgstr[3] "Rasta {n} rezultatų „{q}“"
+msgstr[0] "Rastas {n} rezultatas pagal „{q}“"
+msgstr[1] "Rasti {n} rezultatai pagal „{q}“"
+msgstr[2] "Rasta {n} rezultato pagal „{q}“"
+msgstr[3] "Rasta {n} rezultatų pagal „{q}“"
 
 #: ../root/components/forms.tt:260 ../root/components/forms.tt:285
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:106
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:108
 msgid "French"
 msgstr "prancūzų"
 
@@ -1218,7 +1218,7 @@ msgid "Guess case medium title"
 msgstr "Atspėti raidžių lygių laikmeno pavadinimą"
 
 #: ../root/components/forms.tt:232 ../root/release/edit/information.tt:16
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:102
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:104
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:18
 #: ../root/static/scripts/guess-case/MB/Control/GuessCase.js:25
 msgid "Guess case options"
@@ -1337,7 +1337,7 @@ msgstr "ISRC"
 msgid "ISRCs"
 msgstr "ISRC"
 
-#: ../root/work/edit_form.tt:16 ../root/edit/details/AddWork.js:43
+#: ../root/work/edit_form.tt:16 ../root/edit/details/AddWork.js:45
 #: ../root/edit/details/EditWork.js:62 ../root/edit/details/RemoveIswc.js:23
 #: ../root/otherlookup/OtherLookupForm.js:72
 #: ../root/report/IswcsWithManyWorks.js:49
@@ -1493,7 +1493,7 @@ msgid "Javascript is required for this page to work properly."
 msgstr "Javascript reikalingas, kad šis puslapis veiktų tinkamai."
 
 #: ../root/components/forms.tt:267 ../root/components/forms.tt:292
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:124
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:126
 msgid "Keep all-uppercase words uppercased"
 msgstr "Palikti visus didžiąsias raides žodžiuose"
 
@@ -1579,7 +1579,7 @@ msgid "Label details"
 msgstr "Išsami informacija apie įrašų kompaniją"
 
 #: ../root/release/edit/information.tt:114
-#: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:55
+#: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:57
 #: ../root/edit/details/EditRelease.js:109
 #: ../root/edit/details/historic/AddRelease.js:70 ../root/iswc/Index.js:59
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:187
@@ -1741,7 +1741,7 @@ msgstr "Perkelti takelį aukštyn"
 #: ../root/edit/details/AddReleaseGroup.js:37
 #: ../root/edit/details/AddSeries.js:29
 #: ../root/edit/details/AddStandaloneRecording.js:37
-#: ../root/edit/details/AddWork.js:32 ../root/edit/details/EditArea.js:48
+#: ../root/edit/details/AddWork.js:34 ../root/edit/details/EditArea.js:48
 #: ../root/edit/details/EditArtist.js:61 ../root/edit/details/EditEvent.js:36
 #: ../root/edit/details/EditGenre.js:33
 #: ../root/edit/details/EditInstrument.js:40
@@ -1767,7 +1767,7 @@ msgstr "Perkelti takelį aukštyn"
 #: ../root/search/components/AreaResults.js:63
 #: ../root/search/components/ArtistResults.js:52
 #: ../root/search/components/EditorResults.js:43
-#: ../root/search/components/EventResults.js:73
+#: ../root/search/components/EventResults.js:78
 #: ../root/search/components/InstrumentResults.js:53
 #: ../root/search/components/LabelResults.js:66
 #: ../root/search/components/PlaceResults.js:63
@@ -2072,7 +2072,7 @@ msgstr "Įrašas „{name}“ – {artist}"
 #: ../root/artist/ArtistRecordings.js:121
 #: ../root/artist_credit/ArtistCreditIndex.js:144
 #: ../root/artist_credit/ArtistCreditLayout.js:21
-#: ../root/components/EntityTabs.js:30
+#: ../root/components/EntityTabs.js:32
 #: ../root/components/TagEntitiesList.js:183
 #: ../root/edit/details/EditMedium.js:479
 #: ../root/instrument/InstrumentRecordings.js:30
@@ -2216,13 +2216,13 @@ msgstr "Leidinys „{name}“ – {artist}"
 #: ../root/account/applications/ApplicationList.js:38
 #: ../root/collection/CollectionHeader.js:85
 #: ../root/collection/DeleteCollection.js:21
-#: ../root/components/Aliases/AliasTableRow.js:59 ../root/event/EventArt.js:92
+#: ../root/components/Aliases/AliasTableRow.js:59 ../root/event/EventArt.js:91
 #: ../root/layout/components/sidebar/RemoveLink.js:26
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:95
 #: ../root/release/CoverArt.js:87 ../root/release/DiscIds.js:66
 #: ../root/static/scripts/account/components/EditProfileForm.js:300
 #: ../root/static/scripts/edit/components/Multiselect.js:210
-#: ../root/user/UserCollections.js:122
+#: ../root/user/UserCollections.js:123
 msgid "Remove"
 msgstr "Pašalinti"
 
@@ -2329,7 +2329,7 @@ msgstr "Raštas"
 #: ../root/release/edit/recordings.tt:163 ../root/release/edit/tracklist.tt:117
 #: ../root/cdstub/ImportCDStub.js:43 ../root/cdtoc/SelectArtistForCDToc.js:40
 #: ../root/doc/components/DocSearchBox.js:23
-#: ../root/layout/components/BottomMenu.js:211
+#: ../root/layout/components/BottomMenu.js:216
 #: ../root/layout/components/Search.js:97
 #: ../root/otherlookup/OtherLookupForm.js:39 ../root/search/SearchIndex.js:23
 #: ../root/search/SearchIndex.js:25 ../root/search/components/SearchForm.js:93
@@ -2395,7 +2395,7 @@ msgid "Select images..."
 msgstr "Pasirinkti vaizdus..."
 
 #: ../root/components/forms.tt:259 ../root/components/forms.tt:284
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:105
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:107
 msgid "Sentence"
 msgstr "Sakinys"
 
@@ -2918,11 +2918,11 @@ msgstr "Šis takelis yra duomenų takelis."
 msgid "This track is hidden in the pregap."
 msgstr "Šis takelis yra paslėptas prieštarpėje."
 
-#: ../root/event/edit_form.tt:40 ../root/components/list/EventList.js:78
+#: ../root/event/edit_form.tt:40 ../root/components/list/EventList.js:79
 #: ../root/edit/details/AddEvent.js:73 ../root/edit/details/EditEvent.js:84
 #: ../root/layout/components/sidebar/EventSidebar.js:111
 #: ../root/report/components/EventList.js:70
-#: ../root/search/components/EventResults.js:75
+#: ../root/search/components/EventResults.js:80
 msgctxt "event"
 msgid "Time"
 msgstr "Laikas"
@@ -3012,7 +3012,7 @@ msgid "Transclusion editor"
 msgstr "Transkursijos redaktorius (-ė)"
 
 #: ../root/components/forms.tt:261 ../root/components/forms.tt:286
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:107
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:109
 msgid "Turkish"
 msgstr "Turkų"
 
@@ -3034,7 +3034,7 @@ msgstr "Twitter"
 #: ../root/edit/details/AddLabel.js:82 ../root/edit/details/AddPlace.js:45
 #: ../root/edit/details/AddReleaseGroup.js:61
 #: ../root/edit/details/AddRemoveAlias.js:79
-#: ../root/edit/details/AddSeries.js:40 ../root/edit/details/AddWork.js:49
+#: ../root/edit/details/AddSeries.js:40 ../root/edit/details/AddWork.js:51
 #: ../root/edit/details/EditAlias.js:105 ../root/edit/details/EditArea.js:69
 #: ../root/edit/details/EditArtist.js:82 ../root/edit/details/EditEvent.js:57
 #: ../root/edit/details/EditInstrument.js:54
@@ -3045,7 +3045,7 @@ msgstr "Twitter"
 #: ../root/layout/components/sidebar/CollectionSidebar.js:54
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:60
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:155
-#: ../root/layout/components/sidebar/SidebarType.js:21
+#: ../root/layout/components/sidebar/SidebarType.js:32
 #: ../root/report/DuplicateArtists.js:69
 #: ../root/report/DuplicateReleaseGroups.js:60
 #: ../root/report/IswcsWithManyWorks.js:53
@@ -3057,7 +3057,7 @@ msgstr "Twitter"
 #: ../root/search/components/AnnotationResults.js:55
 #: ../root/search/components/AreaResults.js:64
 #: ../root/search/components/ArtistResults.js:54
-#: ../root/search/components/EventResults.js:76
+#: ../root/search/components/EventResults.js:81
 #: ../root/search/components/InstrumentResults.js:54
 #: ../root/search/components/LabelResults.js:67
 #: ../root/search/components/PlaceResults.js:64
@@ -3087,7 +3087,7 @@ msgstr "Tipas:"
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
 #: ../root/release_group/set_cover_art.tt:69 ../root/edit/details/AddArt.js:37
 #: ../root/edit/details/EditArt.js:65 ../root/edit/details/RemoveArt.js:37
-#: ../root/event/EventArt.js:62 ../root/release/CoverArt.js:57
+#: ../root/event/EventArt.js:61 ../root/release/CoverArt.js:57
 msgid "Types:"
 msgstr "Tipai:"
 
@@ -3129,7 +3129,7 @@ msgid "Uploading image..."
 msgstr "Įkeliamas vaizdas..."
 
 #: ../root/components/forms.tt:272 ../root/components/forms.tt:297
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:133
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:135
 msgid "Uppercase Roman numerals"
 msgstr "Padaryti romėniškus skaitmenis didžiosiomis raidėmis"
 
@@ -3190,7 +3190,7 @@ msgid "Voter"
 msgstr "Balsuotojas (-a)"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:60
-#: ../root/user/UserProfile.js:668
+#: ../root/user/UserProfile.js:669
 msgid "Votes"
 msgstr "Balsavimai"
 
@@ -3257,7 +3257,7 @@ msgstr "Viki"
 
 #: ../root/edit/search_macros.tt:434 ../lib/MusicBrainz/Server/Edit/Work.pm:9
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:42
-#: ../root/components/list/WorkList.js:51 ../root/edit/details/AddWork.js:26
+#: ../root/components/list/WorkList.js:51 ../root/edit/details/AddWork.js:28
 #: ../root/edit/details/EditWork.js:41 ../root/edit/details/RemoveIswc.js:27
 #: ../root/layout/components/Search.js:32
 #: ../root/report/IswcsWithManyWorks.js:50
@@ -3551,7 +3551,7 @@ msgstr "redagavimus"
 #: ../root/edit/search_macros.tt:190 ../root/release/edit/tracklist.tt:3
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
 #: ../root/release/edit/tracklist.tt:495 ../root/release/edit/tracklist.tt:510
-#: ../root/static/scripts/edit/components/GuessCaseOptions.js:112
+#: ../root/static/scripts/edit/components/GuessCaseOptions.js:114
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:894
 msgid "help"
 msgstr "pagalba"
@@ -3606,7 +3606,7 @@ msgstr "įtraukta"
 #: ../root/components/common-macros.tt:157
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/components/EntityLink.js:151
-#: ../root/static/scripts/common/components/EntityLink.js:465
+#: ../root/static/scripts/common/components/EntityLink.js:490
 msgid "info"
 msgstr "informacija"
 
@@ -3740,7 +3740,7 @@ msgstr "{artist} kaip {name}"
 #: ../root/cdtoc/attach_artist_releases.tt:45
 msgid "{artist} has no releases which have only {n} track."
 msgid_plural "{artist} has no releases which have {n} tracks."
-msgstr[0] "{artist} neturi leidinių, kuriuose būtų tik {n} takelis."
+msgstr[0] "{artist} neturi leidinių, kuriuose būtų {n} takelis."
 msgstr[1] "{artist} neturi leidinių, kuriuose būtų {n} takeliai."
 msgstr[2] "{artist} neturi leidinių, kuriuose būtų {n} takelio."
 msgstr[3] "{artist} neturi leidinių, kuriuose būtų {n} takelių."
@@ -3863,17 +3863,17 @@ msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been "
 "automatically accepted and applied."
 msgstr[0] ""
-"Ačiū, tavo {edit_url|redagavimas} ({edit_ids}) buvo automatiškai priimtas ir "
-"pritaikytas."
+"Ačiū, tavo {num_edits} {edit_url|redagavimas} ({edit_ids}) buvo automatiškai "
+"priimtas ir pritaikytas."
 msgstr[1] ""
-"Ačiū, tavo {num_edits} {edit_url|redagavimai} buvo automatiškai priimti ir "
-"pritaikyti."
+"Ačiū, tavo {num_edits} {edit_url|redagavimai} ({edit_ids}) buvo automatiškai "
+"priimti ir pritaikyti."
 msgstr[2] ""
-"Ačiū, tavo {num_edits} {edit_url|redagavimas} buvo automatiškai priimtas ir "
-"pritaikytas."
+"Ačiū, tavo {num_edits} {edit_url|redagavimo} ({edit_ids}) buvo automatiškai "
+"priimta ir pritaikyta."
 msgstr[3] ""
-"Ačiū, tavo {num_edits} {edit_url|redagavimų} buvo automatiškai priimti ir "
-"pritaikyti."
+"Ačiū, tavo {num_edits} {edit_url|redagavimų} ({edit_ids}) buvo automatiškai "
+"priimti ir pritaikyti."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:133
 #, perl-brace-format
@@ -3884,16 +3884,16 @@ msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered "
 "into the edit queue for peer review."
 msgstr[0] ""
-"Ačiū, tavo {edit_url|redagavimas} ({edit_ids}) buvo įtrauktas į redagavimo "
-"eilę tarpusavio peržiūrai."
-msgstr[1] ""
-"Ačiū, tavo {num_edits} {edit_url|redagavimai} ({edit_ids}) buvo įtrauktos į "
-"redagavimo eilę tarpusavio peržiūrai."
-msgstr[2] ""
 "Ačiū, tavo {num_edits} {edit_url|redagavimas} ({edit_ids}) buvo įtrauktas į "
 "redagavimo eilę tarpusavio peržiūrai."
+msgstr[1] ""
+"Ačiū, tavo {num_edits} {edit_url|redagavimai} ({edit_ids}) buvo įtraukti į "
+"redagavimo eilę tarpusavio peržiūrai."
+msgstr[2] ""
+"Ačiū, tavo {num_edits} {edit_url|redagavimo} ({edit_ids}) buvo įtraukta į "
+"redagavimo eilę tarpusavio peržiūrai."
 msgstr[3] ""
-"Ačiū, tavo {num_edits} {edit_url|redagavimų} ({edit_ids}) buvo įtraukti į "
+"Ačiū, tavo {num_edits} {edit_url|redagavimų} ({edit_ids}) buvo įtraukta į "
 "redagavimo eilę tarpusavio peržiūrai."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:141
@@ -3907,9 +3907,21 @@ msgid_plural ""
 "with {num_open_edits} in the edit queue for peer review, and the rest "
 "automatically accepted and applied."
 msgstr[0] ""
+"Ačiū, tavo {num_edits} {edit_url|redagavimas} ({edit_ids}) buvo įtrauktas, "
+"su {num_open_edits} į redagavimo eilę tarpusavio peržiūrai, o likusieji "
+"automatiškai priimti ir pritaikyti."
 msgstr[1] ""
+"Ačiū, tavo {num_edits} {edit_url|redagavimai} ({edit_ids}) buvo įtraukti, su "
+"{num_open_edits} į redagavimo eilę tarpusavio peržiūrai, o likusieji "
+"automatiškai priimti ir pritaikyti."
 msgstr[2] ""
+"Ačiū, tavo {num_edits} {edit_url|redagavimo} ({edit_ids}) buvo įtraukta, su "
+"{num_open_edits} į redagavimo eilę tarpusavio peržiūrai, o likusieji "
+"automatiškai priimti ir pritaikyti."
 msgstr[3] ""
+"Ačiū, tavo {num_edits} {edit_url|redagavimų} ({edit_ids}) buvo įtraukta, su "
+"{num_open_edits} į redagavimo eilę tarpusavio peržiūrai, o likusieji "
+"automatiškai priimti ir pritaikyti."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:60
 msgid "The user ID is missing or is in an invalid format."
@@ -3976,7 +3988,8 @@ msgstr "Trūksta vieno ar daugiau privalomų parametrų."
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:267
 msgid "Sorry, this password reset link has expired."
 msgstr ""
-"Atsiprašome, šios slaptažodžio nustatymo nuorodos galiojimo laikas baigėsi."
+"Atsiprašome, šios slaptažodžio nustatymo iš naujo nuorodos galiojimo "
+"pabaigos laikas nebegalioja."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:341
 msgid "There is no user with this email"
@@ -4097,20 +4110,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:363
+#: ../root/static/scripts/common/constants.js:365
 msgid "Low"
 msgstr "Žemas"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:364
-#: ../root/static/scripts/common/constants.js:365
+#: ../root/static/scripts/common/constants.js:366
+#: ../root/static/scripts/common/constants.js:367
 msgid "Normal"
 msgstr "Normalus"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:366
+#: ../root/static/scripts/common/constants.js:368
 msgid "High"
 msgstr "Aukštas"
 
@@ -4305,7 +4318,7 @@ msgid ""
 "Archive. Please wait a minute and try again."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:322
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:323
 #, perl-brace-format
 msgid ""
 "Cover art can’t be uploaded to this release because we don’t own the "
@@ -4316,7 +4329,7 @@ msgstr ""
 "susijusio elemento Interneto archyve. Susisiek su mumis adresu "
 "{contact_url}, kad galėtume išspręsti šią problemą."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:340
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:342
 #, perl-brace-format
 msgid ""
 "Event art can’t be uploaded to this event because we don’t own the "
@@ -4327,7 +4340,7 @@ msgstr ""
 "susijusio elemento Internet Archive. Susisiek su mumis adresu {contact_url}, "
 "kad galėtume išspręsti šią problemą."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:461
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:465
 #: ../root/event/EventArtDarkened.js:25 ../root/release/CoverArtDarkened.js:19
 msgid ""
 "The Internet Archive has had a takedown request in the past for this item, "
@@ -4336,7 +4349,7 @@ msgstr ""
 "Anksčiau Internet Archive buvo gavęs panaikinimo prašymą šiai elementui, "
 "todėl negalime leisti įkelti daugiau."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:498
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:510
 #, perl-brace-format
 msgid ""
 "Images can’t be uploaded here because we don’t own the associated item at "
@@ -5220,16 +5233,16 @@ msgid_plural ""
 "{artist_search|all uses of this IPI}."
 msgstr[0] ""
 "IPI {ipi} jau yra naudojamas {artist_count} atlikėjui. Patikrink "
-"{artist_search|visus šio IPI naudojimo atvejus}."
+"{artist_search|visus šio IPI naudojimus}."
 msgstr[1] ""
 "IPI {ipi} jau yra naudojami {artist_count} atlikėjams. Patikrink "
-"{artist_search|visus šio IPI naudojimo atvejus}."
+"{artist_search|visus šio IPI naudojimus}."
 msgstr[2] ""
-"IPI {ipi} jau yra naudojama {artist_count} atlikėjui. Patikrink "
-"{artist_search|visus šio IPI naudojimo atvejus}."
+"IPI {ipi} jau yra naudojama {artist_count} atlikėjo. Patikrink "
+"{artist_search|visus šio IPI naudojimus}."
 msgstr[3] ""
-"IPI {ipi} jau yra naudojamas {artist_count} atlikėjams. Patikrink "
-"{artist_search|visus šio IPI naudojimo atvejus}."
+"IPI {ipi} jau yra naudojama {artist_count} atlikėjams. Patikrink "
+"{artist_search|visus šio IPI naudojimus}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/IPI.pm:46
 #, perl-brace-format
@@ -5240,17 +5253,17 @@ msgid_plural ""
 "The IPI {ipi} is already in use on {label_count} labels. Please check "
 "{label_search|all uses of this IPI}."
 msgstr[0] ""
-"IPI {ipi} jau yra naudojamas {label_count} įrašų kompanijui. Patikrink "
-"{label_search|visus šio IPI naudojimo atvejus}."
+"IPI {ipi} jau yra naudojamas {label_count} leidyklai. Patikrink "
+"{label_search|visus šio IPI naudojimus}."
 msgstr[1] ""
-"IPI {ipi} jau yra naudojami {label_count} įrašų kompanijams. Patikrink "
-"{label_search|visus šio IPI naudojimo atvejus}."
+"IPI {ipi} jau yra naudojami {label_count} leidykloms. Patikrink "
+"{label_search|visus šio IPI naudojimus}."
 msgstr[2] ""
-"IPI {ipi} jau yra naudojamas {label_count} įrašų kompanijui. Patikrink "
-"{label_search|visus šio IPI naudojimo atvejus}."
+"IPI {ipi} jau yra naudojama {label_count} leidyklos. Patikrink {label_search|"
+"visus šio IPI naudojimus}."
 msgstr[3] ""
-"IPI {ipi} jau yra naudojamas {label_count} įrašų kompanijams. Patikrink "
-"{label_search|visus šio IPI naudojimo atvejus}."
+"IPI {ipi} jau yra naudojama {label_count} leidykloms. Patikrink "
+"{label_search|visus šio IPI naudojimus}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:40
 #, perl-brace-format
@@ -5261,9 +5274,17 @@ msgid_plural ""
 "The ISNI {isni} is already in use on {artist_count} artists. Please check "
 "{artist_search|all uses of this ISNI}."
 msgstr[0] ""
+"ISNI {isni} jau yra naudojamas {artist_count} atlikėjui. Patikrink "
+"{artist_search|visus šio ISNI naudojimus}."
 msgstr[1] ""
+"ISNI {isni} jau yra naudojami {artist_count} atlikėjams. Patikrink "
+"{artist_search|visus šio ISNI naudojimus}."
 msgstr[2] ""
+"ISNI {isni} jau yra naudojama {artist_count} atlikėjo. Patikrink "
+"{artist_search|visus šio ISNI naudojimus}."
 msgstr[3] ""
+"ISNI {isni} jau yra naudojama {artist_count} atlikėjams. Patikrink "
+"{artist_search|visus šio ISNI naudojimus}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:46
 #, perl-brace-format
@@ -5274,9 +5295,17 @@ msgid_plural ""
 "The ISNI {isni} is already in use on {label_count} labels. Please check "
 "{label_search|all uses of this ISNI}."
 msgstr[0] ""
+"ISNI {isni} jau yra naudojamas {label_count} leidyklai. Patikrink "
+"{label_search|visus šio ISNI naudojimus}."
 msgstr[1] ""
+"ISNI {isni} jau yra naudojami {label_count} leidykloms. Patikrink "
+"{label_search|visus šio ISNI naudojimus}."
 msgstr[2] ""
+"ISNI {isni} jau yra naudojama {label_count} leidyklos. Patikrink "
+"{label_search|visus šio ISNI naudojimus}."
 msgstr[3] ""
+"ISNI {isni} jau yra naudojama {label_count} leidykloms. Patikrink "
+"{label_search|visus šio ISNI naudojimus}."
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
 #, fuzzy
@@ -5954,22 +5983,22 @@ msgid "A fluency level is required."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:374
+#: ../root/static/scripts/common/constants.js:376
 msgid "Basic"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:375
+#: ../root/static/scripts/common/constants.js:377
 msgid "Intermediate"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:373
+#: ../root/static/scripts/common/constants.js:375
 msgid "Advanced"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:82
-#: ../root/static/scripts/common/constants.js:376
+#: ../root/static/scripts/common/constants.js:378
 msgid "Native"
 msgstr ""
 
@@ -6003,7 +6032,7 @@ msgstr "Žymė"
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:55
 #: ../root/edit/details/AddRelationshipType.js:179
 #: ../root/edit/details/EditRelationshipType.js:319
-#: ../root/layout/components/BottomMenu.js:293
+#: ../root/layout/components/BottomMenu.js:298
 #: ../root/layout/components/Search.js:51
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:67
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:79
@@ -6781,14 +6810,14 @@ msgid ""
 msgstr ""
 
 #: ../root/area/AreaArtists.js:26 ../root/area/AreaArtists.js:27
-#: ../root/components/EntityTabs.js:23
+#: ../root/components/EntityTabs.js:25
 #: ../root/components/TagEntitiesList.js:155
-#: ../root/components/list/EventList.js:70
+#: ../root/components/list/EventList.js:71
 #: ../root/instrument/InstrumentArtists.js:30
 #: ../root/instrument/InstrumentArtists.js:32 ../root/iswc/Index.js:57
 #: ../root/report/IswcsWithManyWorks.js:52 ../root/report/ReportsIndex.js:48
 #: ../root/report/components/EventList.js:62
-#: ../root/search/components/EventResults.js:77
+#: ../root/search/components/EventResults.js:82
 #: ../root/search/components/WorkResults.js:56
 #: ../root/static/scripts/account/components/PreferencesForm.js:252
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:896
@@ -6809,7 +6838,7 @@ msgstr "Ši teritorija šiuo metu nėra susijusi su jokiais atlikėjais."
 
 #: ../root/area/AreaEvents.js:26 ../root/area/AreaEvents.js:27
 #: ../root/artist/ArtistEvents.js:32 ../root/artist/ArtistEvents.js:33
-#: ../root/components/EntityTabs.js:24
+#: ../root/components/EntityTabs.js:26
 #: ../root/components/TagEntitiesList.js:159 ../root/place/PlaceEvents.js:26
 #: ../root/place/PlaceEvents.js:27 ../root/report/ReportsIndex.js:131
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:19
@@ -6831,7 +6860,7 @@ msgid "{area_type} in {parent_areas}"
 msgstr "{area_type}, {parent_areas}"
 
 #: ../root/area/AreaLabels.js:26 ../root/area/AreaLabels.js:27
-#: ../root/components/EntityTabs.js:26
+#: ../root/components/EntityTabs.js:28
 #: ../root/components/TagEntitiesList.js:167
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:217
 #: ../root/report/ReportsIndex.js:167
@@ -6850,7 +6879,7 @@ msgid "This area is not currently associated with any labels."
 msgstr "Ši teritorija šiuo metu nėra susijusi su jokiomis leidyklomis."
 
 #: ../root/area/AreaPlaces.js:29 ../root/area/AreaPlaces.js:30
-#: ../root/components/EntityTabs.js:29
+#: ../root/components/EntityTabs.js:31
 #: ../root/components/TagEntitiesList.js:171 ../root/report/ReportsIndex.js:549
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:27
 #: ../root/tag/TagLayout.js:23
@@ -6879,7 +6908,7 @@ msgstr "Ši teritorija neturi jokių santykių su jokiais įrašais."
 
 #: ../root/area/AreaRecordings.js:26 ../root/area/AreaReleases.js:63
 #: ../root/area/AreaWorks.js:26 ../root/artist/ArtistRelationships.js:25
-#: ../root/components/EntityTabs.js:91
+#: ../root/components/EntityTabs.js:93
 #: ../root/edit/details/historic/AddRelationship.js:17
 #: ../root/edit/details/historic/RemoveRelationship.js:19
 #: ../root/label/LabelRelationships.js:25
@@ -6893,7 +6922,7 @@ msgstr "Santykiai"
 #: ../root/artist/ArtistReleases.js:35 ../root/artist/ArtistReleases.js:36
 #: ../root/artist_credit/ArtistCreditIndex.js:134
 #: ../root/artist_credit/ArtistCreditLayout.js:20
-#: ../root/components/EntityTabs.js:31
+#: ../root/components/EntityTabs.js:33
 #: ../root/components/TagEntitiesList.js:179
 #: ../root/components/list/ReleaseGroupList.js:89
 #: ../root/edit/components/HistoricReleaseList.js:42
@@ -6923,14 +6952,14 @@ msgid "This area has no relationships to any releases."
 msgstr "Ši teritorija neturi jokių santykių su jokiais leidiniais."
 
 #: ../root/area/AreaUsers.js:21 ../root/area/AreaUsers.js:22
-#: ../root/components/EntityTabs.js:32
+#: ../root/components/EntityTabs.js:34
 msgid "Users"
 msgstr ""
 
 #: ../root/area/AreaUsers.js:26
 msgid "There is currently {num} user in this area."
 msgid_plural "There are currently {num} users in this area."
-msgstr[0] "Šiuo metu šioje teritorijoje yra {num} naudotojas (-a)."
+msgstr[0] "Šiuo metu šioje teritorijoje yra {num} naudotojas."
 msgstr[1] "Šiuo metu šioje teritorijoje yra {num} naudotojai."
 msgstr[2] "Šiuo metu šioje teritorijoje yra {num} naudotojo."
 msgstr[3] "Šiuo metu šioje teritorijoje yra {num} naudotojų."
@@ -6940,7 +6969,7 @@ msgid "There are currently no users in this area."
 msgstr "Šiuo metu šioje teritorijoje nėra naudotojų."
 
 #: ../root/area/AreaWorks.js:20 ../root/artist/ArtistWorks.js:32
-#: ../root/artist/ArtistWorks.js:33 ../root/components/EntityTabs.js:33
+#: ../root/artist/ArtistWorks.js:33 ../root/components/EntityTabs.js:35
 #: ../root/components/TagEntitiesList.js:191 ../root/report/ReportsIndex.js:575
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:39
 #: ../root/tag/TagLayout.js:21
@@ -7268,7 +7297,7 @@ msgstr "Leidinių grupės"
 #: ../root/components/TagEntitiesList.js:176
 msgid "See all {num} release groups"
 msgid_plural "See all {num} release groups"
-msgstr[0] "Žiūrėti visas {num} leidinių grupes"
+msgstr[0] "Žiūrėti visas {num} leidinių grupę"
 msgstr[1] "Žiūrėti visas {num} leidinių grupes"
 msgstr[2] "Žiūrėti visas {num} leidinių grupės"
 msgstr[3] "Žiūrėti visas {num} leidinių grupių"
@@ -7277,31 +7306,31 @@ msgstr[3] "Žiūrėti visas {num} leidinių grupių"
 #: ../root/components/TagEntitiesList.js:180
 msgid "See all {num} releases"
 msgid_plural "See all {num} releases"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Žiūrėti visus {num} leidinį"
+msgstr[1] "Žiūrėti visus {num} leidinius"
+msgstr[2] "Žiūrėti visas {num} leidinio"
+msgstr[3] "Žiūrėti visus {num} leidinių"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:146
 #: ../root/components/TagEntitiesList.js:184
 msgid "See all {num} recordings"
 msgid_plural "See all {num} recordings"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Žiūrėti visus {num} įrašą"
+msgstr[1] "Žiūrėti visus {num} įrašus"
+msgstr[2] "Žiūrėti visus {num} įrašo"
+msgstr[3] "Žiūrėti visus {num} įrašų"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:157
 msgid "See all {num} tracks"
 msgid_plural "See all {num} tracks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Žiūrėti visus {num} takelį"
+msgstr[1] "Žiūrėti visus {num} takelius"
+msgstr[2] "Žiūrėti visus {num} takelio"
+msgstr[3] "Žiūrėti visus {num} takelių"
 
 #: ../root/artist_credit/ArtistCreditLayout.js:18
 #: ../root/collection/CollectionHeader.js:69
-#: ../root/components/EntityTabs.js:79 ../root/tag/TagLayout.js:16
+#: ../root/components/EntityTabs.js:81 ../root/tag/TagLayout.js:16
 msgid "Overview"
 msgstr ""
 
@@ -7314,34 +7343,34 @@ msgstr ""
 #: ../root/artist_credit/EntityList.js:22 ../root/tag/EntityList.js:76
 msgid "{num} recording found"
 msgid_plural "{num} recordings found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rastas {num} įrašas"
+msgstr[1] "Rasti {num} įrašai"
+msgstr[2] "Rasta {num} įrašo"
+msgstr[3] "Rasta {num} įrašų"
 
 #: ../root/artist_credit/EntityList.js:23 ../root/tag/EntityList.js:77
 msgid "{num} release found"
 msgid_plural "{num} releases found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rastas {num} leidinys"
+msgstr[1] "Rasti {num} leidiniai"
+msgstr[2] "Rasta {num} leidinio"
+msgstr[3] "Rasta {num} leidinių"
 
 #: ../root/artist_credit/EntityList.js:25 ../root/tag/EntityList.js:79
 msgid "{num} release group found"
 msgid_plural "{num} release groups found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rasta {num} leidinių grupė"
+msgstr[1] "Rastos {num} leidinių grupės"
+msgstr[2] "Rasta {num} leidinių grupes"
+msgstr[3] "Rasta {num} leidinių grupių"
 
 #: ../root/artist_credit/EntityList.js:28
 msgid "{num} track found"
 msgid_plural "{num} tracks found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rastas {num} takelis"
+msgstr[1] "Rasti {num} takeliai"
+msgstr[2] "Rasta {num} takelio"
+msgstr[3] "Rasta {num} takelių"
 
 #: ../root/artist_credit/EntityList.js:32
 msgid "No recordings with this artist credit were found."
@@ -7360,7 +7389,7 @@ msgid "No tracks with this artist credit were found."
 msgstr ""
 
 #: ../root/cdstub/BrowseCDStubs.js:23 ../root/cdstub/BrowseCDStubs.js:24
-#: ../root/layout/components/BottomMenu.js:225
+#: ../root/layout/components/BottomMenu.js:230
 msgid "Top CD stubs"
 msgstr "Geriausi CD atplaišos"
 
@@ -7582,7 +7611,7 @@ msgstr ""
 #: ../root/collection/CollectionIndex.js:213
 #: ../root/collection/CollectionMerge.js:58
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:222
-#: ../root/user/UserCollections.js:105
+#: ../root/user/UserCollections.js:106
 msgid "Collaborators"
 msgstr ""
 
@@ -7600,7 +7629,7 @@ msgstr ""
 
 #: ../root/collection/CollectionMerge.js:38
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:52
-#: ../root/user/UserCollections.js:90
+#: ../root/user/UserCollections.js:91
 msgid "Collection"
 msgstr ""
 
@@ -7612,17 +7641,17 @@ msgstr "Subjekto tipas"
 msgid "Entities"
 msgstr ""
 
-#: ../root/collection/CollectionMerge.js:65 ../root/user/UserCollections.js:71
+#: ../root/collection/CollectionMerge.js:65 ../root/user/UserCollections.js:72
 msgid "Public"
 msgstr "Vieša"
 
-#: ../root/collection/CollectionMerge.js:66 ../root/user/UserCollections.js:71
+#: ../root/collection/CollectionMerge.js:66 ../root/user/UserCollections.js:72
 msgid "Private"
 msgstr "Privati"
 
 #: ../root/collection/CollectionMerge.js:67
 #: ../root/static/scripts/account/components/PreferencesForm.js:190
-#: ../root/user/UserCollections.js:116
+#: ../root/user/UserCollections.js:117
 msgid "Privacy"
 msgstr "Privatumas"
 
@@ -7725,7 +7754,7 @@ msgstr ""
 msgid "see uses"
 msgstr "žiūrėti naudojimus"
 
-#: ../root/components/Aliases/index.js:49 ../root/components/EntityTabs.js:143
+#: ../root/components/Aliases/index.js:49 ../root/components/EntityTabs.js:145
 #: ../root/entity/Aliases.js:26
 msgid "Aliases"
 msgstr "Alternatyvūs vardai / pavadinimai"
@@ -7835,9 +7864,17 @@ msgid_plural ""
 "There are {reviews_link|{review_count} reviews} on CritiqueBrainz. You can "
 "also {write_link|write your own}."
 msgstr[0] ""
+"CritiqueBrainz svetainėje yra {reviews_link|{review_count} apžvalga}. Taip "
+"pat gali {write_link|parašyti savo}."
 msgstr[1] ""
+"CritiqueBrainz svetainėje yra {reviews_link|{review_count} apžvalgos}. Taip "
+"pat gali {write_link|parašyti savo}."
 msgstr[2] ""
+"CritiqueBrainz svetainėje yra {reviews_link|{review_count} apžvalgos}. Taip "
+"pat gali {write_link|parašyti savo}."
 msgstr[3] ""
+"CritiqueBrainz svetainėje yra {reviews_link|{review_count} apžvalgų}. Taip "
+"pat gali {write_link|parašyti savo}."
 
 #: ../root/components/EntityDeletionHelp.js:20
 msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
@@ -7849,50 +7886,50 @@ msgid ""
 "just has some small errors, it’s usually better to just fix those."
 msgstr ""
 
-#: ../root/components/EntityTabs.js:25
+#: ../root/components/EntityTabs.js:27
 #: ../root/recording/RecordingFingerprints.js:20
 msgid "Fingerprints"
 msgstr "Atspaudai"
 
-#: ../root/components/EntityTabs.js:27 ../root/place/PlaceMap.js:25
+#: ../root/components/EntityTabs.js:29 ../root/place/PlaceMap.js:25
 msgid "Map"
 msgstr "Žemėlapis"
 
-#: ../root/components/EntityTabs.js:28 ../root/place/PlacePerformances.js:23
+#: ../root/components/EntityTabs.js:30 ../root/place/PlacePerformances.js:23
 #: ../root/place/PlacePerformances.js:29
 msgid "Performances"
 msgstr ""
 
-#: ../root/components/EntityTabs.js:101
+#: ../root/components/EntityTabs.js:103
 msgid "Disc IDs ({num})"
 msgstr ""
 
-#: ../root/components/EntityTabs.js:104 ../root/release/DiscIds.js:89
+#: ../root/components/EntityTabs.js:106 ../root/release/DiscIds.js:89
 #: ../root/release/DiscIds.js:90 ../root/report/ReportsIndex.js:631
 msgid "Disc IDs"
 msgstr "Diskų ID"
 
-#: ../root/components/EntityTabs.js:114
+#: ../root/components/EntityTabs.js:116
 msgctxt "plural"
 msgid "Cover art"
 msgstr "Viršelio apipavidalinimai"
 
-#: ../root/components/EntityTabs.js:116
+#: ../root/components/EntityTabs.js:118
 msgctxt "plural"
 msgid "Cover art ({num})"
 msgstr "Viršelio apipavidalinimai ({num})"
 
-#: ../root/components/EntityTabs.js:129
+#: ../root/components/EntityTabs.js:131
 msgctxt "plural"
 msgid "Event art"
 msgstr "Renginio apipavidalinimai"
 
-#: ../root/components/EntityTabs.js:131
+#: ../root/components/EntityTabs.js:133
 msgctxt "plural"
 msgid "Event art ({num})"
 msgstr "Renginio apipavidalinimai ({num})"
 
-#: ../root/components/EntityTabs.js:147
+#: ../root/components/EntityTabs.js:149
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:31
 #: ../root/layout/components/sidebar/SidebarTags.js:68
 #: ../root/static/scripts/common/components/TagEditor.js:674
@@ -7902,20 +7939,20 @@ msgctxt "folksonomy"
 msgid "Tags"
 msgstr "Žymės"
 
-#: ../root/components/EntityTabs.js:156 ../root/entity/Ratings.js:38
+#: ../root/components/EntityTabs.js:158 ../root/entity/Ratings.js:38
 #: ../root/entity/Ratings.js:82
 #: ../root/static/scripts/edit/externalLinks.js:777
 msgid "Reviews"
 msgstr "Apžvalgos"
 
-#: ../root/components/EntityTabs.js:157
+#: ../root/components/EntityTabs.js:159
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:42
-#: ../root/user/UserProfile.js:822 ../root/user/UserRatingList.js:42
+#: ../root/user/UserProfile.js:823 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
 msgstr ""
 
-#: ../root/components/EntityTabs.js:177
+#: ../root/components/EntityTabs.js:179
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:282
 msgid "Edit relationships"
 msgstr ""
@@ -7966,7 +8003,7 @@ msgstr ""
 #: ../root/components/ReleaseLanguageScript.js:20
 #: ../root/components/ReleaseLanguageScript.js:26
 #: ../root/components/list/ReleaseList.js:89
-#: ../root/edit/details/MergeReleases.js:54 ../root/event/EventArt.js:68
+#: ../root/edit/details/MergeReleases.js:54 ../root/event/EventArt.js:67
 #: ../root/release/CoverArt.js:63 ../root/release_group/ReleaseGroupIndex.js:85
 #: ../root/search/components/ReleaseResults.js:62
 #: ../root/static/scripts/common/components/ReleaseEvents.js:54
@@ -7991,10 +8028,10 @@ msgstr ""
 #: ../root/components/TagEntitiesList.js:137
 msgid "{num} entity found"
 msgid_plural "{num} entities found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rasta {num} esybė"
+msgstr[1] "Rastos {num} esybės"
+msgstr[2] "Rasta {num} esybes"
+msgstr[3] "Rasta {num} esybių"
 
 #: ../root/components/TagEntitiesList.js:151
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:13
@@ -8013,18 +8050,18 @@ msgstr[3] "Žiūrėti visas {num} teritorijų"
 #: ../root/components/TagEntitiesList.js:156
 msgid "See all {num} artists"
 msgid_plural "See all {num} artists"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Žiūrėti visus {num} atlikėją"
+msgstr[1] "Žiūrėti visus {num} atlikėjus"
+msgstr[2] "Žiūrėti visus {num} atlikėjo"
+msgstr[3] "Žiūrėti visus {num} atlikėjų"
 
 #: ../root/components/TagEntitiesList.js:160
 msgid "See all {num} events"
 msgid_plural "See all {num} events"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Žiūrėti visus {num} renginį"
+msgstr[1] "Žiūrėti visus {num} renginius"
+msgstr[2] "Žiūrėti visus {num} renginio"
+msgstr[3] "Žiūrėti visus {num} renginių"
 
 #: ../root/components/TagEntitiesList.js:163
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:23
@@ -8035,26 +8072,26 @@ msgstr ""
 #: ../root/components/TagEntitiesList.js:164
 msgid "See all {num} instruments"
 msgid_plural "See all {num} instruments"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Žiūrėti visus {num} instrumentą"
+msgstr[1] "Žiūrėti visus {num} instrumentus"
+msgstr[2] "Žiūrėti visus {num} instrumento"
+msgstr[3] "Žiūrėti visus {num} instrumentų"
 
 #: ../root/components/TagEntitiesList.js:168
 msgid "See all {num} labels"
 msgid_plural "See all {num} labels"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Žiūrėti visas {num} leidyklą"
+msgstr[1] "Žiūrėti visas {num} leidyklas"
+msgstr[2] "Žiūrėti visas {num} leidyklos"
+msgstr[3] "Žiūrėti visas {num} leidyklų"
 
 #: ../root/components/TagEntitiesList.js:172
 msgid "See all {num} places"
 msgid_plural "See all {num} places"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Žiūrėti visas {num} vietą"
+msgstr[1] "Žiūrėti visas {num} vietas"
+msgstr[2] "Žiūrėti visas {num} vietos"
+msgstr[3] "Žiūrėti visas {num} vietų"
 
 #: ../root/components/TagEntitiesList.js:187 ../root/report/ReportsIndex.js:566
 #: ../root/report/components/SeriesList.js:40
@@ -8068,18 +8105,18 @@ msgstr ""
 #: ../root/components/TagEntitiesList.js:188
 msgid "See all {num} series"
 msgid_plural "See all {num} series"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Žiūrėti visas {num} seriją"
+msgstr[1] "Žiūrėti visas {num} serijas"
+msgstr[2] "Žiūrėti visas {num} serijos"
+msgstr[3] "Žiūrėti visas {num} serijų"
 
 #: ../root/components/TagEntitiesList.js:192
 msgid "See all {num} works"
 msgid_plural "See all {num} works"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Žiūrėti visus {num} kūrinį"
+msgstr[1] "Žiūrėti visus {num} kūrinius"
+msgstr[2] "Žiūrėti visus {num} kūrinio"
+msgstr[3] "Žiūrėti visus {num} kūrinių"
 
 #: ../root/components/UserAccountLayout.js:55
 #: ../root/components/UserAccountLayout.js:56
@@ -8110,7 +8147,7 @@ msgstr ""
 #: ../root/entity/Collections.js:29
 #: ../root/layout/components/sidebar/CollectionLinks.js:43
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:17
-#: ../root/user/UserCollections.js:167
+#: ../root/user/UserCollections.js:168
 msgid "Collections"
 msgstr "Kolekcijos"
 
@@ -8124,9 +8161,15 @@ msgid ""
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} days</span>"
 msgstr[0] ""
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} dieną</span>"
 msgstr[1] ""
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
+"dienas</span>"
 msgstr[2] ""
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
+"dienos</span>"
 msgstr[3] ""
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} dienų</span>"
 
 #: ../root/components/VotingPeriod.js:43
 msgid ""
@@ -8134,9 +8177,17 @@ msgid ""
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} hours</span>"
 msgstr[0] ""
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
+"valandą</span>"
 msgstr[1] ""
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
+"valandas</span>"
 msgstr[2] ""
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
+"valandos</span>"
 msgstr[3] ""
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
+"valandų</span>"
 
 #: ../root/components/VotingPeriod.js:52
 msgid ""
@@ -8144,15 +8195,23 @@ msgid ""
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} minutes</span>"
 msgstr[0] ""
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
+"minutę</span>"
 msgstr[1] ""
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
+"minutes</span>"
 msgstr[2] ""
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
+"minutės</span>"
 msgstr[3] ""
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
+"minučių</span>"
 
 #: ../root/components/VotingPeriod.js:60
 msgid "About to close"
 msgstr ""
 
-#: ../root/components/list/EventList.js:94
+#: ../root/components/list/EventList.js:95
 #: ../root/static/scripts/common/components/FilterForm.js:350
 msgid "Role"
 msgstr ""
@@ -8582,18 +8641,18 @@ msgstr ""
 #: ../root/edit/components/EditList.js:69
 msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rasta bent {n} redagavimas"
+msgstr[1] "Rasta bent {n} redagavimai"
+msgstr[2] "Rasta bent {n} redagavimo"
+msgstr[3] "Rasta bent {n} redagavimų"
 
 #: ../root/edit/components/EditList.js:76
 msgid "Found {n} edit"
 msgid_plural "Found {n} edits"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rastas {n} redagavimas"
+msgstr[1] "Rasti {n} redagavimai"
+msgstr[2] "Rasta {n} redagavimo"
+msgstr[3] "Rasta {n} redagavimų"
 
 #: ../root/edit/components/EditList.js:92
 #: ../root/edit/components/EditList.js:108
@@ -8666,7 +8725,7 @@ msgstr ""
 #: ../root/edit/components/EditSidebar.js:65
 msgid "1 vote"
 msgid_plural "{n} unanimous votes"
-msgstr[0] "1 balsas"
+msgstr[0] "{n} balsas"
 msgstr[1] "{n} vienbalsiai"
 msgstr[2] "{n} vienbalsio"
 msgstr[3] "{n} vienbalsių"
@@ -8793,7 +8852,7 @@ msgid "Introduction to editing"
 msgstr ""
 
 #: ../root/edit/components/ListHeader.js:203
-#: ../root/layout/components/BottomMenu.js:301 ../root/main/index.js:180
+#: ../root/layout/components/BottomMenu.js:306 ../root/main/index.js:180
 msgid "Style guidelines"
 msgstr ""
 
@@ -9037,7 +9096,7 @@ msgctxt "alias ended boolean"
 msgid "Ended"
 msgstr ""
 
-#: ../root/edit/details/AddWork.js:61 ../root/edit/details/EditWork.js:80
+#: ../root/edit/details/AddWork.js:63 ../root/edit/details/EditWork.js:80
 #: ../root/layout/components/sidebar/WorkSidebar.js:65
 #: ../root/search/components/WorkResults.js:59
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:143
@@ -9174,10 +9233,10 @@ msgstr "Šis redagavimas taip pat pakeitė takelių atlikėjus."
 #: ../root/edit/details/EditUrl.js:64
 msgid "This change affects {num} relationship."
 msgid_plural "This change affects {num} relationships."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Šis pakeitimas turi poveikį {num} santykiui."
+msgstr[1] "Šis pakeitimas turi poveikį {num} santykiams."
+msgstr[2] "Šis pakeitimas turi poveikį {num} santykio."
+msgstr[3] "Šis pakeitimas turi poveikį {num} santykiams."
 
 #: ../root/edit/details/EditUrl.js:73
 msgid ""
@@ -9622,7 +9681,7 @@ msgid "Cancel the election"
 msgstr ""
 
 #: ../root/elections/Index.js:16 ../root/elections/Index.js:17
-#: ../root/layout/components/BottomMenu.js:143
+#: ../root/layout/components/BottomMenu.js:148
 msgid "Auto-editor elections"
 msgstr "Autoredaktoriaus rinkimai"
 
@@ -9658,10 +9717,10 @@ msgstr "Balsuotojų sąrašas bus rodomas tik pasibaigus rinkimams."
 #: ../root/entity/Collections.js:34
 msgid "{entity} has been added to {num} collection:"
 msgid_plural "{entity} has been added to {num} collections:"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{entity} buvo pridėtas į {num} kolekciją:"
+msgstr[1] "{entity} buvo pridėtas į {num} kolekcijas:"
+msgstr[2] "{entity} buvo pridėtas į {num} kolekcijos:"
+msgstr[3] "{entity} buvo pridėtas į {num} kolekcijų:"
 
 #: ../root/entity/Collections.js:44
 msgid "{collection} by {owner}"
@@ -9670,18 +9729,18 @@ msgstr ""
 #: ../root/entity/Collections.js:56
 msgid "plus {n} other private collection"
 msgid_plural "plus {n} other private collections"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "ir {n} kita privati kolekcija"
+msgstr[1] "ir {n} kitos privačios kolekcijos"
+msgstr[2] "ir {n} kitos privačios kolekcijos"
+msgstr[3] "ir {n} kitų privačių kolekcijų"
 
 #: ../root/entity/Collections.js:65
 msgid "A private collection"
 msgid_plural "{n} private collections"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{n} privati kolekcija"
+msgstr[1] "{n} privačios kolekcijos"
+msgstr[2] "{n} privačios kolekcijos"
+msgstr[3] "{n} privačių kolekcijų"
 
 #: ../root/entity/Collections.js:77
 msgid "{entity} has not been added to any collections."
@@ -9724,14 +9783,14 @@ msgstr ""
 msgid "{entity_type} by {artist}"
 msgstr ""
 
-#: ../root/entity/NotFound.js:19
+#: ../root/entity/NotFound.js:26
 #, fuzzy
 #| msgid "Area Not Found"
 msgctxt "header"
 msgid "Area not found"
 msgstr "Teritorija nerasta"
 
-#: ../root/entity/NotFound.js:21
+#: ../root/entity/NotFound.js:28
 msgid ""
 "Sorry, we could not find an area with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -9739,298 +9798,298 @@ msgstr ""
 "Atsiprašome, nepavyko rasti teritorijos su šiuo MusicBrainz ID. Vietoj to "
 "gali pabandyti ir {search_url|paieškoti jos}."
 
-#: ../root/entity/NotFound.js:28
+#: ../root/entity/NotFound.js:35
 #, fuzzy
 #| msgid "CD Stub found"
 msgctxt "header"
 msgid "Artist not found"
 msgstr "Rasta CD atplaiša"
 
-#: ../root/entity/NotFound.js:30
+#: ../root/entity/NotFound.js:37
 msgid ""
 "Sorry, we could not find an artist with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:37
+#: ../root/entity/NotFound.js:44
 #, fuzzy
 #| msgid "Edit Artist Credit"
 msgctxt "header"
 msgid "Artist credit not found"
 msgstr "Redaguoti atlikėjo kreditą"
 
-#: ../root/entity/NotFound.js:38
+#: ../root/entity/NotFound.js:45
 msgid "Sorry, we could not find an artist credit with that ID."
 msgstr ""
 
-#: ../root/entity/NotFound.js:43
+#: ../root/entity/NotFound.js:50
 #, fuzzy
 #| msgid "CD Stub found"
 msgctxt "header"
 msgid "CD TOC not found"
 msgstr "Rasta CD atplaiša"
 
-#: ../root/entity/NotFound.js:44
+#: ../root/entity/NotFound.js:51
 msgid "Sorry, we could not find the CD TOC you specified."
 msgstr ""
 
-#: ../root/entity/NotFound.js:49
+#: ../root/entity/NotFound.js:56
 #, fuzzy
 #| msgid "CD Stub found"
 msgctxt "header"
 msgid "Collection not found"
 msgstr "Rasta CD atplaiša"
 
-#: ../root/entity/NotFound.js:51
+#: ../root/entity/NotFound.js:58
 msgid "Sorry, we could not find a collection with that MusicBrainz ID."
 msgstr ""
 
-#: ../root/entity/NotFound.js:57
+#: ../root/entity/NotFound.js:64
 #, fuzzy
 #| msgid "Area Not Found"
 msgctxt "header"
 msgid "Edit not found"
 msgstr "Teritorija nerasta"
 
-#: ../root/entity/NotFound.js:59
+#: ../root/entity/NotFound.js:66
 msgid ""
 "Sorry, we could not find an edit with that edit ID. You may wish to try and "
 "perform an {search_url|edit search} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:66
+#: ../root/entity/NotFound.js:73
 msgctxt "header"
 msgid "Election not found"
 msgstr "Rinkimas nerastas"
 
-#: ../root/entity/NotFound.js:67
+#: ../root/entity/NotFound.js:74
 msgid "Sorry, we could not find this election."
 msgstr ""
 
-#: ../root/entity/NotFound.js:69
+#: ../root/entity/NotFound.js:76
 msgid "Back to all elections."
 msgstr ""
 
-#: ../root/entity/NotFound.js:72
+#: ../root/entity/NotFound.js:79
 #, fuzzy
 #| msgid "Area Not Found"
 msgctxt "header"
 msgid "Event not found"
 msgstr "Teritorija nerasta"
 
-#: ../root/entity/NotFound.js:74
+#: ../root/entity/NotFound.js:81
 msgid ""
 "Sorry, we could not find an event with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:81
+#: ../root/entity/NotFound.js:88
 #, fuzzy
 #| msgid "Area Not Found"
 msgctxt "header"
 msgid "Genre not found"
 msgstr "Teritorija nerasta"
 
-#: ../root/entity/NotFound.js:83
+#: ../root/entity/NotFound.js:90
 msgid ""
 "Sorry, we could not find a genre with that MusicBrainz ID. You can see all "
 "available genres on our {genre_list|genre list}."
 msgstr ""
 
-#: ../root/entity/NotFound.js:90
+#: ../root/entity/NotFound.js:97
 #, fuzzy
 #| msgid "Instrument Details"
 msgctxt "header"
 msgid "Instrument not found"
 msgstr "Išsami informacija apie instrumentą"
 
-#: ../root/entity/NotFound.js:92
+#: ../root/entity/NotFound.js:99
 msgid ""
 "Sorry, we could not find an instrument with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:99
+#: ../root/entity/NotFound.js:106
 msgctxt "header"
 msgid "ISRC not currently used"
 msgstr ""
 
-#: ../root/entity/NotFound.js:101
+#: ../root/entity/NotFound.js:108
 msgid ""
 "This ISRC is not associated with any recordings. If you wish to associate it "
 "with a recording, please {search_url|search for the recording} and add it."
 msgstr ""
 
-#: ../root/entity/NotFound.js:109
+#: ../root/entity/NotFound.js:116
 msgctxt "header"
 msgid "ISWC not currently used"
 msgstr ""
 
-#: ../root/entity/NotFound.js:111
+#: ../root/entity/NotFound.js:118
 msgid ""
 "This ISWC is not associated with any works. If you wish to associate it with "
 "a work, please {search_url|search for the work} and add it."
 msgstr ""
 
-#: ../root/entity/NotFound.js:118
+#: ../root/entity/NotFound.js:125
 #, fuzzy
 #| msgid "Area Not Found"
 msgctxt "header"
 msgid "Label not found"
 msgstr "Teritorija nerasta"
 
-#: ../root/entity/NotFound.js:120
+#: ../root/entity/NotFound.js:127
 msgid ""
 "Sorry, we could not find a label with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:127
+#: ../root/entity/NotFound.js:134
 #, fuzzy
 #| msgid "CD Stub found"
 msgctxt "header"
 msgid "Entity not found"
 msgstr "Rasta CD atplaiša"
 
-#: ../root/entity/NotFound.js:129
+#: ../root/entity/NotFound.js:136
 msgid ""
 "Sorry, we could not find a MusicBrainz entity with that ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:136
+#: ../root/entity/NotFound.js:143
 #, fuzzy
 #| msgid "Area Not Found"
 msgctxt "header"
 msgid "Place not found"
 msgstr "Teritorija nerasta"
 
-#: ../root/entity/NotFound.js:138
+#: ../root/entity/NotFound.js:145
 msgid ""
 "Sorry, we could not find a place with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:145
+#: ../root/entity/NotFound.js:152
 #, fuzzy
 #| msgid "Recording Details"
 msgctxt "header"
 msgid "Recording not found"
 msgstr "Išsami informacija apie įrašą"
 
-#: ../root/entity/NotFound.js:147
+#: ../root/entity/NotFound.js:154
 msgid ""
 "Sorry, we could not find a recording with that MusicBrainz ID. You may wish "
 "to try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:154
+#: ../root/entity/NotFound.js:161
 #, fuzzy
 #| msgid "Edit Relationship Attribute"
 msgctxt "header"
 msgid "Relationship attribute not found"
 msgstr "Redaguoti sąsajos atributą"
 
-#: ../root/entity/NotFound.js:156
+#: ../root/entity/NotFound.js:163
 msgid ""
 "Sorry, we could not find a relationship attribute with that MusicBrainz ID."
 msgstr ""
 
-#: ../root/entity/NotFound.js:163
+#: ../root/entity/NotFound.js:170
 #, fuzzy
 #| msgid "Edit Relationship Type"
 msgctxt "header"
 msgid "Relationship type not found"
 msgstr "Redaguoti sąsajos tipą"
 
-#: ../root/entity/NotFound.js:165
+#: ../root/entity/NotFound.js:172
 msgid "Sorry, we could not find a relationship type with that MusicBrainz ID."
 msgstr ""
 
-#: ../root/entity/NotFound.js:172
+#: ../root/entity/NotFound.js:179
 #, fuzzy
 #| msgid "Area Not Found"
 msgctxt "header"
 msgid "Release not found"
 msgstr "Teritorija nerasta"
 
-#: ../root/entity/NotFound.js:174
+#: ../root/entity/NotFound.js:181
 msgid ""
 "Sorry, we could not find a release with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:181
+#: ../root/entity/NotFound.js:188
 #, fuzzy
 #| msgid "Release Group Details"
 msgctxt "header"
 msgid "Release group not found"
 msgstr "Išsami informacija apie leidinių grupę"
 
-#: ../root/entity/NotFound.js:183
+#: ../root/entity/NotFound.js:190
 msgid ""
 "Sorry, we could not find a release group with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:190
+#: ../root/entity/NotFound.js:197
 #, fuzzy
 #| msgid "Area Not Found"
 msgctxt "singular, header"
 msgid "Series not found"
 msgstr "Teritorija nerasta"
 
-#: ../root/entity/NotFound.js:192
+#: ../root/entity/NotFound.js:199
 msgid ""
 "Sorry, we could not find a series with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:199
+#: ../root/entity/NotFound.js:206
 #, fuzzy
 #| msgid "Area Not Found"
 msgctxt "header"
 msgid "Track not found"
 msgstr "Teritorija nerasta"
 
-#: ../root/entity/NotFound.js:201
+#: ../root/entity/NotFound.js:208
 msgid ""
 "Sorry, we could not find neither a recording nor a track with that "
 "MusicBrainz ID. You may wish to try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:209
+#: ../root/entity/NotFound.js:216
 #, fuzzy
 #| msgid "Area Not Found"
 msgctxt "header"
 msgid "URL not found"
 msgstr "Teritorija nerasta"
 
-#: ../root/entity/NotFound.js:210
+#: ../root/entity/NotFound.js:217
 msgid "Sorry, we could not find a URL with that MusicBrainz ID."
 msgstr ""
 
-#: ../root/entity/NotFound.js:215
+#: ../root/entity/NotFound.js:222
 #, fuzzy
 #| msgid "CD Stub found"
 msgctxt "header"
 msgid "Editor not found"
 msgstr "Rasta CD atplaiša"
 
-#: ../root/entity/NotFound.js:217
+#: ../root/entity/NotFound.js:224
 msgid ""
 "Sorry, we could not find an editor with that name. You may wish to try and "
 "{search_url|search for them} instead."
 msgstr ""
 
-#: ../root/entity/NotFound.js:224
+#: ../root/entity/NotFound.js:231
 #, fuzzy
 #| msgid "Area Not Found"
 msgctxt "header"
 msgid "Work not found"
 msgstr "Teritorija nerasta"
 
-#: ../root/entity/NotFound.js:226
+#: ../root/entity/NotFound.js:233
 msgid ""
 "Sorry, we could not find a work with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10039,10 +10098,10 @@ msgstr ""
 #: ../root/entity/Ratings.js:60
 msgid "{count} private rating not listed."
 msgid_plural "{count} private ratings not listed."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{count} neįtrauktas privatus įvertinimas."
+msgstr[1] "{count} neįtraukti privatūs įvertinimai."
+msgstr[2] "{count} neįtrauktos privataus įvertinimo."
+msgstr[3] "{count} neįtrauktų privačių įvertinimų."
 
 #: ../root/entity/Ratings.js:67
 msgid "Average rating:"
@@ -10069,42 +10128,54 @@ msgid "There is currently {num} user subscribed to edits that you make:"
 msgid_plural ""
 "There are currently {num} users subscribed to edits that you make:"
 msgstr[0] ""
+"Šiuo metu yra {num} naudotojas, užsiprenumeravęs redagavimus, kuriuos darai:"
 msgstr[1] ""
+"Šiuo metu yra {num} naudotojai, užsiprenumeravę redagavimus, kuriuos darai:"
 msgstr[2] ""
+"Šiuo metu yra {num} naudotojo, užsiprenumeravusio redagavimus, kuriuos darai:"
 msgstr[3] ""
+"Šiuo metu yra {num} naudotojų, užsiprenumeravusių redagavimus, kuriuos darai:"
 
 #: ../root/entity/Subscribers.js:71
 msgid "There is currently {num} user subscribed to edits that {user} makes:"
 msgid_plural ""
 "There are currently {num} users subscribed to edits that {user} makes:"
 msgstr[0] ""
+"Šiuo metu yra {num} naudotojas, užsiprenumeravęs redagavimus, kuriuos daro "
+"{user}:"
 msgstr[1] ""
+"Šiuo metu yra {num} naudotojai, užsiprenumeravę redagavimus, kuriuos daro "
+"{user}:"
 msgstr[2] ""
+"Šiuo metu yra {num} naudotojo, užsiprenumeravusio redagavimus, kuriuos daro "
+"{user}:"
 msgstr[3] ""
+"Šiuo metu yra {num} naudotojų, užsiprenumeravusių redagavimus, kuriuos daro "
+"{user}:"
 
 #: ../root/entity/Subscribers.js:84
 msgid "There is currently {num} user subscribed to {entity}:"
 msgid_plural "There are currently {num} users subscribed to {entity}:"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Šiuo metu yra {num} naudotojas, užsiprenumeravęs {entity}:"
+msgstr[1] "Šiuo metu yra {num} naudotojai, užsiprenumeravę {entity}:"
+msgstr[2] "Šiuo metu yra {num} naudotojo, užsiprenumeravusio {entity}:"
+msgstr[3] "Šiuo metu yra {num} naudotojų, užsiprenumeravusių {entity}:"
 
 #: ../root/entity/Subscribers.js:103
 msgid "Plus {n} other anonymous user"
 msgid_plural "Plus {n} other anonymous users"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "ir {n} kitas anoniminis naudotojas"
+msgstr[1] "ir {n} kiti anoniminiai naudotojai"
+msgstr[2] "ir {n} kito anoniminio naudotojo"
+msgstr[3] "ir {n} kitų anoniminių naudotojų"
 
 #: ../root/entity/Subscribers.js:113
 msgid "An anonymous user"
 msgid_plural "{n} anonymous users"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{n} anoniminis naudotojas"
+msgstr[1] "{n} anoniminiai naudotojai"
+msgstr[2] "{n} anoniminio naudotojo"
+msgstr[3] "{n} anoniminių naudotojų"
 
 #: ../root/entity/Subscribers.js:127
 msgid "There are currently no users subscribed to edits that you make."
@@ -10153,17 +10224,17 @@ msgstr ""
 msgid "Please review the {doc|alias documentation} before entering this edit."
 msgstr ""
 
-#: ../root/event/EventArt.js:33
+#: ../root/event/EventArt.js:32
 msgctxt "plural, header"
 msgid "Event art"
 msgstr "Renginio apipavidalinimus"
 
-#: ../root/event/EventArt.js:39
+#: ../root/event/EventArt.js:38
 msgctxt "plural, header"
 msgid "Cannot show event art"
 msgstr "Negalima rodyti renginio apipavidalinimus"
 
-#: ../root/event/EventArt.js:45
+#: ../root/event/EventArt.js:44
 #: ../root/layout/components/sidebar/EventSidebar.js:58
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:92
 #: ../root/release/CoverArt.js:40
@@ -10174,11 +10245,11 @@ msgstr ""
 "Internet Archive paslėpė šio elemento vaizdus, nes buvo gautas panaikinimo "
 "prašymas."
 
-#: ../root/event/EventArt.js:76 ../root/release/CoverArt.js:71
+#: ../root/event/EventArt.js:75 ../root/release/CoverArt.js:71
 msgid "All sizes:"
 msgstr "Visi dydžiai:"
 
-#: ../root/event/EventArt.js:101
+#: ../root/event/EventArt.js:100
 msgid ""
 "These images are part of the {eaa|Event Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
@@ -10186,21 +10257,21 @@ msgstr ""
 "Šie vaizdai yra {caa|Event Art Archive} dalis. Juos taip pat galima pamatyti "
 "{ia|Internet Archive}."
 
-#: ../root/event/EventArt.js:113
+#: ../root/event/EventArt.js:112
 msgid "We do not currently have any event art for {event}."
 msgstr "Šiuo metu neturime jokio renginio apipavidalinimo, skirto {event}."
 
-#: ../root/event/EventArt.js:123
+#: ../root/event/EventArt.js:122
 msgctxt "plural, interactive"
 msgid "Add event art"
 msgstr "Pridėti renginio apipavidalinimus"
 
-#: ../root/event/EventArt.js:129
+#: ../root/event/EventArt.js:128
 msgctxt "plural, interactive"
 msgid "Reorder event art"
 msgstr "Pertvarkyti renginio apipavidalinimus"
 
-#: ../root/event/EventArt.js:138 ../root/release/CoverArt.js:148
+#: ../root/event/EventArt.js:137 ../root/release/CoverArt.js:148
 msgctxt "plural, interactive"
 msgid "Log in to upload images"
 msgstr "Prisijunk, kad įkeltum vaizdus"
@@ -10280,7 +10351,7 @@ msgid "Primary tag"
 msgstr ""
 
 #: ../root/genre/GenreListPage.js:15 ../root/genre/GenreListPage.js:17
-#: ../root/layout/components/BottomMenu.js:324
+#: ../root/layout/components/BottomMenu.js:329
 msgid "Genre list"
 msgstr "Žanrų sąrašas"
 
@@ -10305,7 +10376,7 @@ msgid "No artists found."
 msgstr ""
 
 #: ../root/instrument/List.js:44 ../root/instrument/List.js:46
-#: ../root/layout/components/BottomMenu.js:321
+#: ../root/layout/components/BottomMenu.js:326
 #, fuzzy
 #| msgid "Instrument"
 msgid "Instrument list"
@@ -10328,10 +10399,10 @@ msgstr ""
 #: ../root/isrc/Index.js:43
 msgid "Associated with {num} recording"
 msgid_plural "Associated with {num} recordings"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Susijęs su {num} įrašu"
+msgstr[1] "Susijęs su {num} įrašais"
+msgstr[2] "Susijęs su {num} įrašo"
+msgstr[3] "Susijęs su {num} įrašų"
 
 #: ../root/iswc/Index.js:29 ../root/iswc/Index.js:32
 msgid "ISWC “{iswc}”"
@@ -10340,10 +10411,10 @@ msgstr "ISWC {iswc}"
 #: ../root/iswc/Index.js:37
 msgid "Associated with {num} work"
 msgid_plural "Associated with {num} works"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Susijęs su {num} kūriniu"
+msgstr[1] "Susijęs su {num} kūriniais"
+msgstr[2] "Susijęs su {num} kūrinio"
+msgstr[3] "Susijęs su {num} kūrinių"
 
 #: ../root/label/LabelIndex.js:90
 msgid "This label does not have any releases."
@@ -10368,6 +10439,8 @@ msgid ""
 "The label you are trying to edit is a special purpose label, and you may not "
 "make direct changes to this data."
 msgstr ""
+"Leidykla, kurią bandai redaguoti, yra ypatingos paskirties leidykla, todėl "
+"tiesioginių pakeitimų šiuose duomenyse daryti negalima."
 
 #: ../root/layout/components/BottomMenu.js:88
 msgid "(reset language)"
@@ -10421,103 +10494,107 @@ msgstr "Privatumo politika"
 msgid "GDPR compliance"
 msgstr "BDAR (GDPR) laikymasis"
 
-#: ../root/layout/components/BottomMenu.js:140
+#: ../root/layout/components/BottomMenu.js:141
+msgid "Copyright and DMCA compliance"
+msgstr "Autorinės teisės ir DMCA laikymasis"
+
+#: ../root/layout/components/BottomMenu.js:145
 msgid "Data removal policy"
 msgstr "Duomenų pašalinimo politika"
 
-#: ../root/layout/components/BottomMenu.js:146
+#: ../root/layout/components/BottomMenu.js:151
 #: ../root/user/PrivilegedUsers.js:24 ../root/user/PrivilegedUsers.js:26
 msgid "Privileged user accounts"
 msgstr "Privilegijuotųjų naudotojų paskyros"
 
-#: ../root/layout/components/BottomMenu.js:149 ../root/user/UserProfile.js:545
+#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:546
 msgid "Statistics"
 msgstr "Statistika"
 
-#: ../root/layout/components/BottomMenu.js:152
+#: ../root/layout/components/BottomMenu.js:157
 msgid "Timeline graph"
 msgstr "Laiko skalės diagrama"
 
-#: ../root/layout/components/BottomMenu.js:155
+#: ../root/layout/components/BottomMenu.js:160
 msgid "MusicBrainz history"
 msgstr "MusicBrainz istorija"
 
-#: ../root/layout/components/BottomMenu.js:166
+#: ../root/layout/components/BottomMenu.js:171
 msgid "Products"
 msgstr "Produktai"
 
-#: ../root/layout/components/BottomMenu.js:171 ../root/main/index.js:151
+#: ../root/layout/components/BottomMenu.js:176 ../root/main/index.js:151
 msgid "MusicBrainz Picard"
 msgstr "MusicBrainz Picard"
 
-#: ../root/layout/components/BottomMenu.js:174 ../root/main/index.js:155
+#: ../root/layout/components/BottomMenu.js:179 ../root/main/index.js:155
 msgid "AudioRanger"
 msgstr "AudioRanger"
 
-#: ../root/layout/components/BottomMenu.js:177 ../root/main/index.js:158
+#: ../root/layout/components/BottomMenu.js:182 ../root/main/index.js:158
 msgid "Mp3tag"
 msgstr "Mp3tag"
 
-#: ../root/layout/components/BottomMenu.js:180 ../root/main/index.js:162
+#: ../root/layout/components/BottomMenu.js:185 ../root/main/index.js:162
 msgid "Yate Music Tagger"
 msgstr "Yate muzikos žymeklė"
 
-#: ../root/layout/components/BottomMenu.js:184
+#: ../root/layout/components/BottomMenu.js:189
 msgid "MusicBrainz for Android"
 msgstr "MusicBrainz, skirta Android"
 
-#: ../root/layout/components/BottomMenu.js:188
+#: ../root/layout/components/BottomMenu.js:193
 msgid "MusicBrainz Server"
 msgstr "MusicBrainz serveris"
 
-#: ../root/layout/components/BottomMenu.js:191 ../root/main/index.js:218
+#: ../root/layout/components/BottomMenu.js:196 ../root/main/index.js:218
 msgid "MusicBrainz Database"
 msgstr "MusicBrainz duomenų bazė"
 
-#: ../root/layout/components/BottomMenu.js:194
+#: ../root/layout/components/BottomMenu.js:199
 msgid "Developer resources"
 msgstr "Kūrėjų ištekliai"
 
-#: ../root/layout/components/BottomMenu.js:197
+#: ../root/layout/components/BottomMenu.js:202
 msgid "MusicBrainz API"
 msgstr "MusicBrainz API"
 
-#: ../root/layout/components/BottomMenu.js:200
+#: ../root/layout/components/BottomMenu.js:205
 msgid "Live Data Feed"
 msgstr "Tiesioginis duomenų srautas"
 
-#: ../root/layout/components/BottomMenu.js:216
+#: ../root/layout/components/BottomMenu.js:221
 msgid "Advanced search"
 msgstr "Patikslintoji paieška"
 
-#: ../root/layout/components/BottomMenu.js:219
+#: ../root/layout/components/BottomMenu.js:224
 msgid "Edit search"
 msgstr "Redaguoti paiešką"
 
-#: ../root/layout/components/BottomMenu.js:222
+#: ../root/layout/components/BottomMenu.js:227
 msgctxt "folksonomy"
 msgid "Tag cloud"
 msgstr "Žymių debesis"
 
-#: ../root/layout/components/BottomMenu.js:236
+#: ../root/layout/components/BottomMenu.js:241
 #: ../root/layout/components/sidebar/CollectionSidebar.js:67
 #: ../root/layout/components/sidebar/EditLinks.js:25
 #: ../root/static/scripts/account/components/PreferencesForm.js:247
 msgid "Editing"
 msgstr "Redagavimas"
 
-#: ../root/layout/components/BottomMenu.js:241
+#: ../root/layout/components/BottomMenu.js:246
 msgctxt "interactive"
 msgid "Add artist"
 msgstr "Pridėti atlikėją"
 
-#: ../root/layout/components/BottomMenu.js:248
+#: ../root/layout/components/BottomMenu.js:253
 #: ../root/layout/components/sidebar/ArtistSidebar.js:143
 msgctxt "interactive"
 msgid "Add release group"
 msgstr "Pridėti leidinių grupę"
 
-#: ../root/layout/components/BottomMenu.js:252
+#: ../root/layout/components/BottomMenu.js:257
 #: ../root/layout/components/sidebar/ArtistSidebar.js:148
 #: ../root/layout/components/sidebar/LabelSidebar.js:101
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:75
@@ -10525,65 +10602,65 @@ msgctxt "interactive"
 msgid "Add release"
 msgstr "Pridėti leidinį"
 
-#: ../root/layout/components/BottomMenu.js:256
+#: ../root/layout/components/BottomMenu.js:261
 msgctxt "interactive"
 msgid "Add Various Artists release"
 msgstr "Pridėti Įvairūs atlikėjai leidinį"
 
-#: ../root/layout/components/BottomMenu.js:261
+#: ../root/layout/components/BottomMenu.js:266
 msgctxt "interactive"
 msgid "Add standalone recording"
 msgstr "Pridėti atskirą įrašą"
 
-#: ../root/layout/components/BottomMenu.js:265
+#: ../root/layout/components/BottomMenu.js:270
 #: ../root/layout/components/sidebar/ArtistSidebar.js:158
 msgctxt "interactive"
 msgid "Add work"
 msgstr "Pridėti kūrinį"
 
-#: ../root/layout/components/BottomMenu.js:268
+#: ../root/layout/components/BottomMenu.js:273
 msgctxt "interactive"
 msgid "Add place"
 msgstr "Pridėti vietą"
 
-#: ../root/layout/components/BottomMenu.js:272
+#: ../root/layout/components/BottomMenu.js:277
 msgctxt "singular, interactive"
 msgid "Add series"
 msgstr "Pridėti seriją"
 
-#: ../root/layout/components/BottomMenu.js:276
+#: ../root/layout/components/BottomMenu.js:281
 #: ../root/layout/components/sidebar/ArtistSidebar.js:163
 #: ../root/layout/components/sidebar/PlaceSidebar.js:117
 msgctxt "interactive"
 msgid "Add event"
 msgstr "Pridėti renginį"
 
-#: ../root/layout/components/BottomMenu.js:279
+#: ../root/layout/components/BottomMenu.js:284
 msgid "Vote on edits"
 msgstr "Balsuoti dėl redagavimų"
 
-#: ../root/layout/components/BottomMenu.js:282
+#: ../root/layout/components/BottomMenu.js:287
 #: ../root/report/ReportsIndex.js:32 ../root/report/ReportsIndex.js:34
 msgid "Reports"
 msgstr "Ataskaitos"
 
-#: ../root/layout/components/BottomMenu.js:298 ../root/main/index.js:172
+#: ../root/layout/components/BottomMenu.js:303 ../root/main/index.js:172
 msgid "Beginners guide"
 msgstr "Pradedančiųjų vadovas"
 
-#: ../root/layout/components/BottomMenu.js:304
+#: ../root/layout/components/BottomMenu.js:309
 msgid "How tos"
 msgstr "Kaip tai daryti"
 
-#: ../root/layout/components/BottomMenu.js:307 ../root/main/index.js:183
+#: ../root/layout/components/BottomMenu.js:312 ../root/main/index.js:183
 msgid "FAQs"
 msgstr "DUK"
 
-#: ../root/layout/components/BottomMenu.js:311
+#: ../root/layout/components/BottomMenu.js:316
 msgid "Documentation index"
 msgstr "Dokumentacijos indeksas"
 
-#: ../root/layout/components/BottomMenu.js:318
+#: ../root/layout/components/BottomMenu.js:323
 #: ../root/relationship/RelationshipsHeader.js:18
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:103
 #: ../root/relationship/linktype/RelationshipTypesList.js:58
@@ -10591,7 +10668,7 @@ msgstr "Dokumentacijos indeksas"
 msgid "Relationship types"
 msgstr "Santykių tipai"
 
-#: ../root/layout/components/BottomMenu.js:327
+#: ../root/layout/components/BottomMenu.js:332
 msgid "Development"
 msgstr "Kūrimas"
 
@@ -10645,7 +10722,7 @@ msgstr "Mano duomenys"
 
 #: ../root/layout/components/TopMenu.js:80
 #: ../root/layout/components/sidebar/CollectionLinks.js:45
-#: ../root/user/UserCollections.js:169
+#: ../root/user/UserCollections.js:170
 msgid "My collections"
 msgstr "Mano kolekcijos"
 
@@ -10793,17 +10870,17 @@ msgid "Add to a new collection"
 msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:41
-#: ../root/user/UserCollections.js:190
+#: ../root/user/UserCollections.js:191
 msgid "Collaborative collections"
 msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:52
 msgid "Found in {num} user collection"
 msgid_plural "Found in {num} user collections"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rasta {num} naudotojo kolekcijoje"
+msgstr[1] "Rasta {num} naudotojų kolekcijose"
+msgstr[2] "Rasta {num} naudotojo kolekcijose"
+msgstr[3] "Rasta {num} naudotojų kolekcijose"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:61
 msgid "Other collections"
@@ -10853,7 +10930,8 @@ msgstr "Prisijungti, kad redaguoti"
 #: ../root/layout/components/sidebar/EventSidebar.js:52
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:86
 msgid "Image failed to load correctly.<br/>{all|View all images}."
-msgstr "Vaizdo nepavyko pakrauti teisingai.<br/>{all|Peržiūrėti visus vaizdus}."
+msgstr ""
+"Vaizdo nepavyko pakrauti teisingai.<br/>{all|Peržiūrėti visus vaizdus}."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:64
 msgid "No poster available."
@@ -10984,7 +11062,7 @@ msgctxt "date"
 msgid "[unknown]"
 msgstr "Nežinoma"
 
-#: ../root/layout/components/sidebar/SidebarLicenses.js:137
+#: ../root/layout/components/sidebar/SidebarLicenses.js:142
 msgid "License"
 msgstr "Licencija"
 
@@ -11049,9 +11127,17 @@ msgid_plural ""
 "You’ve been a MusicBrainz editor for {num} years! Happy anniversary, and "
 "thanks for contributing to MusicBrainz!"
 msgstr[0] ""
+"Jau {num} metus esi MusicBrainz redaktorius! Su jubiliejumi ir ačiū, kad "
+"prisidedi prie MusicBrainz."
 msgstr[1] ""
+"Jau {num} metus esi MusicBrainz redaktorius! Su jubiliejumi ir ačiū, kad "
+"prisidedi prie MusicBrainz."
 msgstr[2] ""
+"Jau {num} metų esi MusicBrainz redaktorius! Su jubiliejumi ir ačiū, kad "
+"prisidedi prie MusicBrainz."
 msgstr[3] ""
+"Jau {num} metų esi MusicBrainz redaktorius! Su jubiliejumi ir ačiū, kad "
+"prisidedi prie MusicBrainz."
 
 #: ../root/layout/index.js:252
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
@@ -13481,75 +13567,75 @@ msgstr ""
 msgid "This release no longer exists."
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:19
+#: ../root/report/components/ReportLayout.js:21
 msgid "Total artists found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:20
+#: ../root/report/components/ReportLayout.js:22
 msgid "Total artist credits found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:21
+#: ../root/report/components/ReportLayout.js:23
 msgid "Total discIDs found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:22
+#: ../root/report/components/ReportLayout.js:24
 msgid "Total editors found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:23
+#: ../root/report/components/ReportLayout.js:25
 msgid "Total events found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:24
+#: ../root/report/components/ReportLayout.js:26
 msgid "Total instruments found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:25
+#: ../root/report/components/ReportLayout.js:27
 msgid "Total ISRCs found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:26
+#: ../root/report/components/ReportLayout.js:28
 msgid "Total ISWCs found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:27
+#: ../root/report/components/ReportLayout.js:29
 msgid "Total labels found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:28
+#: ../root/report/components/ReportLayout.js:30
 msgid "Total places found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:29
+#: ../root/report/components/ReportLayout.js:31
 msgid "Total recordings found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:30
+#: ../root/report/components/ReportLayout.js:32
 msgid "Total relationships found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:31
+#: ../root/report/components/ReportLayout.js:33
 msgid "Total releases found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:32
+#: ../root/report/components/ReportLayout.js:34
 msgid "Total release groups found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:33
+#: ../root/report/components/ReportLayout.js:35
 msgid "Total series found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:34
+#: ../root/report/components/ReportLayout.js:36
 msgid "Total URLs found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:35
+#: ../root/report/components/ReportLayout.js:37
 msgid "Total works found: {count}"
 msgstr ""
 
-#: ../root/report/components/ReportLayout.js:72
+#: ../root/report/components/ReportLayout.js:74
 msgid "Generated on {date}"
 msgstr ""
 
@@ -13590,7 +13676,7 @@ msgstr ""
 msgid "Documentation search"
 msgstr "Dokumentacija"
 
-#: ../root/search/components/EventResults.js:78
+#: ../root/search/components/EventResults.js:83
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:1049
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:220
 #: ../root/utility/tableColumns.js:389
@@ -13598,7 +13684,7 @@ msgctxt "event location"
 msgid "Location"
 msgstr ""
 
-#: ../root/search/components/EventResults.js:87
+#: ../root/search/components/EventResults.js:92
 msgid "Alternatively, you may {uri|add a new event}."
 msgstr ""
 
@@ -13935,10 +14021,10 @@ msgstr ""
 #: ../root/static/scripts/area/places-map.js:95
 msgid "… and {place_count} other"
 msgid_plural "… and {place_count} others"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "… ir {place_count} kitas"
+msgstr[1] "… ir {place_count} kiti"
+msgstr[2] "… ir {place_count} kita"
+msgstr[3] "… ir {place_count} kitų"
 
 #: ../root/static/scripts/area/places-map.js:107
 msgid "No type"
@@ -14250,9 +14336,17 @@ msgid_plural ""
 "{n} results found. Press enter to select, or use the up and down arrow keys "
 "to navigate."
 msgstr[0] ""
+"Rastas {num} rezultatas. Paspausk Įvesti, kad pasirinktum, arba naudok "
+"rodyklių klavišus į viršų ir į apačią, kad naršytum."
 msgstr[1] ""
+"Rasti {num} rezultatai. Paspausk Įvesti, kad pasirinktum, arba naudok "
+"rodyklių klavišus į viršų ir į apačią, kad naršytum."
 msgstr[2] ""
+"Rasta {num} rezultato. Paspausk Įvesti, kad pasirinktum, arba naudok "
+"rodyklių klavišus į viršų ir į apačią, kad naršytum."
 msgstr[3] ""
+"Rasta {num} rezultatų. Paspausk Įvesti, kad pasirinktum, arba naudok "
+"rodyklių klavišus į viršų ir į apačią, kad naršytum."
 
 #: ../root/static/scripts/common/components/Cardinality.js:16
 msgid "Few relationships"
@@ -14302,14 +14396,18 @@ msgstr ""
 "pavojinga."
 
 #: ../root/static/scripts/common/components/EntityLink.js:343
+msgid "This event has artwork in the Event Art Archive"
+msgstr "Šis renginys turi paveikslų projekte Event Art Archive."
+
+#: ../root/static/scripts/common/components/EntityLink.js:368
 msgid "This release has artwork in the Cover Art Archive"
 msgstr "Šis leidinys turi paveikslų projekte Cover Art Archive."
 
-#: ../root/static/scripts/common/components/EntityLink.js:368
+#: ../root/static/scripts/common/components/EntityLink.js:393
 msgid "This release group has artwork in the Cover Art Archive"
 msgstr "Ši leidinių grupė turi paveikslų projekte Cover Art Archive."
 
-#: ../root/static/scripts/common/components/EntityLink.js:396
+#: ../root/static/scripts/common/components/EntityLink.js:421
 msgid ""
 "High quality: All available data has been added, if possible including cover "
 "art with liner info that proves it"
@@ -14317,7 +14415,7 @@ msgstr ""
 "Aukšta kokybė: pridėti visi turimi duomenys, jei įmanoma, įskaitant viršelio "
 "apipavidalinimus ir jį patvirtinančią informaciją."
 
-#: ../root/static/scripts/common/components/EntityLink.js:409
+#: ../root/static/scripts/common/components/EntityLink.js:434
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"
@@ -14461,10 +14559,10 @@ msgstr ""
 #: ../root/static/scripts/common/components/ReleaseGroupAppearances.js:30
 msgid "and another {num} release group"
 msgid_plural "and another {num} release groups"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "ir dar {num} leidinių grupė"
+msgstr[1] "ir dar {num} leidinių grupes"
+msgstr[2] "ir dar {num} leidinių grupės"
+msgstr[3] "ir dar {num} leidinių grupių"
 
 #: ../root/static/scripts/common/components/StaticRelationshipsDisplay.js:27
 msgid "{start_track}–{end_track}"
@@ -15755,18 +15853,18 @@ msgstr "Rasti santykius"
 #: ../root/static/scripts/relationship-editor/utility/getBatchSelectionMessage.js:19
 msgid "{n} recording selected"
 msgid_plural "{n} recordings selected"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Pasirinktas {n} įrašas"
+msgstr[1] "Pasirinkti {n} įrašai"
+msgstr[2] "Pasirinkta {n} įrašo"
+msgstr[3] "Pasirinkta {n} įrašų"
 
 #: ../root/static/scripts/relationship-editor/utility/getBatchSelectionMessage.js:27
 msgid "{n} work selected"
 msgid_plural "{n} works selected"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Pasirinktas {n} kūrinys"
+msgstr[1] "Pasirinkti {n} kūriniai"
+msgstr[2] "Pasirinkta {n} kūrinio"
+msgstr[3] "Pasirinkta {n} kūrinių"
 
 #: ../root/static/scripts/release-editor/actions.js:279
 msgid ""
@@ -16182,64 +16280,64 @@ msgid "{num} area found"
 msgid_plural "{num} areas found"
 msgstr[0] "Rasta {num} teritorija"
 msgstr[1] "Rastos {num} teritorijos"
-msgstr[2] "Rastas {num} teritorijo"
+msgstr[2] "Rasta {num} teritorijos"
 msgstr[3] "Rasta {num} teritorijų"
 
 #: ../root/tag/EntityList.js:71
 msgid "{num} artist found"
 msgid_plural "{num} artists found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rastas {num} atlikėjas"
+msgstr[1] "Rasti {num} atlikėjai"
+msgstr[2] "Rasta {num} atlikėjo"
+msgstr[3] "Rasta {num} atlikėjų"
 
 #: ../root/tag/EntityList.js:72
 msgid "{num} event found"
 msgid_plural "{num} events found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rastas {num} renginys"
+msgstr[1] "Rasti {num} renginiai"
+msgstr[2] "Rasta {num} renginio"
+msgstr[3] "Rasta {num} renginių"
 
 #: ../root/tag/EntityList.js:73
 msgid "{num} instrument found"
 msgid_plural "{num} instruments found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rastas {num} instrumentas"
+msgstr[1] "Rasti {num} instrumentai"
+msgstr[2] "Rasta {num} instrumento"
+msgstr[3] "Rasta {num} instrumentų"
 
 #: ../root/tag/EntityList.js:74
 msgid "{num} label found"
 msgid_plural "{num} labels found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rasta {num} leidykla"
+msgstr[1] "Rastos {num} leidyklos"
+msgstr[2] "Rasta {num} leidyklos"
+msgstr[3] "Rasta {num} leidyklų"
 
 #: ../root/tag/EntityList.js:75
 msgid "{num} place found"
 msgid_plural "{num} places found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rasta {num} vieta"
+msgstr[1] "Rastos {num} vietos"
+msgstr[2] "Rasta {num} vietos"
+msgstr[3] "Rasta {num} vietų"
 
 #: ../root/tag/EntityList.js:82
 msgid "{num} series found"
 msgid_plural "{num} series found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rasta {num} serija"
+msgstr[1] "Rastos {num} serijos"
+msgstr[2] "Rasta {num} serijos"
+msgstr[3] "Rasta {num} serijų"
 
 #: ../root/tag/EntityList.js:83
 msgid "{num} work found"
 msgid_plural "{num} works found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Rastas {num} kūrinys"
+msgstr[1] "Rasti {num} kūriniai"
+msgstr[2] "Rasta {num} kūrinio"
+msgstr[3] "Rasta {num} kūrinių"
 
 #: ../root/tag/NotFound.js:14
 msgctxt "folksonomy"
@@ -16586,102 +16684,102 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: ../root/user/UserCollections.js:36
+#: ../root/user/UserCollections.js:37
 #, fuzzy
 #| msgid "Area Collections"
 msgid "Area collections"
 msgstr "Teritorijos kolekcijos"
 
-#: ../root/user/UserCollections.js:37
+#: ../root/user/UserCollections.js:38
 #, fuzzy
 #| msgid "Area Collections"
 msgid "Artist collections"
 msgstr "Teritorijos kolekcijos"
 
-#: ../root/user/UserCollections.js:38
+#: ../root/user/UserCollections.js:39
 #, fuzzy
 #| msgid "Area Collections"
 msgid "Event collections"
 msgstr "Teritorijos kolekcijos"
 
-#: ../root/user/UserCollections.js:39
+#: ../root/user/UserCollections.js:40
 msgid "Genre collections"
 msgstr "Žanrų kolekcijos"
 
-#: ../root/user/UserCollections.js:40
+#: ../root/user/UserCollections.js:41
 #, fuzzy
 #| msgid "Instrument Details"
 msgid "Instrument collections"
 msgstr "Išsami informacija apie instrumentą"
 
-#: ../root/user/UserCollections.js:41
+#: ../root/user/UserCollections.js:42
 #, fuzzy
 #| msgid "Area Collections"
 msgid "Label collections"
 msgstr "Teritorijos kolekcijos"
 
-#: ../root/user/UserCollections.js:42
+#: ../root/user/UserCollections.js:43
 #, fuzzy
 #| msgid "Area Collections"
 msgid "Place collections"
 msgstr "Teritorijos kolekcijos"
 
-#: ../root/user/UserCollections.js:43
+#: ../root/user/UserCollections.js:44
 #, fuzzy
 #| msgid "Recording Details"
 msgid "Recording collections"
 msgstr "Išsami informacija apie įrašą"
 
-#: ../root/user/UserCollections.js:44
+#: ../root/user/UserCollections.js:45
 #, fuzzy
 #| msgid "Area Collections"
 msgid "Release collections"
 msgstr "Teritorijos kolekcijos"
 
-#: ../root/user/UserCollections.js:45
+#: ../root/user/UserCollections.js:46
 #, fuzzy
 #| msgid "Release Group Details"
 msgid "Release group collections"
 msgstr "Išsami informacija apie leidinių grupę"
 
-#: ../root/user/UserCollections.js:46
+#: ../root/user/UserCollections.js:47
 #, fuzzy
 #| msgid "Area Collections"
 msgctxt "plural"
 msgid "Series collections"
 msgstr "Teritorijos kolekcijos"
 
-#: ../root/user/UserCollections.js:47
+#: ../root/user/UserCollections.js:48
 #, fuzzy
 #| msgid "Area Collections"
 msgid "Work collections"
 msgstr "Teritorijos kolekcijos"
 
-#: ../root/user/UserCollections.js:59
+#: ../root/user/UserCollections.js:60
 msgid "{collaborator_number} (including you)"
 msgstr ""
 
-#: ../root/user/UserCollections.js:74
+#: ../root/user/UserCollections.js:75
 msgid "(your collection)"
 msgstr ""
 
-#: ../root/user/UserCollections.js:184
+#: ../root/user/UserCollections.js:185
 msgid "You have no collections."
 msgstr ""
 
-#: ../root/user/UserCollections.js:186
+#: ../root/user/UserCollections.js:187
 msgid "{user} has no public collections."
 msgstr ""
 
-#: ../root/user/UserCollections.js:205
+#: ../root/user/UserCollections.js:206
 msgid "You aren’t collaborating in any collections."
 msgstr ""
 
-#: ../root/user/UserCollections.js:207
+#: ../root/user/UserCollections.js:208
 msgid "{user} isn’t collaborating in any public collections."
 msgstr ""
 
-#: ../root/user/UserCollections.js:215
+#: ../root/user/UserCollections.js:216
 #, fuzzy
 #| msgid "Add a new recording"
 msgctxt "interactive"
@@ -16853,155 +16951,155 @@ msgstr ""
 msgid "Languages"
 msgstr "Kalbos"
 
-#: ../root/user/UserProfile.js:467 ../root/user/UserProfile.js:559
-#: ../root/user/UserProfile.js:569 ../root/user/UserProfile.js:579
-#: ../root/user/UserProfile.js:589 ../root/user/UserProfile.js:599
-#: ../root/user/UserProfile.js:609 ../root/user/UserProfile.js:619
-#: ../root/user/UserProfile.js:629 ../root/user/UserProfile.js:638
-#: ../root/user/UserProfile.js:791 ../root/user/UserProfile.js:812
-#: ../root/user/UserProfile.js:833
+#: ../root/user/UserProfile.js:468 ../root/user/UserProfile.js:560
+#: ../root/user/UserProfile.js:570 ../root/user/UserProfile.js:580
+#: ../root/user/UserProfile.js:590 ../root/user/UserProfile.js:600
+#: ../root/user/UserProfile.js:610 ../root/user/UserProfile.js:620
+#: ../root/user/UserProfile.js:630 ../root/user/UserProfile.js:639
+#: ../root/user/UserProfile.js:792 ../root/user/UserProfile.js:813
+#: ../root/user/UserProfile.js:834
 msgid "{count} ({view_url|view})"
 msgstr ""
 
-#: ../root/user/UserProfile.js:551
+#: ../root/user/UserProfile.js:552
 msgid "Edits"
 msgstr "Redagavimai"
 
-#: ../root/user/UserProfile.js:557
+#: ../root/user/UserProfile.js:558
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr ""
 
-#: ../root/user/UserProfile.js:567
+#: ../root/user/UserProfile.js:568
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:577
+#: ../root/user/UserProfile.js:578
 msgid "Auto-edits"
 msgstr "Automatiniai redagavimai"
 
-#: ../root/user/UserProfile.js:587
+#: ../root/user/UserProfile.js:588
 msgid "Total applied"
 msgstr ""
 
-#: ../root/user/UserProfile.js:597
+#: ../root/user/UserProfile.js:598
 msgid "Voted down"
 msgstr ""
 
-#: ../root/user/UserProfile.js:607
+#: ../root/user/UserProfile.js:608
 msgid "Failed"
 msgstr ""
 
-#: ../root/user/UserProfile.js:617
+#: ../root/user/UserProfile.js:618
 msgctxt "edit"
 msgid "Cancelled"
 msgstr ""
 
-#: ../root/user/UserProfile.js:627
+#: ../root/user/UserProfile.js:628
 msgid "Open"
 msgstr ""
 
-#: ../root/user/UserProfile.js:637
+#: ../root/user/UserProfile.js:638
 msgid "Last 24 hours"
 msgstr ""
 
-#: ../root/user/UserProfile.js:661
+#: ../root/user/UserProfile.js:662
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:666
+#: ../root/user/UserProfile.js:667
 msgid "Votes ({view_url|view})"
 msgstr ""
 
-#: ../root/user/UserProfile.js:674
+#: ../root/user/UserProfile.js:675
 msgid "Last 28 days"
 msgstr ""
 
-#: ../root/user/UserProfile.js:677
+#: ../root/user/UserProfile.js:678
 msgid "Overall"
 msgstr ""
 
-#: ../root/user/UserProfile.js:725
+#: ../root/user/UserProfile.js:726
 msgid "This table shows a summary of entities added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:731
+#: ../root/user/UserProfile.js:732
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr ""
 
-#: ../root/user/UserProfile.js:734
+#: ../root/user/UserProfile.js:735
 msgid "Added entities"
 msgstr ""
 
-#: ../root/user/UserProfile.js:757
+#: ../root/user/UserProfile.js:758
 msgid "This user has not added any entities."
 msgstr ""
 
-#: ../root/user/UserProfile.js:767
+#: ../root/user/UserProfile.js:768
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:773
+#: ../root/user/UserProfile.js:774
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr ""
 
-#: ../root/user/UserProfile.js:780
+#: ../root/user/UserProfile.js:781
 #, fuzzy
 #| msgid "and voted"
 msgctxt "folksonomy"
 msgid "Tags upvoted"
 msgstr "ir balsavo"
 
-#: ../root/user/UserProfile.js:784 ../root/user/UserProfile.js:805
+#: ../root/user/UserProfile.js:785 ../root/user/UserProfile.js:806
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
 msgstr ""
 
-#: ../root/user/UserProfile.js:788 ../root/user/UserProfile.js:809
+#: ../root/user/UserProfile.js:789 ../root/user/UserProfile.js:810
 #, fuzzy
 #| msgid "Remove area"
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "Pašalinti teritoriją"
 
-#: ../root/user/UserProfile.js:800
+#: ../root/user/UserProfile.js:801
 #, fuzzy
 #| msgid "Downvote"
 msgctxt "folksonomy"
 msgid "Tags downvoted"
 msgstr "Sumažinti"
 
-#: ../root/user/UserProfile.js:826
+#: ../root/user/UserProfile.js:827
 msgid "Ratings are removed when an editor is deleted."
 msgstr ""
 
-#: ../root/user/UserProfile.js:829
+#: ../root/user/UserProfile.js:830
 msgctxt "ratings"
 msgid "Removed"
 msgstr ""
 
-#: ../root/user/UserProfile.js:866
+#: ../root/user/UserProfile.js:867
 msgid "Editing/voting disabled"
 msgstr ""
 
-#: ../root/user/UserProfile.js:869
+#: ../root/user/UserProfile.js:870
 msgid "Edit notes disabled"
 msgstr ""
 
-#: ../root/user/UserProfile.js:883
+#: ../root/user/UserProfile.js:884
 msgid "Blocked spam account"
 msgstr ""
 
-#: ../root/user/UserProfile.js:885
+#: ../root/user/UserProfile.js:886
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
 "reporting the spammer from their user page."
 msgstr ""
 
-#: ../root/user/UserProfile.js:939
+#: ../root/user/UserProfile.js:940
 msgid "Report this user for bad behavior"
 msgstr ""
 
@@ -17078,42 +17176,42 @@ msgstr ""
 #: ../root/user/UserSubscriptions.js:175
 msgid "{num} artist"
 msgid_plural "{num} artists"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{num} atlikėjas"
+msgstr[1] "{num} atlikėjai"
+msgstr[2] "{num} atlikėjo"
+msgstr[3] "{num} atlikėjų"
 
 #: ../root/user/UserSubscriptions.js:186
 msgid "{num} collection"
 msgid_plural "{num} collections"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{num} kolekcija"
+msgstr[1] "{num} kolekcijos"
+msgstr[2] "{num} kolekcijos"
+msgstr[3] "{num} kolekcijų"
 
 #: ../root/user/UserSubscriptions.js:197
 msgid "{num} editor"
 msgid_plural "{num} editors"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{num} redaktorius"
+msgstr[1] "{num} redaktoriai"
+msgstr[2] "{num} redaktoriaus"
+msgstr[3] "{num} redaktorių"
 
 #: ../root/user/UserSubscriptions.js:208
 msgid "{num} label"
 msgid_plural "{num} labels"
-msgstr[0] "{num} įrašų kompanija"
-msgstr[1] "{num} įrašų kompanijos"
-msgstr[2] "{num} įrašų kompanijų"
-msgstr[3] "{num} įrašų kompanijų"
+msgstr[0] "{num} leidykla"
+msgstr[1] "{num} leidyklos"
+msgstr[2] "{num} leidyklos"
+msgstr[3] "{num} leidyklų"
 
 #: ../root/user/UserSubscriptions.js:219
 msgid "{num} series"
 msgid_plural "{num} series"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{num} serija"
+msgstr[1] "{num} serijos"
+msgstr[2] "{num} serijos"
+msgstr[3] "{num} serijų"
 
 #: ../root/user/UserSubscriptions.js:240
 msgid "No public subscriptions."
@@ -17130,18 +17228,18 @@ msgstr ""
 #: ../root/user/UserSubscriptions.js:259
 msgid "{editor} is also subscribed to {n} other private collection."
 msgid_plural "{editor} is also subscribed to {n} other private collections."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{editor} taip pat yra užsiprenumeravęs {n} kitą privačią kolekciją."
+msgstr[1] "{editor} taip pat yra užsiprenumeravęs {n} kitas privačias kolekcijas."
+msgstr[2] "{editor} taip pat yra užsiprenumeravęs {n} kitos privačios kolekcijos."
+msgstr[3] "{editor} taip pat yra užsiprenumeravęs {n} kitų privačių kolekcijų."
 
 #: ../root/user/UserSubscriptions.js:269
 msgid "{editor} is subscribed to {n} private collection."
 msgid_plural "{editor} is subscribed to {n} private collections."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{editor} yra užsiprenumeravęs {n} privačią kolekciją."
+msgstr[1] "{editor} yra užsiprenumeravęs {n} privačias kolekcijas."
+msgstr[2] "{editor} yra užsiprenumeravęs {n} privačios kolekcijos."
+msgstr[3] "{editor} yra užsiprenumeravęs {n} privačių kolekcijų."
 
 #: ../root/user/UserTagList.js:21
 #, fuzzy
@@ -17211,50 +17309,50 @@ msgstr ""
 #: ../root/utility/age.js:150
 msgid "{num} year"
 msgid_plural "{num} years"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{num} metai"
+msgstr[1] "{num} metai"
+msgstr[2] "{num} metų"
+msgstr[3] "{num} metų"
 
 #: ../root/utility/age.js:152
 msgid "{num} month"
 msgid_plural "{num} months"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{num} mėnesį"
+msgstr[1] "{num} mėnesiai"
+msgstr[2] "{num} mėnesio"
+msgstr[3] "{num} mėnesių"
 
 #: ../root/utility/age.js:154
 msgid "{num} day"
 msgid_plural "{num} days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{num} diena"
+msgstr[1] "{num} dienos"
+msgstr[2] "{num} dienos"
+msgstr[3] "{num} dienų"
 
 #: ../root/utility/age.js:161
 msgid "{num} year ago"
 msgid_plural "{num} years ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "prieš {num} metus"
+msgstr[1] "prieš {num} metus"
+msgstr[2] "prieš {num} metų"
+msgstr[3] "prieš {num} metų"
 
 #: ../root/utility/age.js:164
 msgid "{num} month ago"
 msgid_plural "{num} months ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "prieš {num} mėnesį"
+msgstr[1] "prieš {num} mėnesius"
+msgstr[2] "prieš {num} mėnesio"
+msgstr[3] "prieš {num} mėnesių"
 
 #: ../root/utility/age.js:170
 msgid "{num} day ago"
 msgid_plural "{num} days ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "prieš {num} dieną"
+msgstr[1] "prieš {num} dienas"
+msgstr[2] "prieš {num} dienos"
+msgstr[3] "prieš {num} dienų"
 
 #: ../root/utility/edit.js:35
 msgid "Accept upon closing"

@@ -41,7 +41,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-04-09 13:28+0000\n"
+"PO-Revision-Date: 2024-06-14 12:30+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
@@ -51,7 +51,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.5.5\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -448,16 +448,12 @@ msgstr ""
 "commun."
 
 #: DB:link_type/description:842
-#, fuzzy
-#| msgid ""
-#| "Indicates a page that reviews the release (group) in question, whether it "
-#| "be in text, audio or video form."
 msgid ""
 "Indicates a webpage that reviews the event in question, whether it be in "
 "text, audio or video form."
 msgstr ""
-"Indique une page qui passe en revue la parution (ou le groupe de parution) "
-"en question, que ce soit sous forme écrite, audio, ou vidéo."
+"Indique une page qui passe en revue l’événement en question, que ce soit "
+"sous forme écrite, audio, ou vidéo."
 
 #: DB:link_type/description:958
 msgid "Indicates a webpage where you can download a label's releases for free."

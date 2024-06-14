@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-08 12:42+0000\n"
+"PO-Revision-Date: 2024-06-04 22:42+0000\n"
 "Last-Translator: \"ApeKattQuest, MonkeyPython\" "
 "<ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -428,10 +428,8 @@ msgid ""
 msgstr ""
 
 #: DB:link_attribute_type/description:567
-#, fuzzy
-#| msgid "Indicates that one entity is a cover of another entity"
 msgid "Indicates that one entity is a cover of another entity."
-msgstr "Spesifiserer at en enhet er cover av en annen enhet"
+msgstr "Spesifiserer at et objekt er coverversjon av et annet."
 
 #: DB:link_type/description:996
 msgid "Indicates that the artist is part of a series."
@@ -4723,7 +4721,7 @@ msgstr ""
 
 #: DB:link_type/name:309
 msgid "edit"
-msgstr ""
+msgstr "endre, redigere"
 
 #: DB:link_type/link_phrase:309
 msgid "edit of"

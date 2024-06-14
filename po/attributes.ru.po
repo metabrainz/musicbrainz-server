@@ -27,7 +27,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-26 22:42+0000\n"
+"PO-Revision-Date: 2024-06-12 21:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -39,7 +39,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.5.5\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -4315,7 +4315,7 @@ msgstr ""
 #: DB:area_type/name:9
 msgctxt "area_type"
 msgid "Indigenous territory / reserve"
-msgstr ""
+msgstr "Земля коренных народов"
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -4390,7 +4390,7 @@ msgstr ""
 #: DB:area_type/name:6
 msgctxt "area_type"
 msgid "Island"
-msgstr "остров"
+msgstr "Остров"
 
 #: DB:area_type/description:6
 msgctxt "area_type"
@@ -4400,8 +4400,8 @@ msgid ""
 "for a given area."
 msgstr ""
 "Остров используется для островов и атоллов, которые не образуют собственных "
-"подразделений, например. Skye. Они не учитываются при отображении "
-"родительских областей для данной области."
+"подразделений, например, Сахалин. Они не учитываются при отображении "
+"родительских областей для данного района."
 
 #: DB:work_attribute_type/name:69
 msgctxt "work_attribute_type"
@@ -5330,7 +5330,7 @@ msgstr ""
 #: DB:area_type/name:8
 msgctxt "area_type"
 msgid "Military base"
-msgstr ""
+msgstr "Военная база"
 
 #: DB:medium_format/name:166
 msgctxt "medium_format"
@@ -7352,7 +7352,7 @@ msgstr "Студия"
 #: DB:area_type/name:2
 msgctxt "area_type"
 msgid "Subdivision"
-msgstr ""
+msgstr "Подразделение"
 
 #: DB:area_type/description:2
 msgctxt "area_type"
@@ -7361,9 +7361,9 @@ msgid ""
 "California, Ontario, Okinawa. These are considered when displaying the "
 "parent areas for a given area."
 msgstr ""
-"Подразделение используется для основных административных подразделений "
-"страны, например. Калифорния, Онтарио, Окинава. Они учитываются при "
-"отображении родительских областей для данной области."
+"Подразделение используется для основных административных единиц страны, "
+"например, Калифорния, Онтарио, Окинава. Они учитываются при отображении "
+"родительских областей для данного региона."
 
 #: DB:work_attribute_type_allowed_value/value:244
 msgctxt "work_attribute_type_allowed_value"
@@ -8082,6 +8082,8 @@ msgid ""
 "Used for any military bases that are large enough to be considered an area, "
 "not just a place."
 msgstr ""
+"Используется для военных баз достаточно больших, чтобы считаться "
+"самостоятельной областью, а не местом."
 
 #: DB:area_type/description:9
 msgctxt "area_type"
@@ -8090,6 +8092,9 @@ msgid ""
 "Indian reserves/reservations in North America and indigenous territories in "
 "Central and South America."
 msgstr ""
+"Используется для обозначения полуавтономных территорий, управляемых "
+"коренными народами, таких как индейские резервации/заповедники в Северной "
+"Америке и территории коренных народов в Центральной и Южной Америке."
 
 #: DB:work_attribute_type/name:17
 msgctxt "work_attribute_type"
