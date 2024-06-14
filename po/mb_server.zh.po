@@ -13,13 +13,15 @@
 # claybiockiller <claybiockiller@users.noreply.translations.metabrainz.org>, 2024.
 # suming <suming@users.noreply.translations.metabrainz.org>, 2024.
 # yangmouren <yangmouren@users.noreply.translations.metabrainz.org>, 2024.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-28 14:51+0000\n"
-"PO-Revision-Date: 2024-04-17 17:40+0000\n"
-"Last-Translator: x1ao4 <kazaf_ken@163.com>\n"
+"PO-Revision-Date: 2024-06-05 18:42+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -27,7 +29,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -5885,8 +5887,7 @@ msgstr "请给 {credit} 添加艺术家姓名"
 msgid ""
 "Artist \"{artist}\" is unlinked, please select an existing artist. You may "
 "need to add a new artist to MusicBrainz first."
-msgstr ""
-"歌手“{Artist}”未关联，请选择一个现有的歌手。你可能需要先向MusicBrainz添加一个"
+msgstr "歌手“{artist}”未关联，请选择一个现有的歌手。你可能需要先向MusicBrainz添加一个"
 "新的歌手。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:64

@@ -56,17 +56,17 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-28 14:51+0000\n"
-"PO-Revision-Date: 2024-05-17 12:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-05-30 19:42+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -159,8 +159,6 @@ msgid "(add a new recording)"
 msgstr "(añadir nueva grabación)"
 
 #: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
-#, fuzzy
-#| msgid "(no other cover art)"
 msgid "(no other images)"
 msgstr "(no hay otras imágenes)"
 
@@ -277,12 +275,9 @@ msgid "Add event"
 msgstr "Añadir evento"
 
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add event"
 msgctxt "plural, header"
 msgid "Add event art"
-msgstr "Añadir evento"
+msgstr "Añadir imágenes"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 msgctxt "header"
@@ -633,17 +628,12 @@ msgid "Bot"
 msgstr "Bot"
 
 #: ../root/layout.tt:131 ../root/layout/components/Footer.js:52
-#, fuzzy
-#| msgid ""
-#| "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
-#| "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}."
 msgstr ""
-"Ofrecido por {MeB|MetaBrainz Foundation} con la ayuda de {spon|"
-"patrocinadores} y {supp|simpatizantes}. Imágenes proporcionadas por el {caa|"
-"Cover Art Archive}."
+"Ofrecido por {MeB|MetaBrainz Foundation} con la ayuda de "
+"{spon|patrocinadores} y {supp|simpatizantes}."
 
 #: ../root/layout.tt:122 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
@@ -982,12 +972,9 @@ msgid "Edit cover art"
 msgstr "Editar imagen"
 
 #: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:4
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit event"
 msgctxt "singular, header"
 msgid "Edit event art"
-msgstr "Editar evento"
+msgstr "Editar imagen"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18
@@ -2054,20 +2041,16 @@ msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
 "these types."
 msgstr ""
-"Consulta la {doc|documentación sobre tipos de imágen} para saber más sobre "
-"estos tipos."
+"Consulta la {doc|documentación sobre tipos de imagen de publicación} para "
+"saber más sobre estos tipos."
 
 #: ../root/event/add_event_art.tt:66 ../root/event/EventArtFields.js:23
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Please see the {doc|Event Art Types} documentation for a description of "
 "these types."
 msgstr ""
-"Consulta la {doc|documentación sobre tipos de imágen} para saber más sobre "
-"estos tipos."
+"Consulta la {doc|documentación sobre tipos de imagen de evento} para saber "
+"más sobre estos tipos."
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
@@ -2346,9 +2329,6 @@ msgid "Reorder cover art"
 msgstr "Ordenar imágenes"
 
 #: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
-#, fuzzy
-#| msgctxt "plural, header"
-#| msgid "Reorder cover art"
 msgctxt "plural, header"
 msgid "Reorder event art"
 msgstr "Ordenar imágenes"
@@ -2623,16 +2603,12 @@ msgid "Tagger"
 msgstr "Etiquetador"
 
 #: ../root/event/add_event_art.tt:12 ../root/release/add_cover_art.tt:12
-#, fuzzy
-#| msgid ""
-#| "The Cover Art Archive is currently experiencing difficulties. Adding "
-#| "images for this release is unlikely to work at the moment."
 msgid ""
 "The Internet Archive is currently experiencing difficulties. Adding images "
 "is unlikely to work at the moment."
 msgstr ""
-"El Cover Art Archive está teniendo problemas, y es probable que cualquier "
-"intento de añadir imágenes a esta publicación falle durante un tiempo."
+"El Internet Archive está teniendo problemas, y es probable que cualquier "
+"intento de añadir imágenes falle durante un tiempo."
 
 #: ../root/release/edit/information.tt:348
 msgid "The annotation field functions like a miniature wiki."
@@ -4424,46 +4400,34 @@ msgstr ""
 "{contact_url} para que podamos arreglarlo."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:342
-#, fuzzy, perl-brace-format
-#| msgid ""
-#| "Cover art can’t be uploaded to this release because we don’t own the "
-#| "associated item at the Internet Archive. Please contact us at "
-#| "{contact_url} so we can resolve this."
+#, perl-brace-format
 msgid ""
 "Event art can’t be uploaded to this event because we don’t own the "
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
 msgstr ""
-"No puedes subir imágenes para esta publicación porque no somos los dueños de "
-"su entrada asociada en el Internet Archive. Por favor, háznoslo saber en "
+"No puedes subir imágenes para este evento porque no somos los dueños de su "
+"entrada asociada en el Internet Archive. Por favor, háznoslo saber en "
 "{contact_url} para que podamos arreglarlo."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:465
 #: ../root/event/EventArtDarkened.js:25 ../root/release/CoverArtDarkened.js:19
-#, fuzzy
-#| msgid ""
-#| "The Cover Art Archive has had a takedown request in the past for this "
-#| "release, so we are unable to allow any more uploads."
 msgid ""
 "The Internet Archive has had a takedown request in the past for this item, "
 "so we are unable to allow any more uploads."
 msgstr ""
-"El Cover Art Archive ha recibido una solicitud de bloqueo para esta "
-"publicación, así que no podemos permitir nuevas subidas."
+"El Internet Archive ha recibido una solicitud de bloqueo para esta entidad, "
+"así que no podemos permitir nuevas subidas."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:510
-#, fuzzy, perl-brace-format
-#| msgid ""
-#| "Cover art can’t be uploaded to this release because we don’t own the "
-#| "associated item at the Internet Archive. Please contact us at "
-#| "{contact_url} so we can resolve this."
+#, perl-brace-format
 msgid ""
 "Images can’t be uploaded here because we don’t own the associated item at "
 "the Internet Archive. Please contact us at {contact_url} so we can resolve "
 "this."
 msgstr ""
-"No puedes subir imágenes para esta publicación porque no somos los dueños de "
-"su entrada asociada en el Internet Archive. Por favor, háznoslo saber en "
+"No puedes subir imágenes para esta entidad porque no somos los dueños de su "
+"entrada asociada en el Internet Archive. Por favor, háznoslo saber en "
 "{contact_url} para que podamos arreglarlo."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:708
@@ -4666,12 +4630,9 @@ msgid "Add event annotation"
 msgstr "Añadir anotación a evento"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add event"
 msgctxt "singular, edit type"
 msgid "Add event art"
-msgstr "Añadir evento"
+msgstr "Añadir imagen de evento"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 msgctxt "edit type"
@@ -4699,12 +4660,9 @@ msgid "Edit event alias"
 msgstr "Editar alias de evento"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditEventArt.pm:15
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit event"
 msgctxt "singular, edit type"
 msgid "Edit event art"
-msgstr "Editar evento"
+msgstr "Editar imagen de evento"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Merge.pm:11
 msgctxt "edit type"
@@ -4712,20 +4670,14 @@ msgid "Merge events"
 msgstr "Fusionar eventos"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/RemoveEventArt.pm:15
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove event"
 msgctxt "singular, edit type"
 msgid "Remove event art"
-msgstr "Eliminar evento"
+msgstr "Eliminar imagen de evento"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/ReorderEventArt.pm:15
-#, fuzzy
-#| msgctxt "plural, edit type"
-#| msgid "Reorder cover art"
 msgctxt "plural, edit type"
 msgid "Reorder event art"
-msgstr "Ordenar imágenes"
+msgstr "Ordenar imágenes de evento"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAlias.pm:11
 msgctxt "edit type"
@@ -5177,7 +5129,7 @@ msgstr "Añadir alias de publicación"
 #: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:15
 msgctxt "singular, edit type"
 msgid "Add cover art"
-msgstr "Añadir imagen"
+msgstr "Añadir imagen de publicación"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:19
 msgctxt "edit type"
@@ -5212,7 +5164,7 @@ msgstr "Editar códigos de barras"
 #: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:14
 msgctxt "singular, edit type"
 msgid "Edit cover art"
-msgstr "Editar imagen"
+msgstr "Editar imagen de publicación"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:27
 msgctxt "edit type"
@@ -5234,12 +5186,12 @@ msgstr "No podemos fusionar estas publicaciones: {reason}"
 #: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:15
 msgctxt "singular, edit type"
 msgid "Remove cover art"
-msgstr "Eliminar imagen"
+msgstr "Eliminar imagen de publicación"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:14
 msgctxt "plural, edit type"
 msgid "Reorder cover art"
-msgstr "Ordenar imágenes"
+msgstr "Ordenar imágenes de publicación"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderMediums.pm:20
 msgctxt "edit type"
@@ -5923,28 +5875,19 @@ msgid "Non-videos only"
 msgstr "Solo no vídeos"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:71
-#, fuzzy
-#| msgctxt "barcode"
-#| msgid "[none]"
 msgctxt "release country"
 msgid "[none]"
 msgstr "[ninguno]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:80
-#, fuzzy
-#| msgctxt "barcode"
-#| msgid "[none]"
 msgctxt "release label"
 msgid "[none]"
-msgstr "[ninguno]"
+msgstr "[ninguna]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:89
-#, fuzzy
-#| msgctxt "barcode"
-#| msgid "[none]"
 msgctxt "release status"
 msgid "[none]"
-msgstr "[ninguno]"
+msgstr "[ninguna]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:98
 msgid ""
@@ -8076,16 +8019,11 @@ msgid "Cover art ({num})"
 msgstr "Imágenes ({num})"
 
 #: ../root/components/EntityTabs.js:131
-#, fuzzy
-#| msgid "Event ratings"
 msgctxt "plural"
 msgid "Event art"
-msgstr "Calificaciones de eventos"
+msgstr "Imágenes"
 
 #: ../root/components/EntityTabs.js:133
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Cover art ({num})"
 msgctxt "plural"
 msgid "Event art ({num})"
 msgstr "Imágenes ({num})"
@@ -8712,25 +8650,21 @@ msgstr ""
 "suscripciones."
 
 #: ../root/edit/components/EditArtwork.js:23
-#, fuzzy
-#| msgid "Event ratings"
 msgctxt "singular"
 msgid "Event art"
-msgstr "Calificaciones de eventos"
+msgstr "Imagen"
 
 #: ../root/edit/components/EditArtwork.js:32
 #: ../root/edit/details/ReorderArt.js:32
-#, fuzzy
-#| msgid "We are unable to display history for this cover art."
 msgid ""
 "We are unable to display history for this image. See {artpage|all current "
 "images}."
-msgstr "No podemos mostrar la historia de esta imagen."
+msgstr ""
+"No podemos mostrar la historia de esta imagen. Puedes ver {artpage|todas las "
+"imágenes actuales}."
 
 #: ../root/edit/components/EditArtwork.js:36
 #: ../root/edit/details/ReorderArt.js:36
-#, fuzzy
-#| msgid "We are unable to display history for this cover art."
 msgid "We are unable to display history for this image."
 msgstr "No podemos mostrar la historia de esta imagen."
 
@@ -9260,7 +9194,7 @@ msgstr "Idiomas de la letra"
 
 #: ../root/edit/details/BetaOnlyEdit.js:29
 msgid "This edit can currently only be viewed on the {beta|beta server}."
-msgstr ""
+msgstr "Esta edición solo está disponible en el {beta|servidor beta}."
 
 #: ../root/edit/details/ChangeReleaseQuality.js:26
 #: ../root/edit/details/historic/ChangeArtistQuality.js:26
@@ -10361,16 +10295,11 @@ msgstr ""
 "Consulta la {doc|documentación sobre alias} antes de introducir esta edición."
 
 #: ../root/event/EventArt.js:32
-#, fuzzy
-#| msgid "Event ratings"
 msgctxt "plural, header"
 msgid "Event art"
-msgstr "Calificaciones de eventos"
+msgstr "Imágenes"
 
 #: ../root/event/EventArt.js:38
-#, fuzzy
-#| msgctxt "plural, header"
-#| msgid "Cannot show cover art"
 msgctxt "plural, header"
 msgid "Cannot show event art"
 msgstr "No se pueden mostrar imágenes"
@@ -10379,74 +10308,50 @@ msgstr "No se pueden mostrar imágenes"
 #: ../root/layout/components/sidebar/EventSidebar.js:58
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:92
 #: ../root/release/CoverArt.js:40
-#, fuzzy
-#| msgid ""
-#| "Cover art for this release has been hidden by the Internet Archive "
-#| "because of a takedown request."
 msgid ""
 "Images for this item have been hidden by the Internet Archive because of a "
 "takedown request."
 msgstr ""
-"El Internet Archive ha ocultado las imágenes de esta publicación tras "
-"recibir una solicitud de eliminación."
+"El Internet Archive ha ocultado las imágenes de esta entidad tras recibir "
+"una solicitud de eliminación."
 
 #: ../root/event/EventArt.js:75 ../root/release/CoverArt.js:71
 msgid "All sizes:"
 msgstr "Todos los tamaños:"
 
 #: ../root/event/EventArt.js:100
-#, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {eaa|Event Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr ""
-"Imágenes cortesía del {caa|Cover Art Archive}. También puedes verlas en el "
-"{ia|Internet Archive}."
+"Las imágenes son parte del del {eaa|Event Art Archive}. También puedes "
+"verlas en el {ia|Internet Archive}."
 
 #: ../root/event/EventArt.js:112
-#, fuzzy
-#| msgid "We do not currently have any cover art for {release}."
 msgid "We do not currently have any event art for {event}."
-msgstr "No tenemos ninguna imagen para {release}."
+msgstr "No tenemos ninguna imagen para {event}."
 
 #: ../root/event/EventArt.js:122
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add event"
 msgctxt "plural, interactive"
 msgid "Add event art"
-msgstr "Añadir evento"
+msgstr "Añadir imágenes"
 
 #: ../root/event/EventArt.js:128
-#, fuzzy
-#| msgctxt "plural, interactive"
-#| msgid "Reorder cover art"
 msgctxt "plural, interactive"
 msgid "Reorder event art"
 msgstr "Ordenar imágenes"
 
 #: ../root/event/EventArt.js:137 ../root/release/CoverArt.js:148
-#, fuzzy
-#| msgctxt "plural, interactive"
-#| msgid "Log in to upload cover art"
 msgctxt "plural, interactive"
 msgid "Log in to upload images"
 msgstr "Inicia sesión para añadir imágenes"
 
 #: ../root/event/EventArtDarkened.js:19
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Cannot add cover art"
 msgctxt "plural"
 msgid "Cannot add event art"
 msgstr "No se pueden añadir imágenes"
 
 #: ../root/event/EventArtFields.js:21
-#, fuzzy
-#| msgid "Choose one or more cover art types for this image"
 msgid "Choose one or more event art types for this image"
 msgstr "Elige uno o más tipos para esta imagen"
 
@@ -10463,22 +10368,13 @@ msgstr ""
 "fusionar los demás:"
 
 #: ../root/event/RemoveEventArt.js:29
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove event"
 msgctxt "singular, header"
 msgid "Remove event art"
-msgstr "Eliminar evento"
+msgstr "Eliminar imagen"
 
 #: ../root/event/RemoveEventArt.js:36 ../root/release/RemoveCoverArt.js:31
-#, fuzzy
-#| msgid ""
-#| "Are you sure you wish to remove the below cover art from {release} by "
-#| "{artist}?"
 msgid "Are you sure you wish to remove the image below from {entity}?"
-msgstr ""
-"¿Seguro que quieres eliminar la imagen mostrada abajo de la publicación "
-"{release} de {artist}?"
+msgstr "¿Seguro que quieres eliminar la imagen mostrada abajo de {entity}?"
 
 #: ../root/futureColumnLabels.js:24
 msgid "ISO 639-1"
@@ -10677,7 +10573,7 @@ msgstr "Conformidad con el RGPD"
 
 #: ../root/layout/components/BottomMenu.js:141
 msgid "Copyright and DMCA compliance"
-msgstr ""
+msgstr "Copyright y conformidad con el DCMA"
 
 #: ../root/layout/components/BottomMenu.js:145
 msgid "Data removal policy"
@@ -11109,18 +11005,12 @@ msgstr "Inicia sesión para editar"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:52
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:86
-#, fuzzy
-#| msgid ""
-#| "Front cover image failed to load correctly.<br/>{all|View all artwork}."
 msgid "Image failed to load correctly.<br/>{all|View all images}."
-msgstr ""
-"No pudimos cargar la imagen de la carátula.<br/>{all|Ver todas las imágenes}."
+msgstr "No pudimos cargar la imagen.<br/>{all|Ver todas las imágenes}."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:64
-#, fuzzy
-#| msgid "No cover art available."
 msgid "No poster available."
-msgstr "No hay imágenes disponibles."
+msgstr "Póster no disponible."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:67
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:101
@@ -11129,10 +11019,8 @@ msgstr "Ver todas las imágenes"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:70
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:104
-#, fuzzy
-#| msgid "No front cover image available."
 msgid "No images available."
-msgstr "Carátula no disponible."
+msgstr "No hay imágenes disponibles."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:82
 msgid "Event information"
@@ -12084,16 +11972,12 @@ msgid "Cannot show cover art"
 msgstr "No se pueden mostrar imágenes"
 
 #: ../root/release/CoverArt.js:96
-#, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr ""
-"Imágenes cortesía del {caa|Cover Art Archive}. También puedes verlas en el "
-"{ia|Internet Archive}."
+"Las imágenes son parte del {caa|Cover Art Archive}. También puedes verlas en "
+"el {ia|Internet Archive}."
 
 #: ../root/release/CoverArt.js:109
 msgid "We do not currently have any cover art for {release}."
@@ -12320,13 +12204,6 @@ msgid "Artists with disambiguation the same as the name"
 msgstr "Artistas con desambiguación igual que el nombre"
 
 #: ../root/report/ArtistsThatMayBeGroups.js:25
-#, fuzzy
-#| msgid ""
-#| "This report lists artists that have their type set to other than Group "
-#| "(or a subtype of Group) but may be a group, because they have other "
-#| "artists listed as members. If you find that an artist here is indeed a "
-#| "group, change its type. If it is not, please make sure that the “member "
-#| "of” relationships are in the right direction and are correct."
 msgid ""
 "This report lists artists that have their type set to other than Group (or a "
 "subtype of Group) but may be a group, because they have other artists listed "
@@ -12338,11 +12215,15 @@ msgid ""
 "direction and are correct, whether “renamed into” needs to be turned into "
 "“performs as” relationships, and so on."
 msgstr ""
-"Este informe lista artistas que tiene su tipo fijado a otro distinto de "
-"Grupo (o tipo derivado) pero podría ser un grupo, porque pueden tener otros "
-"artistas listados como miembros. Si encuentras un artista aquí que es de "
-"hecho un grupo, cambia su tipo. Si no, por favor asegúrate que \"miembro "
-"de\" relaciones están en la dirección correcta y són correctos."
+"Este informe lista artistas que tienen un tipo distinto de Grupo (o sus "
+"derivados) pero podría ser un grupo, porque tienen otros artistas listados "
+"como miembros o utilizan otras relaciones que suelen aplicarse solo a grupos "
+"(ya sea en ambas direcciones, como “subgrupo” o “nuevo nombre”, o en una, "
+"como “director artístico”, “director” o “compositor residente”. Si "
+"encuentras un artista aquí que es de hecho un grupo, cambia su tipo. Si no, "
+"por favor asegúrate de que las relaciones de “miembro de grupo” están en la "
+"dirección apropiada y son correctas, si las relaciones de “nuevo nombre” "
+"tienen que ser cambiadas a “nombre artístico”, etc."
 
 #: ../root/report/ArtistsThatMayBeGroups.js:39
 #: ../root/report/ReportsIndex.js:52
@@ -13616,10 +13497,8 @@ msgstr "Grabaciones en vídeo en medios sin formato de vídeo"
 
 #: ../root/report/ReportsIndex.js:544
 #: ../root/report/VideoRelationshipsOnNonVideos.js:52
-#, fuzzy
-#| msgid "Recordings with earliest release relationships"
 msgid "Non-video recordings with video relationships"
-msgstr "Grabaciones con la relación \"primera publicación\""
+msgstr "Grabaciones que no son vídeos pero tienen relaciones para vídeos"
 
 #: ../root/report/ReportsIndex.js:557
 msgid "Places with annotations"
@@ -13784,15 +13663,6 @@ msgstr ""
 "menos un medio con un formato que no incluye vídeos."
 
 #: ../root/report/VideosInNonVideoMediums.js:30
-#, fuzzy
-#| msgid ""
-#| "There are two main possibilities here: either the recording being marked "
-#| "as a video is correct, but the format is not (a CD should be a VCD, for "
-#| "example), or the recording is being used for both a video and and audio-"
-#| "only recording, in which case the two should be split since video "
-#| "recordings should always be separate. If you split the recordings, "
-#| "consider whether it makes sense to link them with a {doc_link|music video "
-#| "relationship}."
 msgid ""
 "There are two main possibilities here: either the recording being marked as "
 "a video is correct, but the format is not (a CD should be a VCD, for "
@@ -13801,9 +13671,9 @@ msgid ""
 "should always be separate. If you split the recordings, consider whether it "
 "makes sense to link them with a {doc_link|music video relationship}."
 msgstr ""
-"Lo más probable es que o la grabación es efectivamente un vídeo, pero el "
-"formato es incorrecto (un CD que debería ser un VCD, por ejemplo), or que la "
-"misma grabación esté en uso como vídeo y audio. Las versiones en audio y "
+"Lo más probable es que o la grabación sea efectivamente un vídeo, pero el "
+"formato sea incorrecto (un CD que debería ser un VCD, por ejemplo), or que "
+"la misma grabación esté en uso como vídeo y audio. Las versiones en audio y "
 "vídeo deben ser siempre dos grabaciones separadas. Si separas dos "
 "grabaciones, es posible que quieras conectarlas con {doc_link|la relación de "
 "videoclip}."
@@ -14697,10 +14567,8 @@ msgstr ""
 "Este enlace ha sido bloqueado porque sospechamos que puede ser perjudicial."
 
 #: ../root/static/scripts/common/components/EntityLink.js:343
-#, fuzzy
-#| msgid "This release has artwork in the Cover Art Archive"
 msgid "This event has artwork in the Event Art Archive"
-msgstr "Esta publicación tiene imágenes en el Cover Art Archive"
+msgstr "Este evento tiene imágenes en el Event Art Archive"
 
 #: ../root/static/scripts/common/components/EntityLink.js:368
 msgid "This release has artwork in the Cover Art Archive"
@@ -15051,10 +14919,8 @@ msgstr "Cargar todas las pistas."
 
 #: ../root/static/scripts/common/i18n/addQuotes.js:13
 #: ../root/static/scripts/common/i18n/addQuotes.js:17
-#, fuzzy
-#| msgid "{variable}:"
 msgid "“{variable}”"
-msgstr "{variable}:"
+msgstr "“{variable}”"
 
 #: ../root/static/scripts/common/i18n/hyphenateTitle.js:14
 msgid "{title} - {subtitle}"
@@ -15614,8 +15480,6 @@ msgstr ""
 "Quiero cambiar todos los artistas en esta publicación que aún están vacíos"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:138
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "artist credit name"
 msgid "[removed]"
 msgstr "[eliminado]"
