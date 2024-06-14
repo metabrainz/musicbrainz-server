@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-23 14:42+0000\n"
+"PO-Revision-Date: 2024-06-12 21:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -26,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.5.5\n"
 
 #. frequency:1 iso_code:Afak 
 #: DB:script/name:133
@@ -251,7 +251,7 @@ msgstr "Греческий"
 #. frequency:3 iso_code:Gujr 
 #: DB:script/name:52
 msgid "Gujarati"
-msgstr "Гуджарати"
+msgstr "гуджарати"
 
 #. frequency:3 iso_code:Guru 
 #: DB:script/name:49
@@ -341,7 +341,7 @@ msgstr "Кайтхи"
 #. frequency:3 iso_code:Knda 
 #: DB:script/name:60
 msgid "Kannada"
-msgstr "Каннада"
+msgstr "каннада"
 
 #. frequency:4 iso_code:Kana 
 #: DB:script/name:84

@@ -20,7 +20,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-26 22:42+0000\n"
+"PO-Revision-Date: 2024-06-10 00:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -1169,12 +1169,16 @@ msgid ""
 "Points to the Wikidata page for this series, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
+"Указывает на страницу Викиданных для данной серии. Используется для показа "
+"описания о серии из Википедии."
 
 #: DB:link_type/description:351
 msgid ""
 "Points to the Wikidata page for this work, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
+"Указывает на страницу Викиданных для данной работы. Используется для показа "
+"описания о работе из Википедии."
 
 #: DB:link_type/description:89
 msgid "Points to the Wikipedia page for this album."
@@ -1897,6 +1901,8 @@ msgid ""
 "This indicates that an artist appears on a music video, but doesn't actually "
 "perform on the audio track."
 msgstr ""
+"Указывает на исполнителя, появляющегося в музыкальном видео, но не "
+"исполняющего ничего в самом треке."
 
 #: DB:link_type/description:121
 msgid "This indicates that an artist had a recording contract with a label."
@@ -2604,11 +2610,11 @@ msgstr ""
 
 #: DB:link_type/description:1092
 msgid "This links a genre to its page at Bandcamp."
-msgstr ""
+msgstr "Связывает жанр со своей страницей на Bandcamp."
 
 #: DB:link_type/description:1095
 msgid "This links a genre to its subgenres."
-msgstr ""
+msgstr "Связывает жанр с его поджанрами."
 
 #: DB:link_type/description:855
 msgid ""
@@ -4143,7 +4149,7 @@ msgstr ""
 #: DB:link_type/link_phrase:749 DB:link_type/link_phrase:733
 #: DB:link_type/link_phrase:358 DB:link_type/reverse_link_phrase:351
 msgid "Wikidata"
-msgstr ""
+msgstr "Викиданные"
 
 #: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:1087
 #: DB:link_type/reverse_link_phrase:353 DB:link_type/reverse_link_phrase:790
@@ -4151,7 +4157,7 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:594 DB:link_type/reverse_link_phrase:749
 #: DB:link_type/reverse_link_phrase:733 DB:link_type/reverse_link_phrase:358
 msgid "Wikidata page for"
-msgstr ""
+msgstr "страница в Викиданных для"
 
 #: DB:link_type/link_phrase:179 DB:link_type/link_phrase:595
 #: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
@@ -5187,7 +5193,7 @@ msgstr "бесплатный стриминг"
 
 #: DB:link_type/reverse_link_phrase:1088 DB:link_type/reverse_link_phrase:752
 msgid "from"
-msgstr ""
+msgstr "откуда"
 
 #: DB:link_type/link_phrase:1096 DB:link_type/name:1096
 msgid "fusion of"
@@ -5246,7 +5252,7 @@ msgstr "графический дизайн"
 
 #: DB:link_attribute_type/name:194
 msgid "guest"
-msgstr ""
+msgstr "гость"
 
 #: DB:link_type/name:800
 msgid "guest performer"
@@ -5393,7 +5399,7 @@ msgstr ""
 #: DB:link_type/long_link_phrase:749 DB:link_type/long_link_phrase:733
 #: DB:link_type/long_link_phrase:358
 msgid "has a Wikidata page at"
-msgstr ""
+msgstr "имеет страницу в Викиданных на"
 
 #: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:595
 #: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
@@ -6501,7 +6507,7 @@ msgstr "музыкальное производство"
 
 #: DB:link_type/reverse_link_phrase:1046
 msgid "music quoted in"
-msgstr ""
+msgstr "музыка цитируется в"
 
 #: DB:link_attribute_type/name:1222
 msgid "music theory"
@@ -6517,7 +6523,7 @@ msgstr "музыкальное видео"
 
 #: DB:link_type/reverse_link_phrase:857
 msgid "music video for"
-msgstr ""
+msgstr "клип для"
 
 #: DB:link_type/link_phrase:857
 msgid "music videos"
@@ -7598,23 +7604,23 @@ msgstr ""
 
 #: DB:link_type/name:1095
 msgid "subgenre"
-msgstr ""
+msgstr "поджанр"
 
 #: DB:link_type/reverse_link_phrase:1095
 msgid "subgenre of"
-msgstr ""
+msgstr "является поджанром"
 
 #: DB:link_type/link_phrase:1095
 msgid "subgenres"
-msgstr ""
+msgstr "поджанры"
 
 #: DB:link_type/name:722
 msgid "subgroup"
-msgstr ""
+msgstr "подгруппа"
 
 #: DB:link_type/link_phrase:722
 msgid "subgroup of"
-msgstr ""
+msgstr "является подгруппой"
 
 #: DB:link_type/reverse_link_phrase:722
 msgid "subgroups"
@@ -7630,7 +7636,7 @@ msgstr "подсерии"
 
 #: DB:link_type/reverse_link_phrase:823
 msgid "subseries of"
-msgstr "subseries of"
+msgstr "является подсерией"
 
 #: DB:link_type/link_phrase:200
 msgid "subsidiaries"
@@ -7694,7 +7700,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1150
 msgid "task"
-msgstr ""
+msgstr "задача"
 
 #: DB:link_type/long_link_phrase:847
 msgid "taught"
@@ -7721,19 +7727,19 @@ msgstr "тенор"
 #: DB:link_type/name:1193 DB:link_type/name:1194 DB:link_type/name:1195
 #: DB:link_type/name:1196 DB:link_type/name:1197
 msgid "ticketing"
-msgstr ""
+msgstr "билеты"
 
 #: DB:link_type/link_phrase:1193 DB:link_type/link_phrase:1194
 #: DB:link_type/link_phrase:1195 DB:link_type/link_phrase:1196
 #: DB:link_type/link_phrase:1197
 msgid "ticketing page"
-msgstr ""
+msgstr "страница с билетами"
 
 #: DB:link_type/reverse_link_phrase:1193 DB:link_type/reverse_link_phrase:1194
 #: DB:link_type/reverse_link_phrase:1195 DB:link_type/reverse_link_phrase:1196
 #: DB:link_type/reverse_link_phrase:1197
 msgid "ticketing page for"
-msgstr ""
+msgstr "страница с билетами для"
 
 #: DB:link_attribute_type/name:830
 msgid "time"
@@ -7786,15 +7792,15 @@ msgstr "переведено на"
 
 #: DB:link_type/name:1082
 msgid "translated version"
-msgstr ""
+msgstr "переведенная версия"
 
 #: DB:link_type/reverse_link_phrase:1082
 msgid "translated version of"
-msgstr ""
+msgstr "является переведенной версией"
 
 #: DB:link_type/link_phrase:1082
 msgid "translated versions"
-msgstr ""
+msgstr "переведенные версии"
 
 #: DB:link_attribute_type/name:1018 DB:link_type/name:871 DB:link_type/name:872
 msgid "translator"
@@ -7853,7 +7859,7 @@ msgstr ""
 #: DB:link_type/name:86 DB:link_type/name:191 DB:link_type/name:210
 #: DB:link_type/name:788 DB:link_type/name:992 DB:link_type/name:1013
 msgid "vgmdb"
-msgstr ""
+msgstr "vgmdb"
 
 #: DB:link_attribute_type/name:582 DB:link_type/link_phrase:1184
 #: DB:link_type/link_phrase:961 DB:link_type/name:1184 DB:link_type/name:961
@@ -8037,7 +8043,7 @@ msgstr ""
 #: DB:link_type/name:594 DB:link_type/name:749 DB:link_type/name:733
 #: DB:link_type/name:358
 msgid "wikidata"
-msgstr ""
+msgstr "викиданные"
 
 #: DB:link_type/name:179 DB:link_type/name:595 DB:link_type/name:355
 #: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:731
@@ -8780,7 +8786,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:351
 msgid "{entity1} has a Wikidata page at {entity0}"
-msgstr ""
+msgstr "{entity1} имеет страницу в Викиданных на {entity0}"
 
 #: DB:link_type/long_link_phrase:279
 msgid "{entity1} has a Wikipedia page at {entity0}"
