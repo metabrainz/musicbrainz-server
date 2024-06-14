@@ -77,13 +77,14 @@ component Register(
 
       <p>
         {exp.l(
-          `Follow our {bl|blog} or {tw|twitter account}!
-           To talk to other users, try the {fo|forums} or the {chat|chat}.`,
+          `Follow our {blog_link|blog} or {twitterx_link|twitter account}!
+           To talk to other users,
+           try the {forum_link|forums} or the {chat_link|chat}.`,
           {
-            bl: 'http://blog.metabrainz.org/',
-            chat: '/doc/Communication/ChatBrainz',
-            fo: 'https://community.metabrainz.org/',
-            tw: 'https://twitter.com/MusicBrainz',
+            blog_link: 'http://blog.metabrainz.org/',
+            chat_link: '/doc/Communication/ChatBrainz',
+            forum_link: 'https://community.metabrainz.org/',
+            twitterx_link: 'https://twitter.com/MusicBrainz',
           },
         )}
       </p>
