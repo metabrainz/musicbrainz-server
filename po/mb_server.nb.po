@@ -22,9 +22,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-28 14:51+0000\n"
-"PO-Revision-Date: 2024-04-17 17:37+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-06-04 22:42+0000\n"
+"Last-Translator: \"ApeKattQuest, MonkeyPython\" "
+"<ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
 "projects/musicbrainz/server/nb_NO/>\n"
 "Language: nb\n"
@@ -32,11 +32,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
-msgstr "({text})"
+msgstr " ({text})"
 
 #: ../root/components/forms.tt:313
 msgid "\"C\" is a single check digit."
@@ -96,7 +96,7 @@ msgstr ""
 
 #: ../root/event/add_event_art.tt:88 ../root/release/add_cover_art.tt:88
 msgid "&#x26a0; Error requesting signature"
-msgstr ""
+msgstr "&#x26a0; Feil ved signaturforespørsel"
 
 #: ../root/event/add_event_art.tt:102 ../root/release/add_cover_art.tt:102
 msgid "&#x26a0; Error uploading image"
@@ -376,7 +376,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:39
 #: ../root/static/scripts/common/components/Annotation.js:39
 msgid "Annotation"
-msgstr "Anmerkning "
+msgstr "Anmerkning"
 
 #: ../root/edit/search_macros.tt:434
 msgid "Applied edit count of editor"
@@ -600,8 +600,6 @@ msgid "Blog"
 msgstr "Blogg"
 
 #: ../root/edit/search_macros.tt:399
-#, fuzzy
-#| msgid "Bot"
 msgctxt "user type"
 msgid "Bot"
 msgstr "Bot"
@@ -1160,7 +1158,7 @@ msgstr ""
 #: ../root/place/edit_form.tt:3 ../root/work/edit_form.tt:4
 #: ../root/search/components/SearchForm.js:99
 msgid "For more information, check the {doc_doc|documentation}."
-msgstr ""
+msgstr "For mer informasjon, se {doc_doc|documentation}."
 
 #: ../root/cdtoc/list.tt:9 ../root/release/edit/duplicates.tt:11
 #: ../root/release/edit/tracklist.tt:305
@@ -1203,7 +1201,7 @@ msgstr "Fransk"
 #: ../root/cdstub/index.tt:30 ../root/cdstub/CDStubIndex.js:51
 #: ../root/cdtoc/CDTocInfo.js:22
 msgid "Full TOC:"
-msgstr ""
+msgstr "Full innholdsfortegnelse:"
 
 #: ../root/artist/edit_form.tt:17 ../root/components/list/ArtistList.js:73
 #: ../root/edit/details/AddArtist.js:72 ../root/edit/details/EditArtist.js:91
@@ -1222,7 +1220,7 @@ msgstr "Kjønn"
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
 #: ../root/tag/TagIndex.js:22
 msgid "Genre"
-msgstr ""
+msgstr "Sjanger"
 
 #: ../root/components/forms.tt:228 ../root/release/edit/information.tt:14
 #: ../root/release/edit/tracklist.tt:527
@@ -1259,11 +1257,11 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:225
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:155
 msgid "Guess feat. artists"
-msgstr ""
+msgstr "Gjett medartister"
 
 #: ../root/release/edit/tracklist.tt:528
 msgid "Guess feat. artists from track titles"
-msgstr ""
+msgstr "Hent medartister fra sportitter"
 
 #: ../root/components/forms.tt:241
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:106
@@ -1276,34 +1274,35 @@ msgstr "HH:MM"
 
 #: ../root/release/edit/information.tt:339
 msgid "I confirm that this is the barcode as it appears on the release."
-msgstr ""
+msgstr "Jeg bekrefter at dette er strekkoden som vises på utgivelsen."
 
 #: ../root/release/edit/tracklist.tt:390
 msgid "I confirm this is a correct medium format/packaging combination."
-msgstr ""
+msgstr "Jeg bekrefter at dette er riktig mediums-format og emballasje-kombo."
 
 #: ../root/release/edit/tracklist.tt:413
 msgid "I confirm this is an intentional use of Various Artists on tracks."
 msgstr ""
+"Jeg bekrefter at det er meningen å bruke \"diverse artister\" på enkeltspor."
 
 #: ../root/release/edit/tracklist.tt:314
 msgid "I don’t know"
-msgstr ""
+msgstr "Jeg vet ikke"
 
 #: ../root/release/edit/tracklist.tt:426
 msgid "I don’t know the tracklist for this medium."
-msgstr ""
+msgstr "Jeg vet ikke sporlista for dette mediumet."
 
 #: ../root/release/edit/tracklist.tt:280
 msgid "I have no information about this release’s media and tracklist."
-msgstr ""
+msgstr "Jeg har ingen informasjon om denne utgivelsens medium eller sporliste."
 
 #: ../root/edit/search_macros.tt:434 ../root/futureColumnLabels.js:22
 #: ../root/futureColumnLabels.js:38
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:111
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:152
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
 #: ../root/edit/details/AddArtist.js:132 ../root/edit/details/AddLabel.js:97
@@ -1314,7 +1313,7 @@ msgstr "IPI kode"
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
 #: ../root/edit/details/EditArtist.js:158 ../root/edit/details/EditLabel.js:127
 msgid "IPI codes"
-msgstr ""
+msgstr "IPI-koder"
 
 #: ../root/components/forms.tt:333
 msgid ""
@@ -1324,7 +1323,7 @@ msgstr ""
 
 #: ../root/layout.tt:121
 msgid "IRC"
-msgstr ""
+msgstr "IRC"
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/AddArtist.js:141 ../root/edit/details/AddLabel.js:106
@@ -1335,7 +1334,7 @@ msgstr "ISNI kode"
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/EditArtist.js:166 ../root/edit/details/EditLabel.js:136
 msgid "ISNI codes"
-msgstr ""
+msgstr "ISNI-koder"
 
 #: ../root/components/forms.tt:342
 msgid ""
@@ -1348,7 +1347,7 @@ msgstr ""
 #: ../root/report/IsrcsWithManyRecordings.js:58
 #: ../root/static/scripts/common/components/IsrcList.js:26
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: ../root/recording/edit_form.tt:45 ../root/report/ReportsIndex.js:613
 #: ../root/search/components/RecordingResults.js:143
@@ -1357,7 +1356,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/IsrcList.js:40
 #: ../root/utility/tableColumns.js:695
 msgid "ISRCs"
-msgstr ""
+msgstr "ISRCer"
 
 #: ../root/work/edit_form.tt:16 ../root/edit/details/AddWork.js:45
 #: ../root/edit/details/EditWork.js:62 ../root/edit/details/RemoveIswc.js:23
@@ -1367,7 +1366,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/IswcList.js:26
 #: ../root/utility/tableColumns.js:709
 msgid "ISWC"
-msgstr ""
+msgstr "ISWC"
 
 #: ../root/work/edit_form.tt:16 ../root/report/ReportsIndex.js:622
 #: ../root/static/scripts/common/components/IswcList.js:40
@@ -1393,42 +1392,51 @@ msgid ""
 "If this is an Amazon ASIN, please do not enter it in the catalog number "
 "field, but add it as a URL relationship later."
 msgstr ""
+"Hvis dette er en Amazon ASIN, må den ikke puttes i katalognummerfeltet, med "
+"legges til som URL-link senere."
 
 #: ../root/release/edit/recordings.tt:160
 msgid ""
 "If we do not have a recording for this track in the database yet, please "
 "select \"Add a new recording\" below."
 msgstr ""
+"Hvis databasen ikke har en innspilling for dette sporet ennå, velg \"Legg "
+"til ny innspilling\" under."
 
 #: ../root/cdtoc/attach_artist_releases.tt:49
 msgid "If you can't find what you're looking for, you can add a new release:"
 msgstr ""
+"Du kan legge til en ny utgivelse hvis du ikke finner det du leter etter:"
 
 #: ../root/release/edit/information.tt:330
 msgid ""
 "If you do not know whether the release has a barcode or not, just leave this "
 "blank."
 msgstr ""
+"La være blank hvis du ikke vet om denne utgivelsen har strekkode eller ikke."
 
 #: ../root/cdtoc/attach_filter_release.tt:75
 msgid ""
 "If you don't see the release you are looking for, you can still add a new "
 "one, using this CD TOC:"
 msgstr ""
+"Hvis du ikke finner den riktige utgivelsen, kan du legge til en ny ved å "
+"bruke denne CD TOCen:"
 
 #: ../root/components/forms.tt:336 ../root/components/forms.tt:345
 msgid "If you don’t know the code for this entity, just leave the field blank."
-msgstr ""
+msgstr "La feltet være blank hvis du ikke vet hva denne sakens kode er."
 
 #: ../root/release/edit/information.tt:54
 msgid ""
 "If you don’t select an existing release group, a new one will be added with "
 "the types selected below."
 msgstr ""
+"Velger du ikke utgivelsesgruppe, blir ei ny laget med typene valgt nedenfor."
 
 #: ../root/release/edit/tracklist.tt:5
 msgid "If you have a tracklist you can copy and paste, you can input it here."
-msgstr ""
+msgstr "Har du ei sporliste fra før, kan du lime den inn her."
 
 #: ../root/release/edit/tracklist.tt:15
 msgid ""
@@ -1461,7 +1469,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:43
 msgid "Image not available, please try again later."
-msgstr ""
+msgstr "Bilde ikke tilgjengelig, vennligst prøv igjen senere."
 
 #: ../root/cdtoc/lookup.tt:28 ../root/cdstub/ImportCDStub.js:94
 #, fuzzy
@@ -3661,7 +3669,7 @@ msgid ""
 "{valink|Various Artists} should very rarely be used on recordings, make sure "
 "that the artist has been entered correctly."
 msgstr ""
-"{valink|Diverse artister} bør ikke brukes på innspillinger,  sørg for at "
+"{valink|Diverse artister} bør ikke brukes på innspillinger, sørg for at "
 "artisten er riktig angitt."
 
 #: ../root/components/common-macros.tt:542
@@ -3863,10 +3871,8 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:93
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:214
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:436
-#, fuzzy
-#| msgid "The provided artist id is not valid"
 msgid "The provided medium ID is not valid."
-msgstr "Den angitte artistiden er ugyldig"
+msgstr "Den angitte artistIDen er ugyldig."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:99
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:227
@@ -4887,18 +4893,14 @@ msgid "Add standalone recording"
 msgstr "Legg til frittstående innspilling"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Delete.pm:12
-#, fuzzy
-#| msgid "Remove recording"
 msgctxt "edit type"
 msgid "Remove recording"
-msgstr "Fjern innspilling "
+msgstr "Fjern innspilling"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/DeleteAlias.pm:15
-#, fuzzy
-#| msgid "Remove recording"
 msgctxt "edit type"
 msgid "Remove recording alias"
-msgstr "Fjern innspilling "
+msgstr "Fjern innspillingsalias"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/EditAlias.pm:12
 #, fuzzy
@@ -4939,11 +4941,9 @@ msgid "Add relationship attribute"
 msgstr "Legg til relasjonegenskap"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkType.pm:15
-#, fuzzy
-#| msgid "Add relationship type"
 msgctxt "edit type"
 msgid "Add relationship type"
-msgstr "Legg til relasjontype "
+msgstr "Legg til relasjontype"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:295
 msgid ""
@@ -5975,7 +5975,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:65
 #: ../root/search/components/SearchForm.js:61
 msgid "Direct database search"
-msgstr "Direkte databasesøk "
+msgstr "Direkte databasesøk"
 
 #: ../lib/MusicBrainz/Server/Form/Series.pm:29
 msgid "A type is required."
@@ -6535,18 +6535,14 @@ msgstr "Oppdater"
 
 #: ../root/account/applications/RegisterApplication.js:19
 #: ../root/account/applications/RegisterApplication.js:20
-#, fuzzy
-#| msgid "Subscriptions"
 msgctxt "header"
 msgid "Register application"
-msgstr "Abonnementer  "
+msgstr "Registrér søknad"
 
 #: ../root/account/applications/RegisterApplication.js:24
-#, fuzzy
-#| msgid "Subscriptions"
 msgctxt "interactive"
 msgid "Register application"
-msgstr "Abonnementer  "
+msgstr "Registrér søknad"
 
 #: ../root/account/applications/RemoveApplication.js:16
 msgid "Are you sure you want to remove this application?"
@@ -6920,7 +6916,7 @@ msgstr ""
 msgid "This artist only has unofficial release groups by various artists."
 msgstr ""
 "Denne artisten figurerer bare på uoffisielle utgivelsegrupper av diverse "
-"artister"
+"artister."
 
 #: ../root/artist/ArtistIndex.js:113
 msgid "Showing all release groups for various artists"
@@ -6932,7 +6928,7 @@ msgstr ""
 
 #: ../root/artist/ArtistIndex.js:123
 msgid "This artist only has release groups by various artists."
-msgstr "Denne artisten figurerer bare på utgivelsegrupper av diverse artister"
+msgstr "Denne artisten figurerer bare på utgivelsegrupper av diverse artister."
 
 #: ../root/artist/ArtistIndex.js:127
 msgid "Showing official release groups for various artists"
@@ -7080,7 +7076,7 @@ msgstr ""
 
 #: ../root/artist/ArtistReleases.js:82
 msgid "This artist only has releases by various artists."
-msgstr "Denne artisten figurerer bare i utgivelser av diverse artister"
+msgstr "Denne artisten figurerer bare i utgivelser av diverse artister."
 
 #: ../root/artist/ArtistReleases.js:87
 msgid ""
@@ -8007,7 +8003,7 @@ msgstr "Profil"
 #: ../root/layout/components/sidebar/CollectionSidebar.js:91
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:26
 msgid "Subscriptions"
-msgstr "Abonnementer  "
+msgstr "Abonnementer"
 
 #: ../root/components/UserAccountTabs.js:51 ../root/entity/Subscribers.js:43
 #: ../root/entity/Subscribers.js:45
@@ -8310,7 +8306,7 @@ msgstr "Akseptér endring"
 
 #: ../root/edit/EditIndex.js:140 ../root/edit/components/EditSummary.js:90
 msgid "Reject edit"
-msgstr " Avvis endring"
+msgstr "Avvis endring"
 
 #: ../root/edit/EditIndex.js:148
 msgid "You must be logged in to vote on edits."
@@ -10611,10 +10607,8 @@ msgid "Edits for subscribed entities"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:102
-#, fuzzy
-#| msgid "Edit by {editor}"
 msgid "Edits by subscribed editors"
-msgstr "Endring av {editor}"
+msgstr "Redigeringer av abonnerte redaktører"
 
 #: ../root/layout/components/TopMenu.js:106
 #, fuzzy
@@ -10811,10 +10805,8 @@ msgid "Image failed to load correctly.<br/>{all|View all images}."
 msgstr ""
 
 #: ../root/layout/components/sidebar/EventSidebar.js:64
-#, fuzzy
-#| msgid "No cover art available."
 msgid "No poster available."
-msgstr "Ingen plateomslag"
+msgstr "Ingen plakat tilgjengelig."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:67
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:101
@@ -10823,10 +10815,8 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/EventSidebar.js:70
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:104
-#, fuzzy
-#| msgid "No cover art available."
 msgid "No images available."
-msgstr "Ingen plateomslag"
+msgstr "Ingen bilder tilgjengelig."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:82
 msgid "Event information"
@@ -11099,7 +11089,7 @@ msgstr ""
 #: ../root/main/error/Error404.js:34
 #: ../root/main/error/components/ErrorInfo.js:26
 msgid "Error message: "
-msgstr "Feilmelding:"
+msgstr "Feilmelding: "
 
 #: ../root/main/error/Error404.js:46
 msgid ""
@@ -11325,10 +11315,8 @@ msgid ""
 msgstr ""
 
 #: ../root/main/index.js:249
-#, fuzzy
-#| msgid "Subscriptions"
 msgid "Recent additions"
-msgstr "Abonnementer  "
+msgstr "Nyere tillegg"
 
 #: ../root/mbid/NotFound.js:15
 msgid "MBID not found"
@@ -11467,11 +11455,9 @@ msgstr ""
 
 #: ../root/recording/DeleteRecording.js:32
 #: ../root/recording/DeleteRecording.js:34
-#, fuzzy
-#| msgid "Remove recording"
 msgctxt "header"
 msgid "Remove recording"
-msgstr "Fjern innspilling "
+msgstr "Fjern innspilling"
 
 #: ../root/recording/DeleteRecording.js:41
 msgid ""
@@ -13696,10 +13682,8 @@ msgid "Allow other users to see"
 msgstr ""
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:195
-#, fuzzy
-#| msgid "Subscriptions"
 msgid "My subscriptions"
-msgstr "Abonnementer  "
+msgstr "Mine abonnementer"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:200
 msgctxt "folksonomy"
@@ -13731,10 +13715,8 @@ msgid "Send me mails with edits to my subscriptions"
 msgstr ""
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:249
-#, fuzzy
-#| msgid "Automatically subscribe me to artists I create."
 msgid "Automatically subscribe me when I add"
-msgstr "Abonnér meg automatisk til artister jeg oppretter."
+msgstr "Abonnér automatisk når jeg oppretter"
 
 #: ../root/static/scripts/account/components/RegisterForm.js:55
 msgid "Your username will be publicly visible."
@@ -13785,7 +13767,7 @@ msgstr ""
 
 #: ../root/static/scripts/alias/AliasEditForm.js:340
 msgid "This alias is no longer current."
-msgstr "Dette aliaset er ei gjeldene. "
+msgstr "Dette aliaset er ei gjeldene."
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:101
 msgctxt "annotation"
@@ -13923,7 +13905,7 @@ msgstr ""
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:486
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:108
 msgid "Not found? Try again with direct search."
-msgstr "Direkte søk"
+msgstr "Direkte søk."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:487
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:115
@@ -16478,10 +16460,8 @@ msgid "Release collections"
 msgstr "Samlinger"
 
 #: ../root/user/UserCollections.js:46
-#, fuzzy
-#| msgid "Release group"
 msgid "Release group collections"
-msgstr "Utgivelsesgruppe"
+msgstr "Utgivelsesgruppesamling"
 
 #: ../root/user/UserCollections.js:47
 #, fuzzy
@@ -16661,10 +16641,8 @@ msgid "Member since"
 msgstr ""
 
 #: ../root/user/UserProfile.js:276
-#, fuzzy
-#| msgid "Subscriptions"
 msgid "Restrictions"
-msgstr "Abonnementer  "
+msgstr "Restriksjoner"
 
 #: ../root/user/UserProfile.js:283
 msgid "Last login"
@@ -16697,7 +16675,7 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:399
 msgid "Languages"
-msgstr ""
+msgstr "Språk"
 
 #: ../root/user/UserProfile.js:468 ../root/user/UserProfile.js:560
 #: ../root/user/UserProfile.js:570 ../root/user/UserProfile.js:580
@@ -16890,22 +16868,16 @@ msgid "{user} has not rated anything."
 msgstr "{user} har ikke vurdert noe ennå."
 
 #: ../root/user/UserSubscriptions.js:24
-#, fuzzy
-#| msgid "Subscriptions"
 msgid "Artist subscriptions"
-msgstr "Abonnementer  "
+msgstr "Artistabonnementer"
 
 #: ../root/user/UserSubscriptions.js:25
-#, fuzzy
-#| msgid "Subscriptions"
 msgid "Collection subscriptions"
-msgstr "Abonnementer  "
+msgstr "Samlingsabonnementer"
 
 #: ../root/user/UserSubscriptions.js:26
-#, fuzzy
-#| msgid "Subscriptions"
 msgid "Editor subscriptions"
-msgstr "Abonnementer  "
+msgstr "Redaktørsabonnementer"
 
 #: ../root/user/UserSubscriptions.js:27
 #, fuzzy
@@ -16914,10 +16886,8 @@ msgid "Label subscriptions"
 msgstr "Abonnementer  "
 
 #: ../root/user/UserSubscriptions.js:28
-#, fuzzy
-#| msgid "Subscriptions"
 msgid "Series subscriptions"
-msgstr "Abonnementer  "
+msgstr "Serieabonnementer"
 
 #: ../root/user/UserSubscriptions.js:167
 msgid "{editor} is subscribed to:"
@@ -17056,7 +17026,7 @@ msgstr[1] ""
 msgid "{num} day"
 msgid_plural "{num} days"
 msgstr[0] "En dag"
-msgstr[1] "{num}&nbsp;dager"
+msgstr[1] "{num} dager"
 
 #: ../root/utility/age.js:161
 msgid "{num} year ago"
