@@ -267,7 +267,6 @@ export default [
       'max-nested-callbacks': 'warn',
       'max-params': 'off',
       'max-statements': 'off',
-      'multiline-comment-style': ['warn', 'starred-block'],
       'new-cap': 'off',
       'no-alert': 'off',
       'no-array-constructor': 'warn',
@@ -481,6 +480,7 @@ export default [
       'eslint-plugin-js/key-spacing': ['warn', {mode: 'minimum'}],
       'eslint-plugin-js/keyword-spacing': ['warn', {before: true, after: true}],
       'eslint-plugin-js/linebreak-style': ['warn', 'unix'],
+      'eslint-plugin-js/line-comment-position': 'off',
       'eslint-plugin-js/lines-around-comment': 'off',
       'eslint-plugin-js/lines-between-class-members': ['warn', 'always'],
       'eslint-plugin-js/max-len': ['warn', {
@@ -491,6 +491,7 @@ export default [
         ignoreRegExpLiterals: true,
       }],
       'eslint-plugin-js/max-statements-per-line': ['warn', {max: 1}],
+      'eslint-plugin-js/multiline-comment-style': ['warn', 'starred-block'],
       'eslint-plugin-js/multiline-ternary': 'off',
       'eslint-plugin-js/new-parens': 'warn',
       'eslint-plugin-js/newline-per-chained-call': ['warn', {
