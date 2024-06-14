@@ -94,7 +94,19 @@ function reducer(state: StateT, action: ActionT): StateT {
 
       const nameState = nameStateCtx.read();
       newStateCtx
-        .set('form', 'field', 'name', nameState.field)
+        .update('form', 'field', 'name', (nameFieldCtx) => {
+          nameFieldCtx.set(nameState.field);
+          if (isBlank(nameState.field.value)) {
+            nameFieldCtx.set('has_errors', true);
+            nameFieldCtx.set('pendingErrors', [
+              l('Required field.'),
+            ]);
+          } else {
+            nameFieldCtx.set('has_errors', false);
+            nameFieldCtx.set('pendingErrors', []);
+            nameFieldCtx.set('errors', []);
+          }
+        })
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
       break;
@@ -155,9 +167,7 @@ component EventEditForm(
     dispatch({action, type: 'update-date-range'});
   }, [dispatch]);
 
-  const missingRequired = isBlank(state.form.field.name.value);
-
-  const hasErrors = missingRequired || hasSubfieldErrors(state.form);
+  const hasErrors = hasSubfieldErrors(state.form);
 
   const event = $c.stash.source_entity;
   invariant(event && event.entityType === 'event');
