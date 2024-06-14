@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-28 14:51+0000\n"
-"PO-Revision-Date: 2024-05-28 14:53+0000\n"
+"PO-Revision-Date: 2024-06-02 17:42+0000\n"
 "Last-Translator: Felipe Silva <musicbrainz@felipeqq2.rocks>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pt/>\n"
@@ -1857,14 +1857,17 @@ msgid ""
 "2011-05-16; or which remove relationships, entered after 2013-07-08; or "
 "which reorder relationships."
 msgstr ""
+"Atenção: apenas pesquisa por edições que: adicionam ou editam relações, "
+"inseridos após 2011-05-16; removem relações, inseridos após 2013-07-08; ou "
+"reordenam relações."
 
 #: ../root/release/edit/recordings.tt:120
 msgid "Now loading recording associations..."
-msgstr ""
+msgstr "Carregando gravações associadas…"
 
 #: ../root/release/edit/tracklist.tt:180 ../root/release/edit/tracklist.tt:400
 msgid "Now loading tracklist..."
-msgstr ""
+msgstr "Carregando lista de faixas…"
 
 #: ../root/release_group/set_cover_art.tt:13
 msgid ""
@@ -1886,28 +1889,28 @@ msgstr ""
 
 #: ../root/release/edit/recordings.tt:139 ../root/release/edit/tracklist.tt:24
 msgid "Options"
-msgstr ""
+msgstr "Opções"
 
 #: ../root/series/edit_form.tt:17 ../root/edit/details/AddSeries.js:48
 #: ../root/edit/details/EditSeries.js:62
 #: ../root/layout/components/sidebar/SeriesSidebar.js:49
 msgid "Ordering type"
-msgstr ""
+msgstr "Tipo de ordenamento"
 
 #: ../root/components/common-macros.tt:71 ../root/components/Artwork.js:70
 msgid "PDF file"
-msgstr ""
+msgstr "Arquivo PDF"
 
 #: ../root/release/edit/information.tt:240
 #: ../root/edit/details/AddRelease.js:100
 #: ../root/edit/details/EditRelease.js:133
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:163
 msgid "Packaging"
-msgstr ""
+msgstr "Embalagem"
 
 #: ../root/release/edit/tracklist.tt:238
 msgid "Parse tracks"
-msgstr ""
+msgstr "Analisar faixas"
 
 #: ../root/edit/search_macros.tt:434 ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:45
@@ -1920,21 +1923,23 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
 #: ../root/user/UserProfile.js:55
 msgid "Place"
-msgstr ""
+msgstr "Lugar"
 
 #: ../root/place/edit_form.tt:10
 msgid "Place details"
-msgstr ""
+msgstr "Detalhes do lugar"
 
 #: ../root/edit/search_macros.tt:432
 msgid "Please choose a condition"
-msgstr ""
+msgstr "Por favor, escolha uma condição"
 
 #: ../root/release/edit/information.tt:326
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
 msgstr ""
+"Por favor, insira o código de barras da publicação. Veja <a href=\"{url}\" "
+"target=\"_blank\">Código de Barras</a> para mais informações."
 
 #: ../root/layout/merge-helper.tt:24
 #: ../root/layout/components/MergeHelper.js:54
@@ -1942,33 +1947,40 @@ msgid ""
 "Please navigate to the pages of other entities you wish to merge and select "
 "the \"merge\" link."
 msgstr ""
+"Por favor, navegue para as páginas das outras entidades que você deseja "
+"combinar e clique no link \"combinar\"."
 
 #: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:23
 msgid ""
 "Please see the {doc|Cover Art Types} documentation for a description of "
 "these types."
 msgstr ""
+"Por favor, veja a documentação dos {doc|tipos de Arte de Capa} para uma "
+"descrição desses tipos."
 
 #: ../root/event/add_event_art.tt:66 ../root/event/EventArtFields.js:23
 msgid ""
 "Please see the {doc|Event Art Types} documentation for a description of "
 "these types."
 msgstr ""
+"Por favor, veja a documentação dos {doc|tipos de Arte de Evento} para uma "
+"descrição desses tipos."
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
 msgstr ""
+"Por favor, selecione o meio que você deseja anexar esse índice (TOC) do CD."
 
 #: ../root/cdtoc/list.tt:6 ../root/event/add_event_art.tt:125
 #: ../root/event/reorder_event_art.tt:10 ../root/release/add_cover_art.tt:125
 #: ../root/release/reorder_cover_art.tt:10
 #: ../root/edit/details/AddMedium.js:106 ../root/edit/details/EditMedium.js:434
 msgid "Position"
-msgstr ""
+msgstr "Posição"
 
 #: ../root/cdtoc/lookup.tt:32
 msgid "Possible mediums"
-msgstr ""
+msgstr "Meios possíveis"
 
 #: ../root/components/paginator.tt:6 ../root/components/paginator.tt:8
 #: ../root/release/edit/macros.tt:52 ../root/components/Paginator.js:65
@@ -1976,25 +1988,25 @@ msgstr ""
 #: ../root/static/scripts/common/artworkViewer.js:38
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:81
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: ../root/release/edit/information.tt:95 ../root/release_group/edit_form.tt:16
 #: ../root/edit/details/AddReleaseGroup.js:62
 #: ../root/edit/details/EditReleaseGroup.js:56
 msgid "Primary type"
-msgstr ""
+msgstr "Tipo primário"
 
 #: ../root/components/search.tt:9 ../root/search/components/SearchForm.js:71
 msgid "Query:"
-msgstr ""
+msgstr "Consulta:"
 
 #: ../root/components/rating-macros.tt:1
 #: ../root/static/scripts/common/utility/ratingTooltip.js:13
 msgid "Rate: {rating} star"
 msgid_plural "Rate: {rating} stars"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Avaliação: {rating} estrela"
+msgstr[1] "Avaliação: {rating} estrelas"
+msgstr[2] "Avaliação: {rating} estrelas"
 
 #: ../root/edit/search_macros.tt:434
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
@@ -2014,15 +2026,15 @@ msgstr[2] ""
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1553
 #: ../root/user/UserProfile.js:56
 msgid "Recording"
-msgstr ""
+msgstr "Gravação"
 
 #: ../root/recording/edit_form.tt:24
 msgid "Recording details"
-msgstr ""
+msgstr "Detalhes da gravação"
 
 #: ../root/recording/layout.tt:3 ../root/recording/RecordingLayout.js:32
 msgid "Recording “{name}” by {artist}"
-msgstr ""
+msgstr "Gravação \"{name}\" por {artist}"
 
 #: ../root/release/edit/layout.tt:17 ../root/area/AreaRecordings.js:20
 #: ../root/artist/ArtistRecordings.js:119
@@ -2038,16 +2050,16 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:29
 #: ../root/tag/TagLayout.js:20 ../root/work/WorkIndex.js:47
 msgid "Recordings"
-msgstr ""
+msgstr "Gravações"
 
 #: ../root/doc/edit_type.tt:8
 msgid "Reject"
-msgstr ""
+msgstr "Rejeitar"
 
 #: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:83
 msgctxt "user type"
 msgid "Relationship editor"
-msgstr ""
+msgstr "Editor de relações"
 
 #: ../root/edit/search_macros.tt:434
 #: ../root/edit/details/AddRelationshipType.js:48
@@ -2055,7 +2067,7 @@ msgstr ""
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:82
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:296
 msgid "Relationship type"
-msgstr ""
+msgstr "Tipo de relação"
 
 #: ../root/cdtoc/attach_artist_releases.tt:15
 #: ../root/cdtoc/attach_filter_release.tt:28 ../root/cdtoc/lookup.tt:40
@@ -2091,30 +2103,24 @@ msgstr ""
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:396
 #: ../root/taglookup/Form.js:27 ../root/user/UserProfile.js:57
 msgid "Release"
-msgstr ""
+msgstr "Publicação"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Release Country"
 msgid "Release country"
 msgstr "País de lançamento"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Release Country"
 msgid "Release data quality"
-msgstr "País de lançamento"
+msgstr "Qualidade dos dados da publicação"
 
 #: ../root/release/edit/layout.tt:14
-#, fuzzy
-#| msgid "Release Country"
 msgid "Release duplicates"
-msgstr "País de lançamento"
+msgstr "Duplicatas da publicação"
 
 #: ../root/release/edit/information.tt:124
 #: ../root/static/scripts/common/components/ReleaseEvents.js:34
 msgid "Release event"
-msgstr ""
+msgstr "Lançamento da publicação"
 
 #: ../root/edit/search_macros.tt:434 ../root/release/edit/information.tt:37
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup.pm:7
@@ -2140,41 +2146,39 @@ msgstr ""
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:403
 #: ../root/user/UserProfile.js:58
 msgid "Release group"
-msgstr ""
+msgstr "Grupo de publicações"
 
 #: ../root/release_group/edit_form.tt:12
-#, fuzzy
-#| msgid "Release Country"
 msgid "Release group details"
-msgstr "País de lançamento"
+msgstr "Detalhes do grupo de publicações"
 
 #: ../root/release_group/layout.tt:1
 #: ../root/release_group/ReleaseGroupLayout.js:26
 msgid "Release group “{name}” by {artist}"
-msgstr ""
+msgstr "Grupo de publicações \"{name}\" por {artist}"
 
 #: ../root/cdtoc/attach_artist_releases.tt:31
 #: ../root/cdtoc/attach_filter_release.tt:46
 msgid "Release group: {release_group_link}"
-msgstr ""
+msgstr "Grupo de publicações: {release_group_link}"
 
 #: ../root/release/edit/information.tt:3 ../root/release/edit/layout.tt:12
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:117
 msgid "Release information"
-msgstr ""
+msgstr "Informações da publicação"
 
 #: ../root/edit/search_macros.tt:434
 msgid "Release language"
-msgstr ""
+msgstr "Linguagem da publicação"
 
 #: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:85
 #: ../root/cdtoc/move_search.tt:15
 msgid "Release title or MBID"
-msgstr ""
+msgstr "Título ou MBID da publicação"
 
 #: ../root/release/layout.tt:1 ../root/release/ReleaseLayout.js:24
 msgid "Release “{name}” by {artist}"
-msgstr ""
+msgstr "Publicação \"{name}\" por {artist}"
 
 #: ../root/cdtoc/list.tt:60 ../root/edit/search_macros.tt:122
 #: ../root/event/add_event_art.tt:110 ../root/release/add_cover_art.tt:110
@@ -2189,82 +2193,82 @@ msgstr ""
 #: ../root/static/scripts/edit/components/Multiselect.js:210
 #: ../root/user/UserCollections.js:123
 msgid "Remove"
-msgstr ""
+msgstr "Remover"
 
 #: ../root/work/edit_form.tt:60
 msgid "Remove attribute"
-msgstr ""
+msgstr "Remover atributo"
 
 #: ../root/components/common-macros.tt:576
 #: ../root/components/common-macros.tt:584
 #: ../root/components/RemoveFromMergeTableCell.js:34
 #: ../root/utility/tableColumns.js:728 ../root/utility/tableColumns.js:738
 msgid "Remove from merge"
-msgstr ""
+msgstr "Remover da combinação"
 
 #: ../root/release/edit/information.tt:199
 msgctxt "interactive"
 msgid "Remove label"
-msgstr ""
+msgstr "Remover selo"
 
 #: ../root/release/edit/tracklist.tt:330
 msgid "Remove medium"
-msgstr ""
+msgstr "Remover meio"
 
 #: ../root/release/edit/information.tt:159
 msgid "Remove release event"
-msgstr ""
+msgstr "Remover lançamento de publicação"
 
 #: ../root/layout/merge-helper.tt:33
 #: ../root/layout/components/MergeHelper.js:71
 msgid "Remove selected entities"
-msgstr ""
+msgstr "Remover entidades selecionadas"
 
 #: ../root/release/edit/tracklist.tt:227
 msgid "Remove track"
-msgstr ""
+msgstr "Remover faixa"
 
 #: ../root/components/rating-macros.tt:1
 #: ../root/static/scripts/common/utility/ratingTooltip.js:12
 msgid "Remove your rating"
-msgstr ""
+msgstr "Remover sua avaliação"
 
 #: ../root/components/forms.tt:163 ../root/components/forms.tt:168
 msgid "Remove {item}"
-msgstr ""
+msgstr "Remover {item}"
 
 #: ../root/release/reorder_cover_art.tt:1
 #: ../root/release/reorder_cover_art.tt:4
 msgctxt "plural, header"
 msgid "Reorder cover art"
-msgstr ""
+msgstr "Reordenar artes de capa"
 
 #: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
 msgctxt "plural, header"
 msgid "Reorder event art"
-msgstr ""
+msgstr "Reordenar artes de evento"
 
 #: ../root/event/add_event_art.tt:83 ../root/release/add_cover_art.tt:83
 msgid "Request signature..."
-msgstr ""
+msgstr "Solicitando assinatura…"
 
 #: ../root/release/edit/tracklist.tt:525
 msgid "Reset track numbers"
-msgstr ""
+msgstr "Resetar números de faixa"
 
 #: ../root/cdtoc/attach_filter_release.tt:58 ../root/cdtoc/move_search.tt:25
 #: ../root/components/search.tt:19 ../root/cdtoc/SelectArtistForCDToc.js:56
 #: ../root/cdtoc/SelectArtistForCDToc.js:92
 msgid "Results:"
-msgstr ""
+msgstr "Resultados:"
 
 #: ../root/release/edit/recordings.tt:14
 msgid "Reuse previous recordings"
-msgstr ""
+msgstr "Reutilizar gravações prévias"
 
 #: ../root/release/edit/information.tt:307
 msgid "Review the {packaging|list of packaging types} for help."
-msgstr ""
+msgstr "Veja a {packaging|lista de tipos de embalagem} para mais ajuda."
 
 #: ../root/release/edit/layout.tt:27
 msgid ""
