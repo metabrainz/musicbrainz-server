@@ -269,7 +269,6 @@ export default [
       'max-nested-callbacks': 'warn',
       'max-params': 'off',
       'max-statements': 'off',
-      'multiline-comment-style': ['warn', 'starred-block'],
       'new-cap': 'off',
       'no-alert': 'off',
       'no-array-constructor': 'warn',
@@ -483,6 +482,7 @@ export default [
       '@stylistic/js/key-spacing': ['warn', {mode: 'minimum'}],
       '@stylistic/js/keyword-spacing': ['warn', {before: true, after: true}],
       '@stylistic/js/linebreak-style': ['warn', 'unix'],
+      '@stylistic/js/line-comment-position': 'off',
       '@stylistic/js/lines-around-comment': 'off',
       '@stylistic/js/lines-between-class-members': ['warn', 'always'],
       '@stylistic/js/max-len': ['warn', {
@@ -493,6 +493,7 @@ export default [
         ignoreRegExpLiterals: true,
       }],
       '@stylistic/js/max-statements-per-line': ['warn', {max: 1}],
+      '@stylistic/js/multiline-comment-style': ['warn', 'starred-block'],
       '@stylistic/js/multiline-ternary': 'off',
       '@stylistic/js/new-parens': 'warn',
       '@stylistic/js/newline-per-chained-call': ['warn', {
