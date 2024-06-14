@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-19 19:42+0000\n"
+"PO-Revision-Date: 2024-06-05 23:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/lt/>\n"
@@ -34,11 +34,10 @@ msgid ""
 "people involved with the label can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Socialinio tinklo puslapis − tai nuosavas įrašų kompanijos puslapis<a "
-"href=\"https://en.wikipedia.org/wiki/"
-"Social_networking_service\">socialiniame tinkle</a>, kuriame turinį gali "
-"skelbti tik su kompaniją susiję asmenys. Pavyzdžiai: Facebook puslapiai, "
-"paskyros Twitter, Instagram ir Flickr."
+"Socialinio tinklo puslapis − tai nuosavas leidyklos puslapis<a href=\"https"
+"://en.wikipedia.org/wiki/Social_networking_service\">socialiniame tinkle</"
+"a>, kuriame turinį gali skelbti tik su leidyklą susiję asmenys. Pavyzdžiai: "
+"Facebook puslapiai, paskyros Twitter, Instagram ir Flickr."
 
 #: DB:link_type/description:784
 msgid ""
@@ -651,7 +650,7 @@ msgstr "Nurodo šio kūrinio masteringo inžinierių."
 
 #: DB:link_type/description:219
 msgid "Indicates the official homepage for a label."
-msgstr "Nurodo oficialų įrašų kompanijos pagrindinį puslapį."
+msgstr "Nurodo oficialų įrašų leidyklos pagrindinį puslapį."
 
 #: DB:link_type/description:363
 msgid "Indicates the official homepage for a place."
@@ -1053,8 +1052,8 @@ msgid ""
 "Links an event to a label or other organization credited for presenting it "
 "(often as “Label presents Event”)."
 msgstr ""
-"Susieja renginį su įrašų kompanija ar kita organizacija, kuriai priskiriamas "
-"renginio pristatymas (dažnai kaip „Renginį pristato įrašų kompanija“)."
+"Susieja renginį su leidykla ar kita organizacija, kuriai priskiriamas "
+"renginio pristatymas (dažniausiai kaip „Renginį pristato leidykla“)."
 
 #: DB:link_type/description:806
 msgid "Links an event to an artist that was a conductor in it."
@@ -1206,7 +1205,7 @@ msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"Nukreipia į šios įrašų kompanijos Vikiduomenio puslapį, kuris bus naudojamas "
+"Nukreipia į šios leidyklos Vikiduomenio puslapį, kuris bus naudojamas "
 "Vikipedijos santraukoms gauti."
 
 #: DB:link_type/description:594
@@ -1389,7 +1388,7 @@ msgstr "{entity1} partitūrą galima nusipirkti paštu adresu {entity0}"
 
 #: DB:link_type/description:933
 msgid "This allows linking a series to the label who publishes it."
-msgstr "Tai leidžia susieti seriją su leidybine kompanija, kuri ją leidžia."
+msgstr "Tai leidžia susieti seriją su leidykla, kuri ją publikuoja."
 
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
@@ -1578,14 +1577,13 @@ msgid ""
 "into <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music "
 "Group</a>, as Verve continued its existence thereafter as an imprint."
 msgstr ""
-"Tai apibūdina situaciją, kai įrašų kompanija pakeitė savo pavadinimą dėl "
-"estetinių priežasčių arba po išpirkimo, pardavimo ar atskyrimo. Reikėtų būti "
-"ypač atsargiems tais atvejais, kai atliekamos sudėtingos susijungimo, "
-"padalijimo ar pertvarkymo finansinės operacijos. Pavyzdžiui, nėra gera idėja "
-"pervadinti įrašų kompaniją <a href=\"/"
-"label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">„Verve“</a> į <a href=\"/"
-"label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">„The Verve Music Group“</a>, "
-"nes vėliau „Verve“ toliau gyvavo kaip prekinis ženklas."
+"Tai apibūdina situaciją, kai leidykla pakeitė savo pavadinimą dėl estetinių "
+"priežasčių arba po išpirkimo, pardavimo ar atskyrimo. Reikėtų būti ypač "
+"atsargiems tais atvejais, kai atliekamos sudėtingos susijungimo, padalijimo "
+"ar pertvarkymo finansinės operacijos. Pavyzdžiui, nėra gera idėja pervadinti "
+"leidyklą <a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> į "
+"<a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music "
+"Group</a>, nes vėliau Verve toliau egzistavo kaip prekinis ženklas."
 
 #: DB:link_type/description:1079
 msgid ""
@@ -1603,19 +1601,18 @@ msgid ""
 "corporate acquisition of the former label, has become a subdivision of "
 "another one."
 msgstr ""
-"Tai apibūdina situaciją, kai viena įrašų kompanija tam tikru laikotarpiu yra "
-"(arba buvo) kitos kompanijos dukterinė bendrovė. Šis turėtų būti naudojamas "
-"apibūdinti faktą, kad įrašų kompanija yra kitos kompanijos padalinys arba, "
-"įmonei įsigijus ankstesnę įrašų kompaniją, tapo kitos kompanijos padaliniu."
+"Tai apibūdina situaciją, kai viena leidykla tam tikru laikotarpiu yra (arba "
+"buvo) kitos leidyklos dukterinė bendrovė. Šis turėtų būti naudojamas "
+"apibūdinti faktą, kad leidykla yra kitos leidyklos padalinys arba, bendrovei "
+"įsigijus ankstesnę leidyklą, tapo kitos leidyklos padaliniu."
 
 #: DB:link_type/description:203
 msgid ""
 "This describes a situation where one label is distributing (part of) another "
 "label's catalog, in a country/region of the world, during a period of time."
 msgstr ""
-"Tai apibūdina situaciją, kai viena įrašų kompanija tam tikrą laikotarpį "
-"platina kitos kompanijos katalogą (jo dalį) tam tikroje pasaulio šalyje arba "
-"regione."
+"Tai apibūdina situaciją, kai viena leidykla tam tikrą laikotarpį platina "
+"kitos leidyklos katalogą (jo dalį) tam tikroje pasaulio šalyje arba regione."
 
 #: DB:link_type/description:201
 msgid ""
@@ -1629,15 +1626,14 @@ msgid ""
 "<li>A bootleg label reissues another label's catalog.</li>\n"
 "</ul>"
 msgstr ""
-"Tai apibūdina situaciją, kai viena įrašų kompanija savo pavadinimu "
-"perleidžia kitos kompanijos katalogo (dalį). Taip gali atsitikti bent trimis "
-"atvejais:\n"
+"Tai apibūdina situaciją, kai viena leidykla savo pavadinimu perleidžia kitos "
+"leidyklos katalogo (jo dalį). Taip gali atsitikti bent trimis atvejais:\n"
 "<ul>\n"
-"<li>Įrašų kompanija tam tikram laikotarpiui įsigyja kitos kompanijos "
-"katalogo nuomą tam tikrame pasaulio regione.</li>\n"
-"<li>Įrašų kompanija nusiperka teises į nebeegzistuojančios kompanijos "
-"katalogą arba nusiperka kompanija (su jos katalogu) ir ją išardo.</li>\n"
-"<li>Nelegali įrašų kompanija perleidžia kitos kompanijos katalogą.</li>\n"
+"<li>Leidykla tam tikram laikotarpiui įsigyja kitos leidyklos katalogo nuomą "
+"tam tikrame pasaulio regione.</li>\n"
+"<li>Leidykla nusiperka teises į nebeegzistuojančios leidyklos katalogą arba "
+"nusiperka leidykla (su jos katalogu) ir ją išardo.</li>\n"
+"<li>Nelegali leidykla perleidžia kitos leidyklos katalogą.</li>\n"
 "</ul>"
 
 #: DB:link_type/description:140 DB:link_type/description:31
@@ -1738,7 +1734,7 @@ msgid ""
 "between artists and the labels."
 msgstr ""
 "Tai nurodo asmenį arba agentūrą, kuri atsakinga už talentų paiešką, atlikėjo "
-"meninės raidos priežiūrą ir tarpininkavimą tarp atlikėjų ir įrašų kompanijų."
+"meninės raidos priežiūrą ir tarpininkavimą tarp atlikėjų ir leidyklų."
 
 #: DB:link_type/description:19
 msgid ""
@@ -1764,9 +1760,9 @@ msgid ""
 "is a small label (usually a subdivision of a larger one) that exclusively "
 "handles releases by that artist."
 msgstr ""
-"Tai nurodo asmeninę atlikėjo produkcijos įrašų kompaniją. Asmeninė įrašų "
-"kompanija – tai nedidelė kompanija (paprastai didesnės kompanijos "
-"padalinys), kuri rūpinasi tik to atlikėjo leidiniais."
+"Tai nurodo asmeninę atlikėjo produkcijos leidyklą. Asmeninė leidykla – tai "
+"nedidelė leidykla (paprastai didesnės leidyklos padalinys), kuri rūpinasi "
+"tik to atlikėjo leidiniais."
 
 #: DB:link_type/description:724
 msgid ""
@@ -1774,9 +1770,9 @@ msgid ""
 "publishing label is a small label (usually a subdivision of a larger one) "
 "that exclusively handles the rights to works by that artist."
 msgstr ""
-"Tai nurodo asmeninę atlikėjo leidybos leidybinę kompaniją. Asmeninė leidybos "
-"leidybinė kompanija – tai nedidelė kompanija (paprastai didesnės kompanijos "
-"padalinys), kuri rūpinasi tik to atlikėjo kūrinių teisėmis."
+"Tai nurodo asmeninę atlikėjo leidybos leidyklą. Asmeninė leidybos leidyklą – "
+"tai nedidelė leidykla (paprastai didesnės leidyklos padalinys), kuri "
+"rūpinasi tik to atlikėjo kūrinių teisėmis."
 
 #: DB:link_type/description:1011
 msgid ""
@@ -2110,15 +2106,14 @@ msgstr ""
 
 #: DB:link_type/description:121
 msgid "This indicates that an artist had a recording contract with a label."
-msgstr ""
-"Tai nurodo, kad atlikėjas buvo sudaręs įrašymo sutartį su įrašų kompanija."
+msgstr "Tai nurodo, kad atlikėjas buvo sudaręs įrašymo sutartį su leidyklą."
 
 #: DB:link_type/description:117
 msgid ""
 "This indicates that an artist was officially employed by a label as a "
 "producer."
 msgstr ""
-"Tai nurodo, kad atlikėjas buvo oficialiai įdarbintas įrašų kompanijoje kaip "
+"Tai nurodo, kad atlikėjas buvo oficialiai įdarbintas leidykloje kaip "
 "prodiuseris."
 
 #: DB:link_type/description:120
@@ -2126,24 +2121,24 @@ msgid ""
 "This indicates that an artist was officially employed by a label as an "
 "engineer."
 msgstr ""
-"Tai nurodo, kad atlikėjas oficialiai buvo įdarbintas įrašų kompanijoje kaip "
-"inžinierius."
+"Tai nurodo, kad atlikėjas oficialiai buvo įdarbintas leidykloje kaip muzikos "
+"režisierius."
 
 #: DB:link_type/description:115
 msgid ""
 "This indicates that an artist was officially employed by a label in a "
 "creative position, such as photographer or graphic designer."
 msgstr ""
-"Tai nurodo, kad atlikėjas oficialiai buvo įdarbintas įrašų kompanijoje "
-"kūrybinėse pareigose, pavyzdžiui, fotografo ar grafikos dizainerio."
+"Tai nurodo, kad atlikėjas oficialiai buvo įdarbintas leidykloje kūrybinėse "
+"pareigose, pavyzdžiui, fotografo ar grafikos dizainerio."
 
 #: DB:link_type/description:1081
 msgid ""
 "This indicates that an artist was officially employed by a label in an "
 "artists and repertoire (A&R) position."
 msgstr ""
-"Tai nurodo, kad atlikėjas oficialiai buvo įdarbintas įrašų kompanijoje "
-"atlikėjų ir repertuaro (A&R) pareigose."
+"Tai nurodo, kad atlikėjas oficialiai buvo įdarbintas leidykloje atlikėjų ir "
+"repertuaro (A&R) pareigose."
 
 #: DB:link_type/description:818
 msgid ""
@@ -2201,6 +2196,7 @@ msgid ""
 "This indicates that the label performed a role not covered by other "
 "relationship types."
 msgstr ""
+"Tai nurodo, kad leidykla atliko vaidmenį, kurio neapima kiti santykių tipai."
 
 #: DB:link_type/description:890
 msgid ""
@@ -2249,8 +2245,7 @@ msgstr ""
 msgid ""
 "This indicates the area (usually a city) where a label is headquartered in."
 msgstr ""
-"Tai nurodo teritoriją (paprastai miestą), kurioje yra įrašų kompanijos "
-"būstinė."
+"Tai nurodo teritoriją (paprastai miestą), kurioje yra leidyklos būstinė."
 
 #: DB:link_type/description:1185
 msgid "This indicates the artist directed video on this release."
@@ -2309,7 +2304,7 @@ msgstr ""
 
 #: DB:link_type/description:991
 msgid "This indicates the artist was the owner of this label."
-msgstr ""
+msgstr "Tai nurodo, kad atlikėjas buvo šios leidyklos savininkas."
 
 #: DB:link_type/description:988
 msgid ""
@@ -2346,6 +2341,9 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
 "label</a>, nor as mastering engineering."
 msgstr ""
+"Tai nurodo bendrovę, kuri pagamino leidinio stiklo šabloną. Tai "
+"<strong>nėra</strong> ta pati sąvoka kaip <a href=\"/doc/Label\">įrašų "
+"kompanija</a>, taip pat ne kaip masteringo inžinerija."
 
 #: DB:link_type/description:989
 msgid ""
@@ -5163,26 +5161,24 @@ msgstr ""
 
 #: DB:link_type/name:309
 msgid "edit"
-msgstr ""
+msgstr "redagavimo versija"
 
 #: DB:link_type/link_phrase:309
 msgid "edit of"
-msgstr ""
+msgstr "redagavimo versijos"
 
 #: DB:link_type/name:819 DB:link_type/name:820
 msgid "edited at"
-msgstr ""
+msgstr "redaguota vietoje"
 
 #: DB:link_type/name:1252 DB:link_type/name:1253
 #: DB:link_type/reverse_link_phrase:1252 DB:link_type/reverse_link_phrase:1253
-#, fuzzy
-#| msgid "remixed for"
 msgid "edited for"
-msgstr "remiksuota"
+msgstr "redaguota dėl"
 
 #: DB:link_type/name:822 DB:link_type/name:821
 msgid "edited in"
-msgstr ""
+msgstr "redaguota teritorijoje"
 
 #: DB:link_type/long_link_phrase:929
 msgid "edited the booklet of"
@@ -5210,7 +5206,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1127
 msgid "electronic music"
-msgstr ""
+msgstr "elektroninė muzika"
 
 #: DB:link_attribute_type/name:617
 msgid "emeritus"
@@ -5218,7 +5214,7 @@ msgstr ""
 
 #: DB:link_type/name:1084 DB:link_type/name:28 DB:link_type/name:138
 msgid "engineer"
-msgstr ""
+msgstr "muzikos režisierius"
 
 #: DB:link_type/link_phrase:120 DB:link_type/name:120 DB:link_type/name:701
 msgid "engineer position"
@@ -6501,11 +6497,11 @@ msgstr "masteringas"
 
 #: DB:link_type/name:704
 msgid "mastering engineer position"
-msgstr "masteringo inžinieriaus (-ės) pozicija"
+msgstr "masteringo inžinieriaus pozicija"
 
 #: DB:link_type/link_phrase:704
 msgid "mastering engineer position at"
-msgstr ""
+msgstr "masteringo inžinieriaus pozicija vietoje"
 
 #: DB:link_type/reverse_link_phrase:704
 msgid "mastering engineers"
@@ -6627,7 +6623,7 @@ msgstr "miksavimo inžinieriaus (-ės) pozicija"
 
 #: DB:link_type/reverse_link_phrase:703
 msgid "mixing engineers"
-msgstr "miksavimo inžinieriai"
+msgstr "suvedimo inžinieriai"
 
 #: DB:link_attribute_type/name:1031
 msgid "movement"
@@ -7372,7 +7368,7 @@ msgstr ""
 
 #: DB:link_type/name:702
 msgid "recording engineer position"
-msgstr ""
+msgstr "įrašo inžinieriaus pozicija"
 
 #: DB:link_type/link_phrase:702
 msgid "recording engineer position at"
@@ -8757,14 +8753,14 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr ""
-"{additional:papildomas} {assistant:pagalbininis} {associate:susietas} {co:"
-"bendras}įrašų inžinierius"
+"{additional:papildomas} {assistant:pagalbininis} {associate:susietas} "
+"{co:bendras}įrašo inžinierius"
 
 #: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
-"{additional:papildomas} {assistant:pagalbininis} {associate:susietas} {co:"
-"bendras}įrašų inžinierius, skirtas"
+"{additional:papildomas} {assistant:pagalbininis} {associate:susietas} "
+"{co:bendras}įrašo inžinierius, skirtas"
 
 #: DB:link_type/reverse_link_phrase:133 DB:link_type/reverse_link_phrase:29
 msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
