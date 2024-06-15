@@ -387,10 +387,14 @@ export default function compareRelationships(
      * if the relationships were otherwise identical.
      */
     return compare(
-      // $FlowIgnore[sketchy-null-string]
-      targetA ? (targetA.sort_name || targetCreditA || targetA.name) : '',
-      // $FlowIgnore[sketchy-null-string]
-      targetB ? (targetB.sort_name || targetCreditB || targetB.name) : '',
+      targetA ? (nonEmpty(targetA.sort_name)
+        ? targetA.sort_name
+        : targetCreditA || targetA.name
+      ) : '',
+      targetB ? (nonEmpty(targetB.sort_name)
+        ? targetB.sort_name
+        : targetCreditB || targetB.name
+      ) : '',
     ) || targetIdCmp;
   }
 
