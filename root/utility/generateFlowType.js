@@ -18,6 +18,7 @@ const TYPE_BOOLEAN = 4;
 const TYPE_NULL = 8;
 
 class TypeInfo {
+  /* eslint-disable eslint-plugin-js/multiline-comment-style */
 /*::
   +isEditDataTypeInfo: boolean;
   array: TypeInfo | null;
@@ -28,6 +29,7 @@ class TypeInfo {
   } | null;
   primitive: number;
 */
+  /* eslint-enable eslint-plugin-js/multiline-comment-style */
 
   constructor(
     parent/*: TypeInfo | null */,

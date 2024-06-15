@@ -112,10 +112,9 @@ component _DialogSourceEntity(
               {state.error}
             </div>
           </>
-        // $FlowIgnore[sketchy-null-number]
-        ) : batchSelectionCount ? (
+        ) : batchSelectionCount == null ? null : (
           getBatchSelectionMessage(sourceType, batchSelectionCount)
-        ) : null}
+        )}
 
         {ENTITIES_WITH_RELATIONSHIP_CREDITS[sourceType] ? (
           <DialogEntityCredit
