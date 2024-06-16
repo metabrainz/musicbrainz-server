@@ -245,9 +245,14 @@ export function reducer(
     }
 
     case 'remove-name': {
+      const nonRemovedCount = state.names.reduce((accum, name) => {
+        return accum + (name.removed ? 0 : 1);
+      }, 0);
       const namesCtx = stateCtx.get('names');
-      namesCtx.set(action.index, 'removed', true);
-      setAutoJoinPhrases(namesCtx);
+      if (nonRemovedCount > 1) {
+        namesCtx.set(action.index, 'removed', true);
+        setAutoJoinPhrases(namesCtx);
+      }
       break;
     }
 

@@ -21,6 +21,7 @@ import type {
 } from './ArtistCreditEditor/types.js';
 
 component _ArtistCreditNameEditor(
+  allowRemoval: boolean,
   artistCreditEditorId: string,
   dispatch: (ActionT) => void,
   index: number,
@@ -175,14 +176,14 @@ component _ArtistCreditNameEditor(
             title={lp('Undo artist credit removal', 'interactive')}
             type="button"
           />
-        ) : (
+        ) : allowRemoval ? (
           <button
             className="icon remove-item remove-artist-credit"
             onClick={handleRemove}
             title={lp('Remove artist credit', 'interactive')}
             type="button"
           />
-        )}
+        ) : null}
       </td>
     </tr>
   );
