@@ -244,9 +244,21 @@ export function reducer(
     }
 
     case 'remove-name': {
+      const nonRemovedCount = state.names.reduce((accum, name) => {
+        return accum + (name.removed ? 0 : 1);
+      }, 0);
       const namesCtx = stateCtx.get('names');
-      namesCtx.set(action.index, 'removed', true);
-      setAutoJoinPhrases(namesCtx);
+      if (nonRemovedCount > 1) {
+        namesCtx.set(action.index, 'removed', true);
+        setAutoJoinPhrases(namesCtx);
+      } else if (nonRemovedCount === 1) {
+        namesCtx.update(action.index, (firstNameCtx) => {
+          firstNameCtx.set('artist', 'inputValue', '');
+          firstNameCtx.set('artist', 'selectedItem', null);
+          firstNameCtx.set('name', '');
+          firstNameCtx.set('joinPhrase', '');
+        });
+      }
       break;
     }
 
