@@ -326,8 +326,8 @@ export function reducer(
         .set('inputValue', artistName);
     });
   } else if (names !== newNames) {
-    const firstNameAutocomplete = newNames[0].artist;
     if (isSingleArtistEditableInState(newNames)) {
+      const firstNameAutocomplete = newNames[0].artist;
       stateCtx.get('singleArtistAutocomplete')
         .set('disabled', false)
         .set('selectedItem', firstNameAutocomplete.selectedItem)

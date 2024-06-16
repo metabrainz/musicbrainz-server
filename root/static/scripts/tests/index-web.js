@@ -1,5 +1,6 @@
 /* eslint-disable import/no-commonjs */
 
+require('./artist-credit-editor.js');
 require('./autocomplete.js');
 require('./common/immutable-entities.js');
 require('./Control/URLCleanup.js');
