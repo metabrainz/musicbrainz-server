@@ -439,6 +439,9 @@ export function runReducer<T: EntityItemT>(
       state.isInputFocused = action.isFocused;
       if (action.isFocused && state.selectedItem == null) {
         showAvailableItems = true;
+        if (!state.items.length && state.recentItems?.length) {
+          updateItems = true;
+        }
       }
       break;
     }
