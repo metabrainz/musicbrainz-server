@@ -36,6 +36,23 @@ sub _load
     return $edit_note;
 }
 
+sub show : PathPart('') Chained('load') {
+    my ($self, $c) = @_;
+
+    my $edit_note = $c->stash->{edit_note};
+    my $edit_id = $edit_note->edit_id;
+    my $edit = $c->model('Edit')->get_by_id($edit_id);
+    $c->model('EditNote')->load_for_edits($edit);
+    my @all_edit_notes = $edit->all_edit_notes;
+    my $note_index = (first_index {
+        $_->id == $edit_note->id,
+    } @all_edit_notes) + 1;
+
+    my $url = '/edit/' . $edit_id . '#note-' . $edit_id . '-' . $note_index;
+
+    $c->res->redirect($url);
+}
+
 sub detach_if_cannot_change {
     my ($self, $c, $edit_note, $edit) = @_;
 
