@@ -159,8 +159,13 @@ const _recentItemsCache =
 export function getRecentItems<T: EntityItemT>(
   key: string,
 ): $ReadOnlyArray<OptionItemT<T>> {
+  let cachedList = _recentItemsCache.get(key);
+  if (cachedList == null) {
+    cachedList = [];
+    _recentItemsCache.set(key, cachedList);
+  }
   // $FlowIgnore[incompatible-return]
-  return _recentItemsCache.get(key) ?? [];
+  return cachedList;
 }
 
 function getEntityName(
@@ -182,16 +187,24 @@ function getEntityName(
 
 const _recentItemsRequests =
   // $FlowIgnore[unclear-type]
-  new Map<string, Promise<Array<OptionItemT<any>>>>();
+  new Map<string, Promise<$ReadOnlyArray<OptionItemT<any>>>>();
 
 export async function getOrFetchRecentItems<T: EntityItemT>(
   entityType: EntityItemT['entityType'],
   key?: string = entityType,
 ): Promise<$ReadOnlyArray<OptionItemT<T>>> {
   const ids = _getRecentEntityIds(key);
-  const cachedList: Array<OptionItemT<T>> = [...getRecentItems<T>(key)];
+  let cachedList: $ReadOnlyArray<OptionItemT<T>> = getRecentItems<T>(key);
+  let newList: Array<OptionItemT<T>> | null = null;
 
-  _recentItemsCache.set(key, cachedList);
+  const pushItem = (item: OptionItemT<T>) => {
+    if (newList == null) {
+      newList = [...cachedList];
+      _recentItemsCache.set(key, newList);
+    }
+    /*:: invariant(newList != null); */
+    newList.push(item);
+  };
 
   for (const item of cachedList) {
     const id = _getGidOrId(item.entity);
@@ -208,7 +221,7 @@ export async function getOrFetchRecentItems<T: EntityItemT>(
       // $FlowIgnore[incompatible-type]
       const entity: ?T = linkedEntities[entityType]?.[id];
       if (entity) {
-        cachedList.push({
+        pushItem({
           entity: entity,
           id: String(entity.id) + '-recent',
           name: getEntityName(entity, isLanguageForWorks),
@@ -238,6 +251,12 @@ export async function getOrFetchRecentItems<T: EntityItemT>(
           return resp.json();
         })
         .then((data: WsJsEntitiesDataT<T> | null) => {
+          /*
+           * The recent items list may have changed since
+           * the `fetch` resolved.
+           */
+          cachedList = getRecentItems<T>(key);
+
           if (!data) {
             return cachedList;
           }
@@ -247,7 +266,7 @@ export async function getOrFetchRecentItems<T: EntityItemT>(
           for (const id of ids) {
             const entity = results[id];
             if (entity && entity.entityType === entityType) {
-              cachedList.push({
+              pushItem({
                 entity,
                 id: String(entity.id) + '-recent',
                 name: getEntityName(entity),
@@ -256,7 +275,7 @@ export async function getOrFetchRecentItems<T: EntityItemT>(
             }
           }
 
-          return cachedList;
+          return newList ?? cachedList;
         })
         .finally(() => {
           _recentItemsRequests.delete(key);
