@@ -319,7 +319,6 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
     isOpen,
     items,
     pendingSearch,
-    recentItems,
     selectedItem,
     staticItems,
     statusMessage,
@@ -617,35 +616,32 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
     handleOuterClick,
   );
 
-  const recentItemsNotLoaded = recentItems == null;
-
   React.useEffect(() => {
     let cancelled = false;
-    if (recentItemsNotLoaded) {
-      getOrFetchRecentItems<T>(
-        entityType,
-        state.recentItemsKey,
-      ).then((loadedRecentItems) => {
-        if (cancelled) {
-          return [];
-        }
+    getOrFetchRecentItems<T>(
+      entityType,
+      state.recentItemsKey,
+    ).then((loadedRecentItems) => {
+      if (cancelled) {
+        return [];
+      }
+      if (loadedRecentItems !== state.recentItems) {
         setTimeout(() => {
           dispatch({
             items: loadedRecentItems,
             type: 'set-recent-items',
           });
         }, 1);
-        return loadedRecentItems;
-      }).catch((error) => {
-        console.error(error);
-        Sentry.captureException(error);
-      });
-    }
+      }
+      return loadedRecentItems;
+    }).catch((error) => {
+      console.error(error);
+      Sentry.captureException(error);
+    });
     return () => {
       cancelled = true;
     };
   }, [
-    recentItemsNotLoaded,
     dispatch,
     entityType,
     state.recentItemsKey,
