@@ -101,13 +101,13 @@ sub detach_if_cannot_change {
         $c->detach;
     }
 
-    my $all_edit_notes = $edit->{edit_notes};
+    my @all_edit_notes = $edit->all_edit_notes;
     my $note_index = first_index {
         $_->id == $edit_note->id,
-    } @$all_edit_notes;
+    } @all_edit_notes;
     my $has_reply = 0;
-    for (my $i = $note_index + 1; $i < @$all_edit_notes; $i++) {
-        my $reply_editor = $all_edit_notes->[$i]->editor_id;
+    for (my $i = $note_index + 1; $i < @all_edit_notes; $i++) {
+        my $reply_editor = $all_edit_notes[$i]->editor_id;
         if (($reply_editor != $edit_note->editor_id) &&
             ($reply_editor != $EDITOR_MODBOT)) {
             $has_reply = 1;
