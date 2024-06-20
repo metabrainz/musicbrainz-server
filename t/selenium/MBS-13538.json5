@@ -1,0 +1,119 @@
+{
+  title: 'MBS-13538: Removing all rows in the artist credit editor makes it disappear',
+  commands: [
+    {
+      command: 'open',
+      target: '/recording/96f64611-49df-4e54-84e7-0f9a30f01766/edit',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'id=open-ac-164872',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("ac-source-artist-0").value',
+      value: 'Nine Inch Nails',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("ac-source-artist-0").className',
+      value: 'lookup-performed',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("ac-source-credited-as-0").value',
+      value: 'Nine Inch Nails',
+    },
+    {
+      command: 'click',
+      target: 'css=#artist-credit-bubble button.remove-artist-credit',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("ac-source-artist-0").value',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("ac-source-artist-0").className',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("ac-source-credited-as-0").value',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#artist-credit-bubble button.positive',
+      value: '',
+    },
+    {
+      command: 'assertElementPresent',
+      target: 'id=open-ac-164872',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("ac-source-single-artist").value',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("ac-source-single-artist").disabled',
+      value: 'false',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("ac-source-single-artist").className',
+      value: '',
+    },
+    // Check that clearing the last row doesn't prevent the recent items
+    // menu from appearing for the now-empty artist input. First re-select
+    // the artist, ensuring it's in the recent items list.
+    {
+      command: 'type',
+      target: 'id=ac-source-single-artist',
+      value: 'b7ffd2af-418f-4be2-bdd1-22f8b48613da',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'id=open-ac-164872',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#artist-credit-bubble button.remove-artist-credit',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'id=ac-source-artist-0',
+      value: '',
+    },
+    // Nine Inch Nails should appear in the recent items list.
+    {
+      command: 'assertElementPresent',
+      target: 'id=ac-source-artist-0-item-347-recent',
+      value: '',
+    },
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'handleAlert',
+      target: 'accept',
+      value: '',
+    },
+  ],
+}
