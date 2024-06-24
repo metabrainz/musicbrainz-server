@@ -2283,7 +2283,7 @@ msgstr ""
 #: DB:area_type/name:1
 msgctxt "area_type"
 msgid "Country"
-msgstr "Kraštas"
+msgstr "šalis"
 
 #: DB:area_type/description:1
 msgctxt "area_type"

@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-05 23:42+0000\n"
+"PO-Revision-Date: 2024-06-15 11:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/lt/>\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.5.4\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.5.5\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -646,14 +646,12 @@ msgid "Indicates the lyricist for this work."
 msgstr "Nurodo šio kūrinio dainų žodžių autorių."
 
 #: DB:link_type/description:42
-#, fuzzy
-#| msgid "Indicates the mastering engineer for this work."
 msgid "Indicates the mastering engineer for this release."
-msgstr "Nurodo šio kūrinio masteringo inžinierių."
+msgstr "Nurodo šio leidinio masteringo inžinierių."
 
 #: DB:link_type/description:219
 msgid "Indicates the official homepage for a label."
-msgstr "Nurodo oficialų įrašų leidyklos pagrindinį puslapį."
+msgstr "Nurodo oficialų leidyklos pagrindinį puslapį."
 
 #: DB:link_type/description:363
 msgid "Indicates the official homepage for a place."
@@ -724,16 +722,12 @@ msgid "Lead or solo vocal"
 msgstr "Pagrindinis arba solinis vokalas"
 
 #: DB:link_type/description:1255
-#, fuzzy
-#| msgid "Links an event to an artist that was a conductor in it."
 msgid "Links a competition event to an artist that was a jury member in it."
-msgstr "Susieja renginį su atlikėju, kuris jame buvo dirigentas."
+msgstr "Susieja konkurso renginį su jame dalyvavusiu žiuri nariu."
 
 #: DB:link_type/description:1256
-#, fuzzy
-#| msgid "Links an event to an artist that was a conductor in it."
 msgid "Links a competition event to an artist that was a participant in it."
-msgstr "Susieja renginį su atlikėju, kuris jame buvo dirigentas."
+msgstr "Susieja konkurso renginį su atlikėju, kuris jame dalyvavo."
 
 #: DB:link_type/description:864
 msgid ""
@@ -3916,19 +3910,20 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:1254
-#, fuzzy
-#| msgid "This relationship type is used to link an artist to their blog."
 msgid ""
 "This relationship type is used to link to a page where the artwork for this "
 "event can be purchased."
 msgstr ""
-"Šis santykių tipas naudojamas atlikėjui susieti su jo (-s) tinklaraščiu."
+"Šis santykio tipas naudojamas nuorodai į puslapį, kuriame galima nusipirkti "
+"šio renginio meno kūrinių."
 
 #: DB:link_type/description:960
 msgid ""
 "This relationship type is used to link to a page where the label's releases "
 "can be purchased for mail order."
 msgstr ""
+"Šis santykio tipas naudojamas nuorodai į puslapį, kuriame galima nusipirkti "
+"leidyklos leidinių paštu."
 
 #: DB:link_type/description:79
 msgid ""
@@ -6232,15 +6227,15 @@ msgstr "džiazas"
 
 #: DB:link_type/name:1255
 msgid "jury member"
-msgstr ""
+msgstr "žiuri narys"
 
 #: DB:link_type/link_phrase:1255
 msgid "jury member at"
-msgstr ""
+msgstr "žiuri narys vietoje"
 
 #: DB:link_type/reverse_link_phrase:1255
 msgid "jury members"
-msgstr ""
+msgstr "žiuri nariai"
 
 #: DB:link_attribute_type/name:1261 DB:link_type/name:226
 msgid "karaoke"
@@ -6939,7 +6934,7 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:356
 #: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:743
 msgid "part of"
-msgstr ""
+msgstr "dalies"
 
 #: DB:link_attribute_type/name:1033
 msgid "part of collection"
@@ -6955,22 +6950,22 @@ msgstr ""
 
 #: DB:link_type/name:1256
 msgid "participant"
-msgstr ""
+msgstr "dalyvis"
 
 #: DB:link_type/link_phrase:1256
 msgid "participant at"
-msgstr ""
+msgstr "dalyvis vietoje"
 
 #: DB:link_type/reverse_link_phrase:1256
 msgid "participants"
-msgstr ""
+msgstr "dalyviai"
 
 #: DB:link_type/link_phrase:818 DB:link_type/link_phrase:717
 #: DB:link_type/link_phrase:356 DB:link_type/link_phrase:281
 #: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
 #: DB:link_type/name:281
 msgid "parts"
-msgstr ""
+msgstr "dalys"
 
 #: DB:link_type/name:901 DB:link_type/name:900 DB:link_type/name:898
 #: DB:link_type/name:899 DB:link_type/name:897
@@ -7038,34 +7033,34 @@ msgstr ""
 
 #: DB:link_type/name:723
 msgid "personal label"
-msgstr "asmeninė leidybinė kompanija"
+msgstr "asmeninė leidykla"
 
 #: DB:link_type/reverse_link_phrase:723
 msgid "personal label for"
-msgstr ""
+msgstr "asmeninė leidykla, skirta"
 
 #: DB:link_type/name:724
 msgid "personal publisher"
-msgstr ""
+msgstr "asmeninis leidėjas"
 
 #: DB:link_type/reverse_link_phrase:724
 msgid "personal publisher for"
-msgstr ""
+msgstr "asmeninis leidėjas, skirtas"
 
 #: DB:link_type/link_phrase:113 DB:link_type/name:113
 #: DB:link_type/reverse_link_phrase:113 DB:link_type/long_link_phrase:113
 msgid "personal relationship"
-msgstr ""
+msgstr "asmeninis santykis"
 
 #: DB:link_type/name:867 DB:link_type/name:711 DB:link_type/name:710
 #: DB:link_type/name:869
 msgid "phonographic copyright"
-msgstr "fonografijos autorių teisės"
+msgstr "fonografijos autorinės teisės"
 
 #: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:711
 #: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:869
 msgid "phonographic copyright (℗) by"
-msgstr "fonografines autorių teises (℗)"
+msgstr "fonografines autorines teises (℗)"
 
 #: DB:link_type/name:123 DB:link_type/name:1175 DB:link_type/name:20
 msgid "photography"
@@ -7337,10 +7332,8 @@ msgid "publishing label"
 msgstr "leidybos leidybinė kompanija"
 
 #: DB:link_type/link_phrase:1254 DB:link_type/name:1254
-#, fuzzy
-#| msgid "purchase for download"
 msgid "purchase artwork"
-msgstr "pirkti atsisiuntimui"
+msgstr "pirkti meno kūrinį"
 
 #: DB:link_type/link_phrase:254 DB:link_type/link_phrase:74
 #: DB:link_type/name:912 DB:link_type/name:959 DB:link_type/name:254
@@ -7362,10 +7355,8 @@ msgid "purchase music for mail-order"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:1254
-#, fuzzy
-#| msgid "free download page for the score of"
 msgid "purchase page for the artwork of"
-msgstr "nemokamas atsisiuntimo partitūros puslapis"
+msgstr "meno kūrinių pirkimo puslapis"
 
 #: DB:link_type/reverse_link_phrase:912
 msgid "purchase score for download"
@@ -7381,7 +7372,7 @@ msgstr "purevolume"
 
 #: DB:link_type/link_phrase:1047 DB:link_type/long_link_phrase:1047
 msgid "quotes lyrics from"
-msgstr "cituoja dainų tekstus iš"
+msgstr "cituoja dainos žodžius iš"
 
 #: DB:link_type/link_phrase:1046 DB:link_type/long_link_phrase:1046
 msgid "quotes music from"
@@ -7452,10 +7443,8 @@ msgid "recording location for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:1006
-#, fuzzy
-#| msgid "recording"
 msgid "recordings"
-msgstr "įrašas"
+msgstr "įrašai"
 
 #: DB:link_type/reverse_link_phrase:239
 msgid "referred to in medleys"
@@ -8163,10 +8152,8 @@ msgid "was a conductor at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:1255
-#, fuzzy
-#| msgid "was a main performer at"
 msgid "was a jury member at"
-msgstr "buvo pagrindinis atlikėjas"
+msgstr "buvo žiuri narys vietoje"
 
 #: DB:link_type/long_link_phrase:796 DB:link_type/long_link_phrase:797
 msgid "was a launch event for"
@@ -8177,38 +8164,36 @@ msgid "was a main performer at"
 msgstr "buvo pagrindinis atlikėjas"
 
 #: DB:link_type/long_link_phrase:1256
-#, fuzzy
-#| msgid "has a picture at"
 msgid "was a participant at"
-msgstr "turi nuotrauką"
+msgstr "buvo dalyvis vietoje"
 
 #: DB:link_type/long_link_phrase:887
 msgid "was a performance of"
-msgstr ""
+msgstr "buvo atlikimo"
 
 #: DB:link_type/long_link_phrase:1166
 msgid "was a school director at"
-msgstr ""
+msgstr "buvo mokyklos direktorius vietoje"
 
 #: DB:link_type/long_link_phrase:799
 msgid "was a support act at"
-msgstr ""
+msgstr "buvo palaikymo aktas vietoje"
 
 #: DB:link_type/long_link_phrase:932
 msgid "was a supporting DJ at"
-msgstr ""
+msgstr "buvo palaikymo didžėjus vietoje"
 
 #: DB:link_type/long_link_phrase:1084
 msgid "was an engineer at"
-msgstr ""
+msgstr "buvo inžinierius vietoje"
 
 #: DB:link_type/long_link_phrase:807
 msgid "was an orchestra at"
-msgstr ""
+msgstr "buvo orkestras vietoje"
 
 #: DB:link_type/long_link_phrase:1245
 msgid "was cinematographer for"
-msgstr ""
+msgstr "buvo kinematografininkas"
 
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
 #: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
@@ -8294,12 +8279,12 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1416
 msgid "winner"
-msgstr ""
+msgstr "laimėtojas"
 
 #: DB:link_type/link_phrase:1002 DB:link_type/name:1002
 #: DB:link_type/reverse_link_phrase:1002 DB:link_type/long_link_phrase:1002
 msgid "work cataloguing"
-msgstr ""
+msgstr "kūrinių katalogavimas"
 
 #: DB:link_type/name:921 DB:link_type/reverse_link_phrase:921
 msgid "work list entry"
