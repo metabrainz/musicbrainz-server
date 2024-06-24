@@ -97,11 +97,10 @@ sub load_for {
 sub in_use {
     my ($self, $id) = @_;
 
-    my $schema = $self->art_schema;
     my $type_table = $self->art_type_table;
 
     return $self->sql->select_single_value(
-        "SELECT 1 FROM $schema.$type_table WHERE type_id = ? LIMIT 1",
+        "SELECT 1 FROM $type_table WHERE type_id = ? LIMIT 1",
         $id,
     );
 }
