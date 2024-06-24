@@ -36,7 +36,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-28 14:51+0000\n"
+"POT-Creation-Date: 2024-06-14 12:30+0000\n"
 "PO-Revision-Date: 2024-04-17 17:33+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -687,6 +687,10 @@ msgstr "Catalogusnr.:"
 msgid "Catalog#"
 msgstr "Catalogus#"
 
+#: ../root/layout.tt:121 ../root/layout/components/Footer.js:30
+msgid "Chat"
+msgstr ""
+
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
 msgstr "Klik op Bewerken om de gekoppelde opnamen voor dit medium te wijzigen."
@@ -1335,10 +1339,6 @@ msgstr ""
 "IPI-codes worden door CISAC aan ‘belanghebbende partijen’ voor het beheren "
 "van muziekrechten toegewezen. Zie {ipi_doc|de documentatie} voor meer "
 "informatie."
-
-#: ../root/layout.tt:121
-msgid "IRC"
-msgstr "Chat"
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/AddArtist.js:141 ../root/edit/details/AddLabel.js:106
@@ -2029,24 +2029,6 @@ msgstr ""
 "Ga eerst naar de pagina’s van de andere objecten die je wil samenvoegen en "
 "klik dan op “Samenvoegen”."
 
-#: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:23
-msgid ""
-"Please see the {doc|Cover Art Types} documentation for a description of "
-"these types."
-msgstr ""
-"Lees de {doc|documentatie over afbeeldingstypes} voor een beschrijving."
-
-#: ../root/event/add_event_art.tt:66 ../root/event/EventArtFields.js:23
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
-msgid ""
-"Please see the {doc|Event Art Types} documentation for a description of "
-"these types."
-msgstr ""
-"Lees de {doc|documentatie over afbeeldingstypes} voor een beschrijving."
-
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
 msgstr "Selecteer het medium waar je deze TOC aan wil toevoegen."
@@ -2431,6 +2413,28 @@ msgid ""
 msgstr ""
 "Selecteer een uitgave waarnaar de disc-ID <code>{discid}</code> naar moet "
 "worden verplaatst."
+
+#: ../root/release/add_cover_art.tt:66
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Cover Art Types} documentation for "
+"a description of these types."
+msgstr ""
+"Lees de {doc|documentatie over afbeeldingstypes} voor een beschrijving."
+
+#: ../root/event/add_event_art.tt:66
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Event Art Types} documentation for "
+"a description of these types."
+msgstr ""
+"Lees de {doc|documentatie over afbeeldingstypes} voor een beschrijving."
 
 #: ../root/components/forms.tt:369
 msgid ""
@@ -3083,7 +3087,6 @@ msgstr "Twitter"
 #: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/account/applications/ApplicationList.js:148
 #: ../root/components/Aliases/AliasTable.js:21
-#: ../root/components/ArtFields.js:64
 #: ../root/components/list/ReleaseGroupList.js:84
 #: ../root/components/list/ReleaseList.js:139
 #: ../root/edit/details/AddArea.js:57 ../root/edit/details/AddArtist.js:65
@@ -3137,8 +3140,11 @@ msgid "Type"
 msgstr "Type"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
-msgid "Type:"
-msgstr "Type:"
+#: ../root/components/ArtFields.js:64
+#, fuzzy
+#| msgid "Types:"
+msgid "Types"
+msgstr "Types:"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
@@ -6573,14 +6579,18 @@ msgstr ""
 "documentatie} kijken voordat je {con|contact met ons opneemt}."
 
 #: ../root/account/Register.js:80
+#, fuzzy
+#| msgid ""
+#| "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
+#| "the {fo|forums} or {irc|IRC}."
 msgid ""
-"Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
-"the {fo|forums} or {irc|IRC}."
+"Follow our {blog_link|blog} or {twitterx_link|twitter account}! To talk to "
+"other users, try the {forum_link|forums} or the {chat_link|chat}."
 msgstr ""
 "Lees ons {bl|weblog} of volg ons op {tw|Twitter}! Kijk op het {fo|forum} of "
 "op {irc|IRC} om met andere gebruikers te praten."
 
-#: ../root/account/Register.js:93
+#: ../root/account/Register.js:94
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
@@ -9242,7 +9252,7 @@ msgstr "Beëindigd"
 msgid "Lyrics languages"
 msgstr "Talen van de tekst"
 
-#: ../root/edit/details/BetaOnlyEdit.js:29
+#: ../root/edit/details/BetaOnlyEdit.js:30
 msgid "This edit can currently only be viewed on the {beta|beta server}."
 msgstr ""
 
@@ -10438,6 +10448,17 @@ msgstr "Kan geen afbeelding toevoegen"
 msgid "Choose one or more event art types for this image"
 msgstr "Kies één of meer types voor deze afbeelding"
 
+#: ../root/event/EventArtFields.js:23
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Event Art Types} documentation for "
+"their descriptions."
+msgstr ""
+"Lees de {doc|documentatie over afbeeldingstypes} voor een beschrijving."
+
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
 msgstr "Evenementen samenvoegen"
@@ -10853,10 +10874,6 @@ msgstr "Officiële website"
 #: ../root/layout/components/ExternalLinks.js:163
 msgid "View all relationships"
 msgstr "Alle relaties bekijken"
-
-#: ../root/layout/components/Footer.js:30
-msgid "Chat (IRC)"
-msgstr "Chat (IRC)"
 
 #: ../root/layout/components/Footer.js:64
 msgid "Running: {git_details}"
@@ -12124,6 +12141,17 @@ msgstr "Kan geen afbeelding toevoegen"
 #: ../root/release/CoverArtFields.js:21
 msgid "Choose one or more cover art types for this image"
 msgstr "Kies één of meer types voor deze afbeelding"
+
+#: ../root/release/CoverArtFields.js:23
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Cover Art Types} documentation for "
+"their descriptions."
+msgstr ""
+"Lees de {doc|documentatie over afbeeldingstypes} voor een beschrijving."
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 msgctxt "header"
@@ -18507,6 +18535,15 @@ msgstr ""
 "<strong>Waarschuwing:</strong> een paar van de composities die je wil "
 "samenvoegen, hebben verschillende ISWC’s. Controleer voordat je de "
 "composities samenvoegt of het echt dezelfde compositie is."
+
+#~ msgid "IRC"
+#~ msgstr "Chat"
+
+#~ msgid "Type:"
+#~ msgstr "Type:"
+
+#~ msgid "Chat (IRC)"
+#~ msgstr "Chat (IRC)"
 
 #~ msgid "This release has no artwork."
 #~ msgstr "Deze uitgave heeft geen afbeelding."

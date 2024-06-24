@@ -41,10 +41,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-28 14:51+0000\n"
+"POT-Creation-Date: 2024-06-14 12:30+0000\n"
 "PO-Revision-Date: 2024-06-12 21:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -52,8 +52,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.5.5\n"
 
 #: ../root/components/common-macros.tt:12
@@ -692,6 +692,10 @@ msgstr "Кат. №:"
 #: ../root/utility/tableColumns.js:488 ../root/utility/tableColumns.js:493
 msgid "Catalog#"
 msgstr "Кат. №"
+
+#: ../root/layout.tt:121 ../root/layout/components/Footer.js:30
+msgid "Chat"
+msgstr ""
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -1342,10 +1346,6 @@ msgstr ""
 "Коды IPI присваивает «заинтересованным сторонам» CISAC для контроля за "
 "музыкальными правами. Для дополнительной информации см. {ipi_doc|"
 "документацию}."
-
-#: ../root/layout.tt:121
-msgid "IRC"
-msgstr "IRC"
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/AddArtist.js:141 ../root/edit/details/AddLabel.js:106
@@ -2018,23 +2018,6 @@ msgstr ""
 "Пожалуйста, перейдите на страницы других сущностей, которые вы хотите "
 "объединить, и нажмите на ссылку «Объединить»."
 
-#: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:23
-msgid ""
-"Please see the {doc|Cover Art Types} documentation for a description of "
-"these types."
-msgstr ""
-
-#: ../root/event/add_event_art.tt:66 ../root/event/EventArtFields.js:23
-#, fuzzy
-#| msgid ""
-#| "Please review the {doc|alias documentation} before entering this edit."
-msgid ""
-"Please see the {doc|Event Art Types} documentation for a description of "
-"these types."
-msgstr ""
-"Перед тем как внести эту правку, ознакомьтесь с {doc|документацией по "
-"псевдонимам}."
-
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
 msgstr ""
@@ -2420,6 +2403,28 @@ msgid ""
 msgstr ""
 "Выберите релиз, в который ID диска <code>{discid}</code> должен быть "
 "перенесен."
+
+#: ../root/release/add_cover_art.tt:66
+#, fuzzy
+#| msgid ""
+#| "Please review the {doc|alias documentation} before entering this edit."
+msgid ""
+"Select all types that apply. See the {doc|Cover Art Types} documentation for "
+"a description of these types."
+msgstr ""
+"Перед тем как внести эту правку, ознакомьтесь с {doc|документацией по "
+"псевдонимам}."
+
+#: ../root/event/add_event_art.tt:66
+#, fuzzy
+#| msgid ""
+#| "Please review the {doc|alias documentation} before entering this edit."
+msgid ""
+"Select all types that apply. See the {doc|Event Art Types} documentation for "
+"a description of these types."
+msgstr ""
+"Перед тем как внести эту правку, ознакомьтесь с {doc|документацией по "
+"псевдонимам}."
 
 #: ../root/components/forms.tt:369
 msgid ""
@@ -3004,7 +3009,6 @@ msgstr ""
 #: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/account/applications/ApplicationList.js:148
 #: ../root/components/Aliases/AliasTable.js:21
-#: ../root/components/ArtFields.js:64
 #: ../root/components/list/ReleaseGroupList.js:84
 #: ../root/components/list/ReleaseList.js:139
 #: ../root/edit/details/AddArea.js:57 ../root/edit/details/AddArtist.js:65
@@ -3058,8 +3062,11 @@ msgid "Type"
 msgstr "Тип"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
-msgid "Type:"
-msgstr "Тип:"
+#: ../root/components/ArtFields.js:64
+#, fuzzy
+#| msgid "Types:"
+msgid "Types"
+msgstr "Типы:"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
@@ -6339,14 +6346,18 @@ msgstr ""
 "нам}."
 
 #: ../root/account/Register.js:80
+#, fuzzy
+#| msgid ""
+#| "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
+#| "the {fo|forums} or {irc|IRC}."
 msgid ""
-"Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
-"the {fo|forums} or {irc|IRC}."
+"Follow our {blog_link|blog} or {twitterx_link|twitter account}! To talk to "
+"other users, try the {forum_link|forums} or the {chat_link|chat}."
 msgstr ""
 "Подпишитесь на наш {bl|блог} или {tw|Twitter}! А чтобы поговорить с другими "
 "пользователями, воспользуйтесь {fo|форумами} или {irc|IRC}."
 
-#: ../root/account/Register.js:93
+#: ../root/account/Register.js:94
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
@@ -9009,7 +9020,7 @@ msgstr ""
 msgid "Lyrics languages"
 msgstr "Языки текста"
 
-#: ../root/edit/details/BetaOnlyEdit.js:29
+#: ../root/edit/details/BetaOnlyEdit.js:30
 msgid "This edit can currently only be viewed on the {beta|beta server}."
 msgstr ""
 
@@ -10208,6 +10219,17 @@ msgstr "Добавить обложку"
 msgid "Choose one or more event art types for this image"
 msgstr "Выберите один или более типов для этого изображения"
 
+#: ../root/event/EventArtFields.js:23
+#, fuzzy
+#| msgid ""
+#| "Please review the {doc|alias documentation} before entering this edit."
+msgid ""
+"Select all types that apply. See the {doc|Event Art Types} documentation for "
+"their descriptions."
+msgstr ""
+"Перед тем как внести эту правку, ознакомьтесь с {doc|документацией по "
+"псевдонимам}."
+
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
 msgstr "Объединить мероприятия"
@@ -10616,10 +10638,6 @@ msgstr "Официальная страница"
 #: ../root/layout/components/ExternalLinks.js:163
 msgid "View all relationships"
 msgstr "Показать все отношения"
-
-#: ../root/layout/components/Footer.js:30
-msgid "Chat (IRC)"
-msgstr "IRC-чат"
 
 #: ../root/layout/components/Footer.js:64
 msgid "Running: {git_details}"
@@ -11884,6 +11902,17 @@ msgstr "Добавить обложку"
 #: ../root/release/CoverArtFields.js:21
 msgid "Choose one or more cover art types for this image"
 msgstr "Выберите один или более типов для этого изображения"
+
+#: ../root/release/CoverArtFields.js:23
+#, fuzzy
+#| msgid ""
+#| "Please review the {doc|alias documentation} before entering this edit."
+msgid ""
+"Select all types that apply. See the {doc|Cover Art Types} documentation for "
+"their descriptions."
+msgstr ""
+"Перед тем как внести эту правку, ознакомьтесь с {doc|документацией по "
+"псевдонимам}."
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 #, fuzzy
@@ -17707,6 +17736,15 @@ msgstr ""
 "<strong>Внимание:</strong> Некоторые работы, которые вы объединяете, имеют "
 "разные коды ISWC. Пожалуйста, убедитесь, что это действительно одни и те же "
 "работы и вы хотите продолжить объединение."
+
+#~ msgid "IRC"
+#~ msgstr "IRC"
+
+#~ msgid "Type:"
+#~ msgstr "Тип:"
+
+#~ msgid "Chat (IRC)"
+#~ msgstr "IRC-чат"
 
 #~ msgid "Comment:"
 #~ msgstr "Комментарий:"

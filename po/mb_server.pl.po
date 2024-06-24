@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-28 14:51+0000\n"
+"POT-Creation-Date: 2024-06-14 12:30+0000\n"
 "PO-Revision-Date: 2024-04-17 17:38+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations."
 "metabrainz.org>\n"
@@ -692,6 +692,10 @@ msgstr "Nr kat.:"
 msgid "Catalog#"
 msgstr ""
 
+#: ../root/layout.tt:121 ../root/layout/components/Footer.js:30
+msgid "Chat"
+msgstr ""
+
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
 msgstr ""
@@ -1345,10 +1349,6 @@ msgid ""
 "management. Check {ipi_doc|the documentation} for more info."
 msgstr ""
 
-#: ../root/layout.tt:121
-msgid "IRC"
-msgstr ""
-
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/AddArtist.js:141 ../root/edit/details/AddLabel.js:106
 #: ../root/layout/components/sidebar/SidebarIsnis.js:20
@@ -1996,22 +1996,6 @@ msgid ""
 msgstr ""
 "Przejdź na strony innych obiektów, które chcesz scalić i kliknij „Scal”."
 
-#: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:23
-msgid ""
-"Please see the {doc|Cover Art Types} documentation for a description of "
-"these types."
-msgstr "Zapoznaj się z dokumentacją {doc|typów okładek} zawierającą ich opisy."
-
-#: ../root/event/add_event_art.tt:66 ../root/event/EventArtFields.js:23
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
-msgid ""
-"Please see the {doc|Event Art Types} documentation for a description of "
-"these types."
-msgstr "Zapoznaj się z dokumentacją {doc|typów okładek} zawierającą ich opisy."
-
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
 msgstr ""
@@ -2420,6 +2404,26 @@ msgid ""
 "Select a release to which the disc ID <code>{discid}</code>. should be moved "
 "to."
 msgstr ""
+
+#: ../root/release/add_cover_art.tt:66
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Cover Art Types} documentation for "
+"a description of these types."
+msgstr "Zapoznaj się z dokumentacją {doc|typów okładek} zawierającą ich opisy."
+
+#: ../root/event/add_event_art.tt:66
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Event Art Types} documentation for "
+"a description of these types."
+msgstr "Zapoznaj się z dokumentacją {doc|typów okładek} zawierającą ich opisy."
 
 #: ../root/components/forms.tt:369
 msgid ""
@@ -2978,7 +2982,6 @@ msgstr "Twitter"
 #: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/account/applications/ApplicationList.js:148
 #: ../root/components/Aliases/AliasTable.js:21
-#: ../root/components/ArtFields.js:64
 #: ../root/components/list/ReleaseGroupList.js:84
 #: ../root/components/list/ReleaseList.js:139
 #: ../root/edit/details/AddArea.js:57 ../root/edit/details/AddArtist.js:65
@@ -3032,8 +3035,11 @@ msgid "Type"
 msgstr "Typ"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
-msgid "Type:"
-msgstr "Typ:"
+#: ../root/components/ArtFields.js:64
+#, fuzzy
+#| msgid "Type"
+msgid "Types"
+msgstr "Typ"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
@@ -6510,11 +6516,11 @@ msgstr ""
 
 #: ../root/account/Register.js:80
 msgid ""
-"Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
-"the {fo|forums} or {irc|IRC}."
+"Follow our {blog_link|blog} or {twitterx_link|twitter account}! To talk to "
+"other users, try the {forum_link|forums} or the {chat_link|chat}."
 msgstr ""
 
-#: ../root/account/Register.js:93
+#: ../root/account/Register.js:94
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
@@ -9131,7 +9137,7 @@ msgstr ""
 msgid "Lyrics languages"
 msgstr "(resetuj język)"
 
-#: ../root/edit/details/BetaOnlyEdit.js:29
+#: ../root/edit/details/BetaOnlyEdit.js:30
 msgid "This edit can currently only be viewed on the {beta|beta server}."
 msgstr ""
 
@@ -10350,6 +10356,16 @@ msgstr "Nie można dodać okładki"
 msgid "Choose one or more event art types for this image"
 msgstr ""
 
+#: ../root/event/EventArtFields.js:23
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Event Art Types} documentation for "
+"their descriptions."
+msgstr "Zapoznaj się z dokumentacją {doc|typów okładek} zawierającą ich opisy."
+
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
 msgstr "Scal wydarzenia"
@@ -10805,10 +10821,6 @@ msgstr "Oficjalna strona"
 #: ../root/layout/components/ExternalLinks.js:163
 msgid "View all relationships"
 msgstr "Pokaż wszystkie relacje"
-
-#: ../root/layout/components/Footer.js:30
-msgid "Chat (IRC)"
-msgstr ""
 
 #: ../root/layout/components/Footer.js:64
 msgid "Running: {git_details}"
@@ -12079,6 +12091,16 @@ msgstr "Nie można dodać okładki"
 #: ../root/release/CoverArtFields.js:21
 msgid "Choose one or more cover art types for this image"
 msgstr ""
+
+#: ../root/release/CoverArtFields.js:23
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Cover Art Types} documentation for "
+"their descriptions."
+msgstr "Zapoznaj się z dokumentacją {doc|typów okładek} zawierającą ich opisy."
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 #, fuzzy
@@ -17823,6 +17845,9 @@ msgid ""
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
 msgstr ""
+
+#~ msgid "Type:"
+#~ msgstr "Typ:"
 
 #, fuzzy
 #~| msgid "Remove area"

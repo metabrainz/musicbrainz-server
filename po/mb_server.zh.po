@@ -18,10 +18,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-28 14:51+0000\n"
+"POT-Creation-Date: 2024-06-14 12:30+0000\n"
 "PO-Revision-Date: 2024-06-05 18:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -713,6 +713,10 @@ msgstr "Cat. No:"
 msgid "Catalog#"
 msgstr "目录#"
 
+#: ../root/layout.tt:121 ../root/layout/components/Footer.js:30
+msgid "Chat"
+msgstr ""
+
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
 msgstr "单击“编辑”，编辑此光盘的录制关联。"
@@ -1374,10 +1378,6 @@ msgid ""
 msgstr ""
 "IPI编号由CISAC向音乐版权管理\"利益相关方\"分配。如需更多信息，请查看{ipi_doc|"
 "文档}。"
-
-#: ../root/layout.tt:121
-msgid "IRC"
-msgstr "IRC"
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/AddArtist.js:141 ../root/edit/details/AddLabel.js:106
@@ -2044,22 +2044,6 @@ msgid ""
 "the \"merge\" link."
 msgstr "请转到其他要合并的实体页面，并选择“合并”链接。"
 
-#: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:23
-msgid ""
-"Please see the {doc|Cover Art Types} documentation for a description of "
-"these types."
-msgstr "关于这些类型的描述，请查看 {doc|封面图片类型} 文档。"
-
-#: ../root/event/add_event_art.tt:66 ../root/event/EventArtFields.js:23
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
-msgid ""
-"Please see the {doc|Event Art Types} documentation for a description of "
-"these types."
-msgstr "关于这些类型的描述，请查看 {doc|封面图片类型} 文档。"
-
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
 msgstr "请选择要附加此 CD 目录的媒介。"
@@ -2469,6 +2453,26 @@ msgid ""
 "Select a release to which the disc ID <code>{discid}</code>. should be moved "
 "to."
 msgstr "选择一个专辑，唱片 ID<code>{discid}</code>将被移动至该专辑。"
+
+#: ../root/release/add_cover_art.tt:66
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Cover Art Types} documentation for "
+"a description of these types."
+msgstr "关于这些类型的描述，请查看 {doc|封面图片类型} 文档。"
+
+#: ../root/event/add_event_art.tt:66
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Event Art Types} documentation for "
+"a description of these types."
+msgstr "关于这些类型的描述，请查看 {doc|封面图片类型} 文档。"
 
 #: ../root/components/forms.tt:369
 msgid ""
@@ -3061,7 +3065,6 @@ msgstr "Twitter"
 #: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/account/applications/ApplicationList.js:148
 #: ../root/components/Aliases/AliasTable.js:21
-#: ../root/components/ArtFields.js:64
 #: ../root/components/list/ReleaseGroupList.js:84
 #: ../root/components/list/ReleaseList.js:139
 #: ../root/edit/details/AddArea.js:57 ../root/edit/details/AddArtist.js:65
@@ -3115,7 +3118,10 @@ msgid "Type"
 msgstr "类型"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
-msgid "Type:"
+#: ../root/components/ArtFields.js:64
+#, fuzzy
+#| msgid "Types:"
+msgid "Types"
 msgstr "类型："
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
@@ -5887,7 +5893,8 @@ msgstr "请给 {credit} 添加艺术家姓名"
 msgid ""
 "Artist \"{artist}\" is unlinked, please select an existing artist. You may "
 "need to add a new artist to MusicBrainz first."
-msgstr "歌手“{artist}”未关联，请选择一个现有的歌手。你可能需要先向MusicBrainz添加一个"
+msgstr ""
+"歌手“{artist}”未关联，请选择一个现有的歌手。你可能需要先向MusicBrainz添加一个"
 "新的歌手。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:64
@@ -6656,14 +6663,18 @@ msgstr ""
 "如果您有任何问题，请在{con|联系我们}之前查看{faq|常见问题}和{doc|文档}。 "
 
 #: ../root/account/Register.js:80
+#, fuzzy
+#| msgid ""
+#| "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
+#| "the {fo|forums} or {irc|IRC}."
 msgid ""
-"Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
-"the {fo|forums} or {irc|IRC}."
+"Follow our {blog_link|blog} or {twitterx_link|twitter account}! To talk to "
+"other users, try the {forum_link|forums} or the {chat_link|chat}."
 msgstr ""
 "关注我们的 {bl|博客} 或 {tw|Twitter 账号}！要与其他用户交流，请前往 {fo|论"
 "坛} 或 {irc|IRC}。"
 
-#: ../root/account/Register.js:93
+#: ../root/account/Register.js:94
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
@@ -9255,7 +9266,7 @@ msgstr ""
 msgid "Lyrics languages"
 msgstr "歌词语言"
 
-#: ../root/edit/details/BetaOnlyEdit.js:29
+#: ../root/edit/details/BetaOnlyEdit.js:30
 msgid "This edit can currently only be viewed on the {beta|beta server}."
 msgstr ""
 
@@ -10436,6 +10447,16 @@ msgstr "无法添加封面图片"
 msgid "Choose one or more event art types for this image"
 msgstr "为此图像选择一个或多个封面类型"
 
+#: ../root/event/EventArtFields.js:23
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Event Art Types} documentation for "
+"their descriptions."
+msgstr "关于这些类型的描述，请查看 {doc|封面图片类型} 文档。"
+
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
 msgstr "合并事件"
@@ -10894,10 +10915,6 @@ msgstr "官方主页"
 #: ../root/layout/components/ExternalLinks.js:163
 msgid "View all relationships"
 msgstr "浏览所有关联"
-
-#: ../root/layout/components/Footer.js:30
-msgid "Chat (IRC)"
-msgstr "聊天（IRC）"
 
 #: ../root/layout/components/Footer.js:64
 msgid "Running: {git_details}"
@@ -12189,6 +12206,16 @@ msgstr "无法添加封面图片"
 #: ../root/release/CoverArtFields.js:21
 msgid "Choose one or more cover art types for this image"
 msgstr "为此图像选择一个或多个封面类型"
+
+#: ../root/release/CoverArtFields.js:23
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Cover Art Types} documentation for "
+"their descriptions."
+msgstr "关于这些类型的描述，请查看 {doc|封面图片类型} 文档。"
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 #, fuzzy
@@ -17980,6 +18007,15 @@ msgid ""
 msgstr ""
 "<strong>警告：</strong> 你正在合并的作品中有一些拥有不同的ISWC编号。请先确保"
 "这些作品确实为相同作品，然后再继续进行合并。"
+
+#~ msgid "IRC"
+#~ msgstr "IRC"
+
+#~ msgid "Type:"
+#~ msgstr "类型："
+
+#~ msgid "Chat (IRC)"
+#~ msgstr "聊天（IRC）"
 
 #~ msgid "This release has no artwork."
 #~ msgstr "此专辑没有图片。"
