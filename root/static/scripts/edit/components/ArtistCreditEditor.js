@@ -17,6 +17,7 @@ import {
 } from '../../common/components/Autocomplete2.js';
 import {
   default as autocompleteReducer,
+  generateItems as generateAutocompleteItems,
 } from '../../common/components/Autocomplete2/reducer.js';
 import type {
   ActionT as AutocompleteActionT,
@@ -330,7 +331,10 @@ export function reducer(
       stateCtx.get('singleArtistAutocomplete')
         .set('disabled', false)
         .set('selectedItem', firstNameAutocomplete.selectedItem)
-        .set('inputValue', firstNameAutocomplete.inputValue);
+        .set('inputValue', firstNameAutocomplete.inputValue)
+        .update((ctx) => {
+          ctx.set('items', generateAutocompleteItems(ctx.read()));
+        });
     } else {
       stateCtx.get('singleArtistAutocomplete')
         .set('disabled', true)

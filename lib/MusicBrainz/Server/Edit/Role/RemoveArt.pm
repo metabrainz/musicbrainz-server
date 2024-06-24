@@ -139,7 +139,7 @@ sub build_display_data {
 
     my $entity =
         $loaded->{ $art_archive_model->entity_model_name }{$entity_id} ||
-        $self->entity_model->_entity_class->new(
+        $art_archive_model->entity_model->_entity_class->new(
             id => $entity_id,
             name => $data->{entity}{name},
         );

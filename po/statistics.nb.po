@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-04 20:28+0000\n"
+"PO-Revision-Date: 2024-06-04 22:42+0000\n"
 "Last-Translator: \"ApeKattQuest, MonkeyPython\" "
 "<ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -72,8 +72,8 @@ msgid ""
 "A new AJAX coverart uploader is released, making it easier to add cover art "
 "to releases."
 msgstr ""
-"En ny AJAX cover art opplaster er sluppet. Denne gjør det lettere og legg "
-"til cover art på utgivelser. "
+"Den nye AJAX omslagsbildeopplasteren slippes. Dette gjør det lettere å legge "
+"til omslagsbilder på utgivelser."
 
 #: DB:statistics.statistic_event/description:2015-12-28
 msgid ""
@@ -230,7 +230,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-06-22
 msgid "Artist subscriptions"
-msgstr ""
+msgstr "Artistabonnementer"
 
 #: DB:statistics.statistic_event/description:2005-02-13
 msgid ""
@@ -599,7 +599,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2021-05-18
 msgid "Mergeable collections, artist series and ratable places"
-msgstr ""
+msgstr "Sammenslåbare samlinger, artistserier og vurderbare steder"
 
 #: DB:statistics.statistic_event/description:2008-04-21
 msgid "MetaBrainz accepts three students for Google Summer of Code."
@@ -2279,7 +2279,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:260
 msgid "Release group collections"
-msgstr ""
+msgstr "Utgivelsesgruppesamling"
 
 #: ../root/statistics/stats.js:265
 msgid "Series collections"
