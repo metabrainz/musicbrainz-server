@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-14 12:30+0000\n"
-"PO-Revision-Date: 2024-06-02 00:42+0000\n"
+"PO-Revision-Date: 2024-06-16 13:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -44,9 +44,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.4\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.5\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -678,7 +678,7 @@ msgstr "Nº di catalogo"
 
 #: ../root/layout.tt:121 ../root/layout/components/Footer.js:30
 msgid "Chat"
-msgstr ""
+msgstr "Chat"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -2409,28 +2409,20 @@ msgstr ""
 "code>."
 
 #: ../root/release/add_cover_art.tt:66
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "a description of these types."
 msgstr ""
-"Consulta la documentazione sui {doc|tipi di copertine} per una descrizione "
-"di questi tipi."
+"Seleziona tutti i tipi rilevanti. Consulta la documentazione sui {doc|tipi "
+"di copertine} per una descrizione di questi tipi."
 
 #: ../root/event/add_event_art.tt:66
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Event Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Event Art Types} documentation for "
 "a description of these types."
 msgstr ""
-"Consulta la documentazione sui {doc|tipi di manifesti} per una descrizione "
-"di questi tipi."
+"Seleziona tutti i tipi rilevanti. Consulta la documentazione sui {doc|tipi "
+"di manifesti} per una descrizione di questi tipi."
 
 #: ../root/components/forms.tt:369
 msgid ""
@@ -3132,10 +3124,8 @@ msgstr "Tipo"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 #: ../root/components/ArtFields.js:64
-#, fuzzy
-#| msgid "Types:"
 msgid "Types"
-msgstr "Tipi:"
+msgstr "Tipi"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
@@ -6532,16 +6522,13 @@ msgstr ""
 "{doc|documentazione} prima di {con|contattarci}."
 
 #: ../root/account/Register.js:80
-#, fuzzy
-#| msgid ""
-#| "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
-#| "the {fo|forums} or {irc|IRC}."
 msgid ""
 "Follow our {blog_link|blog} or {twitterx_link|twitter account}! To talk to "
 "other users, try the {forum_link|forums} or the {chat_link|chat}."
 msgstr ""
-"Segui il nostro {bl|blog} o l'{tw|account twitter}! Per parlare con gli "
-"altri utenti, prova il {fo|forum} o il {irc|canale IRC}."
+"Segui il nostro {blog_link|blog} o l'{twitterx_link|account Twitter}! Per "
+"parlare con gli altri utenti, prova il {forum_link|forum} o la "
+"{chat_link|chat}."
 
 #: ../root/account/Register.js:94
 msgid ""
@@ -7632,8 +7619,8 @@ msgid ""
 "Click the radio button to select the appropriate artist, or click the "
 "artist’s name to get more info."
 msgstr ""
-"Clicca sul pulsante di scelta per selezionare l'artista appropriato o clicca "
-"sul nome dell'artista per ottenere più informazioni."
+"Clicca sul pulsante di scelta per selezionare l'artista correspondente o "
+"clicca sul nome dell'artista per ottenere più informazioni."
 
 #: ../root/cdtoc/SelectArtistForCDToc.js:106
 msgid ""
@@ -10410,16 +10397,12 @@ msgid "Choose one or more event art types for this image"
 msgstr "Scegli uno o più tipi di manifesto per quest'immagine"
 
 #: ../root/event/EventArtFields.js:23
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Event Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Event Art Types} documentation for "
 "their descriptions."
 msgstr ""
-"Consulta la documentazione sui {doc|tipi di manifesti} per una descrizione "
-"di questi tipi."
+"Seleziona tutti i tipi rilevanti. Consulta la documentazione sui {doc|tipi "
+"di manifesti} per le loro descrizioni."
 
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
@@ -12082,16 +12065,12 @@ msgid "Choose one or more cover art types for this image"
 msgstr "Scegli uno o più tipi di copertina per quest'immagine"
 
 #: ../root/release/CoverArtFields.js:23
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "their descriptions."
 msgstr ""
-"Consulta la documentazione sui {doc|tipi di copertine} per una descrizione "
-"di questi tipi."
+"Seleziona tutti i tipi rilevanti. Consulta la documentazione sui {doc|tipi "
+"di copertine} per le loro descrizioni."
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 msgctxt "header"

@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-14 00:28+0000\n"
+"PO-Revision-Date: 2024-06-17 00:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -27,9 +27,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.4\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.5\n"
 
 #. name:rebab 
 #: DB:instrument/description:239
@@ -446,6 +446,10 @@ msgid ""
 "since atleast 1340's. It has a single drone and chanter with single reeds, "
 "modern variants are bellows blown."
 msgstr ""
+"Conosciuta anche come \"bock\", con riferimento alla sacca in pelle di "
+"capra, è usata almeno a partire dagli anni 1340. Ha una canna del canto e "
+"una di bordone ad ancia singola; le varianti moderne sono insufflate a "
+"mantice."
 
 #. name:classical guitar 
 #: DB:instrument/description:54
@@ -2243,6 +2247,9 @@ msgid ""
 "collected in a single horn. Both wooden chanters have holes; one for melody, "
 "the other for drone."
 msgstr ""
+"Ha una sacca in pelle di capra, vitello o pecora e una canna del canto "
+"doppia che termina in un corno singolo. Entrambe le canne del canto, in "
+"legno, hanno fori, una per la melodia e l'altra di bordone."
 
 #. name:ghaychak 
 #: DB:instrument/description:931
@@ -2267,6 +2274,10 @@ msgid ""
 "differing length are made of fruitwood. It historically had single reeds, "
 "modern creations are more complex and double-reeded."
 msgstr ""
+"Ha una sacca piccola e un suono leggero. La sua canna del canto e le sue due "
+"canne di bordone di lunghezza diversa sono in legno di albero da frutto. "
+"Storicamente aveva ance singole, ma le versioni moderne sono più complesse e "
+"ad ancia doppia."
 
 #. name:kantilan 
 #: DB:instrument/description:975
@@ -2609,6 +2620,9 @@ msgid ""
 "it has fur out and an ornamental goats head. Traditionally played at spring "
 "festivities, recently it has had a resurgence."
 msgstr ""
+"Ha una canna del canto e una di bordone, una sacca in pelle animale, una "
+"pelliccia esterna e una testa di capra ornamentale. Suonata tradizionalmente "
+"in occasione delle feste primaverili, in tempi recenti ha avuto un revival."
 
 #. name:sho 
 #: DB:instrument/description:192
@@ -3588,6 +3602,14 @@ msgid ""
 "<br /><br /> Used in traditional music together with drums, it has a small "
 "bag made of ewe or goat and double chanters with bells made of cowhorn."
 msgstr ""
+"Da non confondere con la ciaramella libica conosciuta anche come zukra o "
+"zurna.<br /> Da non confondere con il <a href=\"/instrument/"
+"826a3a61-75ce-4620-9890-241f118d99e9\">mijwiz</a> o con la simile "
+"zummara.<br /> <br /> Da non confondere con il \"mizmar\", termine arabo "
+"generico per diversi strumenti ad ancia, per i loro suonatori così come per "
+"una danza. <br /><br /> Usato nella musica tradizionale insieme ai tamburi, "
+"ha una sacca piccola in pelle di pecora o capra e canne del canto doppie con "
+"campane in corno di vacca."
 
 #. name:ghijak 
 #: DB:instrument/description:932
@@ -3625,7 +3647,7 @@ msgstr ""
 "Da non confondere con la <a href=\"/instrument/bd57c6a6-616b-4c00-bcde-"
 "f0f34e8d6eb0\">dolzaina</a> spagnola ad ancia doppia.<br /> Usato nel "
 "Rinascimento, è realizzato in legno d'acero con una sezione ripiegata e un "
-"padiglione conico."
+"padiglione a campana conico."
 
 #. name:shawm 
 #: DB:instrument/description:408
@@ -3683,6 +3705,9 @@ msgid ""
 "Often colourfully decorated, it is known since ancient times in southern "
 "Persia. It has a single reed with a double piped chanter with 6-7 holes."
 msgstr ""
+"Spesso decorato in modo colorato, è conosciuto sin dall'antichità nella "
+"Persia meridionale. Ha un'ancia singola, con una canna del canto doppia con "
+"6-7 fori."
 
 #. name:slapstick 
 #: DB:instrument/description:107
@@ -3825,7 +3850,7 @@ msgstr ""
 "Originariamente suonata insieme al mazanki, un violino folk speciale, oggi "
 "suonata con il violino preparato o da solista, ha una canna del canto "
 "singola con sette fori di diteggiatura e una canna di bordone ripiegata su "
-"sé stessa due volte, entrambe terminanti in padiglioni ricurvi."
+"sé stessa due volte, entrambe terminanti in campane ricurve."
 
 #. name:clavinet 
 #: DB:instrument/description:175
@@ -7267,6 +7292,9 @@ msgid ""
 "drone. It is becoming increasingly rare due to being displaced by Scottish "
 "Highland pipes."
 msgstr ""
+"Usato in occasione dei matrimoni rurali, ha canne doppie ad ancia singola, "
+"una per la melodia e una di bordone. Sta diventando sempre più raro, essendo "
+"rimpiazzato dalle cornamuse scozzesi."
 
 #. name:sistrum 
 #: DB:instrument/description:370
@@ -7389,6 +7417,13 @@ msgid ""
 "bowed horns at the end. <br /> Secondly; the macianka duda without horns has "
 "3 drones in one hole instead of one."
 msgstr ""
+"Usata sin dall'antichità, ha una forma piccola e semisferica con la canna "
+"del canto a un'estremità e le canne di bordone all'estremità opposta; ne "
+"esistono due tipi imparentati: uno proviene dalla Bielorussia settentrionale "
+"e dalla Lituania sudorientale, ha una canna del canto e una di bordone, "
+"entrambe con corni ricurvi all'estremità; <br /> il secondo è la macianka "
+"duda, senza corni e con tre canne di bordone che terminano nello stesso foro "
+"anziché una."
 
 #. name:somu dūdas 
 #: DB:instrument/description:1198
@@ -7398,6 +7433,11 @@ msgid ""
 "The name dudy/duda(s) is used for very many folk bagpipes in Europe and "
 "western Asia - see annotation(s) for more."
 msgstr ""
+"Usata a partire dal XVI secolo, è realizzata in pelle di agnello, capretto "
+"o, nel nord, foca. Ha 1-2 canne di bordone e una canna del canto con 4-7 "
+"fori di diteggiatura.<br /> <br /> Il nome dudy/duda(s) è usato per "
+"moltissime cornamuse folk in Europa e in Asia occidentale - vedi "
+"l'annotazione per maggiori informazioni."
 
 #. name:bonang panerus 
 #: DB:instrument/description:971

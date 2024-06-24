@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-24 16:42+0000\n"
+"PO-Revision-Date: 2024-06-16 19:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -30,9 +30,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.4\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.5\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -667,10 +667,8 @@ msgid "Indicates the lyricist for this work."
 msgstr "Indica il compositore dei testi per quest'opera."
 
 #: DB:link_type/description:42
-#, fuzzy
-#| msgid "Indicates the mastering engineer for this work."
 msgid "Indicates the mastering engineer for this release."
-msgstr "Indica il tecnico di mastering per quest'opera."
+msgstr "Indica il tecnico di mastering per questa pubblicazione."
 
 #: DB:link_type/description:219
 msgid "Indicates the official homepage for a label."
@@ -748,16 +746,14 @@ msgid "Lead or solo vocal"
 msgstr "Voce principale o solista"
 
 #: DB:link_type/description:1255
-#, fuzzy
-#| msgid "Links an event to an artist that was a conductor in it."
 msgid "Links a competition event to an artist that was a jury member in it."
-msgstr "Collega un evento a un artista che ne è stato direttore d'orchestra."
+msgstr ""
+"Collega un evento di tipo concorso a un artista che vi ha partecipato come "
+"membro della giuria."
 
 #: DB:link_type/description:1256
-#, fuzzy
-#| msgid "Links an event to an artist that was a conductor in it."
 msgid "Links a competition event to an artist that was a participant in it."
-msgstr "Collega un evento a un artista che ne è stato direttore d'orchestra."
+msgstr "Collega un evento di tipo concorso a un artista che vi ha partecipato."
 
 #: DB:link_type/description:864
 msgid ""
@@ -1537,11 +1533,9 @@ msgid "This attribute indicates the number of an entity in a series."
 msgstr "Quest'attributo indica il numero di un'entità in una serie."
 
 #: DB:link_attribute_type/description:1416
-#, fuzzy
-#| msgid "This attribute indicates the number of an entity in a series."
 msgid ""
 "This attribute indicates the winning participant in a competition event."
-msgstr "Quest'attributo indica il numero di un'entità in una serie."
+msgstr "Quest'attributo indica il vincitore di un evento di tipo concorso."
 
 #: DB:link_attribute_type/description:425
 msgid ""
@@ -3174,7 +3168,7 @@ msgstr ""
 msgid ""
 "This links a label to a site where tickets can be purchased for their events."
 msgstr ""
-"Collega un'etichetta a un sito su cui si possono comprare biglietti per i "
+"Collega un'etichetta a un sito su cui è possibile acquistare biglietti per i "
 "suoi eventi."
 
 #: DB:link_type/description:1130
@@ -3241,8 +3235,8 @@ msgstr ""
 msgid ""
 "This links a place to a site where tickets can be purchased for its events."
 msgstr ""
-"Collega un luogo a un sito su cui si possono comprare biglietti per i suoi "
-"eventi."
+"Collega un luogo a un sito su cui è possibile acquistare biglietti per i "
+"suoi eventi."
 
 #: DB:link_type/description:940
 msgid "This links a place to its profile at SoundCloud."
@@ -3503,7 +3497,7 @@ msgid ""
 "This links a series to a site where tickets can be purchased for events in "
 "it."
 msgstr ""
-"Collega una serie a un sito su cui si possono comprare biglietti per gli "
+"Collega una serie a un sito su cui è possibile acquistare biglietti per gli "
 "eventi in essa contenuti."
 
 #: DB:link_type/description:910
@@ -3650,8 +3644,8 @@ msgid ""
 "This links an artist to a site where tickets can be purchased for their "
 "events."
 msgstr ""
-"Collega un artista a un sito su cui si possono comprare biglietti per i suoi "
-"eventi."
+"Collega un artista a un sito su cui è possibile acquistare biglietti per i "
+"suoi eventi."
 
 #: DB:link_type/description:707
 msgid ""
@@ -3811,7 +3805,7 @@ msgstr ""
 #: DB:link_type/description:1197
 msgid "This links an event to a site where tickets can be purchased for it."
 msgstr ""
-"Collega un evento a un sito su cui si possono comprare biglietti per esso."
+"Collega un evento a un sito su cui è possibile acquistare biglietti per esso."
 
 #: DB:link_type/description:904
 msgid ""
@@ -4598,16 +4592,12 @@ msgstr ""
 "pubblicazioni dell'artista possono essere acquistate per corrispondenza."
 
 #: DB:link_type/description:1254
-#, fuzzy
-#| msgid ""
-#| "This relationship type is used to link to a page where the artist's "
-#| "releases can be purchased for mail order."
 msgid ""
 "This relationship type is used to link to a page where the artwork for this "
 "event can be purchased."
 msgstr ""
-"Questo tipo di relazione serve a collegare una pagina da cui le "
-"pubblicazioni dell'artista possono essere acquistate per corrispondenza."
+"Questo tipo di relazione serve a collegare una pagina da cui è possibile "
+"acquistare materiale illustrativo su questo evento."
 
 #: DB:link_type/description:960
 msgid ""
@@ -5333,10 +5323,8 @@ msgid "artwork"
 msgstr "copertine"
 
 #: DB:link_type/long_link_phrase:1254
-#, fuzzy
-#| msgid "can be purchased for download at"
 msgid "artwork can be purchased at"
-msgstr "scaricabile a pagamento su"
+msgstr "materiale illustrativo acquistabile su"
 
 #: DB:link_attribute_type/name:526
 msgid "assistant"
@@ -7008,15 +6996,15 @@ msgstr "jazz"
 
 #: DB:link_type/name:1255
 msgid "jury member"
-msgstr ""
+msgstr "membro della giuria"
 
 #: DB:link_type/link_phrase:1255
 msgid "jury member at"
-msgstr ""
+msgstr "membro della giuria presso"
 
 #: DB:link_type/reverse_link_phrase:1255
 msgid "jury members"
-msgstr ""
+msgstr "membri della giuria"
 
 #: DB:link_attribute_type/name:1261 DB:link_type/name:226
 msgid "karaoke"
@@ -7730,22 +7718,16 @@ msgid "partial"
 msgstr "parziale"
 
 #: DB:link_type/name:1256
-#, fuzzy
-#| msgid "principal"
 msgid "participant"
-msgstr "primo"
+msgstr "partecipante"
 
 #: DB:link_type/link_phrase:1256
-#, fuzzy
-#| msgid "principal"
 msgid "participant at"
-msgstr "primo"
+msgstr "partecipante a"
 
 #: DB:link_type/reverse_link_phrase:1256
-#, fuzzy
-#| msgid "principal"
 msgid "participants"
-msgstr "primo"
+msgstr "partecipanti"
 
 #: DB:link_type/link_phrase:818 DB:link_type/link_phrase:717
 #: DB:link_type/link_phrase:356 DB:link_type/link_phrase:281
@@ -8129,10 +8111,8 @@ msgid "publishing label"
 msgstr "etichetta editoriale"
 
 #: DB:link_type/link_phrase:1254 DB:link_type/name:1254
-#, fuzzy
-#| msgid "purchase for download"
 msgid "purchase artwork"
-msgstr "scaricare a pagamento"
+msgstr "acquistare materiale illustrativo"
 
 #: DB:link_type/link_phrase:254 DB:link_type/link_phrase:74
 #: DB:link_type/name:912 DB:link_type/name:959 DB:link_type/name:254
@@ -8154,10 +8134,8 @@ msgid "purchase music for mail-order"
 msgstr "acquistare musica per corrispondenza"
 
 #: DB:link_type/reverse_link_phrase:1254
-#, fuzzy
-#| msgid "download purchase page for the score of"
 msgid "purchase page for the artwork of"
-msgstr "pagina di download a pagamento per la partitura di"
+msgstr "pagina di acquisto per il materiale illustrativo di"
 
 #: DB:link_type/reverse_link_phrase:912
 msgid "purchase score for download"
@@ -8244,10 +8222,8 @@ msgid "recording location for"
 msgstr "luogo di registrazione per"
 
 #: DB:link_type/reverse_link_phrase:1006
-#, fuzzy
-#| msgid "recording"
 msgid "recordings"
-msgstr "registrazione"
+msgstr "registrazioni"
 
 #: DB:link_type/reverse_link_phrase:239
 msgid "referred to in medleys"
@@ -8955,10 +8931,8 @@ msgid "was a conductor at"
 msgstr "è stato direttore d'orchestra presso"
 
 #: DB:link_type/long_link_phrase:1255
-#, fuzzy
-#| msgid "was a main performer at"
 msgid "was a jury member at"
-msgstr "si è esibito come artista principale a"
+msgstr "è stato membro della giuria presso"
 
 #: DB:link_type/long_link_phrase:796 DB:link_type/long_link_phrase:797
 msgid "was a launch event for"
@@ -8969,10 +8943,8 @@ msgid "was a main performer at"
 msgstr "si è esibito come artista principale a"
 
 #: DB:link_type/long_link_phrase:1256
-#, fuzzy
-#| msgid "was a support act at"
 msgid "was a participant at"
-msgstr "è stato un artista spalla a"
+msgstr "è stato un partecipante a"
 
 #: DB:link_type/long_link_phrase:887
 msgid "was a performance of"
@@ -9088,7 +9060,7 @@ msgstr "direzione di fiati/ottoni"
 
 #: DB:link_attribute_type/name:1416
 msgid "winner"
-msgstr ""
+msgstr "vincitore"
 
 #: DB:link_type/link_phrase:1002 DB:link_type/name:1002
 #: DB:link_type/reverse_link_phrase:1002 DB:link_type/long_link_phrase:1002
