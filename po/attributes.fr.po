@@ -32,7 +32,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-31 18:42+0000\n"
+"PO-Revision-Date: 2024-06-24 15:52+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/fr/>\n"
@@ -42,7 +42,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.6\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -448,6 +448,11 @@ msgid ""
 "just a scaled down version of the poster, both types can be added to the "
 "same image."
 msgstr ""
+"Un document généralement plus petit qu’une affiche, prévu pour être imprimé "
+"et distribué au grand public soit pour promouvoir un événement à l’avance "
+"soit pour donner plus d’informations aux participants. Si le tract est une "
+"version réduite de l’affiche, les deux types peuvent être appliqués à la "
+"même image."
 
 #: DB:event_art_archive.art_type/description:2
 msgctxt "event_art_type"
@@ -455,6 +460,9 @@ msgid ""
 "A document generally used for admission to the event, whether physical or "
 "digital. Use this also for ticket stubs and passes."
 msgstr ""
+"Un document, imprimé ou numérique, généralement utilisé pour l’entrée d’un "
+"événement. Ce type est aussi utilisé pour les souches de billet et les "
+"passes."
 
 #: DB:release_status/description:2
 msgctxt "release_status"
@@ -514,6 +522,8 @@ msgid ""
 "A list of songs to be played in the event, often printed or handwritten for "
 "use by the artist."
 msgstr ""
+"Une liste de titres à jouer pendant l’événement, souvent imprimée ou "
+"manuscrite à l’usage de l’artiste."
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -1339,6 +1349,10 @@ msgid ""
 "(as opposed to an award ceremony where awards are presented for previously "
 "released or performed music)."
 msgstr ""
+"Un événement où les participants font une performance en public et dont le "
+"vainqueur ou la vainqueuse est alors choisie (par opposition à une cérémonie "
+"de remise de prix qui récompense de la musique parue ou jouée sans lien avec "
+"l’événement)."
 
 #: DB:event_type/description:2
 msgctxt "event_type"
@@ -1357,6 +1371,10 @@ msgid ""
 "more than one art type applies (for example, if a poster is sold as "
 "merchandise) use “merchandise” alongside any other appropriate types."
 msgstr ""
+"Une image de produits promouvant l’événement et vendu (ou offert) avant, "
+"pendant ou après, tel que des T-shirts, des casquettes, des auto-collants… "
+"Si ce produit est une affiche (ou tout autre type d’image), les deux types d’"
+"image doivent être utilisés en même temps."
 
 #: DB:event_art_archive.art_type/description:5
 msgctxt "event_art_type"
@@ -1365,6 +1383,9 @@ msgid ""
 "event. Can be a standalone image, but also a poster or banner (in which case "
 "all applicable types should be set)."
 msgstr ""
+"Une image qui montre l’ordre voire l’heure des performances lors d’un "
+"événement. Si cette image est une affiche ou une banderole, tous les types "
+"correspondant s’appliquent en même temps."
 
 #: DB:event_type/description:1
 msgctxt "event_type"
@@ -1392,6 +1413,9 @@ msgid ""
 "created for the event, for example showing the recommended ways to access "
 "the venue, or the location of specific stages and stands inside of it."
 msgstr ""
+"Un plan détaillé ou une carte d’accès, spécialement créé pour l’événement, "
+"par exemple qui montre les routes recommandées, ou l’emplacement des scènes "
+"et des stands à l’intérieur du lieu."
 
 #: DB:release_group_secondary_type/description:4
 msgctxt "release_group_secondary_type"
@@ -1814,7 +1838,7 @@ msgstr "Ballet"
 #: DB:event_art_archive.art_type/name:4
 msgctxt "event_art_type"
 msgid "Banner"
-msgstr ""
+msgstr "Banderole"
 
 #: DB:work_attribute_type_allowed_value/value:866
 msgctxt "work_attribute_type_allowed_value"
@@ -2431,12 +2455,9 @@ msgid "Club"
 msgstr "Discothèque"
 
 #: DB:event_type/name:40
-#, fuzzy
-#| msgctxt "release_group_secondary_type"
-#| msgid "Compilation"
 msgctxt "event_type"
 msgid "Competition"
-msgstr "Compilation"
+msgstr "Compétition"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -3428,7 +3449,7 @@ msgstr "Disquette"
 #: DB:event_art_archive.art_type/name:6
 msgctxt "event_art_type"
 msgid "Flyer"
-msgstr ""
+msgstr "Tract"
 
 #: DB:gender/description:4
 msgctxt "gender"
@@ -5404,7 +5425,7 @@ msgstr "Manôranjani"
 #: DB:event_art_archive.art_type/name:8
 msgctxt "event_art_type"
 msgid "Map"
-msgstr ""
+msgstr "Carte"
 
 #: DB:work_attribute_type_allowed_value/value:639
 msgctxt "work_attribute_type_allowed_value"
@@ -5504,7 +5525,7 @@ msgstr "Mehter"
 #: DB:event_art_archive.art_type/name:7
 msgctxt "event_art_type"
 msgid "Merchandise"
-msgstr ""
+msgstr "Produit dérivé"
 
 #: DB:work_attribute_type_allowed_value/value:642
 msgctxt "work_attribute_type_allowed_value"
@@ -6581,9 +6602,6 @@ msgid "Poster"
 msgstr "Affiche"
 
 #: DB:event_art_archive.art_type/name:1
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Poster"
 msgctxt "event_art_type"
 msgid "Poster"
 msgstr "Affiche"
@@ -7326,7 +7344,7 @@ msgstr "Sazsemaisi"
 #: DB:event_art_archive.art_type/name:5
 msgctxt "event_art_type"
 msgid "Schedule"
-msgstr ""
+msgstr "Programme"
 
 #: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
 #: DB:place_alias_type/name:2 DB:recording_alias_type/name:2
@@ -7406,7 +7424,7 @@ msgstr "Nom de la série"
 #: DB:event_art_archive.art_type/name:3
 msgctxt "event_art_type"
 msgid "Setlist"
-msgstr ""
+msgstr "Liste des titres"
 
 #: DB:work_attribute_type_allowed_value/value:663
 msgctxt "work_attribute_type_allowed_value"
@@ -8188,12 +8206,9 @@ msgstr ""
 "Cela représente le contenu multicanal de la couche SACD d’un SACD hybride."
 
 #: DB:event_art_archive.art_type/name:2
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Sticker"
 msgctxt "event_art_type"
 msgid "Ticket"
-msgstr "Autocollant"
+msgstr "Billet"
 
 #: DB:work_attribute_type_allowed_value/value:1041
 msgctxt "work_attribute_type_allowed_value"
@@ -8342,20 +8357,19 @@ msgid ""
 "watermarked and are not desirable for tagging (but can be used for "
 "reference)."
 msgstr ""
+"Utilisé en combinaison des autres types appropriés pour des images qui "
+"contiennent un filigrane et donc indésirables comme illustration (mais "
+"utiles comme référence)."
 
 #: DB:cover_art_archive.art_type/description:14
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use for images that need work to be used for tagging (but can possibly "
-#| "already be used for reference)"
 msgctxt "cover_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for tagging (but can possibly already be used for reference)."
 msgstr ""
-"Pour les images qui manquent de finition pour être utilisables comme "
-"illustration (mais qui sont déjà utilisables comme référence)"
+"Utilisé en combinaison des autres types appropriés pour des images qui "
+"manquent de finition pour être servir d’illustration (mais qui sont utiles "
+"comme référence)."
 
 #: DB:area_type/description:8
 msgctxt "area_type"
@@ -8383,6 +8397,8 @@ msgid ""
 "Usually a large printed or digital sheet, that often contains pictures, and "
 "is generally posted publicly to promote the event."
 msgstr ""
+"Une page généralement grande, imprimée ou numérique, qui contient souvent "
+"des images, et qui est rendue publique pour promouvoir l’événement."
 
 #: DB:event_art_archive.art_type/description:4
 msgctxt "event_art_type"
@@ -8390,6 +8406,9 @@ msgid ""
 "Usually horizontal image used to promote an event, for example in social "
 "media, which tends to have less information than a poster."
 msgstr ""
+"Une image généralement horizontale promouvoir l’événement, par exemple dans "
+"les réseaux sociaux, et qui a tendance à contenir moins d’informations qu’"
+"une affiche."
 
 #: DB:work_attribute_type/name:17
 msgctxt "work_attribute_type"

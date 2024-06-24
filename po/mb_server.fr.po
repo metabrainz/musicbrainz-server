@@ -68,7 +68,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-14 12:30+0000\n"
-"PO-Revision-Date: 2024-05-31 18:42+0000\n"
+"PO-Revision-Date: 2024-06-14 17:42+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -78,7 +78,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.5.5\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -712,7 +712,7 @@ msgstr "No dans le catalogue"
 
 #: ../root/layout.tt:121 ../root/layout/components/Footer.js:30
 msgid "Chat"
-msgstr ""
+msgstr "Tchat"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -2445,28 +2445,22 @@ msgstr ""
 "doit être déplacée."
 
 #: ../root/release/add_cover_art.tt:66
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "a description of these types."
 msgstr ""
-"Veuillez consulter la documentation sur les {doc|types d’image de parution} "
-"pour une description de ces types."
+"Sélectionnez tous les types qui correspondent. Veuillez consulter la "
+"documentation sur les {doc|types d’image de parution} pour une description "
+"de ces types."
 
 #: ../root/event/add_event_art.tt:66
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Event Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Event Art Types} documentation for "
 "a description of these types."
 msgstr ""
-"Veuillez consulter la documentation sur les {doc|types d’image d’événement} "
-"pour une description de ces types."
+"Sélectionnez tous les types qui correspondent. Veuillez consulter la "
+"documentation sur les {doc|types d’image d’événement} pour une description "
+"de ces types."
 
 #: ../root/components/forms.tt:369
 msgid ""
@@ -3173,10 +3167,8 @@ msgstr "Type"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 #: ../root/components/ArtFields.js:64
-#, fuzzy
-#| msgid "Types:"
 msgid "Types"
-msgstr "Types :"
+msgstr "Types"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
@@ -6600,16 +6592,13 @@ msgstr ""
 "documentation} avant de {con|nous contacter}."
 
 #: ../root/account/Register.js:80
-#, fuzzy
-#| msgid ""
-#| "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
-#| "the {fo|forums} or {irc|IRC}."
 msgid ""
 "Follow our {blog_link|blog} or {twitterx_link|twitter account}! To talk to "
 "other users, try the {forum_link|forums} or the {chat_link|chat}."
 msgstr ""
-"Suivre notre {bl|blogue} ou {tw|compte Twitter} ! Pour parler à d’autres "
-"utilisateurs, essayez les {fo|forums} ou {irc|IRC}."
+"Suivre notre {blog_link|blogue} ou {twitterx_link|compte Twitter} ! Pour "
+"parler à d’autres utilisateurs, essayez les {forum_link|forums} ou le "
+"{chat_link|tchat}."
 
 #: ../root/account/Register.js:94
 msgid ""
@@ -10494,16 +10483,12 @@ msgid "Choose one or more event art types for this image"
 msgstr "Choisir un ou plusieurs types d’image d’événement pour cette image"
 
 #: ../root/event/EventArtFields.js:23
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Event Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Event Art Types} documentation for "
 "their descriptions."
 msgstr ""
-"Veuillez consulter la documentation sur les {doc|types d’image d’événement} "
-"pour une description de ces types."
+"Sélectionnez tous les types qui correspondent. Veuillez consulter la "
+"documentation sur les {doc|types d’image d’événement} pour leur description."
 
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
@@ -12170,16 +12155,12 @@ msgid "Choose one or more cover art types for this image"
 msgstr "Choisir un ou plusieurs types d’image de parution pour cette image"
 
 #: ../root/release/CoverArtFields.js:23
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "their descriptions."
 msgstr ""
-"Veuillez consulter la documentation sur les {doc|types d’image de parution} "
-"pour une description de ces types."
+"Sélectionnez tous les types qui correspondent. Veuillez consulter la "
+"documentation sur les {doc|types d’image de parution} pour leur description."
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 msgctxt "header"
