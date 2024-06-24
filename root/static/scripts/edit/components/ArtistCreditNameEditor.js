@@ -20,19 +20,12 @@ import type {
   ArtistCreditNameStateT,
 } from './ArtistCreditEditor/types.js';
 
-type PropsT = {
-  +artistCreditEditorId: string,
-  +dispatch: (ActionT) => void,
-  +index: number,
-  +name: ArtistCreditNameStateT,
-};
-
-const ArtistCreditNameEditor = (React.memo<PropsT>(({
-  artistCreditEditorId,
-  dispatch,
-  index,
-  name: artistCreditName,
-}: PropsT): React.MixedElement => {
+component _ArtistCreditNameEditor(
+  artistCreditEditorId: string,
+  dispatch: (ActionT) => void,
+  index: number,
+  name as artistCreditName: ArtistCreditNameStateT,
+) {
   const artistDispatch = React.useCallback((
     action: AutocompleteActionT<ArtistT>,
   ) => {
@@ -142,7 +135,7 @@ const ArtistCreditNameEditor = (React.memo<PropsT>(({
     <tr>
       {artistCreditName.removed ? (
         <td className="removed-ac-name" colSpan="3">
-          {l('[removed]')}
+          {lp('[removed]', 'artist credit name')}
         </td>
       ) : (
         <>
@@ -193,6 +186,10 @@ const ArtistCreditNameEditor = (React.memo<PropsT>(({
       </td>
     </tr>
   );
-}): React.AbstractComponent<PropsT>);
+}
+
+const ArtistCreditNameEditor: React.AbstractComponent<
+  React.PropsOf<_ArtistCreditNameEditor>
+> = React.memo(_ArtistCreditNameEditor);
 
 export default ArtistCreditNameEditor;

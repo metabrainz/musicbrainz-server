@@ -46,7 +46,7 @@ function buildResult(
   return (
     <tr className={loopParity(index)} data-score={score} key={release.id}>
       <td>
-        <EntityLink entity={release} showCaaPresence />
+        <EntityLink entity={release} showArtworkPresence />
       </td>
       <td>
         <ArtistCreditLink artistCredit={release.artistCredit} />

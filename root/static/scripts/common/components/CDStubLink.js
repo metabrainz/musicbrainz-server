@@ -9,22 +9,14 @@
 
 import entityHref from '../utility/entityHref.js';
 
-type Props = {
-  +cdstub: CDStubT,
-  +content: string,
-  +subPath?: string,
-};
-
-const CDStubLink = ({
-  cdstub,
-  content,
-  subPath,
-}: Props): React$Element<'a'> => (
-  <a href={entityHref(cdstub, subPath)}>
-    <bdi>
-      {content}
-    </bdi>
-  </a>
-);
+component CDStubLink(cdstub: CDStubT, content: string, subPath?: string) {
+  return (
+    <a href={entityHref(cdstub, subPath)}>
+      <bdi>
+        {content}
+      </bdi>
+    </a>
+  );
+}
 
 export default CDStubLink;

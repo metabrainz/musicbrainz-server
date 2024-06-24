@@ -11,34 +11,38 @@ import {Artwork} from '../../components/Artwork.js';
 import expand2html from '../../static/scripts/common/i18n/expand2html.js';
 import entityHref from '../../static/scripts/common/utility/entityHref.js';
 
-type Props = {
-  +artwork: ArtworkT,
-  +colSpan?: number,
-  +release: ReleaseT,
-};
+component EditArtwork(
+  artwork: ArtworkT,
+  colSpan?: number,
+  entity: EventT | ReleaseT,
+) {
+  let title = '';
+  let archiveName = '';
+  if (entity.entityType === 'event') {
+    archiveName = 'event';
+    title = addColonText(lp('Event art', 'singular'));
+  } else if (entity.entityType === 'release') {
+    archiveName = 'cover';
+    title = addColonText(lp('Cover art', 'singular'));
+  }
 
-const EditArtwork = ({
-  artwork,
-  colSpan,
-  release,
-}: Props): React$Element<'tr'> => {
-  const historyMessage = release.gid ? (
+  const className = `edit-${archiveName}-art`;
+  const historyMessage = entity.gid ? (
     expand2html(
-      l(`We are unable to display history for this cover
-         art. For a current listing of cover art, please see the
-         {coverart|release's cover art page}.`),
-      {coverart: entityHref(release, 'cover-art')},
+      l(`We are unable to display history for this image.
+         See {artpage|all current images}.`),
+      {artpage: entityHref(entity, archiveName + '-art')},
     )
-  ) : l('We are unable to display history for this cover art.');
+  ) : l('We are unable to display history for this image.');
 
   return (
     <tr>
-      <th>{addColonText(lp('Cover art', 'singular'))}</th>
-      <td className="edit-cover-art" colSpan={colSpan ?? null}>
+      <th>{title}</th>
+      <td className={className} colSpan={colSpan ?? null}>
         <Artwork artwork={artwork} message={historyMessage} />
       </td>
     </tr>
   );
-};
+}
 
 export default EditArtwork;

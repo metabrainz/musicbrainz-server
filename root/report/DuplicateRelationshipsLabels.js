@@ -11,27 +11,29 @@ import LabelList from './components/LabelList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportLabelT} from './types.js';
 
-const DuplicateRelationshipsLabels = ({
+component DuplicateRelationshipsLabels(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportLabelT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report lists labels which have multiple relationships
-       to the same entity using the same relationship type.`,
-    )}
-    entityType="label"
-    filtered={filtered}
-    generated={generated}
-    title={l('Labels with possible duplicate relationships')}
-    totalEntries={pager.total_entries}
-  >
-    <LabelList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportLabelT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report lists labels which have multiple relationships
+         to the same entity using the same relationship type.`,
+      )}
+      entityType="label"
+      filtered={filtered}
+      generated={generated}
+      title={l('Labels with possible duplicate relationships')}
+      totalEntries={pager.total_entries}
+    >
+      <LabelList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default DuplicateRelationshipsLabels;

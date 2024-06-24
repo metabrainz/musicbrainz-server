@@ -23,11 +23,6 @@ export type RegisterFormT = FormT<{
   +username: FieldT<string>,
 }>;
 
-type PropsT = {
-  +captcha?: string,
-  +form: RegisterFormT,
-};
-
 function isPossibleEmail(string: string | null) {
   if (string == null) {
     return false;
@@ -35,10 +30,7 @@ function isPossibleEmail(string: string | null) {
   return /\w+@\w+\.\w+/.test(string);
 }
 
-export const RegisterForm = ({
-  captcha,
-  form,
-}: PropsT): React$Element<'form'> => {
+component RegisterForm(captcha?: string, form: RegisterFormT) {
   const [nameField, updateNameField] = React.useState(form.field.username);
 
   function handleUsernameChange(
@@ -125,9 +117,9 @@ export const RegisterForm = ({
       </FormRow>
     </form>
   );
-};
+}
 
-export default (hydrate<PropsT>(
+export default (hydrate<React.PropsOf<RegisterForm>>(
   'div.register-form',
   RegisterForm,
-): React.AbstractComponent<PropsT, void>);
+): React.AbstractComponent<React.PropsOf<RegisterForm>, void>);

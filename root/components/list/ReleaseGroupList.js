@@ -25,37 +25,16 @@ import {
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
 
-type ReleaseGroupListTableProps = {
-  ...SeriesItemNumbersRoleT,
-  +checkboxes?: string,
-  +mergeForm?: MergeFormT,
-  +order?: string,
-  +releaseGroups: $ReadOnlyArray<ReleaseGroupT>,
-  +showRatings?: boolean,
-  +showType?: boolean,
-  +sortable?: boolean,
-};
-
-type ReleaseGroupListProps = {
-  ...SeriesItemNumbersRoleT,
-  +checkboxes?: string,
-  +mergeForm?: MergeFormT,
-  +order?: string,
-  +releaseGroups: $ReadOnlyArray<ReleaseGroupT>,
-  +showRatings?: boolean,
-  +sortable?: boolean,
-};
-
-export const ReleaseGroupListTable = ({
-  checkboxes,
-  mergeForm,
-  order,
-  releaseGroups,
-  seriesItemNumbers,
-  showRatings = false,
-  showType = true,
-  sortable,
-}: ReleaseGroupListTableProps): React$Element<'table'> => {
+export component ReleaseGroupListTable(
+  checkboxes?: string,
+  mergeForm?: MergeFormT,
+  order?: string,
+  releaseGroups: $ReadOnlyArray<ReleaseGroupT>,
+  seriesItemNumbers?: $ReadOnlyArray<string>,
+  showRatings: boolean = false,
+  showType: boolean = true,
+  sortable?: boolean,
+) {
   const $c = React.useContext(CatalystContext);
 
   function getFirstReleaseYear(entity: ReleaseGroupT) {
@@ -86,7 +65,7 @@ export const ReleaseGroupListTable = ({
       const nameColumn = defineNameColumn<ReleaseGroupT>({
         descriptive: false, // since ACs are in the next column
         order: order,
-        showCaaPresence: true,
+        showArtworkPresence: true,
         sortable: sortable,
         title: l('Title'),
       });
@@ -145,18 +124,11 @@ export const ReleaseGroupListTable = ({
     columns,
     data: releaseGroups,
   });
-};
+}
 
-const ReleaseGroupList = ({
-  checkboxes,
-  mergeForm,
-  order,
-  releaseGroups,
-  seriesItemNumbers,
-  showRatings,
-  sortable,
-}: ReleaseGroupListProps): Array<React.MixedElement> => {
-  const groupedReleaseGroups = groupBy(releaseGroups, x => x.typeName ?? '');
+component ReleaseGroupList(...props: React.PropsOf<ReleaseGroupListTable>) {
+  const groupedReleaseGroups =
+    groupBy(props.releaseGroups, x => x.typeName ?? '');
   const tables: Array<React.MixedElement> = [];
   for (const [type, releaseGroupsOfType] of groupedReleaseGroups) {
     tables.push(
@@ -168,19 +140,14 @@ const ReleaseGroupList = ({
           }
         </h3>
         <ReleaseGroupListTable
-          checkboxes={checkboxes}
-          mergeForm={mergeForm}
-          order={order}
+          {...props}
           releaseGroups={releaseGroupsOfType}
-          seriesItemNumbers={seriesItemNumbers}
-          showRatings={showRatings}
           showType={false}
-          sortable={sortable}
         />
       </React.Fragment>,
     );
   }
   return tables;
-};
+}
 
 export default ReleaseGroupList;

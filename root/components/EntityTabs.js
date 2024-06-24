@@ -19,7 +19,9 @@ import {
 import EntityTabLink from './EntityTabLink.js';
 import Tabs from './Tabs.js';
 
-const tabLinkNames = {
+const tabLinkNames: {
+  +[tabLinkKey: string]: (() => string),
+} = {
   artists: N_l('Artists'),
   events: N_l('Events'),
   fingerprints: N_l('Fingerprints'),
@@ -124,6 +126,21 @@ function buildLinks(
     ));
   }
 
+  if (entityProperties.event_art) {
+    links.push(buildLink(
+      entity.event_art_presence === 'darkened' ? lp('Event art', 'plural') : (
+        texp.lp(
+          'Event art ({num})',
+          'plural',
+          {num: $c.stash.event_artwork_count || 0},
+        )
+      ),
+      entity,
+      'event-art',
+      page,
+    ));
+  }
+
   if (entityProperties.aliases) {
     links.push(buildLink(l('Aliases'), entity, 'aliases', page));
   }
@@ -169,22 +186,18 @@ function buildLinks(
   return links;
 }
 
-type Props = {
-  +editTab: ?React$Element<typeof EntityTabLink>,
-  +entity: RelatableEntityT,
-  +page?: string,
-};
-
-const EntityTabs = ({
-  editTab,
-  entity,
-  page,
-}: Props): React$Element<typeof Tabs> => (
-  <Tabs>
-    <CatalystContext.Consumer>
-      {($c: CatalystContextT) => buildLinks($c, entity, page, editTab)}
-    </CatalystContext.Consumer>
-  </Tabs>
-);
+component EntityTabs(
+  editTab: ?React$Element<typeof EntityTabLink>,
+  entity: RelatableEntityT,
+  page?: string,
+) {
+  return (
+    <Tabs>
+      <CatalystContext.Consumer>
+        {($c: CatalystContextT) => buildLinks($c, entity, page, editTab)}
+      </CatalystContext.Consumer>
+    </Tabs>
+  );
+}
 
 export default EntityTabs;

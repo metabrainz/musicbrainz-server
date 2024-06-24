@@ -24,13 +24,13 @@ type ReportEntryT = {
   +url_id: number,
 };
 
-const WikidataLinksWithMultipleEntities = ({
+component WikidataLinksWithMultipleEntities(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportEntryT>): React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportEntryT>) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -88,6 +88,6 @@ const WikidataLinksWithMultipleEntities = ({
       </PaginatedResults>
     </ReportLayout>
   );
-};
+}
 
 export default WikidataLinksWithMultipleEntities;

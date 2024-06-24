@@ -29,35 +29,20 @@ import {
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
 
-type Props = {
-  ...SeriesItemNumbersRoleT,
-  +artist?: ArtistT,
-  +artistRoles?: boolean,
-  +checkboxes?: string,
-  +events: $ReadOnlyArray<EventT>,
-  +mergeForm?: MergeFormT,
-  +order?: string,
-  +showArtists?: boolean,
-  +showLocation?: boolean,
-  +showRatings?: boolean,
-  +showType?: boolean,
-  +sortable?: boolean,
-};
-
-const EventList = ({
-  artist,
-  artistRoles = false,
-  checkboxes,
-  events,
-  mergeForm,
-  order,
-  seriesItemNumbers,
-  showArtists = false,
-  showLocation = false,
-  showRatings = false,
-  showType = false,
-  sortable,
-}: Props): React.MixedElement => {
+component EventList(
+  artist?: ArtistT,
+  artistRoles: boolean = false,
+  checkboxes?: string,
+  events: $ReadOnlyArray<EventT>,
+  mergeForm?: MergeFormT,
+  order?: string,
+  seriesItemNumbers?: $ReadOnlyArray<string>,
+  showArtists: boolean = false,
+  showLocation: boolean = false,
+  showRatings: boolean = false,
+  showType: boolean = false,
+  sortable?: boolean,
+) {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -71,6 +56,7 @@ const EventList = ({
       const nameColumn = defineNameColumn<EventT>({
         descriptive: false, // since dates have their own column
         order: order,
+        showArtworkPresence: true,
         sortable: sortable,
         title: l('Event'),
       });
@@ -157,6 +143,6 @@ const EventList = ({
       {manifest.js('common/components/ArtistRoles', {async: 'async'})}
     </>
   );
-};
+}
 
 export default EventList;

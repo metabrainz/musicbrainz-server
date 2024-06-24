@@ -1,0 +1,48 @@
+[% WRAPPER "event/layout.tt" title=lp('Reorder event art', 'plural, header') page='reorder_event_art' %]
+  [%- script_manifest('event/eventart.js') -%]
+
+  <h2>[%- lp('Reorder event art', 'plural, header') -%]</h2>
+
+  <form id="reorder-event-art" class="event-art" action="[% c.req.uri %]" method="post">
+    [%- USE r = FormRenderer(form) -%]
+
+    <div class="row" id="event-art-position-row">
+      <label id="event-art-position-label" class="required">[%~ add_colon(l('Position')) ~%]</label>
+
+      <div class="image-position">
+      [%- SET count = 0 -%]
+      [% FOR image = images %]
+        <div class="editimage thumb-position">
+          [%- display_artwork(image) -%]
+          <div style="display: flex; justify-content: space-around;">
+            <button type="button" class="left">&larr;</button>
+            [% React.embed(c, 'static/scripts/edit/components/InformationIcon', {
+              style => {'align-self' => 'flex-start'},
+              title => l('Types:') _ ' ' _ (comma_only_list(image.l_types) || '-') _ 
+                       (image.comment ? (' / ' _ add_colon(l('Comment')) _ ' ' _ image.comment) : '')}) %]
+            <button type="button" class="right" style="float: right;">&rarr;</button>
+          </div>
+          <input type="hidden" value="[% image.id %]" class="id"
+                 name="reorder-event-art.artwork.[% count %].id"
+                 id="id-reorder-event-art.artwork.[% count %].id">
+          <input type="hidden" value="[% count + 1 %]" class="position"
+                 name="reorder-event-art.artwork.[% count %].position"
+                 id="id-reorder-event-art.artwork.[% count %].position">
+
+        </div>
+        [%- SET count = count + 1 -%]
+      [% END %]
+      </div>
+
+      <script type="text/javascript">
+         MB.EventArt.reorder_position();
+      </script>
+    </div>
+
+    <div style="clear: left;"> </div>
+
+    [%- INCLUDE 'forms/edit-note.tt' -%]
+    [% enter_edit() %]
+
+  </form>
+[% END %]

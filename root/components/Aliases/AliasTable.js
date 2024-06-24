@@ -9,29 +9,25 @@
 
 import AliasTableBody from './AliasTableBody.js';
 
-type Props = {
-  +aliases: $ReadOnlyArray<AnyAliasT>,
-  +allowEditing: boolean,
-  +entity: EntityWithAliasesT,
-};
-
-const AliasTable = (props: Props): React$Element<'table'> => (
-  <table className="tbl">
-    <thead>
-      <tr>
-        <th>{l('Alias')}</th>
-        <th>{l('Sort name')}</th>
-        <th>{l('Begin date')}</th>
-        <th>{l('End date')}</th>
-        <th>{l('Type')}</th>
-        <th>{l('Locale')}</th>
-        {props.allowEditing
-          ? <th className="actions">{l('Actions')}</th>
-          : null}
-      </tr>
-    </thead>
-    <AliasTableBody {...props} />
-  </table>
-);
+component AliasTable(...props: React.PropsOf<AliasTableBody>) {
+  return (
+    <table className="tbl">
+      <thead>
+        <tr>
+          <th>{l('Alias')}</th>
+          <th>{l('Sort name')}</th>
+          <th>{l('Begin date')}</th>
+          <th>{l('End date')}</th>
+          <th>{l('Type')}</th>
+          <th>{l('Locale')}</th>
+          {props.allowEditing
+            ? <th className="actions">{l('Actions')}</th>
+            : null}
+        </tr>
+      </thead>
+      <AliasTableBody {...props} />
+    </table>
+  );
+}
 
 export default AliasTable;

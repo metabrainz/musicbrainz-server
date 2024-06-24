@@ -23,10 +23,6 @@ import {interpolate} from '../static/scripts/edit/utility/linkPhrase.js';
 
 import RelationshipTargetLinks from './RelationshipTargetLinks.js';
 
-type Props = {
-  +source: RelatableEntityT,
-};
-
 const renderTargetGroup = (targetGroup: RelationshipTargetGroupT) => (
   <RelationshipTargetLinks relationship={targetGroup} />
 );
@@ -130,9 +126,7 @@ export function isIrrelevantLinkType(
     relationship.backward;
 }
 
-const GroupedTrackRelationships = ({
-  source,
-}: Props): Array<React$Element<'dl'>> => {
+component GroupedTrackRelationships(source: RelatableEntityT) {
   const workRelationships = [];
 
   const groupedRelationships = groupRelationships(
@@ -183,6 +177,6 @@ const GroupedTrackRelationships = ({
   }
 
   return arsList;
-};
+}
 
 export default GroupedTrackRelationships;

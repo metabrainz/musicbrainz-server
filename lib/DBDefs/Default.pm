@@ -83,6 +83,7 @@ sub WEB_SERVER                { 'localhost:5000' }
 # Relevant only if SSL redirects are enabled
 sub WEB_SERVER_SSL            { 'localhost' }
 sub SEARCH_SERVER             { 'search.musicbrainz.org' }
+sub SEARCH_SCHEME             { 'http' }
 sub SEARCH_ENGINE             { 'SOLR' }
 # Whether to use x-accel-redirect for webservice searches,
 # using /internal/search as the internal redirect
@@ -348,20 +349,29 @@ sub AWS_PUBLIC { '' }
 sub RECAPTCHA_PUBLIC_KEY { return undef }
 sub RECAPTCHA_PRIVATE_KEY { return undef }
 
-# internet archive private/public keys (for coverartarchive.org).
+# Internet Archive public/private keys
+# (for coverartarchive.org and eventartarchive.org).
 sub COVER_ART_ARCHIVE_ACCESS_KEY { }
 sub COVER_ART_ARCHIVE_SECRET_KEY { }
-sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//%s.s3.us.archive.org/', shift) }
+sub EVENT_ART_ARCHIVE_ACCESS_KEY { }
+sub EVENT_ART_ARCHIVE_SECRET_KEY { }
+sub INTERNET_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//%s.s3.us.archive.org/', shift) }
+sub INTERNET_ARCHIVE_IA_DOWNLOAD_PREFIX { '//archive.org/download' }
+sub INTERNET_ARCHIVE_IA_METADATA_PREFIX { 'https://archive.org/metadata' }
+
 sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { '//coverartarchive.org' }
-sub COVER_ART_ARCHIVE_IA_DOWNLOAD_PREFIX { '//archive.org/download' }
-sub COVER_ART_ARCHIVE_IA_METADATA_PREFIX { 'https://archive.org/metadata' }
+sub EVENT_ART_ARCHIVE_DOWNLOAD_PREFIX { '//eventartarchive.org' }
+
+# Required in order to use the `/ssssss` endpoint. See the
+# `MusicBrainz::Server::Controller::SSSSSSProxy` module for more information.
+sub SSSSSS_SERVER { 'http://localhost:5050' }
 
 # Mapbox access token must be set to display area/place maps.
 sub MAPBOX_MAP_ID { 'mapbox/streets-v11' }
 sub MAPBOX_ACCESS_TOKEN { '' }
 
 # Feature toggle used for pre-schema change release of safe schema change code
-sub ACTIVE_SCHEMA_SEQUENCE { 28 }
+sub ACTIVE_SCHEMA_SEQUENCE { 29 }
 
 # Disallow OAuth2 requests over plain HTTP
 sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER || $self->IS_BETA }
@@ -382,6 +392,8 @@ sub STAT_TTL { shift->DEVELOPMENT_SERVER() ? undef : 1200 }
 # Please activate the officially approved languages here. Not every .po
 # file is active because we might have fully translated languages which
 # are not yet properly supported, like right-to-left languages
+#
+# The corresponding language packs must be installed; See NOTE-LANGUAGES-1
 sub MB_LANGUAGES {qw()}
 
 # Should the site fall back to browser settings when trying to set a language
@@ -439,6 +451,32 @@ sub DISCOURSE_SSO_SECRET { '' }
 # unlikely to be guessed; this is mainly only useful for an additional layer
 # of security on the MusicBrainz production site.
 sub NONCE_SECRET { '' }
+
+# `USE_RO_DATABASE_CONNECTOR` signals to MusicBrainz Server that it may open
+# an additional database connector per request that it can send read-only
+# queries to. In production this may be used to distribute read-only queries
+# to a PostgreSQL standby instance. (We avoid using this connector on the
+# website if a logged-in user exists, so as not to subject them to potential
+# replication lag while editing.)
+#
+# `USE_RO_DATABASE_CONNECTOR` is not enabled by default, because it's only
+# useful if a separate standby exists. It's also wasteful to potentially open
+# another connector per request if it's otherwise identical to the default
+# connection handle.
+#
+# If enabled, the connector will point to the `READONLY` database.
+#
+# This setting is ignored if `DB_READ_ONLY` is enabled, or if the
+# `REPLICATION_TYPE` is `RT_MIRROR`, because the default connection handle
+# already points to the `READONLY` database in those cases. If it's needed to
+# distribute read-only queries for a mirror database to a standby, haproxy
+# can be used.
+#
+# We don't define which queries the server will send to the RO connector; any
+# transactions that don't perform writes may be redirected, but it depends on
+# which parts of the server code have been updated to actually use the
+# connector.
+sub USE_RO_DATABASE_CONNECTOR { 0 }
 
 # When enabled, if Catalyst receives a request with an `mb-set-database`
 # header, all database queries will go to the specified database instead of

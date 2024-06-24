@@ -7,13 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import type {Props as FormRowTextProps} from './FormRowText.js';
 import FormRowText from './FormRowText.js';
 
-const FormRowTextLong = (
-  props: FormRowTextProps,
-): React$Element<typeof FormRowText> => (
-  <FormRowText size={47} {...props} />
-);
+component FormRowTextLong(...props: React.PropsOf<FormRowText>) {
+  return (
+    <FormRowText size={47} {...props} />
+  );
+}
 
 export default FormRowTextLong;

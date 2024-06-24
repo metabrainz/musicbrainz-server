@@ -11,26 +11,28 @@ import InstrumentList from './components/InstrumentList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportInstrumentT} from './types.js';
 
-const InstrumentsWithoutWikidata = ({
+component InstrumentsWithoutWikidata(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportInstrumentT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l_admin(
-      `This report shows instruments without Wikidata relationships.`,
-    )}
-    entityType="instrument"
-    filtered={filtered}
-    generated={generated}
-    title="Instruments without a link to Wikidata"
-    totalEntries={pager.total_entries}
-  >
-    <InstrumentList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportInstrumentT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l_admin(
+        `This report shows instruments without Wikidata relationships.`,
+      )}
+      entityType="instrument"
+      filtered={filtered}
+      generated={generated}
+      title="Instruments without a link to Wikidata"
+      totalEntries={pager.total_entries}
+    >
+      <InstrumentList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default InstrumentsWithoutWikidata;

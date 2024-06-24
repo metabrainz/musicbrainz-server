@@ -15,32 +15,33 @@ import RecordingList from './components/RecordingList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportRecordingRelationshipT} from './types.js';
 
-const DeprecatedRelationshipRecordings = ({
+component DeprecatedRelationshipRecordings(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingRelationshipT>):
-React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report lists recordings which have relationships using
-       deprecated and grouping-only relationship types.`,
-    )}
-    entityType="recording"
-    filtered={filtered}
-    generated={generated}
-    title={l('Recordings with deprecated relationships')}
-    totalEntries={pager.total_entries}
-  >
-    <RecordingList
-      columnsBefore={[relTypeColumn]}
-      items={items}
-      pager={pager}
-    />
-  </ReportLayout>
-);
+}: ReportDataT<ReportRecordingRelationshipT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report lists recordings which have relationships using
+         deprecated and grouping-only relationship types.`,
+      )}
+      entityType="recording"
+      filtered={filtered}
+      generated={generated}
+      title={l('Recordings with deprecated relationships')}
+      totalEntries={pager.total_entries}
+    >
+      <RecordingList
+        columnsBefore={[relTypeColumn]}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+}
 
 export default DeprecatedRelationshipRecordings;

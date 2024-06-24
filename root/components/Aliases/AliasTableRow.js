@@ -15,61 +15,56 @@ import formatEndDate
   from '../../static/scripts/common/utility/formatEndDate.js';
 import isolateText from '../../static/scripts/common/utility/isolateText.js';
 
-type Props = {
-  +alias: AnyAliasT,
-  +allowEditing: boolean,
-  +entity: EntityWithAliasesT,
-  +row: string,
-};
-
-const AliasTableRow = ({
-  alias,
-  allowEditing,
-  entity,
-  row,
-}: Props): React$Element<'tr'> => (
-  <tr className={row}>
-    <td colSpan={alias.name === alias.sort_name ? 2 : 1}>
-      {alias.editsPending
-        ? <span className="mp">{isolateText(alias.name)}</span>
-        : isolateText(alias.name)}
-    </td>
-    {alias.name === alias.sort_name
-      ? null
-      : <td>{isolateText(alias.sort_name)}</td>}
-    <td>{formatDate(alias.begin_date)}</td>
-    <td>{formatEndDate(alias)}</td>
-    <td>
-      {alias.typeName ? lp_attributes(alias.typeName, 'alias_type') : ''}
-    </td>
-    <td>
-      {alias.locale ? locales[alias.locale] : null}
-      {alias.primary_for_locale
-        ? (
-          <>
-            {' '}
-            {bracketed(<span className="comment">{l('primary')}</span>)}
-          </>
-        )
-        : null}
-    </td>
-    <td className="actions">
-      {allowEditing
-        ? (
-          <>
-            <a href={entityHref(entity, `/alias/${alias.id}/edit`)}>
-              {lp('Edit', 'verb, interactive')}
-            </a>
-            {' | '}
-            <a href={entityHref(entity, `/alias/${alias.id}/delete`)}>
-              {l('Remove')}
-            </a>
-          </>
-        )
-        : null
-      }
-    </td>
-  </tr>
-);
+component AliasTableRow(
+  alias: AnyAliasT,
+  allowEditing: boolean,
+  entity: EntityWithAliasesT,
+  row: string,
+) {
+  return (
+    <tr className={row}>
+      <td colSpan={alias.name === alias.sort_name ? 2 : 1}>
+        {alias.editsPending
+          ? <span className="mp">{isolateText(alias.name)}</span>
+          : isolateText(alias.name)}
+      </td>
+      {alias.name === alias.sort_name
+        ? null
+        : <td>{isolateText(alias.sort_name)}</td>}
+      <td>{formatDate(alias.begin_date)}</td>
+      <td>{formatEndDate(alias)}</td>
+      <td>
+        {alias.typeName ? lp_attributes(alias.typeName, 'alias_type') : ''}
+      </td>
+      <td>
+        {alias.locale ? locales[alias.locale] : null}
+        {alias.primary_for_locale
+          ? (
+            <>
+              {' '}
+              {bracketed(<span className="comment">{l('primary')}</span>)}
+            </>
+          )
+          : null}
+      </td>
+      <td className="actions">
+        {allowEditing
+          ? (
+            <>
+              <a href={entityHref(entity, `/alias/${alias.id}/edit`)}>
+                {lp('Edit', 'verb, interactive')}
+              </a>
+              {' | '}
+              <a href={entityHref(entity, `/alias/${alias.id}/delete`)}>
+                {l('Remove')}
+              </a>
+            </>
+          )
+          : null
+        }
+      </td>
+    </tr>
+  );
+}
 
 export default AliasTableRow;

@@ -14,38 +14,24 @@ import FormLabel from './FormLabel.js';
 import FormRow from './FormRow.js';
 import HiddenField from './HiddenField.js';
 
-type Props = {
+component FormRowSelect(
   // `allowEmpty` prepends an empty default option to the list.
-  +allowEmpty?: boolean,
-  +disabled?: boolean,
-  +field: FieldT<number | string>,
-  +frozen?: boolean,
-  +hasHtmlErrors?: boolean,
-  +helpers?: React$Node,
-  +label: React$Node,
-  +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
-  +options: MaybeGroupedOptionsT,
+  allowEmpty: boolean = false,
+  disabled: boolean = false,
+  field: FieldT<number | string>,
+  frozen: boolean = false,
+  hasHtmlErrors?: boolean,
+  helpers?: React$Node,
+  label: React$Node,
+  onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
+  options: MaybeGroupedOptionsT,
   /*
    * `required` makes the field text bold to indicate a selection is required.
    * Only useful when `allowEmpty` is true.
    */
-  +required?: boolean,
-  +uncontrolled?: boolean,
-};
-
-const FormRowSelect = ({
-  allowEmpty = false,
-  disabled = false,
-  frozen = false,
-  field,
-  hasHtmlErrors,
-  helpers,
-  label,
-  onChange,
-  options,
-  required: passedRequired = false,
-  uncontrolled = false,
-}: Props): React$Element<typeof FormRow> => {
+  required as passedRequired: boolean = false,
+  uncontrolled: boolean = false,
+) {
   let required = passedRequired;
   if (!allowEmpty) {
     // If the field can't be unset, there's nothing required from the user.
@@ -68,6 +54,6 @@ const FormRowSelect = ({
       <FieldErrors field={field} hasHtmlErrors={hasHtmlErrors} />
     </FormRow>
   );
-};
+}
 
 export default FormRowSelect;

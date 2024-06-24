@@ -13,38 +13,36 @@ import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
 import {QUALITY_NAMES} from '../../../static/scripts/common/constants.js';
 
-type Props = {
-  +edit: ChangeReleaseQualityHistoricEditT,
-};
-
-const ChangeReleaseQuality = ({edit}: Props): React$Element<'table'> => (
-  <table className="details change-release-quality">
-    {edit.display_data.changes.map((change, index) => {
-      const oldQuality = QUALITY_NAMES.get(change.quality.old);
-      const newQuality = QUALITY_NAMES.get(change.quality.new);
-      return (
-        <React.Fragment key={index}>
-          <tr>
-            <th>{addColonText(l('Releases'))}</th>
-            <td colSpan="2">
-              <ul>
-                {change.releases.map(release => (
-                  <li key={release.id}>
-                    <DescriptiveLink entity={release} />
-                  </li>
-                ))}
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th>{addColonText(l('Data quality'))}</th>
-            <td className="old">{oldQuality ? oldQuality() : ''}</td>
-            <td className="new">{newQuality ? newQuality() : ''}</td>
-          </tr>
-        </React.Fragment>
-      );
-    })}
-  </table>
-);
+component ChangeReleaseQuality(edit: ChangeReleaseQualityHistoricEditT) {
+  return (
+    <table className="details change-release-quality">
+      {edit.display_data.changes.map((change, index) => {
+        const oldQuality = QUALITY_NAMES.get(change.quality.old);
+        const newQuality = QUALITY_NAMES.get(change.quality.new);
+        return (
+          <React.Fragment key={index}>
+            <tr>
+              <th>{addColonText(l('Releases'))}</th>
+              <td colSpan="2">
+                <ul>
+                  {change.releases.map(release => (
+                    <li key={release.id}>
+                      <DescriptiveLink entity={release} />
+                    </li>
+                  ))}
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <th>{addColonText(l('Data quality'))}</th>
+              <td className="old">{oldQuality ? oldQuality() : ''}</td>
+              <td className="new">{newQuality ? newQuality() : ''}</td>
+            </tr>
+          </React.Fragment>
+        );
+      })}
+    </table>
+  );
+}
 
 export default ChangeReleaseQuality;

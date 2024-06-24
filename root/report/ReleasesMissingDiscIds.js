@@ -11,33 +11,35 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseT} from './types.js';
 
-const ReleasesMissingDiscIds = ({
+component ReleasesMissingDiscIds(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows releases (official and promotional only) that
-       have at least one medium with a format that supports disc IDs,
-       but is missing one.`,
-    )}
-    entityType="release"
-    extraInfo={exp.l(
-      `For instructions on how to add one, see the
-       {add_discids|documentation page}.`,
-      {add_discids: '/doc/How_to_Add_Disc_IDs'},
-    )}
-    filtered={filtered}
-    generated={generated}
-    title={l('Releases missing disc IDs')}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows releases (official and promotional only) that
+         have at least one medium with a format that supports disc IDs,
+         but is missing one.`,
+      )}
+      entityType="release"
+      extraInfo={exp.l(
+        `For instructions on how to add one, see the
+         {add_discids|documentation page}.`,
+        {add_discids: '/doc/How_to_Add_Disc_IDs'},
+      )}
+      filtered={filtered}
+      generated={generated}
+      title={l('Releases missing disc IDs')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default ReleasesMissingDiscIds;

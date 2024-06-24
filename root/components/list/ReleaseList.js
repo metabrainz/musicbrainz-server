@@ -32,37 +32,21 @@ import {
   taggerColumn,
 } from '../../utility/tableColumns.js';
 
-type Props = {
-  ...InstrumentCreditsAndRelTypesRoleT,
-  ...SeriesItemNumbersRoleT,
-  +checkboxes?: string,
-  +filterLabel?: LabelT,
-  +mergeForm?: MergeReleasesFormT,
-  +order?: string,
-  +releases: $ReadOnlyArray<ReleaseT>,
-  +showInstrumentCreditsAndRelTypes?: boolean,
-  +showLanguages?: boolean,
-  +showRatings?: boolean,
-  +showStatus?: boolean,
-  +showType?: boolean,
-  +sortable?: boolean,
-};
-
-const ReleaseList = ({
-  checkboxes,
-  filterLabel,
-  instrumentCreditsAndRelTypes,
-  mergeForm,
-  order,
-  releases,
-  seriesItemNumbers,
-  showInstrumentCreditsAndRelTypes = false,
-  showLanguages = false,
-  showRatings = false,
-  showStatus = false,
-  showType = false,
-  sortable,
-}: Props): React$MixedElement => {
+component ReleaseList(
+  checkboxes?: string,
+  filterLabel?: LabelT,
+  instrumentCreditsAndRelTypes?: InstrumentCreditsAndRelTypesT,
+  mergeForm?: MergeReleasesFormT,
+  order?: string,
+  releases: $ReadOnlyArray<ReleaseT>,
+  seriesItemNumbers?: $ReadOnlyArray<string>,
+  showInstrumentCreditsAndRelTypes: boolean = false,
+  showLanguages: boolean = false,
+  showRatings: boolean = false,
+  showStatus: boolean = false,
+  showType: boolean = false,
+  sortable?: boolean,
+) {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -76,7 +60,7 @@ const ReleaseList = ({
       const nameColumn = defineNameColumn<ReleaseT>({
         descriptive: false, // since ACs are in the next column
         order: order,
-        showCaaPresence: true,
+        showArtworkPresence: true,
         sortable: sortable,
         title: l('Release'),
       });
@@ -216,6 +200,6 @@ const ReleaseList = ({
       {manifest.js('common/components/TaggerIcon', {async: 'async'})}
     </>
   );
-};
+}
 
 export default ReleaseList;

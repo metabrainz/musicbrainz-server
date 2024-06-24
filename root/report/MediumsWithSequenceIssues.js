@@ -11,27 +11,29 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseT} from './types.js';
 
-const MediumsWithSequenceIssues = ({
+component MediumsWithSequenceIssues(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report lists all releases with gaps in the medium numbers
-       (for example, there is a medium 1 and 3 but no medium 2).`,
-    )}
-    entityType="release"
-    filtered={filtered}
-    generated={generated}
-    title={l('Releases with medium number issues')}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report lists all releases with gaps in the medium numbers
+         (for example, there is a medium 1 and 3 but no medium 2).`,
+      )}
+      entityType="release"
+      filtered={filtered}
+      generated={generated}
+      title={l('Releases with medium number issues')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default MediumsWithSequenceIssues;

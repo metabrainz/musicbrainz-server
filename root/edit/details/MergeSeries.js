@@ -9,25 +9,23 @@
 
 import SeriesList from '../../components/list/SeriesList.js';
 
-type Props = {
-  +edit: MergeSeriesEditT,
-};
-
-const MergeSeries = ({edit}: Props): React$Element<'table'> => (
-  <table className="details merge-series">
-    <tr>
-      <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
-      <td>
-        <SeriesList series={edit.display_data.old} />
-      </td>
-    </tr>
-    <tr>
-      <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
-      <td>
-        <SeriesList series={[edit.display_data.new]} />
-      </td>
-    </tr>
-  </table>
-);
+component MergeSeries(edit: MergeSeriesEditT) {
+  return (
+    <table className="details merge-series">
+      <tr>
+        <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
+        <td>
+          <SeriesList series={edit.display_data.old} />
+        </td>
+      </tr>
+      <tr>
+        <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
+        <td>
+          <SeriesList series={[edit.display_data.new]} />
+        </td>
+      </tr>
+    </table>
+  );
+}
 
 export default MergeSeries;

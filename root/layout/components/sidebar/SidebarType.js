@@ -12,23 +12,31 @@ import linkedEntities
 
 import {SidebarProperty} from './SidebarProperties.js';
 
-type Props = {
-  +entity: $ReadOnly<{...TypeRoleT<empty>, ...}>,
-  +typeType: string,
-};
+type EntityWithSidebarTypeT =
+  | 'area_type'
+  | 'artist_type'
+  | 'event_type'
+  | 'instrument_type'
+  | 'label_type'
+  | 'place_type'
+  | 'series_type'
+  | 'work_type';
 
-const SidebarType = ({
-  entity,
-  typeType,
-}: Props): React$MixedElement | null => (
-  entity.typeID == null ? null : (
-    <SidebarProperty className="type" label={addColonText(l('Type'))}>
-      {lp_attributes(
-        linkedEntities[typeType][entity.typeID].name,
-        typeType,
-      )}
-    </SidebarProperty>
-  )
-);
+component SidebarType(
+  entity: $ReadOnly<{...TypeRoleT<empty>, ...}>,
+  typeType: EntityWithSidebarTypeT,
+) {
+  const typeId = entity.typeID;
+  return (
+    typeId == null ? null : (
+      <SidebarProperty className="type" label={addColonText(l('Type'))}>
+        {lp_attributes(
+          linkedEntities[typeType][typeId].name,
+          typeType,
+        )}
+      </SidebarProperty>
+    )
+  );
+}
 
 export default SidebarType;

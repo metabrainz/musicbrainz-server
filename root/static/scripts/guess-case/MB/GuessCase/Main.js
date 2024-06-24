@@ -10,6 +10,8 @@
 
 import getCookie from '../../../common/utility/getCookie.js';
 import * as flags from '../../flags.js';
+import {type GuessCaseModeNameT} from '../../types.js';
+import {isGuessCaseModeName} from '../../utils.js';
 
 import GuessCaseAreaHandler from './Handler/Area.js';
 import GuessCaseArtistHandler from './Handler/Artist.js';
@@ -20,11 +22,25 @@ import GuessCaseReleaseHandler from './Handler/Release.js';
 import GuessCaseTrackHandler from './Handler/Track.js';
 import GuessCaseWorkHandler from './Handler/Work.js';
 
+const handlerPicker = {
+  area: GuessCaseAreaHandler,
+  artist: GuessCaseArtistHandler,
+  event: GuessCaseWorkHandler,
+  label: GuessCaseLabelHandler,
+  place: GuessCasePlaceHandler,
+  recording: GuessCaseTrackHandler,
+  release: GuessCaseReleaseHandler,
+  release_group: GuessCaseReleaseHandler,
+  series: GuessCaseWorkHandler,
+  track: GuessCaseTrackHandler,
+  work: GuessCaseWorkHandler,
+};
+
 // Main class of the GC functionality
 class GuessCase {
   CFG_KEEP_UPPERCASED: boolean;
 
-  modeName: string;
+  modeName: GuessCaseModeNameT;
 
   entities: {
     [entityType: string]: {
@@ -38,7 +54,10 @@ class GuessCase {
   };
 
   constructor() {
-    this.modeName = getCookie('guesscase_mode') || 'English';
+    const guessCaseModeCookie = getCookie('guesscase_mode');
+    this.modeName = isGuessCaseModeName(guessCaseModeCookie)
+      ? guessCaseModeCookie
+      : 'English';
 
     // Config
     this.CFG_KEEP_UPPERCASED =
@@ -110,7 +129,7 @@ class GuessCase {
   // Member functions
 
   guess(
-    handlerName: string,
+    handlerName: $Keys<typeof handlerPicker> | 'genre' | 'instrument',
     method: 'process' | 'guessSortName',
   ): (string) => string {
     if (handlerName === 'genre' || handlerName === 'instrument') {
@@ -118,19 +137,7 @@ class GuessCase {
     }
 
     let handler: GuessCaseHandler;
-    const handlerPicker = {
-      area: GuessCaseAreaHandler,
-      artist: GuessCaseArtistHandler,
-      event: GuessCaseWorkHandler,
-      label: GuessCaseLabelHandler,
-      place: GuessCasePlaceHandler,
-      recording: GuessCaseTrackHandler,
-      release: GuessCaseReleaseHandler,
-      release_group: GuessCaseReleaseHandler,
-      series: GuessCaseWorkHandler,
-      track: GuessCaseTrackHandler,
-      work: GuessCaseWorkHandler,
-    };
+
     /*
      * Guesses the name (e.g. capitalization) or sort name (for aliases)
      * of a given entity.

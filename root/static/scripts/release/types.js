@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import type {LinkedEntitiesT} from '../common/linkedEntities.mjs';
-
 export type CreditsModeT = 'bottom' | 'inline';
 
 export type LazyReleaseActionT =
@@ -30,13 +28,6 @@ export type LazyReleaseActionT =
 export type ActionT =
   | {+type: 'toggle-credits-mode'}
   | LazyReleaseActionT;
-
-export type PropsT = {
-  +initialCreditsMode: CreditsModeT,
-  +initialLinkedEntities: $ReadOnly<Partial<LinkedEntitiesT>>,
-  +noScript: boolean,
-  +release: ReleaseWithMediumsT,
-};
 
 export type LoadedTracksMapT =
   $ReadOnlyMap<number, $ReadOnlyArray<TrackWithRecordingT>>;

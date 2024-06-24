@@ -27,11 +27,7 @@ import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 import SubscriptionLinks from './SubscriptionLinks.js';
 
-type Props = {
-  +series: SeriesT,
-};
-
-const SeriesSidebar = ({series}: Props): React$Element<'div'> => {
+component SeriesSidebar(series: SeriesT) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -80,6 +76,6 @@ const SeriesSidebar = ({series}: Props): React$Element<'div'> => {
       <LastUpdated entity={series} />
     </div>
   );
-};
+}
 
 export default SeriesSidebar;

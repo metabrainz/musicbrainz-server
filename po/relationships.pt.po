@@ -1,18 +1,20 @@
 #
 # Translators:
+# Felipe Silva <musicbrainz@felipeqq2.rocks>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Portuguese (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/pt/)\n"
+"PO-Revision-Date: 2024-05-23 02:42+0000\n"
+"Last-Translator: Felipe Silva <musicbrainz@felipeqq2.rocks>\n"
+"Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
+"musicbrainz/relationship-types/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
+"1000000 == 0) ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -80,7 +82,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
 msgid "Apple Music"
-msgstr ""
+msgstr "Apple Music"
 
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
@@ -546,7 +548,7 @@ msgid "Indicates the lyricist for this work."
 msgstr ""
 
 #: DB:link_type/description:42
-msgid "Indicates the mastering engineer for this work."
+msgid "Indicates the mastering engineer for this release."
 msgstr ""
 
 #: DB:link_type/description:219
@@ -613,6 +615,14 @@ msgstr ""
 
 #: DB:link_attribute_type/description:4
 msgid "Lead or solo vocal"
+msgstr ""
+
+#: DB:link_type/description:1255
+msgid "Links a competition event to an artist that was a jury member in it."
+msgstr ""
+
+#: DB:link_type/description:1256
+msgid "Links a competition event to an artist that was a participant in it."
 msgstr ""
 
 #: DB:link_type/description:864
@@ -1251,6 +1261,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:788
 msgid "This attribute indicates the number of an entity in a series."
+msgstr ""
+
+#: DB:link_attribute_type/description:1416
+msgid ""
+"This attribute indicates the winning participant in a competition event."
 msgstr ""
 
 #: DB:link_attribute_type/description:425
@@ -3480,6 +3495,12 @@ msgid ""
 "can be purchased for mail order."
 msgstr ""
 
+#: DB:link_type/description:1254
+msgid ""
+"This relationship type is used to link to a page where the artwork for this "
+"event can be purchased."
+msgstr ""
+
 #: DB:link_type/description:960
 msgid ""
 "This relationship type is used to link to a page where the label's releases "
@@ -4074,6 +4095,10 @@ msgstr ""
 #: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
 #: DB:link_type/name:1170
 msgid "artwork"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1254
+msgid "artwork can be purchased at"
 msgstr ""
 
 #: DB:link_attribute_type/name:526
@@ -4713,7 +4738,7 @@ msgstr ""
 
 #: DB:link_type/name:309
 msgid "edit"
-msgstr ""
+msgstr "editar"
 
 #: DB:link_type/link_phrase:309
 msgid "edit of"
@@ -5735,6 +5760,18 @@ msgstr ""
 msgid "jazz"
 msgstr ""
 
+#: DB:link_type/name:1255
+msgid "jury member"
+msgstr ""
+
+#: DB:link_type/link_phrase:1255
+msgid "jury member at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1255
+msgid "jury members"
+msgstr ""
+
 #: DB:link_attribute_type/name:1261 DB:link_type/name:226
 msgid "karaoke"
 msgstr ""
@@ -6446,6 +6483,18 @@ msgstr ""
 msgid "partial"
 msgstr ""
 
+#: DB:link_type/name:1256
+msgid "participant"
+msgstr ""
+
+#: DB:link_type/link_phrase:1256
+msgid "participant at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1256
+msgid "participants"
+msgstr ""
+
 #: DB:link_type/link_phrase:818 DB:link_type/link_phrase:717
 #: DB:link_type/link_phrase:356 DB:link_type/link_phrase:281
 #: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
@@ -6817,6 +6866,10 @@ msgstr ""
 msgid "publishing label"
 msgstr ""
 
+#: DB:link_type/link_phrase:1254 DB:link_type/name:1254
+msgid "purchase artwork"
+msgstr ""
+
 #: DB:link_type/link_phrase:254 DB:link_type/link_phrase:74
 #: DB:link_type/name:912 DB:link_type/name:959 DB:link_type/name:254
 #: DB:link_type/name:74 DB:link_type/name:176
@@ -6834,6 +6887,10 @@ msgstr ""
 
 #: DB:link_type/link_phrase:960 DB:link_type/link_phrase:175
 msgid "purchase music for mail-order"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1254
+msgid "purchase page for the artwork of"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:912
@@ -6892,10 +6949,6 @@ msgstr ""
 msgid "recorded music series"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:1006
-msgid "recorded recordings"
-msgstr ""
-
 #: DB:link_type/reverse_link_phrase:1007
 msgid "recorded release groups"
 msgstr ""
@@ -6922,6 +6975,10 @@ msgstr ""
 
 #: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
 msgid "recording location for"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1006
+msgid "recordings"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:239
@@ -7047,7 +7104,7 @@ msgstr ""
 
 #: DB:link_type/name:94 DB:link_type/name:842
 msgid "review"
-msgstr ""
+msgstr "crítica"
 
 #: DB:link_type/reverse_link_phrase:94 DB:link_type/reverse_link_phrase:842
 msgid "review page for"
@@ -7055,7 +7112,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:94 DB:link_type/link_phrase:842
 msgid "reviews"
-msgstr ""
+msgstr "críticas"
 
 #: DB:link_type/link_phrase:844 DB:link_type/long_link_phrase:844
 msgid "revised"
@@ -7629,12 +7686,20 @@ msgstr ""
 msgid "was a conductor at"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:1255
+msgid "was a jury member at"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:796 DB:link_type/long_link_phrase:797
 msgid "was a launch event for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:798
 msgid "was a main performer at"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:1256
+msgid "was a participant at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:887
@@ -7745,6 +7810,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1346
 msgid "wind/brass conducting"
+msgstr ""
+
+#: DB:link_attribute_type/name:1416
+msgid "winner"
 msgstr ""
 
 #: DB:link_type/link_phrase:1002 DB:link_type/name:1002

@@ -7,14 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-type Props = {+subHeading: React$Node};
-
-const SubHeader = ({subHeading}: Props): React$Element<'p'> => (
-  <p className="subheader">
-    <span className="prefix">{'~'}</span>
-    {' '}
-    {subHeading}
-  </p>
-);
+component SubHeader(subHeading: React$Node) {
+  return (
+    <p className="subheader">
+      <span className="prefix">{'~'}</span>
+      {' '}
+      {subHeading}
+    </p>
+  );
+}
 
 export default SubHeader;

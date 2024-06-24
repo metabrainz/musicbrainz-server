@@ -346,6 +346,23 @@ msgstr ""
 "音楽イベントとして普通位置付けられていないが、大会、博覧会または見本市のアク"
 "ティビティの一部としてそれらを含めることができるイベント。"
 
+#: DB:event_art_archive.art_type/description:6
+msgctxt "event_art_type"
+msgid ""
+"A document generally smaller than a poster that is usually meant to be "
+"printed and shared with the public to either promote an event in advance or "
+"give additional information for the attendees. If the flyer for an event is "
+"just a scaled down version of the poster, both types can be added to the "
+"same image."
+msgstr ""
+
+#: DB:event_art_archive.art_type/description:2
+msgctxt "event_art_type"
+msgid ""
+"A document generally used for admission to the event, whether physical or "
+"digital. Use this also for ticket stubs and passes."
+msgstr ""
+
 #: DB:release_status/description:2
 msgctxt "release_status"
 msgid ""
@@ -388,6 +405,13 @@ msgstr ""
 #: DB:place_type/description:43
 msgctxt "place_type"
 msgid "A large, permanent outdoor stage, typically with a fixed seating area."
+msgstr ""
+
+#: DB:event_art_archive.art_type/description:3
+msgctxt "event_art_type"
+msgid ""
+"A list of songs to be played in the event, often printed or handwritten for "
+"use by the artist."
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:28
@@ -1128,6 +1152,14 @@ msgid ""
 "the Internet, including podcasts."
 msgstr ""
 
+#: DB:event_type/description:40
+msgctxt "event_type"
+msgid ""
+"An event in which the participants perform live and a winner is then chosen "
+"(as opposed to an award ceremony where awards are presented for previously "
+"released or performed music)."
+msgstr ""
+
 #: DB:event_type/description:2
 msgctxt "event_type"
 msgid ""
@@ -1136,6 +1168,23 @@ msgid ""
 msgstr ""
 "1日を通してさまざまな行為が行われるイベント。 大規模なフェスティバルは、複数"
 "日に亘って開催される場合もある。"
+
+#: DB:event_art_archive.art_type/description:7
+msgctxt "event_art_type"
+msgid ""
+"An image for any sort of event-related goods sold (or freely shared) to "
+"promote the event or during it, such as t-shirts, caps, stickers, etc. If "
+"more than one art type applies (for example, if a poster is sold as "
+"merchandise) use “merchandise” alongside any other appropriate types."
+msgstr ""
+
+#: DB:event_art_archive.art_type/description:5
+msgctxt "event_art_type"
+msgid ""
+"An image usually showing the order and time for the performances in an "
+"event. Can be a standalone image, but also a poster or banner (in which case "
+"all applicable types should be set)."
+msgstr ""
 
 #: DB:event_type/description:1
 msgctxt "event_type"
@@ -1151,6 +1200,14 @@ msgctxt "place_type"
 msgid ""
 "An indoor performance facility with fixed seating, whether for music "
 "(usually, but not always, classical music) or theatre."
+msgstr ""
+
+#: DB:event_art_archive.art_type/description:8
+msgctxt "event_art_type"
+msgid ""
+"An internal plan of the event venue, or an external access map specifically "
+"created for the event, for example showing the recommended ways to access "
+"the venue, or the location of specific stages and stands inside of it."
 msgstr ""
 
 #: DB:release_group_secondary_type/description:4
@@ -1565,6 +1622,11 @@ msgstr ""
 msgctxt "work_type"
 msgid "Ballet"
 msgstr "バレエ"
+
+#: DB:event_art_archive.art_type/name:4
+msgctxt "event_art_type"
+msgid "Banner"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:866
 msgctxt "work_attribute_type_allowed_value"
@@ -2177,6 +2239,14 @@ msgstr ""
 msgctxt "place_type"
 msgid "Club"
 msgstr ""
+
+#: DB:event_type/name:40
+#, fuzzy
+#| msgctxt "release_group_secondary_type"
+#| msgid "Compilation"
+msgctxt "event_type"
+msgid "Competition"
+msgstr "コンピレーション"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -3163,6 +3233,11 @@ msgctxt "medium_format"
 msgid "Floppy Disk"
 msgstr "フロッピードライブ"
 
+#: DB:event_art_archive.art_type/name:6
+msgctxt "event_art_type"
+msgid "Flyer"
+msgstr ""
+
 #: DB:gender/description:4
 msgctxt "gender"
 msgid ""
@@ -3319,6 +3394,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:91
 msgctxt "work_attribute_type_allowed_value"
 msgid "Gaṁbhīra vāṇi"
+msgstr ""
+
+#: DB:editor_collection_type/name:16
+msgctxt "collection_type"
+msgid "Genre collection"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:376
@@ -5125,6 +5205,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Manōranjani"
 msgstr ""
 
+#: DB:event_art_archive.art_type/name:8
+msgctxt "event_art_type"
+msgid "Map"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:639
 msgctxt "work_attribute_type_allowed_value"
 msgid "Marş"
@@ -5218,6 +5303,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:641
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mehter"
+msgstr ""
+
+#: DB:event_art_archive.art_type/name:7
+msgctxt "event_art_type"
+msgid "Merchandise"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:642
@@ -6289,6 +6379,14 @@ msgctxt "cover_art_type"
 msgid "Poster"
 msgstr "ポスター"
 
+#: DB:event_art_archive.art_type/name:1
+#, fuzzy
+#| msgctxt "cover_art_type"
+#| msgid "Poster"
+msgctxt "event_art_type"
+msgid "Poster"
+msgstr "ポスター"
+
 #: DB:work_attribute_type_allowed_value/value:998
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pratāpavarāli"
@@ -7009,6 +7107,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Sazsemaisi"
 msgstr ""
 
+#: DB:event_art_archive.art_type/name:5
+msgctxt "event_art_type"
+msgid "Schedule"
+msgstr ""
+
 #: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
 #: DB:place_alias_type/name:2 DB:recording_alias_type/name:2
 #: DB:release_alias_type/name:2 DB:release_group_alias_type/name:2
@@ -7083,6 +7186,11 @@ msgstr ""
 msgctxt "alias_type"
 msgid "Series name"
 msgstr "シリーズ名"
+
+#: DB:event_art_archive.art_type/name:3
+msgctxt "event_art_type"
+msgid "Setlist"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:663
 msgctxt "work_attribute_type_allowed_value"
@@ -7833,6 +7941,14 @@ msgid ""
 "layer."
 msgstr "ハイブリッドSACDのSACDレイヤー上のマルチチャネル目次"
 
+#: DB:event_art_archive.art_type/name:2
+#, fuzzy
+#| msgctxt "cover_art_type"
+#| msgid "Sticker"
+msgctxt "event_art_type"
+msgid "Ticket"
+msgstr "ステッカー"
+
 #: DB:work_attribute_type_allowed_value/value:1041
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tilak bihārī"
@@ -7973,11 +8089,24 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Udaya ravicandrika"
 msgstr ""
 
-#: DB:cover_art_archive.art_type/description:14
+#: DB:cover_art_archive.art_type/description:13
 msgctxt "cover_art_type"
 msgid ""
-"Use for images that need work to be used for tagging (but can possibly "
-"already be used for reference)"
+"Use in combination with any other appropriate types for images that are "
+"watermarked and are not desirable for tagging (but can be used for "
+"reference)."
+msgstr ""
+
+#: DB:cover_art_archive.art_type/description:14
+#, fuzzy
+#| msgctxt "cover_art_type"
+#| msgid ""
+#| "Use for images that need work to be used for tagging (but can possibly "
+#| "already be used for reference)"
+msgctxt "cover_art_type"
+msgid ""
+"Use in combination with any other appropriate types for images that need "
+"work to be used for tagging (but can possibly already be used for reference)."
 msgstr ""
 "タグ付けに使用する作業が必要な画像に使用（ただし、参照用にすでに使用されてい"
 "る可能性あり）"
@@ -7998,6 +8127,20 @@ msgid ""
 msgstr ""
 "北米のインディアン居留地/居留地や中南米の先住民の領土など、先住民が統治する半"
 "自治区に使用される。"
+
+#: DB:event_art_archive.art_type/description:1
+msgctxt "event_art_type"
+msgid ""
+"Usually a large printed or digital sheet, that often contains pictures, and "
+"is generally posted publicly to promote the event."
+msgstr ""
+
+#: DB:event_art_archive.art_type/description:4
+msgctxt "event_art_type"
+msgid ""
+"Usually horizontal image used to promote an event, for example in social "
+"media, which tends to have less information than a poster."
+msgstr ""
 
 #: DB:work_attribute_type/name:17
 msgctxt "work_attribute_type"

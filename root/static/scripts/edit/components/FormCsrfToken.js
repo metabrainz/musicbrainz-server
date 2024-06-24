@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-type PropsT = {
-  +form: FormT<{
-    +csrf_session_key?: FieldT<string>,
-    +csrf_token?: FieldT<string>,
-    ...
-  }>,
-};
+type CsrfFormT = FormT<{
+  +csrf_session_key?: FieldT<string>,
+  +csrf_token?: FieldT<string>,
+  ...
+}>;
 
-const FormCsrfToken = ({form}: PropsT): React$Node => {
+component FormCsrfToken(form: CsrfFormT) {
   const sessionKeyField = form.field.csrf_session_key;
   const tokenField = form.field.csrf_token;
   return (sessionKeyField && tokenField) ? (
@@ -42,6 +40,6 @@ const FormCsrfToken = ({form}: PropsT): React$Node => {
       />
     </>
   ) : null;
-};
+}
 
 export default FormCsrfToken;

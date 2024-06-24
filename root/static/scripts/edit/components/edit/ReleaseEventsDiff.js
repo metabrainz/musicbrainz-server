@@ -71,15 +71,10 @@ const changeSide = (
   );
 };
 
-type Props = {
-  +newEvents: $ReadOnlyArray<ReleaseEventT>,
-  +oldEvents: $ReadOnlyArray<ReleaseEventT>,
-};
-
-const ReleaseEventsDiff = ({
-  newEvents,
-  oldEvents,
-}: Props): React$Element<'tr'> => {
+component ReleaseEventsDiff(
+  newEvents: $ReadOnlyArray<ReleaseEventT>,
+  oldEvents: $ReadOnlyArray<ReleaseEventT>,
+) {
   const oldEventsByCountry = keyBy(oldEvents, getCountryId);
   const newEventsByCountry = keyBy(newEvents, getCountryId);
 
@@ -132,6 +127,6 @@ const ReleaseEventsDiff = ({
       </td>
     </tr>
   );
-};
+}
 
 export default ReleaseEventsDiff;

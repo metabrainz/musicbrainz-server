@@ -29,30 +29,27 @@ const buildIsrcSidebarRow = (isrc: IsrcT) => (
   </SidebarProperty>
 );
 
-type IsrcListProps = {|
-  +isrcs: ?$ReadOnlyArray<IsrcT>,
-  +isSidebar?: boolean,
-|};
+component IsrcList(
+  isrcs: ?$ReadOnlyArray<IsrcT>,
+  isSidebar: boolean = false,
+) {
+  return (
+    <CollapsibleList
+      ContainerElement={isSidebar ? 'dl' : 'ul'}
+      InnerElement={isSidebar ? 'div' : 'li'}
+      ariaLabel={l('ISRCs')}
+      buildRow={isSidebar ? buildIsrcSidebarRow : buildIsrcListRow}
+      className={isSidebar ? 'properties isrcs' : 'isrcs'}
+      rows={isrcs}
+      showAllTitle={l('Show all ISRCs')}
+      showLessTitle={l('Show less ISRCs')}
+      toShowAfter={1}
+      toShowBefore={2}
+    />
+  );
+}
 
-const IsrcList = ({
-  isrcs,
-  isSidebar = false,
-}: IsrcListProps) => (
-  <CollapsibleList
-    ContainerElement={isSidebar ? 'dl' : 'ul'}
-    InnerElement={isSidebar ? 'div' : 'li'}
-    ariaLabel={l('ISRCs')}
-    buildRow={isSidebar ? buildIsrcSidebarRow : buildIsrcListRow}
-    className={isSidebar ? 'properties isrcs' : 'isrcs'}
-    rows={isrcs}
-    showAllTitle={l('Show all ISRCs')}
-    showLessTitle={l('Show less ISRCs')}
-    toShowAfter={1}
-    toShowBefore={2}
-  />
-);
-
-export default (hydrate<IsrcListProps>(
+export default (hydrate<React.PropsOf<IsrcList>>(
   'div.isrc-list-container',
   IsrcList,
-): React$AbstractComponent<IsrcListProps, void>);
+): React$AbstractComponent<React.PropsOf<IsrcList>>);

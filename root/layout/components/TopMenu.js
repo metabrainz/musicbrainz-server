@@ -27,15 +27,7 @@ function userLink(userName: string, path: string) {
   return `/user/${encodeURIComponent(userName)}${path}`;
 }
 
-type UserProp = {+user: UnsanitizedEditorT};
-
-type AccountMenuPropsT = {
-  +user: UnsanitizedEditorT,
-};
-
-const AccountMenu = ({
-  user,
-}: AccountMenuPropsT) => {
+component AccountMenu(user: UnsanitizedEditorT) {
   const $c = React.useContext(CatalystContext);
   return (
     <li className="account" tabIndex="-1">
@@ -71,9 +63,9 @@ const AccountMenu = ({
       </ul>
     </li>
   );
-};
+}
 
-const DataMenu = ({user}: UserProp) => {
+component DataMenu(user: UnsanitizedEditorT) {
   const userName = user.name;
 
   return (
@@ -116,79 +108,83 @@ const DataMenu = ({user}: UserProp) => {
       </ul>
     </li>
   );
-};
+}
 
-const AdminMenu = ({user}: UserProp) => (
-  <li className="admin" tabIndex="-1">
-    <span className="menu-header">
-      {l('Admin')}
-      {'\xA0\u25BE'}
-    </span>
-    <ul>
-      {isLocationEditor(user) ? (
-        <li>
-          <a href="/area/create">{l_admin('Add area')}</a>
-        </li>
-      ) : null}
+component AdminMenu(user: UnsanitizedEditorT) {
+  return (
+    <li className="admin" tabIndex="-1">
+      <span className="menu-header">
+        {l('Admin')}
+        {'\xA0\u25BE'}
+      </span>
+      <ul>
+        {isLocationEditor(user) ? (
+          <li>
+            <a href="/area/create">{l_admin('Add area')}</a>
+          </li>
+        ) : null}
 
-      {isRelationshipEditor(user) ? (
-        <>
-          <li>
-            <a href="/instrument/create">
-              {l_admin('Add instrument')}
-            </a>
-          </li>
-          <li>
-            <a href="/genre/create">{l_admin('Add genre')}</a>
-          </li>
-          <li>
-            <a href="/relationships">{l_admin('Edit relationship types')}</a>
-          </li>
-        </>
-      ) : null}
+        {isRelationshipEditor(user) ? (
+          <>
+            <li>
+              <a href="/instrument/create">
+                {l_admin('Add instrument')}
+              </a>
+            </li>
+            <li>
+              <a href="/genre/create">{l_admin('Add genre')}</a>
+            </li>
+            <li>
+              <a href="/relationships">
+                {l_admin('Edit relationship types')}
+              </a>
+            </li>
+          </>
+        ) : null}
 
-      {isWikiTranscluder(user) ? (
-        <li>
-          <a href="/admin/wikidoc">{l_admin('Transclude WikiDocs')}</a>
-        </li>
-      ) : null}
+        {isWikiTranscluder(user) ? (
+          <li>
+            <a href="/admin/wikidoc">{l_admin('Transclude WikiDocs')}</a>
+          </li>
+        ) : null}
 
-      {isBannerEditor(user) ? (
-        <li>
-          <a href="/admin/banner/edit">{l_admin('Edit banner message')}</a>
-        </li>
-      ) : null}
+        {isBannerEditor(user) ? (
+          <li>
+            <a href="/admin/banner/edit">{l_admin('Edit banner message')}</a>
+          </li>
+        ) : null}
 
-      {isAccountAdmin(user) ? (
-        <>
-          <li>
-            <a href="/admin/attributes">{l_admin('Edit attributes')}</a>
-          </li>
-          <li>
-            <a href="/admin/statistics-events">
-              {l_admin('Edit statistics events')}
-            </a>
-          </li>
-          <li>
-            <a href="/admin/email-search">{l_admin('Email search')}</a>
-          </li>
-          <li>
-            <a href="/admin/privilege-search">
-              {l_admin('Privilege search')}
-            </a>
-          </li>
-          <li>
-            <a href="/admin/locked-usernames/search">
-              {l_admin('Locked username search')}
-            </a>
-          </li>
-        </>
-      ) : null}
-    </ul>
-  </li>
-);
+        {isAccountAdmin(user) ? (
+          <>
+            <li>
+              <a href="/admin/attributes">{l_admin('Edit attributes')}</a>
+            </li>
+            <li>
+              <a href="/admin/statistics-events">
+                {l_admin('Edit statistics events')}
+              </a>
+            </li>
+            <li>
+              <a href="/admin/email-search">{l_admin('Email search')}</a>
+            </li>
+            <li>
+              <a href="/admin/privilege-search">
+                {l_admin('Privilege search')}
+              </a>
+            </li>
+            <li>
+              <a href="/admin/locked-usernames/search">
+                {l_admin('Locked username search')}
+              </a>
+            </li>
+          </>
+        ) : null}
+      </ul>
+    </li>
+  );
+}
 
-const UserMenu = () => {
+component UserMenu() {
   const $c = React.useContext(CatalystContext);
   return (
     <ul className="menu" tabIndex="-1">
@@ -212,17 +208,19 @@ const UserMenu = () => {
       )}
     </ul>
   );
-};
+}
 
-const TopMenu = (): React$Element<'div'> => (
-  <div className="top">
-    <div className="links-container">
-      <UserMenu />
+component TopMenu() {
+  return (
+    <div className="top">
+      <div className="links-container">
+        <UserMenu />
+      </div>
+      <div className="search-container">
+        <Search />
+      </div>
     </div>
-    <div className="search-container">
-      <Search />
-    </div>
-  </div>
-);
+  );
+}
 
 export default TopMenu;

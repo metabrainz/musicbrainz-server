@@ -23,6 +23,8 @@ declare type EventT = $ReadOnly<{
     +entity: AreaT,
   }>,
   +cancelled: boolean,
+  +event_art_presence: 'absent' | 'present' | 'darkened' | null,
+  +may_have_event_art?: boolean,
   +performers: $ReadOnlyArray<{
     +credit: string,
     +entity: ArtistT,

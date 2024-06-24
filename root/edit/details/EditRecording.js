@@ -19,11 +19,7 @@ import FullChangeDiff from
   '../../static/scripts/edit/components/edit/FullChangeDiff.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 
-type Props = {
-  +edit: EditRecordingEditT,
-};
-
-const EditRecording = ({edit}: Props): React$Element<'table'> => {
+component EditRecording(edit: EditRecordingEditT) {
   const display = edit.display_data;
   const name = display.name;
   const comment = display.comment;
@@ -97,6 +93,6 @@ const EditRecording = ({edit}: Props): React$Element<'table'> => {
       </tbody>
     </table>
   );
-};
+}
 
 export default EditRecording;

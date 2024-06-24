@@ -73,6 +73,7 @@ my @DBDEFS = (
               {'domain' => 'attributes', 'table' => 'release_status', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'gender', 'columns' => ['name', 'description'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'cover_art_archive.art_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', ctxtable => 'cover_art_type'},
+              {'domain' => 'attributes', 'table' => 'event_art_archive.art_type', 'columns' => ['name', 'description'], 'ctx' => 'NULL', ctxtable => 'event_art_type'},
               {'domain' => 'attributes', 'table' => 'work_attribute_type', columns => ['name', 'description'], ctx => 'NULL', ctxtable => 'work_attribute_type'},
               {'domain' => 'attributes', 'table' => 'work_attribute_type_allowed_value', columns => ['value', 'description'], ctx => 'NULL'},
               {'domain' => 'attributes', 'table' => 'series_type', columns => ['name', 'description'], ctx => 'NULL'},

@@ -1093,7 +1093,7 @@ const CLEANUPS: CleanupEntries = {
   },
   'bandcamp': {
     match: [new RegExp(
-      '^(https?://)?(((?!daily)[^/])+\\.)?bandcamp\\.com' +
+      '^(https?://)?(((?!daily\\.)[^/])+\\.)?bandcamp\\.com' +
       '(?!/(?:campaign|merch)/)',
       'i',
     )],
@@ -3697,14 +3697,14 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.ticketing],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?concerts\.livenation\.com\/(?:[\w\d-]+\/)?event\/([0-9A-F]+).*$/, 'https://concerts.livenation.com/event/$1');
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.com\/(artist|event|venue)\/([0-9a-zA-Z]+).*$/, 'https://www.livenation.com/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.com\/(artist|event|venue)\/([\w-]+).*$/, 'https://www.livenation.com/$1/$2');
       // International sites use somewhat different formats
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(show|venue)\/([0-9a-zA-Z]+).*$/, 'https://www.livenation.$1/$2/$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(show|venue)\/([\w-]+).*$/, 'https://www.livenation.$1/$2/$3');
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/artist-[\w\d-]+-([0-9]+).*$/, 'https://www.livenation.$1/artist-$2');
       return url;
     },
     validate: function (url, id) {
-      let m = /^https:\/\/(concerts|www)\.livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|show|venue)\/[0-9a-zA-Z]+$/.exec(url);
+      let m = /^https:\/\/(concerts|www)\.livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|show|venue)\/[\w-]+$/.exec(url);
       if (!m) {
         m = /^https:\/\/(www)\.livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist)-[0-9]+$/.exec(url);
       }
@@ -4530,17 +4530,18 @@ const CLEANUPS: CleanupEntries = {
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?operabase\.com\//, 'https://operabase.com/');
       url = url.replace(/^https:\/\/operabase\.com\/(venues\/[\w-]+|works)\/(?:[^0-9]+)?([0-9]+).*$/, 'https://operabase.com/$1/$2');
-      url = url.replace(/^https:\/\/operabase\.com\/(?:artists\/(?:[^0-9]+)?|[\w-]+a)([0-9]+).*$/, 'https://operabase.com/a$1');
+      url = url.replace(/^https:\/\/operabase\.com\/artists\/(?:[^0-9]+)?([0-9]+).*$/, 'https://operabase.com/a$1');
+      url = url.replace(/^https:\/\/operabase\.com\/[\w-]+(a|o)([0-9]+).*$/, 'https://operabase.com/$1$2');
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/operabase\.com\/(?:(a)|(venues)\/[\w-]+\/|(works)\/)[0-9]+$/.exec(url);
+      const m = /^https:\/\/operabase\.com\/(?:(a|o)|(venues)\/[\w-]+\/|(works)\/)[0-9]+$/.exec(url);
       if (m) {
         const prefix = m[1] || m[2] || m[3];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
             return {
-              result: prefix === 'a',
+              result: prefix === 'a' || prefix === 'o',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.place:
@@ -5624,11 +5625,11 @@ const CLEANUPS: CleanupEntries = {
     )],
     restrict: [LINK_TYPES.ticketing],
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(?:[\w-]+\/)?(artist|event|venue)\/(?:[\w-]+\/)?([0-9A-F]+).*$/, 'https://www.ticketmaster.$1/$2/$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(?:[\w-]+\/)?(artist|event|venue)\/(?:[\w-]+\/)?(\w+).*$/, 'https://www.ticketmaster.$1/$2/$3');
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www\.ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|venue)\/[0-9A-F]+$/.exec(url);
+      const m = /^https:\/\/www\.ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|venue)\/\w+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -6970,7 +6971,7 @@ entitySpecificRules.release = function (url) {
 
 // Disallow non-daily Bandcamp URLs at release group level
 entitySpecificRules.release_group = function (url) {
-  if (/^(https?:\/\/)?(((?!daily)[^/])+\.)?bandcamp\.com/.test(url)) {
+  if (/^(https?:\/\/)?(((?!daily\.)[^/])+\.)?bandcamp\.com/.test(url)) {
     return {
       result: false,
       target: ERROR_TARGETS.ENTITY,

@@ -45,8 +45,8 @@ sub validate
     my ($self) = @_;
 
     # The "text" field is required only if the previous annotation was blank
-    my $previous_annotanion = $self->annotation_model->get_latest($self->entity_id);
-    $self->field('text')->required($previous_annotanion && $previous_annotanion->text ? 0 : 1);
+    my $previous_annotation = $self->annotation_model->get_latest($self->entity_id);
+    $self->field('text')->required($previous_annotation && $previous_annotation->text ? 0 : 1);
     $self->field('text')->validate_field;
 }
 

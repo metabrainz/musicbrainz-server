@@ -17,19 +17,12 @@ import {
   defineEntityColumn,
 } from '../../utility/tableColumns.js';
 
-type Props<D: {+recording: ?RecordingT, ...}> = {
-  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +items: $ReadOnlyArray<D>,
-  +pager: PagerT,
-};
-
-const RecordingList = <D: {+recording: ?RecordingT, ...}>({
-  columnsBefore,
-  columnsAfter,
-  items,
-  pager,
-}: Props<D>): React$Element<typeof PaginatedResults> => {
+component RecordingList<D: {+recording: ?RecordingT, ...}>(
+  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  items: $ReadOnlyArray<D>,
+  pager: PagerT,
+) {
   const existingRecordingItems = items.reduce((
     result: Array<D>,
     item,
@@ -72,6 +65,6 @@ const RecordingList = <D: {+recording: ?RecordingT, ...}>({
       {table}
     </PaginatedResults>
   );
-};
+}
 
 export default RecordingList;

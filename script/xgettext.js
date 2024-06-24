@@ -24,7 +24,6 @@ require('@babel/register')({
   root: rootPath,
 });
 
-const gettextParser = require('gettext-parser');
 const XGettext = require('xgettext-js');
 const argv = require('yargs').argv;
 
@@ -249,12 +248,14 @@ for (currentFile of argv._) {
   }
 }
 
-console.log(
-  gettextParser.po
-    .compile(potFile, {
-      sort: function (a, b) {
-        return msgOrdering.get(a) - msgOrdering.get(b);
-      },
-    })
-    .toString('utf-8'),
-);
+import('gettext-parser').then(({default: gettextParser}) => {
+  console.log(
+    gettextParser.po
+      .compile(potFile, {
+        sort: function (a, b) {
+          return msgOrdering.get(a) - msgOrdering.get(b);
+        },
+      })
+      .toString('utf-8'),
+  );
+});

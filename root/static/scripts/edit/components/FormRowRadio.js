@@ -20,41 +20,36 @@ type RadioOptionsT = $ReadOnlyArray<{
   +value: number | string,
 }>;
 
-type Props = {
-  +field: FieldT<string>,
-  +label: React$Node,
-  +options: RadioOptionsT,
-  +required?: boolean,
-};
-
-const FormRowRadio = ({
-  field,
-  label,
-  options,
-  required = false,
-}: Props): React$Element<typeof FormRow> => (
-  <FormRow>
-    <FormLabel label={label} required={required} />
-    <div className="no-label">
-      {options.map((option, index) => (
-        <React.Fragment key={option.value}>
-          <label className="inline">
-            <input
-              defaultChecked={field.value === option.value}
-              name={field.html_name}
-              required={required}
-              type="radio"
-              value={option.value}
-            />
-            {' '}
-            {unwrapNl<Expand2ReactOutput>(option.label)}
-          </label>
-          {index < options.length - 1 ? <br /> : null}
-        </React.Fragment>
-      ))}
-    </div>
-    <FieldErrors field={field} />
-  </FormRow>
-);
+component FormRowRadio(
+  field: FieldT<string>,
+  label: React$Node,
+  options: RadioOptionsT,
+  required: boolean = false,
+) {
+  return (
+    <FormRow>
+      <FormLabel label={label} required={required} />
+      <div className="no-label">
+        {options.map((option, index) => (
+          <React.Fragment key={option.value}>
+            <label className="inline">
+              <input
+                defaultChecked={field.value === option.value}
+                name={field.html_name}
+                required={required}
+                type="radio"
+                value={option.value}
+              />
+              {' '}
+              {unwrapNl<Expand2ReactOutput>(option.label)}
+            </label>
+            {index < options.length - 1 ? <br /> : null}
+          </React.Fragment>
+        ))}
+      </div>
+      <FieldErrors field={field} />
+    </FormRow>
+  );
+}
 
 export default FormRowRadio;

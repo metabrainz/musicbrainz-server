@@ -13,9 +13,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-03 19:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-05-26 15:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ru/>\n"
 "Language: ru\n"
@@ -23,9 +23,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.3\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.5.4\n"
 
 #. name:rebab 
 #: DB:instrument/description:239
@@ -1170,11 +1170,15 @@ msgstr ""
 
 #. name:flutina 
 #: DB:instrument/description:1074
+#, fuzzy
 msgid ""
 "Early predecessor to the <a href=\"/instrument/842d3d24-f638-47e6-"
 "a239-8578723db09c\">diatonic accordion</a>, it was similar to the German "
 "concertina and had 4 fold bellows and brass reeds."
 msgstr ""
+"Ранний предшественник <a href=\"/instrument/842d3d24-f638-47e6-a239-"
+"8578723db09c\">диатонического аккордеона</a>. Был похож на немецкую "
+"концертину."
 
 #. name:đing buốt 
 #: DB:instrument/description:306
@@ -1582,6 +1586,9 @@ msgid ""
 "concerts - made of wood with a double reed and wood/metal flared bell, it "
 "has 6-9 holes."
 msgstr ""
+"Из индийского субконтинента; используется на свадьбах, в храмах и на "
+"концертах. Сделан из дерева с двойной тростью и расклешенным колокольчиком "
+"из дерева/металла, имеет от шести до девяти отверстий."
 
 #. name:gamelan 
 #: DB:instrument/description:365
@@ -1891,6 +1898,9 @@ msgid ""
 "concertinas it is square, but alike its button action is parallel, typically "
 "it has several reeds per button."
 msgstr ""
+"Изобретен и использовался в Европе 1800-х годов, стал популярен в Аргентине. "
+"В отличие от концертин, имеет квадратную форму, но действие кнопок также "
+"параллельно. Обычно имеет несколько язычков на каждой кнопке."
 
 #. name:mandora / gallichon 
 #: DB:instrument/description:895
@@ -2679,7 +2689,7 @@ msgid ""
 "d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">ghaychak</a>."
 msgstr ""
 
-#. name:cornemuse du centre 
+#. name:cornemuse du Centre 
 #: DB:instrument/description:1190
 msgid ""
 "Not to be confused with the Renaissance double-reed <a href=\"/"

@@ -398,6 +398,20 @@ my %stats = (
             };
         },
     },
+    'count.event.has_eaa' => {
+        DESC => 'Count of events that have artwork in the EAA',
+        SQL => 'SELECT COUNT(distinct event) FROM event_art_archive.event_art',
+    },
+    'count.event.has_eaa_poster' => {
+        DESC => 'Count of events that have a poster in the EAA',
+        SQL => 'SELECT COUNT(distinct event) FROM event_art_archive.event_art ea
+                  JOIN event_art_archive.event_art_type eat ON ea.id = eat.id
+                WHERE eat.type_id = 1',
+    },
+    'count.eventart' => {
+        DESC => 'Count of all event art images',
+        SQL => 'SELECT count(*) FROM event_art_archive.event_art',
+    },
     'count.genre' => {
         DESC => 'Count of all genres',
         SQL => 'SELECT COUNT(*) FROM genre',
@@ -2057,18 +2071,14 @@ sub recalculate {
     return if $definition->{NONREPLICATED} && DBDefs->REPLICATION_TYPE == RT_MIRROR;
     return if $definition->{PRIVATE} && DBDefs->REPLICATION_TYPE != RT_MASTER;
 
-    my $db = $definition->{DB} || 'READWRITE';
-    my $sql = $db eq 'READWRITE' ? $self->sql
-            : die "Unknown database: $db";
-
     if (my $query = $definition->{SQL}) {
-        my $value = $sql->select_single_value($query);
+        my $value = $self->sql->select_single_value($query);
                 $self->insert($output_file, $statistic => $value);
         return;
     }
 
     if (my $calculate = $definition->{CALC}) {
-        my $output = $calculate->($self, $sql);
+        my $output = $calculate->($self, $self->prefer_ro_sql);
         if (ref($output) eq 'HASH')
         {
             $self->insert($output_file, %$output);

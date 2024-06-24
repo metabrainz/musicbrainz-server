@@ -203,6 +203,13 @@ sub coverart : Local
 {
     my ($self, $c) = @_;
 
+    $c->forward('/statistics/images');
+}
+
+sub images : Local
+{
+    my ($self, $c) = @_;
+
     my $stats = try_fetch_latest_statistics($c);
 
     my $release_type_stats = [];
@@ -237,7 +244,7 @@ sub coverart : Local
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'statistics/CoverArt',
+        component_path => 'statistics/Images',
         component_props => \%props,
     );
 }

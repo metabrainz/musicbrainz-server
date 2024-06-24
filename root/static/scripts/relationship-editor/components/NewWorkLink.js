@@ -9,20 +9,16 @@
 
 import {DeletedLink} from '../../common/components/EntityLink.js';
 
-type PropsT = {
-  +work: WorkT,
-};
-
-const NewWorkLink = ({
-  work,
-}: PropsT): React$Element<'a'> => (
-  <a href={'#new-work-' + String(work.id)}>
-    <DeletedLink
-      allowNew
-      className="rel-add wrap-anywhere"
-      name={work.name}
-    />
-  </a>
-);
+component NewWorkLink(work: WorkT) {
+  return (
+    <a href={'#new-work-' + String(work.id)}>
+      <DeletedLink
+        allowNew
+        className="rel-add wrap-anywhere"
+        name={work.name}
+      />
+    </a>
+  );
+}
 
 export default NewWorkLink;

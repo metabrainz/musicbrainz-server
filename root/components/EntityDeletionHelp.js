@@ -9,33 +9,30 @@
 
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-type Props = {
-  +children?: React$Node,
-  +entity: ManuallyRemovableEntityT,
-};
-
-const EntityDeletionHelp = ({
-  children,
-  entity,
-}: Props): React$Element<'div'> => (
-  <div id="removal-help">
-    <p>
-      {exp.l(
-        'Are you sure you wish to remove {entity} from MusicBrainz?',
-        {entity: <EntityLink entity={entity} />},
-      )}
-    </p>
-    <p>
-      {exp.l(
-        `If it’s a duplicate,
-        {doc_merge|you should probably merge it instead}.
-        If it just has some small errors, it’s usually better
-        to just fix those.`,
-        {doc_merge: '/doc/Merge_Rather_Than_Delete'},
-      )}
-    </p>
-    {children}
-  </div>
-);
+component EntityDeletionHelp(
+  children?: React$Node,
+  entity: ManuallyRemovableEntityT,
+) {
+  return (
+    <div id="removal-help">
+      <p>
+        {exp.l(
+          'Are you sure you wish to remove {entity} from MusicBrainz?',
+          {entity: <EntityLink entity={entity} />},
+        )}
+      </p>
+      <p>
+        {exp.l(
+          `If it’s a duplicate,
+           {doc_merge|you should probably merge it instead}.
+           If it just has some small errors, it’s usually better
+           to just fix those.`,
+          {doc_merge: '/doc/Merge_Rather_Than_Delete'},
+        )}
+      </p>
+      {children}
+    </div>
+  );
+}
 
 export default EntityDeletionHelp;

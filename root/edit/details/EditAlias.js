@@ -23,11 +23,7 @@ import FullChangeDiff
   from '../../static/scripts/edit/components/edit/FullChangeDiff.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 
-type Props = {
-  +edit: EditAliasEditT,
-};
-
-const EditAlias = ({edit}: Props): React$Element<'table'> => {
+component EditAlias(edit: EditAliasEditT) {
   const display = edit.display_data;
   const entityType = display.entity_type;
   const entity = display[entityType];
@@ -133,6 +129,6 @@ const EditAlias = ({edit}: Props): React$Element<'table'> => {
       </tbody>
     </table>
   );
-};
+}
 
 export default EditAlias;

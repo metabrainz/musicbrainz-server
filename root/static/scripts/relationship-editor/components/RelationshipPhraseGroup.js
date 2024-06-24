@@ -45,18 +45,6 @@ const addAnotherEntityLabels = {
   work: N_l('Add another work'),
 };
 
-type PropsT = {
-  +backward: boolean,
-  +dialogLocation: RelationshipDialogLocationT | null,
-  +dispatch: (RelationshipEditorActionT) => void,
-  +linkPhraseGroup: RelationshipPhraseGroupT,
-  +linkTypeId: number,
-  +releaseHasUnloadedTracks: boolean,
-  +source: RelatableEntityT,
-  +targetType: RelatableEntityTypeT,
-  +track: TrackWithRecordingT | null,
-};
-
 function someRelationshipsHaveLinkOrder(
   relationships: tree.ImmutableTree<RelationshipStateT> | null,
 ): boolean {
@@ -68,17 +56,17 @@ function someRelationshipsHaveLinkOrder(
   return false;
 }
 
-const RelationshipPhraseGroup = (React.memo<PropsT>(({
-  backward,
-  dialogLocation,
-  dispatch,
-  linkPhraseGroup,
-  linkTypeId,
-  releaseHasUnloadedTracks,
-  source,
-  targetType,
-  track,
-}: PropsT) => {
+component _RelationshipPhraseGroup(
+  backward: boolean,
+  dialogLocation: RelationshipDialogLocationT | null,
+  dispatch: (RelationshipEditorActionT) => void,
+  linkPhraseGroup: RelationshipPhraseGroupT,
+  linkTypeId: number,
+  releaseHasUnloadedTracks: boolean,
+  source: RelatableEntityT,
+  targetType: RelatableEntityTypeT,
+  track: TrackWithRecordingT | null,
+) {
   const relationships = linkPhraseGroup.relationships;
   const relationshipCount = relationships?.size || 0;
 
@@ -312,6 +300,10 @@ const RelationshipPhraseGroup = (React.memo<PropsT>(({
       ) : null}
     </>
   ) : null;
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const RelationshipPhraseGroup: React$AbstractComponent<
+  React.PropsOf<_RelationshipPhraseGroup>
+> = React.memo(_RelationshipPhraseGroup);
 
 export default RelationshipPhraseGroup;

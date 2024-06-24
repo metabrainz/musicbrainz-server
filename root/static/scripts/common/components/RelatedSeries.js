@@ -16,10 +16,6 @@ import groupRelationships from '../utility/groupRelationships.js';
 import EntityLink from './EntityLink.js';
 import StaticRelationshipsDisplay from './StaticRelationshipsDisplay.js';
 
-type Props = {
-  +seriesIds: $ReadOnlyArray<number>,
-};
-
 const seriesPartLinkTypes = new Set(
   Object.values(PART_OF_SERIES_LINK_TYPES),
 );
@@ -28,7 +24,7 @@ export function isNotSeriesPart(r: RelationshipT): boolean {
   return !seriesPartLinkTypes.has(linkedEntities.link_type[r.linkTypeID].gid);
 }
 
-const RelatedSeries = ({seriesIds}: Props): React$MixedElement => {
+component RelatedSeries(seriesIds: $ReadOnlyArray<number>) {
   const parts: Array<React$Node> = [
     /* eslint-disable react/jsx-key */
     <h2 className="related-series">
@@ -52,6 +48,6 @@ const RelatedSeries = ({seriesIds}: Props): React$MixedElement => {
     );
   }
   return React.createElement(React.Fragment, null, ...parts);
-};
+}
 
 export default RelatedSeries;

@@ -35,10 +35,6 @@ import {
   NonHydratedRelationshipEditorWrapper as RelationshipEditorWrapper,
 } from '../../relationship-editor/components/RelationshipEditorWrapper.js';
 
-type Props = {
-  +form: GenreFormT,
-};
-
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
   | {+type: 'update-name', +action: NameActionT};
@@ -83,9 +79,7 @@ function reducer(state: StateT, action: ActionT): StateT {
   return newState;
 }
 
-const GenreEditForm = ({
-  form: initialForm,
-}: Props): React$Element<'form'> => {
+component GenreEditForm(form as initialForm: GenreFormT) {
   const $c = React.useContext(SanitizedCatalystContext);
 
   const [state, dispatch] = React.useReducer(
@@ -166,9 +160,9 @@ const GenreEditForm = ({
       </div>
     </form>
   );
-};
+}
 
-export default (hydrate<Props>(
+export default (hydrate<React.PropsOf<GenreEditForm>>(
   'div.genre-edit-form',
   GenreEditForm,
-): React$AbstractComponent<Props, void>);
+): React$AbstractComponent<React.PropsOf<GenreEditForm>, void>);

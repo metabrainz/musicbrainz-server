@@ -11,6 +11,7 @@ has 'conn' => (
     handles    => [qw( dbh )],
     lazy_build => 1,
     clearer => '_clear_conn',
+    predicate => 'has_conn',
 );
 
 has 'database' => (
@@ -22,10 +23,18 @@ has 'sql' => (
     is => 'ro',
     default => sub {
         my $self = shift;
-        Sql->new( $self->conn );
+        my $sql = Sql->new( $self->conn );
+        $sql->read_only($self->read_only);
+        return $sql;
     },
     lazy => 1,
     clearer => '_clear_sql',
+);
+
+has 'read_only' => (
+    is => 'ro',
+    isa => 'Bool',
+    default => 0,
 );
 
 sub _build_conn
@@ -62,8 +71,8 @@ sub _build_conn
 
 sub _disconnect {
     my ($self) = @_;
-    if (my $conn = $self->conn) {
-        $conn->disconnect;
+    if ($self->has_conn) {
+        $self->conn->disconnect;
     }
 
     $self->_clear_conn;

@@ -75,7 +75,9 @@ export function popBracket(): string | null {
 
 const bracketChars = /^[()\[\]{}<>]$/;
 
-const bracketPairs = {
+const bracketPairs: {
+  +[openingBracket: string]: string,
+} = {
   '(': ')',
   ')': '(',
   '<': '>',

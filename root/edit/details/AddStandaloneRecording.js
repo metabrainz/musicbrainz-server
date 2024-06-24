@@ -14,15 +14,10 @@ import formatTrackLength from
   '../../static/scripts/common/utility/formatTrackLength.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
 
-type Props = {
-  +allowNew?: boolean,
-  +edit: AddStandaloneRecordingEditT,
-};
-
-const AddStandaloneRecording = ({
-  allowNew,
-  edit,
-}: Props): React$MixedElement => {
+component AddStandaloneRecording(
+  allowNew?: boolean,
+  edit: AddStandaloneRecordingEditT,
+) {
   const display = edit.display_data;
   return (
     <>
@@ -68,6 +63,6 @@ const AddStandaloneRecording = ({
       </table>
     </>
   );
-};
+}
 
 export default AddStandaloneRecording;

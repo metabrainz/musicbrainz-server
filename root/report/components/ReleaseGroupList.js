@@ -18,19 +18,12 @@ import {
   defineTextColumn,
 } from '../../utility/tableColumns.js';
 
-type Props<D: {+release_group: ?ReleaseGroupT, ...}> = {
-  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +items: $ReadOnlyArray<D>,
-  +pager: PagerT,
-};
-
-const ReleaseGroupList = <D: {+release_group: ?ReleaseGroupT, ...}>({
-  columnsBefore,
-  columnsAfter,
-  items,
-  pager,
-}: Props<D>): React$Element<typeof PaginatedResults> => {
+component ReleaseGroupList<D: {+release_group: ?ReleaseGroupT, ...}>(
+  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  items: $ReadOnlyArray<D>,
+  pager: PagerT,
+) {
   const existingReleaseGroupItems = items.reduce((
     result: Array<D>,
     item,
@@ -83,6 +76,6 @@ const ReleaseGroupList = <D: {+release_group: ?ReleaseGroupT, ...}>({
       {table}
     </PaginatedResults>
   );
-};
+}
 
 export default ReleaseGroupList;

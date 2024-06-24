@@ -10,13 +10,14 @@
 import InformationIcon
   from '../../static/scripts/edit/components/InformationIcon.js';
 
-const IntentionallyRawIcon =
-  (): React$Element<typeof InformationIcon> => (
+component IntentionallyRawIcon() {
+  return (
     <InformationIcon
       className="align-top"
       title={l(`This field is intentionally left as it was originally
                 entered (untranslated, unformatted).`)}
     />
   );
+}
 
 export default IntentionallyRawIcon;

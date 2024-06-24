@@ -15,15 +15,10 @@ import type {
   DialogLinkOrderActionT,
 } from '../types/actions.js';
 
-type PropsT = {
-  +dispatch: (DialogLinkOrderActionT) => void,
-  +linkOrder: number,
-};
-
-const DialogLinkOrder = (React.memo<PropsT>(({
-  dispatch,
-  linkOrder,
-}: PropsT): React$Element<'tr'> => {
+component _DialogLinkOrder(
+  dispatch: (DialogLinkOrderActionT) => void,
+  linkOrder: number,
+) {
   const handleLinkOrderChange = React.useCallback((
     event: SyntheticEvent<HTMLInputElement>,
   ) => {
@@ -61,6 +56,10 @@ const DialogLinkOrder = (React.memo<PropsT>(({
       </td>
     </tr>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const DialogLinkOrder: React$AbstractComponent<
+  React.PropsOf<_DialogLinkOrder>
+> = React.memo(_DialogLinkOrder);
 
 export default DialogLinkOrder;

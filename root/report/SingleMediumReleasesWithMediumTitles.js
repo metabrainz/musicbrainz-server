@@ -11,28 +11,30 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseT} from './types.js';
 
-const SingleMediumReleasesWithMediumTitles = ({
+component SingleMediumReleasesWithMediumTitles(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows releases that have a single medium, where this
-       medium also has a specific name. Usually, this is not necessary
-       and is duplicate information which can be removed.`,
-    )}
-    entityType="release"
-    filtered={filtered}
-    generated={generated}
-    title={l('Releases with a single medium that has a name')}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows releases that have a single medium, where this
+         medium also has a specific name. Usually, this is not necessary
+         and is duplicate information which can be removed.`,
+      )}
+      entityType="release"
+      filtered={filtered}
+      generated={generated}
+      title={l('Releases with a single medium that has a name')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default SingleMediumReleasesWithMediumTitles;

@@ -25,14 +25,6 @@ import isUselessMediumTitle from '../utility/isUselessMediumTitle.js';
 
 import FormRowSelect from './FormRowSelect.js';
 
-type Props = {
-  +badRecordingMerges?:
-    $ReadOnlyArray<$ReadOnlyArray<RecordingWithArtistCreditT>>,
-  +form: MergeReleasesFormT,
-  +mediums: $ReadOnlyArray<MediumT>,
-  +releases: {+[releaseID: number]: ReleaseT},
-};
-
 const mergeStrategyOptions = {
   grouped: false,
   options: [
@@ -41,34 +33,37 @@ const mergeStrategyOptions = {
   ],
 };
 
-const UselessMediumTitleWarning = ({name}: {name: string}) => (
-  <tr>
-    <td colSpan="4">
-      <span
-        className="error"
-        style={{margin: '0 12px 0 6px'}}
-      >
-        {exp.l(
-          `“{matched_text}” seems to indicate medium ordering rather than
-           a medium title. If this is the case, please set the appropriate
-           medium position instead of adding a title
-           (see {release_style|the guidelines}).`,
-          {
-            matched_text: name,
-            release_style: '/doc/Style/Release#Medium_title',
-          },
-        )}
-      </span>
-    </td>
-  </tr>
-);
+component UselessMediumTitleWarning(name: string) {
+  return (
+    <tr>
+      <td colSpan="4">
+        <span
+          className="error"
+          style={{margin: '0 12px 0 6px'}}
+        >
+          {exp.l(
+            `“{matched_text}” seems to indicate medium ordering rather than
+             a medium title. If this is the case, please set the appropriate
+             medium position instead of adding a title
+             (see {release_style|the guidelines}).`,
+            {
+              matched_text: name,
+              release_style: '/doc/Style/Release#Medium_title',
+            },
+          )}
+        </span>
+      </td>
+    </tr>
+  );
+}
 
-const ReleaseMergeStrategy = ({
-  badRecordingMerges,
-  form,
-  mediums,
-  releases,
-}: Props) => {
+component ReleaseMergeStrategy(
+  badRecordingMerges?:
+    $ReadOnlyArray<$ReadOnlyArray<RecordingWithArtistCreditT>>,
+  form: MergeReleasesFormT,
+  mediums: $ReadOnlyArray<MediumT>,
+  releases: {+[releaseID: number]: ReleaseT},
+) {
   const [mergeStrategy, setMergeStrategy] =
     React.useState(form.field.merge_strategy);
 
@@ -288,9 +283,9 @@ const ReleaseMergeStrategy = ({
       </div>
     </>
   );
-};
+}
 
-export default (hydrate<Props>(
+export default (hydrate<React.PropsOf<ReleaseMergeStrategy>>(
   'div.release-merge-strategy',
   ReleaseMergeStrategy,
-): React$AbstractComponent<Props, void>);
+): React$AbstractComponent<React.PropsOf<ReleaseMergeStrategy>, void>);

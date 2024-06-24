@@ -13,39 +13,31 @@ import typeof EntityTabLink from './EntityTabLink.js';
 import EntityTabs from './EntityTabs.js';
 import SubHeader from './SubHeader.js';
 
-type Props = {
-  +editTab?: React$Element<EntityTabLink>,
-  +entity: RelatableEntityT,
-  +headerClass: string,
-  +heading?: Expand2ReactOutput,
-  +page?: string,
-  +preHeader?: Expand2ReactOutput,
-  +subHeading: Expand2ReactOutput,
-};
-
-const EntityHeader = ({
-  editTab,
-  entity,
-  headerClass,
-  heading,
-  page,
-  preHeader,
-  subHeading,
-}: Props): React.MixedElement => (
-  <>
-    <div className={'wrap-anywhere ' + headerClass}>
-      {nonEmpty(preHeader) ? preHeader : null}
-      <h1>
-        {nonEmpty(heading) ? heading : <EntityLink entity={entity} />}
-      </h1>
-      <SubHeader subHeading={subHeading} />
-    </div>
-    <EntityTabs
-      editTab={editTab}
-      entity={entity}
-      page={page}
-    />
-  </>
-);
+component EntityHeader(
+  editTab?: React$Element<EntityTabLink>,
+  entity: RelatableEntityT,
+  headerClass: string,
+  heading?: Expand2ReactOutput,
+  page?: string,
+  preHeader?: Expand2ReactOutput,
+  subHeading: Expand2ReactOutput,
+) {
+  return (
+    <>
+      <div className={'wrap-anywhere ' + headerClass}>
+        {nonEmpty(preHeader) ? preHeader : null}
+        <h1>
+          {nonEmpty(heading) ? heading : <EntityLink entity={entity} />}
+        </h1>
+        <SubHeader subHeading={subHeading} />
+      </div>
+      <EntityTabs
+        editTab={editTab}
+        entity={entity}
+        page={page}
+      />
+    </>
+  );
+}
 
 export default EntityHeader;

@@ -11,10 +11,6 @@ import EntityLink, {DeletedLink}
   from '../../../static/scripts/common/components/EntityLink.js';
 import formatDate from '../../../static/scripts/common/utility/formatDate.js';
 
-type Props = {
-  +edit: EditReleaseEventsHistoricEditT,
-};
-
 function buildEventComp(
   event: OldReleaseEventCompT,
   key: string,
@@ -101,66 +97,70 @@ function buildEvent(
   );
 }
 
-const EditReleaseEvents = ({edit}: Props): React$Element<'table'> => (
-  <table className="tbl edit-release-events">
-    <thead>
-      <tr>
-        <th>{l('Release')}</th>
-        <th>{l('Date')}</th>
-        <th>{l('Country')}</th>
-        <th>{l('Label')}</th>
-        <th>{l('Catalog number')}</th>
-        <th>{l('Barcode')}</th>
-        <th>{l('Format')}</th>
-      </tr>
-    </thead>
-    {edit.display_data.additions.length ? (
-      <>
-        <thead>
-          <tr>
-            <th colSpan="7">{lp('Added', 'list of added release events')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {edit.display_data.additions.map(
-            (event, index) => buildEvent(event, 'additions' + index),
-          )}
-        </tbody>
-      </>
-    ) : null}
-    {edit.display_data.removals.length ? (
-      <>
-        <thead>
-          <tr>
-            <th colSpan="7">
-              {lp('Removed', 'list of removed release events')}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {edit.display_data.removals.map(
-            (event, index) => buildEvent(event, 'removals' + index),
-          )}
-        </tbody>
-      </>
-    ) : null}
-    {edit.display_data.edits.length ? (
-      <>
-        <thead>
-          <tr>
-            <th colSpan="7">
-              {lp('Edited', 'list of edited release events')}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {edit.display_data.edits.map(
-            (event, index) => buildEventComp(event, 'edits' + index),
-          )}
-        </tbody>
-      </>
-    ) : null}
-  </table>
-);
+component EditReleaseEvents(edit: EditReleaseEventsHistoricEditT) {
+  return (
+    <table className="tbl edit-release-events">
+      <thead>
+        <tr>
+          <th>{l('Release')}</th>
+          <th>{l('Date')}</th>
+          <th>{l('Country')}</th>
+          <th>{l('Label')}</th>
+          <th>{l('Catalog number')}</th>
+          <th>{l('Barcode')}</th>
+          <th>{l('Format')}</th>
+        </tr>
+      </thead>
+      {edit.display_data.additions.length ? (
+        <>
+          <thead>
+            <tr>
+              <th colSpan="7">
+                {lp('Added', 'list of added release events')}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {edit.display_data.additions.map(
+              (event, index) => buildEvent(event, 'additions' + index),
+            )}
+          </tbody>
+        </>
+      ) : null}
+      {edit.display_data.removals.length ? (
+        <>
+          <thead>
+            <tr>
+              <th colSpan="7">
+                {lp('Removed', 'list of removed release events')}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {edit.display_data.removals.map(
+              (event, index) => buildEvent(event, 'removals' + index),
+            )}
+          </tbody>
+        </>
+      ) : null}
+      {edit.display_data.edits.length ? (
+        <>
+          <thead>
+            <tr>
+              <th colSpan="7">
+                {lp('Edited', 'list of edited release events')}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {edit.display_data.edits.map(
+              (event, index) => buildEventComp(event, 'edits' + index),
+            )}
+          </tbody>
+        </>
+      ) : null}
+    </table>
+  );
+}
 
 export default EditReleaseEvents;

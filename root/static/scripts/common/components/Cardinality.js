@@ -9,11 +9,7 @@
 
 import {bracketedText} from '../utility/bracketed.js';
 
-type Props = {
-  +cardinality: number,
-};
-
-const Cardinality = ({cardinality}: Props): React$MixedElement => {
+component Cardinality(cardinality: number) {
   let cardinalityName;
   switch (cardinality) {
     case 0:
@@ -34,6 +30,6 @@ const Cardinality = ({cardinality}: Props): React$MixedElement => {
       {bracketedText(cardinality.toString())}
     </>
   );
-};
+}
 
 export default Cardinality;

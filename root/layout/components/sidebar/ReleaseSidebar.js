@@ -47,11 +47,7 @@ import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 
-type Props = {
-  +release: ReleaseT,
-};
-
-const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
+component ReleaseSidebar(release: ReleaseT) {
   const $c = React.useContext(CatalystContext);
 
   const releaseGroup = release.releaseGroup;
@@ -87,13 +83,13 @@ const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
           <Artwork
             artwork={releaseArtwork}
             message={ReactDOMServer.renderToStaticMarkup(exp.l(
-              'Front cover image failed to load correctly.' +
-              '<br/>{all|View all artwork}.',
+              'Image failed to load correctly.' +
+              '<br/>{all|View all images}.',
               {all: entityHref(release, 'cover-art')},
             ))}
           />
         ) : release.cover_art_presence === 'darkened' ? (
-          l(`Cover art for this release has been hidden
+          l(`Images for this item have been hidden
              by the Internet Archive because of a takedown request.`)
         ) : (
           <p className="cover-art-note" style={{textAlign: 'left'}}>
@@ -105,7 +101,7 @@ const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
                   {l('View all artwork')}
                 </a>
               </>
-            ) : l('No cover art available.')}
+            ) : l('No images available.')}
           </p>
         )}
       </div>
@@ -309,6 +305,6 @@ const ReleaseSidebar = ({release}: Props): React$Element<'div'> | null => {
       <LastUpdated entity={release} />
     </div>
   );
-};
+}
 
 export default ReleaseSidebar;

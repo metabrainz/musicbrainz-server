@@ -13,13 +13,11 @@ import {commaOnlyListText} from
 import localizeLanguageName
   from '../../static/scripts/common/i18n/localizeLanguageName.js';
 
-type Props = {
-  +edit: AddWorkEditT,
-};
-
-const AddWork = ({edit}: Props): React$MixedElement => {
+component AddWork(edit: AddWorkEditT) {
   const display = edit.display_data;
-  const attributes = display.attributes ?? {};
+  const attributes:
+    $NonMaybeType<AddWorkEditT['display_data']['attributes']> =
+    display.attributes ?? {};
   const type = display.type;
   const language = display.language;
   const languages = display.languages;
@@ -100,6 +98,6 @@ const AddWork = ({edit}: Props): React$MixedElement => {
       </table>
     </>
   );
-};
+}
 
 export default AddWork;

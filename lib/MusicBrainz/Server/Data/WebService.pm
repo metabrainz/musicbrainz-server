@@ -238,7 +238,7 @@ sub xml_search
     if (DBDefs->SEARCH_X_ACCEL_REDIRECT) {
         return { redirect_url => '/internal/search/' . DBDefs->SEARCH_SERVER . $url_ext };
     } else {
-        my $url = 'http://' . DBDefs->SEARCH_SERVER . $url_ext;
+        my $url = DBDefs->SEARCH_SCHEME . '://' . DBDefs->SEARCH_SERVER . $url_ext;
         my $response = $self->c->lwp->get($url);
         if ( $response->is_success )
         {

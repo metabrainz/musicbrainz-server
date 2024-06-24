@@ -9,10 +9,6 @@
 
 import * as React from 'react';
 
-type PropsT = {
-  +recordingMbid: string,
-};
-
 type AcoustIdTrackT = {
   +disabled?: boolean,
   +id: string,
@@ -87,9 +83,7 @@ function loadAcoustIdData(
   }, REQUEST_BATCH_TIMEOUT);
 }
 
-const AcoustIdCell = ({
-  recordingMbid,
-}: PropsT): React.MixedElement => {
+component AcoustIdCell(recordingMbid: string) {
   const [acoustIdTracks, setAcoustIdTracks] = React.useState<
     $ReadOnlyArray<AcoustIdTrackT> | null,
   >(null);
@@ -136,11 +130,11 @@ const AcoustIdCell = ({
       )}
     </>
   );
-};
+}
 
 export default (
-  hydrate<PropsT>(
+  hydrate<React.PropsOf<AcoustIdCell>>(
     'div.acoustids',
     AcoustIdCell,
-  ): React$AbstractComponent<PropsT, void>
+  ): React$AbstractComponent<React.PropsOf<AcoustIdCell>>
 );

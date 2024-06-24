@@ -29,18 +29,71 @@ has 'connector' => (
     handles => [ 'dbh', 'sql', 'conn' ],
     lazy_build => 1,
     clearer => 'clear_connector',
+    predicate => 'has_connector',
 );
+
+has 'ro_connector' => (
+    is => 'ro',
+    lazy_build => 1,
+    clearer => 'clear_ro_connector',
+    predicate => 'has_ro_connector',
+);
+
+sub is_globally_read_only {
+    return DBDefs->DB_READ_ONLY || DBDefs->REPLICATION_TYPE == RT_MIRROR;
+}
+
+sub prefer_ro_connector {
+    my ($self) = @_;
+    # There are two cases where we cannot, or do not want to use the
+    # `ro_connector` (if available):
+    #  * Case 1:
+    #    There is a logged-in user. We want to ensure replication lag (no
+    #    matter how minimal) doesn't prevent just-applied edits from being
+    #    visible to them.
+    #  * Case 2:
+    #    We're in a current writable transaction. We should of course perform
+    #    our query in the same transaction for consistency and atomicity.
+    if (
+        (
+            defined $self->catalyst_context &&
+            $self->catalyst_context->user_exists
+        ) ||
+        (
+            $self->has_connector &&
+            $self->connector->sql->is_in_transaction
+        )
+    ) {
+        return $self->connector;
+    }
+    # `ro_connector` may be undef; see `_build_ro_connector`.
+    return $self->ro_connector // $self->connector;
+}
+
+sub prefer_ro_dbh { shift->prefer_ro_connector->dbh }
+
+sub prefer_ro_sql { shift->prefer_ro_connector->sql }
+
+sub prefer_ro_conn { shift->prefer_ro_connector->conn }
 
 has 'database' => (
     is => 'rw',
     isa => 'Str',
     default => sub {
-        DBDefs->DB_READ_ONLY || DBDefs->REPLICATION_TYPE == RT_MIRROR
+        shift->is_globally_read_only
             ? 'READONLY'
             : 'READWRITE';
     },
     lazy => 1,
     clearer => 'clear_database',
+);
+
+has 'ro_database' => (
+    is => 'rw',
+    isa => 'Str',
+    default => sub { 'READONLY' },
+    lazy => 1,
+    clearer => 'clear_ro_database',
 );
 
 has 'fresh_connector' => (
@@ -63,6 +116,21 @@ sub _build_connector {
     }
 
     return $conn;
+}
+
+sub _build_ro_connector {
+    my $self = shift;
+
+    return unless (
+        DBDefs->USE_RO_DATABASE_CONNECTOR &&
+        !$self->is_globally_read_only
+    );
+
+    return DatabaseConnectionFactory->get_connection(
+        $self->ro_database,
+        fresh => $self->fresh_connector,
+        read_only => 1,
+    );
 }
 
 has 'models' => (
@@ -140,7 +208,37 @@ has 'max_request_time' => (
     isa => 'Maybe[Int]',
 );
 
+has 'catalyst_context' => (
+    is => 'rw',
+    isa => 'Maybe[MusicBrainz::Server]',
+    weak_ref => 1,
+);
+
 1;
+
+=head1 ATTRIBUTES
+
+=head2 ro_database
+
+String referencing a database name in C<DBDefs> that may be used to
+distribute read-only queries to PostgreSQL standby instance if
+`USE_RO_DATABASE_CONNECTOR` is enabled.
+
+=head2 ro_connector
+
+Connector (to `ro_database`) that may be used for read-only transactions.
+
+=head2 catalyst_context
+
+Provides access to the current Catalyst context. This should be used
+sparingly to avoid coupling the controller and data layers.
+
+=head1 METHODS
+
+=head2 prefer_ro_connector()
+
+Returns `ro_connector` unless `connector` is in a transaction, or unless
+there's a logged-in user.
 
 =head1 COPYRIGHT AND LICENSE
 

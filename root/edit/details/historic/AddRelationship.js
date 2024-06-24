@@ -10,25 +10,23 @@
 import {HistoricRelationship}
   from '../../../static/scripts/common/components/Relationship.js';
 
-type Props = {
-  +edit: AddRelationshipHistoricEditT,
-};
-
-const AddRelationship = ({edit}: Props): React$Element<'table'> => (
-  <table className="details add-relationship-historic">
-    <tr>
-      <th rowSpan="2">{addColonText(l('Relationships'))}</th>
-      <td>
-        <ul>
-          {edit.display_data.relationships.map(relationship => (
-            <li key={relationship.id}>
-              <HistoricRelationship relationship={relationship} />
-            </li>
-          ))}
-        </ul>
-      </td>
-    </tr>
-  </table>
-);
+component AddRelationship(edit: AddRelationshipHistoricEditT) {
+  return (
+    <table className="details add-relationship-historic">
+      <tr>
+        <th rowSpan="2">{addColonText(l('Relationships'))}</th>
+        <td>
+          <ul>
+            {edit.display_data.relationships.map(relationship => (
+              <li key={relationship.id}>
+                <HistoricRelationship relationship={relationship} />
+              </li>
+            ))}
+          </ul>
+        </td>
+      </tr>
+    </table>
+  );
+}
 
 export default AddRelationship;

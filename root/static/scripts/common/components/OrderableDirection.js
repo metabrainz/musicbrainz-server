@@ -9,13 +9,7 @@
 
 import {bracketedText} from '../utility/bracketed.js';
 
-type Props = {
-  +direction: number,
-};
-
-const OrderableDirection = ({
-  direction,
-}: Props): React$MixedElement => {
+component OrderableDirection(direction: number) {
   let directionName;
   switch (direction) {
     case 0:
@@ -36,6 +30,6 @@ const OrderableDirection = ({
       {bracketedText(direction.toString())}
     </>
   );
-};
+}
 
 export default OrderableDirection;

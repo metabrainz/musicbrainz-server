@@ -48,5 +48,6 @@ export default function chooseLayoutComponent(
   +page?: string,
   +title: string,
 }> {
+  // $FlowIgnore[invalid-computed-prop] - this is a landmine
   return layoutPicker[typeName];
 }

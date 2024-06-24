@@ -29,11 +29,7 @@ import {SidebarProperties} from './SidebarProperties.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 
-type Props = {
-  +instrument: InstrumentT,
-};
-
-const InstrumentSidebar = ({instrument}: Props): React$Element<'div'> => {
+component InstrumentSidebar(instrument: InstrumentT) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -82,6 +78,6 @@ const InstrumentSidebar = ({instrument}: Props): React$Element<'div'> => {
       <LastUpdated entity={instrument} />
     </div>
   );
-};
+}
 
 export default InstrumentSidebar;

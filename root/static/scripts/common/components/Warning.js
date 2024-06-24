@@ -9,27 +9,22 @@
 
 import WarningIcon from './WarningIcon.js';
 
-type Props = {
-  +className?: string,
-  +message: string,
-};
-
-const Warning = ({
-  className,
-  message,
-  ...divProps
-}: Props): React$Element<'div'> => (
-  <div
-    className={'warning' + (nonEmpty(className) ? ' ' + className : '')}
-    {...divProps}
-  >
-    <WarningIcon />
-    <p>
-      <strong>{addColonText(l('Warning'))}</strong>
-      {' '}
-      {message}
-    </p>
-  </div>
-);
+component Warning(
+  className?: string,
+  message: string,
+) {
+  return (
+    <div
+      className={'warning' + (nonEmpty(className) ? ' ' + className : '')}
+    >
+      <WarningIcon />
+      <p>
+        <strong>{addColonText(l('Warning'))}</strong>
+        {' '}
+        {message}
+      </p>
+    </div>
+  );
+}
 
 export default Warning;

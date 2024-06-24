@@ -13,13 +13,7 @@ import entityHref from '../../common/utility/entityHref.js';
 
 import Tooltip from './Tooltip.js';
 
-type PropsT = {
-  +entity: RelatableEntityT,
-};
-
-const EntityPendingEditsWarning = ({
-  entity,
-}: PropsT): React.MixedElement | null => {
+component EntityPendingEditsWarning(entity: RelatableEntityT) {
   const hasPendingEdits = Boolean(entity.editsPending);
   const openEditsLink = entityHref(entity, '/open_edits');
 
@@ -43,6 +37,6 @@ const EntityPendingEditsWarning = ({
       />
     </>
   ) : null;
-};
+}
 
 export default EntityPendingEditsWarning;

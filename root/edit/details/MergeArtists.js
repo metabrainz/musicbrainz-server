@@ -10,29 +10,27 @@
 import ArtistList from '../../components/list/ArtistList.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
 
-type Props = {
-  +edit: MergeArtistsEditT,
-};
-
-const MergeArtists = ({edit}: Props): React$Element<'table'> => (
-  <table className="details merge-artists">
-    <tr>
-      <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
-      <td>
-        <ArtistList artists={edit.display_data.old} showBeginEnd />
-      </td>
-    </tr>
-    <tr>
-      <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
-      <td>
-        <ArtistList artists={[edit.display_data.new]} showBeginEnd />
-      </td>
-    </tr>
-    <tr className="rename-artist-credits">
-      <th>{l('Rename artist and relationship credits')}</th>
-      <td>{yesNo(edit.display_data.rename)}</td>
-    </tr>
-  </table>
-);
+component MergeArtists(edit: MergeArtistsEditT) {
+  return (
+    <table className="details merge-artists">
+      <tr>
+        <th>{addColonText(lp('Merge', 'verb, header, paired with Into'))}</th>
+        <td>
+          <ArtistList artists={edit.display_data.old} showBeginEnd />
+        </td>
+      </tr>
+      <tr>
+        <th>{addColonText(lp('Into', 'header, paired with Merge'))}</th>
+        <td>
+          <ArtistList artists={[edit.display_data.new]} showBeginEnd />
+        </td>
+      </tr>
+      <tr className="rename-artist-credits">
+        <th>{l('Rename artist and relationship credits')}</th>
+        <td>{yesNo(edit.display_data.rename)}</td>
+      </tr>
+    </table>
+  );
+}
 
 export default MergeArtists;

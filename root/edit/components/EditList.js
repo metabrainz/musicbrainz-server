@@ -18,31 +18,18 @@ import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 import ListEdit from '../components/ListEdit.js';
 import ListHeader from '../components/ListHeader.js';
 
-type Props = {
-  +editCountLimit: number,
-  +edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
-  +entity?: EditableEntityT | CollectionT,
-  +guessSearch?: boolean,
-  +isSearch?: boolean,
-  +page: string,
-  +pager: PagerT,
-  +refineUrlArgs?: {+[argument: string]: string},
-  +username?: string,
-  +voter?: UnsanitizedEditorT,
-};
-
-const EditList = ({
-  editCountLimit,
-  edits,
-  entity,
-  guessSearch = false,
-  isSearch = false,
-  page,
-  pager,
-  refineUrlArgs,
-  username,
-  voter,
-}: Props): React.MixedElement => {
+component EditList(
+  editCountLimit: number,
+  edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
+  entity?: EditableEntityT | CollectionT,
+  guessSearch: boolean = false,
+  isSearch: boolean = false,
+  page: string,
+  pager: PagerT,
+  refineUrlArgs?: {+[argument: string]: string},
+  username?: string,
+  voter?: UnsanitizedEditorT,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
 
   /*
@@ -136,6 +123,6 @@ const EditList = ({
       ) : null}
     </>
   );
-};
+}
 
 export default EditList;

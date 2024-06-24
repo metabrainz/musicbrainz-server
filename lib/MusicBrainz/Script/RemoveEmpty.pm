@@ -101,7 +101,7 @@ sub run {
     my ($count, $removed) = (0, 0);
     my @entities = values %{
         $self->c->model(type_to_model($entity))->get_by_ids(
-            @{ $self->c->sql->select_single_column_array($query) },
+            @{ $self->c->prefer_ro_sql->select_single_column_array($query) },
         );
     };
     my $modbot = $self->c->model('Editor')->get_by_id($EDITOR_MODBOT);

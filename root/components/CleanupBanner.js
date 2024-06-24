@@ -46,14 +46,12 @@ const cleanupBannerStrings = {
   ),
 };
 
-type Props = {
-  +entityType: string,
-};
-
-const CleanupBanner = ({entityType}: Props): React$Element<'p'> => (
-  <p className="cleanup">
-    {cleanupBannerStrings[entityType]()}
-  </p>
-);
+component CleanupBanner(entityType: EntityWithAutoCleanupTypeT) {
+  return (
+    <p className="cleanup">
+      {cleanupBannerStrings[entityType]()}
+    </p>
+  );
+}
 
 export default CleanupBanner;

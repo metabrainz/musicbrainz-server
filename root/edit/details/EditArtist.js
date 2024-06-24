@@ -25,11 +25,7 @@ import FullChangeDiff
   from '../../static/scripts/edit/components/edit/FullChangeDiff.js';
 import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 
-type Props = {
-  +edit: EditArtistEditT,
-};
-
-const EditArtist = ({edit}: Props): React$MixedElement => {
+component EditArtist(edit: EditArtistEditT) {
   const display = edit.display_data;
   const area = display.area;
   const beginDate = display.begin_date;
@@ -177,6 +173,6 @@ const EditArtist = ({edit}: Props): React$MixedElement => {
       </table>
     </>
   );
-};
+}
 
 export default EditArtist;

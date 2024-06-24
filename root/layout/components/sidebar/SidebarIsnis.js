@@ -25,13 +25,10 @@ const buildSidebarIsni = (isni: IsniCodeT) => (
   </SidebarProperty>
 );
 
-type Props = {
-  +entity: $ReadOnly<{...IsniCodesRoleT, ...}>,
-};
-
-const SidebarIsnis = ({entity}: Props):
-  React.ChildrenArray<React$Element<typeof SidebarProperty>> => (
-  entity.isni_codes.map(buildSidebarIsni)
-);
+component SidebarIsnis(entity: $ReadOnly<{...IsniCodesRoleT, ...}>) {
+  return (
+    entity.isni_codes.map(buildSidebarIsni)
+  );
+}
 
 export default SidebarIsnis;

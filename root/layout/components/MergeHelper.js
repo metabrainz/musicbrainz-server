@@ -14,11 +14,7 @@ import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import {returnToCurrentPage} from '../../utility/returnUri.js';
 
-type Props = {
-  +merger: MergeQueueT,
-};
-
-const MergeHelper = ({merger}: Props): React$Element<'div'> => {
+component MergeHelper(merger: MergeQueueT) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -86,6 +82,6 @@ const MergeHelper = ({merger}: Props): React$Element<'div'> => {
       </form>
     </div>
   );
-};
+}
 
 export default MergeHelper;

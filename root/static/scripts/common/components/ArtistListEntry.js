@@ -22,45 +22,18 @@ import DescriptiveLink from './DescriptiveLink.js';
 import MergeCheckboxElement from './MergeCheckboxElement.js';
 import RatingStars from './RatingStars.js';
 
-type ArtistListRowProps = {
-  ...InstrumentCreditsAndRelTypesRoleT,
-  +artist: ArtistT,
-  +artistList?: $ReadOnlyArray<ArtistT>,
-  +checkboxes?: string,
-  +index: number,
-  +mergeForm?: MergeFormT,
-  +showBeginEnd?: boolean,
-  +showInstrumentCreditsAndRelTypes?: boolean,
-  +showRatings?: boolean,
-  +showSortName?: boolean,
-};
-
-type ArtistListEntryProps = {
-  ...InstrumentCreditsAndRelTypesRoleT,
-  +artist: ArtistT,
-  +artistList?: $ReadOnlyArray<ArtistT>,
-  +checkboxes?: string,
-  +index: number,
-  +mergeForm?: MergeFormT,
-  +score?: number,
-  +showBeginEnd?: boolean,
-  +showInstrumentCreditsAndRelTypes?: boolean,
-  +showRatings?: boolean,
-  +showSortName?: boolean,
-};
-
-const ArtistListRow = ({
-  artist,
-  artistList,
-  checkboxes,
-  index,
-  instrumentCreditsAndRelTypes,
-  mergeForm,
-  showBeginEnd = false,
-  showInstrumentCreditsAndRelTypes = false,
-  showRatings = false,
-  showSortName = false,
-}: ArtistListRowProps) => {
+component ArtistListRow(
+  artist: ArtistT,
+  artistList?: $ReadOnlyArray<ArtistT>,
+  checkboxes?: string,
+  index: number,
+  instrumentCreditsAndRelTypes?: InstrumentCreditsAndRelTypesT,
+  mergeForm?: MergeFormT,
+  showBeginEnd: boolean = false,
+  showInstrumentCreditsAndRelTypes: boolean = false,
+  showRatings: boolean = false,
+  showSortName: boolean = false,
+) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -137,35 +110,17 @@ const ArtistListRow = ({
       ) : null}
     </>
   );
-};
+}
 
-const ArtistListEntry = ({
-  artist,
-  artistList,
-  checkboxes,
-  index,
-  instrumentCreditsAndRelTypes,
-  mergeForm,
-  score,
-  showBeginEnd,
-  showInstrumentCreditsAndRelTypes,
-  showRatings,
-  showSortName,
-}: ArtistListEntryProps): React$Element<'tr'> => (
-  <tr className={loopParity(index)} data-score={score ?? null}>
-    <ArtistListRow
-      artist={artist}
-      artistList={artistList}
-      checkboxes={checkboxes}
-      index={index}
-      instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
-      mergeForm={mergeForm}
-      showBeginEnd={showBeginEnd}
-      showInstrumentCreditsAndRelTypes={showInstrumentCreditsAndRelTypes}
-      showRatings={showRatings}
-      showSortName={showSortName}
-    />
-  </tr>
-);
+component ArtistListEntry(
+  score?: number,
+  ...rowProps: React.PropsOf<ArtistListRow>
+) {
+  return (
+    <tr className={loopParity(rowProps.index)} data-score={score ?? null}>
+      <ArtistListRow {...rowProps} />
+    </tr>
+  );
+}
 
 export default ArtistListEntry;

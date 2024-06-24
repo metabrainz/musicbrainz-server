@@ -93,11 +93,18 @@ sub CACHE_MANAGER_OPTIONS {
 
 sub CATALYST_DEBUG { 0 }
 
-sub COVER_ART_ARCHIVE_ACCESS_KEY { 'hi_im_public' }
-sub COVER_ART_ARCHIVE_SECRET_KEY { 'hi_im_private' }
-sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//localhost:5050/%s', shift) }
+sub COVER_ART_ARCHIVE_ACCESS_KEY { 'hi_im_public_caa' }
+sub COVER_ART_ARCHIVE_SECRET_KEY { 'bye_im_private_caa' }
+
+sub EVENT_ART_ARCHIVE_ACCESS_KEY { 'hi_im_public_eaa' }
+sub EVENT_ART_ARCHIVE_SECRET_KEY { 'bye_im_private_eaa' }
+
+sub INTERNET_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//localhost:5050/%s', shift) }
+sub INTERNET_ARCHIVE_METADATA_PREFIX { 'http://localhost:5050/metadata' }
+sub INTERNET_ARCHIVE_IA_DOWNLOAD_PREFIX { '' }
+
 sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { 'http://localhost:8081' }
-sub COVER_ART_ARCHIVE_IA_METADATA_PREFIX { 'http://localhost:5050/metadata' }
+sub EVENT_ART_ARCHIVE_DOWNLOAD_PREFIX { 'http://localhost:8081' }
 
 sub DATASTORE_REDIS_ARGS {
     my $self = shift;
@@ -108,7 +115,7 @@ sub DATASTORE_REDIS_ARGS {
     };
 }
 
-sub DB_SCHEMA_SEQUENCE { 28 }
+sub DB_SCHEMA_SEQUENCE { 29 }
 
 sub DB_STAGING_TESTING_FEATURES { 1 }
 
@@ -126,7 +133,7 @@ sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
 sub MB_LANGUAGES { qw( de el es es-419 et fi fr he it ja nl sq en ) }
 
-sub ACTIVE_SCHEMA_SEQUENCE { 28 }
+sub ACTIVE_SCHEMA_SEQUENCE { 29 }
 
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;
@@ -139,6 +146,7 @@ sub PLUGIN_CACHE_OPTIONS {
 }
 
 sub SEARCH_SERVER { '127.0.0.1:8983/solr' }
+sub SEARCH_SCHEME { 'http' }
 sub SEARCH_ENGINE { 'SOLR' }
 
 sub USE_SET_DATABASE_HEADER { 1 }

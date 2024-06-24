@@ -14,15 +14,10 @@ import type {ReportArtistUrlT} from '../types.js';
 
 import RemovedUrlRow from './RemovedUrlRow.js';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportArtistUrlT>,
-  +pager: PagerT,
-};
-
-const ArtistUrlList = ({
-  items,
-  pager,
-}: Props): React$Element<typeof PaginatedResults> => {
+component ArtistUrlList(
+  items: $ReadOnlyArray<ReportArtistUrlT>,
+  pager: PagerT,
+) {
   let lastGID: string = '';
   let currentGID: string = '';
 
@@ -82,6 +77,6 @@ const ArtistUrlList = ({
       </table>
     </PaginatedResults>
   );
-};
+}
 
 export default ArtistUrlList;

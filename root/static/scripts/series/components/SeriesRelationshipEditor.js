@@ -39,12 +39,10 @@ type PropsT = InitialStateArgsT;
 function getSeriesType(typeId: number | null): SeriesTypeT | null {
   return typeId == null
     ? null
-    : linkedEntities.series_type[String(typeId)];
+    : linkedEntities.series_type[typeId];
 }
 
-let SeriesRelationshipEditor:
-  React$AbstractComponent<PropsT, void> =
-(props: PropsT) => {
+component _SeriesRelationshipEditor(...props: PropsT) {
   const [state, dispatch] = React.useReducer(
     reducer,
     props,
@@ -179,16 +177,16 @@ let SeriesRelationshipEditor:
       state={state}
     />
   );
-};
+}
 
-SeriesRelationshipEditor =
-  withLoadedTypeInfoForRelationshipEditor<PropsT, void>(
-    SeriesRelationshipEditor,
+const NonHydratedSeriesRelationshipEditor: React$AbstractComponent<PropsT> =
+  withLoadedTypeInfoForRelationshipEditor<PropsT>(
+    _SeriesRelationshipEditor,
   );
 
-SeriesRelationshipEditor = hydrate<PropsT>(
+const SeriesRelationshipEditor = (hydrate<PropsT>(
   'div.relationship-editor',
-  SeriesRelationshipEditor,
-);
+  NonHydratedSeriesRelationshipEditor,
+): React$AbstractComponent<PropsT>);
 
 export default SeriesRelationshipEditor;

@@ -15,7 +15,9 @@ import expand2text from '../../static/scripts/common/i18n/expand2text.js';
 import formatUserDate from '../../utility/formatUserDate.js';
 import FilterLink from '../FilterLink.js';
 
-const countTextPicker = {
+const countTextPicker: {
+  +[entityType: string]: () => string,
+} = {
   artist: N_l('Total artists found: {count}'),
   artist_credit: N_l('Total artist credits found: {count}'),
   discId: N_l('Total discIDs found: {count}'),
@@ -35,31 +37,18 @@ const countTextPicker = {
   work: N_l('Total works found: {count}'),
 };
 
-type Props = {
-  +canBeFiltered: boolean,
-  +children: React$Node,
-  +countText?: string,
-  +description: Expand2ReactOutput,
-  +entityType: string,
-  +extraInfo?: Expand2ReactOutput,
-  +filtered: boolean,
-  +generated: string,
-  +title: string,
-  +totalEntries: number,
-};
-
-const ReportLayout = ({
-  canBeFiltered,
-  children,
-  countText,
-  description,
-  entityType,
-  extraInfo,
-  filtered,
-  generated,
-  title,
-  totalEntries,
-}: Props): React$Element<typeof Layout> => {
+component ReportLayout(
+  canBeFiltered: boolean,
+  children: React$Node,
+  countText?: string,
+  description: Expand2ReactOutput,
+  entityType: string,
+  extraInfo?: Expand2ReactOutput,
+  filtered: boolean,
+  generated: string,
+  title: string,
+  totalEntries: number,
+) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -92,6 +81,6 @@ const ReportLayout = ({
       {children}
     </Layout>
   );
-};
+}
 
 export default ReportLayout;

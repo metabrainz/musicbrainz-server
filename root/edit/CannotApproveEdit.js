@@ -11,11 +11,7 @@ import {EDIT_STATUS_DELETED} from '../constants.js';
 import Layout from '../layout/index.js';
 import EditLink from '../static/scripts/common/components/EditLink.js';
 
-type Props = {
-  +edit: GenericEditWithIdT,
-};
-
-const CannotApproveEdit = ({edit}: Props): React$Element<typeof Layout> => {
+component CannotApproveEdit(edit: GenericEditWithIdT) {
   const editDisplay = 'edit #' + edit.id;
   const editLink = <EditLink content={editDisplay} edit={edit} />;
   const editIsClosed = !edit.is_open;
@@ -42,6 +38,6 @@ const CannotApproveEdit = ({edit}: Props): React$Element<typeof Layout> => {
       <p>{reason}</p>
     </Layout>
   );
-};
+}
 
 export default CannotApproveEdit;

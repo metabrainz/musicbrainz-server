@@ -15,10 +15,6 @@ import EntityLink
 
 import CollectionList from './CollectionList.js';
 
-type Props = {
-  +entity: CollectableEntityT,
-};
-
 const noCollectionsStrings = {
   area: N_l('You have no area collections!'),
   artist: N_l('You have no artist collections!'),
@@ -34,9 +30,7 @@ const noCollectionsStrings = {
   work: N_l('You have no work collections!'),
 };
 
-const CollectionLinks = ({
-  entity,
-}: Props): React$Element<typeof CollectionList> | null => {
+component CollectionLinks(entity: CollectableEntityT) {
   const $c = React.useContext(CatalystContext);
   const numberOfCollections = $c.stash.number_of_collections || 0;
   const userExists = Boolean($c.user);
@@ -67,6 +61,6 @@ const CollectionLinks = ({
       usersLinkHeader={l('Other collections')}
     />
   );
-};
+}
 
 export default CollectionLinks;

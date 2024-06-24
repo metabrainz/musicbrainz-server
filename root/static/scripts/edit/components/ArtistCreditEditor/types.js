@@ -47,11 +47,6 @@ export type StateT = {
   +singleArtistAutocomplete: AutocompleteStateT<ArtistT>,
 };
 
-export type PropsT = {
-  +dispatch: (ActionT) => void,
-  +state: StateT,
-};
-
 /* eslint-disable ft-flow/sort-keys */
 export type EditArtistActionT = {
   +type: 'edit-artist',

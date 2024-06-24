@@ -18,62 +18,58 @@ type DeleteNoteFormT = FormT<{
   +submit: FieldT<string>,
 }>;
 
-type Props = {
-  +edit: GenericEditWithIdT,
-  +editNote: EditNoteT,
-  +form: DeleteNoteFormT,
-};
-
-const DeleteNote = ({
-  edit,
-  editNote,
-  form,
-}: Props): React$Element<typeof Layout> => (
-  <Layout fullWidth title={l('Remove edit note')}>
-    <h1>{l('Remove edit note')}</h1>
-    <p>
-      {l('Are you sure you want to remove the following edit note?')}
-    </p>
-    <div className="edit-notes">
-      <EditNoteListEntry
-        edit={edit}
-        editNote={editNote}
-        showEditControls={false}
-      />
-    </div>
-    <form method="post">
+component DeleteNote(
+  edit: GenericEditWithIdT,
+  editNote: EditNoteT,
+  form: DeleteNoteFormT,
+) {
+  return (
+    <Layout fullWidth title={l('Remove edit note')}>
+      <h1>{l('Remove edit note')}</h1>
       <p>
-        {l(
-          `Providing a reason for the removal is recommended if you feel
-           it will make things clearer for other editors checking
-           the editing history in the future. Otherwise it can be omitted.`,
-        )}
+        {l('Are you sure you want to remove the following edit note?')}
       </p>
-      <FormRowText
-        field={form.field.reason}
-        label={addColonText(l('Reason'))}
-        size={50}
-        uncontrolled
-      />
-      <span className="buttons">
-        <button
-          name="edit-note-delete.submit"
-          type="submit"
-          value="1"
-        >
-          {l('Yes, I am sure')}
-        </button>
-        <button
-          className="negative"
-          name="edit-note-delete.cancel"
-          type="submit"
-          value="1"
-        >
-          {l('Cancel')}
-        </button>
-      </span>
-    </form>
-  </Layout>
-);
+      <div className="edit-notes">
+        <EditNoteListEntry
+          edit={edit}
+          editNote={editNote}
+          showEditControls={false}
+        />
+      </div>
+      <form method="post">
+        <p>
+          {l(
+            `Providing a reason for the removal is recommended if you feel
+             it will make things clearer for other editors checking
+             the editing history in the future. Otherwise it can be omitted.`,
+          )}
+        </p>
+        <FormRowText
+          field={form.field.reason}
+          label={addColonText(l('Reason'))}
+          size={50}
+          uncontrolled
+        />
+        <span className="buttons">
+          <button
+            name="edit-note-delete.submit"
+            type="submit"
+            value="1"
+          >
+            {l('Yes, I am sure')}
+          </button>
+          <button
+            className="negative"
+            name="edit-note-delete.cancel"
+            type="submit"
+            value="1"
+          >
+            {l('Cancel')}
+          </button>
+        </span>
+      </form>
+    </Layout>
+  );
+}
 
 export default DeleteNote;

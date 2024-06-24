@@ -10,11 +10,7 @@
 import EditLinks from './EditLinks.js';
 import LastUpdated from './LastUpdated.js';
 
-type Props = {
-  +url: UrlT,
-};
-
-const UrlSidebar = ({url}: Props): React$Element<'div'> => {
+component UrlSidebar(url: UrlT) {
   return (
     <div id="sidebar">
       <EditLinks entity={url} />
@@ -22,6 +18,6 @@ const UrlSidebar = ({url}: Props): React$Element<'div'> => {
       <LastUpdated entity={url} />
     </div>
   );
-};
+}
 
 export default UrlSidebar;

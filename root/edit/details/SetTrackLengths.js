@@ -17,11 +17,7 @@ import {HistoricReleaseListContent}
   from '../components/HistoricReleaseList.js';
 import TrackDurationChanges from '../components/TrackDurationChanges.js';
 
-type Props = {
-  +edit: SetTrackLengthsEditT,
-};
-
-const SetTrackLengths = ({edit}: Props): React$Element<'table'> => {
+component SetTrackLengths(edit: SetTrackLengthsEditT) {
   const display = edit.display_data;
   const medium = display.medium;
   const cdtoc = display.cdtoc;
@@ -79,6 +75,6 @@ const SetTrackLengths = ({edit}: Props): React$Element<'table'> => {
       ) : null}
     </table>
   );
-};
+}
 
 export default SetTrackLengths;

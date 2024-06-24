@@ -29,14 +29,6 @@ import uriWith from '../utility/uriWith.js';
 
 import PaginatedResults from './PaginatedResults.js';
 
-type Props = {
-  +entity: RelatableEntityT,
-  +fallbackMessage?: string,
-  +heading: string,
-  +pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
-  +pager: ?PagerT,
-};
-
 const generalTypesList = ['recording', 'release', 'release_group', 'work'];
 const recordingOnlyTypesList = ['recording'];
 
@@ -75,13 +67,13 @@ const getDirectionInteger = (backward: boolean) => {
   return backward ? 2 : 1;
 };
 
-const RelationshipsTable = ({
-  entity,
-  fallbackMessage,
-  heading,
-  pagedLinkTypeGroup,
-  pager,
-}: Props): React$MixedElement | null => {
+component RelationshipsTable(
+  entity: RelatableEntityT,
+  fallbackMessage?: string,
+  heading: string,
+  pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
+  pager: ?PagerT,
+) {
   const $c = React.useContext(CatalystContext);
 
   if (pagedLinkTypeGroup && !pager) {
@@ -375,6 +367,6 @@ const RelationshipsTable = ({
       {pageContent}
     </>
   );
-};
+}
 
 export default RelationshipsTable;

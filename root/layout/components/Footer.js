@@ -17,7 +17,7 @@ import {bracketedText}
 import formatUserDate from '../../utility/formatUserDate.js';
 import {returnToCurrentPage} from '../../utility/returnUri.js';
 
-const Footer = (): React$Element<'div'> => {
+component Footer() {
   const $c = React.useContext(CatalystContext);
   const stash = $c.stash;
   return (
@@ -26,8 +26,8 @@ const Footer = (): React$Element<'div'> => {
         <a className="internal" href={DONATE_URL}>{l('Donate')}</a>
         <a className="internal" href="//wiki.musicbrainz.org/">{l('Wiki')}</a>
         <a className="internal" href="https://community.metabrainz.org/">{l('Forums')}</a>
-        <a className="internal" href="/doc/Communication/IRC">
-          {l('Chat (IRC)')}
+        <a className="internal" href="/doc/Communication/ChatBrainz">
+          {l('Chat')}
         </a>
         <a className="internal" href="http://tickets.metabrainz.org/">{l('Bug tracker')}</a>
         <a className="internal" href="https://blog.metabrainz.org/">{l('Blog')}</a>
@@ -50,10 +50,8 @@ const Footer = (): React$Element<'div'> => {
       <p className="right">
         {exp.l(
           `Brought to you by {MeB|MetaBrainz Foundation} and our
-           {spon|sponsors} and {supp|supporters}. Cover art provided
-           by the {caa|Cover Art Archive}.`,
+           {spon|sponsors} and {supp|supporters}.`,
           {
-            caa: '//coverartarchive.org/',
             MeB: 'https://metabrainz.org/',
             spon: 'https://metabrainz.org/sponsors',
             supp: 'https://metabrainz.org/supporters',
@@ -92,6 +90,6 @@ const Footer = (): React$Element<'div'> => {
       </p>
     </div>
   );
-};
+}
 
 export default Footer;

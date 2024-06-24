@@ -24,61 +24,53 @@ function artworkHover(artwork: ArtworkT) {
   return result;
 }
 
-type Props = {
-  +artwork: ArtworkT,
-  +hover?: string,
-  +message?: string,
-};
+export component ArtworkImage(
+  artwork: ArtworkT,
+  hover?: string,
+  message?: string,
+) {
+  return (
+    <>
+      <noscript>
+        <img src={artwork.small_ia_thumbnail} />
+      </noscript>
+      <span
+        className="artwork-image"
+        data-huge-thumbnail={artwork.huge_ia_thumbnail}
+        data-large-thumbnail={artwork.large_ia_thumbnail}
+        data-message={nonEmpty(message)
+          ? message
+          : l('Image not available, please try again later.')}
+        data-small-thumbnail={artwork.small_ia_thumbnail}
+        data-title={nonEmpty(hover) ? hover : artworkHover(artwork)}
+      />
+    </>
+  );
+}
 
-export const ArtworkImage = ({
-  artwork,
-  hover,
-  message,
-}: Props): React.MixedElement => (
-  <>
-    <noscript>
-      <img src={artwork.small_ia_thumbnail} />
-    </noscript>
-    <span
-      className="cover-art-image"
-      data-huge-thumbnail={artwork.huge_ia_thumbnail}
-      data-large-thumbnail={artwork.large_ia_thumbnail}
-      data-message={nonEmpty(message)
-        ? message
-        : l('Image not available, please try again later.')}
-      data-small-thumbnail={artwork.small_ia_thumbnail}
-      data-title={nonEmpty(hover) ? hover : artworkHover(artwork)}
-    />
-  </>
-);
+export component Artwork(...props: React.PropsOf<ArtworkImage>) {
+  const artwork = props.artwork;
 
-export const Artwork = ({
-  artwork,
-  hover,
-  message,
-}: Props): React$Element<'a'> => (
-  <a
-    className={artwork.mime_type === 'application/pdf'
-      ? 'artwork-pdf'
-      : 'artwork-image'}
-    href={artwork.image}
-    title={nonEmpty(hover) ? hover : artworkHover(artwork)}
-  >
-    {artwork.mime_type === 'application/pdf' ? (
-      <div
-        className="file-format-tag"
-        title={l(
-          `This is a PDF file, the thumbnail may not show
-           the entire contents of the file.`,
-        )}
-      >
-        {l('PDF file')}
-      </div>
-    ) : null}
-    <ArtworkImage
-      artwork={artwork}
-      hover={hover}
-      message={message}
-    />
-  </a>
-);
+  return (
+    <a
+      className={artwork.mime_type === 'application/pdf'
+        ? 'artwork-pdf'
+        : 'artwork-image'}
+      href={artwork.image}
+      title={nonEmpty(props.hover) ? props.hover : artworkHover(artwork)}
+    >
+      {artwork.mime_type === 'application/pdf' ? (
+        <div
+          className="file-format-tag"
+          title={l(
+            `This is a PDF file, the thumbnail may not show
+             the entire contents of the file.`,
+          )}
+        >
+          {l('PDF file')}
+        </div>
+      ) : null}
+      <ArtworkImage {...props} />
+    </a>
+  );
+}

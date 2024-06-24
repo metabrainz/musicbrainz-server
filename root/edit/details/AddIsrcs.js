@@ -12,11 +12,7 @@ import CodeLink
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 
-type Props = {
-  +edit: AddIsrcsEditT,
-};
-
-const AddIsrcs = ({edit}: Props): React$Element<'table'> => {
+component AddIsrcs(edit: AddIsrcsEditT) {
   const additions = edit.display_data.additions;
   const clientVersion = edit.display_data.client_version;
 
@@ -51,6 +47,6 @@ const AddIsrcs = ({edit}: Props): React$Element<'table'> => {
       </tr>
     </table>
   );
-};
+}
 
 export default AddIsrcs;

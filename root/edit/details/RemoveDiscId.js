@@ -11,11 +11,7 @@ import CDTocLink from '../../static/scripts/common/components/CDTocLink.js';
 import MediumLink
   from '../../static/scripts/common/components/MediumLink.js';
 
-type Props = {
-  +edit: RemoveDiscIdEditT,
-};
-
-const RemoveDiscId = ({edit}: Props): React$Element<'table'> => {
+component RemoveDiscId(edit: RemoveDiscIdEditT) {
   const medium = edit.display_data.medium;
   const cdToc = edit.display_data.cdtoc;
 
@@ -35,6 +31,6 @@ const RemoveDiscId = ({edit}: Props): React$Element<'table'> => {
       </tr>
     </table>
   );
-};
+}
 
 export default RemoveDiscId;

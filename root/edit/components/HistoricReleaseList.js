@@ -12,45 +12,39 @@ import DescriptiveLink
 import {DeletedLink}
   from '../../static/scripts/common/components/EntityLink.js';
 
-type HistoricReleaseListContentProps = {
-  +releases: $ReadOnlyArray<ReleaseT | null>,
-};
+export component HistoricReleaseListContent(
+  releases: $ReadOnlyArray<ReleaseT | null>,
+) {
+  return (
+    <ul>
+      {releases.length ? (
+        releases.map((release, index) => (
+          <li key={index}>
+            {release?.id
+              ? <DescriptiveLink entity={release} />
+              : <DeletedLink allowNew={false} name={release?.name ?? null} />}
+          </li>
+        ))
+      ) : (
+        <DeletedLink allowNew={false} name={null} />
+      )}
+    </ul>
+  );
+}
 
-type HistoricReleaseListProps = {
-  +colSpan?: string,
-  +label?: string,
-  +releases: $ReadOnlyArray<ReleaseT | null>,
-};
-
-export const HistoricReleaseListContent = ({
-  releases,
-}: HistoricReleaseListContentProps): React$Element<'ul'> => (
-  <ul>
-    {releases.length ? (
-      releases.map((release, index) => (
-        <li key={index}>
-          {release?.id
-            ? <DescriptiveLink entity={release} />
-            : <DeletedLink allowNew={false} name={release?.name ?? null} />}
-        </li>
-      ))
-    ) : (
-      <DeletedLink allowNew={false} name={null} />
-    )}
-  </ul>
-);
-
-const HistoricReleaseList = ({
-  colSpan,
-  label,
-  releases,
-}: HistoricReleaseListProps): React$Element<'tr'> => (
-  <tr>
-    <th>{nonEmpty(label) ? label : addColonText(l('Releases'))}</th>
-    <td colSpan={colSpan}>
-      <HistoricReleaseListContent releases={releases} />
-    </td>
-  </tr>
-);
+component HistoricReleaseList(
+  colSpan?: string,
+  label?: string,
+  ...contentProps: React.PropsOf<HistoricReleaseListContent>
+) {
+  return (
+    <tr>
+      <th>{nonEmpty(label) ? label : addColonText(l('Releases'))}</th>
+      <td colSpan={colSpan}>
+        <HistoricReleaseListContent {...contentProps} />
+      </td>
+    </tr>
+  );
+}
 
 export default HistoricReleaseList;

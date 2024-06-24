@@ -21,15 +21,10 @@ import MergeLink from './MergeLink.js';
 import PlayOnListenBrainzButton from './PlayOnListenBrainzButton.js';
 import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 
-type Props = {
-  +collection: CollectionT,
-  +recordingMbids?: $ReadOnlyArray<string> | null,
-};
-
-const CollectionSidebar = ({
-  collection,
-  recordingMbids,
-}: Props): React$Element<'div'> => {
+component CollectionSidebar(
+  collection: CollectionT,
+  recordingMbids?: $ReadOnlyArray<string> | null,
+) {
   const $c = React.useContext(CatalystContext);
   const typeName = collection.typeName;
   const owner = collection.editor;
@@ -132,6 +127,6 @@ const CollectionSidebar = ({
       ) : null}
     </div>
   );
-};
+}
 
 export default CollectionSidebar;

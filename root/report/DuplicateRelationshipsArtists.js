@@ -11,29 +11,31 @@ import ArtistList from './components/ArtistList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportArtistT, ReportDataT} from './types.js';
 
-const DuplicateRelationshipsArtists = ({
+component DuplicateRelationshipsArtists(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report lists artists which have multiple relatonships to
-       the same artist, label or URL using the same relationship type.
-       For multiple relationships to release groups, recordings or works,
-       see the reports for those entities.`,
-    )}
-    entityType="artist"
-    filtered={filtered}
-    generated={generated}
-    title={l('Artists with possible duplicate relationships')}
-    totalEntries={pager.total_entries}
-  >
-    <ArtistList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportArtistT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report lists artists which have multiple relatonships to
+         the same artist, label or URL using the same relationship type.
+         For multiple relationships to release groups, recordings or works,
+         see the reports for those entities.`,
+      )}
+      entityType="artist"
+      filtered={filtered}
+      generated={generated}
+      title={l('Artists with possible duplicate relationships')}
+      totalEntries={pager.total_entries}
+    >
+      <ArtistList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default DuplicateRelationshipsArtists;

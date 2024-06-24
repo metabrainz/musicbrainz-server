@@ -14,11 +14,7 @@ import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 import IntentionallyRawIcon
   from '../components/IntentionallyRawIcon.js';
 
-type Props = {
-  +edit: EditInstrumentEditT,
-};
-
-const EditInstrument = ({edit}: Props): React$Element<'table'> => {
+component EditInstrument(edit: EditInstrumentEditT) {
   const display = edit.display_data;
   const name = display.name;
   const comment = display.comment;
@@ -75,6 +71,6 @@ const EditInstrument = ({edit}: Props): React$Element<'table'> => {
       ) : null}
     </table>
   );
-};
+}
 
 export default EditInstrument;

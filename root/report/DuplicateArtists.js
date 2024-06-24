@@ -20,13 +20,13 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportArtistT, ReportDataT} from './types.js';
 
-const DuplicateArtists = ({
+component DuplicateArtists(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistT>): React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportArtistT>) {
   const $c = React.useContext(SanitizedCatalystContext);
 
   let currentKey: ?string = '';
@@ -131,6 +131,6 @@ const DuplicateArtists = ({
       </form>
     </ReportLayout>
   );
-};
+}
 
 export default DuplicateArtists;

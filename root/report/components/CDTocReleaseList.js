@@ -18,15 +18,10 @@ import {
 } from '../../utility/tableColumns.js';
 import type {ReportCDTocReleaseT} from '../types.js';
 
-type Props = {
-  +items: $ReadOnlyArray<ReportCDTocReleaseT>,
-  +pager: PagerT,
-};
-
-const CDTocReleaseList = ({
-  items,
-  pager,
-}: Props): React$Element<typeof PaginatedResults> => {
+component CDTocReleaseList(
+  items: $ReadOnlyArray<ReportCDTocReleaseT>,
+  pager: PagerT,
+) {
   const existingCDTocItems = items.reduce((
     result: Array<ReportCDTocReleaseT>,
     item,
@@ -75,6 +70,6 @@ const CDTocReleaseList = ({
       {table}
     </PaginatedResults>
   );
-};
+}
 
 export default CDTocReleaseList;

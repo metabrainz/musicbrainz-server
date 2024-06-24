@@ -15,10 +15,12 @@ import getBooleanCookie from '../../common/utility/getBooleanCookie.js';
 import setCookie from '../../common/utility/setCookie.js';
 import gc from '../../guess-case/MB/GuessCase/Main.js';
 import * as modes from '../../guess-case/modes.js';
+import {type GuessCaseModeNameT} from '../../guess-case/types.js';
+import {isGuessCaseModeName} from '../../guess-case/utils.js';
 
 /* eslint-disable ft-flow/sort-keys */
 export type ActionT =
-  | {+type: 'set-mode', +modeName: string}
+  | {+type: 'set-mode', +modeName: GuessCaseModeNameT}
   | {+type: 'set-keep-upper-case', +enabled: boolean}
   | {+type: 'set-upper-case-roman', +enabled: boolean};
 /* eslint-enable ft-flow/sort-keys */
@@ -27,14 +29,9 @@ export type DispatchT = (ActionT) => void;
 
 export type StateT = {
   +keepUpperCase: boolean,
-  +modeName: string,
+  +modeName: GuessCaseModeNameT,
   +upperCaseRoman: boolean,
 };
-
-export type PropsT = $ReadOnly<{
-  ...StateT,
-  +dispatch: (ActionT) => void,
-}>;
 
 export function createInitialState(): StateT {
   return {
@@ -72,16 +69,14 @@ export function runReducer(
   }
 }
 
-const GuessCaseOptions = ({
-  dispatch,
-  keepUpperCase,
-  modeName,
-  upperCaseRoman,
-}: PropsT): React$Element<'div'> => {
+component GuessCaseOptions(
+  dispatch: (ActionT) => void,
+  ...stateProps: StateT
+) {
   function handleModeChange(event: SyntheticEvent<HTMLSelectElement>) {
     const newModeName = event.currentTarget.value;
 
-    if (newModeName !== gc.modeName) {
+    if (isGuessCaseModeName(newModeName) && newModeName !== gc.modeName) {
       dispatch({modeName: newModeName, type: 'set-mode'});
     }
   }
@@ -107,7 +102,7 @@ const GuessCaseOptions = ({
   return (
     <div id="guesscase-options">
       <h1>{l('Guess case options')}</h1>
-      <select onChange={handleModeChange} value={modeName}>
+      <select onChange={handleModeChange} value={stateProps.modeName}>
         <option value="English">{l('English')}</option>
         <option value="Sentence">{l('Sentence')}</option>
         <option value="French">{l('French')}</option>
@@ -120,11 +115,11 @@ const GuessCaseOptions = ({
         </a>,
       )}
       <p>
-        {expand2react(modes[modeName].description ?? '')}
+        {expand2react(modes[stateProps.modeName].description ?? '')}
       </p>
       <label>
         <input
-          checked={keepUpperCase}
+          checked={stateProps.keepUpperCase}
           onChange={handleKeepUpperCaseChanged}
           type="checkbox"
         />
@@ -133,7 +128,7 @@ const GuessCaseOptions = ({
       <br />
       <label>
         <input
-          checked={upperCaseRoman}
+          checked={stateProps.upperCaseRoman}
           onChange={handleUpperCaseRomanChanged}
           type="checkbox"
         />
@@ -141,6 +136,6 @@ const GuessCaseOptions = ({
       </label>
     </div>
   );
-};
+}
 
 export default GuessCaseOptions;

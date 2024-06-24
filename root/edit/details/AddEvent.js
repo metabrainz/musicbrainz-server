@@ -12,11 +12,7 @@ import formatDate from '../../static/scripts/common/utility/formatDate.js';
 import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty.js';
 import yesNo from '../../static/scripts/common/utility/yesNo.js';
 
-type Props = {
-  +edit: AddEventEditT,
-};
-
-const AddEvent = ({edit}: Props): React$MixedElement => {
+component AddEvent(edit: AddEventEditT) {
   const display = edit.display_data;
   const eventType = display.type;
 
@@ -88,6 +84,6 @@ const AddEvent = ({edit}: Props): React$MixedElement => {
       </table>
     </>
   );
-};
+}
 
 export default AddEvent;

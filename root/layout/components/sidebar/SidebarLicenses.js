@@ -35,7 +35,12 @@ import {compare} from '../../../static/scripts/common/i18n.js';
 import linkedEntities
   from '../../../static/scripts/common/linkedEntities.mjs';
 
-const LICENSE_CLASSES = {
+const LICENSE_CLASSES: {
+  +[license: string]: {
+    +icon: string,
+    +pattern: RegExp,
+  },
+} = {
   ArtLibre: {
     icon: artLibreIconUrl,
     pattern: /artlibre\.org\/licence\/lal/,
@@ -95,7 +100,7 @@ function licenseClass(url: UrlT): string {
   return '';
 }
 
-const LicenseDisplay = ({url}: {+url: UrlT}) => {
+component LicenseDisplay(url: UrlT) {
   const className = licenseClass(url);
   return (
     <li className={className}>
@@ -104,18 +109,14 @@ const LicenseDisplay = ({url}: {+url: UrlT}) => {
       </a>
     </li>
   );
-};
+}
 
 const cmpLinkPhrase = (
   a: [string, React$MixedElement],
   b: [string, React$MixedElement],
 ) => compare(a[0], b[0]);
 
-type Props = {
-  +entity: RelatableEntityT,
-};
-
-const SidebarLicenses = ({entity}: Props): React$MixedElement | null => {
+component SidebarLicenses(entity: RelatableEntityT) {
   const relationships = entity.relationships;
 
   if (!relationships) {
@@ -144,6 +145,6 @@ const SidebarLicenses = ({entity}: Props): React$MixedElement | null => {
       </ul>
     </>
   ) : null;
-};
+}
 
 export default SidebarLicenses;

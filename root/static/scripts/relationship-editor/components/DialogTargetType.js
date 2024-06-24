@@ -16,27 +16,13 @@ import type {
   DialogActionT,
 } from '../types/actions.js';
 
-/* eslint-enable ft-flow/sort-keys */
-
-type PropsT = {
-  +dispatch: (DialogActionT) => void,
-  +initialFocusRef?: {-current: HTMLElement | null},
-  +options: ?TargetTypeOptionsT,
-  +source: RelatableEntityT,
-  +targetType: RelatableEntityTypeT,
-};
-
-const DialogTargetType = (React.memo<PropsT>((
-  props: PropsT,
-): React$MixedElement => {
-  const {
-    dispatch,
-    initialFocusRef,
-    options,
-    source,
-    targetType,
-  } = props;
-
+component _DialogTargetType(
+  dispatch: (DialogActionT) => void,
+  initialFocusRef?: {-current: HTMLElement | null},
+  options: ?TargetTypeOptionsT,
+  source: RelatableEntityT,
+  targetType: RelatableEntityTypeT,
+) {
   function handleTargetTypeChange(event: SyntheticEvent<HTMLSelectElement>) {
     dispatch({
       source,
@@ -71,6 +57,10 @@ const DialogTargetType = (React.memo<PropsT>((
       </td>
     </tr>
   );
-}): React$AbstractComponent<PropsT, mixed>);
+}
+
+const DialogTargetType: React$AbstractComponent<
+  React.PropsOf<_DialogTargetType>
+> = React.memo(_DialogTargetType);
 
 export default DialogTargetType;

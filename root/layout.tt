@@ -118,7 +118,7 @@
                 <a href="https://metabrainz.org/donate" class="internal">[% l('Donate') %]</a>
                 <a href="//wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a>
                 <a href="https://community.metabrainz.org/" class="internal">[% l('Forums') %]</a>
-                <a href="/doc/Communication/IRC" class="internal">[% l('IRC') %]</a>
+                <a href="/doc/Communication/ChatBrainz" class="internal">[% l('Chat') %]</a>
                 <a href="https://tickets.metabrainz.org/" class="internal">[% l('Bug tracker') %]</a>
                 <a href="https://blog.metabrainz.org/" class="internal">[% l('Blog') %]</a>
                 <a href="https://twitter.com/MusicBrainz" class="internal">[% l('Twitter') %]</a>
@@ -128,11 +128,10 @@
             </p>
 
             <p class="right">
-                [% l('Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and {supp|supporters}. Cover art provided by the {caa|Cover Art Archive}.',
+                [% l('Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and {supp|supporters}.',
                     { MeB  => 'https://metabrainz.org/',
                       spon => 'https://metabrainz.org/sponsors',
-                      supp => 'https://metabrainz.org/supporters',
-                      caa  => '//coverartarchive.org/' }) %]
+                      supp => 'https://metabrainz.org/supporters' }) %]
                 [% IF server_details.git.branch ~%]
                 <br/>
                     [%~ l('Running: <span class="tooltip" title="{msg}">{branch} ({sha})</span>',

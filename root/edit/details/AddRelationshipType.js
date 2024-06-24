@@ -15,13 +15,7 @@ import OrderableDirection
 import {ENTITY_NAMES} from '../../static/scripts/common/constants.js';
 import IntentionallyRawIcon from '../components/IntentionallyRawIcon.js';
 
-type Props = {
-  +edit: AddRelationshipTypeEditT,
-};
-
-const AddRelationshipType = ({
-  edit,
-}: Props): React.MixedElement => {
+component AddRelationshipType(edit: AddRelationshipTypeEditT) {
   const display = edit.display_data;
   const entity0Type = ENTITY_NAMES[display.entity0_type]();
   const entity1Type = ENTITY_NAMES[display.entity1_type]();
@@ -196,6 +190,6 @@ const AddRelationshipType = ({
       </table>
     </>
   );
-};
+}
 
 export default AddRelationshipType;

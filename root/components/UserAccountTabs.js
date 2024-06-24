@@ -128,20 +128,14 @@ function buildTabs(
   return tabs;
 }
 
-type Props = {
-  +page: string,
-  +user: AccountLayoutUserT,
-};
-
-const UserAccountTabs = ({
-  user,
-  page,
-}: Props): React$Element<typeof Tabs> => (
-  <Tabs>
-    <CatalystContext.Consumer>
-      {($c: CatalystContextT) => buildTabs($c, user, page)}
-    </CatalystContext.Consumer>
-  </Tabs>
-);
+component UserAccountTabs(page: string, user: AccountLayoutUserT) {
+  return (
+    <Tabs>
+      <CatalystContext.Consumer>
+        {($c: CatalystContextT) => buildTabs($c, user, page)}
+      </CatalystContext.Consumer>
+    </Tabs>
+  );
+}
 
 export default UserAccountTabs;

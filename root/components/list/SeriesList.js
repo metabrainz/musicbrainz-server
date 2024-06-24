@@ -19,21 +19,13 @@ import {
   seriesOrderingTypeColumn,
 } from '../../utility/tableColumns.js';
 
-type Props = {
-  +checkboxes?: string,
-  +mergeForm?: MergeFormT,
-  +order?: string,
-  +series: $ReadOnlyArray<SeriesT>,
-  +sortable?: boolean,
-};
-
-const SeriesList = ({
-  checkboxes,
-  mergeForm,
-  order,
-  series,
-  sortable,
-}: Props): React$Element<'table'> => {
+component SeriesList(
+  checkboxes?: string,
+  mergeForm?: MergeFormT,
+  order?: string,
+  series: $ReadOnlyArray<SeriesT>,
+  sortable?: boolean,
+) {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -64,6 +56,6 @@ const SeriesList = ({
   );
 
   return useTable<SeriesT>({columns, data: series});
-};
+}
 
 export default SeriesList;

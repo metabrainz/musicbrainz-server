@@ -27,15 +27,10 @@ const writeReviewLink = (entity: ReviewableT) => (
   entity.gid
 );
 
-type Props = {
-  +entity: ReviewableT,
-  +isSidebar?: boolean,
-};
-
-const CritiqueBrainzLinks = ({
-  entity,
-  isSidebar = false,
-}: Props): null | Expand2ReactOutput => {
+component CritiqueBrainzLinks(
+  entity: ReviewableT,
+  isSidebar: boolean = false,
+) {
   const reviewCount = entity.review_count;
   const linkClassName = isSidebar ? 'wrap-anywhere' : '';
 
@@ -64,6 +59,6 @@ const CritiqueBrainzLinks = ({
       write_link: writeReviewLink(entity),
     },
   );
-};
+}
 
 export default CritiqueBrainzLinks;

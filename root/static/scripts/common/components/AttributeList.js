@@ -50,30 +50,27 @@ const buildAttributeSidebarRow = (attribute: WorkAttributeT) => (
   </SidebarProperty>
 );
 
-type AttributeListProps = {|
-  +attributes: ?$ReadOnlyArray<WorkAttributeT>,
-  +isSidebar?: boolean,
-|};
+component AttributeList(
+  attributes: ?$ReadOnlyArray<WorkAttributeT>,
+  isSidebar: boolean = false,
+) {
+  return (
+    <CollapsibleList
+      ContainerElement={isSidebar ? 'dl' : 'ul'}
+      InnerElement={isSidebar ? 'p' : 'li'}
+      ariaLabel={l('Work attributes')}
+      buildRow={isSidebar ? buildAttributeSidebarRow : buildAttributeListRow}
+      className={isSidebar ? 'properties work-attributes' : 'work-attributes'}
+      rows={attributes}
+      showAllTitle={l('Show all attributes')}
+      showLessTitle={l('Show less attributes')}
+      toShowAfter={1}
+      toShowBefore={2}
+    />
+  );
+}
 
-const AttributeList = ({
-  attributes,
-  isSidebar = false,
-}: AttributeListProps) => (
-  <CollapsibleList
-    ContainerElement={isSidebar ? 'dl' : 'ul'}
-    InnerElement={isSidebar ? 'p' : 'li'}
-    ariaLabel={l('Work attributes')}
-    buildRow={isSidebar ? buildAttributeSidebarRow : buildAttributeListRow}
-    className={isSidebar ? 'properties work-attributes' : 'work-attributes'}
-    rows={attributes}
-    showAllTitle={l('Show all attributes')}
-    showLessTitle={l('Show less attributes')}
-    toShowAfter={1}
-    toShowBefore={2}
-  />
-);
-
-export default (hydrate<AttributeListProps>(
+export default (hydrate<React.PropsOf<AttributeList>>(
   'div.entity-attributes-container',
   AttributeList,
-): React$AbstractComponent<AttributeListProps, void>);
+): React$AbstractComponent<React.PropsOf<AttributeList>>);

@@ -1,0 +1,23 @@
+[%- WRAPPER "event/layout.tt" title=lp('Edit event art', 'singular, header') page='edit_event_art' -%]
+  [%- script_manifest('edit.js') -%]
+
+  <h2>[%- lp('Edit event art', 'singular, header') -%]</h2>
+
+  <form id="edit-event-art" class="event-art" action="[% c.req.uri %]" method="post">
+    [%- USE r = FormRenderer(form) -%]
+    <div class="edit-event-art" style="float: right;">
+      [%- display_artwork(artwork) -%]
+    </div>
+
+    [%- React.embed(c, 'event/EventArtFields', {
+      form => React.to_json_object(form),
+      typeIdOptions => form.options_type_id,
+    }) -%]
+
+    <div style="clear: left;"> </div>
+
+    [%- INCLUDE 'forms/edit-note.tt' -%]
+    [%- enter_edit() -%]
+
+  </form>
+[%- END -%]

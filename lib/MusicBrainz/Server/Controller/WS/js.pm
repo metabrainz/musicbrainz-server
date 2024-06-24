@@ -61,6 +61,9 @@ my $ws_defs = Data::OptList::mkopt([
     'cover-art-upload' => {
         method => 'GET',
     },
+    'event-art-upload' => {
+        method => 'GET',
+    },
     'entity' => {
         method => 'GET',
         inc => [ qw(rels) ],
@@ -311,13 +314,55 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 {
     my ($self, $c, $gid) = @_;
 
+    $self->_art_upload(
+        $c,
+        $gid,
+        art_archive_model => $c->model('CoverArtArchive'),
+        art_archive_owner => 'caa@musicbrainz.org',
+        bad_owner_message => l(
+            'Cover art can’t be uploaded to this release ' .
+            'because we don’t own the associated item at ' .
+            'the Internet Archive. Please contact us at ' .
+            '{contact_url} so we can resolve this.',
+            {contact_url => $CONTACT_URL},
+        ),
+    );
+}
+
+sub event_art_upload : Chained('root') PathPart('event-art-upload') Args(1)
+{
+    my ($self, $c, $gid) = @_;
+
+    $self->_art_upload(
+        $c,
+        $gid,
+        art_archive_model => $c->model('EventArtArchive'),
+        art_archive_owner => 'eventartarchive@metabrainz.org',
+        bad_owner_message => l(
+            'Event art can’t be uploaded to this event ' .
+            'because we don’t own the associated item at ' .
+            'the Internet Archive. Please contact us at ' .
+            '{contact_url} so we can resolve this.',
+            {contact_url => $CONTACT_URL},
+        ),
+    );
+}
+
+sub _art_upload {
+    my ($self, $c, $gid, %opts) = @_;
+
     $self->cookie_login_or_error($c, 'not logged in');
 
+    my $art_archive_model = $opts{art_archive_model};
+    my $art_archive_owner = $opts{art_archive_owner};
+
     my $mime_type = $c->request->params->{mime_type};
-    unless ($c->model('CoverArtArchive')->is_valid_mime_type($mime_type)) {
+    unless ($art_archive_model->is_valid_mime_type($mime_type)) {
         $self->detach_with_error($c, 'invalid mime_type');
     }
 
+    my $archive = $art_archive_model->art_archive_name;
+    my $entity_type = $art_archive_model->art_archive_entity;
     my $bucket = 'mbid-' . $gid;
 
     # It's not currently possible for the IA to reserve the mbid-*
@@ -331,14 +376,15 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 
     my $context = $c->model('MB')->context;
 
-    unless ($c->model('CoverArtArchive')->exists_for_release_gid($gid)) {
-        my $bucket_uri = URI->new(DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket));
+    unless ($art_archive_model->exists_for_entity_gid($gid)) {
+        my $bucket_uri = URI->new(DBDefs->INTERNET_ARCHIVE_UPLOAD_PREFIXER($bucket));
         $bucket_uri->scheme('https');
 
-        if (
+        my $is_development_environment = (
             (DBDefs->DEVELOPMENT_SERVER || DBDefs->DB_STAGING_TESTING_FEATURES) &&
             $bucket_uri->authority !~ m/\.archive\.org$/
-        ) {
+        );
+        if ($is_development_environment) {
             # This allows using contrib/ssssss.psgi for testing, but
             # we have two checks to make sure we're not leaking
             # credentials over HTTP in production.
@@ -349,11 +395,11 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
         $s3_request->header(
             'authorization' => sprintf(
                 'LOW %s:%s',
-                DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY,
-                DBDefs->COVER_ART_ARCHIVE_SECRET_KEY,
+                $art_archive_model->art_archive_s3_access_key,
+                $art_archive_model->art_archive_s3_secret_key,
             ),
         );
-        $s3_request->header('x-archive-meta-collection' => 'coverartarchive');
+        $s3_request->header('x-archive-meta-collection' => "${archive}artarchive");
         $s3_request->header('x-archive-auto-make-bucket' => '1');
         $s3_request->header('x-archive-meta-mediatype' => 'image');
         $s3_request->header('x-archive-meta-noindex' => 'true');
@@ -380,7 +426,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 
             if ($s3_error_code eq 'BucketAlreadyExists') {
                 # Check that we're the owner of the existing bucket.
-                my $ia_metadata_uri = DBDefs->COVER_ART_ARCHIVE_IA_METADATA_PREFIX . "/$bucket";
+                my $ia_metadata_uri = DBDefs->INTERNET_ARCHIVE_IA_METADATA_PREFIX . "/$bucket";
                 $response = $context->lwp->request(HTTP::Request->new(GET => $ia_metadata_uri));
 
                 my $item_metadata_content = $response->decoded_content;
@@ -415,10 +461,9 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
                     $self->detach_with_error(
                         $c,
                         {
-                            # Uses the same string as in root/release/CoverArtDarkened.js
                             message => l(
-                                'The Cover Art Archive has had a takedown ' .
-                                'request in the past for this release, so we ' .
+                                'The Internet Archive has had a takedown ' .
+                                'request in the past for this item, so we ' .
                                 'are unable to allow any more uploads.',
                             ),
                         },
@@ -428,7 +473,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
                 my $uploader = $item_metadata->{metadata}{uploader};
                 if (!defined $uploader) {
                     send_message_to_sentry(
-                        "Undefined uploader for CAA item at $ia_metadata_uri",
+                        "Undefined uploader for $archive art item at $ia_metadata_uri",
                         build_request_and_user_context($c),
                         extra => {
                             response_code => $response->code,
@@ -441,9 +486,17 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
                     );
                 }
 
-                if ($uploader ne 'caa@musicbrainz.org') {
+                if (
+                    (
+                        !$is_development_environment &&
+                        $uploader ne $art_archive_owner
+                    ) || (
+                        $is_development_environment &&
+                        $uploader ne 'ssssss@musicbrainz.org'
+                    )
+                ) {
                     send_message_to_sentry(
-                        "Bad uploader for CAA item at $ia_metadata_uri",
+                        "Bad uploader for $archive art item at $ia_metadata_uri",
                         build_request_and_user_context($c),
                         extra => {
                             response_code => $response->code,
@@ -454,10 +507,10 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
                         $c,
                         {
                             message => l(
-                                'Cover art can’t be uploaded to this release ' .
-                                'because we don’t own the associated item at ' .
-                                'the Internet Archive. Please contact us at ' .
-                                '{contact_url} so we can resolve this.',
+                                'Images can’t be uploaded here because ' .
+                                'we don’t own the associated item at ' .
+                                'the Internet Archive. Please contact us ' .
+                                'at {contact_url} so we can resolve this.',
                                 {contact_url => $CONTACT_URL},
                             ),
                         },
@@ -466,7 +519,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
             }
         } else {
             send_message_to_sentry(
-                'Error creating CAA item bucket at ' . $bucket_uri->as_string,
+                "Error creating $archive art item bucket at " . $bucket_uri->as_string,
                 build_request_and_user_context($c),
                 extra => {
                     response_code => $response->code,
@@ -477,9 +530,9 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
         }
     }
 
-    my $id = $c->request->params->{image_id} // $c->model('CoverArtArchive')->fresh_id;
+    my $id = $c->request->params->{image_id} // $art_archive_model->fresh_id;
 
-    if ($c->model('CoverArtArchive')->is_id_in_use($id)) {
+    if ($art_archive_model->is_id_in_use($id)) {
         $self->detach_with_error($c, {message => "The ID $id is already in use (1)."});
     }
 
@@ -487,7 +540,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
     # use to verify that the user went through this endpoint to
     # initiate the upload. This is necessary to ensure we're the owner
     # of the bucket (see above) before allowing any edit submission.
-    my $nonce_key = 'cover_art_upload_nonce:' . $id;
+    my $nonce_key = "${archive}_art_upload_nonce:$id";
     my $existing_nonce = $context->store->get($nonce_key);
     if ($existing_nonce) {
         $self->detach_with_error($c, {message => "The ID $id is already in use (2)."});
@@ -499,16 +552,29 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 
     my %s3_policy;
     $s3_policy{mime_type} = $mime_type;
-    $s3_policy{redirect} = $c->uri_for_action('/release/cover_art_uploaded', [ $gid ])->as_string()
-        if $c->request->params->{redirect};
+    $s3_policy{redirect} = $c->uri_for_action(
+        "/$entity_type/${archive}_art_uploaded", [$gid],
+    )->as_string() if $c->request->params->{redirect};
 
     my $expiration = gmtime() + 3600;
     $s3_policy{expiration} = $expiration->datetime . '.000Z';
 
+    my $action = URI->new(DBDefs->INTERNET_ARCHIVE_UPLOAD_PREFIXER($bucket));
+    # On test servers using contrib/ssssss.psgi, have the client send uploads
+    # to `MusicBrainz::Server::Controller::SSSSSSProxy`.
+    if (DBDefs->DB_STAGING_TESTING_FEATURES) {
+        my $ssssss_server = URI->new(DBDefs->SSSSSS_SERVER);
+        if ($action->authority eq $ssssss_server->authority) {
+            $action->scheme($c->req->uri->scheme);
+            $action->authority(DBDefs->WEB_SERVER);
+            $action->path('/ssssss' . $action->path);
+        }
+    }
+
     my $data = {
-        action => DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket),
+        action => $action->as_string,
         image_id => "$id",
-        formdata => $c->model('CoverArtArchive')->post_fields($bucket, $gid, $id, \%s3_policy),
+        formdata => $art_archive_model->post_fields($bucket, $gid, $id, \%s3_policy),
         nonce => $nonce,
     };
 

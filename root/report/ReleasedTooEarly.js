@@ -11,30 +11,32 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseT} from './types.js';
 
-const ReleasedTooEarly = ({
+component ReleasedTooEarly(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseT>): React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report shows releases which have disc IDs even though they
-       were released too early to have disc IDs, where one of the medium
-       formats didn't exist at the time the release was released or
-       where a disc ID is attached to a medium whose format does not
-       have disc IDs.`,
-    )}
-    entityType="release"
-    filtered={filtered}
-    generated={generated}
-    title={l('Releases released too early')}
-    totalEntries={pager.total_entries}
-  >
-    <ReleaseList items={items} pager={pager} />
-  </ReportLayout>
-);
+}: ReportDataT<ReportReleaseT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report shows releases which have disc IDs even though they
+         were released too early to have disc IDs, where one of the medium
+         formats didn't exist at the time the release was released or
+         where a disc ID is attached to a medium whose format does not
+         have disc IDs.`,
+      )}
+      entityType="release"
+      filtered={filtered}
+      generated={generated}
+      title={l('Releases released too early')}
+      totalEntries={pager.total_entries}
+    >
+      <ReleaseList items={items} pager={pager} />
+    </ReportLayout>
+  );
+}
 
 export default ReleasedTooEarly;

@@ -12,10 +12,6 @@ import * as React from 'react';
 import {CatalystContext} from '../../../context.mjs';
 import {returnToCurrentPage} from '../../../utility/returnUri.js';
 
-type Props = {
-  +entity: MergeableEntityT,
-};
-
 const mergeUrl = (
   $c: CatalystContextT,
   entity: MergeableEntityT,
@@ -26,7 +22,7 @@ const mergeUrl = (
     returnToCurrentPage($c);
 };
 
-const MergeLink = ({entity}: Props): React$Element<'li'> => {
+component MergeLink(entity: MergeableEntityT) {
   const $c = React.useContext(CatalystContext);
   return (
     <li>
@@ -35,6 +31,6 @@ const MergeLink = ({entity}: Props): React$Element<'li'> => {
       </a>
     </li>
   );
-};
+}
 
 export default MergeLink;

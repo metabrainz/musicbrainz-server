@@ -76,13 +76,13 @@ export default function withLoadedTypeInfo<Config, Instance = mixed>(
         }
         case 'series_type': {
           linkedEntities.series_type = Object.fromEntries(
-            keyBy(typeInfo, type => String(type.id)),
+            keyBy(typeInfo, type => type.id),
           );
           break;
         }
         case 'work_type': {
           linkedEntities.work_type = Object.fromEntries(
-            keyBy(typeInfo, type => String(type.id)),
+            keyBy(typeInfo, type => type.id),
           );
           break;
         }

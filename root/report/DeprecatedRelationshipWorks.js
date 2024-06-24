@@ -15,32 +15,33 @@ import ReportLayout from './components/ReportLayout.js';
 import WorkList from './components/WorkList.js';
 import type {ReportDataT, ReportWorkRelationshipT} from './types.js';
 
-const DeprecatedRelationshipWorks = ({
+component DeprecatedRelationshipWorks(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportWorkRelationshipT>):
-React$Element<typeof ReportLayout> => (
-  <ReportLayout
-    canBeFiltered={canBeFiltered}
-    description={l(
-      `This report lists works which have relationships using
-       deprecated and grouping-only relationship types.`,
-    )}
-    entityType="work"
-    filtered={filtered}
-    generated={generated}
-    title={l('Works with deprecated relationships')}
-    totalEntries={pager.total_entries}
-  >
-    <WorkList
-      columnsBefore={[relTypeColumn]}
-      items={items}
-      pager={pager}
-    />
-  </ReportLayout>
-);
+}: ReportDataT<ReportWorkRelationshipT>) {
+  return (
+    <ReportLayout
+      canBeFiltered={canBeFiltered}
+      description={l(
+        `This report lists works which have relationships using
+         deprecated and grouping-only relationship types.`,
+      )}
+      entityType="work"
+      filtered={filtered}
+      generated={generated}
+      title={l('Works with deprecated relationships')}
+      totalEntries={pager.total_entries}
+    >
+      <WorkList
+        columnsBefore={[relTypeColumn]}
+        items={items}
+        pager={pager}
+      />
+    </ReportLayout>
+  );
+}
 
 export default DeprecatedRelationshipWorks;

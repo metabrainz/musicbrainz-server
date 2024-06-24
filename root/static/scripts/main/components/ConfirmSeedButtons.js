@@ -11,13 +11,7 @@ import * as React from 'react';
 
 import DBDefs from '../../common/DBDefs-client.mjs';
 
-type PropsT = {
-  +autoSubmit: boolean,
-};
-
-const ConfirmSeedButtons = ({
-  autoSubmit,
-}: PropsT): React$MixedElement => {
+component ConfirmSeedButtons(autoSubmit: boolean) {
   const submitRef = React.useRef<HTMLButtonElement | null>(null);
   React.useEffect(() => {
     if (autoSubmit) {
@@ -48,9 +42,9 @@ const ConfirmSeedButtons = ({
       </button>
     </>
   );
-};
+}
 
 export default (hydrate(
   'span.buttons.confirm-seed',
   ConfirmSeedButtons,
-): React$AbstractComponent<PropsT, void>);
+): React$AbstractComponent<React.PropsOf<ConfirmSeedButtons>, void>);

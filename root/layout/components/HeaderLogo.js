@@ -10,12 +10,14 @@
 import headerLogoSvgUrl
   from '../../static/images/layout/header-logo.svg';
 
-const HeaderLogo = (): React$Element<'img'> => (
-  <img
-    alt="MusicBrainz"
-    className="logo"
-    src={headerLogoSvgUrl}
-  />
-);
+component HeaderLogo() {
+  return (
+    <img
+      alt="MusicBrainz"
+      className="logo"
+      src={headerLogoSvgUrl}
+    />
+  );
+}
 
 export default HeaderLogo;

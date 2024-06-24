@@ -47,6 +47,12 @@ has 'sth' => (
     clearer => 'clear_sth',
 );
 
+has 'read_only' => (
+    is => 'rw',
+    isa => 'Bool',
+    default => 0,
+);
+
 sub finish
 {
     my ($self) = @_;
@@ -248,6 +254,11 @@ sub begin
 {
     my $self = shift;
     $self->dbh->{AutoCommit} = 0;
+
+    if ($self->read_only || DBDefs->DB_READ_ONLY) {
+        $self->do('SET TRANSACTION READ ONLY');
+    }
+
     my $txn_depth = $self->inc_transaction_depth;
     if ($txn_depth == 1) {
         return Sql::Timer->new('BEGIN', []) if $self->debug;
@@ -331,9 +342,6 @@ sub _auto_transaction {
     my ($sub, @sql) = @_;
 
     $_->begin for @sql;
-    if (DBDefs->DB_READ_ONLY) {
-        $_->do('SET TRANSACTION READ ONLY') for @sql;
-    }
 
     my $w = wantarray;
     return try {

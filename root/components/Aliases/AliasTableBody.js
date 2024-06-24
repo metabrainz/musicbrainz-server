@@ -9,16 +9,13 @@
 
 import AliasTableRow from './AliasTableRow.js';
 
-type Props = {
-  +aliases: $ReadOnlyArray<AnyAliasT>,
-  +allowEditing: boolean,
-  +entity: EntityWithAliasesT,
-};
-
-const AliasTableBody = ({
-  aliases,
-  ...props
-}: Props): React$Element<'tbody'> => {
+component AliasTableBody(
+  aliases: $ReadOnlyArray<AnyAliasT>,
+  ...rowProps: {
+    +allowEditing: boolean,
+    +entity: EntityWithAliasesT,
+  }
+ ) {
   const aliasRows = [];
   for (let i = 0; i < aliases.length; i++) {
     const alias = aliases[i];
@@ -27,11 +24,11 @@ const AliasTableBody = ({
         alias={alias}
         key={alias.id}
         row={i % 2 ? 'even' : 'odd'}
-        {...props}
+        {...rowProps}
       />,
     );
   }
   return <tbody>{aliasRows}</tbody>;
-};
+}
 
 export default AliasTableBody;

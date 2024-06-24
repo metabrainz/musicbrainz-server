@@ -22,8 +22,11 @@ declare type ArtistT = $ReadOnly<{
   ...TypeRoleT<ArtistTypeT>,
   +area: AreaT | null,
   +begin_area: AreaT | null,
+  +begin_area_id: number | null,
   +end_area: AreaT | null,
+  +end_area_id: number | null,
   +gender: GenderT | null,
+  +gender_id: number | null,
   +primaryAlias?: string | null,
   +sort_name: string,
 }>;

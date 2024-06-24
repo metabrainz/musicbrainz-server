@@ -11,21 +11,13 @@ import {reduceArtistCredit} from '../immutable-entities.js';
 
 import {MpIcon} from './ArtistCreditLink.js';
 
-type Props = {
-  +artistCredit: ArtistCreditT,
-  +content?: string,
-  +showEditsPending?: boolean,
-  +subPath?: string,
-  +target?: '_blank',
-};
-
-const ArtistCreditUsageLink = ({
-  artistCredit,
-  content,
-  showEditsPending = false,
-  subPath,
-  ...props
-}: Props): React$Element<'a' | 'span'> | null => {
+component ArtistCreditUsageLink(
+  artistCredit: ArtistCreditT,
+  content?: string,
+  showEditsPending: boolean = false,
+  subPath?: string,
+  target?: '_blank'
+) {
   const id = artistCredit.id;
   if (id == null) {
     return null;
@@ -36,7 +28,7 @@ const ArtistCreditUsageLink = ({
   }
 
   const artistCreditLink = (
-    <a href={href} {...props}>
+    <a href={href} target={target}>
       {nonEmpty(content) ? content : reduceArtistCredit(artistCredit)}
     </a>
   );
@@ -49,6 +41,6 @@ const ArtistCreditUsageLink = ({
       </span>
     ) : artistCreditLink
   );
-};
+}
 
 export default ArtistCreditUsageLink;

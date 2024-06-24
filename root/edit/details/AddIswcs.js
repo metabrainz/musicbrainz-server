@@ -12,11 +12,7 @@ import CodeLink
 import EntityLink
   from '../../static/scripts/common/components/EntityLink.js';
 
-type Props = {
-  +edit: AddIswcsEditT,
-};
-
-const AddIswcs = ({edit}: Props): React$Element<'table'> => {
+component AddIswcs(edit: AddIswcsEditT) {
   const additions = edit.display_data.additions;
 
   return (
@@ -41,6 +37,6 @@ const AddIswcs = ({edit}: Props): React$Element<'table'> => {
       </tr>
     </table>
   );
-};
+}
 
 export default AddIswcs;

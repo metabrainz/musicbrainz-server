@@ -754,8 +754,10 @@ sub schema_fixup
                 primary_for_locale => $_->{primary},
             )
         } @{ $data->{aliases} };
-        my $best_alias = find_best_primary_alias(\@aliases, $user_lang);
-        $data->{primary_alias} = $best_alias->{name} if defined $best_alias;
+        if (defined $user_lang) {
+            my $best_alias = find_best_primary_alias(\@aliases, $user_lang);
+            $data->{primary_alias} = $best_alias->{name} if defined $best_alias;
+        }
 
         # Save the new objects so validation will pass, but note that the search
         # API doesn't include all attributes that are present in Entity::Alias,
@@ -854,10 +856,10 @@ sub external_search
     $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
 
-    my $search_url_string;
+    my $search_url_string = DBDefs->SEARCH_SCHEME;
     if (DBDefs->SEARCH_ENGINE eq 'LUCENE' || DBDefs->SEARCH_SERVER eq DBDefs::Default->SEARCH_SERVER) {
         my $dismax = $adv ? 'false' : 'true';
-        $search_url_string = "http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=jsonnew&dismax=$dismax&web=1";
+        $search_url_string .= "://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=jsonnew&dismax=$dismax&web=1";
     } else {
         my $endpoint = 'advanced';
         if (!$adv)
@@ -871,7 +873,7 @@ sub external_search
                 $endpoint = 'select';
             }
         }
-        $search_url_string = "http://%s/%s/$endpoint?q=%s&start=%s&rows=%s&wt=mbjson";
+        $search_url_string .= "://%s/%s/$endpoint?q=%s&start=%s&rows=%s&wt=mbjson";
      }
 
     my $search_url = sprintf($search_url_string,
@@ -960,6 +962,7 @@ sub external_search
         {
             my @entities = map { $_->entity } @results;
             $self->c->model('Event')->load_ids(@entities);
+            $self->c->model('Event')->load_meta(@entities);
             $self->c->model('Event')->load_related_info(@entities);
             $self->c->model('Event')->load_areas(@entities);
         }
@@ -982,7 +985,7 @@ sub external_search
         {
             my @entities = map { $_->entity } @results;
             $self->c->model('ReleaseGroup')->load_ids(@entities);
-            $self->c->model('Artwork')->load_for_release_groups(@entities);
+            $self->c->model('CoverArt')->load_for_release_groups(@entities);
         }
 
         my $pager = Data::Page->new;

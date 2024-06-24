@@ -32,17 +32,11 @@ import {returnToCurrentPage} from '../../utility/returnUri.js';
 import EditorTypeInfo from './EditorTypeInfo.js';
 import VoteTally from './VoteTally.js';
 
-type Props = {
-  +edit: GenericEditWithIdT,
-  +isSummary?: boolean,
-  +voter?: UnsanitizedEditorT,
-};
-
-const EditHeader = ({
-  edit,
-  isSummary = false,
-  voter,
-}: Props): React$Element<'div'> => {
+component EditHeader(
+  edit: GenericEditWithIdT,
+  isSummary: boolean = false,
+  voter?: UnsanitizedEditorT,
+) {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   const mayApprove = editorMayApprove(edit, user);
@@ -194,6 +188,6 @@ const EditHeader = ({
       <SubHeader subHeading={subHeading} />
     </div>
   );
-};
+}
 
 export default EditHeader;

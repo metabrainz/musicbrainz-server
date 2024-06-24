@@ -16,27 +16,23 @@ import {displayAgeAgo} from '../../../utility/age.js';
 
 import {SidebarProperty} from './SidebarProperties.js';
 
-type Props = {
-  +age?: [number, number, number] | null,
-  +entity: $ReadOnly<{...DatePeriodRoleT, ...}>,
-  +label: string,
-};
-
-const SidebarBeginDate = ({
-  age,
-  entity,
-  label,
-}: Props): React$MixedElement | null => (
-  isDateEmpty(entity.begin_date) ? (
-    null
-  ) : (
-    <SidebarProperty className="begin-date" label={label}>
-      {formatDate(entity.begin_date)}
-      {(age && isDateEmpty(entity.end_date))
-        ? ' ' + bracketedText(displayAgeAgo(age))
-        : null}
-    </SidebarProperty>
-  )
-);
+component SidebarBeginDate(
+  age?: [number, number, number] | null,
+  entity: $ReadOnly<{...DatePeriodRoleT, ...}>,
+  label: string,
+) {
+  return (
+    isDateEmpty(entity.begin_date) ? (
+      null
+    ) : (
+      <SidebarProperty className="begin-date" label={label}>
+        {formatDate(entity.begin_date)}
+        {(age && isDateEmpty(entity.end_date))
+          ? ' ' + bracketedText(displayAgeAgo(age))
+          : null}
+      </SidebarProperty>
+    )
+  );
+}
 
 export default SidebarBeginDate;

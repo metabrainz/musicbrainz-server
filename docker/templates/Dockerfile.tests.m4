@@ -20,6 +20,7 @@ run_with_apt_cache \
     apt_install(``ca-certificates curl gnupg'') && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    add-apt-repository ppa:deadsnakes/ppa && \
     apt_install(`m4_dnl
         mbs_build_deps
         mbs_javascript_deps
@@ -110,20 +111,20 @@ RUN sudo -E -H -u musicbrainz git clone --branch $SIR_TAG https://github.com/met
     sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install --upgrade pip; pip install -r requirements.txt; pip install git+https://github.com/esnme/ultrajson.git@7d0f4fb7e911120fd09075049233b587936b0a65' && \
     cd /home/musicbrainz
 
-ENV ARTWORK_INDEXER_COMMIT c8731b5
+ENV ARTWORK_INDEXER_COMMIT 776046c
 
 RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-indexer.git && \
     cd artwork-indexer && \
     sudo -E -H -u musicbrainz git reset --hard $ARTWORK_INDEXER_COMMIT && \
-    sudo -E -H -u musicbrainz sh -c 'python3 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
+    sudo -E -H -u musicbrainz sh -c 'python3.11 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
     cd /home/musicbrainz
 
-ENV ARTWORK_REDIRECT_COMMIT c632ecf
+ENV ARTWORK_REDIRECT_COMMIT 9863559
 
 RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-redirect.git && \
     cd artwork-redirect && \
     sudo -E -H -u musicbrainz git reset --hard $ARTWORK_REDIRECT_COMMIT && \
-    sudo -E -H -u musicbrainz sh -c 'python3 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
+    sudo -E -H -u musicbrainz sh -c 'python3.11 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
     cd /home/musicbrainz
 
 RUN curl -sSLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/119.0.6045.105/linux64/chrome-linux64.zip && \

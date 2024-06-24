@@ -66,7 +66,7 @@
               <p>
                 [%- add_colon(lp('Cover art', 'singular')) -%]
                 <ul>
-                  <li>[%- l('Types:') %] [% comma_list(image.types) || '-' -%]</li>
+                  <li>[%- l('Types:') %] [% comma_list(image.l_type_names) || '-' -%]</li>
                   [%- IF image.comment -%]
                     <li>[%- add_colon(l('Comment')) %] [% image.comment | html -%]</li>
                   [%- END -%]

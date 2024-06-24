@@ -25,20 +25,11 @@ function workTypeValue(workType: number | null): string {
   return String(workType);
 }
 
-type WorkTypeSelectPropsT = {
-  +dispatch: (WorkTypeSelectActionT) => void,
-  +initialFocusRef?: {-current: HTMLElement | null},
-  +workType: number | null,
-};
-
-const WorkTypeSelect: React$AbstractComponent<
-  WorkTypeSelectPropsT,
-  mixed,
-> = React.memo<WorkTypeSelectPropsT>(({
-  dispatch,
-  initialFocusRef,
-  workType,
-}: WorkTypeSelectPropsT) => {
+component _WorkTypeSelect(
+  dispatch: (WorkTypeSelectActionT) => void,
+  initialFocusRef?: {-current: HTMLElement | null},
+  workType: number | null,
+) {
   const workTypeOptions: OptionListT = React.useMemo(() => {
     const workTypes: $ReadOnlyArray<WorkTypeT> =
       Object.values(linkedEntities.work_type);
@@ -75,6 +66,10 @@ const WorkTypeSelect: React$AbstractComponent<
       </td>
     </tr>
   );
-});
+}
+
+const WorkTypeSelect: React$AbstractComponent<
+  React.PropsOf<_WorkTypeSelect>
+> = React.memo(_WorkTypeSelect);
 
 export default WorkTypeSelect;

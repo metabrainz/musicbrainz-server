@@ -60,6 +60,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         password        => 'musicbrainz',
 #       host            => '',
 #       port            => '',
+        read_only   => 1,
     },
     # How to connect for administrative access
     SYSTEM    => {
@@ -86,6 +87,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 #       password        => '',
 #       host            => '',
 #       port            => '5432',
+#       read_only    => 1,
 #   },
 );
 
@@ -93,7 +95,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 # replication_control.current_schema_sequence.
 # This is required, there is no default in order to prevent it changing without
 # manual intervention.
-sub DB_SCHEMA_SEQUENCE { 28 }
+sub DB_SCHEMA_SEQUENCE { 29 }
 
 # What type of server is this?
 # * RT_MASTER - This is a master replication server.  Changes are allowed, and
@@ -148,6 +150,7 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 # Relevant only if SSL redirects are enabled
 # sub WEB_SERVER_SSL            { 'localhost' }
 # sub SEARCH_SERVER             { 'search.musicbrainz.org' }
+# sub SEARCH_SCHEME             { 'http' }
 # sub SEARCH_ENGINE             { 'SOLR' }
 # Used, for example, to have emails sent from the beta server list the
 # main server
@@ -355,11 +358,16 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 # sub RECAPTCHA_PUBLIC_KEY { return undef }
 # sub RECAPTCHA_PRIVATE_KEY { return undef }
 
-# internet archive private/public keys (for coverartarchive.org).
-# sub COVER_ART_ARCHIVE_ACCESS_KEY { };
-# sub COVER_ART_ARCHIVE_SECRET_KEY { };
-# sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//%s.s3.us.archive.org/', shift) };
-# sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { '//coverartarchive.org' };
+# Internet Archive public/private keys
+# (for coverartarchive.org and eventartarchive.org).
+# sub COVER_ART_ARCHIVE_ACCESS_KEY { }
+# sub COVER_ART_ARCHIVE_SECRET_KEY { }
+# sub EVENT_ART_ARCHIVE_ACCESS_KEY { }
+# sub EVENT_ART_ARCHIVE_SECRET_KEY { }
+# sub INTERNET_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//%s.s3.us.archive.org/', shift) }
+
+# sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { '//coverartarchive.org' }
+# sub EVENT_ART_ARCHIVE_DOWNLOAD_PREFIX { '//eventartarchive.org' }
 
 # Mapbox access token must be set to display area/place maps.
 # sub MAPBOX_MAP_ID { 'mapbox/streets-v11' }
@@ -384,6 +392,8 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 # Please activate the officially approved languages here. Not every .po
 # file is active because we might have fully translated languages which
 # are not yet properly supported, like right-to-left languages
+#
+# The corresponding language packs must be installed; See NOTE-LANGUAGES-1
 # sub MB_LANGUAGES {qw()}
 
 # Should the site fall back to browser settings when trying to set a language

@@ -3,7 +3,7 @@
 require('./autocomplete.js');
 require('./common/immutable-entities.js');
 require('./Control/URLCleanup.js');
-require('./CoverArt.js');
+require('./Art.js');
 require('./edit.js');
 require('./edit/utility/getUpdatedTrackArtists.js');
 require('./edit/utility/isUselessMediumTitle.js');
@@ -46,6 +46,7 @@ require('./utility/formatTrackLength.js');
 require('./utility/formatUserDate.js');
 require('./utility/fullwidthLatin.js');
 require('./utility/getSortName.js');
+require('./utility/groupRelationships.js');
 require('./utility/isolateText.js');
 require('./utility/isBlank.js');
 require('./utility/isDatabaseRowId.js');

@@ -34,9 +34,7 @@ import RelationshipEditor, {
 
 type PropsT = InitialStateArgsT;
 
-let RelationshipEditorWrapper:
-  React$AbstractComponent<PropsT, void> =
-(props: PropsT) => {
+component _RelationshipEditorWrapper(...props: PropsT) {
   const [state, dispatch] = React.useReducer(
     reducer,
     props,
@@ -56,19 +54,17 @@ let RelationshipEditorWrapper:
       state={state}
     />
   );
-};
+}
 
-RelationshipEditorWrapper =
-  withLoadedTypeInfoForRelationshipEditor<PropsT, void>(
-    RelationshipEditorWrapper,
+export const NonHydratedRelationshipEditorWrapper:
+  React$AbstractComponent<PropsT> =
+  withLoadedTypeInfoForRelationshipEditor<PropsT>(
+    _RelationshipEditorWrapper,
   );
 
-export const NonHydratedRelationshipEditorWrapper =
-  RelationshipEditorWrapper;
-
-RelationshipEditorWrapper = hydrate<PropsT>(
+const RelationshipEditorWrapper = (hydrate<PropsT>(
   'div.relationship-editor',
-  RelationshipEditorWrapper,
-);
+  NonHydratedRelationshipEditorWrapper,
+): React$AbstractComponent<PropsT>);
 
 export default RelationshipEditorWrapper;

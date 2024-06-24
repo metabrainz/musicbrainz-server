@@ -13,13 +13,13 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseLabelT} from './types.js';
 
-const ReleaseLabelSameArtist = ({
+component ReleaseLabelSameArtist(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseLabelT>): React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportReleaseLabelT>) {
   const labelColumn = {
     Cell: ({
       row: {original},
@@ -57,6 +57,6 @@ const ReleaseLabelSameArtist = ({
       />
     </ReportLayout>
   );
-};
+}
 
 export default ReleaseLabelSameArtist;

@@ -21,14 +21,13 @@ type ReportReleaseGroupWithKeyT = {
   +key: string,
 };
 
-const DuplicateReleaseGroups = ({
+component DuplicateReleaseGroups(...{
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseGroupWithKeyT>):
-React$Element<typeof ReportLayout> => {
+}: ReportDataT<ReportReleaseGroupWithKeyT>) {
   let currentKey = '';
   let lastKey = '';
 
@@ -110,6 +109,6 @@ React$Element<typeof ReportLayout> => {
       </PaginatedResults>
     </ReportLayout>
   );
-};
+}
 
 export default DuplicateReleaseGroups;

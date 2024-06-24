@@ -53,7 +53,7 @@ component TagEntitiesList(
   }
 
   const buildTagEntitiesListSection = (
-    entityType: string,
+    entityType: TaggableEntityTypeT,
     title: string,
     seeAllMessage: $Call<typeof N_ln, string, string>,
     showDownvoted: boolean,

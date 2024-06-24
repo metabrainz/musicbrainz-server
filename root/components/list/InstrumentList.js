@@ -19,21 +19,13 @@ import {
   removeFromMergeColumn,
 } from '../../utility/tableColumns.js';
 
-type Props = {
-  +checkboxes?: string,
-  +instruments: $ReadOnlyArray<InstrumentT>,
-  +mergeForm?: MergeFormT,
-  +order?: string,
-  +sortable?: boolean,
-};
-
-const InstrumentList = ({
-  checkboxes,
-  instruments,
-  mergeForm,
-  order,
-  sortable,
-}: Props): React$Element<'table'> => {
+component InstrumentList(
+  checkboxes?: string,
+  instruments: $ReadOnlyArray<InstrumentT>,
+  mergeForm?: MergeFormT,
+  order?: string,
+  sortable?: boolean,
+ ) {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -66,6 +58,6 @@ const InstrumentList = ({
   );
 
   return useTable<InstrumentT>({columns, data: instruments});
-};
+}
 
 export default InstrumentList;

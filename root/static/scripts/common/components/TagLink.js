@@ -9,34 +9,26 @@
 
 import * as React from 'react';
 
-type UserTagLinkProps = {
-  +content?: string,
-  +showDownvoted?: boolean,
-  +subPath?: string,
-  +tag: string,
-  +username: string,
-};
-
-type TagLinkProps = {
-  +content?: string,
-  +showIcon?: boolean,
-  +subPath?: string,
-  +tag: string,
-};
-
-export const UserTagLink = (
-  {content, showDownvoted = false, subPath, tag, username}: UserTagLinkProps,
-): React$Element<'a'> => {
+export component UserTagLink(
+  content?: string,
+  showDownvoted: boolean = false,
+  subPath?: string,
+  tag: string,
+  username: string,
+) {
   const url = '/user/' + encodeURIComponent(username) +
               '/tag/' + encodeURIComponent(tag) +
               (subPath == null ? '' : '/' + subPath) +
               (showDownvoted ? '?show_downvoted=1' : '');
   return <a href={url}>{content == null ? tag : content}</a>;
-};
+}
 
-const TagLink = (
-  {content, showIcon = false, subPath, tag}: TagLinkProps,
-): Expand2ReactOutput => {
+component TagLink(
+  content?: string,
+  showIcon: boolean = false,
+  subPath?: string,
+  tag: string,
+) {
   const parts: Array<Expand2ReactOutput> = [];
 
   if (showIcon) {
@@ -52,6 +44,6 @@ const TagLink = (
   );
 
   return React.createElement(React.Fragment, null, ...parts);
-};
+}
 
 export default TagLink;

@@ -33,11 +33,7 @@ import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 
-type Props = {
-  +work: WorkT,
-};
-
-const WorkSidebar = ({work}: Props): React$Element<'div'> => {
+component WorkSidebar(work: WorkT) {
   const $c = React.useContext(CatalystContext);
   const {attributes, iswcs, languages, typeID} = work;
   const showInfo = Boolean(
@@ -125,6 +121,6 @@ const WorkSidebar = ({work}: Props): React$Element<'div'> => {
       <LastUpdated entity={work} />
     </div>
   );
-};
+}
 
 export default WorkSidebar;

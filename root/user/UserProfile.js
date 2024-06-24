@@ -290,15 +290,13 @@ component UserProfileInformation(
               <UserProfileProperty
                 name={addColonText(l('Authorized applications'))}
               >
-                {tokenCount}
-                {viewingOwnProfile ? (
-                  <>
-                    {' '}
-                    <a href="/account/applications" rel="nofollow">
-                      {bracketedText(l('see list'))}
-                    </a>
-                  </>
-                ) : null}
+                {viewingOwnProfile ? (exp.l(
+                  '{count} ({url|view list})',
+                  {
+                    count: tokenCount,
+                    url: '/account/applications',
+                  },
+                )) : tokenCount}
               </UserProfileProperty>
             ) : null}
 
@@ -306,15 +304,13 @@ component UserProfileInformation(
               <UserProfileProperty
                 name={addColonText(l('Developer applications'))}
               >
-                {applicationCount}
-                {viewingOwnProfile ? (
-                  <>
-                    {' '}
-                    <a href="/account/applications" rel="nofollow">
-                      {bracketedText(l('see list'))}
-                    </a>
-                  </>
-                ) : null}
+                {viewingOwnProfile ? (exp.l(
+                  '{count} ({url|view list})',
+                  {
+                    count: applicationCount,
+                    url: '/account/applications',
+                  },
+                )) : applicationCount}
               </UserProfileProperty>
             ) : null}
           </>
@@ -448,6 +444,7 @@ component UserEditsProperty(
         TYPES.EDIT_RELEASE_CREATE,
         TYPES.EDIT_HISTORIC_ADD_RELEASE,
       ].join(',')
+    // $FlowIgnore[invalid-computed-prop]
     ) : String(TYPES[`EDIT_${entityType.toUpperCase()}_CREATE`]);
   const searchEditsURL = ((createEditTypes: string) => (
     '/search/edits' +

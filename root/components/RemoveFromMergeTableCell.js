@@ -13,16 +13,11 @@ import ENTITIES from '../../entities.mjs';
 import {SanitizedCatalystContext} from '../context.mjs';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
-type Props = {
-  +entity: MergeableEntityT,
-  +toMerge: $ReadOnlyArray<MergeableEntityT>,
-};
-
 // Converted to react-table at root/utility/tableColumns.js
-const RemoveFromMergeTableCell = ({
-  entity,
-  toMerge,
-}: Props): React$Element<'td'> | null => {
+component RemoveFromMergeTableCell(
+  entity: MergeableEntityT,
+  toMerge: $ReadOnlyArray<MergeableEntityT>,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const url = ENTITIES[entity.entityType].url;
   return (
@@ -43,6 +38,6 @@ const RemoveFromMergeTableCell = ({
       </td>
     ) : null
   );
-};
+}
 
 export default RemoveFromMergeTableCell;

@@ -13,11 +13,7 @@ import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 
-type Props = {
-  +edit: RemoveIswcEditT,
-};
-
-const RemoveIswc = ({edit}: Props): React$Element<'table'> => {
+component RemoveIswc(edit: RemoveIswcEditT) {
   const iswc = edit.display_data.iswc;
   const work = linkedEntities.work[iswc.work_id];
 
@@ -33,6 +29,6 @@ const RemoveIswc = ({edit}: Props): React$Element<'table'> => {
       </tr>
     </table>
   );
-};
+}
 
 export default RemoveIswc;

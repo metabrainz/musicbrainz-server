@@ -8,12 +8,15 @@
  */
 
 import * as React from 'react';
+import * as ReactDOMServer from 'react-dom/server';
 
+import {Artwork} from '../../../components/Artwork.js';
 import {CatalystContext} from '../../../context.mjs';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage.js';
 import areDatesEqual
   from '../../../static/scripts/common/utility/areDatesEqual.js';
+import entityHref from '../../../static/scripts/common/utility/entityHref.js';
 import isDateEmpty
   from '../../../static/scripts/common/utility/isDateEmpty.js';
 import ExternalLinks from '../ExternalLinks.js';
@@ -31,21 +34,49 @@ import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 
-type Props = {
-  +event: EventT,
-};
-
-const EventSidebar = ({event}: Props): React$Element<'div'> => {
+component EventSidebar(event: EventT) {
   const $c = React.useContext(CatalystContext);
   const hasBegin = !isDateEmpty(event.begin_date);
   const hasEnd = !isDateEmpty(event.end_date);
+  const eventArtwork = $c.stash.event_artwork;
+  const eventArtPresence = event.event_art_presence;
 
   return (
     <div id="sidebar">
-      <CommonsImage
-        cachedImage={$c.stash.commons_image}
-        entity={event}
-      />
+      {(eventArtPresence === 'present' || !$c.stash.commons_image) ? (
+        <div className="event-art">
+          {eventArtPresence === 'present' && eventArtwork ? (
+            <Artwork
+              artwork={eventArtwork}
+              message={ReactDOMServer.renderToStaticMarkup(exp.l(
+                'Image failed to load correctly.' +
+                '<br/>{all|View all images}.',
+                {all: entityHref(event, 'event-art')},
+              ))}
+            />
+          ) : eventArtPresence === 'darkened' ? (
+            l(`Images for this item have been hidden
+               by the Internet Archive because of a takedown request.`)
+          ) : (
+            <p className="event-art-note" style={{textAlign: 'left'}}>
+              {eventArtPresence === 'present' ? (
+                <>
+                  {l('No poster available.')}
+                  <br />
+                  <a href={entityHref(event, 'event-art')}>
+                    {l('View all artwork')}
+                  </a>
+                </>
+              ) : l('No images available.')}
+            </p>
+          )}
+        </div>
+      ) : (
+        <CommonsImage
+          cachedImage={$c.stash.commons_image}
+          entity={event}
+        />
+      )}
 
       <h2 className="event-information">
         {l('Event information')}
@@ -109,6 +140,6 @@ const EventSidebar = ({event}: Props): React$Element<'div'> => {
       <LastUpdated entity={event} />
     </div>
   );
-};
+}
 
 export default EventSidebar;

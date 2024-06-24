@@ -19,19 +19,12 @@ import {
   defineTextColumn,
 } from '../../utility/tableColumns.js';
 
-type Props<D: {+work: ?WorkT, ...}> = {
-  +columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  +items: $ReadOnlyArray<D>,
-  +pager: PagerT,
-};
-
-const WorkList = <D: {+work: ?WorkT, ...}>({
-  columnsBefore,
-  columnsAfter,
-  items,
-  pager,
-}: Props<D>): React$Element<typeof PaginatedResults> => {
+component WorkList<D: {+work: ?WorkT, ...}>(
+  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
+  items: $ReadOnlyArray<D>,
+  pager: PagerT,
+) {
   const existingWorkItems = items.reduce((
     result: Array<D>,
     item,
@@ -85,6 +78,6 @@ const WorkList = <D: {+work: ?WorkT, ...}>({
       {manifest.js('common/components/ArtistRoles', {async: 'async'})}
     </PaginatedResults>
   );
-};
+}
 
 export default WorkList;
