@@ -32,7 +32,6 @@ import AddRemoveAlias from '../details/AddRemoveAlias.js';
 import AddSeries from '../details/AddSeries.js';
 import AddStandaloneRecording from '../details/AddStandaloneRecording.js';
 import AddWork from '../details/AddWork.js';
-import BetaOnlyEdit from '../details/BetaOnlyEdit.js';
 import ChangeReleaseQuality from '../details/ChangeReleaseQuality.js';
 import ChangeWikiDoc from '../details/ChangeWikiDoc.js';
 import EditAlias from '../details/EditAlias.js';
@@ -142,8 +141,6 @@ export default function getEditDetailsElement(
       return <AddArtist edit={edit} />;
     case EDIT_TYPES.EDIT_RELEASE_ADD_COVER_ART:
       return <AddCoverArt edit={edit} />;
-    case EDIT_TYPES.EDIT_EVENT_ADD_EVENT_ART:
-      return <BetaOnlyEdit edit={edit} />;
     case EDIT_TYPES.EDIT_MEDIUM_ADD_DISCID:
       return <AddDiscId edit={edit} />;
     case EDIT_TYPES.EDIT_EVENT_CREATE:
@@ -232,8 +229,6 @@ export default function getEditDetailsElement(
       return <EditBarcodes edit={edit} />;
     case EDIT_TYPES.EDIT_RELEASE_EDIT_COVER_ART:
       return <EditCoverArt edit={edit} />;
-    case EDIT_TYPES.EDIT_EVENT_EDIT_EVENT_ART:
-      return <BetaOnlyEdit edit={edit} />;
     case EDIT_TYPES.EDIT_EVENT_EDIT:
       return <EditEvent edit={edit} />;
     case EDIT_TYPES.EDIT_GENRE_EDIT:
@@ -295,8 +290,6 @@ export default function getEditDetailsElement(
       return <MoveDiscId edit={edit} />;
     case EDIT_TYPES.EDIT_RELEASE_REMOVE_COVER_ART:
       return <RemoveCoverArt edit={edit} />;
-    case EDIT_TYPES.EDIT_EVENT_REMOVE_EVENT_ART:
-      return <BetaOnlyEdit edit={edit} />;
     case EDIT_TYPES.EDIT_MEDIUM_REMOVE_DISCID:
       return <RemoveDiscId edit={edit} />;
     case EDIT_TYPES.EDIT_AREA_DELETE:
@@ -328,8 +321,6 @@ export default function getEditDetailsElement(
       return <RemoveReleaseLabel edit={edit} />;
     case EDIT_TYPES.EDIT_RELEASE_REORDER_COVER_ART:
       return <ReorderCoverArt edit={edit} />;
-    case EDIT_TYPES.EDIT_EVENT_REORDER_EVENT_ART:
-      return <BetaOnlyEdit edit={edit} />;
     case EDIT_TYPES.EDIT_RELEASE_REORDER_MEDIUMS:
       return <ReorderMediums edit={edit} />;
     case EDIT_TYPES.EDIT_RELATIONSHIPS_REORDER:
