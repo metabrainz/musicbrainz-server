@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-28 14:51+0000\n"
-"PO-Revision-Date: 2024-06-08 16:42+0000\n"
+"POT-Creation-Date: 2024-06-14 12:30+0000\n"
+"PO-Revision-Date: 2024-06-14 17:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
 " n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.5.5\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -652,6 +652,10 @@ msgstr "Kat. nr:"
 #: ../root/utility/tableColumns.js:488 ../root/utility/tableColumns.js:493
 msgid "Catalog#"
 msgstr "Katalogo#"
+
+#: ../root/layout.tt:121 ../root/layout/components/Footer.js:30
+msgid "Chat"
+msgstr "Pokalbis"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -1297,10 +1301,6 @@ msgid ""
 msgstr ""
 "IPI kodus suteikia CISAC „suinteresuotosioms organizacijoms“ muzikos teisių "
 "valdymo srityje. Daugiau informacijos rasi {ipi_doc|dokumentuose}."
-
-#: ../root/layout.tt:121
-msgid "IRC"
-msgstr "IRC"
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/AddArtist.js:141 ../root/edit/details/AddLabel.js:106
@@ -1982,21 +1982,6 @@ msgstr ""
 "Keliauk į kitų subjektų, kuriuos nori sujungti, puslapius ir pasirink "
 "nuorodą Sujungti."
 
-#: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:23
-msgid ""
-"Please see the {doc|Cover Art Types} documentation for a description of "
-"these types."
-msgstr ""
-"Žiūrėk {doc|Cover Art Types} dokumentaciją, kad sužinotum šių tipų aprašymą."
-
-#: ../root/event/add_event_art.tt:66 ../root/event/EventArtFields.js:23
-msgid ""
-"Please see the {doc|Event Art Types} documentation for a description of "
-"these types."
-msgstr ""
-"Žiūrėk {doc|renginių apipavidalinimų tipų} dokumentaciją, kad sužinotum šių "
-"tipų aprašymą."
-
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
 msgstr "Pasirink laikmeną, prie kurios nori pridėti šį CD TOC."
@@ -2381,6 +2366,29 @@ msgid ""
 msgstr ""
 "Pasirink leidinį, į kurį turėtų būti perkeltas disko ID <code>{discid}</"
 "code>."
+
+#: ../root/release/add_cover_art.tt:66
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Cover Art Types} documentation for "
+"a description of these types."
+msgstr ""
+"Žiūrėk {doc|Cover Art Types} dokumentaciją, kad sužinotum šių tipų aprašymą."
+
+#: ../root/event/add_event_art.tt:66
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Event Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Event Art Types} documentation for "
+"a description of these types."
+msgstr ""
+"Žiūrėk {doc|renginių apipavidalinimų tipų} dokumentaciją, kad sužinotum šių "
+"tipų aprašymą."
 
 #: ../root/components/forms.tt:369
 msgid ""
@@ -3026,7 +3034,6 @@ msgstr "Twitter"
 #: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/account/applications/ApplicationList.js:148
 #: ../root/components/Aliases/AliasTable.js:21
-#: ../root/components/ArtFields.js:64
 #: ../root/components/list/ReleaseGroupList.js:84
 #: ../root/components/list/ReleaseList.js:139
 #: ../root/edit/details/AddArea.js:57 ../root/edit/details/AddArtist.js:65
@@ -3080,8 +3087,9 @@ msgid "Type"
 msgstr "Tipas"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
-msgid "Type:"
-msgstr "Tipas:"
+#: ../root/components/ArtFields.js:64
+msgid "Types"
+msgstr "Tipai"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
@@ -6497,11 +6505,11 @@ msgstr ""
 
 #: ../root/account/Register.js:80
 msgid ""
-"Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
-"the {fo|forums} or {irc|IRC}."
+"Follow our {blog_link|blog} or {twitterx_link|twitter account}! To talk to "
+"other users, try the {forum_link|forums} or the {chat_link|chat}."
 msgstr ""
 
-#: ../root/account/Register.js:93
+#: ../root/account/Register.js:94
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
@@ -8163,11 +8171,11 @@ msgid_plural ""
 msgstr[0] ""
 "Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} dieną</span>"
 msgstr[1] ""
-"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
-"dienas</span>"
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} dienas</"
+"span>"
 msgstr[2] ""
-"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
-"dienos</span>"
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} dienos</"
+"span>"
 msgstr[3] ""
 "Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} dienų</span>"
 
@@ -8177,17 +8185,17 @@ msgid ""
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} hours</span>"
 msgstr[0] ""
-"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
-"valandą</span>"
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} valandą</"
+"span>"
 msgstr[1] ""
-"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
-"valandas</span>"
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} valandas</"
+"span>"
 msgstr[2] ""
-"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
-"valandos</span>"
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} valandos</"
+"span>"
 msgstr[3] ""
-"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
-"valandų</span>"
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} valandų</"
+"span>"
 
 #: ../root/components/VotingPeriod.js:52
 msgid ""
@@ -8195,17 +8203,17 @@ msgid ""
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} minutes</span>"
 msgstr[0] ""
-"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
-"minutę</span>"
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} minutę</"
+"span>"
 msgstr[1] ""
-"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
-"minutes</span>"
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} minutes</"
+"span>"
 msgstr[2] ""
-"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
-"minutės</span>"
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} minutės</"
+"span>"
 msgstr[3] ""
-"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} "
-"minučių</span>"
+"Užsidaro per <span class=\"tooltip\" title=\"{exactdate}\">{num} minučių</"
+"span>"
 
 #: ../root/components/VotingPeriod.js:60
 msgid "About to close"
@@ -9104,7 +9112,7 @@ msgstr ""
 msgid "Lyrics languages"
 msgstr "Dainos žodžių kalbos"
 
-#: ../root/edit/details/BetaOnlyEdit.js:29
+#: ../root/edit/details/BetaOnlyEdit.js:30
 msgid "This edit can currently only be viewed on the {beta|beta server}."
 msgstr ""
 "Šį redagavimą šiuo metu galima peržiūrėti tik {beta|beta versijos serveryje}."
@@ -10285,6 +10293,14 @@ msgstr "Negalima pridėti renginio apipavidalinimus"
 msgid "Choose one or more event art types for this image"
 msgstr "Pasirink vieną ar daugiau šio vaizdo renginio apipavidalinimo tipų."
 
+#: ../root/event/EventArtFields.js:23
+msgid ""
+"Select all types that apply. See the {doc|Event Art Types} documentation for "
+"their descriptions."
+msgstr ""
+"Pasirink visus taikomus tipus. Jų aprašymus žiūrėk {doc|Renginių "
+"apipavidalinimo tipų} dokumentacijoje."
+
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
 msgstr "Sujungti renginius"
@@ -10683,10 +10699,6 @@ msgstr "Oficialus tinklalapis"
 #: ../root/layout/components/ExternalLinks.js:163
 msgid "View all relationships"
 msgstr "Peržiūrėti visus santykius"
-
-#: ../root/layout/components/Footer.js:30
-msgid "Chat (IRC)"
-msgstr "Pokalbis (IRC)"
 
 #: ../root/layout/components/Footer.js:64
 msgid "Running: {git_details}"
@@ -11921,6 +11933,17 @@ msgstr "Negalima pridėti viršelio apipavidalinimus"
 #: ../root/release/CoverArtFields.js:21
 msgid "Choose one or more cover art types for this image"
 msgstr "Pasirink vieną ar daugiau šio vaizdo viršelio apipavidalinimo tipų."
+
+#: ../root/release/CoverArtFields.js:23
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Cover Art Types} documentation for "
+"their descriptions."
+msgstr ""
+"Žiūrėk {doc|Cover Art Types} dokumentaciją, kad sužinotum šių tipų aprašymą."
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 msgctxt "header"
@@ -17229,8 +17252,10 @@ msgstr ""
 msgid "{editor} is also subscribed to {n} other private collection."
 msgid_plural "{editor} is also subscribed to {n} other private collections."
 msgstr[0] "{editor} taip pat yra užsiprenumeravęs {n} kitą privačią kolekciją."
-msgstr[1] "{editor} taip pat yra užsiprenumeravęs {n} kitas privačias kolekcijas."
-msgstr[2] "{editor} taip pat yra užsiprenumeravęs {n} kitos privačios kolekcijos."
+msgstr[1] ""
+"{editor} taip pat yra užsiprenumeravęs {n} kitas privačias kolekcijas."
+msgstr[2] ""
+"{editor} taip pat yra užsiprenumeravęs {n} kitos privačios kolekcijos."
 msgstr[3] "{editor} taip pat yra užsiprenumeravęs {n} kitų privačių kolekcijų."
 
 #: ../root/user/UserSubscriptions.js:269
@@ -17706,6 +17731,15 @@ msgstr ""
 "<strong>Įspėjimas:</strong> Kai kurių kūrinių, kuriuos sujungi, ISWC "
 "skirtingi. Įsitikink, kad tai tikrai tie patys kūriniai ir nori tęsti "
 "sujungimą."
+
+#~ msgid "IRC"
+#~ msgstr "IRC"
+
+#~ msgid "Type:"
+#~ msgstr "Tipas:"
+
+#~ msgid "Chat (IRC)"
+#~ msgstr "Pokalbis (IRC)"
 
 #, fuzzy
 #~| msgid "Remove area"

@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
-" n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.5.4\n"
 
 #: DB:work_type/description:9
@@ -899,8 +899,6 @@ msgstr "ACDAM ID"
 
 #: DB:work_attribute_type/name:206
 #, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ACAM ID"
 msgctxt "work_attribute_type"
 msgid "ACUM ID"
 msgstr "ACAM ID"
@@ -1189,6 +1187,17 @@ msgid ""
 msgstr ""
 "Epizodinis leidinys, kuris iš pradžių buvo transliuojamas per radiją, "
 "televiziją ar internetą, įskaitant tinklalaides."
+
+#: DB:event_type/description:40
+msgctxt "event_type"
+msgid ""
+"An event in which the participants perform live and a winner is then chosen "
+"(as opposed to an award ceremony where awards are presented for previously "
+"released or performed music)."
+msgstr ""
+"Renginys, kurio metu dalyviai atlieka gyvai, o vėliau išrenkamas laimėtojas "
+"(priešingai nei apdovanojimų ceremonija, kurioje apdovanojimai įteikiami už "
+"anksčiau išleistą ar atliktą muziką)."
 
 #: DB:event_type/description:2
 msgctxt "event_type"
@@ -2222,35 +2231,40 @@ msgctxt "place_type"
 msgid "Club"
 msgstr ""
 
+#: DB:event_type/name:40
+msgctxt "event_type"
+msgid "Competition"
+msgstr "konkursas"
+
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
 msgid "Compilation"
-msgstr ""
+msgstr "rinkinys"
 
 #: DB:event_type/name:1
 msgctxt "event_type"
 msgid "Concert"
-msgstr ""
+msgstr "koncertas"
 
 #: DB:place_type/name:44
 msgctxt "place_type"
 msgid "Concert hall / Theatre"
-msgstr ""
+msgstr "koncertų salė / teatras"
 
 #: DB:work_type/name:4
 msgctxt "work_type"
 msgid "Concerto"
-msgstr ""
+msgstr "koncerto"
 
 #: DB:event_type/name:4
 msgctxt "event_type"
 msgid "Convention/Expo"
-msgstr ""
+msgstr "konvencija / paroda"
 
 #: DB:medium_format/name:61
 msgctxt "medium_format"
 msgid "Copy Control CD"
-msgstr ""
+msgstr "kopijavimo valdymo CD"
 
 #: DB:medium_format/description:61
 msgctxt "medium_format"
@@ -2260,11 +2274,16 @@ msgid ""
 "ripped. There are a number of software variants: the most well-known are "
 "Macrovision's Cactus Data Shield (CDS) and SunnComm's MediaMax."
 msgstr ""
+"Kopijavimo valdymo CD (CCCD) – tai bendras terminas, kuriuo vadinami maždaug "
+"2001-2006 m. išleisti CD su programine įranga, tariamai skirta apsaugoti CD "
+"nuo kopijavimo. Yra daug programinės įrangos variantų: žinomiausi yra "
+"„Macrovision“ „Cactus Data Shield“ (CDS) ir „SunnComm“ „MediaMax“ programinė "
+"įranga."
 
 #: DB:area_type/name:1
 msgctxt "area_type"
 msgid "Country"
-msgstr "Kraštas"
+msgstr "šalis"
 
 #: DB:area_type/description:1
 msgctxt "area_type"
@@ -2272,6 +2291,8 @@ msgid ""
 "Country is used for areas included (or previously included) in ISO 3166-1, e."
 "g. United States."
 msgstr ""
+"Šalis naudojama teritorijoms, įtrauktoms (arba anksčiau įtrauktoms) į ISO "
+"3166-1, pvz., Jungtinėms Amerikos Valstijoms."
 
 #: DB:area_type/name:7
 msgctxt "area_type"
@@ -4189,8 +4210,6 @@ msgstr "Vietnamo teisių organizacijos VCPMC identifikatorius."
 
 #: DB:work_attribute_type/description:208
 #, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the international (formerly US) rights society AMRA"
 msgctxt "work_attribute_type"
 msgid ""
 "ID for the international (but primarily Italian) rights society Soundreef"
@@ -8017,12 +8036,26 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Udaya ravicandrika"
 msgstr ""
 
+#: DB:cover_art_archive.art_type/description:13
+msgctxt "cover_art_type"
+msgid ""
+"Use in combination with any other appropriate types for images that are "
+"watermarked and are not desirable for tagging (but can be used for "
+"reference)."
+msgstr ""
+"Naudok kartu su bet kuriais kitais tinkamais tipais vaizdams, kurie turi "
+"vandenženklį ir nėra pageidautini žymėjimui (bet gali būti naudojami kaip "
+"informacija)."
+
 #: DB:cover_art_archive.art_type/description:14
 msgctxt "cover_art_type"
 msgid ""
-"Use for images that need work to be used for tagging (but can possibly "
-"already be used for reference)"
+"Use in combination with any other appropriate types for images that need "
+"work to be used for tagging (but can possibly already be used for reference)."
 msgstr ""
+"Naudok kartu su kitais tinkamais tipais vaizdams, kuriuos reikia apdoroti, "
+"kad būtų galima naudoti žymėjimui (bet galbūt jau galima naudoti "
+"informacijoms)."
 
 #: DB:area_type/description:8
 msgctxt "area_type"
@@ -8030,6 +8063,8 @@ msgid ""
 "Used for any military bases that are large enough to be considered an area, "
 "not just a place."
 msgstr ""
+"Naudojama visoms karinėms bazėms, kurios yra pakankamai didelės, kad būtų "
+"laikomos ne tik vieta, bet ir teritorija."
 
 #: DB:area_type/description:9
 msgctxt "area_type"
@@ -8857,3 +8892,108 @@ msgstr "Ḍāgori"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ṣanmukhapriya"
 msgstr "Ṣanmukhapriya"
+
+#: DB:event_art_archive.art_type/description:6
+msgctxt "event_art_type"
+msgid ""
+"A document generally smaller than a poster that is usually meant to be "
+"printed and shared with the public to either promote an event in advance or "
+"give additional information for the attendees. If the flyer for an event is "
+"just a scaled down version of the poster, both types can be added to the "
+"same image."
+msgstr ""
+
+#: DB:event_art_archive.art_type/description:2
+msgctxt "event_art_type"
+msgid ""
+"A document generally used for admission to the event, whether physical or "
+"digital. Use this also for ticket stubs and passes."
+msgstr ""
+
+#: DB:event_art_archive.art_type/description:3
+msgctxt "event_art_type"
+msgid ""
+"A list of songs to be played in the event, often printed or handwritten for "
+"use by the artist."
+msgstr ""
+
+#: DB:event_art_archive.art_type/description:7
+msgctxt "event_art_type"
+msgid ""
+"An image for any sort of event-related goods sold (or freely shared) to "
+"promote the event or during it, such as t-shirts, caps, stickers, etc. If "
+"more than one art type applies (for example, if a poster is sold as "
+"merchandise) use “merchandise” alongside any other appropriate types."
+msgstr ""
+
+#: DB:event_art_archive.art_type/description:5
+msgctxt "event_art_type"
+msgid ""
+"An image usually showing the order and time for the performances in an "
+"event. Can be a standalone image, but also a poster or banner (in which case "
+"all applicable types should be set)."
+msgstr ""
+
+#: DB:event_art_archive.art_type/description:8
+msgctxt "event_art_type"
+msgid ""
+"An internal plan of the event venue, or an external access map specifically "
+"created for the event, for example showing the recommended ways to access "
+"the venue, or the location of specific stages and stands inside of it."
+msgstr ""
+
+#: DB:event_art_archive.art_type/name:4
+msgctxt "event_art_type"
+msgid "Banner"
+msgstr ""
+
+#: DB:event_art_archive.art_type/name:6
+msgctxt "event_art_type"
+msgid "Flyer"
+msgstr ""
+
+#: DB:event_art_archive.art_type/name:8
+msgctxt "event_art_type"
+msgid "Map"
+msgstr ""
+
+#: DB:event_art_archive.art_type/name:7
+msgctxt "event_art_type"
+msgid "Merchandise"
+msgstr ""
+
+#: DB:event_art_archive.art_type/name:1
+#, fuzzy
+msgctxt "event_art_type"
+msgid "Poster"
+msgstr "plakatas"
+
+#: DB:event_art_archive.art_type/name:5
+msgctxt "event_art_type"
+msgid "Schedule"
+msgstr ""
+
+#: DB:event_art_archive.art_type/name:3
+msgctxt "event_art_type"
+msgid "Setlist"
+msgstr ""
+
+#: DB:event_art_archive.art_type/name:2
+#, fuzzy
+msgctxt "event_art_type"
+msgid "Ticket"
+msgstr "lipdukas"
+
+#: DB:event_art_archive.art_type/description:1
+msgctxt "event_art_type"
+msgid ""
+"Usually a large printed or digital sheet, that often contains pictures, and "
+"is generally posted publicly to promote the event."
+msgstr ""
+
+#: DB:event_art_archive.art_type/description:4
+msgctxt "event_art_type"
+msgid ""
+"Usually horizontal image used to promote an event, for example in social "
+"media, which tends to have less information than a poster."
+msgstr ""

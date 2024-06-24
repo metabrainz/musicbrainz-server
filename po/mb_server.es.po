@@ -55,18 +55,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-28 14:51+0000\n"
+"POT-Creation-Date: 2024-06-14 12:30+0000\n"
 "PO-Revision-Date: 2024-05-30 19:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.5.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -632,8 +632,8 @@ msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}."
 msgstr ""
-"Ofrecido por {MeB|MetaBrainz Foundation} con la ayuda de "
-"{spon|patrocinadores} y {supp|simpatizantes}."
+"Ofrecido por {MeB|MetaBrainz Foundation} con la ayuda de {spon|"
+"patrocinadores} y {supp|simpatizantes}."
 
 #: ../root/layout.tt:122 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:209
@@ -697,6 +697,10 @@ msgstr "N.º de cat.:"
 #: ../root/utility/tableColumns.js:488 ../root/utility/tableColumns.js:493
 msgid "Catalog#"
 msgstr "N.º de catálogo"
+
+#: ../root/layout.tt:121 ../root/layout/components/Footer.js:30
+msgid "Chat"
+msgstr ""
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -1348,10 +1352,6 @@ msgstr ""
 "Los códigos IPI son asignados por CISAC a las “partes interesadas” en la "
 "gestión de derechos musicales. Consulta {ipi_doc|la documentación} para "
 "saber más."
-
-#: ../root/layout.tt:121
-msgid "IRC"
-msgstr "IRC"
 
 #: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
 #: ../root/edit/details/AddArtist.js:141 ../root/edit/details/AddLabel.js:106
@@ -2036,22 +2036,6 @@ msgstr ""
 "Ve a las páginas de las demás entidades que quieras fusionar y haz clic en "
 "“Fusionar”."
 
-#: ../root/release/add_cover_art.tt:66 ../root/release/CoverArtFields.js:23
-msgid ""
-"Please see the {doc|Cover Art Types} documentation for a description of "
-"these types."
-msgstr ""
-"Consulta la {doc|documentación sobre tipos de imagen de publicación} para "
-"saber más sobre estos tipos."
-
-#: ../root/event/add_event_art.tt:66 ../root/event/EventArtFields.js:23
-msgid ""
-"Please see the {doc|Event Art Types} documentation for a description of "
-"these types."
-msgstr ""
-"Consulta la {doc|documentación sobre tipos de imagen de evento} para saber "
-"más sobre estos tipos."
-
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
 msgstr "Elige el medio al que quieres asociar esta TOC de CD."
@@ -2436,6 +2420,30 @@ msgid ""
 msgstr ""
 "Elige la publicación a la que quieres mover la ID de disco <code>{discid}</"
 "code>."
+
+#: ../root/release/add_cover_art.tt:66
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Cover Art Types} documentation for "
+"a description of these types."
+msgstr ""
+"Consulta la {doc|documentación sobre tipos de imagen de publicación} para "
+"saber más sobre estos tipos."
+
+#: ../root/event/add_event_art.tt:66
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Event Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Event Art Types} documentation for "
+"a description of these types."
+msgstr ""
+"Consulta la {doc|documentación sobre tipos de imagen de evento} para saber "
+"más sobre estos tipos."
 
 #: ../root/components/forms.tt:369
 msgid ""
@@ -3081,7 +3089,6 @@ msgstr "Twitter"
 #: ../root/series/edit_form.tt:16 ../root/work/edit_form.tt:14
 #: ../root/account/applications/ApplicationList.js:148
 #: ../root/components/Aliases/AliasTable.js:21
-#: ../root/components/ArtFields.js:64
 #: ../root/components/list/ReleaseGroupList.js:84
 #: ../root/components/list/ReleaseList.js:139
 #: ../root/edit/details/AddArea.js:57 ../root/edit/details/AddArtist.js:65
@@ -3135,8 +3142,11 @@ msgid "Type"
 msgstr "Tipo"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
-msgid "Type:"
-msgstr "Tipo:"
+#: ../root/components/ArtFields.js:64
+#, fuzzy
+#| msgid "Types:"
+msgid "Types"
+msgstr "Tipos:"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
@@ -6523,14 +6533,18 @@ msgstr ""
 "documentación} antes de {con|ponerte en contacto con nosotros}."
 
 #: ../root/account/Register.js:80
+#, fuzzy
+#| msgid ""
+#| "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
+#| "the {fo|forums} or {irc|IRC}."
 msgid ""
-"Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
-"the {fo|forums} or {irc|IRC}."
+"Follow our {blog_link|blog} or {twitterx_link|twitter account}! To talk to "
+"other users, try the {forum_link|forums} or the {chat_link|chat}."
 msgstr ""
 "¡Puedes seguir nuestro {bl|blog} o nuestra {tw|cuenta de Twitter}! Para "
 "hablar con otros usuarios, puedes usar los {fo|foros} o {irc|IRC}."
 
-#: ../root/account/Register.js:93
+#: ../root/account/Register.js:94
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
@@ -9192,7 +9206,7 @@ msgstr "Ya no existe"
 msgid "Lyrics languages"
 msgstr "Idiomas de la letra"
 
-#: ../root/edit/details/BetaOnlyEdit.js:29
+#: ../root/edit/details/BetaOnlyEdit.js:30
 msgid "This edit can currently only be viewed on the {beta|beta server}."
 msgstr "Esta edición solo está disponible en el {beta|servidor beta}."
 
@@ -10355,6 +10369,18 @@ msgstr "No se pueden añadir imágenes"
 msgid "Choose one or more event art types for this image"
 msgstr "Elige uno o más tipos para esta imagen"
 
+#: ../root/event/EventArtFields.js:23
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Event Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Event Art Types} documentation for "
+"their descriptions."
+msgstr ""
+"Consulta la {doc|documentación sobre tipos de imagen de evento} para saber "
+"más sobre estos tipos."
+
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
 msgstr "Fusionar eventos"
@@ -10760,10 +10786,6 @@ msgstr "Página oficial"
 #: ../root/layout/components/ExternalLinks.js:163
 msgid "View all relationships"
 msgstr "Ver todas las relaciones"
-
-#: ../root/layout/components/Footer.js:30
-msgid "Chat (IRC)"
-msgstr "Chat (IRC)"
 
 #: ../root/layout/components/Footer.js:64
 msgid "Running: {git_details}"
@@ -12009,6 +12031,18 @@ msgstr "No se pueden añadir imágenes"
 #: ../root/release/CoverArtFields.js:21
 msgid "Choose one or more cover art types for this image"
 msgstr "Elige uno o más tipos para esta imagen"
+
+#: ../root/release/CoverArtFields.js:23
+#, fuzzy
+#| msgid ""
+#| "Please see the {doc|Cover Art Types} documentation for a description of "
+#| "these types."
+msgid ""
+"Select all types that apply. See the {doc|Cover Art Types} documentation for "
+"their descriptions."
+msgstr ""
+"Consulta la {doc|documentación sobre tipos de imagen de publicación} para "
+"saber más sobre estos tipos."
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 msgctxt "header"
@@ -18036,6 +18070,15 @@ msgstr ""
 "<strong>Atención:</strong> Varias de las obras que quieres fusionar tienen "
 "diferentes ISWCs. Por favor, asegúrate de que son realmente la misma obra "
 "antes de continuar."
+
+#~ msgid "IRC"
+#~ msgstr "IRC"
+
+#~ msgid "Type:"
+#~ msgstr "Tipo:"
+
+#~ msgid "Chat (IRC)"
+#~ msgstr "Chat (IRC)"
 
 #~ msgid "This release has no artwork."
 #~ msgstr "Esta publicación no tiene imágenes."

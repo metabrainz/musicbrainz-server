@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-12 21:42+0000\n"
+"PO-Revision-Date: 2024-06-15 22:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -1199,7 +1199,7 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Images.js:63
 msgid "Images"
-msgstr ""
+msgstr "Изображения"
 
 #: ../root/statistics/layout.tt:4
 msgid "Languages/Scripts"
@@ -1303,7 +1303,7 @@ msgstr "Места"
 #: ../root/statistics/Countries.js:74 ../root/statistics/Formats.js:59
 #: ../root/statistics/LanguagesScripts.js:73
 msgid "Total"
-msgstr "Итого"
+msgstr "Всего"
 
 #: ../root/statistics/Countries.js:96
 msgid "Unknown country"

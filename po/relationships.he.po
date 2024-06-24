@@ -625,7 +625,9 @@ msgid "Indicates the lyricist for this work."
 msgstr "ציון תמלילן היצירה."
 
 #: DB:link_type/description:42
-msgid "Indicates the mastering engineer for this work."
+#, fuzzy
+#| msgid "Indicates the mastering engineer for this work."
+msgid "Indicates the mastering engineer for this release."
 msgstr "ציון מהנדס עותק־האב של היצירה."
 
 #: DB:link_type/description:219
@@ -697,6 +699,18 @@ msgstr "עמוד Last.fm עבור"
 #: DB:link_attribute_type/description:4
 msgid "Lead or solo vocal"
 msgstr "זמר סולו או מוביל"
+
+#: DB:link_type/description:1255
+#, fuzzy
+#| msgid "Links an event to an artist that was a conductor in it."
+msgid "Links a competition event to an artist that was a jury member in it."
+msgstr "קישור ארוע לאמן ששימש בו כמנצח."
+
+#: DB:link_type/description:1256
+#, fuzzy
+#| msgid "Links an event to an artist that was a conductor in it."
+msgid "Links a competition event to an artist that was a participant in it."
+msgstr "קישור ארוע לאמן ששימש בו כמנצח."
 
 #: DB:link_type/description:864
 msgid ""
@@ -1413,6 +1427,13 @@ msgstr "התכונה מציינת שהתוכן הניתן להזרמה אינו 
 
 #: DB:link_attribute_type/description:788
 msgid "This attribute indicates the number of an entity in a series."
+msgstr "תכונה זו מציינת את מספר ישות בסדרה."
+
+#: DB:link_attribute_type/description:1416
+#, fuzzy
+#| msgid "This attribute indicates the number of an entity in a series."
+msgid ""
+"This attribute indicates the winning participant in a competition event."
 msgstr "תכונה זו מציינת את מספר ישות בסדרה."
 
 #: DB:link_attribute_type/description:425
@@ -4117,6 +4138,16 @@ msgid ""
 "can be purchased for mail order."
 msgstr "משמש לקישור לעמוד ממנו ניתן לרכוש בהזמנת דוא\"ל את הוצאות אמן."
 
+#: DB:link_type/description:1254
+#, fuzzy
+#| msgid ""
+#| "This relationship type is used to link to a page where the artist's "
+#| "releases can be purchased for mail order."
+msgid ""
+"This relationship type is used to link to a page where the artwork for this "
+"event can be purchased."
+msgstr "משמש לקישור לעמוד ממנו ניתן לרכוש בהזמנת דוא\"ל את הוצאות אמן."
+
 #: DB:link_type/description:960
 msgid ""
 "This relationship type is used to link to a page where the label's releases "
@@ -4851,6 +4882,12 @@ msgstr ""
 #: DB:link_type/name:1170
 msgid "artwork"
 msgstr "תמונות עטיפה"
+
+#: DB:link_type/long_link_phrase:1254
+#, fuzzy
+#| msgid "can be purchased for download at"
+msgid "artwork can be purchased at"
+msgstr "ניתן לרכישה בהורדה מ־"
 
 #: DB:link_attribute_type/name:526
 msgid "assistant"
@@ -6545,6 +6582,18 @@ msgstr ""
 msgid "jazz"
 msgstr "ג'ז"
 
+#: DB:link_type/name:1255
+msgid "jury member"
+msgstr ""
+
+#: DB:link_type/link_phrase:1255
+msgid "jury member at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:1255
+msgid "jury members"
+msgstr ""
+
 #: DB:link_attribute_type/name:1261 DB:link_type/name:226
 msgid "karaoke"
 msgstr "קריאוקי"
@@ -7256,6 +7305,24 @@ msgstr "חלק מערכה"
 msgid "partial"
 msgstr "חלקי"
 
+#: DB:link_type/name:1256
+#, fuzzy
+#| msgid "principal"
+msgid "participant"
+msgstr "עיקרי"
+
+#: DB:link_type/link_phrase:1256
+#, fuzzy
+#| msgid "principal"
+msgid "participant at"
+msgstr "עיקרי"
+
+#: DB:link_type/reverse_link_phrase:1256
+#, fuzzy
+#| msgid "principal"
+msgid "participants"
+msgstr "עיקרי"
+
 #: DB:link_type/link_phrase:818 DB:link_type/link_phrase:717
 #: DB:link_type/link_phrase:356 DB:link_type/link_phrase:281
 #: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
@@ -7629,6 +7696,12 @@ msgstr "הוצאה לאור"
 msgid "publishing label"
 msgstr "חברת תקליטים מוציא לאור"
 
+#: DB:link_type/link_phrase:1254 DB:link_type/name:1254
+#, fuzzy
+#| msgid "purchase for download"
+msgid "purchase artwork"
+msgstr "רכישה בהורדה"
+
 #: DB:link_type/link_phrase:254 DB:link_type/link_phrase:74
 #: DB:link_type/name:912 DB:link_type/name:959 DB:link_type/name:254
 #: DB:link_type/name:74 DB:link_type/name:176
@@ -7647,6 +7720,12 @@ msgstr "רכישת מוזיקה בהורדה"
 #: DB:link_type/link_phrase:960 DB:link_type/link_phrase:175
 msgid "purchase music for mail-order"
 msgstr "רכישת מוזיקה בהזמנת דוא\"ל"
+
+#: DB:link_type/reverse_link_phrase:1254
+#, fuzzy
+#| msgid "download purchase page for the score of"
+msgid "purchase page for the artwork of"
+msgstr "עמוד רכישת־הורדות של"
 
 #: DB:link_type/reverse_link_phrase:912
 msgid "purchase score for download"
@@ -7704,10 +7783,6 @@ msgstr "הוקלט ב־"
 msgid "recorded music series"
 msgstr "סדרה מוזיקלית הוקלטה"
 
-#: DB:link_type/reverse_link_phrase:1006
-msgid "recorded recordings"
-msgstr "הקלטות הוקלטו"
-
 #: DB:link_type/reverse_link_phrase:1007
 msgid "recorded release groups"
 msgstr "קבוצות הוצאה הוקלטה"
@@ -7735,6 +7810,12 @@ msgstr "מהנדסי הקלטה"
 #: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
 msgid "recording location for"
 msgstr " אתר הקלטה של"
+
+#: DB:link_type/reverse_link_phrase:1006
+#, fuzzy
+#| msgid "recording"
+msgid "recordings"
+msgstr "הקלטה"
 
 #: DB:link_type/reverse_link_phrase:239
 msgid "referred to in medleys"
@@ -8449,6 +8530,12 @@ msgstr "היה/היתה מלחין הבית ב"
 msgid "was a conductor at"
 msgstr "מנצח ב־"
 
+#: DB:link_type/long_link_phrase:1255
+#, fuzzy
+#| msgid "was a main performer at"
+msgid "was a jury member at"
+msgstr "היו מבצעים ראשיים ב־"
+
 #: DB:link_type/long_link_phrase:796 DB:link_type/long_link_phrase:797
 msgid "was a launch event for"
 msgstr "היה ארוע השקה ל־"
@@ -8456,6 +8543,12 @@ msgstr "היה ארוע השקה ל־"
 #: DB:link_type/long_link_phrase:798
 msgid "was a main performer at"
 msgstr "היו מבצעים ראשיים ב־"
+
+#: DB:link_type/long_link_phrase:1256
+#, fuzzy
+#| msgid "was a support act at"
+msgid "was a participant at"
+msgstr "היו פעולת תמיכה ב־"
 
 #: DB:link_type/long_link_phrase:887
 msgid "was a performance of"
@@ -8569,6 +8662,10 @@ msgstr "ויקיפדיה"
 
 #: DB:link_attribute_type/name:1346
 msgid "wind/brass conducting"
+msgstr ""
+
+#: DB:link_attribute_type/name:1416
+msgid "winner"
 msgstr ""
 
 #: DB:link_type/link_phrase:1002 DB:link_type/name:1002
@@ -9720,6 +9817,9 @@ msgstr "תמיכה על־ידי {vocal:%|vocals}"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "תמיכה עבור {vocal:%|vocals}"
+
+#~ msgid "recorded recordings"
+#~ msgstr "הקלטות הוקלטו"
 
 #~ msgid "{entity1} was recorded at  {entity0}"
 #~ msgstr "{entity1} הוקלט ב־{entity0}"
