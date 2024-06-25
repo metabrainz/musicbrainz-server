@@ -12,7 +12,7 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Log qw( log_info );
 
 my $primary_ro_role = 'musicbrainz_ro';
-my @other_ro_roles = qw( caa_redirect sir );
+my @other_ro_roles;
 my @schemas;
 my $database = 'MAINTENANCE';
 my $grant_privileges = 1;
