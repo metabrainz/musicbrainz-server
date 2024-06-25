@@ -13,6 +13,7 @@ use MusicBrainz::Server::Log qw( log_info );
 
 my $primary_ro_role = 'musicbrainz_ro';
 my @other_ro_roles = qw( caa_redirect sir );
+my @schemas;
 my $database = 'MAINTENANCE';
 my $grant_privileges = 1;
 
@@ -34,6 +35,9 @@ Options are:
                             (default: caa_redirect, sir)
         --[no]grant         Whether to GRANT or REVOKE USAGE/SELECT privileges
                             (default: GRANT)
+        --schema            Name of schema to update privileges for
+                            (may be specified multiple times)
+                            (default: all musicbrainz-server schemas)
     -h, --help              Show this help
 
 EOF
@@ -42,10 +46,15 @@ GetOptions(
     'database=s'        => \$database,
     'primary-ro-role=s' => \$primary_ro_role,
     'other-ro-role=s'   => \@other_ro_roles,
+    'schema=s'          => \@schemas,
     'grant!'            => \$grant_privileges,
     'help|h'            => sub { print $help; exit },
 ) or exit 2;
 print($help), exit 2 if @ARGV;
+
+unless (@schemas) {
+    push @schemas, @FULL_SCHEMA_LIST;
+}
 
 my $c = MusicBrainz::Server::Context->create_script_context(
     database => 'SYSTEM_' . $database,
@@ -72,7 +81,7 @@ if ($existing_role_names{$primary_ro_role}) {
           FROM pg_namespace
          WHERE nspname = any(?)
         SQL
-        [@FULL_SCHEMA_LIST],
+        [@schemas],
     );
     for my $schema (@$existing_schemas) {
         my $quoted_schema = $sql->dbh->quote_identifier($schema);
