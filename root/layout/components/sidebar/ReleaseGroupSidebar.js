@@ -35,7 +35,7 @@ component ReleaseGroupSidebar(
   return (
     <div id="sidebar">
       {releaseGroup.cover_art ? (
-        <div className="cover-art">
+        <div className="cover-art present">
           <Artwork artwork={releaseGroup.cover_art} />
         </div>
       ) : null}
