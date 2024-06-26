@@ -450,10 +450,22 @@ const stats = {
     color: '#22dd00',
     label: l_statistics('Events with an EAA poster'),
   },
+  'count.event.has_no_eaa_poster': {
+    category: 'event-art',
+    color: '#22dd00',
+    label: l_statistics('Events without an EAA poster'),
+  },
   'count.event.type.null': {
     category: 'event-types',
     color: '#ff0000',
     label: l_statistics('Events with no type set'),
+  },
+  'count.event.type.null.has_eventart': {
+    category: 'event-art',
+    color: '#ff0000',
+    label: l_statistics(
+      'Events with no type set that have event art',
+    ),
   },
   'count.genre': {
     category: 'core-entities',
@@ -1088,6 +1100,15 @@ export function buildTypeStats(typeData) {
       category: 'event-types',
       color: '#ff0000',
       label: texp.l_statistics('{type} events', {type: typeName}),
+    };
+
+    stats[`count.event.type.${encodeURI(type.name)}.has_eventart`] = {
+      category: 'event-art',
+      color: '#ff0000',
+      label: texp.l_statistics(
+        'Events of type “{type}” with event art',
+        {type: typeName},
+      ),
     };
   }
 

@@ -30,7 +30,12 @@ type CoverArtReleaseTypeStatT = {
   +type: string,
 };
 
-type CoverArtTypeStatT = {
+type EventArtEventTypeStatT = {
+  +stat_name: string,
+  +type: string,
+};
+
+type ArtTypeStatT = {
   +stat_name: string,
   +type: string,
 };
@@ -44,12 +49,14 @@ const nameOrNull = (name: string, defaultName: string) => {
 };
 
 component Images(
+  coverArtTypeStats: $ReadOnlyArray<ArtTypeStatT>,
   dateCollected: string,
+  eventArtTypeStats: $ReadOnlyArray<ArtTypeStatT>,
+  eventTypeStats: $ReadOnlyArray<EventArtEventTypeStatT>,
   releaseFormatStats: $ReadOnlyArray<CoverArtReleaseFormatStatT>,
   releaseStatusStats: $ReadOnlyArray<CoverArtReleaseStatusStatT>,
   releaseTypeStats: $ReadOnlyArray<CoverArtReleaseTypeStatT>,
   stats: {[statName: string]: number},
-  typeStats: $ReadOnlyArray<CoverArtTypeStatT>,
 ) {
   const $c = React.useContext(CatalystContext);
   const noImageStatistics = (
@@ -326,7 +333,7 @@ component Images(
               </td>
               <td />
             </tr>
-            {typeStats.map((type, index) => (
+            {coverArtTypeStats.map((type, index) => (
               <tr key={'type' + index}>
                 <th />
                 <th>
@@ -412,6 +419,171 @@ component Images(
                   $c,
                   stats['count.coverart.per_release.30images'] /
                     stats['count.release.has_caa'],
+                  1,
+                )}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      )}
+
+      <h2>{l_statistics('Events')}</h2>
+      {eventTypeStats.length === 0 ? (
+        <p>
+          {l_statistics('No event art statistics available.')}
+        </p>
+      ) : (
+        <table className="database-statistics">
+          <tbody>
+            <tr className="thead">
+              <th colSpan="4">{l_statistics('By event type')}</th>
+            </tr>
+            <tr>
+              <th colSpan="2">
+                {addColonText(l_statistics('Events with event art'))}
+              </th>
+              <td>
+                {formatCount($c, stats['count.event.has_eaa'])}
+                {' '}
+                <TimelineLink statName="count.event.has_eaa" />
+              </td>
+              <td />
+            </tr>
+            {eventTypeStats.map((type, index) => (
+              <tr key={'type' + index}>
+                <th />
+                <th>
+                  {nameOrNull(
+                    lp_attributes(type.type, 'event_type'),
+                    l_statistics('No type'),
+                  )}
+                </th>
+                <td>
+                  {formatCount($c, stats[type.stat_name])}
+                  {' '}
+                  <TimelineLink statName={type.stat_name} />
+                </td>
+                <td>
+                  {formatPercentage(
+                    $c,
+                    stats[type.stat_name] / stats['count.event.has_eaa'],
+                    1,
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>)
+      }
+
+      <h2>{l_statistics('Pieces of event art')}</h2>
+      {stats['count.event.has_eaa'] < 1 ? (
+        <p>
+          {l_statistics('No event art statistics available.')}
+        </p>
+      ) : (
+        <table className="database-statistics">
+          <tbody>
+            <tr className="thead">
+              <th colSpan="4">{l_statistics('By event art type')}</th>
+            </tr>
+            <tr>
+              <th colSpan="2">
+                {addColonText(l_statistics('Pieces of event art'))}
+              </th>
+              <td>
+                {formatCount($c, stats['count.eventart'])}
+                {' '}
+                <TimelineLink statName="count.eventart" />
+              </td>
+              <td />
+            </tr>
+            {eventArtTypeStats.map((type, index) => (
+              <tr key={'type' + index}>
+                <th />
+                <th>
+                  {nameOrNull(
+                    lp_attributes(type.type, 'event_art_type'),
+                    l_statistics('No type'),
+                  )}
+                </th>
+                <td>
+                  {formatCount($c, stats[type.stat_name])}
+                  {' '}
+                  <TimelineLink statName={type.stat_name} />
+                </td>
+                <td>
+                  {formatPercentage(
+                    $c,
+                    stats[type.stat_name] / stats['count.eventart'],
+                    1,
+                  )}
+                </td>
+              </tr>
+            ))}
+            <tr className="thead">
+              <th colSpan="4">{l_statistics('Per event')}</th>
+            </tr>
+            <tr>
+              <th colSpan="2">{l_statistics('Events with event art:')}</th>
+              <td>
+                {formatCount($c, stats['count.event.has_eaa'])}
+                {' '}
+                <TimelineLink statName="count.event.has_eaa" />
+              </td>
+              <td />
+            </tr>
+            {mapRange(1, 14, (number) => (
+              <tr key={number}>
+                <th />
+                <th>
+                  {texp.ln_statistics(
+                    'with {num} piece of event art:',
+                    'with {num} pieces of event art:',
+                    number,
+                    {num: number},
+                  )}
+                </th>
+                <td>
+                  {formatCount(
+                    $c,
+                    stats['count.eventart.per_event.' + number + 'images'],
+                  )}
+                  {' '}
+                  <TimelineLink
+                    statName={
+                      'count.eventart.per_event.' + number + 'images'
+                    }
+                  />
+                </td>
+                <td>
+                  {formatPercentage(
+                    $c,
+                    stats['count.eventart.per_event.' + number + 'images'] /
+                      stats['count.event.has_eaa'],
+                    1,
+                  )}
+                </td>
+              </tr>
+            ))}
+            <tr>
+              <th />
+              <th>{l_statistics('with 15 or more pieces of event art:')}</th>
+              <td>
+                {formatCount(
+                  $c,
+                  stats['count.eventart.per_event.15images'],
+                )}
+                {' '}
+                <TimelineLink
+                  statName="count.eventart.per_event.15images"
+                />
+              </td>
+              <td>
+                {formatPercentage(
+                  $c,
+                  stats['count.eventart.per_event.15images'] /
+                    stats['count.event.has_eaa'],
                   1,
                 )}
               </td>

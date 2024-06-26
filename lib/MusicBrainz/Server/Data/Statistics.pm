@@ -398,6 +398,31 @@ my %stats = (
             };
         },
     },
+    'count.event.type.typename.has_eventart' => {
+        DESC => 'Count of event with event art, by event type',
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                q{SELECT
+                   coalesce(event_type.name, 'null'),
+                   count(DISTINCT event_art.event)
+                 FROM event_art_archive.event_art
+                 JOIN event ON event.id = event_art.event
+                 FULL OUTER JOIN event_type
+                   ON event_type.id = event.type
+                 GROUP BY coalesce(event_type.name, 'null')},
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    'count.event.type.'.$_. '.has_eventart' => $dist{$_}
+                } keys %dist,
+            };
+        },
+    },
     'count.event.has_eaa' => {
         DESC => 'Count of events that have artwork in the EAA',
         SQL => 'SELECT COUNT(distinct event) FROM event_art_archive.event_art',
@@ -408,9 +433,74 @@ my %stats = (
                   JOIN event_art_archive.event_art_type eat ON ea.id = eat.id
                 WHERE eat.type_id = 1',
     },
+    'count.event.has_no_eaa_poster' => {
+        PREREQ => [qw[ count.event count.event.has_eaa_poster ]],
+        DESC => 'Count of events with no poster in the EAA',
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            return $self->fetch('count.event') - $self->fetch('count.event.has_eaa_poster');
+        },
+        NONREPLICATED => 1,
+    },
     'count.eventart' => {
         DESC => 'Count of all event art images',
         SQL => 'SELECT count(*) FROM event_art_archive.event_art',
+    },
+    'count.eventart.type' => {
+        DESC => 'Distribution of event art by type',
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                'SELECT art_type.name, COUNT(event_art_type.id) AS count
+                 FROM event_art_archive.event_art_type
+                 JOIN event_art_archive.art_type ON art_type.id = event_art_type.type_id
+                 GROUP BY art_type.name',
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    'count.eventart.type.'.$_ => $dist{$_}
+                } keys %dist,
+            };
+        },
+    },
+    'count.eventart.per_event.Nimages' => {
+        DESC => 'Distribution of event art images per event',
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $max_dist_tail = 15;
+
+            my $data = $sql->select_list_of_lists(
+                'SELECT c, COUNT(*) AS freq
+                FROM (
+                    SELECT event, COUNT(*) AS c
+                    FROM event_art_archive.event_art
+                    GROUP BY event
+                ) AS t
+                GROUP BY c',
+            );
+
+            my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
+
+            for (@$data)
+            {
+                $dist{ $_->[0] } = $_->[1], next
+                    if $_->[0] < $max_dist_tail;
+
+                $dist{$max_dist_tail} += $_->[1];
+            }
+
+            +{
+                map {
+                    'count.eventart.per_event.'.$_. 'images' => $dist{$_}
+                } keys %dist,
+            };
+        },
     },
     'count.genre' => {
         DESC => 'Count of all genres',

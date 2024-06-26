@@ -212,15 +212,20 @@ sub images : Local
 
     my $stats = try_fetch_latest_statistics($c);
 
+    my $cover_art_type_stats = [];
+    my $event_art_type_stats = [];
+    my $event_type_stats = [];
     my $release_type_stats = [];
     my $release_status_stats = [];
     my $release_format_stats = [];
-    my $type_stats = [];
 
     foreach my $stat_name
         (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
         if (my ($type) = $stat_name =~ /^count\.release\.type\.(.*)\.has_coverart$/) {
             push(@$release_type_stats, ({'stat_name' => $stat_name, 'type' => $type}));
+        }
+        if (my ($type) = $stat_name =~ /^count\.event\.type\.(.*)\.has_eventart$/) {
+            push(@$event_type_stats, ({'stat_name' => $stat_name, 'type' => $type}));
         }
         if (my ($status) = $stat_name =~ /^count\.release\.status\.(.*)\.has_coverart$/) {
             push(@$release_status_stats, ({'stat_name' => $stat_name, 'status' => $status}));
@@ -229,17 +234,22 @@ sub images : Local
             push(@$release_format_stats, ({'stat_name' => $stat_name, 'format' => $format}));
         }
         if (my ($type) = $stat_name =~ /^count\.coverart.type\.(.*)$/) {
-            push(@$type_stats, ({'stat_name' => $stat_name, 'type' => $type}));
+            push(@$cover_art_type_stats, ({'stat_name' => $stat_name, 'type' => $type}));
+        }
+        if (my ($type) = $stat_name =~ /^count\.eventart.type\.(.*)$/) {
+            push(@$event_art_type_stats, ({'stat_name' => $stat_name, 'type' => $type}));
         }
     }
 
     my %props = (
+        coverArtTypeStats => $cover_art_type_stats,
         dateCollected => $stats->{date_collected},
+        eventArtTypeStats => $event_art_type_stats,
+        eventTypeStats => $event_type_stats,
         releaseFormatStats => $release_format_stats,
         releaseStatusStats => $release_status_stats,
         releaseTypeStats => $release_type_stats,
         stats => $stats->{data},
-        typeStats => $type_stats,
     );
 
     $c->stash(
