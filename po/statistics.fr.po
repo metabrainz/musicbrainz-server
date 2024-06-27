@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-31 18:42+0000\n"
+"PO-Revision-Date: 2024-06-26 18:16+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/fr/>\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.6\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -93,8 +93,8 @@ msgid ""
 "A new AJAX coverart uploader is released, making it easier to add cover art "
 "to releases."
 msgstr ""
-"Un nouveau téléverseur d’illustrations AJAX est sorti, facilitant l’ajout "
-"d’illustrations aux parutions."
+"Un nouveau téléverseur d’images AJAX est sorti, facilitant l’ajout d’images "
+"aux parutions."
 
 #: DB:statistics.statistic_event/description:2015-12-28
 msgid ""
@@ -257,11 +257,11 @@ msgstr "SoundUnwound bêta d’Amazon"
 
 #: DB:statistics.statistic_event/title:2004-02-24
 msgid "Amazon cover art"
-msgstr "Illustrations provenant d’Amazon"
+msgstr "Images provenant d’Amazon"
 
 #: DB:statistics.statistic_event/description:2004-02-24
 msgid "Amazon cover art support released."
-msgstr "Prise en charge des illustrations provenant d’Amazon."
+msgstr "Prise en charge des images provenant d’Amazon."
 
 #: DB:statistics.statistic_event/description:2006-07-12
 msgid "An improved release editor and a new site design are released."
@@ -390,7 +390,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2013-08-05
 msgid "Cover Art Uploader"
-msgstr "Téléverseur d’illustrations"
+msgstr "Téléverseur d’images"
 
 #: DB:statistics.statistic_event/title:2003-03-29
 msgid "Dedicated database server"
@@ -1119,13 +1119,11 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2012-04-30
 msgid "The Cover Art Archive becomes initially available."
 msgstr ""
-"L’archive des illustrations « Cover Art Archive » est proposée pour la "
-"première fois."
+"L’archive d’images « Cover Art Archive » est proposée pour la première fois."
 
 #: DB:statistics.statistic_event/description:2012-10-10
 msgid "The Cover Art Archive is officially released."
-msgstr ""
-"L’archive des illustrations « Cover Art Archive » est officiellement lancée."
+msgstr "L’archive d’images « Cover Art Archive » est officiellement lancée."
 
 #: DB:statistics.statistic_event/title:2014-05-19
 msgid "The CritiqueBrainz project goes live"
@@ -1653,15 +1651,15 @@ msgstr "Aucune statistique d’image."
 #: ../root/statistics/Images.js:179 ../root/statistics/Images.js:217
 #: ../root/statistics/Images.js:356
 msgid "Releases with cover art:"
-msgstr "Parutions avec illustration :"
+msgstr "Parutions avec image :"
 
 #: ../root/statistics/Images.js:92 ../root/statistics/Images.js:321
 msgid "Pieces of cover art:"
-msgstr "Types d’illustration :"
+msgstr "Types d’image :"
 
 #: ../root/statistics/Images.js:101
 msgid "Events with event art"
-msgstr "Événements sans image"
+msgstr "Événements avec image"
 
 #: ../root/statistics/Images.js:116 ../root/statistics/stats.js:285
 msgid "Pieces of event art"
@@ -1669,7 +1667,7 @@ msgstr "Images d’événement"
 
 #: ../root/statistics/Images.js:132 ../root/statistics/Images.js:312
 msgid "No cover art statistics available."
-msgstr "Aucune statistique d’illustration."
+msgstr "Aucune statistique d’image."
 
 #: ../root/statistics/Images.js:138
 msgid "By release group type"
@@ -1703,7 +1701,7 @@ msgstr "Groupes de parution"
 
 #: ../root/statistics/Images.js:258
 msgid "Release groups with cover art:"
-msgstr "Groupes de parution avec illustration :"
+msgstr "Groupes de parution avec image :"
 
 #: ../root/statistics/Images.js:269
 msgid "manually selected:"
@@ -1715,11 +1713,11 @@ msgstr "déduit automatiquement :"
 
 #: ../root/statistics/Images.js:309 ../root/statistics/stats.js:280
 msgid "Pieces of cover art"
-msgstr "Illustrations"
+msgstr "Images"
 
 #: ../root/statistics/Images.js:318
 msgid "By cover art type"
-msgstr "Par type d’illustration"
+msgstr "Par type d’image"
 
 #: ../root/statistics/Images.js:353
 msgid "Per release"
@@ -1728,13 +1726,13 @@ msgstr "Par parution"
 #: ../root/statistics/Images.js:369
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
-msgstr[0] "avec {num} illustration :"
-msgstr[1] "avec {num} illustrations :"
-msgstr[2] "avec {num} illustrations :"
+msgstr[0] "avec {num} image :"
+msgstr[1] "avec {num} images :"
+msgstr[2] "avec {num} images :"
 
 #: ../root/statistics/Images.js:399
 msgid "with 30 or more pieces of cover art:"
-msgstr "avec 30 ou plus illustrations :"
+msgstr "avec 30 ou plus images :"
 
 #: ../root/statistics/Index.js:68
 msgid "Basic metadata"
@@ -1927,7 +1925,7 @@ msgstr "Pas d’emballage de défini"
 
 #: ../root/statistics/Index.js:431
 msgid "Cover art sources"
-msgstr "Sources des illustrations"
+msgstr "Sources des images"
 
 #: ../root/statistics/Index.js:440
 msgid "CAA:"
@@ -1935,7 +1933,7 @@ msgstr "CAA :"
 
 #: ../root/statistics/Index.js:446
 msgid "No front cover art:"
-msgstr "Pas d’illustration de couverture :"
+msgstr "Pas d’image de couverture :"
 
 #: ../root/statistics/Index.js:453
 msgid "Data quality"
@@ -2766,7 +2764,7 @@ msgstr "Parutions avec des images dans la CAA"
 
 #: ../root/statistics/stats.js:701
 msgid "Releases with no cover art"
-msgstr "Parutions sans illustration"
+msgstr "Parutions sans image"
 
 #: ../root/statistics/stats.js:706
 msgid "Releases with a medium with no format set"
@@ -2774,12 +2772,11 @@ msgstr "Parutions ayant un support sans type défini"
 
 #: ../root/statistics/stats.js:712
 msgid "Releases with a medium with no format set that have cover art"
-msgstr ""
-"Parutions ayant un support sans format défini mais qui ont une illustration"
+msgstr "Parutions ayant un support sans format défini mais qui ont une image"
 
 #: ../root/statistics/stats.js:718
 msgid "Releases with cover art"
-msgstr "Parutions avec illustration"
+msgstr "Parutions avec image"
 
 #: ../root/statistics/stats.js:723
 msgid "Releases with disc IDs"
@@ -2807,12 +2804,11 @@ msgstr "Parutions sans statut défini"
 
 #: ../root/statistics/stats.js:753
 msgid "Releases with no status set that have cover art"
-msgstr "Parutions sans statut défini mais qui ont une illustration"
+msgstr "Parutions sans statut défini mais qui ont une image"
 
 #: ../root/statistics/stats.js:759
 msgid "Releases in groups with no type set that have cover art"
-msgstr ""
-"Parutions dans un groupe sans type défini mais qui ont des illustrations"
+msgstr "Parutions dans un groupe sans type défini mais qui ont des images"
 
 #: ../root/statistics/stats.js:765
 msgid "Releases credited to Various Artists"
@@ -2820,11 +2816,13 @@ msgstr "Parutions créditées à Artistes Variés"
 
 #: ../root/statistics/stats.js:776
 msgid "Release groups with automatically inferred cover art"
-msgstr "Groupes de parution dont l’illustration est choisie automatiquement"
+msgstr ""
+"Groupes de parution dont l’image de couverture est choisie automatiquement"
 
 #: ../root/statistics/stats.js:782
 msgid "Release groups with user-selected cover art"
-msgstr "Groupes de parution dont l’illustration est choisie par un utilisateur"
+msgstr ""
+"Groupes de parution dont l’image de couverture est choisie par un utilisateur"
 
 #: ../root/statistics/stats.js:787
 msgid "Release groups with no primary type set"
@@ -2988,8 +2986,7 @@ msgstr "Supports {name}"
 
 #: ../root/statistics/stats.js:1114
 msgid "Releases with a medium of format “{format}” that have cover art"
-msgstr ""
-"Parutions avec un support de format « {format} » qui ont une illustration"
+msgstr "Parutions avec un support de format « {format} » qui ont une image"
 
 #: ../root/statistics/stats.js:1127
 msgid "{type} instruments"
@@ -3041,7 +3038,7 @@ msgstr "Groupes de parution de type « {type} »"
 
 #: ../root/statistics/stats.js:1254
 msgid "Releases in groups of type “{type}” with cover art"
-msgstr "Parutions dans un groupe de type « {type} » ayant une illustration"
+msgstr "Parutions dans un groupe de type « {type} » ayant une image"
 
 #: ../root/statistics/stats.js:1278
 msgid "{script} releases"
@@ -3057,7 +3054,7 @@ msgstr "Parutions de statut {status}"
 
 #: ../root/statistics/stats.js:1307
 msgid "Releases of status “{status}” with cover art"
-msgstr "Parutions de statut « {status} » ayant une illustration"
+msgstr "Parutions de statut « {status} » ayant une image"
 
 #: ../root/statistics/stats.js:1324
 msgid "Works with attribute “{attribute}”"
