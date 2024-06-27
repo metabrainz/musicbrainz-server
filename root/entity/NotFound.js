@@ -69,6 +69,14 @@ const notFoundPages: {[namespace: string]: NotFoundPagesPropsT} = {
     args: {search_url: '/search/edits'},
     footer: null,
   },
+  'editnote': {
+    title: N_lp('Edit note not found', 'header'),
+    message: N_l(
+      'Sorry, we could not find an edit note with that ID.',
+    ),
+    args: {},
+    footer: null,
+  },
   'elections': {
     title: N_lp('Election not found', 'header'),
     message: N_l('Sorry, we could not find this election.'),
