@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-04 22:42+0000\n"
+"PO-Revision-Date: 2024-06-27 16:00+0000\n"
 "Last-Translator: \"ApeKattQuest, MonkeyPython\" "
 "<ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.6\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -4765,7 +4765,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:929
 msgid "edited the booklet of"
-msgstr ""
+msgstr "redigerte heftet til"
 
 #: DB:link_type/name:144 DB:link_type/name:38
 msgid "editor"
@@ -4781,19 +4781,19 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:924
 msgid "educators"
-msgstr ""
+msgstr "utdannere"
 
 #: DB:link_attribute_type/name:1352
 msgid "electroacoustic music"
-msgstr ""
+msgstr "elektroakustisk musikk"
 
 #: DB:link_attribute_type/name:1127
 msgid "electronic music"
-msgstr ""
+msgstr "elektronisk musikk"
 
 #: DB:link_attribute_type/name:617
 msgid "emeritus"
-msgstr ""
+msgstr "emeritus"
 
 #: DB:link_type/name:1084 DB:link_type/name:28 DB:link_type/name:138
 msgid "engineer"
@@ -4831,7 +4831,7 @@ msgstr ""
 #: DB:link_type/link_phrase:1003 DB:link_type/name:1003
 #: DB:link_type/reverse_link_phrase:1003 DB:link_type/long_link_phrase:1003
 msgid "event artists"
-msgstr ""
+msgstr "arrangementsartister"
 
 #: DB:link_type/link_phrase:1240 DB:link_type/name:1240
 msgid "excerpt from"
@@ -4880,27 +4880,27 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1133
 msgid "folk music"
-msgstr ""
+msgstr "folkemusikk"
 
 #: DB:link_type/link_phrase:832 DB:link_type/link_phrase:116
 #: DB:link_type/link_phrase:895 DB:link_type/link_phrase:1004
 #: DB:link_type/long_link_phrase:832 DB:link_type/long_link_phrase:116
 #: DB:link_type/long_link_phrase:895 DB:link_type/long_link_phrase:1004
 msgid "founded"
-msgstr ""
+msgstr "grunnla"
 
 #: DB:link_type/reverse_link_phrase:895
 msgid "founded by"
-msgstr ""
+msgstr "grunnlagt av"
 
 #: DB:link_type/name:832 DB:link_type/name:895 DB:link_type/name:1004
 msgid "founder"
-msgstr ""
+msgstr "grunnlegger"
 
 #: DB:link_type/reverse_link_phrase:832 DB:link_type/reverse_link_phrase:116
 #: DB:link_type/reverse_link_phrase:1004
 msgid "founders"
-msgstr ""
+msgstr "grunnleggere"
 
 #: DB:link_type/reverse_link_phrase:958 DB:link_type/reverse_link_phrase:75
 #: DB:link_type/reverse_link_phrase:177 DB:link_type/reverse_link_phrase:255
@@ -4926,11 +4926,11 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:1088 DB:link_type/reverse_link_phrase:752
 msgid "from"
-msgstr ""
+msgstr "fra"
 
 #: DB:link_type/link_phrase:1096 DB:link_type/name:1096
 msgid "fusion of"
-msgstr ""
+msgstr "fusjon av"
 
 #: DB:link_type/name:1088
 msgid "genre origin"
@@ -4938,11 +4938,11 @@ msgstr ""
 
 #: DB:link_type/link_phrase:1088
 msgid "genres"
-msgstr ""
+msgstr "sjangre"
 
 #: DB:link_type/name:934 DB:link_type/name:713
 msgid "geonames"
-msgstr ""
+msgstr "geonavn"
 
 #: DB:link_type/link_phrase:957 DB:link_type/link_phrase:257
 #: DB:link_type/link_phrase:73 DB:link_type/link_phrase:1091
@@ -4981,7 +4981,7 @@ msgstr ""
 #: DB:link_type/name:1172 DB:link_type/name:1234 DB:link_type/name:125
 #: DB:link_type/name:27
 msgid "graphic design"
-msgstr ""
+msgstr "grafisk design"
 
 #: DB:link_attribute_type/name:194
 msgid "guest"
@@ -4989,23 +4989,23 @@ msgstr "gjest"
 
 #: DB:link_type/name:800
 msgid "guest performer"
-msgstr ""
+msgstr "gjesteutøver"
 
 #: DB:link_type/link_phrase:800 DB:link_type/long_link_phrase:800
 msgid "guest performer at"
-msgstr ""
+msgstr "gjesteutøver ved"
 
 #: DB:link_type/reverse_link_phrase:800
 msgid "guest performers"
-msgstr ""
+msgstr "gjesteutøvere"
 
 #: DB:link_type/long_link_phrase:115
 msgid "had a creative position at"
-msgstr ""
+msgstr "hadde en kreativ posisjon ved"
 
 #: DB:link_type/long_link_phrase:162
 msgid "had a miscellaneous role on"
-msgstr ""
+msgstr "hadde en uspesifisert rolle på"
 
 #: DB:link_type/long_link_phrase:117
 msgid "had a producer position at"
@@ -5013,7 +5013,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:121
 msgid "had a recording contract with"
-msgstr ""
+msgstr "hadde innspillingskontrakt med"
 
 #: DB:link_type/long_link_phrase:1081
 msgid "had an artists and repertoire position at"
@@ -5029,15 +5029,15 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1019
 msgid "half"
-msgstr ""
+msgstr "halv"
 
 #: DB:link_attribute_type/name:1350
 msgid "harmony"
-msgstr ""
+msgstr "harmoni"
 
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
-msgstr ""
+msgstr "har Amazon ASIN"
 
 #: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1130
 msgid "has Apple Music page at"
@@ -5046,7 +5046,7 @@ msgstr ""
 #: DB:link_type/long_link_phrase:1092 DB:link_type/long_link_phrase:718
 #: DB:link_type/long_link_phrase:719
 msgid "has Bandcamp page at"
-msgstr ""
+msgstr "har Bandcampside på"
 
 #: DB:link_type/long_link_phrase:919
 msgid "has CD Baby page at"
