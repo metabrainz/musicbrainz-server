@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-14 12:30+0000\n"
-"PO-Revision-Date: 2024-06-02 17:42+0000\n"
+"PO-Revision-Date: 2024-06-26 18:16+0000\n"
 "Last-Translator: Felipe Silva <musicbrainz@felipeqq2.rocks>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pt/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.6\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -652,7 +652,7 @@ msgstr "Catálogo#"
 
 #: ../root/layout.tt:121 ../root/layout/components/Footer.js:30
 msgid "Chat"
-msgstr ""
+msgstr "Chat"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -1413,54 +1413,70 @@ msgstr ""
 #: ../root/components/forms.tt:336 ../root/components/forms.tt:345
 msgid "If you don’t know the code for this entity, just leave the field blank."
 msgstr ""
+"Se você não sabe o código para essa entidade, apenas deixe o campo vazio."
 
 #: ../root/release/edit/information.tt:54
 msgid ""
 "If you don’t select an existing release group, a new one will be added with "
 "the types selected below."
 msgstr ""
+"Se você não selecionar um grupo de publicações já existente, um novo será "
+"criado com os tipos selecionados abaixo."
 
 #: ../root/release/edit/tracklist.tt:5
 msgid "If you have a tracklist you can copy and paste, you can input it here."
 msgstr ""
+"Se você tem uma lista de faixas que pode copiar e colar, você pode colocá-la "
+"aqui."
 
 #: ../root/release/edit/tracklist.tt:15
 msgid ""
 "If you select “{enable_vinyl_numbers}”, the parser will also accept strings "
 "such as “A1” as track numbers."
 msgstr ""
+"Se você selecionar “{enable_vinyl_numbers}”, o programa também irá aceitar "
+"textos como \"A1\" como números de faixa."
 
 #: ../root/edit/search_macros.tt:10
 msgid ""
 "If you want to save an edit search for future use, you can just bookmark it!"
 msgstr ""
+"Se você quiser salvar uma pesquisa de edição para uso futuro, basta "
+"favoritar a página no seu navegador!"
 
 #: ../root/release/edit/tracklist.tt:393
 msgid ""
 "If you’re sure the combination of “Digital Media” and the selected packaging "
 "is correct, confirm it above. Otherwise, please fix the data."
 msgstr ""
+"Se você tem certeza de que a combinação \"Mídia Digital\" e a embalagem "
+"selecionada está correta, confirme acima. Caso contrário, por favor corrija "
+"os dados."
 
 #: ../root/release/edit/tracklist.tt:353
 msgid ""
 "If you’re sure the entered medium title is correct, confirm it above. "
 "Otherwise, please fix the data."
 msgstr ""
+"Se você tem certeza que o título do meio indicado está correto, confirme "
+"acima. Caso contrário, por favor corrija os dados."
 
 #: ../root/release/edit/tracklist.tt:416
 msgid ""
 "If you’re sure the use of Various Artists is correct, confirm it above. "
 "Otherwise, please fix the data."
 msgstr ""
+"Se você tem certeza que o uso de Vários Artistas está correto, confirme "
+"acima. Caso contrário, por favor corrija os dados."
 
 #: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:43
 msgid "Image not available, please try again later."
-msgstr ""
+msgstr "Imagem não disponível, tente novamente mais tarde."
 
 #: ../root/cdtoc/lookup.tt:28 ../root/cdstub/ImportCDStub.js:94
 msgctxt "interactive"
 msgid "Import CD stub"
-msgstr ""
+msgstr "Importar rascunho de CD"
 
 #: ../root/edit/search_macros.tt:434
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
@@ -1476,16 +1492,16 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:58
 #: ../root/user/UserProfile.js:53
 msgid "Instrument"
-msgstr ""
+msgstr "Instrumento"
 
 #: ../root/components/common-macros.tt:490
 msgid "Javascript is required for this page to work properly."
-msgstr ""
+msgstr "Javascript é necessário para o funcionamento correto desta página."
 
 #: ../root/components/forms.tt:267 ../root/components/forms.tt:292
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:126
 msgid "Keep all-uppercase words uppercased"
-msgstr ""
+msgstr "Manter palavras completamente em maiúsculo como estão"
 
 #: ../root/release/edit/recordings.tt:7
 msgid ""
@@ -1496,6 +1512,13 @@ msgid ""
 "elsewhere and the durations are significantly different, consider adding a "
 "new recording instead."
 msgstr ""
+"Tenha em mente que a duração das gravações são {doc_link|recalculadas a "
+"partir das faixas} uma vez que a duração de uma faixa é modificada. Logo, se "
+"você quer corrigir a duração de uma faixa cuja gravação é utilizada apenas "
+"nessa publicação, só reutilize a gravação antiga, não crie uma nova. No "
+"entanto, caso a gravação também seja utilizada em outros lugares e as "
+"durações sejam significativamente diferentes, considere criar uma nova "
+"gravação."
 
 #: ../root/release/edit/tracklist.tt:502
 msgid ""
@@ -1503,6 +1526,9 @@ msgid ""
 "disc ID! If you unselect it by mistake, please readd the pregap track before "
 "submitting."
 msgstr ""
+"Tenha em mente que desselecionar isso irá remover a faixa se o meio tiver um "
+"ID de disco! Se você desselecionar por engano, por favor readicione a faixa "
+"de intervalo prévio antes de enviar a edição."
 
 #: ../root/release/edit/tracklist.tt:517
 msgid ""
@@ -1510,6 +1536,9 @@ msgid ""
 "a disc ID! If you unselect it by mistake, please readd the data tracks "
 "before submitting."
 msgstr ""
+"Tenha em mente que desselecionar isso irá remover as faixas se o meio tiver "
+"um ID de disco! Se você desselecionar por engano, por favor readicione as "
+"faixas de dados antes de enviar a edição."
 
 #: ../root/cdtoc/attach_artist_releases.tt:17
 #: ../root/cdtoc/attach_filter_release.tt:31 ../root/cdtoc/list.tt:11
@@ -1553,11 +1582,11 @@ msgstr "Etiqueta"
 #: ../root/edit/details/EditLabel.js:81
 #: ../root/layout/components/sidebar/LabelSidebar.js:79
 msgid "Label code"
-msgstr ""
+msgstr "Código do selo"
 
 #: ../root/label/edit_form.tt:10
 msgid "Label details"
-msgstr ""
+msgstr "Detalhes do selo"
 
 #: ../root/release/edit/information.tt:114
 #: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:57
@@ -1568,11 +1597,11 @@ msgstr ""
 #: ../root/search/components/ReleaseResults.js:119
 #: ../root/utility/tableColumns.js:560
 msgid "Language"
-msgstr ""
+msgstr "Linguagem"
 
 #: ../root/layout.tt:144 ../root/layout/components/Footer.js:83
 msgid "Last replication packet received at {datetime}"
-msgstr ""
+msgstr "Último pacote de replicação recebido em {datetime}"
 
 #: ../root/cdstub/cdstub.tt:9 ../root/recording/edit_form.tt:35
 #: ../root/recording/edit_form.tt:38 ../root/release/edit/tracklist.tt:164
@@ -1595,24 +1624,24 @@ msgstr ""
 #: ../root/search/components/RecordingResults.js:141
 #: ../root/static/scripts/release/components/MediumTable.js:78
 msgid "Length"
-msgstr ""
+msgstr "Duração"
 
 #: ../root/release/edit/tracklist.tt:54
 msgid "Lines contain track artists"
-msgstr ""
+msgstr "Linhas contém artistas da faixa"
 
 #: ../root/release/edit/tracklist.tt:31
 msgid "Lines start with a track number"
-msgstr ""
+msgstr "Linhas começam com um número de faixa"
 
 #: ../root/release/edit/editnote.tt:15
 msgid "Loading edit previews..."
-msgstr ""
+msgstr "Carregando visualização da edição..."
 
 #: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:97
 msgctxt "user type"
 msgid "Location editor"
-msgstr ""
+msgstr "Editor de localização"
 
 #: ../root/components/common-macros.tt:425
 #: ../root/components/RequestLogin.js:19
@@ -1625,30 +1654,30 @@ msgstr "Entrar"
 
 #: ../root/release/edit/recordings.tt:186
 msgid "Looking for suggested recordings..."
-msgstr ""
+msgstr "Procurando por gravações sugeridas…"
 
 #: ../root/cdtoc/lookup.tt:3 ../root/cdtoc/lookup.tt:4
 msgid "Lookup CD"
-msgstr ""
+msgstr "Procurar CD"
 
 #: ../root/release/edit/information.tt:141
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
 #: ../root/static/scripts/edit/components/PartialDateInput.js:163
 msgid "MM"
-msgstr ""
+msgstr "MM"
 
 #: ../root/components/forms.tt:15 ../root/components/forms.tt:20
 #: ../root/static/scripts/edit/components/EnterEdit.js:49
 msgid "Make all edits votable."
-msgstr ""
+msgstr "Aceitar votos em todas as edições."
 
 #: ../root/release/edit/tracklist.tt:246
 msgid "Manual entry"
-msgstr ""
+msgstr "Entrada manual de dados"
 
 #: ../root/cdtoc/lookup.tt:5
 msgid "Matching CDs"
-msgstr ""
+msgstr "CDs equivalentes"
 
 #: ../root/cdtoc/lookup.tt:41 ../root/components/common-macros.tt:507
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
@@ -1661,11 +1690,11 @@ msgstr ""
 #: ../root/search/components/RecordingResults.js:149
 #: ../root/static/scripts/common/utility/mediumFormatName.js:14
 msgid "Medium"
-msgstr ""
+msgstr "Meio"
 
 #: ../root/release/edit/tracklist.tt:318
 msgid "Medium title:"
-msgstr ""
+msgstr "Título do meio:"
 
 #: ../root/layout/merge-helper.tt:30
 #: ../root/layout/components/MergeHelper.js:67
@@ -1774,7 +1803,7 @@ msgstr "Novo crédito do artista"
 
 #: ../root/event/add_event_art.tt:148 ../root/release/add_cover_art.tt:148
 msgid "New image goes here"
-msgstr ""
+msgstr "Nova imagem irá aqui"
 
 #: ../root/components/paginator.tt:44 ../root/components/paginator.tt:46
 #: ../root/release/edit/macros.tt:53 ../root/components/Paginator.js:133
@@ -1782,59 +1811,65 @@ msgstr ""
 #: ../root/static/scripts/common/artworkViewer.js:42
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:71
 msgid "Next"
-msgstr ""
+msgstr "Próximo"
 
 #: ../root/release/edit/layout.tt:62
 msgid "Next »"
-msgstr ""
+msgstr "Próximo »"
 
 #: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:309
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:190
 #: ../root/edit/components/Vote.js:79
 msgctxt "vote"
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: ../root/components/forms.tt:378
 msgid "No description available."
-msgstr ""
+msgstr "Nenhuma descrição disponível."
 
 #: ../root/release_group/set_cover_art.tt:96
 msgid "No releases have cover art marked as \"Front\", cannot set cover art."
 msgstr ""
+"Nenhuma publicação tem artes de capa marcadas como \"Frente\", não podemos "
+"selecionar arte de capa."
 
 #: ../root/release/edit/tracklist.tt:140
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:472
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:88
 msgid "No results"
-msgstr ""
+msgstr "Nenhum resultado"
 
 #: ../root/components/search.tt:43
 #: ../root/otherlookup/OtherLookupReleaseResults.js:25
 msgid "No results found."
-msgstr ""
+msgstr "Nenhum resultado encontrado."
 
 #: ../root/cdtoc/attach_filter_release.tt:61
 #: ../root/cdtoc/SelectArtistForCDToc.js:95
 #: ../root/search/components/PaginatedSearchResults.js:50
 msgid "No results found. Try refining your search query."
-msgstr ""
+msgstr "Nenhum resultado encontrado. Tente refinar sua pesquisa."
 
 #: ../root/edit/search_macros.tt:293
 msgid "No vote"
-msgstr ""
+msgstr "Nenhum voto"
 
 #: ../root/release/edit/tracklist.tt:444
 #: ../root/static/scripts/release-editor/fields.js:212
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
 msgstr ""
+"Nenhum dos IDs de disco anexados tem espaço para uma faixa de intervalo "
+"prévio com a duração dada."
 
 #: ../root/cdtoc/attach_list.tt:78
 msgid ""
 "None of the mediums on this release can have the given CD TOC attached, "
 "because they have the wrong number of tracks."
 msgstr ""
+"Nenhum dos meios dessa publicação podem ter o índice (TOC) do CD anexado, "
+"pois eles tem um número diferente de faixas."
 
 #: ../root/release/edit/recordings.tt:3 ../root/edit/details/EditRelease.js:160
 #: ../root/edit/details/MergeReleases.js:349
@@ -1850,6 +1885,9 @@ msgid ""
 "empty.  January 1st is not often the actual release date, please double "
 "check that you have entered the release date correctly."
 msgstr ""
+"Note! Se você não sabe o mês ou dia da publicação, por favor deixe-os em "
+"branco.  01 de janeiro muitas vezes não é a data de publicação real, "
+"verifique que você inseriu a data corretamente."
 
 #: ../root/edit/search_macros.tt:245
 msgid ""
@@ -1874,6 +1912,8 @@ msgid ""
 "Only releases with a front cover on the {caa|Cover Art Archive} can be "
 "selected."
 msgstr ""
+"Apenas publicações com uma capa frontal no {caa|Cover Art Archive} podem ser "
+"selecionadas."
 
 #: ../root/cdtoc/move_search.tt:7
 msgid ""
