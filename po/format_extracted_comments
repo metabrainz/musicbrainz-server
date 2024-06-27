@@ -38,6 +38,9 @@ then
   fi
 fi
 
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
+source "$MB_SERVER_ROOT"/script/macos_compat.inc.sh
+
 extracted_comment_lines=''
 
 while read -r line
