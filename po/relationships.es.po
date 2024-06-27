@@ -24,17 +24,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-21 00:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-06-27 21:17+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.6\n"
 
 #. name:artist diploma
@@ -752,8 +752,6 @@ msgstr "Indica el letrista de esta obra."
 
 #. name:mastering
 #: DB:link_type/description:42
-#, fuzzy
-#| msgid "Indicates the mastering engineer for this work."
 msgid "Indicates the mastering engineer for this release."
 msgstr "Indica el ingeniero de masterización de esta publicación."
 
@@ -1678,15 +1676,9 @@ msgstr ""
 
 #. name:winner
 #: DB:link_attribute_type/description:1416
-#, fuzzy
-#| msgid ""
-#| "This attribute indicates that the content is not audio (or text) only, "
-#| "but video."
 msgid ""
 "This attribute indicates the winning participant in a competition event."
-msgstr ""
-"Este atributo indica que el contenido no es simplemente audio o texto, sino "
-"que incluye vídeo."
+msgstr "Este atributo indica el ganador de un evento competitivo."
 
 #. name:executive
 #: DB:link_attribute_type/description:425
@@ -4351,12 +4343,11 @@ msgstr ""
 
 #. name:purchase artwork
 #: DB:link_type/description:1254
-#, fuzzy
-#| msgid "This relationship type links an artist to their Myspace page."
 msgid ""
 "This relationship type is used to link to a page where the artwork for this "
 "event can be purchased."
-msgstr "Indica la página en Myspace para este artista."
+msgstr ""
+"Indica una página donde es posible comprar material gráfico de este evento."
 
 #. name:purchase for mail-order
 #: DB:link_type/description:960
@@ -4533,14 +4524,12 @@ msgstr ""
 
 #. name:poster
 #: DB:link_type/description:808
-#, fuzzy
-#| msgid ""
-#| "This relationship type links an event to its corresponding page at "
-#| "setlist.fm."
 msgid ""
 "This relationship type links an event to a promotional poster for the event. "
 "Deprecated, use the Event Art Archive instead."
-msgstr "Indica la página en setlist.fm para este evento."
+msgstr ""
+"Indica dónde se encuentra un póster promocional del evento. Obsoleto, en vez "
+"de usar esto, usa el Event Art Archive."
 
 #. name:vgmdb
 #: DB:link_type/description:788
@@ -5071,10 +5060,8 @@ msgstr "material gráfico"
 
 #. name:purchase artwork
 #: DB:link_type/long_link_phrase:1254
-#, fuzzy
-#| msgid "can be purchased for download at"
 msgid "artwork can be purchased at"
-msgstr "puede comprarse para descarga en"
+msgstr "material gráfico a la venta en"
 
 #: DB:link_attribute_type/name:526
 msgid "assistant"
@@ -6553,7 +6540,7 @@ msgstr ""
 #. name:poster
 #: DB:link_type/long_link_phrase:808
 msgid "has poster at"
-msgstr ""
+msgstr "tiene un póster en"
 
 #. name:remix
 #: DB:link_type/reverse_link_phrase:230
@@ -7832,24 +7819,18 @@ msgid "partial"
 msgstr "parcial"
 
 #: DB:link_type/name:1256
-#, fuzzy
-#| msgid "principal"
 msgid "participant"
-msgstr "titular/principal"
+msgstr "participante"
 
 #. name:participant
 #: DB:link_type/link_phrase:1256
-#, fuzzy
-#| msgid "principal"
 msgid "participant at"
-msgstr "titular/principal"
+msgstr "participante en"
 
 #. name:participant
 #: DB:link_type/reverse_link_phrase:1256
-#, fuzzy
-#| msgid "principal"
 msgid "participants"
-msgstr "titular/principal"
+msgstr "participantes"
 
 #. name:part of, name:parts
 #: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
@@ -8002,12 +7983,12 @@ msgstr ""
 #. name:poster
 #: DB:link_type/name:808 DB:link_type/link_phrase:808
 msgid "poster"
-msgstr ""
+msgstr "póster"
 
 #. name:poster
 #: DB:link_type/reverse_link_phrase:808
 msgid "poster for"
-msgstr ""
+msgstr "póster para"
 
 #: DB:link_attribute_type/name:1219
 msgid "postgraduate"
@@ -8290,10 +8271,8 @@ msgstr ""
 
 #. name:purchase artwork
 #: DB:link_type/name:1254 DB:link_type/link_phrase:1254
-#, fuzzy
-#| msgid "purchase for download"
 msgid "purchase artwork"
-msgstr "comprar para descarga"
+msgstr "comprar material gráfico"
 
 #. name:purchase for download
 #: DB:link_type/name:912 DB:link_type/name:959 DB:link_type/name:254
@@ -8320,10 +8299,8 @@ msgstr "comprar música por correo"
 
 #. name:purchase artwork
 #: DB:link_type/reverse_link_phrase:1254
-#, fuzzy
-#| msgid "download purchase page for the score of"
 msgid "purchase page for the artwork of"
-msgstr "página de descarga de pago para la partitura de"
+msgstr "página para comprar material gráfico de"
 
 #. name:purchase for download
 #: DB:link_type/reverse_link_phrase:912
@@ -8425,10 +8402,8 @@ msgstr ""
 
 #. name:recorded during
 #: DB:link_type/reverse_link_phrase:1006
-#, fuzzy
-#| msgid "recording"
 msgid "recordings"
-msgstr "grabación"
+msgstr "grabaciones"
 
 #. name:medley
 #: DB:link_type/reverse_link_phrase:239

@@ -47,17 +47,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-24 11:32+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-06-27 21:17+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.6\n"
 
 #. name:Motet
@@ -2553,10 +2553,9 @@ msgid "Club"
 msgstr "Club"
 
 #: DB:event_type/name:40
-#, fuzzy
 msgctxt "event_type"
 msgid "Competition"
-msgstr "Recopilatorio"
+msgstr "Competición"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -6779,7 +6778,6 @@ msgid "Poster"
 msgstr "Póster"
 
 #: DB:event_art_archive.art_type/name:1
-#, fuzzy
 msgctxt "event_art_type"
 msgid "Poster"
 msgstr "Póster"
@@ -7018,9 +7016,6 @@ msgid "Raw/Unedited"
 msgstr "Sin procesar/Sin editar"
 
 #: DB:event_art_archive.art_type/name:9
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Raw/Unedited"
 msgctxt "event_art_type"
 msgid "Raw/Unedited"
 msgstr "Sin procesar/Sin editar"
@@ -8430,10 +8425,9 @@ msgstr ""
 "híbrido."
 
 #: DB:event_art_archive.art_type/name:2
-#, fuzzy
 msgctxt "event_art_type"
 msgid "Ticket"
-msgstr "Pegatina"
+msgstr "Entrada"
 
 #: DB:work_attribute_type_allowed_value/value:1041
 msgctxt "work_attribute_type_allowed_value"
@@ -8577,49 +8571,49 @@ msgstr "Udaya ravicandrika"
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13
-#, fuzzy
 msgctxt "cover_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that are "
 "watermarked and are not desirable for display (but can be used for "
 "reference)."
 msgstr ""
-"Úselo para imágenes que necesitan trabajo para ser usadas para etiquetar "
-"(pero posiblemente ya se pueden usar como referencia)"
+"Añade este tipo (en combinación con cualquier otro tipo apropiado) a "
+"imágenes que tienen una marca de agua y no sirven como imágenes "
+"representativas (pero pueden ser usadas como referencia)."
 
 #. name:Watermark
 #: DB:event_art_archive.art_type/description:10
-#, fuzzy
 msgctxt "event_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that are "
 "watermarked and are not desirable for display (but can be used for "
 "reference)."
 msgstr ""
-"Úselo para imágenes que necesitan trabajo para ser usadas para etiquetar "
-"(pero posiblemente ya se pueden usar como referencia)"
+"Añade este tipo (en combinación con cualquier otro tipo apropiado) a "
+"imágenes que tienen una marca de agua y no sirven como imágenes "
+"representativas (pero pueden ser usadas como referencia)."
 
 #. name:Raw/Unedited
 #: DB:cover_art_archive.art_type/description:14
-#, fuzzy
 msgctxt "cover_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
 msgstr ""
-"Úselo para imágenes que necesitan trabajo para ser usadas para etiquetar "
-"(pero posiblemente ya se pueden usar como referencia)"
+"Añade este tipo (en combinación con cualquier otro tipo apropiado) a "
+"imágenes que necesitan ser procesadas antes de ser usadas como imágenes "
+"representativas (pero pueden ser usadas como referencia)."
 
 #. name:Raw/Unedited
 #: DB:event_art_archive.art_type/description:9
-#, fuzzy
 msgctxt "event_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
 msgstr ""
-"Úselo para imágenes que necesitan trabajo para ser usadas para etiquetar "
-"(pero posiblemente ya se pueden usar como referencia)"
+"Añade este tipo (en combinación con cualquier otro tipo apropiado) a "
+"imágenes que necesitan ser procesadas antes de ser usadas como imágenes "
+"representativas (pero pueden ser usadas como referencia)."
 
 #. name:Military base
 #: DB:area_type/description:8
@@ -8866,9 +8860,6 @@ msgid "Watermark"
 msgstr "Marca de agua"
 
 #: DB:event_art_archive.art_type/name:10
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Watermark"
 msgctxt "event_art_type"
 msgid "Watermark"
 msgstr "Marca de agua"

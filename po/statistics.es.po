@@ -21,23 +21,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-31 18:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-06-27 21:17+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.4\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.6\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
-#, fuzzy
 msgid "\"Do Not Cluster\" guideline dropped"
-msgstr "Español"
+msgstr ""
 
 #: DB:statistics.statistic_event/title:2017-04-11
 msgid "\"feat.\" standardization dropped"
@@ -92,7 +91,7 @@ msgid ""
 "to releases."
 msgstr ""
 "Un nuevo cargador de imagen AJAX se ha publicado, facilitando añadir "
-"imágenes a los lanzamientos."
+"imágenes a las publicaciones."
 
 #. title:Edit note notifications
 #: DB:statistics.statistic_event/description:2015-12-28
@@ -1492,7 +1491,7 @@ msgstr "Formato"
 
 #: ../root/statistics/Formats.js:51
 msgid "% of total releases"
-msgstr "% del total de lanzamientos"
+msgstr "% del total de publicaciones"
 
 #: ../root/statistics/Formats.js:52 ../root/statistics/Index.js:87
 #: ../root/statistics/Index.js:555 ../root/statistics/stats.js:558
@@ -1512,10 +1511,8 @@ msgid "Basics"
 msgstr ""
 
 #: ../root/statistics/Images.js:78
-#, fuzzy
-#| msgid "No edit statistics available."
 msgid "No image statistics available."
-msgstr "Estadísticas de edición no disponibles."
+msgstr "Estadísticas de imágenes no disponibles."
 
 #: ../root/statistics/Images.js:84 ../root/statistics/Images.js:149
 #: ../root/statistics/Images.js:186 ../root/statistics/Images.js:224
@@ -1525,24 +1522,20 @@ msgstr "Publicaciones con imágenes:"
 
 #: ../root/statistics/Images.js:99 ../root/statistics/Images.js:328
 msgid "Pieces of cover art:"
-msgstr "Número de imágenes:"
+msgstr "Número de imágenes de publicaciones:"
 
 #: ../root/statistics/Images.js:108 ../root/statistics/Images.js:443
-#, fuzzy
-#| msgid "Releases with cover art"
 msgid "Events with event art"
-msgstr "Publicaciones con imágenes"
+msgstr "Eventos con imágenes"
 
 #: ../root/statistics/Images.js:123 ../root/statistics/Images.js:479
 #: ../root/statistics/Images.js:492 ../root/statistics/stats.js:285
-#, fuzzy
-#| msgid "Pieces of cover art"
 msgid "Pieces of event art"
-msgstr "Número de imágenes"
+msgstr "Número de imágenes de eventos"
 
 #: ../root/statistics/Images.js:139 ../root/statistics/Images.js:319
 msgid "No cover art statistics available."
-msgstr ""
+msgstr "Estadísticas de imágenes de publicaciones no disponibles."
 
 #: ../root/statistics/Images.js:145
 msgid "By release group type"
@@ -1577,7 +1570,7 @@ msgstr "Grupos de publicaciones"
 
 #: ../root/statistics/Images.js:265
 msgid "Release groups with cover art:"
-msgstr ""
+msgstr "Grupos de publicaciones con imágenes:"
 
 #: ../root/statistics/Images.js:276
 msgid "manually selected:"
@@ -1589,7 +1582,7 @@ msgstr ""
 
 #: ../root/statistics/Images.js:316 ../root/statistics/stats.js:280
 msgid "Pieces of cover art"
-msgstr "Número de imágenes"
+msgstr "Número de imágenes de publicaciones"
 
 #: ../root/statistics/Images.js:325
 msgid "By cover art type"
@@ -1597,7 +1590,7 @@ msgstr "Por tipo de imagen"
 
 #: ../root/statistics/Images.js:360
 msgid "Per release"
-msgstr "Por lanzamiento"
+msgstr "Por publicación"
 
 #: ../root/statistics/Images.js:376
 msgid "with {num} piece of cover art:"
@@ -1611,39 +1604,26 @@ msgid "with 30 or more pieces of cover art:"
 msgstr "con 30 o más imágenes:"
 
 #: ../root/statistics/Images.js:433 ../root/statistics/Images.js:482
-#, fuzzy
-#| msgid "No edit statistics available."
 msgid "No event art statistics available."
-msgstr "Estadísticas de edición no disponibles."
+msgstr "Estadísticas de imágenes de eventos no disponibles."
 
 #: ../root/statistics/Images.js:439
-#, fuzzy
-#| msgid "Event types"
 msgid "By event type"
-msgstr "Tipos de evento"
+msgstr "Por tipo de evento"
 
 #: ../root/statistics/Images.js:488
-#, fuzzy
-#| msgid "By cover art type"
 msgid "By event art type"
 msgstr "Por tipo de imagen"
 
 #: ../root/statistics/Images.js:525
-#, fuzzy
-#| msgid "Per release"
 msgid "Per event"
-msgstr "Por lanzamiento"
+msgstr "Por evento"
 
 #: ../root/statistics/Images.js:528
-#, fuzzy
-#| msgid "Releases with cover art"
 msgid "Events with event art:"
-msgstr "Publicaciones con imágenes"
+msgstr "Eventos con imágenes:"
 
 #: ../root/statistics/Images.js:541
-#, fuzzy
-#| msgid "with {num} piece of cover art:"
-#| msgid_plural "with {num} pieces of cover art:"
 msgid "with {num} piece of event art:"
 msgid_plural "with {num} pieces of event art:"
 msgstr[0] "con {num} imagen:"
@@ -1651,10 +1631,8 @@ msgstr[1] "con {num} imágenes:"
 msgstr[2] "con {num} imágenes:"
 
 #: ../root/statistics/Images.js:571
-#, fuzzy
-#| msgid "with 30 or more pieces of cover art:"
 msgid "with 15 or more pieces of event art:"
-msgstr "con 30 o más imágenes:"
+msgstr "con 15 o más imágenes:"
 
 #: ../root/statistics/Index.js:68
 msgid "Basic metadata"
@@ -1948,20 +1926,16 @@ msgid "Attributes"
 msgstr "Atributos"
 
 #: ../root/statistics/Index.js:930
-#, fuzzy
-#| msgid "Event types"
 msgid "Event art"
-msgstr "Tipos de evento"
+msgstr "Imágenes de eventos"
 
 #: ../root/statistics/Index.js:939
 msgid "With EAA poster art:"
 msgstr ""
 
 #: ../root/statistics/Index.js:945
-#, fuzzy
-#| msgid "No front cover art:"
 msgid "No poster art:"
-msgstr "Sin imagen de portada:"
+msgstr "Sin imagen de póster:"
 
 #: ../root/statistics/Index.js:965
 msgid "Of releases"
@@ -2548,30 +2522,24 @@ msgid "Events with no country set"
 msgstr ""
 
 #: ../root/statistics/stats.js:446
-#, fuzzy
-#| msgid "Releases with CAA cover art"
 msgid "Events with EAA event art"
-msgstr "Publicaciones con imágenes de Cover Art Archive"
+msgstr "Eventos con imágenes del Event Art Archive"
 
 #: ../root/statistics/stats.js:451
 msgid "Events with an EAA poster"
 msgstr ""
 
 #: ../root/statistics/stats.js:456
-#, fuzzy
-#| msgid "Releases with CAA cover art"
 msgid "Events without an EAA poster"
-msgstr "Publicaciones con imágenes de Cover Art Archive"
+msgstr "Eventos sin un póster en el Event Art Archive"
 
 #: ../root/statistics/stats.js:461
 msgid "Events with no type set"
 msgstr ""
 
 #: ../root/statistics/stats.js:467
-#, fuzzy
-#| msgid "Releases with cover art"
 msgid "Events with no type set that have event art"
-msgstr "Publicaciones con imágenes"
+msgstr "Eventos sin tipo indicado que tienen imágenes"
 
 #: ../root/statistics/stats.js:483
 msgid "Instruments with no type set"
@@ -2707,7 +2675,7 @@ msgstr "Publicaciones sin un país indicado"
 
 #: ../root/statistics/stats.js:708
 msgid "Releases with CAA cover art"
-msgstr "Publicaciones con imágenes de Cover Art Archive"
+msgstr "Publicaciones con imágenes del Cover Art Archive"
 
 #: ../root/statistics/stats.js:713
 msgid "Releases with no cover art"
@@ -2755,7 +2723,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:771
 msgid "Releases in groups with no type set that have cover art"
-msgstr ""
+msgstr "Publicaciones en grupos sin tipo indicado que tienen imágenes"
 
 #: ../root/statistics/stats.js:777
 msgid "Releases credited to Various Artists"
@@ -2922,10 +2890,8 @@ msgid "{type} events"
 msgstr ""
 
 #: ../root/statistics/stats.js:1109
-#, fuzzy
-#| msgid "Releases with cover art"
 msgid "Events of type “{type}” with event art"
-msgstr "Publicaciones con imágenes"
+msgstr "Eventos del tipo “{type}” que tienen imágenes"
 
 #: ../root/statistics/stats.js:1122
 msgid "{name} releases"
@@ -2985,7 +2951,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:1275
 msgid "Releases in groups of type “{type}” with cover art"
-msgstr ""
+msgstr "Publicaciones en grupos del tipo “{type}” que tienen imágenes"
 
 #: ../root/statistics/stats.js:1299
 msgid "{script} releases"
