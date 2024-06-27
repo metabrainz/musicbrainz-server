@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-26 23:42+0000\n"
+"PO-Revision-Date: 2024-06-27 21:17+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -23,8 +23,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.6\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
@@ -1833,7 +1833,7 @@ msgstr "Per pubblicazione"
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "con {num} immagine di copertina:"
-msgstr[1] "con {num} immagini di copertina:"
+msgstr[1] "con {num} di immagini di copertina:"
 msgstr[2] "con {num} immagini di copertina:"
 
 #: ../root/statistics/Images.js:406
@@ -1841,50 +1841,35 @@ msgid "with 30 or more pieces of cover art:"
 msgstr "con 30 o più immagini di copertina:"
 
 #: ../root/statistics/Images.js:433 ../root/statistics/Images.js:482
-#, fuzzy
-#| msgid "No cover art statistics available."
 msgid "No event art statistics available."
-msgstr "Non è disponibile nessuna statistica sulle copertine."
+msgstr "Non è disponibile nessuna statistica sulle immagini di eventi."
 
 #: ../root/statistics/Images.js:439
-#, fuzzy
-#| msgid "Event types"
 msgid "By event type"
-msgstr "Tipi di evento"
+msgstr "Per tipo di evento"
 
 #: ../root/statistics/Images.js:488
-#, fuzzy
-#| msgid "By cover art type"
 msgid "By event art type"
-msgstr "Per tipo di copertina"
+msgstr "Per tipo di immagine di eventi"
 
 #: ../root/statistics/Images.js:525
-#, fuzzy
-#| msgid "Of events"
 msgid "Per event"
-msgstr "Di eventi"
+msgstr "Per evento"
 
 #: ../root/statistics/Images.js:528
-#, fuzzy
-#| msgid "Events with event art"
 msgid "Events with event art:"
-msgstr "Eventi con manifesti"
+msgstr "Eventi con immagini:"
 
 #: ../root/statistics/Images.js:541
-#, fuzzy
-#| msgid "with {num} piece of cover art:"
-#| msgid_plural "with {num} pieces of cover art:"
 msgid "with {num} piece of event art:"
 msgid_plural "with {num} pieces of event art:"
-msgstr[0] "con {num} immagine di copertina:"
-msgstr[1] "con {num} immagini di copertina:"
-msgstr[2] "con {num} immagini di copertina:"
+msgstr[0] "con {num} immagine dell'evento:"
+msgstr[1] "con {num} di immagini dell'evento:"
+msgstr[2] "con {num} immagini dell'evento:"
 
 #: ../root/statistics/Images.js:571
-#, fuzzy
-#| msgid "with 30 or more pieces of cover art:"
 msgid "with 15 or more pieces of event art:"
-msgstr "con 30 o più immagini di copertina:"
+msgstr "con 15 o più immagini dell'evento:"
 
 #: ../root/statistics/Index.js:68
 msgid "Basic metadata"
@@ -2178,22 +2163,16 @@ msgid "Attributes"
 msgstr "Attributi"
 
 #: ../root/statistics/Index.js:930
-#, fuzzy
-#| msgid "Event types"
 msgid "Event art"
-msgstr "Tipi di evento"
+msgstr "Immagini di eventi"
 
 #: ../root/statistics/Index.js:939
-#, fuzzy
-#| msgid "Events with an EAA poster"
 msgid "With EAA poster art:"
-msgstr "Eventi con un manifesto nell'EAA"
+msgstr "Con manifesti nell'EAA:"
 
 #: ../root/statistics/Index.js:945
-#, fuzzy
-#| msgid "No front cover art:"
 msgid "No poster art:"
-msgstr "Nessuna copertina frontale:"
+msgstr "Nessun manifesto:"
 
 #: ../root/statistics/Index.js:965
 msgid "Of releases"
@@ -2790,20 +2769,16 @@ msgid "Events with an EAA poster"
 msgstr "Eventi con un manifesto nell'EAA"
 
 #: ../root/statistics/stats.js:456
-#, fuzzy
-#| msgid "Events with an EAA poster"
 msgid "Events without an EAA poster"
-msgstr "Eventi con un manifesto nell'EAA"
+msgstr "Eventi senza un manifesto nell'EAA"
 
 #: ../root/statistics/stats.js:461
 msgid "Events with no type set"
 msgstr "Eventi senza un tipo impostato"
 
 #: ../root/statistics/stats.js:467
-#, fuzzy
-#| msgid "Releases in groups with no type set that have cover art"
 msgid "Events with no type set that have event art"
-msgstr "Pubblicazioni con copertine in gruppi senza un tipo impostato"
+msgstr "Eventi senza un tipo impostato con immagini dell'evento"
 
 #: ../root/statistics/stats.js:483
 msgid "Instruments with no type set"
@@ -3154,10 +3129,8 @@ msgid "{type} events"
 msgstr "Eventi {type}"
 
 #: ../root/statistics/stats.js:1109
-#, fuzzy
-#| msgid "Releases in groups of type “{type}” with cover art"
 msgid "Events of type “{type}” with event art"
-msgstr "Pubblicazioni con copertine in gruppi di tipo “{type}”"
+msgstr "Eventi di tipo “{type}” con immagini dell'evento"
 
 #: ../root/statistics/stats.js:1122
 msgid "{name} releases"

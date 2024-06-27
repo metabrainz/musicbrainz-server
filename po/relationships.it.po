@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-16 19:42+0000\n"
+"PO-Revision-Date: 2024-06-27 21:17+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -30,9 +30,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.5\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.6\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -5428,16 +5428,12 @@ msgstr ""
 
 #. name:poster
 #: DB:link_type/description:808
-#, fuzzy
-#| msgid ""
-#| "This relationship type links an event to a promotional poster for the "
-#| "event."
 msgid ""
 "This relationship type links an event to a promotional poster for the event. "
 "Deprecated, use the Event Art Archive instead."
 msgstr ""
 "Questo tipo di relazione collega un evento a un manifesto promozionale per "
-"l'evento."
+"l'evento. Obsoleto, utilizza piuttosto l'Event Art Archive."
 
 #. name:vgmdb
 #: DB:link_type/description:788

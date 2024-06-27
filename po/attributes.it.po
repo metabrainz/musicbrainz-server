@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-26 23:42+0000\n"
+"PO-Revision-Date: 2024-06-27 21:17+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -25,8 +25,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.6\n"
 
 #. name:Motet
@@ -7012,9 +7012,6 @@ msgid "Raw/Unedited"
 msgstr "Grezza/non editata"
 
 #: DB:event_art_archive.art_type/name:9
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Raw/Unedited"
 msgctxt "event_art_type"
 msgid "Raw/Unedited"
 msgstr "Grezza/non editata"
@@ -8563,12 +8560,6 @@ msgstr "Udaya ravicandrika"
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use in combination with any other appropriate types for images that are "
-#| "watermarked and are not desirable for tagging (but can be used for "
-#| "reference)."
 msgctxt "cover_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that are "
@@ -8576,17 +8567,11 @@ msgid ""
 "reference)."
 msgstr ""
 "Da usare, in combinazione con gli altri tipi correspondenti, per immagini "
-"che contengono una filigrana e non sono quindi opportune per il tagging (ma "
+"che contengono una filigrana e non sono quindi adatte ad essere esposte (ma "
 "che possono essere utili come riferimento)."
 
 #. name:Watermark
 #: DB:event_art_archive.art_type/description:10
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use in combination with any other appropriate types for images that are "
-#| "watermarked and are not desirable for tagging (but can be used for "
-#| "reference)."
 msgctxt "event_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that are "
@@ -8594,42 +8579,30 @@ msgid ""
 "reference)."
 msgstr ""
 "Da usare, in combinazione con gli altri tipi correspondenti, per immagini "
-"che contengono una filigrana e non sono quindi opportune per il tagging (ma "
+"che contengono una filigrana e non sono quindi adatte ad essere esposte (ma "
 "che possono essere utili come riferimento)."
 
 #. name:Raw/Unedited
 #: DB:cover_art_archive.art_type/description:14
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use in combination with any other appropriate types for images that need "
-#| "work to be used for tagging (but can possibly already be used for "
-#| "reference)."
 msgctxt "cover_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
 msgstr ""
 "Da usare, in combinazione con gli altri tipi correspondenti, per immagini "
-"che richiedono lavorazione per essere utili per il tagging (ma che possono "
-"già essere utili come riferimento)."
+"che richiedono una lavorazione per essere adatte ad essere esposte (ma che "
+"possono già essere utili come riferimento)."
 
 #. name:Raw/Unedited
 #: DB:event_art_archive.art_type/description:9
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use in combination with any other appropriate types for images that need "
-#| "work to be used for tagging (but can possibly already be used for "
-#| "reference)."
 msgctxt "event_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
 msgstr ""
 "Da usare, in combinazione con gli altri tipi correspondenti, per immagini "
-"che richiedono lavorazione per essere utili per il tagging (ma che possono "
-"già essere utili come riferimento)."
+"che richiedono una lavorazione per essere adatte ad essere esposte (ma che "
+"possono già essere utili come riferimento)."
 
 #. name:Military base
 #: DB:area_type/description:8
@@ -8882,9 +8855,6 @@ msgid "Watermark"
 msgstr "Filigrana"
 
 #: DB:event_art_archive.art_type/name:10
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Watermark"
 msgctxt "event_art_type"
 msgid "Watermark"
 msgstr "Filigrana"
