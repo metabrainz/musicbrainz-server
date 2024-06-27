@@ -26,6 +26,7 @@ use MusicBrainz::Server::Constants qw( :edit_status :privileges );
 use MusicBrainz::Server::Constants qw( $PASSPHRASE_BCRYPT_COST );
 use MusicBrainz::Server::Constants qw( :create_entity $EDIT_HISTORIC_ADD_RELEASE );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
+use MusicBrainz::Server::Constants qw( $EDIT_EVENT_ADD_EVENT_ART );
 use MusicBrainz::Server::Constants qw( :vote );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -709,8 +710,8 @@ sub added_entities_counts {
     return $cached_result if defined $cached_result;
 
     my %result = map { $_ => 0 }
-        qw( artist release area cover_art event instrument label place recording
-        releasegroup series work other );
+        qw( artist release area cover_art event event_art instrument label
+        place recording releasegroup series work other );
 
     my $query =
         q{SELECT
@@ -720,6 +721,7 @@ sub added_entities_counts {
                 WHEN type = ? THEN 'area'
                 WHEN type = ? THEN 'cover_art'
                 WHEN type = ? THEN 'event'
+                WHEN type = ? THEN 'event_art'
                 WHEN type = ? THEN 'genre'
                 WHEN type = ? THEN 'instrument'
                 WHEN type = ? THEN 'label'
@@ -737,7 +739,8 @@ sub added_entities_counts {
            GROUP BY type};
     my @params = ($EDIT_ARTIST_CREATE, $EDIT_RELEASE_CREATE,
         $EDIT_HISTORIC_ADD_RELEASE, $EDIT_AREA_CREATE, $EDIT_RELEASE_ADD_COVER_ART,
-        $EDIT_EVENT_CREATE, $EDIT_GENRE_CREATE, $EDIT_INSTRUMENT_CREATE, $EDIT_LABEL_CREATE,
+        $EDIT_EVENT_CREATE, $EDIT_EVENT_ADD_EVENT_ART, $EDIT_GENRE_CREATE,
+        $EDIT_INSTRUMENT_CREATE, $EDIT_LABEL_CREATE,
         $EDIT_PLACE_CREATE, $EDIT_RECORDING_CREATE, $EDIT_RELEASEGROUP_CREATE,
         $EDIT_SERIES_CREATE, $EDIT_WORK_CREATE, $STATUS_APPLIED);
     my $rows = $self->sql->select_list_of_lists($query, @params, $editor_id);
