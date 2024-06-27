@@ -142,7 +142,7 @@ component EditNote(
         ) : null}
         <a
           className="date"
-          href={(isOnEditPage ? '' : `/edit/${edit.id}`) + `#${anchor}`}
+          href={isOnEditPage ? `#${anchor}` : `/edit-note/${editNote.id}`}
           rel={isOnEditPage ? null : 'noopener noreferrer'}
           target={isOnEditPage ? null : '_blank'}
         >
