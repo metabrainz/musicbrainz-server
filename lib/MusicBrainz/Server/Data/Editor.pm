@@ -711,7 +711,7 @@ sub added_entities_counts {
 
     my %result = map { $_ => 0 }
         qw( artist release area cover_art event event_art instrument label
-        place recording releasegroup series work other );
+            place recording releasegroup series work other );
 
     my $query =
         q{SELECT
