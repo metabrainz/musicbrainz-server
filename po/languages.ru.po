@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-12 21:42+0000\n"
+"PO-Revision-Date: 2024-06-26 15:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -35,7 +35,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.5\n"
+"X-Generator: Weblate 5.6\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
@@ -785,7 +785,7 @@ msgstr "фон"
 #. frequency:2 iso_code_3:fra 
 #: DB:language/name:134
 msgid "French"
-msgstr "французский"
+msgstr "Французский"
 
 #. frequency:0 iso_code_3:frm 
 #: DB:language/name:135
