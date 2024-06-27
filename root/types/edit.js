@@ -71,6 +71,7 @@ declare type GenericEditT = {
   +edit_name: string,
   +edit_notes: $ReadOnlyArray<EditNoteT>,
   +edit_type: number,
+  +edit_type_name_context: string,
   +editor_id: number,
   +expires_time: string,
   +historic_type: number | null,

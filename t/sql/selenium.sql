@@ -133,7 +133,9 @@ INSERT INTO place_gid_redirect (gid, new_id, created) VALUES
 INSERT INTO recording (id, gid, name, artist_credit, length, comment, edits_pending, last_updated, video) VALUES
     (164872, '96f64611-49df-4e54-84e7-0f9a30f01766', 'mr self destruct', 347, NULL, '', 0, '2017-09-29 09:00:51.064128+00', 'f'),
     (164873, '429f0b1a-0293-4793-993b-0bb5f73567f2', 'Piggy', 347, NULL, '', 0, '2017-01-16 21:00:48.187704+00', 'f'),
-    (20937085, '0f42ab32-22cd-4dcf-927b-a8d9a183d68b', 'Travelling Man', 347, NULL, '', 0, '2017-05-15 20:36:38.082509+00', 'f');
+    (20937085, '0f42ab32-22cd-4dcf-927b-a8d9a183d68b', 'Travelling Man', 347, NULL, '', 0, '2017-05-15 20:36:38.082509+00', 'f'),
+    (22521482, 'b6d2e7d2-bc81-44d8-a781-60689338f97c', 'Foreplay', 2196047, 157674, '', 0, '2018-04-11 10:09:58.511979+00', 'f'),
+    (22521483, 'b7eaa6da-50f1-463a-845f-2a3d9a47b881', 'Evening Time', 2196047, 190595, '', 0, '2018-04-11 10:09:58.511979+00', 'f');
 
 INSERT INTO recording_gid_redirect (gid, new_id, created) VALUES
     ('23ba24f0-dc22-fcd4-b729-b86d381a9d8a', 20937085, '2012-04-09 20:07:05.161415+00');
@@ -152,7 +154,8 @@ INSERT INTO release (id, gid, name, artist_credit, release_group, status, packag
     (2154808, '1bda2f85-0576-4077-b3fa-0fc939079b61', 'Weapons of Mass Seduction', 2196047, 1954919, 1, NULL, 120, 28, NULL, '', -1);
 
 INSERT INTO medium (id, release, position, format, name, edits_pending, last_updated, track_count) VALUES
-    (1690850, 1693299, 1, 1, '', 0, '2015-05-18 20:20:39.009738+00', 0);
+    (1690850, 1693299, 1, 1, '', 0, '2015-05-18 20:20:39.009738+00', 0),
+    (2323086, 2154808, 1, 12, '', 0, '2018-04-11 10:09:58.511979+00', 0);
 
 INSERT INTO release_gid_redirect (gid, new_id, created) VALUES
     ('190542dd-e12b-3a84-a95b-9640a8de8b9f', 26, '2012-04-09 20:07:05.161415+00');
@@ -164,7 +167,9 @@ INSERT INTO series_gid_redirect (gid, new_id, created) VALUES
     ('6d67ca4e-b217-5fe4-a48b-3d50e36e73c9', 3238, '2012-04-09 20:07:05.161415+00');
 
 INSERT INTO track (id, gid, recording, medium, position, number, name, artist_credit, length, edits_pending, last_updated, is_data_track) VALUES
-    (18674665, '14786f5a-0aa9-42c5-a28d-0194477090ec', 20937085, 1690850, 1, 1, '2 + 2 = 5 (The Lukewarm.)', 347, 199386, 0, '2015-05-18 20:20:39.009738+00', 'f');
+    (18674665, '14786f5a-0aa9-42c5-a28d-0194477090ec', 20937085, 1690850, 1, 1, '2 + 2 = 5 (The Lukewarm.)', 347, 199386, 0, '2015-05-18 20:20:39.009738+00', 'f'),
+    (25221378, '9b8bad1b-a9c2-4d77-8158-836ca73134d3', 22521482, 2323086, 1, '1', 'Foreplay', 2196047, 157674, 0, '2018-04-11 10:09:58.511979+00', 'f'),
+    (25221379, '938a6304-beec-4b1b-a8c4-08cdf4d81ac3', 22521483, 2323086, 2, '2', 'Evening Time', 2196047, 190595, 0, '2018-04-11 10:09:58.511979+00', 'f');
 
 INSERT INTO track_gid_redirect (gid, new_id, created) VALUES
     ('a5f68741-9aa0-5c24-d82a-ce0907744910', 18674665, '2012-04-09 20:07:05.161415+00');

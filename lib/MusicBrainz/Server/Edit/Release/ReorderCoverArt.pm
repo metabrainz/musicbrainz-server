@@ -12,6 +12,7 @@ with 'MusicBrainz::Server::Edit::Release',
      'MusicBrainz::Server::Edit::Role::ReorderArt';
 
 sub edit_name { N_lp('Reorder cover art', 'plural, edit type') }
+sub edit_type_name_context { 'plural, edit type' }
 sub edit_template { 'ReorderCoverArt' }
 sub edit_type { $EDIT_RELEASE_REORDER_COVER_ART }
 
