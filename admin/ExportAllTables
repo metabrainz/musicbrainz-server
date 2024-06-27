@@ -350,6 +350,7 @@ if ($fCompress and $fDoFullExport)
     $mbdump->copy_readme() or die $OS_ERROR;
     $mbdump->copy_file("$FindBin::Bin/COPYING-PublicDomain", 'COPYING') or die $OS_ERROR;
     $mbdump->make_tar('mbdump.tar.bz2', @CORE_TABLE_LIST);
+    $mbdump->make_tar('mbdump-cdstubs.tar.bz2', @CDSTUBS_TABLE_LIST);
 
     $mbdump->copy_readme() or die $OS_ERROR;
     $mbdump->copy_file("$FindBin::Bin/COPYING-CCShareAlike", 'COPYING') or die $OS_ERROR;
@@ -358,7 +359,6 @@ if ($fCompress and $fDoFullExport)
     $mbdump->make_tar('mbdump-edit.tar.bz2', @EDIT_TABLE_LIST);
     $mbdump->make_tar('mbdump-stats.tar.bz2', @STATS_TABLE_LIST);
     $mbdump->make_tar('mbdump-private.tar.bz2', @PRIVATE_TABLE_LIST);
-    $mbdump->make_tar('mbdump-cdstubs.tar.bz2', @CDSTUBS_TABLE_LIST);
     $mbdump->make_tar('mbdump-cover-art-archive.tar.bz2', @CAA_TABLE_LIST);
     $mbdump->make_tar('mbdump-event-art-archive.tar.bz2', @EAA_TABLE_LIST);
     $mbdump->make_tar('mbdump-wikidocs.tar.bz2', @WIKIDOCS_TABLE_LIST);
