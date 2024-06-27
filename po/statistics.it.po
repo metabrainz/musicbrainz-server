@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-24 16:42+0000\n"
+"PO-Revision-Date: 2024-06-26 23:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.6\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -2609,7 +2609,7 @@ msgstr "Eventi con manifesti dall'EAA"
 
 #: ../root/statistics/stats.js:451
 msgid "Events with an EAA poster"
-msgstr "Eventi con un poster dall'EAA"
+msgstr "Eventi con un manifesto nell'EAA"
 
 #: ../root/statistics/stats.js:456
 msgid "Events with no type set"

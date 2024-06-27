@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-14 12:30+0000\n"
-"PO-Revision-Date: 2024-06-16 13:42+0000\n"
+"PO-Revision-Date: 2024-06-26 23:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -46,7 +46,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.5\n"
+"X-Generator: Weblate 5.6\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -256,7 +256,7 @@ msgstr "Aggiungi evento"
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
 msgctxt "plural, header"
 msgid "Add event art"
-msgstr "Aggiungi manifesti"
+msgstr "Aggiungi immagini dell'evento"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 msgctxt "header"
@@ -958,7 +958,7 @@ msgstr "Modifica copertina"
 #: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:4
 msgctxt "singular, header"
 msgid "Edit event art"
-msgstr "Modifica manifesto"
+msgstr "Modifica immagine dell'evento"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18
@@ -2301,7 +2301,7 @@ msgstr "Riordina copertine"
 #: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
 msgctxt "plural, header"
 msgid "Reorder event art"
-msgstr "Riordina manifesti"
+msgstr "Riordina immagini dell'evento"
 
 #: ../root/event/add_event_art.tt:83 ../root/release/add_cover_art.tt:83
 msgid "Request signature..."
@@ -2422,7 +2422,7 @@ msgid ""
 "a description of these types."
 msgstr ""
 "Seleziona tutti i tipi rilevanti. Consulta la documentazione sui {doc|tipi "
-"di manifesti} per una descrizione di questi tipi."
+"di immagine di eventi} per una descrizione di questi tipi."
 
 #: ../root/components/forms.tt:369
 msgid ""
@@ -4395,7 +4395,7 @@ msgid ""
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
 msgstr ""
-"Non è possibile caricare manifesti per quest'evento perché non possediamo "
+"Non è possibile caricare immagini per quest'evento perché non possediamo "
 "l'elemento collegato nell'Internet Archive. Contattaci a {contact_url} "
 "affinché possiamo risolvere questo problema."
 
@@ -4621,7 +4621,7 @@ msgstr "Aggiungi annotazione all'evento"
 #: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
 msgctxt "singular, edit type"
 msgid "Add event art"
-msgstr "Aggiungi manifesto"
+msgstr "Aggiungi immagine dell'evento"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 msgctxt "edit type"
@@ -4651,7 +4651,7 @@ msgstr "Modifica alias dell'evento"
 #: ../lib/MusicBrainz/Server/Edit/Event/EditEventArt.pm:15
 msgctxt "singular, edit type"
 msgid "Edit event art"
-msgstr "Modifica manifesto"
+msgstr "Modifica immagine dell'evento"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Merge.pm:11
 msgctxt "edit type"
@@ -4661,12 +4661,12 @@ msgstr "Unisci eventi"
 #: ../lib/MusicBrainz/Server/Edit/Event/RemoveEventArt.pm:15
 msgctxt "singular, edit type"
 msgid "Remove event art"
-msgstr "Rimuovi manifesto"
+msgstr "Rimuovi immagine dell'evento"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/ReorderEventArt.pm:15
 msgctxt "plural, edit type"
 msgid "Reorder event art"
-msgstr "Riordina manifesti"
+msgstr "Riordina immagini dell'evento"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAlias.pm:11
 msgctxt "edit type"
@@ -8029,12 +8029,12 @@ msgstr "Copertine ({num})"
 #: ../root/components/EntityTabs.js:131
 msgctxt "plural"
 msgid "Event art"
-msgstr "Manifesti"
+msgstr "Immagini dell'evento"
 
 #: ../root/components/EntityTabs.js:133
 msgctxt "plural"
 msgid "Event art ({num})"
-msgstr "Manifesti ({num})"
+msgstr "Immagini dell'evento ({num})"
 
 #: ../root/components/EntityTabs.js:149
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:31
@@ -8663,7 +8663,7 @@ msgstr ""
 #: ../root/edit/components/EditArtwork.js:23
 msgctxt "singular"
 msgid "Event art"
-msgstr "Manifesto"
+msgstr "Immagine dell'evento"
 
 #: ../root/edit/components/EditArtwork.js:32
 #: ../root/edit/details/ReorderArt.js:32
@@ -10338,12 +10338,12 @@ msgstr ""
 #: ../root/event/EventArt.js:32
 msgctxt "plural, header"
 msgid "Event art"
-msgstr "Manifesti"
+msgstr "Immagini dell'evento"
 
 #: ../root/event/EventArt.js:38
 msgctxt "plural, header"
 msgid "Cannot show event art"
-msgstr "Impossibile mostrare i manifesti"
+msgstr "Impossibile mostrare le immagini dell'evento"
 
 #: ../root/event/EventArt.js:44
 #: ../root/layout/components/sidebar/EventSidebar.js:58
@@ -10370,17 +10370,17 @@ msgstr ""
 
 #: ../root/event/EventArt.js:112
 msgid "We do not currently have any event art for {event}."
-msgstr "Al momento non abbiamo nessun manifesto per {event}."
+msgstr "Al momento non abbiamo nessun'immagine dell'evento per {event}."
 
 #: ../root/event/EventArt.js:122
 msgctxt "plural, interactive"
 msgid "Add event art"
-msgstr "Aggiungi manifesti"
+msgstr "Aggiungi immagini dell'evento"
 
 #: ../root/event/EventArt.js:128
 msgctxt "plural, interactive"
 msgid "Reorder event art"
-msgstr "Riordina manifesti"
+msgstr "Riordina immagini dell'evento"
 
 #: ../root/event/EventArt.js:137 ../root/release/CoverArt.js:148
 msgctxt "plural, interactive"
@@ -10390,11 +10390,11 @@ msgstr "Effettua l'accesso per caricare immagini"
 #: ../root/event/EventArtDarkened.js:19
 msgctxt "plural"
 msgid "Cannot add event art"
-msgstr "Impossibile aggiungere manifesti"
+msgstr "Impossibile aggiungere immagini dell'evento"
 
 #: ../root/event/EventArtFields.js:21
 msgid "Choose one or more event art types for this image"
-msgstr "Scegli uno o più tipi di manifesto per quest'immagine"
+msgstr "Scegli uno o più tipi di immagine di eventi per quest'immagine"
 
 #: ../root/event/EventArtFields.js:23
 msgid ""
@@ -10402,7 +10402,7 @@ msgid ""
 "their descriptions."
 msgstr ""
 "Seleziona tutti i tipi rilevanti. Consulta la documentazione sui {doc|tipi "
-"di manifesti} per le loro descrizioni."
+"di immagine di eventi} per le loro descrizioni."
 
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
@@ -10419,7 +10419,7 @@ msgstr ""
 #: ../root/event/RemoveEventArt.js:29
 msgctxt "singular, header"
 msgid "Remove event art"
-msgstr "Rimuovi manifesto"
+msgstr "Rimuovi immagine dell'evento"
 
 #: ../root/event/RemoveEventArt.js:36 ../root/release/RemoveCoverArt.js:31
 msgid "Are you sure you wish to remove the image below from {entity}?"
@@ -11056,7 +11056,7 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/EventSidebar.js:64
 msgid "No poster available."
-msgstr "Nessun poster disponibile."
+msgstr "Nessun manifesto disponibile."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:67
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:101
