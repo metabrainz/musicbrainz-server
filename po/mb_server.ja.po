@@ -44,7 +44,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-14 12:30+0000\n"
+"POT-Creation-Date: 2024-06-27 15:58+0000\n"
 "PO-Revision-Date: 2024-06-21 20:42+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
@@ -620,7 +620,8 @@ msgstr "ボット"
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}."
-msgstr "{MeB|MetaBrainz Foundation}と私たちの{spon|スポンサー}及び{supp|サポーター}に"
+msgstr ""
+"{MeB|MetaBrainz Foundation}と私たちの{spon|スポンサー}及び{supp|サポーター}に"
 "よって提供されています。"
 
 #: ../root/layout.tt:122 ../root/layout/components/Footer.js:32
@@ -835,8 +836,8 @@ msgstr ""
 #: ../root/edit/details/AddRelationshipAttribute.js:38
 #: ../root/edit/details/AddRelationshipType.js:66
 #: ../root/edit/details/EditInstrument.js:67
-#: ../root/edit/details/EditRelationshipAttribute.js:66
-#: ../root/edit/details/EditRelationshipAttribute.js:72
+#: ../root/edit/details/EditRelationshipAttribute.js:67
+#: ../root/edit/details/EditRelationshipAttribute.js:73
 #: ../root/edit/details/EditRelationshipType.js:188
 #: ../root/edit/details/EditRelationshipType.js:194
 #: ../root/edit/details/EditUrl.js:56
@@ -938,7 +939,7 @@ msgstr "編集"
 #: ../root/components/EntityTabs.js:172 ../root/event/EventArt.js:85
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:89
 #: ../root/release/CoverArt.js:81
-#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:516
+#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:520
 #: ../root/user/UserCollections.js:122
 msgctxt "verb, interactive"
 msgid "Edit"
@@ -1760,7 +1761,7 @@ msgstr "トラックを上へ移動"
 #: ../root/edit/details/EditLabel.js:45 ../root/edit/details/EditMedium.js:442
 #: ../root/edit/details/EditPlace.js:41
 #: ../root/edit/details/EditRecording.js:42
-#: ../root/edit/details/EditRelationshipAttribute.js:47
+#: ../root/edit/details/EditRelationshipAttribute.js:50
 #: ../root/edit/details/EditRelationshipAttribute.js:56
 #: ../root/edit/details/EditRelationshipType.js:178
 #: ../root/edit/details/EditRelease.js:53
@@ -6235,8 +6236,9 @@ msgstr ""
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
 "documentation} before {con|contacting us}."
-msgstr "ご不明な点があれば、{con|お問い合わせ}の前に {faq|FAQ} や "
-"{doc|ドキュメント}をご確認ください。"
+msgstr ""
+"ご不明な点があれば、{con|お問い合わせ}の前に {faq|FAQ} や {doc|ドキュメント}"
+"をご確認ください。"
 
 #: ../root/account/Register.js:80
 msgid ""
@@ -8629,7 +8631,7 @@ msgid ""
 msgstr "この関係の編集には、既に存在しない関係の変更も含まれていました。"
 
 #: ../root/edit/details/AddRelationshipAttribute.js:46
-#: ../root/edit/details/EditRelationshipAttribute.js:89
+#: ../root/edit/details/EditRelationshipAttribute.js:90
 #: ../root/edit/details/EditRelationshipType.js:233
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:115
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:158
@@ -8638,18 +8640,18 @@ msgid "Child order"
 msgstr "子順序"
 
 #: ../root/edit/details/AddRelationshipAttribute.js:51
-#: ../root/edit/details/EditRelationshipAttribute.js:81
+#: ../root/edit/details/EditRelationshipAttribute.js:82
 #: ../root/edit/details/EditRelationshipType.js:309
 msgid "Parent"
 msgstr "親"
 
 #: ../root/edit/details/AddRelationshipAttribute.js:56
-#: ../root/edit/details/EditRelationshipAttribute.js:97
+#: ../root/edit/details/EditRelationshipAttribute.js:98
 msgid "Creditable"
 msgstr ""
 
 #: ../root/edit/details/AddRelationshipAttribute.js:60
-#: ../root/edit/details/EditRelationshipAttribute.js:105
+#: ../root/edit/details/EditRelationshipAttribute.js:106
 msgid "Free text"
 msgstr "フリーテキスト"
 
@@ -9297,26 +9299,26 @@ msgstr "(非公開)"
 msgid "To find out if you can vote for this candidate, please {url|log in}."
 msgstr "この候補に投票できるか確認するために、{url|ログイン}してください。"
 
-#: ../root/elections/ElectionVoting.js:32
+#: ../root/elections/ElectionVoting.js:31
+msgid "Voting is closed."
+msgstr "投票は終了しました。"
+
+#: ../root/elections/ElectionVoting.js:34
 msgid "You cannot vote for this candidate, because you are not an auto-editor."
 msgstr "あなたは自動編集者ではないため、この候補に投票することはできません。"
 
-#: ../root/elections/ElectionVoting.js:37
+#: ../root/elections/ElectionVoting.js:39
 msgid ""
 "You cannot vote for this candidate, because you proposed / seconded them."
 msgstr "あなたは推薦者/賛成者であるため、この候補に投票することはできません。"
 
-#: ../root/elections/ElectionVoting.js:42
+#: ../root/elections/ElectionVoting.js:44
 msgid ""
 "Voting is not yet open. If you would like to support this candidate, you can "
 "second their nomination. If you do not support this candidate, please note "
 "that you cannot cast a \"No\" vote (or abstain) until two seconders have "
 "been found."
 msgstr ""
-
-#: ../root/elections/ElectionVoting.js:49
-msgid "Voting is closed."
-msgstr "投票は終了しました。"
 
 #: ../root/elections/ElectionVoting.js:64
 msgid "Second this candidate"
@@ -15661,7 +15663,8 @@ msgstr "入力したバーコードは、有効なUPCコードではありませ
 
 #: ../root/static/scripts/release-editor/validation.js:326
 msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
-msgstr "入力したバーコードは、有効なUPCコード、EANコードまたはGTINコードではありませ"
+msgstr ""
+"入力したバーコードは、有効なUPCコード、EANコードまたはGTINコードではありませ"
 "ん。"
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:231
