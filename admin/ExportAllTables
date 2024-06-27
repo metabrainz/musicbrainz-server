@@ -438,6 +438,7 @@ sub check_tables_completeness
     parse_create_tables('', '', \@create_tables);
     parse_create_tables('caa', 'cover_art_archive', \@create_tables);
     parse_create_tables('documentation', 'documentation', \@create_tables);
+    parse_create_tables('eaa', 'event_art_archive', \@create_tables);
     parse_create_tables('wikidocs', 'wikidocs', \@create_tables);
     parse_create_tables('statistics', 'statistics', \@create_tables);
 
