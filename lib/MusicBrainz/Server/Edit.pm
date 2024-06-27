@@ -17,14 +17,18 @@ use MusicBrainz::Server::Constants qw(
     $OPEN_EDIT_DURATION
     $REQUIRED_VOTES
 );
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( l lp );
 use MusicBrainz::Server::Types
     DateTime => { -as => 'DateTimeType' }, 'EditStatus', 'Quality';
 
 sub edit_type { die 'Unimplemented' }
+sub edit_type_name_context { 'edit type' }
 sub edit_name { die 'Unimplemented' }
 sub edit_kind { die 'Unimplemented' }
-sub l_edit_name { l(shift->edit_name) }
+sub l_edit_name {
+    my $self = shift;
+    return lp($self->edit_name, $self->edit_type_name_context);
+}
 
 sub edit_template { die 'Unimplemented' }
 
@@ -310,6 +314,7 @@ sub TO_JSON {
         edit_name => $self->edit_name,
         edit_notes => to_json_array($self->edit_notes),
         edit_type => $self->edit_type + 0,
+        edit_type_name_context => $self->edit_type_name_context,
         editor_id => $self->editor_id + 0,
         expires_time => datetime_to_iso8601($self->expires_time),
         historic_type => $self->can('historic_type') ? $self->historic_type + 0 : undef,

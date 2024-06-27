@@ -37,7 +37,7 @@ component EditData(
       <p>
         <strong>{('Type:')}</strong>
         {' '}
-        {l(edit.edit_name)}
+        {lp(edit.edit_name, edit.edit_type_name_context)}
         {' '}
         {bracketedText(edit.edit_type)}
       </p>

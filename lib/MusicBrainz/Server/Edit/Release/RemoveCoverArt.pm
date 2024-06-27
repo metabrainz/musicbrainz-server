@@ -13,6 +13,7 @@ with 'MusicBrainz::Server::Edit::Release',
      'MusicBrainz::Server::Edit::Role::RemoveArt';
 
 sub edit_name { N_lp('Remove cover art', 'singular, edit type') }
+sub edit_type_name_context { 'singular, edit type' }
 sub edit_template { 'RemoveCoverArt' }
 sub edit_type { $EDIT_RELEASE_REMOVE_COVER_ART }
 

@@ -435,7 +435,7 @@ sub edits : Path('edits') {
     my %by_category;
     for my $class (EditRegistry->get_all_classes) {
         $by_category{$class->edit_category} ||= [];
-        push @{ $by_category{$class->edit_category} }, {edit_type => $class->edit_type, edit_name => $class->edit_name};
+        push @{ $by_category{$class->edit_category} }, {edit_type => $class->edit_type, l_edit_name => $class->l_edit_name};
     }
 
     for my $category (keys %by_category) {

@@ -44,7 +44,7 @@ component EditHeader(
   const mayVote = editorMayVote(user);
   const editTitle = texp.l(
     'Edit #{id} - {name}',
-    {id: edit.id, name: l(edit.edit_name)},
+    {id: edit.id, name: lp(edit.edit_name, edit.edit_type_name_context)},
   );
   const editEditor = linkedEntities.editor[edit.editor_id];
   const isEditEditor = user ? user.id === edit.editor_id : false;

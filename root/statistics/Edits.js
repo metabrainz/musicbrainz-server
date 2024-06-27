@@ -11,14 +11,13 @@ import * as React from 'react';
 
 import LinkSearchableEditType from '../components/LinkSearchableEditType.js';
 import {CatalystContext} from '../context.mjs';
-import {l as lMbServer} from '../static/scripts/common/i18n.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 
 type EditCategoryT = {
-  +edit_name: string,
   +edit_type: string,
+  +l_edit_name: string,
 };
 
 component Edits(
@@ -62,7 +61,7 @@ component Edits(
                     {category.map((type) => (
                       <tr key={type.edit_type}>
                         <th />
-                        <th>{lMbServer(type.edit_name)}</th>
+                        <th>{type.l_edit_name}</th>
                         <td>
                           <LinkSearchableEditType
                             editTypeId={type.edit_type}

@@ -18,6 +18,7 @@ with 'MusicBrainz::Server::Edit::ReleaseGroup',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_lp('Set cover art', 'singular, edit type') }
+sub edit_type_name_context { 'singular, edit type' }
 sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASEGROUP_SET_COVER_ART }
 sub release_group_ids { shift->data->{entity}->{id} }
