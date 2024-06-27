@@ -5678,7 +5678,6 @@ msgstr "הוצאת רצועה ראשונה"
 msgid "folk music"
 msgstr "מוזיקת עם"
 
-#. name:founder, name:label founder
 #: DB:link_type/link_phrase:832 DB:link_type/link_phrase:116
 #: DB:link_type/link_phrase:895 DB:link_type/link_phrase:1004
 #: DB:link_type/long_link_phrase:832 DB:link_type/long_link_phrase:116
