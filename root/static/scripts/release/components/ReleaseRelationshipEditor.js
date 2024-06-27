@@ -941,8 +941,16 @@ export const reducer: ((
           sourceEntity,
         );
         const sourceEntityProp = backward ? 'entity1' : 'entity0';
+        const targetEntityProp = backward ? 'entity0' : 'entity1';
         const getBatchUpdates = function* () {
           for (const newSource of tree.iterate(selection)) {
+            const target = newRelationshipState[targetEntityProp];
+            if (
+              newSource.entityType === target.entityType &&
+              newSource.id === target.id
+            ) {
+              continue;
+            }
             const relationshipWithNewSource =
               cloneRelationshipState(newRelationshipState);
             relationshipWithNewSource._lineage = [
