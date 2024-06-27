@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-14 12:30+0000\n"
+"POT-Creation-Date: 2024-06-27 15:58+0000\n"
 "PO-Revision-Date: 2024-04-17 17:32+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations."
 "metabrainz.org>\n"
@@ -898,8 +898,8 @@ msgstr ""
 #: ../root/edit/details/AddRelationshipAttribute.js:38
 #: ../root/edit/details/AddRelationshipType.js:66
 #: ../root/edit/details/EditInstrument.js:67
-#: ../root/edit/details/EditRelationshipAttribute.js:66
-#: ../root/edit/details/EditRelationshipAttribute.js:72
+#: ../root/edit/details/EditRelationshipAttribute.js:67
+#: ../root/edit/details/EditRelationshipAttribute.js:73
 #: ../root/edit/details/EditRelationshipType.js:188
 #: ../root/edit/details/EditRelationshipType.js:194
 #: ../root/edit/details/EditUrl.js:56
@@ -1003,7 +1003,7 @@ msgstr "Muokkaa"
 #: ../root/components/EntityTabs.js:172 ../root/event/EventArt.js:85
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:89
 #: ../root/release/CoverArt.js:81
-#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:516
+#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:520
 #: ../root/user/UserCollections.js:122
 #, fuzzy
 #| msgid "Edit"
@@ -1841,7 +1841,7 @@ msgstr "Siirrä kappaletta ylös"
 #: ../root/edit/details/EditLabel.js:45 ../root/edit/details/EditMedium.js:442
 #: ../root/edit/details/EditPlace.js:41
 #: ../root/edit/details/EditRecording.js:42
-#: ../root/edit/details/EditRelationshipAttribute.js:47
+#: ../root/edit/details/EditRelationshipAttribute.js:50
 #: ../root/edit/details/EditRelationshipAttribute.js:56
 #: ../root/edit/details/EditRelationshipType.js:178
 #: ../root/edit/details/EditRelease.js:53
@@ -9328,7 +9328,7 @@ msgstr ""
 "joita ei enää ole."
 
 #: ../root/edit/details/AddRelationshipAttribute.js:46
-#: ../root/edit/details/EditRelationshipAttribute.js:89
+#: ../root/edit/details/EditRelationshipAttribute.js:90
 #: ../root/edit/details/EditRelationshipType.js:233
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:115
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:158
@@ -9337,18 +9337,18 @@ msgid "Child order"
 msgstr "Lapsiobjektien järjestys"
 
 #: ../root/edit/details/AddRelationshipAttribute.js:51
-#: ../root/edit/details/EditRelationshipAttribute.js:81
+#: ../root/edit/details/EditRelationshipAttribute.js:82
 #: ../root/edit/details/EditRelationshipType.js:309
 msgid "Parent"
 msgstr "Vanhempi"
 
 #: ../root/edit/details/AddRelationshipAttribute.js:56
-#: ../root/edit/details/EditRelationshipAttribute.js:97
+#: ../root/edit/details/EditRelationshipAttribute.js:98
 msgid "Creditable"
 msgstr ""
 
 #: ../root/edit/details/AddRelationshipAttribute.js:60
-#: ../root/edit/details/EditRelationshipAttribute.js:105
+#: ../root/edit/details/EditRelationshipAttribute.js:106
 msgid "Free text"
 msgstr "Vapaamuotoinen teksti"
 
@@ -10016,16 +10016,20 @@ msgstr "(yksityinen)"
 msgid "To find out if you can vote for this candidate, please {url|log in}."
 msgstr "Nähdäksesi voitko äänestää tätä ehdokasta, {url|kirjaudu sisään}."
 
-#: ../root/elections/ElectionVoting.js:32
+#: ../root/elections/ElectionVoting.js:31
+msgid "Voting is closed."
+msgstr "Äänestys on suljettu."
+
+#: ../root/elections/ElectionVoting.js:34
 msgid "You cannot vote for this candidate, because you are not an auto-editor."
 msgstr "Et voit äänestää tätä ehdokasta, sillä et ole auto-editori."
 
-#: ../root/elections/ElectionVoting.js:37
+#: ../root/elections/ElectionVoting.js:39
 msgid ""
 "You cannot vote for this candidate, because you proposed / seconded them."
 msgstr "Et voi äänestää tätä ehdokasta, sillä ehdotit tai kannatit häntä."
 
-#: ../root/elections/ElectionVoting.js:42
+#: ../root/elections/ElectionVoting.js:44
 msgid ""
 "Voting is not yet open. If you would like to support this candidate, you can "
 "second their nomination. If you do not support this candidate, please note "
@@ -10035,10 +10039,6 @@ msgstr ""
 "Äänestys ei ole vielä avoinna. Jos haluat tukea tätä ehdokasta, voit "
 "kannattaa hänen ehdokkuuttaan. Jos et haluat tukea tätä ehdokasta, huomaa "
 "ettet voi äänestää \"Ei\" (tai tyhjää) ennen kuin kaksi tukijaa on löytynyt."
-
-#: ../root/elections/ElectionVoting.js:49
-msgid "Voting is closed."
-msgstr "Äänestys on suljettu."
 
 #: ../root/elections/ElectionVoting.js:64
 msgid "Second this candidate"

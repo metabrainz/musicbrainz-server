@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-14 12:30+0000\n"
+"POT-Creation-Date: 2024-06-27 15:58+0000\n"
 "PO-Revision-Date: 2024-06-26 23:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
@@ -44,8 +44,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.6\n"
 
 #: ../root/components/common-macros.tt:12
@@ -830,8 +830,8 @@ msgstr ""
 #: ../root/edit/details/AddRelationshipAttribute.js:38
 #: ../root/edit/details/AddRelationshipType.js:66
 #: ../root/edit/details/EditInstrument.js:67
-#: ../root/edit/details/EditRelationshipAttribute.js:66
-#: ../root/edit/details/EditRelationshipAttribute.js:72
+#: ../root/edit/details/EditRelationshipAttribute.js:67
+#: ../root/edit/details/EditRelationshipAttribute.js:73
 #: ../root/edit/details/EditRelationshipType.js:188
 #: ../root/edit/details/EditRelationshipType.js:194
 #: ../root/edit/details/EditUrl.js:56
@@ -934,7 +934,7 @@ msgstr "Modifica"
 #: ../root/components/EntityTabs.js:172 ../root/event/EventArt.js:85
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:89
 #: ../root/release/CoverArt.js:81
-#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:516
+#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:520
 #: ../root/user/UserCollections.js:122
 msgctxt "verb, interactive"
 msgid "Edit"
@@ -1787,7 +1787,7 @@ msgstr "Sposta traccia verso l'alto"
 #: ../root/edit/details/EditLabel.js:45 ../root/edit/details/EditMedium.js:442
 #: ../root/edit/details/EditPlace.js:41
 #: ../root/edit/details/EditRecording.js:42
-#: ../root/edit/details/EditRelationshipAttribute.js:47
+#: ../root/edit/details/EditRelationshipAttribute.js:50
 #: ../root/edit/details/EditRelationshipAttribute.js:56
 #: ../root/edit/details/EditRelationshipType.js:178
 #: ../root/edit/details/EditRelease.js:53
@@ -6527,8 +6527,8 @@ msgid ""
 "other users, try the {forum_link|forums} or the {chat_link|chat}."
 msgstr ""
 "Segui il nostro {blog_link|blog} o l'{twitterx_link|account Twitter}! Per "
-"parlare con gli altri utenti, prova il {forum_link|forum} o la "
-"{chat_link|chat}."
+"parlare con gli altri utenti, prova il {forum_link|forum} o la {chat_link|"
+"chat}."
 
 #: ../root/account/Register.js:94
 msgid ""
@@ -9075,7 +9075,7 @@ msgstr ""
 "relazione che non esistono più."
 
 #: ../root/edit/details/AddRelationshipAttribute.js:46
-#: ../root/edit/details/EditRelationshipAttribute.js:89
+#: ../root/edit/details/EditRelationshipAttribute.js:90
 #: ../root/edit/details/EditRelationshipType.js:233
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:115
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:158
@@ -9084,18 +9084,18 @@ msgid "Child order"
 msgstr "Ordine dei discendenti"
 
 #: ../root/edit/details/AddRelationshipAttribute.js:51
-#: ../root/edit/details/EditRelationshipAttribute.js:81
+#: ../root/edit/details/EditRelationshipAttribute.js:82
 #: ../root/edit/details/EditRelationshipType.js:309
 msgid "Parent"
 msgstr "Controllante"
 
 #: ../root/edit/details/AddRelationshipAttribute.js:56
-#: ../root/edit/details/EditRelationshipAttribute.js:97
+#: ../root/edit/details/EditRelationshipAttribute.js:98
 msgid "Creditable"
 msgstr "Accreditabile"
 
 #: ../root/edit/details/AddRelationshipAttribute.js:60
-#: ../root/edit/details/EditRelationshipAttribute.js:105
+#: ../root/edit/details/EditRelationshipAttribute.js:106
 msgid "Free text"
 msgstr "Testo libero"
 
@@ -9755,17 +9755,21 @@ msgstr "(privato)"
 msgid "To find out if you can vote for this candidate, please {url|log in}."
 msgstr "{url|Accedi} per sapere se puoi votare per questo candidato."
 
-#: ../root/elections/ElectionVoting.js:32
+#: ../root/elections/ElectionVoting.js:31
+msgid "Voting is closed."
+msgstr "La votazione si è conclusa."
+
+#: ../root/elections/ElectionVoting.js:34
 msgid "You cannot vote for this candidate, because you are not an auto-editor."
 msgstr "Non puoi votare per questo candidato perché non sei un auto-editor."
 
-#: ../root/elections/ElectionVoting.js:37
+#: ../root/elections/ElectionVoting.js:39
 msgid ""
 "You cannot vote for this candidate, because you proposed / seconded them."
 msgstr ""
 "Non puoi votare per questo candidato poiché lo hai proposto o sostenuto."
 
-#: ../root/elections/ElectionVoting.js:42
+#: ../root/elections/ElectionVoting.js:44
 msgid ""
 "Voting is not yet open. If you would like to support this candidate, you can "
 "second their nomination. If you do not support this candidate, please note "
@@ -9776,10 +9780,6 @@ msgstr ""
 "puoi sostenere la sua nomina. Se non vuoi appoggiarlo, ricorda che non "
 "potrai votare \"No\" (o astenerti) fino a quando non ci saranno due "
 "sostenitori."
-
-#: ../root/elections/ElectionVoting.js:49
-msgid "Voting is closed."
-msgstr "La votazione si è conclusa."
 
 #: ../root/elections/ElectionVoting.js:64
 msgid "Second this candidate"

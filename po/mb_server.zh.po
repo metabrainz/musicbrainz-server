@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-14 12:30+0000\n"
+"POT-Creation-Date: 2024-06-27 15:58+0000\n"
 "PO-Revision-Date: 2024-06-05 18:42+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations."
 "metabrainz.org>\n"
@@ -868,8 +868,8 @@ msgstr ""
 #: ../root/edit/details/AddRelationshipAttribute.js:38
 #: ../root/edit/details/AddRelationshipType.js:66
 #: ../root/edit/details/EditInstrument.js:67
-#: ../root/edit/details/EditRelationshipAttribute.js:66
-#: ../root/edit/details/EditRelationshipAttribute.js:72
+#: ../root/edit/details/EditRelationshipAttribute.js:67
+#: ../root/edit/details/EditRelationshipAttribute.js:73
 #: ../root/edit/details/EditRelationshipType.js:188
 #: ../root/edit/details/EditRelationshipType.js:194
 #: ../root/edit/details/EditUrl.js:56
@@ -973,7 +973,7 @@ msgstr "修改"
 #: ../root/components/EntityTabs.js:172 ../root/event/EventArt.js:85
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:89
 #: ../root/release/CoverArt.js:81
-#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:516
+#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:520
 #: ../root/user/UserCollections.js:122
 #, fuzzy
 #| msgid "Edit"
@@ -1818,7 +1818,7 @@ msgstr "上移音轨"
 #: ../root/edit/details/EditLabel.js:45 ../root/edit/details/EditMedium.js:442
 #: ../root/edit/details/EditPlace.js:41
 #: ../root/edit/details/EditRecording.js:42
-#: ../root/edit/details/EditRelationshipAttribute.js:47
+#: ../root/edit/details/EditRelationshipAttribute.js:50
 #: ../root/edit/details/EditRelationshipAttribute.js:56
 #: ../root/edit/details/EditRelationshipType.js:178
 #: ../root/edit/details/EditRelease.js:53
@@ -9123,7 +9123,7 @@ msgid ""
 msgstr ""
 
 #: ../root/edit/details/AddRelationshipAttribute.js:46
-#: ../root/edit/details/EditRelationshipAttribute.js:89
+#: ../root/edit/details/EditRelationshipAttribute.js:90
 #: ../root/edit/details/EditRelationshipType.js:233
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:115
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:158
@@ -9132,18 +9132,18 @@ msgid "Child order"
 msgstr "子订单"
 
 #: ../root/edit/details/AddRelationshipAttribute.js:51
-#: ../root/edit/details/EditRelationshipAttribute.js:81
+#: ../root/edit/details/EditRelationshipAttribute.js:82
 #: ../root/edit/details/EditRelationshipType.js:309
 msgid "Parent"
 msgstr "母"
 
 #: ../root/edit/details/AddRelationshipAttribute.js:56
-#: ../root/edit/details/EditRelationshipAttribute.js:97
+#: ../root/edit/details/EditRelationshipAttribute.js:98
 msgid "Creditable"
 msgstr ""
 
 #: ../root/edit/details/AddRelationshipAttribute.js:60
-#: ../root/edit/details/EditRelationshipAttribute.js:105
+#: ../root/edit/details/EditRelationshipAttribute.js:106
 msgid "Free text"
 msgstr ""
 
@@ -9801,26 +9801,26 @@ msgstr "（私人的）"
 msgid "To find out if you can vote for this candidate, please {url|log in}."
 msgstr "要想知道是否可以为此候选人投票，请 {url|登录}。"
 
-#: ../root/elections/ElectionVoting.js:32
+#: ../root/elections/ElectionVoting.js:31
+msgid "Voting is closed."
+msgstr "投票已关闭。"
+
+#: ../root/elections/ElectionVoting.js:34
 msgid "You cannot vote for this candidate, because you are not an auto-editor."
 msgstr "无法为此候选人投票，因为您不是自动确认编辑者。"
 
-#: ../root/elections/ElectionVoting.js:37
+#: ../root/elections/ElectionVoting.js:39
 msgid ""
 "You cannot vote for this candidate, because you proposed / seconded them."
 msgstr ""
 
-#: ../root/elections/ElectionVoting.js:42
+#: ../root/elections/ElectionVoting.js:44
 msgid ""
 "Voting is not yet open. If you would like to support this candidate, you can "
 "second their nomination. If you do not support this candidate, please note "
 "that you cannot cast a \"No\" vote (or abstain) until two seconders have "
 "been found."
 msgstr ""
-
-#: ../root/elections/ElectionVoting.js:49
-msgid "Voting is closed."
-msgstr "投票已关闭。"
 
 #: ../root/elections/ElectionVoting.js:64
 msgid "Second this candidate"
