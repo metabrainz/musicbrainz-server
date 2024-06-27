@@ -1,9 +1,11 @@
 # Early6431 <h9i1o36x@anonaddy.me>, 2023.
+# Early6431 <Early6431@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2023-11-17 21:27+0000\n"
-"Last-Translator: Early6431 <h9i1o36x@anonaddy.me>\n"
+"PO-Revision-Date: 2024-06-27 07:42+0000\n"
+"Last-Translator: Early6431 <Early6431@users.noreply.translations.metabrainz."
+"org>\n"
 "Language-Team: Spanish (Latin America) <https://translations.metabrainz.org/"
 "projects/musicbrainz/languages/es_419/>\n"
 "Language: es_419\n"
@@ -11,107 +13,107 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.6\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
 msgid "Abkhazian"
-msgstr ""
+msgstr "Abjasio"
 
 #. frequency:1 iso_code_3:ace 
 #: DB:language/name:3
 msgid "Achinese"
-msgstr ""
+msgstr "Achenés"
 
 #. frequency:1 iso_code_3:ach 
 #: DB:language/name:4
 msgid "Acoli"
-msgstr ""
+msgstr "Acholi"
 
 #. frequency:1 iso_code_3:ada 
 #: DB:language/name:5
 msgid "Adangme"
-msgstr ""
+msgstr "Adangme"
 
 #. frequency:1 iso_code_3:ady 
 #: DB:language/name:6
 msgid "Adyghe"
-msgstr ""
+msgstr "Adigués"
 
 #. frequency:1 iso_code_3:aar 
 #: DB:language/name:1
 msgid "Afar"
-msgstr ""
+msgstr "Afar"
 
 #. frequency:1 iso_code_3:afh 
 #: DB:language/name:8
 msgid "Afrihili"
-msgstr ""
+msgstr "Afrihili"
 
 #. frequency:1 iso_code_3:afr 
 #: DB:language/name:9
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikáans"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:7
 msgid "Afro-Asiatic languages"
-msgstr ""
+msgstr "Lenguas afroasiáticas"
 
 #. frequency:1 iso_code_3:ain 
 #: DB:language/name:473
 msgid "Ainu"
-msgstr ""
+msgstr "Ainu"
 
 #. frequency:1 iso_code_3:aka 
 #: DB:language/name:10
 msgid "Akan"
-msgstr ""
+msgstr "Akan"
 
 #. frequency:1 iso_code_3:akk 
 #: DB:language/name:11
 msgid "Akkadian"
-msgstr ""
+msgstr "Acadio"
 
 #. frequency:1 iso_code_3:sqi 
 #: DB:language/name:12
 msgid "Albanian"
-msgstr ""
+msgstr "Albanés"
 
 #. frequency:1 iso_code_3:ale 
 #: DB:language/name:13
 msgid "Aleut"
-msgstr ""
+msgstr "Aleutiano"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:14
 msgid "Algonquian languages"
-msgstr ""
+msgstr "Lenguas algonquinas"
 
 #. frequency:1 iso_code_3:alq 
 #: DB:language/name:709
 msgid "Algonquin"
-msgstr ""
+msgstr "Algonquino"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:434
 msgid "Altaic languages"
-msgstr ""
+msgstr "Lenguas altaicas"
 
 #. frequency:1 iso_code_3:amh 
 #: DB:language/name:15
 msgid "Amharic"
-msgstr ""
+msgstr "Amárico"
 
 #. frequency:1 iso_code_3:anp 
 #: DB:language/name:475
 msgid "Angika"
-msgstr ""
+msgstr "Angika"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:17
 msgid "Apache languages"
-msgstr ""
+msgstr "Lenguas apache"
 
 #. frequency:2 iso_code_3:ara 
 #: DB:language/name:18
@@ -121,7 +123,7 @@ msgstr "Árabe"
 #. frequency:1 iso_code_3:arg 
 #: DB:language/name:20
 msgid "Aragonese"
-msgstr ""
+msgstr "Aragonés"
 
 #. frequency:1 iso_code_3:arp 
 #: DB:language/name:23

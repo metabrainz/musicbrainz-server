@@ -1,10 +1,11 @@
 # BestSteve <ibmibmibm.tw@gmail.com>, 2024.
 # Evergarden <minna1012@gmail.com>, 2024.
+# WorldPioneerXXX <peter04peter04p@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2024-04-28 14:42+0000\n"
-"Last-Translator: Evergarden <minna1012@gmail.com>\n"
+"PO-Revision-Date: 2024-06-26 15:42+0000\n"
+"Last-Translator: WorldPioneerXXX <peter04peter04p@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translations.metabrainz.org/"
 "projects/musicbrainz/attributes/zh_Hant/>\n"
 "Language: zh_Hant\n"
@@ -12,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5.2\n"
+"X-Generator: Weblate 5.6\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -121,7 +122,7 @@ msgstr "8 公分光碟"
 #: DB:medium_format/name:40
 msgctxt "medium_format"
 msgid "8cm CD+G"
-msgstr ""
+msgstr "8公分 CD+G"
 
 #: DB:medium_format/description:166
 msgctxt "medium_format"

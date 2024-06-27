@@ -1,58 +1,62 @@
+# WorldPioneerXXX <peter04peter04p@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-06-26 15:42+0000\n"
+"Last-Translator: WorldPioneerXXX <peter04peter04p@gmail.com>\n"
+"Language-Team: Chinese (Traditional) <https://translations.metabrainz.org/"
+"projects/musicbrainz/languages/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.6\n"
 
 #. frequency:1 iso_code_3:abk 
 #: DB:language/name:2
 msgid "Abkhazian"
-msgstr ""
+msgstr "阿布哈茲語"
 
 #. frequency:1 iso_code_3:ace 
 #: DB:language/name:3
 msgid "Achinese"
-msgstr ""
+msgstr "亞齊語"
 
 #. frequency:1 iso_code_3:ach 
 #: DB:language/name:4
 msgid "Acoli"
-msgstr ""
+msgstr "阿喬利語"
 
 #. frequency:1 iso_code_3:ada 
 #: DB:language/name:5
 msgid "Adangme"
-msgstr ""
+msgstr "阿丹梅語"
 
 #. frequency:1 iso_code_3:ady 
 #: DB:language/name:6
 msgid "Adyghe"
-msgstr ""
+msgstr "阿迪格語"
 
 #. frequency:1 iso_code_3:aar 
 #: DB:language/name:1
 msgid "Afar"
-msgstr ""
+msgstr "阿法爾語"
 
 #. frequency:1 iso_code_3:afh 
 #: DB:language/name:8
 msgid "Afrihili"
-msgstr ""
+msgstr "阿夫里希利語"
 
 #. frequency:1 iso_code_3:afr 
 #: DB:language/name:9
 msgid "Afrikaans"
-msgstr ""
+msgstr "南非荷蘭語"
 
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:7
 msgid "Afro-Asiatic languages"
-msgstr ""
+msgstr "亞細亞-阿非羅語系"
 
 #. frequency:1 iso_code_3:ain 
 #: DB:language/name:473

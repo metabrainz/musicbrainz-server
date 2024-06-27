@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-14 12:30+0000\n"
-"PO-Revision-Date: 2024-06-15 22:42+0000\n"
+"PO-Revision-Date: 2024-06-26 15:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -54,7 +54,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.5\n"
+"X-Generator: Weblate 5.6\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -147,10 +147,8 @@ msgid "(add a new recording)"
 msgstr "(добавить новую запись)"
 
 #: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
-#, fuzzy
-#| msgid "(no other cover art)"
 msgid "(no other images)"
-msgstr "(нет других обложек)"
+msgstr "(нет других изображений)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
@@ -266,12 +264,9 @@ msgid "Add event"
 msgstr "Добавить событие"
 
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add event"
 msgctxt "plural, header"
 msgid "Add event art"
-msgstr "Добавить событие"
+msgstr "Добавить фото к событию"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 msgctxt "header"
@@ -1219,7 +1214,7 @@ msgstr "Французский"
 #: ../root/cdstub/index.tt:30 ../root/cdstub/CDStubIndex.js:51
 #: ../root/cdtoc/CDTocInfo.js:22
 msgid "Full TOC:"
-msgstr ""
+msgstr "Полный TOC:"
 
 #: ../root/artist/edit_form.tt:17 ../root/components/list/ArtistList.js:73
 #: ../root/edit/details/AddArtist.js:72 ../root/edit/details/EditArtist.js:91
@@ -1447,6 +1442,8 @@ msgid ""
 "If you don't see the release you are looking for, you can still add a new "
 "one, using this CD TOC:"
 msgstr ""
+"Если вы не видите нужного вам релиза, вы можете добавить новый, используя "
+"этот TOC:"
 
 #: ../root/components/forms.tt:336 ../root/components/forms.tt:345
 msgid "If you don’t know the code for this entity, just leave the field blank."
@@ -1551,6 +1548,12 @@ msgid ""
 "elsewhere and the durations are significantly different, consider adding a "
 "new recording instead."
 msgstr ""
+"Имейте в виду, что длительность записи {doc_link|пересчитывается из треков}, "
+"как только длительность трека меняется. Поэтому, если вы исправляете "
+"длительность трека, запись которого используется только в этом релизе, "
+"просто используйте старую запись, не добавляя новую. Если же запись "
+"используется и в других местах, и их длительности значительно отличаются, "
+"подумайте о добавлении новой записи."
 
 #: ../root/release/edit/tracklist.tt:502
 msgid ""
@@ -1888,12 +1891,16 @@ msgstr "Нет голоса"
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
 msgstr ""
+"Ни один из прикрепленных ID диска не может вместить прегап-трек заданной "
+"длины."
 
 #: ../root/cdtoc/attach_list.tt:78
 msgid ""
 "None of the mediums on this release can have the given CD TOC attached, "
 "because they have the wrong number of tracks."
 msgstr ""
+"Ни к одному из носителей этого релиза нельзя приложить данный TOC из-за "
+"неправильного количества треков."
 
 #: ../root/release/edit/recordings.tt:3 ../root/edit/details/EditRelease.js:160
 #: ../root/edit/details/MergeReleases.js:349
@@ -2005,6 +2012,8 @@ msgid ""
 "Please enter the barcode of the release you are entering, see <a "
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
 msgstr ""
+"Пожалуйста, введите штрих-код вводимого релиза, подробнее см. <a href=\"{url}"
+"\" target=\"_blank\">в документации</a>."
 
 #: ../root/layout/merge-helper.tt:24
 #: ../root/layout/components/MergeHelper.js:54
@@ -2018,6 +2027,7 @@ msgstr ""
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
 msgstr ""
+"Пожалуйста, выберите носитель, к которому вы хотите прикрепить этот ТОС."
 
 #: ../root/cdtoc/list.tt:6 ../root/event/add_event_art.tt:125
 #: ../root/event/reorder_event_art.tt:10 ../root/release/add_cover_art.tt:125
@@ -2402,26 +2412,17 @@ msgstr ""
 "перенесен."
 
 #: ../root/release/add_cover_art.tt:66
-#, fuzzy
-#| msgid ""
-#| "Please review the {doc|alias documentation} before entering this edit."
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "a description of these types."
 msgstr ""
-"Перед тем как внести эту правку, ознакомьтесь с {doc|документацией по "
-"псевдонимам}."
+"Выберите все применимые типы. Описание этих типов см. в {doc|документации}."
 
 #: ../root/event/add_event_art.tt:66
-#, fuzzy
-#| msgid ""
-#| "Please review the {doc|alias documentation} before entering this edit."
 msgid ""
 "Select all types that apply. See the {doc|Event Art Types} documentation for "
 "a description of these types."
-msgstr ""
-"Перед тем как внести эту правку, ознакомьтесь с {doc|документацией по "
-"псевдонимам}."
+msgstr "Выберите все применимые типы. Описание типов см. в {doc|документации}."
 
 #: ../root/components/forms.tt:369
 msgid ""
@@ -2583,23 +2584,17 @@ msgstr "Поменять названия треков и исполнителе
 #: ../root/search/components/ReleaseResults.js:124
 #: ../root/static/scripts/common/components/TaggerIcon.js:74
 #: ../root/utility/tableColumns.js:783
-#, fuzzy
-#| msgid "Tagger"
 msgctxt "audio file metadata"
 msgid "Tagger"
-msgstr "Теггер"
+msgstr "Редактор тегов"
 
 #: ../root/event/add_event_art.tt:12 ../root/release/add_cover_art.tt:12
-#, fuzzy
-#| msgid ""
-#| "The Cover Art Archive is currently experiencing difficulties. Adding "
-#| "images for this release is unlikely to work at the moment."
 msgid ""
 "The Internet Archive is currently experiencing difficulties. Adding images "
 "is unlikely to work at the moment."
 msgstr ""
-"У Cover Art Archive сейчас возникли сложности, из-за чего возможно не "
-"удастся добавить изображение в этот релиз."
+"У Архива интернета сейчас возникли сложности, из-за чего возможно не удастся "
+"добавить изображение."
 
 #: ../root/release/edit/information.tt:348
 msgid "The annotation field functions like a miniature wiki."
@@ -2618,7 +2613,7 @@ msgstr ""
 
 #: ../root/release/edit/layout.tt:23
 msgid "The data you’ve seeded contained the following errors:"
-msgstr ""
+msgstr "В загруженных вами данных обнаружены следующие ошибки:"
 
 #: ../root/release/edit/information.tt:163
 msgid "The date you've entered is not valid."
@@ -2648,6 +2643,10 @@ msgid ""
 "written in, nor to the language used for other extra information on the "
 "cover."
 msgstr ""
+"Атрибут языка должен быть установлен на язык, используемый для названия "
+"релиза и названия треков. Не следует устанавливать язык, на котором написаны "
+"тексты песен, а также язык, используемый для другой дополнительной "
+"информации на обложке."
 
 #: ../root/release/edit/information.tt:351
 msgid ""
@@ -2656,6 +2655,10 @@ msgid ""
 "technical limitations that may be addressed later, or because the "
 "information in itself has to be free-text)."
 msgstr ""
+"Цель этого поля - добавить информацию, которая обычно не вписывается в "
+"строгую структурную схему данных MusicBrainz (будь то из-за технических "
+"ограничений, которые могут быть рассмотрены в дальнейшем, или из-за того, "
+"что информация сама по себе должна быть свободным текстом)."
 
 #: ../root/release/edit/information.tt:320
 msgid ""
@@ -2666,6 +2669,8 @@ msgstr ""
 #: ../root/layout.tt:70 ../root/layout/index.js:240
 msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr ""
+"Сервер временно находится в режиме \"только чтение\" в связи с проведением "
+"технического обслуживания базы данных."
 
 #: ../root/components/forms.tt:359
 msgid ""
@@ -2679,6 +2684,8 @@ msgid ""
 "but not other data such as medium format) will be loaded as a medium on this "
 "release."
 msgstr ""
+"Треклист носителя (включая ассоциации треков/записей, но не другие данные, "
+"такие как формат носителя) будет загружен как носитель в этом релизе."
 
 #: ../root/release/edit/recordings.tt:30 ../root/edit/details/AddMedium.js:137
 #: ../root/edit/details/RemoveMedium.js:82
@@ -2720,7 +2727,7 @@ msgstr ""
 #: ../root/place/edit_form.tt:29
 #: ../lib/MusicBrainz/Server/Form/Field/Coordinates.pm:58
 msgid "These coordinates could not be parsed."
-msgstr ""
+msgstr "Не удалось обработать эти координаты."
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
 msgid "This CD TOC is already attached to this medium."
@@ -2734,15 +2741,23 @@ msgid ""
 "can quote a source to support a point you're making, you should never enter "
 "promotional texts or other artist or label-owned texts into the annotation."
 msgstr ""
+"Эта аннотация будет опубликована под открытой лицензией (<a href=\"{url}\" "
+"target=\"_blank\">CC BY-NC-SA 3.0</a>), и поэтому она не должна содержать "
+"текст, который вы не имеете права выпускать под этой лицензией. Вы можете "
+"процитировать источник, чтобы поддержать свою точку зрения, но в аннотации "
+"не должно быть рекламных текстов или других текстов, принадлежащих "
+"исполнителю или лейблу."
 
 #: ../root/artist/edit_form.tt:53
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:53
 msgid "This artist has ended."
-msgstr ""
+msgstr "Этот исполнитель прекратил существование."
 
 #: ../root/work/edit_form.tt:56
 msgid "This attribute type is only used for grouping, please select a subtype"
 msgstr ""
+"Этот тип атрибута используется только для группировки, пожалуйста, выберите "
+"подтип"
 
 #: ../root/layout.tt:37 ../root/layout/index.js:123
 msgid ""
@@ -2757,7 +2772,7 @@ msgstr "Диск содержит дата-треки на конце"
 
 #: ../root/release/edit/tracklist.tt:494
 msgid "This disc has a hidden pregap track before track 1"
-msgstr ""
+msgstr "Диск содержит скрытый прегап перед первым треком"
 
 #: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:32
@@ -2787,6 +2802,9 @@ msgid ""
 "accepted, all tracks, recordings, releases and release groups using this "
 "artist credit will be update to use the new one."
 msgstr ""
+"Эта форма позволяет вам редактировать указание исполнителя \"{ac}\". Когда "
+"правка будет принята, все треки, записи, релизы и группы релизов, "
+"использующие это имя, будут обновлены, чтобы использовать новое имя."
 
 #: ../root/artist/split.tt:29
 msgid ""
@@ -2822,18 +2840,20 @@ msgid ""
 "wanted a different format (such as “USB Flash Drive” or “Download Card”) or "
 "packaging type."
 msgstr ""
+"Это почти всегда неверно. Уточните, действительно ли вам нужен другой формат "
+"(например \"USB-накопитель\" или \"Карта загрузки\") или тип упаковки."
 
 #: ../root/release_group/set_cover_art.tt:76
 msgid "This is the current release group image"
-msgstr ""
+msgstr "Это текущее изображение группы релизов"
 
 #: ../root/label/edit_form.tt:36
 msgid "This label has ended."
-msgstr ""
+msgstr "Этот лейбл прекратил свою деятельность."
 
 #: ../root/release/edit/information.tt:209
 msgid "This label/catalog number pair already exists."
-msgstr ""
+msgstr "Эта пара лейбл/каталожный номер уже существует."
 
 #: ../root/cdtoc/attach_list.tt:56
 msgid "This medium format cannot have a disc ID attached."
@@ -2844,22 +2864,28 @@ msgid ""
 "This medium format is set to “Digital Media”, but the packaging type for "
 "this release is not “None”."
 msgstr ""
+"Формат носителя установлен на \"Цифровой носитель\", но тип упаковки для "
+"этого релиза не \"Отсутствует\"."
 
 #: ../root/release/edit/tracklist.tt:334
 msgid ""
 "This medium has a disc ID, pregap track, or data track, so you can only "
 "change the format to one that can have disc IDs."
 msgstr ""
+"На этом носителе есть ID диска, прегап-трек или трек с данными, поэтому вы "
+"можете изменить формат только на тот, который может иметь ID диска."
 
 #: ../root/release/edit/tracklist.tt:363 ../root/release/edit/tracklist.tt:373
 msgid ""
 "This medium is set to a format that did not exist on the selected release "
 "date."
 msgstr ""
+"Носитель установлен на формат, который не существовал на выбранную дату "
+"выпуска."
 
 #: ../root/place/edit_form.tt:32
 msgid "This place has ended."
-msgstr ""
+msgstr "Это место прекратило свое существование."
 
 #: ../root/release/edit/tracklist.tt:369
 msgid ""
@@ -2868,13 +2894,17 @@ msgid ""
 "trying to find out what the real format should be or if the release should "
 "be split!"
 msgstr ""
+"Эта проблема уже существовала до того, как вы открыли редактор релиза, "
+"поэтому вам не нужно ничего с ней делать. Но если у вас есть немного "
+"времени, попробуйте выяснить, каким должен быть настоящий формат или нужно "
+"ли разделить релиз!"
 
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:386
 #: ../root/static/scripts/common/components/EntityLink.js:329
 msgid "This recording is a video"
-msgstr ""
+msgstr "Эта запись является видео"
 
 #: ../root/release/edit/information.tt:235
 msgid "This release does not have a barcode"
@@ -2888,12 +2918,21 @@ msgid ""
 "street albums, demos, or digital albums. Be sure to link to the "
 "corresponding real release with the {url|transl(iter)ation relationship}."
 msgstr ""
+"Этот статус релиза должен использоваться для неофициальных переводов и "
+"транслитераций треклистов и названий релизов, и не обозначает отдельного "
+"реального релиза. Он не должен использоваться для обозначения бутлегов, "
+"микстейпов/стрит-альбомов, демо-версий или цифровых альбомов. Обязательно "
+"указывайте ссылку на соответствующий реальный релиз с помощью {url|отношения "
+"перевода/транслитерации}."
 
 #: ../root/release/edit/tracklist.tt:366
 msgid ""
 "This should never be correct. Make sure that, say, your release set to CD "
 "isn’t meant to be a vinyl, or your vinyl isn’t actually a shellac disc."
 msgstr ""
+"Это никогда не должно быть правильным. Убедитесь, что, скажем, ваш релиз, "
+"выпущенный на CD, не является винилом, или что ваш винил на самом деле не "
+"является шеллаковым диском."
 
 #: ../root/components/common-macros.tt:551
 #: ../root/static/scripts/common/components/DataTrackIcon.js:14
@@ -2903,7 +2942,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:547
 #: ../root/static/scripts/common/components/PregapTrackIcon.js:14
 msgid "This track is hidden in the pregap."
-msgstr ""
+msgstr "Этот трек скрыт в прегапе."
 
 #: ../root/event/edit_form.tt:40 ../root/components/list/EventList.js:79
 #: ../root/edit/details/AddEvent.js:73 ../root/edit/details/EditEvent.js:84
@@ -2936,20 +2975,22 @@ msgid ""
 "To enter a new tracklist, use an existing medium or import a disc from a CD "
 "stub, select the appropriate tab."
 msgstr ""
+"Чтобы ввести новый треклист, использовать существующий носитель или "
+"импортировать диск из CD-заглушки, выберите соответствующую вкладку."
 
 #: ../root/cdstub/index.tt:21 ../root/cdstub/CDStubIndex.js:47
 #: ../root/cdtoc/CDTocInfo.js:39
 msgid "Total length:"
-msgstr ""
+msgstr "Общая продолжительность:"
 
 #: ../root/cdstub/index.tt:17 ../root/cdstub/CDStubIndex.js:43
 #: ../root/cdtoc/CDTocInfo.js:35
 msgid "Total tracks:"
-msgstr ""
+msgstr "Всего треков:"
 
 #: ../root/release/edit/tracklist.tt:114
 msgid "Track count:"
-msgstr ""
+msgstr "Количество треков:"
 
 #: ../root/release/edit/tracklist.tt:524
 #: ../root/static/scripts/release-editor/dialogs.js:40
@@ -3064,10 +3105,8 @@ msgstr "Тип"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 #: ../root/components/ArtFields.js:64
-#, fuzzy
-#| msgid "Types:"
 msgid "Types"
-msgstr "Типы:"
+msgstr "Типы"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
@@ -3098,11 +3137,13 @@ msgstr "URL"
 
 #: ../root/release/edit/tracklist.tt:21
 msgid "Unable to parse the tracklist you entered."
-msgstr ""
+msgstr "Не удалось обработать введенный вами треклист."
 
 #: ../root/release/edit/recordings.tt:98
 msgid "Update the recording artist credit to match the track artist credit."
 msgstr ""
+"Обновить обозначение исполнителя записи для соответствия обозначению "
+"исполнителя трека."
 
 #: ../root/release/edit/recordings.tt:93
 msgid "Update the recording title to match the track title."
@@ -3127,7 +3168,7 @@ msgstr "Использовать свой разделитель исполни�
 
 #: ../root/release/edit/tracklist.tt:261
 msgid "Use the following fields to search for a CD stub."
-msgstr ""
+msgstr "Используйте поля ниже для поиска заглушки компакт-диска."
 
 #: ../root/release/edit/tracklist.tt:256
 msgid "Use the following fields to search for an existing medium."
@@ -3135,19 +3176,19 @@ msgstr "Используйте поля ниже для поиска сущес�
 
 #: ../root/release/edit/tracklist.tt:60
 msgid "Use track artists"
-msgstr ""
+msgstr "Использовать исполнителей треков"
 
 #: ../root/release/edit/tracklist.tt:95
 msgid "Use track lengths"
-msgstr ""
+msgstr "Использовать длину треков"
 
 #: ../root/release/edit/tracklist.tt:37
 msgid "Use track numbers"
-msgstr ""
+msgstr "Использовать номера треков"
 
 #: ../root/release/edit/tracklist.tt:74
 msgid "Use track titles"
-msgstr ""
+msgstr "Использовать названия треков"
 
 #: ../root/event/add_event_art.tt:81 ../root/release/add_cover_art.tt:81
 msgid "Validating file..."
@@ -3167,7 +3208,7 @@ msgstr "Видео \"{name}\" исполнителя {artist}"
 #: ../root/edit/search_macros.tt:434 ../root/edit/EditIndex.js:71
 #: ../root/edit/components/EditHeader.js:122
 msgid "Vote tally"
-msgstr ""
+msgstr "Итоги голосования"
 
 #: ../root/edit/search_macros.tt:434 ../root/elections/ElectionVotes.js:22
 msgid "Voter"
@@ -3303,6 +3344,10 @@ msgid ""
 "artists, or “{use_track_lengths}” if you have track lengths but want the "
 "parser to ignore them."
 msgstr ""
+"Вы можете использовать опции под парсером, чтобы деактивировать некоторые "
+"секции. Например, вы можете отключить \"{lines_have_artists}\", если в ваших "
+"данных нет исполнителей треков, или \"{use_track_lengths}\", если у вас есть "
+"длины треков, но парсер должен их игнорировать."
 
 #: ../root/release/edit/information.tt:165
 msgid "You cannot use the same country more than once."
@@ -3310,13 +3355,15 @@ msgstr "Нельзя использовать одну и ту же страну
 
 #: ../root/layout/merge-helper.tt:4 ../root/layout/components/MergeHelper.js:28
 msgid "You currently have the following entities selected for merging:"
-msgstr ""
+msgstr "В настоящее время для объединения выбраны следующие сущности:"
 
 #: ../root/recording/edit_form.tt:7
 msgid ""
 "You have used the {valink|Various Artists} special purpose artist on this "
 "recording."
 msgstr ""
+"Вы использовали в этой записи артиста специального назначения {valink|"
+"Various Artists}."
 
 #: ../root/release/edit/editnote.tt:10
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:195
@@ -3337,6 +3384,8 @@ msgid ""
 "You must enter a title for every track (if the track is untitled, enter "
 "“{untitled_track}”)."
 msgstr ""
+"Вы должны ввести название для каждого трека (если трек не имеет названия, "
+"введите \"{untitled_track}\")."
 
 #: ../root/release/edit/editnote.tt:32
 msgid "You must provide an edit note when adding a release."
@@ -3383,12 +3432,17 @@ msgid ""
 "Your edit note seems to have no actual content. Please provide a note that "
 "will be helpful to your fellow editors!"
 msgstr ""
+"Похоже, что ваш комментарий к правке не имеет фактического содержания. "
+"Пожалуйста, напишите комментарий, который будет полезен вашим "
+"коллегам-редакторам!"
 
 #: ../root/edit/search.tt:7
 msgid ""
 "Your search took too long and was cancelled. It may help to be more "
 "specific, or to try again."
 msgstr ""
+"Поиск занял слишком много времени и был отменен. Попробуйте уточнить запрос "
+"или повторите попытку."
 
 #: ../root/layout.tt:21 ../root/layout/index.js:205
 msgid ""
@@ -3442,7 +3496,7 @@ msgstr "[удалено]"
 
 #: ../root/edit/search_macros.tt:174
 msgid "after"
-msgstr ""
+msgstr "после"
 
 #: ../root/edit/search_macros.tt:39
 msgid "all"
@@ -3464,7 +3518,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:20
 msgid "auto-edits"
-msgstr "авто-редактирование"
+msgstr "автоправки"
 
 #: ../root/edit/search_macros.tt:174
 msgid "before"
@@ -3472,11 +3526,11 @@ msgstr "до"
 
 #: ../root/edit/search_macros.tt:174
 msgid "between"
-msgstr ""
+msgstr "в районе"
 
 #: ../root/release/edit/recordings.tt:79 ../root/release/edit/recordings.tt:83
 msgid "by"
-msgstr ""
+msgstr " "
 
 #: ../root/components/common-macros.tt:111
 #: ../root/static/scripts/common/components/EntityLink.js:105
@@ -9276,6 +9330,8 @@ msgid ""
 "This edit does not store recording merge information and is closed, so no "
 "recording merge information can be shown."
 msgstr ""
+"Эта правка не хранит информацию о слиянии записей и является закрытой, "
+"поэтому информация о слиянии записей не может быть показана."
 
 #: ../root/edit/details/MergeReleases.js:335
 msgid "All recordings for these releases are already merged."
@@ -9291,6 +9347,8 @@ msgid ""
 "The data in this edit originally came from an older version of this edit, "
 "and may not display correctly"
 msgstr ""
+"Данные в этой правке были взяты из ее старой версии и могут отображаться "
+"некорректно"
 
 #: ../root/edit/details/MoveDiscId.js:28
 #: ../root/edit/details/historic/MoveDiscId.js:24
@@ -9308,6 +9366,9 @@ msgid ""
 "removal edit was entered. Please check the changes and ensure the removal is "
 "still correct."
 msgstr ""
+"Количество треков на удаляемом носителе изменилось с момента ввода правки "
+"удаления. Пожалуйста, проверьте изменения и убедитесь, что удаление по-"
+"прежнему корректно."
 
 #: ../root/edit/details/RemoveMedium.js:53
 msgid ""
@@ -9315,6 +9376,9 @@ msgid ""
 "was entered. Please check the changes and ensure the removal is still "
 "correct."
 msgstr ""
+"Длина некоторых треков, названия или исполнители изменились с момента ввода "
+"правки удаления. Пожалуйста, проверьте изменения и убедитесь, что удаление "
+"по-прежнему корректно."
 
 #: ../root/edit/details/RemoveMedium.js:71
 msgid "Original tracklist"
@@ -9322,7 +9386,7 @@ msgstr "Изначальный трек-лист"
 
 #: ../root/edit/details/RemoveMedium.js:90
 msgid "Current tracklist"
-msgstr "Нынешний трек-лист"
+msgstr "Текущий трек-лист"
 
 #: ../root/edit/details/ReorderArt.js:49
 msgid "Old positions:"
@@ -10201,22 +10265,16 @@ msgid "All sizes:"
 msgstr "Все размеры:"
 
 #: ../root/event/EventArt.js:100
-#, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {eaa|Event Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr ""
-"Изображения предоставлены проектом {caa|Cover Art Archive}, а также доступны "
+"Изображения предоставлены проектом {caa|Event Art Archive}, а также доступны "
 "в {ia|Архиве Интернета}."
 
 #: ../root/event/EventArt.js:112
-#, fuzzy
-#| msgid "We do not currently have any cover art for {release}."
 msgid "We do not currently have any event art for {event}."
-msgstr "У нас сейчас нет обложек к релизу \"{release}\"."
+msgstr "У нас сейчас нет изображений к событию \"{event}\"."
 
 #: ../root/event/EventArt.js:122
 #, fuzzy
@@ -14871,7 +14929,7 @@ msgstr "с {date} по ????"
 
 #: ../root/static/scripts/common/utility/relationshipDateText.js:36
 msgid "from {date} to present"
-msgstr "с {date} по н.в."
+msgstr "с {date} по н.в"
 
 #: ../root/static/scripts/common/utility/relationshipDateText.js:38
 msgid "until {date}"

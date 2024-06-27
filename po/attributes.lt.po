@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-02 00:42+0000\n"
+"PO-Revision-Date: 2024-06-27 12:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/lt/>\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.5.4\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.6\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -8902,6 +8902,10 @@ msgid ""
 "just a scaled down version of the poster, both types can be added to the "
 "same image."
 msgstr ""
+"Dokumentas, paprastai mažesnis už plakatą, paprastai skirtas atspausdinti ir "
+"dalytis su visuomene, siekiant iš anksto reklamuoti renginį arba suteikti "
+"papildomos informacijos dalyviams. Jei renginio skrajutė yra tik sumažinta "
+"plakato versija, abu tipai gali būti pridedami prie to paties vaizdo."
 
 #: DB:event_art_archive.art_type/description:2
 msgctxt "event_art_type"
@@ -8909,6 +8913,8 @@ msgid ""
 "A document generally used for admission to the event, whether physical or "
 "digital. Use this also for ticket stubs and passes."
 msgstr ""
+"Dokumentas, kuris paprastai naudojamas norint patekti į renginį – fizinis "
+"arba skaitmeninis. Taip pat naudok bilietų kvitams ir leidimams."
 
 #: DB:event_art_archive.art_type/description:3
 msgctxt "event_art_type"
@@ -8916,6 +8922,8 @@ msgid ""
 "A list of songs to be played in the event, often printed or handwritten for "
 "use by the artist."
 msgstr ""
+"Dainų sąrašas, kurios bus leidžiamos per renginį, dažnai atspausdintas arba "
+"parašytas ranka, kad jį galėtų naudoti atlikėjas."
 
 #: DB:event_art_archive.art_type/description:7
 msgctxt "event_art_type"
@@ -8925,6 +8933,11 @@ msgid ""
 "more than one art type applies (for example, if a poster is sold as "
 "merchandise) use “merchandise” alongside any other appropriate types."
 msgstr ""
+"Vaizdas bet kokioms su renginiu susijusioms prekėms, parduodamoms (arba "
+"laisvai dalijamoms) siekiant reklamuoti renginį arba jo metu, pvz., "
+"marškinėliams, kepuraitėms, lipdukams ir pan. Jei taikoma daugiau nei viena "
+"apipavidalinimo rūšis (pavyzdžiui, jei plakatas parduodamas kaip prekė), "
+"šalia visų kitų tinkamų rūšių naudok „prekės“."
 
 #: DB:event_art_archive.art_type/description:5
 msgctxt "event_art_type"
@@ -8933,6 +8946,9 @@ msgid ""
 "event. Can be a standalone image, but also a poster or banner (in which case "
 "all applicable types should be set)."
 msgstr ""
+"Vaizdas, paprastai rodantis renginio atlikimų tvarką ir laiką. Tai gali būti "
+"atskiras vaizdas, taip pat plakatas ar reklamjuostė (tokiu atveju reikia "
+"nustatyti visus taikomus tipus)."
 
 #: DB:event_art_archive.art_type/description:8
 msgctxt "event_art_type"
@@ -8941,48 +8957,49 @@ msgid ""
 "created for the event, for example showing the recommended ways to access "
 "the venue, or the location of specific stages and stands inside of it."
 msgstr ""
+"Renginio vietos vidaus planas arba ypatingai renginiui sukurtas išorinis "
+"prieigos žemėlapis, kuriame, pavyzdžiui, nurodomi rekomenduojami būdai "
+"patekti į renginio vietą arba konkrečių scenų ir stendų vieta joje."
 
 #: DB:event_art_archive.art_type/name:4
 msgctxt "event_art_type"
 msgid "Banner"
-msgstr ""
+msgstr "Reklamjuostė"
 
 #: DB:event_art_archive.art_type/name:6
 msgctxt "event_art_type"
 msgid "Flyer"
-msgstr ""
+msgstr "Skrajutė"
 
 #: DB:event_art_archive.art_type/name:8
 msgctxt "event_art_type"
 msgid "Map"
-msgstr ""
+msgstr "Žemėlapis"
 
 #: DB:event_art_archive.art_type/name:7
 msgctxt "event_art_type"
 msgid "Merchandise"
-msgstr ""
+msgstr "Prekės"
 
 #: DB:event_art_archive.art_type/name:1
-#, fuzzy
 msgctxt "event_art_type"
 msgid "Poster"
-msgstr "plakatas"
+msgstr "Plakatas"
 
 #: DB:event_art_archive.art_type/name:5
 msgctxt "event_art_type"
 msgid "Schedule"
-msgstr ""
+msgstr "Tvarkaraštis"
 
 #: DB:event_art_archive.art_type/name:3
 msgctxt "event_art_type"
 msgid "Setlist"
-msgstr ""
+msgstr "Kūrinių sąrašas"
 
 #: DB:event_art_archive.art_type/name:2
-#, fuzzy
 msgctxt "event_art_type"
 msgid "Ticket"
-msgstr "lipdukas"
+msgstr "Bilietas"
 
 #: DB:event_art_archive.art_type/description:1
 msgctxt "event_art_type"
@@ -8990,6 +9007,8 @@ msgid ""
 "Usually a large printed or digital sheet, that often contains pictures, and "
 "is generally posted publicly to promote the event."
 msgstr ""
+"Paprastai didelis spausdintas arba skaitmeninis lapas, kuriame dažnai būna "
+"nuotraukų ir kuris paprastai skelbiamas viešai, siekiant reklamuoti renginį."
 
 #: DB:event_art_archive.art_type/description:4
 msgctxt "event_art_type"
@@ -8997,3 +9016,6 @@ msgid ""
 "Usually horizontal image used to promote an event, for example in social "
 "media, which tends to have less information than a poster."
 msgstr ""
+"Paprastai horizontalus vaizdas, naudojamas renginiui reklamuoti, pavyzdžiui, "
+"socialinėje medijoje, kuriame paprastai pateikiama mažiau informacijos nei "
+"plakatas."

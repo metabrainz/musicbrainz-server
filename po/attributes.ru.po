@@ -27,7 +27,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-14 17:42+0000\n"
+"PO-Revision-Date: 2024-06-24 23:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -39,7 +39,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.5\n"
+"X-Generator: Weblate 5.6\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -300,6 +300,11 @@ msgid ""
 "manner, and the DJ who does this modification is usually (although not "
 "always) credited in a fairly prominent way."
 msgstr ""
+"DJ-микс - последовательность из нескольких записей, воспроизводимых одна за "
+"другой, каждая из которых изменена таким образом, что они сливаются в "
+"непрерывный музыкальный поток. Для выпуска DJ-микса требуется, чтобы записи "
+"были каким-то образом изменены, а диджей, который вносит эти изменения, "
+"обычно (хотя и не всегда) упоминается на достаточно видном месте."
 
 #: DB:work_attribute_type_allowed_value/value:794
 msgctxt "work_attribute_type_allowed_value"
@@ -634,6 +639,8 @@ msgid ""
 "A release mostly consisting of field recordings (such as nature sounds or "
 "city/industrial noise)."
 msgstr ""
+"Релиз, состоящий преимущественно из полевых записей (например, звуков "
+"природы или городского/промышленного шума)."
 
 #: DB:release_group_secondary_type/description:7
 msgctxt "release_group_secondary_type"
@@ -4078,7 +4085,7 @@ msgstr ""
 #: DB:work_attribute_type/description:29
 msgctxt "work_attribute_type"
 msgid "ID for the International Copyright Enterprise"
-msgstr "ID Международного авторского права"
+msgstr "ID International Copyright Enterprise"
 
 #: DB:work_attribute_type/description:52
 msgctxt "work_attribute_type"
@@ -4086,10 +4093,9 @@ msgid "ID for the Irish rights society IMRO"
 msgstr ""
 
 #: DB:work_attribute_type/description:206
-#, fuzzy
 msgctxt "work_attribute_type"
 msgid "ID for the Israeli rights society ACUM"
-msgstr "ID Мексиканского правового общества SACM"
+msgstr "ID израильского правового общества ACUM"
 
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"
@@ -4122,10 +4128,9 @@ msgid "ID for the Latvian rights society AKKA/LAA"
 msgstr ""
 
 #: DB:work_attribute_type/description:207
-#, fuzzy
 msgctxt "work_attribute_type"
 msgid "ID for the Lithuanian rights society LATGA"
-msgstr "ID Бельгийского правозащитного общества SABAM"
+msgstr "ID литовского правозащитного общества LATGA"
 
 #: DB:work_attribute_type/description:49
 msgctxt "work_attribute_type"
@@ -4969,20 +4974,19 @@ msgid "Kōmal riṣabh asāvēri"
 msgstr ""
 
 #: DB:work_attribute_type/name:207
-#, fuzzy
 msgctxt "work_attribute_type"
 msgid "LATGA ID"
-msgstr "APRA ID"
+msgstr "LATGA ID"
 
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"
 msgid "Label collection"
-msgstr ""
+msgstr "Коллекция лейблов"
 
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
 msgid "Label name"
-msgstr "Название Лейбла"
+msgstr "Название лейбла"
 
 #: DB:work_attribute_type_allowed_value/value:956
 msgctxt "work_attribute_type_allowed_value"
@@ -8939,6 +8943,11 @@ msgid ""
 "just a scaled down version of the poster, both types can be added to the "
 "same image."
 msgstr ""
+"Документ, обычно меньший по размеру, чем плакат, который обычно предназначен "
+"для печати и распространения среди публики, чтобы заранее прорекламировать "
+"мероприятие или предоставить дополнительную информацию для участников. Если "
+"флаер для мероприятия - это просто уменьшенная версия плаката, оба типа "
+"могут быть добавлены к одному изображению."
 
 #: DB:event_art_archive.art_type/description:2
 msgctxt "event_art_type"
@@ -8946,6 +8955,8 @@ msgid ""
 "A document generally used for admission to the event, whether physical or "
 "digital. Use this also for ticket stubs and passes."
 msgstr ""
+"Физический или цифровой документ, использующийся для посещения мероприятия. "
+"Используйте данный тип также для корешков билетов или пропусков."
 
 #: DB:event_art_archive.art_type/description:3
 msgctxt "event_art_type"
@@ -8953,6 +8964,8 @@ msgid ""
 "A list of songs to be played in the event, often printed or handwritten for "
 "use by the artist."
 msgstr ""
+"Список песен, которые будут звучать на мероприятии, часто напечатанный или "
+"написанный от руки для использования артистом."
 
 #: DB:event_art_archive.art_type/description:7
 msgctxt "event_art_type"
@@ -8962,6 +8975,11 @@ msgid ""
 "more than one art type applies (for example, if a poster is sold as "
 "merchandise) use “merchandise” alongside any other appropriate types."
 msgstr ""
+"Изображение для любых товаров, связанных с мероприятием, которые продаются ("
+"или свободно распространяются) для рекламы мероприятия или во время него, "
+"например, футболки, кепки, наклейки и т. д. Если применяется более одного "
+"типа изображения (например, если плакат продается как товар), используйте "
+"\"товар\" наряду с другими подходящими типами."
 
 #: DB:event_art_archive.art_type/description:5
 msgctxt "event_art_type"
@@ -8970,6 +8988,9 @@ msgid ""
 "event. Can be a standalone image, but also a poster or banner (in which case "
 "all applicable types should be set)."
 msgstr ""
+"Изображение, обычно показывающее порядок и время выступлений на мероприятии. "
+"Может быть как отдельным изображением, так и плакатом или баннером (в этом "
+"случае необходимо установить все применимые типы)."
 
 #: DB:event_art_archive.art_type/description:8
 msgctxt "event_art_type"
@@ -8978,48 +8999,50 @@ msgid ""
 "created for the event, for example showing the recommended ways to access "
 "the venue, or the location of specific stages and stands inside of it."
 msgstr ""
+"Внутренний план места проведения мероприятия или внешняя карта доступа, "
+"созданная специально для мероприятия, например, с указанием рекомендуемых "
+"путей подъезда к месту проведения мероприятия или расположения определенных "
+"сцен и трибун внутри него."
 
 #: DB:event_art_archive.art_type/name:4
 msgctxt "event_art_type"
 msgid "Banner"
-msgstr ""
+msgstr "Баннер"
 
 #: DB:event_art_archive.art_type/name:6
 msgctxt "event_art_type"
 msgid "Flyer"
-msgstr ""
+msgstr "Флаер"
 
 #: DB:event_art_archive.art_type/name:8
 msgctxt "event_art_type"
 msgid "Map"
-msgstr ""
+msgstr "Карта"
 
 #: DB:event_art_archive.art_type/name:7
 msgctxt "event_art_type"
 msgid "Merchandise"
-msgstr ""
+msgstr "Товар"
 
 #: DB:event_art_archive.art_type/name:1
-#, fuzzy
 msgctxt "event_art_type"
 msgid "Poster"
-msgstr "Плакат"
+msgstr "Постер"
 
 #: DB:event_art_archive.art_type/name:5
 msgctxt "event_art_type"
 msgid "Schedule"
-msgstr ""
+msgstr "Расписание"
 
 #: DB:event_art_archive.art_type/name:3
 msgctxt "event_art_type"
 msgid "Setlist"
-msgstr ""
+msgstr "Сет-лист"
 
 #: DB:event_art_archive.art_type/name:2
-#, fuzzy
 msgctxt "event_art_type"
 msgid "Ticket"
-msgstr "Стикер"
+msgstr "Билет"
 
 #: DB:event_art_archive.art_type/description:1
 msgctxt "event_art_type"
@@ -9027,6 +9050,8 @@ msgid ""
 "Usually a large printed or digital sheet, that often contains pictures, and "
 "is generally posted publicly to promote the event."
 msgstr ""
+"Обычно большой печатный или цифровой лист, который часто содержит фотографии "
+"и обычно размещается на публике для рекламы мероприятия."
 
 #: DB:event_art_archive.art_type/description:4
 msgctxt "event_art_type"
@@ -9034,3 +9059,6 @@ msgid ""
 "Usually horizontal image used to promote an event, for example in social "
 "media, which tends to have less information than a poster."
 msgstr ""
+"Обычно горизонтальное изображение, используемое для продвижения события, "
+"например, в социальных сетях, которое, как правило, содержит меньше "
+"информации, чем плакат."

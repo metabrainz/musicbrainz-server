@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-15 11:42+0000\n"
+"PO-Revision-Date: 2024-06-27 12:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/lt/>\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
-" n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.5.5\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.6\n"
 
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
@@ -7665,7 +7665,7 @@ msgstr ""
 #: DB:link_type/link_phrase:811 DB:link_type/link_phrase:816
 #: DB:link_type/link_phrase:817 DB:link_type/link_phrase:938
 msgid "setlist.fm"
-msgstr "setlist.fm"
+msgstr "„setlist.fm“"
 
 #: DB:link_type/reverse_link_phrase:811 DB:link_type/reverse_link_phrase:816
 #: DB:link_type/reverse_link_phrase:817 DB:link_type/reverse_link_phrase:938
@@ -7675,7 +7675,7 @@ msgstr ""
 #: DB:link_type/name:811 DB:link_type/name:816 DB:link_type/name:817
 #: DB:link_type/name:938
 msgid "setlistfm"
-msgstr "setlistfm"
+msgstr "„setlistfm“"
 
 #: DB:link_type/link_phrase:729 DB:link_type/name:729
 msgid "show notes"

@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-16 13:42+0000\n"
+"PO-Revision-Date: 2024-06-26 23:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.5\n"
+"X-Generator: Weblate 5.6\n"
 
 #: DB:work_type/description:9
 msgctxt "work_type"
@@ -538,8 +538,7 @@ msgstr ""
 msgctxt "release_packaging"
 msgid "A perfect bound book with a sleeve at the end to hold a CD"
 msgstr ""
-"Un libro con rilegatura perfetta (perfect bind) e una custodia per CD alla "
-"fine"
+"Un libro con rilegatura perfetta (perfect bind) e una busta per CD alla fine"
 
 #: DB:event_type/description:6
 msgctxt "event_type"
@@ -2267,7 +2266,7 @@ msgstr "Cantata"
 #: DB:release_packaging/name:4
 msgctxt "release_packaging"
 msgid "Cardboard/Paper Sleeve"
-msgstr "Custodia di carta/cartone"
+msgstr "Busta di carta/cartone"
 
 #: DB:medium_format/name:9
 msgctxt "medium_format"
@@ -6444,12 +6443,12 @@ msgstr "Nome luogo"
 #: DB:release_packaging/description:20
 msgctxt "release_packaging"
 msgid "Plastic CD tray inside a cardboard slipcover"
-msgstr "Tray CD di plastica dentro una sovraccoperta di cartone"
+msgstr "Tray CD di plastica dentro a una sovraccoperta di cartone"
 
 #: DB:release_packaging/name:18
 msgctxt "release_packaging"
 msgid "Plastic Sleeve"
-msgstr "Custodia di plastica"
+msgstr "Busta di plastica"
 
 #: DB:work_type/name:28
 msgctxt "work_type"
@@ -9078,6 +9077,11 @@ msgid ""
 "just a scaled down version of the poster, both types can be added to the "
 "same image."
 msgstr ""
+"Un documento, in genere più piccolo di un manifesto, solitamente realizzato "
+"per essere stampato e distribuito al pubblico per promuovere un evento in "
+"anticipo o per fornire più informazioni ai partecipanti. Se il volantino di "
+"un evento è semplicemente una versione su scala ridotta del manifesto, è "
+"possibile aggiungere entrambi i tipi alla stessa immagine."
 
 #: DB:event_art_archive.art_type/description:2
 msgctxt "event_art_type"
@@ -9085,6 +9089,8 @@ msgid ""
 "A document generally used for admission to the event, whether physical or "
 "digital. Use this also for ticket stubs and passes."
 msgstr ""
+"Un documento, fisico o digitale, usato in genere per ottenere l'ingresso a "
+"un evento. Da usare anche per le matrici di biglietti e i pass."
 
 #: DB:event_art_archive.art_type/description:3
 msgctxt "event_art_type"
@@ -9092,6 +9098,8 @@ msgid ""
 "A list of songs to be played in the event, often printed or handwritten for "
 "use by the artist."
 msgstr ""
+"Un elenco delle canzoni da suonare durante l'evento, spesso stampato o "
+"scritto a mano per essere utilizzato dall'artista."
 
 #: DB:event_art_archive.art_type/description:7
 msgctxt "event_art_type"
@@ -9101,6 +9109,12 @@ msgid ""
 "more than one art type applies (for example, if a poster is sold as "
 "merchandise) use “merchandise” alongside any other appropriate types."
 msgstr ""
+"Un'immagine di qualsiasi tipo di prodotto relativo all'evento venduto (o "
+"distribuito gratuitamente) per promuovere l'evento o durante l'evento "
+"stesso, come magliette, cappelli, adesivi, ecc. Se più di un tipo di "
+"immagine è rilevante (per esempio, se un manifesto è venduto come "
+"merchandising), seleziona sia \"merchandising\" che gli altri tipi "
+"corrispondenti."
 
 #: DB:event_art_archive.art_type/description:5
 msgctxt "event_art_type"
@@ -9109,6 +9123,9 @@ msgid ""
 "event. Can be a standalone image, but also a poster or banner (in which case "
 "all applicable types should be set)."
 msgstr ""
+"Un'immagine che mostra l'ordine e l'orario delle esibizioni durante un "
+"evento. Può essere un'immagine a sé stante, oppure un manifesto o un banner ("
+"e in quel caso andranno selezionati tutti i tipi rilevanti)."
 
 #: DB:event_art_archive.art_type/description:8
 msgctxt "event_art_type"
@@ -9117,48 +9134,49 @@ msgid ""
 "created for the event, for example showing the recommended ways to access "
 "the venue, or the location of specific stages and stands inside of it."
 msgstr ""
+"Una piantina del locale in cui si tiene l'evento o una pianta di accesso "
+"creata appositamente per l'evento, che mostra per esempio gli accessi "
+"consigliati o la posizione di specifici palcoscenici e chioschi."
 
 #: DB:event_art_archive.art_type/name:4
 msgctxt "event_art_type"
 msgid "Banner"
-msgstr ""
+msgstr "Banner"
 
 #: DB:event_art_archive.art_type/name:6
 msgctxt "event_art_type"
 msgid "Flyer"
-msgstr ""
+msgstr "Volantino"
 
 #: DB:event_art_archive.art_type/name:8
 msgctxt "event_art_type"
 msgid "Map"
-msgstr ""
+msgstr "Cartina"
 
 #: DB:event_art_archive.art_type/name:7
 msgctxt "event_art_type"
 msgid "Merchandise"
-msgstr ""
+msgstr "Merchandising"
 
 #: DB:event_art_archive.art_type/name:1
-#, fuzzy
 msgctxt "event_art_type"
 msgid "Poster"
-msgstr "Poster"
+msgstr "Manifesto"
 
 #: DB:event_art_archive.art_type/name:5
 msgctxt "event_art_type"
 msgid "Schedule"
-msgstr ""
+msgstr "Programma"
 
 #: DB:event_art_archive.art_type/name:3
 msgctxt "event_art_type"
 msgid "Setlist"
-msgstr ""
+msgstr "Scaletta"
 
 #: DB:event_art_archive.art_type/name:2
-#, fuzzy
 msgctxt "event_art_type"
 msgid "Ticket"
-msgstr "Adesivo"
+msgstr "Biglietto"
 
 #: DB:event_art_archive.art_type/description:1
 msgctxt "event_art_type"
@@ -9166,6 +9184,9 @@ msgid ""
 "Usually a large printed or digital sheet, that often contains pictures, and "
 "is generally posted publicly to promote the event."
 msgstr ""
+"In genere un foglio di grandi dimensioni, stampato o in digitale, spesso "
+"contenente immagini e solitamente affisso in pubblico per promuovere "
+"l'evento."
 
 #: DB:event_art_archive.art_type/description:4
 msgctxt "event_art_type"
@@ -9173,3 +9194,6 @@ msgid ""
 "Usually horizontal image used to promote an event, for example in social "
 "media, which tends to have less information than a poster."
 msgstr ""
+"Un'immagine solitamente orizzontale usata per promuovere un evento, per "
+"esempio sui social media, e che in genere contiene meno informazioni "
+"rispetto a un manifesto."

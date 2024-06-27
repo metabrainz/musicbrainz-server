@@ -20,9 +20,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-21 15:34+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2024-06-24 23:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -30,8 +30,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.6\n"
 
 #: DB:link_attribute_type/description:1355
@@ -560,7 +560,7 @@ msgstr "Указывает, что запись содержит семплы и
 
 #: DB:link_type/description:740
 msgid "Indicates that the recording is part of a series."
-msgstr ""
+msgstr "Указывает, что запись является частью серии."
 
 #: DB:link_attribute_type/description:1053
 msgid "Indicates that the relationship is optional - doesn't always apply."
@@ -1426,6 +1426,9 @@ msgid ""
 "inspiration during the recording of this recording, without actually "
 "contributing to the writing or performance."
 msgstr ""
+"Отмечает человека или агентство, которые обеспечили некое общее творческое "
+"вдохновение во время записи этой записи, не внося фактического вклада в "
+"написание или исполнение."
 
 #: DB:link_type/description:63
 msgid ""
@@ -3193,8 +3196,8 @@ msgid ""
 "respect the <a href=\"/doc/Other_Databases_Relationship_Type/"
 "Whitelist\">whitelist</a>."
 msgstr ""
-"Связывает сущность с эквивалентной сущностью в другой базе данных из <a href="
-"\"/doc/Other_Databases_Relationship_Type/Whitelist\">белого списка</a>."
+"Связывает сущность с эквивалентной сущностью в другой базе данных из <a "
+"href=\"/doc/Other_Databases_Relationship_Type/Whitelist\">белого списка</a>."
 
 #: DB:link_type/description:804
 msgid ""
@@ -5944,10 +5947,8 @@ msgid "is a remix of"
 msgstr "— ремикс"
 
 #: DB:link_type/long_link_phrase:1229
-#, fuzzy
-#| msgid "is a remix of"
 msgid "is a re‐recording of"
-msgstr "— ремикс"
+msgstr "является перезаписью работы"
 
 #: DB:link_type/long_link_phrase:11
 msgid "is a single/EP which was taken from"
@@ -6031,6 +6032,9 @@ msgid ""
 "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
 "a} {partial} {instrumental} {cover} {karaoke} recording of"
 msgstr ""
+"является {partial:частичной} {instrumental:инструментальной} {karaoke:"
+"караоке} {live:концертной}{acappella:акапелла} {medley:поппури} записью "
+"{cover:кавера} работы"
 
 #: DB:link_type/long_link_phrase:722
 msgid "is/was a subgroup of"
@@ -7467,10 +7471,8 @@ msgid "re‐recording"
 msgstr ""
 
 #: DB:link_type/link_phrase:1229
-#, fuzzy
-#| msgid "recording contract"
 msgid "re‐recording of"
-msgstr "контракт на запись"
+msgstr "перезапись работы"
 
 #: DB:link_type/reverse_link_phrase:1229
 msgid "re‐recordings"
@@ -8199,6 +8201,9 @@ msgid ""
 "{acappella:a cappella} {live} {medley:medley including a} {partial} "
 "{instrumental} {cover} {karaoke} recording of"
 msgstr ""
+"{partial:частичная} {instrumental:инструментальная} {karaoke:караоке} {live:"
+"концертная} {acappella:акапелла} {medley:поппури} запись {cover:кавера} "
+"работы"
 
 #: DB:link_type/reverse_link_phrase:278
 msgid ""
