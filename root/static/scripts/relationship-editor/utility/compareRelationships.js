@@ -13,6 +13,7 @@ import {
   PART_OF_SERIES_LINK_TYPE_IDS,
   SERIES_ORDERING_ATTRIBUTE,
   SERIES_ORDERING_TYPE_AUTOMATIC,
+  TIME_ATTRIBUTE,
 } from '../../common/constants.js';
 import {compare} from '../../common/i18n.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
@@ -169,6 +170,18 @@ const getPaddedSeriesNumber = memoizeWithDefault<
         }
       }
       return parts.join('');
+    }
+  }
+  return '';
+}, '');
+
+const getTimeIfPresent = memoizeWithDefault<
+  RelationshipStateT,
+  string,
+>((relationship: RelationshipStateT) => {
+  for (const attribute of tree.iterate(relationship.attributes)) {
+    if (attribute.type.gid === TIME_ATTRIBUTE) {
+      return attribute.text_value || '';
     }
   }
   return '';
@@ -350,6 +363,11 @@ export default function compareRelationships(
   const datePeriodCmp = compareDatePeriods(a, b);
   if (datePeriodCmp) {
     return datePeriodCmp;
+  }
+
+  const timeCmp = compareStrings(getTimeIfPresent(a), getTimeIfPresent(b));
+  if (timeCmp) {
+    return timeCmp;
   }
 
   const targetCreditA = backward

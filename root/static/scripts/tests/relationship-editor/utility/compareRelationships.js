@@ -13,9 +13,11 @@ import * as tree from 'weight-balanced-tree';
 import {
   SERIES_ORDERING_ATTRIBUTE,
   SERIES_ORDERING_TYPE_AUTOMATIC,
+  TIME_ATTRIBUTE,
 } from '../../../common/constants.js';
 import {
   createArtistObject,
+  createEventObject,
   createRecordingObject,
   createSeriesObject,
 } from '../../../common/entity2.js';
@@ -161,10 +163,89 @@ test('compareRelationships: Basic comparisons', function (t) {
   );
 });
 
+test('compareRelationships: Time comparisons', function (t) {
+  t.plan(3);
+
+  const artist = createArtistObject({
+    id: 1,
+    name: 'Artist',
+  });
+
+  const event = createEventObject({
+    id: 1,
+    name: 'Event',
+  });
+
+  const attributesWithTime1 = tree.fromDistinctAscArray([{
+    text_value: '10:10',
+    type: {
+      gid: TIME_ATTRIBUTE,
+    },
+    typeID: 830,
+    typeName: 'time',
+  }]);
+
+  const attributesWithTime2 = tree.fromDistinctAscArray([{
+    text_value: '11:10',
+    type: {
+      gid: TIME_ATTRIBUTE,
+    },
+    typeID: 830,
+    typeName: 'time',
+  }]);
+
+  const artistEventRelTime1 = {
+    ...emptyRelationship,
+    attributes: attributesWithTime1,
+    entity0: artist,
+    entity1: event,
+    id: -1,
+    linkTypeID: 798, // Main performer
+  };
+
+  const artistEventRelTime2 = {
+    ...artistEventRelTime1,
+    attributes: attributesWithTime2,
+  };
+
+  const artistEventRelNoTime = {
+    ...artistEventRelTime1,
+    attributes: null,
+  };
+
+  t.ok(
+    compareRelationships(
+      artistEventRelTime1,
+      artistEventRelTime1,
+      false,
+    ) === 0,
+    'The same relationship with the same time is seen as equal',
+  );
+
+
+  t.ok(
+    compareRelationships(
+      artistEventRelTime1,
+      artistEventRelTime2,
+      false,
+    ) === -1,
+    'The same relationship with different times is not seen as equal, and earlier time sorts first',
+  );
+
+  t.ok(
+    compareRelationships(
+      artistEventRelTime1,
+      artistEventRelNoTime,
+      false,
+    ) === 1,
+    'The same relationship with and without time is not seen as equal, and time sorts last',
+  );
+});
+
 test('compareRelationships: Series comparisons', function (t) {
   t.plan(4);
 
-  const recording = createArtistObject({
+  const recording = createRecordingObject({
     id: 1,
     name: 'Recording',
   });
