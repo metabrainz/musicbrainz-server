@@ -30,8 +30,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.5.5\n"
 
 #: DB:link_attribute_type/description:1355
@@ -6102,6 +6102,7 @@ msgstr "prima pubblicazione della traccia"
 msgid "folk music"
 msgstr "musica folk"
 
+#. name:founder, name:label founder
 #: DB:link_type/link_phrase:832 DB:link_type/link_phrase:116
 #: DB:link_type/link_phrase:895 DB:link_type/link_phrase:1004
 #: DB:link_type/long_link_phrase:832 DB:link_type/long_link_phrase:116

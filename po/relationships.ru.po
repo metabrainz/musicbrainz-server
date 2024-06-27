@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-06-24 23:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -30,8 +30,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.6\n"
 
 #: DB:link_attribute_type/description:1355
@@ -3196,8 +3196,8 @@ msgid ""
 "respect the <a href=\"/doc/Other_Databases_Relationship_Type/"
 "Whitelist\">whitelist</a>."
 msgstr ""
-"Связывает сущность с эквивалентной сущностью в другой базе данных из <a href="
-"\"/doc/Other_Databases_Relationship_Type/Whitelist\">белого списка</a>."
+"Связывает сущность с эквивалентной сущностью в другой базе данных из <a "
+"href=\"/doc/Other_Databases_Relationship_Type/Whitelist\">белого списка</a>."
 
 #: DB:link_type/description:804
 msgid ""
@@ -5189,6 +5189,7 @@ msgstr ""
 msgid "folk music"
 msgstr ""
 
+#. name:founder, name:label founder
 #: DB:link_type/link_phrase:832 DB:link_type/link_phrase:116
 #: DB:link_type/link_phrase:895 DB:link_type/link_phrase:1004
 #: DB:link_type/long_link_phrase:832 DB:link_type/long_link_phrase:116
@@ -6032,9 +6033,9 @@ msgid ""
 "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
 "a} {partial} {instrumental} {cover} {karaoke} recording of"
 msgstr ""
-"является {partial:частичной} {instrumental:инструментальной} "
-"{karaoke:караоке} {live:концертной}{acappella:акапелла} {medley:поппури} "
-"записью {cover:кавера} работы"
+"является {partial:частичной} {instrumental:инструментальной} {karaoke:"
+"караоке} {live:концертной}{acappella:акапелла} {medley:поппури} записью "
+"{cover:кавера} работы"
 
 #: DB:link_type/long_link_phrase:722
 msgid "is/was a subgroup of"
@@ -8201,9 +8202,9 @@ msgid ""
 "{acappella:a cappella} {live} {medley:medley including a} {partial} "
 "{instrumental} {cover} {karaoke} recording of"
 msgstr ""
-"{partial:частичная} {instrumental:инструментальная} {karaoke:караоке} "
-"{live:концертная} {acappella:акапелла} {medley:поппури} запись {cover:кавера}"
-" работы"
+"{partial:частичная} {instrumental:инструментальная} {karaoke:караоке} {live:"
+"концертная} {acappella:акапелла} {medley:поппури} запись {cover:кавера} "
+"работы"
 
 #: DB:link_type/reverse_link_phrase:278
 msgid ""
