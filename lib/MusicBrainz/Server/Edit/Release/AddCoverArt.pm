@@ -13,6 +13,7 @@ with 'MusicBrainz::Server::Edit::Release',
      'MusicBrainz::Server::Edit::Role::AddArt';
 
 sub edit_name { N_lp('Add cover art', 'singular, edit type') }
+sub edit_type_name_context { 'singular, edit type' }
 sub edit_template { 'AddCoverArt' }
 sub edit_type { $EDIT_RELEASE_ADD_COVER_ART }
 

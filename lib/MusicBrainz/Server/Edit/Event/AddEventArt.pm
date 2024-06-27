@@ -13,6 +13,7 @@ with 'MusicBrainz::Server::Edit::Event',
      'MusicBrainz::Server::Edit::Role::AddArt';
 
 sub edit_name { N_lp('Add event art', 'singular, edit type') }
+sub edit_type_name_context { 'singular, edit type' }
 sub edit_template { 'AddEventArt' }
 sub edit_type { $EDIT_EVENT_ADD_EVENT_ART }
 

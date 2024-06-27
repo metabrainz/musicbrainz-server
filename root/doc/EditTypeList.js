@@ -12,8 +12,8 @@ import {compare} from '../static/scripts/common/i18n.js';
 
 type EditTypesByCategoryT = {
   +[editCategory: string]: $ReadOnlyArray<{
-    +editName: string,
     +id: number,
+    +l_edit_name: string,
   }>,
 };
 
@@ -45,7 +45,7 @@ component EditTypeList(editTypesByCategory: EditTypesByCategoryT) {
                 {editTypes.map(editType => (
                   <li key={editType.id}>
                     <a href={`/doc/Edit_Types/${editType.id}`}>
-                      {editType.editName}
+                      {editType.l_edit_name}
                     </a>
                   </li>
                 ))}

@@ -13,6 +13,7 @@ with 'MusicBrainz::Server::Edit::Event',
      'MusicBrainz::Server::Edit::Role::ReorderArt';
 
 sub edit_name { N_lp('Reorder event art', 'plural, edit type') }
+sub edit_type_name_context { 'plural, edit type' }
 sub edit_template { 'ReorderEventArt' }
 sub edit_type { $EDIT_EVENT_REORDER_EVENT_ART }
 
