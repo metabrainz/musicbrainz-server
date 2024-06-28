@@ -40,11 +40,13 @@
         <th>[% l('Release') %]</th>
         <th>[% l('Medium') %]</th>
         <th>[% l('Artist') %]</th>
-        <th>[% l('Date') %]</th>
-        <th>[% l('Country') %]</th>
+        <th>[% l('Country') _ lp('/', 'and') _ l('Date') %]</th>
         <th>[% l('Label') %]</th>
         <th>[% l('Catalog#') %]</th>
         <th>[% l('Barcode') %]</th>
+        [%- IF c.try_get_session('tport') -%]
+          <th>[% lp('Tagger', 'audio file metadata') %]</th>
+        [%- END -%]
       </thead>
       <tbody>
         [% FOR medium=possible_mediums %]
