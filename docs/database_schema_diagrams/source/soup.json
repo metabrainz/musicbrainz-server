@@ -257,6 +257,7 @@
         "editor_collection_area": [],
         "editor_collection_artist": [],
         "editor_collection_event": [],
+        "editor_collection_genre": [],
         "editor_collection_instrument": [],
         "editor_collection_label": [],
         "editor_collection_place": [],
@@ -379,6 +380,9 @@
         "image_type": [],
         "cover_art": [],
         "cover_art_type": [],
-        "release_group_cover_art": []
+        "release_group_cover_art": [],
+        "art_type": [],
+        "event_art": [],
+        "event_art_type": []
     }
 }

@@ -767,13 +767,14 @@ components, it also creates two issues that you need to manage:
   follow this pattern if you can accomplish your goal much more simply with
   `useState`.
 
-Cover Art Archive development
------------------------------
+Cover/Event Art Archive development
+-----------------------------------
 
-The Cover Art features in MusicBrainz are provided by
-[coverartarchive.org](https://coverartarchive.org/). Instructions for adding
-cover art support to your development setup are available in HACKING-CAA.md
-file.
+The cover and event art features in MusicBrainz are provided by
+[coverartarchive.org](https://coverartarchive.org/) and
+[eventartarchive.org](https://eventartarchive.org/) respectively.
+Instructions for adding cover and event art support to your development
+setup are available in the HACKING-IMG.md file.
 
 
 Cache
