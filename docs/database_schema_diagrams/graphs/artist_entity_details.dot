@@ -1,5 +1,5 @@
 // Automatically generated, do not edit.
-// - Database schema sequence: 28
+// - Database schema sequence: 29
 digraph artist_entity_details {
     tooltip = "Tables for the “artist” entity type properties"
     graph [

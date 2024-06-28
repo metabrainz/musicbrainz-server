@@ -1,5 +1,5 @@
 // Automatically generated, do not edit.
-// - Database schema sequence: 28
+// - Database schema sequence: 29
 digraph cover_art_details {
     tooltip = "Tables for cover art"
     graph [
@@ -126,6 +126,11 @@ digraph cover_art_details {
         cover_art;
         cover_art_type;
         release_group_cover_art;
+    }
+    subgraph cluster_event_art_archive {
+        bgcolor = "#35a8b3:#f0976c"
+
+        art_type;
     }
 
     // References
