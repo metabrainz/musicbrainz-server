@@ -1,4 +1,4 @@
-// Automatically generated, do not edit.
+// Automatically generated, do not edit, except to compensate for the lack of MBS-13668.
 // - Database schema sequence: 29
 digraph cover_art_details {
     tooltip = "Tables for cover art"
@@ -126,11 +126,6 @@ digraph cover_art_details {
         cover_art;
         cover_art_type;
         release_group_cover_art;
-    }
-    subgraph cluster_event_art_archive {
-        bgcolor = "#35a8b3:#f0976c"
-
-        art_type;
     }
 
     // References

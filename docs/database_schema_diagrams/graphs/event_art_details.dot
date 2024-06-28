@@ -1,4 +1,4 @@
-// Automatically generated, do not edit.
+// Automatically generated, do not edit, except to compensate for the lack of MBS-13668.
 // - Database schema sequence: 29
 digraph event_art_details {
     tooltip = "Tables for event art"
@@ -98,11 +98,6 @@ digraph event_art_details {
     ];
 
   // Schemas other than 'musicbrainz'
-    subgraph cluster_cover_art_archive {
-        bgcolor = "#35a8b3:#f0976c"
-
-        art_type;
-    }
     subgraph cluster_event_art_archive {
         bgcolor = "#35a8b3:#f0976c"
 
