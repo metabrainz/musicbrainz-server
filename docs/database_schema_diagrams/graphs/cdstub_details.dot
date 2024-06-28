@@ -14,7 +14,7 @@ digraph cdstub_details {
     ];
 
     // Tables
-    "cdtoc_raw" [
+    "musicbrainz.cdtoc_raw" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">cdtoc_raw</font></td></tr>
@@ -27,7 +27,7 @@ digraph cdstub_details {
             </table>
         >
     ];
-    "release_raw" [
+    "musicbrainz.release_raw" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">release_raw</font></td></tr>
@@ -44,7 +44,7 @@ digraph cdstub_details {
             </table>
         >
     ];
-    "track_raw" [
+    "musicbrainz.track_raw" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">track_raw</font></td></tr>
@@ -58,6 +58,6 @@ digraph cdstub_details {
     ];
 
     // References
-    "cdtoc_raw":"release" -> "release_raw":"id"
-    "track_raw":"release" -> "release_raw":"id"
+    "musicbrainz.cdtoc_raw":"release" -> "musicbrainz.release_raw":"id"
+    "musicbrainz.track_raw":"release" -> "musicbrainz.release_raw":"id"
 }
