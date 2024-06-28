@@ -5,12 +5,13 @@
 # suming <331874545@qq.com>, 2023.
 # claybiockiller <clay0305@hotmail.com>, 2023.
 # darlingz <yagamidai@gmail.com>, 2024.
+# yyoung <yyoung@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-05-04 09:42+0000\n"
-"Last-Translator: darlingz <yagamidai@gmail.com>\n"
+"PO-Revision-Date: 2024-06-28 17:50+0000\n"
+"Last-Translator: yyoung <yyoung@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.6\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -257,7 +258,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-06-22
 msgid "Artist subscriptions"
-msgstr "订阅艺术家"
+msgstr "订阅的艺术家"
 
 #. title:User improvements
 #: DB:statistics.statistic_event/description:2005-02-13
@@ -1279,8 +1280,8 @@ msgstr ""
 msgid "Editors"
 msgstr "编者"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:31
-#: ../root/statistics/Edits.js:35 ../root/statistics/Edits.js:44
+#: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:30
+#: ../root/statistics/Edits.js:34 ../root/statistics/Edits.js:43
 #: ../root/statistics/Index.js:1243 ../root/statistics/Index.js:1246
 #: ../root/statistics/Index.js:1295 ../root/statistics/stats.js:296
 msgid "Edits"
@@ -1343,17 +1344,15 @@ msgid "Timeline"
 msgstr ""
 
 #: ../root/statistics/timeline.tt:25
-#, fuzzy
-#| msgid "Timeline Graph"
 msgid "Timeline graph"
-msgstr "时间线图表"
+msgstr "时间线"
 
 #: ../root/statistics/timeline.tt:16
 msgid "Zoom:"
 msgstr ""
 
 #: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:91
-#: ../root/statistics/Edits.js:33 ../root/statistics/Formats.js:41
+#: ../root/statistics/Edits.js:32 ../root/statistics/Formats.js:41
 #: ../root/statistics/Images.js:73 ../root/statistics/Index.js:66
 #: ../root/statistics/LanguagesScripts.js:46
 #: ../root/statistics/Relationships.js:93
@@ -1463,13 +1462,13 @@ msgstr ""
 
 #: ../root/statistics/Editors.js:125
 msgid "Total votes"
-msgstr ""
+msgstr "总票数"
 
 #: ../root/statistics/Editors.js:128
 msgid "Top voters overall"
 msgstr ""
 
-#: ../root/statistics/Edits.js:38
+#: ../root/statistics/Edits.js:37
 msgid "No edit statistics available."
 msgstr ""
 
@@ -1848,8 +1847,6 @@ msgid "No front cover art:"
 msgstr "无封面图片："
 
 #: ../root/statistics/Index.js:453
-#, fuzzy
-#| msgid "Data Quality"
 msgid "Data quality"
 msgstr "数据质量"
 
@@ -1922,7 +1919,7 @@ msgstr "无"
 
 #: ../root/statistics/Index.js:637
 msgid "Secondary types"
-msgstr ""
+msgstr "二级类型"
 
 #: ../root/statistics/Index.js:685 ../root/statistics/stats.js:884
 msgid "Videos"
@@ -1937,7 +1934,7 @@ msgstr ""
 #: ../root/statistics/Index.js:852 ../root/statistics/Index.js:876
 #: ../root/statistics/Index.js:906
 msgid "Types"
-msgstr ""
+msgstr "类型"
 
 #: ../root/statistics/Index.js:756
 msgid "With ISWCs"
@@ -2283,10 +2280,8 @@ msgid "Release packagings"
 msgstr "专辑组评分"
 
 #: ../root/statistics/stats.js:39
-#, fuzzy
-#| msgid "Release editor"
 msgid "Release data quality"
-msgstr "发布了编辑器"
+msgstr "专辑数据质量"
 
 #: ../root/statistics/stats.js:40
 #, fuzzy
@@ -2425,11 +2420,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:195
 msgid "Area collections"
-msgstr ""
+msgstr "地区收藏"
 
 #: ../root/statistics/stats.js:200
 msgid "Artist collections"
-msgstr ""
+msgstr "艺术家收藏"
 
 #: ../root/statistics/stats.js:205
 msgid "Collections of type Attending"
@@ -2445,11 +2440,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:220
 msgid "Instrument collections"
-msgstr ""
+msgstr "乐器收藏"
 
 #: ../root/statistics/stats.js:225
 msgid "Label collections"
-msgstr ""
+msgstr "厂牌收藏"
 
 #: ../root/statistics/stats.js:230
 msgid "Collections of type Maybe attending"
@@ -2461,11 +2456,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:240
 msgid "Place collections"
-msgstr ""
+msgstr "地点收藏"
 
 #: ../root/statistics/stats.js:245
 msgid "Recording collections"
-msgstr ""
+msgstr "录音收藏"
 
 #: ../root/statistics/stats.js:250
 msgid "Collections of type Release"
@@ -2489,7 +2484,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:275
 msgid "Work collections"
-msgstr ""
+msgstr "作品收藏"
 
 #: ../root/statistics/stats.js:301
 msgid "Applied edits"

@@ -1267,8 +1267,8 @@ msgstr ""
 msgid "Editors"
 msgstr ""
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:31
-#: ../root/statistics/Edits.js:35 ../root/statistics/Edits.js:44
+#: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:30
+#: ../root/statistics/Edits.js:34 ../root/statistics/Edits.js:43
 #: ../root/statistics/Index.js:1243 ../root/statistics/Index.js:1246
 #: ../root/statistics/Index.js:1295 ../root/statistics/stats.js:296
 msgid "Edits"
@@ -1339,7 +1339,7 @@ msgid "Zoom:"
 msgstr ""
 
 #: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:91
-#: ../root/statistics/Edits.js:33 ../root/statistics/Formats.js:41
+#: ../root/statistics/Edits.js:32 ../root/statistics/Formats.js:41
 #: ../root/statistics/Images.js:73 ../root/statistics/Index.js:66
 #: ../root/statistics/LanguagesScripts.js:46
 #: ../root/statistics/Relationships.js:93
@@ -1453,7 +1453,7 @@ msgstr ""
 msgid "Top voters overall"
 msgstr ""
 
-#: ../root/statistics/Edits.js:38
+#: ../root/statistics/Edits.js:37
 msgid "No edit statistics available."
 msgstr ""
 
