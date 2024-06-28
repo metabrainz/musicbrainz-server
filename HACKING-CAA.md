@@ -72,12 +72,6 @@ And then editing `postgresql.conf` to have:
 
 Restart postgresql for the changes in `postgresql.conf` to take effect.
 
-Install the triggers into the database:
-
-    $ cd ../musicbrainz-server/
-    $ ./admin/psql READWRITE < ./admin/sql/caa/CreateMQTriggers.sql
-    $ cd -
-
 Install the dependencies for the CAA-indexer and create a
 configuration file for the CAA-indexer itself:
 
