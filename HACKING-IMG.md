@@ -1,26 +1,25 @@
-
 Introduction
 ============
 
 This file contains instructions for setting up a local version of the
-coverartarchive.org service.  The coverartarchive.org service consists
-of several parts:
+coverartarchive.org and eventartarchive.org services. These services
+consist of several parts:
 
-1. The MusicBrainz server (this allows image uploads)
+1. MusicBrainz Server (this allows image uploads)
 2. artwork-indexer (updates image metadata on the archive.org servers)
 3. artwork-redirect (image redirect service)
-4. internet archive S3 storage
+4. Internet Archive S3 storage
 
 
 Storage
 =======
 
-For development we need a place to store the images, obviously a
+For development we need a place to store the images. Obviously, a
 development server should not upload images to the actual
-coverartarchive storage.
+Internet Archive storage.
 
 We provide a simple Plack script which emulates just enough of the
-internet archive S3 protocol to use it with the musicbrainz server.
+Internet Archive S3 protocol to use it with MusicBrainz Server.
 
 Figure out where you want to store uploaded images, and set the
 `SSSSSS_STORAGE` environment variable to that location:
@@ -28,9 +27,9 @@ Figure out where you want to store uploaded images, and set the
     $ SSSSSS_STORAGE=./ssssss plackup --port 5050 -r contrib/ssssss.psgi
 
 Note that we're specifying a port here.  We need the default port
-(5000) for musicbrainz.
+(5000) for MusicBrainz Server.
 
-Now that you're running this script, mb_server should be able to
+Now that you're running this script, MusicBrainz Server should be able to
 upload images and indexes to `http://localhost:5050/$BUCKET`, where
 `$BUCKET` is the bucket name.
 
@@ -95,8 +94,8 @@ And start the server:
 MusicBrainz Server
 ==================
 
-Now that all of that is configured you can point the musicbrainz server at
-the upload and download urls for your local cover art archive, change
+Now that all of that is configured, you can point MusicBrainz Server to
+the upload and download URLs for your local image archive. Change
 the following values in lib/DBDefs.pm:
 
     sub INTERNET_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("//localhost:5050/%s", shift) }
