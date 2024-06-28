@@ -7,11 +7,9 @@ coverartarchive.org service.  The coverartarchive.org service consists
 of several parts:
 
 1. The MusicBrainz server (this allows image uploads)
-2. CAA-indexer (updates image metadata on the archive.org servers)
-3. coverart_redirect (image redirect service)
+2. artwork-indexer (updates image metadata on the archive.org servers)
+3. artwork-redirect (image redirect service)
 4. internet archive S3 storage
-
-The following instructions assume you are running Ubuntu 12.04.
 
 
 Storage
@@ -24,89 +22,74 @@ coverartarchive storage.
 We provide a simple Plack script which emulates just enough of the
 internet archive S3 protocol to use it with the musicbrainz server.
 
-It is not designed to server back those static files however, so for
-now you will also need to be running a regular webserver (apache,
-nginx, etc..).
+Figure out where you want to store uploaded images, and set the
+`SSSSSS_STORAGE` environment variable to that location:
 
-Figure out where you want to store uploaded images and make sure the
-storage server (ssssss.psgi) has write permissions at that location.
-E.g. if you have default debian apache install you could do something
-like this:
-
-    $ sudo mkdir /var/www/caa
-    $ sudo chown user.users /var/www/caa
-    $ SSSSSS_STORAGE=/var/www/caa/ plackup --port 5050 -r contrib/ssssss.psgi
+    $ SSSSSS_STORAGE=./ssssss plackup --port 5050 -r contrib/ssssss.psgi
 
 Note that we're specifying a port here.  We need the default port
 (5000) for musicbrainz.
 
 Now that you're running this script, mb_server should be able to
-upload images and indexes to http://localhost/caa/$BUCKET, where
-$BUCKET is the bucket name.
+upload images and indexes to `http://localhost:5050/$BUCKET`, where
+`$BUCKET` is the bucket name.
 
 To simulate a 503 Slow Down error, run slowdown.psgi instead of ssssss.psgi:
 
     $ plackup --port 5050 contrib/slowdown.psgi
 
 
-CAA-indexer
-===========
+artwork-indexer
+===============
 
-Download the CAA-indexer and install RabbitMQ.
+Download and setup the artwork-indexer.
 
-    $ git clone git://github.com/metabrainz/CAA-indexer.git
-    $ sudo apt-get install rabbitmq
-    $ sudo /etc/init.d/rabbitmq start
+    $ git clone https://github.com/metabrainz/artwork-indexer.git
 
-You will also need to install the `pg_amqp` extension for PostgreSQL. For
-details on this, see https://github.com/omniti-labs/pg_amqp, but it can
-generally be described as:
+Follow the [installation instructions in the README](https://github.com/metabrainz/artwork-indexer?tab=readme-ov-file#installation).
 
-    $ git clone https://github.com/omniti-labs/pg_amqp.git
-    $ cd pg_amqp
-    $ sudo make install
+Configure where indexes should be uploaded to by changing `url` under the
+`[s3]` section:
 
-And then editing `postgresql.conf` to have:
+    [s3]
+    url=http://localhost:5050/{bucket}?file={file}
 
-    shared_preload_libraries = 'pg_amqp.so'
+Also ensure that the configured values for `caa_access`, `caa_secret`,
+`eaa_access`, and `eaa_secret` under the `[s3]` section match the
+corresponding values in your DBDefs.pm:
 
-Restart postgresql for the changes in `postgresql.conf` to take effect.
+    sub COVER_ART_ARCHIVE_ACCESS_KEY { }
+    sub COVER_ART_ARCHIVE_SECRET_KEY { }
+    sub EVENT_ART_ARCHIVE_ACCESS_KEY { }
+    sub EVENT_ART_ARCHIVE_SECRET_KEY { }
 
-Install the dependencies for the CAA-indexer and create a
-configuration file for the CAA-indexer itself:
+It's fine to leave them blank in both config files.
 
-    $ cpanm --installdeps --notest .
-    $ cp config.ini.example config.ini
-    $ vim config.ini
+Finally, start the indexer:
 
-Configure where indexes should be uploaded to by changing `upload_url`:
-
-    upload_url = //localhost/caa/{bucket}?file={file}
-
-And finally run the indexer:
-
-    $ ./caa-indexer
+    (.venv) $ python indexer.py
 
 
-coverart_redirect
-=================
+artwork-redirect
+================
 
-Download the coverart redirect service and install its dependencies:
+Download and setup the artwork-redirect service:
 
-    $ git clone git://github.com/metabrainz/coverart_redirect.git
-    $ sudo apt-get install python-cherrypy3 python-psycopg2 python-sqlalchemy python-werkzeug
+    $ git clone https://github.com/metabrainz/artwork-redirect.git
 
-Create a configuration file:
+Follow the [installation instructions in the README](https://github.com/metabrainz/artwork-redirect?tab=readme-ov-file#option-2-manual).
 
-    $ cp coverart_redirect.conf.dist coverart_redirect.conf
-    $ vim coverart_redirect.conf
+Configure where indexes and images are redirected to by changing
+`download_prefix` under the `[ia]` section:
 
-Set prefix=http://localhost/caa/ in the [s3] section (this should be
-the location where ssssss.psgi is storing uploaded images).
+    [ia]
+    download_prefix=http://localhost:5050/
+
+This should be the location where ssssss.psgi is storing uploaded images.
 
 And start the server:
 
-    $ python ./coverart_redirect_server.py
+    (.venv) $ python artwork_redirect_server.py
 
 
 MusicBrainz Server
