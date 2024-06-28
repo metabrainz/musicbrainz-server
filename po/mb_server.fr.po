@@ -67,10 +67,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-27 15:58+0000\n"
+"POT-Creation-Date: 2024-06-27 23:21+0200\n"
 "PO-Revision-Date: 2024-06-27 21:17+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
 "Language: fr\n"
@@ -130,7 +130,7 @@ msgstr "« YY » sont les 2 derniers chiffres de l’année d’inscription."
 #: ../root/edit/details/historic/AddRelease.js:84
 #: ../root/recording/RecordingIndex.js:43
 #: ../root/static/scripts/release/components/MediumTable.js:72
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1543
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1551
 #: ../root/utility/tableColumns.js:573
 msgid "#"
 msgstr "no"
@@ -549,7 +549,7 @@ msgstr "Rattacher un ID de disque"
 msgid "Attached to releases"
 msgstr "Rattaché aux parutions"
 
-#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:73
+#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:74
 msgctxt "user type"
 msgid "Auto-editor"
 msgstr "Auto-éditeur"
@@ -1249,7 +1249,7 @@ msgstr "TOC (table des matières) complète :"
 #: ../root/layout/components/sidebar/ArtistSidebar.js:85
 #: ../root/search/components/ArtistResults.js:55
 #: ../root/static/scripts/account/components/EditProfileForm.js:222
-#: ../root/user/UserProfile.js:257
+#: ../root/user/UserProfile.js:258
 msgid "Gender"
 msgstr "Genre"
 
@@ -1556,7 +1556,7 @@ msgstr "Importer une ébauche de CD"
 #: ../root/search/components/SearchForm.js:43
 #: ../root/static/scripts/common/constants.js:39
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:58
-#: ../root/user/UserProfile.js:53
+#: ../root/user/UserProfile.js:54
 msgid "Instrument"
 msgstr "Instrument"
 
@@ -1633,7 +1633,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/FilterForm.js:250
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
-#: ../root/user/UserProfile.js:54 ../root/utility/tableColumns.js:539
+#: ../root/user/UserProfile.js:55 ../root/utility/tableColumns.js:539
 #: ../root/utility/tableColumns.js:544
 msgid "Label"
 msgstr "Label"
@@ -1702,7 +1702,7 @@ msgstr "Les lignes commencent par un numéro de piste"
 msgid "Loading edit previews..."
 msgstr "Chargements des prévisualisations des modifications..."
 
-#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:97
+#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:98
 msgctxt "user type"
 msgid "Location editor"
 msgstr "Éditeur de région"
@@ -2030,7 +2030,7 @@ msgstr "Analyser les pistes"
 #: ../root/search/components/SearchForm.js:38
 #: ../root/static/scripts/common/constants.js:41
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
-#: ../root/user/UserProfile.js:55
+#: ../root/user/UserProfile.js:56
 msgid "Place"
 msgstr "Lieu"
 
@@ -2117,8 +2117,8 @@ msgstr[2] "Évaluation : {rating} étoiles"
 #: ../root/search/components/SearchForm.js:34
 #: ../root/static/scripts/common/constants.js:42
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:64
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1553
-#: ../root/user/UserProfile.js:56
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1561
+#: ../root/user/UserProfile.js:57
 msgid "Recording"
 msgstr "Enregistrement"
 
@@ -2150,7 +2150,7 @@ msgstr "Enregistrements"
 msgid "Reject"
 msgstr "Rejeté"
 
-#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:83
+#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:84
 msgctxt "user type"
 msgid "Relationship editor"
 msgstr "Éditeur de relation"
@@ -2195,7 +2195,7 @@ msgstr "Type de relation"
 #: ../root/static/scripts/common/constants.js:43
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:66
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:396
-#: ../root/taglookup/Form.js:27 ../root/user/UserProfile.js:57
+#: ../root/taglookup/Form.js:27 ../root/user/UserProfile.js:58
 msgid "Release"
 msgstr "Parution"
 
@@ -2238,7 +2238,7 @@ msgstr "Événement de parution"
 #: ../root/static/scripts/common/i18n/localizeTypeNameForEntity.js:36
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:68
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:403
-#: ../root/user/UserProfile.js:58
+#: ../root/user/UserProfile.js:59
 msgid "Release group"
 msgstr "Groupe de parution"
 
@@ -2488,7 +2488,7 @@ msgstr "Phrase"
 #: ../root/search/components/SearchForm.js:44
 #: ../root/static/scripts/common/constants.js:45
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:70
-#: ../root/user/UserProfile.js:59
+#: ../root/user/UserProfile.js:60
 msgctxt "singular"
 msgid "Series"
 msgstr "Série"
@@ -2604,7 +2604,7 @@ msgid "Stop using beta site"
 msgstr "Ne plus utiliser le site bêta"
 
 #: ../root/release/edit/editnote.tt:44
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1840
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1848
 msgid "Submitting edits..."
 msgstr "Envoi des modifications..."
 
@@ -3094,7 +3094,7 @@ msgstr ""
 "entrez ces informations. Si vous n’avez aucune information à propos des "
 "supports de cette parution, supprimez tous les supports."
 
-#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:90
+#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:91
 msgctxt "user type"
 msgid "Transclusion editor"
 msgstr "Éditeur de transclusion"
@@ -3280,7 +3280,7 @@ msgid "Voter"
 msgstr "Votant"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:60
-#: ../root/user/UserProfile.js:669
+#: ../root/user/UserProfile.js:671
 msgid "Votes"
 msgstr "Votes"
 
@@ -3357,7 +3357,7 @@ msgstr "Wiki"
 #: ../root/search/components/SearchForm.js:35
 #: ../root/static/scripts/common/constants.js:47
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:74
-#: ../root/user/UserProfile.js:60 ../root/work/WorkLayout.js:25
+#: ../root/user/UserProfile.js:61 ../root/work/WorkLayout.js:25
 msgid "Work"
 msgstr "Œuvre"
 
@@ -3436,7 +3436,7 @@ msgstr ""
 "cet enregistrement."
 
 #: ../root/release/edit/editnote.tt:10
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:195
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:212
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:777
 msgid "You haven’t made any changes!"
 msgstr "Vous n’avez apporté aucun changement !"
@@ -3538,7 +3538,7 @@ msgstr ""
 "n’avez pas encore été contacté à propos de la raison, merci de {uri|nous "
 "envoyer un message}."
 
-#: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:63
+#: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:80
 #: ../root/layout/index.js:214
 msgid ""
 "You’re currently not allowed to leave or change edit notes because an admin "
@@ -4212,20 +4212,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:365
+#: ../root/static/scripts/common/constants.js:367
 msgid "Low"
 msgstr "Faible"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:366
-#: ../root/static/scripts/common/constants.js:367
+#: ../root/static/scripts/common/constants.js:368
+#: ../root/static/scripts/common/constants.js:369
 msgid "Normal"
 msgstr "Normale"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:368
+#: ../root/static/scripts/common/constants.js:370
 msgid "High"
 msgstr "Haute"
 
@@ -4233,24 +4233,24 @@ msgstr "Haute"
 msgid "Default"
 msgstr "Valeur par défaut"
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:49
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:61
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:79
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:105
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:123
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:66
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:78
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:96
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:122
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:140
 msgid "Can’t change edit note"
 msgstr "Impossible de changer la note de modification"
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:50
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:67
 msgid "You can’t change other users’ edit notes."
 msgstr ""
 "Vous ne pouvez pas changer les notes de modification des autres éditeurs."
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:80
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:97
 msgid "This note has already been removed."
 msgstr "Cette note a déjà été enlevée."
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:107
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:124
 msgid ""
 "You can’t change this note, since somebody else has already replied to it. "
 "If there’s an important reason why it should be changed (for example, it "
@@ -4261,7 +4261,7 @@ msgstr ""
 "(par exemple, si elle contient des données personnelles), merci de "
 "{contact_url|nous contacter}."
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:125
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:142
 msgid ""
 "You can’t change this note, since it was entered too long ago. If there’s an "
 "important reason why it should be changed (for example, it contains private "
@@ -6035,22 +6035,22 @@ msgid "A fluency level is required."
 msgstr "Un niveau de maîtrise est requis."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:376
+#: ../root/static/scripts/common/constants.js:378
 msgid "Basic"
 msgstr "De base"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:377
+#: ../root/static/scripts/common/constants.js:379
 msgid "Intermediate"
 msgstr "Intermédiaire"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:375
+#: ../root/static/scripts/common/constants.js:377
 msgid "Advanced"
 msgstr "Avancé"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:82
-#: ../root/static/scripts/common/constants.js:378
+#: ../root/static/scripts/common/constants.js:380
 msgid "Native"
 msgstr "Natif"
 
@@ -6480,7 +6480,7 @@ msgstr ""
 #: ../root/static/scripts/account/components/EditProfileForm.js:203
 #: ../root/static/scripts/account/components/PreferencesForm.js:211
 #: ../root/static/scripts/account/components/RegisterForm.js:92
-#: ../root/user/UserProfile.js:178
+#: ../root/user/UserProfile.js:179
 msgid "Email"
 msgstr "Courriel"
 
@@ -6645,7 +6645,7 @@ msgid "Applications"
 msgstr "Applications"
 
 #: ../root/account/applications/ApplicationList.js:90
-#: ../root/user/UserProfile.js:291
+#: ../root/user/UserProfile.js:292
 msgid "Authorized applications"
 msgstr "Applications autorisées"
 
@@ -6691,7 +6691,7 @@ msgid "You have not authorized any applications."
 msgstr "Vous n’avez autorisé aucune application."
 
 #: ../root/account/applications/ApplicationList.js:125
-#: ../root/user/UserProfile.js:305
+#: ../root/user/UserProfile.js:306
 msgid "Developer applications"
 msgstr "Applications de développeur"
 
@@ -7741,8 +7741,8 @@ msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "Modifier"
 
-#: ../root/collection/CollectionIndex.js:202 ../root/user/UserProfile.js:328
-#: ../root/user/UserProfile.js:389
+#: ../root/collection/CollectionIndex.js:202 ../root/user/UserProfile.js:329
+#: ../root/user/UserProfile.js:390
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
@@ -8126,7 +8126,7 @@ msgstr "Critiques"
 
 #: ../root/components/EntityTabs.js:159
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:42
-#: ../root/user/UserProfile.js:823 ../root/user/UserRatingList.js:42
+#: ../root/user/UserProfile.js:825 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
 msgstr "Évaluations"
@@ -8309,7 +8309,7 @@ msgstr "Abonnements"
 #: ../root/entity/Subscribers.js:45
 #: ../root/layout/components/sidebar/CollectionSidebar.js:120
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:52
-#: ../root/user/UserProfile.js:338
+#: ../root/user/UserProfile.js:339
 msgid "Subscribers"
 msgstr "Abonnés"
 
@@ -8735,7 +8735,7 @@ msgstr ""
 "êtes directement abonné ou qui sont dans une collection à laquelle vous êtes "
 "abonné."
 
-#: ../root/edit/components/EditArtwork.js:23
+#: ../root/edit/components/EditArtwork.js:23 ../root/user/UserProfile.js:53
 msgctxt "singular"
 msgid "Event art"
 msgstr "Images de l’événement"
@@ -8939,7 +8939,7 @@ msgctxt "interactive"
 msgid "Add note"
 msgstr "Ajouter une note"
 
-#: ../root/edit/components/EditorTypeInfo.js:22 ../root/user/UserProfile.js:105
+#: ../root/edit/components/EditorTypeInfo.js:22 ../root/user/UserProfile.js:106
 msgid "This user is new to MusicBrainz."
 msgstr "Cet utilisateur est nouveau sur MusicBrainz."
 
@@ -10052,24 +10052,38 @@ msgstr ""
 "Vous souhaiteriez peut-être plutôt essayer de {search_url|la chercher}."
 
 #: ../root/entity/NotFound.js:73
+#, fuzzy
+#| msgctxt "header"
+#| msgid "Editor not found"
+msgctxt "header"
+msgid "Edit note not found"
+msgstr "Éditeur introuvable"
+
+#: ../root/entity/NotFound.js:75
+#, fuzzy
+#| msgid "Sorry, we could not find an artist credit with that ID."
+msgid "Sorry, we could not find an edit note with that ID."
+msgstr "Désolé, nous n’avons pas trouvé de crédit d’artiste avec cet ID."
+
+#: ../root/entity/NotFound.js:81
 msgctxt "header"
 msgid "Election not found"
 msgstr "Élection introuvable"
 
-#: ../root/entity/NotFound.js:74
+#: ../root/entity/NotFound.js:82
 msgid "Sorry, we could not find this election."
 msgstr "Désolé, nous n’avons pas trouvé cette élection."
 
-#: ../root/entity/NotFound.js:76
+#: ../root/entity/NotFound.js:84
 msgid "Back to all elections."
 msgstr "Revenir à toutes les élections."
 
-#: ../root/entity/NotFound.js:79
+#: ../root/entity/NotFound.js:87
 msgctxt "header"
 msgid "Event not found"
 msgstr "Événement introuvable"
 
-#: ../root/entity/NotFound.js:81
+#: ../root/entity/NotFound.js:89
 msgid ""
 "Sorry, we could not find an event with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10077,12 +10091,12 @@ msgstr ""
 "Désolé, nous n’avons pas trouvé d’événement avec cet ID MusicBrainz. Vous "
 "souhaiteriez peut-être plutôt essayer de {search_url|le chercher}."
 
-#: ../root/entity/NotFound.js:88
+#: ../root/entity/NotFound.js:96
 msgctxt "header"
 msgid "Genre not found"
 msgstr "Genre introuvable"
 
-#: ../root/entity/NotFound.js:90
+#: ../root/entity/NotFound.js:98
 msgid ""
 "Sorry, we could not find a genre with that MusicBrainz ID. You can see all "
 "available genres on our {genre_list|genre list}."
@@ -10091,12 +10105,12 @@ msgstr ""
 "pouvez voir tous les genres disponibles dans notre {genre_list|liste de "
 "genres}."
 
-#: ../root/entity/NotFound.js:97
+#: ../root/entity/NotFound.js:105
 msgctxt "header"
 msgid "Instrument not found"
 msgstr "Instrument introuvable"
 
-#: ../root/entity/NotFound.js:99
+#: ../root/entity/NotFound.js:107
 msgid ""
 "Sorry, we could not find an instrument with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
@@ -10104,12 +10118,12 @@ msgstr ""
 "Désolé, nous n’avons pas trouvé d’instrument avec cet ID MusicBrainz. Vous "
 "souhaiteriez peut-être plutôt essayer de {search_url|le chercher}."
 
-#: ../root/entity/NotFound.js:106
+#: ../root/entity/NotFound.js:114
 msgctxt "header"
 msgid "ISRC not currently used"
 msgstr "ISRC pas actuellement utilisé"
 
-#: ../root/entity/NotFound.js:108
+#: ../root/entity/NotFound.js:116
 msgid ""
 "This ISRC is not associated with any recordings. If you wish to associate it "
 "with a recording, please {search_url|search for the recording} and add it."
@@ -10118,12 +10132,12 @@ msgstr ""
 "l’associer à un enregistrement, veuillez {search_url|chercher un "
 "enregistrement} et l’y associer."
 
-#: ../root/entity/NotFound.js:116
+#: ../root/entity/NotFound.js:124
 msgctxt "header"
 msgid "ISWC not currently used"
 msgstr "L’ISWC n’est pas utilisé actuellement"
 
-#: ../root/entity/NotFound.js:118
+#: ../root/entity/NotFound.js:126
 msgid ""
 "This ISWC is not associated with any works. If you wish to associate it with "
 "a work, please {search_url|search for the work} and add it."
@@ -10131,12 +10145,12 @@ msgstr ""
 "Ce ISWC n’est associé à aucune œuvre. Si vous désirer l’associer à une "
 "œuvre, veuillez {search_url|rechercher l’œuvre} l’y ajouter."
 
-#: ../root/entity/NotFound.js:125
+#: ../root/entity/NotFound.js:133
 msgctxt "header"
 msgid "Label not found"
 msgstr "Label introuvable"
 
-#: ../root/entity/NotFound.js:127
+#: ../root/entity/NotFound.js:135
 msgid ""
 "Sorry, we could not find a label with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10144,12 +10158,12 @@ msgstr ""
 "Désolé, nous n’avons pas trouvé de label avec cet ID MusicBrainz. Vous "
 "souhaiteriez peut-être plutôt essayer de {search_url|le chercher}."
 
-#: ../root/entity/NotFound.js:134
+#: ../root/entity/NotFound.js:142
 msgctxt "header"
 msgid "Entity not found"
 msgstr "Entité introuvable"
 
-#: ../root/entity/NotFound.js:136
+#: ../root/entity/NotFound.js:144
 msgid ""
 "Sorry, we could not find a MusicBrainz entity with that ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10157,12 +10171,12 @@ msgstr ""
 "Désolé, nous n’avons pas trouvé d’entité MusicBrainz avec cet ID. Vous "
 "souhaiteriez peut-être plutôt essayer de {search_url|la chercher}."
 
-#: ../root/entity/NotFound.js:143
+#: ../root/entity/NotFound.js:151
 msgctxt "header"
 msgid "Place not found"
 msgstr "Lieu introuvable"
 
-#: ../root/entity/NotFound.js:145
+#: ../root/entity/NotFound.js:153
 msgid ""
 "Sorry, we could not find a place with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10170,12 +10184,12 @@ msgstr ""
 "Désolé, nous n’avons pas trouvé de lieu avec cet ID MusicBrainz. Vous "
 "souhaiteriez peut-être plutôt essayer de {search_url|le chercher}."
 
-#: ../root/entity/NotFound.js:152
+#: ../root/entity/NotFound.js:160
 msgctxt "header"
 msgid "Recording not found"
 msgstr "Enregistrement introuvable"
 
-#: ../root/entity/NotFound.js:154
+#: ../root/entity/NotFound.js:162
 msgid ""
 "Sorry, we could not find a recording with that MusicBrainz ID. You may wish "
 "to try and {search_url|search for it} instead."
@@ -10183,34 +10197,34 @@ msgstr ""
 "Désolé, nous n’avons pas trouvé d’enregistrement avec cet ID MusicBrainz. "
 "Vous souhaiteriez peut-être plutôt essayer de {search_url|le chercher}."
 
-#: ../root/entity/NotFound.js:161
+#: ../root/entity/NotFound.js:169
 msgctxt "header"
 msgid "Relationship attribute not found"
 msgstr "Attribut de relation introuvable"
 
-#: ../root/entity/NotFound.js:163
+#: ../root/entity/NotFound.js:171
 msgid ""
 "Sorry, we could not find a relationship attribute with that MusicBrainz ID."
 msgstr ""
 "Désolé, nous n’avons pas trouvé d’attribut de relation ayant cet ID "
 "MusicBrainz."
 
-#: ../root/entity/NotFound.js:170
+#: ../root/entity/NotFound.js:178
 msgctxt "header"
 msgid "Relationship type not found"
 msgstr "Type de relation introuvable"
 
-#: ../root/entity/NotFound.js:172
+#: ../root/entity/NotFound.js:180
 msgid "Sorry, we could not find a relationship type with that MusicBrainz ID."
 msgstr ""
 "Désolé, nous n’avons pas trouvé de type de relation ayant cet ID MusicBrainz."
 
-#: ../root/entity/NotFound.js:179
+#: ../root/entity/NotFound.js:187
 msgctxt "header"
 msgid "Release not found"
 msgstr "Parution introuvable"
 
-#: ../root/entity/NotFound.js:181
+#: ../root/entity/NotFound.js:189
 msgid ""
 "Sorry, we could not find a release with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10218,12 +10232,12 @@ msgstr ""
 "Désolé, nous n’avons pas trouvé de parution avec cet ID MusicBrainz. Vous "
 "souhaiteriez peut-être plutôt essayer de {search_url|la chercher}."
 
-#: ../root/entity/NotFound.js:188
+#: ../root/entity/NotFound.js:196
 msgctxt "header"
 msgid "Release group not found"
 msgstr "Groupe de parution introuvable"
 
-#: ../root/entity/NotFound.js:190
+#: ../root/entity/NotFound.js:198
 msgid ""
 "Sorry, we could not find a release group with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
@@ -10232,12 +10246,12 @@ msgstr ""
 "MusicBrainz. Vous souhaiteriez peut-être plutôt essayer de {search_url|le "
 "chercher}."
 
-#: ../root/entity/NotFound.js:197
+#: ../root/entity/NotFound.js:205
 msgctxt "singular, header"
 msgid "Series not found"
 msgstr "Série introuvable"
 
-#: ../root/entity/NotFound.js:199
+#: ../root/entity/NotFound.js:207
 msgid ""
 "Sorry, we could not find a series with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10245,12 +10259,12 @@ msgstr ""
 "Désolé, nous n’avons pas trouvé de série avec cet ID MusicBrainz. Vous "
 "souhaiteriez peut-être plutôt essayer de {search_url|la chercher}."
 
-#: ../root/entity/NotFound.js:206
+#: ../root/entity/NotFound.js:214
 msgctxt "header"
 msgid "Track not found"
 msgstr "Piste introuvable"
 
-#: ../root/entity/NotFound.js:208
+#: ../root/entity/NotFound.js:216
 msgid ""
 "Sorry, we could not find neither a recording nor a track with that "
 "MusicBrainz ID. You may wish to try and {search_url|search for it} instead."
@@ -10259,21 +10273,21 @@ msgstr ""
 "MusicBrainz. Vous souhaiteriez peut-être plutôt essayer de {search_url|les "
 "chercher}."
 
-#: ../root/entity/NotFound.js:216
+#: ../root/entity/NotFound.js:224
 msgctxt "header"
 msgid "URL not found"
 msgstr "URL introuvable"
 
-#: ../root/entity/NotFound.js:217
+#: ../root/entity/NotFound.js:225
 msgid "Sorry, we could not find a URL with that MusicBrainz ID."
 msgstr "Désolé, nous n’avons pas trouvé d’URL avec cet ID MusicBrainz."
 
-#: ../root/entity/NotFound.js:222
+#: ../root/entity/NotFound.js:230
 msgctxt "header"
 msgid "Editor not found"
 msgstr "Éditeur introuvable"
 
-#: ../root/entity/NotFound.js:224
+#: ../root/entity/NotFound.js:232
 msgid ""
 "Sorry, we could not find an editor with that name. You may wish to try and "
 "{search_url|search for them} instead."
@@ -10281,12 +10295,12 @@ msgstr ""
 "Désolé, nous n’avons pas trouvé d’éditeur avec ce nom. Vous souhaiteriez "
 "peut-être plutôt essayer de {search_url|le chercher}."
 
-#: ../root/entity/NotFound.js:231
+#: ../root/entity/NotFound.js:239
 msgctxt "header"
 msgid "Work not found"
 msgstr "Œuvre introuvable"
 
-#: ../root/entity/NotFound.js:233
+#: ../root/entity/NotFound.js:241
 msgid ""
 "Sorry, we could not find a work with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10721,7 +10735,7 @@ msgstr "Règles de suppression des données"
 msgid "Privileged user accounts"
 msgstr "Comptes utilisateurs privilégiés"
 
-#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:546
+#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:548
 msgid "Statistics"
 msgstr "Statistiques"
 
@@ -14508,7 +14522,7 @@ msgid "Website"
 msgstr "Site Web"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:230
-#: ../root/user/UserProfile.js:264
+#: ../root/user/UserProfile.js:265
 msgctxt "user area"
 msgid "Location"
 msgstr "Localisation"
@@ -14534,7 +14548,7 @@ msgstr ""
 "sur votre page de profil."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:274
-#: ../root/user/UserProfile.js:382
+#: ../root/user/UserProfile.js:383
 msgid "Bio"
 msgstr "Bio"
 
@@ -15214,7 +15228,7 @@ msgid "Related series"
 msgstr "Séries connexes"
 
 #: ../root/static/scripts/common/components/RelatedWorks.js:31
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1566
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1574
 msgid "Related works"
 msgstr "Œuvres connexes"
 
@@ -16924,11 +16938,11 @@ msgstr "[œuvre sélectionnée]"
 msgid "An error occurred:"
 msgstr "Une erreur est survenue :"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1504
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1512
 msgid "Track relationships"
 msgstr "Relations de piste"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1523
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1531
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to make batch "
 "operations on these, please fully load them first."
@@ -16937,16 +16951,16 @@ msgstr ""
 "opérations de traitement par lot avec, veuillez les charger entièrement "
 "d’abord."
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1590
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1598
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:373
 msgid "We have no information about this release’s media and tracklist."
 msgstr "Nous n’avons pas d’information à propos des supports et des pistes."
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1621
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1629
 msgid "Release relationships"
 msgstr "Relations de parution"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1658
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1666
 msgid "Release group relationships"
 msgstr "Relations de groupe de parution"
 
@@ -17676,35 +17690,35 @@ msgstr "Modifications appliquées par {name}"
 msgid "Edits by {name}"
 msgstr "Modifications par {name}"
 
-#: ../root/user/UserProfile.js:68
+#: ../root/user/UserProfile.js:69
 msgctxt "user type"
 msgid "Deleted user"
 msgstr "Supprimer l’utilisateur"
 
-#: ../root/user/UserProfile.js:78
+#: ../root/user/UserProfile.js:79
 msgctxt "user type"
 msgid "Internal/Bot"
 msgstr "Interne/Robot"
 
-#: ../root/user/UserProfile.js:107
+#: ../root/user/UserProfile.js:108
 msgctxt "user type"
 msgid "Beginner"
 msgstr "Débutant"
 
-#: ../root/user/UserProfile.js:113
+#: ../root/user/UserProfile.js:114
 msgctxt "user type"
 msgid "Normal user"
 msgstr "Utilisateur normal"
 
-#: ../root/user/UserProfile.js:146
+#: ../root/user/UserProfile.js:147
 msgid "The dawn of the project"
 msgstr "L’aube du projet"
 
-#: ../root/user/UserProfile.js:148
+#: ../root/user/UserProfile.js:149
 msgid "The early days of the project"
 msgstr "Le début du projet"
 
-#: ../root/user/UserProfile.js:156
+#: ../root/user/UserProfile.js:157
 msgid ""
 "Your homepage and biography will not show until you have completed the email "
 "verification process."
@@ -17712,230 +17726,230 @@ msgstr ""
 "Votre page d’accueil et votre biographie n’apparaîtront pas jusqu’à ce que "
 "vous complétiez le processus de vérification de votre adresse courriel."
 
-#: ../root/user/UserProfile.js:175
+#: ../root/user/UserProfile.js:176
 msgid "General information"
 msgstr "Information générale"
 
-#: ../root/user/UserProfile.js:181
+#: ../root/user/UserProfile.js:182
 msgctxt "email address"
 msgid "(hidden)"
 msgstr "(cachée)"
 
-#: ../root/user/UserProfile.js:184
+#: ../root/user/UserProfile.js:185
 msgctxt "email address"
 msgid "(verified at {date})"
 msgstr "(vérifiée le {date})"
 
-#: ../root/user/UserProfile.js:189
+#: ../root/user/UserProfile.js:190
 msgctxt "email address"
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>non vérifiée !</strong>)"
 
-#: ../root/user/UserProfile.js:198
+#: ../root/user/UserProfile.js:199
 msgid "resend verification email"
 msgstr "Renvoyer le courriel de vérification"
 
-#: ../root/user/UserProfile.js:206
+#: ../root/user/UserProfile.js:207
 msgid "send email"
 msgstr "envoyer un courriel"
 
-#: ../root/user/UserProfile.js:231
+#: ../root/user/UserProfile.js:232
 msgctxt "email address"
 msgid "(none)"
 msgstr "(aucune)"
 
-#: ../root/user/UserProfile.js:238
+#: ../root/user/UserProfile.js:239
 msgid "User type:"
 msgstr "Type d’utilisateur :"
 
-#: ../root/user/UserProfile.js:244
+#: ../root/user/UserProfile.js:245
 msgid "nominate for auto-editor"
 msgstr "nominer à l’auto-édition"
 
-#: ../root/user/UserProfile.js:251
+#: ../root/user/UserProfile.js:252
 msgid "Age:"
 msgstr "Âge :"
 
-#: ../root/user/UserProfile.js:270
+#: ../root/user/UserProfile.js:271
 msgid "Member since"
 msgstr "Membre depuis"
 
-#: ../root/user/UserProfile.js:276
+#: ../root/user/UserProfile.js:277
 msgid "Restrictions"
 msgstr "Restrictions"
 
-#: ../root/user/UserProfile.js:283
+#: ../root/user/UserProfile.js:284
 msgid "Last login"
 msgstr "Dernière connexion"
 
-#: ../root/user/UserProfile.js:286
+#: ../root/user/UserProfile.js:287
 msgid "Hasn't logged in yet"
 msgstr "Ne s’est encore jamais connecté"
 
-#: ../root/user/UserProfile.js:294 ../root/user/UserProfile.js:308
-#: ../root/user/UserProfile.js:341
+#: ../root/user/UserProfile.js:295 ../root/user/UserProfile.js:309
+#: ../root/user/UserProfile.js:342
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|voir la liste})"
 
-#: ../root/user/UserProfile.js:320
+#: ../root/user/UserProfile.js:321
 msgid "Homepage:"
 msgstr "Page d’accueil :"
 
-#: ../root/user/UserProfile.js:348
+#: ../root/user/UserProfile.js:349
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:361
+#: ../root/user/UserProfile.js:362
 msgid "unsubscribe"
 msgstr "se désabonner"
 
-#: ../root/user/UserProfile.js:370
+#: ../root/user/UserProfile.js:371
 msgid "subscribe"
 msgstr "s’abonner"
 
-#: ../root/user/UserProfile.js:399
+#: ../root/user/UserProfile.js:400
 msgid "Languages"
 msgstr "Langues"
 
-#: ../root/user/UserProfile.js:468 ../root/user/UserProfile.js:560
-#: ../root/user/UserProfile.js:570 ../root/user/UserProfile.js:580
-#: ../root/user/UserProfile.js:590 ../root/user/UserProfile.js:600
-#: ../root/user/UserProfile.js:610 ../root/user/UserProfile.js:620
-#: ../root/user/UserProfile.js:630 ../root/user/UserProfile.js:639
-#: ../root/user/UserProfile.js:792 ../root/user/UserProfile.js:813
-#: ../root/user/UserProfile.js:834
+#: ../root/user/UserProfile.js:469 ../root/user/UserProfile.js:562
+#: ../root/user/UserProfile.js:572 ../root/user/UserProfile.js:582
+#: ../root/user/UserProfile.js:592 ../root/user/UserProfile.js:602
+#: ../root/user/UserProfile.js:612 ../root/user/UserProfile.js:622
+#: ../root/user/UserProfile.js:632 ../root/user/UserProfile.js:641
+#: ../root/user/UserProfile.js:794 ../root/user/UserProfile.js:815
+#: ../root/user/UserProfile.js:836
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|voir})"
 
-#: ../root/user/UserProfile.js:552
+#: ../root/user/UserProfile.js:554
 msgid "Edits"
 msgstr "Modifications"
 
-#: ../root/user/UserProfile.js:558
+#: ../root/user/UserProfile.js:560
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr "Total"
 
-#: ../root/user/UserProfile.js:568
+#: ../root/user/UserProfile.js:570
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Acceptée"
 
-#: ../root/user/UserProfile.js:578
+#: ../root/user/UserProfile.js:580
 msgid "Auto-edits"
 msgstr "Automatiques"
 
-#: ../root/user/UserProfile.js:588
+#: ../root/user/UserProfile.js:590
 msgid "Total applied"
 msgstr "Total appliqué"
 
-#: ../root/user/UserProfile.js:598
+#: ../root/user/UserProfile.js:600
 msgid "Voted down"
 msgstr "Rejetées par vote"
 
-#: ../root/user/UserProfile.js:608
+#: ../root/user/UserProfile.js:610
 msgid "Failed"
 msgstr "Échec"
 
-#: ../root/user/UserProfile.js:618
+#: ../root/user/UserProfile.js:620
 msgctxt "edit"
 msgid "Cancelled"
 msgstr "Annulées"
 
-#: ../root/user/UserProfile.js:628
+#: ../root/user/UserProfile.js:630
 msgid "Open"
 msgstr "Ouvertes"
 
-#: ../root/user/UserProfile.js:638
+#: ../root/user/UserProfile.js:640
 msgid "Last 24 hours"
 msgstr "Les dernières 24 heures"
 
-#: ../root/user/UserProfile.js:662
+#: ../root/user/UserProfile.js:664
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "Cette table affiche un résumé des votes effectués par cet éditeur."
 
-#: ../root/user/UserProfile.js:667
+#: ../root/user/UserProfile.js:669
 msgid "Votes ({view_url|view})"
 msgstr "Votes ({view_url|voir})"
 
-#: ../root/user/UserProfile.js:675
+#: ../root/user/UserProfile.js:677
 msgid "Last 28 days"
 msgstr "Les 28 derniers jours"
 
-#: ../root/user/UserProfile.js:678
+#: ../root/user/UserProfile.js:680
 msgid "Overall"
 msgstr "Global"
 
-#: ../root/user/UserProfile.js:726
+#: ../root/user/UserProfile.js:728
 msgid "This table shows a summary of entities added by this editor."
 msgstr "Cette table affiche un résumé des entités ajoutées par cet éditeur."
 
-#: ../root/user/UserProfile.js:732
+#: ../root/user/UserProfile.js:734
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr ""
 "Les modifications fraîchement appliquées peuvent n’apparaître qu’après 24h."
 
-#: ../root/user/UserProfile.js:735
+#: ../root/user/UserProfile.js:737
 msgid "Added entities"
 msgstr "Entités ajoutées"
 
-#: ../root/user/UserProfile.js:758
+#: ../root/user/UserProfile.js:760
 msgid "This user has not added any entities."
 msgstr "Cet utilisateur n’a ajouté aucune entité."
 
-#: ../root/user/UserProfile.js:768
+#: ../root/user/UserProfile.js:770
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 "Cette table affiche un résumé des données secondaires ajoutées par cet "
 "éditeur."
 
-#: ../root/user/UserProfile.js:774
+#: ../root/user/UserProfile.js:776
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "Tags et évaluations"
 
-#: ../root/user/UserProfile.js:781
+#: ../root/user/UserProfile.js:783
 msgctxt "folksonomy"
 msgid "Tags upvoted"
 msgstr "Tags votés pour"
 
-#: ../root/user/UserProfile.js:785 ../root/user/UserProfile.js:806
+#: ../root/user/UserProfile.js:787 ../root/user/UserProfile.js:808
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
 msgstr "Les tags sont supprimés quand un éditeur est supprimé."
 
-#: ../root/user/UserProfile.js:789 ../root/user/UserProfile.js:810
+#: ../root/user/UserProfile.js:791 ../root/user/UserProfile.js:812
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "Enlevé"
 
-#: ../root/user/UserProfile.js:801
+#: ../root/user/UserProfile.js:803
 msgctxt "folksonomy"
 msgid "Tags downvoted"
 msgstr "Tags votés contre"
 
-#: ../root/user/UserProfile.js:827
+#: ../root/user/UserProfile.js:829
 msgid "Ratings are removed when an editor is deleted."
 msgstr "Les évaluations sont supprimées quand un éditeur est supprimé."
 
-#: ../root/user/UserProfile.js:830
+#: ../root/user/UserProfile.js:832
 msgctxt "ratings"
 msgid "Removed"
 msgstr "Supprimées"
 
-#: ../root/user/UserProfile.js:867
+#: ../root/user/UserProfile.js:869
 msgid "Editing/voting disabled"
 msgstr "Édition / vote désactivés"
 
-#: ../root/user/UserProfile.js:870
+#: ../root/user/UserProfile.js:872
 msgid "Edit notes disabled"
 msgstr "Notes de modification désactivées"
 
-#: ../root/user/UserProfile.js:884
+#: ../root/user/UserProfile.js:886
 msgid "Blocked spam account"
 msgstr "Compte spam bloqué"
 
-#: ../root/user/UserProfile.js:886
+#: ../root/user/UserProfile.js:888
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
@@ -17945,7 +17959,7 @@ msgstr ""
 "considéré comme spammeur. Si vous voyez du spam dans MusicBrainz, veuillez "
 "nous le faire savoir en signalant le spammeur depuis sa page utilisateur."
 
-#: ../root/user/UserProfile.js:940
+#: ../root/user/UserProfile.js:942
 msgid "Report this user for bad behavior"
 msgstr "Signaler cet utilisateur pour mauvais comportement"
 

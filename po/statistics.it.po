@@ -23,8 +23,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.6\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
@@ -1526,8 +1526,8 @@ msgstr "Disegna un rettangolo su uno dei grafici"
 msgid "Editors"
 msgstr "Editor"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:31
-#: ../root/statistics/Edits.js:35 ../root/statistics/Edits.js:44
+#: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:30
+#: ../root/statistics/Edits.js:34 ../root/statistics/Edits.js:43
 #: ../root/statistics/Index.js:1243 ../root/statistics/Index.js:1246
 #: ../root/statistics/Index.js:1295 ../root/statistics/stats.js:296
 msgid "Edits"
@@ -1598,7 +1598,7 @@ msgid "Zoom:"
 msgstr "Ingrandisci:"
 
 #: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:91
-#: ../root/statistics/Edits.js:33 ../root/statistics/Formats.js:41
+#: ../root/statistics/Edits.js:32 ../root/statistics/Formats.js:41
 #: ../root/statistics/Images.js:73 ../root/statistics/Index.js:66
 #: ../root/statistics/LanguagesScripts.js:46
 #: ../root/statistics/Relationships.js:93
@@ -1714,7 +1714,7 @@ msgstr "Voti totali"
 msgid "Top voters overall"
 msgstr "Votanti più attivi di sempre"
 
-#: ../root/statistics/Edits.js:38
+#: ../root/statistics/Edits.js:37
 msgid "No edit statistics available."
 msgstr "Non è disponibile nessuna statistica sulle modifiche."
 
