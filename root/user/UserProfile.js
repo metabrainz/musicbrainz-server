@@ -439,14 +439,16 @@ component UserEditsProperty(
   const encodedName = encodeURIComponent(user.name);
   const createEditTypes: string = entityType === 'cover_art'
     ? String(TYPES.EDIT_RELEASE_ADD_COVER_ART)
-    : entityType === 'release' ? (
-      // Also list historical edits
-      [
-        TYPES.EDIT_RELEASE_CREATE,
-        TYPES.EDIT_HISTORIC_ADD_RELEASE,
-      ].join(',')
-    // $FlowIgnore[invalid-computed-prop]
-    ) : String(TYPES[`EDIT_${entityType.toUpperCase()}_CREATE`]);
+    : entityType === 'event_art'
+      ? String(TYPES.EDIT_EVENT_ADD_EVENT_ART)
+      : entityType === 'release' ? (
+        // Also list historical edits
+        [
+          TYPES.EDIT_RELEASE_CREATE,
+          TYPES.EDIT_HISTORIC_ADD_RELEASE,
+        ].join(',')
+      // $FlowIgnore[invalid-computed-prop]
+      ) : String(TYPES[`EDIT_${entityType.toUpperCase()}_CREATE`]);
   const searchEditsURL = ((createEditTypes: string) => (
     '/search/edits' +
     '?auto_edit_filter=' +
