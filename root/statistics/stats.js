@@ -214,6 +214,11 @@ const stats = {
     color: '#ff0000',
     label: l_statistics('Event collections (all types)'),
   },
+  'count.collection.type.genre': {
+    category: 'collection',
+    color: '#ff0000',
+    label: l_statistics('Genre collections'),
+  },
   'count.collection.type.instrument': {
     category: 'collection',
     color: '#ff0000',

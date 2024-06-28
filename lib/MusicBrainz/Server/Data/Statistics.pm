@@ -2122,6 +2122,7 @@ my %stats = (
                 'count.collection.type.release_group' => $dist{13} || 0,
                 'count.collection.type.series' => $dist{14} || 0,
                 'count.collection.type.work' => $dist{15} || 0,
+                'count.collection.type.genre' => $dist{16} || 0,
             };
         },
     },
