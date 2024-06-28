@@ -99,6 +99,7 @@ Readonly my $COLUMN_COLOR => '#bbbbbb33';
 
 Readonly my %SCHEMA_COLOR => (
   'cover_art_archive' => $CAA_COLOR,
+  'event_art_archive' => $CAA_COLOR,
   'musicbrainz' => $MEB_COLOR
 );
 
@@ -362,6 +363,7 @@ log_info { 'Parsing SQL files...' };
 
 parse_tables('CreateTables.sql');
 parse_tables('caa/CreateTables.sql');
+parse_tables('eaa/CreateTables.sql');
 
 log_info { "Generating DOT files in '$OUTPUT_DIR/'..." };
 

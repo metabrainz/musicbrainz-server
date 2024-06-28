@@ -380,6 +380,9 @@
         "image_type": [],
         "cover_art": [],
         "cover_art_type": [],
-        "release_group_cover_art": []
+        "release_group_cover_art": [],
+        "art_type": [],
+        "event_art": [],
+        "event_art_type": []
     }
 }

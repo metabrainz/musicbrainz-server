@@ -1,0 +1,11 @@
+{
+  "tooltip": "Tables for event art",
+  "_comment": "It shows tables used to set an event art for events. The main table for this type is highlighted. It also shows when tables belong to the 'event_art_archive' schema.",
+  "tables": {
+    "art_type": [],
+    "event_art": [],
+    "event_art_type": [],
+    "edit": [],
+    "event": ["highlighted"]
+  }
+}
