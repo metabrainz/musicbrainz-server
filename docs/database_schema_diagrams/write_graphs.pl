@@ -205,7 +205,7 @@ sub write_dot_files
         unless (contains_string(\@created_tables, $table)) {
             log_warning { "The table '$table' in '$diagram_id' diagram doesn't exist." };
         }
-        if (contains_string(\@{ %$diagram_tables_props{$table} }, 'shortened')) {
+        if (contains_string($diagram_tables_props->{$table}, 'shortened')) {
             my $is_any_column_hidden = 0;
             my @columns;
             if (exists $created_primary_keys{$table}) {
@@ -270,11 +270,11 @@ sub write_dot_files
 
     foreach my $table (@diagram_tables_names) {
         my $bgcolor =
-          (contains_string(\@{ %$diagram_tables_props{$table} }, 'highlighted'))
+          (contains_string($diagram_tables_props->{$table}, 'highlighted'))
           ? "$HI_TABLE_COLOR" : "$TABLE_COLOR";
         my $short_table_name = (split /\./, $table)[1];
         my $title =
-          (contains_string(\@{ %$diagram_tables_props{$table} }, 'materialized'))
+          (contains_string($diagram_tables_props->{$table}, 'materialized'))
           ? "$short_table_name (m)" : "$short_table_name";
         print $graph_fh <<~"EOF";
                 "$table" [
