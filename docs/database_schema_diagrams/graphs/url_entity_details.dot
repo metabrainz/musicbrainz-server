@@ -1,5 +1,5 @@
 // Automatically generated, do not edit.
-// - Database schema sequence: 28
+// - Database schema sequence: 29
 digraph url_entity_details {
     tooltip = "Tables for the “url” entity type properties"
     graph [

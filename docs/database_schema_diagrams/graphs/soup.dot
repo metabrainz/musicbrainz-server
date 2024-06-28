@@ -1,5 +1,5 @@
-// Automatically generated, do not edit.
-// - Database schema sequence: 28
+// Automatically generated, do not edit, except to compensate for the lack of MBS-13668.
+// - Database schema sequence: 29
 digraph soup {
     tooltip = "All tables for MusicBrainz and the Cover Art Archive"
     graph [
@@ -262,6 +262,19 @@ digraph soup {
         >
     ];
     "art_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">art_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="parent"><font point-size="14">parent</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="child_order"><font point-size="14">child_order</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "art_type_eaa" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">art_type</font></td></tr>
@@ -963,6 +976,18 @@ digraph soup {
             </table>
         >
     ];
+    "editor_collection_genre" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">editor_collection_genre</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="collection"><font point-size="14"><u>collection</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="genre"><font point-size="14"><u>genre</u></font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="added"><font point-size="14">added</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="position"><font point-size="14">position</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="comment"><font point-size="14">comment</font></td></tr>
+            </table>
+        >
+    ];
     "editor_collection_gid_redirect" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
@@ -1275,6 +1300,34 @@ digraph soup {
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">event_annotation</font></td></tr>
                 <tr><td bgcolor="#eeeeee77" align="left" port="event"><font point-size="14"><u>event</u></font></td></tr>
                 <tr><td bgcolor="#eeeeee77" align="left" port="annotation"><font point-size="14"><u>annotation</u></font></td></tr>
+            </table>
+        >
+    ];
+    "event_art" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">event_art</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="event"><font point-size="14">event</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="comment"><font point-size="14">comment</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="edit"><font point-size="14">edit</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ordering"><font point-size="14">ordering</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="date_uploaded"><font point-size="14">date_uploaded</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="mime_type"><font point-size="14">mime_type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="filesize"><font point-size="14">filesize</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="thumb_250_filesize"><font point-size="14">thumb_250_filesize</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="thumb_500_filesize"><font point-size="14">thumb_500_filesize</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="thumb_1200_filesize"><font point-size="14">thumb_1200_filesize</font></td></tr>
+            </table>
+        >
+    ];
+    "event_art_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">event_art_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="type_id"><font point-size="14"><u>type_id</u></font></td></tr>
             </table>
         >
     ];
@@ -3648,7 +3701,6 @@ digraph soup {
                 <tr><td bgcolor="#bbbbbb33" align="left" port="link_phrase"><font point-size="14">link_phrase</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="reverse_link_phrase"><font point-size="14">reverse_link_phrase</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="long_link_phrase"><font point-size="14">long_link_phrase</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="priority"><font point-size="14">priority</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="is_deprecated"><font point-size="14">is_deprecated</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="has_dates"><font point-size="14">has_dates</font></td></tr>
@@ -5113,6 +5165,13 @@ digraph soup {
         image_type;
         release_group_cover_art;
     }
+    subgraph cluster_event_art_archive {
+        bgcolor = "#35a8b3:#f0976c"
+
+        art_type_eaa;
+        event_art;
+        event_art_type;
+    }
 
     // References
     "alternative_medium":"medium" -> "medium":"id"
@@ -5238,6 +5297,8 @@ digraph soup {
     "editor_collection_deleted_entity":"gid" -> "deleted_entity":"gid"
     "editor_collection_event":"collection" -> "editor_collection":"id"
     "editor_collection_event":"event" -> "event":"id"
+    "editor_collection_genre":"collection" -> "editor_collection":"id"
+    "editor_collection_genre":"genre" -> "genre":"id"
     "editor_collection_gid_redirect":"new_id" -> "editor_collection":"id"
     "editor_collection_instrument":"collection" -> "editor_collection":"id"
     "editor_collection_instrument":"instrument" -> "instrument":"id"
@@ -5289,6 +5350,11 @@ digraph soup {
     "event_alias":"type" -> "event_alias_type":"id"
     "event_annotation":"event" -> "event":"id"
     "event_annotation":"annotation" -> "annotation":"id"
+    "event_art":"event" -> "event":"id"
+    "event_art":"edit" -> "edit":"id"
+    "event_art":"mime_type" -> "image_type":"mime_type"
+    "event_art_type":"id" -> "event_art":"id"
+    "event_art_type":"type_id" -> "art_type_eaa":"id"
     "event_attribute":"event" -> "event":"id"
     "event_attribute":"event_attribute_type" -> "event_attribute_type":"id"
     "event_attribute":"event_attribute_type_allowed_value" -> "event_attribute_type_allowed_value":"id"
