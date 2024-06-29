@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-26 18:16+0000\n"
+"PO-Revision-Date: 2024-06-29 00:42+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/fr/>\n"
@@ -1780,7 +1780,7 @@ msgstr "Images d’événement"
 
 #: ../root/statistics/Images.js:139 ../root/statistics/Images.js:319
 msgid "No cover art statistics available."
-msgstr "Aucune statistique d’image."
+msgstr "Aucune statistique d’image de parution."
 
 #: ../root/statistics/Images.js:145
 msgid "By release group type"
@@ -1831,7 +1831,7 @@ msgstr "Images"
 
 #: ../root/statistics/Images.js:325
 msgid "By cover art type"
-msgstr "Par type d’image"
+msgstr "Par type d’image de parution"
 
 #: ../root/statistics/Images.js:360
 msgid "Per release"
@@ -1849,39 +1849,26 @@ msgid "with 30 or more pieces of cover art:"
 msgstr "avec 30 ou plus images :"
 
 #: ../root/statistics/Images.js:433 ../root/statistics/Images.js:482
-#, fuzzy
-#| msgid "No cover art statistics available."
 msgid "No event art statistics available."
-msgstr "Aucune statistique d’image."
+msgstr "Aucune statistique d’image d’événement."
 
 #: ../root/statistics/Images.js:439
-#, fuzzy
-#| msgid "Event types"
 msgid "By event type"
-msgstr "Types d’événement"
+msgstr "Par type d’événement"
 
 #: ../root/statistics/Images.js:488
-#, fuzzy
-#| msgid "By cover art type"
 msgid "By event art type"
-msgstr "Par type d’image"
+msgstr "Par type d’image d’événement"
 
 #: ../root/statistics/Images.js:525
-#, fuzzy
-#| msgid "Of events"
 msgid "Per event"
-msgstr "D’événements"
+msgstr "Par événement"
 
 #: ../root/statistics/Images.js:528
-#, fuzzy
-#| msgid "Events with event art"
 msgid "Events with event art:"
-msgstr "Événements avec image"
+msgstr "Événements avec image :"
 
 #: ../root/statistics/Images.js:541
-#, fuzzy
-#| msgid "with {num} piece of cover art:"
-#| msgid_plural "with {num} pieces of cover art:"
 msgid "with {num} piece of event art:"
 msgid_plural "with {num} pieces of event art:"
 msgstr[0] "avec {num} image :"
@@ -1889,10 +1876,8 @@ msgstr[1] "avec {num} images :"
 msgstr[2] "avec {num} images :"
 
 #: ../root/statistics/Images.js:571
-#, fuzzy
-#| msgid "with 30 or more pieces of cover art:"
 msgid "with 15 or more pieces of event art:"
-msgstr "avec 30 ou plus images :"
+msgstr "avec 15 ou plus images :"
 
 #: ../root/statistics/Index.js:68
 msgid "Basic metadata"
@@ -2192,16 +2177,12 @@ msgid "Event art"
 msgstr "Types d’événement"
 
 #: ../root/statistics/Index.js:939
-#, fuzzy
-#| msgid "Events with an EAA poster"
 msgid "With EAA poster art:"
-msgstr "Événements avec un poster dans l’EAA"
+msgstr "Avec un poster dans l’EAA :"
 
 #: ../root/statistics/Index.js:945
-#, fuzzy
-#| msgid "No front cover art:"
 msgid "No poster art:"
-msgstr "Pas d’image de couverture :"
+msgstr "Pas de poster :"
 
 #: ../root/statistics/Index.js:965
 msgid "Of releases"
@@ -2801,20 +2782,16 @@ msgid "Events with an EAA poster"
 msgstr "Événements avec un poster dans l’EAA"
 
 #: ../root/statistics/stats.js:456
-#, fuzzy
-#| msgid "Events with an EAA poster"
 msgid "Events without an EAA poster"
-msgstr "Événements avec un poster dans l’EAA"
+msgstr "Événements sans poster dans l’EAA"
 
 #: ../root/statistics/stats.js:461
 msgid "Events with no type set"
 msgstr "Événements sans type défini"
 
 #: ../root/statistics/stats.js:467
-#, fuzzy
-#| msgid "Releases in groups with no type set that have cover art"
 msgid "Events with no type set that have event art"
-msgstr "Parutions dans un groupe sans type défini mais qui ont des images"
+msgstr "Événements sans type défini mais qui ont des images"
 
 #: ../root/statistics/stats.js:483
 msgid "Instruments with no type set"
@@ -3167,10 +3144,8 @@ msgid "{type} events"
 msgstr "Événements de type « {type} »"
 
 #: ../root/statistics/stats.js:1109
-#, fuzzy
-#| msgid "Releases in groups of type “{type}” with cover art"
 msgid "Events of type “{type}” with event art"
-msgstr "Parutions dans un groupe de type « {type} » ayant une image"
+msgstr "Événements de type « {type} » ayant une image"
 
 #: ../root/statistics/stats.js:1122
 msgid "{name} releases"

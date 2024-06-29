@@ -32,7 +32,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-24 15:52+0000\n"
+"PO-Revision-Date: 2024-06-29 00:42+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/fr/>\n"
@@ -7039,9 +7039,6 @@ msgid "Raw/Unedited"
 msgstr "Brute / Non-modifiée"
 
 #: DB:event_art_archive.art_type/name:9
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Raw/Unedited"
 msgctxt "event_art_type"
 msgid "Raw/Unedited"
 msgstr "Brute / Non-modifiée"
@@ -8592,12 +8589,6 @@ msgstr "Udaya ravicandrika"
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use in combination with any other appropriate types for images that are "
-#| "watermarked and are not desirable for tagging (but can be used for "
-#| "reference)."
 msgctxt "cover_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that are "
@@ -8605,17 +8596,11 @@ msgid ""
 "reference)."
 msgstr ""
 "Utilisé en combinaison des autres types appropriés pour des images qui "
-"contiennent un filigrane et donc indésirables comme illustration (mais "
-"utiles comme référence)."
+"contiennent un filigrane et donc indésirables pour l’affichage (mais utiles "
+"comme référence)."
 
 #. name:Watermark
 #: DB:event_art_archive.art_type/description:10
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use in combination with any other appropriate types for images that are "
-#| "watermarked and are not desirable for tagging (but can be used for "
-#| "reference)."
 msgctxt "event_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that are "
@@ -8623,42 +8608,30 @@ msgid ""
 "reference)."
 msgstr ""
 "Utilisé en combinaison des autres types appropriés pour des images qui "
-"contiennent un filigrane et donc indésirables comme illustration (mais "
-"utiles comme référence)."
+"contiennent un filigrane et donc indésirables pour l’affichage (mais utiles "
+"comme référence)."
 
 #. name:Raw/Unedited
 #: DB:cover_art_archive.art_type/description:14
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use in combination with any other appropriate types for images that need "
-#| "work to be used for tagging (but can possibly already be used for "
-#| "reference)."
 msgctxt "cover_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
 msgstr ""
 "Utilisé en combinaison des autres types appropriés pour des images qui "
-"manquent de finition pour être servir d’illustration (mais qui sont utiles "
-"comme référence)."
+"manquent de finition pour être affichées (mais qui sont utiles comme "
+"référence)."
 
 #. name:Raw/Unedited
 #: DB:event_art_archive.art_type/description:9
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use in combination with any other appropriate types for images that need "
-#| "work to be used for tagging (but can possibly already be used for "
-#| "reference)."
 msgctxt "event_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
 msgstr ""
 "Utilisé en combinaison des autres types appropriés pour des images qui "
-"manquent de finition pour être servir d’illustration (mais qui sont utiles "
-"comme référence)."
+"manquent de finition pour être affichées (mais qui sont utiles comme "
+"référence)."
 
 #. name:Military base
 #: DB:area_type/description:8
@@ -8910,9 +8883,6 @@ msgid "Watermark"
 msgstr "Filigrane"
 
 #: DB:event_art_archive.art_type/name:10
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Watermark"
 msgctxt "event_art_type"
 msgid "Watermark"
 msgstr "Filigrane"

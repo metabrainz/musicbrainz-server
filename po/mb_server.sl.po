@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-27 23:21+0200\n"
+"POT-Creation-Date: 2024-06-28 20:29+0000\n"
 "PO-Revision-Date: 2024-06-03 17:42+0000\n"
 "Last-Translator: \"ApeKattQuest, MonkeyPython\" "
 "<ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>\n"
@@ -113,7 +113,7 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
-#: ../root/edit/details/MergeReleases.js:233
+#: ../root/cdtoc/lookup.tt:43 ../root/edit/details/MergeReleases.js:233
 #: ../root/recording/RecordingIndex.js:50
 #: ../root/release_group/ReleaseGroupIndex.js:162
 #: ../root/search/components/ReleaseResults.js:115
@@ -373,7 +373,7 @@ msgstr ""
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:29
 #: ../root/cdtoc/list.tt:8 ../root/cdtoc/lookup.tt:42
-#: ../root/cdtoc/lookup.tt:75 ../root/edit/search_macros.tt:434
+#: ../root/cdtoc/lookup.tt:77 ../root/edit/search_macros.tt:434
 #: ../root/release/edit/information.tt:26 ../root/release/edit/tracklist.tt:110
 #: ../root/release/edit/tracklist.tt:163 ../root/release/edit/tracklist.tt:453
 #: ../root/release_group/set_cover_art.tt:32
@@ -463,7 +463,7 @@ msgctxt "interactive"
 msgid "Attach CD TOC"
 msgstr ""
 
-#: ../root/cdtoc/lookup.tt:66 ../root/release/edit/tracklist.tt:478
+#: ../root/cdtoc/lookup.tt:68 ../root/release/edit/tracklist.tt:478
 msgid "Attach disc ID"
 msgstr ""
 
@@ -478,7 +478,7 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:19
 #: ../root/cdtoc/attach_filter_release.tt:33 ../root/cdtoc/list.tt:13
-#: ../root/cdtoc/lookup.tt:47 ../root/release/edit/duplicates.tt:17
+#: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:17
 #: ../root/release/edit/information.tt:222
 #: ../root/release_group/set_cover_art.tt:62
 #: ../root/components/list/ReleaseList.js:123
@@ -612,7 +612,7 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:18
 #: ../root/cdtoc/attach_filter_release.tt:32 ../root/cdtoc/list.tt:12
-#: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:16
+#: ../root/cdtoc/lookup.tt:45 ../root/release/edit/duplicates.tt:16
 #: ../root/release_group/set_cover_art.tt:56
 #: ../root/edit/details/MergeReleases.js:235
 #: ../root/recording/RecordingIndex.js:52
@@ -686,7 +686,7 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
-#: ../root/cdtoc/lookup.tt:44 ../root/release/edit/duplicates.tt:14
+#: ../root/cdtoc/lookup.tt:43 ../root/release/edit/duplicates.tt:14
 #: ../root/release/edit/information.tt:156
 #: ../root/release_group/set_cover_art.tt:41
 #: ../root/edit/details/EditReleaseLabel.js:109
@@ -1442,7 +1442,7 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:17
 #: ../root/cdtoc/attach_filter_release.tt:31 ../root/cdtoc/list.tt:11
-#: ../root/cdtoc/lookup.tt:45 ../root/edit/search_macros.tt:434
+#: ../root/cdtoc/lookup.tt:44 ../root/edit/search_macros.tt:434
 #: ../root/release/edit/duplicates.tt:15
 #: ../root/release/edit/information.tt:179
 #: ../root/release_group/set_cover_art.tt:52
@@ -2079,7 +2079,7 @@ msgstr ""
 msgid "Release language"
 msgstr ""
 
-#: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:85
+#: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:87
 #: ../root/cdtoc/move_search.tt:15
 msgid "Release title or MBID"
 msgstr ""
@@ -2197,8 +2197,8 @@ msgstr ""
 msgid "Script"
 msgstr "Skripta"
 
-#: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:77
-#: ../root/cdtoc/lookup.tt:87 ../root/cdtoc/move_search.tt:17
+#: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:79
+#: ../root/cdtoc/lookup.tt:89 ../root/cdtoc/move_search.tt:17
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:116
 #: ../root/release/edit/recordings.tt:163 ../root/release/edit/tracklist.tt:117
 #: ../root/cdstub/ImportCDStub.js:43 ../root/cdtoc/SelectArtistForCDToc.js:40
@@ -2214,11 +2214,11 @@ msgstr "Skripta"
 msgid "Search"
 msgstr ""
 
-#: ../root/cdtoc/lookup.tt:71
+#: ../root/cdtoc/lookup.tt:73
 msgid "Search by artist"
 msgstr ""
 
-#: ../root/cdtoc/lookup.tt:81
+#: ../root/cdtoc/lookup.tt:83
 msgid "Search by release"
 msgstr ""
 
@@ -2404,7 +2404,7 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:21
 #: ../root/cdtoc/attach_filter_release.tt:35 ../root/cdtoc/list.tt:15
-#: ../root/recording/RecordingIndex.js:55
+#: ../root/cdtoc/lookup.tt:48 ../root/recording/RecordingIndex.js:55
 #: ../root/release_group/ReleaseGroupIndex.js:168
 #: ../root/search/components/RecordingResults.js:147
 #: ../root/search/components/ReleaseResults.js:124

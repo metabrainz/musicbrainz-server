@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-27 23:21+0200\n"
-"PO-Revision-Date: 2024-06-14 17:42+0000\n"
+"POT-Creation-Date: 2024-06-28 20:29+0000\n"
+"PO-Revision-Date: 2024-06-29 08:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -24,9 +24,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.5.5\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.6\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -121,7 +121,7 @@ msgstr "(nėra kitų vaizdų)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
-#: ../root/edit/details/MergeReleases.js:233
+#: ../root/cdtoc/lookup.tt:43 ../root/edit/details/MergeReleases.js:233
 #: ../root/recording/RecordingIndex.js:50
 #: ../root/release_group/ReleaseGroupIndex.js:162
 #: ../root/search/components/ReleaseResults.js:115
@@ -396,7 +396,7 @@ msgstr "Teritorija"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:29
 #: ../root/cdtoc/list.tt:8 ../root/cdtoc/lookup.tt:42
-#: ../root/cdtoc/lookup.tt:75 ../root/edit/search_macros.tt:434
+#: ../root/cdtoc/lookup.tt:77 ../root/edit/search_macros.tt:434
 #: ../root/release/edit/information.tt:26 ../root/release/edit/tracklist.tt:110
 #: ../root/release/edit/tracklist.tt:163 ../root/release/edit/tracklist.tt:453
 #: ../root/release_group/set_cover_art.tt:32
@@ -484,7 +484,7 @@ msgctxt "interactive"
 msgid "Attach CD TOC"
 msgstr "Pridėti CD TOC"
 
-#: ../root/cdtoc/lookup.tt:66 ../root/release/edit/tracklist.tt:478
+#: ../root/cdtoc/lookup.tt:68 ../root/release/edit/tracklist.tt:478
 msgid "Attach disc ID"
 msgstr "Pridėti disko ID"
 
@@ -499,7 +499,7 @@ msgstr "Autoredaktorius (-ė)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:19
 #: ../root/cdtoc/attach_filter_release.tt:33 ../root/cdtoc/list.tt:13
-#: ../root/cdtoc/lookup.tt:47 ../root/release/edit/duplicates.tt:17
+#: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:17
 #: ../root/release/edit/information.tt:222
 #: ../root/release_group/set_cover_art.tt:62
 #: ../root/components/list/ReleaseList.js:123
@@ -643,7 +643,7 @@ msgstr "Kat. nr:"
 
 #: ../root/cdtoc/attach_artist_releases.tt:18
 #: ../root/cdtoc/attach_filter_release.tt:32 ../root/cdtoc/list.tt:12
-#: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:16
+#: ../root/cdtoc/lookup.tt:45 ../root/release/edit/duplicates.tt:16
 #: ../root/release_group/set_cover_art.tt:56
 #: ../root/edit/details/MergeReleases.js:235
 #: ../root/recording/RecordingIndex.js:52
@@ -717,7 +717,7 @@ msgstr "Kopijuoti leidinio pavadinimą į leidinio grupę"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
-#: ../root/cdtoc/lookup.tt:44 ../root/release/edit/duplicates.tt:14
+#: ../root/cdtoc/lookup.tt:43 ../root/release/edit/duplicates.tt:14
 #: ../root/release/edit/information.tt:156
 #: ../root/release_group/set_cover_art.tt:41
 #: ../root/edit/details/EditReleaseLabel.js:109
@@ -1534,7 +1534,7 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:17
 #: ../root/cdtoc/attach_filter_release.tt:31 ../root/cdtoc/list.tt:11
-#: ../root/cdtoc/lookup.tt:45 ../root/edit/search_macros.tt:434
+#: ../root/cdtoc/lookup.tt:44 ../root/edit/search_macros.tt:434
 #: ../root/release/edit/duplicates.tt:15
 #: ../root/release/edit/information.tt:179
 #: ../root/release_group/set_cover_art.tt:52
@@ -2187,7 +2187,7 @@ msgstr "Leidinio informacija"
 msgid "Release language"
 msgstr "Leidinio kalba"
 
-#: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:85
+#: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:87
 #: ../root/cdtoc/move_search.tt:15
 msgid "Release title or MBID"
 msgstr "Leidinio pavadinimas arba MBID"
@@ -2308,8 +2308,8 @@ msgstr ""
 msgid "Script"
 msgstr "Raštas"
 
-#: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:77
-#: ../root/cdtoc/lookup.tt:87 ../root/cdtoc/move_search.tt:17
+#: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:79
+#: ../root/cdtoc/lookup.tt:89 ../root/cdtoc/move_search.tt:17
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:116
 #: ../root/release/edit/recordings.tt:163 ../root/release/edit/tracklist.tt:117
 #: ../root/cdstub/ImportCDStub.js:43 ../root/cdtoc/SelectArtistForCDToc.js:40
@@ -2325,11 +2325,11 @@ msgstr "Raštas"
 msgid "Search"
 msgstr "Ieškoti"
 
-#: ../root/cdtoc/lookup.tt:71
+#: ../root/cdtoc/lookup.tt:73
 msgid "Search by artist"
 msgstr "Ieškoti pagal atlikėją"
 
-#: ../root/cdtoc/lookup.tt:81
+#: ../root/cdtoc/lookup.tt:83
 msgid "Search by release"
 msgstr "Ieškoti pagal leidinį"
 
@@ -2545,7 +2545,7 @@ msgstr "Sukeisti takelių pavadinimus su atlikėjų įvardijimais"
 
 #: ../root/cdtoc/attach_artist_releases.tt:21
 #: ../root/cdtoc/attach_filter_release.tt:35 ../root/cdtoc/list.tt:15
-#: ../root/recording/RecordingIndex.js:55
+#: ../root/cdtoc/lookup.tt:48 ../root/recording/RecordingIndex.js:55
 #: ../root/release_group/ReleaseGroupIndex.js:168
 #: ../root/search/components/RecordingResults.js:147
 #: ../root/search/components/ReleaseResults.js:124
@@ -6982,7 +6982,7 @@ msgstr "Šiuo metu šioje teritorijoje nėra naudotojų."
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:39
 #: ../root/tag/TagLayout.js:21
 msgid "Works"
-msgstr ""
+msgstr "Kūriniai"
 
 #: ../root/area/AreaWorks.js:24
 msgid "This area has no relationships to any works."
@@ -7958,7 +7958,7 @@ msgstr "Apžvalgos"
 #: ../root/user/UserProfile.js:825 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
-msgstr ""
+msgstr "Vertinimai"
 
 #: ../root/components/EntityTabs.js:179
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:282
@@ -8075,7 +8075,7 @@ msgstr[3] "Žiūrėti visus {num} renginių"
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:23
 #: ../root/tag/TagLayout.js:25
 msgid "Instruments"
-msgstr ""
+msgstr "Instrumentai"
 
 #: ../root/components/TagEntitiesList.js:164
 msgid "See all {num} instruments"
@@ -13419,7 +13419,7 @@ msgstr ""
 #: ../root/report/ReportsIndex.js:596
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 msgid "URLs"
-msgstr ""
+msgstr "URL adresai"
 
 #: ../root/report/ReportsIndex.js:608
 #: ../root/report/WikidataLinksWithMultipleEntities.js:48
@@ -17145,7 +17145,7 @@ msgstr ""
 
 #: ../root/user/UserRatingList.js:25
 msgid "Artist ratings"
-msgstr ""
+msgstr "Atlikėjo vertinimai"
 
 #: ../root/user/UserRatingList.js:26
 msgid "Event ratings"
@@ -17153,7 +17153,7 @@ msgstr ""
 
 #: ../root/user/UserRatingList.js:27
 msgid "Label ratings"
-msgstr ""
+msgstr "Leidyklos vertinimai"
 
 #: ../root/user/UserRatingList.js:28
 msgid "Place ratings"
