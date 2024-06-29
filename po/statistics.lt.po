@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-14 17:42+0000\n"
+"PO-Revision-Date: 2024-06-29 08:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/lt/>\n"
@@ -15,9 +15,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.5.5\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.6\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1637,25 +1637,21 @@ msgstr ""
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "su {num} viršelio apipavidalinimu:"
-msgstr[1] "su {num} viršelio apipavidalinimai:"
+msgstr[1] "su {num} viršelio apipavidalinimais:"
 msgstr[2] "su {num} viršelio apipavidalinimo:"
 msgstr[3] "su {num} viršelio apipavidalinimų:"
 
 #: ../root/statistics/Images.js:406
 msgid "with 30 or more pieces of cover art:"
-msgstr ""
+msgstr "su 30 ar daugiau viršelio apipavidalinimų:"
 
 #: ../root/statistics/Images.js:433 ../root/statistics/Images.js:482
-#, fuzzy
-#| msgid "No image statistics available."
 msgid "No event art statistics available."
-msgstr "Vaizdų statistikos nėra."
+msgstr "Renginio apipavidalinimų statistikos nėra."
 
 #: ../root/statistics/Images.js:439
-#, fuzzy
-#| msgid "Edit Types"
 msgid "By event type"
-msgstr "Redaguoti tipus"
+msgstr "Pagal renginio tipą"
 
 #: ../root/statistics/Images.js:488
 #, fuzzy
@@ -1665,39 +1661,31 @@ msgstr "Redaguoti tipus"
 
 #: ../root/statistics/Images.js:525
 msgid "Per event"
-msgstr ""
+msgstr "Pagal renginį"
 
 #: ../root/statistics/Images.js:528
-#, fuzzy
-#| msgid "Events with event art"
 msgid "Events with event art:"
-msgstr "Renginiai su renginio apipavidalinimais"
+msgstr "Renginiai su renginio apipavidalinimais:"
 
 #: ../root/statistics/Images.js:541
-#, fuzzy
-#| msgid "with {num} piece of cover art:"
-#| msgid_plural "with {num} pieces of cover art:"
 msgid "with {num} piece of event art:"
 msgid_plural "with {num} pieces of event art:"
-msgstr[0] "su {num} viršelio apipavidalinimu:"
-msgstr[1] "su {num} viršelio apipavidalinimai:"
-msgstr[2] "su {num} viršelio apipavidalinimo:"
-msgstr[3] "su {num} viršelio apipavidalinimų:"
+msgstr[0] "su {num} renginio apipavidalinimu:"
+msgstr[1] "su {num} renginio apipavidalinimais:"
+msgstr[2] "su {num} renginio apipavidalinimo:"
+msgstr[3] "su {num} renginio apipavidalinimų:"
 
 #: ../root/statistics/Images.js:571
-#, fuzzy
-#| msgid "with {num} piece of cover art:"
-#| msgid_plural "with {num} pieces of cover art:"
 msgid "with 15 or more pieces of event art:"
-msgstr "su {num} viršelio apipavidalinimu:"
+msgstr "su 15 ar daugiau renginio apipavidalinimų:"
 
 #: ../root/statistics/Index.js:68
 msgid "Basic metadata"
-msgstr ""
+msgstr "Pagrindiniai metaduomenys"
 
 #: ../root/statistics/Index.js:72 ../root/statistics/stats.js:20
 msgid "Core entities"
-msgstr ""
+msgstr "Pagrindiniai esybės"
 
 #: ../root/statistics/Index.js:91 ../root/statistics/Index.js:673
 #: ../root/statistics/Index.js:677 ../root/statistics/Index.js:680
@@ -1713,11 +1701,11 @@ msgstr "Takeliai"
 #: ../root/statistics/Index.js:737 ../root/statistics/Index.js:769
 #: ../root/statistics/LanguagesScripts.js:69 ../root/statistics/stats.js:926
 msgid "Works"
-msgstr ""
+msgstr "Kūriniai"
 
 #: ../root/statistics/Index.js:107 ../root/statistics/stats.js:879
 msgid "URLs"
-msgstr ""
+msgstr "URL adresai"
 
 #: ../root/statistics/Index.js:111 ../root/statistics/Index.js:792
 #: ../root/statistics/Index.js:799 ../root/statistics/stats.js:55
@@ -1727,7 +1715,7 @@ msgstr "Teritorijos"
 #: ../root/statistics/Index.js:123 ../root/statistics/Index.js:872
 #: ../root/statistics/Index.js:879 ../root/statistics/stats.js:478
 msgid "Instruments"
-msgstr ""
+msgstr "Instrumentai"
 
 #: ../root/statistics/Index.js:131 ../root/statistics/stats.js:473
 msgid "Genres"
@@ -1735,11 +1723,11 @@ msgstr "Žanrai"
 
 #: ../root/statistics/Index.js:137
 msgid "Other entities"
-msgstr ""
+msgstr "Kiti esybės"
 
 #: ../root/statistics/Index.js:140
 msgid "Editors (valid / deleted):"
-msgstr ""
+msgstr "Redaktoriai (galiojantys / ištrinti):"
 
 #: ../root/statistics/Index.js:150 ../root/statistics/Index.js:952
 #: ../root/statistics/Index.js:956 ../root/statistics/Index.js:959
@@ -1919,24 +1907,20 @@ msgid "Normal data quality"
 msgstr "Leidyklos / duomenų kokybė"
 
 #: ../root/statistics/Index.js:486 ../root/statistics/stats.js:608
-#, fuzzy
-#| msgid "Unknown Country"
 msgid "Unknown data quality"
-msgstr "Nežinoma šalis"
+msgstr "Nežinoma duomenų kokybė"
 
 #: ../root/statistics/Index.js:495 ../root/statistics/stats.js:598
-#, fuzzy
-#| msgid "Labels/data quality"
 msgid "Low data quality"
-msgstr "Leidyklos / duomenų kokybė"
+msgstr "Žema duomenų kokybė"
 
 #: ../root/statistics/Index.js:517
 msgid "Releases with no disc IDs:"
-msgstr ""
+msgstr "Leidiniai be diskų ID:"
 
 #: ../root/statistics/Index.js:524
 msgid "Releases with at least one disc ID:"
-msgstr ""
+msgstr "Leidiniai su bent vienu disko ID:"
 
 #: ../root/statistics/Index.js:535 ../root/statistics/Index.js:579
 msgid "with {num} disc ID:"
@@ -1968,7 +1952,7 @@ msgstr ""
 #: ../root/statistics/Index.js:841 ../root/statistics/Index.js:895
 #: ../root/statistics/Index.js:923
 msgid "None"
-msgstr ""
+msgstr "Nėra"
 
 #: ../root/statistics/Index.js:637
 msgid "Secondary types"
@@ -1976,11 +1960,11 @@ msgstr "Antriniai tipai"
 
 #: ../root/statistics/Index.js:685 ../root/statistics/stats.js:884
 msgid "Videos"
-msgstr ""
+msgstr "Vaizdo įrašai"
 
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
-msgstr ""
+msgstr "Su ISRC"
 
 #: ../root/statistics/Index.js:706 ../root/statistics/Index.js:734
 #: ../root/statistics/Index.js:796 ../root/statistics/Index.js:824
@@ -1991,42 +1975,35 @@ msgstr "Tipai"
 
 #: ../root/statistics/Index.js:756
 msgid "With ISWCs"
-msgstr ""
+msgstr "Su ISWC"
 
 #: ../root/statistics/Index.js:766
 msgid "Attributes"
 msgstr "Požymiai"
 
 #: ../root/statistics/Index.js:930
-#, fuzzy
-#| msgid "Edit Types"
 msgid "Event art"
-msgstr "Redaguoti tipus"
+msgstr "Renginio apipavidalinimas"
 
 #: ../root/statistics/Index.js:939
-#, fuzzy
-#| msgid "Events with an EAA poster"
 msgid "With EAA poster art:"
-msgstr "Renginiai su EAA plakatu"
+msgstr "Su EAA plakato apipavidalinimu:"
 
 #: ../root/statistics/Index.js:945
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Cover art"
 msgid "No poster art:"
-msgstr "Viršelio apipavidalinimai"
+msgstr "Nėra plakato apipavidalinimo:"
 
 #: ../root/statistics/Index.js:965
 msgid "Of releases"
-msgstr ""
+msgstr "Iš leidinių"
 
 #: ../root/statistics/Index.js:972 ../root/statistics/Index.js:1005
 msgid "Generic"
-msgstr ""
+msgstr "Bendrinis"
 
 #: ../root/statistics/Index.js:981
 msgid "Owned music"
-msgstr ""
+msgstr "Turima muzika"
 
 #: ../root/statistics/Index.js:990
 msgid "Wishlist"
@@ -2630,80 +2607,76 @@ msgid "Events with an EAA poster"
 msgstr "Renginiai su EAA plakatu"
 
 #: ../root/statistics/stats.js:456
-#, fuzzy
-#| msgid "Events with an EAA poster"
 msgid "Events without an EAA poster"
-msgstr "Renginiai su EAA plakatu"
+msgstr "Renginiai be EAA plakatu"
 
 #: ../root/statistics/stats.js:461
 msgid "Events with no type set"
-msgstr ""
+msgstr "Renginiai be tipo nustatymo"
 
 #: ../root/statistics/stats.js:467
-#, fuzzy
-#| msgid "Events with event art"
 msgid "Events with no type set that have event art"
-msgstr "Renginiai su renginio apipavidalinimais"
+msgstr "Renginiai be tipo nustatymo, turintys renginio apipavidalinimus"
 
 #: ../root/statistics/stats.js:483
 msgid "Instruments with no type set"
-msgstr ""
+msgstr "Instrumentai be tipo nustatymo"
 
 #: ../root/statistics/stats.js:493
 msgid "Artist IPIs"
-msgstr ""
+msgstr "Atlikėjo IPI"
 
 #: ../root/statistics/stats.js:498
 msgid "Label IPIs"
-msgstr ""
+msgstr "Leidyklos IPI"
 
 #: ../root/statistics/stats.js:508
 msgid "Artist ISNIs"
-msgstr ""
+msgstr "Atlikėjo ISNI"
 
 #: ../root/statistics/stats.js:513
 msgid "Label ISNIs"
-msgstr ""
+msgstr "Leidyklos ISNI"
 
 #: ../root/statistics/stats.js:518
 msgid "ISRCs (unique)"
-msgstr ""
+msgstr "ISRC (unikalūs)"
 
 #: ../root/statistics/stats.js:523
 msgid "ISRCs (all uses)"
-msgstr ""
+msgstr "ISRC (visi naudojimai)"
 
 #: ../root/statistics/stats.js:528
 msgid "ISWCs (unique)"
-msgstr ""
+msgstr "ISWC (unikalūs)"
 
 #: ../root/statistics/stats.js:533
 msgid "ISWCs (all uses)"
-msgstr ""
+msgstr "ISWC (visi naudojimai)"
 
 #: ../root/statistics/stats.js:543
 msgid "Labels with no country set"
-msgstr ""
+msgstr "Leidyklos be šalies nustatymo"
 
 #: ../root/statistics/stats.js:548
 msgid "Labels with no type set"
-msgstr ""
+msgstr "Leidyklos be tipo nustatymo"
 
 #: ../root/statistics/stats.js:563
 msgid "Mediums with no format set"
-msgstr ""
+msgstr "Laikmenos be formato nustatymo"
 
 #: ../root/statistics/stats.js:568
 msgid "Mediums with disc IDs"
-msgstr ""
+msgstr "Laikmenos su diskų ID"
 
 #: ../root/statistics/stats.js:578
 msgid "Places with no country set"
-msgstr ""
+msgstr "Vietos be šalies nustatymo"
 
 #: ../root/statistics/stats.js:583
 msgid "Places with no type set"
-msgstr ""
+msgstr "Vietos be tipo nustatymo"
 
 #: ../root/statistics/stats.js:588
 msgid "Default (Normal + Unknown) Data Quality"
@@ -2727,15 +2700,15 @@ msgstr ""
 
 #: ../root/statistics/stats.js:633
 msgid "Ratings"
-msgstr ""
+msgstr "Vertinimai"
 
 #: ../root/statistics/stats.js:638
 msgid "Artist ratings"
-msgstr ""
+msgstr "Atlikėjo vertinimai"
 
 #: ../root/statistics/stats.js:643
 msgid "Label ratings"
-msgstr ""
+msgstr "Leidyklos vertinimai"
 
 #: ../root/statistics/stats.js:648
 msgid "Place ratings"
@@ -3002,18 +2975,16 @@ msgid "{type} events"
 msgstr ""
 
 #: ../root/statistics/stats.js:1109
-#, fuzzy
-#| msgid "Events with event art"
 msgid "Events of type “{type}” with event art"
-msgstr "Renginiai su renginio apipavidalinimais"
+msgstr "Renginiai tipo „{type}“ su renginio apipavidalinimais"
 
 #: ../root/statistics/stats.js:1122
 msgid "{name} releases"
-msgstr ""
+msgstr "{name} leidiniai"
 
 #: ../root/statistics/stats.js:1128
 msgid "{name} mediums"
-msgstr ""
+msgstr "{name} laikmenos"
 
 #: ../root/statistics/stats.js:1135
 msgid "Releases with a medium of format “{format}” that have cover art"

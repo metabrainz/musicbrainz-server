@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-28 20:29+0000\n"
-"PO-Revision-Date: 2024-06-14 17:42+0000\n"
+"PO-Revision-Date: 2024-06-29 08:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -24,9 +24,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.5.5\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.6\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -6982,7 +6982,7 @@ msgstr "Šiuo metu šioje teritorijoje nėra naudotojų."
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:39
 #: ../root/tag/TagLayout.js:21
 msgid "Works"
-msgstr ""
+msgstr "Kūriniai"
 
 #: ../root/area/AreaWorks.js:24
 msgid "This area has no relationships to any works."
@@ -7958,7 +7958,7 @@ msgstr "Apžvalgos"
 #: ../root/user/UserProfile.js:825 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
-msgstr ""
+msgstr "Vertinimai"
 
 #: ../root/components/EntityTabs.js:179
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:282
@@ -8075,7 +8075,7 @@ msgstr[3] "Žiūrėti visus {num} renginių"
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:23
 #: ../root/tag/TagLayout.js:25
 msgid "Instruments"
-msgstr ""
+msgstr "Instrumentai"
 
 #: ../root/components/TagEntitiesList.js:164
 msgid "See all {num} instruments"
@@ -13419,7 +13419,7 @@ msgstr ""
 #: ../root/report/ReportsIndex.js:596
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 msgid "URLs"
-msgstr ""
+msgstr "URL adresai"
 
 #: ../root/report/ReportsIndex.js:608
 #: ../root/report/WikidataLinksWithMultipleEntities.js:48
@@ -17145,7 +17145,7 @@ msgstr ""
 
 #: ../root/user/UserRatingList.js:25
 msgid "Artist ratings"
-msgstr ""
+msgstr "Atlikėjo vertinimai"
 
 #: ../root/user/UserRatingList.js:26
 msgid "Event ratings"
@@ -17153,7 +17153,7 @@ msgstr ""
 
 #: ../root/user/UserRatingList.js:27
 msgid "Label ratings"
-msgstr ""
+msgstr "Leidyklos vertinimai"
 
 #: ../root/user/UserRatingList.js:28
 msgid "Place ratings"

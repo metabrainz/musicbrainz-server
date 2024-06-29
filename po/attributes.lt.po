@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-27 12:42+0000\n"
+"PO-Revision-Date: 2024-06-29 11:02+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/lt/>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.6\n"
 
 #. name:Motet
@@ -6862,9 +6862,6 @@ msgid "Raw/Unedited"
 msgstr "Neapdorotas / neredaguotas"
 
 #: DB:event_art_archive.art_type/name:9
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Raw/Unedited"
 msgctxt "event_art_type"
 msgid "Raw/Unedited"
 msgstr "Neapdorotas / neredaguotas"
@@ -8386,12 +8383,6 @@ msgstr ""
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use in combination with any other appropriate types for images that are "
-#| "watermarked and are not desirable for tagging (but can be used for "
-#| "reference)."
 msgctxt "cover_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that are "
@@ -8399,17 +8390,11 @@ msgid ""
 "reference)."
 msgstr ""
 "Naudok kartu su bet kuriais kitais tinkamais tipais vaizdams, kurie turi "
-"vandenženklį ir nėra pageidautini žymėjimui (bet gali būti naudojami kaip "
+"vandenženklį ir nėra nepageidautina rodyti (bet gali būti naudojama kaip "
 "informacija)."
 
 #. name:Watermark
 #: DB:event_art_archive.art_type/description:10
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use in combination with any other appropriate types for images that are "
-#| "watermarked and are not desirable for tagging (but can be used for "
-#| "reference)."
 msgctxt "event_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that are "
@@ -8417,7 +8402,7 @@ msgid ""
 "reference)."
 msgstr ""
 "Naudok kartu su bet kuriais kitais tinkamais tipais vaizdams, kurie turi "
-"vandenženklį ir nėra pageidautini žymėjimui (bet gali būti naudojami kaip "
+"vandenženklį ir nėra pageidautina rodyti (bet gali būti naudojama kaip "
 "informacija)."
 
 #. name:Raw/Unedited
