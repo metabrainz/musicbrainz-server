@@ -525,7 +525,9 @@ component Images(
               <th colSpan="4">{l_statistics('Per event')}</th>
             </tr>
             <tr>
-              <th colSpan="2">{l_statistics('Events with event art:')}</th>
+              <th colSpan="2">
+                {addColonText(l_statistics('Events with event art'))}
+              </th>
               <td>
                 {formatCount($c, stats['count.event.has_eaa'])}
                 {' '}

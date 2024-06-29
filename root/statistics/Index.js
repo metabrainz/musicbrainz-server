@@ -1043,6 +1043,12 @@ component Index(
           </tr>
           <tr>
             <th />
+            <th colSpan="2">{addColonText(l_statistics('Of genres'))}</th>
+            <td>{fc('collection.type.genre')}</td>
+            <td>{fp('collection.type.genre', 'collection')}</td>
+          </tr>
+          <tr>
+            <th />
             <th colSpan="2">
               {addColonText(l_statistics('Of instruments'))}
             </th>
