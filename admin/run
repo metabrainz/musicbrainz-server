@@ -84,8 +84,10 @@ pre_command='carton exec --'
 echo "Running '$command_verbatim $*' and logging at '$log_file_path'..."
 if [[ -t 1 ]]
 then
+  echo "Running $command_verbatim $*" | TZ=Z ts %FT%.TZ | tee -a "$log_file_path"
   exec $pre_command "$command_full_path" "$@" 2>&1 | TZ=Z ts %FT%.TZ | tee -a "$log_file_path"
 else
+  echo "Running $command_verbatim $*" | TZ=Z ts %FT%.TZ >> "$log_file_path"
   exec $pre_command "$command_full_path" "$@" 2>&1 | TZ=Z ts %FT%.TZ >> "$log_file_path"
 fi
 
