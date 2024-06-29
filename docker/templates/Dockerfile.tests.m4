@@ -167,7 +167,7 @@ COPY --chown=postgres:postgres \
 RUN sudo -E -H -u postgres touch \
     $PGDATA/pg_ident.conf
 
-COPY docker/musicbrainz-tests/artwork-indexer-config.ini artwork-indexer/config.ini
+COPY docker/musicbrainz-tests/artwork-indexer-config.ini artwork-indexer/config.selenium.ini
 COPY docker/musicbrainz-tests/artwork-redirect-config.ini artwork-redirect/config.ini
 COPY docker/musicbrainz-tests/sir-config.ini sir/config.ini
 
