@@ -68,9 +68,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-28 20:29+0000\n"
-"PO-Revision-Date: 2024-06-27 21:17+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-06-29 00:42+0000\n"
+"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
 "Language: fr\n"
@@ -10052,18 +10051,13 @@ msgstr ""
 "Vous souhaiteriez peut-être plutôt essayer de {search_url|la chercher}."
 
 #: ../root/entity/NotFound.js:73
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Editor not found"
 msgctxt "header"
 msgid "Edit note not found"
-msgstr "Éditeur introuvable"
+msgstr "Note de modification introuvable"
 
 #: ../root/entity/NotFound.js:75
-#, fuzzy
-#| msgid "Sorry, we could not find an artist credit with that ID."
 msgid "Sorry, we could not find an edit note with that ID."
-msgstr "Désolé, nous n’avons pas trouvé de crédit d’artiste avec cet ID."
+msgstr "Désolé, nous n’avons pas trouvé de note de modification avec cet ID."
 
 #: ../root/entity/NotFound.js:81
 msgctxt "header"
