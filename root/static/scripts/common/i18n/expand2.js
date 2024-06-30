@@ -206,7 +206,7 @@ export const createTextContentParser = <T, V>(
   return mapValue(text);
 };
 
-const varSubst = /^\{([0-9A-z_]+)\}/;
+const varSubst = /^\{([0-9A-z_ ]+)\}/;
 export const createVarSubstParser = <T, V>(
   argFilter: (V) => T,
 ): Parser<T | string | NO_MATCH, V> => saveMatch(
@@ -225,7 +225,7 @@ export const createVarSubstParser = <T, V>(
 export const parseStringVarSubst: Parser<string | NO_MATCH, mixed> =
   createVarSubstParser<string, mixed>(getString);
 
-const condSubstStart = /^\{([0-9A-z_]+):/;
+const condSubstStart = /^\{([0-9A-z_ ]+):/;
 const verticalPipe = /^\|/;
 export const substEnd: RegExp = /^}/;
 export const createCondSubstParser = <T, V: Expand2ReactInput>(
