@@ -69,9 +69,11 @@ const providePluginConfig = {
 
   'exp.l_statistics': [expandPath, 'l_statistics'],
   'exp.ln_statistics': [expandPath, 'ln_statistics'],
+  'exp.lp_statistics': [expandPath, 'lp_statistics'],
 
   'texp.l_statistics': [expandTextPath, 'l_statistics'],
   'texp.ln_statistics': [expandTextPath, 'ln_statistics'],
+  'texp.lp_statistics': [expandTextPath, 'lp_statistics'],
   /* eslint-enable sort-keys */
 };
 
