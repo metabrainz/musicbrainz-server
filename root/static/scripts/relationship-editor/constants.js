@@ -9,6 +9,11 @@
 
 import {createContext} from 'react';
 
+import {
+  createCompoundField,
+  createField,
+} from '../edit/utility/createField.js';
+
 import type {
   RelationshipSourceGroupsContextT,
 } from './types.js';
@@ -35,6 +40,47 @@ export const EMPTY_DIALOG_DATE_PERIOD = Object.freeze({
   error: '',
   pendingError: '',
 });
+
+export const EMPTY_DIALOG_DATE_PERIOD_FIELD = Object.freeze(
+  createCompoundField('period', {
+    begin_date: createCompoundField(
+      'period.begin_date',
+      {
+        day: createField(
+          'period.begin_date.day',
+          (null),
+        ),
+        month: createField(
+          'period.begin_date.month',
+          (null),
+        ),
+        year: createField(
+          'period.begin_date.year',
+          (null),
+        ),
+      },
+    ),
+    end_date: createCompoundField(
+      'period.end_date',
+      {
+        day: createField(
+          'period.end_date.day',
+          (null),
+        ),
+        month: createField(
+          'period.end_date.month',
+          (null),
+        ),
+        year: createField(
+          'period.end_date.year',
+          (null),
+        ),
+      },
+    ),
+    ended: createField('period.ended', false),
+  }),
+);
+
 
 export const RelationshipSourceGroupsContext:
   React$Context<RelationshipSourceGroupsContextT> =
