@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-28 20:29+0000\n"
-"PO-Revision-Date: 2024-06-26 23:42+0000\n"
+"PO-Revision-Date: 2024-06-29 15:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -44,8 +44,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.6\n"
 
 #: ../root/components/common-macros.tt:12
@@ -9980,20 +9980,14 @@ msgstr ""
 "provare a {search_url|usare la ricerca}."
 
 #: ../root/entity/NotFound.js:73
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Editor not found"
 msgctxt "header"
 msgid "Edit note not found"
-msgstr "Editor non trovato"
+msgstr "Nota di modifica non trovata"
 
 #: ../root/entity/NotFound.js:75
-#, fuzzy
-#| msgid "Sorry, we could not find an artist credit with that ID."
 msgid "Sorry, we could not find an edit note with that ID."
 msgstr ""
-"Spiacenti, non è stato possibile trovare un accreditamento artista con "
-"quell'ID."
+"Spiacenti, non è stato possibile trovare una nota di modifica con quell'ID."
 
 #: ../root/entity/NotFound.js:81
 msgctxt "header"
