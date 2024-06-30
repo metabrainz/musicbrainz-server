@@ -24,6 +24,8 @@ import localizeLinkAttributeTypeName
 import {uniqueId} from '../../../common/utility/numbers.js';
 import Multiselect, {
   type MultiselectPropsT,
+  type MultiselectValuePropsT,
+  buildValues as buildMultiselectValues,
   runReducer as runMultiselectReducer,
   updateValue as updateMultiselectValue,
 } from '../../../edit/components/Multiselect.js';
@@ -186,6 +188,11 @@ component MultiselectAttributeComponent(
     dispatch(state.key, action);
   }, [dispatch, state.key]);
 
+  const buildValues: MultiselectValuePropsT<
+    LinkAttrTypeT,
+    DialogMultiselectAttributeValueStateT,
+  > = buildMultiselectValues;
+
   const buildExtraValueChildren = React.useCallback((
     valueState: DialogMultiselectAttributeValueStateT,
   ) => {
@@ -237,6 +244,7 @@ component MultiselectAttributeComponent(
     <LinkAttrTypeMultiselect
       addLabel={addLabel}
       buildExtraValueChildren={buildExtraValueChildren}
+      buildValues={buildValues}
       dispatch={multiselectDispatch}
       state={state}
     />
