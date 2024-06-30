@@ -1246,14 +1246,14 @@ msgid "Draw a rectangle on either graph"
 msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:88
-#: ../root/statistics/Editors.js:100 ../root/statistics/Index.js:1117
+#: ../root/statistics/Editors.js:100 ../root/statistics/Index.js:1123
 msgid "Editors"
 msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:30
 #: ../root/statistics/Edits.js:34 ../root/statistics/Edits.js:43
-#: ../root/statistics/Index.js:1243 ../root/statistics/Index.js:1246
-#: ../root/statistics/Index.js:1295 ../root/statistics/stats.js:296
+#: ../root/statistics/Index.js:1249 ../root/statistics/Index.js:1252
+#: ../root/statistics/Index.js:1301 ../root/statistics/stats.js:301
 msgid "Edits"
 msgstr ""
 
@@ -1351,25 +1351,25 @@ msgstr ""
 #: ../root/statistics/Index.js:382 ../root/statistics/Index.js:408
 #: ../root/statistics/Index.js:434 ../root/statistics/Index.js:456
 #: ../root/statistics/Index.js:511 ../root/statistics/LanguagesScripts.js:65
-#: ../root/statistics/LanguagesScripts.js:153 ../root/statistics/stats.js:698
+#: ../root/statistics/LanguagesScripts.js:153 ../root/statistics/stats.js:703
 msgid "Releases"
 msgstr ""
 
 #: ../root/statistics/Countries.js:62 ../root/statistics/Index.js:99
 #: ../root/statistics/Index.js:702 ../root/statistics/Index.js:709
-#: ../root/statistics/stats.js:538
+#: ../root/statistics/stats.js:543
 msgid "Labels"
 msgstr ""
 
 #: ../root/statistics/Countries.js:66 ../root/statistics/Images.js:430
 #: ../root/statistics/Index.js:127 ../root/statistics/Index.js:902
-#: ../root/statistics/Index.js:933 ../root/statistics/stats.js:436
+#: ../root/statistics/Index.js:933 ../root/statistics/stats.js:441
 msgid "Events"
 msgstr ""
 
 #: ../root/statistics/Countries.js:70 ../root/statistics/Index.js:115
 #: ../root/statistics/Index.js:820 ../root/statistics/Index.js:827
-#: ../root/statistics/stats.js:573
+#: ../root/statistics/stats.js:578
 msgid "Places"
 msgstr ""
 
@@ -1453,7 +1453,7 @@ msgid "% of total releases"
 msgstr ""
 
 #: ../root/statistics/Formats.js:52 ../root/statistics/Index.js:87
-#: ../root/statistics/Index.js:555 ../root/statistics/stats.js:558
+#: ../root/statistics/Index.js:555 ../root/statistics/stats.js:563
 msgid "Mediums"
 msgstr ""
 
@@ -1484,11 +1484,12 @@ msgid "Pieces of cover art:"
 msgstr ""
 
 #: ../root/statistics/Images.js:108 ../root/statistics/Images.js:443
+#: ../root/statistics/Images.js:529
 msgid "Events with event art"
 msgstr ""
 
 #: ../root/statistics/Images.js:123 ../root/statistics/Images.js:479
-#: ../root/statistics/Images.js:492 ../root/statistics/stats.js:285
+#: ../root/statistics/Images.js:492 ../root/statistics/stats.js:290
 msgid "Pieces of event art"
 msgstr ""
 
@@ -1523,7 +1524,7 @@ msgstr ""
 
 #: ../root/statistics/Images.js:260 ../root/statistics/Index.js:79
 #: ../root/statistics/Index.js:599 ../root/statistics/Index.js:607
-#: ../root/statistics/Index.js:641 ../root/statistics/stats.js:782
+#: ../root/statistics/Index.js:641 ../root/statistics/stats.js:787
 msgid "Release groups"
 msgstr ""
 
@@ -1539,7 +1540,7 @@ msgstr ""
 msgid "automatically inferred:"
 msgstr ""
 
-#: ../root/statistics/Images.js:316 ../root/statistics/stats.js:280
+#: ../root/statistics/Images.js:316 ../root/statistics/stats.js:285
 msgid "Pieces of cover art"
 msgstr ""
 
@@ -1578,18 +1579,14 @@ msgstr ""
 msgid "Per event"
 msgstr ""
 
-#: ../root/statistics/Images.js:528
-msgid "Events with event art:"
-msgstr ""
-
-#: ../root/statistics/Images.js:541
+#: ../root/statistics/Images.js:543
 msgid "with {num} piece of event art:"
 msgid_plural "with {num} pieces of event art:"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../root/statistics/Images.js:571
+#: ../root/statistics/Images.js:573
 msgid "with 15 or more pieces of event art:"
 msgstr ""
 
@@ -1603,21 +1600,21 @@ msgstr ""
 
 #: ../root/statistics/Index.js:91 ../root/statistics/Index.js:673
 #: ../root/statistics/Index.js:677 ../root/statistics/Index.js:680
-#: ../root/statistics/stats.js:683
+#: ../root/statistics/stats.js:688
 msgid "Recordings"
 msgstr ""
 
-#: ../root/statistics/Index.js:95 ../root/statistics/stats.js:874
+#: ../root/statistics/Index.js:95 ../root/statistics/stats.js:879
 msgid "Tracks"
 msgstr "Песме"
 
 #: ../root/statistics/Index.js:103 ../root/statistics/Index.js:730
 #: ../root/statistics/Index.js:737 ../root/statistics/Index.js:769
-#: ../root/statistics/LanguagesScripts.js:69 ../root/statistics/stats.js:926
+#: ../root/statistics/LanguagesScripts.js:69 ../root/statistics/stats.js:931
 msgid "Works"
 msgstr ""
 
-#: ../root/statistics/Index.js:107 ../root/statistics/stats.js:879
+#: ../root/statistics/Index.js:107 ../root/statistics/stats.js:884
 msgid "URLs"
 msgstr ""
 
@@ -1627,11 +1624,11 @@ msgid "Areas"
 msgstr ""
 
 #: ../root/statistics/Index.js:123 ../root/statistics/Index.js:872
-#: ../root/statistics/Index.js:879 ../root/statistics/stats.js:478
+#: ../root/statistics/Index.js:879 ../root/statistics/stats.js:483
 msgid "Instruments"
 msgstr ""
 
-#: ../root/statistics/Index.js:131 ../root/statistics/stats.js:473
+#: ../root/statistics/Index.js:131 ../root/statistics/stats.js:478
 msgid "Genres"
 msgstr ""
 
@@ -1661,7 +1658,7 @@ msgstr ""
 msgid "Identifiers"
 msgstr ""
 
-#: ../root/statistics/Index.js:180 ../root/statistics/stats.js:553
+#: ../root/statistics/Index.js:180 ../root/statistics/stats.js:558
 msgid "MBIDs"
 msgstr ""
 
@@ -1674,7 +1671,7 @@ msgid "ISWCs (all / unique):"
 msgstr ""
 
 #: ../root/statistics/Index.js:196 ../root/statistics/Index.js:503
-#: ../root/statistics/Index.js:506 ../root/statistics/stats.js:290
+#: ../root/statistics/Index.js:506 ../root/statistics/stats.js:295
 msgid "Disc IDs"
 msgstr ""
 
@@ -1682,11 +1679,11 @@ msgstr ""
 msgid "Barcodes"
 msgstr ""
 
-#: ../root/statistics/Index.js:204 ../root/statistics/stats.js:488
+#: ../root/statistics/Index.js:204 ../root/statistics/stats.js:493
 msgid "IPIs"
 msgstr ""
 
-#: ../root/statistics/Index.js:208 ../root/statistics/stats.js:503
+#: ../root/statistics/Index.js:208 ../root/statistics/stats.js:508
 msgid "ISNIs"
 msgstr ""
 
@@ -1798,7 +1795,7 @@ msgstr ""
 msgid "Data quality"
 msgstr ""
 
-#: ../root/statistics/Index.js:463 ../root/statistics/stats.js:593
+#: ../root/statistics/Index.js:463 ../root/statistics/stats.js:598
 msgid "High data quality"
 msgstr ""
 
@@ -1806,15 +1803,15 @@ msgstr ""
 msgid "Default data quality"
 msgstr ""
 
-#: ../root/statistics/Index.js:479 ../root/statistics/stats.js:603
+#: ../root/statistics/Index.js:479 ../root/statistics/stats.js:608
 msgid "Normal data quality"
 msgstr ""
 
-#: ../root/statistics/Index.js:486 ../root/statistics/stats.js:608
+#: ../root/statistics/Index.js:486 ../root/statistics/stats.js:613
 msgid "Unknown data quality"
 msgstr ""
 
-#: ../root/statistics/Index.js:495 ../root/statistics/stats.js:598
+#: ../root/statistics/Index.js:495 ../root/statistics/stats.js:603
 msgid "Low data quality"
 msgstr ""
 
@@ -1861,7 +1858,7 @@ msgstr ""
 msgid "Secondary types"
 msgstr ""
 
-#: ../root/statistics/Index.js:685 ../root/statistics/stats.js:884
+#: ../root/statistics/Index.js:685 ../root/statistics/stats.js:889
 msgid "Videos"
 msgstr ""
 
@@ -1932,144 +1929,148 @@ msgstr ""
 msgid "Of artists"
 msgstr ""
 
-#: ../root/statistics/Index.js:1047
+#: ../root/statistics/Index.js:1046
+msgid "Of genres"
+msgstr ""
+
+#: ../root/statistics/Index.js:1053
 msgid "Of instruments"
 msgstr ""
 
-#: ../root/statistics/Index.js:1054
+#: ../root/statistics/Index.js:1060
 msgid "Of labels"
 msgstr ""
 
-#: ../root/statistics/Index.js:1060
+#: ../root/statistics/Index.js:1066
 msgid "Of places"
 msgstr ""
 
-#: ../root/statistics/Index.js:1066
+#: ../root/statistics/Index.js:1072
 msgid "Of recordings"
 msgstr ""
 
-#: ../root/statistics/Index.js:1073
+#: ../root/statistics/Index.js:1079
 msgid "Of release groups"
 msgstr ""
 
-#: ../root/statistics/Index.js:1080
+#: ../root/statistics/Index.js:1086
 msgid "Of series"
 msgstr ""
 
-#: ../root/statistics/Index.js:1086
+#: ../root/statistics/Index.js:1092
 msgid "Of works"
 msgstr ""
 
-#: ../root/statistics/Index.js:1092
+#: ../root/statistics/Index.js:1098
 msgid "Public"
 msgstr ""
 
-#: ../root/statistics/Index.js:1098
+#: ../root/statistics/Index.js:1104
 msgid "Private"
 msgstr ""
 
-#: ../root/statistics/Index.js:1105
+#: ../root/statistics/Index.js:1111
 msgid "With collaborators"
 msgstr ""
 
-#: ../root/statistics/Index.js:1113
+#: ../root/statistics/Index.js:1119
 msgid "Editors, Edits, and Votes"
 msgstr ""
 
-#: ../root/statistics/Index.js:1120
+#: ../root/statistics/Index.js:1126
 msgid "Editors (valid):"
 msgstr ""
 
-#: ../root/statistics/Index.js:1126
+#: ../root/statistics/Index.js:1132
 msgid "active ever:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1134
+#: ../root/statistics/Index.js:1140
 msgid "who edited and/or voted in the last 7 days:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1143
+#: ../root/statistics/Index.js:1149
 msgid "who edited in the last 7 days:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1151
+#: ../root/statistics/Index.js:1157
 msgid "who voted in the last 7 days:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1158
+#: ../root/statistics/Index.js:1164
 msgid "who edit:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1165
+#: ../root/statistics/Index.js:1171
 msgid "who vote:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1172
+#: ../root/statistics/Index.js:1178
 msgid "who leave edit notes:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1188
+#: ../root/statistics/Index.js:1194
 msgid "who use ratings:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1197
+#: ../root/statistics/Index.js:1203
 msgid "who use subscriptions:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1206
+#: ../root/statistics/Index.js:1212
 msgid "who use collections:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1216
+#: ../root/statistics/Index.js:1222
 msgid "who have registered applications:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1225
+#: ../root/statistics/Index.js:1231
 msgid "validated email only:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1231
+#: ../root/statistics/Index.js:1237
 msgid "inactive:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1236
+#: ../root/statistics/Index.js:1242
 msgid "Editors (deleted):"
 msgstr ""
 
-#: ../root/statistics/Index.js:1252
+#: ../root/statistics/Index.js:1258
 msgid "Open"
 msgstr ""
 
-#: ../root/statistics/Index.js:1258
+#: ../root/statistics/Index.js:1264
 msgid "Applied"
 msgstr ""
 
-#: ../root/statistics/Index.js:1264
+#: ../root/statistics/Index.js:1270
 msgid "Voted down"
 msgstr ""
 
-#: ../root/statistics/Index.js:1270
+#: ../root/statistics/Index.js:1276
 msgid "Failed (dependency):"
 msgstr ""
 
-#: ../root/statistics/Index.js:1276
+#: ../root/statistics/Index.js:1282
 msgid "Failed (prerequisite):"
 msgstr ""
 
-#: ../root/statistics/Index.js:1282
+#: ../root/statistics/Index.js:1288
 msgid "Failed (internal error):"
 msgstr ""
 
-#: ../root/statistics/Index.js:1301 ../root/statistics/Index.js:1357
+#: ../root/statistics/Index.js:1307 ../root/statistics/Index.js:1363
 msgid "Last 7 days:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1308 ../root/statistics/Index.js:1364
+#: ../root/statistics/Index.js:1314 ../root/statistics/Index.js:1370
 msgid "Yesterday:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1315 ../root/statistics/Index.js:1318
-#: ../root/statistics/Index.js:1351 ../root/statistics/stats.js:890
+#: ../root/statistics/Index.js:1321 ../root/statistics/Index.js:1324
+#: ../root/statistics/Index.js:1357 ../root/statistics/stats.js:895
 msgid "Votes"
 msgstr ""
 
@@ -2330,606 +2331,610 @@ msgid "Event collections (all types)"
 msgstr ""
 
 #: ../root/statistics/stats.js:220
-msgid "Instrument collections"
+msgid "Genre collections"
 msgstr ""
 
 #: ../root/statistics/stats.js:225
-msgid "Label collections"
+msgid "Instrument collections"
 msgstr ""
 
 #: ../root/statistics/stats.js:230
-msgid "Collections of type Maybe attending"
+msgid "Label collections"
 msgstr ""
 
 #: ../root/statistics/stats.js:235
-msgid "Collections of type Owned music"
+msgid "Collections of type Maybe attending"
 msgstr ""
 
 #: ../root/statistics/stats.js:240
-msgid "Place collections"
+msgid "Collections of type Owned music"
 msgstr ""
 
 #: ../root/statistics/stats.js:245
-msgid "Recording collections"
+msgid "Place collections"
 msgstr ""
 
 #: ../root/statistics/stats.js:250
-msgid "Collections of type Release"
+msgid "Recording collections"
 msgstr ""
 
 #: ../root/statistics/stats.js:255
-msgid "Release collections (all types)"
+msgid "Collections of type Release"
 msgstr ""
 
 #: ../root/statistics/stats.js:260
-msgid "Release group collections"
+msgid "Release collections (all types)"
 msgstr ""
 
 #: ../root/statistics/stats.js:265
-msgid "Series collections"
+msgid "Release group collections"
 msgstr ""
 
 #: ../root/statistics/stats.js:270
-msgid "Collections of type Wishlist"
+msgid "Series collections"
 msgstr ""
 
 #: ../root/statistics/stats.js:275
+msgid "Collections of type Wishlist"
+msgstr ""
+
+#: ../root/statistics/stats.js:280
 msgid "Work collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:301
+#: ../root/statistics/stats.js:306
 msgid "Applied edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:306
+#: ../root/statistics/stats.js:311
 msgid "Cancelled edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:311
+#: ../root/statistics/stats.js:316
 msgid "Error edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:316
+#: ../root/statistics/stats.js:321
 msgid "Edits that have failed dependency checks"
 msgstr ""
 
-#: ../root/statistics/stats.js:321
+#: ../root/statistics/stats.js:326
 msgid "Edits that have failed prerequisite checks"
 msgstr ""
 
-#: ../root/statistics/stats.js:326
+#: ../root/statistics/stats.js:331
 msgid "Edits that have been voted down"
 msgstr ""
 
-#: ../root/statistics/stats.js:337
+#: ../root/statistics/stats.js:342
 msgid "Edits per day"
 msgstr ""
 
-#: ../root/statistics/stats.js:342
+#: ../root/statistics/stats.js:347
 msgid "Edits per week"
 msgstr ""
 
-#: ../root/statistics/stats.js:348
+#: ../root/statistics/stats.js:353
 msgid "Editors (all)"
 msgstr ""
 
-#: ../root/statistics/stats.js:353
+#: ../root/statistics/stats.js:358
 msgid "Editors who edited or voted in the last week"
 msgstr ""
 
-#: ../root/statistics/stats.js:359
+#: ../root/statistics/stats.js:364
 msgid "Editors (deleted)"
 msgstr ""
 
-#: ../root/statistics/stats.js:364
+#: ../root/statistics/stats.js:369
 msgid "Editors who submitted edits in the last week"
 msgstr ""
 
-#: ../root/statistics/stats.js:370
+#: ../root/statistics/stats.js:375
 msgid "Editors (current)"
 msgstr ""
 
-#: ../root/statistics/stats.js:376
+#: ../root/statistics/stats.js:381
 msgid "Editors (current) who have ever been active"
 msgstr ""
 
-#: ../root/statistics/stats.js:381
+#: ../root/statistics/stats.js:386
 msgid "Editors who have registered applications"
 msgstr ""
 
-#: ../root/statistics/stats.js:386
+#: ../root/statistics/stats.js:391
 msgid "Editors who use collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:391
+#: ../root/statistics/stats.js:396
 msgid "Editors who have made edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:396
+#: ../root/statistics/stats.js:401
 msgid "Editors who have written edit notes"
 msgstr ""
 
-#: ../root/statistics/stats.js:401
+#: ../root/statistics/stats.js:406
 msgid "Editors who have added ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:406
+#: ../root/statistics/stats.js:411
 msgid "Editors who use subscriptions"
 msgstr ""
 
-#: ../root/statistics/stats.js:416
+#: ../root/statistics/stats.js:421
 msgid "Editors who have voted on edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:421
+#: ../root/statistics/stats.js:426
 msgid "Editors who have not been active at all"
 msgstr ""
 
-#: ../root/statistics/stats.js:426
+#: ../root/statistics/stats.js:431
 msgid "Editors who have only validated their email"
 msgstr ""
 
-#: ../root/statistics/stats.js:431
+#: ../root/statistics/stats.js:436
 msgid "Editors who voted in the last week"
 msgstr ""
 
-#: ../root/statistics/stats.js:441
+#: ../root/statistics/stats.js:446
 msgid "Events with no country set"
 msgstr ""
 
-#: ../root/statistics/stats.js:446
+#: ../root/statistics/stats.js:451
 msgid "Events with EAA event art"
 msgstr ""
 
-#: ../root/statistics/stats.js:451
+#: ../root/statistics/stats.js:456
 msgid "Events with an EAA poster"
 msgstr ""
 
-#: ../root/statistics/stats.js:456
+#: ../root/statistics/stats.js:461
 msgid "Events without an EAA poster"
 msgstr ""
 
-#: ../root/statistics/stats.js:461
+#: ../root/statistics/stats.js:466
 msgid "Events with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:467
+#: ../root/statistics/stats.js:472
 msgid "Events with no type set that have event art"
 msgstr ""
 
-#: ../root/statistics/stats.js:483
+#: ../root/statistics/stats.js:488
 msgid "Instruments with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:493
+#: ../root/statistics/stats.js:498
 msgid "Artist IPIs"
 msgstr ""
 
-#: ../root/statistics/stats.js:498
+#: ../root/statistics/stats.js:503
 msgid "Label IPIs"
 msgstr ""
 
-#: ../root/statistics/stats.js:508
+#: ../root/statistics/stats.js:513
 msgid "Artist ISNIs"
 msgstr ""
 
-#: ../root/statistics/stats.js:513
+#: ../root/statistics/stats.js:518
 msgid "Label ISNIs"
 msgstr ""
 
-#: ../root/statistics/stats.js:518
+#: ../root/statistics/stats.js:523
 msgid "ISRCs (unique)"
 msgstr ""
 
-#: ../root/statistics/stats.js:523
+#: ../root/statistics/stats.js:528
 msgid "ISRCs (all uses)"
 msgstr ""
 
-#: ../root/statistics/stats.js:528
+#: ../root/statistics/stats.js:533
 msgid "ISWCs (unique)"
 msgstr ""
 
-#: ../root/statistics/stats.js:533
+#: ../root/statistics/stats.js:538
 msgid "ISWCs (all uses)"
 msgstr ""
 
-#: ../root/statistics/stats.js:543
+#: ../root/statistics/stats.js:548
 msgid "Labels with no country set"
 msgstr ""
 
-#: ../root/statistics/stats.js:548
+#: ../root/statistics/stats.js:553
 msgid "Labels with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:563
+#: ../root/statistics/stats.js:568
 msgid "Mediums with no format set"
 msgstr ""
 
-#: ../root/statistics/stats.js:568
+#: ../root/statistics/stats.js:573
 msgid "Mediums with disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:578
+#: ../root/statistics/stats.js:583
 msgid "Places with no country set"
 msgstr ""
 
-#: ../root/statistics/stats.js:583
+#: ../root/statistics/stats.js:588
 msgid "Places with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:588
+#: ../root/statistics/stats.js:593
 msgid "Default (Normal + Unknown) Data Quality"
 msgstr ""
 
-#: ../root/statistics/stats.js:613
+#: ../root/statistics/stats.js:618
 msgid "Entities with ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:618
+#: ../root/statistics/stats.js:623
 msgid "Artists with ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:623
+#: ../root/statistics/stats.js:628
 msgid "Labels with ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:628
+#: ../root/statistics/stats.js:633
 msgid "Places with ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:633
+#: ../root/statistics/stats.js:638
 msgid "Ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:638
+#: ../root/statistics/stats.js:643
 msgid "Artist ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:643
+#: ../root/statistics/stats.js:648
 msgid "Label ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:648
+#: ../root/statistics/stats.js:653
 msgid "Place ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:653
+#: ../root/statistics/stats.js:658
 msgid "Recording ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:658
+#: ../root/statistics/stats.js:663
 msgid "Release group ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:663
+#: ../root/statistics/stats.js:668
 msgid "Work ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:668
+#: ../root/statistics/stats.js:673
 msgid "Recordings with ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:673
+#: ../root/statistics/stats.js:678
 msgid "Release groups with ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:678
+#: ../root/statistics/stats.js:683
 msgid "Works with ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:688
+#: ../root/statistics/stats.js:693
 msgid "Recordings with ISRCs"
 msgstr ""
 
-#: ../root/statistics/stats.js:693
+#: ../root/statistics/stats.js:698
 msgid "Standalone recordings"
 msgstr ""
 
-#: ../root/statistics/stats.js:703
+#: ../root/statistics/stats.js:708
 msgid "Releases with no country set"
 msgstr ""
 
-#: ../root/statistics/stats.js:708
+#: ../root/statistics/stats.js:713
 msgid "Releases with CAA cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:713
+#: ../root/statistics/stats.js:718
 msgid "Releases with no cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:718
+#: ../root/statistics/stats.js:723
 msgid "Releases with a medium with no format set"
 msgstr ""
 
-#: ../root/statistics/stats.js:724
+#: ../root/statistics/stats.js:729
 msgid "Releases with a medium with no format set that have cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:730
+#: ../root/statistics/stats.js:735
 msgid "Releases with cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:735
+#: ../root/statistics/stats.js:740
 msgid "Releases with disc IDs"
 msgstr ""
 
-#: ../root/statistics/stats.js:740
+#: ../root/statistics/stats.js:745
 msgid "Releases with no language set"
 msgstr ""
 
-#: ../root/statistics/stats.js:745
+#: ../root/statistics/stats.js:750
 msgid "Releases not credited to Various Artists"
 msgstr ""
 
-#: ../root/statistics/stats.js:750
+#: ../root/statistics/stats.js:755
 msgid "Releases with no packaging set"
 msgstr ""
 
-#: ../root/statistics/stats.js:755
+#: ../root/statistics/stats.js:760
 msgid "Releases with no script set"
 msgstr ""
 
-#: ../root/statistics/stats.js:760
+#: ../root/statistics/stats.js:765
 msgid "Releases with no status set"
 msgstr ""
 
-#: ../root/statistics/stats.js:765
+#: ../root/statistics/stats.js:770
 msgid "Releases with no status set that have cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:771
+#: ../root/statistics/stats.js:776
 msgid "Releases in groups with no type set that have cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:777
+#: ../root/statistics/stats.js:782
 msgid "Releases credited to Various Artists"
 msgstr ""
 
-#: ../root/statistics/stats.js:788
+#: ../root/statistics/stats.js:793
 msgid "Release groups with automatically inferred cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:794
+#: ../root/statistics/stats.js:799
 msgid "Release groups with user-selected cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:799
+#: ../root/statistics/stats.js:804
 msgid "Release groups with no primary type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:804
+#: ../root/statistics/stats.js:809
 msgid "Release groups with no secondary type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:814
+#: ../root/statistics/stats.js:819
 msgid "Series with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:829
+#: ../root/statistics/stats.js:834
 msgid "Votes for/against area tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:834
+#: ../root/statistics/stats.js:839
 msgid "Votes for/against artist tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:839
+#: ../root/statistics/stats.js:844
 msgid "Votes for/against instrument tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:844
+#: ../root/statistics/stats.js:849
 msgid "Votes for/against label tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:849
+#: ../root/statistics/stats.js:854
 msgid "Votes for/against recording tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:854
+#: ../root/statistics/stats.js:859
 msgid "Votes for/against release tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:859
+#: ../root/statistics/stats.js:864
 msgid "Votes for/against release group tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:864
+#: ../root/statistics/stats.js:869
 msgid "Votes for/against series tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:869
+#: ../root/statistics/stats.js:874
 msgid "Votes for/against work tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:895
+#: ../root/statistics/stats.js:900
 msgid "Abstentions"
 msgstr ""
 
-#: ../root/statistics/stats.js:900
+#: ../root/statistics/stats.js:905
 msgid "Approvals"
 msgstr ""
 
-#: ../root/statistics/stats.js:905
+#: ../root/statistics/stats.js:910
 msgid "No votes"
 msgstr ""
 
-#: ../root/statistics/stats.js:911
+#: ../root/statistics/stats.js:916
 msgid "Votes per day"
 msgstr ""
 
-#: ../root/statistics/stats.js:916
+#: ../root/statistics/stats.js:921
 msgid "Votes per week"
 msgstr ""
 
-#: ../root/statistics/stats.js:921
+#: ../root/statistics/stats.js:926
 msgid "Yes votes"
 msgstr ""
 
-#: ../root/statistics/stats.js:931
+#: ../root/statistics/stats.js:936
 msgid "Works with no attributes"
 msgstr ""
 
-#: ../root/statistics/stats.js:936
+#: ../root/statistics/stats.js:941
 msgid "Works with ISWCs"
 msgstr ""
 
-#: ../root/statistics/stats.js:941
+#: ../root/statistics/stats.js:946
 msgid "Works with no language set"
 msgstr ""
 
-#: ../root/statistics/stats.js:946
+#: ../root/statistics/stats.js:951
 msgid "Works with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:948
+#: ../root/statistics/stats.js:953
 msgid "/day"
 msgstr ""
 
-#: ../root/statistics/stats.js:958
+#: ../root/statistics/stats.js:963
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../root/statistics/stats.js:969
+#: ../root/statistics/stats.js:974
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../root/statistics/stats.js:980
+#: ../root/statistics/stats.js:985
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../root/statistics/stats.js:991
+#: ../root/statistics/stats.js:996
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../root/statistics/stats.js:1044
+#: ../root/statistics/stats.js:1049
 msgid "{type} areas"
 msgstr ""
 
-#: ../root/statistics/stats.js:1056
+#: ../root/statistics/stats.js:1061
 msgid "{country} artists"
 msgstr ""
 
-#: ../root/statistics/stats.js:1062
+#: ../root/statistics/stats.js:1067
 msgid "{country} events"
 msgstr ""
 
-#: ../root/statistics/stats.js:1068
+#: ../root/statistics/stats.js:1073
 msgid "{country} labels"
 msgstr ""
 
-#: ../root/statistics/stats.js:1074
+#: ../root/statistics/stats.js:1079
 msgid "{country} places"
 msgstr ""
 
-#: ../root/statistics/stats.js:1080
+#: ../root/statistics/stats.js:1085
 msgid "{country} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:1091
+#: ../root/statistics/stats.js:1096
 msgid "{type} edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:1102
+#: ../root/statistics/stats.js:1107
 msgid "{type} events"
 msgstr ""
 
-#: ../root/statistics/stats.js:1109
+#: ../root/statistics/stats.js:1114
 msgid "Events of type “{type}” with event art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1122
+#: ../root/statistics/stats.js:1127
 msgid "{name} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:1128
+#: ../root/statistics/stats.js:1133
 msgid "{name} mediums"
 msgstr ""
 
-#: ../root/statistics/stats.js:1135
+#: ../root/statistics/stats.js:1140
 msgid "Releases with a medium of format “{format}” that have cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1148
+#: ../root/statistics/stats.js:1153
 msgid "{type} instruments"
 msgstr ""
 
-#: ../root/statistics/stats.js:1159
+#: ../root/statistics/stats.js:1164
 msgid "{type} labels"
 msgstr ""
 
-#: ../root/statistics/stats.js:1170
+#: ../root/statistics/stats.js:1175
 msgid "{language} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:1177
+#: ../root/statistics/stats.js:1182
 msgid "{language} works"
 msgstr ""
 
-#: ../root/statistics/stats.js:1189
+#: ../root/statistics/stats.js:1194
 msgid "Releases with packaging “{packaging}”"
 msgstr ""
 
-#: ../root/statistics/stats.js:1202
+#: ../root/statistics/stats.js:1207
 msgid "{type} places"
 msgstr ""
 
-#: ../root/statistics/stats.js:1210
+#: ../root/statistics/stats.js:1215
 msgid "{first_entity_type}-{second_entity_type} Relationships"
 msgstr ""
 
-#: ../root/statistics/stats.js:1229
+#: ../root/statistics/stats.js:1234
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships"
 msgstr ""
 
-#: ../root/statistics/stats.js:1245
+#: ../root/statistics/stats.js:1250
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships including child relationship types"
 msgstr ""
 
-#: ../root/statistics/stats.js:1268 ../root/statistics/stats.js:1288
+#: ../root/statistics/stats.js:1273 ../root/statistics/stats.js:1293
 msgid "{type} release groups"
 msgstr ""
 
-#: ../root/statistics/stats.js:1275
+#: ../root/statistics/stats.js:1280
 msgid "Releases in groups of type “{type}” with cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1299
+#: ../root/statistics/stats.js:1304
 msgid "{script} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:1310
+#: ../root/statistics/stats.js:1315
 msgid "{type} series"
 msgstr ""
 
-#: ../root/statistics/stats.js:1321
+#: ../root/statistics/stats.js:1326
 msgid "{status} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:1328
+#: ../root/statistics/stats.js:1333
 msgid "Releases of status “{status}” with cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1345
+#: ../root/statistics/stats.js:1350
 msgid "Works with attribute “{attribute}”"
 msgstr ""
 
-#: ../root/statistics/stats.js:1358
+#: ../root/statistics/stats.js:1363
 msgid "{type} works"
 msgstr ""
 
