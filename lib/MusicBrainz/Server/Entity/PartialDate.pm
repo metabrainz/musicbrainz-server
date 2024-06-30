@@ -75,7 +75,10 @@ sub _build_format {
         ($self->year, $self->month, $self->day, '');
 
     if (defined $year) {
-        $result .= (sprintf '%04d', $year);
+        if ($year <= 0) {
+            $year--;
+        }
+        $result .= (sprintf '%.4d', $year);
     } elsif ($month || $day) {
         $result .= '????';
     }

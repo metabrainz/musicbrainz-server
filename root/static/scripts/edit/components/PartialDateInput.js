@@ -34,7 +34,11 @@ function validateDate(dateCtx: CowContext<StateT>) {
   const day = String(date.field.day.value ?? '');
 
   const pendingErrors = [];
-  if (!isYearFourDigits(year)) {
+  if (year === '0000') {
+    pendingErrors.push(
+      l('0 is not a valid year.'),
+    );
+  } else if (!isYearFourDigits(year)) {
     pendingErrors.push(
       l(`The year should have four digits. If you want to enter a year
          earlier than 1000 CE, please pad with zeros, such as “0123”.`),
@@ -145,11 +149,11 @@ component PartialDateInput(
         className="partial-date-year"
         disabled={disabled}
         id={'id-' + field.field.year.html_name}
-        maxLength={4}
+        maxLength={5}
         name={field.field.year.html_name}
         placeholder={l('YYYY')}
         ref={yearInputRef}
-        size={4}
+        size={5}
         type="text"
         {...yearProps}
       />

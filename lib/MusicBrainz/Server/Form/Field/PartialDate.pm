@@ -4,6 +4,7 @@ use warnings;
 
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_valid_partial_date );
+use Scalar::Util qw( looks_like_number );
 use HTML::FormHandler::Moose;
 use Date::Calc ();
 
@@ -11,7 +12,18 @@ extends 'HTML::FormHandler::Field::Compound';
 
 has_field 'year' => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
-    deflate_method => sub { defined $_[1] ? sprintf '%.4d', $_[1] : undef },
+    inflate_method => sub {
+        my $year = $_[1];
+        return undef if !defined $year;
+        $year++ if $year < 0;
+        return $year;
+    },
+    deflate_method => sub {
+        my $year = $_[1];
+        return undef if !defined $year;
+        $year-- if $year <= 0;
+        return sprintf '%.4d', $year;
+    },
 );
 
 has_field 'month' => (
@@ -62,6 +74,11 @@ sub validate {
     my $year = $self->field('year')->value;
     my $month = $self->field('month')->value;
     my $day = $self->field('day')->value;
+
+    my $input_year = $self->field('year')->input;
+    if (looks_like_number($input_year) && $input_year == 0) {
+        return $self->add_error(l('0 is not a valid year.'));
+    }
 
     return 1 if is_valid_partial_date($year, $month, $day);
 

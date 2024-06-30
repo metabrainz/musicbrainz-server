@@ -23,7 +23,12 @@ function formatDate(date: ?PartialDateT): string {
   let result = '';
 
   if (nonEmpty(y)) {
-    result += fixedWidthInteger(y, 4);
+    let year = y;
+    // Turn astronomical year into BCE year
+    if (year <= 0) {
+      year--;
+    }
+    result += fixedWidthInteger(year, 4);
   } else if (m != null || d != null) {
     result = '????';
   }

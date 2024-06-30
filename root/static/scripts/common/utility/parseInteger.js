@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const regexp = /^[0-9]+$/;
+const regexp = /^-?[0-9]+$/;
 
 export default function parseInteger(num: string): number {
   return regexp.test(num) ? parseInt(num, 10) : NaN;
