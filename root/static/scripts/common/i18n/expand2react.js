@@ -22,6 +22,7 @@ import {
 import {
   l_statistics as lStatisticsActual,
   ln_statistics as lnStatisticsActual,
+  lp_statistics as lpStatisticsActual,
 } from '../i18n/statistics.js';
 
 import expand, {
@@ -455,3 +456,9 @@ export const lp = (
   context: string,
   args?: ?VarArgsObject<Input>,
 ): Output => expand2react(lpActual(key, context), args);
+
+export const lp_statistics = (
+  key: string,
+  context: string,
+  args?: ?VarArgsObject<Input>,
+): Output => expand2react(lpStatisticsActual(key, context), args);

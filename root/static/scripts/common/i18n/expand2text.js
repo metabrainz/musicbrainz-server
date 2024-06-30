@@ -19,6 +19,7 @@ import {
 import {
   l_statistics as lStatisticsActual,
   ln_statistics as lnStatisticsActual,
+  lp_statistics as lpStatisticsActual,
 } from '../i18n/statistics.js';
 
 import expand, {
@@ -151,3 +152,9 @@ export const lp = (
   context: string,
   args: VarArgsObject<StrOrNum>,
 ): string => expand2text(lpActual(key, context), args);
+
+export const lp_statistics = (
+  key: string,
+  context: string,
+  args: VarArgsObject<StrOrNum>,
+): string => expand2text(lpStatisticsActual(key, context), args);

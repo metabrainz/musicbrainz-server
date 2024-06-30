@@ -125,6 +125,11 @@ declare var exp: {
     context: string,
     args?: ?{+[arg: string]: Expand2ReactInput},
   ) => Expand2ReactOutput,
+  +lp_statistics: (
+    key: string,
+    context: string,
+    args?: ?{+[arg: string]: Expand2ReactInput},
+  ) => Expand2ReactOutput,
 };
 
 declare var texp: {
@@ -159,6 +164,11 @@ declare var texp: {
     args: {+[arg: string]: StrOrNum, ...},
   ) => string,
   +lp: (
+    key: string,
+    context: string,
+    args: {+[arg: string]: StrOrNum, ...},
+  ) => string,
+  +lp_statistics: (
     key: string,
     context: string,
     args: {+[arg: string]: StrOrNum, ...},
