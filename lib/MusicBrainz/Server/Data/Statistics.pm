@@ -17,6 +17,7 @@ use MusicBrainz::Server::Constants qw(
     entities_with
 );
 use MusicBrainz::Server::Data::Relationship;
+use MusicBrainz::Server::Translation::History qw( l );
 use MusicBrainz::Server::Translation::Statistics qw( l );
 use MusicBrainz::Server::Replication qw( :replication_type );
 

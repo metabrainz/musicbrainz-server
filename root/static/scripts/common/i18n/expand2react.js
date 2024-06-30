@@ -20,6 +20,9 @@ import {
   ln_admin as lnAdminActual,
 } from '../i18n/admin.js';
 import {
+  l_history as lHistoryActual,
+} from '../i18n/history.js';
+import {
   l_statistics as lStatisticsActual,
   ln_statistics as lnStatisticsActual,
   lp_statistics as lpStatisticsActual,
@@ -424,6 +427,11 @@ export const l_admin = (
   key: string,
   args?: ?VarArgsObject<Input>,
 ): Output => expand2react(lAdminActual(key), args);
+
+export const l_history = (
+  key: string,
+  args?: ?VarArgsObject<Input>,
+): Output => expand2react(lHistoryActual(key), args);
 
 export const l_statistics = (
   key: string,

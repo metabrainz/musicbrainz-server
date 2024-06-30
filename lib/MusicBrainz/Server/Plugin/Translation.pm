@@ -6,6 +6,7 @@ use warnings;
 use base 'Template::Plugin';
 use Encode qw( encode );
 use MusicBrainz::Server::Translation ();
+use MusicBrainz::Server::Translation::History ();
 use MusicBrainz::Server::Translation::Statistics ();
 
 sub domain { shift->{domain}; }
@@ -13,8 +14,9 @@ sub domain { shift->{domain}; }
 sub new {
     my ($class, $context, $domain) = @_;
 
-    # support only mb_server and statistics, for now
-    $domain = 'mb_server' unless $domain && $domain eq 'statistics';
+    # support only mb_server, statistics and history, for now
+    $domain = 'mb_server'
+        unless $domain && ($domain eq 'statistics' || $domain eq 'history');
 
     return bless {
         domain => $domain,
@@ -28,6 +30,8 @@ sub l {
 
     if ($self->domain eq 'statistics') {
         return MusicBrainz::Server::Translation::Statistics::l($msgid, $vars);
+    } elsif ($self->domain eq 'history') {
+        return MusicBrainz::Server::Translation::History::l($msgid, $vars);
     } else {
         return MusicBrainz::Server::Translation::l($msgid, $vars);
     }

@@ -62,6 +62,8 @@ declare var l_countries: typeof l;
 declare var ln_countries: typeof ln;
 declare var lp_countries: typeof lp;
 
+declare var l_history: typeof l;
+
 declare var l_instrument_descriptions: typeof l;
 declare var ln_instrument_descriptions: typeof ln;
 declare var lp_instrument_descriptions: typeof lp;
@@ -95,6 +97,10 @@ declare var exp: {
     args?: ?{+[arg: string]: Expand2ReactInput, ...},
   ) => Expand2ReactOutput,
   +l_admin: (
+    key: string,
+    args?: ?{+[arg: string]: Expand2ReactInput, ...},
+  ) => Expand2ReactOutput,
+  +l_history: (
     key: string,
     args?: ?{+[arg: string]: Expand2ReactInput, ...},
   ) => Expand2ReactOutput,
@@ -138,6 +144,10 @@ declare var texp: {
     args: {+[arg: string]: StrOrNum, ...},
   ) => string,
   +l_admin: (
+    key: string,
+    args: {+[arg: string]: StrOrNum, ...},
+  ) => string,
+  +l_history: (
     key: string,
     args: {+[arg: string]: StrOrNum, ...},
   ) => string,

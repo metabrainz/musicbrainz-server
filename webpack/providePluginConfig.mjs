@@ -64,6 +64,10 @@ const providePluginConfig = {
   'texp.l_admin': [expandTextPath, 'l_admin'],
   'texp.ln_admin': [expandTextPath, 'ln_admin'],
 
+  'exp.l_history': [expandPath, 'l_history'],
+
+  'texp.l_history': [expandTextPath, 'l_history'],
+
   'N_l_statistics': [lStatisticsPath, 'N_l_statistics'],
   'N_lp_statistics': [lStatisticsPath, 'N_lp_statistics'],
 
