@@ -393,6 +393,8 @@ sub update_profile
 sub update_privileges {
     my ($self, $editor, $values) = @_;
 
+    my $should_cancel_edits = $values->{spammer};
+
     # Setting Spammer should also block editing and notes
     $values->{editing_disabled} ||= $values->{spammer};
     $values->{adding_notes_disabled} ||= $values->{spammer};
@@ -413,6 +415,10 @@ sub update_privileges {
 
     Sql::run_in_transaction(sub {
         $self->sql->do('UPDATE editor SET privs = ? WHERE id = ?', $privs, $editor->id);
+
+        if ($should_cancel_edits) {
+            $self->c->model('Editor')->cancel_edits_and_votes($editor);
+        }
     }, $self->sql);
 }
 
@@ -598,43 +604,7 @@ sub delete {
     $self->c->model($_)->rating->clear($editor_id)
         for (entities_with('ratings', take => 'model'));
 
-    # Cancel any open edits the editor still has
-    # We want to cancel the latest edits first, to make sure
-    # no conflicts happen that make some cancelling fail and all
-    # entities that should be autoremoved do get removed
-    my $own_edit_ids = $self->sql->select_single_column_array(
-            'SELECT id FROM edit WHERE editor = ? AND status = ? ORDER BY open_time DESC',
-            $editor_id, $STATUS_OPEN);
-    my $own_edits = $self->c->model('Edit')->get_by_ids(@$own_edit_ids);
-
-    for my $edit_id (@$own_edit_ids) {
-        $self->c->model('Edit')->cancel($own_edits->{$edit_id});
-    }
-
-    # Override any Yes/No votes on open edits with Abstain
-    # to avoid pre-deletion vandalism
-    my $voted_open_edit_ids = $self->sql->select_single_column_array(
-            'SELECT edit.id
-             FROM edit
-             JOIN vote
-               ON edit.id = vote.edit
-             WHERE edit.status = ?
-               AND vote.editor = ?
-               AND vote.vote IN (?, ?)
-               AND vote.superseded = FALSE
-            ORDER BY open_time DESC',
-            $STATUS_OPEN, $editor_id, $VOTE_YES, $VOTE_NO);
-
-    for my $edit_id (@$voted_open_edit_ids) {
-        $self->c->model('Vote')->enter_votes(
-            $editor,
-            [{
-                vote    => $VOTE_ABSTAIN,
-                edit_id => $edit_id,
-            }],
-            (override_privs => 1),
-        );
-    }
+    $self->c->model('Editor')->cancel_edits_and_votes($editor);
 
     # Delete completely if they're not actually referred to by anything
     # These AND NOT EXISTS clauses are ordered by likelihood of a row existing
@@ -654,6 +624,48 @@ sub delete {
     }
 
     $self->sql->commit;
+}
+
+sub cancel_edits_and_votes {
+    my ($self, $editor) = @_;
+
+    # Cancel any open edits the editor still has
+    # We want to cancel the latest edits first, to make sure
+    # no conflicts happen that make some cancelling fail and all
+    # entities that should be autoremoved do get removed
+    my $own_edit_ids = $self->sql->select_single_column_array(
+            'SELECT id FROM edit WHERE editor = ? AND status = ? ORDER BY open_time DESC',
+            $editor->id, $STATUS_OPEN);
+    my $own_edits = $self->c->model('Edit')->get_by_ids(@$own_edit_ids);
+
+    for my $edit_id (@$own_edit_ids) {
+        $self->c->model('Edit')->cancel($own_edits->{$edit_id});
+    }
+
+    # Override any Yes/No votes on open edits with Abstain
+    # to avoid pre-deletion vandalism
+    my $voted_open_edit_ids = $self->sql->select_single_column_array(
+            'SELECT edit.id
+             FROM edit
+             JOIN vote
+               ON edit.id = vote.edit
+             WHERE edit.status = ?
+               AND vote.editor = ?
+               AND vote.vote IN (?, ?)
+               AND vote.superseded = FALSE
+            ORDER BY open_time DESC',
+            $STATUS_OPEN, $editor->id, $VOTE_YES, $VOTE_NO);
+
+    for my $edit_id (@$voted_open_edit_ids) {
+        $self->c->model('Vote')->enter_votes(
+            $editor,
+            [{
+                vote    => $VOTE_ABSTAIN,
+                edit_id => $edit_id,
+            }],
+            (override_privs => 1),
+        );
+    }
 }
 
 sub subscription_summary {
