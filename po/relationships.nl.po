@@ -14,11 +14,12 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
+# Aszazin <aszazin@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-19 12:28+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-06-30 13:42+0000\n"
+"Last-Translator: Aszazin <aszazin@gmail.com>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/nl/>\n"
 "Language: nl\n"
@@ -26,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.6\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -6594,23 +6595,23 @@ msgstr "sneed de lakplaat voor"
 #: DB:link_type/reverse_link_phrase:846 DB:link_type/reverse_link_phrase:922
 #: DB:link_type/reverse_link_phrase:914 DB:link_type/reverse_link_phrase:868
 msgid "dedicated to"
-msgstr "opgedragen aan"
+msgstr "toegewijdt aan"
 
 #. name:dedication
 #: DB:link_type/link_phrase:983 DB:link_type/link_phrase:846
 #: DB:link_type/link_phrase:922 DB:link_type/link_phrase:914
 msgid "dedicated works"
-msgstr "opgedragen composities"
+msgstr "toegewijdde composities"
 
 #: DB:link_type/name:983 DB:link_type/name:846 DB:link_type/name:922
 #: DB:link_type/name:914
 msgid "dedication"
-msgstr "opdracht"
+msgstr "toewijding"
 
 #. name:dedicated to
 #: DB:link_type/link_phrase:868
 msgid "dedications"
-msgstr "aan de artiest opgedragen"
+msgstr "toewijdingen"
 
 #: DB:link_type/name:737
 msgid "derivation"
@@ -6638,7 +6639,7 @@ msgstr "ontwerp/illustratie"
 #. name:sound effects
 #: DB:link_type/long_link_phrase:1236 DB:link_type/long_link_phrase:1235
 msgid "did sound effects for"
-msgstr ""
+msgstr "verzorgde geluidseffecten voor"
 
 #. name:discography
 #: DB:link_type/name:88 DB:link_type/name:171 DB:link_type/link_phrase:88
