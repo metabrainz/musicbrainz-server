@@ -9,12 +9,13 @@
 # Shunsuke Shimizu <email address hidden>, 2017,2019
 # th1rtyf0ur, 2013
 # yyb987 <tyui54-a93@yahoo.com>, 2023.
+# yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-12-29 21:28+0000\n"
-"Last-Translator: yyb987 <tyui54-a93@yahoo.com>\n"
+"PO-Revision-Date: 2024-06-30 13:42+0000\n"
+"Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/ja/>\n"
 "Language: ja\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.6\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1348,8 +1349,6 @@ msgid "Timeline"
 msgstr "タイムライン"
 
 #: ../root/statistics/timeline.tt:25
-#, fuzzy
-#| msgid "Timeline Graph"
 msgid "Timeline graph"
 msgstr "タイムライングラフ"
 
@@ -1863,8 +1862,6 @@ msgid "No front cover art:"
 msgstr "カバーアートがない:"
 
 #: ../root/statistics/Index.js:453
-#, fuzzy
-#| msgid "Data Quality"
 msgid "Data quality"
 msgstr "データ品質"
 
@@ -2450,11 +2447,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:195
 msgid "Area collections"
-msgstr ""
+msgstr "地域のコレクション"
 
 #: ../root/statistics/stats.js:200
 msgid "Artist collections"
-msgstr ""
+msgstr "アーティストのコレクション"
 
 #: ../root/statistics/stats.js:205
 msgid "Collections of type Attending"
@@ -2469,18 +2466,16 @@ msgid "Event collections (all types)"
 msgstr ""
 
 #: ../root/statistics/stats.js:220
-#, fuzzy
-#| msgid "Collections"
 msgid "Genre collections"
-msgstr "コレクション"
+msgstr "ジャンルのコレクション"
 
 #: ../root/statistics/stats.js:225
 msgid "Instrument collections"
-msgstr ""
+msgstr "楽器のコレクション"
 
 #: ../root/statistics/stats.js:230
 msgid "Label collections"
-msgstr ""
+msgstr "レーベルのコレクション"
 
 #: ../root/statistics/stats.js:235
 msgid "Collections of type Maybe attending"
@@ -2492,11 +2487,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:245
 msgid "Place collections"
-msgstr ""
+msgstr "場所のコレクション"
 
 #: ../root/statistics/stats.js:250
 msgid "Recording collections"
-msgstr ""
+msgstr "レコーディングのコレクション"
 
 #: ../root/statistics/stats.js:255
 msgid "Collections of type Release"
@@ -2508,7 +2503,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:265
 msgid "Release group collections"
-msgstr ""
+msgstr "リリースグループのコレクション"
 
 #: ../root/statistics/stats.js:270
 msgid "Series collections"
@@ -2520,7 +2515,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:280
 msgid "Work collections"
-msgstr ""
+msgstr "作品のコレクション"
 
 #: ../root/statistics/stats.js:306
 msgid "Applied edits"

@@ -45,7 +45,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-28 20:29+0000\n"
-"PO-Revision-Date: 2024-06-21 20:42+0000\n"
+"PO-Revision-Date: 2024-06-30 13:42+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
@@ -141,10 +141,8 @@ msgid "(add a new recording)"
 msgstr "(新しいレコーディングを追加)"
 
 #: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
-#, fuzzy
-#| msgid "(no other cover art)"
 msgid "(no other images)"
-msgstr "(他のカバーアートなし)"
+msgstr "(他の画像はありません)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
@@ -258,12 +256,9 @@ msgid "Add event"
 msgstr "イベントを追加"
 
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add event"
 msgctxt "plural, header"
 msgid "Add event art"
-msgstr "イベントを追加"
+msgstr "イベントアートを追加"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 msgctxt "header"
@@ -389,8 +384,6 @@ msgid "Annotation"
 msgstr "注釈"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Applied Edit Count of Editor"
 msgid "Applied edit count of editor"
 msgstr "編集者の適用回数"
 
@@ -512,9 +505,6 @@ msgstr "CD TOCを添付"
 
 #: ../root/cdtoc/attach_artist_releases.tt:40
 #: ../root/cdtoc/attach_filter_release.tt:54
-#, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Attach CD TOC"
 msgctxt "interactive"
 msgid "Attach CD TOC"
 msgstr "CD TOCを添付"
@@ -961,12 +951,9 @@ msgid "Edit cover art"
 msgstr "カバーアートを編集"
 
 #: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:4
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit event"
 msgctxt "singular, header"
 msgid "Edit event art"
-msgstr "イベントを編集"
+msgstr "イベントアートを編集"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18
@@ -976,14 +963,10 @@ msgid "Edit note"
 msgstr "メモを編集"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Edit Note Authors"
 msgid "Edit note authors"
-msgstr "編集ノートの作者"
+msgstr "編集ノートの作成者"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Edit Note Content"
 msgid "Edit note content"
 msgstr "編集ノートの内容"
 
@@ -1242,8 +1225,6 @@ msgid "Guess case"
 msgstr "大文字小文字を推測"
 
 #: ../root/components/forms.tt:254
-#, fuzzy
-#| msgid "Guess case"
 msgctxt "interactive"
 msgid "Guess case"
 msgstr "大文字小文字を推測"
@@ -1381,17 +1362,14 @@ msgid "ISWCs"
 msgstr "ISWC"
 
 #: ../root/event/edit_form.tt:26
-#, fuzzy
-#| msgid ""
-#| "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using "
-#| "the HTML entities \"&lsqb;\", \"&rsqb;\", and \"&amp;\" respectively."
 msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
 "HTML entities \"<code>&amp;lsqb;</code>\", \"<code>&amp;rsqb;</code>\", and "
 "\"<code>&amp;amp;</code>\" respectively."
 msgstr ""
-"必要な場合、「[」、「]」、そして「&」はそれぞれHTMLの「&lsqb;」「&rsqb;」"
-"「&amp;」を使うことでエスケープできます。"
+"必要な場合、「[」、「]」、そして「&」はそれぞれHTMLの「<code>&amp;lsqb;</code"
+">」、 「<code>&amp;rsqb;</code>」、または "
+"「<code>&amp;amp;</code>」を使うことでエスケープできます。"
 
 #: ../root/release/edit/recordings.tt:134
 msgid ""
@@ -1487,7 +1465,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:43
 msgid "Image not available, please try again later."
-msgstr ""
+msgstr "画像が利用できません。後ほどもう一度お試しください。"
 
 #: ../root/cdtoc/lookup.tt:28 ../root/cdstub/ImportCDStub.js:94
 msgctxt "interactive"
@@ -1703,10 +1681,8 @@ msgid "Merge"
 msgstr "マージ"
 
 #: ../root/layout/merge-helper.tt:3 ../root/layout/components/MergeHelper.js:26
-#, fuzzy
-#| msgid "Merge Process"
 msgid "Merge process"
-msgstr "プロセスをマージ"
+msgstr "マージプロセス"
 
 #: ../root/cdtoc/list.tt:63 ../root/release/DiscIds.js:70
 msgid "Move"
@@ -1799,10 +1775,8 @@ msgid "Name"
 msgstr "名前"
 
 #: ../root/artist/edit_credit.tt:18 ../root/artist/split.tt:45
-#, fuzzy
-#| msgid "New Artist Credit"
 msgid "New artist credit"
-msgstr "新しいアーティストクレジット"
+msgstr "新しいアーティスト・クレジット"
 
 #: ../root/event/add_event_art.tt:148 ../root/release/add_cover_art.tt:148
 msgid "New image goes here"
@@ -1927,8 +1901,6 @@ msgstr "オプション"
 #: ../root/series/edit_form.tt:17 ../root/edit/details/AddSeries.js:48
 #: ../root/edit/details/EditSeries.js:62
 #: ../root/layout/components/sidebar/SeriesSidebar.js:49
-#, fuzzy
-#| msgid "Ordering Type"
 msgid "Ordering type"
 msgstr "並べ替えタイプ"
 
@@ -1944,8 +1916,6 @@ msgid "Packaging"
 msgstr "パッケージ"
 
 #: ../root/release/edit/tracklist.tt:238
-#, fuzzy
-#| msgid "Parse Tracks"
 msgid "Parse tracks"
 msgstr "トラックを解析"
 
@@ -2085,7 +2055,7 @@ msgstr "関係編集者"
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:82
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:296
 msgid "Relationship type"
-msgstr ""
+msgstr "関係タイプ"
 
 #: ../root/cdtoc/attach_artist_releases.tt:15
 #: ../root/cdtoc/attach_filter_release.tt:28 ../root/cdtoc/lookup.tt:40
@@ -2124,8 +2094,6 @@ msgid "Release"
 msgstr "リリース"
 
 #: ../root/edit/search_macros.tt:434
-#, fuzzy
-#| msgid "Release Country"
 msgid "Release country"
 msgstr "リリース国"
 
@@ -2183,8 +2151,6 @@ msgstr "{artist}のリリースグループ「{name}」"
 
 #: ../root/cdtoc/attach_artist_releases.tt:31
 #: ../root/cdtoc/attach_filter_release.tt:46
-#, fuzzy
-#| msgid "Release Group: {release_group_link}"
 msgid "Release group: {release_group_link}"
 msgstr "リリースグループ: {release_group_link}"
 
@@ -2242,8 +2208,6 @@ msgid "Remove medium"
 msgstr "メディアを削除"
 
 #: ../root/release/edit/information.tt:159
-#, fuzzy
-#| msgid "Remove Release Event"
 msgid "Remove release event"
 msgstr "リリースイベントを削除"
 
@@ -2272,12 +2236,9 @@ msgid "Reorder cover art"
 msgstr "カバーアートを並べ替え"
 
 #: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
-#, fuzzy
-#| msgctxt "plural, header"
-#| msgid "Reorder cover art"
 msgctxt "plural, header"
 msgid "Reorder event art"
-msgstr "カバーアートを並べ替え"
+msgstr "イベントアートを並べ替え"
 
 #: ../root/event/add_event_art.tt:83 ../root/release/add_cover_art.tt:83
 msgid "Request signature..."
@@ -2310,8 +2271,7 @@ msgstr ""
 #: ../root/layout.tt:137
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
-msgstr ""
-"Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
+msgstr "実行中: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
 #: ../root/release/edit/information.tt:117
 #: ../root/edit/details/AddRelease.js:93
@@ -2492,8 +2452,6 @@ msgid "Sort name"
 msgstr "ソート名"
 
 #: ../root/artist/split.tt:1
-#, fuzzy
-#| msgid "Split Artist"
 msgid "Split artist"
 msgstr "アーティストを分割"
 
@@ -2760,19 +2718,14 @@ msgid ""
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:386
-#, fuzzy
-#| msgid ""
-#| "This is almost always incorrect. Please make sure whether you actually "
-#| "wanted a different format (such as “USB Flash Drive” or “Music Card”) or "
-#| "packaging type."
 msgid ""
 "This is almost always incorrect. Please make sure whether you actually "
 "wanted a different format (such as “USB Flash Drive” or “Download Card”) or "
 "packaging type."
 msgstr ""
-"これはほとんどの場合間違っています。他のフォーマット（「USBフラッシュドライ"
-"ブ」または「ミュージックカード」）やパッケージングタイプを選択することを検討"
-"してください。"
+"これはほとんどの場合間違っています。他のフォーマット（「USBフラッシュドライブ"
+"」または「ダウンロードカード」）やパッケージングタイプを選択することを検討し"
+"てください。"
 
 #: ../root/release_group/set_cover_art.tt:76
 msgid "This is the current release group image"
@@ -2864,8 +2817,6 @@ msgstr "このトラックはプリギャップに隠されています。"
 #: ../root/layout/components/sidebar/EventSidebar.js:111
 #: ../root/report/components/EventList.js:70
 #: ../root/search/components/EventResults.js:80
-#, fuzzy
-#| msgid "Time"
 msgctxt "event"
 msgid "Time"
 msgstr "時間"
@@ -2909,8 +2860,6 @@ msgstr "トラック数:"
 
 #: ../root/release/edit/tracklist.tt:524
 #: ../root/static/scripts/release-editor/dialogs.js:40
-#, fuzzy
-#| msgid "Track Parser"
 msgid "Track parser"
 msgstr "トラックパーサ"
 
@@ -3018,10 +2967,8 @@ msgstr "タイプ"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 #: ../root/components/ArtFields.js:64
-#, fuzzy
-#| msgid "Types:"
 msgid "Types"
-msgstr "タイプ:"
+msgstr "タイプ"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
@@ -3813,17 +3760,12 @@ msgid "The user with ID '{user_id}' could not be found."
 msgstr "ID が '{user_id}' のユーザーが見つかりません。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:176
-#, fuzzy
-#| msgid ""
-#| "We were unable to send login information to your email address.  Please "
-#| "try again, however if you continue to experience difficulty contact us at "
-#| "support@musicbrainz.org."
 msgid ""
 "We were unable to send login information to your email address. Please try "
 "again, and if that still doesn’t work, {contact_url|contact us}."
 msgstr ""
-"あなたの email アドレスにログイン情報を送信できません。もう一度登録してくださ"
-"い。しかし問題が続く場合には、support@musicbrainz.org まで連絡してください。"
+"あなたのemailアドレスにログイン情報を送信できませんでした。もう一度お試しくだ"
+"さい。もしうまくいかない場合は{contact_url|ご連絡ください}。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:203
 msgid "There is no user with this username"
@@ -3930,8 +3872,6 @@ msgstr "メディアIDを指定してください。"
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:93
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:214
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:436
-#, fuzzy
-#| msgid "The provided medium id is not valid."
 msgid "The provided medium ID is not valid."
 msgstr "メディアIDが正しくありません。"
 
@@ -4387,12 +4327,9 @@ msgid "Add event annotation"
 msgstr "イベントの注釈を追加"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add event"
 msgctxt "singular, edit type"
 msgid "Add event art"
-msgstr "イベントを追加"
+msgstr "イベントアートを追加"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 msgctxt "edit type"
@@ -4420,12 +4357,9 @@ msgid "Edit event alias"
 msgstr "イベントの別名を編集"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditEventArt.pm:15
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit event"
 msgctxt "singular, edit type"
 msgid "Edit event art"
-msgstr "イベントを編集"
+msgstr "イベントアートを編集"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Merge.pm:11
 msgctxt "edit type"
@@ -4433,20 +4367,14 @@ msgid "Merge events"
 msgstr "イベントをマージ"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/RemoveEventArt.pm:15
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove event"
 msgctxt "singular, edit type"
 msgid "Remove event art"
-msgstr "イベントを削除"
+msgstr "イベントアートを削除"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/ReorderEventArt.pm:15
-#, fuzzy
-#| msgctxt "plural, edit type"
-#| msgid "Reorder cover art"
 msgctxt "plural, edit type"
 msgid "Reorder event art"
-msgstr "カバーアートを並べ替え"
+msgstr "イベントアートを並べ替え"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAlias.pm:11
 msgctxt "edit type"
@@ -5098,22 +5026,16 @@ msgid "Edit URL"
 msgstr "URLを編集"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/utility/edit.js:47
-#, fuzzy
-#| msgid "Open"
 msgctxt "adjective, edit status"
 msgid "Open"
 msgstr "未確定"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/utility/edit.js:40
-#, fuzzy
-#| msgid "Applied"
 msgctxt "edit status"
 msgid "Applied"
 msgstr "適用"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:273 ../root/utility/edit.js:45
-#, fuzzy
-#| msgid "Failed vote"
 msgctxt "edit status"
 msgid "Failed vote"
 msgstr "失敗した投票"
@@ -5124,8 +5046,6 @@ msgid "Failed dependency"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:275 ../root/utility/edit.js:42
-#, fuzzy
-#| msgid "Error"
 msgctxt "edit status"
 msgid "Error"
 msgstr "エラー"
@@ -5138,8 +5058,6 @@ msgid "Failed prerequisite"
 msgstr "失敗した投票"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:277 ../root/utility/edit.js:46
-#, fuzzy
-#| msgid "No votes"
 msgctxt "edit status"
 msgid "No votes"
 msgstr "投票なし"
@@ -5280,8 +5198,6 @@ msgstr "キャンセルされた"
 
 #: ../lib/MusicBrainz/Server/Entity/Barcode.pm:18
 #: ../root/static/scripts/common/utility/formatBarcode.js:15
-#, fuzzy
-#| msgid "[none]"
 msgctxt "barcode"
 msgid "[none]"
 msgstr "[なし]"
@@ -5331,15 +5247,15 @@ msgstr "{role} ({credited_name} として)"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Anghami.pm:10
 msgid "Stream at Anghami"
-msgstr ""
+msgstr "Anghamiでの配信"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Audiomack.pm:10
 msgid "Stream at Audiomack"
-msgstr ""
+msgstr "Audiomackでの配信"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Boomplay.pm:10
 msgid "Stream at Boomplay"
-msgstr ""
+msgstr "Boomplayでの配信"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/CPDL.pm:9
 msgid "Score(s) at CPDL"
@@ -5397,13 +5313,11 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Tidal.pm:16
 msgid "Stream at Tidal"
-msgstr ""
+msgstr "Tidalでの配信"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/VK.pm:14
-#, fuzzy
-#| msgid "Stream at Deezer"
 msgid "Stream at VK"
-msgstr "Deezerでの配信"
+msgstr "VKでの配信"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Weibo.pm:9
 msgid "Weibo"
@@ -5414,10 +5328,8 @@ msgid "Wikisource"
 msgstr "Wikisource"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Yandex.pm:10
-#, fuzzy
-#| msgid "Stream at Deezer"
 msgid "Stream at Yandex"
-msgstr "Deezerでの配信"
+msgstr "Yandexでの配信"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/YouTubeMusic.pm:10
 msgid "Stream at YouTube Music"
@@ -5537,12 +5449,12 @@ msgstr "有効なデータベースIDではありません"
 #: ../lib/MusicBrainz/Server/Form/Field/IPI.pm:15
 #: ../lib/MusicBrainz/Server/Form/Field/IPI.pm:19
 msgid "This is not a valid IPI."
-msgstr ""
+msgstr "有効なIPIではありません。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISNI.pm:15
 #: ../lib/MusicBrainz/Server/Form/Field/ISNI.pm:19
 msgid "This is not a valid ISNI."
-msgstr ""
+msgstr "有効なISNIではありません。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISO_3166_1.pm:15
 msgid "This is not a valid ISO 3166-1 code"
@@ -5567,10 +5479,8 @@ msgid "This is not a valid ISWC"
 msgstr "有効な ISWC ではありません"
 
 #: ../lib/MusicBrainz/Server/Form/Field/LabelCode.pm:17
-#, fuzzy
-#| msgid "Label codes must be greater than 0 and 5 digits at most"
 msgid "Label codes must be greater than 0 and 6 digits at most"
-msgstr "レーベルコードは1 &#x301C; 5桁です"
+msgstr "レーベルコードは1 &#x301C; 6桁です"
 
 #: ../lib/MusicBrainz/Server/Form/Field/Length.pm:31
 msgid "Not a valid time. Must be in the format MM:SS"
@@ -5615,32 +5525,24 @@ msgid "[none]"
 msgstr "[なし]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:42
-#, fuzzy
-#| msgid "Video"
 msgid "Videos only"
-msgstr "ビデオ"
+msgstr "ビデオのみ"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:43
 msgid "Non-videos only"
-msgstr ""
+msgstr "ビデオを含まない"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:71
-#, fuzzy
-#| msgid "[none]"
 msgctxt "release country"
 msgid "[none]"
 msgstr "[なし]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:80
-#, fuzzy
-#| msgid "[none]"
 msgctxt "release label"
 msgid "[none]"
 msgstr "[なし]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:89
-#, fuzzy
-#| msgid "[none]"
 msgctxt "release status"
 msgid "[none]"
 msgstr "[なし]"
@@ -6062,8 +5964,6 @@ msgstr "アカウントを削除"
 
 #: ../root/account/Donation.js:26 ../root/account/Donation.js:28
 #: ../root/components/UserAccountTabs.js:94
-#, fuzzy
-#| msgid "Donation Check"
 msgid "Donation check"
 msgstr "寄付の確認"
 
@@ -6126,8 +6026,6 @@ msgstr ""
 
 #: ../root/account/LostPassword.js:26 ../root/account/LostPassword.js:27
 #: ../root/account/LostPasswordSent.js:16
-#, fuzzy
-#| msgid "Lost Password"
 msgid "Lost password"
 msgstr "パスワードを忘れた場合"
 
@@ -6347,13 +6245,11 @@ msgstr ""
 
 #: ../root/account/applications/ApplicationList.js:149
 msgid "OAuth client ID"
-msgstr "OAuth クライアント ID"
+msgstr "OAuthクライアントID"
 
 #: ../root/account/applications/ApplicationList.js:150
-#, fuzzy
-#| msgid "OAuth Client ID"
 msgid "OAuth client secret"
-msgstr "OAuth クライアント ID"
+msgstr "OAuthクライアントシークレット"
 
 #: ../root/account/applications/ApplicationList.js:160
 msgid "You do not have any registered applications."
@@ -6499,8 +6395,6 @@ msgid "Preview"
 msgstr "プレビュー"
 
 #: ../root/annotation/EditAnnotation.js:91
-#, fuzzy
-#| msgid "Annotation Formatting"
 msgid "Annotation formatting"
 msgstr "注釈の書式設定"
 
@@ -7011,15 +6905,13 @@ msgstr ""
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:77
 msgctxt "group artist"
 msgid "Dissolved"
-msgstr ""
+msgstr "解散"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:91
 msgid "This artist credit is composed of the following artists:"
 msgstr "このアーティスト・クレジットは次のアーティストにより構成されています:"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:101
-#, fuzzy
-#| msgid "credited as “{credit}”"
 msgctxt "artist credit"
 msgid "credited as “{credit}”"
 msgstr "「{credit}」としてクレジット"
@@ -7231,8 +7123,6 @@ msgstr "終了"
 
 #: ../root/cdtoc/CDTocInfo.js:53 ../root/cdtoc/CDTocInfo.js:55
 #: ../root/cdtoc/CDTocInfo.js:57
-#, fuzzy
-#| msgid "Time"
 msgctxt "CD timecode"
 msgid "Time"
 msgstr "時間"
@@ -7569,9 +7459,8 @@ msgstr ""
 msgid ""
 "This work has no relationships and will be removed automatically in the next "
 "few days. If this is not intended, please add relationships to this work."
-msgstr ""
-"この作品は関係を持たないため、数日のうちに自動的に削除されます。止めるために"
-"は、作品にデータを追加してください"
+msgstr "この作品は関係を持たないため、数日のうちに自動的に削除されます。止めるために"
+"は、作品にデータを追加してください。"
 
 #: ../root/components/ConfirmLayout.js:32 ../root/edit/DeleteNote.js:59
 msgid "Yes, I am sure"
@@ -7642,19 +7531,14 @@ msgid "Cover art ({num})"
 msgstr "カバーアート({num})"
 
 #: ../root/components/EntityTabs.js:131
-#, fuzzy
-#| msgid "Event ratings"
 msgctxt "plural"
 msgid "Event art"
-msgstr "イベントの評価"
+msgstr "イベントアート"
 
 #: ../root/components/EntityTabs.js:133
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Cover art ({num})"
 msgctxt "plural"
 msgid "Event art ({num})"
-msgstr "カバーアート({num})"
+msgstr "イベントアート({num})"
 
 #: ../root/components/EntityTabs.js:149
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:31
@@ -7951,8 +7835,6 @@ msgstr "非公開タグの表示・編集"
 
 #: ../root/doc/DocError.js:26 ../root/doc/DocError.js:30
 #: ../root/main/error/Error404.js:26 ../root/main/error/MirrorError404.js:14
-#, fuzzy
-#| msgid "Page Not Found"
 msgid "Page not found"
 msgstr "ページが見つかりませんでした"
 
@@ -8013,8 +7895,6 @@ msgid ""
 msgstr ""
 
 #: ../root/edit/CancelEdit.js:51
-#, fuzzy
-#| msgid "Cancel edit"
 msgctxt "interactive"
 msgid "Cancel edit"
 msgstr "編集をキャンセル"
@@ -8202,10 +8082,8 @@ msgid ""
 msgstr "{edit}には反対投票があるため、承認するには編集ノートが必要です。"
 
 #: ../root/edit/NotesReceived.js:27 ../root/edit/NotesReceived.js:29
-#, fuzzy
-#| msgid "Notes Left on My Edits"
 msgid "Recent notes left on your edits"
-msgstr "自分の編集に対するノート"
+msgstr "あなたの編集に対するノート"
 
 #: ../root/edit/NotesReceived.js:59
 msgid "Nobody has left notes on any of your edits in the past three months."
@@ -8221,14 +8099,10 @@ msgstr "未確定の編集"
 
 #: ../root/edit/SubscribedEditorEdits.js:21
 #: ../root/edit/SubscribedEditorEdits.js:23
-#, fuzzy
-#| msgid "Edits by Your Subscribed Editors"
 msgid "Edits by your subscribed editors"
 msgstr "購読中の編集者による編集"
 
 #: ../root/edit/SubscribedEdits.js:21 ../root/edit/SubscribedEdits.js:23
-#, fuzzy
-#| msgid "Edits for Your Subscribed Entities"
 msgid "Edits for your subscribed entities"
 msgstr "購読中の項目への編集"
 
@@ -8240,11 +8114,9 @@ msgid ""
 msgstr ""
 
 #: ../root/edit/components/EditArtwork.js:23 ../root/user/UserProfile.js:53
-#, fuzzy
-#| msgid "Event ratings"
 msgctxt "singular"
 msgid "Event art"
-msgstr "イベントの評価"
+msgstr "イベントアート"
 
 #: ../root/edit/components/EditArtwork.js:32
 #: ../root/edit/details/ReorderArt.js:32
@@ -8781,8 +8653,6 @@ msgstr ""
 #: ../root/edit/details/historic/ChangeReleaseQuality.js:37
 #: ../root/layout/components/sidebar/SidebarDataQuality.js:32
 #: ../root/release/ChangeQuality.js:58
-#, fuzzy
-#| msgid "Data Quality"
 msgid "Data quality"
 msgstr "データ品質"
 
@@ -8808,7 +8678,7 @@ msgstr "ページ削除しました"
 
 #: ../root/edit/details/ChangeWikiDoc.js:69
 msgid "Diff"
-msgstr "Diff"
+msgstr "差分"
 
 #: ../root/edit/details/ChangeWikiDoc.js:72
 msgid "View diff"
@@ -8840,14 +8710,10 @@ msgid "This track's MBID will change when this edit is applied."
 msgstr ""
 
 #: ../root/edit/details/EditMedium.js:272
-#, fuzzy
-#| msgid "Old Tracklist"
 msgid "Old tracklist"
 msgstr "前のトラックリスト"
 
 #: ../root/edit/details/EditMedium.js:273
-#, fuzzy
-#| msgid "New Tracklist"
 msgid "New tracklist"
 msgstr "新しいトラックリスト"
 
@@ -8864,14 +8730,10 @@ msgid "New recording"
 msgstr "新しいレコーディング"
 
 #: ../root/edit/details/EditMedium.js:543
-#, fuzzy
-#| msgid "Old Artist"
 msgid "Old artist"
 msgstr "前のアーティスト"
 
 #: ../root/edit/details/EditMedium.js:544
-#, fuzzy
-#| msgid "New Artist"
 msgid "New artist"
 msgstr "新しいアーティスト"
 
@@ -8980,8 +8842,6 @@ msgid "This release has no media to merge."
 msgstr ""
 
 #: ../root/edit/details/MergeReleases.js:301
-#, fuzzy
-#| msgid "Recording Merges"
 msgid "Recording merges"
 msgstr "レコーディングをマージ"
 
@@ -9156,14 +9016,10 @@ msgid "Type: {type}, status: {status}"
 msgstr "タイプ: {type}、ステータス: {status}"
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:57
-#, fuzzy
-#| msgid "New Type:"
 msgid "New type:"
 msgstr "新しいタイプ:"
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:64
-#, fuzzy
-#| msgid "New Status:"
 msgid "New status:"
 msgstr "新しいステータス:"
 
@@ -9439,8 +9295,6 @@ msgid "{entity_type} by {artist}"
 msgstr "{artist}の{entity_type}"
 
 #: ../root/entity/NotFound.js:26
-#, fuzzy
-#| msgid "Area Not Found"
 msgctxt "header"
 msgid "Area not found"
 msgstr "地域がありません"
@@ -9454,8 +9308,6 @@ msgstr ""
 "索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:35
-#, fuzzy
-#| msgid "Artist Not Found"
 msgctxt "header"
 msgid "Artist not found"
 msgstr "アーティストが見つかりません"
@@ -9469,19 +9321,15 @@ msgstr ""
 "{search_url|検索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:44
-#, fuzzy
-#| msgid "Artist Not Found"
 msgctxt "header"
 msgid "Artist credit not found"
-msgstr "アーティストが見つかりません"
+msgstr "アーティスト・クレジットが見つかりません"
 
 #: ../root/entity/NotFound.js:45
 msgid "Sorry, we could not find an artist credit with that ID."
 msgstr ""
 
 #: ../root/entity/NotFound.js:50
-#, fuzzy
-#| msgid "CD TOC Not Found"
 msgctxt "header"
 msgid "CD TOC not found"
 msgstr "CD TOCが見つかりません"
@@ -9491,8 +9339,6 @@ msgid "Sorry, we could not find the CD TOC you specified."
 msgstr ""
 
 #: ../root/entity/NotFound.js:56
-#, fuzzy
-#| msgid "Collection Not Found"
 msgctxt "header"
 msgid "Collection not found"
 msgstr "コレクションが見つかりません"
@@ -9503,8 +9349,6 @@ msgstr ""
 "残念ですが、そのMusicBrainzIDを持つコレクションは見つかりませんでした。"
 
 #: ../root/entity/NotFound.js:64
-#, fuzzy
-#| msgid "Edit Not Found"
 msgctxt "header"
 msgid "Edit not found"
 msgstr "編集がありません"
@@ -9518,8 +9362,6 @@ msgstr ""
 "してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:73
-#, fuzzy
-#| msgid "Editor Not Found"
 msgctxt "header"
 msgid "Edit note not found"
 msgstr "編集者が見つかりません"
@@ -9532,8 +9374,6 @@ msgstr ""
 "残念ですが、そのMusicBrainzIDを持つコレクションは見つかりませんでした。"
 
 #: ../root/entity/NotFound.js:81
-#, fuzzy
-#| msgid "Election Not Found"
 msgctxt "header"
 msgid "Election not found"
 msgstr "選挙がありません"
@@ -9547,8 +9387,6 @@ msgid "Back to all elections."
 msgstr "全投票に戻る。"
 
 #: ../root/entity/NotFound.js:87
-#, fuzzy
-#| msgid "Event Not Found"
 msgctxt "header"
 msgid "Event not found"
 msgstr "イベントがありません"
@@ -9562,8 +9400,6 @@ msgstr ""
 "{search_url|検索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:96
-#, fuzzy
-#| msgid "Genre Not Found"
 msgctxt "header"
 msgid "Genre not found"
 msgstr "ジャンルがありません"
@@ -9575,8 +9411,6 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:105
-#, fuzzy
-#| msgid "Instrument Not Found"
 msgctxt "header"
 msgid "Instrument not found"
 msgstr "楽器がありません"
@@ -9618,8 +9452,6 @@ msgstr ""
 "を検索}して、追加してください。"
 
 #: ../root/entity/NotFound.js:133
-#, fuzzy
-#| msgid "Label Not Found"
 msgctxt "header"
 msgid "Label not found"
 msgstr "レーベルがありません"
@@ -9633,8 +9465,6 @@ msgstr ""
 "{search_url|検索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:142
-#, fuzzy
-#| msgid "Entity Not Found"
 msgctxt "header"
 msgid "Entity not found"
 msgstr "項目が見つかりません"
@@ -9648,11 +9478,9 @@ msgstr ""
 "索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:151
-#, fuzzy
-#| msgid "Page Not Found"
 msgctxt "header"
 msgid "Place not found"
-msgstr "ページが見つかりませんでした"
+msgstr "場所が見つかりませんでした"
 
 #: ../root/entity/NotFound.js:153
 msgid ""
@@ -9663,11 +9491,9 @@ msgstr ""
 "索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:160
-#, fuzzy
-#| msgid "Recording Not Found"
 msgctxt "header"
 msgid "Recording not found"
-msgstr "レコーディングは見つかりませんでした"
+msgstr "レコーディングが見つかりませんでした"
 
 #: ../root/entity/NotFound.js:162
 msgid ""
@@ -9678,8 +9504,6 @@ msgstr ""
 "{search_url|検索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:169
-#, fuzzy
-#| msgid "Relationship Attribute Not Found"
 msgctxt "header"
 msgid "Relationship attribute not found"
 msgstr "関係属性が見つかりません"
@@ -9690,8 +9514,6 @@ msgid ""
 msgstr "そのMusicBrainz IDとの関連属性は見つかりませんでした。"
 
 #: ../root/entity/NotFound.js:178
-#, fuzzy
-#| msgid "Relationship Type Not Found"
 msgctxt "header"
 msgid "Relationship type not found"
 msgstr "関係タイプが見つかりません"
@@ -9701,8 +9523,6 @@ msgid "Sorry, we could not find a relationship type with that MusicBrainz ID."
 msgstr "残念ですが、そのMusicBrainzIDを持つ関係タイプは見つかりませんでした。"
 
 #: ../root/entity/NotFound.js:187
-#, fuzzy
-#| msgid "Release Not Found"
 msgctxt "header"
 msgid "Release not found"
 msgstr "リリースが見つかりません"
@@ -9716,8 +9536,6 @@ msgstr ""
 "{search_url|検索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:196
-#, fuzzy
-#| msgid "Release Group Not Found"
 msgctxt "header"
 msgid "Release group not found"
 msgstr "リリースグループ見つかりません"
@@ -9731,8 +9549,6 @@ msgstr ""
 "{search_url|検索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:205
-#, fuzzy
-#| msgid "Series Not Found"
 msgctxt "singular, header"
 msgid "Series not found"
 msgstr "シリーズがありません"
@@ -9746,8 +9562,6 @@ msgstr ""
 "{search_url|検索}を試してみるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:214
-#, fuzzy
-#| msgid "Track Not Found"
 msgctxt "header"
 msgid "Track not found"
 msgstr "トラックがありません"
@@ -9759,8 +9573,6 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:224
-#, fuzzy
-#| msgid "URL Not Found"
 msgctxt "header"
 msgid "URL not found"
 msgstr "URLが見つかりません"
@@ -9770,8 +9582,6 @@ msgid "Sorry, we could not find a URL with that MusicBrainz ID."
 msgstr "残念ですが、そのMusicBrainzIDを持つURLは見つかりませんでした。"
 
 #: ../root/entity/NotFound.js:230
-#, fuzzy
-#| msgid "Editor Not Found"
 msgctxt "header"
 msgid "Editor not found"
 msgstr "編集者が見つかりません"
@@ -9785,8 +9595,6 @@ msgstr ""
 "みるといいかもしれません。"
 
 #: ../root/entity/NotFound.js:239
-#, fuzzy
-#| msgid "Work Not Found"
 msgctxt "header"
 msgid "Work not found"
 msgstr "作品が見つかりません"
@@ -9813,14 +9621,10 @@ msgid "{link} has no ratings."
 msgstr "{link}は評価がありません。"
 
 #: ../root/entity/Ratings.js:89
-#, fuzzy
-#| msgid "Most Recent"
 msgid "Most recent"
 msgstr "最新"
 
 #: ../root/entity/Ratings.js:96
-#, fuzzy
-#| msgid "Most Popular"
 msgid "Most popular"
 msgstr "最も人気"
 
@@ -9903,19 +9707,14 @@ msgid "Please review the {doc|alias documentation} before entering this edit."
 msgstr ""
 
 #: ../root/event/EventArt.js:32
-#, fuzzy
-#| msgid "Event ratings"
 msgctxt "plural, header"
 msgid "Event art"
-msgstr "イベントの評価"
+msgstr "イベントアート"
 
 #: ../root/event/EventArt.js:38
-#, fuzzy
-#| msgctxt "plural, header"
-#| msgid "Cannot show cover art"
 msgctxt "plural, header"
 msgid "Cannot show event art"
-msgstr "カバーアートを表示できません"
+msgstr "イベントアートを表示できません"
 
 #: ../root/event/EventArt.js:44
 #: ../root/layout/components/sidebar/EventSidebar.js:58
@@ -9931,60 +9730,39 @@ msgid "All sizes:"
 msgstr "すべてのサイズ:"
 
 #: ../root/event/EventArt.js:100
-#, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {eaa|Event Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
-msgstr ""
-"この画像は{caa|Cover Art Archive}により提供されています。{ia|Internet "
-"Archive}も参照してください。"
+msgstr "この画像は{eaa|イベントアートアーカイブ}の一部です。{ia|Internet "
+"Archive}で見ることも可能です。"
 
 #: ../root/event/EventArt.js:112
-#, fuzzy
-#| msgid "We do not currently have any cover art for {release}."
 msgid "We do not currently have any event art for {event}."
-msgstr "現在「{release}」のカバーアートはありません。"
+msgstr "現在「{event}」のイベントアートはありません。"
 
 #: ../root/event/EventArt.js:122
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add event"
 msgctxt "plural, interactive"
 msgid "Add event art"
-msgstr "イベントを追加"
+msgstr "イベントアートを追加"
 
 #: ../root/event/EventArt.js:128
-#, fuzzy
-#| msgctxt "plural, interactive"
-#| msgid "Reorder cover art"
 msgctxt "plural, interactive"
 msgid "Reorder event art"
-msgstr "カバーアートを並べ替え"
+msgstr "イベントアートを並べ替え"
 
 #: ../root/event/EventArt.js:137 ../root/release/CoverArt.js:148
-#, fuzzy
-#| msgctxt "plural, interactive"
-#| msgid "Log in to upload cover art"
 msgctxt "plural, interactive"
 msgid "Log in to upload images"
-msgstr "ログインしてカバーアートをアップロード"
+msgstr "ログインして画像をアップロード"
 
 #: ../root/event/EventArtDarkened.js:19
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Cannot add cover art"
 msgctxt "plural"
 msgid "Cannot add event art"
-msgstr "カバーアートを追加できません"
+msgstr "イベントアートを追加できません"
 
 #: ../root/event/EventArtFields.js:21
-#, fuzzy
-#| msgid "Choose one or more cover art types for this image"
 msgid "Choose one or more event art types for this image"
-msgstr "この画像に一つまた複数のカバーアート種類を選択してください"
+msgstr "この画像に一つまた複数のイベントアートの種類を選択してください"
 
 #: ../root/event/EventArtFields.js:23
 msgid ""
@@ -10003,20 +9781,13 @@ msgid ""
 msgstr ""
 
 #: ../root/event/RemoveEventArt.js:29
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove event"
 msgctxt "singular, header"
 msgid "Remove event art"
-msgstr "イベントを削除"
+msgstr "イベントアートを削除"
 
 #: ../root/event/RemoveEventArt.js:36 ../root/release/RemoveCoverArt.js:31
-#, fuzzy
-#| msgid ""
-#| "Are you sure you wish to remove the below cover art from {release} by "
-#| "{artist}?"
 msgid "Are you sure you wish to remove the image below from {entity}?"
-msgstr "本当に{artist}の{release}から以下のカバーアートを削除しますか？"
+msgstr "本当に{entity}から以下の画像を削除しますか？"
 
 #: ../root/futureColumnLabels.js:24
 msgid "ISO 639-1"
@@ -10162,8 +9933,6 @@ msgid "Help translate"
 msgstr "翻訳に参加"
 
 #: ../root/layout/components/BottomMenu.js:105
-#, fuzzy
-#| msgid "About Us"
 msgid "About us"
 msgstr "私たちについて"
 
@@ -10184,8 +9953,6 @@ msgid "Shop"
 msgstr "ショップ"
 
 #: ../root/layout/components/BottomMenu.js:122
-#, fuzzy
-#| msgid "Contact Us"
 msgid "Contact us"
 msgstr "お問い合わせ"
 
@@ -10208,14 +9975,10 @@ msgid "Code of Conduct"
 msgstr "行動規範"
 
 #: ../root/layout/components/BottomMenu.js:134
-#, fuzzy
-#| msgid "Privacy Policy"
 msgid "Privacy policy"
 msgstr "プライバシーポリシー"
 
 #: ../root/layout/components/BottomMenu.js:137
-#, fuzzy
-#| msgid "GDPR Compliance"
 msgid "GDPR compliance"
 msgstr "GDPRコンプライアンス"
 
@@ -10224,8 +9987,6 @@ msgid "Copyright and DMCA compliance"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:145
-#, fuzzy
-#| msgid "Data Removal Policy"
 msgid "Data removal policy"
 msgstr "データの削除ポリシー"
 
@@ -10239,16 +10000,12 @@ msgid "Statistics"
 msgstr "統計"
 
 #: ../root/layout/components/BottomMenu.js:157
-#, fuzzy
-#| msgid "Timeline Graph"
 msgid "Timeline graph"
 msgstr "タイムライングラフ"
 
 #: ../root/layout/components/BottomMenu.js:160
-#, fuzzy
-#| msgid "MusicBrainz: Artist"
 msgid "MusicBrainz history"
-msgstr "MusicBrainz: アーティスト"
+msgstr "MusicBrainzの歴史"
 
 #: ../root/layout/components/BottomMenu.js:171
 msgid "Products"
@@ -10283,8 +10040,6 @@ msgid "MusicBrainz Database"
 msgstr "MusicBrainz データベース"
 
 #: ../root/layout/components/BottomMenu.js:199
-#, fuzzy
-#| msgid "Developer Resources"
 msgid "Developer resources"
 msgstr "開発者リソース"
 
@@ -10382,8 +10137,6 @@ msgid "Beginners guide"
 msgstr "初心者ガイド"
 
 #: ../root/layout/components/BottomMenu.js:309
-#, fuzzy
-#| msgid "How Tos"
 msgid "How tos"
 msgstr "どうやるか"
 
@@ -10392,8 +10145,6 @@ msgid "FAQs"
 msgstr "よくある質問"
 
 #: ../root/layout/components/BottomMenu.js:316
-#, fuzzy
-#| msgid "Documentation Index"
 msgid "Documentation index"
 msgstr "ドキュメントの目次"
 
@@ -10402,8 +10153,6 @@ msgstr "ドキュメントの目次"
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:103
 #: ../root/relationship/linktype/RelationshipTypesList.js:58
 #: ../root/utility/tableColumns.js:374
-#, fuzzy
-#| msgid "Relationship Types"
 msgid "Relationship types"
 msgstr "関係タイプ"
 
@@ -10667,10 +10416,8 @@ msgid "Image failed to load correctly.<br/>{all|View all images}."
 msgstr ""
 
 #: ../root/layout/components/sidebar/EventSidebar.js:64
-#, fuzzy
-#| msgid "No cover art available."
 msgid "No poster available."
-msgstr "カバーアートがありません。"
+msgstr "ポスターがありません。"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:67
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:101
@@ -10679,10 +10426,8 @@ msgstr "全ての画像を見る"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:70
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:104
-#, fuzzy
-#| msgid "No front cover image available."
 msgid "No images available."
-msgstr "カバー前面画像がありません。"
+msgstr "画像がありません。"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:82
 msgid "Event information"
@@ -10738,11 +10483,11 @@ msgstr "終了"
 
 #: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:54
 msgid "ListenBrainz"
-msgstr ""
+msgstr "ListenBrainz"
 
 #: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:59
 msgid "Play on ListenBrainz"
-msgstr ""
+msgstr "ListenBrainzで再生"
 
 #: ../root/layout/components/sidebar/RecordingSidebar.js:41
 msgid "Recording information"
@@ -10885,8 +10630,6 @@ msgid ""
 msgstr ""
 
 #: ../root/main/error/Error400.js:19
-#, fuzzy
-#| msgid "Bad Request"
 msgid "Bad request"
 msgstr "不正なリクエスト"
 
@@ -10903,14 +10646,10 @@ msgstr ""
 "い。表示されたどのようなエラーメッセージも報告に含めてください。"
 
 #: ../root/main/error/Error400.js:45 ../root/main/error/TimeoutError.js:32
-#, fuzzy
-#| msgid "Technical Information"
 msgid "Technical information"
 msgstr "技術情報"
 
 #: ../root/main/error/Error401.js:20
-#, fuzzy
-#| msgid "Unauthorized Request"
 msgid "Unauthorized request"
 msgstr "無許可のリクエスト"
 
@@ -10953,7 +10692,7 @@ msgstr "残念ですが、お探しのページは存在しません。"
 #: ../root/main/error/Error404.js:34
 #: ../root/main/error/components/ErrorInfo.js:26
 msgid "Error message: "
-msgstr "エラーメッセージ:"
+msgstr "エラーメッセージ: "
 
 #: ../root/main/error/Error404.js:46
 msgid ""
@@ -10964,15 +10703,13 @@ msgstr ""
 "告}でお知らせください。"
 
 #: ../root/main/error/Error500.js:30
-#, fuzzy
-#| msgid "Internal Server Error"
 msgid "Internal server error"
 msgstr "内部サーバーエラー"
 
 #: ../root/main/error/Error500.js:33
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:565
 msgid "Oops, something went wrong!"
-msgstr "ああっ、なにかおかしいです!"
+msgstr "何か問題が発生したようです。"
 
 #: ../root/main/error/Error500.js:43
 msgid "Edits loaded for the page:"
@@ -11001,8 +10738,6 @@ msgstr ""
 "送ってください。"
 
 #: ../root/main/error/Error503.js:14
-#, fuzzy
-#| msgid "System Busy"
 msgid "System busy"
 msgstr "システムが混雑しています"
 
@@ -11037,8 +10772,6 @@ msgstr ""
 "クセスしてください。"
 
 #: ../root/main/error/TimeoutError.js:20
-#, fuzzy
-#| msgid "Request Timed Out"
 msgid "Request timed out"
 msgstr "要求がタイムアウトしました"
 
@@ -11077,8 +10810,6 @@ msgid "(No details about this error are available)"
 msgstr "(このエラーについて詳細がありません)"
 
 #: ../root/main/index.js:32
-#, fuzzy
-#| msgid "MusicBrainz - The Open Music Encyclopedia"
 msgid "MusicBrainz - the open music encyclopedia"
 msgstr "MusicBrainz - オープン音楽百科事典"
 
@@ -11192,8 +10923,9 @@ msgid ""
 "released into the <strong>Public Domain</strong> and can be downloaded and "
 "used <strong>for free</strong>."
 msgstr ""
-"MusicBrainz データベースのデータの大半は、<strong>パブリックドメイン</strong>"
-"でリリースされ、<strong>自由に</strong>ダウンロードして利用できます。"
+"<strong>MusicBrainzデータベース</strong>のデータの大半は、<strong>パブリック"
+"ドメイン</strong>でリリースされ、<strong>自由に</strong>ダウンロードして利用"
+"できます。"
 
 #: ../root/main/index.js:232
 msgid "Developers"
@@ -11212,8 +10944,6 @@ msgid "Recent additions"
 msgstr "最近の追加"
 
 #: ../root/mbid/NotFound.js:15
-#, fuzzy
-#| msgid "MBID Not Found"
 msgid "MBID not found"
 msgstr "MBIDが見つかりません"
 
@@ -11239,10 +10969,8 @@ msgstr ""
 
 #: ../root/oauth2/OAuth2Authorize.js:22 ../root/oauth2/OAuth2Authorize.js:23
 #: ../root/oauth2/OAuth2Oob.js:14
-#, fuzzy
-#| msgid "OAuth Authorization"
 msgid "OAuth authorization"
-msgstr "OAuth 認証"
+msgstr "OAuth認証"
 
 #: ../root/oauth2/OAuth2Authorize.js:27
 msgid "{app} is requesting permission to:"
@@ -11261,10 +10989,8 @@ msgid "Allow access"
 msgstr "アクセス承認"
 
 #: ../root/oauth2/OAuth2Error.js:14
-#, fuzzy
-#| msgid "OAuth Authorization Error"
 msgid "OAuth authorization error"
-msgstr "OAuth 認証エラー"
+msgstr "OAuth認証エラー"
 
 #: ../root/oauth2/OAuth2Error.js:15
 msgid "Error: {error}"
@@ -11325,8 +11051,6 @@ msgstr "その他の検索"
 #: ../root/otherlookup/OtherLookupReleaseResults.js:16
 #: ../root/search/components/ResultsLayout.js:26
 #: ../root/search/components/ResultsLayout.js:28
-#, fuzzy
-#| msgid "Search Results"
 msgid "Search results"
 msgstr "検索結果"
 
@@ -11381,26 +11105,18 @@ msgid "Recording by {artist}"
 msgstr "{artist}のレコーディング"
 
 #: ../root/recording/RecordingIndex.js:46
-#, fuzzy
-#| msgid "Track Artist"
 msgid "Track artist"
 msgstr "トラックアーティスト"
 
 #: ../root/recording/RecordingIndex.js:47
-#, fuzzy
-#| msgid "Release Title"
 msgid "Release title"
 msgstr "リリース名"
 
 #: ../root/recording/RecordingIndex.js:48
-#, fuzzy
-#| msgid "Release Artist"
 msgid "Release artist"
 msgstr "リリースアーティスト"
 
 #: ../root/recording/RecordingIndex.js:49
-#, fuzzy
-#| msgid "Release Group Type"
 msgid "Release group type"
 msgstr "リリースグループタイプ"
 
@@ -11445,14 +11161,10 @@ msgstr ""
 #: ../root/relationship/RelationshipsHeader.js:24
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:80
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:161
-#, fuzzy
-#| msgid "Relationship Attributes"
 msgid "Relationship attributes"
 msgstr "関係属性"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:70
-#, fuzzy
-#| msgid "Relationship Attributes"
 msgid "Relationship attribute"
 msgstr "関係属性"
 
@@ -11622,16 +11334,11 @@ msgid "Cannot show cover art"
 msgstr "カバーアートを表示できません"
 
 #: ../root/release/CoverArt.js:96
-#, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
-msgstr ""
-"この画像は{caa|Cover Art Archive}により提供されています。{ia|Internet "
-"Archive}も参照してください。"
+msgstr "この画像は{caa|カバーアートアーカイブ}の一部です。{ia|Internet "
+"Archive}で見ることも可能です。"
 
 #: ../root/release/CoverArt.js:109
 msgid "We do not currently have any cover art for {release}."
@@ -12030,8 +11737,6 @@ msgstr ""
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:39
 #: ../root/report/ReportsIndex.js:325
-#, fuzzy
-#| msgid "Releases with catalog numbers that look like Label Codes"
 msgid "Releases with catalog numbers that look like label codes"
 msgstr "カタログ番号がレーベルコードの形式になっているリリース"
 
@@ -13384,10 +13089,8 @@ msgstr "または、{uri|新しいアーティストを追加}します。"
 
 #: ../root/search/components/DocResults.js:17
 #: ../root/search/components/DocResults.js:19
-#, fuzzy
-#| msgid "Documentation Search"
 msgid "Documentation search"
-msgstr "ドキュメントの検索"
+msgstr "ドキュメント検索"
 
 #: ../root/search/components/EventResults.js:83
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:1049
@@ -13395,7 +13098,7 @@ msgstr "ドキュメントの検索"
 #: ../root/utility/tableColumns.js:389
 msgctxt "event location"
 msgid "Location"
-msgstr ""
+msgstr "地域"
 
 #: ../root/search/components/EventResults.js:92
 msgid "Alternatively, you may {uri|add a new event}."
@@ -13434,8 +13137,6 @@ msgid "Last updated: {date}"
 msgstr "最終更新日: {date}"
 
 #: ../root/search/components/SearchError.js:20
-#, fuzzy
-#| msgid "Search Error"
 msgid "Search error"
 msgstr "検索エラー"
 
@@ -13528,10 +13229,8 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:96
-#, fuzzy
-#| msgid "Callback URL"
 msgid "Callback URI"
-msgstr "コールバックURL"
+msgstr "コールバックURI"
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:104
 msgid ""
@@ -13718,8 +13417,6 @@ msgid "New"
 msgstr ""
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:107
-#, fuzzy
-#| msgid "Version History"
 msgid "Version history"
 msgstr "バージョン履歴"
 
@@ -13980,7 +13677,7 @@ msgstr "イベントを検索"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:131
 msgid "Search for a genre"
-msgstr ""
+msgstr "ジャンルを検索"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:132
 msgid "Search for an instrument"
@@ -13992,7 +13689,7 @@ msgstr "レーベルを検索"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:135
 msgid "Search for a relationship type"
-msgstr ""
+msgstr "関係タイプを検索"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:136
 msgid "Search for a place"
@@ -14020,10 +13717,8 @@ msgstr "作品を検索"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:86
 #: ../root/static/scripts/common/components/EntityLink.js:76
-#, fuzzy
-#| msgid "Primary tag"
 msgid "Primary alias"
-msgstr "プライマリタグ"
+msgstr "主な別名"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:332
 msgid "{forward_link_phrase} / {backward_link_phrase}"
@@ -14131,7 +13826,7 @@ msgstr "フィルター"
 
 #: ../root/static/scripts/common/components/FilterForm.js:100
 msgid "Filter events"
-msgstr ""
+msgstr "イベントフィルター"
 
 #: ../root/static/scripts/common/components/FilterForm.js:102
 msgid "Filter recordings"
@@ -14147,7 +13842,7 @@ msgstr "リリースグループフィルター"
 
 #: ../root/static/scripts/common/components/FilterForm.js:108
 msgid "Filter works"
-msgstr ""
+msgstr "作品フィルター"
 
 #: ../root/static/scripts/common/components/FilterForm.js:185
 msgid "Setlist contains"
@@ -14411,10 +14106,8 @@ msgstr ""
 "イセンス}の条件下で提供されています。"
 
 #: ../root/static/scripts/common/components/WorkArtists.js:24
-#, fuzzy
-#| msgid "Work ratings"
 msgid "Work artists"
-msgstr "作品の評価"
+msgstr "作品のアーティスト"
 
 #: ../root/static/scripts/common/entity.js:256
 msgid "You selected {label}."
@@ -14448,10 +14141,8 @@ msgstr ""
 
 #: ../root/static/scripts/common/i18n/addQuotes.js:13
 #: ../root/static/scripts/common/i18n/addQuotes.js:17
-#, fuzzy
-#| msgid "{variable}:"
 msgid "“{variable}”"
-msgstr "{variable}:"
+msgstr "「{variable}」"
 
 #: ../root/static/scripts/common/i18n/hyphenateTitle.js:14
 msgid "{title} - {subtitle}"
@@ -14704,13 +14395,11 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:5613
 msgid "Please link to Threads profiles, not threads."
-msgstr ""
+msgstr "ポストではなくThreadsプロフィールにリンクしてください。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:5747
-#, fuzzy
-#| msgid "Please link to Twitter profiles, not tweets."
 msgid "Please link to TikTok profiles, not videos."
-msgstr "ツイートではなくTwitterプロフィールにリンクしてください。"
+msgstr "動画ではなくTikTokプロフィールにリンクしてください。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:6014
 msgid "This is not a profile, but a Twitter documentation page."
@@ -14868,14 +14557,10 @@ msgid "Add a new work"
 msgstr "新しい作品を追加"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:49
-#, fuzzy
-#| msgid "Copy Credits"
 msgid "Copy credits"
 msgstr "クレジットをコピー"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:56
-#, fuzzy
-#| msgid "Paste Credits"
 msgid "Paste credits"
 msgstr "クレジットを貼り付け"
 
@@ -14996,10 +14681,8 @@ msgid "The date you've entered is not valid"
 msgstr ""
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:19
-#, fuzzy
-#| msgid "Possible duplicate events"
 msgid "Possible duplicates"
-msgstr "重複している可能性のあるイベント"
+msgstr "重複している可能性があります"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:20
 msgid "We found the following entities with very similar names:"
@@ -15097,8 +14780,6 @@ msgid "Edit URL"
 msgstr "URLを編集"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:32
-#, fuzzy
-#| msgid "Credits"
 msgid "Credit"
 msgstr "クレジット"
 
@@ -15231,8 +14912,6 @@ msgid "Remove relationship"
 msgstr "関係を削除"
 
 #: ../root/static/scripts/edit/externalLinks.js:1334
-#, fuzzy
-#| msgid "credited as “{credit}”"
 msgctxt "relationship credit"
 msgid "credited as “{credit}”"
 msgstr "「{credit}」としてクレジット"
@@ -15242,8 +14921,6 @@ msgid "video"
 msgstr "ビデオ"
 
 #: ../root/static/scripts/edit/externalLinks.js:1495
-#, fuzzy
-#| msgid "Remove Link"
 msgid "Remove link"
 msgstr "リンクの削除"
 
@@ -16106,8 +15783,6 @@ msgid "Tag lookup results"
 msgstr "タグ検索の結果"
 
 #: ../root/url/UrlIndex.js:18
-#, fuzzy
-#| msgid "URL Information"
 msgid "URL information"
 msgstr "URL情報"
 
@@ -16256,7 +15931,7 @@ msgstr "アカウント管理者はユーザーアカウントを編集・削除
 
 #: ../root/user/PrivilegedUsers.js:117
 msgid "The following {count} users are account administrators:"
-msgstr "以下の{count}件のユーザーは管理者アカウントです: "
+msgstr "以下の{count}件のユーザーは管理者アカウントです:"
 
 #: ../root/user/PrivilegedUsers.js:123
 msgctxt "header"
@@ -16318,62 +15993,42 @@ msgid "Send"
 msgstr "送信"
 
 #: ../root/user/UserCollections.js:37
-#, fuzzy
-#| msgid "Area Collections"
 msgid "Area collections"
 msgstr "地域のコレクション"
 
 #: ../root/user/UserCollections.js:38
-#, fuzzy
-#| msgid "Artist Collections"
 msgid "Artist collections"
 msgstr "アーティストのコレクション"
 
 #: ../root/user/UserCollections.js:39
-#, fuzzy
-#| msgid "Event Collections"
 msgid "Event collections"
 msgstr "イベントのコレクション"
 
 #: ../root/user/UserCollections.js:40
-#, fuzzy
-#| msgid "Merge collections"
 msgid "Genre collections"
-msgstr "コレクションをマージ"
+msgstr "ジャンルのコレクション"
 
 #: ../root/user/UserCollections.js:41
-#, fuzzy
-#| msgid "Instrument Collections"
 msgid "Instrument collections"
 msgstr "楽器のコレクション"
 
 #: ../root/user/UserCollections.js:42
-#, fuzzy
-#| msgid "Label Collections"
 msgid "Label collections"
 msgstr "レーベルのコレクション"
 
 #: ../root/user/UserCollections.js:43
-#, fuzzy
-#| msgid "Place Collections"
 msgid "Place collections"
 msgstr "場所のコレクション"
 
 #: ../root/user/UserCollections.js:44
-#, fuzzy
-#| msgid "Recording Collections"
 msgid "Recording collections"
 msgstr "レコーディングのコレクション"
 
 #: ../root/user/UserCollections.js:45
-#, fuzzy
-#| msgid "Release Collections"
 msgid "Release collections"
 msgstr "リリースのコレクション"
 
 #: ../root/user/UserCollections.js:46
-#, fuzzy
-#| msgid "Release Group Collections"
 msgid "Release group collections"
 msgstr "リリースグループのコレクション"
 
@@ -16383,8 +16038,6 @@ msgid "Series collections"
 msgstr "シリーズのコレクション"
 
 #: ../root/user/UserCollections.js:48
-#, fuzzy
-#| msgid "Work Collections"
 msgid "Work collections"
 msgstr "作品のコレクション"
 
@@ -16708,10 +16361,8 @@ msgid "Edit notes disabled"
 msgstr "編集ノートは無効化されています"
 
 #: ../root/user/UserProfile.js:886
-#, fuzzy
-#| msgid "Delete my account"
 msgid "Blocked spam account"
-msgstr "自分のアカウントを削除"
+msgstr "スパムアカウントをブロック"
 
 #: ../root/user/UserProfile.js:888
 msgid ""
@@ -16726,7 +16377,7 @@ msgstr "このユーザーの悪い行動を報告"
 
 #: ../root/user/UserRatingEntity.js:51
 msgid "No ratings."
-msgstr "評価ありません"
+msgstr "評価がありません。"
 
 #: ../root/user/UserRatingList.js:25
 msgid "Artist ratings"
