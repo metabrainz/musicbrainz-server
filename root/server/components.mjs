@@ -136,6 +136,8 @@ export default {
   'entity/Ratings': (): Promise<mixed> => import('../entity/Ratings.js'),
   'entity/Subscribers': (): Promise<mixed> => import('../entity/Subscribers.js'),
   'entity/Tags': (): Promise<mixed> => import('../entity/Tags.js'),
+  'event/CreateEvent': (): Promise<mixed> => import('../event/CreateEvent.js'),
+  'event/EditEvent': (): Promise<mixed> => import('../event/EditEvent.js'),
   'event/EventArt': (): Promise<mixed> => import('../event/EventArt.js'),
   'event/EventArtFields': (): Promise<mixed> => import('../event/EventArtFields.js'),
   'event/EventIndex': (): Promise<mixed> => import('../event/EventIndex.js'),
