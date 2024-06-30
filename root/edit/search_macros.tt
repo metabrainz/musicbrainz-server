@@ -66,6 +66,8 @@
                predicate_set(field.field_name, status, field, 8);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::EditNoteContent';
                predicate_edit_note_content(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::EditNoteDate';
+               predicate_date(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::EditSubscription';
                predicate_edit_subscription(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality';
@@ -262,6 +264,7 @@
   [%~ IF c.user_exists ~%]
     [% predicate_user('edit_note_author') %]
     [% predicate_edit_note_content('edit_note_content') %]
+    [% predicate_date('edit_note_date') %]
   [%~ ELSE ~%]
     [% WRAPPER wfield predicate="set" %]
       [%~ needs_login() ~%]
@@ -440,6 +443,7 @@
                    [ 'vote_count', l('Vote tally') ],
                    [ 'edit_note_author', l('Edit note authors'), {requires_login => 1} ],
                    [ 'edit_note_content', l('Edit note content'), {requires_login => 1} ],
+                   [ 'edit_note_date', l('Edit note date'), {requires_login => 1} ],
                    [ 'edit_subscription', l('Edited entity'), {requires_login => 1} ],
                    [ 'area', l('Area') ],
                    [ 'artist', l('Artist') ],
