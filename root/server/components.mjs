@@ -261,6 +261,7 @@ export default {
   'report/IsrcsWithManyRecordings': (): Promise<mixed> => import('../report/IsrcsWithManyRecordings.js'),
   'report/IswcsWithManyWorks': (): Promise<mixed> => import('../report/IswcsWithManyWorks.js'),
   'report/LabelsDisambiguationSameName': (): Promise<mixed> => import('../report/LabelsDisambiguationSameName.js'),
+  'report/LicenseLinks': (): Promise<mixed> => import('../report/LicenseLinks.js'),
   'report/LimitedEditors': (): Promise<mixed> => import('../report/LimitedEditors.js'),
   'report/LinksWithMultipleEntities': (): Promise<mixed> => import('../report/LinksWithMultipleEntities.js'),
   'report/LowDataQualityReleases': (): Promise<mixed> => import('../report/LowDataQualityReleases.js'),
