@@ -20,6 +20,7 @@ use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Data::URL;
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Data::Utils qw(
+    non_empty
     placeholders
     ref_to_type
     type_to_model
@@ -28,6 +29,7 @@ use MusicBrainz::Server::Constants qw(
     :direction
     %ENTITIES
     %ENTITIES_WITH_RELATIONSHIP_CREDITS
+    %PART_OF_SERIES
     @RELATABLE_ENTITIES
 );
 use Scalar::Util qw( weaken );
@@ -771,8 +773,18 @@ sub exists {
 
     $self->_check_types($type0, $type1);
 
-    my @props = qw(entity0 entity1 link_order link);
-    my @values = @{$values}{qw(entity0_id entity1_id link_order)};
+    my @props = qw(entity0 entity1);
+    my @values = @{$values}{qw(entity0_id entity1_id)};
+
+    # For part of series, do not count link order as different
+    # if everything else is the same in order to avoid duplicate additions
+    # (different number attributes still allowed)
+    my $ignore_link_order = grep { $_ eq $values->{link_type_gid} } values %PART_OF_SERIES;
+
+    if (non_empty($values->{link_order}) && !$ignore_link_order) {
+        push @props, 'link_order';
+        push @values, $values->{link_order};
+    }
 
     my $link = $self->c->model('Link')->find({
         link_type_id => $values->{link_type_id},
@@ -783,6 +795,7 @@ sub exists {
     });
 
     return 0 unless $link;
+    push @props, 'link';
     push @values, $link;
 
     return $self->sql->select_single_value(
