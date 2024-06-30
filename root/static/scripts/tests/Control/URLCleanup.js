@@ -618,32 +618,23 @@ const testData = [
   {
                      input_url: 'http://music.apple.com/artist/hangry-angry-f/id444923726',
              input_entity_type: 'artist',
-limited_link_type_combinations: [
-                                  'downloadpurchase',
-                                  'streamingpaid',
-                                  ['downloadpurchase', 'streamingpaid'],
-                                ],
+    expected_relationship_type: 'applemusic',
             expected_clean_url: 'https://music.apple.com/us/artist/444923726',
+       only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'https://beta.music.apple.com/ca/artist/imposs/205021452',
              input_entity_type: 'artist',
-limited_link_type_combinations: [
-                                  'downloadpurchase',
-                                  'streamingpaid',
-                                  ['downloadpurchase', 'streamingpaid'],
-                                ],
+    expected_relationship_type: 'applemusic',
             expected_clean_url: 'https://music.apple.com/ca/artist/205021452',
+       only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'https://music.apple.com/us/label/ghostly-international/1543968172',
              input_entity_type: 'label',
-limited_link_type_combinations: [
-                                  'downloadpurchase',
-                                  'streamingpaid',
-                                  ['downloadpurchase', 'streamingpaid'],
-                                ],
+    expected_relationship_type: 'applemusic',
             expected_clean_url: 'https://music.apple.com/us/label/1543968172',
+       only_valid_entity_types: ['label'],
   },
   {
                      input_url: 'https://music.apple.com/ee/music-video/black-and-yellow/539886832?uo=4&mt=5&app=music',
