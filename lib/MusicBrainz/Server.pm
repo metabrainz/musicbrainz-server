@@ -348,6 +348,7 @@ sub with_translations {
                 MusicBrainz::Server::Translation::Languages
                 MusicBrainz::Server::Translation::Attributes
                 MusicBrainz::Server::Translation::Relationships
+                MusicBrainz::Server::Translation::History
                 MusicBrainz::Server::Translation::Instruments
                 MusicBrainz::Server::Translation::InstrumentDescriptions );
 

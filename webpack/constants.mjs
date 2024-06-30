@@ -32,6 +32,7 @@ export {WEBPACK_MODE};
 export const GETTEXT_DOMAINS = [
   'attributes',
   'countries',
+  'history',
   'instrument_descriptions',
   'instruments',
   'languages',

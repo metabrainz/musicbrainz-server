@@ -8,17 +8,16 @@
  */
 
 import Layout from '../layout/index.js';
-import expand2react from '../static/scripts/common/i18n/expand2react.js';
 
 component MusicBrainzHistory(events: $ReadOnlyArray<StatisticsEventT>) {
   return (
-    <Layout fullWidth title={l_statistics('History')}>
-      <h1>{l_statistics('Our glorious history')}</h1>
+    <Layout fullWidth title={l_history('History')}>
+      <h1>{l_history('Our glorious history')}</h1>
       {events.length
         ? events.map((event) => {
-          const title = exp.l_statistics(
+          const title = exp.l_history(
             '{date} - {title}',
-            {date: event.date, title: event.title},
+            {date: event.date, title: l_statistics(event.title)},
           );
           return (
             <div key={event.date}>
@@ -27,13 +26,13 @@ component MusicBrainzHistory(events: $ReadOnlyArray<StatisticsEventT>) {
                   <a href={event.link}>{title}</a>
                 ) : title}
               </h2>
-              <p>{expand2react(event.description)}</p>
+              <p>{l_statistics(event.description)}</p>
               <hr />
             </div>
           );
         }) : (
           <p>
-            {l_statistics('It seems we have no history to show at all!')}
+            {l_history('It seems we have no history to show at all!')}
           </p>
         )}
     </Layout>

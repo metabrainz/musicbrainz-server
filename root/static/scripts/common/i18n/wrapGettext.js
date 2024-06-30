@@ -46,6 +46,7 @@ function tryLoadDomain(domain: GettextDomainT) {
 type GettextDomainT =
   | 'attributes'
   | 'countries'
+  | 'history'
   | 'instrument_descriptions'
   | 'instruments'
   | 'languages'

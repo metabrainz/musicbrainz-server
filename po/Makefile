@@ -62,7 +62,7 @@ install: $(MOFILES)
 		install -m 0644 $$file ../lib/LocaleData/$$lang/LC_MESSAGES/$$catalog.mo; \
 	done
 
-pot: mb_server.pot statistics.pot countries.pot languages.pot languages_notrim.pot scripts.pot relationships.pot attributes.pot instruments.pot instrument_descriptions.pot
+pot: mb_server.pot statistics.pot countries.pot languages.pot languages_notrim.pot scripts.pot relationships.pot attributes.pot instruments.pot instrument_descriptions.pot history.pot
 
 mb_server.pot: $(POTFILES) $(JSFILES) $(TT) $(wildcard extract_pot_templates)
 	@echo "Rebuilding the mb_server.pot file";
@@ -124,6 +124,11 @@ instrument_descriptions.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the instrument_descriptions.pot file";
 	@echo "- Update database .pot";
 	@./extract_pot_db instrument_descriptions | msguniq -w $(MSGWRAP) -s | ./format_extracted_comments > instrument_descriptions.pot
+
+history.pot: $(wildcard extract_pot_db)
+	@echo "Rebuilding the history.pot file";
+	@echo "- Update database .pot";
+	@./extract_pot_db history | msguniq -w $(MSGWRAP) -s | ./format_extracted_comments > history.pot
 
 clean:
 	rm -f $(MOFILES)
