@@ -101,9 +101,11 @@ INSERT INTO iso_3166_2 (area, code) VALUES
     (3813, 'GB-CRF');
 
 INSERT INTO label (id, gid, name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, label_code, type, area, comment, edits_pending, last_updated, ended) VALUES
+    (235, '011d1192-6f65-45bd-85c4-0400dd45693e',  'Columbia', 1887, NULL, NULL, NULL, NULL, NULL, 162, 9, 222, 'Sony Music, worldwide except JP; formerly owned by CBS between 1938–1990 within US/CA/MX', 0, '2022-12-29 22:00:37.139371+00', 'f'),
     (399, '4b5cba06-6a79-454c-91f5-3fe220d4950d', 'Nothing Records', 1992, NULL, NULL, 2004, NULL, NULL, NULL, 4, 222, 'US industrial/electronic founded by Trent Reznor', 0, '2012-05-15 19:04:49.109476+00', 'f'),
     (403, 'c9117237-b78b-4e47-b452-c9d94fb34916', 'TVT Records', 1985, NULL, NULL, 2008, 6, NULL, NULL, 4, 222, '', 0, '2012-08-30 19:40:44.521006+00', 't'),
-    (620, '2182a316-c4bd-4605-936a-5e2fac52bdd2', 'Interscope Records', 1990, NULL, NULL, NULL, NULL, NULL, 6406, 4, 222, '', 0, '2013-06-10 22:00:24.33737+00', 'f');
+    (620, '2182a316-c4bd-4605-936a-5e2fac52bdd2', 'Interscope Records', 1990, NULL, NULL, NULL, NULL, NULL, 6406, 4, 222, '', 0, '2013-06-10 22:00:24.33737+00', 'f'),
+    (62565, '10f97e56-1ebe-4b1e-848f-9c5ae0f292ec', 'ISO Records', NULL, NULL, NULL, NULL, NULL, NULL, 5534, 4, NULL, '', 0, '2012-06-22 15:01:56.439741+00', 'f');
 
 INSERT INTO label_gid_redirect (gid, new_id, created) VALUES
     ('8122a316-c4bd-936a-4605-5e2fac52bdd2', 620, '2012-04-09 20:07:05.161415+00');
@@ -152,6 +154,9 @@ INSERT INTO release (id, gid, name, artist_credit, release_group, status, packag
     (26, 'dd245091-b21e-48a3-b59a-f9b8ed8a0469', 'Demons', 20211, 94299, 1, NULL, 120, 28, NULL, '', -1),
     (1693299, '24d4159a-99d9-425d-a7b8-1b9ec0261a33', '★', 956, 1581583, 1, 3, 120, 28, '888751738621', '', -1),
     (2154808, '1bda2f85-0576-4077-b3fa-0fc939079b61', 'Weapons of Mass Seduction', 2196047, 1954919, 1, NULL, 120, 28, NULL, '', -1);
+
+INSERT INTO release_label (id, release, label, catalog_number, last_updated) VALUES
+    (1237936, 1693299, 62565, '', '2016-01-26 21:00:23.940303+00');
 
 INSERT INTO medium (id, release, position, format, name, edits_pending, last_updated, track_count) VALUES
     (1690850, 1693299, 1, 1, '', 0, '2015-05-18 20:20:39.009738+00', 0),

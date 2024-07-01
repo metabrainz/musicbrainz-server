@@ -40,6 +40,11 @@ var newReleaseLabels = utils.withRelease(function (release) {
 
 const getReleaseLabel = x => String(x.release_label ?? '');
 
+const getReleaseLabelKey = (releaseLabel) => (
+  String(releaseLabel.label ?? '') + '\0' +
+  clean(releaseLabel.catalog_number)
+);
+
 releaseEditor.edits = {
 
   releaseGroup: function (release) {
@@ -110,6 +115,8 @@ releaseEditor.edits = {
 
     var newLabelsByID = keyBy(newLabels, getReleaseLabel);
     var oldLabelsByID = keyBy(oldLabels, getReleaseLabel);
+    const newLabelsByKey = keyBy(newLabels, getReleaseLabelKey);
+    const oldLabelsByKey = keyBy(oldLabels, getReleaseLabelKey);
 
     var edits = [];
 
@@ -123,7 +130,7 @@ releaseEditor.edits = {
           // Edit ReleaseLabel
           edits.push(MB.edit.releaseEditReleaseLabel(newLabel));
         }
-      } else {
+      } else if (!oldLabelsByKey.has(getReleaseLabelKey(newLabel))) {
         // Add ReleaseLabel
         newLabel = {...newLabel};
 
@@ -136,7 +143,8 @@ releaseEditor.edits = {
 
     for (let oldLabel of oldLabels) {
       const id = getReleaseLabel(oldLabel);
-      const newLabel = newLabelsByID.get(id);
+      const newLabel = newLabelsByID.get(id) ??
+        newLabelsByKey.get(getReleaseLabelKey(oldLabel));
 
       if (!newLabel || !(newLabel.label || newLabel.catalog_number)) {
         // Delete ReleaseLabel
