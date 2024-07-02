@@ -119,7 +119,6 @@ export const genericEditor: UnsanitizedEditorT = {
   has_email_address: true,
   id: 1,
   is_charter: false,
-  is_limited: false,
   languages: [],
   last_login_date: '2023-05-16T00:20:43Z',
   name: 'editor1',

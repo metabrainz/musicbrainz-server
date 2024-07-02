@@ -15,6 +15,7 @@ import DBDefs from '../static/scripts/common/DBDefs.mjs';
 import parseDate from '../static/scripts/common/utility/parseDate.js';
 import {
   isAddingNotesDisabled,
+  isBeginner,
   isEditingDisabled,
 } from '../static/scripts/common/utility/privileges.js';
 import {age} from '../utility/age.js';
@@ -178,7 +179,7 @@ component Layout(
     ($c.stash.new_edit_notes_mtime ?? Infinity) > Number(
       getRequestCookie($c.req, 'new_edit_notes_dismissed_mtime', '0'),
     ) && (($c.user &&
-      ($c.user.is_limited || !$c.user.has_confirmed_email_address)) ||
+      (isBeginner($c.user) || !$c.user.has_confirmed_email_address)) ||
       getRequestCookie($c.req, 'alert_new_edit_notes', 'true') !== 'false');
 
   return (

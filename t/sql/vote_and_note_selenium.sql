@@ -31,9 +31,3 @@ INSERT INTO edit_data (edit, data)
 
 INSERT INTO edit_release (edit, release)
     VALUES (1, 2), (2, 4), (3, 3);
-
--- Dummy edits to allow editor 5 (from selenium.sql) to vote
-INSERT INTO edit (id, editor, type, status, expire_time)
-    SELECT 3 + x, 5, 111, 2, now() FROM generate_series(1, 10) x;
-INSERT INTO edit_data (edit, data)
-    SELECT 3 + x, '{}' FROM generate_series(1, 10) x;

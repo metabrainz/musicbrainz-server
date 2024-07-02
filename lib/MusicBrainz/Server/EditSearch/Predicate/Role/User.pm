@@ -2,7 +2,7 @@ package MusicBrainz::Server::EditSearch::Predicate::Role::User;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT $STATUS_APPLIED );
+use MusicBrainz::Server::Constants qw( $BEGINNER_FLAG );
 use MusicBrainz::Server::Validation qw( is_database_row_id );
 
 parameter template_clause => (
@@ -48,35 +48,15 @@ role {
         if ($self->operator eq 'me' || $self->operator eq 'not_me') {
             $query->add_where([ $sql, [ $self->user->id ] ]);
         } elsif ($self->operator eq 'limited') {
-            # Please keep the logic in sync with Report::LimitedEditors and Entity::Editor
-            $sql = q{
-              edit.editor != ?
-              AND (
-                NOT EXISTS (
-                  SELECT 1
-                  FROM editor
-                  WHERE id = edit.editor
-                  AND deleted = TRUE
-                )
-              ) AND (
-                  NOT EXISTS (
-                    SELECT 1
-                    FROM edit e2
-                    WHERE e2.editor = edit.editor
-                    AND e2.autoedit = 0
-                    AND e2.status = ?
-                    OFFSET 9
-                  )
-                OR
-                  EXISTS (
-                    SELECT 1
-                    FROM editor
-                    WHERE id = edit.editor
-                    AND member_since > NOW() - INTERVAL '2 weeks'
-                  )
-              )
-            };
-            $query->add_where([ $sql, [ $EDITOR_MODBOT, $STATUS_APPLIED ] ]);
+            $query->add_where([
+              "EXISTS (
+                SELECT 1
+                FROM editor
+                WHERE id = edit.editor
+                AND (privs & $BEGINNER_FLAG) > 0
+              )",
+              [ ],
+            ]);
         } elsif ($self->operator eq 'not_edit_author') {
             $query->add_where([
                 'EXISTS (

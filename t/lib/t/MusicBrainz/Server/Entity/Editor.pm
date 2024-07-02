@@ -18,7 +18,7 @@ isa_ok($editor, 'MusicBrainz::Server::Entity::Editor', 'isa');
 
 # Main attributes
 can_ok($editor, qw( name password privileges email biography website
-                    registration_date last_login_date has_ten_accepted_edits
+                    registration_date last_login_date
                     email_confirmation_date ));
 
 # Check privileges
@@ -38,13 +38,6 @@ ok(!$editor->has_confirmed_email_address, 'email address should not be confirmed
 
 $editor->email_confirmation_date(DateTime->now);
 ok($editor->has_confirmed_email_address, 'should be confirmed');
-
-$editor->registration_date(DateTime->now);
-ok($editor->is_newbie);
-
-$editor->registration_date(DateTime->new(year => '1980'));
-ok(!$editor->is_newbie, 'shouldnt be a newbie');
-
 };
 
 1;

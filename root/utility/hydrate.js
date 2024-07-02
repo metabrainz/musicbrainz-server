@@ -48,7 +48,6 @@ if (__DEV__) {
     'entityType',
     'avatar',
     'id',
-    'is_limited',
     'name',
     'privileges',
   ]);
