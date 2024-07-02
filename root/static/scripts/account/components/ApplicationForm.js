@@ -58,8 +58,13 @@ class ApplicationForm extends React.Component<Props, State> {
   handleOauthRedirectURIChange(e: SyntheticEvent<HTMLInputElement>) {
     const selectedOauthRedirectURI = e.currentTarget.value;
     this.setState(prevState => mutate(prevState)
-      .set('form', 'field', 'oauth_redirect_uri', 'value',
-           selectedOauthRedirectURI)
+      .set(
+        'form',
+        'field',
+        'oauth_redirect_uri',
+        'value',
+        selectedOauthRedirectURI,
+      )
       .final());
   }
 
@@ -72,7 +77,7 @@ class ApplicationForm extends React.Component<Props, State> {
       .final());
   }
 
-  render(): React$Element<'form'> {
+  render(): React.Element<'form'> {
     return (
       <form method="post">
         <FormCsrfToken form={this.state.form} />
@@ -121,4 +126,4 @@ export type ApplicationFormPropsT = Props;
 export default (hydrate<Props>(
   'div.application-form',
   ApplicationForm,
-): React$AbstractComponent<Props, void>);
+): React.AbstractComponent<Props, void>);

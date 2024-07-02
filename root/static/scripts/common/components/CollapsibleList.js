@@ -20,7 +20,7 @@ export type BuildRowPropsT = {
 component CollapsibleList<T>(
   ariaLabel: string,
   buildRow:
-    (T, ?BuildRowPropsT) => React$Element<'li' | typeof SidebarProperty>,
+    (T, ?BuildRowPropsT) => React.Element<'li' | typeof SidebarProperty>,
   buildRowProps?: BuildRowPropsT,
   className: string,
   ContainerElement?: 'dl' | 'ul' = 'ul',
@@ -45,7 +45,7 @@ component CollapsibleList<T>(
 
   const containerProps = {
     'aria-label': ariaLabel,
-    'className': className,
+    className,
   };
 
   const TO_TRIGGER_COLLAPSE = toShowBefore + toShowAfter + 2;

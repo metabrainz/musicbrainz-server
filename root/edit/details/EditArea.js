@@ -68,9 +68,11 @@ component EditArea(edit: EditAreaEditT) {
             <FullChangeDiff
               label={addColonText(l('Type'))}
               newContent={
-                type.new ? lp_attributes(type.new.name, 'area_type') : ''}
+                type.new ? lp_attributes(type.new.name, 'area_type') : ''
+              }
               oldContent={
-                type.old ? lp_attributes(type.old.name, 'area_type') : ''}
+                type.old ? lp_attributes(type.old.name, 'area_type') : ''
+              }
             />
           ) : null}
           {iso31661 ? (

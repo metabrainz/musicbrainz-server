@@ -613,20 +613,20 @@ component _RelationshipDialogContent(...props: PropsT) {
     !isTargetSelectable(targetEntityState.autocomplete?.selectedItem?.entity)
   );
 
-  const hasErrors = !!(
+  const hasErrors = Boolean(
     nonEmpty(linkTypeState.error) ||
     nonEmpty(sourceEntityState.error) ||
     targetEntityState.error ||
     attributesList.some(x => x.error) ||
     datePeriodField.errors?.length ||
     datePeriodField.field.begin_date.errors?.length ||
-    datePeriodField.field.end_date.errors?.length
+    datePeriodField.field.end_date.errors?.length,
   );
 
-  const hasPendingDateErrors = !!(
+  const hasPendingDateErrors = Boolean(
     datePeriodField.pendingErrors?.length ||
     datePeriodField.field.begin_date.pendingErrors?.length ||
-    datePeriodField.field.end_date.pendingErrors?.length
+    datePeriodField.field.end_date.pendingErrors?.length,
   );
 
   React.useEffect(() => {
@@ -795,18 +795,19 @@ component _RelationshipDialogContent(...props: PropsT) {
       'The selected link type is invalid for these entity types',
     );
 
-    const doAccept = function () {
+    function doAccept() {
       sourceDispatch({
         batchSelectionCount,
         creditsToChangeForSource: sourceEntityState.creditsToChange,
         creditsToChangeForTarget: targetEntityState.creditsToChange,
+        // $FlowIgnore[incompatible-call] -- we know it exists on use
         newRelationshipState,
         oldRelationshipState: initialRelationship,
         sourceEntity: source,
         type: 'update-relationship-state',
       });
       closeDialogWithEvent('accept');
-    };
+    }
 
     if (isDatabaseRowId(initialRelationship.id)) {
       performReactUpdateAndMaintainFocus(
@@ -1012,7 +1013,7 @@ component _RelationshipDialogContent(...props: PropsT) {
   );
 }
 
-const RelationshipDialogContent: React$AbstractComponent<
+const RelationshipDialogContent: React.AbstractComponent<
   React.PropsOf<_RelationshipDialogContent>
 > = React.memo(_RelationshipDialogContent);
 

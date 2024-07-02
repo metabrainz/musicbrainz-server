@@ -11,7 +11,7 @@ import * as Sentry from '@sentry/browser';
 import * as React from 'react';
 
 type Props = {
-  +children: React$Node,
+  +children: React.Node,
 };
 
 type State = {
@@ -35,7 +35,7 @@ export default class ErrorBoundary extends React.Component<Props, State> {
     });
   }
 
-  render(): React$Node {
+  render(): React.Node {
     const errorMessage = this.state.errorMessage;
     if (errorMessage) {
       return <div className="error">{errorMessage}</div>;

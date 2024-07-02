@@ -118,8 +118,13 @@ class EditProfileForm extends React.Component<Props, State> {
   handleGenderChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedGender = e.currentTarget.value;
     this._mutateState(ctx => {
-      ctx.set('form', 'field', 'gender_id', 'value',
-              parseInt(selectedGender, 10));
+      ctx.set(
+        'form',
+        'field',
+        'gender_id',
+        'value',
+        parseInt(selectedGender, 10),
+      );
     });
   }
 
@@ -129,8 +134,17 @@ class EditProfileForm extends React.Component<Props, State> {
   ) {
     const selectedLanguage = parseInt(e.currentTarget.value, 10);
     this._mutateState(ctx => {
-      ctx.set('form', 'field', 'languages', 'field', languageIndex,
-              'field', 'language_id', 'value', selectedLanguage);
+      ctx.set(
+        'form',
+        'field',
+        'languages',
+        'field',
+        languageIndex,
+        'field',
+        'language_id',
+        'value',
+        selectedLanguage,
+      );
     });
   }
 
@@ -148,8 +162,17 @@ class EditProfileForm extends React.Component<Props, State> {
         selectedFluency = selectedValue;
     }
     this._mutateState(ctx => {
-      ctx.set('form', 'field', 'languages', 'field', languageIndex,
-              'field', 'fluency', 'value', selectedFluency);
+      ctx.set(
+        'form',
+        'field',
+        'languages',
+        'field',
+        languageIndex,
+        'field',
+        'fluency',
+        'value',
+        selectedFluency,
+      );
     });
   }
 
@@ -174,7 +197,7 @@ class EditProfileForm extends React.Component<Props, State> {
     });
   }
 
-  render(): React$Element<'form'> {
+  render(): React.Element<'form'> {
     const form = this.state.form;
     const field = form.field;
     const areaField = field.area.field;
@@ -330,5 +353,5 @@ export type EditProfileFormPropsT = Props;
 
 export default (
   hydrate<Props>('div.edit-profile-form', EditProfileForm):
-  React$AbstractComponent<Props, void>
+  React.AbstractComponent<Props, void>
 );

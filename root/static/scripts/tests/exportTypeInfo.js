@@ -16,9 +16,9 @@ function editorMayEditTypes(type0, type1) {
   const types = [type0, type1].sort().join('-');
 
   if (/^area-area|area-url$/.test(types)) {
-    return !!MB.userIsLocationEditor;
+    return Boolean(MB.userIsLocationEditor);
   } else if (/^area-instrument|instrument-instrument|instrument-url$/.test(types)) {
-    return !!MB.userIsRelationshipEditor;
+    return Boolean(MB.userIsRelationshipEditor);
   }
 
   return true;
@@ -38,12 +38,13 @@ export default function exportTypeInfo(typeInfo, attrInfo) {
       result[item.gid] = item;
     }
     switch (item.entityType) {
-      case 'link_attribute_type':
+      case 'link_attribute_type': {
         const children = attrChildren.get(String(item.id));
         if (children) {
           item.children = children;
         }
         break;
+      }
       case 'link_type':
         if (item.children) {
           item.children.forEach((child) => {
@@ -78,17 +79,17 @@ export default function exportTypeInfo(typeInfo, attrInfo) {
       return;
     }
 
-    (MB.allowedRelations[type0] = MB.allowedRelations[type0] || [])
-      .push(type1);
+    (MB.allowedRelations[type0] ||= []).push(type1);
 
     if (type0 !== type1) {
-      (MB.allowedRelations[type1] = MB.allowedRelations[type1] || [])
-        .push(type0);
+      (MB.allowedRelations[type1] ||= []).push(type0);
     }
   });
 
   // Sort each list of types alphabetically.
-  Object.values(MB.allowedRelations).forEach(x => x.sort());
+  Object.values(MB.allowedRelations).forEach(x => {
+    x.sort();
+  });
 
   for (const attr of Object.values(linkedEntities.link_attribute_type)) {
     attr.root = linkedEntities.link_attribute_type[attr.root_id];

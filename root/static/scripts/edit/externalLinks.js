@@ -42,7 +42,6 @@ import formatDatePeriod from '../common/utility/formatDatePeriod.js';
 import isDateEmpty from '../common/utility/isDateEmpty.js';
 import {hasSessionStorage} from '../common/utility/storage.js';
 import {uniqueId} from '../common/utility/strings.js';
-import {stripAttributes} from '../edit/utility/linkPhrase.js';
 import {
   appendHiddenRelationshipInputs,
 } from '../relationship-editor/utility/prepareHtmlFormSubmission.js';
@@ -60,6 +59,7 @@ import URLInputPopover from './components/URLInputPopover.js';
 import withLoadedTypeInfo from './components/withLoadedTypeInfo.js';
 import isPositiveInteger from './utility/isPositiveInteger.js';
 import isShortenedUrl from './utility/isShortenedUrl.js';
+import {stripAttributes} from './utility/linkPhrase.js';
 import {linkTypeOptions} from './forms.js';
 import type {RelationshipTypeT} from './URLCleanup.js';
 import * as URLCleanup from './URLCleanup.js';
@@ -78,7 +78,7 @@ type HighlightT = $Values<typeof HIGHLIGHTS>;
 
 export type ErrorT = {
   blockMerge?: boolean,
-  message: React$Node,
+  message: React.Node,
   target: ErrorTarget,
 };
 
@@ -222,8 +222,7 @@ export class _ExternalLinksEditor
           switch (key) {
             case 'link_type_id':
             case 'text':
-              (urls[index] = urls[index] || {})[key] =
-                decodeURIComponent(value);
+              (urls[index] ||= {})[key] = decodeURIComponent(value);
               break;
           }
         }
@@ -495,7 +494,7 @@ export class _ExternalLinksEditor
     index: number,
     event: SyntheticEvent<HTMLSelectElement>,
   ) {
-    const type = +event.currentTarget.value || null;
+    const type = Number(event.currentTarget.value) || null;
     const link = {...this.state.links[index]};
     link.type = type;
     this.setLinkState(index, link);
@@ -628,8 +627,8 @@ export class _ExternalLinksEditor
 
     return {
       allLinks: new Map([...oldLinks, ...newLinks]),
-      newLinks: newLinks,
-      oldLinks: oldLinks,
+      newLinks,
+      oldLinks,
     };
   }
 
@@ -733,13 +732,13 @@ export class _ExternalLinksEditor
     const linkType = link.type
       ? linkedEntities.link_type[link.type] : null;
     // Use existing checker if possible, otherwise create a new one
-    checker = checker ||
-      new URLCleanup.Checker(link.url, this.sourceType);
+    checker ||= new URLCleanup.Checker(link.url, this.sourceType);
     const oldLink = this.oldLinks.get(String(link.relationship));
     const isNewLink = !isPositiveInteger(link.relationship);
     const linkChanged = oldLink && link.url !== oldLink.url;
     const isNewOrChangedLink = (isNewLink || linkChanged);
-    const linkTypeChanged = oldLink && +link.type !== +oldLink.type;
+    const linkTypeChanged = oldLink &&
+      Number(link.type) !== Number(oldLink.type);
 
     if (isEmpty(link)) {
       error = null;
@@ -943,7 +942,8 @@ export class _ExternalLinksEditor
       return HIGHLIGHTS.ADD;
     }
     const oldLink = this.oldLinks.get(String(link.relationship));
-    const linkTypeChanged = oldLink && +link.type !== +oldLink.type;
+    const linkTypeChanged = oldLink &&
+      Number(link.type) !== Number(oldLink.type);
     const creditChanged =
       oldLink && creditableEntityProp &&
       oldLink[creditableEntityProp] !== link[creditableEntityProp];
@@ -965,12 +965,12 @@ export class _ExternalLinksEditor
     const oldLink = this.oldLinks.get(String(link.relationship));
     const linkChanged = oldLink && link.url !== oldLink.url;
     const linkTypeChanged = oldLink &&
-      +link.type !== +oldLink.type;
+      Number(link.type) !== Number(oldLink.type);
 
     return Boolean(linkChanged || linkTypeChanged);
   }
 
-  render(): React$Element<'table'> {
+  render(): React.Element<'table'> {
     this.errorObservable(false);
 
     const linksArray = this.state.links;
@@ -1043,7 +1043,7 @@ export class _ExternalLinksEditor
             });
 
             // If a link has pending types, it must have only 1 possible type
-            let urlMatchesType = !!links[0].pendingTypes;
+            let urlMatchesType = links[0].pendingTypes != null;
             /*
              * Only validate type combination
              * when every single type has passed validation.
@@ -1100,7 +1100,7 @@ export class _ExternalLinksEditor
                 }
                 handleUrlBlur={
                   (event) => this.handleUrlBlur(
-                    firstLinkIndex, !!duplicate, event, index, canMerge,
+                    firstLinkIndex, duplicate != null, event, index, canMerge,
                   )
                 }
                 handleUrlChange={
@@ -1114,7 +1114,7 @@ export class _ExternalLinksEditor
                 onAddRelationship={(url) => this.addRelationship(url, index)}
                 onTypeBlur={
                   (linkIndex, event) => this.handleTypeBlur(
-                    linkIndex, event, !!duplicate, index, canMerge,
+                    linkIndex, event, duplicate != null, index, canMerge,
                   )
                 }
                 onTypeChange={
@@ -1154,7 +1154,7 @@ const LinkTypeSelect = ({
   handleTypeChange,
   options,
   type,
-}: LinkTypeSelectPropsT): React$Element<'select'> => {
+}: LinkTypeSelectPropsT): React.Element<'select'> => {
   const optionAvailable = options.some(option => option.value === type);
   // If the selected type is not available, display it as placeholder
   const linkType = type ? linkedEntities.link_type[type] : null;
@@ -1192,7 +1192,7 @@ type TypeDescriptionProps = {
 };
 
 const TypeDescription =
-  (props: TypeDescriptionProps): React$Element<typeof HelpIcon> => {
+  (props: TypeDescriptionProps): React.Element<typeof HelpIcon> => {
     const linkType = props.type ? linkedEntities.link_type[props.type] : null;
     let typeDescription: Expand2ReactOutput = '';
 
@@ -1228,7 +1228,7 @@ type ExternalLinkRelationshipProps = {
 };
 
 const ExternalLinkRelationship =
-  (props: ExternalLinkRelationshipProps): React$Element<'tr'> => {
+  (props: ExternalLinkRelationshipProps): React.Element<'tr'> => {
     const {
       creditableEntityProp,
       link,
@@ -1298,7 +1298,8 @@ const ExternalLinkRelationship =
                             options.push(option);
                           }
                           return options;
-                        }, [])}
+                        }, [])
+                      }
                       type={link.type}
                     />
                   ) : (
@@ -1340,7 +1341,7 @@ const ExternalLinkRelationship =
             </label>
           </div>
           {linkType &&
-            hasOwnProp(
+            Object.hasOwn(
               linkType.attributes,
               String(VIDEO_ATTRIBUTE_ID),
             ) ? (
@@ -1427,7 +1428,12 @@ export class ExternalLink extends React.Component<LinkProps> {
     }
     target.scrollIntoView();
     target.style.backgroundColor = 'yellow';
-    setTimeout(() => target.style.backgroundColor = 'initial', 1000);
+    setTimeout(
+      () => {
+        target.style.backgroundColor = 'initial';
+      },
+      1000,
+    );
   }
 
   render(): React.MixedElement {
@@ -1475,7 +1481,7 @@ export class ExternalLink extends React.Component<LinkProps> {
     }
 
     return (
-      <React.Fragment>
+      <>
         <tr
           className="external-link-item"
           id={`external-link-${props.index}`}
@@ -1643,13 +1649,13 @@ export class ExternalLink extends React.Component<LinkProps> {
             </td>
           </tr>
         ) : null}
-      </React.Fragment>
+      </>
     );
   }
 }
 
 export const ExternalLinksEditor:
-  React$AbstractComponent<LinksEditorProps, _ExternalLinksEditor> =
+  React.AbstractComponent<LinksEditorProps, _ExternalLinksEditor> =
   withLoadedTypeInfo<LinksEditorProps, _ExternalLinksEditor>(
     _ExternalLinksEditor,
     new Set(['link_type', 'link_attribute_type']),
@@ -1798,7 +1804,7 @@ function groupLinksByUrl(
 }
 
 const protocolRegex = /^(https?|ftp):$/;
-const hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])$/;
+const hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d-]*[A-z\d])$/;
 
 export function getUnicodeUrl(url: string): string {
   if (!isValidURL(url)) {

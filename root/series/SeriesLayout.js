@@ -13,7 +13,7 @@ import Layout from '../layout/index.js';
 import SeriesHeader from './SeriesHeader.js';
 
 component SeriesLayout(
-  children: React$Node,
+  children: React.Node,
   entity as series: SeriesT,
   fullWidth: boolean = false,
   page: string,

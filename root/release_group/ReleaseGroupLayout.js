@@ -16,7 +16,7 @@ import {reduceArtistCredit}
 import ReleaseGroupHeader from './ReleaseGroupHeader.js';
 
 component ReleaseGroupLayout(
-  children: React$Node,
+  children: React.Node,
   entity as releaseGroup: ReleaseGroupT,
   firstReleaseGid?: string | null,
   fullWidth: boolean = false,

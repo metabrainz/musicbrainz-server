@@ -12,7 +12,7 @@ import * as React from 'react';
 import {CONTACT_URL} from '../constants.js';
 import {CatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import PostParameters, {
   type PostParametersT,
 } from '../static/scripts/common/components/PostParameters.js';
@@ -133,7 +133,7 @@ component Login(
         })}
       </p>
 
-      {manifest.js('user/login', {async: 'async'})}
+      {manifest('user/login', {async: 'async'})}
     </Layout>
   );
 }

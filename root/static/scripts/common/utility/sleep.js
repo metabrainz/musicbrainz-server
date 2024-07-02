@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default async function sleep(ms: number): Promise<void> {
+export default function sleep(ms: number): Promise<void> {
   return new Promise(function (resolve) {
     setTimeout(function () {
       resolve();

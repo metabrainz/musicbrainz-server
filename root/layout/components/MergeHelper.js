@@ -53,8 +53,7 @@ component MergeHelper(merger: MergeQueueT) {
             : l(
               `Please navigate to the pages of other entities you wish
                to merge and select the "merge" link.`,
-            )
-          }
+            )}
         </p>
         <div className="buttons" style={{display: 'table-cell'}}>
           {merger.ready_to_merge ? (

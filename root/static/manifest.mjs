@@ -46,10 +46,10 @@ function pathTo(manifest: string) {
 }
 
 const jsExt = /\.js(?:on)?$/;
-export function js(
+function manifest(
   manifest: string,
   extraAttrs?: {+'async'?: 'async', +'data-args'?: mixed} | null = null,
-): React$Element<'script'> {
+): React.Element<'script'> {
   if (jsExt.test(manifest)) {
     throw new Error(
       'Do not include .js in the manifest path name',
@@ -62,3 +62,5 @@ export function js(
     />
   );
 }
+
+export default manifest;

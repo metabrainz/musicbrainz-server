@@ -90,4 +90,4 @@ component PostParameters(params: PostParametersT) {
 export default (hydrate(
   'div.post-parameters',
   PostParameters,
-): React$AbstractComponent<React.PropsOf<PostParameters>>);
+): React.AbstractComponent<React.PropsOf<PostParameters>>);

@@ -12,11 +12,11 @@ import * as React from 'react';
 
 import isDateEmpty from '../../common/utility/isDateEmpty.js';
 import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull.js';
-import FieldErrors from '../../edit/components/FieldErrors.js';
 import useDateRangeFieldset from '../hooks/useDateRangeFieldset.js';
 import {isDatePeriodValid} from '../utility/dates.js';
 import {applyAllPendingErrors} from '../utility/subfieldErrors.js';
 
+import FieldErrors from './FieldErrors.js';
 import FormRowCheckbox from './FormRowCheckbox.js';
 import FormRowPartialDate, {
   type ActionT as FormRowPartialDateActionT,
@@ -131,7 +131,7 @@ export function runReducer(
       const month = String(beginDateFields.month.value ?? '');
       const day = String(beginDateFields.day.value ?? '');
       const newEndDate: PartialDateStringsT =
-        {day: day, month: month, year: year};
+        {day, month, year};
       runFormRowPartialDateReducer(
         subfields.get('end_date'),
         {
@@ -172,55 +172,53 @@ component _DateRangeFieldset(
   const hooks = useDateRangeFieldset(dispatch);
 
   return (
-    <>
-      <fieldset>
-        <legend>{l('Date period')}</legend>
-        <p>
-          {l(`Dates are in the format YYYY-MM-DD.
-              Partial dates such as YYYY-MM or just YYYY are OK,
-              or you can omit the date entirely.`)}
-        </p>
-        <FormRowPartialDate
+    <fieldset>
+      <legend>{l('Date period')}</legend>
+      <p>
+        {l(`Dates are in the format YYYY-MM-DD.
+            Partial dates such as YYYY-MM or just YYYY are OK,
+            or you can omit the date entirely.`)}
+      </p>
+      <FormRowPartialDate
+        disabled={disabled}
+        dispatch={hooks.beginDateDispatch}
+        field={subfields.begin_date}
+        label={addColonText(l('Begin date'))}
+        yearInputRef={hooks.beginYearInputRef}
+      >
+        <button
+          className="icon copy-date"
           disabled={disabled}
-          dispatch={hooks.beginDateDispatch}
-          field={subfields.begin_date}
-          label={addColonText(l('Begin date'))}
-          yearInputRef={hooks.beginYearInputRef}
-        >
-          <button
-            className="icon copy-date"
-            disabled={disabled}
-            onClick={hooks.handleDateCopy}
-            title={l('Copy to end date')}
-            type="button"
-          />
-        </FormRowPartialDate>
-        <FormRowPartialDate
-          disabled={disabled}
-          dispatch={hooks.endDateDispatch}
-          field={subfields.end_date}
-          label={addColonText(l('End date'))}
-          yearInputRef={hooks.endYearInputRef}
+          onClick={hooks.handleDateCopy}
+          title={l('Copy to end date')}
+          type="button"
         />
-        <FieldErrors
-          field={field}
-          includeSubFields={false}
-        />
-        <FormRowCheckbox
-          disabled={
-            disabled ||
-            !isDateEmpty(partialDateFromField(subfields.end_date))
-          }
-          field={subfields.ended}
-          label={endedLabel}
-          onChange={hooks.handleEndedChange}
-        />
-      </fieldset>
-    </>
+      </FormRowPartialDate>
+      <FormRowPartialDate
+        disabled={disabled}
+        dispatch={hooks.endDateDispatch}
+        field={subfields.end_date}
+        label={addColonText(l('End date'))}
+        yearInputRef={hooks.endYearInputRef}
+      />
+      <FieldErrors
+        field={field}
+        includeSubFields={false}
+      />
+      <FormRowCheckbox
+        disabled={
+          disabled ||
+          !isDateEmpty(partialDateFromField(subfields.end_date))
+        }
+        field={subfields.ended}
+        label={endedLabel}
+        onChange={hooks.handleEndedChange}
+      />
+    </fieldset>
   );
 }
 
-const DateRangeFieldset: React$AbstractComponent<
+const DateRangeFieldset: React.AbstractComponent<
   React.PropsOf<_DateRangeFieldset>
 > = React.memo(_DateRangeFieldset);
 

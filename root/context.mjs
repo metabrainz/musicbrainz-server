@@ -47,10 +47,10 @@ const defaultSanitizedContext = {
   user: null,
 };
 
-export const CatalystContext: React$Context<CatalystContextT> =
+export const CatalystContext: React.Context<CatalystContextT> =
   React.createContext<CatalystContextT>(defaultContext);
 
-type SCC = React$Context<SanitizedCatalystContextT>;
+type SCC = React.Context<SanitizedCatalystContextT>;
 
 export const SanitizedCatalystContext: SCC =
   React.createContext<SanitizedCatalystContextT>(

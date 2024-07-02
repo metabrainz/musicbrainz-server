@@ -86,4 +86,4 @@ export default (hydrate<Props>(
   'div.wikipedia-extract',
   WikipediaExtract,
   minimalEntity,
-): React$AbstractComponent<Props, void>);
+): React.AbstractComponent<Props, void>);

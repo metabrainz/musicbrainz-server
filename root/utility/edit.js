@@ -94,7 +94,7 @@ export function getEditStatusDescription(edit: GenericEditWithIdT): string {
 }
 
 export function getEditHeaderClass(edit: GenericEditWithIdT): string {
-  return 'edit-header' + ' ' +
+  return 'edit-header ' +
          getEditStatusClass(edit) + ' ' +
          'edit-' + edit.edit_kind + ' ' +
          kebabCase(edit.edit_name);
@@ -126,7 +126,7 @@ export function editorMayAddNote(
   edit: GenericEditWithIdT,
   editor: ?UnsanitizedEditorT,
 ): boolean {
-  return !!editor && nonEmpty(editor.email_confirmation_date) &&
+  return editor != null && nonEmpty(editor.email_confirmation_date) &&
     !isAddingNotesDisabled(editor);
 }
 
@@ -137,7 +137,7 @@ export function editorMayApprove(
   const conditions = edit.conditions;
 
   const minimalRequirements = (
-    !!editor &&
+    editor != null &&
     edit.status === EDIT_STATUS_OPEN &&
     isAutoEditor(editor) &&
     isEditingEnabled(editor)
@@ -148,7 +148,7 @@ export function editorMayApprove(
   }
 
   switch (edit.edit_type) {
-    case EDIT_RELATIONSHIP_DELETE:
+    case EDIT_RELATIONSHIP_DELETE: {
       const linkType = edit.data.relationship?.link?.type;
 
       if (linkType && typeof linkType === 'object') {
@@ -159,8 +159,8 @@ export function editorMayApprove(
         );
       }
       break;
-
-    case EDIT_SERIES_EDIT:
+    }
+    case EDIT_SERIES_EDIT: {
       const oldOrderingType = (edit.data.old?.ordering_type_id) ?? 0;
       const newOrderingType = (edit.data.new?.ordering_type_id) ?? 0;
       // Intentional != since some edit data store numbers as strings
@@ -169,6 +169,7 @@ export function editorMayApprove(
         return false;
       }
       break;
+    }
   }
 
   return conditions.auto_edit;
@@ -178,7 +179,7 @@ export function editorMayCancel(
   edit: GenericEditWithIdT,
   editor: ?UnsanitizedEditorT,
 ): boolean {
-  return !!editor &&
+  return editor != null &&
     (edit.status === EDIT_STATUS_OPEN && edit.editor_id === editor.id);
 }
 
@@ -186,7 +187,7 @@ export function editorMayVote(
   editor: ?UnsanitizedEditorT,
 ): boolean {
   return (
-    !!editor &&
+    editor != null &&
     !editor.is_limited &&
     nonEmpty(editor.email_confirmation_date) &&
     !isBot(editor) &&
@@ -199,7 +200,7 @@ export function editorMayVoteOnEdit(
   editor: ?UnsanitizedEditorT,
 ): boolean {
   return (
-    !!editor &&
+    editor != null &&
     editorMayVote(editor) &&
     edit.status === EDIT_STATUS_OPEN &&
     editor.id !== edit.editor_id

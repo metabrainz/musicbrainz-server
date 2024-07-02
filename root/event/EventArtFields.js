@@ -14,7 +14,7 @@ import ArtFields, {
 const EventArtFields = ({
   form,
   typeIdOptions,
-}: Props): React$Element<typeof ArtFields> => {
+}: Props): React.Element<typeof ArtFields> => {
   return (
     <ArtFields
       archiveName="event"

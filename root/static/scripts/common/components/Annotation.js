@@ -141,4 +141,4 @@ export default (hydrate<React.PropsOf<Annotation>>(
     newProps.entity = newEntity;
     return newProps;
   },
-): React$AbstractComponent<React.PropsOf<Annotation>>);
+): React.AbstractComponent<React.PropsOf<Annotation>>);

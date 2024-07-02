@@ -12,18 +12,18 @@ import * as React from 'react';
 
 import mediumHasMultipleArtists
   from '../../../../utility/mediumHasMultipleArtists.js';
-import {
-  type LinkedEntitiesT,
-  mergeLinkedEntities,
-} from '../../common/linkedEntities.mjs';
-import {uniqBy} from '../../common/utility/arrays.js';
-import pThrottle, {
-  ThrottleAbortError,
-} from '../../common/utility/pThrottle.js';
 import type {
   LazyReleaseActionT,
 } from '../../release/types.js';
 import MediumDescription from '../components/MediumDescription.js';
+import {
+  type LinkedEntitiesT,
+  mergeLinkedEntities,
+} from '../linkedEntities.mjs';
+import {uniqBy} from '../utility/arrays.js';
+import pThrottle, {
+  ThrottleAbortError,
+} from '../utility/pThrottle.js';
 
 type TracksResponseT = {
   +linked_entities: {

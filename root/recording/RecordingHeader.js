@@ -8,7 +8,7 @@
  */
 
 import EntityHeader from '../components/EntityHeader.js';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
@@ -28,7 +28,7 @@ component RecordingHeader(
       preHeader={
         <>
           <TaggerIcon entityType="recording" gid={recording.gid} />
-          {manifest.js('common/components/TaggerIcon', {async: 'async'})}
+          {manifest('common/components/TaggerIcon', {async: 'async'})}
         </>
       }
       subHeading={recording.video

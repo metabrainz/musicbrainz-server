@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
@@ -43,10 +43,7 @@ const buildRecordingColumns = (recording: RecordingWithArtistCreditT) => (
     </td>
     <td>
       <IsrcList isrcs={recording.isrcs} />
-      {manifest.js(
-        'common/components/IsrcList',
-        {async: 'async'},
-      )}
+      {manifest('common/components/IsrcList', {async: 'async'})}
     </td>
   </>
 );
@@ -181,7 +178,7 @@ component RecordingResults(...{
           })}
         </p>
       ) : null}
-      {manifest.js('common/components/TaggerIcon', {async: 'async'})}
+      {manifest('common/components/TaggerIcon', {async: 'async'})}
     </ResultsLayout>
   );
 }

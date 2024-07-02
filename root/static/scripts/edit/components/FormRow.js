@@ -8,7 +8,7 @@
  */
 
 component FormRow(
-  children: React$Node,
+  children: React.Node,
   hasNoLabel: boolean = false,
   hasNoMargin: boolean = false,
 ) {

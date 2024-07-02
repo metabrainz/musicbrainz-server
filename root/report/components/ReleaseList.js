@@ -40,7 +40,7 @@ component ReleaseList<D: {+release: ?ReleaseT, ...}>(
         columnName: 'release',
         descriptive: false,
         getEntity: result => result.release ?? null,
-        subPath: subPath,
+        subPath,
         title: l('Release'),
       });
       const artistCreditColumn =

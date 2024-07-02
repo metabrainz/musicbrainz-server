@@ -69,7 +69,7 @@ component _RelationshipDiff(
   const i18nConfig: LinkPhraseI18n<Expand2ReactOutput> = {
     commaList,
     defaultValue: '',
-    displayLinkAttribute: function (attr: LinkAttrT) {
+    displayLinkAttribute(attr: LinkAttrT) {
       const typeId = String(attr.typeID);
       const display = displayLinkAttribute(attr);
 
@@ -222,7 +222,7 @@ component _RelationshipDiff(
   );
 }
 
-const RelationshipDiff: React$AbstractComponent<
+const RelationshipDiff: React.AbstractComponent<
   React.PropsOf<_RelationshipDiff>
 > = React.memo(_RelationshipDiff);
 

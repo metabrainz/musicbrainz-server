@@ -101,7 +101,7 @@ component _SeriesRelationshipEditor(...props: PropsT) {
   function handleSeriesTypeChange(event: SyntheticEvent<HTMLSelectElement>) {
     const typeIdValue: string = event.currentTarget.value;
     const typeId: number | null =
-      isBlank(typeIdValue) ? null : (+typeIdValue);
+      isBlank(typeIdValue) ? null : (Number(typeIdValue));
     dispatch({
       changes: {typeID: typeId},
       entityType: 'series',
@@ -146,7 +146,7 @@ component _SeriesRelationshipEditor(...props: PropsT) {
     event: SyntheticEvent<HTMLSelectElement>,
   ) {
     dispatch({
-      changes: {orderingTypeID: +(event.currentTarget.value)},
+      changes: {orderingTypeID: Number(event.currentTarget.value)},
       entityType: 'series',
       type: 'update-entity',
     });
@@ -179,7 +179,7 @@ component _SeriesRelationshipEditor(...props: PropsT) {
   );
 }
 
-const NonHydratedSeriesRelationshipEditor: React$AbstractComponent<PropsT> =
+const NonHydratedSeriesRelationshipEditor: React.AbstractComponent<PropsT> =
   withLoadedTypeInfoForRelationshipEditor<PropsT>(
     _SeriesRelationshipEditor,
   );
@@ -187,6 +187,6 @@ const NonHydratedSeriesRelationshipEditor: React$AbstractComponent<PropsT> =
 const SeriesRelationshipEditor = (hydrate<PropsT>(
   'div.relationship-editor',
   NonHydratedSeriesRelationshipEditor,
-): React$AbstractComponent<PropsT>);
+): React.AbstractComponent<PropsT>);
 
 export default SeriesRelationshipEditor;

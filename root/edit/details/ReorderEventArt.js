@@ -15,7 +15,7 @@ type Props = {
 
 const ReorderEventArt = ({
   edit,
-}: Props): React$Element<typeof ReorderArt> => (
+}: Props): React.Element<typeof ReorderArt> => (
   <ReorderArt
     archiveName="event"
     edit={edit}

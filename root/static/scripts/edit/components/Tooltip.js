@@ -14,7 +14,7 @@
 
 import * as React from 'react';
 
-component Tooltip(content: React$Node, target: React$Node) {
+component Tooltip(content: React.Node, target: React.Node) {
   const containerRef = React.useRef<HTMLSpanElement | null>(null);
 
   React.useEffect(() => {

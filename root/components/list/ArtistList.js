@@ -43,14 +43,14 @@ component ArtistList(
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
-        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
+        ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers
-        ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
+        ? defineSeriesNumberColumn({seriesItemNumbers})
         : null;
       const nameColumn = defineNameColumn<ArtistT>({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Artist'),
       });
       const sortNameColumn = showSortName ? defineTextColumn<ArtistT>({
@@ -59,8 +59,8 @@ component ArtistList(
         title: l('Sort name'),
       }) : null;
       const typeColumn = defineTypeColumn({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         typeContext: 'artist_type',
       });
       const genderColumn = defineTextColumn<ArtistT>({
@@ -68,8 +68,8 @@ component ArtistList(
         getText: entity => entity.gender
           ? lp_attributes(entity.gender.name, 'gender')
           : '',
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Gender'),
       });
       const areaColumn = defineEntityColumn<ArtistT>({
@@ -78,28 +78,28 @@ component ArtistList(
         title: l('Area'),
       });
       const beginDateColumn = showBeginEnd
-        ? defineBeginDateColumn({order: order, sortable: sortable})
+        ? defineBeginDateColumn({order, sortable})
         : null;
       const beginAreaColumn = showBeginEnd ? defineEntityColumn<ArtistT>({
         columnName: 'begin_area',
         getEntity: entity => entity.begin_area,
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Begin area'),
       }) : null;
       const endDateColumn = showBeginEnd
-        ? defineEndDateColumn({order: order, sortable: sortable})
+        ? defineEndDateColumn({order, sortable})
         : null;
       const endAreaColumn = showBeginEnd ? defineEntityColumn<ArtistT>({
         columnName: 'end_area',
         getEntity: entity => entity.end_area,
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('End area'),
       }) : null;
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
         ? defineInstrumentUsageColumn({
-          instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,
+          instrumentCreditsAndRelTypes,
         })
         : null;
       const ratingsColumn = defineRatingsColumn<ArtistT>({

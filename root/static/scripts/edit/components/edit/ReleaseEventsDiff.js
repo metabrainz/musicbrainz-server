@@ -20,10 +20,8 @@ import {
 } from '../../utility/editDiff.js';
 
 function areReleaseCountriesEqual(a: ReleaseEventT, b: ReleaseEventT) {
-  return !!(
-    !(a.country || b.country) ||
-    (a.country && b.country && a.country.id === b.country.id)
-  );
+  return !(a.country || b.country) ||
+    (a.country && b.country && a.country.id === b.country.id);
 }
 
 function areReleaseDatesEqual(a: ReleaseEventT, b: ReleaseEventT) {
@@ -58,8 +56,7 @@ const changeSide = (
       {countryDisplay ? <br /> : null}
       {sideB && areReleaseDatesEqual(sideA, sideB)
         ? formatDate(sideA.date)
-        : <span className={CLASS_MAP[type]}>{formatDate(sideA.date)}</span>
-      }
+        : <span className={CLASS_MAP[type]}>{formatDate(sideA.date)}</span>}
     </>
   ) : null;
 

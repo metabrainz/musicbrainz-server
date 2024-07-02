@@ -29,20 +29,20 @@ import isEntityProbablyClassical from './isEntityProbablyClassical.js';
 import getSimilarity from './similarity.js';
 
 /* eslint-disable sort-keys */
-const featRegex = /(?:^\s*|[,，－\-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａｔ)(?:[.．]|(?=\s))|(?:featuring|ｆｅａｔｕｒｉｎｇ)(?=\s))\s*/i;
+const featRegex = /(?:^\s*|[,，－-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａｔ)(?:[.．]|(?=\s))|(?:featuring|ｆｅａｔｕｒｉｎｇ)(?=\s))\s*/i;
 /*
  * `featQuickTestRegex` is used to quickly test whether a title *might*
  * contain featured artists. It's fine if it returns false-positives.
  * Please keep it in sync with `featRegex` above.
  */
 const featQuickTestRegex = /ft|feat|ｆｔ|ｆｅａｔ/i;
-const collabRegex = /([,，]?\s+(?:&|and|et|＆|ａｎｄ|ｅｔ)\s+|、|[,，;；]\s+|\s*[\/／]\s*|\s+(?:vs|ｖｓ)[.．]\s+)/i;
+const collabRegex = /([,，]?\s+(?:&|and|et|＆|ａｎｄ|ｅｔ)\s+|、|[,，;；]\s+|\s*[/／]\s*|\s+(?:vs|ｖｓ)[.．]\s+)/i;
 const bracketPairs = [['(', ')'], ['[', ']'], ['（', '）'], ['［', '］']];
 
 function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
   const parts = str.split(featRegex).map(clean);
 
-  const fixFeatJoinPhrase = function (existing) {
+  function fixFeatJoinPhrase(existing) {
     const joinPhrase = isProbablyClassical ? '; ' : existing ? (
       ' ' +
       fromFullwidthLatin(existing)
@@ -54,7 +54,7 @@ function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
     return hasFullwidthLatin(existing)
       ? toFullwidthLatin(joinPhrase)
       : joinPhrase;
-  };
+  }
 
   const name = clean(parts[0]);
 
@@ -68,9 +68,9 @@ function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
     .flatMap(c => expandCredit(c, artists, isProbablyClassical));
 
   return {
-    name: name,
-    joinPhrase: joinPhrase,
-    artistCredit: artistCredit,
+    name,
+    joinPhrase,
+    artistCredit,
   };
 }
 
@@ -107,7 +107,7 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
           }
         }
 
-        joinPhrase = joinPhrase || m.joinPhrase;
+        joinPhrase ||= m.joinPhrase;
         credits = credits.concat(m.artistCredit);
         remainder = b.post;
       } else {
@@ -116,7 +116,7 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
       }
     }
 
-    return {name: clean(name), joinPhrase: joinPhrase, artistCredit: credits};
+    return {name: clean(name), joinPhrase, artistCredit: credits};
   }, {name: str, joinPhrase: '', artistCredit: []});
 }
 
@@ -182,13 +182,13 @@ function expandCredit(fullName, artists, isProbablyClassical) {
    */
   const bestFullMatch = bestArtistMatch(artists, fullName);
 
-  const fixJoinPhrase = function (existing) {
+  function fixJoinPhrase(existing) {
     const joinPhrase = isProbablyClassical ? ', ' : (existing || ' & ');
 
     return hasFullwidthLatin(existing)
       ? toFullwidthLatin(joinPhrase)
       : joinPhrase;
-  };
+  }
 
   const splitParts = fullName.split(collabRegex);
   const splitMatches = [];
@@ -199,7 +199,7 @@ function expandCredit(fullName, artists, isProbablyClassical) {
     const match = {
       similarity: -1,
       artist: null,
-      name: name,
+      name,
       joinPhrase: fixJoinPhrase(splitParts[i + 1]),
       ...bestArtistMatch(artists, name),
     };
@@ -272,10 +272,10 @@ MB.Control.initGuessFeatButton = function (formName) {
        * Emulate an observable that just reads/writes
        * to the name input directly.
        */
-      name: function () {
+      name(...args) {
         const nameInput = document.getElementById('id-' + formName + '.name');
-        if (arguments.length) {
-          setInputValueForReact(nameInput, arguments[0]);
+        if (args.length) {
+          setInputValueForReact(nameInput, args[0]);
           return undefined;
         }
         return nameInput.value;

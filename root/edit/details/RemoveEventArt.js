@@ -15,7 +15,7 @@ type Props = {
 
 const RemoveEventArt = ({
   edit,
-}: Props): React$Element<typeof RemoveArt> => (
+}: Props): React.Element<typeof RemoveArt> => (
   <RemoveArt
     archiveName="event"
     edit={edit}

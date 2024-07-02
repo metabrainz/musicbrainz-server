@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import commaOnlyList from '../../common/i18n/commaOnlyList.js';
+import commaOnlyList from '../i18n/commaOnlyList.js';
 
 import EntityLink from './EntityLink.js';
 

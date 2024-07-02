@@ -69,7 +69,7 @@ function _indexValue(
           ) {
             compactValue = ({}: {[compactObjectKey: number]: number});
             for (const objectKey in value) {
-              if (hasOwnProp(value, objectKey)) {
+              if (Object.hasOwn(value, objectKey)) {
                 const compactObjectKey = _indexValue(
                   objectKey,
                   indexCache,
@@ -142,8 +142,8 @@ export function decompactEntityJson(
       const result: {[objectKey: string]: mixed} = {};
       resolved[index] = result;
       for (const objectKeyIndex in value) {
-        if (hasOwnProp(value, objectKeyIndex)) {
-          const objectKey = compactedArray[+objectKeyIndex];
+        if (Object.hasOwn(value, objectKeyIndex)) {
+          const objectKey = compactedArray[Number(objectKeyIndex)];
           /*:: invariant(typeof objectKey === 'string'); */
           const objectValueIndex = value[objectKeyIndex];
           /*:: invariant(typeof objectValueIndex === 'number'); */

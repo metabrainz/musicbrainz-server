@@ -13,7 +13,7 @@ import Layout from '../layout/index.js';
 import GenreHeader from './GenreHeader.js';
 
 component GenreLayout(
-  children: React$Node,
+  children: React.Node,
   entity as genre: GenreT,
   fullWidth: boolean = false,
   page: string,

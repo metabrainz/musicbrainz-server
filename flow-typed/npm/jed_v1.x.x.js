@@ -1,3 +1,5 @@
+// @flow strict
+
 declare module 'jed' {
   declare export type JedOptions = {
     domain?: string,

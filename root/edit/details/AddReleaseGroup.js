@@ -64,8 +64,7 @@ component AddReleaseGroup(allowNew?: boolean, edit: AddReleaseGroupEditT) {
               <td>
                 {type.historic
                   ? lp_attributes(type.name, 'release_group_secondary_type')
-                  : lp_attributes(type.name, 'release_group_primary_type')
-                }
+                  : lp_attributes(type.name, 'release_group_primary_type')}
               </td>
             </tr>
           ) : null}

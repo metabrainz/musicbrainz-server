@@ -76,7 +76,7 @@ class TimelineViewModel {
       },
     };
     self.zoomArray = ko.computed({
-      read: function () {
+      read() {
         var parts = [self.zoom.xaxis.min(), self.zoom.xaxis.max()];
         if (self.zoom.yaxis.min() || self.zoom.yaxis.max()) {
           parts.push(self.zoom.yaxis.min());
@@ -84,7 +84,7 @@ class TimelineViewModel {
         }
         return parts;
       },
-      write: function (array) {
+      write(array) {
         self.zoom.xaxis.min(array[0]);
         self.zoom.xaxis.max(array[1]);
         if (array.length > 2) {
@@ -94,18 +94,18 @@ class TimelineViewModel {
       },
     });
     self.zoomHashPart = ko.computed({
-      read: function () {
+      read() {
         var parts = self.zoomArray();
         if (parts.filter(Boolean).length > 0) {
           return ['g'].concat(parts).join('/');
         }
         return null;
       },
-      write: function (part) {
+      write(part) {
         if (part) {
-          var itemFix = function (item) {
+          function itemFix(item) {
             return (item === 'null' ? null : parseFloat(item));
-          };
+          }
           self.zoomArray(part.split('/').slice(1).map(itemFix));
         } else {
           self.zoomArray([null, null, null, null]);
@@ -224,7 +224,7 @@ class TimelineViewModel {
     });
 
     ko.computed({
-      read: function () {
+      read() {
         if (self.options.events() &&
             !self.loadedEvents() &&
             !self.loadingEvents()) {
@@ -335,8 +335,8 @@ class TimelineCategory {
     self.name = name;
     self.hashIdentifier = 'c-' + name;
     self.label = label;
-    self.enabledByDefault = !!enabledByDefault;
-    self.enabled = ko.observable(!!enabledByDefault);
+    self.enabledByDefault = Boolean(enabledByDefault);
+    self.enabled = ko.observable(Boolean(enabledByDefault));
     // rateLimit to improve reponsiveness of checkboxes
     self.lines = debounceComputed(ko.observableArray([]), 50);
 
@@ -382,8 +382,8 @@ class TimelineLine {
     self.name = name;
     self.hashIdentifier = name.replace(/^count\./, '');
     self.label = label;
-    self.enabledByDefault = !!enabledByDefault;
-    self.enabled = ko.observable(!!enabledByDefault);
+    self.enabledByDefault = Boolean(enabledByDefault);
+    self.enabled = ko.observable(Boolean(enabledByDefault));
     self.loading = ko.observable(false);
     self.data = ko.observable(null);
     self.loaded = ko.observable(null);
@@ -446,8 +446,8 @@ class TimelineLine {
       for (var i = 0; i < days; i++) {
         count++;
         mean += changeValue;
-        sCurrent = a * changeValue + (1 - a) * sPrev;
-        weekData.push([datePrev + (i + 1) * oneDay, sCurrent]);
+        sCurrent = (a * changeValue) + ((1 - a) * sPrev);
+        weekData.push([datePrev + ((i + 1) * oneDay), sCurrent]);
         sPrev = sCurrent;
       }
       dataPrev = value[1];
@@ -457,15 +457,15 @@ class TimelineLine {
 
     var deviationSum = weekData.reduce(function (sum, next) {
       var toSquare = next[1] - mean;
-      return sum + toSquare * toSquare;
+      return sum + (toSquare * toSquare);
     }, 0);
     var standardDeviation = Math.sqrt(deviationSum / count);
     var thresholds = {
-      max: mean + 3 * standardDeviation,
-      min: mean - 3 * standardDeviation,
+      max: mean + (3 * standardDeviation),
+      min: mean - (3 * standardDeviation),
     };
 
-    return {data: weekData, thresholds: thresholds};
+    return {data: weekData, thresholds};
   }
 
   calculateRateBounds(data, thresholds, dateThresholds) {
@@ -493,7 +493,7 @@ class TimelineLine {
 
 (function () {
   // Closure over utility functions.
-  var showTooltip = function (x, y, contents) {
+  function showTooltip(x, y, contents) {
     $('<div id="tooltip">' + contents + '</div>')
       .css({
         'position': 'absolute',
@@ -507,20 +507,20 @@ class TimelineLine {
       })
       .appendTo('body')
       .fadeIn(200);
-  };
+  }
 
-  var removeTooltip = function () {
+  function removeTooltip() {
     $('#tooltip').remove();
-  };
+  }
 
-  var setCursor = function (type) {
+  function setCursor(type) {
     if (!type) {
       type = '';
     }
     $('body').css('cursor', type);
-  };
+  }
 
-  var setItemTooltip = function (item, extra, fixed) {
+  function setItemTooltip(item, extra, fixed) {
     if (!extra) {
       extra = '';
     }
@@ -554,9 +554,9 @@ class TimelineLine {
       date.getFullYear() + '-' + month + '-' + day + ': ' + y +
         ' ' + item.series.label + extra,
     );
-  };
+  }
 
-  var setEventTooltip = function (thisEvent, pos) {
+  function setEventTooltip(thisEvent, pos) {
     removeTooltip();
     setCursor('pointer');
     showTooltip(
@@ -565,10 +565,10 @@ class TimelineLine {
       '<h2 style="margin-top: 0px; padding-top: 0px">' +
         thisEvent.title + '</h2>' + thisEvent.description,
     );
-  };
+  }
 
   ko.bindingHandlers.flot = {
-    init: function (
+    init(
       element,
       valueAccessor,
       allBindings,
@@ -578,13 +578,13 @@ class TimelineLine {
       var graph = ko.unwrap(valueAccessor());
       var previousPoint = null;
       var currentEvent = null;
-      var reset = function () {
+      function reset() {
         removeTooltip();
         previousPoint = null;
         currentEvent = null;
         $(element).data('plot').changeCurrentEvent({});
         setCursor();
-      };
+      }
       $(element)
         .bind('plothover', function (event, pos, item) {
           if (item) {
@@ -642,7 +642,7 @@ class TimelineLine {
         plot.draw();
       }, 100));
     },
-    update: function (
+    update(
       element,
       valueAccessor,
       allBindings,
@@ -669,7 +669,7 @@ class TimelineLine {
             timeformat: '%Y/%m/%d',
           };
           options.yaxis = {
-            tickFormatter: function (x) {
+            tickFormatter(x) {
               // XXX: localized number formatting
               return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
             },
@@ -723,7 +723,7 @@ class TimelineLine {
             data = line.rateData().data;
           }
           return {
-            data: data,
+            data,
             label: line.label,
             color: line.color,
           };

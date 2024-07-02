@@ -40,7 +40,7 @@ component DuplicateArtists(...{
         `This report aims to identify artists with very similar names.
          If two artists are actually the same, please merge them
          (remember to {how_to_write_edit_notes|write an edit note}
-         and give your proof). If they\'re different, add
+         and give your proof). If they're different, add
          {disambiguation_comment|disambiguation comments} to them
          (and once a group of similarly named artists have
          disambiguation comments, they will stop appearing here).`,

@@ -16,7 +16,7 @@ import * as ReactDOMServer from 'react-dom/server';
  * so this wrapper removes it.
  */
 
-export default function renderToStaticMarkup(element: React$Node): string {
+export default function renderToStaticMarkup(element: React.Node): string {
   const unstrippedMarkup = ReactDOMServer.renderToStaticMarkup(element);
   return unstrippedMarkup.replace(/^<!-- -->/, '');
 }

@@ -52,8 +52,7 @@ component RemoveMedium(edit: RemoveMediumEditT) {
                  is still correct.`)
             : l(`Some track lengths, titles or artists have changed
                  since the removal edit was entered. Please check the changes
-                 and ensure the removal is still correct.`)
-          }
+                 and ensure the removal is still correct.`)}
         />
       ) : null}
 

@@ -8,7 +8,7 @@
  */
 
 import Layout from '../../layout/index.js';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import type {ApplicationFormT}
   from '../../static/scripts/account/components/ApplicationForm.js';
 import ApplicationForm
@@ -23,7 +23,7 @@ component RegisterApplication(form: ApplicationFormT) {
         form={form}
         submitLabel={lp('Register application', 'interactive')}
       />
-      {manifest.js('account/applications/register', {async: 'async'})}
+      {manifest('account/applications/register', {async: 'async'})}
     </Layout>
   );
 }

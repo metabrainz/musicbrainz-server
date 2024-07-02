@@ -79,8 +79,7 @@ component ElectionDetails(election: AutoEditorElectionT) {
                   </td>
                 </tr>
               ) : null
-          )
-        }
+          )}
         <tr>
           <th>{addColonText(lp('Status', 'election status'))}</th>
           <td>

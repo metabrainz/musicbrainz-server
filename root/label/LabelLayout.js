@@ -13,7 +13,7 @@ import Layout from '../layout/index.js';
 import LabelHeader from './LabelHeader.js';
 
 component LabelLayout(
-  children: React$Node,
+  children: React.Node,
   entity as label: LabelT,
   fullWidth: boolean = false,
   page: string,

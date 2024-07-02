@@ -13,7 +13,7 @@ import Layout from '../layout/index.js';
 import WorkHeader from './WorkHeader.js';
 
 component WorkLayout(
-  children: React$Node,
+  children: React.Node,
   entity as work: WorkT,
   fullWidth: boolean = false,
   page: string,

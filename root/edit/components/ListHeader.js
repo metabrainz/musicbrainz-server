@@ -28,8 +28,10 @@ component QuickLinks(
   const entityUrlFragment = entity
     ? ENTITIES[entity.entityType].url
     : undefined;
-  const isEntityAllPage = !!entity && page === entity.entityType + '_all';
-  const isEntityOpenPage = !!entity && page === entity.entityType + '_open';
+  const isEntityAllPage = entity != null &&
+    page === entity.entityType + '_all';
+  const isEntityOpenPage = entity != null &&
+    page === entity.entityType + '_open';
 
   const quickLinks = [];
 
@@ -166,7 +168,7 @@ component QuickLinks(
     );
   }
   return React.createElement(React.Fragment, null, ...quickLinks.reduce(
-    (accum: Array<React$Node>, link, index) => {
+    (accum: Array<React.Node>, link, index) => {
       accum.push(link);
       if (index < (quickLinks.length - 1)) {
         accum.push(' | ');

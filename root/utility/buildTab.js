@@ -13,7 +13,7 @@ const buildTab = (
   path: string,
   tabPage: string,
   className?: string,
-): React$Element<'li'> => {
+): React.Element<'li'> => {
   const isSelected = tabPage === page;
   const passedClass = nonEmpty(className) ? className : null;
   const tabClass = isSelected && nonEmpty(passedClass)

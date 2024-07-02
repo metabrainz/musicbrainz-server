@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import ArtistRoles
   from '../../static/scripts/common/components/ArtistRoles.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
@@ -49,10 +49,7 @@ function buildResult(result: SearchResultT<EventT>, index: number) {
       </td>
       <td>
         <ArtistRoles relations={event.performers} />
-        {manifest.js(
-          'common/components/ArtistRoles',
-          {async: 'async'},
-        )}
+        {manifest('common/components/ArtistRoles', {async: 'async'})}
       </td>
       <td>
         <EventLocations event={event} />

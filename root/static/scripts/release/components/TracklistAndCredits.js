@@ -287,9 +287,9 @@ component _TracklistAndCredits(
 
   const hasBottomMediumCredits =
     (bottomMediumCredits?.some(x => x?.length)) ?? false;
-  const hasReleaseCredits = !!(release.relationships?.length);
+  const hasReleaseCredits = Boolean(release.relationships?.length);
   const hasReleaseGroupCredits =
-    !!(release.releaseGroup?.relationships?.length);
+    Boolean(release.releaseGroup?.relationships?.length);
   const hasBottomCredits = (
     hasBottomMediumCredits ||
     hasReleaseCredits ||
@@ -305,7 +305,8 @@ component _TracklistAndCredits(
           creditsMode={creditsMode}
           dispatch={dispatch}
           hasUnloadedTracks={
-            hasUnloadedTracksPerMedium.get(medium.id) ?? false}
+            hasUnloadedTracksPerMedium.get(medium.id) ?? false
+          }
           isExpanded={isMediumExpanded(expandedMediums, medium)}
           key={medium.id}
           medium={medium}
@@ -410,11 +411,11 @@ component _TracklistAndCredits(
   );
 }
 
-const TracklistAndCredits: React$AbstractComponent<
+const TracklistAndCredits: React.AbstractComponent<
   React.PropsOf<_TracklistAndCredits>
 > = React.memo(_TracklistAndCredits);
 
 export default (hydrate<React.PropsOf<_TracklistAndCredits>>(
   'div.tracklist-and-credits',
   TracklistAndCredits,
-): React$AbstractComponent<React.PropsOf<_TracklistAndCredits>, void>);
+): React.AbstractComponent<React.PropsOf<_TracklistAndCredits>, void>);

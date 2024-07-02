@@ -1,9 +1,0 @@
-rules:
-
-  # Stylistic Issues
-  max-len: [warn, {code: 78,
-                   ignoreUrls: true,
-                   ignoreStrings: true,
-                   ignoreTemplateLiterals: false,
-                   ignoreRegExpLiterals: true}]
-

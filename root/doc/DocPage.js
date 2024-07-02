@@ -25,7 +25,7 @@ component DocPage(id: string, page: DocPageT) {
   let doc = '';
   let lastDoc = '';
   // We check whether we have a Google Custom Search engine
-  const useGoogleCustomSearch = !!DBDefs.GOOGLE_CUSTOM_SEARCH;
+  const useGoogleCustomSearch = nonEmpty(DBDefs.GOOGLE_CUSTOM_SEARCH);
   const wikiPageUrl = `//${DBDefs.WIKITRANS_SERVER}/${id}`;
   const wikiPage = (
     <a

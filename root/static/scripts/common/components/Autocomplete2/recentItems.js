@@ -53,14 +53,14 @@ function _getStoredMap(): RecentEntitiesT {
 }
 
 function _getGidOrId(object: {...}): string | null {
-  if (hasOwnProp(object, 'gid')) {
+  if (Object.hasOwn(object, 'gid')) {
     // $FlowIgnore[prop-missing]
     const gid = object.gid;
     if (typeof gid === 'string') {
       return gid;
     }
   }
-  if (hasOwnProp(object, 'id')) {
+  if (Object.hasOwn(object, 'id')) {
     // $FlowIgnore[prop-missing]
     const id = object.id;
     /*
@@ -126,7 +126,7 @@ function _filterFakeIds(
    */
   const validIds = [];
   for (const id of ids) {
-    if (isGuid(id) || isDatabaseRowId(+id)) {
+    if (isGuid(id) || isDatabaseRowId(Number(id))) {
       validIds.push(id);
     }
   }
@@ -184,7 +184,7 @@ const _recentItemsRequests =
   // $FlowIgnore[unclear-type]
   new Map<string, Promise<Array<OptionItemT<any>>>>();
 
-export async function getOrFetchRecentItems<T: EntityItemT>(
+export function getOrFetchRecentItems<T: EntityItemT>(
   entityType: EntityItemT['entityType'],
   key?: string = entityType,
 ): Promise<$ReadOnlyArray<OptionItemT<T>>> {
@@ -209,7 +209,7 @@ export async function getOrFetchRecentItems<T: EntityItemT>(
       const entity: ?T = linkedEntities[entityType]?.[id];
       if (entity) {
         cachedList.push({
-          entity: entity,
+          entity,
           id: String(entity.id) + '-recent',
           name: getEntityName(entity, isLanguageForWorks),
           type: 'option',

@@ -34,7 +34,7 @@ $(function () {
   MB.Control.initializeGuessCase('series', 'id-edit-series');
 
   $orderingType.on('change', function () {
-    series.orderingTypeID(+this.value);
+    series.orderingTypeID(Number(this.value));
   });
 
   initializeDuplicateChecker('series');

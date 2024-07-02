@@ -26,7 +26,7 @@ export function compareRecordingIdWithRecordingState(
 const createSet = <T>(): Set<T> => new Set<T>();
 
 export default function updateRecordingStates(
-  writableRootState: ReleaseRelationshipEditorStateT,
+  writableRootState: {...ReleaseRelationshipEditorStateT},
   recordings: Iterable<RecordingT>,
   updateRecordingState: (MediumRecordingStateT) => MediumRecordingStateT,
 ): void {

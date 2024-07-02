@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {areFormattedLengthsEqual} from '../cdtoc/utils.js';
 import TrackDurationChanges from '../edit/components/TrackDurationChanges.js';
 import Layout from '../layout/index.js';
 import MediumTracklist from '../medium/MediumTracklist.js';
@@ -21,6 +20,8 @@ import mediumFormatName
 import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
 import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
+
+import {areFormattedLengthsEqual} from './utils.js';
 
 component AttachCDTocConfirmation(
   cdToc: CDTocT,

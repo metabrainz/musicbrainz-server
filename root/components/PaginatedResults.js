@@ -15,7 +15,7 @@ import {formatCount} from '../statistics/utilities.js';
 import Paginator from './Paginator.js';
 
 component PaginatedResults(
-  children: React$Node,
+  children: React.Node,
   guessSearch: boolean = false,
   pager: PagerT,
   pageVar?: 'apps_page' | 'page' | 'tokens_page',
@@ -39,7 +39,8 @@ component PaginatedResults(
         <p className="pageselector-results">
           {(total || empty(query)) ? (
             texp.ln(
-              'Found {n} result', 'Found {n} results',
+              'Found {n} result',
+              'Found {n} results',
               pager.total_entries,
               {n: formatCount($c, pager.total_entries)},
             )

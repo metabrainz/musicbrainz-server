@@ -36,5 +36,5 @@ export default (
   hydrate<React.PropsOf<NewNotesAlertCheckbox>>(
     'span.new-notes-alert-checkbox',
     NewNotesAlertCheckbox,
-  ): React$AbstractComponent<React.PropsOf<NewNotesAlertCheckbox>, void>
+  ): React.AbstractComponent<React.PropsOf<NewNotesAlertCheckbox>, void>
 );

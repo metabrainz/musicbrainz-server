@@ -39,7 +39,7 @@ component ArtistList<D: {+artist: ?ArtistT, ...}>(
       const nameColumn = defineEntityColumn<D>({
         columnName: 'artist',
         getEntity: result => result.artist ?? null,
-        subPath: subPath,
+        subPath,
         title: l('Artist'),
       });
       const typeColumn = defineTextColumn<D>({

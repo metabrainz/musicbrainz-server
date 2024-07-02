@@ -43,13 +43,6 @@ export function cloneArrayDeep<T>(
   return _cloneArrayDeep<T>(array, new WeakMap());
 }
 
-/*
- * This module is imported by our Webpack config file, so don't use
- * `hasOwnProp` here. It's not available!
- */
-// $FlowIgnore[method-unbinding]
-const hasOwnProperty = Object.prototype.hasOwnProperty;
-
 function _cloneObjectDeep<T: {+[key: string]: any}>(
   object: T,
   seen: WeakMap<any, any>,
@@ -57,7 +50,7 @@ function _cloneObjectDeep<T: {+[key: string]: any}>(
   const clone: any = Object.create(Object.getPrototypeOf(object));
   seen.set(object, clone);
   for (const key in object) {
-    if (hasOwnProperty.call(object, key)) {
+    if (Object.hasOwn(object, key)) {
       clone[key] = _cloneDeep(object[key], seen);
     }
   }

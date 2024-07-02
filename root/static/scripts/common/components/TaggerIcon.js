@@ -82,5 +82,5 @@ export default (
   hydrate<React.PropsOf<TaggerIcon>>(
     'span.tagger-icon',
     TaggerIcon,
-  ): React$AbstractComponent<React.PropsOf<TaggerIcon>, void>
+  ): React.AbstractComponent<React.PropsOf<TaggerIcon>, void>
 );

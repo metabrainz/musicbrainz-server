@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import ReleaseCatnoList from '../../components/ReleaseCatnoList.js';
 import ReleaseLabelList from '../../components/ReleaseLabelList.js';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink.js';
 import DescriptiveLink
@@ -55,10 +55,7 @@ function buildReleaseRow(release: ReleaseT, index?: number) {
           </td>
           <td>
             <ReleaseEvents events={release.events} />
-            {manifest.js(
-              'common/components/ReleaseEvents',
-              {async: 'async'},
-            )}
+            {manifest('common/components/ReleaseEvents', {async: 'async'})}
           </td>
           <td>
             <ReleaseLabelList labels={release.labels} />

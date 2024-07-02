@@ -22,7 +22,7 @@ type RadioOptionsT = $ReadOnlyArray<{
 
 component FormRowRadio(
   field: FieldT<string>,
-  label: React$Node,
+  label: React.Node,
   options: RadioOptionsT,
   required: boolean = false,
 ) {

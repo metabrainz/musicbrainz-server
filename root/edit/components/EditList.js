@@ -11,12 +11,13 @@ import * as React from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../../context.mjs';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import {isAutoEditor}
   from '../../static/scripts/common/utility/privileges.js';
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
-import ListEdit from '../components/ListEdit.js';
-import ListHeader from '../components/ListHeader.js';
+
+import ListEdit from './ListEdit.js';
+import ListHeader from './ListHeader.js';
 
 component EditList(
   editCountLimit: number,
@@ -47,7 +48,7 @@ component EditList(
    * paginator also knows this is an exact number of pages.
    */
   const totalVisibleEdits =
-    pager.entries_per_page * (pager.current_page - 1) + editCountLimit;
+    (pager.entries_per_page * (pager.current_page - 1)) + editCountLimit;
   const isDubiousNumberOfEdits = pager.total_entries === totalVisibleEdits;
   const mightBeMoreEdits = guessSearch && isDubiousNumberOfEdits;
 
@@ -113,7 +114,7 @@ component EditList(
         </div>
       ) : null}
 
-      {manifest.js('voting')}
+      {manifest('voting')}
 
       {isAutoEditor($c.user) ? (
         <script

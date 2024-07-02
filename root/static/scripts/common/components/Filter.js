@@ -69,5 +69,5 @@ component Filter(ajaxFormUrl: string, initialFilterForm: ?FilterFormT) {
 
 export default (
   hydrate<React.PropsOf<Filter>>('div.filter', Filter):
-  React$AbstractComponent<React.PropsOf<Filter>>
+  React.AbstractComponent<React.PropsOf<Filter>>
 );

@@ -81,7 +81,7 @@ component _RelationshipTargetTypeGroups(
     open: boolean,
   ) => {
     dispatch({
-      location: open ? {source, track: track} : null,
+      location: open ? {source, track} : null,
       type: 'update-dialog-location',
     });
   }, [dispatch, source, track]);
@@ -113,7 +113,7 @@ component _RelationshipTargetTypeGroups(
   );
 }
 
-const RelationshipTargetTypeGroups: React$AbstractComponent<
+const RelationshipTargetTypeGroups: React.AbstractComponent<
   React.PropsOf<_RelationshipTargetTypeGroups>
 > = React.memo(_RelationshipTargetTypeGroups);
 

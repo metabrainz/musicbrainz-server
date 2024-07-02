@@ -82,7 +82,8 @@ component AddWork(edit: AddWorkEditT) {
                   <li key={
                     String(attribute.typeID) +
                     '-' +
-                    String(attribute.value_id ?? attribute.value)}
+                    String(attribute.value_id ?? attribute.value)
+                  }
                   >
                     {attribute.value_id == null ? attribute.value
                       : lp_attributes(

@@ -6,12 +6,11 @@
  * http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import child_process from 'child_process';
+import childProcess from 'child_process';
 import fs from 'fs';
 import http from 'http';
 import path from 'path';
 
-import defined from 'defined';
 import httpProxy from 'http-proxy';
 import JSON5 from 'json5';
 import webdriver from 'selenium-webdriver';
@@ -97,8 +96,8 @@ TestCls.prototype.deepEqual2 = function (a, b, msg, extra) {
   this._assert(deepEqual(a, b, compareEditDataValues), {
     actual: a,
     expected: b,
-    extra: extra,
-    message: defined(msg, 'should be equivalent'),
+    extra,
+    message: msg ?? 'should be equivalent',
     operator: 'deepEqual2',
   });
 };
@@ -146,10 +145,10 @@ function wrapChildProcessMethod(methodName) {
         }
       }
 
-      const child = child_process[methodName](
+      const child = childProcess[methodName](
         ...args,
         function (error, stdout, stderr) {
-          result = {error, stdout, stderr};
+          result = {error, stderr, stdout};
           if (exitCode !== null) {
             done();
           }
@@ -292,7 +291,7 @@ async function selectOption(select, optionLocator) {
       if (value.startsWith('regexp:')) {
         value = new RegExp(value.slice(7));
       } else {
-        value = new RegExp('^\s*' + escapeRegExp(value) + '\s*$');
+        value = new RegExp('^\\s*' + escapeRegExp(value) + '\\s*$');
       }
       option = await select.findElement(async function () {
         const options =
@@ -317,6 +316,7 @@ async function selectOption(select, optionLocator) {
   return option.click();
 }
 
+/* eslint-disable no-template-curly-in-string */
 const KEY_CODES = {
   '${KEY_BKSP}': Key.BACK_SPACE,
   '${KEY_DOWN}': Key.ARROW_DOWN,
@@ -329,6 +329,7 @@ const KEY_CODES = {
   '${KEY_UP}': Key.ARROW_UP,
   '${MBS_ROOT}': DBDefs.MB_SERVER_ROOT.replace(/\/$/, ''),
 };
+/* eslint-enable no-template-curly-in-string */
 
 function getPageErrors() {
   return driver.executeScript('return ((window.MB || {}).js_errors || [])');
@@ -441,9 +442,9 @@ async function handleCommandAndWait({command, target, value}, t) {
   return driver.wait(until.stalenessOf(html), 30000);
 }
 
-async function handleCommand({command, target, value}, t) {
+async function handleCommand({command, target, value}, t, ...args) {
   if (/AndWait$/.test(command)) {
-    return handleCommandAndWait.apply(null, arguments);
+    return handleCommandAndWait({command, target, value}, t, ...args);
   }
 
   // Wait for all pending network requests before running the next command.
@@ -469,7 +470,7 @@ async function handleCommand({command, target, value}, t) {
 
   let element;
   switch (command) {
-    case 'assertArtworkJson':
+    case 'assertArtworkJson': {
       const artworkJson = JSON.parse(await driver.executeAsyncScript(`
         var callback = arguments[arguments.length - 1];
         fetch('http://localhost:8081/${target}')
@@ -477,19 +478,19 @@ async function handleCommand({command, target, value}, t) {
       `));
       t.deepEqual2(artworkJson, value);
       break;
-
-    case 'assertAttribute':
+    }
+    case 'assertAttribute': {
       const splitAt = target.indexOf('@');
       const locator = target.slice(0, splitAt);
       const attribute = target.slice(splitAt + 1);
       element = await findElement(locator);
 
       await t.equalWithRetry(
-        async () => element.getAttribute(attribute),
+        () => element.getAttribute(attribute),
         value,
       );
       break;
-
+    }
     case 'assertElementPresent':
       await t.okWithRetry(async () => {
         const elements = await driver.findElements(makeLocator(target));
@@ -499,12 +500,12 @@ async function handleCommand({command, target, value}, t) {
 
     case 'assertEval':
       await t.equalWithRetry(
-        async () => driver.executeScript(`return String(${target})`),
+        () => driver.executeScript(`return String(${target})`),
         value,
       );
       break;
 
-    case 'assertEditData':
+    case 'assertEditData': {
       const actualEditData = JSON.parse(await driver.executeAsyncScript(`
         var callback = arguments[arguments.length - 1];
         fetch('/edit/${target}/data', {
@@ -515,7 +516,7 @@ async function handleCommand({command, target, value}, t) {
       `));
       t.deepEqual2(actualEditData, value);
       break;
-
+    }
     case 'assertLocationMatches':
       await t.okWithRetry(async () => {
         return new RegExp(target).test(await driver.getCurrentUrl());
@@ -524,7 +525,7 @@ async function handleCommand({command, target, value}, t) {
 
     case 'assertText':
       await t.equalWithRetry(
-        async () => getElementText(target),
+        () => getElementText(target),
         value.trim(),
       );
       break;
@@ -537,14 +538,14 @@ async function handleCommand({command, target, value}, t) {
 
     case 'assertTitle':
       await t.equalWithRetry(
-        async () => driver.getTitle(),
+        () => driver.getTitle(),
         target,
       );
       break;
 
     case 'assertValue':
       await t.equalWithRetry(
-        async () => findElement(target).getAttribute('value'),
+        () => findElement(target).getAttribute('value'),
         value,
       );
       break;
@@ -604,7 +605,7 @@ async function handleCommand({command, target, value}, t) {
         .filter(x => x)
         .map(x => KEY_CODES[x] || x);
       element = await findElement(target);
-      await element.sendKeys.apply(element, value);
+      await element.sendKeys(...value);
       break;
 
     case 'type':

@@ -20,7 +20,7 @@ $.widget('mb.artworkViewer', $.ui.dialog, {
     show: true,
   },
 
-  _create: function () {
+  _create() {
     this._super();
 
     // jQuery collection of all the image links we're showing.
@@ -58,7 +58,7 @@ $.widget('mb.artworkViewer', $.ui.dialog, {
     this.element.addClass('artwork-dialog').append(this.$loading);
   },
 
-  open: function (link, wasClosed) {
+  open(link, wasClosed) {
     this._imageElement = null;
 
     const hadFocus = document.activeElement;
@@ -104,12 +104,12 @@ $.widget('mb.artworkViewer', $.ui.dialog, {
     this._viewImage(link.href);
   },
 
-  close: function (event) {
+  close(event) {
     this._super(event);
     this.element.find('img').remove();
   },
 
-  _focusTabbable: function () {
+  _focusTabbable() {
     this._nextImageLink
       ? this.$next.focus()
       : this._prevImageLink
@@ -117,15 +117,15 @@ $.widget('mb.artworkViewer', $.ui.dialog, {
         : this._super();
   },
 
-  prevImage: function () {
+  prevImage() {
     this._prevImageLink && this.open(this._prevImageLink);
   },
 
-  nextImage: function () {
+  nextImage() {
     this._nextImageLink && this.open(this._nextImageLink);
   },
 
-  _viewImage: function (src) {
+  _viewImage(src) {
     this._currentImageSrc = src;
 
     if (!this._loadImage(src, this._imageLoaded).complete) {
@@ -133,7 +133,7 @@ $.widget('mb.artworkViewer', $.ui.dialog, {
     }
   },
 
-  _loadImage: function (src, callback) {
+  _loadImage(src, callback) {
     var image = document.createElement('img');
     if (callback) {
       image.onload = callback.bind(this, image);
@@ -142,7 +142,7 @@ $.widget('mb.artworkViewer', $.ui.dialog, {
     return image;
   },
 
-  _imageLoaded: function (image) {
+  _imageLoaded(image) {
     // Return if the user skipped this image or closed the dialog.
     if (!this.isOpen() || image.src !== this._currentImageSrc) {
       return;
@@ -165,7 +165,7 @@ $.widget('mb.artworkViewer', $.ui.dialog, {
     this._nextImageLink && this._loadImage(this._nextImageLink.href);
   },
 
-  _sizeAndPosition: function (imageAspectRatio, imageElement) {
+  _sizeAndPosition(imageAspectRatio, imageElement) {
     imageAspectRatio = this._imageAspectRatio || imageAspectRatio;
     imageElement = this._imageElement || imageElement;
 
@@ -220,7 +220,7 @@ $(function () {
     }
 
     var $artworkViewer = $('<div>').appendTo('body')
-      .artworkViewer({$artwork: $artwork});
+      .artworkViewer({$artwork});
 
     $(container).on('click', 'a.artwork-image', function (event) {
       if (!(event.which > 1 || event.shiftKey || event.altKey ||

@@ -17,12 +17,12 @@ export type ReportRelationshipRoleT = {
   +link_name: string,
 };
 
-export type ReportArtistAnnotationT = {
+export type ReportArtistAnnotationT = $ReadOnly<{
   ...ReportAnnotationRoleT,
   +artist: ?ArtistT,
   +artist_id: number,
   +row_number: number,
-};
+}>;
 
 export type ReportArtistCreditT = {
   +artist_credit: ?ArtistCreditT,
@@ -31,12 +31,12 @@ export type ReportArtistCreditT = {
   +row_number: number,
 };
 
-export type ReportArtistRelationshipT = {
+export type ReportArtistRelationshipT = $ReadOnly<{
   ...ReportRelationshipRoleT,
   +artist: ?ArtistT,
   +artist_id: number,
   +row_number: number,
-};
+}>;
 
 export type ReportArtistT = {
   +alias?: string,
@@ -93,12 +93,12 @@ export type ReportEditorT = {
   +row_number: number,
 };
 
-export type ReportEventAnnotationT = {
+export type ReportEventAnnotationT = $ReadOnly<{
   ...ReportAnnotationRoleT,
   +event: ?EventT,
   +event_id: number,
   +row_number: number,
-};
+}>;
 
 export type ReportEventT = {
   +event: ?EventT,
@@ -132,19 +132,19 @@ export type ReportIswcT = {
   +workcount: number,
 };
 
-export type ReportLabelAnnotationT = {
+export type ReportLabelAnnotationT = $ReadOnly<{
   ...ReportAnnotationRoleT,
   +label: ?LabelT,
   +label_id: number,
   +row_number: number,
-};
+}>;
 
-export type ReportLabelRelationshipT = {
+export type ReportLabelRelationshipT = $ReadOnly<{
   ...ReportRelationshipRoleT,
   +label: ?LabelT,
   +label_id: number,
   +row_number: number,
-};
+}>;
 
 export type ReportLabelT = {
   +label: ?LabelT,
@@ -159,35 +159,35 @@ export type ReportLabelUrlT = {
   +url: UrlT,
 };
 
-export type ReportPlaceAnnotationT = {
+export type ReportPlaceAnnotationT = $ReadOnly<{
   ...ReportAnnotationRoleT,
   +place: ?PlaceT,
   +place_id: number,
   +row_number: number,
-};
+}>;
 
-export type ReportPlaceRelationshipT = {
+export type ReportPlaceRelationshipT = $ReadOnly<{
   ...ReportRelationshipRoleT,
   +place: ?PlaceT,
   +place_id: number,
   +row_number: number,
-};
+}>;
 
-export type ReportRecordingAnnotationT = {
+export type ReportRecordingAnnotationT = $ReadOnly<{
   ...ReportAnnotationRoleT,
   +recording: ?RecordingWithArtistCreditT,
   +recording_id: number,
   +row_number: number,
-};
+}>;
 
-export type ReportRecordingRelationshipT = {
+export type ReportRecordingRelationshipT = $ReadOnly<{
   ...ReportRelationshipRoleT,
   +begin?: number,
   +end?: number,
   +recording: ?RecordingWithArtistCreditT,
   +recording_id: number,
   +row_number: number,
-};
+}>;
 
 export type ReportRecordingT = {
   +recording: ?RecordingWithArtistCreditT,
@@ -195,12 +195,12 @@ export type ReportRecordingT = {
   +row_number: number,
 };
 
-export type ReportReleaseAnnotationT = {
+export type ReportReleaseAnnotationT = $ReadOnly<{
   ...ReportAnnotationRoleT,
   +release: ?ReleaseT,
   +release_id: number,
   +row_number: number,
-};
+}>;
 
 export type ReportReleaseCatNoT = {
   +catalog_number: string,
@@ -209,19 +209,19 @@ export type ReportReleaseCatNoT = {
   +row_number: number,
 };
 
-export type ReportReleaseGroupAnnotationT = {
+export type ReportReleaseGroupAnnotationT = $ReadOnly<{
   ...ReportAnnotationRoleT,
   +release_group: ?ReleaseGroupT,
   +release_group_id: number,
   +row_number: number,
-};
+}>;
 
-export type ReportReleaseGroupRelationshipT = {
+export type ReportReleaseGroupRelationshipT = $ReadOnly<{
   ...ReportRelationshipRoleT,
   +release_group: ?ReleaseGroupT,
   +release_group_id: number,
   +row_number: number,
-};
+}>;
 
 export type ReportReleaseGroupT = {
   +release_group: ?ReleaseGroupT,
@@ -244,12 +244,12 @@ export type ReportReleaseLabelT = {
   +row_number: number,
 };
 
-export type ReportReleaseRelationshipT = {
+export type ReportReleaseRelationshipT = $ReadOnly<{
   ...ReportRelationshipRoleT,
   +release: ?ReleaseT,
   +release_id: number,
   +row_number: number,
-};
+}>;
 
 export type ReportReleaseReleaseGroupT = {
   +release: ?ReleaseT,
@@ -272,33 +272,33 @@ export type ReportReleaseUrlT = {
   +url: UrlT,
 };
 
-export type ReportSeriesAnnotationT = {
+export type ReportSeriesAnnotationT = $ReadOnly<{
   ...ReportAnnotationRoleT,
   +row_number: number,
   +series: ?SeriesT,
   +series_id: number,
-};
+}>;
 
-export type ReportUrlRelationshipT = {
+export type ReportUrlRelationshipT = $ReadOnly<{
   ...ReportRelationshipRoleT,
   +row_number: number,
   +url: ?UrlT,
   +url_id: number,
-};
+}>;
 
-export type ReportWorkAnnotationT = {
+export type ReportWorkAnnotationT = $ReadOnly<{
   ...ReportAnnotationRoleT,
   +row_number: number,
   +work: ?WorkT,
   +work_id: number,
-};
+}>;
 
-export type ReportWorkRelationshipT = {
+export type ReportWorkRelationshipT = $ReadOnly<{
   ...ReportRelationshipRoleT,
   +row_number: number,
   +work: ?WorkT,
   +work_id: number,
-};
+}>;
 
 export type ReportWorkT = {
   +row_number: number,

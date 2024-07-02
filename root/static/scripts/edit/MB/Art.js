@@ -375,9 +375,9 @@ MB.Art.FileUpload = function (file) {
   self.mimeType = ko.observable('');
 
   self.data_uri = ko.computed(function () {
-    if (self.mimeType() == '' || self.dataUriData() == '') {
+    if (self.mimeType() === '' || self.dataUriData() === '') {
       return '';
-    } else if (self.mimeType() == 'application/pdf') {
+    } else if (self.mimeType() === 'application/pdf') {
       return '/static/images/icons/pdf-icon.png';
     }
     return self.dataUriData();
@@ -487,13 +487,13 @@ MB.Art.FileUpload = function (file) {
 
     switch (step) {
       case 1:
-        self.progress(0 + value * 0.1);
+        self.progress(0 + (value * 0.1));
         break;
       case 2:
-        self.progress(10 + value * 0.8);
+        self.progress(10 + (value * 0.8));
         break;
       case 3:
-        self.progress(90 + value * 0.1);
+        self.progress(90 + (value * 0.1));
         break;
     }
   };

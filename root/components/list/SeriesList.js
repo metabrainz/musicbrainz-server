@@ -31,16 +31,16 @@ component SeriesList(
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
-        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
+        ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
       const nameColumn = defineNameColumn<SeriesT>({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: lp('Series', 'singular'),
       });
       const typeColumn = defineTypeColumn({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         typeContext: 'series_type',
       });
 

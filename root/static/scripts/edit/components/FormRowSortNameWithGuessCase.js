@@ -47,8 +47,7 @@ export function runReducer(
       const isPerson =
         entityType === 'artist' && typeID === ARTIST_TYPE_PERSON;
       newState.set(
-        'sortNameField', 'value',
-        GuessCase.entities[entityType].sortname(
+        'sortNameField', 'value', GuessCase.entities[entityType].sortname(
           newState.read().nameField.value ?? '',
           isPerson,
         ),
@@ -57,8 +56,7 @@ export function runReducer(
     }
     case 'copy-sortname': {
       newState.set(
-        'sortNameField', 'value',
-        newState.read().nameField.value ?? '',
+        'sortNameField', 'value', newState.read().nameField.value ?? '',
       );
       break;
     }
@@ -70,7 +68,7 @@ component FormRowSortNameWithGuessCase(
   dispatch: (ActionT) => void,
   entity: SortNamedEntityT,
   field: FieldT<string | null>,
-  label: React$Node = addColonText(l('Sort name')),
+  label: React.Node = addColonText(l('Sort name')),
   required: boolean = false,
 ) {
   const handleSortNameChange = React.useCallback((

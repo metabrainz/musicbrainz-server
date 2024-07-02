@@ -8,10 +8,9 @@
 
 import $ from 'jquery';
 
-function deferFocus() {
-  const selectorArguments = arguments;
+function deferFocus(...selectorArguments) {
   setTimeout(function () {
-    $.apply(null, selectorArguments).focus();
+    $(...selectorArguments).focus();
   }, 1);
 }
 

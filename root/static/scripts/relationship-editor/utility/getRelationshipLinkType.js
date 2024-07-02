@@ -13,8 +13,7 @@ export default function getRelationshipLinkType(
   relationship: {+linkTypeID: number | null, ...} | null,
 ): LinkTypeT | null {
   const linkTypeId = relationship ? relationship.linkTypeID : null;
-  // $FlowIgnore[sketchy-null-number]
-  if (linkTypeId) {
+  if (linkTypeId != null) {
     return linkedEntities.link_type[linkTypeId] || null;
   }
   return null;

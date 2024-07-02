@@ -76,8 +76,8 @@ function buildLinks(
   $c: CatalystContextT,
   entity: RelatableEntityT,
   page?: string,
-  editTab: ?React$Element<typeof EntityTabLink>,
-): $ReadOnlyArray<React$Element<typeof EntityTabLink>> {
+  editTab: ?React.Element<typeof EntityTabLink>,
+): $ReadOnlyArray<React.Element<typeof EntityTabLink>> {
   const links = [buildLink(l('Overview'), entity, '', page, false, 'index')];
   const user = $c.user;
 
@@ -187,7 +187,7 @@ function buildLinks(
 }
 
 component EntityTabs(
-  editTab: ?React$Element<typeof EntityTabLink>,
+  editTab: ?React.Element<typeof EntityTabLink>,
   entity: RelatableEntityT,
   page?: string,
 ) {

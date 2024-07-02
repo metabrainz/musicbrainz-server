@@ -188,7 +188,8 @@ export function defineCDTocColumn<D>(
           anchorPath={
             typeof props.getAnchor === 'function'
               ? props.getAnchor(original)
-              : ''}
+              : ''
+          }
           cdToc={cdToc}
         />
       ) : null);
@@ -325,7 +326,7 @@ export function defineEntityColumn<D>(
   const descriptive = props.descriptive ?? true;
   const sortable = props.sortable ?? false;
   const subPath =
-    hasOwnProp(props, 'subPath')
+    Object.hasOwn(props, 'subPath')
       ? props.subPath
       : '';
 

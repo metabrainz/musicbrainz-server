@@ -73,9 +73,8 @@ component DiffSide(
     const diffOldText = diff.oldItems ? diff.oldItems.join('') : diff.oldText;
     const diffNewText = diff.newItems ? diff.newItems.join('') : diff.newText;
 
-    const sameChangeTypeAsBefore = !!(
-      stack.length && stack[stack.length - 1].type === changeType
-    );
+    const sameChangeTypeAsBefore = stack.length > 0 &&
+      stack[stack.length - 1].type === changeType;
 
     let nextChangeType;
     if ((i + 1) < diffs.length) {
@@ -87,14 +86,12 @@ component DiffSide(
      * it like its surroundings; it looks nicer to humans when there is
      * no gap.
      */
-    const isSeparatorBetweenChanges = !!(
-      stack.length &&
-      nextChangeType &&
+    const isSeparatorBetweenChanges = stack.length > 0 &&
+      nextChangeType != null &&
       stack[stack.length - 1].type === nextChangeType &&
       split !== '' &&
       changeType === EQUAL &&
-      splitMatch.test(diffNewText)
-    );
+      splitMatch.test(diffNewText);
 
     if (!sameChangeTypeAsBefore && !isSeparatorBetweenChanges) {
       // start new section

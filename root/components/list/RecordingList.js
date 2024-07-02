@@ -12,7 +12,7 @@ import type {ColumnOptions} from 'react-table';
 
 import {SanitizedCatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import ReleaseGroupAppearances
   from '../../static/scripts/common/components/ReleaseGroupAppearances.js';
 import formatTrackLength
@@ -67,24 +67,24 @@ component RecordingList(
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
-        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
+        ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers
-        ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
+        ? defineSeriesNumberColumn({seriesItemNumbers})
         : null;
       const nameColumn = defineNameColumn<RecordingWithArtistCreditT>({
         descriptive: false, // since ACs are in the next column
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Name'),
       });
       const artistCreditColumn =
         defineArtistCreditColumn<RecordingWithArtistCreditT>({
           columnName: 'artist',
           getArtistCredit: entity => entity.artistCredit,
-          order: order,
-          showExpandedArtistCredits: showExpandedArtistCredits,
-          sortable: sortable,
+          order,
+          showExpandedArtistCredits,
+          sortable,
           title: l('Artist'),
         });
       const lengthColumn = defineTextColumn<RecordingWithArtistCreditT>({
@@ -92,8 +92,8 @@ component RecordingList(
         columnName: 'length',
         /* Show nothing rather than ?:?? for recordings merged away */
         getText: entity => entity.gid ? formatTrackLength(entity.length) : '',
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Length'),
       });
       const releaseGroupAppearancesColumn = showReleaseGroups
@@ -101,7 +101,7 @@ component RecordingList(
         : null;
       const instrumentUsageColumn = showInstrumentCreditsAndRelTypes
         ? defineInstrumentUsageColumn({
-          instrumentCreditsAndRelTypes: instrumentCreditsAndRelTypes,
+          instrumentCreditsAndRelTypes,
         })
         : null;
       const ratingsColumn = defineRatingsColumn<RecordingT>({
@@ -153,8 +153,8 @@ component RecordingList(
   return (
     <>
       {table}
-      {manifest.js('common/components/AcoustIdCell', {async: 'async'})}
-      {manifest.js('common/components/IsrcList', {async: 'async'})}
+      {manifest('common/components/AcoustIdCell', {async: 'async'})}
+      {manifest('common/components/IsrcList', {async: 'async'})}
     </>
   );
 }

@@ -62,15 +62,15 @@ class Autocomplete extends React.Component {
 
     this._subscription = this._currentSelection.subscribe(nextProps.onChange);
 
-    autocomplete.element.prop('disabled', !!nextProps.disabled);
+    autocomplete.element.prop('disabled', Boolean(nextProps.disabled));
     if (next && autocomplete.element.val() !== next.name) {
       autocomplete.element.val(next.name);
     }
 
-    if (hasOwnProp(nextProps, 'isLookupPerformed')) {
+    if (Object.hasOwn(nextProps, 'isLookupPerformed')) {
       autocomplete.element.toggleClass(
         'lookup-performed',
-        !!nextProps.isLookupPerformed,
+        Boolean(nextProps.isLookupPerformed),
       );
     }
   }
@@ -96,7 +96,9 @@ class Autocomplete extends React.Component {
           disabled={disabled}
           id={inputID}
           name={inputName}
-          ref={input => this._nameInput = input}
+          ref={input => {
+            this._nameInput = input;
+          }}
           type="text"
         />
         {children}

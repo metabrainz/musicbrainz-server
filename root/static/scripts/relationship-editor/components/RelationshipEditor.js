@@ -155,7 +155,7 @@ export function* getInitialRelationshipUpdates(
     };
 
     if (target.relationships) {
-      yield *getInitialRelationshipUpdates(
+      yield* getInitialRelationshipUpdates(
         target.relationships,
         target,
       );
@@ -255,7 +255,7 @@ export function* getUpdatesForAcceptedRelationship(
   newRelationshipState: RelationshipStateT,
   source: RelatableEntityT,
 ): Generator<RelationshipUpdateT, void, void> {
-  const mergeAndYieldUpdates = function* (
+  function* mergeAndYieldUpdates(
     relationshipState: RelationshipStateT,
   ): Generator<RelationshipUpdateT, void, void> {
     const mergeUpdates = mergeRelationship(
@@ -271,7 +271,7 @@ export function* getUpdatesForAcceptedRelationship(
       source,
     );
     if (mergeUpdates) {
-      yield *mergeUpdates;
+      yield* mergeUpdates;
     } else {
       yield {
         onConflict: onConflictKeepTreeValue,
@@ -279,7 +279,7 @@ export function* getUpdatesForAcceptedRelationship(
         type: ADD_RELATIONSHIP,
       };
     }
-  };
+  }
 
   const linkType = getRelationshipLinkType(
     newRelationshipState,
@@ -294,10 +294,10 @@ export function* getUpdatesForAcceptedRelationship(
       newRelationshipState,
     );
     for (const relationshipState of splitRelationships) {
-      yield *mergeAndYieldUpdates(relationshipState);
+      yield* mergeAndYieldUpdates(relationshipState);
     }
   } else {
-    yield *mergeAndYieldUpdates(newRelationshipState);
+    yield* mergeAndYieldUpdates(newRelationshipState);
   }
 }
 
@@ -556,7 +556,7 @@ type ErrorMessagePropsT = {
 };
 
 export const ErrorMessage:
-  React$AbstractComponent<ErrorMessagePropsT, mixed> =
+  React.AbstractComponent<ErrorMessagePropsT, mixed> =
   React.memo<ErrorMessagePropsT>(({
     error,
   }: ErrorMessagePropsT): React$MixedElement => (

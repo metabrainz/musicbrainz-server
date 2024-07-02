@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList.js';
 import localizeArtistRoles
@@ -48,21 +48,21 @@ component EventList(
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
-        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
+        ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers
-        ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
+        ? defineSeriesNumberColumn({seriesItemNumbers})
         : null;
       const nameColumn = defineNameColumn<EventT>({
         descriptive: false, // since dates have their own column
-        order: order,
+        order,
         showArtworkPresence: true,
-        sortable: sortable,
+        sortable,
         title: l('Event'),
       });
       const typeColumn = defineTypeColumn({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         typeContext: 'event_type',
       });
       const artistsColumn = defineArtistRolesColumn<EventT>({
@@ -97,8 +97,8 @@ component EventList(
         : null;
       const dateColumn = defineDatePeriodColumn<EventT>({
         getEntity: entity => entity,
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
       });
       const ratingsColumn = defineRatingsColumn<EventT>({
         getEntity: entity => entity,
@@ -140,7 +140,7 @@ component EventList(
   return (
     <>
       {table}
-      {manifest.js('common/components/ArtistRoles', {async: 'async'})}
+      {manifest('common/components/ArtistRoles', {async: 'async'})}
     </>
   );
 }

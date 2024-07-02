@@ -13,7 +13,8 @@ import {type VarArgsObject} from '../i18n/expand2.js';
 import localizeLinkAttributeTypeName
   from '../i18n/localizeLinkAttributeTypeName.js';
 import linkedEntities from '../linkedEntities.mjs';
-import clean from '../utility/clean.js';
+
+import clean from './clean.js';
 
 export function displayLinkAttributeCustom<T>(
   attribute: LinkAttrT,

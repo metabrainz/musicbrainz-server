@@ -72,7 +72,7 @@ compiler.run((err, stats) => {
     return;
   }
 
-  let compilationErrors = stats.compilation.errors;
+  const compilationErrors = stats.compilation.errors;
   if (compilationErrors.length) {
     for (const error of compilationErrors) {
       console.log(error);

@@ -43,17 +43,17 @@ Object.assign(trackParserDialog, {
   result: ko.observable(null),
   error: ko.observable(''),
 
-  open: function (medium) {
+  open(medium, ...args) {
     this.setMedium(medium);
-    Dialog.prototype.open.apply(this, arguments);
+    Dialog.prototype.open.apply(this, args);
   },
 
-  setMedium: function (medium) {
+  setMedium(medium) {
     this.medium = medium;
     this.toBeParsed(trackParser.mediumToString(medium));
   },
 
-  parse: function () {
+  parse() {
     var medium = this.medium;
     var toBeParsed = this.toBeParsed();
 
@@ -64,7 +64,7 @@ Object.assign(trackParserDialog, {
     !error && medium.tracks(newTracks);
   },
 
-  addMedium: function () {
+  addMedium() {
     this.parse();
     return this.error() ? null : this.medium;
   },
@@ -112,7 +112,9 @@ class SearchResult {
   }
 
   requestDone(data) {
-    data.tracks.forEach((track, index) => this.parseTrack(track, index));
+    data.tracks.forEach((track, index) => {
+      this.parseTrack(track, index);
+    });
     Object.assign(this, utils.reuseExistingMediumData(data));
 
     this.loaded(true);
@@ -120,7 +122,7 @@ class SearchResult {
 
   parseTrack(track, index) {
     track.id = null;
-    track.position = track.position || (index + 1);
+    track.position ||= (index + 1);
     track.number = track.position;
     track.formattedLength = formatTrackLength(track.length);
 
@@ -131,7 +133,7 @@ class SearchResult {
       const release = releaseEditor.rootField.release();
       const releaseArtistCredit = release.artistCredit();
       const releaseArtistName = reduceArtistCredit(releaseArtistCredit);
-      track.artist = track.artist || this.artist || '';
+      track.artist ||= this.artist || '';
       if (track.artist === releaseArtistName) {
         track.artistCredit = releaseArtistCredit;
       } else {
@@ -177,17 +179,17 @@ class SearchTab {
     this.totalPages = ko.observable(0);
   }
 
-  search(data, event, pageJump) {
+  search(event, pageJump) {
     this.searching(true);
 
-    var data = {
+    const data = {
       q: this.releaseName(),
       artist: this.artistName(),
       tracks: this.trackCount(),
       page: pageJump ? this.currentPage() + pageJump : 1,
     };
 
-    this._jqXHR = request({url: this.endpoint, data: data}, this)
+    this._jqXHR = request({url: this.endpoint, data}, this)
       .done(this.requestDone)
       .fail(function (jqXHR, textStatus) {
         if (textStatus !== 'abort') {
@@ -211,7 +213,7 @@ class SearchTab {
 
   keydownEvent(data, event) {
     if (event.keyCode === 13) { // Enter
-      this.search(data, event);
+      this.search(event);
       return false;
     }
     /*
@@ -223,14 +225,14 @@ class SearchTab {
 
   nextPage() {
     if (this.currentPage() < this.totalPages()) {
-      this.search(this, null, 1);
+      this.search(null, 1);
     }
     return false;
   }
 
   previousPage() {
     if (this.currentPage() > 1) {
-      this.search(this, null, -1);
+      this.search(null, -1);
     }
     return false;
   }
@@ -280,7 +282,7 @@ Object.assign(mediumSearchTab, {
 
   tracksRequestData: {inc: 'recordings'},
 
-  tracksRequestURL: function (result) {
+  tracksRequestURL(result) {
     return [this.endpoint, result.medium_id].join('/');
   },
 
@@ -296,7 +298,7 @@ var cdstubSearchTab = new SearchTab();
 Object.assign(cdstubSearchTab, {
   endpoint: '/ws/js/cdstub',
 
-  tracksRequestURL: function (result) {
+  tracksRequestURL(result) {
     return [this.endpoint, result.discid].join('/');
   },
 });
@@ -313,7 +315,7 @@ Object.assign(addMediumDialog, {
   cdstubSearch: cdstubSearchTab,
   currentTab: ko.observable(trackParserDialog),
 
-  open: function () {
+  open(...args) {
     const release = releaseEditor.rootField.release();
     const blankMedium = new fields.Medium({}, release);
 
@@ -330,10 +332,10 @@ Object.assign(addMediumDialog, {
       }
     }
 
-    Dialog.prototype.open.apply(this, arguments);
+    Dialog.prototype.open.apply(this, args);
   },
 
-  addMedium: function () {
+  addMedium() {
     var medium = this.currentTab().addMedium();
     if (!medium) {
       return;
@@ -378,7 +380,7 @@ $(function () {
   $('#add-medium-cdstub').data('model', cdstubSearchTab);
 
   $(addMediumDialog.element).tabs({
-    activate: function (event, ui) {
+    activate(event, ui) {
       addMediumDialog.currentTab(ui.newPanel.data('model'));
     },
   });

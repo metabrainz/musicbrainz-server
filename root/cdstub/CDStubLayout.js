@@ -13,7 +13,7 @@ import Layout from '../layout/index.js';
 import CDStubHeader from './CDStubHeader.js';
 
 component CDStubLayout(
-  children: React$Node,
+  children: React.Node,
   entity as cdstub: CDStubT,
   fullWidth: boolean = false,
 ) {

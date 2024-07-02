@@ -54,7 +54,7 @@ function initSearch<T: EntityItemT>(
   }
 
   let searchTerm;
-  if (hasOwnProp(action, 'searchTerm')) {
+  if (Object.hasOwn(action, 'searchTerm')) {
     searchTerm = action.searchTerm;
   } else {
     /*
@@ -103,11 +103,10 @@ export function generateItems<T: EntityItemT>(
   } = state;
 
   const isInputValueNonEmpty = nonEmpty(state.inputValue);
-  const hasStaticItems = !!state.staticItems;
-  const hasSelection = !!state.selectedItem;
-  const showingRecentItems = !!(
-    !isInputValueNonEmpty && recentItems?.length
-  );
+  const hasStaticItems = Boolean(state.staticItems);
+  const hasSelection = state.selectedItem != null;
+  const showingRecentItems = !isInputValueNonEmpty &&
+    Boolean(recentItems?.length);
 
   if (showingRecentItems /*:: && recentItems */) {
     items.push(RECENT_ITEMS_HEADER);

@@ -25,7 +25,7 @@ import {findFirstTabbableElement} from '../utility/focusManagement.js';
 import ErrorBoundary from './ErrorBoundary.js';
 
 component Modal(
-  children: React$Node,
+  children: React.Node,
   className?: string,
   id: string,
   onEscape: (Event) => void,

@@ -8,9 +8,9 @@
  */
 
 component FullChangeDiff(
-  label: React$Node,
-  newContent: React$Node,
-  oldContent: React$Node,
+  label: React.Node,
+  newContent: React.Node,
+  oldContent: React.Node,
 ) {
   return (
     oldContent === newContent ? null : (

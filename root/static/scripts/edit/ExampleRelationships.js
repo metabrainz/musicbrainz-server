@@ -20,7 +20,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
     type0 = config.type0;
     type1 = config.type1;
     linkTypeName = config.linkTypeName;
-    linkTypeID = +config.linkTypeID;
+    linkTypeID = Number(config.linkTypeID);
 
     jsRoot = config.jsRoot;
 
@@ -44,7 +44,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
     ERE.viewModel.availableEntityTypes(availableEntityTypes);
 
     ko.bindingHandlers.checkObject = {
-      init: function (element, valueAccessor, all, vm, bindingContext) {
+      init(element, valueAccessor, all, vm, bindingContext) {
         ko.utils.registerEventHandler(element, 'click', function () {
           const checkedValue = valueAccessor();
           const meValue = bindingContext.$data;
@@ -54,7 +54,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
           }
         });
       },
-      update: function (element, valueAccessor, all, vm, bindingContext) {
+      update(element, valueAccessor, all, vm, bindingContext) {
         const checkedValue = ko.utils.unwrapObservable(valueAccessor());
         const meValue = bindingContext.$data;
 
@@ -77,11 +77,11 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
     return self;
   };
 
-  const ViewModel = function () {
+  function ViewModel() {
     return {
       availableEntityTypes: ko.observableArray(),
       currentExample: {
-        add: function () {
+        add() {
           const ce = this.currentExample;
 
           this.examples.push(
@@ -99,14 +99,14 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
       examples: ko.observableArray(),
       selectedEntityType: ko.observable(),
     };
-  };
+  }
 
   searchUrl = function (mbid) {
     return jsRoot + mbid + '?inc=rels';
   };
 
 
-  const RelationshipSearcher = function () {
+  function RelationshipSearcher() {
     const self = this;
 
     self.query = ko.observable();
@@ -175,7 +175,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
     };
 
     return self;
-  };
+  }
 
   return ERE;
 }(MB.ExampleRelationshipsEditor || {}));

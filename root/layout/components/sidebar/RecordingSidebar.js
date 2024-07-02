@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as manifest from '../../../static/manifest.mjs';
+import manifest from '../../../static/manifest.mjs';
 import ArtistCreditLink
   from '../../../static/scripts/common/components/ArtistCreditLink.js';
 import IsrcList from '../../../static/scripts/common/components/IsrcList.js';
@@ -67,10 +67,7 @@ component RecordingSidebar(recording: RecordingWithArtistCreditT) {
         {recording.isrcs.length ? (
           <>
             <IsrcList isSidebar isrcs={recording.isrcs} />
-            {manifest.js(
-              'common/components/IsrcList',
-              {async: 'async'},
-            )}
+            {manifest('common/components/IsrcList', {async: 'async'})}
           </>
         ) : null}
 

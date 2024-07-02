@@ -26,7 +26,7 @@ export const hasVariousArtists =
   (ac: ArtistCreditT): boolean => ac.names.some(isVariousArtist);
 
 export const hasArtist =
-  (name: ArtistCreditNameT): boolean => !!(name.artist && name.artist.gid);
+  (name: ArtistCreditNameT): boolean => nonEmpty(name.artist?.gid);
 
 export const isCompleteArtistCredit =
   (ac: ArtistCreditT): boolean => ac.names.length > 0 &&
@@ -54,14 +54,14 @@ export function reduceArtistCreditNames(
   return s;
 }
 
-export const isComplexArtistCredit = function (ac: ArtistCreditT): boolean {
+export function isComplexArtistCredit(ac: ArtistCreditT): boolean {
   const firstName = ac.names[0];
   if (firstName && hasArtist(firstName)) {
     return empty(firstName.name) ||
       firstName.artist.name !== reduceArtistCredit(ac);
   }
   return false;
-};
+}
 
 export function artistCreditsAreEqual(
   a: ArtistCreditT,

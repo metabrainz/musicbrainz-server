@@ -54,7 +54,7 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
         args.push($artistType.val() != 2 /* person */);
       }
 
-      setVal($sortname, guess.sortname.apply(guess, args));
+      setVal($sortname, guess.sortname(...args));
     })
     .end()
     .find('button.sortname-copy')
@@ -70,7 +70,7 @@ var guessCaseOptions = {
 };
 
 var mode = ko.computed({
-  read: function () {
+  read() {
     var modeName = guessCaseOptions.modeName();
 
     if (modeName !== gc.modeName) {
@@ -83,7 +83,7 @@ var mode = ko.computed({
 });
 
 guessCaseOptions.help = ko.computed({
-  read: function () {
+  read() {
     return mode().description;
   },
   deferEvaluation: true,
@@ -100,7 +100,7 @@ guessCaseOptions.upperCaseRoman.subscribe(function (value) {
 
 ko.bindingHandlers.guessCase = {
 
-  init: function (
+  init(
     element,
     valueAccessor,
     allBindingsAccessor,
@@ -131,4 +131,6 @@ ko.bindingHandlers.guessCase = {
 
 ko.virtualElements.allowedBindings.guessCase = true;
 
-export const initializeGuessCase = MB.Control.initializeGuessCase;
+const initializeGuessCase = MB.Control.initializeGuessCase;
+
+export default initializeGuessCase;

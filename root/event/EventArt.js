@@ -27,7 +27,7 @@ type Props = {
 const EventArt = ({
   eventArt,
   event,
-}: Props): React$Element<typeof EventLayout> => {
+}: Props): React.Element<typeof EventLayout> => {
   const $c = React.useContext(SanitizedCatalystContext);
   const title = lp('Event art', 'plural, header');
 
