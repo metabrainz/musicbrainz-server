@@ -25,6 +25,7 @@ our $artist_json = <<~'EOF';
     {
       "id": "34ec9a8d-c65b-48fd-bcdd-aad2f72fdb47",
       "type": "Group",
+      "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
       "score": "98",
       "name": "Love",
       "sort-name": "Love",
@@ -93,6 +94,7 @@ test all => sub {
     is($artist->comment, 'folk-rock/psychedelic band');
     is($artist->gid, '34ec9a8d-c65b-48fd-bcdd-aad2f72fdb47');
     is($artist->type->name, 'Group');
+    is($artist->type->gid, 'e431f5f6-b5d2-343d-8b36-72607fffb74b');
 
     # release_group search
     $data = load_data('release_group', $test->c, <<~'EOF');
@@ -478,6 +480,7 @@ test all => sub {
             {
               "id": "e24ca2f9-416e-42bd-a223-bed20fa409d0",
               "type": "Production",
+              "type-id": "a2426aab-2dd4-339c-b47d-b4923a241678",
               "score": "100",
               "name": "Love Records",
               "sort-name": "Love Records",
@@ -516,6 +519,7 @@ test all => sub {
     is($label->comment, 'Finnish label');
     is($label->gid, 'e24ca2f9-416e-42bd-a223-bed20fa409d0');
     is($label->type->name, 'Production');
+    is($label->type->gid, 'a2426aab-2dd4-339c-b47d-b4923a241678');
 
     # annotation search
     $data = load_data('annotation', $test->c, <<~"EOF");

@@ -55,6 +55,23 @@ sub load {
     load_subobjects($self, 'type', @objs);
 }
 
+# Needed for indexed search results, which lack id and entity_type
+sub load_entity_type_from_gid {
+    my ($self, @series) = @_;
+
+    my @type_gids = map { $_->{type}->{gid} } @series;
+    return () unless @type_gids;
+
+    my $query = 'SELECT gid, entity_type FROM series_type WHERE gid = any(?)';
+    my %map = map { $_->[0] => $_->[1] }
+        @{ $self->sql->select_list_of_lists($query, \@type_gids) };
+
+    for my $series (@series) {
+        $series->type->entity_type($map{$series->type->gid})
+            if exists $map{$series->type->gid};
+    }
+}
+
 sub in_use {
     my ($self, $id) = @_;
     return $self->sql->select_single_value(

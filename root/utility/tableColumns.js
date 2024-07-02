@@ -238,10 +238,10 @@ export function defineCountColumn<D>(
   props: {
     ...OrderableProps,
     +columnName: string,
-    +getCount: (D) => number,
+    +getCount: (D) => ?number,
     +title: string,
   },
-): ColumnOptions<D, number> {
+): ColumnOptions<D, ?number> {
   const sortable = props.sortable ?? false;
 
   return {

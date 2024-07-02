@@ -13,6 +13,7 @@ import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
 import {
   defineCheckboxColumn,
+  defineCountColumn,
   defineNameColumn,
   defineTypeColumn,
   removeFromMergeColumn,
@@ -43,12 +44,18 @@ component SeriesList(
         sortable: sortable,
         typeContext: 'series_type',
       });
+      const sizeColumn = defineCountColumn<SeriesT>({
+        columnName: 'size',
+        getCount: series => series.entity_count,
+        title: l('Number of entities'),
+      });
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
         nameColumn,
         typeColumn,
         seriesOrderingTypeColumn,
+        sizeColumn,
         ...(mergeForm && series.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },

@@ -407,15 +407,22 @@ my %mapping = (
     'title'          => 'name',
     'artist-credit'  => 'artist_credit',
     'label-code'     => 'label_code',
+    'type-id'        => 'type_id',
 );
 
 Readonly our @ENTITIES_WITH_SIMPLE_TYPES => entities_with(['type', 'simple']);
 
 sub schema_fixup_type {
     my ($self, $data, $type) = @_;
+
+    my $type_gid = delete $data->{type_id};
+
     if (defined $data->{type} && contains_string(\@ENTITIES_WITH_SIMPLE_TYPES, $type)) {
         my $model = 'MusicBrainz::Server::Entity::' . type_to_model($type) . 'Type';
-        $data->{type} = $model->new( name => $data->{type} );
+        $data->{type} = $model->new(
+            gid => $type_gid,
+            name => $data->{type},
+        );
     }
     return $data;
 }
@@ -986,6 +993,14 @@ sub external_search
             my @entities = map { $_->entity } @results;
             $self->c->model('ReleaseGroup')->load_ids(@entities);
             $self->c->model('CoverArt')->load_for_release_groups(@entities);
+        }
+
+        if ($type eq 'series')
+        {
+            my @entities = map { $_->entity } @results;
+            $self->c->model('Series')->load_ids(@entities);
+            $self->c->model('SeriesType')->load_entity_type_from_gid(@entities);
+            $self->c->model('Series')->load_entity_count(@entities);
         }
 
         my $pager = Data::Page->new;

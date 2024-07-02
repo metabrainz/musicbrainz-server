@@ -36,6 +36,9 @@ function buildResult(
           ? lp_attributes(series.typeName, 'series_type')
           : null}
       </td>
+      <td>
+        {series.entity_count}
+      </td>
     </tr>
   );
 }
@@ -56,6 +59,7 @@ component SeriesResults(...{
           <>
             <th>{l('Name')}</th>
             <th>{l('Type')}</th>
+            <th>{l('Number of entities')}</th>
           </>
         }
         pager={pager}
