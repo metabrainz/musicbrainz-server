@@ -1,4 +1,4 @@
-// Automatically generated, do not edit, except to compensate for the lack of MBS-13668.
+// Automatically generated, do not edit.
 // - Database schema sequence: 29
 digraph event_art_details {
     tooltip = "Tables for event art"
@@ -14,7 +14,7 @@ digraph event_art_details {
     ];
 
     // Tables
-    "art_type" [
+    "event_art_archive.art_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">art_type</font></td></tr>
@@ -27,7 +27,35 @@ digraph event_art_details {
             </table>
         >
     ];
-    "edit" [
+    "event_art_archive.event_art" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">event_art</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="event"><font point-size="14">event</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="comment"><font point-size="14">comment</font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="edit"><font point-size="14">edit</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="ordering"><font point-size="14">ordering</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="date_uploaded"><font point-size="14">date_uploaded</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="mime_type"><font point-size="14">mime_type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="filesize"><font point-size="14">filesize</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="thumb_250_filesize"><font point-size="14">thumb_250_filesize</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="thumb_500_filesize"><font point-size="14">thumb_500_filesize</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="thumb_1200_filesize"><font point-size="14">thumb_1200_filesize</font></td></tr>
+            </table>
+        >
+    ];
+    "event_art_archive.event_art_type" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">event_art_type</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="type_id"><font point-size="14"><u>type_id</u></font></td></tr>
+            </table>
+        >
+    ];
+    "musicbrainz.edit" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">edit</font></td></tr>
@@ -44,7 +72,7 @@ digraph event_art_details {
             </table>
         >
     ];
-    "event" [
+    "musicbrainz.event" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">event</font></td></tr>
@@ -68,47 +96,19 @@ digraph event_art_details {
             </table>
         >
     ];
-    "event_art" [
-        label = <
-            <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#bbbbbb77"><font point-size="17">event_art</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="event"><font point-size="14">event</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="comment"><font point-size="14">comment</font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="edit"><font point-size="14">edit</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="ordering"><font point-size="14">ordering</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="date_uploaded"><font point-size="14">date_uploaded</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="mime_type"><font point-size="14">mime_type</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="filesize"><font point-size="14">filesize</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="thumb_250_filesize"><font point-size="14">thumb_250_filesize</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="thumb_500_filesize"><font point-size="14">thumb_500_filesize</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="thumb_1200_filesize"><font point-size="14">thumb_1200_filesize</font></td></tr>
-            </table>
-        >
-    ];
-    "event_art_type" [
-        label = <
-            <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#bbbbbb77"><font point-size="17">event_art_type</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="type_id"><font point-size="14"><u>type_id</u></font></td></tr>
-            </table>
-        >
-    ];
 
   // Schemas other than 'musicbrainz'
     subgraph cluster_event_art_archive {
         bgcolor = "#35a8b3:#f0976c"
 
-        art_type;
-        event_art;
-        event_art_type;
+        "event_art_archive.art_type";
+        "event_art_archive.event_art";
+        "event_art_archive.event_art_type";
     }
 
     // References
-    "event_art":"event" -> "event":"id"
-    "event_art":"edit" -> "edit":"id"
-    "event_art_type":"id" -> "event_art":"id"
-    "event_art_type":"type_id" -> "art_type":"id"
+    "event_art_archive.event_art":"event" -> "musicbrainz.event":"id"
+    "event_art_archive.event_art":"edit" -> "musicbrainz.edit":"id"
+    "event_art_archive.event_art_type":"id" -> "event_art_archive.event_art":"id"
+    "event_art_archive.event_art_type":"type_id" -> "event_art_archive.art_type":"id"
 }

@@ -14,7 +14,7 @@ digraph series_entity_details {
     ];
 
     // Tables
-    "annotation" [
+    "musicbrainz.annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">annotation</font></td></tr>
@@ -26,7 +26,7 @@ digraph series_entity_details {
             </table>
         >
     ];
-    "series" [
+    "musicbrainz.series" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">series</font></td></tr>
@@ -41,7 +41,7 @@ digraph series_entity_details {
             </table>
         >
     ];
-    "series_alias" [
+    "musicbrainz.series_alias" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_alias</font></td></tr>
@@ -64,7 +64,7 @@ digraph series_entity_details {
             </table>
         >
     ];
-    "series_alias_type" [
+    "musicbrainz.series_alias_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_alias_type</font></td></tr>
@@ -77,7 +77,7 @@ digraph series_entity_details {
             </table>
         >
     ];
-    "series_annotation" [
+    "musicbrainz.series_annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_annotation</font></td></tr>
@@ -86,7 +86,7 @@ digraph series_entity_details {
             </table>
         >
     ];
-    "series_gid_redirect" [
+    "musicbrainz.series_gid_redirect" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_gid_redirect</font></td></tr>
@@ -96,7 +96,7 @@ digraph series_entity_details {
             </table>
         >
     ];
-    "series_ordering_type" [
+    "musicbrainz.series_ordering_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_ordering_type</font></td></tr>
@@ -109,7 +109,7 @@ digraph series_entity_details {
             </table>
         >
     ];
-    "series_tag" [
+    "musicbrainz.series_tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_tag</font></td></tr>
@@ -120,7 +120,7 @@ digraph series_entity_details {
             </table>
         >
     ];
-    "series_type" [
+    "musicbrainz.series_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_type</font></td></tr>
@@ -134,7 +134,7 @@ digraph series_entity_details {
             </table>
         >
     ];
-    "tag" [
+    "musicbrainz.tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">tag</font></td></tr>
@@ -146,13 +146,13 @@ digraph series_entity_details {
     ];
 
     // References
-    "series":"type" -> "series_type":"id"
-    "series":"ordering_type" -> "series_ordering_type":"id"
-    "series_alias":"series" -> "series":"id"
-    "series_alias":"type" -> "series_alias_type":"id"
-    "series_annotation":"series" -> "series":"id"
-    "series_annotation":"annotation" -> "annotation":"id"
-    "series_gid_redirect":"new_id" -> "series":"id"
-    "series_tag":"series" -> "series":"id"
-    "series_tag":"tag" -> "tag":"id"
+    "musicbrainz.series":"type" -> "musicbrainz.series_type":"id"
+    "musicbrainz.series":"ordering_type" -> "musicbrainz.series_ordering_type":"id"
+    "musicbrainz.series_alias":"series" -> "musicbrainz.series":"id"
+    "musicbrainz.series_alias":"type" -> "musicbrainz.series_alias_type":"id"
+    "musicbrainz.series_annotation":"series" -> "musicbrainz.series":"id"
+    "musicbrainz.series_annotation":"annotation" -> "musicbrainz.annotation":"id"
+    "musicbrainz.series_gid_redirect":"new_id" -> "musicbrainz.series":"id"
+    "musicbrainz.series_tag":"series" -> "musicbrainz.series":"id"
+    "musicbrainz.series_tag":"tag" -> "musicbrainz.tag":"id"
 }

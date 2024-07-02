@@ -14,7 +14,7 @@ digraph event_entity_details {
     ];
 
     // Tables
-    "annotation" [
+    "musicbrainz.annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">annotation</font></td></tr>
@@ -26,7 +26,7 @@ digraph event_entity_details {
             </table>
         >
     ];
-    "event" [
+    "musicbrainz.event" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">event</font></td></tr>
@@ -50,7 +50,7 @@ digraph event_entity_details {
             </table>
         >
     ];
-    "event_alias" [
+    "musicbrainz.event_alias" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">event_alias</font></td></tr>
@@ -73,7 +73,7 @@ digraph event_entity_details {
             </table>
         >
     ];
-    "event_alias_type" [
+    "musicbrainz.event_alias_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">event_alias_type</font></td></tr>
@@ -86,7 +86,7 @@ digraph event_entity_details {
             </table>
         >
     ];
-    "event_annotation" [
+    "musicbrainz.event_annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">event_annotation</font></td></tr>
@@ -95,7 +95,7 @@ digraph event_entity_details {
             </table>
         >
     ];
-    "event_gid_redirect" [
+    "musicbrainz.event_gid_redirect" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">event_gid_redirect</font></td></tr>
@@ -105,7 +105,7 @@ digraph event_entity_details {
             </table>
         >
     ];
-    "event_meta" [
+    "musicbrainz.event_meta" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">event_meta</font></td></tr>
@@ -116,7 +116,7 @@ digraph event_entity_details {
             </table>
         >
     ];
-    "event_tag" [
+    "musicbrainz.event_tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">event_tag</font></td></tr>
@@ -127,7 +127,7 @@ digraph event_entity_details {
             </table>
         >
     ];
-    "event_type" [
+    "musicbrainz.event_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">event_type</font></td></tr>
@@ -140,7 +140,7 @@ digraph event_entity_details {
             </table>
         >
     ];
-    "tag" [
+    "musicbrainz.tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">tag</font></td></tr>
@@ -152,13 +152,13 @@ digraph event_entity_details {
     ];
 
     // References
-    "event":"type" -> "event_type":"id"
-    "event_alias":"event" -> "event":"id"
-    "event_alias":"type" -> "event_alias_type":"id"
-    "event_annotation":"event" -> "event":"id"
-    "event_annotation":"annotation" -> "annotation":"id"
-    "event_gid_redirect":"new_id" -> "event":"id"
-    "event_meta":"id" -> "event":"id"
-    "event_tag":"event" -> "event":"id"
-    "event_tag":"tag" -> "tag":"id"
+    "musicbrainz.event":"type" -> "musicbrainz.event_type":"id"
+    "musicbrainz.event_alias":"event" -> "musicbrainz.event":"id"
+    "musicbrainz.event_alias":"type" -> "musicbrainz.event_alias_type":"id"
+    "musicbrainz.event_annotation":"event" -> "musicbrainz.event":"id"
+    "musicbrainz.event_annotation":"annotation" -> "musicbrainz.annotation":"id"
+    "musicbrainz.event_gid_redirect":"new_id" -> "musicbrainz.event":"id"
+    "musicbrainz.event_meta":"id" -> "musicbrainz.event":"id"
+    "musicbrainz.event_tag":"event" -> "musicbrainz.event":"id"
+    "musicbrainz.event_tag":"tag" -> "musicbrainz.tag":"id"
 }

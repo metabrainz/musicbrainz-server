@@ -14,7 +14,7 @@ digraph area_entity_details {
     ];
 
     // Tables
-    "annotation" [
+    "musicbrainz.annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">annotation</font></td></tr>
@@ -26,7 +26,7 @@ digraph area_entity_details {
             </table>
         >
     ];
-    "area" [
+    "musicbrainz.area" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">area</font></td></tr>
@@ -46,7 +46,7 @@ digraph area_entity_details {
             </table>
         >
     ];
-    "area_alias" [
+    "musicbrainz.area_alias" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">area_alias</font></td></tr>
@@ -69,7 +69,7 @@ digraph area_entity_details {
             </table>
         >
     ];
-    "area_alias_type" [
+    "musicbrainz.area_alias_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">area_alias_type</font></td></tr>
@@ -82,7 +82,7 @@ digraph area_entity_details {
             </table>
         >
     ];
-    "area_annotation" [
+    "musicbrainz.area_annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">area_annotation</font></td></tr>
@@ -91,7 +91,7 @@ digraph area_entity_details {
             </table>
         >
     ];
-    "area_containment" [
+    "musicbrainz.area_containment" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">area_containment (m)</font></td></tr>
@@ -101,7 +101,7 @@ digraph area_entity_details {
             </table>
         >
     ];
-    "area_gid_redirect" [
+    "musicbrainz.area_gid_redirect" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">area_gid_redirect</font></td></tr>
@@ -111,7 +111,7 @@ digraph area_entity_details {
             </table>
         >
     ];
-    "area_tag" [
+    "musicbrainz.area_tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">area_tag</font></td></tr>
@@ -122,7 +122,7 @@ digraph area_entity_details {
             </table>
         >
     ];
-    "area_type" [
+    "musicbrainz.area_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">area_type</font></td></tr>
@@ -135,7 +135,7 @@ digraph area_entity_details {
             </table>
         >
     ];
-    "country_area" [
+    "musicbrainz.country_area" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">country_area</font></td></tr>
@@ -143,7 +143,7 @@ digraph area_entity_details {
             </table>
         >
     ];
-    "tag" [
+    "musicbrainz.tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">tag</font></td></tr>
@@ -155,15 +155,15 @@ digraph area_entity_details {
     ];
 
     // References
-    "area":"type" -> "area_type":"id"
-    "area_alias":"area" -> "area":"id"
-    "area_alias":"type" -> "area_alias_type":"id"
-    "area_annotation":"area" -> "area":"id"
-    "area_annotation":"annotation" -> "annotation":"id"
-    "area_containment":"descendant" -> "area":"id"
-    "area_containment":"parent" -> "area":"id"
-    "area_gid_redirect":"new_id" -> "area":"id"
-    "area_tag":"area" -> "area":"id"
-    "area_tag":"tag" -> "tag":"id"
-    "country_area":"area" -> "area":"id"
+    "musicbrainz.area":"type" -> "musicbrainz.area_type":"id"
+    "musicbrainz.area_alias":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.area_alias":"type" -> "musicbrainz.area_alias_type":"id"
+    "musicbrainz.area_annotation":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.area_annotation":"annotation" -> "musicbrainz.annotation":"id"
+    "musicbrainz.area_containment":"descendant" -> "musicbrainz.area":"id"
+    "musicbrainz.area_containment":"parent" -> "musicbrainz.area":"id"
+    "musicbrainz.area_gid_redirect":"new_id" -> "musicbrainz.area":"id"
+    "musicbrainz.area_tag":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.area_tag":"tag" -> "musicbrainz.tag":"id"
+    "musicbrainz.country_area":"area" -> "musicbrainz.area":"id"
 }

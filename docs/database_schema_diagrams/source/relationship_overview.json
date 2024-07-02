@@ -2,9 +2,9 @@
   "tooltip": "Tables for relationship connections",
   "_comment": "It shows minimal foreign keys needed to define a relationship between two entities. Artist-Work is just an example of a relationship type. The main table is highlighted. All other tables are shortened to focus on foreign key constraints.",
   "tables": {
-    "artist": ["shortened"],
-    "l_artist_work": ["highlighted"],
-    "link": ["shortened"],
-    "work": ["shortened"]
+    "musicbrainz.artist": ["shortened"],
+    "musicbrainz.l_artist_work": ["highlighted"],
+    "musicbrainz.link": ["shortened"],
+    "musicbrainz.work": ["shortened"]
   }
 }

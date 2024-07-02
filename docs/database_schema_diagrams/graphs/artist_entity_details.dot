@@ -14,7 +14,7 @@ digraph artist_entity_details {
     ];
 
     // Tables
-    "annotation" [
+    "musicbrainz.annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">annotation</font></td></tr>
@@ -26,7 +26,7 @@ digraph artist_entity_details {
             </table>
         >
     ];
-    "area" [
+    "musicbrainz.area" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">area</font></td></tr>
@@ -35,7 +35,7 @@ digraph artist_entity_details {
             </table>
         >
     ];
-    "artist" [
+    "musicbrainz.artist" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">artist</font></td></tr>
@@ -59,7 +59,7 @@ digraph artist_entity_details {
             </table>
         >
     ];
-    "artist_alias" [
+    "musicbrainz.artist_alias" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_alias</font></td></tr>
@@ -82,7 +82,7 @@ digraph artist_entity_details {
             </table>
         >
     ];
-    "artist_alias_type" [
+    "musicbrainz.artist_alias_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_alias_type</font></td></tr>
@@ -95,7 +95,7 @@ digraph artist_entity_details {
             </table>
         >
     ];
-    "artist_annotation" [
+    "musicbrainz.artist_annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_annotation</font></td></tr>
@@ -104,7 +104,7 @@ digraph artist_entity_details {
             </table>
         >
     ];
-    "artist_gid_redirect" [
+    "musicbrainz.artist_gid_redirect" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_gid_redirect</font></td></tr>
@@ -114,7 +114,7 @@ digraph artist_entity_details {
             </table>
         >
     ];
-    "artist_ipi" [
+    "musicbrainz.artist_ipi" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_ipi</font></td></tr>
@@ -125,7 +125,7 @@ digraph artist_entity_details {
             </table>
         >
     ];
-    "artist_isni" [
+    "musicbrainz.artist_isni" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_isni</font></td></tr>
@@ -136,7 +136,7 @@ digraph artist_entity_details {
             </table>
         >
     ];
-    "artist_meta" [
+    "musicbrainz.artist_meta" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_meta</font></td></tr>
@@ -146,7 +146,7 @@ digraph artist_entity_details {
             </table>
         >
     ];
-    "artist_release" [
+    "musicbrainz.artist_release" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_release (m)</font></td></tr>
@@ -161,7 +161,7 @@ digraph artist_entity_details {
             </table>
         >
     ];
-    "artist_release_group" [
+    "musicbrainz.artist_release_group" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_release_group (m)</font></td></tr>
@@ -176,7 +176,7 @@ digraph artist_entity_details {
             </table>
         >
     ];
-    "artist_tag" [
+    "musicbrainz.artist_tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_tag</font></td></tr>
@@ -187,7 +187,7 @@ digraph artist_entity_details {
             </table>
         >
     ];
-    "artist_type" [
+    "musicbrainz.artist_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_type</font></td></tr>
@@ -200,7 +200,7 @@ digraph artist_entity_details {
             </table>
         >
     ];
-    "gender" [
+    "musicbrainz.gender" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">gender</font></td></tr>
@@ -213,7 +213,7 @@ digraph artist_entity_details {
             </table>
         >
     ];
-    "tag" [
+    "musicbrainz.tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">tag</font></td></tr>
@@ -225,19 +225,19 @@ digraph artist_entity_details {
     ];
 
     // References
-    "artist":"type" -> "artist_type":"id"
-    "artist":"area" -> "area":"id"
-    "artist":"gender" -> "gender":"id"
-    "artist_alias":"artist" -> "artist":"id"
-    "artist_alias":"type" -> "artist_alias_type":"id"
-    "artist_annotation":"artist" -> "artist":"id"
-    "artist_annotation":"annotation" -> "annotation":"id"
-    "artist_gid_redirect":"new_id" -> "artist":"id"
-    "artist_ipi":"artist" -> "artist":"id"
-    "artist_isni":"artist" -> "artist":"id"
-    "artist_meta":"id" -> "artist":"id"
-    "artist_release":"artist" -> "artist":"id"
-    "artist_release_group":"artist" -> "artist":"id"
-    "artist_tag":"artist" -> "artist":"id"
-    "artist_tag":"tag" -> "tag":"id"
+    "musicbrainz.artist":"type" -> "musicbrainz.artist_type":"id"
+    "musicbrainz.artist":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.artist":"gender" -> "musicbrainz.gender":"id"
+    "musicbrainz.artist_alias":"artist" -> "musicbrainz.artist":"id"
+    "musicbrainz.artist_alias":"type" -> "musicbrainz.artist_alias_type":"id"
+    "musicbrainz.artist_annotation":"artist" -> "musicbrainz.artist":"id"
+    "musicbrainz.artist_annotation":"annotation" -> "musicbrainz.annotation":"id"
+    "musicbrainz.artist_gid_redirect":"new_id" -> "musicbrainz.artist":"id"
+    "musicbrainz.artist_ipi":"artist" -> "musicbrainz.artist":"id"
+    "musicbrainz.artist_isni":"artist" -> "musicbrainz.artist":"id"
+    "musicbrainz.artist_meta":"id" -> "musicbrainz.artist":"id"
+    "musicbrainz.artist_release":"artist" -> "musicbrainz.artist":"id"
+    "musicbrainz.artist_release_group":"artist" -> "musicbrainz.artist":"id"
+    "musicbrainz.artist_tag":"artist" -> "musicbrainz.artist":"id"
+    "musicbrainz.artist_tag":"tag" -> "musicbrainz.tag":"id"
 }

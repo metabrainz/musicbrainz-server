@@ -14,7 +14,7 @@ digraph entity_network_overview {
     ];
 
     // Tables
-    "area" [
+    "musicbrainz.area" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">area</font></td></tr>
@@ -23,7 +23,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "artist" [
+    "musicbrainz.artist" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">artist</font></td></tr>
@@ -33,7 +33,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "artist_credit" [
+    "musicbrainz.artist_credit" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_credit</font></td></tr>
@@ -42,7 +42,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "artist_credit_name" [
+    "musicbrainz.artist_credit_name" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_credit_name</font></td></tr>
@@ -53,7 +53,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "country_area" [
+    "musicbrainz.country_area" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">country_area</font></td></tr>
@@ -61,7 +61,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "event" [
+    "musicbrainz.event" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">event</font></td></tr>
@@ -70,7 +70,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "genre" [
+    "musicbrainz.genre" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">genre</font></td></tr>
@@ -79,7 +79,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "instrument" [
+    "musicbrainz.instrument" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">instrument</font></td></tr>
@@ -88,7 +88,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "label" [
+    "musicbrainz.label" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">label</font></td></tr>
@@ -98,7 +98,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "medium" [
+    "musicbrainz.medium" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">medium</font></td></tr>
@@ -108,7 +108,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "place" [
+    "musicbrainz.place" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">place</font></td></tr>
@@ -118,7 +118,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "recording" [
+    "musicbrainz.recording" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">recording</font></td></tr>
@@ -128,7 +128,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "release" [
+    "musicbrainz.release" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">release</font></td></tr>
@@ -139,7 +139,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "release_country" [
+    "musicbrainz.release_country" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_country</font></td></tr>
@@ -149,7 +149,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "release_group" [
+    "musicbrainz.release_group" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">release_group</font></td></tr>
@@ -159,7 +159,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "release_label" [
+    "musicbrainz.release_label" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_label</font></td></tr>
@@ -170,7 +170,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "series" [
+    "musicbrainz.series" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">series</font></td></tr>
@@ -179,7 +179,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "track" [
+    "musicbrainz.track" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">track</font></td></tr>
@@ -191,7 +191,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "url" [
+    "musicbrainz.url" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">url</font></td></tr>
@@ -200,7 +200,7 @@ digraph entity_network_overview {
             </table>
         >
     ];
-    "work" [
+    "musicbrainz.work" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">work</font></td></tr>
@@ -211,22 +211,22 @@ digraph entity_network_overview {
     ];
 
     // References
-    "artist":"area" -> "area":"id"
-    "artist_credit_name":"artist_credit" -> "artist_credit":"id"
-    "artist_credit_name":"artist" -> "artist":"id"
-    "country_area":"area" -> "area":"id"
-    "label":"area" -> "area":"id"
-    "medium":"release" -> "release":"id"
-    "place":"area" -> "area":"id"
-    "recording":"artist_credit" -> "artist_credit":"id"
-    "release":"artist_credit" -> "artist_credit":"id"
-    "release":"release_group" -> "release_group":"id"
-    "release_country":"release" -> "release":"id"
-    "release_country":"country" -> "country_area":"area"
-    "release_group":"artist_credit" -> "artist_credit":"id"
-    "release_label":"release" -> "release":"id"
-    "release_label":"label" -> "label":"id"
-    "track":"recording" -> "recording":"id"
-    "track":"medium" -> "medium":"id"
-    "track":"artist_credit" -> "artist_credit":"id"
+    "musicbrainz.artist":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.artist_credit_name":"artist_credit" -> "musicbrainz.artist_credit":"id"
+    "musicbrainz.artist_credit_name":"artist" -> "musicbrainz.artist":"id"
+    "musicbrainz.country_area":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.label":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.medium":"release" -> "musicbrainz.release":"id"
+    "musicbrainz.place":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.recording":"artist_credit" -> "musicbrainz.artist_credit":"id"
+    "musicbrainz.release":"artist_credit" -> "musicbrainz.artist_credit":"id"
+    "musicbrainz.release":"release_group" -> "musicbrainz.release_group":"id"
+    "musicbrainz.release_country":"release" -> "musicbrainz.release":"id"
+    "musicbrainz.release_country":"country" -> "musicbrainz.country_area":"area"
+    "musicbrainz.release_group":"artist_credit" -> "musicbrainz.artist_credit":"id"
+    "musicbrainz.release_label":"release" -> "musicbrainz.release":"id"
+    "musicbrainz.release_label":"label" -> "musicbrainz.label":"id"
+    "musicbrainz.track":"recording" -> "musicbrainz.recording":"id"
+    "musicbrainz.track":"medium" -> "musicbrainz.medium":"id"
+    "musicbrainz.track":"artist_credit" -> "musicbrainz.artist_credit":"id"
 }

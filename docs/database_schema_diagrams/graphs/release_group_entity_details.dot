@@ -14,7 +14,7 @@ digraph release_group_entity_details {
     ];
 
     // Tables
-    "annotation" [
+    "musicbrainz.annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">annotation</font></td></tr>
@@ -26,7 +26,7 @@ digraph release_group_entity_details {
             </table>
         >
     ];
-    "artist" [
+    "musicbrainz.artist" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist</font></td></tr>
@@ -35,7 +35,7 @@ digraph release_group_entity_details {
             </table>
         >
     ];
-    "artist_credit" [
+    "musicbrainz.artist_credit" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_credit</font></td></tr>
@@ -49,7 +49,7 @@ digraph release_group_entity_details {
             </table>
         >
     ];
-    "artist_credit_name" [
+    "musicbrainz.artist_credit_name" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_credit_name</font></td></tr>
@@ -61,7 +61,7 @@ digraph release_group_entity_details {
             </table>
         >
     ];
-    "artist_release_group" [
+    "musicbrainz.artist_release_group" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_release_group (m)</font></td></tr>
@@ -76,7 +76,7 @@ digraph release_group_entity_details {
             </table>
         >
     ];
-    "release_group" [
+    "musicbrainz.release_group" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">release_group</font></td></tr>
@@ -91,7 +91,7 @@ digraph release_group_entity_details {
             </table>
         >
     ];
-    "release_group_alias" [
+    "musicbrainz.release_group_alias" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_alias</font></td></tr>
@@ -114,7 +114,7 @@ digraph release_group_entity_details {
             </table>
         >
     ];
-    "release_group_alias_type" [
+    "musicbrainz.release_group_alias_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_alias_type</font></td></tr>
@@ -127,7 +127,7 @@ digraph release_group_entity_details {
             </table>
         >
     ];
-    "release_group_annotation" [
+    "musicbrainz.release_group_annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_annotation</font></td></tr>
@@ -136,7 +136,7 @@ digraph release_group_entity_details {
             </table>
         >
     ];
-    "release_group_gid_redirect" [
+    "musicbrainz.release_group_gid_redirect" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_gid_redirect</font></td></tr>
@@ -146,7 +146,7 @@ digraph release_group_entity_details {
             </table>
         >
     ];
-    "release_group_meta" [
+    "musicbrainz.release_group_meta" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_meta</font></td></tr>
@@ -160,7 +160,7 @@ digraph release_group_entity_details {
             </table>
         >
     ];
-    "release_group_primary_type" [
+    "musicbrainz.release_group_primary_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_primary_type</font></td></tr>
@@ -173,7 +173,7 @@ digraph release_group_entity_details {
             </table>
         >
     ];
-    "release_group_secondary_type" [
+    "musicbrainz.release_group_secondary_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_secondary_type</font></td></tr>
@@ -186,7 +186,7 @@ digraph release_group_entity_details {
             </table>
         >
     ];
-    "release_group_secondary_type_join" [
+    "musicbrainz.release_group_secondary_type_join" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_secondary_type_join</font></td></tr>
@@ -196,7 +196,7 @@ digraph release_group_entity_details {
             </table>
         >
     ];
-    "release_group_tag" [
+    "musicbrainz.release_group_tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_tag</font></td></tr>
@@ -207,7 +207,7 @@ digraph release_group_entity_details {
             </table>
         >
     ];
-    "tag" [
+    "musicbrainz.tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">tag</font></td></tr>
@@ -219,20 +219,20 @@ digraph release_group_entity_details {
     ];
 
     // References
-    "artist_credit_name":"artist_credit" -> "artist_credit":"id"
-    "artist_credit_name":"artist" -> "artist":"id"
-    "artist_release_group":"artist" -> "artist":"id"
-    "artist_release_group":"release_group" -> "release_group":"id"
-    "release_group":"artist_credit" -> "artist_credit":"id"
-    "release_group":"type" -> "release_group_primary_type":"id"
-    "release_group_alias":"release_group" -> "release_group":"id"
-    "release_group_alias":"type" -> "release_group_alias_type":"id"
-    "release_group_annotation":"release_group" -> "release_group":"id"
-    "release_group_annotation":"annotation" -> "annotation":"id"
-    "release_group_gid_redirect":"new_id" -> "release_group":"id"
-    "release_group_meta":"id" -> "release_group":"id"
-    "release_group_secondary_type_join":"release_group" -> "release_group":"id"
-    "release_group_secondary_type_join":"secondary_type" -> "release_group_secondary_type":"id"
-    "release_group_tag":"release_group" -> "release_group":"id"
-    "release_group_tag":"tag" -> "tag":"id"
+    "musicbrainz.artist_credit_name":"artist_credit" -> "musicbrainz.artist_credit":"id"
+    "musicbrainz.artist_credit_name":"artist" -> "musicbrainz.artist":"id"
+    "musicbrainz.artist_release_group":"artist" -> "musicbrainz.artist":"id"
+    "musicbrainz.artist_release_group":"release_group" -> "musicbrainz.release_group":"id"
+    "musicbrainz.release_group":"artist_credit" -> "musicbrainz.artist_credit":"id"
+    "musicbrainz.release_group":"type" -> "musicbrainz.release_group_primary_type":"id"
+    "musicbrainz.release_group_alias":"release_group" -> "musicbrainz.release_group":"id"
+    "musicbrainz.release_group_alias":"type" -> "musicbrainz.release_group_alias_type":"id"
+    "musicbrainz.release_group_annotation":"release_group" -> "musicbrainz.release_group":"id"
+    "musicbrainz.release_group_annotation":"annotation" -> "musicbrainz.annotation":"id"
+    "musicbrainz.release_group_gid_redirect":"new_id" -> "musicbrainz.release_group":"id"
+    "musicbrainz.release_group_meta":"id" -> "musicbrainz.release_group":"id"
+    "musicbrainz.release_group_secondary_type_join":"release_group" -> "musicbrainz.release_group":"id"
+    "musicbrainz.release_group_secondary_type_join":"secondary_type" -> "musicbrainz.release_group_secondary_type":"id"
+    "musicbrainz.release_group_tag":"release_group" -> "musicbrainz.release_group":"id"
+    "musicbrainz.release_group_tag":"tag" -> "musicbrainz.tag":"id"
 }

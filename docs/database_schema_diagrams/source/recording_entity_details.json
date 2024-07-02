@@ -2,18 +2,18 @@
   "tooltip": "Tables for the “recording” entity type properties",
   "_comment": "It shows replicated and materialized tables used to define any recording entity, beyond relationships. The main table is highlighted.",
   "tables": {
-    "annotation": [],
-    "artist": ["shortened"],
-    "artist_credit": [],
-    "artist_credit_name": [],
-    "recording": ["highlighted"],
-    "recording_alias": [],
-    "recording_alias_type": [],
-    "recording_annotation": [],
-    "recording_first_release_date": ["materialized"],
-    "recording_gid_redirect": [],
-    "recording_meta": [],
-    "recording_tag": [],
-    "tag": []
+    "musicbrainz.annotation": [],
+    "musicbrainz.artist": ["shortened"],
+    "musicbrainz.artist_credit": [],
+    "musicbrainz.artist_credit_name": [],
+    "musicbrainz.recording": ["highlighted"],
+    "musicbrainz.recording_alias": [],
+    "musicbrainz.recording_alias_type": [],
+    "musicbrainz.recording_annotation": [],
+    "musicbrainz.recording_first_release_date": ["materialized"],
+    "musicbrainz.recording_gid_redirect": [],
+    "musicbrainz.recording_meta": [],
+    "musicbrainz.recording_tag": [],
+    "musicbrainz.tag": []
   }
 }

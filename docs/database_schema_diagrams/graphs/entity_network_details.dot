@@ -14,7 +14,7 @@ digraph entity_network_details {
     ];
 
     // Tables
-    "area" [
+    "musicbrainz.area" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">area</font></td></tr>
@@ -34,7 +34,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "area_type" [
+    "musicbrainz.area_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">area_type</font></td></tr>
@@ -47,7 +47,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "artist" [
+    "musicbrainz.artist" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">artist</font></td></tr>
@@ -71,7 +71,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "artist_credit" [
+    "musicbrainz.artist_credit" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_credit</font></td></tr>
@@ -85,7 +85,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "artist_credit_name" [
+    "musicbrainz.artist_credit_name" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_credit_name</font></td></tr>
@@ -97,7 +97,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "artist_ipi" [
+    "musicbrainz.artist_ipi" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_ipi</font></td></tr>
@@ -108,7 +108,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "artist_isni" [
+    "musicbrainz.artist_isni" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_isni</font></td></tr>
@@ -119,7 +119,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "artist_type" [
+    "musicbrainz.artist_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_type</font></td></tr>
@@ -132,7 +132,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "cdtoc" [
+    "musicbrainz.cdtoc" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">cdtoc</font></td></tr>
@@ -146,7 +146,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "country_area" [
+    "musicbrainz.country_area" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">country_area</font></td></tr>
@@ -154,7 +154,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "event" [
+    "musicbrainz.event" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">event</font></td></tr>
@@ -178,7 +178,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "event_type" [
+    "musicbrainz.event_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">event_type</font></td></tr>
@@ -191,7 +191,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "gender" [
+    "musicbrainz.gender" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">gender</font></td></tr>
@@ -204,7 +204,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "genre" [
+    "musicbrainz.genre" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">genre</font></td></tr>
@@ -217,7 +217,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "instrument" [
+    "musicbrainz.instrument" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">instrument</font></td></tr>
@@ -232,7 +232,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "instrument_type" [
+    "musicbrainz.instrument_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">instrument_type</font></td></tr>
@@ -245,7 +245,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "iso_3166_1" [
+    "musicbrainz.iso_3166_1" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">iso_3166_1</font></td></tr>
@@ -254,7 +254,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "iso_3166_2" [
+    "musicbrainz.iso_3166_2" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">iso_3166_2</font></td></tr>
@@ -263,7 +263,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "iso_3166_3" [
+    "musicbrainz.iso_3166_3" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">iso_3166_3</font></td></tr>
@@ -272,7 +272,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "isrc" [
+    "musicbrainz.isrc" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">isrc</font></td></tr>
@@ -285,7 +285,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "iswc" [
+    "musicbrainz.iswc" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">iswc</font></td></tr>
@@ -298,7 +298,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "label" [
+    "musicbrainz.label" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">label</font></td></tr>
@@ -321,7 +321,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "label_ipi" [
+    "musicbrainz.label_ipi" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">label_ipi</font></td></tr>
@@ -332,7 +332,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "label_isni" [
+    "musicbrainz.label_isni" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">label_isni</font></td></tr>
@@ -343,7 +343,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "label_type" [
+    "musicbrainz.label_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">label_type</font></td></tr>
@@ -356,7 +356,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "language" [
+    "musicbrainz.language" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">language</font></td></tr>
@@ -370,7 +370,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "medium" [
+    "musicbrainz.medium" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">medium</font></td></tr>
@@ -385,7 +385,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "medium_cdtoc" [
+    "musicbrainz.medium_cdtoc" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">medium_cdtoc</font></td></tr>
@@ -397,7 +397,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "medium_format" [
+    "musicbrainz.medium_format" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">medium_format</font></td></tr>
@@ -412,7 +412,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "place" [
+    "musicbrainz.place" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">place</font></td></tr>
@@ -436,7 +436,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "place_type" [
+    "musicbrainz.place_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">place_type</font></td></tr>
@@ -449,7 +449,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "recording" [
+    "musicbrainz.recording" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">recording</font></td></tr>
@@ -465,7 +465,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "release" [
+    "musicbrainz.release" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">release</font></td></tr>
@@ -486,7 +486,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "release_country" [
+    "musicbrainz.release_country" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_country</font></td></tr>
@@ -498,7 +498,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "release_group" [
+    "musicbrainz.release_group" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">release_group</font></td></tr>
@@ -513,7 +513,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "release_group_primary_type" [
+    "musicbrainz.release_group_primary_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_primary_type</font></td></tr>
@@ -526,7 +526,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "release_group_secondary_type" [
+    "musicbrainz.release_group_secondary_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_secondary_type</font></td></tr>
@@ -539,7 +539,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "release_group_secondary_type_join" [
+    "musicbrainz.release_group_secondary_type_join" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_secondary_type_join</font></td></tr>
@@ -549,7 +549,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "release_label" [
+    "musicbrainz.release_label" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_label</font></td></tr>
@@ -561,7 +561,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "release_packaging" [
+    "musicbrainz.release_packaging" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_packaging</font></td></tr>
@@ -574,7 +574,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "release_status" [
+    "musicbrainz.release_status" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_status</font></td></tr>
@@ -587,7 +587,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "release_unknown_country" [
+    "musicbrainz.release_unknown_country" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_unknown_country</font></td></tr>
@@ -598,7 +598,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "script" [
+    "musicbrainz.script" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">script</font></td></tr>
@@ -610,7 +610,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "series" [
+    "musicbrainz.series" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">series</font></td></tr>
@@ -625,7 +625,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "series_ordering_type" [
+    "musicbrainz.series_ordering_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_ordering_type</font></td></tr>
@@ -638,7 +638,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "series_type" [
+    "musicbrainz.series_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">series_type</font></td></tr>
@@ -652,7 +652,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "track" [
+    "musicbrainz.track" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">track</font></td></tr>
@@ -671,7 +671,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "url" [
+    "musicbrainz.url" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">url</font></td></tr>
@@ -683,7 +683,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "work" [
+    "musicbrainz.work" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">work</font></td></tr>
@@ -697,7 +697,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "work_attribute" [
+    "musicbrainz.work_attribute" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_attribute</font></td></tr>
@@ -709,7 +709,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "work_attribute_type" [
+    "musicbrainz.work_attribute_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_attribute_type</font></td></tr>
@@ -724,7 +724,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "work_attribute_type_allowed_value" [
+    "musicbrainz.work_attribute_type_allowed_value" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_attribute_type_allowed_value</font></td></tr>
@@ -738,7 +738,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "work_language" [
+    "musicbrainz.work_language" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_language</font></td></tr>
@@ -749,7 +749,7 @@ digraph entity_network_details {
             </table>
         >
     ];
-    "work_type" [
+    "musicbrainz.work_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_type</font></td></tr>
@@ -764,58 +764,58 @@ digraph entity_network_details {
     ];
 
     // References
-    "area":"type" -> "area_type":"id"
-    "artist":"type" -> "artist_type":"id"
-    "artist":"area" -> "area":"id"
-    "artist":"gender" -> "gender":"id"
-    "artist_credit_name":"artist_credit" -> "artist_credit":"id"
-    "artist_credit_name":"artist" -> "artist":"id"
-    "artist_ipi":"artist" -> "artist":"id"
-    "artist_isni":"artist" -> "artist":"id"
-    "country_area":"area" -> "area":"id"
-    "event":"type" -> "event_type":"id"
-    "instrument":"type" -> "instrument_type":"id"
-    "iso_3166_1":"area" -> "area":"id"
-    "iso_3166_2":"area" -> "area":"id"
-    "iso_3166_3":"area" -> "area":"id"
-    "isrc":"recording" -> "recording":"id"
-    "iswc":"work" -> "work":"id"
-    "label":"type" -> "label_type":"id"
-    "label":"area" -> "area":"id"
-    "label_ipi":"label" -> "label":"id"
-    "label_isni":"label" -> "label":"id"
-    "medium":"release" -> "release":"id"
-    "medium":"format" -> "medium_format":"id"
-    "medium_cdtoc":"medium" -> "medium":"id"
-    "medium_cdtoc":"cdtoc" -> "cdtoc":"id"
-    "place":"type" -> "place_type":"id"
-    "place":"area" -> "area":"id"
-    "recording":"artist_credit" -> "artist_credit":"id"
-    "release":"artist_credit" -> "artist_credit":"id"
-    "release":"release_group" -> "release_group":"id"
-    "release":"status" -> "release_status":"id"
-    "release":"packaging" -> "release_packaging":"id"
-    "release":"language" -> "language":"id"
-    "release":"script" -> "script":"id"
-    "release_country":"release" -> "release":"id"
-    "release_country":"country" -> "country_area":"area"
-    "release_group":"artist_credit" -> "artist_credit":"id"
-    "release_group":"type" -> "release_group_primary_type":"id"
-    "release_group_secondary_type_join":"release_group" -> "release_group":"id"
-    "release_group_secondary_type_join":"secondary_type" -> "release_group_secondary_type":"id"
-    "release_label":"release" -> "release":"id"
-    "release_label":"label" -> "label":"id"
-    "release_unknown_country":"release" -> "release":"id"
-    "series":"type" -> "series_type":"id"
-    "series":"ordering_type" -> "series_ordering_type":"id"
-    "track":"recording" -> "recording":"id"
-    "track":"medium" -> "medium":"id"
-    "track":"artist_credit" -> "artist_credit":"id"
-    "work":"type" -> "work_type":"id"
-    "work_attribute":"work" -> "work":"id"
-    "work_attribute":"work_attribute_type" -> "work_attribute_type":"id"
-    "work_attribute":"work_attribute_type_allowed_value" -> "work_attribute_type_allowed_value":"id"
-    "work_attribute_type_allowed_value":"work_attribute_type" -> "work_attribute_type":"id"
-    "work_language":"work" -> "work":"id"
-    "work_language":"language" -> "language":"id"
+    "musicbrainz.area":"type" -> "musicbrainz.area_type":"id"
+    "musicbrainz.artist":"type" -> "musicbrainz.artist_type":"id"
+    "musicbrainz.artist":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.artist":"gender" -> "musicbrainz.gender":"id"
+    "musicbrainz.artist_credit_name":"artist_credit" -> "musicbrainz.artist_credit":"id"
+    "musicbrainz.artist_credit_name":"artist" -> "musicbrainz.artist":"id"
+    "musicbrainz.artist_ipi":"artist" -> "musicbrainz.artist":"id"
+    "musicbrainz.artist_isni":"artist" -> "musicbrainz.artist":"id"
+    "musicbrainz.country_area":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.event":"type" -> "musicbrainz.event_type":"id"
+    "musicbrainz.instrument":"type" -> "musicbrainz.instrument_type":"id"
+    "musicbrainz.iso_3166_1":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.iso_3166_2":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.iso_3166_3":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.isrc":"recording" -> "musicbrainz.recording":"id"
+    "musicbrainz.iswc":"work" -> "musicbrainz.work":"id"
+    "musicbrainz.label":"type" -> "musicbrainz.label_type":"id"
+    "musicbrainz.label":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.label_ipi":"label" -> "musicbrainz.label":"id"
+    "musicbrainz.label_isni":"label" -> "musicbrainz.label":"id"
+    "musicbrainz.medium":"release" -> "musicbrainz.release":"id"
+    "musicbrainz.medium":"format" -> "musicbrainz.medium_format":"id"
+    "musicbrainz.medium_cdtoc":"medium" -> "musicbrainz.medium":"id"
+    "musicbrainz.medium_cdtoc":"cdtoc" -> "musicbrainz.cdtoc":"id"
+    "musicbrainz.place":"type" -> "musicbrainz.place_type":"id"
+    "musicbrainz.place":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.recording":"artist_credit" -> "musicbrainz.artist_credit":"id"
+    "musicbrainz.release":"artist_credit" -> "musicbrainz.artist_credit":"id"
+    "musicbrainz.release":"release_group" -> "musicbrainz.release_group":"id"
+    "musicbrainz.release":"status" -> "musicbrainz.release_status":"id"
+    "musicbrainz.release":"packaging" -> "musicbrainz.release_packaging":"id"
+    "musicbrainz.release":"language" -> "musicbrainz.language":"id"
+    "musicbrainz.release":"script" -> "musicbrainz.script":"id"
+    "musicbrainz.release_country":"release" -> "musicbrainz.release":"id"
+    "musicbrainz.release_country":"country" -> "musicbrainz.country_area":"area"
+    "musicbrainz.release_group":"artist_credit" -> "musicbrainz.artist_credit":"id"
+    "musicbrainz.release_group":"type" -> "musicbrainz.release_group_primary_type":"id"
+    "musicbrainz.release_group_secondary_type_join":"release_group" -> "musicbrainz.release_group":"id"
+    "musicbrainz.release_group_secondary_type_join":"secondary_type" -> "musicbrainz.release_group_secondary_type":"id"
+    "musicbrainz.release_label":"release" -> "musicbrainz.release":"id"
+    "musicbrainz.release_label":"label" -> "musicbrainz.label":"id"
+    "musicbrainz.release_unknown_country":"release" -> "musicbrainz.release":"id"
+    "musicbrainz.series":"type" -> "musicbrainz.series_type":"id"
+    "musicbrainz.series":"ordering_type" -> "musicbrainz.series_ordering_type":"id"
+    "musicbrainz.track":"recording" -> "musicbrainz.recording":"id"
+    "musicbrainz.track":"medium" -> "musicbrainz.medium":"id"
+    "musicbrainz.track":"artist_credit" -> "musicbrainz.artist_credit":"id"
+    "musicbrainz.work":"type" -> "musicbrainz.work_type":"id"
+    "musicbrainz.work_attribute":"work" -> "musicbrainz.work":"id"
+    "musicbrainz.work_attribute":"work_attribute_type" -> "musicbrainz.work_attribute_type":"id"
+    "musicbrainz.work_attribute":"work_attribute_type_allowed_value" -> "musicbrainz.work_attribute_type_allowed_value":"id"
+    "musicbrainz.work_attribute_type_allowed_value":"work_attribute_type" -> "musicbrainz.work_attribute_type":"id"
+    "musicbrainz.work_language":"work" -> "musicbrainz.work":"id"
+    "musicbrainz.work_language":"language" -> "musicbrainz.language":"id"
 }

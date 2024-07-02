@@ -14,7 +14,7 @@ digraph work_entity_details {
     ];
 
     // Tables
-    "annotation" [
+    "musicbrainz.annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">annotation</font></td></tr>
@@ -26,7 +26,7 @@ digraph work_entity_details {
             </table>
         >
     ];
-    "language" [
+    "musicbrainz.language" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">language</font></td></tr>
@@ -40,7 +40,7 @@ digraph work_entity_details {
             </table>
         >
     ];
-    "tag" [
+    "musicbrainz.tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">tag</font></td></tr>
@@ -50,7 +50,7 @@ digraph work_entity_details {
             </table>
         >
     ];
-    "work" [
+    "musicbrainz.work" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">work</font></td></tr>
@@ -64,7 +64,7 @@ digraph work_entity_details {
             </table>
         >
     ];
-    "work_alias" [
+    "musicbrainz.work_alias" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_alias</font></td></tr>
@@ -87,7 +87,7 @@ digraph work_entity_details {
             </table>
         >
     ];
-    "work_alias_type" [
+    "musicbrainz.work_alias_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_alias_type</font></td></tr>
@@ -100,7 +100,7 @@ digraph work_entity_details {
             </table>
         >
     ];
-    "work_annotation" [
+    "musicbrainz.work_annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_annotation</font></td></tr>
@@ -109,7 +109,7 @@ digraph work_entity_details {
             </table>
         >
     ];
-    "work_attribute" [
+    "musicbrainz.work_attribute" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_attribute</font></td></tr>
@@ -121,7 +121,7 @@ digraph work_entity_details {
             </table>
         >
     ];
-    "work_attribute_type" [
+    "musicbrainz.work_attribute_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_attribute_type</font></td></tr>
@@ -136,7 +136,7 @@ digraph work_entity_details {
             </table>
         >
     ];
-    "work_attribute_type_allowed_value" [
+    "musicbrainz.work_attribute_type_allowed_value" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_attribute_type_allowed_value</font></td></tr>
@@ -150,7 +150,7 @@ digraph work_entity_details {
             </table>
         >
     ];
-    "work_gid_redirect" [
+    "musicbrainz.work_gid_redirect" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_gid_redirect</font></td></tr>
@@ -160,7 +160,7 @@ digraph work_entity_details {
             </table>
         >
     ];
-    "work_language" [
+    "musicbrainz.work_language" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_language</font></td></tr>
@@ -171,7 +171,7 @@ digraph work_entity_details {
             </table>
         >
     ];
-    "work_meta" [
+    "musicbrainz.work_meta" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_meta</font></td></tr>
@@ -181,7 +181,7 @@ digraph work_entity_details {
             </table>
         >
     ];
-    "work_tag" [
+    "musicbrainz.work_tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_tag</font></td></tr>
@@ -192,7 +192,7 @@ digraph work_entity_details {
             </table>
         >
     ];
-    "work_type" [
+    "musicbrainz.work_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work_type</font></td></tr>
@@ -207,19 +207,19 @@ digraph work_entity_details {
     ];
 
     // References
-    "work":"type" -> "work_type":"id"
-    "work_alias":"work" -> "work":"id"
-    "work_alias":"type" -> "work_alias_type":"id"
-    "work_annotation":"work" -> "work":"id"
-    "work_annotation":"annotation" -> "annotation":"id"
-    "work_attribute":"work" -> "work":"id"
-    "work_attribute":"work_attribute_type" -> "work_attribute_type":"id"
-    "work_attribute":"work_attribute_type_allowed_value" -> "work_attribute_type_allowed_value":"id"
-    "work_attribute_type_allowed_value":"work_attribute_type" -> "work_attribute_type":"id"
-    "work_gid_redirect":"new_id" -> "work":"id"
-    "work_language":"work" -> "work":"id"
-    "work_language":"language" -> "language":"id"
-    "work_meta":"id" -> "work":"id"
-    "work_tag":"work" -> "work":"id"
-    "work_tag":"tag" -> "tag":"id"
+    "musicbrainz.work":"type" -> "musicbrainz.work_type":"id"
+    "musicbrainz.work_alias":"work" -> "musicbrainz.work":"id"
+    "musicbrainz.work_alias":"type" -> "musicbrainz.work_alias_type":"id"
+    "musicbrainz.work_annotation":"work" -> "musicbrainz.work":"id"
+    "musicbrainz.work_annotation":"annotation" -> "musicbrainz.annotation":"id"
+    "musicbrainz.work_attribute":"work" -> "musicbrainz.work":"id"
+    "musicbrainz.work_attribute":"work_attribute_type" -> "musicbrainz.work_attribute_type":"id"
+    "musicbrainz.work_attribute":"work_attribute_type_allowed_value" -> "musicbrainz.work_attribute_type_allowed_value":"id"
+    "musicbrainz.work_attribute_type_allowed_value":"work_attribute_type" -> "musicbrainz.work_attribute_type":"id"
+    "musicbrainz.work_gid_redirect":"new_id" -> "musicbrainz.work":"id"
+    "musicbrainz.work_language":"work" -> "musicbrainz.work":"id"
+    "musicbrainz.work_language":"language" -> "musicbrainz.language":"id"
+    "musicbrainz.work_meta":"id" -> "musicbrainz.work":"id"
+    "musicbrainz.work_tag":"work" -> "musicbrainz.work":"id"
+    "musicbrainz.work_tag":"tag" -> "musicbrainz.tag":"id"
 }
