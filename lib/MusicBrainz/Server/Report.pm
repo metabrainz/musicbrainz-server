@@ -11,7 +11,8 @@ requires 'run';
 
 sub qualified_table {
     my $self = shift;
-    return join(q(.), 'report', $self->table);
+    my $dbh = $self->sql->dbh;
+    return join(q(.), 'report', $dbh->quote_identifier($self->table));
 }
 
 sub table {
