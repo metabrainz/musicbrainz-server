@@ -17,7 +17,8 @@ use MusicBrainz::Server::Constants qw(
     entities_with
 );
 use MusicBrainz::Server::Data::Relationship;
-use MusicBrainz::Server::Translation::Statistics qw( l );
+use MusicBrainz::Server::Translation::History;
+use MusicBrainz::Server::Translation::Statistics;
 use MusicBrainz::Server::Replication qw( :replication_type );
 
 use DBDefs;
@@ -32,7 +33,11 @@ sub all_events {
     my ($self) = @_;
 
     return [
-        map { $_->{title} = l($_->{title}); $_->{description} = l($_->{description}); $_; }
+        map {
+            $_->{title} = MusicBrainz::Server::Translation::History::l($_->{title});
+            $_->{description} = MusicBrainz::Server::Translation::History::l($_->{description});
+            $_;
+        }
         @{$self->sql->select_list_of_hashes(
             'SELECT * FROM statistics.statistic_event ORDER BY date ASC',
         )},
