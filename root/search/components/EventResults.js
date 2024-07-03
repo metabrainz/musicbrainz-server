@@ -26,8 +26,8 @@ import type {ResultsPropsT, SearchResultT} from '../types.js';
 import PaginatedSearchResults from './PaginatedSearchResults.js';
 import ResultsLayout from './ResultsLayout.js';
 
-function getResultBuilder (showArtworkPresence: boolean) {
-  function buildResult (result: SearchResultT<EventT>, index: number) {
+function getResultBuilder(showArtworkPresence: boolean) {
+  function buildResult(result: SearchResultT<EventT>, index: number) {
     const event = result.entity;
     const score = result.score;
 
@@ -52,7 +52,7 @@ function getResultBuilder (showArtworkPresence: boolean) {
           <ArtistRoles relations={event.performers} />
           {manifest.js(
             'common/components/ArtistRoles',
-            { async: 'async' },
+            {async: 'async'},
           )}
         </td>
         <td>
@@ -62,7 +62,7 @@ function getResultBuilder (showArtworkPresence: boolean) {
     );
   }
 
-  return buildResult
+  return buildResult;
 }
 
 component EventResults(...{
@@ -71,9 +71,10 @@ component EventResults(...{
   pager,
   query,
   results,
-}: ResultsPropsT < EventT >) {
+}: ResultsPropsT<EventT>) {
   const $c = React.useContext(CatalystContext);
-  let buildResult = getResultBuilder(results.some((res) => res.entity.event_art_presence === 'present'))
+  const buildResult = getResultBuilder(results
+    .some((res) => res.entity.event_art_presence === 'present'));
 
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>

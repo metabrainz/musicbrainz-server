@@ -35,7 +35,7 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ReleaseGroupLayout from './ReleaseGroupLayout.js';
 
-function getReleaseStatusTableBuilder (showArtworkPresence: boolean) {
+function getReleaseStatusTableBuilder(showArtworkPresence: boolean) {
   function buildReleaseStatusTable(
     $c: CatalystContextT,
     releaseStatusGroup: $ReadOnlyArray<ReleaseT>,
@@ -65,7 +65,10 @@ function getReleaseStatusTableBuilder (showArtworkPresence: boolean) {
                 </td>
               ) : null}
             <td>
-              <EntityLink entity={release} showArtworkPresence={showArtworkPresence} />
+              <EntityLink
+                entity={release}
+                showArtworkPresence={showArtworkPresence}
+              />
             </td>
             {/* The class being added is for usage with userscripts */}
             <td className={
@@ -110,7 +113,7 @@ function getReleaseStatusTableBuilder (showArtworkPresence: boolean) {
     );
   }
 
-  return buildReleaseStatusTable
+  return buildReleaseStatusTable;
 }
 
 component ReleaseGroupIndex(
@@ -122,8 +125,16 @@ component ReleaseGroupIndex(
   wikipediaExtract: WikipediaExtractT | null,
 ) {
   const $c = React.useContext(CatalystContext);
-  const firstReleaseGid = releases.length ? releases[0][0].gid : null;
-  let buildReleaseStatusTable = getReleaseStatusTableBuilder(releases.some((sub) => sub.some((res) => res.cover_art_presence === 'present')));
+  const firstReleaseGid = releases.length
+    ? releases[0][0].gid
+    : null;
+  const buildReleaseStatusTable = getReleaseStatusTableBuilder(
+    releases.some(
+      (sub) => sub.some(
+        (res) => res.cover_art_presence === 'present',
+      ),
+    ),
+  );
 
   return (
     <ReleaseGroupLayout

@@ -34,7 +34,7 @@ import type {
 import PaginatedSearchResults from './PaginatedSearchResults.js';
 import ResultsLayout from './ResultsLayout.js';
 
-function getResultBuilder (showArtworkPresence: boolean) {
+function getResultBuilder(showArtworkPresence: boolean) {
   function buildResult(
     $c: CatalystContextT,
     result: SearchResultT<ReleaseT>,
@@ -47,7 +47,10 @@ function getResultBuilder (showArtworkPresence: boolean) {
     return (
       <tr className={loopParity(index)} data-score={score} key={release.id}>
         <td>
-          <EntityLink entity={release} showArtworkPresence={showArtworkPresence} />
+          <EntityLink
+            entity={release}
+            showArtworkPresence={showArtworkPresence}
+          />
         </td>
         <td>
           <ArtistCreditLink artistCredit={release.artistCredit} />
@@ -97,7 +100,7 @@ function getResultBuilder (showArtworkPresence: boolean) {
     );
   }
 
-  return buildResult
+  return buildResult;
 }
 
 export component ReleaseResultsInline(...{
@@ -106,7 +109,11 @@ export component ReleaseResultsInline(...{
   results,
 }: InlineResultsPropsT<ReleaseT>) {
   const $c = React.useContext(CatalystContext);
-  let buildResult = getResultBuilder(results.some((res) => res.entity.cover_art_presence === 'present'))
+  const buildResult = getResultBuilder(
+    results.some(
+      (res) => res.entity.cover_art_presence === 'present',
+    ),
+  );
 
   return (
     <PaginatedSearchResults
