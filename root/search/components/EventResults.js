@@ -26,39 +26,43 @@ import type {ResultsPropsT, SearchResultT} from '../types.js';
 import PaginatedSearchResults from './PaginatedSearchResults.js';
 import ResultsLayout from './ResultsLayout.js';
 
-function buildResult(result: SearchResultT<EventT>, index: number) {
-  const event = result.entity;
-  const score = result.score;
+function getResultBuilder (showArtworkPresence: boolean) {
+  function buildResult (result: SearchResultT<EventT>, index: number) {
+    const event = result.entity;
+    const score = result.score;
 
-  return (
-    <tr className={loopParity(index)} data-score={score} key={event.id}>
-      <td>
-        <EntityLink
-          entity={event}
-          showArtworkPresence
-          showDisambiguation
-          showEventDate={false}
-        />
-      </td>
-      <td>{formatDatePeriod(event)}</td>
-      <td>{event.time}</td>
-      <td>
-        {nonEmpty(event.typeName)
-          ? lp_attributes(event.typeName, 'event_type')
-          : null}
-      </td>
-      <td>
-        <ArtistRoles relations={event.performers} />
-        {manifest.js(
-          'common/components/ArtistRoles',
-          {async: 'async'},
-        )}
-      </td>
-      <td>
-        <EventLocations event={event} />
-      </td>
-    </tr>
-  );
+    return (
+      <tr className={loopParity(index)} data-score={score} key={event.id}>
+        <td>
+          <EntityLink
+            entity={event}
+            showArtworkPresence={showArtworkPresence}
+            showDisambiguation
+            showEventDate={false}
+          />
+        </td>
+        <td>{formatDatePeriod(event)}</td>
+        <td>{event.time}</td>
+        <td>
+          {nonEmpty(event.typeName)
+            ? lp_attributes(event.typeName, 'event_type')
+            : null}
+        </td>
+        <td>
+          <ArtistRoles relations={event.performers} />
+          {manifest.js(
+            'common/components/ArtistRoles',
+            { async: 'async' },
+          )}
+        </td>
+        <td>
+          <EventLocations event={event} />
+        </td>
+      </tr>
+    );
+  }
+
+  return buildResult
 }
 
 component EventResults(...{
@@ -67,8 +71,10 @@ component EventResults(...{
   pager,
   query,
   results,
-}: ResultsPropsT<EventT>) {
+}: ResultsPropsT < EventT >) {
   const $c = React.useContext(CatalystContext);
+  let buildResult = getResultBuilder(results.some((res) => res.entity.event_art_presence === 'present'))
+
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
       <PaginatedSearchResults

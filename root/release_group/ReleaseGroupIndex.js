@@ -35,78 +35,82 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ReleaseGroupLayout from './ReleaseGroupLayout.js';
 
-function buildReleaseStatusTable(
-  $c: CatalystContextT,
-  releaseStatusGroup: $ReadOnlyArray<ReleaseT>,
-  releaseGroupCreditId: number | void,
-) {
-  const status = releaseStatusGroup[0].status;
-  return (
-    <React.Fragment key={status ? status.name : 'no-status'}>
-      <tr className="subh">
-        {$c.user ? <th /> : null}
-        <th colSpan={$c.session?.tport == null ? 8 : 9}>
-          {status?.name
-            ? lp_attributes(status.name, 'release_status')
-            : lp('(unknown)', 'release status')}
-        </th>
-      </tr>
-      {releaseStatusGroup.map((release, index) => (
-        <tr className={loopParity(index)} key={release.id}>
-          {$c.user
-            ? (
-              <td>
-                <input
-                  name="add-to-merge"
-                  type="checkbox"
-                  value={release.id}
-                />
-              </td>
-            ) : null}
-          <td>
-            <EntityLink entity={release} showArtworkPresence />
-          </td>
-          {/* The class being added is for usage with userscripts */}
-          <td className={
-            releaseGroupCreditId === release.artistCredit.id
-              ? null
-              : 'artist-credit-variation'}
-          >
-            <ArtistCreditLink artistCredit={release.artistCredit} />
-          </td>
-          <td>
-            {nonEmpty(release.combined_format_name)
-              ? release.combined_format_name
-              : l('[missing media]')}
-          </td>
-          <td>
-            {nonEmpty(release.combined_track_count)
-              ? release.combined_track_count
-              : lp('-', 'missing data')}
-          </td>
-          <td>
-            <ReleaseEvents events={release.events} />
-            {manifest.js(
-              'common/components/ReleaseEvents',
-              {async: 'async'},
-            )}
-          </td>
-          <td>
-            <ReleaseLabelList labels={release.labels} />
-          </td>
-          <td>
-            <ReleaseCatnoList labels={release.labels} />
-          </td>
-          <td className="barcode-cell">{formatBarcode(release.barcode)}</td>
-          {$c.session?.tport == null ? null : (
-            <td>
-              <TaggerIcon entityType="release" gid={release.gid} />
-            </td>
-          )}
+function getReleaseStatusTableBuilder (showArtworkPresence: boolean) {
+  function buildReleaseStatusTable(
+    $c: CatalystContextT,
+    releaseStatusGroup: $ReadOnlyArray<ReleaseT>,
+    releaseGroupCreditId: number | void,
+  ) {
+    const status = releaseStatusGroup[0].status;
+    return (
+      <React.Fragment key={status ? status.name : 'no-status'}>
+        <tr className="subh">
+          {$c.user ? <th /> : null}
+          <th colSpan={$c.session?.tport == null ? 8 : 9}>
+            {status?.name
+              ? lp_attributes(status.name, 'release_status')
+              : lp('(unknown)', 'release status')}
+          </th>
         </tr>
-      ))}
-    </React.Fragment>
-  );
+        {releaseStatusGroup.map((release, index) => (
+          <tr className={loopParity(index)} key={release.id}>
+            {$c.user
+              ? (
+                <td>
+                  <input
+                    name="add-to-merge"
+                    type="checkbox"
+                    value={release.id}
+                  />
+                </td>
+              ) : null}
+            <td>
+              <EntityLink entity={release} showArtworkPresence={showArtworkPresence} />
+            </td>
+            {/* The class being added is for usage with userscripts */}
+            <td className={
+              releaseGroupCreditId === release.artistCredit.id
+                ? null
+                : 'artist-credit-variation'}
+            >
+              <ArtistCreditLink artistCredit={release.artistCredit} />
+            </td>
+            <td>
+              {nonEmpty(release.combined_format_name)
+                ? release.combined_format_name
+                : l('[missing media]')}
+            </td>
+            <td>
+              {nonEmpty(release.combined_track_count)
+                ? release.combined_track_count
+                : lp('-', 'missing data')}
+            </td>
+            <td>
+              <ReleaseEvents events={release.events} />
+              {manifest.js(
+                'common/components/ReleaseEvents',
+                {async: 'async'},
+              )}
+            </td>
+            <td>
+              <ReleaseLabelList labels={release.labels} />
+            </td>
+            <td>
+              <ReleaseCatnoList labels={release.labels} />
+            </td>
+            <td className="barcode-cell">{formatBarcode(release.barcode)}</td>
+            {$c.session?.tport == null ? null : (
+              <td>
+                <TaggerIcon entityType="release" gid={release.gid} />
+              </td>
+            )}
+          </tr>
+        ))}
+      </React.Fragment>
+    );
+  }
+
+  return buildReleaseStatusTable
 }
 
 component ReleaseGroupIndex(
@@ -119,6 +123,7 @@ component ReleaseGroupIndex(
 ) {
   const $c = React.useContext(CatalystContext);
   const firstReleaseGid = releases.length ? releases[0][0].gid : null;
+  let buildReleaseStatusTable = getReleaseStatusTableBuilder(releases.some((sub) => sub.some((res) => res.cover_art_presence === 'present')));
 
   return (
     <ReleaseGroupLayout
