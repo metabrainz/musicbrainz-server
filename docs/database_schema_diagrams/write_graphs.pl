@@ -137,6 +137,7 @@ sub parse_tables
     my @tables;
     while ($infile_content =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(?:-- replicate(?: ?\(verbose\))?)?\s*(.*?)\s*\);/gsi) {
         my $table_name = $1;
+        my $full_table_name = "$search_path.$table_name";
         my @lines = split /\n/, $2;
         my @cols;
         my @fks;
@@ -150,16 +151,16 @@ sub parse_tables
             }
 
             if ($line =~ m/([a-z0-9_]+).*?\s*-- (?:PK, |FK, )?(?:weakly )?(?:separately )?references ([a-z0-9_]+\.)?([a-z0-9_]+)\.([a-z0-9_]+)/i) {
-                # Assume that table name is unique regardless of the possibly specified schema $2
-                my @fk = ($1, $3, $4);
+                # Assume that schema is specified but in admin/sql/CreateTables.sql
+                my @fk = ($1, ($2 // 'musicbrainz.') . $3, $4);
                 push @fks, [@fk];
             }
         }
         if (@cols) {
-            $created_columns{$table_name} = \@cols;
+            $created_columns{$full_table_name} = \@cols;
         }
         if (@fks) {
-            $created_foreign_keys{$table_name} = \@fks;
+            $created_foreign_keys{$full_table_name} = \@fks;
         }
         my @pks;
         foreach my $line (@lines) {
@@ -168,10 +169,10 @@ sub parse_tables
             }
         }
         if (@pks) {
-            $created_primary_keys{$table_name} = \@pks;
+            $created_primary_keys{$full_table_name} = \@pks;
         }
-        push @created_tables, $table_name;
-        push @tables, $table_name;
+        push @created_tables, $full_table_name;
+        push @tables, $full_table_name;
     }
     @created_tables = sort(@created_tables);
     $created_schemas{$search_path} = \@tables;
@@ -204,7 +205,7 @@ sub write_dot_files
         unless (contains_string(\@created_tables, $table)) {
             log_warning { "The table '$table' in '$diagram_id' diagram doesn't exist." };
         }
-        if (contains_string(\@{ %$diagram_tables_props{$table} }, 'shortened')) {
+        if (contains_string($diagram_tables_props->{$table}, 'shortened')) {
             my $is_any_column_hidden = 0;
             my @columns;
             if (exists $created_primary_keys{$table}) {
@@ -269,11 +270,12 @@ sub write_dot_files
 
     foreach my $table (@diagram_tables_names) {
         my $bgcolor =
-          (contains_string(\@{ %$diagram_tables_props{$table} }, 'highlighted'))
+          (contains_string($diagram_tables_props->{$table}, 'highlighted'))
           ? "$HI_TABLE_COLOR" : "$TABLE_COLOR";
+        my $short_table_name = (split /\./, $table)[1];
         my $title =
-          (contains_string(\@{ %$diagram_tables_props{$table} }, 'materialized'))
-          ? "$table (m)" : "$table";
+          (contains_string($diagram_tables_props->{$table}, 'materialized'))
+          ? "$short_table_name (m)" : "$short_table_name";
         print $graph_fh <<~"EOF";
                 "$table" [
                     label = <
@@ -328,7 +330,7 @@ sub write_dot_files
                 EOF
             foreach my $table (@{ $diagram_schemas{$schema} }) {
                 print $graph_fh <<~"EOF";
-                            $table;
+                            "$table";
                     EOF
             }
             print $graph_fh <<~"EOF";

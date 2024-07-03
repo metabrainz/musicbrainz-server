@@ -14,7 +14,7 @@ digraph genre_entity_details {
     ];
 
     // Tables
-    "annotation" [
+    "musicbrainz.annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">annotation</font></td></tr>
@@ -26,7 +26,7 @@ digraph genre_entity_details {
             </table>
         >
     ];
-    "genre" [
+    "musicbrainz.genre" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">genre</font></td></tr>
@@ -39,7 +39,7 @@ digraph genre_entity_details {
             </table>
         >
     ];
-    "genre_alias" [
+    "musicbrainz.genre_alias" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">genre_alias</font></td></tr>
@@ -62,7 +62,7 @@ digraph genre_entity_details {
             </table>
         >
     ];
-    "genre_alias_type" [
+    "musicbrainz.genre_alias_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">genre_alias_type</font></td></tr>
@@ -75,7 +75,7 @@ digraph genre_entity_details {
             </table>
         >
     ];
-    "genre_annotation" [
+    "musicbrainz.genre_annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">genre_annotation</font></td></tr>
@@ -86,8 +86,8 @@ digraph genre_entity_details {
     ];
 
     // References
-    "genre_alias":"genre" -> "genre":"id"
-    "genre_alias":"type" -> "genre_alias_type":"id"
-    "genre_annotation":"genre" -> "genre":"id"
-    "genre_annotation":"annotation" -> "annotation":"id"
+    "musicbrainz.genre_alias":"genre" -> "musicbrainz.genre":"id"
+    "musicbrainz.genre_alias":"type" -> "musicbrainz.genre_alias_type":"id"
+    "musicbrainz.genre_annotation":"genre" -> "musicbrainz.genre":"id"
+    "musicbrainz.genre_annotation":"annotation" -> "musicbrainz.annotation":"id"
 }

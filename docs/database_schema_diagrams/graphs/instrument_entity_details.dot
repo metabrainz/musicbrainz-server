@@ -14,7 +14,7 @@ digraph instrument_entity_details {
     ];
 
     // Tables
-    "annotation" [
+    "musicbrainz.annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">annotation</font></td></tr>
@@ -26,7 +26,7 @@ digraph instrument_entity_details {
             </table>
         >
     ];
-    "instrument" [
+    "musicbrainz.instrument" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">instrument</font></td></tr>
@@ -41,7 +41,7 @@ digraph instrument_entity_details {
             </table>
         >
     ];
-    "instrument_alias" [
+    "musicbrainz.instrument_alias" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">instrument_alias</font></td></tr>
@@ -64,7 +64,7 @@ digraph instrument_entity_details {
             </table>
         >
     ];
-    "instrument_alias_type" [
+    "musicbrainz.instrument_alias_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">instrument_alias_type</font></td></tr>
@@ -77,7 +77,7 @@ digraph instrument_entity_details {
             </table>
         >
     ];
-    "instrument_annotation" [
+    "musicbrainz.instrument_annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">instrument_annotation</font></td></tr>
@@ -86,7 +86,7 @@ digraph instrument_entity_details {
             </table>
         >
     ];
-    "instrument_gid_redirect" [
+    "musicbrainz.instrument_gid_redirect" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">instrument_gid_redirect</font></td></tr>
@@ -96,7 +96,7 @@ digraph instrument_entity_details {
             </table>
         >
     ];
-    "instrument_tag" [
+    "musicbrainz.instrument_tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">instrument_tag</font></td></tr>
@@ -107,7 +107,7 @@ digraph instrument_entity_details {
             </table>
         >
     ];
-    "instrument_type" [
+    "musicbrainz.instrument_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">instrument_type</font></td></tr>
@@ -120,7 +120,7 @@ digraph instrument_entity_details {
             </table>
         >
     ];
-    "tag" [
+    "musicbrainz.tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">tag</font></td></tr>
@@ -132,12 +132,12 @@ digraph instrument_entity_details {
     ];
 
     // References
-    "instrument":"type" -> "instrument_type":"id"
-    "instrument_alias":"instrument" -> "instrument":"id"
-    "instrument_alias":"type" -> "instrument_alias_type":"id"
-    "instrument_annotation":"instrument" -> "instrument":"id"
-    "instrument_annotation":"annotation" -> "annotation":"id"
-    "instrument_gid_redirect":"new_id" -> "instrument":"id"
-    "instrument_tag":"instrument" -> "instrument":"id"
-    "instrument_tag":"tag" -> "tag":"id"
+    "musicbrainz.instrument":"type" -> "musicbrainz.instrument_type":"id"
+    "musicbrainz.instrument_alias":"instrument" -> "musicbrainz.instrument":"id"
+    "musicbrainz.instrument_alias":"type" -> "musicbrainz.instrument_alias_type":"id"
+    "musicbrainz.instrument_annotation":"instrument" -> "musicbrainz.instrument":"id"
+    "musicbrainz.instrument_annotation":"annotation" -> "musicbrainz.annotation":"id"
+    "musicbrainz.instrument_gid_redirect":"new_id" -> "musicbrainz.instrument":"id"
+    "musicbrainz.instrument_tag":"instrument" -> "musicbrainz.instrument":"id"
+    "musicbrainz.instrument_tag":"tag" -> "musicbrainz.tag":"id"
 }

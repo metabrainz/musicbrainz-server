@@ -14,7 +14,7 @@ digraph label_entity_details {
     ];
 
     // Tables
-    "annotation" [
+    "musicbrainz.annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">annotation</font></td></tr>
@@ -26,7 +26,7 @@ digraph label_entity_details {
             </table>
         >
     ];
-    "area" [
+    "musicbrainz.area" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">area</font></td></tr>
@@ -35,7 +35,7 @@ digraph label_entity_details {
             </table>
         >
     ];
-    "label" [
+    "musicbrainz.label" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">label</font></td></tr>
@@ -58,7 +58,7 @@ digraph label_entity_details {
             </table>
         >
     ];
-    "label_alias" [
+    "musicbrainz.label_alias" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">label_alias</font></td></tr>
@@ -81,7 +81,7 @@ digraph label_entity_details {
             </table>
         >
     ];
-    "label_alias_type" [
+    "musicbrainz.label_alias_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">label_alias_type</font></td></tr>
@@ -94,7 +94,7 @@ digraph label_entity_details {
             </table>
         >
     ];
-    "label_annotation" [
+    "musicbrainz.label_annotation" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">label_annotation</font></td></tr>
@@ -103,7 +103,7 @@ digraph label_entity_details {
             </table>
         >
     ];
-    "label_gid_redirect" [
+    "musicbrainz.label_gid_redirect" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">label_gid_redirect</font></td></tr>
@@ -113,7 +113,7 @@ digraph label_entity_details {
             </table>
         >
     ];
-    "label_ipi" [
+    "musicbrainz.label_ipi" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">label_ipi</font></td></tr>
@@ -124,7 +124,7 @@ digraph label_entity_details {
             </table>
         >
     ];
-    "label_isni" [
+    "musicbrainz.label_isni" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">label_isni</font></td></tr>
@@ -135,7 +135,7 @@ digraph label_entity_details {
             </table>
         >
     ];
-    "label_meta" [
+    "musicbrainz.label_meta" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">label_meta</font></td></tr>
@@ -145,7 +145,7 @@ digraph label_entity_details {
             </table>
         >
     ];
-    "label_tag" [
+    "musicbrainz.label_tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">label_tag</font></td></tr>
@@ -156,7 +156,7 @@ digraph label_entity_details {
             </table>
         >
     ];
-    "label_type" [
+    "musicbrainz.label_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">label_type</font></td></tr>
@@ -169,7 +169,7 @@ digraph label_entity_details {
             </table>
         >
     ];
-    "tag" [
+    "musicbrainz.tag" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">tag</font></td></tr>
@@ -181,16 +181,16 @@ digraph label_entity_details {
     ];
 
     // References
-    "label":"type" -> "label_type":"id"
-    "label":"area" -> "area":"id"
-    "label_alias":"label" -> "label":"id"
-    "label_alias":"type" -> "label_alias_type":"id"
-    "label_annotation":"label" -> "label":"id"
-    "label_annotation":"annotation" -> "annotation":"id"
-    "label_gid_redirect":"new_id" -> "label":"id"
-    "label_ipi":"label" -> "label":"id"
-    "label_isni":"label" -> "label":"id"
-    "label_meta":"id" -> "label":"id"
-    "label_tag":"label" -> "label":"id"
-    "label_tag":"tag" -> "tag":"id"
+    "musicbrainz.label":"type" -> "musicbrainz.label_type":"id"
+    "musicbrainz.label":"area" -> "musicbrainz.area":"id"
+    "musicbrainz.label_alias":"label" -> "musicbrainz.label":"id"
+    "musicbrainz.label_alias":"type" -> "musicbrainz.label_alias_type":"id"
+    "musicbrainz.label_annotation":"label" -> "musicbrainz.label":"id"
+    "musicbrainz.label_annotation":"annotation" -> "musicbrainz.annotation":"id"
+    "musicbrainz.label_gid_redirect":"new_id" -> "musicbrainz.label":"id"
+    "musicbrainz.label_ipi":"label" -> "musicbrainz.label":"id"
+    "musicbrainz.label_isni":"label" -> "musicbrainz.label":"id"
+    "musicbrainz.label_meta":"id" -> "musicbrainz.label":"id"
+    "musicbrainz.label_tag":"label" -> "musicbrainz.label":"id"
+    "musicbrainz.label_tag":"tag" -> "musicbrainz.tag":"id"
 }
