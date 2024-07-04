@@ -299,7 +299,7 @@ releaseEditor.init = function (options) {
     );
     return self.action === 'add' && (
       // If it's empty now but not earlier, it was all format characters
-      empty(editNote) ||
+      empty(editNoteNoLineFormat) ||
       /^[\p{White_Space}\p{Punctuation}]+$/u.test(editNoteNoLineFormat) ||
       /^\p{ASCII}$/u.test(editNoteNoLineFormat)
     );
