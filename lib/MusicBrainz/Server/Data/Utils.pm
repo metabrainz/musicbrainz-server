@@ -447,7 +447,7 @@ sub remove_lineformatting_characters {
     # - zwsp
     # - shy
     # - Other, control (including TAB \x09, LF \x0A, and CR \x0D)
-    =~ s/[\N{ZERO WIDTH SPACE}\N{SOFT HYPHEN}\p{Cc}]//gr;
+    =~ s/[\N{ZERO WIDTH SPACE}\N{SOFT HYPHEN}\N{HANGUL FILLER}\N{HALFWIDTH HANGUL FILLER}\N{HANGUL JUNGSEONG FILLER}\N{HANGUL CHOSEONG FILLER}\p{Cc}]//gr;
 }
 
 sub type_to_model

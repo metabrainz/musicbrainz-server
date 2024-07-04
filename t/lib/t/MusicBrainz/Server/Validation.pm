@@ -320,6 +320,14 @@ test 'Test is_valid_edit_note' => sub {
         is_valid_edit_note("\N{ZERO WIDTH JOINER}\N{COMBINING GRAPHEME JOINER}abc\N{ZERO WIDTH JOINER}\N{COMBINING GRAPHEME JOINER}"),
         'Note made of format and join characters plus text is valid',
     );
+    ok(
+        !is_valid_edit_note("\N{HANGUL FILLER}\N{HALFWIDTH HANGUL FILLER}\N{HANGUL CHOSEONG FILLER}\N{HANGUL JUNGSEONG FILLER}"),
+        'Note made of Hangul fillers is invalid',
+    );
+    ok(
+        is_valid_edit_note("\N{HANGUL FILLER}\N{HALFWIDTH HANGUL FILLER}\N{HANGUL CHOSEONG FILLER}abc\N{HANGUL JUNGSEONG FILLER}"),
+        'Note made of Hangul fillers plus text is valid',
+    );
 };
 
 1;

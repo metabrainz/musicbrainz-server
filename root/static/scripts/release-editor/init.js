@@ -294,7 +294,7 @@ releaseEditor.init = function (options) {
 
     // We don't want line format chars to stop an edit note from being "empty"
     const editNoteNoLineFormat = editNote.replace(
-      /[\u200b\u00AD\p{Cc}\p{Cf}\p{Mn}]/ug,
+      /[\u200b\u00AD\u3164\uFFA0\u115F\u1160\p{Cc}\p{Cf}\p{Mn}]/ug,
       '',
     );
     return self.action === 'add' && (
