@@ -4698,7 +4698,7 @@ limited_link_type_combinations: [
         only_valid_entity_types: ['genre'],
   },
   {
-                     input_url: 'https://rateyourmusic.com/label/tzadik/',
+                     input_url: 'https://ru.rateyourmusic.com/label/tzadik/',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://rateyourmusic.com/label/tzadik/',
