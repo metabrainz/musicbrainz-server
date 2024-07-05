@@ -4677,7 +4677,7 @@ limited_link_type_combinations: [
   },
   // RateYourMusic
   {
-                     input_url: 'http://www.rateyourmusic.com/artist/johanna_beyer',
+                     input_url: 'http://www.rateyourmusic.com/artist/johanna_beyer?__cf_chl_f_tk=d9ucwvyvsyPN6wYqKhaxZAloHggP6RNt.iEnchyh1qc-1720128733-0.0.1.1-4862',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://rateyourmusic.com/artist/johanna_beyer',
@@ -4740,7 +4740,7 @@ limited_link_type_combinations: [
         only_valid_entity_types: ['series'],
   },
   {
-                     input_url: 'https://rateyourmusic.com/work/funktion_violett/',
+                     input_url: 'https://rateyourmusic.com/work/funktion_violett/#Compilation',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://rateyourmusic.com/work/funktion_violett/',

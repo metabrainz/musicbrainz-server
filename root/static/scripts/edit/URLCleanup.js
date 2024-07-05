@@ -4893,7 +4893,7 @@ const CLEANUPS: CleanupEntries = {
     )],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?rateyourmusic\.com\//, 'https://rateyourmusic.com/');
+      return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?rateyourmusic\.com\/([^#?]+).*$/, 'https://rateyourmusic.com/$1');
     },
     validate: function (url, id) {
       const m = /^https:\/\/rateyourmusic\.com\/(\w+)\/(?:(\w+)\/)?/.exec(url);
