@@ -51,7 +51,7 @@ sub rate : Local RequireAuth DenyWhenReadonly
 
     if ($c->request->params->{json}) {
         my $body = $c->json_utf8->encode({
-            rating         => $rating,
+            rating         => $rating + 0,
             rating_average => $count > 0 ? ($sum / $count) : 0,
             rating_count   => $count,
         });
