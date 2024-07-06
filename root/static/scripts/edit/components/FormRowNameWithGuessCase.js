@@ -99,6 +99,8 @@ component FormRowNameWithGuessCase(
   label: React$Node = addColonText(l('Name')),
 ) {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const [nameBeforePreview, setNameBeforePreview] =
+    React.useState<string | null>(null);
 
   function handleNameChange(event: SyntheticKeyboardEvent<HTMLInputElement>) {
     dispatch({
@@ -109,11 +111,31 @@ component FormRowNameWithGuessCase(
 
   function handleGuessCase() {
     flushSync(() => {
+      // Restore the original value if we're displaying a preview.
+      if (nameBeforePreview !== null) {
+        dispatch({name: nameBeforePreview, type: 'set-name'});
+        setNameBeforePreview(null);
+      }
       dispatch({entity, type: 'guess-case'});
     });
 
     if (inputRef.current) {
       inputRef.current.dispatchEvent(new Event('input'));
+    }
+  }
+
+  function showGuessCasePreview() {
+    setNameBeforePreview(field.value);
+    const name = GuessCase.entities[entity.entityType].guess(
+      field.value ?? '',
+    );
+    dispatch({name, type: 'set-name'});
+  }
+
+  function hideGuessCasePreview() {
+    if (nameBeforePreview !== null) {
+      dispatch({name: nameBeforePreview, type: 'set-name'});
+      setNameBeforePreview(null);
     }
   }
 
@@ -134,9 +156,15 @@ component FormRowNameWithGuessCase(
     [dispatch],
   );
 
+  const previewDiffers =
+    nameBeforePreview !== null && nameBeforePreview !== field.value;
+  const className =
+    'with-guesscase' + (guessFeat ? '-guessfeat' : '') +
+    (previewDiffers ? ' preview' : '');
+
   return (
     <FormRowText
-      className={'with-guesscase' + (guessFeat ? '-guessfeat' : '')}
+      className={className}
       field={field}
       inputRef={inputRef}
       label={label}
@@ -146,6 +174,8 @@ component FormRowNameWithGuessCase(
       <button
         className="guesscase-title icon"
         onClick={handleGuessCase}
+        onMouseEnter={showGuessCasePreview}
+        onMouseLeave={hideGuessCasePreview}
         title={l('Guess case')}
         type="button"
       />

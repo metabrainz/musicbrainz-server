@@ -11,10 +11,80 @@
       target: 'id=id-edit-artist.name',
       value: 'new artist',
     },
+    // Mouse over the "guess case" button and check that a preview is displayed.
     {
-      command: 'type',
+      command: 'mouseOver',
+      target: 'css=button.guesscase-title',
+      value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=id-edit-artist.name',
+      value: 'New Artist',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('id-edit-artist.name').classList.contains('preview')",
+      value: 'true',
+    },
+    // Move the mouse away and check that the preview is hidden.
+    {
+      command: 'mouseOver',
+      target: 'id=id-edit-artist.name',
+      value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=id-edit-artist.name',
+      value: 'new artist',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('id-edit-artist.name').classList.contains('preview')",
+      value: 'false',
+    },
+    // Click the "Guess case" button and check that the name is updated.
+    {
+      command: 'click',
+      target: 'css=button.guesscase-title',
+      value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=id-edit-artist.name',
+      value: 'New Artist',
+    },
+    // Check that hovering over "Guess sort name" also displays a preview.
+    {
+      command: 'mouseOver',
+      target: 'css=button.guesscase-sortname',
+      value: '',
+    },
+    {
+      command: 'assertValue',
       target: 'id=id-edit-artist.sort_name',
-      value: 'artist, new',
+      value: 'Artist, New',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('id-edit-artist.sort_name').classList.contains('preview')",
+      value: 'true',
+    },
+    // Click "Guess sort name" and check that the change is applied.
+    {
+      command: 'click',
+      target: 'css=button.guesscase-sortname',
+      value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=id-edit-artist.sort_name',
+      value: 'Artist, New',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('id-edit-artist.sort_name').classList.contains('preview')",
+      value: 'false',
     },
     {
       command: 'select',
@@ -167,8 +237,8 @@
           gender_id: null,
           ipi_codes: [],
           isni_codes: [],
-          name: 'new artist',
-          sort_name: 'artist, new',
+          name: 'New Artist',
+          sort_name: 'Artist, New',
           type_id: 2,
         },
       },
@@ -185,7 +255,7 @@
           entity0: {
             gid: '$$__IGNORE__$$',
             id: 4,
-            name: 'new artist',
+            name: 'New Artist',
           },
           entity1: {
             gid: '$$__IGNORE__$$',
@@ -236,7 +306,7 @@
           entity1: {
             gid: '$$__IGNORE__$$',
             id: 4,
-            name: 'new artist',
+            name: 'New Artist',
           },
           entity_id: 1,
           link_type: {
@@ -282,7 +352,7 @@
           entity1: {
             gid: '$$__IGNORE__$$',
             id: 4,
-            name: 'new artist',
+            name: 'New Artist',
           },
           entity_id: 2,
           link_type: {

@@ -6,6 +6,49 @@
       target: '/recording/96f64611-49df-4e54-84e7-0f9a30f01766/edit',
       value: '',
     },
+    // A preview should be displayed when hovering over the "Guess case" button.
+    {
+      command: 'mouseOver',
+      target: 'css=button.guesscase-title',
+      value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=id-edit-recording.name',
+      value: 'Mr Self Destruct',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('id-edit-recording.name').classList.contains('preview')",
+      value: 'true',
+    },
+    // The originally-typed name should be restored when the mouse is moved away.
+    {
+      command: 'mouseOver',
+      target: 'id=id-edit-recording.name',
+      value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=id-edit-recording.name',
+      value: 'mr self destruct',
+    },
+    {
+      command: 'assertEval',
+      target: "document.getElementById('id-edit-recording.name').classList.contains('preview')",
+      value: 'false',
+    },
+    // Clicking the button should update the name.
+    {
+      command: 'click',
+      target: 'css=button.guesscase-title',
+      value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'id=id-edit-recording.name',
+      value: 'Mr Self Destruct',
+    },
     // MBS-12694: In the recording edit form, adding a relationship to an
     // artist that appears in the recording AC, by selecting it from the
     // recent entities list, triggers a JavaScript error which prevents
@@ -105,6 +148,7 @@
                 },
               ],
             },
+            name: "Mr Self Destruct",
           },
           old: {
             artist_credit: {
@@ -119,6 +163,7 @@
                 },
               ],
             },
+            name: "mr self destruct",
           },
         },
       },

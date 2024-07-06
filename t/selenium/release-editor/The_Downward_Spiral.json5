@@ -361,11 +361,47 @@
       target: "xpath=(//tr[contains(@id, 'track-row-new')])[16]//input[contains(@class, 'track-name')]",
       value: 'data track',
     },
-    // Guess case.
+    // Guess case. First check that previews are shown only for modified tracks
+    // while hovering over the button, and then click the button.
+    {
+      command: 'mouseOver',
+      target: 'id=guess-case-button',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist table.medium tr.track:nth-child(8) td.title input.preview').style.display === 'none'",
+      value: 'true',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist table.medium tr.track:nth-child(9) td.title input.preview').style.display === 'none'",
+      value: 'false',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=#tracklist table.medium tr.track:nth-child(9) td.title input.preview',
+      value: 'Big Man With a Gun',
+    },
+    {
+      command: 'mouseOver',
+      target: 'id=format-unknown',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist table.medium tr.track:nth-child(9) td.title input.preview').style.display === 'none'",
+      value: 'true',
+    },
     {
       command: 'click',
       target: 'id=guess-case-button',
       value: '',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=#tracklist table.medium tr.track:nth-child(9) td.title input.track-name',
+      value: 'Big Man With a Gun',
     },
     // Set the format to "unknown."
     {
