@@ -224,7 +224,8 @@ sub serialize_isnis {
 sub serialize_life_span {
     my ($into, $entity, $inc, $stash, $toplevel) = @_;
 
-    return unless $toplevel;
+    return unless $toplevel ||
+                  $entity->isa('MusicBrainz::Server::Entity::Event');
 
     my $life_span = {};
     serialize_date_period($life_span, $entity);
