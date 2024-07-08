@@ -4312,10 +4312,10 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?([^/]+\.)?offiziellecharts\.de\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?offiziellecharts\.de\/([^/?#]+).*$/, 'https://www.offiziellecharts.de/$1');
+      return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?offiziellecharts\.de\/(?:charts\/)?([^/?#]+).*$/, 'https://www.offiziellecharts.de/charts/$1');
     },
     validate(url, id) {
-      const m = /^https:\/\/www\.offiziellecharts\.de\/(album|titel)-details-[\d]+$/.exec(url);
+      const m = /^https:\/\/www\.offiziellecharts\.de\/charts\/(album|titel)-details-[\d]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
