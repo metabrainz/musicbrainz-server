@@ -67,11 +67,11 @@ process below first!), you need to start by updating the translated messages:
 
 1. From the [repository in Weblate](https://translations.metabrainz.org/projects/musicbrainz/#repository):
 
-   1. If there are any _Pending changes_, _Commit_ those and wait a bit before reloading the page.
+   1. If there are any “Pending changes”, “Commit” those and wait a bit before reloading the page.
 
-   2. If there are any commits _missing in the push branch_, _Push_ those and wait (some more time) before reloading the page.
+   2. If there are any commits “missing in the push branch”, “Push” those and wait (some more time) before reloading the page.
 
-   3. If there are any _missing commits_ from _upstream_ (beta branch), _Update_ the _Weblate repository_ and wait (even longer) before reloading the page.
+   3. If there are any “missing commits” from “upstream” (beta branch), “Update” the “Weblate repository” and wait (even longer) before reloading the page.
 
 2. Update your local `translations` branch and merge it to `beta` and push as follows:
    ```sh
@@ -140,16 +140,16 @@ Now that you have done the release, you will need to update Jira:
 1. Edit the unreleased version “next” in the
    [Jira MBS project administration panel](https://tickets.metabrainz.org/projects/MBS?selectedItem=com.atlassian.jira.jira-projects-plugin:release-page) to set the field “Release date” to the current date and the field “Name” also to the current date (or to “Schema Change, Year Q#” for schema change release).
 
-2. Close all tickets
-   [`status = "In Beta Testing" and project = MBS`](http://tickets.musicbrainz.org/secure/IssueNavigator.jspa?reset=true&jqlQuery=status+%3D+%22In+Beta+Testing%22+and+project+%3D+mbs)
-   as "Fixed."
+2. Close all the 
+   [tickets in beta testing](http://tickets.musicbrainz.org/secure/IssueNavigator.jspa?reset=true&jqlQuery=status+%3D+%22In+Beta+Testing%22+and+project+%3D+mbs)
+   as “Fixed”.
 
 3. Create a new version named “next” with “TBD” as description.
 
-4. Release the current version. All open tickets should be moved to the next
-   version.
+4. “Release” the current version. Any tickets remaining in this version and
+   having a status other than “Closed” should be moved to the version “next”.
 
-5. Archive any previous versions still marked as "Released", except for
+5. “Archive” any previous versions still marked as “Released”, except for
    the latest schema change release.
 
 ### Blog
@@ -193,7 +193,7 @@ In your clone of [MusicBrainz’s Docker Compose project](https://github.com/met
 6. Release the appropriate [Jira version](https://tickets.metabrainz.org/projects/MBVM?selectedItem=com.atlassian.jira.jira-projects-plugin:release-page);
    as its description, set the GitHub release URL (`https://github.com/metabrainz/musicbrainz-docker/releases/tag/$version_number`).
    Archive the previous non-schema change releases, if not yet archived. Create a new version
-   for the next expected release, with the description "TBD".
+   for the next expected release, with the description “TBD”.
 
 7. Edit the blog post to link to the new musicbrainz-docker release.
 
@@ -207,7 +207,7 @@ It has some differences with the production release process; follow these steps:
 2. On the [translations update](#update-translated-messages) step,
    start with following the exact same two steps (more detailed above):
 
-   1. _Commit_ any pending change, _push_ any missing commit to downstream, and _update_ any missing commit from upstream, all from the
+   1. “Commit” any pending change, “push” any missing commit to downstream, and “update” any missing commit from upstream, all from the
       [repository in Weblate](https://translations.metabrainz.org/projects/musicbrainz/#repository).
 
    2. Update your local `translations` branch and merge it to `beta` and push.
@@ -249,12 +249,12 @@ It has some differences with the production release process; follow these steps:
      which means that new reports are not available on the beta website for now.
    - The banner’s website is updated only after updating tickets; see below.
 
-7. On the [Jira step](#update-jira), set all the tickets
-   [`status = "In Development Branch" and project = MBS`](http://tickets.musicbrainz.org/secure/IssueNavigator.jspa?reset=true&jqlQuery=status+%3D+%22In+Development+Branch%22+and+project+%3D+mbs)
-   as status "In Beta Testing." For tickets which fixed a beta-only issue not
-   present in production, close the ticket as fixed and set the fix version
-   to "Beta." Make sure all the tickets have a type that makes sense, enough information
-   to be understandable, and the appropriate components set.
+7. On the [Jira step](#update-jira), transition all the
+   [tickets marked as in development branch](http://tickets.musicbrainz.org/secure/IssueNavigator.jspa?reset=true&jqlQuery=status+%3D+%22In+Development+Branch%22+and+project+%3D+mbs)
+   to the status “In Beta Testing”. For tickets which fixed a beta-only issue not
+   present in production, close the ticket as fixed and set the field “Fix Version”
+   to “Beta”. Make sure all the tickets have a type that makes sense, enough information
+   to be understandable, and the appropriate components and labels set.
 
    Notes: None of the following steps are involved in releasing beta:
    - Blog
