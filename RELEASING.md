@@ -66,6 +66,11 @@ process below first!), you need to start by updating the translated messages:
 
 2. Merge `production` to `master` (`git merge --log=876423 --no-ff production`) and push.
 
+### Add Git tag
+
+You should tag production releases by using `./script/tag.sh`, which will ask you
+the necessary questions. Skip this step if you're releasing beta or test.
+
 ### Build Docker images
 
 Then, you must build new MusicBrainz Server Docker images from Jenkins:
@@ -142,11 +147,6 @@ Thank reporters of each addressed issue at least, and every other
 contributor/tester/translator if possible, but contractors.
 
 Once the draft has been reviewed, publish it, then update the description of the Jira version with the blog post URL.
-
-### Add Git tag
-
-You should tag production releases by using `./script/tag.sh`, which will ask you
-the necessary questions. Skip this step if you're releasing beta or test.
 
 ### Release musicbrainz-docker
 
