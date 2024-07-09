@@ -13,6 +13,7 @@
 
 - [Prerequisites](#prerequisites)
 - [Release production](#release-production)
+  * [Prepare MBS version in Jira](#prepare-mbs-version-in-jira)
   * [Update translated messages](#update-translated-messages)
   * [Merge Git branches](#merge-git-branches)
   * [Build Docker images](#build-docker-images)
@@ -37,6 +38,11 @@
 See the private system administration wiki for additional prerequisites.
 
 ## Release production
+
+### Prepare MBS version in Jira
+
+1. Make sure a version with status “Unreleased”, usually named “next”, is present in the
+   [Jira MBS project administration panel](https://tickets.metabrainz.org/projects/MBS?selectedItem=com.atlassian.jira.jira-projects-plugin:release-page). Its serial ID will be used for tagging the branch `production` in Git.
 
 ### Update translated messages
 
@@ -99,20 +105,25 @@ Beta website is currently the same as the main website, nothing to be tested for
 
 Now that you have done the release, you will need to update Jira:
 
-1. Make sure a new release version is present in the
-   [Jira project administration panel](https://tickets.metabrainz.org/projects/MBS?selectedItem=com.atlassian.jira.jira-projects-plugin:release-page).
+1. Edit the unreleased version “next” in the
+   [Jira MBS project administration panel](https://tickets.metabrainz.org/projects/MBS?selectedItem=com.atlassian.jira.jira-projects-plugin:release-page) to set the field “Release date” to the current date and the field “Name” also to the current date (or to “Schema Change, Year Q#” for schema change release).
 
-2. Close all tickets
+2. Make sure that the field “Fix Version” is set to this version for all the
+   [tickets in beta testing](http://tickets.musicbrainz.org/secure/IssueNavigator.jspa?reset=true&jqlQuery=status+%3D+%22In+Beta+Testing%22+and+project+%3D+mbs). If needed, use “Tools”, “Bulk Change”, “Edit Issues”, without “Send mail for this update”.
+
+3. Close all tickets
    [`status = "In Beta Testing" and project = MBS`](http://tickets.musicbrainz.org/secure/IssueNavigator.jspa?reset=true&jqlQuery=status+%3D+%22In+Beta+Testing%22+and+project+%3D+mbs)
    as "Fixed."
 
-3. Make sure all the tickets have a type that makes sense, enough information
+4. Make sure all the tickets have a type that makes sense, enough information
    to be understandable, and the appropriate components set.
 
-4. Release the current version. All open tickets should be moved to the next
+5. Create a new version named “next” with “TBD” as description.
+
+6. Release the current version. All open tickets should be moved to the next
    version.
 
-5. Archive any previous versions still marked as "Released", except for
+7. Archive any previous versions still marked as "Released", except for
    the latest schema change release.
 
 ### Blog
