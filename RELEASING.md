@@ -171,18 +171,31 @@ Once the draft has been reviewed, publish it, then update the description of the
 
 ### Release musicbrainz-docker
 
-1. Update the current MB version in the musicbrainz-docker repository. See example commit <https://github.com/metabrainz/musicbrainz-docker/commit/83da2d3602030da9596a8899513ccda11498f077>.
+In your clone of [MusicBrainz’s Docker Compose project](https://github.com/metabrainz/musicbrainz-docker):
 
-2. Tag the release (`git tag -u CE33CF04 $version_number -m 'Upgrade MusicBrainz Server.'`) and push.
+1. Update the version of MusicBrainz Server to dockerize.
+   See example commit <https://github.com/metabrainz/musicbrainz-docker/commit/a0930848751a9b923e8c7261f2ff2904af2577ec>.
+   See also prerequisites from `admin/repository/prebuild-musicbrainz --help`.
 
-3. Do a git release of name `$version_number` (copy the structure from previous [releases](https://github.com/metabrainz/musicbrainz-docker/releases)).
+   Check files under `build/musicbrainz/` and `build/musicbrainz-dev/` and update those if needed.
+   It can usually be needed when changing `DBDefs`, dependencies, or scripts in MusicBrainz Server.
 
-4. Release the appropriate [Jira version](https://tickets.metabrainz.org/projects/MBVM?selectedItem=com.atlassian.jira.jira-projects-plugin:release-page);
-   as its description, set the git release URL (https://github.com/metabrainz/musicbrainz-docker/releases/tag/$version_number).
+2. Build, tag and push Docker image for mirrors using the script `admin/repository/prebuild-musicbrainz`
+
+3. Manually test running a mirror with this image.
+   (Test development setup too if there is any change to it.)
+
+4. Tag your local Git branch `master` (`git tag -u CE33CF04 $version_number -m 'Upgrade MusicBrainz Server.'`)
+   and push both the commits and the tag.
+
+5. Do a GitHub release of name `$version_number` (copy the structure from previous [releases](https://github.com/metabrainz/musicbrainz-docker/releases)).
+
+6. Release the appropriate [Jira version](https://tickets.metabrainz.org/projects/MBVM?selectedItem=com.atlassian.jira.jira-projects-plugin:release-page);
+   as its description, set the GitHub release URL (`https://github.com/metabrainz/musicbrainz-docker/releases/tag/$version_number`).
    Archive the previous non-schema change releases, if not yet archived. Create a new version
-   for the next expected release, with the description "next release".
+   for the next expected release, with the description "TBD".
 
-5. Edit the blog post to link to the new musicbrainz-docker release.
+7. Edit the blog post to link to the new musicbrainz-docker release.
 
 ## Release beta
 
