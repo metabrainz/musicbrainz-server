@@ -38,7 +38,9 @@ year=$(date +%Y)
 month=$(date +%m)
 day=$(date +%d)
 
-tag="v-$year-$month-$day"
+today_version_prefix="v-$year-$month-$day"
+today_versions_count=$(git tag -l "${today_version_prefix}*" | wc -l | sed 's/\s//g')
+tag="${today_version_prefix}.${today_versions_count}"
 read -e -i "$tag" -p 'Tag? ' -r tag
 
 jira_versions_json=$(curl -sS 'https://tickets.metabrainz.org/rest/api/2/version?projectIds=10000')
