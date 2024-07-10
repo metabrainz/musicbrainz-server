@@ -15,6 +15,7 @@
 - [Release production](#release-production)
   * [Prepare Jira](#prepare-jira)
   * [Update translated messages](#update-translated-messages)
+  * [Draft blog post](#draft-blog-post)
   * [Merge Git branches](#merge-git-branches)
   * [Build Docker images](#build-docker-images)
   * [Announce the deployment](#announce-the-deployment)
@@ -83,6 +84,23 @@ process below first!), you need to start by updating the translated messages:
    ```
    Wait until [CircleCI](https://circleci.com/gh/metabrainz/musicbrainz-server) is happy
    with this merge as some unmatching translations can break building Docker images.
+
+### Draft blog post
+
+[Create a new draft from the template](https://wordpress.com/post/blog.metabrainz.org?jetpack-copy=8634).
+The list of tickets can be copied from the auto-generated release notes,
+by going to the [Releases](http://tickets.musicbrainz.org/browse/MBS#selectedTab=com.atlassian.jira.plugin.system.project%3Aversions-panel) tab,
+selecting the version you are going to release,
+and clicking “Release Notes” in the top.
+
+If there are any React conversion tasks
+(which should be sub-tasks of [MBS-8609](https://tickets.metabrainz.org/browse/MBS-8609)),
+move these to the section “React Conversion Task” at the end,
+and move other (sub-)tasks under the section “Other Task”.
+Otherwise, just put all the tasks under a unique section “Task”.
+
+Thank reporters of each addressed issue at least, and every other
+contributor/tester/translator if possible, but contractors.
 
 ### Merge Git branches
 
@@ -154,20 +172,15 @@ Now that you have done the release, you will need to update Jira:
 
 ### Blog
 
-[Create a new draft from the template](https://wordpress.com/post/blog.metabrainz.org?jetpack-copy=8634).
-The list of tickets can be copied from the auto-generated release notes,
-by going to the [Releases](http://tickets.musicbrainz.org/browse/MBS#selectedTab=com.atlassian.jira.plugin.system.project%3Aversions-panel) tab,
-selecting the version you just released,
-and clicking “Release Notes” in the top.
+Assuming that you [drafted a blog post](#draft-blog-post) already,
+just make sure to update the following if any changes occurred:
 
-Move sub-tasks of MBS-8609 to the “React Conversion Task” section at the end,
-and move other sub-tasks under the “Other Task” section (rename to just “Task”
-if there are no React conversion tasks in this release).
+* Tickets’ title and type
+* Acknowledgments (including translators and beta reporters)
 
-Thank reporters of each addressed issue at least, and every other
-contributor/tester/translator if possible, but contractors.
-
-Once the draft has been reviewed, publish it, then update the description of the Jira version with the blog post URL.
+Once the draft has been reviewed, then update the description of the MBS version in Jira with the blog post URL.
+This URL will also be used in the following section.
+The blog post will be published only after that.
 
 ### Release musicbrainz-docker
 
@@ -196,6 +209,8 @@ In your clone of [MusicBrainz’s Docker Compose project](https://github.com/met
    for the next expected release, with the description “TBD”.
 
 7. Edit the blog post to link to the new musicbrainz-docker release.
+
+8. Publish both the blog post and the musicbrainz-docker release.
 
 ## Release beta
 
