@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-15 22:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-07-04 15:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/ru/>\n"
 "Language: ru\n"
@@ -28,9 +28,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.5\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -1953,11 +1953,11 @@ msgstr "Без обложки:"
 
 #: ../root/statistics/Index.js:965
 msgid "Of releases"
-msgstr ""
+msgstr "Релизов"
 
 #: ../root/statistics/Index.js:972 ../root/statistics/Index.js:1005
 msgid "Generic"
-msgstr ""
+msgstr "Основные"
 
 #: ../root/statistics/Index.js:981
 msgid "Owned music"
@@ -1969,61 +1969,59 @@ msgstr "Список желаний"
 
 #: ../root/statistics/Index.js:998
 msgid "Of events"
-msgstr ""
+msgstr "Событий"
 
 #: ../root/statistics/Index.js:1014
 msgid "Of type Attending"
-msgstr ""
+msgstr "Типа \"Пойду\""
 
 #: ../root/statistics/Index.js:1023
 msgid "Of type Maybe attending"
-msgstr ""
+msgstr "Типа \"Возможно пойду\""
 
 #: ../root/statistics/Index.js:1034
 msgid "Of areas"
-msgstr ""
+msgstr "Областей"
 
 #: ../root/statistics/Index.js:1040
 msgid "Of artists"
-msgstr ""
+msgstr "Исполнителей"
 
 #: ../root/statistics/Index.js:1046
-#, fuzzy
-#| msgid "Genres"
 msgid "Of genres"
-msgstr "Жанры"
+msgstr "Жанров"
 
 #: ../root/statistics/Index.js:1053
 msgid "Of instruments"
-msgstr ""
+msgstr "Инструментов"
 
 #: ../root/statistics/Index.js:1060
 msgid "Of labels"
-msgstr ""
+msgstr "Лейблов"
 
 #: ../root/statistics/Index.js:1066
 msgid "Of places"
-msgstr ""
+msgstr "Мест"
 
 #: ../root/statistics/Index.js:1072
 msgid "Of recordings"
-msgstr ""
+msgstr "Записей"
 
 #: ../root/statistics/Index.js:1079
 msgid "Of release groups"
-msgstr ""
+msgstr "Групп релизов"
 
 #: ../root/statistics/Index.js:1086
 msgid "Of series"
-msgstr ""
+msgstr "Серий"
 
 #: ../root/statistics/Index.js:1092
 msgid "Of works"
-msgstr ""
+msgstr "Работ"
 
 #: ../root/statistics/Index.js:1098
 msgid "Public"
-msgstr ""
+msgstr "Открытые"
 
 #: ../root/statistics/Index.js:1104
 msgid "Private"
@@ -2047,7 +2045,7 @@ msgstr "активные когда-либо:"
 
 #: ../root/statistics/Index.js:1140
 msgid "who edited and/or voted in the last 7 days:"
-msgstr ""
+msgstr "кто редактировал и/или голосовал за последние 7 дней:"
 
 #: ../root/statistics/Index.js:1149
 msgid "who edited in the last 7 days:"
@@ -2067,27 +2065,27 @@ msgstr "кто голосовал:"
 
 #: ../root/statistics/Index.js:1178
 msgid "who leave edit notes:"
-msgstr ""
+msgstr "кто оставляет комментарии к правкам:"
 
 #: ../root/statistics/Index.js:1194
 msgid "who use ratings:"
-msgstr ""
+msgstr "кто оставляет оценки:"
 
 #: ../root/statistics/Index.js:1203
 msgid "who use subscriptions:"
-msgstr ""
+msgstr "кто использует подписки:"
 
 #: ../root/statistics/Index.js:1212
 msgid "who use collections:"
-msgstr ""
+msgstr "кто использует коллекции:"
 
 #: ../root/statistics/Index.js:1222
 msgid "who have registered applications:"
-msgstr ""
+msgstr "у которых есть зарегистрированные приложения:"
 
 #: ../root/statistics/Index.js:1231
 msgid "validated email only:"
-msgstr ""
+msgstr "с подтвержденным адресом эл. почты:"
 
 #: ../root/statistics/Index.js:1237
 msgid "inactive:"
@@ -2099,11 +2097,11 @@ msgstr "Редакторы (удалённые):"
 
 #: ../root/statistics/Index.js:1258
 msgid "Open"
-msgstr ""
+msgstr "Открытые"
 
 #: ../root/statistics/Index.js:1264
 msgid "Applied"
-msgstr ""
+msgstr "Принятые"
 
 #: ../root/statistics/Index.js:1270
 msgid "Voted down"
@@ -2123,7 +2121,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1307 ../root/statistics/Index.js:1363
 msgid "Last 7 days:"
-msgstr "Последние 7 дней:"
+msgstr "За последние 7 дней:"
 
 #: ../root/statistics/Index.js:1314 ../root/statistics/Index.js:1370
 msgid "Yesterday:"
