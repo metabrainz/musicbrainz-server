@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-29 08:42+0000\n"
+"PO-Revision-Date: 2024-07-06 05:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/lt/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
 " n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.6\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -10221,8 +10221,8 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
 msgstr ""
-"{additional:papildomas} {assistant:pagalbininis} {associate:susietas} {co:"
-"bendras}garso režisierius"
+"{additional:papildomas} {assistant:pagalbininis} {associate:susietas} {co:ko}"
+"garso režisierius"
 
 #. name:balance
 #: DB:link_type/reverse_link_phrase:727 DB:link_type/reverse_link_phrase:726
