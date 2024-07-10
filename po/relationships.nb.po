@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-27 16:00+0000\n"
+"PO-Revision-Date: 2024-07-06 05:42+0000\n"
 "Last-Translator: \"ApeKattQuest, MonkeyPython\" "
 "<ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -8143,17 +8143,17 @@ msgstr ""
 
 #: DB:link_type/name:702
 msgid "recording engineer position"
-msgstr ""
+msgstr "lydteknikerposisjon"
 
 #. name:recording engineer position
 #: DB:link_type/link_phrase:702
 msgid "recording engineer position at"
-msgstr ""
+msgstr "lydteknikerposisjon ved"
 
 #. name:recording engineer position
 #: DB:link_type/reverse_link_phrase:702
 msgid "recording engineers"
-msgstr ""
+msgstr "lydteknikere"
 
 #. name:recorded at
 #: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
@@ -9081,6 +9081,8 @@ msgstr ""
 #: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
+"var {additional:tilleggs}{associate:assisterende} "
+"{assistant:assistent}{co:med}lydtekniker for"
 
 #. name:audio director
 #: DB:link_type/long_link_phrase:1186 DB:link_type/long_link_phrase:1187
@@ -9161,12 +9163,12 @@ msgstr ""
 #. name:recording engineer position
 #: DB:link_type/long_link_phrase:702
 msgid "works as a recording engineer at"
-msgstr ""
+msgstr "arbeider som lydtekniker ved"
 
 #. name:engineer position
 #: DB:link_type/long_link_phrase:701
 msgid "works as an engineer at"
-msgstr ""
+msgstr "arbeider som tekniker ved"
 
 #. name:premiere
 #: DB:link_type/link_phrase:956

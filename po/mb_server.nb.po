@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-28 20:29+0000\n"
-"PO-Revision-Date: 2024-06-04 22:42+0000\n"
+"PO-Revision-Date: 2024-07-06 05:42+0000\n"
 "Last-Translator: \"ApeKattQuest, MonkeyPython\" "
 "<ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -1731,11 +1731,11 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:197
 msgid "Move track down"
-msgstr ""
+msgstr "Flytt spor nedover"
 
 #: ../root/release/edit/tracklist.tt:201
 msgid "Move track up"
-msgstr ""
+msgstr "Flytt spor oppover"
 
 #: ../root/components/forms.tt:226
 #: ../root/components/Aliases/ArtistCreditList.js:45
