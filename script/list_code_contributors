@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+set -e -u
+
+SCRIPT_NAME=$(basename "$0")
+
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
+source "$MB_SERVER_ROOT"/script/macos_compat.inc.sh
+
+declare -a OMITTED_AUTHORS=(
+  # Contractors, avoiding to be self-congratulatory
+  bitmap
+  'Michael Wiencek'
+  reosarevok
+  'Nicolás Tamargo'
+  yvanzo
+)
+
+GIT_REVISION_RANGE='origin/production..origin/beta'
+
+HELP=$(cat <<EOH
+Usage: $SCRIPT_NAME [<git-revision-range>]
+
+List the code contributors for the given Git revision range.
+
+The default Git revision range is $GIT_REVISION_RANGE
+assuming that this script is called before merging to production.
+Please use the latest Git tags for the revision range otherwise.
+
+The following code contributors are intentionally unlisted:
+    $(printf '%s, ' "${OMITTED_AUTHORS[@]}" | sed "s_, \$__")
+
+Commas (and surrounding spaces) in author names are replaced with slashes (/).
+
+Note that it lists commit authors by their names, not by their GitHub handles.
+EOH
+)
+
+if [[ $# -gt 1 ]]
+then
+  echo >&2 "$SCRIPT_NAME: too many arguments"
+  echo >&2 "$HELP"
+  exit 64
+elif [[ $# -eq 1 ]]
+then
+  if echo "$1" | grep -Eqx -- '-*h(elp)?'
+  then
+    echo "$HELP"
+    exit
+  else
+    GIT_REVISION_RANGE=$1
+  fi
+fi
+
+cd "$MB_SERVER_ROOT"
+
+git log "$GIT_REVISION_RANGE" -- ':(exclude)po/*.po' | \
+  # Capture code contributor full names
+  sed -n 's/^Author: \(.*\) <.*$/\1/p' | \
+  # Omit blog post authors
+  grep -iv "^\($(printf '%s\|' "${OMITTED_AUTHORS[@]}" | sed 's/\\|$//')\)$" | \
+  # Replace commas with slashes in names
+  sed 's_\s*,\s*_/_g' | \
+  # Deduplicate and sort alphabetically
+  sort -u | \
+  # Separate with commas
+  tr '\n' ',' | \
+  sed 's/,/, /g' | \
+  sed 's/, $/\n/'
+
+# vi: set et sts=2 sw=2 ts=2 :

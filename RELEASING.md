@@ -100,7 +100,7 @@ and move other (sub-)tasks under the section “Other Task”.
 Otherwise, just put all the tasks under a unique section “Task”.
 
 Last but not least, thank (in order of rarity):
-* code contributors,
+* code contributors, who can be listed with `./script/list_code_contributors`,
 * translators, who can be listed with `./po/list_translators`,
 * reporters of each addressed issue at least,
   and every other constructive feedback providers if possible.
@@ -185,7 +185,7 @@ just make sure to update the following if any changes occurred:
 
 To do so, you can adapt the draft section with:
 * appending a Git revision range `v-prev-io-us..v-curr-en-t`
-  to the listing command (see `--help` for details).
+  to the listing commands (see `--help` for details).
 
 Once the draft has been reviewed, then update the description of the MBS version in Jira with the blog post URL.
 This URL will also be used in the following section.
