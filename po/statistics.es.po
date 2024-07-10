@@ -21,17 +21,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-27 21:17+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-06-30 13:42+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.6\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
@@ -1310,7 +1310,7 @@ msgstr "Desplázate y clica sobre las líneas verticales"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Images.js:70
 msgid "Images"
-msgstr ""
+msgstr "Imágenes"
 
 #: ../root/statistics/layout.tt:4
 msgid "Languages/Scripts"
@@ -1500,7 +1500,7 @@ msgstr "Medios"
 
 #: ../root/statistics/Formats.js:53
 msgid "% of total mediums"
-msgstr ""
+msgstr "% de todos los medios"
 
 #: ../root/statistics/Formats.js:87
 msgid "Unknown format"
@@ -1508,7 +1508,7 @@ msgstr "Formato desconocido"
 
 #: ../root/statistics/Images.js:75
 msgid "Basics"
-msgstr ""
+msgstr "Estadísticas generales"
 
 #: ../root/statistics/Images.js:78
 msgid "No image statistics available."
@@ -1575,11 +1575,11 @@ msgstr "Grupos de publicaciones con imágenes:"
 
 #: ../root/statistics/Images.js:276
 msgid "manually selected:"
-msgstr "seleccionado manualmente:"
+msgstr "seleccionadas por usuarios:"
 
 #: ../root/statistics/Images.js:298
 msgid "automatically inferred:"
-msgstr ""
+msgstr "seleccionadas automáticamente:"
 
 #: ../root/statistics/Images.js:316 ../root/statistics/stats.js:285
 msgid "Pieces of cover art"
@@ -1689,11 +1689,11 @@ msgstr "Colecciones"
 
 #: ../root/statistics/Index.js:154
 msgid "CD stubs (all time / current):"
-msgstr ""
+msgstr "Esbozos de CD (totales / actuales):"
 
 #: ../root/statistics/Index.js:169
 msgid "Ratings (raw / aggregated):"
-msgstr ""
+msgstr "Calificaciones (totales / combinadas):"
 
 #: ../root/statistics/Index.js:177
 msgid "Identifiers"
@@ -1701,7 +1701,7 @@ msgstr "Identificadores"
 
 #: ../root/statistics/Index.js:180 ../root/statistics/stats.js:558
 msgid "MBIDs"
-msgstr ""
+msgstr "MBIDs"
 
 #: ../root/statistics/Index.js:184
 msgid "ISRCs (all / unique):"
@@ -1786,7 +1786,7 @@ msgstr "Otro género:"
 
 #: ../root/statistics/Index.js:330
 msgid "Gender not applicable:"
-msgstr ""
+msgstr "Género no aplicable:"
 
 #: ../root/statistics/Index.js:341
 msgid "with no gender set:"
@@ -1901,11 +1901,11 @@ msgstr "Tipos secundarios"
 
 #: ../root/statistics/Index.js:685 ../root/statistics/stats.js:889
 msgid "Videos"
-msgstr ""
+msgstr "Vídeos"
 
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
-msgstr ""
+msgstr "Con ISRCs"
 
 #: ../root/statistics/Index.js:706 ../root/statistics/Index.js:734
 #: ../root/statistics/Index.js:796 ../root/statistics/Index.js:824
@@ -1916,7 +1916,7 @@ msgstr "Tipos"
 
 #: ../root/statistics/Index.js:756
 msgid "With ISWCs"
-msgstr ""
+msgstr "Con ISWCs"
 
 #: ../root/statistics/Index.js:766
 msgid "Attributes"
@@ -1928,7 +1928,7 @@ msgstr "Imágenes de eventos"
 
 #: ../root/statistics/Index.js:939
 msgid "With EAA poster art:"
-msgstr ""
+msgstr "Con imágenes de póster en el EAA:"
 
 #: ../root/statistics/Index.js:945
 msgid "No poster art:"
@@ -1936,11 +1936,11 @@ msgstr "Sin imagen de póster:"
 
 #: ../root/statistics/Index.js:965
 msgid "Of releases"
-msgstr ""
+msgstr "De publicaciones"
 
 #: ../root/statistics/Index.js:972 ../root/statistics/Index.js:1005
 msgid "Generic"
-msgstr ""
+msgstr "Genéricas"
 
 #: ../root/statistics/Index.js:981
 msgid "Owned music"
@@ -1952,57 +1952,55 @@ msgstr "Lista de deseos"
 
 #: ../root/statistics/Index.js:998
 msgid "Of events"
-msgstr ""
+msgstr "De eventos"
 
 #: ../root/statistics/Index.js:1014
 msgid "Of type Attending"
-msgstr ""
+msgstr "Del tipo “Asistiré / He asistido”"
 
 #: ../root/statistics/Index.js:1023
 msgid "Of type Maybe attending"
-msgstr ""
+msgstr "Del tipo “Tal vez asista”"
 
 #: ../root/statistics/Index.js:1034
 msgid "Of areas"
-msgstr ""
+msgstr "De áreas"
 
 #: ../root/statistics/Index.js:1040
 msgid "Of artists"
-msgstr ""
+msgstr "De artistas"
 
 #: ../root/statistics/Index.js:1046
-#, fuzzy
-#| msgid "Genres"
 msgid "Of genres"
-msgstr "Géneros"
+msgstr "De géneros"
 
 #: ../root/statistics/Index.js:1053
 msgid "Of instruments"
-msgstr ""
+msgstr "De instrumentos"
 
 #: ../root/statistics/Index.js:1060
 msgid "Of labels"
-msgstr ""
+msgstr "De discográficas"
 
 #: ../root/statistics/Index.js:1066
 msgid "Of places"
-msgstr ""
+msgstr "De lugares"
 
 #: ../root/statistics/Index.js:1072
 msgid "Of recordings"
-msgstr ""
+msgstr "De grabaciones"
 
 #: ../root/statistics/Index.js:1079
 msgid "Of release groups"
-msgstr ""
+msgstr "De grupos de publicaciones"
 
 #: ../root/statistics/Index.js:1086
 msgid "Of series"
-msgstr ""
+msgstr "De series"
 
 #: ../root/statistics/Index.js:1092
 msgid "Of works"
-msgstr ""
+msgstr "De obras"
 
 #: ../root/statistics/Index.js:1098
 msgid "Public"
@@ -2014,7 +2012,7 @@ msgstr "Privada"
 
 #: ../root/statistics/Index.js:1111
 msgid "With collaborators"
-msgstr ""
+msgstr "Con colaboradores"
 
 #: ../root/statistics/Index.js:1119
 msgid "Editors, Edits, and Votes"
@@ -2026,7 +2024,7 @@ msgstr "Editores (válidos):"
 
 #: ../root/statistics/Index.js:1132
 msgid "active ever:"
-msgstr ""
+msgstr "que han tenido alguna actividad:"
 
 #: ../root/statistics/Index.js:1140
 msgid "who edited and/or voted in the last 7 days:"
@@ -2066,7 +2064,7 @@ msgstr "que usan colecciones:"
 
 #: ../root/statistics/Index.js:1222
 msgid "who have registered applications:"
-msgstr ""
+msgstr "que han registrado aplicaciones:"
 
 #: ../root/statistics/Index.js:1231
 msgid "validated email only:"
@@ -2086,7 +2084,7 @@ msgstr "Pendientes"
 
 #: ../root/statistics/Index.js:1264
 msgid "Applied"
-msgstr ""
+msgstr "Aplicadas"
 
 #: ../root/statistics/Index.js:1270
 msgid "Voted down"
@@ -2124,6 +2122,8 @@ msgstr "Idiomas y alfabetos"
 #: ../root/statistics/LanguagesScripts.js:49
 msgid "All other available languages and scripts have 0 releases and works."
 msgstr ""
+"Todos los demás idiomas y sistemas de escritura disponibles tienen 0 "
+"publicaciones y obras."
 
 #: ../root/statistics/LanguagesScripts.js:55
 #: ../root/statistics/LanguagesScripts.js:61
@@ -2148,19 +2148,19 @@ msgstr "Alfabeto desconocido"
 
 #: ../root/statistics/MusicBrainzHistory.js:15
 msgid "History"
-msgstr ""
+msgstr "Historia"
 
 #: ../root/statistics/MusicBrainzHistory.js:16
 msgid "Our glorious history"
-msgstr ""
+msgstr "Nuestra gloriosa historia"
 
 #: ../root/statistics/MusicBrainzHistory.js:20
 msgid "{date} - {title}"
-msgstr ""
+msgstr "{date} - {title}"
 
 #: ../root/statistics/MusicBrainzHistory.js:36
 msgid "It seems we have no history to show at all!"
-msgstr ""
+msgstr "¡Parece que no tenemos nada de historia que mostrar!"
 
 #: ../root/statistics/NoStatistics.js:17 ../root/statistics/NoStatistics.js:19
 msgid "No statistics"
@@ -2198,7 +2198,7 @@ msgstr "Países del artista"
 
 #: ../root/statistics/stats.js:18
 msgid "Artist types and genders"
-msgstr ""
+msgstr "Tipos de artista y géneros"
 
 #: ../root/statistics/stats.js:26
 msgid "Event types"
@@ -2262,7 +2262,7 @@ msgstr "Tipos de obra"
 
 #: ../root/statistics/stats.js:60
 msgid "Areas with no type set"
-msgstr ""
+msgstr "Áreas sin un tipo indicado"
 
 #: ../root/statistics/stats.js:70
 msgid "Artists with no appearances in artist credits"
@@ -2282,23 +2282,23 @@ msgstr "Artistas hombres"
 
 #: ../root/statistics/stats.js:90
 msgid "Non-binary Artists"
-msgstr ""
+msgstr "Artistas no binarios"
 
 #: ../root/statistics/stats.js:95
 msgid "Gender not applicable"
-msgstr ""
+msgstr "Género no aplicable"
 
 #: ../root/statistics/stats.js:100
 msgid "Artists with no gender set (non-group artists)"
-msgstr ""
+msgstr "Artistas (excepto grupos) sin género indicado"
 
 #: ../root/statistics/stats.js:105
 msgid "Artists with gender set to Other"
-msgstr ""
+msgstr "Artistas con el género “Otro”"
 
 #: ../root/statistics/stats.js:110
 msgid "Artists with at least one artist credit appearance"
-msgstr ""
+msgstr "Artistas que aparecen en al menos un crédito de artista"
 
 #: ../root/statistics/stats.js:115
 msgid "Characters"
@@ -2314,7 +2314,7 @@ msgstr "Grupos"
 
 #: ../root/statistics/stats.js:130
 msgid "Artists with no type set"
-msgstr ""
+msgstr "Artistas sin un tipo indicado"
 
 #: ../root/statistics/stats.js:135
 msgid "Orchestras"
@@ -2322,7 +2322,7 @@ msgstr "Orquestas"
 
 #: ../root/statistics/stats.js:140
 msgid "Artists with type set to Other"
-msgstr ""
+msgstr "Artistas de tipo “Otro”"
 
 #: ../root/statistics/stats.js:145
 msgid "Persons"
@@ -2334,11 +2334,11 @@ msgstr "Créditos de artistas"
 
 #: ../root/statistics/stats.js:160
 msgid "CD stubs (current)"
-msgstr ""
+msgstr "Esbozos de CD (actuales)"
 
 #: ../root/statistics/stats.js:165
 msgid "CD stubs (ever submitted)"
-msgstr ""
+msgstr "Esbozos de CD (totales recibidos)"
 
 #: ../root/statistics/stats.js:170
 msgid "CD stub tracks"
@@ -2346,7 +2346,7 @@ msgstr "Pistas de esbozos de CD"
 
 #: ../root/statistics/stats.js:180
 msgid "Collections with collaborators"
-msgstr ""
+msgstr "Colecciones con colaboradores"
 
 #: ../root/statistics/stats.js:185
 msgid "Private collections"
@@ -2354,7 +2354,7 @@ msgstr "Colecciones privadas"
 
 #: ../root/statistics/stats.js:190
 msgid "Public collections"
-msgstr ""
+msgstr "Colecciones públicas"
 
 #: ../root/statistics/stats.js:195
 msgid "Area collections"
@@ -2366,21 +2366,19 @@ msgstr "Colecciones de artistas"
 
 #: ../root/statistics/stats.js:205
 msgid "Collections of type Attending"
-msgstr ""
+msgstr "Colecciones del tipo “Asistiré / He asistido”"
 
 #: ../root/statistics/stats.js:210
 msgid "Collections of type Event"
-msgstr ""
+msgstr "Colecciones del tipo “Colección de eventos”"
 
 #: ../root/statistics/stats.js:215
 msgid "Event collections (all types)"
-msgstr ""
+msgstr "Colecciones de eventos (todos los tipos)"
 
 #: ../root/statistics/stats.js:220
-#, fuzzy
-#| msgid "Area collections"
 msgid "Genre collections"
-msgstr "Colecciones de áreas"
+msgstr "Colecciones de géneros"
 
 #: ../root/statistics/stats.js:225
 msgid "Instrument collections"
@@ -2392,11 +2390,11 @@ msgstr "Collecciones de discográficas"
 
 #: ../root/statistics/stats.js:235
 msgid "Collections of type Maybe attending"
-msgstr ""
+msgstr "Colecciones del tipo “Tal vez asista”"
 
 #: ../root/statistics/stats.js:240
 msgid "Collections of type Owned music"
-msgstr ""
+msgstr "Colecciones del tipo “Mi música”"
 
 #: ../root/statistics/stats.js:245
 msgid "Place collections"
@@ -2408,11 +2406,11 @@ msgstr "Colecciones de grabaciones"
 
 #: ../root/statistics/stats.js:255
 msgid "Collections of type Release"
-msgstr ""
+msgstr "Colecciones del tipo “Colección de publicaciones”"
 
 #: ../root/statistics/stats.js:260
 msgid "Release collections (all types)"
-msgstr ""
+msgstr "Colecciones de publicaciones (todos los tipos)"
 
 #: ../root/statistics/stats.js:265
 msgid "Release group collections"
@@ -2420,11 +2418,11 @@ msgstr "Colecciones de grupos de publicaciones"
 
 #: ../root/statistics/stats.js:270
 msgid "Series collections"
-msgstr ""
+msgstr "Colecciones de series"
 
 #: ../root/statistics/stats.js:275
 msgid "Collections of type Wishlist"
-msgstr ""
+msgstr "Colecciones del tipo “Lista de deseos”"
 
 #: ../root/statistics/stats.js:280
 msgid "Work collections"
@@ -2440,19 +2438,19 @@ msgstr "Modificaciones canceladas"
 
 #: ../root/statistics/stats.js:316
 msgid "Error edits"
-msgstr ""
+msgstr "Ediciones con errores internos"
 
 #: ../root/statistics/stats.js:321
 msgid "Edits that have failed dependency checks"
-msgstr ""
+msgstr "Ediciones con errores de dependencia"
 
 #: ../root/statistics/stats.js:326
 msgid "Edits that have failed prerequisite checks"
-msgstr ""
+msgstr "Ediciones con errores de prerrequisito"
 
 #: ../root/statistics/stats.js:331
 msgid "Edits that have been voted down"
-msgstr ""
+msgstr "Ediciones rechazadas"
 
 #: ../root/statistics/stats.js:342
 msgid "Edits per day"
@@ -2468,7 +2466,7 @@ msgstr "Editores (todos)"
 
 #: ../root/statistics/stats.js:358
 msgid "Editors who edited or voted in the last week"
-msgstr ""
+msgstr "Editores que han hecho ediciones o votado en la última semana"
 
 #: ../root/statistics/stats.js:364
 msgid "Editors (deleted)"
@@ -2476,19 +2474,19 @@ msgstr "Editores (eliminados)"
 
 #: ../root/statistics/stats.js:369
 msgid "Editors who submitted edits in the last week"
-msgstr ""
+msgstr "Editores que han hecho ediciones en la última semana"
 
 #: ../root/statistics/stats.js:375
 msgid "Editors (current)"
-msgstr ""
+msgstr "Editores (actuales)"
 
 #: ../root/statistics/stats.js:381
 msgid "Editors (current) who have ever been active"
-msgstr ""
+msgstr "Editores (actuales) que han tenido alguna actividad"
 
 #: ../root/statistics/stats.js:386
 msgid "Editors who have registered applications"
-msgstr ""
+msgstr "Editores que han registrado aplicaciones"
 
 #: ../root/statistics/stats.js:391
 msgid "Editors who use collections"
@@ -2496,15 +2494,15 @@ msgstr "Editores que usan colecciones"
 
 #: ../root/statistics/stats.js:396
 msgid "Editors who have made edits"
-msgstr ""
+msgstr "Editores que han hecho ediciones"
 
 #: ../root/statistics/stats.js:401
 msgid "Editors who have written edit notes"
-msgstr ""
+msgstr "Editores que han escrito notas de edición"
 
 #: ../root/statistics/stats.js:406
 msgid "Editors who have added ratings"
-msgstr ""
+msgstr "Editores que han añadido calificaciones"
 
 #: ../root/statistics/stats.js:411
 msgid "Editors who use subscriptions"
@@ -2512,23 +2510,23 @@ msgstr "Editores que usan subscripciones"
 
 #: ../root/statistics/stats.js:421
 msgid "Editors who have voted on edits"
-msgstr ""
+msgstr "Editores que han votado en ediciones"
 
 #: ../root/statistics/stats.js:426
 msgid "Editors who have not been active at all"
-msgstr ""
+msgstr "Editores que nunca han tenido actividad"
 
 #: ../root/statistics/stats.js:431
 msgid "Editors who have only validated their email"
-msgstr ""
+msgstr "Editores que solo han verificado su correo"
 
 #: ../root/statistics/stats.js:436
 msgid "Editors who voted in the last week"
-msgstr ""
+msgstr "Editores que han votado en la última semana"
 
 #: ../root/statistics/stats.js:446
 msgid "Events with no country set"
-msgstr ""
+msgstr "Eventos sin un país indicado"
 
 #: ../root/statistics/stats.js:451
 msgid "Events with EAA event art"
@@ -2536,7 +2534,7 @@ msgstr "Eventos con imágenes del Event Art Archive"
 
 #: ../root/statistics/stats.js:456
 msgid "Events with an EAA poster"
-msgstr ""
+msgstr "Eventos con un póster en el Event Art Archive"
 
 #: ../root/statistics/stats.js:461
 msgid "Events without an EAA poster"
@@ -2544,7 +2542,7 @@ msgstr "Eventos sin un póster en el Event Art Archive"
 
 #: ../root/statistics/stats.js:466
 msgid "Events with no type set"
-msgstr ""
+msgstr "Eventos sin un tipo indicado"
 
 #: ../root/statistics/stats.js:472
 msgid "Events with no type set that have event art"
@@ -2552,11 +2550,11 @@ msgstr "Eventos sin tipo indicado que tienen imágenes"
 
 #: ../root/statistics/stats.js:488
 msgid "Instruments with no type set"
-msgstr ""
+msgstr "Instrumentos sin un tipo indicado"
 
 #: ../root/statistics/stats.js:498
 msgid "Artist IPIs"
-msgstr ""
+msgstr "IPIs de artistas"
 
 #: ../root/statistics/stats.js:503
 msgid "Label IPIs"
@@ -2564,27 +2562,27 @@ msgstr "IPIs de discográficas"
 
 #: ../root/statistics/stats.js:513
 msgid "Artist ISNIs"
-msgstr ""
+msgstr "ISNIs de artistas"
 
 #: ../root/statistics/stats.js:518
 msgid "Label ISNIs"
-msgstr ""
+msgstr "ISNIs de discográficas"
 
 #: ../root/statistics/stats.js:523
 msgid "ISRCs (unique)"
-msgstr ""
+msgstr "ISRCs (únicos)"
 
 #: ../root/statistics/stats.js:528
 msgid "ISRCs (all uses)"
-msgstr ""
+msgstr "ISRCs (totales)"
 
 #: ../root/statistics/stats.js:533
 msgid "ISWCs (unique)"
-msgstr ""
+msgstr "ISWCs (únicos)"
 
 #: ../root/statistics/stats.js:538
 msgid "ISWCs (all uses)"
-msgstr ""
+msgstr "ISWCs (totales)"
 
 #: ../root/statistics/stats.js:548
 msgid "Labels with no country set"
@@ -2592,7 +2590,7 @@ msgstr "Discográficas sin un país indicado"
 
 #: ../root/statistics/stats.js:553
 msgid "Labels with no type set"
-msgstr ""
+msgstr "Discográficas sin un tipo indicado"
 
 #: ../root/statistics/stats.js:568
 msgid "Mediums with no format set"
@@ -2604,31 +2602,31 @@ msgstr "Medios con IDs de disco"
 
 #: ../root/statistics/stats.js:583
 msgid "Places with no country set"
-msgstr ""
+msgstr "Lugares sin un país indicado"
 
 #: ../root/statistics/stats.js:588
 msgid "Places with no type set"
-msgstr ""
+msgstr "Lugares sin un tipo indicado"
 
 #: ../root/statistics/stats.js:593
 msgid "Default (Normal + Unknown) Data Quality"
-msgstr ""
+msgstr "Calidad de datos estándar (normal + desconocida)"
 
 #: ../root/statistics/stats.js:618
 msgid "Entities with ratings"
-msgstr ""
+msgstr "Entidades con calificaciones"
 
 #: ../root/statistics/stats.js:623
 msgid "Artists with ratings"
-msgstr ""
+msgstr "Artistas con calificaciones"
 
 #: ../root/statistics/stats.js:628
 msgid "Labels with ratings"
-msgstr ""
+msgstr "Discográficas con calificaciones"
 
 #: ../root/statistics/stats.js:633
 msgid "Places with ratings"
-msgstr ""
+msgstr "Lugares con calificaciones"
 
 #: ../root/statistics/stats.js:638
 msgid "Ratings"
@@ -2660,15 +2658,15 @@ msgstr "Calificaciones de obras"
 
 #: ../root/statistics/stats.js:673
 msgid "Recordings with ratings"
-msgstr ""
+msgstr "Grabaciones con calificaciones"
 
 #: ../root/statistics/stats.js:678
 msgid "Release groups with ratings"
-msgstr ""
+msgstr "Grupos de publicaciones con calificaciones"
 
 #: ../root/statistics/stats.js:683
 msgid "Works with ratings"
-msgstr ""
+msgstr "Obras con calificaciones"
 
 #: ../root/statistics/stats.js:693
 msgid "Recordings with ISRCs"
@@ -2676,7 +2674,7 @@ msgstr "Grabaciones con ISRCs"
 
 #: ../root/statistics/stats.js:698
 msgid "Standalone recordings"
-msgstr ""
+msgstr "Grabaciones independientes"
 
 #: ../root/statistics/stats.js:708
 msgid "Releases with no country set"
@@ -2692,11 +2690,11 @@ msgstr "Publicaciones sin imágenes"
 
 #: ../root/statistics/stats.js:723
 msgid "Releases with a medium with no format set"
-msgstr ""
+msgstr "Publicaciones con un medio sin formato indicado"
 
 #: ../root/statistics/stats.js:729
 msgid "Releases with a medium with no format set that have cover art"
-msgstr ""
+msgstr "Publicaciones con un medio sin formato indicado que tienen imágenes"
 
 #: ../root/statistics/stats.js:735
 msgid "Releases with cover art"
@@ -2716,7 +2714,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:755
 msgid "Releases with no packaging set"
-msgstr ""
+msgstr "Publicaciones sin empaque indicado"
 
 #: ../root/statistics/stats.js:760
 msgid "Releases with no script set"
@@ -2724,15 +2722,15 @@ msgstr "Publicaciones sin un alfabeto indicado"
 
 #: ../root/statistics/stats.js:765
 msgid "Releases with no status set"
-msgstr ""
+msgstr "Publicaciones sin condición indicada"
 
 #: ../root/statistics/stats.js:770
 msgid "Releases with no status set that have cover art"
-msgstr ""
+msgstr "Publicaciones sin condición indicada que tienen imágenes"
 
 #: ../root/statistics/stats.js:776
 msgid "Releases in groups with no type set that have cover art"
-msgstr "Publicaciones en grupos sin tipo indicado que tienen imágenes"
+msgstr "Publicaciones en grupos sin un tipo indicado que tienen imágenes"
 
 #: ../root/statistics/stats.js:782
 msgid "Releases credited to Various Artists"
@@ -2740,11 +2738,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:793
 msgid "Release groups with automatically inferred cover art"
-msgstr ""
+msgstr "Grupos de publicaciones con imágenes seleccionadas automáticamente"
 
 #: ../root/statistics/stats.js:799
 msgid "Release groups with user-selected cover art"
-msgstr ""
+msgstr "Grupos de publicaciones con imágenes seleccionadas por usuarios"
 
 #: ../root/statistics/stats.js:804
 msgid "Release groups with no primary type set"
@@ -2752,47 +2750,47 @@ msgstr "Grupos de publicaciones sin un tipo principal"
 
 #: ../root/statistics/stats.js:809
 msgid "Release groups with no secondary type set"
-msgstr ""
+msgstr "Series sin un tipo secundario indicado"
 
 #: ../root/statistics/stats.js:819
 msgid "Series with no type set"
-msgstr ""
+msgstr "Series sin un tipo indicado"
 
 #: ../root/statistics/stats.js:834
 msgid "Votes for/against area tags"
-msgstr ""
+msgstr "Votos a favor y en contra de etiquetas en áreas"
 
 #: ../root/statistics/stats.js:839
 msgid "Votes for/against artist tags"
-msgstr ""
+msgstr "Votos a favor y en contra de etiquetas en artistas"
 
 #: ../root/statistics/stats.js:844
 msgid "Votes for/against instrument tags"
-msgstr ""
+msgstr "Votos a favor y en contra de etiquetas en instrumentos"
 
 #: ../root/statistics/stats.js:849
 msgid "Votes for/against label tags"
-msgstr ""
+msgstr "Votos a favor y en contra de etiquetas en discográficas"
 
 #: ../root/statistics/stats.js:854
 msgid "Votes for/against recording tags"
-msgstr ""
+msgstr "Votos a favor y en contra de etiquetas en grabaciones"
 
 #: ../root/statistics/stats.js:859
 msgid "Votes for/against release tags"
-msgstr ""
+msgstr "Votos a favor y en contra de etiquetas en publicaciones"
 
 #: ../root/statistics/stats.js:864
 msgid "Votes for/against release group tags"
-msgstr ""
+msgstr "Votos a favor y en contra de etiquetas en grupos de publicaciones"
 
 #: ../root/statistics/stats.js:869
 msgid "Votes for/against series tags"
-msgstr ""
+msgstr "Votos a favor y en contra de etiquetas en series"
 
 #: ../root/statistics/stats.js:874
 msgid "Votes for/against work tags"
-msgstr ""
+msgstr "Votos a favor y en contra de etiquetas en obras"
 
 #: ../root/statistics/stats.js:900
 msgid "Abstentions"
@@ -2800,7 +2798,7 @@ msgstr "Abstenciones"
 
 #: ../root/statistics/stats.js:905
 msgid "Approvals"
-msgstr ""
+msgstr "Aprobaciones"
 
 #: ../root/statistics/stats.js:910
 msgid "No votes"
@@ -2820,19 +2818,19 @@ msgstr "Votos \"Sí\""
 
 #: ../root/statistics/stats.js:936
 msgid "Works with no attributes"
-msgstr ""
+msgstr "Obras sin atributos"
 
 #: ../root/statistics/stats.js:941
 msgid "Works with ISWCs"
-msgstr ""
+msgstr "Obras con ISWCs"
 
 #: ../root/statistics/stats.js:946
 msgid "Works with no language set"
-msgstr ""
+msgstr "Obras sin un idioma indicado"
 
 #: ../root/statistics/stats.js:951
 msgid "Works with no type set"
-msgstr ""
+msgstr "Obras sin un tipo indicado"
 
 #: ../root/statistics/stats.js:953
 msgid "/day"
@@ -2855,9 +2853,9 @@ msgstr[2] "Medios con {n} IDs de disco"
 #: ../root/statistics/stats.js:985
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Grabaciones en 1 publicación"
+msgstr[1] "Grabaciones en {n} publicaciones"
+msgstr[2] "Grabaciones en {n} publicaciones"
 
 #: ../root/statistics/stats.js:996
 msgid "Release Groups with 1 Release"
@@ -2868,7 +2866,7 @@ msgstr[2] "Grupos de publicaciones con {n} publicaciones"
 
 #: ../root/statistics/stats.js:1049
 msgid "{type} areas"
-msgstr ""
+msgstr "Áreas del tipo “{type}”"
 
 #: ../root/statistics/stats.js:1061
 msgid "{country} artists"
@@ -2876,7 +2874,7 @@ msgstr "Artistas de {country}"
 
 #: ../root/statistics/stats.js:1067
 msgid "{country} events"
-msgstr ""
+msgstr "Eventos en el país “{country}”"
 
 #: ../root/statistics/stats.js:1073
 msgid "{country} labels"
@@ -2884,7 +2882,7 @@ msgstr "Discográficas de {country}"
 
 #: ../root/statistics/stats.js:1079
 msgid "{country} places"
-msgstr ""
+msgstr "Lugares en el país “{country}”"
 
 #: ../root/statistics/stats.js:1085
 msgid "{country} releases"
@@ -2892,11 +2890,11 @@ msgstr "Publicaciones de {country}"
 
 #: ../root/statistics/stats.js:1096
 msgid "{type} edits"
-msgstr ""
+msgstr "Ediciones del tipo “{type}”"
 
 #: ../root/statistics/stats.js:1107
 msgid "{type} events"
-msgstr ""
+msgstr "Eventos del tipo “{type}”"
 
 #: ../root/statistics/stats.js:1114
 msgid "Events of type “{type}” with event art"
@@ -2912,15 +2910,15 @@ msgstr "Medios de {name}"
 
 #: ../root/statistics/stats.js:1140
 msgid "Releases with a medium of format “{format}” that have cover art"
-msgstr ""
+msgstr "Publicaciones con un medio del formato “{format}” que tienen imágenes"
 
 #: ../root/statistics/stats.js:1153
 msgid "{type} instruments"
-msgstr ""
+msgstr "Instrumentos del tipo “{type}”"
 
 #: ../root/statistics/stats.js:1164
 msgid "{type} labels"
-msgstr ""
+msgstr "Discográficas del tipo “{type}”"
 
 #: ../root/statistics/stats.js:1175
 msgid "{language} releases"
@@ -2928,35 +2926,39 @@ msgstr "Publicaciones en {language}"
 
 #: ../root/statistics/stats.js:1182
 msgid "{language} works"
-msgstr ""
+msgstr "Obras en el idioma “{language}”"
 
 #: ../root/statistics/stats.js:1194
 msgid "Releases with packaging “{packaging}”"
-msgstr ""
+msgstr "Publicaciones con el empaque “{packaging}”"
 
 #: ../root/statistics/stats.js:1207
 msgid "{type} places"
-msgstr ""
+msgstr "Lugares del tipo “{type}”"
 
 #: ../root/statistics/stats.js:1215
 msgid "{first_entity_type}-{second_entity_type} Relationships"
-msgstr ""
+msgstr "Relaciones {first_entity_type}-{second_entity_type}"
 
 #: ../root/statistics/stats.js:1234
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships"
 msgstr ""
+"Relaciones {first_entity_type_name}-{second_entity_type_name} del tipo "
+"“{relationship_type_name}”"
 
 #: ../root/statistics/stats.js:1250
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships including child relationship types"
 msgstr ""
+"Relaciones {first_entity_type_name}-{second_entity_type_name} del tipo "
+"“{relationship_type_name}” y tipos descendientes"
 
 #: ../root/statistics/stats.js:1273 ../root/statistics/stats.js:1293
 msgid "{type} release groups"
-msgstr ""
+msgstr "Grupos de publicaciones del tipo “{type}”"
 
 #: ../root/statistics/stats.js:1280
 msgid "Releases in groups of type “{type}” with cover art"
@@ -2968,27 +2970,27 @@ msgstr "Publicaciones con alfabeto {script}"
 
 #: ../root/statistics/stats.js:1315
 msgid "{type} series"
-msgstr ""
+msgstr "Series del tipo “{type}”"
 
 #: ../root/statistics/stats.js:1326
 msgid "{status} releases"
-msgstr ""
+msgstr "Publicaciones con la condición “{status}”"
 
 #: ../root/statistics/stats.js:1333
 msgid "Releases of status “{status}” with cover art"
-msgstr ""
+msgstr "Publicaciones con la condición “{status}” que tienen imágenes"
 
 #: ../root/statistics/stats.js:1350
 msgid "Works with attribute “{attribute}”"
-msgstr ""
+msgstr "Obras con el atributo “{attribute}”"
 
 #: ../root/statistics/stats.js:1363
 msgid "{type} works"
-msgstr ""
+msgstr "Obras del tipo “{type}”"
 
 #: ../root/statistics/utilities.js:40
 msgid "See on timeline"
-msgstr ""
+msgstr "Ver en la gráfica cronológica"
 
 #~ msgid "Events with event art:"
 #~ msgstr "Eventos con imágenes:"
