@@ -25,1463 +25,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.3\n"
 
-#: DB:statistics.statistic_event/title:2015-09-08
-msgid "\"Do Not Cluster\" guideline dropped"
-msgstr "De richtlijn “Niet clusteren” afgeschaft"
-
-#: DB:statistics.statistic_event/title:2017-04-11
-msgid "\"feat.\" standardization dropped"
-msgstr "Standaardisering van “feat.” afgeschaft"
-
-#: DB:statistics.statistic_event/title:2021-04-19
-msgid "1200px thumbnails"
-msgstr "Miniaturen van 1200 px"
-
-#. title:1200px thumbnails
-#: DB:statistics.statistic_event/description:2021-04-19
-msgid ""
-"1200px thumbnails are added to the Cover Art Archive, providing users with a "
-"very large image with a consistent size that avoids having to use the "
-"original uploads directly."
-msgstr ""
-"Aan het Cover Art Archive werden miniaturen van 1200 px toegevoegd, zodat "
-"gebruikers grote afbeeldingen met gestandaardiseerde afmetingen kunnen "
-"gebruiken, zonder dat ze de oorspronkelijk geüploade afbeeldingen moeten "
-"gebruiken."
-
-#. title:Discourse unifies community communication
-#: DB:statistics.statistic_event/description:2016-03-01
-msgid ""
-"A Discourse forum platform is added to replace both the old-school forums "
-"and the (by now dead) mailing lists and unify community communication in one "
-"place."
-msgstr ""
-"Er werd een Discourse-forum toegevoegd om het ouderwetse forum en de (nu ter "
-"ziele gegane) e-maillijsten te vervangen, zodat de communicatie op één plek "
-"werd samengebracht."
-
-#. title:Tag up/downvoting
-#: DB:statistics.statistic_event/description:2015-06-29
-msgid ""
-"A change is introduced that allows voting for and against existing "
-"folksonomy tags, rather than only adding your own."
-msgstr ""
-"Het werd mogelijk om voor en tegen bestaande folksonomietags te stemmen, in "
-"plaats van dat je alleen je eigen tags kon toevoegen."
-
-#. title:Picard 2.0 released
-#: DB:statistics.statistic_event/description:2018-07-19
-msgid ""
-"A major update for the Picard tagger is released, with a huge amount of "
-"bugfixes and improvements."
-msgstr ""
-"Er werd een nieuwe versie van de Picard-tagger uitgebracht, waarin heel veel "
-"fouten werden opgelost en verbeteringen werden doorgevoerd."
-
-#. title:Voting suggestions
-#: DB:statistics.statistic_event/description:2019-11-12
-msgid ""
-"A new \"Voting suggestions\" page is released, containing predefined edit "
-"searches to help editors find interesting and/or important edits to review "
-"and vote on."
-msgstr ""
-"Er werd een nieuw pagina met suggesties voor het stemmen uitgebracht. Hierop "
-"kan je kant-en-klare zoekopdrachten vinden waarmee je interessante en/of "
-"belangrijke bewerkingen kan vinden om op te stemmen."
-
-#. title:Cover Art Uploader
-#: DB:statistics.statistic_event/description:2013-08-05
-msgid ""
-"A new AJAX coverart uploader is released, making it easier to add cover art "
-"to releases."
-msgstr ""
-"Een nieuwe op AJAX gebaseerde uploader wordt uitgebracht, waardoor het "
-"makkelijker wordt om afbeeldingen toe te voegen."
-
-#. title:Edit note notifications
-#: DB:statistics.statistic_event/description:2015-12-28
-msgid ""
-"A new banner message now notifies users whenever they receive a new edit "
-"note."
-msgstr ""
-"Gebruikers zien nu een melding als ze een nieuwe bewerkingsnotitie krijgen."
-
-#. title:Improved search
-#: DB:statistics.statistic_event/description:2003-04-05
-msgid "A new, much faster search mechanism is added."
-msgstr "Er werd een nieuw, veel sneller zoekmechanisme toegevoegd."
-
-#. title:Great Dispute
-#: DB:statistics.statistic_event/description:2006-08-15
-msgid "A rift in the MusicBrainz community leads to a Great Dispute."
-msgstr ""
-"Een breuk in de gemeenschap van MusicBrainz leidt tot het Grote Schisma."
-
-#. title:Areas, ISNI codes and multiple release events per release
-#: DB:statistics.statistic_event/description:2013-05-15
-msgid ""
-"A very substantial schema change release adds a new entity type (areas), "
-"support for ISNI codes for artists and labels, and the possibility to have "
-"more than one release event on one release."
-msgstr ""
-"In een uitgave met grote schemawijzigingen werden een nieuw soort object "
-"(gebieden), ondersteuning voor ISNI-codes voor artiesten en "
-"platenmaatschappijen en de mogelijkheid om aan één uitgave meerdere "
-"uitgavegebeurtenissen toe te voegen geïntroduceerd."
-
-#. title:Edit search
-#: DB:statistics.statistic_event/description:2003-11-10
-msgid ""
-"A way to search for edits based on several different criteria is released."
-msgstr ""
-"Er werd een nieuwe manier om op basis van meerdere criteria naar bewerkingen "
-"te zoeken geïntroduceerd."
-
-#. title:The AcousticBrainz project goes live
-#: DB:statistics.statistic_event/description:2014-11-19
-msgid ""
-"AcousticBrainz, which aims to crowd source acoustic information for music, "
-"is announced in cooperation with the Music Technology Group at Universitat "
-"Pompeu Fabra."
-msgstr ""
-"AcousticBrainz, een project dat als doel heeft om akoestische informatie "
-"over muziek te crowdsourcen, wordt in samenwerking met de Music Technology "
-"Group van de Universitat Pompeu Fabra in Barcelona aangekondigd."
-
-#: DB:statistics.statistic_event/title:2005-04-10
-msgid "Advanced relationships"
-msgstr "Relaties"
-
-#. title:Advanced relationships
-#: DB:statistics.statistic_event/description:2005-04-10
-msgid ""
-"Advanced relationships that allow users to connect basic data entities is "
-"relased and unused TRMs pruned from the database. Inline editing is turned "
-"off by default, causing a drop in voting activity."
-msgstr ""
-"Relaties waarmee gebruikers objecten kunnen verbinden, zijn uitgebracht en "
-"ongebruikte TRM’s zijn uit de database verwijderd. Bewerken op dezelfde "
-"pagina is standaard uitgeschakeld, waardoor er minder wordt gestemd."
-
-#. title:MetaBrainz wins copyright troll battle, Wikimedia images dropped
-#: DB:statistics.statistic_event/description:2019-06-25
-msgid ""
-"After a lot of behind-the-scenes drama, MetaBrainz wins a legal battle "
-"against a copyright troll who tried to sue because of the use of Wikimedia "
-"Commons images. Commons images are still dropped from MusicBrainz sites to "
-"avoid further issues until Wikimedia makes changes that make image reuse "
-"more safe."
-msgstr ""
-"Na veel drama achter de schermen won MetaBrainz een juridische strijd tegen "
-"een auteursrechtentrol die MetaBrainz aanklaagde vanwege het gebruik van "
-"afbeeldingen van Wikimedia Commons. Afbeeldingen van Commons blijven "
-"uitgeschakeld tot Wikimedia veranderingen doorvoert om hergebruik veiliger "
-"te maken."
-
-#. title:Relationships displayed on release pages
-#: DB:statistics.statistic_event/description:2011-11-23
-msgid ""
-"After a lot of debate, relationship data starts being displayed on release "
-"pages, making it a lot more visible."
-msgstr ""
-"Na veel discussie werd begonnen met het tonen van relatiegegevens op "
-"uitgavepagina’s, waardoor deze gegevens veel zichtbaarder werden."
-
-#. title:Ian McEwen hired
-#: DB:statistics.statistic_event/description:2012-09-01
-msgid ""
-"After a successful Summer of Code, Ian McEwen joins the MusicBrainz team."
-msgstr ""
-"Na een succesvolle Summer of Code werd Ian McEwen lid van het MusicBrainz-"
-"team."
-
-#. title:MetaBrainz projects complete move to European servers
-#: DB:statistics.statistic_event/description:2016-11-08
-msgid ""
-"After many years at Digital West in California, the MetaBrainz project moves "
-"all servers to a much larger dedicated provider in Germany, Hetzner."
-msgstr ""
-"Na vele jaren bij Digital West in Californië verhuist het MetaBrainz-project "
-"al zijn servers naar een veel grotere aanbieder in Duitsland, Hetzner."
-
-#. title:BookBrainz becomes official MetaBrainz project
-#: DB:statistics.statistic_event/description:2018-09-10
-msgid ""
-"After several years as a community-driven only project, BookBrainz is "
-"adopted as an official project and given an actual developer position with "
-"the hiring of Monkey."
-msgstr ""
-"Na vele jaren als puur gemeenschapsproject werd BookBrainz een officieel "
-"MetaBrainz-project en kwam met Monkey een ontwikkelaar voor BookBrainz in "
-"dienst."
-
-#. title:IRC channels move to Libera.Chat
-#: DB:statistics.statistic_event/description:2021-05-26
-msgid ""
-"After unexpected upheaval on Freenode, MetaBrainz moves all official "
-"channels to Libera.Chat instead."
-msgstr ""
-"Na onverwachte opschudding bij Freenode verplaatst MetaBrainz alle officiële "
-"kanalen naar Libera.Chat."
-
-#: DB:statistics.statistic_event/title:2005-05-22
-msgid "Album languages"
-msgstr "Albumtalen"
-
-#. title:Album languages
-#: DB:statistics.statistic_event/description:2005-05-22
-msgid ""
-"Album languages, guess case improvements and revamps edit forms released."
-msgstr ""
-"Talen van uitgaven, verbeteringen in het gokken van hoofdlettergebruik en "
-"vernieuwde bewerkingsformulieren worden uitgebracht."
-
-#. title:Aliases for recordings, releases and release groups
-#: DB:statistics.statistic_event/description:2015-05-19
-msgid ""
-"Aliases are added to the three entity types that were still missing them: "
-"recordings, releases and release groups. This allows storing aliases for, "
-"for example, English names of Asian release groups."
-msgstr ""
-"Er worden aliassen toegevoegd aan de drie objecten die ze nog niet hadden: "
-"opnames, uitgaven en uitgavegroepen. Zo kunnen bijvoorbeeld voor Aziatische "
-"uitgavegroepen Engelse namen worden toegevoegd."
-
-#: DB:statistics.statistic_event/title:2015-05-19
-msgid "Aliases for recordings, releases and release groups"
-msgstr "Aliassen voor opnames, uitgaven en uitgavegroepen"
-
-#. title:Amazon betas SoundUnwound
-#: DB:statistics.statistic_event/description:2008-09-01
-msgid ""
-"Amazon betas <a href=\"http://web.archive.org/web/20210123164029/https://www."
-"wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a> with data from "
-"MusicBrainz."
-msgstr ""
-"Amazon brengt een bèta van <a href=\"http://web.archive.org/"
-"web/20210123164029/https://www.wired.com/2008/09/amazon-takes-on/"
-"\">SoundUnwound</a> met data van MusicBrainz uit."
-
-#: DB:statistics.statistic_event/title:2008-09-01
-msgid "Amazon betas SoundUnwound"
-msgstr "Amazon begint met een bèta van SoundUnwound"
-
-#: DB:statistics.statistic_event/title:2004-02-24
-msgid "Amazon cover art"
-msgstr "Afbeeldingen van Amazon"
-
-#. title:Amazon cover art
-#: DB:statistics.statistic_event/description:2004-02-24
-msgid "Amazon cover art support released."
-msgstr "Ondersteuning voor afbeeldingen van Amazon uitgebracht."
-
-#. title:Release editor
-#: DB:statistics.statistic_event/description:2006-07-12
-msgid "An improved release editor and a new site design are released."
-msgstr ""
-"Een verbeterde uitgavebewerker en een nieuw siteontwerp worden uitgebracht."
-
-#. title:Relationship credits become available
-#: DB:statistics.statistic_event/description:2015-06-02
-msgid ""
-"An update is released that allows specifying a credit for artists in a "
-"relationship, if not the same as the artist name."
-msgstr ""
-"Het werd mogelijk om vermeldingen van artiesten die afwijken van de "
-"(standaard) artiestennaam in een relatie vast te leggen."
-
-#. title:Annotations
-#: DB:statistics.statistic_event/description:2004-11-14
-msgid "Annotation support released."
-msgstr "Ondersteuning voor aantekeningen uitgebracht."
-
-#: DB:statistics.statistic_event/title:2004-11-14
-msgid "Annotations"
-msgstr "Aantekeningen"
-
-#: DB:statistics.statistic_event/title:2013-05-15
-msgid "Areas, ISNI codes and multiple release events per release"
-msgstr "Gebieden, ISNI-codes en meerdere uitgavegebeurtenissen per uitgave"
-
-#: DB:statistics.statistic_event/title:2003-06-22
-msgid "Artist subscriptions"
-msgstr "Abonnementen op artiesten"
-
-#. title:User improvements
-#: DB:statistics.statistic_event/description:2005-02-13
-msgid ""
-"Artist subscriptions made public and various smaller user centric "
-"improvements are released."
-msgstr ""
-"Abonnementen op artiesten openbaar gemaakt en verschillende kleinere "
-"verbeteringen voor gebruikers zijn uitgebracht."
-
-#. title:Artist subscriptions
-#: DB:statistics.statistic_event/description:2003-06-22
-msgid "Artist subscriptions."
-msgstr "Abonnementen op artiesten."
-
-#. title:"feat." standardization dropped
-#: DB:statistics.statistic_event/description:2017-04-11
-msgid ""
-"As part of a long term move towards more fidelity to the original data, we "
-"stop standardizing \"featuring\" and all its variants to \"feat.\", and ask "
-"editors to use whatever is printed instead."
-msgstr ""
-"In het kader van een streven om dichter bij de oorspronkelijke data te "
-"blijven, zijn we opgehouden met het standaardiseren van “featuring” en alle "
-"varianten daarvan naar “feat.” en vragen we redacteurs nu om te gebruiken "
-"wat er op de uitgave is afgedrukt."
-
-#: DB:statistics.statistic_event/title:2008-07-30
-msgid "BBC dynamic artist pages"
-msgstr "Dynamische artiestenpagina’s van de BBC"
-
-#. title:BBC dynamic artist pages
-#: DB:statistics.statistic_event/description:2008-07-30
-msgid "BBC launches the dynamic artist pages based on MusicBrainz data."
-msgstr ""
-"De BBC lanceert dynamische artiestenpagina’s gebaseerd op gegevens van "
-"MusicBrainz."
-
-#: DB:statistics.statistic_event/title:2007-06-28
-msgid "BBC partners with MetaBrainz"
-msgstr "BBC wordt een partner van MetaBrainz"
-
-#: DB:statistics.statistic_event/title:2018-09-10
-msgid "BookBrainz becomes official MetaBrainz project"
-msgstr "BookBrainz wordt een officieel MetaBrainz-project"
-
-#: DB:statistics.statistic_event/title:2012-04-30
-msgid "CAA initial release"
-msgstr "Eerste versie van het CAA"
-
-#: DB:statistics.statistic_event/title:2012-10-10
-msgid "CAA official release"
-msgstr "Officiële begin van het CAA"
-
-#: DB:statistics.statistic_event/title:2016-06-20
-msgid "CatQuest becomes Instrument Inserter"
-msgstr "CatQuest wordt Instrumentinvoeger"
-
-#. title:CatQuest becomes Instrument Inserter
-#: DB:statistics.statistic_event/description:2016-06-20
-msgid ""
-"CatQuest officially takes over from reosarevok as the main person for adding "
-"new instruments to MusicBrainz, with the newly created Instrument Inserter "
-"position."
-msgstr ""
-"CatQuest neemt de taak om nieuwe instrumenten aan MusicBrainz toe te voegen "
-"officieel over, in de nieuwe functie van Instrumentinvoeger."
-
-#: DB:statistics.statistic_event/title:2019-08-08
-msgid "Collaborative collections"
-msgstr "Gezamenlijke collecties"
-
-#. title:Collaborative collections
-#: DB:statistics.statistic_event/description:2019-08-08
-msgid ""
-"Collection owners are now able to allow other editors to also add/remove "
-"entities from any of their collections."
-msgstr ""
-"Eigenaren van collecties kunnen nu andere redacteurs toestaan om objecten in "
-"hun collecties toe te voegen of te verwijderen."
-
-#: DB:statistics.statistic_event/title:2008-11-24
-msgid "Collection, Ratings, CDStubs"
-msgstr "Collecties, waarderingen, cd-beginnetjes"
-
-#. title:Collection, Ratings, CDStubs
-#: DB:statistics.statistic_event/description:2008-11-24
-msgid "Collection, Ratings, CDStubs, LastUpdate released."
-msgstr ""
-"Collecties, waarderingen, cd-beginnetjes en LastUpdate worden uitgebracht."
-
-#. title:Mergeable collections, artist series and ratable places
-#: DB:statistics.statistic_event/description:2021-05-18
-msgid ""
-"Collections can now be merged, in case an editor wants to consolidate "
-"several of their collections into one. Additionally, it is now possible to "
-"create series of artists, and to rate places (the only entity that could be "
-"reviewed on CritiqueBrainz but not rated on MusicBrainz)."
-msgstr ""
-"Redacteurs kunnen nu hun collecties samenvoegen. Bovendien kunnen nu series "
-"van artiesten worden gemaakt en plaatsen worden gewaardeerd (het enige "
-"object dat op CritiqueBrainz kon worden gerecenseerd maar niet op "
-"MusicBrainz kon worden beoordeeld)."
-
-#: DB:statistics.statistic_event/title:2013-08-05
-msgid "Cover Art Uploader"
-msgstr "Cover Art Uploader"
-
-#: DB:statistics.statistic_event/title:2003-03-29
-msgid "Dedicated database server"
-msgstr "Toegewijde databaseserver"
-
-#: DB:statistics.statistic_event/title:2016-03-01
-msgid "Discourse unifies community communication"
-msgstr "Communicatie wordt in Discourse-forum samengebracht"
-
-#: DB:statistics.statistic_event/title:2003-07-25
-msgid "Easier edit note adding"
-msgstr "Toevoegen van bewerkingsnotities wordt makkelijker"
-
-#. title:Install scripts
-#: DB:statistics.statistic_event/description:2004-05-09
-msgid ""
-"Edit display improvements, turned off RDF dumps, new install scripts "
-"released."
-msgstr ""
-"Verbeteringen in het weergeven van bewerkingen, RDF-dumps uitgeschakeld en "
-"nieuwe installatiescripts uitgebracht."
-
-#: DB:statistics.statistic_event/title:2020-02-18
-msgid "Edit history visible without logging in"
-msgstr "Bewerkingsgeschiedenis zichtbaar zonder aanmelding"
-
-#: DB:statistics.statistic_event/title:2015-12-28
-msgid "Edit note notifications"
-msgstr "Meldingen voor bewerkingsnotities"
-
-#. title:Easier edit note adding
-#: DB:statistics.statistic_event/description:2003-07-25
-msgid ""
-"Edit notes can now be added when creating an edit, making it much easier for "
-"editors to explain their changes."
-msgstr ""
-"Bewerkingsnotities kunnen nu worden toegevoegd bij het maken van de "
-"bewerking, zodat redacteurs hun wijzigingen veel makkelijker kunnen "
-"uitleggen."
-
-#: DB:statistics.statistic_event/title:2003-11-10
-msgid "Edit search"
-msgstr "Zoeken naar bewerkingen"
-
-#. title:Track times set from DiscIDs
-#: DB:statistics.statistic_event/description:2007-12-07
-msgid ""
-"Editor ojnkpjg runs a script setting track times from DiscID values, "
-"creating a huge spike in edits."
-msgstr ""
-"Redacteur ojnkpjg voert een script uit dat de duur van nummers instelt aan "
-"de hand van disc-ID’s, wat tot een enorme piek aan bewerkingen leidt."
-
-#. title:More auto-edits
-#: DB:statistics.statistic_event/description:2015-11-30
-msgid ""
-"Edits made by editors to their own release additions within 1 hour of adding "
-"them are now auto-edits, as are \"Add recording\" and \"Remove alias\" edits."
-msgstr ""
-"Als een redacteur een uitgave binnen een uur na het toevoegen van deze "
-"uitgave bewerkt, zijn die bewerkingen nu automatisch. Ook het toevoegen van "
-"een opname en het verwijderen van een alias zijn nu automatische bewerkingen."
-
-#: DB:statistics.statistic_event/title:2003-06-07
-msgid "Email verification"
-msgstr "E-mailverificatie"
-
-#. title:Empty labels, release groups and works start being auto-removed
-#: DB:statistics.statistic_event/description:2012-06-25
-msgid ""
-"Empty labels, release groups and works are now auto-removed after 24 hours "
-"of being unused, in the same way artists already were before."
-msgstr ""
-"Lege platenmaatschappijen, uitgavegroepen en composities worden nu "
-"verwijderd na 24 uur niet te zijn gebruikt, net als al met artiesten "
-"gebeurde."
-
-#: DB:statistics.statistic_event/title:2012-06-25
-msgid "Empty labels, release groups and works start being auto-removed"
-msgstr ""
-"Lege platenmaatschappijen, uitgavegroepen en composities worden automatisch "
-"verwijderd"
-
-#. title:Event support, data tracks
-#: DB:statistics.statistic_event/description:2014-09-17
-msgid ""
-"Event support is added to MusicBrainz, allowing storing information about "
-"concerts and festivals. Also part of this schema change release is a proper "
-"way to indicate the content of data tracks in release tracklists, and the "
-"extension of tagging to areas, instruments and series."
-msgstr ""
-"Aan MusicBrainz werd ondersteuning voor evenementen toegevoegd. Nu kan "
-"informatie over concerten en festivals worden toegevoegd. Nieuw in deze "
-"schemawijziging is ook een betere manier om de inhoud van datanummers in "
-"nummerlijsten weer te geven en het uitbreiden van taggen naar gebieden, "
-"instrumenten en series."
-
-#: DB:statistics.statistic_event/title:2014-09-17
-msgid "Event support, data tracks"
-msgstr "Ondersteuning voor evenementen en datanummers"
-
-#. title:Tags, editor subscriptions, relationship batch-adding
-#: DB:statistics.statistic_event/description:2007-10-17
-msgid ""
-"Folksonomy tagging and editor subscriptions are released. Additionally, it's "
-"now possible to batch-add relationships to multiple tracks on a release."
-msgstr ""
-"Folksonomietags en abonnementen op redacteurs werden uitgebracht. Ook is het "
-"nu mogelijk om meerdere relaties in één keer aan meerdere nummers op een "
-"uitgave toe te voegen."
-
-#. title:Roman Tsukanov joins the MetaBrainz team
-#: DB:statistics.statistic_event/description:2015-09-04
-msgid ""
-"Former GSoC student Roman Tsukanov begins working for MetaBrainz part-time."
-msgstr ""
-"Voormalig GSoC-student Roman Tsukanov begint in deeltijd voor MetaBrainz te "
-"werken."
-
-#: DB:statistics.statistic_event/title:2015-08-06
-msgid "Frederik \"Freso\" S. Olesen becomes MetaBrainz Community Manager"
-msgstr "Frederik “Freso” S. Olesen wordt MetaBrainz-gemeenschapsmanager"
-
-#. title:FreeDB off/Autoeditors
-#: DB:statistics.statistic_event/description:2004-10-10
-msgid ""
-"FreeDB auto import feature turned off and autoeditor elections released. "
-"Unused TRMs pruned from the database."
-msgstr ""
-"De automatische import vanuit FreeDB wordt uitgeschakeld en de verkiezing "
-"van autoredacteurs toegevoegd. Niet-gebruikte TRM’s worden verwijderd."
-
-#: DB:statistics.statistic_event/title:2004-10-10
-msgid "FreeDB off/Autoeditors"
-msgstr "FreeDB uit / Autoredacteurs"
-
-#. title:Frederik "Freso" S. Olesen becomes MetaBrainz Community Manager
-#: DB:statistics.statistic_event/description:2015-08-06
-msgid ""
-"Freso becomes the first MetaBrainz Community Manager, tasked with helping "
-"resolve conflicts in the community and keeping an eye on their needs."
-msgstr ""
-"Freso werd de eerste MetaBrainz-gemeenschapsmanager, met als taak om "
-"conflicten binnen de gemeenschap te helpen oplossen en een oogje op de "
-"behoeften van gebruikers te houden."
-
-#: DB:statistics.statistic_event/title:2018-11-02
-msgid "Genre added as a new entity"
-msgstr "Genres worden toegevoegd als nieuw object"
-
-#. title:Genre added as a new entity
-#: DB:statistics.statistic_event/description:2018-11-02
-msgid ""
-"Genres are added as a new entity, although still tightly tied to folksonomy "
-"tags."
-msgstr ""
-"Genres worden in de vorm van een nieuw object toegevoegd, maar blijven nauw "
-"verbonden met folksonomietags."
-
-#: DB:statistics.statistic_event/title:2006-08-15
-msgid "Great Dispute"
-msgstr "Het Grote Schisma"
-
-#: DB:statistics.statistic_event/title:2015-04-27
-msgid "Guess feat. buttons"
-msgstr "Knoppen om gastartiesten te gokken"
-
-#: DB:statistics.statistic_event/title:2021-05-26
-msgid "IRC channels move to Libera.Chat"
-msgstr "IRC-kanalen naar Libera.Chat verhuisd"
-
-#: DB:statistics.statistic_event/title:2012-09-01
-msgid "Ian McEwen hired"
-msgstr "Ian McEwen aangenomen"
-
-#: DB:statistics.statistic_event/title:2015-07-17
-msgid "Ian McEwen leaves MetaBrainz"
-msgstr "Ian McEwen verlaat MetaBrainz"
-
-#. title:Ian McEwen leaves MetaBrainz
-#: DB:statistics.statistic_event/description:2015-07-17
-msgid "Ian McEwen leaves the project for personal reasons."
-msgstr "Ian McEwen verlaat het project om persoonlijke redenen."
-
-#: DB:statistics.statistic_event/title:2009-06-17
-msgid "Imported CD Baby catalog as CD Stubs"
-msgstr "Catalogus van CD Baby geïmporteerd als cd-beginnetjes"
-
-#. title:Imported CD Baby catalog as CD Stubs
-#: DB:statistics.statistic_event/description:2009-06-17
-msgid ""
-"Imported the metadata from the CD Baby catalog into our CD Stubs collection."
-msgstr ""
-"Metagegevens van de catalogus van CD Baby geïmporteerd in onze verzameling "
-"cd-beginnetjes."
-
-#: DB:statistics.statistic_event/title:2004-07-24
-msgid "Improve voting"
-msgstr "Verbeterd stemmen"
-
-#: DB:statistics.statistic_event/title:2003-04-05
-msgid "Improved search"
-msgstr "Verbeterde zoekfunctie"
-
-#. title:Voting period shortened to 7 days
-#: DB:statistics.statistic_event/description:2013-02-11
-msgid ""
-"In an effort to reduce the size of the open edit queue and force less "
-"waiting for changes, the length of time edits stay open before expiration is "
-"reduced from 14 to 7 days."
-msgstr ""
-"In een poging om de lengte van de wachtrij voor bewerkingen en de wachttijd "
-"voor veranderingen te verminderen, is de tijd waarin bewerkingen open "
-"blijven staan verminderd van veertien naar zeven dagen."
-
-#. title:Guess feat. buttons
-#: DB:statistics.statistic_event/description:2015-04-27
-msgid ""
-"In order to make it easier to fix a lot of cases where featured artists are "
-"still part of the track / release titles rather than the artists, guess "
-"feat. buttons are added that greatly simplify the process."
-msgstr ""
-"Er zijn knoppen toegevoegd waarmee artiesten die nog in de titel van een "
-"nummer of uitgave worden vermeld in plaats van in de artiestvermeldingen, "
-"makkelijker naar de artiestvermeldingen kunnen worden verplaatst."
-
-#. title:NGS No-Editing Phase
-#: DB:statistics.statistic_event/description:2011-05-12
-msgid "In preparation for NGS, editing is turned off until release."
-msgstr ""
-"In aanloop naar NGS zijn bewerkingen uitgeschakeld tot het uitbrengen van "
-"NGS."
-
-#. title:NGS Reduced Editing Phase
-#: DB:statistics.statistic_event/description:2011-05-02
-msgid ""
-"In preparation for NGS, editors are encouraged to avoid editing until "
-"release unless entirely necessary."
-msgstr ""
-"In aanloop naar NGS worden redacteurs aangespoord om bewerkingen te "
-"vermijden tenzij het strikt noodzakelijk is."
-
-#: DB:statistics.statistic_event/title:2006-03-05
-msgid "Indexed search/XML WS"
-msgstr "Geïndexeerd zoeken / XML-webdienst"
-
-#. title:Indexed search/XML WS
-#: DB:statistics.statistic_event/description:2006-03-05
-msgid "Indexes search and a new XML based Web Service are released."
-msgstr ""
-"Geïndexeerde zoekfunctie en een nieuwe op XML gebaseerde webdienst worden "
-"uitgebracht."
-
-#: DB:statistics.statistic_event/title:2004-01-17
-msgid "Inline edits"
-msgstr "Ingebedde bewerkingen"
-
-#. title:Inline edits
-#: DB:statistics.statistic_event/description:2004-01-17
-msgid "Inline edits, new reports, improved data import scripts."
-msgstr ""
-"Ingebedde bewerkingen, nieuwe rapporten en verbeterde scripts voor "
-"gegevensimport."
-
-#: DB:statistics.statistic_event/title:2004-05-09
-msgid "Install scripts"
-msgstr "Installatiescripts"
-
-#: DB:statistics.statistic_event/title:2020-12-31
-msgid "Instrument images, recordings' first release date"
-msgstr "Afbeeldingen voor instrumenten, eerste uitgavedatum voor opnames"
-
-#: DB:statistics.statistic_event/title:2014-05-14
-msgid "Instruments and series"
-msgstr "Instrumenten en series"
-
-#: DB:statistics.statistic_event/title:2021-02-01
-msgid "Italian translation released, IPI and ISNI become autoedits"
-msgstr ""
-"Italiaanse vertaling uitgebracht, IPI- en ISNI-bewerkingen worden "
-"automatische bewerkingen"
-
-#: DB:statistics.statistic_event/title:2021-02-23
-msgid "Kartik Ohri joins the MetaBrainz team"
-msgstr "Kartik Ohri wordt lid van het MetaBrainz-team"
-
-#. title:Kartik Ohri joins the MetaBrainz team
-#: DB:statistics.statistic_event/description:2021-02-23
-msgid ""
-"Kartik Ohri joins the MetaBrainz team to work on ListenBrainz, "
-"AcousticBrainz and CritiqueBrainz, plus the Android app, which he had "
-"already significantly rewritten as a volunteer."
-msgstr ""
-"Kartik Ohri wordt lid van het MetaBrainz-team om te werken aan ListenBrainz, "
-"AcousticBrainz, CritiqueBrainz en de Android-app, die hij als vrijwilliger "
-"al grotendeels had herschreven."
-
-#. title:Kuno Woudt hired as full-time developer
-#: DB:statistics.statistic_event/description:2009-12-14
-msgid "Kuno Woudt begins working for MusicBrainz full-time."
-msgstr "Kuno Woudt begint voltijds te werken bij MusicBrainz."
-
-#: DB:statistics.statistic_event/title:2009-12-14
-msgid "Kuno Woudt hired as full-time developer"
-msgstr "Kuno Woudt aangenomen als voltijds ontwikkelaar"
-
-#: DB:statistics.statistic_event/title:2007-04-01
-msgid "Labels/data quality"
-msgstr "Platenmaatschappijen / gegevenskwaliteit"
-
-#: DB:statistics.statistic_event/title:2007-11-07
-msgid "Last.fm"
-msgstr "Last.fm"
-
-#. title:Last.fm
-#: DB:statistics.statistic_event/description:2007-11-07
-msgid "Last.fm signs up with MetaBrainz and starts using MusicBrainz data."
-msgstr ""
-"Last.fm tekent een contract met MetaBrainz en begint gegevens van "
-"MusicBrainz te gebruiken."
-
-#: DB:statistics.statistic_event/title:2015-09-28
-msgid "Laurent \"zas\" Monin becomes sysadmin"
-msgstr "Laurent “zas” Monin wordt systeembeheerder"
-
-#. title:Laurent "zas" Monin becomes sysadmin
-#: DB:statistics.statistic_event/description:2015-09-28
-msgid ""
-"Laurent Monin, better known as Zas, joins the team as a dedicated systems "
-"administrator, to make sure the servers run properly and help transition to "
-"a new community discussion system."
-msgstr ""
-"Laurent Monin, beter bekend als Zas, wordt lid van het team als "
-"systeembeheerder. Zijn taak wordt om te zorgen dat de servers goed werken en "
-"om te helpen bij de overstap op een nieuw discussiesysteem voor de "
-"gemeenschap."
-
-#. title:Linking
-#: DB:statistics.statistic_event/description:2003-12-28
-msgid ""
-"Link to MusicBrainz feature, release events and edit suggestions released."
-msgstr ""
-"Mogelijkheden voor links naar MusicBrainz, uitgavegebeurtenissen en "
-"suggesties voor bewerkingen uitgebracht."
-
-#. title:MetaBrainz signs first customer
-#: DB:statistics.statistic_event/description:2007-01-20
-msgid "Linkara Musica becomes first commercial customer of MetaBrainz."
-msgstr "Linkara Musica wordt de eerste commerciële klant van MetaBrainz."
-
-#: DB:statistics.statistic_event/title:2003-12-28
-msgid "Linking"
-msgstr "Links"
-
-#. title:MBBE_Bot starts running
-#: DB:statistics.statistic_event/description:2020-10-07
-msgid ""
-"MBBE_Bot is created to make fixes that are too time-consuming to do by hand, "
-"but should still leave a trace in edit history. This usually involves "
-"removing URLs from problematic domains, marking URLs from domains that have "
-"been closed as ended, and other similar batch-editing jobs."
-msgstr ""
-"MBBE_Bot wordt gemaakt om dingen te verbeteren die met de hand te veel tijd "
-"zouden kosten, maar wel in de bewerkingsgeschiedenis moeten worden "
-"opgenomen. Het gaat hierbij meestal om het verwijderen van URL’s van "
-"problematische domeinen, het markeren van URL’s van domeinen die zijn "
-"beëindigd en meer van dat soort massawerk."
-
-#: DB:statistics.statistic_event/title:2020-10-07
-msgid "MBBE_Bot starts running"
-msgstr "MBBE_Bot wordt gestart"
-
-#: DB:statistics.statistic_event/title:2005-10-23
-msgid "Menus/Client scripting"
-msgstr "Scripting voor menu’s en programma’s"
-
-#: DB:statistics.statistic_event/title:2021-05-18
-msgid "Mergeable collections, artist series and ratable places"
-msgstr "Collecties samenvoegen, artiestenseries en waarderingen voor plaatsen"
-
-#. title:SoC 2008
-#: DB:statistics.statistic_event/description:2008-04-21
-msgid "MetaBrainz accepts three students for Google Summer of Code."
-msgstr "MetaBrainz accepteert drie studenten voor de Google Summer of Code."
-
-#: DB:statistics.statistic_event/title:2008-09-23
-msgid "MetaBrainz hires Oliver Charles"
-msgstr "MetaBrainz neemt Oliver Charles aan"
-
-#: DB:statistics.statistic_event/title:2005-04-19
-msgid "MetaBrainz launched"
-msgstr "MetaBrainz gelanceerd"
-
-#: DB:statistics.statistic_event/title:2016-11-08
-msgid "MetaBrainz projects complete move to European servers"
-msgstr "MetaBrainz-projecten naar Europese servers verhuisd"
-
-#: DB:statistics.statistic_event/title:2007-01-20
-msgid "MetaBrainz signs first customer"
-msgstr "MetaBrainz tekent zijn eerste klant"
-
-#: DB:statistics.statistic_event/title:2019-06-25
-msgid "MetaBrainz wins copyright troll battle, Wikimedia images dropped"
-msgstr ""
-"MetaBrainz wint gevecht met auteursrechtentrol, Wikimedia-afbeeldingen "
-"verwijderd"
-
-#. title:MetaWeb signed
-#: DB:statistics.statistic_event/description:2008-04-01
-msgid "MetaWeb becomes a MusicBrainz data user."
-msgstr "MetaWeb gaat de data van MusicBrainz gebruiken."
-
-#: DB:statistics.statistic_event/title:2008-04-01
-msgid "MetaWeb signed"
-msgstr "MetaWeb getekend"
-
-#: DB:statistics.statistic_event/title:2015-11-30
-msgid "More auto-edits"
-msgstr "Meer automatische bewerkingen"
-
-#. title:Several new auto-edit types and translations
-#: DB:statistics.statistic_event/description:2015-11-16
-msgid ""
-"More edit types are made auto-edits for everyone: \"Add relationship\" and "
-"\"Add release\"; and \"Add\", \"Edit\" and \"Remove release label\". "
-"Additionally, the German, French and Dutch translations are available on the "
-"main server."
-msgstr ""
-"Meer soorten bewerkingen worden voor iedereen automatisch: het toevoegen van "
-"uitgaven en het toevoegen, bewerken of verwijderen van platenmaatschappijen "
-"van uitgaven. Bovendien worden de Duitse, Franse en Nederlandse vertalingen "
-"op de hoofdserver beschikbaar."
-
-#: DB:statistics.statistic_event/title:2006-02-27
-msgid "MusicBrainz Move"
-msgstr "Verhuizing van MusicBrainz"
-
-#. title:mb_server now hosted on Git
-#: DB:statistics.statistic_event/description:2010-02-08
-msgid "MusicBrainz Server source code moved to Git from Subversion."
-msgstr ""
-"De broncode voor de server van MusicBrainz verhuist van Subversion naar Git."
-
-#: DB:statistics.statistic_event/title:2012-01-12
-msgid "MusicBrainz adds AcoustID support"
-msgstr "MusicBrainz gaat AcoustID ondersteunen"
-
-#. title:Dedicated database server
-#: DB:statistics.statistic_event/description:2003-03-29
-msgid "MusicBrainz gets its first dedicated database server."
-msgstr "MusicBrainz krijgt zijn eerste toegewijde databaseserver."
-
-#. title:New MusicBrainz design
-#: DB:statistics.statistic_event/description:2016-02-22
-msgid ""
-"MusicBrainz itself gets a new design to better match the rest of the *Brainz "
-"family."
-msgstr ""
-"Ook MusicBrainz krijgt een nieuw ontwerp om beter aan te sluiten op de rest "
-"van de *Brainz-familie."
-
-#. title:MusicBrainz Move
-#: DB:statistics.statistic_event/description:2006-02-27
-msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
-msgstr "MusicBrainz verhuist naar Digital West Networks in San Luis Obispo."
-
-#. title:MusicIP PUID
-#: DB:statistics.statistic_event/description:2006-03-12
-msgid ""
-"MusicBrainz partners with MusicIP and starts using MusicDNS's PUID acoustic "
-"fingerprints. Picard becomes the official MusicBrainz tagger with PUID "
-"support, which causes edit activity to decrease."
-msgstr ""
-"MusicBrainz begint een partnerschap met MusicIP en begint de PUID "
-"akoestische vingerafdrukken van MusicDNS te gebruiken. Picard wordt de "
-"officiële tagger van MusicBrainz met ondersteuning voor PUID’s, waardoor er "
-"minder bewerkingen worden gedaan."
-
-#: DB:statistics.statistic_event/title:2006-03-12
-msgid "MusicIP PUID"
-msgstr "MusicIP-PUID"
-
-#: DB:statistics.statistic_event/title:2011-05-12
-msgid "NGS No-Editing Phase"
-msgstr "Bewerkingsloze fase voor NGS"
-
-#: DB:statistics.statistic_event/title:2011-05-02
-msgid "NGS Reduced Editing Phase"
-msgstr "Bewerkingsarme fase voor NGS"
-
-#: DB:statistics.statistic_event/title:2011-05-18
-msgid "NGS Release"
-msgstr "NGS uitgebracht"
-
-#. title:NGS Release
-#: DB:statistics.statistic_event/description:2011-05-18
-msgid "NGS, a MusicBrainz major rewrite, is released!"
-msgstr "NGS, een grote verbouwing van MusicBrainz, is uitgebracht!"
-
-#: DB:statistics.statistic_event/title:2016-02-22
-msgid "New MusicBrainz design"
-msgstr "Nieuw ontwerp voor MusicBrainz"
-
-#: DB:statistics.statistic_event/title:2017-10-31
-msgid "New entity auto-editing period extended to 24 hours"
-msgstr ""
-"Periode voor automatische bewerkingen van nieuwe objecten verlengd naar 24 "
-"uur"
-
-#. title:reosarevok becomes the MusicBrainz style leader
-#: DB:statistics.statistic_event/description:2012-02-17
-msgid ""
-"Nicolás Tamargo (reosarevok) becomes the MusicBrainz style leader, and a "
-"new, more official style process using Jira is established."
-msgstr ""
-"Nicolás Tamargo (reosarevok) wordt de stijlleider van MusicBrainz, en voor "
-"het ontwikkelen van de stijlgids wordt een nieuw, formeler proces via Jira "
-"ingesteld."
-
-#: DB:statistics.statistic_event/title:2003-10-13
-msgid "Non album tracks"
-msgstr "Nummers zonder album"
-
-#. title:Non album tracks
-#: DB:statistics.statistic_event/description:2003-10-13
-msgid "Non album tracks are released."
-msgstr "Nummers zonder album uitgebracht."
-
-#. title:MetaBrainz hires Oliver Charles
-#: DB:statistics.statistic_event/description:2008-09-23
-msgid "Oliver Charles becomes employee #1 of MetaBrainz Foundation."
-msgstr "Oliver Charles wordt de eerste werknemer van de MetaBrainz Foundation."
-
-#. title:Oliver Charles joins MusicBrainz full-time
-#: DB:statistics.statistic_event/description:2010-06-18
-msgid "Oliver Charles begins working for MusicBrainz full-time."
-msgstr "Oliver Charles begint voltijds voor MusicBrainz te werken."
-
-#: DB:statistics.statistic_event/title:2010-06-18
-msgid "Oliver Charles joins MusicBrainz full-time"
-msgstr "Oliver Charles wordt voltijdwerknemer van MusicBrainz"
-
-#. title:Solr-based search server deployed
-#: DB:statistics.statistic_event/description:2018-06-30
-msgid ""
-"Our old search server gets a significant upgrade with its move to Solr, "
-"including almost-instant index updates."
-msgstr ""
-"Met de overstap op SOLR krijgt onze oude zoekserver een flinke upgrade. Het "
-"wordt onder andere mogelijk om indices bijna direct bij te werken."
-
-#: DB:statistics.statistic_event/title:2013-10-14
-msgid "PUID support is removed"
-msgstr "PUID-ondersteuning beëindigd"
-
-#: DB:statistics.statistic_event/title:2021-04-05
-msgid "Pagination added for relationships, user tags"
-msgstr "Paginering voor relaties en gebruikersetiketten toegevoegd"
-
-#. title:Pagination added for relationships, user tags
-#: DB:statistics.statistic_event/description:2021-04-05
-msgid ""
-"Pagination was added for two very long lists that sometimes couldn't be "
-"loaded in full because of timeouts: user tags and entity relationships."
-msgstr ""
-"Voor twee erg lange lijsten die soms niet volledig konden worden geladen "
-"omdat dat te lang duurde is paginering toegevoegd: gebruikersetiketten en "
-"relaties van objecten."
-
-#: DB:statistics.statistic_event/title:2012-06-02
-msgid "Picard 1.0 released"
-msgstr "Picard 1.0 uitgebracht"
-
-#: DB:statistics.statistic_event/title:2018-07-19
-msgid "Picard 2.0 released"
-msgstr "Picard 2.0 uitgebracht"
-
-#. title:New entity auto-editing period extended to 24 hours
-#: DB:statistics.statistic_event/description:2017-10-31
-msgid ""
-"Rather than having to notice any errors during a fairly brief 1 hour period, "
-"editors now have 24 hours to correct errors in the data they have added "
-"without needing a vote."
-msgstr ""
-"In plaats van dat redacteurs maar een uur hebben om fouten in je bewerkingen "
-"te corrigeren zonder dat erover gestemd hoeft te worden, hebben redacteurs "
-"nu 24 uur."
-
-#: DB:statistics.statistic_event/title:2012-10-15
-msgid "Relationship Editor"
-msgstr "Relatiebewerker"
-
-#: DB:statistics.statistic_event/title:2015-06-02
-msgid "Relationship credits become available"
-msgstr "Relatievermeldingen komen beschikbaar"
-
-#: DB:statistics.statistic_event/title:2011-11-23
-msgid "Relationships displayed on release pages"
-msgstr "Relaties worden op uitgavepagina’s weergegeven"
-
-#: DB:statistics.statistic_event/title:2015-04-06
-msgid "Release \"stubs\", minimum voting period for destructive edits"
-msgstr ""
-"‘Beginnetjes’ voor uitgaven, minimale stemmingsperiode voor destructieve "
-"bewerkingen"
-
-#: DB:statistics.statistic_event/title:2009-05-24
-msgid "Release Groups, ISRCs, CDStub searching"
-msgstr "Uitgavegroepen, ISRC’s, zoeken naar cd-beginnetjes"
-
-#: DB:statistics.statistic_event/title:2006-07-12
-#: DB:statistics.statistic_event/title:2003-10-19
-msgid "Release editor"
-msgstr "Uitgavebewerker"
-
-#. title:Release editor
-#: DB:statistics.statistic_event/description:2003-10-19
-msgid "Release editor and Guess Case released."
-msgstr ""
-"De uitgavebewerker en het gokken van hoofdlettergebruik worden uitgebracht."
-
-#. title:Release Groups, ISRCs, CDStub searching
-#: DB:statistics.statistic_event/description:2009-05-24
-msgid ""
-"Release groups, ISRC support, CDStub searching and search fixes released."
-msgstr ""
-"Uitgavegroepen, ondersteuning voor ISRC’s, zoeken in cd-beginnetjes en "
-"verbeteringen aan de zoekfunctie uitgebracht."
-
-#. title:Release "stubs", minimum voting period for destructive edits
-#: DB:statistics.statistic_event/description:2015-04-06
-msgid ""
-"Releases can now be added without any mediums, for cases where the only "
-"information available is, for example, a title + date + label + catalog "
-"number entry in a catalog. Additionally, any destructive edits such as "
-"entity merges and removals no longer close immediately once they get 3 Yes "
-"votes, but they remain open for at least 48 hours to ensure people who "
-"oppose them have time to see them."
-msgstr ""
-"Uitgaven kunnen nu zonder een medium worden toegevoegd. Dat is handig als "
-"die informatie niet bekend is, maar de titel, datum, platenmaatschappij of "
-"het catalogusnummer wel. Ook blijven destructieve bewerkingen, zoals "
-"samenvoegingen, vanaf dit moment ook bij drie stemmen voor minimaal 48 uur "
-"open, zodat andere redacteurs die het er mogelijk niet mee eens zijn de "
-"bewerking ook te zien krijgen."
-
-#. title:Sambhav Kothari and Param Singh replace Roman Tsukanov
-#: DB:statistics.statistic_event/description:2017-09-06
-msgid ""
-"Roman Tsukanov decides not to renew his contract. Sambhav Kothari and Param "
-"Singh are hired as replacements to work on search and Picard and on "
-"ListenBrainz, respectively."
-msgstr ""
-"Roman Tsukanov besluit om zijn contract niet te verlengen. Sambhav Kothari "
-"en Param Singh worden aangenomen als zijn vervanger en gaan werken aan "
-"respectievelijk Picard en ListenBrainz."
-
-#: DB:statistics.statistic_event/title:2015-09-04
-msgid "Roman Tsukanov joins the MetaBrainz team"
-msgstr "Roman Tsukanov wordt lid van het MetaBrainz-team"
-
-#: DB:statistics.statistic_event/title:2006-01-08
-msgid "SG5 Fixes"
-msgstr "SG5-verbeteringen"
-
-#: DB:statistics.statistic_event/title:2017-09-06
-msgid "Sambhav Kothari and Param Singh replace Roman Tsukanov"
-msgstr "Sambhav Kothari en Param Singh vervangen Roman Tsukanov"
-
-#. title:Sambhav Kothari leaves, Nicolás Tamargo joins as a programmer
-#: DB:statistics.statistic_event/description:2018-09-09
-msgid ""
-"Sambhav Kothari leaves MetaBrainz after a lot of hard work getting the SOLR "
-"server ready. Nicolás Tamargo (reosarevok) joins as a programmer part-time "
-"in addition to his style and support positions, to work on MusicBrainz."
-msgstr ""
-"Na veel werk te hebben verzet om de SOLR-server klaar te krijgen, verlaat "
-"Sambhav Kothari MetaBrainz. Nicolás Tamargo (reosarevok) wordt aangenomen "
-"als programmeur in deeltijd om naast zijn werk voor de stijlgids en "
-"ondersteuning aan MusicBrainz te gaan werken."
-
-#: DB:statistics.statistic_event/title:2018-09-09
-msgid "Sambhav Kothari leaves, Nicolás Tamargo joins as a programmer"
-msgstr ""
-"Vertrek van Sambhav Kothari, Nicolás Tamargo treedt in dienst als programmeur"
-
-#: DB:statistics.statistic_event/title:2006-12-17
-msgid "Search improvements"
-msgstr "Zoekverbeteringen"
-
-#: DB:statistics.statistic_event/title:2015-11-16
-msgid "Several new auto-edit types and translations"
-msgstr "Nieuwe soorten automatische bewerkingen en nieuwe vertalingen"
-
-#. title:The MusicBrainz Virtual Machine is replaced by MusicBrainz Docker
-#: DB:statistics.statistic_event/description:2020-05-16
-msgid ""
-"Since the Virtual Machine project tended to just lag way behind current data "
-"because of the time required to always push new versions, it is dropped and "
-"users are suggested to just run their own Docker setup for MusicBrainz "
-"(which the Virtual Machine already did behind the scenes)."
-msgstr ""
-"Omdat de virtuele machine toch vaak achterliep bij de actuele data en het "
-"uitgeven van nieuwe versies veel tijd kostte, is het VM-project stopgezet en "
-"worden gebruikers aangeraden om MusicBrainz zelf via Docker te draaien (iets "
-"wat de virtuele machine achter de schermen al deed)."
-
-#: DB:statistics.statistic_event/title:2008-04-21
-msgid "SoC 2008"
-msgstr "SoC 2008"
-
-#: DB:statistics.statistic_event/title:2018-06-30
-msgid "Solr-based search server deployed"
-msgstr "Op SOLR gebaseerde zoekserver geïmplementeerd"
-
-#. title:Instrument images, recordings' first release date
-#: DB:statistics.statistic_event/description:2020-12-31
-msgid ""
-"Some instrument pages start displaying instrument illustrations by IROM. "
-"Additionally, a first release date starts being calculated and displayed for "
-"recordings based on the releases they appear on."
-msgstr ""
-"Op sommige instrumentenpagina’s worden illustraties van IROM weergegeven. "
-"Bovendien wordt voor opnames op basis van de uitgaven waarop ze staan de "
-"eerste uitgavedatum berekend."
-
-#. title:SG5 Fixes
-#: DB:statistics.statistic_event/description:2006-01-08
-msgid ""
-"Style Guideline 5 workaround introduced and unused TRMs pruned from the "
-"database."
-msgstr ""
-"Er wordt een oplossing voor fouten in Stijlgids 5 geïntroduceerd en "
-"ongebruikte TRM’s worden verwijderd."
-
-#: DB:statistics.statistic_event/title:2014-10-17
-msgid "Style process updated again, reosarevok \"promoted\" to Style BDFL"
-msgstr ""
-"Stijlproces weer aangepast, reosarevok ‘gepromoveerd’ tot welwillende "
-"stijldictator"
-
-#. title:Labels/data quality
-#: DB:statistics.statistic_event/description:2007-04-01
-msgid "Support for Labels and data quality are released."
-msgstr ""
-"Ondersteuning voor platenmaatschappijen en gegevenskwaliteit worden "
-"uitgebracht."
-
-#: DB:statistics.statistic_event/title:2015-06-29
-msgid "Tag up/downvoting"
-msgstr "Stemmen op etiketten"
-
-#: DB:statistics.statistic_event/title:2007-10-17
-msgid "Tags, editor subscriptions, relationship batch-adding"
-msgstr "Etiketten, abonnementen op redacteurs, relaties in bulk toevoegen"
-
-#: DB:statistics.statistic_event/title:2014-11-19
-msgid "The AcousticBrainz project goes live"
-msgstr "Het AcousticBrainz-project wordt gelanceerd"
-
-#: DB:statistics.statistic_event/title:2022-02-16
-msgid "The AcousticBrainz project is discontinued"
-msgstr "Het AcousticBrainz-project wordt stopgezet"
-
-#: DB:statistics.statistic_event/title:2011-08-03
-msgid "The Android app goes live"
-msgstr "De Android-app wordt gelanceerd"
-
-#. title:BBC partners with MetaBrainz
-#: DB:statistics.statistic_event/description:2007-06-28
-msgid ""
-"The BBC becomes a MetaBrainz customer and starts using MusicBrainz data."
-msgstr ""
-"De BBC wordt een klant van MetaBrainz en begint gegevens van MusicBrainz te "
-"gebruiken."
-
-#. title:CAA initial release
-#: DB:statistics.statistic_event/description:2012-04-30
-msgid "The Cover Art Archive becomes initially available."
-msgstr "Het Cover Art Archive wordt voor het eerst beschikbaar."
-
-#. title:CAA official release
-#: DB:statistics.statistic_event/description:2012-10-10
-msgid "The Cover Art Archive is officially released."
-msgstr "Het Cover Art Archive wordt officieel uitgebracht."
-
-#: DB:statistics.statistic_event/title:2014-05-19
-msgid "The CritiqueBrainz project goes live"
-msgstr "Het CritiqueBrainz-project wordt gelanceerd"
-
-#. title:Italian translation released, IPI and ISNI become autoedits
-#: DB:statistics.statistic_event/description:2021-02-01
-msgid ""
-"The Italian translation, mostly worked on by salo.rock, is officially "
-"released. Adding the first IPI and/or ISNI code for an entity becomes an "
-"autoedit, unless the same code is already in use for another."
-msgstr ""
-"De Italiaanse vertaling, die grotendeels door salo.rock is gemaakt, wordt "
-"officieel uitgebracht. Het toevoegen van een eerste IPI en/of ISNI voor een "
-"object wordt een automatische bewerking, tenzij dezelfde code al ergens is "
-"toegevoegd."
-
-#: DB:statistics.statistic_event/title:2015-09-17
-msgid "The ListenBrainz project goes live"
-msgstr "Het ListenBrainz-project wordt gelanceerd"
-
-#. title:MetaBrainz launched
-#: DB:statistics.statistic_event/description:2005-04-19
-msgid ""
-"The MetaBrainz Foundation, the legal home for MusicBrainz is announced to "
-"the public."
-msgstr ""
-"De MetaBrainz Foundation, het juridische thuis van MusicBrainz, wordt aan "
-"het publiek gepresenteerd."
-
-#: DB:statistics.statistic_event/title:2020-05-16
-msgid "The MusicBrainz Virtual Machine is replaced by MusicBrainz Docker"
-msgstr ""
-"De virtuele machine van MusicBrainz wordt vervangen door MusicBrainz Docker"
-
-#. title:The ListenBrainz project goes live
-#: DB:statistics.statistic_event/description:2015-09-17
-msgid ""
-"The alpha version of ListenBrainz, an open source and open data alternative "
-"to Last.fm®, goes live."
-msgstr ""
-"De alfaversie van ListenBrainz, een openbron- en opendata-alternatief voor "
-"Last.fm®, wordt gelanceerd."
-
-#. title:The CritiqueBrainz project goes live
-#: DB:statistics.statistic_event/description:2014-05-19
-msgid "The beta version of CritiqueBrainz is launched."
-msgstr "De bètaversie van CritiqueBrainz wordt gelanceerd."
-
-#. title:PUID support is removed
-#: DB:statistics.statistic_event/description:2013-10-14
-msgid ""
-"The diminishing quality of the PUID fingerprinting service and the continued "
-"availability of an open source alternative in AcoustID leads to the decision "
-"of dropping PUIDs from MusicBrainz and supporting only AcoustID."
-msgstr ""
-"Omdat de dienst achter de PUID-vingerafdrukken steeds minder werd en er met "
-"AcoustID een openbron-alternatief beschikbaar was, werd besloten om PUID-"
-"ondersteuning te beëindigen en voortaan alleen AcoustID te ondersteunen."
-
-#. title:Edit history visible without logging in
-#: DB:statistics.statistic_event/description:2020-02-18
-msgid ""
-"The edit history for entities is made visible even when logged out, to make "
-"it easier to understand how each entity has changed (edit notes are kept "
-"hidden to preserve some privacy)."
-msgstr ""
-"De bewerkingsgeschiedenis van een object is nu ook zichtbaar voor gebruikers "
-"die niet zijn aangemeld, waardoor het makkelijker is om te begrijpen hoe elk "
-"object in de loop van de tijd is veranderd. Bewerkingsnotities blijven "
-"onzichtbaar vanwege de privacy."
-
-#. title:Picard 1.0 released
-#: DB:statistics.statistic_event/description:2012-06-02
-msgid ""
-"The first full-version release of the Picard tagger comes out, with a lot of "
-"changes and improvements."
-msgstr ""
-"De eerste volledige uitgave van de Picard-tagger wordt uitgebracht met een "
-"hoop veranderingen en verbeteringen."
-
-#. title:The Android app goes live
-#: DB:statistics.statistic_event/description:2011-08-03
-msgid ""
-"The first version of the MusicBrainz Android app, a Google Summer of Code "
-"project by Jamie McDonald, is made officially available."
-msgstr ""
-"De eerste versie van de Android-app voor MusicBrainz, een Google Summer of "
-"Code-project van Jamie McDonald, komt officieel beschikbaar."
-
-#. title:"Do Not Cluster" guideline dropped
-#: DB:statistics.statistic_event/description:2015-09-08
-msgid ""
-"The increasingly controversial \"Do Not Cluster\" guideline, which forbid "
-"relationship clusters such as linking every Jackson sibling to each other, "
-"is dropped - avoiding duplicate data becomes a task for relationship "
-"designers, not users entering the data."
-msgstr ""
-"De impopulaire richtlijn ‘niet clusteren’, die relatieclusters (zoals het "
-"aan elkaar koppelen van alle leden van de Jacksons) verbiedt, wordt "
-"afgeschaft. Het voorkomen van dubbele gegevens wordt een taak van de "
-"bedenkers van relaties in plaats van gebruikers die gegevens toevoegen."
-
-#: DB:statistics.statistic_event/title:2015-05-18
-msgid "The new MetaBrainz website goes live"
-msgstr "De nieuwe MetaBrainz-website wordt gelanceerd"
-
-#. title:The new MetaBrainz website goes live
-#: DB:statistics.statistic_event/description:2015-05-18
-msgid ""
-"The new MetaBrainz website, featuring an all-new design and online sign-up "
-"for commercial users, is launched, replacing the one designed in the year "
-"2000!"
-msgstr ""
-"MetaBrainz krijgt een nieuwe website, met een compleet nieuw ontwerp en een "
-"mogelijkheid voor commerciële gebruikers om zich online aan te melden. De "
-"oude website kwam uit het jaar 2000!"
-
-#. title:MusicBrainz adds AcoustID support
-#: DB:statistics.statistic_event/description:2012-01-12
-msgid ""
-"The open source fingerprinting solution AcoustID (developed by friend of "
-"MusicBrainz Lukáš Lalinský) starts being used alongside PUID on MusicBrainz "
-"fingerprint pages."
-msgstr ""
-"De openbronoplossing voor audiovingerafdrukken AcoustID (ontwikkeld door "
-"vriend van MusicBrainz Lukáš Lalinský) wordt vanaf nu naast PUID gebruikt op "
-"MusicBrainz."
-
-#. title:Relationship Editor
-#: DB:statistics.statistic_event/description:2012-10-15
-msgid ""
-"The relationship editor, for bulk-editing relationships for a release, is "
-"released to production."
-msgstr ""
-"De relatiebewerker voor massabewerkingen aan relaties van uitgaven, is "
-"uitgebracht."
-
-#. title:Search improvements
-#: DB:statistics.statistic_event/description:2006-12-17
-msgid "The search features and web service improvements are released."
-msgstr "Verbeteringen aan de zoekfunctie en de webdienst worden uitgebracht."
-
-#. title:Style process updated again, reosarevok "promoted" to Style BDFL
-#: DB:statistics.statistic_event/description:2014-10-17
-msgid ""
-"The style process is updated again. Rather than requiring long, often angry "
-"community debate until something is passed by community consensus without a "
-"veto, decisions are taken by a BDFL who consults the community when needed. "
-"Nicolás Tamargo (reosarevok) is \"promoted\" from style leader to style BDFL."
-msgstr ""
-"Het stijlproces wordt weer eens vernieuwd. In plaats van een lange, vaak "
-"slechtgehumeurde discussie binnen de gemeenschap totdat er eindelijk "
-"consensus is, worden beslissingen voortaan genomen door een welwillende "
-"dictator die als het nodig is advies vraagt aan de gemeenschap. Nicolás "
-"Tamargo (reosarevok) krijgt ‘promotie’ van stijlleider tot welwillende "
-"stijldictator."
-
-#. title:Voting period for contested edits extended
-#: DB:statistics.statistic_event/description:2013-06-24
-msgid ""
-"The voting period for edits that get a No vote is extended to give users "
-"more time to react to the issues."
-msgstr ""
-"De stemmingsperiode voor bewerkingen waarop tegen wordt gestemd, wordt "
-"verlengd, zodat gebruikers langer de tijd hebben om op bedenkingen te "
-"reageren."
-
-#. title:Menus/Client scripting
-#: DB:statistics.statistic_event/description:2005-10-23
-msgid ""
-"Top menu navigation improved, duplicate artists, album edit all, track time "
-"editing features released."
-msgstr ""
-"Verbeterde menunavigatie, dubbele artiesten, bewerkingen voor hele uitgaven "
-"en de lengte van nummers uitgebracht."
-
-#: DB:statistics.statistic_event/title:2007-12-07
-msgid "Track times set from DiscIDs"
-msgstr "Nummerlengtes die met disc-ID’s zijn ingesteld"
-
-#. title:Instruments and series
-#: DB:statistics.statistic_event/description:2014-05-14
-msgid ""
-"Two new entity types are added to MusicBrainz: instruments and series. "
-"Series of recordings, releases, release groups and works are supported."
-msgstr ""
-"Er worden twee nieuwe objecten aan MusicBrainz toegevoegd: instrumenten en "
-"series. Series van opnames, uitgaven, uitgavegroepen en composities worden "
-"ondersteund."
-
-#: DB:statistics.statistic_event/title:2005-02-13
-msgid "User improvements"
-msgstr "Verbeteringen voor gebruikers"
-
-#. title:Email verification
-#: DB:statistics.statistic_event/description:2003-06-07
-msgid "Users now have to verify their email address for editing."
-msgstr ""
-"Gebruikers moeten nu voordat ze bewerkingen kunnen doorvoeren hun e-"
-"mailadres bevestigen."
-
-#. title:Web service version 1 taken down
-#: DB:statistics.statistic_event/description:2019-04-26
-msgid ""
-"Version 1 of the web service (already deprecated since 2011) is finally "
-"taken down for good (more than a year after announcing it would happen in "
-"six months!)."
-msgstr ""
-"Versie 1 van de webdienst (die al sinds 2011 verouderd was) wordt eindelijk "
-"voorgoed uit de lucht gehaald (meer dan een jaar nadat werd aangekondigd dat "
-"dit over zes maanden zou gebeuren!)"
-
-#. title:Improve voting
-#: DB:statistics.statistic_event/description:2004-07-24
-msgid "Voting logic was improved, web based autoeditor elections released."
-msgstr ""
-"Logica voor stemmen verbeterd en verkiezingen voor autoredacteurs "
-"uitgebracht."
-
-#: DB:statistics.statistic_event/title:2013-06-24
-msgid "Voting period for contested edits extended"
-msgstr "Stemmingsperiode voor omstreden bewerkingen verlengd"
-
-#: DB:statistics.statistic_event/title:2013-02-11
-msgid "Voting period shortened to 7 days"
-msgstr "Stemmingsperiode tot zeven dagen ingekort"
-
-#: DB:statistics.statistic_event/title:2019-11-12
-msgid "Voting suggestions"
-msgstr "Suggesties voor het stemmen"
-
-#: DB:statistics.statistic_event/title:2019-04-26
-msgid "Web service version 1 taken down"
-msgstr "Versie 1 van de webdienst uit de lucht gehaald"
-
-#. title:The AcousticBrainz project is discontinued
-#: DB:statistics.statistic_event/description:2022-02-16
-msgid ""
-"With the AcousticBrainz project deemed to not have fulfilled its original "
-"goals, the MetaBrainz Foundation decides to stop work on it, with a view to "
-"shut down the site in 2023."
-msgstr ""
-"Omdat de doelen van het AcousticBrainz-project niet zijn gehaald, heeft de "
-"MetaBrainz Foundation besloten om het project stop te zetten; de website "
-"wordt waarschijnlijk in 2023 uit de lucht gehaald."
-
-#: DB:statistics.statistic_event/title:2014-03-17
-#: ../root/statistics/stats.js:43
-msgid "Work attributes"
-msgstr "Compositie-eigenschappen"
-
-#. title:Work attributes
-#: DB:statistics.statistic_event/description:2014-03-17
-msgid ""
-"Works get their first attributes (such as keys) allowing us to store data "
-"that doesn't make sense as relationships but deserves more than an "
-"annotation entry."
-msgstr ""
-"Composities krijgen hun eerste eigenschappen (zoals toonsoort), zodat we "
-"informatie op kunnen slaan die niet past binnen het idee van relaties maar "
-"meer aandacht vereist dan een vermelding in de aantekening."
-
-#: DB:statistics.statistic_event/title:2017-03-13
-msgid "Yvanzo joins MusicBrainz as a developer"
-msgstr "Yvanzo wordt ontwikkelaar bij MusicBrainz"
-
-#. title:Yvanzo joins MusicBrainz as a developer
-#: DB:statistics.statistic_event/description:2017-03-13
-msgid ""
-"Yvanzo joins the development team as a second dedicated MusicBrainz "
-"developer."
-msgstr ""
-"Yvanzo wordt lid van het ontwikkelteam en wordt de tweede ontwikkelaar die "
-"zich alleen met MusicBrainz bezighoudt."
-
-#: DB:statistics.statistic_event/title:2010-02-08
-msgid "mb_server now hosted on Git"
-msgstr "mb_server wordt nu gehost op Git"
-
-#: DB:statistics.statistic_event/title:2012-02-17
-msgid "reosarevok becomes the MusicBrainz style leader"
-msgstr "reosarevok wordt de stijlleider van MusicBrainz"
-
 #: ../root/statistics/timeline.tt:18
 msgid "Add/remove lines:"
 msgstr "Lijnen toevoegen of verwijderen:"
@@ -2598,6 +1141,10 @@ msgstr "Uitgavestatusen"
 msgid "Series types"
 msgstr "Serietypes"
 
+#: ../root/statistics/stats.js:43
+msgid "Work attributes"
+msgstr "Compositie-eigenschappen"
+
 #: ../root/statistics/stats.js:44
 msgid "Work languages"
 msgstr "Talen van composities"
@@ -3365,6 +1912,1148 @@ msgstr "Composities van het type ‘{type}’"
 #: ../root/statistics/utilities.js:40
 msgid "See on timeline"
 msgstr "Op de tijdslijn bekijken"
+
+#~ msgid "\"Do Not Cluster\" guideline dropped"
+#~ msgstr "De richtlijn “Niet clusteren” afgeschaft"
+
+#~ msgid "\"feat.\" standardization dropped"
+#~ msgstr "Standaardisering van “feat.” afgeschaft"
+
+#~ msgid "1200px thumbnails"
+#~ msgstr "Miniaturen van 1200 px"
+
+#~ msgid ""
+#~ "1200px thumbnails are added to the Cover Art Archive, providing users "
+#~ "with a very large image with a consistent size that avoids having to use "
+#~ "the original uploads directly."
+#~ msgstr ""
+#~ "Aan het Cover Art Archive werden miniaturen van 1200 px toegevoegd, zodat "
+#~ "gebruikers grote afbeeldingen met gestandaardiseerde afmetingen kunnen "
+#~ "gebruiken, zonder dat ze de oorspronkelijk geüploade afbeeldingen moeten "
+#~ "gebruiken."
+
+#~ msgid ""
+#~ "A Discourse forum platform is added to replace both the old-school forums "
+#~ "and the (by now dead) mailing lists and unify community communication in "
+#~ "one place."
+#~ msgstr ""
+#~ "Er werd een Discourse-forum toegevoegd om het ouderwetse forum en de (nu "
+#~ "ter ziele gegane) e-maillijsten te vervangen, zodat de communicatie op "
+#~ "één plek werd samengebracht."
+
+#~ msgid ""
+#~ "A change is introduced that allows voting for and against existing "
+#~ "folksonomy tags, rather than only adding your own."
+#~ msgstr ""
+#~ "Het werd mogelijk om voor en tegen bestaande folksonomietags te stemmen, "
+#~ "in plaats van dat je alleen je eigen tags kon toevoegen."
+
+#~ msgid ""
+#~ "A major update for the Picard tagger is released, with a huge amount of "
+#~ "bugfixes and improvements."
+#~ msgstr ""
+#~ "Er werd een nieuwe versie van de Picard-tagger uitgebracht, waarin heel "
+#~ "veel fouten werden opgelost en verbeteringen werden doorgevoerd."
+
+#~ msgid ""
+#~ "A new \"Voting suggestions\" page is released, containing predefined edit "
+#~ "searches to help editors find interesting and/or important edits to "
+#~ "review and vote on."
+#~ msgstr ""
+#~ "Er werd een nieuw pagina met suggesties voor het stemmen uitgebracht. "
+#~ "Hierop kan je kant-en-klare zoekopdrachten vinden waarmee je interessante "
+#~ "en/of belangrijke bewerkingen kan vinden om op te stemmen."
+
+#~ msgid ""
+#~ "A new AJAX coverart uploader is released, making it easier to add cover "
+#~ "art to releases."
+#~ msgstr ""
+#~ "Een nieuwe op AJAX gebaseerde uploader wordt uitgebracht, waardoor het "
+#~ "makkelijker wordt om afbeeldingen toe te voegen."
+
+#~ msgid ""
+#~ "A new banner message now notifies users whenever they receive a new edit "
+#~ "note."
+#~ msgstr ""
+#~ "Gebruikers zien nu een melding als ze een nieuwe bewerkingsnotitie "
+#~ "krijgen."
+
+#~ msgid "A new, much faster search mechanism is added."
+#~ msgstr "Er werd een nieuw, veel sneller zoekmechanisme toegevoegd."
+
+#~ msgid "A rift in the MusicBrainz community leads to a Great Dispute."
+#~ msgstr ""
+#~ "Een breuk in de gemeenschap van MusicBrainz leidt tot het Grote Schisma."
+
+#~ msgid ""
+#~ "A very substantial schema change release adds a new entity type (areas), "
+#~ "support for ISNI codes for artists and labels, and the possibility to "
+#~ "have more than one release event on one release."
+#~ msgstr ""
+#~ "In een uitgave met grote schemawijzigingen werden een nieuw soort object "
+#~ "(gebieden), ondersteuning voor ISNI-codes voor artiesten en "
+#~ "platenmaatschappijen en de mogelijkheid om aan één uitgave meerdere "
+#~ "uitgavegebeurtenissen toe te voegen geïntroduceerd."
+
+#~ msgid ""
+#~ "A way to search for edits based on several different criteria is released."
+#~ msgstr ""
+#~ "Er werd een nieuwe manier om op basis van meerdere criteria naar "
+#~ "bewerkingen te zoeken geïntroduceerd."
+
+#~ msgid ""
+#~ "AcousticBrainz, which aims to crowd source acoustic information for "
+#~ "music, is announced in cooperation with the Music Technology Group at "
+#~ "Universitat Pompeu Fabra."
+#~ msgstr ""
+#~ "AcousticBrainz, een project dat als doel heeft om akoestische informatie "
+#~ "over muziek te crowdsourcen, wordt in samenwerking met de Music "
+#~ "Technology Group van de Universitat Pompeu Fabra in Barcelona "
+#~ "aangekondigd."
+
+#~ msgid "Advanced relationships"
+#~ msgstr "Relaties"
+
+#~ msgid ""
+#~ "Advanced relationships that allow users to connect basic data entities is "
+#~ "relased and unused TRMs pruned from the database. Inline editing is "
+#~ "turned off by default, causing a drop in voting activity."
+#~ msgstr ""
+#~ "Relaties waarmee gebruikers objecten kunnen verbinden, zijn uitgebracht "
+#~ "en ongebruikte TRM’s zijn uit de database verwijderd. Bewerken op "
+#~ "dezelfde pagina is standaard uitgeschakeld, waardoor er minder wordt "
+#~ "gestemd."
+
+#~ msgid ""
+#~ "After a lot of behind-the-scenes drama, MetaBrainz wins a legal battle "
+#~ "against a copyright troll who tried to sue because of the use of "
+#~ "Wikimedia Commons images. Commons images are still dropped from "
+#~ "MusicBrainz sites to avoid further issues until Wikimedia makes changes "
+#~ "that make image reuse more safe."
+#~ msgstr ""
+#~ "Na veel drama achter de schermen won MetaBrainz een juridische strijd "
+#~ "tegen een auteursrechtentrol die MetaBrainz aanklaagde vanwege het "
+#~ "gebruik van afbeeldingen van Wikimedia Commons. Afbeeldingen van Commons "
+#~ "blijven uitgeschakeld tot Wikimedia veranderingen doorvoert om hergebruik "
+#~ "veiliger te maken."
+
+#~ msgid ""
+#~ "After a lot of debate, relationship data starts being displayed on "
+#~ "release pages, making it a lot more visible."
+#~ msgstr ""
+#~ "Na veel discussie werd begonnen met het tonen van relatiegegevens op "
+#~ "uitgavepagina’s, waardoor deze gegevens veel zichtbaarder werden."
+
+#~ msgid ""
+#~ "After a successful Summer of Code, Ian McEwen joins the MusicBrainz team."
+#~ msgstr ""
+#~ "Na een succesvolle Summer of Code werd Ian McEwen lid van het MusicBrainz-"
+#~ "team."
+
+#~ msgid ""
+#~ "After many years at Digital West in California, the MetaBrainz project "
+#~ "moves all servers to a much larger dedicated provider in Germany, Hetzner."
+#~ msgstr ""
+#~ "Na vele jaren bij Digital West in Californië verhuist het MetaBrainz-"
+#~ "project al zijn servers naar een veel grotere aanbieder in Duitsland, "
+#~ "Hetzner."
+
+#~ msgid ""
+#~ "After several years as a community-driven only project, BookBrainz is "
+#~ "adopted as an official project and given an actual developer position "
+#~ "with the hiring of Monkey."
+#~ msgstr ""
+#~ "Na vele jaren als puur gemeenschapsproject werd BookBrainz een officieel "
+#~ "MetaBrainz-project en kwam met Monkey een ontwikkelaar voor BookBrainz in "
+#~ "dienst."
+
+#~ msgid ""
+#~ "After unexpected upheaval on Freenode, MetaBrainz moves all official "
+#~ "channels to Libera.Chat instead."
+#~ msgstr ""
+#~ "Na onverwachte opschudding bij Freenode verplaatst MetaBrainz alle "
+#~ "officiële kanalen naar Libera.Chat."
+
+#~ msgid "Album languages"
+#~ msgstr "Albumtalen"
+
+#~ msgid ""
+#~ "Album languages, guess case improvements and revamps edit forms released."
+#~ msgstr ""
+#~ "Talen van uitgaven, verbeteringen in het gokken van hoofdlettergebruik en "
+#~ "vernieuwde bewerkingsformulieren worden uitgebracht."
+
+#~ msgid ""
+#~ "Aliases are added to the three entity types that were still missing them: "
+#~ "recordings, releases and release groups. This allows storing aliases for, "
+#~ "for example, English names of Asian release groups."
+#~ msgstr ""
+#~ "Er worden aliassen toegevoegd aan de drie objecten die ze nog niet "
+#~ "hadden: opnames, uitgaven en uitgavegroepen. Zo kunnen bijvoorbeeld voor "
+#~ "Aziatische uitgavegroepen Engelse namen worden toegevoegd."
+
+#~ msgid "Aliases for recordings, releases and release groups"
+#~ msgstr "Aliassen voor opnames, uitgaven en uitgavegroepen"
+
+#~ msgid ""
+#~ "Amazon betas <a href=\"http://web.archive.org/web/20210123164029/https://"
+#~ "www.wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a> with data from "
+#~ "MusicBrainz."
+#~ msgstr ""
+#~ "Amazon brengt een bèta van <a href=\"http://web.archive.org/"
+#~ "web/20210123164029/https://www.wired.com/2008/09/amazon-takes-on/"
+#~ "\">SoundUnwound</a> met data van MusicBrainz uit."
+
+#~ msgid "Amazon betas SoundUnwound"
+#~ msgstr "Amazon begint met een bèta van SoundUnwound"
+
+#~ msgid "Amazon cover art"
+#~ msgstr "Afbeeldingen van Amazon"
+
+#~ msgid "Amazon cover art support released."
+#~ msgstr "Ondersteuning voor afbeeldingen van Amazon uitgebracht."
+
+#~ msgid "An improved release editor and a new site design are released."
+#~ msgstr ""
+#~ "Een verbeterde uitgavebewerker en een nieuw siteontwerp worden "
+#~ "uitgebracht."
+
+#~ msgid ""
+#~ "An update is released that allows specifying a credit for artists in a "
+#~ "relationship, if not the same as the artist name."
+#~ msgstr ""
+#~ "Het werd mogelijk om vermeldingen van artiesten die afwijken van de "
+#~ "(standaard) artiestennaam in een relatie vast te leggen."
+
+#~ msgid "Annotation support released."
+#~ msgstr "Ondersteuning voor aantekeningen uitgebracht."
+
+#~ msgid "Annotations"
+#~ msgstr "Aantekeningen"
+
+#~ msgid "Areas, ISNI codes and multiple release events per release"
+#~ msgstr "Gebieden, ISNI-codes en meerdere uitgavegebeurtenissen per uitgave"
+
+#~ msgid "Artist subscriptions"
+#~ msgstr "Abonnementen op artiesten"
+
+#~ msgid ""
+#~ "Artist subscriptions made public and various smaller user centric "
+#~ "improvements are released."
+#~ msgstr ""
+#~ "Abonnementen op artiesten openbaar gemaakt en verschillende kleinere "
+#~ "verbeteringen voor gebruikers zijn uitgebracht."
+
+#~ msgid "Artist subscriptions."
+#~ msgstr "Abonnementen op artiesten."
+
+#~ msgid ""
+#~ "As part of a long term move towards more fidelity to the original data, "
+#~ "we stop standardizing \"featuring\" and all its variants to \"feat.\", "
+#~ "and ask editors to use whatever is printed instead."
+#~ msgstr ""
+#~ "In het kader van een streven om dichter bij de oorspronkelijke data te "
+#~ "blijven, zijn we opgehouden met het standaardiseren van “featuring” en "
+#~ "alle varianten daarvan naar “feat.” en vragen we redacteurs nu om te "
+#~ "gebruiken wat er op de uitgave is afgedrukt."
+
+#~ msgid "BBC dynamic artist pages"
+#~ msgstr "Dynamische artiestenpagina’s van de BBC"
+
+#~ msgid "BBC launches the dynamic artist pages based on MusicBrainz data."
+#~ msgstr ""
+#~ "De BBC lanceert dynamische artiestenpagina’s gebaseerd op gegevens van "
+#~ "MusicBrainz."
+
+#~ msgid "BBC partners with MetaBrainz"
+#~ msgstr "BBC wordt een partner van MetaBrainz"
+
+#~ msgid "BookBrainz becomes official MetaBrainz project"
+#~ msgstr "BookBrainz wordt een officieel MetaBrainz-project"
+
+#~ msgid "CAA initial release"
+#~ msgstr "Eerste versie van het CAA"
+
+#~ msgid "CAA official release"
+#~ msgstr "Officiële begin van het CAA"
+
+#~ msgid "CatQuest becomes Instrument Inserter"
+#~ msgstr "CatQuest wordt Instrumentinvoeger"
+
+#~ msgid ""
+#~ "CatQuest officially takes over from reosarevok as the main person for "
+#~ "adding new instruments to MusicBrainz, with the newly created Instrument "
+#~ "Inserter position."
+#~ msgstr ""
+#~ "CatQuest neemt de taak om nieuwe instrumenten aan MusicBrainz toe te "
+#~ "voegen officieel over, in de nieuwe functie van Instrumentinvoeger."
+
+#~ msgid "Collaborative collections"
+#~ msgstr "Gezamenlijke collecties"
+
+#~ msgid ""
+#~ "Collection owners are now able to allow other editors to also add/remove "
+#~ "entities from any of their collections."
+#~ msgstr ""
+#~ "Eigenaren van collecties kunnen nu andere redacteurs toestaan om objecten "
+#~ "in hun collecties toe te voegen of te verwijderen."
+
+#~ msgid "Collection, Ratings, CDStubs"
+#~ msgstr "Collecties, waarderingen, cd-beginnetjes"
+
+#~ msgid "Collection, Ratings, CDStubs, LastUpdate released."
+#~ msgstr ""
+#~ "Collecties, waarderingen, cd-beginnetjes en LastUpdate worden uitgebracht."
+
+#~ msgid ""
+#~ "Collections can now be merged, in case an editor wants to consolidate "
+#~ "several of their collections into one. Additionally, it is now possible "
+#~ "to create series of artists, and to rate places (the only entity that "
+#~ "could be reviewed on CritiqueBrainz but not rated on MusicBrainz)."
+#~ msgstr ""
+#~ "Redacteurs kunnen nu hun collecties samenvoegen. Bovendien kunnen nu "
+#~ "series van artiesten worden gemaakt en plaatsen worden gewaardeerd (het "
+#~ "enige object dat op CritiqueBrainz kon worden gerecenseerd maar niet op "
+#~ "MusicBrainz kon worden beoordeeld)."
+
+#~ msgid "Cover Art Uploader"
+#~ msgstr "Cover Art Uploader"
+
+#~ msgid "Dedicated database server"
+#~ msgstr "Toegewijde databaseserver"
+
+#~ msgid "Discourse unifies community communication"
+#~ msgstr "Communicatie wordt in Discourse-forum samengebracht"
+
+#~ msgid "Easier edit note adding"
+#~ msgstr "Toevoegen van bewerkingsnotities wordt makkelijker"
+
+#~ msgid ""
+#~ "Edit display improvements, turned off RDF dumps, new install scripts "
+#~ "released."
+#~ msgstr ""
+#~ "Verbeteringen in het weergeven van bewerkingen, RDF-dumps uitgeschakeld "
+#~ "en nieuwe installatiescripts uitgebracht."
+
+#~ msgid "Edit history visible without logging in"
+#~ msgstr "Bewerkingsgeschiedenis zichtbaar zonder aanmelding"
+
+#~ msgid "Edit note notifications"
+#~ msgstr "Meldingen voor bewerkingsnotities"
+
+#~ msgid ""
+#~ "Edit notes can now be added when creating an edit, making it much easier "
+#~ "for editors to explain their changes."
+#~ msgstr ""
+#~ "Bewerkingsnotities kunnen nu worden toegevoegd bij het maken van de "
+#~ "bewerking, zodat redacteurs hun wijzigingen veel makkelijker kunnen "
+#~ "uitleggen."
+
+#~ msgid "Edit search"
+#~ msgstr "Zoeken naar bewerkingen"
+
+#~ msgid ""
+#~ "Editor ojnkpjg runs a script setting track times from DiscID values, "
+#~ "creating a huge spike in edits."
+#~ msgstr ""
+#~ "Redacteur ojnkpjg voert een script uit dat de duur van nummers instelt "
+#~ "aan de hand van disc-ID’s, wat tot een enorme piek aan bewerkingen leidt."
+
+#~ msgid ""
+#~ "Edits made by editors to their own release additions within 1 hour of "
+#~ "adding them are now auto-edits, as are \"Add recording\" and \"Remove "
+#~ "alias\" edits."
+#~ msgstr ""
+#~ "Als een redacteur een uitgave binnen een uur na het toevoegen van deze "
+#~ "uitgave bewerkt, zijn die bewerkingen nu automatisch. Ook het toevoegen "
+#~ "van een opname en het verwijderen van een alias zijn nu automatische "
+#~ "bewerkingen."
+
+#~ msgid "Email verification"
+#~ msgstr "E-mailverificatie"
+
+#~ msgid ""
+#~ "Empty labels, release groups and works are now auto-removed after 24 "
+#~ "hours of being unused, in the same way artists already were before."
+#~ msgstr ""
+#~ "Lege platenmaatschappijen, uitgavegroepen en composities worden nu "
+#~ "verwijderd na 24 uur niet te zijn gebruikt, net als al met artiesten "
+#~ "gebeurde."
+
+#~ msgid "Empty labels, release groups and works start being auto-removed"
+#~ msgstr ""
+#~ "Lege platenmaatschappijen, uitgavegroepen en composities worden "
+#~ "automatisch verwijderd"
+
+#~ msgid ""
+#~ "Event support is added to MusicBrainz, allowing storing information about "
+#~ "concerts and festivals. Also part of this schema change release is a "
+#~ "proper way to indicate the content of data tracks in release tracklists, "
+#~ "and the extension of tagging to areas, instruments and series."
+#~ msgstr ""
+#~ "Aan MusicBrainz werd ondersteuning voor evenementen toegevoegd. Nu kan "
+#~ "informatie over concerten en festivals worden toegevoegd. Nieuw in deze "
+#~ "schemawijziging is ook een betere manier om de inhoud van datanummers in "
+#~ "nummerlijsten weer te geven en het uitbreiden van taggen naar gebieden, "
+#~ "instrumenten en series."
+
+#~ msgid "Event support, data tracks"
+#~ msgstr "Ondersteuning voor evenementen en datanummers"
+
+#~ msgid ""
+#~ "Folksonomy tagging and editor subscriptions are released. Additionally, "
+#~ "it's now possible to batch-add relationships to multiple tracks on a "
+#~ "release."
+#~ msgstr ""
+#~ "Folksonomietags en abonnementen op redacteurs werden uitgebracht. Ook is "
+#~ "het nu mogelijk om meerdere relaties in één keer aan meerdere nummers op "
+#~ "een uitgave toe te voegen."
+
+#~ msgid ""
+#~ "Former GSoC student Roman Tsukanov begins working for MetaBrainz part-"
+#~ "time."
+#~ msgstr ""
+#~ "Voormalig GSoC-student Roman Tsukanov begint in deeltijd voor MetaBrainz "
+#~ "te werken."
+
+#~ msgid "Frederik \"Freso\" S. Olesen becomes MetaBrainz Community Manager"
+#~ msgstr "Frederik “Freso” S. Olesen wordt MetaBrainz-gemeenschapsmanager"
+
+#~ msgid ""
+#~ "FreeDB auto import feature turned off and autoeditor elections released. "
+#~ "Unused TRMs pruned from the database."
+#~ msgstr ""
+#~ "De automatische import vanuit FreeDB wordt uitgeschakeld en de verkiezing "
+#~ "van autoredacteurs toegevoegd. Niet-gebruikte TRM’s worden verwijderd."
+
+#~ msgid "FreeDB off/Autoeditors"
+#~ msgstr "FreeDB uit / Autoredacteurs"
+
+#~ msgid ""
+#~ "Freso becomes the first MetaBrainz Community Manager, tasked with helping "
+#~ "resolve conflicts in the community and keeping an eye on their needs."
+#~ msgstr ""
+#~ "Freso werd de eerste MetaBrainz-gemeenschapsmanager, met als taak om "
+#~ "conflicten binnen de gemeenschap te helpen oplossen en een oogje op de "
+#~ "behoeften van gebruikers te houden."
+
+#~ msgid "Genre added as a new entity"
+#~ msgstr "Genres worden toegevoegd als nieuw object"
+
+#~ msgid ""
+#~ "Genres are added as a new entity, although still tightly tied to "
+#~ "folksonomy tags."
+#~ msgstr ""
+#~ "Genres worden in de vorm van een nieuw object toegevoegd, maar blijven "
+#~ "nauw verbonden met folksonomietags."
+
+#~ msgid "Great Dispute"
+#~ msgstr "Het Grote Schisma"
+
+#~ msgid "Guess feat. buttons"
+#~ msgstr "Knoppen om gastartiesten te gokken"
+
+#~ msgid "IRC channels move to Libera.Chat"
+#~ msgstr "IRC-kanalen naar Libera.Chat verhuisd"
+
+#~ msgid "Ian McEwen hired"
+#~ msgstr "Ian McEwen aangenomen"
+
+#~ msgid "Ian McEwen leaves MetaBrainz"
+#~ msgstr "Ian McEwen verlaat MetaBrainz"
+
+#~ msgid "Ian McEwen leaves the project for personal reasons."
+#~ msgstr "Ian McEwen verlaat het project om persoonlijke redenen."
+
+#~ msgid "Imported CD Baby catalog as CD Stubs"
+#~ msgstr "Catalogus van CD Baby geïmporteerd als cd-beginnetjes"
+
+#~ msgid ""
+#~ "Imported the metadata from the CD Baby catalog into our CD Stubs "
+#~ "collection."
+#~ msgstr ""
+#~ "Metagegevens van de catalogus van CD Baby geïmporteerd in onze "
+#~ "verzameling cd-beginnetjes."
+
+#~ msgid "Improve voting"
+#~ msgstr "Verbeterd stemmen"
+
+#~ msgid "Improved search"
+#~ msgstr "Verbeterde zoekfunctie"
+
+#~ msgid ""
+#~ "In an effort to reduce the size of the open edit queue and force less "
+#~ "waiting for changes, the length of time edits stay open before expiration "
+#~ "is reduced from 14 to 7 days."
+#~ msgstr ""
+#~ "In een poging om de lengte van de wachtrij voor bewerkingen en de "
+#~ "wachttijd voor veranderingen te verminderen, is de tijd waarin "
+#~ "bewerkingen open blijven staan verminderd van veertien naar zeven dagen."
+
+#~ msgid ""
+#~ "In order to make it easier to fix a lot of cases where featured artists "
+#~ "are still part of the track / release titles rather than the artists, "
+#~ "guess feat. buttons are added that greatly simplify the process."
+#~ msgstr ""
+#~ "Er zijn knoppen toegevoegd waarmee artiesten die nog in de titel van een "
+#~ "nummer of uitgave worden vermeld in plaats van in de artiestvermeldingen, "
+#~ "makkelijker naar de artiestvermeldingen kunnen worden verplaatst."
+
+#~ msgid "In preparation for NGS, editing is turned off until release."
+#~ msgstr ""
+#~ "In aanloop naar NGS zijn bewerkingen uitgeschakeld tot het uitbrengen van "
+#~ "NGS."
+
+#~ msgid ""
+#~ "In preparation for NGS, editors are encouraged to avoid editing until "
+#~ "release unless entirely necessary."
+#~ msgstr ""
+#~ "In aanloop naar NGS worden redacteurs aangespoord om bewerkingen te "
+#~ "vermijden tenzij het strikt noodzakelijk is."
+
+#~ msgid "Indexed search/XML WS"
+#~ msgstr "Geïndexeerd zoeken / XML-webdienst"
+
+#~ msgid "Indexes search and a new XML based Web Service are released."
+#~ msgstr ""
+#~ "Geïndexeerde zoekfunctie en een nieuwe op XML gebaseerde webdienst worden "
+#~ "uitgebracht."
+
+#~ msgid "Inline edits"
+#~ msgstr "Ingebedde bewerkingen"
+
+#~ msgid "Inline edits, new reports, improved data import scripts."
+#~ msgstr ""
+#~ "Ingebedde bewerkingen, nieuwe rapporten en verbeterde scripts voor "
+#~ "gegevensimport."
+
+#~ msgid "Install scripts"
+#~ msgstr "Installatiescripts"
+
+#~ msgid "Instrument images, recordings' first release date"
+#~ msgstr "Afbeeldingen voor instrumenten, eerste uitgavedatum voor opnames"
+
+#~ msgid "Instruments and series"
+#~ msgstr "Instrumenten en series"
+
+#~ msgid "Italian translation released, IPI and ISNI become autoedits"
+#~ msgstr ""
+#~ "Italiaanse vertaling uitgebracht, IPI- en ISNI-bewerkingen worden "
+#~ "automatische bewerkingen"
+
+#~ msgid "Kartik Ohri joins the MetaBrainz team"
+#~ msgstr "Kartik Ohri wordt lid van het MetaBrainz-team"
+
+#~ msgid ""
+#~ "Kartik Ohri joins the MetaBrainz team to work on ListenBrainz, "
+#~ "AcousticBrainz and CritiqueBrainz, plus the Android app, which he had "
+#~ "already significantly rewritten as a volunteer."
+#~ msgstr ""
+#~ "Kartik Ohri wordt lid van het MetaBrainz-team om te werken aan "
+#~ "ListenBrainz, AcousticBrainz, CritiqueBrainz en de Android-app, die hij "
+#~ "als vrijwilliger al grotendeels had herschreven."
+
+#~ msgid "Kuno Woudt begins working for MusicBrainz full-time."
+#~ msgstr "Kuno Woudt begint voltijds te werken bij MusicBrainz."
+
+#~ msgid "Kuno Woudt hired as full-time developer"
+#~ msgstr "Kuno Woudt aangenomen als voltijds ontwikkelaar"
+
+#~ msgid "Labels/data quality"
+#~ msgstr "Platenmaatschappijen / gegevenskwaliteit"
+
+#~ msgid "Last.fm"
+#~ msgstr "Last.fm"
+
+#~ msgid "Last.fm signs up with MetaBrainz and starts using MusicBrainz data."
+#~ msgstr ""
+#~ "Last.fm tekent een contract met MetaBrainz en begint gegevens van "
+#~ "MusicBrainz te gebruiken."
+
+#~ msgid "Laurent \"zas\" Monin becomes sysadmin"
+#~ msgstr "Laurent “zas” Monin wordt systeembeheerder"
+
+#~ msgid ""
+#~ "Laurent Monin, better known as Zas, joins the team as a dedicated systems "
+#~ "administrator, to make sure the servers run properly and help transition "
+#~ "to a new community discussion system."
+#~ msgstr ""
+#~ "Laurent Monin, beter bekend als Zas, wordt lid van het team als "
+#~ "systeembeheerder. Zijn taak wordt om te zorgen dat de servers goed werken "
+#~ "en om te helpen bij de overstap op een nieuw discussiesysteem voor de "
+#~ "gemeenschap."
+
+#~ msgid ""
+#~ "Link to MusicBrainz feature, release events and edit suggestions released."
+#~ msgstr ""
+#~ "Mogelijkheden voor links naar MusicBrainz, uitgavegebeurtenissen en "
+#~ "suggesties voor bewerkingen uitgebracht."
+
+#~ msgid "Linkara Musica becomes first commercial customer of MetaBrainz."
+#~ msgstr "Linkara Musica wordt de eerste commerciële klant van MetaBrainz."
+
+#~ msgid "Linking"
+#~ msgstr "Links"
+
+#~ msgid ""
+#~ "MBBE_Bot is created to make fixes that are too time-consuming to do by "
+#~ "hand, but should still leave a trace in edit history. This usually "
+#~ "involves removing URLs from problematic domains, marking URLs from "
+#~ "domains that have been closed as ended, and other similar batch-editing "
+#~ "jobs."
+#~ msgstr ""
+#~ "MBBE_Bot wordt gemaakt om dingen te verbeteren die met de hand te veel "
+#~ "tijd zouden kosten, maar wel in de bewerkingsgeschiedenis moeten worden "
+#~ "opgenomen. Het gaat hierbij meestal om het verwijderen van URL’s van "
+#~ "problematische domeinen, het markeren van URL’s van domeinen die zijn "
+#~ "beëindigd en meer van dat soort massawerk."
+
+#~ msgid "MBBE_Bot starts running"
+#~ msgstr "MBBE_Bot wordt gestart"
+
+#~ msgid "Menus/Client scripting"
+#~ msgstr "Scripting voor menu’s en programma’s"
+
+#~ msgid "Mergeable collections, artist series and ratable places"
+#~ msgstr ""
+#~ "Collecties samenvoegen, artiestenseries en waarderingen voor plaatsen"
+
+#~ msgid "MetaBrainz accepts three students for Google Summer of Code."
+#~ msgstr "MetaBrainz accepteert drie studenten voor de Google Summer of Code."
+
+#~ msgid "MetaBrainz hires Oliver Charles"
+#~ msgstr "MetaBrainz neemt Oliver Charles aan"
+
+#~ msgid "MetaBrainz launched"
+#~ msgstr "MetaBrainz gelanceerd"
+
+#~ msgid "MetaBrainz projects complete move to European servers"
+#~ msgstr "MetaBrainz-projecten naar Europese servers verhuisd"
+
+#~ msgid "MetaBrainz signs first customer"
+#~ msgstr "MetaBrainz tekent zijn eerste klant"
+
+#~ msgid "MetaBrainz wins copyright troll battle, Wikimedia images dropped"
+#~ msgstr ""
+#~ "MetaBrainz wint gevecht met auteursrechtentrol, Wikimedia-afbeeldingen "
+#~ "verwijderd"
+
+#~ msgid "MetaWeb becomes a MusicBrainz data user."
+#~ msgstr "MetaWeb gaat de data van MusicBrainz gebruiken."
+
+#~ msgid "MetaWeb signed"
+#~ msgstr "MetaWeb getekend"
+
+#~ msgid "More auto-edits"
+#~ msgstr "Meer automatische bewerkingen"
+
+#~ msgid ""
+#~ "More edit types are made auto-edits for everyone: \"Add relationship\" "
+#~ "and \"Add release\"; and \"Add\", \"Edit\" and \"Remove release label\". "
+#~ "Additionally, the German, French and Dutch translations are available on "
+#~ "the main server."
+#~ msgstr ""
+#~ "Meer soorten bewerkingen worden voor iedereen automatisch: het toevoegen "
+#~ "van uitgaven en het toevoegen, bewerken of verwijderen van "
+#~ "platenmaatschappijen van uitgaven. Bovendien worden de Duitse, Franse en "
+#~ "Nederlandse vertalingen op de hoofdserver beschikbaar."
+
+#~ msgid "MusicBrainz Move"
+#~ msgstr "Verhuizing van MusicBrainz"
+
+#~ msgid "MusicBrainz Server source code moved to Git from Subversion."
+#~ msgstr ""
+#~ "De broncode voor de server van MusicBrainz verhuist van Subversion naar "
+#~ "Git."
+
+#~ msgid "MusicBrainz adds AcoustID support"
+#~ msgstr "MusicBrainz gaat AcoustID ondersteunen"
+
+#~ msgid "MusicBrainz gets its first dedicated database server."
+#~ msgstr "MusicBrainz krijgt zijn eerste toegewijde databaseserver."
+
+#~ msgid ""
+#~ "MusicBrainz itself gets a new design to better match the rest of the "
+#~ "*Brainz family."
+#~ msgstr ""
+#~ "Ook MusicBrainz krijgt een nieuw ontwerp om beter aan te sluiten op de "
+#~ "rest van de *Brainz-familie."
+
+#~ msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
+#~ msgstr "MusicBrainz verhuist naar Digital West Networks in San Luis Obispo."
+
+#~ msgid ""
+#~ "MusicBrainz partners with MusicIP and starts using MusicDNS's PUID "
+#~ "acoustic fingerprints. Picard becomes the official MusicBrainz tagger "
+#~ "with PUID support, which causes edit activity to decrease."
+#~ msgstr ""
+#~ "MusicBrainz begint een partnerschap met MusicIP en begint de PUID "
+#~ "akoestische vingerafdrukken van MusicDNS te gebruiken. Picard wordt de "
+#~ "officiële tagger van MusicBrainz met ondersteuning voor PUID’s, waardoor "
+#~ "er minder bewerkingen worden gedaan."
+
+#~ msgid "MusicIP PUID"
+#~ msgstr "MusicIP-PUID"
+
+#~ msgid "NGS No-Editing Phase"
+#~ msgstr "Bewerkingsloze fase voor NGS"
+
+#~ msgid "NGS Reduced Editing Phase"
+#~ msgstr "Bewerkingsarme fase voor NGS"
+
+#~ msgid "NGS Release"
+#~ msgstr "NGS uitgebracht"
+
+#~ msgid "NGS, a MusicBrainz major rewrite, is released!"
+#~ msgstr "NGS, een grote verbouwing van MusicBrainz, is uitgebracht!"
+
+#~ msgid "New MusicBrainz design"
+#~ msgstr "Nieuw ontwerp voor MusicBrainz"
+
+#~ msgid "New entity auto-editing period extended to 24 hours"
+#~ msgstr ""
+#~ "Periode voor automatische bewerkingen van nieuwe objecten verlengd naar "
+#~ "24 uur"
+
+#~ msgid ""
+#~ "Nicolás Tamargo (reosarevok) becomes the MusicBrainz style leader, and a "
+#~ "new, more official style process using Jira is established."
+#~ msgstr ""
+#~ "Nicolás Tamargo (reosarevok) wordt de stijlleider van MusicBrainz, en "
+#~ "voor het ontwikkelen van de stijlgids wordt een nieuw, formeler proces "
+#~ "via Jira ingesteld."
+
+#~ msgid "Non album tracks"
+#~ msgstr "Nummers zonder album"
+
+#~ msgid "Non album tracks are released."
+#~ msgstr "Nummers zonder album uitgebracht."
+
+#~ msgid "Oliver Charles becomes employee #1 of MetaBrainz Foundation."
+#~ msgstr ""
+#~ "Oliver Charles wordt de eerste werknemer van de MetaBrainz Foundation."
+
+#~ msgid "Oliver Charles begins working for MusicBrainz full-time."
+#~ msgstr "Oliver Charles begint voltijds voor MusicBrainz te werken."
+
+#~ msgid "Oliver Charles joins MusicBrainz full-time"
+#~ msgstr "Oliver Charles wordt voltijdwerknemer van MusicBrainz"
+
+#~ msgid ""
+#~ "Our old search server gets a significant upgrade with its move to Solr, "
+#~ "including almost-instant index updates."
+#~ msgstr ""
+#~ "Met de overstap op SOLR krijgt onze oude zoekserver een flinke upgrade. "
+#~ "Het wordt onder andere mogelijk om indices bijna direct bij te werken."
+
+#~ msgid "PUID support is removed"
+#~ msgstr "PUID-ondersteuning beëindigd"
+
+#~ msgid "Pagination added for relationships, user tags"
+#~ msgstr "Paginering voor relaties en gebruikersetiketten toegevoegd"
+
+#~ msgid ""
+#~ "Pagination was added for two very long lists that sometimes couldn't be "
+#~ "loaded in full because of timeouts: user tags and entity relationships."
+#~ msgstr ""
+#~ "Voor twee erg lange lijsten die soms niet volledig konden worden geladen "
+#~ "omdat dat te lang duurde is paginering toegevoegd: gebruikersetiketten en "
+#~ "relaties van objecten."
+
+#~ msgid "Picard 1.0 released"
+#~ msgstr "Picard 1.0 uitgebracht"
+
+#~ msgid "Picard 2.0 released"
+#~ msgstr "Picard 2.0 uitgebracht"
+
+#~ msgid ""
+#~ "Rather than having to notice any errors during a fairly brief 1 hour "
+#~ "period, editors now have 24 hours to correct errors in the data they have "
+#~ "added without needing a vote."
+#~ msgstr ""
+#~ "In plaats van dat redacteurs maar een uur hebben om fouten in je "
+#~ "bewerkingen te corrigeren zonder dat erover gestemd hoeft te worden, "
+#~ "hebben redacteurs nu 24 uur."
+
+#~ msgid "Relationship Editor"
+#~ msgstr "Relatiebewerker"
+
+#~ msgid "Relationship credits become available"
+#~ msgstr "Relatievermeldingen komen beschikbaar"
+
+#~ msgid "Relationships displayed on release pages"
+#~ msgstr "Relaties worden op uitgavepagina’s weergegeven"
+
+#~ msgid "Release \"stubs\", minimum voting period for destructive edits"
+#~ msgstr ""
+#~ "‘Beginnetjes’ voor uitgaven, minimale stemmingsperiode voor destructieve "
+#~ "bewerkingen"
+
+#~ msgid "Release Groups, ISRCs, CDStub searching"
+#~ msgstr "Uitgavegroepen, ISRC’s, zoeken naar cd-beginnetjes"
+
+#~ msgid "Release editor"
+#~ msgstr "Uitgavebewerker"
+
+#~ msgid "Release editor and Guess Case released."
+#~ msgstr ""
+#~ "De uitgavebewerker en het gokken van hoofdlettergebruik worden "
+#~ "uitgebracht."
+
+#~ msgid ""
+#~ "Release groups, ISRC support, CDStub searching and search fixes released."
+#~ msgstr ""
+#~ "Uitgavegroepen, ondersteuning voor ISRC’s, zoeken in cd-beginnetjes en "
+#~ "verbeteringen aan de zoekfunctie uitgebracht."
+
+#~ msgid ""
+#~ "Releases can now be added without any mediums, for cases where the only "
+#~ "information available is, for example, a title + date + label + catalog "
+#~ "number entry in a catalog. Additionally, any destructive edits such as "
+#~ "entity merges and removals no longer close immediately once they get 3 "
+#~ "Yes votes, but they remain open for at least 48 hours to ensure people "
+#~ "who oppose them have time to see them."
+#~ msgstr ""
+#~ "Uitgaven kunnen nu zonder een medium worden toegevoegd. Dat is handig als "
+#~ "die informatie niet bekend is, maar de titel, datum, platenmaatschappij "
+#~ "of het catalogusnummer wel. Ook blijven destructieve bewerkingen, zoals "
+#~ "samenvoegingen, vanaf dit moment ook bij drie stemmen voor minimaal 48 "
+#~ "uur open, zodat andere redacteurs die het er mogelijk niet mee eens zijn "
+#~ "de bewerking ook te zien krijgen."
+
+#~ msgid ""
+#~ "Roman Tsukanov decides not to renew his contract. Sambhav Kothari and "
+#~ "Param Singh are hired as replacements to work on search and Picard and on "
+#~ "ListenBrainz, respectively."
+#~ msgstr ""
+#~ "Roman Tsukanov besluit om zijn contract niet te verlengen. Sambhav "
+#~ "Kothari en Param Singh worden aangenomen als zijn vervanger en gaan "
+#~ "werken aan respectievelijk Picard en ListenBrainz."
+
+#~ msgid "Roman Tsukanov joins the MetaBrainz team"
+#~ msgstr "Roman Tsukanov wordt lid van het MetaBrainz-team"
+
+#~ msgid "SG5 Fixes"
+#~ msgstr "SG5-verbeteringen"
+
+#~ msgid "Sambhav Kothari and Param Singh replace Roman Tsukanov"
+#~ msgstr "Sambhav Kothari en Param Singh vervangen Roman Tsukanov"
+
+#~ msgid ""
+#~ "Sambhav Kothari leaves MetaBrainz after a lot of hard work getting the "
+#~ "SOLR server ready. Nicolás Tamargo (reosarevok) joins as a programmer "
+#~ "part-time in addition to his style and support positions, to work on "
+#~ "MusicBrainz."
+#~ msgstr ""
+#~ "Na veel werk te hebben verzet om de SOLR-server klaar te krijgen, verlaat "
+#~ "Sambhav Kothari MetaBrainz. Nicolás Tamargo (reosarevok) wordt aangenomen "
+#~ "als programmeur in deeltijd om naast zijn werk voor de stijlgids en "
+#~ "ondersteuning aan MusicBrainz te gaan werken."
+
+#~ msgid "Sambhav Kothari leaves, Nicolás Tamargo joins as a programmer"
+#~ msgstr ""
+#~ "Vertrek van Sambhav Kothari, Nicolás Tamargo treedt in dienst als "
+#~ "programmeur"
+
+#~ msgid "Search improvements"
+#~ msgstr "Zoekverbeteringen"
+
+#~ msgid "Several new auto-edit types and translations"
+#~ msgstr "Nieuwe soorten automatische bewerkingen en nieuwe vertalingen"
+
+#~ msgid ""
+#~ "Since the Virtual Machine project tended to just lag way behind current "
+#~ "data because of the time required to always push new versions, it is "
+#~ "dropped and users are suggested to just run their own Docker setup for "
+#~ "MusicBrainz (which the Virtual Machine already did behind the scenes)."
+#~ msgstr ""
+#~ "Omdat de virtuele machine toch vaak achterliep bij de actuele data en het "
+#~ "uitgeven van nieuwe versies veel tijd kostte, is het VM-project stopgezet "
+#~ "en worden gebruikers aangeraden om MusicBrainz zelf via Docker te draaien "
+#~ "(iets wat de virtuele machine achter de schermen al deed)."
+
+#~ msgid "SoC 2008"
+#~ msgstr "SoC 2008"
+
+#~ msgid "Solr-based search server deployed"
+#~ msgstr "Op SOLR gebaseerde zoekserver geïmplementeerd"
+
+#~ msgid ""
+#~ "Some instrument pages start displaying instrument illustrations by IROM. "
+#~ "Additionally, a first release date starts being calculated and displayed "
+#~ "for recordings based on the releases they appear on."
+#~ msgstr ""
+#~ "Op sommige instrumentenpagina’s worden illustraties van IROM weergegeven. "
+#~ "Bovendien wordt voor opnames op basis van de uitgaven waarop ze staan de "
+#~ "eerste uitgavedatum berekend."
+
+#~ msgid ""
+#~ "Style Guideline 5 workaround introduced and unused TRMs pruned from the "
+#~ "database."
+#~ msgstr ""
+#~ "Er wordt een oplossing voor fouten in Stijlgids 5 geïntroduceerd en "
+#~ "ongebruikte TRM’s worden verwijderd."
+
+#~ msgid "Style process updated again, reosarevok \"promoted\" to Style BDFL"
+#~ msgstr ""
+#~ "Stijlproces weer aangepast, reosarevok ‘gepromoveerd’ tot welwillende "
+#~ "stijldictator"
+
+#~ msgid "Support for Labels and data quality are released."
+#~ msgstr ""
+#~ "Ondersteuning voor platenmaatschappijen en gegevenskwaliteit worden "
+#~ "uitgebracht."
+
+#~ msgid "Tag up/downvoting"
+#~ msgstr "Stemmen op etiketten"
+
+#~ msgid "Tags, editor subscriptions, relationship batch-adding"
+#~ msgstr "Etiketten, abonnementen op redacteurs, relaties in bulk toevoegen"
+
+#~ msgid "The AcousticBrainz project goes live"
+#~ msgstr "Het AcousticBrainz-project wordt gelanceerd"
+
+#~ msgid "The AcousticBrainz project is discontinued"
+#~ msgstr "Het AcousticBrainz-project wordt stopgezet"
+
+#~ msgid "The Android app goes live"
+#~ msgstr "De Android-app wordt gelanceerd"
+
+#~ msgid ""
+#~ "The BBC becomes a MetaBrainz customer and starts using MusicBrainz data."
+#~ msgstr ""
+#~ "De BBC wordt een klant van MetaBrainz en begint gegevens van MusicBrainz "
+#~ "te gebruiken."
+
+#~ msgid "The Cover Art Archive becomes initially available."
+#~ msgstr "Het Cover Art Archive wordt voor het eerst beschikbaar."
+
+#~ msgid "The Cover Art Archive is officially released."
+#~ msgstr "Het Cover Art Archive wordt officieel uitgebracht."
+
+#~ msgid "The CritiqueBrainz project goes live"
+#~ msgstr "Het CritiqueBrainz-project wordt gelanceerd"
+
+#~ msgid ""
+#~ "The Italian translation, mostly worked on by salo.rock, is officially "
+#~ "released. Adding the first IPI and/or ISNI code for an entity becomes an "
+#~ "autoedit, unless the same code is already in use for another."
+#~ msgstr ""
+#~ "De Italiaanse vertaling, die grotendeels door salo.rock is gemaakt, wordt "
+#~ "officieel uitgebracht. Het toevoegen van een eerste IPI en/of ISNI voor "
+#~ "een object wordt een automatische bewerking, tenzij dezelfde code al "
+#~ "ergens is toegevoegd."
+
+#~ msgid "The ListenBrainz project goes live"
+#~ msgstr "Het ListenBrainz-project wordt gelanceerd"
+
+#~ msgid ""
+#~ "The MetaBrainz Foundation, the legal home for MusicBrainz is announced to "
+#~ "the public."
+#~ msgstr ""
+#~ "De MetaBrainz Foundation, het juridische thuis van MusicBrainz, wordt aan "
+#~ "het publiek gepresenteerd."
+
+#~ msgid "The MusicBrainz Virtual Machine is replaced by MusicBrainz Docker"
+#~ msgstr ""
+#~ "De virtuele machine van MusicBrainz wordt vervangen door MusicBrainz "
+#~ "Docker"
+
+#~ msgid ""
+#~ "The alpha version of ListenBrainz, an open source and open data "
+#~ "alternative to Last.fm®, goes live."
+#~ msgstr ""
+#~ "De alfaversie van ListenBrainz, een openbron- en opendata-alternatief "
+#~ "voor Last.fm®, wordt gelanceerd."
+
+#~ msgid "The beta version of CritiqueBrainz is launched."
+#~ msgstr "De bètaversie van CritiqueBrainz wordt gelanceerd."
+
+#~ msgid ""
+#~ "The diminishing quality of the PUID fingerprinting service and the "
+#~ "continued availability of an open source alternative in AcoustID leads to "
+#~ "the decision of dropping PUIDs from MusicBrainz and supporting only "
+#~ "AcoustID."
+#~ msgstr ""
+#~ "Omdat de dienst achter de PUID-vingerafdrukken steeds minder werd en er "
+#~ "met AcoustID een openbron-alternatief beschikbaar was, werd besloten om "
+#~ "PUID-ondersteuning te beëindigen en voortaan alleen AcoustID te "
+#~ "ondersteunen."
+
+#~ msgid ""
+#~ "The edit history for entities is made visible even when logged out, to "
+#~ "make it easier to understand how each entity has changed (edit notes are "
+#~ "kept hidden to preserve some privacy)."
+#~ msgstr ""
+#~ "De bewerkingsgeschiedenis van een object is nu ook zichtbaar voor "
+#~ "gebruikers die niet zijn aangemeld, waardoor het makkelijker is om te "
+#~ "begrijpen hoe elk object in de loop van de tijd is veranderd. "
+#~ "Bewerkingsnotities blijven onzichtbaar vanwege de privacy."
+
+#~ msgid ""
+#~ "The first full-version release of the Picard tagger comes out, with a lot "
+#~ "of changes and improvements."
+#~ msgstr ""
+#~ "De eerste volledige uitgave van de Picard-tagger wordt uitgebracht met "
+#~ "een hoop veranderingen en verbeteringen."
+
+#~ msgid ""
+#~ "The first version of the MusicBrainz Android app, a Google Summer of Code "
+#~ "project by Jamie McDonald, is made officially available."
+#~ msgstr ""
+#~ "De eerste versie van de Android-app voor MusicBrainz, een Google Summer "
+#~ "of Code-project van Jamie McDonald, komt officieel beschikbaar."
+
+#~ msgid ""
+#~ "The increasingly controversial \"Do Not Cluster\" guideline, which forbid "
+#~ "relationship clusters such as linking every Jackson sibling to each "
+#~ "other, is dropped - avoiding duplicate data becomes a task for "
+#~ "relationship designers, not users entering the data."
+#~ msgstr ""
+#~ "De impopulaire richtlijn ‘niet clusteren’, die relatieclusters (zoals het "
+#~ "aan elkaar koppelen van alle leden van de Jacksons) verbiedt, wordt "
+#~ "afgeschaft. Het voorkomen van dubbele gegevens wordt een taak van de "
+#~ "bedenkers van relaties in plaats van gebruikers die gegevens toevoegen."
+
+#~ msgid "The new MetaBrainz website goes live"
+#~ msgstr "De nieuwe MetaBrainz-website wordt gelanceerd"
+
+#~ msgid ""
+#~ "The new MetaBrainz website, featuring an all-new design and online sign-"
+#~ "up for commercial users, is launched, replacing the one designed in the "
+#~ "year 2000!"
+#~ msgstr ""
+#~ "MetaBrainz krijgt een nieuwe website, met een compleet nieuw ontwerp en "
+#~ "een mogelijkheid voor commerciële gebruikers om zich online aan te "
+#~ "melden. De oude website kwam uit het jaar 2000!"
+
+#~ msgid ""
+#~ "The open source fingerprinting solution AcoustID (developed by friend of "
+#~ "MusicBrainz Lukáš Lalinský) starts being used alongside PUID on "
+#~ "MusicBrainz fingerprint pages."
+#~ msgstr ""
+#~ "De openbronoplossing voor audiovingerafdrukken AcoustID (ontwikkeld door "
+#~ "vriend van MusicBrainz Lukáš Lalinský) wordt vanaf nu naast PUID gebruikt "
+#~ "op MusicBrainz."
+
+#~ msgid ""
+#~ "The relationship editor, for bulk-editing relationships for a release, is "
+#~ "released to production."
+#~ msgstr ""
+#~ "De relatiebewerker voor massabewerkingen aan relaties van uitgaven, is "
+#~ "uitgebracht."
+
+#~ msgid "The search features and web service improvements are released."
+#~ msgstr ""
+#~ "Verbeteringen aan de zoekfunctie en de webdienst worden uitgebracht."
+
+#~ msgid ""
+#~ "The style process is updated again. Rather than requiring long, often "
+#~ "angry community debate until something is passed by community consensus "
+#~ "without a veto, decisions are taken by a BDFL who consults the community "
+#~ "when needed. Nicolás Tamargo (reosarevok) is \"promoted\" from style "
+#~ "leader to style BDFL."
+#~ msgstr ""
+#~ "Het stijlproces wordt weer eens vernieuwd. In plaats van een lange, vaak "
+#~ "slechtgehumeurde discussie binnen de gemeenschap totdat er eindelijk "
+#~ "consensus is, worden beslissingen voortaan genomen door een welwillende "
+#~ "dictator die als het nodig is advies vraagt aan de gemeenschap. Nicolás "
+#~ "Tamargo (reosarevok) krijgt ‘promotie’ van stijlleider tot welwillende "
+#~ "stijldictator."
+
+#~ msgid ""
+#~ "The voting period for edits that get a No vote is extended to give users "
+#~ "more time to react to the issues."
+#~ msgstr ""
+#~ "De stemmingsperiode voor bewerkingen waarop tegen wordt gestemd, wordt "
+#~ "verlengd, zodat gebruikers langer de tijd hebben om op bedenkingen te "
+#~ "reageren."
+
+#~ msgid ""
+#~ "Top menu navigation improved, duplicate artists, album edit all, track "
+#~ "time editing features released."
+#~ msgstr ""
+#~ "Verbeterde menunavigatie, dubbele artiesten, bewerkingen voor hele "
+#~ "uitgaven en de lengte van nummers uitgebracht."
+
+#~ msgid "Track times set from DiscIDs"
+#~ msgstr "Nummerlengtes die met disc-ID’s zijn ingesteld"
+
+#~ msgid ""
+#~ "Two new entity types are added to MusicBrainz: instruments and series. "
+#~ "Series of recordings, releases, release groups and works are supported."
+#~ msgstr ""
+#~ "Er worden twee nieuwe objecten aan MusicBrainz toegevoegd: instrumenten "
+#~ "en series. Series van opnames, uitgaven, uitgavegroepen en composities "
+#~ "worden ondersteund."
+
+#~ msgid "User improvements"
+#~ msgstr "Verbeteringen voor gebruikers"
+
+#~ msgid "Users now have to verify their email address for editing."
+#~ msgstr ""
+#~ "Gebruikers moeten nu voordat ze bewerkingen kunnen doorvoeren hun e-"
+#~ "mailadres bevestigen."
+
+#~ msgid ""
+#~ "Version 1 of the web service (already deprecated since 2011) is finally "
+#~ "taken down for good (more than a year after announcing it would happen in "
+#~ "six months!)."
+#~ msgstr ""
+#~ "Versie 1 van de webdienst (die al sinds 2011 verouderd was) wordt "
+#~ "eindelijk voorgoed uit de lucht gehaald (meer dan een jaar nadat werd "
+#~ "aangekondigd dat dit over zes maanden zou gebeuren!)"
+
+#~ msgid "Voting logic was improved, web based autoeditor elections released."
+#~ msgstr ""
+#~ "Logica voor stemmen verbeterd en verkiezingen voor autoredacteurs "
+#~ "uitgebracht."
+
+#~ msgid "Voting period for contested edits extended"
+#~ msgstr "Stemmingsperiode voor omstreden bewerkingen verlengd"
+
+#~ msgid "Voting period shortened to 7 days"
+#~ msgstr "Stemmingsperiode tot zeven dagen ingekort"
+
+#~ msgid "Voting suggestions"
+#~ msgstr "Suggesties voor het stemmen"
+
+#~ msgid "Web service version 1 taken down"
+#~ msgstr "Versie 1 van de webdienst uit de lucht gehaald"
+
+#~ msgid ""
+#~ "With the AcousticBrainz project deemed to not have fulfilled its original "
+#~ "goals, the MetaBrainz Foundation decides to stop work on it, with a view "
+#~ "to shut down the site in 2023."
+#~ msgstr ""
+#~ "Omdat de doelen van het AcousticBrainz-project niet zijn gehaald, heeft "
+#~ "de MetaBrainz Foundation besloten om het project stop te zetten; de "
+#~ "website wordt waarschijnlijk in 2023 uit de lucht gehaald."
+
+#~ msgid ""
+#~ "Works get their first attributes (such as keys) allowing us to store data "
+#~ "that doesn't make sense as relationships but deserves more than an "
+#~ "annotation entry."
+#~ msgstr ""
+#~ "Composities krijgen hun eerste eigenschappen (zoals toonsoort), zodat we "
+#~ "informatie op kunnen slaan die niet past binnen het idee van relaties "
+#~ "maar meer aandacht vereist dan een vermelding in de aantekening."
+
+#~ msgid "Yvanzo joins MusicBrainz as a developer"
+#~ msgstr "Yvanzo wordt ontwikkelaar bij MusicBrainz"
+
+#~ msgid ""
+#~ "Yvanzo joins the development team as a second dedicated MusicBrainz "
+#~ "developer."
+#~ msgstr ""
+#~ "Yvanzo wordt lid van het ontwikkelteam en wordt de tweede ontwikkelaar "
+#~ "die zich alleen met MusicBrainz bezighoudt."
+
+#~ msgid "mb_server now hosted on Git"
+#~ msgstr "mb_server wordt nu gehost op Git"
+
+#~ msgid "reosarevok becomes the MusicBrainz style leader"
+#~ msgstr "reosarevok wordt de stijlleider van MusicBrainz"
 
 #, fuzzy
 #~| msgid "Events with no type set"
