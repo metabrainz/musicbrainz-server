@@ -1,0 +1,475 @@
+{
+  title: 'MBS-13579: Seeding release labels to an existing release',
+  commands: [
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-13579-part1.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'id=enter-edit',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 34,
+        status: 2,
+        data: {
+          catalog_number: "88875173862",
+          entity_id: 1,
+          label: {
+            gid: "011d1192-6f65-45bd-85c4-0400dd45693e",
+            id: 235,
+            name: "Columbia",
+          },
+          release: {
+            gid: "24d4159a-99d9-425d-a7b8-1b9ec0261a33",
+            id: 1693299,
+            name: "★",
+          },
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 36,
+        status: 2,
+        data: {
+          catalog_number: "",
+          label: {
+            gid: "10f97e56-1ebe-4b1e-848f-9c5ae0f292ec",
+            id: 62565,
+            name: "ISO Records",
+          },
+          release: {
+            gid: "24d4159a-99d9-425d-a7b8-1b9ec0261a33",
+            id: 1693299,
+            name: "★",
+          },
+          release_label_id: 1237936,
+        },
+      },
+    },
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-13579-part2.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'id=enter-edit',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 3,
+      value: {
+        type: 34,
+        status: 2,
+        data: {
+          catalog_number: null,
+          entity_id: 2,
+          label: {
+            gid: "10f97e56-1ebe-4b1e-848f-9c5ae0f292ec",
+            id: 62565,
+            name: "ISO Records",
+          },
+          release: {
+            gid: "24d4159a-99d9-425d-a7b8-1b9ec0261a33",
+            id: 1693299,
+            name: "★",
+          },
+        },
+      },
+    },
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-13579-part3.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=label-1',
+      value: '011d1192-6f65-45bd-85c4-0400dd45693e',
+    },
+    {
+      command: 'fireEvent',
+      target: 'id=label-0',
+      value: 'input',
+    },
+    {
+      command: 'pause',
+      target: 1000,
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'id=enter-edit',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 4,
+      value: {
+        type: 37,
+        status: 2,
+        data: {
+          new: {
+            catalog_number: "ISO-3103",
+          },
+          old: {
+            catalog_number: null,
+            label: {
+              gid: "10f97e56-1ebe-4b1e-848f-9c5ae0f292ec",
+              id: 62565,
+              name: "ISO Records",
+            },
+          },
+          release: {
+            barcode: "888751738621",
+            events: [],
+            gid: "24d4159a-99d9-425d-a7b8-1b9ec0261a33",
+            id: 1693299,
+            medium_formats: ["CD"],
+            name: "★",
+          },
+          release_label_id: 2,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 5,
+      value: {
+        type: 37,
+        status: 2,
+        data: {
+          new: {
+            catalog_number: "88875173862-1",
+          },
+          old: {
+            catalog_number: "88875173862",
+            label: {
+              gid: "011d1192-6f65-45bd-85c4-0400dd45693e",
+              id: 235,
+              name: "Columbia",
+            },
+          },
+          release: {
+            barcode: "888751738621",
+            events: [],
+            gid: "24d4159a-99d9-425d-a7b8-1b9ec0261a33",
+            id: 1693299,
+            medium_formats: ["CD"],
+            name: "★",
+          },
+          release_label_id: 1,
+        },
+      },
+    },
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-13579-part4.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=label-0',
+      value: '10f97e56-1ebe-4b1e-848f-9c5ae0f292ec',
+    },
+    {
+      command: 'fireEvent',
+      target: 'id=label-0',
+      value: 'input',
+    },
+    {
+      command: 'pause',
+      target: 1000,
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'id=enter-edit',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 6,
+      value: {
+        type: 37,
+        status: 2,
+        data: {
+          new: {
+            label: null,
+          },
+          old: {
+            catalog_number: "88875173862-1",
+            label: {
+              gid: "011d1192-6f65-45bd-85c4-0400dd45693e",
+              id: 235,
+              name: "Columbia",
+            },
+          },
+          release: {
+            barcode: "888751738621",
+            events: [],
+            gid: "24d4159a-99d9-425d-a7b8-1b9ec0261a33",
+            id: 1693299,
+            medium_formats: ["CD"],
+            name: "★",
+          },
+          release_label_id: 1,
+        },
+      },
+    },
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-13579-part5.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=label-0',
+      value: '10f97e56-1ebe-4b1e-848f-9c5ae0f292ec',
+    },
+    {
+      command: 'fireEvent',
+      target: 'id=label-0',
+      value: 'input',
+    },
+    {
+      command: 'pause',
+      target: 1000,
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'id=enter-edit',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 7,
+      value: {
+        type: 37,
+        status: 2,
+        data: {
+          new: {
+            catalog_number: null,
+          },
+          old: {
+            catalog_number: "ISO-3103",
+            label: {
+              gid: "10f97e56-1ebe-4b1e-848f-9c5ae0f292ec",
+              id: 62565,
+              name: "ISO Records",
+            },
+          },
+          release: {
+            barcode: "888751738621",
+            events: [],
+            gid: "24d4159a-99d9-425d-a7b8-1b9ec0261a33",
+            id: 1693299,
+            medium_formats: ["CD"],
+            name: "★",
+          },
+          release_label_id: 2,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 8,
+      value: {
+        type: 34,
+        status: 2,
+        data: {
+          catalog_number: "88875173862-2",
+          entity_id: 3,
+          label: {
+            gid: "011d1192-6f65-45bd-85c4-0400dd45693e",
+            id: 235,
+            name: "Columbia",
+          },
+          release: {
+            gid: "24d4159a-99d9-425d-a7b8-1b9ec0261a33",
+            id: 1693299,
+            name: "★",
+          },
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 9,
+      value: {
+        type: 37,
+        status: 2,
+        data: {
+          new: {
+            label: {
+              gid: "011d1192-6f65-45bd-85c4-0400dd45693e",
+              id: 235,
+              name: "Columbia",
+            },
+          },
+          old: {
+            catalog_number: "88875173862-1",
+            label: null,
+          },
+          release: {
+            barcode: "888751738621",
+            events: [],
+            gid: "24d4159a-99d9-425d-a7b8-1b9ec0261a33",
+            id: 1693299,
+            medium_formats: ["CD"],
+            name: "★",
+          },
+          release_label_id: 1,
+        },
+      },
+    },
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-13579-part6.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=label-0',
+      value: '011d1192-6f65-45bd-85c4-0400dd45693e',
+    },
+    {
+      command: 'fireEvent',
+      target: 'id=label-0',
+      value: 'input',
+    },
+    {
+      command: 'pause',
+      target: 1000,
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'id=enter-edit',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 10,
+      value: {
+        type: 37,
+        status: 2,
+        data: {
+          new: {
+            catalog_number: null,
+          },
+          old: {
+            catalog_number: "88875173862-2",
+            label: {
+              gid: "011d1192-6f65-45bd-85c4-0400dd45693e",
+              id: 235,
+              name: "Columbia",
+            },
+          },
+          release: {
+            barcode: "888751738621",
+            events: [],
+            gid: "24d4159a-99d9-425d-a7b8-1b9ec0261a33",
+            id: 1693299,
+            medium_formats: ["CD"],
+            name: "★",
+          },
+          release_label_id: 3,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 11,
+      value: {
+        type: 36,
+        status: 2,
+        data: {
+          catalog_number: null,
+          label: {
+            gid: "10f97e56-1ebe-4b1e-848f-9c5ae0f292ec",
+            id: 62565,
+            name: "ISO Records",
+          },
+          release: {
+            gid: "24d4159a-99d9-425d-a7b8-1b9ec0261a33",
+            id: 1693299,
+            name: "★",
+          },
+          release_label_id: 2,
+        },
+      },
+    },
+  ],
+}

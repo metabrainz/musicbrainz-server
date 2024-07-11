@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <!-- This is intended to be run after mbs-13579-part2.html. -->
+    <form action="/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit" method="POST">
+      <!-- Edit ISO Records (adding ISO-3103, seeding the label MBID) -->
+      <!-- Edit Columbia (with 88875173862-1, seeding only the label name) -->
+      <input type="hidden" name="labels.0.mbid" value="10f97e56-1ebe-4b1e-848f-9c5ae0f292ec" />
+      <input type="hidden" name="labels.0.catalog_number" value="ISO-3103" />
+      <input type="hidden" name="labels.1.name" value="Columbia" />
+      <input type="hidden" name="labels.1.catalog_number" value="88875173862-1" />
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
