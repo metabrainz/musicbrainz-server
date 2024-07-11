@@ -48,6 +48,7 @@ globals:
   l_countries: readonly
   ln_countries: readonly
   lp_countries: readonly
+  l_history: readonly
   l_instrument_descriptions: readonly
   ln_instrument_descriptions: readonly
   lp_instrument_descriptions: readonly
