@@ -62,6 +62,8 @@ declare var l_countries: typeof l;
 declare var ln_countries: typeof ln;
 declare var lp_countries: typeof lp;
 
+declare var l_history: typeof l;
+
 declare var l_instrument_descriptions: typeof l;
 declare var ln_instrument_descriptions: typeof ln;
 declare var lp_instrument_descriptions: typeof lp;

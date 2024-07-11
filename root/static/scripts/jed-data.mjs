@@ -33,6 +33,13 @@ const jedData: JedData = {
           plural_forms: 'nplurals=2; plural=(n != 1);',
         },
       },
+      history: {
+        '': {
+          domain: 'history',
+          lang: 'en',
+          plural_forms: 'nplurals=2; plural=(n != 1);',
+        },
+      },
       instrument_descriptions: {
         '': {
           domain: 'instrument_descriptions',
