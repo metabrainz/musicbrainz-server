@@ -15,797 +15,797 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.3\n"
 
-#. frequency:1 iso_code:Afak 
+#. frequency:1 iso_code:Afak
 #: DB:script/name:133
 msgid "Afaka"
 msgstr "阿法卡文"
 
-#. frequency:4 iso_code:Arab 
+#. frequency:4 iso_code:Arab
 #: DB:script/name:18
 msgid "Arabic"
 msgstr "阿拉伯文"
 
-#. frequency:3 iso_code:Armn 
+#. frequency:3 iso_code:Armn
 #: DB:script/name:35
 msgid "Armenian"
 msgstr "亚美尼亚文"
 
-#. frequency:1 iso_code:Avst 
+#. frequency:1 iso_code:Avst
 #: DB:script/name:114
 msgid "Avestan"
 msgstr "阿维斯陀文"
 
-#. frequency:2 iso_code:Bali 
+#. frequency:2 iso_code:Bali
 #: DB:script/name:72
 msgid "Balinese"
 msgstr "巴厘文"
 
-#. frequency:1 iso_code:Bamu 
+#. frequency:1 iso_code:Bamu
 #: DB:script/name:155
 msgid "Bamum"
 msgstr "巴穆姆文"
 
-#. frequency:1 iso_code:Bass 
+#. frequency:1 iso_code:Bass
 #: DB:script/name:145
 msgid "Bassa Vah"
 msgstr "巴萨瓦赫文"
 
-#. frequency:1 iso_code:Batk 
+#. frequency:1 iso_code:Batk
 #: DB:script/name:74
 msgid "Batak"
 msgstr "巴塔克文"
 
-#. frequency:3 iso_code:Beng 
+#. frequency:3 iso_code:Beng
 #: DB:script/name:53
 msgid "Bengali"
 msgstr "孟加拉文"
 
-#. frequency:1 iso_code:Blis 
+#. frequency:1 iso_code:Blis
 #: DB:script/name:95
 msgid "Blissymbols"
 msgstr "布列斯符号"
 
-#. frequency:1 iso_code:Phlv 
+#. frequency:1 iso_code:Phlv
 #: DB:script/name:123
 msgid "Book Pahlavi"
 msgstr "书面巴列维文"
 
-#. frequency:3 iso_code:Bopo 
+#. frequency:3 iso_code:Bopo
 #: DB:script/name:42
 msgid "Bopomofo"
 msgstr "汉语注音符号"
 
-#. frequency:1 iso_code:Brah 
+#. frequency:1 iso_code:Brah
 #: DB:script/name:47
 msgid "Brahmi"
 msgstr "婆罗米文"
 
-#. frequency:2 iso_code:Brai 
+#. frequency:2 iso_code:Brai
 #: DB:script/name:96
 msgid "Braille"
 msgstr "布拉耶盲文"
 
-#. frequency:2 iso_code:Bugi 
+#. frequency:2 iso_code:Bugi
 #: DB:script/name:75
 msgid "Buginese"
 msgstr "武吉斯文"
 
-#. frequency:2 iso_code:Buhd 
+#. frequency:2 iso_code:Buhd
 #: DB:script/name:78
 msgid "Buhid"
 msgstr "布希德文"
 
-#. frequency:2 iso_code:Cans 
+#. frequency:2 iso_code:Cans
 #: DB:script/name:87
 msgid "Canadian Syllabics"
 msgstr "统一加拿大原住民音节文字"
 
-#. frequency:2 iso_code:Cari 
+#. frequency:2 iso_code:Cari
 #: DB:script/name:108
 msgid "Carian"
 msgstr "卡里亚文"
 
-#. frequency:1 iso_code:Cakm 
+#. frequency:1 iso_code:Cakm
 #: DB:script/name:115
 msgid "Chakma"
 msgstr "查克玛文"
 
-#. frequency:2 iso_code:Cham 
+#. frequency:2 iso_code:Cham
 #: DB:script/name:71
 msgid "Cham"
 msgstr "占文"
 
-#. frequency:2 iso_code:Cher 
+#. frequency:2 iso_code:Cher
 #: DB:script/name:88
 msgid "Cherokee"
 msgstr "切罗基文"
 
-#. frequency:1 iso_code:Cirt 
+#. frequency:1 iso_code:Cirt
 #: DB:script/name:45
 msgid "Cirth"
 msgstr "奇尔斯文"
 
-#. frequency:1 iso_code:Zinh 
+#. frequency:1 iso_code:Zinh
 #: DB:script/name:159
 msgid "Code for inherited script"
 msgstr ""
 
-#. frequency:1 iso_code:Zzzz 
+#. frequency:1 iso_code:Zzzz
 #: DB:script/name:130
 msgid "Code for uncoded script"
 msgstr ""
 
-#. frequency:1 iso_code:Zyyy 
+#. frequency:1 iso_code:Zyyy
 #: DB:script/name:129
 msgid "Code for undetermined script"
 msgstr ""
 
-#. frequency:1 iso_code:Zxxx 
+#. frequency:1 iso_code:Zxxx
 #: DB:script/name:128
 msgid "Code for unwritten documents"
 msgstr ""
 
-#. frequency:2 iso_code:Copt 
+#. frequency:2 iso_code:Copt
 #: DB:script/name:23
 msgid "Coptic"
 msgstr "科普特文"
 
-#. frequency:2 iso_code:Xsux 
+#. frequency:2 iso_code:Xsux
 #: DB:script/name:1
 msgid "Cuneiform, Sumero-Akkadian"
 msgstr "苏美尔—阿卡德楔形文字"
 
-#. frequency:2 iso_code:Cprt 
+#. frequency:2 iso_code:Cprt
 #: DB:script/name:82
 msgid "Cypriot"
 msgstr "塞浦路斯音节文字"
 
-#. frequency:4 iso_code:Cyrl 
+#. frequency:4 iso_code:Cyrl
 #: DB:script/name:31
 msgid "Cyrillic"
 msgstr "西里尔文"
 
-#. frequency:1 iso_code:Cyrs 
+#. frequency:1 iso_code:Cyrs
 #: DB:script/name:32
 msgid "Cyrillic (Old Church Slavonic variant)"
 msgstr "古教会斯拉夫文"
 
-#. frequency:2 iso_code:Dsrt 
+#. frequency:2 iso_code:Dsrt
 #: DB:script/name:37
 msgid "Deseret"
 msgstr "德塞雷特大学音标"
 
-#. frequency:3 iso_code:Deva 
+#. frequency:3 iso_code:Deva
 #: DB:script/name:50
 msgid "Devanagari"
 msgstr "天城文"
 
-#. frequency:1 iso_code:Dupl 
+#. frequency:1 iso_code:Dupl
 #: DB:script/name:142
 msgid "Duployan shorthand"
 msgstr "迪普卢瓦耶速记文"
 
-#. frequency:1 iso_code:Egyd 
+#. frequency:1 iso_code:Egyd
 #: DB:script/name:6
 msgid "Egyptian demotic"
 msgstr "埃及世俗体文字"
 
-#. frequency:1 iso_code:Egyh 
+#. frequency:1 iso_code:Egyh
 #: DB:script/name:5
 msgid "Egyptian hieratic"
 msgstr "埃及僧侣体文字"
 
-#. frequency:2 iso_code:Egyp 
+#. frequency:2 iso_code:Egyp
 #: DB:script/name:4
 msgid "Egyptian hieroglyphs"
 msgstr "埃及象形文字"
 
-#. frequency:1 iso_code:Elba 
+#. frequency:1 iso_code:Elba
 #: DB:script/name:143
 msgid "Elbasan"
 msgstr "爱尔巴桑文"
 
-#. frequency:3 iso_code:Ethi 
+#. frequency:3 iso_code:Ethi
 #: DB:script/name:86
 msgid "Ethiopic"
 msgstr "埃塞俄比亚文"
 
-#. frequency:3 iso_code:Geor 
+#. frequency:3 iso_code:Geor
 #: DB:script/name:36
 msgid "Georgian"
 msgstr "格鲁吉亚文"
 
-#. frequency:2 iso_code:Glag 
+#. frequency:2 iso_code:Glag
 #: DB:script/name:33
 msgid "Glagolitic"
 msgstr "格拉哥里文"
 
-#. frequency:2 iso_code:Goth 
+#. frequency:2 iso_code:Goth
 #: DB:script/name:24
 msgid "Gothic"
 msgstr "哥特文"
 
-#. frequency:1 iso_code:Gran 
+#. frequency:1 iso_code:Gran
 #: DB:script/name:152
 msgid "Grantha"
 msgstr "古兰塔文"
 
-#. frequency:4 iso_code:Grek 
+#. frequency:4 iso_code:Grek
 #: DB:script/name:22
 msgid "Greek"
 msgstr "希腊文"
 
-#. frequency:3 iso_code:Gujr 
+#. frequency:3 iso_code:Gujr
 #: DB:script/name:52
 msgid "Gujarati"
 msgstr "古吉拉特文"
 
-#. frequency:3 iso_code:Guru 
+#. frequency:3 iso_code:Guru
 #: DB:script/name:49
 msgid "Gurmukhi"
 msgstr "古木基文"
 
-#. frequency:4 iso_code:Hani 
+#. frequency:4 iso_code:Hani
 #: DB:script/name:92
 msgid "Han (Hanzi, Kanji, Hanja)"
 msgstr "汉字（中日韩）"
 
-#. frequency:4 iso_code:Hans 
+#. frequency:4 iso_code:Hans
 #: DB:script/name:93
 msgid "Han (Simplified variant)"
 msgstr "正体字"
 
-#. frequency:4 iso_code:Hant 
+#. frequency:4 iso_code:Hant
 #: DB:script/name:94
 msgid "Han (Traditional variant)"
 msgstr "繁体字"
 
-#. frequency:3 iso_code:Hang 
+#. frequency:3 iso_code:Hang
 #: DB:script/name:101
 msgid "Hangul"
 msgstr "谚文"
 
-#. frequency:2 iso_code:Hano 
+#. frequency:2 iso_code:Hano
 #: DB:script/name:77
 msgid "Hanunoo"
 msgstr "哈努诺文"
 
-#. frequency:4 iso_code:Hebr 
+#. frequency:4 iso_code:Hebr
 #: DB:script/name:11
 msgid "Hebrew"
 msgstr "希伯来文"
 
-#. frequency:3 iso_code:Hira 
+#. frequency:3 iso_code:Hira
 #: DB:script/name:83
 msgid "Hiragana"
 msgstr "平假名"
 
-#. frequency:1 iso_code:Armi 
+#. frequency:1 iso_code:Armi
 #: DB:script/name:113
 msgid "Imperial Aramaic"
 msgstr "帝国亚拉姆文"
 
-#. frequency:1 iso_code:Inds 
+#. frequency:1 iso_code:Inds
 #: DB:script/name:97
 msgid "Indus"
 msgstr "印地文"
 
-#. frequency:1 iso_code:Phli 
+#. frequency:1 iso_code:Phli
 #: DB:script/name:121
 msgid "Inscriptional Pahlavi"
 msgstr "碑刻巴列维文"
 
-#. frequency:1 iso_code:Prti 
+#. frequency:1 iso_code:Prti
 #: DB:script/name:124
 msgid "Inscriptional Parthian"
 msgstr "碑刻帕提亚文"
 
-#. frequency:4 iso_code:Jpan 
+#. frequency:4 iso_code:Jpan
 #: DB:script/name:85
 msgid "Japanese"
 msgstr "日文"
 
-#. frequency:3 iso_code:Hrkt 
+#. frequency:3 iso_code:Hrkt
 #: DB:script/name:100
 msgid "Japanese syllabaries"
 msgstr "日语假名"
 
-#. frequency:1 iso_code:Java 
+#. frequency:1 iso_code:Java
 #: DB:script/name:73
 msgid "Javanese"
 msgstr "爪哇文"
 
-#. frequency:1 iso_code:Jurc 
+#. frequency:1 iso_code:Jurc
 #: DB:script/name:134
 msgid "Jurchen"
 msgstr "女真文"
 
-#. frequency:1 iso_code:Kthi 
+#. frequency:1 iso_code:Kthi
 #: DB:script/name:116
 msgid "Kaithi"
 msgstr "凯提文"
 
-#. frequency:3 iso_code:Knda 
+#. frequency:3 iso_code:Knda
 #: DB:script/name:60
 msgid "Kannada"
 msgstr "卡纳达文"
 
-#. frequency:4 iso_code:Kana 
+#. frequency:4 iso_code:Kana
 #: DB:script/name:84
 msgid "Katakana"
 msgstr "片假名"
 
-#. frequency:2 iso_code:Kali 
+#. frequency:2 iso_code:Kali
 #: DB:script/name:70
 msgid "Kayah Li"
 msgstr "克耶文"
 
-#. frequency:2 iso_code:Khar 
+#. frequency:2 iso_code:Khar
 #: DB:script/name:48
 msgid "Kharoshthi"
 msgstr "佉卢文"
 
-#. frequency:3 iso_code:Khmr 
+#. frequency:3 iso_code:Khmr
 #: DB:script/name:68
 msgid "Khmer"
 msgstr "高棉文"
 
-#. frequency:1 iso_code:Khoj 
+#. frequency:1 iso_code:Khoj
 #: DB:script/name:131
 msgid "Khojki"
 msgstr "和卓文"
 
-#. frequency:1 iso_code:Sind 
+#. frequency:1 iso_code:Sind
 #: DB:script/name:144
 msgid "Khudawadi"
 msgstr "库达瓦迪文"
 
-#. frequency:2 iso_code:Geok 
+#. frequency:2 iso_code:Geok
 #: DB:script/name:102
 msgid "Khutsuri"
 msgstr "格鲁吉亚文大写字母"
 
-#. frequency:4 iso_code:Kore 
+#. frequency:4 iso_code:Kore
 #: DB:script/name:43
 msgid "Korean"
 msgstr "朝鲜文"
 
-#. frequency:1 iso_code:Kpel 
+#. frequency:1 iso_code:Kpel
 #: DB:script/name:146
 msgid "Kpelle"
 msgstr "克佩勒文"
 
-#. frequency:3 iso_code:Laoo 
+#. frequency:3 iso_code:Laoo
 #: DB:script/name:69
 msgid "Lao"
 msgstr "老挝文"
 
-#. frequency:4 iso_code:Latn 
+#. frequency:4 iso_code:Latn
 #: DB:script/name:28
 msgid "Latin"
 msgstr "拉丁文"
 
-#. frequency:1 iso_code:Latf 
+#. frequency:1 iso_code:Latf
 #: DB:script/name:30
 msgid "Latin (Fraktur variant)"
 msgstr "德文尖角体文字"
 
-#. frequency:1 iso_code:Latg 
+#. frequency:1 iso_code:Latg
 #: DB:script/name:29
 msgid "Latin (Gaelic variant)"
 msgstr "盖尔文"
 
-#. frequency:2 iso_code:Lepc 
+#. frequency:2 iso_code:Lepc
 #: DB:script/name:57
 msgid "Lepcha"
 msgstr "雷布查文"
 
-#. frequency:2 iso_code:Limb 
+#. frequency:2 iso_code:Limb
 #: DB:script/name:58
 msgid "Limbu"
 msgstr "林布文"
 
-#. frequency:1 iso_code:Lina 
+#. frequency:1 iso_code:Lina
 #: DB:script/name:80
 msgid "Linear A"
 msgstr "线形文字A"
 
-#. frequency:2 iso_code:Linb 
+#. frequency:2 iso_code:Linb
 #: DB:script/name:81
 msgid "Linear B"
 msgstr "线形文字B"
 
-#. frequency:1 iso_code:Lisu 
+#. frequency:1 iso_code:Lisu
 #: DB:script/name:157
 msgid "Lisu (Fraser)"
 msgstr "傈僳文"
 
-#. frequency:1 iso_code:Loma 
+#. frequency:1 iso_code:Loma
 #: DB:script/name:147
 msgid "Loma"
 msgstr "洛马文"
 
-#. frequency:2 iso_code:Lyci 
+#. frequency:2 iso_code:Lyci
 #: DB:script/name:109
 msgid "Lycian"
 msgstr "吕基亚文"
 
-#. frequency:2 iso_code:Lydi 
+#. frequency:2 iso_code:Lydi
 #: DB:script/name:110
 msgid "Lydian"
 msgstr "吕底亚文"
 
-#. frequency:3 iso_code:Mlym 
+#. frequency:3 iso_code:Mlym
 #: DB:script/name:62
 msgid "Malayalam"
 msgstr "马拉雅拉姆文"
 
-#. frequency:1 iso_code:Mand 
+#. frequency:1 iso_code:Mand
 #: DB:script/name:16
 msgid "Mandaic"
 msgstr "曼达文"
 
-#. frequency:1 iso_code:Mani 
+#. frequency:1 iso_code:Mani
 #: DB:script/name:118
 msgid "Manichaean"
 msgstr "摩尼文"
 
-#. frequency:2 iso_code:Zmth 
+#. frequency:2 iso_code:Zmth
 #: DB:script/name:111
 msgid "Mathematical notation"
 msgstr "数学符号"
 
-#. frequency:1 iso_code:Maya 
+#. frequency:1 iso_code:Maya
 #: DB:script/name:7
 msgid "Mayan hieroglyphs"
 msgstr "玛雅圣符文"
 
-#. frequency:1 iso_code:Mtei 
+#. frequency:1 iso_code:Mtei
 #: DB:script/name:120
 msgid "Meitei Mayek"
 msgstr "曼尼普尔文"
 
-#. frequency:1 iso_code:Mend 
+#. frequency:1 iso_code:Mend
 #: DB:script/name:148
 msgid "Mende"
 msgstr "门德文"
 
-#. frequency:1 iso_code:Merc 
+#. frequency:1 iso_code:Merc
 #: DB:script/name:153
 msgid "Meroitic Cursive"
 msgstr "麦罗埃文草书体文字"
 
-#. frequency:1 iso_code:Mero 
+#. frequency:1 iso_code:Mero
 #: DB:script/name:8
 msgid "Meroitic Hieroglyphs"
 msgstr "麦罗埃象形文字"
 
-#. frequency:1 iso_code:Plrd 
+#. frequency:1 iso_code:Plrd
 #: DB:script/name:41
 msgid "Miao"
 msgstr "柏格理苗文"
 
-#. frequency:3 iso_code:Mong 
+#. frequency:3 iso_code:Mong
 #: DB:script/name:17
 msgid "Mongolian"
 msgstr "蒙古文"
 
-#. frequency:1 iso_code:Moon 
+#. frequency:1 iso_code:Moon
 #: DB:script/name:119
 msgid "Moon"
 msgstr "穆恩盲文"
 
-#. frequency:1 iso_code:Mroo 
+#. frequency:1 iso_code:Mroo
 #: DB:script/name:135
 msgid "Mro, Mru"
 msgstr "毛里塔尼亚文"
 
-#. frequency:3 iso_code:Mymr 
+#. frequency:3 iso_code:Mymr
 #: DB:script/name:64
 msgid "Myanmar"
 msgstr "缅文"
 
-#. frequency:2 iso_code:Nkoo 
+#. frequency:2 iso_code:Nkoo
 #: DB:script/name:103
 msgid "N'ko"
 msgstr "西非书面文字"
 
-#. frequency:1 iso_code:Nbat 
+#. frequency:1 iso_code:Nbat
 #: DB:script/name:149
 msgid "Nabataean"
 msgstr "纳巴泰文"
 
-#. frequency:1 iso_code:Nkgb 
+#. frequency:1 iso_code:Nkgb
 #: DB:script/name:158
 msgid "Nakhi Geba"
 msgstr "纳西格巴文"
 
-#. frequency:2 iso_code:Talu 
+#. frequency:2 iso_code:Talu
 #: DB:script/name:67
 msgid "New Tai Lue"
 msgstr "新傣仂文"
 
-#. frequency:1 iso_code:Nshu 
+#. frequency:1 iso_code:Nshu
 #: DB:script/name:136
 msgid "Nüshu"
 msgstr "女书"
 
-#. frequency:2 iso_code:Ogam 
+#. frequency:2 iso_code:Ogam
 #: DB:script/name:27
 msgid "Ogham"
 msgstr "欧甘文"
 
-#. frequency:2 iso_code:Olck 
+#. frequency:2 iso_code:Olck
 #: DB:script/name:104
 msgid "Ol Chiki"
 msgstr "桑塔利文"
 
-#. frequency:1 iso_code:Hung 
+#. frequency:1 iso_code:Hung
 #: DB:script/name:21
 msgid "Old Hungarian"
 msgstr "古匈牙利文"
 
-#. frequency:2 iso_code:Ital 
+#. frequency:2 iso_code:Ital
 #: DB:script/name:25
 msgid "Old Italic"
 msgstr "古意大利文"
 
-#. frequency:1 iso_code:Narb 
+#. frequency:1 iso_code:Narb
 #: DB:script/name:150
 msgid "Old North Arabian"
 msgstr "古北部阿拉伯文"
 
-#. frequency:1 iso_code:Perm 
+#. frequency:1 iso_code:Perm
 #: DB:script/name:34
 msgid "Old Permic"
 msgstr "古彼尔姆文"
 
-#. frequency:2 iso_code:Xpeo 
+#. frequency:2 iso_code:Xpeo
 #: DB:script/name:2
 msgid "Old Persian"
 msgstr "古波斯文"
 
-#. frequency:1 iso_code:Sarb 
+#. frequency:1 iso_code:Sarb
 #: DB:script/name:156
 msgid "Old South Arabian"
 msgstr "古南部阿拉伯文"
 
-#. frequency:2 iso_code:Orkh 
+#. frequency:2 iso_code:Orkh
 #: DB:script/name:20
 msgid "Old Turkic"
 msgstr "古代突厥文"
 
-#. frequency:3 iso_code:Orya 
+#. frequency:3 iso_code:Orya
 #: DB:script/name:54
 msgid "Oriya"
 msgstr "奥利亚文"
 
-#. frequency:2 iso_code:Osma 
+#. frequency:2 iso_code:Osma
 #: DB:script/name:38
 msgid "Osmanya"
 msgstr "奥斯曼亚文"
 
-#. frequency:1 iso_code:Hmng 
+#. frequency:1 iso_code:Hmng
 #: DB:script/name:89
 msgid "Pahawh Hmong"
 msgstr "杨松录苗文"
 
-#. frequency:1 iso_code:Palm 
+#. frequency:1 iso_code:Palm
 #: DB:script/name:151
 msgid "Palmyrene"
 msgstr "帕尔迈拉文"
 
-#. frequency:2 iso_code:Phag 
+#. frequency:2 iso_code:Phag
 #: DB:script/name:56
 msgid "Phags-pa"
 msgstr "八思巴文"
 
-#. frequency:2 iso_code:Phnx 
+#. frequency:2 iso_code:Phnx
 #: DB:script/name:9
 msgid "Phoenician"
 msgstr "腓尼基文"
 
-#. frequency:1 iso_code:Phlp 
+#. frequency:1 iso_code:Phlp
 #: DB:script/name:122
 msgid "Psalter Pahlavi"
 msgstr "巴列维文圣诗体"
 
-#. frequency:2 iso_code:Rjng 
+#. frequency:2 iso_code:Rjng
 #: DB:script/name:105
 msgid "Rejang"
 msgstr "拉让文"
 
-#. frequency:1 iso_code:Roro 
+#. frequency:1 iso_code:Roro
 #: DB:script/name:98
 msgid "Rongorongo"
 msgstr "朗格朗格文"
 
-#. frequency:2 iso_code:Runr 
+#. frequency:2 iso_code:Runr
 #: DB:script/name:26
 msgid "Runic"
 msgstr "卢恩文"
 
-#. frequency:1 iso_code:Samr 
+#. frequency:1 iso_code:Samr
 #: DB:script/name:125
 msgid "Samaritan"
 msgstr "撒马利亚文"
 
-#. frequency:1 iso_code:Sara 
+#. frequency:1 iso_code:Sara
 #: DB:script/name:46
 msgid "Sarati"
 msgstr "萨拉提文"
 
-#. frequency:2 iso_code:Saur 
+#. frequency:2 iso_code:Saur
 #: DB:script/name:106
 msgid "Saurashtra"
 msgstr "索拉什特拉文"
 
-#. frequency:1 iso_code:Shrd 
+#. frequency:1 iso_code:Shrd
 #: DB:script/name:138
 msgid "Sharada"
 msgstr "夏拉达文"
 
-#. frequency:2 iso_code:Shaw 
+#. frequency:2 iso_code:Shaw
 #: DB:script/name:40
 msgid "Shavian"
 msgstr "肃伯纳速记符号"
 
-#. frequency:1 iso_code:Sgnw 
+#. frequency:1 iso_code:Sgnw
 #: DB:script/name:126
 msgid "SignWriting"
 msgstr "书写符号"
 
-#. frequency:3 iso_code:Sinh 
+#. frequency:3 iso_code:Sinh
 #: DB:script/name:63
 msgid "Sinhala"
 msgstr "僧伽罗文"
 
-#. frequency:1 iso_code:Sora 
+#. frequency:1 iso_code:Sora
 #: DB:script/name:137
 msgid "Sora Sompeng"
 msgstr "索拉僧平文"
 
-#. frequency:2 iso_code:Sund 
+#. frequency:2 iso_code:Sund
 #: DB:script/name:107
 msgid "Sundanese"
 msgstr "巽他文"
 
-#. frequency:2 iso_code:Sylo 
+#. frequency:2 iso_code:Sylo
 #: DB:script/name:51
 msgid "Syloti Nagri"
 msgstr "锡尔赫特文"
 
-#. frequency:3 iso_code:Zsym 
+#. frequency:3 iso_code:Zsym
 #: DB:script/name:112
 msgid "Symbols"
 msgstr "符号"
 
-#. frequency:2 iso_code:Syrc 
+#. frequency:2 iso_code:Syrc
 #: DB:script/name:12
 msgid "Syriac"
 msgstr "叙利亚文"
 
-#. frequency:1 iso_code:Syrn 
+#. frequency:1 iso_code:Syrn
 #: DB:script/name:13
 msgid "Syriac (Eastern variant)"
 msgstr "东叙利亚文"
 
-#. frequency:1 iso_code:Syre 
+#. frequency:1 iso_code:Syre
 #: DB:script/name:15
 msgid "Syriac (Estrangelo variant)"
 msgstr "古叙利亚文"
 
-#. frequency:1 iso_code:Syrj 
+#. frequency:1 iso_code:Syrj
 #: DB:script/name:14
 msgid "Syriac (Western variant)"
 msgstr "西叙利亚文"
 
-#. frequency:2 iso_code:Tglg 
+#. frequency:2 iso_code:Tglg
 #: DB:script/name:76
 msgid "Tagalog"
 msgstr "塔加洛文"
 
-#. frequency:2 iso_code:Tagb 
+#. frequency:2 iso_code:Tagb
 #: DB:script/name:79
 msgid "Tagbanwa"
 msgstr "塔格巴努亚文"
 
-#. frequency:2 iso_code:Tale 
+#. frequency:2 iso_code:Tale
 #: DB:script/name:66
 msgid "Tai Le"
 msgstr "德宏傣文"
 
-#. frequency:1 iso_code:Lana 
+#. frequency:1 iso_code:Lana
 #: DB:script/name:117
 msgid "Tai Tham"
 msgstr "老傣文"
 
-#. frequency:1 iso_code:Tavt 
+#. frequency:1 iso_code:Tavt
 #: DB:script/name:127
 msgid "Tai Viet"
 msgstr "傣文"
 
-#. frequency:1 iso_code:Takr 
+#. frequency:1 iso_code:Takr
 #: DB:script/name:139
 msgid "Takri"
 msgstr "塔克里文"
 
-#. frequency:3 iso_code:Taml 
+#. frequency:3 iso_code:Taml
 #: DB:script/name:61
 msgid "Tamil"
 msgstr "泰米尔文"
 
-#. frequency:1 iso_code:Tang 
+#. frequency:1 iso_code:Tang
 #: DB:script/name:140
 msgid "Tangut"
 msgstr "西夏文"
 
-#. frequency:3 iso_code:Telu 
+#. frequency:3 iso_code:Telu
 #: DB:script/name:59
 msgid "Telugu"
 msgstr "泰卢固文"
 
-#. frequency:1 iso_code:Teng 
+#. frequency:1 iso_code:Teng
 #: DB:script/name:44
 msgid "Tengwar"
 msgstr "腾格瓦文"
 
-#. frequency:2 iso_code:Thaa 
+#. frequency:2 iso_code:Thaa
 #: DB:script/name:19
 msgid "Thaana"
 msgstr "它拿文"
 
-#. frequency:4 iso_code:Thai 
+#. frequency:4 iso_code:Thai
 #: DB:script/name:65
 msgid "Thai"
 msgstr "泰文"
 
-#. frequency:3 iso_code:Tibt 
+#. frequency:3 iso_code:Tibt
 #: DB:script/name:55
 msgid "Tibetan"
 msgstr "藏文"
 
-#. frequency:3 iso_code:Tfng 
+#. frequency:3 iso_code:Tfng
 #: DB:script/name:10
 msgid "Tifinagh"
 msgstr "提非纳文"
 
-#. frequency:1 iso_code:Tirh 
+#. frequency:1 iso_code:Tirh
 #: DB:script/name:132
 msgid "Tiruta"
 msgstr ""
 
-#. frequency:2 iso_code:Ugar 
+#. frequency:2 iso_code:Ugar
 #: DB:script/name:3
 msgid "Ugaritic"
 msgstr "乌加里特文"
 
-#. frequency:2 iso_code:Vaii 
+#. frequency:2 iso_code:Vaii
 #: DB:script/name:91
 msgid "Vai"
 msgstr "瓦伊文"
 
-#. frequency:1 iso_code:Visp 
+#. frequency:1 iso_code:Visp
 #: DB:script/name:39
 msgid "Visible Speech"
 msgstr "可见语言"
 
-#. frequency:1 iso_code:Wara 
+#. frequency:1 iso_code:Wara
 #: DB:script/name:154
 msgid "Warang Citi"
 msgstr "瓦兰齐地文"
 
-#. frequency:1 iso_code:Wole 
+#. frequency:1 iso_code:Wole
 #: DB:script/name:141
 msgid "Woleai"
 msgstr "沃莱艾文"
 
-#. frequency:2 iso_code:Yiii 
+#. frequency:2 iso_code:Yiii
 #: DB:script/name:90
 msgid "Yi"
 msgstr "彝文"
 
-#. frequency:2 iso_code:Qaaa 
+#. frequency:2 iso_code:Qaaa
 #: DB:script/name:160
 msgid "[Multiple scripts]"
 msgstr "[多文本]"
