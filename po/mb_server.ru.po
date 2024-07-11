@@ -42,9 +42,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-28 20:29+0000\n"
-"PO-Revision-Date: 2024-06-26 15:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-07-04 15:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -52,9 +52,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.6\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -7613,7 +7613,7 @@ msgstr ""
 
 #: ../root/collection/CollectionMerge.js:65 ../root/user/UserCollections.js:72
 msgid "Public"
-msgstr ""
+msgstr "Открытые"
 
 #: ../root/collection/CollectionMerge.js:66 ../root/user/UserCollections.js:72
 msgid "Private"
@@ -9873,18 +9873,14 @@ msgstr ""
 "попытаться выполнить {search_url|поиск по правкам}."
 
 #: ../root/entity/NotFound.js:73
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Editor not found"
 msgctxt "header"
 msgid "Edit note not found"
-msgstr "Редактор не найден"
+msgstr "Комментарий к правке не найден"
 
 #: ../root/entity/NotFound.js:75
-#, fuzzy
-#| msgid "Sorry, we could not find a collection with that MusicBrainz ID."
 msgid "Sorry, we could not find an edit note with that ID."
-msgstr "Извините, но мы не можем найти коллекцию с данным MusicBrainz ID."
+msgstr ""
+"Извините, но мы не можем найти комментарий к правке с данным MusicBrainz ID."
 
 #: ../root/entity/NotFound.js:81
 msgctxt "header"

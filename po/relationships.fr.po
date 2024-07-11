@@ -41,7 +41,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-29 00:42+0000\n"
+"PO-Revision-Date: 2024-07-10 21:42+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
@@ -51,7 +51,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -1566,6 +1566,9 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
+"Les éditeurs devraient être ajoutés aux œuvres à la place. Gardez à l’esprit "
+"que ce n’est <strong>pas</strong> le même concept qu’une <a href=\"/doc/"
+"Label\" target=\"_blank\">maison de disques</a>."
 
 #. name:purevolume
 #: DB:link_type/link_phrase:174
@@ -1726,6 +1729,11 @@ msgid ""
 "Can't find an instrument? <a href=\"https://musicbrainz.org/doc/"
 "How_to_Add_Instruments\" target=\"_blank\">Request it!</a>"
 msgstr ""
+"Cet attribut décrit les instruments possibles qui peuvent être enregistrés "
+"dans le cadre d’une performance.\n"
+"<br/>\n"
+"Vous ne trouvez pas un instrument ? <a href=\"https://musicbrainz.org/doc/"
+"How_to_Add_Instruments\" target=\"_blank\">Demandez le !</a>"
 
 #. name:guest
 #: DB:link_attribute_type/description:194
@@ -2545,6 +2553,8 @@ msgid ""
 "This indicates that an instrument (often an ensemble or family) consists of "
 "two or more other instruments."
 msgstr ""
+"Ceci indique qu’un instrument (souvent un ensemble ou une famille) consiste "
+"en deux ou plus autres instruments."
 
 #. name:hybrid of
 #: DB:link_type/description:916
@@ -2594,6 +2604,11 @@ msgid ""
 "conductors, and by the title of \"principal [instrument]\" or "
 "\"concertmaster\" (principal violin) for instruments."
 msgstr ""
+"Ceci indique qu’un groupe a plusieurs chefs d’orchestre ou plusieurs joueurs "
+"de l’instrument sélectionné qui sont dirigés par cet artiste. C’est "
+"généralement indiqué par le titre « chef d’orchestre principal » pour les "
+"chefs d’orchestre, et par le titre « premier [instrument] » ou « [intrument] "
+"solo » pour les instrumentistes."
 
 #. name:misc
 #: DB:link_type/description:999 DB:link_type/description:998
@@ -2652,6 +2667,12 @@ msgid ""
 "still contain backing vocals and other sections that would not be present in "
 "a true instrumental recording."
 msgstr ""
+"Ceci indique que cet enregistrement est une version karaoké de cette œuvre. "
+"Cela diffère d’un enregistrement instrumental dans le sens où cette version "
+"est prévue pour chanter par dessus, et donc que les informations sur les "
+"paroles sont toujours pertinentes. De plus, elle peut toujours contenir des "
+"chœurs et d’autres sections qui ne pourraient pas être présentes dans un "
+"enregistrement purement instrumental."
 
 #. name:related to
 #: DB:link_type/description:738
@@ -2659,6 +2680,8 @@ msgid ""
 "This indicates that two instruments are related in a way not covered by "
 "other, more specific relationships."
 msgstr ""
+"Ceci indique que deux instruments sont liés d’une façon qui n’est pas "
+"couverte par des relations plus spécifiques."
 
 #. name:headquarters
 #: DB:link_type/description:1237
@@ -2968,6 +2991,9 @@ msgid ""
 "specific territory. Use this only when you have a specific sub-publisher "
 "credit, do not guess."
 msgstr ""
+"Ceci indique qu’un éditeur a sous-traité pour publier une parution ou une "
+"œuvre dans une région spécifique. N’utilisez ceci que s’il y a un crédit "
+"spécifique pour un sous-éditeur, n’essayez pas de deviner."
 
 #. name:named after
 #: DB:link_type/description:974
@@ -3284,6 +3310,11 @@ msgid ""
 "(for example, a hip hop beat without the rap tracks). For karaoke tracks, "
 "use the karaoke relationship."
 msgstr ""
+"Ceci est utilisé pour lier une version instrumentale d’une chanson à la "
+"chanson originale.<br/><br/>\n"
+"Une version instrumentale ne contient aucune voix (par exemple, un rythme "
+"hip hop sans les pistes de rap). Pour des pistes de karaoké, utilisez une "
+"relation de type karaoké."
 
 #. name:discogs
 #: DB:link_type/description:180
@@ -4241,11 +4272,12 @@ msgstr ""
 #: DB:link_type/description:737
 msgid "This links an instrument to an older instrument that it was based on."
 msgstr ""
+"Ceci relie un instrument à un instrument plus ancien sur lequel il est basé."
 
 #. name:subtype
 #: DB:link_type/description:736
 msgid "This links an instrument to more specific subtypes of it."
-msgstr ""
+msgstr "Ceci relie un instrument à un sous-type de cet instrument."
 
 #. name:married
 #: DB:link_type/description:111
@@ -5313,6 +5345,8 @@ msgstr ""
 msgid ""
 "This relationship type links instruments to genres they are commonly used in."
 msgstr ""
+"Ce type de relation relie un instrument à un genre pour lequel il est "
+"souvent utilisé."
 
 #. name:instrument origin
 #: DB:link_type/description:752
@@ -5876,7 +5910,7 @@ msgstr "groupes associés"
 
 #: DB:link_type/name:1090
 msgid "associated instrument"
-msgstr ""
+msgstr "instrument associé"
 
 #. name:single from
 #: DB:link_type/reverse_link_phrase:11
@@ -9937,12 +9971,12 @@ msgstr "type de"
 #. name:associated instrument
 #: DB:link_type/reverse_link_phrase:1090
 msgid "used in"
-msgstr ""
+msgstr "utilisé en"
 
 #. name:associated instrument
 #: DB:link_type/link_phrase:1090
 msgid "used instruments"
-msgstr ""
+msgstr "utilise les instruments"
 
 #: DB:link_type/name:86 DB:link_type/name:191 DB:link_type/name:210
 #: DB:link_type/name:788 DB:link_type/name:992 DB:link_type/name:1013
@@ -10556,6 +10590,8 @@ msgid ""
 "{additional:additionally} {associate} {co:co-}arranged {instrument:%|"
 "instruments} on"
 msgstr ""
+"a {additional:aussi} {co:co-}arrangé {instrument:%|les instruments} "
+"{associate:, en tant qu’associé} sur"
 
 #. name:vocal arranger
 #: DB:link_type/long_link_phrase:294 DB:link_type/long_link_phrase:296
@@ -10571,6 +10607,8 @@ msgid ""
 "{additional:additionally} {associate} {instrument:%|instruments} {co:co-}"
 "arranged"
 msgstr ""
+"{additional:aussi} {co:co-}arrangé {instrument:%|les instruments} {associate:"
+", en tant qu’associé}"
 
 #. name:vocal arranger
 #: DB:link_type/link_phrase:294 DB:link_type/link_phrase:296
@@ -10953,6 +10991,8 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:282
 msgid "{additional} {associate} {instrument:%|instruments} {co:co-}arranger"
 msgstr ""
+"{co:co-}arrangeur {additional:supplémentaire} {instrument:%|des instruments} "
+"{associate:, en tant qu’associé}"
 
 #. name:vocal arranger
 #: DB:link_type/reverse_link_phrase:294 DB:link_type/reverse_link_phrase:296
@@ -11230,7 +11270,7 @@ msgstr "{entity1} est un hommage à {entity0}"
 #. name:instrument origin
 #: DB:link_type/long_link_phrase:752
 msgid "{entity1} is an instrument from {entity0}"
-msgstr ""
+msgstr "{entity1} est un instrument de {entity0}"
 
 #. name:commentary
 #: DB:link_type/long_link_phrase:1176 DB:link_type/long_link_phrase:1177
@@ -11240,7 +11280,7 @@ msgstr ""
 #. name:associated instrument
 #: DB:link_type/long_link_phrase:1090
 msgid "{entity1} is commonly used in {entity0}"
-msgstr ""
+msgstr "{entity1} est couramment utilisé en {entity0}"
 
 #. name:dedicated to, name:dedication
 #: DB:link_type/long_link_phrase:983 DB:link_type/long_link_phrase:846
@@ -11597,13 +11637,13 @@ msgstr "{step:beaux-}parents"
 #: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:208
 #: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:362
 msgid "{sub:sub-}published"
-msgstr ""
+msgstr "{sub:sous-}édité"
 
 #. name:published, name:publishing
 #: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:208
 #: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:362
 msgid "{sub:sub-}publisher"
-msgstr ""
+msgstr "{sub:sous-}éditeur"
 
 #. name:cover
 #: DB:link_type/reverse_link_phrase:15

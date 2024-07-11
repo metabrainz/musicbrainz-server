@@ -24,7 +24,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-27 21:17+0000\n"
+"PO-Revision-Date: 2024-07-02 18:42+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.6\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -8133,7 +8133,7 @@ msgstr ""
 #. name:producer position
 #: DB:link_type/name:117 DB:link_type/link_phrase:117
 msgid "producer position"
-msgstr "posición de productor"
+msgstr "puesto de productor"
 
 #. name:producer position
 #: DB:link_type/reverse_link_phrase:117
@@ -9601,7 +9601,7 @@ msgstr ""
 #: DB:link_type/link_phrase:54 DB:link_type/link_phrase:167
 #: DB:link_type/long_link_phrase:54 DB:link_type/long_link_phrase:167
 msgid "{additional:additionally} wrote"
-msgstr "escritor {additional}"
+msgstr "escribió {additional:adicionalmente}"
 
 #. name:librettist
 #: DB:link_type/long_link_phrase:57 DB:link_type/long_link_phrase:169
@@ -9699,7 +9699,9 @@ msgstr "{co:co-}ingeniero {executive} {additional} {assistant} {associate}"
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}{executive:"
 "executive }produced"
-msgstr "{co:co-}productor {executive} {additional} {assistant} {associate}"
+msgstr ""
+"{co:co-}productor {executive:ejecutivo} {additional:adicional} "
+"{assistant:asistente} {associate:asociado} en"
 
 #. name:mastering
 #: DB:link_type/long_link_phrase:42
@@ -10083,8 +10085,8 @@ msgstr ""
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }producer"
 msgstr ""
-"{co:co-}productor {executive:ejecutivo} {additional:adicional} {assistant:"
-"asistente} {associate:asociado}"
+"{co:co-}productor {executive:ejecutivo} {additional:adicional} "
+"{assistant:asistente} {associate:asociado}"
 
 #. name:mastering
 #: DB:link_type/link_phrase:42 DB:link_type/reverse_link_phrase:42

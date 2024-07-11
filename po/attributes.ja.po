@@ -25,11 +25,12 @@
 # 和田篤 <email address hidden>, 2019
 # 和田篤 <email address hidden>, 2018
 # Jaken264 <korosuke0836@gmail.com>, 2023.
+# Lunae_XD <raru0916@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-10-24 14:27+0000\n"
-"Last-Translator: Jaken264 <korosuke0836@gmail.com>\n"
+"PO-Revision-Date: 2024-07-05 16:42+0000\n"
+"Last-Translator: Lunae_XD <raru0916@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ja/>\n"
 "Language: ja\n"
@@ -37,7 +38,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -96,27 +97,24 @@ msgid "12\" Vinyl"
 msgstr "12インチビニール盤"
 
 #: DB:medium_format/name:207
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "7\" Vinyl"
 msgctxt "medium_format"
 msgid "3\" Vinyl"
-msgstr "7インチビニール盤"
+msgstr "3インチビニール盤"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
-msgstr "3.5インチ フロッピーディスク"
+msgstr "3.5インチフロッピーディスク"
 
 #: DB:medium_format/name:91
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
-msgstr "5.25インチ フロッピーディスク"
+msgstr "5.25インチフロッピーディスク"
 
 #: DB:medium_format/name:204
 msgctxt "medium_format"
 msgid "7\" Acetate"
-msgstr ""
+msgstr "7インチアセテート盤"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -131,7 +129,7 @@ msgstr "7インチシェラック盤"
 #: DB:medium_format/name:29
 msgctxt "medium_format"
 msgid "7\" Vinyl"
-msgstr "7インチビニール盤"
+msgstr "7インチ ビニール盤"
 
 #: DB:medium_format/name:71
 msgctxt "medium_format"
@@ -155,12 +153,9 @@ msgstr "8cm CD+G"
 
 #. name:MiniDVD
 #: DB:medium_format/description:166
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "8cm DVD disc, often used for video singles."
 msgctxt "medium_format"
 msgid "8cm DVD, often used for video singles."
-msgstr "8cmDVDは、しばしばビデオシングルで使用されます。"
+msgstr "8cmDVDは、しばしばビデオシングルで使用される。"
 
 #. name:Pathé disc
 #: DB:medium_format/description:58
@@ -204,6 +199,30 @@ msgid ""
 "for example, a various artists soundtrack using pre-released music should be "
 "marked as both a soundtrack and a compilation.</p>"
 msgstr ""
+"<p>MusicBrainzデータベースにおけるコンピレーションとは、以下のようなリリース"
+"を指す：</p>\n"
+"\n"
+"<ul>\n"
+"<li>様々な古い音源（必ずしもリリースされたものではない）を集めたもの。例えば"
+"、ベスト盤、回顧盤、レア盤のようなもの。</li>\n"
+"<li>様々なアーティストの曲を集めたもの。特に、一般的なテーマ（「恋人たちの歌"
+"」）、特定の時代（「1998年のヒット」）、またはその他のグループ（「映画の歌」"
+"、「カフェ・デル・マール」シリーズなど）に基づくもの。</li>\n"
+"</ul>\n"
+"\n"
+"<p>MusicBrainzプロジェクトでは、一般的に以下のものはコンピレーションとはみな"
+"さない：</p>\n"
+"\n"
+"<ul>\n"
+"<li>リイシュー盤のうち、ボーナストラックが含まれるもの。</li>\n"
+"<li>他のアーティストの楽曲のカバーを含むトリビュート盤。</li>\n"
+"<li>クラシックアーティストの作品の新録音を含むクラシックリリース。</li>\n"
+"<li>複数のアーティストの新曲を含むスプリット盤</li>\n"
+"</ul>\n"
+"\n"
+"<p>コンピレーションはその他のタイプの代わりに使うべきではありません。例えば、"
+"リリース前の音楽を使った様々なアーティストのサウンドトラックは、サウンドトラ"
+"ックとコンピレーションの両方のマークすべきである。</p>"
 
 #. name:Single
 #: DB:release_group_primary_type/description:2
@@ -242,6 +261,31 @@ msgid ""
 "songs by two different artists are released on the one disc, typically vinyl."
 "</p>"
 msgstr ""
+"<p>シングルはリリースされる市場によって定義が異なる。</p>\n"
+"\n"
+"<ul>\n"
+"<li>米国でシングルは、1曲のメイン曲と、場合によってはさらに追加トラックやリミ"
+"ックスで構成されることが一般的である。名前はメイン曲にちなんだ命名がされる。"
+"主にラジオでプレイされ、メイン曲の売り上げを伸ばす目的でリリースされる。</li>"
+"\n"
+"<li>英国（オーストラリアやヨーロッパでも同様）でのシングルは米国と似ています"
+"が、2枚組でリリースされ、それぞれ別々で販売されることが一般的である。また、「"
+"マキシ・シングル」と呼ばれる、より長いバージョンのシングル（2枚組バージョンの"
+"トラックを組み合わせたもの）が用意されることもあり、これは米国のシングルによ"
+"く似ている。（マキシ・シングルは通常版のシングルよりの長い期間販売される場合"
+"もある。）</li>\n"
+"<li>日本はよりその長さと販売価格からよりシングル主導である。かつてはシングル"
+"はミニCDでリリースされるのが一般的であったが、1995年頃にミニCDが廃止され、"
+"現在では一般的な12cm CDでのリリースが一般的である。1995年以前のミニCDでリリー"
+"スされたシングルであっても再リリースされる際には12cm CDでリリースされる。日本"
+"のシングルはインストゥルメンタル・バージョンを含むことが多いが、イギリスのよ"
+"うにリミックス・バージョンを含むことも多い。マキシシングルはEPよりは曲数が多"
+"いが、2~3曲の同じ曲の別バージョンから構成されていることからシングルに分類され"
+"る。</li>\n"
+"</ul>\n"
+"\n"
+"<p>2人の異なるアーティストの曲が1枚のCDでリリースする、スプリットシングルと呼"
+"ばれる種類のシングルもある。</p>"
 
 #. name:KiT Album
 #: DB:medium_format/description:95
