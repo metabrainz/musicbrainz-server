@@ -19,9 +19,10 @@ import IntentionallyRawIcon
 
 component EditRelationshipAttribute(edit: EditRelationshipAttributeEditT) {
   const display = edit.display_data;
+  const attributeType = display.attribute_type;
   const childOrder = display.child_order;
-  const oldDescription = display.description.old ?? '';
-  const newDescription = display.description.new ?? '';
+  const oldDescription = display.description?.old ?? '';
+  const newDescription = display.description?.new ?? '';
   const descriptionChanges = newDescription !== oldDescription;
   const name = display.name;
   const parent = display.parent;
@@ -42,14 +43,7 @@ component EditRelationshipAttribute(edit: EditRelationshipAttributeEditT) {
 
   return (
     <table className="details edit-relationship-attribute">
-      {name.new === name.old ? (
-        <tr>
-          <th>{addColonText(l('Name'))}</th>
-          <td colSpan="2">
-            {l_relationships(name.old)}
-          </td>
-        </tr>
-      ) : (
+      {name ? (
         <WordDiff
           extraNew={rawIconSection}
           extraOld={rawIconSection}
@@ -57,7 +51,14 @@ component EditRelationshipAttribute(edit: EditRelationshipAttributeEditT) {
           newText={name.new}
           oldText={name.old}
         />
-      )}
+      ) : attributeType ? (
+        <tr>
+          <th>{addColonText(l('Name'))}</th>
+          <td colSpan="2">
+            {l_relationships(attributeType.name)}
+          </td>
+        </tr>
+      ) : null}
 
       {descriptionChanges ? (
         <WordDiff

@@ -13,6 +13,7 @@ with 'MusicBrainz::Server::Edit::Event',
      'MusicBrainz::Server::Edit::Role::RemoveArt';
 
 sub edit_name { N_lp('Remove event art', 'singular, edit type') }
+sub edit_type_name_context { 'singular, edit type' }
 sub edit_template { 'RemoveEventArt' }
 sub edit_type { $EDIT_EVENT_REMOVE_EVENT_ART }
 

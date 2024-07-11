@@ -1,0 +1,82 @@
+{
+  title: 'MBS-13615',
+  commands: [
+    {
+      command: 'open',
+      target: '/release/1bda2f85-0576-4077-b3fa-0fc939079b61/edit-relationships',
+      value: '',
+    },
+    {
+      command: 'check',
+      target: 'css=input.all-recordings',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#batch-tools button.batch-add-recording-relationship',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=#batch-add-recording-relationship-dialog select.entity-type',
+      value: 'label=Recording',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#batch-add-recording-relationship-dialog input.relationship-type',
+      value: 'remix${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: 'css=#batch-add-recording-relationship-dialog input.relationship-target',
+      value: 'b6d2e7d2-bc81-44d8-a781-60689338f97c',
+    },
+    {
+      command: 'pause',
+      target: '1500',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#batch-add-recording-relationship-dialog input.relationship-target',
+      value: '${KEY_ENTER}',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=#relationship-editor-form button.positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: 'b7eaa6da-50f1-463a-845f-2a3d9a47b881',
+            id: 22521483,
+            name: 'Evening Time',
+          },
+          entity1: {
+            gid: 'b6d2e7d2-bc81-44d8-a781-60689338f97c',
+            id: 22521482,
+            name: 'Foreplay',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 230,
+            link_phrase: 'remix of',
+            long_link_phrase: 'is a remix of',
+            name: 'remix',
+            reverse_link_phrase: 'remixes',
+          },
+          type0: 'recording',
+          type1: 'recording',
+        },
+      },
+    },
+  ],
+}

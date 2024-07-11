@@ -30,7 +30,7 @@ component CancelEdit(
       </p>
 
       <div className="edit-list">
-        <h2>{l(edit.edit_name)}</h2>
+        <h2>{lp(edit.edit_name, edit.edit_type_name_context)}</h2>
         <div className="edit-details">
           {edit.data
             ? detailsElement

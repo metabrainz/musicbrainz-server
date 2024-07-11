@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+set -e -u
+
+SCRIPT_NAME=$(basename "$0")
+
+HELP=$(cat <<EOH
+Usage: $SCRIPT_NAME
+
+Format the input stream assuming it is a PO file
+to clean up the (#.) extracted comments by:
+    * removing the PACKAGE VERSION lines left by msguniq,
+    * removing any trailing space,
+    * sorting the other lines,
+    * merging duplicate lines,
+    * merging lines with a comma (,) as separator.
+
+SEE ALSO
+    https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html
+EOH
+)
+
+if [[ $# -gt 1 ]]
+then
+  echo >&2 "$SCRIPT_NAME: too many arguments"
+  echo >&2 "$HELP"
+  exit 64
+elif [[ $# -eq 1 ]]
+then
+  if echo "$1" | grep -Eqx -- '-*h(elp)?'
+  then
+    echo "$HELP"
+    exit
+  else
+    echo >&2 "$SCRIPT_NAME: unrecognized option: $1"
+    echo >&2 "$HELP"
+    exit 64
+  fi
+fi
+
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
+source "$MB_SERVER_ROOT"/script/macos_compat.inc.sh
+
+extracted_comment_lines=''
+
+while read -r line
+do
+  if [[ $line =~ ^#\. ]]
+  then
+    if [[ $line != *PACKAGE\ VERSION* ]]
+    then
+      if [[ -z $extracted_comment_lines ]]
+      then
+        extracted_comment_lines="$line"$'\n'
+      else
+        extracted_comment_lines="${extracted_comment_lines}$line"$'\n'
+      fi
+    fi
+  else
+    if [[ -n $extracted_comment_lines ]]
+    then
+      echo -n "$extracted_comment_lines" \
+        | sed '/PACKAGE VERSION/d' \
+        | sed 's_ *$__' \
+        | sort -u \
+        | sed -z 's_\n#\._,_g'
+      extracted_comment_lines=''
+    fi
+    echo "$line"
+  fi
+done
+
+# vi: set et sts=2 sw=2 ts=2 :

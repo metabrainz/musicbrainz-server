@@ -229,6 +229,20 @@ test('getUpdatedTrackArtists', function (t) {
         name('D', '5'),
       ],
     },
+    {
+      desc: 'artist change with trailing join phrase, track matches old',
+      track: [name('Old', '1')],
+      oldRel: [name('Old', '1')],
+      newRel: [name('New', '2', ' & Friends')],
+      want: [name('New', '2', ' & Friends')],
+    },
+    {
+      desc: 'artist change with trailing join phrase, track matches old but has feat',
+      track: [name('Old', '1', ' feat. '), name('Aged', '3')],
+      oldRel: [name('Old', '1')],
+      newRel: [name('New', '2', ' & Friends')],
+      want: [name('New', '2', ' feat. '), name('Aged', '3')],
+    },
   ];
   /* eslint-enable sort-keys */
 

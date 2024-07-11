@@ -50,6 +50,7 @@ const ADDED_ENTITIES_TYPES = {
   artist:       N_l('Artist'),
   cover_art:    N_lp('Cover art', 'singular'),
   event:        N_l('Event'),
+  event_art:    N_lp('Event art', 'singular'),
   instrument:   N_l('Instrument'),
   label:        N_l('Label'),
   place:        N_l('Place'),
@@ -438,14 +439,16 @@ component UserEditsProperty(
   const encodedName = encodeURIComponent(user.name);
   const createEditTypes: string = entityType === 'cover_art'
     ? String(TYPES.EDIT_RELEASE_ADD_COVER_ART)
-    : entityType === 'release' ? (
-      // Also list historical edits
-      [
-        TYPES.EDIT_RELEASE_CREATE,
-        TYPES.EDIT_HISTORIC_ADD_RELEASE,
-      ].join(',')
-    // $FlowIgnore[invalid-computed-prop]
-    ) : String(TYPES[`EDIT_${entityType.toUpperCase()}_CREATE`]);
+    : entityType === 'event_art'
+      ? String(TYPES.EDIT_EVENT_ADD_EVENT_ART)
+      : entityType === 'release' ? (
+        // Also list historical edits
+        [
+          TYPES.EDIT_RELEASE_CREATE,
+          TYPES.EDIT_HISTORIC_ADD_RELEASE,
+        ].join(',')
+      // $FlowIgnore[invalid-computed-prop]
+      ) : String(TYPES[`EDIT_${entityType.toUpperCase()}_CREATE`]);
   const searchEditsURL = ((createEditTypes: string) => (
     '/search/edits' +
     '?auto_edit_filter=' +
@@ -506,6 +509,7 @@ type EntitiesStatsT = {
   +artist: number,
   +cover_art: number,
   +event: number,
+  +event_art: number,
   +instrument: number,
   +label: number,
   +place: number,

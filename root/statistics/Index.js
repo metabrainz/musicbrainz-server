@@ -925,6 +925,28 @@ component Index(
             <td>{fp('event.type.null', 'event')}</td>
           </tr>
         </tbody>
+        <tbody>
+          <tr className="thead">
+            <th colSpan="5">{l_statistics('Event art')}</th>
+          </tr>
+          <tr>
+            <th colSpan="3">{addColonText(l_statistics('Events'))}</th>
+            <td>{fc('event')}</td>
+            <td />
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{l_statistics('With EAA poster art:')}</th>
+            <td>{fc('event.has_eaa_poster')}</td>
+            <td>{fp('event.has_eaa_poster', 'event')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{l_statistics('No poster art:')}</th>
+            <td>{fc('event.has_no_eaa_poster')}</td>
+            <td>{fp('event.has_no_eaa_poster', 'event')}</td>
+          </tr>
+        </tbody>
       </table>
 
       <h2>{l_statistics('Collections')}</h2>
@@ -1018,6 +1040,12 @@ component Index(
             <th colSpan="2">{addColonText(l_statistics('Of artists'))}</th>
             <td>{fc('collection.type.artist')}</td>
             <td>{fp('collection.type.artist', 'collection')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="2">{addColonText(l_statistics('Of genres'))}</th>
+            <td>{fc('collection.type.genre')}</td>
+            <td>{fp('collection.type.genre', 'collection')}</td>
           </tr>
           <tr>
             <th />

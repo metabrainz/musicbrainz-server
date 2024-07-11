@@ -41,8 +41,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-14 12:30+0000\n"
-"PO-Revision-Date: 2024-06-15 22:42+0000\n"
+"POT-Creation-Date: 2024-06-28 20:29+0000\n"
+"PO-Revision-Date: 2024-07-04 15:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -54,7 +54,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.5\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -105,7 +105,7 @@ msgstr ""
 #: ../root/edit/details/historic/AddRelease.js:84
 #: ../root/recording/RecordingIndex.js:43
 #: ../root/static/scripts/release/components/MediumTable.js:72
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1543
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1551
 #: ../root/utility/tableColumns.js:573
 msgid "#"
 msgstr "#"
@@ -147,14 +147,12 @@ msgid "(add a new recording)"
 msgstr "(добавить новую запись)"
 
 #: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
-#, fuzzy
-#| msgid "(no other cover art)"
 msgid "(no other images)"
-msgstr "(нет других обложек)"
+msgstr "(нет других изображений)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
-#: ../root/edit/details/MergeReleases.js:233
+#: ../root/cdtoc/lookup.tt:43 ../root/edit/details/MergeReleases.js:233
 #: ../root/recording/RecordingIndex.js:50
 #: ../root/release_group/ReleaseGroupIndex.js:162
 #: ../root/search/components/ReleaseResults.js:115
@@ -266,12 +264,9 @@ msgid "Add event"
 msgstr "Добавить событие"
 
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add event"
 msgctxt "plural, header"
 msgid "Add event art"
-msgstr "Добавить событие"
+msgstr "Добавить фото к событию"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 msgctxt "header"
@@ -434,7 +429,7 @@ msgstr "Область"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:29
 #: ../root/cdtoc/list.tt:8 ../root/cdtoc/lookup.tt:42
-#: ../root/cdtoc/lookup.tt:75 ../root/edit/search_macros.tt:434
+#: ../root/cdtoc/lookup.tt:77 ../root/edit/search_macros.tt:434
 #: ../root/release/edit/information.tt:26 ../root/release/edit/tracklist.tt:110
 #: ../root/release/edit/tracklist.tt:163 ../root/release/edit/tracklist.tt:453
 #: ../root/release_group/set_cover_art.tt:32
@@ -522,7 +517,7 @@ msgctxt "interactive"
 msgid "Attach CD TOC"
 msgstr "Добавить таблицу содержимого CD"
 
-#: ../root/cdtoc/lookup.tt:66 ../root/release/edit/tracklist.tt:478
+#: ../root/cdtoc/lookup.tt:68 ../root/release/edit/tracklist.tt:478
 msgid "Attach disc ID"
 msgstr "Добавить ID диска"
 
@@ -530,14 +525,14 @@ msgstr "Добавить ID диска"
 msgid "Attached to releases"
 msgstr "Добавлена к релизам"
 
-#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:73
+#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:74
 msgctxt "user type"
 msgid "Auto-editor"
 msgstr "Авторедактор"
 
 #: ../root/cdtoc/attach_artist_releases.tt:19
 #: ../root/cdtoc/attach_filter_release.tt:33 ../root/cdtoc/list.tt:13
-#: ../root/cdtoc/lookup.tt:47 ../root/release/edit/duplicates.tt:17
+#: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:17
 #: ../root/release/edit/information.tt:222
 #: ../root/release_group/set_cover_art.tt:62
 #: ../root/components/list/ReleaseList.js:123
@@ -683,7 +678,7 @@ msgstr "Кат. №:"
 
 #: ../root/cdtoc/attach_artist_releases.tt:18
 #: ../root/cdtoc/attach_filter_release.tt:32 ../root/cdtoc/list.tt:12
-#: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:16
+#: ../root/cdtoc/lookup.tt:45 ../root/release/edit/duplicates.tt:16
 #: ../root/release_group/set_cover_art.tt:56
 #: ../root/edit/details/MergeReleases.js:235
 #: ../root/recording/RecordingIndex.js:52
@@ -757,7 +752,7 @@ msgstr "Скопировать название издания в группу �
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
-#: ../root/cdtoc/lookup.tt:44 ../root/release/edit/duplicates.tt:14
+#: ../root/cdtoc/lookup.tt:43 ../root/release/edit/duplicates.tt:14
 #: ../root/release/edit/information.tt:156
 #: ../root/release_group/set_cover_art.tt:41
 #: ../root/edit/details/EditReleaseLabel.js:109
@@ -842,8 +837,8 @@ msgstr ""
 #: ../root/edit/details/AddRelationshipAttribute.js:38
 #: ../root/edit/details/AddRelationshipType.js:66
 #: ../root/edit/details/EditInstrument.js:67
-#: ../root/edit/details/EditRelationshipAttribute.js:66
-#: ../root/edit/details/EditRelationshipAttribute.js:72
+#: ../root/edit/details/EditRelationshipAttribute.js:67
+#: ../root/edit/details/EditRelationshipAttribute.js:73
 #: ../root/edit/details/EditRelationshipType.js:188
 #: ../root/edit/details/EditRelationshipType.js:194
 #: ../root/edit/details/EditUrl.js:56
@@ -945,7 +940,7 @@ msgstr "Редактировать"
 #: ../root/components/EntityTabs.js:172 ../root/event/EventArt.js:85
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:89
 #: ../root/release/CoverArt.js:81
-#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:516
+#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:520
 #: ../root/user/UserCollections.js:122
 msgctxt "verb, interactive"
 msgid "Edit"
@@ -1219,14 +1214,14 @@ msgstr "Французский"
 #: ../root/cdstub/index.tt:30 ../root/cdstub/CDStubIndex.js:51
 #: ../root/cdtoc/CDTocInfo.js:22
 msgid "Full TOC:"
-msgstr ""
+msgstr "Полный TOC:"
 
 #: ../root/artist/edit_form.tt:17 ../root/components/list/ArtistList.js:73
 #: ../root/edit/details/AddArtist.js:72 ../root/edit/details/EditArtist.js:91
 #: ../root/layout/components/sidebar/ArtistSidebar.js:85
 #: ../root/search/components/ArtistResults.js:55
 #: ../root/static/scripts/account/components/EditProfileForm.js:222
-#: ../root/user/UserProfile.js:257
+#: ../root/user/UserProfile.js:258
 msgid "Gender"
 msgstr "Пол"
 
@@ -1447,6 +1442,8 @@ msgid ""
 "If you don't see the release you are looking for, you can still add a new "
 "one, using this CD TOC:"
 msgstr ""
+"Если вы не видите нужного вам релиза, вы можете добавить новый, используя "
+"этот TOC:"
 
 #: ../root/components/forms.tt:336 ../root/components/forms.tt:345
 msgid "If you don’t know the code for this entity, just leave the field blank."
@@ -1529,7 +1526,7 @@ msgstr "Импорт CD-заглушки"
 #: ../root/search/components/SearchForm.js:43
 #: ../root/static/scripts/common/constants.js:39
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:58
-#: ../root/user/UserProfile.js:53
+#: ../root/user/UserProfile.js:54
 msgid "Instrument"
 msgstr "Инструмент"
 
@@ -1551,6 +1548,12 @@ msgid ""
 "elsewhere and the durations are significantly different, consider adding a "
 "new recording instead."
 msgstr ""
+"Имейте в виду, что длительность записи {doc_link|пересчитывается из треков}, "
+"как только длительность трека меняется. Поэтому, если вы исправляете "
+"длительность трека, запись которого используется только в этом релизе, "
+"просто используйте старую запись, не добавляя новую. Если же запись "
+"используется и в других местах, и их длительности значительно отличаются, "
+"подумайте о добавлении новой записи."
 
 #: ../root/release/edit/tracklist.tt:502
 msgid ""
@@ -1574,7 +1577,7 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:17
 #: ../root/cdtoc/attach_filter_release.tt:31 ../root/cdtoc/list.tt:11
-#: ../root/cdtoc/lookup.tt:45 ../root/edit/search_macros.tt:434
+#: ../root/cdtoc/lookup.tt:44 ../root/edit/search_macros.tt:434
 #: ../root/release/edit/duplicates.tt:15
 #: ../root/release/edit/information.tt:179
 #: ../root/release_group/set_cover_art.tt:52
@@ -1599,7 +1602,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/FilterForm.js:250
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
-#: ../root/user/UserProfile.js:54 ../root/utility/tableColumns.js:539
+#: ../root/user/UserProfile.js:55 ../root/utility/tableColumns.js:539
 #: ../root/utility/tableColumns.js:544
 msgid "Label"
 msgstr "Лейбл"
@@ -1668,7 +1671,7 @@ msgstr "Строки начинаются с номера трека"
 msgid "Loading edit previews..."
 msgstr "Загрузка предпросмотров правок..."
 
-#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:97
+#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:98
 msgctxt "user type"
 msgid "Location editor"
 msgstr "Редактор локаций"
@@ -1788,7 +1791,7 @@ msgstr "Переместить трек выше"
 #: ../root/edit/details/EditLabel.js:45 ../root/edit/details/EditMedium.js:442
 #: ../root/edit/details/EditPlace.js:41
 #: ../root/edit/details/EditRecording.js:42
-#: ../root/edit/details/EditRelationshipAttribute.js:47
+#: ../root/edit/details/EditRelationshipAttribute.js:50
 #: ../root/edit/details/EditRelationshipAttribute.js:56
 #: ../root/edit/details/EditRelationshipType.js:178
 #: ../root/edit/details/EditRelease.js:53
@@ -1888,12 +1891,16 @@ msgstr "Нет голоса"
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
 msgstr ""
+"Ни один из прикрепленных ID диска не может вместить прегап-трек заданной "
+"длины."
 
 #: ../root/cdtoc/attach_list.tt:78
 msgid ""
 "None of the mediums on this release can have the given CD TOC attached, "
 "because they have the wrong number of tracks."
 msgstr ""
+"Ни к одному из носителей этого релиза нельзя приложить данный TOC из-за "
+"неправильного количества треков."
 
 #: ../root/release/edit/recordings.tt:3 ../root/edit/details/EditRelease.js:160
 #: ../root/edit/details/MergeReleases.js:349
@@ -1988,7 +1995,7 @@ msgstr "Парсер треклиста"
 #: ../root/search/components/SearchForm.js:38
 #: ../root/static/scripts/common/constants.js:41
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
-#: ../root/user/UserProfile.js:55
+#: ../root/user/UserProfile.js:56
 msgid "Place"
 msgstr "Место"
 
@@ -2005,6 +2012,8 @@ msgid ""
 "Please enter the barcode of the release you are entering, see <a "
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
 msgstr ""
+"Пожалуйста, введите штрих-код вводимого релиза, подробнее см. <a "
+"href=\"{url}\" target=\"_blank\">в документации</a>."
 
 #: ../root/layout/merge-helper.tt:24
 #: ../root/layout/components/MergeHelper.js:54
@@ -2018,6 +2027,7 @@ msgstr ""
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
 msgstr ""
+"Пожалуйста, выберите носитель, к которому вы хотите прикрепить этот ТОС."
 
 #: ../root/cdtoc/list.tt:6 ../root/event/add_event_art.tt:125
 #: ../root/event/reorder_event_art.tt:10 ../root/release/add_cover_art.tt:125
@@ -2072,8 +2082,8 @@ msgstr[3] "Оценка: {rating} звезд"
 #: ../root/search/components/SearchForm.js:34
 #: ../root/static/scripts/common/constants.js:42
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:64
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1553
-#: ../root/user/UserProfile.js:56
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1561
+#: ../root/user/UserProfile.js:57
 msgid "Recording"
 msgstr "Запись"
 
@@ -2105,7 +2115,7 @@ msgstr "Записи"
 msgid "Reject"
 msgstr "Отклоненная"
 
-#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:83
+#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:84
 msgctxt "user type"
 msgid "Relationship editor"
 msgstr "Редактор отношений"
@@ -2150,7 +2160,7 @@ msgstr "Тип отношений"
 #: ../root/static/scripts/common/constants.js:43
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:66
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:396
-#: ../root/taglookup/Form.js:27 ../root/user/UserProfile.js:57
+#: ../root/taglookup/Form.js:27 ../root/user/UserProfile.js:58
 msgid "Release"
 msgstr "Релиз"
 
@@ -2193,7 +2203,7 @@ msgstr "Событие релиза"
 #: ../root/static/scripts/common/i18n/localizeTypeNameForEntity.js:36
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:68
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:403
-#: ../root/user/UserProfile.js:58
+#: ../root/user/UserProfile.js:59
 msgid "Release group"
 msgstr "Группа релизов"
 
@@ -2220,7 +2230,7 @@ msgstr "Информация о релизе"
 msgid "Release language"
 msgstr "Язык релиза"
 
-#: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:85
+#: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:87
 #: ../root/cdtoc/move_search.tt:15
 msgid "Release title or MBID"
 msgstr "Название или MBID релиза"
@@ -2342,8 +2352,8 @@ msgstr ""
 msgid "Script"
 msgstr "Написание"
 
-#: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:77
-#: ../root/cdtoc/lookup.tt:87 ../root/cdtoc/move_search.tt:17
+#: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:79
+#: ../root/cdtoc/lookup.tt:89 ../root/cdtoc/move_search.tt:17
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:116
 #: ../root/release/edit/recordings.tt:163 ../root/release/edit/tracklist.tt:117
 #: ../root/cdstub/ImportCDStub.js:43 ../root/cdtoc/SelectArtistForCDToc.js:40
@@ -2359,11 +2369,11 @@ msgstr "Написание"
 msgid "Search"
 msgstr "Поиск"
 
-#: ../root/cdtoc/lookup.tt:71
+#: ../root/cdtoc/lookup.tt:73
 msgid "Search by artist"
 msgstr "Найти по исполнителю"
 
-#: ../root/cdtoc/lookup.tt:81
+#: ../root/cdtoc/lookup.tt:83
 msgid "Search by release"
 msgstr "Поиск по релизу"
 
@@ -2402,26 +2412,17 @@ msgstr ""
 "перенесен."
 
 #: ../root/release/add_cover_art.tt:66
-#, fuzzy
-#| msgid ""
-#| "Please review the {doc|alias documentation} before entering this edit."
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "a description of these types."
 msgstr ""
-"Перед тем как внести эту правку, ознакомьтесь с {doc|документацией по "
-"псевдонимам}."
+"Выберите все применимые типы. Описание этих типов см. в {doc|документации}."
 
 #: ../root/event/add_event_art.tt:66
-#, fuzzy
-#| msgid ""
-#| "Please review the {doc|alias documentation} before entering this edit."
 msgid ""
 "Select all types that apply. See the {doc|Event Art Types} documentation for "
 "a description of these types."
-msgstr ""
-"Перед тем как внести эту правку, ознакомьтесь с {doc|документацией по "
-"псевдонимам}."
+msgstr "Выберите все применимые типы. Описание типов см. в {doc|документации}."
 
 #: ../root/components/forms.tt:369
 msgid ""
@@ -2448,7 +2449,7 @@ msgstr "Предложение"
 #: ../root/search/components/SearchForm.js:44
 #: ../root/static/scripts/common/constants.js:45
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:70
-#: ../root/user/UserProfile.js:59
+#: ../root/user/UserProfile.js:60
 msgctxt "singular"
 msgid "Series"
 msgstr "Серия"
@@ -2563,7 +2564,7 @@ msgid "Stop using beta site"
 msgstr "Не использовать бета-версию"
 
 #: ../root/release/edit/editnote.tt:44
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1840
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1848
 msgid "Submitting edits..."
 msgstr "Внесение правок..."
 
@@ -2577,29 +2578,23 @@ msgstr "Поменять названия треков и исполнителе
 
 #: ../root/cdtoc/attach_artist_releases.tt:21
 #: ../root/cdtoc/attach_filter_release.tt:35 ../root/cdtoc/list.tt:15
-#: ../root/recording/RecordingIndex.js:55
+#: ../root/cdtoc/lookup.tt:48 ../root/recording/RecordingIndex.js:55
 #: ../root/release_group/ReleaseGroupIndex.js:168
 #: ../root/search/components/RecordingResults.js:147
 #: ../root/search/components/ReleaseResults.js:124
 #: ../root/static/scripts/common/components/TaggerIcon.js:74
 #: ../root/utility/tableColumns.js:783
-#, fuzzy
-#| msgid "Tagger"
 msgctxt "audio file metadata"
 msgid "Tagger"
-msgstr "Теггер"
+msgstr "Редактор тегов"
 
 #: ../root/event/add_event_art.tt:12 ../root/release/add_cover_art.tt:12
-#, fuzzy
-#| msgid ""
-#| "The Cover Art Archive is currently experiencing difficulties. Adding "
-#| "images for this release is unlikely to work at the moment."
 msgid ""
 "The Internet Archive is currently experiencing difficulties. Adding images "
 "is unlikely to work at the moment."
 msgstr ""
-"У Cover Art Archive сейчас возникли сложности, из-за чего возможно не "
-"удастся добавить изображение в этот релиз."
+"У Архива интернета сейчас возникли сложности, из-за чего возможно не удастся "
+"добавить изображение."
 
 #: ../root/release/edit/information.tt:348
 msgid "The annotation field functions like a miniature wiki."
@@ -2618,7 +2613,7 @@ msgstr ""
 
 #: ../root/release/edit/layout.tt:23
 msgid "The data you’ve seeded contained the following errors:"
-msgstr ""
+msgstr "В загруженных вами данных обнаружены следующие ошибки:"
 
 #: ../root/release/edit/information.tt:163
 msgid "The date you've entered is not valid."
@@ -2648,6 +2643,10 @@ msgid ""
 "written in, nor to the language used for other extra information on the "
 "cover."
 msgstr ""
+"Атрибут языка должен быть установлен на язык, используемый для названия "
+"релиза и названия треков. Не следует устанавливать язык, на котором написаны "
+"тексты песен, а также язык, используемый для другой дополнительной "
+"информации на обложке."
 
 #: ../root/release/edit/information.tt:351
 msgid ""
@@ -2656,6 +2655,10 @@ msgid ""
 "technical limitations that may be addressed later, or because the "
 "information in itself has to be free-text)."
 msgstr ""
+"Цель этого поля - добавить информацию, которая обычно не вписывается в "
+"строгую структурную схему данных MusicBrainz (будь то из-за технических "
+"ограничений, которые могут быть рассмотрены в дальнейшем, или из-за того, "
+"что информация сама по себе должна быть свободным текстом)."
 
 #: ../root/release/edit/information.tt:320
 msgid ""
@@ -2666,6 +2669,8 @@ msgstr ""
 #: ../root/layout.tt:70 ../root/layout/index.js:240
 msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr ""
+"Сервер временно находится в режиме \"только чтение\" в связи с проведением "
+"технического обслуживания базы данных."
 
 #: ../root/components/forms.tt:359
 msgid ""
@@ -2679,6 +2684,8 @@ msgid ""
 "but not other data such as medium format) will be loaded as a medium on this "
 "release."
 msgstr ""
+"Треклист носителя (включая ассоциации треков/записей, но не другие данные, "
+"такие как формат носителя) будет загружен как носитель в этом релизе."
 
 #: ../root/release/edit/recordings.tt:30 ../root/edit/details/AddMedium.js:137
 #: ../root/edit/details/RemoveMedium.js:82
@@ -2720,7 +2727,7 @@ msgstr ""
 #: ../root/place/edit_form.tt:29
 #: ../lib/MusicBrainz/Server/Form/Field/Coordinates.pm:58
 msgid "These coordinates could not be parsed."
-msgstr ""
+msgstr "Не удалось обработать эти координаты."
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
 msgid "This CD TOC is already attached to this medium."
@@ -2734,15 +2741,23 @@ msgid ""
 "can quote a source to support a point you're making, you should never enter "
 "promotional texts or other artist or label-owned texts into the annotation."
 msgstr ""
+"Эта аннотация будет опубликована под открытой лицензией (<a href=\"{url}\" "
+"target=\"_blank\">CC BY-NC-SA 3.0</a>), и поэтому она не должна содержать "
+"текст, который вы не имеете права выпускать под этой лицензией. Вы можете "
+"процитировать источник, чтобы поддержать свою точку зрения, но в аннотации "
+"не должно быть рекламных текстов или других текстов, принадлежащих "
+"исполнителю или лейблу."
 
 #: ../root/artist/edit_form.tt:53
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:53
 msgid "This artist has ended."
-msgstr ""
+msgstr "Этот исполнитель прекратил существование."
 
 #: ../root/work/edit_form.tt:56
 msgid "This attribute type is only used for grouping, please select a subtype"
 msgstr ""
+"Этот тип атрибута используется только для группировки, пожалуйста, выберите "
+"подтип"
 
 #: ../root/layout.tt:37 ../root/layout/index.js:123
 msgid ""
@@ -2757,7 +2772,7 @@ msgstr "Диск содержит дата-треки на конце"
 
 #: ../root/release/edit/tracklist.tt:494
 msgid "This disc has a hidden pregap track before track 1"
-msgstr ""
+msgstr "Диск содержит скрытый прегап перед первым треком"
 
 #: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:32
@@ -2787,6 +2802,9 @@ msgid ""
 "accepted, all tracks, recordings, releases and release groups using this "
 "artist credit will be update to use the new one."
 msgstr ""
+"Эта форма позволяет вам редактировать указание исполнителя \"{ac}\". Когда "
+"правка будет принята, все треки, записи, релизы и группы релизов, "
+"использующие это имя, будут обновлены, чтобы использовать новое имя."
 
 #: ../root/artist/split.tt:29
 msgid ""
@@ -2822,18 +2840,20 @@ msgid ""
 "wanted a different format (such as “USB Flash Drive” or “Download Card”) or "
 "packaging type."
 msgstr ""
+"Это почти всегда неверно. Уточните, действительно ли вам нужен другой формат "
+"(например \"USB-накопитель\" или \"Карта загрузки\") или тип упаковки."
 
 #: ../root/release_group/set_cover_art.tt:76
 msgid "This is the current release group image"
-msgstr ""
+msgstr "Это текущее изображение группы релизов"
 
 #: ../root/label/edit_form.tt:36
 msgid "This label has ended."
-msgstr ""
+msgstr "Этот лейбл прекратил свою деятельность."
 
 #: ../root/release/edit/information.tt:209
 msgid "This label/catalog number pair already exists."
-msgstr ""
+msgstr "Эта пара лейбл/каталожный номер уже существует."
 
 #: ../root/cdtoc/attach_list.tt:56
 msgid "This medium format cannot have a disc ID attached."
@@ -2844,22 +2864,28 @@ msgid ""
 "This medium format is set to “Digital Media”, but the packaging type for "
 "this release is not “None”."
 msgstr ""
+"Формат носителя установлен на \"Цифровой носитель\", но тип упаковки для "
+"этого релиза не \"Отсутствует\"."
 
 #: ../root/release/edit/tracklist.tt:334
 msgid ""
 "This medium has a disc ID, pregap track, or data track, so you can only "
 "change the format to one that can have disc IDs."
 msgstr ""
+"На этом носителе есть ID диска, прегап-трек или трек с данными, поэтому вы "
+"можете изменить формат только на тот, который может иметь ID диска."
 
 #: ../root/release/edit/tracklist.tt:363 ../root/release/edit/tracklist.tt:373
 msgid ""
 "This medium is set to a format that did not exist on the selected release "
 "date."
 msgstr ""
+"Носитель установлен на формат, который не существовал на выбранную дату "
+"выпуска."
 
 #: ../root/place/edit_form.tt:32
 msgid "This place has ended."
-msgstr ""
+msgstr "Это место прекратило свое существование."
 
 #: ../root/release/edit/tracklist.tt:369
 msgid ""
@@ -2868,13 +2894,17 @@ msgid ""
 "trying to find out what the real format should be or if the release should "
 "be split!"
 msgstr ""
+"Эта проблема уже существовала до того, как вы открыли редактор релиза, "
+"поэтому вам не нужно ничего с ней делать. Но если у вас есть немного "
+"времени, попробуйте выяснить, каким должен быть настоящий формат или нужно "
+"ли разделить релиз!"
 
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:386
 #: ../root/static/scripts/common/components/EntityLink.js:329
 msgid "This recording is a video"
-msgstr ""
+msgstr "Эта запись является видео"
 
 #: ../root/release/edit/information.tt:235
 msgid "This release does not have a barcode"
@@ -2888,12 +2918,21 @@ msgid ""
 "street albums, demos, or digital albums. Be sure to link to the "
 "corresponding real release with the {url|transl(iter)ation relationship}."
 msgstr ""
+"Этот статус релиза должен использоваться для неофициальных переводов и "
+"транслитераций треклистов и названий релизов, и не обозначает отдельного "
+"реального релиза. Он не должен использоваться для обозначения бутлегов, "
+"микстейпов/стрит-альбомов, демо-версий или цифровых альбомов. Обязательно "
+"указывайте ссылку на соответствующий реальный релиз с помощью {url|отношения "
+"перевода/транслитерации}."
 
 #: ../root/release/edit/tracklist.tt:366
 msgid ""
 "This should never be correct. Make sure that, say, your release set to CD "
 "isn’t meant to be a vinyl, or your vinyl isn’t actually a shellac disc."
 msgstr ""
+"Это никогда не должно быть правильным. Убедитесь, что, скажем, ваш релиз, "
+"выпущенный на CD, не является винилом, или что ваш винил на самом деле не "
+"является шеллаковым диском."
 
 #: ../root/components/common-macros.tt:551
 #: ../root/static/scripts/common/components/DataTrackIcon.js:14
@@ -2903,7 +2942,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:547
 #: ../root/static/scripts/common/components/PregapTrackIcon.js:14
 msgid "This track is hidden in the pregap."
-msgstr ""
+msgstr "Этот трек скрыт в прегапе."
 
 #: ../root/event/edit_form.tt:40 ../root/components/list/EventList.js:79
 #: ../root/edit/details/AddEvent.js:73 ../root/edit/details/EditEvent.js:84
@@ -2936,20 +2975,22 @@ msgid ""
 "To enter a new tracklist, use an existing medium or import a disc from a CD "
 "stub, select the appropriate tab."
 msgstr ""
+"Чтобы ввести новый треклист, использовать существующий носитель или "
+"импортировать диск из CD-заглушки, выберите соответствующую вкладку."
 
 #: ../root/cdstub/index.tt:21 ../root/cdstub/CDStubIndex.js:47
 #: ../root/cdtoc/CDTocInfo.js:39
 msgid "Total length:"
-msgstr ""
+msgstr "Общая продолжительность:"
 
 #: ../root/cdstub/index.tt:17 ../root/cdstub/CDStubIndex.js:43
 #: ../root/cdtoc/CDTocInfo.js:35
 msgid "Total tracks:"
-msgstr ""
+msgstr "Всего треков:"
 
 #: ../root/release/edit/tracklist.tt:114
 msgid "Track count:"
-msgstr ""
+msgstr "Количество треков:"
 
 #: ../root/release/edit/tracklist.tt:524
 #: ../root/static/scripts/release-editor/dialogs.js:40
@@ -2990,7 +3031,7 @@ msgstr ""
 "\"Я не знаю трек-лист этого носителя\" выше и введите доступную информацию. "
 "Если у вас нет информации по носителям релиза, уберите их."
 
-#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:90
+#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:91
 msgctxt "user type"
 msgid "Transclusion editor"
 msgstr "Редактор трансклюзий"
@@ -3064,10 +3105,8 @@ msgstr "Тип"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 #: ../root/components/ArtFields.js:64
-#, fuzzy
-#| msgid "Types:"
 msgid "Types"
-msgstr "Типы:"
+msgstr "Типы"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
@@ -3098,11 +3137,13 @@ msgstr "URL"
 
 #: ../root/release/edit/tracklist.tt:21
 msgid "Unable to parse the tracklist you entered."
-msgstr ""
+msgstr "Не удалось обработать введенный вами треклист."
 
 #: ../root/release/edit/recordings.tt:98
 msgid "Update the recording artist credit to match the track artist credit."
 msgstr ""
+"Обновить обозначение исполнителя записи для соответствия обозначению "
+"исполнителя трека."
 
 #: ../root/release/edit/recordings.tt:93
 msgid "Update the recording title to match the track title."
@@ -3127,7 +3168,7 @@ msgstr "Использовать свой разделитель исполни�
 
 #: ../root/release/edit/tracklist.tt:261
 msgid "Use the following fields to search for a CD stub."
-msgstr ""
+msgstr "Используйте поля ниже для поиска заглушки компакт-диска."
 
 #: ../root/release/edit/tracklist.tt:256
 msgid "Use the following fields to search for an existing medium."
@@ -3135,19 +3176,19 @@ msgstr "Используйте поля ниже для поиска сущес�
 
 #: ../root/release/edit/tracklist.tt:60
 msgid "Use track artists"
-msgstr ""
+msgstr "Использовать исполнителей треков"
 
 #: ../root/release/edit/tracklist.tt:95
 msgid "Use track lengths"
-msgstr ""
+msgstr "Использовать длину треков"
 
 #: ../root/release/edit/tracklist.tt:37
 msgid "Use track numbers"
-msgstr ""
+msgstr "Использовать номера треков"
 
 #: ../root/release/edit/tracklist.tt:74
 msgid "Use track titles"
-msgstr ""
+msgstr "Использовать названия треков"
 
 #: ../root/event/add_event_art.tt:81 ../root/release/add_cover_art.tt:81
 msgid "Validating file..."
@@ -3167,14 +3208,14 @@ msgstr "Видео \"{name}\" исполнителя {artist}"
 #: ../root/edit/search_macros.tt:434 ../root/edit/EditIndex.js:71
 #: ../root/edit/components/EditHeader.js:122
 msgid "Vote tally"
-msgstr ""
+msgstr "Итоги голосования"
 
 #: ../root/edit/search_macros.tt:434 ../root/elections/ElectionVotes.js:22
 msgid "Voter"
 msgstr "Участник голосования"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:60
-#: ../root/user/UserProfile.js:669
+#: ../root/user/UserProfile.js:671
 msgid "Votes"
 msgstr "Голоса"
 
@@ -3201,8 +3242,8 @@ msgid ""
 msgstr ""
 "Внимание! \"1990-10-25\" — это фиктивная дата, которую Amazon присваивает "
 "всем релизам, для которых они не знают реальной даты. <strong>Пожалуйста, "
-"используйте эту дату только в том случае, если вы уверены, что она "
-"верна!</strong>"
+"используйте эту дату только в том случае, если вы уверены, что она верна!</"
+"strong>"
 
 #: ../root/cdtoc/attach_filter_release.tt:61
 msgid "We couldn’t find a release matching that MBID."
@@ -3249,7 +3290,7 @@ msgstr "Вики"
 #: ../root/search/components/SearchForm.js:35
 #: ../root/static/scripts/common/constants.js:47
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:74
-#: ../root/user/UserProfile.js:60 ../root/work/WorkLayout.js:25
+#: ../root/user/UserProfile.js:61 ../root/work/WorkLayout.js:25
 msgid "Work"
 msgstr "Работа"
 
@@ -3303,6 +3344,10 @@ msgid ""
 "artists, or “{use_track_lengths}” if you have track lengths but want the "
 "parser to ignore them."
 msgstr ""
+"Вы можете использовать опции под парсером, чтобы деактивировать некоторые "
+"секции. Например, вы можете отключить \"{lines_have_artists}\", если в ваших "
+"данных нет исполнителей треков, или \"{use_track_lengths}\", если у вас есть "
+"длины треков, но парсер должен их игнорировать."
 
 #: ../root/release/edit/information.tt:165
 msgid "You cannot use the same country more than once."
@@ -3310,16 +3355,18 @@ msgstr "Нельзя использовать одну и ту же страну
 
 #: ../root/layout/merge-helper.tt:4 ../root/layout/components/MergeHelper.js:28
 msgid "You currently have the following entities selected for merging:"
-msgstr ""
+msgstr "В настоящее время для объединения выбраны следующие сущности:"
 
 #: ../root/recording/edit_form.tt:7
 msgid ""
 "You have used the {valink|Various Artists} special purpose artist on this "
 "recording."
 msgstr ""
+"Вы использовали в этой записи артиста специального назначения {valink|"
+"Various Artists}."
 
 #: ../root/release/edit/editnote.tt:10
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:195
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:212
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:777
 msgid "You haven’t made any changes!"
 msgstr "Вы не произвели никаких изменений!"
@@ -3337,6 +3384,8 @@ msgid ""
 "You must enter a title for every track (if the track is untitled, enter "
 "“{untitled_track}”)."
 msgstr ""
+"Вы должны ввести название для каждого трека (если трек не имеет названия, "
+"введите \"{untitled_track}\")."
 
 #: ../root/release/edit/editnote.tt:32
 msgid "You must provide an edit note when adding a release."
@@ -3383,12 +3432,17 @@ msgid ""
 "Your edit note seems to have no actual content. Please provide a note that "
 "will be helpful to your fellow editors!"
 msgstr ""
+"Похоже, что ваш комментарий к правке не имеет фактического содержания. "
+"Пожалуйста, напишите комментарий, который будет полезен вашим коллегам-"
+"редакторам!"
 
 #: ../root/edit/search.tt:7
 msgid ""
 "Your search took too long and was cancelled. It may help to be more "
 "specific, or to try again."
 msgstr ""
+"Поиск занял слишком много времени и был отменен. Попробуйте уточнить запрос "
+"или повторите попытку."
 
 #: ../root/layout.tt:21 ../root/layout/index.js:205
 msgid ""
@@ -3410,7 +3464,7 @@ msgstr ""
 "правкам, так как администратор отозвал ваши привилегии. Если вы еще не "
 "получили письмо о причинах этому, пожалуйста, {uri|отправьте нам сообщение}."
 
-#: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:63
+#: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:80
 #: ../root/layout/index.js:214
 msgid ""
 "You’re currently not allowed to leave or change edit notes because an admin "
@@ -3442,7 +3496,7 @@ msgstr "[удалено]"
 
 #: ../root/edit/search_macros.tt:174
 msgid "after"
-msgstr ""
+msgstr "после"
 
 #: ../root/edit/search_macros.tt:39
 msgid "all"
@@ -3464,7 +3518,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:20
 msgid "auto-edits"
-msgstr "авто-редактирование"
+msgstr "автоправки"
 
 #: ../root/edit/search_macros.tt:174
 msgid "before"
@@ -3472,11 +3526,11 @@ msgstr "до"
 
 #: ../root/edit/search_macros.tt:174
 msgid "between"
-msgstr ""
+msgstr "в районе"
 
 #: ../root/release/edit/recordings.tt:79 ../root/release/edit/recordings.tt:83
 msgid "by"
-msgstr ""
+msgstr " "
 
 #: ../root/components/common-macros.tt:111
 #: ../root/static/scripts/common/components/EntityLink.js:105
@@ -4043,20 +4097,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:365
+#: ../root/static/scripts/common/constants.js:367
 msgid "Low"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:366
-#: ../root/static/scripts/common/constants.js:367
+#: ../root/static/scripts/common/constants.js:368
+#: ../root/static/scripts/common/constants.js:369
 msgid "Normal"
 msgstr "Нормальный"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:368
+#: ../root/static/scripts/common/constants.js:370
 msgid "High"
 msgstr ""
 
@@ -4064,30 +4118,30 @@ msgstr ""
 msgid "Default"
 msgstr "По умолчанию"
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:49
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:61
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:79
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:105
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:123
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:66
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:78
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:96
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:122
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:140
 msgid "Can’t change edit note"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:50
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:67
 msgid "You can’t change other users’ edit notes."
 msgstr "Вы не можете редактировать чужие комментарии к правкам."
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:80
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:97
 msgid "This note has already been removed."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:107
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:124
 msgid ""
 "You can’t change this note, since somebody else has already replied to it. "
 "If there’s an important reason why it should be changed (for example, it "
 "contains private data), please {contact_url|contact us}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:125
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:142
 msgid ""
 "You can’t change this note, since it was entered too long ago. If there’s an "
 "important reason why it should be changed (for example, it contains private "
@@ -5815,22 +5869,22 @@ msgid "A fluency level is required."
 msgstr "Выберите уровень владения языком."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:376
+#: ../root/static/scripts/common/constants.js:378
 msgid "Basic"
 msgstr "Начальный"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:377
+#: ../root/static/scripts/common/constants.js:379
 msgid "Intermediate"
 msgstr "Средний"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:375
+#: ../root/static/scripts/common/constants.js:377
 msgid "Advanced"
 msgstr "Продвинутый"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:82
-#: ../root/static/scripts/common/constants.js:378
+#: ../root/static/scripts/common/constants.js:380
 msgid "Native"
 msgstr "Родной"
 
@@ -6251,7 +6305,7 @@ msgstr ""
 #: ../root/static/scripts/account/components/EditProfileForm.js:203
 #: ../root/static/scripts/account/components/PreferencesForm.js:211
 #: ../root/static/scripts/account/components/RegisterForm.js:92
-#: ../root/user/UserProfile.js:178
+#: ../root/user/UserProfile.js:179
 msgid "Email"
 msgstr "Электронная почта"
 
@@ -6424,7 +6478,7 @@ msgid "Applications"
 msgstr "Приложения"
 
 #: ../root/account/applications/ApplicationList.js:90
-#: ../root/user/UserProfile.js:291
+#: ../root/user/UserProfile.js:292
 msgid "Authorized applications"
 msgstr "Авторизованные приложения"
 
@@ -6470,7 +6524,7 @@ msgid "You have not authorized any applications."
 msgstr "У Вас нет авторизованных приложений."
 
 #: ../root/account/applications/ApplicationList.js:125
-#: ../root/user/UserProfile.js:305
+#: ../root/user/UserProfile.js:306
 msgid "Developer applications"
 msgstr "Приложения разработчика"
 
@@ -7518,8 +7572,8 @@ msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "Править"
 
-#: ../root/collection/CollectionIndex.js:202 ../root/user/UserProfile.js:328
-#: ../root/user/UserProfile.js:389
+#: ../root/collection/CollectionIndex.js:202 ../root/user/UserProfile.js:329
+#: ../root/user/UserProfile.js:390
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
@@ -7559,7 +7613,7 @@ msgstr ""
 
 #: ../root/collection/CollectionMerge.js:65 ../root/user/UserCollections.js:72
 msgid "Public"
-msgstr ""
+msgstr "Открытые"
 
 #: ../root/collection/CollectionMerge.js:66 ../root/user/UserCollections.js:72
 msgid "Private"
@@ -7885,7 +7939,7 @@ msgstr "Рецензии"
 
 #: ../root/components/EntityTabs.js:159
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:42
-#: ../root/user/UserProfile.js:823 ../root/user/UserRatingList.js:42
+#: ../root/user/UserProfile.js:825 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
 msgstr "Рейтинги"
@@ -8077,7 +8131,7 @@ msgstr "Подписки"
 #: ../root/entity/Subscribers.js:45
 #: ../root/layout/components/sidebar/CollectionSidebar.js:120
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:52
-#: ../root/user/UserProfile.js:338
+#: ../root/user/UserProfile.js:339
 msgid "Subscribers"
 msgstr "Подписчики"
 
@@ -8510,7 +8564,7 @@ msgid ""
 "subscribed to."
 msgstr ""
 
-#: ../root/edit/components/EditArtwork.js:23
+#: ../root/edit/components/EditArtwork.js:23 ../root/user/UserProfile.js:53
 #, fuzzy
 #| msgid "Event ratings"
 msgctxt "singular"
@@ -8706,7 +8760,7 @@ msgctxt "interactive"
 msgid "Add note"
 msgstr "Добавить комментарий"
 
-#: ../root/edit/components/EditorTypeInfo.js:22 ../root/user/UserProfile.js:105
+#: ../root/edit/components/EditorTypeInfo.js:22 ../root/user/UserProfile.js:106
 msgid "This user is new to MusicBrainz."
 msgstr "Этот пользователь является новым в MusicBrainz."
 
@@ -8917,7 +8971,7 @@ msgstr ""
 "которые больше не существуют."
 
 #: ../root/edit/details/AddRelationshipAttribute.js:46
-#: ../root/edit/details/EditRelationshipAttribute.js:89
+#: ../root/edit/details/EditRelationshipAttribute.js:90
 #: ../root/edit/details/EditRelationshipType.js:233
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:115
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:158
@@ -8926,18 +8980,18 @@ msgid "Child order"
 msgstr ""
 
 #: ../root/edit/details/AddRelationshipAttribute.js:51
-#: ../root/edit/details/EditRelationshipAttribute.js:81
+#: ../root/edit/details/EditRelationshipAttribute.js:82
 #: ../root/edit/details/EditRelationshipType.js:309
 msgid "Parent"
 msgstr ""
 
 #: ../root/edit/details/AddRelationshipAttribute.js:56
-#: ../root/edit/details/EditRelationshipAttribute.js:97
+#: ../root/edit/details/EditRelationshipAttribute.js:98
 msgid "Creditable"
 msgstr ""
 
 #: ../root/edit/details/AddRelationshipAttribute.js:60
-#: ../root/edit/details/EditRelationshipAttribute.js:105
+#: ../root/edit/details/EditRelationshipAttribute.js:106
 msgid "Free text"
 msgstr ""
 
@@ -9276,6 +9330,8 @@ msgid ""
 "This edit does not store recording merge information and is closed, so no "
 "recording merge information can be shown."
 msgstr ""
+"Эта правка не хранит информацию о слиянии записей и является закрытой, "
+"поэтому информация о слиянии записей не может быть показана."
 
 #: ../root/edit/details/MergeReleases.js:335
 msgid "All recordings for these releases are already merged."
@@ -9291,6 +9347,8 @@ msgid ""
 "The data in this edit originally came from an older version of this edit, "
 "and may not display correctly"
 msgstr ""
+"Данные в этой правке были взяты из ее старой версии и могут отображаться "
+"некорректно"
 
 #: ../root/edit/details/MoveDiscId.js:28
 #: ../root/edit/details/historic/MoveDiscId.js:24
@@ -9308,6 +9366,9 @@ msgid ""
 "removal edit was entered. Please check the changes and ensure the removal is "
 "still correct."
 msgstr ""
+"Количество треков на удаляемом носителе изменилось с момента ввода правки "
+"удаления. Пожалуйста, проверьте изменения и убедитесь, что удаление по-"
+"прежнему корректно."
 
 #: ../root/edit/details/RemoveMedium.js:53
 msgid ""
@@ -9315,6 +9376,9 @@ msgid ""
 "was entered. Please check the changes and ensure the removal is still "
 "correct."
 msgstr ""
+"Длина некоторых треков, названия или исполнители изменились с момента ввода "
+"правки удаления. Пожалуйста, проверьте изменения и убедитесь, что удаление "
+"по-прежнему корректно."
 
 #: ../root/edit/details/RemoveMedium.js:71
 msgid "Original tracklist"
@@ -9322,7 +9386,7 @@ msgstr "Изначальный трек-лист"
 
 #: ../root/edit/details/RemoveMedium.js:90
 msgid "Current tracklist"
-msgstr "Нынешний трек-лист"
+msgstr "Текущий трек-лист"
 
 #: ../root/edit/details/ReorderArt.js:49
 msgid "Old positions:"
@@ -9578,20 +9642,24 @@ msgid "To find out if you can vote for this candidate, please {url|log in}."
 msgstr ""
 "{url|Войдите}, чтобы узнать, можете ли вы проголосовать за данного кандидата."
 
-#: ../root/elections/ElectionVoting.js:32
+#: ../root/elections/ElectionVoting.js:31
+msgid "Voting is closed."
+msgstr "Голосование закрыто."
+
+#: ../root/elections/ElectionVoting.js:34
 msgid "You cannot vote for this candidate, because you are not an auto-editor."
 msgstr ""
 "Вы не можете голосовать за этого кандидата, потому что не являетесь "
 "авторедактором."
 
-#: ../root/elections/ElectionVoting.js:37
+#: ../root/elections/ElectionVoting.js:39
 msgid ""
 "You cannot vote for this candidate, because you proposed / seconded them."
 msgstr ""
 "Вы не можете голосовать за этого кандидата, потому что являетесь оферентом "
 "или секундантом."
 
-#: ../root/elections/ElectionVoting.js:42
+#: ../root/elections/ElectionVoting.js:44
 msgid ""
 "Voting is not yet open. If you would like to support this candidate, you can "
 "second their nomination. If you do not support this candidate, please note "
@@ -9602,10 +9670,6 @@ msgstr ""
 "можете стать его секундантом. Если вы не поддерживаете этого кандидата, "
 "пожалуйста, обратите внимание, что вы не можете проголосовать «против» (или "
 "воздержаться), пока не найдутся двое секундантов."
-
-#: ../root/elections/ElectionVoting.js:49
-msgid "Voting is closed."
-msgstr "Голосование закрыто."
 
 #: ../root/elections/ElectionVoting.js:64
 msgid "Second this candidate"
@@ -9810,23 +9874,33 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:73
 msgctxt "header"
+msgid "Edit note not found"
+msgstr "Комментарий к правке не найден"
+
+#: ../root/entity/NotFound.js:75
+msgid "Sorry, we could not find an edit note with that ID."
+msgstr ""
+"Извините, но мы не можем найти комментарий к правке с данным MusicBrainz ID."
+
+#: ../root/entity/NotFound.js:81
+msgctxt "header"
 msgid "Election not found"
 msgstr "Выборы не найдены"
 
-#: ../root/entity/NotFound.js:74
+#: ../root/entity/NotFound.js:82
 msgid "Sorry, we could not find this election."
 msgstr "Извините, но мы не можем найти эти выборы."
 
-#: ../root/entity/NotFound.js:76
+#: ../root/entity/NotFound.js:84
 msgid "Back to all elections."
 msgstr "Назад ко всем выборам."
 
-#: ../root/entity/NotFound.js:79
+#: ../root/entity/NotFound.js:87
 msgctxt "header"
 msgid "Event not found"
 msgstr "Событие не найдено"
 
-#: ../root/entity/NotFound.js:81
+#: ../root/entity/NotFound.js:89
 msgid ""
 "Sorry, we could not find an event with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -9834,12 +9908,12 @@ msgstr ""
 "Извините, но мы не можем найти событие с данным MusicBrainz ID. Вы можете "
 "попытаться {search_url|найти} его сами."
 
-#: ../root/entity/NotFound.js:88
+#: ../root/entity/NotFound.js:96
 msgctxt "header"
 msgid "Genre not found"
 msgstr "Жанр не найден"
 
-#: ../root/entity/NotFound.js:90
+#: ../root/entity/NotFound.js:98
 msgid ""
 "Sorry, we could not find a genre with that MusicBrainz ID. You can see all "
 "available genres on our {genre_list|genre list}."
@@ -9847,12 +9921,12 @@ msgstr ""
 "Извините, но мы не можем найти жанр с данным MusicBrainz ID. Вы можете "
 "увидеть все доступные жанры в нашем {genre_list|списке жанров}."
 
-#: ../root/entity/NotFound.js:97
+#: ../root/entity/NotFound.js:105
 msgctxt "header"
 msgid "Instrument not found"
 msgstr "Инструмент не найден"
 
-#: ../root/entity/NotFound.js:99
+#: ../root/entity/NotFound.js:107
 msgid ""
 "Sorry, we could not find an instrument with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
@@ -9860,12 +9934,12 @@ msgstr ""
 "Извините, но мы не можем найти инструмент с данным MusicBrainz ID. Вы можете "
 "попытаться {search_url|найти} его сами."
 
-#: ../root/entity/NotFound.js:106
+#: ../root/entity/NotFound.js:114
 msgctxt "header"
 msgid "ISRC not currently used"
 msgstr "ISRC сейчас не используется"
 
-#: ../root/entity/NotFound.js:108
+#: ../root/entity/NotFound.js:116
 msgid ""
 "This ISRC is not associated with any recordings. If you wish to associate it "
 "with a recording, please {search_url|search for the recording} and add it."
@@ -9873,25 +9947,25 @@ msgstr ""
 "Данный код ISRC сейчас не связан с какими-либо записями. Если вы ходите "
 "связать его с записью, {search_url|найдите ее} и добавьте код."
 
-#: ../root/entity/NotFound.js:116
+#: ../root/entity/NotFound.js:124
 msgctxt "header"
 msgid "ISWC not currently used"
 msgstr ""
 
-#: ../root/entity/NotFound.js:118
+#: ../root/entity/NotFound.js:126
 msgid ""
 "This ISWC is not associated with any works. If you wish to associate it with "
 "a work, please {search_url|search for the work} and add it."
 msgstr ""
 
-#: ../root/entity/NotFound.js:125
+#: ../root/entity/NotFound.js:133
 #, fuzzy
 #| msgid "Label Not Found"
 msgctxt "header"
 msgid "Label not found"
 msgstr "Лейбл не найден"
 
-#: ../root/entity/NotFound.js:127
+#: ../root/entity/NotFound.js:135
 msgid ""
 "Sorry, we could not find a label with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -9899,12 +9973,12 @@ msgstr ""
 "Извините, но мы не можем найти лейбл с данным MusicBrainz ID. Вы можете "
 "попытаться {search_url|найти} его сами."
 
-#: ../root/entity/NotFound.js:134
+#: ../root/entity/NotFound.js:142
 msgctxt "header"
 msgid "Entity not found"
 msgstr "Сущность не найдена"
 
-#: ../root/entity/NotFound.js:136
+#: ../root/entity/NotFound.js:144
 msgid ""
 "Sorry, we could not find a MusicBrainz entity with that ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -9912,12 +9986,12 @@ msgstr ""
 "Извините, но мы не можем найти сущность с данным MusicBrainz ID. Вы можете "
 "попытаться {search_url|найти} его сами."
 
-#: ../root/entity/NotFound.js:143
+#: ../root/entity/NotFound.js:151
 msgctxt "header"
 msgid "Place not found"
 msgstr "Место не найдено"
 
-#: ../root/entity/NotFound.js:145
+#: ../root/entity/NotFound.js:153
 msgid ""
 "Sorry, we could not find a place with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -9925,12 +9999,12 @@ msgstr ""
 "Извините, но мы не можем найти место с данным MusicBrainz ID. Вы можете "
 "попытаться {search_url|найти} его сами."
 
-#: ../root/entity/NotFound.js:152
+#: ../root/entity/NotFound.js:160
 msgctxt "header"
 msgid "Recording not found"
 msgstr "Запись не найдена"
 
-#: ../root/entity/NotFound.js:154
+#: ../root/entity/NotFound.js:162
 msgid ""
 "Sorry, we could not find a recording with that MusicBrainz ID. You may wish "
 "to try and {search_url|search for it} instead."
@@ -9938,32 +10012,32 @@ msgstr ""
 "Извините, но мы не можем найти запись с данным MusicBrainz ID. Вы можете "
 "попытаться {search_url|найти} ее сами."
 
-#: ../root/entity/NotFound.js:161
+#: ../root/entity/NotFound.js:169
 msgctxt "header"
 msgid "Relationship attribute not found"
 msgstr "Атрибут отношения не найден"
 
-#: ../root/entity/NotFound.js:163
+#: ../root/entity/NotFound.js:171
 msgid ""
 "Sorry, we could not find a relationship attribute with that MusicBrainz ID."
 msgstr ""
 "Извините, но мы не можем найти атрибут отношения с данным MusicBrainz ID."
 
-#: ../root/entity/NotFound.js:170
+#: ../root/entity/NotFound.js:178
 msgctxt "header"
 msgid "Relationship type not found"
 msgstr "Тип отношения не найден"
 
-#: ../root/entity/NotFound.js:172
+#: ../root/entity/NotFound.js:180
 msgid "Sorry, we could not find a relationship type with that MusicBrainz ID."
 msgstr "Извините, но мы не можем найти тип отношения с данным MusicBrainz ID."
 
-#: ../root/entity/NotFound.js:179
+#: ../root/entity/NotFound.js:187
 msgctxt "header"
 msgid "Release not found"
 msgstr "Релиз не найден"
 
-#: ../root/entity/NotFound.js:181
+#: ../root/entity/NotFound.js:189
 msgid ""
 "Sorry, we could not find a release with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -9971,12 +10045,12 @@ msgstr ""
 "Извините, но мы не можем найти релиз с данным MusicBrainz ID. Вы можете "
 "попытаться {search_url|найти} его сами."
 
-#: ../root/entity/NotFound.js:188
+#: ../root/entity/NotFound.js:196
 msgctxt "header"
 msgid "Release group not found"
 msgstr "Группа релизов не найдена"
 
-#: ../root/entity/NotFound.js:190
+#: ../root/entity/NotFound.js:198
 msgid ""
 "Sorry, we could not find a release group with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
@@ -9984,12 +10058,12 @@ msgstr ""
 "Извините, но мы не можем найти группу релизов с данным MusicBrainz ID. Вы "
 "можете попытаться {search_url|найти} её сами."
 
-#: ../root/entity/NotFound.js:197
+#: ../root/entity/NotFound.js:205
 msgctxt "singular, header"
 msgid "Series not found"
 msgstr "Серия не найдена"
 
-#: ../root/entity/NotFound.js:199
+#: ../root/entity/NotFound.js:207
 msgid ""
 "Sorry, we could not find a series with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -9997,12 +10071,12 @@ msgstr ""
 "Извините, но мы не можем найти серию с данным MusicBrainz ID. Вы можете "
 "попытаться {search_url|найти} ее сами."
 
-#: ../root/entity/NotFound.js:206
+#: ../root/entity/NotFound.js:214
 msgctxt "header"
 msgid "Track not found"
 msgstr "Трек не найден"
 
-#: ../root/entity/NotFound.js:208
+#: ../root/entity/NotFound.js:216
 msgid ""
 "Sorry, we could not find neither a recording nor a track with that "
 "MusicBrainz ID. You may wish to try and {search_url|search for it} instead."
@@ -10010,21 +10084,21 @@ msgstr ""
 "Извините, но мы не можем найти запись или трек с данным MusicBrainz ID. Вы "
 "можете попытаться {search_url|найти} их сами."
 
-#: ../root/entity/NotFound.js:216
+#: ../root/entity/NotFound.js:224
 msgctxt "header"
 msgid "URL not found"
 msgstr "Ссылка не найдена"
 
-#: ../root/entity/NotFound.js:217
+#: ../root/entity/NotFound.js:225
 msgid "Sorry, we could not find a URL with that MusicBrainz ID."
 msgstr "Извините, но мы не можем найти ссылку с данным MusicBrainz ID."
 
-#: ../root/entity/NotFound.js:222
+#: ../root/entity/NotFound.js:230
 msgctxt "header"
 msgid "Editor not found"
 msgstr "Редактор не найден"
 
-#: ../root/entity/NotFound.js:224
+#: ../root/entity/NotFound.js:232
 msgid ""
 "Sorry, we could not find an editor with that name. You may wish to try and "
 "{search_url|search for them} instead."
@@ -10032,12 +10106,12 @@ msgstr ""
 "Извините, но мы не можем найти редактора с данным именем. Вы можете "
 "попытаться {search_url|найти} его сами."
 
-#: ../root/entity/NotFound.js:231
+#: ../root/entity/NotFound.js:239
 msgctxt "header"
 msgid "Work not found"
 msgstr "Работа не найдена"
 
-#: ../root/entity/NotFound.js:233
+#: ../root/entity/NotFound.js:241
 msgid ""
 "Sorry, we could not find a work with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10201,22 +10275,16 @@ msgid "All sizes:"
 msgstr "Все размеры:"
 
 #: ../root/event/EventArt.js:100
-#, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {eaa|Event Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr ""
-"Изображения предоставлены проектом {caa|Cover Art Archive}, а также доступны "
+"Изображения предоставлены проектом {caa|Event Art Archive}, а также доступны "
 "в {ia|Архиве Интернета}."
 
 #: ../root/event/EventArt.js:112
-#, fuzzy
-#| msgid "We do not currently have any cover art for {release}."
 msgid "We do not currently have any event art for {event}."
-msgstr "У нас сейчас нет обложек к релизу \"{release}\"."
+msgstr "У нас сейчас нет изображений к событию \"{event}\"."
 
 #: ../root/event/EventArt.js:122
 #, fuzzy
@@ -10498,7 +10566,7 @@ msgstr "Политика удаления данных"
 msgid "Privileged user accounts"
 msgstr "Аккаунты с привилегиями"
 
-#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:546
+#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:548
 msgid "Statistics"
 msgstr "Статистика"
 
@@ -12729,9 +12797,9 @@ msgid ""
 "better fit for the main parent work only."
 msgstr ""
 "Этот отчет показывает URL-адреса, которые связаны с несколькими сущностями. "
-"Он не включает лицензионные отношения (где ожидается повторное использование)"
-" и Amazon (для релизов), Discogs и Викиданные, у которых есть свои "
-"собственные отчеты. Приведенные здесь ссылки должны быть проверены на "
+"Он не включает лицензионные отношения (где ожидается повторное "
+"использование) и Amazon (для релизов), Discogs и Викиданные, у которых есть "
+"свои собственные отчеты. Приведенные здесь ссылки должны быть проверены на "
 "предмет их соответствия: например, общая ссылка на страницу магазина может "
 "быть заменена ссылками на конкретный магазин для каждого релиза, а ссылка, "
 "прикрепленная ко всем частям классического произведения, может лучше "
@@ -13883,7 +13951,7 @@ msgid "Website"
 msgstr "Сайт"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:230
-#: ../root/user/UserProfile.js:264
+#: ../root/user/UserProfile.js:265
 msgctxt "user area"
 msgid "Location"
 msgstr "Место проживания"
@@ -13908,7 +13976,7 @@ msgstr ""
 "странице вашего профиля."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:274
-#: ../root/user/UserProfile.js:382
+#: ../root/user/UserProfile.js:383
 msgid "Bio"
 msgstr "Обо мне"
 
@@ -14576,7 +14644,7 @@ msgid "Related series"
 msgstr "Связанные серии"
 
 #: ../root/static/scripts/common/components/RelatedWorks.js:31
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1566
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1574
 msgid "Related works"
 msgstr "Связанные работы"
 
@@ -14871,7 +14939,7 @@ msgstr "с {date} по ????"
 
 #: ../root/static/scripts/common/utility/relationshipDateText.js:36
 msgid "from {date} to present"
-msgstr "с {date} по н.в."
+msgstr "с {date} по н.в"
 
 #: ../root/static/scripts/common/utility/relationshipDateText.js:38
 msgid "until {date}"
@@ -16213,30 +16281,30 @@ msgstr ""
 msgid "An error occurred:"
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1504
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1512
 #, fuzzy
 #| msgid "Many relationships"
 msgid "Track relationships"
 msgstr "Множество связей"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1523
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1531
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to make batch "
 "operations on these, please fully load them first."
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1590
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1598
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:373
 msgid "We have no information about this release’s media and tracklist."
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1621
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1629
 #, fuzzy
 #| msgid "Release Relationships"
 msgid "Release relationships"
 msgstr "Связи издания"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1658
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1666
 #, fuzzy
 #| msgid "Release Group Relationships"
 msgid "Release group relationships"
@@ -16958,35 +17026,35 @@ msgstr "Принятые правки пользователя {name}"
 msgid "Edits by {name}"
 msgstr "Правки пользователя {name}"
 
-#: ../root/user/UserProfile.js:68
+#: ../root/user/UserProfile.js:69
 msgctxt "user type"
 msgid "Deleted user"
 msgstr "Удаленный пользователь"
 
-#: ../root/user/UserProfile.js:78
+#: ../root/user/UserProfile.js:79
 msgctxt "user type"
 msgid "Internal/Bot"
 msgstr "Внутренний/бот"
 
-#: ../root/user/UserProfile.js:107
+#: ../root/user/UserProfile.js:108
 msgctxt "user type"
 msgid "Beginner"
 msgstr "Новичок"
 
-#: ../root/user/UserProfile.js:113
+#: ../root/user/UserProfile.js:114
 msgctxt "user type"
 msgid "Normal user"
 msgstr "Нормальный пользователь"
 
-#: ../root/user/UserProfile.js:146
+#: ../root/user/UserProfile.js:147
 msgid "The dawn of the project"
 msgstr "Рассвет проекта"
 
-#: ../root/user/UserProfile.js:148
+#: ../root/user/UserProfile.js:149
 msgid "The early days of the project"
 msgstr "Ранние дни проекта"
 
-#: ../root/user/UserProfile.js:156
+#: ../root/user/UserProfile.js:157
 msgid ""
 "Your homepage and biography will not show until you have completed the email "
 "verification process."
@@ -16994,236 +17062,236 @@ msgstr ""
 "Ваша биография и ссылка на сайт не будут показываться пока вы не подтвердите "
 "свою почту."
 
-#: ../root/user/UserProfile.js:175
+#: ../root/user/UserProfile.js:176
 msgid "General information"
 msgstr "Общая информация"
 
-#: ../root/user/UserProfile.js:181
+#: ../root/user/UserProfile.js:182
 msgctxt "email address"
 msgid "(hidden)"
 msgstr "(скрыта)"
 
-#: ../root/user/UserProfile.js:184
+#: ../root/user/UserProfile.js:185
 msgctxt "email address"
 msgid "(verified at {date})"
 msgstr "(подтверждена {date})"
 
-#: ../root/user/UserProfile.js:189
+#: ../root/user/UserProfile.js:190
 msgctxt "email address"
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>не подтверждена!</strong>)"
 
-#: ../root/user/UserProfile.js:198
+#: ../root/user/UserProfile.js:199
 msgid "resend verification email"
 msgstr "отправить письмо для подтверждения ещё раз"
 
-#: ../root/user/UserProfile.js:206
+#: ../root/user/UserProfile.js:207
 msgid "send email"
 msgstr "отправить письмо"
 
-#: ../root/user/UserProfile.js:231
+#: ../root/user/UserProfile.js:232
 msgctxt "email address"
 msgid "(none)"
 msgstr "(отсутствует)"
 
-#: ../root/user/UserProfile.js:238
+#: ../root/user/UserProfile.js:239
 msgid "User type:"
 msgstr "Тип пользователя:"
 
-#: ../root/user/UserProfile.js:244
+#: ../root/user/UserProfile.js:245
 msgid "nominate for auto-editor"
 msgstr "номинировать на авторедактора"
 
-#: ../root/user/UserProfile.js:251
+#: ../root/user/UserProfile.js:252
 msgid "Age:"
 msgstr "Возраст:"
 
-#: ../root/user/UserProfile.js:270
+#: ../root/user/UserProfile.js:271
 msgid "Member since"
 msgstr "Дата регистрации"
 
-#: ../root/user/UserProfile.js:276
+#: ../root/user/UserProfile.js:277
 msgid "Restrictions"
 msgstr "Ограничения"
 
-#: ../root/user/UserProfile.js:283
+#: ../root/user/UserProfile.js:284
 msgid "Last login"
 msgstr "Дата последнего входа"
 
-#: ../root/user/UserProfile.js:286
+#: ../root/user/UserProfile.js:287
 msgid "Hasn't logged in yet"
 msgstr "Еще не входил"
 
-#: ../root/user/UserProfile.js:294 ../root/user/UserProfile.js:308
-#: ../root/user/UserProfile.js:341
+#: ../root/user/UserProfile.js:295 ../root/user/UserProfile.js:309
+#: ../root/user/UserProfile.js:342
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|view list})"
 
-#: ../root/user/UserProfile.js:320
+#: ../root/user/UserProfile.js:321
 msgid "Homepage:"
 msgstr "Домашняя страница:"
 
-#: ../root/user/UserProfile.js:348
+#: ../root/user/UserProfile.js:349
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:361
+#: ../root/user/UserProfile.js:362
 msgid "unsubscribe"
 msgstr "отписаться"
 
-#: ../root/user/UserProfile.js:370
+#: ../root/user/UserProfile.js:371
 msgid "subscribe"
 msgstr "подписаться"
 
-#: ../root/user/UserProfile.js:399
+#: ../root/user/UserProfile.js:400
 msgid "Languages"
 msgstr "Языки"
 
-#: ../root/user/UserProfile.js:468 ../root/user/UserProfile.js:560
-#: ../root/user/UserProfile.js:570 ../root/user/UserProfile.js:580
-#: ../root/user/UserProfile.js:590 ../root/user/UserProfile.js:600
-#: ../root/user/UserProfile.js:610 ../root/user/UserProfile.js:620
-#: ../root/user/UserProfile.js:630 ../root/user/UserProfile.js:639
-#: ../root/user/UserProfile.js:792 ../root/user/UserProfile.js:813
-#: ../root/user/UserProfile.js:834
+#: ../root/user/UserProfile.js:469 ../root/user/UserProfile.js:562
+#: ../root/user/UserProfile.js:572 ../root/user/UserProfile.js:582
+#: ../root/user/UserProfile.js:592 ../root/user/UserProfile.js:602
+#: ../root/user/UserProfile.js:612 ../root/user/UserProfile.js:622
+#: ../root/user/UserProfile.js:632 ../root/user/UserProfile.js:641
+#: ../root/user/UserProfile.js:794 ../root/user/UserProfile.js:815
+#: ../root/user/UserProfile.js:836
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|смотреть})"
 
-#: ../root/user/UserProfile.js:552
+#: ../root/user/UserProfile.js:554
 msgid "Edits"
 msgstr "Правки"
 
-#: ../root/user/UserProfile.js:558
+#: ../root/user/UserProfile.js:560
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr "Всего"
 
-#: ../root/user/UserProfile.js:568
+#: ../root/user/UserProfile.js:570
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Одобренные"
 
-#: ../root/user/UserProfile.js:578
+#: ../root/user/UserProfile.js:580
 msgid "Auto-edits"
 msgstr "Автоправки"
 
-#: ../root/user/UserProfile.js:588
+#: ../root/user/UserProfile.js:590
 msgid "Total applied"
 msgstr "Всего принято"
 
-#: ../root/user/UserProfile.js:598
+#: ../root/user/UserProfile.js:600
 msgid "Voted down"
 msgstr ""
 
-#: ../root/user/UserProfile.js:608
+#: ../root/user/UserProfile.js:610
 msgid "Failed"
 msgstr "Неудавшиеся"
 
-#: ../root/user/UserProfile.js:618
+#: ../root/user/UserProfile.js:620
 msgctxt "edit"
 msgid "Cancelled"
 msgstr "Отмененные"
 
-#: ../root/user/UserProfile.js:628
+#: ../root/user/UserProfile.js:630
 msgid "Open"
 msgstr "Открытые"
 
-#: ../root/user/UserProfile.js:638
+#: ../root/user/UserProfile.js:640
 msgid "Last 24 hours"
 msgstr "За последние 24 часа"
 
-#: ../root/user/UserProfile.js:662
+#: ../root/user/UserProfile.js:664
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:667
+#: ../root/user/UserProfile.js:669
 msgid "Votes ({view_url|view})"
 msgstr "Голоса ({view_url|смотреть})"
 
-#: ../root/user/UserProfile.js:675
+#: ../root/user/UserProfile.js:677
 msgid "Last 28 days"
 msgstr "За последние 28 дней"
 
-#: ../root/user/UserProfile.js:678
+#: ../root/user/UserProfile.js:680
 msgid "Overall"
 msgstr "Всего"
 
-#: ../root/user/UserProfile.js:726
+#: ../root/user/UserProfile.js:728
 msgid "This table shows a summary of entities added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:732
+#: ../root/user/UserProfile.js:734
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr "Свежеодобренные правки появятся в статистике в течение 24 часов"
 
-#: ../root/user/UserProfile.js:735
+#: ../root/user/UserProfile.js:737
 msgid "Added entities"
 msgstr "Добавленные сущности"
 
-#: ../root/user/UserProfile.js:758
+#: ../root/user/UserProfile.js:760
 msgid "This user has not added any entities."
 msgstr "Пользователь не добавлял какие-либо сущности."
 
-#: ../root/user/UserProfile.js:768
+#: ../root/user/UserProfile.js:770
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:774
+#: ../root/user/UserProfile.js:776
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "Теги и оценки"
 
-#: ../root/user/UserProfile.js:781
+#: ../root/user/UserProfile.js:783
 msgctxt "folksonomy"
 msgid "Tags upvoted"
 msgstr ""
 
-#: ../root/user/UserProfile.js:785 ../root/user/UserProfile.js:806
+#: ../root/user/UserProfile.js:787 ../root/user/UserProfile.js:808
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
 msgstr ""
 
-#: ../root/user/UserProfile.js:789 ../root/user/UserProfile.js:810
+#: ../root/user/UserProfile.js:791 ../root/user/UserProfile.js:812
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "Удаленные"
 
-#: ../root/user/UserProfile.js:801
+#: ../root/user/UserProfile.js:803
 #, fuzzy
 #| msgid "Downvote"
 msgctxt "folksonomy"
 msgid "Tags downvoted"
 msgstr "Downvote"
 
-#: ../root/user/UserProfile.js:827
+#: ../root/user/UserProfile.js:829
 msgid "Ratings are removed when an editor is deleted."
 msgstr ""
 
-#: ../root/user/UserProfile.js:830
+#: ../root/user/UserProfile.js:832
 msgctxt "ratings"
 msgid "Removed"
 msgstr ""
 
-#: ../root/user/UserProfile.js:867
+#: ../root/user/UserProfile.js:869
 msgid "Editing/voting disabled"
 msgstr ""
 
-#: ../root/user/UserProfile.js:870
+#: ../root/user/UserProfile.js:872
 msgid "Edit notes disabled"
 msgstr "Комментарии к правке отключены"
 
-#: ../root/user/UserProfile.js:884
+#: ../root/user/UserProfile.js:886
 msgid "Blocked spam account"
 msgstr "Аккаунт, заблокированный за спам"
 
-#: ../root/user/UserProfile.js:886
+#: ../root/user/UserProfile.js:888
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
 "reporting the spammer from their user page."
 msgstr ""
 
-#: ../root/user/UserProfile.js:940
+#: ../root/user/UserProfile.js:942
 msgid "Report this user for bad behavior"
 msgstr "Пожаловаться на плохое поведение пользователя"
 

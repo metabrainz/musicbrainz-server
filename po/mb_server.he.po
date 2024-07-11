@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-14 12:30+0000\n"
+"POT-Creation-Date: 2024-06-28 20:29+0000\n"
 "PO-Revision-Date: 2024-04-17 17:35+0000\n"
 "Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
@@ -71,7 +71,7 @@ msgstr "\"YY\" הן שתי הספרות האחרונות של שנת הרישו�
 #: ../root/edit/details/historic/AddRelease.js:84
 #: ../root/recording/RecordingIndex.js:43
 #: ../root/static/scripts/release/components/MediumTable.js:72
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1543
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1551
 #: ../root/utility/tableColumns.js:573
 msgid "#"
 msgstr "#"
@@ -120,7 +120,7 @@ msgstr "(אין תמונות עטיפה נוספות)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
-#: ../root/edit/details/MergeReleases.js:233
+#: ../root/cdtoc/lookup.tt:43 ../root/edit/details/MergeReleases.js:233
 #: ../root/recording/RecordingIndex.js:50
 #: ../root/release_group/ReleaseGroupIndex.js:162
 #: ../root/search/components/ReleaseResults.js:115
@@ -421,7 +421,7 @@ msgstr "אזור"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:29
 #: ../root/cdtoc/list.tt:8 ../root/cdtoc/lookup.tt:42
-#: ../root/cdtoc/lookup.tt:75 ../root/edit/search_macros.tt:434
+#: ../root/cdtoc/lookup.tt:77 ../root/edit/search_macros.tt:434
 #: ../root/release/edit/information.tt:26 ../root/release/edit/tracklist.tt:110
 #: ../root/release/edit/tracklist.tt:163 ../root/release/edit/tracklist.tt:453
 #: ../root/release_group/set_cover_art.tt:32
@@ -516,7 +516,7 @@ msgctxt "interactive"
 msgid "Attach CD TOC"
 msgstr "צרוף תוכן עניינים תקליטור"
 
-#: ../root/cdtoc/lookup.tt:66 ../root/release/edit/tracklist.tt:478
+#: ../root/cdtoc/lookup.tt:68 ../root/release/edit/tracklist.tt:478
 #, fuzzy
 #| msgid "Attach Disc ID"
 msgid "Attach disc ID"
@@ -526,7 +526,7 @@ msgstr "צרוף מזהה תקליטור"
 msgid "Attached to releases"
 msgstr "מצורף להוצאות"
 
-#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:73
+#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:74
 #, fuzzy
 #| msgid "Auto-editor"
 msgctxt "user type"
@@ -535,7 +535,7 @@ msgstr "עורך אוטומטי"
 
 #: ../root/cdtoc/attach_artist_releases.tt:19
 #: ../root/cdtoc/attach_filter_release.tt:33 ../root/cdtoc/list.tt:13
-#: ../root/cdtoc/lookup.tt:47 ../root/release/edit/duplicates.tt:17
+#: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:17
 #: ../root/release/edit/information.tt:222
 #: ../root/release_group/set_cover_art.tt:62
 #: ../root/components/list/ReleaseList.js:123
@@ -685,7 +685,7 @@ msgstr "מס' קטלוגי:"
 
 #: ../root/cdtoc/attach_artist_releases.tt:18
 #: ../root/cdtoc/attach_filter_release.tt:32 ../root/cdtoc/list.tt:12
-#: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:16
+#: ../root/cdtoc/lookup.tt:45 ../root/release/edit/duplicates.tt:16
 #: ../root/release_group/set_cover_art.tt:56
 #: ../root/edit/details/MergeReleases.js:235
 #: ../root/recording/RecordingIndex.js:52
@@ -759,7 +759,7 @@ msgstr "העתקת כותרת ההוצאה לקבוצת ההוצאה"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
-#: ../root/cdtoc/lookup.tt:44 ../root/release/edit/duplicates.tt:14
+#: ../root/cdtoc/lookup.tt:43 ../root/release/edit/duplicates.tt:14
 #: ../root/release/edit/information.tt:156
 #: ../root/release_group/set_cover_art.tt:41
 #: ../root/edit/details/EditReleaseLabel.js:109
@@ -850,8 +850,8 @@ msgstr ""
 #: ../root/edit/details/AddRelationshipAttribute.js:38
 #: ../root/edit/details/AddRelationshipType.js:66
 #: ../root/edit/details/EditInstrument.js:67
-#: ../root/edit/details/EditRelationshipAttribute.js:66
-#: ../root/edit/details/EditRelationshipAttribute.js:72
+#: ../root/edit/details/EditRelationshipAttribute.js:67
+#: ../root/edit/details/EditRelationshipAttribute.js:73
 #: ../root/edit/details/EditRelationshipType.js:188
 #: ../root/edit/details/EditRelationshipType.js:194
 #: ../root/edit/details/EditUrl.js:56
@@ -953,7 +953,7 @@ msgstr "עריכה"
 #: ../root/components/EntityTabs.js:172 ../root/event/EventArt.js:85
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:89
 #: ../root/release/CoverArt.js:81
-#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:516
+#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:520
 #: ../root/user/UserCollections.js:122
 #, fuzzy
 #| msgid "Edit"
@@ -1249,7 +1249,7 @@ msgstr "תוכן ענינים מלא:"
 #: ../root/layout/components/sidebar/ArtistSidebar.js:85
 #: ../root/search/components/ArtistResults.js:55
 #: ../root/static/scripts/account/components/EditProfileForm.js:222
-#: ../root/user/UserProfile.js:257
+#: ../root/user/UserProfile.js:258
 msgid "Gender"
 msgstr "מגדר"
 
@@ -1523,7 +1523,7 @@ msgstr "ייבוא ספח תקליטור"
 #: ../root/search/components/SearchForm.js:43
 #: ../root/static/scripts/common/constants.js:39
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:58
-#: ../root/user/UserProfile.js:53
+#: ../root/user/UserProfile.js:54
 msgid "Instrument"
 msgstr "כלי נגינה"
 
@@ -1562,7 +1562,7 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:17
 #: ../root/cdtoc/attach_filter_release.tt:31 ../root/cdtoc/list.tt:11
-#: ../root/cdtoc/lookup.tt:45 ../root/edit/search_macros.tt:434
+#: ../root/cdtoc/lookup.tt:44 ../root/edit/search_macros.tt:434
 #: ../root/release/edit/duplicates.tt:15
 #: ../root/release/edit/information.tt:179
 #: ../root/release_group/set_cover_art.tt:52
@@ -1587,7 +1587,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/FilterForm.js:250
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
-#: ../root/user/UserProfile.js:54 ../root/utility/tableColumns.js:539
+#: ../root/user/UserProfile.js:55 ../root/utility/tableColumns.js:539
 #: ../root/utility/tableColumns.js:544
 msgid "Label"
 msgstr "חברת תקליטים"
@@ -1660,7 +1660,7 @@ msgstr "שורות המתחילות עם מספר רצועה"
 msgid "Loading edit previews..."
 msgstr ""
 
-#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:97
+#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:98
 #, fuzzy
 #| msgid "Location editor"
 msgctxt "user type"
@@ -1790,7 +1790,7 @@ msgstr "העברת רצועה מעלה"
 #: ../root/edit/details/EditLabel.js:45 ../root/edit/details/EditMedium.js:442
 #: ../root/edit/details/EditPlace.js:41
 #: ../root/edit/details/EditRecording.js:42
-#: ../root/edit/details/EditRelationshipAttribute.js:47
+#: ../root/edit/details/EditRelationshipAttribute.js:50
 #: ../root/edit/details/EditRelationshipAttribute.js:56
 #: ../root/edit/details/EditRelationshipType.js:178
 #: ../root/edit/details/EditRelease.js:53
@@ -1985,7 +1985,7 @@ msgstr "נתוח רצועות"
 #: ../root/search/components/SearchForm.js:38
 #: ../root/static/scripts/common/constants.js:41
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
-#: ../root/user/UserProfile.js:55
+#: ../root/user/UserProfile.js:56
 msgid "Place"
 msgstr "מקום"
 
@@ -2073,8 +2073,8 @@ msgstr[3] "דירוג: {rating} כוכבים"
 #: ../root/search/components/SearchForm.js:34
 #: ../root/static/scripts/common/constants.js:42
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:64
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1553
-#: ../root/user/UserProfile.js:56
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1561
+#: ../root/user/UserProfile.js:57
 msgid "Recording"
 msgstr "הקלטה"
 
@@ -2108,7 +2108,7 @@ msgstr "הקלטות"
 msgid "Reject"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:83
+#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:84
 #, fuzzy
 #| msgid "Relationship editor"
 msgctxt "user type"
@@ -2155,7 +2155,7 @@ msgstr ""
 #: ../root/static/scripts/common/constants.js:43
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:66
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:396
-#: ../root/taglookup/Form.js:27 ../root/user/UserProfile.js:57
+#: ../root/taglookup/Form.js:27 ../root/user/UserProfile.js:58
 msgid "Release"
 msgstr "הוצאה"
 
@@ -2204,7 +2204,7 @@ msgstr ""
 #: ../root/static/scripts/common/i18n/localizeTypeNameForEntity.js:36
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:68
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:403
-#: ../root/user/UserProfile.js:58
+#: ../root/user/UserProfile.js:59
 msgid "Release group"
 msgstr "‮קבוצת הוצאה"
 
@@ -2237,7 +2237,7 @@ msgstr ""
 msgid "Release language"
 msgstr "(אתחל שפה)"
 
-#: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:85
+#: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:87
 #: ../root/cdtoc/move_search.tt:15
 msgid "Release title or MBID"
 msgstr ""
@@ -2363,8 +2363,8 @@ msgstr ""
 msgid "Script"
 msgstr "תַּסְרִיט"
 
-#: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:77
-#: ../root/cdtoc/lookup.tt:87 ../root/cdtoc/move_search.tt:17
+#: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:79
+#: ../root/cdtoc/lookup.tt:89 ../root/cdtoc/move_search.tt:17
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:116
 #: ../root/release/edit/recordings.tt:163 ../root/release/edit/tracklist.tt:117
 #: ../root/cdstub/ImportCDStub.js:43 ../root/cdtoc/SelectArtistForCDToc.js:40
@@ -2380,11 +2380,11 @@ msgstr "תַּסְרִיט"
 msgid "Search"
 msgstr "חיפוש"
 
-#: ../root/cdtoc/lookup.tt:71
+#: ../root/cdtoc/lookup.tt:73
 msgid "Search by artist"
 msgstr "חיפוש לפי אמן"
 
-#: ../root/cdtoc/lookup.tt:81
+#: ../root/cdtoc/lookup.tt:83
 msgid "Search by release"
 msgstr ""
 
@@ -2463,7 +2463,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:44
 #: ../root/static/scripts/common/constants.js:45
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:70
-#: ../root/user/UserProfile.js:59
+#: ../root/user/UserProfile.js:60
 msgctxt "singular"
 msgid "Series"
 msgstr "סדרה"
@@ -2579,7 +2579,7 @@ msgid "Stop using beta site"
 msgstr "הפסקת שימוש באתר בטא"
 
 #: ../root/release/edit/editnote.tt:44
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1840
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1848
 msgid "Submitting edits..."
 msgstr "שגור עריכות..."
 
@@ -2593,7 +2593,7 @@ msgstr "החלפת כותרת רצוע במזכה אמן"
 
 #: ../root/cdtoc/attach_artist_releases.tt:21
 #: ../root/cdtoc/attach_filter_release.tt:35 ../root/cdtoc/list.tt:15
-#: ../root/recording/RecordingIndex.js:55
+#: ../root/cdtoc/lookup.tt:48 ../root/recording/RecordingIndex.js:55
 #: ../root/release_group/ReleaseGroupIndex.js:168
 #: ../root/search/components/RecordingResults.js:147
 #: ../root/search/components/ReleaseResults.js:124
@@ -2995,7 +2995,7 @@ msgid ""
 "information about this release’s media, remove all media."
 msgstr ""
 
-#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:90
+#: ../root/edit/search_macros.tt:399 ../root/user/UserProfile.js:91
 #, fuzzy
 #| msgid "Transclusion editors"
 msgctxt "user type"
@@ -3181,7 +3181,7 @@ msgid "Voter"
 msgstr "מצביע"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:60
-#: ../root/user/UserProfile.js:669
+#: ../root/user/UserProfile.js:671
 msgid "Votes"
 msgstr "הצבעות"
 
@@ -3250,7 +3250,7 @@ msgstr "ויקי"
 #: ../root/search/components/SearchForm.js:35
 #: ../root/static/scripts/common/constants.js:47
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:74
-#: ../root/user/UserProfile.js:60 ../root/work/WorkLayout.js:25
+#: ../root/user/UserProfile.js:61 ../root/work/WorkLayout.js:25
 msgid "Work"
 msgstr "יצירה"
 
@@ -3322,7 +3322,7 @@ msgid ""
 msgstr ""
 
 #: ../root/release/edit/editnote.tt:10
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:195
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:212
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:777
 msgid "You haven’t made any changes!"
 msgstr "לא בוצעו שינויים!"
@@ -3401,7 +3401,7 @@ msgstr ""
 "אינכם מורשים לערוך, להצביע, או לערוך הערות כרגע משום שמנהלן ביטל את "
 "הרשאותיכם. אם עדיין לא פנו אליכם לגבי הסיבות, נא {uri|שלח לנו הודעה}."
 
-#: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:63
+#: ../root/layout.tt:25 ../lib/MusicBrainz/Server/Controller/EditNote.pm:80
 #: ../root/layout/index.js:214
 msgid ""
 "You’re currently not allowed to leave or change edit notes because an admin "
@@ -4025,20 +4025,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:365
+#: ../root/static/scripts/common/constants.js:367
 msgid "Low"
 msgstr "נמוך"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:366
-#: ../root/static/scripts/common/constants.js:367
+#: ../root/static/scripts/common/constants.js:368
+#: ../root/static/scripts/common/constants.js:369
 msgid "Normal"
 msgstr "נורמלי"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:368
+#: ../root/static/scripts/common/constants.js:370
 msgid "High"
 msgstr "גבוהה"
 
@@ -4046,30 +4046,30 @@ msgstr "גבוהה"
 msgid "Default"
 msgstr "ברירת מחדל"
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:49
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:61
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:79
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:105
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:123
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:66
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:78
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:96
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:122
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:140
 msgid "Can’t change edit note"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:50
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:67
 msgid "You can’t change other users’ edit notes."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:80
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:97
 msgid "This note has already been removed."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:107
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:124
 msgid ""
 "You can’t change this note, since somebody else has already replied to it. "
 "If there’s an important reason why it should be changed (for example, it "
 "contains private data), please {contact_url|contact us}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:125
+#: ../lib/MusicBrainz/Server/Controller/EditNote.pm:142
 msgid ""
 "You can’t change this note, since it was entered too long ago. If there’s an "
 "important reason why it should be changed (for example, it contains private "
@@ -6073,22 +6073,22 @@ msgid "A fluency level is required."
 msgstr "נדרשת רמת השליטה בשפה."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:376
+#: ../root/static/scripts/common/constants.js:378
 msgid "Basic"
 msgstr "בסיסי"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:377
+#: ../root/static/scripts/common/constants.js:379
 msgid "Intermediate"
 msgstr "ביניים"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:375
+#: ../root/static/scripts/common/constants.js:377
 msgid "Advanced"
 msgstr "מתקדם"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:82
-#: ../root/static/scripts/common/constants.js:378
+#: ../root/static/scripts/common/constants.js:380
 msgid "Native"
 msgstr "מובנה"
 
@@ -6494,7 +6494,7 @@ msgstr ""
 #: ../root/static/scripts/account/components/EditProfileForm.js:203
 #: ../root/static/scripts/account/components/PreferencesForm.js:211
 #: ../root/static/scripts/account/components/RegisterForm.js:92
-#: ../root/user/UserProfile.js:178
+#: ../root/user/UserProfile.js:179
 msgid "Email"
 msgstr ""
 
@@ -6651,7 +6651,7 @@ msgid "Applications"
 msgstr "יישומים"
 
 #: ../root/account/applications/ApplicationList.js:90
-#: ../root/user/UserProfile.js:291
+#: ../root/user/UserProfile.js:292
 msgid "Authorized applications"
 msgstr ""
 
@@ -6692,7 +6692,7 @@ msgid "You have not authorized any applications."
 msgstr ""
 
 #: ../root/account/applications/ApplicationList.js:125
-#: ../root/user/UserProfile.js:305
+#: ../root/user/UserProfile.js:306
 msgid "Developer applications"
 msgstr ""
 
@@ -7732,8 +7732,8 @@ msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "עריכה"
 
-#: ../root/collection/CollectionIndex.js:202 ../root/user/UserProfile.js:328
-#: ../root/user/UserProfile.js:389
+#: ../root/collection/CollectionIndex.js:202 ../root/user/UserProfile.js:329
+#: ../root/user/UserProfile.js:390
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
@@ -8087,7 +8087,7 @@ msgstr ""
 
 #: ../root/components/EntityTabs.js:159
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:42
-#: ../root/user/UserProfile.js:823 ../root/user/UserRatingList.js:42
+#: ../root/user/UserProfile.js:825 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
 msgstr "דֵּרוּגים"
@@ -8279,7 +8279,7 @@ msgstr "מינויים"
 #: ../root/entity/Subscribers.js:45
 #: ../root/layout/components/sidebar/CollectionSidebar.js:120
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:52
-#: ../root/user/UserProfile.js:338
+#: ../root/user/UserProfile.js:339
 msgid "Subscribers"
 msgstr ""
 
@@ -8703,7 +8703,7 @@ msgid ""
 "subscribed to."
 msgstr ""
 
-#: ../root/edit/components/EditArtwork.js:23
+#: ../root/edit/components/EditArtwork.js:23 ../root/user/UserProfile.js:53
 #, fuzzy
 #| msgid "Event ratings"
 msgctxt "singular"
@@ -8901,7 +8901,7 @@ msgctxt "interactive"
 msgid "Add note"
 msgstr "הוספת הערה"
 
-#: ../root/edit/components/EditorTypeInfo.js:22 ../root/user/UserProfile.js:105
+#: ../root/edit/components/EditorTypeInfo.js:22 ../root/user/UserProfile.js:106
 msgid "This user is new to MusicBrainz."
 msgstr "משתמשים חדשים במוזיקבריינז."
 
@@ -9109,7 +9109,7 @@ msgstr ""
 "עריכת קשר־גומלין זה כלל גם שינויים בתכונות קשר־גומלין שאינם קיימים עוד."
 
 #: ../root/edit/details/AddRelationshipAttribute.js:46
-#: ../root/edit/details/EditRelationshipAttribute.js:89
+#: ../root/edit/details/EditRelationshipAttribute.js:90
 #: ../root/edit/details/EditRelationshipType.js:233
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:115
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:158
@@ -9118,18 +9118,18 @@ msgid "Child order"
 msgstr "סדר צאצאים"
 
 #: ../root/edit/details/AddRelationshipAttribute.js:51
-#: ../root/edit/details/EditRelationshipAttribute.js:81
+#: ../root/edit/details/EditRelationshipAttribute.js:82
 #: ../root/edit/details/EditRelationshipType.js:309
 msgid "Parent"
 msgstr "הורה"
 
 #: ../root/edit/details/AddRelationshipAttribute.js:56
-#: ../root/edit/details/EditRelationshipAttribute.js:97
+#: ../root/edit/details/EditRelationshipAttribute.js:98
 msgid "Creditable"
 msgstr "ברי זיכוי"
 
 #: ../root/edit/details/AddRelationshipAttribute.js:60
-#: ../root/edit/details/EditRelationshipAttribute.js:105
+#: ../root/edit/details/EditRelationshipAttribute.js:106
 msgid "Free text"
 msgstr ""
 
@@ -9786,16 +9786,20 @@ msgstr "(פרטי)"
 msgid "To find out if you can vote for this candidate, please {url|log in}."
 msgstr "לבירור האם אתם יכולים להצביע למועמד זה,  {url|log in}."
 
-#: ../root/elections/ElectionVoting.js:32
+#: ../root/elections/ElectionVoting.js:31
+msgid "Voting is closed."
+msgstr "ההצבעה נסגרה."
+
+#: ../root/elections/ElectionVoting.js:34
 msgid "You cannot vote for this candidate, because you are not an auto-editor."
 msgstr "לא תוכלו להצביע עבור המועמד מאחר ואינכם עורכים-אוטומטיים."
 
-#: ../root/elections/ElectionVoting.js:37
+#: ../root/elections/ElectionVoting.js:39
 msgid ""
 "You cannot vote for this candidate, because you proposed / seconded them."
 msgstr "לא תוכלו להצביע עבור המועמד מאחר ואתם הצעתם/תמכתם בהם."
 
-#: ../root/elections/ElectionVoting.js:42
+#: ../root/elections/ElectionVoting.js:44
 msgid ""
 "Voting is not yet open. If you would like to support this candidate, you can "
 "second their nomination. If you do not support this candidate, please note "
@@ -9804,10 +9808,6 @@ msgid ""
 msgstr ""
 "ההצבעה טרם נפתחה. אם ברצונכם לקדם מועמד זה, תוכלו לתמוך במועמדותו. אם אינכם "
 "תומכים במועמד, לא תוכלו להצביע (או להימנע)  עד שימצאו שני תומכים."
-
-#: ../root/elections/ElectionVoting.js:49
-msgid "Voting is closed."
-msgstr "ההצבעה נסגרה."
 
 #: ../root/elections/ElectionVoting.js:64
 msgid "Second this candidate"
@@ -10017,27 +10017,40 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:73
 #, fuzzy
+#| msgid "Editor Not Found"
+msgctxt "header"
+msgid "Edit note not found"
+msgstr "לא נמצא עורך"
+
+#: ../root/entity/NotFound.js:75
+#, fuzzy
+#| msgid "Sorry, we could not find an artist credit with that ID."
+msgid "Sorry, we could not find an edit note with that ID."
+msgstr "למרבה הצער, לא מצאנו סוג מזכה אמן עם מזהה זה."
+
+#: ../root/entity/NotFound.js:81
+#, fuzzy
 #| msgid "Election Not Found"
 msgctxt "header"
 msgid "Election not found"
 msgstr "לא נמצאה בחירה"
 
-#: ../root/entity/NotFound.js:74
+#: ../root/entity/NotFound.js:82
 msgid "Sorry, we could not find this election."
 msgstr "למרבה הצער, לא יכולנו למצוא את הבחירות."
 
-#: ../root/entity/NotFound.js:76
+#: ../root/entity/NotFound.js:84
 msgid "Back to all elections."
 msgstr "חזרה לכל הבחירות."
 
-#: ../root/entity/NotFound.js:79
+#: ../root/entity/NotFound.js:87
 #, fuzzy
 #| msgid "Event Not Found"
 msgctxt "header"
 msgid "Event not found"
 msgstr "לא נמצאה אירוע"
 
-#: ../root/entity/NotFound.js:81
+#: ../root/entity/NotFound.js:89
 msgid ""
 "Sorry, we could not find an event with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10045,14 +10058,14 @@ msgstr ""
 "למרבה הצער, לא מצאנו אירוע עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו "
 "לחפש {search_url|search for it}."
 
-#: ../root/entity/NotFound.js:88
+#: ../root/entity/NotFound.js:96
 #, fuzzy
 #| msgid "Genre Not Found"
 msgctxt "header"
 msgid "Genre not found"
 msgstr "לא נמצאה סוגה"
 
-#: ../root/entity/NotFound.js:90
+#: ../root/entity/NotFound.js:98
 msgid ""
 "Sorry, we could not find a genre with that MusicBrainz ID. You can see all "
 "available genres on our {genre_list|genre list}."
@@ -10060,14 +10073,14 @@ msgstr ""
 "למרבה הצער, לא מצאנו סוגה עם מזהה מוזיקבריינז זה. ניתן לצפות בכול הסוגות "
 "הזמינות ב־ {genre_list|genre list}."
 
-#: ../root/entity/NotFound.js:97
+#: ../root/entity/NotFound.js:105
 #, fuzzy
 #| msgid "Instrument Not Found"
 msgctxt "header"
 msgid "Instrument not found"
 msgstr "לא נמצא כלי נגינה"
 
-#: ../root/entity/NotFound.js:99
+#: ../root/entity/NotFound.js:107
 msgid ""
 "Sorry, we could not find an instrument with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
@@ -10075,14 +10088,14 @@ msgstr ""
 "למרבה הצער, לא מצאנו כלי־נגינה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת תרצו "
 "לחפש {search_url|search for it}."
 
-#: ../root/entity/NotFound.js:106
+#: ../root/entity/NotFound.js:114
 #, fuzzy
 #| msgid "ISRC Not Currently Used"
 msgctxt "header"
 msgid "ISRC not currently used"
 msgstr "ISRC כרגע אינו בשימוש"
 
-#: ../root/entity/NotFound.js:108
+#: ../root/entity/NotFound.js:116
 msgid ""
 "This ISRC is not associated with any recordings. If you wish to associate it "
 "with a recording, please {search_url|search for the recording} and add it."
@@ -10090,14 +10103,14 @@ msgstr ""
 "ISRC זה אינו משויך להקלטות כלשהן. אם ברצונכם לשייך אותו להקלטה, נא "
 "{search_url|חפש את ההקלטה} והוספו אותה."
 
-#: ../root/entity/NotFound.js:116
+#: ../root/entity/NotFound.js:124
 #, fuzzy
 #| msgid "ISWC Not Currently Used"
 msgctxt "header"
 msgid "ISWC not currently used"
 msgstr "ISWC כרגע אינו בשימוש"
 
-#: ../root/entity/NotFound.js:118
+#: ../root/entity/NotFound.js:126
 msgid ""
 "This ISWC is not associated with any works. If you wish to associate it with "
 "a work, please {search_url|search for the work} and add it."
@@ -10105,14 +10118,14 @@ msgstr ""
 "ISWC זה אינו משויך ליצירות כלשהן. אם ברצונכם לשייך אותו ליצירה, נא "
 "{search_url|חפוש יצירה} והוספו אותה."
 
-#: ../root/entity/NotFound.js:125
+#: ../root/entity/NotFound.js:133
 #, fuzzy
 #| msgid "Label Not Found"
 msgctxt "header"
 msgid "Label not found"
 msgstr "לא נמצאה חברת תקליטים"
 
-#: ../root/entity/NotFound.js:127
+#: ../root/entity/NotFound.js:135
 msgid ""
 "Sorry, we could not find a label with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10120,14 +10133,14 @@ msgstr ""
 "למרבה הצער, לא מצאנו חברת תקליטים עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת "
 "ותרצו לחפש {search_url|search for it}."
 
-#: ../root/entity/NotFound.js:134
+#: ../root/entity/NotFound.js:142
 #, fuzzy
 #| msgid "Entity Not Found"
 msgctxt "header"
 msgid "Entity not found"
 msgstr "לא נמצאה ישות"
 
-#: ../root/entity/NotFound.js:136
+#: ../root/entity/NotFound.js:144
 msgid ""
 "Sorry, we could not find a MusicBrainz entity with that ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10135,14 +10148,14 @@ msgstr ""
 "למרבה הצער, לא מצאנו ישות מוזיקבריינז עם מזהה זה. יתכן ובמקום זאת ותרצו לחפש "
 "{search_url|search for it}."
 
-#: ../root/entity/NotFound.js:143
+#: ../root/entity/NotFound.js:151
 #, fuzzy
 #| msgid "Page Not Found"
 msgctxt "header"
 msgid "Place not found"
 msgstr "לא נמצאה עמוד"
 
-#: ../root/entity/NotFound.js:145
+#: ../root/entity/NotFound.js:153
 msgid ""
 "Sorry, we could not find a place with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10150,14 +10163,14 @@ msgstr ""
 "למרבה הצער, לא מצאנו מקום עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת תרצו לחפש "
 "{search_url|search for it}."
 
-#: ../root/entity/NotFound.js:152
+#: ../root/entity/NotFound.js:160
 #, fuzzy
 #| msgid "Recording Not Found"
 msgctxt "header"
 msgid "Recording not found"
 msgstr "לא נמצאה הקלטה"
 
-#: ../root/entity/NotFound.js:154
+#: ../root/entity/NotFound.js:162
 msgid ""
 "Sorry, we could not find a recording with that MusicBrainz ID. You may wish "
 "to try and {search_url|search for it} instead."
@@ -10165,37 +10178,37 @@ msgstr ""
 "למרבה הצער, לא מצאנו הקלטה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו "
 "לחפש {search_url|search for it}."
 
-#: ../root/entity/NotFound.js:161
+#: ../root/entity/NotFound.js:169
 #, fuzzy
 #| msgid "Relationship Attribute Not Found"
 msgctxt "header"
 msgid "Relationship attribute not found"
 msgstr "תכונת קשר־גומלין לא נמצאה"
 
-#: ../root/entity/NotFound.js:163
+#: ../root/entity/NotFound.js:171
 msgid ""
 "Sorry, we could not find a relationship attribute with that MusicBrainz ID."
 msgstr "למרבה הצער, לא מצאנו מאפין קשר־גומלין עם מזהה מיוזיקבריינז זה."
 
-#: ../root/entity/NotFound.js:170
+#: ../root/entity/NotFound.js:178
 #, fuzzy
 #| msgid "Relationship Type Not Found"
 msgctxt "header"
 msgid "Relationship type not found"
 msgstr "סוג קשר־גומלין לא נמצא"
 
-#: ../root/entity/NotFound.js:172
+#: ../root/entity/NotFound.js:180
 msgid "Sorry, we could not find a relationship type with that MusicBrainz ID."
 msgstr "למרבה הצער, לא מצאנו סוג קשר־גומלין עם מזהה מיוזיקבריינז זה."
 
-#: ../root/entity/NotFound.js:179
+#: ../root/entity/NotFound.js:187
 #, fuzzy
 #| msgid "Release Not Found"
 msgctxt "header"
 msgid "Release not found"
 msgstr "לא נמצא הוצאה"
 
-#: ../root/entity/NotFound.js:181
+#: ../root/entity/NotFound.js:189
 msgid ""
 "Sorry, we could not find a release with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10203,14 +10216,14 @@ msgstr ""
 "למרבה הצער, לא מצאנו קבוצת הוצאה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת "
 "ותרצו לחפש {search_url|search for it}."
 
-#: ../root/entity/NotFound.js:188
+#: ../root/entity/NotFound.js:196
 #, fuzzy
 #| msgid "Release Group Not Found"
 msgctxt "header"
 msgid "Release group not found"
 msgstr "לא נמצא קבוצת הוצאה"
 
-#: ../root/entity/NotFound.js:190
+#: ../root/entity/NotFound.js:198
 msgid ""
 "Sorry, we could not find a release group with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
@@ -10218,14 +10231,14 @@ msgstr ""
 "למרבה הצער, לא מצאנו קבוצת הוצאה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת "
 "ותרצו לחפש {search_url|search for it}."
 
-#: ../root/entity/NotFound.js:197
+#: ../root/entity/NotFound.js:205
 #, fuzzy
 #| msgid "Series Not Found"
 msgctxt "singular, header"
 msgid "Series not found"
 msgstr "לא נמצאה סדרה"
 
-#: ../root/entity/NotFound.js:199
+#: ../root/entity/NotFound.js:207
 msgid ""
 "Sorry, we could not find a series with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10233,14 +10246,14 @@ msgstr ""
 "למרבה הצער, לא מצאנו סדרה עם מזהה מוזיקבריינז זה. יתכן ובמקום זאת ותרצו לחפש "
 "{search_url|search for it}."
 
-#: ../root/entity/NotFound.js:206
+#: ../root/entity/NotFound.js:214
 #, fuzzy
 #| msgid "Track Not Found"
 msgctxt "header"
 msgid "Track not found"
 msgstr "לא נמצאה רצועה"
 
-#: ../root/entity/NotFound.js:208
+#: ../root/entity/NotFound.js:216
 msgid ""
 "Sorry, we could not find neither a recording nor a track with that "
 "MusicBrainz ID. You may wish to try and {search_url|search for it} instead."
@@ -10248,25 +10261,25 @@ msgstr ""
 "למרבה הצער, לא מצאנו הקלטה או רצועה עם מזהה מוזיקבריינז זה. במקום זאת, יתכן "
 "ותרצו לחפש ב־ {search_url|search for it}."
 
-#: ../root/entity/NotFound.js:216
+#: ../root/entity/NotFound.js:224
 #, fuzzy
 #| msgid "URL Not Found"
 msgctxt "header"
 msgid "URL not found"
 msgstr "לא נמצא מען url"
 
-#: ../root/entity/NotFound.js:217
+#: ../root/entity/NotFound.js:225
 msgid "Sorry, we could not find a URL with that MusicBrainz ID."
 msgstr "למרבה הצער, לא נמצא  מען url עם מזהה מיוזיקבריינז זה."
 
-#: ../root/entity/NotFound.js:222
+#: ../root/entity/NotFound.js:230
 #, fuzzy
 #| msgid "Editor Not Found"
 msgctxt "header"
 msgid "Editor not found"
 msgstr "לא נמצא עורך"
 
-#: ../root/entity/NotFound.js:224
+#: ../root/entity/NotFound.js:232
 msgid ""
 "Sorry, we could not find an editor with that name. You may wish to try and "
 "{search_url|search for them} instead."
@@ -10274,14 +10287,14 @@ msgstr ""
 "למרבה הצער, לא הצלחנו למצוא עורך בשם זה. מומלץ לנסות לבצע {search_url|"
 "search} במקום זאת."
 
-#: ../root/entity/NotFound.js:231
+#: ../root/entity/NotFound.js:239
 #, fuzzy
 #| msgid "Work Not Found"
 msgctxt "header"
 msgid "Work not found"
 msgstr "לא נמצאה יצירה"
 
-#: ../root/entity/NotFound.js:233
+#: ../root/entity/NotFound.js:241
 msgid ""
 "Sorry, we could not find a work with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
@@ -10751,7 +10764,7 @@ msgstr "מדיניות הסרת נתונים"
 msgid "Privileged user accounts"
 msgstr "חשבונות משתמש מועדפים"
 
-#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:546
+#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:548
 msgid "Statistics"
 msgstr "סטטיסטיקה"
 
@@ -14259,7 +14272,7 @@ msgid "Website"
 msgstr ""
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:230
-#: ../root/user/UserProfile.js:264
+#: ../root/user/UserProfile.js:265
 msgctxt "user area"
 msgid "Location"
 msgstr ""
@@ -14281,7 +14294,7 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:274
-#: ../root/user/UserProfile.js:382
+#: ../root/user/UserProfile.js:383
 msgid "Bio"
 msgstr ""
 
@@ -14960,7 +14973,7 @@ msgid "Related series"
 msgstr "סדרות קשורות"
 
 #: ../root/static/scripts/common/components/RelatedWorks.js:31
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1566
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1574
 msgid "Related works"
 msgstr ""
 
@@ -16577,30 +16590,30 @@ msgstr ""
 msgid "An error occurred:"
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1504
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1512
 #, fuzzy
 #| msgid "Track Relationships"
 msgid "Track relationships"
 msgstr "קשרי רצועה"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1523
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1531
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to make batch "
 "operations on these, please fully load them first."
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1590
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1598
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:373
 msgid "We have no information about this release’s media and tracklist."
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1621
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1629
 #, fuzzy
 #| msgid "Release Relationships"
 msgid "Release relationships"
 msgstr "קשרי־גומלין הוצאה"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1658
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1666
 #, fuzzy
 #| msgid "Release Group Relationships"
 msgid "Release group relationships"
@@ -17346,82 +17359,82 @@ msgstr ""
 msgid "Edits by {name}"
 msgstr "עריכות  לפי {name}"
 
-#: ../root/user/UserProfile.js:68
+#: ../root/user/UserProfile.js:69
 #, fuzzy
 #| msgid "Deleted User"
 msgctxt "user type"
 msgid "Deleted user"
 msgstr "משתמש שנמחק"
 
-#: ../root/user/UserProfile.js:78
+#: ../root/user/UserProfile.js:79
 msgctxt "user type"
 msgid "Internal/Bot"
 msgstr ""
 
-#: ../root/user/UserProfile.js:107
+#: ../root/user/UserProfile.js:108
 #, fuzzy
 #| msgid "Beginner"
 msgctxt "user type"
 msgid "Beginner"
 msgstr "מתחיל"
 
-#: ../root/user/UserProfile.js:113
+#: ../root/user/UserProfile.js:114
 #, fuzzy
 #| msgid "Normal"
 msgctxt "user type"
 msgid "Normal user"
 msgstr "נורמלי"
 
-#: ../root/user/UserProfile.js:146
+#: ../root/user/UserProfile.js:147
 msgid "The dawn of the project"
 msgstr ""
 
-#: ../root/user/UserProfile.js:148
+#: ../root/user/UserProfile.js:149
 msgid "The early days of the project"
 msgstr ""
 
-#: ../root/user/UserProfile.js:156
+#: ../root/user/UserProfile.js:157
 msgid ""
 "Your homepage and biography will not show until you have completed the email "
 "verification process."
 msgstr ""
 
-#: ../root/user/UserProfile.js:175
+#: ../root/user/UserProfile.js:176
 #, fuzzy
 #| msgid "Label information"
 msgid "General information"
 msgstr "מידע חברת תקליטים"
 
-#: ../root/user/UserProfile.js:181
+#: ../root/user/UserProfile.js:182
 #, fuzzy
 #| msgid "(hidden)"
 msgctxt "email address"
 msgid "(hidden)"
 msgstr "(מוסתר)"
 
-#: ../root/user/UserProfile.js:184
+#: ../root/user/UserProfile.js:185
 #, fuzzy
 #| msgid "(verified at {date})"
 msgctxt "email address"
 msgid "(verified at {date})"
 msgstr "(אומת ב {date})"
 
-#: ../root/user/UserProfile.js:189
+#: ../root/user/UserProfile.js:190
 #, fuzzy
 #| msgid "(<strong>unverified!</strong>)"
 msgctxt "email address"
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>לא מאומת</strong>)"
 
-#: ../root/user/UserProfile.js:198
+#: ../root/user/UserProfile.js:199
 msgid "resend verification email"
 msgstr ""
 
-#: ../root/user/UserProfile.js:206
+#: ../root/user/UserProfile.js:207
 msgid "send email"
 msgstr ""
 
-#: ../root/user/UserProfile.js:231
+#: ../root/user/UserProfile.js:232
 #, fuzzy
 #| msgctxt "type"
 #| msgid "(none)"
@@ -17429,214 +17442,214 @@ msgctxt "email address"
 msgid "(none)"
 msgstr "(ללא)"
 
-#: ../root/user/UserProfile.js:238
+#: ../root/user/UserProfile.js:239
 msgid "User type:"
 msgstr ""
 
-#: ../root/user/UserProfile.js:244
+#: ../root/user/UserProfile.js:245
 msgid "nominate for auto-editor"
 msgstr ""
 
-#: ../root/user/UserProfile.js:251
+#: ../root/user/UserProfile.js:252
 msgid "Age:"
 msgstr "גיל:"
 
-#: ../root/user/UserProfile.js:270
+#: ../root/user/UserProfile.js:271
 msgid "Member since"
 msgstr ""
 
-#: ../root/user/UserProfile.js:276
+#: ../root/user/UserProfile.js:277
 #, fuzzy
 #| msgid "Description"
 msgid "Restrictions"
 msgstr "תאור"
 
-#: ../root/user/UserProfile.js:283
+#: ../root/user/UserProfile.js:284
 msgid "Last login"
 msgstr "התחברות אחרונה"
 
-#: ../root/user/UserProfile.js:286
+#: ../root/user/UserProfile.js:287
 msgid "Hasn't logged in yet"
 msgstr ""
 
-#: ../root/user/UserProfile.js:294 ../root/user/UserProfile.js:308
-#: ../root/user/UserProfile.js:341
+#: ../root/user/UserProfile.js:295 ../root/user/UserProfile.js:309
+#: ../root/user/UserProfile.js:342
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|הצגת רשימה})"
 
-#: ../root/user/UserProfile.js:320
+#: ../root/user/UserProfile.js:321
 msgid "Homepage:"
 msgstr ""
 
-#: ../root/user/UserProfile.js:348
+#: ../root/user/UserProfile.js:349
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:361
+#: ../root/user/UserProfile.js:362
 msgid "unsubscribe"
 msgstr ""
 
-#: ../root/user/UserProfile.js:370
+#: ../root/user/UserProfile.js:371
 msgid "subscribe"
 msgstr ""
 
-#: ../root/user/UserProfile.js:399
+#: ../root/user/UserProfile.js:400
 msgid "Languages"
 msgstr ""
 
-#: ../root/user/UserProfile.js:468 ../root/user/UserProfile.js:560
-#: ../root/user/UserProfile.js:570 ../root/user/UserProfile.js:580
-#: ../root/user/UserProfile.js:590 ../root/user/UserProfile.js:600
-#: ../root/user/UserProfile.js:610 ../root/user/UserProfile.js:620
-#: ../root/user/UserProfile.js:630 ../root/user/UserProfile.js:639
-#: ../root/user/UserProfile.js:792 ../root/user/UserProfile.js:813
-#: ../root/user/UserProfile.js:834
+#: ../root/user/UserProfile.js:469 ../root/user/UserProfile.js:562
+#: ../root/user/UserProfile.js:572 ../root/user/UserProfile.js:582
+#: ../root/user/UserProfile.js:592 ../root/user/UserProfile.js:602
+#: ../root/user/UserProfile.js:612 ../root/user/UserProfile.js:622
+#: ../root/user/UserProfile.js:632 ../root/user/UserProfile.js:641
+#: ../root/user/UserProfile.js:794 ../root/user/UserProfile.js:815
+#: ../root/user/UserProfile.js:836
 msgid "{count} ({view_url|view})"
 msgstr ""
 
-#: ../root/user/UserProfile.js:552
+#: ../root/user/UserProfile.js:554
 msgid "Edits"
 msgstr "עריכות"
 
-#: ../root/user/UserProfile.js:558
+#: ../root/user/UserProfile.js:560
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr "סך כל"
 
-#: ../root/user/UserProfile.js:568
+#: ../root/user/UserProfile.js:570
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "התקבל"
 
-#: ../root/user/UserProfile.js:578
+#: ../root/user/UserProfile.js:580
 msgid "Auto-edits"
 msgstr "עריכות אוטומטיות"
 
-#: ../root/user/UserProfile.js:588
+#: ../root/user/UserProfile.js:590
 msgid "Total applied"
 msgstr "סך כל הוחלו"
 
-#: ../root/user/UserProfile.js:598
+#: ../root/user/UserProfile.js:600
 msgid "Voted down"
 msgstr "הצבעה שלילית"
 
-#: ../root/user/UserProfile.js:608
+#: ../root/user/UserProfile.js:610
 msgid "Failed"
 msgstr "כשל"
 
-#: ../root/user/UserProfile.js:618
+#: ../root/user/UserProfile.js:620
 msgctxt "edit"
 msgid "Cancelled"
 msgstr ""
 
-#: ../root/user/UserProfile.js:628
+#: ../root/user/UserProfile.js:630
 msgid "Open"
 msgstr "פתיחה"
 
-#: ../root/user/UserProfile.js:638
+#: ../root/user/UserProfile.js:640
 msgid "Last 24 hours"
 msgstr ""
 
-#: ../root/user/UserProfile.js:662
+#: ../root/user/UserProfile.js:664
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:667
+#: ../root/user/UserProfile.js:669
 msgid "Votes ({view_url|view})"
 msgstr "הצבעות ({view_url|view})"
 
-#: ../root/user/UserProfile.js:675
+#: ../root/user/UserProfile.js:677
 msgid "Last 28 days"
 msgstr ""
 
-#: ../root/user/UserProfile.js:678
+#: ../root/user/UserProfile.js:680
 msgid "Overall"
 msgstr ""
 
-#: ../root/user/UserProfile.js:726
+#: ../root/user/UserProfile.js:728
 msgid "This table shows a summary of entities added by this editor."
 msgstr "טבלה זו מציגה תקציר של ישויות שהתווספו על ידי עורך זה."
 
-#: ../root/user/UserProfile.js:732
+#: ../root/user/UserProfile.js:734
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr "עריכות שהוחלו לאחרונה עשויות להימשך 24 שעות עד הופעתן"
 
-#: ../root/user/UserProfile.js:735
+#: ../root/user/UserProfile.js:737
 msgid "Added entities"
 msgstr "ישויות שנוספו"
 
-#: ../root/user/UserProfile.js:758
+#: ../root/user/UserProfile.js:760
 msgid "This user has not added any entities."
 msgstr ""
 
-#: ../root/user/UserProfile.js:768
+#: ../root/user/UserProfile.js:770
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:774
+#: ../root/user/UserProfile.js:776
 #, fuzzy
 #| msgid "Tags and ratings"
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "תגים ודירוגים"
 
-#: ../root/user/UserProfile.js:781
+#: ../root/user/UserProfile.js:783
 #, fuzzy
 #| msgid "Tags upvoted"
 msgctxt "folksonomy"
 msgid "Tags upvoted"
 msgstr "תגים שקיבלו הצבעה חיובית"
 
-#: ../root/user/UserProfile.js:785 ../root/user/UserProfile.js:806
+#: ../root/user/UserProfile.js:787 ../root/user/UserProfile.js:808
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
 msgstr ""
 
-#: ../root/user/UserProfile.js:789 ../root/user/UserProfile.js:810
+#: ../root/user/UserProfile.js:791 ../root/user/UserProfile.js:812
 #, fuzzy
 #| msgid "Removed"
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "הוסר"
 
-#: ../root/user/UserProfile.js:801
+#: ../root/user/UserProfile.js:803
 #, fuzzy
 #| msgid "Tags downvoted"
 msgctxt "folksonomy"
 msgid "Tags downvoted"
 msgstr "תגים שקיבלו הצבעה שלילית"
 
-#: ../root/user/UserProfile.js:827
+#: ../root/user/UserProfile.js:829
 msgid "Ratings are removed when an editor is deleted."
 msgstr ""
 
-#: ../root/user/UserProfile.js:830
+#: ../root/user/UserProfile.js:832
 msgctxt "ratings"
 msgid "Removed"
 msgstr ""
 
-#: ../root/user/UserProfile.js:867
+#: ../root/user/UserProfile.js:869
 msgid "Editing/voting disabled"
 msgstr "עריכה/העברה נוטרלו"
 
-#: ../root/user/UserProfile.js:870
+#: ../root/user/UserProfile.js:872
 msgid "Edit notes disabled"
 msgstr "עריכת הערות מושבתת"
 
-#: ../root/user/UserProfile.js:884
+#: ../root/user/UserProfile.js:886
 #, fuzzy
 #| msgid "Delete my account"
 msgid "Blocked spam account"
 msgstr "מחיקת חשבון כלשהו"
 
-#: ../root/user/UserProfile.js:886
+#: ../root/user/UserProfile.js:888
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
 "reporting the spammer from their user page."
 msgstr ""
 
-#: ../root/user/UserProfile.js:940
+#: ../root/user/UserProfile.js:942
 msgid "Report this user for bad behavior"
 msgstr ""
 

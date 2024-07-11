@@ -56,8 +56,12 @@ has '+data' => (
 sub foreign_keys
 {
     my $self = shift;
+    my $data = $self->data;
     return {
-        LinkAttributeType => [ map { $self->data->{$_}{parent_id} } qw( old new ) ],
+        LinkAttributeType => [
+            $data->{entity_id},
+            map { $data->{$_}{parent_id} } qw( old new ),
+        ],
     };
 }
 
@@ -80,6 +84,10 @@ sub build_display_data
         $data->{parent}{old} = to_json_object($data->{parent}{old});
         $data->{parent}{new} = to_json_object($data->{parent}{new});
     }
+
+    $data->{attribute_type} = to_json_object(
+        $loaded->{LinkAttributeType}{ $self->data->{entity_id} },
+    );
 
     return $data;
 }

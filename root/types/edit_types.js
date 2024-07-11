@@ -890,11 +890,12 @@ declare type EditRelationshipEditT = $ReadOnly<{
 declare type EditRelationshipAttributeEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
+    +attribute_type: LinkAttrTypeT | null,
     +child_order?: CompT<number>,
     +creditable?: CompT<boolean>,
-    +description: CompT<string | null>,
+    +description?: CompT<string | null>,
     +free_text?: CompT<boolean>,
-    +name: CompT<string>,
+    +name?: CompT<string>,
     +original_description: string | null,
     +original_name: string,
     +parent?: CompT<LinkAttrTypeT | null>,

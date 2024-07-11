@@ -19,7 +19,7 @@ component EditNoteListEntry(
 ) {
   const editTitle = texp.l(
     'Edit #{id} - {name}',
-    {id: edit.id, name: l(edit.edit_name)},
+    {id: edit.id, name: lp(edit.edit_name, edit.edit_type_name_context)},
   );
 
   return (

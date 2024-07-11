@@ -238,7 +238,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.area.type.'.$_ => $dist{$_}
+                    ("count.area.type.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -371,7 +371,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.event.country.'.$_ => $dist{$_}
+                    ("count.event.country.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -393,7 +393,32 @@ my %stats = (
 
             +{
                 map {
-                    'count.event.type.'.$_ => $dist{$_}
+                    ("count.event.type.$_" => $dist{$_})
+                } keys %dist,
+            };
+        },
+    },
+    'count.event.type.typename.has_eventart' => {
+        DESC => 'Count of event with event art, by event type',
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                q{SELECT
+                   coalesce(event_type.name, 'null'),
+                   count(DISTINCT event_art.event)
+                 FROM event_art_archive.event_art
+                 JOIN event ON event.id = event_art.event
+                 FULL OUTER JOIN event_type
+                   ON event_type.id = event.type
+                 GROUP BY coalesce(event_type.name, 'null')},
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    ("count.event.type.$_.has_eventart" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -408,9 +433,74 @@ my %stats = (
                   JOIN event_art_archive.event_art_type eat ON ea.id = eat.id
                 WHERE eat.type_id = 1',
     },
+    'count.event.has_no_eaa_poster' => {
+        PREREQ => [qw[ count.event count.event.has_eaa_poster ]],
+        DESC => 'Count of events with no poster in the EAA',
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            return $self->fetch('count.event') - $self->fetch('count.event.has_eaa_poster');
+        },
+        NONREPLICATED => 1,
+    },
     'count.eventart' => {
         DESC => 'Count of all event art images',
         SQL => 'SELECT count(*) FROM event_art_archive.event_art',
+    },
+    'count.eventart.type' => {
+        DESC => 'Distribution of event art by type',
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                'SELECT art_type.name, COUNT(event_art_type.id) AS count
+                 FROM event_art_archive.event_art_type
+                 JOIN event_art_archive.art_type ON art_type.id = event_art_type.type_id
+                 GROUP BY art_type.name',
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    ("count.eventart.type.$_" => $dist{$_})
+                } keys %dist,
+            };
+        },
+    },
+    'count.eventart.per_event.Nimages' => {
+        DESC => 'Distribution of event art images per event',
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $max_dist_tail = 15;
+
+            my $data = $sql->select_list_of_lists(
+                'SELECT c, COUNT(*) AS freq
+                FROM (
+                    SELECT event, COUNT(*) AS c
+                    FROM event_art_archive.event_art
+                    GROUP BY event
+                ) AS t
+                GROUP BY c',
+            );
+
+            my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
+
+            for (@$data)
+            {
+                $dist{ $_->[0] } = $_->[1], next
+                    if $_->[0] < $max_dist_tail;
+
+                $dist{$max_dist_tail} += $_->[1];
+            }
+
+            +{
+                map {
+                    ("count.eventart.per_event.${_}images" => $dist{$_})
+                } keys %dist,
+            };
+        },
     },
     'count.genre' => {
         DESC => 'Count of all genres',
@@ -437,7 +527,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.instrument.type.'.$_ => $dist{$_}
+                    ("count.instrument.type.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -472,7 +562,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.place.country.'.$_ => $dist{$_}
+                    ("count.place.country.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -494,7 +584,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.place.type.'.$_ => $dist{$_}
+                    ("count.place.type.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -519,7 +609,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.series.type.'.$_ => $dist{$_}
+                    ("count.series.type.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -548,7 +638,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.coverart.type.'.$_ => $dist{$_}
+                    ("count.coverart.type.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -589,7 +679,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.release.status.'.$_. '.has_coverart' => $dist{$_}
+                    ("count.release.status.$_.has_coverart" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -616,7 +706,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.release.type.'.$_. '.has_coverart' => $dist{$_}
+                    ("count.release.type.$_.has_coverart" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -642,7 +732,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.release.format.'.$_. '.has_coverart' => $dist{$_}
+                    ("count.release.format.$_.has_coverart" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -676,7 +766,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.coverart.per_release.'.$_. 'images' => $dist{$_}
+                    ("count.coverart.per_release.${_}images" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -703,7 +793,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.label.type.'.$_ => $dist{$_}
+                    ("count.label.type.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -801,7 +891,7 @@ my %stats = (
                     return $row->{valid} && $row->{validated} && !(grep { $row->{$_} } @active_markers);
                 },
             };
-            my %ret = map { $_ => 0 } (keys %$stats, map { 'count.editor.valid.active.'.$_ } @active_markers);
+            my %ret = map { $_ => 0 } (keys %$stats, map { "count.editor.valid.active.$_" } @active_markers);
             for my $row (@$data) {
                 for my $stat (keys %$stats) {
                     if ($stats->{$stat}->($row)) {
@@ -875,7 +965,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.work.language.'.$_ => $dist{$_}
+                    ("count.work.language.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -897,7 +987,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.work.type.'.$_ => $dist{$_}
+                    ("count.work.type.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -920,7 +1010,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.work.attribute.'.$_ => $dist{$_}
+                    ("count.work.attribute.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -1009,7 +1099,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.label.country.'.$_ => $dist{$_}
+                    ("count.label.country.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -1033,7 +1123,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.release.country.'.$_ => $dist{$_}
+                    ("count.release.country.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -1053,7 +1143,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.release.format.'.$_ => $dist{$_}
+                    ("count.release.format.$_" => $dist{$_})
                 } keys %dist,
             };
          },
@@ -1073,7 +1163,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.medium.format.'.$_ => $dist{$_}
+                    ("count.medium.format.$_" => $dist{$_})
                 } keys %dist,
             };
          },
@@ -1098,7 +1188,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.release.language.'.$_ => $dist{$_}
+                    ("count.release.language.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -1119,7 +1209,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.release.script.'.$_ => $dist{$_}
+                    ("count.release.script.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -1140,7 +1230,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.release.status.'.$_ => $dist{$_}
+                    ("count.release.status.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -1161,7 +1251,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.release.packaging.'.$_ => $dist{$_}
+                    ("count.release.packaging.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -1191,7 +1281,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.releasegroup.'.$_.'releases' => $dist{$_}
+                    ("count.releasegroup.${_}releases" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -1213,7 +1303,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.releasegroup.primary_type.'.$_ => $dist{$_}
+                    ("count.releasegroup.primary_type.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -1238,7 +1328,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.releasegroup.secondary_type.'.$_ => $dist{$_}
+                    ("count.releasegroup.secondary_type.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -1392,7 +1482,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.edit.type.'.$_ => $dist{$_}
+                    ("count.edit.type.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -1440,7 +1530,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.artist.country.'.$_ => $dist{$_}
+                    ("count.artist.country.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -1795,7 +1885,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.release.'.$_.'discids' => $dist{$_}
+                    ("count.release.${_}discids" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -1834,7 +1924,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.medium.'.$_.'discids' => $dist{$_}
+                    ("count.medium.${_}discids" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -1913,7 +2003,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.recording.'.$_.'releases' => $dist{$_}
+                    ("count.recording.${_}releases" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -1962,7 +2052,7 @@ my %stats = (
 
             +{
                 map {
-                    'count.ar.links.'.$_ => $dist{$_}
+                    ("count.ar.links.$_" => $dist{$_})
                 } keys %dist,
             };
         },
@@ -2032,6 +2122,7 @@ my %stats = (
                 'count.collection.type.release_group' => $dist{13} || 0,
                 'count.collection.type.series' => $dist{14} || 0,
                 'count.collection.type.work' => $dist{15} || 0,
+                'count.collection.type.genre' => $dist{16} || 0,
             };
         },
     },

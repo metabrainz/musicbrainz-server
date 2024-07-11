@@ -27,7 +27,9 @@ component ElectionVoting(election: AutoEditorElectionT) {
   const user = $c.user;
 
   if (user) {
-    if (!isAutoEditor(user)) {
+    if (election.is_closed) {
+      message = l('Voting is closed.');
+    } else if (!isAutoEditor(user)) {
       message = l(
         `You cannot vote for this candidate,
          because you are not an auto-editor.`,
@@ -45,8 +47,6 @@ component ElectionVoting(election: AutoEditorElectionT) {
          that you cannot cast a "No" vote (or abstain)
          until two seconders have been found.`,
       );
-    } else if (election.is_closed) {
-      message = l('Voting is closed.');
     }
   }
 

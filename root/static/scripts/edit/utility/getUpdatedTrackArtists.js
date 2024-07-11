@@ -28,19 +28,22 @@ const sameEntities = (
 /*
  * Returns a copy of orig with its first numToReplace names changed to
  * replacement, preserving the original join phrase from the end of the
- * replaced names.
+ * replaced names unless the new join phrase is the end of the artist credit.
  */
 const replacePrefix = (
   orig: $ReadOnlyArray<ArtistCreditNameT>,
   numToReplace: number,
   replacement: $ReadOnlyArray<ArtistCreditNameT>,
 ): $ReadOnlyArray<ArtistCreditNameT> => {
-  const updated = cloneArrayDeep(replacement)
-    .concat(orig.slice(numToReplace));
-  updated[replacement.length - 1] = {
-    ...updated[replacement.length - 1],
-    joinPhrase: orig[numToReplace - 1].joinPhrase,
-  };
+  const extraOriginalArtists = orig.slice(numToReplace);
+  const updated = cloneArrayDeep(replacement).concat(extraOriginalArtists);
+  const isFullReplacement = extraOriginalArtists.length === 0;
+  if (!isFullReplacement) {
+    updated[replacement.length - 1] = {
+      ...updated[replacement.length - 1],
+      joinPhrase: orig[numToReplace - 1].joinPhrase,
+    };
+  }
   return updated;
 };
 
