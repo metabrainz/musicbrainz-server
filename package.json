@@ -83,7 +83,7 @@
     "eslint-plugin-react": "7.34.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "flow-bin": "0.236.0",
+    "flow-bin": "0.237.0",
     "gettext-parser": "4.2.0",
     "hermes-eslint": "0.20.1",
     "http-proxy": "1.18.1",

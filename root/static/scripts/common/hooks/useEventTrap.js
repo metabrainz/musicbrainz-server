@@ -29,7 +29,7 @@ function setupEventHandler(
 
   document.addEventListener((
     eventType
-  ), (event: FocusEvent | KeyboardEvent | MouseEvent) => {
+  ), (event) => {
     const eventTarget = event.target;
     if (!(eventTarget instanceof Node)) {
       return;
