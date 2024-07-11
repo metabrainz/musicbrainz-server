@@ -1740,6 +1740,12 @@ msgstr ""
 msgid "Areas"
 msgstr "Regions"
 
+#: ../root/statistics/Index.js:119 ../root/statistics/Index.js:848
+#: ../root/statistics/Index.js:856 ../root/statistics/stats.js:814
+msgctxt "plural"
+msgid "Series"
+msgstr "Serias"
+
 #: ../root/statistics/Index.js:123 ../root/statistics/Index.js:872
 #: ../root/statistics/Index.js:879 ../root/statistics/stats.js:483
 msgid "Instruments"
@@ -1770,6 +1776,13 @@ msgstr ""
 #| msgid "CD Stubs (all time / current):"
 msgid "CD stubs (all time / current):"
 msgstr "Copons de CD (istoric / corrent ) :"
+
+#: ../root/statistics/Index.js:163
+#, fuzzy
+#| msgid "Tags (raw / aggregated):"
+msgctxt "folksonomy"
+msgid "Tags (raw / aggregated):"
+msgstr "Balisas (brut / agregat) : "
 
 #: ../root/statistics/Index.js:169
 msgid "Ratings (raw / aggregated):"
@@ -2004,6 +2017,11 @@ msgstr "Tipes segondaris"
 msgid "Videos"
 msgstr ""
 
+#: ../root/statistics/Index.js:690
+msgctxt "recording"
+msgid "Standalone"
+msgstr ""
+
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
 msgstr ""
@@ -2156,6 +2174,13 @@ msgstr "que vòtan :"
 msgid "who leave edit notes:"
 msgstr "qu'an daissat de nòtas de modificacion :"
 
+#: ../root/statistics/Index.js:1186
+#, fuzzy
+#| msgid "who use tags:"
+msgctxt "folksonomy"
+msgid "who use tags:"
+msgstr "qu'utilizan de balisas :"
+
 #: ../root/statistics/Index.js:1194
 msgid "who use ratings:"
 msgstr "qu'utilizan d'avaloracions :"
@@ -2208,6 +2233,13 @@ msgstr "Fracàs (prerequesit) :"
 msgid "Failed (internal error):"
 msgstr "Fracàs (error intèrna) :"
 
+#: ../root/statistics/Index.js:1295
+#, fuzzy
+#| msgid "Cancelled:"
+msgctxt "edit"
+msgid "Cancelled"
+msgstr "Anullat :"
+
 #: ../root/statistics/Index.js:1307 ../root/statistics/Index.js:1363
 msgid "Last 7 days:"
 msgstr "7 darrièrs jorns :"
@@ -2220,6 +2252,26 @@ msgstr "Ièr :"
 #: ../root/statistics/Index.js:1357 ../root/statistics/stats.js:895
 msgid "Votes"
 msgstr "Vòtes"
+
+#: ../root/statistics/Index.js:1331
+msgctxt "vote"
+msgid "Approve"
+msgstr "Aprovar"
+
+#: ../root/statistics/Index.js:1338
+msgctxt "vote"
+msgid "Yes"
+msgstr "Òc"
+
+#: ../root/statistics/Index.js:1344
+msgctxt "vote"
+msgid "No"
+msgstr "Non"
+
+#: ../root/statistics/Index.js:1351
+msgctxt "vote"
+msgid "Abstain"
+msgstr "S'absténer"
 
 #: ../root/statistics/LanguagesScripts.js:43
 #, fuzzy
@@ -2289,6 +2341,16 @@ msgstr ""
 msgid "No relationship statistics available."
 msgstr "Pas cap d'estatistica de relacion."
 
+#: ../root/statistics/Relationships.js:105
+msgctxt "relationships"
+msgid "This type only"
+msgstr ""
+
+#: ../root/statistics/Relationships.js:106
+msgctxt "relationships"
+msgid "Including subtypes"
+msgstr ""
+
 #: ../root/statistics/Relationships.js:128
 msgid "{type0}-{type1}"
 msgstr "{type0}-{type1}"
@@ -2315,6 +2377,34 @@ msgstr "Païses dels artistas"
 msgid "Artist types and genders"
 msgstr "Tipes e sèxes dels artistas"
 
+#: ../root/statistics/stats.js:21
+#, fuzzy
+#| msgid "Cover Art"
+msgctxt "plural"
+msgid "Cover art"
+msgstr "Illustracion"
+
+#: ../root/statistics/stats.js:22
+#, fuzzy
+#| msgid "Events"
+msgctxt "plural"
+msgid "Event art"
+msgstr "Eveniments"
+
+#: ../root/statistics/stats.js:24
+#, fuzzy
+#| msgid "Edit Information"
+msgctxt "noun"
+msgid "Edit information"
+msgstr "Modificar las informacions"
+
+#: ../root/statistics/stats.js:25
+#, fuzzy
+#| msgid "Edits"
+msgctxt "noun"
+msgid "Edit types"
+msgstr "Modificacions"
+
 #: ../root/statistics/stats.js:26
 #, fuzzy
 #| msgid "Events"
@@ -2339,11 +2429,23 @@ msgstr "Païses dels labèls"
 msgid "Label types"
 msgstr "Labèls"
 
+#: ../root/statistics/stats.js:31
+msgctxt "stats category"
+msgid "Other"
+msgstr "Autres"
+
 #: ../root/statistics/stats.js:32
 #, fuzzy
 #| msgid "Places"
 msgid "Place types"
 msgstr "Luòcs"
+
+#: ../root/statistics/stats.js:33
+#, fuzzy
+#| msgid "Ratings and Tags"
+msgctxt "folksonomy"
+msgid "Ratings and tags"
+msgstr "Avaloracions e balisas"
 
 #: ../root/statistics/stats.js:35
 #, fuzzy
@@ -2610,6 +2712,13 @@ msgstr ""
 msgid "Edits that have been voted down"
 msgstr ""
 
+#: ../root/statistics/stats.js:336
+#, fuzzy
+#| msgid "Open Edits"
+msgctxt "noun"
+msgid "Open edits"
+msgstr "Modificacions dobèrtas"
+
 #: ../root/statistics/stats.js:342
 msgid "Edits per day"
 msgstr "Modificacions per jorn"
@@ -2664,6 +2773,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:411
 msgid "Editors who use subscriptions"
+msgstr ""
+
+#: ../root/statistics/stats.js:416
+msgctxt "folksonomy"
+msgid "Editors who have added tags"
 msgstr ""
 
 #: ../root/statistics/stats.js:421
@@ -2930,6 +3044,16 @@ msgstr ""
 msgid "Series with no type set"
 msgstr ""
 
+#: ../root/statistics/stats.js:824
+msgctxt "folksonomy"
+msgid "Unique tag names"
+msgstr ""
+
+#: ../root/statistics/stats.js:829
+msgctxt "folksonomy"
+msgid "Votes for/against tags"
+msgstr ""
+
 #: ../root/statistics/stats.js:834
 msgid "Votes for/against area tags"
 msgstr ""
@@ -3170,72 +3294,6 @@ msgstr ""
 #~ msgstr "Parucions amb illustracion :"
 
 #, fuzzy
-#~| msgid "Cover Art"
-#~ msgctxt "plural"
-#~ msgid "Cover art"
-#~ msgstr "Illustracion"
-
-#~ msgctxt "plural"
-#~ msgid "Series"
-#~ msgstr "Serias"
-
-#, fuzzy
-#~| msgid "Tags (raw / aggregated):"
-#~ msgctxt "folksonomy"
-#~ msgid "Tags (raw / aggregated):"
-#~ msgstr "Balisas (brut / agregat) : "
-
-#, fuzzy
-#~| msgid "who use tags:"
-#~ msgctxt "folksonomy"
-#~ msgid "who use tags:"
-#~ msgstr "qu'utilizan de balisas :"
-
-#~ msgctxt "vote"
-#~ msgid "Approve"
-#~ msgstr "Aprovar"
-
-#~ msgctxt "vote"
-#~ msgid "Yes"
-#~ msgstr "Òc"
-
-#~ msgctxt "vote"
-#~ msgid "No"
-#~ msgstr "Non"
-
-#~ msgctxt "vote"
-#~ msgid "Abstain"
-#~ msgstr "S'absténer"
-
-#, fuzzy
-#~| msgid "Edit Information"
-#~ msgctxt "noun"
-#~ msgid "Edit information"
-#~ msgstr "Modificar las informacions"
-
-#, fuzzy
-#~| msgid "Edits"
-#~ msgctxt "noun"
-#~ msgid "Edit types"
-#~ msgstr "Modificacions"
-
-#~ msgctxt "stats category"
-#~ msgid "Other"
-#~ msgstr "Autres"
-
-#, fuzzy
-#~| msgid "Ratings and Tags"
-#~ msgctxt "folksonomy"
-#~ msgid "Ratings and tags"
-#~ msgstr "Avaloracions e balisas"
-
-#, fuzzy
-#~| msgid "Open Edits"
-#~ msgctxt "noun"
-#~ msgid "Open edits"
-#~ msgstr "Modificacions dobèrtas"
-
-#, fuzzy
 #~| msgid "Evalnochange Edits"
 #~ msgid "Evalnochange edits"
 #~ msgstr "Modificacions « evalnochange » (avaloracion pas de cambiament)"
@@ -3342,9 +3400,6 @@ msgstr ""
 
 #~ msgid "Voted down:"
 #~ msgstr "Votat contra :"
-
-#~ msgid "Cancelled:"
-#~ msgstr "Anullat :"
 
 #~ msgid "Votes:"
 #~ msgstr "Vòtes :"

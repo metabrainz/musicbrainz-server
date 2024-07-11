@@ -1653,6 +1653,12 @@ msgstr ""
 msgid "Areas"
 msgstr "Områder"
 
+#: ../root/statistics/Index.js:119 ../root/statistics/Index.js:848
+#: ../root/statistics/Index.js:856 ../root/statistics/stats.js:814
+msgctxt "plural"
+msgid "Series"
+msgstr "Serie"
+
 #: ../root/statistics/Index.js:123 ../root/statistics/Index.js:872
 #: ../root/statistics/Index.js:879 ../root/statistics/stats.js:483
 msgid "Instruments"
@@ -1678,6 +1684,11 @@ msgstr "Samlinger"
 
 #: ../root/statistics/Index.js:154
 msgid "CD stubs (all time / current):"
+msgstr ""
+
+#: ../root/statistics/Index.js:163
+msgctxt "folksonomy"
+msgid "Tags (raw / aggregated):"
 msgstr ""
 
 #: ../root/statistics/Index.js:169
@@ -1899,6 +1910,11 @@ msgstr ""
 msgid "Videos"
 msgstr ""
 
+#: ../root/statistics/Index.js:690
+msgctxt "recording"
+msgid "Standalone"
+msgstr ""
+
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
 msgstr ""
@@ -2053,6 +2069,11 @@ msgstr ""
 msgid "who leave edit notes:"
 msgstr ""
 
+#: ../root/statistics/Index.js:1186
+msgctxt "folksonomy"
+msgid "who use tags:"
+msgstr ""
+
 #: ../root/statistics/Index.js:1194
 msgid "who use ratings:"
 msgstr ""
@@ -2105,6 +2126,11 @@ msgstr ""
 msgid "Failed (internal error):"
 msgstr ""
 
+#: ../root/statistics/Index.js:1295
+msgctxt "edit"
+msgid "Cancelled"
+msgstr ""
+
 #: ../root/statistics/Index.js:1307 ../root/statistics/Index.js:1363
 msgid "Last 7 days:"
 msgstr ""
@@ -2117,6 +2143,28 @@ msgstr "I går:"
 #: ../root/statistics/Index.js:1357 ../root/statistics/stats.js:895
 msgid "Votes"
 msgstr ""
+
+#: ../root/statistics/Index.js:1331
+msgctxt "vote"
+msgid "Approve"
+msgstr ""
+
+#: ../root/statistics/Index.js:1338
+msgctxt "vote"
+msgid "Yes"
+msgstr ""
+
+#: ../root/statistics/Index.js:1344
+#, fuzzy
+#| msgid "None"
+msgctxt "vote"
+msgid "No"
+msgstr "Ingen"
+
+#: ../root/statistics/Index.js:1351
+msgctxt "vote"
+msgid "Abstain"
+msgstr "Avslå"
 
 #: ../root/statistics/LanguagesScripts.js:43
 #, fuzzy
@@ -2180,6 +2228,16 @@ msgstr ""
 msgid "No relationship statistics available."
 msgstr ""
 
+#: ../root/statistics/Relationships.js:105
+msgctxt "relationships"
+msgid "This type only"
+msgstr ""
+
+#: ../root/statistics/Relationships.js:106
+msgctxt "relationships"
+msgid "Including subtypes"
+msgstr ""
+
 #: ../root/statistics/Relationships.js:128
 msgid "{type0}-{type1}"
 msgstr ""
@@ -2203,6 +2261,32 @@ msgstr "Artistvurderinger"
 #: ../root/statistics/stats.js:18
 msgid "Artist types and genders"
 msgstr ""
+
+#: ../root/statistics/stats.js:21
+#, fuzzy
+#| msgid "Cover Art"
+msgctxt "plural"
+msgid "Cover art"
+msgstr "Omslagsbilder"
+
+#: ../root/statistics/stats.js:22
+#, fuzzy
+#| msgid "Events"
+msgctxt "plural"
+msgid "Event art"
+msgstr "Arrangementer:"
+
+#: ../root/statistics/stats.js:24
+msgctxt "noun"
+msgid "Edit information"
+msgstr ""
+
+#: ../root/statistics/stats.js:25
+#, fuzzy
+#| msgid "Edit Types"
+msgctxt "noun"
+msgid "Edit types"
+msgstr "Endringstyper"
 
 #: ../root/statistics/stats.js:26
 #, fuzzy
@@ -2228,9 +2312,21 @@ msgstr "Land"
 msgid "Label types"
 msgstr "Plateselskap"
 
+#: ../root/statistics/stats.js:31
+msgctxt "stats category"
+msgid "Other"
+msgstr "Annet"
+
 #: ../root/statistics/stats.js:32
 msgid "Place types"
 msgstr ""
+
+#: ../root/statistics/stats.js:33
+#, fuzzy
+#| msgid "Ratings"
+msgctxt "folksonomy"
+msgid "Ratings and tags"
+msgstr "Vurderinger"
 
 #: ../root/statistics/stats.js:35
 #, fuzzy
@@ -2491,6 +2587,13 @@ msgstr ""
 msgid "Edits that have been voted down"
 msgstr ""
 
+#: ../root/statistics/stats.js:336
+#, fuzzy
+#| msgid "Open Edits"
+msgctxt "noun"
+msgid "Open edits"
+msgstr "Utestående endringer"
+
 #: ../root/statistics/stats.js:342
 msgid "Edits per day"
 msgstr ""
@@ -2545,6 +2648,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:411
 msgid "Editors who use subscriptions"
+msgstr ""
+
+#: ../root/statistics/stats.js:416
+msgctxt "folksonomy"
+msgid "Editors who have added tags"
 msgstr ""
 
 #: ../root/statistics/stats.js:421
@@ -2795,6 +2903,16 @@ msgstr ""
 msgid "Series with no type set"
 msgstr ""
 
+#: ../root/statistics/stats.js:824
+msgctxt "folksonomy"
+msgid "Unique tag names"
+msgstr ""
+
+#: ../root/statistics/stats.js:829
+msgctxt "folksonomy"
+msgid "Votes for/against tags"
+msgstr ""
+
 #: ../root/statistics/stats.js:834
 msgid "Votes for/against area tags"
 msgstr ""
@@ -3022,36 +3140,6 @@ msgstr ""
 #: ../root/statistics/utilities.js:40
 msgid "See on timeline"
 msgstr ""
-
-#~ msgctxt "plural"
-#~ msgid "Series"
-#~ msgstr "Serie"
-
-#~ msgctxt "vote"
-#~ msgid "Abstain"
-#~ msgstr "Avslå"
-
-#, fuzzy
-#~| msgid "Edit Types"
-#~ msgctxt "noun"
-#~ msgid "Edit types"
-#~ msgstr "Endringstyper"
-
-#~ msgctxt "stats category"
-#~ msgid "Other"
-#~ msgstr "Annet"
-
-#, fuzzy
-#~| msgid "Ratings"
-#~ msgctxt "folksonomy"
-#~ msgid "Ratings and tags"
-#~ msgstr "Vurderinger"
-
-#, fuzzy
-#~| msgid "Open Edits"
-#~ msgctxt "noun"
-#~ msgid "Open edits"
-#~ msgstr "Utestående endringer"
 
 #~ msgid "Artists:"
 #~ msgstr "Artister:"
