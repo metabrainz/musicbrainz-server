@@ -152,6 +152,8 @@ each deployment should be announced through the chat and the website’s banner.
 MusicBrainz servers are being updated, slowdowns may occur for a few minutes, thanks for your patience.
 ```
 
+Also drop a line about it to the MusicBrainz community in ChatBrainz.
+
 ### Deploy to production
 
 See the private system administration wiki for instructions.
@@ -276,6 +278,8 @@ It has some differences with the production release process; follow these steps:
    ```html
    Beta website is being updated, slowdowns may occur for a few minutes, thanks for your patience.
    ```
+
+   Also drop a line about it to the MusicBrainz community in ChatBrainz.
 
 6. On the [deployment step](#deploy-to-production) itself,
    run `./script/update_containers.sh beta`. Wait until the deployment has completed.
