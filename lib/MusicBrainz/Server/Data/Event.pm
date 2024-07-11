@@ -5,6 +5,7 @@ use Moose;
 use namespace::autoclean;
 use List::AllUtils qw( any uniq );
 use MusicBrainz::Server::Data::Edit;
+use MusicBrainz::Server::Constants qw( $EDIT_EVENT_CREATE );
 use MusicBrainz::Server::Entity::Event;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
@@ -18,6 +19,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
+use aliased 'MusicBrainz::Server::Entity::EventArt';
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Relatable',
@@ -543,6 +545,39 @@ sub _find_areas
             entity => $areas->{$area_id},
         };
     }
+}
+
+sub newest_events_with_artwork {
+    my $self = shift;
+    my $query = '
+      SELECT DISTINCT ON (edit.id) ' . $self->_columns . ',
+        event_art.id AS event_art_id
+      FROM ' . $self->_table . q(
+      JOIN event_art_archive.event_art ON (event_art.event = event.id)
+      JOIN event_art_archive.event_art_type
+        ON (event_art.id = event_art_type.id)
+      JOIN edit_event ON edit_event.event = event.id
+      JOIN edit ON edit.id = edit_event.edit
+      WHERE event_art_type.type_id = ?
+        AND event_art.ordering = 1
+        AND edit.type = ?
+        AND event_art.date_uploaded < NOW() - INTERVAL '10 minutes'
+      ORDER BY edit.id DESC
+      LIMIT 10);
+
+    my $FRONT = 1;
+    $self->query_to_list($query, [$FRONT, $EDIT_EVENT_CREATE], sub {
+        my ($model, $row) = @_;
+
+        my $event = $model->_new_from_row($row);
+        my $eaa_id = $row->{event_art_id};
+
+        EventArt->new(
+            id => $eaa_id,
+            event => $event,
+            suffix => 'spoof',
+        );
+    });
 }
 
 sub series_ordering {
