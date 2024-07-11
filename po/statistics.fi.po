@@ -1715,6 +1715,12 @@ msgstr "Web-osoitteet"
 msgid "Areas"
 msgstr "Alueet"
 
+#: ../root/statistics/Index.js:119 ../root/statistics/Index.js:848
+#: ../root/statistics/Index.js:856 ../root/statistics/stats.js:814
+msgctxt "plural"
+msgid "Series"
+msgstr "Sarjat"
+
 #: ../root/statistics/Index.js:123 ../root/statistics/Index.js:872
 #: ../root/statistics/Index.js:879 ../root/statistics/stats.js:483
 msgid "Instruments"
@@ -1745,6 +1751,13 @@ msgstr "Kokoelmat"
 #| msgid "CD Stubs (all time / current):"
 msgid "CD stubs (all time / current):"
 msgstr "CD-tyngät (kaikki / nykyiset):"
+
+#: ../root/statistics/Index.js:163
+#, fuzzy
+#| msgid "Tags (raw / aggregated):"
+msgctxt "folksonomy"
+msgid "Tags (raw / aggregated):"
+msgstr "Luokitukset (käsittelemättömät / koostetut):"
 
 #: ../root/statistics/Index.js:169
 msgid "Ratings (raw / aggregated):"
@@ -1979,6 +1992,11 @@ msgstr "Toissijaiset tyypit"
 msgid "Videos"
 msgstr ""
 
+#: ../root/statistics/Index.js:690
+msgctxt "recording"
+msgid "Standalone"
+msgstr ""
+
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
 msgstr ""
@@ -2132,6 +2150,13 @@ msgstr "jotka äänestävät:"
 msgid "who leave edit notes:"
 msgstr "jotka jättävät muokkausmerkintöjä:"
 
+#: ../root/statistics/Index.js:1186
+#, fuzzy
+#| msgid "who use tags:"
+msgctxt "folksonomy"
+msgid "who use tags:"
+msgstr "jotka luokittelevat:"
+
 #: ../root/statistics/Index.js:1194
 msgid "who use ratings:"
 msgstr "jotka arvostelevat:"
@@ -2184,6 +2209,13 @@ msgstr "Epäonnistunut (edellytys):"
 msgid "Failed (internal error):"
 msgstr "Epäonnistunut (sisäinen virhe):"
 
+#: ../root/statistics/Index.js:1295
+#, fuzzy
+#| msgid "Cancelled:"
+msgctxt "edit"
+msgid "Cancelled"
+msgstr "Peruutettu:"
+
 #: ../root/statistics/Index.js:1307 ../root/statistics/Index.js:1363
 msgid "Last 7 days:"
 msgstr "Viimeiset 7 päivää:"
@@ -2196,6 +2228,26 @@ msgstr "Eilinen:"
 #: ../root/statistics/Index.js:1357 ../root/statistics/stats.js:895
 msgid "Votes"
 msgstr "Annetut äänet"
+
+#: ../root/statistics/Index.js:1331
+msgctxt "vote"
+msgid "Approve"
+msgstr "Hyväksy"
+
+#: ../root/statistics/Index.js:1338
+msgctxt "vote"
+msgid "Yes"
+msgstr "Kyllä"
+
+#: ../root/statistics/Index.js:1344
+msgctxt "vote"
+msgid "No"
+msgstr "Ei"
+
+#: ../root/statistics/Index.js:1351
+msgctxt "vote"
+msgid "Abstain"
+msgstr "Tyhjä"
 
 #: ../root/statistics/LanguagesScripts.js:43
 #, fuzzy
@@ -2266,6 +2318,16 @@ msgstr ""
 msgid "No relationship statistics available."
 msgstr ""
 
+#: ../root/statistics/Relationships.js:105
+msgctxt "relationships"
+msgid "This type only"
+msgstr ""
+
+#: ../root/statistics/Relationships.js:106
+msgctxt "relationships"
+msgid "Including subtypes"
+msgstr ""
+
 #: ../root/statistics/Relationships.js:128
 msgid "{type0}-{type1}"
 msgstr "{type0}-{type1}"
@@ -2292,6 +2354,34 @@ msgstr "Artistien maat"
 msgid "Artist types and genders"
 msgstr "Artistin tyypit ja sukupuolet"
 
+#: ../root/statistics/stats.js:21
+#, fuzzy
+#| msgid "Cover Art"
+msgctxt "plural"
+msgid "Cover art"
+msgstr "Kansitaide"
+
+#: ../root/statistics/stats.js:22
+#, fuzzy
+#| msgid "Events"
+msgctxt "plural"
+msgid "Event art"
+msgstr "Tapahtumat"
+
+#: ../root/statistics/stats.js:24
+#, fuzzy
+#| msgid "Edit Information"
+msgctxt "noun"
+msgid "Edit information"
+msgstr "Tietoja muokkauksista"
+
+#: ../root/statistics/stats.js:25
+#, fuzzy
+#| msgid "Edit Types"
+msgctxt "noun"
+msgid "Edit types"
+msgstr "Muokkaustyypit"
+
 #: ../root/statistics/stats.js:26
 #, fuzzy
 #| msgid "Events"
@@ -2316,11 +2406,23 @@ msgstr "Levymerkkien maat"
 msgid "Label types"
 msgstr "Levymerkit"
 
+#: ../root/statistics/stats.js:31
+msgctxt "stats category"
+msgid "Other"
+msgstr "Muut"
+
 #: ../root/statistics/stats.js:32
 #, fuzzy
 #| msgid "Places"
 msgid "Place types"
 msgstr "Paikat"
+
+#: ../root/statistics/stats.js:33
+#, fuzzy
+#| msgid "Ratings and Tags"
+msgctxt "folksonomy"
+msgid "Ratings and tags"
+msgstr "Arvostelut ja luokitukset"
 
 #: ../root/statistics/stats.js:35
 #, fuzzy
@@ -2587,6 +2689,13 @@ msgstr ""
 msgid "Edits that have been voted down"
 msgstr ""
 
+#: ../root/statistics/stats.js:336
+#, fuzzy
+#| msgid "Open Edits"
+msgctxt "noun"
+msgid "Open edits"
+msgstr "Avoimet muokkaukset"
+
 #: ../root/statistics/stats.js:342
 msgid "Edits per day"
 msgstr "Muokkauksia päivässä"
@@ -2641,6 +2750,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:411
 msgid "Editors who use subscriptions"
+msgstr ""
+
+#: ../root/statistics/stats.js:416
+msgctxt "folksonomy"
+msgid "Editors who have added tags"
 msgstr ""
 
 #: ../root/statistics/stats.js:421
@@ -2907,6 +3021,16 @@ msgstr ""
 msgid "Series with no type set"
 msgstr ""
 
+#: ../root/statistics/stats.js:824
+msgctxt "folksonomy"
+msgid "Unique tag names"
+msgstr ""
+
+#: ../root/statistics/stats.js:829
+msgctxt "folksonomy"
+msgid "Votes for/against tags"
+msgstr ""
+
 #: ../root/statistics/stats.js:834
 msgid "Votes for/against area tags"
 msgstr ""
@@ -3147,72 +3271,6 @@ msgstr ""
 #~ msgstr "Julkaisut, joissa kansitaidetta:"
 
 #, fuzzy
-#~| msgid "Cover Art"
-#~ msgctxt "plural"
-#~ msgid "Cover art"
-#~ msgstr "Kansitaide"
-
-#~ msgctxt "plural"
-#~ msgid "Series"
-#~ msgstr "Sarjat"
-
-#, fuzzy
-#~| msgid "Tags (raw / aggregated):"
-#~ msgctxt "folksonomy"
-#~ msgid "Tags (raw / aggregated):"
-#~ msgstr "Luokitukset (käsittelemättömät / koostetut):"
-
-#, fuzzy
-#~| msgid "who use tags:"
-#~ msgctxt "folksonomy"
-#~ msgid "who use tags:"
-#~ msgstr "jotka luokittelevat:"
-
-#~ msgctxt "vote"
-#~ msgid "Approve"
-#~ msgstr "Hyväksy"
-
-#~ msgctxt "vote"
-#~ msgid "Yes"
-#~ msgstr "Kyllä"
-
-#~ msgctxt "vote"
-#~ msgid "No"
-#~ msgstr "Ei"
-
-#~ msgctxt "vote"
-#~ msgid "Abstain"
-#~ msgstr "Tyhjä"
-
-#, fuzzy
-#~| msgid "Edit Information"
-#~ msgctxt "noun"
-#~ msgid "Edit information"
-#~ msgstr "Tietoja muokkauksista"
-
-#, fuzzy
-#~| msgid "Edit Types"
-#~ msgctxt "noun"
-#~ msgid "Edit types"
-#~ msgstr "Muokkaustyypit"
-
-#~ msgctxt "stats category"
-#~ msgid "Other"
-#~ msgstr "Muut"
-
-#, fuzzy
-#~| msgid "Ratings and Tags"
-#~ msgctxt "folksonomy"
-#~ msgid "Ratings and tags"
-#~ msgstr "Arvostelut ja luokitukset"
-
-#, fuzzy
-#~| msgid "Open Edits"
-#~ msgctxt "noun"
-#~ msgid "Open edits"
-#~ msgstr "Avoimet muokkaukset"
-
-#, fuzzy
 #~| msgid "Cancelled edits"
 #~ msgid "Evalnochange edits"
 #~ msgstr "Peruutetut muokkaukset:"
@@ -3316,9 +3374,6 @@ msgstr ""
 
 #~ msgid "Voted down:"
 #~ msgstr "Äänestetty kumoon:"
-
-#~ msgid "Cancelled:"
-#~ msgstr "Peruutettu:"
 
 #~ msgid "Votes:"
 #~ msgstr "Äänet:"

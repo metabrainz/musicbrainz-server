@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-28 20:29+0000\n"
+"POT-Creation-Date: 2024-07-11 14:21+0000\n"
 "PO-Revision-Date: 2024-06-29 08:42+0000\n"
 "Last-Translator: yyoung <yyoung@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
@@ -2290,13 +2290,15 @@ msgstr "选择一个专辑，唱片 ID<code>{discid}</code>将被移动至该专
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "a description of these types."
-msgstr "选择所有适用的类型。关于这些类型的描述，请查看 {doc|封面图片类型} 文档。"
+msgstr ""
+"选择所有适用的类型。关于这些类型的描述，请查看 {doc|封面图片类型} 文档。"
 
 #: ../root/event/add_event_art.tt:66
 msgid ""
 "Select all types that apply. See the {doc|Event Art Types} documentation for "
 "a description of these types."
-msgstr "选择所有适用的类型。关于这些类型的描述，请查看 {doc|活动图片类型} 文档。"
+msgstr ""
+"选择所有适用的类型。关于这些类型的描述，请查看 {doc|活动图片类型} 文档。"
 
 #: ../root/components/forms.tt:369
 msgid ""
@@ -3033,7 +3035,7 @@ msgid "Voter"
 msgstr "投票者"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:60
-#: ../root/user/UserProfile.js:671
+#: ../root/user/UserProfile.js:673
 msgid "Votes"
 msgstr "投票"
 
@@ -6079,7 +6081,8 @@ msgstr ""
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
 "documentation} before {con|contacting us}."
-msgstr "如果您有任何问题，请在{con|联系我们}之前查看{faq|常见问题}和{doc|文档}。"
+msgstr ""
+"如果您有任何问题，请在{con|联系我们}之前查看{faq|常见问题}和{doc|文档}。"
 
 #: ../root/account/Register.js:80
 #, fuzzy
@@ -7502,7 +7505,7 @@ msgstr "评论"
 
 #: ../root/components/EntityTabs.js:159
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:42
-#: ../root/user/UserProfile.js:825 ../root/user/UserRatingList.js:42
+#: ../root/user/UserProfile.js:827 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
 msgstr "评分"
@@ -9915,7 +9918,7 @@ msgstr "数据移除政策"
 msgid "Privileged user accounts"
 msgstr "特权用户账号"
 
-#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:548
+#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:550
 msgid "Statistics"
 msgstr "统计"
 
@@ -16298,157 +16301,157 @@ msgstr "订阅"
 msgid "Languages"
 msgstr "语言"
 
-#: ../root/user/UserProfile.js:469 ../root/user/UserProfile.js:562
-#: ../root/user/UserProfile.js:572 ../root/user/UserProfile.js:582
-#: ../root/user/UserProfile.js:592 ../root/user/UserProfile.js:602
-#: ../root/user/UserProfile.js:612 ../root/user/UserProfile.js:622
-#: ../root/user/UserProfile.js:632 ../root/user/UserProfile.js:641
-#: ../root/user/UserProfile.js:794 ../root/user/UserProfile.js:815
-#: ../root/user/UserProfile.js:836
+#: ../root/user/UserProfile.js:471 ../root/user/UserProfile.js:564
+#: ../root/user/UserProfile.js:574 ../root/user/UserProfile.js:584
+#: ../root/user/UserProfile.js:594 ../root/user/UserProfile.js:604
+#: ../root/user/UserProfile.js:614 ../root/user/UserProfile.js:624
+#: ../root/user/UserProfile.js:634 ../root/user/UserProfile.js:643
+#: ../root/user/UserProfile.js:796 ../root/user/UserProfile.js:817
+#: ../root/user/UserProfile.js:838
 msgid "{count} ({view_url|view})"
 msgstr "{count}（{view_url|浏览}）"
 
-#: ../root/user/UserProfile.js:554
+#: ../root/user/UserProfile.js:556
 msgid "Edits"
 msgstr "修改"
 
-#: ../root/user/UserProfile.js:560
+#: ../root/user/UserProfile.js:562
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr "总计"
 
-#: ../root/user/UserProfile.js:570
+#: ../root/user/UserProfile.js:572
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "已接受"
 
-#: ../root/user/UserProfile.js:580
+#: ../root/user/UserProfile.js:582
 msgid "Auto-edits"
 msgstr "自动确认编辑"
 
-#: ../root/user/UserProfile.js:590
+#: ../root/user/UserProfile.js:592
 msgid "Total applied"
 msgstr "生效总数"
 
-#: ../root/user/UserProfile.js:600
+#: ../root/user/UserProfile.js:602
 msgid "Voted down"
 msgstr "被否决"
 
-#: ../root/user/UserProfile.js:610
+#: ../root/user/UserProfile.js:612
 msgid "Failed"
 msgstr "失败"
 
-#: ../root/user/UserProfile.js:620
+#: ../root/user/UserProfile.js:622
 msgctxt "edit"
 msgid "Cancelled"
 msgstr "已取消"
 
-#: ../root/user/UserProfile.js:630
+#: ../root/user/UserProfile.js:632
 msgid "Open"
 msgstr "已开启"
 
-#: ../root/user/UserProfile.js:640
+#: ../root/user/UserProfile.js:642
 msgid "Last 24 hours"
 msgstr "过去 24 小时"
 
-#: ../root/user/UserProfile.js:664
+#: ../root/user/UserProfile.js:666
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "此表格显示了此编辑者投票的概要信息"
 
-#: ../root/user/UserProfile.js:669
+#: ../root/user/UserProfile.js:671
 msgid "Votes ({view_url|view})"
 msgstr "投票（{view_url|浏览}）"
 
-#: ../root/user/UserProfile.js:677
+#: ../root/user/UserProfile.js:679
 msgid "Last 28 days"
 msgstr "过去 28 天"
 
-#: ../root/user/UserProfile.js:680
+#: ../root/user/UserProfile.js:682
 msgid "Overall"
 msgstr "合计"
 
-#: ../root/user/UserProfile.js:728
+#: ../root/user/UserProfile.js:730
 msgid "This table shows a summary of entities added by this editor."
 msgstr "此表格显示了此编辑者添加的实体的概要信息"
 
-#: ../root/user/UserProfile.js:734
+#: ../root/user/UserProfile.js:736
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr "新生效的编辑可能需要 24 个小时才会显示"
 
-#: ../root/user/UserProfile.js:737
+#: ../root/user/UserProfile.js:739
 msgid "Added entities"
 msgstr "添加的实体"
 
-#: ../root/user/UserProfile.js:760
+#: ../root/user/UserProfile.js:762
 msgid "This user has not added any entities."
 msgstr ""
 
-#: ../root/user/UserProfile.js:770
+#: ../root/user/UserProfile.js:772
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:776
+#: ../root/user/UserProfile.js:778
 #, fuzzy
 #| msgid "Tags and ratings"
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "标签和评分"
 
-#: ../root/user/UserProfile.js:783
+#: ../root/user/UserProfile.js:785
 #, fuzzy
 #| msgid "Tags upvoted"
 msgctxt "folksonomy"
 msgid "Tags upvoted"
 msgstr "已赞成的标签"
 
-#: ../root/user/UserProfile.js:787 ../root/user/UserProfile.js:808
+#: ../root/user/UserProfile.js:789 ../root/user/UserProfile.js:810
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
 msgstr ""
 
-#: ../root/user/UserProfile.js:791 ../root/user/UserProfile.js:812
+#: ../root/user/UserProfile.js:793 ../root/user/UserProfile.js:814
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "已移除"
 
-#: ../root/user/UserProfile.js:803
+#: ../root/user/UserProfile.js:805
 #, fuzzy
 #| msgid "Tags downvoted"
 msgctxt "folksonomy"
 msgid "Tags downvoted"
 msgstr "已否决的标签"
 
-#: ../root/user/UserProfile.js:829
+#: ../root/user/UserProfile.js:831
 msgid "Ratings are removed when an editor is deleted."
 msgstr ""
 
-#: ../root/user/UserProfile.js:832
+#: ../root/user/UserProfile.js:834
 msgctxt "ratings"
 msgid "Removed"
 msgstr ""
 
-#: ../root/user/UserProfile.js:869
+#: ../root/user/UserProfile.js:871
 msgid "Editing/voting disabled"
 msgstr "编辑/投票已禁用"
 
-#: ../root/user/UserProfile.js:872
+#: ../root/user/UserProfile.js:874
 msgid "Edit notes disabled"
 msgstr "已禁用编辑备注"
 
-#: ../root/user/UserProfile.js:886
+#: ../root/user/UserProfile.js:888
 #, fuzzy
 #| msgid "Blocked Spam Account"
 msgid "Blocked spam account"
 msgstr "被封禁的垃圾信息账号"
 
-#: ../root/user/UserProfile.js:888
+#: ../root/user/UserProfile.js:890
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
 "reporting the spammer from their user page."
 msgstr ""
 
-#: ../root/user/UserProfile.js:942
+#: ../root/user/UserProfile.js:944
 msgid "Report this user for bad behavior"
 msgstr "报告此用户的不良行为"
 

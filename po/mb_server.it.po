@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-28 20:29+0000\n"
+"POT-Creation-Date: 2024-07-11 14:21+0000\n"
 "PO-Revision-Date: 2024-06-29 15:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
@@ -44,8 +44,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.6\n"
 
 #: ../root/components/common-macros.tt:12
@@ -3236,7 +3236,7 @@ msgid "Voter"
 msgstr "Votante"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:60
-#: ../root/user/UserProfile.js:671
+#: ../root/user/UserProfile.js:673
 msgid "Votes"
 msgstr "Voti"
 
@@ -8054,7 +8054,7 @@ msgstr "Recensioni"
 
 #: ../root/components/EntityTabs.js:159
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:42
-#: ../root/user/UserProfile.js:825 ../root/user/UserRatingList.js:42
+#: ../root/user/UserProfile.js:827 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
 msgstr "Valutazioni"
@@ -10642,7 +10642,7 @@ msgstr "Politica di rimozione dei dati"
 msgid "Privileged user accounts"
 msgstr "Account utente con privilegi"
 
-#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:548
+#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:550
 msgid "Statistics"
 msgstr "Statistiche"
 
@@ -17703,147 +17703,147 @@ msgstr "iscriviti"
 msgid "Languages"
 msgstr "Lingue"
 
-#: ../root/user/UserProfile.js:469 ../root/user/UserProfile.js:562
-#: ../root/user/UserProfile.js:572 ../root/user/UserProfile.js:582
-#: ../root/user/UserProfile.js:592 ../root/user/UserProfile.js:602
-#: ../root/user/UserProfile.js:612 ../root/user/UserProfile.js:622
-#: ../root/user/UserProfile.js:632 ../root/user/UserProfile.js:641
-#: ../root/user/UserProfile.js:794 ../root/user/UserProfile.js:815
-#: ../root/user/UserProfile.js:836
+#: ../root/user/UserProfile.js:471 ../root/user/UserProfile.js:564
+#: ../root/user/UserProfile.js:574 ../root/user/UserProfile.js:584
+#: ../root/user/UserProfile.js:594 ../root/user/UserProfile.js:604
+#: ../root/user/UserProfile.js:614 ../root/user/UserProfile.js:624
+#: ../root/user/UserProfile.js:634 ../root/user/UserProfile.js:643
+#: ../root/user/UserProfile.js:796 ../root/user/UserProfile.js:817
+#: ../root/user/UserProfile.js:838
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|visualizza})"
 
-#: ../root/user/UserProfile.js:554
+#: ../root/user/UserProfile.js:556
 msgid "Edits"
 msgstr "Modifiche"
 
-#: ../root/user/UserProfile.js:560
+#: ../root/user/UserProfile.js:562
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr "Totale"
 
-#: ../root/user/UserProfile.js:570
+#: ../root/user/UserProfile.js:572
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Accettate"
 
-#: ../root/user/UserProfile.js:580
+#: ../root/user/UserProfile.js:582
 msgid "Auto-edits"
 msgstr "Auto-modifiche"
 
-#: ../root/user/UserProfile.js:590
+#: ../root/user/UserProfile.js:592
 msgid "Total applied"
 msgstr "Totale applicate"
 
-#: ../root/user/UserProfile.js:600
+#: ../root/user/UserProfile.js:602
 msgid "Voted down"
 msgstr "Rifiutate"
 
-#: ../root/user/UserProfile.js:610
+#: ../root/user/UserProfile.js:612
 msgid "Failed"
 msgstr "Fallite"
 
-#: ../root/user/UserProfile.js:620
+#: ../root/user/UserProfile.js:622
 msgctxt "edit"
 msgid "Cancelled"
 msgstr "Annullate"
 
-#: ../root/user/UserProfile.js:630
+#: ../root/user/UserProfile.js:632
 msgid "Open"
 msgstr "In corso"
 
-#: ../root/user/UserProfile.js:640
+#: ../root/user/UserProfile.js:642
 msgid "Last 24 hours"
 msgstr "Ultime 24 ore"
 
-#: ../root/user/UserProfile.js:664
+#: ../root/user/UserProfile.js:666
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "Questa tabella mostra un riassunto dei voti espressi da questo editor."
 
-#: ../root/user/UserProfile.js:669
+#: ../root/user/UserProfile.js:671
 msgid "Votes ({view_url|view})"
 msgstr "Voti ({view_url|visualizza})"
 
-#: ../root/user/UserProfile.js:677
+#: ../root/user/UserProfile.js:679
 msgid "Last 28 days"
 msgstr "Ultimi 28 giorni"
 
-#: ../root/user/UserProfile.js:680
+#: ../root/user/UserProfile.js:682
 msgid "Overall"
 msgstr "Totali"
 
-#: ../root/user/UserProfile.js:728
+#: ../root/user/UserProfile.js:730
 msgid "This table shows a summary of entities added by this editor."
 msgstr ""
 "Questa tabella mostra un riassunto delle entità aggiunte da questo editor."
 
-#: ../root/user/UserProfile.js:734
+#: ../root/user/UserProfile.js:736
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr ""
 "Le modifiche applicate da poco potrebbero essere conteggiate dopo 24 ore"
 
-#: ../root/user/UserProfile.js:737
+#: ../root/user/UserProfile.js:739
 msgid "Added entities"
 msgstr "Entità aggiunte"
 
-#: ../root/user/UserProfile.js:760
+#: ../root/user/UserProfile.js:762
 msgid "This user has not added any entities."
 msgstr "Questo utente non ha aggiunto nessuna entità."
 
-#: ../root/user/UserProfile.js:770
+#: ../root/user/UserProfile.js:772
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 "Questa tabella mostra un riassunto dei dati secondari aggiunti da questo "
 "editor."
 
-#: ../root/user/UserProfile.js:776
+#: ../root/user/UserProfile.js:778
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "Tag e valutazioni"
 
-#: ../root/user/UserProfile.js:783
+#: ../root/user/UserProfile.js:785
 msgctxt "folksonomy"
 msgid "Tags upvoted"
 msgstr "Tag con voti a favore"
 
-#: ../root/user/UserProfile.js:787 ../root/user/UserProfile.js:808
+#: ../root/user/UserProfile.js:789 ../root/user/UserProfile.js:810
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
 msgstr "I tag sono rimossi quando l'account di un editor viene eliminato."
 
-#: ../root/user/UserProfile.js:791 ../root/user/UserProfile.js:812
+#: ../root/user/UserProfile.js:793 ../root/user/UserProfile.js:814
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "Rimosse"
 
-#: ../root/user/UserProfile.js:803
+#: ../root/user/UserProfile.js:805
 msgctxt "folksonomy"
 msgid "Tags downvoted"
 msgstr "Tag con voti contro"
 
-#: ../root/user/UserProfile.js:829
+#: ../root/user/UserProfile.js:831
 msgid "Ratings are removed when an editor is deleted."
 msgstr ""
 "Le valutazioni vengono rimosse quando l'account di un editor è eliminato."
 
-#: ../root/user/UserProfile.js:832
+#: ../root/user/UserProfile.js:834
 msgctxt "ratings"
 msgid "Removed"
 msgstr "Rimosse"
 
-#: ../root/user/UserProfile.js:869
+#: ../root/user/UserProfile.js:871
 msgid "Editing/voting disabled"
 msgstr "Modifiche/voti disabilitati"
 
-#: ../root/user/UserProfile.js:872
+#: ../root/user/UserProfile.js:874
 msgid "Edit notes disabled"
 msgstr "Note di modifica disabilitate"
 
-#: ../root/user/UserProfile.js:886
+#: ../root/user/UserProfile.js:888
 msgid "Blocked spam account"
 msgstr "Account spam bloccato"
 
-#: ../root/user/UserProfile.js:888
+#: ../root/user/UserProfile.js:890
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
@@ -17853,7 +17853,7 @@ msgstr ""
 "fosse uno spammer. Se trovi dello spam su MusicBrainz, faccelo sapere "
 "segnalando lo spammer dalla sua pagina utente."
 
-#: ../root/user/UserProfile.js:942
+#: ../root/user/UserProfile.js:944
 msgid "Report this user for bad behavior"
 msgstr "Segnala questo utente per comportamento scorretto"
 

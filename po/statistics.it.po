@@ -23,8 +23,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.6\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
@@ -1901,6 +1901,12 @@ msgstr "URL"
 msgid "Areas"
 msgstr "Aree"
 
+#: ../root/statistics/Index.js:119 ../root/statistics/Index.js:848
+#: ../root/statistics/Index.js:856 ../root/statistics/stats.js:814
+msgctxt "plural"
+msgid "Series"
+msgstr "Serie"
+
 #: ../root/statistics/Index.js:123 ../root/statistics/Index.js:872
 #: ../root/statistics/Index.js:879 ../root/statistics/stats.js:483
 msgid "Instruments"
@@ -1927,6 +1933,11 @@ msgstr "Collezioni"
 #: ../root/statistics/Index.js:154
 msgid "CD stubs (all time / current):"
 msgstr "Bozze CD (da sempre/attualmente):"
+
+#: ../root/statistics/Index.js:163
+msgctxt "folksonomy"
+msgid "Tags (raw / aggregated):"
+msgstr "Tag (grezzi/aggregati):"
 
 #: ../root/statistics/Index.js:169
 msgid "Ratings (raw / aggregated):"
@@ -2140,6 +2151,11 @@ msgstr "Tipi secondari"
 msgid "Videos"
 msgstr "Video"
 
+#: ../root/statistics/Index.js:690
+msgctxt "recording"
+msgid "Standalone"
+msgstr "A sé stanti"
+
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
 msgstr "Con ISRC"
@@ -2287,6 +2303,11 @@ msgstr "che votano:"
 msgid "who leave edit notes:"
 msgstr "che lasciano note di modifica:"
 
+#: ../root/statistics/Index.js:1186
+msgctxt "folksonomy"
+msgid "who use tags:"
+msgstr "che usano i tag:"
+
 #: ../root/statistics/Index.js:1194
 msgid "who use ratings:"
 msgstr "che usano le valutazioni:"
@@ -2339,6 +2360,11 @@ msgstr "Fallite (prerequisiti):"
 msgid "Failed (internal error):"
 msgstr "Fallite (errore interno):"
 
+#: ../root/statistics/Index.js:1295
+msgctxt "edit"
+msgid "Cancelled"
+msgstr "Annullate"
+
 #: ../root/statistics/Index.js:1307 ../root/statistics/Index.js:1363
 msgid "Last 7 days:"
 msgstr "Ultimi 7 giorni:"
@@ -2351,6 +2377,26 @@ msgstr "Ieri:"
 #: ../root/statistics/Index.js:1357 ../root/statistics/stats.js:895
 msgid "Votes"
 msgstr "Voti"
+
+#: ../root/statistics/Index.js:1331
+msgctxt "vote"
+msgid "Approve"
+msgstr "Approva"
+
+#: ../root/statistics/Index.js:1338
+msgctxt "vote"
+msgid "Yes"
+msgstr "Sì"
+
+#: ../root/statistics/Index.js:1344
+msgctxt "vote"
+msgid "No"
+msgstr "No"
+
+#: ../root/statistics/Index.js:1351
+msgctxt "vote"
+msgid "Abstain"
+msgstr "Astenuto"
 
 #: ../root/statistics/LanguagesScripts.js:43
 msgid "Languages and scripts"
@@ -2417,6 +2463,16 @@ msgstr ""
 msgid "No relationship statistics available."
 msgstr "Non è disponibile nessuna statistica sulle relazioni."
 
+#: ../root/statistics/Relationships.js:105
+msgctxt "relationships"
+msgid "This type only"
+msgstr "Solo questo tipo"
+
+#: ../root/statistics/Relationships.js:106
+msgctxt "relationships"
+msgid "Including subtypes"
+msgstr "Includi sottotipi"
+
 #: ../root/statistics/Relationships.js:128
 msgid "{type0}-{type1}"
 msgstr "{type0}-{type1}"
@@ -2437,6 +2493,28 @@ msgstr "Paesi degli artisti"
 msgid "Artist types and genders"
 msgstr "Tipo e genere degli artisti"
 
+#: ../root/statistics/stats.js:21
+msgctxt "plural"
+msgid "Cover art"
+msgstr "Copertine"
+
+#: ../root/statistics/stats.js:22
+#, fuzzy
+#| msgid "Event art"
+msgctxt "plural"
+msgid "Event art"
+msgstr "Immagini di eventi"
+
+#: ../root/statistics/stats.js:24
+msgctxt "noun"
+msgid "Edit information"
+msgstr "Informazioni sulle modifiche"
+
+#: ../root/statistics/stats.js:25
+msgctxt "noun"
+msgid "Edit types"
+msgstr "Tipi di modifiche"
+
 #: ../root/statistics/stats.js:26
 msgid "Event types"
 msgstr "Tipi di evento"
@@ -2453,9 +2531,19 @@ msgstr "Paesi delle etichette"
 msgid "Label types"
 msgstr "Tipi di etichetta"
 
+#: ../root/statistics/stats.js:31
+msgctxt "stats category"
+msgid "Other"
+msgstr "Altro"
+
 #: ../root/statistics/stats.js:32
 msgid "Place types"
 msgstr "Tipi di luogo"
+
+#: ../root/statistics/stats.js:33
+msgctxt "folksonomy"
+msgid "Ratings and tags"
+msgstr "Valutazioni e tag"
 
 #: ../root/statistics/stats.js:35
 msgid "Release countries"
@@ -2689,6 +2777,11 @@ msgstr "Modifiche con controlli sui prerequisiti falliti"
 msgid "Edits that have been voted down"
 msgstr "Modifiche che sono state rifiutate"
 
+#: ../root/statistics/stats.js:336
+msgctxt "noun"
+msgid "Open edits"
+msgstr "Modifiche in corso"
+
 #: ../root/statistics/stats.js:342
 msgid "Edits per day"
 msgstr "Modifiche per giorno"
@@ -2744,6 +2837,11 @@ msgstr "Editor che hanno aggiunto valutazioni"
 #: ../root/statistics/stats.js:411
 msgid "Editors who use subscriptions"
 msgstr "Editor che usano le iscrizioni"
+
+#: ../root/statistics/stats.js:416
+msgctxt "folksonomy"
+msgid "Editors who have added tags"
+msgstr "Editor che hanno aggiunto tag"
 
 #: ../root/statistics/stats.js:421
 msgid "Editors who have voted on edits"
@@ -2993,6 +3091,16 @@ msgstr "Gruppi di pubblicazioni senza un tipo secondario impostato"
 msgid "Series with no type set"
 msgstr "Serie senza un tipo impostato"
 
+#: ../root/statistics/stats.js:824
+msgctxt "folksonomy"
+msgid "Unique tag names"
+msgstr "Nomi di tag unici"
+
+#: ../root/statistics/stats.js:829
+msgctxt "folksonomy"
+msgid "Votes for/against tags"
+msgstr "Voti a favore/contro tag"
+
 #: ../root/statistics/stats.js:834
 msgid "Votes for/against area tags"
 msgstr "Voti a favore/contro tag di aree"
@@ -3231,86 +3339,6 @@ msgstr "Visualizza nella cronologia"
 
 #~ msgid "Events with event art:"
 #~ msgstr "Eventi con immagini:"
-
-#~ msgctxt "plural"
-#~ msgid "Cover art"
-#~ msgstr "Copertine"
-
-#~ msgctxt "plural"
-#~ msgid "Series"
-#~ msgstr "Serie"
-
-#~ msgctxt "folksonomy"
-#~ msgid "Tags (raw / aggregated):"
-#~ msgstr "Tag (grezzi/aggregati):"
-
-#~ msgctxt "recording"
-#~ msgid "Standalone"
-#~ msgstr "A sé stanti"
-
-#~ msgctxt "folksonomy"
-#~ msgid "who use tags:"
-#~ msgstr "che usano i tag:"
-
-#~ msgctxt "edit"
-#~ msgid "Cancelled"
-#~ msgstr "Annullate"
-
-#~ msgctxt "vote"
-#~ msgid "Approve"
-#~ msgstr "Approva"
-
-#~ msgctxt "vote"
-#~ msgid "Yes"
-#~ msgstr "Sì"
-
-#~ msgctxt "vote"
-#~ msgid "No"
-#~ msgstr "No"
-
-#~ msgctxt "vote"
-#~ msgid "Abstain"
-#~ msgstr "Astenuto"
-
-#~ msgctxt "relationships"
-#~ msgid "This type only"
-#~ msgstr "Solo questo tipo"
-
-#~ msgctxt "relationships"
-#~ msgid "Including subtypes"
-#~ msgstr "Includi sottotipi"
-
-#~ msgctxt "noun"
-#~ msgid "Edit information"
-#~ msgstr "Informazioni sulle modifiche"
-
-#~ msgctxt "noun"
-#~ msgid "Edit types"
-#~ msgstr "Tipi di modifiche"
-
-#~ msgctxt "stats category"
-#~ msgid "Other"
-#~ msgstr "Altro"
-
-#~ msgctxt "folksonomy"
-#~ msgid "Ratings and tags"
-#~ msgstr "Valutazioni e tag"
-
-#~ msgctxt "noun"
-#~ msgid "Open edits"
-#~ msgstr "Modifiche in corso"
-
-#~ msgctxt "folksonomy"
-#~ msgid "Editors who have added tags"
-#~ msgstr "Editor che hanno aggiunto tag"
-
-#~ msgctxt "folksonomy"
-#~ msgid "Unique tag names"
-#~ msgstr "Nomi di tag unici"
-
-#~ msgctxt "folksonomy"
-#~ msgid "Votes for/against tags"
-#~ msgstr "Voti a favore/contro tag"
 
 #~ msgid "Evalnochange edits"
 #~ msgstr "Modifiche \"evalnochange\""

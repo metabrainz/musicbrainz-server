@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2024-07-04 15:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/ru/>\n"
 "Language: ru\n"
@@ -28,8 +28,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
@@ -1676,6 +1676,12 @@ msgstr "URL-адреса"
 msgid "Areas"
 msgstr "Области"
 
+#: ../root/statistics/Index.js:119 ../root/statistics/Index.js:848
+#: ../root/statistics/Index.js:856 ../root/statistics/stats.js:814
+msgctxt "plural"
+msgid "Series"
+msgstr "Серия"
+
 #: ../root/statistics/Index.js:123 ../root/statistics/Index.js:872
 #: ../root/statistics/Index.js:879 ../root/statistics/stats.js:483
 msgid "Instruments"
@@ -1701,6 +1707,11 @@ msgstr "Коллекции"
 
 #: ../root/statistics/Index.js:154
 msgid "CD stubs (all time / current):"
+msgstr ""
+
+#: ../root/statistics/Index.js:163
+msgctxt "folksonomy"
+msgid "Tags (raw / aggregated):"
 msgstr ""
 
 #: ../root/statistics/Index.js:169
@@ -1916,6 +1927,11 @@ msgstr "Вторичные типы"
 msgid "Videos"
 msgstr ""
 
+#: ../root/statistics/Index.js:690
+msgctxt "recording"
+msgid "Standalone"
+msgstr ""
+
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
 msgstr ""
@@ -2067,6 +2083,13 @@ msgstr "кто голосовал:"
 msgid "who leave edit notes:"
 msgstr "кто оставляет комментарии к правкам:"
 
+#: ../root/statistics/Index.js:1186
+#, fuzzy
+#| msgid "who edit:"
+msgctxt "folksonomy"
+msgid "who use tags:"
+msgstr "кто редактировал:"
+
 #: ../root/statistics/Index.js:1194
 msgid "who use ratings:"
 msgstr "кто оставляет оценки:"
@@ -2119,6 +2142,13 @@ msgstr ""
 msgid "Failed (internal error):"
 msgstr ""
 
+#: ../root/statistics/Index.js:1295
+#, fuzzy
+#| msgid "Cancelled:"
+msgctxt "edit"
+msgid "Cancelled"
+msgstr "Отменено:"
+
 #: ../root/statistics/Index.js:1307 ../root/statistics/Index.js:1363
 msgid "Last 7 days:"
 msgstr "За последние 7 дней:"
@@ -2131,6 +2161,26 @@ msgstr "Вчера:"
 #: ../root/statistics/Index.js:1357 ../root/statistics/stats.js:895
 msgid "Votes"
 msgstr "Голоса"
+
+#: ../root/statistics/Index.js:1331
+msgctxt "vote"
+msgid "Approve"
+msgstr "Одобрить"
+
+#: ../root/statistics/Index.js:1338
+msgctxt "vote"
+msgid "Yes"
+msgstr "Да"
+
+#: ../root/statistics/Index.js:1344
+msgctxt "vote"
+msgid "No"
+msgstr "Нет"
+
+#: ../root/statistics/Index.js:1351
+msgctxt "vote"
+msgid "Abstain"
+msgstr "Воздержаться"
 
 #: ../root/statistics/LanguagesScripts.js:43
 msgid "Languages and scripts"
@@ -2195,6 +2245,16 @@ msgstr ""
 msgid "No relationship statistics available."
 msgstr "Нет доступной статистики по отношениям."
 
+#: ../root/statistics/Relationships.js:105
+msgctxt "relationships"
+msgid "This type only"
+msgstr ""
+
+#: ../root/statistics/Relationships.js:106
+msgctxt "relationships"
+msgid "Including subtypes"
+msgstr ""
+
 #: ../root/statistics/Relationships.js:128
 msgid "{type0}-{type1}"
 msgstr "{type0}-{type1}"
@@ -2215,6 +2275,32 @@ msgstr "Страны исполнителей"
 msgid "Artist types and genders"
 msgstr "Типы и гендеры исполнителей"
 
+#: ../root/statistics/stats.js:21
+msgctxt "plural"
+msgid "Cover art"
+msgstr "Обложка"
+
+#: ../root/statistics/stats.js:22
+#, fuzzy
+#| msgid "Event types"
+msgctxt "plural"
+msgid "Event art"
+msgstr "Типы событий"
+
+#: ../root/statistics/stats.js:24
+#, fuzzy
+#| msgid "Edit Information"
+msgctxt "noun"
+msgid "Edit information"
+msgstr "Редактировать информацию"
+
+#: ../root/statistics/stats.js:25
+#, fuzzy
+#| msgid "Edit Types"
+msgctxt "noun"
+msgid "Edit types"
+msgstr "Править типы"
+
 #: ../root/statistics/stats.js:26
 msgid "Event types"
 msgstr "Типы событий"
@@ -2231,9 +2317,21 @@ msgstr "Страны лейбла"
 msgid "Label types"
 msgstr "Типы лейбла"
 
+#: ../root/statistics/stats.js:31
+msgctxt "stats category"
+msgid "Other"
+msgstr "Другие"
+
 #: ../root/statistics/stats.js:32
 msgid "Place types"
 msgstr "Типы места"
+
+#: ../root/statistics/stats.js:33
+#, fuzzy
+#| msgid "Ratings and Tags"
+msgctxt "folksonomy"
+msgid "Ratings and tags"
+msgstr "Рейтинги и теги"
 
 #: ../root/statistics/stats.js:35
 msgid "Release countries"
@@ -2473,6 +2571,13 @@ msgstr ""
 msgid "Edits that have been voted down"
 msgstr ""
 
+#: ../root/statistics/stats.js:336
+#, fuzzy
+#| msgid "Open Edits"
+msgctxt "noun"
+msgid "Open edits"
+msgstr "Открытые правки"
+
 #: ../root/statistics/stats.js:342
 msgid "Edits per day"
 msgstr "Правки за день"
@@ -2527,6 +2632,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:411
 msgid "Editors who use subscriptions"
+msgstr ""
+
+#: ../root/statistics/stats.js:416
+msgctxt "folksonomy"
+msgid "Editors who have added tags"
 msgstr ""
 
 #: ../root/statistics/stats.js:421
@@ -2781,6 +2891,18 @@ msgstr ""
 msgid "Series with no type set"
 msgstr ""
 
+#: ../root/statistics/stats.js:824
+msgctxt "folksonomy"
+msgid "Unique tag names"
+msgstr ""
+
+#: ../root/statistics/stats.js:829
+#, fuzzy
+#| msgid "Votes for/against area tags"
+msgctxt "folksonomy"
+msgid "Votes for/against tags"
+msgstr "Голоса за/против тегов областей"
+
 #: ../root/statistics/stats.js:834
 msgid "Votes for/against area tags"
 msgstr "Голоса за/против тегов областей"
@@ -3024,64 +3146,6 @@ msgstr "Смотреть на таймлайне"
 #~ msgid "Events with event art:"
 #~ msgstr "События с фотографиями"
 
-#~ msgctxt "plural"
-#~ msgid "Cover art"
-#~ msgstr "Обложка"
-
-#~ msgctxt "plural"
-#~ msgid "Series"
-#~ msgstr "Серия"
-
-#, fuzzy
-#~| msgid "who edit:"
-#~ msgctxt "folksonomy"
-#~ msgid "who use tags:"
-#~ msgstr "кто редактировал:"
-
-#~ msgctxt "vote"
-#~ msgid "Approve"
-#~ msgstr "Одобрить"
-
-#~ msgctxt "vote"
-#~ msgid "Yes"
-#~ msgstr "Да"
-
-#~ msgctxt "vote"
-#~ msgid "No"
-#~ msgstr "Нет"
-
-#~ msgctxt "vote"
-#~ msgid "Abstain"
-#~ msgstr "Воздержаться"
-
-#, fuzzy
-#~| msgid "Edit Information"
-#~ msgctxt "noun"
-#~ msgid "Edit information"
-#~ msgstr "Редактировать информацию"
-
-#, fuzzy
-#~| msgid "Edit Types"
-#~ msgctxt "noun"
-#~ msgid "Edit types"
-#~ msgstr "Править типы"
-
-#~ msgctxt "stats category"
-#~ msgid "Other"
-#~ msgstr "Другие"
-
-#, fuzzy
-#~| msgid "Ratings and Tags"
-#~ msgctxt "folksonomy"
-#~ msgid "Ratings and tags"
-#~ msgstr "Рейтинги и теги"
-
-#, fuzzy
-#~| msgid "Open Edits"
-#~ msgctxt "noun"
-#~ msgid "Open edits"
-#~ msgstr "Открытые правки"
-
 #, fuzzy
 #~| msgid "Cancelled edits"
 #~ msgid "Evalnochange edits"
@@ -3140,9 +3204,6 @@ msgstr "Смотреть на таймлайне"
 
 #~ msgid "Applied:"
 #~ msgstr "Одобренные:"
-
-#~ msgid "Cancelled:"
-#~ msgstr "Отменено:"
 
 #~ msgid "Votes:"
 #~ msgstr "Голоса:"

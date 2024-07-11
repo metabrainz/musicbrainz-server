@@ -1694,6 +1694,12 @@ msgstr ""
 msgid "Areas"
 msgstr ""
 
+#: ../root/statistics/Index.js:119 ../root/statistics/Index.js:848
+#: ../root/statistics/Index.js:856 ../root/statistics/stats.js:814
+msgctxt "plural"
+msgid "Series"
+msgstr ""
+
 #: ../root/statistics/Index.js:123 ../root/statistics/Index.js:872
 #: ../root/statistics/Index.js:879 ../root/statistics/stats.js:483
 msgid "Instruments"
@@ -1723,6 +1729,11 @@ msgstr ""
 
 #: ../root/statistics/Index.js:154
 msgid "CD stubs (all time / current):"
+msgstr ""
+
+#: ../root/statistics/Index.js:163
+msgctxt "folksonomy"
+msgid "Tags (raw / aggregated):"
 msgstr ""
 
 #: ../root/statistics/Index.js:169
@@ -1958,6 +1969,11 @@ msgstr "Δευτερεύοντες τύποι"
 msgid "Videos"
 msgstr ""
 
+#: ../root/statistics/Index.js:690
+msgctxt "recording"
+msgid "Standalone"
+msgstr ""
+
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
 msgstr ""
@@ -2111,6 +2127,11 @@ msgstr ""
 msgid "who leave edit notes:"
 msgstr ""
 
+#: ../root/statistics/Index.js:1186
+msgctxt "folksonomy"
+msgid "who use tags:"
+msgstr ""
+
 #: ../root/statistics/Index.js:1194
 msgid "who use ratings:"
 msgstr ""
@@ -2163,6 +2184,13 @@ msgstr "Απέτυχε (προαπαιτούμενα):"
 msgid "Failed (internal error):"
 msgstr "Απέτυχε (εσωτερικό σφάλμα):"
 
+#: ../root/statistics/Index.js:1295
+#, fuzzy
+#| msgid "Cancelled:"
+msgctxt "edit"
+msgid "Cancelled"
+msgstr "Ακυρώθηκε:"
+
 #: ../root/statistics/Index.js:1307 ../root/statistics/Index.js:1363
 msgid "Last 7 days:"
 msgstr ""
@@ -2175,6 +2203,28 @@ msgstr "Χθες:"
 #: ../root/statistics/Index.js:1357 ../root/statistics/stats.js:895
 msgid "Votes"
 msgstr "Ψήφοι"
+
+#: ../root/statistics/Index.js:1331
+msgctxt "vote"
+msgid "Approve"
+msgstr ""
+
+#: ../root/statistics/Index.js:1338
+msgctxt "vote"
+msgid "Yes"
+msgstr "Ναι"
+
+#: ../root/statistics/Index.js:1344
+msgctxt "vote"
+msgid "No"
+msgstr "Όχι"
+
+#: ../root/statistics/Index.js:1351
+#, fuzzy
+#| msgid "Abstentions"
+msgctxt "vote"
+msgid "Abstain"
+msgstr "Αποχές"
 
 #: ../root/statistics/LanguagesScripts.js:43
 #, fuzzy
@@ -2241,6 +2291,16 @@ msgstr ""
 msgid "No relationship statistics available."
 msgstr ""
 
+#: ../root/statistics/Relationships.js:105
+msgctxt "relationships"
+msgid "This type only"
+msgstr ""
+
+#: ../root/statistics/Relationships.js:106
+msgctxt "relationships"
+msgid "Including subtypes"
+msgstr ""
+
 #: ../root/statistics/Relationships.js:128
 msgid "{type0}-{type1}"
 msgstr "{type0}-{type1}"
@@ -2267,6 +2327,34 @@ msgstr "Χώρες καλλιτεχνών"
 msgid "Artist types and genders"
 msgstr "Είδη τύποι και φύλα "
 
+#: ../root/statistics/stats.js:21
+#, fuzzy
+#| msgid "Cover Art"
+msgctxt "plural"
+msgid "Cover art"
+msgstr "Εξώφυλλο"
+
+#: ../root/statistics/stats.js:22
+#, fuzzy
+#| msgid "Edit Types"
+msgctxt "plural"
+msgid "Event art"
+msgstr "Επεξεργασία τύπων"
+
+#: ../root/statistics/stats.js:24
+#, fuzzy
+#| msgid "Edit Information"
+msgctxt "noun"
+msgid "Edit information"
+msgstr "Πληροφορίες επεξεργασίας"
+
+#: ../root/statistics/stats.js:25
+#, fuzzy
+#| msgid "Edit Types"
+msgctxt "noun"
+msgid "Edit types"
+msgstr "Επεξεργασία τύπων"
+
 #: ../root/statistics/stats.js:26
 #, fuzzy
 #| msgid "Edit Types"
@@ -2289,9 +2377,21 @@ msgstr "Χώρες δισκογραφικών εταιρειών"
 msgid "Label types"
 msgstr "Δισκογραφικές εταιρείες"
 
+#: ../root/statistics/stats.js:31
+msgctxt "stats category"
+msgid "Other"
+msgstr ""
+
 #: ../root/statistics/stats.js:32
 msgid "Place types"
 msgstr ""
+
+#: ../root/statistics/stats.js:33
+#, fuzzy
+#| msgid "Ratings and Tags"
+msgctxt "folksonomy"
+msgid "Ratings and tags"
+msgstr "Βαθμολογίες και ετικέτες"
 
 #: ../root/statistics/stats.js:35
 #, fuzzy
@@ -2555,6 +2655,13 @@ msgstr ""
 msgid "Edits that have been voted down"
 msgstr ""
 
+#: ../root/statistics/stats.js:336
+#, fuzzy
+#| msgid "Open Edits"
+msgctxt "noun"
+msgid "Open edits"
+msgstr "Ανοιχτές επεξεργασίες"
+
 #: ../root/statistics/stats.js:342
 msgid "Edits per day"
 msgstr "Επεξεργασίες ανά ημέρα"
@@ -2609,6 +2716,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:411
 msgid "Editors who use subscriptions"
+msgstr ""
+
+#: ../root/statistics/stats.js:416
+msgctxt "folksonomy"
+msgid "Editors who have added tags"
 msgstr ""
 
 #: ../root/statistics/stats.js:421
@@ -2875,6 +2987,16 @@ msgstr ""
 msgid "Series with no type set"
 msgstr ""
 
+#: ../root/statistics/stats.js:824
+msgctxt "folksonomy"
+msgid "Unique tag names"
+msgstr ""
+
+#: ../root/statistics/stats.js:829
+msgctxt "folksonomy"
+msgid "Votes for/against tags"
+msgstr ""
+
 #: ../root/statistics/stats.js:834
 msgid "Votes for/against area tags"
 msgstr ""
@@ -3114,38 +3236,6 @@ msgstr ""
 #~ msgid "Events with event art:"
 #~ msgstr "Κυκλοφορίες με εξώφυλλο:"
 
-#~ msgctxt "vote"
-#~ msgid "Yes"
-#~ msgstr "Ναι"
-
-#~ msgctxt "vote"
-#~ msgid "No"
-#~ msgstr "Όχι"
-
-#, fuzzy
-#~| msgid "Edit Information"
-#~ msgctxt "noun"
-#~ msgid "Edit information"
-#~ msgstr "Πληροφορίες επεξεργασίας"
-
-#, fuzzy
-#~| msgid "Edit Types"
-#~ msgctxt "noun"
-#~ msgid "Edit types"
-#~ msgstr "Επεξεργασία τύπων"
-
-#, fuzzy
-#~| msgid "Ratings and Tags"
-#~ msgctxt "folksonomy"
-#~ msgid "Ratings and tags"
-#~ msgstr "Βαθμολογίες και ετικέτες"
-
-#, fuzzy
-#~| msgid "Open Edits"
-#~ msgctxt "noun"
-#~ msgid "Open edits"
-#~ msgstr "Ανοιχτές επεξεργασίες"
-
 #, fuzzy
 #~| msgid "Cancelled edits"
 #~ msgid "Evalnochange edits"
@@ -3222,9 +3312,6 @@ msgstr ""
 
 #~ msgid "Voted down:"
 #~ msgstr "Καταψηφίστηκαν:"
-
-#~ msgid "Cancelled:"
-#~ msgstr "Ακυρώθηκε:"
 
 #~ msgid "Votes:"
 #~ msgstr "Ψήφοι:"
