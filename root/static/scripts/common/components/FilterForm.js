@@ -77,6 +77,7 @@ export type ReleaseGroupFilterT = $ReadOnly<{
 
 type WorkFilterFormT = FormT<{
   ...GenericFilterFormFieldsT,
+  +language_id: FieldT<number>,
   +role_type: FieldT<number>,
   +type_id: FieldT<number>,
 }>;
@@ -84,6 +85,7 @@ type WorkFilterFormT = FormT<{
 export type WorkFilterT = $ReadOnly<{
   ...WorkFilterFormT,
   +entity_type: 'work',
+  +options_language_id: SelectOptionsT,
   +options_role_type: SelectOptionsT,
   +options_type_id: SelectOptionsT,
 }>;
@@ -346,6 +348,22 @@ component FilterForm(form: FilterFormT) {
                   field={form.field.type_id}
                   options={form.options_type_id}
                 />
+                <tr>
+                  <td>
+                    {addColonText(l('Language'))}
+                  </td>
+                  <td>
+                    <SelectField
+                      field={form.field.language_id}
+                      options={{
+                        grouped: false,
+                        options: form.options_language_id,
+                      }}
+                      style={{maxWidth: '40em'}}
+                      uncontrolled
+                    />
+                  </td>
+                </tr>
                 <tr>
                   <td>
                     {addColonText(l('Role'))}

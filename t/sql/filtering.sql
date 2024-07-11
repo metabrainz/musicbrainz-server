@@ -109,6 +109,11 @@ INSERT INTO work (id, gid, name, type, comment)
            (3403, 'fcedfaf3-63ad-4ea2-949a-b16cdc2cd019', 'Mini Overture', 12, 'Testy'),
            (3404, 'dbb7157a-5dc3-41c4-aacc-4e3d4705e132', 'Brandenburgisches Konzert Nr. 5 D-Dur, BWV 1050', 4, '');
 
+INSERT INTO work_language (work, language)
+    VALUES (3401, 120),
+           (3401, 486),
+           (3402, 120);
+
 -- Relationships
 
 INSERT INTO link (id, link_type, attribute_count)
