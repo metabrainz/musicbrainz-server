@@ -224,7 +224,7 @@ In your clone of [MusicBrainz’s Docker Compose project](https://github.com/met
 4. Tag your local Git branch `master` (`git tag -u CE33CF04 $version_number -m 'Upgrade MusicBrainz Server.'`)
    and push both the commits and the tag.
 
-5. Do a GitHub release of name `$version_number` (copy the structure from previous [releases](https://github.com/metabrainz/musicbrainz-docker/releases)).
+5. Draft a GitHub release of name `$version_number` (copy the structure from previous [releases](https://github.com/metabrainz/musicbrainz-docker/releases)).
 
 6. Release the appropriate [Jira version](https://tickets.metabrainz.org/projects/MBVM?selectedItem=com.atlassian.jira.jira-projects-plugin:release-page);
    as its description, set the GitHub release URL (`https://github.com/metabrainz/musicbrainz-docker/releases/tag/$version_number`).
