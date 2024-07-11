@@ -499,8 +499,9 @@ div.warning img.warning {
     img {
         vertical-align: top; /* avoid inline space below image */
     }
-    &:not(:has(img)) {
-        border: 1px solid @light-border; /* border around error messages */
+    &:has(.cover-art-error),
+    &:has(.cover-art-note) {
+        border: 1px solid @light-border; /* border around text messages */
     }
     & ~ .listenbrainz-button {
         margin-top: 16px; /* matches #sidebar's padding-left */
