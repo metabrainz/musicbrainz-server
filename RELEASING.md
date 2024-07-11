@@ -85,6 +85,8 @@ process below first!), you need to start by updating the translated messages:
    Wait until [CircleCI](https://circleci.com/gh/metabrainz/musicbrainz-server) is happy
    with this merge as some unmatching translations can break building Docker images.
 
+   :bricks: While waiting you can pre-empt [drafting blog post](#draft-blog-post)!
+
 ### Draft blog post
 
 [Create a new draft from the template](https://wordpress.com/post/blog.metabrainz.org?jetpack-copy=8634).
@@ -117,6 +119,8 @@ Last but not least, thank (in order of rarity):
    [Jenkins (Selenium)](https://ci.metabrainz.org/job/musicbrainz-server/) are happy
    with this merge.
 
+   :bricks: While waiting you can pre-empt [drafting Docker Compose release notes](#release-musicbrainz-docker)!
+
 2. Merge `production` to `master` (`git merge --log=876423 --no-ff production`) and push.
 
 ### Add Git tag
@@ -134,6 +138,8 @@ Then, you must build new MusicBrainz Server Docker images from Jenkins:
 
 A build can take some time (from a few minutes to half an hour).
 Once the image is built you can begin the deployment.
+
+:bricks: While waiting you can pre-empt [building Docker image for mirrors](#release-musicbrainz-docker)!
 
 ### Announce the deployment
 
