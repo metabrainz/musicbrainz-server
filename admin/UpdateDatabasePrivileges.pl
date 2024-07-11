@@ -12,9 +12,11 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Log qw( log_info );
 
 my $primary_ro_role = 'musicbrainz_ro';
-my @other_ro_roles = qw( caa_redirect sir );
+my @other_ro_roles;
+my @schemas;
 my $database = 'MAINTENANCE';
 my $grant_privileges = 1;
+my $revoke_privileges = 1;
 
 my $help = <<EOF;
 Usage: UpdateDatabasePrivileges.pl [OPTIONS]
@@ -25,6 +27,8 @@ intended for read-only access. It revokes write privileges.
 If `--nogrant` is specified, then it also revokes read privileges
 (USAGE/SELECT).
 
+If `--norevoke` is specified, then it only grants privileges.
+
 Options are:
         --database          Database to connect to (default: MAINTENANCE)
         --primary-ro-role   Name of the primary READONLY role
@@ -32,8 +36,13 @@ Options are:
         --other-ro-role     Name of another role allowed RO access to the
                             database (may be specified multiple times)
                             (default: caa_redirect, sir)
-        --[no]grant         Whether to GRANT or REVOKE USAGE/SELECT privileges
-                            (default: GRANT)
+        --[no]grant         Whether to GRANT USAGE/SELECT privileges
+                            (default: yes)
+        --[no]revoke        Whether to REVOKE USAGE/SELECT privileges
+                            (default: yes)
+        --schema            Name of schema to update privileges for
+                            (may be specified multiple times)
+                            (default: all musicbrainz-server schemas)
     -h, --help              Show this help
 
 EOF
@@ -42,10 +51,16 @@ GetOptions(
     'database=s'        => \$database,
     'primary-ro-role=s' => \$primary_ro_role,
     'other-ro-role=s'   => \@other_ro_roles,
+    'schema=s'          => \@schemas,
     'grant!'            => \$grant_privileges,
+    'revoke!'           => \$revoke_privileges,
     'help|h'            => sub { print $help; exit },
 ) or exit 2;
 print($help), exit 2 if @ARGV;
+
+unless (@schemas) {
+    push @schemas, @FULL_SCHEMA_LIST;
+}
 
 my $c = MusicBrainz::Server::Context->create_script_context(
     database => 'SYSTEM_' . $database,
@@ -64,6 +79,11 @@ my $existing_role_names = $sql->select_single_column_array(
 my %existing_role_names = map { $_ => 1 } @$existing_role_names;
 
 if ($existing_role_names{$primary_ro_role}) {
+    my $log_and_do_query = sub {
+        my $query = shift;
+        log_info { "$database: $query" };
+        $sql->do($query);
+    };
     my $quoted_primary_role = $sql->dbh->quote_identifier($primary_ro_role);
     $sql->begin;
     my $existing_schemas = $sql->select_single_column_array(
@@ -72,40 +92,39 @@ if ($existing_role_names{$primary_ro_role}) {
           FROM pg_namespace
          WHERE nspname = any(?)
         SQL
-        [@FULL_SCHEMA_LIST],
+        [@schemas],
     );
     for my $schema (@$existing_schemas) {
         my $quoted_schema = $sql->dbh->quote_identifier($schema);
-        log_info {
-            "Updating privileges for $quoted_primary_role on $quoted_schema tables in $database"
-        };
         my $revoked_privileges;
         if ($grant_privileges) {
-            $sql->do(<<~"SQL");
-                GRANT USAGE
-                   ON SCHEMA $quoted_schema
-                   TO $quoted_primary_role;
-                SQL
+            $log_and_do_query->(
+                "GRANT USAGE ON SCHEMA $quoted_schema " .
+                "TO $quoted_primary_role",
+            );
             $revoked_privileges =
                 'INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER';
-        } else {
-            $sql->do(<<~"SQL");
-                REVOKE USAGE
-                    ON SCHEMA $quoted_schema
-                  FROM $quoted_primary_role;
-                SQL
+        } elsif ($revoke_privileges) {
+            $log_and_do_query->(
+                "REVOKE USAGE ON SCHEMA $quoted_schema " .
+                "FROM $quoted_primary_role",
+            );
             $revoked_privileges = 'ALL PRIVILEGES';
         }
-        $sql->do(<<~"SQL");
-            REVOKE $revoked_privileges
-                ON ALL TABLES IN SCHEMA $quoted_schema
-              FROM $quoted_primary_role;
-            SQL
-        $sql->do(<<~"SQL") if $grant_privileges;
-            GRANT SELECT
-               ON ALL TABLES IN SCHEMA $quoted_schema
-               TO $quoted_primary_role;
-            SQL
+        if ($revoke_privileges) {
+            $log_and_do_query->(
+                "REVOKE $revoked_privileges " .
+                "ON ALL TABLES IN SCHEMA $quoted_schema " .
+                "FROM $quoted_primary_role",
+            );
+        }
+        if ($grant_privileges) {
+            $log_and_do_query->(
+                'GRANT SELECT ' .
+                "ON ALL TABLES IN SCHEMA $quoted_schema " .
+                "TO $quoted_primary_role",
+            );
+        }
     }
     for my $other_role (@other_ro_roles) {
         unless ($existing_role_names{$other_role}) {
@@ -116,30 +135,29 @@ if ($existing_role_names{$primary_ro_role}) {
         }
 
         my $quoted_other_role = $sql->dbh->quote_identifier($other_role);
-        for my $schema (@$existing_schemas) {
-            my $quoted_schema = $sql->dbh->quote_identifier($schema);
-            log_info {
-                "Updating privileges for $quoted_other_role on $quoted_schema tables in $database"
-            };
-            $sql->do(<<~"SQL");
-                REVOKE ALL PRIVILEGES
-                    ON ALL TABLES IN SCHEMA $quoted_schema
-                  FROM $quoted_other_role;
-                REVOKE USAGE
-                    ON SCHEMA $quoted_schema
-                  FROM $quoted_other_role;
-                SQL
+        if ($revoke_privileges) {
+            for my $schema (@$existing_schemas) {
+                my $quoted_schema = $sql->dbh->quote_identifier($schema);
+                $log_and_do_query->(
+                    'REVOKE ALL PRIVILEGES ' .
+                    "ON ALL TABLES IN SCHEMA $quoted_schema " .
+                    "FROM $quoted_other_role",
+                );
+                $log_and_do_query->(
+                    'REVOKE USAGE ' .
+                    "ON SCHEMA $quoted_schema " .
+                    "FROM $quoted_other_role",
+                );
+            }
         }
         if ($grant_privileges) {
-            $sql->do(<<~"SQL");
-                GRANT $quoted_primary_role
-                   TO $quoted_other_role;
-                SQL
-        } else {
-            $sql->do(<<~"SQL");
-                REVOKE $quoted_primary_role
-                  FROM $quoted_other_role;
-                SQL
+            $log_and_do_query->(
+                "GRANT $quoted_primary_role TO $quoted_other_role",
+            );
+        } elsif ($revoke_privileges) {
+            $log_and_do_query->(
+                "REVOKE $quoted_primary_role FROM $quoted_other_role",
+            );
         }
     }
     $sql->commit;

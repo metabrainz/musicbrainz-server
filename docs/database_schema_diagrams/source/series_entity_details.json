@@ -2,15 +2,15 @@
   "tooltip": "Tables for the “series” entity type properties",
   "_comment": "It shows replicated tables used to define any series entity, beyond relationships. The main table is highlighted.",
   "tables": {
-    "annotation": [],
-    "tag": [],
-    "series": ["highlighted"],
-    "series_alias": [],
-    "series_alias_type": [],
-    "series_annotation": [],
-    "series_gid_redirect": [],
-    "series_ordering_type": [],
-    "series_tag": [],
-    "series_type": []
+    "musicbrainz.annotation": [],
+    "musicbrainz.tag": [],
+    "musicbrainz.series": ["highlighted"],
+    "musicbrainz.series_alias": [],
+    "musicbrainz.series_alias_type": [],
+    "musicbrainz.series_annotation": [],
+    "musicbrainz.series_gid_redirect": [],
+    "musicbrainz.series_ordering_type": [],
+    "musicbrainz.series_tag": [],
+    "musicbrainz.series_type": []
   }
 }

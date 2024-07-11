@@ -4888,12 +4888,12 @@ const CLEANUPS: CleanupEntries = {
   },
   'rateyourmusic': {
     match: [new RegExp(
-      '^(https?://)?(www\\.)?rateyourmusic\\.com/(?!feature)',
+      '^(https?://)?([^/]+\\.)?rateyourmusic\\.com/(?!feature)',
       'i',
     )],
     restrict: [LINK_TYPES.otherdatabases],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?rateyourmusic\.com\//, 'https://rateyourmusic.com/');
+      return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?rateyourmusic\.com\/([^#?]+).*$/, 'https://rateyourmusic.com/$1');
     },
     validate: function (url, id) {
       const m = /^https:\/\/rateyourmusic\.com\/(\w+)\/(?:(\w+)\/)?/.exec(url);

@@ -1,4 +1,4 @@
-// Automatically generated, do not edit, except to compensate for the lack of MBS-13668.
+// Automatically generated, do not edit.
 // - Database schema sequence: 29
 digraph cover_art_details {
     tooltip = "Tables for cover art"
@@ -14,7 +14,7 @@ digraph cover_art_details {
     ];
 
     // Tables
-    "art_type" [
+    "cover_art_archive.art_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">art_type</font></td></tr>
@@ -27,7 +27,7 @@ digraph cover_art_details {
             </table>
         >
     ];
-    "cover_art" [
+    "cover_art_archive.cover_art" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">cover_art</font></td></tr>
@@ -46,7 +46,7 @@ digraph cover_art_details {
             </table>
         >
     ];
-    "cover_art_type" [
+    "cover_art_archive.cover_art_type" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">cover_art_type</font></td></tr>
@@ -55,7 +55,16 @@ digraph cover_art_details {
             </table>
         >
     ];
-    "edit" [
+    "cover_art_archive.release_group_cover_art" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_cover_art</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="release_group"><font point-size="14"><u>release_group</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="release"><font point-size="14">release</font></td></tr>
+            </table>
+        >
+    ];
+    "musicbrainz.edit" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">edit</font></td></tr>
@@ -72,7 +81,7 @@ digraph cover_art_details {
             </table>
         >
     ];
-    "release" [
+    "musicbrainz.release" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">release</font></td></tr>
@@ -93,7 +102,7 @@ digraph cover_art_details {
             </table>
         >
     ];
-    "release_group" [
+    "musicbrainz.release_group" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">release_group</font></td></tr>
@@ -108,32 +117,23 @@ digraph cover_art_details {
             </table>
         >
     ];
-    "release_group_cover_art" [
-        label = <
-            <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_group_cover_art</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="release_group"><font point-size="14"><u>release_group</u></font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="release"><font point-size="14">release</font></td></tr>
-            </table>
-        >
-    ];
 
   // Schemas other than 'musicbrainz'
     subgraph cluster_cover_art_archive {
         bgcolor = "#35a8b3:#f0976c"
 
-        art_type;
-        cover_art;
-        cover_art_type;
-        release_group_cover_art;
+        "cover_art_archive.art_type";
+        "cover_art_archive.cover_art";
+        "cover_art_archive.cover_art_type";
+        "cover_art_archive.release_group_cover_art";
     }
 
     // References
-    "cover_art":"release" -> "release":"id"
-    "cover_art":"edit" -> "edit":"id"
-    "cover_art_type":"id" -> "cover_art":"id"
-    "cover_art_type":"type_id" -> "art_type":"id"
-    "release":"release_group" -> "release_group":"id"
-    "release_group_cover_art":"release_group" -> "release_group":"id"
-    "release_group_cover_art":"release" -> "release":"id"
+    "cover_art_archive.cover_art":"release" -> "musicbrainz.release":"id"
+    "cover_art_archive.cover_art":"edit" -> "musicbrainz.edit":"id"
+    "cover_art_archive.cover_art_type":"id" -> "cover_art_archive.cover_art":"id"
+    "cover_art_archive.cover_art_type":"type_id" -> "cover_art_archive.art_type":"id"
+    "cover_art_archive.release_group_cover_art":"release_group" -> "musicbrainz.release_group":"id"
+    "cover_art_archive.release_group_cover_art":"release" -> "musicbrainz.release":"id"
+    "musicbrainz.release":"release_group" -> "musicbrainz.release_group":"id"
 }
