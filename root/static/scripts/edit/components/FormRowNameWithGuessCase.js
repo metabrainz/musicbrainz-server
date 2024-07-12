@@ -99,8 +99,7 @@ component FormRowNameWithGuessCase(
   label: React$Node = addColonText(l('Name')),
 ) {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
-  const [nameBeforePreview, setNameBeforePreview] =
-    React.useState<string | null>(null);
+  const [preview, setPreview] = React.useState<string | null>(null);
 
   function handleNameChange(event: SyntheticKeyboardEvent<HTMLInputElement>) {
     dispatch({
@@ -111,12 +110,8 @@ component FormRowNameWithGuessCase(
 
   function handleGuessCase() {
     flushSync(() => {
-      // Restore the original value if we're displaying a preview.
-      if (nameBeforePreview !== null) {
-        dispatch({name: nameBeforePreview, type: 'set-name'});
-        setNameBeforePreview(null);
-      }
       dispatch({entity, type: 'guess-case'});
+      setPreview(null);
     });
 
     if (inputRef.current) {
@@ -125,18 +120,13 @@ component FormRowNameWithGuessCase(
   }
 
   function showGuessCasePreview() {
-    setNameBeforePreview(field.value);
-    const name = GuessCase.entities[entity.entityType].guess(
-      field.value ?? '',
+    setPreview(
+      GuessCase.entities[entity.entityType].guess(field.value ?? ''),
     );
-    dispatch({name, type: 'set-name'});
   }
 
-  function hideGuessCasePreview() {
-    if (nameBeforePreview !== null) {
-      dispatch({name: nameBeforePreview, type: 'set-name'});
-      setNameBeforePreview(null);
-    }
+  function hidePreview() {
+    setPreview(null);
   }
 
   const toggleGuessCaseOptions = React.useCallback((
@@ -156,8 +146,7 @@ component FormRowNameWithGuessCase(
     [dispatch],
   );
 
-  const previewDiffers =
-    nameBeforePreview !== null && nameBeforePreview !== field.value;
+  const previewDiffers = preview !== null && preview !== field.value;
   const className =
     'with-guesscase' + (guessFeat ? '-guessfeat' : '') +
     (previewDiffers ? ' preview' : '');
@@ -169,13 +158,14 @@ component FormRowNameWithGuessCase(
       inputRef={inputRef}
       label={label}
       onChange={handleNameChange}
+      preview={preview}
       required
     >
       <button
         className="guesscase-title icon"
         onClick={handleGuessCase}
         onMouseEnter={showGuessCasePreview}
-        onMouseLeave={hideGuessCasePreview}
+        onMouseLeave={hidePreview}
         title={l('Guess case')}
         type="button"
       />

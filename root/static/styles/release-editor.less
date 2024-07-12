@@ -111,16 +111,18 @@ fieldset.advanced-medium {
     tr.track td {
         background: @text-white;
         border: 1px dotted @very-light-border;
-        padding: 0 5px;
+        padding: 0;
         vertical-align: inherit !important;
 
-        &.position { width: 2em; }
+        &.position { width: 3em; }
         &.position input { text-align: right; }
 
-        &.reorder { width: 38px; }
+        &.reorder {
+            padding: 0 5px;
+            width: 38px;
+        }
 
         &.artist {
-            padding: 0;
             width: 45%;
             div.artist-credit-editor.autocomplete2 {
                 width: 100%;
@@ -132,22 +134,24 @@ fieldset.advanced-medium {
         }
 
         &.length {
-            width: 5em;
+            width: 6em;
             input { text-align: right; }
         }
 
-        &.icon { width: (@form-icon-size + 4) * 3; text-align: right; }
+        &.icon {
+            padding: 0 5px;
+            text-align: right;
+            width: (@form-icon-size + 4) * 3;
+        }
 
         &.guesscase a { color: @light-grey; font-weight: bolder; }
-
-        &.preview-differs { background-color: @input-preview-bg; }
 
         input[type=text] {
             width: 100%;
             height: 2em;
             border: 0;
-            /* Override grey background for input[readonly]. */
-            &.preview { background-color: transparent; }
+            padding: 0 5px;
+            &.preview { background-color: @input-preview-bg; }
         }
     }
 }

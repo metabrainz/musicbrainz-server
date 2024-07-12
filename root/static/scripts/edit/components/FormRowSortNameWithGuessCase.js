@@ -68,8 +68,7 @@ component FormRowSortNameWithGuessCase(
   label: React$Node = addColonText(l('Sort name')),
   required: boolean = false,
 ) {
-  const [sortNameBeforePreview, setSortNameBeforePreview] =
-    React.useState<string | null>(null);
+  const [preview, setPreview] = React.useState<string | null>(null);
 
   const handleSortNameChange = React.useCallback((
     event: SyntheticKeyboardEvent<HTMLInputElement>,
@@ -81,34 +80,28 @@ component FormRowSortNameWithGuessCase(
   }, [dispatch]);
 
   function handleGuessCase() {
-    // Restore the original value if we're displaying a preview.
-    if (sortNameBeforePreview !== null) {
-      dispatch({sortName: sortNameBeforePreview, type: 'set-sortname'});
-      setSortNameBeforePreview(null);
-    }
     dispatch({entity, type: 'guess-case-sortname'});
+    setPreview(null);
   }
 
   function showGuessCasePreview() {
-    setSortNameBeforePreview(sortNameField.value);
-    const sortName = guessSortName(nameField.value ?? '', entity);
-    dispatch({sortName, type: 'set-sortname'});
-  }
-
-  function hideGuessCasePreview() {
-    if (sortNameBeforePreview !== null) {
-      dispatch({sortName: sortNameBeforePreview, type: 'set-sortname'});
-      setSortNameBeforePreview(null);
-    }
+    setPreview(guessSortName(nameField.value ?? '', entity));
   }
 
   function handleSortNameCopy() {
     dispatch({type: 'copy-sortname'});
+    setPreview(null);
   }
 
-  const previewDiffers =
-    sortNameBeforePreview !== null &&
-    sortNameBeforePreview !== sortNameField.value;
+  function showSortNameCopyPreview() {
+    setPreview(nameField.value ?? '');
+  }
+
+  function hidePreview() {
+    setPreview(null);
+  }
+
+  const previewDiffers = preview !== null && preview !== sortNameField.value;
 
   return (
     <FormRowText
@@ -117,6 +110,7 @@ component FormRowSortNameWithGuessCase(
       field={sortNameField}
       label={label}
       onChange={handleSortNameChange}
+      preview={preview}
       required={required}
     >
       <button
@@ -124,7 +118,7 @@ component FormRowSortNameWithGuessCase(
         disabled={disabled}
         onClick={handleGuessCase}
         onMouseEnter={showGuessCasePreview}
-        onMouseLeave={hideGuessCasePreview}
+        onMouseLeave={hidePreview}
         title={l('Guess sort name')}
         type="button"
       />
@@ -132,6 +126,8 @@ component FormRowSortNameWithGuessCase(
         className="sortname-copy icon"
         disabled={disabled}
         onClick={handleSortNameCopy}
+        onMouseEnter={showSortNameCopyPreview}
+        onMouseLeave={hidePreview}
         title={l('Copy name')}
         type="button"
       />

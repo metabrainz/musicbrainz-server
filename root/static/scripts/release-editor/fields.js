@@ -63,6 +63,12 @@ class Track {
       return preview !== null && preview !== this.name();
     });
 
+    this.inputName = ko.computed({
+      read: ko.computed(() => this.previewName() ?? this.name()),
+      write: this.name,
+      owner: this,
+    });
+
     this.length = ko.observable(data.length);
     this.length.original = data.length;
 
@@ -358,6 +364,11 @@ class Medium {
     this.previewNameDiffers = ko.computed(() => {
       const preview = this.previewName();
       return preview !== null && preview !== this.name();
+    });
+    this.inputName = ko.computed({
+      read: ko.computed(() => this.previewName() ?? this.name()),
+      write: this.name,
+      owner: this,
     });
     this.position = ko.observable(data.position || 1);
     this.formatID = ko.observable(data.format_id);

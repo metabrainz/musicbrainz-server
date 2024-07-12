@@ -209,9 +209,8 @@
       <input class="pos" type="text" data-bind="value: number" />
     </td>
 
-    <td class="title" data-bind="css: { 'preview-differs': previewNameDiffers() }">
-      <input type="text" class="track-name" data-bind="value: name, valueUpdate: 'input', visible: !previewNameDiffers()" />
-      <input type="text" class="preview" readonly data-bind="value: previewName, visible: previewNameDiffers()" />
+    <td class="title">
+      <input type="text" class="track-name" data-bind="value: inputName, valueUpdate: 'input', css: { preview: previewNameDiffers() }" />
     </td>
 
     <td class="artist autocomplete" data-bind="artistCreditEditor: $data">
@@ -317,8 +316,7 @@
           (<a href="[% c.uri_for('/doc/Release/Format') %]" target="_blank">[% l('help') %]</a>)
           <!-- ko if: release.mediums().length > 1 || name() -->
             <label data-bind="attr: { for: 'medium-title-' + uniqueID }">[% l('Medium title:') %]</label>
-            <input type="text" data-bind="value: name, attr: { id: 'medium-title-' + uniqueID }, visible: !previewNameDiffers()" />
-            <input type="text" class="preview" readonly data-bind="value: previewName, visible: previewNameDiffers()" />
+            <input type="text" data-bind="attr: { id: 'medium-title-' + uniqueID }, value: inputName, valueUpdate: 'input', css: { preview: previewNameDiffers() }" />
             <button type="button" class="icon guesscase-title" title="[% l('Guess case medium title') %]" data-bind="click: $root.guessCaseMediumName, event: { mouseenter: $root.guessCaseMediumName, mouseleave: $root.guessCaseMediumName }"></button>
           <!-- /ko -->
           <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: needsFormat">

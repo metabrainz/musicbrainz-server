@@ -370,17 +370,17 @@
     },
     {
       command: 'assertEval',
-      target: "document.querySelector('#tracklist table.medium tr.track:nth-child(8) td.title input.preview').style.display === 'none'",
-      value: 'true',
-    },
-    {
-      command: 'assertEval',
-      target: "document.querySelector('#tracklist table.medium tr.track:nth-child(9) td.title input.preview').style.display === 'none'",
+      target: "document.querySelector('#tracklist table.medium tr.track:nth-child(8) td.title input.track-name').classList.contains('preview')",
       value: 'false',
     },
     {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist table.medium tr.track:nth-child(9) td.title input.track-name').classList.contains('preview')",
+      value: 'true',
+    },
+    {
       command: 'assertValue',
-      target: 'css=#tracklist table.medium tr.track:nth-child(9) td.title input.preview',
+      target: 'css=#tracklist table.medium tr.track:nth-child(9) td.title input',
       value: 'Big Man With a Gun',
     },
     {
@@ -390,13 +390,23 @@
     },
     {
       command: 'assertEval',
-      target: "document.querySelector('#tracklist table.medium tr.track:nth-child(9) td.title input.preview').style.display === 'none'",
-      value: 'true',
+      target: "document.querySelector('#tracklist table.medium tr.track:nth-child(9) td.title input.track-name').classList.contains('preview')",
+      value: 'false',
+    },
+    {
+      command: 'assertValue',
+      target: 'css=#tracklist table.medium tr.track:nth-child(9) td.title input.track-name',
+      value: 'big man with a gun',
     },
     {
       command: 'click',
       target: 'id=guess-case-button',
       value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist table.medium tr.track:nth-child(9) td.title input.track-name').classList.contains('preview')",
+      value: 'false',
     },
     {
       command: 'assertValue',
