@@ -2541,13 +2541,15 @@ const CLEANUPS: CleanupEntries = {
   },
   'eonkyo': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?e-onkyo\\.com', 'i')],
-    restrict: [LINK_TYPES.downloadpurchase],
+    restrict: [
+      {release: LINK_TYPES.downloadpurchase.release},
+    ],
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?e-onkyo\.com\/music\/album\/([a-z]+\d+).*$/, 'https://www.e-onkyo.com/music/album/$1/');
     },
     validate: function (url) {
       return {
-        result: /^https:\/\/www\.e-onkyo\.com\/music\/album\//.test(url),
+        result: /^https:\/\/www\.e-onkyo\.com\/music\/album\/[a-z]+\d+\/$/.test(url),
         target: ERROR_TARGETS.URL,
       };
     },
