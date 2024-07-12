@@ -2544,7 +2544,7 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.downloadpurchase],
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?e-onkyo\.com\//, 'https://www.e-onkyo.com/');
-      return url.replace(/^(https:\/\/www\.e-onkyo\.com)\/music\/album\/([a-z]+\d+).*$/, '$1/music/album/$2/');
+      return url.replace(/^(https:\/\/www\.e-onkyo\.com)\/(?:music|sp)\/album\/([a-z]+\d+).*$/, '$1/music/album/$2/');
     },
     validate: function (url, id) {
       if (/e-onkyo\.com\/search\//.test(url)) {
