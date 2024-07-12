@@ -2543,9 +2543,17 @@ const CLEANUPS: CleanupEntries = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?e-onkyo\\.com', 'i')],
     restrict: [LINK_TYPES.downloadpurchase],
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?e-onkyo\.com\/music\/album\/([a-z]+\d+).*$/, 'https://www.e-onkyo.com/music/album/$1/');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?e-onkyo\.com\//, 'https://www.e-onkyo.com/');
+      return url.replace(/^(https:\/\/www\.e-onkyo\.com)\/music\/album\/([a-z]+\d+).*$/, '$1/music/album/$2/');
     },
     validate: function (url, id) {
+      if (/e-onkyo\.com\/search\//.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
       const m = /^https:\/\/www\.e-onkyo\.com\/music\/album\/[a-z]+\d+\/$/.exec(url);
       if (m) {
         switch (id) {
