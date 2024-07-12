@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-11 18:31+0000\n"
-"Last-Translator: bovirus <bovirus@users.noreply.translations.metabrainz.org>"
-"\n"
+"PO-Revision-Date: 2024-07-11 22:42+0000\n"
+"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/it/>\n"
 "Language: it\n"
@@ -305,12 +305,12 @@ msgstr "Immagini di copertina:"
 #: ../root/statistics/Images.js:108 ../root/statistics/Images.js:443
 #: ../root/statistics/Images.js:529
 msgid "Events with event art"
-msgstr "Eventi con manifesti"
+msgstr "Eventi con immagini"
 
 #: ../root/statistics/Images.js:123 ../root/statistics/Images.js:479
 #: ../root/statistics/Images.js:492 ../root/statistics/stats.js:290
 msgid "Pieces of event art"
-msgstr "Immagini di manifesti"
+msgstr "Immagini di eventi"
 
 #: ../root/statistics/Images.js:139 ../root/statistics/Images.js:319
 msgid "No cover art statistics available."
@@ -1042,7 +1042,7 @@ msgstr "Copertine"
 #: ../root/statistics/stats.js:22
 msgctxt "plural"
 msgid "Event art"
-msgstr "Immagini eventi"
+msgstr "Immagini di eventi"
 
 #: ../root/statistics/stats.js:24
 msgctxt "noun"
@@ -1408,7 +1408,7 @@ msgstr "Eventi senza un Paese impostato"
 
 #: ../root/statistics/stats.js:451
 msgid "Events with EAA event art"
-msgstr "Eventi con manifesti dall'EAA"
+msgstr "Eventi con immagini dall'EAA"
 
 #: ../root/statistics/stats.js:456
 msgid "Events with an EAA poster"
