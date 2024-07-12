@@ -2360,9 +2360,11 @@ limited_link_type_combinations: [
   },
   // e-onkyo music
   {
-                     input_url: 'http://www.e-onkyo.com/music/album/vpcd81809/',
+                     input_url: 'http://e-onkyo.com/music/album/vpcd81809/',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['release'],
+            expected_clean_url: 'https://www.e-onkyo.com/music/album/vpcd81809/',
   },
   // excite
   {
