@@ -75,11 +75,13 @@ component ReleaseSidebar(release: ReleaseT) {
     ? null
     : linkedEntities.script[scriptId];
   const isEmpty = release.has_no_tracks;
+  const isPresent = release.cover_art_presence === 'present';
+  const isDarkened = release.cover_art_presence === 'darkened';
 
   return (
     <div id="sidebar">
-      <div className="cover-art">
-        {release.cover_art_presence === 'present' && releaseArtwork ? (
+      <div className={'cover-art' + (isPresent ? ' present' : '')}>
+        {isPresent && releaseArtwork ? (
           <Artwork
             artwork={releaseArtwork}
             message={ReactDOMServer.renderToStaticMarkup(exp.l(
@@ -88,12 +90,12 @@ component ReleaseSidebar(release: ReleaseT) {
               {all: entityHref(release, 'cover-art')},
             ))}
           />
-        ) : release.cover_art_presence === 'darkened' ? (
+        ) : isDarkened ? (
           l(`Images for this item have been hidden
              by the Internet Archive because of a takedown request.`)
         ) : (
           <p className="cover-art-note" style={{textAlign: 'left'}}>
-            {release.cover_art_presence === 'present' ? (
+            {isPresent ? (
               <>
                 {l('No front cover image available.')}
                 <br />

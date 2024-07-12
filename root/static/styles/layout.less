@@ -491,6 +491,23 @@ div.warning img.warning {
     max-height: 16px;
 }
 
+#sidebar .cover-art.present {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 218px; /* matches img's max-width */
+    img {
+        vertical-align: top; /* avoid inline space below image */
+    }
+    &:has(.cover-art-error),
+    &:has(.cover-art-note) {
+        border: 1px solid @light-border; /* border around text messages */
+    }
+    & ~ .listenbrainz-button {
+        margin-top: 16px; /* matches #sidebar's padding-left */
+    }
+}
+
 #sidebar .cover-art img,
 #sidebar .event-art img,
 #sidebar .picture img {

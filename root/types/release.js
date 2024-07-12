@@ -19,7 +19,7 @@ declare type ReleaseEventT = {
 declare type ReleaseLabelT = {
   +catalogNumber: string | null,
   +label: LabelT | null,
-  +label_id: number,
+  +label_id: number | null,
 };
 
 declare type ReleasePackagingT = OptionTreeT<'release_packaging'>;
