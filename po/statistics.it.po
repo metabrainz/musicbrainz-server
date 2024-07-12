@@ -10,11 +10,12 @@
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 # "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
+# bovirus <bovirus@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-29 15:42+0000\n"
+"PO-Revision-Date: 2024-07-11 22:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -23,9 +24,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Add/remove lines:"
@@ -304,12 +305,12 @@ msgstr "Immagini di copertina:"
 #: ../root/statistics/Images.js:108 ../root/statistics/Images.js:443
 #: ../root/statistics/Images.js:529
 msgid "Events with event art"
-msgstr "Eventi con manifesti"
+msgstr "Eventi con immagini"
 
 #: ../root/statistics/Images.js:123 ../root/statistics/Images.js:479
 #: ../root/statistics/Images.js:492 ../root/statistics/stats.js:290
 msgid "Pieces of event art"
-msgstr "Immagini di manifesti"
+msgstr "Immagini di eventi"
 
 #: ../root/statistics/Images.js:139 ../root/statistics/Images.js:319
 msgid "No cover art statistics available."
@@ -1039,8 +1040,6 @@ msgid "Cover art"
 msgstr "Copertine"
 
 #: ../root/statistics/stats.js:22
-#, fuzzy
-#| msgid "Event art"
 msgctxt "plural"
 msgid "Event art"
 msgstr "Immagini di eventi"
@@ -1409,7 +1408,7 @@ msgstr "Eventi senza un Paese impostato"
 
 #: ../root/statistics/stats.js:451
 msgid "Events with EAA event art"
-msgstr "Eventi con manifesti dall'EAA"
+msgstr "Eventi con immagini dall'EAA"
 
 #: ../root/statistics/stats.js:456
 msgid "Events with an EAA poster"
