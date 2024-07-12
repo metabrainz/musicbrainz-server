@@ -2541,17 +2541,29 @@ const CLEANUPS: CleanupEntries = {
   },
   'eonkyo': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?e-onkyo\\.com', 'i')],
-    restrict: [
-      {release: LINK_TYPES.downloadpurchase.release},
-    ],
+    restrict: [LINK_TYPES.downloadpurchase],
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?e-onkyo\.com\/music\/album\/([a-z]+\d+).*$/, 'https://www.e-onkyo.com/music/album/$1/');
     },
-    validate: function (url) {
-      return {
-        result: /^https:\/\/www\.e-onkyo\.com\/music\/album\/[a-z]+\d+\/$/.test(url),
-        target: ERROR_TARGETS.URL,
-      };
+    validate: function (url, id) {
+      const m = /^https:\/\/www\.e-onkyo\.com\/music\/album\/[a-z]+\d+\/$/.exec(url);
+      if (m) {
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.release:
+            return {
+              result: true,
+            };
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.downloadpurchase.label:
+          case LINK_TYPES.downloadpurchase.recording:
+            return {
+              result: false,
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'ester': {
