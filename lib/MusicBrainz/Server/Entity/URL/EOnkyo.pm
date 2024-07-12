@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::URL::eonkyo;
+package MusicBrainz::Server::Entity::URL::EOnkyo;
 
 use Moose;
 
