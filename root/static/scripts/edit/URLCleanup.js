@@ -2548,7 +2548,7 @@ const CLEANUPS: CleanupEntries = {
     validate: function (url) {
       return {
         result: /^https:\/\/www\.e-onkyo\.com\/music\/album\//.test(url),
-        target: ERROR_TARGETS.URL;
+        target: ERROR_TARGETS.URL,
       };
     },
   },
