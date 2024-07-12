@@ -135,6 +135,10 @@ for my $backup_dir (@backup_dirs)
     @extraneous_files = ();
     for my $filename (sort grep { ! /^\.\.?$/ } readdir $bdh)
     {
+        if ($filename =~ 'zk_backup') {
+            system 'rm', '-fr', "$working_dir/$backup_dir/$filename";
+            next;
+        }
         push @extraneous_files, $filename
             if ! $filename =~ 'backup\.properties|snapshot\.shard1';
     }
