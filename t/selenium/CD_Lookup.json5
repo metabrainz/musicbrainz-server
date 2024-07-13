@@ -19,7 +19,7 @@
     {
       command: 'assertEval',
       target: "window.document.querySelector('table.tbl').innerText",
-      value: 'Release\tArtist\tCountry/Date\tLabel\tCatalog#\tBarcode\tTagger\nRelease group: ★ (Blackstar)\n★\tDavid Bowie\t\n\t\t\t888751738621\t\n\n\t CD 1 (show tracklist)\t',
+      value: 'Release\tArtist\tCountry/Date\tLabel\tCatalog#\tBarcode\tTagger\nRelease group: ★ (Blackstar)\n★\tDavid Bowie\t\n\tISO Records\t\t888751738621\t\n\n\t CD 1 (show tracklist)\t',
     },
     {
       command: 'assertEval',
@@ -71,7 +71,7 @@
     {
       command: 'assertEval',
       target: "window.document.querySelector('table.tbl').innerText",
-      value: 'Position\tTitle\tArtist\tFormat\tCountry/Date\tLabel\tCatalog#\tBarcode\tTagger\n1/1 (show tracklist)\t★\tDavid Bowie\tCD\t\n\t\t\t888751738621\t',
+      value: 'Position\tTitle\tArtist\tFormat\tCountry/Date\tLabel\tCatalog#\tBarcode\tTagger\n1/1 (show tracklist)\t★\tDavid Bowie\tCD\t\n\tISO Records\t\t888751738621\t',
     },
     {
       command: 'assertTextMatches',
