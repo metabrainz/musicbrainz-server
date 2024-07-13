@@ -57,6 +57,18 @@ class Track {
     this.name.original = data.name;
     this.name.subscribe(this.nameChanged, this);
 
+    this.previewName = ko.observable(null);
+    this.previewNameDiffers = ko.computed(() => {
+      const preview = this.previewName();
+      return preview !== null && preview !== this.name();
+    });
+
+    this.inputName = ko.computed({
+      read: ko.computed(() => this.previewName() ?? this.name()),
+      write: this.name,
+      owner: this,
+    });
+
     this.length = ko.observable(data.length);
     this.length.original = data.length;
 
@@ -348,6 +360,16 @@ class Medium {
     this.release = release;
     this.name = ko.observable(data.name);
     this.originalName = data.name;
+    this.previewName = ko.observable(null);
+    this.previewNameDiffers = ko.computed(() => {
+      const preview = this.previewName();
+      return preview !== null && preview !== this.name();
+    });
+    this.inputName = ko.computed({
+      read: ko.computed(() => this.previewName() ?? this.name()),
+      write: this.name,
+      owner: this,
+    });
     this.position = ko.observable(data.position || 1);
     this.formatID = ko.observable(data.format_id);
     this.originalFormatID = data.format_id

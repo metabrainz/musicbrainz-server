@@ -30,13 +30,31 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
 
   function setVal($input, value) {
     $input.val(value).trigger('change');
+    $input.removeData('orig-value');
+    $input.removeClass('preview');
+  }
+  function showPreview($input, value) {
+    const orig = $input.val();
+    if (value !== orig) {
+      $input.val(value);
+      $input.data('orig-value', orig);
+      $input.addClass('preview');
+    }
+  }
+  function hidePreview($input) {
+    const orig = $input.data('orig-value');
+    if (orig !== undefined) {
+      $input.val(orig);
+      $input.removeData('orig-value');
+      $input.removeClass('preview');
+    }
   }
 
   $name.parent()
     .find('button.guesscase-title')
-    .on('click', function () {
-      setVal($name, guess.guess($name.val()));
-    })
+    .on('click', () => setVal($name, guess.guess($name.val())))
+    .on('mouseenter', () => showPreview($name, guess.guess($name.val())))
+    .on('mouseleave', () => hidePreview($name))
     .end()
     .find('button.guesscase-options')
     .on('click', function () {
@@ -46,16 +64,19 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
   var $sortname = $('#' + formPrefix + 'sort_name');
   var $artistType = $('#id-edit-artist\\.type_id');
 
+  function guessSortName() {
+    var args = [$name.val()];
+    if (type === 'artist') {
+      args.push($artistType.val() != 2 /* person */);
+    }
+    return guess.sortname.apply(guess, args);
+  }
+
   $sortname.parent()
-    .find('button.guesscase-sortname').on('click', function () {
-      var args = [$name.val()];
-
-      if (type === 'artist') {
-        args.push($artistType.val() != 2 /* person */);
-      }
-
-      setVal($sortname, guess.sortname.apply(guess, args));
-    })
+    .find('button.guesscase-sortname')
+    .on('click', () => setVal($sortname, guessSortName()))
+    .on('mouseenter', () => showPreview($sortname, guessSortName()))
+    .on('mouseleave', () => hidePreview($sortname))
     .end()
     .find('button.sortname-copy')
     .on('click', function () {

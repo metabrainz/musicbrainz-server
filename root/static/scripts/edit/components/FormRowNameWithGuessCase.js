@@ -99,6 +99,7 @@ component FormRowNameWithGuessCase(
   label: React$Node = addColonText(l('Name')),
 ) {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const [preview, setPreview] = React.useState<string | null>(null);
 
   function handleNameChange(event: SyntheticKeyboardEvent<HTMLInputElement>) {
     dispatch({
@@ -110,11 +111,22 @@ component FormRowNameWithGuessCase(
   function handleGuessCase() {
     flushSync(() => {
       dispatch({entity, type: 'guess-case'});
+      setPreview(null);
     });
 
     if (inputRef.current) {
       inputRef.current.dispatchEvent(new Event('input'));
     }
+  }
+
+  function showGuessCasePreview() {
+    setPreview(
+      GuessCase.entities[entity.entityType].guess(field.value ?? ''),
+    );
+  }
+
+  function hidePreview() {
+    setPreview(null);
   }
 
   const toggleGuessCaseOptions = React.useCallback((
@@ -134,18 +146,26 @@ component FormRowNameWithGuessCase(
     [dispatch],
   );
 
+  const previewDiffers = preview !== null && preview !== field.value;
+  const className =
+    'with-guesscase' + (guessFeat ? '-guessfeat' : '') +
+    (previewDiffers ? ' preview' : '');
+
   return (
     <FormRowText
-      className={'with-guesscase' + (guessFeat ? '-guessfeat' : '')}
+      className={className}
       field={field}
       inputRef={inputRef}
       label={label}
       onChange={handleNameChange}
+      preview={preview}
       required
     >
       <button
         className="guesscase-title icon"
         onClick={handleGuessCase}
+        onMouseEnter={showGuessCasePreview}
+        onMouseLeave={hidePreview}
         title={l('Guess case')}
         type="button"
       />
