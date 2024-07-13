@@ -26,8 +26,8 @@ const webTestsConfig = {
   devtool: 'source-map',
 
   entry: {
-    'autocomplete2': path.resolve(SCRIPTS_DIR, 'tests', 'autocomplete2.js'),
-    'dialog-test': path.resolve(SCRIPTS_DIR, 'tests', 'dialog.js'),
+    'autocomplete2': path.resolve(SCRIPTS_DIR, 'tests', 'fixtures', 'autocomplete2.js'),
+    'dialog-test': path.resolve(SCRIPTS_DIR, 'tests', 'fixtures', 'dialog.js'),
     'web-tests': path.resolve(SCRIPTS_DIR, 'tests', 'browser-runner.js'),
     'todo-list': path.resolve(SCRIPTS_DIR, 'tests', 'examples', 'todo-list', 'index.js'),
   },
