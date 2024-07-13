@@ -21,29 +21,38 @@ import type {ResultsPropsT, SearchResultT} from '../types.js';
 import PaginatedSearchResults from './PaginatedSearchResults.js';
 import ResultsLayout from './ResultsLayout.js';
 
-function buildResult(result: SearchResultT<ReleaseGroupT>, index: number) {
-  const releaseGroup = result.entity;
-  const score = result.score;
+function getResultBuilder(showArtworkPresence: boolean) {
+  function buildResult(result: SearchResultT<ReleaseGroupT>, index: number) {
+    const releaseGroup = result.entity;
+    const score = result.score;
 
-  return (
-    <tr
-      className={loopParity(index)}
-      data-score={score}
-      key={releaseGroup.id}
-    >
-      <td>
-        <EntityLink entity={releaseGroup} showArtworkPresence />
-      </td>
-      <td>
-        <ArtistCreditLink artistCredit={releaseGroup.artistCredit} />
-      </td>
-      <td>
-        {nonEmpty(releaseGroup.typeName)
-          ? lp_attributes(releaseGroup.typeName, 'release_group_primary_type')
-          : null}
-      </td>
-    </tr>
-  );
+    return (
+      <tr
+        className={loopParity(index)}
+        data-score={score}
+        key={releaseGroup.id}
+      >
+        <td>
+          <EntityLink
+            entity={releaseGroup}
+            showArtworkPresence={showArtworkPresence}
+          />
+        </td>
+        <td>
+          <ArtistCreditLink artistCredit={releaseGroup.artistCredit} />
+        </td>
+        <td>
+          {nonEmpty(releaseGroup.typeName)
+            ? lp_attributes(
+              releaseGroup.typeName, 'release_group_primary_type',
+            )
+            : null}
+        </td>
+      </tr>
+    );
+  }
+
+  return buildResult;
 }
 
 component ReleaseGroupResults(...{
@@ -52,8 +61,12 @@ component ReleaseGroupResults(...{
   pager,
   query,
   results,
-}: ResultsPropsT<ReleaseGroupT>) {
+}: ResultsPropsT< ReleaseGroupT >) {
   const $c = React.useContext(CatalystContext);
+  const buildResult = getResultBuilder(
+    results.some((res) => res.entity.hasCoverArt),
+  );
+
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
       <PaginatedSearchResults

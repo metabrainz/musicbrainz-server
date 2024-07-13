@@ -65,7 +65,7 @@ export component ReleaseGroupListTable(
       const nameColumn = defineNameColumn<ReleaseGroupT>({
         descriptive: false, // since ACs are in the next column
         order: order,
-        showArtworkPresence: true,
+        showArtworkPresence: releaseGroups.some((group) => group.hasCoverArt),
         sortable: sortable,
         title: l('Title'),
       });
