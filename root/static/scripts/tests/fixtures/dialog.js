@@ -12,8 +12,8 @@
 const React = require('react');
 const ReactDOMClient = require('react-dom/client');
 
-const Modal = require('../common/components/Modal.js').default;
-const ButtonPopover = require('../common/components/ButtonPopover.js').default;
+const Modal = require('../../common/components/Modal.js').default;
+const ButtonPopover = require('../../common/components/ButtonPopover.js').default;
 
 const container = document.createElement('div');
 document.body?.insertBefore(container, document.getElementById('page'));
