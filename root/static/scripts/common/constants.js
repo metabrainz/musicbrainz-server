@@ -118,6 +118,7 @@ export const FAVICON_CLASSES: {
   'dogmazic.net': 'dogmazic',
   'dramonline.org': 'dram',
   'encyclopedisque.fr': 'encyclopedisque',
+  'e-onkyo.com': 'eonkyo',
   'ester.ee': 'ester',
   'facebook.com': 'facebook',
   'finna.fi': 'finna',

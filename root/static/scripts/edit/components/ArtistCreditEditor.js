@@ -245,9 +245,14 @@ export function reducer(
     }
 
     case 'remove-name': {
+      const nonRemovedCount = state.names.reduce((accum, name) => {
+        return accum + (name.removed ? 0 : 1);
+      }, 0);
       const namesCtx = stateCtx.get('names');
-      namesCtx.set(action.index, 'removed', true);
-      setAutoJoinPhrases(namesCtx);
+      if (nonRemovedCount > 1) {
+        namesCtx.set(action.index, 'removed', true);
+        setAutoJoinPhrases(namesCtx);
+      }
       break;
     }
 
@@ -326,8 +331,8 @@ export function reducer(
         .set('inputValue', artistName);
     });
   } else if (names !== newNames) {
-    const firstNameAutocomplete = newNames[0].artist;
     if (isSingleArtistEditableInState(newNames)) {
+      const firstNameAutocomplete = newNames[0].artist;
       stateCtx.get('singleArtistAutocomplete')
         .set('disabled', false)
         .set('selectedItem', firstNameAutocomplete.selectedItem)

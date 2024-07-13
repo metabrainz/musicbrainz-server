@@ -40,6 +40,7 @@ component FormRowText(
   field: FieldT<?string>,
   inputRef?: {-current: HTMLInputElement | null},
   label: React$Node,
+  preview?: string | null = null,
   required: boolean = false,
   size?: number,
   type: string = 'text',
@@ -57,7 +58,7 @@ component FormRowText(
     type: type,
   };
 
-  const inputValue = field.value ?? '';
+  const inputValue = preview ?? field.value ?? '';
 
   if (controlledProps.uncontrolled /*:: === true */) {
     inputProps.defaultValue = inputValue;

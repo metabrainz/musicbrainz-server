@@ -304,7 +304,8 @@ const AliasEditForm = ({
               disabled={state.isTypeSearchHint}
               dispatch={sortNameDispatch}
               entity={entity}
-              field={state.form.field.sort_name}
+              nameField={state.form.field.name}
+              sortNameField={state.form.field.sort_name}
             />
             <FormRowSelect
               allowEmpty

@@ -2434,7 +2434,6 @@ const CLEANUPS: CleanupEntries = {
   'downloadpurchase': {
     match: [
       new RegExp('^(https?://)?([^/]+\\.)?audiojelly\\.com', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?e-onkyo\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?hd-music\\.info', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?musa24\\.fi', 'i'),
     ],
@@ -2538,6 +2537,41 @@ const CLEANUPS: CleanupEntries = {
         result: id === LINK_TYPES.otherdatabases.release,
         target: ERROR_TARGETS.ENTITY,
       };
+    },
+  },
+  'eonkyo': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?e-onkyo\\.com', 'i')],
+    restrict: [LINK_TYPES.downloadpurchase],
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?e-onkyo\.com\//, 'https://www.e-onkyo.com/');
+      return url.replace(/^(https:\/\/www\.e-onkyo\.com)\/(?:music|sp)\/album\/([a-z]+\d+).*$/, '$1/music/album/$2/');
+    },
+    validate: function (url, id) {
+      if (/e-onkyo\.com\/search\//.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      const m = /^https:\/\/www\.e-onkyo\.com\/music\/album\/[a-z]+\d+\/$/.exec(url);
+      if (m) {
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.release:
+            return {
+              result: true,
+            };
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.downloadpurchase.label:
+          case LINK_TYPES.downloadpurchase.recording:
+            return {
+              result: false,
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'ester': {

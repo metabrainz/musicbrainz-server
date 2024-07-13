@@ -34,66 +34,73 @@ import type {
 import PaginatedSearchResults from './PaginatedSearchResults.js';
 import ResultsLayout from './ResultsLayout.js';
 
-function buildResult(
-  $c: CatalystContextT,
-  result: SearchResultT<ReleaseT>,
-  index: number,
-) {
-  const release = result.entity;
-  const score = result.score;
-  const typeName = release.releaseGroup?.typeName;
+function getResultBuilder(showArtworkPresence: boolean) {
+  function buildResult(
+    $c: CatalystContextT,
+    result: SearchResultT<ReleaseT>,
+    index: number,
+  ) {
+    const release = result.entity;
+    const score = result.score;
+    const typeName = release.releaseGroup?.typeName;
 
-  return (
-    <tr className={loopParity(index)} data-score={score} key={release.id}>
-      <td>
-        <EntityLink entity={release} showArtworkPresence />
-      </td>
-      <td>
-        <ArtistCreditLink artistCredit={release.artistCredit} />
-      </td>
-      <td>
-        {nonEmpty(release.combined_format_name)
-          ? release.combined_format_name
-          : l('[missing media]')}
-      </td>
-      <td>
-        {nonEmpty(release.combined_track_count)
-          ? release.combined_track_count
-          : lp('-', 'missing data')}
-      </td>
-      <td>
-        <ReleaseEvents events={release.events} />
-        {manifest.js(
-          'common/components/ReleaseEvents',
-          {async: 'async'},
-        )}
-      </td>
-      <td>
-        <ReleaseLabelList labels={release.labels} />
-      </td>
-      <td>
-        <ReleaseCatnoList labels={release.labels} />
-      </td>
-      <td className="barcode-cell">{formatBarcode(release.barcode)}</td>
-      <td>
-        <ReleaseLanguageScript release={release} />
-      </td>
-      <td>
-        {nonEmpty(typeName)
-          ? lp_attributes(typeName, 'release_group_primary_type')
-          : null}
-      </td>
-      <td>
-        {release.status
-          ? lp_attributes(release.status.name, 'release_status') : null}
-      </td>
-      {$c.session?.tport == null ? null : (
+    return (
+      <tr className={loopParity(index)} data-score={score} key={release.id}>
         <td>
-          <TaggerIcon entityType="release" gid={release.gid} />
+          <EntityLink
+            entity={release}
+            showArtworkPresence={showArtworkPresence}
+          />
         </td>
-      )}
-    </tr>
-  );
+        <td>
+          <ArtistCreditLink artistCredit={release.artistCredit} />
+        </td>
+        <td>
+          {nonEmpty(release.combined_format_name)
+            ? release.combined_format_name
+            : l('[missing media]')}
+        </td>
+        <td>
+          {nonEmpty(release.combined_track_count)
+            ? release.combined_track_count
+            : lp('-', 'missing data')}
+        </td>
+        <td>
+          <ReleaseEvents events={release.events} />
+          {manifest.js(
+            'common/components/ReleaseEvents',
+            {async: 'async'},
+          )}
+        </td>
+        <td>
+          <ReleaseLabelList labels={release.labels} />
+        </td>
+        <td>
+          <ReleaseCatnoList labels={release.labels} />
+        </td>
+        <td className="barcode-cell">{formatBarcode(release.barcode)}</td>
+        <td>
+          <ReleaseLanguageScript release={release} />
+        </td>
+        <td>
+          {nonEmpty(typeName)
+            ? lp_attributes(typeName, 'release_group_primary_type')
+            : null}
+        </td>
+        <td>
+          {release.status
+            ? lp_attributes(release.status.name, 'release_status') : null}
+        </td>
+        {$c.session?.tport == null ? null : (
+          <td>
+            <TaggerIcon entityType="release" gid={release.gid} />
+          </td>
+        )}
+      </tr>
+    );
+  }
+
+  return buildResult;
 }
 
 export component ReleaseResultsInline(...{
@@ -102,6 +109,11 @@ export component ReleaseResultsInline(...{
   results,
 }: InlineResultsPropsT<ReleaseT>) {
   const $c = React.useContext(CatalystContext);
+  const buildResult = getResultBuilder(
+    results.some(
+      (res) => res.entity.cover_art_presence === 'present',
+    ),
+  );
 
   return (
     <PaginatedSearchResults
