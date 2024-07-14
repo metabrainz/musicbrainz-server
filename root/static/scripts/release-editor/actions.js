@@ -148,7 +148,10 @@ const actions = {
 
     switch (event.type) {
       case 'mouseenter':
-        medium.previewName(GuessCase.entities.release.guess(name));
+        // Don't change the value while the user is dragging to select text.
+        if (event.buttons === 0) {
+          medium.previewName(GuessCase.entities.release.guess(name));
+        }
         break;
       case 'mouseleave':
         medium.previewName(null);
@@ -266,7 +269,12 @@ const actions = {
   guessCaseTrackName: function (track, event) {
     switch (event.type) {
       case 'mouseenter':
-        track.previewName(GuessCase.entities.track.guess(track.name.peek()));
+        // Don't change the value while the user is dragging to select text.
+        if (event.buttons === 0) {
+          track.previewName(
+            GuessCase.entities.track.guess(track.name.peek()),
+          );
+        }
         break;
       case 'mouseleave':
         track.previewName(null);

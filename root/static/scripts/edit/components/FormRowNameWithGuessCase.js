@@ -119,10 +119,15 @@ component FormRowNameWithGuessCase(
     }
   }
 
-  function showGuessCasePreview() {
-    setPreview(
-      GuessCase.entities[entity.entityType].guess(field.value ?? ''),
-    );
+  function showGuessCasePreview(
+    event: SyntheticMouseEvent<HTMLInputElement>,
+  ) {
+    // Don't change the value while the user is dragging to select text.
+    if (event.nativeEvent.buttons === 0) {
+      setPreview(
+        GuessCase.entities[entity.entityType].guess(field.value ?? ''),
+      );
+    }
   }
 
   function hidePreview() {

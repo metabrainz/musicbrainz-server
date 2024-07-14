@@ -84,8 +84,13 @@ component FormRowSortNameWithGuessCase(
     setPreview(null);
   }
 
-  function showGuessCasePreview() {
-    setPreview(guessSortName(nameField.value ?? '', entity));
+  function showGuessCasePreview(
+    event: SyntheticMouseEvent<HTMLInputElement>,
+  ) {
+    // Don't change the value while the user is dragging to select text.
+    if (event.nativeEvent.buttons === 0) {
+      setPreview(guessSortName(nameField.value ?? '', entity));
+    }
   }
 
   function handleSortNameCopy() {
@@ -93,8 +98,12 @@ component FormRowSortNameWithGuessCase(
     setPreview(null);
   }
 
-  function showSortNameCopyPreview() {
-    setPreview(nameField.value ?? '');
+  function showSortNameCopyPreview(
+    event: SyntheticMouseEvent<HTMLInputElement>,
+  ) {
+    if (event.nativeEvent.buttons === 0) {
+      setPreview(nameField.value ?? '');
+    }
   }
 
   function hidePreview() {
