@@ -53,7 +53,12 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
   $name.parent()
     .find('button.guesscase-title')
     .on('click', () => setVal($name, guess.guess($name.val())))
-    .on('mouseenter', () => showPreview($name, guess.guess($name.val())))
+    .on('mouseenter', (event) => {
+      // Don't change the value while the user is dragging to select text.
+      if (event.originalEvent.buttons === 0) {
+        showPreview($name, guess.guess($name.val()));
+      }
+    })
     .on('mouseleave', () => hidePreview($name))
     .end()
     .find('button.guesscase-options')
@@ -75,7 +80,11 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
   $sortname.parent()
     .find('button.guesscase-sortname')
     .on('click', () => setVal($sortname, guessSortName()))
-    .on('mouseenter', () => showPreview($sortname, guessSortName()))
+    .on('mouseenter', (event) => {
+      if (event.originalEvent.buttons === 0) {
+        showPreview($sortname, guessSortName());
+      }
+    })
     .on('mouseleave', () => hidePreview($sortname))
     .end()
     .find('button.sortname-copy')
