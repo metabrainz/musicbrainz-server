@@ -427,7 +427,7 @@
     // Focusing the modified track should clear the highlight.
     {
       command: 'click',
-      target: "document.querySelector('#tracklist table.medium tr.track:nth-child(9) td.title input.track-name')",
+      target: 'css=#tracklist table.medium tr.track:nth-child(9) td.title input.track-name',
       value: '',
     },
     {
