@@ -317,8 +317,9 @@ button.guessfeat {
     background-size: @form-icon-size @form-icon-size;
 }
 
-input[type=text].preview {
-    background-color: @input-preview-bg;
+input[type=text] {
+    &.modified { background-color: @input-modified-bg; }
+    &.preview { background-color: @input-preview-bg; }
 }
 
 /* __________________________________

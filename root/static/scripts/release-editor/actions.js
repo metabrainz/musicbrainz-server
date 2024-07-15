@@ -127,6 +127,10 @@ const actions = {
     }
   },
 
+  focusMediumName: function (medium) {
+    medium.nameModified(false);
+  },
+
   guessCaseAllMedia: function (data, event) {
     for (const medium of this.mediums.peek()) {
       releaseEditor.guessCaseMediumName(medium, event);
@@ -161,6 +165,7 @@ const actions = {
           medium.previewName() ??
             GuessCase.entities.release.guess(name),
         );
+        medium.nameModified(medium.name() !== name);
         medium.previewName(null);
     }
   },
@@ -262,6 +267,10 @@ const actions = {
     medium.toc(null);
   },
 
+  focusTrackName: function (track) {
+    track.nameModified(false);
+  },
+
   /*
    * Shows or hides a preview if event.type is 'mouseenter' or 'mouseleave'.
    * Otherwise, updates the current name.
@@ -280,10 +289,11 @@ const actions = {
         track.previewName(null);
         break;
       default:
+        const origName = track.name.peek();
         track.name(
-          track.previewName() ??
-            GuessCase.entities.track.guess(track.name.peek()),
+          track.previewName() ?? GuessCase.entities.track.guess(origName),
         );
+        track.nameModified(track.name() !== origName);
         track.previewName(null);
     }
   },
