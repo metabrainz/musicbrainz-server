@@ -20,7 +20,7 @@ type WritableDatePeriodRoleT = {
 /* eslint-disable sort-keys */
 
 test('age', function (t) {
-  t.plan(11);
+  t.plan(14);
 
   t.deepEqual(age.age({
     begin_date: {year: 1976, month: 7, day: 23},
@@ -33,6 +33,12 @@ test('age', function (t) {
     end_date: {year: 1976, month: 8, day: 1},
     ended: true,
   }), [0, 0, 9], 'age is 9 days');
+
+  t.deepEqual(age.age({
+    begin_date: {year: -4, month: 7, day: 23},
+    end_date: {year: -4, month: 8, day: 1},
+    ended: true,
+  }), [0, 0, 9], 'age is 9 days (BCE)');
 
   t.deepEqual(age.age({
     begin_date: {year: 1976, month: 7, day: 23},
@@ -53,6 +59,18 @@ test('age', function (t) {
   }), [587, 3, 9], 'age is 587 years');
 
   t.deepEqual(age.age({
+    begin_date: {year: -470, month: 7, day: 23},
+    end_date: {year: -399, month: 11, day: 1},
+    ended: true,
+  }), [71, 3, 9], 'age is 71 years (BCE)');
+
+  t.deepEqual(age.age({
+    begin_date: {year: -3, month: 7, day: 23},
+    end_date: {year: 5, month: 11, day: 1},
+    ended: true,
+  }), [8, 3, 9], 'age is 8 years (across BCE/CE line)');
+
+  t.deepEqual(age.age({
     begin_date: {year: 2008, month: 2, day: 29},
     end_date: {year: 2009, month: 2, day: 1},
     ended: true,
@@ -66,7 +84,7 @@ test('age', function (t) {
     },
     end_date: null,
     ended: false,
-  })?.[0], 24, 'age is 24 years');
+  })[0], 24, 'age is 24 years');
 
   t.deepEqual(age.age({
     begin_date: {year: 2010, month: null, day: null},
