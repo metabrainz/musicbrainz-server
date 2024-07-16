@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-04 15:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-07-12 16:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/ru/>\n"
 "Language: ru\n"
@@ -28,17 +28,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Add/remove lines:"
-msgstr "Добавить/ убрать строки:"
+msgstr "Добавить/убрать линии:"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Check boxes above"
-msgstr ""
+msgstr "Нажмите на флажки выше"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Click to deselect"
@@ -46,7 +46,7 @@ msgstr "Нажмите, чтобы отменить выбор"
 
 #: ../root/statistics/timeline.tt:14
 msgid "Controls"
-msgstr ""
+msgstr "Управление"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:39
 msgid "Countries"
@@ -64,7 +64,7 @@ msgstr "Статистика базы данных - {title}"
 
 #: ../root/statistics/timeline.tt:16
 msgid "Draw a rectangle on either graph"
-msgstr ""
+msgstr "Нарисуйте прямоугольник на любом графике"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:88
 #: ../root/statistics/Editors.js:100 ../root/statistics/Index.js:1123
@@ -80,7 +80,7 @@ msgstr "Правки"
 
 #: ../root/statistics/timeline.tt:28
 msgid "Exact values (items vs. day)"
-msgstr ""
+msgstr "Точные значения (элементы к дням)"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/stats.js:27
 msgid "Formats"
@@ -88,7 +88,7 @@ msgstr "Форматы"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Hover and click on vertical lines"
-msgstr ""
+msgstr "Наведите курсор и нажмите на вертикальные линии"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Images.js:70
 msgid "Images"
@@ -100,7 +100,7 @@ msgstr "Языки/Написание"
 
 #: ../root/statistics/timeline.tt:2
 msgid "Legend"
-msgstr ""
+msgstr "Легенда"
 
 #: ../root/statistics/timeline.tt:6 ../root/statistics/timeline.tt:19
 msgid "MusicBrainz events"
@@ -231,7 +231,7 @@ msgstr "Всего применённых правок"
 
 #: ../root/statistics/Editors.js:111
 msgid "Top editors overall"
-msgstr ""
+msgstr "Лучшие редакторы в целом"
 
 #: ../root/statistics/Editors.js:117
 msgid "Voters"
@@ -255,7 +255,7 @@ msgstr "Всего голосов"
 
 #: ../root/statistics/Editors.js:128
 msgid "Top voters overall"
-msgstr ""
+msgstr "Лучшие голосующие в целом"
 
 #: ../root/statistics/Edits.js:37
 msgid "No edit statistics available."
@@ -316,7 +316,7 @@ msgstr ""
 
 #: ../root/statistics/Images.js:139 ../root/statistics/Images.js:319
 msgid "No cover art statistics available."
-msgstr ""
+msgstr "Нет доступной статистики по обложкам."
 
 #: ../root/statistics/Images.js:145
 msgid "By release group type"
@@ -367,7 +367,7 @@ msgstr ""
 
 #: ../root/statistics/Images.js:325
 msgid "By cover art type"
-msgstr ""
+msgstr "По типу"
 
 #: ../root/statistics/Images.js:360
 msgid "Per release"
@@ -410,20 +410,16 @@ msgid "Per event"
 msgstr "События типа \"{type}\""
 
 #: ../root/statistics/Images.js:543
-#, fuzzy
-#| msgid "with 30 or more pieces of cover art:"
 msgid "with {num} piece of event art:"
 msgid_plural "with {num} pieces of event art:"
-msgstr[0] "с 30 или более обложками:"
-msgstr[1] "с 30 или более обложками:"
-msgstr[2] "с 30 или более обложками:"
-msgstr[3] "с 30 или более обложками:"
+msgstr[0] "с {num} фотографией:"
+msgstr[1] "с {num} фотографиями:"
+msgstr[2] "с {num} фотографиями:"
+msgstr[3] "с {num} фотографиями:"
 
 #: ../root/statistics/Images.js:573
-#, fuzzy
-#| msgid "with 30 or more pieces of cover art:"
 msgid "with 15 or more pieces of event art:"
-msgstr "с 30 или более обложками:"
+msgstr "с 15 или более фотографиями:"
 
 #: ../root/statistics/Index.js:68
 msgid "Basic metadata"
@@ -494,11 +490,11 @@ msgstr ""
 #: ../root/statistics/Index.js:163
 msgctxt "folksonomy"
 msgid "Tags (raw / aggregated):"
-msgstr ""
+msgstr "Теги (сырые / агрегированные):"
 
 #: ../root/statistics/Index.js:169
 msgid "Ratings (raw / aggregated):"
-msgstr ""
+msgstr "Оценки (сырые / агрегированные):"
 
 #: ../root/statistics/Index.js:177
 msgid "Identifiers"
@@ -506,7 +502,7 @@ msgstr "Идентификаторы"
 
 #: ../root/statistics/Index.js:180 ../root/statistics/stats.js:558
 msgid "MBIDs"
-msgstr ""
+msgstr "MBID"
 
 #: ../root/statistics/Index.js:184
 msgid "ISRCs (all / unique):"
@@ -683,11 +679,11 @@ msgstr "с 10 или более идентификаторами диска:"
 
 #: ../root/statistics/Index.js:561
 msgid "Mediums with no disc IDs:"
-msgstr ""
+msgstr "Носители без ID диска:"
 
 #: ../root/statistics/Index.js:568
 msgid "Mediums with at least one disc ID:"
-msgstr ""
+msgstr "Носители с хотя бы одним ID диска:"
 
 #: ../root/statistics/Index.js:603
 msgid "Primary types"
@@ -707,16 +703,16 @@ msgstr "Вторичные типы"
 
 #: ../root/statistics/Index.js:685 ../root/statistics/stats.js:889
 msgid "Videos"
-msgstr ""
+msgstr "Видео"
 
 #: ../root/statistics/Index.js:690
 msgctxt "recording"
 msgid "Standalone"
-msgstr ""
+msgstr "Отдельные"
 
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
-msgstr ""
+msgstr "С ISRC"
 
 #: ../root/statistics/Index.js:706 ../root/statistics/Index.js:734
 #: ../root/statistics/Index.js:796 ../root/statistics/Index.js:824
@@ -727,7 +723,7 @@ msgstr "Типы"
 
 #: ../root/statistics/Index.js:756
 msgid "With ISWCs"
-msgstr ""
+msgstr "С ISWC"
 
 #: ../root/statistics/Index.js:766
 msgid "Attributes"
@@ -741,13 +737,11 @@ msgstr "Типы событий"
 
 #: ../root/statistics/Index.js:939
 msgid "With EAA poster art:"
-msgstr ""
+msgstr "С постером в EAA:"
 
 #: ../root/statistics/Index.js:945
-#, fuzzy
-#| msgid "No front cover art:"
 msgid "No poster art:"
-msgstr "Без обложки:"
+msgstr "Без постера:"
 
 #: ../root/statistics/Index.js:965
 msgid "Of releases"
@@ -823,11 +817,11 @@ msgstr "Открытые"
 
 #: ../root/statistics/Index.js:1104
 msgid "Private"
-msgstr "Частный"
+msgstr "Частные"
 
 #: ../root/statistics/Index.js:1111
 msgid "With collaborators"
-msgstr ""
+msgstr "С соучастниками"
 
 #: ../root/statistics/Index.js:1119
 msgid "Editors, Edits, and Votes"
@@ -914,7 +908,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1276
 msgid "Failed (dependency):"
-msgstr ""
+msgstr "Неудавшиеся (зависимости):"
 
 #: ../root/statistics/Index.js:1282
 msgid "Failed (prerequisite):"
@@ -922,14 +916,12 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1288
 msgid "Failed (internal error):"
-msgstr ""
+msgstr "Неудавшиеся (внутренняя ошибка):"
 
 #: ../root/statistics/Index.js:1295
-#, fuzzy
-#| msgid "Cancelled:"
 msgctxt "edit"
 msgid "Cancelled"
-msgstr "Отменено:"
+msgstr "Отмененные"
 
 #: ../root/statistics/Index.js:1307 ../root/statistics/Index.js:1363
 msgid "Last 7 days:"
@@ -970,7 +962,7 @@ msgstr "Языки и написания"
 
 #: ../root/statistics/LanguagesScripts.js:49
 msgid "All other available languages and scripts have 0 releases and works."
-msgstr ""
+msgstr "У всех остальных доступных языков и написаний по нулю релизов и работ."
 
 #: ../root/statistics/LanguagesScripts.js:55
 #: ../root/statistics/LanguagesScripts.js:61
