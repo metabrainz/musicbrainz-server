@@ -97,6 +97,7 @@ Return a human readable display of this URL. This is usually the URL with
 most character entities decoded, except when the URL uses a legacy encoding.
 In that case, the URL is displayed as it is in the database, complete with
 character entities.
+See "Custom in-page display" in F<HACKING-URL.md> for more details.
 
 =cut
 
@@ -108,7 +109,22 @@ sub pretty_name {
 
 sub affiliate_url { shift->url }
 
+=method url_is_scheme_independent
+
+Returns true if the scheme for this URL should be ignored
+and replaced with the scheme for this MusicBrainz Server instance.
+See "Rendered scheme override" in F<HACKING-URL.md> for more details.
+
+=cut
+
 sub url_is_scheme_independent { 0 }
+
+=method href_url
+
+Returns the C<href> string for this URL.
+See "Rendered scheme override" in F<HACKING-URL.md> for more details.
+
+=cut
 
 sub href_url {
     my $self = shift;
@@ -121,6 +137,24 @@ sub href_url {
 
     return $url->as_string;
 }
+
+=method show_in_external_links
+
+Returns true if this URL should be displayed in the sidebar,
+as in C<MusicBrainz::Server::Entity::URL::Sidebar>,
+or false if it should not (the default).
+Allows subclasses to do per-value checks on URLs.
+
+=cut
+
+=method sidebar_name
+
+Returns a string to be used as link title for display in the sidebar
+as in C<MusicBrainz::Server::Entity::URL::ArtLibre>.
+Allows subclasses to do per-value checks on URLs.
+See "Sidebar display" in F<HACKING-URL.md> for more details.
+
+=cut
 
 around TO_JSON => sub {
     my ($orig, $self) = @_;
