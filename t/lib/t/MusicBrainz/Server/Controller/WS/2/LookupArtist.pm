@@ -532,6 +532,31 @@ ws_test 'artist lookup with artist relations',
     </artist>
 </metadata>';
 
+ws_test 'artist lookup with event relations',
+    '/artist/05d83760-08b5-42bb-a8d7-00d80b3bf47c?inc=event-rels' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="05d83760-08b5-42bb-a8d7-00d80b3bf47c">
+        <name>Paul Allgood</name>
+        <sort-name>Allgood, Paul</sort-name>
+        <relation-list target-type="event">
+            <relation type-id="936c7c95-3156-3889-a062-8a0cd57f8946" type="main performer">
+                <target>166359d1-5a63-4033-945c-a6707844fb19</target>
+                <direction>forward</direction>
+                <event id="166359d1-5a63-4033-945c-a6707844fb19" type="Festival" type-id="b6ded574-b592-3f0e-b56e-5b5f06aa0678">
+                    <cancelled>true</cancelled>
+                    <disambiguation>A Comment</disambiguation>
+                    <life-span>
+                        <begin>2014-05-12</begin>
+                        <end>2014-05-13</end>
+                    </life-span>
+                    <name>Sadly Cancelled Festival</name>
+                    <time>20:00</time>
+                </event>
+            </relation>
+        </relation-list>
+    </artist>
+</metadata>';
 };
 
 1;

@@ -413,6 +413,28 @@
       target: 'css=#tracklist table.medium tr.track:nth-child(9) td.title input.track-name',
       value: 'Big Man With a Gun',
     },
+    // The background color should be changed for tracks whose names were modified (MBS-8217).
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist table.medium tr.track:nth-child(8) td.title input.track-name').classList.contains('modified')",
+      value: 'false',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist table.medium tr.track:nth-child(9) td.title input.track-name').classList.contains('modified')",
+      value: 'true',
+    },
+    // Focusing the modified track should clear the highlight.
+    {
+      command: 'click',
+      target: 'css=#tracklist table.medium tr.track:nth-child(9) td.title input.track-name',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#tracklist table.medium tr.track:nth-child(9) td.title input.track-name').classList.contains('modified')",
+      value: 'false',
+    },
     // Set the format to "unknown."
     {
       command: 'check',

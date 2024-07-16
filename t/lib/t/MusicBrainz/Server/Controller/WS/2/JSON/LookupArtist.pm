@@ -256,6 +256,66 @@ test 'basic artist lookup, inc=url-rels' => sub {
         };
 };
 
+test 'basic artist lookup, inc=event-rels' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'basic artist lookup, inc=event-rels',
+    '/artist/05d83760-08b5-42bb-a8d7-00d80b3bf47c?inc=event-rels' =>
+        {
+            id => '05d83760-08b5-42bb-a8d7-00d80b3bf47c',
+            name => 'Paul Allgood',
+            'sort-name' => 'Allgood, Paul',
+            country => JSON::null,
+            area => JSON::null,
+            'begin-area' => JSON::null,
+            'end-area' => JSON::null,
+            disambiguation => '',
+            'life-span' => {
+                begin => JSON::null,
+                end => JSON::null,
+                ended => JSON::false,
+            },
+            type => 'Person',
+            'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
+            relations => [
+                {
+                    attributes => [],
+                    'attribute-ids' => {},
+                    'attribute-values' => {},
+                    direction => 'forward',
+                    event => {
+                        cancelled => JSON::true,
+                        disambiguation => 'A Comment',
+                        id => '166359d1-5a63-4033-945c-a6707844fb19',
+                        'life-span' => {
+                            begin => '2014-05-12',
+                            end => '2014-05-13',
+                            ended => JSON::true,
+                        },
+                        name => 'Sadly Cancelled Festival',
+                        setlist => '',
+                        time => '20:00',
+                        type => 'Festival',
+                        'type-id' => 'b6ded574-b592-3f0e-b56e-5b5f06aa0678',
+                    },
+                    type => 'main performer',
+                    'type-id' => '936c7c95-3156-3889-a062-8a0cd57f8946',
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                    'source-credit' => '',
+                    'target-credit' => '',
+                    'target-type' => 'event',
+                },
+            ],
+            ipis => [],
+            isnis => [],
+            gender => JSON::null,
+            'gender-id' => JSON::null,
+        };
+};
+
 test 'artist lookup with releases' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
