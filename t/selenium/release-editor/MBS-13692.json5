@@ -1,0 +1,97 @@
+{
+  title: 'MBS-13692',
+  commands: [
+    {
+      command: 'open',
+      target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//button[contains(text(), 'Add label')]",
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=label-1',
+      value: '10f97e56-1ebe-4b1e-848f-9c5ae0f292ec',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=catno-0',
+      value: '123',
+    },
+    {
+      command: 'type',
+      target: 'id=catno-1',
+      value: '456',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#edit-note']",
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'id=enter-edit',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 37,
+        status: 2,
+        data: {
+          new: {
+            catalog_number: "123",
+          },
+          old: {
+            catalog_number: "",
+            label: {
+              gid: "10f97e56-1ebe-4b1e-848f-9c5ae0f292ec",
+              id: 62565,
+              name: "ISO Records",
+            },
+          },
+          release: {
+            barcode: "888751738621",
+            events: [],
+            gid: "24d4159a-99d9-425d-a7b8-1b9ec0261a33",
+            id: 1693299,
+            medium_formats: ["CD"],
+            name: "★",
+          },
+          release_label_id: 1237936,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 34,
+        status: 2,
+        data: {
+          catalog_number: "456",
+          entity_id: 1,
+          label: {
+            gid: "10f97e56-1ebe-4b1e-848f-9c5ae0f292ec",
+            id: 62565,
+            name: "ISO Records",
+          },
+          release: {
+            gid: "24d4159a-99d9-425d-a7b8-1b9ec0261a33",
+            id: 1693299,
+            name: "★",
+          },
+        },
+      },
+    },
+  ],
+}

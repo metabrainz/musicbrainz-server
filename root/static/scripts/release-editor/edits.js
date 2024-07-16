@@ -122,6 +122,7 @@ releaseEditor.edits = {
     const oldLabelsByID = keyBy(oldLabels, getReleaseLabel);
     const newLabelsByKey = keyBy(newLabels, getReleaseLabelKey);
     const oldLabelsByKey = keyBy(oldLabels, getReleaseLabelKey);
+    const editedLabelIds = new Set();
 
     var edits = [];
 
@@ -132,6 +133,13 @@ releaseEditor.edits = {
         const oldLabel = oldLabelsByID.get(id);
 
         if (oldLabel && !deepEqual(newLabel, oldLabel)) {
+          invariant(
+            !editedLabelIds.has(id),
+            'An existing release label ID has conflicting edits',
+          );
+
+          editedLabelIds.add(id);
+
           // Edit ReleaseLabel
           edits.push(MB.edit.releaseEditReleaseLabel(newLabel));
         }
@@ -141,30 +149,29 @@ releaseEditor.edits = {
          * catalog number, we can edit rather than remove it.
          */
         let oldLabel;
-        let oldLabelIndex = -1;
 
         if (newLabel.label) {
-          oldLabelIndex = oldLabels.findIndex(
+          oldLabel = oldLabels.find(
             (releaseLabel) => (
+              !editedLabelIds.has(getReleaseLabel(releaseLabel)) &&
               !newLabelsByKey.has(getReleaseLabelKey(releaseLabel)) &&
               releaseLabel.label === newLabel.label
             ),
           );
         }
-        if (oldLabelIndex < 0 && nonEmpty(newLabel.catalog_number)) {
-          oldLabelIndex = oldLabels.findIndex(
+        if (!oldLabel && nonEmpty(newLabel.catalog_number)) {
+          oldLabel = oldLabels.find(
             (releaseLabel) => (
+              !editedLabelIds.has(getReleaseLabel(releaseLabel)) &&
               !newLabelsByKey.has(getReleaseLabelKey(releaseLabel)) &&
               releaseLabel.catalog_number === newLabel.catalog_number
             ),
           );
         }
-        if (oldLabelIndex >= 0) {
-          oldLabel = oldLabels[oldLabelIndex];
-          oldLabels.splice(oldLabelIndex, 1);
-        }
 
         if (oldLabel && !deepEqual(newLabel, oldLabel)) {
+          editedLabelIds.add(getReleaseLabel(oldLabel));
+
           // Edit ReleaseLabel
           edits.push(MB.edit.releaseEditReleaseLabel({
             ...newLabel,
@@ -184,6 +191,9 @@ releaseEditor.edits = {
 
     for (let oldLabel of oldLabels) {
       const id = getReleaseLabel(oldLabel);
+      if (editedLabelIds.has(id)) {
+        continue;
+      }
       const newLabel = newLabelsByID.get(id) ??
         newLabelsByKey.get(getReleaseLabelKey(oldLabel));
 
