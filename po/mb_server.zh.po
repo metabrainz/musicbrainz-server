@@ -15,13 +15,14 @@
 # yangmouren <yangmouren@users.noreply.translations.metabrainz.org>, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # yyoung <yyoung@users.noreply.translations.metabrainz.org>, 2024.
+# weeeeei <weeeeei@duck.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-12 11:18+0000\n"
-"PO-Revision-Date: 2024-06-29 08:42+0000\n"
-"Last-Translator: yyoung <yyoung@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-07-16 08:17+0000\n"
+"Last-Translator: weeeeei <weeeeei@duck.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -29,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -727,7 +728,7 @@ msgstr "封面"
 
 #: ../root/event/add_event_art.tt:85 ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
-msgstr "正在创建编辑"
+msgstr "正在创建编辑……"
 
 #: ../root/release/edit/tracklist.tt:81
 msgid "Custom delimiter"
@@ -2353,7 +2354,7 @@ msgid ""
 "{match_or_negation_block} {and_vs_or_block} of the following conditions:"
 msgstr ""
 "按{sort_select_block}显示{match_or_negation_block}下列条件{and_vs_or_block}的"
-"{autoedit_select_block}"
+"{autoedit_select_block}："
 
 #: ../root/release/edit/duplicates.tt:2
 msgid "Similar releases"
@@ -2514,9 +2515,8 @@ msgid ""
 "into the strict structural data schema of MusicBrainz (be it due to "
 "technical limitations that may be addressed later, or because the "
 "information in itself has to be free-text)."
-msgstr ""
-"此栏用于添加不符合MusicBrainz严格数据结构的信息(由于可能会在后面叙述的技术闲"
-"置或者信息本身是自由文本)"
+msgstr "此栏用于添加不符合 MusicBrainz "
+"严格数据结构的信息(由于可能会在后面叙述的技术闲置或者信息本身是自由文本)。"
 
 #: ../root/release/edit/information.tt:320
 msgid ""
@@ -2623,7 +2623,7 @@ msgstr "此唱片末尾含有数据音轨"
 
 #: ../root/release/edit/tracklist.tt:494
 msgid "This disc has a hidden pregap track before track 1"
-msgstr "此唱片在音轨 1 之前有隐藏的前间隙音轨。"
+msgstr "此唱片在音轨 1 之前有隐藏的前间隙音轨"
 
 #: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:32
@@ -3135,16 +3135,14 @@ msgstr "是"
 msgid ""
 "You are about to add an ISRC to this recording. The ISRC must be entered in "
 "standard <code>CCXXXYYNNNNN</code> format:"
-msgstr ""
-"您将要为此录音添加 ISRC。ISRC 必须以 <code>CCXXXYYNNNNN</code> 标准格式输入。"
+msgstr "您将要为此录音添加 ISRC。ISRC 必须以 <code>CCXXXYYNNNNN</code> 标准格式输入："
 
 #: ../root/components/forms.tt:309
 msgid ""
 "You are about to add an ISWC to this work. The ISWC must be entered in "
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
-msgstr ""
-"您将要为此作品添加 ISWC。ISWC 必须以 <code>T-DDD.DDD.DDD-C</code> 标准格式输"
-"入。"
+msgstr "您将要为此作品添加 ISWC。ISWC 必须以 <code>T-DDD.DDD.DDD-C</code> "
+"标准格式输入："
 
 #: ../root/cdtoc/attach_artist_releases.tt:5
 msgid "You are viewing releases by {artist}."
@@ -3226,7 +3224,7 @@ msgstr "您必须选择一个现有的专辑组。"
 msgid ""
 "Your edit note seems to have no actual content. Please provide a note that "
 "will be helpful to your fellow editors!"
-msgstr "您的编辑备注似乎没有实际内容。请提供一个有助于同行编辑者的备注。"
+msgstr "您的编辑备注似乎没有实际内容。请提供一个有助于同行编辑者的备注！"
 
 #: ../root/edit/search.tt:7
 msgid ""
@@ -3577,7 +3575,7 @@ msgstr "{name} – {additional_info}"
 #: ../root/cdtoc/attach_filter_release.tt:20
 msgid "{num} release found matching your query."
 msgid_plural "{num} releases found matching your query."
-msgstr[0] "找到符合您查询的 {num} 张专辑"
+msgstr[0] "找到符合您查询的 {num} 张专辑。"
 
 #: ../root/components/common-macros.tt:203
 #: ../root/static/scripts/common/components/DescriptiveLink.js:73
@@ -3729,11 +3727,11 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:203
 msgid "There is no user with this username"
-msgstr "没有用户使用这个用户名。"
+msgstr "没有用户使用这个用户名"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:208
 msgid "There is no user with this username and email"
-msgstr "没有用户使用这个用户名和邮箱。"
+msgstr "没有用户使用这个用户名和邮箱"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:211
 msgid ""
@@ -3755,7 +3753,7 @@ msgstr "对不起，这个密码重置链接已失效。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:341
 msgid "There is no user with this email"
-msgstr "没有用户使用这个邮箱。"
+msgstr "没有用户使用这个邮箱"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:424
 msgid "Your profile has been updated."
@@ -3859,7 +3857,7 @@ msgstr "提供的艺术家 ID 无效"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:422
 msgid "The provided CD TOC ID doesn’t exist."
-msgstr "提供的 CD 目录不存在"
+msgstr "提供的 CD 目录不存在。"
 
 #: ../lib/MusicBrainz/Server/Controller/Collection.pm:78
 #, perl-brace-format
@@ -4015,7 +4013,7 @@ msgstr "你被禁止向编辑者发送信息。"
 #: ../lib/MusicBrainz/Server/Controller/User.pm:348
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
-msgstr "编辑者{name}没有在账户中添加电子邮箱地址"
+msgstr "编辑者{name}没有在账户中添加电子邮箱地址。"
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:362
 #: ../root/account/LostPasswordSent.js:16
@@ -4033,7 +4031,7 @@ msgstr "成功发送电子邮件！点击 {link|此处} 前往 {user} 的资料�
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:391
 msgid "Your message could not be sent"
-msgstr "您的信息无法被送达。"
+msgstr "您的信息无法被送达"
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:554
 #, perl-brace-format
@@ -5420,10 +5418,8 @@ msgid "This is not a valid ISWC"
 msgstr "ISWC 无效"
 
 #: ../lib/MusicBrainz/Server/Form/Field/LabelCode.pm:17
-#, fuzzy
-#| msgid "Label codes must be greater than 0 and 5 digits at most"
 msgid "Label codes must be greater than 0 and 6 digits at most"
-msgstr "厂牌代码必须大于 0，且至多有 5 位数字。"
+msgstr "厂牌代码必须大于 0，且至多有 6 位数字"
 
 #: ../lib/MusicBrainz/Server/Form/Field/Length.pm:31
 msgid "Not a valid time. Must be in the format MM:SS"
@@ -5651,7 +5647,7 @@ msgstr "旧密码错误"
 
 #: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:58
 msgid "An account with this name could not be found"
-msgstr "无法找到此名称对应的账号。"
+msgstr "无法找到此名称对应的账号"
 
 #: ../lib/MusicBrainz/Server/Form/User/Login.pm:16
 msgid "Username field is required"
@@ -5704,7 +5700,7 @@ msgstr "编辑者未响应编辑备注"
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:37
 #: ../root/user/ReportUser.js:53
 msgid "Editor intentionally ignores accepted guidelines"
-msgstr "编辑器故意无视已批准的指导原则。"
+msgstr "编辑器故意无视已批准的指导原则"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:38
 #: ../root/user/ReportUser.js:57
@@ -6600,11 +6596,11 @@ msgstr "此艺术家只有群星的非正式专辑组。"
 
 #: ../root/artist/ArtistIndex.js:113
 msgid "Showing all release groups for various artists"
-msgstr "显示所有群星专辑组。"
+msgstr "显示所有群星专辑组"
 
 #: ../root/artist/ArtistIndex.js:114
 msgid "This artist does not have any various artists release groups"
-msgstr "此艺术家没有任何群星专辑组。"
+msgstr "此艺术家没有任何群星专辑组"
 
 #: ../root/artist/ArtistIndex.js:123
 msgid "This artist only has release groups by various artists."
@@ -6620,7 +6616,7 @@ msgstr "此艺术家只有非正式专辑组。"
 
 #: ../root/artist/ArtistIndex.js:139
 msgid "Showing all release groups by this artist"
-msgstr "显示此艺术家的所有专辑组。"
+msgstr "显示此艺术家的所有专辑组"
 
 #: ../root/artist/ArtistIndex.js:150
 msgid "Showing official release groups by this artist"
@@ -7021,7 +7017,7 @@ msgstr ""
 #: ../root/cdtoc/AttachCDTocConfirmation.js:71
 #: ../root/cdtoc/SetTracklistDurations.js:54
 msgid "This edit would only make subsecond changes to track lengths."
-msgstr "这个编辑只会对音频时长造成极小的改变"
+msgstr "这个编辑只会对音频时长造成极小的改变。"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:75
 msgid "CD TOC track lengths"
@@ -7053,7 +7049,7 @@ msgstr "FreeDB："
 
 #: ../root/cdtoc/CDTocInfo.js:43
 msgid "Track details:"
-msgstr "音轨信息"
+msgstr "音轨信息："
 
 #: ../root/cdtoc/CDTocInfo.js:47
 #: ../root/edit/details/historic/RemoveTrack.js:20
@@ -7078,7 +7074,7 @@ msgstr "过世"
 #: ../root/cdtoc/CDTocInfo.js:57
 msgctxt "CD timecode"
 msgid "Time"
-msgstr "时间："
+msgstr "时间"
 
 #: ../root/cdtoc/CDTocInfo.js:54 ../root/cdtoc/CDTocInfo.js:56
 #: ../root/cdtoc/CDTocInfo.js:58
@@ -7181,7 +7177,7 @@ msgstr "合作者"
 
 #: ../root/collection/CollectionIndex.js:227
 msgid "Remove selected items from collection"
-msgstr "从收藏中移除选中项。"
+msgstr "从收藏中移除选中项"
 
 #: ../root/collection/CollectionIndex.js:232
 msgid "This collection is empty."
@@ -8498,7 +8494,7 @@ msgstr "链接文本："
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:199
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:62
 msgid "Reverse link phrase:"
-msgstr "反向链接文本"
+msgstr "反向链接文本："
 
 #: ../root/edit/details/AddRelationshipType.js:113
 #: ../root/edit/details/EditRelationshipType.js:225
@@ -8916,7 +8912,7 @@ msgstr "[已移除]"
 
 #: ../root/edit/details/SetTrackLengths.js:59
 msgid "Track lengths:"
-msgstr "音轨长度"
+msgstr "音轨长度："
 
 #: ../root/edit/details/SetTrackLengths.js:72
 msgid "This edit makes subsecond changes to track lengths"
@@ -10835,7 +10831,7 @@ msgstr "阅读更多 »"
 
 #: ../root/main/index.js:136
 msgid "The blog is currently unavailable."
-msgstr "博客目前不可用"
+msgstr "博客目前不可用。"
 
 #: ../root/main/index.js:146
 #, fuzzy
@@ -13307,7 +13303,7 @@ msgstr "时区："
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:179
 msgid "Date/time format:"
-msgstr "日期/时间格式"
+msgstr "日期/时间格式："
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:192
 #, fuzzy
@@ -13355,10 +13351,8 @@ msgid "Send me mails with edits to my subscriptions"
 msgstr "当我的订阅被编辑时发送电子邮件通知"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:249
-#, fuzzy
-#| msgid "Automatically subscribe me to labels I create."
 msgid "Automatically subscribe me when I add"
-msgstr "自动订阅我创建的厂牌。"
+msgstr "当我添加时自动订阅"
 
 #: ../root/static/scripts/account/components/RegisterForm.js:55
 msgid "Your username will be publicly visible."
@@ -13659,7 +13653,7 @@ msgstr "查找您输入的 MBID 时发生了错误。"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:82
 msgid "The type of entity you pasted isn’t supported here."
-msgstr "此处不支持您粘贴的实体"
+msgstr "此处不支持您粘贴的实体。"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:127
 msgid "Search for an area"
@@ -14464,8 +14458,7 @@ msgstr "请将 WhoSampled 音轨页面链接至录音。"
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
-msgstr ""
-"不允许链接至维基百科文字的特定部分。如果合适，请移除 “{fragment}”。详见  "
+msgstr "不允许链接至维基百科文字的特定部分。如果合适，请移除 “{fragment}”。详见 "
 "{url|指南}。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:6592
@@ -14698,7 +14691,7 @@ msgstr "此实体有待审核编辑。"
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:218
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:196
 msgid "This relationship has ended."
-msgstr "此关联已终止"
+msgstr "此关联已终止。"
 
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:258
 msgctxt "interactive"
@@ -15838,7 +15831,7 @@ msgstr ""
 
 #: ../root/taglookup/NotFound.js:24
 msgid "Please {search|try again}, providing at least one of these parameters"
-msgstr "请提供至少以下一个参数，然后 {search|再试一次}。"
+msgstr "请提供至少以下一个参数，然后 {搜索|再试一次}"
 
 #: ../root/taglookup/Results.js:21 ../root/taglookup/Results.js:23
 #, fuzzy
@@ -15994,7 +15987,7 @@ msgstr "帐号管理员"
 
 #: ../root/user/PrivilegedUsers.js:113
 msgid "Account administrators can edit and delete user accounts."
-msgstr "帐号管理员可以编辑和删除用户帐号"
+msgstr "帐号管理员可以编辑和删除用户帐号。"
 
 #: ../root/user/PrivilegedUsers.js:117
 msgid "The following {count} users are account administrators:"
@@ -16344,7 +16337,7 @@ msgstr "失败"
 #: ../root/user/UserProfile.js:622
 msgctxt "edit"
 msgid "Cancelled"
-msgstr "已取消"
+msgstr "取消的"
 
 #: ../root/user/UserProfile.js:632
 msgid "Open"
@@ -16356,7 +16349,7 @@ msgstr "过去 24 小时"
 
 #: ../root/user/UserProfile.js:666
 msgid "This table shows a summary of votes cast by this editor."
-msgstr "此表格显示了此编辑者投票的概要信息"
+msgstr "此表格显示了此编辑者投票的概要信息。"
 
 #: ../root/user/UserProfile.js:671
 msgid "Votes ({view_url|view})"
@@ -16372,7 +16365,7 @@ msgstr "合计"
 
 #: ../root/user/UserProfile.js:730
 msgid "This table shows a summary of entities added by this editor."
-msgstr "此表格显示了此编辑者添加的实体的概要信息"
+msgstr "此表格显示了此编辑者添加的实体的概要信息。"
 
 #: ../root/user/UserProfile.js:736
 msgid "Newly applied edits may need 24 hours to appear"
@@ -16469,7 +16462,7 @@ msgstr "活动评分"
 
 #: ../root/user/UserRatingList.js:27
 msgid "Label ratings"
-msgstr "厂牌评分："
+msgstr "厂牌评分"
 
 #: ../root/user/UserRatingList.js:28
 msgid "Place ratings"

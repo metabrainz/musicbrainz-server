@@ -6,12 +6,13 @@
 # claybiockiller <clay0305@hotmail.com>, 2023.
 # darlingz <yagamidai@gmail.com>, 2024.
 # yyoung <yyoung@users.noreply.translations.metabrainz.org>, 2024.
+# weeeeei <weeeeei@duck.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-28 17:50+0000\n"
-"Last-Translator: yyoung <yyoung@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-07-16 08:17+0000\n"
+"Last-Translator: weeeeei <weeeeei@duck.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
@@ -19,11 +20,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Add/remove lines:"
-msgstr ""
+msgstr "添加/删除行 :"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Check boxes above"
@@ -31,7 +32,7 @@ msgstr ""
 
 #: ../root/statistics/timeline.tt:17
 msgid "Click to deselect"
-msgstr ""
+msgstr "点击以取消选择"
 
 #: ../root/statistics/timeline.tt:14
 msgid "Controls"
@@ -44,14 +45,12 @@ msgstr "国家"
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
 #: ../root/statistics/StatisticsLayout.js:86
 #: ../root/statistics/StatisticsLayout.js:100
-#, fuzzy
-#| msgid "No Statistics"
 msgid "Database statistics"
-msgstr "无统计信息"
+msgstr "数据库统计信息"
 
 #: ../root/statistics/layout.tt:15
 msgid "Database statistics - {title}"
-msgstr ""
+msgstr "数据库统计信息 - {title}"
 
 #: ../root/statistics/timeline.tt:16
 msgid "Draw a rectangle on either graph"
@@ -83,7 +82,7 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Images.js:70
 msgid "Images"
-msgstr ""
+msgstr "图片"
 
 #: ../root/statistics/layout.tt:4
 msgid "Languages/Scripts"
@@ -123,7 +122,7 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:4
 msgid "Timeline"
-msgstr ""
+msgstr "时间线"
 
 #: ../root/statistics/timeline.tt:25
 msgid "Timeline graph"
@@ -198,13 +197,13 @@ msgstr "未知国家"
 
 #: ../root/statistics/Editors.js:67
 msgid "There is no data to display here."
-msgstr ""
+msgstr "没有数据."
 
 #: ../root/statistics/Editors.js:94
 msgid ""
 "For the vote statistics, only yes or no votes are counted, abstain votes are "
 "not counted."
-msgstr ""
+msgstr "对于投票统计，只计算赞成票或反对票，不计算弃权票."
 
 #: ../root/statistics/Editors.js:102
 msgid "Open and applied edits in past week"
@@ -228,11 +227,11 @@ msgstr ""
 
 #: ../root/statistics/Editors.js:117
 msgid "Voters"
-msgstr ""
+msgstr "投票者"
 
 #: ../root/statistics/Editors.js:119
 msgid "Votes in past week"
-msgstr ""
+msgstr "上周的投票者"
 
 #: ../root/statistics/Editors.js:121 ../root/statistics/Editors.js:127
 msgid "Voter"
@@ -240,7 +239,7 @@ msgstr "投票者"
 
 #: ../root/statistics/Editors.js:122
 msgid "Most active voters in the past week"
-msgstr ""
+msgstr "上周最活跃的投票者"
 
 #: ../root/statistics/Editors.js:125
 msgid "Total votes"
@@ -315,7 +314,7 @@ msgstr ""
 
 #: ../root/statistics/Images.js:139 ../root/statistics/Images.js:319
 msgid "No cover art statistics available."
-msgstr ""
+msgstr "无封面。"
 
 #: ../root/statistics/Images.js:145
 #, fuzzy
@@ -358,11 +357,11 @@ msgstr ""
 
 #: ../root/statistics/Images.js:276
 msgid "manually selected:"
-msgstr ""
+msgstr "手动选择："
 
 #: ../root/statistics/Images.js:298
 msgid "automatically inferred:"
-msgstr ""
+msgstr "自动判断："
 
 #: ../root/statistics/Images.js:316 ../root/statistics/stats.js:285
 msgid "Pieces of cover art"
@@ -370,7 +369,7 @@ msgstr ""
 
 #: ../root/statistics/Images.js:325
 msgid "By cover art type"
-msgstr ""
+msgstr "按封面类型"
 
 #: ../root/statistics/Images.js:360
 msgid "Per release"
@@ -929,11 +928,9 @@ msgid "Failed (internal error):"
 msgstr ""
 
 #: ../root/statistics/Index.js:1295
-#, fuzzy
-#| msgid "Cancelled:"
 msgctxt "edit"
 msgid "Cancelled"
-msgstr "取消的："
+msgstr "取消的"
 
 #: ../root/statistics/Index.js:1307 ../root/statistics/Index.js:1363
 msgid "Last 7 days:"
@@ -1603,7 +1600,7 @@ msgstr "艺术家评分"
 
 #: ../root/statistics/stats.js:648
 msgid "Label ratings"
-msgstr "厂牌评分："
+msgstr "厂牌评分"
 
 #: ../root/statistics/stats.js:653
 msgid "Place ratings"

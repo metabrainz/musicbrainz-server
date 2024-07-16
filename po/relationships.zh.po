@@ -6,11 +6,12 @@
 # claybiockiller <clay0305@hotmail.com>, 2023.
 # ycwei982 <ycwei982@outlook.com>, 2024.
 # AshPigeon <1433821055@qq.com>, 2024.
+# weeeeei <weeeeei@duck.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-04-25 06:42+0000\n"
-"Last-Translator: AshPigeon <1433821055@qq.com>\n"
+"PO-Revision-Date: 2024-07-16 08:17+0000\n"
+"Last-Translator: weeeeei <weeeeei@duck.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/relationship-types/zh_Hans/>\n"
 "Language: zh\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -1206,7 +1207,7 @@ msgstr "将活动链接到其主持人/MC。活动主持人一般会解说整场
 msgid ""
 "Links an event to the area where it was held. Use only if the exact place is "
 "unknown."
-msgstr "将活动链接到举办地区。仅在具体地点未知时使用！"
+msgstr "将活动链接到举办地区，仅在具体地点未知时使用。"
 
 #. name:held at
 #: DB:link_type/description:794
