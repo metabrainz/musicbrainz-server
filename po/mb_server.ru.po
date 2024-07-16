@@ -42,9 +42,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-12 11:18+0000\n"
-"PO-Revision-Date: 2024-07-04 15:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-07-12 16:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -52,8 +52,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -3500,7 +3500,7 @@ msgstr "после"
 
 #: ../root/edit/search_macros.tt:39
 msgid "all"
-msgstr "все"
+msgstr "всем"
 
 #: ../root/edit/search_macros.tt:289
 msgid "and voted"
@@ -3508,7 +3508,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:39
 msgid "any"
-msgstr "любой"
+msgstr "любым"
 
 #: ../root/release/edit/recordings.tt:210
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:708
@@ -3657,7 +3657,7 @@ msgstr ""
 #: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:323
 #: ../root/edit/search_macros.tt:362 ../root/edit/search_macros.tt:389
 msgid "is in my subscriptions"
-msgstr "в моих подписках"
+msgstr "из моих подписок"
 
 #: ../root/edit/search_macros.tt:153
 msgid "is less than"
@@ -3679,12 +3679,12 @@ msgstr ""
 #: ../root/edit/search_macros.tt:362 ../root/edit/search_macros.tt:395
 #: ../root/edit/search_macros.tt:416
 msgid "is not"
-msgstr ""
+msgstr "не является"
 
 #: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:323
 #: ../root/edit/search_macros.tt:362 ../root/edit/search_macros.tt:389
 msgid "is not in my subscriptions"
-msgstr "не в моих подписках"
+msgstr "не из моих подписок"
 
 #: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:362
 msgid "is not me"
@@ -3696,7 +3696,7 @@ msgstr "ссылка"
 
 #: ../root/edit/search_macros.tt:35
 msgid "match"
-msgstr ""
+msgstr "соответствуют"
 
 #: ../root/edit/search_macros.tt:25
 msgid "newest first"
@@ -3716,11 +3716,11 @@ msgstr "на"
 
 #: ../root/event/add_event_art.tt:33 ../root/release/add_cover_art.tt:33
 msgid "or drop files here"
-msgstr ""
+msgstr "или перетащите файлы сюда"
 
 #: ../root/edit/search_macros.tt:25
 msgid "recently closed first"
-msgstr ""
+msgstr "по сначала недавно закрытым"
 
 #: ../root/release/edit/recordings.tt:38
 msgid "recording"
@@ -3759,20 +3759,20 @@ msgstr "{artist} в качестве {name}"
 #: ../root/cdtoc/attach_artist_releases.tt:45
 msgid "{artist} has no releases which have only {n} track."
 msgid_plural "{artist} has no releases which have {n} tracks."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "У исполнителя {artist} нет релизов, которые содержат {n} трек."
+msgstr[1] "У исполнителя {artist} нет релизов, которые содержат {n} трека."
+msgstr[2] "У исполнителя {artist} нет релизов, которые содержат {n} треков."
+msgstr[3] "У исполнителя {artist} нет релизов, которые содержат {n} треков."
 
 #: ../root/cdstub/index.tt:13 ../root/cdstub/CDStubIndex.js:39
 msgid "{doc|Disc ID}:"
-msgstr "{doc|Disc ID}:"
+msgstr "{doc|ID диска}:"
 
 #: ../root/components/common-macros.tt:203 ../root/main/index.js:268
 #: ../root/static/scripts/common/components/DescriptiveLink.js:60
 #: ../root/static/scripts/release-editor/dialogs.js:150
 msgid "{entity} by {artist}"
-msgstr ""
+msgstr "{entity} - {artist}"
 
 #: ../root/layout.tt:81 ../root/layout/index.js:267
 msgid ""
@@ -3790,20 +3790,22 @@ msgstr "{name} – {additional_info}"
 #: ../root/cdtoc/attach_filter_release.tt:20
 msgid "{num} release found matching your query."
 msgid_plural "{num} releases found matching your query."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Найден {num} релиз по вашему запросу."
+msgstr[1] "Найдено {num} релиза по вашему запросу."
+msgstr[2] "Найдено {num} релизов по вашему запросу."
+msgstr[3] "Найдено {num} релизов по вашему запросу."
 
 #: ../root/components/common-macros.tt:203
 #: ../root/static/scripts/common/components/DescriptiveLink.js:73
 msgid "{place} in {area}"
-msgstr ""
+msgstr "{place}, {area}"
 
 #: ../root/recording/edit_form.tt:39
 msgid ""
 "{recording_length} ({length_info|derived} from the associated track lengths)"
 msgstr ""
+"{recording_length} ({length_info|согласно} продолжительностям связанных "
+"треков)"
 
 #: ../root/cdtoc/move_search.tt:33
 msgid "{release} by {artist}"
@@ -3840,7 +3842,7 @@ msgstr "« Назад"
 #: ../root/components/forms.tt:362
 msgid ""
 "“Last Name, First Name” and “Group, The” are common examples of sort names."
-msgstr ""
+msgstr "Частые примеры имен сортировки: \"Фамилия, Имя\" и \"Group, The\"."
 
 #: ../root/components/paginator.tt:19 ../root/components/paginator.tt:31
 #: ../root/components/paginator.tt:39 ../root/components/Paginator.js:87
@@ -3873,9 +3875,17 @@ msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been "
 "automatically accepted and applied."
 msgstr[0] ""
+"Спасибо, ваша {num_edits} {edit_url|правка} ({edit_ids}) была автоматически "
+"одобрена и принята."
 msgstr[1] ""
+"Спасибо, ваши {num_edits} {edit_url|правки} ({edit_ids}) были автоматически "
+"одобрены и приняты."
 msgstr[2] ""
+"Спасибо, ваши {num_edits} {edit_url|правок} ({edit_ids}) были автоматически "
+"одобрены и приняты."
 msgstr[3] ""
+"Спасибо, ваши {num_edits} {edit_url|правок} ({edit_ids}) были автоматически "
+"одобрены и приняты."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:133
 #, perl-brace-format
@@ -3902,20 +3912,20 @@ msgid_plural ""
 "automatically accepted and applied."
 msgstr[0] ""
 "Спасибо, ваша {num_edits} {edit_url|правка} ({edit_ids}) была внесена, в том "
-"числе {num_open_edits} правка в очереди на голосование, а остальные "
-"автоматически одобрены и приняты."
+"числе {num_open_edits} в очереди на голосование, а остальные автоматически "
+"одобрены и приняты."
 msgstr[1] ""
 "Спасибо, ваши {num_edits} {edit_url|правки} ({edit_ids}) были внесены, в том "
-"числе {num_open_edits} правки в очереди на голосование, а остальные "
-"автоматически одобрены и приняты."
+"числе {num_open_edits} в очереди на голосование, а остальные автоматически "
+"одобрены и приняты."
 msgstr[2] ""
 "Спасибо, ваши {num_edits} {edit_url|правок} ({edit_ids}) были внесены, в том "
-"числе {num_open_edits} правок в очереди на голосование, а остальные "
-"автоматически одобрены и приняты."
+"числе {num_open_edits} в очереди на голосование, а остальные автоматически "
+"одобрены и приняты."
 msgstr[3] ""
 "Спасибо, ваши {num_edits} {edit_url|правок} ({edit_ids}) были внесены, в том "
-"числе {num_open_edits} правок в очереди на голосование, а остальные "
-"автоматически одобрены и приняты."
+"числе {num_open_edits} в очереди на голосование, а остальные автоматически "
+"одобрены и приняты."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:60
 msgid "The user ID is missing or is in an invalid format."
@@ -7617,7 +7627,7 @@ msgstr "Открытые"
 
 #: ../root/collection/CollectionMerge.js:66 ../root/user/UserCollections.js:72
 msgid "Private"
-msgstr "Частный"
+msgstr "Частные"
 
 #: ../root/collection/CollectionMerge.js:67
 #: ../root/static/scripts/account/components/PreferencesForm.js:190
@@ -10279,7 +10289,7 @@ msgid ""
 "These images are part of the {eaa|Event Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr ""
-"Изображения предоставлены проектом {caa|Event Art Archive}, а также доступны "
+"Изображения предоставлены проектом {eaa|Event Art Archive}, а также доступны "
 "в {ia|Архиве Интернета}."
 
 #: ../root/event/EventArt.js:112
