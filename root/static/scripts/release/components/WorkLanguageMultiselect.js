@@ -25,6 +25,8 @@ import {uniqueId} from '../../common/utility/numbers.js';
 import Multiselect, {
   type MultiselectActionT,
   type MultiselectPropsT,
+  type MultiselectValuePropsT,
+  buildValues as buildMultiselectValues,
   runReducer as runMultiselectReducer,
 } from '../../edit/components/Multiselect.js';
 import type {
@@ -115,6 +117,11 @@ type WorkLanguageMultiselectPropsT = {
   +state: MultiselectLanguageStateT,
 };
 
+const buildValues: MultiselectValuePropsT<
+  LanguageT,
+  MultiselectLanguageValueStateT,
+> = buildMultiselectValues;
+
 // XXX: https://github.com/facebook/flow/issues/7672
 const LanguageMultiselect = (
   // $FlowIgnore
@@ -145,6 +152,7 @@ const WorkLanguageMultiselect: React$AbstractComponent<
     <td className="lyrics-languages">
       <LanguageMultiselect
         addLabel={l('Add lyrics language')}
+        buildValues={buildValues}
         dispatch={dispatch}
         state={state}
       />
