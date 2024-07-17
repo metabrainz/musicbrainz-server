@@ -15,7 +15,7 @@ type ControlledPropsT =
   | $ReadOnly<{controlled?: false}>;
 
 component EnterEdit(
-  children?: React$Node,
+  children?: React.Node,
   childrenFirst: boolean = false,
   disabled: boolean = false,
   form: FormT<{+make_votable: FieldT<boolean>, ...}>,

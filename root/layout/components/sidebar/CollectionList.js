@@ -34,7 +34,7 @@ function hasEntity(
   collection: CollectionT,
 ) {
   const containment = $c.stash.containment;
-  return !!(containment && containment[collection.id]);
+  return containment && containment[collection.id] === 1;
 }
 
 component CollectionAddRemove(
@@ -117,7 +117,7 @@ component CollectionList(
   ownCollectionsNoneText: string,
   sectionClass: string,
   userExists: boolean,
-  usersLink: React$Element<EntityLink>,
+  usersLink: React.Element<EntityLink>,
   usersLinkHeader: string,
 ) {
   return (

@@ -34,7 +34,7 @@ import DialogEntityCredit, {
 export function getSourceError(
   source: RelatableEntityT | null,
   linkType: LinkTypeT | null,
-): React$Node {
+): React.Node {
   if (
     source &&
     linkType &&
@@ -112,10 +112,9 @@ component _DialogSourceEntity(
               {state.error}
             </div>
           </>
-        // $FlowIgnore[sketchy-null-number]
-        ) : batchSelectionCount ? (
+        ) : batchSelectionCount == null ? null : (
           getBatchSelectionMessage(sourceType, batchSelectionCount)
-        ) : null}
+        )}
 
         {ENTITIES_WITH_RELATIONSHIP_CREDITS[sourceType] ? (
           <DialogEntityCredit
@@ -133,7 +132,7 @@ component _DialogSourceEntity(
   );
 }
 
-const DialogSourceEntity: React$AbstractComponent<
+const DialogSourceEntity: React.AbstractComponent<
   React.PropsOf<_DialogSourceEntity>
 > = React.memo(_DialogSourceEntity);
 

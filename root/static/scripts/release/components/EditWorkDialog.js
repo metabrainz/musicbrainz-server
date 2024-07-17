@@ -109,11 +109,11 @@ component _EditWorkDialog(
 
   const isNameBlank = isBlank(name);
 
-  const handleNameChange = function (
+  function handleNameChange(
     event: SyntheticEvent<HTMLInputElement>,
   ) {
     dispatch({name: event.currentTarget.value, type: 'update-name'});
-  };
+  }
 
   const languagesDispatch = React.useCallback((
     action: MultiselectActionT<LanguageT>,
@@ -187,7 +187,7 @@ component _EditWorkDialog(
   );
 }
 
-const EditWorkDialog: React$AbstractComponent<
+const EditWorkDialog: React.AbstractComponent<
   React.PropsOf<_EditWorkDialog>
 > = React.memo(_EditWorkDialog);
 

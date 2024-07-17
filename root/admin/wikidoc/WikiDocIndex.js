@@ -55,35 +55,33 @@ component WikiDocTable(
       const wikiVersionColumn = {
         accessor: (x: WikiDocT) => x.wiki_version,
         Cell: ({row: {original}}: CellRenderProps<WikiDocT, number>) => (
-          <>
-            {original.wiki_version === original.version ? null : (
-              <>
-                <span
-                  className="wiki-version"
-                  style={{color: 'red'}}
-                >
-                  {original.wiki_version === 0
-                    ? 'Error!'
-                    : original.wiki_version}
-                </span>
-                {original.wiki_version ? (
-                  <>
-                    {' '}
-                    {bracketed(
-                      <a
-                        href={'//' + wikiServer +
-                              '/' + encodeURIComponent(original.id) +
-                              '?diff=' + original.wiki_version +
-                              '&oldid=' + original.version}
-                      >
-                        {'diff'}
-                      </a>,
-                    )}
-                  </>
-                ) : null}
-              </>
-            )}
-          </>
+          original.wiki_version === original.version ? null : (
+            <>
+              <span
+                className="wiki-version"
+                style={{color: 'red'}}
+              >
+                {original.wiki_version === 0
+                  ? 'Error!'
+                  : original.wiki_version}
+              </span>
+              {original.wiki_version ? (
+                <>
+                  {' '}
+                  {bracketed(
+                    <a
+                      href={'//' + wikiServer +
+                            '/' + encodeURIComponent(original.id) +
+                            '?diff=' + original.wiki_version +
+                            '&oldid=' + original.version}
+                    >
+                      {'diff'}
+                    </a>,
+                  )}
+                </>
+              ) : null}
+            </>
+          )
         ),
         Header: 'Wiki version',
         headerProps: {className: 'c'},

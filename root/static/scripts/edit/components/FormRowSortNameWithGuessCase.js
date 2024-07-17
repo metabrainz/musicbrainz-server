@@ -44,15 +44,15 @@ export function runReducer(
     }
     case 'guess-case-sortname': {
       newState.set(
-        'sortNameField', 'value',
+        'sortNameField',
+        'value',
         guessSortName(newState.read().nameField.value ?? '', action.entity),
       );
       break;
     }
     case 'copy-sortname': {
       newState.set(
-        'sortNameField', 'value',
-        newState.read().nameField.value ?? '',
+        'sortNameField', 'value', newState.read().nameField.value ?? '',
       );
       break;
     }
@@ -63,10 +63,10 @@ component FormRowSortNameWithGuessCase(
   disabled: boolean = false,
   dispatch: (ActionT) => void,
   entity: SortNamedEntityT,
-  sortNameField: FieldT<string | null>,
   nameField: FieldT<string | null>,
-  label: React$Node = addColonText(l('Sort name')),
+  label: React.Node = addColonText(l('Sort name')),
   required: boolean = false,
+  sortNameField: FieldT<string | null>,
 ) {
   const [preview, setPreview] = React.useState<string | null>(null);
 

@@ -18,8 +18,7 @@ component SidebarRating(entity: RatableT, heading?: string) {
       <h2 className="rating">{nonEmpty(heading) ? heading : l('Rating')}</h2>
       <p>
         <RatingStars entity={entity} />
-        {/* $FlowIgnore[sketchy-null-number] */}
-        {entity.rating_count ? (
+        {entity.rating_count != null && entity.rating_count > 0 ? (
           <>
             {' ('}
             <EntityLink

@@ -13,7 +13,7 @@ import TagLookupForm from '../../taglookup/Form.js';
 import SearchForm from './SearchForm.js';
 
 component SearchError(
-  children: React$Node,
+  children: React.Node,
   form: SearchFormT | TagLookupFormT,
 ) {
   return (

@@ -52,7 +52,7 @@ class Track {
       this.gid = data.gid;
     }
 
-    data.name = data.name || '';
+    data.name ||= '';
     this.name = ko.observable(data.name);
     this.name.original = data.name;
     this.name.subscribe(this.nameChanged, this);
@@ -91,7 +91,7 @@ class Track {
     this.formattedLength = ko.observable(formatTrackLength(data.length, ''));
     this.position = ko.observable(data.position);
     this.number = ko.observable(data.number);
-    this.isDataTrack = ko.observable(!!data.isDataTrack);
+    this.isDataTrack = ko.observable(Boolean(data.isDataTrack));
     this.hasNewRecording = ko.observable(true);
 
     this.updateRecordingTitle = ko.observable(
@@ -219,7 +219,7 @@ class Track {
     var $lengthInput = $('input.track-length', '#track-row-' + this.uniqueID);
     $lengthInput.attr('title', '');
 
-    var hasTooltip = !!$lengthInput.data('ui-tooltip');
+    var hasTooltip = Boolean($lengthInput.data('ui-tooltip'));
 
     if (this.medium.hasInvalidPregapLength()) {
       $lengthInput.attr(
@@ -275,7 +275,7 @@ class Track {
   }
 
   hasExistingRecording() {
-    return !!this.recording().gid;
+    return Boolean(this.recording().gid);
   }
 
   needsRecording() {
@@ -287,7 +287,7 @@ class Track {
   }
 
   setRecordingValue(value) {
-    value = value || new mbEntity.Recording({name: this.name()});
+    value ||= new mbEntity.Recording({name: this.name()});
 
     var currentValue = this.recording.peek();
     if (value.gid === currentValue.gid) {
@@ -322,8 +322,7 @@ class Track {
     if (release) {
       release.relatedArtists =
         [...new Set(release.relatedArtists.concat(value.relatedArtists))];
-      release.isProbablyClassical = release.isProbablyClassical ||
-                                    value.isProbablyClassical;
+      release.isProbablyClassical ||= value.isProbablyClassical;
     }
 
     this.recordingValue(value);
@@ -400,7 +399,7 @@ class Medium {
 
     this.hasPregap = ko.computed({
       read: hasPregap,
-      write: function (newValue) {
+      write(newValue) {
         var oldValue = hasPregap();
 
         if (oldValue && !newValue) {
@@ -432,7 +431,7 @@ class Medium {
 
     this.hasDataTracks = ko.computed({
       read: hasDataTracks,
-      write: function (newValue) {
+      write(newValue) {
         var oldValue = hasDataTracks();
 
         if (oldValue && !newValue) {
@@ -478,7 +477,7 @@ class Medium {
     );
     this.hasTooEarlyFormat = ko.computed(function () {
       const mediumFormatDate = MB.mediumFormatDates[self.formatID()];
-      return !!(mediumFormatDate && self.release.earliestYear() &&
+      return Boolean(mediumFormatDate && self.release.earliestYear() &&
                 self.release.earliestYear() < mediumFormatDate);
     });
     this.confirmedEarlyFormat = ko.observable(this.hasTooEarlyFormat());
@@ -486,7 +485,7 @@ class Medium {
       const isFormatDigital = self.formatID() &&
                               // "Digital Media"
                               self.formatID().toString() === '12';
-      return !!(isFormatDigital &&
+      return Boolean(isFormatDigital &&
                 nonEmpty(self.release.packagingID()) &&
                 self.release.packagingID().toString() !== '7'); // "None"
     });
@@ -516,10 +515,10 @@ class Medium {
      * The medium is considered to be loaded if it has tracks, or if
      * there's no ID to load tracks from.
      */
-    const loaded = !!(
+    const loaded = Boolean(
       this.tracks().length ||
       this.tracksUnknownToUser() ||
-      !(this.id || this.originalID)
+      !(this.id || this.originalID),
     );
 
     if (data.cdtocs) {
@@ -606,7 +605,7 @@ class Medium {
   }
 
   pushTrack(data) {
-    data = data || {};
+    data ||= {};
 
     if (data.position === undefined) {
       data.position = this.tracks().length + (this.hasPregap() ? 0 : 1);
@@ -632,11 +631,11 @@ class Medium {
   }
 
   hasExistingTocs() {
-    return !!(this.id && this.cdtocs && this.cdtocs.length);
+    return Boolean(this.id && this.cdtocs && this.cdtocs.length);
   }
 
   hasToc() {
-    return this.hasExistingTocs() || (!!this.toc());
+    return this.hasExistingTocs() || (Boolean(this.toc()));
   }
 
   tocChanged(toc) {
@@ -786,12 +785,12 @@ class Medium {
       if (multidisc) {
         return texp.l(
           'Medium {position}: {title}',
-          {position: position, title: name},
+          {position, title: name},
         );
       }
       return name;
     } else if (multidisc) {
-      return texp.l('Medium {position}', {position: position});
+      return texp.l('Medium {position}', {position});
     }
     return l('Tracklist');
   }
@@ -829,7 +828,7 @@ fields.Medium = Medium;
 
 class ReleaseGroup extends mbEntity.ReleaseGroup {
   constructor(data) {
-    data = data || {};
+    data ||= {};
 
     super(data);
 
@@ -907,7 +906,7 @@ class ReleaseLabel {
 
     this.needsLabel = ko.computed(function () {
       var label = self.label() || {};
-      return !!(label.name && !label.gid);
+      return Boolean(label.name && !label.gid);
     });
   }
 
@@ -949,10 +948,10 @@ class Barcode {
     this.value.equalityComparer = null;
 
     this.none = ko.computed({
-      read: function () {
+      read() {
         return this.barcode() === '';
       },
-      write: function (bool) {
+      write(bool) {
         this.barcode(bool ? '' : null);
       },
       owner: this,
@@ -1047,7 +1046,9 @@ class Release extends mbEntity.Release {
     ko.computed(function () {
       for (const events of groupBy(self.events(), countryID).values()) {
         const isDuplicate = events.filter(nonEmptyEvent).length > 1;
-        events.forEach(e => e.isDuplicate(isDuplicate));
+        events.forEach(e => {
+          e.isDuplicate(isDuplicate);
+        });
       }
     });
 
@@ -1075,7 +1076,9 @@ class Release extends mbEntity.Release {
       const labelsByKey = groupBy(self.labels(), releaseLabelKey);
       for (const labels of labelsByKey.values()) {
         const isDuplicate = labels.filter(nonEmptyReleaseLabel).length > 1;
-        labels.forEach(l => l.isDuplicate(isDuplicate));
+        labels.forEach(l => {
+          l.isDuplicate(isDuplicate);
+        });
       }
     });
 
@@ -1162,7 +1165,9 @@ class Release extends mbEntity.Release {
     var mediums = this.mediums();
 
     if (mediums.length <= 3) {
-      mediums.forEach(m => m.loadTracks());
+      mediums.forEach(m => {
+        m.loadTracks();
+      });
     }
   }
 

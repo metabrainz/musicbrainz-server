@@ -100,7 +100,8 @@ component FingerprintTable(recording: RecordingT) {
                   href={
                     '//acoustid.org/edit/toggle-track-mbid' +
                     `?track_gid=${track.id}&mbid=${recording.gid}` +
-                    `&state=${track.disabled === true ? '0' : '1'}`}
+                    `&state=${track.disabled === true ? '0' : '1'}`
+                  }
                 >
                   {track.disabled === true ? l('Link') : l('Unlink')}
                 </a>
@@ -118,4 +119,4 @@ component FingerprintTable(recording: RecordingT) {
 export default (hydrate<React.PropsOf<FingerprintTable>>(
   'div.acoustid-fingerprints',
   FingerprintTable,
-): React$AbstractComponent<React.PropsOf<FingerprintTable>>);
+): React.AbstractComponent<React.PropsOf<FingerprintTable>>);

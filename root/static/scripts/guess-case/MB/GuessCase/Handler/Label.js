@@ -28,15 +28,15 @@ class GuessCaseLabelHandler extends GuessCaseHandler {
         // Match empty
         gc.regexes.LABEL_EMPTY = /^\s*$/i;
         // Match "unknown" and variants
-        gc.regexes.LABEL_UNKNOWN = /^[\(\[]?\s*Unknown\s*[\)\]]?$/i;
+        gc.regexes.LABEL_UNKNOWN = /^[([]?\s*Unknown\s*[)\]]?$/i;
         // Match "none" and variants
-        gc.regexes.LABEL_NONE = /^[\(\[]?\s*none\s*[\)\]]?$/i;
+        gc.regexes.LABEL_NONE = /^[([]?\s*none\s*[)\]]?$/i;
         // Match "no label" and variants
-        gc.regexes.LABEL_NOLABEL = /^[\(\[]?\s*no[\s-]+label\s*[\)\]]?$/i;
+        gc.regexes.LABEL_NOLABEL = /^[([]?\s*no[\s-]+label\s*[)\]]?$/i;
         // Match "not applicable" and variants
-        gc.regexes.LABEL_NOTAPPLICABLE = /^[\(\[]?\s*not[\s-]+applicable\s*[\)\]]?$/i;
+        gc.regexes.LABEL_NOTAPPLICABLE = /^[([]?\s*not[\s-]+applicable\s*[)\]]?$/i;
         // Match "n/a" and variants
-        gc.regexes.LABEL_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
+        gc.regexes.LABEL_NA = /^[([]?\s*n\s*[\\/]\s*a\s*[)\]]?$/i;
       }
       if (inputString.match(gc.regexes.LABEL_EMPTY)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;

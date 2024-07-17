@@ -45,7 +45,8 @@ utils.computedWith = function (callback, observable, defaultValue) {
 utils.withRelease = function (read, defaultValue) {
   return utils.computedWith(
     read,
-    releaseEditor.rootField.release, defaultValue,
+    releaseEditor.rootField.release,
+    defaultValue,
   );
 };
 
@@ -58,7 +59,7 @@ export function unformatTrackLength(duration) {
     return parseInt(duration, 10);
   }
 
-  var parts = duration.replace(/[:\.]/, ':').split(':');
+  var parts = duration.replace(/[:.]/, ':').split(':');
   if (parts[0] == '?' || parts[0] == '??' || duration === '') {
     return null;
   }
@@ -92,7 +93,7 @@ utils.search = function (resource, query, limit, offset) {
     url: '/ws/2/' + resource,
     data: {
       fmt: 'json',
-      query: query,
+      query,
     },
   };
 
@@ -253,7 +254,7 @@ function base64(s) {
   let i;
   let b10;
   var x = [];
-  var imax = s.length - s.length % 3;
+  var imax = s.length - (s.length % 3);
 
   for (i = 0; i < imax; i += 3) {
     b10 = (s.charCodeAt(i) << 16) |

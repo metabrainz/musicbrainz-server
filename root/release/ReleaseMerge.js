@@ -9,7 +9,7 @@
 
 import ReleaseList from '../components/list/ReleaseList.js';
 import Layout from '../layout/index.js';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import sortByEntityName
   from '../static/scripts/common/utility/sortByEntityName.js';
@@ -67,7 +67,7 @@ component ReleaseMerge(
         </form>
       </div>
 
-      {manifest.js('edit')}
+      {manifest('edit')}
     </Layout>
   );
 }

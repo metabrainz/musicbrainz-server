@@ -26,7 +26,7 @@ component EditBarcodes(edit: EditBarcodesEditT) {
       ) : null}
 
       {display.submissions.map(submission => {
-        const hasOldBarcodeProp = hasOwnProp(submission, 'old_barcode');
+        const hasOldBarcodeProp = Object.hasOwn(submission, 'old_barcode');
         const oldBarcode = submission.old_barcode;
         return (
           <>

@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import {
   attributesColumn,
   defineArtistRolesColumn,
@@ -40,14 +40,14 @@ component WorkList(
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
-        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
+        ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
       const seriesNumberColumn = seriesItemNumbers
-        ? defineSeriesNumberColumn({seriesItemNumbers: seriesItemNumbers})
+        ? defineSeriesNumberColumn({seriesItemNumbers})
         : null;
       const nameColumn = defineNameColumn<WorkT>({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Work'),
       });
       const writersColumn = defineArtistRolesColumn<WorkT>({
@@ -56,8 +56,8 @@ component WorkList(
         title: l('Writers'),
       });
       const typeColumn = defineTypeColumn({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         typeContext: 'work_type',
       });
       const ratingsColumn = defineRatingsColumn<WorkT>({
@@ -95,10 +95,10 @@ component WorkList(
   return (
     <>
       {table}
-      {manifest.js('common/components/ArtistRoles', {async: 'async'})}
-      {manifest.js('common/components/AttributeList', {async: 'async'})}
-      {manifest.js('common/components/IswcList', {async: 'async'})}
-      {manifest.js('common/components/WorkArtists', {async: 'async'})}
+      {manifest('common/components/ArtistRoles', {async: 'async'})}
+      {manifest('common/components/AttributeList', {async: 'async'})}
+      {manifest('common/components/IswcList', {async: 'async'})}
+      {manifest('common/components/WorkArtists', {async: 'async'})}
     </>
   );
 }

@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import Relationships
   from '../static/scripts/common/components/Relationships.js';
@@ -46,7 +46,7 @@ component GenreIndex(
         numberOfRevisions={numberOfRevisions}
       />
       <Relationships source={genre} />
-      {manifest.js('genre/index', {async: 'async'})}
+      {manifest('genre/index', {async: 'async'})}
     </GenreLayout>
   );
 }

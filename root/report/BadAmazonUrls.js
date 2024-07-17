@@ -15,6 +15,24 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseUrlT} from './types.js';
 
+const urlColumn = {
+  Cell: ({row: {original}}: CellRenderProps<ReportReleaseUrlT, empty>) => {
+    const url = original.url;
+    return (
+      url ? (
+        <EntityLink
+          content={url.href_url}
+          entity={url}
+        />
+      ) : (
+        l('This URL no longer exists.')
+      )
+    );
+  },
+  Header: l('URL'),
+  id: 'url',
+};
+
 component BadAmazonUrls(...{
   canBeFiltered,
   filtered,
@@ -22,24 +40,6 @@ component BadAmazonUrls(...{
   items,
   pager,
 }: ReportDataT<ReportReleaseUrlT>) {
-  const urlColumn = {
-    Cell: ({row: {original}}: CellRenderProps<ReportReleaseUrlT, empty>) => {
-      const url = original.url;
-      return (
-        url ? (
-          <EntityLink
-            content={url.href_url}
-            entity={url}
-          />
-        ) : (
-          l('This URL no longer exists.')
-        )
-      );
-    },
-    Header: l('URL'),
-    id: 'url',
-  };
-
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}

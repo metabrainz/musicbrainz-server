@@ -25,7 +25,7 @@ import {
 
 ko.bindingHandlers.disableBecauseDiscIDs = {
 
-  update: function (element, valueAccessor, allBindings, viewModel) {
+  update(element, valueAccessor, allBindings, viewModel) {
     var disabled = ko.unwrap(valueAccessor()) && viewModel.medium.hasToc();
 
     $(element)
@@ -100,7 +100,7 @@ function reduceReleaseArtistCreditEditor(state, action) {
 
 ko.bindingHandlers.artistCreditEditor = {
 
-  init: function (element, valueAccessor) {
+  init(element, valueAccessor) {
     const entity = valueAccessor();
     const artistCredit = entity.artistCredit();
 

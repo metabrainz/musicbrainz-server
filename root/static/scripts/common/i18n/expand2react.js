@@ -15,16 +15,11 @@ import {
   ln as lnActual,
   lp as lpActual,
 } from '../i18n.js';
+
 import {
   l_admin as lAdminActual,
   ln_admin as lnAdminActual,
-} from '../i18n/admin.js';
-import {
-  l_statistics as lStatisticsActual,
-  ln_statistics as lnStatisticsActual,
-  lp_statistics as lpStatisticsActual,
-} from '../i18n/statistics.js';
-
+} from './admin.js';
 import expand, {
   type NO_MATCH,
   type Parser,
@@ -47,6 +42,11 @@ import expand, {
   substEnd,
   VarArgs,
 } from './expand2.js';
+import {
+  l_statistics as lStatisticsActual,
+  ln_statistics as lnStatisticsActual,
+  lp_statistics as lpStatisticsActual,
+} from './statistics.js';
 
 type Input = Expand2ReactInput;
 type Output = Expand2ReactOutput;
@@ -56,7 +56,7 @@ const condSubstThenTextContent = /^[^<>{}|]+/;
 const percentSign = /(%)/;
 const linkSubstStart = /^\{([0-9A-z_]+)\|/;
 const htmlTagStart = /^<(?=[a-z])/;
-const htmlTagName = /^(a|abbr|br|code|em|h1|h2|h3|h4|h5|h6|hr|li|ol|p|span|strong|ul)(?=[\s\/>])/;
+const htmlTagName = /^(a|abbr|br|code|em|h1|h2|h3|h4|h5|h6|hr|li|ol|p|span|strong|ul)(?=[\s/>])/;
 const htmlTagEnd = /^>/;
 const htmlSelfClosingTagEnd = /^\s*\/>/;
 const htmlAttrStart = /^\s+(?=[a-z])/;
@@ -131,7 +131,7 @@ const parseVarSubst = createVarSubstParser<Output, Input>(
 );
 
 const parseLinkSubst: Parser<
-  React$Element<'a'> | string | NO_MATCH,
+  React.Element<'a'> | string | NO_MATCH,
   Input,
 > = saveMatch(function (args) {
   const name = accept(linkSubstStart);

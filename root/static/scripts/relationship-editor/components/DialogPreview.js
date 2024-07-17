@@ -113,7 +113,7 @@ component _DialogPreview(
   const relationshipPreview = (
     relationship: RelationshipStateT,
     className: string,
-    extraRows?: React$Node,
+    extraRows?: React.Node,
   ) => {
     const fullClassName = 'preview details' +
       (className ? ' ' + className : '');
@@ -232,7 +232,7 @@ component _DialogPreview(
   );
 }
 
-const DialogPreview: React$AbstractComponent<
+const DialogPreview: React.AbstractComponent<
   React.PropsOf<_DialogPreview>
 > = React.memo(_DialogPreview);
 

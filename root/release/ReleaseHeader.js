@@ -8,7 +8,7 @@
  */
 
 import EntityHeader from '../components/EntityHeader.js';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
@@ -50,7 +50,7 @@ component ReleaseHeader(page?: string, release: ReleaseT) {
       preHeader={
         <>
           <TaggerIcon entityType="release" gid={release.gid} />
-          {manifest.js('common/components/TaggerIcon', {async: 'async'})}
+          {manifest('common/components/TaggerIcon', {async: 'async'})}
         </>
       }
       subHeading={subHeading}

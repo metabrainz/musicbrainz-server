@@ -19,7 +19,7 @@ function buildTabs(
   $c: CatalystContextT,
   user: AccountLayoutUserT,
   page: string,
-): $ReadOnlyArray<React$Element<'li'>> {
+): $ReadOnlyArray<React.Element<'li'>> {
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
 
   const userName = encodeURIComponent(user.name);
@@ -97,8 +97,7 @@ function buildTabs(
     ));
   }
 
-  if (showAdmin ||
-    DBDefs.DB_STAGING_TESTING_FEATURES && $c.user) {
+  if (showAdmin || (DBDefs.DB_STAGING_TESTING_FEATURES && $c.user)) {
     tabs.push(buildTab(
       page,
       l_admin('Edit user'),

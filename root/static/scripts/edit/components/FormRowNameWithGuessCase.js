@@ -60,8 +60,7 @@ export function runReducer(
   switch (action.type) {
     case 'guess-case': {
       newState.set(
-        'field', 'value',
-        GuessCase.entities[action.entity.entityType].guess(
+        'field', 'value', GuessCase.entities[action.entity.entityType].guess(
           newState.read().field.value ?? '',
         ),
       );
@@ -96,7 +95,7 @@ component FormRowNameWithGuessCase(
   guessCaseOptions: GuessCaseOptionsStateT,
   guessFeat: boolean = false,
   isGuessCaseOptionsOpen: boolean = false,
-  label: React$Node = addColonText(l('Name')),
+  label: React.Node = addColonText(l('Name')),
 ) {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const [preview, setPreview] = React.useState<string | null>(null);

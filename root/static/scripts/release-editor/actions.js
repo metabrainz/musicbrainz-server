@@ -23,25 +23,24 @@ import releaseEditor from './viewModel.js';
 
 const actions = {
 
-  cancelPage: function () {
+  cancelPage() {
     window.location = this.returnTo;
   },
 
-  nextTab: function () {
+  nextTab() {
     this.adjacentTab(1);
   },
 
-  previousTab: function () {
+  previousTab() {
     this.adjacentTab(-1);
   },
 
-  lastTab: function () {
+  lastTab() {
     this.uiTabs._setOption('active', this.tabCount - 1);
     this.uiTabs.tabs.eq(this.tabCount - 1).focus();
-    return;
   },
 
-  adjacentTab: function (direction) {
+  adjacentTab(direction) {
     var index = this.activeTabIndex();
     var disabled = this.uiTabs.options.disabled;
 
@@ -61,33 +60,33 @@ const actions = {
   copyTitleToReleaseGroup: ko.observable(false),
   copyArtistToReleaseGroup: ko.observable(false),
 
-  addReleaseEvent: function (release) {
+  addReleaseEvent(release) {
     release.events.push(new fields.ReleaseEvent({}, release));
   },
 
-  removeReleaseEvent: function (releaseEvent) {
+  removeReleaseEvent(releaseEvent) {
     releaseEvent.release.events.remove(releaseEvent);
   },
 
-  addReleaseLabel: function (release) {
+  addReleaseLabel(release) {
     release.labels.push(new fields.ReleaseLabel({}, release));
   },
 
-  removeReleaseLabel: function (releaseLabel) {
+  removeReleaseLabel(releaseLabel) {
     releaseLabel.release.labels.remove(releaseLabel);
   },
 
   // Tracklist tab
 
-  moveMediumUp: function (medium) {
+  moveMediumUp(medium) {
     this.changeMediumPosition(medium, -1);
   },
 
-  moveMediumDown: function (medium) {
+  moveMediumDown(medium) {
     this.changeMediumPosition(medium, 1);
   },
 
-  changeMediumPosition: function (medium, offset) {
+  changeMediumPosition(medium, offset) {
     var oldPosition = medium.position.peek();
     var newPosition = oldPosition + offset;
 
@@ -110,7 +109,7 @@ const actions = {
     }
   },
 
-  removeMedium: function (medium) {
+  removeMedium(medium) {
     var mediums = medium.release.mediums;
     var index = mediums.indexOf(medium);
     var position = medium.position();
@@ -127,11 +126,11 @@ const actions = {
     }
   },
 
-  focusMediumName: function (medium) {
+  focusMediumName(medium) {
     medium.nameModified(false);
   },
 
-  guessCaseAllMedia: function (data, event) {
+  guessCaseAllMedia(data, event) {
     for (const medium of this.mediums.peek()) {
       releaseEditor.guessCaseMediumName(medium, event);
       if (!medium.collapsed.peek()) {
@@ -144,7 +143,7 @@ const actions = {
    * Shows or hides a preview if event.type is 'mouseenter' or 'mouseleave'.
    * Otherwise, updates the current name.
    */
-  guessCaseMediumName: function (medium, event) {
+  guessCaseMediumName(medium, event) {
     const name = medium.name.peek();
     if (!name) {
       return;
@@ -170,7 +169,7 @@ const actions = {
     }
   },
 
-  moveTrackUp: function (track) {
+  moveTrackUp(track) {
     var previous = track.previous();
 
     if (track.isDataTrack() && (!previous || !previous.isDataTrack())) {
@@ -187,7 +186,7 @@ const actions = {
     return true;
   },
 
-  moveTrackDown: function (track) {
+  moveTrackDown(track) {
     var next = track.next();
 
     if (!next || track.position() == 0) {
@@ -208,7 +207,7 @@ const actions = {
     return true;
   },
 
-  swapTracks: function (track1, track2, medium) {
+  swapTracks(track1, track2, medium) {
     const tracks = medium.tracks;
     const underlyingTracks = tracks.peek();
     const offset = medium.hasPregap() ? 0 : 1;
@@ -236,7 +235,7 @@ const actions = {
     tracks.notifySubscribers(underlyingTracks);
   },
 
-  resetTrackPositions: function (tracks, start, offset, removed) {
+  resetTrackPositions(tracks, start, offset, removed) {
     let track;
     for (let i = start; (track = tracks[i]); i++) {
       track.position(i + offset);
@@ -247,7 +246,7 @@ const actions = {
     }
   },
 
-  removeTrack: function (track) {
+  removeTrack(track) {
     var focus = track.next() || track.previous();
     var $medium = $('#' + track.elementID).parents('.advanced-medium');
     var medium = track.medium;
@@ -267,7 +266,7 @@ const actions = {
     medium.toc(null);
   },
 
-  focusTrackName: function (track) {
+  focusTrackName(track) {
     track.nameModified(false);
   },
 
@@ -275,7 +274,7 @@ const actions = {
    * Shows or hides a preview if event.type is 'mouseenter' or 'mouseleave'.
    * Otherwise, updates the current name.
    */
-  guessCaseTrackName: function (track, event) {
+  guessCaseTrackName(track, event) {
     switch (event.type) {
       case 'mouseenter':
         // Don't change the value while the user is dragging to select text.
@@ -288,31 +287,33 @@ const actions = {
       case 'mouseleave':
         track.previewName(null);
         break;
-      default:
+      default: {
         const origName = track.name.peek();
         track.name(
           track.previewName() ?? GuessCase.entities.track.guess(origName),
         );
         track.nameModified(track.name() !== origName);
         track.previewName(null);
+        break;
+      }
     }
   },
 
-  guessCaseTrackNames: function (medium, event) {
+  guessCaseTrackNames(medium, event) {
     for (const track of medium.tracks.peek()) {
       releaseEditor.guessCaseTrackName(track, event);
     }
   },
 
-  toggleMedium: function (medium) {
+  toggleMedium(medium) {
     medium.collapsed(!medium.collapsed());
   },
 
-  openTrackParser: function (medium) {
+  openTrackParser(medium) {
     this.trackParserDialog.open(medium);
   },
 
-  resetTrackNumbers: function (medium) {
+  resetTrackNumbers(medium) {
     var offset = medium.hasPregap() ? 0 : 1;
 
     medium.tracks().forEach(function (track, i) {
@@ -321,7 +322,7 @@ const actions = {
     });
   },
 
-  swapTitlesWithArtists: function (medium) {
+  swapTitlesWithArtists(medium) {
     var tracks = medium.tracks();
 
     var requireConf = tracks.some(function (track) {
@@ -344,7 +345,7 @@ const actions = {
     }
   },
 
-  addNewTracks: function (medium) {
+  addNewTracks(medium) {
     var releaseAC = medium.release.artistCredit();
     var defaultAC = hasVariousArtists(releaseAC) ? null : releaseAC;
     var addTrackCount = parseInt(medium.addTrackCount(), 10) || 1;
@@ -354,26 +355,26 @@ const actions = {
     }
   },
 
-  guessReleaseFeatArtists: function (release) {
+  guessReleaseFeatArtists(release) {
     guessFeat(release);
   },
 
-  guessTrackFeatArtists: function (track) {
+  guessTrackFeatArtists(track) {
     guessFeat(track);
   },
 
-  guessMediumCase: function (medium, event) {
+  guessMediumCase(medium, event) {
     releaseEditor.guessCaseMediumName(medium, event);
     releaseEditor.guessCaseTrackNames(medium, event);
   },
 
-  guessMediumFeatArtists: function (medium) {
+  guessMediumFeatArtists(medium) {
     medium.tracks().forEach(guessFeat);
   },
 
   // Recordings tab
 
-  reuseUnsetPreviousRecordings: function (release) {
+  reuseUnsetPreviousRecordings(release) {
     for (const track of release.tracksWithUnsetPreviousRecordings()) {
       const previous = track.previousTrackAtThisPosition;
       if (previous) {

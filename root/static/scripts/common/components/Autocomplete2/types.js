@@ -49,7 +49,7 @@ export type StateT<T: EntityItemT> = {
 };
 
 export type PropsT<T: EntityItemT> = {
-  +children?: React$Node,
+  +children?: React.Node,
   +dispatch: (ActionT<T>) => void,
   +state: StateT<T>,
 };
@@ -67,33 +67,33 @@ export type ActionT<+T: EntityItemT> =
       +type: 'change-entity-type',
       +entityType: SearchableTypeT,
     }
-  | { +type: 'clear-recent-items' }
-  | { +type: 'highlight-index', +index: number }
-  | { +type: 'highlight-next-item' }
-  | { +type: 'highlight-previous-item' }
-  | { +type: 'reset-menu' }
-  | { +type: 'select-item', +item: ItemT<T> }
-  | { +type: 'set-input-focus', +isFocused: boolean }
-  | { +type: 'set-menu-visibility', +value: boolean }
+  | {+type: 'clear-recent-items'}
+  | {+type: 'highlight-index', +index: number}
+  | {+type: 'highlight-next-item'}
+  | {+type: 'highlight-previous-item'}
+  | {+type: 'reset-menu'}
+  | {+type: 'select-item', +item: ItemT<T>}
+  | {+type: 'set-input-focus', +isFocused: boolean}
+  | {+type: 'set-menu-visibility', +value: boolean}
   | {
       +type: 'show-ws-results',
       +entities: $ReadOnlyArray<T>,
       +page: number,
       +totalPages: number,
     }
-  | { +type: 'show-lookup-error' }
-  | { +type: 'show-lookup-type-error' }
-  | { +type: 'show-more-results' }
-  | { +type: 'set-recent-items', +items: $ReadOnlyArray<OptionItemT<T>> }
-  | { +type: 'show-search-error' }
-  | { +type: 'stop-search' }
-  | { +type: 'toggle-add-entity-dialog', +isOpen: boolean }
-  | { +type: 'toggle-indexed-search' }
+  | {+type: 'show-lookup-error'}
+  | {+type: 'show-lookup-type-error'}
+  | {+type: 'show-more-results'}
+  | {+type: 'set-recent-items', +items: $ReadOnlyArray<OptionItemT<T>>}
+  | {+type: 'show-search-error'}
+  | {+type: 'stop-search'}
+  | {+type: 'toggle-add-entity-dialog', +isOpen: boolean}
+  | {+type: 'toggle-indexed-search'}
   | {
       +type: 'toggle-descriptions',
       +showDescriptions: boolean,
     }
-  | { +type: 'type-value', +value: string };
+  | {+type: 'type-value', +value: string};
 
 export type ActionItemT<+T> = {
   +type: 'action',

@@ -13,7 +13,7 @@ import Layout from '../layout/index.js';
 import ArtistHeader from './ArtistHeader.js';
 
 component ArtistLayout(
-  children: React$Node,
+  children: React.Node,
   entity as artist: ArtistT,
   fullWidth: boolean = false,
   page: string,

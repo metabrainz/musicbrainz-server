@@ -8,7 +8,7 @@
  */
 
 import CleanupBanner from '../components/CleanupBanner.js';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import Relationships
   from '../static/scripts/common/components/Relationships.js';
@@ -39,7 +39,7 @@ component PlaceIndex(
         entity={place}
       />
       <Relationships source={place} />
-      {manifest.js('place/index', {async: 'async'})}
+      {manifest('place/index', {async: 'async'})}
     </PlaceLayout>
   );
 }

@@ -30,8 +30,7 @@ component UrlIndex(url: UrlT) {
                 >
                   {url.href_url}
                 </span>
-              ) : <a href={url.href_url}>{url.pretty_name}</a>
-            }
+              ) : <a href={url.href_url}>{url.pretty_name}</a>}
           </td>
         </tr>
       </table>

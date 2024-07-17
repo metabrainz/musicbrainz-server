@@ -6,9 +6,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import Sentry from '@sentry/node';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
-import Sentry from '@sentry/node';
 
 import {
   CatalystContext,

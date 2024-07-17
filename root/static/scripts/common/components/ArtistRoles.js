@@ -53,4 +53,4 @@ component ArtistRoles(relations: $ReadOnlyArray<RelationT>) {
 export default (hydrate<React.PropsOf<ArtistRoles>>(
   'div.artist-roles-container',
   ArtistRoles,
-): React$AbstractComponent<React.PropsOf<ArtistRoles>>);
+): React.AbstractComponent<React.PropsOf<ArtistRoles>>);

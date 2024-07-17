@@ -49,11 +49,11 @@ component CondensedTrackACs(tracks?: $ReadOnlyArray<TrackT>) {
   let endNumber;
   const rows = [];
 
-  tracks.map((track, index, array) => {
+  tracks.forEach((track, index, array) => {
     const isLast = array.length - 1 === index;
     const isNewArtistCredit = thisCredit &&
       !artistCreditsAreEqual(thisCredit, track.artistCredit);
-    const isTherePositionGap = thisPosition + 1 !== +track.position;
+    const isTherePositionGap = thisPosition + 1 !== Number(track.position);
     if (isNewArtistCredit || isTherePositionGap) {
       rows.push(
         <CondensedTrackACsRow
@@ -70,7 +70,7 @@ component CondensedTrackACs(tracks?: $ReadOnlyArray<TrackT>) {
       endNumber = track.number;
     }
     thisCredit = track.artistCredit;
-    thisPosition = +track.position;
+    thisPosition = Number(track.position);
     if (isLast) {
       rows.push(
         <CondensedTrackACsRow

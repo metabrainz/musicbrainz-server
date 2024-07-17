@@ -97,7 +97,7 @@ const VoteButton = ({
   text,
   title,
   vote,
-}: VoteButtonPropsT): React$Element<'button'> => {
+}: VoteButtonPropsT): React.Element<'button'> => {
   const isActive = vote === currentVote;
   const className = 'tag-vote tag-' + VOTE_ACTIONS[vote];
   const buttonTitle = isActive
@@ -122,7 +122,7 @@ const VoteButton = ({
 const UpvoteButton = ({
   callback,
   currentVote,
-}: GenericVoteButtonPropsT): React$Element<typeof VoteButton> => (
+}: GenericVoteButtonPropsT): React.Element<typeof VoteButton> => (
   <VoteButton
     activeTitle={lp('You’ve upvoted this tag', 'folksonomy')}
     callback={callback}
@@ -136,7 +136,7 @@ const UpvoteButton = ({
 const DownvoteButton = ({
   callback,
   currentVote,
-}: GenericVoteButtonPropsT): React$Element<typeof VoteButton> => (
+}: GenericVoteButtonPropsT): React.Element<typeof VoteButton> => (
   <VoteButton
     activeTitle={lp('You’ve downvoted this tag', 'folksonomy')}
     callback={callback}
@@ -157,7 +157,7 @@ const VoteButtons = ({
   callback,
   count,
   currentVote,
-}: VoteButtonsPropsT): React$Element<'span'> => {
+}: VoteButtonsPropsT): React.Element<'span'> => {
   const $c = React.useContext(SanitizedCatalystContext);
 
   let className = '';
@@ -194,7 +194,7 @@ const TagRow = ({
   currentVote,
   index,
   tag,
-}: TagRowPropsT): React$Element<'li'> => (
+}: TagRowPropsT): React.Element<'li'> => (
   <li className={loopParity(index)} key={tag.name}>
     <TagLink tag={tag.name} />
     <VoteButtons
@@ -219,8 +219,8 @@ type TagEditorState = {
 };
 
 type TagUpdateT =
-  | { +count: number, +deleted?: false, +tag: string, +vote: 1 | -1 }
-  | { +deleted: true, +tag: string, +vote: 0 };
+  | {+count: number, +deleted?: false, +tag: string, +vote: 1 | -1}
+  | {+deleted: true, +tag: string, +vote: 0};
 
 type PendingVoteT = {
   fail: () => void,
@@ -283,7 +283,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       const action =
         `${getTagsPath(this.props.entity)}/${VOTE_ACTIONS[item.vote]}`;
 
-      (actions[action] = actions[action] || []).push(item);
+      (actions[action] ||= []).push(item);
     }
 
     this.pendingVotes.clear();
@@ -302,9 +302,11 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       const url = action + '?tags=' +
         encodeURIComponent(items.map(x => x.tag.name).join(','));
 
-      doRequest({url: url})
+      doRequest({url})
         .done(data => this.updateTags(data.updates))
-        .fail(() => items.forEach(x => x.fail()));
+        .fail(() => items.forEach(x => {
+          x.fail();
+        }));
     }
   }
 
@@ -341,7 +343,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       };
 
       if (!this.state.positiveTagsOnly || isAlwaysVisible(t)) {
-        const isGenre = hasOwnProp(this.genreMap, t.tag.name);
+        const isGenre = Object.hasOwn(this.genreMap, t.tag.name);
 
         const tagRow = (
           <TagRow
@@ -430,7 +432,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
           count: t.count,
           tag: {
             entityType: 'tag',
-            genre: genre,
+            genre,
             id: null,
             name: t.tag,
           },
@@ -451,8 +453,8 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   addPendingVote(tag: TagT, vote: VoteT, index: number) {
     this.pendingVotes.set(tag.name, {
       fail: () => this.updateVote(index, vote),
-      tag: tag,
-      vote: vote,
+      tag,
+      vote,
     });
     this.debouncePendingVotes();
   }
@@ -470,19 +472,21 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     this.tagsInput = input;
 
     $(input).autocomplete({
-      focus: function () {
+      focus() {
         return false;
       },
 
-      select: function (this: HTMLInputElement, event, ui) {
+      select(this: HTMLInputElement, event, ui) {
+        // $FlowIgnore[object-this-reference]
         const terms = splitTags(this.value);
         terms.pop();
         terms.push(ui.item.value, '');
+        // $FlowIgnore[object-this-reference]
         this.value = terms.join(', ');
         return false;
       },
 
-      source: function (request, response) {
+      source(request, response) {
         const terms = splitTags(request.term);
         const last = terms.pop();
 
@@ -662,7 +666,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
     }
   },
   minimalEntity,
-): React$AbstractComponent<TagEditorProps, void>);
+): React.AbstractComponent<TagEditorProps, void>);
 
 export const SidebarTagEditor = (hydrate<TagEditorProps>(
   'div.sidebar-tags',
@@ -720,7 +724,7 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
     }
   },
   minimalEntity,
-): React$AbstractComponent<TagEditorProps, void>);
+): React.AbstractComponent<TagEditorProps, void>);
 
 function createInitialTagState(
   aggregatedTags: $ReadOnlyArray<AggregatedTagT>,

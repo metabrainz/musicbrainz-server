@@ -7,8 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import SelectField from '../../common/components/SelectField.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
+
+import SelectField from './SelectField.js';
 
 type GenericFilterFormFieldsT = {
   +disambiguation: FieldT<string>,
@@ -118,7 +119,7 @@ type FieldProps = {
 const ArtistCreditField = ({
   field,
   options,
-}: FieldProps): React$Element<'tr'> => (
+}: FieldProps): React.Element<'tr'> => (
   <tr>
     <td>
       {addColonText(l('Artist credit'))}
@@ -128,7 +129,7 @@ const ArtistCreditField = ({
         field={field}
         options={{
           grouped: false,
-          options: options,
+          options,
         }}
         style={{maxWidth: '40em'}}
         uncontrolled
@@ -137,7 +138,7 @@ const ArtistCreditField = ({
   </tr>
 );
 
-const TypeField = ({field, options}: FieldProps): React$Element<'tr'> => (
+const TypeField = ({field, options}: FieldProps): React.Element<'tr'> => (
   <tr>
     <td>
       {addColonText(l('Type'))}
@@ -147,7 +148,7 @@ const TypeField = ({field, options}: FieldProps): React$Element<'tr'> => (
         field={field}
         options={{
           grouped: false,
-          options: options,
+          options,
         }}
         style={{maxWidth: '40em'}}
         uncontrolled

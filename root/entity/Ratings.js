@@ -8,7 +8,7 @@
  */
 
 import CritiqueBrainzLinks from '../components/CritiqueBrainzLinks.js';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import CritiqueBrainzReview
   from '../static/scripts/common/components/CritiqueBrainzReview.js';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
@@ -99,7 +99,7 @@ component Ratings(
           </div>
         </>
       ) : null}
-      {manifest.js('reviews')}
+      {manifest('reviews')}
     </LayoutComponent>
   );
 }

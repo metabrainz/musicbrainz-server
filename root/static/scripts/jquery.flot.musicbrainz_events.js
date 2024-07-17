@@ -35,7 +35,7 @@
   function drawCrosshairLine(plot, ctx, x, color) {
     var plotOffset = plot.getPlotOffset();
 
-    x = plot.p2c({x: x}).left;
+    x = plot.p2c({x}).left;
 
     if (x > 0) {
       ctx.save();
@@ -75,8 +75,8 @@
   }
 
   $.plot.plugins.push({
-    init: init,
-    options: options,
+    init,
+    options,
     name: 'musicbrainzEvents',
     version: '1.0',
   });

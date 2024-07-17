@@ -210,7 +210,7 @@ export function getPhraseAndExtraAttributes<T>(
   linkType: LinkTypeT,
   attributes: $ReadOnlyArray<LinkAttrT>,
   phraseProp: LinkPhraseProp,
-  forGrouping?: boolean = false,
+  forGrouping?: boolean = false, // eslint-disable-line default-param-last
   entity0?: T,
   entity1?: T,
 ): [T | string, Array<LinkAttrT>] {
@@ -315,7 +315,7 @@ export const interpolate = (
   linkType: LinkTypeT,
   attributes: $ReadOnlyArray<LinkAttrT>,
   phraseProp: LinkPhraseProp,
-  forGrouping?: boolean = false,
+  forGrouping?: boolean = false, // eslint-disable-line default-param-last
   entity0?: React$MixedElement,
   entity1?: React$MixedElement,
 ): Expand2ReactOutput | string => getPhraseAndExtraAttributes<

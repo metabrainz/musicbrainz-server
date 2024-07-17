@@ -241,8 +241,8 @@ component _AutocompleteItem<T: EntityItemT>(
   selectItem: (ItemT<T>) => boolean,
 ) {
   const itemId = `${autocompleteId}-item-${item.id}`;
-  const isDisabled = !!item.disabled;
-  const isSeparator = !!item.separator;
+  const isDisabled = item.disabled === true;
+  const isSeparator = item.separator === true;
 
   /*
    * `item.level` allows showing a hierarchy by indenting each option.
@@ -356,7 +356,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
   const selectItem = React.useCallback((
     item: ItemT<T>,
   ) => {
-    const isDisabled = !!item.disabled;
+    const isDisabled = item.disabled === true;
 
     if (!isDisabled) {
       stopRequests();
@@ -449,7 +449,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
       if (staticItems) {
         const option = staticItems.find((item) => (
           item.type === 'option' &&
-          hasOwnProp(item.entity, 'gid') &&
+          Object.hasOwn(item.entity, 'gid') &&
           item.entity.gid === mbidMatch[0]
         ));
         if (option) {
@@ -558,7 +558,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
     }
   }
 
-  const handleMenuMouseDown = function (
+  function handleMenuMouseDown(
     event: SyntheticMouseEvent<HTMLUListElement>,
   ) {
     /*
@@ -567,7 +567,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
      * the input.
      */
     event.preventDefault();
-  };
+  }
 
   const handleOuterClick = React.useCallback(() => {
     stopRequests();
@@ -699,12 +699,11 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
             : undefined
         }
         index={index}
-        isHighlighted={!!(highlightedItem && item.id === highlightedItem.id)}
-        isSelected={!!(
-          selectedItem &&
+        isHighlighted={highlightedItem != null &&
+          item.id === highlightedItem.id}
+        isSelected={selectedItem != null &&
           item.type === 'option' &&
-          item.entity.id === selectedItem.id
-        )}
+          item.entity.id === selectedItem.id}
         // $FlowIssue[incompatible-type-arg] until Flow supports https://github.com/facebook/flow/issues/7672
         item={item}
         key={item.id}
@@ -733,7 +732,8 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
     <div
       className={
         'autocomplete2' +
-        (nonEmpty(containerClass) ? ' ' + containerClass : '')}
+        (nonEmpty(containerClass) ? ' ' + containerClass : '')
+      }
       onBlur={handleBlur}
       ref={node => {
         containerRef.current = node;
@@ -863,13 +863,13 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
 }
 
 // $FlowIgnore[unclear-type]
-const Autocomplete2: React$AbstractComponent<PropsT<any>, mixed> =
+const Autocomplete2: React.AbstractComponent<PropsT<any>, mixed> =
   React.memo(_Autocomplete2);
 
 export default Autocomplete2;
 
 // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
 export const ArtistAutocomplete:
-  React$AbstractComponent<PropsT<ArtistT>, void> =
+  React.AbstractComponent<PropsT<ArtistT>, void> =
   // $FlowIgnore[unclear-type]
   (Autocomplete2: any);

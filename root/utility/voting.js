@@ -16,7 +16,7 @@ export function isInvolved(
   election: AutoEditorElectionT,
   user: ?UnsanitizedEditorT,
 ): void | boolean {
-  return !!user && (
+  return user != null && (
     election.proposer.id === user.id ||
     election.candidate.id === user.id ||
     (election.seconder_1 && election.seconder_1.id === user.id) ||
@@ -36,7 +36,7 @@ export function canVote(
   election: AutoEditorElectionT,
   user: ?UnsanitizedEditorT,
 ): boolean {
-  return (!!user && election.is_open && isAutoEditor(user) &&
+  return (user != null && election.is_open && isAutoEditor(user) &&
     !isBot(user) && !isInvolved(election, user));
 }
 
@@ -44,7 +44,7 @@ export function canSecond(
   election: AutoEditorElectionT,
   user: ?UnsanitizedEditorT,
 ): boolean {
-  return (!!user && election.is_pending && isAutoEditor(user) &&
+  return (user != null && election.is_pending && isAutoEditor(user) &&
     !isBot(user) && !isInvolved(election, user));
 }
 
@@ -52,14 +52,15 @@ export function canCancel(
   election: AutoEditorElectionT,
   user: ?UnsanitizedEditorT,
 ): boolean {
-  return (!!user && !election.is_closed && election.proposer.id === user.id);
+  return (user != null && !election.is_closed &&
+          election.proposer.id === user.id);
 }
 
 export function canNominate(
   nominator: ?UnsanitizedEditorT,
   nominee: ?UnsanitizedEditorT,
 ): boolean {
-  return (!!nominator && !!nominee && isAutoEditor(nominator) &&
+  return (nominator != null && nominee != null && isAutoEditor(nominator) &&
     !isAutoEditor(nominee) && !nominee.deleted &&
     nominee.has_confirmed_email_address);
 }

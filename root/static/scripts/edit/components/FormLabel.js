@@ -9,7 +9,7 @@
 
 component FormLabel(
   forField?: {+html_name: string, ...},
-  label: React$Node,
+  label: React.Node,
   required?: boolean,
 ) {
   return (

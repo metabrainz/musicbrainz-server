@@ -63,7 +63,7 @@ releaseEditor.findReleaseDuplicates = function () {
     loadingFromRG = true;
     toggleLoadingIndicator(true);
 
-    request({url: url})
+    request({url})
       .always(function () {
         loadingFromRG = false;
         toggleLoadingIndicator(false);

@@ -39,7 +39,7 @@ const countTextPicker: {
 
 component ReportLayout(
   canBeFiltered: boolean,
-  children: React$Node,
+  children: React.Node,
   countText?: string,
   description: Expand2ReactOutput,
   entityType: string,

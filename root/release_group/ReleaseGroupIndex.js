@@ -14,7 +14,7 @@ import PaginatedResults from '../components/PaginatedResults.js';
 import ReleaseCatnoList from '../components/ReleaseCatnoList.js';
 import ReleaseLabelList from '../components/ReleaseLabelList.js';
 import {CatalystContext} from '../context.mjs';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
@@ -74,7 +74,8 @@ function buildReleaseStatusTable(
           <td className={
             releaseGroupCreditId === release.artistCredit.id
               ? null
-              : 'artist-credit-variation'}
+              : 'artist-credit-variation'
+          }
           >
             <ArtistCreditLink artistCredit={release.artistCredit} />
           </td>
@@ -90,10 +91,7 @@ function buildReleaseStatusTable(
           </td>
           <td>
             <ReleaseEvents events={release.events} />
-            {manifest.js(
-              'common/components/ReleaseEvents',
-              {async: 'async'},
-            )}
+            {manifest('common/components/ReleaseEvents', {async: 'async'})}
           </td>
           <td>
             <ReleaseLabelList labels={release.labels} />
@@ -201,8 +199,8 @@ component ReleaseGroupIndex(
         <p>{l('No releases found.')}</p>
       )}
       <Relationships source={releaseGroup} />
-      {manifest.js('release-group/index', {async: 'async'})}
-      {manifest.js('common/components/TaggerIcon', {async: 'async'})}
+      {manifest('release-group/index', {async: 'async'})}
+      {manifest('common/components/TaggerIcon', {async: 'async'})}
     </ReleaseGroupLayout>
   );
 }

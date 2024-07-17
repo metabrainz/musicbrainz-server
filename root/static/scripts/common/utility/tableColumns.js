@@ -17,6 +17,7 @@ import AcoustIdCell from '../components/AcoustIdCell.js';
  * translated header strings to appear in client Jed bundles.
  */
 
+/* eslint-disable-next-line import/prefer-default-export */
 export const acoustIdsColumn:
   ColumnOptions<{+gid?: string, ...}, string> = {
     accessor: x => x.gid ?? '',

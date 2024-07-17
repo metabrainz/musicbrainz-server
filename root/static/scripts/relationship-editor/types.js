@@ -211,13 +211,13 @@ export type ExternalLinkAttrT = {
 
 export type DialogLinkTypeStateT = {
   +autocomplete: AutocompleteStateT<LinkTypeT>,
-  +error: React$Node,
+  +error: React.Node,
 };
 
 export type DialogSourceEntityStateT = $ReadOnly<{
   ...DialogEntityCreditStateT,
   +entityType: RelatableEntityTypeT,
-  +error: React$Node,
+  +error: React.Node,
 }>;
 
 export type TargetTypeOptionT = {
@@ -315,7 +315,7 @@ export type MediumStateTreeT = tree.ImmutableTree<[
   MediumRecordingStateTreeT,
 ]> | null;
 
-export type ReleaseRelationshipEditorStateT = {
+export type ReleaseRelationshipEditorStateT = $ReadOnly<{
   ...$Exact<LazyReleaseStateT>,
   ...$Exact<RelationshipEditorStateT>,
   +editNoteField: FieldT<string>,
@@ -329,7 +329,7 @@ export type ReleaseRelationshipEditorStateT = {
   +selectedWorks: tree.ImmutableTree<WorkT> | null,
   +submissionError: ?string,
   +submissionInProgress: boolean,
-};
+}>;
 
 export type RelationshipSourceGroupsContextT = {
   +existing: RelationshipSourceGroupsT,

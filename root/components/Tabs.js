@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-component Tabs(children: React$Node) {
+component Tabs(children: React.Node) {
   return (
     <div className="tabs">
       <ul className="tabs">

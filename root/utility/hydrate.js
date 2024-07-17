@@ -81,7 +81,7 @@ if (__DEV__) {
                 'the client. If it\'s relevant to a particular *secure* ' +
                 'page, or only relates to the current authorized user, ' +
                 'you may ignore this warning; but please ensure that ' +
-                `it\'s intended (check key ${JSON.stringify(key)}): ` +
+                `it's intended (check key ${JSON.stringify(key)}): ` +
                 JSON.stringify(data),
               );
             }
@@ -99,9 +99,9 @@ export default function hydrate<
   SanitizedConfig = Config,
 >(
   containerSelector: string,
-  Component: React$AbstractComponent<Config | SanitizedConfig>,
+  Component: React.AbstractComponent<Config | SanitizedConfig>,
   mungeProps?: (Config) => SanitizedConfig,
-): React$AbstractComponent<Config, void> {
+): React.AbstractComponent<Config, void> {
   const [containerTag, ...classes] = containerSelector.split('.');
   if (typeof document !== 'undefined') {
     // This should only run on the client.
@@ -147,7 +147,7 @@ export default function hydrate<
   }
   return (props: Config) => {
     invariant(
-      !hasOwnProp(props, '$c'),
+      !Object.hasOwn(props, '$c'),
       '`$c` should be accessed using the React context APIs, not props',
     );
     let sanitizedProps: ?SanitizedConfig;

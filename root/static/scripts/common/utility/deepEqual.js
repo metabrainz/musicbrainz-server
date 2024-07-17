@@ -12,10 +12,6 @@
  */
 /* eslint-disable import/no-commonjs */
 
-const objectPrototype = Object.prototype;
-// $FlowIgnore[method-unbinding]
-const hasOwnProperty = objectPrototype.hasOwnProperty;
-
 function deepEqual(
   a/*: any */,
   b/*: any */,
@@ -73,7 +69,7 @@ function deepEqual(
         const keySet = new Set(aKeys.concat(bKeys));
         for (const key of keySet) {
           if (
-            hasOwnProperty.call(a, key) !== hasOwnProperty.call(b, key) ||
+            Object.hasOwn(a, key) !== Object.hasOwn(b, key) ||
             !deepEqual(a[key], b[key], cmp)
           ) {
             return false;

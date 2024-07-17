@@ -15,7 +15,7 @@ type Props = {
 
 const EventArtDarkened = ({
   event,
-}: Props): React$Element<typeof EventLayout> => {
+}: Props): React.Element<typeof EventLayout> => {
   const title = lp('Cannot add event art', 'plural');
 
   return (

@@ -113,8 +113,8 @@ class GuessCaseInput {
   }
 
   hasMoreWords(): boolean {
-    return (this.wordIndex === 0 && this.getLength() > 0 ||
-            this.wordIndex - 1 < this.getLength());
+    return ((this.wordIndex === 0 && this.getLength() > 0) ||
+            (this.wordIndex - 1 < this.getLength()));
   }
 
   isIndexAtEnd(): boolean {
@@ -179,7 +179,7 @@ class GuessCaseInput {
     const splitwords = [];
     let word: Array<string> = [];
     if (!gc.regexes.SPLITWORDSANDPUNCTUATION) {
-      gc.regexes.SPLITWORDSANDPUNCTUATION = /[^!¿¡\"%&'´`‘’‹›“”„“«»()\[\]\{\}\*\+‐\-,\.\/:;<=>\?\s#]/;
+      gc.regexes.SPLITWORDSANDPUNCTUATION = /[^!¿¡"%&'´`‘’‹›“”„“«»()[\]{}*+‐\-,./:;<=>?\s#]/;
     }
     for (let i = 0; i < chars.length; i++) {
       if (chars[i].match(gc.regexes.SPLITWORDSANDPUNCTUATION)) {

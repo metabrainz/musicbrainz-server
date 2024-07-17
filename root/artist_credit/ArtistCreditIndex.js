@@ -131,7 +131,8 @@ component ArtistCreditIndex(
         $c,
         props,
         'release',
-        l('Releases'), N_ln(
+        l('Releases'),
+        N_ln(
           'See all {num} releases',
           'See all {num} releases',
         ),

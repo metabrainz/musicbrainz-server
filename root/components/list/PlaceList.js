@@ -36,24 +36,24 @@ component PlaceList(
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
-        ? defineCheckboxColumn({mergeForm: mergeForm, name: checkboxes})
+        ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
       const nameColumn = defineNameColumn<PlaceT>({
         descriptive: false, // since area has its own column
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Place'),
       });
       const typeColumn = defineTypeColumn({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         typeContext: 'place_type',
       });
       const addressColumn = defineTextColumn<PlaceT>({
         columnName: 'address',
         getText: entity => entity.address,
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Address'),
       });
       const areaColumn = defineEntityColumn<PlaceT>({

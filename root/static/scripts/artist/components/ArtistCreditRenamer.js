@@ -152,7 +152,7 @@ const ArtistCreditRenamer = ({
   initialSelectedArtistCreditIds,
 }: ArtistCreditRenamerPropsT): React$MixedElement | null => {
   const rowsRef = React.useRef<
-    $ReadOnlyArray<React$Element<typeof ArtistCreditRow>> | null,
+    $ReadOnlyArray<React.Element<typeof ArtistCreditRow>> | null,
   >(null);
 
   const [state, dispatch] = React.useReducer(
@@ -165,7 +165,7 @@ const ArtistCreditRenamer = ({
     // Cache the element list for artists with hundreds of ACs.
     rowsRef.current = artistCredits.map(artistCredit => {
       const id = artistCredit.id;
-      const isChecked = !!initialSelectedArtistCreditIds[id];
+      const isChecked = initialSelectedArtistCreditIds[id] === 1;
       if (isChecked) {
         // This is only safe on first render!
         state.selection.push(artistCredit);
@@ -236,7 +236,8 @@ const ArtistCreditRenamer = ({
       <div
         className={
           'collapsible-body' +
-          ((tooManyRows && !state.expanded) ? ' collapsed' : '')}
+          ((tooManyRows && !state.expanded) ? ' collapsed' : '')
+        }
         key="artist-credits"
         style={MARGIN_1EM}
       >
@@ -318,4 +319,4 @@ const ArtistCreditRenamer = ({
 export default (hydrate<ArtistCreditRenamerPropsT>(
   'div.artist-credit-renamer',
   ArtistCreditRenamer,
-): React$AbstractComponent<ArtistCreditRenamerPropsT, void>);
+): React.AbstractComponent<ArtistCreditRenamerPropsT, void>);

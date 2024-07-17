@@ -47,7 +47,7 @@ const getReleaseLabelKey = (releaseLabel) => (
 
 releaseEditor.edits = {
 
-  releaseGroup: function (release) {
+  releaseGroup(release) {
     var releaseGroup = release.releaseGroup();
     var releaseName = clean(release.name());
     var releaseAC = release.artistCredit();
@@ -81,7 +81,7 @@ releaseEditor.edits = {
     return [];
   },
 
-  release: function (release) {
+  release(release) {
     if (!release.name() && !reduceArtistCredit(release.artistCredit())) {
       return [];
     }
@@ -99,7 +99,7 @@ releaseEditor.edits = {
     return edits;
   },
 
-  annotation: function (release) {
+  annotation(release) {
     var editData = MB.edit.fields.annotation(release);
     var edits = [];
 
@@ -109,7 +109,7 @@ releaseEditor.edits = {
     return edits;
   },
 
-  releaseLabel: function (release) {
+  releaseLabel(release) {
     var newLabels = newReleaseLabels().map(MB.edit.fields.releaseLabel);
     var oldLabels = release.labels.original().slice(0);
 
@@ -209,7 +209,7 @@ releaseEditor.edits = {
     return edits;
   },
 
-  medium: function (release) {
+  medium(release) {
     var edits = [];
 
     /*
@@ -312,6 +312,7 @@ releaseEditor.edits = {
                */
 
               var possibleSwap = newMediums.find(
+                // eslint-disable-next-line no-loop-func
                 function (other) {
                   return other.position() === attempt;
                 },
@@ -349,7 +350,7 @@ releaseEditor.edits = {
     return edits;
   },
 
-  mediumReorder: function (release) {
+  mediumReorder(release) {
     var edits = [];
     var newOrder = [];
     var removedMediums = {};
@@ -401,7 +402,7 @@ releaseEditor.edits = {
     return edits;
   },
 
-  discID: function (release) {
+  discID(release) {
     var edits = [];
 
     for (const medium of release.mediums()) {
@@ -423,7 +424,7 @@ releaseEditor.edits = {
     return edits;
   },
 
-  externalLinks: function (release) {
+  externalLinks(release) {
     var edits = [];
 
     function hasVideo(relationship) {
@@ -620,10 +621,10 @@ function chainEditSubmissions(release, submissions) {
     let submitted = null;
 
     if (edits.length) {
-      submitted = MB.edit.create($.extend({edits: edits}, args));
+      submitted = MB.edit.create($.extend({edits}, args));
     }
 
-    const submissionDone = function (data) {
+    function submissionDone(data) {
       if (data && current.callback) {
         current.callback(
           release,
@@ -634,7 +635,7 @@ function chainEditSubmissions(release, submissions) {
       }
 
       setTimeout(() => nextSubmission(index), 1);
-    };
+    }
 
     $.when(submitted)
       .done(submissionDone)
@@ -670,7 +671,7 @@ releaseEditor.orderedEditSubmissions = [
   {
     edits: releaseEditor.edits.releaseGroup,
 
-    callback: function (release, edits) {
+    callback(release, edits) {
       var edit = edits[0];
 
       /*
@@ -687,7 +688,7 @@ releaseEditor.orderedEditSubmissions = [
   {
     edits: releaseEditor.edits.release,
 
-    callback: function (release, edits) {
+    callback(release, edits) {
       var entity = edits[0].entity;
 
       if (entity) {
@@ -700,7 +701,7 @@ releaseEditor.orderedEditSubmissions = [
   {
     edits: releaseEditor.edits.releaseLabel,
 
-    callback: function (release, edits) {
+    callback(release, edits) {
       release.labels.original(
         newReleaseLabels().map(function (label) {
           const labelId = label.label().id || null;
@@ -723,7 +724,7 @@ releaseEditor.orderedEditSubmissions = [
   {
     edits: releaseEditor.edits.medium,
 
-    callback: function (release, edits) {
+    callback(release, edits) {
       var added = keyBy(
         compactMap(edits, x => x.entity),
         x => String(x.position),
@@ -762,14 +763,16 @@ releaseEditor.orderedEditSubmissions = [
   {
     edits: releaseEditor.edits.discID,
 
-    callback: function (release) {
-      release.mediums().forEach(m => m.toc(null));
+    callback(release) {
+      release.mediums().forEach(m => {
+        m.toc(null);
+      });
     },
   },
   {
     edits: releaseEditor.edits.annotation,
 
-    callback: function (release) {
+    callback(release) {
       release.annotation.original(release.annotation());
     },
   },

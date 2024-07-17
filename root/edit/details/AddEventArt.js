@@ -13,7 +13,7 @@ type Props = {
   +edit: AddEventArtEditT,
 };
 
-const AddEventArt = ({edit}: Props): React$Element<typeof AddArt> => (
+const AddEventArt = ({edit}: Props): React.Element<typeof AddArt> => (
   <AddArt
     archiveName="event"
     edit={edit}

@@ -16,7 +16,7 @@ type PartialDateWithStringsT = {
   +year?: ?StrOrNum,
 };
 
-export const isDateValid = (date: PartialDateWithStringsT): boolean => {
+export function isDateValid(date: PartialDateWithStringsT): boolean {
   let {year: y, month: m, day: d} = date;
 
   y = typeof y === 'number'
@@ -59,13 +59,13 @@ export const isDateValid = (date: PartialDateWithStringsT): boolean => {
 
   // The date is assumed to be valid.
   return true;
-};
+}
 
-export const isYearFourDigits = function (y: string): boolean {
+export function isYearFourDigits(y: string): boolean {
   return (y === null || y === '' || y.length === 4);
-};
+}
 
-export const isDatePeriodValid = function (
+export function isDatePeriodValid(
   a: PartialDateWithStringsT,
   b: PartialDateWithStringsT,
 ): boolean {
@@ -76,21 +76,21 @@ export const isDatePeriodValid = function (
   const {year: y1, month: m1, day: d1} = a;
   const {year: y2, month: m2, day: d2} = b;
 
-  if (empty(y1) || empty(y2) || +y1 < +y2) {
+  if (empty(y1) || empty(y2) || Number(y1) < Number(y2)) {
     return true;
-  } else if (+y2 < +y1) {
+  } else if (Number(y2) < Number(y1)) {
     return false;
   }
-  if (empty(m1) || empty(m2) || +m1 < +m2) {
+  if (empty(m1) || empty(m2) || Number(m1) < Number(m2)) {
     return true;
-  } else if (+m2 < +m1) {
+  } else if (Number(m2) < Number(m1)) {
     return false;
   }
-  if (empty(d1) || empty(d2) || +d1 < +d2) {
+  if (empty(d1) || empty(d2) || Number(d1) < Number(d2)) {
     return true;
-  } else if (+d2 < +d1) {
+  } else if (Number(d2) < Number(d1)) {
     return false;
   }
 
   return true;
-};
+}

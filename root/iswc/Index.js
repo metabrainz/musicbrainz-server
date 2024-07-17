@@ -21,7 +21,7 @@ component Index(
   works: $ReadOnlyArray<WorkT>,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
-  const userExists = !!$c.user;
+  const userExists = $c.user != null;
   const iswc = iswcs[0];
   return (
     <Layout

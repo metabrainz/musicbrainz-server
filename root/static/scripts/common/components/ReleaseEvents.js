@@ -25,7 +25,7 @@ const buildReleaseEventRow = (
   event: ReleaseEventT,
   props: ?BuildRowPropsT,
 ) => {
-  const abbreviated = !!(props?.abbreviated);
+  const abbreviated = props?.abbreviated ?? false;
   const country = event.country;
   const hasDate = !isDateEmpty(event.date);
 
@@ -84,7 +84,7 @@ component ReleaseEvents(
     <CollapsibleList
       ariaLabel={l('Release events')}
       buildRow={buildReleaseEventRow}
-      buildRowProps={{abbreviated: abbreviated}}
+      buildRowProps={{abbreviated}}
       className={'release-events' + (abbreviated ? ' abbreviated' : ' links')}
       rows={events}
       showAllTitle={l('Show all release events')}
@@ -98,4 +98,4 @@ component ReleaseEvents(
 export default (hydrate<React.PropsOf<ReleaseEvents>>(
   'div.release-events-container',
   ReleaseEvents,
-): React$AbstractComponent<React.PropsOf<ReleaseEvents>>);
+): React.AbstractComponent<React.PropsOf<ReleaseEvents>>);

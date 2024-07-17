@@ -63,9 +63,7 @@ recordingAssociation.getReleaseGroupRecordings = function (
 
   utils.search('recording', query, 100, offset)
     .done(function (data) {
-      results.push.apply(
-        results, data.recordings.map(cleanRecordingData),
-      );
+      results.push(...data.recordings.map(cleanRecordingData));
 
       var countSoFar = data.offset + 100;
 
@@ -133,7 +131,7 @@ function cleanRecordingData(data) {
   var clean = utils.cleanWebServiceData(data);
 
   clean.artist = reduceArtistCredit(clean.artistCredit);
-  clean.video = !!data.video;
+  clean.video = Boolean(data.video);
 
   var appearsOn = uniqBy(
     data.releases?.map(function (release) {
@@ -266,10 +264,10 @@ export function watchTrackForChanges(track) {
     return;
   }
 
-  var similarTo = function (prop) {
+  function similarTo(prop) {
     return (utils.similarTrackNames(track.name[prop], name) &&
             utils.similarLengths(track.length[prop], length));
-  };
+  }
 
   if (similarTo('saved')) {
     // The current name/length is similar to the saved name/length.
