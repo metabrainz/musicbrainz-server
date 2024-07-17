@@ -292,16 +292,19 @@ releaseEditor.init = function (options) {
       return false;
     }
 
-    // We don't want line format chars to stop an edit note from being "empty"
-    const editNoteNoLineFormat = editNote.replace(
+    /*
+     * We don't want line format characters and other invisible characters
+     * to stop an edit note from being "empty"
+     */
+    const editNoteNoInvisibleChars = editNote.replace(
       /[\u200b\u00AD\u3164\uFFA0\u115F\u1160\p{Cc}\p{Cf}\p{Mn}]/ug,
       '',
     );
     return self.action === 'add' && (
-      // If it's empty now but not earlier, it was all format characters
-      empty(editNoteNoLineFormat) ||
-      /^[\p{White_Space}\p{Punctuation}]+$/u.test(editNoteNoLineFormat) ||
-      /^\p{ASCII}$/u.test(editNoteNoLineFormat)
+      // If it's empty now but not earlier, it was all invisible characters
+      empty(editNoteNoInvisibleChars) ||
+      /^[\p{White_Space}\p{Punctuation}]+$/u.test(editNoteNoInvisibleChars) ||
+      /^\p{ASCII}$/u.test(editNoteNoInvisibleChars)
     );
   };
 

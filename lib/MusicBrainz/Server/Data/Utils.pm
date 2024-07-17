@@ -71,7 +71,7 @@ our @EXPORT_OK = qw(
     placeholders
     ref_to_type
     remove_equal
-    remove_lineformatting_characters
+    remove_invisible_characters
     sanitize
     take_while
     trim
@@ -440,14 +440,33 @@ sub remove_invalid_characters {
     =~ s/[\N{ZERO WIDTH NO-BREAK SPACE}\x{F0000}-\x{FFFFF}\x{100000}-\x{10FFFF}${noncharacter_pattern}]//gr;
 }
 
+Readonly my @invisible_characters => (
+    '\N{HANGUL FILLER}',
+    '\N{HALFWIDTH HANGUL FILLER}',
+    '\N{HANGUL JUNGSEONG FILLER}',
+    '\N{HANGUL CHOSEONG FILLER}',
+);
+Readonly my $invisible_characters => join '', @invisible_characters;
+Readonly my $invisible_characters_class => qr/[$invisible_characters]/;
+
 # Keep in sync with invalidEditNote in static/scripts/release-editor/init.js
+sub remove_invisible_characters {
+    my $string = shift;
+
+    $string = remove_lineformatting_characters($string);
+
+    $string =~ s/$invisible_characters_class//g;
+
+    return $string;
+}
+
 sub remove_lineformatting_characters {
     shift
     # trim lasting line-formatting characters:
     # - zwsp
     # - shy
     # - Other, control (including TAB \x09, LF \x0A, and CR \x0D)
-    =~ s/[\N{ZERO WIDTH SPACE}\N{SOFT HYPHEN}\N{HANGUL FILLER}\N{HALFWIDTH HANGUL FILLER}\N{HANGUL JUNGSEONG FILLER}\N{HANGUL CHOSEONG FILLER}\p{Cc}]//gr;
+    =~ s/[\N{ZERO WIDTH SPACE}\N{SOFT HYPHEN}\p{Cc}]//gr;
 }
 
 sub type_to_model
