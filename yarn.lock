@@ -4820,14 +4820,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-eslint@npm:0.20.1":
-  version: 0.20.1
-  resolution: "hermes-eslint@npm:0.20.1"
+"hermes-eslint@npm:0.22.0":
+  version: 0.22.0
+  resolution: "hermes-eslint@npm:0.22.0"
   dependencies:
     esrecurse: "npm:^4.3.0"
-    hermes-estree: "npm:0.20.1"
-    hermes-parser: "npm:0.20.1"
-  checksum: 10c0/1ef50be7f7935b8d4713520b15d60b64894c26e12ea99dcaa693e5448d82e9b40c43906d83d0dbba5b35e5e053548e0f8be513e49bb48b4650f4a731970724db
+    hermes-estree: "npm:0.22.0"
+    hermes-parser: "npm:0.22.0"
+  checksum: 10c0/78bbfe8980c39a51ce57505acf79127b9815b7a16d2135edf1f05d113c3d9a8849feea40698d98db62122af6ea8b8b46806f58b17030bcfcc7cb39d654e14f0e
   languageName: node
   linkType: hard
 
@@ -4842,6 +4842,13 @@ __metadata:
   version: 0.20.1
   resolution: "hermes-estree@npm:0.20.1"
   checksum: 10c0/86cfb395970f50fdac09ad9784a86b65c7187d02b5f99f0f0321d936aa9ec52d1e07aef02c21b18b649abdec5f6acc02eb6275edf7d33b4d3d23e3fa0af85c41
+  languageName: node
+  linkType: hard
+
+"hermes-estree@npm:0.22.0":
+  version: 0.22.0
+  resolution: "hermes-estree@npm:0.22.0"
+  checksum: 10c0/4e39ea6b7032568c2d314268e0cbe807b0d004fa397886d8416b1b695bfa477bd4571617b03f24845228e747554491f4bfb13bbb0e289659d7c57ea02273c050
   languageName: node
   linkType: hard
 
@@ -4860,6 +4867,15 @@ __metadata:
   dependencies:
     hermes-estree: "npm:0.20.1"
   checksum: 10c0/b93746028feac7d1dccd54f8b420e8f7d6e0adf9ff0bdbdf9bb1f327198da91ca7f893af62fba99ac9a57bfd5f15dcb90cca40cf4e1a090a6ea8ab2160a02f86
+  languageName: node
+  linkType: hard
+
+"hermes-parser@npm:0.22.0":
+  version: 0.22.0
+  resolution: "hermes-parser@npm:0.22.0"
+  dependencies:
+    hermes-estree: "npm:0.22.0"
+  checksum: 10c0/095fad12ccd21ed151494c61b5b900abde78d89579e34c1748a526eed0f64657bee2cd3f30ae270881092d8f244e3386266b78496b866428b7d215fa13daef1e
   languageName: node
   linkType: hard
 
@@ -6358,7 +6374,7 @@ __metadata:
     gettext-parser: "npm:4.2.0"
     globals: "npm:15.0.0"
     he: "npm:1.2.0"
-    hermes-eslint: "npm:0.20.1"
+    hermes-eslint: "npm:0.22.0"
     http-proxy: "npm:1.18.1"
     imports-loader: "npm:5.0.0"
     jed: "https://github.com/metabrainz/Jed.git#cd3f71b7479b9c587990a0fa27ae9fdafbd9d9d9"
