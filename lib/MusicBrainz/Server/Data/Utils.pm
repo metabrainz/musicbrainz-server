@@ -441,6 +441,7 @@ sub remove_invalid_characters {
 }
 
 Readonly my @invisible_characters => (
+    '\N{BRAILLE PATTERN BLANK}',
     '\N{HANGUL FILLER}',
     '\N{HALFWIDTH HANGUL FILLER}',
     '\N{HANGUL JUNGSEONG FILLER}',

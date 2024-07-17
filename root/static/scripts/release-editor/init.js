@@ -297,7 +297,7 @@ releaseEditor.init = function (options) {
      * to stop an edit note from being "empty"
      */
     const editNoteNoInvisibleChars = editNote.replace(
-      /[\u200b\u00AD\u3164\uFFA0\u115F\u1160\p{Cc}\p{Cf}\p{Mn}]/ug,
+      /[\u200b\u00AD\u3164\uFFA0\u115F\u1160\u2800\p{Cc}\p{Cf}\p{Mn}]/ug,
       '',
     );
     return self.action === 'add' && (
