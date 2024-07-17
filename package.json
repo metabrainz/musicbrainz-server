@@ -80,7 +80,7 @@
     "chrome-remote-interface": "0.33.0",
     "eslint": "8.57.0",
     "eslint-plugin-fb-flow": "0.0.5",
-    "eslint-plugin-ft-flow": "3.0.9",
+    "eslint-plugin-ft-flow": "3.0.11",
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-react": "7.34.3",
     "eslint-plugin-react-hooks": "4.6.0",
