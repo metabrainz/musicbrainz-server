@@ -590,7 +590,7 @@ export default [
         'multiline-multiprop',
       ],
       '@stylistic/jsx/jsx-function-call-newline': ['warn', 'multiline'],
-      '@stylistic/jsx/jsx-indent': ['error', 2],
+      '@stylistic/jsx/jsx-indent': 'off', // deprecated, use /js/indent
       '@stylistic/jsx/jsx-indent-props': ['error', 2],
       '@stylistic/jsx/jsx-max-props-per-line': ['error', {
         maximum: 1,
