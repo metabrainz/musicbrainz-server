@@ -300,7 +300,7 @@ releaseEditor.init = function (options) {
       /[\u200b\u00AD\u3164\uFFA0\u115F\u1160\u2800\p{Cc}\p{Cf}\p{Mn}]/ug,
       '',
     );
-    return self.action === 'add' && (
+    return (
       // If it's empty now but not earlier, it was all invisible characters
       empty(editNoteNoInvisibleChars) ||
       /^[\p{White_Space}\p{Punctuation}]+$/u.test(editNoteNoInvisibleChars) ||
