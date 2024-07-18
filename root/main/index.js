@@ -23,6 +23,7 @@ type BlogEntryT = {
 
 component Homepage(
   blogEntries: $ReadOnlyArray<BlogEntryT> | null,
+  newestEvents: $ReadOnlyArray<EventArtT>,
   newestReleases: $ReadOnlyArray<ReleaseArtT>,
 ) {
   return (
@@ -246,7 +247,7 @@ component Homepage(
         className="feature-column"
         style={{clear: 'both', paddingTop: '1%'}}
       >
-        <h2>{l('Recent additions')}</h2>
+        <h2>{l('Recently added releases')}</h2>
         <div style={{height: '160px', overflow: 'hidden'}}>
           {newestReleases.map((artwork, index) => (
             <ReleaseArtwork
@@ -256,7 +257,58 @@ component Homepage(
           ))}
         </div>
       </div>
+
+      <div
+        className="feature-column"
+        style={{clear: 'both', paddingTop: '1%'}}
+      >
+        <h2>{l('Recently added events')}</h2>
+        <div style={{height: '160px', overflow: 'hidden'}}>
+          {newestEvents.map((artwork, index) => (
+            <EventArtwork
+              artwork={artwork}
+              key={index}
+            />
+          ))}
+        </div>
+      </div>
     </Layout>
+  );
+}
+
+component Artwork(
+  artwork: ArtworkT,
+  description: string,
+  entity: EventT | ReleaseT,
+) {
+  return (
+    <div className="artwork-cont" style={{textAlign: 'center'}}>
+      <div className="artwork">
+        <a
+          href={entityHref(entity)}
+          title={description}
+        >
+          <ArtworkImage
+            artwork={artwork}
+            hover={description}
+          />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+component EventArtwork(artwork: EventArtT) {
+  const event = artwork.event;
+  if (!event) {
+    return null;
+  }
+  return (
+    <Artwork
+      artwork={artwork}
+      description={event.name}
+      entity={event}
+    />
   );
 }
 
@@ -270,19 +322,11 @@ component ReleaseArtwork(artwork: ReleaseArtT) {
     entity: release.name,
   });
   return (
-    <div className="artwork-cont" style={{textAlign: 'center'}}>
-      <div className="artwork">
-        <a
-          href={entityHref(release)}
-          title={releaseDescription}
-        >
-          <ArtworkImage
-            artwork={artwork}
-            hover={releaseDescription}
-          />
-        </a>
-      </div>
-    </div>
+    <Artwork
+      artwork={artwork}
+      description={releaseDescription}
+      entity={release}
+    />
   );
 }
 
