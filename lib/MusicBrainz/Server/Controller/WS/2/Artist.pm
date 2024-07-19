@@ -59,6 +59,13 @@ sub artist_toplevel
     $c->model('ArtistType')->load(@artists);
     $c->model('Gender')->load(@artists);
     $c->model('Area')->load(@artists);
+    $c->model('Area')->load_containment(map { $_->{area} } @artists);
+    $c->model('Relationship')->load_subset(['area'], map { @{ $_->area->containment } } @artists);
+    $c->model('Area')->load_containment(map { $_->{begin_area} } @artists);
+    $c->model('Relationship')->load_subset(['area'], map { $_->{begin_area} } @artists);
+    $c->model('Relationship')->load_subset(['area'], map { @{ $_->begin_area->containment } } @artists);
+    $c->model('Area')->load_containment(map { $_->{end_area} } @artists);
+    #$c->model('Relationship')->load_subset(['area'], map { @{ $_->end_area->containment } } @artists);
     $c->model('Artist')->ipi->load_for(@artists);
     $c->model('Artist')->isni->load_for(@artists);
 
