@@ -654,7 +654,7 @@ test 'Work page filtering' => sub {
     $tx->is(
         'count(//table[@class="tbl"]/tbody/tr)',
         '3',
-        'There are three entries in the work table after filtering by no language',
+        'There are three entries in the work table after filtering by no language set',
     );
 
     $mech->get_ok(
