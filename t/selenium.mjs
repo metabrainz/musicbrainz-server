@@ -768,6 +768,15 @@ async function handleCommand(stest, {command, index, target, value}, t) {
       await element.sendKeys(value);
       break;
 
+    case 'setValue':
+      element = await findElement(target);
+      await driver.executeScript(
+        'window.MB.setInputValueForReact(arguments[0], arguments[1])',
+        element,
+        value,
+      );
+      break;
+
     case 'uncheck':
       await setChecked(findElement(target), false);
       break;
