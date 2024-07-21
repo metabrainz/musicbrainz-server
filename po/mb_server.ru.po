@@ -42,9 +42,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-16 08:18+0000\n"
-"PO-Revision-Date: 2024-07-12 16:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-07-20 17:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -52,8 +52,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -991,7 +991,7 @@ msgstr "Комментарий к правке:"
 #: ../root/layout/components/BottomMenu.js:320
 msgctxt "noun"
 msgid "Edit types"
-msgstr "Виды правок"
+msgstr "Типы правок"
 
 #: ../root/edit/search_macros.tt:434
 msgid "Edited entity"
@@ -1209,7 +1209,7 @@ msgstr[3] "По запросу «{q}» найдено результатов: {n
 #: ../root/components/forms.tt:260 ../root/components/forms.tt:285
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:108
 msgid "French"
-msgstr "Французский"
+msgstr "французский"
 
 #: ../root/cdstub/index.tt:30 ../root/cdstub/CDStubIndex.js:51
 #: ../root/cdtoc/CDTocInfo.js:22
@@ -3039,7 +3039,7 @@ msgstr "Редактор трансклюзий"
 #: ../root/components/forms.tt:261 ../root/components/forms.tt:286
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:109
 msgid "Turkish"
-msgstr "Турецкий"
+msgstr "турецкий"
 
 #: ../root/layout.tt:124 ../root/layout/components/Footer.js:34
 msgid "Twitter"
@@ -7917,11 +7917,9 @@ msgid "Cover art ({num})"
 msgstr "Обложка ({num})"
 
 #: ../root/components/EntityTabs.js:131
-#, fuzzy
-#| msgid "Event ratings"
 msgctxt "plural"
 msgid "Event art"
-msgstr "Оценки событий"
+msgstr "Фото событий"
 
 #: ../root/components/EntityTabs.js:133
 #, fuzzy
@@ -17323,7 +17321,7 @@ msgstr "Оценки лейблов"
 
 #: ../root/user/UserRatingList.js:28
 msgid "Place ratings"
-msgstr ""
+msgstr "Рейтинги к местам"
 
 #: ../root/user/UserRatingList.js:29
 msgid "Recording ratings"
@@ -17331,11 +17329,11 @@ msgstr "Рейтинги Записи"
 
 #: ../root/user/UserRatingList.js:30
 msgid "Release group ratings"
-msgstr ""
+msgstr "Рейтинги к группам релизов"
 
 #: ../root/user/UserRatingList.js:31
 msgid "Work ratings"
-msgstr ""
+msgstr "Рейтинги к работам"
 
 #: ../root/user/UserRatingList.js:66
 msgid "View all ratings"
@@ -17419,7 +17417,7 @@ msgstr "Нет подписок."
 
 #: ../root/user/UserSubscriptions.js:245
 msgid "Private collections"
-msgstr ""
+msgstr "Приватные коллекции"
 
 #: ../root/user/UserSubscriptions.js:259
 msgid "{editor} is also subscribed to {n} other private collection."

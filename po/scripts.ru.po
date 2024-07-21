@@ -14,9 +14,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-12 21:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-07-20 17:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/ru/>\n"
 "Language: ru\n"
@@ -24,9 +24,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.5\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
@@ -36,7 +36,7 @@ msgstr "афака"
 #. frequency:4 iso_code:Arab
 #: DB:script/name:18
 msgid "Arabic"
-msgstr "арабское"
+msgstr "арабский"
 
 #. frequency:3 iso_code:Armn
 #: DB:script/name:35
@@ -391,7 +391,7 @@ msgstr "Кпелле"
 #. frequency:3 iso_code:Laoo
 #: DB:script/name:69
 msgid "Lao"
-msgstr "Лаосский"
+msgstr "лаосский"
 
 #. frequency:4 iso_code:Latn
 #: DB:script/name:28
@@ -451,7 +451,7 @@ msgstr ""
 #. frequency:3 iso_code:Mlym
 #: DB:script/name:62
 msgid "Malayalam"
-msgstr "Малаялам"
+msgstr "малаялам"
 
 #. frequency:1 iso_code:Mand
 #: DB:script/name:16
@@ -481,7 +481,7 @@ msgstr ""
 #. frequency:1 iso_code:Mend
 #: DB:script/name:148
 msgid "Mende"
-msgstr "Менде"
+msgstr "менде"
 
 #. frequency:1 iso_code:Merc
 #: DB:script/name:153
@@ -591,7 +591,7 @@ msgstr ""
 #. frequency:3 iso_code:Orya
 #: DB:script/name:54
 msgid "Oriya"
-msgstr "Ория"
+msgstr "ория"
 
 #. frequency:2 iso_code:Osma
 #: DB:script/name:38
@@ -616,7 +616,7 @@ msgstr ""
 #. frequency:2 iso_code:Phnx
 #: DB:script/name:9
 msgid "Phoenician"
-msgstr "Финикийский"
+msgstr "финикийский"
 
 #. frequency:1 iso_code:Phlp
 #: DB:script/name:122
@@ -671,7 +671,7 @@ msgstr ""
 #. frequency:3 iso_code:Sinh
 #: DB:script/name:63
 msgid "Sinhala"
-msgstr "Сингальский"
+msgstr "сингальский"
 
 #. frequency:1 iso_code:Sora
 #: DB:script/name:137
@@ -681,7 +681,7 @@ msgstr "Сора Сомпенг"
 #. frequency:2 iso_code:Sund
 #: DB:script/name:107
 msgid "Sundanese"
-msgstr "Суданский"
+msgstr "суданский"
 
 #. frequency:2 iso_code:Sylo
 #: DB:script/name:51
@@ -696,7 +696,7 @@ msgstr "Символы"
 #. frequency:2 iso_code:Syrc
 #: DB:script/name:12
 msgid "Syriac"
-msgstr "Сирийский"
+msgstr "сирийский"
 
 #. frequency:1 iso_code:Syrn
 #: DB:script/name:13
@@ -716,7 +716,7 @@ msgstr "Сирийский (западный)"
 #. frequency:2 iso_code:Tglg
 #: DB:script/name:76
 msgid "Tagalog"
-msgstr "Тагальский"
+msgstr "тагальский"
 
 #. frequency:2 iso_code:Tagb
 #: DB:script/name:79
@@ -746,7 +746,7 @@ msgstr "Такри"
 #. frequency:3 iso_code:Taml
 #: DB:script/name:61
 msgid "Tamil"
-msgstr "Тамильский"
+msgstr "тамильский"
 
 #. frequency:1 iso_code:Tang
 #: DB:script/name:140
@@ -756,7 +756,7 @@ msgstr "Тангутский"
 #. frequency:3 iso_code:Telu
 #: DB:script/name:59
 msgid "Telugu"
-msgstr "Телугу"
+msgstr "телугу"
 
 #. frequency:1 iso_code:Teng
 #: DB:script/name:44
@@ -771,7 +771,7 @@ msgstr "Тана"
 #. frequency:4 iso_code:Thai
 #: DB:script/name:65
 msgid "Thai"
-msgstr "Тайский"
+msgstr "тайский"
 
 #. frequency:3 iso_code:Tibt
 #: DB:script/name:55
@@ -791,12 +791,12 @@ msgstr ""
 #. frequency:2 iso_code:Ugar
 #: DB:script/name:3
 msgid "Ugaritic"
-msgstr "Угаритский"
+msgstr "угаритский"
 
 #. frequency:2 iso_code:Vaii
 #: DB:script/name:91
 msgid "Vai"
-msgstr "Ваи"
+msgstr "ваи"
 
 #. frequency:1 iso_code:Visp
 #: DB:script/name:39

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-12 16:42+0000\n"
+"PO-Revision-Date: 2024-07-21 14:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -288,7 +288,7 @@ msgstr "Неизвестный формат"
 
 #: ../root/statistics/Images.js:75
 msgid "Basics"
-msgstr ""
+msgstr "Основная информация"
 
 #: ../root/statistics/Images.js:78
 msgid "No image statistics available."
@@ -298,11 +298,11 @@ msgstr "Статистика по изображениям отсутствуе�
 #: ../root/statistics/Images.js:186 ../root/statistics/Images.js:224
 #: ../root/statistics/Images.js:363
 msgid "Releases with cover art:"
-msgstr ""
+msgstr "Релизы с обложкой:"
 
 #: ../root/statistics/Images.js:99 ../root/statistics/Images.js:328
 msgid "Pieces of cover art:"
-msgstr ""
+msgstr "Части обложки:"
 
 #: ../root/statistics/Images.js:108 ../root/statistics/Images.js:443
 #: ../root/statistics/Images.js:529
@@ -355,15 +355,15 @@ msgstr "Релиз-группы с обложкой:"
 
 #: ../root/statistics/Images.js:276
 msgid "manually selected:"
-msgstr "выбрать вручную:"
+msgstr "выбранной вручную:"
 
 #: ../root/statistics/Images.js:298
 msgid "automatically inferred:"
-msgstr "автоматически выводится:"
+msgstr "выведенной автоматически:"
 
 #: ../root/statistics/Images.js:316 ../root/statistics/stats.js:285
 msgid "Pieces of cover art"
-msgstr ""
+msgstr "Части обложки"
 
 #: ../root/statistics/Images.js:325
 msgid "By cover art type"
@@ -371,31 +371,27 @@ msgstr "По типу"
 
 #: ../root/statistics/Images.js:360
 msgid "Per release"
-msgstr ""
+msgstr "По релизам"
 
 #: ../root/statistics/Images.js:376
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "с {num} частью обложки:"
+msgstr[1] "с {num} частями обложки:"
+msgstr[2] "с {num} частями обложки:"
+msgstr[3] "с {num} частями обложки:"
 
 #: ../root/statistics/Images.js:406
 msgid "with 30 or more pieces of cover art:"
-msgstr "с 30 или более обложками:"
+msgstr "с 30 или более частями обложки:"
 
 #: ../root/statistics/Images.js:433 ../root/statistics/Images.js:482
-#, fuzzy
-#| msgid "No edit statistics available."
 msgid "No event art statistics available."
-msgstr "Статистика редактирования отсутствует."
+msgstr "Статистика по обложкам мероприятий отсутствует."
 
 #: ../root/statistics/Images.js:439
-#, fuzzy
-#| msgid "Event types"
 msgid "By event type"
-msgstr "Типы событий"
+msgstr "По типам событий"
 
 #: ../root/statistics/Images.js:488
 #, fuzzy
@@ -404,10 +400,8 @@ msgid "By event art type"
 msgstr "Типы событий"
 
 #: ../root/statistics/Images.js:525
-#, fuzzy
-#| msgid "{type} events"
 msgid "Per event"
-msgstr "События типа \"{type}\""
+msgstr "По событиям"
 
 #: ../root/statistics/Images.js:543
 msgid "with {num} piece of event art:"
@@ -730,10 +724,8 @@ msgid "Attributes"
 msgstr "Атрибуты"
 
 #: ../root/statistics/Index.js:930
-#, fuzzy
-#| msgid "Event types"
 msgid "Event art"
-msgstr "Типы событий"
+msgstr "Типы фотографий событий"
 
 #: ../root/statistics/Index.js:939
 msgid "With EAA poster art:"
@@ -860,11 +852,9 @@ msgid "who leave edit notes:"
 msgstr "кто оставляет комментарии к правкам:"
 
 #: ../root/statistics/Index.js:1186
-#, fuzzy
-#| msgid "who edit:"
 msgctxt "folksonomy"
 msgid "who use tags:"
-msgstr "кто редактировал:"
+msgstr "кто использовал теги:"
 
 #: ../root/statistics/Index.js:1194
 msgid "who use ratings:"
@@ -1022,12 +1012,12 @@ msgstr "Нет доступной статистики по отношениям
 #: ../root/statistics/Relationships.js:105
 msgctxt "relationships"
 msgid "This type only"
-msgstr ""
+msgstr "Только этого типа"
 
 #: ../root/statistics/Relationships.js:106
 msgctxt "relationships"
 msgid "Including subtypes"
-msgstr ""
+msgstr "Включая подтипы"
 
 #: ../root/statistics/Relationships.js:128
 msgid "{type0}-{type1}"
@@ -1055,25 +1045,19 @@ msgid "Cover art"
 msgstr "Обложка"
 
 #: ../root/statistics/stats.js:22
-#, fuzzy
-#| msgid "Event types"
 msgctxt "plural"
 msgid "Event art"
-msgstr "Типы событий"
+msgstr "Фото событий"
 
 #: ../root/statistics/stats.js:24
-#, fuzzy
-#| msgid "Edit Information"
 msgctxt "noun"
 msgid "Edit information"
-msgstr "Редактировать информацию"
+msgstr "Информация о правках"
 
 #: ../root/statistics/stats.js:25
-#, fuzzy
-#| msgid "Edit Types"
 msgctxt "noun"
 msgid "Edit types"
-msgstr "Править типы"
+msgstr "Типы правок"
 
 #: ../root/statistics/stats.js:26
 msgid "Event types"
@@ -1101,8 +1085,6 @@ msgid "Place types"
 msgstr "Типы места"
 
 #: ../root/statistics/stats.js:33
-#, fuzzy
-#| msgid "Ratings and Tags"
 msgctxt "folksonomy"
 msgid "Ratings and tags"
 msgstr "Рейтинги и теги"
@@ -1213,7 +1195,7 @@ msgstr "Оркестры"
 
 #: ../root/statistics/stats.js:140
 msgid "Artists with type set to Other"
-msgstr ""
+msgstr "Артисты типа \"Другое\""
 
 #: ../root/statistics/stats.js:145
 msgid "Persons"
@@ -1241,15 +1223,15 @@ msgstr "Треки вне альбома"
 
 #: ../root/statistics/stats.js:180
 msgid "Collections with collaborators"
-msgstr ""
+msgstr "Коллекции с соавторами"
 
 #: ../root/statistics/stats.js:185
 msgid "Private collections"
-msgstr ""
+msgstr "Приватные коллекции"
 
 #: ../root/statistics/stats.js:190
 msgid "Public collections"
-msgstr ""
+msgstr "Открытые коллекции"
 
 #: ../root/statistics/stats.js:195
 msgid "Area collections"
@@ -1261,21 +1243,19 @@ msgstr "Коллекции исполнителей"
 
 #: ../root/statistics/stats.js:205
 msgid "Collections of type Attending"
-msgstr ""
+msgstr "Коллекции типа \"Пойду\""
 
 #: ../root/statistics/stats.js:210
 msgid "Collections of type Event"
-msgstr ""
+msgstr "Коллекции типа \"События\""
 
 #: ../root/statistics/stats.js:215
 msgid "Event collections (all types)"
-msgstr ""
+msgstr "Коллекции событий (всех типов)"
 
 #: ../root/statistics/stats.js:220
-#, fuzzy
-#| msgid "Area collections"
 msgid "Genre collections"
-msgstr "Коллекции областей"
+msgstr "Коллекции жанров"
 
 #: ../root/statistics/stats.js:225
 msgid "Instrument collections"
@@ -1287,7 +1267,7 @@ msgstr "Коллекции лейблов"
 
 #: ../root/statistics/stats.js:235
 msgid "Collections of type Maybe attending"
-msgstr ""
+msgstr "Коллекции типа \"Возможно пойду\""
 
 #: ../root/statistics/stats.js:240
 msgid "Collections of type Owned music"
@@ -1303,11 +1283,11 @@ msgstr "Коллекции записей"
 
 #: ../root/statistics/stats.js:255
 msgid "Collections of type Release"
-msgstr ""
+msgstr "Коллекции типа \"Релиз\""
 
 #: ../root/statistics/stats.js:260
 msgid "Release collections (all types)"
-msgstr ""
+msgstr "Коллекции релизов (всех типов)"
 
 #: ../root/statistics/stats.js:265
 msgid "Release group collections"
@@ -1315,11 +1295,11 @@ msgstr "Коллекции групп релизов"
 
 #: ../root/statistics/stats.js:270
 msgid "Series collections"
-msgstr ""
+msgstr "Коллекции серий"
 
 #: ../root/statistics/stats.js:275
 msgid "Collections of type Wishlist"
-msgstr ""
+msgstr "Коллекции типа \"Список желаний\""
 
 #: ../root/statistics/stats.js:280
 msgid "Work collections"
@@ -1339,7 +1319,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:321
 msgid "Edits that have failed dependency checks"
-msgstr ""
+msgstr "Правки с неудачными проверками зависимостей"
 
 #: ../root/statistics/stats.js:326
 msgid "Edits that have failed prerequisite checks"
@@ -1350,8 +1330,6 @@ msgid "Edits that have been voted down"
 msgstr ""
 
 #: ../root/statistics/stats.js:336
-#, fuzzy
-#| msgid "Open Edits"
 msgctxt "noun"
 msgid "Open edits"
 msgstr "Открытые правки"
@@ -1378,7 +1356,7 @@ msgstr "Редакторы (удалённые)"
 
 #: ../root/statistics/stats.js:369
 msgid "Editors who submitted edits in the last week"
-msgstr ""
+msgstr "Редакторы, вносившие правки за последнюю неделю"
 
 #: ../root/statistics/stats.js:375
 msgid "Editors (current)"
@@ -1390,11 +1368,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:386
 msgid "Editors who have registered applications"
-msgstr ""
+msgstr "Редакторы с зарегистрированными коллекциями"
 
 #: ../root/statistics/stats.js:391
 msgid "Editors who use collections"
-msgstr ""
+msgstr "Редакторы, использующие коллекции"
 
 #: ../root/statistics/stats.js:396
 msgid "Editors who have made edits"
@@ -1443,31 +1421,27 @@ msgstr "События с фотографией"
 
 #: ../root/statistics/stats.js:456
 msgid "Events with an EAA poster"
-msgstr ""
+msgstr "События с постером"
 
 #: ../root/statistics/stats.js:461
-#, fuzzy
-#| msgid "Events with EAA event art"
 msgid "Events without an EAA poster"
-msgstr "События с фотографией"
+msgstr "События без постера"
 
 #: ../root/statistics/stats.js:466
 msgid "Events with no type set"
-msgstr ""
+msgstr "События без выбранного типа"
 
 #: ../root/statistics/stats.js:472
-#, fuzzy
-#| msgid "Events with event art"
 msgid "Events with no type set that have event art"
-msgstr "События с фотографиями"
+msgstr "События с фотографиями без установленного типа"
 
 #: ../root/statistics/stats.js:488
 msgid "Instruments with no type set"
-msgstr ""
+msgstr "Инструменты без установленного типа"
 
 #: ../root/statistics/stats.js:498
 msgid "Artist IPIs"
-msgstr ""
+msgstr "IPI-коды исполнителей"
 
 #: ../root/statistics/stats.js:503
 msgid "Label IPIs"
@@ -1475,7 +1449,7 @@ msgstr "Коды IPI"
 
 #: ../root/statistics/stats.js:513
 msgid "Artist ISNIs"
-msgstr ""
+msgstr "ISNI-коды исполнителей"
 
 #: ../root/statistics/stats.js:518
 msgid "Label ISNIs"
@@ -1483,19 +1457,19 @@ msgstr "Коды ISNI"
 
 #: ../root/statistics/stats.js:523
 msgid "ISRCs (unique)"
-msgstr ""
+msgstr "ISRC (уникальные)"
 
 #: ../root/statistics/stats.js:528
 msgid "ISRCs (all uses)"
-msgstr ""
+msgstr "ISRC (все используемые)"
 
 #: ../root/statistics/stats.js:533
 msgid "ISWCs (unique)"
-msgstr ""
+msgstr "ISWC (уникальные)"
 
 #: ../root/statistics/stats.js:538
 msgid "ISWCs (all uses)"
-msgstr ""
+msgstr "ISWC (все используемые)"
 
 #: ../root/statistics/stats.js:548
 msgid "Labels with no country set"
@@ -1503,7 +1477,7 @@ msgstr "Лейблы без выбранной страны"
 
 #: ../root/statistics/stats.js:553
 msgid "Labels with no type set"
-msgstr ""
+msgstr "Лейблы без установленного типа"
 
 #: ../root/statistics/stats.js:568
 msgid "Mediums with no format set"
@@ -1511,7 +1485,7 @@ msgstr "Носители без выбранного формата"
 
 #: ../root/statistics/stats.js:573
 msgid "Mediums with disc IDs"
-msgstr ""
+msgstr "Носители с ID диска"
 
 #: ../root/statistics/stats.js:583
 msgid "Places with no country set"
@@ -1519,27 +1493,27 @@ msgstr "Места без выбранной страны"
 
 #: ../root/statistics/stats.js:588
 msgid "Places with no type set"
-msgstr ""
+msgstr "Места без установленного типа"
 
 #: ../root/statistics/stats.js:593
 msgid "Default (Normal + Unknown) Data Quality"
-msgstr ""
+msgstr "Качество данных по умолчанию (Нормальное + Неизвестное)"
 
 #: ../root/statistics/stats.js:618
 msgid "Entities with ratings"
-msgstr ""
+msgstr "Сущности с рейтингами"
 
 #: ../root/statistics/stats.js:623
 msgid "Artists with ratings"
-msgstr ""
+msgstr "Исполнители с рейтингами"
 
 #: ../root/statistics/stats.js:628
 msgid "Labels with ratings"
-msgstr ""
+msgstr "Лейблы с рейтингами"
 
 #: ../root/statistics/stats.js:633
 msgid "Places with ratings"
-msgstr ""
+msgstr "Места с рейтингами"
 
 #: ../root/statistics/stats.js:638
 msgid "Ratings"
@@ -1555,7 +1529,7 @@ msgstr "Оценки лейблов"
 
 #: ../root/statistics/stats.js:653
 msgid "Place ratings"
-msgstr ""
+msgstr "Рейтинги к местам"
 
 #: ../root/statistics/stats.js:658
 msgid "Recording ratings"
@@ -1563,31 +1537,31 @@ msgstr "Рейтинги Записи"
 
 #: ../root/statistics/stats.js:663
 msgid "Release group ratings"
-msgstr ""
+msgstr "Рейтинги к группам релизов"
 
 #: ../root/statistics/stats.js:668
 msgid "Work ratings"
-msgstr ""
+msgstr "Рейтинги к работам"
 
 #: ../root/statistics/stats.js:673
 msgid "Recordings with ratings"
-msgstr ""
+msgstr "Записи с рейтингами"
 
 #: ../root/statistics/stats.js:678
 msgid "Release groups with ratings"
-msgstr ""
+msgstr "Группы релизов с рейтингами"
 
 #: ../root/statistics/stats.js:683
 msgid "Works with ratings"
-msgstr ""
+msgstr "Работы с рейтингами"
 
 #: ../root/statistics/stats.js:693
 msgid "Recordings with ISRCs"
-msgstr ""
+msgstr "Записи с кодами ISRC"
 
 #: ../root/statistics/stats.js:698
 msgid "Standalone recordings"
-msgstr ""
+msgstr "Отдельные записи"
 
 #: ../root/statistics/stats.js:708
 msgid "Releases with no country set"
@@ -1595,11 +1569,11 @@ msgstr "Релизы без выбранной страны"
 
 #: ../root/statistics/stats.js:713
 msgid "Releases with CAA cover art"
-msgstr "Релизы без обложек"
+msgstr "Релизы без обложек в CAA"
 
 #: ../root/statistics/stats.js:718
 msgid "Releases with no cover art"
-msgstr "Релизы без обложки"
+msgstr "Релизы без обложек"
 
 #: ../root/statistics/stats.js:723
 msgid "Releases with a medium with no format set"
@@ -1619,7 +1593,7 @@ msgstr "Релизы без ID диска"
 
 #: ../root/statistics/stats.js:745
 msgid "Releases with no language set"
-msgstr ""
+msgstr "Релизы без установленного языка"
 
 #: ../root/statistics/stats.js:750
 msgid "Releases not credited to Various Artists"
@@ -1627,7 +1601,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:755
 msgid "Releases with no packaging set"
-msgstr ""
+msgstr "Релизы без установленного типа упаковки"
 
 #: ../root/statistics/stats.js:760
 msgid "Releases with no script set"
@@ -1635,15 +1609,15 @@ msgstr ""
 
 #: ../root/statistics/stats.js:765
 msgid "Releases with no status set"
-msgstr ""
+msgstr "Релизы без установленного статуса"
 
 #: ../root/statistics/stats.js:770
 msgid "Releases with no status set that have cover art"
-msgstr ""
+msgstr "Релизы с обложкой, но без установленного статуса"
 
 #: ../root/statistics/stats.js:776
 msgid "Releases in groups with no type set that have cover art"
-msgstr ""
+msgstr "Релизы в группах с обложкой, но без установленного статуса"
 
 #: ../root/statistics/stats.js:782
 msgid "Releases credited to Various Artists"
@@ -1651,35 +1625,33 @@ msgstr ""
 
 #: ../root/statistics/stats.js:793
 msgid "Release groups with automatically inferred cover art"
-msgstr ""
+msgstr "Группы релизов с обложкой, выделенной автоматически"
 
 #: ../root/statistics/stats.js:799
 msgid "Release groups with user-selected cover art"
-msgstr ""
+msgstr "Группы релизов с обложкой, выбранной пользователем"
 
 #: ../root/statistics/stats.js:804
 msgid "Release groups with no primary type set"
-msgstr ""
+msgstr "Группы релизов без установленного основного типа"
 
 #: ../root/statistics/stats.js:809
 msgid "Release groups with no secondary type set"
-msgstr ""
+msgstr "Группы релизов без установленного дополнительного типа"
 
 #: ../root/statistics/stats.js:819
 msgid "Series with no type set"
-msgstr ""
+msgstr "Серии без установленного типа"
 
 #: ../root/statistics/stats.js:824
 msgctxt "folksonomy"
 msgid "Unique tag names"
-msgstr ""
+msgstr "Уникальные названия тегов"
 
 #: ../root/statistics/stats.js:829
-#, fuzzy
-#| msgid "Votes for/against area tags"
 msgctxt "folksonomy"
 msgid "Votes for/against tags"
-msgstr "Голоса за/против тегов областей"
+msgstr "Голоса за/против тегов"
 
 #: ../root/statistics/stats.js:834
 msgid "Votes for/against area tags"
@@ -1723,7 +1695,7 @@ msgstr "Возражения"
 
 #: ../root/statistics/stats.js:905
 msgid "Approvals"
-msgstr ""
+msgstr "Одобрения"
 
 #: ../root/statistics/stats.js:910
 msgid "No votes"
@@ -1739,7 +1711,7 @@ msgstr "Голоса за неделю"
 
 #: ../root/statistics/stats.js:926
 msgid "Yes votes"
-msgstr ""
+msgstr "Голоса \"да\""
 
 #: ../root/statistics/stats.js:936
 msgid "Works with no attributes"
@@ -1747,15 +1719,15 @@ msgstr "Работы без атрибутов"
 
 #: ../root/statistics/stats.js:941
 msgid "Works with ISWCs"
-msgstr ""
+msgstr "Работы с кодами ISWC"
 
 #: ../root/statistics/stats.js:946
 msgid "Works with no language set"
-msgstr ""
+msgstr "Работы без установленного языка"
 
 #: ../root/statistics/stats.js:951
 msgid "Works with no type set"
-msgstr ""
+msgstr "Работы без установленного типа"
 
 #: ../root/statistics/stats.js:953
 msgid "/day"
@@ -1772,18 +1744,18 @@ msgstr[3] ""
 #: ../root/statistics/stats.js:974
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Носители с {n} ID диска"
+msgstr[1] "Носители с {n} ID диска"
+msgstr[2] "Носители с {n} ID диска"
+msgstr[3] "Носители с {n} ID диска"
 
 #: ../root/statistics/stats.js:985
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Записи с {n} релизом"
+msgstr[1] "Записи с {n} релизами"
+msgstr[2] "Записи с {n} релизами"
+msgstr[3] "Записи с {n} релизами"
 
 #: ../root/statistics/stats.js:996
 msgid "Release Groups with 1 Release"
@@ -1826,18 +1798,16 @@ msgid "{type} events"
 msgstr "События типа \"{type}\""
 
 #: ../root/statistics/stats.js:1114
-#, fuzzy
-#| msgid "Events with event art"
 msgid "Events of type “{type}” with event art"
-msgstr "События с фотографиями"
+msgstr "События типа \"{type}\" с фотографиями"
 
 #: ../root/statistics/stats.js:1127
 msgid "{name} releases"
-msgstr "{name} релиз"
+msgstr "Релизы на носителе \"{name}\""
 
 #: ../root/statistics/stats.js:1133
 msgid "{name} mediums"
-msgstr ""
+msgstr "Носители формата \"{name}\""
 
 #: ../root/statistics/stats.js:1140
 msgid "Releases with a medium of format “{format}” that have cover art"
@@ -1889,7 +1859,7 @@ msgstr "Группы релизов типа \"{type}\""
 
 #: ../root/statistics/stats.js:1280
 msgid "Releases in groups of type “{type}” with cover art"
-msgstr ""
+msgstr "Релизы с обложкой в группах типа \"{type}\""
 
 #: ../root/statistics/stats.js:1304
 msgid "{script} releases"
