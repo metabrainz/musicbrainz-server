@@ -148,6 +148,8 @@ INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, positi
 -- Events
 INSERT INTO event (id, gid, name, type) VALUES (7, 'eb668bdc-a928-49a1-beb7-8e37db2a5b65', 'Cool Festival', 2);
 INSERT INTO event (begin_date_day, begin_date_month, begin_date_year, cancelled, comment, edits_pending, end_date_day, end_date_month, end_date_year, ended, gid, id, last_updated, name, time, type) VALUES (12, 5, 2014, '1', 'A Comment', 0, 13, 5, 2014, '1', '166359d1-5a63-4033-945c-a6707844fb19', 8, '2014-08-01 22:16:44.339332+00', 'Sadly Cancelled Festival', '20:00', 2);
+INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_year, created, end_date_day, end_date_month, end_date_year, ended, id, link_type) VALUES (0, NULL, NULL, NULL, '2011-01-18 15:31:00.495651+00', NULL, NULL, NULL, '0', 52512, 798);
+INSERT INTO l_artist_event (edits_pending, entity0, entity1, id, last_updated, link) VALUES (0, 398598, 8, 201, '2011-01-18 15:31:00.495651+00', 52512);
 
 INSERT INTO event_alias (id, event, name, sort_name) VALUES
     (1, 7, 'El Festival Cool', 'Festival Cool, El'),

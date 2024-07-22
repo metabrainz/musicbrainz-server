@@ -12,9 +12,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-11 16:28+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-07-20 17:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/countries/ru/>\n"
 "Language: ru\n"
@@ -22,9 +22,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.4\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. iso.code:AF
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:1
@@ -274,7 +274,7 @@ msgstr "Колумбия"
 #. iso.code:KM
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:48
 msgid "Comoros"
-msgstr "Коморские Острова"
+msgstr "Коморские острова"
 
 #. iso.code:CG
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:49
@@ -1039,7 +1039,7 @@ msgstr "Сербия и Черногория"
 #. iso.code:SC
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:186
 msgid "Seychelles"
-msgstr "Сейшельские Острова"
+msgstr "Сейшельские острова"
 
 #. iso.code:SL
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:187
@@ -1199,7 +1199,7 @@ msgstr "Туркмения"
 #. iso.code:TC
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:216
 msgid "Turks and Caicos Islands"
-msgstr "Тёркс и Кайкос"
+msgstr "Острова Тёркс и Кайкос"
 
 #. iso.code:TV
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:217
@@ -1239,7 +1239,7 @@ msgstr "Великобритания"
 #. iso.code:US
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:222
 msgid "United States"
-msgstr "США"
+msgstr "Соединенные Штаты"
 
 #. iso.code:UM
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:223

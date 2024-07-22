@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-04 15:42+0000\n"
+"PO-Revision-Date: 2024-07-21 14:42+0000\n"
 "Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -32,1231 +32,13 @@ msgstr ""
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.6.2\n"
 
-#: DB:statistics.statistic_event/title:2015-09-08
-msgid "\"Do Not Cluster\" guideline dropped"
-msgstr "Руководство \"Не группировать\" отброшено"
-
-#: DB:statistics.statistic_event/title:2017-04-11
-msgid "\"feat.\" standardization dropped"
-msgstr "Прекращение стандартизации \"feat.\""
-
-#: DB:statistics.statistic_event/title:2021-04-19
-msgid "1200px thumbnails"
-msgstr "Обложки в 1200 пикселей"
-
-#. title:1200px thumbnails
-#: DB:statistics.statistic_event/description:2021-04-19
-msgid ""
-"1200px thumbnails are added to the Cover Art Archive, providing users with a "
-"very large image with a consistent size that avoids having to use the "
-"original uploads directly."
-msgstr ""
-
-#. title:Discourse unifies community communication
-#: DB:statistics.statistic_event/description:2016-03-01
-msgid ""
-"A Discourse forum platform is added to replace both the old-school forums "
-"and the (by now dead) mailing lists and unify community communication in one "
-"place."
-msgstr ""
-
-#. title:Tag up/downvoting
-#: DB:statistics.statistic_event/description:2015-06-29
-msgid ""
-"A change is introduced that allows voting for and against existing "
-"folksonomy tags, rather than only adding your own."
-msgstr ""
-
-#. title:Picard 2.0 released
-#: DB:statistics.statistic_event/description:2018-07-19
-msgid ""
-"A major update for the Picard tagger is released, with a huge amount of "
-"bugfixes and improvements."
-msgstr ""
-
-#. title:Voting suggestions
-#: DB:statistics.statistic_event/description:2019-11-12
-msgid ""
-"A new \"Voting suggestions\" page is released, containing predefined edit "
-"searches to help editors find interesting and/or important edits to review "
-"and vote on."
-msgstr ""
-
-#. title:Cover Art Uploader
-#: DB:statistics.statistic_event/description:2013-08-05
-msgid ""
-"A new AJAX coverart uploader is released, making it easier to add cover art "
-"to releases."
-msgstr ""
-"Создан новый AJAX-загрузчик обложек, облегчающий их добавление в релизы."
-
-#. title:Edit note notifications
-#: DB:statistics.statistic_event/description:2015-12-28
-msgid ""
-"A new banner message now notifies users whenever they receive a new edit "
-"note."
-msgstr ""
-"Теперь новое всплывающее сообщение уведомляет пользователей, когда они "
-"получают заметку о редактировании."
-
-#. title:Improved search
-#: DB:statistics.statistic_event/description:2003-04-05
-msgid "A new, much faster search mechanism is added."
-msgstr ""
-
-#. title:Great Dispute
-#: DB:statistics.statistic_event/description:2006-08-15
-msgid "A rift in the MusicBrainz community leads to a Great Dispute."
-msgstr ""
-
-#. title:Areas, ISNI codes and multiple release events per release
-#: DB:statistics.statistic_event/description:2013-05-15
-msgid ""
-"A very substantial schema change release adds a new entity type (areas), "
-"support for ISNI codes for artists and labels, and the possibility to have "
-"more than one release event on one release."
-msgstr ""
-
-#. title:Edit search
-#: DB:statistics.statistic_event/description:2003-11-10
-msgid ""
-"A way to search for edits based on several different criteria is released."
-msgstr ""
-
-#. title:The AcousticBrainz project goes live
-#: DB:statistics.statistic_event/description:2014-11-19
-msgid ""
-"AcousticBrainz, which aims to crowd source acoustic information for music, "
-"is announced in cooperation with the Music Technology Group at Universitat "
-"Pompeu Fabra."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2005-04-10
-msgid "Advanced relationships"
-msgstr ""
-
-#. title:Advanced relationships
-#: DB:statistics.statistic_event/description:2005-04-10
-msgid ""
-"Advanced relationships that allow users to connect basic data entities is "
-"relased and unused TRMs pruned from the database. Inline editing is turned "
-"off by default, causing a drop in voting activity."
-msgstr ""
-"Расширенные отношения, которые позволяют пользователям подключать базовые "
-"объекты данных, - это освобожденные и неиспользуемые TRM, отрезанные из базы "
-"данных. Встроенное редактирование отключено по умолчанию, что приводит к "
-"снижению активности голосования."
-
-#. title:MetaBrainz wins copyright troll battle, Wikimedia images dropped
-#: DB:statistics.statistic_event/description:2019-06-25
-msgid ""
-"After a lot of behind-the-scenes drama, MetaBrainz wins a legal battle "
-"against a copyright troll who tried to sue because of the use of Wikimedia "
-"Commons images. Commons images are still dropped from MusicBrainz sites to "
-"avoid further issues until Wikimedia makes changes that make image reuse "
-"more safe."
-msgstr ""
-"После множества закулисных драматических событий MetaBrainz выиграла "
-"судебный процесс против тролля, пытавшегося предъявить иск из-за "
-"использования изображений Викисклада. Изображения оттуда по-прежнему не "
-"используются на сайтах MusicBrainz, чтобы избежать дальнейших проблем, пока "
-"фонд Викимедиа не внесет изменения, которые сделают повторное использование "
-"изображений более безопасным."
-
-#. title:Relationships displayed on release pages
-#: DB:statistics.statistic_event/description:2011-11-23
-msgid ""
-"After a lot of debate, relationship data starts being displayed on release "
-"pages, making it a lot more visible."
-msgstr ""
-"После долгих дебатов данные о взаимоотношениях стали отображаться на "
-"страницах изданий, что сделало их гораздо более заметными."
-
-#. title:Ian McEwen hired
-#: DB:statistics.statistic_event/description:2012-09-01
-msgid ""
-"After a successful Summer of Code, Ian McEwen joins the MusicBrainz team."
-msgstr ""
-"После успешного проведения Summer of Code, Иэн Макьюэн присоединяется к "
-"команде MusicBrainz."
-
-#. title:MetaBrainz projects complete move to European servers
-#: DB:statistics.statistic_event/description:2016-11-08
-msgid ""
-"After many years at Digital West in California, the MetaBrainz project moves "
-"all servers to a much larger dedicated provider in Germany, Hetzner."
-msgstr ""
-
-#. title:BookBrainz becomes official MetaBrainz project
-#: DB:statistics.statistic_event/description:2018-09-10
-msgid ""
-"After several years as a community-driven only project, BookBrainz is "
-"adopted as an official project and given an actual developer position with "
-"the hiring of Monkey."
-msgstr ""
-
-#. title:IRC channels move to Libera.Chat
-#: DB:statistics.statistic_event/description:2021-05-26
-msgid ""
-"After unexpected upheaval on Freenode, MetaBrainz moves all official "
-"channels to Libera.Chat instead."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2005-05-22
-msgid "Album languages"
-msgstr "Языки альбома"
-
-#. title:Album languages
-#: DB:statistics.statistic_event/description:2005-05-22
-msgid ""
-"Album languages, guess case improvements and revamps edit forms released."
-msgstr ""
-
-#. title:Aliases for recordings, releases and release groups
-#: DB:statistics.statistic_event/description:2015-05-19
-msgid ""
-"Aliases are added to the three entity types that were still missing them: "
-"recordings, releases and release groups. This allows storing aliases for, "
-"for example, English names of Asian release groups."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2015-05-19
-msgid "Aliases for recordings, releases and release groups"
-msgstr ""
-
-#. title:Amazon betas SoundUnwound
-#: DB:statistics.statistic_event/description:2008-09-01
-msgid ""
-"Amazon betas <a href=\"http://web.archive.org/web/20210123164029/https://www."
-"wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a> with data from "
-"MusicBrainz."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2008-09-01
-msgid "Amazon betas SoundUnwound"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2004-02-24
-msgid "Amazon cover art"
-msgstr "Обложка Amazon"
-
-#. title:Amazon cover art
-#: DB:statistics.statistic_event/description:2004-02-24
-msgid "Amazon cover art support released."
-msgstr "Добавлена поддержка обложек Amazon."
-
-#. title:Release editor
-#: DB:statistics.statistic_event/description:2006-07-12
-msgid "An improved release editor and a new site design are released."
-msgstr "Добавлен улучшенный редактор и новый дизайн сайта."
-
-#. title:Relationship credits become available
-#: DB:statistics.statistic_event/description:2015-06-02
-msgid ""
-"An update is released that allows specifying a credit for artists in a "
-"relationship, if not the same as the artist name."
-msgstr ""
-
-#. title:Annotations
-#: DB:statistics.statistic_event/description:2004-11-14
-msgid "Annotation support released."
-msgstr "Добавлена поддержка аннотаций."
-
-#: DB:statistics.statistic_event/title:2004-11-14
-msgid "Annotations"
-msgstr "Аннотации"
-
-#: DB:statistics.statistic_event/title:2013-05-15
-msgid "Areas, ISNI codes and multiple release events per release"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2003-06-22
-msgid "Artist subscriptions"
-msgstr "Подписки на исполнителей"
-
-#. title:User improvements
-#: DB:statistics.statistic_event/description:2005-02-13
-msgid ""
-"Artist subscriptions made public and various smaller user centric "
-"improvements are released."
-msgstr ""
-
-#. title:Artist subscriptions
-#: DB:statistics.statistic_event/description:2003-06-22
-msgid "Artist subscriptions."
-msgstr "Подписки на исполнителей."
-
-#. title:"feat." standardization dropped
-#: DB:statistics.statistic_event/description:2017-04-11
-msgid ""
-"As part of a long term move towards more fidelity to the original data, we "
-"stop standardizing \"featuring\" and all its variants to \"feat.\", and ask "
-"editors to use whatever is printed instead."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2008-07-30
-msgid "BBC dynamic artist pages"
-msgstr ""
-
-#. title:BBC dynamic artist pages
-#: DB:statistics.statistic_event/description:2008-07-30
-msgid "BBC launches the dynamic artist pages based on MusicBrainz data."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2007-06-28
-msgid "BBC partners with MetaBrainz"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2018-09-10
-msgid "BookBrainz becomes official MetaBrainz project"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2012-04-30
-msgid "CAA initial release"
-msgstr "Первоначальный релиз CCA"
-
-#: DB:statistics.statistic_event/title:2012-10-10
-msgid "CAA official release"
-msgstr "Официальный релиз CAA"
-
-#: DB:statistics.statistic_event/title:2016-06-20
-msgid "CatQuest becomes Instrument Inserter"
-msgstr ""
-
-#. title:CatQuest becomes Instrument Inserter
-#: DB:statistics.statistic_event/description:2016-06-20
-msgid ""
-"CatQuest officially takes over from reosarevok as the main person for adding "
-"new instruments to MusicBrainz, with the newly created Instrument Inserter "
-"position."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2019-08-08
-msgid "Collaborative collections"
-msgstr "Общие коллекции"
-
-#. title:Collaborative collections
-#: DB:statistics.statistic_event/description:2019-08-08
-msgid ""
-"Collection owners are now able to allow other editors to also add/remove "
-"entities from any of their collections."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2008-11-24
-msgid "Collection, Ratings, CDStubs"
-msgstr ""
-
-#. title:Collection, Ratings, CDStubs
-#: DB:statistics.statistic_event/description:2008-11-24
-msgid "Collection, Ratings, CDStubs, LastUpdate released."
-msgstr ""
-
-#. title:Mergeable collections, artist series and ratable places
-#: DB:statistics.statistic_event/description:2021-05-18
-msgid ""
-"Collections can now be merged, in case an editor wants to consolidate "
-"several of their collections into one. Additionally, it is now possible to "
-"create series of artists, and to rate places (the only entity that could be "
-"reviewed on CritiqueBrainz but not rated on MusicBrainz)."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2013-08-05
-msgid "Cover Art Uploader"
-msgstr "Разместил Обложку"
-
-#: DB:statistics.statistic_event/title:2003-03-29
-msgid "Dedicated database server"
-msgstr "Выделенный сервер базы данных"
-
-#: DB:statistics.statistic_event/title:2016-03-01
-msgid "Discourse unifies community communication"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2003-07-25
-msgid "Easier edit note adding"
-msgstr ""
-
-#. title:Install scripts
-#: DB:statistics.statistic_event/description:2004-05-09
-msgid ""
-"Edit display improvements, turned off RDF dumps, new install scripts "
-"released."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2020-02-18
-msgid "Edit history visible without logging in"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2015-12-28
-msgid "Edit note notifications"
-msgstr "Редактировать уведомления о заметках"
-
-#. title:Easier edit note adding
-#: DB:statistics.statistic_event/description:2003-07-25
-msgid ""
-"Edit notes can now be added when creating an edit, making it much easier for "
-"editors to explain their changes."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2003-11-10
-msgid "Edit search"
-msgstr "Поиск по правкам"
-
-#. title:Track times set from DiscIDs
-#: DB:statistics.statistic_event/description:2007-12-07
-msgid ""
-"Editor ojnkpjg runs a script setting track times from DiscID values, "
-"creating a huge spike in edits."
-msgstr ""
-
-#. title:More auto-edits
-#: DB:statistics.statistic_event/description:2015-11-30
-msgid ""
-"Edits made by editors to their own release additions within 1 hour of adding "
-"them are now auto-edits, as are \"Add recording\" and \"Remove alias\" edits."
-msgstr ""
-"Правки, сделанные редакторами к добавленным ими релизами в течение часа "
-"после их добавления (например, правки типов \"Добавление записи\" и "
-"\"Удаление псевдонима\"), теперь являются автоправками."
-
-#: DB:statistics.statistic_event/title:2003-06-07
-msgid "Email verification"
-msgstr ""
-
-#. title:Empty labels, release groups and works start being auto-removed
-#: DB:statistics.statistic_event/description:2012-06-25
-msgid ""
-"Empty labels, release groups and works are now auto-removed after 24 hours "
-"of being unused, in the same way artists already were before."
-msgstr ""
-"Пустые лейблы, группы релизов и работы теперь удаляются спустя 24 часа их "
-"неиспользования, так же, как и у исполнителей."
-
-#: DB:statistics.statistic_event/title:2012-06-25
-msgid "Empty labels, release groups and works start being auto-removed"
-msgstr "Автоудаление пустых лейблов, групп релизов и работ"
-
-#. title:Event support, data tracks
-#: DB:statistics.statistic_event/description:2014-09-17
-msgid ""
-"Event support is added to MusicBrainz, allowing storing information about "
-"concerts and festivals. Also part of this schema change release is a proper "
-"way to indicate the content of data tracks in release tracklists, and the "
-"extension of tagging to areas, instruments and series."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2014-09-17
-msgid "Event support, data tracks"
-msgstr ""
-
-#. title:Tags, editor subscriptions, relationship batch-adding
-#: DB:statistics.statistic_event/description:2007-10-17
-msgid ""
-"Folksonomy tagging and editor subscriptions are released. Additionally, it's "
-"now possible to batch-add relationships to multiple tracks on a release."
-msgstr ""
-
-#. title:Roman Tsukanov joins the MetaBrainz team
-#: DB:statistics.statistic_event/description:2015-09-04
-msgid ""
-"Former GSoC student Roman Tsukanov begins working for MetaBrainz part-time."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2015-08-06
-msgid "Frederik \"Freso\" S. Olesen becomes MetaBrainz Community Manager"
-msgstr ""
-
-#. title:FreeDB off/Autoeditors
-#: DB:statistics.statistic_event/description:2004-10-10
-msgid ""
-"FreeDB auto import feature turned off and autoeditor elections released. "
-"Unused TRMs pruned from the database."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2004-10-10
-msgid "FreeDB off/Autoeditors"
-msgstr ""
-
-#. title:Frederik "Freso" S. Olesen becomes MetaBrainz Community Manager
-#: DB:statistics.statistic_event/description:2015-08-06
-msgid ""
-"Freso becomes the first MetaBrainz Community Manager, tasked with helping "
-"resolve conflicts in the community and keeping an eye on their needs."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2018-11-02
-msgid "Genre added as a new entity"
-msgstr "Жанр добавлен в качестве нового объекта"
-
-#. title:Genre added as a new entity
-#: DB:statistics.statistic_event/description:2018-11-02
-msgid ""
-"Genres are added as a new entity, although still tightly tied to folksonomy "
-"tags."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2006-08-15
-msgid "Great Dispute"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2015-04-27
-msgid "Guess feat. buttons"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2021-05-26
-msgid "IRC channels move to Libera.Chat"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2012-09-01
-msgid "Ian McEwen hired"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2015-07-17
-msgid "Ian McEwen leaves MetaBrainz"
-msgstr ""
-
-#. title:Ian McEwen leaves MetaBrainz
-#: DB:statistics.statistic_event/description:2015-07-17
-msgid "Ian McEwen leaves the project for personal reasons."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2009-06-17
-msgid "Imported CD Baby catalog as CD Stubs"
-msgstr ""
-
-#. title:Imported CD Baby catalog as CD Stubs
-#: DB:statistics.statistic_event/description:2009-06-17
-msgid ""
-"Imported the metadata from the CD Baby catalog into our CD Stubs collection."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2004-07-24
-msgid "Improve voting"
-msgstr "Улучшить голосование"
-
-#: DB:statistics.statistic_event/title:2003-04-05
-msgid "Improved search"
-msgstr "Улучшенный поиск"
-
-#. title:Voting period shortened to 7 days
-#: DB:statistics.statistic_event/description:2013-02-11
-msgid ""
-"In an effort to reduce the size of the open edit queue and force less "
-"waiting for changes, the length of time edits stay open before expiration is "
-"reduced from 14 to 7 days."
-msgstr ""
-
-#. title:Guess feat. buttons
-#: DB:statistics.statistic_event/description:2015-04-27
-msgid ""
-"In order to make it easier to fix a lot of cases where featured artists are "
-"still part of the track / release titles rather than the artists, guess "
-"feat. buttons are added that greatly simplify the process."
-msgstr ""
-
-#. title:NGS No-Editing Phase
-#: DB:statistics.statistic_event/description:2011-05-12
-msgid "In preparation for NGS, editing is turned off until release."
-msgstr ""
-
-#. title:NGS Reduced Editing Phase
-#: DB:statistics.statistic_event/description:2011-05-02
-msgid ""
-"In preparation for NGS, editors are encouraged to avoid editing until "
-"release unless entirely necessary."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2006-03-05
-msgid "Indexed search/XML WS"
-msgstr ""
-
-#. title:Indexed search/XML WS
-#: DB:statistics.statistic_event/description:2006-03-05
-msgid "Indexes search and a new XML based Web Service are released."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2004-01-17
-msgid "Inline edits"
-msgstr "Встроенные правки"
-
-#. title:Inline edits
-#: DB:statistics.statistic_event/description:2004-01-17
-msgid "Inline edits, new reports, improved data import scripts."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2004-05-09
-msgid "Install scripts"
-msgstr "Установка скриптов"
-
-#: DB:statistics.statistic_event/title:2020-12-31
-msgid "Instrument images, recordings' first release date"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2014-05-14
-msgid "Instruments and series"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2021-02-01
-msgid "Italian translation released, IPI and ISNI become autoedits"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2021-02-23
-msgid "Kartik Ohri joins the MetaBrainz team"
-msgstr ""
-
-#. title:Kartik Ohri joins the MetaBrainz team
-#: DB:statistics.statistic_event/description:2021-02-23
-msgid ""
-"Kartik Ohri joins the MetaBrainz team to work on ListenBrainz, "
-"AcousticBrainz and CritiqueBrainz, plus the Android app, which he had "
-"already significantly rewritten as a volunteer."
-msgstr ""
-
-#. title:Kuno Woudt hired as full-time developer
-#: DB:statistics.statistic_event/description:2009-12-14
-msgid "Kuno Woudt begins working for MusicBrainz full-time."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2009-12-14
-msgid "Kuno Woudt hired as full-time developer"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2007-04-01
-msgid "Labels/data quality"
-msgstr "Лейблы/качество данных"
-
-#: DB:statistics.statistic_event/title:2007-11-07
-msgid "Last.fm"
-msgstr "Last.fm"
-
-#. title:Last.fm
-#: DB:statistics.statistic_event/description:2007-11-07
-msgid "Last.fm signs up with MetaBrainz and starts using MusicBrainz data."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2015-09-28
-msgid "Laurent \"zas\" Monin becomes sysadmin"
-msgstr ""
-
-#. title:Laurent "zas" Monin becomes sysadmin
-#: DB:statistics.statistic_event/description:2015-09-28
-msgid ""
-"Laurent Monin, better known as Zas, joins the team as a dedicated systems "
-"administrator, to make sure the servers run properly and help transition to "
-"a new community discussion system."
-msgstr ""
-
-#. title:Linking
-#: DB:statistics.statistic_event/description:2003-12-28
-msgid ""
-"Link to MusicBrainz feature, release events and edit suggestions released."
-msgstr ""
-
-#. title:MetaBrainz signs first customer
-#: DB:statistics.statistic_event/description:2007-01-20
-msgid "Linkara Musica becomes first commercial customer of MetaBrainz."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2003-12-28
-msgid "Linking"
-msgstr "Связывание"
-
-#. title:MBBE_Bot starts running
-#: DB:statistics.statistic_event/description:2020-10-07
-msgid ""
-"MBBE_Bot is created to make fixes that are too time-consuming to do by hand, "
-"but should still leave a trace in edit history. This usually involves "
-"removing URLs from problematic domains, marking URLs from domains that have "
-"been closed as ended, and other similar batch-editing jobs."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2020-10-07
-msgid "MBBE_Bot starts running"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2005-10-23
-msgid "Menus/Client scripting"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2021-05-18
-msgid "Mergeable collections, artist series and ratable places"
-msgstr ""
-
-#. title:SoC 2008
-#: DB:statistics.statistic_event/description:2008-04-21
-msgid "MetaBrainz accepts three students for Google Summer of Code."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2008-09-23
-msgid "MetaBrainz hires Oliver Charles"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2005-04-19
-msgid "MetaBrainz launched"
-msgstr "MetaBrainz запущен"
-
-#: DB:statistics.statistic_event/title:2016-11-08
-msgid "MetaBrainz projects complete move to European servers"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2007-01-20
-msgid "MetaBrainz signs first customer"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2019-06-25
-msgid "MetaBrainz wins copyright troll battle, Wikimedia images dropped"
-msgstr ""
-
-#. title:MetaWeb signed
-#: DB:statistics.statistic_event/description:2008-04-01
-msgid "MetaWeb becomes a MusicBrainz data user."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2008-04-01
-msgid "MetaWeb signed"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2015-11-30
-msgid "More auto-edits"
-msgstr ""
-
-#. title:Several new auto-edit types and translations
-#: DB:statistics.statistic_event/description:2015-11-16
-msgid ""
-"More edit types are made auto-edits for everyone: \"Add relationship\" and "
-"\"Add release\"; and \"Add\", \"Edit\" and \"Remove release label\". "
-"Additionally, the German, French and Dutch translations are available on the "
-"main server."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2006-02-27
-msgid "MusicBrainz Move"
-msgstr ""
-
-#. title:mb_server now hosted on Git
-#: DB:statistics.statistic_event/description:2010-02-08
-msgid "MusicBrainz Server source code moved to Git from Subversion."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2012-01-12
-msgid "MusicBrainz adds AcoustID support"
-msgstr ""
-
-#. title:Dedicated database server
-#: DB:statistics.statistic_event/description:2003-03-29
-msgid "MusicBrainz gets its first dedicated database server."
-msgstr ""
-
-#. title:New MusicBrainz design
-#: DB:statistics.statistic_event/description:2016-02-22
-msgid ""
-"MusicBrainz itself gets a new design to better match the rest of the *Brainz "
-"family."
-msgstr ""
-
-#. title:MusicBrainz Move
-#: DB:statistics.statistic_event/description:2006-02-27
-msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
-msgstr ""
-
-#. title:MusicIP PUID
-#: DB:statistics.statistic_event/description:2006-03-12
-msgid ""
-"MusicBrainz partners with MusicIP and starts using MusicDNS's PUID acoustic "
-"fingerprints. Picard becomes the official MusicBrainz tagger with PUID "
-"support, which causes edit activity to decrease."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2006-03-12
-msgid "MusicIP PUID"
-msgstr "MusicIP PUID"
-
-#: DB:statistics.statistic_event/title:2011-05-12
-msgid "NGS No-Editing Phase"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2011-05-02
-msgid "NGS Reduced Editing Phase"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2011-05-18
-msgid "NGS Release"
-msgstr ""
-
-#. title:NGS Release
-#: DB:statistics.statistic_event/description:2011-05-18
-msgid "NGS, a MusicBrainz major rewrite, is released!"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2016-02-22
-msgid "New MusicBrainz design"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2017-10-31
-msgid "New entity auto-editing period extended to 24 hours"
-msgstr ""
-
-#. title:reosarevok becomes the MusicBrainz style leader
-#: DB:statistics.statistic_event/description:2012-02-17
-msgid ""
-"Nicolás Tamargo (reosarevok) becomes the MusicBrainz style leader, and a "
-"new, more official style process using Jira is established."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2003-10-13
-msgid "Non album tracks"
-msgstr "Треки вне альбома"
-
-#. title:Non album tracks
-#: DB:statistics.statistic_event/description:2003-10-13
-msgid "Non album tracks are released."
-msgstr "Опубликованные треки вне альбома."
-
-#. title:MetaBrainz hires Oliver Charles
-#: DB:statistics.statistic_event/description:2008-09-23
-msgid "Oliver Charles becomes employee #1 of MetaBrainz Foundation."
-msgstr ""
-
-#. title:Oliver Charles joins MusicBrainz full-time
-#: DB:statistics.statistic_event/description:2010-06-18
-msgid "Oliver Charles begins working for MusicBrainz full-time."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2010-06-18
-msgid "Oliver Charles joins MusicBrainz full-time"
-msgstr ""
-
-#. title:Solr-based search server deployed
-#: DB:statistics.statistic_event/description:2018-06-30
-msgid ""
-"Our old search server gets a significant upgrade with its move to Solr, "
-"including almost-instant index updates."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2013-10-14
-msgid "PUID support is removed"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2021-04-05
-msgid "Pagination added for relationships, user tags"
-msgstr ""
-
-#. title:Pagination added for relationships, user tags
-#: DB:statistics.statistic_event/description:2021-04-05
-msgid ""
-"Pagination was added for two very long lists that sometimes couldn't be "
-"loaded in full because of timeouts: user tags and entity relationships."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2012-06-02
-msgid "Picard 1.0 released"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2018-07-19
-msgid "Picard 2.0 released"
-msgstr ""
-
-#. title:New entity auto-editing period extended to 24 hours
-#: DB:statistics.statistic_event/description:2017-10-31
-msgid ""
-"Rather than having to notice any errors during a fairly brief 1 hour period, "
-"editors now have 24 hours to correct errors in the data they have added "
-"without needing a vote."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2012-10-15
-msgid "Relationship Editor"
-msgstr "Редактор связей"
-
-#: DB:statistics.statistic_event/title:2015-06-02
-msgid "Relationship credits become available"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2011-11-23
-msgid "Relationships displayed on release pages"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2015-04-06
-msgid "Release \"stubs\", minimum voting period for destructive edits"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2009-05-24
-msgid "Release Groups, ISRCs, CDStub searching"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2006-07-12
-#: DB:statistics.statistic_event/title:2003-10-19
-msgid "Release editor"
-msgstr "Редактор публикаций"
-
-#. title:Release editor
-#: DB:statistics.statistic_event/description:2003-10-19
-msgid "Release editor and Guess Case released."
-msgstr ""
-
-#. title:Release Groups, ISRCs, CDStub searching
-#: DB:statistics.statistic_event/description:2009-05-24
-msgid ""
-"Release groups, ISRC support, CDStub searching and search fixes released."
-msgstr ""
-
-#. title:Release "stubs", minimum voting period for destructive edits
-#: DB:statistics.statistic_event/description:2015-04-06
-msgid ""
-"Releases can now be added without any mediums, for cases where the only "
-"information available is, for example, a title + date + label + catalog "
-"number entry in a catalog. Additionally, any destructive edits such as "
-"entity merges and removals no longer close immediately once they get 3 Yes "
-"votes, but they remain open for at least 48 hours to ensure people who "
-"oppose them have time to see them."
-msgstr ""
-
-#. title:Sambhav Kothari and Param Singh replace Roman Tsukanov
-#: DB:statistics.statistic_event/description:2017-09-06
-msgid ""
-"Roman Tsukanov decides not to renew his contract. Sambhav Kothari and Param "
-"Singh are hired as replacements to work on search and Picard and on "
-"ListenBrainz, respectively."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2015-09-04
-msgid "Roman Tsukanov joins the MetaBrainz team"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2006-01-08
-msgid "SG5 Fixes"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2017-09-06
-msgid "Sambhav Kothari and Param Singh replace Roman Tsukanov"
-msgstr ""
-
-#. title:Sambhav Kothari leaves, Nicolás Tamargo joins as a programmer
-#: DB:statistics.statistic_event/description:2018-09-09
-msgid ""
-"Sambhav Kothari leaves MetaBrainz after a lot of hard work getting the SOLR "
-"server ready. Nicolás Tamargo (reosarevok) joins as a programmer part-time "
-"in addition to his style and support positions, to work on MusicBrainz."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2018-09-09
-msgid "Sambhav Kothari leaves, Nicolás Tamargo joins as a programmer"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2006-12-17
-msgid "Search improvements"
-msgstr "Улучшения поиска"
-
-#: DB:statistics.statistic_event/title:2015-11-16
-msgid "Several new auto-edit types and translations"
-msgstr "Несколько новых типов авторедактирования и переводов"
-
-#. title:The MusicBrainz Virtual Machine is replaced by MusicBrainz Docker
-#: DB:statistics.statistic_event/description:2020-05-16
-msgid ""
-"Since the Virtual Machine project tended to just lag way behind current data "
-"because of the time required to always push new versions, it is dropped and "
-"users are suggested to just run their own Docker setup for MusicBrainz "
-"(which the Virtual Machine already did behind the scenes)."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2008-04-21
-msgid "SoC 2008"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2018-06-30
-msgid "Solr-based search server deployed"
-msgstr ""
-
-#. title:Instrument images, recordings' first release date
-#: DB:statistics.statistic_event/description:2020-12-31
-msgid ""
-"Some instrument pages start displaying instrument illustrations by IROM. "
-"Additionally, a first release date starts being calculated and displayed for "
-"recordings based on the releases they appear on."
-msgstr ""
-
-#. title:SG5 Fixes
-#: DB:statistics.statistic_event/description:2006-01-08
-msgid ""
-"Style Guideline 5 workaround introduced and unused TRMs pruned from the "
-"database."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2014-10-17
-msgid "Style process updated again, reosarevok \"promoted\" to Style BDFL"
-msgstr ""
-
-#. title:Labels/data quality
-#: DB:statistics.statistic_event/description:2007-04-01
-msgid "Support for Labels and data quality are released."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2015-06-29
-msgid "Tag up/downvoting"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2007-10-17
-msgid "Tags, editor subscriptions, relationship batch-adding"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2014-11-19
-msgid "The AcousticBrainz project goes live"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2022-02-16
-msgid "The AcousticBrainz project is discontinued"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2011-08-03
-msgid "The Android app goes live"
-msgstr ""
-
-#. title:BBC partners with MetaBrainz
-#: DB:statistics.statistic_event/description:2007-06-28
-msgid ""
-"The BBC becomes a MetaBrainz customer and starts using MusicBrainz data."
-msgstr ""
-
-#. title:CAA initial release
-#: DB:statistics.statistic_event/description:2012-04-30
-msgid "The Cover Art Archive becomes initially available."
-msgstr "Официально запущен Cover Art Archive."
-
-#. title:CAA official release
-#: DB:statistics.statistic_event/description:2012-10-10
-msgid "The Cover Art Archive is officially released."
-msgstr "Официально запущен Cover Art Archive."
-
-#: DB:statistics.statistic_event/title:2014-05-19
-msgid "The CritiqueBrainz project goes live"
-msgstr ""
-
-#. title:Italian translation released, IPI and ISNI become autoedits
-#: DB:statistics.statistic_event/description:2021-02-01
-msgid ""
-"The Italian translation, mostly worked on by salo.rock, is officially "
-"released. Adding the first IPI and/or ISNI code for an entity becomes an "
-"autoedit, unless the same code is already in use for another."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2015-09-17
-msgid "The ListenBrainz project goes live"
-msgstr ""
-
-#. title:MetaBrainz launched
-#: DB:statistics.statistic_event/description:2005-04-19
-msgid ""
-"The MetaBrainz Foundation, the legal home for MusicBrainz is announced to "
-"the public."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2020-05-16
-msgid "The MusicBrainz Virtual Machine is replaced by MusicBrainz Docker"
-msgstr ""
-
-#. title:The ListenBrainz project goes live
-#: DB:statistics.statistic_event/description:2015-09-17
-msgid ""
-"The alpha version of ListenBrainz, an open source and open data alternative "
-"to Last.fm®, goes live."
-msgstr ""
-
-#. title:The CritiqueBrainz project goes live
-#: DB:statistics.statistic_event/description:2014-05-19
-msgid "The beta version of CritiqueBrainz is launched."
-msgstr ""
-
-#. title:PUID support is removed
-#: DB:statistics.statistic_event/description:2013-10-14
-msgid ""
-"The diminishing quality of the PUID fingerprinting service and the continued "
-"availability of an open source alternative in AcoustID leads to the decision "
-"of dropping PUIDs from MusicBrainz and supporting only AcoustID."
-msgstr ""
-
-#. title:Edit history visible without logging in
-#: DB:statistics.statistic_event/description:2020-02-18
-msgid ""
-"The edit history for entities is made visible even when logged out, to make "
-"it easier to understand how each entity has changed (edit notes are kept "
-"hidden to preserve some privacy)."
-msgstr ""
-
-#. title:Picard 1.0 released
-#: DB:statistics.statistic_event/description:2012-06-02
-msgid ""
-"The first full-version release of the Picard tagger comes out, with a lot of "
-"changes and improvements."
-msgstr ""
-
-#. title:The Android app goes live
-#: DB:statistics.statistic_event/description:2011-08-03
-msgid ""
-"The first version of the MusicBrainz Android app, a Google Summer of Code "
-"project by Jamie McDonald, is made officially available."
-msgstr ""
-
-#. title:"Do Not Cluster" guideline dropped
-#: DB:statistics.statistic_event/description:2015-09-08
-msgid ""
-"The increasingly controversial \"Do Not Cluster\" guideline, which forbid "
-"relationship clusters such as linking every Jackson sibling to each other, "
-"is dropped - avoiding duplicate data becomes a task for relationship "
-"designers, not users entering the data."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2015-05-18
-msgid "The new MetaBrainz website goes live"
-msgstr ""
-
-#. title:The new MetaBrainz website goes live
-#: DB:statistics.statistic_event/description:2015-05-18
-msgid ""
-"The new MetaBrainz website, featuring an all-new design and online sign-up "
-"for commercial users, is launched, replacing the one designed in the year "
-"2000!"
-msgstr ""
-
-#. title:MusicBrainz adds AcoustID support
-#: DB:statistics.statistic_event/description:2012-01-12
-msgid ""
-"The open source fingerprinting solution AcoustID (developed by friend of "
-"MusicBrainz Lukáš Lalinský) starts being used alongside PUID on MusicBrainz "
-"fingerprint pages."
-msgstr ""
-
-#. title:Relationship Editor
-#: DB:statistics.statistic_event/description:2012-10-15
-msgid ""
-"The relationship editor, for bulk-editing relationships for a release, is "
-"released to production."
-msgstr ""
-
-#. title:Search improvements
-#: DB:statistics.statistic_event/description:2006-12-17
-msgid "The search features and web service improvements are released."
-msgstr ""
-
-#. title:Style process updated again, reosarevok "promoted" to Style BDFL
-#: DB:statistics.statistic_event/description:2014-10-17
-msgid ""
-"The style process is updated again. Rather than requiring long, often angry "
-"community debate until something is passed by community consensus without a "
-"veto, decisions are taken by a BDFL who consults the community when needed. "
-"Nicolás Tamargo (reosarevok) is \"promoted\" from style leader to style BDFL."
-msgstr ""
-
-#. title:Voting period for contested edits extended
-#: DB:statistics.statistic_event/description:2013-06-24
-msgid ""
-"The voting period for edits that get a No vote is extended to give users "
-"more time to react to the issues."
-msgstr ""
-
-#. title:Menus/Client scripting
-#: DB:statistics.statistic_event/description:2005-10-23
-msgid ""
-"Top menu navigation improved, duplicate artists, album edit all, track time "
-"editing features released."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2007-12-07
-msgid "Track times set from DiscIDs"
-msgstr ""
-
-#. title:Instruments and series
-#: DB:statistics.statistic_event/description:2014-05-14
-msgid ""
-"Two new entity types are added to MusicBrainz: instruments and series. "
-"Series of recordings, releases, release groups and works are supported."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2005-02-13
-msgid "User improvements"
-msgstr ""
-
-#. title:Email verification
-#: DB:statistics.statistic_event/description:2003-06-07
-msgid "Users now have to verify their email address for editing."
-msgstr ""
-
-#. title:Web service version 1 taken down
-#: DB:statistics.statistic_event/description:2019-04-26
-msgid ""
-"Version 1 of the web service (already deprecated since 2011) is finally "
-"taken down for good (more than a year after announcing it would happen in "
-"six months!)."
-msgstr ""
-
-#. title:Improve voting
-#: DB:statistics.statistic_event/description:2004-07-24
-msgid "Voting logic was improved, web based autoeditor elections released."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2013-06-24
-msgid "Voting period for contested edits extended"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2013-02-11
-msgid "Voting period shortened to 7 days"
-msgstr "Период голосования сокращён до 7 дней"
-
-#: DB:statistics.statistic_event/title:2019-11-12
-msgid "Voting suggestions"
-msgstr "Предложения по голосованию"
-
-#: DB:statistics.statistic_event/title:2019-04-26
-msgid "Web service version 1 taken down"
-msgstr ""
-
-#. title:The AcousticBrainz project is discontinued
-#: DB:statistics.statistic_event/description:2022-02-16
-msgid ""
-"With the AcousticBrainz project deemed to not have fulfilled its original "
-"goals, the MetaBrainz Foundation decides to stop work on it, with a view to "
-"shut down the site in 2023."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2014-03-17
-#: ../root/statistics/stats.js:43
-msgid "Work attributes"
-msgstr "Атрибуты работы"
-
-#. title:Work attributes
-#: DB:statistics.statistic_event/description:2014-03-17
-msgid ""
-"Works get their first attributes (such as keys) allowing us to store data "
-"that doesn't make sense as relationships but deserves more than an "
-"annotation entry."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2017-03-13
-msgid "Yvanzo joins MusicBrainz as a developer"
-msgstr ""
-
-#. title:Yvanzo joins MusicBrainz as a developer
-#: DB:statistics.statistic_event/description:2017-03-13
-msgid ""
-"Yvanzo joins the development team as a second dedicated MusicBrainz "
-"developer."
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2010-02-08
-msgid "mb_server now hosted on Git"
-msgstr ""
-
-#: DB:statistics.statistic_event/title:2012-02-17
-msgid "reosarevok becomes the MusicBrainz style leader"
-msgstr ""
-
 #: ../root/statistics/timeline.tt:18
 msgid "Add/remove lines:"
-msgstr "Добавить/ убрать строки:"
+msgstr "Добавить/убрать линии:"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Check boxes above"
-msgstr ""
+msgstr "Нажмите на флажки выше"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Click to deselect"
@@ -1264,7 +46,7 @@ msgstr "Нажмите, чтобы отменить выбор"
 
 #: ../root/statistics/timeline.tt:14
 msgid "Controls"
-msgstr ""
+msgstr "Управление"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:39
 msgid "Countries"
@@ -1282,7 +64,7 @@ msgstr "Статистика базы данных - {title}"
 
 #: ../root/statistics/timeline.tt:16
 msgid "Draw a rectangle on either graph"
-msgstr ""
+msgstr "Нарисуйте прямоугольник на любом графике"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:88
 #: ../root/statistics/Editors.js:100 ../root/statistics/Index.js:1123
@@ -1298,7 +80,7 @@ msgstr "Правки"
 
 #: ../root/statistics/timeline.tt:28
 msgid "Exact values (items vs. day)"
-msgstr ""
+msgstr "Точные значения (элементы к дням)"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/stats.js:27
 msgid "Formats"
@@ -1306,7 +88,7 @@ msgstr "Форматы"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Hover and click on vertical lines"
-msgstr ""
+msgstr "Наведите курсор и нажмите на вертикальные линии"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Images.js:70
 msgid "Images"
@@ -1318,7 +100,7 @@ msgstr "Языки/Написание"
 
 #: ../root/statistics/timeline.tt:2
 msgid "Legend"
-msgstr ""
+msgstr "Легенда"
 
 #: ../root/statistics/timeline.tt:6 ../root/statistics/timeline.tt:19
 msgid "MusicBrainz events"
@@ -1449,7 +231,7 @@ msgstr "Всего применённых правок"
 
 #: ../root/statistics/Editors.js:111
 msgid "Top editors overall"
-msgstr ""
+msgstr "Лучшие редакторы в целом"
 
 #: ../root/statistics/Editors.js:117
 msgid "Voters"
@@ -1473,7 +255,7 @@ msgstr "Всего голосов"
 
 #: ../root/statistics/Editors.js:128
 msgid "Top voters overall"
-msgstr ""
+msgstr "Лучшие голосующие в целом"
 
 #: ../root/statistics/Edits.js:37
 msgid "No edit statistics available."
@@ -1506,7 +288,7 @@ msgstr "Неизвестный формат"
 
 #: ../root/statistics/Images.js:75
 msgid "Basics"
-msgstr ""
+msgstr "Основная информация"
 
 #: ../root/statistics/Images.js:78
 msgid "No image statistics available."
@@ -1516,11 +298,11 @@ msgstr "Статистика по изображениям отсутствуе�
 #: ../root/statistics/Images.js:186 ../root/statistics/Images.js:224
 #: ../root/statistics/Images.js:363
 msgid "Releases with cover art:"
-msgstr ""
+msgstr "Релизы с обложкой:"
 
 #: ../root/statistics/Images.js:99 ../root/statistics/Images.js:328
 msgid "Pieces of cover art:"
-msgstr ""
+msgstr "Части обложки:"
 
 #: ../root/statistics/Images.js:108 ../root/statistics/Images.js:443
 #: ../root/statistics/Images.js:529
@@ -1534,7 +316,7 @@ msgstr ""
 
 #: ../root/statistics/Images.js:139 ../root/statistics/Images.js:319
 msgid "No cover art statistics available."
-msgstr ""
+msgstr "Нет доступной статистики по обложкам."
 
 #: ../root/statistics/Images.js:145
 msgid "By release group type"
@@ -1573,47 +355,43 @@ msgstr "Релиз-группы с обложкой:"
 
 #: ../root/statistics/Images.js:276
 msgid "manually selected:"
-msgstr "выбрать вручную:"
+msgstr "выбранной вручную:"
 
 #: ../root/statistics/Images.js:298
 msgid "automatically inferred:"
-msgstr "автоматически выводится:"
+msgstr "выведенной автоматически:"
 
 #: ../root/statistics/Images.js:316 ../root/statistics/stats.js:285
 msgid "Pieces of cover art"
-msgstr ""
+msgstr "Части обложки"
 
 #: ../root/statistics/Images.js:325
 msgid "By cover art type"
-msgstr ""
+msgstr "По типу"
 
 #: ../root/statistics/Images.js:360
 msgid "Per release"
-msgstr ""
+msgstr "По релизам"
 
 #: ../root/statistics/Images.js:376
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "с {num} частью обложки:"
+msgstr[1] "с {num} частями обложки:"
+msgstr[2] "с {num} частями обложки:"
+msgstr[3] "с {num} частями обложки:"
 
 #: ../root/statistics/Images.js:406
 msgid "with 30 or more pieces of cover art:"
-msgstr "с 30 или более обложками:"
+msgstr "с 30 или более частями обложки:"
 
 #: ../root/statistics/Images.js:433 ../root/statistics/Images.js:482
-#, fuzzy
-#| msgid "No edit statistics available."
 msgid "No event art statistics available."
-msgstr "Статистика редактирования отсутствует."
+msgstr "Статистика по обложкам мероприятий отсутствует."
 
 #: ../root/statistics/Images.js:439
-#, fuzzy
-#| msgid "Event types"
 msgid "By event type"
-msgstr "Типы событий"
+msgstr "По типам событий"
 
 #: ../root/statistics/Images.js:488
 #, fuzzy
@@ -1622,26 +400,20 @@ msgid "By event art type"
 msgstr "Типы событий"
 
 #: ../root/statistics/Images.js:525
-#, fuzzy
-#| msgid "{type} events"
 msgid "Per event"
-msgstr "События типа \"{type}\""
+msgstr "По событиям"
 
 #: ../root/statistics/Images.js:543
-#, fuzzy
-#| msgid "with 30 or more pieces of cover art:"
 msgid "with {num} piece of event art:"
 msgid_plural "with {num} pieces of event art:"
-msgstr[0] "с 30 или более обложками:"
-msgstr[1] "с 30 или более обложками:"
-msgstr[2] "с 30 или более обложками:"
-msgstr[3] "с 30 или более обложками:"
+msgstr[0] "с {num} фотографией:"
+msgstr[1] "с {num} фотографиями:"
+msgstr[2] "с {num} фотографиями:"
+msgstr[3] "с {num} фотографиями:"
 
 #: ../root/statistics/Images.js:573
-#, fuzzy
-#| msgid "with 30 or more pieces of cover art:"
 msgid "with 15 or more pieces of event art:"
-msgstr "с 30 или более обложками:"
+msgstr "с 15 или более фотографиями:"
 
 #: ../root/statistics/Index.js:68
 msgid "Basic metadata"
@@ -1676,6 +448,12 @@ msgstr "URL-адреса"
 msgid "Areas"
 msgstr "Области"
 
+#: ../root/statistics/Index.js:119 ../root/statistics/Index.js:848
+#: ../root/statistics/Index.js:856 ../root/statistics/stats.js:814
+msgctxt "plural"
+msgid "Series"
+msgstr "Серия"
+
 #: ../root/statistics/Index.js:123 ../root/statistics/Index.js:872
 #: ../root/statistics/Index.js:879 ../root/statistics/stats.js:483
 msgid "Instruments"
@@ -1703,9 +481,14 @@ msgstr "Коллекции"
 msgid "CD stubs (all time / current):"
 msgstr ""
 
+#: ../root/statistics/Index.js:163
+msgctxt "folksonomy"
+msgid "Tags (raw / aggregated):"
+msgstr "Теги (сырые / агрегированные):"
+
 #: ../root/statistics/Index.js:169
 msgid "Ratings (raw / aggregated):"
-msgstr ""
+msgstr "Оценки (сырые / агрегированные):"
 
 #: ../root/statistics/Index.js:177
 msgid "Identifiers"
@@ -1713,7 +496,7 @@ msgstr "Идентификаторы"
 
 #: ../root/statistics/Index.js:180 ../root/statistics/stats.js:558
 msgid "MBIDs"
-msgstr ""
+msgstr "MBID"
 
 #: ../root/statistics/Index.js:184
 msgid "ISRCs (all / unique):"
@@ -1890,11 +673,11 @@ msgstr "с 10 или более идентификаторами диска:"
 
 #: ../root/statistics/Index.js:561
 msgid "Mediums with no disc IDs:"
-msgstr ""
+msgstr "Носители без ID диска:"
 
 #: ../root/statistics/Index.js:568
 msgid "Mediums with at least one disc ID:"
-msgstr ""
+msgstr "Носители с хотя бы одним ID диска:"
 
 #: ../root/statistics/Index.js:603
 msgid "Primary types"
@@ -1914,11 +697,16 @@ msgstr "Вторичные типы"
 
 #: ../root/statistics/Index.js:685 ../root/statistics/stats.js:889
 msgid "Videos"
-msgstr ""
+msgstr "Видео"
+
+#: ../root/statistics/Index.js:690
+msgctxt "recording"
+msgid "Standalone"
+msgstr "Отдельные"
 
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
-msgstr ""
+msgstr "С ISRC"
 
 #: ../root/statistics/Index.js:706 ../root/statistics/Index.js:734
 #: ../root/statistics/Index.js:796 ../root/statistics/Index.js:824
@@ -1929,27 +717,23 @@ msgstr "Типы"
 
 #: ../root/statistics/Index.js:756
 msgid "With ISWCs"
-msgstr ""
+msgstr "С ISWC"
 
 #: ../root/statistics/Index.js:766
 msgid "Attributes"
 msgstr "Атрибуты"
 
 #: ../root/statistics/Index.js:930
-#, fuzzy
-#| msgid "Event types"
 msgid "Event art"
-msgstr "Типы событий"
+msgstr "Типы фотографий событий"
 
 #: ../root/statistics/Index.js:939
 msgid "With EAA poster art:"
-msgstr ""
+msgstr "С постером в EAA:"
 
 #: ../root/statistics/Index.js:945
-#, fuzzy
-#| msgid "No front cover art:"
 msgid "No poster art:"
-msgstr "Без обложки:"
+msgstr "Без постера:"
 
 #: ../root/statistics/Index.js:965
 msgid "Of releases"
@@ -2025,11 +809,11 @@ msgstr "Открытые"
 
 #: ../root/statistics/Index.js:1104
 msgid "Private"
-msgstr "Частный"
+msgstr "Частные"
 
 #: ../root/statistics/Index.js:1111
 msgid "With collaborators"
-msgstr ""
+msgstr "С соучастниками"
 
 #: ../root/statistics/Index.js:1119
 msgid "Editors, Edits, and Votes"
@@ -2066,6 +850,11 @@ msgstr "кто голосовал:"
 #: ../root/statistics/Index.js:1178
 msgid "who leave edit notes:"
 msgstr "кто оставляет комментарии к правкам:"
+
+#: ../root/statistics/Index.js:1186
+msgctxt "folksonomy"
+msgid "who use tags:"
+msgstr "кто использовал теги:"
 
 #: ../root/statistics/Index.js:1194
 msgid "who use ratings:"
@@ -2109,7 +898,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1276
 msgid "Failed (dependency):"
-msgstr ""
+msgstr "Неудавшиеся (зависимости):"
 
 #: ../root/statistics/Index.js:1282
 msgid "Failed (prerequisite):"
@@ -2117,7 +906,12 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1288
 msgid "Failed (internal error):"
-msgstr ""
+msgstr "Неудавшиеся (внутренняя ошибка):"
+
+#: ../root/statistics/Index.js:1295
+msgctxt "edit"
+msgid "Cancelled"
+msgstr "Отмененные"
 
 #: ../root/statistics/Index.js:1307 ../root/statistics/Index.js:1363
 msgid "Last 7 days:"
@@ -2132,13 +926,33 @@ msgstr "Вчера:"
 msgid "Votes"
 msgstr "Голоса"
 
+#: ../root/statistics/Index.js:1331
+msgctxt "vote"
+msgid "Approve"
+msgstr "Одобрить"
+
+#: ../root/statistics/Index.js:1338
+msgctxt "vote"
+msgid "Yes"
+msgstr "Да"
+
+#: ../root/statistics/Index.js:1344
+msgctxt "vote"
+msgid "No"
+msgstr "Нет"
+
+#: ../root/statistics/Index.js:1351
+msgctxt "vote"
+msgid "Abstain"
+msgstr "Воздержаться"
+
 #: ../root/statistics/LanguagesScripts.js:43
 msgid "Languages and scripts"
 msgstr "Языки и написания"
 
 #: ../root/statistics/LanguagesScripts.js:49
 msgid "All other available languages and scripts have 0 releases and works."
-msgstr ""
+msgstr "У всех остальных доступных языков и написаний по нулю релизов и работ."
 
 #: ../root/statistics/LanguagesScripts.js:55
 #: ../root/statistics/LanguagesScripts.js:61
@@ -2195,6 +1009,16 @@ msgstr ""
 msgid "No relationship statistics available."
 msgstr "Нет доступной статистики по отношениям."
 
+#: ../root/statistics/Relationships.js:105
+msgctxt "relationships"
+msgid "This type only"
+msgstr "Только этого типа"
+
+#: ../root/statistics/Relationships.js:106
+msgctxt "relationships"
+msgid "Including subtypes"
+msgstr "Включая подтипы"
+
 #: ../root/statistics/Relationships.js:128
 msgid "{type0}-{type1}"
 msgstr "{type0}-{type1}"
@@ -2215,6 +1039,26 @@ msgstr "Страны исполнителей"
 msgid "Artist types and genders"
 msgstr "Типы и гендеры исполнителей"
 
+#: ../root/statistics/stats.js:21
+msgctxt "plural"
+msgid "Cover art"
+msgstr "Обложка"
+
+#: ../root/statistics/stats.js:22
+msgctxt "plural"
+msgid "Event art"
+msgstr "Фото событий"
+
+#: ../root/statistics/stats.js:24
+msgctxt "noun"
+msgid "Edit information"
+msgstr "Информация о правках"
+
+#: ../root/statistics/stats.js:25
+msgctxt "noun"
+msgid "Edit types"
+msgstr "Типы правок"
+
 #: ../root/statistics/stats.js:26
 msgid "Event types"
 msgstr "Типы событий"
@@ -2231,9 +1075,19 @@ msgstr "Страны лейбла"
 msgid "Label types"
 msgstr "Типы лейбла"
 
+#: ../root/statistics/stats.js:31
+msgctxt "stats category"
+msgid "Other"
+msgstr "Другие"
+
 #: ../root/statistics/stats.js:32
 msgid "Place types"
 msgstr "Типы места"
+
+#: ../root/statistics/stats.js:33
+msgctxt "folksonomy"
+msgid "Ratings and tags"
+msgstr "Рейтинги и теги"
 
 #: ../root/statistics/stats.js:35
 msgid "Release countries"
@@ -2266,6 +1120,10 @@ msgstr "Статусы релиза"
 #: ../root/statistics/stats.js:42
 msgid "Series types"
 msgstr "Типы серий"
+
+#: ../root/statistics/stats.js:43
+msgid "Work attributes"
+msgstr "Атрибуты работы"
 
 #: ../root/statistics/stats.js:44
 msgid "Work languages"
@@ -2337,7 +1195,7 @@ msgstr "Оркестры"
 
 #: ../root/statistics/stats.js:140
 msgid "Artists with type set to Other"
-msgstr ""
+msgstr "Артисты типа \"Другое\""
 
 #: ../root/statistics/stats.js:145
 msgid "Persons"
@@ -2365,15 +1223,15 @@ msgstr "Треки вне альбома"
 
 #: ../root/statistics/stats.js:180
 msgid "Collections with collaborators"
-msgstr ""
+msgstr "Коллекции с соавторами"
 
 #: ../root/statistics/stats.js:185
 msgid "Private collections"
-msgstr ""
+msgstr "Приватные коллекции"
 
 #: ../root/statistics/stats.js:190
 msgid "Public collections"
-msgstr ""
+msgstr "Открытые коллекции"
 
 #: ../root/statistics/stats.js:195
 msgid "Area collections"
@@ -2385,21 +1243,19 @@ msgstr "Коллекции исполнителей"
 
 #: ../root/statistics/stats.js:205
 msgid "Collections of type Attending"
-msgstr ""
+msgstr "Коллекции типа \"Пойду\""
 
 #: ../root/statistics/stats.js:210
 msgid "Collections of type Event"
-msgstr ""
+msgstr "Коллекции типа \"События\""
 
 #: ../root/statistics/stats.js:215
 msgid "Event collections (all types)"
-msgstr ""
+msgstr "Коллекции событий (всех типов)"
 
 #: ../root/statistics/stats.js:220
-#, fuzzy
-#| msgid "Area collections"
 msgid "Genre collections"
-msgstr "Коллекции областей"
+msgstr "Коллекции жанров"
 
 #: ../root/statistics/stats.js:225
 msgid "Instrument collections"
@@ -2411,7 +1267,7 @@ msgstr "Коллекции лейблов"
 
 #: ../root/statistics/stats.js:235
 msgid "Collections of type Maybe attending"
-msgstr ""
+msgstr "Коллекции типа \"Возможно пойду\""
 
 #: ../root/statistics/stats.js:240
 msgid "Collections of type Owned music"
@@ -2427,11 +1283,11 @@ msgstr "Коллекции записей"
 
 #: ../root/statistics/stats.js:255
 msgid "Collections of type Release"
-msgstr ""
+msgstr "Коллекции типа \"Релиз\""
 
 #: ../root/statistics/stats.js:260
 msgid "Release collections (all types)"
-msgstr ""
+msgstr "Коллекции релизов (всех типов)"
 
 #: ../root/statistics/stats.js:265
 msgid "Release group collections"
@@ -2439,11 +1295,11 @@ msgstr "Коллекции групп релизов"
 
 #: ../root/statistics/stats.js:270
 msgid "Series collections"
-msgstr ""
+msgstr "Коллекции серий"
 
 #: ../root/statistics/stats.js:275
 msgid "Collections of type Wishlist"
-msgstr ""
+msgstr "Коллекции типа \"Список желаний\""
 
 #: ../root/statistics/stats.js:280
 msgid "Work collections"
@@ -2463,7 +1319,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:321
 msgid "Edits that have failed dependency checks"
-msgstr ""
+msgstr "Правки с неудачными проверками зависимостей"
 
 #: ../root/statistics/stats.js:326
 msgid "Edits that have failed prerequisite checks"
@@ -2472,6 +1328,11 @@ msgstr ""
 #: ../root/statistics/stats.js:331
 msgid "Edits that have been voted down"
 msgstr ""
+
+#: ../root/statistics/stats.js:336
+msgctxt "noun"
+msgid "Open edits"
+msgstr "Открытые правки"
 
 #: ../root/statistics/stats.js:342
 msgid "Edits per day"
@@ -2495,7 +1356,7 @@ msgstr "Редакторы (удалённые)"
 
 #: ../root/statistics/stats.js:369
 msgid "Editors who submitted edits in the last week"
-msgstr ""
+msgstr "Редакторы, вносившие правки за последнюю неделю"
 
 #: ../root/statistics/stats.js:375
 msgid "Editors (current)"
@@ -2507,11 +1368,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:386
 msgid "Editors who have registered applications"
-msgstr ""
+msgstr "Редакторы с зарегистрированными коллекциями"
 
 #: ../root/statistics/stats.js:391
 msgid "Editors who use collections"
-msgstr ""
+msgstr "Редакторы, использующие коллекции"
 
 #: ../root/statistics/stats.js:396
 msgid "Editors who have made edits"
@@ -2527,6 +1388,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:411
 msgid "Editors who use subscriptions"
+msgstr ""
+
+#: ../root/statistics/stats.js:416
+msgctxt "folksonomy"
+msgid "Editors who have added tags"
 msgstr ""
 
 #: ../root/statistics/stats.js:421
@@ -2555,31 +1421,27 @@ msgstr "События с фотографией"
 
 #: ../root/statistics/stats.js:456
 msgid "Events with an EAA poster"
-msgstr ""
+msgstr "События с постером"
 
 #: ../root/statistics/stats.js:461
-#, fuzzy
-#| msgid "Events with EAA event art"
 msgid "Events without an EAA poster"
-msgstr "События с фотографией"
+msgstr "События без постера"
 
 #: ../root/statistics/stats.js:466
 msgid "Events with no type set"
-msgstr ""
+msgstr "События без выбранного типа"
 
 #: ../root/statistics/stats.js:472
-#, fuzzy
-#| msgid "Events with event art"
 msgid "Events with no type set that have event art"
-msgstr "События с фотографиями"
+msgstr "События с фотографиями без установленного типа"
 
 #: ../root/statistics/stats.js:488
 msgid "Instruments with no type set"
-msgstr ""
+msgstr "Инструменты без установленного типа"
 
 #: ../root/statistics/stats.js:498
 msgid "Artist IPIs"
-msgstr ""
+msgstr "IPI-коды исполнителей"
 
 #: ../root/statistics/stats.js:503
 msgid "Label IPIs"
@@ -2587,7 +1449,7 @@ msgstr "Коды IPI"
 
 #: ../root/statistics/stats.js:513
 msgid "Artist ISNIs"
-msgstr ""
+msgstr "ISNI-коды исполнителей"
 
 #: ../root/statistics/stats.js:518
 msgid "Label ISNIs"
@@ -2595,19 +1457,19 @@ msgstr "Коды ISNI"
 
 #: ../root/statistics/stats.js:523
 msgid "ISRCs (unique)"
-msgstr ""
+msgstr "ISRC (уникальные)"
 
 #: ../root/statistics/stats.js:528
 msgid "ISRCs (all uses)"
-msgstr ""
+msgstr "ISRC (все используемые)"
 
 #: ../root/statistics/stats.js:533
 msgid "ISWCs (unique)"
-msgstr ""
+msgstr "ISWC (уникальные)"
 
 #: ../root/statistics/stats.js:538
 msgid "ISWCs (all uses)"
-msgstr ""
+msgstr "ISWC (все используемые)"
 
 #: ../root/statistics/stats.js:548
 msgid "Labels with no country set"
@@ -2615,7 +1477,7 @@ msgstr "Лейблы без выбранной страны"
 
 #: ../root/statistics/stats.js:553
 msgid "Labels with no type set"
-msgstr ""
+msgstr "Лейблы без установленного типа"
 
 #: ../root/statistics/stats.js:568
 msgid "Mediums with no format set"
@@ -2623,7 +1485,7 @@ msgstr "Носители без выбранного формата"
 
 #: ../root/statistics/stats.js:573
 msgid "Mediums with disc IDs"
-msgstr ""
+msgstr "Носители с ID диска"
 
 #: ../root/statistics/stats.js:583
 msgid "Places with no country set"
@@ -2631,27 +1493,27 @@ msgstr "Места без выбранной страны"
 
 #: ../root/statistics/stats.js:588
 msgid "Places with no type set"
-msgstr ""
+msgstr "Места без установленного типа"
 
 #: ../root/statistics/stats.js:593
 msgid "Default (Normal + Unknown) Data Quality"
-msgstr ""
+msgstr "Качество данных по умолчанию (Нормальное + Неизвестное)"
 
 #: ../root/statistics/stats.js:618
 msgid "Entities with ratings"
-msgstr ""
+msgstr "Сущности с рейтингами"
 
 #: ../root/statistics/stats.js:623
 msgid "Artists with ratings"
-msgstr ""
+msgstr "Исполнители с рейтингами"
 
 #: ../root/statistics/stats.js:628
 msgid "Labels with ratings"
-msgstr ""
+msgstr "Лейблы с рейтингами"
 
 #: ../root/statistics/stats.js:633
 msgid "Places with ratings"
-msgstr ""
+msgstr "Места с рейтингами"
 
 #: ../root/statistics/stats.js:638
 msgid "Ratings"
@@ -2667,7 +1529,7 @@ msgstr "Оценки лейблов"
 
 #: ../root/statistics/stats.js:653
 msgid "Place ratings"
-msgstr ""
+msgstr "Рейтинги к местам"
 
 #: ../root/statistics/stats.js:658
 msgid "Recording ratings"
@@ -2675,31 +1537,31 @@ msgstr "Рейтинги Записи"
 
 #: ../root/statistics/stats.js:663
 msgid "Release group ratings"
-msgstr ""
+msgstr "Рейтинги к группам релизов"
 
 #: ../root/statistics/stats.js:668
 msgid "Work ratings"
-msgstr ""
+msgstr "Рейтинги к работам"
 
 #: ../root/statistics/stats.js:673
 msgid "Recordings with ratings"
-msgstr ""
+msgstr "Записи с рейтингами"
 
 #: ../root/statistics/stats.js:678
 msgid "Release groups with ratings"
-msgstr ""
+msgstr "Группы релизов с рейтингами"
 
 #: ../root/statistics/stats.js:683
 msgid "Works with ratings"
-msgstr ""
+msgstr "Работы с рейтингами"
 
 #: ../root/statistics/stats.js:693
 msgid "Recordings with ISRCs"
-msgstr ""
+msgstr "Записи с кодами ISRC"
 
 #: ../root/statistics/stats.js:698
 msgid "Standalone recordings"
-msgstr ""
+msgstr "Отдельные записи"
 
 #: ../root/statistics/stats.js:708
 msgid "Releases with no country set"
@@ -2707,11 +1569,11 @@ msgstr "Релизы без выбранной страны"
 
 #: ../root/statistics/stats.js:713
 msgid "Releases with CAA cover art"
-msgstr "Релизы без обложек"
+msgstr "Релизы без обложек в CAA"
 
 #: ../root/statistics/stats.js:718
 msgid "Releases with no cover art"
-msgstr "Релизы без обложки"
+msgstr "Релизы без обложек"
 
 #: ../root/statistics/stats.js:723
 msgid "Releases with a medium with no format set"
@@ -2731,7 +1593,7 @@ msgstr "Релизы без ID диска"
 
 #: ../root/statistics/stats.js:745
 msgid "Releases with no language set"
-msgstr ""
+msgstr "Релизы без установленного языка"
 
 #: ../root/statistics/stats.js:750
 msgid "Releases not credited to Various Artists"
@@ -2739,7 +1601,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:755
 msgid "Releases with no packaging set"
-msgstr ""
+msgstr "Релизы без установленного типа упаковки"
 
 #: ../root/statistics/stats.js:760
 msgid "Releases with no script set"
@@ -2747,15 +1609,15 @@ msgstr ""
 
 #: ../root/statistics/stats.js:765
 msgid "Releases with no status set"
-msgstr ""
+msgstr "Релизы без установленного статуса"
 
 #: ../root/statistics/stats.js:770
 msgid "Releases with no status set that have cover art"
-msgstr ""
+msgstr "Релизы с обложкой, но без установленного статуса"
 
 #: ../root/statistics/stats.js:776
 msgid "Releases in groups with no type set that have cover art"
-msgstr ""
+msgstr "Релизы в группах с обложкой, но без установленного статуса"
 
 #: ../root/statistics/stats.js:782
 msgid "Releases credited to Various Artists"
@@ -2763,23 +1625,33 @@ msgstr ""
 
 #: ../root/statistics/stats.js:793
 msgid "Release groups with automatically inferred cover art"
-msgstr ""
+msgstr "Группы релизов с обложкой, выделенной автоматически"
 
 #: ../root/statistics/stats.js:799
 msgid "Release groups with user-selected cover art"
-msgstr ""
+msgstr "Группы релизов с обложкой, выбранной пользователем"
 
 #: ../root/statistics/stats.js:804
 msgid "Release groups with no primary type set"
-msgstr ""
+msgstr "Группы релизов без установленного основного типа"
 
 #: ../root/statistics/stats.js:809
 msgid "Release groups with no secondary type set"
-msgstr ""
+msgstr "Группы релизов без установленного дополнительного типа"
 
 #: ../root/statistics/stats.js:819
 msgid "Series with no type set"
-msgstr ""
+msgstr "Серии без установленного типа"
+
+#: ../root/statistics/stats.js:824
+msgctxt "folksonomy"
+msgid "Unique tag names"
+msgstr "Уникальные названия тегов"
+
+#: ../root/statistics/stats.js:829
+msgctxt "folksonomy"
+msgid "Votes for/against tags"
+msgstr "Голоса за/против тегов"
 
 #: ../root/statistics/stats.js:834
 msgid "Votes for/against area tags"
@@ -2823,7 +1695,7 @@ msgstr "Возражения"
 
 #: ../root/statistics/stats.js:905
 msgid "Approvals"
-msgstr ""
+msgstr "Одобрения"
 
 #: ../root/statistics/stats.js:910
 msgid "No votes"
@@ -2839,7 +1711,7 @@ msgstr "Голоса за неделю"
 
 #: ../root/statistics/stats.js:926
 msgid "Yes votes"
-msgstr ""
+msgstr "Голоса \"да\""
 
 #: ../root/statistics/stats.js:936
 msgid "Works with no attributes"
@@ -2847,15 +1719,15 @@ msgstr "Работы без атрибутов"
 
 #: ../root/statistics/stats.js:941
 msgid "Works with ISWCs"
-msgstr ""
+msgstr "Работы с кодами ISWC"
 
 #: ../root/statistics/stats.js:946
 msgid "Works with no language set"
-msgstr ""
+msgstr "Работы без установленного языка"
 
 #: ../root/statistics/stats.js:951
 msgid "Works with no type set"
-msgstr ""
+msgstr "Работы без установленного типа"
 
 #: ../root/statistics/stats.js:953
 msgid "/day"
@@ -2872,18 +1744,18 @@ msgstr[3] ""
 #: ../root/statistics/stats.js:974
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Носители с {n} ID диска"
+msgstr[1] "Носители с {n} ID диска"
+msgstr[2] "Носители с {n} ID диска"
+msgstr[3] "Носители с {n} ID диска"
 
 #: ../root/statistics/stats.js:985
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Записи с {n} релизом"
+msgstr[1] "Записи с {n} релизами"
+msgstr[2] "Записи с {n} релизами"
+msgstr[3] "Записи с {n} релизами"
 
 #: ../root/statistics/stats.js:996
 msgid "Release Groups with 1 Release"
@@ -2926,18 +1798,16 @@ msgid "{type} events"
 msgstr "События типа \"{type}\""
 
 #: ../root/statistics/stats.js:1114
-#, fuzzy
-#| msgid "Events with event art"
 msgid "Events of type “{type}” with event art"
-msgstr "События с фотографиями"
+msgstr "События типа \"{type}\" с фотографиями"
 
 #: ../root/statistics/stats.js:1127
 msgid "{name} releases"
-msgstr "{name} релиз"
+msgstr "Релизы на носителе \"{name}\""
 
 #: ../root/statistics/stats.js:1133
 msgid "{name} mediums"
-msgstr ""
+msgstr "Носители формата \"{name}\""
 
 #: ../root/statistics/stats.js:1140
 msgid "Releases with a medium of format “{format}” that have cover art"
@@ -2989,7 +1859,7 @@ msgstr "Группы релизов типа \"{type}\""
 
 #: ../root/statistics/stats.js:1280
 msgid "Releases in groups of type “{type}” with cover art"
-msgstr ""
+msgstr "Релизы с обложкой в группах типа \"{type}\""
 
 #: ../root/statistics/stats.js:1304
 msgid "{script} releases"
@@ -3019,68 +1889,193 @@ msgstr "Работы типа \"{type}\""
 msgid "See on timeline"
 msgstr "Смотреть на таймлайне"
 
+#~ msgid "\"Do Not Cluster\" guideline dropped"
+#~ msgstr "Руководство \"Не группировать\" отброшено"
+
+#~ msgid "\"feat.\" standardization dropped"
+#~ msgstr "Прекращение стандартизации \"feat.\""
+
+#~ msgid "1200px thumbnails"
+#~ msgstr "Обложки в 1200 пикселей"
+
+#~ msgid ""
+#~ "A new AJAX coverart uploader is released, making it easier to add cover "
+#~ "art to releases."
+#~ msgstr ""
+#~ "Создан новый AJAX-загрузчик обложек, облегчающий их добавление в релизы."
+
+#~ msgid ""
+#~ "A new banner message now notifies users whenever they receive a new edit "
+#~ "note."
+#~ msgstr ""
+#~ "Теперь новое всплывающее сообщение уведомляет пользователей, когда они "
+#~ "получают заметку о редактировании."
+
+#~ msgid ""
+#~ "Advanced relationships that allow users to connect basic data entities is "
+#~ "relased and unused TRMs pruned from the database. Inline editing is "
+#~ "turned off by default, causing a drop in voting activity."
+#~ msgstr ""
+#~ "Расширенные отношения, которые позволяют пользователям подключать базовые "
+#~ "объекты данных, - это освобожденные и неиспользуемые TRM, отрезанные из "
+#~ "базы данных. Встроенное редактирование отключено по умолчанию, что "
+#~ "приводит к снижению активности голосования."
+
+#~ msgid ""
+#~ "After a lot of behind-the-scenes drama, MetaBrainz wins a legal battle "
+#~ "against a copyright troll who tried to sue because of the use of "
+#~ "Wikimedia Commons images. Commons images are still dropped from "
+#~ "MusicBrainz sites to avoid further issues until Wikimedia makes changes "
+#~ "that make image reuse more safe."
+#~ msgstr ""
+#~ "После множества закулисных драматических событий MetaBrainz выиграла "
+#~ "судебный процесс против тролля, пытавшегося предъявить иск из-за "
+#~ "использования изображений Викисклада. Изображения оттуда по-прежнему не "
+#~ "используются на сайтах MusicBrainz, чтобы избежать дальнейших проблем, "
+#~ "пока фонд Викимедиа не внесет изменения, которые сделают повторное "
+#~ "использование изображений более безопасным."
+
+#~ msgid ""
+#~ "After a lot of debate, relationship data starts being displayed on "
+#~ "release pages, making it a lot more visible."
+#~ msgstr ""
+#~ "После долгих дебатов данные о взаимоотношениях стали отображаться на "
+#~ "страницах изданий, что сделало их гораздо более заметными."
+
+#~ msgid ""
+#~ "After a successful Summer of Code, Ian McEwen joins the MusicBrainz team."
+#~ msgstr ""
+#~ "После успешного проведения Summer of Code, Иэн Макьюэн присоединяется к "
+#~ "команде MusicBrainz."
+
+#~ msgid "Album languages"
+#~ msgstr "Языки альбома"
+
+#~ msgid "Amazon cover art"
+#~ msgstr "Обложка Amazon"
+
+#~ msgid "Amazon cover art support released."
+#~ msgstr "Добавлена поддержка обложек Amazon."
+
+#~ msgid "An improved release editor and a new site design are released."
+#~ msgstr "Добавлен улучшенный редактор и новый дизайн сайта."
+
+#~ msgid "Annotation support released."
+#~ msgstr "Добавлена поддержка аннотаций."
+
+#~ msgid "Annotations"
+#~ msgstr "Аннотации"
+
+#~ msgid "Artist subscriptions"
+#~ msgstr "Подписки на исполнителей"
+
+#~ msgid "Artist subscriptions."
+#~ msgstr "Подписки на исполнителей."
+
+#~ msgid "CAA initial release"
+#~ msgstr "Первоначальный релиз CCA"
+
+#~ msgid "CAA official release"
+#~ msgstr "Официальный релиз CAA"
+
+#~ msgid "Collaborative collections"
+#~ msgstr "Общие коллекции"
+
+#~ msgid "Cover Art Uploader"
+#~ msgstr "Разместил Обложку"
+
+#~ msgid "Dedicated database server"
+#~ msgstr "Выделенный сервер базы данных"
+
+#~ msgid "Edit note notifications"
+#~ msgstr "Редактировать уведомления о заметках"
+
+#~ msgid "Edit search"
+#~ msgstr "Поиск по правкам"
+
+#~ msgid ""
+#~ "Edits made by editors to their own release additions within 1 hour of "
+#~ "adding them are now auto-edits, as are \"Add recording\" and \"Remove "
+#~ "alias\" edits."
+#~ msgstr ""
+#~ "Правки, сделанные редакторами к добавленным ими релизами в течение часа "
+#~ "после их добавления (например, правки типов \"Добавление записи\" и "
+#~ "\"Удаление псевдонима\"), теперь являются автоправками."
+
+#~ msgid ""
+#~ "Empty labels, release groups and works are now auto-removed after 24 "
+#~ "hours of being unused, in the same way artists already were before."
+#~ msgstr ""
+#~ "Пустые лейблы, группы релизов и работы теперь удаляются спустя 24 часа их "
+#~ "неиспользования, так же, как и у исполнителей."
+
+#~ msgid "Empty labels, release groups and works start being auto-removed"
+#~ msgstr "Автоудаление пустых лейблов, групп релизов и работ"
+
+#~ msgid "Genre added as a new entity"
+#~ msgstr "Жанр добавлен в качестве нового объекта"
+
+#~ msgid "Improve voting"
+#~ msgstr "Улучшить голосование"
+
+#~ msgid "Improved search"
+#~ msgstr "Улучшенный поиск"
+
+#~ msgid "Inline edits"
+#~ msgstr "Встроенные правки"
+
+#~ msgid "Install scripts"
+#~ msgstr "Установка скриптов"
+
+#~ msgid "Labels/data quality"
+#~ msgstr "Лейблы/качество данных"
+
+#~ msgid "Last.fm"
+#~ msgstr "Last.fm"
+
+#~ msgid "Linking"
+#~ msgstr "Связывание"
+
+#~ msgid "MetaBrainz launched"
+#~ msgstr "MetaBrainz запущен"
+
+#~ msgid "MusicIP PUID"
+#~ msgstr "MusicIP PUID"
+
+#~ msgid "Non album tracks"
+#~ msgstr "Треки вне альбома"
+
+#~ msgid "Non album tracks are released."
+#~ msgstr "Опубликованные треки вне альбома."
+
+#~ msgid "Relationship Editor"
+#~ msgstr "Редактор связей"
+
+#~ msgid "Release editor"
+#~ msgstr "Редактор публикаций"
+
+#~ msgid "Search improvements"
+#~ msgstr "Улучшения поиска"
+
+#~ msgid "Several new auto-edit types and translations"
+#~ msgstr "Несколько новых типов авторедактирования и переводов"
+
+#~ msgid "The Cover Art Archive becomes initially available."
+#~ msgstr "Официально запущен Cover Art Archive."
+
+#~ msgid "The Cover Art Archive is officially released."
+#~ msgstr "Официально запущен Cover Art Archive."
+
+#~ msgid "Voting period shortened to 7 days"
+#~ msgstr "Период голосования сокращён до 7 дней"
+
+#~ msgid "Voting suggestions"
+#~ msgstr "Предложения по голосованию"
+
 #, fuzzy
 #~| msgid "Events with event art"
 #~ msgid "Events with event art:"
 #~ msgstr "События с фотографиями"
-
-#~ msgctxt "plural"
-#~ msgid "Cover art"
-#~ msgstr "Обложка"
-
-#~ msgctxt "plural"
-#~ msgid "Series"
-#~ msgstr "Серия"
-
-#, fuzzy
-#~| msgid "who edit:"
-#~ msgctxt "folksonomy"
-#~ msgid "who use tags:"
-#~ msgstr "кто редактировал:"
-
-#~ msgctxt "vote"
-#~ msgid "Approve"
-#~ msgstr "Одобрить"
-
-#~ msgctxt "vote"
-#~ msgid "Yes"
-#~ msgstr "Да"
-
-#~ msgctxt "vote"
-#~ msgid "No"
-#~ msgstr "Нет"
-
-#~ msgctxt "vote"
-#~ msgid "Abstain"
-#~ msgstr "Воздержаться"
-
-#, fuzzy
-#~| msgid "Edit Information"
-#~ msgctxt "noun"
-#~ msgid "Edit information"
-#~ msgstr "Редактировать информацию"
-
-#, fuzzy
-#~| msgid "Edit Types"
-#~ msgctxt "noun"
-#~ msgid "Edit types"
-#~ msgstr "Править типы"
-
-#~ msgctxt "stats category"
-#~ msgid "Other"
-#~ msgstr "Другие"
-
-#, fuzzy
-#~| msgid "Ratings and Tags"
-#~ msgctxt "folksonomy"
-#~ msgid "Ratings and tags"
-#~ msgstr "Рейтинги и теги"
-
-#, fuzzy
-#~| msgid "Open Edits"
-#~ msgctxt "noun"
-#~ msgid "Open edits"
-#~ msgstr "Открытые правки"
 
 #, fuzzy
 #~| msgid "Cancelled edits"
@@ -3140,9 +2135,6 @@ msgstr "Смотреть на таймлайне"
 
 #~ msgid "Applied:"
 #~ msgstr "Одобренные:"
-
-#~ msgid "Cancelled:"
-#~ msgstr "Отменено:"
 
 #~ msgid "Votes:"
 #~ msgstr "Голоса:"

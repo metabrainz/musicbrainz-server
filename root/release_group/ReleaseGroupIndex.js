@@ -39,6 +39,7 @@ function buildReleaseStatusTable(
   $c: CatalystContextT,
   releaseStatusGroup: $ReadOnlyArray<ReleaseT>,
   releaseGroupCreditId: number | void,
+  showArtworkPresence: boolean,
 ) {
   const status = releaseStatusGroup[0].status;
   return (
@@ -64,7 +65,10 @@ function buildReleaseStatusTable(
               </td>
             ) : null}
           <td>
-            <EntityLink entity={release} showArtworkPresence />
+            <EntityLink
+              entity={release}
+              showArtworkPresence={showArtworkPresence}
+            />
           </td>
           {/* The class being added is for usage with userscripts */}
           <td className={
@@ -114,11 +118,19 @@ component ReleaseGroupIndex(
   numberOfRevisions: number,
   pager: PagerT,
   releaseGroup: ReleaseGroupT,
-  releases: $ReadOnlyArray<$ReadOnlyArray<ReleaseT>>,
+  releases: $ReadOnlyArray< $ReadOnlyArray< ReleaseT >>,
   wikipediaExtract: WikipediaExtractT | null,
 ) {
   const $c = React.useContext(CatalystContext);
-  const firstReleaseGid = releases.length ? releases[0][0].gid : null;
+  const firstReleaseGid = releases.length
+    ? releases[0][0].gid
+    : null;
+  const
+    showArtworkPresence = releases.some(
+      (sub) => sub.some(
+        (res) => res.cover_art_presence === 'present',
+      ),
+    );
 
   return (
     <ReleaseGroupLayout
@@ -173,6 +185,7 @@ component ReleaseGroupIndex(
                     $c,
                     releaseStatusGroup,
                     releaseGroup.artistCredit.id,
+                    showArtworkPresence,
                   ))}
                 </tbody>
               </table>

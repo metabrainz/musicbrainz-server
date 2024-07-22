@@ -3,7 +3,7 @@
   commands: [
     {
       command: 'open',
-      target: '/static/scripts/tests/autocomplete2.html',
+      target: '/static/scripts/tests/fixtures/autocomplete2.html',
       value: '',
     },
     // MBS-12631: Don't show unselectable (disabled) items when typing.

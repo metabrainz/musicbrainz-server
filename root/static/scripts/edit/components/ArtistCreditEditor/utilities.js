@@ -91,7 +91,7 @@ export function hasVariousArtists(
 export function isArtistCreditStateComplete(
   names: $ReadOnlyArray<ArtistCreditNameStateT>,
 ): boolean {
-  return names.every(
+  return names.length > 0 && names.every(
     name => (getArtist(name)?.id) != null,
   );
 }

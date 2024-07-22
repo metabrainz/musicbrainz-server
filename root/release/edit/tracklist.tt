@@ -210,7 +210,7 @@
     </td>
 
     <td class="title">
-      <input type="text" class="track-name" data-bind="value: name, valueUpdate: 'input'" />
+      <input type="text" class="track-name" data-bind="value: inputName, valueUpdate: 'input', css: { modified: nameModified(), preview: previewNameDiffers() }, event: { focus: $root.focusTrackName }" />
     </td>
 
     <td class="artist autocomplete" data-bind="artistCreditEditor: $data">
@@ -221,7 +221,7 @@
     </td>
 
     <td class="icon">
-      <button type="button" class="icon guesscase-title" title="[% l('Guess case track') %]" data-click="guessCaseTrackName"></button>
+      <button type="button" class="icon guesscase-title" title="[% l('Guess case track') %]" data-bind="click: $root.guessCaseTrackName, event: { mouseenter: $root.guessCaseTrackName, mouseleave: $root.guessCaseTrackName }"></button>
       <button type="button" class="icon guessfeat" title="[% l('Guess feat. artists') %]" data-click="guessTrackFeatArtists"></button>
       <!-- ko ifnot: (medium.hasToc() && !isDataTrack()) -->
       <button type="button" class="icon remove-item remove-track" title="[% l('Remove track') %]" data-click="removeTrack"></button>
@@ -316,8 +316,8 @@
           (<a href="[% c.uri_for('/doc/Release/Format') %]" target="_blank">[% l('help') %]</a>)
           <!-- ko if: release.mediums().length > 1 || name() -->
             <label data-bind="attr: { for: 'medium-title-' + uniqueID }">[% l('Medium title:') %]</label>
-            <input type="text" data-bind="value: name, attr: { id: 'medium-title-' + uniqueID }" />
-            <button type="button" class="icon guesscase-title" title="[% l('Guess case medium title') %]" data-click="guessCaseMediumName"></button>
+            <input type="text" data-bind="attr: { id: 'medium-title-' + uniqueID }, value: inputName, valueUpdate: 'input', css: { modified: nameModified(), preview: previewNameDiffers() }, event: { focus: $root.focusMediumName }" />
+            <button type="button" class="icon guesscase-title" title="[% l('Guess case medium title') %]" data-bind="click: $root.guessCaseMediumName, event: { mouseenter: $root.guessCaseMediumName, mouseleave: $root.guessCaseMediumName }"></button>
           <!-- /ko -->
           <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: needsFormat">
             [%~ l('A format is required. If you don’t know it, tick the “I don’t know” checkbox next to the format dropdown.') %]
@@ -524,7 +524,7 @@
           <button type="button" class="open-track-parser" data-click="openTrackParser">[% l('Track parser') %]</button>
           <button type="button" class="reset-track-numbers" data-click="resetTrackNumbers">[%- l('Reset track numbers') -%]</button>
           <button type="button" data-click="swapTitlesWithArtists">[%- l('Swap track titles with artist credits') -%]</button>
-          <button type="button" data-click="guessMediumCase">[%- l('Guess case') -%]</button>
+          <button type="button" data-bind="click: $root.guessMediumCase, event: { mouseenter: $root.guessMediumCase, mouseleave: $root.guessMediumCase }">[%- l('Guess case') -%]</button>
           <button type="button" data-click="guessMediumFeatArtists">[%- l('Guess feat. artists from track titles') -%]</button>
         </div>
 

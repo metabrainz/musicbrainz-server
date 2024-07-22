@@ -55,6 +55,7 @@ has 'latest_change' => (
 my %domain_classes = (
     'attributes' => 'Attributes',
     'countries' => 'Countries',
+    'history' => 'History',
     'instrument_descriptions' => 'InstrumentDescriptions',
     'instruments' => 'Instruments',
     'languages' => 'Languages',

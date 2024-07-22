@@ -14,7 +14,7 @@ digraph url_entity_details {
     ];
 
     // Tables
-    "url" [
+    "musicbrainz.url" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">url</font></td></tr>
@@ -26,7 +26,7 @@ digraph url_entity_details {
             </table>
         >
     ];
-    "url_gid_redirect" [
+    "musicbrainz.url_gid_redirect" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">url_gid_redirect</font></td></tr>
@@ -38,5 +38,5 @@ digraph url_entity_details {
     ];
 
     // References
-    "url_gid_redirect":"new_id" -> "url":"id"
+    "musicbrainz.url_gid_redirect":"new_id" -> "musicbrainz.url":"id"
 }

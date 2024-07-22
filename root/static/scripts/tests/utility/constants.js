@@ -151,6 +151,29 @@ export const genericIswc: IswcT = {
   work_id: 123,
 };
 
+export const genericRecording: RecordingT = {
+  artistCredit: {
+    names: [
+      {
+        artist: genericArtist,
+        joinPhrase: '',
+        name: 'Test Artist',
+      },
+    ],
+  },
+  comment: '',
+  editsPending: false,
+  entityType: 'recording',
+  gid: 'dff82387-d728-4fd9-9e4b-2c292b34949d',
+  id: 123,
+  isrcs: [],
+  last_updated: null,
+  length: 9001,
+  name: 'Test Recording',
+  related_works: [],
+  video: false,
+};
+
 export const genericUrl: UrlT = {
   decoded: 'https://musicbrainz.org',
   editsPending: false,

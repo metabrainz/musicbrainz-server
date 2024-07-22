@@ -127,20 +127,46 @@ const actions = {
     }
   },
 
-  guessCaseAllMedia: function () {
+  focusMediumName: function (medium) {
+    medium.nameModified(false);
+  },
+
+  guessCaseAllMedia: function (data, event) {
     for (const medium of this.mediums.peek()) {
-      releaseEditor.guessCaseMediumName(medium);
+      releaseEditor.guessCaseMediumName(medium, event);
       if (!medium.collapsed.peek()) {
-        releaseEditor.guessCaseTrackNames(medium);
+        releaseEditor.guessCaseTrackNames(medium, event);
       }
     }
   },
 
-  guessCaseMediumName: function (medium) {
-    var name = medium.name.peek();
+  /*
+   * Shows or hides a preview if event.type is 'mouseenter' or 'mouseleave'.
+   * Otherwise, updates the current name.
+   */
+  guessCaseMediumName: function (medium, event) {
+    const name = medium.name.peek();
+    if (!name) {
+      return;
+    }
 
-    if (name) {
-      medium.name(GuessCase.entities.release.guess(name));
+    switch (event.type) {
+      case 'mouseenter':
+        // Don't change the value while the user is dragging to select text.
+        if (event.buttons === 0) {
+          medium.previewName(GuessCase.entities.release.guess(name));
+        }
+        break;
+      case 'mouseleave':
+        medium.previewName(null);
+        break;
+      default:
+        medium.name(
+          medium.previewName() ??
+            GuessCase.entities.release.guess(name),
+        );
+        medium.nameModified(medium.name() !== name);
+        medium.previewName(null);
     }
   },
 
@@ -241,13 +267,40 @@ const actions = {
     medium.toc(null);
   },
 
-  guessCaseTrackName: function (track) {
-    track.name(GuessCase.entities.track.guess(track.name.peek()));
+  focusTrackName: function (track) {
+    track.nameModified(false);
   },
 
-  guessCaseTrackNames: function (medium) {
+  /*
+   * Shows or hides a preview if event.type is 'mouseenter' or 'mouseleave'.
+   * Otherwise, updates the current name.
+   */
+  guessCaseTrackName: function (track, event) {
+    switch (event.type) {
+      case 'mouseenter':
+        // Don't change the value while the user is dragging to select text.
+        if (event.buttons === 0) {
+          track.previewName(
+            GuessCase.entities.track.guess(track.name.peek()),
+          );
+        }
+        break;
+      case 'mouseleave':
+        track.previewName(null);
+        break;
+      default:
+        const origName = track.name.peek();
+        track.name(
+          track.previewName() ?? GuessCase.entities.track.guess(origName),
+        );
+        track.nameModified(track.name() !== origName);
+        track.previewName(null);
+    }
+  },
+
+  guessCaseTrackNames: function (medium, event) {
     for (const track of medium.tracks.peek()) {
-      releaseEditor.guessCaseTrackName(track);
+      releaseEditor.guessCaseTrackName(track, event);
     }
   },
 
@@ -309,9 +362,9 @@ const actions = {
     guessFeat(track);
   },
 
-  guessMediumCase: function (medium) {
-    releaseEditor.guessCaseMediumName(medium);
-    releaseEditor.guessCaseTrackNames(medium);
+  guessMediumCase: function (medium, event) {
+    releaseEditor.guessCaseMediumName(medium, event);
+    releaseEditor.guessCaseTrackNames(medium, event);
   },
 
   guessMediumFeatArtists: function (medium) {

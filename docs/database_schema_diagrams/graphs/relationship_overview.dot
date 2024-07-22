@@ -14,7 +14,7 @@ digraph relationship_overview {
     ];
 
     // Tables
-    "artist" [
+    "musicbrainz.artist" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist</font></td></tr>
@@ -23,7 +23,7 @@ digraph relationship_overview {
             </table>
         >
     ];
-    "l_artist_work" [
+    "musicbrainz.l_artist_work" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#eeeeeebb"><font point-size="17">l_artist_work</font></td></tr>
@@ -39,7 +39,7 @@ digraph relationship_overview {
             </table>
         >
     ];
-    "link" [
+    "musicbrainz.link" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">link</font></td></tr>
@@ -48,7 +48,7 @@ digraph relationship_overview {
             </table>
         >
     ];
-    "work" [
+    "musicbrainz.work" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
                 <tr><td bgcolor="#bbbbbb77"><font point-size="17">work</font></td></tr>
@@ -59,7 +59,7 @@ digraph relationship_overview {
     ];
 
     // References
-    "l_artist_work":"link" -> "link":"id"
-    "l_artist_work":"entity0" -> "artist":"id"
-    "l_artist_work":"entity1" -> "work":"id"
+    "musicbrainz.l_artist_work":"link" -> "musicbrainz.link":"id"
+    "musicbrainz.l_artist_work":"entity0" -> "musicbrainz.artist":"id"
+    "musicbrainz.l_artist_work":"entity1" -> "musicbrainz.work":"id"
 }

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-29 15:42+0000\n"
+"PO-Revision-Date: 2024-07-15 18:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/lt/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
 " n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.6\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -4531,12 +4531,12 @@ msgstr "Ikvāi"
 #: DB:label_type/name:9
 msgctxt "label_type"
 msgid "Imprint"
-msgstr "Prekinis ženklas"
+msgstr "prekinis ženklas"
 
 #: DB:work_type/name:30
 msgctxt "work_type"
 msgid "Incidental music"
-msgstr "Sceninė muzika"
+msgstr "atsitiktinė muzika"
 
 #. name:Incidental music
 #: DB:work_type/description:30
@@ -4544,18 +4544,18 @@ msgctxt "work_type"
 msgid ""
 "Incidental music is music written as background for (usually) a theatre play."
 msgstr ""
-"Sceninė muzika – muzika, parašyta kaip fonas (dažniausiai) teatro "
+"Atsitiktinė muzika – tai muzika, parašyta kaip fonas (dažniausiai) teatro "
 "spektakliui."
 
 #: DB:area_type/name:9
 msgctxt "area_type"
 msgid "Indigenous territory / reserve"
-msgstr "Vietinių gyventojų teritorija / rezervatas"
+msgstr "vietinių gyventojų teritorija / rezervatas"
 
 #: DB:place_type/name:5
 msgctxt "place_type"
 msgid "Indoor arena"
-msgstr "Uždara arena"
+msgstr "uždara arena"
 
 #: DB:editor_collection_type/name:9
 msgctxt "collection_type"

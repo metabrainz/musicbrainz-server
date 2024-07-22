@@ -260,6 +260,12 @@ component _ArtistCreditBubble(
     return names;
   }, [names, initialBubbleFocus, initialFocusRef]);
 
+  const allowNameRemoval = React.useMemo(() => {
+    return state.names.reduce((accum, name) => {
+      return accum + (name.removed ? 0 : 1);
+    }, 0) > 1;
+  }, [state.names]);
+
   return (
     <form onSubmit={handleSubmit}>
       <table
@@ -275,6 +281,7 @@ component _ArtistCreditBubble(
         <tbody>
           {namesWithInitialFocus.map((name, index) => (
             <ArtistCreditNameEditor
+              allowRemoval={allowNameRemoval}
               artistCreditEditorId={state.id}
               dispatch={dispatch}
               index={index}

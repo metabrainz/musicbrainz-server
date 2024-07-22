@@ -2360,9 +2360,23 @@ limited_link_type_combinations: [
   },
   // e-onkyo music
   {
-                     input_url: 'http://www.e-onkyo.com/music/album/vpcd81809/',
+                     input_url: 'http://e-onkyo.com/sp/album/vpcd81809?tr=2',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.e-onkyo.com/music/album/vpcd81809/',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://e-onkyo.com/search/search.aspx?artist=ZORN',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://www.e-onkyo.com/search/search.aspx?artist=ZORN',
+       input_relationship_type: 'downloadpurchase',
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+       only_valid_entity_types: [],
   },
   // excite
   {
@@ -4677,7 +4691,7 @@ limited_link_type_combinations: [
   },
   // RateYourMusic
   {
-                     input_url: 'http://www.rateyourmusic.com/artist/johanna_beyer',
+                     input_url: 'http://www.rateyourmusic.com/artist/johanna_beyer?__cf_chl_f_tk=d9ucwvyvsyPN6wYqKhaxZAloHggP6RNt.iEnchyh1qc-1720128733-0.0.1.1-4862',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://rateyourmusic.com/artist/johanna_beyer',
@@ -4698,7 +4712,7 @@ limited_link_type_combinations: [
         only_valid_entity_types: ['genre'],
   },
   {
-                     input_url: 'https://rateyourmusic.com/label/tzadik/',
+                     input_url: 'https://ru.rateyourmusic.com/label/tzadik/',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://rateyourmusic.com/label/tzadik/',
@@ -4740,7 +4754,7 @@ limited_link_type_combinations: [
         only_valid_entity_types: ['series'],
   },
   {
-                     input_url: 'https://rateyourmusic.com/work/funktion_violett/',
+                     input_url: 'https://rateyourmusic.com/work/funktion_violett/#Compilation',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://rateyourmusic.com/work/funktion_violett/',

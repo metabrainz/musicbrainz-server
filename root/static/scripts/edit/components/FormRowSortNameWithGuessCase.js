@@ -43,15 +43,9 @@ export function runReducer(
       break;
     }
     case 'guess-case-sortname': {
-      const {entityType, typeID} = action.entity;
-      const isPerson =
-        entityType === 'artist' && typeID === ARTIST_TYPE_PERSON;
       newState.set(
         'sortNameField', 'value',
-        GuessCase.entities[entityType].sortname(
-          newState.read().nameField.value ?? '',
-          isPerson,
-        ),
+        guessSortName(newState.read().nameField.value ?? '', action.entity),
       );
       break;
     }
@@ -69,10 +63,13 @@ component FormRowSortNameWithGuessCase(
   disabled: boolean = false,
   dispatch: (ActionT) => void,
   entity: SortNamedEntityT,
-  field: FieldT<string | null>,
+  sortNameField: FieldT<string | null>,
+  nameField: FieldT<string | null>,
   label: React$Node = addColonText(l('Sort name')),
   required: boolean = false,
 ) {
+  const [preview, setPreview] = React.useState<string | null>(null);
+
   const handleSortNameChange = React.useCallback((
     event: SyntheticKeyboardEvent<HTMLInputElement>,
   ) => {
@@ -84,25 +81,53 @@ component FormRowSortNameWithGuessCase(
 
   function handleGuessCase() {
     dispatch({entity, type: 'guess-case-sortname'});
+    setPreview(null);
+  }
+
+  function showGuessCasePreview(
+    event: SyntheticMouseEvent<HTMLInputElement>,
+  ) {
+    // Don't change the value while the user is dragging to select text.
+    if (event.nativeEvent.buttons === 0) {
+      setPreview(guessSortName(nameField.value ?? '', entity));
+    }
   }
 
   function handleSortNameCopy() {
     dispatch({type: 'copy-sortname'});
+    setPreview(null);
   }
+
+  function showSortNameCopyPreview(
+    event: SyntheticMouseEvent<HTMLInputElement>,
+  ) {
+    if (event.nativeEvent.buttons === 0) {
+      setPreview(nameField.value ?? '');
+    }
+  }
+
+  function hidePreview() {
+    setPreview(null);
+  }
+
+  const previewDiffers = preview !== null && preview !== sortNameField.value;
 
   return (
     <FormRowText
-      className="with-guesscase"
+      className={'with-guesscase' + (previewDiffers ? ' preview' : '')}
       disabled={disabled}
-      field={field}
+      field={sortNameField}
       label={label}
       onChange={handleSortNameChange}
+      preview={preview}
       required={required}
     >
       <button
         className="guesscase-sortname icon"
         disabled={disabled}
         onClick={handleGuessCase}
+        onMouseEnter={showGuessCasePreview}
+        onMouseLeave={hidePreview}
         title={l('Guess sort name')}
         type="button"
       />
@@ -110,6 +135,8 @@ component FormRowSortNameWithGuessCase(
         className="sortname-copy icon"
         disabled={disabled}
         onClick={handleSortNameCopy}
+        onMouseEnter={showSortNameCopyPreview}
+        onMouseLeave={hidePreview}
         title={l('Copy name')}
         type="button"
       />
@@ -118,3 +145,9 @@ component FormRowSortNameWithGuessCase(
 }
 
 export default FormRowSortNameWithGuessCase;
+
+function guessSortName(name: string, entity: SortNamedEntityT): string {
+  const isPerson =
+    entity.entityType === 'artist' && entity.typeID === ARTIST_TYPE_PERSON;
+  return GuessCase.entities[entity.entityType].sortname(name, isPerson);
+}

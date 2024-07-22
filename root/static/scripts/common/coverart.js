@@ -20,8 +20,9 @@ $(function () {
         if ($e.data('fallback') && $e.attr('src') === thumbnailUrl) {
           $e.attr('src', $e.data('fallback'));
         } else {
-          $e.closest('a')
-            .replaceWith('<em>' + $e.data('message') + '</em>');
+          $e.closest('a').replaceWith(
+            '<em class="cover-art-error">' + $e.data('message') + '</em>',
+          );
         }
       })
       .attr({

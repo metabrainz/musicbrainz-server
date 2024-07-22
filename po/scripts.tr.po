@@ -2,11 +2,12 @@
 # Translators:
 # portik <email address hidden>, 2013
 # brtc <boratici@gmail.com>, 2024.
+# brtc <brtc@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-18 23:29+0000\n"
-"Last-Translator: brtc <boratici@gmail.com>\n"
+"PO-Revision-Date: 2024-07-19 15:42+0000\n"
+"Last-Translator: brtc <brtc@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Turkish <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/tr/>\n"
 "Language: tr\n"
@@ -14,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
@@ -809,4 +810,4 @@ msgstr ""
 #. frequency:2 iso_code:Qaaa
 #: DB:script/name:160
 msgid "[Multiple scripts]"
-msgstr ""
+msgstr "[Birden fazla dil]"

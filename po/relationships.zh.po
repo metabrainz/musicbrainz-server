@@ -6,11 +6,12 @@
 # claybiockiller <clay0305@hotmail.com>, 2023.
 # ycwei982 <ycwei982@outlook.com>, 2024.
 # AshPigeon <1433821055@qq.com>, 2024.
+# weeeeei <weeeeei@duck.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-04-25 06:42+0000\n"
-"Last-Translator: AshPigeon <1433821055@qq.com>\n"
+"PO-Revision-Date: 2024-07-17 06:42+0000\n"
+"Last-Translator: weeeeei <weeeeei@duck.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/relationship-types/zh_Hans/>\n"
 "Language: zh\n"
@@ -18,12 +19,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
+#, fuzzy
 msgid "A performance-centered, usually one to three year postgraduate program."
-msgstr ""
+msgstr "一个以成绩为标准的，通常一至三年的毕业程序。"
 
 #. name:social network
 #: DB:link_type/description:218
@@ -265,10 +267,8 @@ msgstr "说明某人在某地点受雇为工程师。"
 
 #. name:anthem
 #: DB:link_type/description:357
-#, fuzzy
-#| msgid "Designates that a work is or was the anthem for an area"
 msgid "Designates that a work is or was the anthem for an area."
-msgstr "表明作品是或曾是某地区的象征性歌曲"
+msgstr "表明作品是或曾是某地区的象征性歌曲。"
 
 #. name:part of
 #: DB:link_type/description:356
@@ -293,14 +293,10 @@ msgstr "Discogs 页，关于"
 
 #. name:step
 #: DB:link_attribute_type/description:1020
-#, fuzzy
-#| msgid ""
-#| "For indicating the step-spouse of the artist's parent, or the sibling "
-#| "relationship with the children of such a spouse"
 msgid ""
 "For indicating the step-spouse of the artist's parent, or the sibling "
 "relationship with the children of such a spouse."
-msgstr "用来指艺术家父母的再婚配偶或艺术家的继兄弟姐妹关系"
+msgstr "用来指艺术家父母的再婚配偶或艺术家的继兄弟姐妹关系。"
 
 #. name:instrumental
 #: DB:link_attribute_type/description:580
@@ -314,18 +310,12 @@ msgstr ""
 
 #. name:acappella
 #: DB:link_attribute_type/description:1406
-#, fuzzy
-#| msgid ""
-#| "For works that have lyrics, this indicates that those lyrics are not "
-#| "relevant to this recording. Examples include instrumental arrangements, "
-#| "or \"beats\" from hip-hop songs which may be reused with different lyrics."
 msgid ""
 "For works that usually have instruments and vocals, this indicates that the "
 "instrumental parts are not relevant to this recording. Examples include rap "
 "tracks from hip hop songs that can be remixed and used with different beats."
-msgstr ""
-"对于有歌词的作品，这表明歌词与录音无关。例子包括器乐曲或者嘻哈歌曲的"
-"\"Beat\"部分，可以和不同的歌词一起重复使用。"
+msgstr "一首作品通常包含器乐和人声，这意味着器乐部分与人声部分无关。例如嘻哈歌曲的 "
+"Rap 部分可以用不同的节奏重新混音。"
 
 #. name:geonames
 #: DB:link_type/link_phrase:934 DB:link_type/link_phrase:713
@@ -373,10 +363,8 @@ msgstr "国际乐谱库页，关于"
 
 #. name:bonus
 #: DB:link_attribute_type/description:516
-#, fuzzy
-#| msgid "Indicates a bonus disc"
 msgid "Indicates a bonus disc."
-msgstr "指附赠唱片"
+msgstr "指附赠唱片。"
 
 #. name:misc
 #: DB:link_type/description:162
@@ -426,10 +414,8 @@ msgstr "指亲子关系。"
 
 #. name:image
 #: DB:link_type/description:396
-#, fuzzy
-#| msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place."
-msgstr "指某地点的形象化图像 (JPEG, GIF, PNG)"
+msgstr "指某地点的形象化图像（JPEG, GIF, PNG）。"
 
 #. name:image
 #: DB:link_type/description:173
@@ -445,22 +431,15 @@ msgstr "指某地点被从一个位置移动到另一个位置，但仍被广泛
 
 #. name:half
 #: DB:link_attribute_type/description:1019
-#, fuzzy
-#| msgid ""
-#| "Indicates a sibling with whom the artist has only one parent in common"
 msgid "Indicates a sibling with whom the artist has only one parent in common."
-msgstr "指艺术家同父异母或同母异父的兄弟姐妹"
+msgstr "指艺术家同父异母或同母异父的兄弟姐妹。"
 
 #. name:review
 #: DB:link_type/description:842
-#, fuzzy
-#| msgid ""
-#| "Indicates a page that reviews the release (group) in question, whether it "
-#| "be in text, audio or video form."
 msgid ""
 "Indicates a webpage that reviews the event in question, whether it be in "
 "text, audio or video form."
-msgstr "指示查看所讨论的版本(组)的页面，无论是文本、音频还是视频形式。"
+msgstr "指示查看所讨论的活动的页面，无论是文本、音频还是视频形式。"
 
 #. name:download for free
 #: DB:link_type/description:958
@@ -558,10 +537,8 @@ msgstr "表明该活动预期会表演特定专辑组(一般是正规专辑)。"
 
 #. name:cover
 #: DB:link_attribute_type/description:567
-#, fuzzy
-#| msgid "Indicates that one entity is a cover of another entity"
 msgid "Indicates that one entity is a cover of another entity."
-msgstr "表明该实体是另一实体的翻唱或翻奏"
+msgstr "表明该实体是另一实体的翻唱或翻奏。"
 
 #. name:part of
 #: DB:link_type/description:996
@@ -637,28 +614,20 @@ msgstr "表明两人处于恋爱关系但未结婚。"
 
 #. name:held in
 #: DB:link_type/description:1085
-#, fuzzy
-#| msgid "Indicates the area an event series was held at."
 msgid "Indicates the area an event series was held in."
 msgstr "指活动系列所在地点。"
 
 #. name:premiere
 #: DB:link_type/description:715
-#, fuzzy
-#| msgid "Indicates the area where the work had its first performance"
 msgid "Indicates the area where the work had its first performance."
-msgstr "指作品初次演出所在地区"
+msgstr "指作品初次演出所在地区。"
 
 #. name:premiere
 #: DB:link_type/description:956
-#, fuzzy
-#| msgid ""
-#| "Indicates the artist(s) who gave the first performance of the work; this "
-#| "is usually mostly relevant for classical music"
 msgid ""
 "Indicates the artist(s) who gave the first performance of the work; this is "
 "usually mostly relevant for classical music."
-msgstr "指初次演出作品的艺术家；多与古典音乐相关"
+msgstr "指初次演出作品的艺术家；多与古典音乐相关。"
 
 #. name:composer
 #: DB:link_type/description:55
@@ -676,10 +645,8 @@ msgstr "表示该作品的作曲家，即写音乐的艺术家(不一定是歌�
 
 #. name:premiere
 #: DB:link_type/description:845
-#, fuzzy
-#| msgid "Indicates the event where the work had its first performance"
 msgid "Indicates the event where the work had its first performance."
-msgstr "指作品初次演出所属活动"
+msgstr "指作品初次演出所属活动。"
 
 #. name:instrument technician
 #: DB:link_type/description:986
@@ -722,10 +689,8 @@ msgstr "指该作品的作词者。"
 
 #. name:mastering
 #: DB:link_type/description:42
-#, fuzzy
-#| msgid "Indicates the mastering engineer for this work."
 msgid "Indicates the mastering engineer for this release."
-msgstr "指该作品的母带工程师。"
+msgstr "指该专辑的母带工程师。"
 
 #. name:official site
 #: DB:link_type/description:219
@@ -824,10 +789,8 @@ msgstr "将活动链接到作为指挥的艺术家。"
 
 #. name:participant
 #: DB:link_type/description:1256
-#, fuzzy
-#| msgid "Links an event to an artist that was a conductor in it."
 msgid "Links a competition event to an artist that was a participant in it."
-msgstr "将活动链接到作为指挥的艺术家。"
+msgstr "将活动链接到作为参与者的艺术家。"
 
 #. name:arranged in
 #: DB:link_type/description:864
@@ -1047,14 +1010,10 @@ msgstr "将专辑链接到后期工程所在地点。"
 
 #. name:manufactured at
 #: DB:link_type/description:953
-#, fuzzy
-#| msgid ""
-#| "Links a release to the place it was manufactured at. Use a more specific "
-#| "credit if available"
 msgid ""
 "Links a release to the place it was manufactured at. Use a more specific "
 "credit if available."
-msgstr "将专辑链接到制作地点。如果可用的话，使用尽可能确切的演职员信息"
+msgstr "将专辑链接到制作地点。如果可用的话，使用尽可能确切的演职员信息。"
 
 #. name:mastered at
 #: DB:link_type/description:697
@@ -1206,7 +1165,7 @@ msgstr "将活动链接到其主持人/MC。活动主持人一般会解说整场
 msgid ""
 "Links an event to the area where it was held. Use only if the exact place is "
 "unknown."
-msgstr "将活动链接到举办地区。仅在具体地点未知时使用！"
+msgstr "将活动链接到举办地区，仅在具体地点未知时使用。"
 
 #. name:held at
 #: DB:link_type/description:794
@@ -1215,13 +1174,10 @@ msgstr "将活动链接到举办地点。"
 
 #. name:time
 #: DB:link_attribute_type/description:830
-#, fuzzy
-#| msgid ""
-#| "Local time a band's performance is scheduled to start, formatted HH:MM."
 msgid ""
 "Local time a performance was scheduled to start or a program was broadcast, "
 "formatted HH:MM."
-msgstr "乐队演出在当地的预定开始时间，格式为HH:MM。"
+msgstr "演出或者节目播出在当地的预定开始时间，格式为 HH:MM。"
 
 #. name:meane vocals
 #: DB:link_attribute_type/description:1060
@@ -1271,7 +1227,7 @@ msgstr "指向此专辑的BookBrainz页。"
 #. name:BookBrainz
 #: DB:link_type/description:1167
 msgid "Points to the BookBrainz page for this series."
-msgstr ""
+msgstr "指向该系列的 BookBrainz 的页面。"
 
 #. name:BookBrainz
 #: DB:link_type/description:854
@@ -1295,113 +1251,73 @@ msgstr "指向此地点的IMDb页。"
 
 #. name:wikidata
 #: DB:link_type/description:358
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this area, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "指向此地区的维基数据页，用于获取维基百科概要"
+msgstr "指向此地区的维基数据页，用于获取维基百科概要。"
 
 #. name:wikidata
 #: DB:link_type/description:352
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this artist, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "指向此艺术家的维基数据页，用于获取维基百科概要"
+msgstr "指向此艺术家的维基数据页，用于获取维基百科概要。"
 
 #. name:wikidata
 #: DB:link_type/description:790
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this event, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "指向此活动的维基数据页，用于获取维基百科概要"
+msgstr "指向此活动的维基数据页，用于获取维基百科概要。"
 
 #. name:wikidata
 #: DB:link_type/description:1087
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this genre, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this genre, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "指向此流派的维基数据页，用于获取维基百科概要"
+msgstr "指向此流派的维基数据页，用于获取维基百科概要。"
 
 #. name:wikidata
 #: DB:link_type/description:733
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this instrument, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this instrument, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "指向此乐器的维基数据页，用于获取维基百科概要"
+msgstr "指向此乐器的维基数据页，用于获取维基百科概要。"
 
 #. name:wikidata
 #: DB:link_type/description:354
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this label, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "指向此厂牌的维基数据页，用于获取维基百科概要"
+msgstr "指向此厂牌的维基数据页，用于获取维基百科概要。"
 
 #. name:wikidata
 #: DB:link_type/description:594
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this place, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "指向此地点的维基数据页，用于获取维基百科概要"
+msgstr "指向此地点的维基数据页，用于获取维基百科概要。"
 
 #. name:wikidata
 #: DB:link_type/description:353
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this release group, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this release group, and will be used to "
 "fetch Wikipedia summaries."
-msgstr "指向此专辑组的维基数据页，用于获取维基百科概要"
+msgstr "指向此专辑组的维基数据页，用于获取维基百科概要。"
 
 #. name:wikidata
 #: DB:link_type/description:749
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this series, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this series, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "指向此系列的维基数据页，用于获取维基百科概要"
+msgstr "指向此系列的维基数据页，用于获取维基百科概要。"
 
 #. name:wikidata
 #: DB:link_type/description:351
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this work, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this work, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "指向此作品的维基数据页，用于获取维基百科概要"
+msgstr "指向此作品的维基数据页，用于获取维基百科概要。"
 
 #. name:wikipedia
 #: DB:link_type/description:89
@@ -1430,10 +1346,8 @@ msgstr "指向此乐器的维基百科页。"
 
 #. name:wikipedia
 #: DB:link_type/description:216
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this place"
 msgid "Points to the Wikipedia page for this label."
-msgstr "指向此地点的维基百科页。"
+msgstr "指向此厂牌的维基百科页。"
 
 #. name:wikipedia
 #: DB:link_type/description:595
@@ -1628,7 +1542,8 @@ msgstr "该属性指“特邀演出嘉宾”，通常为不是乐队成员的表
 msgid ""
 "This attribute indicates a member the band is named after and without which "
 "it wouldn't exist (such as Miles Davis -&gt; Miles Davis Sextet)."
-msgstr ""
+msgstr "这个属性指向乐队以其命名的成员，没有该成员乐队将不存在（例如 Miles Davis "
+"-&gt; Miles Davis Sextet）。"
 
 #. name:parody
 #: DB:link_attribute_type/description:511
@@ -1651,16 +1566,15 @@ msgid ""
 "This attribute indicates that lyrics have been translated, literally or "
 "freely, from the original language. This does not apply if an entirely new "
 "set of lyrics have been set to an existing melody."
-msgstr ""
+msgstr "这个属性表示歌词是直译或者意译而来。如果已经为现有旋律设置了一套全新的歌词，"
+"则不使用此属性。"
 
 #. name:video
 #: DB:link_attribute_type/description:582
-#, fuzzy
-#| msgid "This attribute indicates the number of an entity in a series."
 msgid ""
 "This attribute indicates that the content is not audio (or text) only, but "
 "video."
-msgstr "该属性指系列中实体数。"
+msgstr "该属性指被容中不止包含音频（或文本），还包含视频。"
 
 #. name:number
 #: DB:link_attribute_type/description:788
@@ -1669,11 +1583,9 @@ msgstr "该属性指系列中实体数。"
 
 #. name:winner
 #: DB:link_attribute_type/description:1416
-#, fuzzy
-#| msgid "This attribute indicates the number of an entity in a series."
 msgid ""
 "This attribute indicates the winning participant in a competition event."
-msgstr "该属性指系列中实体数。"
+msgstr "该属性指在赛事活动中获胜的参赛者。"
 
 #. name:executive
 #: DB:link_attribute_type/description:425
@@ -1704,14 +1616,10 @@ msgstr ""
 
 #. name:animation
 #: DB:link_type/description:1243
-#, fuzzy
-#| msgid ""
-#| "This credits a person or agency whose photographs are included as part of "
-#| "a recording."
 msgid ""
 "This credits a person or agency who worked on animation for a video "
 "recording."
-msgstr "这记载的是在录音中有照片被采用的个人或机构。"
+msgstr "这记载的是有视频记录的动画行业工的个人或机构。"
 
 #. name:photography
 #: DB:link_type/description:123
@@ -1738,13 +1646,13 @@ msgstr "这记载的是在专辑的录制期间负责预订录音室或演出场
 #: DB:link_type/description:1175
 msgid ""
 "This credits an agency whose photographs are included as part of a release."
-msgstr ""
+msgstr "这记录的是那些照片作为专辑的一部分的机构。"
 
 #. name:photography
 #: DB:link_type/description:20
 msgid ""
 "This credits an artist whose photographs are included as part of a release."
-msgstr ""
+msgstr "这记录的是那些照片被作为专辑的一部分的艺术家。"
 
 #. name:liner notes
 #: DB:link_type/description:24
