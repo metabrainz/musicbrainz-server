@@ -13,9 +13,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-26 15:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-07-21 14:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ru/>\n"
 "Language: ru\n"
@@ -23,9 +23,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.5.4\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -79,7 +79,7 @@ msgid ""
 "A Turkish version of tambourine / daf, made from animal skin and played with "
 "the fingers."
 msgstr ""
-"Турецкая версия бубна / дафа, сделанная из кожи животных. Звуки извлекаются "
+"Турецкая версия бубна/дафа, сделанная из кожи животных. Звуки извлекаются "
 "при помощи пальцев."
 
 #. name:barrel organ
@@ -88,9 +88,9 @@ msgid ""
 "A barrel organ is a mechanical musical instrument typically operated by a "
 "person turning a crank which turns a barrel which has music encoded onto it."
 msgstr ""
-"Бочкообразный орган (шарманка) - это механический музыкальный инструмент, "
-"управляемый человеком. Человек вращает рукоятку, рукоять вращает бочонок, на "
-"котором закреплены шипы-кулачки, воспроизводящие музыку."
+"Механический музыкальный инструмент, управляемый человеком. Человек вращает "
+"рукоятку, которая вращает бочонок, на котором закреплены шипы-кулачки, "
+"воспроизводящие музыку."
 
 #. name:bass synthesizer
 #: DB:instrument/description:456
@@ -151,6 +151,8 @@ msgid ""
 "A guitar synthesizer is any one of a number of systems that allow a guitar "
 "player to play synthesizer sound."
 msgstr ""
+"Гитарный синтезатор — это любая из множества систем, позволяющих гитаристу "
+"воспроизводить синтезаторные звуки."
 
 #. name:hi-hat
 #: DB:instrument/description:454
@@ -158,6 +160,8 @@ msgid ""
 "A hi-hat is a typical part of a drum kit, consisting of a pair of cymbals "
 "mounted on a stand."
 msgstr ""
+"Хай-хэт — это типичная часть ударной установки, состоящая из пары тарелок, "
+"установленных на стойке."
 
 #. name:poi āwhiowhio
 #: DB:instrument/description:792
@@ -165,12 +169,14 @@ msgid ""
 "A hollowed out gourd (hue) with one to three holes, swung around creating a "
 "whistling, chattering sound that resembled birds."
 msgstr ""
+"Полая гурда (hue) с одним-тремя отверстиями, которая раскачивается, издавая "
+"свистящий, дребезжащий звук, напоминающий птичий."
 
 #. name:17-string bass koto
 #: DB:instrument/description:516
 msgid ""
 "A koto with 17 rather than 13 strings, sometimes described as a bass koto."
-msgstr ""
+msgstr "Кото с 17-ю, а не 13-ю струнами, иногда описывается как бас-кото."
 
 #. name:daire
 #: DB:instrument/description:532
@@ -178,6 +184,8 @@ msgid ""
 "A larger version of tef, used to indicate the rhythmic structures (usul) in "
 "makam music."
 msgstr ""
+"Увеличенный вариант тефа, используемый для обозначения ритмических структур "
+"(усул) в музыке макам."
 
 #. name:laser harp
 #: DB:instrument/description:515
@@ -186,13 +194,16 @@ msgid ""
 "beams to be blocked, in analogy with the plucking of the strings of a harp, "
 "in order to produce sounds."
 msgstr ""
+"Лазерная арфа — это электронный музыкальный инструмент, состоящий из "
+"нескольких лазерных лучей, которые блокируются по аналогии с щипком струн "
+"арфы для получения звуков."
 
 #. name:đàn tứ dây
 #: DB:instrument/description:233
 msgid ""
 "A latter-day construction in the form of a four-stringed, square-bodied bass "
 "guitar."
-msgstr ""
+msgstr "Четырехструнная бас-гитара с квадратным корпусом."
 
 #. name:pōrutu
 #: DB:instrument/description:787
@@ -201,11 +212,14 @@ msgid ""
 "length and often made of bone and hardwoods such as porokaiwhiria, mataī and "
 "tutu."
 msgstr ""
+"Более длинный вариант коауау, длиной от 30-40 см до 60 см, часто "
+"изготавливается из кости и твердых пород дерева, таких как порокайвирия, "
+"матаи и туту."
 
 #. name:ngɔni
 #: DB:instrument/description:729
 msgid "A lute from West Africa, made of wood or gourd."
-msgstr ""
+msgstr "Лютня из Западной Африки, изготовленная из дерева или тыквы."
 
 #. name:mandolute
 #: DB:instrument/description:766
@@ -213,6 +227,8 @@ msgid ""
 "A mandolute is a North African fretted string instrument which combines a "
 "traditional oud string format with five pairs of metal strings."
 msgstr ""
+"Мандолут - это североафриканский струнный инструмент с ладами, который "
+"сочетает в себе традиционный формат струн уд и пять пар металлических струн."
 
 #. name:mouth organ
 #: DB:instrument/description:610
@@ -463,7 +479,7 @@ msgstr ""
 #. name:Irish harp / clàrsach
 #: DB:instrument/description:355
 msgid "An Irish/Scottish harp."
-msgstr "Ирландская/ шотландская арфа."
+msgstr "Ирландская/шотландская арфа."
 
 #. name:archtop guitar
 #: DB:instrument/description:654
@@ -545,7 +561,7 @@ msgstr ""
 #: DB:instrument/description:754
 msgid "Ancient bowed fiddle, once popular in Western India and Sri Lanka."
 msgstr ""
-"Древняя изогнутая скрипка когда-то популярная в Западной Индии и Шри-Ланке."
+"Древняя изогнутая скрипка, когда-то популярная в Западной Индии и Шри-Ланке."
 
 #. name:santoor
 #: DB:instrument/description:286
@@ -1170,15 +1186,14 @@ msgstr ""
 
 #. name:flutina
 #: DB:instrument/description:1074
-#, fuzzy
 msgid ""
 "Early predecessor to the <a href=\"/instrument/842d3d24-f638-47e6-"
 "a239-8578723db09c\">diatonic accordion</a>, it was similar to the German "
 "concertina and had 4 fold bellows and brass reeds."
 msgstr ""
-"Ранний предшественник <a href=\"/instrument/842d3d24-f638-47e6-"
-"a239-8578723db09c\">диатонического аккордеона</a>. Был похож на немецкую "
-"концертину."
+"Ранний предшественник <a href=\"/instrument/842d3d24-f638-47e6-a239-"
+"8578723db09c\">диатонического аккордеона</a>. Был похож на немецкую "
+"концертину и имел 4 складных мехи и латунные язычки."
 
 #. name:đing buốt
 #: DB:instrument/description:306
@@ -5732,7 +5747,7 @@ msgstr ""
 #. name:violone
 #: DB:instrument/description:420
 msgid "Violone, The largest/deepest member of the Viol family."
-msgstr "Виолоне, cамый большой/глубокий представитель семейства Виол."
+msgstr "Виолоне, cамый большой/глубокий представитель семейства виол."
 
 #. name:shekere
 #: DB:instrument/description:381
