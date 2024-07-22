@@ -4315,7 +4315,7 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?offiziellecharts\.de\/(?:charts\/)?([^/?#]+).*$/, 'https://www.offiziellecharts.de/charts/$1');
     },
     validate(url, id) {
-      const m = /^https:\/\/www\.offiziellecharts\.de\/charts\/(album|titel)-details-[\d]+$/.exec(url);
+      const m = /^https:\/\/www\.offiziellecharts\.de\/charts\/(album|compilation|titel)-details-[\d]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -4326,7 +4326,7 @@ const CLEANUPS: CleanupEntries = {
             };
           case LINK_TYPES.otherdatabases.release_group:
             return {
-              result: prefix === 'album',
+              result: prefix === 'album' || prefix === 'compilation',
               target: ERROR_TARGETS.ENTITY,
             };
         }

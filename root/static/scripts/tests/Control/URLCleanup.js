@@ -4379,6 +4379,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['release_group'],
   },
   {
+                     input_url: 'https://www.offiziellecharts.de/compilation-details-537366',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.offiziellecharts.de/charts/compilation-details-537366',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
                      input_url: 'https://www.offiziellecharts.de/charts/titel-details-1917278#collapseOne',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
