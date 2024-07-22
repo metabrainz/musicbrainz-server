@@ -44,7 +44,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-28 20:29+0000\n"
+"POT-Creation-Date: 2024-07-16 08:18+0000\n"
 "PO-Revision-Date: 2024-07-04 15:42+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
@@ -148,8 +148,8 @@ msgstr "(他の画像はありません)"
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/edit/details/MergeReleases.js:233
 #: ../root/recording/RecordingIndex.js:50
-#: ../root/release_group/ReleaseGroupIndex.js:162
-#: ../root/search/components/ReleaseResults.js:115
+#: ../root/release_group/ReleaseGroupIndex.js:174
+#: ../root/search/components/ReleaseResults.js:127
 #: ../root/utility/tableColumns.js:514 ../root/utility/tableColumns.js:522
 msgctxt "and"
 msgid "/"
@@ -435,7 +435,7 @@ msgstr "地域"
 #: ../root/components/list/ArtistList.js:54
 #: ../root/components/list/RecordingList.js:88
 #: ../root/components/list/ReleaseGroupList.js:77
-#: ../root/components/list/ReleaseList.js:72
+#: ../root/components/list/ReleaseList.js:73
 #: ../root/edit/details/AddArtist.js:36 ../root/edit/details/AddMedium.js:151
 #: ../root/edit/details/AddRelease.js:51
 #: ../root/edit/details/AddReleaseGroup.js:42
@@ -457,7 +457,7 @@ msgstr "地域"
 #: ../root/layout/components/Search.js:24
 #: ../root/layout/components/sidebar/RecordingSidebar.js:45
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:55
-#: ../root/release_group/ReleaseGroupIndex.js:159
+#: ../root/release_group/ReleaseGroupIndex.js:171
 #: ../root/report/DuplicateArtists.js:67
 #: ../root/report/DuplicateReleaseGroups.js:58
 #: ../root/report/IsrcsWithManyRecordings.js:59
@@ -472,8 +472,8 @@ msgstr "地域"
 #: ../root/report/components/ReleaseUrlList.js:33
 #: ../root/search/components/CDStubResults.js:46
 #: ../root/search/components/RecordingResults.js:142
-#: ../root/search/components/ReleaseGroupResults.js:64
-#: ../root/search/components/ReleaseResults.js:112
+#: ../root/search/components/ReleaseGroupResults.js:77
+#: ../root/search/components/ReleaseResults.js:124
 #: ../root/search/components/SearchForm.js:31
 #: ../root/static/scripts/common/constants.js:36
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:50
@@ -527,7 +527,7 @@ msgstr "自動編集者"
 #: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:17
 #: ../root/release/edit/information.tt:222
 #: ../root/release_group/set_cover_art.tt:62
-#: ../root/components/list/ReleaseList.js:123
+#: ../root/components/list/ReleaseList.js:124
 #: ../root/edit/details/AddRelease.js:107
 #: ../root/edit/details/EditBarcodes.js:41
 #: ../root/edit/details/EditBarcodes.js:47
@@ -537,11 +537,11 @@ msgstr "自動編集者"
 #: ../root/edit/details/historic/AddRelease.js:121
 #: ../root/edit/details/historic/EditReleaseEvents.js:110
 #: ../root/layout/components/sidebar/CDStubSidebar.js:67
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:124
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:126
 #: ../root/otherlookup/OtherLookupForm.js:57
-#: ../root/release_group/ReleaseGroupIndex.js:165
+#: ../root/release_group/ReleaseGroupIndex.js:177
 #: ../root/report/ReleasesSameBarcode.js:40
-#: ../root/search/components/ReleaseResults.js:118
+#: ../root/search/components/ReleaseResults.js:130
 msgid "Barcode"
 msgstr "バーコード"
 
@@ -671,8 +671,8 @@ msgstr "カタログ番号:"
 #: ../root/release_group/set_cover_art.tt:56
 #: ../root/edit/details/MergeReleases.js:235
 #: ../root/recording/RecordingIndex.js:52
-#: ../root/release_group/ReleaseGroupIndex.js:164
-#: ../root/search/components/ReleaseResults.js:117
+#: ../root/release_group/ReleaseGroupIndex.js:176
+#: ../root/search/components/ReleaseResults.js:129
 #: ../root/utility/tableColumns.js:488 ../root/utility/tableColumns.js:493
 msgid "Catalog#"
 msgstr "カタログ番号"
@@ -727,7 +727,7 @@ msgid "Copy all track titles to associated recordings."
 msgstr "全トラックのタイトルを対応するレコーディングにコピーする"
 
 #: ../root/components/forms.tt:242
-#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:113
+#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:140
 msgid "Copy name"
 msgstr "名前をコピー"
 
@@ -749,8 +749,8 @@ msgstr "リリースのタイトルをリリースグループにもコピーす
 #: ../root/edit/details/historic/AddRelease.js:118
 #: ../root/edit/details/historic/EditReleaseEvents.js:107
 #: ../root/recording/RecordingIndex.js:50
-#: ../root/release_group/ReleaseGroupIndex.js:162
-#: ../root/search/components/ReleaseResults.js:115
+#: ../root/release_group/ReleaseGroupIndex.js:174
+#: ../root/search/components/ReleaseResults.js:127
 #: ../root/static/scripts/common/components/FilterForm.js:266
 #: ../root/utility/tableColumns.js:510 ../root/utility/tableColumns.js:522
 msgid "Country"
@@ -795,9 +795,9 @@ msgstr "データトラック"
 #: ../root/elections/ElectionVotes.js:24
 #: ../root/layout/components/sidebar/EventSidebar.js:92
 #: ../root/recording/RecordingIndex.js:50
-#: ../root/release_group/ReleaseGroupIndex.js:162
-#: ../root/search/components/EventResults.js:79
-#: ../root/search/components/ReleaseResults.js:115
+#: ../root/release_group/ReleaseGroupIndex.js:174
+#: ../root/search/components/EventResults.js:86
+#: ../root/search/components/ReleaseResults.js:127
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:106
 #: ../root/static/scripts/common/components/FilterForm.js:298
 #: ../root/utility/tableColumns.js:285 ../root/utility/tableColumns.js:290
@@ -929,7 +929,7 @@ msgstr "編集"
 #: ../root/components/EntityTabs.js:172 ../root/event/EventArt.js:85
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:89
 #: ../root/release/CoverArt.js:81
-#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:520
+#: ../root/static/scripts/edit/components/ArtistCreditEditor.js:525
 #: ../root/user/UserCollections.js:122
 msgctxt "verb, interactive"
 msgid "Edit"
@@ -1080,7 +1080,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:434 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
-#: ../root/components/list/EventList.js:61 ../root/edit/details/AddEvent.js:23
+#: ../root/components/list/EventList.js:62 ../root/edit/details/AddEvent.js:23
 #: ../root/edit/details/AddEventArt.js:21 ../root/edit/details/EditEvent.js:31
 #: ../root/edit/details/EditEventArt.js:23
 #: ../root/edit/details/RemoveEventArt.js:23
@@ -1156,16 +1156,16 @@ msgstr "より詳細な情報は、 {doc_doc|ドキュメント} を参照して
 #: ../root/cdtoc/list.tt:9 ../root/release/edit/duplicates.tt:11
 #: ../root/release/edit/tracklist.tt:305
 #: ../root/release_group/set_cover_art.tt:46
-#: ../root/components/list/ReleaseList.js:82
+#: ../root/components/list/ReleaseList.js:83
 #: ../root/edit/details/AddMedium.js:119 ../root/edit/details/EditMedium.js:450
 #: ../root/edit/details/EditReleaseLabel.js:127
 #: ../root/edit/details/MergeReleases.js:231
 #: ../root/edit/details/historic/AddRelease.js:122
 #: ../root/edit/details/historic/EditReleaseEvents.js:111
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:133
-#: ../root/release_group/ReleaseGroupIndex.js:160
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:135
+#: ../root/release_group/ReleaseGroupIndex.js:172
 #: ../root/report/components/CDTocList.js:44
-#: ../root/search/components/ReleaseResults.js:113
+#: ../root/search/components/ReleaseResults.js:125
 msgid "Format"
 msgstr "フォーマット"
 
@@ -1215,7 +1215,7 @@ msgstr "ジャンル"
 
 #: ../root/components/forms.tt:228 ../root/release/edit/information.tt:14
 #: ../root/release/edit/tracklist.tt:527
-#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:149
+#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:174
 msgid "Guess case"
 msgstr "大文字小文字を推測"
 
@@ -1246,7 +1246,7 @@ msgstr "トラックの大文字小文字を推測"
 
 #: ../root/components/forms.tt:230 ../root/release/edit/information.tt:15
 #: ../root/release/edit/tracklist.tt:225
-#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:155
+#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:180
 msgid "Guess feat. artists"
 msgstr "feat.がつくアーティストを推測"
 
@@ -1255,7 +1255,7 @@ msgid "Guess feat. artists from track titles"
 msgstr "feat.がつくアーティストをトラックのタイトルから推測"
 
 #: ../root/components/forms.tt:241
-#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:106
+#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:131
 msgid "Guess sort name"
 msgstr "ソート名を推測"
 
@@ -1367,9 +1367,9 @@ msgid ""
 "HTML entities \"<code>&amp;lsqb;</code>\", \"<code>&amp;rsqb;</code>\", and "
 "\"<code>&amp;amp;</code>\" respectively."
 msgstr ""
-"必要な場合、「[」、「]」、そして「&」はそれぞれHTMLの「<code>&amp;lsqb;</code"
-">」、 「<code>&amp;rsqb;</code>」、または "
-"「<code>&amp;amp;</code>」を使うことでエスケープできます。"
+"必要な場合、「[」、「]」、そして「&」はそれぞれHTMLの「<code>&amp;lsqb;</"
+"code>」、 「<code>&amp;rsqb;</code>」、または 「<code>&amp;amp;</code>」を使"
+"うことでエスケープできます。"
 
 #: ../root/release/edit/recordings.tt:134
 msgid ""
@@ -1539,11 +1539,11 @@ msgstr ""
 #: ../root/edit/details/historic/EditReleaseEvents.js:108
 #: ../root/label/LabelHeader.js:18 ../root/layout/components/Search.js:37
 #: ../root/recording/RecordingIndex.js:51
-#: ../root/release_group/ReleaseGroupIndex.js:163
+#: ../root/release_group/ReleaseGroupIndex.js:175
 #: ../root/report/ReleaseLabelSameArtist.js:31
 #: ../root/report/components/LabelList.js:40
 #: ../root/report/components/LabelUrlList.js:30
-#: ../root/search/components/ReleaseResults.js:116
+#: ../root/search/components/ReleaseResults.js:128
 #: ../root/search/components/SearchForm.js:36
 #: ../root/static/scripts/common/components/FilterForm.js:250
 #: ../root/static/scripts/common/constants.js:40
@@ -1571,9 +1571,9 @@ msgstr "レーベルの詳細"
 #: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:57
 #: ../root/edit/details/EditRelease.js:109
 #: ../root/edit/details/historic/AddRelease.js:70 ../root/iswc/Index.js:59
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:187
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:189
 #: ../root/report/IswcsWithManyWorks.js:54
-#: ../root/search/components/ReleaseResults.js:119
+#: ../root/search/components/ReleaseResults.js:131
 #: ../root/utility/tableColumns.js:560
 msgid "Language"
 msgstr "言語"
@@ -1596,7 +1596,7 @@ msgstr ""
 #: ../root/edit/details/historic/AddRelease.js:87
 #: ../root/edit/details/historic/AddTrackKV.js:50 ../root/isrc/Index.js:63
 #: ../root/layout/components/sidebar/RecordingSidebar.js:52
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:142
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:144
 #: ../root/recording/RecordingIndex.js:45 ../root/release/DiscIds.js:97
 #: ../root/report/IsrcsWithManyRecordings.js:61
 #: ../root/report/components/CDTocList.js:49
@@ -1756,12 +1756,12 @@ msgstr "トラックを上へ移動"
 #: ../root/search/components/AreaResults.js:63
 #: ../root/search/components/ArtistResults.js:52
 #: ../root/search/components/EditorResults.js:43
-#: ../root/search/components/EventResults.js:78
+#: ../root/search/components/EventResults.js:85
 #: ../root/search/components/InstrumentResults.js:53
 #: ../root/search/components/LabelResults.js:66
 #: ../root/search/components/PlaceResults.js:63
 #: ../root/search/components/RecordingResults.js:140
-#: ../root/search/components/ReleaseResults.js:111
+#: ../root/search/components/ReleaseResults.js:123
 #: ../root/search/components/SeriesResults.js:57
 #: ../root/search/components/TagResults.js:52
 #: ../root/search/components/WorkResults.js:54
@@ -1831,7 +1831,7 @@ msgid "No vote"
 msgstr "投票なし"
 
 #: ../root/release/edit/tracklist.tt:444
-#: ../root/static/scripts/release-editor/fields.js:212
+#: ../root/static/scripts/release-editor/fields.js:227
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
 msgstr ""
@@ -1911,7 +1911,7 @@ msgstr "PDFファイル"
 #: ../root/release/edit/information.tt:240
 #: ../root/edit/details/AddRelease.js:100
 #: ../root/edit/details/EditRelease.js:133
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:163
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:165
 msgid "Packaging"
 msgstr "パッケージ"
 
@@ -2063,7 +2063,7 @@ msgstr "関係タイプ"
 #: ../root/release/edit/tracklist.tt:105
 #: ../lib/MusicBrainz/Server/Edit/Release.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
-#: ../root/components/list/ReleaseList.js:65
+#: ../root/components/list/ReleaseList.js:66
 #: ../root/edit/details/AddCoverArt.js:18 ../root/edit/details/AddMedium.js:96
 #: ../root/edit/details/AddRelease.js:32
 #: ../root/edit/details/AddReleaseLabel.js:22
@@ -2080,7 +2080,7 @@ msgstr "関係タイプ"
 #: ../root/edit/details/historic/EditReleaseEvents.js:105
 #: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:19
 #: ../root/layout/components/Search.js:29
-#: ../root/release_group/ReleaseGroupIndex.js:158
+#: ../root/release_group/ReleaseGroupIndex.js:170
 #: ../root/report/components/CDTocReleaseList.js:45
 #: ../root/report/components/ReleaseList.js:44
 #: ../root/report/components/ReleaseUrlList.js:32
@@ -2130,7 +2130,7 @@ msgstr "リリースイベント"
 #: ../root/report/ReleasesSameBarcode.js:46
 #: ../root/report/components/ReleaseGroupList.js:43
 #: ../root/report/components/ReleaseGroupUrlList.js:32
-#: ../root/search/components/ReleaseGroupResults.js:63
+#: ../root/search/components/ReleaseGroupResults.js:76
 #: ../root/search/components/SearchForm.js:32
 #: ../root/static/scripts/common/constants.js:44
 #: ../root/static/scripts/common/i18n/localizeTypeNameForEntity.js:36
@@ -2155,7 +2155,7 @@ msgid "Release group: {release_group_link}"
 msgstr "リリースグループ: {release_group_link}"
 
 #: ../root/release/edit/information.tt:3 ../root/release/edit/layout.tt:12
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:117
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:119
 msgid "Release information"
 msgstr "リリース情報"
 
@@ -2271,13 +2271,14 @@ msgstr ""
 #: ../root/layout.tt:137
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
-msgstr "実行中: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
+msgstr ""
+"実行中: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
 #: ../root/release/edit/information.tt:117
 #: ../root/edit/details/AddRelease.js:93
 #: ../root/edit/details/EditRelease.js:121
 #: ../root/edit/details/historic/AddRelease.js:61
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:199
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:201
 msgid "Script"
 msgstr "文字"
 
@@ -2291,8 +2292,8 @@ msgstr "文字"
 #: ../root/layout/components/Search.js:97
 #: ../root/otherlookup/OtherLookupForm.js:39 ../root/search/SearchIndex.js:23
 #: ../root/search/SearchIndex.js:25 ../root/search/components/SearchForm.js:93
-#: ../root/static/scripts/common/components/Autocomplete2.js:805
-#: ../root/static/scripts/common/components/Autocomplete2.js:825
+#: ../root/static/scripts/common/components/Autocomplete2.js:801
+#: ../root/static/scripts/common/components/Autocomplete2.js:821
 #: ../root/static/scripts/common/components/SearchIcon.js:15
 #: ../root/taglookup/Form.js:51
 msgid "Search"
@@ -2447,7 +2448,7 @@ msgstr ""
 #: ../root/report/DuplicateArtists.js:68
 #: ../root/search/components/ArtistResults.js:53
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:119
-#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:73
+#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:68
 msgid "Sort name"
 msgstr "ソート名"
 
@@ -2466,11 +2467,11 @@ msgid "Status"
 msgstr "ステータス"
 
 #: ../root/release/edit/information.tt:111
-#: ../root/components/list/ReleaseList.js:148
+#: ../root/components/list/ReleaseList.js:149
 #: ../root/edit/details/AddRelease.js:77 ../root/edit/details/EditRelease.js:97
 #: ../root/edit/details/historic/AddRelease.js:52
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:175
-#: ../root/search/components/ReleaseResults.js:121
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:177
+#: ../root/search/components/ReleaseResults.js:133
 #: ../root/static/scripts/common/components/FilterForm.js:282
 msgctxt "release"
 msgid "Status"
@@ -2496,9 +2497,9 @@ msgstr "トラック名とアーティスト名を交換"
 #: ../root/cdtoc/attach_artist_releases.tt:21
 #: ../root/cdtoc/attach_filter_release.tt:35 ../root/cdtoc/list.tt:15
 #: ../root/cdtoc/lookup.tt:48 ../root/recording/RecordingIndex.js:55
-#: ../root/release_group/ReleaseGroupIndex.js:168
+#: ../root/release_group/ReleaseGroupIndex.js:180
 #: ../root/search/components/RecordingResults.js:147
-#: ../root/search/components/ReleaseResults.js:124
+#: ../root/search/components/ReleaseResults.js:136
 #: ../root/static/scripts/common/components/TaggerIcon.js:74
 #: ../root/utility/tableColumns.js:783
 #, fuzzy
@@ -2723,9 +2724,9 @@ msgid ""
 "wanted a different format (such as “USB Flash Drive” or “Download Card”) or "
 "packaging type."
 msgstr ""
-"これはほとんどの場合間違っています。他のフォーマット（「USBフラッシュドライブ"
-"」または「ダウンロードカード」）やパッケージングタイプを選択することを検討し"
-"てください。"
+"これはほとんどの場合間違っています。他のフォーマット（「USBフラッシュドライ"
+"ブ」または「ダウンロードカード」）やパッケージングタイプを選択することを検討"
+"してください。"
 
 #: ../root/release_group/set_cover_art.tt:76
 msgid "This is the current release group image"
@@ -2812,11 +2813,11 @@ msgstr "このトラックはデータトラックです。"
 msgid "This track is hidden in the pregap."
 msgstr "このトラックはプリギャップに隠されています。"
 
-#: ../root/event/edit_form.tt:40 ../root/components/list/EventList.js:79
+#: ../root/event/edit_form.tt:40 ../root/components/list/EventList.js:80
 #: ../root/edit/details/AddEvent.js:73 ../root/edit/details/EditEvent.js:84
 #: ../root/layout/components/sidebar/EventSidebar.js:111
 #: ../root/report/components/EventList.js:70
-#: ../root/search/components/EventResults.js:80
+#: ../root/search/components/EventResults.js:87
 msgctxt "event"
 msgid "Time"
 msgstr "時間"
@@ -2867,7 +2868,7 @@ msgstr "トラックパーサ"
 #: ../root/cdstub/CDStubIndex.js:33 ../root/edit/details/AddMedium.js:127
 #: ../root/edit/details/EditMedium.js:462
 #: ../root/edit/details/RemoveMedium.js:72
-#: ../root/static/scripts/release-editor/fields.js:769
+#: ../root/static/scripts/release-editor/fields.js:796
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:358
 msgid "Tracklist"
 msgstr "トラックリスト"
@@ -2876,12 +2877,12 @@ msgstr "トラックリスト"
 #: ../root/release_group/set_cover_art.tt:47
 #: ../root/artist_credit/ArtistCreditIndex.js:155
 #: ../root/artist_credit/ArtistCreditLayout.js:22
-#: ../root/components/list/ReleaseList.js:92
+#: ../root/components/list/ReleaseList.js:93
 #: ../root/edit/details/MergeReleases.js:232
 #: ../root/edit/details/historic/AddRelease.js:79 ../root/release/DiscIds.js:96
-#: ../root/release_group/ReleaseGroupIndex.js:161
+#: ../root/release_group/ReleaseGroupIndex.js:173
 #: ../root/search/components/CDStubResults.js:47
-#: ../root/search/components/ReleaseResults.js:114
+#: ../root/search/components/ReleaseResults.js:126
 msgid "Tracks"
 msgstr "トラック"
 
@@ -2914,7 +2915,7 @@ msgstr "Twitter"
 #: ../root/account/applications/ApplicationList.js:148
 #: ../root/components/Aliases/AliasTable.js:21
 #: ../root/components/list/ReleaseGroupList.js:84
-#: ../root/components/list/ReleaseList.js:139
+#: ../root/components/list/ReleaseList.js:140
 #: ../root/edit/details/AddArea.js:57 ../root/edit/details/AddArtist.js:65
 #: ../root/edit/details/AddEvent.js:52 ../root/edit/details/AddInstrument.js:53
 #: ../root/edit/details/AddLabel.js:82 ../root/edit/details/AddPlace.js:45
@@ -2930,7 +2931,7 @@ msgstr "Twitter"
 #: ../root/edit/details/historic/AddRelease.js:41 ../root/iswc/Index.js:58
 #: ../root/layout/components/sidebar/CollectionSidebar.js:54
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:60
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:155
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:157
 #: ../root/layout/components/sidebar/SidebarType.js:32
 #: ../root/report/DuplicateArtists.js:69
 #: ../root/report/DuplicateReleaseGroups.js:60
@@ -2943,18 +2944,18 @@ msgstr "Twitter"
 #: ../root/search/components/AnnotationResults.js:55
 #: ../root/search/components/AreaResults.js:64
 #: ../root/search/components/ArtistResults.js:54
-#: ../root/search/components/EventResults.js:81
+#: ../root/search/components/EventResults.js:88
 #: ../root/search/components/InstrumentResults.js:54
 #: ../root/search/components/LabelResults.js:67
 #: ../root/search/components/PlaceResults.js:64
 #: ../root/search/components/RecordingResults.js:150
-#: ../root/search/components/ReleaseGroupResults.js:65
-#: ../root/search/components/ReleaseResults.js:120
+#: ../root/search/components/ReleaseGroupResults.js:78
+#: ../root/search/components/ReleaseResults.js:132
 #: ../root/search/components/SearchForm.js:77
 #: ../root/search/components/SeriesResults.js:58
 #: ../root/search/components/WorkResults.js:58
 #: ../root/static/scripts/account/components/ApplicationForm.js:89
-#: ../root/static/scripts/alias/AliasEditForm.js:332
+#: ../root/static/scripts/alias/AliasEditForm.js:333
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:205
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:547
@@ -3075,7 +3076,7 @@ msgid "Voter"
 msgstr "投票者"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:60
-#: ../root/user/UserProfile.js:671
+#: ../root/user/UserProfile.js:673
 msgid "Votes"
 msgstr "投票数"
 
@@ -3920,20 +3921,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:367
+#: ../root/static/scripts/common/constants.js:368
 msgid "Low"
 msgstr "低"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:368
 #: ../root/static/scripts/common/constants.js:369
+#: ../root/static/scripts/common/constants.js:370
 msgid "Normal"
 msgstr "中"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:370
+#: ../root/static/scripts/common/constants.js:371
 msgid "High"
 msgstr "高"
 
@@ -5630,22 +5631,22 @@ msgid "A fluency level is required."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:378
+#: ../root/static/scripts/common/constants.js:379
 msgid "Basic"
 msgstr "基礎的"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:379
+#: ../root/static/scripts/common/constants.js:380
 msgid "Intermediate"
 msgstr "中級"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:377
+#: ../root/static/scripts/common/constants.js:378
 msgid "Advanced"
 msgstr "上級"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:82
-#: ../root/static/scripts/common/constants.js:380
+#: ../root/static/scripts/common/constants.js:381
 msgid "Native"
 msgstr "母語"
 
@@ -6449,12 +6450,12 @@ msgstr ""
 #: ../root/area/AreaArtists.js:26 ../root/area/AreaArtists.js:27
 #: ../root/components/EntityTabs.js:25
 #: ../root/components/TagEntitiesList.js:155
-#: ../root/components/list/EventList.js:71
+#: ../root/components/list/EventList.js:72
 #: ../root/instrument/InstrumentArtists.js:30
 #: ../root/instrument/InstrumentArtists.js:32 ../root/iswc/Index.js:57
 #: ../root/report/IswcsWithManyWorks.js:52 ../root/report/ReportsIndex.js:48
 #: ../root/report/components/EventList.js:62
-#: ../root/search/components/EventResults.js:82
+#: ../root/search/components/EventResults.js:89
 #: ../root/search/components/WorkResults.js:56
 #: ../root/static/scripts/account/components/PreferencesForm.js:252
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:896
@@ -6499,7 +6500,7 @@ msgstr "{parent_areas}の{area_type}"
 #: ../root/area/AreaLabels.js:26 ../root/area/AreaLabels.js:27
 #: ../root/components/EntityTabs.js:28
 #: ../root/components/TagEntitiesList.js:167
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:217
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:219
 #: ../root/report/ReportsIndex.js:167
 #: ../root/static/scripts/account/components/PreferencesForm.js:257
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
@@ -6574,7 +6575,7 @@ msgstr "リリース"
 
 #: ../root/area/AreaReleases.js:45 ../root/artist/ArtistReleases.js:53
 #: ../root/instrument/InstrumentReleases.js:51 ../root/label/LabelIndex.js:85
-#: ../root/release_group/ReleaseGroupIndex.js:182
+#: ../root/release_group/ReleaseGroupIndex.js:195
 msgid "Add selected releases for merging"
 msgstr "選択されたリリースをマージ"
 
@@ -6788,7 +6789,7 @@ msgstr ""
 
 #: ../root/artist/ArtistReleases.js:63
 #: ../root/instrument/InstrumentReleases.js:59
-#: ../root/release_group/ReleaseGroupIndex.js:188
+#: ../root/release_group/ReleaseGroupIndex.js:201
 msgid "No releases found."
 msgstr "リリースが見つかりませんでした。"
 
@@ -7338,7 +7339,7 @@ msgstr "別名"
 #: ../root/components/Aliases/AliasTable.js:22
 #: ../root/edit/details/AddRemoveAlias.js:67
 #: ../root/edit/details/EditAlias.js:93
-#: ../root/static/scripts/alias/AliasEditForm.js:313
+#: ../root/static/scripts/alias/AliasEditForm.js:314
 msgid "Locale"
 msgstr "ロケール"
 
@@ -7459,7 +7460,8 @@ msgstr ""
 msgid ""
 "This work has no relationships and will be removed automatically in the next "
 "few days. If this is not intended, please add relationships to this work."
-msgstr "この作品は関係を持たないため、数日のうちに自動的に削除されます。止めるために"
+msgstr ""
+"この作品は関係を持たないため、数日のうちに自動的に削除されます。止めるために"
 "は、作品にデータを追加してください。"
 
 #: ../root/components/ConfirmLayout.js:32 ../root/edit/DeleteNote.js:59
@@ -7558,13 +7560,13 @@ msgstr "レビュー"
 
 #: ../root/components/EntityTabs.js:159
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:42
-#: ../root/user/UserProfile.js:825 ../root/user/UserRatingList.js:42
+#: ../root/user/UserProfile.js:827 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
 msgstr "評価"
 
 #: ../root/components/EntityTabs.js:179
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:282
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:284
 msgid "Edit relationships"
 msgstr "関係を編集"
 
@@ -7613,10 +7615,10 @@ msgstr ""
 
 #: ../root/components/ReleaseLanguageScript.js:20
 #: ../root/components/ReleaseLanguageScript.js:26
-#: ../root/components/list/ReleaseList.js:89
+#: ../root/components/list/ReleaseList.js:90
 #: ../root/edit/details/MergeReleases.js:54 ../root/event/EventArt.js:67
-#: ../root/release/CoverArt.js:63 ../root/release_group/ReleaseGroupIndex.js:85
-#: ../root/search/components/ReleaseResults.js:62
+#: ../root/release/CoverArt.js:63 ../root/release_group/ReleaseGroupIndex.js:89
+#: ../root/search/components/ReleaseResults.js:66
 #: ../root/static/scripts/common/components/ReleaseEvents.js:54
 #: ../root/static/scripts/common/components/ReleaseEvents.js:71
 #: ../root/static/scripts/release-editor/duplicates.js:144
@@ -7765,7 +7767,7 @@ msgstr[0] "<span class=\"tooltip\" title=\"{exactdate}\">{num} 分</span>で終�
 msgid "About to close"
 msgstr "間もなく終了"
 
-#: ../root/components/list/EventList.js:95
+#: ../root/components/list/EventList.js:96
 #: ../root/static/scripts/common/components/FilterForm.js:350
 msgid "Role"
 msgstr "役割"
@@ -7785,10 +7787,10 @@ msgstr "年"
 msgid "Unspecified type"
 msgstr "タイプ未定"
 
-#: ../root/components/list/ReleaseList.js:79
+#: ../root/components/list/ReleaseList.js:80
 #: ../root/edit/details/MergeReleases.js:49
-#: ../root/release_group/ReleaseGroupIndex.js:80
-#: ../root/search/components/ReleaseResults.js:57
+#: ../root/release_group/ReleaseGroupIndex.js:84
+#: ../root/search/components/ReleaseResults.js:61
 #: ../root/static/scripts/release-editor/duplicates.js:142
 msgid "[missing media]"
 msgstr "[missing media]"
@@ -8603,7 +8605,7 @@ msgstr "(新たなリリースグループ)"
 #: ../root/edit/details/AddRelease.js:114
 #: ../root/edit/details/EditReleaseLabel.js:88
 #: ../root/edit/details/historic/AddRelease.js:112
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:244
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:246
 #: ../root/static/scripts/common/components/ReleaseEvents.js:85
 #: ../root/static/scripts/edit/components/edit/ReleaseEventsDiff.js:117
 msgid "Release events"
@@ -9718,7 +9720,7 @@ msgstr "イベントアートを表示できません"
 
 #: ../root/event/EventArt.js:44
 #: ../root/layout/components/sidebar/EventSidebar.js:58
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:92
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:94
 #: ../root/release/CoverArt.js:40
 msgid ""
 "Images for this item have been hidden by the Internet Archive because of a "
@@ -9733,8 +9735,9 @@ msgstr "すべてのサイズ:"
 msgid ""
 "These images are part of the {eaa|Event Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
-msgstr "この画像は{eaa|イベントアートアーカイブ}の一部です。{ia|Internet "
-"Archive}で見ることも可能です。"
+msgstr ""
+"この画像は{eaa|イベントアートアーカイブ}の一部です。{ia|Internet Archive}で見"
+"ることも可能です。"
 
 #: ../root/event/EventArt.js:112
 msgid "We do not currently have any event art for {event}."
@@ -9995,7 +9998,7 @@ msgstr "データの削除ポリシー"
 msgid "Privileged user accounts"
 msgstr "特権ユーザーアカウント"
 
-#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:548
+#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:550
 msgid "Statistics"
 msgstr "統計"
 
@@ -10411,7 +10414,7 @@ msgid "Log in to edit"
 msgstr "ログインして編集"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:52
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:86
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:88
 msgid "Image failed to load correctly.<br/>{all|View all images}."
 msgstr ""
 
@@ -10420,12 +10423,12 @@ msgid "No poster available."
 msgstr "ポスターがありません。"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:67
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:101
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:103
 msgid "View all artwork"
 msgstr "全ての画像を見る"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:70
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:104
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:106
 msgid "No images available."
 msgstr "画像がありません。"
 
@@ -10506,27 +10509,27 @@ msgctxt "singular, interactive"
 msgid "Set cover art"
 msgstr "カバーアートを設定"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:98
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:100
 msgid "No front cover image available."
 msgstr "カバー前面画像がありません。"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:150
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:152
 msgid "Additional details"
 msgstr "その他の詳細"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:255
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:257
 msgid "Release group rating"
 msgstr "リリースグループ評価"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:261
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:263
 msgid "Release group reviews"
 msgstr "リリースグループのレビュー"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:276
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:278
 msgid "Release group external links"
 msgstr "リリースグループの外部リンク"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:288
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:290
 msgid "Change data quality"
 msgstr "データ品質を変更"
 
@@ -11121,7 +11124,7 @@ msgid "Release group type"
 msgstr "リリースグループタイプ"
 
 #: ../root/recording/RecordingIndex.js:71
-#: ../root/release_group/ReleaseGroupIndex.js:51
+#: ../root/release_group/ReleaseGroupIndex.js:52
 msgctxt "release status"
 msgid "(unknown)"
 msgstr "(不明)"
@@ -11337,8 +11340,9 @@ msgstr "カバーアートを表示できません"
 msgid ""
 "These images are part of the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
-msgstr "この画像は{caa|カバーアートアーカイブ}の一部です。{ia|Internet "
-"Archive}で見ることも可能です。"
+msgstr ""
+"この画像は{caa|カバーアートアーカイブ}の一部です。{ia|Internet Archive}で見る"
+"ことも可能です。"
 
 #: ../root/release/CoverArt.js:109
 msgid "We do not currently have any cover art for {release}."
@@ -13092,7 +13096,7 @@ msgstr "または、{uri|新しいアーティストを追加}します。"
 msgid "Documentation search"
 msgstr "ドキュメント検索"
 
-#: ../root/search/components/EventResults.js:83
+#: ../root/search/components/EventResults.js:90
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:1049
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:220
 #: ../root/utility/tableColumns.js:389
@@ -13100,7 +13104,7 @@ msgctxt "event location"
 msgid "Location"
 msgstr "地域"
 
-#: ../root/search/components/EventResults.js:92
+#: ../root/search/components/EventResults.js:99
 msgid "Alternatively, you may {uri|add a new event}."
 msgstr "または、{uri|新しいイベントを追加}します。"
 
@@ -13124,11 +13128,11 @@ msgstr "(スタンドアロンレコーディング)"
 msgid "Alternatively, you may {uri|add a new recording}."
 msgstr "または、{uri|新しいレコーディングを追加}します。"
 
-#: ../root/search/components/ReleaseGroupResults.js:74
+#: ../root/search/components/ReleaseGroupResults.js:87
 msgid "Alternatively, you may {uri|add a new release group}."
 msgstr "または、{uri|新しいリリースグループを追加}します。"
 
-#: ../root/search/components/ReleaseResults.js:151
+#: ../root/search/components/ReleaseResults.js:163
 msgid "Alternatively, you may {uri|add a new release}."
 msgstr "または、{uri|新たなリリースを追加}します。"
 
@@ -13398,11 +13402,11 @@ msgstr "別名の詳細"
 msgid "Alias name:"
 msgstr "別名:"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:325
+#: ../root/static/scripts/alias/AliasEditForm.js:326
 msgid "This is the primary alias for this locale"
 msgstr "このロケールの主な別名です"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:340
+#: ../root/static/scripts/alias/AliasEditForm.js:341
 msgid "This alias is no longer current."
 msgstr ""
 
@@ -13532,7 +13536,7 @@ msgid "Try with indexed search instead."
 msgstr ""
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:126
-#: ../root/static/scripts/common/components/Autocomplete2.js:794
+#: ../root/static/scripts/common/components/Autocomplete2.js:790
 msgid "Type to search, or paste an MBID"
 msgstr "検索するか、MBIDを貼り付け"
 
@@ -14278,8 +14282,8 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:662
 #: ../root/static/scripts/edit/URLCleanup.js:925
-#: ../root/static/scripts/edit/URLCleanup.js:4318
-#: ../root/static/scripts/edit/URLCleanup.js:5436
+#: ../root/static/scripts/edit/URLCleanup.js:4352
+#: ../root/static/scripts/edit/URLCleanup.js:5470
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -14346,170 +14350,170 @@ msgid ""
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2984
+#: ../root/static/scripts/edit/URLCleanup.js:3018
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3002
+#: ../root/static/scripts/edit/URLCleanup.js:3036
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3047
+#: ../root/static/scripts/edit/URLCleanup.js:3081
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3075
+#: ../root/static/scripts/edit/URLCleanup.js:3109
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3100
+#: ../root/static/scripts/edit/URLCleanup.js:3134
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4215
+#: ../root/static/scripts/edit/URLCleanup.js:4249
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4931
+#: ../root/static/scripts/edit/URLCleanup.js:4965
 msgid "Only RYM music videos can be linked to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4993
+#: ../root/static/scripts/edit/URLCleanup.js:5027
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5613
+#: ../root/static/scripts/edit/URLCleanup.js:5647
 msgid "Please link to Threads profiles, not threads."
 msgstr "ポストではなくThreadsプロフィールにリンクしてください。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5747
+#: ../root/static/scripts/edit/URLCleanup.js:5781
 msgid "Please link to TikTok profiles, not videos."
 msgstr "動画ではなくTikTokプロフィールにリンクしてください。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6014
+#: ../root/static/scripts/edit/URLCleanup.js:6048
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6028
+#: ../root/static/scripts/edit/URLCleanup.js:6062
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "ツイートではなくTwitterプロフィールにリンクしてください。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6046
+#: ../root/static/scripts/edit/URLCleanup.js:6080
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6252
+#: ../root/static/scripts/edit/URLCleanup.js:6286
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6429
+#: ../root/static/scripts/edit/URLCleanup.js:6463
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6449
+#: ../root/static/scripts/edit/URLCleanup.js:6483
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6470
+#: ../root/static/scripts/edit/URLCleanup.js:6504
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6488
+#: ../root/static/scripts/edit/URLCleanup.js:6522
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6500
+#: ../root/static/scripts/edit/URLCleanup.js:6534
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6567
+#: ../root/static/scripts/edit/URLCleanup.js:6601
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6592
+#: ../root/static/scripts/edit/URLCleanup.js:6626
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6757
+#: ../root/static/scripts/edit/URLCleanup.js:6791
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6797
+#: ../root/static/scripts/edit/URLCleanup.js:6831
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6842
+#: ../root/static/scripts/edit/URLCleanup.js:6876
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6878
+#: ../root/static/scripts/edit/URLCleanup.js:6912
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6888
+#: ../root/static/scripts/edit/URLCleanup.js:6922
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6898
+#: ../root/static/scripts/edit/URLCleanup.js:6932
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6941
+#: ../root/static/scripts/edit/URLCleanup.js:6975
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6953
+#: ../root/static/scripts/edit/URLCleanup.js:6987
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7164
+#: ../root/static/scripts/edit/URLCleanup.js:7198
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7181
+#: ../root/static/scripts/edit/URLCleanup.js:7215
 #: ../root/static/scripts/edit/externalLinks.js:1073
 msgid "This relationship type combination is invalid."
 msgstr ""
@@ -14614,14 +14618,14 @@ msgstr "このリリースに表れる\"{name}\"にマッチする全てのア�
 msgid "Change all artists on this release that are currently empty"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:138
+#: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:139
 #, fuzzy
 #| msgid "[removed]"
 msgctxt "artist credit name"
 msgid "[removed]"
 msgstr "[削除済]"
 
-#: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:175
+#: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:176
 #, fuzzy
 #| msgctxt "interactive"
 #| msgid "Add artist credit"
@@ -14629,7 +14633,7 @@ msgctxt "interactive"
 msgid "Undo artist credit removal"
 msgstr "アーティストクレジットの追加"
 
-#: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:182
+#: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:183
 msgctxt "interactive"
 msgid "Remove artist credit"
 msgstr "アーティストクレジットを削除"
@@ -15219,7 +15223,7 @@ msgid "{n} work selected"
 msgid_plural "{n} works selected"
 msgstr[0] "{n} 作品を選択"
 
-#: ../root/static/scripts/release-editor/actions.js:279
+#: ../root/static/scripts/release-editor/actions.js:332
 msgid ""
 "This tracklist has artist credits with information that will be lost if you "
 "swap artist credits with track titles. This cannot be undone. Do you wish to "
@@ -15241,19 +15245,19 @@ msgctxt "header"
 msgid "Add medium"
 msgstr "メディアを追加"
 
-#: ../root/static/scripts/release-editor/fields.js:761
+#: ../root/static/scripts/release-editor/fields.js:788
 msgid "Medium {position}: {title}"
 msgstr "メディア {position}: {title}"
 
-#: ../root/static/scripts/release-editor/fields.js:767
+#: ../root/static/scripts/release-editor/fields.js:794
 msgid "Medium {position}"
 msgstr "メディア {position}"
 
-#: ../root/static/scripts/release-editor/fields.js:776
+#: ../root/static/scripts/release-editor/fields.js:803
 msgid "I confirm this medium is actually titled “{medium_title}”."
 msgstr ""
 
-#: ../root/static/scripts/release-editor/fields.js:791
+#: ../root/static/scripts/release-editor/fields.js:818
 msgid ""
 "“{matched_text}” seems to indicate medium ordering rather than a medium "
 "title. If this is the case, please use the up/down arrows on the right side "
@@ -15262,7 +15266,7 @@ msgid ""
 "the checkbox below."
 msgstr ""
 
-#: ../root/static/scripts/release-editor/fields.js:893
+#: ../root/static/scripts/release-editor/fields.js:920
 msgid "You haven’t selected a label for “{name}”."
 msgstr ""
 
@@ -16229,149 +16233,149 @@ msgstr "購読"
 msgid "Languages"
 msgstr "言語"
 
-#: ../root/user/UserProfile.js:469 ../root/user/UserProfile.js:562
-#: ../root/user/UserProfile.js:572 ../root/user/UserProfile.js:582
-#: ../root/user/UserProfile.js:592 ../root/user/UserProfile.js:602
-#: ../root/user/UserProfile.js:612 ../root/user/UserProfile.js:622
-#: ../root/user/UserProfile.js:632 ../root/user/UserProfile.js:641
-#: ../root/user/UserProfile.js:794 ../root/user/UserProfile.js:815
-#: ../root/user/UserProfile.js:836
+#: ../root/user/UserProfile.js:471 ../root/user/UserProfile.js:564
+#: ../root/user/UserProfile.js:574 ../root/user/UserProfile.js:584
+#: ../root/user/UserProfile.js:594 ../root/user/UserProfile.js:604
+#: ../root/user/UserProfile.js:614 ../root/user/UserProfile.js:624
+#: ../root/user/UserProfile.js:634 ../root/user/UserProfile.js:643
+#: ../root/user/UserProfile.js:796 ../root/user/UserProfile.js:817
+#: ../root/user/UserProfile.js:838
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|表示})"
 
-#: ../root/user/UserProfile.js:554
+#: ../root/user/UserProfile.js:556
 msgid "Edits"
 msgstr "編集"
 
-#: ../root/user/UserProfile.js:560
+#: ../root/user/UserProfile.js:562
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr "合計"
 
-#: ../root/user/UserProfile.js:570
+#: ../root/user/UserProfile.js:572
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "承認済"
 
-#: ../root/user/UserProfile.js:580
+#: ../root/user/UserProfile.js:582
 msgid "Auto-edits"
 msgstr "自動編集"
 
-#: ../root/user/UserProfile.js:590
+#: ../root/user/UserProfile.js:592
 msgid "Total applied"
 msgstr "合計適用"
 
-#: ../root/user/UserProfile.js:600
+#: ../root/user/UserProfile.js:602
 msgid "Voted down"
 msgstr "否決"
 
-#: ../root/user/UserProfile.js:610
+#: ../root/user/UserProfile.js:612
 msgid "Failed"
 msgstr "失敗"
 
-#: ../root/user/UserProfile.js:620
+#: ../root/user/UserProfile.js:622
 msgctxt "edit"
 msgid "Cancelled"
 msgstr "キャンセル済"
 
-#: ../root/user/UserProfile.js:630
+#: ../root/user/UserProfile.js:632
 msgid "Open"
 msgstr "未確定"
 
-#: ../root/user/UserProfile.js:640
+#: ../root/user/UserProfile.js:642
 msgid "Last 24 hours"
 msgstr "最近24時間"
 
-#: ../root/user/UserProfile.js:664
+#: ../root/user/UserProfile.js:666
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "この表はこの編集者が行った投票の概要を表示しています。"
 
-#: ../root/user/UserProfile.js:669
+#: ../root/user/UserProfile.js:671
 msgid "Votes ({view_url|view})"
 msgstr "投票（{view_url|表示}）"
 
-#: ../root/user/UserProfile.js:677
+#: ../root/user/UserProfile.js:679
 msgid "Last 28 days"
 msgstr "最近28日間"
 
-#: ../root/user/UserProfile.js:680
+#: ../root/user/UserProfile.js:682
 msgid "Overall"
 msgstr "合計"
 
-#: ../root/user/UserProfile.js:728
+#: ../root/user/UserProfile.js:730
 msgid "This table shows a summary of entities added by this editor."
 msgstr "この表はこの編集者により追加された項目の概要を表示しています。"
 
-#: ../root/user/UserProfile.js:734
+#: ../root/user/UserProfile.js:736
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr ""
 
-#: ../root/user/UserProfile.js:737
+#: ../root/user/UserProfile.js:739
 msgid "Added entities"
 msgstr "追加した項目"
 
-#: ../root/user/UserProfile.js:760
+#: ../root/user/UserProfile.js:762
 msgid "This user has not added any entities."
 msgstr ""
 
-#: ../root/user/UserProfile.js:770
+#: ../root/user/UserProfile.js:772
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:776
+#: ../root/user/UserProfile.js:778
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "タグと評価"
 
-#: ../root/user/UserProfile.js:783
+#: ../root/user/UserProfile.js:785
 msgctxt "folksonomy"
 msgid "Tags upvoted"
 msgstr "賛成投票したタグ"
 
-#: ../root/user/UserProfile.js:787 ../root/user/UserProfile.js:808
+#: ../root/user/UserProfile.js:789 ../root/user/UserProfile.js:810
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
 msgstr ""
 
-#: ../root/user/UserProfile.js:791 ../root/user/UserProfile.js:812
+#: ../root/user/UserProfile.js:793 ../root/user/UserProfile.js:814
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "削除しました"
 
-#: ../root/user/UserProfile.js:803
+#: ../root/user/UserProfile.js:805
 msgctxt "folksonomy"
 msgid "Tags downvoted"
 msgstr "反対投票したタグ"
 
-#: ../root/user/UserProfile.js:829
+#: ../root/user/UserProfile.js:831
 msgid "Ratings are removed when an editor is deleted."
 msgstr ""
 
-#: ../root/user/UserProfile.js:832
+#: ../root/user/UserProfile.js:834
 msgctxt "ratings"
 msgid "Removed"
 msgstr ""
 
-#: ../root/user/UserProfile.js:869
+#: ../root/user/UserProfile.js:871
 msgid "Editing/voting disabled"
 msgstr "編集・投票が無効です"
 
-#: ../root/user/UserProfile.js:872
+#: ../root/user/UserProfile.js:874
 msgid "Edit notes disabled"
 msgstr "編集ノートは無効化されています"
 
-#: ../root/user/UserProfile.js:886
+#: ../root/user/UserProfile.js:888
 msgid "Blocked spam account"
 msgstr "スパムアカウントをブロック"
 
-#: ../root/user/UserProfile.js:888
+#: ../root/user/UserProfile.js:890
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
 "reporting the spammer from their user page."
 msgstr ""
 
-#: ../root/user/UserProfile.js:942
+#: ../root/user/UserProfile.js:944
 msgid "Report this user for bad behavior"
 msgstr "このユーザーの悪い行動を報告"
 

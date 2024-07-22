@@ -41,7 +41,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-07-10 21:42+0000\n"
+"PO-Revision-Date: 2024-07-16 08:17+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
@@ -2616,6 +2616,8 @@ msgid ""
 "This indicates that the label performed a role not covered by other "
 "relationship types."
 msgstr ""
+"Ceci indique qu’un label a rempli un rôle non couvert par les autres types "
+"de relation."
 
 #. name:commissioned
 #: DB:link_type/description:890
@@ -3721,6 +3723,11 @@ msgid ""
 "relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" "
 "target=\"_blank\">tribute relationship</a>."
 msgstr ""
+"Ceci relie un groupe de parution à l’artiste auquel il est dédicacé. C’est "
+"prévu pour les dédicaces telles qu’un album « À la mémoire de » cet artiste. "
+"Pour les albums hommages consistant en des reprises d’un artiste, utilisez "
+"la <a href=\"/relationship/5e2907db-49ec-4a48-9f11-dfb99d2603ff\" target="
+"\"_blank\">relation hommage</a>."
 
 #. name:tribute
 #: DB:link_type/description:65
@@ -4754,6 +4761,7 @@ msgstr ""
 #: DB:link_type/description:1166
 msgid "This relationship links a person to the music school(s) they directed."
 msgstr ""
+"Cette relation relie une personne aux écoles de musique qu’elle a dirigé."
 
 #. name:invented
 #: DB:link_type/description:918
@@ -4956,6 +4964,12 @@ msgid ""
 "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
 "ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgstr ""
+"Ce type de relation est utilisé pour indiquer qu’un groupe de parution est "
+"une reprise d’un autre groupe de parution, c’est-à-dire, quand un artiste "
+"réalise une nouvelle interprétation de l’album d’un autre artiste.<br/>\n"
+"Pour les reprises d’œuvres individuelles, utilisez une <a href=\"/"
+"relationship/a3005666-a872-32c3-ad06-98af558e99b0\">relation enregistrement "
+"d’œuvre</a> avec l’attribut « reprise »."
 
 #. name:re‐recording
 #: DB:link_type/description:1229
@@ -5372,6 +5386,9 @@ msgid ""
 "in many different ways, such as \"producer\", or one that is otherwise "
 "generic, such as \"miscellaneous support\"."
 msgstr ""
+"Cet attribut indique la (ou les) tâche(s) remplies par une relation qui "
+"permet la nuance, telle que « producteur », ou par une relation générique, "
+"telle que « rôles divers »."
 
 #. name:medium
 #: DB:link_attribute_type/description:568
@@ -5726,7 +5743,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1345
 msgid "accompanying"
-msgstr ""
+msgstr "accompagnement"
 
 #: DB:link_attribute_type/name:1030
 msgid "act"
@@ -5819,7 +5836,7 @@ msgstr "arrangeur"
 
 #: DB:link_attribute_type/name:1347
 msgid "arranging"
-msgstr ""
+msgstr "arrangement"
 
 #. name:arranged at, name:arranged in
 #: DB:link_type/link_phrase:864 DB:link_type/link_phrase:863
@@ -5853,7 +5870,7 @@ msgstr "soutien artiste & répertoire"
 
 #: DB:link_attribute_type/name:1355
 msgid "artist diploma"
-msgstr ""
+msgstr "Diplôme artistique"
 
 #: DB:link_type/name:1079
 msgid "artist rename"
@@ -6144,7 +6161,7 @@ msgstr "chœurs"
 
 #: DB:link_attribute_type/name:1224
 msgid "choral conducting"
-msgstr ""
+msgstr "direction de chœur"
 
 #: DB:link_type/name:1230
 msgid "choreographer"
@@ -6390,7 +6407,7 @@ msgstr "protégé par les droits d'auteur (©) de"
 
 #: DB:link_attribute_type/name:1349
 msgid "counterpoint"
-msgstr ""
+msgstr "contrepoint"
 
 #. name:countertenor vocals
 #: DB:link_attribute_type/name:8 DB:link_attribute_type/description:8
@@ -6683,7 +6700,7 @@ msgstr "enseignants"
 
 #: DB:link_attribute_type/name:1352
 msgid "electroacoustic music"
-msgstr ""
+msgstr "musique électroacoustique"
 
 #: DB:link_attribute_type/name:1127
 msgid "electronic music"
@@ -8383,7 +8400,7 @@ msgstr "éducation musicale"
 
 #: DB:link_attribute_type/name:1348
 msgid "music history"
-msgstr ""
+msgstr "histoire de la musique"
 
 #: DB:link_attribute_type/name:1201
 msgid "music production"
@@ -8396,7 +8413,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1222
 msgid "music theory"
-msgstr ""
+msgstr "théorie de la musique"
 
 #: DB:link_attribute_type/name:1203
 msgid "music therapy"
@@ -8838,7 +8855,7 @@ msgstr "affiche pour"
 
 #: DB:link_attribute_type/name:1219
 msgid "postgraduate"
-msgstr ""
+msgstr "troisième cycle"
 
 #: DB:link_attribute_type/name:1353
 msgid "pre"
@@ -9553,7 +9570,7 @@ msgstr "signé par"
 
 #: DB:link_attribute_type/name:1199
 msgid "singing"
-msgstr "chantant"
+msgstr "chant"
 
 #: DB:link_type/name:11
 msgid "single from"
@@ -9585,7 +9602,7 @@ msgstr "page de réseau social pour"
 
 #: DB:link_attribute_type/name:1351
 msgid "solfeggio"
-msgstr ""
+msgstr "solfège"
 
 #: DB:link_attribute_type/name:596
 msgid "solo"
@@ -10220,7 +10237,7 @@ msgstr "wikipédia"
 
 #: DB:link_attribute_type/name:1346
 msgid "wind/brass conducting"
-msgstr ""
+msgstr "direction d’instruments à vent/cuivres"
 
 #: DB:link_attribute_type/name:1416
 msgid "winner"

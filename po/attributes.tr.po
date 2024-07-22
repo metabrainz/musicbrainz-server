@@ -9,11 +9,12 @@
 # portik <email address hidden>, 2014
 # portik <email address hidden>, 2012
 # brtc <boratici@gmail.com>, 2024.
+# brtc <brtc@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-18 23:28+0000\n"
-"Last-Translator: brtc <boratici@gmail.com>\n"
+"PO-Revision-Date: 2024-07-19 15:42+0000\n"
+"Last-Translator: brtc <brtc@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Turkish <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/tr/>\n"
 "Language: tr\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -233,6 +234,9 @@ msgid ""
 "connected to a phone via Bluetooth or headphone jack and unlocks the release "
 "for listening in a companion app for a limited period of time."
 msgstr ""
+"Çoğunlukla k-pop müziği için kullanılan, bluetooth veya kulaklık jakı "
+"aracılığıyla bir telefona bağlanan ve bir uygulamada sınırlı bir süre için "
+"dinleme sürümünün kilidini açan \"dijital koleksiyonluk\" bir cihaz."
 
 #. name:Park
 #: DB:place_type/description:9
