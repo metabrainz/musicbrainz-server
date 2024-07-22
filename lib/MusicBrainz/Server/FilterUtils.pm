@@ -69,6 +69,7 @@ sub create_artist_works_form {
 
     my %form_args = (
         entity_type => 'work',
+        languages => $c->model('Work')->find_languages_by_artist($artist_id),
         types => [ $c->model('WorkType')->get_all ],
     );
 
