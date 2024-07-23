@@ -41,11 +41,11 @@ component _UrlRelationshipEditor(...props: PropsT) {
   React.useEffect(() => {
     const urlControl = document.getElementById('id-edit-url.url');
 
-    const handleUrlChange = function (this: HTMLInputElement) {
+    function handleUrlChange(this: HTMLInputElement) {
       /* eslint-disable react/no-this-in-sfc */
       this.value = getUnicodeUrl(this.value);
       /* eslint-enable react/no-this-in-sfc */
-    };
+    }
 
     urlControl?.addEventListener('change', handleUrlChange);
 
@@ -63,7 +63,7 @@ component _UrlRelationshipEditor(...props: PropsT) {
   );
 }
 
-const NonHydratedUrlRelationshipEditor: React$AbstractComponent<PropsT> =
+const NonHydratedUrlRelationshipEditor: React.AbstractComponent<PropsT> =
   withLoadedTypeInfoForRelationshipEditor<PropsT>(
     _UrlRelationshipEditor,
   );
@@ -71,6 +71,6 @@ const NonHydratedUrlRelationshipEditor: React$AbstractComponent<PropsT> =
 const UrlRelationshipEditor = (hydrate<PropsT>(
   'div.relationship-editor',
   NonHydratedUrlRelationshipEditor,
-): React$AbstractComponent<PropsT>);
+): React.AbstractComponent<PropsT>);
 
 export default UrlRelationshipEditor;

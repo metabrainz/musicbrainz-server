@@ -127,7 +127,7 @@ component _Relationship(
   );
 }
 
-const Relationships: React$AbstractComponent<React.PropsOf<_Relationship>> =
+const Relationships: React.AbstractComponent<React.PropsOf<_Relationship>> =
   React.memo(_Relationship);
 
 export default Relationships;

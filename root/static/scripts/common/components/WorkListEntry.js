@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../../../context.mjs';
 import loopParity from '../../../../utility/loopParity.js';
-import * as manifest from '../../../manifest.mjs';
+import manifest from '../../../manifest.mjs';
 import localizeLanguageName from '../i18n/localizeLanguageName.js';
 
 import ArtistRoles from './ArtistRoles.js';
@@ -50,25 +50,16 @@ export component WorkListRow(
       <td><EntityLink entity={work} /></td>
       <td>
         <ArtistRoles relations={work.writers} />
-        {manifest.js(
-          'common/components/ArtistRoles',
-          {async: 'async'},
-        )}
+        {manifest('common/components/ArtistRoles', {async: 'async'})}
       </td>
       <td>
         <WorkArtists artists={work.artists} />
-        {manifest.js(
-          'common/components/WorkArtists',
-          {async: 'async'},
-        )}
+        {manifest('common/components/WorkArtists', {async: 'async'})}
       </td>
       {showIswcs ? (
         <td>
           <IswcList iswcs={work.iswcs} />
-          {manifest.js(
-            'common/components/ArtistRoles',
-            {async: 'async'},
-          )}
+          {manifest('common/components/ArtistRoles', {async: 'async'})}
         </td>
       ) : null}
       <td>
@@ -93,10 +84,7 @@ export component WorkListRow(
           {work.attributes ? (
             <>
               <AttributeList attributes={work.attributes} />
-              {manifest.js(
-                'common/components/AttributeList',
-                {async: 'async'},
-              )}
+              {manifest('common/components/AttributeList', {async: 'async'})}
             </>
           ) : null}
         </td>

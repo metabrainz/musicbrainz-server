@@ -634,6 +634,30 @@ test 'Work page filtering' => sub {
     );
 
     $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/works?filter.language_id=120',
+        'Fetched artist works page with language filter "English"',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '2',
+        'There are two entries in the work table after filtering by "English" language',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/works?filter.language_id=-1',
+        'Fetched artist works page with language filter "[not set]"',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '3',
+        'There are three entries in the work table after filtering by no language set',
+    );
+
+    $mech->get_ok(
         '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/works?filter.name=Interlude',
         'Fetched artist works page with name filter "Interlude"',
     );

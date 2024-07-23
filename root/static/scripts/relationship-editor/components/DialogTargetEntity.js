@@ -206,7 +206,7 @@ function selectNewWork(
   const match = newInputValue.match(NEW_WORK_HASH);
   if (match) {
     const newWorkId = match[1];
-    const newWork = linkedEntities.work[+newWorkId];
+    const newWork = linkedEntities.work[Number(newWorkId)];
     if (newWork) {
       return selectItem({
         entity: newWork,
@@ -299,7 +299,7 @@ export function reducer(
 
 // XXX Until Flow supports https://github.com/facebook/flow/issues/7672
 const TargetAutocomplete:
-  React$AbstractComponent<AutocompletePropsT<NonUrlRelatableEntityT>, void> =
+  React.AbstractComponent<AutocompletePropsT<NonUrlRelatableEntityT>> =
   // $FlowIgnore[incompatible-type]
   Autocomplete2;
 
@@ -343,9 +343,9 @@ component _DialogTargetEntity(
     dispatch({action, type: 'update-credit'});
   }, [dispatch]);
 
-  const showTargetCredit = !!(
+  const showTargetCredit = Boolean(
     ENTITIES_WITH_RELATIONSHIP_CREDITS[targetType] &&
-    autocomplete?.selectedItem?.entity
+    autocomplete?.selectedItem?.entity,
   );
 
   return (
@@ -387,7 +387,7 @@ component _DialogTargetEntity(
   );
 }
 
-const DialogTargetEntity: React$AbstractComponent<
+const DialogTargetEntity: React.AbstractComponent<
   React.PropsOf<_DialogTargetEntity>
 > = React.memo(_DialogTargetEntity);
 

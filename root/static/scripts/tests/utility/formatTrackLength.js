@@ -24,7 +24,7 @@ test('formatTrackLength', function (t) {
   t.equal(formatTrackLength(59 * minutes), '59:00', 'formatTrackLength');
   t.equal(formatTrackLength(60 * minutes), '1:00:00', 'formatTrackLength');
   t.equal(
-    formatTrackLength(14 * hours + 15 * minutes + 16 * seconds),
+    formatTrackLength((14 * hours) + (15 * minutes) + (16 * seconds)),
     '14:15:16',
     'formatTrackLength',
   );

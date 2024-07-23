@@ -15,7 +15,7 @@ import {reduceArtistCredit}
 import ReleaseHeader from './ReleaseHeader.js';
 
 component ReleaseLayout(
-  children: React$Node,
+  children: React.Node,
   entity as release: ReleaseT,
   fullWidth: boolean = false,
   page?: string,

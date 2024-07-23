@@ -24,7 +24,7 @@ component TagList(
 ) {
   const upvotedTags = tags ? tags.filter(tag => tag.count > 0) : null;
   const links = upvotedTags ? upvotedTags.reduce((
-    accum: Array<React$Element<typeof TagLink>>,
+    accum: Array<React.Element<typeof TagLink>>,
     aggregatedTag,
   ) => {
     if (Boolean(aggregatedTag.tag.genre) === isGenreList) {
@@ -53,44 +53,42 @@ component SidebarTags(entity: TaggableEntityT) {
 
   return (
     $c.action.name === 'tags' ? null : (
-      <>
-        {($c.user?.has_confirmed_email_address &&
-          aggregatedTags && userTags) ? (
-            <SidebarTagEditor
-              aggregatedTags={aggregatedTags}
-              entity={entity}
-              genreMap={$c.stash.genre_map}
-              more={more}
-              userTags={userTags}
-            />
-          ) : (
-            <div id="sidebar-tags">
-              <h2>{lp('Tags', 'folksonomy')}</h2>
+      ($c.user?.has_confirmed_email_address &&
+        aggregatedTags && userTags) ? (
+          <SidebarTagEditor
+            aggregatedTags={aggregatedTags}
+            entity={entity}
+            genreMap={$c.stash.genre_map}
+            more={more}
+            userTags={userTags}
+          />
+        ) : (
+          <div id="sidebar-tags">
+            <h2>{lp('Tags', 'folksonomy')}</h2>
 
-              <h3>{l('Genres')}</h3>
-              <div className="genre-list">
-                <p>
-                  <TagList isGenreList tags={aggregatedTags} />
-                </p>
-              </div>
-
-              <h3>{lp('Other tags', 'folksonomy')}</h3>
-              <div id="sidebar-tag-list">
-                <p>
-                  <TagList tags={aggregatedTags} />
-                </p>
-              </div>
-
+            <h3>{l('Genres')}</h3>
+            <div className="genre-list">
               <p>
-                <EntityLink
-                  content={lp('See all tags', 'folksonomy')}
-                  entity={entity}
-                  subPath="tags"
-                />
+                <TagList isGenreList tags={aggregatedTags} />
               </p>
             </div>
-          )}
-      </>
+
+            <h3>{lp('Other tags', 'folksonomy')}</h3>
+            <div id="sidebar-tag-list">
+              <p>
+                <TagList tags={aggregatedTags} />
+              </p>
+            </div>
+
+            <p>
+              <EntityLink
+                content={lp('See all tags', 'folksonomy')}
+                entity={entity}
+                subPath="tags"
+              />
+            </p>
+          </div>
+        )
     )
   );
 }

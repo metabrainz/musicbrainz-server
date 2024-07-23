@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable max-len */
+/* eslint-disable @stylistic/js/max-len */
 
 import {
   STATIC_RESOURCES_LOCATION,

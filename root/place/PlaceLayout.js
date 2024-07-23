@@ -13,7 +13,7 @@ import Layout from '../layout/index.js';
 import PlaceHeader from './PlaceHeader.js';
 
 component PlaceLayout(
-  children: React$Node,
+  children: React.Node,
   entity as place: PlaceT,
   fullWidth: boolean = false,
   page: string,

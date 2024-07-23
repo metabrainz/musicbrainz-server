@@ -21,7 +21,6 @@ import formatTrackLength from '../../common/utility/formatTrackLength.js';
 import NewWorkLink
   from '../../relationship-editor/components/NewWorkLink.js';
 import RelationshipTargetTypeGroups
-  // eslint-disable-next-line max-len
   from '../../relationship-editor/components/RelationshipTargetTypeGroups.js';
 import {REL_STATUS_REMOVE} from '../../relationship-editor/constants.js';
 import {
@@ -496,7 +495,7 @@ component _TrackRelationshipEditor(
   );
 }
 
-const TrackRelationshipEditor: React$AbstractComponent<
+const TrackRelationshipEditor: React.AbstractComponent<
   React.PropsOf<_TrackRelationshipEditor>
 > = React.memo(_TrackRelationshipEditor);
 

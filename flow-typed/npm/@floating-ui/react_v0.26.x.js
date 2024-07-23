@@ -242,13 +242,13 @@ declare module '@floating-ui/react' {
   };
 
   declare export const FloatingArrow:
-    React$AbstractComponent<FloatingArrowProps, Element>;
+    React.AbstractComponent<FloatingArrowProps, Element>;
 
   /*
    * FloatingFocusManager
    */
   declare export type FloatingFocusManagerProps = {
-    +children: React$Node,
+    +children: React.Node,
     +closeOnFocusOut?: boolean,
     +context: FloatingContext,
     +initialFocus?: number | {current: HTMLElement | null},
@@ -257,50 +257,50 @@ declare module '@floating-ui/react' {
   };
 
   declare export const FloatingFocusManager:
-    React$AbstractComponent<FloatingFocusManagerProps>;
+    React.AbstractComponent<FloatingFocusManagerProps>;
 
   /*
    * FloatingNode
    */
   declare export type FloatingNodeProps = {
-    +children: React$Node,
+    +children: React.Node,
     +id?: string,
   };
 
   declare export const FloatingNode:
-    React$AbstractComponent<FloatingNodeProps>;
+    React.AbstractComponent<FloatingNodeProps>;
 
   /*
    * FloatingOverlay
    */
   declare export type FloatingOverlayProps = {
-    +children: React$Node,
+    +children: React.Node,
     +className?: string,
     +lockScroll?: boolean,
     +onClick?: (SyntheticMouseEvent<HTMLDivElement>) => mixed,
   };
 
   declare export const FloatingOverlay:
-    React$AbstractComponent<FloatingOverlayProps>;
+    React.AbstractComponent<FloatingOverlayProps>;
 
   /*
    * FloatingPortal
    */
   declare export type FloatingPortalProps = {
-    +children: React$Node,
+    +children: React.Node,
     +id?: string,
   };
 
   declare export const FloatingPortal:
-    React$AbstractComponent<FloatingPortalProps>;
+    React.AbstractComponent<FloatingPortalProps>;
 
   /*
    * FloatingTree
    */
   declare export type FloatingTreeProps = {
-    +children: React$Node,
+    +children: React.Node,
   };
 
   declare export const FloatingTree:
-    React$AbstractComponent<FloatingTreeProps>;
+    React.AbstractComponent<FloatingTreeProps>;
 }

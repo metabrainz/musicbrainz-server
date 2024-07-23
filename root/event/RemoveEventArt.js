@@ -25,7 +25,7 @@ const RemoveEventArt = ({
   artwork,
   event,
   form,
-}: Props): React$Element<typeof EventLayout> => {
+}: Props): React.Element<typeof EventLayout> => {
   const title = lp('Remove event art', 'singular, header');
 
   return (

@@ -8,7 +8,7 @@
  */
 
 import {Artwork} from '../../components/Artwork.js';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import ReleaseEvents
@@ -81,7 +81,7 @@ component SetCoverArt(edit: SetCoverArtEditT) {
           ) : l(`We are unable to display this cover art.`)}
         </td>
       </tr>
-      {manifest.js('common/components/ReleaseEvents', {async: 'async'})}
+      {manifest('common/components/ReleaseEvents', {async: 'async'})}
     </table>
   );
 }

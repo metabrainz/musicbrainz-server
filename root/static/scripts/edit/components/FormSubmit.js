@@ -10,7 +10,7 @@
 component FormSubmit(
   className?: string,
   inputClassName?: string,
-  label: React$Node,
+  label: React.Node,
   name?: string,
   value?: string,
 ) {

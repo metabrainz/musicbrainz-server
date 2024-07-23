@@ -293,8 +293,7 @@ export function reducer(
         const name = artistCredit.names[i];
         if (!name.artist) {
           artistCreditCtx.set(
-            'names', i, 'artist',
-            createArtistObject({name: name.name}),
+            'names', i, 'artist', createArtistObject({name: name.name}),
           );
         }
       }
@@ -486,7 +485,7 @@ component _ArtistCreditEditor(
   }, [dispatch]);
 
   const hiddenInputsPrefix = nonEmpty(formName) ? (
-    formName + '.' + 'artist_credit.names.'
+    formName + '.artist_credit.names.'
   ) : '';
 
   const buildPopoverChildren = React.useCallback((
@@ -555,7 +554,7 @@ component _ArtistCreditEditor(
               <input
                 name={curPrefix + 'artist.id'}
                 type="hidden"
-                value={'' + ((artist?.id) ?? '')}
+                value={String((artist?.id) ?? '')}
               />
             </React.Fragment>
           );

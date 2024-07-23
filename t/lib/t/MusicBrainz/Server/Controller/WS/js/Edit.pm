@@ -169,7 +169,7 @@ test 'previewing/creating/editing a release group and release' => sub {
 
     $response = from_json($mech->content);
 
-    is($response->{error}, 'editNote invalid', 'ws response says editNote invalid');
+    is($response->{error}, 'Your edit note seems to have no actual content. Please provide a note that will be helpful to your fellow editors!', 'ws response says the note is invalid');
 
 
     @edits = capture_edits {

@@ -535,7 +535,7 @@ component Index(
                   'with {num} disc ID:',
                   'with {num} disc IDs:',
                   num,
-                  {num: num},
+                  {num},
                 )}
               </th>
               <td>{fc('release.' + num + 'discids')}</td>
@@ -579,7 +579,7 @@ component Index(
                   'with {num} disc ID:',
                   'with {num} disc IDs:',
                   num,
-                  {num: num},
+                  {num},
                 )}
               </th>
               <td>{fc('medium.' + num + 'discids')}</td>

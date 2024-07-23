@@ -16,7 +16,7 @@ component NoInfo(form: SearchFormT | TagLookupFormT, query: string) {
         {exp.l(
           `Sorry, your query “(<code>{query}</code>)” does not contain
            enough information to carry out a search.`,
-          {query: query},
+          {query},
         )}
       </p>
     </SearchError>

@@ -56,11 +56,11 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     showStatus: true,
 
     // Prevent menu item focus from changing the input value
-    focus: function () {
+    focus() {
       return false;
     },
 
-    source: function (request, response) {
+    source(request, response) {
       var self = this;
 
       // always reset to first page if we're looking for something new.
@@ -82,7 +82,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
         },
         dataType: 'json',
         success: $.proxy(this._lookupSuccess, this, response),
-        error: function () {
+        error() {
           response([{
             label: l(
               'An error occurred while searching. Click here to try again.',
@@ -103,7 +103,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     lookupHook: (requestArgs) => requestArgs,
   },
 
-  _create: function () {
+  _create() {
     this._super();
 
     this.currentResults = [];
@@ -215,7 +215,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
             ...recentItems.map((item) => item.entity),
             {
               label: l('Clear recent items'),
-              action: function () {
+              action() {
                 clearRecentItems(entityType);
                 self.clear();
               },
@@ -242,7 +242,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     });
   },
 
-  _dataToEntity: function (data) {
+  _dataToEntity(data) {
     try {
       if (this.options.entityConstructor) {
         return new this.options.entityConstructor(data);
@@ -267,17 +267,17 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
    * Overrides $.ui.autocomplete.prototype.close
    * Reset the currentPage and currentResults on menu close.
    */
-  close: function (event) {
+  close(event) {
     this._super(event);
     this._resetPage();
   },
 
-  clear: function (clearAction) {
+  clear(clearAction) {
     this.clearSelection(clearAction);
     this.close();
   },
 
-  clearSelection: function (clearAction) {
+  clearSelection(clearAction) {
     var name = clearAction ? '' : this._value();
     var currentSelection = this.currentSelection.peek();
 
@@ -293,7 +293,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
       currentSelection.id ||
       currentSelection.gid
     ) {
-      this.currentSelection(this._dataToEntity({name: name}));
+      this.currentSelection(this._dataToEntity({name}));
     } else if (currentSelection.name !== name) {
       currentSelection.name = name;
       this.currentSelection.notifySubscribers(currentSelection);
@@ -302,12 +302,12 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     this.element.trigger('cleared', [clearAction]);
   },
 
-  _resetPage: function () {
+  _resetPage() {
     this.currentPage = 1;
     this.currentResults = [];
   },
 
-  _searchAgain: function (toggle) {
+  _searchAgain(toggle) {
     if (toggle) {
       this.indexedSearch = !this.indexedSearch;
     }
@@ -316,15 +316,15 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     this._search(this.term);
   },
 
-  _showMore: function () {
+  _showMore() {
     this.currentPage += 1;
     this._search(this._value());
   },
 
-  setSelection: function (data) {
-    data = data || {};
+  setSelection(data) {
+    data ||= {};
     var name = ko.unwrap(data.name) || '';
-    var hasID = !!(data.id || data.gid);
+    var hasID = Boolean(data.id || data.gid);
 
     if (this._value() !== name) {
       this._value(name);
@@ -351,7 +351,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     }
   },
 
-  setObservable: function (observable) {
+  setObservable(observable) {
     if (this._selectionSubscription) {
       this._selectionSubscription.dispose();
     }
@@ -365,7 +365,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
   },
 
   // Overrides $.ui.autocomplete.prototype._searchTimeout
-  _searchTimeout: function (event) {
+  _searchTimeout(event) {
     var newTerm = this._value();
 
     if (isBlank(newTerm)) {
@@ -408,7 +408,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     }
   },
 
-  _lookupMBID: function (mbid) {
+  _lookupMBID(mbid) {
     var self = this;
 
     this.close();
@@ -422,7 +422,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
 
       dataType: 'json',
 
-      success: function (data) {
+      success(data) {
         var currentEntityType = self.entity.replace('-', '_');
 
         if (data.entityType !== currentEntityType) {
@@ -444,7 +444,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     });
   },
 
-  _lookupSuccess: function (response, data) {
+  _lookupSuccess(response, data) {
     var self = this;
     var pager = last(data);
     var jumpTo = this.currentResults.length;
@@ -462,7 +462,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
         return !item.action;
       });
 
-    results.push.apply(results, data);
+    results.push(...data);
 
     this.currentPage = parseInt(pager.current, 10);
     this.totalPages = parseInt(pager.pages, 10);
@@ -507,7 +507,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
       const label = ADD_NEW_ENTITY_TITLES[entity]();
       results.push({
         label,
-        action: function () {
+        action() {
           const containerNode = self._getAddEntityContainer()[0];
           let root = null;
 
@@ -562,14 +562,14 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     });
   },
 
-  _renderAction: function (ul, item) {
+  _renderAction(ul, item) {
     return $('<li>')
       .css('text-align', 'center')
       .append($('<a>').text(item.label))
       .appendTo(ul);
   },
 
-  _renderItem: function (ul, item) {
+  _renderItem(ul, item) {
     if (item.action) {
       return this._renderAction(ul, item);
     }
@@ -578,14 +578,14 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     return formatters[entityType](ul, item);
   },
 
-  changeEntity: function (entity) {
+  changeEntity(entity) {
     this.entity = entity.replace('_', '-');
     if (entity === 'event') {
       this.indexedSearch = false;
     }
   },
 
-  entityType: function () {
+  entityType() {
     return this.entity.replace('-', '_');
   },
 });
@@ -604,7 +604,7 @@ $.widget('ui.menu', $.ui.menu, {
    * default menu behavior.
    */
 
-  _selectAction: function (event) {
+  _selectAction(event) {
     var active = this.active || $(event.target).closest('.ui-menu-item');
     var item = active.data('ui-autocomplete-item');
 
@@ -625,12 +625,12 @@ $.widget('ui.menu', $.ui.menu, {
     return true;
   },
 
-  _create: function () {
+  _create() {
     this._super();
     this._on({'click .ui-menu-item > a': this._selectAction});
   },
 
-  select: function (event) {
+  select(event) {
     if (this._selectAction(event)) {
       this._super(event);
     }
@@ -645,7 +645,7 @@ $.widget('ui.menu', $.ui.menu, {
 
 
 MB.Control.autocomplete_formatters = {
-  'generic': function (ul, item) {
+  'generic'(ul, item) {
     var a = $('<a>').text(item.name);
 
     var comment = [];
@@ -672,7 +672,7 @@ MB.Control.autocomplete_formatters = {
     return $('<li>').append(a).appendTo(ul);
   },
 
-  'recording': function (ul, item) {
+  'recording'(ul, item) {
     var a = $('<a>').text(item.name);
 
     if (item.length) {
@@ -727,7 +727,7 @@ MB.Control.autocomplete_formatters = {
     return $('<li>').append(a).appendTo(ul);
   },
 
-  'release': function (ul, item) {
+  'release'(ul, item) {
     var $li = this.generic(ul, item);
     var $a = $li.children('a');
 
@@ -790,7 +790,7 @@ MB.Control.autocomplete_formatters = {
     return $li;
   },
 
-  'release-group': function (ul, item) {
+  'release-group'(ul, item) {
     var a = $('<a>').text(item.name);
 
     if (item.firstReleaseDate) {
@@ -819,7 +819,7 @@ MB.Control.autocomplete_formatters = {
     return $('<li>').append(a).appendTo(ul);
   },
 
-  'series': function (ul, item) {
+  'series'(ul, item) {
     var a = $('<a>').text(item.name);
 
     if (item.comment) {
@@ -842,7 +842,7 @@ MB.Control.autocomplete_formatters = {
     return $('<li>').append(a).appendTo(ul);
   },
 
-  'work': function (ul, item) {
+  'work'(ul, item) {
     var a = $('<a>').text(item.name);
     var comment = [];
 
@@ -877,7 +877,7 @@ MB.Control.autocomplete_formatters = {
       );
     }
 
-    var artistRenderer = function (prefix, artists) {
+    function artistRenderer(prefix, artists) {
       if (artists && artists.hits > 0) {
         var toRender = artists.results;
         if (artists.hits > toRender.length) {
@@ -889,7 +889,7 @@ MB.Control.autocomplete_formatters = {
           prefix + ': ' + he.escape(commaOnlyListText(toRender)) + '</span>',
         );
       }
-    };
+    }
 
     if (item.related_artists) {
       artistRenderer(l('Writers'), item.related_artists.writers);
@@ -899,7 +899,7 @@ MB.Control.autocomplete_formatters = {
     return $('<li>').append(a).appendTo(ul);
   },
 
-  'area': function (ul, item) {
+  'area'(ul, item) {
     var a = $('<a>').text(item.name);
 
     if (item.comment) {
@@ -922,7 +922,7 @@ MB.Control.autocomplete_formatters = {
     return $('<li>').append(a).appendTo(ul);
   },
 
-  'place': function (ul, item) {
+  'place'(ul, item) {
     var a = $('<a>').text(item.name);
 
     var comment = [];
@@ -960,7 +960,7 @@ MB.Control.autocomplete_formatters = {
     return $('<li>').append(a).appendTo(ul);
   },
 
-  'instrument': function (ul, item) {
+  'instrument'(ul, item) {
     var a = $('<a>').text(item.name);
 
     var comment = [];
@@ -995,7 +995,7 @@ MB.Control.autocomplete_formatters = {
     return $('<li>').append(a).appendTo(ul);
   },
 
-  'event': function (ul, item) {
+  'event'(ul, item) {
     var a = $('<a>').text(item.name);
     var comment = [];
 
@@ -1029,7 +1029,7 @@ MB.Control.autocomplete_formatters = {
       );
     }
 
-    var entityRenderer = function (prefix, relatedEntities) {
+    function entityRenderer(prefix, relatedEntities) {
       if (relatedEntities && relatedEntities.hits > 0) {
         var toRender = relatedEntities.results;
         if (relatedEntities.hits > toRender.length) {
@@ -1041,7 +1041,7 @@ MB.Control.autocomplete_formatters = {
           prefix + ': ' + he.escape(commaOnlyListText(toRender)) + '</span>',
         );
       }
-    };
+    }
 
     if (item.related_entities) {
       entityRenderer(l('Performers'), item.related_entities.performers);
@@ -1141,7 +1141,7 @@ MB.Control.EntityAutocomplete = function (options) {
      * due to recordings having a 'length' property.
      */
     for (const key in item) {
-      if (hasOwnProp(item, key)) {
+      if (Object.hasOwn(item, key)) {
         $hidden.filter('input.' + key)
           .val(item[key]).trigger('change');
       }
@@ -1154,7 +1154,7 @@ MB.Control.EntityAutocomplete = function (options) {
 
 ko.bindingHandlers.autocomplete = {
 
-  init: function (element, valueAccessor) {
+  init(element, valueAccessor) {
     var options = valueAccessor();
 
     $(element)

@@ -73,7 +73,7 @@ export function popBracket(): string | null {
   return cb;
 }
 
-const bracketChars = /^[()\[\]{}<>]$/;
+const bracketChars = /^[()[\]{}<>]$/;
 
 const bracketPairs: {
   +[openingBracket: string]: string,

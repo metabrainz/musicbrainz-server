@@ -60,9 +60,9 @@ export function _createLinkAttributeTypeOptions(
       type: 'option',
     });
   }
-  attr.children?.forEach(child => (
-    void _createLinkAttributeTypeOptions(child, level + 1, result)
-  ));
+  attr.children?.forEach(child => {
+    _createLinkAttributeTypeOptions(child, level + 1, result);
+  });
 }
 
 /*
@@ -221,9 +221,10 @@ component MultiselectAttributeComponent(
 
   // XXX: https://github.com/facebook/flow/issues/7672
   const LinkAttrTypeMultiselect = (
+    // eslint-disable-next-line ft-flow/enforce-suppression-code
     // $FlowIgnore
     Multiselect:
-      React$AbstractComponent<
+      React.AbstractComponent<
         MultiselectPropsT<
           LinkAttrTypeT,
           DialogMultiselectAttributeValueStateT,
@@ -244,7 +245,7 @@ component MultiselectAttributeComponent(
 }
 
 type MultiselectAttributeMemoT =
-  React$AbstractComponent<React.PropsOf<MultiselectAttributeComponent>>;
+  React.AbstractComponent<React.PropsOf<MultiselectAttributeComponent>>;
 
 const MultiselectAttribute: MultiselectAttributeMemoT =
   React.memo(MultiselectAttributeComponent);

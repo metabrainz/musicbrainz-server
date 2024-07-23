@@ -44,7 +44,7 @@ import MB from './MB.js';
   class Entity {
     constructor(data) {
       Object.assign(this, data);
-      this.name = this.name || '';
+      this.name ||= '';
     }
 
     toJSON() {
@@ -114,7 +114,7 @@ import MB from './MB.js';
     let entity = MB.entityCache[data.gid];
 
     if (type === 'url') {
-      entity = entity || MB.entityCache[data.name];
+      entity ||= MB.entityCache[data.name];
     }
 
     if (!entity) {

@@ -15,7 +15,7 @@ component TagNotFound(tag: string) {
       <p>
         {texp.l(
           'No MusicBrainz entities have yet been tagged with "{tag}".',
-          {tag: tag},
+          {tag},
         )}
       </p>
       <p>

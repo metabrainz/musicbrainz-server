@@ -15,7 +15,7 @@ const ICON_STYLE = {
   verticalAlign: 'text-top',
 };
 
-component HelpIcon(content: React$Node) {
+component HelpIcon(content: React.Node) {
   return (
     <Tooltip
       content={content}

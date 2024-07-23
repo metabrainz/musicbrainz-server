@@ -131,8 +131,13 @@ class PreferencesForm extends React.Component<Props, State> {
   handleDateTimeFormatChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedDateTimeFormat = e.currentTarget.value;
     this.setState(prevState => mutate(prevState)
-      .set('form', 'field', 'datetime_format', 'value',
-           selectedDateTimeFormat)
+      .set(
+        'form',
+        'field',
+        'datetime_format',
+        'value',
+        selectedDateTimeFormat,
+      )
       .final());
   }
 
@@ -142,12 +147,17 @@ class PreferencesForm extends React.Component<Props, State> {
   handleSubscriptionsEmailPeriodChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedSubscriptionsEmailPeriod = e.currentTarget.value;
     this.setState(prevState => mutate(prevState)
-      .set('form', 'field', 'subscriptions_email_period', 'value',
-           selectedSubscriptionsEmailPeriod)
+      .set(
+        'form',
+        'field',
+        'subscriptions_email_period',
+        'value',
+        selectedSubscriptionsEmailPeriod,
+      )
       .final());
   }
 
-  render(): React$Element<'form'> {
+  render(): React.Element<'form'> {
     const field = this.state.form.field;
     return (
       <form method="post">
@@ -277,4 +287,4 @@ export type PreferencesFormPropsT = Props;
 export default (hydrate<Props>(
   'div.preferences-form',
   PreferencesForm,
-): React$AbstractComponent<Props, void>);
+): React.AbstractComponent<Props, void>);

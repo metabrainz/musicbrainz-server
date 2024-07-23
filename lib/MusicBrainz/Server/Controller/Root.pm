@@ -60,6 +60,7 @@ sub index : Path Args(0)
 {
     my ($self, $c) = @_;
 
+    my @newest_events = $c->model('Event')->newest_events_with_artwork;
     my @newest_releases = $c->model('Release')->newest_releases_with_artwork;
     $c->model('ArtistCredit')->load(map { $_->{release} } @newest_releases);
 
@@ -68,6 +69,7 @@ sub index : Path Args(0)
         component_path => 'main/index',
         component_props => {
             blogEntries => $c->model('Blog')->get_latest_entries,
+            newestEvents => to_json_array(\@newest_events),
             newestReleases => to_json_array(\@newest_releases),
         },
     );

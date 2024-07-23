@@ -8,7 +8,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import AliasEditForm from '../../static/scripts/alias/AliasEditForm.js';
 import {ENTITIES} from '../../static/scripts/common/constants.js';
 import chooseLayoutComponent from '../../utility/chooseLayoutComponent.js';
@@ -45,7 +45,7 @@ component AddOrEditAlias(
         searchHintType={searchHintType}
       />
       <div id="guesscase-options" />
-      {manifest.js('alias', {async: 'async'})}
+      {manifest('alias', {async: 'async'})}
     </LayoutComponent>
   );
 }

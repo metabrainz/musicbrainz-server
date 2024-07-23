@@ -13,7 +13,7 @@ import TagLookupForm from './Form.js';
 import TagLookupNagSection from './Nag.js';
 
 component TagLookupResults(
-  children: React$Node,
+  children: React.Node,
   form: TagLookupFormT,
   nag: boolean,
 ) {

@@ -77,10 +77,10 @@ const infoLinks = [
 ];
 
 component StatisticsLayout(
-  children: React$Node,
+  children: React.Node,
   fullWidth: boolean = false,
   page: string,
-  sidebar?: ?React$Node,
+  sidebar?: ?React.Node,
   title: string,
 ) {
   const htmlTitle = hyphenateTitle(l_statistics('Database statistics'),

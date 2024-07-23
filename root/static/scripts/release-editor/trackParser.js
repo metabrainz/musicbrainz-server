@@ -32,14 +32,14 @@ import releaseEditor from './viewModel.js';
 const trackParser = releaseEditor.trackParser = {
 
   // These are all different types of dash
-  defaultSeparators: /(\s+[\-‒–—―]\s+|\s*\t\s*)/,
+  defaultSeparators: /(\s+[-‒–—―]\s+|\s*\t\s*)/,
   separators: null,
 
   // Leading "M." is for Japanese releases. MBS-3398
-  trackNumber: /^(?:M[\.\-])?([０-９0-9]+(?:-[０-９0-9]+)?)(?:\.|．|\s?-|:|：|;|,|，|$)?/,
+  trackNumber: /^(?:M[.-])?([０-９0-9]+(?:-[０-９0-9]+)?)(?:\.|．|\s?-|:|：|;|,|，|$)?/,
   vinylNumber: /^([０-９0-9a-z]+)(?:\/[０-９0-9a-z]+)?(?:\.|．|\s?-|:|：|;|,|，|$)?/i,
 
-  trackTime: /\(?((?:[0-9０-９]+[：，．':,.])?[0-9０-９\?]+[：，．':,.][0-5０-５\?][0-9０-９\?])\)?$/,
+  trackTime: /\(?((?:[0-9０-９]+[：，．':,.])?[0-9０-９?]+[：，．':,.][0-5０-５?][0-9０-９?])\)?$/,
 
   options: {
     hasTrackNumbers: optionCookie('trackparser_tracknumbers', true),
@@ -54,16 +54,16 @@ const trackParser = releaseEditor.trackParser = {
   },
 
   delimiterHelpVisible: ko.observable(false),
-  toggleDelimiterHelp: function () {
+  toggleDelimiterHelp() {
     trackParser.delimiterHelpVisible(!trackParser.delimiterHelpVisible());
   },
 
   parserHelpVisible: ko.observable(false),
-  toggleParserHelp: function () {
+  toggleParserHelp() {
     trackParser.parserHelpVisible(!trackParser.parserHelpVisible());
   },
 
-  parse: function (str, medium) {
+  parse(str, medium) {
     var self = this;
 
     var options = ko.toJS(this.options);
@@ -177,7 +177,7 @@ const trackParser = releaseEditor.trackParser = {
       }
 
       const artistName = data.artist ?? '';
-      data.artistCredit = data.artistCredit || {
+      data.artistCredit ||= {
         names: [
           {
             artist: createArtistObject({name: artistName}),
@@ -321,7 +321,7 @@ const trackParser = releaseEditor.trackParser = {
     return newTracks;
   },
 
-  parseLine: function (line, options) {
+  parseLine(line, options) {
     var data = {};
 
     // trim only, keeping tabs and other space separators intact.
@@ -427,18 +427,18 @@ const trackParser = releaseEditor.trackParser = {
     return data;
   },
 
-  separatorOrBlank: function (str) {
+  separatorOrBlank(str) {
     return this.separators.test(str) || isBlank(str);
   },
 
-  cleanArtistName: function (name) {
+  cleanArtistName(name) {
     return clean(name)
     // Artist, The -> The Artist
       .replace(/(.*),\sThe$/i, 'The $1')
       .replace(/\s*,/g, ',');
   },
 
-  mediumToString: function (medium) {
+  mediumToString(medium) {
     var options = ko.toJS(this.options);
 
     return medium.tracks().reduce(function (memo, track) {
@@ -462,7 +462,7 @@ const trackParser = releaseEditor.trackParser = {
     }, '');
   },
 
-  matchDataWithTrack: function (data, track) {
+  matchDataWithTrack(data, track) {
     /*
      * The result of this function will be fed into `compactMap` so that
      * null and undefined return values will be stripped.
@@ -474,7 +474,7 @@ const trackParser = releaseEditor.trackParser = {
     var similarity = getSimilarity(data.name, track.name.peek());
 
     if (similarity >= MIN_NAME_SIMILARITY) {
-      return {similarity: similarity, track: track, data: data};
+      return {similarity, track, data};
     }
 
     return null;

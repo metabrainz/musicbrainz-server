@@ -13,7 +13,7 @@ import Layout from '../layout/index.js';
 import UrlHeader from './UrlHeader.js';
 
 component UrlLayout(
-  children: React$Node,
+  children: React.Node,
   entity as url: UrlT,
   fullWidth: boolean = false,
   page: string,

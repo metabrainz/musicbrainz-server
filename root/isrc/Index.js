@@ -25,7 +25,7 @@ component Index(
   recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
-  const userExists = !!$c.user;
+  const userExists = $c.user != null;
   const isrc = isrcs[0];
   return (
     <Layout

@@ -124,7 +124,9 @@ import {
  *      expected_error
  */
 
-/* eslint-disable indent, max-len, sort-keys */
+/* eslint-disable @stylistic/js/indent */
+/* eslint-disable @stylistic/js/max-len */
+/* eslint-disable sort-keys */
 const testData = [
   // 45cat
   {
@@ -4370,17 +4372,24 @@ limited_link_type_combinations: [
   },
   // Offizielle Deutsche Charts
   {
-                     input_url: 'http://offiziellecharts.de/album-details-392697/?ref=foo',
+                     input_url: 'http://offiziellecharts.de/charts/album-details-392697/?ref=foo',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.offiziellecharts.de/album-details-392697',
+            expected_clean_url: 'https://www.offiziellecharts.de/charts/album-details-392697',
        only_valid_entity_types: ['release_group'],
   },
   {
-                     input_url: 'https://www.offiziellecharts.de/titel-details-1917278#collapseOne',
+                     input_url: 'https://www.offiziellecharts.de/compilation-details-537366',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.offiziellecharts.de/charts/compilation-details-537366',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.offiziellecharts.de/charts/titel-details-1917278#collapseOne',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.offiziellecharts.de/titel-details-1917278',
+            expected_clean_url: 'https://www.offiziellecharts.de/charts/titel-details-1917278',
        only_valid_entity_types: ['recording'],
   },
   // Online-Bijbel.nl
@@ -6923,7 +6932,9 @@ limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
                                 },
   },
 ];
-/* eslint-enable indent, max-len, sort-keys */
+/* eslint-enable sort-keys */
+/* eslint-enable @stylistic/js/max-len */
+/* eslint-enable @stylistic/js/indent */
 
 const relationshipTypesByUuid = Object.entries(LINK_TYPES).reduce(function (
   results,

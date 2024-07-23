@@ -1,3 +1,5 @@
+// @flow strict
+
 declare module 'cookie' {
   declare type CookeParseOptions = {
     +decode?: (string) => string,

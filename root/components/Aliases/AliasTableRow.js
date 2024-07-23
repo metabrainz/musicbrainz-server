@@ -60,8 +60,7 @@ component AliasTableRow(
               </a>
             </>
           )
-          : null
-        }
+          : null}
       </td>
     </tr>
   );

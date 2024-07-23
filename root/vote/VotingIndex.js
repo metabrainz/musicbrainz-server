@@ -91,7 +91,7 @@ component VotingIndex() {
           )}
         </p>
         <ul>
-          {/* eslint-disable max-len */}
+          {/* eslint-disable @stylistic/js/max-len */}
           <VotingGuideRow
             guideName={l('All open destructive edits')}
             mainUrl={'/search/edits?' +
@@ -128,7 +128,7 @@ component VotingIndex() {
               'conditions.3.field=voter&conditions.3.operator=me&conditions.3.name=&conditions.3.voter_id=&conditions.3.args=no'}
             showSubscribedArtistsUrl
           />
-          {/* eslint-enable max-len */}
+          {/* eslint-enable @stylistic/js/max-len */}
         </ul>
 
         <h2>{l('Unreviewed and potentially problematic edits')}</h2>
@@ -143,7 +143,7 @@ component VotingIndex() {
           )}
         </p>
         <ul>
-          {/* eslint-disable max-len */}
+          {/* eslint-disable @stylistic/js/max-len */}
           <VotingGuideRow
             guideName={l('Unreviewed edits (0 votes) that will close in less than a day')}
             mainUrl={'/search/edits?' +
@@ -184,7 +184,7 @@ component VotingIndex() {
               'conditions.3.field=editor&conditions.3.operator=not_me&conditions.3.name=&conditions.3.args.0='}
             showSubscribedArtistsUrl
           />
-          {/* eslint-enable max-len */}
+          {/* eslint-enable @stylistic/js/max-len */}
         </ul>
         <p>
           {l(
@@ -198,7 +198,7 @@ component VotingIndex() {
           )}
         </p>
         <ul>
-          {/* eslint-disable max-len */}
+          {/* eslint-disable @stylistic/js/max-len */}
           <VotingGuideRow
             guideName={l('Open edits with at least 1 “No” vote')}
             mainUrl={'/search/edits?' +
@@ -218,7 +218,7 @@ component VotingIndex() {
               'conditions.4.field=voter&conditions.4.operator=me&conditions.4.name=&conditions.4.voter_id=&conditions.4.args=no'}
             showSubscribedArtistsUrl
           />
-          {/* eslint-enable max-len */}
+          {/* eslint-enable @stylistic/js/max-len */}
         </ul>
 
         <h2>{l('Edits by beginners')}</h2>
@@ -270,7 +270,7 @@ component VotingIndex() {
         </p>
 
         <ul>
-          {/* eslint-disable max-len */}
+          {/* eslint-disable @stylistic/js/max-len */}
           <VotingGuideRow
             guideName={l('All edits from beginner editors')}
             mainUrl={'/search/edits?' +
@@ -335,7 +335,7 @@ component VotingIndex() {
               'conditions.4.field=editor&conditions.4.operator=limited&conditions.4.name=&conditions.4.args.0='}
             showSubscribedArtistsUrl
           />
-          {/* eslint-enable max-len */}
+          {/* eslint-enable @stylistic/js/max-len */}
         </ul>
 
         <h2>{l('All edits')}</h2>
@@ -351,7 +351,7 @@ component VotingIndex() {
         </p>
 
         <ul>
-          {/* eslint-disable max-len */}
+          {/* eslint-disable @stylistic/js/max-len */}
           <VotingGuideRow
             guideName={l('All open edits')}
             mainUrl={'/search/edits?' +
@@ -365,7 +365,7 @@ component VotingIndex() {
               'conditions.0.field=status&conditions.0.operator=%3D&conditions.0.args=1&conditions.0.args=2&conditions.0.args=3&conditions.0.args=4&conditions.0.args=5&conditions.0.args=6&conditions.0.args=7&conditions.0.args=9'}
             showSubscribedArtistsUrl
           />
-          {/* eslint-enable max-len */}
+          {/* eslint-enable @stylistic/js/max-len */}
         </ul>
       </div>
     </Layout>

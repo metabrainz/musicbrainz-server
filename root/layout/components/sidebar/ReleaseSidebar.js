@@ -18,7 +18,7 @@ import LinkSearchableProperty
   from '../../../components/LinkSearchableProperty.js';
 import {QUALITY_UNKNOWN} from '../../../constants.js';
 import {CatalystContext} from '../../../context.mjs';
-import * as manifest from '../../../static/manifest.mjs';
+import manifest from '../../../static/manifest.mjs';
 import EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
 import ReleaseEvents
@@ -245,10 +245,7 @@ component ReleaseSidebar(release: ReleaseT) {
         <>
           <h2 className="release-events">{l('Release events')}</h2>
           <ReleaseEvents abbreviated={false} events={releaseEvents} />
-          {manifest.js(
-            'common/components/ReleaseEvents',
-            {async: 'async'},
-          )}
+          {manifest('common/components/ReleaseEvents', {async: 'async'})}
         </>
       ) : null}
 

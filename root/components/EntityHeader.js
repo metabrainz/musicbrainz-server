@@ -14,7 +14,7 @@ import EntityTabs from './EntityTabs.js';
 import SubHeader from './SubHeader.js';
 
 component EntityHeader(
-  editTab?: React$Element<EntityTabLink>,
+  editTab?: React.Element<EntityTabLink>,
   entity: RelatableEntityT,
   headerClass: string,
   heading?: Expand2ReactOutput,

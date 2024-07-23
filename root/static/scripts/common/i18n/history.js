@@ -9,5 +9,6 @@
 
 import * as wrapGettext from './wrapGettext.js';
 
+/* eslint-disable-next-line import/prefer-default-export */
 export const l_history: (string) => string =
   wrapGettext.dgettext('history');

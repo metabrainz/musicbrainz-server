@@ -8,7 +8,7 @@
  */
 
 import Layout from '../layout/index.js';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import CollectionEditForm
   from '../static/scripts/collection/components/CollectionEditForm.js';
 
@@ -26,7 +26,7 @@ component CreateCollection(
       <div id="content">
         <h1>{lp('Add a new collection', 'header')}</h1>
         <CollectionEditForm collectionTypes={collectionTypes} form={form} />
-        {manifest.js('collection/edit')}
+        {manifest('collection/edit')}
       </div>
     </Layout>
   );

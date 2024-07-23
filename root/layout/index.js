@@ -163,7 +163,7 @@ component ServerDetailsBanner(url: string) {
 }
 
 component Layout(
-  children: React$Node,
+  children: React.Node,
   fullWidth: boolean = false,
   ...headProps: React.PropsOf<Head>
 ) {

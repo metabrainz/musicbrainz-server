@@ -12,11 +12,11 @@ import L from 'leaflet/dist/leaflet-src.js';
 
 import isBlank from '../common/utility/isBlank.js';
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
-import {initializeArea} from '../edit/MB/Control/Area.js';
-import {initializeBubble} from '../edit/MB/Control/Bubble.js';
+import initializeArea from '../edit/MB/Control/Area.js';
+import initializeBubble from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
 import {errorField} from '../edit/validation.js';
-import {initializeGuessCase} from '../guess-case/MB/Control/GuessCase.js';
+import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 import {map, marker} from './map.js';
 
@@ -35,17 +35,17 @@ const bubble = initializeBubble(
  * This tells it to update its position once it's visible.
  */
 let invalidateSizeRan = false;
-const afterBubbleShow = function () {
+function afterBubbleShow() {
   if (!invalidateSizeRan) {
     map.invalidateSize();
     invalidateSizeRan = true;
   }
-};
+}
 
 const bubbleShow = bubble.show;
 
-bubble.show = function () {
-  bubbleShow.apply(this, arguments);
+bubble.show = function (...args) {
+  bubbleShow.apply(this, args);
   afterBubbleShow();
 };
 

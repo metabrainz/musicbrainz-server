@@ -99,7 +99,7 @@ class BubbleBase {
       if ($(this.control).parents('html').length === 0) {
         this.hide(false);
       } else {
-        this.show(this.control, !!stealFocus, true /* isRedraw */);
+        this.show(this.control, Boolean(stealFocus), true /* isRedraw */);
       }
     }
   }
@@ -150,7 +150,7 @@ MB.Control.BubbleDoc = BubbleDoc;
 
 ko.bindingHandlers.show = {
 
-  update: function (element, valueAccessor) {
+  update(element, valueAccessor) {
     element.style.display = ko.unwrap(valueAccessor()) ? 'block' : 'none';
   },
 };
@@ -158,7 +158,7 @@ ko.bindingHandlers.show = {
 
 ko.bindingHandlers.bubble = {
 
-  init: function (element, valueAccessor, allBindingsAccessor,
+  init(element, valueAccessor, allBindingsAccessor,
     viewModel, bindingContext) {
     var bubble = valueAccessor();
     element.bubbleDoc = bubble;
@@ -176,7 +176,7 @@ ko.bindingHandlers.bubble = {
 
 ko.bindingHandlers.controlsBubble = {
 
-  init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+  init(element, valueAccessor, allBindingsAccessor, viewModel) {
     var bubble = valueAccessor();
 
     element.bubbleDoc = bubble;
@@ -191,8 +191,8 @@ ko.bindingHandlers.controlsBubble = {
     }
 
     ko.computed({
-      read: function () {
-        return !!bubble.canBeShown(viewModel);
+      read() {
+        return Boolean(bubble.canBeShown(viewModel));
       },
       disposeWhenNodeIsRemoved: element,
     })
@@ -217,7 +217,7 @@ ko.bindingHandlers.controlsBubble = {
 
 ko.bindingHandlers.affectsBubble = {
 
-  init: function (element, valueAccessor) {
+  init(element, valueAccessor) {
     if (!window.MutationObserver) {
       return;
     }
@@ -331,7 +331,7 @@ $('body')
 
 // Helper function for use outside the release editor.
 MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
-  vm = vm || {};
+  vm ||= {};
 
   var bubbleDoc = new BubbleDoc();
 
@@ -345,4 +345,6 @@ MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
   return bubbleDoc;
 };
 
-export const initializeBubble = MB.Control.initializeBubble;
+const initializeBubble = MB.Control.initializeBubble;
+
+export default initializeBubble;
