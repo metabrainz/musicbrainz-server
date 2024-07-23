@@ -24,7 +24,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-07-02 18:42+0000\n"
+"PO-Revision-Date: 2024-07-23 12:42+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -471,11 +471,14 @@ msgid ""
 "Indicates a place that moved from one location to another, while still being "
 "generally considered the same."
 msgstr ""
+"Indica que un lugar se movió de una dirección a otra, pero sigue siendo "
+"considerado el mismo."
 
 #. name:half
 #: DB:link_attribute_type/description:1019
 msgid "Indicates a sibling with whom the artist has only one parent in common."
 msgstr ""
+"Indica un hermano/a con el que el artista solo tiene un progenitor en común."
 
 #. name:review
 #: DB:link_type/description:842
@@ -507,6 +510,9 @@ msgid ""
 "attributed to, but who is currently confirmed (or very strongly suspected) "
 "not to be the real author."
 msgstr ""
+"Indica un artista (habitualmente un compositor) al que se le solía atribuir "
+"esta obra, pero del que actualmente se sabe (o se tienen muy claras "
+"sospechas) que no es el verdadero autor."
 
 #. name:supporting musician
 #: DB:link_type/description:104
@@ -520,7 +526,7 @@ msgstr ""
 #. name:performer
 #: DB:link_type/description:156
 msgid "Indicates an artist that performed on this recording."
-msgstr ""
+msgstr "Indica un artista que fue un intérprete en esta grabación."
 
 #. name:performer
 #: DB:link_type/description:51
