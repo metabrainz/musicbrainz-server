@@ -47,7 +47,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-29 20:42+0000\n"
+"PO-Revision-Date: 2024-07-23 12:42+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -58,7 +58,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.6\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -476,6 +476,11 @@ msgid ""
 "just a scaled down version of the poster, both types can be added to the "
 "same image."
 msgstr ""
+"Un documento generalmente más pequeño que un póster, y que suele ser impreso "
+"para compartirlo con el público ya sea antes del evento, para promocionarlo, "
+"o durante él, para ofrecer información adicional. Si el flyer del evento es "
+"simplemente una versión más pequeña del póster, puedes añadir ambos tipos a "
+"la misma imagen."
 
 #. name:Ticket
 #: DB:event_art_archive.art_type/description:2
@@ -484,6 +489,8 @@ msgid ""
 "A document generally used for admission to the event, whether physical or "
 "digital. Use this also for ticket stubs and passes."
 msgstr ""
+"Un documento, ya sea físico o digital, usado para acceder al evento. También "
+"se aplica a pases y otros documentos similares."
 
 #. name:Promotion
 #: DB:release_status/description:2
@@ -551,6 +558,8 @@ msgid ""
 "A list of songs to be played in the event, often printed or handwritten for "
 "use by the artist."
 msgstr ""
+"Una lista de los temas que van a ser tocados en el evento, habitualmente "
+"escrito o impreso para uso del artista."
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -1442,6 +1451,9 @@ msgid ""
 "(as opposed to an award ceremony where awards are presented for previously "
 "released or performed music)."
 msgstr ""
+"Un evento en el que los participantes actúan en directo y se elige un "
+"ganador entre ellos (a diferencia de una ceremonia de entrega de premios, en "
+"la que se premia música ya publicada o interpretada)."
 
 #. name:Festival
 #: DB:event_type/description:2
@@ -1462,6 +1474,11 @@ msgid ""
 "more than one art type applies (for example, if a poster is sold as "
 "merchandise) use “merchandise” alongside any other appropriate types."
 msgstr ""
+"Una imagen de cualquier tipo de bienes relacionados con el evento y vendidos "
+"(o compartidos) para promocionarlo o durante el evento en sí, como "
+"camisetas, gorras o pegatinas. Si hay más de un tipo de imagen apropiado ("
+"por ejemplo, si un póster se vende como merchandising) usa “merchandising” y "
+"también cualquier otro tipo apropiado."
 
 #. name:Schedule
 #: DB:event_art_archive.art_type/description:5
@@ -1471,6 +1488,9 @@ msgid ""
 "event. Can be a standalone image, but also a poster or banner (in which case "
 "all applicable types should be set)."
 msgstr ""
+"Una imagen que indica el orden y la hora de las actuaciones en un evento. A "
+"veces es una imagen separada y otras veces un póster o un banner (en ese "
+"caso, usa todos los tipos apropiados)."
 
 #. name:Concert
 #: DB:event_type/description:1
@@ -1501,6 +1521,9 @@ msgid ""
 "created for the event, for example showing the recommended ways to access "
 "the venue, or the location of specific stages and stands inside of it."
 msgstr ""
+"Un plano interior del lugar donde se celebra el evento, o un mapa de acceso "
+"creado específicamente para el evento, por ejemplo mostrando los accesos "
+"recomendados al lugar del evento o dónde se encuentra cada escenario."
 
 #. name:Interview
 #: DB:release_group_secondary_type/description:4
@@ -1934,7 +1957,7 @@ msgstr "Ballet"
 #: DB:event_art_archive.art_type/name:4
 msgctxt "event_art_type"
 msgid "Banner"
-msgstr ""
+msgstr "Banner"
 
 #: DB:work_attribute_type_allowed_value/value:866
 msgctxt "work_attribute_type_allowed_value"
@@ -3550,7 +3573,7 @@ msgstr "Disquete"
 #: DB:event_art_archive.art_type/name:6
 msgctxt "event_art_type"
 msgid "Flyer"
-msgstr ""
+msgstr "Flyer"
 
 #. name:Not applicable
 #: DB:gender/description:4
@@ -5596,7 +5619,7 @@ msgstr "Manōranjani"
 #: DB:event_art_archive.art_type/name:8
 msgctxt "event_art_type"
 msgid "Map"
-msgstr ""
+msgstr "Plano"
 
 #: DB:work_attribute_type_allowed_value/value:639
 msgctxt "work_attribute_type_allowed_value"
@@ -5696,7 +5719,7 @@ msgstr "Mehter"
 #: DB:event_art_archive.art_type/name:7
 msgctxt "event_art_type"
 msgid "Merchandise"
-msgstr ""
+msgstr "Merchandising"
 
 #: DB:work_attribute_type_allowed_value/value:642
 msgctxt "work_attribute_type_allowed_value"
@@ -7525,7 +7548,7 @@ msgstr "Sazsemaisi"
 #: DB:event_art_archive.art_type/name:5
 msgctxt "event_art_type"
 msgid "Schedule"
-msgstr ""
+msgstr "Horarios"
 
 #: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
 #: DB:place_alias_type/name:2 DB:recording_alias_type/name:2
@@ -7605,7 +7628,7 @@ msgstr "Nombre de la serie"
 #: DB:event_art_archive.art_type/name:3
 msgctxt "event_art_type"
 msgid "Setlist"
-msgstr ""
+msgstr "Repertorio"
 
 #: DB:work_attribute_type_allowed_value/value:663
 msgctxt "work_attribute_type_allowed_value"
@@ -8644,6 +8667,8 @@ msgid ""
 "Usually a large printed or digital sheet, that often contains pictures, and "
 "is generally posted publicly to promote the event."
 msgstr ""
+"Normalmente una lámina grande, ya sea digital o impresa, que suele contener "
+"imágenes y utilizarse para promocionar el evento en lugares públicos."
 
 #. name:Banner
 #: DB:event_art_archive.art_type/description:4
@@ -8652,6 +8677,9 @@ msgid ""
 "Usually horizontal image used to promote an event, for example in social "
 "media, which tends to have less information than a poster."
 msgstr ""
+"Normalmente una imagen horizontal utilizada para promocionar un evento (por "
+"ejemplo en las redes sociales) y que suele tener menos información que un "
+"póster."
 
 #: DB:work_attribute_type/name:17
 msgctxt "work_attribute_type"
