@@ -741,9 +741,8 @@ sub submit_edits {
             $c->forward('/ws/js/detach_with_error', ['editNote required']);
         }
 
-        if ($edit_type == $EDIT_RELEASE_CREATE &&
-            !is_valid_edit_note($data->{editNote})) {
-            $c->forward('/ws/js/detach_with_error', ['editNote invalid']);
+        if ($data->{editNote} && !is_valid_edit_note($data->{editNote})) {
+            $c->forward('/ws/js/detach_with_error', [l('Your edit note seems to have no actual content. Please provide a note that will be helpful to your fellow editors!')]);
         }
 
         unless (contains_number($ALLOWED_EDIT_TYPES, $edit_type)) {

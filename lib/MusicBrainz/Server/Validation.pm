@@ -60,7 +60,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Data::Utils qw(
     contains_number
-    remove_lineformatting_characters
+    remove_invisible_characters
 );
 use utf8;
 
@@ -356,7 +356,7 @@ sub is_valid_edit_note
     return 0 unless $edit_note;
 
     # We don't want line format chars to stop an edit note from being "empty"
-    $edit_note = remove_lineformatting_characters($edit_note);
+    $edit_note = remove_invisible_characters($edit_note);
     # Additional format chars that can cause unwanted negatives
     $edit_note =~ s/[\p{Cf}\p{Mn}]//g;
 
