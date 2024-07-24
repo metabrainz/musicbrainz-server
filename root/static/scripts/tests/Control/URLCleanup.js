@@ -2369,6 +2369,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['release'],
   },
   {
+                     input_url: 'http://e-onkyo.com/music/album/ve5hd43611',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.e-onkyo.com/music/album/ve5hd43611/',
+       only_valid_entity_types: ['release'],
+  },
+  {
                      input_url: 'http://e-onkyo.com/search/search.aspx?artist=ZORN',
              input_entity_type: 'artist',
     expected_relationship_type: undefined,
