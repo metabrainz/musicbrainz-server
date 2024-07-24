@@ -166,6 +166,7 @@ export default function hydrate<
           }}
           type="application/json"
         />
+        {/* $FlowIssue[not-a-function] This is actually not deprecated */}
         {React.createElement(
           containerTag,
           {className: classes.join(' ')},

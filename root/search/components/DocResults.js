@@ -22,6 +22,7 @@ component DocResults() {
           src={'https://cse.google.com/cse.js?cx=' + encodeURIComponent(GOOGLE_CUSTOM_SEARCH)}
           type="text/javascript"
         />
+        {/* $FlowIssue[not-a-function] This is actually not deprecated */}
         {React.createElement(
           'gcse:search',
           {enablehistory: 'true', queryparametername: 'query'},

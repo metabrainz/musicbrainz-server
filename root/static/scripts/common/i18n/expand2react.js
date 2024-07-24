@@ -155,6 +155,7 @@ const parseLinkSubst: Parser<
     ) {
       throw error('bad link props');
     }
+    // $FlowIssue[not-a-function] This is actually not deprecated
     return React.createElement('a', props, ...children);
   }
   return state.match;
@@ -304,8 +305,9 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
     args,
   );
 
+  // Self-closing tag
   if (gotMatch(accept(htmlSelfClosingTagEnd))) {
-    // Self-closing tag
+    // $FlowIssue[not-a-function] This is actually not deprecated
     return React.createElement(
       name,
       Object.assign(({}: HtmlAttrs), ...attributes),
@@ -322,6 +324,7 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
     throw error('expected </' + name + '>');
   }
 
+  // $FlowIssue[not-a-function] This is actually not deprecated
   return React.createElement(
     name,
     Object.assign(({}: HtmlAttrs), ...attributes),
@@ -407,6 +410,7 @@ export function expand2reactWithVarArgsInstance(
         ? (
           (args != null && args.get('__wantArray') === 'true')
             ? result
+            // $FlowIssue[not-a-function] This is actually not deprecated
             : React.createElement(React.Fragment, null, ...result)
         )
         : result[0]

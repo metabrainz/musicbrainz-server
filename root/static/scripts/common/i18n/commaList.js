@@ -48,6 +48,7 @@ const commaList = (
   const result =
   _commaList<VarSubstArg, Expand2ReactOutput>(exp.l, items);
   if (Array.isArray(result)) {
+    // $FlowIssue[not-a-function] This is actually not deprecated
     return React.createElement(React.Fragment, null, ...result);
   }
   return result;

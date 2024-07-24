@@ -493,7 +493,7 @@ component EntityLink(
     );
   }
 
-  return React.createElement(React.Fragment, null, ...parts);
+  return parts;
 }
 
 export default EntityLink;
