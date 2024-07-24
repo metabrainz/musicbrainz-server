@@ -523,12 +523,14 @@ type EntitiesStatsT = {
 component UserProfileStatistics(
   addedEntities: EntitiesStatsT,
   editStats: EditStatsT,
+  votes as passedVotes: VoteStatsT,
   secondaryStats: SecondaryStatsT,
   user: UnsanitizedEditorT,
-  votes: VoteStatsT,
 ) {
   const $c = React.useContext(CatalystContext);
+  const votes = [...passedVotes];
   const voteTotals = votes.pop();
+  invariant(voteTotals, 'voteTotals should always exist.');
   const encodedName = encodeURIComponent(user.name);
   const allAppliedCount = editStats.accepted_count +
                           editStats.accepted_auto_count;

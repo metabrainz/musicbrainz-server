@@ -18,7 +18,11 @@ const frequencyLabels = {
   2: 'Frequently used',
 };
 
-component Language(attributes: Array<LanguageT>, model: string) {
+component Language(
+  attributes as passedAttributes: Array<LanguageT>,
+  model: string,
+) {
+  const attributes = [...passedAttributes];
   return (
     <Layout fullWidth title={model || 'Language'}>
       <h1>
