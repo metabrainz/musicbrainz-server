@@ -16,16 +16,6 @@ use MusicBrainz::Server::Constants qw( :access_scope );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json is_valid_token );
 use Readonly;
 
-Readonly our %ACCESS_SCOPE_BY_NAME => (
-    'profile'        => $ACCESS_SCOPE_PROFILE,
-    'email'          => $ACCESS_SCOPE_EMAIL,
-    'tag'            => $ACCESS_SCOPE_TAG,
-    'rating'         => $ACCESS_SCOPE_RATING,
-    'collection'     => $ACCESS_SCOPE_COLLECTION,
-    'submit_isrc'    => $ACCESS_SCOPE_SUBMIT_ISRC,
-    'submit_barcode' => $ACCESS_SCOPE_SUBMIT_BARCODE,
-);
-
 Readonly our @AUTHORIZE_PARAMETERS => qw(
     client_id
     scope

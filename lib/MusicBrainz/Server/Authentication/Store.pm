@@ -5,6 +5,9 @@ use warnings;
 
 use DateTime;
 use MusicBrainz::Server::Authentication::User;
+use MusicBrainz::Server::Authentication::Utils qw(
+    find_oauth_access_token
+);
 
 sub new
 {
@@ -18,7 +21,7 @@ sub find_user
     my $editor;
 
     if (exists $authinfo->{oauth_access_token}) {
-        my $token = $c->model('EditorOAuthToken')->get_by_access_token($authinfo->{oauth_access_token});
+        my $token = find_oauth_access_token($c, $authinfo->{oauth_access_token});
         if (defined $token) {
             $editor = $c->model('Editor')->get_by_id($token->editor_id);
         }
