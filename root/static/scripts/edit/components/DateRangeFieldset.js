@@ -162,9 +162,10 @@ export function reducer(
 }
 
 component _DateRangeFieldset(
+  children?: React.Node,
   disabled: boolean = false,
   dispatch: (ActionT) => void,
-  endedLabel: string,
+  endedLabel?: string,
   field: DatePeriodFieldT,
 ) {
   const subfields = field.field;
@@ -205,15 +206,18 @@ component _DateRangeFieldset(
         field={field}
         includeSubFields={false}
       />
-      <FormRowCheckbox
-        disabled={
-          disabled ||
-          !isDateEmpty(partialDateFromField(subfields.end_date))
-        }
-        field={subfields.ended}
-        label={endedLabel}
-        onChange={hooks.handleEndedChange}
-      />
+      {nonEmpty(endedLabel) ? (
+        <FormRowCheckbox
+          disabled={
+            disabled ||
+            !isDateEmpty(partialDateFromField(subfields.end_date))
+          }
+          field={subfields.ended}
+          label={endedLabel}
+          onChange={hooks.handleEndedChange}
+        />
+      ) : null}
+      {children}
     </fieldset>
   );
 }
