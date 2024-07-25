@@ -183,7 +183,6 @@ const ArtistCreditRenamer = ({
 
   const rows = rowsRef.current;
   const tooManyRows = rows.length > 10;
-  const installedArtistNameEvent = React.useRef(false);
 
   const handleArtistNameChange = React.useCallback((
     event: SyntheticInputEvent<HTMLInputElement>,
@@ -192,14 +191,11 @@ const ArtistCreditRenamer = ({
   }, [dispatch]);
 
   React.useEffect(() => {
-    if (!installedArtistNameEvent.current) {
-      $(document).on(
-        'input',
-        '#id-edit-artist\\.name',
-        handleArtistNameChange,
-      );
-      installedArtistNameEvent.current = true;
-    }
+    $(document).on(
+      'input',
+      '#id-edit-artist\\.name',
+      handleArtistNameChange,
+    );
     return () => {
       $(document).off(
         'input',
