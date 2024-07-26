@@ -70,7 +70,7 @@ function generateUserTypesList(
   }
   if (isAutoEditor(user)) {
     typesList.push(
-      <a href="/doc/Editor#Auto-editors">
+      <a href="/doc/Editor#Auto-editors" key="auto-editor">
         {lp('Auto-editor', 'user type')}
       </a>,
     );
@@ -80,21 +80,21 @@ function generateUserTypesList(
   }
   if (isRelationshipEditor(user)) {
     typesList.push(
-      <a href="/doc/Editor#Relationship_editors">
+      <a href="/doc/Editor#Relationship_editors" key="relationship-editor">
         {lp('Relationship editor', 'user type')}
       </a>,
     );
   }
   if (isWikiTranscluder(user)) {
     typesList.push(
-      <a href="/doc/Editor#Transclusion_editors">
+      <a href="/doc/Editor#Transclusion_editors" key="transclusion-editor">
         {lp('Transclusion editor', 'user type')}
       </a>,
     );
   }
   if (isLocationEditor(user)) {
     typesList.push(
-      <a href="/doc/Editor#Location_editors">
+      <a href="/doc/Editor#Location_editors" key="location-editor">
         {lp('Location editor', 'user type')}
       </a>,
     );
@@ -103,6 +103,7 @@ function generateUserTypesList(
     typesList.push(
       <span
         className="tooltip"
+        key="beginner"
         title={l('This user is new to MusicBrainz.')}
       >
         {lp('Beginner', 'user type')}

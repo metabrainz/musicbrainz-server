@@ -83,7 +83,11 @@ function formatGeneric(
   const info: Array<React.MixedElement | string> = [];
 
   if (nonEmpty(entity.primaryAlias) && entity.primaryAlias !== name) {
-    info.push(<i title={l('Primary alias')}>{entity.primaryAlias}</i>);
+    info.push(
+      <i key="primary-alias" title={l('Primary alias')}>
+        {entity.primaryAlias}
+      </i>,
+    );
   }
 
   if (nonEmpty(entity.comment)) {
@@ -116,7 +120,7 @@ function formatArtist(artist: ArtistT) {
     isNonLatin(artist.name)
   ) {
     extraInfo = (info: Array<React.MixedElement | string>) => {
-      info.unshift(<i title={l('Sort name')}>{sortName}</i>);
+      info.unshift(<i key="sort-name" title={l('Sort name')}>{sortName}</i>);
     };
   }
 

@@ -73,7 +73,7 @@ component Comment(
   comment: string,
 ) {
   const aliasElement = nonEmpty(alias)
-    ? <i title={l('Primary alias')}>{alias}</i>
+    ? <i key="primary-alias" title={l('Primary alias')}>{alias}</i>
     : null;
   return (
     <>

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 function _commaList<Input, Output>(
   l: ExpandLFunc<Input, Output>,
   items: $ReadOnlyArray<Input>,
@@ -45,13 +43,7 @@ function _commaList<Input, Output>(
 const commaList = (
   items: $ReadOnlyArray<VarSubstArg>,
 ): Expand2ReactOutput | string => {
-  const result =
-  _commaList<VarSubstArg, Expand2ReactOutput>(exp.l, items);
-  if (Array.isArray(result)) {
-    // $FlowIssue[not-a-function] This is actually not deprecated
-    return React.createElement(React.Fragment, null, ...result);
-  }
-  return result;
+  return _commaList<VarSubstArg, Expand2ReactOutput>(exp.l, items);
 };
 
 const commaListText = (items: $ReadOnlyArray<StrOrNum>): string => (
