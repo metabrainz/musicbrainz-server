@@ -28,7 +28,7 @@ import {
   isAutoEditor,
   isBeginner,
   isBot,
-  isEditingEnabled,
+  isVotingEnabled,
 } from '../static/scripts/common/utility/privileges.js';
 import {kebabCase} from '../static/scripts/common/utility/strings.js';
 
@@ -141,7 +141,7 @@ export function editorMayApprove(
     editor != null &&
     edit.status === EDIT_STATUS_OPEN &&
     isAutoEditor(editor) &&
-    isEditingEnabled(editor)
+    isVotingEnabled(editor)
   );
 
   if (!minimalRequirements) {
@@ -192,7 +192,7 @@ export function editorMayVote(
     !isBeginner(editor) &&
     nonEmpty(editor.email_confirmation_date) &&
     !isBot(editor) &&
-    isEditingEnabled(editor)
+    isVotingEnabled(editor)
   );
 }
 

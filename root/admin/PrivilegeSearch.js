@@ -29,6 +29,7 @@ type PrivilegeSearchFormT = FormT<{
   +show_exact: FieldT<boolean>,
   +spammer: FieldT<boolean>,
   +untrusted: FieldT<boolean>,
+  +voting_disabled: FieldT<boolean>,
   +wiki_transcluder: FieldT<boolean>,
 }>;
 
@@ -96,7 +97,12 @@ component PrivilegeSearch(
 
             <FormRowCheckbox
               field={form.field.editing_disabled}
-              label="Editing/voting disabled"
+              label="Editing disabled"
+              uncontrolled
+            />
+            <FormRowCheckbox
+              field={form.field.voting_disabled}
+              label="Voting disabled"
               uncontrolled
             />
             <FormRowCheckbox
