@@ -819,4 +819,84 @@ test 'Searching editor by email (for admin only)' => sub {
     is($hits => 0, 'Found 0 editors');
 };
 
+test 'Marking an editor as spammer cancels all open edits' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+
+    my $applied_edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(1),
+        comment => 'An additional comment',
+        ipi_codes => [],
+        isni_codes => [],
+    );
+
+    is($applied_edit->status, $STATUS_APPLIED);
+
+    my $open_edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(1),
+        comment => 'A Comment',
+        ipi_codes => [],
+        isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    is($open_edit->status, $STATUS_OPEN);
+
+    my $editor = $c->model('Editor')->get_by_id(1);
+
+    $c->model('Editor')->update_privileges($editor, { spammer => 1 });
+
+    is($c->model('Edit')->get_by_id($applied_edit->id)->status, $STATUS_APPLIED);
+    is($c->model('Edit')->get_by_id($open_edit->id)->status, $STATUS_DELETED);
+};
+
+test 'Marking an editor as spammer changes all Yes/No votes on open edits to Abstain' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+vote');
+
+    my $editor = $c->model('Editor')->get_by_id(2);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(1),
+        comment => 'A Comment',
+        ipi_codes => [],
+        isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    $c->model('Vote')->enter_votes(
+        $editor,
+        [{
+            vote    => $VOTE_NO,
+            edit_id => $edit->id,
+        }],
+    );
+
+    $c->model('Vote')->load_for_edits($edit);
+    is(scalar @{ $edit->votes }, 1, 'There is one vote');
+    is($edit->votes->[0]->vote, $VOTE_NO, 'Vote is No');
+    is($edit->votes->[0]->editor_id, 2, 'Vote is by editor 2');
+
+
+    $c->model('Editor')->update_privileges($editor, { spammer => 1 });
+
+    # Clear the votes to load again
+    $edit->votes([]);
+
+    $c->model('Vote')->load_for_edits($edit);
+    is(scalar @{ $edit->votes }, 2, 'There is two votes');
+    is($edit->votes->[1]->vote, $VOTE_ABSTAIN, 'New vote is Abstain');
+    is($edit->votes->[1]->editor_id, 2, 'New vote is by editor 2');
+};
+
 1;
