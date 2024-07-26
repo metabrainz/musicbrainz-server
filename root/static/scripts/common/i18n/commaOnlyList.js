@@ -17,16 +17,12 @@ function _commaOnlyList<Input, Output>(
     return '';
   }
 
-  // The __wantArray argument is only used with exp.l, not texp.l.
-
   let output = l('{last_list_item}', {
-    __wantArray: 'true',
     last_list_item: items[length - 1],
   });
 
   for (let i = length - 2; i >= 0; i--) {
     output = l('{commas_only_list_item}, {rest}', {
-      __wantArray: 'true',
       commas_only_list_item: items[i],
       rest: output,
     });

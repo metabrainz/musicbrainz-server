@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {isValidElement} from 'react';
 import test from 'tape';
 
 import bracketed, {bracketedText} from '../../common/utility/bracketed.js';
@@ -37,8 +36,8 @@ test('bracketed', function (t) {
   const spanNoType = bracketed(<span>{'Text'}</span>);
 
   t.ok(
-    isValidElement(spanNoType),
-    'Passed span is returned as a React element with no type argument',
+    Array.isArray(spanNoType),
+    'Passed span is returned as an array with no type argument',
   );
 
   t.equal(
@@ -50,8 +49,8 @@ test('bracketed', function (t) {
   const spanParenType = bracketed(<span>{'Text'}</span>, {type: '()'});
 
   t.ok(
-    isValidElement(spanParenType),
-    'Passed span is returned as a React element when () specified as type',
+    Array.isArray(spanParenType),
+    'Passed span is returned as an array when () specified as type',
   );
 
   t.equal(
@@ -63,8 +62,8 @@ test('bracketed', function (t) {
   const spanSquareType = bracketed(<span>{'Text'}</span>, {type: '[]'});
 
   t.ok(
-    isValidElement(spanSquareType),
-    'Passed span is returned as a React element when [] specified as type',
+    Array.isArray(spanSquareType),
+    'Passed span is returned as an array when [] specified as type',
   );
 
   t.equal(

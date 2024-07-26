@@ -55,6 +55,8 @@ class PhraseVarArgs<T> implements VarArgsClass<T> {
    */
   +usedPhraseAttributes: Array<string>;
 
+  #nextKey: number;
+
   constructor(
     args: ?VarArgsObject<LinkAttrs>,
     i18n: LinkPhraseI18n<T>,
@@ -66,6 +68,7 @@ class PhraseVarArgs<T> implements VarArgsClass<T> {
     this.entity0 = nonEmpty(entity0) ? entity0 : i18n.defaultValue;
     this.entity1 = nonEmpty(entity1) ? entity1 : i18n.defaultValue;
     this.usedPhraseAttributes = [];
+    this.#nextKey = 1;
   }
 
   get(name: string): T {
@@ -85,6 +88,10 @@ class PhraseVarArgs<T> implements VarArgsClass<T> {
       );
     }
     return this.i18n.displayLinkAttribute(attributes);
+  }
+
+  getKey(name: string): string {
+    return name + '-' + String(this.#nextKey++);
   }
 
   has(name: string): boolean {

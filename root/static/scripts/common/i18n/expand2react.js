@@ -156,7 +156,11 @@ const parseLinkSubst: Parser<
       throw error('bad link props');
     }
     // $FlowIssue[not-a-function] This is actually not deprecated
-    return React.createElement('a', props, ...children);
+    return React.createElement(
+      'a',
+      {...props, key: args.getKey('a')},
+      ...children,
+    );
   }
   return state.match;
 });
@@ -310,7 +314,11 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
     // $FlowIssue[not-a-function] This is actually not deprecated
     return React.createElement(
       name,
-      Object.assign(({}: HtmlAttrs), ...attributes),
+      Object.assign(
+        ({}: HtmlAttrs),
+        ...attributes,
+        {key: args.getKey(name)},
+      ),
     );
   }
 
@@ -327,7 +335,11 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
   // $FlowIssue[not-a-function] This is actually not deprecated
   return React.createElement(
     name,
-    Object.assign(({}: HtmlAttrs), ...attributes),
+    Object.assign(
+      ({}: HtmlAttrs),
+      ...attributes,
+      {key: args.getKey(name)},
+    ),
     ...children,
   );
 }
@@ -405,16 +417,7 @@ export function expand2reactWithVarArgsInstance(
     args,
   );
   if (Array.isArray(result)) {
-    return result.length ? (
-      result.length > 1
-        ? (
-          (args != null && args.get('__wantArray') === 'true')
-            ? result
-            // $FlowIssue[not-a-function] This is actually not deprecated
-            : React.createElement(React.Fragment, null, ...result)
-        )
-        : result[0]
-    ) : '';
+    return result.length ? (result.length > 1 ? result : result[0]) : '';
   }
   return result;
 }

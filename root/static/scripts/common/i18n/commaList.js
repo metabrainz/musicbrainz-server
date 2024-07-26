@@ -21,17 +21,13 @@ function _commaList<Input, Output>(
     return l('{last_list_item}', {last_list_item: items[0]});
   }
 
-  // The __wantArray argument is only used with exp.l, not texp.l.
-
   let output = l('{almost_last_list_item} and {last_list_item}', {
-    __wantArray: 'true',
     almost_last_list_item: items[count - 2],
     last_list_item: items[count - 1],
   });
 
   for (let i = count - 3; i >= 0; i--) {
     output = l('{list_item}, {rest}', {
-      __wantArray: 'true',
       list_item: items[i],
       rest: output,
     });
