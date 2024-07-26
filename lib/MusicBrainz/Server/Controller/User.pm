@@ -115,7 +115,6 @@ sub serialize_user {
         entityType => 'editor',
         avatar => $user->avatar,
         id => 0 + $user->id,
-        is_limited => boolean_to_json($user->is_limited),
         name => $user->name,
         preferences => {
             public_ratings => boolean_to_json($preferences->public_ratings),
