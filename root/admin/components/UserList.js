@@ -19,6 +19,7 @@ import {
   isEditingDisabled,
   isSpammer,
   isUntrusted,
+  isVotingDisabled,
 } from '../../static/scripts/common/utility/privileges.js';
 import formatUserDate from '../../utility/formatUserDate.js';
 import loopParity from '../../utility/loopParity.js';
@@ -45,6 +46,9 @@ component UserList(users: $ReadOnlyArray<UnsanitizedEditorT>) {
           const restrictions = [];
           if (isEditingDisabled(user)) {
             restrictions.push('Editing');
+          }
+          if (isVotingDisabled(user)) {
+            restrictions.push('Voting');
           }
           if (isAddingNotesDisabled(user)) {
             restrictions.push('Notes');

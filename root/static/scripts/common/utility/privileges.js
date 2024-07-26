@@ -21,6 +21,7 @@ import {
   RELATIONSHIP_EDITOR_FLAG,
   SPAMMER_FLAG,
   UNTRUSTED_FLAG,
+  VOTING_DISABLED_FLAG,
   WIKI_TRANSCLUSION_FLAG,
 } from '../../../../constants.js';
 
@@ -124,6 +125,20 @@ export function isAddingNotesDisabled(editor: EditorPropT): boolean {
   return (editor.privileges & ADDING_NOTES_DISABLED_FLAG) > 0;
 }
 
+export function isVotingDisabled(editor: EditorPropT): boolean {
+  if (editor == null) {
+    return false;
+  }
+  return (editor.privileges & VOTING_DISABLED_FLAG) > 0;
+}
+
+export function isVotingEnabled(editor: EditorPropT): boolean {
+  if (editor == null) {
+    return false;
+  }
+  return (editor.privileges & VOTING_DISABLED_FLAG) === 0;
+}
+
 export function isSpammer(editor: EditorPropT): boolean {
   if (editor == null) {
     return false;
@@ -143,7 +158,10 @@ export function getRestrictionsForUser(editor: EditorPropT): Array<string> {
   const restrictions = [];
 
   if (isEditingDisabled(editor)) {
-    restrictions.push(l('Editing/voting disabled'));
+    restrictions.push(l('Editing disabled'));
+  }
+  if (isVotingDisabled(editor)) {
+    restrictions.push(l('Voting disabled'));
   }
   if (isAddingNotesDisabled(editor)) {
     restrictions.push(l('Edit notes disabled'));
