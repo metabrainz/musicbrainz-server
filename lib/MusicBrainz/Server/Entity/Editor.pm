@@ -16,6 +16,7 @@ use MusicBrainz::Server::Entity::Types qw( Area ); ## no critic 'ProhibitUnusedI
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Constants qw( :privileges );
 use MusicBrainz::Server::Filters qw( format_wikitext );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Types DateTime => { -as => 'DateTimeType' };
 
 my $LATEST_SECURITY_VULNERABILITY = DateTime->new( year => 2013, month => 3, day => 28 );
@@ -272,6 +273,21 @@ has deleted => (
     isa => 'Bool',
     is => 'rw',
 );
+
+sub l_restrictions {
+    my $self = shift;
+
+    my @restrictions;
+
+    if ($self->is_editing_disabled) {
+        push(@restrictions, l('Editing/voting disabled'));
+    }
+    if ($self->is_adding_notes_disabled) {
+        push(@restrictions, l('Edit notes disabled'));
+    }
+
+    return @restrictions;
+}
 
 sub identity_string {
     my ($self) = @_;

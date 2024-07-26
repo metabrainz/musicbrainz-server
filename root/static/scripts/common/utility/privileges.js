@@ -138,3 +138,16 @@ export function isAdmin(editor: EditorPropT): boolean {
          isRelationshipEditor(editor) ||
          isWikiTranscluder(editor);
 }
+
+export function getRestrictionsForUser(editor: EditorPropT): Array<string> {
+  const restrictions = [];
+
+  if (isEditingDisabled(editor)) {
+    restrictions.push(l('Editing/voting disabled'));
+  }
+  if (isAddingNotesDisabled(editor)) {
+    restrictions.push(l('Edit notes disabled'));
+  }
+
+  return restrictions;
+}

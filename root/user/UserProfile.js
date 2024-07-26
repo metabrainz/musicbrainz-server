@@ -29,12 +29,12 @@ import bracketed, {bracketedText}
 import escapeRegExp from '../static/scripts/common/utility/escapeRegExp.mjs';
 import nonEmpty from '../static/scripts/common/utility/nonEmpty.js';
 import {
+  getRestrictionsForUser,
   isAccountAdmin,
   isAddingNotesDisabled,
   isAutoEditor,
   isBeginner,
   isBot,
-  isEditingDisabled,
   isLocationEditor,
   isRelationshipEditor,
   isSpammer,
@@ -867,13 +867,7 @@ component UserProfile(
   const viewingOwnProfile = $c.user != null && $c.user.id === user.id;
   const adminViewing = $c.user != null && isAccountAdmin($c.user);
   const encodedName = encodeURIComponent(user.name);
-  const restrictions = [];
-  if (isEditingDisabled(user)) {
-    restrictions.push(l('Editing/voting disabled'));
-  }
-  if (isAddingNotesDisabled(user)) {
-    restrictions.push(l('Edit notes disabled'));
-  }
+  const restrictions = getRestrictionsForUser(user);
   // We specifically never show "untrusted" to non-admin users
   if (adminViewing && isUntrusted(user)) {
     restrictions.push(l_admin('Untrusted'));
