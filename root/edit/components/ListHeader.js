@@ -180,18 +180,14 @@ component QuickLinks(
       </a>,
     );
   }
-  return (
-    <>
-      {quickLinks.reduce(
-        (accum: Array<React.Node>, link, index) => {
-          accum.push(link);
-          if (index < (quickLinks.length - 1)) {
-            accum.push(' | ');
-          }
-          return accum;
-        }, [],
-      )}
-    </>
+  return quickLinks.reduce(
+    (accum: Array<React.Node>, link, index) => {
+      accum.push(link);
+      if (index < (quickLinks.length - 1)) {
+        accum.push(' | ');
+      }
+      return accum;
+    }, [],
   );
 }
 
