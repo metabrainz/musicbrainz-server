@@ -155,11 +155,10 @@ const parseLinkSubst: Parser<
     ) {
       throw error('bad link props');
     }
-    // $FlowIssue[not-a-function] This is actually not deprecated
-    return React.createElement(
-      'a',
-      {...props, key: args.getKey('a')},
-      ...children,
+    return (
+      <a key={args.getKey('a')} {...props}>
+        {children}
+      </a>
     );
   }
   return state.match;
@@ -299,8 +298,8 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
     return NO_MATCH_VALUE;
   }
 
-  const name = accept(htmlTagName);
-  if (typeof name !== 'string') {
+  const TagName = accept(htmlTagName);
+  if (typeof TagName !== 'string') {
     throw error('bad HTML tag');
   }
 
@@ -308,17 +307,18 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
     htmlAttrParsers,
     args,
   );
+  const combinedAttributes = Object.assign(
+    ({}: HtmlAttrs),
+    ...attributes,
+  );
 
   // Self-closing tag
   if (gotMatch(accept(htmlSelfClosingTagEnd))) {
-    // $FlowIssue[not-a-function] This is actually not deprecated
-    return React.createElement(
-      name,
-      Object.assign(
-        ({}: HtmlAttrs),
-        ...attributes,
-        {key: args.getKey(name)},
-      ),
+    return (
+      <TagName
+        {...combinedAttributes}
+        key={args.getKey(TagName)}
+      />
     );
   }
 
@@ -328,19 +328,17 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
 
   const children = parseRoot(args);
 
-  if (!gotMatch(accept(new RegExp('^</' + name + '>')))) {
-    throw error('expected </' + name + '>');
+  if (!gotMatch(accept(new RegExp('^</' + TagName + '>')))) {
+    throw error('expected </' + TagName + '>');
   }
 
-  // $FlowIssue[not-a-function] This is actually not deprecated
-  return React.createElement(
-    name,
-    Object.assign(
-      ({}: HtmlAttrs),
-      ...attributes,
-      {key: args.getKey(name)},
-    ),
-    ...children,
+  return (
+    <TagName
+      {...combinedAttributes}
+      key={args.getKey(TagName)}
+    >
+      {children}
+    </TagName>
   );
 }
 
