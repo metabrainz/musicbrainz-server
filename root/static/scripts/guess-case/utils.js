@@ -294,11 +294,14 @@ export function titleString(
         !followedByPunctuation) {
       outputString = lowercase;
     } else if (
-      guessCaseMode.isRomanNumber(lowercase) && !followedByApostrophe
+      guessCaseMode.isRomanNumber(lowercase) &&
+      !followedByApostrophe &&
+      !(flags.isInsideBrackets() && isLowerCaseBracketWord(lowercase))
     ) {
       /*
        * Uppercase Roman numerals unless followed by apostrophe
-       * (likely false positive, "d'amore", "c'est")
+       * (likely false positive, "d'amore", "c'est") or a bracketed word
+       * that's typically lowercased (e.g. "mix").
        */
       outputString = uppercase;
     } else if (guessCaseMode.isUpperCaseWord(lowercase)) {
