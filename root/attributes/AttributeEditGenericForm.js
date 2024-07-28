@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import FormRow from '../../static/scripts/edit/components/FormRow.js';
-import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 import AttributeEditFormGenericSection
   from './AttributeEditFormGenericSection.js';
