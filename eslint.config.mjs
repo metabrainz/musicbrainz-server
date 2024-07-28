@@ -665,6 +665,7 @@ export default [
       'react/jsx-pascal-case': 'off', // in eslint-jsx
       'react/jsx-props-no-multi-spaces': 'off', // in eslint-js
       'react/jsx-props-no-spreading': 'off',
+      'react/jsx-props-no-spread-multi': 'error',
       'react/jsx-sort-default-props': 'off', // deprecated
       'react/jsx-sort-props': 'off', // in eslint-jsx
       'react/jsx-space-before-closing': 'off', // deprecated
