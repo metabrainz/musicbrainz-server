@@ -104,6 +104,34 @@ component RelationshipsTable(
 
     totalRelationships += linkTypeGroup.total_relationships;
 
+    hasCreditColumn = linkTypeGroup.relationships.some(relationship => {
+      let sourceCredit = '';
+      if (relationship.backward) {
+        sourceCredit = relationship.entity1_credit;
+      } else {
+        sourceCredit = relationship.entity0_credit;
+      }
+
+      return nonEmpty(sourceCredit);
+    });
+    hasAttributeColumn = linkTypeGroup.relationships.some(
+      relationship => Boolean(relationship.attributes?.length),
+    );
+    hasArtistColumn = linkTypeGroup.relationships.some(
+      relationship => Object.hasOwn(relationship.target, 'artistCredit'),
+    );
+    hasLengthColumn = linkTypeGroup.relationships.some(
+      relationship => Object.hasOwn(relationship.target, 'length'),
+    );
+
+    columnsCount = (
+      1 +
+      (hasCreditColumn ? 1 : 0) +
+      (hasAttributeColumn ? 1 : 0) +
+      (hasArtistColumn ? 1 : 0) +
+      (hasLengthColumn ? 1 : 0)
+    );
+
     for (const relationship of linkTypeGroup.relationships) {
       let sourceCredit = '';
       let targetCredit = '';
@@ -119,21 +147,6 @@ component RelationshipsTable(
       const artistCredit = Object.hasOwn(target, 'artistCredit')
         ? target.artistCredit
         : null;
-
-      hasCreditColumn ||= nonEmpty(sourceCredit);
-      hasAttributeColumn ||= Boolean(relationship.attributes?.length);
-      hasArtistColumn ||= (artistCredit != null);
-      hasLengthColumn ||= (
-        Object.hasOwn(target, 'length') &&
-        target.length != null
-      );
-      columnsCount = (
-        1 +
-        (hasCreditColumn ? 1 : 0) +
-        (hasAttributeColumn ? 1 : 0) +
-        (hasArtistColumn ? 1 : 0) +
-        (hasLengthColumn ? 1 : 0)
-      );
 
       rows.push(
         <React.Fragment key={relationship.id}>
