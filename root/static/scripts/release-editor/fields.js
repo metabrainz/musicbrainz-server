@@ -43,6 +43,11 @@ import releaseEditor from './viewModel.js';
 
 const fields = {};
 
+const bracketRegex = new RegExp(
+  '[' + escapeRegExp(BRACKET_PAIRS.flat().join('')) + ']',
+  'g',
+);
+
 releaseEditor.fields = fields;
 
 class Track {
@@ -346,10 +351,6 @@ class Track {
   }
 
   hasFeatOnTitle() {
-    const bracketRegex = new RegExp(
-      '[' + escapeRegExp(BRACKET_PAIRS.flat().join('')) + ']',
-      'g',
-    );
     return featRegex.test(this.name().replace(bracketRegex, ' '));
   }
 
