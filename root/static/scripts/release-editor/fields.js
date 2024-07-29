@@ -11,6 +11,9 @@ import * as ReactDOMServer from 'react-dom/server';
 
 import 'knockout-arraytransforms';
 
+import {
+  BRACKET_PAIRS,
+} from '../common/constants.js';
 import mbEntity from '../common/entity.js';
 import {
   artistCreditsAreEqual,
@@ -30,7 +33,7 @@ import request from '../common/utility/request.js';
 import {fixedWidthInteger, uniqueId} from '../common/utility/strings.js';
 import mbEdit from '../edit/MB/edit.js';
 import * as dates from '../edit/utility/dates.js';
-import {bracketPairs, featRegex} from '../edit/utility/guessFeat.js';
+import {featRegex} from '../edit/utility/guessFeat.js';
 import isUselessMediumTitle from '../edit/utility/isUselessMediumTitle.js';
 import * as validation from '../edit/validation.js';
 
@@ -344,7 +347,7 @@ class Track {
 
   hasFeatOnTitle() {
     const bracketRegex = new RegExp(
-      '[' + escapeRegExp(bracketPairs.flat().join('')) + ']',
+      '[' + escapeRegExp(BRACKET_PAIRS.flat().join('')) + ']',
       'g',
     );
     return featRegex.test(this.name().replace(bracketRegex, ' '));

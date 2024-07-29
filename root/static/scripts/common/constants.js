@@ -388,3 +388,12 @@ export const DISPLAY_NONE_STYLE = Object.freeze({display: 'none'});
 
 export const WS_EDIT_RESPONSE_OK: WS_EDIT_RESPONSE_OK_T = 1;
 export const WS_EDIT_RESPONSE_NO_CHANGES: WS_EDIT_RESPONSE_NO_CHANGES_T = 2;
+
+export const BRACKET_PAIRS = [
+  ['(', ')'],
+  ['[', ']'],
+  ['<', '>'],
+  ['（', '）'],
+  ['［', '］'],
+  ['{', '}'],
+];
