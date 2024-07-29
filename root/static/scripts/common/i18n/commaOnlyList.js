@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 function _commaOnlyList<Input, Output>(
   l: ExpandLFunc<Input, Output>,
   items: $ReadOnlyArray<Input>,
@@ -19,16 +17,12 @@ function _commaOnlyList<Input, Output>(
     return '';
   }
 
-  // The __wantArray argument is only used with exp.l, not texp.l.
-
   let output = l('{last_list_item}', {
-    __wantArray: 'true',
     last_list_item: items[length - 1],
   });
 
   for (let i = length - 2; i >= 0; i--) {
     output = l('{commas_only_list_item}, {rest}', {
-      __wantArray: 'true',
       commas_only_list_item: items[i],
       rest: output,
     });
@@ -40,12 +34,7 @@ function _commaOnlyList<Input, Output>(
 const commaOnlyList = (
   items: $ReadOnlyArray<VarSubstArg>,
 ): Expand2ReactOutput | string => {
-  const result =
-    _commaOnlyList<VarSubstArg, Expand2ReactOutput>(exp.l, items);
-  if (Array.isArray(result)) {
-    return React.createElement(React.Fragment, null, ...result);
-  }
-  return result;
+  return _commaOnlyList<VarSubstArg, Expand2ReactOutput>(exp.l, items);
 };
 
 const commaOnlyListText = (items: $ReadOnlyArray<StrOrNum>): string => (

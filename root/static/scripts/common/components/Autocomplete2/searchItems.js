@@ -10,6 +10,7 @@
 import {unwrapNl} from '../../i18n.js';
 import {maybeGetCatalystContext} from '../../utility/catalyst.js';
 import clean from '../../utility/clean.js';
+import {incrementCounter} from '../../utility/numbers.js';
 import setMapDefault from '../../utility/setMapDefault.js';
 import {unaccent} from '../../utility/strings.js';
 
@@ -175,7 +176,7 @@ export default function searchItems<T: EntityItemT>(
     items: Set<OptionItemT<T>>,
   ) => {
     for (const item of items) {
-      itemRanks.set(item, (itemRanks.get(item) ?? 0) + n);
+      incrementCounter(itemRanks, item, n);
     }
   };
   for (const nGram of getNGrams(searchTerm)) {

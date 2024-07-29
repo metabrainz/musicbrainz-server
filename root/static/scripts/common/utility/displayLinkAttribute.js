@@ -51,7 +51,7 @@ function getAttributeValueReact(type: LinkAttrTypeT) {
   const typeName = localizeLinkAttributeTypeName(type);
   return (
     type.root_id === INSTRUMENT_ROOT_ID
-      ? <a href={'/instrument/' + type.gid}>{typeName}</a>
+      ? <a href={'/instrument/' + type.gid} key={type.id}>{typeName}</a>
       : typeName
   );
 }

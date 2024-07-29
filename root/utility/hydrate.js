@@ -101,7 +101,7 @@ export default function hydrate<
   Component: React.AbstractComponent<Config | SanitizedConfig>,
   mungeProps?: (Config) => SanitizedConfig,
 ): React.AbstractComponent<Config, void> {
-  const [containerTag, ...classes] = containerSelector.split('.');
+  const [ContainerTag, ...classes] = containerSelector.split('.');
   if (typeof document !== 'undefined') {
     // This should only run on the client.
     const $ = require('jquery');
@@ -165,11 +165,9 @@ export default function hydrate<
           }}
           type="application/json"
         />
-        {React.createElement(
-          containerTag,
-          {className: classes.join(' ')},
-          <Component {...props} />,
-        )}
+        <ContainerTag className={classes.join(' ')}>
+          <Component {...props} />
+        </ContainerTag>
       </>
     );
   };

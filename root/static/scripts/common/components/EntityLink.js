@@ -73,7 +73,7 @@ component Comment(
   comment: string,
 ) {
   const aliasElement = nonEmpty(alias)
-    ? <i title={l('Primary alias')}>{alias}</i>
+    ? <i key="primary-alias" title={l('Primary alias')}>{alias}</i>
     : null;
   return (
     <>
@@ -493,7 +493,7 @@ component EntityLink(
     );
   }
 
-  return React.createElement(React.Fragment, null, ...parts);
+  return parts;
 }
 
 export default EntityLink;

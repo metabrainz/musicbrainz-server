@@ -155,7 +155,11 @@ const parseLinkSubst: Parser<
     ) {
       throw error('bad link props');
     }
-    return React.createElement('a', props, ...children);
+    return (
+      <a key={args.getKey('a')} {...props}>
+        {children}
+      </a>
+    );
   }
   return state.match;
 });
@@ -294,8 +298,8 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
     return NO_MATCH_VALUE;
   }
 
-  const name = accept(htmlTagName);
-  if (typeof name !== 'string') {
+  const TagName = accept(htmlTagName);
+  if (typeof TagName !== 'string') {
     throw error('bad HTML tag');
   }
 
@@ -303,12 +307,18 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
     htmlAttrParsers,
     args,
   );
+  const combinedAttributes = Object.assign(
+    ({}: HtmlAttrs),
+    ...attributes,
+  );
 
+  // Self-closing tag
   if (gotMatch(accept(htmlSelfClosingTagEnd))) {
-    // Self-closing tag
-    return React.createElement(
-      name,
-      Object.assign(({}: HtmlAttrs), ...attributes),
+    return (
+      <TagName
+        {...combinedAttributes}
+        key={args.getKey(TagName)}
+      />
     );
   }
 
@@ -318,14 +328,17 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
 
   const children = parseRoot(args);
 
-  if (!gotMatch(accept(new RegExp('^</' + name + '>')))) {
-    throw error('expected </' + name + '>');
+  if (!gotMatch(accept(new RegExp('^</' + TagName + '>')))) {
+    throw error('expected </' + TagName + '>');
   }
 
-  return React.createElement(
-    name,
-    Object.assign(({}: HtmlAttrs), ...attributes),
-    ...children,
+  return (
+    <TagName
+      {...combinedAttributes}
+      key={args.getKey(TagName)}
+    >
+      {children}
+    </TagName>
   );
 }
 
@@ -402,15 +415,7 @@ export function expand2reactWithVarArgsInstance(
     args,
   );
   if (Array.isArray(result)) {
-    return result.length ? (
-      result.length > 1
-        ? (
-          (args != null && args.get('__wantArray') === 'true')
-            ? result
-            : React.createElement(React.Fragment, null, ...result)
-        )
-        : result[0]
-    ) : '';
+    return result.length ? (result.length > 1 ? result : result[0]) : '';
   }
   return result;
 }

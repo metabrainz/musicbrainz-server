@@ -44,6 +44,12 @@ type StateT = {
   +selection: Array<ArtistCreditWithIdT>,
 };
 
+type CreateInitialStatePropsT = {
+  +artistCredits: $ReadOnlyArray<ArtistCreditWithIdT>,
+  +initialSelectedArtistCreditIds: {+[artistCreditId: number]: 1},
+  +name: string,
+};
+
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
   | {
@@ -73,8 +79,20 @@ function compareArtistCredits(
   );
 }
 
-function createInitialState(name: string): StateT {
-  return {expanded: false, name, selection: []};
+function createInitialState({
+  artistCredits,
+  initialSelectedArtistCreditIds,
+  name,
+}: CreateInitialStatePropsT): StateT {
+  const initialSelectedArtistCredits = artistCredits.filter(artistCredit => (
+    initialSelectedArtistCreditIds[artistCredit.id] === 1
+  ));
+
+  return {
+    expanded: false,
+    name,
+    selection: initialSelectedArtistCredits,
+  };
 }
 
 function reducer(state: StateT, action: ActionT): StateT {
@@ -157,7 +175,11 @@ const ArtistCreditRenamer = ({
 
   const [state, dispatch] = React.useReducer(
     reducer,
-    initialArtistName,
+    {
+      artistCredits,
+      initialSelectedArtistCreditIds,
+      name: initialArtistName,
+    },
     createInitialState,
   );
 
@@ -166,10 +188,6 @@ const ArtistCreditRenamer = ({
     rowsRef.current = artistCredits.map(artistCredit => {
       const id = artistCredit.id;
       const isChecked = initialSelectedArtistCreditIds[id] === 1;
-      if (isChecked) {
-        // This is only safe on first render!
-        state.selection.push(artistCredit);
-      }
       return (
         <ArtistCreditRow
           artistCredit={artistCredit}

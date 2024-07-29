@@ -37,7 +37,7 @@ component CritiqueBrainzReview(review: CritiqueBrainzReviewT, title: string) {
               </a>
             ),
             date: formatUserDate($c, review.created, {dateOnly: true}),
-            review_link: {href: reviewHref(review), key: 'review_link'},
+            review_link: {href: reviewHref(review)},
           })}
         </SanitizedCatalystContext.Consumer>
         {review.rating == null ? null : (

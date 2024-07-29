@@ -12,6 +12,8 @@ import * as React from 'react';
 import Layout from '../../layout/index.js';
 import {GOOGLE_CUSTOM_SEARCH} from '../../static/scripts/common/DBDefs.mjs';
 
+const GcseSearchTag = 'gcse:search';
+
 component DocResults() {
   return (
     <Layout fullWidth title={l('Documentation search')}>
@@ -22,10 +24,10 @@ component DocResults() {
           src={'https://cse.google.com/cse.js?cx=' + encodeURIComponent(GOOGLE_CUSTOM_SEARCH)}
           type="text/javascript"
         />
-        {React.createElement(
-          'gcse:search',
-          {enablehistory: 'true', queryparametername: 'query'},
-        )}
+        <GcseSearchTag
+          enablehistory="true"
+          queryparametername="query"
+        />
       </div>
     </Layout>
   );

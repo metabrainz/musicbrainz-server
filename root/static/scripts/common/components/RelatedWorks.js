@@ -34,17 +34,18 @@ component RelatedWorks(workIds: $ReadOnlyArray<number>) {
   for (let i = 0; i < workIds.length; i++) {
     const work = linkedEntities.work[workIds[i]];
     parts.push(
-      <h3>
+      <h3 key={'header-' + work.id}>
         <EntityLink entity={work} showIcon />
       </h3>,
       <StaticRelationshipsDisplay
+        key={'content-' + work.id}
         relationships={
           groupRelationships(work.relationships, {types: targetEntityTypes})
         }
       />,
     );
   }
-  return React.createElement(React.Fragment, null, ...parts);
+  return parts;
 }
 
 export default RelatedWorks;

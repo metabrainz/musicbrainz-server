@@ -34,10 +34,11 @@ component RelatedSeries(seriesIds: $ReadOnlyArray<number>) {
   for (let i = 0; i < seriesIds.length; i++) {
     const series = linkedEntities.series[seriesIds[i]];
     parts.push(
-      <h3>
+      <h3 key={'header-' + series.id}>
         <EntityLink entity={series} showIcon />
       </h3>,
       <StaticRelationshipsDisplay
+        key={'content-' + series.id}
         relationships={
           groupRelationships(
             series.relationships,
@@ -47,7 +48,7 @@ component RelatedSeries(seriesIds: $ReadOnlyArray<number>) {
       />,
     );
   }
-  return React.createElement(React.Fragment, null, ...parts);
+  return parts;
 }
 
 export default RelatedSeries;

@@ -57,7 +57,11 @@ const renderAttributes = (attribute: AttributeT) => {
   }
 };
 
-component Attribute(attributes: Array<AttributeT>, model: string) {
+component Attribute(
+  attributes as passedAttributes: Array<AttributeT>,
+  model: string,
+) {
+  const attributes = [...passedAttributes];
   return (
     <Layout fullWidth title={model}>
       <h1>
