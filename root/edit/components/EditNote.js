@@ -51,6 +51,7 @@ component EditNote(
   edit: GenericEditWithIdT,
   editNote: EditNoteT,
   index: number,
+  isOnEditList: boolean = false,
   isOnEditPage: boolean = false,
   showEditControls: boolean = true,
 ) {
@@ -143,8 +144,8 @@ component EditNote(
         <a
           className="date"
           href={isOnEditPage ? `#${anchor}` : `/edit-note/${editNote.id}`}
-          rel={isOnEditPage ? null : 'noopener noreferrer'}
-          target={isOnEditPage ? null : '_blank'}
+          rel={isOnEditList ? 'noopener noreferrer' : null}
+          target={isOnEditList ? '_blank' : null}
         >
           {nonEmpty(editNote.post_time)
             ? formatUserDate($c, editNote.post_time)

@@ -48,7 +48,13 @@ component ListEdit(
 
       {$c.user ? (
         <>
-          <EditNotes edit={edit} hide index={index} verbose={false} />
+          <EditNotes
+            edit={edit}
+            hide
+            index={index}
+            isOnEditList
+            verbose={false}
+          />
           <div className="seperator" />
         </>
       ) : null}
