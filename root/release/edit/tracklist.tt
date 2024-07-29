@@ -406,7 +406,7 @@
         [%- warning_icon %]
         <p>
           <strong>[% add_colon(l('Warning')) | html_entity %]</strong>
-          [% l('You’ve used the {valink|Various Artists} special purpose artist on some tracks below. {valink|Various Artists} should very rarely be used on tracks; please make sure the artists have been entered correctly.', { valink => va_doc_link }) %]
+          [% l('You’ve used the {valink|Various Artists} special purpose artist on some tracks below. {valink|Various Artists} should very rarely be used on tracks; please make sure the artists have been entered correctly.', { valink => { href => va_doc_link, target => '_blank' } }) %]
         </p>
         <label>
           <input id="confirm-va" type="checkbox" data-bind="checked: confirmedVariousArtists" />
@@ -423,7 +423,7 @@
         [%- warning_icon %]
         <p>
           <strong>[% l('Warning:') | html_entity %]</strong>
-          [% l('This medium seems to have featured artists on the track titles. These should usually be {featured_style|entered as part of the track artist}.', { featured_style => doc_link('Style/Artist_Credits') }) %]
+          [% l('This medium seems to have featured artists on the track titles. These should usually be {featured_style|entered as part of the track artist}.', { featured_style => { href => doc_link('Style/Artist_Credits'), target => '_blank' } }) %]
         </p>
         <label>
           <input id="confirm-feat" type="checkbox" data-bind="checked: confirmedFeatOnTrackTitles" />
