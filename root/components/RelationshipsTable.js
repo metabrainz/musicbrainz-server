@@ -9,10 +9,14 @@
 
 import * as React from 'react';
 
+import ENTITIES from '../../entities.mjs';
 import {CatalystContext} from '../context.mjs';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import {
+  ENTITIES_WITH_RELATIONSHIP_CREDITS,
+} from '../static/scripts/common/constants.js';
 import {compare} from '../static/scripts/common/i18n.js';
 import commaList from '../static/scripts/common/i18n/commaList.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
@@ -83,10 +87,9 @@ component RelationshipsTable(
   const appearanceTypes = pickAppearancesTypes(entity.entityType);
 
   let hasCreditColumn = false;
-  let hasAttributeColumn = false;
   let hasArtistColumn = false;
   let hasLengthColumn = false;
-  let columnsCount = 1;
+  let columnsCount = 2;
   let totalRelationships = 0;
 
   type PagedLinkTypeGroupWithPhraseT = $ReadOnly<{
@@ -103,34 +106,6 @@ component RelationshipsTable(
     let index = 0;
 
     totalRelationships += linkTypeGroup.total_relationships;
-
-    hasCreditColumn = linkTypeGroup.relationships.some(relationship => {
-      let sourceCredit = '';
-      if (relationship.backward) {
-        sourceCredit = relationship.entity1_credit;
-      } else {
-        sourceCredit = relationship.entity0_credit;
-      }
-
-      return nonEmpty(sourceCredit);
-    });
-    hasAttributeColumn = linkTypeGroup.relationships.some(
-      relationship => Boolean(relationship.attributes?.length),
-    );
-    hasArtistColumn = linkTypeGroup.relationships.some(
-      relationship => Object.hasOwn(relationship.target, 'artistCredit'),
-    );
-    hasLengthColumn = linkTypeGroup.relationships.some(
-      relationship => Object.hasOwn(relationship.target, 'length'),
-    );
-
-    columnsCount = (
-      1 +
-      (hasCreditColumn ? 1 : 0) +
-      (hasAttributeColumn ? 1 : 0) +
-      (hasArtistColumn ? 1 : 0) +
-      (hasLengthColumn ? 1 : 0)
-    );
 
     for (const relationship of linkTypeGroup.relationships) {
       let sourceCredit = '';
@@ -174,15 +149,13 @@ component RelationshipsTable(
                 {sourceCredit || null}
               </td>
             ) : null}
-            {hasAttributeColumn ? (
-              <td>
-                {relationship.attributes?.length ? (
-                  commaList(
-                    relationship.attributes.map(displayLinkAttribute),
-                  )
-                ) : null}
-              </td>
-            ) : null}
+            <td>
+              {relationship.attributes?.length ? (
+                commaList(
+                  relationship.attributes.map(displayLinkAttribute),
+                )
+              ) : null}
+            </td>
             {hasArtistColumn ? (
               <td>
                 {artistCredit ? (
@@ -208,21 +181,71 @@ component RelationshipsTable(
 
   const pagedRelationshipGroups = entity.paged_relationship_groups;
   if (pagedLinkTypeGroup) {
+    const sourceType = entity.entityType;
+    const targetType = pagedLinkTypeGroup.relationships[0].target_type;
+    hasArtistColumn = Boolean(ENTITIES[targetType].artist_credits);
+    hasLengthColumn = targetType === 'recording';
+    hasCreditColumn = ENTITIES_WITH_RELATIONSHIP_CREDITS[sourceType] &&
+    pagedLinkTypeGroup.relationships.some(relationship => {
+      let sourceCredit = '';
+      if (relationship.backward) {
+        sourceCredit = relationship.entity1_credit;
+      } else {
+        sourceCredit = relationship.entity0_credit;
+      }
+
+      return nonEmpty(sourceCredit);
+    });
+
+    columnsCount = (
+      2 +
+      (hasCreditColumn ? 1 : 0) +
+      (hasArtistColumn ? 1 : 0) +
+      (hasLengthColumn ? 1 : 0)
+    );
+
     getRelationshipRows(pagedLinkTypeGroup, tableRows);
   } else if (pagedRelationshipGroups) {
-    const sortedTargetTypes =
-      Object.keys(pagedRelationshipGroups).sort();
-    for (const targetType of sortedTargetTypes) {
-      if (!appearanceTypes.includes(targetType)) {
-        continue;
-      }
+    const targetTypeGroups = Object.keys(pagedRelationshipGroups)
+      .sort()
+      .reduce((accum: Array<PagedTargetTypeGroupT>, targetType) => {
+        if (!appearanceTypes.includes(targetType)) {
+          return accum;
+        }
+        const targetTypeGroup: ?PagedTargetTypeGroupT =
+          pagedRelationshipGroups[targetType];
+        if (targetTypeGroup) {
+          accum.push(targetTypeGroup);
+          hasArtistColumn ||= Boolean(ENTITIES[targetType].artist_credits);
+          hasLengthColumn ||= targetType === 'recording';
+          hasCreditColumn ||=
+            (ENTITIES_WITH_RELATIONSHIP_CREDITS[entity.entityType] &&
+            Object.values(targetTypeGroup).some(
+              linkTypeGroup => linkTypeGroup.relationships.some(
+                relationship => {
+                  let sourceCredit = '';
+                  if (relationship.backward) {
+                    sourceCredit = relationship.entity1_credit;
+                  } else {
+                    sourceCredit = relationship.entity0_credit;
+                  }
 
-      const targetTypeGroup: ?PagedTargetTypeGroupT =
-        pagedRelationshipGroups[targetType];
-      if (!targetTypeGroup) {
-        continue;
-      }
+                  return nonEmpty(sourceCredit);
+                },
+              ),
+            ));
+        }
+        return accum;
+      }, []);
 
+    columnsCount = (
+      2 +
+      (hasCreditColumn ? 1 : 0) +
+      (hasArtistColumn ? 1 : 0) +
+      (hasLengthColumn ? 1 : 0)
+    );
+
+    for (const targetTypeGroup of targetTypeGroups) {
       const linkTypeGroups: $ReadOnlyArray<$ReadOnly<{
         ...PagedLinkTypeGroupT,
         +phrase: string,
@@ -298,7 +321,7 @@ component RelationshipsTable(
           <th>{l('Date')}</th>
           <th>{l('Title')}</th>
           {hasCreditColumn ? <th>{l('Credited as')}</th> : null}
-          {hasAttributeColumn ? <th>{l('Attributes')}</th> : null}
+          <th>{l('Attributes')}</th>
           {hasArtistColumn ? <th>{l('Artist')}</th> : null}
           {hasLengthColumn ? <th>{l('Length')}</th> : null}
         </tr>
