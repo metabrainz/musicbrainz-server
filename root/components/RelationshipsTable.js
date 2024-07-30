@@ -120,9 +120,6 @@ component RelationshipsTable(
         }
       }
     }
-  };
-
-  const setColumnsCount = () => {
     columnsCount = (
       2 +
       (hasCreditColumn ? 1 : 0) +
@@ -218,9 +215,6 @@ component RelationshipsTable(
         pagedLinkTypeGroup.relationships[0].target_type,
         pagedLinkTypeGroup.relationships,
       );
-
-      setColumnsCount();
-
       getRelationshipRows(pagedLinkTypeGroup, tableRows);
     }
   } else if (pagedRelationshipGroups) {
@@ -248,8 +242,6 @@ component RelationshipsTable(
         }
         return accum;
       }, []);
-
-    setColumnsCount();
 
     for (const targetTypeGroup of targetTypeGroups) {
       const linkTypeGroups: $ReadOnlyArray<$ReadOnly<{
