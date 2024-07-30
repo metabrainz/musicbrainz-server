@@ -11,6 +11,9 @@ import * as ReactDOMServer from 'react-dom/server';
 
 import 'knockout-arraytransforms';
 
+import {
+  BRACKET_PAIRS,
+} from '../common/constants.js';
 import mbEntity from '../common/entity.js';
 import {
   artistCreditsAreEqual,
@@ -22,6 +25,7 @@ import MB from '../common/MB.js';
 import {groupBy} from '../common/utility/arrays.js';
 import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
 import {debounceComputed} from '../common/utility/debounce.js';
+import escapeRegExp from '../common/utility/escapeRegExp.mjs';
 import formatTrackLength from '../common/utility/formatTrackLength.js';
 import isBlank from '../common/utility/isBlank.js';
 import releaseLabelKey from '../common/utility/releaseLabelKey.js';
@@ -29,6 +33,7 @@ import request from '../common/utility/request.js';
 import {fixedWidthInteger, uniqueId} from '../common/utility/strings.js';
 import mbEdit from '../edit/MB/edit.js';
 import * as dates from '../edit/utility/dates.js';
+import {featRegex} from '../edit/utility/guessFeat.js';
 import isUselessMediumTitle from '../edit/utility/isUselessMediumTitle.js';
 import * as validation from '../edit/validation.js';
 
@@ -37,6 +42,11 @@ import utils from './utils.js';
 import releaseEditor from './viewModel.js';
 
 const fields = {};
+
+const bracketRegex = new RegExp(
+  '[' + escapeRegExp(BRACKET_PAIRS.flat().join('')) + ']',
+  'g',
+);
 
 releaseEditor.fields = fields;
 
@@ -56,6 +66,10 @@ class Track {
     this.name = ko.observable(data.name);
     this.name.original = data.name;
     this.name.subscribe(this.nameChanged, this);
+
+    this.hasFeatOnOrigTitle = featRegex.test(
+      data.name.replace(bracketRegex, ' '),
+    );
 
     this.previewName = ko.observable(null);
     this.previewNameDiffers = ko.computed(() => {
@@ -340,6 +354,10 @@ class Track {
     return hasVariousArtists(this.artistCredit());
   }
 
+  hasFeatOnTitle() {
+    return featRegex.test(this.name().replace(bracketRegex, ' '));
+  }
+
   relatedArtists() {
     return this.medium.release.relatedArtists;
   }
@@ -475,6 +493,19 @@ class Medium {
     this.confirmedVariousArtists = ko.observable(
       this.hasVariousArtistTracks(),
     );
+    this.hasFeatOnTrackTitles = ko.computed(function () {
+      return !self.tracksUnknownToUser() &&
+             self.tracks().some(t => t.hasFeatOnTitle());
+    });
+    this.hasAddedFeatOnTrackTitles = ko.computed(function () {
+      return self.hasFeatOnTrackTitles() &&
+             self.tracks().some(
+               t => !t.hasFeatOnOrigTitle && t.hasFeatOnTitle(),
+             );
+    });
+    this.confirmedFeatOnTrackTitles = ko.observable(
+      this.hasFeatOnTrackTitles.peek(),
+    );
     this.hasTooEarlyFormat = ko.computed(function () {
       const mediumFormatDate = MB.mediumFormatDates[self.formatID()];
       return Boolean(mediumFormatDate && self.release.earliestYear() &&
@@ -575,9 +606,20 @@ class Medium {
               !self.confirmedVariousArtists());
     });
 
+    this.hasUnconfirmedFeatOnTrackTitles = ko.computed(function () {
+      return (self.hasAddedFeatOnTrackTitles() &&
+              !self.confirmedFeatOnTrackTitles());
+    });
+
     this.hasVariousArtistTracks.subscribe(function (value) {
       if (!value) {
         self.confirmedVariousArtists(false);
+      }
+    });
+
+    this.hasFeatOnTrackTitles.subscribe(function (value) {
+      if (!value) {
+        self.confirmedFeatOnTrackTitles(false);
       }
     });
 
@@ -770,6 +812,7 @@ class Medium {
     this.loading(false);
     this.collapsed(false);
     this.confirmedVariousArtists(this.hasVariousArtistTracks());
+    this.confirmedFeatOnTrackTitles(this.hasFeatOnTrackTitles());
   }
 
   hasTracks() {
