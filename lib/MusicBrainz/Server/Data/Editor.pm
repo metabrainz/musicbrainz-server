@@ -411,7 +411,13 @@ sub update_privileges {
                 + ($values->{spammer}               // 0) * $SPAMMER_FLAG;
 
     Sql::run_in_transaction(sub {
-        $self->sql->do('UPDATE editor SET privs = ? WHERE id = ?', $privs, $editor->id);
+        $self->sql->do(
+            'UPDATE editor SET privs = ? | (privs & ?) WHERE id = ?',
+            $privs,
+            # Preserve the value of the beginner flag.
+            $BEGINNER_FLAG,
+            $editor->id,
+        );
     }, $self->sql);
 }
 
