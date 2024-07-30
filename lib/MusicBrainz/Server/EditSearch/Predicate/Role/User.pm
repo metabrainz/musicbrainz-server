@@ -62,7 +62,7 @@ role {
         } elsif ($self->operator eq 'not_limited') {
             my $nonbeginner_sql = <<~'SQL';
                 SELECT id
-                  FROM editor beginner
+                  FROM editor non_beginner
                  WHERE (privs & ?) = 0
                 SQL
 
