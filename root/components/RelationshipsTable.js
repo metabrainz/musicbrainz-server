@@ -99,6 +99,38 @@ component RelationshipsTable(
 
   const tableRows: Array<React$MixedElement> = [];
 
+  const setColumnVariables = (
+    targetType: RelatableEntityTypeT,
+    relationships: Iterable<RelationshipT>,
+  ) => {
+    hasArtistColumn ||= Boolean(ENTITIES[targetType].artist_credits);
+    hasLengthColumn ||= targetType === 'recording';
+    if (!hasCreditColumn &&
+        ENTITIES_WITH_RELATIONSHIP_CREDITS[entity.entityType]) {
+      for (const relationship of relationships) {
+        let sourceCredit = '';
+        if (relationship.backward) {
+          sourceCredit = relationship.entity1_credit;
+        } else {
+          sourceCredit = relationship.entity0_credit;
+        }
+        if (nonEmpty(sourceCredit)) {
+          hasCreditColumn = true;
+          break;
+        }
+      }
+    }
+  };
+
+  const setColumnsCount = () => {
+    columnsCount = (
+      2 +
+      (hasCreditColumn ? 1 : 0) +
+      (hasArtistColumn ? 1 : 0) +
+      (hasLengthColumn ? 1 : 0)
+    );
+  };
+
   const getRelationshipRows = (
     linkTypeGroup: PagedLinkTypeGroupT | PagedLinkTypeGroupWithPhraseT,
     rows: Array<React$MixedElement>,
@@ -181,30 +213,16 @@ component RelationshipsTable(
 
   const pagedRelationshipGroups = entity.paged_relationship_groups;
   if (pagedLinkTypeGroup) {
-    const sourceType = entity.entityType;
-    const targetType = pagedLinkTypeGroup.relationships[0].target_type;
-    hasArtistColumn = Boolean(ENTITIES[targetType].artist_credits);
-    hasLengthColumn = targetType === 'recording';
-    hasCreditColumn = ENTITIES_WITH_RELATIONSHIP_CREDITS[sourceType] &&
-    pagedLinkTypeGroup.relationships.some(relationship => {
-      let sourceCredit = '';
-      if (relationship.backward) {
-        sourceCredit = relationship.entity1_credit;
-      } else {
-        sourceCredit = relationship.entity0_credit;
-      }
+    if (pagedLinkTypeGroup.relationships.length) {
+      setColumnVariables(
+        pagedLinkTypeGroup.relationships[0].target_type,
+        pagedLinkTypeGroup.relationships,
+      );
 
-      return nonEmpty(sourceCredit);
-    });
+      setColumnsCount();
 
-    columnsCount = (
-      2 +
-      (hasCreditColumn ? 1 : 0) +
-      (hasArtistColumn ? 1 : 0) +
-      (hasLengthColumn ? 1 : 0)
-    );
-
-    getRelationshipRows(pagedLinkTypeGroup, tableRows);
+      getRelationshipRows(pagedLinkTypeGroup, tableRows);
+    }
   } else if (pagedRelationshipGroups) {
     const targetTypeGroups = Object.keys(pagedRelationshipGroups)
       .sort()
@@ -216,34 +234,22 @@ component RelationshipsTable(
           pagedRelationshipGroups[targetType];
         if (targetTypeGroup) {
           accum.push(targetTypeGroup);
-          hasArtistColumn ||= Boolean(ENTITIES[targetType].artist_credits);
-          hasLengthColumn ||= targetType === 'recording';
-          hasCreditColumn ||=
-            (ENTITIES_WITH_RELATIONSHIP_CREDITS[entity.entityType] &&
-            Object.values(targetTypeGroup).some(
-              linkTypeGroup => linkTypeGroup.relationships.some(
-                relationship => {
-                  let sourceCredit = '';
-                  if (relationship.backward) {
-                    sourceCredit = relationship.entity1_credit;
-                  } else {
-                    sourceCredit = relationship.entity0_credit;
-                  }
 
-                  return nonEmpty(sourceCredit);
-                },
-              ),
-            ));
+          setColumnVariables(
+            targetType,
+            (function* () {
+              for (const key in targetTypeGroup) {
+                if (Object.hasOwn(targetTypeGroup, key)) {
+                  yield* targetTypeGroup[key].relationships;
+                }
+              }
+            }()),
+          );
         }
         return accum;
       }, []);
 
-    columnsCount = (
-      2 +
-      (hasCreditColumn ? 1 : 0) +
-      (hasArtistColumn ? 1 : 0) +
-      (hasLengthColumn ? 1 : 0)
-    );
+    setColumnsCount();
 
     for (const targetTypeGroup of targetTypeGroups) {
       const linkTypeGroups: $ReadOnlyArray<$ReadOnly<{
