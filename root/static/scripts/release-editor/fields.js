@@ -67,6 +67,10 @@ class Track {
     this.name.original = data.name;
     this.name.subscribe(this.nameChanged, this);
 
+    this.hasFeatOnOrigTitle = featRegex.test(
+      data.name.replace(bracketRegex, ' '),
+    );
+
     this.previewName = ko.observable(null);
     this.previewNameDiffers = ko.computed(() => {
       const preview = this.previewName();
@@ -493,8 +497,14 @@ class Medium {
       return !self.tracksUnknownToUser() &&
              self.tracks().some(t => t.hasFeatOnTitle());
     });
+    this.hasAddedFeatOnTrackTitles = ko.computed(function () {
+      return self.hasFeatOnTrackTitles() &&
+             self.tracks().some(
+               t => !t.hasFeatOnOrigTitle && t.hasFeatOnTitle(),
+             );
+    });
     this.confirmedFeatOnTrackTitles = ko.observable(
-      this.hasFeatOnTrackTitles(),
+      this.hasFeatOnTrackTitles.peek(),
     );
     this.hasTooEarlyFormat = ko.computed(function () {
       const mediumFormatDate = MB.mediumFormatDates[self.formatID()];
@@ -597,7 +607,7 @@ class Medium {
     });
 
     this.hasUnconfirmedFeatOnTrackTitles = ko.computed(function () {
-      return (self.hasFeatOnTrackTitles() &&
+      return (self.hasAddedFeatOnTrackTitles() &&
               !self.confirmedFeatOnTrackTitles());
     });
 

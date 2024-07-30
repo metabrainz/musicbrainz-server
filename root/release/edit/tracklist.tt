@@ -425,13 +425,15 @@
           <strong>[% l('Warning:') | html_entity %]</strong>
           [% l('This medium seems to have featured artists on the track titles. These should usually be {featured_style|entered as part of the track artist}.', { featured_style => { href => doc_link('Style/Artist_Credits'), target => '_blank' } }) %]
         </p>
-        <label>
-          <input id="confirm-feat" type="checkbox" data-bind="checked: confirmedFeatOnTrackTitles" />
-          [% l('I confirm this is an intentional use of featured artists on track titles, or that these aren’t actually featured artists.') %]
-        </label>
-        <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: hasUnconfirmedFeatOnTrackTitles">
-          [%~ l('If you’re sure the use of featured artists on track titles is correct, confirm it above. Otherwise, please fix the data (the “Guess feat. artists” button might help!).') %]
-        </p>
+        <!-- ko if: hasAddedFeatOnTrackTitles -->
+          <label>
+            <input id="confirm-feat" type="checkbox" data-bind="checked: confirmedFeatOnTrackTitles" />
+            [% l('I confirm this is an intentional use of featured artists on track titles, or that these aren’t actually featured artists.') %]
+          </label>
+          <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: hasUnconfirmedFeatOnTrackTitles">
+            [%~ l('If you’re sure the use of featured artists on track titles is correct, confirm it above. Otherwise, please fix the data (the “Guess feat. artists” button might help!).') %]
+          </p>
+        <!-- /ko -->
       </div>
     <!-- /ko -->
 
