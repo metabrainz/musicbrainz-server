@@ -33,6 +33,7 @@ role {
             'not_me' => 0,
             'limited' => 0,
             'not_edit_author' => 0,
+            'nobody' => 0,
         );
     };
 
@@ -66,6 +67,15 @@ role {
                 )',
                 [ ],
             ]);
+        } elsif ($self->operator eq 'nobody') {
+            $sql = <<~'SQL';
+                NOT EXISTS (
+                    SELECT TRUE
+                      FROM edit_note
+                     WHERE edit_note.edit = edit.id
+                )
+                SQL
+            $query->add_where([ $sql, [ ] ]);
         } else {
             $query->add_where([ $sql, [ $self->arguments ] ]);
         }
