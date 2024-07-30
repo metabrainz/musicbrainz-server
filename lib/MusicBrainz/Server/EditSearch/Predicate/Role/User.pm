@@ -48,15 +48,15 @@ role {
         if ($self->operator eq 'me' || $self->operator eq 'not_me') {
             $query->add_where([ $sql, [ $self->user->id ] ]);
         } elsif ($self->operator eq 'limited') {
-            $query->add_where([
-              "EXISTS (
-                SELECT 1
-                FROM editor
-                WHERE id = edit.editor
-                AND (privs & $BEGINNER_FLAG) > 0
-              )",
-              [ ],
-            ]);
+            my $beginner_sql = <<~'SQL';
+                SELECT id
+                  FROM editor beginner
+                 WHERE (privs & ?) > 0
+                SQL
+
+            $sql = $template_clause =~
+                s/ROLE_CLAUSE\(([^)]*)\)/$1 IN ($beginner_sql)/r;
+            $query->add_where([ $sql, [ $BEGINNER_FLAG ] ]);
         } elsif ($self->operator eq 'not_edit_author') {
             $query->add_where([
                 'EXISTS (
