@@ -296,6 +296,34 @@ sub load_root_ids {
     }
 }
 
+=method is_child
+
+Checks whether a specific attribute is a child of the given one in the tree.
+Used to block creating loops where a parent is set as its own child.
+
+=cut
+
+sub is_child {
+    my ($self, $own_id, $possible_child_id) = @_;
+
+    return $self->sql->select_single_value(<<~'SQL', $own_id, $possible_child_id);
+        WITH RECURSIVE hierarchy(parent, children) AS (
+                SELECT parent, ARRAY[id] AS children
+                  FROM link_type
+            UNION ALL
+                SELECT link_type.parent, hierarchy.children || link_type.id
+                  FROM link_type
+                  JOIN hierarchy ON link_type.id = hierarchy.parent
+                 WHERE link_type.parent != any(hierarchy.children)
+        )
+        SELECT 1
+          FROM hierarchy
+         WHERE parent = ?
+           AND ? = any(children)
+         LIMIT 1
+        SQL
+}
+
 sub insert
 {
     my ($self, $values) = @_;
