@@ -2685,22 +2685,43 @@ msgstr ""
 msgid "This indicates the artist directed video on this release."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
 msgstr "これは、このアーティストの名前に影響を与えたアーティストを示す。"
 
-#. name:named after
+#. name:named after artist
+#: DB:link_type/description:1260
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the artist that inspired this genre’s name."
+msgstr "これは、この場所の名前に影響を与えたアーティストを示す。"
+
+#. name:named after artist
+#: DB:link_type/description:1258
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the artist that inspired this label’s name."
+msgstr "これは、この場所の名前に影響を与えたアーティストを示す。"
+
+#. name:named after artist
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
 msgstr "これは、この場所の名前に影響を与えたアーティストを示す。"
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:1000
 msgid ""
 "This indicates the artist that inspired this series' name, for example for "
 "an award named after a musician."
 msgstr ""
+
+#. name:named after artist
+#: DB:link_type/description:1257
+#, fuzzy
+#| msgid "This indicates the artist that inspired this artist’s name."
+msgid "This indicates the artist that inspired this work’s name."
+msgstr "これは、このアーティストの名前に影響を与えたアーティストを示す。"
 
 #. name:audio director
 #: DB:link_type/description:1186
@@ -2812,6 +2833,13 @@ msgid ""
 msgstr ""
 "これは、レーベル/組織がこの場所の所有者であったことを示す（多くの場合スタジオ"
 "ですが、会場の場合もある）。"
+
+#. name:named after label
+#: DB:link_type/description:1259
+#, fuzzy
+#| msgid "This indicates the artist that inspired this artist’s name."
+msgid "This indicates the label that inspired this artist’s name."
+msgstr "これは、このアーティストの名前に影響を与えたアーティストを示す。"
 
 #. name:translator
 #: DB:link_attribute_type/description:1018
@@ -2980,9 +3008,16 @@ msgid ""
 "credit, do not guess."
 msgstr ""
 
-#. name:named after
+#. name:named after release group
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
+msgstr "これは、このアーティストの名前に影響を与えたリリースグループを示す。"
+
+#. name:named after release group
+#: DB:link_type/description:1261
+#, fuzzy
+#| msgid "This indicates the release group that inspired this artist’s name."
+msgid "This indicates the release group that inspired this genre’s name."
 msgstr "これは、このアーティストの名前に影響を与えたリリースグループを示す。"
 
 #. name:rights society
@@ -3047,7 +3082,7 @@ msgstr ""
 "これは、作品が特定の場所（教育機関のような）に特化していることを示す。 これは"
 "クラシック作品で最も一般的ですが、ある程度他のジャンルにも存在する。"
 
-#. name:named after
+#. name:named after work
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr "これは、このアーティストの名前に影響を与えた作品を示しています。"
@@ -7568,11 +7603,35 @@ msgstr ""
 msgid "information page"
 msgstr "情報ページ"
 
-#. name:named after
-#: DB:link_type/link_phrase:975 DB:link_type/link_phrase:1000
+#. name:named after artist, name:named after label, name:named after release group, name:named after work
 #: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
-#: DB:link_type/reverse_link_phrase:974
-msgid "inspired the name of"
+#: DB:link_type/reverse_link_phrase:1259 DB:link_type/reverse_link_phrase:974
+msgid "inspired the name of artist"
+msgstr ""
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1260 DB:link_type/reverse_link_phrase:1261
+msgid "inspired the name of genre"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1258
+msgid "inspired the name of label"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:975
+msgid "inspired the name of place"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1000
+msgid "inspired the name of series"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1257
+msgid "inspired the name of work"
 msgstr ""
 
 #: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
@@ -7759,10 +7818,24 @@ msgstr ""
 msgid "is licensed under"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/long_link_phrase:973 DB:link_type/long_link_phrase:972
-#: DB:link_type/long_link_phrase:974
-msgid "is named after"
+#. name:named after artist
+#: DB:link_type/long_link_phrase:973
+msgid "is named after artist"
+msgstr ""
+
+#. name:named after label
+#: DB:link_type/long_link_phrase:1259
+msgid "is named after label"
+msgstr ""
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
+msgid "is named after release group"
+msgstr ""
+
+#. name:named after work
+#: DB:link_type/long_link_phrase:972
+msgid "is named after work"
 msgstr ""
 
 #: DB:link_type/name:108
@@ -8454,13 +8527,34 @@ msgstr "音楽学"
 msgid "myspace"
 msgstr "myspace"
 
-#. name:named after
-#: DB:link_type/name:973 DB:link_type/name:972 DB:link_type/name:975
-#: DB:link_type/name:974 DB:link_type/name:1000 DB:link_type/link_phrase:973
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:974
+#. name:named after artist
+#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1257
+#: DB:link_type/name:1260 DB:link_type/name:975 DB:link_type/name:1000
+#: DB:link_type/link_phrase:973 DB:link_type/reverse_link_phrase:1258
+#: DB:link_type/reverse_link_phrase:1257 DB:link_type/reverse_link_phrase:1260
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
-msgid "named after"
+msgid "named after artist"
 msgstr ""
+
+#. name:named after label
+#: DB:link_type/name:1259 DB:link_type/link_phrase:1259
+#, fuzzy
+#| msgid "parent label"
+msgid "named after label"
+msgstr "親レーベル"
+
+#. name:named after release group
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
+#: DB:link_type/link_phrase:974
+msgid "named after release group"
+msgstr ""
+
+#. name:named after work
+#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#, fuzzy
+#| msgid "Geonames page for"
+msgid "named after work"
+msgstr "次のGeonamesページ"
 
 #. name:non-performing relationships
 #: DB:link_type/name:935 DB:link_type/link_phrase:935
@@ -11299,10 +11393,14 @@ msgstr "{entity1}は{entity0}で生産されました"
 msgid "{entity1} is licensed under {entity0}"
 msgstr "{entity1} iは {entity0} にライセンスされている"
 
-#. name:named after
-#: DB:link_type/long_link_phrase:975 DB:link_type/long_link_phrase:1000
-msgid "{entity1} is named after {entity0}"
-msgstr ""
+#. name:named after artist
+#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1257
+#: DB:link_type/long_link_phrase:1260 DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:1000
+#, fuzzy
+#| msgid "{entity1} was manufactured in {entity0}"
+msgid "{entity1} is named after artist {entity0}"
+msgstr "{entity1}は{entity0}で生産されました"
 
 #. name:anthem
 #: DB:link_type/long_link_phrase:357

@@ -2525,23 +2525,44 @@ msgstr "ציון עובדת העסקתו של אמן רשמית על־ידי ח�
 msgid "This indicates the artist directed video on this release."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
 msgstr "ציון האמן שבהשראתו כונה כך האמן."
 
-#. name:named after
+#. name:named after artist
+#: DB:link_type/description:1260
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the artist that inspired this genre’s name."
+msgstr "ציון האמן שבהשראתו כונה כך המקום."
+
+#. name:named after artist
+#: DB:link_type/description:1258
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the artist that inspired this label’s name."
+msgstr "ציון האמן שבהשראתו כונה כך המקום."
+
+#. name:named after artist
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
 msgstr "ציון האמן שבהשראתו כונה כך המקום."
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:1000
 msgid ""
 "This indicates the artist that inspired this series' name, for example for "
 "an award named after a musician."
 msgstr ""
 "ציון האמן שהיווה השראה לשם סדרה זו, לדוגמה פרס המוענק על שם מוזיקאי מסויים."
+
+#. name:named after artist
+#: DB:link_type/description:1257
+#, fuzzy
+#| msgid "This indicates the artist that inspired this artist’s name."
+msgid "This indicates the artist that inspired this work’s name."
+msgstr "ציון האמן שבהשראתו כונה כך האמן."
 
 #. name:audio director
 #: DB:link_type/description:1186
@@ -2651,6 +2672,13 @@ msgid ""
 msgstr ""
 "ציון  היות חברת התקליטים / הארגון הבעלים של המקום הזה (לעתים קרובות סטודיו, "
 "אבל לפעמים גם אַכְסַנְיָה)."
+
+#. name:named after label
+#: DB:link_type/description:1259
+#, fuzzy
+#| msgid "This indicates the artist that inspired this artist’s name."
+msgid "This indicates the label that inspired this artist’s name."
+msgstr "ציון האמן שבהשראתו כונה כך האמן."
 
 #. name:translator
 #: DB:link_attribute_type/description:1018
@@ -2810,9 +2838,16 @@ msgid ""
 "credit, do not guess."
 msgstr ""
 
-#. name:named after
+#. name:named after release group
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
+msgstr "ציון קבוצת הוצאה שבהשראתה כונה כך האמן."
+
+#. name:named after release group
+#: DB:link_type/description:1261
+#, fuzzy
+#| msgid "This indicates the release group that inspired this artist’s name."
+msgid "This indicates the release group that inspired this genre’s name."
 msgstr "ציון קבוצת הוצאה שבהשראתה כונה כך האמן."
 
 #. name:rights society
@@ -2876,7 +2911,7 @@ msgstr ""
 "ציון שהיצירה מוקדשת למקום מסוים (כמו מוסד השכלה). נפוץ בעיקר ביצירות "
 "קלאסיות, אך נמצא, במידה מסוימת, גם בסוגות אחרות."
 
-#. name:named after
+#. name:named after work
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr "ציון יצירה שבהשראתה כונה כך האמן."
@@ -7280,11 +7315,47 @@ msgstr ""
 msgid "information page"
 msgstr "עמוד מידע"
 
-#. name:named after
-#: DB:link_type/link_phrase:975 DB:link_type/link_phrase:1000
+#. name:named after artist, name:named after label, name:named after release group, name:named after work
 #: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
-#: DB:link_type/reverse_link_phrase:974
-msgid "inspired the name of"
+#: DB:link_type/reverse_link_phrase:1259 DB:link_type/reverse_link_phrase:974
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of artist"
+msgstr "מתן הַשְׁרָאָה לשם של"
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1260 DB:link_type/reverse_link_phrase:1261
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of genre"
+msgstr "מתן הַשְׁרָאָה לשם של"
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1258
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of label"
+msgstr "מתן הַשְׁרָאָה לשם של"
+
+#. name:named after artist
+#: DB:link_type/link_phrase:975
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of place"
+msgstr "מתן הַשְׁרָאָה לשם של"
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1000
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of series"
+msgstr "מתן הַשְׁרָאָה לשם של"
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1257
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of work"
 msgstr "מתן הַשְׁרָאָה לשם של"
 
 #: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
@@ -7475,10 +7546,32 @@ msgstr "מוכלל ב־"
 msgid "is licensed under"
 msgstr "מורשה תחת"
 
-#. name:named after
-#: DB:link_type/long_link_phrase:973 DB:link_type/long_link_phrase:972
-#: DB:link_type/long_link_phrase:974
-msgid "is named after"
+#. name:named after artist
+#: DB:link_type/long_link_phrase:973
+#, fuzzy
+#| msgid "is named after"
+msgid "is named after artist"
+msgstr "קרוי על שם"
+
+#. name:named after label
+#: DB:link_type/long_link_phrase:1259
+#, fuzzy
+#| msgid "is named after"
+msgid "is named after label"
+msgstr "קרוי על שם"
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
+#, fuzzy
+#| msgid "is named after"
+msgid "is named after release group"
+msgstr "קרוי על שם"
+
+#. name:named after work
+#: DB:link_type/long_link_phrase:972
+#, fuzzy
+#| msgid "is named after"
+msgid "is named after work"
 msgstr "קרוי על שם"
 
 #: DB:link_type/name:108
@@ -8174,12 +8267,37 @@ msgstr "מֶחְקַר הַמּוּזיקָה"
 msgid "myspace"
 msgstr "מייספייס"
 
-#. name:named after
-#: DB:link_type/name:973 DB:link_type/name:972 DB:link_type/name:975
-#: DB:link_type/name:974 DB:link_type/name:1000 DB:link_type/link_phrase:973
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:974
+#. name:named after artist
+#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1257
+#: DB:link_type/name:1260 DB:link_type/name:975 DB:link_type/name:1000
+#: DB:link_type/link_phrase:973 DB:link_type/reverse_link_phrase:1258
+#: DB:link_type/reverse_link_phrase:1257 DB:link_type/reverse_link_phrase:1260
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
-msgid "named after"
+#, fuzzy
+#| msgid "named after"
+msgid "named after artist"
+msgstr "קרוי על שם"
+
+#. name:named after label
+#: DB:link_type/name:1259 DB:link_type/link_phrase:1259
+#, fuzzy
+#| msgid "named after"
+msgid "named after label"
+msgstr "קרוי על שם"
+
+#. name:named after release group
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
+#: DB:link_type/link_phrase:974
+#, fuzzy
+#| msgid "recorded release groups"
+msgid "named after release group"
+msgstr "קבוצות הוצאה הוקלטה"
+
+#. name:named after work
+#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#, fuzzy
+#| msgid "named after"
+msgid "named after work"
 msgstr "קרוי על שם"
 
 #. name:non-performing relationships
@@ -11004,9 +11122,13 @@ msgstr "{entity1} נוצר ב־{entity0}"
 msgid "{entity1} is licensed under {entity0}"
 msgstr "{entity1} מורשה מחת רשיון {entity0}"
 
-#. name:named after
-#: DB:link_type/long_link_phrase:975 DB:link_type/long_link_phrase:1000
-msgid "{entity1} is named after {entity0}"
+#. name:named after artist
+#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1257
+#: DB:link_type/long_link_phrase:1260 DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:1000
+#, fuzzy
+#| msgid "{entity1} is named after {entity0}"
+msgid "{entity1} is named after artist {entity0}"
 msgstr "{entity1} נקראה על שם {entity0}"
 
 #. name:anthem

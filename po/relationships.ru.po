@@ -17,12 +17,12 @@
 # Иван Стасюк <email address hidden>, 2016
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
+# nkm01 <matsuk-nikita@rambler.ru>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-24 23:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-07-25 23:42+0000\n"
+"Last-Translator: nkm01 <matsuk-nikita@rambler.ru>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -30,9 +30,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.6\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -2405,17 +2405,31 @@ msgstr ""
 msgid "This indicates the artist directed video on this release."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
 msgstr "Указывает на исполнителя, который вдохновил имя этого исполнителя."
 
-#. name:named after
+#. name:named after artist
+#: DB:link_type/description:1260
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the artist that inspired this genre’s name."
+msgstr "Указывает на исполнителя, который вдохновил имя этого места."
+
+#. name:named after artist
+#: DB:link_type/description:1258
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the artist that inspired this label’s name."
+msgstr "Указывает на исполнителя, который вдохновил имя этого места."
+
+#. name:named after artist
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
 msgstr "Указывает на исполнителя, который вдохновил имя этого места."
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:1000
 msgid ""
 "This indicates the artist that inspired this series' name, for example for "
@@ -2423,6 +2437,13 @@ msgid ""
 msgstr ""
 "Указывает на исполнителя, который вдохновил имя этой серии, например, "
 "премия, названная в честь музыканта."
+
+#. name:named after artist
+#: DB:link_type/description:1257
+#, fuzzy
+#| msgid "This indicates the artist that inspired this artist’s name."
+msgid "This indicates the artist that inspired this work’s name."
+msgstr "Указывает на исполнителя, который вдохновил имя этого исполнителя."
 
 #. name:audio director
 #: DB:link_type/description:1186
@@ -2518,6 +2539,13 @@ msgid ""
 "This indicates the label / organization was the owner of this place (often a "
 "studio, but sometimes also a venue)."
 msgstr ""
+
+#. name:named after label
+#: DB:link_type/description:1259
+#, fuzzy
+#| msgid "This indicates the artist that inspired this artist’s name."
+msgid "This indicates the label that inspired this artist’s name."
+msgstr "Указывает на исполнителя, который вдохновил имя этого исполнителя."
 
 #. name:translator
 #: DB:link_attribute_type/description:1018
@@ -2648,9 +2676,16 @@ msgid ""
 "credit, do not guess."
 msgstr ""
 
-#. name:named after
+#. name:named after release group
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
+msgstr "Указывает на группу релизов, которая вдохновила имя этого исполнителя."
+
+#. name:named after release group
+#: DB:link_type/description:1261
+#, fuzzy
+#| msgid "This indicates the release group that inspired this artist’s name."
+msgid "This indicates the release group that inspired this genre’s name."
 msgstr "Указывает на группу релизов, которая вдохновила имя этого исполнителя."
 
 #. name:rights society
@@ -2716,7 +2751,7 @@ msgstr ""
 "образовательному учреждению). Это наиболее характерно для классических "
 "произведений, но в той или иной степени встречается и в других жанрах."
 
-#. name:named after
+#. name:named after work
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr "Указывает на работу, которая вдохновила имя этого исполнителя."
@@ -5893,7 +5928,7 @@ msgstr "редактор"
 #. name:edit
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
-msgstr ""
+msgstr "правки"
 
 #. name:educational institution connection
 #: DB:link_type/name:925 DB:link_type/link_phrase:925
@@ -6781,11 +6816,47 @@ msgstr ""
 msgid "information page"
 msgstr "информационная страница"
 
-#. name:named after
-#: DB:link_type/link_phrase:975 DB:link_type/link_phrase:1000
+#. name:named after artist, name:named after label, name:named after release group, name:named after work
 #: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
-#: DB:link_type/reverse_link_phrase:974
-msgid "inspired the name of"
+#: DB:link_type/reverse_link_phrase:1259 DB:link_type/reverse_link_phrase:974
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of artist"
+msgstr "вдохновило имя"
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1260 DB:link_type/reverse_link_phrase:1261
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of genre"
+msgstr "вдохновило имя"
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1258
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of label"
+msgstr "вдохновило имя"
+
+#. name:named after artist
+#: DB:link_type/link_phrase:975
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of place"
+msgstr "вдохновило имя"
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1000
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of series"
+msgstr "вдохновило имя"
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1257
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of work"
 msgstr "вдохновило имя"
 
 #: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
@@ -6972,10 +7043,32 @@ msgstr "включён в"
 msgid "is licensed under"
 msgstr "is licensed under"
 
-#. name:named after
-#: DB:link_type/long_link_phrase:973 DB:link_type/long_link_phrase:972
-#: DB:link_type/long_link_phrase:974
-msgid "is named after"
+#. name:named after artist
+#: DB:link_type/long_link_phrase:973
+#, fuzzy
+#| msgid "is named after"
+msgid "is named after artist"
+msgstr "назван в честь"
+
+#. name:named after label
+#: DB:link_type/long_link_phrase:1259
+#, fuzzy
+#| msgid "is named after"
+msgid "is named after label"
+msgstr "назван в честь"
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
+#, fuzzy
+#| msgid "is named after"
+msgid "is named after release group"
+msgstr "назван в честь"
+
+#. name:named after work
+#: DB:link_type/long_link_phrase:972
+#, fuzzy
+#| msgid "is named after"
+msgid "is named after work"
 msgstr "назван в честь"
 
 #: DB:link_type/name:108
@@ -7670,12 +7763,37 @@ msgstr ""
 msgid "myspace"
 msgstr "myspace"
 
-#. name:named after
-#: DB:link_type/name:973 DB:link_type/name:972 DB:link_type/name:975
-#: DB:link_type/name:974 DB:link_type/name:1000 DB:link_type/link_phrase:973
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:974
+#. name:named after artist
+#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1257
+#: DB:link_type/name:1260 DB:link_type/name:975 DB:link_type/name:1000
+#: DB:link_type/link_phrase:973 DB:link_type/reverse_link_phrase:1258
+#: DB:link_type/reverse_link_phrase:1257 DB:link_type/reverse_link_phrase:1260
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
-msgid "named after"
+#, fuzzy
+#| msgid "named after"
+msgid "named after artist"
+msgstr "названо в честь"
+
+#. name:named after label
+#: DB:link_type/name:1259 DB:link_type/link_phrase:1259
+#, fuzzy
+#| msgid "named after"
+msgid "named after label"
+msgstr "названо в честь"
+
+#. name:named after release group
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
+#: DB:link_type/link_phrase:974
+#, fuzzy
+#| msgid "named after"
+msgid "named after release group"
+msgstr "названо в честь"
+
+#. name:named after work
+#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#, fuzzy
+#| msgid "named after"
+msgid "named after work"
 msgstr "названо в честь"
 
 #. name:non-performing relationships
@@ -10458,10 +10576,14 @@ msgstr ""
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/long_link_phrase:975 DB:link_type/long_link_phrase:1000
-msgid "{entity1} is named after {entity0}"
-msgstr ""
+#. name:named after artist
+#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1257
+#: DB:link_type/long_link_phrase:1260 DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:1000
+#, fuzzy
+#| msgid "{entity1} is dedicated to {entity0}"
+msgid "{entity1} is named after artist {entity0}"
+msgstr "{entity1} посвящено {entity0}"
 
 #. name:anthem
 #: DB:link_type/long_link_phrase:357

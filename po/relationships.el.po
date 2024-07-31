@@ -2273,22 +2273,43 @@ msgstr ""
 msgid "This indicates the artist directed video on this release."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
+#: DB:link_type/description:1260
+#, fuzzy
+#| msgid "This indicates that the recording is of a live performance."
+msgid "This indicates the artist that inspired this genre’s name."
+msgstr "Αυτό υποδεικνύει ότι η ηχογράφηση είναι από ζωντανή εκτέλεση."
+
+#. name:named after artist
+#: DB:link_type/description:1258
+#, fuzzy
+#| msgid "This indicates that the recording is of a live performance."
+msgid "This indicates the artist that inspired this label’s name."
+msgstr "Αυτό υποδεικνύει ότι η ηχογράφηση είναι από ζωντανή εκτέλεση."
+
+#. name:named after artist
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:1000
 msgid ""
 "This indicates the artist that inspired this series' name, for example for "
 "an award named after a musician."
 msgstr ""
+
+#. name:named after artist
+#: DB:link_type/description:1257
+#, fuzzy
+#| msgid "This indicates that the recording is of a live performance."
+msgid "This indicates the artist that inspired this work’s name."
+msgstr "Αυτό υποδεικνύει ότι η ηχογράφηση είναι από ζωντανή εκτέλεση."
 
 #. name:audio director
 #: DB:link_type/description:1186
@@ -2383,6 +2404,11 @@ msgstr ""
 msgid ""
 "This indicates the label / organization was the owner of this place (often a "
 "studio, but sometimes also a venue)."
+msgstr ""
+
+#. name:named after label
+#: DB:link_type/description:1259
+msgid "This indicates the label that inspired this artist’s name."
 msgstr ""
 
 #. name:translator
@@ -2514,9 +2540,14 @@ msgid ""
 "credit, do not guess."
 msgstr ""
 
-#. name:named after
+#. name:named after release group
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
+msgstr ""
+
+#. name:named after release group
+#: DB:link_type/description:1261
+msgid "This indicates the release group that inspired this genre’s name."
 msgstr ""
 
 #. name:rights society
@@ -2570,7 +2601,7 @@ msgid ""
 "exists in other genres to a degree."
 msgstr ""
 
-#. name:named after
+#. name:named after work
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr ""
@@ -6567,11 +6598,35 @@ msgstr ""
 msgid "information page"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/link_phrase:975 DB:link_type/link_phrase:1000
+#. name:named after artist, name:named after label, name:named after release group, name:named after work
 #: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
-#: DB:link_type/reverse_link_phrase:974
-msgid "inspired the name of"
+#: DB:link_type/reverse_link_phrase:1259 DB:link_type/reverse_link_phrase:974
+msgid "inspired the name of artist"
+msgstr ""
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1260 DB:link_type/reverse_link_phrase:1261
+msgid "inspired the name of genre"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1258
+msgid "inspired the name of label"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:975
+msgid "inspired the name of place"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1000
+msgid "inspired the name of series"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1257
+msgid "inspired the name of work"
 msgstr ""
 
 #: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
@@ -6760,11 +6815,27 @@ msgstr ""
 msgid "is licensed under"
 msgstr "έχει άδεια"
 
-#. name:named after
-#: DB:link_type/long_link_phrase:973 DB:link_type/long_link_phrase:972
-#: DB:link_type/long_link_phrase:974
-msgid "is named after"
+#. name:named after artist
+#: DB:link_type/long_link_phrase:973
+msgid "is named after artist"
 msgstr ""
+
+#. name:named after label
+#: DB:link_type/long_link_phrase:1259
+msgid "is named after label"
+msgstr ""
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
+msgid "is named after release group"
+msgstr ""
+
+#. name:named after work
+#: DB:link_type/long_link_phrase:972
+#, fuzzy
+#| msgid "is a remaster of"
+msgid "is named after work"
+msgstr "είναι remaster του"
 
 #: DB:link_type/name:108
 msgid "is person"
@@ -7455,13 +7526,36 @@ msgstr ""
 msgid "myspace"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/name:973 DB:link_type/name:972 DB:link_type/name:975
-#: DB:link_type/name:974 DB:link_type/name:1000 DB:link_type/link_phrase:973
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:974
+#. name:named after artist
+#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1257
+#: DB:link_type/name:1260 DB:link_type/name:975 DB:link_type/name:1000
+#: DB:link_type/link_phrase:973 DB:link_type/reverse_link_phrase:1258
+#: DB:link_type/reverse_link_phrase:1257 DB:link_type/reverse_link_phrase:1260
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
-msgid "named after"
+msgid "named after artist"
 msgstr ""
+
+#. name:named after label
+#: DB:link_type/name:1259 DB:link_type/link_phrase:1259
+#, fuzzy
+#| msgid "parent label"
+msgid "named after label"
+msgstr "μητρική εταιρία"
+
+#. name:named after release group
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
+#: DB:link_type/link_phrase:974
+#, fuzzy
+#| msgid "later releases"
+msgid "named after release group"
+msgstr "τελευταίες κυκλοφορίες"
+
+#. name:named after work
+#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#, fuzzy
+#| msgid "renamed from"
+msgid "named after work"
+msgstr "μετονομάστηκε από"
 
 #. name:non-performing relationships
 #: DB:link_type/name:935 DB:link_type/link_phrase:935
@@ -10271,9 +10365,11 @@ msgstr ""
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/long_link_phrase:975 DB:link_type/long_link_phrase:1000
-msgid "{entity1} is named after {entity0}"
+#. name:named after artist
+#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1257
+#: DB:link_type/long_link_phrase:1260 DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:1000
+msgid "{entity1} is named after artist {entity0}"
 msgstr ""
 
 #. name:anthem
