@@ -23,6 +23,7 @@ declare type SeriesT = $ReadOnly<{
   ...CommentRoleT,
   ...RelatableEntityRoleT<'series'>,
   ...TypeRoleT<SeriesTypeT>,
+  +entity_count?: number,
   +orderingTypeID: number,
   +primaryAlias?: string | null,
   +type?: SeriesTypeT,

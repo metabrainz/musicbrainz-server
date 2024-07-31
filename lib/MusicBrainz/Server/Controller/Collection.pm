@@ -179,6 +179,7 @@ sub show : Chained('load') PathPart('') {
     } elsif ($entity_type eq 'series') {
         $c->model('SeriesType')->load(@$entities);
         $c->model('SeriesOrderingType')->load(@$entities);
+        $c->model('Series')->load_entity_count(@$entities);
     }
 
     my %props = (

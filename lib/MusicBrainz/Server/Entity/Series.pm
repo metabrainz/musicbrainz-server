@@ -22,6 +22,12 @@ has ordering_type => (
     isa => 'SeriesOrderingType',
 );
 
+has entity_count => (
+    is => 'rw',
+    isa => 'Int',
+    predicate => 'loaded_entity_count',
+);
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
@@ -38,6 +44,10 @@ around TO_JSON => sub {
 
     if ($self->type) {
         $json->{type} = $self->type->TO_JSON;
+    }
+
+    if ($self->loaded_entity_count) {
+        $json->{entity_count} = $self->entity_count;
     }
 
     return $json;
