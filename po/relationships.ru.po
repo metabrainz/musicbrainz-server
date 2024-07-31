@@ -17,12 +17,12 @@
 # Иван Стасюк <email address hidden>, 2016
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
+# nkm01 <matsuk-nikita@rambler.ru>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-24 23:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-07-25 23:42+0000\n"
+"Last-Translator: nkm01 <matsuk-nikita@rambler.ru>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -30,9 +30,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.6\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -5928,7 +5928,7 @@ msgstr "редактор"
 #. name:edit
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
-msgstr ""
+msgstr "правки"
 
 #. name:educational institution connection
 #: DB:link_type/name:925 DB:link_type/link_phrase:925

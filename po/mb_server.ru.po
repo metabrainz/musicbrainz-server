@@ -37,14 +37,14 @@
 # й й <email address hidden>, 2016
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
+# nkm01 <matsuk-nikita@rambler.ru>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-23 22:20+0200\n"
-"PO-Revision-Date: 2024-07-20 17:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-07-25 23:42+0000\n"
+"Last-Translator: nkm01 <matsuk-nikita@rambler.ru>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -52,8 +52,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -637,10 +637,8 @@ msgid "CD stub by {artist}"
 msgstr "Стаб диска исполнителя {artist}"
 
 #: ../root/cdtoc/lookup.tt:21
-#, fuzzy
-#| msgid "CD Stub found"
 msgid "CD stub found"
-msgstr "CD заглушки найдены"
+msgstr "CD-заглушки найдены"
 
 #: ../root/release/edit/tracklist.tt:248
 msgid "CD stub import"
@@ -648,7 +646,7 @@ msgstr ""
 
 #: ../root/cdstub/layout.tt:2 ../root/cdstub/CDStubLayout.js:21
 msgid "CD stub “{title}” by {artist}"
-msgstr ""
+msgstr "CD заглушка «{title}» от исполнителя {artist}"
 
 #: ../root/doc/edit_type.tt:42
 msgid "Can be approved"
@@ -1865,6 +1863,8 @@ msgstr "Описание недоступно."
 #: ../root/release_group/set_cover_art.tt:96
 msgid "No releases have cover art marked as \"Front\", cannot set cover art."
 msgstr ""
+"Нет ни одного релиза с обложкой, помеченной как «передняя», невозможно "
+"установить обложку."
 
 #: ../root/release/edit/tracklist.tt:140
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:472
@@ -2304,12 +2304,9 @@ msgid "Reorder cover art"
 msgstr "Изменить порядок обложек"
 
 #: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
-#, fuzzy
-#| msgctxt "plural, header"
-#| msgid "Reorder cover art"
 msgctxt "plural, header"
 msgid "Reorder event art"
-msgstr "Изменить порядок обложек"
+msgstr "Изменить порядок событий"
 
 #: ../root/event/add_event_art.tt:83 ../root/release/add_cover_art.tt:83
 msgid "Request signature..."
@@ -2666,6 +2663,8 @@ msgid ""
 "The script attribute should be set to the script used for the release title "
 "and track titles."
 msgstr ""
+"В атрибуте «письменность» нужно выбрать ту письменность, которая "
+"используется для названий релиза и треков."
 
 #: ../root/layout.tt:70 ../root/layout/index.js:240
 msgid "The server is temporarily in read-only mode for database maintenance."
@@ -2678,6 +2677,9 @@ msgid ""
 "The sort name is an artist name variant used when sorting alphabetically. "
 "For usage information check the {sort_name_doc|sort name guidelines}."
 msgstr ""
+"Имя для сортировки — вариант имени исполнителя для сортировки по алфавиту. "
+"Для дополнительных сведений см. {sort_name_doc|руководство по именам для "
+"сортировки}."
 
 #: ../root/release/edit/tracklist.tt:124
 msgid ""
@@ -2732,7 +2734,7 @@ msgstr "Не удалось обработать эти координаты."
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
 msgid "This CD TOC is already attached to this medium."
-msgstr ""
+msgstr "Таблица содержимого CD уже прикреплена к носителю."
 
 #: ../root/release/edit/information.tt:354
 msgid ""
@@ -2938,7 +2940,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:551
 #: ../root/static/scripts/common/components/DataTrackIcon.js:14
 msgid "This track is a data track."
-msgstr ""
+msgstr "Этот трек содержит только данные."
 
 #: ../root/components/common-macros.tt:547
 #: ../root/static/scripts/common/components/PregapTrackIcon.js:14
@@ -3489,6 +3491,9 @@ msgid ""
 "tracks below. {valink|Various Artists} should very rarely be used on tracks; "
 "please make sure the artists have been entered correctly."
 msgstr ""
+"На некоторых треках ниже Вы указали служебного исполнителя {valink|«Various "
+"Artists» («разные исполнители»)}. Его стоит использовать как можно реже. "
+"Пожалуйста, проверьте, что исполнители введены верно."
 
 #: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:45
@@ -3566,7 +3571,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:20
 msgid "edits"
-msgstr ""
+msgstr "правки"
 
 #: ../root/components/forms.tt:263 ../root/components/forms.tt:288
 #: ../root/edit/search_macros.tt:190 ../root/release/edit/tracklist.tt:3
@@ -3598,7 +3603,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:25
 msgid "in an unspecified order (possibly faster)"
-msgstr ""
+msgstr "в произвольном порядке (быстрее)"
 
 #: ../root/edit/search_macros.tt:352
 msgid "include"
@@ -3606,7 +3611,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:352
 msgid "include a beginner editor"
-msgstr ""
+msgstr "включая новичков"
 
 #: ../root/edit/search_macros.tt:352
 msgid "include an editor in my subscriptions"
@@ -3614,7 +3619,7 @@ msgstr "включать редактора в мои подписки"
 
 #: ../root/edit/search_macros.tt:352
 msgid "include me"
-msgstr ""
+msgstr "включая меня"
 
 #: ../root/edit/search_macros.tt:352
 msgid "include someone other than the edit author"
@@ -3898,9 +3903,16 @@ msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered "
 "into the edit queue for peer review."
 msgstr[0] ""
+"Спасибо! Ваша {edit_url|правка} ({edit_ids}) добавлена в очередь на проверку."
 msgstr[1] ""
+"Спасибо! Ваши {num_edits} {edit_url|правки} ({edit_ids}) добавлены в очередь "
+"на проверку."
 msgstr[2] ""
+"Спасибо! Ваши {num_edits} {edit_url|правок} ({edit_ids}) добавлены в очередь "
+"на проверку."
 msgstr[3] ""
+"Спасибо! Ваши {num_edits} {edit_url|правок} ({edit_ids}) добавлены в очередь "
+"на проверку."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:141
 #, perl-brace-format
@@ -3968,6 +3980,8 @@ msgid ""
 "We were unable to send login information to your email address. Please try "
 "again, and if that still doesn’t work, {contact_url|contact us}."
 msgstr ""
+"Мы не смогли отправить информацию для входа на Ваш email. Попробуйте ещё "
+"раз, и если не получится — {contact_url|свяжитесь с нами}."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:203
 msgid "There is no user with this username"
@@ -3982,6 +3996,8 @@ msgid ""
 "We can't send a password reset email, because we have no email on record for "
 "this user."
 msgstr ""
+"Не получается отправить email для сброса пароля, так как к данному "
+"пользователю не прикреплён email."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:241
 msgid "Your password has been reset."
@@ -4001,7 +4017,7 @@ msgstr "Пользователя с таким адресом электронн
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:424
 msgid "Your profile has been updated."
-msgstr ""
+msgstr "Ваш профиль обновлён."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:428
 #, perl-brace-format
@@ -4010,10 +4026,12 @@ msgid ""
 "your mailbox and click on the link in the email to verify the new email "
 "address."
 msgstr ""
+"Мы отправили подтверждающее письмо на адрес <code>{email}</code>. Проверьте "
+"почту и нажмите на ссылку в письме, чтобы подтвердить новый email."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:467
 msgid "Your password has been changed."
-msgstr ""
+msgstr "Пароль изменён."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:747
 msgid ""
@@ -4021,14 +4039,17 @@ msgid ""
 "re-enter your address in your {settings|account settings}. If that still "
 "doesn’t work, {contact_url|contact us}."
 msgstr ""
+"<strong>Мы не смогли отправить Вам подтверждающее письмо.</strong><br/"
+">Попробуйте ввести email в {settings|настройках профиля} ещё раз. Если не "
+"сработает — {contact_url|свяжитесь с нами}."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:830
 msgid "There is no OAuth token with these parameters."
-msgstr ""
+msgstr "Не найдено токена OAuth с данными параметрами."
 
 #: ../lib/MusicBrainz/Server/Controller/Account/Subscriptions/Collection.pm:22
 msgid "The provided collection ID doesn’t exist."
-msgstr ""
+msgstr "Введённый ID коллекции не найден."
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:734
 msgid "You cannot merge a special purpose artist into another artist"
@@ -4038,7 +4059,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:739
 msgid "You cannot merge into Deleted Artist"
-msgstr ""
+msgstr "Нельзя объединять с удалённым исполнителем («Deleted Artist»)"
 
 #: ../lib/MusicBrainz/Server/Controller/AutoEditorElections.pm:87
 #, perl-brace-format
