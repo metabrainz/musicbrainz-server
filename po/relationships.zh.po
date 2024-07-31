@@ -314,7 +314,8 @@ msgid ""
 "For works that usually have instruments and vocals, this indicates that the "
 "instrumental parts are not relevant to this recording. Examples include rap "
 "tracks from hip hop songs that can be remixed and used with different beats."
-msgstr "一首作品通常包含器乐和人声，这意味着器乐部分与人声部分无关。例如嘻哈歌曲的 "
+msgstr ""
+"一首作品通常包含器乐和人声，这意味着器乐部分与人声部分无关。例如嘻哈歌曲的 "
 "Rap 部分可以用不同的节奏重新混音。"
 
 #. name:geonames
@@ -1542,8 +1543,9 @@ msgstr "该属性指“特邀演出嘉宾”，通常为不是乐队成员的表
 msgid ""
 "This attribute indicates a member the band is named after and without which "
 "it wouldn't exist (such as Miles Davis -&gt; Miles Davis Sextet)."
-msgstr "这个属性指向乐队以其命名的成员，没有该成员乐队将不存在（例如 Miles Davis "
-"-&gt; Miles Davis Sextet）。"
+msgstr ""
+"这个属性指向乐队以其命名的成员，没有该成员乐队将不存在（例如 Miles Davis -"
+"&gt; Miles Davis Sextet）。"
 
 #. name:parody
 #: DB:link_attribute_type/description:511
@@ -1566,7 +1568,8 @@ msgid ""
 "This attribute indicates that lyrics have been translated, literally or "
 "freely, from the original language. This does not apply if an entirely new "
 "set of lyrics have been set to an existing melody."
-msgstr "这个属性表示歌词是直译或者意译而来。如果已经为现有旋律设置了一套全新的歌词，"
+msgstr ""
+"这个属性表示歌词是直译或者意译而来。如果已经为现有旋律设置了一套全新的歌词，"
 "则不使用此属性。"
 
 #. name:video
@@ -2418,22 +2421,43 @@ msgstr "这表明艺术家正式担任厂牌的制作人。"
 msgid "This indicates the artist directed video on this release."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
+#: DB:link_type/description:1260
+#, fuzzy
+#| msgid "Indicates an artist that performed on this release."
+msgid "This indicates the artist that inspired this genre’s name."
+msgstr "表明该艺术家在此专辑中有表演。"
+
+#. name:named after artist
+#: DB:link_type/description:1258
+#, fuzzy
+#| msgid "Indicates an artist that performed on this release."
+msgid "This indicates the artist that inspired this label’s name."
+msgstr "表明该艺术家在此专辑中有表演。"
+
+#. name:named after artist
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:1000
 msgid ""
 "This indicates the artist that inspired this series' name, for example for "
 "an award named after a musician."
 msgstr ""
+
+#. name:named after artist
+#: DB:link_type/description:1257
+#, fuzzy
+#| msgid "Indicates an artist that performed on this release."
+msgid "This indicates the artist that inspired this work’s name."
+msgstr "表明该艺术家在此专辑中有表演。"
 
 #. name:audio director
 #: DB:link_type/description:1186
@@ -2541,6 +2565,13 @@ msgid ""
 "This indicates the label / organization was the owner of this place (often a "
 "studio, but sometimes also a venue)."
 msgstr ""
+
+#. name:named after label
+#: DB:link_type/description:1259
+#, fuzzy
+#| msgid "This indicates that a place is part of another place."
+msgid "This indicates the label that inspired this artist’s name."
+msgstr "这表明一个地点包含于另一地点。"
 
 #. name:translator
 #: DB:link_attribute_type/description:1018
@@ -2680,10 +2711,17 @@ msgid ""
 "credit, do not guess."
 msgstr ""
 
-#. name:named after
+#. name:named after release group
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
 msgstr ""
+
+#. name:named after release group
+#: DB:link_type/description:1261
+#, fuzzy
+#| msgid "Indicates that the release group is part of a series."
+msgid "This indicates the release group that inspired this genre’s name."
+msgstr "表明该专辑组是系列的一部分。"
 
 #. name:rights society
 #: DB:link_type/description:349
@@ -2736,7 +2774,7 @@ msgid ""
 "exists in other genres to a degree."
 msgstr ""
 
-#. name:named after
+#. name:named after work
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr ""
@@ -6860,11 +6898,35 @@ msgstr ""
 msgid "information page"
 msgstr "信息页"
 
-#. name:named after
-#: DB:link_type/link_phrase:975 DB:link_type/link_phrase:1000
+#. name:named after artist, name:named after label, name:named after release group, name:named after work
 #: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
-#: DB:link_type/reverse_link_phrase:974
-msgid "inspired the name of"
+#: DB:link_type/reverse_link_phrase:1259 DB:link_type/reverse_link_phrase:974
+msgid "inspired the name of artist"
+msgstr ""
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1260 DB:link_type/reverse_link_phrase:1261
+msgid "inspired the name of genre"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1258
+msgid "inspired the name of label"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:975
+msgid "inspired the name of place"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1000
+msgid "inspired the name of series"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1257
+msgid "inspired the name of work"
 msgstr ""
 
 #: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
@@ -7051,10 +7113,24 @@ msgstr ""
 msgid "is licensed under"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/long_link_phrase:973 DB:link_type/long_link_phrase:972
-#: DB:link_type/long_link_phrase:974
-msgid "is named after"
+#. name:named after artist
+#: DB:link_type/long_link_phrase:973
+msgid "is named after artist"
+msgstr ""
+
+#. name:named after label
+#: DB:link_type/long_link_phrase:1259
+msgid "is named after label"
+msgstr ""
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
+msgid "is named after release group"
+msgstr ""
+
+#. name:named after work
+#: DB:link_type/long_link_phrase:972
+msgid "is named after work"
 msgstr ""
 
 #: DB:link_type/name:108
@@ -7746,13 +7822,34 @@ msgstr ""
 msgid "myspace"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/name:973 DB:link_type/name:972 DB:link_type/name:975
-#: DB:link_type/name:974 DB:link_type/name:1000 DB:link_type/link_phrase:973
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:974
+#. name:named after artist
+#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1257
+#: DB:link_type/name:1260 DB:link_type/name:975 DB:link_type/name:1000
+#: DB:link_type/link_phrase:973 DB:link_type/reverse_link_phrase:1258
+#: DB:link_type/reverse_link_phrase:1257 DB:link_type/reverse_link_phrase:1260
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
-msgid "named after"
+msgid "named after artist"
 msgstr ""
+
+#. name:named after label
+#: DB:link_type/name:1259 DB:link_type/link_phrase:1259
+#, fuzzy
+#| msgid "parent label"
+msgid "named after label"
+msgstr "母厂牌"
+
+#. name:named after release group
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
+#: DB:link_type/link_phrase:974
+msgid "named after release group"
+msgstr ""
+
+#. name:named after work
+#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#, fuzzy
+#| msgid "Geonames page for"
+msgid "named after work"
+msgstr "Geonames 页，关于"
 
 #. name:non-performing relationships
 #: DB:link_type/name:935 DB:link_type/link_phrase:935
@@ -10553,10 +10650,14 @@ msgstr "{entity1} 于 {entity0} 制造"
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/long_link_phrase:975 DB:link_type/long_link_phrase:1000
-msgid "{entity1} is named after {entity0}"
-msgstr ""
+#. name:named after artist
+#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1257
+#: DB:link_type/long_link_phrase:1260 DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:1000
+#, fuzzy
+#| msgid "{entity1} was manufactured in {entity0}"
+msgid "{entity1} is named after artist {entity0}"
+msgstr "{entity1} 于 {entity0} 制造"
 
 #. name:anthem
 #: DB:link_type/long_link_phrase:357

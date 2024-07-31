@@ -61,7 +61,7 @@ msgstr "Toimetajad"
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:30
 #: ../root/statistics/Edits.js:34 ../root/statistics/Edits.js:43
 #: ../root/statistics/Index.js:1249 ../root/statistics/Index.js:1252
-#: ../root/statistics/Index.js:1301 ../root/statistics/stats.js:301
+#: ../root/statistics/Index.js:1301 ../root/statistics/stats.js:296
 msgid "Edits"
 msgstr "Toimetused"
 
@@ -169,9 +169,9 @@ msgstr "Väljalasked"
 msgid "Labels"
 msgstr "Plaadifirmad"
 
-#: ../root/statistics/Countries.js:66 ../root/statistics/Images.js:430
+#: ../root/statistics/Countries.js:66 ../root/statistics/Images.js:429
 #: ../root/statistics/Index.js:127 ../root/statistics/Index.js:902
-#: ../root/statistics/Index.js:933 ../root/statistics/stats.js:441
+#: ../root/statistics/Index.js:933 ../root/statistics/stats.js:436
 msgid "Events"
 msgstr "Sündmused"
 
@@ -287,29 +287,29 @@ msgstr "Toimetuste statistika pole saadaval."
 
 #: ../root/statistics/Images.js:84 ../root/statistics/Images.js:149
 #: ../root/statistics/Images.js:186 ../root/statistics/Images.js:224
-#: ../root/statistics/Images.js:363
+#: ../root/statistics/Images.js:362
 msgid "Releases with cover art:"
 msgstr "Kaanepiltidega väljalaskeid:"
 
-#: ../root/statistics/Images.js:99 ../root/statistics/Images.js:328
+#: ../root/statistics/Images.js:99 ../root/statistics/Images.js:327
 msgid "Pieces of cover art:"
 msgstr "Pilte:"
 
-#: ../root/statistics/Images.js:108 ../root/statistics/Images.js:443
-#: ../root/statistics/Images.js:529
+#: ../root/statistics/Images.js:108 ../root/statistics/Images.js:442
+#: ../root/statistics/Images.js:528
 #, fuzzy
 #| msgid "Releases with cover art"
 msgid "Events with event art"
 msgstr "Kaanepiltidega väljalaskeid"
 
-#: ../root/statistics/Images.js:123 ../root/statistics/Images.js:479
-#: ../root/statistics/Images.js:492 ../root/statistics/stats.js:290
+#: ../root/statistics/Images.js:123 ../root/statistics/Images.js:478
+#: ../root/statistics/Images.js:491 ../root/statistics/stats.js:473
 #, fuzzy
 #| msgid "Pieces of cover art"
 msgid "Pieces of event art"
 msgstr "Kaane- jm pildid"
 
-#: ../root/statistics/Images.js:139 ../root/statistics/Images.js:319
+#: ../root/statistics/Images.js:139 ../root/statistics/Images.js:318
 msgid "No cover art statistics available."
 msgstr ""
 
@@ -317,8 +317,8 @@ msgstr ""
 msgid "By release group type"
 msgstr "Väljalaskerühma tüübi järgi"
 
-#: ../root/statistics/Images.js:164 ../root/statistics/Images.js:342
-#: ../root/statistics/Images.js:458 ../root/statistics/Images.js:507
+#: ../root/statistics/Images.js:164 ../root/statistics/Images.js:341
+#: ../root/statistics/Images.js:457 ../root/statistics/Images.js:506
 msgid "No type"
 msgstr "[määramata]"
 
@@ -338,71 +338,71 @@ msgstr "Väljalaske formaadi järgi"
 msgid "No format"
 msgstr "[määramata]"
 
-#: ../root/statistics/Images.js:260 ../root/statistics/Index.js:79
+#: ../root/statistics/Images.js:259 ../root/statistics/Index.js:79
 #: ../root/statistics/Index.js:599 ../root/statistics/Index.js:607
 #: ../root/statistics/Index.js:641 ../root/statistics/stats.js:787
 msgid "Release groups"
 msgstr "Väljalaskerühmad"
 
-#: ../root/statistics/Images.js:265
+#: ../root/statistics/Images.js:264
 msgid "Release groups with cover art:"
 msgstr "Kaanepiltidega väljalaskerühmi:"
 
-#: ../root/statistics/Images.js:276
+#: ../root/statistics/Images.js:275
 msgid "manually selected:"
 msgstr "Käsitsi määratud:"
 
-#: ../root/statistics/Images.js:298
+#: ../root/statistics/Images.js:297
 msgid "automatically inferred:"
 msgstr "Automaatselt oletatud:"
 
-#: ../root/statistics/Images.js:316 ../root/statistics/stats.js:285
+#: ../root/statistics/Images.js:315 ../root/statistics/stats.js:285
 msgid "Pieces of cover art"
 msgstr "Kaane- jm pildid"
 
-#: ../root/statistics/Images.js:325
+#: ../root/statistics/Images.js:324
 msgid "By cover art type"
 msgstr "Kaanepildi tüübi järgi"
 
-#: ../root/statistics/Images.js:360
+#: ../root/statistics/Images.js:359
 msgid "Per release"
 msgstr "Kaanepiltide arvu järgi"
 
-#: ../root/statistics/Images.js:376
+#: ../root/statistics/Images.js:375
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "{num} pildiga:"
 msgstr[1] "{num} pildiga:"
 
-#: ../root/statistics/Images.js:406
+#: ../root/statistics/Images.js:405
 msgid "with 30 or more pieces of cover art:"
 msgstr "30 või enama pildiga:"
 
-#: ../root/statistics/Images.js:433 ../root/statistics/Images.js:482
+#: ../root/statistics/Images.js:432 ../root/statistics/Images.js:481
 #, fuzzy
 #| msgid "No edit statistics available."
 msgid "No event art statistics available."
 msgstr "Toimetuste statistika pole saadaval."
 
-#: ../root/statistics/Images.js:439
+#: ../root/statistics/Images.js:438
 #, fuzzy
 #| msgid "Event types"
 msgid "By event type"
 msgstr "Sündmusetüübid"
 
-#: ../root/statistics/Images.js:488
+#: ../root/statistics/Images.js:487
 #, fuzzy
 #| msgid "By cover art type"
 msgid "By event art type"
 msgstr "Kaanepildi tüübi järgi"
 
-#: ../root/statistics/Images.js:525
+#: ../root/statistics/Images.js:524
 #, fuzzy
 #| msgid "Per release"
 msgid "Per event"
 msgstr "Kaanepiltide arvu järgi"
 
-#: ../root/statistics/Images.js:543
+#: ../root/statistics/Images.js:542
 #, fuzzy
 #| msgid "with {num} piece of cover art:"
 #| msgid_plural "with {num} pieces of cover art:"
@@ -411,7 +411,7 @@ msgid_plural "with {num} pieces of event art:"
 msgstr[0] "{num} pildiga:"
 msgstr[1] "{num} pildiga:"
 
-#: ../root/statistics/Images.js:573
+#: ../root/statistics/Images.js:572
 #, fuzzy
 #| msgid "with 30 or more pieces of cover art:"
 msgid "with 15 or more pieces of event art:"
@@ -509,7 +509,7 @@ msgid "ISWCs (all / unique):"
 msgstr "ISWC-sid (kokku / unikaalseid):"
 
 #: ../root/statistics/Index.js:196 ../root/statistics/Index.js:503
-#: ../root/statistics/Index.js:506 ../root/statistics/stats.js:295
+#: ../root/statistics/Index.js:506 ../root/statistics/stats.js:290
 msgid "Disc IDs"
 msgstr "Plaadi-ID-d"
 
@@ -1051,22 +1051,22 @@ msgctxt "plural"
 msgid "Cover art"
 msgstr "Kaanepildid"
 
-#: ../root/statistics/stats.js:22
+#: ../root/statistics/stats.js:23
+msgctxt "noun"
+msgid "Edit information"
+msgstr "Toimetuste teave"
+
+#: ../root/statistics/stats.js:24
+msgctxt "noun"
+msgid "Edit types"
+msgstr "Toimetusetüübid"
+
+#: ../root/statistics/stats.js:25
 #, fuzzy
 #| msgid "Event types"
 msgctxt "plural"
 msgid "Event art"
 msgstr "Sündmusetüübid"
-
-#: ../root/statistics/stats.js:24
-msgctxt "noun"
-msgid "Edit information"
-msgstr "Toimetuste teave"
-
-#: ../root/statistics/stats.js:25
-msgctxt "noun"
-msgid "Edit types"
-msgstr "Toimetusetüübid"
 
 #: ../root/statistics/stats.js:26
 msgid "Event types"
@@ -1312,137 +1312,137 @@ msgstr ""
 msgid "Work collections"
 msgstr "Teosekogud"
 
-#: ../root/statistics/stats.js:306
+#: ../root/statistics/stats.js:301
 msgid "Applied edits"
 msgstr "Rakendatud toimetused"
 
-#: ../root/statistics/stats.js:311
+#: ../root/statistics/stats.js:306
 msgid "Cancelled edits"
 msgstr "Tühistatud toimetused"
 
-#: ../root/statistics/stats.js:316
+#: ../root/statistics/stats.js:311
 msgid "Error edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:321
+#: ../root/statistics/stats.js:316
 msgid "Edits that have failed dependency checks"
 msgstr ""
 
-#: ../root/statistics/stats.js:326
+#: ../root/statistics/stats.js:321
 msgid "Edits that have failed prerequisite checks"
 msgstr ""
 
-#: ../root/statistics/stats.js:331
+#: ../root/statistics/stats.js:326
 msgid "Edits that have been voted down"
 msgstr ""
 
-#: ../root/statistics/stats.js:336
+#: ../root/statistics/stats.js:331
 msgctxt "noun"
 msgid "Open edits"
 msgstr "Lahtised toimetused"
 
-#: ../root/statistics/stats.js:342
+#: ../root/statistics/stats.js:337
 msgid "Edits per day"
 msgstr "Toimetusi päevas"
 
-#: ../root/statistics/stats.js:347
+#: ../root/statistics/stats.js:342
 msgid "Edits per week"
 msgstr "Toimetusi nädalas"
 
-#: ../root/statistics/stats.js:353
+#: ../root/statistics/stats.js:348
 msgid "Editors (all)"
 msgstr "Toimetajad (kõik)"
 
-#: ../root/statistics/stats.js:358
+#: ../root/statistics/stats.js:353
 msgid "Editors who edited or voted in the last week"
 msgstr ""
 
-#: ../root/statistics/stats.js:364
+#: ../root/statistics/stats.js:359
 msgid "Editors (deleted)"
 msgstr "Toimetajad (kustutatud kontoga)"
 
-#: ../root/statistics/stats.js:369
+#: ../root/statistics/stats.js:364
 msgid "Editors who submitted edits in the last week"
 msgstr ""
 
-#: ../root/statistics/stats.js:375
+#: ../root/statistics/stats.js:370
 msgid "Editors (current)"
 msgstr ""
 
-#: ../root/statistics/stats.js:381
+#: ../root/statistics/stats.js:376
 msgid "Editors (current) who have ever been active"
 msgstr ""
 
-#: ../root/statistics/stats.js:386
+#: ../root/statistics/stats.js:381
 msgid "Editors who have registered applications"
 msgstr ""
 
-#: ../root/statistics/stats.js:391
+#: ../root/statistics/stats.js:386
 msgid "Editors who use collections"
 msgstr ""
 
-#: ../root/statistics/stats.js:396
+#: ../root/statistics/stats.js:391
 msgid "Editors who have made edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:401
+#: ../root/statistics/stats.js:396
 msgid "Editors who have written edit notes"
 msgstr ""
 
-#: ../root/statistics/stats.js:406
+#: ../root/statistics/stats.js:401
 msgid "Editors who have added ratings"
 msgstr ""
 
-#: ../root/statistics/stats.js:411
+#: ../root/statistics/stats.js:406
 msgid "Editors who use subscriptions"
 msgstr ""
 
-#: ../root/statistics/stats.js:416
+#: ../root/statistics/stats.js:411
 msgctxt "folksonomy"
 msgid "Editors who have added tags"
 msgstr ""
 
-#: ../root/statistics/stats.js:421
+#: ../root/statistics/stats.js:416
 msgid "Editors who have voted on edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:426
+#: ../root/statistics/stats.js:421
 msgid "Editors who have not been active at all"
 msgstr ""
 
-#: ../root/statistics/stats.js:431
+#: ../root/statistics/stats.js:426
 msgid "Editors who have only validated their email"
 msgstr ""
 
-#: ../root/statistics/stats.js:436
+#: ../root/statistics/stats.js:431
 msgid "Editors who voted in the last week"
 msgstr ""
 
-#: ../root/statistics/stats.js:446
+#: ../root/statistics/stats.js:441
 msgid "Events with no country set"
 msgstr ""
 
-#: ../root/statistics/stats.js:451
+#: ../root/statistics/stats.js:446
 #, fuzzy
 #| msgid "Releases with CAA cover art"
 msgid "Events with EAA event art"
 msgstr "CAA kaanepiltidega väljalasked"
 
-#: ../root/statistics/stats.js:456
+#: ../root/statistics/stats.js:451
 msgid "Events with an EAA poster"
 msgstr ""
 
-#: ../root/statistics/stats.js:461
+#: ../root/statistics/stats.js:456
 #, fuzzy
 #| msgid "Releases with CAA cover art"
 msgid "Events without an EAA poster"
 msgstr "CAA kaanepiltidega väljalasked"
 
-#: ../root/statistics/stats.js:466
+#: ../root/statistics/stats.js:461
 msgid "Events with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:472
+#: ../root/statistics/stats.js:467
 #, fuzzy
 #| msgid "Releases with cover art"
 msgid "Events with no type set that have event art"

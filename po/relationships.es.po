@@ -25,16 +25,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-07-23 12:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
@@ -2420,22 +2420,43 @@ msgstr ""
 msgid "This indicates the artist directed video on this release."
 msgstr "Indica que el artista dirigió vídeo en esta publicación."
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
+#: DB:link_type/description:1260
+#, fuzzy
+#| msgid "This indicates the artist directed video on this release."
+msgid "This indicates the artist that inspired this genre’s name."
+msgstr "Indica que el artista dirigió vídeo en esta publicación."
+
+#. name:named after artist
+#: DB:link_type/description:1258
+#, fuzzy
+#| msgid "This indicates the artist directed video on this release."
+msgid "This indicates the artist that inspired this label’s name."
+msgstr "Indica que el artista dirigió vídeo en esta publicación."
+
+#. name:named after artist
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:1000
 msgid ""
 "This indicates the artist that inspired this series' name, for example for "
 "an award named after a musician."
 msgstr ""
+
+#. name:named after artist
+#: DB:link_type/description:1257
+#, fuzzy
+#| msgid "This indicates the artist directed video on this release."
+msgid "This indicates the artist that inspired this work’s name."
+msgstr "Indica que el artista dirigió vídeo en esta publicación."
 
 #. name:audio director
 #: DB:link_type/description:1186
@@ -2529,6 +2550,13 @@ msgid ""
 "This indicates the label / organization was the owner of this place (often a "
 "studio, but sometimes also a venue)."
 msgstr ""
+
+#. name:named after label
+#: DB:link_type/description:1259
+#, fuzzy
+#| msgid "This indicates the video was shot in this area."
+msgid "This indicates the label that inspired this artist’s name."
+msgstr "Indica que el vídeo fue grabado en este área."
 
 #. name:translator
 #: DB:link_attribute_type/description:1018
@@ -2659,10 +2687,17 @@ msgid ""
 "credit, do not guess."
 msgstr ""
 
-#. name:named after
+#. name:named after release group
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
 msgstr ""
+
+#. name:named after release group
+#: DB:link_type/description:1261
+#, fuzzy
+#| msgid "This indicates the video was shot in this area."
+msgid "This indicates the release group that inspired this genre’s name."
+msgstr "Indica que el vídeo fue grabado en este área."
 
 #. name:rights society
 #: DB:link_type/description:349
@@ -2715,7 +2750,7 @@ msgid ""
 "exists in other genres to a degree."
 msgstr ""
 
-#. name:named after
+#. name:named after work
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr ""
@@ -6722,11 +6757,35 @@ msgstr ""
 msgid "information page"
 msgstr "página de información"
 
-#. name:named after
-#: DB:link_type/link_phrase:975 DB:link_type/link_phrase:1000
+#. name:named after artist, name:named after label, name:named after release group, name:named after work
 #: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
-#: DB:link_type/reverse_link_phrase:974
-msgid "inspired the name of"
+#: DB:link_type/reverse_link_phrase:1259 DB:link_type/reverse_link_phrase:974
+msgid "inspired the name of artist"
+msgstr ""
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1260 DB:link_type/reverse_link_phrase:1261
+msgid "inspired the name of genre"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1258
+msgid "inspired the name of label"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:975
+msgid "inspired the name of place"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1000
+msgid "inspired the name of series"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1257
+msgid "inspired the name of work"
 msgstr ""
 
 #: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
@@ -6909,11 +6968,29 @@ msgstr ""
 msgid "is licensed under"
 msgstr "tiene licencia bajo"
 
-#. name:named after
-#: DB:link_type/long_link_phrase:973 DB:link_type/long_link_phrase:972
-#: DB:link_type/long_link_phrase:974
-msgid "is named after"
+#. name:named after artist
+#: DB:link_type/long_link_phrase:973
+msgid "is named after artist"
 msgstr ""
+
+#. name:named after label
+#: DB:link_type/long_link_phrase:1259
+msgid "is named after label"
+msgstr ""
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
+#, fuzzy
+#| msgid "is the earliest release of"
+msgid "is named after release group"
+msgstr "es la primera publicación de"
+
+#. name:named after work
+#: DB:link_type/long_link_phrase:972
+#, fuzzy
+#| msgid "is a remaster of"
+msgid "is named after work"
+msgstr "es una versión remasterizada de"
 
 #: DB:link_type/name:108
 msgid "is person"
@@ -7606,13 +7683,34 @@ msgstr ""
 msgid "myspace"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/name:973 DB:link_type/name:972 DB:link_type/name:975
-#: DB:link_type/name:974 DB:link_type/name:1000 DB:link_type/link_phrase:973
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:974
+#. name:named after artist
+#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1257
+#: DB:link_type/name:1260 DB:link_type/name:975 DB:link_type/name:1000
+#: DB:link_type/link_phrase:973 DB:link_type/reverse_link_phrase:1258
+#: DB:link_type/reverse_link_phrase:1257 DB:link_type/reverse_link_phrase:1260
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
-msgid "named after"
+msgid "named after artist"
 msgstr ""
+
+#. name:named after label
+#: DB:link_type/name:1259 DB:link_type/link_phrase:1259
+#, fuzzy
+#| msgid "parent label"
+msgid "named after label"
+msgstr "Empresa Matriz"
+
+#. name:named after release group
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
+#: DB:link_type/link_phrase:974
+msgid "named after release group"
+msgstr ""
+
+#. name:named after work
+#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#, fuzzy
+#| msgid "dedicated works"
+msgid "named after work"
+msgstr "obras dedicadas"
 
 #. name:non-performing relationships
 #: DB:link_type/name:935 DB:link_type/link_phrase:935
@@ -9706,8 +9804,8 @@ msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}{executive:"
 "executive }produced"
 msgstr ""
-"{co:co-}productor {executive:ejecutivo} {additional:adicional} "
-"{assistant:asistente} {associate:asociado} en"
+"{co:co-}productor {executive:ejecutivo} {additional:adicional} {assistant:"
+"asistente} {associate:asociado} en"
 
 #. name:mastering
 #: DB:link_type/long_link_phrase:42
@@ -10091,8 +10189,8 @@ msgstr ""
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }producer"
 msgstr ""
-"{co:co-}productor {executive:ejecutivo} {additional:adicional} "
-"{assistant:asistente} {associate:asociado}"
+"{co:co-}productor {executive:ejecutivo} {additional:adicional} {assistant:"
+"asistente} {associate:asociado}"
 
 #. name:mastering
 #: DB:link_type/link_phrase:42 DB:link_type/reverse_link_phrase:42
@@ -10418,10 +10516,14 @@ msgstr ""
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/long_link_phrase:975 DB:link_type/long_link_phrase:1000
-msgid "{entity1} is named after {entity0}"
-msgstr ""
+#. name:named after artist
+#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1257
+#: DB:link_type/long_link_phrase:1260 DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:1000
+#, fuzzy
+#| msgid "{entity1} has a VGMdb page at {entity0}"
+msgid "{entity1} is named after artist {entity0}"
+msgstr "{entity1} tiene una página en VGMdb en {entity0}"
 
 #. name:anthem
 #: DB:link_type/long_link_phrase:357
