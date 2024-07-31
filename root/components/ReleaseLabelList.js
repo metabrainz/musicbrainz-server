@@ -12,7 +12,7 @@ import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
 import {uniqBy} from '../static/scripts/common/utility/arrays.js';
 
 const displayLabel = (label: LabelT) => (
-  <EntityLink entity={label} />
+  <EntityLink entity={label} key={label.id} />
 );
 
 const getLabelGid = (x: LabelT) => x.gid;

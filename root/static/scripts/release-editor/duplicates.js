@@ -14,6 +14,7 @@ import {isCompleteArtistCredit} from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
 import {compactMap, sortByString} from '../common/utility/arrays.js';
 import {debounceComputed} from '../common/utility/debounce.js';
+import {incrementCounter} from '../common/utility/numbers.js';
 import request from '../common/utility/request.js';
 
 import utils from './utils.js';
@@ -181,7 +182,7 @@ function combinedMediumFormatName(mediums) {
 
   for (const medium of mediums) {
     const format = getFormat(medium);
-    formatCounts.set(format, (formatCounts.get(format) ?? 0) + 1);
+    incrementCounter(formatCounts, format);
   }
 
   return Array.from(formatCounts.entries())

@@ -36,7 +36,12 @@ our %EXPORT_TAGS = (
     editor             => _get(qr/^EDITOR_/),
     vote               => _get(qr/^VOTE_/),
     edit_status        => _get(qr/^STATUS_/),
-    access_scope       => _get(qr/^ACCESS_SCOPE_/),
+    access_scope       => [
+        qw( $ACCESS_SCOPE_PROFILE $ACCESS_SCOPE_EMAIL $ACCESS_SCOPE_TAG
+            $ACCESS_SCOPE_RATING $ACCESS_SCOPE_COLLECTION
+            $ACCESS_SCOPE_SUBMIT_ISRC $ACCESS_SCOPE_SUBMIT_BARCODE
+            %ACCESS_SCOPE_BY_NAME ),
+    ],
     privileges         => _get(qr/_FLAGS?$/),
     language_frequency => _get(qr/^LANGUAGE_FREQUENCY/),
     script_frequency   => _get(qr/^SCRIPT_FREQUENCY/),
@@ -363,6 +368,8 @@ Readonly our $BANNER_EDITOR_FLAG            => 512;
 Readonly our $EDITING_DISABLED_FLAG         => 1024;
 Readonly our $ADDING_NOTES_DISABLED_FLAG    => 2048;
 Readonly our $SPAMMER_FLAG                  => 4096;
+Readonly our $BEGINNER_FLAG                 => 8192;
+Readonly our $VOTING_DISABLED_FLAG          => 16384;
 # If you update this, also update root/utility/sanitizedEditor.js
 Readonly our $PUBLIC_PRIVILEGE_FLAGS        => $AUTO_EDITOR_FLAG |
                                                $BOT_FLAG |
@@ -370,7 +377,8 @@ Readonly our $PUBLIC_PRIVILEGE_FLAGS        => $AUTO_EDITOR_FLAG |
                                                $WIKI_TRANSCLUSION_FLAG |
                                                $ACCOUNT_ADMIN_FLAG |
                                                $LOCATION_EDITOR_FLAG |
-                                               $BANNER_EDITOR_FLAG;
+                                               $BANNER_EDITOR_FLAG |
+                                               $BEGINNER_FLAG;
 
 Readonly our $ELECTION_VOTE_NO      => -1;
 Readonly our $ELECTION_VOTE_ABSTAIN => 0;
@@ -401,6 +409,16 @@ Readonly our $ACCESS_SCOPE_RATING         => 8;
 Readonly our $ACCESS_SCOPE_COLLECTION     => 16;
 Readonly our $ACCESS_SCOPE_SUBMIT_ISRC    => 64;
 Readonly our $ACCESS_SCOPE_SUBMIT_BARCODE => 128;
+
+Readonly our %ACCESS_SCOPE_BY_NAME => (
+    'profile'        => $ACCESS_SCOPE_PROFILE,
+    'email'          => $ACCESS_SCOPE_EMAIL,
+    'tag'            => $ACCESS_SCOPE_TAG,
+    'rating'         => $ACCESS_SCOPE_RATING,
+    'collection'     => $ACCESS_SCOPE_COLLECTION,
+    'submit_isrc'    => $ACCESS_SCOPE_SUBMIT_ISRC,
+    'submit_barcode' => $ACCESS_SCOPE_SUBMIT_BARCODE,
+);
 
 Readonly our $ARTIST_ARTIST_COLLABORATION => '75c09861-6857-4ec0-9729-84eefde7fc86';
 

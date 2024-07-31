@@ -107,21 +107,19 @@ component DiffSide(
     }
   }
 
-  const children = stack.map(change => {
+  const children = stack.map((change, index) => {
     const className =
       change.type === CHANGE ? CLASS_MAP[filter] : CLASS_MAP[change.type];
     return className ? (
-      <span className={className}>
+      <span className={className} key={index}>
         {change.text}
       </span>
     ) : change.text;
   });
 
-  return children.length > 1 ? React.createElement(
-    React.Fragment,
-    null,
-    ...children,
-  ) : (children.length ? children[0] : '');
+  return children.length > 1
+    ? (children)
+    : (children.length ? children[0] : '');
 }
 
 export default DiffSide;

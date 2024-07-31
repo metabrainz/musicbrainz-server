@@ -2,7 +2,7 @@ package MusicBrainz::Server::EditSearch::Predicate::Role::User;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT $STATUS_APPLIED );
+use MusicBrainz::Server::Constants qw( $BEGINNER_FLAG );
 use MusicBrainz::Server::Validation qw( is_database_row_id );
 
 parameter template_clause => (
@@ -32,7 +32,9 @@ role {
             'me' => 0,
             'not_me' => 0,
             'limited' => 0,
+            'not_limited' => 0,
             'not_edit_author' => 0,
+            'nobody' => 0,
         );
     };
 
@@ -48,35 +50,25 @@ role {
         if ($self->operator eq 'me' || $self->operator eq 'not_me') {
             $query->add_where([ $sql, [ $self->user->id ] ]);
         } elsif ($self->operator eq 'limited') {
-            # Please keep the logic in sync with Report::LimitedEditors and Entity::Editor
-            $sql = q{
-              edit.editor != ?
-              AND (
-                NOT EXISTS (
-                  SELECT 1
-                  FROM editor
-                  WHERE id = edit.editor
-                  AND deleted = TRUE
-                )
-              ) AND (
-                  NOT EXISTS (
-                    SELECT 1
-                    FROM edit e2
-                    WHERE e2.editor = edit.editor
-                    AND e2.autoedit = 0
-                    AND e2.status = ?
-                    OFFSET 9
-                  )
-                OR
-                  EXISTS (
-                    SELECT 1
-                    FROM editor
-                    WHERE id = edit.editor
-                    AND member_since > NOW() - INTERVAL '2 weeks'
-                  )
-              )
-            };
-            $query->add_where([ $sql, [ $EDITOR_MODBOT, $STATUS_APPLIED ] ]);
+            my $beginner_sql = <<~'SQL';
+                SELECT id
+                  FROM editor beginner
+                 WHERE (privs & ?) > 0
+                SQL
+
+            $sql = $template_clause =~
+                s/ROLE_CLAUSE\(([^)]*)\)/$1 IN ($beginner_sql)/r;
+            $query->add_where([ $sql, [ $BEGINNER_FLAG ] ]);
+        } elsif ($self->operator eq 'not_limited') {
+            my $nonbeginner_sql = <<~'SQL';
+                SELECT id
+                  FROM editor non_beginner
+                 WHERE (privs & ?) = 0
+                SQL
+
+            $sql = $template_clause =~
+                s/ROLE_CLAUSE\(([^)]*)\)/$1 IN ($nonbeginner_sql)/r;
+            $query->add_where([ $sql, [ $BEGINNER_FLAG ] ]);
         } elsif ($self->operator eq 'not_edit_author') {
             $query->add_where([
                 'EXISTS (
@@ -86,6 +78,15 @@ role {
                 )',
                 [ ],
             ]);
+        } elsif ($self->operator eq 'nobody') {
+            $sql = <<~'SQL';
+                NOT EXISTS (
+                    SELECT TRUE
+                      FROM edit_note
+                     WHERE edit_note.edit = edit.id
+                )
+                SQL
+            $query->add_where([ $sql, [ ] ]);
         } else {
             $query->add_where([ $sql, [ $self->arguments ] ]);
         }

@@ -219,7 +219,11 @@ const areTargetGroupsIdentical = (
 function displayLinkPhrase(linkTypeInfo: PhraseGroupLinkTypeInfoT) {
   const phrase = linkTypeInfo.phrase;
   if (linkTypeInfo.editsPending) {
-    return <span className="mp">{phrase}</span>;
+    return (
+      <span className="mp" key={linkTypeInfo.textPhrase}>
+        {phrase}
+      </span>
+    );
   }
   return phrase;
 }

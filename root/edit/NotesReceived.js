@@ -14,6 +14,7 @@ import {CatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
 import manifest from '../static/manifest.mjs';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
+import {isBeginner} from '../static/scripts/common/utility/privileges.js';
 import NewNotesAlertCheckbox
   from '../static/scripts/edit/components/NewNotesAlertCheckbox.js';
 import getRequestCookie from '../utility/getRequestCookie.mjs';
@@ -27,7 +28,7 @@ component NotesReceived(editNotes: $ReadOnlyArray<EditNoteT>, pager: PagerT) {
     <Layout fullWidth title={l('Recent notes left on your edits')}>
       <div id="content">
         <h1>{l('Recent notes left on your edits')}</h1>
-        {$c.user?.is_limited ? null : (
+        {isBeginner($c.user) ? null : (
           <NewNotesAlertCheckbox
             checked={getRequestCookie(
               $c.req,

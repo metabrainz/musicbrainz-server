@@ -704,7 +704,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
         isSelected={selectedItem != null &&
           item.type === 'option' &&
           item.entity.id === selectedItem.id}
-        // $FlowIssue[incompatible-type-arg] until Flow supports https://github.com/facebook/flow/issues/7672
+        // $FlowIssue[incompatible-type] until Flow supports https://github.com/facebook/flow/issues/7672
         item={item}
         key={item.id}
         selectItem={selectItem}

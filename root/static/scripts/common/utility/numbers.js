@@ -7,6 +7,16 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+export function incrementCounter<K>(
+  counter: Map<K, number>,
+  key: K,
+  amount?: number = 1,
+): number {
+  const newValue = (counter.get(key) ?? 0) + amount;
+  counter.set(key, newValue);
+  return newValue;
+}
+
 let NEXT_UNIQUE_ID = 1;
 
 export function uniqueId(): number {

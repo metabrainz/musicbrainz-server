@@ -56,7 +56,6 @@ sub _build_columns
         'member_since',
         'email_confirm_date',
         'last_login_date',
-        "EXISTS (SELECT 1 FROM edit WHERE edit.editor = editor.id AND edit.autoedit = 0 AND edit.status = $STATUS_APPLIED OFFSET 9) AS has_ten_accepted_edits",
         'gender',
         'area',
         'birth_date',
@@ -84,7 +83,6 @@ sub _column_mapping
         privileges              => 'privs',
         website                 => 'website',
         biography               => 'bio',
-        has_ten_accepted_edits  => 'has_ten_accepted_edits',
         email_confirmation_date => 'email_confirm_date',
         registration_date       => 'member_since',
         last_login_date         => 'last_login_date',
@@ -302,6 +300,7 @@ sub insert
             id => $self->sql->insert_row('editor', $data, 'id'),
             name => $data->{name},
             password => $data->{password},
+            privs => $data->{privs} // 0,
             ha1 => $data->{ha1},
             registration_date => DateTime->now,
         );
@@ -393,8 +392,9 @@ sub update_profile
 sub update_privileges {
     my ($self, $editor, $values) = @_;
 
-    # Setting Spammer should also block editing and notes
+    # Setting Spammer should also block editing, voting and notes
     $values->{editing_disabled} ||= $values->{spammer};
+    $values->{voting_disabled} ||= $values->{spammer};
     $values->{adding_notes_disabled} ||= $values->{spammer};
 
     my $privs =   ($values->{auto_editor}           // 0) * $AUTO_EDITOR_FLAG
@@ -409,10 +409,17 @@ sub update_privileges {
                 + ($values->{account_admin}         // 0) * $ACCOUNT_ADMIN_FLAG
                 + ($values->{editing_disabled}      // 0) * $EDITING_DISABLED_FLAG
                 + ($values->{adding_notes_disabled} // 0) * $ADDING_NOTES_DISABLED_FLAG
+                + ($values->{voting_disabled}       // 0) * $VOTING_DISABLED_FLAG
                 + ($values->{spammer}               // 0) * $SPAMMER_FLAG;
 
     Sql::run_in_transaction(sub {
-        $self->sql->do('UPDATE editor SET privs = ? WHERE id = ?', $privs, $editor->id);
+        $self->sql->do(
+            'UPDATE editor SET privs = ? | (privs & ?) WHERE id = ?',
+            $privs,
+            # Preserve the value of the beginner flag.
+            $BEGINNER_FLAG,
+            $editor->id,
+        );
     }, $self->sql);
 }
 

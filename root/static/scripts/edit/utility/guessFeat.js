@@ -11,7 +11,10 @@ import $ from 'jquery';
 
 import '../../common/entity.js';
 
-import {MIN_NAME_SIMILARITY} from '../../common/constants.js';
+import {
+  BRACKET_PAIRS,
+  MIN_NAME_SIMILARITY,
+} from '../../common/constants.js';
 import MB from '../../common/MB.js';
 import {last} from '../../common/utility/arrays.js';
 import clean from '../../common/utility/clean.js';
@@ -29,7 +32,7 @@ import isEntityProbablyClassical from './isEntityProbablyClassical.js';
 import getSimilarity from './similarity.js';
 
 /* eslint-disable sort-keys */
-const featRegex = /(?:^\s*|[,，－-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａｔ)(?:[.．]|(?=\s))|(?:featuring|ｆｅａｔｕｒｉｎｇ)(?=\s))\s*/i;
+export const featRegex = /(?:^\s*|[,，－-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａｔ)(?:[.．]|(?=\s))|(?:featuring|ｆｅａｔｕｒｉｎｇ)(?=\s))\s*/i;
 /*
  * `featQuickTestRegex` is used to quickly test whether a title *might*
  * contain featured artists. It's fine if it returns false-positives.
@@ -37,7 +40,6 @@ const featRegex = /(?:^\s*|[,，－-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａｔ)(?:
  */
 const featQuickTestRegex = /ft|feat|ｆｔ|ｆｅａｔ/i;
 const collabRegex = /([,，]?\s+(?:&|and|et|＆|ａｎｄ|ｅｔ)\s+|、|[,，;；]\s+|\s*[/／]\s*|\s+(?:vs|ｖｓ)[.．]\s+)/i;
-const bracketPairs = [['(', ')'], ['[', ']'], ['（', '）'], ['［', '］']];
 
 function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
   const parts = str.split(featRegex).map(clean);
@@ -75,7 +77,7 @@ function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
 }
 
 function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
-  return bracketPairs.reduce(function (accum, pair) {
+  return BRACKET_PAIRS.reduce(function (accum, pair) {
     let name = '';
     let joinPhrase = accum.joinPhrase;
     let credits = accum.artistCredit;

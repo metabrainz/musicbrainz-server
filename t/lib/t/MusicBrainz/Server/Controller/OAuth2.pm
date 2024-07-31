@@ -1019,4 +1019,74 @@ test 'Revoke token' => sub {
     is($token, undef);
 };
 
+test 'MBS-13703: Recognize tokens issued by the MeB OAuth Provider' => sub {
+    no warnings 'redefine';
+
+    my $test = shift;
+    my $mech = $test->mech;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+area_editing');
+
+    local *DBDefs::METABRAINZ_OAUTH_URL = sub { 'http://METABRAINZ_OAUTH_URL' };
+
+    # Build the response content for `METABRAINZ_OAUTH_URL`.
+    my $now = DateTime->now;
+    my $one_day = DateTime::Duration->new(days => 1);
+    my $response_content = {
+        scope => [],
+        active => \1,
+        metabrainz_user_id => 1,
+        expires_at => $now->add($one_day)->epoch,
+        issued_at => $now->subtract($one_day)->epoch,
+    };
+
+    my $lwp_useragent_request = \&LWP::UserAgent::request;
+    local *LWP::UserAgent::request = sub {
+        my ($lwp, $req) = @_;
+        if ($req->uri =~ m{^http://METABRAINZ_OAUTH_URL}) {
+            my $res = HTTP::Response->new;
+            $res->code(HTTP_OK);
+            $res->content(encode_json($response_content));
+            return $res;
+        }
+        $lwp_useragent_request->($lwp, $req);
+    };
+
+    $response_content->{scope} = ['tag'];
+    $mech->get(
+        '/ws/2/area/29a709d8-0320-493e-8d0c-f2c386662b7f?inc=user-tags',
+        Authorization => 'Bearer meba_foo',
+    );
+    is($mech->response->code, 200, 'request with valid scope is authorized');
+
+    $response_content->{scope} = ['profile'];
+    $mech->get(
+        '/ws/2/area/29a709d8-0320-493e-8d0c-f2c386662b7f?inc=user-tags',
+        Authorization => 'Bearer meba_foo',
+    );
+    is($mech->response->code, 401, 'request with invalid scope is unauthorized');
+
+    $response_content->{scope} = ['tag'];
+    $mech->get(
+        '/ws/2/area/29a709d8-0320-493e-8d0c-f2c386662b7f?inc=user-tags',
+        Authorization => 'Bearer foo',
+    );
+    is($mech->response->code, 401, 'request with invalid token is unauthorized');
+
+    $response_content->{active} = \0;
+    $mech->get(
+        '/ws/2/area/29a709d8-0320-493e-8d0c-f2c386662b7f?inc=user-tags',
+        Authorization => 'Bearer meba_foo',
+    );
+    is($mech->response->code, 401, 'request with inactive token is unauthorized');
+
+    $response_content->{active} = \1;
+    $response_content->{expires_at} = $now->subtract($one_day)->epoch;
+    $mech->get(
+        '/ws/2/area/29a709d8-0320-493e-8d0c-f2c386662b7f?inc=user-tags',
+        Authorization => 'Bearer meba_foo',
+    );
+    is($mech->response->code, 401, 'request with expired token is unauthorized');
+};
+
 1;

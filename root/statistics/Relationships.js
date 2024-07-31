@@ -151,18 +151,21 @@ component Relationships(
                       )}
                     </td>
                   </tr>
-                  {Object.keys(type.tree).sort().map((child) => (
-                    type.tree[child].sort(comparePhrases).map((child2) => (
-                      <TypeRows
-                        base={'count.ar.links.' + typeKey}
-                        indent={2}
-                        key={child2.id}
-                        parent={'count.ar.links.' + typeKey}
-                        stats={stats}
-                        type={child2}
-                      />
-                    ))
-                  ))}
+                  {Object.keys(type.tree).sort().map((child) => {
+                    const tree = [...type.tree[child]];
+                    return (
+                      tree.sort(comparePhrases).map((child2) => (
+                        <TypeRows
+                          base={'count.ar.links.' + typeKey}
+                          indent={2}
+                          key={child2.id}
+                          parent={'count.ar.links.' + typeKey}
+                          stats={stats}
+                          type={child2}
+                        />
+                      ))
+                    );
+                  })}
                 </>
               );
             })}

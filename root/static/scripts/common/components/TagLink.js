@@ -40,10 +40,10 @@ component TagLink(
   const url = '/tag/' + encodeURIComponent(tag) +
               (subPath == null ? '' : '/' + subPath);
   parts.push(
-    <a href={url}>{content == null ? tag : content}</a>,
+    <a href={url} key={tag}>{content == null ? tag : content}</a>,
   );
 
-  return React.createElement(React.Fragment, null, ...parts);
+  return parts;
 }
 
 export default TagLink;

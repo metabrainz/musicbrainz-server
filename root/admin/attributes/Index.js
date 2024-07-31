@@ -10,7 +10,8 @@
 
 import Layout from '../../layout/index.js';
 
-component Attributes(models: Array<string>) {
+component Attributes(models as passedModels: Array<string>) {
+  const models = [...passedModels];
   return (
     <Layout fullWidth title="Attributes">
       <h1>{'Attributes'}</h1>

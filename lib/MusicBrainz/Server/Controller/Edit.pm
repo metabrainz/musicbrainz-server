@@ -121,7 +121,7 @@ sub enter_votes : Local RequireAuth DenyWhenReadonly
     if ($c->form_posted_and_valid($form)) {
         my @submissions = @{ $form->field('vote')->value };
         my @votes = grep { defined($_->{vote}) } @submissions;
-        unless ($c->user->is_editing_enabled || scalar @votes == 0) {
+        unless ($c->user->is_voting_enabled || scalar @votes == 0) {
             $c->stash(
                 current_view => 'Node',
                 component_path => 'edit/CannotVote',
@@ -140,7 +140,7 @@ sub enter_votes : Local RequireAuth DenyWhenReadonly
     $c->detach;
 }
 
-sub approve : Chained('load') RequireAuth(auto_editor) RequireAuth(editing_enabled) DenyWhenReadonly
+sub approve : Chained('load') RequireAuth(auto_editor) RequireAuth(voting_enabled) DenyWhenReadonly
 {
     my ($self, $c) = @_;
 

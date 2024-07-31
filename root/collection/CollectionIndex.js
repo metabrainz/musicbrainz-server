@@ -26,6 +26,7 @@ import {SanitizedCatalystContext} from '../context.mjs';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName.js';
+import {isBeginner} from '../static/scripts/common/utility/privileges.js';
 import FormRow from '../static/scripts/edit/components/FormRow.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import UserInlineList from '../user/components/UserInlineList.js';
@@ -196,7 +197,7 @@ component CollectionIndex(...props: Props) {
         {collection.description_html ? (
           <>
             <h2>{l('Description')}</h2>
-            {($c.user || !collection.editor_is_limited) ? (
+            {($c.user || !isBeginner(collection.editor)) ? (
               expand2react(collection.description_html)
             ) : (
               <p className="deleted">

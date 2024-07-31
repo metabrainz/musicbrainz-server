@@ -2452,7 +2452,7 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?e-onkyo\.com\//, 'https://www.e-onkyo.com/');
-      return url.replace(/^(https:\/\/www\.e-onkyo\.com)\/(?:music|sp)\/album\/([a-z]+\d+).*$/, '$1/music/album/$2/');
+      return url.replace(/^(https:\/\/www\.e-onkyo\.com)\/(?:music|sp)\/album\/([a-z0-9]+).*$/, '$1/music/album/$2/');
     },
     validate(url, id) {
       if (/e-onkyo\.com\/search\//.test(url)) {
@@ -2462,7 +2462,7 @@ const CLEANUPS: CleanupEntries = {
           target: ERROR_TARGETS.URL,
         };
       }
-      const m = /^https:\/\/www\.e-onkyo\.com\/music\/album\/[a-z]+\d+\/$/.exec(url);
+      const m = /^https:\/\/www\.e-onkyo\.com\/music\/album\/[a-z0-9]+\/$/.exec(url);
       if (m) {
         switch (id) {
           case LINK_TYPES.downloadpurchase.release:
@@ -2689,7 +2689,9 @@ const CLEANUPS: CleanupEntries = {
       place: LINK_TYPES.otherdatabases.place,
     }],
     clean(url) {
-      return url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'https://genius.com');
+      url = url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'https://genius.com');
+      url = url.replace(/^https:\/\/genius\.com\/artists\/([\w-]+)(?:\/.*)?/, 'https://genius.com/artists/$1');
+      return url;
     },
     validate(url, id) {
       switch (id) {

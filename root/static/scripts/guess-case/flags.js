@@ -8,6 +8,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {
+  BRACKET_PAIRS,
+} from '../common/constants.js';
+import escapeRegExp from '../common/utility/escapeRegExp.mjs';
+
 // Holds the state of the current GC operation.
 export type GuessCaseContextT = {
   acronym: boolean,
@@ -73,20 +78,18 @@ export function popBracket(): string | null {
   return cb;
 }
 
-const bracketChars = /^[()[\]{}<>]$/;
+const bracketChars = new RegExp(
+  '^[' + escapeRegExp(BRACKET_PAIRS.flat().join('')) + ']$',
+);
 
-const bracketPairs: {
-  +[openingBracket: string]: string,
-} = {
-  '(': ')',
-  ')': '(',
-  '<': '>',
-  '>': '<',
-  '[': ']',
-  ']': '[',
-  '{': '}',
-  '}': '{',
-};
+const bracketPairs: {[openBracket: string]: string} = BRACKET_PAIRS.reduce((
+  result: {[openBracket: string]: string},
+  [open, close],
+) => {
+  result[open] = close;
+  result[close] = open;
+  return result;
+}, {});
 
 function getCorrespondingBracket(bracketChar: string): string {
   return bracketChars.test(bracketChar) ? bracketPairs[bracketChar] : '';

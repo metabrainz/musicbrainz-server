@@ -111,6 +111,7 @@ export default function diffArtistCredits(
                 />
               }
               credit={oldCredit}
+              key={'old-' + i}
               nameVariation={oldCredit.artist &&
                 oldCredit.artist.name !== oldCredit.name}
             />,
@@ -128,6 +129,7 @@ export default function diffArtistCredits(
                 />
               }
               credit={newCredit}
+              key={'new-' + i}
               nameVariation={newCredit.artist &&
                 newCredit.artist.name !== newCredit.name}
             />,
@@ -159,7 +161,7 @@ export default function diffArtistCredits(
   }
 
   return {
-    new: React.createElement(React.Fragment, null, ...newNames),
-    old: React.createElement(React.Fragment, null, ...oldNames),
+    new: newNames,
+    old: oldNames,
   };
 }

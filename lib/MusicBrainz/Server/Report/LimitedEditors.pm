@@ -1,23 +1,15 @@
 package MusicBrainz::Server::Report::LimitedEditors;
 use Moose;
 
-use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
+use MusicBrainz::Server::Constants qw( $BEGINNER_FLAG );
 
 with 'MusicBrainz::Server::Report::EditorReport';
-
-# Please keep the logic in sync with EditSearch::Predicate::Role::User and Entity::Editor
 
 sub query { "
 SELECT id,
        row_number() OVER (ORDER BY id DESC)
   FROM editor eor
- WHERE id != $EDITOR_MODBOT
-   AND NOT deleted
-   AND   ( 
-            member_since < NOW() - INTERVAL '2 weeks'
-          OR
-            (SELECT COUNT(*) FROM edit WHERE eor.id = edit.editor AND edit.status = 2 AND edit.autoedit = 0) < 10
-         )";
+ WHERE (privs & $BEGINNER_FLAG) > 0";
 }
 
 __PACKAGE__->meta->make_immutable;

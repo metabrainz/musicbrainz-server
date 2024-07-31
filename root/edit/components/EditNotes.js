@@ -22,6 +22,7 @@ component EditNotes(
   edit: GenericEditWithIdT,
   hide: boolean = false,
   index: number = 0,
+  isOnEditList?: boolean,
   isOnEditPage?: boolean,
   verbose: boolean = true,
 ) {
@@ -38,6 +39,7 @@ component EditNotes(
             edit={edit}
             editNote={note}
             index={index}
+            isOnEditList={isOnEditList}
             isOnEditPage={isOnEditPage}
             key={index}
           />

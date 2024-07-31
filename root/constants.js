@@ -69,13 +69,16 @@ export const BANNER_EDITOR_FLAG: 512 = 512;
 export const EDITING_DISABLED_FLAG: 1024 = 1024;
 export const ADDING_NOTES_DISABLED_FLAG: 2048 = 2048;
 export const SPAMMER_FLAG: 4096 = 4096;
+export const BEGINNER_FLAG: 8192 = 8192;
+export const VOTING_DISABLED_FLAG: 16384 = 16384;
 export const PUBLIC_FLAGS: number = AUTO_EDITOR_FLAG &
                                     BOT_FLAG &
                                     RELATIONSHIP_EDITOR_FLAG &
                                     WIKI_TRANSCLUSION_FLAG &
                                     ACCOUNT_ADMIN_FLAG &
                                     LOCATION_EDITOR_FLAG &
-                                    BANNER_EDITOR_FLAG;
+                                    BANNER_EDITOR_FLAG &
+                                    BEGINNER_FLAG;
 
 export const EDITOR_MODBOT = 4;
 

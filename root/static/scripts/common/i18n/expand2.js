@@ -31,8 +31,11 @@ export type VarArgsObject<+T> = {
 
 export interface VarArgsClass<+T> {
   get(name: string): T,
+  getKey(name: string): string,
   has(name: string): boolean,
 }
+
+let nextKey = 1;
 
 export class VarArgs<+T> implements VarArgsClass<T> {
   +data: VarArgsObject<T>;
@@ -42,7 +45,23 @@ export class VarArgs<+T> implements VarArgsClass<T> {
   }
 
   get(name: string): T {
-    return this.data[name];
+    let value = this.data[name];
+    if (
+      React.isValidElement(value) &&
+      // $FlowIgnore[incompatible-use]
+      empty(value.key)
+    ) {
+      // $FlowIgnore[incompatible-call]
+      value = React.cloneElement(
+        value,
+        {key: this.getKey(name)},
+      );
+    }
+    return value;
+  }
+
+  getKey(name: string): string {
+    return name + '-' + String(nextKey++);
   }
 
   has(name: string): boolean {

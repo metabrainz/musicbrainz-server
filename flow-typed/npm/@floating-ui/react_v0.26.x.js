@@ -134,9 +134,57 @@ declare module '@floating-ui/react' {
   declare export function autoPlacement(): Middleware;
 
   /*
+   * autoUpdate()
+   */
+  export type AutoUpdateOptions = Partial<{
+    +ancestorResize: boolean,
+    +ancestorScroll: boolean,
+    +animationFrame: boolean,
+    +elementResize: boolean,
+    +layoutShift: boolean,
+  }>;
+
+  declare export function autoUpdate(
+    reference: ReferenceElement,
+    floating: HTMLElement,
+    update: () => void,
+    options?: AutoUpdateOptions,
+  ): (() => void);
+
+  /*
+   * offset()
+   */
+  declare export type OffsetOptions =
+    | number
+    | {
+        +alignmentAxis?: number | null,
+        +crossAxis?: number,
+        +mainAxis?: number,
+      };
+
+  declare export function offset(OffsetOptions): Middleware;
+
+  /*
    * shift()
    */
   declare export function shift(): Middleware;
+
+  /*
+   * size()
+   */
+  declare export type SizeOptions = $ReadOnly<{
+    ...DetectOverflowOptions,
+    apply?: (
+      state: $ReadOnly<{
+        ...MiddlewareState,
+        availableHeight: number,
+        availableWidth: number,
+        ...
+      }>,
+    ) => void,
+  }>;
+
+  declare export function size(SizeOptions): Middleware;
 
   /*
    * useClick()
@@ -171,6 +219,11 @@ declare module '@floating-ui/react' {
     ) => void,
     open?: boolean,
     strategy?: 'fixed' | 'absolute',
+    whileElementsMounted?: (
+      reference: ReferenceElement,
+      floating: HTMLElement,
+      update: () => void,
+    ) => (() => void),
   }
 
   declare export interface UseFloatingReturn {

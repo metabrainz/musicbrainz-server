@@ -11,6 +11,7 @@ component FormRow(
   children: React.Node,
   hasNoLabel: boolean = false,
   hasNoMargin: boolean = false,
+  rowRef?: {-current: HTMLDivElement | null},
 ) {
   return (
     <div
@@ -19,6 +20,7 @@ component FormRow(
         (hasNoLabel ? ' no-label' : '') +
         (hasNoMargin ? ' no-margin' : '')
       }
+      ref={rowRef}
     >
       {children}
     </div>

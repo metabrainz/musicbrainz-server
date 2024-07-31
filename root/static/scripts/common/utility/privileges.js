@@ -12,6 +12,7 @@ import {
   ADDING_NOTES_DISABLED_FLAG,
   AUTO_EDITOR_FLAG,
   BANNER_EDITOR_FLAG,
+  BEGINNER_FLAG,
   BOT_FLAG,
   DONT_NAG_FLAG,
   EDITING_DISABLED_FLAG,
@@ -20,6 +21,7 @@ import {
   RELATIONSHIP_EDITOR_FLAG,
   SPAMMER_FLAG,
   UNTRUSTED_FLAG,
+  VOTING_DISABLED_FLAG,
   WIKI_TRANSCLUSION_FLAG,
 } from '../../../../constants.js';
 
@@ -95,6 +97,13 @@ export function isBannerEditor(editor: EditorPropT): boolean {
   return (editor.privileges & BANNER_EDITOR_FLAG) > 0;
 }
 
+export function isBeginner(editor: EditorPropT): boolean {
+  if (editor == null) {
+    return false;
+  }
+  return (editor.privileges & BEGINNER_FLAG) > 0;
+}
+
 export function isEditingDisabled(editor: EditorPropT): boolean {
   if (editor == null) {
     return false;
@@ -116,6 +125,20 @@ export function isAddingNotesDisabled(editor: EditorPropT): boolean {
   return (editor.privileges & ADDING_NOTES_DISABLED_FLAG) > 0;
 }
 
+export function isVotingDisabled(editor: EditorPropT): boolean {
+  if (editor == null) {
+    return false;
+  }
+  return (editor.privileges & VOTING_DISABLED_FLAG) > 0;
+}
+
+export function isVotingEnabled(editor: EditorPropT): boolean {
+  if (editor == null) {
+    return false;
+  }
+  return (editor.privileges & VOTING_DISABLED_FLAG) === 0;
+}
+
 export function isSpammer(editor: EditorPropT): boolean {
   if (editor == null) {
     return false;
@@ -129,4 +152,20 @@ export function isAdmin(editor: EditorPropT): boolean {
          isLocationEditor(editor) ||
          isRelationshipEditor(editor) ||
          isWikiTranscluder(editor);
+}
+
+export function getRestrictionsForUser(editor: EditorPropT): Array<string> {
+  const restrictions = [];
+
+  if (isEditingDisabled(editor)) {
+    restrictions.push(l('Editing disabled'));
+  }
+  if (isVotingDisabled(editor)) {
+    restrictions.push(l('Voting disabled'));
+  }
+  if (isAddingNotesDisabled(editor)) {
+    restrictions.push(l('Edit notes disabled'));
+  }
+
+  return restrictions;
 }
