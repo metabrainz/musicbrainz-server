@@ -2689,7 +2689,9 @@ const CLEANUPS: CleanupEntries = {
       place: LINK_TYPES.otherdatabases.place,
     }],
     clean(url) {
-      return url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'https://genius.com');
+      url = url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'https://genius.com');
+      url = url.replace(/^https:\/\/genius\.com\/artists\/([\w-]+)(?:\/.*)?/, 'https://genius.com/artists/$1');
+      return url;
     },
     validate(url, id) {
       switch (id) {

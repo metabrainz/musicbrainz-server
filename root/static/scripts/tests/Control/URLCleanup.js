@@ -2651,7 +2651,7 @@ limited_link_type_combinations: [
   },
   // Genius
   {
-                     input_url: 'http://genius.com/artists/Dramatik',
+                     input_url: 'http://genius.com/artists/Dramatik/songs',
              input_entity_type: 'artist',
     expected_relationship_type: 'lyrics',
             expected_clean_url: 'https://genius.com/artists/Dramatik',
