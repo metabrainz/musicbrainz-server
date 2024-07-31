@@ -68,7 +68,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-23 22:20+0200\n"
-"PO-Revision-Date: 2024-07-12 16:42+0000\n"
+"PO-Revision-Date: 2024-07-24 13:42+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -5970,11 +5970,9 @@ msgid "As writer"
 msgstr "Comme créateur (au sens large)"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:47
-#, fuzzy
-#| msgid "Cannot edit"
 msgctxt "language"
 msgid "[not set]"
-msgstr "Impossible d’effectuer la modification"
+msgstr "[pas encore définie]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:51
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:47
@@ -11712,16 +11710,12 @@ msgstr ""
 "avec MusicBrainz."
 
 #: ../root/main/index.js:250
-#, fuzzy
-#| msgid "How to add releases"
 msgid "Recently added releases"
-msgstr "Comment ajouter des parutions"
+msgstr "Parutions récemment ajoutées"
 
 #: ../root/main/index.js:265
-#, fuzzy
-#| msgid "Release events"
 msgid "Recently added events"
-msgstr "Événements de parution"
+msgstr "Événements récemment ajoutés"
 
 #: ../root/mbid/NotFound.js:15
 msgid "MBID not found"
