@@ -36,7 +36,12 @@ our %EXPORT_TAGS = (
     editor             => _get(qr/^EDITOR_/),
     vote               => _get(qr/^VOTE_/),
     edit_status        => _get(qr/^STATUS_/),
-    access_scope       => _get(qr/^ACCESS_SCOPE_/),
+    access_scope       => [
+        qw( $ACCESS_SCOPE_PROFILE $ACCESS_SCOPE_EMAIL $ACCESS_SCOPE_TAG
+            $ACCESS_SCOPE_RATING $ACCESS_SCOPE_COLLECTION
+            $ACCESS_SCOPE_SUBMIT_ISRC $ACCESS_SCOPE_SUBMIT_BARCODE
+            %ACCESS_SCOPE_BY_NAME ),
+    ],
     privileges         => _get(qr/_FLAGS?$/),
     language_frequency => _get(qr/^LANGUAGE_FREQUENCY/),
     script_frequency   => _get(qr/^SCRIPT_FREQUENCY/),
@@ -404,6 +409,16 @@ Readonly our $ACCESS_SCOPE_RATING         => 8;
 Readonly our $ACCESS_SCOPE_COLLECTION     => 16;
 Readonly our $ACCESS_SCOPE_SUBMIT_ISRC    => 64;
 Readonly our $ACCESS_SCOPE_SUBMIT_BARCODE => 128;
+
+Readonly our %ACCESS_SCOPE_BY_NAME => (
+    'profile'        => $ACCESS_SCOPE_PROFILE,
+    'email'          => $ACCESS_SCOPE_EMAIL,
+    'tag'            => $ACCESS_SCOPE_TAG,
+    'rating'         => $ACCESS_SCOPE_RATING,
+    'collection'     => $ACCESS_SCOPE_COLLECTION,
+    'submit_isrc'    => $ACCESS_SCOPE_SUBMIT_ISRC,
+    'submit_barcode' => $ACCESS_SCOPE_SUBMIT_BARCODE,
+);
 
 Readonly our $ARTIST_ARTIST_COLLABORATION => '75c09861-6857-4ec0-9729-84eefde7fc86';
 
