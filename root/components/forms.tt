@@ -5,25 +5,18 @@
     </span>
 [%~ END -%]
 
-[%- MACRO make_votable(ko) BLOCK # Converted to React at root/components/EnterEdit.js
+[%- MACRO make_votable BLOCK # Converted to React at root/components/EnterEdit.js
 -%]
     <div class="row no-label">
       <div class="auto-editor">
-        [% IF ko %]
-          <label>
-            <input class="make-votable" type="checkbox" data-bind="checked: makeVotable" />
-            [% l('Make all edits votable.') -%]
-          </label>
-        [% ELSE %]
-          [%- USE r = FormRenderer(form) -%]
-          [%- r.checkbox('make_votable') -%]
-          [%- r.label('make_votable', l('Make all edits votable.'), inline => 1) -%]
-        [% END %]
+        [%- USE r = FormRenderer(form) -%]
+        [%- r.checkbox('make_votable') -%]
+        [%- r.label('make_votable', l('Make all edits votable.'), inline => 1) -%]
       </div>
     </div>
 [%- END -%]
 
-[%- MACRO edit_note(hide_help, ko) BLOCK # Converted to React at root/components/EnterEditNote.js
+[%- MACRO edit_note(hide_help) BLOCK # Converted to React at root/components/EnterEditNote.js
 -%]
   [% UNLESS hide_help %]
     <p>
@@ -32,15 +25,10 @@
     <p>[% l('Even just providing a URL or two is helpful! For more suggestions, see {doc_how_to|our guide for writing good edit notes}.', { doc_how_to => { href => doc_link('How_to_Write_Edit_Notes'), target => '_blank' } }) %]</p>
   [% END %]
   [% WRAPPER form_row %]
-    [% IF ko %]
-      <label for="edit-note-text">[% l('Edit note:') %]</label>
-      <textarea id="edit-note-text" data-bind="value: editNote, valueUpdate: 'input'" rows="5" cols="80"></textarea>
-    [% ELSE %]
-      [% USE r = FormRenderer(form) %]
-      [% r.label('edit_note', l('Edit note:')) %]
-      [% r.textarea('edit_note', { class => 'edit-note', cols => 80, rows => 5 }) %]
-      [% field_errors(form, 'edit_note') %]
-    [% END %]
+    [% USE r = FormRenderer(form) %]
+    [% r.label('edit_note', l('Edit note:')) %]
+    [% r.textarea('edit_note', { class => 'edit-note', cols => 80, rows => 5 }) %]
+    [% field_errors(form, 'edit_note') %]
   [% END %]
 [%- END -%]
 

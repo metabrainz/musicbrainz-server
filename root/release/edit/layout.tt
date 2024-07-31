@@ -51,7 +51,7 @@
     </div>
 
     <div id="edit-note">
-      [% INCLUDE 'release/edit/editnote.tt' %]
+      [%- React.embed(c, 'static/scripts/release-editor/components/EditNoteTab') -%]
     </div>
 
     <div class="buttons">

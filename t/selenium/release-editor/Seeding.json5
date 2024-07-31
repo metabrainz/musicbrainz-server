@@ -166,7 +166,7 @@
     {
       command: 'assertValue',
       target: 'css=input.make-votable',
-      value: 'on',
+      value: '1',
     },
     // seeding a string where a hash is expected
     {
