@@ -20,7 +20,7 @@ sudo -E -H -u musicbrainz cp docker/musicbrainz-tests/DBDefs.pm lib/
 
 sv_start_if_down postgresql redis
 
-sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
+REPLICATION_TYPE=1 sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
 
 sudo -E -H -u musicbrainz make -C po test_source all_quiet deploy
 
