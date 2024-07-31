@@ -1,6 +1,7 @@
 \set ON_ERROR_STOP 1
 
 BEGIN;
+SET LOCAL statement_timeout = 0;
 
 UPDATE editor
    SET privs = privs | 8192 -- set new beginner flag
