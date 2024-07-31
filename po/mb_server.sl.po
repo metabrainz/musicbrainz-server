@@ -5,14 +5,15 @@
 #
 # Translators:
 # "ApeKattQuest, MonkeyPython" <ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>, 2024.
+# "ApeKattQuest, MonkeyPython" <monkeypython+inst@yepmail.net>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-23 22:20+0200\n"
-"PO-Revision-Date: 2024-06-03 17:42+0000\n"
-"Last-Translator: \"ApeKattQuest, MonkeyPython\" "
-"<ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-07-29 00:42+0000\n"
+"Last-Translator: \"ApeKattQuest, MonkeyPython\" <monkeypython+inst@yepmail."
+"net>\n"
 "Language-Team: Slovenian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/sl/>\n"
 "Language: sl\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
 "n%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -81,7 +82,7 @@ msgstr ""
 
 #: ../root/event/add_event_art.tt:104 ../root/release/add_cover_art.tt:104
 msgid "&#x26a0; Error creating edit"
-msgstr "&#x26a0; Feil ved redigeringsopprettelse"
+msgstr ""
 
 #: ../root/event/add_event_art.tt:88 ../root/release/add_cover_art.tt:88
 msgid "&#x26a0; Error requesting signature"
