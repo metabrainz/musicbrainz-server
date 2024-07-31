@@ -4818,26 +4818,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-estree@npm:0.17.0":
-  version: 0.17.0
-  resolution: "hermes-estree@npm:0.17.0"
-  checksum: 10c0/a81476b7cc5f3e7de12b266cd14d84f3804243afc7a8001f95d55f74c8779c25a4e526902ca1586ef1b6aa73782ff4b235792ecbe400d0db0e9a0cc790fcd9da
-  languageName: node
-  linkType: hard
-
 "hermes-estree@npm:0.23.0":
   version: 0.23.0
   resolution: "hermes-estree@npm:0.23.0"
   checksum: 10c0/5505fdefc119c516b92adbf7b89cc25768ff5e99b0faca3a5ce4af79cc51feef3236227774ee2f6c45bbe1d9a3fa33786e660195a264697171a85b707bc2cec8
-  languageName: node
-  linkType: hard
-
-"hermes-parser@npm:0.17.0":
-  version: 0.17.0
-  resolution: "hermes-parser@npm:0.17.0"
-  dependencies:
-    hermes-estree: "npm:0.17.0"
-  checksum: 10c0/24bb6964eb820085f8034728cf08ebc23ecc3f4d375e8859b9053790e42a3a5fd0de186ffd37564c3d697051b18dc62021a9f79f38557d0b34d030aa8dd3af53
   languageName: node
   linkType: hard
 
@@ -6390,7 +6374,7 @@ __metadata:
     webpack-node-externals: "npm:3.0.0"
     weight-balanced-tree: "npm:0.6.1"
     whatwg-fetch: "npm:3.6.20"
-    xgettext-js: "https://github.com/metabrainz/xgettext-js#3087b3b77c62db622bcf2244697acebb4170a836"
+    xgettext-js: "https://github.com/metabrainz/xgettext-js#4da48ff9996565a4df6ea1e51a0425aa2309e079"
     yargs: "npm:3.10.0"
   languageName: unknown
   linkType: soft
@@ -9413,14 +9397,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"xgettext-js@https://github.com/metabrainz/xgettext-js#3087b3b77c62db622bcf2244697acebb4170a836":
+"xgettext-js@https://github.com/metabrainz/xgettext-js#4da48ff9996565a4df6ea1e51a0425aa2309e079":
   version: 3.0.0
-  resolution: "xgettext-js@https://github.com/metabrainz/xgettext-js.git#commit=3087b3b77c62db622bcf2244697acebb4170a836"
+  resolution: "xgettext-js@https://github.com/metabrainz/xgettext-js.git#commit=4da48ff9996565a4df6ea1e51a0425aa2309e079"
   dependencies:
     estree-walker: "npm:^0.6.1"
-    hermes-parser: "npm:0.17.0"
+    hermes-parser: "npm:0.23.0"
     lodash: "npm:^4.17.15"
-  checksum: 10c0/0e222b389a4dfa67af11fa7f940f24d86679edf804b4839bbbd8f28da4fb0f8c5ca54b7f7d461046c6d2f2df0dcba7fb0e8771df14c47ab2167c0000b55434be
+  checksum: 10c0/138cb76d7fce628f381fa6e4213c4565bb40dbaf32b3350e7a97e91494ad9ea6c8fa0ca925b83782fccc85fe1fa39e5f514191b307359ac47a124e51828f2c45
   languageName: node
   linkType: hard
 

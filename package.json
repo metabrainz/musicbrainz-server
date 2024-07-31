@@ -101,7 +101,7 @@
     "tap-junit": "3.1.0",
     "tape": "4.7.0",
     "utf8": "3.0.0",
-    "xgettext-js": "https://github.com/metabrainz/xgettext-js#3087b3b77c62db622bcf2244697acebb4170a836"
+    "xgettext-js": "https://github.com/metabrainz/xgettext-js#4da48ff9996565a4df6ea1e51a0425aa2309e079"
   },
   "private": true,
   "packageManager": "yarn@4.2.2"
