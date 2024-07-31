@@ -35,14 +35,13 @@ export interface VarArgsClass<+T> {
   has(name: string): boolean,
 }
 
+let nextKey = 1;
+
 export class VarArgs<+T> implements VarArgsClass<T> {
   +data: VarArgsObject<T>;
 
-  #nextKey: number;
-
   constructor(data: VarArgsObject<T>) {
     this.data = data;
-    this.#nextKey = 1;
   }
 
   get(name: string): T {
@@ -62,7 +61,7 @@ export class VarArgs<+T> implements VarArgsClass<T> {
   }
 
   getKey(name: string): string {
-    return name + '-' + String(this.#nextKey++);
+    return name + '-' + String(nextKey++);
   }
 
   has(name: string): boolean {
