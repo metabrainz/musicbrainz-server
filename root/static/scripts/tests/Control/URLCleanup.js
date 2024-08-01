@@ -5537,6 +5537,13 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://thesession.org/tunes/composers/897',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://thesession.org/tunes/composers/897',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'https://thesession.org/members/01234',
              input_entity_type: 'artist',
     expected_relationship_type: undefined,
