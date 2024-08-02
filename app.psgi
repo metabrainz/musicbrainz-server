@@ -75,7 +75,10 @@ builder {
     enable_if {
         my $plack_env = $ENV{PLACK_ENV};
         defined $plack_env && $plack_env eq 'deployment'
-    } 'Plack::Middleware::AccessLog', format => 'combined';
+    } 'Plack::Middleware::AccessLog',
+        format => '%h %l %u %t "%r" %>s %b "%{Referer}i" "%{User-agent}i" %{X-Runtime}o';
+
+    enable 'Plack::Middleware::Runtime';
 
     MusicBrainz::Server->psgi_app;
 };
