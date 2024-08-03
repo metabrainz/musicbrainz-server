@@ -114,6 +114,7 @@ sub STATIC_RESOURCES_LOCATION { '//' . shift->WEB_SERVER . '/static/build' }
 ################################################################################
 
 sub SMTP_SERVER { 'localhost' }
+sub MAIL_SERVICE_BASE_URL { 'http://localhost:3000' }
 
 # This value should be set to some secret value for your server.  Any old
 # string of stuff should do; something suitably long and random, like for
