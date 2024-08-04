@@ -85,10 +85,9 @@
       target: '/',
       value: '',
     },
-    // dismiss the beforeunload alert (shown since inputs were changed)
     {
-      command: 'handleAlert',
-      target: 'accept',
+      command: 'assertBeforeUnloadAlertWasShown',
+      target: '',
       value: '',
     },
   ],

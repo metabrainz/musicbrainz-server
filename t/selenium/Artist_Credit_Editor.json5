@@ -316,15 +316,9 @@
       target: '/release/add',
       value: '',
     },
-    // dismiss the beforeunload alert (shown since inputs were changed)
     {
-      command: 'handleAlert',
-      target: 'accept',
-      value: '',
-    },
-    {
-      command: 'waitUntilUrlIs',
-      target: '/release/add',
+      command: 'assertBeforeUnloadAlertWasShown',
+      target: '',
       value: '',
     },
     {
@@ -401,8 +395,8 @@
       value: '',
     },
     {
-      command: 'handleAlert',
-      target: 'accept',
+      command: 'assertBeforeUnloadAlertWasShown',
+      target: '',
       value: '',
     },
   ],
