@@ -32,15 +32,9 @@
       target: '/artist/create',
       value: '',
     },
-    // dismiss the beforeunload alert (shown since inputs were changed)
     {
-      command: 'handleAlert',
-      target: 'accept',
-      value: '',
-    },
-    {
-      command: 'waitUntilUrlIs',
-      target: '/artist/create',
+      command: 'assertBeforeUnloadAlertWasShown',
+      target: '',
       value: '',
     },
     // automatic link type detection for URL
@@ -504,10 +498,9 @@
       target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit',
       value: '',
     },
-    // dismiss the beforeunload alert (shown since inputs were changed)
     {
-      command: 'handleAlert',
-      target: 'accept',
+      command: 'assertBeforeUnloadAlertWasShown',
+      target: '',
       value: '',
     },
     {
@@ -956,8 +949,8 @@
       value: '',
     },
     {
-      command: 'handleAlert',
-      target: 'accept',
+      command: 'assertBeforeUnloadAlertWasShown',
+      target: '',
       value: '',
     },
   ],

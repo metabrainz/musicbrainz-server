@@ -112,13 +112,13 @@ async function _retryTest(isOk) {
   }
 }
 
-TestCls.prototype.equalWithRetry = async function (a, b) {
+TestCls.prototype.equalWithRetry = async function (a, b, comment) {
   let aValue;
   await _retryTest(async () => {
     aValue = await a();
     return Object.is(aValue, b);
   });
-  this.equal(aValue, b);
+  this.equal(aValue, b, comment);
 };
 
 TestCls.prototype.okWithRetry = async function (isOk) {
@@ -330,6 +330,10 @@ const KEY_CODES = {
   '${MBS_ROOT}': DBDefs.MB_SERVER_ROOT.replace(/\/$/, ''),
 };
 /* eslint-enable no-template-curly-in-string */
+
+function getDocumentLocation() {
+  return driver.executeScript('return document.location;');
+}
 
 function getPageErrors() {
   return driver.executeScript('return ((window.MB || {}).js_errors || [])');
@@ -573,9 +577,28 @@ async function handleCommand({command, target, value}, t, ...args) {
       );
       break;
 
-    case 'handleAlert':
-      await driver.switchTo().alert()[target]();
+    case 'assertBeforeUnloadAlertWasShown': {
+      /*
+       * Per the WebDriver standard [1], "User prompts that are spawned from
+       * beforeunload event handlers, are dismissed implicitly upon
+       * navigation or close window, regardless of the defined user prompt
+       * handler." This used to not be the case in Chrome, and alerts had to
+       * be dismissed manually. They later fixed this behavior [2], but it's
+       * still useful for us to test whether an alert was triggered, which is
+       * done by setting a flag in `sessionStorage`.
+       *
+       * [1] https://www.w3.org/TR/webdriver1/#user-prompts
+       * [2] https://chromium.googlesource.com/chromium/src/+/b14c93608871784e41d6d40f1c5952cf24aa39db
+       */
+      await t.equalWithRetry(
+        () => driver.executeScript(
+          'return sessionStorage.getItem("didShowBeforeUnloadAlert");',
+        ),
+        'true',
+        'beforeunload alert was shown',
+      );
       break;
+    }
 
     case 'mouseOver':
       await driver.actions()
@@ -788,9 +811,13 @@ async function runCommands(commands, t) {
   await driver.manage().window().setRect({height: 768, width: 1024});
 
   for (let i = 0; i < commands.length; i++) {
+    const command = commands[i];
     const reqsCountBeforeCommand = reqsCount;
+    const locationBeforeCommand = await getDocumentLocation();
 
-    await handleCommand(commands[i], t);
+    await handleCommand(command, t);
+
+    const locationAfterCommand = await getDocumentLocation();
 
     /*
      * Wait for sir queues to empty before proceeding. rabbitmqctl
@@ -801,21 +828,35 @@ async function runCommands(commands, t) {
      */
     if (
       process.env.SIR_DIR &&
-      !/^assert/.test(commands[i].command) &&
+      !/^assert/.test(command.command) &&
       reqsCount > reqsCountBeforeCommand
     ) {
       await checkSirQueues(t);
     }
 
-    const nextCommand = i < (commands.length - 1) ? commands[i + 1] : null;
-
     /*
-     * If there's an alert open on the page, we can't execute any scripts;
-     * they'll die with an UnexpectedAlertOpenError. Since these must be
-     * handled explicitly with the `handleAlert` command, we check if that's
-     * the next command before proceeding.
+     * Reset the `didShowBeforeUnloadAlert` flag used by the command
+     * `assertBeforeUnloadAlertWasShown`. We only want the flag reset
+     * when the location changes, but only after the
+     * `assertBeforeUnloadAlertWasShown` command (which should immediately
+     * follow the one changing the location) runs too.
      */
-    if (!nextCommand || nextCommand.command !== 'handleAlert') {
+    if (
+      locationAfterCommand.href !== locationBeforeCommand.href &&
+      locationAfterCommand.protocol !== 'data:'
+    ) {
+      command.locationChanged = true;
+    }
+
+    const prevCommand = i > 0 ? commands[i - 1] : null;
+    if (prevCommand?.locationChanged) {
+      await driver.executeScript(
+        'sessionStorage.setItem("didShowBeforeUnloadAlert", false);',
+      );
+    }
+
+    const nextCommand = i < (commands.length - 1) ? commands[i + 1] : null;
+    if (!nextCommand) {
       if (argv.coverage) {
         await writePreviousSeleniumCoverage();
       }

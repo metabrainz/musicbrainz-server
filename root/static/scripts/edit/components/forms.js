@@ -216,6 +216,10 @@ MB.installFormUnloadWarning = function () {
       return false;
     }
 
+    if (MUSICBRAINZ_RUNNING_TESTS) {
+      sessionStorage.setItem('didShowBeforeUnloadAlert', 'true');
+    }
+
     event.returnValue = l(
       'All of your changes will be lost if you leave this page.',
     );
