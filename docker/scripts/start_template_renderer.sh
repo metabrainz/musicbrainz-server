@@ -12,5 +12,6 @@ then
     sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh server
 fi
 
-exec sudo -E -H -u musicbrainz \
+export HOME="$MBS_HOME"
+exec chpst -u musicbrainz:musicbrainz \
     carton exec -- ./script/start_renderer.pl 2>&1
