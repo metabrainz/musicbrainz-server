@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-exec sudo -E -H -u musicbrainz /opt/chrome-linux64/chrome \
+export HOME=/home/musicbrainz
+exec chpst -u musicbrainz:musicbrainz /opt/chrome-linux64/chrome \
     --headless \
     --disable-dev-shm-usage \
     --disable-gpu \
