@@ -1,3 +1,4 @@
 #!/bin/sh
 
-exec java -cp /home/musicbrainz/vnu/vnu.jar nu.validator.servlet.Main 8888
+exec java -cp /home/musicbrainz/vnu/vnu.jar \
+    nu.validator.servlet.Main 8888 2>&1

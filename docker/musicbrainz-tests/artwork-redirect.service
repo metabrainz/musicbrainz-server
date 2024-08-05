@@ -2,4 +2,6 @@
 
 cd /home/musicbrainz/artwork-redirect
 
-exec sudo -E -H -u musicbrainz bash -c '. venv/bin/activate; exec python3 artwork_redirect_server.py'
+exec sudo -E -H -u musicbrainz \
+    bash -c '. venv/bin/activate; exec python3 artwork_redirect_server.py' \
+    2>&1
