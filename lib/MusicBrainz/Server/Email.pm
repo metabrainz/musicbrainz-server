@@ -86,43 +86,6 @@ sub _create_email
         });
 }
 
-sub _create_email_verification_email
-{
-    my ($self, %opts) = @_;
-
-    my @headers = (
-        'To'         => $opts{email},
-        'From'       => $EMAIL_NOREPLY_ADDRESS,
-        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => _message_id('verify-email-%d', time()),
-        'Subject'    => 'Please verify your email address',
-    );
-
-    my $verification_link = $opts{verification_link};
-    my $ip = $opts{ip};
-    my $user_name = $opts{editor}->name;
-
-    my $body = <<"EOS";
-Hello $user_name,
-
-This is a verification email for your MusicBrainz account. Please click
-on the link below to verify your email address:
-
-$verification_link
-
-If clicking the link above doesn't work, please copy and paste the URL in a
-new browser window instead.
-
-This email was triggered by a request from the IP address [$ip].
-
-Thanks for using MusicBrainz!
-
--- The MusicBrainz Team
-EOS
-
-    return $self->_create_email(\@headers, $body);
-}
-
 sub _create_email_in_use_email
 {
     my ($self, %opts) = @_;
@@ -452,9 +415,39 @@ sub send_message_to_editor
 sub send_email_verification
 {
     my ($self, %opts) = @_;
+    my $_url = $mail_service_base_url . "/send_single";
 
-    my $email = $self->_create_email_verification_email(%opts);
-    return $self->_send_email($email);
+    my $ip = $opts{ip};
+    my $to_name = $opts{editor}->name;
+    my $verification_link = $opts{verification_link};
+
+    if(blessed($verification_link) && $verification_link->can('as_string')) {
+        $verification_link = $verification_link->as_string;
+    }
+
+    my $body = {
+        'template_id' => 'verify-email',
+        'to'          => $opts{email},
+        'from'        => $EMAIL_NOREPLY_ADDRESS,
+        # 'lang'
+        'message_id'  => _message_id('verify-email-%d', time()),
+        'reply_to'  => $EMAIL_NOREPLY_ADDRESS,
+        'params'      => {
+            'to_name'          => $to_name,
+            'verification_url' => "$verification_link",
+            'ip'               => $ip
+        }
+    };
+    
+    my $header_params = {
+        'Content-Type' => 'application/json',
+        'Accept' => 'application/json'
+    };
+    
+    my $res = $self->c->lwp->request(POST $_url, %$header_params, Content => encode_json($body));
+    if (! $res->is_success) {
+        print "Failed to send!"
+    }
 }
 
 sub send_email_in_use
