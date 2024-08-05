@@ -71,10 +71,9 @@
       target: '/',
       value: '',
     },
-    // Dismiss the beforeunload alert (shown since relationships were changed).
     {
-      command: 'handleAlert',
-      target: 'accept',
+      command: 'assertBeforeUnloadAlertWasShown',
+      target: '',
       value: '',
     },
   ],

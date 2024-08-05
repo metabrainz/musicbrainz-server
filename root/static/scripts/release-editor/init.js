@@ -270,6 +270,9 @@ releaseEditor.init = function (options) {
 
   window.addEventListener('beforeunload', event => {
     if (hasEdits() && !this.rootField.redirecting) {
+      if (MUSICBRAINZ_RUNNING_TESTS) {
+        sessionStorage.setItem('didShowBeforeUnloadAlert', 'true');
+      }
       event.returnValue = l(
         'All of your changes will be lost if you leave this page.',
       );
