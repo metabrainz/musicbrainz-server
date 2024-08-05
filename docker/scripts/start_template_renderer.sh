@@ -12,4 +12,5 @@ then
     sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh server
 fi
 
-exec sudo -E -H -u musicbrainz carton exec -- ./script/start_renderer.pl
+exec sudo -E -H -u musicbrainz \
+    carton exec -- ./script/start_renderer.pl 2>&1

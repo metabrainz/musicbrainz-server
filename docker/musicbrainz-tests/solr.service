@@ -3,4 +3,4 @@
 exec sudo -u solr /opt/solr/bin/solr start \
     -f \
     -Dsolr.autoSoftCommit.maxDocs=10 \
-    -Dsolr.autoSoftCommit.maxTime=1000
+    -Dsolr.autoSoftCommit.maxTime=1000 2>&1

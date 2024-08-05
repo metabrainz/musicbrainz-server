@@ -6,4 +6,4 @@ exec sudo -E -H -u musicbrainz /opt/chrome-linux64/chrome \
     --disable-gpu \
     --no-sandbox \
     --remote-debugging-port=9222 \
-    'about:blank'
+    'about:blank' 2>&1
