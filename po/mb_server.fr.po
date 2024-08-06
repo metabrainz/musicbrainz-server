@@ -68,7 +68,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-31 23:43+0200\n"
-"PO-Revision-Date: 2024-07-24 13:42+0000\n"
+"PO-Revision-Date: 2024-08-05 12:42+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -376,18 +376,13 @@ msgstr ""
 "nouvel enregistrement » s’il n’en existe pas d’approprié."
 
 #: ../root/layout.tt:16 ../root/layout/index.js:199
-#, fuzzy
-#| msgid ""
-#| "You’re currently not allowed to edit or vote because an admin has revoked "
-#| "your privileges. If you haven’t already been contacted about why, please "
-#| "{uri|send us a message}."
 msgid ""
 "An admin has set the following restrictions on your account: {list}. If you "
 "haven’t already been contacted about why, please {uri|send us a message}."
 msgstr ""
-"Vous n’êtes pas actuellement autorisé à modifier ou voter car un "
-"administrateur a révoqué vos droits. Si vous n’avez pas encore été contacté "
-"à propos de la raison, merci de {uri|nous envoyer un message}."
+"Un administrateur a défini les restrictions suivantes sur votre compte : "
+"{list}. Si vous n’avez pas encore été contacté à propos de la raison, merci "
+"de {uri|nous envoyer un message}."
 
 #: ../root/components/common-macros.tt:569
 msgid ""
@@ -1319,14 +1314,12 @@ msgstr ""
 "intentionnelle."
 
 #: ../root/release/edit/tracklist.tt:431
-#, fuzzy
-#| msgid "I confirm this is an intentional use of Various Artists on tracks."
 msgid ""
 "I confirm this is an intentional use of featured artists on track titles, or "
 "that these aren’t actually featured artists."
 msgstr ""
-"Je confirme que l’utilisation de « Various Artists » pour des pistes est "
-"intentionnelle."
+"Je confirme que l’utilisation de « featuring » dans le titre des pistes est "
+"intentionnelle, qu’il y ait ou pas d’artistes invités."
 
 #: ../root/release/edit/tracklist.tt:314
 msgid "I don’t know"
@@ -1524,17 +1517,14 @@ msgstr ""
 "alors confirmez le ci-dessus. Sinon, veuillez corriger les données."
 
 #: ../root/release/edit/tracklist.tt:434
-#, fuzzy
-#| msgid ""
-#| "If you’re sure the use of Various Artists is correct, confirm it above. "
-#| "Otherwise, please fix the data."
 msgid ""
 "If you’re sure the use of featured artists on track titles is correct, "
 "confirm it above. Otherwise, please fix the data (the “Guess feat. artists” "
 "button might help!)."
 msgstr ""
-"Si vous êtes sûrs que l’utilisation de « Various Artists » est correcte, "
-"alors confirmez le ci-dessus. Sinon, veuillez corriger les données."
+"Si vous êtes sûrs que l’utilisation de « featuring » dans le titre est "
+"correcte, alors confirmez le ci-dessus. Sinon, veuillez corriger les "
+"données. (Le bouton « Deviner les artistes invités » peut vous aider !)"
 
 #: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:43
 msgid "Image not available, please try again later."
@@ -2944,6 +2934,9 @@ msgid ""
 "This medium seems to have featured artists on the track titles. These should "
 "usually be {featured_style|entered as part of the track artist}."
 msgstr ""
+"Ce support semble avoir des artistes invités ou « featuring » dans le titre "
+"des pistes. Ils doivent généralement être {featured_style|entrés avec les "
+"crédits d’artistes des pistes}."
 
 #: ../root/place/edit_form.tt:32
 msgid "This place has ended."
@@ -3586,7 +3579,7 @@ msgstr "annulé"
 
 #: ../root/edit/search_macros.tt:352
 msgid "do not exist (edit has no notes)"
-msgstr ""
+msgstr "n’existent pas (car aucune note)"
 
 #: ../root/edit/search_macros.tt:352
 msgid "do not include"
@@ -3732,10 +3725,8 @@ msgid "is not"
 msgstr "n’est pas"
 
 #: ../root/edit/search_macros.tt:363
-#, fuzzy
-#| msgid "is a beginner"
 msgid "is not a beginner"
-msgstr "est un débutant"
+msgstr "n’est pas un débutant"
 
 #: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:323
 #: ../root/edit/search_macros.tt:363 ../root/edit/search_macros.tt:391
@@ -5573,17 +5564,13 @@ msgstr "[aucun]"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:291
 #: ../root/static/scripts/common/utility/privileges.js:161
-#, fuzzy
-#| msgid "Editing/voting disabled"
 msgid "Editing disabled"
-msgstr "Édition / vote désactivés"
+msgstr "Édition désactivée"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:294
 #: ../root/static/scripts/common/utility/privileges.js:164
-#, fuzzy
-#| msgid "Voting is closed."
 msgid "Voting disabled"
-msgstr "Le vote est fermé."
+msgstr "Vote désactivé"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
 #: ../root/static/scripts/common/utility/privileges.js:167
@@ -10464,9 +10451,6 @@ msgid "Add event"
 msgstr "Ajouter un événement"
 
 #: ../root/event/EditEvent.js:28
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit event"
 msgctxt "header"
 msgid "Edit event"
 msgstr "Modifier l’événement"
@@ -16445,16 +16429,12 @@ msgid "HH:MM"
 msgstr "HH:MM"
 
 #: ../root/static/scripts/event/components/EventEditForm.js:310
-#, fuzzy
-#| msgid ""
-#| "Select any type from the list to see its description. If the work doesn’t "
-#| "seem to match any type, just leave this blank."
 msgid ""
 "Select any type from the list to see its description. If no type seems to "
 "fit, just leave this blank."
 msgstr ""
-"Sélectionnez un type dans ce menu pour voir sa description. Si l’œuvre ne "
-"semble pas correspondre à un de ces types, laissez simplement ce champ vide."
+"Sélectionnez un type dans ce menu pour voir sa description. Si aucun type ne "
+"semble correspondre, laissez simplement ce champ vide."
 
 #: ../root/static/scripts/guess-case/modes.js:313
 msgid ""
@@ -18397,18 +18377,6 @@ msgid "Destructive edits"
 msgstr "Modifications destructrices"
 
 #: ../root/vote/VotingIndex.js:79
-#, fuzzy
-#| msgid ""
-#| "Destructive edits (removals and merges) are often very hard or even "
-#| "impossible to revert. As such, an incorrect destructive edit that applies "
-#| "unnoticed can cause quite a big mess! Most are guaranteed to remain open "
-#| "for at least two full days even if they get three “Yes” votes, to avoid "
-#| "them closing too quickly, but it’s always good to get more eyes on them. "
-#| "Below you can find four different searches: one for all destructive edits "
-#| "(which might be overwhelming sometimes), one for entity merges and "
-#| "removals only (the edits more likely to cause a mess if they incorrectly "
-#| "go through), one for relationship removals only, and one for destructive "
-#| "changes to releases (track, medium and release label removals)."
 msgid ""
 "Destructive edits (removals and merges) are often very hard or even "
 "impossible to revert. As such, an incorrect destructive edit that applies "
@@ -18428,25 +18396,26 @@ msgstr ""
 "destructrice incorrecte qui est appliquée inaperçue peut causer de sérieux "
 "problèmes ! La plupart sont garanties de rester ouvertes pendant deux "
 "journées entières même si elles reçoivent trois votes « Oui », de façon à "
-"éviter qu’elles soient fermées trop rapidement sans permettre d’avoir "
-"d’autres regards dessus. Ci-dessous vous trouverez quatre recherches "
-"différentes : une pour toutes les modifications destructrices (qui peuvent "
-"vous submerger parfois), une pour les fusions et suppressions seulement (les "
-"modifications les plus susceptibles de créer de sérieux problèmes si elles "
-"sont incorrectes), une pour les suppressions de relations seulement, et une "
-"pour les modifications destructrices de parution (suppression de pistes, "
-"supports, et label de parution)."
+"éviter qu’elles soient fermées trop rapidement sans permettre d’avoir d’"
+"autres regards dessus. Ci-dessous vous trouverez cinq recherches différentes "
+": une pour toutes les modifications destructrices (qui peuvent vous "
+"submerger parfois), une pour les modifications destructrices qui n’ont "
+"aucune note (et donc absolument aucun motif n’a été fourni), une pour les "
+"fusions et suppressions seulement (les modifications les plus susceptibles "
+"de créer de sérieux problèmes si elles sont incorrectes), une pour les "
+"suppressions de relations seulement, et une pour les modifications "
+"destructrices de parution (suppression de pistes, supports, et label de "
+"parution)."
 
 #: ../root/vote/VotingIndex.js:98
 msgid "All open destructive edits"
 msgstr "Toutes les modifications destructrices ouvertes"
 
 #: ../root/vote/VotingIndex.js:107
-#, fuzzy
-#| msgid "All open destructive edits by beginner editors"
 msgid "All open destructive edits without edit notes"
 msgstr ""
-"Toutes les modifications destructives ouvertes par des éditeurs débutants"
+"Toutes les modifications destructives ouvertes sans aucune note de "
+"modification"
 
 #: ../root/vote/VotingIndex.js:117
 msgid "All open entity merges and removals"
@@ -18616,13 +18585,11 @@ msgstr ""
 "semaines"
 
 #: ../root/vote/VotingIndex.js:304
-#, fuzzy
-#| msgid "All edits from beginner editors made less than 2 weeks ago"
 msgid ""
 "All edits from beginner editors without edit notes made less than 2 weeks ago"
 msgstr ""
-"Toutes les modifications par des éditeurs débutants faites il y a moins de 2 "
-"semaines"
+"Toutes les modifications par des éditeurs débutants faites sans aucune note "
+"de modification il y a moins de 2 semaines"
 
 #: ../root/vote/VotingIndex.js:314
 msgid "All \"Add release/medium\" edits by beginner editors"
