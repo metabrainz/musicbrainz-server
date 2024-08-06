@@ -43,8 +43,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-31 23:43+0200\n"
-"PO-Revision-Date: 2024-07-25 23:42+0000\n"
-"Last-Translator: nkm01 <matsuk-nikita@rambler.ru>\n"
+"PO-Revision-Date: 2024-08-01 17:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -52,8 +53,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -1288,14 +1289,12 @@ msgstr ""
 "оправдана."
 
 #: ../root/release/edit/tracklist.tt:431
-#, fuzzy
-#| msgid "I confirm this is an intentional use of Various Artists on tracks."
 msgid ""
 "I confirm this is an intentional use of featured artists on track titles, or "
 "that these aren’t actually featured artists."
 msgstr ""
-"Я подтверждаю, что метка Разные исполнители (Various Artists) на треках "
-"оправдана."
+"Я подтверждаю намеренное использование соисполнителей в названиях треков или "
+"то, что они таковыми не являются."
 
 #: ../root/release/edit/tracklist.tt:314
 msgid "I don’t know"
@@ -1491,17 +1490,14 @@ msgstr ""
 "подтвердите это выше. В ином случае, пожалуйста, исправьте данные."
 
 #: ../root/release/edit/tracklist.tt:434
-#, fuzzy
-#| msgid ""
-#| "If you’re sure the use of Various Artists is correct, confirm it above. "
-#| "Otherwise, please fix the data."
 msgid ""
 "If you’re sure the use of featured artists on track titles is correct, "
 "confirm it above. Otherwise, please fix the data (the “Guess feat. artists” "
 "button might help!)."
 msgstr ""
-"Если вы уверены, что использование \"разных исполнителей\" верно, "
-"подтвердите это выше. В ином случае, пожалуйста, исправьте данные."
+"Если вы уверены, что использование соисполнителей верно, подтвердите это "
+"выше. В ином случае, пожалуйста, исправьте данные (кнопка \"Угадать "
+"соисполнителей (feat.)\" может помочь!)."
 
 #: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:43
 msgid "Image not available, please try again later."
@@ -3459,7 +3455,7 @@ msgid ""
 "tracks below. {valink|Various Artists} should very rarely be used on tracks; "
 "please make sure the artists have been entered correctly."
 msgstr ""
-"На некоторых треках ниже Вы указали служебного исполнителя {valink|«Various "
+"На некоторых треках ниже вы указали служебного исполнителя {valink|«Various "
 "Artists» («разные исполнители»)}. Его стоит использовать как можно реже. "
 "Пожалуйста, проверьте, что исполнители введены верно."
 
@@ -3515,23 +3511,23 @@ msgstr "отменено"
 
 #: ../root/edit/search_macros.tt:352
 msgid "do not exist (edit has no notes)"
-msgstr ""
+msgstr "не существует (у правки нет комментариев)"
 
 #: ../root/edit/search_macros.tt:352
 msgid "do not include"
-msgstr ""
+msgstr "не включая"
 
 #: ../root/edit/search_macros.tt:352
 msgid "do not include editors in my subscriptions"
-msgstr "не включать редакторов в мои подписки"
+msgstr "не включая редакторов в мои подписки"
 
 #: ../root/edit/search_macros.tt:352
 msgid "do not include me"
-msgstr ""
+msgstr "не включая меня"
 
 #: ../root/edit/search_macros.tt:35
 msgid "do not match"
-msgstr ""
+msgstr "не соответствуют"
 
 #: ../root/edit/search_macros.tt:382
 msgid "does not include"
@@ -3566,12 +3562,12 @@ msgstr "исторический"
 #: ../root/components/common-macros.tt:100
 #: ../root/static/scripts/common/components/EntityLink.js:128
 msgid "historical, until {end}"
-msgstr ""
+msgstr "исторический, до {end}"
 
 #: ../root/components/common-macros.tt:98
 #: ../root/static/scripts/common/components/EntityLink.js:122
 msgid "historical, {begin}-{end}"
-msgstr ""
+msgstr "исторический, с {begin} по {end}"
 
 #: ../root/edit/search_macros.tt:25
 msgid "in an unspecified order (possibly faster)"
@@ -3579,11 +3575,11 @@ msgstr "в произвольном порядке (быстрее)"
 
 #: ../root/edit/search_macros.tt:352
 msgid "include"
-msgstr ""
+msgstr "включая"
 
 #: ../root/edit/search_macros.tt:352
 msgid "include a beginner editor"
-msgstr "включая новичков"
+msgstr "включая редакторов-новичков"
 
 #: ../root/edit/search_macros.tt:352
 msgid "include an editor in my subscriptions"
@@ -3595,7 +3591,7 @@ msgstr "включая меня"
 
 #: ../root/edit/search_macros.tt:352
 msgid "include someone other than the edit author"
-msgstr ""
+msgstr "включая кого-либо, кроме автора правки"
 
 #: ../root/edit/search_macros.tt:382
 msgid "includes"
@@ -3615,11 +3611,11 @@ msgstr "информация"
 #: ../root/edit/search_macros.tt:338 ../root/edit/search_macros.tt:363
 #: ../root/edit/search_macros.tt:397 ../root/edit/search_macros.tt:418
 msgid "is"
-msgstr "это"
+msgstr "является"
 
 #: ../root/edit/search_macros.tt:363
 msgid "is a beginner"
-msgstr ""
+msgstr "является новичком"
 
 #: ../root/edit/search_macros.tt:136
 msgid "is after"
@@ -3661,10 +3657,8 @@ msgid "is not"
 msgstr "не является"
 
 #: ../root/edit/search_macros.tt:363
-#, fuzzy
-#| msgid "Edits by beginners"
 msgid "is not a beginner"
-msgstr "Правки от новичков"
+msgstr "не является новичком"
 
 #: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:323
 #: ../root/edit/search_macros.tt:363 ../root/edit/search_macros.tt:391
@@ -3673,7 +3667,7 @@ msgstr "не из моих подписок"
 
 #: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:363
 msgid "is not me"
-msgstr ""
+msgstr "не я"
 
 #: ../root/release/edit/tracklist.tt:503
 msgid "link"
@@ -3845,6 +3839,12 @@ msgid ""
 "to add it again, but please ensure enough data is added to it this time to "
 "avoid another automatic removal."
 msgstr ""
+"Данная сущность была удалена так она не содержала связанных отношений или ("
+"если применимо к данному типу сущности) записей, релизов или групп релизов. "
+"Если вы считаете, что это была правильная сущность, она не является "
+"дубликатом, и ей действительно место в MusicBrainz, смело добавляйте ее "
+"снова, но, пожалуйста, убедитесь, что в этот раз в нее добавлено достаточно "
+"данных, чтобы избежать повторного автоматического удаления."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:37
 #, perl-brace-format
@@ -3881,7 +3881,8 @@ msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered "
 "into the edit queue for peer review."
 msgstr[0] ""
-"Спасибо! Ваша {edit_url|правка} ({edit_ids}) добавлена в очередь на проверку."
+"Спасибо! Ваша {num_edits} {edit_url|правка} ({edit_ids}) добавлена в очередь "
+"на проверку."
 msgstr[1] ""
 "Спасибо! Ваши {num_edits} {edit_url|правки} ({edit_ids}) добавлены в очередь "
 "на проверку."
@@ -3959,7 +3960,7 @@ msgid ""
 "again, and if that still doesn’t work, {contact_url|contact us}."
 msgstr ""
 "Мы не смогли отправить информацию для входа на Ваш email. Попробуйте ещё "
-"раз, и если не получится — {contact_url|свяжитесь с нами}."
+"раз, а если не получится — {contact_url|свяжитесь с нами}."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:203
 msgid "There is no user with this username"
@@ -3974,7 +3975,7 @@ msgid ""
 "We can't send a password reset email, because we have no email on record for "
 "this user."
 msgstr ""
-"Не получается отправить email для сброса пароля, так как к данному "
+"Не удалось отправить письмо для сброса пароля, так как к данному "
 "пользователю не прикреплён email."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:241
@@ -4017,9 +4018,9 @@ msgid ""
 "re-enter your address in your {settings|account settings}. If that still "
 "doesn’t work, {contact_url|contact us}."
 msgstr ""
-"<strong>Мы не смогли отправить Вам подтверждающее письмо.</strong><br/"
-">Попробуйте ввести email в {settings|настройках профиля} ещё раз. Если не "
-"сработает — {contact_url|свяжитесь с нами}."
+"<strong>Мы не смогли отправить вам письмо для подтверждения.</strong><br/"
+">Попробуйте ввести email в {settings|настройках профиля} ещё раз. Если не "
+"сработает — {contact_url|свяжитесь с нами}."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:831
 msgid "There is no OAuth token with these parameters."
@@ -4032,17 +4033,16 @@ msgstr "Введённый ID коллекции не найден."
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:734
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr ""
-"Вы не можете объединить исполнителя специального назначения в другова "
-"исполнителя"
+"Нельзя объединить исполнителя специального назначения в другого исполнителя"
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:739
 msgid "You cannot merge into Deleted Artist"
-msgstr "Нельзя объединять с удалённым исполнителем («Deleted Artist»)"
+msgstr "Нельзя объединять с удалённым исполнителем"
 
 #: ../lib/MusicBrainz/Server/Controller/AutoEditorElections.pm:87
 #, perl-brace-format
 msgid "'{id}' is not a valid election ID"
-msgstr "'{id}' не является допустимым выборы ID"
+msgstr "'{id}' не является допустимым ID выборов"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:79
 msgid "Please provide a CD TOC ID."
@@ -4110,20 +4110,20 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
 #: ../root/static/scripts/common/constants.js:368
 msgid "Low"
-msgstr ""
+msgstr "Низкое"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
 #: ../root/static/scripts/common/constants.js:369
 #: ../root/static/scripts/common/constants.js:370
 msgid "Normal"
-msgstr "Нормальный"
+msgstr "Нормальное"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
 #: ../root/static/scripts/common/constants.js:371
 msgid "High"
-msgstr ""
+msgstr "Высокое"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 msgid "Default"
@@ -4139,7 +4139,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:67
 msgid "You can’t change other users’ edit notes."
-msgstr "Вы не можете редактировать чужие комментарии к правкам."
+msgstr "Нельзя редактировать чужие комментарии к правкам."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:80
 msgid ""
@@ -5454,10 +5454,8 @@ msgstr "Комментарии к правке отключены"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:294
 #: ../root/static/scripts/common/utility/privileges.js:164
-#, fuzzy
-#| msgid "Voting is closed."
 msgid "Voting disabled"
-msgstr "Голосование закрыто."
+msgstr "Голосование отключено"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
 #: ../root/static/scripts/common/utility/privileges.js:167
@@ -10309,41 +10307,30 @@ msgid "Add event"
 msgstr "Добавить событие"
 
 #: ../root/event/EditEvent.js:28
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit event"
 msgctxt "header"
 msgid "Edit event"
 msgstr "Править событие"
 
 #: ../root/event/EventArt.js:32
-#, fuzzy
-#| msgid "Event ratings"
 msgctxt "plural, header"
 msgid "Event art"
-msgstr "Оценки событий"
+msgstr "Фото событий"
 
 #: ../root/event/EventArt.js:38
-#, fuzzy
-#| msgctxt "plural, header"
-#| msgid "Cannot show cover art"
 msgctxt "plural, header"
 msgid "Cannot show event art"
-msgstr "Невозможно показать обложку"
+msgstr "Невозможно показать фото события"
 
 #: ../root/event/EventArt.js:44
 #: ../root/layout/components/sidebar/EventSidebar.js:58
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:94
 #: ../root/release/CoverArt.js:40
-#, fuzzy
-#| msgid ""
-#| "Cover art for this release has been hidden by the Internet Archive "
-#| "because of a takedown request."
 msgid ""
 "Images for this item have been hidden by the Internet Archive because of a "
 "takedown request."
 msgstr ""
-"Обложка для этого релиза скрыта Архивом Интернета из-за запроса на удаление."
+"Фото для этого предмета были скрыты Архивом Интернета из-за запроса на "
+"удаление."
 
 #: ../root/event/EventArt.js:75 ../root/release/CoverArt.js:71
 msgid "All sizes:"
@@ -15855,16 +15842,12 @@ msgid "HH:MM"
 msgstr "ЧЧ:ММ"
 
 #: ../root/static/scripts/event/components/EventEditForm.js:310
-#, fuzzy
-#| msgid ""
-#| "Select any type from the list to see its description. If the work doesn’t "
-#| "seem to match any type, just leave this blank."
 msgid ""
 "Select any type from the list to see its description. If no type seems to "
 "fit, just leave this blank."
 msgstr ""
 "Выберите любой тип из списка, чтобы ознакомиться с его описанием. Если "
-"похоже, что работа не совпадает с любым из типов, оставьте поле пустым."
+"похоже, что ни один из них не совпадает, оставьте поле пустым."
 
 #: ../root/static/scripts/guess-case/modes.js:313
 msgid ""
@@ -17784,16 +17767,27 @@ msgid ""
 "for destructive changes to releases (track, medium and release label "
 "removals)."
 msgstr ""
+"Часто разрушительные правки (удаление и слияние) очень трудно или даже "
+"невозможно вернуть. Поэтому незамеченная неправильная деструктивная правка "
+"может привести к большому беспорядку! Большинство из них гарантированно "
+"останутся открытыми как минимум два полных дня, даже если они получат три "
+"голоса \" Да\", чтобы избежать их слишком быстрого закрытия, но всегда "
+"полезно привлечь к ним больше внимания. Ниже вы можете найти пять различных "
+"поисковых запросов: один для всех деструктивных правок (что иногда может "
+"быть слишком сложно), один только для тех деструктивных правок, которые не "
+"имеют комментариев к правкам (поэтому для них не было представлено никаких "
+"обоснований), один только для слияний и удалений сущностей (правки, которые "
+"с большей вероятностью вызовут беспорядок, если пройдут неправильно), один "
+"только для удалений отношений и один для деструктивных изменений в релизах ("
+"удаление треков, носителей и лейблов релизов)."
 
 #: ../root/vote/VotingIndex.js:98
 msgid "All open destructive edits"
 msgstr "Все открытые деструктивные правки"
 
 #: ../root/vote/VotingIndex.js:107
-#, fuzzy
-#| msgid "All open destructive edits by beginner editors"
 msgid "All open destructive edits without edit notes"
-msgstr "Все открытые деструктивные правки, сделанные редакторами-новичками"
+msgstr "Все открытые деструктивные правки без комментариев к ним"
 
 #: ../root/vote/VotingIndex.js:117
 msgid "All open entity merges and removals"
@@ -17947,11 +17941,11 @@ msgid "All edits from beginner editors made less than 2 weeks ago"
 msgstr "Все правки от начинающих редакторов, сделанные менее 2 недель назад"
 
 #: ../root/vote/VotingIndex.js:304
-#, fuzzy
-#| msgid "All edits from beginner editors made less than 2 weeks ago"
 msgid ""
 "All edits from beginner editors without edit notes made less than 2 weeks ago"
-msgstr "Все правки от начинающих редакторов, сделанные менее 2 недель назад"
+msgstr ""
+"Все правки от редакторов-новичков без комментариев к ним, сделанные менее 2 "
+"недель назад"
 
 #: ../root/vote/VotingIndex.js:314
 msgid "All \"Add release/medium\" edits by beginner editors"
