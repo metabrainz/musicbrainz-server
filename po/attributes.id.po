@@ -2,18 +2,20 @@
 # Translators:
 # Nao3Line Prez, 2022
 # Theodore Fabian <email address hidden>, 2018
+# koukei07 <teamedia@duck.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: Nao3Line Prez, 2022\n"
-"Language-Team: Indonesian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/id/)\n"
+"PO-Revision-Date: 2024-08-05 00:42+0000\n"
+"Last-Translator: koukei07 <teamedia@duck.com>\n"
+"Language-Team: Indonesian <https://translations.metabrainz.org/projects/"
+"musicbrainz/attributes/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -41,7 +43,7 @@ msgstr ""
 #: DB:medium_format/name:205
 msgctxt "medium_format"
 msgid "10\" Acetate"
-msgstr ""
+msgstr "10\" Asetat"
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"

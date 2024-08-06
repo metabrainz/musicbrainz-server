@@ -4,13 +4,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# koukei07 <teamedia@duck.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-31 23:43+0200\n"
-"PO-Revision-Date: 2024-04-17 17:36+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2024-08-05 00:42+0000\n"
+"Last-Translator: koukei07 <teamedia@duck.com>\n"
 "Language-Team: Indonesian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/id/>\n"
 "Language: id\n"
@@ -18,24 +19,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
-msgstr ""
+msgstr " ({text})"
 
 #: ../root/components/forms.tt:305
 msgid "\"C\" is a single check digit."
-msgstr ""
+msgstr "\"C\" adalah satu digit pemeriksa."
 
 #: ../root/components/forms.tt:315
 msgid ""
 "\"CC\" is the appropriate for the registrant two-character country code."
-msgstr ""
+msgstr "\"CC\" sesuai untuk kode negara dua karakter pendaftar."
 
 #: ../root/components/forms.tt:304
 msgid "\"DDD\" is a nine digit work identifier."
-msgstr ""
+msgstr "\"DDD\" adalah pengidentifikasi kerja sembilan digit."
 
 #: ../root/components/forms.tt:318
 msgid ""
