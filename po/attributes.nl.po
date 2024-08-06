@@ -16,8 +16,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-30 13:42+0000\n"
-"Last-Translator: Aszazin <aszazin@gmail.com>\n"
+"PO-Revision-Date: 2024-08-05 00:42+0000\n"
+"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/nl/>\n"
 "Language: nl\n"
@@ -25,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -433,6 +434,11 @@ msgid ""
 "just a scaled down version of the poster, both types can be added to the "
 "same image."
 msgstr ""
+"Een document dat meestal kleiner is dan een poster en dat meestal wordt "
+"gedrukt om met het publiek te delen om reclame voor een evenement te maken "
+"of bezoekers meer informatie te geven. Als de flyer niets meer is dan een "
+"kleinere versie van de poster, kunnen beide types aan dezelfde afbeelding "
+"worden toegevoegd."
 
 #. name:Ticket
 #: DB:event_art_archive.art_type/description:2
@@ -441,6 +447,8 @@ msgid ""
 "A document generally used for admission to the event, whether physical or "
 "digital. Use this also for ticket stubs and passes."
 msgstr ""
+"Een document dat meestal toegang geeft tot een evenement, zowel fysiek als "
+"digitaal. Gebruik dit type ook voor controlestrookjes en pasjes."
 
 #. name:Promotion
 #: DB:release_status/description:2
@@ -506,6 +514,8 @@ msgid ""
 "A list of songs to be played in the event, often printed or handwritten for "
 "use by the artist."
 msgstr ""
+"Een lijst met nummers die op het evenement worden gespeeld, meestal "
+"afgedrukt of handgeschreven, die door de artiest wordt gebruikt."
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -731,6 +741,8 @@ msgid ""
 "A read only memory cartridge or card, such as the ones used by early home "
 "computers and some video game systems."
 msgstr ""
+"Een alleen-lezen geheugencartridge of -kaart zoals werden gebruikt door "
+"vroege pc’s en sommige spelcomputers."
 
 #. name:Festival
 #: DB:series_type/description:8
@@ -1401,6 +1413,9 @@ msgid ""
 "(as opposed to an award ceremony where awards are presented for previously "
 "released or performed music)."
 msgstr ""
+"Een evenement waarop de deelnemers live optreden, waarna er een winnaar "
+"wordt gekozen. (Dit is dus anders dan een prijsuitreiking waar prijzen "
+"worden uitgedeeld voor eerder uitgegeven of gespeelde muziek)."
 
 #. name:Festival
 #: DB:event_type/description:2
@@ -1421,6 +1436,11 @@ msgid ""
 "more than one art type applies (for example, if a poster is sold as "
 "merchandise) use “merchandise” alongside any other appropriate types."
 msgstr ""
+"Een afbeelding van elk soort artikel dat wordt verkocht (of uitgedeeld) om "
+"reclame voor een evenement te maken of tijdens een evenement, zoals T-shirts "
+"of petjes. Als meerdere soorten afbeelding van toepassing zijn (als posters "
+"bijvoorbeeld ook worden verkocht) kan je ‘merchandise’ naast de andere types "
+"gebruiken."
 
 #. name:Schedule
 #: DB:event_art_archive.art_type/description:5
@@ -1430,6 +1450,9 @@ msgid ""
 "event. Can be a standalone image, but also a poster or banner (in which case "
 "all applicable types should be set)."
 msgstr ""
+"Een afbeelding waarop meestal de volgorde en tijden van de optredens op een "
+"evenement staan. Dit kan een losse afbeelding zijn, maar ook een poster of "
+"banier (stel dan alle relevante types in)."
 
 #. name:Concert
 #: DB:event_type/description:1
@@ -1459,6 +1482,8 @@ msgid ""
 "created for the event, for example showing the recommended ways to access "
 "the venue, or the location of specific stages and stands inside of it."
 msgstr ""
+"Een plattegrond van de evenementlocatie of de omgeving daarvan, bijvoorbeeld "
+"om toegangen of de locaties van specifieke podia aan te geven."
 
 #. name:Interview
 #: DB:release_group_secondary_type/description:4
@@ -1889,7 +1914,7 @@ msgstr "Ballet"
 #: DB:event_art_archive.art_type/name:4
 msgctxt "event_art_type"
 msgid "Banner"
-msgstr ""
+msgstr "banier"
 
 #: DB:work_attribute_type_allowed_value/value:866
 msgctxt "work_attribute_type_allowed_value"
@@ -2507,12 +2532,9 @@ msgid "Club"
 msgstr "Club"
 
 #: DB:event_type/name:40
-#, fuzzy
-#| msgctxt "release_group_secondary_type"
-#| msgid "Compilation"
 msgctxt "event_type"
 msgid "Competition"
-msgstr "Compilatie"
+msgstr "Concurrentie"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -2532,7 +2554,7 @@ msgstr "Concertgebouw / Theater"
 #: DB:work_type/name:4
 msgctxt "work_type"
 msgid "Concerto"
-msgstr "Concerto"
+msgstr "Concert"
 
 #: DB:event_type/name:4
 msgctxt "event_type"
@@ -3508,7 +3530,7 @@ msgstr "floppy"
 #: DB:event_art_archive.art_type/name:6
 msgctxt "event_art_type"
 msgid "Flyer"
-msgstr ""
+msgstr "Flyer"
 
 #. name:Not applicable
 #: DB:gender/description:4
@@ -3671,9 +3693,6 @@ msgid "Gaṁbhīra vāṇi"
 msgstr "Gaṁbhīra vāṇi"
 
 #: DB:editor_collection_type/name:16
-#, fuzzy
-#| msgctxt "collection_type"
-#| msgid "Series collection"
 msgctxt "collection_type"
 msgid "Genre collection"
 msgstr "Collectie van series"
@@ -4423,12 +4442,9 @@ msgstr "Een ID van de Letse rechtenorganisatie AKKA/LAA"
 
 #. name:LATGA ID
 #: DB:work_attribute_type/description:207
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Latvian rights society AKKA/LAA"
 msgctxt "work_attribute_type"
 msgid "ID for the Lithuanian rights society LATGA"
-msgstr "Een ID van de Letse rechtenorganisatie AKKA/LAA"
+msgstr "Een ID van de Litouwse rechtenorganisatie LATGA"
 
 #. name:MACP ID
 #: DB:work_attribute_type/description:49
@@ -4588,14 +4604,12 @@ msgstr "Een ID van de Vietnamese rechtenorganisatie VCPMC"
 
 #. name:Soundreef ID
 #: DB:work_attribute_type/description:208
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the international (formerly US) rights society AMRA"
 msgctxt "work_attribute_type"
 msgid ""
 "ID for the international (but primarily Italian) rights society Soundreef"
 msgstr ""
-"Een ID van de internationale (vroeger Amerikaanse) rechtenorganisatie AMRA"
+"Een ID van de internationale (maar vooral Italiaanse) rechtenorganisatie "
+"Soundreef"
 
 #. name:AMRA ID
 #: DB:work_attribute_type/description:38
@@ -5313,12 +5327,9 @@ msgid "Kōmal riṣabh asāvēri"
 msgstr "Kōmal riṣabh asāvēri"
 
 #: DB:work_attribute_type/name:207
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "APA ID"
 msgctxt "work_attribute_type"
 msgid "LATGA ID"
-msgstr "APA-ID"
+msgstr "LATGA-ID"
 
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"
@@ -5563,7 +5574,7 @@ msgstr "Manōranjani"
 #: DB:event_art_archive.art_type/name:8
 msgctxt "event_art_type"
 msgid "Map"
-msgstr ""
+msgstr "plattegrond"
 
 #: DB:work_attribute_type_allowed_value/value:639
 msgctxt "work_attribute_type_allowed_value"
@@ -5663,7 +5674,7 @@ msgstr "Mehter"
 #: DB:event_art_archive.art_type/name:7
 msgctxt "event_art_type"
 msgid "Merchandise"
-msgstr ""
+msgstr "merchandise"
 
 #: DB:work_attribute_type_allowed_value/value:642
 msgctxt "work_attribute_type_allowed_value"
@@ -6471,6 +6482,9 @@ msgid ""
 "originally developed in Japan and now mostly found as a Record Store Day "
 "curiosity."
 msgstr ""
+"Eenzijdige 3″-vinylplaat die met speciaal gemaakte draaitafels moeten worden "
+"afgespeeld. Ontwikkeld in Japan en nu vooral een curiosa tijdens de Record "
+"Store Day."
 
 #: DB:work_type/name:10
 msgctxt "work_type"
@@ -6740,9 +6754,6 @@ msgid "Poster"
 msgstr "poster"
 
 #: DB:event_art_archive.art_type/name:1
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Poster"
 msgctxt "event_art_type"
 msgid "Poster"
 msgstr "poster"
@@ -6871,12 +6882,9 @@ msgid "Quartet"
 msgstr "Kwartet"
 
 #: DB:medium_format/name:208
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "Cartridge"
 msgctxt "medium_format"
 msgid "ROM cartridge"
-msgstr "4- of 8-sporencassette"
+msgstr "ROM-cartridge"
 
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"
@@ -6989,9 +6997,6 @@ msgid "Raw/Unedited"
 msgstr "onbewerkt"
 
 #: DB:event_art_archive.art_type/name:9
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Raw/Unedited"
 msgctxt "event_art_type"
 msgid "Raw/Unedited"
 msgstr "onbewerkt"
@@ -7501,7 +7506,7 @@ msgstr "Sazsemaisi"
 #: DB:event_art_archive.art_type/name:5
 msgctxt "event_art_type"
 msgid "Schedule"
-msgstr ""
+msgstr "tijdschema"
 
 #: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
 #: DB:place_alias_type/name:2 DB:recording_alias_type/name:2
@@ -7581,7 +7586,7 @@ msgstr "Serienaam"
 #: DB:event_art_archive.art_type/name:3
 msgctxt "event_art_type"
 msgid "Setlist"
-msgstr ""
+msgstr "Setlijst"
 
 #: DB:work_attribute_type_allowed_value/value:663
 msgctxt "work_attribute_type_allowed_value"
@@ -7707,7 +7712,7 @@ msgstr ""
 #: DB:work_attribute_type/name:208
 msgctxt "work_attribute_type"
 msgid "Soundreef ID"
-msgstr ""
+msgstr "Soundreef-ID"
 
 #: DB:release_group_secondary_type/name:2
 msgctxt "release_group_secondary_type"
@@ -8398,12 +8403,9 @@ msgstr ""
 "aan."
 
 #: DB:event_art_archive.art_type/name:2
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Sticker"
 msgctxt "event_art_type"
 msgid "Ticket"
-msgstr "sticker"
+msgstr "kaartje"
 
 #: DB:work_attribute_type_allowed_value/value:1041
 msgctxt "work_attribute_type_allowed_value"
@@ -8547,69 +8549,49 @@ msgstr "Udaya ravicandrika"
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use for images that need work to be used for tagging (but can possibly "
-#| "already be used for reference)"
 msgctxt "cover_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that are "
 "watermarked and are not desirable for display (but can be used for "
 "reference)."
 msgstr ""
-"Gebruik deze eigenschap voor afbeeldingen die bewerkt moeten worden voordat "
-"ze voor het taggen kunnen worden gebruikt (maar die misschien al als "
-"referentie kunnen worden gebruikt)"
+"Gebruik deze eigenschap met alle andere relevante soorten afbeeldingen die "
+"een watermerk hebben en niet gewenst zijn voor weergave (maar als referentie "
+"kunnen worden gebruikt)."
 
 #. name:Watermark
 #: DB:event_art_archive.art_type/description:10
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use for images that need work to be used for tagging (but can possibly "
-#| "already be used for reference)"
 msgctxt "event_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that are "
 "watermarked and are not desirable for display (but can be used for "
 "reference)."
 msgstr ""
-"Gebruik deze eigenschap voor afbeeldingen die bewerkt moeten worden voordat "
-"ze voor het taggen kunnen worden gebruikt (maar die misschien al als "
-"referentie kunnen worden gebruikt)"
+"Gebruik deze eigenschap met alle andere relevante soorten afbeeldingen die "
+"een watermerk hebben en niet gewenst zijn voor weergave (maar als referentie "
+"kunnen worden gebruikt)."
 
 #. name:Raw/Unedited
 #: DB:cover_art_archive.art_type/description:14
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use for images that need work to be used for tagging (but can possibly "
-#| "already be used for reference)"
 msgctxt "cover_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
 msgstr ""
 "Gebruik deze eigenschap voor afbeeldingen die bewerkt moeten worden voordat "
-"ze voor het taggen kunnen worden gebruikt (maar die misschien al als "
-"referentie kunnen worden gebruikt)"
+"ze kunnen worden weergegeven (maar die misschien al als referentie kunnen "
+"worden gebruikt)"
 
 #. name:Raw/Unedited
 #: DB:event_art_archive.art_type/description:9
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use for images that need work to be used for tagging (but can possibly "
-#| "already be used for reference)"
 msgctxt "event_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
 msgstr ""
 "Gebruik deze eigenschap voor afbeeldingen die bewerkt moeten worden voordat "
-"ze voor het taggen kunnen worden gebruikt (maar die misschien al als "
-"referentie kunnen worden gebruikt)"
+"ze kunnen worden weergegeven (maar die misschien al als referentie kunnen "
+"worden gebruikt)"
 
 #. name:Military base
 #: DB:area_type/description:8
@@ -8640,6 +8622,8 @@ msgid ""
 "Usually a large printed or digital sheet, that often contains pictures, and "
 "is generally posted publicly to promote the event."
 msgstr ""
+"Een groot gedrukt of digitaal vel met afbeeldingen die meestal worden "
+"opgehangen om reclame voor het evenement te maken."
 
 #. name:Banner
 #: DB:event_art_archive.art_type/description:4
@@ -8648,6 +8632,9 @@ msgid ""
 "Usually horizontal image used to promote an event, for example in social "
 "media, which tends to have less information than a poster."
 msgstr ""
+"Een meestal horizontale afbeelding die wordt gebruikt om reclame voor een "
+"evenement te maken, bijvoorbeeld op sociale media. Een banier bevat meestal "
+"minder informatie dan een poster."
 
 #: DB:work_attribute_type/name:17
 msgctxt "work_attribute_type"
@@ -8856,9 +8843,6 @@ msgid "Watermark"
 msgstr "watermerk"
 
 #: DB:event_art_archive.art_type/name:10
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Watermark"
 msgctxt "event_art_type"
 msgid "Watermark"
 msgstr "watermerk"

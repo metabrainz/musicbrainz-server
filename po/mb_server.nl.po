@@ -37,8 +37,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-31 23:43+0200\n"
-"PO-Revision-Date: 2024-04-17 17:33+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2024-08-05 12:42+0000\n"
+"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/nl/>\n"
 "Language: nl\n"
@@ -46,7 +47,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -138,8 +139,6 @@ msgid "(add a new recording)"
 msgstr "(nieuwe opname toevoegen)"
 
 #: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
-#, fuzzy
-#| msgid "(no other cover art)"
 msgid "(no other images)"
 msgstr "(geen andere afbeeldingen)"
 
@@ -240,12 +239,9 @@ msgid "Add cover art"
 msgstr "Afbeeldingen toevoegen"
 
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add event"
 msgctxt "plural, header"
 msgid "Add event art"
-msgstr "Evenement toevoegen"
+msgstr "Evenementafbeelding toevoegen"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 msgctxt "header"
@@ -347,18 +343,12 @@ msgstr ""
 "nog geen geschikte opname bestaat."
 
 #: ../root/layout.tt:16 ../root/layout/index.js:199
-#, fuzzy
-#| msgid ""
-#| "You’re currently not allowed to edit or vote because an admin has revoked "
-#| "your privileges. If you haven’t already been contacted about why, please "
-#| "{uri|send us a message}."
 msgid ""
 "An admin has set the following restrictions on your account: {list}. If you "
 "haven’t already been contacted about why, please {uri|send us a message}."
 msgstr ""
-"Je kan op het moment geen bewerkingen maken en niet stemmen omdat een "
-"beheerder je privileges heeft ingetrokken. {uri|Stuur ons een bericht} als "
-"je hier nog niets over hebt gehoord."
+"Een beheerder heeft de volgende beperkingen voor je account ingesteld: {list}"
+". {uri|Stuur ons een bericht} als je hier nog niets over hebt gehoord."
 
 #: ../root/components/common-macros.tt:569
 msgid ""
@@ -608,17 +598,12 @@ msgid "Bot"
 msgstr "Robot"
 
 #: ../root/layout.tt:125 ../root/layout/components/Footer.js:52
-#, fuzzy
-#| msgid ""
-#| "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
-#| "{supp|supporters}. Cover art provided by the {caa|Cover Art Archive}."
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}."
 msgstr ""
 "Aangeboden door de {MeB|MetaBrainz Foundation} en onze {spon|sponsors} en "
-"{supp|partners}. Hoesafbeeldingen worden geleverd door het {caa|Cover Art "
-"Archive}."
+"{supp|partners}."
 
 #: ../root/layout.tt:116 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:210
@@ -687,7 +672,7 @@ msgstr "Catalogus#"
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:30
 msgid "Chat"
-msgstr ""
+msgstr "Chat"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -959,12 +944,9 @@ msgid "Edit cover art"
 msgstr "Afbeelding bewerken"
 
 #: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:4
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit event"
 msgctxt "singular, header"
 msgid "Edit event art"
-msgstr "Evenement bewerken"
+msgstr "Evenementafbeelding bewerken"
 
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/editnote.tt:27
 #: ../root/release/edit/layout.tt:18
@@ -1291,14 +1273,12 @@ msgstr ""
 "gebruiken."
 
 #: ../root/release/edit/tracklist.tt:431
-#, fuzzy
-#| msgid "I confirm this is an intentional use of Various Artists on tracks."
 msgid ""
 "I confirm this is an intentional use of featured artists on track titles, or "
 "that these aren’t actually featured artists."
 msgstr ""
-"Ik bevestig dat het de bedoeling is om Diverse Artiesten voor nummers te "
-"gebruiken."
+"Ik bevestig dat het de bedoeling is om gastartiesten in de nummertitels te "
+"zetten, of dat dit niet echt artiesten zijn."
 
 #: ../root/release/edit/tracklist.tt:314
 msgid "I don’t know"
@@ -1495,17 +1475,14 @@ msgstr ""
 "dat hierboven bevestigen. Anders moet je de informatie verbeteren."
 
 #: ../root/release/edit/tracklist.tt:434
-#, fuzzy
-#| msgid ""
-#| "If you’re sure the use of Various Artists is correct, confirm it above. "
-#| "Otherwise, please fix the data."
 msgid ""
 "If you’re sure the use of featured artists on track titles is correct, "
 "confirm it above. Otherwise, please fix the data (the “Guess feat. artists” "
 "button might help!)."
 msgstr ""
-"Als je zeker weet dat Diverse Artiesten hier moet worden gebruikt, kan je "
-"dat hierboven bevestigen. Anders moet je de informatie verbeteren."
+"Als je zeker weet dat de gastartiesten in de nummertitels moet staan, kan je "
+"dat hierboven bevestigen. Anders moet je de informatie verbeteren (de knop “"
+"Gastartiesten gokken” kan handig zijn!)"
 
 #: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:43
 msgid "Image not available, please try again later."
@@ -2307,9 +2284,6 @@ msgid "Reorder cover art"
 msgstr "Volgorde veranderen"
 
 #: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
-#, fuzzy
-#| msgctxt "plural, header"
-#| msgid "Reorder cover art"
 msgctxt "plural, header"
 msgid "Reorder event art"
 msgstr "Volgorde veranderen"
@@ -2417,26 +2391,20 @@ msgstr ""
 "worden verplaatst."
 
 #: ../root/release/add_cover_art.tt:66
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "a description of these types."
 msgstr ""
-"Lees de {doc|documentatie over afbeeldingstypes} voor een beschrijving."
+"Selecteer alle relevante types. Lees de {doc|documentatie over types "
+"hoesafbeeldingen} voor een beschrijving."
 
 #: ../root/event/add_event_art.tt:66
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Event Art Types} documentation for "
 "a description of these types."
 msgstr ""
-"Lees de {doc|documentatie over afbeeldingstypes} voor een beschrijving."
+"Selecteer alle relevante types. Lees de {doc|documentatie over types "
+"evenementafbeeldingen} voor een beschrijving."
 
 #: ../root/components/forms.tt:361
 msgid ""
@@ -2526,6 +2494,9 @@ msgid ""
 "Some text you entered is overlong! Please shorten it, and if necessary enter "
 "the full text in the annotation for reference."
 msgstr ""
+"Een deel van de tekst die je hebt ingevoerd, is te lang. Zou je de tekst "
+"kunnen inkorten? Je kunt de volledige tekst ook als referentie in de "
+"aantekening zetten."
 
 #: ../root/components/forms.tt:231 ../root/components/Aliases/AliasTable.js:18
 #: ../root/components/list/ArtistList.js:59 ../root/edit/details/AddArea.js:43
@@ -2596,16 +2567,12 @@ msgid "Tagger"
 msgstr "Tagger"
 
 #: ../root/event/add_event_art.tt:12 ../root/release/add_cover_art.tt:12
-#, fuzzy
-#| msgid ""
-#| "The Cover Art Archive is currently experiencing difficulties. Adding "
-#| "images for this release is unlikely to work at the moment."
 msgid ""
 "The Internet Archive is currently experiencing difficulties. Adding images "
 "is unlikely to work at the moment."
 msgstr ""
-"Het Cover Art Archive ondervindt op het moment problemen. Waarschijnlijk "
-"lukt het nu niet om afbeeldingen voor deze uitgave toe te voegen."
+"Het Internet Archive ondervindt op het moment problemen. Waarschijnlijk lukt "
+"het nu niet om afbeeldingen toe te voegen."
 
 #: ../root/release/edit/information.tt:348
 msgid "The annotation field functions like a miniature wiki."
@@ -2753,10 +2720,8 @@ msgid "These coordinates could not be parsed."
 msgstr "Deze coördinaten konden niet worden ingevoerd."
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
-#, fuzzy
-#| msgid "This CDTOC is already attached to this medium."
 msgid "This CD TOC is already attached to this medium."
-msgstr "Deze TOC is al aan dit medium gekoppeld."
+msgstr "Deze cd-TOC is al aan dit medium gekoppeld."
 
 #: ../root/release/edit/information.tt:354
 msgid ""
@@ -2856,18 +2821,13 @@ msgid ""
 msgstr "Dit is een Pdf-bestand; de miniatuur toont misschien niet alle inhoud."
 
 #: ../root/release/edit/tracklist.tt:386
-#, fuzzy
-#| msgid ""
-#| "This is almost always incorrect. Please make sure whether you actually "
-#| "wanted a different format (such as “USB Flash Drive” or “Music Card”) or "
-#| "packaging type."
 msgid ""
 "This is almost always incorrect. Please make sure whether you actually "
 "wanted a different format (such as “USB Flash Drive” or “Download Card”) or "
 "packaging type."
 msgstr ""
 "Dit is bijna nooit juist. Controleer of je niet een andere medium (zoals USB-"
-"stick of muziekkaart) of een andere verpakking wilde instellen."
+"stick of downloadkaart) of een andere verpakking wilde instellen."
 
 #: ../root/release_group/set_cover_art.tt:76
 msgid "This is the current release group image"
@@ -2914,6 +2874,9 @@ msgid ""
 "This medium seems to have featured artists on the track titles. These should "
 "usually be {featured_style|entered as part of the track artist}."
 msgstr ""
+"Het lijkt erop dat de gastartiesten in de nummertitels op dit medium staan. "
+"Meestal moeten ze {featured_style|als een van de nummerartiesten worden "
+"ingevoerd}."
 
 #: ../root/place/edit_form.tt:32
 msgid "This place has ended."
@@ -3130,10 +3093,8 @@ msgstr "Type"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 #: ../root/components/ArtFields.js:64
-#, fuzzy
-#| msgid "Types:"
 msgid "Types"
-msgstr "Types:"
+msgstr "Types"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
@@ -3499,8 +3460,6 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:45
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "generic entity"
 msgid "[removed]"
 msgstr "[verwijderd]"
@@ -3545,15 +3504,13 @@ msgstr "van"
 
 #: ../root/components/common-macros.tt:111
 #: ../root/static/scripts/common/components/EntityLink.js:105
-#, fuzzy
-#| msgid "cancelled"
 msgctxt "event"
 msgid "cancelled"
 msgstr "afgelast"
 
 #: ../root/edit/search_macros.tt:352
 msgid "do not exist (edit has no notes)"
-msgstr ""
+msgstr "bestaat niet (bewerking heeft geen notities)"
 
 #: ../root/edit/search_macros.tt:352
 msgid "do not include"
@@ -3699,10 +3656,8 @@ msgid "is not"
 msgstr "is niet"
 
 #: ../root/edit/search_macros.tt:363
-#, fuzzy
-#| msgid "is a beginner"
 msgid "is not a beginner"
-msgstr "is een beginner"
+msgstr "is geen beginner"
 
 #: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:323
 #: ../root/edit/search_macros.tt:363 ../root/edit/search_macros.tt:391
@@ -3975,18 +3930,13 @@ msgid "The user with ID '{user_id}' could not be found."
 msgstr "De gebruiker met de ID ‘{user_id}’ kon niet worden gevonden."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:176
-#, fuzzy
-#| msgid ""
-#| "We were unable to send login information to your email address.  Please "
-#| "try again, however if you continue to experience difficulty contact us at "
-#| "support@musicbrainz.org."
 msgid ""
 "We were unable to send login information to your email address. Please try "
 "again, and if that still doesn’t work, {contact_url|contact us}."
 msgstr ""
 "We konden geen aanmeldinformatie naar je e-mailadres sturen. Probeer het "
-"opnieuw, en neem als je problemen blijft houden contact met ons op via "
-"support@musicbrainz.org."
+"opnieuw, en neem als je problemen blijft houden {contact_url|contact met ons "
+"op}."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:203
 msgid "There is no user with this username"
@@ -4040,21 +3990,14 @@ msgid "Your password has been changed."
 msgstr "Je wachtwoord is veranderd."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:748
-#, fuzzy
-#| msgid ""
-#| "<strong>We were unable to send a verification email to you.</strong><br/"
-#| ">Please confirm that you have entered a valid address by editing your "
-#| "{settings|account settings}. If the problem still persists, please "
-#| "contact us at {mail|support@musicbrainz.org}."
 msgid ""
 "<strong>We were unable to send you a verification email.</strong><br/>Please "
 "re-enter your address in your {settings|account settings}. If that still "
 "doesn’t work, {contact_url|contact us}."
 msgstr ""
-"<strong>We konden je geen bevestigingsmail sturen.</strong><br/>Bevestig dat "
-"je een geldig e-mailadres hebt ingevuld door je {settings|"
-"gebruikersinstellingen} te wijzigen. Neem contact op met {mail|"
-"support@musicbrainz.org} als het probleem zich blijft voordoen."
+"<strong>We konden je geen verificatiemail sturen.</strong><br/>Vul je e-"
+"mailadres in je {settings|gebruikersinstellingen} opnieuw in. {contact_url|"
+"Neem contact met ons op} als het nog steeds niet lukt."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:831
 msgid "There is no OAuth token with these parameters."
@@ -4093,8 +4036,6 @@ msgstr "Geef een medium-ID op."
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:93
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:214
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:436
-#, fuzzy
-#| msgid "The provided medium id is not valid."
 msgid "The provided medium ID is not valid."
 msgstr "De opgegeven medium-ID is niet geldig."
 
@@ -4277,8 +4218,6 @@ msgstr "Geen afbeelding met de ID ‘{id}’ gevonden."
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:222
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:99
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:107
-#, fuzzy
-#| msgid "[unknown]"
 msgctxt "generic entity"
 msgid "[unknown]"
 msgstr "[onbekend]"
@@ -4404,48 +4343,36 @@ msgstr ""
 "{contact_url} contact met ons op, zodat we het kunnen oplossen."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:342
-#, fuzzy, perl-brace-format
-#| msgid ""
-#| "Cover art can’t be uploaded to this release because we don’t own the "
-#| "associated item at the Internet Archive. Please contact us at "
-#| "{contact_url} so we can resolve this."
+#, perl-brace-format
 msgid ""
 "Event art can’t be uploaded to this event because we don’t own the "
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
 msgstr ""
-"Aan deze uitgave kunnen geen afbeeldingen worden toegevoegd omdat het "
+"Aan dit evenement kunnen geen afbeeldingen worden toegevoegd omdat het "
 "bijbehorende object in het Internet Archive niet van ons is. Neem via "
 "{contact_url} contact met ons op, zodat we het kunnen oplossen."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:465
 #: ../root/event/EventArtDarkened.js:25 ../root/release/CoverArtDarkened.js:19
-#, fuzzy
-#| msgid ""
-#| "The Cover Art Archive has had a takedown request in the past for this "
-#| "release, so we are unable to allow any more uploads."
 msgid ""
 "The Internet Archive has had a takedown request in the past for this item, "
 "so we are unable to allow any more uploads."
 msgstr ""
-"Het Cover Art Archive heeft in het verleden het verzoek gekregen om "
-"afbeeldingen voor deze uitgave te verwijderen, dus we kunnen je ze niet meer "
+"Het Internet Archive heeft in het verleden het verzoek gekregen om "
+"afbeeldingen voor dit object te verwijderen, dus we kunnen je ze niet meer "
 "laten toevoegen."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:510
-#, fuzzy, perl-brace-format
-#| msgid ""
-#| "Cover art can’t be uploaded to this release because we don’t own the "
-#| "associated item at the Internet Archive. Please contact us at "
-#| "{contact_url} so we can resolve this."
+#, perl-brace-format
 msgid ""
 "Images can’t be uploaded here because we don’t own the associated item at "
 "the Internet Archive. Please contact us at {contact_url} so we can resolve "
 "this."
 msgstr ""
-"Aan deze uitgave kunnen geen afbeeldingen worden toegevoegd omdat het "
-"bijbehorende object in het Internet Archive niet van ons is. Neem via "
-"{contact_url} contact met ons op, zodat we het kunnen oplossen."
+"Hier kunnen geen afbeeldingen worden toegevoegd omdat het bijbehorende "
+"object in het Internet Archive niet van ons is. Neem via {contact_url} "
+"contact met ons op, zodat we het kunnen oplossen."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:708
 msgid ""
@@ -4647,12 +4574,9 @@ msgid "Add event annotation"
 msgstr "Aantekening aan het evenement toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add event"
 msgctxt "singular, edit type"
 msgid "Add event art"
-msgstr "Evenement toevoegen"
+msgstr "Evenementafbeelding toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 msgctxt "edit type"
@@ -4680,12 +4604,9 @@ msgid "Edit event alias"
 msgstr "Alias van het evenement bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditEventArt.pm:15
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit event"
 msgctxt "singular, edit type"
 msgid "Edit event art"
-msgstr "Evenement bewerken"
+msgstr "Evenementafbeelding bewerken"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Merge.pm:11
 msgctxt "edit type"
@@ -4693,17 +4614,11 @@ msgid "Merge events"
 msgstr "Evenementen samenvoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/RemoveEventArt.pm:15
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove event"
 msgctxt "singular, edit type"
 msgid "Remove event art"
-msgstr "Evenement verwijderen"
+msgstr "Evenementafbeelding verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/ReorderEventArt.pm:15
-#, fuzzy
-#| msgctxt "plural, edit type"
-#| msgid "Reorder cover art"
 msgctxt "plural, edit type"
 msgid "Reorder event art"
 msgstr "Volgorde veranderen"
@@ -5141,8 +5056,6 @@ msgid "Remove relationship type"
 msgstr "Relatietype verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "relationship attribute type"
 msgid "[removed]"
 msgstr "[verwijderd]"
@@ -5168,8 +5081,6 @@ msgid "Add release label"
 msgstr "Platenmaatschappij aan de uitgave toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:115
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "release group"
 msgid "[removed]"
 msgstr "[verwijderd]"
@@ -5550,25 +5461,19 @@ msgstr "Geannuleerd"
 
 #: ../lib/MusicBrainz/Server/Entity/Barcode.pm:18
 #: ../root/static/scripts/common/utility/formatBarcode.js:15
-#, fuzzy
-#| msgid "[none]"
 msgctxt "barcode"
 msgid "[none]"
 msgstr "[geen]"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:291
 #: ../root/static/scripts/common/utility/privileges.js:161
-#, fuzzy
-#| msgid "Editing/voting disabled"
 msgid "Editing disabled"
-msgstr "Bewerken en stemmen uitgeschakeld"
+msgstr "Bewerken uitgeschakeld"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:294
 #: ../root/static/scripts/common/utility/privileges.js:164
-#, fuzzy
-#| msgid "Voting is closed."
 msgid "Voting disabled"
-msgstr "Het stemmen is gesloten."
+msgstr "Het stemmen is gesloten"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
 #: ../root/static/scripts/common/utility/privileges.js:167
@@ -5671,10 +5576,8 @@ msgid "Playlists at Spotify"
 msgstr "Afspeellijsten op Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:16
-#, fuzzy
-#| msgid "Purchase at Tidal"
 msgid "Purchase at Spotify"
-msgstr "Kopen bij Tidal"
+msgstr "Kopen bij Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:18
 msgid "Stream at Spotify"
@@ -5689,10 +5592,8 @@ msgid "Stream at Tidal"
 msgstr "Streamen met Tidal"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/VK.pm:14
-#, fuzzy
-#| msgid "Stream at Tidal"
 msgid "Stream at VK"
-msgstr "Streamen met Tidal"
+msgstr "Streamen met VK"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Weibo.pm:9
 msgid "Weibo"
@@ -5703,10 +5604,8 @@ msgid "Wikisource"
 msgstr "Wikisource"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Yandex.pm:10
-#, fuzzy
-#| msgid "Stream at Tidal"
 msgid "Stream at Yandex"
-msgstr "Streamen met Tidal"
+msgstr "Streamen met Yandex"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/YouTubeMusic.pm:10
 msgid "Stream at YouTube Music"
@@ -5867,10 +5766,9 @@ msgid "This is not a valid ISWC"
 msgstr "Dit is geen geldige ISWC"
 
 #: ../lib/MusicBrainz/Server/Form/Field/LabelCode.pm:17
-#, fuzzy
-#| msgid "Label codes must be greater than 0 and 5 digits at most"
 msgid "Label codes must be greater than 0 and 6 digits at most"
-msgstr "Platenmaatschappijcodes moeten tussen nul en zes cijfers hebben"
+msgstr ""
+"Platenmaatschappijcodes moeten minimaal één en maximaal zes cijfers hebben"
 
 #: ../lib/MusicBrainz/Server/Form/Field/Length.pm:31
 msgid "Not a valid time. Must be in the format MM:SS"
@@ -5925,22 +5823,16 @@ msgid "Non-videos only"
 msgstr "Alleen niet-video’s"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:71
-#, fuzzy
-#| msgid "[none]"
 msgctxt "release country"
 msgid "[none]"
 msgstr "[geen]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:80
-#, fuzzy
-#| msgid "[none]"
 msgctxt "release label"
 msgid "[none]"
 msgstr "[geen]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:89
-#, fuzzy
-#| msgid "[none]"
 msgctxt "release status"
 msgid "[none]"
 msgstr "[geen]"
@@ -5967,11 +5859,9 @@ msgid "As writer"
 msgstr "Als schrijver"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:47
-#, fuzzy
-#| msgid "Cannot edit"
 msgctxt "language"
 msgid "[not set]"
-msgstr "Kan niet bewerken"
+msgstr "[niet ingesteld]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:51
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:47
@@ -6588,16 +6478,13 @@ msgstr ""
 "documentatie} kijken voordat je {con|contact met ons opneemt}."
 
 #: ../root/account/Register.js:80
-#, fuzzy
-#| msgid ""
-#| "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
-#| "the {fo|forums} or {irc|IRC}."
 msgid ""
 "Follow our {blog_link|blog} or {twitterx_link|twitter account}! To talk to "
 "other users, try the {forum_link|forums} or the {chat_link|chat}."
 msgstr ""
-"Lees ons {bl|weblog} of volg ons op {tw|Twitter}! Kijk op het {fo|forum} of "
-"op {irc|IRC} om met andere gebruikers te praten."
+"Lees ons {blog_link|weblog} of volg ons op {twitterx_link|Twitter}! Kijk op "
+"het {forum_link|forum} of op {chat_link|de chat} om met andere gebruikers te "
+"praten."
 
 #: ../root/account/Register.js:94
 msgid ""
@@ -7403,8 +7290,6 @@ msgid "This artist credit is composed of the following artists:"
 msgstr "Deze artiestvermelding bestaat uit de volgende artiesten:"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:101
-#, fuzzy
-#| msgid "credited as “{credit}”"
 msgctxt "artist credit"
 msgid "credited as “{credit}”"
 msgstr "vermeld als “{credit}”"
@@ -7627,8 +7512,6 @@ msgstr "Einde"
 
 #: ../root/cdtoc/CDTocInfo.js:53 ../root/cdtoc/CDTocInfo.js:55
 #: ../root/cdtoc/CDTocInfo.js:57
-#, fuzzy
-#| msgid "Time"
 msgctxt "CD timecode"
 msgid "Time"
 msgstr "Duur"
@@ -8080,16 +7963,11 @@ msgid "Cover art ({num})"
 msgstr "Afbeelding(en) ({num})"
 
 #: ../root/components/EntityTabs.js:131
-#, fuzzy
-#| msgid "Event ratings"
 msgctxt "plural"
 msgid "Event art"
-msgstr "Waarderingen van evenementen"
+msgstr "Afbeeldingen"
 
 #: ../root/components/EntityTabs.js:133
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Cover art ({num})"
 msgctxt "plural"
 msgid "Event art ({num})"
 msgstr "Afbeelding(en) ({num})"
@@ -8342,11 +8220,9 @@ msgstr "Bijna gesloten"
 #: ../root/report/components/EventList.js:70
 #: ../root/search/components/EventResults.js:84
 #: ../root/static/scripts/event/components/EventEditForm.js:273
-#, fuzzy
-#| msgid "Time"
 msgctxt "event"
 msgid "Time"
-msgstr "Duur"
+msgstr "Tijdstip"
 
 #: ../root/components/list/EventList.js:96
 #: ../root/static/scripts/common/components/FilterForm.js:369
@@ -8727,17 +8603,15 @@ msgstr "Waarderingen van evenementen"
 
 #: ../root/edit/components/EditArtwork.js:32
 #: ../root/edit/details/ReorderArt.js:32
-#, fuzzy
-#| msgid "We are unable to display history for this cover art."
 msgid ""
 "We are unable to display history for this image. See {artpage|all current "
 "images}."
-msgstr "We kunnen de geschiedenis van deze afbeelding niet laten zien."
+msgstr ""
+"We kunnen de geschiedenis van deze afbeelding niet laten zien. Zie {artpage|"
+"alle huidige afbeeldingen}."
 
 #: ../root/edit/components/EditArtwork.js:36
 #: ../root/edit/details/ReorderArt.js:36
-#, fuzzy
-#| msgid "We are unable to display history for this cover art."
 msgid "We are unable to display history for this image."
 msgstr "We kunnen de geschiedenis van deze afbeelding niet laten zien."
 
@@ -9281,7 +9155,7 @@ msgstr "Talen van de tekst"
 
 #: ../root/edit/details/BetaOnlyEdit.js:30
 msgid "This edit can currently only be viewed on the {beta|beta server}."
-msgstr ""
+msgstr "Deze bewerking kan nu alleen op de {beta|bètaserver} worden bekeken."
 
 #: ../root/edit/details/ChangeReleaseQuality.js:26
 #: ../root/edit/details/historic/ChangeArtistQuality.js:26
@@ -9324,8 +9198,6 @@ msgid "primary for {locale}"
 msgstr "primair voor {locale}"
 
 #: ../root/edit/details/EditAlias.js:74
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "alias"
 msgid "[removed]"
 msgstr "[verwijderd]"
@@ -9626,8 +9498,6 @@ msgid "New cover art:"
 msgstr "Nieuwe afbeeldingen:"
 
 #: ../root/edit/details/SetTrackLengths.js:54
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "CD TOC"
 msgid "[removed]"
 msgstr "[verwijderd]"
@@ -10035,18 +9905,13 @@ msgstr ""
 "proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:73
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Editor not found"
 msgctxt "header"
 msgid "Edit note not found"
-msgstr "Redacteur niet gevonden"
+msgstr "Bewerkingsnotitie niet gevonden"
 
 #: ../root/entity/NotFound.js:75
-#, fuzzy
-#| msgid "Sorry, we could not find an artist credit with that ID."
 msgid "Sorry, we could not find an edit note with that ID."
-msgstr "We konden helaas gaan artiestvermelding met die MusicBrainz-ID vinden."
+msgstr "We konden helaas gaan bewerkingsnotitie met die ID vinden."
 
 #: ../root/entity/NotFound.js:81
 msgctxt "header"
@@ -10405,41 +10270,29 @@ msgid "Add event"
 msgstr "Evenement toevoegen"
 
 #: ../root/event/EditEvent.js:28
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit event"
 msgctxt "header"
 msgid "Edit event"
 msgstr "Evenement bewerken"
 
 #: ../root/event/EventArt.js:32
-#, fuzzy
-#| msgid "Event ratings"
 msgctxt "plural, header"
 msgid "Event art"
-msgstr "Waarderingen van evenementen"
+msgstr "Evenementafbeeldingen"
 
 #: ../root/event/EventArt.js:38
-#, fuzzy
-#| msgctxt "plural, header"
-#| msgid "Cannot show cover art"
 msgctxt "plural, header"
 msgid "Cannot show event art"
-msgstr "De afbeelding kan niet worden getoond"
+msgstr "De evenementafbeeldingen kunnen niet worden getoond"
 
 #: ../root/event/EventArt.js:44
 #: ../root/layout/components/sidebar/EventSidebar.js:58
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:94
 #: ../root/release/CoverArt.js:40
-#, fuzzy
-#| msgid ""
-#| "Cover art for this release has been hidden by the Internet Archive "
-#| "because of a takedown request."
 msgid ""
 "Images for this item have been hidden by the Internet Archive because of a "
 "takedown request."
 msgstr ""
-"De afbeeldingen voor deze uitgave zijn door het Internet Archive vanwege een "
+"De afbeeldingen voor dit object zijn door het Internet Archive vanwege een "
 "verwijderingsverzoek verborgen."
 
 #: ../root/event/EventArt.js:75 ../root/release/CoverArt.js:71
@@ -10447,71 +10300,48 @@ msgid "All sizes:"
 msgstr "Alle groottes:"
 
 #: ../root/event/EventArt.js:100
-#, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {eaa|Event Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr ""
-"Deze afbeeldingen worden geleverd door het {caa|Cover Art Archive}. Je kan "
+"Deze afbeeldingen worden geleverd door het {eaa|Event Art Archive}. Je kan "
 "ze ook bekijken bij het {ia|Internet Archive}."
 
 #: ../root/event/EventArt.js:112
-#, fuzzy
-#| msgid "We do not currently have any cover art for {release}."
 msgid "We do not currently have any event art for {event}."
-msgstr "We hebben momenteel geen afbeelding van {release}."
+msgstr "We hebben momenteel geen afbeelding van {event}."
 
 #: ../root/event/EventArt.js:122
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add event"
 msgctxt "plural, interactive"
 msgid "Add event art"
-msgstr "Evenement toevoegen"
+msgstr "Evenementafbeeldingen toevoegen"
 
 #: ../root/event/EventArt.js:128
-#, fuzzy
-#| msgctxt "plural, interactive"
-#| msgid "Reorder cover art"
 msgctxt "plural, interactive"
 msgid "Reorder event art"
 msgstr "Volgorde veranderen"
 
 #: ../root/event/EventArt.js:137 ../root/release/CoverArt.js:148
-#, fuzzy
-#| msgctxt "plural, interactive"
-#| msgid "Log in to upload cover art"
 msgctxt "plural, interactive"
 msgid "Log in to upload images"
 msgstr "Meld je aan om afbeeldingen toe te voegen"
 
 #: ../root/event/EventArtDarkened.js:19
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Cannot add cover art"
 msgctxt "plural"
 msgid "Cannot add event art"
 msgstr "Kan geen afbeelding toevoegen"
 
 #: ../root/event/EventArtFields.js:21
-#, fuzzy
-#| msgid "Choose one or more cover art types for this image"
 msgid "Choose one or more event art types for this image"
 msgstr "Kies één of meer types voor deze afbeelding"
 
 #: ../root/event/EventArtFields.js:23
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Event Art Types} documentation for "
 "their descriptions."
 msgstr ""
-"Lees de {doc|documentatie over afbeeldingstypes} voor een beschrijving."
+"Selecteer alle relevante types. Lees de {doc|documentatie over "
+"afbeeldingstypes} voor een beschrijving."
 
 #: ../root/event/EventMerge.js:21 ../root/event/EventMerge.js:23
 msgid "Merge events"
@@ -10526,22 +10356,14 @@ msgstr ""
 "evenement waarnaar je de andere wil samenvoegen:"
 
 #: ../root/event/RemoveEventArt.js:29
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove event"
 msgctxt "singular, header"
 msgid "Remove event art"
-msgstr "Evenement verwijderen"
+msgstr "Evenementafbeelding verwijderen"
 
 #: ../root/event/RemoveEventArt.js:36 ../root/release/RemoveCoverArt.js:31
-#, fuzzy
-#| msgid ""
-#| "Are you sure you wish to remove the below cover art from {release} by "
-#| "{artist}?"
 msgid "Are you sure you wish to remove the image below from {entity}?"
 msgstr ""
-"Weet je zeker dat je de onderstaande afbeelding van {release} van {artist} "
-"wil verwijderen?"
+"Weet je zeker dat je de onderstaande afbeelding van {entity} wil verwijderen?"
 
 #: ../root/futureColumnLabels.js:24
 msgid "ISO 639-1"
@@ -10726,8 +10548,6 @@ msgid "Social contract"
 msgstr "Sociaal contract"
 
 #: ../root/layout/components/BottomMenu.js:131
-#, fuzzy
-#| msgid "Code of conduct"
 msgid "Code of Conduct"
 msgstr "Gedragscode"
 
@@ -10741,7 +10561,7 @@ msgstr "Naleven van de AVG"
 
 #: ../root/layout/components/BottomMenu.js:141
 msgid "Copyright and DMCA compliance"
-msgstr ""
+msgstr "Auteursrecht en naleven van de DMCA"
 
 #: ../root/layout/components/BottomMenu.js:145
 msgid "Data removal policy"
@@ -11071,10 +10891,8 @@ msgid "You have no event collections!"
 msgstr "Je hebt geen collecties met evenementen!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:22
-#, fuzzy
-#| msgid "You have no series collections!"
 msgid "You have no genre collections!"
-msgstr "Je hebt geen collecties met series!"
+msgstr "Je hebt geen collecties met genres!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:23
 msgid "You have no instrument collections!"
@@ -11170,19 +10988,12 @@ msgstr "Meld je aan om te bewerken"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:52
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:88
-#, fuzzy
-#| msgid ""
-#| "Front cover image failed to load correctly.<br/>{all|View all artwork}."
 msgid "Image failed to load correctly.<br/>{all|View all images}."
-msgstr ""
-"De afbeelding van de voorkant is niet goed geladen.<br/>{all|Bekijk alle "
-"afbeeldingen}."
+msgstr "De afbeelding is niet goed geladen.<br/>{all|Bekijk alle afbeeldingen}."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:64
-#, fuzzy
-#| msgid "No cover art available."
 msgid "No poster available."
-msgstr "Geen afbeelding beschikbaar."
+msgstr "Geen poster beschikbaar."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:67
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:103
@@ -11191,10 +11002,8 @@ msgstr "Bekijk alle afbeeldingen"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:70
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:106
-#, fuzzy
-#| msgid "No front cover image available."
 msgid "No images available."
-msgstr "Geen afbeelding van de voorkant beschikbaar."
+msgstr "Geen afbeeldingen beschikbaar."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:82
 msgid "Event information"
@@ -11303,8 +11112,6 @@ msgstr "Informatie over de serie"
 
 #: ../root/layout/components/sidebar/SidebarEndDate.js:28
 #: ../root/static/scripts/common/utility/formatEndDate.js:18
-#, fuzzy
-#| msgid "[unknown]"
 msgctxt "date"
 msgid "[unknown]"
 msgstr "[onbekend]"
@@ -11442,17 +11249,12 @@ msgstr ""
 "MusicBrainz kan bewerken."
 
 #: ../root/main/error/Error401.js:39 ../root/user/Login.js:83
-#, fuzzy
-#| msgid ""
-#| "If you think this is a mistake, please contact <code>support@musicbrainz."
-#| "org</code> with the name of your account."
 msgid ""
 "If you think this is a mistake, please {contact|contact us} with the name of "
 "your account."
 msgstr ""
-"Neem, als je denkt dat dit een fout is, contact met "
-"<code>support@musicbrainz.org</code> op onder vermelding van je "
-"gebruikersnaam."
+"{contact|Neem contact met ons op} en vermeld je gebruikersnaam als je denkt "
+"dat dit een fout is."
 
 #: ../root/main/error/Error403.js:21 ../root/main/error/MirrorError403.js:14
 msgid "Forbidden request"
@@ -11575,7 +11377,7 @@ msgstr "Het helpt misschien om de pagina te herladen."
 
 #: ../root/main/error/components/ErrorEnvironment.js:19
 msgid "Date and time"
-msgstr ""
+msgstr "Datum en tijdstip"
 
 #: ../root/main/error/components/ErrorEnvironment.js:26
 msgid "Host:"
@@ -11735,16 +11537,12 @@ msgstr ""
 "met MusicBrainz overwegkunnen."
 
 #: ../root/main/index.js:250
-#, fuzzy
-#| msgid "How to add releases"
 msgid "Recently added releases"
-msgstr "Je eerste uitgave toevoegen"
+msgstr "Recent toegevoegde uitgaven"
 
 #: ../root/main/index.js:265
-#, fuzzy
-#| msgid "Release events"
 msgid "Recently added events"
-msgstr "Uitgavegebeurtenissen"
+msgstr "Recent toegevoegde evenementen"
 
 #: ../root/mbid/NotFound.js:15
 msgid "MBID not found"
@@ -12012,16 +11810,12 @@ msgid "Possible values"
 msgstr "Mogelijke waarden"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:154
-#, fuzzy
-#| msgid ""
-#| "The possible values for this relationship can be seen from the "
-#| "{instrument_list|instrument list}."
 msgid ""
 "The possible values for this attribute can be seen from the {instrument_list|"
 "instrument list}."
 msgstr ""
-"Je kan de mogelijke waarden voor deze relatie vinden in de {instrument_list|"
-"instrumentenlijst}."
+"Je kan de mogelijke waarden voor deze eigenschap vinden in de "
+"{instrument_list|instrumentenlijst}."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:175
 msgid "Relationship usage"
@@ -12040,8 +11834,6 @@ msgid "This attribute isn’t directly being used by any relationship types."
 msgstr "Deze eigenschap wordt niet rechtstreeks door een relatietype gebruikt."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:32
-#, fuzzy
-#| msgid "none"
 msgctxt "relationship attribute description"
 msgid "none"
 msgstr "geen"
@@ -12164,10 +11956,6 @@ msgid "Cannot show cover art"
 msgstr "De afbeelding kan niet worden getoond"
 
 #: ../root/release/CoverArt.js:96
-#, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
@@ -12184,6 +11972,9 @@ msgid ""
 "Keep in mind pseudo-releases generally shouldn’t have cover art. See {doc|"
 "the guidelines for pseudo-releases} for more info."
 msgstr ""
+"Houd er rekening mee dat pseudo-uitgaven meestal geen hoesafbeeldingen "
+"moeten hebben. Zie {doc|de richtlijnen voor pseudo-uitgaven} voor meer "
+"informatie."
 
 #: ../root/release/CoverArt.js:133
 msgctxt "plural, interactive"
@@ -12205,15 +11996,12 @@ msgid "Choose one or more cover art types for this image"
 msgstr "Kies één of meer types voor deze afbeelding"
 
 #: ../root/release/CoverArtFields.js:23
-#, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "their descriptions."
 msgstr ""
-"Lees de {doc|documentatie over afbeeldingstypes} voor een beschrijving."
+"Selecteer alle relevante types. Lees de {doc|documentatie over types "
+"hoesafbeeldingen} voor beschrijvingen."
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 msgctxt "header"
@@ -12407,13 +12195,6 @@ msgid "Artists with disambiguation the same as the name"
 msgstr "Artiesten met een verduidelijking die gelijk is aan de naam"
 
 #: ../root/report/ArtistsThatMayBeGroups.js:25
-#, fuzzy
-#| msgid ""
-#| "This report lists artists that have their type set to other than Group "
-#| "(or a subtype of Group) but may be a group, because they have other "
-#| "artists listed as members. If you find that an artist here is indeed a "
-#| "group, change its type. If it is not, please make sure that the “member "
-#| "of” relationships are in the right direction and are correct."
 msgid ""
 "This report lists artists that have their type set to other than Group (or a "
 "subtype of Group) but may be a group, because they have other artists listed "
@@ -12427,10 +12208,13 @@ msgid ""
 msgstr ""
 "In dit rapport staan artiesten die op MusicBrainz niet als groep (of een "
 "subtype van groep) bekend zijn, maar dat misschien wel zouden moeten zijn, "
-"omdat andere artiesten als leden staan vermeld. Als een artiest inderdaad "
-"een groep zou moeten zijn, kan je het type artiest veranderen. Als een "
-"artiest toch geen groep is, kan je controleren of de ‘lid van’-relaties "
-"kloppen en de goede richting op wijzen."
+"omdat andere artiesten als leden staan vermeld of de artiest relaties heeft "
+"die meestal alleen voor groepen zijn bedoeld (in beide richtingen, zoals "
+"subgroep of hernoemd, of in één richting, zoals artistiek directeur, "
+"dirigent of huiscomponist). Als een artiest inderdaad een groep zou moeten "
+"zijn, kan je het type artiest veranderen. Als een artiest toch geen groep "
+"is, kan je controleren of de alle relaties kloppen en de goede richting op "
+"wijzen."
 
 #: ../root/report/ArtistsThatMayBeGroups.js:39
 #: ../root/report/ReportsIndex.js:52
@@ -12535,12 +12319,6 @@ msgid "Bad Amazon URLs"
 msgstr "Slechte Amazon-URL’s"
 
 #: ../root/report/BootlegsOnNonBootlegLabels.js:25
-#, fuzzy
-#| msgid ""
-#| "This report shows releases that have at least one “Bootleg Production” "
-#| "label in their labels list, but are not set to status “Bootleg”. These "
-#| "labels pretty much never release non-bootleg releases, so chances are "
-#| "that either the label or the status are wrong."
 msgid ""
 "This report shows releases that are set to status “Bootleg”, but have at "
 "least one label in their labels list which is not “[no label]” nor has the "
@@ -12548,17 +12326,16 @@ msgid ""
 "bootleg releases, so chances are that either the label or the status is "
 "wrong."
 msgstr ""
-"In dit rapport staan uitgaven met minstens één in bootlegs gespecialiseerde "
-"platenmaatschappij die niet de status bootleg hebben. Omdat deze "
-"platenmaatschappijen zelden officiële uitgaven uitbrengen, is de kans groot "
-"dat de platenmaatschappij of de status niet klopt."
+"In dit rapport staan uitgaven met de status ‘bootleg’, maar die ten minste "
+"één platenmaatschappij hebben die niet ‘[geen platenmaatschappij]’ is of van "
+"het type ‘Onofficiële (bootleg)productie’ is. Omdat andere soorten "
+"platenmaatschappijen zelden bootlegs uitgeven, klopt de platenmaatschappij "
+"of de status waarschijnlijk niet."
 
 #: ../root/report/BootlegsOnNonBootlegLabels.js:34
 #: ../root/report/ReportsIndex.js:459
-#, fuzzy
-#| msgid "Releases on bootleg labels not set to bootleg"
 msgid "Releases on non-bootleg labels set to bootleg"
-msgstr "Niet-bootleguitgaven met bootlegplatenmaatschappijen"
+msgstr "Uitgaven met de status bootleg op niet-bootlegplatenmaatschappijen"
 
 #: ../root/report/CDTocDubiousLength.js:25
 msgid ""
@@ -12884,8 +12661,6 @@ msgstr "alias:"
 #: ../root/report/components/ArtistList.js:51
 #: ../root/report/components/ReleaseGroupList.js:56
 #: ../root/report/components/WorkList.js:56
-#, fuzzy
-#| msgid "Unknown"
 msgctxt "type"
 msgid "Unknown"
 msgstr "Onbekend"
@@ -13333,12 +13108,6 @@ msgid "Releases without script"
 msgstr "Uitgaven zonder schrift"
 
 #: ../root/report/NonBootlegsOnBootlegLabels.js:25
-#, fuzzy
-#| msgid ""
-#| "This report shows releases that have at least one “Bootleg Production” "
-#| "label in their labels list, but are not set to status “Bootleg”. These "
-#| "labels pretty much never release non-bootleg releases, so chances are "
-#| "that either the label or the status are wrong."
 msgid ""
 "This report shows releases that have at least one “Bootleg Production” label "
 "in their labels list, but are not set to status “Bootleg”. These labels "
@@ -13787,14 +13556,6 @@ msgid "Releases with unlikely language/script pairs"
 msgstr "Uitgaven met een onwaarschijnlijke combinatie van taal en schrift"
 
 #: ../root/report/ReleasesWithoutCaa.js:25
-#, fuzzy
-#| msgid ""
-#| "This report shows releases that have no cover art in the Cover Art "
-#| "Archive. Given that most releases have some form of cover art, the vast "
-#| "majority of releases in this report should have artwork {caa_how_to|"
-#| "uploaded to the Cover Art Archive}. Note that the cover art uploaded for "
-#| "a release must always exactly match the actual art for that specific "
-#| "release (for example, they should have the same barcode, format, etc.)."
 msgid ""
 "This report shows releases that have no cover art in the Cover Art Archive. "
 "Given that most releases have some form of cover art, the vast majority of "
@@ -13809,7 +13570,8 @@ msgstr ""
 "meeste uitgaven in dit rapport afbeeldingen {caa_how_to|naar het Cover Art "
 "Archive worden geüpload}. Het moeten wel afbeeldingen zijn van precies "
 "dezelfde uitgave: dingen als de streepjescode en de hoogte-breedteverhouding "
-"moeten identiek zijn."
+"moeten identiek zijn. In dit rapport staan geen pseudo-uitgaven, want die "
+"moeten eigenlijk geen afbeeldingen hebben."
 
 #: ../root/report/ReleasesWithoutCaa.js:38
 msgid ""
@@ -13993,10 +13755,8 @@ msgstr "Video-opnamen op media zonder video’s"
 
 #: ../root/report/ReportsIndex.js:544
 #: ../root/report/VideoRelationshipsOnNonVideos.js:52
-#, fuzzy
-#| msgid "Recordings with deprecated relationships"
 msgid "Non-video recordings with video relationships"
-msgstr "Opnamen met verouderde relaties"
+msgstr "Opnamen die geen video’s zijn maar wel videorelaties hebben"
 
 #: ../root/report/ReportsIndex.js:557
 msgid "Places with annotations"
@@ -14190,6 +13950,10 @@ msgid ""
 "marked as video, or the relationships should be moved to a related video "
 "recording."
 msgstr ""
+"In dit rapport staan opnamen die niet als video zijn aangemerkt, maar die "
+"wel relaties hebben die alleen voor video’s zijn bedoeld "
+"({relationship_list}). Ze moeten of als video worden aangemerkt, of de "
+"relatie moet worden verplaatst naar een relevante video-opname."
 
 #: ../root/report/VideosInNonVideoMediums.js:25
 msgid ""
@@ -14200,15 +13964,6 @@ msgstr ""
 "minstens één medium dat geen video ondersteunt."
 
 #: ../root/report/VideosInNonVideoMediums.js:30
-#, fuzzy
-#| msgid ""
-#| "There are two main possibilities here: either the recording being marked "
-#| "as a video is correct, but the format is not (a CD should be a VCD, for "
-#| "example), or the recording is being used for both a video and and audio-"
-#| "only recording, in which case the two should be split since video "
-#| "recordings should always be separate. If you split the recordings, "
-#| "consider whether it makes sense to link them with a {doc_link|music video "
-#| "relationship}."
 msgid ""
 "There are two main possibilities here: either the recording being marked as "
 "a video is correct, but the format is not (a CD should be a VCD, for "
@@ -14222,8 +13977,8 @@ msgstr ""
 "wordt één opname gebruikt voor wat eigenlijk een afzonderlijke audio- en "
 "video-opname zouden moeten zijn. In dat geval moet de opname worden "
 "gesplitst, want audio- en video-opnamen moeten altijd apart worden gehouden. "
-"Als je haar splitst, moeten de audio- en video-opnamen waarschijnlijk me de "
-"{doc_link|videocliprelatie} worden gekoppeld."
+"Als je de opname splitst, moeten de audio- en video-opnamen waarschijnlijk "
+"me de {doc_link|videocliprelatie} worden gekoppeld."
 
 #: ../root/report/WikidataLinksWithMultipleEntities.js:40
 msgid ""
@@ -15035,11 +14790,8 @@ msgstr "Een compositie zoeken"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:87
 #: ../root/static/scripts/common/components/EntityLink.js:76
-#, fuzzy
-#| msgctxt "folksonomy"
-#| msgid "Primary tag"
 msgid "Primary alias"
-msgstr "Primaire tag"
+msgstr "Primaire alias"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:336
 msgid "{forward_link_phrase} / {backward_link_phrase}"
@@ -15084,8 +14836,6 @@ msgid "Many relationships"
 msgstr "Veel relaties"
 
 #: ../root/static/scripts/common/components/Cardinality.js:22
-#, fuzzy
-#| msgid "Unknown"
 msgctxt "cardinality"
 msgid "Unknown"
 msgstr "Onbekend"
@@ -15127,10 +14877,8 @@ msgstr ""
 "schadelijk is."
 
 #: ../root/static/scripts/common/components/EntityLink.js:343
-#, fuzzy
-#| msgid "This release has artwork in the Cover Art Archive"
 msgid "This event has artwork in the Event Art Archive"
-msgstr "Deze uitgave heeft afbeeldingen in het Cover Art Archive"
+msgstr "Dit evenement heeft afbeeldingen in het Event Art Archive"
 
 #: ../root/static/scripts/common/components/EntityLink.js:368
 msgid "This release has artwork in the Cover Art Archive"
@@ -15186,11 +14934,11 @@ msgstr "De speellijst bevat"
 
 #: ../root/static/scripts/common/components/FilterForm.js:227
 msgid "Hide recordings that only appear on bootleg releases"
-msgstr ""
+msgstr "Verberg opnamen die alleen op bootlegs staan"
 
 #: ../root/static/scripts/common/components/FilterForm.js:230
 msgid "Hide bootleg-only"
-msgstr ""
+msgstr "Verberg alleen-bootlegopnamen"
 
 #: ../root/static/scripts/common/components/FilterForm.js:328
 msgid "Secondary type"
@@ -15241,8 +14989,6 @@ msgid "{medium} on {release}"
 msgstr "{medium} op {release}"
 
 #: ../root/static/scripts/common/components/OrderableDirection.js:16
-#, fuzzy
-#| msgid "None"
 msgctxt "relationship order direction"
 msgid "None"
 msgstr "Geen"
@@ -15482,18 +15228,14 @@ msgstr "Alle nummers laden"
 
 #: ../root/static/scripts/common/i18n/addQuotes.js:13
 #: ../root/static/scripts/common/i18n/addQuotes.js:17
-#, fuzzy
-#| msgid "{variable}:"
 msgid "“{variable}”"
-msgstr "{variable}:"
+msgstr "“{variable}”"
 
 #: ../root/static/scripts/common/i18n/hyphenateTitle.js:14
 msgid "{title} - {subtitle}"
 msgstr "{title} – {subtitle}"
 
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:15
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "language"
 msgid "[removed]"
 msgstr "[verwijderd]"
@@ -15660,17 +15402,12 @@ msgstr ""
 "Je kan boeken wel aan {bookbrainz_url|BookBrainz} toevoegen."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1113
-#, fuzzy
-#| msgid ""
-#| "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
-#| "Link to the appropriate WhoSampled artist, track or album page instead."
 msgid ""
 "Please do not add “{blocked_url_pattern}” links, link to the appropriate "
 "“{wanted_url_pattern}” page instead."
 msgstr ""
-"Je kan geen links naar WhoSampled-pagina’s met de vorm "
-"“{unwanted_url_pattern}” toevoegen. Gebruik in plaats daarvan de WhoSampled-"
-"pagina’s voor artiesten, nummers of uitgaven."
+"Voeg geen link naar “{blocked_url_pattern}” toe; gebruik de relevante pagina "
+"in de vorm “{wanted_url_pattern}”."
 
 #: ../root/static/scripts/edit/URLCleanup.js:1133
 msgid ""
@@ -15800,15 +15537,11 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:5449
 msgid "Please link to Threads profiles, not threads."
-msgstr "Link naar Threads-profielen, niet naar Threads zelf."
+msgstr "Link naar Threads-profielen, niet naar draadjes op Threads."
 
 #: ../root/static/scripts/edit/URLCleanup.js:5572
-#, fuzzy
-#| msgid "Please link to Twitter profiles, not tweets."
 msgid "Please link to TikTok profiles, not videos."
-msgstr ""
-"Voeg alleen links naar Twitter-profielen toe, en niet naar afzonderlijke "
-"berichten."
+msgstr "Link naar TikTok-profielen, niet naar video’s."
 
 #: ../root/static/scripts/edit/URLCleanup.js:5830
 msgid "This is not a profile, but a Twitter documentation page."
@@ -16012,17 +15745,14 @@ msgid "Paste credits"
 msgstr "Artiestvermeldingen plakken"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:92
-#, fuzzy
-#| msgid ""
-#| "Use the following fields to enter collaborations. See the {ac|Artist "
-#| "Credit} documentation for more information."
 msgid ""
 "Use the following fields to enter artist name variations and multiple artist "
 "collaborations. See the {ac|Artist Credit} documentation for more "
 "information."
 msgstr ""
-"Gebruik de volgende velden om samenwerkingen toe te voegen. Zie de "
-"documentatie over {ac|artiestvermeldingen} voor meer informatie."
+"Gebruik de volgende velden om variaties van de artiestennaam samenwerkingen "
+"toe te voegen. Zie de documentatie over {ac|artiestvermeldingen} voor meer "
+"informatie."
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:129
 msgid "[missing track name]"
@@ -16062,19 +15792,14 @@ msgid "Change all artists on this release that are currently empty"
 msgstr "Verander alle artiesten op deze uitgave die nu leeg zijn"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:139
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "artist credit name"
 msgid "[removed]"
 msgstr "[verwijderd]"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:176
-#, fuzzy
-#| msgctxt "interactive"
-#| msgid "Add artist credit"
 msgctxt "interactive"
 msgid "Undo artist credit removal"
-msgstr "Artiestvermelding toevoegen"
+msgstr "Verwijderen van artiestvermelding ongedaan maken"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:183
 msgctxt "interactive"
@@ -16120,8 +15845,6 @@ msgid "Edit attributes"
 msgstr "Eigenschappen bewerken"
 
 #: ../root/static/scripts/edit/components/Multiselect.js:197
-#, fuzzy
-#| msgid "[removed]"
 msgctxt "generic row"
 msgid "[removed]"
 msgstr "[verwijderd]"
@@ -16401,8 +16124,6 @@ msgid "Remove relationship"
 msgstr "Relatie verwijderen"
 
 #: ../root/static/scripts/edit/externalLinks.js:1335
-#, fuzzy
-#| msgid "credited as “{credit}”"
 msgctxt "relationship credit"
 msgid "credited as “{credit}”"
 msgstr "vermeld als “{credit}”"
@@ -16446,33 +16167,26 @@ msgstr ""
 "kunnen artiesten en composities worden gekoppeld."
 
 #: ../root/static/scripts/event/components/EventEditForm.js:258
-#, fuzzy
-#| msgid ""
-#| "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using "
-#| "the HTML entities \"&lsqb;\", \"&rsqb;\", and \"&amp;\" respectively."
 msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
 "HTML entities \"<code>&amp;lsqb;</code>\", \"<code>&amp;rsqb;</code>\", and "
 "\"<code>&amp;amp;</code>\" respectively."
 msgstr ""
-"Als je de tekens ‘[’, ‘]’ en ‘&’ nodig hebt, kun je de html-codes ‘&lsqb’, "
-"‘&rsqb’ en ‘&amp;’ gebruiken."
+"Als je de tekens ‘[’, ‘]’ en ‘&’ nodig hebt, kun je de html-codes "
+"‘<code>&amp;lsqb;</code>’, ‘<code>&amp;rsqb;</code>’ en "
+"‘<code>&amp;amp;</code>’ gebruiken."
 
 #: ../root/static/scripts/event/components/EventEditForm.js:274
 msgid "HH:MM"
 msgstr "UU:MM"
 
 #: ../root/static/scripts/event/components/EventEditForm.js:310
-#, fuzzy
-#| msgid ""
-#| "Select any type from the list to see its description. If the work doesn’t "
-#| "seem to match any type, just leave this blank."
 msgid ""
 "Select any type from the list to see its description. If no type seems to "
 "fit, just leave this blank."
 msgstr ""
 "Selecteer een type uit deze lijst om een omschrijving te zien. Als er geen "
-"passend type voor deze compositie tussen zit, kan je het type leeg laten."
+"passend type tussen zit, kan je het type leeg laten."
 
 #: ../root/static/scripts/guess-case/modes.js:313
 msgid ""
@@ -16599,11 +16313,9 @@ msgstr ""
 "te behouden."
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:39
-#, fuzzy
-#| msgid "Order"
 msgctxt "noun"
 msgid "Order"
-msgstr "Volgorde"
+msgstr "Bestelling"
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:51
 msgid ""
@@ -16875,10 +16587,8 @@ msgstr ""
 "MusicBrainz. Let op dat je geen duplicaat van een van deze uitgaven toevoegt:"
 
 #: ../root/static/scripts/release-editor/validation.js:178
-#, fuzzy
-#| msgid "The check digit is {checkdigit}."
 msgid "The check digit would be {checkdigit}."
-msgstr "Het controlegetal is {checkdigit}."
+msgstr "Het controlegetal zou {checkdigit} moeten zijn."
 
 #: ../root/static/scripts/release-editor/validation.js:179
 msgid "Please double-check the barcode on the release."
@@ -16920,10 +16630,8 @@ msgstr ""
 "code waarvan het controlegetal ontbreekt."
 
 #: ../root/static/scripts/release-editor/validation.js:235
-#, fuzzy
-#| msgid "The barcode you entered is a valid EAN code."
 msgid "The barcode you entered is a valid GTIN code."
-msgstr "De streepjescode die je hebt ingevoerd, is een geldige EAN-code."
+msgstr "De streepjescode die je hebt ingevoerd, is een geldige GTIN-code."
 
 #: ../root/static/scripts/release-editor/validation.js:242
 #: ../root/static/scripts/release-editor/validation.js:264
@@ -16934,25 +16642,23 @@ msgid ""
 "the annotation field below, and keep the main code “{main_digits}” only in "
 "the barcode field."
 msgstr ""
+"Ze eindigt echter wel in een aanvullingscode. Voeg deze code toe als "
+"“{annotation_text}” in het aantekeningveld hieronder en zet alleen de "
+"hoofdcode “{main_digits}” in het streepjescodeveld."
 
 #: ../root/static/scripts/release-editor/validation.js:253
-#, fuzzy
-#| msgid "The barcode you entered is not a valid EAN code."
 msgid "The barcode you entered is not a valid GTIN code."
-msgstr "De streepjescode die je hebt ingevoerd, is geen geldige EAN-code."
+msgstr "De streepjescode die je hebt ingevoerd, is geen geldige GTIN-code."
 
 #: ../root/static/scripts/release-editor/validation.js:297
-#, fuzzy
-#| msgid "The barcode you entered is a valid UPC code."
 msgid "The barcode you entered is not a valid UPC code."
-msgstr "De streepjescode die je hebt ingevoerd, is een geldige UPC."
+msgstr "De streepjescode die je hebt ingevoerd, is geen geldige UPC-code."
 
 #: ../root/static/scripts/release-editor/validation.js:326
-#, fuzzy
-#| msgid "The barcode you entered is not a valid UPC or EAN code."
 msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
 msgstr ""
-"De streepjescode die je hebt ingevoerd, is geen geldige UPC of EAN-code."
+"De streepjescode die je hebt ingevoerd, is geen geldige UPC, EAN of GTIN-"
+"code."
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:229
 msgid ""
@@ -17663,10 +17369,8 @@ msgid "Event collections"
 msgstr "Collecties met evenementen"
 
 #: ../root/user/UserCollections.js:40
-#, fuzzy
-#| msgid "Merge collections"
 msgid "Genre collections"
-msgstr "Collecties samenvoegen"
+msgstr "Collecties met genres"
 
 #: ../root/user/UserCollections.js:41
 msgid "Instrument collections"
@@ -18375,18 +18079,6 @@ msgid "Destructive edits"
 msgstr "Destructieve bewerkingen"
 
 #: ../root/vote/VotingIndex.js:79
-#, fuzzy
-#| msgid ""
-#| "Destructive edits (removals and merges) are often very hard or even "
-#| "impossible to revert. As such, an incorrect destructive edit that applies "
-#| "unnoticed can cause quite a big mess! Most are guaranteed to remain open "
-#| "for at least two full days even if they get three “Yes” votes, to avoid "
-#| "them closing too quickly, but it’s always good to get more eyes on them. "
-#| "Below you can find four different searches: one for all destructive edits "
-#| "(which might be overwhelming sometimes), one for entity merges and "
-#| "removals only (the edits more likely to cause a mess if they incorrectly "
-#| "go through), one for relationship removals only, and one for destructive "
-#| "changes to releases (track, medium and release label removals)."
 msgid ""
 "Destructive edits (removals and merges) are often very hard or even "
 "impossible to revert. As such, an incorrect destructive edit that applies "
@@ -18406,22 +18098,22 @@ msgstr ""
 "die ongemerkt wordt doorgevoerd kan dus veel problemen veroorzaken! De "
 "meeste van deze bewerkingen blijven altijd minimaal 48 uur open, zelfs als "
 "er drie keer voor wordt gestemd. Toch is het altijd een goed idee als er zo "
-"veel mogelijk mensen naar kijken. Hieronder vind je vier zoekopdrachten: een "
+"veel mogelijk mensen naar kijken. Hieronder vind je vijf zoekopdrachten: een "
 "voor alle destructieve bewerkingen (dit kunnen er héél veel zijn), een met "
-"alleen het samenvoegen en verwijderen van objecten (bewerkingen die grote "
-"problemen kunnen veroorzaken als ze onjuist zijn), een voor het verwijderen "
-"van relaties en een voor destructieve veranderingen aan uitgaven (het "
-"verwijderen van nummers, media en platenmaatschappijen)."
+"alleen destructieve bewerkingen die geen bewerkingsnotities (dus geen enkele "
+"onderbouwing) hebben, een met alleen het samenvoegen en verwijderen van "
+"objecten (bewerkingen die grote problemen kunnen veroorzaken als ze onjuist "
+"zijn), een voor het verwijderen van relaties en een voor destructieve "
+"veranderingen aan uitgaven (het verwijderen van nummers, media en "
+"platenmaatschappijen)."
 
 #: ../root/vote/VotingIndex.js:98
 msgid "All open destructive edits"
 msgstr "Alle open destructieve bewerkingen"
 
 #: ../root/vote/VotingIndex.js:107
-#, fuzzy
-#| msgid "All open destructive edits by beginner editors"
 msgid "All open destructive edits without edit notes"
-msgstr "Alle open destructieve bewerkingen door beginnende redacteuren"
+msgstr "Alle open destructieve bewerkingen zonder bewerkingsnotities"
 
 #: ../root/vote/VotingIndex.js:117
 msgid "All open entity merges and removals"
@@ -18579,12 +18271,11 @@ msgstr ""
 "Alle bewerkingen door beginnende redacteuren in de afgelopen twee weken"
 
 #: ../root/vote/VotingIndex.js:304
-#, fuzzy
-#| msgid "All edits from beginner editors made less than 2 weeks ago"
 msgid ""
 "All edits from beginner editors without edit notes made less than 2 weeks ago"
 msgstr ""
-"Alle bewerkingen door beginnende redacteuren in de afgelopen twee weken"
+"Alle bewerkingen zonder bewerkingsnotities door beginnende redacteuren in de "
+"afgelopen twee weken"
 
 #: ../root/vote/VotingIndex.js:314
 msgid "All \"Add release/medium\" edits by beginner editors"
