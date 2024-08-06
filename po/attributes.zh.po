@@ -655,6 +655,14 @@ msgid ""
 "A quartet is a musical composition scored for four voices or instruments."
 msgstr "四重奏或四重唱指由四个人声或乐器声部组成的音乐作品。"
 
+#. name:ROM cartridge
+#: DB:medium_format/description:208
+msgctxt "medium_format"
+msgid ""
+"A read only memory cartridge or card, such as the ones used by early home "
+"computers and some video game systems."
+msgstr ""
+
 #. name:Festival
 #: DB:series_type/description:8
 msgctxt "series_type"
@@ -6684,6 +6692,14 @@ msgstr "Pūrṇacandrika"
 msgctxt "work_type"
 msgid "Quartet"
 msgstr "四重奏"
+
+#: DB:medium_format/name:208
+#, fuzzy
+#| msgctxt "medium_format"
+#| msgid "Cartridge"
+msgctxt "medium_format"
+msgid "ROM cartridge"
+msgstr "盒带"
 
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"

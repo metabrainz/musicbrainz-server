@@ -774,6 +774,14 @@ msgstr ""
 "Un quartette est une composition musicale arrangée pour quatre voix et "
 "instruments."
 
+#. name:ROM cartridge
+#: DB:medium_format/description:208
+msgctxt "medium_format"
+msgid ""
+"A read only memory cartridge or card, such as the ones used by early home "
+"computers and some video game systems."
+msgstr ""
+
 #. name:Festival
 #: DB:series_type/description:8
 msgctxt "series_type"
@@ -6927,6 +6935,14 @@ msgstr "Pûrnacandrika"
 msgctxt "work_type"
 msgid "Quartet"
 msgstr "Quatuor"
+
+#: DB:medium_format/name:208
+#, fuzzy
+#| msgctxt "medium_format"
+#| msgid "Cartridge"
+msgctxt "medium_format"
+msgid "ROM cartridge"
+msgstr "Cartouche"
 
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"

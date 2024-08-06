@@ -724,6 +724,14 @@ msgstr ""
 "Een kwartet is een compositie die voor vier stemmen of instrumenten wordt "
 "geschreven."
 
+#. name:ROM cartridge
+#: DB:medium_format/description:208
+msgctxt "medium_format"
+msgid ""
+"A read only memory cartridge or card, such as the ones used by early home "
+"computers and some video game systems."
+msgstr ""
+
 #. name:Festival
 #: DB:series_type/description:8
 msgctxt "series_type"
@@ -6861,6 +6869,14 @@ msgstr "Pūrṇacandrika"
 msgctxt "work_type"
 msgid "Quartet"
 msgstr "Kwartet"
+
+#: DB:medium_format/name:208
+#, fuzzy
+#| msgctxt "medium_format"
+#| msgid "Cartridge"
+msgctxt "medium_format"
+msgid "ROM cartridge"
+msgstr "4- of 8-sporencassette"
 
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"
