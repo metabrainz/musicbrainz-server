@@ -75,9 +75,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-31 23:43+0200\n"
-"PO-Revision-Date: 2024-04-17 17:31+0000\n"
-"Last-Translator: aerozol <aerozol@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2024-08-05 12:42+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
 "Language: de\n"
@@ -85,7 +84,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -3110,10 +3109,8 @@ msgstr "Typ"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 #: ../root/components/ArtFields.js:64
-#, fuzzy
-#| msgid "Types:"
 msgid "Types"
-msgstr "Typen:"
+msgstr "Typen"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
@@ -4055,10 +4052,8 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:93
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:214
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:436
-#, fuzzy
-#| msgid "The provided medium id is not valid"
 msgid "The provided medium ID is not valid."
-msgstr "Die angegebene Mediums-ID ist ungültig"
+msgstr "Die angegebene Medium-ID ist ungültig"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:99
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:227
@@ -5451,10 +5446,8 @@ msgstr "Kann nicht bearbeiten/abstimmen"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:294
 #: ../root/static/scripts/common/utility/privileges.js:164
-#, fuzzy
-#| msgid "Voting is closed."
 msgid "Voting disabled"
-msgstr "Abstimmung ist geschlossen."
+msgstr "Abstimmung ist deaktiviert"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
 #: ../root/static/scripts/common/utility/privileges.js:167
@@ -8569,12 +8562,12 @@ msgstr "Veranstaltungbewertungen"
 
 #: ../root/edit/components/EditArtwork.js:32
 #: ../root/edit/details/ReorderArt.js:32
-#, fuzzy
-#| msgid "We are unable to display history for this cover art."
 msgid ""
 "We are unable to display history for this image. See {artpage|all current "
 "images}."
-msgstr "Wir können für dieses Cover-Art keine Historie anzeigen."
+msgstr ""
+"Wir können für dieses Bild keine Historie anzeigen. Siehe {artpage|alle "
+"aktuellen Bilder}."
 
 #: ../root/edit/components/EditArtwork.js:36
 #: ../root/edit/details/ReorderArt.js:36
@@ -10353,14 +10346,8 @@ msgid "Remove event art"
 msgstr "Veranstaltung entfernen"
 
 #: ../root/event/RemoveEventArt.js:36 ../root/release/RemoveCoverArt.js:31
-#, fuzzy
-#| msgid ""
-#| "Are you sure you wish to remove the below cover art from {release} by "
-#| "{artist}?"
 msgid "Are you sure you wish to remove the image below from {entity}?"
-msgstr ""
-"Bist du sicher, dass du das Cover-Art unten von {release} von {artist} "
-"entfernen möchtest?"
+msgstr "Bist du sicher, dass du das Bild unten von {entity} entfernen möchtest?"
 
 #: ../root/futureColumnLabels.js:24
 msgid "ISO 639-1"
@@ -10882,10 +10869,8 @@ msgid "You have no event collections!"
 msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:22
-#, fuzzy
-#| msgid "You have no collections."
 msgid "You have no genre collections!"
-msgstr "Du hast keine Sammlungen."
+msgstr "Du hast keine Genre-Sammlungen!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:23
 msgid "You have no instrument collections!"
@@ -11245,16 +11230,12 @@ msgstr ""
 "zuerst {url|deine E-Mail-Adresse hinzufügen und bestätigen}."
 
 #: ../root/main/error/Error401.js:39 ../root/user/Login.js:83
-#, fuzzy
-#| msgid ""
-#| "If you think this is a mistake, please contact <code>support@musicbrainz."
-#| "org</code> with the name of your account."
 msgid ""
 "If you think this is a mistake, please {contact|contact us} with the name of "
 "your account."
 msgstr ""
-"Wenn du denkst, dass dies ein Fehler ist, kontaktiere bitte "
-"<code>support@musicbrainz.org</code> und gib deinen Kontonamen an."
+"Wenn du denkst, dass dies ein Fehler ist, kontaktiere bitte {contact|"
+"kontaktiere uns} und gib deinen Kontonamen an."
 
 #: ../root/main/error/Error403.js:21 ../root/main/error/MirrorError403.js:14
 msgid "Forbidden request"
@@ -14984,10 +14965,8 @@ msgstr ""
 
 #: ../root/static/scripts/common/i18n/addQuotes.js:13
 #: ../root/static/scripts/common/i18n/addQuotes.js:17
-#, fuzzy
-#| msgid "{variable}:"
 msgid "“{variable}”"
-msgstr "{variable}:"
+msgstr "„{variable}“"
 
 #: ../root/static/scripts/common/i18n/hyphenateTitle.js:14
 msgid "{title} - {subtitle}"
