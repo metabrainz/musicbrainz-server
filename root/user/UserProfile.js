@@ -875,6 +875,24 @@ component UserProfile(
   if (adminViewing && isUntrusted(user)) {
     restrictions.push(l_admin('Untrusted'));
   }
+  const searchEditNotesURL = $c.user == null
+    ? ''
+    : '/search/edits' +
+      '?conditions.0.field=editor' +
+      `&conditions.0.args.0=${user.id}` +
+      `&conditions.0.name=${encodedName}` +
+      '&conditions.0.operator=%3D' +
+      '&conditions.1.field=edit_note_author' +
+      '&conditions.1.args.0=' +
+      (viewingOwnProfile ? '' : $c.user.id) +
+      '&conditions.1.name=' +
+      (viewingOwnProfile ? '' : encodeURIComponent($c.user.name)) +
+      '&conditions.1.operator=' +
+      (viewingOwnProfile ? 'not_edit_author' : '%3D') +
+      '&combinator=and' +
+      '&order=desc' +
+      '&negation=0' +
+      '&auto_edit_filter=';
 
   return (
     <UserAccountLayout
@@ -936,12 +954,22 @@ component UserProfile(
             votes={votes}
           />
 
-          {$c.user && !viewingOwnProfile && !user.deleted ? (
-            <h2 style={{clear: 'both'}}>
-              <a href={`/user/${encodedName}/report`}>
-                {l('Report this user for bad behavior')}
+          {$c.user && !user.deleted ? (
+            <div className="buttons clear-both" style={{display: 'block'}}>
+              {viewingOwnProfile ? null : (
+                <a
+                  className="styled-button negative"
+                  href={`/user/${encodedName}/report`}
+                >
+                  {l('Report this user for bad behavior')}
+                </a>
+              )}
+              <a className="styled-button" href={searchEditNotesURL}>
+                {viewingOwnProfile
+                  ? l('View other users’ notes on your edits')
+                  : l('View your notes on this user’s edits')}
               </a>
-            </h2>
+            </div>
           ) : null}
         </>
       )}
