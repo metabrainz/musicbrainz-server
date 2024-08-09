@@ -4950,6 +4950,7 @@ limited_link_type_combinations: [
                      input_url: 'https://www.qobuz.com/gb-en/interpreter/nitepunk/3241976',
              input_entity_type: 'artist',
             expected_clean_url: 'https://www.qobuz.com/gb-en/interpreter/nitepunk/3241976',
+    expected_relationship_type: 'streamingpaid',
 limited_link_type_combinations: [
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
@@ -4961,6 +4962,7 @@ limited_link_type_combinations: [
                      input_url: 'https://www.qobuz.com/fr-fr/label/ecm/download-streaming-albums/92473',
              input_entity_type: 'label',
             expected_clean_url: 'https://www.qobuz.com/fr-fr/label/ecm/download-streaming-albums/92473',
+    expected_relationship_type: 'streamingpaid',
 limited_link_type_combinations: [
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
@@ -4972,6 +4974,7 @@ limited_link_type_combinations: [
                      input_url: 'https://www.qobuz.com/es-es/album/the-koln-concert-live-at-the-opera-koln-1975-keith-jarrett/0060254707654',
              input_entity_type: 'release',
             expected_clean_url: 'https://www.qobuz.com/es-es/album/the-koln-concert-live-at-the-opera-koln-1975-keith-jarrett/0060254707654',
+    expected_relationship_type: 'streamingpaid',
 limited_link_type_combinations: [
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
