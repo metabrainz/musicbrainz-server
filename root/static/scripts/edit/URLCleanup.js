@@ -4662,6 +4662,7 @@ const CLEANUPS: CleanupEntries = {
   'qobuz': {
     match: [/^(https?:\/\/)?(www\.)?qobuz\.com\//i],
     restrict: [
+      LINK_TYPES.downloadpurchase,
       LINK_TYPES.streamingpaid,
       multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
     ],

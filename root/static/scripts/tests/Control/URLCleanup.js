@@ -4952,6 +4952,7 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.qobuz.com/gb-en/interpreter/nitepunk/3241976',
     expected_relationship_type: 'streamingpaid',
 limited_link_type_combinations: [
+                                  'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
@@ -4964,10 +4965,11 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.qobuz.com/fr-fr/label/ecm/download-streaming-albums/92473',
     expected_relationship_type: 'streamingpaid',
 limited_link_type_combinations: [
+                                  'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
-       input_relationship_type: 'streamingpaid',
+       input_relationship_type: ['downloadpurchase', 'streamingpaid'],
        only_valid_entity_types: ['label'],
   },
   {
@@ -4976,10 +4978,11 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.qobuz.com/es-es/album/the-koln-concert-live-at-the-opera-koln-1975-keith-jarrett/0060254707654',
     expected_relationship_type: 'streamingpaid',
 limited_link_type_combinations: [
+                                  'downloadpurchase',
                                   'streamingpaid',
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
-       input_relationship_type: 'streamingpaid',
+       input_relationship_type: 'downloadpurchase',
        only_valid_entity_types: ['release'],
   },
   // Rock.com.ar
