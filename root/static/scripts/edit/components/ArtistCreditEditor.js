@@ -145,6 +145,24 @@ function addEmptyCredit(stateCtx: CowContext<StateT>) {
   setAutoJoinPhrases(namesCtx);
 }
 
+function swapCredits(
+  stateCtx: CowContext<StateT>,
+  i: number,
+  j: number,
+) {
+  const tmpName = stateCtx.read().names[i];
+  stateCtx.set('names', i, stateCtx.read().names[j]);
+  stateCtx.set('names', j, tmpName);
+
+  // Preserve join phrase positions if neither credit is removed.
+  const names = stateCtx.read().names;
+  if (!names[i].removed && !names[j].removed) {
+    const tmpJoinPhrase = names[i].joinPhrase;
+    stateCtx.set('names', i, 'joinPhrase', names[j].joinPhrase);
+    stateCtx.set('names', j, 'joinPhrase', tmpJoinPhrase);
+  }
+}
+
 export function closeDialog(
   stateCtx: CowContext<StateT>,
 ): void {
@@ -241,6 +259,20 @@ export function reducer(
         }
       });
 
+      break;
+    }
+
+    case 'move-name-down': {
+      if (action.index < names.length - 1) {
+        swapCredits(stateCtx, action.index, action.index + 1);
+      }
+      break;
+    }
+
+    case 'move-name-up': {
+      if (action.index > 0) {
+        swapCredits(stateCtx, action.index, action.index - 1);
+      }
       break;
     }
 

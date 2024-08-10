@@ -70,6 +70,8 @@ export type ActionT =
   | {+type: 'close-dialog'}
   | {+type: 'toggle-dialog'}
   | {+type: 'add-name'}
+  | {+type: 'move-name-down', +index: number}
+  | {+type: 'move-name-up', +index: number}
   | {+type: 'remove-name', +index: number}
   | {+type: 'undo-remove-name', +index: number}
   | {
