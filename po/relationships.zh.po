@@ -314,7 +314,8 @@ msgid ""
 "For works that usually have instruments and vocals, this indicates that the "
 "instrumental parts are not relevant to this recording. Examples include rap "
 "tracks from hip hop songs that can be remixed and used with different beats."
-msgstr "一首作品通常包含器乐和人声，这意味着器乐部分与人声部分无关。例如嘻哈歌曲的 "
+msgstr ""
+"一首作品通常包含器乐和人声，这意味着器乐部分与人声部分无关。例如嘻哈歌曲的 "
 "Rap 部分可以用不同的节奏重新混音。"
 
 #. name:geonames
@@ -746,19 +747,10 @@ msgstr ""
 "strong>一个概念。"
 
 #. name:publishing
-#: DB:link_type/description:161
+#: DB:link_type/description:161 DB:link_type/description:208
 msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</a>."
-msgstr ""
-"指此作品的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
-"strong>一个概念。"
-
-#. name:publishing
-#: DB:link_type/description:208
-msgid ""
-"Indicates the publisher of this work. This is <strong>not</strong> the same "
-"concept as the <a href=\"/doc/Label\">record label</a>."
 msgstr ""
 "指此作品的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
 "strong>一个概念。"
@@ -1542,8 +1534,9 @@ msgstr "该属性指“特邀演出嘉宾”，通常为不是乐队成员的表
 msgid ""
 "This attribute indicates a member the band is named after and without which "
 "it wouldn't exist (such as Miles Davis -&gt; Miles Davis Sextet)."
-msgstr "这个属性指向乐队以其命名的成员，没有该成员乐队将不存在（例如 Miles Davis "
-"-&gt; Miles Davis Sextet）。"
+msgstr ""
+"这个属性指向乐队以其命名的成员，没有该成员乐队将不存在（例如 Miles Davis -"
+"&gt; Miles Davis Sextet）。"
 
 #. name:parody
 #: DB:link_attribute_type/description:511
@@ -1566,7 +1559,8 @@ msgid ""
 "This attribute indicates that lyrics have been translated, literally or "
 "freely, from the original language. This does not apply if an entirely new "
 "set of lyrics have been set to an existing melody."
-msgstr "这个属性表示歌词是直译或者意译而来。如果已经为现有旋律设置了一套全新的歌词，"
+msgstr ""
+"这个属性表示歌词是直译或者意译而来。如果已经为现有旋律设置了一套全新的歌词，"
 "则不使用此属性。"
 
 #. name:video
@@ -2418,22 +2412,43 @@ msgstr "这表明艺术家正式担任厂牌的制作人。"
 msgid "This indicates the artist directed video on this release."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
+#: DB:link_type/description:1260
+#, fuzzy
+#| msgid "Indicates an artist that performed on this release."
+msgid "This indicates the artist that inspired this genre’s name."
+msgstr "表明该艺术家在此专辑中有表演。"
+
+#. name:named after artist
+#: DB:link_type/description:1258
+#, fuzzy
+#| msgid "Indicates an artist that performed on this release."
+msgid "This indicates the artist that inspired this label’s name."
+msgstr "表明该艺术家在此专辑中有表演。"
+
+#. name:named after artist
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:1000
 msgid ""
 "This indicates the artist that inspired this series' name, for example for "
 "an award named after a musician."
 msgstr ""
+
+#. name:named after artist
+#: DB:link_type/description:1257
+#, fuzzy
+#| msgid "Indicates an artist that performed on this release."
+msgid "This indicates the artist that inspired this work’s name."
+msgstr "表明该艺术家在此专辑中有表演。"
 
 #. name:audio director
 #: DB:link_type/description:1186
@@ -2529,11 +2544,18 @@ msgstr ""
 
 #. name:glass mastered
 #: DB:link_type/description:955
+#, fuzzy
+#| msgid ""
+#| "Indicates the publisher of this release. This is <strong>not</strong> the "
+#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
+#| "label</a>."
 msgid ""
 "This indicates the company that made the glass master for a release. This is "
-"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
-"label</a>, nor as mastering engineering."
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>, nor as mastering engineering."
 msgstr ""
+"指此专辑的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
+"strong>一个概念。"
 
 #. name:owner
 #: DB:link_type/description:989
@@ -2541,6 +2563,13 @@ msgid ""
 "This indicates the label / organization was the owner of this place (often a "
 "studio, but sometimes also a venue)."
 msgstr ""
+
+#. name:named after label
+#: DB:link_type/description:1259
+#, fuzzy
+#| msgid "This indicates that a place is part of another place."
+msgid "This indicates the label that inspired this artist’s name."
+msgstr "这表明一个地点包含于另一地点。"
 
 #. name:translator
 #: DB:link_attribute_type/description:1018
@@ -2551,52 +2580,96 @@ msgstr ""
 
 #. name:distributed
 #: DB:link_type/description:361
+#, fuzzy
+#| msgid ""
+#| "Indicates the publisher of this work. This is <strong>not</strong> the "
+#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
+#| "label</a>."
 msgid ""
 "This indicates the organization that distributes (or contracts out "
 "distribution). \n"
 "\n"
-"This is <strong>not</strong> the same concept as the <a href=\"/doc/"
-"Label\">record label</a>."
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
+"指此作品的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
+"strong>一个概念。"
 
 #. name:manufactured
 #: DB:link_type/description:360
+#, fuzzy
+#| msgid ""
+#| "Indicates the publisher of this work. This is <strong>not</strong> the "
+#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
+#| "label</a>."
 msgid ""
 "This indicates the organization that manufactures (or contracts out "
 "manufacturing). \n"
-"This is <strong>not</strong> the same concept as the <a href=\"/doc/"
-"Label\">record label</a>."
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
+"指此作品的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
+"strong>一个概念。"
 
 #. name:marketed
 #: DB:link_type/description:848
+#, fuzzy
+#| msgid ""
+#| "Indicates the publisher of this release. This is <strong>not</strong> the "
+#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
+#| "label</a>."
 msgid ""
 "This indicates the organization that markets a release. This is <strong>not</"
-"strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
+"strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
+"指此专辑的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
+"strong>一个概念。"
 
 #. name:printed
 #: DB:link_type/description:985
+#, fuzzy
+#| msgid ""
+#| "Indicates the publisher of this release. This is <strong>not</strong> the "
+#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
+#| "label</a>."
 msgid ""
 "This indicates the organization that printed a release. This is <strong>not</"
-"strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
+"strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
+"指此专辑的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
+"strong>一个概念。"
 
 #. name:promoted
 #: DB:link_type/description:359
+#, fuzzy
+#| msgid ""
+#| "Indicates the publisher of this release. This is <strong>not</strong> the "
+#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
+#| "label</a>."
 msgid ""
 "This indicates the organization that promotes (or contracts out promotion) "
 "for a release. This is <strong>not</strong> the same concept as the <a "
-"href=\"/doc/Label\">record label</a>."
+"href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
+"指此专辑的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
+"strong>一个概念。"
 
 #. name:published
 #: DB:link_type/description:362
+#, fuzzy
+#| msgid ""
+#| "Indicates the publisher of this release. This is <strong>not</strong> the "
+#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
+#| "label</a>."
 msgid ""
 "This indicates the organization which releases a release. This is "
-"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
-"label</a>."
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
+"指此专辑的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
+"strong>一个概念。"
 
 #. name:orchestrator
 #: DB:link_type/description:300
@@ -2664,10 +2737,15 @@ msgstr ""
 
 #. name:pressed
 #: DB:link_type/description:942
+#, fuzzy
+#| msgid ""
+#| "This indicates the pressing company that presses a release. This is "
+#| "<strong>not</strong> the same concept as the <a href=\"/doc/"
+#| "Label\">record label</a>."
 msgid ""
 "This indicates the pressing company that presses a release. This is "
-"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
-"label</a>."
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
 "这指的是压制专辑的压盘公司。和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
 "strong>同一概念。"
@@ -2680,10 +2758,17 @@ msgid ""
 "credit, do not guess."
 msgstr ""
 
-#. name:named after
+#. name:named after release group
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
 msgstr ""
+
+#. name:named after release group
+#: DB:link_type/description:1261
+#, fuzzy
+#| msgid "Indicates that the release group is part of a series."
+msgid "This indicates the release group that inspired this genre’s name."
+msgstr "表明该专辑组是系列的一部分。"
 
 #. name:rights society
 #: DB:link_type/description:349
@@ -2736,7 +2821,7 @@ msgid ""
 "exists in other genres to a degree."
 msgstr ""
 
-#. name:named after
+#. name:named after work
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr ""
@@ -4064,19 +4149,33 @@ msgstr ""
 
 #. name:phonographic copyright
 #: DB:link_type/description:867
+#, fuzzy
+#| msgid ""
+#| "This relationship links a <a href=\"https://en.wikipedia.org/wiki/"
+#| "Concert_residency\" target=\"_blank\">concert residency</a> to the "
+#| "artist(s) who held the residency."
 msgid ""
 "This relationship indicates the label is the <a href=\"//en.wikipedia.org/"
-"wiki/Sound_recording_copyright_symbol\">phonographic copyright</a> holder "
-"for this recording, usually indicated with a ℗ symbol."
+"wiki/Sound_recording_copyright_symbol\" target=\"_blank\">phonographic "
+"copyright</a> holder for this recording, usually indicated with a ℗ symbol."
 msgstr ""
+"此关联将<a href=\"https://en.wikipedia.org/wiki/Concert_residency\" "
+"target=\"_blank\">驻留音乐会</a>链接至举行驻留活动的艺术家。"
 
 #. name:phonographic copyright
 #: DB:link_type/description:711
+#, fuzzy
+#| msgid ""
+#| "This relationship links a <a href=\"https://en.wikipedia.org/wiki/"
+#| "Concert_residency\" target=\"_blank\">concert residency</a> to the "
+#| "artist(s) who held the residency."
 msgid ""
 "This relationship indicates the label is the <a href=\"//en.wikipedia.org/"
-"wiki/Sound_recording_copyright_symbol\">phonographic copyright</a> holder "
-"for this release, usually indicated with a ℗ symbol."
+"wiki/Sound_recording_copyright_symbol\" target=\"_blank\">phonographic "
+"copyright</a> holder for this release, usually indicated with a ℗ symbol."
 msgstr ""
+"此关联将<a href=\"https://en.wikipedia.org/wiki/Concert_residency\" "
+"target=\"_blank\">驻留音乐会</a>链接至举行驻留活动的艺术家。"
 
 #. name:copyright
 #: DB:link_type/description:708
@@ -5077,9 +5176,7 @@ msgstr "出现在视频中"
 msgid "apple music"
 msgstr "Apple Music"
 
-#. name:arranged at
-#: DB:link_type/name:865 DB:link_type/name:866 DB:link_type/name:886
-#: DB:link_type/reverse_link_phrase:866
+#: DB:link_type/name:865 DB:link_type/name:886 DB:link_type/name:866
 msgid "arranged at"
 msgstr "编曲，在"
 
@@ -5089,9 +5186,7 @@ msgstr "编曲，在"
 msgid "arranged for"
 msgstr "编曲，为"
 
-#. name:arranged in
-#: DB:link_type/name:864 DB:link_type/name:863 DB:link_type/name:885
-#: DB:link_type/reverse_link_phrase:864 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/name:863 DB:link_type/name:885 DB:link_type/name:864
 msgid "arranged in"
 msgstr "编曲，在"
 
@@ -5115,12 +5210,6 @@ msgstr "编曲者"
 
 #: DB:link_attribute_type/name:1347
 msgid "arranging"
-msgstr ""
-
-#. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:864 DB:link_type/link_phrase:863
-#: DB:link_type/link_phrase:866
-msgid "arranging location for"
 msgstr ""
 
 #: DB:link_type/name:137 DB:link_type/name:1174 DB:link_type/name:18
@@ -6006,11 +6095,6 @@ msgstr "工程师职位"
 msgid "engineer position at"
 msgstr "以工程师职位任职于"
 
-#. name:engineer
-#: DB:link_type/link_phrase:1084
-msgid "engineered"
-msgstr ""
-
 #: DB:link_type/name:813 DB:link_type/name:812
 msgid "engineered at"
 msgstr ""
@@ -6019,9 +6103,8 @@ msgstr ""
 msgid "engineered in"
 msgstr ""
 
-#. name:engineer, name:engineer position
-#: DB:link_type/reverse_link_phrase:1084 DB:link_type/reverse_link_phrase:120
-#: DB:link_type/reverse_link_phrase:701
+#. name:engineer position
+#: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
 msgid "engineers"
 msgstr "工程师"
 
@@ -6771,10 +6854,10 @@ msgid "holds copyright (©) for"
 msgstr ""
 
 #. name:phonographic copyright
-#: DB:link_type/link_phrase:867 DB:link_type/link_phrase:711
-#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:869
-#: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:711
-#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:869
+#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:867
+#: DB:link_type/link_phrase:711 DB:link_type/link_phrase:869
+#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:867
+#: DB:link_type/long_link_phrase:711 DB:link_type/long_link_phrase:869
 msgid "holds phonographic copyright (℗) for"
 msgstr ""
 
@@ -6860,11 +6943,35 @@ msgstr ""
 msgid "information page"
 msgstr "信息页"
 
-#. name:named after
-#: DB:link_type/link_phrase:975 DB:link_type/link_phrase:1000
+#. name:named after artist, name:named after label, name:named after release group, name:named after work
 #: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
-#: DB:link_type/reverse_link_phrase:974
-msgid "inspired the name of"
+#: DB:link_type/reverse_link_phrase:1259 DB:link_type/reverse_link_phrase:974
+msgid "inspired the name of artist"
+msgstr ""
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1260 DB:link_type/reverse_link_phrase:1261
+msgid "inspired the name of genre"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1258
+msgid "inspired the name of label"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:975
+msgid "inspired the name of place"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1000
+msgid "inspired the name of series"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1257
+msgid "inspired the name of work"
 msgstr ""
 
 #: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
@@ -7051,10 +7158,24 @@ msgstr ""
 msgid "is licensed under"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/long_link_phrase:973 DB:link_type/long_link_phrase:972
-#: DB:link_type/long_link_phrase:974
-msgid "is named after"
+#. name:named after artist
+#: DB:link_type/long_link_phrase:973
+msgid "is named after artist"
+msgstr ""
+
+#. name:named after label
+#: DB:link_type/long_link_phrase:1259
+msgid "is named after label"
+msgstr ""
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
+msgid "is named after release group"
+msgstr ""
+
+#. name:named after work
+#: DB:link_type/long_link_phrase:972
+msgid "is named after work"
 msgstr ""
 
 #: DB:link_type/name:108
@@ -7746,13 +7867,34 @@ msgstr ""
 msgid "myspace"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/name:973 DB:link_type/name:972 DB:link_type/name:975
-#: DB:link_type/name:974 DB:link_type/name:1000 DB:link_type/link_phrase:973
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:974
+#. name:named after artist
+#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1257
+#: DB:link_type/name:1260 DB:link_type/name:975 DB:link_type/name:1000
+#: DB:link_type/link_phrase:973 DB:link_type/reverse_link_phrase:1258
+#: DB:link_type/reverse_link_phrase:1257 DB:link_type/reverse_link_phrase:1260
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
-msgid "named after"
+msgid "named after artist"
 msgstr ""
+
+#. name:named after label
+#: DB:link_type/name:1259 DB:link_type/link_phrase:1259
+#, fuzzy
+#| msgid "parent label"
+msgid "named after label"
+msgstr "母厂牌"
+
+#. name:named after release group
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
+#: DB:link_type/link_phrase:974
+msgid "named after release group"
+msgstr ""
+
+#. name:named after work
+#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#, fuzzy
+#| msgid "Geonames page for"
+msgid "named after work"
+msgstr "Geonames 页，关于"
 
 #. name:non-performing relationships
 #: DB:link_type/name:935 DB:link_type/link_phrase:935
@@ -7852,7 +7994,7 @@ msgstr ""
 msgid "orchestrations"
 msgstr ""
 
-#: DB:link_type/name:40 DB:link_type/name:164 DB:link_type/name:300
+#: DB:link_type/name:164 DB:link_type/name:300 DB:link_type/name:40
 msgid "orchestrator"
 msgstr ""
 
@@ -8089,14 +8231,14 @@ msgstr "个人词曲版权方，关于"
 msgid "personal relationship"
 msgstr ""
 
-#: DB:link_type/name:867 DB:link_type/name:711 DB:link_type/name:710
+#: DB:link_type/name:710 DB:link_type/name:867 DB:link_type/name:711
 #: DB:link_type/name:869
 msgid "phonographic copyright"
 msgstr "图像版权"
 
 #. name:phonographic copyright
-#: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:711
-#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:869
+#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:867
+#: DB:link_type/reverse_link_phrase:711 DB:link_type/reverse_link_phrase:869
 msgid "phonographic copyright (℗) by"
 msgstr ""
 
@@ -8410,7 +8552,7 @@ msgid "publishes series"
 msgstr "出版系列"
 
 #: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:161
-#: DB:link_type/name:66 DB:link_type/name:208 DB:link_type/name:32
+#: DB:link_type/name:66 DB:link_type/name:32 DB:link_type/name:208
 msgid "publishing"
 msgstr "出版"
 
@@ -9418,15 +9560,19 @@ msgstr ""
 msgid "was a supporting DJ at"
 msgstr ""
 
-#. name:engineer
-#: DB:link_type/long_link_phrase:1084
-msgid "was an engineer at"
-msgstr ""
-
 #. name:orchestra
 #: DB:link_type/long_link_phrase:807
 msgid "was an orchestra at"
 msgstr ""
+
+#. name:engineer
+#: DB:link_type/long_link_phrase:1084
+#, fuzzy
+#| msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
+msgid ""
+"was an {additional} {assistant} {associate} {co:co-}{executive:executive }"
+"engineer at"
+msgstr "{additional:额外}{assistant:助理}{associate:联合}{co:共同}母带处理"
 
 #. name:cinematographer
 #: DB:link_type/long_link_phrase:1245
@@ -9614,11 +9760,13 @@ msgstr ""
 
 #. name:arranged at
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
+#: DB:link_type/reverse_link_phrase:866
 msgid "{additional:additionally} arranged at"
 msgstr ""
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:885
+#: DB:link_type/reverse_link_phrase:863 DB:link_type/reverse_link_phrase:885
+#: DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr ""
 
@@ -9669,15 +9817,10 @@ msgid "{additional:additionally} mixed in"
 msgstr ""
 
 #. name:orchestrator
-#: DB:link_type/link_phrase:40 DB:link_type/link_phrase:164
-#: DB:link_type/link_phrase:300 DB:link_type/long_link_phrase:40
-#: DB:link_type/long_link_phrase:164 DB:link_type/long_link_phrase:300
+#: DB:link_type/link_phrase:164 DB:link_type/link_phrase:300
+#: DB:link_type/link_phrase:40 DB:link_type/long_link_phrase:164
+#: DB:link_type/long_link_phrase:300 DB:link_type/long_link_phrase:40
 msgid "{additional:additionally} orchestrated"
-msgstr ""
-
-#. name:orchestrator
-#: DB:link_type/reverse_link_phrase:40
-msgid "{additional:additionally} orchestrator"
 msgstr ""
 
 #. name:produced at
@@ -9840,8 +9983,9 @@ msgid "{additional:additionally} {assistant} {associate} {co:co-}transferred"
 msgstr ""
 
 #. name:engineer
-#: DB:link_type/link_phrase:28 DB:link_type/link_phrase:138
-#: DB:link_type/long_link_phrase:28 DB:link_type/long_link_phrase:138
+#: DB:link_type/link_phrase:1084 DB:link_type/link_phrase:28
+#: DB:link_type/link_phrase:138 DB:link_type/long_link_phrase:28
+#: DB:link_type/long_link_phrase:138
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}{executive:"
 "executive }engineered"
@@ -9922,8 +10066,9 @@ msgid "{additional} animation"
 msgstr "额外"
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
-#: DB:link_type/link_phrase:886
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:863
+#: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
+#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr ""
 
@@ -9946,13 +10091,13 @@ msgstr ""
 msgid "{additional} composer"
 msgstr ""
 
-#. name:composed in
-#: DB:link_type/link_phrase:875
+#. name:composed at, name:composed in
+#: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
 msgid "{additional} composing location for"
 msgstr ""
 
 #. name:composed at
-#: DB:link_type/link_phrase:1251 DB:link_type/link_phrase:876
+#: DB:link_type/link_phrase:1251
 #, fuzzy
 #| msgid "additional"
 msgid "{additional} composition location for"
@@ -10070,6 +10215,7 @@ msgstr ""
 
 #. name:orchestrator
 #: DB:link_type/reverse_link_phrase:164 DB:link_type/reverse_link_phrase:300
+#: DB:link_type/reverse_link_phrase:40
 msgid "{additional} orchestrator"
 msgstr ""
 
@@ -10223,6 +10369,14 @@ msgstr ""
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineer"
 msgstr ""
+
+#. name:engineer
+#: DB:link_type/reverse_link_phrase:1084
+#, fuzzy
+#| msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
+msgid ""
+"{additional} {assistant} {associate} {co:co-}{executive:executive }engineers"
+msgstr "{additional:额外}{assistant:助理}{associate:联合}{co:共同}母带处理"
 
 #. name:producer
 #: DB:link_type/reverse_link_phrase:141 DB:link_type/reverse_link_phrase:30
@@ -10553,10 +10707,14 @@ msgstr "{entity1} 于 {entity0} 制造"
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/long_link_phrase:975 DB:link_type/long_link_phrase:1000
-msgid "{entity1} is named after {entity0}"
-msgstr ""
+#. name:named after artist
+#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1257
+#: DB:link_type/long_link_phrase:1260 DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:1000
+#, fuzzy
+#| msgid "{entity1} was manufactured in {entity0}"
+msgid "{entity1} is named after artist {entity0}"
+msgstr "{entity1} 于 {entity0} 制造"
 
 #. name:anthem
 #: DB:link_type/long_link_phrase:357
@@ -10573,19 +10731,9 @@ msgstr ""
 msgid "{entity1} presented {entity0}"
 msgstr ""
 
-#. name:arranged at
-#: DB:link_type/long_link_phrase:866
-msgid "{entity1} was arranged at {entity0}"
-msgstr ""
-
 #. name:arranged for
 #: DB:link_type/long_link_phrase:949 DB:link_type/long_link_phrase:948
 msgid "{entity1} was arranged for {entity0}"
-msgstr ""
-
-#. name:arranged in
-#: DB:link_type/long_link_phrase:864 DB:link_type/long_link_phrase:863
-msgid "{entity1} was arranged in {entity0}"
 msgstr ""
 
 #. name:available at
@@ -10692,11 +10840,13 @@ msgstr ""
 
 #. name:arranged at
 #: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:886
+#: DB:link_type/long_link_phrase:866
 msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr ""
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:885
+#: DB:link_type/long_link_phrase:863 DB:link_type/long_link_phrase:885
+#: DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr ""
 
@@ -10880,16 +11030,16 @@ msgid "{step}parents"
 msgstr "{step:继}父母"
 
 #. name:published, name:publishing
-#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:208
-#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:362
-#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:208
-#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:362
+#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:32
+#: DB:link_type/link_phrase:208 DB:link_type/link_phrase:362
+#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:32
+#: DB:link_type/long_link_phrase:208 DB:link_type/long_link_phrase:362
 msgid "{sub:sub-}published"
 msgstr ""
 
 #. name:published, name:publishing
-#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:208
-#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:362
+#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:32
+#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:362
 msgid "{sub:sub-}publisher"
 msgstr ""
 
@@ -10927,6 +11077,13 @@ msgstr ""
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr ""
+
+#~ msgid ""
+#~ "Indicates the publisher of this work. This is <strong>not</strong> the "
+#~ "same concept as the <a href=\"/doc/Label\">record label</a>."
+#~ msgstr ""
+#~ "指此作品的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
+#~ "strong>一个概念。"
 
 #~ msgid "{entity1} was recorded at  {entity0}"
 #~ msgstr "{entity1} 录制于 {entity0}"

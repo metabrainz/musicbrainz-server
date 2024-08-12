@@ -8,11 +8,12 @@
 # DyingSlacker <2391773977@outlook.com>, 2023.
 # hesheng <tsuru00@outlook.com>, 2024.
 # LiarOnce <liaronce@hotmail.com>, 2024.
+# weeeeei <weeeeei@duck.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-06 14:42+0000\n"
-"Last-Translator: LiarOnce <liaronce@hotmail.com>\n"
+"PO-Revision-Date: 2024-08-06 01:42+0000\n"
+"Last-Translator: weeeeei <weeeeei@duck.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/attributes/zh_Hans/>\n"
 "Language: zh\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -405,7 +406,7 @@ msgctxt "event_art_type"
 msgid ""
 "A document generally used for admission to the event, whether physical or "
 "digital. Use this also for ticket stubs and passes."
-msgstr ""
+msgstr "实体或者数字文档通常用于了解活动，也用作票根和通行许可。"
 
 #. name:Promotion
 #: DB:release_status/description:2
@@ -464,7 +465,7 @@ msgctxt "event_art_type"
 msgid ""
 "A list of songs to be played in the event, often printed or handwritten for "
 "use by the artist."
-msgstr ""
+msgstr "一个记录了活动演奏曲目的列表，通常是打印或者手写的，由艺术家使用。"
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -654,6 +655,14 @@ msgctxt "work_type"
 msgid ""
 "A quartet is a musical composition scored for four voices or instruments."
 msgstr "四重奏或四重唱指由四个人声或乐器声部组成的音乐作品。"
+
+#. name:ROM cartridge
+#: DB:medium_format/description:208
+msgctxt "medium_format"
+msgid ""
+"A read only memory cartridge or card, such as the ones used by early home "
+"computers and some video game systems."
+msgstr ""
 
 #. name:Festival
 #: DB:series_type/description:8
@@ -1277,7 +1286,8 @@ msgid ""
 "An event in which the participants perform live and a winner is then chosen "
 "(as opposed to an award ceremony where awards are presented for previously "
 "released or performed music)."
-msgstr ""
+msgstr "一种活动，参与者现场表演并选出获胜者。（相对的，颁奖仪式是通过先前发行的音乐"
+"选出获奖者）。"
 
 #. name:Festival
 #: DB:event_type/description:2
@@ -1289,6 +1299,7 @@ msgstr "数位不同音乐家在同一天内表演的活动。大型音乐节可
 
 #. name:Merchandise
 #: DB:event_art_archive.art_type/description:7
+#, fuzzy
 msgctxt "event_art_type"
 msgid ""
 "An image for any sort of event-related goods sold (or freely shared) to "
@@ -1296,6 +1307,9 @@ msgid ""
 "more than one art type applies (for example, if a poster is sold as "
 "merchandise) use “merchandise” alongside any other appropriate types."
 msgstr ""
+"一张用于推广或在活动期间出售（或免费分享）的活动相关商品的图片，例如T恤、帽子"
+"、贴纸等。如果有多种艺术类型适用（例如海报作为商品出售），请使用“商品”以及其"
+"他适当的类型。"
 
 #. name:Schedule
 #: DB:event_art_archive.art_type/description:5
@@ -6684,6 +6698,14 @@ msgstr "Pūrṇacandrika"
 msgctxt "work_type"
 msgid "Quartet"
 msgstr "四重奏"
+
+#: DB:medium_format/name:208
+#, fuzzy
+#| msgctxt "medium_format"
+#| msgid "Cartridge"
+msgctxt "medium_format"
+msgid "ROM cartridge"
+msgstr "盒带"
 
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"
