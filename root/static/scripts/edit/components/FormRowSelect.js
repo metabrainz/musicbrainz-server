@@ -21,15 +21,17 @@ component FormRowSelect(
   field: FieldT<number | string>,
   frozen: boolean = false,
   hasHtmlErrors?: boolean,
-  helpers?: React$Node,
-  label: React$Node,
+  helpers?: React.Node,
+  label: React.Node,
   onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
+  onFocus?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   options: MaybeGroupedOptionsT,
   /*
    * `required` makes the field text bold to indicate a selection is required.
    * Only useful when `allowEmpty` is true.
    */
   required as passedRequired: boolean = false,
+  rowRef?: {-current: HTMLDivElement | null},
   uncontrolled: boolean = false,
 ) {
   let required = passedRequired;
@@ -38,13 +40,14 @@ component FormRowSelect(
     required = false;
   }
   return (
-    <FormRow>
+    <FormRow rowRef={rowRef}>
       <FormLabel forField={field} label={label} required={required} />
       <SelectField
         allowEmpty={allowEmpty}
         disabled={disabled || frozen}
         field={field}
         onChange={onChange}
+        onFocus={onFocus}
         options={options}
         required={required}
         uncontrolled={uncontrolled}

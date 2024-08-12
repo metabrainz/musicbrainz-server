@@ -16,6 +16,7 @@ use MusicBrainz::Server::Entity::Types qw( Area ); ## no critic 'ProhibitUnusedI
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Constants qw( :privileges );
 use MusicBrainz::Server::Filters qw( format_wikitext );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Types DateTime => { -as => 'DateTimeType' };
 
 my $LATEST_SECURITY_VULNERABILITY = DateTime->new( year => 2013, month => 3, day => 28 );
@@ -114,13 +115,21 @@ sub is_editing_enabled {
     (shift->privileges & $EDITING_DISABLED_FLAG) == 0;
 }
 
+sub is_voting_disabled {
+    (shift->privileges & $VOTING_DISABLED_FLAG) > 0;
+}
+
+sub is_voting_enabled {
+    (shift->privileges & $VOTING_DISABLED_FLAG) == 0;
+}
+
 sub may_vote {
     my $self = shift;
 
     return $self->has_confirmed_email_address &&
            !$self->is_beginner &&
            !$self->is_bot &&
-           $self->is_editing_enabled;
+           $self->is_voting_enabled;
 }
 
 sub is_adding_notes_disabled {
@@ -272,6 +281,24 @@ has deleted => (
     isa => 'Bool',
     is => 'rw',
 );
+
+sub l_restrictions {
+    my $self = shift;
+
+    my @restrictions;
+
+    if ($self->is_editing_disabled) {
+        push(@restrictions, l('Editing disabled'));
+    }
+    if ($self->is_voting_disabled) {
+        push(@restrictions, l('Voting disabled'));
+    }
+    if ($self->is_adding_notes_disabled) {
+        push(@restrictions, l('Edit notes disabled'));
+    }
+
+    return @restrictions;
+}
 
 sub identity_string {
     my ($self) = @_;
@@ -440,6 +467,10 @@ The editor is able to change the banner message
 =head2 is_beginner
 
 The editor is a beginner (< 2 weeks old and/or < 10 accepted edits)
+
+=head2 is_voting_disabled
+
+The editor's voting rights have been revoked by an admin
 
 =head2 new_privileged
 

@@ -2,12 +2,13 @@
 # Translators:
 # Kurt-Håkon Eilertsen <email address hidden>, 2014
 # "ApeKattQuest, MonkeyPython" <ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>, 2024.
+# "ApeKattQuest, MonkeyPython" <monkeypython+inst@yepmail.net>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-08 12:42+0000\n"
-"Last-Translator: \"ApeKattQuest, MonkeyPython\" "
-"<ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-08-04 01:42+0000\n"
+"Last-Translator: \"ApeKattQuest, MonkeyPython\" <monkeypython+inst@yepmail."
+"net>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
 "projects/musicbrainz/instruments/nb_NO/>\n"
 "Language: nb\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -123,7 +124,7 @@ msgstr ""
 
 #: DB:instrument/name:134
 msgid "Hammond organ"
-msgstr "Hammond orgel"
+msgstr "Hammondorgel"
 
 #: DB:instrument/name:323
 msgid "Hawaiian guitar"
@@ -154,7 +155,7 @@ msgstr ""
 #: DB:instrument/name:1200
 msgctxt "Traditional Hungarian bagpipe"
 msgid "Magyar duda"
-msgstr ""
+msgstr "ungarsk duda"
 
 #: DB:instrument/name:637
 msgctxt "Mark Stevens' bar chime"
@@ -204,7 +205,7 @@ msgstr ""
 #: DB:instrument/name:647
 msgctxt "Portugese plucked lute"
 msgid "Portuguese guitar"
-msgstr ""
+msgstr "portugisisk gitar"
 
 #: DB:instrument/name:576
 msgid "Reactable"
@@ -231,12 +232,12 @@ msgstr ""
 
 #: DB:instrument/name:910
 msgid "Serbo-Croatian tamburica orchestra"
-msgstr ""
+msgstr "serbo-kroatisk tamburika orkester"
 
 #: DB:instrument/name:451
 msgctxt "Horn-amplified violin"
 msgid "Stroh violin"
-msgstr ""
+msgstr "Stroh fiolin"
 
 #: DB:instrument/name:934
 msgctxt "electrically actuated lithophone"
@@ -254,7 +255,7 @@ msgstr ""
 
 #: DB:instrument/name:322
 msgid "Vietnamese guitar"
-msgstr ""
+msgstr "vietnamesisk gitar"
 
 #: DB:instrument/name:152
 msgid "Wagner tuba"
@@ -284,11 +285,11 @@ msgstr ""
 #: DB:instrument/name:41
 msgctxt "Commonly used bellowed free reed with keys/buttons"
 msgid "accordion"
-msgstr ""
+msgstr "trekkspill"
 
 #: DB:instrument/name:50
 msgid "acoustic bass guitar"
-msgstr ""
+msgstr "akustisk bassgitar"
 
 #: DB:instrument/name:539
 msgid "acoustic fretless guitar"
@@ -445,7 +446,7 @@ msgstr ""
 
 #: DB:instrument/name:4
 msgid "bagpipe"
-msgstr ""
+msgstr "sekkepipe"
 
 #: DB:instrument/name:728
 msgid "bajo sexto"
@@ -492,7 +493,7 @@ msgstr ""
 
 #: DB:instrument/name:68
 msgid "banjo"
-msgstr ""
+msgstr "banjo"
 
 #: DB:instrument/name:832
 msgctxt "banjo ukulele hybrid"
@@ -515,11 +516,11 @@ msgstr ""
 
 #: DB:instrument/name:301
 msgid "baritone guitar"
-msgstr ""
+msgstr "baritongitar"
 
 #: DB:instrument/name:28
 msgid "baritone horn"
-msgstr ""
+msgstr "baritonhorn"
 
 #: DB:instrument/name:23
 msgctxt "Middle-Low member of the saxophone family"
@@ -529,7 +530,7 @@ msgstr ""
 #: DB:instrument/name:917
 msgctxt "Baroque gut string guitar"
 msgid "baroque guitar"
-msgstr ""
+msgstr "barokkguitar"
 
 #: DB:instrument/name:897
 msgctxt "Conical bored compact double reed"
@@ -588,7 +589,7 @@ msgstr ""
 
 #: DB:instrument/name:293
 msgid "bass recorder"
-msgstr ""
+msgstr "bass blokkfløyte"
 
 #: DB:instrument/name:444
 msgctxt "Second lowest member of the saxophone family"
@@ -659,7 +660,7 @@ msgstr ""
 #: DB:instrument/name:116
 msgctxt "Tuned metal cups"
 msgid "bell"
-msgstr ""
+msgstr "klokke"
 
 #: DB:instrument/name:1072
 msgctxt "Set of tuned metal plates used in western orchestra"
@@ -694,7 +695,7 @@ msgstr ""
 
 #: DB:instrument/name:743
 msgid "bicycle bell"
-msgstr ""
+msgstr "sykkelbjelle"
 
 #: DB:instrument/name:380
 msgid "bin-sasara"
@@ -717,7 +718,7 @@ msgstr ""
 #: DB:instrument/name:801
 msgctxt "wooden natural brass"
 msgid "birch lur"
-msgstr ""
+msgstr "bjørkelur"
 
 #: DB:instrument/name:824
 msgctxt "prim, small Serbo-Croatian plucked string instrument"
@@ -819,7 +820,7 @@ msgstr ""
 
 #: DB:instrument/name:205
 msgid "bowed string instruments"
-msgstr ""
+msgstr "strykeinstrumenter"
 
 #: DB:instrument/name:24
 msgid "brass"
@@ -833,7 +834,7 @@ msgstr ""
 #: DB:instrument/name:800
 msgctxt "Bronze age natural brass"
 msgid "bronze lur"
-msgstr ""
+msgstr "bronselur"
 
 #: DB:instrument/name:320
 msgid "brushes"

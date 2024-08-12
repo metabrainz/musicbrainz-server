@@ -702,17 +702,10 @@ msgid ""
 msgstr ""
 
 #. name:publishing
-#: DB:link_type/description:161
+#: DB:link_type/description:161 DB:link_type/description:208
 msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</a>."
-msgstr ""
-
-#. name:publishing
-#: DB:link_type/description:208
-msgid ""
-"Indicates the publisher of this work. This is <strong>not</strong> the same "
-"concept as the <a href=\"/doc/Label\">record label</a>."
 msgstr ""
 
 #. name:last.fm
@@ -2223,21 +2216,36 @@ msgstr ""
 msgid "This indicates the artist directed video on this release."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
+#: DB:link_type/description:1260
+msgid "This indicates the artist that inspired this genre’s name."
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/description:1258
+msgid "This indicates the artist that inspired this label’s name."
+msgstr ""
+
+#. name:named after artist
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
 msgstr ""
 
-#. name:named after
+#. name:named after artist
 #: DB:link_type/description:1000
 msgid ""
 "This indicates the artist that inspired this series' name, for example for "
 "an award named after a musician."
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/description:1257
+msgid "This indicates the artist that inspired this work’s name."
 msgstr ""
 
 #. name:audio director
@@ -2320,8 +2328,8 @@ msgstr ""
 #: DB:link_type/description:955
 msgid ""
 "This indicates the company that made the glass master for a release. This is "
-"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
-"label</a>, nor as mastering engineering."
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>, nor as mastering engineering."
 msgstr ""
 
 #. name:owner
@@ -2329,6 +2337,11 @@ msgstr ""
 msgid ""
 "This indicates the label / organization was the owner of this place (often a "
 "studio, but sometimes also a venue)."
+msgstr ""
+
+#. name:named after label
+#: DB:link_type/description:1259
+msgid "This indicates the label that inspired this artist’s name."
 msgstr ""
 
 #. name:translator
@@ -2344,8 +2357,8 @@ msgid ""
 "This indicates the organization that distributes (or contracts out "
 "distribution). \n"
 "\n"
-"This is <strong>not</strong> the same concept as the <a href=\"/doc/"
-"Label\">record label</a>."
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
 
 #. name:manufactured
@@ -2353,22 +2366,24 @@ msgstr ""
 msgid ""
 "This indicates the organization that manufactures (or contracts out "
 "manufacturing). \n"
-"This is <strong>not</strong> the same concept as the <a href=\"/doc/"
-"Label\">record label</a>."
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
 
 #. name:marketed
 #: DB:link_type/description:848
 msgid ""
 "This indicates the organization that markets a release. This is <strong>not</"
-"strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
+"strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
 
 #. name:printed
 #: DB:link_type/description:985
 msgid ""
 "This indicates the organization that printed a release. This is <strong>not</"
-"strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
+"strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
 
 #. name:promoted
@@ -2376,15 +2391,15 @@ msgstr ""
 msgid ""
 "This indicates the organization that promotes (or contracts out promotion) "
 "for a release. This is <strong>not</strong> the same concept as the <a "
-"href=\"/doc/Label\">record label</a>."
+"href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
 
 #. name:published
 #: DB:link_type/description:362
 msgid ""
 "This indicates the organization which releases a release. This is "
-"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
-"label</a>."
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
 
 #. name:orchestrator
@@ -2448,8 +2463,8 @@ msgstr ""
 #: DB:link_type/description:942
 msgid ""
 "This indicates the pressing company that presses a release. This is "
-"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
-"label</a>."
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
 
 #. name:sub
@@ -2460,9 +2475,14 @@ msgid ""
 "credit, do not guess."
 msgstr ""
 
-#. name:named after
+#. name:named after release group
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
+msgstr ""
+
+#. name:named after release group
+#: DB:link_type/description:1261
+msgid "This indicates the release group that inspired this genre’s name."
 msgstr ""
 
 #. name:rights society
@@ -2516,7 +2536,7 @@ msgid ""
 "exists in other genres to a degree."
 msgstr ""
 
-#. name:named after
+#. name:named after work
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr ""
@@ -3736,16 +3756,16 @@ msgstr ""
 #: DB:link_type/description:867
 msgid ""
 "This relationship indicates the label is the <a href=\"//en.wikipedia.org/"
-"wiki/Sound_recording_copyright_symbol\">phonographic copyright</a> holder "
-"for this recording, usually indicated with a ℗ symbol."
+"wiki/Sound_recording_copyright_symbol\" target=\"_blank\">phonographic "
+"copyright</a> holder for this recording, usually indicated with a ℗ symbol."
 msgstr ""
 
 #. name:phonographic copyright
 #: DB:link_type/description:711
 msgid ""
 "This relationship indicates the label is the <a href=\"//en.wikipedia.org/"
-"wiki/Sound_recording_copyright_symbol\">phonographic copyright</a> holder "
-"for this release, usually indicated with a ℗ symbol."
+"wiki/Sound_recording_copyright_symbol\" target=\"_blank\">phonographic "
+"copyright</a> holder for this release, usually indicated with a ℗ symbol."
 msgstr ""
 
 #. name:copyright
@@ -4700,9 +4720,7 @@ msgstr ""
 msgid "apple music"
 msgstr ""
 
-#. name:arranged at
-#: DB:link_type/name:865 DB:link_type/name:866 DB:link_type/name:886
-#: DB:link_type/reverse_link_phrase:866
+#: DB:link_type/name:865 DB:link_type/name:886 DB:link_type/name:866
 msgid "arranged at"
 msgstr ""
 
@@ -4712,9 +4730,7 @@ msgstr ""
 msgid "arranged for"
 msgstr ""
 
-#. name:arranged in
-#: DB:link_type/name:864 DB:link_type/name:863 DB:link_type/name:885
-#: DB:link_type/reverse_link_phrase:864 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/name:863 DB:link_type/name:885 DB:link_type/name:864
 msgid "arranged in"
 msgstr ""
 
@@ -4738,12 +4754,6 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1347
 msgid "arranging"
-msgstr ""
-
-#. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:864 DB:link_type/link_phrase:863
-#: DB:link_type/link_phrase:866
-msgid "arranging location for"
 msgstr ""
 
 #: DB:link_type/name:137 DB:link_type/name:1174 DB:link_type/name:18
@@ -5619,11 +5629,6 @@ msgstr ""
 msgid "engineer position at"
 msgstr ""
 
-#. name:engineer
-#: DB:link_type/link_phrase:1084
-msgid "engineered"
-msgstr ""
-
 #: DB:link_type/name:813 DB:link_type/name:812
 msgid "engineered at"
 msgstr ""
@@ -5632,9 +5637,8 @@ msgstr ""
 msgid "engineered in"
 msgstr ""
 
-#. name:engineer, name:engineer position
-#: DB:link_type/reverse_link_phrase:1084 DB:link_type/reverse_link_phrase:120
-#: DB:link_type/reverse_link_phrase:701
+#. name:engineer position
+#: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
 msgid "engineers"
 msgstr "ingineri"
 
@@ -6378,10 +6382,10 @@ msgid "holds copyright (©) for"
 msgstr ""
 
 #. name:phonographic copyright
-#: DB:link_type/link_phrase:867 DB:link_type/link_phrase:711
-#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:869
-#: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:711
-#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:869
+#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:867
+#: DB:link_type/link_phrase:711 DB:link_type/link_phrase:869
+#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:867
+#: DB:link_type/long_link_phrase:711 DB:link_type/long_link_phrase:869
 msgid "holds phonographic copyright (℗) for"
 msgstr ""
 
@@ -6465,11 +6469,35 @@ msgstr ""
 msgid "information page"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/link_phrase:975 DB:link_type/link_phrase:1000
+#. name:named after artist, name:named after label, name:named after release group, name:named after work
 #: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
-#: DB:link_type/reverse_link_phrase:974
-msgid "inspired the name of"
+#: DB:link_type/reverse_link_phrase:1259 DB:link_type/reverse_link_phrase:974
+msgid "inspired the name of artist"
+msgstr ""
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1260 DB:link_type/reverse_link_phrase:1261
+msgid "inspired the name of genre"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1258
+msgid "inspired the name of label"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:975
+msgid "inspired the name of place"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1000
+msgid "inspired the name of series"
+msgstr ""
+
+#. name:named after artist
+#: DB:link_type/link_phrase:1257
+msgid "inspired the name of work"
 msgstr ""
 
 #: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
@@ -6652,10 +6680,24 @@ msgstr ""
 msgid "is licensed under"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/long_link_phrase:973 DB:link_type/long_link_phrase:972
-#: DB:link_type/long_link_phrase:974
-msgid "is named after"
+#. name:named after artist
+#: DB:link_type/long_link_phrase:973
+msgid "is named after artist"
+msgstr ""
+
+#. name:named after label
+#: DB:link_type/long_link_phrase:1259
+msgid "is named after label"
+msgstr ""
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
+msgid "is named after release group"
+msgstr ""
+
+#. name:named after work
+#: DB:link_type/long_link_phrase:972
+msgid "is named after work"
 msgstr ""
 
 #: DB:link_type/name:108
@@ -7347,12 +7389,29 @@ msgstr ""
 msgid "myspace"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/name:973 DB:link_type/name:972 DB:link_type/name:975
-#: DB:link_type/name:974 DB:link_type/name:1000 DB:link_type/link_phrase:973
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:974
+#. name:named after artist
+#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1257
+#: DB:link_type/name:1260 DB:link_type/name:975 DB:link_type/name:1000
+#: DB:link_type/link_phrase:973 DB:link_type/reverse_link_phrase:1258
+#: DB:link_type/reverse_link_phrase:1257 DB:link_type/reverse_link_phrase:1260
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
-msgid "named after"
+msgid "named after artist"
+msgstr ""
+
+#. name:named after label
+#: DB:link_type/name:1259 DB:link_type/link_phrase:1259
+msgid "named after label"
+msgstr ""
+
+#. name:named after release group
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
+#: DB:link_type/link_phrase:974
+msgid "named after release group"
+msgstr ""
+
+#. name:named after work
+#: DB:link_type/name:972 DB:link_type/link_phrase:972
+msgid "named after work"
 msgstr ""
 
 #. name:non-performing relationships
@@ -7453,7 +7512,7 @@ msgstr ""
 msgid "orchestrations"
 msgstr ""
 
-#: DB:link_type/name:40 DB:link_type/name:164 DB:link_type/name:300
+#: DB:link_type/name:164 DB:link_type/name:300 DB:link_type/name:40
 msgid "orchestrator"
 msgstr ""
 
@@ -7686,14 +7745,14 @@ msgstr ""
 msgid "personal relationship"
 msgstr ""
 
-#: DB:link_type/name:867 DB:link_type/name:711 DB:link_type/name:710
+#: DB:link_type/name:710 DB:link_type/name:867 DB:link_type/name:711
 #: DB:link_type/name:869
 msgid "phonographic copyright"
 msgstr ""
 
 #. name:phonographic copyright
-#: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:711
-#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:869
+#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:867
+#: DB:link_type/reverse_link_phrase:711 DB:link_type/reverse_link_phrase:869
 msgid "phonographic copyright (℗) by"
 msgstr ""
 
@@ -8007,7 +8066,7 @@ msgid "publishes series"
 msgstr ""
 
 #: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:161
-#: DB:link_type/name:66 DB:link_type/name:208 DB:link_type/name:32
+#: DB:link_type/name:66 DB:link_type/name:32 DB:link_type/name:208
 msgid "publishing"
 msgstr ""
 
@@ -9003,14 +9062,16 @@ msgstr ""
 msgid "was a supporting DJ at"
 msgstr ""
 
-#. name:engineer
-#: DB:link_type/long_link_phrase:1084
-msgid "was an engineer at"
-msgstr ""
-
 #. name:orchestra
 #: DB:link_type/long_link_phrase:807
 msgid "was an orchestra at"
+msgstr ""
+
+#. name:engineer
+#: DB:link_type/long_link_phrase:1084
+msgid ""
+"was an {additional} {assistant} {associate} {co:co-}{executive:executive }"
+"engineer at"
 msgstr ""
 
 #. name:cinematographer
@@ -9197,11 +9258,13 @@ msgstr ""
 
 #. name:arranged at
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
+#: DB:link_type/reverse_link_phrase:866
 msgid "{additional:additionally} arranged at"
 msgstr ""
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:885
+#: DB:link_type/reverse_link_phrase:863 DB:link_type/reverse_link_phrase:885
+#: DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr ""
 
@@ -9252,15 +9315,10 @@ msgid "{additional:additionally} mixed in"
 msgstr ""
 
 #. name:orchestrator
-#: DB:link_type/link_phrase:40 DB:link_type/link_phrase:164
-#: DB:link_type/link_phrase:300 DB:link_type/long_link_phrase:40
-#: DB:link_type/long_link_phrase:164 DB:link_type/long_link_phrase:300
+#: DB:link_type/link_phrase:164 DB:link_type/link_phrase:300
+#: DB:link_type/link_phrase:40 DB:link_type/long_link_phrase:164
+#: DB:link_type/long_link_phrase:300 DB:link_type/long_link_phrase:40
 msgid "{additional:additionally} orchestrated"
-msgstr ""
-
-#. name:orchestrator
-#: DB:link_type/reverse_link_phrase:40
-msgid "{additional:additionally} orchestrator"
 msgstr ""
 
 #. name:produced at
@@ -9423,8 +9481,9 @@ msgid "{additional:additionally} {assistant} {associate} {co:co-}transferred"
 msgstr ""
 
 #. name:engineer
-#: DB:link_type/link_phrase:28 DB:link_type/link_phrase:138
-#: DB:link_type/long_link_phrase:28 DB:link_type/long_link_phrase:138
+#: DB:link_type/link_phrase:1084 DB:link_type/link_phrase:28
+#: DB:link_type/link_phrase:138 DB:link_type/long_link_phrase:28
+#: DB:link_type/long_link_phrase:138
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}{executive:"
 "executive }engineered"
@@ -9503,8 +9562,9 @@ msgid "{additional} animation"
 msgstr ""
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
-#: DB:link_type/link_phrase:886
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:863
+#: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
+#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr ""
 
@@ -9527,13 +9587,13 @@ msgstr ""
 msgid "{additional} composer"
 msgstr ""
 
-#. name:composed in
-#: DB:link_type/link_phrase:875
+#. name:composed at, name:composed in
+#: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
 msgid "{additional} composing location for"
 msgstr ""
 
 #. name:composed at
-#: DB:link_type/link_phrase:1251 DB:link_type/link_phrase:876
+#: DB:link_type/link_phrase:1251
 msgid "{additional} composition location for"
 msgstr ""
 
@@ -9649,6 +9709,7 @@ msgstr ""
 
 #. name:orchestrator
 #: DB:link_type/reverse_link_phrase:164 DB:link_type/reverse_link_phrase:300
+#: DB:link_type/reverse_link_phrase:40
 msgid "{additional} orchestrator"
 msgstr ""
 
@@ -9801,6 +9862,12 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:28 DB:link_type/reverse_link_phrase:138
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineer"
+msgstr ""
+
+#. name:engineer
+#: DB:link_type/reverse_link_phrase:1084
+msgid ""
+"{additional} {assistant} {associate} {co:co-}{executive:executive }engineers"
 msgstr ""
 
 #. name:producer
@@ -10128,9 +10195,11 @@ msgstr ""
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
 
-#. name:named after
-#: DB:link_type/long_link_phrase:975 DB:link_type/long_link_phrase:1000
-msgid "{entity1} is named after {entity0}"
+#. name:named after artist
+#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1257
+#: DB:link_type/long_link_phrase:1260 DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:1000
+msgid "{entity1} is named after artist {entity0}"
 msgstr ""
 
 #. name:anthem
@@ -10148,19 +10217,9 @@ msgstr ""
 msgid "{entity1} presented {entity0}"
 msgstr ""
 
-#. name:arranged at
-#: DB:link_type/long_link_phrase:866
-msgid "{entity1} was arranged at {entity0}"
-msgstr ""
-
 #. name:arranged for
 #: DB:link_type/long_link_phrase:949 DB:link_type/long_link_phrase:948
 msgid "{entity1} was arranged for {entity0}"
-msgstr ""
-
-#. name:arranged in
-#: DB:link_type/long_link_phrase:864 DB:link_type/long_link_phrase:863
-msgid "{entity1} was arranged in {entity0}"
 msgstr ""
 
 #. name:available at
@@ -10265,11 +10324,13 @@ msgstr ""
 
 #. name:arranged at
 #: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:886
+#: DB:link_type/long_link_phrase:866
 msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr ""
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:885
+#: DB:link_type/long_link_phrase:863 DB:link_type/long_link_phrase:885
+#: DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr ""
 
@@ -10449,16 +10510,16 @@ msgid "{step}parents"
 msgstr ""
 
 #. name:published, name:publishing
-#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:208
-#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:362
-#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:208
-#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:362
+#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:32
+#: DB:link_type/link_phrase:208 DB:link_type/link_phrase:362
+#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:32
+#: DB:link_type/long_link_phrase:208 DB:link_type/long_link_phrase:362
 msgid "{sub:sub-}published"
 msgstr ""
 
 #. name:published, name:publishing
-#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:208
-#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:362
+#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:32
+#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:362
 msgid "{sub:sub-}publisher"
 msgstr ""
 

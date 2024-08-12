@@ -56,7 +56,7 @@ declare module 'knockout' {
 
   declare function unwrap<T>(
     value: T,
-  ): T;
+  ): T extends Observable<infer U> ? U : T;
 
   declare module.exports: {
     applyBindings: typeof applyBindings,

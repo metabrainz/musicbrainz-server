@@ -41,6 +41,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
             account_admin           => $user->is_account_admin,
             editing_disabled        => $user->is_editing_disabled,
             adding_notes_disabled   => $user->is_adding_notes_disabled,
+            voting_disabled         => $user->is_voting_disabled,
             spammer                 => $user->is_spammer,
             # user profile
             username                => $user->name,
@@ -292,6 +293,7 @@ sub privilege_search : Path('/admin/privilege-search') Args(0) RequireAuth(accou
                     + ($values->{account_admin}         // 0) * $ACCOUNT_ADMIN_FLAG
                     + ($values->{editing_disabled}      // 0) * $EDITING_DISABLED_FLAG
                     + ($values->{adding_notes_disabled} // 0) * $ADDING_NOTES_DISABLED_FLAG
+                    + ($values->{voting_disabled}       // 0) * $VOTING_DISABLED_FLAG
                     + ($values->{spammer}               // 0) * $SPAMMER_FLAG;
         $results = $self->_load_paged($c, sub {
             $c->model('Editor')->find_by_privileges(

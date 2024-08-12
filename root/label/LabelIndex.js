@@ -14,7 +14,7 @@ import ReleaseList from '../components/list/ReleaseList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import RelatedEntitiesDisplay from '../components/RelatedEntitiesDisplay.js';
 import {SanitizedCatalystContext} from '../context.mjs';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
@@ -89,7 +89,7 @@ component LabelIndex(
       ) : (
         <p>{l('This label does not have any releases.')}</p>
       )}
-      {manifest.js('label/index', {async: 'async'})}
+      {manifest('label/index', {async: 'async'})}
     </LabelLayout>
   );
 }

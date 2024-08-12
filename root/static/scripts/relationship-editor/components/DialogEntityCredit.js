@@ -104,7 +104,7 @@ component _DialogEntityCredit(
         <br />
         <label className="change-credits-checkbox">
           <input
-            checked={!!state.creditsToChange}
+            checked={state.creditsToChange !== ''}
             disabled={state.releaseHasUnloadedTracks}
             onChange={handleChangeCreditsChecked}
             type="checkbox"
@@ -158,7 +158,8 @@ component _DialogEntityCredit(
                 <label>
                   <input
                     checked={
-                      state.creditsToChange === 'same-relationship-type'}
+                      state.creditsToChange === 'same-relationship-type'
+                    }
                     name="changed-credits"
                     onChange={handleChangedCreditsSelection}
                     type="radio"
@@ -214,7 +215,7 @@ component _DialogEntityCredit(
   );
 }
 
-const DialogEntityCredit: React$AbstractComponent<
+const DialogEntityCredit: React.AbstractComponent<
   React.PropsOf<_DialogEntityCredit>
 > = React.memo(_DialogEntityCredit);
 

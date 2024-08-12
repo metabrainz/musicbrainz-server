@@ -45,20 +45,6 @@ MB.Control.ArtistEdit = function () {
    */
   self.typeChanged = function () {
     switch (self.$type.val()) {
-      default:
-      case '0':
-        self.changeDateText(
-          l('Began:'),
-          addColonText(lp('Ended', 'artist end date')),
-          l('This artist has ended.'),
-        );
-        self.changeAreaText(
-          addColonText(l('Begin area')),
-          addColonText(l('End area')),
-        );
-        self.enableGender();
-        break;
-
       case '1':
         self.changeDateText(
           l('Born:'),
@@ -82,6 +68,20 @@ MB.Control.ArtistEdit = function () {
           addColonText(lp('Dissolved in', 'group artist')),
         );
         self.disableGender();
+        break;
+
+      case '0':
+      default:
+        self.changeDateText(
+          l('Began:'),
+          addColonText(lp('Ended', 'artist end date')),
+          l('This artist has ended.'),
+        );
+        self.changeAreaText(
+          addColonText(l('Begin area')),
+          addColonText(l('End area')),
+        );
+        self.enableGender();
         break;
     }
   };

@@ -19,7 +19,11 @@ const frequencyLabels = {
   4: 'Frequently used',
 };
 
-component Script(attributes: Array<ScriptT>, model: string) {
+component Script(
+  attributes as passedAttributes: Array<ScriptT>,
+  model: string,
+) {
+  const attributes = [...passedAttributes];
   return (
     <Layout fullWidth title={model || 'Script'}>
       <h1>

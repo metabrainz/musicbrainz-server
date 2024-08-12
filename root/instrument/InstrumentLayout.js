@@ -16,7 +16,7 @@ import localizeInstrumentName
 import InstrumentHeader from './InstrumentHeader.js';
 
 component InstrumentLayout(
-  children: React$Node,
+  children: React.Node,
   entity as instrument: InstrumentT,
   fullWidth: boolean = false,
   page: string,

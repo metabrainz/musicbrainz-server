@@ -12,7 +12,7 @@ import $ from 'jquery';
 import tablesorter from 'tablesorter';
 
 tablesorter.addWidget({
-  format: function (table) {
+  format(table) {
     $('tbody tr', table).each(function (this: HTMLTableRowElement, index) {
       $(this).find('td:first').html((index + 1));
     });
@@ -21,7 +21,7 @@ tablesorter.addWidget({
 });
 
 tablesorter.addWidget({
-  format: function (table) {
+  format(table) {
     $('tbody tr', table).each(function (this: HTMLTableRowElement, index) {
       if ((index + 1) % 2 === 0) {
         $(this).addClass('even');
@@ -36,11 +36,11 @@ tablesorter.addWidget({
 });
 
 tablesorter.addParser({
-  format: function (s) {
+  format(s) {
     return tablesorter.formatFloat(s.replace(/,|\.|\s/g, ''));
   },
   id: 'fancyNumber',
-  is: function (s) {
+  is(s) {
     return /^[0-9]?[0-9,.]*$/.test(s);
   },
   type: 'numeric',

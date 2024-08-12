@@ -228,7 +228,7 @@ component _DialogDatePeriod(
   );
 }
 
-const DialogDatePeriod: React$AbstractComponent<
+const DialogDatePeriod: React.AbstractComponent<
   React.PropsOf<_DialogDatePeriod>
 > = React.memo(_DialogDatePeriod);
 

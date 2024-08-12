@@ -9,10 +9,14 @@
 
 import * as React from 'react';
 
+import ENTITIES from '../../entities.mjs';
 import {CatalystContext} from '../context.mjs';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import {
+  ENTITIES_WITH_RELATIONSHIP_CREDITS,
+} from '../static/scripts/common/constants.js';
 import {compare} from '../static/scripts/common/i18n.js';
 import commaList from '../static/scripts/common/i18n/commaList.js';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
@@ -83,10 +87,9 @@ component RelationshipsTable(
   const appearanceTypes = pickAppearancesTypes(entity.entityType);
 
   let hasCreditColumn = false;
-  let hasAttributeColumn = false;
   let hasArtistColumn = false;
   let hasLengthColumn = false;
-  let columnsCount = 1;
+  let columnsCount = 2;
   let totalRelationships = 0;
 
   type PagedLinkTypeGroupWithPhraseT = $ReadOnly<{
@@ -94,123 +97,36 @@ component RelationshipsTable(
     +phrase: string,
   }>;
 
-  type RelationshipsTableGroupPropsT = {
-    +group: PagedLinkTypeGroupWithPhraseT,
-    +relationshipRows: $ReadOnlyArray<React$MixedElement>,
-  };
-
-  const RelationshipsTableGroup = ({
-    group,
-    relationshipRows,
-  }: RelationshipsTableGroupPropsT) => {
-    const isLimited = (
-      group.total_relationships >
-      (group.offset + group.relationships.length)
-    );
-
-    return (
-      <>
-        <tr className="subh">
-          <th />
-          <th colSpan={columnsCount}>
-            {group.phrase}
-          </th>
-        </tr>
-        {relationshipRows}
-        {isLimited ? (
-          <tr>
-            <td />
-            <td colSpan={columnsCount} style={{padding: '1em'}}>
-              <a
-                href={uriWith(
-                  $c.req.uri, {
-                    direction: getDirectionInteger(group.backward),
-                    link_type_id: group.link_type_id,
-                    page: 1,
-                  },
-                )}
-              >
-                {texp.l('See all {num} relationships', {
-                  num: formatCount($c, group.total_relationships),
-                })}
-              </a>
-            </td>
-          </tr>
-        ) : null}
-      </>
-    );
-  };
-
-  type RelationshipsTableRowPropsT = {
-    +artistCredit: ?ArtistCreditT,
-    +index: number,
-    +relationship: RelationshipT,
-    +sourceCredit: string,
-    +targetCredit: string,
-  };
-
-  const RelationshipsTableRow = ({
-    artistCredit,
-    index,
-    relationship,
-    sourceCredit,
-    targetCredit,
-  }: RelationshipsTableRowPropsT) => {
-    return (
-      <tr className={loopParity(index)} key={relationship.id}>
-        <td>{formatDatePeriod(relationship)}</td>
-        <td>
-          {relationship.editsPending ? (
-            <span className="mp mp-rel">
-              <EntityLink
-                content={targetCredit}
-                entity={relationship.target}
-                showIcon
-              />
-            </span>
-          ) : (
-            <EntityLink
-              content={targetCredit}
-              entity={relationship.target}
-              showIcon
-            />
-          )}
-        </td>
-        {hasCreditColumn ? (
-          <td>
-            {sourceCredit || null}
-          </td>
-        ) : null}
-        {hasAttributeColumn ? (
-          <td>
-            {relationship.attributes?.length ? (
-              commaList(
-                relationship.attributes.map(displayLinkAttribute),
-              )
-            ) : null}
-          </td>
-        ) : null}
-        {hasArtistColumn ? (
-          <td>
-            {artistCredit ? (
-              <ArtistCreditLink
-                artistCredit={artistCredit}
-              />
-            ) : null}
-          </td>
-        ) : null}
-        {hasLengthColumn ? (
-          <td>
-            {relationship.target.entityType === 'recording' ? (
-              formatTrackLength(relationship.target.length)
-            ) : null}
-          </td>
-        ) : null}
-      </tr>
-    );
-  };
-
   const tableRows: Array<React$MixedElement> = [];
+
+  const setColumnVariables = (
+    targetType: RelatableEntityTypeT,
+    relationships: Iterable<RelationshipT>,
+  ) => {
+    hasArtistColumn ||= Boolean(ENTITIES[targetType].artist_credits);
+    hasLengthColumn ||= targetType === 'recording';
+    if (!hasCreditColumn &&
+        ENTITIES_WITH_RELATIONSHIP_CREDITS[entity.entityType]) {
+      for (const relationship of relationships) {
+        let sourceCredit = '';
+        if (relationship.backward) {
+          sourceCredit = relationship.entity1_credit;
+        } else {
+          sourceCredit = relationship.entity0_credit;
+        }
+        if (nonEmpty(sourceCredit)) {
+          hasCreditColumn = true;
+          break;
+        }
+      }
+    }
+    columnsCount = (
+      2 +
+      (hasCreditColumn ? 1 : 0) +
+      (hasArtistColumn ? 1 : 0) +
+      (hasLengthColumn ? 1 : 0)
+    );
+  };
 
   const getRelationshipRows = (
     linkTypeGroup: PagedLinkTypeGroupT | PagedLinkTypeGroupWithPhraseT,
@@ -232,35 +148,61 @@ component RelationshipsTable(
       }
 
       const target = relationship.target;
-      const artistCredit = hasOwnProp(target, 'artistCredit')
+      const artistCredit = Object.hasOwn(target, 'artistCredit')
         ? target.artistCredit
         : null;
 
-      hasCreditColumn = hasCreditColumn || nonEmpty(sourceCredit);
-      hasAttributeColumn = hasAttributeColumn ||
-        !!(relationship.attributes?.length);
-      hasArtistColumn = hasArtistColumn || (artistCredit != null);
-      hasLengthColumn = hasLengthColumn || (
-        hasOwnProp(target, 'length') &&
-        target.length != null
-      );
-      columnsCount = (
-        1 +
-        (hasCreditColumn ? 1 : 0) +
-        (hasAttributeColumn ? 1 : 0) +
-        (hasArtistColumn ? 1 : 0) +
-        (hasLengthColumn ? 1 : 0)
-      );
-
       rows.push(
-        <RelationshipsTableRow
-          artistCredit={artistCredit}
-          index={index}
-          key={relationship.id}
-          relationship={relationship}
-          sourceCredit={sourceCredit}
-          targetCredit={targetCredit}
-        />,
+        <React.Fragment key={relationship.id}>
+          <tr className={loopParity(index)}>
+            <td>{formatDatePeriod(relationship)}</td>
+            <td>
+              {relationship.editsPending ? (
+                <span className="mp mp-rel">
+                  <EntityLink
+                    content={targetCredit}
+                    entity={relationship.target}
+                    showIcon
+                  />
+                </span>
+              ) : (
+                <EntityLink
+                  content={targetCredit}
+                  entity={relationship.target}
+                  showIcon
+                />
+              )}
+            </td>
+            {hasCreditColumn ? (
+              <td>
+                {sourceCredit || null}
+              </td>
+            ) : null}
+            <td>
+              {relationship.attributes?.length ? (
+                commaList(
+                  relationship.attributes.map(displayLinkAttribute),
+                )
+              ) : null}
+            </td>
+            {hasArtistColumn ? (
+              <td>
+                {artistCredit ? (
+                  <ArtistCreditLink
+                    artistCredit={artistCredit}
+                  />
+                ) : null}
+              </td>
+            ) : null}
+            {hasLengthColumn ? (
+              <td>
+                {relationship.target.entityType === 'recording' ? (
+                  formatTrackLength(relationship.target.length)
+                ) : null}
+              </td>
+            ) : null}
+          </tr>
+        </React.Fragment>,
       );
       index++;
     }
@@ -268,21 +210,40 @@ component RelationshipsTable(
 
   const pagedRelationshipGroups = entity.paged_relationship_groups;
   if (pagedLinkTypeGroup) {
-    getRelationshipRows(pagedLinkTypeGroup, tableRows);
+    if (pagedLinkTypeGroup.relationships.length) {
+      setColumnVariables(
+        pagedLinkTypeGroup.relationships[0].target_type,
+        pagedLinkTypeGroup.relationships,
+      );
+      getRelationshipRows(pagedLinkTypeGroup, tableRows);
+    }
   } else if (pagedRelationshipGroups) {
-    const sortedTargetTypes =
-      Object.keys(pagedRelationshipGroups).sort();
-    for (const targetType of sortedTargetTypes) {
-      if (!appearanceTypes.includes(targetType)) {
-        continue;
-      }
+    const targetTypeGroups = Object.keys(pagedRelationshipGroups)
+      .sort()
+      .reduce((accum: Array<PagedTargetTypeGroupT>, targetType) => {
+        if (!appearanceTypes.includes(targetType)) {
+          return accum;
+        }
+        const targetTypeGroup: ?PagedTargetTypeGroupT =
+          pagedRelationshipGroups[targetType];
+        if (targetTypeGroup) {
+          accum.push(targetTypeGroup);
 
-      const targetTypeGroup: ?PagedTargetTypeGroupT =
-        pagedRelationshipGroups[targetType];
-      if (!targetTypeGroup) {
-        continue;
-      }
+          setColumnVariables(
+            targetType,
+            (function* () {
+              for (const key in targetTypeGroup) {
+                if (Object.hasOwn(targetTypeGroup, key)) {
+                  yield* targetTypeGroup[key].relationships;
+                }
+              }
+            }()),
+          );
+        }
+        return accum;
+      }, []);
 
+    for (const targetTypeGroup of targetTypeGroups) {
       const linkTypeGroups: $ReadOnlyArray<$ReadOnly<{
         ...PagedLinkTypeGroupT,
         +phrase: string,
@@ -297,13 +258,46 @@ component RelationshipsTable(
         const relationshipRows: Array<React$MixedElement> = [];
         getRelationshipRows(linkTypeGroup, relationshipRows);
 
+        const key = linkTypeGroup.link_type_id + '-' +
+          String(linkTypeGroup.backward);
+
+        const isLimited = (
+          linkTypeGroup.total_relationships >
+          (linkTypeGroup.offset + linkTypeGroup.relationships.length)
+        );
+
         tableRows.push(
-          <RelationshipsTableGroup
-            group={linkTypeGroup}
-            key={linkTypeGroup.link_type_id + '-' +
-              String(linkTypeGroup.backward)}
-            relationshipRows={relationshipRows}
-          />,
+          <React.Fragment key={key}>
+            <tr className="subh">
+              <th />
+              <th colSpan={columnsCount}>
+                {linkTypeGroup.phrase}
+              </th>
+            </tr>
+            {relationshipRows}
+            {isLimited ? (
+              <tr>
+                <td />
+                <td colSpan={columnsCount} style={{padding: '1em'}}>
+                  <a
+                    href={uriWith(
+                      $c.req.uri, {
+                        direction: getDirectionInteger(
+                          linkTypeGroup.backward,
+                        ),
+                        link_type_id: linkTypeGroup.link_type_id,
+                        page: 1,
+                      },
+                    )}
+                  >
+                    {texp.l('See all {num} relationships', {
+                      num: formatCount($c, linkTypeGroup.total_relationships),
+                    })}
+                  </a>
+                </td>
+              </tr>
+            ) : null}
+          </React.Fragment>,
         );
       }
     }
@@ -325,7 +319,7 @@ component RelationshipsTable(
           <th>{l('Date')}</th>
           <th>{l('Title')}</th>
           {hasCreditColumn ? <th>{l('Credited as')}</th> : null}
-          {hasAttributeColumn ? <th>{l('Attributes')}</th> : null}
+          <th>{l('Attributes')}</th>
           {hasArtistColumn ? <th>{l('Artist')}</th> : null}
           {hasLengthColumn ? <th>{l('Length')}</th> : null}
         </tr>

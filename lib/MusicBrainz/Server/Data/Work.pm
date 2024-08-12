@@ -140,6 +140,15 @@ sub find_by_artist
                 push @where_args, $filter{type_id};
             }
         }
+
+        if (exists $filter{language_id}) {
+            if ($filter{language_id} eq '-1') {
+                push @where_query, '(NOT EXISTS (SELECT 1 FROM work_language wl WHERE wl.work = work.id))';
+            } else {
+                push @where_query, 'EXISTS (SELECT 1 FROM work_language wl WHERE wl.work = work.id AND wl.language = ?)';
+                push @where_args, $filter{language_id};
+            }
+        }
     } else {
         push @where_args, ($artist_id) x 2;
     }
@@ -152,6 +161,29 @@ sub find_by_artist
 
     # We actually use this for the side effect in the closure
     $self->query_to_list_limited($query, \@where_args, $limit, $offset);
+}
+
+sub find_languages_by_artist
+{
+    my ($self, $artist_id) = @_;
+
+    my $query = 'SELECT DISTINCT wl.language
+                 FROM work_language wl
+                 WHERE wl.work IN (
+                    SELECT lrw.entity1 AS work
+                      FROM l_recording_work lrw
+                      JOIN recording r ON r.id = lrw.entity0
+                      JOIN artist_credit_name acn ON acn.artist_credit = r.artist_credit
+                     WHERE acn.artist = ?
+                 ) OR wl.work IN (
+                    SELECT law.entity1 AS work
+                      FROM l_artist_work law
+                      JOIN link ON law.link = link.id
+                      JOIN link_type lt ON lt.id = link.link_type
+                     WHERE law.entity0 = ?
+                 )';
+    my $ids = $self->sql->select_single_column_array($query, ($artist_id) x 2);
+    return $self->c->model('Language')->get_by_ids_sorted_by_name(@$ids);
 }
 
 =method find_by_iswc

@@ -20,10 +20,8 @@ import {
 } from '../../utility/editDiff.js';
 
 function areReleaseCountriesEqual(a: ReleaseEventT, b: ReleaseEventT) {
-  return !!(
-    !(a.country || b.country) ||
-    (a.country && b.country && a.country.id === b.country.id)
-  );
+  return !(a.country || b.country) ||
+    (a.country && b.country && a.country.id === b.country.id);
 }
 
 function areReleaseDatesEqual(a: ReleaseEventT, b: ReleaseEventT) {
@@ -36,6 +34,7 @@ const changeSide = (
   oldEvent: ?ReleaseEventT,
   newEvent: ?ReleaseEventT,
   type: typeof INSERT | typeof DELETE,
+  index: number,
 ) => {
   const sideA = type === DELETE ? oldEvent : newEvent;
   const sideB = type === DELETE ? newEvent : oldEvent;
@@ -58,13 +57,12 @@ const changeSide = (
       {countryDisplay ? <br /> : null}
       {sideB && areReleaseDatesEqual(sideA, sideB)
         ? formatDate(sideA.date)
-        : <span className={CLASS_MAP[type]}>{formatDate(sideA.date)}</span>
-      }
+        : <span className={CLASS_MAP[type]}>{formatDate(sideA.date)}</span>}
     </>
   ) : null;
 
   return (
-    <li>
+    <li key={index}>
       {countryDisplay}
       {dateDisplay}
     </li>
@@ -95,7 +93,7 @@ component ReleaseEventsDiff(
     if (!newEvent && i < newKeys.length) {
       newEvent = newEventsByCountry.get(newKeys[i]);
     }
-    oldSide.push(changeSide(oldEvent, newEvent, DELETE));
+    oldSide.push(changeSide(oldEvent, newEvent, DELETE, i));
   }
 
   for (let i = 0; i < newKeys.length; i++) {
@@ -109,7 +107,7 @@ component ReleaseEventsDiff(
       oldEvent = oldEventsByCountry.get(oldKeys[i]);
     }
     const newEvent = newEventsByCountry.get(key);
-    newSide.push(changeSide(oldEvent, newEvent, INSERT));
+    newSide.push(changeSide(oldEvent, newEvent, INSERT, i));
   }
 
   return (
@@ -117,12 +115,12 @@ component ReleaseEventsDiff(
       <th>{addColonText(l('Release events'))}</th>
       <td className="old">
         <ul>
-          {React.createElement(React.Fragment, null, ...oldSide)}
+          {oldSide}
         </ul>
       </td>
       <td className="new">
         <ul>
-          {React.createElement(React.Fragment, null, ...newSide)}
+          {newSide}
         </ul>
       </td>
     </tr>

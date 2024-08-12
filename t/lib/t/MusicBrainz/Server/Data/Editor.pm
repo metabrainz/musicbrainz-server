@@ -14,8 +14,8 @@ use DateTime::Format::Pg;
 use MusicBrainz::Server::Constants qw(
     :edit_status
     $EDIT_ARTIST_EDIT
-    $EDITING_DISABLED_FLAG
     $UNTRUSTED_FLAG
+    $VOTING_DISABLED_FLAG
     :vote
 );
 use MusicBrainz::Server::Context;
@@ -362,10 +362,10 @@ test 'Editor subscription methods' => sub {
         @editors = $editor_data->editors_with_subscriptions(2, 1000);
         is(@editors => 0, 'Found no editors searching with offset 2');
 
-        note('We mark editor #2 as a spammer (+ block edit & notes privs)');
+        note('We mark editor #2 as a spammer (+ block edit, voting & notes privs)');
         $test->c->sql->do(<<~'SQL');
             UPDATE editor
-            SET privs = 7168
+            SET privs = 23552
             WHERE id = 2
             SQL
 
@@ -627,9 +627,9 @@ test 'Deleting an editor changes all Yes/No votes on open edits to Abstain, even
     is($edit->votes->[0]->vote, $VOTE_NO, 'Vote is No');
     is($edit->votes->[0]->editor_id, 2, 'Vote is by editor 2');
 
-    note('We revoke the editing/voting privileges for editor 2');
+    note('We revoke the voting privileges for editor 2');
     $test->c->sql->do(
-        "UPDATE editor SET privs = $EDITING_DISABLED_FLAG WHERE id = 2",
+        "UPDATE editor SET privs = $VOTING_DISABLED_FLAG WHERE id = 2",
     );
 
     note('We delete editor 2');

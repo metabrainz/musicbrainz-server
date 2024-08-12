@@ -56,6 +56,10 @@ has_field 'editing_disabled' => (
     type => 'Boolean',
 );
 
+has_field 'voting_disabled' => (
+    type => 'Boolean',
+);
+
 has_field 'adding_notes_disabled' => (
     type => 'Boolean',
 );

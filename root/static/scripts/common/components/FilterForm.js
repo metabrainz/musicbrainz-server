@@ -7,8 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import SelectField from '../../common/components/SelectField.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
+
+import SelectField from './SelectField.js';
 
 type GenericFilterFormFieldsT = {
   +disambiguation: FieldT<string>,
@@ -76,6 +77,7 @@ export type ReleaseGroupFilterT = $ReadOnly<{
 
 type WorkFilterFormT = FormT<{
   ...GenericFilterFormFieldsT,
+  +language_id: FieldT<number>,
   +role_type: FieldT<number>,
   +type_id: FieldT<number>,
 }>;
@@ -83,6 +85,7 @@ type WorkFilterFormT = FormT<{
 export type WorkFilterT = $ReadOnly<{
   ...WorkFilterFormT,
   +entity_type: 'work',
+  +options_language_id: SelectOptionsT,
   +options_role_type: SelectOptionsT,
   +options_type_id: SelectOptionsT,
 }>;
@@ -118,7 +121,7 @@ type FieldProps = {
 const ArtistCreditField = ({
   field,
   options,
-}: FieldProps): React$Element<'tr'> => (
+}: FieldProps): React.Element<'tr'> => (
   <tr>
     <td>
       {addColonText(l('Artist credit'))}
@@ -128,7 +131,7 @@ const ArtistCreditField = ({
         field={field}
         options={{
           grouped: false,
-          options: options,
+          options,
         }}
         style={{maxWidth: '40em'}}
         uncontrolled
@@ -137,7 +140,7 @@ const ArtistCreditField = ({
   </tr>
 );
 
-const TypeField = ({field, options}: FieldProps): React$Element<'tr'> => (
+const TypeField = ({field, options}: FieldProps): React.Element<'tr'> => (
   <tr>
     <td>
       {addColonText(l('Type'))}
@@ -147,7 +150,7 @@ const TypeField = ({field, options}: FieldProps): React$Element<'tr'> => (
         field={field}
         options={{
           grouped: false,
-          options: options,
+          options,
         }}
         style={{maxWidth: '40em'}}
         uncontrolled
@@ -345,6 +348,22 @@ component FilterForm(form: FilterFormT) {
                   field={form.field.type_id}
                   options={form.options_type_id}
                 />
+                <tr>
+                  <td>
+                    {addColonText(l('Language'))}
+                  </td>
+                  <td>
+                    <SelectField
+                      field={form.field.language_id}
+                      options={{
+                        grouped: false,
+                        options: form.options_language_id,
+                      }}
+                      style={{maxWidth: '40em'}}
+                      uncontrolled
+                    />
+                  </td>
+                </tr>
                 <tr>
                   <td>
                     {addColonText(l('Role'))}

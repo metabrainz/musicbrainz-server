@@ -32,9 +32,9 @@ export const errorsExist = ko.computed(function () {
 
 // XXX needed by inline scripts
 MB.validation = {
-  errorField: errorField,
-  errorFields: errorFields,
-  errorsExist: errorsExist,
+  errorField,
+  errorFields,
+  errorsExist,
 };
 
 if (typeof document !== 'undefined') {

@@ -104,31 +104,29 @@ component AcoustIdCell(recordingMbid: string) {
   }, [recordingMbid, loadCallback]);
 
   return (
-    <>
-      {isLoading ? (
-        <p className="loading-message">
-          {l('Loading...')}
-        </p>
-      ) : (
-        acoustIdTracks?.length ? (
-          <ul>
-            {acoustIdTracks.map((track) => (
-              <li key={track.id}>
-                <code>
-                  <a
-                    className={'external' +
-                      (track.disabled === true ? ' disabled-acoustid' : '')}
-                    href={`//acoustid.org/track/${track.id}`}
-                  >
-                    {track.id.slice(0, 6) + '…'}
-                  </a>
-                </code>
-              </li>
-            ))}
-          </ul>
-        ) : null
-      )}
-    </>
+    isLoading ? (
+      <p className="loading-message">
+        {l('Loading...')}
+      </p>
+    ) : (
+      acoustIdTracks?.length ? (
+        <ul>
+          {acoustIdTracks.map((track) => (
+            <li key={track.id}>
+              <code>
+                <a
+                  className={'external' +
+                    (track.disabled === true ? ' disabled-acoustid' : '')}
+                  href={`//acoustid.org/track/${track.id}`}
+                >
+                  {track.id.slice(0, 6) + '…'}
+                </a>
+              </code>
+            </li>
+          ))}
+        </ul>
+      ) : null
+    )
   );
 }
 
@@ -136,5 +134,5 @@ export default (
   hydrate<React.PropsOf<AcoustIdCell>>(
     'div.acoustids',
     AcoustIdCell,
-  ): React$AbstractComponent<React.PropsOf<AcoustIdCell>>
+  ): React.AbstractComponent<React.PropsOf<AcoustIdCell>>
 );

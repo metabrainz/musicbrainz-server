@@ -392,8 +392,9 @@ sub update_profile
 sub update_privileges {
     my ($self, $editor, $values) = @_;
 
-    # Setting Spammer should also block editing and notes
+    # Setting Spammer should also block editing, voting and notes
     $values->{editing_disabled} ||= $values->{spammer};
+    $values->{voting_disabled} ||= $values->{spammer};
     $values->{adding_notes_disabled} ||= $values->{spammer};
 
     my $privs =   ($values->{auto_editor}           // 0) * $AUTO_EDITOR_FLAG
@@ -408,6 +409,7 @@ sub update_privileges {
                 + ($values->{account_admin}         // 0) * $ACCOUNT_ADMIN_FLAG
                 + ($values->{editing_disabled}      // 0) * $EDITING_DISABLED_FLAG
                 + ($values->{adding_notes_disabled} // 0) * $ADDING_NOTES_DISABLED_FLAG
+                + ($values->{voting_disabled}       // 0) * $VOTING_DISABLED_FLAG
                 + ($values->{spammer}               // 0) * $SPAMMER_FLAG;
 
     Sql::run_in_transaction(sub {

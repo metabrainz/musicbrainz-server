@@ -12,7 +12,7 @@ import * as React from 'react';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {CatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import {isBeginner} from '../static/scripts/common/utility/privileges.js';
 import NewNotesAlertCheckbox
@@ -62,7 +62,7 @@ component NotesReceived(editNotes: $ReadOnlyArray<EditNoteT>, pager: PagerT) {
           </p>
         )}
       </div>
-      {manifest.js('edit/components/NewNotesAlertCheckbox', {async: 'async'})}
+      {manifest('edit/components/NewNotesAlertCheckbox', {async: 'async'})}
     </Layout>
   );
 }

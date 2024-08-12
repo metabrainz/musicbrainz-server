@@ -357,6 +357,7 @@
                    [ 'not_subscribed', l('do not include editors in my subscriptions') ]
                    [ 'limited', l('include a beginner editor') ]
                    [ 'not_edit_author', l('include someone other than the edit author') ]
+                   [ 'nobody', l('do not exist (edit has no notes)') ]
                 ], field_contents) %]
   [% ELSE %]
     [% operators([ [ '=', l('is') ]
@@ -366,6 +367,7 @@
                    [ 'subscribed', l('is in my subscriptions') ]
                    [ 'not_subscribed', l('is not in my subscriptions') ]
                    [ 'limited', l('is a beginner') ]
+                   [ 'not_limited', l('is not a beginner') ]
                 ], field_contents) %]
   [% END %]  
   <span class="arg autocomplete editor">

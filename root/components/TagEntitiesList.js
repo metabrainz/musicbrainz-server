@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {type AccountLayoutUserT} from '../components/UserAccountLayout.js';
 import {CatalystContext} from '../context.mjs';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
@@ -19,6 +18,8 @@ import {ENTITIES} from '../static/scripts/common/constants.js';
 import expand2text from '../static/scripts/common/i18n/expand2text.js';
 import {formatCount} from '../statistics/utilities.js';
 import UserTagFilters from '../user/components/UserTagFilters.js';
+
+import {type AccountLayoutUserT} from './UserAccountLayout.js';
 
 type TaggedEntitiesT = {
   +[entityType: string]: {

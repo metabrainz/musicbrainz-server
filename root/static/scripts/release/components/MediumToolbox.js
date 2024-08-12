@@ -54,7 +54,7 @@ component _ToggleAllMediumsButtons(
   );
 }
 
-export const ToggleAllMediumsButtons: React$AbstractComponent<
+export const ToggleAllMediumsButtons: React.AbstractComponent<
   React.PropsOf<_ToggleAllMediumsButtons>
 > = React.memo(_ToggleAllMediumsButtons);
 
@@ -90,7 +90,7 @@ component _MediumToolbox(
   );
 }
 
-const MediumToolbox: React$AbstractComponent<
+const MediumToolbox: React.AbstractComponent<
   React.PropsOf<_MediumToolbox>
 > = React.memo(_MediumToolbox);
 

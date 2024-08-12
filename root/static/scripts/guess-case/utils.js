@@ -157,7 +157,7 @@ export function isPrepBracketWord(word: string | null): boolean {
   return prepBracketWords.test(word) || isLowerCaseBracketWord(word);
 }
 
-const sentenceStopChars = /^[:.;?!\/]$/;
+const sentenceStopChars = /^[:.;?!/]$/;
 
 export function isSentenceStopChar(word: string | null): boolean {
   if (word == null) {
@@ -187,7 +187,7 @@ export function isPunctuationChar(word: string | null): boolean {
 // Trim leading, trailing and running-line whitespace from the given string.
 export function trim(word: string): string {
   const cleanedWord = clean(word);
-  return cleanedWord.replace(/([(\[])\s+/, '$1').replace(/\s+([)\]])/, '$1');
+  return cleanedWord.replace(/([([])\s+/, '$1').replace(/\s+([)\]])/, '$1');
 }
 
 /*
@@ -294,11 +294,14 @@ export function titleString(
         !followedByPunctuation) {
       outputString = lowercase;
     } else if (
-      guessCaseMode.isRomanNumber(lowercase) && !followedByApostrophe
+      guessCaseMode.isRomanNumber(lowercase) &&
+      !followedByApostrophe &&
+      !(flags.isInsideBrackets() && isLowerCaseBracketWord(lowercase))
     ) {
       /*
        * Uppercase Roman numerals unless followed by apostrophe
-       * (likely false positive, "d'amore", "c'est")
+       * (likely false positive, "d'amore", "c'est") or a bracketed word
+       * that's typically lowercased (e.g. "mix").
        */
       outputString = uppercase;
     } else if (guessCaseMode.isUpperCaseWord(lowercase)) {

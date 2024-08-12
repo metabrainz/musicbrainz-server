@@ -15,7 +15,7 @@ import EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
 
 component EditLinks(
-  children?: React$Node,
+  children?: React.Node,
   entity: EditableEntityT,
   requiresPrivileges: boolean = false,
 ) {

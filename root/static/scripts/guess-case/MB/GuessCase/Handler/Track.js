@@ -20,8 +20,8 @@ import GuessCaseHandler from './Base.js';
 class GuessCaseTrackHandler extends GuessCaseHandler {
   removeBonusInfo(inputString: string): string {
     return inputString
-      .replace(/[\(\[]?bonus(\s+track)?s?\s*[\)\]]?$/i, '')
-      .replace(/[\(\[]?retail(\s+version)?\s*[\)\]]?$/i, '');
+      .replace(/[([]?bonus(\s+track)?s?\s*[)\]]?$/i, '')
+      .replace(/[([]?retail(\s+version)?\s*[)\]]?$/i, '');
   }
 
   /*
@@ -54,13 +54,13 @@ class GuessCaseTrackHandler extends GuessCaseHandler {
     if (inputString != null) {
       if (!gc.regexes.TRACK_DATATRACK) {
         // Data tracks
-        gc.regexes.TRACK_DATATRACK = /^([\(\[]?\s*data(\s+track)?\s*[\)\]]?$)/i;
+        gc.regexes.TRACK_DATATRACK = /^([([]?\s*data(\s+track)?\s*[)\]]?$)/i;
         // Silence
-        gc.regexes.TRACK_SILENCE = /^([\(\[]?\s*(silen(t|ce)|blank)(\s+track)?\s*[\)\]]?)$/i;
+        gc.regexes.TRACK_SILENCE = /^([([]?\s*(silen(t|ce)|blank)(\s+track)?\s*[)\]]?)$/i;
         // Untitled
-        gc.regexes.TRACK_UNTITLED = /^([\(\[]?\s*untitled(\s+track)?\s*[\)\]]?)$/i;
+        gc.regexes.TRACK_UNTITLED = /^([([]?\s*untitled(\s+track)?\s*[)\]]?)$/i;
         // Unknown
-        gc.regexes.TRACK_UNKNOWN = /^([\(\[]?\s*(unknown|bonus|hidden)(\s+track)?\s*[\)\]]?)$/i;
+        gc.regexes.TRACK_UNKNOWN = /^([([]?\s*(unknown|bonus|hidden)(\s+track)?\s*[)\]]?)$/i;
         // Any number of question marks
         gc.regexes.TRACK_MYSTERY = /^\?+$/i;
       }

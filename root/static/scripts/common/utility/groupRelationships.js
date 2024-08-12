@@ -219,7 +219,11 @@ const areTargetGroupsIdentical = (
 function displayLinkPhrase(linkTypeInfo: PhraseGroupLinkTypeInfoT) {
   const phrase = linkTypeInfo.phrase;
   if (linkTypeInfo.editsPending) {
-    return <span className="mp">{phrase}</span>;
+    return (
+      <span className="mp" key={linkTypeInfo.textPhrase}>
+        {phrase}
+      </span>
+    );
   }
   return phrase;
 }
@@ -570,8 +574,7 @@ export default function groupRelationships(
      * If one of the relationships in the target group has pending edits,
      * mark the whole group as having pending edits.
      */
-    targetGroup.editsPending = targetGroup.editsPending ||
-      relationship.editsPending;
+    targetGroup.editsPending ||= relationship.editsPending;
   }
 
   for (const targetTypeGroup of targetTypeGroups) {
@@ -621,8 +624,7 @@ export default function groupRelationships(
           // Merge editsPending flags
           for (let k = 0; k < targetGroups1.length; k++) {
             const targetGroup1 = targetGroups1[k];
-            targetGroup1.editsPending =
-              targetGroup1.editsPending || targetGroups2[k].editsPending;
+            targetGroup1.editsPending ||= targetGroups2[k].editsPending;
           }
 
           const [index, exists] = sortedIndexWith(

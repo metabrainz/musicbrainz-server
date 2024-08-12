@@ -9,8 +9,8 @@
 
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
 
-const displayCatno = (catno: string): React$Element<'span'> => (
-  <span className="catalog-number">
+const displayCatno = (catno: string): React.Element<'span'> => (
+  <span className="catalog-number" key={catno}>
     {catno}
   </span>
 );

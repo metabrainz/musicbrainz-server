@@ -165,7 +165,7 @@ export function* iterateRelationshipsInTargetTypeGroup(
     for (
       const linkPhraseGroup of tree.iterate(linkTypeGroup.phraseGroups)
     ) {
-      yield *tree.iterate(linkPhraseGroup.relationships);
+      yield* tree.iterate(linkPhraseGroup.relationships);
     }
   }
 }
@@ -174,7 +174,7 @@ export function* iterateRelationshipsInTargetTypeGroups(
   targetTypeGroups: RelationshipTargetTypeGroupsT,
 ): Generator<RelationshipStateT, void, void> {
   for (const targetTypeGroup of tree.iterate(targetTypeGroups)) {
-    yield *iterateRelationshipsInTargetTypeGroup(
+    yield* iterateRelationshipsInTargetTypeGroup(
       targetTypeGroup,
     );
   }

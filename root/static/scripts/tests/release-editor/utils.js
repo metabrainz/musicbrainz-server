@@ -40,7 +40,7 @@ test('unformatTrackLength', function (t) {
   );
   t.equal(
     unformatTrackLength('14:15:16'),
-    14 * hours + 15 * minutes + 16 * seconds,
+    (14 * hours) + (15 * minutes) + (16 * seconds),
     'unformatTrackLength',
   );
 });

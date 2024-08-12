@@ -59,7 +59,7 @@ component _DialogTargetType(
   );
 }
 
-const DialogTargetType: React$AbstractComponent<
+const DialogTargetType: React.AbstractComponent<
   React.PropsOf<_DialogTargetType>
 > = React.memo(_DialogTargetType);
 

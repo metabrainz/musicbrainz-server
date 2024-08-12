@@ -15,16 +15,11 @@ import {
   ln as lnActual,
   lp as lpActual,
 } from '../i18n.js';
+
 import {
   l_admin as lAdminActual,
   ln_admin as lnAdminActual,
-} from '../i18n/admin.js';
-import {
-  l_statistics as lStatisticsActual,
-  ln_statistics as lnStatisticsActual,
-  lp_statistics as lpStatisticsActual,
-} from '../i18n/statistics.js';
-
+} from './admin.js';
 import expand, {
   type NO_MATCH,
   type Parser,
@@ -47,6 +42,11 @@ import expand, {
   substEnd,
   VarArgs,
 } from './expand2.js';
+import {
+  l_statistics as lStatisticsActual,
+  ln_statistics as lnStatisticsActual,
+  lp_statistics as lpStatisticsActual,
+} from './statistics.js';
 
 type Input = Expand2ReactInput;
 type Output = Expand2ReactOutput;
@@ -56,7 +56,7 @@ const condSubstThenTextContent = /^[^<>{}|]+/;
 const percentSign = /(%)/;
 const linkSubstStart = /^\{([0-9A-z_]+)\|/;
 const htmlTagStart = /^<(?=[a-z])/;
-const htmlTagName = /^(a|abbr|br|code|em|h1|h2|h3|h4|h5|h6|hr|li|ol|p|span|strong|ul)(?=[\s\/>])/;
+const htmlTagName = /^(a|abbr|br|code|em|h1|h2|h3|h4|h5|h6|hr|li|ol|p|span|strong|ul)(?=[\s/>])/;
 const htmlTagEnd = /^>/;
 const htmlSelfClosingTagEnd = /^\s*\/>/;
 const htmlAttrStart = /^\s+(?=[a-z])/;
@@ -131,7 +131,7 @@ const parseVarSubst = createVarSubstParser<Output, Input>(
 );
 
 const parseLinkSubst: Parser<
-  React$Element<'a'> | string | NO_MATCH,
+  React.Element<'a'> | string | NO_MATCH,
   Input,
 > = saveMatch(function (args) {
   const name = accept(linkSubstStart);
@@ -155,7 +155,11 @@ const parseLinkSubst: Parser<
     ) {
       throw error('bad link props');
     }
-    return React.createElement('a', props, ...children);
+    return (
+      <a key={args.getKey('a')} {...props}>
+        {children}
+      </a>
+    );
   }
   return state.match;
 });
@@ -294,8 +298,8 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
     return NO_MATCH_VALUE;
   }
 
-  const name = accept(htmlTagName);
-  if (typeof name !== 'string') {
+  const TagName = accept(htmlTagName);
+  if (typeof TagName !== 'string') {
     throw error('bad HTML tag');
   }
 
@@ -303,12 +307,18 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
     htmlAttrParsers,
     args,
   );
+  const combinedAttributes = Object.assign(
+    ({}: HtmlAttrs),
+    ...attributes,
+  );
 
+  // Self-closing tag
   if (gotMatch(accept(htmlSelfClosingTagEnd))) {
-    // Self-closing tag
-    return React.createElement(
-      name,
-      Object.assign(({}: HtmlAttrs), ...attributes),
+    return (
+      <TagName
+        {...combinedAttributes}
+        key={args.getKey(TagName)}
+      />
     );
   }
 
@@ -318,14 +328,17 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
 
   const children = parseRoot(args);
 
-  if (!gotMatch(accept(new RegExp('^</' + name + '>')))) {
-    throw error('expected </' + name + '>');
+  if (!gotMatch(accept(new RegExp('^</' + TagName + '>')))) {
+    throw error('expected </' + TagName + '>');
   }
 
-  return React.createElement(
-    name,
-    Object.assign(({}: HtmlAttrs), ...attributes),
-    ...children,
+  return (
+    <TagName
+      {...combinedAttributes}
+      key={args.getKey(TagName)}
+    >
+      {children}
+    </TagName>
   );
 }
 
@@ -402,15 +415,7 @@ export function expand2reactWithVarArgsInstance(
     args,
   );
   if (Array.isArray(result)) {
-    return result.length ? (
-      result.length > 1
-        ? (
-          (args != null && args.get('__wantArray') === 'true')
-            ? result
-            : React.createElement(React.Fragment, null, ...result)
-        )
-        : result[0]
-    ) : '';
+    return result.length ? (result.length > 1 ? result : result[0]) : '';
   }
   return result;
 }

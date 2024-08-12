@@ -9,22 +9,7 @@
 
 import * as React from 'react';
 
-function setlistLink(
-  entityType: string,
-  entityGid: string,
-  content: string,
-) {
-  let formattedContent = content;
-  if (empty(formattedContent)) {
-    formattedContent = entityType + ':' + entityGid;
-  }
-
-  return (
-    <a href={`/${entityType}/${entityGid}`}>
-      {formattedContent}
-    </a>
-  );
-}
+import {incrementCounter} from './numbers.js';
 
 const linkRegExp =
   /^\[([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(?:\|([^\]]+))?\]/i;
@@ -46,33 +31,59 @@ function decodeSomeHTMLEntities(content: ?string) {
     .replace(/&#38;|&#x26;|&amp;/gi, '&'); // Replace all & at last and in one go
 }
 
-function formatSetlistArtist(content: string, entityGid?: string) {
-  return (
-    <strong>
-      {addColonText(l('Artist'))}
-      {' '}
-      {nonEmpty(entityGid)
-        ? setlistLink('artist', entityGid, content)
-        : content}
-    </strong>
-  );
-}
-
-function formatSetlistWork(content: string, entityGid?: string) {
-  return nonEmpty(entityGid)
-    ? setlistLink('work', entityGid, content)
-    : content;
-}
-
 export default function formatSetlist(
   setlistText: string,
 ): Expand2ReactOutput {
   const rawLines = setlistText.split(/(?:\r\n|\n\r|\r|\n)/);
-  const elements: Array<React$Node> = [];
+  const elements: Array<React.MixedElement | string> = [];
+  const keys = new Map<string, number>();
+
+  function setlistLink(
+    entityType: string,
+    entityGid: string,
+    content: string,
+  ) {
+    let formattedContent = content;
+    if (empty(formattedContent)) {
+      formattedContent = entityType + ':' + entityGid;
+    }
+
+    return (
+      <a
+        href={`/${entityType}/${entityGid}`}
+        key={entityType + '-' + String(incrementCounter(keys, entityGid))}
+      >
+        {formattedContent}
+      </a>
+    );
+  }
+
+  function formatSetlistArtist(content: string, entityGid?: string) {
+    return (
+      <strong
+        key={'artist-' +
+             String(incrementCounter(keys, entityGid ?? content))}
+      >
+        {addColonText(l('Artist'))}
+        {' '}
+        {nonEmpty(entityGid)
+          ? setlistLink('artist', entityGid, content)
+          : content}
+      </strong>
+    );
+  }
+
+  function formatSetlistWork(content: string, entityGid?: string) {
+    return nonEmpty(entityGid)
+      ? setlistLink('work', entityGid, content)
+      : content;
+  }
 
   for (const rawLine of rawLines) {
     if (empty(rawLine)) {
-      elements.push(<br />);
+      elements.push(
+        <br key={'br-' + String(incrementCounter(keys, 'br'))} />,
+      );
       continue;
     }
 
@@ -94,7 +105,12 @@ export default function formatSetlist(
       // Lines starting with # are comments
       case '# ':
         elements.push(
-          <span className="comment">{decodeSomeHTMLEntities(line)}</span>,
+          <span
+            className="comment"
+            key={'comment-' + String(incrementCounter(keys, 'comment'))}
+          >
+            {decodeSomeHTMLEntities(line)}
+          </span>,
         );
         break;
 
@@ -151,8 +167,10 @@ export default function formatSetlist(
       }
     }
 
-    elements.push(<br />);
+    elements.push(
+      <br key={'br-' + String(incrementCounter(keys, 'br'))} />,
+    );
   }
 
-  return React.createElement(React.Fragment, null, ...elements);
+  return elements;
 }

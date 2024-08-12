@@ -9,7 +9,7 @@
 
 import CleanupBanner from '../components/CleanupBanner.js';
 import RelationshipsTable from '../components/RelationshipsTable.js';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import Relationships
   from '../static/scripts/common/components/Relationships.js';
@@ -48,7 +48,7 @@ component WorkIndex(
         pagedLinkTypeGroup={pagedLinkTypeGroup}
         pager={pager}
       />
-      {manifest.js('work/index', {async: 'async'})}
+      {manifest('work/index', {async: 'async'})}
     </WorkLayout>
   );
 }

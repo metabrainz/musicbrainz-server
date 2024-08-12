@@ -53,7 +53,7 @@ function showErrorHandler(handler) {
     // Binding may be running before element has been added to the DOM.
     setTimeout(function () {
       ko.computed({
-        read: function () {
+        read() {
           const value = errorField.call(vm);
           const $panel = $element.parents('.ui-tabs-panel');
 
@@ -73,7 +73,7 @@ function showErrorHandler(handler) {
 ko.bindingHandlers.showErrorRightAway = {
 
   init: showErrorHandler(function (value, $element) {
-    $element.data('visible', !!value).toggle(!!value);
+    $element.data('visible', Boolean(value)).toggle(Boolean(value));
   }),
 };
 

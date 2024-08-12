@@ -21,6 +21,7 @@ type InputProps = {
   +id: string,
   +name: string,
   onChange?: InputOnChange,
+  +placeholder?: string,
   +ref?: {-current: HTMLInputElement | null},
   +required: boolean,
   +size: ?number,
@@ -34,12 +35,13 @@ type ControlledPropsT =
 
 component FormRowText(
   autoComplete?: string,
-  children?: React$Node,
+  children?: React.Node,
   className?: string,
   disabled: boolean = false,
   field: FieldT<?string>,
   inputRef?: {-current: HTMLInputElement | null},
-  label: React$Node,
+  label: React.Node,
+  placeholder?: string,
   preview?: string | null = null,
   required: boolean = false,
   size?: number,
@@ -47,15 +49,16 @@ component FormRowText(
   ...controlledProps: ControlledPropsT
 ) {
   const inputProps: InputProps = {
-    autoComplete: autoComplete,
-    className: className,
-    disabled: disabled,
+    autoComplete,
+    className,
+    disabled,
     id: 'id-' + field.html_name,
     name: field.html_name,
+    placeholder: placeholder ?? '',
     ref: inputRef,
-    required: required,
-    size: size,
-    type: type,
+    required,
+    size,
+    type,
   };
 
   const inputValue = preview ?? field.value ?? '';

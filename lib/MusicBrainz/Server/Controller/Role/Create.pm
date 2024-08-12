@@ -59,14 +59,16 @@ role {
 
         my $model = $self->config->{model};
         my $entity;
+        my %props;
 
-        if ($model eq 'Genre') {
+        if ($model eq 'Event' || $model eq 'Genre') {
             my $type = model_to_type($model);
             my $form = $c->form( form => $params->form );
+            %props = ( form => $form->TO_JSON );
 
             $c->stash(
                 component_path => $type . '/Create' . $model,
-                component_props => {form => $form->TO_JSON},
+                component_props => \%props,
                 current_view => 'Node',
             );
         }
@@ -86,6 +88,17 @@ role {
                 # XXX Delete the "Thank you, your edit has been..." message
                 # so it doesn't weirdly show up on the next page.
                 delete $c->flash->{message};
+            },
+            pre_validation => sub {
+                if ($model eq 'Event') {
+                    my $form = shift;
+                    my %event_descriptions = map {
+                        $_->id => $_->l_description
+                    } $c->model('EventType')->get_all();
+
+                    $props{eventTypes} = $form->options_type_id;
+                    $props{eventDescriptions} = \%event_descriptions;
+                }
             },
             redirect => sub {
                 $c->response->redirect($c->uri_for_action(

@@ -134,9 +134,57 @@ declare module '@floating-ui/react' {
   declare export function autoPlacement(): Middleware;
 
   /*
+   * autoUpdate()
+   */
+  export type AutoUpdateOptions = Partial<{
+    +ancestorResize: boolean,
+    +ancestorScroll: boolean,
+    +animationFrame: boolean,
+    +elementResize: boolean,
+    +layoutShift: boolean,
+  }>;
+
+  declare export function autoUpdate(
+    reference: ReferenceElement,
+    floating: HTMLElement,
+    update: () => void,
+    options?: AutoUpdateOptions,
+  ): (() => void);
+
+  /*
+   * offset()
+   */
+  declare export type OffsetOptions =
+    | number
+    | {
+        +alignmentAxis?: number | null,
+        +crossAxis?: number,
+        +mainAxis?: number,
+      };
+
+  declare export function offset(OffsetOptions): Middleware;
+
+  /*
    * shift()
    */
   declare export function shift(): Middleware;
+
+  /*
+   * size()
+   */
+  declare export type SizeOptions = $ReadOnly<{
+    ...DetectOverflowOptions,
+    apply?: (
+      state: $ReadOnly<{
+        ...MiddlewareState,
+        availableHeight: number,
+        availableWidth: number,
+        ...
+      }>,
+    ) => void,
+  }>;
+
+  declare export function size(SizeOptions): Middleware;
 
   /*
    * useClick()
@@ -171,6 +219,11 @@ declare module '@floating-ui/react' {
     ) => void,
     open?: boolean,
     strategy?: 'fixed' | 'absolute',
+    whileElementsMounted?: (
+      reference: ReferenceElement,
+      floating: HTMLElement,
+      update: () => void,
+    ) => (() => void),
   }
 
   declare export interface UseFloatingReturn {
@@ -242,13 +295,13 @@ declare module '@floating-ui/react' {
   };
 
   declare export const FloatingArrow:
-    React$AbstractComponent<FloatingArrowProps, Element>;
+    React.AbstractComponent<FloatingArrowProps, Element>;
 
   /*
    * FloatingFocusManager
    */
   declare export type FloatingFocusManagerProps = {
-    +children: React$Node,
+    +children: React.Node,
     +closeOnFocusOut?: boolean,
     +context: FloatingContext,
     +initialFocus?: number | {current: HTMLElement | null},
@@ -257,50 +310,50 @@ declare module '@floating-ui/react' {
   };
 
   declare export const FloatingFocusManager:
-    React$AbstractComponent<FloatingFocusManagerProps>;
+    React.AbstractComponent<FloatingFocusManagerProps>;
 
   /*
    * FloatingNode
    */
   declare export type FloatingNodeProps = {
-    +children: React$Node,
+    +children: React.Node,
     +id?: string,
   };
 
   declare export const FloatingNode:
-    React$AbstractComponent<FloatingNodeProps>;
+    React.AbstractComponent<FloatingNodeProps>;
 
   /*
    * FloatingOverlay
    */
   declare export type FloatingOverlayProps = {
-    +children: React$Node,
+    +children: React.Node,
     +className?: string,
     +lockScroll?: boolean,
     +onClick?: (SyntheticMouseEvent<HTMLDivElement>) => mixed,
   };
 
   declare export const FloatingOverlay:
-    React$AbstractComponent<FloatingOverlayProps>;
+    React.AbstractComponent<FloatingOverlayProps>;
 
   /*
    * FloatingPortal
    */
   declare export type FloatingPortalProps = {
-    +children: React$Node,
+    +children: React.Node,
     +id?: string,
   };
 
   declare export const FloatingPortal:
-    React$AbstractComponent<FloatingPortalProps>;
+    React.AbstractComponent<FloatingPortalProps>;
 
   /*
    * FloatingTree
    */
   declare export type FloatingTreeProps = {
-    +children: React$Node,
+    +children: React.Node,
   };
 
   declare export const FloatingTree:
-    React$AbstractComponent<FloatingTreeProps>;
+    React.AbstractComponent<FloatingTreeProps>;
 }

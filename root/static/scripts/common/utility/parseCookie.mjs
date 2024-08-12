@@ -9,13 +9,10 @@
 
 /*
  * NOTE: This is used by root/server.mjs.
- * Don't use any magic variables (like `hasOwnProp`) from the ProvidePlugin.
+ * Don't use any magic variables from the ProvidePlugin.
  */
 
 import {parse} from 'cookie';
-
-// $FlowIgnore[method-unbinding]
-const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export default function parseCookie(
   cookie: mixed,
@@ -24,7 +21,7 @@ export default function parseCookie(
 ): string {
   if (typeof cookie === 'string') {
     const values = parse(cookie);
-    if (hasOwnProperty.call(values, name)) {
+    if (Object.hasOwn(values, name)) {
       return values[name];
     }
   }

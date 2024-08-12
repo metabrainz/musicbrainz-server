@@ -24,7 +24,10 @@ import {interpolate} from '../static/scripts/edit/utility/linkPhrase.js';
 import RelationshipTargetLinks from './RelationshipTargetLinks.js';
 
 const renderTargetGroup = (targetGroup: RelationshipTargetGroupT) => (
-  <RelationshipTargetLinks relationship={targetGroup} />
+  <RelationshipTargetLinks
+    key={targetGroup.key}
+    relationship={targetGroup}
+  />
 );
 
 const renderPhraseGroup = (phraseGroup: RelationshipPhraseGroupT) => (

@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import DBDefs from '../static/scripts/common/DBDefs-client.mjs';
 
 import PlaceLayout from './PlaceLayout.js';
@@ -27,7 +27,7 @@ component PlaceMap(mapDataArgs: MapDataArgsT, place: PlaceT) {
         DBDefs.MAPBOX_ACCESS_TOKEN ? (
           <>
             <div id="largemap" />
-            {manifest.js('place/map', {'data-args': mapDataArgs})}
+            {manifest('place/map', {'data-args': mapDataArgs})}
           </>
         ) : (
           <p>

@@ -54,8 +54,7 @@ component UserTagList(
     <UserAccountLayout
       entity={user}
       page="tags"
-      title={lp('Tags', 'folksonomy')
-      }
+      title={lp('Tags', 'folksonomy')}
     >
       <h2>
         {getTagListHeading(user.name, showDownvoted)}

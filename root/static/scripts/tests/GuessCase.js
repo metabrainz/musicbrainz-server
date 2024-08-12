@@ -223,7 +223,7 @@ test('Release', function (t) {
 });
 
 test('Work', function (t) {
-  t.plan(24);
+  t.plan(26);
 
   const tests = [
     {
@@ -398,6 +398,22 @@ test('Work', function (t) {
       bug: 'MBS-11854',
       mode: 'English',
       roman: false,
+      keepuppercase: false,
+    },
+    {
+      input: 'Some Song (Club Mix)',
+      expected: 'Some Song (club mix)',
+      bug: 'MBS-12523',
+      mode: 'English',
+      roman: true,
+      keepuppercase: false,
+    },
+    {
+      input: 'cmxcix + x = mix',
+      expected: 'CMXCIX + X = MIX',
+      bug: 'MBS-12523',
+      mode: 'English',
+      roman: true,
       keepuppercase: false,
     },
   ];

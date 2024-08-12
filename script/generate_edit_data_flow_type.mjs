@@ -56,15 +56,15 @@ yargs
     let index = 0;
     const it: AsyncIterator<string> = {
       /*:: @@asyncIterator: function () { return it; }, */
-      async next() {
+      next() {
         if (buffer == null) {
-          return {done: true};
+          return Promise.resolve({done: true});
         }
         if (index < buffer.length) {
-          return {
+          return Promise.resolve({
             done: false,
             value: buffer[index++],
-          };
+          });
         }
         return new Promise<IteratorResult<string, void>>((
           resolve,

@@ -31,8 +31,11 @@ export type VarArgsObject<+T> = {
 
 export interface VarArgsClass<+T> {
   get(name: string): T,
+  getKey(name: string): string,
   has(name: string): boolean,
 }
+
+let nextKey = 1;
 
 export class VarArgs<+T> implements VarArgsClass<T> {
   +data: VarArgsObject<T>;
@@ -42,11 +45,27 @@ export class VarArgs<+T> implements VarArgsClass<T> {
   }
 
   get(name: string): T {
-    return this.data[name];
+    let value = this.data[name];
+    if (
+      React.isValidElement(value) &&
+      // $FlowIgnore[incompatible-use]
+      empty(value.key)
+    ) {
+      // $FlowIgnore[incompatible-call]
+      value = React.cloneElement(
+        value,
+        {key: this.getKey(name)},
+      );
+    }
+    return value;
+  }
+
+  getKey(name: string): string {
+    return name + '-' + String(nextKey++);
   }
 
   has(name: string): boolean {
-    return hasOwnProp(this.data, name);
+    return Object.hasOwn(this.data, name);
   }
 }
 
@@ -276,7 +295,7 @@ export const createCondSubstParser = <T, V: Expand2ReactInput>(
  * of type V, and produce an expansion result of type T.
  *
  * So in the case of expand2react, the types would be:
- * expand<string | React$Element<any>, string | number | React$Element<any>>;
+ * expand<string | React.Element<any>, string | number | React.Element<any>>;
  *
  * And for expand2text they'd be:
  * expand<string, string | number>;

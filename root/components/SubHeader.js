@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-component SubHeader(subHeading: React$Node) {
+component SubHeader(subHeading: React.Node) {
   return (
     <p className="subheader">
       <span className="prefix">{'~'}</span>

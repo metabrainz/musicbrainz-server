@@ -13,9 +13,9 @@ use MusicBrainz::Server::Constants qw(
     :expire_action
     :vote
     $AUTO_EDITOR_FLAG
-    $EDITING_DISABLED_FLAG
     $OPEN_EDIT_DURATION
     $REQUIRED_VOTES
+    $VOTING_DISABLED_FLAG
 );
 use MusicBrainz::Server::Translation qw( l lp );
 use MusicBrainz::Server::Types
@@ -206,7 +206,7 @@ sub editor_may_approve {
          $self->is_open
       && $conditions->{auto_edit}
       && ($editor->privileges & $AUTO_EDITOR_FLAG)
-      && !($editor->privileges & $EDITING_DISABLED_FLAG);
+      && !($editor->privileges & $VOTING_DISABLED_FLAG);
 }
 
 sub editor_may_cancel {

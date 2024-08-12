@@ -32,7 +32,9 @@ role {
             'me' => 0,
             'not_me' => 0,
             'limited' => 0,
+            'not_limited' => 0,
             'not_edit_author' => 0,
+            'nobody' => 0,
         );
     };
 
@@ -48,15 +50,25 @@ role {
         if ($self->operator eq 'me' || $self->operator eq 'not_me') {
             $query->add_where([ $sql, [ $self->user->id ] ]);
         } elsif ($self->operator eq 'limited') {
-            $query->add_where([
-              "EXISTS (
-                SELECT 1
-                FROM editor
-                WHERE id = edit.editor
-                AND (privs & $BEGINNER_FLAG) > 0
-              )",
-              [ ],
-            ]);
+            my $beginner_sql = <<~'SQL';
+                SELECT id
+                  FROM editor beginner
+                 WHERE (privs & ?) > 0
+                SQL
+
+            $sql = $template_clause =~
+                s/ROLE_CLAUSE\(([^)]*)\)/$1 IN ($beginner_sql)/r;
+            $query->add_where([ $sql, [ $BEGINNER_FLAG ] ]);
+        } elsif ($self->operator eq 'not_limited') {
+            my $nonbeginner_sql = <<~'SQL';
+                SELECT id
+                  FROM editor non_beginner
+                 WHERE (privs & ?) = 0
+                SQL
+
+            $sql = $template_clause =~
+                s/ROLE_CLAUSE\(([^)]*)\)/$1 IN ($nonbeginner_sql)/r;
+            $query->add_where([ $sql, [ $BEGINNER_FLAG ] ]);
         } elsif ($self->operator eq 'not_edit_author') {
             $query->add_where([
                 'EXISTS (
@@ -66,6 +78,15 @@ role {
                 )',
                 [ ],
             ]);
+        } elsif ($self->operator eq 'nobody') {
+            $sql = <<~'SQL';
+                NOT EXISTS (
+                    SELECT TRUE
+                      FROM edit_note
+                     WHERE edit_note.edit = edit.id
+                )
+                SQL
+            $query->add_where([ $sql, [ ] ]);
         } else {
             $query->add_where([ $sql, [ $self->arguments ] ]);
         }

@@ -13,6 +13,18 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseLabelT} from './types.js';
 
+const labelColumn = {
+  Cell: ({
+    row: {original},
+  }: CellRenderProps<ReportReleaseLabelT, empty>) => (
+    <a href={'/label/' + encodeURIComponent(original.label_gid)}>
+      {original.label_name}
+    </a>
+  ),
+  Header: l('Label'),
+  id: 'label',
+};
+
 component ReleaseLabelSameArtist(...{
   canBeFiltered,
   filtered,
@@ -20,18 +32,6 @@ component ReleaseLabelSameArtist(...{
   items,
   pager,
 }: ReportDataT<ReportReleaseLabelT>) {
-  const labelColumn = {
-    Cell: ({
-      row: {original},
-    }: CellRenderProps<ReportReleaseLabelT, empty>) => (
-      <a href={'/label/' + encodeURIComponent(original.label_gid)}>
-        {original.label_name}
-      </a>
-    ),
-    Header: l('Label'),
-    id: 'label',
-  };
-
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}

@@ -11,6 +11,9 @@ import * as ReactDOMServer from 'react-dom/server';
 
 import 'knockout-arraytransforms';
 
+import {
+  BRACKET_PAIRS,
+} from '../common/constants.js';
 import mbEntity from '../common/entity.js';
 import {
   artistCreditsAreEqual,
@@ -22,6 +25,7 @@ import MB from '../common/MB.js';
 import {groupBy} from '../common/utility/arrays.js';
 import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
 import {debounceComputed} from '../common/utility/debounce.js';
+import escapeRegExp from '../common/utility/escapeRegExp.mjs';
 import formatTrackLength from '../common/utility/formatTrackLength.js';
 import isBlank from '../common/utility/isBlank.js';
 import releaseLabelKey from '../common/utility/releaseLabelKey.js';
@@ -29,6 +33,7 @@ import request from '../common/utility/request.js';
 import {fixedWidthInteger, uniqueId} from '../common/utility/strings.js';
 import mbEdit from '../edit/MB/edit.js';
 import * as dates from '../edit/utility/dates.js';
+import {featRegex} from '../edit/utility/guessFeat.js';
 import isUselessMediumTitle from '../edit/utility/isUselessMediumTitle.js';
 import * as validation from '../edit/validation.js';
 
@@ -37,6 +42,11 @@ import utils from './utils.js';
 import releaseEditor from './viewModel.js';
 
 const fields = {};
+
+const bracketRegex = new RegExp(
+  '[' + escapeRegExp(BRACKET_PAIRS.flat().join('')) + ']',
+  'g',
+);
 
 releaseEditor.fields = fields;
 
@@ -52,10 +62,14 @@ class Track {
       this.gid = data.gid;
     }
 
-    data.name = data.name || '';
+    data.name ||= '';
     this.name = ko.observable(data.name);
     this.name.original = data.name;
     this.name.subscribe(this.nameChanged, this);
+
+    this.hasFeatOnOrigTitle = featRegex.test(
+      data.name.replace(bracketRegex, ' '),
+    );
 
     this.previewName = ko.observable(null);
     this.previewNameDiffers = ko.computed(() => {
@@ -91,7 +105,7 @@ class Track {
     this.formattedLength = ko.observable(formatTrackLength(data.length, ''));
     this.position = ko.observable(data.position);
     this.number = ko.observable(data.number);
-    this.isDataTrack = ko.observable(!!data.isDataTrack);
+    this.isDataTrack = ko.observable(Boolean(data.isDataTrack));
     this.hasNewRecording = ko.observable(true);
 
     this.updateRecordingTitle = ko.observable(
@@ -219,7 +233,7 @@ class Track {
     var $lengthInput = $('input.track-length', '#track-row-' + this.uniqueID);
     $lengthInput.attr('title', '');
 
-    var hasTooltip = !!$lengthInput.data('ui-tooltip');
+    var hasTooltip = Boolean($lengthInput.data('ui-tooltip'));
 
     if (this.medium.hasInvalidPregapLength()) {
       $lengthInput.attr(
@@ -275,7 +289,7 @@ class Track {
   }
 
   hasExistingRecording() {
-    return !!this.recording().gid;
+    return Boolean(this.recording().gid);
   }
 
   needsRecording() {
@@ -287,7 +301,7 @@ class Track {
   }
 
   setRecordingValue(value) {
-    value = value || new mbEntity.Recording({name: this.name()});
+    value ||= new mbEntity.Recording({name: this.name()});
 
     var currentValue = this.recording.peek();
     if (value.gid === currentValue.gid) {
@@ -322,8 +336,7 @@ class Track {
     if (release) {
       release.relatedArtists =
         [...new Set(release.relatedArtists.concat(value.relatedArtists))];
-      release.isProbablyClassical = release.isProbablyClassical ||
-                                    value.isProbablyClassical;
+      release.isProbablyClassical ||= value.isProbablyClassical;
     }
 
     this.recordingValue(value);
@@ -339,6 +352,10 @@ class Track {
 
   hasVariousArtists() {
     return hasVariousArtists(this.artistCredit());
+  }
+
+  hasFeatOnTitle() {
+    return featRegex.test(this.name().replace(bracketRegex, ' '));
   }
 
   relatedArtists() {
@@ -400,7 +417,7 @@ class Medium {
 
     this.hasPregap = ko.computed({
       read: hasPregap,
-      write: function (newValue) {
+      write(newValue) {
         var oldValue = hasPregap();
 
         if (oldValue && !newValue) {
@@ -432,7 +449,7 @@ class Medium {
 
     this.hasDataTracks = ko.computed({
       read: hasDataTracks,
-      write: function (newValue) {
+      write(newValue) {
         var oldValue = hasDataTracks();
 
         if (oldValue && !newValue) {
@@ -476,9 +493,22 @@ class Medium {
     this.confirmedVariousArtists = ko.observable(
       this.hasVariousArtistTracks(),
     );
+    this.hasFeatOnTrackTitles = ko.computed(function () {
+      return !self.tracksUnknownToUser() &&
+             self.tracks().some(t => t.hasFeatOnTitle());
+    });
+    this.hasAddedFeatOnTrackTitles = ko.computed(function () {
+      return self.hasFeatOnTrackTitles() &&
+             self.tracks().some(
+               t => !t.hasFeatOnOrigTitle && t.hasFeatOnTitle(),
+             );
+    });
+    this.confirmedFeatOnTrackTitles = ko.observable(
+      this.hasFeatOnTrackTitles.peek(),
+    );
     this.hasTooEarlyFormat = ko.computed(function () {
       const mediumFormatDate = MB.mediumFormatDates[self.formatID()];
-      return !!(mediumFormatDate && self.release.earliestYear() &&
+      return Boolean(mediumFormatDate && self.release.earliestYear() &&
                 self.release.earliestYear() < mediumFormatDate);
     });
     this.confirmedEarlyFormat = ko.observable(this.hasTooEarlyFormat());
@@ -486,7 +516,7 @@ class Medium {
       const isFormatDigital = self.formatID() &&
                               // "Digital Media"
                               self.formatID().toString() === '12';
-      return !!(isFormatDigital &&
+      return Boolean(isFormatDigital &&
                 nonEmpty(self.release.packagingID()) &&
                 self.release.packagingID().toString() !== '7'); // "None"
     });
@@ -516,10 +546,10 @@ class Medium {
      * The medium is considered to be loaded if it has tracks, or if
      * there's no ID to load tracks from.
      */
-    const loaded = !!(
+    const loaded = Boolean(
       this.tracks().length ||
       this.tracksUnknownToUser() ||
-      !(this.id || this.originalID)
+      !(this.id || this.originalID),
     );
 
     if (data.cdtocs) {
@@ -576,9 +606,20 @@ class Medium {
               !self.confirmedVariousArtists());
     });
 
+    this.hasUnconfirmedFeatOnTrackTitles = ko.computed(function () {
+      return (self.hasAddedFeatOnTrackTitles() &&
+              !self.confirmedFeatOnTrackTitles());
+    });
+
     this.hasVariousArtistTracks.subscribe(function (value) {
       if (!value) {
         self.confirmedVariousArtists(false);
+      }
+    });
+
+    this.hasFeatOnTrackTitles.subscribe(function (value) {
+      if (!value) {
+        self.confirmedFeatOnTrackTitles(false);
       }
     });
 
@@ -606,7 +647,7 @@ class Medium {
   }
 
   pushTrack(data) {
-    data = data || {};
+    data ||= {};
 
     if (data.position === undefined) {
       data.position = this.tracks().length + (this.hasPregap() ? 0 : 1);
@@ -632,11 +673,11 @@ class Medium {
   }
 
   hasExistingTocs() {
-    return !!(this.id && this.cdtocs && this.cdtocs.length);
+    return Boolean(this.id && this.cdtocs && this.cdtocs.length);
   }
 
   hasToc() {
-    return this.hasExistingTocs() || (!!this.toc());
+    return this.hasExistingTocs() || (Boolean(this.toc()));
   }
 
   tocChanged(toc) {
@@ -771,6 +812,7 @@ class Medium {
     this.loading(false);
     this.collapsed(false);
     this.confirmedVariousArtists(this.hasVariousArtistTracks());
+    this.confirmedFeatOnTrackTitles(this.hasFeatOnTrackTitles());
   }
 
   hasTracks() {
@@ -786,12 +828,12 @@ class Medium {
       if (multidisc) {
         return texp.l(
           'Medium {position}: {title}',
-          {position: position, title: name},
+          {position, title: name},
         );
       }
       return name;
     } else if (multidisc) {
-      return texp.l('Medium {position}', {position: position});
+      return texp.l('Medium {position}', {position});
     }
     return l('Tracklist');
   }
@@ -829,7 +871,7 @@ fields.Medium = Medium;
 
 class ReleaseGroup extends mbEntity.ReleaseGroup {
   constructor(data) {
-    data = data || {};
+    data ||= {};
 
     super(data);
 
@@ -907,7 +949,7 @@ class ReleaseLabel {
 
     this.needsLabel = ko.computed(function () {
       var label = self.label() || {};
-      return !!(label.name && !label.gid);
+      return Boolean(label.name && !label.gid);
     });
   }
 
@@ -949,10 +991,10 @@ class Barcode {
     this.value.equalityComparer = null;
 
     this.none = ko.computed({
-      read: function () {
+      read() {
         return this.barcode() === '';
       },
-      write: function (bool) {
+      write(bool) {
         this.barcode(bool ? '' : null);
       },
       owner: this,
@@ -1047,7 +1089,9 @@ class Release extends mbEntity.Release {
     ko.computed(function () {
       for (const events of groupBy(self.events(), countryID).values()) {
         const isDuplicate = events.filter(nonEmptyEvent).length > 1;
-        events.forEach(e => e.isDuplicate(isDuplicate));
+        events.forEach(e => {
+          e.isDuplicate(isDuplicate);
+        });
       }
     });
 
@@ -1075,7 +1119,9 @@ class Release extends mbEntity.Release {
       const labelsByKey = groupBy(self.labels(), releaseLabelKey);
       for (const labels of labelsByKey.values()) {
         const isDuplicate = labels.filter(nonEmptyReleaseLabel).length > 1;
-        labels.forEach(l => l.isDuplicate(isDuplicate));
+        labels.forEach(l => {
+          l.isDuplicate(isDuplicate);
+        });
       }
     });
 
@@ -1162,7 +1208,9 @@ class Release extends mbEntity.Release {
     var mediums = this.mediums();
 
     if (mediums.length <= 3) {
-      mediums.forEach(m => m.loadTracks());
+      mediums.forEach(m => {
+        m.loadTracks();
+      });
     }
   }
 

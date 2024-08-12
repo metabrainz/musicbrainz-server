@@ -153,9 +153,6 @@ export type LinkedEntitiesT = {
   },
 };
 
-// $FlowIgnore[method-unbinding]
-const hasOwnProperty = Object.prototype.hasOwnProperty;
-
 const linkedEntities: LinkedEntitiesT = Object.seal({
   area:                           {},
   area_alias_type:                {},
@@ -213,7 +210,7 @@ export function mergeLinkedEntities(
 ): void {
   if (update) {
     for (const [type, entities] of Object.entries(update)) {
-      if (hasOwnProperty.call(linkedEntities, type)) {
+      if (Object.hasOwn(linkedEntities, type)) {
         if (entities != null) {
           if (isObjectEmpty(linkedEntities[type])) {
             // $FlowIgnore[incompatible-type]

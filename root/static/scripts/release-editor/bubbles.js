@@ -19,20 +19,20 @@ function bubbleDoc(options) {
 }
 
 releaseEditor.releaseGroupBubble = bubbleDoc({
-  canBeShown: function (release) {
+  canBeShown(release) {
     var releaseGroup = release.releaseGroup();
     return releaseGroup && releaseGroup.gid;
   },
 });
 
 releaseEditor.statusBubble = bubbleDoc({
-  canBeShown: function (release) {
+  canBeShown(release) {
     return release.statusID() == 4;
   },
 });
 
 releaseEditor.dateBubble = bubbleDoc({
-  canBeShown: function (event) {
+  canBeShown(event) {
     return event.hasAmazonDate() || event.hasJanuaryFirstDate();
   },
 });
@@ -44,19 +44,19 @@ releaseEditor.scriptBubble = bubbleDoc();
 releaseEditor.packagingBubble = bubbleDoc();
 
 releaseEditor.labelBubble = bubbleDoc({
-  canBeShown: function (releaseLabel) {
+  canBeShown(releaseLabel) {
     return (releaseLabel.label().gid ||
                 this.catNoLooksLikeASIN(releaseLabel.catalogNumber()));
   },
 
-  catNoLooksLikeASIN: function (catNo) {
+  catNoLooksLikeASIN(catNo) {
     // Please keep in sync with CatNoLooksLikeASIN report
     return /^B0(?=.*[A-Z])([0-9A-Z]{8})$/.test(catNo);
   },
 });
 
 releaseEditor.barcodeBubble = bubbleDoc({
-  canBeShown: function (release) {
+  canBeShown(release) {
     return !release.barcode.none();
   },
 });

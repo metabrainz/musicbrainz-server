@@ -30,7 +30,7 @@ export default function reducerWithErrorHandling<
     } catch (e) {
       error = coerceToError(e);
       if (
-        !hasOwnProp(error, 'doNotLogToSentry') ||
+        !Object.hasOwn(error, 'doNotLogToSentry') ||
         // $FlowIgnore[prop-missing]
         error.doNotLogToSentry !== true
       ) {

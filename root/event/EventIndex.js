@@ -8,7 +8,7 @@
  */
 
 import CleanupBanner from '../components/CleanupBanner.js';
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import Relationships
   from '../static/scripts/common/components/Relationships.js';
@@ -50,7 +50,7 @@ component EventIndex(
           </p>
         </>
       ) : null}
-      {manifest.js('event/index', {async: 'async'})}
+      {manifest('event/index', {async: 'async'})}
     </EventLayout>
   );
 }

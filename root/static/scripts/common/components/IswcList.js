@@ -52,4 +52,4 @@ component IswcList(
 export default (hydrate<React.PropsOf<IswcList>>(
   'div.iswc-list-container',
   IswcList,
-): React$AbstractComponent<React.PropsOf<IswcList>>);
+): React.AbstractComponent<React.PropsOf<IswcList>>);

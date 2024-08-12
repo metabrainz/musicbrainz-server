@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const specialLuceneChars = /([+\-&|!(){}[\]^"~*?:\\\/])/g;
+const specialLuceneChars = /([+\-&|!(){}[\]^"~*?:\\/])/g;
 
 export default function escapeLuceneValue(value: number | string): string {
   return String(value).replace(specialLuceneChars, '\\$1');

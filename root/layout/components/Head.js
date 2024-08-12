@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import * as manifest from '../../static/manifest.mjs';
+import manifest from '../../static/manifest.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import commonLessUrl from '../../static/styles/common.less';
 import iconLessUrl from '../../static/styles/icons.less';
@@ -127,23 +127,23 @@ component Head(
 
       {globalsScript}
 
-      {manifest.js('runtime')}
+      {manifest('runtime')}
 
-      {manifest.js('common-chunks')}
+      {manifest('common-chunks')}
 
-      {manifest.js('jed-data')}
+      {manifest('jed-data')}
 
       {$c.stash.current_language === 'en'
         ? null
-        : manifest.js('jed-' + $c.stash.current_language)}
+        : manifest('jed-' + $c.stash.current_language)}
 
-      {manifest.js('common', {
+      {manifest('common', {
         'data-args': JSON.stringify({
           user: $c.user ? {id: $c.user.id, name: $c.user.name} : null,
         }),
       })}
 
-      {MUSICBRAINZ_RUNNING_TESTS ? manifest.js('selenium') : null}
+      {MUSICBRAINZ_RUNNING_TESTS ? manifest('selenium') : null}
 
       {$c.stash.jsonld_data ? (
         <script

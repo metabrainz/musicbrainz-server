@@ -29,7 +29,7 @@ const GenreList = ({
   genres,
   order,
   sortable,
-}: Props): React$Element<'table'> => {
+}: Props): React.Element<'table'> => {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -38,8 +38,8 @@ const GenreList = ({
         ? defineCheckboxColumn({name: checkboxes})
         : null;
       const nameColumn = defineNameColumn<GenreT>({
-        order: order,
-        sortable: sortable,
+        order,
+        sortable,
         title: l('Genre'),
       });
 

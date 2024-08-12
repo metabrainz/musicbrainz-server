@@ -29,12 +29,12 @@ import bracketed, {bracketedText}
 import escapeRegExp from '../static/scripts/common/utility/escapeRegExp.mjs';
 import nonEmpty from '../static/scripts/common/utility/nonEmpty.js';
 import {
+  getRestrictionsForUser,
   isAccountAdmin,
   isAddingNotesDisabled,
   isAutoEditor,
   isBeginner,
   isBot,
-  isEditingDisabled,
   isLocationEditor,
   isRelationshipEditor,
   isSpammer,
@@ -71,7 +71,7 @@ function generateUserTypesList(
   }
   if (isAutoEditor(user)) {
     typesList.push(
-      <a href="/doc/Editor#Auto-editors">
+      <a href="/doc/Editor#Auto-editors" key="auto-editor">
         {lp('Auto-editor', 'user type')}
       </a>,
     );
@@ -81,21 +81,21 @@ function generateUserTypesList(
   }
   if (isRelationshipEditor(user)) {
     typesList.push(
-      <a href="/doc/Editor#Relationship_editors">
+      <a href="/doc/Editor#Relationship_editors" key="relationship-editor">
         {lp('Relationship editor', 'user type')}
       </a>,
     );
   }
   if (isWikiTranscluder(user)) {
     typesList.push(
-      <a href="/doc/Editor#Transclusion_editors">
+      <a href="/doc/Editor#Transclusion_editors" key="transclusion-editor">
         {lp('Transclusion editor', 'user type')}
       </a>,
     );
   }
   if (isLocationEditor(user)) {
     typesList.push(
-      <a href="/doc/Editor#Location_editors">
+      <a href="/doc/Editor#Location_editors" key="location-editor">
         {lp('Location editor', 'user type')}
       </a>,
     );
@@ -104,6 +104,7 @@ function generateUserTypesList(
     typesList.push(
       <span
         className="tooltip"
+        key="beginner"
         title={l('This user is new to MusicBrainz.')}
       >
         {lp('Beginner', 'user type')}
@@ -119,7 +120,7 @@ function generateUserTypesList(
 }
 
 component UserProfileProperty(
-  children: React$Node,
+  children: React.Node,
   className?: string,
   name: string,
 ) {
@@ -524,12 +525,14 @@ type EntitiesStatsT = {
 component UserProfileStatistics(
   addedEntities: EntitiesStatsT,
   editStats: EditStatsT,
+  votes as passedVotes: VoteStatsT,
   secondaryStats: SecondaryStatsT,
   user: UnsanitizedEditorT,
-  votes: VoteStatsT,
 ) {
   const $c = React.useContext(CatalystContext);
+  const votes = [...passedVotes];
   const voteTotals = votes.pop();
+  invariant(voteTotals, 'voteTotals should always exist.');
   const encodedName = encodeURIComponent(user.name);
   const allAppliedCount = editStats.accepted_count +
                           editStats.accepted_auto_count;
@@ -867,13 +870,7 @@ component UserProfile(
   const viewingOwnProfile = $c.user != null && $c.user.id === user.id;
   const adminViewing = $c.user != null && isAccountAdmin($c.user);
   const encodedName = encodeURIComponent(user.name);
-  const restrictions = [];
-  if (isEditingDisabled(user)) {
-    restrictions.push(l('Editing/voting disabled'));
-  }
-  if (isAddingNotesDisabled(user)) {
-    restrictions.push(l('Edit notes disabled'));
-  }
+  const restrictions = getRestrictionsForUser(user);
   // We specifically never show "untrusted" to non-admin users
   if (adminViewing && isUntrusted(user)) {
     restrictions.push(l_admin('Untrusted'));

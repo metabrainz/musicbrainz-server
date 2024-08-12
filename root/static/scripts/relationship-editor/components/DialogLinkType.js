@@ -45,7 +45,7 @@ import {
 function getLinkTypeError(
   linkType: ?LinkTypeT,
   source: RelatableEntityT,
-): React$Node {
+): React.Node {
   if (!linkType) {
     /*
      * Blank fields are handled specially in the dialog (grep
@@ -260,10 +260,8 @@ function accumulateDialogAttributeByRootId(
   return result;
 }
 
-// XXX Until Flow supports https://github.com/facebook/flow/issues/7672
 const LinkTypeAutocomplete:
-  React$AbstractComponent<AutocompletePropsT<LinkTypeT>, void> =
-  // $FlowIgnore
+  React.AbstractComponent<AutocompletePropsT<LinkTypeT>> =
   Autocomplete2;
 
 component _DialogLinkType(
@@ -337,7 +335,7 @@ component _DialogLinkType(
   );
 }
 
-const DialogLinkType: React$AbstractComponent<
+const DialogLinkType: React.AbstractComponent<
   React.PropsOf<_DialogLinkType>
 > = React.memo(_DialogLinkType);
 

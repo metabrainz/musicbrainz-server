@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as manifest from '../static/manifest.mjs';
+import manifest from '../static/manifest.mjs';
 import CollectionEditForm
   from '../static/scripts/collection/components/CollectionEditForm.js';
 
@@ -27,7 +27,7 @@ component EditCollection(
       title={lp('Edit', 'verb, header')}
     >
       <CollectionEditForm collectionTypes={collectionTypes} form={form} />
-      {manifest.js('collection/edit')}
+      {manifest('collection/edit')}
     </CollectionLayout>
   );
 }

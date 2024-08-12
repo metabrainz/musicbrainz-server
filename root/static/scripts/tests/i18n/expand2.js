@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
-import * as ReactIs from 'react-is';
 import test from 'tape';
 
 import {VarArgs} from '../../common/i18n/expand2.js';
@@ -11,12 +10,12 @@ import expand2text, {
 } from '../../common/i18n/expand2text.js';
 
 test('expand2', function (t) {
-  t.plan(69);
+  t.plan(67);
 
   let error = '';
   const consoleError = console.error;
-  console.error = function () {
-    error = arguments[0];
+  console.error = function (...args) {
+    error = args[0];
   };
 
   function expandText(input, args, output) {
@@ -48,7 +47,7 @@ test('expand2', function (t) {
   expandText('A {number}', {number: 1}, 'A 1');
   expandHtml('{null} value', {null: null}, ' value');
   t.equal(error, '');
-  expandHtml('{undefined} value', {undefined: undefined}, ' value');
+  expandHtml('{undefined} value', {undefined}, ' value');
   t.equal(error, '');
 
   expandHtml(
@@ -243,22 +242,14 @@ test('expand2', function (t) {
 
   const twoSpansHtml = '<span>a</span><span>b</span>';
 
-  const twoSpansArray = expand2react(twoSpansHtml, {__wantArray: 'true'});
+  const twoSpansArray = expand2react(twoSpansHtml);
   t.ok(Array.isArray(twoSpansArray),
-       'an array is returned with __wantArray: "true"');
+       'an array is returned for two spans');
 
-  const twoSpansFragment = expand2react(twoSpansHtml);
-  t.ok(ReactIs.isFragment(twoSpansFragment),
-       'a fragment is returned with __wantArray not specified');
   t.equal(
     ReactDOMServer.renderToStaticMarkup(twoSpansArray),
     twoSpansHtml,
-    'elements returned with _wantArray: "true" are rendered correctly',
-  );
-  t.equal(
-    ReactDOMServer.renderToStaticMarkup(twoSpansFragment),
-    twoSpansHtml,
-    'element returned with __wantArray not specified is rendered correctly',
+    'array of spans is rendered correctly',
   );
 
   // Test nested expand calls

@@ -19,6 +19,30 @@ import {
 } from '../../utility/tableColumns.js';
 import type {ReportEditorT} from '../types.js';
 
+const nameColumn = {
+  Cell: ({
+    row: {original},
+  }: CellRenderProps<ReportEditorT, ?EditorT>) => {
+    const editor = original.editor;
+    return (
+      <>
+        <EditorLink editor={editor} />
+        {' '}
+        {editor == null ? null : bracketed(
+          <a
+            href={'/admin/user/delete/' +
+            encodeURIComponent(editor.name)}
+          >
+            {l_admin('delete')}
+          </a>,
+        )}
+      </>
+    );
+  },
+  Header: l_admin('Editor'),
+  id: 'editor',
+};
+
 component EditorList(
   items: $ReadOnlyArray<ReportEditorT>,
   pager: PagerT,
@@ -35,29 +59,6 @@ component EditorList(
 
   const columns = React.useMemo(
     () => {
-      const nameColumn = {
-        Cell: ({
-          row: {original},
-        }: CellRenderProps<ReportEditorT, ?EditorT>) => {
-          const editor = original.editor;
-          return (
-            <>
-              <EditorLink editor={editor} />
-              {' '}
-              {editor == null ? null : bracketed(
-                <a
-                  href={'/admin/user/delete/' +
-                  encodeURIComponent(editor.name)}
-                >
-                  {l_admin('delete')}
-                </a>,
-              )}
-            </>
-          );
-        },
-        Header: l_admin('Editor'),
-        id: 'editor',
-      };
       const memberSinceColumn = defineTextColumn<ReportEditorT>({
         columnName: 'registration_date',
         getText: result => result.editor?.registration_date ?? '',

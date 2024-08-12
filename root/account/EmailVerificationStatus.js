@@ -16,8 +16,7 @@ component EmailVerificationStatus(message?: string) {
         {nonEmpty(message)
           ? message
           : l(`Thank you, your email address has now been verified! If you
-               still can't edit, please try to log out and log in again.`)
-        }
+               still can't edit, please try to log out and log in again.`)}
       </p>
     </StatusPage>
   );

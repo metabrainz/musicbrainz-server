@@ -47,7 +47,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-29 20:42+0000\n"
+"PO-Revision-Date: 2024-08-01 04:42+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -58,7 +58,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.6\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -476,6 +476,11 @@ msgid ""
 "just a scaled down version of the poster, both types can be added to the "
 "same image."
 msgstr ""
+"Un documento generalmente más pequeño que un póster, y que suele ser impreso "
+"para compartirlo con el público ya sea antes del evento, para promocionarlo, "
+"o durante él, para ofrecer información adicional. Si el flyer del evento es "
+"simplemente una versión más pequeña del póster, puedes añadir ambos tipos a "
+"la misma imagen."
 
 #. name:Ticket
 #: DB:event_art_archive.art_type/description:2
@@ -484,6 +489,8 @@ msgid ""
 "A document generally used for admission to the event, whether physical or "
 "digital. Use this also for ticket stubs and passes."
 msgstr ""
+"Un documento, ya sea físico o digital, usado para acceder al evento. También "
+"se aplica a pases y otros documentos similares."
 
 #. name:Promotion
 #: DB:release_status/description:2
@@ -551,6 +558,8 @@ msgid ""
 "A list of songs to be played in the event, often printed or handwritten for "
 "use by the artist."
 msgstr ""
+"Una lista de los temas que van a ser tocados en el evento, habitualmente "
+"escrito o impreso para uso del artista."
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -771,6 +780,14 @@ msgid ""
 "A quartet is a musical composition scored for four voices or instruments."
 msgstr ""
 "Un cuarteto es una formación musical que consiste en cuatro intérpretes."
+
+#. name:ROM cartridge
+#: DB:medium_format/description:208
+msgctxt "medium_format"
+msgid ""
+"A read only memory cartridge or card, such as the ones used by early home "
+"computers and some video game systems."
+msgstr ""
 
 #. name:Festival
 #: DB:series_type/description:8
@@ -1442,6 +1459,9 @@ msgid ""
 "(as opposed to an award ceremony where awards are presented for previously "
 "released or performed music)."
 msgstr ""
+"Un evento en el que los participantes actúan en directo y se elige un "
+"ganador entre ellos (a diferencia de una ceremonia de entrega de premios, en "
+"la que se premia música ya publicada o interpretada)."
 
 #. name:Festival
 #: DB:event_type/description:2
@@ -1462,6 +1482,11 @@ msgid ""
 "more than one art type applies (for example, if a poster is sold as "
 "merchandise) use “merchandise” alongside any other appropriate types."
 msgstr ""
+"Una imagen de cualquier tipo de bienes relacionados con el evento y vendidos "
+"(o compartidos) para promocionarlo o durante el evento en sí, como "
+"camisetas, gorras o pegatinas. Si hay más de un tipo de imagen apropiado "
+"(por ejemplo, si un póster se vende como merchandising) usa “merchandising” "
+"y también cualquier otro tipo apropiado."
 
 #. name:Schedule
 #: DB:event_art_archive.art_type/description:5
@@ -1471,6 +1496,9 @@ msgid ""
 "event. Can be a standalone image, but also a poster or banner (in which case "
 "all applicable types should be set)."
 msgstr ""
+"Una imagen que indica el orden y la hora de las actuaciones en un evento. A "
+"veces es una imagen separada y otras veces un póster o un banner (en ese "
+"caso, usa todos los tipos apropiados)."
 
 #. name:Concert
 #: DB:event_type/description:1
@@ -1501,6 +1529,9 @@ msgid ""
 "created for the event, for example showing the recommended ways to access "
 "the venue, or the location of specific stages and stands inside of it."
 msgstr ""
+"Un plano interior del lugar donde se celebra el evento, o un mapa de acceso "
+"creado específicamente para el evento, por ejemplo mostrando los accesos "
+"recomendados al lugar del evento o dónde se encuentra cada escenario."
 
 #. name:Interview
 #: DB:release_group_secondary_type/description:4
@@ -1679,7 +1710,7 @@ msgstr "Aria"
 #: DB:series_type/name:14
 msgctxt "series_type"
 msgid "Artist award"
-msgstr "Premio al Artista"
+msgstr "Premio al artista"
 
 #: DB:editor_collection_type/name:8
 msgctxt "collection_type"
@@ -1739,12 +1770,12 @@ msgstr "Automático"
 #: DB:event_type/name:7
 msgctxt "event_type"
 msgid "Award ceremony"
-msgstr "Ceremonia de premiación"
+msgstr "Ceremonia de premios"
 
 #: DB:series_type/name:15
 msgctxt "series_type"
 msgid "Award ceremony"
-msgstr "Ceremonia de premiación"
+msgstr "Ceremonia de premios"
 
 #: DB:work_attribute_type_allowed_value/value:694
 msgctxt "work_attribute_type_allowed_value"
@@ -1934,7 +1965,7 @@ msgstr "Ballet"
 #: DB:event_art_archive.art_type/name:4
 msgctxt "event_art_type"
 msgid "Banner"
-msgstr ""
+msgstr "Banner"
 
 #: DB:work_attribute_type_allowed_value/value:866
 msgctxt "work_attribute_type_allowed_value"
@@ -3279,7 +3310,7 @@ msgstr "CD mejorado"
 #: DB:instrument_type/name:6
 msgctxt "instrument_type"
 msgid "Ensemble"
-msgstr "Ensamble"
+msgstr "Conjunto"
 
 #: DB:work_attribute_type_allowed_value/value:356
 msgctxt "work_attribute_type_allowed_value"
@@ -3550,7 +3581,7 @@ msgstr "Disquete"
 #: DB:event_art_archive.art_type/name:6
 msgctxt "event_art_type"
 msgid "Flyer"
-msgstr ""
+msgstr "Flyer"
 
 #. name:Not applicable
 #: DB:gender/description:4
@@ -4235,175 +4266,177 @@ msgstr "ID de ICE"
 #: DB:work_attribute_type/description:24
 msgctxt "work_attribute_type"
 msgid "ID for the Argentinean rights society SADAIC"
-msgstr "Cédula de la sociedad argentina de derechos SADAIC"
+msgstr "ID de la sociedad de gestión de derechos de Argentina SADAIC"
 
 #. name:APRA ID
 #: DB:work_attribute_type/description:13
 msgctxt "work_attribute_type"
 msgid "ID for the Australasian rights society APRA"
-msgstr "ID de la sociedad de derechos de Australasia APRA"
+msgstr "ID de la sociedad de gestión de derechos de Australasia APRA"
 
 #. name:AKM ID
 #: DB:work_attribute_type/description:23
 msgctxt "work_attribute_type"
 msgid "ID for the Austrian rights society AKM"
-msgstr "ID de la sociedad austriaca de derechos AKM"
+msgstr "ID de la sociedad de gestión de derechos de Austria AKM"
 
 #. name:COSCAP ID
 #: DB:work_attribute_type/description:73
 msgctxt "work_attribute_type"
 msgid "ID for the Barbadian rights society COSCAP"
-msgstr "ID para la sociedad de derechos de Barbados COSCAP"
+msgstr "ID de la sociedad de gestión de derechos de Barbados COSCAP"
 
 #. name:SABAM ID
 #: DB:work_attribute_type/description:28
 msgctxt "work_attribute_type"
 msgid "ID for the Belgian rights society SABAM"
-msgstr "Identificación de la sociedad belga de derechos SABAM"
+msgstr "ID de la sociedad de gestión de derechos de Bélgica SABAM"
 
 #. name:SOBODAYCOM ID
 #: DB:work_attribute_type/description:61
 msgctxt "work_attribute_type"
 msgid "ID for the Bolivian rights society SOBODAYCOM"
-msgstr "ID de la sociedad boliviana de derechos SOBODAYCOM"
+msgstr "ID de la sociedad de gestión de derechos de Bolivia SOBODAYCOM"
 
 #. name:ECAD ID
 #: DB:work_attribute_type/description:37
 msgctxt "work_attribute_type"
 msgid "ID for the Brazilian rights society ECAD"
-msgstr "ID de la sociedad brasileña de derechos ECAD"
+msgstr "ID de la sociedad de gestión de derechos de Brasil ECAD"
 
 #. name:PRS tune code
 #: DB:work_attribute_type/description:34
 msgctxt "work_attribute_type"
 msgid "ID for the British rights society PRS for Music"
-msgstr "ID de la sociedad británica de derechos PRS for Music"
+msgstr "ID de la sociedad de gestión de derechos de Gran Bretaña PRS for Music"
 
 #. name:SOCAN ID
 #: DB:work_attribute_type/description:10
 msgctxt "work_attribute_type"
 msgid "ID for the Canadian rights society SOCAN"
-msgstr "ID para la sociedad de derechos canadiense SOCAN"
+msgstr "ID de la sociedad de gestión de derechos de Canadá SOCAN"
 
 #. name:SODRAC ID
 #: DB:work_attribute_type/description:53
 msgctxt "work_attribute_type"
 msgid "ID for the Canadian rights society SODRAC"
-msgstr "ID para sociedad canadiense de derechos SODRAC"
+msgstr "ID de la sociedad de gestión de derechos de Canadá SODRAC"
 
 #. name:SCD ID
 #: DB:work_attribute_type/description:173
 msgctxt "work_attribute_type"
 msgid "ID for the Chilean rights society SCD"
-msgstr "Identificación para la sociedad chilena de derechos SCD"
+msgstr "ID de la sociedad de gestión de derechos de Chile SCD"
 
 #. name:MCSC ID
 #: DB:work_attribute_type/description:71
 msgctxt "work_attribute_type"
 msgid "ID for the Chinese rights society MCSC"
-msgstr "Identificación para la sociedad de derechos humanos china MCSC"
+msgstr "ID de la sociedad de gestión de derechos de China MCSC"
 
 #. name:SAYCO ID
 #: DB:work_attribute_type/description:39
 msgctxt "work_attribute_type"
 msgid "ID for the Colombian rights society SAYCO"
-msgstr "ID para sociedad colombiana de derechos SAYCO"
+msgstr "ID de la sociedad de gestión de derechos de Colombia SAYCO"
 
 #. name:ACAM ID
 #: DB:work_attribute_type/description:44
 msgctxt "work_attribute_type"
 msgid "ID for the Costa Rican rights society ACAM"
-msgstr "ID para sociedad costarricense de derechos ACAM"
+msgstr "ID de la sociedad de gestión de derechos de Costa Rica ACAM"
 
 #. name:ACDAM ID
 #: DB:work_attribute_type/description:47
 msgctxt "work_attribute_type"
 msgid "ID for the Cuban rights society ACDAM"
-msgstr "ID para sociedad cubana de derechos ACDAM"
+msgstr "ID de la sociedad de gestión de derechos de Cuba ACDAM"
 
 #. name:OSA ID
 #: DB:work_attribute_type/description:25
 msgctxt "work_attribute_type"
 msgid "ID for the Czech rights society OSA"
-msgstr "Identificación para la sociedad de derechos checa OSA"
+msgstr "ID de la sociedad de gestión de derechos de Chequia OSA"
 
 #. name:KODA ID
 #: DB:work_attribute_type/description:51
 msgctxt "work_attribute_type"
 msgid "ID for the Danish rights society KODA"
-msgstr "ID para la sociedad de derechos danesa KODA"
+msgstr "ID de la sociedad de gestión de derechos de Dinamarca KODA"
 
 #. name:SGACEDOM ID
 #: DB:work_attribute_type/description:60
 msgctxt "work_attribute_type"
 msgid "ID for the Dominican rights society SGACEDOM"
-msgstr "ID para la sociedad dominicana de derechos SGACEDOM"
+msgstr ""
+"ID de la sociedad de gestión de derechos de la República Dominicana SGACEDOM"
 
 #. name:BUMA/STEMRA ID
 #: DB:work_attribute_type/description:26
 msgctxt "work_attribute_type"
 msgid "ID for the Dutch rights society BUMA/STEMRA"
-msgstr "ID para la sociedad de derechos holandesa BUMA/STEMRA"
+msgstr ""
+"ID de la sociedad de gestión de derechos de los Países Bajos BUMA/STEMRA"
 
 #. name:SAYCE ID
 #: DB:work_attribute_type/description:40
 msgctxt "work_attribute_type"
 msgid "ID for the Ecuadorian rights society SAYCE"
-msgstr "DNI de la sociedad ecuatoriana de derechos SAYCE"
+msgstr "ID de la sociedad de gestión de derechos de Ecuador SAYCE"
 
 #. name:TEOSTO ID
 #: DB:work_attribute_type/description:66
 msgctxt "work_attribute_type"
 msgid "ID for the Finnish rights society TEOSTO"
-msgstr "ID para la sociedad finlandesa de derechos TEOSTO"
+msgstr "ID de la sociedad de gestión de derechos de Finlandia TEOSTO"
 
 #. name:SACEM ID
 #: DB:work_attribute_type/description:21
 msgctxt "work_attribute_type"
 msgid "ID for the French rights society Sacem"
-msgstr "Identificación para la sociedad francesa de derechos Sacem"
+msgstr "ID de la sociedad de gestión de derechos de Francia Sacem"
 
 #. name:GEMA ID
 #: DB:work_attribute_type/description:9
 msgctxt "work_attribute_type"
 msgid "ID for the German rights society GEMA"
-msgstr "ID para la sociedad de derechos alemana GEMA"
+msgstr "ID de la sociedad de gestión de derechos de Alemania GEMA"
 
 #. name:AEI ID
 #: DB:work_attribute_type/description:58
 msgctxt "work_attribute_type"
 msgid "ID for the Guatemalan rights society AEI"
-msgstr "ID para la sociedad guatemalteca de derechos AEI"
+msgstr "ID de la sociedad de gestión de derechos de Guatemala AEI"
 
 #. name:AACIMH ID
 #: DB:work_attribute_type/description:57
 msgctxt "work_attribute_type"
 msgid "ID for the Honduran rights society AACIMH"
-msgstr "Identificación para la sociedad hondureña de derechos AACIMH"
+msgstr "ID de la sociedad de gestión de derechos de Honduras AACIMH"
 
 #. name:CASH ID
 #: DB:work_attribute_type/description:19
 msgctxt "work_attribute_type"
 msgid "ID for the Hong Kong rights society CASH"
-msgstr "Identificación para la sociedad de derechos de Hong Kong CASH"
+msgstr "ID de la sociedad de gestión de derechos de Hong Kong CASH"
 
 #. name:ARTISJUS ID
 #: DB:work_attribute_type/description:48
 msgctxt "work_attribute_type"
 msgid "ID for the Hungarian rights society ARTISJUS"
-msgstr "ID para la sociedad húngara de derechos ARTISJUS"
+msgstr "ID de la sociedad de gestión de derechos de Hungría ARTISJUS"
 
 #. name:STEF ID
 #: DB:work_attribute_type/description:54
 msgctxt "work_attribute_type"
 msgid "ID for the Icelandic rights society STEF"
-msgstr "ID para la sociedad islandesa de derechos STEF"
+msgstr "ID de la sociedad de gestión de derechos de Islandia STEF"
 
 #. name:IPRS ID
 #: DB:work_attribute_type/description:70
 msgctxt "work_attribute_type"
 msgid "ID for the Indian rights society IPRS"
-msgstr "ID para la sociedad india de derechos IPRS"
+msgstr "ID de la sociedad de gestión de derechos de India IPRS"
 
 #. name:ICE ID
 #: DB:work_attribute_type/description:29
@@ -4415,212 +4448,211 @@ msgstr "ID para la International Copyright Enterprise"
 #: DB:work_attribute_type/description:52
 msgctxt "work_attribute_type"
 msgid "ID for the Irish rights society IMRO"
-msgstr "ID para la sociedad irlandesa de derechos IMRO"
+msgstr "ID de la sociedad de gestión de derechos de Irlanda IMRO"
 
 #. name:ACUM ID
 #: DB:work_attribute_type/description:206
 msgctxt "work_attribute_type"
 msgid "ID for the Israeli rights society ACUM"
-msgstr "ID de la sociedad israelí de derechos ACUM"
+msgstr "ID de la sociedad de gestión de derechos de Israel ACUM"
 
 #. name:SIAE ID
 #: DB:work_attribute_type/description:36
 msgctxt "work_attribute_type"
 msgid "ID for the Italian rights society SIAE"
-msgstr "ID para la sociedad italiana de derechos SIAE"
+msgstr "ID de la sociedad de gestión de derechos de Italia SIAE"
 
 #. name:JACAP ID
 #: DB:work_attribute_type/description:69
 msgctxt "work_attribute_type"
 msgid "ID for the Jamaican rights society JACAP"
-msgstr "ID para la sociedad jamaicana de derechos JACAP"
+msgstr "ID de la sociedad de gestión de derechos de Jamaica JACAP"
 
 #. name:JASRAC ID
 #: DB:work_attribute_type/description:3
 msgctxt "work_attribute_type"
 msgid "ID for the Japanese rights society JASRAC"
-msgstr "ID de la sociedad japonesa de derechos JASRAC"
+msgstr "ID de la sociedad de gestión de derechos de Japón JASRAC"
 
 #. name:NexTone ID
 #: DB:work_attribute_type/description:33
 msgctxt "work_attribute_type"
 msgid "ID for the Japanese rights society NexTone"
-msgstr "ID de la sociedad japonesa de derechos NexTone"
+msgstr "ID de la sociedad de gestión de derechos de Japón NexTone"
 
 #. name:KOMCA ID
 #: DB:work_attribute_type/description:11
 msgctxt "work_attribute_type"
 msgid "ID for the Korean rights society KOMCA"
-msgstr "ID para la sociedad coreana de derechos KOMCA"
+msgstr "ID de la sociedad de gestión de derechos de Corea KOMCA"
 
 #. name:AKKA/LAA ID
 #: DB:work_attribute_type/description:63
 msgctxt "work_attribute_type"
 msgid "ID for the Latvian rights society AKKA/LAA"
-msgstr "ID para la sociedad letona de derechos AKKA/LAA"
+msgstr "ID de la sociedad de gestión de derechos de Letonia AKKA/LAA"
 
 #. name:LATGA ID
 #: DB:work_attribute_type/description:207
 msgctxt "work_attribute_type"
 msgid "ID for the Lithuanian rights society LATGA"
-msgstr "ID para la sociedad lituana de derechos LATGA"
+msgstr "ID de la sociedad de gestión de derechos de Lituania LATGA"
 
 #. name:MACP ID
 #: DB:work_attribute_type/description:49
 msgctxt "work_attribute_type"
 msgid "ID for the Malaysian rights society MACP"
-msgstr "ID para la sociedad de derechos de Malasia MACP"
+msgstr "ID de la sociedad de gestión de derechos de Malasia MACP"
 
 #. name:SACM ID
 #: DB:work_attribute_type/description:27
 msgctxt "work_attribute_type"
 msgid "ID for the Mexican rights society SACM"
-msgstr "ID para la sociedad mexicana de derechos SACM"
+msgstr "ID de la sociedad de gestión de derechos de México SACM"
 
 #. name:NICAUTOR ID
 #: DB:work_attribute_type/description:59
 msgctxt "work_attribute_type"
 msgid "ID for the Nicaraguan rights society NICAUTOR"
-msgstr "ID para la sociedad nicaragüense de derechos NICAUTOR"
+msgstr "ID de la sociedad de gestión de derechos de Nicaragua NICAUTOR"
 
 #. name:TONO ID
 #: DB:work_attribute_type/description:67
 msgctxt "work_attribute_type"
 msgid "ID for the Norwegian rights society TONO"
-msgstr "ID para la sociedad noruega de derechos TONO"
+msgstr "ID de la sociedad de gestión de derechos de Noruega TONO"
 
 #. name:SPAC ID
 #: DB:work_attribute_type/description:62
 msgctxt "work_attribute_type"
 msgid "ID for the Panamanian rights society SPAC"
-msgstr "ID para la sociedad panameña de derechos SPAC"
+msgstr "ID de la sociedad de gestión de derechos de Panamá SPAC"
 
 #. name:APA ID
 #: DB:work_attribute_type/description:46
 msgctxt "work_attribute_type"
 msgid "ID for the Paraguayan rights society APA"
-msgstr "ID para la sociedad paraguaya de derechos APA"
+msgstr "ID de la sociedad de gestión de derechos de Paraguay APA"
 
 #. name:APDAYC ID
 #: DB:work_attribute_type/description:41
 msgctxt "work_attribute_type"
 msgid "ID for the Peruvian rights society APDAYC"
-msgstr "ID para la sociedad peruana de derechos APDAYC"
+msgstr "ID de la sociedad de gestión de derechos de Perú APDAYC"
 
 #. name:ZAiKS ID
 #: DB:work_attribute_type/description:30
 msgctxt "work_attribute_type"
 msgid "ID for the Polish rights society ZAiKS"
-msgstr "ID para la sociedad polaca de derechos ZAiKS"
+msgstr "ID de la sociedad de gestión de derechos de Polonia ZAiKS"
 
 #. name:SPA ID
 #: DB:work_attribute_type/description:35
 msgctxt "work_attribute_type"
 msgid "ID for the Portuguese rights society SPA"
-msgstr "ID para la sociedad portuguesa de derechos SPA"
+msgstr "ID de la sociedad de gestión de derechos de Portugal SPA"
 
 #. name:SACIM ID
 #: DB:work_attribute_type/description:56
 msgctxt "work_attribute_type"
 msgid "ID for the Salvadoran rights society SACIM"
-msgstr "ID para la sociedad salvadoreña de derechos SACIM"
+msgstr "ID de la sociedad de gestión de derechos de El Salvador SACIM"
 
 #. name:COMPASS ID
 #: DB:work_attribute_type/description:45
 msgctxt "work_attribute_type"
 msgid "ID for the Singaporean rights society COMPASS"
-msgstr "ID para la sociedad de derechos de Singapur COMPASS"
+msgstr "ID de la sociedad de gestión de derechos de Singapur COMPASS"
 
 #. name:SAZAS ID
 #: DB:work_attribute_type/description:140
 msgctxt "work_attribute_type"
 msgid "ID for the Slovenian rights society SAZAS"
-msgstr "Identificación de la sociedad de derechos eslovena SAZAS"
+msgstr "ID de la sociedad de gestión de derechos de Eslovenia SAZAS"
 
 #. name:SAMRO ID
 #: DB:work_attribute_type/description:68
 msgctxt "work_attribute_type"
 msgid "ID for the South African rights society SAMRO"
-msgstr "ID para la sociedad sudafricana de derechos SAMRO"
+msgstr "ID de la sociedad de gestión de derechos de Sudáfrica SAMRO"
 
 #. name:SGAE ID
 #: DB:work_attribute_type/description:20
 msgctxt "work_attribute_type"
 msgid "ID for the Spanish rights society SGAE"
-msgstr "ID para la sociedad española de derechos SGAE"
+msgstr "ID de la sociedad de gestión de derechos de España SGAE"
 
 #. name:STIM ID
 #: DB:work_attribute_type/description:50
 msgctxt "work_attribute_type"
 msgid "ID for the Swedish rights society STIM"
-msgstr "Identificación para la sociedad sueca de derechos STIM"
+msgstr "ID de la sociedad de gestión de derechos de Suecia STIM"
 
 #. name:SUISA ID
 #: DB:work_attribute_type/description:18
 msgctxt "work_attribute_type"
 msgid "ID for the Swiss rights society SUISA"
-msgstr "Identificación de la sociedad suiza de derechos SUISA"
+msgstr "ID de la sociedad de gestión de derechos de Suiza SUISA"
 
 #. name:MÜST ID
 #: DB:work_attribute_type/description:12
 msgctxt "work_attribute_type"
 msgid "ID for the Taiwanese rights society MÜST"
-msgstr "Identificación para la sociedad taiwanesa de derechos MÜST"
+msgstr "ID de la sociedad de gestión de derechos de Taiwan MÜST"
 
 #. name:MCT ID
 #: DB:work_attribute_type/description:72
 msgctxt "work_attribute_type"
 msgid "ID for the Thai rights society MCT"
-msgstr "Identificación para la sociedad tailandesa de derechos MCT"
+msgstr "ID de la sociedad de gestión de derechos de Tailandia MCT"
 
 #. name:COTT ID
 #: DB:work_attribute_type/description:65
 msgctxt "work_attribute_type"
 msgid "ID for the Trinidadian and Tobagonian rights society COTT"
-msgstr "Identificación para la sociedad de derechos de Trinidad y Tobago COTT"
+msgstr "ID de la sociedad de gestión de derechos de Trinidad y Tobago COTT"
 
 #. name:ASCAP ID
 #: DB:work_attribute_type/description:6
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society ASCAP"
-msgstr "Identificación para la sociedad de derechos humanos ASCAP de EEUU"
+msgstr "ID de la sociedad de gestión de derechos de Estados Unidos ASCAP"
 
 #. name:BMI ID
 #: DB:work_attribute_type/description:7
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society BMI"
-msgstr "Identificación para la sociedad de derechos humanos BMI de EEUU"
+msgstr "ID de la sociedad de gestión de derechos de Estados Unidos BMI"
 
 #. name:GMR ID
 #: DB:work_attribute_type/description:106
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society GMR"
-msgstr "Identificación para la sociedad de derechos humanos GMR de EEUU"
+msgstr "ID de la sociedad de gestión de derechos de Estados Unidos GMR"
 
 #. name:SESAC ID
 #: DB:work_attribute_type/description:8
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society SESAC"
-msgstr ""
-"dentificación para la sociedad de derechos humanos estadounidense SESAC"
+msgstr "ID de la sociedad de gestión de derechos de Estados Unidos SESAC"
 
 #. name:AGADU ID
 #: DB:work_attribute_type/description:43
 msgctxt "work_attribute_type"
 msgid "ID for the Uruguayan rights society AGADU"
-msgstr "Identificación de la Sociedad Uruguaya de Derechos AGADU"
+msgstr "ID de la sociedad de gestión de derechos de Uruguay AGADU"
 
 #. name:SACVEN ID
 #: DB:work_attribute_type/description:42
 msgctxt "work_attribute_type"
 msgid "ID for the Venezuelan rights society SACVEN"
-msgstr "Identificación para la sociedad venezolana de derechos SACVEN"
+msgstr "ID de la sociedad de gestión de derechos de Venezuela SACVEN"
 
 #. name:VCPMC ID
 #: DB:work_attribute_type/description:107
 msgctxt "work_attribute_type"
 msgid "ID for the Vietnamese rights society VCPMC"
-msgstr "Identificación para la sociedad de derechos vietnamita VCPMC"
+msgstr "ID de la sociedad de gestión de derechos de Vietnam VCPMC"
 
 #. name:Soundreef ID
 #: DB:work_attribute_type/description:208
@@ -4628,7 +4660,7 @@ msgctxt "work_attribute_type"
 msgid ""
 "ID for the international (but primarily Italian) rights society Soundreef"
 msgstr ""
-"Identificación de la sociedad internacional de derechos Soundreef "
+"ID de la sociedad de gestión de derechos internacional Soundreef "
 "(principalmente italiana)"
 
 #. name:AMRA ID
@@ -4636,14 +4668,14 @@ msgstr ""
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
 msgstr ""
-"Identificación de la sociedad internacional de derechos AMRA (anteriormente "
+"ID de la sociedad de gestión de derechos internacional AMRA (anteriormente "
 "estadounidense)"
 
 #. name:LatinNet ID
 #: DB:work_attribute_type/description:55
 msgctxt "work_attribute_type"
 msgid "ID for the international rights society consortium LatinNet"
-msgstr "ID para el consorcio de la sociedad internacional de derechos LatinNet"
+msgstr "ID de la sociedad de gestión de derechos internacional LatinNet"
 
 #. name:CCLI ID
 #: DB:work_attribute_type/description:22
@@ -4681,7 +4713,7 @@ msgstr "Ikvāi"
 #: DB:label_type/name:9
 msgctxt "label_type"
 msgid "Imprint"
-msgstr "Impresion"
+msgstr "Sello"
 
 #: DB:work_type/name:30
 msgctxt "work_type"
@@ -5596,7 +5628,7 @@ msgstr "Manōranjani"
 #: DB:event_art_archive.art_type/name:8
 msgctxt "event_art_type"
 msgid "Map"
-msgstr ""
+msgstr "Plano"
 
 #: DB:work_attribute_type_allowed_value/value:639
 msgctxt "work_attribute_type_allowed_value"
@@ -5696,7 +5728,7 @@ msgstr "Mehter"
 #: DB:event_art_archive.art_type/name:7
 msgctxt "event_art_type"
 msgid "Merchandise"
-msgstr ""
+msgstr "Merchandising"
 
 #: DB:work_attribute_type_allowed_value/value:642
 msgctxt "work_attribute_type_allowed_value"
@@ -6905,6 +6937,11 @@ msgctxt "work_type"
 msgid "Quartet"
 msgstr "Cuarteto"
 
+#: DB:medium_format/name:208
+msgctxt "medium_format"
+msgid "ROM cartridge"
+msgstr "Cartucho ROM"
+
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"
 msgid "Rahatfeza"
@@ -7023,7 +7060,7 @@ msgstr "Sin procesar/Sin editar"
 #: DB:series_type/name:48
 msgctxt "series_type"
 msgid "Recording award"
-msgstr "Premio de grabación"
+msgstr "Premio a la grabación"
 
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
@@ -7068,7 +7105,7 @@ msgstr "Colección de publicaciones"
 #: DB:series_type/name:47
 msgctxt "series_type"
 msgid "Release group award"
-msgstr "Premio al grupo de lanzamiento"
+msgstr "Premio al grupo de publicaciones"
 
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
@@ -7525,7 +7562,7 @@ msgstr "Sazsemaisi"
 #: DB:event_art_archive.art_type/name:5
 msgctxt "event_art_type"
 msgid "Schedule"
-msgstr ""
+msgstr "Horarios"
 
 #: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
 #: DB:place_alias_type/name:2 DB:recording_alias_type/name:2
@@ -7605,7 +7642,7 @@ msgstr "Nombre de la serie"
 #: DB:event_art_archive.art_type/name:3
 msgctxt "event_art_type"
 msgid "Setlist"
-msgstr ""
+msgstr "Repertorio"
 
 #: DB:work_attribute_type_allowed_value/value:663
 msgctxt "work_attribute_type_allowed_value"
@@ -8644,6 +8681,8 @@ msgid ""
 "Usually a large printed or digital sheet, that often contains pictures, and "
 "is generally posted publicly to promote the event."
 msgstr ""
+"Normalmente una lámina grande, ya sea digital o impresa, que suele contener "
+"imágenes y utilizarse para promocionar el evento en lugares públicos."
 
 #. name:Banner
 #: DB:event_art_archive.art_type/description:4
@@ -8652,6 +8691,9 @@ msgid ""
 "Usually horizontal image used to promote an event, for example in social "
 "media, which tends to have less information than a poster."
 msgstr ""
+"Normalmente una imagen horizontal utilizada para promocionar un evento (por "
+"ejemplo en las redes sociales) y que suele tener menos información que un "
+"póster."
 
 #: DB:work_attribute_type/name:17
 msgctxt "work_attribute_type"
@@ -8887,7 +8929,7 @@ msgstr "Retirado"
 #: DB:series_type/name:46
 msgctxt "series_type"
 msgid "Work award"
-msgstr "Premio al trabajo"
+msgstr "Premio a la obra"
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"

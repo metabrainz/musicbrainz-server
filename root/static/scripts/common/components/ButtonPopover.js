@@ -31,8 +31,8 @@ component ButtonPopover(
   buildChildren: (
     close: () => void,
     initialFocusRef: {current: HTMLElement | null},
-  ) => React$Node,
-  buttonContent: React$Node,
+  ) => React.Node,
+  buttonContent: React.Node,
   buttonProps?: {
     className?: string,
     id?: string,

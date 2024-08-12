@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-cd "$(dirname "${BASH_SOURCE[0]}")/../"
-
-./node_modules/.bin/eslint \
-    --no-eslintrc \
-    --config script/.check_eslint_rule_config.yaml \
-    --rule \
-    "$@"

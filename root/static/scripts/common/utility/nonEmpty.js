@@ -12,6 +12,6 @@ export function empty<T>(value: ?T | ''): value is ?'' {
   return value === null || value === undefined || value === '';
 }
 
-export default function nonEmpty<T>(value: ?T | ''): value is T {
+export default function nonEmpty<T>(value: ?T | ''): implies value is T {
   return value !== null && value !== undefined && value !== '';
 }

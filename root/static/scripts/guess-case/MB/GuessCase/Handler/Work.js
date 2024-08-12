@@ -22,7 +22,7 @@ class GuessCaseWorkHandler extends GuessCaseHandler {
     if (inputString != null) {
       if (!gc.regexes.RELEASE_UNTITLED) {
         // Untitled
-        gc.regexes.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
+        gc.regexes.RELEASE_UNTITLED = /^([([]?\s*untitled\s*[)\]]?)$/i;
       }
       if (inputString.match(gc.regexes.RELEASE_UNTITLED)) {
         return this.specialCaseValues.SPECIALCASE_UNTITLED;

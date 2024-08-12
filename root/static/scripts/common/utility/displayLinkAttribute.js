@@ -13,7 +13,8 @@ import {type VarArgsObject} from '../i18n/expand2.js';
 import localizeLinkAttributeTypeName
   from '../i18n/localizeLinkAttributeTypeName.js';
 import linkedEntities from '../linkedEntities.mjs';
-import clean from '../utility/clean.js';
+
+import clean from './clean.js';
 
 export function displayLinkAttributeCustom<T>(
   attribute: LinkAttrT,
@@ -50,7 +51,7 @@ function getAttributeValueReact(type: LinkAttrTypeT) {
   const typeName = localizeLinkAttributeTypeName(type);
   return (
     type.root_id === INSTRUMENT_ROOT_ID
-      ? <a href={'/instrument/' + type.gid}>{typeName}</a>
+      ? <a href={'/instrument/' + type.gid} key={type.id}>{typeName}</a>
       : typeName
   );
 }

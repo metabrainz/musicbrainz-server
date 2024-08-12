@@ -69,7 +69,7 @@ component CollectionHeader(collection: CollectionT, page: string) {
           content={l('Overview')}
           entity={collection}
           key=""
-          selected={'index' === page}
+          selected={page === 'index'}
           subPath=""
         />
         {viewingOwnCollection ? (
@@ -78,14 +78,14 @@ component CollectionHeader(collection: CollectionT, page: string) {
               content={lp('Edit', 'verb, header, interactive')}
               entity={collection}
               key="own_collection/edit"
-              selected={'edit' === page}
+              selected={page === 'edit'}
               subPath="own_collection/edit"
             />
             <EntityTabLink
               content={l('Remove')}
               entity={collection}
               key="own_collection/delete"
-              selected={'delete' === page}
+              selected={page === 'delete'}
               subPath="own_collection/delete"
             />
           </>

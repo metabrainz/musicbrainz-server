@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-component RelatedEntitiesDisplay(children: React$Node, title: string) {
+component RelatedEntitiesDisplay(children: React.Node, title: string) {
   return (
     <p>
       <strong>{addColonText(title)}</strong>

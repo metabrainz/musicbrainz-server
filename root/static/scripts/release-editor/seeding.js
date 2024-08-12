@@ -16,7 +16,7 @@ releaseEditor.seedErrors = ko.observable(null);
 
 
 releaseEditor.seed = function (data) {
-  data = data || {seed: {}, errors: []};
+  data ||= {seed: {}, errors: []};
 
   var seed = data.seed;
   this.seededReleaseData = seed;
@@ -30,7 +30,7 @@ releaseEditor.seed = function (data) {
   }
 
   if (seed.makeVotable !== undefined) {
-    this.rootField.makeVotable(!!seed.makeVotable);
+    this.rootField.makeVotable(Boolean(seed.makeVotable));
   }
 
   if (this.action === 'add') {

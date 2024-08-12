@@ -42,7 +42,7 @@ export function sanitizedAccountLayoutUser(
 }
 
 component UserAccountLayout(
-  children: React$Node,
+  children: React.Node,
   entity as user: AccountLayoutUserT,
   page: string,
   title?: string,

@@ -28,15 +28,17 @@ component QuickLinks(
   const entityUrlFragment = entity
     ? ENTITIES[entity.entityType].url
     : undefined;
-  const isEntityAllPage = !!entity && page === entity.entityType + '_all';
-  const isEntityOpenPage = !!entity && page === entity.entityType + '_open';
+  const isEntityAllPage = entity != null &&
+    page === entity.entityType + '_all';
+  const isEntityOpenPage = entity != null &&
+    page === entity.entityType + '_open';
 
   const quickLinks = [];
 
   if (nonEmpty(username)) {
     if (page === 'user_all') {
       quickLinks.push(
-        <a href={`/user/${username}/edits/open`}>
+        <a href={`/user/${username}/edits/open`} key="editor-open">
           <strong>
             {exp.l('Open edits for {user}', {user: username})}
           </strong>
@@ -44,7 +46,7 @@ component QuickLinks(
       );
     } else {
       quickLinks.push(
-        <a href={`/user/${username}/edits`}>
+        <a href={`/user/${username}/edits`} key="editor-all">
           <strong>
             {exp.l('All edits for {user}', {user: username})}
           </strong>
@@ -55,7 +57,10 @@ component QuickLinks(
   if (entity && entityUrlFragment) {
     if (isEntityAllPage) {
       quickLinks.push(
-        <a href={`/${entityUrlFragment}/${entity.gid}/open_edits`}>
+        <a
+          href={`/${entityUrlFragment}/${entity.gid}/open_edits`}
+          key="entity-open"
+        >
           <strong>
             {entity.entityType === 'collection'
               ? l('Open edits for this collection')
@@ -66,7 +71,10 @@ component QuickLinks(
     }
     if (isEntityOpenPage) {
       quickLinks.push(
-        <a href={`/${entityUrlFragment}/${entity.gid}/edits`}>
+        <a
+          href={`/${entityUrlFragment}/${entity.gid}/edits`}
+          key="entity-all"
+        >
           <strong>
             {entity.entityType === 'collection'
               ? l('All edits for this collection')
@@ -79,7 +87,7 @@ component QuickLinks(
   if (page === 'subscribed') {
     if (openParam === '1') {
       quickLinks.push(
-        <a href="/edit/subscribed?open=0">
+        <a href="/edit/subscribed?open=0" key="subscribed-entities-all">
           <strong>
             {l('All edits for your subscribed entities')}
           </strong>
@@ -87,7 +95,7 @@ component QuickLinks(
       );
     } else {
       quickLinks.push(
-        <a href="/edit/subscribed?open=1">
+        <a href="/edit/subscribed?open=1" key="subscribed-entities-open">
           <strong>
             {l('Open edits for your subscribed entities')}
           </strong>
@@ -98,7 +106,10 @@ component QuickLinks(
   if (page === 'subscribed_editors') {
     if (openParam === '1') {
       quickLinks.push(
-        <a href="/edit/subscribed_editors?open=0">
+        <a
+          href="/edit/subscribed_editors?open=0"
+          key="subscribed-editors-all"
+        >
           <strong>
             {l('All edits for your subscribed editors')}
           </strong>
@@ -106,7 +117,10 @@ component QuickLinks(
       );
     } else {
       quickLinks.push(
-        <a href="/edit/subscribed_editors?open=1">
+        <a
+          href="/edit/subscribed_editors?open=1"
+          key="subscribed-editors-open"
+        >
           <strong>
             {l('Open edits for your subscribed editors')}
           </strong>
@@ -121,6 +135,7 @@ component QuickLinks(
           protocol + DBDefs.WEB_SERVER + '/search/edits',
           refineUrlArgs,
         )}
+        key="refine"
       >
         <strong>
           {l('Refine this search')}
@@ -131,14 +146,14 @@ component QuickLinks(
   if ($c.user) {
     if (page !== 'subscribed') {
       quickLinks.push(
-        <a href="/edit/subscribed">
+        <a href="/edit/subscribed" key="subscribed-entities">
           {l('Subscribed entities')}
         </a>,
       );
     }
     if (page !== 'subscribed_editors') {
       quickLinks.push(
-        <a href="/edit/subscribed_editors">
+        <a href="/edit/subscribed_editors" key="subscribed-editors">
           {l('Subscribed editors')}
         </a>,
       );
@@ -146,34 +161,34 @@ component QuickLinks(
   }
   if (page !== 'open') {
     quickLinks.push(
-      <a href="/edit/open">
+      <a href="/edit/open" key="open-edits">
         {lp('Open edits', 'noun')}
       </a>,
     );
   }
   if ($c.user) {
     quickLinks.push(
-      <a href="/vote">
+      <a href="/vote" key="vote">
         {l('Voting suggestions')}
       </a>,
     );
   }
   if (!isSearch) {
     quickLinks.push(
-      <a href="/search/edits">
+      <a href="/search/edits" key="search-edits">
         {l('Search for edits')}
       </a>,
     );
   }
-  return React.createElement(React.Fragment, null, ...quickLinks.reduce(
-    (accum: Array<React$Node>, link, index) => {
+  return quickLinks.reduce(
+    (accum: Array<React.Node>, link, index) => {
       accum.push(link);
       if (index < (quickLinks.length - 1)) {
         accum.push(' | ');
       }
       return accum;
     }, [],
-  ));
+  );
 }
 
 component ListHeader(...props: React.PropsOf<QuickLinks>) {

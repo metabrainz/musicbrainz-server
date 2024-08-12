@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-component EditNoteHelp(children?: React$Node) {
+component EditNoteHelp(children?: React.Node) {
   return (
     <div className="edit-note-help">
       <p>

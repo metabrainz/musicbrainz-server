@@ -28,7 +28,7 @@ const tabLinks: $ReadOnlyArray<[string, () => string]> = [
 ];
 
 component TagLayout(
-  children: React$Node,
+  children: React.Node,
   page: string,
   tag: TagT,
   title?: string,

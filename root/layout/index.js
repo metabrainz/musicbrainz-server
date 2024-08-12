@@ -12,11 +12,12 @@ import * as React from 'react';
 import {CatalystContext} from '../context.mjs';
 import {RT_MIRROR} from '../static/scripts/common/constants.js';
 import DBDefs from '../static/scripts/common/DBDefs.mjs';
+import {commaOnlyListText}
+  from '../static/scripts/common/i18n/commaOnlyList.js';
 import parseDate from '../static/scripts/common/utility/parseDate.js';
 import {
-  isAddingNotesDisabled,
+  getRestrictionsForUser,
   isBeginner,
-  isEditingDisabled,
 } from '../static/scripts/common/utility/privileges.js';
 import {age} from '../utility/age.js';
 import {formatUserDateObject} from '../utility/formatUserDate.js';
@@ -164,7 +165,7 @@ component ServerDetailsBanner(url: string) {
 }
 
 component Layout(
-  children: React$Node,
+  children: React.Node,
   fullWidth: boolean = false,
   ...headProps: React.PropsOf<Head>
 ) {
@@ -182,6 +183,8 @@ component Layout(
       (isBeginner($c.user) || !$c.user.has_confirmed_email_address)) ||
       getRequestCookie($c.req, 'alert_new_edit_notes', 'true') !== 'false');
 
+  const restrictions = getRestrictionsForUser($c.user);
+
   return (
     <html lang={$c.stash.current_language_html}>
       <Head {...headProps} />
@@ -189,35 +192,18 @@ component Layout(
       <body>
         <Header />
 
-        {isEditingDisabled($c.user) || isAddingNotesDisabled($c.user) ? (
+        {restrictions.length > 0 ? (
           <div className="banner editing-disabled">
             <p>
-              {isEditingDisabled($c.user) ? (
-                isAddingNotesDisabled($c.user) ? (
-                  exp.l(
-                    `You’re currently not allowed to edit, vote or leave edit
-                     notes because an admin has revoked your privileges.
-                     If you haven’t already been contacted
-                     about why, please {uri|send us a message}.`,
-                    {uri: {href: 'https://metabrainz.org/contact', target: '_blank'}},
-                  )
-                ) : (
-                  exp.l(
-                    `You’re currently not allowed to edit or vote because an
-                     admin has revoked your privileges. If you haven’t already
-                     been contacted about why,
-                     please {uri|send us a message}.`,
-                    {uri: {href: 'https://metabrainz.org/contact', target: '_blank'}},
-                  )
-                )
-              ) : (
-                exp.l(
-                  `You’re currently not allowed to leave or change edit notes
-                   because an admin has revoked your privileges.
-                   If you haven’t already been contacted about why,
-                   please {uri|send us a message}.`,
-                  {uri: {href: 'https://metabrainz.org/contact', target: '_blank'}},
-                )
+              {exp.l(
+                `An admin has set the following restrictions
+                 on your account: {list}.
+                 If you haven’t already been contacted
+                 about why, please {uri|send us a message}.`,
+                {
+                  list: commaOnlyListText(restrictions),
+                  uri: {href: 'https://metabrainz.org/contact', target: '_blank'},
+                },
               )}
             </p>
           </div>
