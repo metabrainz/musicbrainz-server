@@ -14,8 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-17 10:00+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-08-05 12:42+0000\n"
+"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/nl/>\n"
 "Language: nl\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Add/remove lines:"
@@ -85,7 +86,7 @@ msgstr "Beweeg over de verticale lijnen en klik er op"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Images.js:70
 msgid "Images"
-msgstr ""
+msgstr "Afbeeldingen"
 
 #: ../root/statistics/layout.tt:4
 msgid "Languages/Scripts"
@@ -288,38 +289,32 @@ msgid "Basics"
 msgstr "Algemeen"
 
 #: ../root/statistics/Images.js:78
-#, fuzzy
-#| msgid "No edit statistics available."
 msgid "No image statistics available."
-msgstr "Geen statistieken over bewerkingen beschikbaar."
+msgstr "Geen statistieken over afbeeldingen beschikbaar."
 
 #: ../root/statistics/Images.js:84 ../root/statistics/Images.js:149
 #: ../root/statistics/Images.js:186 ../root/statistics/Images.js:224
 #: ../root/statistics/Images.js:362
 msgid "Releases with cover art:"
-msgstr "Uitgaven met afbeeldingen:"
+msgstr "Uitgaven met hoesafbeeldingen:"
 
 #: ../root/statistics/Images.js:99 ../root/statistics/Images.js:327
 msgid "Pieces of cover art:"
-msgstr "Aantal afbeeldingen:"
+msgstr "Aantal hoesafbeeldingen:"
 
 #: ../root/statistics/Images.js:108 ../root/statistics/Images.js:442
 #: ../root/statistics/Images.js:528
-#, fuzzy
-#| msgid "Events with no type set"
 msgid "Events with event art"
-msgstr "Evenementen zonder type"
+msgstr "Evenementen zonder afbeelding"
 
 #: ../root/statistics/Images.js:123 ../root/statistics/Images.js:478
 #: ../root/statistics/Images.js:491 ../root/statistics/stats.js:473
-#, fuzzy
-#| msgid "Pieces of cover art"
 msgid "Pieces of event art"
-msgstr "Aantal afbeeldingen"
+msgstr "Aantal evenementafbeeldingen"
 
 #: ../root/statistics/Images.js:139 ../root/statistics/Images.js:318
 msgid "No cover art statistics available."
-msgstr "Geen statistieken over afbeeldingen beschikbaar."
+msgstr "Geen statistieken over hoesafbeeldingen beschikbaar."
 
 #: ../root/statistics/Images.js:145
 msgid "By release group type"
@@ -354,7 +349,7 @@ msgstr "Uitgavegroepen"
 
 #: ../root/statistics/Images.js:264
 msgid "Release groups with cover art:"
-msgstr "Uitgavegroepen met afbeeldingen:"
+msgstr "Uitgavegroepen met hoesafbeeldingen:"
 
 #: ../root/statistics/Images.js:275
 msgid "manually selected:"
@@ -366,7 +361,7 @@ msgstr "automatisch afgeleid:"
 
 #: ../root/statistics/Images.js:315 ../root/statistics/stats.js:285
 msgid "Pieces of cover art"
-msgstr "Aantal afbeeldingen"
+msgstr "Aantal hoesafbeeldingen"
 
 #: ../root/statistics/Images.js:324
 msgid "By cover art type"
@@ -379,51 +374,38 @@ msgstr "Per uitgave"
 #: ../root/statistics/Images.js:375
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
-msgstr[0] "met {num} afbeelding:"
-msgstr[1] "met {num} afbeeldingen:"
+msgstr[0] "met {num} hoesafbeelding:"
+msgstr[1] "met {num} hoesafbeeldingen:"
 
 #: ../root/statistics/Images.js:405
 msgid "with 30 or more pieces of cover art:"
 msgstr "met 30 of meer afbeeldingen:"
 
 #: ../root/statistics/Images.js:432 ../root/statistics/Images.js:481
-#, fuzzy
-#| msgid "No cover art statistics available."
 msgid "No event art statistics available."
-msgstr "Geen statistieken over afbeeldingen beschikbaar."
+msgstr "Geen statistieken over evenementafbeeldingen beschikbaar."
 
 #: ../root/statistics/Images.js:438
-#, fuzzy
-#| msgid "Event types"
 msgid "By event type"
-msgstr "Evenementtypes"
+msgstr "Per type evenement"
 
 #: ../root/statistics/Images.js:487
-#, fuzzy
-#| msgid "By cover art type"
 msgid "By event art type"
-msgstr "Per type afbeelding"
+msgstr "Per type evenementafbeelding"
 
 #: ../root/statistics/Images.js:524
-#, fuzzy
-#| msgid "Of events"
 msgid "Per event"
-msgstr "Waarvan evenementen"
+msgstr "Per evenement"
 
 #: ../root/statistics/Images.js:542
-#, fuzzy
-#| msgid "with {num} piece of cover art:"
-#| msgid_plural "with {num} pieces of cover art:"
 msgid "with {num} piece of event art:"
 msgid_plural "with {num} pieces of event art:"
-msgstr[0] "met {num} afbeelding:"
-msgstr[1] "met {num} afbeeldingen:"
+msgstr[0] "met {num} evenementafbeelding:"
+msgstr[1] "met {num} evenementafbeeldingen:"
 
 #: ../root/statistics/Images.js:572
-#, fuzzy
-#| msgid "with 30 or more pieces of cover art:"
 msgid "with 15 or more pieces of event art:"
-msgstr "met 30 of meer afbeeldingen:"
+msgstr "met 15 of meer evenementafbeeldingen:"
 
 #: ../root/statistics/Index.js:68
 msgid "Basic metadata"
@@ -627,7 +609,7 @@ msgstr "Geen verpakking ingesteld"
 
 #: ../root/statistics/Index.js:431
 msgid "Cover art sources"
-msgstr "Bronnen voor afbeeldingen"
+msgstr "Bronnen van hoesafbeeldingen"
 
 #: ../root/statistics/Index.js:440
 msgid "CAA:"
@@ -732,22 +714,16 @@ msgid "Attributes"
 msgstr "Eigenschappen"
 
 #: ../root/statistics/Index.js:930
-#, fuzzy
-#| msgid "Event types"
 msgid "Event art"
-msgstr "Evenementtypes"
+msgstr "Evenementafbeeldingen"
 
 #: ../root/statistics/Index.js:939
-#, fuzzy
-#| msgid "Events with no type set"
 msgid "With EAA poster art:"
-msgstr "Evenementen zonder type"
+msgstr "Met poster in het EAA:"
 
 #: ../root/statistics/Index.js:945
-#, fuzzy
-#| msgid "No front cover art:"
 msgid "No poster art:"
-msgstr "Geen afbeelding van de voorkant:"
+msgstr "Geen poster:"
 
 #: ../root/statistics/Index.js:965
 msgid "Of releases"
@@ -786,10 +762,8 @@ msgid "Of artists"
 msgstr "Waarvan artiesten"
 
 #: ../root/statistics/Index.js:1046
-#, fuzzy
-#| msgid "Genres"
 msgid "Of genres"
-msgstr "Genres"
+msgstr "Waarvan genres"
 
 #: ../root/statistics/Index.js:1053
 msgid "Of instruments"
@@ -1073,11 +1047,9 @@ msgid "Edit types"
 msgstr "Bewerkingstypes"
 
 #: ../root/statistics/stats.js:25
-#, fuzzy
-#| msgid "Event types"
 msgctxt "plural"
 msgid "Event art"
-msgstr "Evenementtypes"
+msgstr "Afbeeldingen"
 
 #: ../root/statistics/stats.js:26
 msgid "Event types"
@@ -1270,10 +1242,8 @@ msgid "Event collections (all types)"
 msgstr "Collecties van evenementen (alle soorten)"
 
 #: ../root/statistics/stats.js:220
-#, fuzzy
-#| msgid "Series collections"
 msgid "Genre collections"
-msgstr "Collecties van series"
+msgstr "Collecties met genres"
 
 #: ../root/statistics/stats.js:225
 msgid "Instrument collections"
@@ -1434,32 +1404,24 @@ msgid "Events with no country set"
 msgstr "Evenementen zonder land"
 
 #: ../root/statistics/stats.js:446
-#, fuzzy
-#| msgid "Events with no country set"
 msgid "Events with EAA event art"
-msgstr "Evenementen zonder land"
+msgstr "Evenementen met afbeeldingen in het EAA"
 
 #: ../root/statistics/stats.js:451
-#, fuzzy
-#| msgid "Events with no type set"
 msgid "Events with an EAA poster"
-msgstr "Evenementen zonder type"
+msgstr "Evenementen met poster in het EAA"
 
 #: ../root/statistics/stats.js:456
-#, fuzzy
-#| msgid "Events with no type set"
 msgid "Events without an EAA poster"
-msgstr "Evenementen zonder type"
+msgstr "Evenementen zonder poster in het EAA"
 
 #: ../root/statistics/stats.js:461
 msgid "Events with no type set"
 msgstr "Evenementen zonder type"
 
 #: ../root/statistics/stats.js:467
-#, fuzzy
-#| msgid "Releases in groups with no type set that have cover art"
 msgid "Events with no type set that have event art"
-msgstr "Uitgaven met afbeelding in uitgavegroepen zonder type"
+msgstr "Evenementen zonder type maar met afbeeldingen"
 
 #: ../root/statistics/stats.js:488
 msgid "Instruments with no type set"
@@ -1595,11 +1557,11 @@ msgstr "Uitgaven zonder land"
 
 #: ../root/statistics/stats.js:713
 msgid "Releases with CAA cover art"
-msgstr "Uitgaven met afbeeldingen van het CAA"
+msgstr "Uitgaven met afbeeldingen in het CAA"
 
 #: ../root/statistics/stats.js:718
 msgid "Releases with no cover art"
-msgstr "Uitgaven met afbeeldingen"
+msgstr "Uitgaven zonder hoesafbeeldingen"
 
 #: ../root/statistics/stats.js:723
 msgid "Releases with a medium with no format set"
@@ -1607,11 +1569,11 @@ msgstr "Uitgaven met een medium zonder mediumtype"
 
 #: ../root/statistics/stats.js:729
 msgid "Releases with a medium with no format set that have cover art"
-msgstr "Uitgaven met afbeelding en met een medium zonder mediumtype"
+msgstr "Uitgaven met hoesafbeelding en met een medium zonder mediumtype"
 
 #: ../root/statistics/stats.js:735
 msgid "Releases with cover art"
-msgstr "Uitgaven met afbeeldingen"
+msgstr "Uitgaven met hoesafbeeldingen"
 
 #: ../root/statistics/stats.js:740
 msgid "Releases with disc IDs"
@@ -1639,11 +1601,11 @@ msgstr "Uitgaven zonder status"
 
 #: ../root/statistics/stats.js:770
 msgid "Releases with no status set that have cover art"
-msgstr "Uitgaven zonder status maar met afbeelding"
+msgstr "Uitgaven zonder status maar met hoesafbeeldingen"
 
 #: ../root/statistics/stats.js:776
 msgid "Releases in groups with no type set that have cover art"
-msgstr "Uitgaven met afbeelding in uitgavegroepen zonder type"
+msgstr "Uitgaven met hoesafbeeldingen in uitgavegroepen zonder type"
 
 #: ../root/statistics/stats.js:782
 msgid "Releases credited to Various Artists"
@@ -1816,10 +1778,8 @@ msgid "{type} events"
 msgstr "Evenementen van het type ‘{type}’"
 
 #: ../root/statistics/stats.js:1114
-#, fuzzy
-#| msgid "Releases in groups of type “{type}” with cover art"
 msgid "Events of type “{type}” with event art"
-msgstr "Uitgaven in groepen van het type ‘{type}’ met afbeelding"
+msgstr "Evenementen van het type ‘{type}’ met afbeeldingen"
 
 #: ../root/statistics/stats.js:1127
 msgid "{name} releases"
@@ -1831,7 +1791,7 @@ msgstr "{name} media"
 
 #: ../root/statistics/stats.js:1140
 msgid "Releases with a medium of format “{format}” that have cover art"
-msgstr "Uitgaven met een medium van het type ‘{format}’ met afbeelding"
+msgstr "Uitgaven met een medium van het type ‘{format}’ met afbeeldingen"
 
 #: ../root/statistics/stats.js:1153
 msgid "{type} instruments"
@@ -1883,7 +1843,7 @@ msgstr "Uitgavegroepen van het type ‘{type}’"
 
 #: ../root/statistics/stats.js:1280
 msgid "Releases in groups of type “{type}” with cover art"
-msgstr "Uitgaven in groepen van het type ‘{type}’ met afbeelding"
+msgstr "Uitgaven in groepen van het type ‘{type}’ met afbeeldingen"
 
 #: ../root/statistics/stats.js:1304
 msgid "{script} releases"
@@ -1899,7 +1859,7 @@ msgstr "Uitgaven met de status ‘{status}’"
 
 #: ../root/statistics/stats.js:1333
 msgid "Releases of status “{status}” with cover art"
-msgstr "Uitgaven met de status ‘{status}’ met afbeelding"
+msgstr "Uitgaven met de status ‘{status}’ met afbeeldingen"
 
 #: ../root/statistics/stats.js:1350
 msgid "Works with attribute “{attribute}”"

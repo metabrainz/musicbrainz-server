@@ -47,7 +47,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-07-31 16:42+0000\n"
+"PO-Revision-Date: 2024-08-01 04:42+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -781,6 +781,14 @@ msgid ""
 msgstr ""
 "Un cuarteto es una formación musical que consiste en cuatro intérpretes."
 
+#. name:ROM cartridge
+#: DB:medium_format/description:208
+msgctxt "medium_format"
+msgid ""
+"A read only memory cartridge or card, such as the ones used by early home "
+"computers and some video game systems."
+msgstr ""
+
 #. name:Festival
 #: DB:series_type/description:8
 msgctxt "series_type"
@@ -1476,9 +1484,9 @@ msgid ""
 msgstr ""
 "Una imagen de cualquier tipo de bienes relacionados con el evento y vendidos "
 "(o compartidos) para promocionarlo o durante el evento en sí, como "
-"camisetas, gorras o pegatinas. Si hay más de un tipo de imagen apropiado ("
-"por ejemplo, si un póster se vende como merchandising) usa “merchandising” y "
-"también cualquier otro tipo apropiado."
+"camisetas, gorras o pegatinas. Si hay más de un tipo de imagen apropiado "
+"(por ejemplo, si un póster se vende como merchandising) usa “merchandising” "
+"y también cualquier otro tipo apropiado."
 
 #. name:Schedule
 #: DB:event_art_archive.art_type/description:5
@@ -4652,8 +4660,8 @@ msgctxt "work_attribute_type"
 msgid ""
 "ID for the international (but primarily Italian) rights society Soundreef"
 msgstr ""
-"ID de la sociedad de gestión de derechos internacional Soundreef ("
-"principalmente italiana)"
+"ID de la sociedad de gestión de derechos internacional Soundreef "
+"(principalmente italiana)"
 
 #. name:AMRA ID
 #: DB:work_attribute_type/description:38
@@ -6928,6 +6936,11 @@ msgstr "Pūrṇacandrika"
 msgctxt "work_type"
 msgid "Quartet"
 msgstr "Cuarteto"
+
+#: DB:medium_format/name:208
+msgctxt "medium_format"
+msgid "ROM cartridge"
+msgstr "Cartucho ROM"
 
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"

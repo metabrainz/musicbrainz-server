@@ -834,7 +834,7 @@ msgstr ""
 "target=\"_blank\">platenmaatschappij</a>."
 
 #. name:publishing
-#: DB:link_type/description:161
+#: DB:link_type/description:161 DB:link_type/description:208
 msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</a>."
@@ -842,15 +842,6 @@ msgstr ""
 "Dit geeft de uitgever van deze compositie aan. Dit is <strong>niet</strong> "
 "hetzelfde concept als de <a href=\"/doc/Label\" "
 "target=\"_blank\">platenmaatschappij</a>."
-
-#. name:publishing
-#: DB:link_type/description:208
-msgid ""
-"Indicates the publisher of this work. This is <strong>not</strong> the same "
-"concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr ""
-"Dit geeft de uitgever van deze compositie aan. Dit is <strong>niet</strong> "
-"hetzelfde concept als de <a href=\"/doc/Label\">platenmaatschappij</a>."
 
 #. name:last.fm
 #: DB:link_type/link_phrase:837 DB:link_type/link_phrase:838
@@ -2908,10 +2899,15 @@ msgstr "Dit geeft de koormeester aan van het koor dat op deze uitgave zong."
 
 #. name:glass mastered
 #: DB:link_type/description:955
+#, fuzzy
+#| msgid ""
+#| "This indicates the company that made the glass master for a release. This "
+#| "is <strong>not</strong> the same concept as the <a href=\"/doc/"
+#| "Label\">record label</a>, nor as mastering engineering."
 msgid ""
 "This indicates the company that made the glass master for a release. This is "
-"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
-"label</a>, nor as mastering engineering."
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>, nor as mastering engineering."
 msgstr ""
 "Dit geeft het bedrijf aan dat de glasmaster voor de uitgave heeft gemaakt. "
 "Dit is <strong>niet</strong> hetzelfde concept als de <a href=\"/doc/"
@@ -2945,12 +2941,19 @@ msgstr ""
 
 #. name:distributed
 #: DB:link_type/description:361
+#, fuzzy
+#| msgid ""
+#| "This indicates the organization that distributes (or contracts out "
+#| "distribution). \n"
+#| "\n"
+#| "This is <strong>not</strong> the same concept as the <a href=\"/doc/"
+#| "Label\">record label</a>."
 msgid ""
 "This indicates the organization that distributes (or contracts out "
 "distribution). \n"
 "\n"
-"This is <strong>not</strong> the same concept as the <a href=\"/doc/"
-"Label\">record label</a>."
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
 "Dit geeft de organisatie aan die distribueert (of laat distribueren).\n"
 "\n"
@@ -2959,11 +2962,17 @@ msgstr ""
 
 #. name:manufactured
 #: DB:link_type/description:360
+#, fuzzy
+#| msgid ""
+#| "This indicates the organization that manufactures (or contracts out "
+#| "manufacturing). \n"
+#| "This is <strong>not</strong> the same concept as the <a href=\"/doc/"
+#| "Label\">record label</a>."
 msgid ""
 "This indicates the organization that manufactures (or contracts out "
 "manufacturing). \n"
-"This is <strong>not</strong> the same concept as the <a href=\"/doc/"
-"Label\">record label</a>."
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
 "Dit geeft de organisatie aan die fabriceert (of laat fabriceren).\n"
 "\n"
@@ -2972,9 +2981,15 @@ msgstr ""
 
 #. name:marketed
 #: DB:link_type/description:848
+#, fuzzy
+#| msgid ""
+#| "This indicates the organization that markets a release. This is "
+#| "<strong>not</strong> the same concept as the <a href=\"/doc/"
+#| "Label\">record label</a>."
 msgid ""
 "This indicates the organization that markets a release. This is <strong>not</"
-"strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
+"strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
 "Dit geeft de organisatie aan die een uitgave in de markt heeft gezet. Dit is "
 "<strong>niet</strong> hetzelfde concept als de <a href=\"/doc/"
@@ -2982,9 +2997,15 @@ msgstr ""
 
 #. name:printed
 #: DB:link_type/description:985
+#, fuzzy
+#| msgid ""
+#| "This indicates the organization that printed a release. This is "
+#| "<strong>not</strong> the same concept as the <a href=\"/doc/"
+#| "Label\">record label</a>."
 msgid ""
 "This indicates the organization that printed a release. This is <strong>not</"
-"strong> the same concept as the <a href=\"/doc/Label\">record label</a>."
+"strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
 "Dit geeft de organisatie aan die het drukwerk voor de uitgave heeft "
 "verzorgd. Dit is <strong>niet</strong> hetzelfde concept als de <a href=\"/"
@@ -2992,10 +3013,15 @@ msgstr ""
 
 #. name:promoted
 #: DB:link_type/description:359
+#, fuzzy
+#| msgid ""
+#| "This indicates the organization that promotes (or contracts out "
+#| "promotion) for a release. This is <strong>not</strong> the same concept "
+#| "as the <a href=\"/doc/Label\">record label</a>."
 msgid ""
 "This indicates the organization that promotes (or contracts out promotion) "
 "for a release. This is <strong>not</strong> the same concept as the <a "
-"href=\"/doc/Label\">record label</a>."
+"href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
 "Dit geeft de organisatie aan die een uitgave promoot (of laat promoten).\n"
 "\n"
@@ -3004,10 +3030,15 @@ msgstr ""
 
 #. name:published
 #: DB:link_type/description:362
+#, fuzzy
+#| msgid ""
+#| "This indicates the organization which releases a release. This is "
+#| "<strong>not</strong> the same concept as the <a href=\"/doc/"
+#| "Label\">record label</a>."
 msgid ""
 "This indicates the organization which releases a release. This is "
-"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
-"label</a>."
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
 "Dit geeft een organisatie aan die een uitgave uitgaf. Dit is <strong>niet</"
 "strong> hetzelfde als een <a href=\"/doc/Label\">platenmaatschappij</a>."
@@ -3101,10 +3132,15 @@ msgstr ""
 
 #. name:pressed
 #: DB:link_type/description:942
+#, fuzzy
+#| msgid ""
+#| "This indicates the pressing company that presses a release. This is "
+#| "<strong>not</strong> the same concept as the <a href=\"/doc/"
+#| "Label\">record label</a>."
 msgid ""
 "This indicates the pressing company that presses a release. This is "
-"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
-"label</a>."
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
 msgstr ""
 "Dit geeft de perserij aan die een uitgave heeft geperst. Dit is "
 "<strong>niet</strong> hetzelfde concept als de <a href=\"/doc/"
@@ -4735,24 +4771,36 @@ msgstr "Dit geeft aan dat het bedrijf de licentiegever voor deze uitgave is."
 
 #. name:phonographic copyright
 #: DB:link_type/description:867
+#, fuzzy
+#| msgid ""
+#| "This relationship indicates the artist is the <a href=\"//en.wikipedia."
+#| "org/wiki/Sound_recording_copyright_symbol\" "
+#| "target=\"_blank\">phonographic copyright</a> holder for this recording, "
+#| "usually indicated with a ℗ symbol."
 msgid ""
 "This relationship indicates the label is the <a href=\"//en.wikipedia.org/"
-"wiki/Sound_recording_copyright_symbol\">phonographic copyright</a> holder "
-"for this recording, usually indicated with a ℗ symbol."
+"wiki/Sound_recording_copyright_symbol\" target=\"_blank\">phonographic "
+"copyright</a> holder for this recording, usually indicated with a ℗ symbol."
 msgstr ""
-"Dit geeft aan dat de platenmaatschappij de houder van het <a href=\"//en."
-"wikipedia.org/wiki/Sound_recording_copyright_symbol\">fonografisch "
+"Dit geeft aan dat de artiest de houder van het <a href=\"//en.wikipedia.org/"
+"wiki/Sound_recording_copyright_symbol\" target=\"_blank\">fonografisch "
 "auteursrecht</a> op deze opname is. Meestal wordt dit met ℗ aangegeven."
 
 #. name:phonographic copyright
 #: DB:link_type/description:711
+#, fuzzy
+#| msgid ""
+#| "This relationship indicates the artist is the <a href=\"//en.wikipedia."
+#| "org/wiki/Sound_recording_copyright_symbol\" "
+#| "target=\"_blank\">phonographic copyright</a> holder for this release, "
+#| "usually indicated with a ℗ symbol."
 msgid ""
 "This relationship indicates the label is the <a href=\"//en.wikipedia.org/"
-"wiki/Sound_recording_copyright_symbol\">phonographic copyright</a> holder "
-"for this release, usually indicated with a ℗ symbol."
+"wiki/Sound_recording_copyright_symbol\" target=\"_blank\">phonographic "
+"copyright</a> holder for this release, usually indicated with a ℗ symbol."
 msgstr ""
-"Dit geeft aan dat de platenmaatschappij de houder van het <a href=\"//en."
-"wikipedia.org/wiki/Sound_recording_copyright_symbol\">fonografisch "
+"Dit geeft aan dat de artiest de houder van het <a href=\"//en.wikipedia.org/"
+"wiki/Sound_recording_copyright_symbol\" target=\"_blank\">fonografisch "
 "auteursrecht</a> op deze uitgave is. Meestal wordt dit met ℗ aangegeven."
 
 #. name:copyright
@@ -5938,9 +5986,7 @@ msgstr "is te zien in de clip van"
 msgid "apple music"
 msgstr "Apple Music"
 
-#. name:arranged at
-#: DB:link_type/name:865 DB:link_type/name:866 DB:link_type/name:886
-#: DB:link_type/reverse_link_phrase:866
+#: DB:link_type/name:865 DB:link_type/name:886 DB:link_type/name:866
 msgid "arranged at"
 msgstr "gearrangeerd bij"
 
@@ -5950,9 +5996,7 @@ msgstr "gearrangeerd bij"
 msgid "arranged for"
 msgstr "gearrangeerd voor"
 
-#. name:arranged in
-#: DB:link_type/name:864 DB:link_type/name:863 DB:link_type/name:885
-#: DB:link_type/reverse_link_phrase:864 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/name:863 DB:link_type/name:885 DB:link_type/name:864
 msgid "arranged in"
 msgstr "gearrangeerd in"
 
@@ -5977,12 +6021,6 @@ msgstr "arrangeur"
 #: DB:link_attribute_type/name:1347
 msgid "arranging"
 msgstr "arrangeren"
-
-#. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:864 DB:link_type/link_phrase:863
-#: DB:link_type/link_phrase:866
-msgid "arranging location for"
-msgstr "hier gearrangeerd"
 
 #: DB:link_type/name:137 DB:link_type/name:1174 DB:link_type/name:18
 msgid "art direction"
@@ -6868,11 +6906,6 @@ msgstr "technische functie"
 msgid "engineer position at"
 msgstr "technische functie bij"
 
-#. name:engineer
-#: DB:link_type/link_phrase:1084
-msgid "engineered"
-msgstr "verzorgde de techniek van"
-
 #: DB:link_type/name:813 DB:link_type/name:812
 msgid "engineered at"
 msgstr "techniek verzorgd bij"
@@ -6881,9 +6914,8 @@ msgstr "techniek verzorgd bij"
 msgid "engineered in"
 msgstr "techniek verzorgd in"
 
-#. name:engineer, name:engineer position
-#: DB:link_type/reverse_link_phrase:1084 DB:link_type/reverse_link_phrase:120
-#: DB:link_type/reverse_link_phrase:701
+#. name:engineer position
+#: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
 msgid "engineers"
 msgstr "technici"
 
@@ -7635,10 +7667,10 @@ msgid "holds copyright (©) for"
 msgstr "bezit het auteursrecht (©) op"
 
 #. name:phonographic copyright
-#: DB:link_type/link_phrase:867 DB:link_type/link_phrase:711
-#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:869
-#: DB:link_type/long_link_phrase:867 DB:link_type/long_link_phrase:711
-#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:869
+#: DB:link_type/link_phrase:710 DB:link_type/link_phrase:867
+#: DB:link_type/link_phrase:711 DB:link_type/link_phrase:869
+#: DB:link_type/long_link_phrase:710 DB:link_type/long_link_phrase:867
+#: DB:link_type/long_link_phrase:711 DB:link_type/long_link_phrase:869
 msgid "holds phonographic copyright (℗) for"
 msgstr "bezit het fonografisch auteursrecht (℗) op"
 
@@ -8812,7 +8844,7 @@ msgstr "orkestratie van"
 msgid "orchestrations"
 msgstr "orkestraties"
 
-#: DB:link_type/name:40 DB:link_type/name:164 DB:link_type/name:300
+#: DB:link_type/name:164 DB:link_type/name:300 DB:link_type/name:40
 msgid "orchestrator"
 msgstr "orkestrator"
 
@@ -9055,14 +9087,14 @@ msgstr "persoonlijke uitgever van"
 msgid "personal relationship"
 msgstr "persoonlijke relatie"
 
-#: DB:link_type/name:867 DB:link_type/name:711 DB:link_type/name:710
+#: DB:link_type/name:710 DB:link_type/name:867 DB:link_type/name:711
 #: DB:link_type/name:869
 msgid "phonographic copyright"
 msgstr "fonografisch auteursrecht"
 
 #. name:phonographic copyright
-#: DB:link_type/reverse_link_phrase:867 DB:link_type/reverse_link_phrase:711
-#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:869
+#: DB:link_type/reverse_link_phrase:710 DB:link_type/reverse_link_phrase:867
+#: DB:link_type/reverse_link_phrase:711 DB:link_type/reverse_link_phrase:869
 msgid "phonographic copyright (℗) by"
 msgstr "fonografisch auteursrecht (℗)"
 
@@ -9381,7 +9413,7 @@ msgid "publishes series"
 msgstr "publiceert de serie"
 
 #: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:161
-#: DB:link_type/name:66 DB:link_type/name:208 DB:link_type/name:32
+#: DB:link_type/name:66 DB:link_type/name:32 DB:link_type/name:208
 msgid "publishing"
 msgstr "uitgeven"
 
@@ -10389,15 +10421,23 @@ msgstr "was een ondersteunende artiest op"
 msgid "was a supporting DJ at"
 msgstr "was ondersteunende dj op"
 
-#. name:engineer
-#: DB:link_type/long_link_phrase:1084
-msgid "was an engineer at"
-msgstr "was technicus bij"
-
 #. name:orchestra
 #: DB:link_type/long_link_phrase:807
 msgid "was an orchestra at"
 msgstr "speelde als orkest op"
+
+#. name:engineer
+#: DB:link_type/long_link_phrase:1084
+#, fuzzy
+#| msgid ""
+#| "{additional} {assistant} {associate} {co:co-}{executive:executive }"
+#| "engineer"
+msgid ""
+"was an {additional} {assistant} {associate} {co:co-}{executive:executive }"
+"engineer at"
+msgstr ""
+"{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:"
+"co-}{executive:leidinggevend} technicus"
 
 #. name:cinematographer
 #: DB:link_type/long_link_phrase:1245
@@ -10599,11 +10639,13 @@ msgstr ""
 
 #. name:arranged at
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
+#: DB:link_type/reverse_link_phrase:866
 msgid "{additional:additionally} arranged at"
 msgstr "{additional:aanvullend} gearrangeerd bij"
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:885
+#: DB:link_type/reverse_link_phrase:863 DB:link_type/reverse_link_phrase:885
+#: DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr "{additional:aanvullend} gearrangeerd in"
 
@@ -10654,16 +10696,11 @@ msgid "{additional:additionally} mixed in"
 msgstr "{additional:aanvullend} gemixt in"
 
 #. name:orchestrator
-#: DB:link_type/link_phrase:40 DB:link_type/link_phrase:164
-#: DB:link_type/link_phrase:300 DB:link_type/long_link_phrase:40
-#: DB:link_type/long_link_phrase:164 DB:link_type/long_link_phrase:300
+#: DB:link_type/link_phrase:164 DB:link_type/link_phrase:300
+#: DB:link_type/link_phrase:40 DB:link_type/long_link_phrase:164
+#: DB:link_type/long_link_phrase:300 DB:link_type/long_link_phrase:40
 msgid "{additional:additionally} orchestrated"
 msgstr "orkestreerde {additional:aanvullend}"
-
-#. name:orchestrator
-#: DB:link_type/reverse_link_phrase:40
-msgid "{additional:additionally} orchestrator"
-msgstr "{additional:aanvullend} orkestrator"
 
 #. name:produced at
 #: DB:link_type/reverse_link_phrase:825 DB:link_type/reverse_link_phrase:824
@@ -10841,8 +10878,9 @@ msgstr ""
 "partner}{co:gezamenlijk} voor het overzetten van"
 
 #. name:engineer
-#: DB:link_type/link_phrase:28 DB:link_type/link_phrase:138
-#: DB:link_type/long_link_phrase:28 DB:link_type/long_link_phrase:138
+#: DB:link_type/link_phrase:1084 DB:link_type/link_phrase:28
+#: DB:link_type/link_phrase:138 DB:link_type/long_link_phrase:28
+#: DB:link_type/long_link_phrase:138
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}{executive:"
 "executive }engineered"
@@ -10940,8 +10978,9 @@ msgid "{additional} animation"
 msgstr "{additional:aanvullende} illustratie"
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
-#: DB:link_type/link_phrase:886
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:863
+#: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
+#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr "hier {additional:aanvullend }geschreven"
 
@@ -10964,13 +11003,13 @@ msgstr "{additional:aanvullend} artwork"
 msgid "{additional} composer"
 msgstr "{additional:aanvullend} componist"
 
-#. name:composed in
-#: DB:link_type/link_phrase:875
+#. name:composed at, name:composed in
+#: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
 msgid "{additional} composing location for"
 msgstr "hier {additional:aanvullend }gecomponeerd"
 
 #. name:composed at
-#: DB:link_type/link_phrase:1251 DB:link_type/link_phrase:876
+#: DB:link_type/link_phrase:1251
 #, fuzzy
 #| msgid "{additional} composing location for"
 msgid "{additional} composition location for"
@@ -11089,6 +11128,7 @@ msgstr "{additional:aanvullend} orkest"
 
 #. name:orchestrator
 #: DB:link_type/reverse_link_phrase:164 DB:link_type/reverse_link_phrase:300
+#: DB:link_type/reverse_link_phrase:40
 msgid "{additional} orchestrator"
 msgstr "{additional:aanvullend} orkestrator"
 
@@ -11264,6 +11304,18 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:28 DB:link_type/reverse_link_phrase:138
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineer"
+msgstr ""
+"{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:"
+"co-}{executive:leidinggevend} technicus"
+
+#. name:engineer
+#: DB:link_type/reverse_link_phrase:1084
+#, fuzzy
+#| msgid ""
+#| "{additional} {assistant} {associate} {co:co-}{executive:executive }"
+#| "engineer"
+msgid ""
+"{additional} {assistant} {associate} {co:co-}{executive:executive }engineers"
 msgstr ""
 "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:"
 "co-}{executive:leidinggevend} technicus"
@@ -11644,20 +11696,10 @@ msgstr "{entity1} is of was de standaard concertlocatie van {entity0}"
 msgid "{entity1} presented {entity0}"
 msgstr "{entity1} presenteerde {entity0}"
 
-#. name:arranged at
-#: DB:link_type/long_link_phrase:866
-msgid "{entity1} was arranged at {entity0}"
-msgstr "{entity1} werd gearrangeerd bij {entity0}"
-
 #. name:arranged for
 #: DB:link_type/long_link_phrase:949 DB:link_type/long_link_phrase:948
 msgid "{entity1} was arranged for {entity0}"
 msgstr "{entity1} werd gearrangeerd voor {entity0}"
-
-#. name:arranged in
-#: DB:link_type/long_link_phrase:864 DB:link_type/long_link_phrase:863
-msgid "{entity1} was arranged in {entity0}"
-msgstr "{entity1} werd gearrangeerd in {entity0}"
 
 #. name:available at
 #: DB:link_type/long_link_phrase:795
@@ -11763,11 +11805,13 @@ msgstr "{entity1} werd herzien in {entity0}"
 
 #. name:arranged at
 #: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:886
+#: DB:link_type/long_link_phrase:866
 msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} gearrangeerd bij {entity0}"
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:885
+#: DB:link_type/long_link_phrase:863 DB:link_type/long_link_phrase:885
+#: DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} gearrangeerd in {entity0}"
 
@@ -11960,16 +12004,16 @@ msgid "{step}parents"
 msgstr "{step:stief}ouders"
 
 #. name:published, name:publishing
-#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:208
-#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:362
-#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:208
-#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:362
+#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:32
+#: DB:link_type/link_phrase:208 DB:link_type/link_phrase:362
+#: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:32
+#: DB:link_type/long_link_phrase:208 DB:link_type/long_link_phrase:362
 msgid "{sub:sub-}published"
 msgstr "{sub:sub}publiceerde"
 
 #. name:published, name:publishing
-#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:208
-#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:362
+#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:32
+#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:362
 msgid "{sub:sub-}publisher"
 msgstr "{sub:sub}uitgever"
 
@@ -12007,6 +12051,50 @@ msgstr "{vocal:%|vocale} ondersteuning door"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocale} ondersteuning voor"
+
+#~ msgid ""
+#~ "Indicates the publisher of this work. This is <strong>not</strong> the "
+#~ "same concept as the <a href=\"/doc/Label\">record label</a>."
+#~ msgstr ""
+#~ "Dit geeft de uitgever van deze compositie aan. Dit is <strong>niet</"
+#~ "strong> hetzelfde concept als de <a href=\"/doc/"
+#~ "Label\">platenmaatschappij</a>."
+
+#~ msgid ""
+#~ "This relationship indicates the label is the <a href=\"//en.wikipedia.org/"
+#~ "wiki/Sound_recording_copyright_symbol\">phonographic copyright</a> holder "
+#~ "for this recording, usually indicated with a ℗ symbol."
+#~ msgstr ""
+#~ "Dit geeft aan dat de platenmaatschappij de houder van het <a href=\"//en."
+#~ "wikipedia.org/wiki/Sound_recording_copyright_symbol\">fonografisch "
+#~ "auteursrecht</a> op deze opname is. Meestal wordt dit met ℗ aangegeven."
+
+#~ msgid ""
+#~ "This relationship indicates the label is the <a href=\"//en.wikipedia.org/"
+#~ "wiki/Sound_recording_copyright_symbol\">phonographic copyright</a> holder "
+#~ "for this release, usually indicated with a ℗ symbol."
+#~ msgstr ""
+#~ "Dit geeft aan dat de platenmaatschappij de houder van het <a href=\"//en."
+#~ "wikipedia.org/wiki/Sound_recording_copyright_symbol\">fonografisch "
+#~ "auteursrecht</a> op deze uitgave is. Meestal wordt dit met ℗ aangegeven."
+
+#~ msgid "arranging location for"
+#~ msgstr "hier gearrangeerd"
+
+#~ msgid "engineered"
+#~ msgstr "verzorgde de techniek van"
+
+#~ msgid "was an engineer at"
+#~ msgstr "was technicus bij"
+
+#~ msgid "{additional:additionally} orchestrator"
+#~ msgstr "{additional:aanvullend} orkestrator"
+
+#~ msgid "{entity1} was arranged at {entity0}"
+#~ msgstr "{entity1} werd gearrangeerd bij {entity0}"
+
+#~ msgid "{entity1} was arranged in {entity0}"
+#~ msgstr "{entity1} werd gearrangeerd in {entity0}"
 
 #~ msgid "recorded recordings"
 #~ msgstr "opgenomen opnamen"

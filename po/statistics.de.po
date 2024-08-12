@@ -26,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-04-08 14:28+0000\n"
-"Last-Translator: Leonie2 <renkenjakob@gmail.com>\n"
+"PO-Revision-Date: 2024-08-05 12:42+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/de/>\n"
 "Language: de\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Add/remove lines:"
@@ -298,10 +298,8 @@ msgid "Basics"
 msgstr "Wesentliches"
 
 #: ../root/statistics/Images.js:78
-#, fuzzy
-#| msgid "No edit statistics available."
 msgid "No image statistics available."
-msgstr "Keine Bearbeitungsstatistiken verfügbar."
+msgstr "Keine Bildstatistiken verfügbar."
 
 #: ../root/statistics/Images.js:84 ../root/statistics/Images.js:149
 #: ../root/statistics/Images.js:186 ../root/statistics/Images.js:224
@@ -724,7 +722,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
-msgstr ""
+msgstr "Mit ISRCs"
 
 #: ../root/statistics/Index.js:706 ../root/statistics/Index.js:734
 #: ../root/statistics/Index.js:796 ../root/statistics/Index.js:824
@@ -735,7 +733,7 @@ msgstr "Typen"
 
 #: ../root/statistics/Index.js:756
 msgid "With ISWCs"
-msgstr ""
+msgstr "Mit ISWCs"
 
 #: ../root/statistics/Index.js:766
 msgid "Attributes"
@@ -1439,7 +1437,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:441
 msgid "Events with no country set"
-msgstr ""
+msgstr "Veranstaltungen ohne Land"
 
 #: ../root/statistics/stats.js:446
 #, fuzzy
@@ -1459,7 +1457,7 @@ msgstr "Veröffentlichungen mit CAA-Cover-Art"
 
 #: ../root/statistics/stats.js:461
 msgid "Events with no type set"
-msgstr ""
+msgstr "Veranstaltungen ohne Typ"
 
 #: ../root/statistics/stats.js:467
 #, fuzzy
@@ -1489,7 +1487,7 @@ msgstr "Label-ISNIs"
 
 #: ../root/statistics/stats.js:523
 msgid "ISRCs (unique)"
-msgstr ""
+msgstr "ISRCs (einzigartig)"
 
 #: ../root/statistics/stats.js:528
 msgid "ISRCs (all uses)"
@@ -1497,7 +1495,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:533
 msgid "ISWCs (unique)"
-msgstr ""
+msgstr "ISWCs (einzigartig)"
 
 #: ../root/statistics/stats.js:538
 msgid "ISWCs (all uses)"
@@ -1751,7 +1749,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:941
 msgid "Works with ISWCs"
-msgstr ""
+msgstr "Werke mit ISWCs"
 
 #: ../root/statistics/stats.js:946
 msgid "Works with no language set"

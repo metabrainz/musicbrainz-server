@@ -1,35 +1,37 @@
 #
 # Translators:
+# koukei07 <teamedia@duck.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Indonesian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/id/)\n"
+"PO-Revision-Date: 2024-08-05 00:42+0000\n"
+"Last-Translator: koukei07 <teamedia@duck.com>\n"
+"Language-Team: Indonesian <https://translations.metabrainz.org/projects/"
+"musicbrainz/instruments/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
-msgstr ""
+msgstr "gitar 12 senar"
 
 #: DB:instrument/name:516
 msgid "17-string bass koto"
-msgstr ""
+msgstr "Koto bass 17 senar"
 
 #: DB:instrument/name:839
 msgctxt "Historical hybrid between English and German style concertinas"
 msgid "Anglo concertina"
-msgstr ""
+msgstr "Konsertina Anglo"
 
 #: DB:instrument/name:66
 msgctxt "Folk drone zither from N. America"
 msgid "Appalachian dulcimer"
-msgstr ""
+msgstr "Dulcimer Appalachian"
 
 #: DB:instrument/name:421
 msgctxt "Family of Baltic box-zithers"

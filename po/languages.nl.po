@@ -4,13 +4,14 @@
 # Maurits Meulenbelt, 2013-2022
 # Nathan Follens, 2017
 # Nikolai Prokoschenko <email address hidden>, 2011
-# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-17 10:00+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-08-05 00:42+0000\n"
+"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/nl/>\n"
 "Language: nl\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -1964,15 +1965,13 @@ msgstr "Oudprovençaals (tot 1500)"
 
 #. frequency:1 iso_code_3:prg
 #: DB:language/name:5521
-#, fuzzy
-#| msgid "Russian"
 msgid "Prussian"
-msgstr "Russisch"
+msgstr "Pruisisch"
 
 #. frequency:1 iso_code_3:fuc
 #: DB:language/name:2321
 msgid "Pulaar"
-msgstr ""
+msgstr "Pulaar"
 
 #. frequency:1 iso_code_3:pan
 #: DB:language/name:330
