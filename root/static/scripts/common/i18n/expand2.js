@@ -110,9 +110,9 @@ export function getString(x: mixed): string {
   return '';
 }
 
-export function getVarSubstScalarArg(x: Expand2ReactInput):
-  | React$MixedElement
-  | string {
+export function getVarSubstScalarArg(
+  x: Expand2ReactInput,
+): Expand2ReactScalarOutput {
   if (React.isValidElement(x)) {
     // $FlowIgnore[unclear-type] We know this is a valid element
     return ((x: any): React$MixedElement);

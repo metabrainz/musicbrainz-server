@@ -94,7 +94,7 @@ function handleTextContentReact(text: string) {
 
   if (gotMatch(replacement) && percentSign.test(text)) {
     const parts = text.split(percentSign);
-    const result: Array<React$MixedElement | string> = [];
+    const result: Array<Expand2ReactScalarOutput> = [];
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
       if (part === '%') {

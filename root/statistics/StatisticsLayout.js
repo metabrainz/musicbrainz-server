@@ -17,12 +17,12 @@ component LinkStatisticsTab(
   link: string,
   page: string,
   selected: string,
-  title: string | (() => string | React$MixedElement),
+  title: string | (() => Expand2ReactScalarOutput),
 ) {
   return (
     <li className={page === selected ? 'sel' : ''}>
       <a href={link}>
-        {unwrapNl<string | React$MixedElement>(title)}
+        {unwrapNl<Expand2ReactScalarOutput>(title)}
       </a>
     </li>
   );
