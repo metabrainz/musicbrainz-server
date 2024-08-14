@@ -30,7 +30,7 @@ import expand, {
   createTextContentParser,
   createVarSubstParser,
   error,
-  getVarSubstArg,
+  mapVarSubstArg,
   gotMatch,
   NO_MATCH_VALUE,
   parseContinuous,
@@ -126,7 +126,7 @@ const parseRootTextContent = createTextContentParser<Output, Input>(
 );
 
 const parseVarSubst = createVarSubstParser<Output, Input>(
-  getVarSubstArg,
+  mapVarSubstArg,
 );
 
 const parseLinkSubst: Parser<

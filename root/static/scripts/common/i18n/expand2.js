@@ -110,7 +110,7 @@ export function getString(x: mixed): string {
   return '';
 }
 
-function getVarSubstScalarArg(
+function mapVarSubstArgToScalar(
   x: Expand2ReactInput,
 ): Expand2ReactScalarOutput {
   if (React.isValidElement(x)) {
@@ -120,11 +120,11 @@ function getVarSubstScalarArg(
   return getString(x);
 }
 
-export function getVarSubstArg(x: Expand2ReactInput): Expand2ReactOutput {
+export function mapVarSubstArg(x: Expand2ReactInput): Expand2ReactOutput {
   if (Array.isArray(x)) {
-    return x.map(getVarSubstScalarArg);
+    return x.map(mapVarSubstArgToScalar);
   }
-  return getVarSubstScalarArg(x);
+  return mapVarSubstArgToScalar(x);
 }
 
 export function accept(pattern: RegExp): NO_MATCH | string {
@@ -227,7 +227,7 @@ export const createTextContentParser = <T, V>(
 
 const varSubst = /^\{([0-9A-z_]+)\}/;
 export const createVarSubstParser = <T, V>(
-  argFilter: (V) => T,
+  argMapper: (V) => T,
 ): Parser<T | string | NO_MATCH, V> => saveMatch(
   function (args: VarArgsClass<V>) {
     const name = accept(varSubst);
@@ -235,7 +235,7 @@ export const createVarSubstParser = <T, V>(
       return NO_MATCH_VALUE;
     }
     if (args.has(name)) {
-      return argFilter(args.get(name));
+      return argMapper(args.get(name));
     }
     return state.match;
   },
@@ -258,7 +258,7 @@ export const createCondSubstParser = <T, V: Expand2ReactInput>(
 
   const savedReplacement = state.replacement;
   if (args.has(name)) {
-    state.replacement = getVarSubstArg(args.get(name));
+    state.replacement = mapVarSubstArg(args.get(name));
   }
 
   const thenChildren = thenParser(args);
