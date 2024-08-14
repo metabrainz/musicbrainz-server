@@ -21,6 +21,7 @@ import {ExpandedArtistCreditList}
 import Warning from '../../common/components/Warning.js';
 import formatTrackLength
   from '../../common/utility/formatTrackLength.js';
+import {createCompoundFieldFromObject} from '../utility/createField.js';
 import isUselessMediumTitle from '../utility/isUselessMediumTitle.js';
 
 import FormRowSelect from './FormRowSelect.js';
@@ -78,7 +79,7 @@ component ReleaseMergeStrategy(
 
   const [mediumTitles, setMediumTitles] =
     React.useState(mediumsMap.field.map(
-      field => field.field.name.value,
+      (field, index) => (field?.field.name.value) ?? (mediums[index]?.name),
     ));
 
   function updateTitles(
@@ -117,7 +118,19 @@ component ReleaseMergeStrategy(
         <table className="tbl">
           <tbody>
             {mediums.map((medium, index) => {
-              const mediumField = mediumsMap.field[index].field;
+              let mediumField = mediumsMap.field[index];
+              if (!mediumField) {
+                mediumField = createCompoundFieldFromObject(
+                  mediumsMap.html_name + '.' + String(index),
+                  {
+                    id: medium.id,
+                    name: medium.name,
+                    position: medium.position,
+                    release_id: medium.release_id,
+                  },
+                );
+              }
+              const mediumSubFields = mediumField.field;
 
               return (
                 <React.Fragment key={medium.id}>
@@ -126,37 +139,37 @@ component ReleaseMergeStrategy(
                       <label>{l('New position:')}</label>
                       {' '}
                       <input
-                        defaultValue={mediumField.position.value}
-                        name={mediumField.position.html_name}
+                        defaultValue={mediumSubFields.position.value}
+                        name={mediumSubFields.position.html_name}
                         size="2"
                         type="text"
                       />
-                      {mediumField.position.has_errors ? (
+                      {mediumSubFields.position.has_errors ? (
                         <span
                           className="error"
                           style={{margin: '0 12px 0 6px'}}
                         >
-                          {mediumField.position.errors[0]}
+                          {mediumSubFields.position.errors[0]}
                         </span>
                       ) : null}
                       {' '}
                       <label>{l('New disc title:')}</label>
                       {' '}
                       <input
-                        defaultValue={mediumField.name.value}
-                        name={mediumField.name.html_name}
+                        defaultValue={mediumSubFields.name.value}
+                        name={mediumSubFields.name.html_name}
                         onChange={event => updateTitles(event, index)}
                         type="text"
                       />
                       <input
-                        name={mediumField.id.html_name}
+                        name={mediumSubFields.id.html_name}
                         type="hidden"
-                        value={mediumField.id.value}
+                        value={mediumSubFields.id.value}
                       />
                       <input
-                        name={mediumField.release_id.html_name}
+                        name={mediumSubFields.release_id.html_name}
                         type="hidden"
-                        value={mediumField.release_id.value}
+                        value={mediumSubFields.release_id.value}
                       />
                       {' '}
                       {medium.name ? (
