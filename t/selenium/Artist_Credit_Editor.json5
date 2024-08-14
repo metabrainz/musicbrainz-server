@@ -108,6 +108,11 @@
       value: '',
     },
     {
+      command: 'assertText',
+      target: 'id=ac-preview-cell',
+      value: 'Preview: David Robert Jones & Bing Crosby',
+    },
+    {
       command: 'assertEval',
       target: "window.document.querySelectorAll('#artist-credit-editor input[type=hidden]').length",
       value: '8',
@@ -151,6 +156,27 @@
       command: 'assertValue',
       target: 'css=input[type=hidden][name="edit-recording.artist_credit.names.1.artist.id"]',
       value: '99',
+    },
+    // artist credits can be reordered (MBS-3255)
+    {
+      command: 'click',
+      target: 'xpath=(//*[@id="artist-credit-bubble"]//button[contains(@class, "move-down")])[1]',
+      value: '',
+    },
+    {
+      command: 'assertText',
+      target: 'id=ac-preview-cell',
+      value: 'Preview: Bing Crosby & David Robert Jones',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//*[@id="artist-credit-bubble"]//button[contains(@class, "move-up")])[2]',
+      value: '',
+    },
+    {
+      command: 'assertText',
+      target: 'id=ac-preview-cell',
+      value: 'Preview: David Robert Jones & Bing Crosby',
     },
     // removing all credits but one should clear the join phrase (MBS-8896)
     {

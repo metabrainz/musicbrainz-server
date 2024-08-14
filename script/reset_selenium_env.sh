@@ -86,7 +86,7 @@ if [[ $SIR_DIR ]]; then
 
         wait_time=0
         while kill -0 $SIR_PID > /dev/null 2>&1; do
-            if [[ $wait_time -ge 10 ]]; then
+            if [[ $wait_time -ge 30 ]]; then
                 kill -TERM $SIR_PID || continue
                 if [[ $reindex_attempts -ge 5 ]]; then
                     cat "$SIR_REINDEX_LOG_FILE"

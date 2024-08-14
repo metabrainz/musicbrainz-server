@@ -21,11 +21,14 @@ import type {
 } from './ArtistCreditEditor/types.js';
 
 component _ArtistCreditNameEditor(
+  allowMoveDown: boolean,
+  allowMoveUp: boolean,
   allowRemoval: boolean,
   artistCreditEditorId: string,
   dispatch: (ActionT) => void,
   index: number,
   name as artistCreditName: ArtistCreditNameStateT,
+  showMoveButtons: boolean,
 ) {
   const artistDispatch = React.useCallback((
     action: AutocompleteActionT<ArtistT>,
@@ -114,6 +117,20 @@ component _ArtistCreditNameEditor(
     });
   }
 
+  function handleMoveDown() {
+    dispatch({
+      index,
+      type: 'move-name-down',
+    });
+  }
+
+  function handleMoveUp() {
+    dispatch({
+      index,
+      type: 'move-name-up',
+    });
+  }
+
   function handleRemove() {
     if (!artistCreditName.removed) {
       dispatch({
@@ -168,6 +185,28 @@ component _ArtistCreditNameEditor(
           </td>
         </>
       )}
+      <td>
+        {showMoveButtons ? (
+          <button
+            className="icon move-down"
+            disabled={!allowMoveDown}
+            onClick={handleMoveDown}
+            title={lp('Move artist credit down', 'interactive')}
+            type="button"
+          />
+        ) : null}
+      </td>
+      <td>
+        {showMoveButtons ? (
+          <button
+            className="icon move-up"
+            disabled={!allowMoveUp}
+            onClick={handleMoveUp}
+            title={lp('Move artist credit up', 'interactive')}
+            type="button"
+          />
+        ) : null}
+      </td>
       <td className="align-right">
         {artistCreditName.removed ? (
           <button
