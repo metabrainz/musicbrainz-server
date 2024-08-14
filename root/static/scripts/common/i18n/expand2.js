@@ -84,7 +84,7 @@ type State = {
   // Portion of the source string that hasn't been parsed yet.
   remainder: string,
   // The value of % in conditional substitutions, from `args`.
-  replacement: VarSubstArg | NO_MATCH,
+  replacement: Expand2ReactOutput | NO_MATCH,
   // Whether expand is currently running. Used to detect nested calls.
   running: boolean,
   // A copy of the source string, used in error messages.
@@ -110,7 +110,7 @@ export function getString(x: mixed): string {
   return '';
 }
 
-export function getVarSubstScalarArg(
+function getVarSubstScalarArg(
   x: Expand2ReactInput,
 ): Expand2ReactScalarOutput {
   if (React.isValidElement(x)) {

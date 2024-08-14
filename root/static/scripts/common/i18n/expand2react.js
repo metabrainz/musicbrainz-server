@@ -31,7 +31,6 @@ import expand, {
   createVarSubstParser,
   error,
   getVarSubstArg,
-  getVarSubstScalarArg,
   gotMatch,
   NO_MATCH_VALUE,
   parseContinuous,
@@ -100,10 +99,10 @@ function handleTextContentReact(text: string) {
       if (part === '%') {
         if (Array.isArray(replacement)) {
           for (let k = 0; k < replacement.length; k++) {
-            result.push(getVarSubstScalarArg(replacement[k]));
+            result.push(replacement[k]);
           }
         } else {
-          result.push(getVarSubstScalarArg(replacement));
+          result.push(replacement);
         }
       } else {
         result.push(he.decode(part));
