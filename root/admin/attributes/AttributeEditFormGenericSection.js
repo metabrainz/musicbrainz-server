@@ -60,6 +60,7 @@ component AttributeEditFormGenericSection(
         field={form.field.description}
         label="Description:"
         rows={6}
+        uncontrolled
       />
     </>
   );

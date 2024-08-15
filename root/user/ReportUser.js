@@ -142,6 +142,7 @@ component ReportUser(form: ReportUserFormT, user: AccountLayoutUserT) {
               label={addColonText(l('Message'))}
               required
               rows={10}
+              uncontrolled
             />
 
             <FormRowCheckbox

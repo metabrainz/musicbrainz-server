@@ -244,6 +244,7 @@ component EventEditForm(
             field={state.form.field.setlist}
             label={addColonText(l('Setlist'))}
             rows={10}
+            uncontrolled
           />
           <p>
             {l(

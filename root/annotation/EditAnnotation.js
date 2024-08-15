@@ -66,6 +66,7 @@ component EditAnnotation(
           field={form.field.text}
           label={addColonText(l('Annotation'))}
           rows={10}
+          uncontrolled
         />
 
         <FormRowText

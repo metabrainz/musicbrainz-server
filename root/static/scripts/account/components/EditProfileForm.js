@@ -295,6 +295,7 @@ class EditProfileForm extends React.Component<Props, State> {
         <FormRowTextArea
           field={field.biography}
           label={addColonText(l('Bio'))}
+          uncontrolled
         />
 
         <FormRow>
