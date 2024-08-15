@@ -11,6 +11,38 @@
       target: 'id=id-edit-event.name',
       value: 'newevent',
     },
+    // Enter an invalid setlist, and check that fixing it enables the submit
+    // button (MBS-13727).
+    {
+      command: 'type',
+      target: 'id=id-edit-event.setlist',
+      value: '-OOPS!',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelector('form.edit-event button[type=submit]')?.disabled",
+      value: 'true',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelector('#id-edit-event\\\\.setlist + ul.errors')?.textContent?.startsWith('Please ensure all lines start with')",
+      value: 'true',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-event.setlist',
+      value: '@ WOOHOO!',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelector('form.edit-event button[type=submit]')?.disabled",
+      value: 'false',
+    },
+    {
+      command: 'assertEval',
+      target: "!window.document.querySelector('#id-edit-event\\\\.setlist + ul.errors')?.textContent?.startsWith('Please ensure all lines start with')",
+      value: 'true',
+    },
     {
       command: 'click',
       target: 'css=#relationship-editor button.add-item',
@@ -150,7 +182,7 @@
           entity_gid: '$$__IGNORE__$$',
           entity_id: 2,
           name: 'newevent',
-          setlist: '',
+          setlist: '@ WOOHOO!',
           time: null,
           type_id: null,
         },
