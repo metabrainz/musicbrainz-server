@@ -726,6 +726,7 @@ const seleniumTests = [
     sql: 'vision_creation_newsun.sql',
   },
   {name: 'release-editor/MBS-4555.json5', login: false},
+  {name: 'release-editor/MBS-9479.json5', login: true},
   {name: 'release-editor/MBS-10221.json5', login: true},
   {name: 'release-editor/MBS-10359.json5', login: true},
   {name: 'release-editor/MBS-11015.json5', login: true},

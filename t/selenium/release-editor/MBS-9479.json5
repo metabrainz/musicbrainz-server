@@ -1,0 +1,60 @@
+{
+  title: 'MBS-9479',
+  commands: [
+    // Seed a release sharing the name of an existing release group by the
+    // artist.
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-9479.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    // Click the existing release group's radio button.
+    {
+      command: 'click',
+      target: 'css=#information .duplicate-rgs-list :first-child input',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#release-group').value",
+      value: 'Demons',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#release-group').classList.contains('lookup-performed')",
+      value: 'true',
+    },
+    // Click the "Add a new release group" radio button.
+    {
+      command: 'click',
+      target: 'css=#information .duplicate-rgs-list :last-child input',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#release-group').value",
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('#release-group').classList.contains('lookup-performed')",
+      value: 'false',
+    },
+    // Navigate back to the main page.
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'assertBeforeUnloadAlertWasShown',
+      target: '',
+      value: '',
+    },
+  ],
+}

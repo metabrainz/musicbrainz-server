@@ -57,6 +57,16 @@ const actions = {
 
   // Information tab
 
+  selectReleaseGroup(releaseGroup) {
+    // Start loading the MBID and then update the input to display the name.
+    $('#release-group').val(releaseGroup.gid).trigger('input');
+    $('#release-group').val(releaseGroup.name);
+  },
+
+  clearReleaseGroup() {
+    $('#release-group').val('').trigger('input');
+  },
+
   copyTitleToReleaseGroup: ko.observable(false),
   copyArtistToReleaseGroup: ko.observable(false),
 
