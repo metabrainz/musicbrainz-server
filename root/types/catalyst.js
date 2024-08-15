@@ -80,6 +80,7 @@ declare type CatalystStashT = {
   +to_merge?: $ReadOnlyArray<MergeableEntityT>,
   +top_tags?: $ReadOnlyArray<AggregatedTagT>,
   +user_tags?: $ReadOnlyArray<UserTagT>,
+  +within_dialog?: boolean,
 };
 
 // MusicBrainz::Server::MergeQueue::TO_JSON

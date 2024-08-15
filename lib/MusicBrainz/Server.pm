@@ -871,6 +871,7 @@ sub TO_JSON {
         makes_no_changes
         new_edit_notes
         overlong_string
+        within_dialog
     );
 
     my %stash;

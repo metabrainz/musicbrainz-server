@@ -26,7 +26,10 @@ sub dialog : Path('/dialog') Edit {
         } keys %query_form;
         %{ $c->req->query_params } = %decoded_query_form;
         %{ $c->req->params } = %decoded_query_form;
-        $c->stash( template => 'forms/dialog.tt' );
+        $c->stash(
+            template => 'forms/dialog.tt',
+            within_dialog => 1,
+        );
         $c->forward($path, [ within_dialog => 1 ]);
     }
     else {
