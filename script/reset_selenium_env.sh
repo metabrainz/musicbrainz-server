@@ -11,6 +11,7 @@ SIR_REINDEX_LOG_FILE="$MBS_ROOT"/t/selenium/.sir-reindex.log
 terminate_pg_backends() {
     echo `date` : Terminating all PG backends
     local CANCEL_QUERY=$(cat <<'SQL'
+\set ON_ERROR_STOP 1
 SELECT pg_terminate_backend(pid)
   FROM pg_stat_activity
  WHERE usename = 'musicbrainz'
@@ -22,7 +23,6 @@ SQL
 
 if [[ $SIR_DIR ]]; then
     # Stop sir to avoid deadlocks below.
-    # TRUNCATE requires ACCESS EXCLUSIVE locks on each table.
     if [[ -f $SIR_PID_FILE ]]; then
         SIR_PID="$(cat "$SIR_PID_FILE")"
     fi
@@ -35,11 +35,6 @@ if [[ $SIR_DIR ]]; then
 
     terminate_pg_backends
 
-    # Temporarily drop sir triggers to avoid queueing thousands of
-    # pending changes to the type tables via t/sql/initial.sql.
-    echo `date` : Dropping sir triggers
-    OUTPUT=`./admin/psql SELENIUM <"$SIR_DIR"/sql/DropTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-
     echo `date` : Purging sir queues
     OUTPUT=`./script/purge_sir_queues.sh /sir-test 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
@@ -49,28 +44,10 @@ else
     terminate_pg_backends
 fi
 
-echo `date` : Truncating all tables
-OUTPUT=`./admin/psql SELENIUM <./admin/sql/TruncateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql SELENIUM <./admin/sql/caa/TruncateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql SELENIUM <./admin/sql/eaa/TruncateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-
-echo `date` : Inserting initial test data
-OUTPUT=`./admin/psql SELENIUM < ./t/sql/initial.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-
-echo `date` : Setting sequences
-OUTPUT=`./admin/psql SELENIUM <./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-
-echo `date` : Inserting Selenium test data
-OUTPUT=`./admin/psql SELENIUM < ./t/sql/selenium.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-
-if [[ -f $EXTRA_SQL ]]; then
-    OUTPUT=`./admin/psql SELENIUM < "$EXTRA_SQL" 2>&1` || ( echo "$OUTPUT" && exit 1 )
-fi
+echo `date` : Creating Selenium test database
+OUTPUT=`./script/create_selenium_db.sh "$EXTRA_SQL" 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 if [[ $SIR_DIR ]]; then
-    echo `date` : Creating sir triggers
-    OUTPUT=`./admin/psql SELENIUM <"$SIR_DIR"/sql/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-
     pushd "$SIR_DIR"
     . venv/bin/activate
 

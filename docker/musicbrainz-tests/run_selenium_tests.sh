@@ -39,17 +39,11 @@ rabbitmqctl add_user sir sir
 rabbitmqctl add_vhost /sir-test
 rabbitmqctl set_permissions -p /sir-test sir '.*' '.*' '.*'
 
-# Install the sir triggers into musicbrainz_selenium.
+# Generate the sir extensions and triggers, which is required before
+# invoking create_selenium_db.sh.
 export SIR_DIR=/home/musicbrainz/sir
 cd "$SIR_DIR"
 sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python -m sir amqp_setup; python -m sir extension; python -m sir triggers --broker-id=1'
-psql -U postgres -f sql/CreateExtension.sql musicbrainz_selenium
-psql -U musicbrainz -f sql/CreateFunctions.sql musicbrainz_selenium
-psql -U musicbrainz -f sql/CreateTriggers.sql musicbrainz_selenium
-
-# Install the artwork_indexer schema into musicbrainz_selenium.
-cd /home/musicbrainz/artwork-indexer
-sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python indexer.py --setup-schema'
 
 cd /home/musicbrainz/musicbrainz-server
 
