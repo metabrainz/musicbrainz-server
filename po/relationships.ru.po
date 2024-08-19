@@ -18,11 +18,12 @@
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
 # nkm01 <matsuk-nikita@rambler.ru>, 2024.
+# Libra <recreate_squall363@simplelogin.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-07-25 23:42+0000\n"
-"Last-Translator: nkm01 <matsuk-nikita@rambler.ru>\n"
+"PO-Revision-Date: 2024-08-18 15:42+0000\n"
+"Last-Translator: Libra <recreate_squall363@simplelogin.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -30,8 +31,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
@@ -665,12 +666,12 @@ msgstr ""
 #. name:part of
 #: DB:link_type/description:741
 msgid "Indicates that the release is part of a series."
-msgstr ""
+msgstr "Указывает на то, что релиз является частью серии."
 
 #. name:part of
 #: DB:link_type/description:743
 msgid "Indicates that the work is part of a series."
-msgstr ""
+msgstr "Указывает на то, что работа является частью серии."
 
 #. name:involved with
 #: DB:link_type/description:112
@@ -678,6 +679,8 @@ msgid ""
 "Indicates that two persons were romantically involved with each other "
 "without being married."
 msgstr ""
+"Указывает на то, что два человека не были женаты, но состояли в "
+"романтических отношениях друг с другом."
 
 #. name:held in
 #: DB:link_type/description:1085
@@ -783,7 +786,7 @@ msgstr ""
 #. name:official homepage
 #: DB:link_type/description:183
 msgid "Indicates the official homepage for an artist."
-msgstr ""
+msgstr "Указывает на официальный сайт исполнителя."
 
 #. name:official homepage
 #: DB:link_type/description:782
@@ -1568,7 +1571,7 @@ msgstr "Позволяет связать серию с её лейблом-из
 #. name:vocal
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
-msgstr ""
+msgstr "Этот атрибут описывает тип вокального исполнения."
 
 #. name:minor
 #: DB:link_attribute_type/description:2
