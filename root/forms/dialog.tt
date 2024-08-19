@@ -1,13 +1,6 @@
 [%- IF dialog_template -%]
 
 [% set_header() %]
-  [% IF dialog_result %]
-    <head>
-      <script>
-        var dialogResult = [% closing_tag_escape(dialog_result) %];
-      </script>
-    </head>
-  [% ELSE %]
     [%- React.embed(c, 'layout/components/Head', {
             isHomepage => homepage,
             noIcons => boolean_to_json(no_icons),
@@ -36,7 +29,6 @@
           });
       </script>
     </body>
-  [% END %]
 </html>
 
 [%- END -%]
