@@ -352,26 +352,42 @@ sub send_message_to_editor
         'Content-Type' => 'application/json',
         'Accept' => 'application/json'
     };
-    print _message_id('correspondence-%s-%s-%d', $correspondents[0]->id, $correspondents[1]->id, time());
+
     my $res = $self->c->lwp->request(POST $_url, %$header_params, Content => encode_json($body));
     if (! $res->is_success) {
         print "Failed to send!"
     }
+
     if ($opts{send_to_self}) {
-#        my $copy = $self->_create_message_to_editor_email(%opts);
-#         my $toname = $opts{to}->name;
-#         my $message = $opts{message};
+        my $self_body = {
+            'template_id' => 'editor-message',
+            'to'          => _user_address($from),
+            'from'        => $EMAIL_NOREPLY_ADDRESS,
+            # 'lang'
+            'message_id'  => _message_id('correspondence-%s-%s-%d', $correspondents[0]->id, $correspondents[1]->id, time()),
+            'references'  => [_message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id)],
+            'in_reply_to' => [_message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id)],
+            'params'      => {
+                'to_name'          => $to -> name,
+                'from_name'        => $from -> name,
+                'subject'          => $subject,
+                'message'          => $message,
+                'contact_url'      => $contact_url,
+                'revealed_address' => \$opts{reveal_address},
+                'is_self_copy'     => \1
+            }
+        };
+        
+        if ($opts{reveal_address}) {
+            $self_body->{reply_to} = _user_address($from);
+        } else {
+            $self_body->{reply_to} = $EMAIL_NOREPLY_ADDRESS;
+        }
 
-#         $copy->header_str_set( To => _user_address($opts{from}) );
-#         $copy->body_str_set(<<"EOF");
-# This is a copy of the message you sent to MusicBrainz editor '$toname':
-# ------------------------------------------------------------------------
-# $message
-# ------------------------------------------------------------------------
-# Please do not respond to this e-mail.
-# EOF
-
-#         $self->_send_email($copy);
+        my $res = $self->c->lwp->request(POST $_url, %$header_params, Content => encode_json($self_body));
+        if (! $res->is_success) {
+            print "Failed to send!"
+        }
     }
 }
 
