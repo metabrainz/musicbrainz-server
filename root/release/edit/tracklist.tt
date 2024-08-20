@@ -155,7 +155,7 @@
     </div>
 
     <!-- ko if: expanded() && loaded() -->
-    <table class="medium tbl">
+    <table class="medium tbl" data-bind="delegatedHandler: 'keydown'">
       <thead>
         <tr>
           <th class="position">[% l('#') %]</th>
@@ -206,18 +206,18 @@
     </td>
 
     <td class="position">
-      <input class="pos" type="text" data-bind="value: number" />
+      <input class="pos" type="text" data-bind="value: number" data-keydown="onTrackInputKeyDown" />
     </td>
 
     <td class="title">
-      <input type="text" class="track-name" data-bind="value: inputName, valueUpdate: 'input', css: { modified: nameModified(), preview: previewNameDiffers() }, event: { focus: $root.focusTrackName }" />
+      <input type="text" class="track-name" data-bind="value: inputName, valueUpdate: 'input', css: { modified: nameModified(), preview: previewNameDiffers() }, event: { focus: $root.focusTrackName }" data-keydown="onTrackInputKeyDown" />
     </td>
 
     <td class="artist autocomplete" data-bind="artistCreditEditor: $data">
     </td>
 
     <td class="length">
-      <input type="text" class="track-length" size="5" data-bind="value: formattedLength, disableBecauseDiscIDs: position() > 0 && !isDataTrack(), css: { error: position() == 0 && medium.hasInvalidPregapLength() }" placeholder="?:??" />
+      <input type="text" class="track-length" size="5" data-bind="value: formattedLength, disableBecauseDiscIDs: position() > 0 && !isDataTrack(), css: { error: position() == 0 && medium.hasInvalidPregapLength() }" data-keydown="onTrackInputKeyDown" placeholder="?:??" />
     </td>
 
     <td class="icon">
