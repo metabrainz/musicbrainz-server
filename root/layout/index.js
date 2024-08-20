@@ -164,13 +164,9 @@ component ServerDetailsBanner(url: string) {
   return null;
 }
 
-component Layout(
-  children: React.Node,
-  fullWidth: boolean = false,
-  ...headProps: React.PropsOf<Head>
+component HeaderAndBanners(
+  $c: CatalystContextT,
 ) {
-  const $c = React.useContext(CatalystContext);
-
   const showAlert = nonEmpty($c.stash.alert) &&
     ($c.stash.alert_mtime ?? Infinity) > Number(
       getRequestCookie($c.req, 'alert_dismissed_mtime', '0'),
@@ -186,108 +182,137 @@ component Layout(
   const restrictions = getRestrictionsForUser($c.user);
 
   return (
+    <>
+      <Header />
+
+      {restrictions.length > 0 ? (
+        <div className="banner editing-disabled">
+          <p>
+            {exp.l(
+              `An admin has set the following restrictions
+               on your account: {list}.
+               If you haven’t already been contacted
+               about why, please {uri|send us a message}.`,
+              {
+                list: commaOnlyListText(restrictions),
+                uri: {href: 'https://metabrainz.org/contact', target: '_blank'},
+              },
+            )}
+          </p>
+        </div>
+      ) : null}
+
+      {getRequestCookie($c.req, 'server_details_dismissed_mtime')
+        ? null
+        : <ServerDetailsBanner url={$c.req.uri} />}
+
+      {showAlert ? (
+        <div className="banner warning-header">
+          <p dangerouslySetInnerHTML={{__html: $c.stash.alert}} />
+          <DismissBannerButton bannerName="alert" />
+        </div>
+      ) : null}
+
+      {DBDefs.DB_READ_ONLY ? (
+        <div className="banner server-details">
+          <p>
+            {l(
+              `The server is temporarily in read-only mode
+               for database maintenance.`,
+            )}
+          </p>
+        </div>
+      ) : null}
+
+      {showBirthdayBanner($c) ? (
+        <div className="banner birthday-message">
+          <p>
+            <BirthdayCakes />
+            {' '}
+            {l(`Happy birthday, and thanks
+                for contributing to MusicBrainz!`)}
+            {' '}
+            <BirthdayCakes />
+          </p>
+          <DismissBannerButton bannerName="birthday_message" />
+        </div>
+      ) : null}
+
+      <AnniversaryBanner />
+
+      {showNewEditNotesBanner ? (
+        <div className="banner new-edit-notes">
+          <p>
+            {exp.l(
+              `{link|New notes} have been left on some of your edits.
+               Please make sure to read them and respond if necessary.`,
+              {link: '/edit/notes-received'},
+            )}
+          </p>
+          <DismissBannerButton bannerName="new_edit_notes" />
+        </div>
+      ) : null}
+
+      {$c.stash.makes_no_changes /*:: === true */ ? (
+        <div className="banner warning-header">
+          <p>
+            {l(
+              `The data you have submitted does not make any changes
+               to the data already present.`,
+            )}
+          </p>
+        </div>
+      ) : null}
+
+      {$c.stash.overlong_string /*:: === true */ ? (
+        <div className="banner warning-header">
+          <p>
+            {l(
+              `Some text you entered is overlong! Please shorten it,
+               and if necessary enter the full text in the annotation
+               for reference.`,
+            )}
+          </p>
+        </div>
+      ) : null}
+
+      {nonEmpty($c.sessionid) && nonEmpty($c.flash.message) ? (
+        <div className="banner flash">
+          <p dangerouslySetInnerHTML={{__html: $c.flash.message}} />
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+component MergeHelperAndFooter(
+  $c: CatalystContextT,
+) {
+  return (
+    <>
+      {$c.session?.merger && !$c.stash.hide_merge_helper /*:: === true */
+        ? <MergeHelper merger={$c.session.merger} />
+        : null}
+      <Footer />
+    </>
+  );
+}
+
+component Layout(
+  children: React.Node,
+  fullWidth: boolean = false,
+  ...headProps: React.PropsOf<Head>
+) {
+  const $c = React.useContext(CatalystContext);
+
+  return (
     <html lang={$c.stash.current_language_html}>
       <Head {...headProps} />
 
       <body>
-        <Header />
-
-        {restrictions.length > 0 ? (
-          <div className="banner editing-disabled">
-            <p>
-              {exp.l(
-                `An admin has set the following restrictions
-                 on your account: {list}.
-                 If you haven’t already been contacted
-                 about why, please {uri|send us a message}.`,
-                {
-                  list: commaOnlyListText(restrictions),
-                  uri: {href: 'https://metabrainz.org/contact', target: '_blank'},
-                },
-              )}
-            </p>
-          </div>
-        ) : null}
-
-        {getRequestCookie($c.req, 'server_details_dismissed_mtime')
+        {$c.stash.within_dialog === true
           ? null
-          : <ServerDetailsBanner url={$c.req.uri} />}
-
-        {showAlert ? (
-          <div className="banner warning-header">
-            <p dangerouslySetInnerHTML={{__html: $c.stash.alert}} />
-            <DismissBannerButton bannerName="alert" />
-          </div>
-        ) : null}
-
-        {DBDefs.DB_READ_ONLY ? (
-          <div className="banner server-details">
-            <p>
-              {l(
-                `The server is temporarily in read-only mode
-                 for database maintenance.`,
-              )}
-            </p>
-          </div>
-        ) : null}
-
-        {showBirthdayBanner($c) ? (
-          <div className="banner birthday-message">
-            <p>
-              <BirthdayCakes />
-              {' '}
-              {l(`Happy birthday, and thanks
-                  for contributing to MusicBrainz!`)}
-              {' '}
-              <BirthdayCakes />
-            </p>
-            <DismissBannerButton bannerName="birthday_message" />
-          </div>
-        ) : null}
-
-        <AnniversaryBanner />
-
-        {showNewEditNotesBanner ? (
-          <div className="banner new-edit-notes">
-            <p>
-              {exp.l(
-                `{link|New notes} have been left on some of your edits.
-                 Please make sure to read them and respond if necessary.`,
-                {link: '/edit/notes-received'},
-              )}
-            </p>
-            <DismissBannerButton bannerName="new_edit_notes" />
-          </div>
-        ) : null}
-
-        {$c.stash.makes_no_changes /*:: === true */ ? (
-          <div className="banner warning-header">
-            <p>
-              {l(
-                `The data you have submitted does not make any changes
-                 to the data already present.`,
-              )}
-            </p>
-          </div>
-        ) : null}
-
-        {$c.stash.overlong_string /*:: === true */ ? (
-          <div className="banner warning-header">
-            <p>
-              {l(
-                `Some text you entered is overlong! Please shorten it,
-                 and if necessary enter the full text in the annotation
-                 for reference.`,
-              )}
-            </p>
-          </div>
-        ) : null}
-
-        {nonEmpty($c.sessionid) && nonEmpty($c.flash.message) ? (
-          <div className="banner flash">
-            <p dangerouslySetInnerHTML={{__html: $c.flash.message}} />
-          </div>
-        ) : null}
+          : <HeaderAndBanners $c={$c} />}
 
         <div
           className={(fullWidth ? 'fullwidth ' : '') +
@@ -297,11 +322,9 @@ component Layout(
           {children}
         </div>
 
-        {$c.session?.merger && !$c.stash.hide_merge_helper /*:: === true */
-          ? <MergeHelper merger={$c.session.merger} />
-          : null}
-
-        <Footer />
+        {$c.stash.within_dialog === true
+          ? null
+          : <MergeHelperAndFooter $c={$c} />}
       </body>
     </html>
   );

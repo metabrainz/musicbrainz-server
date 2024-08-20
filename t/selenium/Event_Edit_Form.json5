@@ -11,6 +11,38 @@
       target: 'id=id-edit-event.name',
       value: 'newevent',
     },
+    // Enter an invalid setlist, and check that fixing it enables the submit
+    // button (MBS-13727).
+    {
+      command: 'type',
+      target: 'id=id-edit-event.setlist',
+      value: '-OOPS!',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelector('form.edit-event button[type=submit]')?.disabled",
+      value: 'true',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelector('#id-edit-event\\\\.setlist + ul.errors')?.textContent?.startsWith('Please ensure all lines start with')",
+      value: 'true',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-event.setlist',
+      value: '@ WOOHOO!',
+    },
+    {
+      command: 'assertEval',
+      target: "window.document.querySelector('form.edit-event button[type=submit]')?.disabled",
+      value: 'false',
+    },
+    {
+      command: 'assertEval',
+      target: "!window.document.querySelector('#id-edit-event\\\\.setlist + ul.errors')?.textContent?.startsWith('Please ensure all lines start with')",
+      value: 'true',
+    },
     {
       command: 'click',
       target: 'css=#relationship-editor button.add-item',
@@ -35,6 +67,58 @@
       command: 'type',
       target: 'css=#add-relationship-dialog .attribute-container.text.time input[type=text]',
       value: '6:00',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog button.positive',
+      value: '',
+    },
+    // MBS-13731: Adding a new sub-event from the relationship editor
+    {
+      command: 'click',
+      target: 'css=#relationship-editor td.add-relationship button.add-item',
+      value: '',
+    },
+    {
+      command: 'select',
+      target: 'css=#add-relationship-dialog select.entity-type',
+      value: 'label=Event',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'part${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: 'subevent',
+    },
+    {
+      command: 'pause',
+      target: '2000',
+      value: '',
+    },
+    {
+      command: 'mouseOver',
+      target: "xpath=//div[@id='add-relationship-dialog']//li[contains(@class, 'action-item')][contains(., 'Add a new event')]",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//div[@id='add-relationship-dialog']//li[contains(@class, 'action-item')][contains(., 'Add a new event')]",
+      value: '',
+    },
+    // Can only access the iframe document through JavaScript.
+    {
+      command: 'runScript',
+      target: 'document.querySelector("#add-event-dialog iframe").contentDocument.querySelector("form.edit-event button.submit.positive").click();',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '3000',
+      value: '',
     },
     {
       command: 'click',
@@ -68,7 +152,7 @@
           ended: 0,
           entity_gid: '$$__IGNORE__$$',
           entity_id: 1,
-          name: 'newevent',
+          name: 'subevent',
           setlist: '',
           time: null,
           type_id: null,
@@ -78,6 +162,35 @@
     {
       command: 'assertEditData',
       target: 2,
+      value: {
+        type: 150,
+        status: 2,
+        data: {
+          begin_date: {
+            day: null,
+            month: null,
+            year: null,
+          },
+          cancelled: '0',
+          comment: '',
+          end_date: {
+            day: null,
+            month: null,
+            year: null,
+          },
+          ended: 0,
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 2,
+          name: 'newevent',
+          setlist: '@ WOOHOO!',
+          time: null,
+          type_id: null,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 3,
       value: {
         type: 90,
         status: 2,
@@ -106,7 +219,7 @@
           },
           entity1: {
             gid: '$$__IGNORE__$$',
-            id: 1,
+            id: 2,
             name: 'newevent',
           },
           entity_id: 1,
@@ -119,6 +232,38 @@
           },
           type0: 'artist',
           type1: 'event',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 4,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: "0",
+          entity0: {
+            gid: "$$__IGNORE__$$",
+            id: 2,
+            name: "newevent",
+          },
+          entity1: {
+            gid: "$$__IGNORE__$$",
+            id: 1,
+            name: "subevent",
+          },
+          entity_id: 1,
+          link_type: {
+            id: 818,
+            link_phrase: "parts",
+            long_link_phrase: "has parts",
+            name: "parts",
+            reverse_link_phrase: "part of",
+          },
+          type0: "event",
+          type1: "event",
         },
       },
     },
@@ -150,7 +295,7 @@
     },
     {
       command: 'assertEditData',
-      target: 3,
+      target: 5,
       value: {
         type: 91,
         status: 2,
@@ -192,7 +337,7 @@
             },
             entity1: {
               gid: '$$__IGNORE__$$',
-              id: 1,
+              id: 2,
               name: 'newevent',
             },
             link_type: {

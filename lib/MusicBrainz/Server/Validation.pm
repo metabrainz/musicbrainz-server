@@ -275,6 +275,7 @@ sub is_valid_time
     return $time =~ /^([01][0-9]|2[0-3]):[0-5][0-9]$/;
 }
 
+# Converted to JavaScript at root/static/scripts/edit/utility/isValidSetlist.js
 sub is_valid_setlist
 {
     my $setlist = shift;

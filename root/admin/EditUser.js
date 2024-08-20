@@ -172,6 +172,7 @@ component EditUser(form: EditUserFormT, user: AccountLayoutUserT) {
           field={form.field.biography}
           label="Bio:"
           rows={5}
+          uncontrolled
         />
 
         <FormRow hasNoLabel>
