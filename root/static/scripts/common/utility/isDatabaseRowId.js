@@ -14,7 +14,9 @@
 
 export const MAX_POSTGRES_INT = 2_147_483_647;
 
-export default function isDatabaseRowId(input: mixed): boolean %checks {
+export default function isDatabaseRowId(
+  input: mixed,
+): implies input is number {
   return (
     typeof input === 'number' &&
     input > 0 &&

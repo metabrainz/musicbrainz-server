@@ -16,7 +16,8 @@
  */
 
 export default function createFastObjectCloneFunction<T: {...}>(
-  spec: $ObjMap<$Exact<T>, () => null>,
+  // eslint-disable-next-line no-unused-vars -- Flow wants this
+  spec: {[key in keyof $Exact<T>]: null},
 ): (($Exact<T>) => $Exact<{...T, ...}>) {
   const keyValueItems = [];
 

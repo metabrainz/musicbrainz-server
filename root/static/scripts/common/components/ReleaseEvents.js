@@ -8,7 +8,7 @@
  */
 
 import formatDate from '../utility/formatDate.js';
-import isDateEmpty from '../utility/isDateEmpty.js';
+import {isDateNonEmpty} from '../utility/isDateEmpty.js';
 
 import CollapsibleList, {
   type BuildRowPropsT,
@@ -27,7 +27,7 @@ const buildReleaseEventRow = (
 ) => {
   const abbreviated = props?.abbreviated ?? false;
   const country = event.country;
-  const hasDate = !isDateEmpty(event.date);
+  const hasDate = isDateNonEmpty(event.date);
 
   return (
     <li

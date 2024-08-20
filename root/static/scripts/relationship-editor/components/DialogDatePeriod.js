@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import isDateEmpty from '../../common/utility/isDateEmpty.js';
+import {isDateNonEmpty} from '../../common/utility/isDateEmpty.js';
 import type {
   ActionT as DateRangeFieldsetActionT,
 } from '../../edit/components/DateRangeFieldset.js';
@@ -191,7 +191,7 @@ component _DialogDatePeriod(
           <FieldErrors field={endDateField} />
           <br />
           <FormRowCheckbox
-            disabled={!isDateEmpty(endDate)}
+            disabled={isDateNonEmpty(endDate)}
             field={field.field.ended}
             label={l('This relationship has ended.')}
             onChange={hooks.handleEndedChange}
