@@ -30,8 +30,7 @@ import expand, {
   createTextContentParser,
   createVarSubstParser,
   error,
-  getVarSubstArg,
-  getVarSubstScalarArg,
+  mapVarSubstArg,
   gotMatch,
   NO_MATCH_VALUE,
   parseContinuous,
@@ -94,16 +93,16 @@ function handleTextContentReact(text: string) {
 
   if (gotMatch(replacement) && percentSign.test(text)) {
     const parts = text.split(percentSign);
-    const result: Array<React$MixedElement | string> = [];
+    const result: Array<Expand2ReactScalarOutput> = [];
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
       if (part === '%') {
         if (Array.isArray(replacement)) {
           for (let k = 0; k < replacement.length; k++) {
-            result.push(getVarSubstScalarArg(replacement[k]));
+            result.push(replacement[k]);
           }
         } else {
-          result.push(getVarSubstScalarArg(replacement));
+          result.push(replacement);
         }
       } else {
         result.push(he.decode(part));
@@ -127,7 +126,7 @@ const parseRootTextContent = createTextContentParser<Output, Input>(
 );
 
 const parseVarSubst = createVarSubstParser<Output, Input>(
-  getVarSubstArg,
+  mapVarSubstArg,
 );
 
 const parseLinkSubst: Parser<

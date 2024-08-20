@@ -33,6 +33,7 @@ component EditBanner(form: EditBannerForm) {
           <FormRowTextArea
             field={form.field.message}
             label="Banner message:"
+            uncontrolled
           />
           <div className="row no-label">
             <FormSubmit label="Update" />

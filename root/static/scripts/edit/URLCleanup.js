@@ -5388,7 +5388,7 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?(www\.)?thesession\.org/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|events|recordings(?:\/artists)?|sessions)(?:\/.*)?\/([0-9]+).*$/, 'https://thesession.org/$1/$2');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes(?:\/composers)?|events|recordings(?:\/artists)?|sessions)(?:\/.*)?\/([0-9]+).*$/, 'https://thesession.org/$1/$2');
     },
     validate(url, id) {
       const m = /^https:\/\/thesession\.org\/([a-z/]+)\/[0-9]+$/.exec(url);
@@ -5397,7 +5397,8 @@ const CLEANUPS: CleanupEntries = {
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
             return {
-              result: prefix === 'recordings/artists',
+              result: prefix === 'recordings/artists' ||
+                      prefix === 'tunes/composers',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.event:

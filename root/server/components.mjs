@@ -143,6 +143,7 @@ export default {
   'event/EventIndex': (): Promise<mixed> => import('../event/EventIndex.js'),
   'event/EventMerge': (): Promise<mixed> => import('../event/EventMerge.js'),
   'event/RemoveEventArt': (): Promise<mixed> => import('../event/RemoveEventArt.js'),
+  'forms/DialogResult': (): Promise<mixed> => import('../forms/DialogResult.js'),
   'genre/CreateGenre': (): Promise<mixed> => import('../genre/CreateGenre.js'),
   'genre/DeleteGenre': (): Promise<mixed> => import('../genre/DeleteGenre.js'),
   'genre/EditGenre': (): Promise<mixed> => import('../genre/EditGenre.js'),

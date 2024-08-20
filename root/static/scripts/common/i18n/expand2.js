@@ -45,19 +45,7 @@ export class VarArgs<+T> implements VarArgsClass<T> {
   }
 
   get(name: string): T {
-    let value = this.data[name];
-    if (
-      React.isValidElement(value) &&
-      // $FlowIgnore[incompatible-use]
-      empty(value.key)
-    ) {
-      // $FlowIgnore[incompatible-call]
-      value = React.cloneElement(
-        value,
-        {key: this.getKey(name)},
-      );
-    }
-    return value;
+    return this.data[name];
   }
 
   getKey(name: string): string {
@@ -84,7 +72,7 @@ type State = {
   // Portion of the source string that hasn't been parsed yet.
   remainder: string,
   // The value of % in conditional substitutions, from `args`.
-  replacement: VarSubstArg | NO_MATCH,
+  replacement: Expand2ReactOutput | NO_MATCH,
   // Whether expand is currently running. Used to detect nested calls.
   running: boolean,
   // A copy of the source string, used in error messages.
@@ -110,21 +98,33 @@ export function getString(x: mixed): string {
   return '';
 }
 
-export function getVarSubstScalarArg(x: Expand2ReactInput):
-  | React$MixedElement
-  | string {
+function mapVarSubstArgToScalar(
+  x: Expand2ReactInput,
+  key: string,
+): Expand2ReactScalarOutput {
   if (React.isValidElement(x)) {
-    // $FlowIgnore[unclear-type] We know this is a valid element
-    return ((x: any): React$MixedElement);
+    return (
+      <React.Fragment key={key}>
+        {/* $FlowIgnore[unclear-type] We know this is a valid element */}
+        {((x: any): React$MixedElement)}
+      </React.Fragment>
+    );
   }
   return getString(x);
 }
 
-export function getVarSubstArg(x: Expand2ReactInput): Expand2ReactOutput {
-  if (Array.isArray(x)) {
-    return x.map(getVarSubstScalarArg);
+export function mapVarSubstArg(
+  arg: Expand2ReactInput,
+  key: string,
+): Expand2ReactOutput {
+  if (Array.isArray(arg)) {
+    return arg.map(
+      (item, index) => (
+        mapVarSubstArgToScalar(item, key + '-' + String(index))
+      ),
+    );
   }
-  return getVarSubstScalarArg(x);
+  return mapVarSubstArgToScalar(arg, key);
 }
 
 export function accept(pattern: RegExp): NO_MATCH | string {
@@ -227,7 +227,7 @@ export const createTextContentParser = <T, V>(
 
 const varSubst = /^\{([0-9A-z_]+)\}/;
 export const createVarSubstParser = <T, V>(
-  argFilter: (V) => T,
+  argMapper: (V, string) => T,
 ): Parser<T | string | NO_MATCH, V> => saveMatch(
   function (args: VarArgsClass<V>) {
     const name = accept(varSubst);
@@ -235,7 +235,7 @@ export const createVarSubstParser = <T, V>(
       return NO_MATCH_VALUE;
     }
     if (args.has(name)) {
-      return argFilter(args.get(name));
+      return argMapper(args.get(name), name);
     }
     return state.match;
   },
@@ -258,7 +258,7 @@ export const createCondSubstParser = <T, V: Expand2ReactInput>(
 
   const savedReplacement = state.replacement;
   if (args.has(name)) {
-    state.replacement = getVarSubstArg(args.get(name));
+    state.replacement = mapVarSubstArg(args.get(name), name);
   }
 
   const thenChildren = thenParser(args);
