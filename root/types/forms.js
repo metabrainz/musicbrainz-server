@@ -35,7 +35,7 @@ declare type MergeReleasesFormT = FormT<{
   +edit_note: FieldT<string>,
   +make_votable: FieldT<boolean>,
   +medium_positions: CompoundFieldT<{
-    +map: CompoundFieldT<$ReadOnlyArray<MediumFieldT>>,
+    +map: CompoundFieldT<$ReadOnlyArray<MediumFieldT | void>>,
   }>,
   +merge_strategy: FieldT<StrOrNum>,
   +merging: RepeatableFieldT<FieldT<StrOrNum>>,

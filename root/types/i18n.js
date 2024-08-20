@@ -27,10 +27,13 @@ declare type VarSubstArg =
 
 declare type Expand2ReactInput = VarSubstArg | AnchorProps;
 
-declare type Expand2ReactOutput =
+declare type Expand2ReactScalarOutput =
   | string
-  | React$MixedElement
-  | Array<string | React$MixedElement>;
+  | React$MixedElement;
+
+declare type Expand2ReactOutput =
+  | Expand2ReactScalarOutput
+  | Array<Expand2ReactScalarOutput>;
 
 declare type ExpandLFunc<-Input, Output> = (
   key: string,
