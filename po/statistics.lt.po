@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-29 15:42+0000\n"
+"PO-Revision-Date: 2024-08-14 14:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/lt/>\n"
@@ -15,9 +15,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.6\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Add/remove lines:"
@@ -447,7 +447,7 @@ msgstr "Teritorijos"
 #: ../root/statistics/Index.js:856 ../root/statistics/stats.js:814
 msgctxt "plural"
 msgid "Series"
-msgstr ""
+msgstr "Serijos"
 
 #: ../root/statistics/Index.js:123 ../root/statistics/Index.js:872
 #: ../root/statistics/Index.js:879 ../root/statistics/stats.js:483
@@ -460,7 +460,7 @@ msgstr "Žanrai"
 
 #: ../root/statistics/Index.js:137
 msgid "Other entities"
-msgstr "Kiti esybės"
+msgstr "Kitos esybės"
 
 #: ../root/statistics/Index.js:140
 msgid "Editors (valid / deleted):"
@@ -474,12 +474,12 @@ msgstr "Kolekcijos"
 
 #: ../root/statistics/Index.js:154
 msgid "CD stubs (all time / current):"
-msgstr ""
+msgstr "CD atplaišos (visų laikų / dabartiniai):"
 
 #: ../root/statistics/Index.js:163
 msgctxt "folksonomy"
 msgid "Tags (raw / aggregated):"
-msgstr ""
+msgstr "Žymės (neapdorotos / agreguoti):"
 
 #: ../root/statistics/Index.js:169
 msgid "Ratings (raw / aggregated):"
@@ -491,15 +491,15 @@ msgstr ""
 
 #: ../root/statistics/Index.js:180 ../root/statistics/stats.js:558
 msgid "MBIDs"
-msgstr ""
+msgstr "MBID"
 
 #: ../root/statistics/Index.js:184
 msgid "ISRCs (all / unique):"
-msgstr ""
+msgstr "ISRC (visi / ypatingi):"
 
 #: ../root/statistics/Index.js:190
 msgid "ISWCs (all / unique):"
-msgstr ""
+msgstr "ISWC (visi / ypatingi):"
 
 #: ../root/statistics/Index.js:196 ../root/statistics/Index.js:503
 #: ../root/statistics/Index.js:506 ../root/statistics/stats.js:290
@@ -508,31 +508,31 @@ msgstr "Diskų ID"
 
 #: ../root/statistics/Index.js:200 ../root/statistics/stats.js:155
 msgid "Barcodes"
-msgstr ""
+msgstr "Brūkšniniai kodai"
 
 #: ../root/statistics/Index.js:204 ../root/statistics/stats.js:493
 msgid "IPIs"
-msgstr ""
+msgstr "IPI"
 
 #: ../root/statistics/Index.js:208 ../root/statistics/stats.js:508
 msgid "ISNIs"
-msgstr ""
+msgstr "ISNI"
 
 #: ../root/statistics/Index.js:227
 msgid "of type Person:"
-msgstr ""
+msgstr "tipo asmuo:"
 
 #: ../root/statistics/Index.js:233
 msgid "of type Group:"
-msgstr ""
+msgstr "tipo grupė:"
 
 #: ../root/statistics/Index.js:239
 msgid "of type Orchestra:"
-msgstr ""
+msgstr "tipo orkestras:"
 
 #: ../root/statistics/Index.js:245
 msgid "of type Choir:"
-msgstr ""
+msgstr "tipo choras:"
 
 #: ../root/statistics/Index.js:251
 msgid "of type Character:"
@@ -560,11 +560,11 @@ msgstr ""
 
 #: ../root/statistics/Index.js:286
 msgid "Male:"
-msgstr ""
+msgstr "Vyras:"
 
 #: ../root/statistics/Index.js:297
 msgid "Female:"
-msgstr ""
+msgstr "Moteris:"
 
 #: ../root/statistics/Index.js:308
 msgid "Non-binary"
@@ -631,22 +631,16 @@ msgid "Data quality"
 msgstr "Duomenų kokybė"
 
 #: ../root/statistics/Index.js:463 ../root/statistics/stats.js:598
-#, fuzzy
-#| msgid "Labels/data quality"
 msgid "High data quality"
-msgstr "Leidyklos / duomenų kokybė"
+msgstr "Aukšta duomenų kokybė"
 
 #: ../root/statistics/Index.js:471
-#, fuzzy
-#| msgid "Labels/data quality"
 msgid "Default data quality"
-msgstr "Leidyklos / duomenų kokybė"
+msgstr "Numatytoji duomenų kokybė"
 
 #: ../root/statistics/Index.js:479 ../root/statistics/stats.js:608
-#, fuzzy
-#| msgid "Labels/data quality"
 msgid "Normal data quality"
-msgstr "Leidyklos / duomenų kokybė"
+msgstr "Įprasta duomenų kokybė"
 
 #: ../root/statistics/Index.js:486 ../root/statistics/stats.js:613
 msgid "Unknown data quality"
@@ -674,19 +668,19 @@ msgstr[3] "su {num} diskų ID:"
 
 #: ../root/statistics/Index.js:550 ../root/statistics/Index.js:592
 msgid "with 10 or more disc IDs:"
-msgstr ""
+msgstr "su 10 ar daugiau diskų ID:"
 
 #: ../root/statistics/Index.js:561
 msgid "Mediums with no disc IDs:"
-msgstr ""
+msgstr "Laikmenos be diskų ID:"
 
 #: ../root/statistics/Index.js:568
 msgid "Mediums with at least one disc ID:"
-msgstr ""
+msgstr "Laikmenos su bent vienu disko ID:"
 
 #: ../root/statistics/Index.js:603
 msgid "Primary types"
-msgstr ""
+msgstr "Pirminiai tipai"
 
 #: ../root/statistics/Index.js:632 ../root/statistics/Index.js:666
 #: ../root/statistics/Index.js:723 ../root/statistics/Index.js:751
@@ -707,7 +701,7 @@ msgstr "Vaizdo įrašai"
 #: ../root/statistics/Index.js:690
 msgctxt "recording"
 msgid "Standalone"
-msgstr ""
+msgstr "Atskiras"
 
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
@@ -854,22 +848,20 @@ msgstr "kurie balsuoja:"
 
 #: ../root/statistics/Index.js:1178
 msgid "who leave edit notes:"
-msgstr ""
+msgstr "kurie palieka redagavimo pastabas:"
 
 #: ../root/statistics/Index.js:1186
-#, fuzzy
-#| msgid "who edit:"
 msgctxt "folksonomy"
 msgid "who use tags:"
-msgstr "kurie redaguoja:"
+msgstr "kurie naudoja žymes:"
 
 #: ../root/statistics/Index.js:1194
 msgid "who use ratings:"
-msgstr ""
+msgstr "kurie naudoja vertinimus:"
 
 #: ../root/statistics/Index.js:1203
 msgid "who use subscriptions:"
-msgstr ""
+msgstr "kurie naudoja prenumeratas:"
 
 #: ../root/statistics/Index.js:1212
 msgid "who use collections:"
@@ -961,7 +953,7 @@ msgstr "Kalbos"
 
 #: ../root/statistics/LanguagesScripts.js:49
 msgid "All other available languages and scripts have 0 releases and works."
-msgstr ""
+msgstr "Visos kitos galimos kalbos ir raštai turi 0 leidinių ir kūrinių."
 
 #: ../root/statistics/LanguagesScripts.js:55
 #: ../root/statistics/LanguagesScripts.js:61
@@ -1018,12 +1010,12 @@ msgstr ""
 #: ../root/statistics/Relationships.js:105
 msgctxt "relationships"
 msgid "This type only"
-msgstr ""
+msgstr "Tik šis tipas"
 
 #: ../root/statistics/Relationships.js:106
 msgctxt "relationships"
 msgid "Including subtypes"
-msgstr ""
+msgstr "Įskaitant potipius"
 
 #: ../root/statistics/Relationships.js:128
 msgid "{type0}-{type1}"
@@ -1048,16 +1040,14 @@ msgid "Artist types and genders"
 msgstr ""
 
 #: ../root/statistics/stats.js:21
-#, fuzzy
-#| msgid "Cover Art Uploader"
 msgctxt "plural"
 msgid "Cover art"
-msgstr "Viršelio įkėlėjas"
+msgstr "Viršelio apipavidalinimai"
 
 #: ../root/statistics/stats.js:23
 msgctxt "noun"
 msgid "Edit information"
-msgstr ""
+msgstr "Redagavimo informacija"
 
 #: ../root/statistics/stats.js:24
 msgctxt "noun"
@@ -1065,11 +1055,9 @@ msgid "Edit types"
 msgstr "Redagavimo tipai"
 
 #: ../root/statistics/stats.js:25
-#, fuzzy
-#| msgid "Event art"
 msgctxt "plural"
 msgid "Event art"
-msgstr "Renginio apipavidalinimas"
+msgstr "Renginio apipavidalinimai"
 
 #: ../root/statistics/stats.js:26
 #, fuzzy
@@ -1094,42 +1082,32 @@ msgstr "Įrašai"
 #: ../root/statistics/stats.js:31
 msgctxt "stats category"
 msgid "Other"
-msgstr ""
+msgstr "Kita"
 
 #: ../root/statistics/stats.js:32
-#, fuzzy
-#| msgid "Places"
 msgid "Place types"
-msgstr "Vietos"
+msgstr "Vietos tipai"
 
 #: ../root/statistics/stats.js:33
-#, fuzzy
-#| msgid "Ratings and Tags"
 msgctxt "folksonomy"
 msgid "Ratings and tags"
-msgstr "Vertinimai ir žymos"
+msgstr "Vertinimai ir žymės"
 
 #: ../root/statistics/stats.js:35
-#, fuzzy
-#| msgid "Releases"
 msgid "Release countries"
-msgstr "Leidiniai"
+msgstr "Leidinio šalys"
 
 #: ../root/statistics/stats.js:36
 msgid "Release group types"
-msgstr ""
+msgstr "Leidinių grupės tipai"
 
 #: ../root/statistics/stats.js:37
-#, fuzzy
-#| msgid "Album languages"
 msgid "Release languages"
-msgstr "Albumo kalbos"
+msgstr "Leidinio kalbos"
 
 #: ../root/statistics/stats.js:38
-#, fuzzy
-#| msgid "Releases"
 msgid "Release packagings"
-msgstr "Leidiniai"
+msgstr "Leidinio pakuotės"
 
 #: ../root/statistics/stats.js:39
 msgid "Release data quality"
@@ -1362,39 +1340,39 @@ msgstr ""
 #: ../root/statistics/stats.js:331
 msgctxt "noun"
 msgid "Open edits"
-msgstr ""
+msgstr "Atviri redagavimai"
 
 #: ../root/statistics/stats.js:337
 msgid "Edits per day"
-msgstr ""
+msgstr "Redagavimai per dieną"
 
 #: ../root/statistics/stats.js:342
 msgid "Edits per week"
-msgstr ""
+msgstr "Redagavimai per savaitę"
 
 #: ../root/statistics/stats.js:348
 msgid "Editors (all)"
-msgstr ""
+msgstr "Redaktoriai (visi)"
 
 #: ../root/statistics/stats.js:353
 msgid "Editors who edited or voted in the last week"
-msgstr ""
+msgstr "Redaktoriai, kurie redagavo arba balsavo per pastarąją savaitę"
 
 #: ../root/statistics/stats.js:359
 msgid "Editors (deleted)"
-msgstr ""
+msgstr "Redaktoriai (ištrinti)"
 
 #: ../root/statistics/stats.js:364
 msgid "Editors who submitted edits in the last week"
-msgstr ""
+msgstr "Redaktoriai, kurie pateikė redagavimus per pastarąją savaitę"
 
 #: ../root/statistics/stats.js:370
 msgid "Editors (current)"
-msgstr ""
+msgstr "Redaktoriai (dabartiniai)"
 
 #: ../root/statistics/stats.js:376
 msgid "Editors (current) who have ever been active"
-msgstr ""
+msgstr "Redaktoriai (dabartiniai), kurie kada nors buvo aktyvūs"
 
 #: ../root/statistics/stats.js:381
 msgid "Editors who have registered applications"
@@ -1423,7 +1401,7 @@ msgstr ""
 #: ../root/statistics/stats.js:411
 msgctxt "folksonomy"
 msgid "Editors who have added tags"
-msgstr ""
+msgstr "Redaktoriai, kurie pridėjo žymes"
 
 #: ../root/statistics/stats.js:416
 msgid "Editors who have voted on edits"
@@ -1676,12 +1654,12 @@ msgstr ""
 #: ../root/statistics/stats.js:824
 msgctxt "folksonomy"
 msgid "Unique tag names"
-msgstr ""
+msgstr "Ypatingi žymių pavadinimai"
 
 #: ../root/statistics/stats.js:829
 msgctxt "folksonomy"
 msgid "Votes for/against tags"
-msgstr ""
+msgstr "Balsai už / prieš žymes"
 
 #: ../root/statistics/stats.js:834
 msgid "Votes for/against area tags"
@@ -1749,15 +1727,15 @@ msgstr "Iš viso balsų"
 
 #: ../root/statistics/stats.js:936
 msgid "Works with no attributes"
-msgstr ""
+msgstr "Kūriniai be požymių"
 
 #: ../root/statistics/stats.js:941
 msgid "Works with ISWCs"
-msgstr ""
+msgstr "Kūriniai su ISWC"
 
 #: ../root/statistics/stats.js:946
 msgid "Works with no language set"
-msgstr ""
+msgstr "Kūriniai be nustatytos kalbos"
 
 #: ../root/statistics/stats.js:951
 msgid "Works with no type set"
@@ -1765,7 +1743,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:953
 msgid "/day"
-msgstr ""
+msgstr "/ dieną"
 
 #: ../root/statistics/stats.js:963
 msgid "Releases with 1 Disc ID"

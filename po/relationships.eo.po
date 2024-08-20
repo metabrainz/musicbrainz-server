@@ -3,18 +3,20 @@
 # Alex Mauer <email address hidden>, 2016
 # FIRST AUTHOR <email address hidden>, 2009
 # Ian McEwen <email address hidden>, 2012
+# Libra <recreate_squall363@simplelogin.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: Alex Mauer <hawke@hawkesnest.net>, 2016\n"
-"Language-Team: Esperanto (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/eo/)\n"
+"PO-Revision-Date: 2024-08-18 15:42+0000\n"
+"Last-Translator: Libra <recreate_squall363@simplelogin.com>\n"
+"Language-Team: Esperanto <https://translations.metabrainz.org/projects/"
+"musicbrainz/relationship-types/eo/>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -133,7 +135,7 @@ msgstr "BBC Music paĝo por"
 #: DB:link_type/link_phrase:1092 DB:link_type/link_phrase:718
 #: DB:link_type/link_phrase:719
 msgid "Bandcamp"
-msgstr ""
+msgstr "Bandcamp"
 
 #. name:bandcamp
 #: DB:link_type/reverse_link_phrase:1092 DB:link_type/reverse_link_phrase:718
