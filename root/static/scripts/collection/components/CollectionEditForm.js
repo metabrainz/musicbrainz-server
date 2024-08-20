@@ -208,6 +208,7 @@ const CollectionEditForm = ({
             <FormRowTextArea
               field={form.field.description}
               label={addColonText(l('Description'))}
+              uncontrolled
             />
             <FormRowCheckbox
               field={form.field.public}

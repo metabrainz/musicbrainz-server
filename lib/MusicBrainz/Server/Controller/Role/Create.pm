@@ -83,7 +83,15 @@ role {
 
                 return unless $args{within_dialog};
 
-                $c->stash( dialog_result => $c->json->encode(JSONSerializer->serialize_internal($c, $entity)) );
+                $c->stash(
+                    current_view => 'Node',
+                    component_path => 'forms/DialogResult',
+                    component_props => {
+                        result => $c->json->encode(
+                            JSONSerializer->serialize_internal($c, $entity),
+                        ),
+                    },
+                );
 
                 # XXX Delete the "Thank you, your edit has been..." message
                 # so it doesn't weirdly show up on the next page.

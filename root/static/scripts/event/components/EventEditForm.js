@@ -39,6 +39,7 @@ import {
   ExternalLinksEditor,
   prepareExternalLinksHtmlFormSubmission,
 } from '../../edit/externalLinks.js';
+import isValidSetlist from '../../edit/utility/isValidSetlist.js';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
@@ -49,6 +50,7 @@ import {
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
+  | {+type: 'set-setlist', +setlist: string}
   | {+type: 'set-type', +type_id: string}
   | {+type: 'show-all-pending-errors'}
   | {+type: 'toggle-type-bubble'}
@@ -115,6 +117,22 @@ function reducer(state: StateT, action: ActionT): StateT {
       newStateCtx.set('showTypeBubble', true);
       break;
     }
+    case 'set-setlist': {
+      fieldCtx.update('setlist', (setlistFieldCtx) => {
+        setlistFieldCtx.set('value', action.setlist);
+        if (isValidSetlist(action.setlist)) {
+          setlistFieldCtx.set('has_errors', false);
+          setlistFieldCtx.set('errors', []);
+        } else {
+          setlistFieldCtx.set('has_errors', true);
+          setlistFieldCtx.set('errors', [
+            l(`Please ensure all lines start with @, * or #,
+                followed by a space.`),
+          ]);
+        }
+      });
+      break;
+    }
     case 'set-type': {
       fieldCtx.set('type_id', 'value', action.type_id);
       break;
@@ -159,6 +177,12 @@ component EventEditForm(
     event: SyntheticEvent<HTMLSelectElement>,
   ) => {
     dispatch({type: 'set-type', type_id: event.currentTarget.value});
+  }, [dispatch]);
+
+  const handleSetlistChange = React.useCallback((
+    event: SyntheticKeyboardEvent<HTMLTextAreaElement>,
+  ) => {
+    dispatch({setlist: event.currentTarget.value, type: 'set-setlist'});
   }, [dispatch]);
 
   const dispatchDateRange = React.useCallback((
@@ -243,7 +267,9 @@ component EventEditForm(
             cols={80}
             field={state.form.field.setlist}
             label={addColonText(l('Setlist'))}
+            onChange={handleSetlistChange}
             rows={10}
+            uncontrolled={false}
           />
           <p>
             {l(

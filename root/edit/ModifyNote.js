@@ -46,6 +46,7 @@ component ModifyNote(
           field={form.field.text}
           label={addColonText(l('New edit note'))}
           rows={10}
+          uncontrolled
         />
         <EditNoteHelp>
           <p>

@@ -54,6 +54,7 @@ component ContactUser(form: ContactUserFormT, user: AccountLayoutUserT) {
           label={addColonText(l('Message'))}
           required
           rows={10}
+          uncontrolled
         />
 
         <FormRowCheckbox
