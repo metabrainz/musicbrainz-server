@@ -4662,20 +4662,10 @@ const CLEANUPS: CleanupEntries = {
   'qobuz': {
     match: [/^(https?:\/\/)?(www\.)?qobuz\.com\//i],
     restrict: [
+      LINK_TYPES.downloadpurchase,
       LINK_TYPES.streamingpaid,
       multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
     ],
-    select(url, sourceType) {
-      switch (sourceType) {
-        case 'artist':
-          return LINK_TYPES.streamingpaid.artist;
-        case 'label':
-          return LINK_TYPES.streamingpaid.label;
-        case 'release':
-          return LINK_TYPES.streamingpaid.release;
-      }
-      return false;
-    },
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?qobuz\.com\//, 'https://www.qobuz.com/');
       return url;
