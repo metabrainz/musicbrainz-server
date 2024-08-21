@@ -6694,7 +6694,7 @@ __metadata:
     stream-browserify: "npm:3.0.0"
     sucrase: "npm:3.35.0"
     tabbable: "npm:6.2.0"
-    tablesorter: "npm:2.31.3"
+    tablesorter: "npm:2.32.0"
     tap-difflet: "npm:0.7.2"
     tap-junit: "npm:3.1.0"
     tape: "npm:4.7.0"
@@ -8868,12 +8868,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tablesorter@npm:2.31.3":
-  version: 2.31.3
-  resolution: "tablesorter@npm:2.31.3"
+"tablesorter@npm:2.32.0":
+  version: 2.32.0
+  resolution: "tablesorter@npm:2.32.0"
   dependencies:
     jquery: "npm:>=1.2.6"
-  checksum: 10c0/8a5a7dced74d36b27390e331effe7a412b9521563e4c1abe355f3f22b91974df0639d1b6c32a939ee19a3d5f3b3548cbde33dae6a03adeba42dab25d4d450837
+  checksum: 10c0/2471a77bbfed893f8848ed5cf9cc6124952c92051b4bc94e37fd3e89a20194b1d063704846a233328eb46fdb37ba00ad9bb848e4aa0da627397a7936bae24ebf
   languageName: node
   linkType: hard
 
