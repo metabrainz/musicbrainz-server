@@ -83,7 +83,7 @@
     "eslint-plugin-ft-flow": "3.0.11",
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-react": "7.35.0",
-    "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-react-hooks": "4.6.2",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "flow-bin": "0.244.0",
     "gettext-parser": "4.2.0",
