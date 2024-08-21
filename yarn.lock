@@ -6678,7 +6678,7 @@ __metadata:
     nyc: "npm:14.1.1"
     path-browserify: "npm:1.0.1"
     pg: "npm:8.12.0"
-    pg-cursor: "npm:2.10.5"
+    pg-cursor: "npm:2.11.0"
     po2json: "https://github.com/metabrainz/po2json.git#905dd32b286c80b973ca3c7c27f31d0ef1f4e65b"
     process: "npm:0.11.10"
     punycode: "npm:2.3.1"
@@ -7250,12 +7250,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pg-cursor@npm:2.10.5":
-  version: 2.10.5
-  resolution: "pg-cursor@npm:2.10.5"
+"pg-cursor@npm:2.11.0":
+  version: 2.11.0
+  resolution: "pg-cursor@npm:2.11.0"
   peerDependencies:
     pg: ^8
-  checksum: 10c0/75390c49b1f59317481dc9a392a1aa746884ee4b185e6b3415e11b3d0dc82eb120e34642ae023fbf36ee28c74c2afbf96803d0fcd446b3ff8389297e4e0a53ba
+  checksum: 10c0/50efeacd8a44ab0e50dace145612ec1c17829ff01cd8817218f056520abd76e152af95698d73334836f6c0e13637ce98f8ed16e528a6da576199c5c2de814956
   languageName: node
   linkType: hard
 
