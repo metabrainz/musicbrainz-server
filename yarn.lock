@@ -6674,7 +6674,7 @@ __metadata:
     less-plugin-clean-css: "npm:1.5.1"
     leven: "npm:4.0.0"
     mutate-cow: "npm:5.0.0"
-    nodemon: "npm:3.1.1"
+    nodemon: "npm:3.1.4"
     nyc: "npm:14.1.1"
     path-browserify: "npm:1.0.1"
     pg: "npm:8.11.5"
@@ -6801,9 +6801,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nodemon@npm:3.1.1":
-  version: 3.1.1
-  resolution: "nodemon@npm:3.1.1"
+"nodemon@npm:3.1.4":
+  version: 3.1.4
+  resolution: "nodemon@npm:3.1.4"
   dependencies:
     chokidar: "npm:^3.5.2"
     debug: "npm:^4"
@@ -6817,7 +6817,7 @@ __metadata:
     undefsafe: "npm:^2.0.5"
   bin:
     nodemon: bin/nodemon.js
-  checksum: 10c0/3c0ae94a6832b3baef4631ce609e7e3499e5fae6633303c8aa29e91712fd85d64e3175165649bbf7947afa1e8ab57825a02eb18ebcfe32646a2cf6ab6c20b202
+  checksum: 10c0/be2335396a4c25549f86e9c69bb57e6a21758a9649d74182a359d88b80afbe84f67a1651e293a08c6d77ecdf5c6224d02990de9de225f70d7c659021206c877f
   languageName: node
   linkType: hard
 
