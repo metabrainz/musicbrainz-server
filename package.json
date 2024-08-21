@@ -74,7 +74,7 @@
     "@babel/cli": "7.24.8",
     "@stylistic/eslint-plugin-js": "2.3.0",
     "@stylistic/eslint-plugin-jsx": "2.3.0",
-    "babel-plugin-istanbul": "6.1.1",
+    "babel-plugin-istanbul": "7.0.0",
     "babel-plugin-syntax-hermes-parser": "0.23.0",
     "buffer": "6.0.3",
     "chrome-remote-interface": "0.33.0",
