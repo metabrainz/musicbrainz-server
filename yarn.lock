@@ -4915,10 +4915,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:15.0.0":
-  version: 15.0.0
-  resolution: "globals@npm:15.0.0"
-  checksum: 10c0/b93e356a7bd4562d73a9defa95a0ff5e8a0b7726a4e2af16bd8ad019e14cd21d85e0a27b46e7e270d34e25df0bc0f9473ca21b47266c406c0e40973956085777
+"globals@npm:15.9.0":
+  version: 15.9.0
+  resolution: "globals@npm:15.9.0"
+  checksum: 10c0/de4b553e412e7e830998578d51b605c492256fb2a9273eaeec6ec9ee519f1c5aa50de57e3979911607fd7593a4066420e01d8c3d551e7a6a236e96c521aee36c
   languageName: node
   linkType: hard
 
@@ -6585,7 +6585,7 @@ __metadata:
     flow-bin: "npm:0.244.0"
     generic-diff: "npm:1.0.1"
     gettext-parser: "npm:4.2.0"
-    globals: "npm:15.0.0"
+    globals: "npm:15.9.0"
     he: "npm:1.2.0"
     hermes-eslint: "npm:0.23.0"
     http-proxy: "npm:1.18.1"
