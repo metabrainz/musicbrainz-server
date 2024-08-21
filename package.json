@@ -64,7 +64,7 @@
     "tabbable": "6.2.0",
     "tablesorter": "2.32.0",
     "terser-webpack-plugin": "5.3.10",
-    "webpack": "5.91.0",
+    "webpack": "5.93.0",
     "webpack-node-externals": "3.0.0",
     "weight-balanced-tree": "0.6.1",
     "whatwg-fetch": "3.6.20",
