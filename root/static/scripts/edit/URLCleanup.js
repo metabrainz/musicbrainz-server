@@ -4782,9 +4782,17 @@ const CLEANUPS: CleanupEntries = {
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.recording:
+            if (prefix === 'release' && !(subPath === 'musicvideo')) {
+              return {
+                error:
+                  l('Only RYM music videos can be linked to recordings.'),
+                result: false,
+                target: ERROR_TARGETS.RELATIONSHIP,
+              };
+            }
             return {
-              error: l('Only RYM music videos can be linked to recordings.'),
-              result: prefix === 'release' && subPath === 'musicvideo',
+              result: prefix === 'song' ||
+                      (prefix === 'release' && subPath === 'musicvideo'),
               target: ERROR_TARGETS.RELATIONSHIP,
             };
           case LINK_TYPES.otherdatabases.release:
