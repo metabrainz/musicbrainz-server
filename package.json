@@ -49,7 +49,7 @@
     "leven": "4.0.0",
     "mutate-cow": "5.0.0",
     "nodemon": "3.1.4",
-    "pg": "8.11.5",
+    "pg": "8.12.0",
     "pg-cursor": "2.10.5",
     "po2json": "https://github.com/metabrainz/po2json.git#905dd32b286c80b973ca3c7c27f31d0ef1f4e65b",
     "punycode": "2.3.1",
