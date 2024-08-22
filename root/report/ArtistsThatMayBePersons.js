@@ -21,7 +21,7 @@ component ArtistsThatMayBePersons(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists artists that have their type set to other than
          Person or Character, but may be a person, based on their
          relationships.
@@ -33,7 +33,7 @@ component ArtistsThatMayBePersons(...{
       entityType="artist"
       filtered={filtered}
       generated={generated}
-      title={l('Artists that may be persons')}
+      title={l_reports('Artists that may be persons')}
       totalEntries={pager.total_entries}
     >
       <ArtistList items={items} pager={pager} />

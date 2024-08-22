@@ -37,7 +37,7 @@ component SeriesList<D: {+series: ?SeriesT, ...}>(
       const nameColumn = defineEntityColumn<D>({
         columnName: 'series',
         getEntity: result => result.series ?? null,
-        title: lp('Series', 'plural'),
+        title: lp_mb_server('Series', 'plural'),
       });
 
       return [

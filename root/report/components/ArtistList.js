@@ -40,7 +40,7 @@ component ArtistList<D: {+artist: ?ArtistT, ...}>(
         columnName: 'artist',
         getEntity: result => result.artist ?? null,
         subPath,
-        title: l('Artist'),
+        title: l_mb_server('Artist'),
       });
       const typeColumn = defineTextColumn<D>({
         columnName: 'type',
@@ -48,10 +48,10 @@ component ArtistList<D: {+artist: ?ArtistT, ...}>(
           const typeName = result.artist?.typeName;
           return (nonEmpty(typeName)
             ? lp_attributes(typeName, 'artist_type')
-            : lp('Unknown', 'type')
+            : lp_mb_server('Unknown', 'type')
           );
         },
-        title: l('Type'),
+        title: l_mb_server('Type'),
       });
 
       return [

@@ -21,7 +21,7 @@ component DiscogsLinksWithMultipleReleases(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows Discogs URLs which are linked to multiple
          releases. In most cases Discogs releases should map to MusicBrainz
          releases 1:1, so only one of the links will be correct. Just check
@@ -34,7 +34,7 @@ component DiscogsLinksWithMultipleReleases(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Discogs URLs linked to multiple releases')}
+      title={l_reports('Discogs URLs linked to multiple releases')}
       totalEntries={pager.total_entries}
     >
       <ReleaseUrlList items={items} pager={pager} />

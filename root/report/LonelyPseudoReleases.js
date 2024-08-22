@@ -21,7 +21,7 @@ component LonelyPseudoReleases(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases with status “Pseudo-Release” that are
          in release groups that contain only pseudo-releases.
          This should never be fully correct; either the release is not really
@@ -31,7 +31,7 @@ component LonelyPseudoReleases(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l(
+      title={l_reports(
         'Pseudo-releases in release groups that contain only pseudo-releases',
       )}
       totalEntries={pager.total_entries}

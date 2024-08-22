@@ -40,12 +40,12 @@ component WorkList<D: {+work: ?WorkT, ...}>(
       const nameColumn = defineEntityColumn<D>({
         columnName: 'work',
         getEntity: result => result.work ?? null,
-        title: l('Work'),
+        title: l_mb_server('Work'),
       });
       const authorsColumn = defineArtistRolesColumn<D>({
         columnName: 'authors',
         getRoles: result => result.work?.authors ?? [],
-        title: l('Authors'),
+        title: l_mb_server('Authors'),
       });
       const typeColumn = defineTextColumn<D>({
         columnName: 'type',
@@ -53,10 +53,10 @@ component WorkList<D: {+work: ?WorkT, ...}>(
           const typeName = result.work?.typeName;
           return (nonEmpty(typeName)
             ? lp_attributes(typeName, 'work_type')
-            : lp('Unknown', 'type')
+            : lp_mb_server('Unknown', 'type')
           );
         },
-        title: l('Type'),
+        title: l_mb_server('Type'),
       });
 
       return [

@@ -41,12 +41,12 @@ component CDTocList(
       const formatColumn = defineTextColumn<ReportCDTocT>({
         columnName: 'format',
         getText: result => result.format,
-        title: l('Format'),
+        title: l_mb_server('Format'),
       });
       const lengthColumn = defineTextColumn<ReportCDTocT>({
         columnName: 'length',
         getText: result => formatTrackLength(1000 * result.length),
-        title: l('Length'),
+        title: l_mb_server('Length'),
       });
 
       return [

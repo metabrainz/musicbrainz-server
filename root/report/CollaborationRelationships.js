@@ -28,7 +28,7 @@ component CollaborationRelationships(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report lists artists which have collaboration relationships
          but no URL relationships. If the collaboration has its own
          independent name, do nothing. If it is in a format like
@@ -39,15 +39,15 @@ component CollaborationRelationships(...{
       entityType="artist"
       filtered={filtered}
       generated={generated}
-      title={l('Artists with collaboration relationships')}
+      title={l_reports('Artists with collaboration relationships')}
       totalEntries={pager.total_entries}
     >
       <PaginatedResults pager={pager}>
         <table className="tbl">
           <thead>
             <tr>
-              <th width="150px">{l('Collaboration')}</th>
-              <th>{l('Collaborator')}</th>
+              <th width="150px">{l_reports('Collaboration')}</th>
+              <th>{l_reports('Collaborator')}</th>
             </tr>
           </thead>
           <tbody>
@@ -65,7 +65,7 @@ component CollaborationRelationships(...{
                         {item.artist1 ? (
                           <EntityLink entity={item.artist1} />
                         ) : (
-                          l('This artist no longer exists.')
+                          l_reports('This artist no longer exists.')
                         )}
                       </td>
                     </tr>
@@ -76,7 +76,7 @@ component CollaborationRelationships(...{
                       {item.artist0 ? (
                         <EntityLink entity={item.artist0} />
                       ) : (
-                        l('This artist no longer exists.')
+                        l_reports('This artist no longer exists.')
                       )}
                     </td>
                   </tr>

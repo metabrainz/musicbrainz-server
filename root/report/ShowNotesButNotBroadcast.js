@@ -21,7 +21,7 @@ component ShowNotesButNotBroadcast(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows releases that have a {doc|show notes relationship},
          but are not in a release group of type Broadcast.
          Show notes are meant for podcasts and similar shows, and should
@@ -35,7 +35,7 @@ component ShowNotesButNotBroadcast(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Non-broadcast releases with linked show notes')}
+      title={l_reports('Non-broadcast releases with linked show notes')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

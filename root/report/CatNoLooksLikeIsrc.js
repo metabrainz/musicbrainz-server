@@ -24,7 +24,7 @@ component CatNoLooksLikeIsrc(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows releases which have catalog numbers that look
          like {doc_link|ISRCs}. Assigning ISRCs to releases is almost
          always wrong, but still happens sometimes, especially for releases
@@ -37,7 +37,7 @@ component CatNoLooksLikeIsrc(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with catalog numbers that look like ISRCs')}
+      title={l_reports('Releases with catalog numbers that look like ISRCs')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList

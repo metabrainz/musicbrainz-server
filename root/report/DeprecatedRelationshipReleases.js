@@ -25,14 +25,14 @@ component DeprecatedRelationshipReleases(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists releases which have relationships using
          deprecated and grouping-only relationship types.`,
       )}
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with deprecated relationships')}
+      title={l_reports('Releases with deprecated relationships')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList

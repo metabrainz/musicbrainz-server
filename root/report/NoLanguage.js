@@ -24,7 +24,7 @@ component NoLanguage(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases that have no language set. If you
         recognize the language, please set it! Do it only if you are
         pretty sure, don't just guess: not everything written in Cyrillic
@@ -33,7 +33,7 @@ component NoLanguage(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases without language')}
+      title={l_reports('Releases without language')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList

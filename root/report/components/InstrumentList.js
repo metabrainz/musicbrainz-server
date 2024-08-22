@@ -39,7 +39,7 @@ component InstrumentList(
       const nameColumn = defineEntityColumn<ReportInstrumentT>({
         columnName: 'instrument',
         getEntity: result => result.instrument ?? null,
-        title: l('Instrument'),
+        title: l_mb_server('Instrument'),
       });
       const typeColumn = defineTextColumn<ReportInstrumentT>({
         columnName: 'type',
@@ -47,10 +47,10 @@ component InstrumentList(
           const typeName = result.instrument?.typeName;
           return (nonEmpty(typeName)
             ? lp_attributes(typeName, 'instrument_type')
-            : l('Unclassified instrument')
+            : l_mb_server('Unclassified instrument')
           );
         },
-        title: l('Type'),
+        title: l_mb_server('Type'),
       });
       const editedColumn = defineTextColumn<ReportInstrumentT>({
         columnName: 'last-updated',
@@ -61,7 +61,7 @@ component InstrumentList(
             : ''
           );
         },
-        title: l('Last updated'),
+        title: l_mb_server('Last updated'),
       });
 
       return [

@@ -21,7 +21,7 @@ component DuplicateEvents(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists events happening at the same place
          on the same date. If there are duplicates (for example,
          if there are separate events for headliner and supporting artist)
@@ -30,7 +30,7 @@ component DuplicateEvents(...{
       entityType="event"
       filtered={filtered}
       generated={generated}
-      title={l('Possibly duplicate events')}
+      title={l_reports('Possibly duplicate events')}
       totalEntries={pager.total_entries}
     >
       <EventList items={items} pager={pager} />

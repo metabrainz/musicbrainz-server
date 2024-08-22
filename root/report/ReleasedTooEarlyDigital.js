@@ -21,7 +21,7 @@ component ReleasedTooEarlyDigital(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases with at least one medium set to format
          “Digital Media” which were released before 1999, the launch date
          for the first digital music store supported by a major label.
@@ -34,7 +34,7 @@ component ReleasedTooEarlyDigital(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Suspiciously early digital releases')}
+      title={l_reports('Suspiciously early digital releases')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

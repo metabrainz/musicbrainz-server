@@ -21,7 +21,7 @@ component LowDataQualityReleases(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases that have been marked as having low data
          quality.
          If you have some time, you can review them and try to improve the
@@ -34,7 +34,7 @@ component LowDataQualityReleases(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases marked as having low data quality')}
+      title={l_reports('Releases marked as having low data quality')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

@@ -21,14 +21,16 @@ component ArtistsWithMultipleOccurrencesInArtistCredits(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists artists that appear more than once
          in different positions within the same artist credit.`,
       )}
       entityType="artist"
       filtered={filtered}
       generated={generated}
-      title={l('Artists occurring multiple times in the same artist credit')}
+      title={l_reports(
+        'Artists occurring multiple times in the same artist credit',
+      )}
       totalEntries={pager.total_entries}
     >
       <ArtistList items={items} pager={pager} subPath="aliases" />

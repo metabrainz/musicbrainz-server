@@ -21,7 +21,7 @@ component DuplicateRelationshipsArtists(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists artists which have multiple relatonships to
          the same artist, label or URL using the same relationship type.
          For multiple relationships to release groups, recordings or works,
@@ -30,7 +30,7 @@ component DuplicateRelationshipsArtists(...{
       entityType="artist"
       filtered={filtered}
       generated={generated}
-      title={l('Artists with possible duplicate relationships')}
+      title={l_reports('Artists with possible duplicate relationships')}
       totalEntries={pager.total_entries}
     >
       <ArtistList items={items} pager={pager} />

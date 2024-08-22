@@ -21,7 +21,7 @@ component ArtistsWithNoSubscribers(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists artists that have no editors subscribed to them,
          and whose changes may therefore be under-reviewed. Artists with
          more release groups and more open edits are listed first.`,
@@ -29,7 +29,7 @@ component ArtistsWithNoSubscribers(...{
       entityType="artist"
       filtered={filtered}
       generated={generated}
-      title={l('Artists with no subscribers')}
+      title={l_reports('Artists with no subscribers')}
       totalEntries={pager.total_entries}
     >
       <ArtistList items={items} pager={pager} />

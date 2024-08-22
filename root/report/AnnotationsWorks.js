@@ -25,12 +25,12 @@ component AnnotationsWorks(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l('This report lists works with annotations.')}
+      description={l_reports('This report lists works with annotations.')}
       entityType="work"
       extraInfo={ANNOTATION_REPORT_TEXT()}
       filtered={filtered}
       generated={generated}
-      title={l('Work annotations')}
+      title={l_reports('Work annotations')}
       totalEntries={pager.total_entries}
     >
       <WorkList

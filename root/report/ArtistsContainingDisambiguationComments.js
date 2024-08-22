@@ -21,14 +21,16 @@ component ArtistsContainingDisambiguationComments(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists artists that may have disambiguation comments
          in their name, rather than the actual disambiguation comment field.`,
       )}
       entityType="artist"
       filtered={filtered}
       generated={generated}
-      title={l('Artists containing disambiguation comments in their name')}
+      title={
+        l_reports('Artists containing disambiguation comments in their name')
+      }
       totalEntries={pager.total_entries}
     >
       <ArtistList items={items} pager={pager} />

@@ -21,7 +21,7 @@ component SuperfluousDataTracks(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report lists releases without any disc IDs that probably
          contain data tracks (like videos) at the end of a medium, but have
          no tracks marked as data tracks. A data track should be marked as
@@ -37,7 +37,7 @@ component SuperfluousDataTracks(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with superfluous data tracks')}
+      title={l_reports('Releases with superfluous data tracks')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

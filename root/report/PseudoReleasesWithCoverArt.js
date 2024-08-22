@@ -21,7 +21,7 @@ component PseudoReleasesWithCoverArt(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows pseudo-releases that have images in the Cover
          Art Archive. Pseudo-releases {style|should not have cover art},
          except temporarily until an official release has been added.`,
@@ -30,7 +30,7 @@ component PseudoReleasesWithCoverArt(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Pseudo-Releases that have cover art')}
+      title={l_reports('Pseudo-Releases that have cover art')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

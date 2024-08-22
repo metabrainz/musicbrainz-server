@@ -25,14 +25,14 @@ component DeprecatedRelationshipWorks(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists works which have relationships using
          deprecated and grouping-only relationship types.`,
       )}
       entityType="work"
       filtered={filtered}
       generated={generated}
-      title={l('Works with deprecated relationships')}
+      title={l_reports('Works with deprecated relationships')}
       totalEntries={pager.total_entries}
     >
       <WorkList

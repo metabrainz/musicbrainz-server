@@ -21,7 +21,7 @@ component PartOfSetRelationships(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows releases that still have the deprecated "part
          of set" relationship and should probably be merged. For
          instructions on how to fix them, please see the documentation
@@ -34,7 +34,7 @@ component PartOfSetRelationships(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with “part of set” relationships')}
+      title={l_reports('Releases with “part of set” relationships')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

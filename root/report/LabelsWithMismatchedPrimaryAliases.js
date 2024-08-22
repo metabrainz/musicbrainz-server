@@ -21,7 +21,7 @@ component LabelsWithMismatchedPrimaryAliases(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists labels that have at least one alias marked as
          primary for a locale, but have no primary aliases that match their
          name. In general, the main name for a label should always be
@@ -30,7 +30,7 @@ component LabelsWithMismatchedPrimaryAliases(...{
       entityType="label"
       filtered={filtered}
       generated={generated}
-      title={l('Labels with mismatched primary aliases')}
+      title={l_reports('Labels with mismatched primary aliases')}
       totalEntries={pager.total_entries}
     >
       <LabelList items={items} pager={pager} />

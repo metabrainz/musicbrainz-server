@@ -21,7 +21,7 @@ component MislinkedPseudoReleases(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases with status Pseudo-Release that are
          marked as the original version of a translation/transliteration
          relationship. The pseudo-release should be the one marked as a
@@ -32,7 +32,7 @@ component MislinkedPseudoReleases(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l(`Translated/transliterated pseudo-releases
+      title={l_reports(`Translated/transliterated pseudo-releases
                 marked as original`)}
       totalEntries={pager.total_entries}
     >

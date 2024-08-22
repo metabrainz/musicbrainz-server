@@ -36,7 +36,7 @@ component LinksWithMultipleEntities(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows URLs that are linked to multiple entities.
          It excludes license relationships (where reuse is expected)
          and Amazon (for releases), Discogs and Wikidata, which have
@@ -50,16 +50,16 @@ component LinksWithMultipleEntities(...{
       entityType="url"
       filtered={filtered}
       generated={generated}
-      title={l('URLs linked to multiple entities')}
+      title={l_reports('URLs linked to multiple entities')}
       totalEntries={pager.total_entries}
     >
       <PaginatedResults pager={pager}>
         <table className="tbl">
           <thead>
             <tr>
-              <th>{l('URL')}</th>
-              <th>{l('URL entity')}</th>
-              <th>{l('Usage count')}</th>
+              <th>{l_mb_server('URL')}</th>
+              <th>{l_reports('URL entity')}</th>
+              <th>{l_reports('Usage count')}</th>
             </tr>
           </thead>
           <tbody>
@@ -83,7 +83,7 @@ component LinksWithMultipleEntities(...{
                   </>
                 ) : (
                   <td colSpan={3}>
-                    {l('This URL no longer exists.')}
+                    {l_reports('This URL no longer exists.')}
                   </td>
                 )}
               </tr>

@@ -21,7 +21,7 @@ component AsinsWithMultipleReleases(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows Amazon URLs which are linked to multiple
          releases. In most cases Amazon ASINs should map to MusicBrainz
          releases 1:1, so only one of the links will be correct. Just check
@@ -36,7 +36,7 @@ component AsinsWithMultipleReleases(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Amazon URLs linked to multiple releases')}
+      title={l_reports('Amazon URLs linked to multiple releases')}
       totalEntries={pager.total_entries}
     >
       <ReleaseUrlList items={items} pager={pager} />

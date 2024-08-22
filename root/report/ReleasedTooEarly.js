@@ -21,7 +21,7 @@ component ReleasedTooEarly(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows releases which have disc IDs even though they
          were released too early to have disc IDs, where one of the medium
          formats didn't exist at the time the release was released or
@@ -33,7 +33,7 @@ component ReleasedTooEarly(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases released too early')}
+      title={l_reports('Releases released too early')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

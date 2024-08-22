@@ -24,7 +24,7 @@ component CatNoLooksLikeAsin(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases which have catalog numbers that look
          like ASINs. This is almost always wrong: ASINs are just Amazon's
          entries for the releases and should be linked to the release
@@ -33,7 +33,7 @@ component CatNoLooksLikeAsin(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with catalog numbers that look like ASINs')}
+      title={l_reports('Releases with catalog numbers that look like ASINs')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList

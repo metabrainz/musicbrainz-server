@@ -55,6 +55,7 @@ type GettextDomainT =
   | 'languages'
   | 'mb_server'
   | 'relationships'
+  | 'reports'
   | 'scripts'
   | 'statistics';
 

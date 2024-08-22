@@ -21,14 +21,16 @@ component ReleasesWithoutVaLink(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases with "Various Artists" as the credited
          name but not linked to the Various Artists entity.`,
       )}
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases credited to "Various Artists" but not linked to VA')}
+      title={l_reports(
+        'Releases credited to "Various Artists" but not linked to VA',
+      )}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

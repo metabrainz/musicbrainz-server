@@ -21,13 +21,13 @@ component DiscogsLinksWithMultipleLabels(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows Discogs URLs which are linked to multiple labels.`,
       )}
       entityType="label"
       filtered={filtered}
       generated={generated}
-      title={l('Discogs URLs linked to multiple labels')}
+      title={l_reports('Discogs URLs linked to multiple labels')}
       totalEntries={pager.total_entries}
     >
       <LabelUrlList items={items} pager={pager} />

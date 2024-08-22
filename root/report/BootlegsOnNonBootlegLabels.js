@@ -21,7 +21,7 @@ component BootlegsOnNonBootlegLabels(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases that are set to status “Bootleg”, but have
          at least one label in their labels list which is not “[no label]” nor
          has the type “Bootleg Production”.
@@ -31,7 +31,7 @@ component BootlegsOnNonBootlegLabels(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases on non-bootleg labels set to bootleg')}
+      title={l_reports('Releases on non-bootleg labels set to bootleg')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />
