@@ -42,8 +42,8 @@
       value: '',
     },
     {
-      command: 'handleAlert',
-      target: 'accept',
+      command: 'assertBeforeUnloadAlertWasShown',
+      target: '',
       value: '',
     },
     {
