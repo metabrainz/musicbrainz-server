@@ -1,4 +1,5 @@
 [%~ sidebar = BLOCK ~%]
+    [%- USE Translation('statistics') -%]
     <h2 id="graph-toggle-header">[% l('Legend') %]</h2>
         <div id="graph-lines">
         <h2>
@@ -20,10 +21,11 @@
         </table>
         <div id="overview" data-bind="flot: 'overview'"></div>
     </div>
+    [%- USE Translation('mb_server') -%]
 [%~ END ~%]
 
 [%~ WRAPPER "statistics/layout.tt" title=l("Timeline graph") sidebar=sidebar page='timeline' ~%]
-[%~ PROCESS "statistics/macros-header.tt" ~%]
+[%- USE Translation('statistics') -%]
 
 <h2>[% l('Exact values (items vs. day)') %]</h2>
 <div id="graph-container" data-bind="flot: 'main'"></div>
@@ -43,7 +45,8 @@
         </div>
     </div>
 </script>
-[%~ PROCESS "statistics/macros-footer.tt" ~%]
+
+[%- USE Translation('mb_server') -%]
 
 [%~ script_manifest('timeline.js') ~%]
 
