@@ -682,14 +682,14 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'amazonmusic': {
-    match: [/^(https?:\/\/)?music\.amazon\.(ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|se|sg|com\.tr|co\.uk)\/(albums|artists)/i],
+    match: [/^(https?:\/\/)?music\.amazon\.(ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|se|sg|com\.tr|co\.uk)\/(albums|artists|tracks)/i],
     restrict: [LINK_TYPES.streamingpaid],
     clean(url) {
       /*
        * determine tld, asin from url, and build standard format [1],
        * if both were found.
        *
-       * [1] "https://www.amazon.<tld>/(albums|artists)/<ASIN>"
+       * [1] "https://www.amazon.<tld>/(albums|artists|tracks)/<ASIN>"
        */
       let tld = '';
       let type = '';
@@ -697,7 +697,7 @@ const CLEANUPS: CleanupEntries = {
 
       tld = findAmazonTld(url);
 
-      const m = url.match(/\/(albums|artists)\/(B[0-9A-Z]{9}|[0-9]{9}[0-9X])(?:[/?&%#]|$)/);
+      const m = url.match(/\/(albums|artists|tracks)\/(B[0-9A-Z]{9}|[0-9]{9}[0-9X])(?:[/?&%#]|$)/);
       if (m) {
         type = m[1];
         asin = m[2];
@@ -711,13 +711,18 @@ const CLEANUPS: CleanupEntries = {
     },
     validate(url, id) {
       // If you change this, please update the BadAmazonURLs report.
-      const m = /^https:\/\/music\.amazon\.(?:ae|at|com\.au|com\.br|ca|cn|com|de|eg|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|sa|se|sg|com\.tr|co\.uk)\/(albums|artists)/.exec(url);
+      const m = /^https:\/\/music\.amazon\.(?:ae|at|com\.au|com\.br|ca|cn|com|de|eg|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|sa|se|sg|com\.tr|co\.uk)\/(albums|artists|tracks)/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.streamingpaid.artist:
             return {
               result: prefix === 'artists',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'tracks',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingpaid.release:
