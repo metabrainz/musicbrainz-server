@@ -51,6 +51,39 @@
         </td>
       </tr>
 
+      <tr data-bind="if: $root.loadingDuplicateRGs()">
+        <td></td>
+        <td colspan="2">
+          <div class="duplicate-rgs-loading loading-message">
+            [% l('Checking existing release groups…') %]
+          </div>
+        </td>
+      </tr>
+
+      <tr data-bind="if: $root.duplicateRGs().length > 0">
+        <td></td>
+        <td colspan="2">
+          <div class="duplicate-rgs-label">
+            [% add_colon(l('Existing release groups with similar names')) %]
+          </div>
+          <div class="duplicate-rgs-list">
+            <!-- ko foreach: $root.duplicateRGs -->
+              <label>
+                <input name="rg-selection" type="radio" data-change="selectReleaseGroup" />
+                <div>
+                  <a target="_blank" data-bind="attr: { href: '/release-group/' + $data.gid }, text: $data.name"></a>
+                  <span data-bind="text: $data.details"></span>
+                </div>
+              </label>
+            <!-- /ko -->
+            <label>
+              <input name="rg-selection" type="radio" checked data-change="clearReleaseGroup" />
+              <div>[% l('Add a new release group') %]</div>
+            </label>
+          </div>
+        </td>
+      </tr>
+
       [% table_row_help_message(2, 'showMessageRightAway: willCreateReleaseGroup', l('If you don’t select an existing release group, a new one will be added with the types selected below.')) %]
 
       [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsReleaseGroup', l('You must select an existing release group.')) %]

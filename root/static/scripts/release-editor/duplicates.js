@@ -138,10 +138,11 @@ function formatReleaseData(release) {
 
   var events = release['release-events'];
   var labels = release['label-info'];
+  const media = release.media ?? [];
 
-  clean.formats = combinedMediumFormatName(release.media) ||
+  clean.formats = combinedMediumFormatName(media) ||
                   l('[missing media]');
-  clean.tracks = release.media.map(x => x['track-count']).join(' + ') ||
+  clean.tracks = media.map(x => x['track-count']).join(' + ') ||
     lp('-', 'missing data');
 
   clean.dates = events

@@ -57,6 +57,18 @@ const actions = {
 
   // Information tab
 
+  selectReleaseGroup(releaseGroup) {
+    const release = this.rootField.release.peek();
+    release.releaseGroup(releaseGroup);
+  },
+
+  clearReleaseGroup() {
+    const release = this.rootField.release.peek();
+    release.releaseGroup(new fields.ReleaseGroup({
+      name: release.name.peek(),
+    }));
+  },
+
   copyTitleToReleaseGroup: ko.observable(false),
   copyArtistToReleaseGroup: ko.observable(false),
 
