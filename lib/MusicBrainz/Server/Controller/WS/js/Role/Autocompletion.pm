@@ -17,10 +17,11 @@ sub model {
 sub dispatch_search {
     my ($self, $c) = @_;
 
-    my $query = trim $c->stash->{args}->{q};
-    my $limit = $c->stash->{args}->{limit} || 10;
-    my $page = $c->stash->{args}->{page} || 1;
-    my $direct = $c->stash->{args}->{direct} || '';
+    my $args = $c->stash->{args};
+    my $query = trim $args->{q};
+    my $limit = $args->{limit} || 10;
+    my $page = $args->{page} || 1;
+    my $direct = $args->{direct} || '';
 
     unless ($query) {
         $c->detach('bad_req');
