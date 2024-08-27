@@ -267,24 +267,23 @@ class Track {
   }
 
   titleDiffersFromRecording() {
-    return this.name() !== this.recording().name;
+    return this.hasExistingRecording() &&
+      this.name() !== this.recording().name;
   }
 
   artistDiffersFromRecording() {
-    const recording = this.recording();
-
     /*
      * This function is used to determine whether we can update the
      * recording AC, so if there's no recording, then there's nothing
      * to compare against.
      */
-    if (!recording || !recording.gid) {
+    if (!this.hasExistingRecording()) {
       return false;
     }
 
     return !artistCreditsAreEqual(
       this.artistCredit(),
-      recording.artistCredit,
+      this.recording().artistCredit,
     );
   }
 
