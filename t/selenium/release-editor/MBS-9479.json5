@@ -38,7 +38,7 @@
     {
       command: 'assertEval',
       target: "document.querySelector('#release-group').value",
-      value: '',
+      value: 'Demons',
     },
     {
       command: 'assertEval',

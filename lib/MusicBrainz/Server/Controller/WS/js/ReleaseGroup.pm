@@ -35,6 +35,7 @@ sub search : Chained('root') PathPart('release-group')
 
 after _load_entities => sub {
     my ($self, $c, @entities) = @_;
+    $c->model('ReleaseGroup')->load_meta(@entities);
     $c->model('ReleaseGroupType')->load(@entities);
 };
 

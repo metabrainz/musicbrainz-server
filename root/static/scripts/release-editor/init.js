@@ -303,32 +303,32 @@ releaseEditor.init = function (options) {
     }
 
     releaseEditor.loadingDuplicateRGs(true);
-    duplicateRGsRequest = utils.search(
-      'release-group', query, maxDuplicateRGs,
-    ).always(() => {
+
+    duplicateRGsRequest = request({
+      url: '/ws/js/release-group' +
+        '?direct=false' +
+        '&advanced=true' +
+        '&limit=' + encodeURIComponent(maxDuplicateRGs) +
+        '&q=' + encodeURIComponent(query),
+    }).always(() => {
       releaseEditor.loadingDuplicateRGs(false);
       duplicateRGsRequest = null;
     }).done((data) => {
-      ko.utils.arrayPushAll(
-        releaseEditor.duplicateRGs,
-        data['release-groups'].map((rg) => ({
-          name: rg.title,
-          gid: rg.id,
-          details: bracketedText(
-            commaOnlyList([
-              lp_attributes(
-                rg['primary-type'], 'release_group_primary_type',
-              ),
-              texp.ln(
-                '{num} release',
-                '{num} releases',
-                rg.count,
-                {num: rg.count},
-              ),
-            ].filter(Boolean)),
-          ),
-        })),
-      );
+      const results = data.slice(0, -1).map((rg) => {
+        rg.details = bracketedText(
+          commaOnlyList([
+            rg.l_type_name,
+            texp.ln(
+              '{num} release',
+              '{num} releases',
+              rg.release_count,
+              {num: rg.release_count},
+            ),
+          ].filter(Boolean)),
+        );
+        return new fields.ReleaseGroup(rg);
+      });
+      ko.utils.arrayPushAll(releaseEditor.duplicateRGs, results);
     });
   }));
 
