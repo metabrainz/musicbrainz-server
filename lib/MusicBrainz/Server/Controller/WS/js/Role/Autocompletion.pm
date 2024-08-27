@@ -90,15 +90,12 @@ sub _indexed_search {
         $c->detach;
     } else {
         $pager = $response->{pager};
-
-        for my $result (@{ $response->{results} })
-        {
-            next unless $result->entity->{gid};
-            my $entity = $model->get_by_gid($result->{entity}->gid);
-            next unless $entity;
-            push @output, $entity;
-        }
-
+        my @gids = map {
+            my $gid = $_->entity->{gid};
+            $gid ? $gid : ()
+        } @{ $response->{results} };
+        my $entity_map = $model->get_by_gids(@gids);
+        @output = map { $entity_map->{$_} } @gids;
         $self->_load_entities($c, @output);
     }
 
