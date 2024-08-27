@@ -9,13 +9,11 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import commaOnlyList from '../common/i18n/commaOnlyList.js';
 import {
   artistCreditsAreEqual,
   hasVariousArtists,
 } from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
-import {bracketedText} from '../common/utility/bracketed.js';
 import {getSourceEntityData} from '../common/utility/catalyst.js';
 import clean from '../common/utility/clean.js';
 import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
@@ -31,8 +29,6 @@ import recordingAssociation from './recordingAssociation.js';
 import utils from './utils.js';
 import releaseEditor from './viewModel.js';
 
-const maxDuplicateRGs = 5;
-
 Object.assign(releaseEditor, {
   activeTabID: ko.observable('#information'),
   activeTabIndex: ko.observable(0),
@@ -43,8 +39,6 @@ Object.assign(releaseEditor, {
       {error: releaseEditor.loadError()},
     );
   },
-  loadingDuplicateRGs: ko.observable(false),
-  duplicateRGs: ko.observableArray([]),
   externalLinksEditData: ko.observable({}),
   hasInvalidLinks: validation.errorField(ko.observable(false)),
 });
@@ -267,70 +261,10 @@ releaseEditor.init = function (options) {
     getRecordings();
   });
 
-  /**
-   * Check for similarly-named existing release groups when the release
-   * title or artist credits change.
-   */
-  let duplicateRGsRequest = null;
-  let duplicateRGsQuery = null;
-  debounceComputed(utils.withRelease((release) => {
-    const query = utils.constructLuceneFieldConjunction({
-      arid: release.artistCredit().names
-        .map((a) => a.artist?.gid)
-        .filter(Boolean),
-      releasegroup: [utils.escapeLuceneValue(release.name() ?? '')],
-    });
-    if (query === duplicateRGsQuery) {
-      return;
-    }
-
-    // Cancel any in-progress lookup and clear existing results.
-    duplicateRGsRequest?.abort();
-    duplicateRGsRequest = null;
-    duplicateRGsQuery = query;
-    releaseEditor.duplicateRGs.removeAll();
-
-    /*
-     * Make sure that an existing release group isn't selected
-     * and that there's a title and artist to use for searching.
-     */
-    if (
-      release.releaseGroup().gid ||
-      (release.name() ?? '') === '' ||
-      !release.artistCredit().names.some((a) => a.artist?.gid)
-    ) {
-      return;
-    }
-
-    releaseEditor.loadingDuplicateRGs(true);
-
-    duplicateRGsRequest = request({
-      url: '/ws/js/release-group' +
-        '?direct=false' +
-        '&advanced=true' +
-        '&limit=' + encodeURIComponent(maxDuplicateRGs) +
-        '&q=' + encodeURIComponent(query),
-    }).always(() => {
-      releaseEditor.loadingDuplicateRGs(false);
-      duplicateRGsRequest = null;
-    }).done((data) => {
-      const results = data.slice(0, -1).map((rg) => {
-        rg.details = bracketedText(
-          commaOnlyList([
-            rg.l_type_name,
-            texp.ln(
-              '{num} release',
-              '{num} releases',
-              rg.release_count,
-              {num: rg.release_count},
-            ),
-          ].filter(Boolean)),
-        );
-        return new fields.ReleaseGroup(rg);
-      });
-      ko.utils.arrayPushAll(releaseEditor.duplicateRGs, results);
-    });
-  }));
+  // Check for similarly-named release groups when the release changes.
+  debounceComputed(utils.withRelease(
+    () => this.loadDuplicateReleaseGroups(),
+  ));
 
   /*
    * Make sure the user actually wants to close the page/tab if they've made
