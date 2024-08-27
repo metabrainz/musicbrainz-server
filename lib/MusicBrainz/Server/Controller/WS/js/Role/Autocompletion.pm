@@ -22,6 +22,7 @@ sub dispatch_search {
     my $limit = $args->{limit} || 10;
     my $page = $args->{page} || 1;
     my $direct = $args->{direct} || '';
+    my $advanced = $args->{advanced} || '';
 
     unless ($query) {
         $c->detach('bad_req');
@@ -29,7 +30,8 @@ sub dispatch_search {
 
     my ($output, $pager) =
         $direct eq 'true' ? $self->_direct_search($c, $query, $page, $limit)
-                          : $self->_indexed_search($c, $query, $page, $limit);
+                          : $self->_indexed_search($c, $query, $page, $limit,
+                                                   $advanced eq 'true');
     my $serialization_routine = 'autocomplete_' . $self->type;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -75,11 +77,17 @@ sub _format_output {
 }
 
 sub _indexed_search {
-    my ($self, $c, $query, $page, $limit) = @_;
+    my ($self, $c, $query, $page, $limit, $advanced) = @_;
 
     my $model = $self->model($c);
 
-    my $response = $c->model('Search')->external_search($self->type, $query, $limit, $page, 0);
+    my $response = $c->model('Search')->external_search(
+        $self->type,
+        $query,
+        $limit,
+        $page,
+        $advanced,
+    );
     my (@output, $pager);
 
     if ($response->{error}) {
