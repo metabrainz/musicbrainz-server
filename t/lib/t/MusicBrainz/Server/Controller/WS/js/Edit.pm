@@ -1209,6 +1209,85 @@ test 'undef relationship begin_date/end_date fields are ignored (MBS-8317)' => s
     is(scalar(@edits), 0);
 };
 
+test 'MBS-9063: Editing a relationship to use a type that does not support dates clears them' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my $edit_data = [ {
+        edit_type   => $EDIT_RELATIONSHIP_EDIT,
+        id          => 66666123,
+        linkTypeID  => 834,
+        attributes  => [],
+        entities => [
+            { gid => '1e6092a0-73d3-465a-b06a-99c81f7bec37' },
+            { gid => '145c079d-374e-4436-9448-da92dedef3cf' },
+        ],
+        begin_date   => { year => 1999, month => 1, day => 1 },
+        end_date     => { year => 2009, month => 9, day => 9 },
+        ended       => 1,
+    } ];
+
+    my @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({ edits => $edit_data }));
+    } $c;
+
+    my $edit = $edits[0];
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
+
+    cmp_deeply($edit->data, {
+        type0 => 'artist',
+        type1 => 'work',
+        link => {
+            link_type => {
+                id                  => 168,
+                name                => 'composer',
+                link_phrase         => '{additional:additionally} composed',
+                long_link_phrase    => '{additional:additionally} composed',
+                reverse_link_phrase => '{additional} composer',
+            },
+            entity1 => { id => 123, gid => '145c079d-374e-4436-9448-da92dedef3cf', name => 'a fake work' },
+            entity0 => { id => 66666, gid => '1e6092a0-73d3-465a-b06a-99c81f7bec37', name => 'a fake artist' },
+            begin_date  => { month => undef, day => undef, year => 2006 },
+            end_date    => { month => undef, day => undef, year => 2006 },
+            ended       => 1,
+            attributes  => [],
+        },
+        relationship_id => 66666123,
+        new => {
+            link_type => {
+                id                  => 834,
+                name                => 'previous attribution',
+                link_phrase         => 'previous attribution',
+                long_link_phrase    => 'had previous attribution',
+                reverse_link_phrase => 'previously attributed to',
+            },
+            begin_date  => { month => undef, day => undef, year => undef },
+            end_date    => { month => undef, day => undef, year => undef },
+            ended       => 0,
+        },
+        old => {
+            link_type => {
+                id                  => 168,
+                name                => 'composer',
+                link_phrase         => '{additional:additionally} composed',
+                long_link_phrase    => '{additional:additionally} composed',
+                reverse_link_phrase => '{additional} composer',
+            },
+            begin_date  => { month => undef, day => undef, year => 2006 },
+            end_date    => { month => undef, day => undef, year => 2006 },
+            ended       => 1,
+        },
+        entity0_credit => '',
+        entity1_credit => '',
+        edit_version => 2,
+    });
+};
+
 test 'Release group types are loaded before creating edits (MBS-8212)' => sub {
     my $test = shift;
     my ($c, $mech) = ($test->c, $test->mech);
