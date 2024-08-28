@@ -395,7 +395,12 @@ role {
 
             $link_types_by_id->{$link_type->id} = $link_type;
 
-            if (my $period = $field->{period}) {
+            if (!($link_type->has_dates)) {
+                # Enforce blank dates for types that do not support them
+                $args{begin_date} = { year => undef, month => undef, day => undef };
+                $args{end_date} = { year => undef, month => undef, day => undef };
+                $args{ended} = 0;
+            } elsif (my $period = $field->{period}) {
                 $args{begin_date} = $period->{begin_date} if $period->{begin_date};
                 $args{end_date} = $period->{end_date} if $period->{end_date};
                 $args{ended} = $period->{ended} if defined $period->{ended};

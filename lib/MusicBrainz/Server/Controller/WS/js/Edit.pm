@@ -406,28 +406,35 @@ sub process_relationship {
     trim_string($data, 'entity0_credit');
     trim_string($data, 'entity1_credit');
 
-    my $begin_date = clean_partial_date(delete $data->{begin_date});
-    my $end_date = clean_partial_date(delete $data->{end_date});
-    my $ended = delete $data->{ended};
+    if ($data->{link_type}->has_dates) {
+        my $begin_date = clean_partial_date(delete $data->{begin_date});
+        my $end_date = clean_partial_date(delete $data->{end_date});
+        my $ended = delete $data->{ended};
 
-    if (!defined($begin_date) && $data->{relationship}) {
-        $begin_date = partial_date_to_hash($data->{relationship}->link->begin_date);
-    }
+        if (!defined($begin_date) && $data->{relationship}) {
+            $begin_date = partial_date_to_hash($data->{relationship}->link->begin_date);
+        }
 
-    if (!defined($end_date) && $data->{relationship}) {
-        $end_date = partial_date_to_hash($data->{relationship}->link->end_date);
-    }
+        if (!defined($end_date) && $data->{relationship}) {
+            $end_date = partial_date_to_hash($data->{relationship}->link->end_date);
+        }
 
-    $data->{begin_date} = $begin_date;
-    $data->{end_date} = $end_date;
-    $data->{ended} = boolean_from_json($ended) if defined $ended;
+        $data->{begin_date} = $begin_date;
+        $data->{end_date} = $end_date;
+        $data->{ended} = boolean_from_json($ended) if defined $ended;
 
-    if (
-        non_empty($begin_date->{year}) &&
-        non_empty($end_date->{year}) &&
-        !is_date_range_valid($begin_date, $end_date)
-    ) {
-        die 'invalid date range: the end date cannot precede the begin date';
+        if (
+            non_empty($begin_date->{year}) &&
+            non_empty($end_date->{year}) &&
+            !is_date_range_valid($begin_date, $end_date)
+        ) {
+            die 'invalid date range: the end date cannot precede the begin date';
+        }
+    } else {
+        # Enforce blank dates for types that do not support them
+        $data->{begin_date} = { year => undef, month => undef, day => undef };
+        $data->{end_date} = { year => undef, month => undef, day => undef };
+        $data->{ended} = 0;
     }
 
     if (defined $data->{attributes}) {
