@@ -54,8 +54,7 @@ const allDestructiveEditsConditionArgs =
   'conditions.0.args=9&' + // Edit artist credit
   'conditions.0.args=315&' + // Remove cover art
   'conditions.0.args=78&' + // Remove ISRC
-  'conditions.0.args=410&' + // Remove ISWC
-  'conditions.0.args=47&'; // Remove work alias
+  'conditions.0.args=410&'; // Remove ISWC
 
 component VotingGuideRow(
   guideName: string,
