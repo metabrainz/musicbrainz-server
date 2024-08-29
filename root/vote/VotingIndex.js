@@ -54,6 +54,7 @@ const allDestructiveEditsConditionArgs =
   releaseLevelDestructiveEditsConditionArgs +
   'conditions.0.args=9&' + // Edit artist credit
   'conditions.0.args=315&' + // Remove cover art
+  'conditions.0.args=159&' + // Remove event art
   'conditions.0.args=78&' + // Remove ISRC
   'conditions.0.args=410&'; // Remove ISWC
 
