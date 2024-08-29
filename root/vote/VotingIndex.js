@@ -34,6 +34,7 @@ const entityRemovalEditsConditionArgs =
   'conditions.0.args=63&' + // Remove place
   'conditions.0.args=73&' + // Remove recording
   'conditions.0.args=23&' + // Remove release group
+  'conditions.0.args=212%2C310&' + // Remove releases
   'conditions.0.args=224&' + // Remove releases (historic)
   'conditions.0.args=142&' + // Remove series
   'conditions.0.args=43&'; // Remove work
