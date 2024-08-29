@@ -9,13 +9,14 @@
 
 import Layout from '../layout/index.js';
 
+const subscribedArtistsCondition =
+  '&conditions.9.field=artist&conditions.9.operator=subscribed';
+
 component VotingGuideRow(
   guideName: string,
   mainUrl: string,
   showSubscribedArtistsUrl?: boolean = false,
 ) {
-  const subscribedArtistsCondition =
-    '&conditions.9.field=artist&conditions.9.operator=subscribed';
   return (
     <li>
       <a href={mainUrl}>
