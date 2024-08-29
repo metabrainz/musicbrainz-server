@@ -50,6 +50,7 @@ const relationshipRemovalEditsConditionArgs =
 const allDestructiveEditsConditionArgs =
   entityMergeEditsConditionArgs +
   entityRemovalEditsConditionArgs +
+  relationshipRemovalEditsConditionArgs +
   releaseLevelDestructiveEditsConditionArgs +
   'conditions.0.args=9&' + // Edit artist credit
   'conditions.0.args=315&' + // Remove cover art
