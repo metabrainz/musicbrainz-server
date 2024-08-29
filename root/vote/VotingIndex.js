@@ -12,6 +12,50 @@ import Layout from '../layout/index.js';
 const subscribedArtistsCondition =
   '&conditions.9.field=artist&conditions.9.operator=subscribed';
 
+const entityMergeEditsConditionArgs =
+  'conditions.0.args=84&' + // Merge areas
+  'conditions.0.args=4&' + // Merge artists
+  'conditions.0.args=153&' + // Merge events
+  'conditions.0.args=134&' + // Merge instruments
+  'conditions.0.args=14&' + // Merge labels
+  'conditions.0.args=64&' + // Merge places
+  'conditions.0.args=74&' + // Merge recordings
+  'conditions.0.args=24&' + // Merge release groups
+  'conditions.0.args=223%2C225%2C311&' + // Merge releases
+  'conditions.0.args=143&' + // Merge series
+  'conditions.0.args=44&'; // Merge works
+
+const entityRemovalEditsConditionArgs =
+  'conditions.0.args=83&' + // Remove area
+  'conditions.0.args=3&' + // Remove artist
+  'conditions.0.args=152&' + // Remove event
+  'conditions.0.args=133&' + // Remove instrument
+  'conditions.0.args=13&' + // Remove label
+  'conditions.0.args=63&' + // Remove place
+  'conditions.0.args=73&' + // Remove recording
+  'conditions.0.args=23&' + // Remove release group
+  'conditions.0.args=224&' + // Remove releases (historic)
+  'conditions.0.args=142&' + // Remove series
+  'conditions.0.args=43&'; // Remove work
+
+const releaseLevelDestructiveEditsConditionArgs =
+  'conditions.0.args=53&' + // Remove medium
+  'conditions.0.args=36&' + // Remove release label
+  'conditions.0.args=211&'; // Remove track
+
+const relationshipRemovalEditsConditionArgs =
+  'conditions.0.args=92%2C235&'; // Remove relationship
+
+const allDestructiveEditsConditionArgs =
+  entityMergeEditsConditionArgs +
+  entityRemovalEditsConditionArgs +
+  releaseLevelDestructiveEditsConditionArgs +
+  'conditions.0.args=9&' + // Edit artist credit
+  'conditions.0.args=315&' + // Remove cover art
+  'conditions.0.args=78&' + // Remove ISRC
+  'conditions.0.args=410&' + // Remove ISWC
+  'conditions.0.args=47&'; // Remove work alias
+
 component VotingGuideRow(
   guideName: string,
   mainUrl: string,
@@ -98,7 +142,7 @@ component VotingIndex() {
           <VotingGuideRow
             guideName={l('All open destructive edits')}
             mainUrl={'/search/edits?' +
-              'conditions.0.field=type&conditions.0.operator=%3D&conditions.0.args=9&conditions.0.args=84&conditions.0.args=4&conditions.0.args=153&conditions.0.args=134&conditions.0.args=14&conditions.0.args=64&conditions.0.args=74&conditions.0.args=24&conditions.0.args=225%2C223%2C311&conditions.0.args=143&conditions.0.args=44&conditions.0.args=83&conditions.0.args=3&conditions.0.args=315&conditions.0.args=152&conditions.0.args=133&conditions.0.args=78&conditions.0.args=410&conditions.0.args=13&conditions.0.args=53&conditions.0.args=63&conditions.0.args=73&conditions.0.args=23&conditions.0.args=36&conditions.0.args=224&conditions.0.args=142&conditions.0.args=211&conditions.0.args=43&conditions.0.args=47&' +
+              'conditions.0.field=type&conditions.0.operator=%3D&' + allDestructiveEditsConditionArgs +
               'conditions.1.field=status&conditions.1.operator=%3D&conditions.1.args=1&' +
               'conditions.2.field=editor&conditions.2.operator=not_me&conditions.2.name=&conditions.2.args.0=&' +
               'conditions.3.field=voter&conditions.3.operator=me&conditions.3.name=&conditions.3.voter_id=&conditions.3.args=no'}
@@ -107,7 +151,7 @@ component VotingIndex() {
           <VotingGuideRow
             guideName={l('All open destructive edits without edit notes')}
             mainUrl={'/search/edits?' +
-              'conditions.0.field=type&conditions.0.operator=%3D&conditions.0.args=9&conditions.0.args=84&conditions.0.args=4&conditions.0.args=153&conditions.0.args=134&conditions.0.args=14&conditions.0.args=64&conditions.0.args=74&conditions.0.args=24&conditions.0.args=225%2C223%2C311&conditions.0.args=143&conditions.0.args=44&conditions.0.args=83&conditions.0.args=3&conditions.0.args=315&conditions.0.args=152&conditions.0.args=133&conditions.0.args=78&conditions.0.args=410&conditions.0.args=13&conditions.0.args=53&conditions.0.args=63&conditions.0.args=73&conditions.0.args=23&conditions.0.args=36&conditions.0.args=224&conditions.0.args=142&conditions.0.args=211&conditions.0.args=43&conditions.0.args=47&' +
+              'conditions.0.field=type&conditions.0.operator=%3D&' + allDestructiveEditsConditionArgs +
               'conditions.1.field=status&conditions.1.operator=%3D&conditions.1.args=1&' +
               'conditions.2.field=editor&conditions.2.operator=not_me&conditions.2.name=&conditions.2.args.0=&' +
               'conditions.3.field=voter&conditions.3.operator=me&conditions.3.name=&conditions.3.voter_id=&conditions.3.args=no&' +
@@ -117,7 +161,7 @@ component VotingIndex() {
           <VotingGuideRow
             guideName={l('All open entity merges and removals')}
             mainUrl={'/search/edits?' +
-              'conditions.0.field=type&conditions.0.operator=%3D&conditions.0.args=84&conditions.0.args=4&conditions.0.args=153&conditions.0.args=134&conditions.0.args=14&conditions.0.args=64&conditions.0.args=74&conditions.0.args=24&conditions.0.args=143&conditions.0.args=44&conditions.0.args=83&conditions.0.args=3&conditions.0.args=152&conditions.0.args=133&conditions.0.args=13&conditions.0.args=63&conditions.0.args=73&conditions.0.args=310%2C212&conditions.0.args=23&conditions.0.args=142&conditions.0.args=43&' +
+              'conditions.0.field=type&conditions.0.operator=%3D&' + entityMergeEditsConditionArgs + entityRemovalEditsConditionArgs +
               'conditions.1.field=status&conditions.1.operator=%3D&conditions.1.args=1&' +
               'conditions.2.field=editor&conditions.2.operator=not_me&conditions.2.name=&conditions.2.args.0=&' +
               'conditions.3.field=voter&conditions.3.operator=me&conditions.3.name=&conditions.3.voter_id=&conditions.3.args=no'}
@@ -126,7 +170,7 @@ component VotingIndex() {
           <VotingGuideRow
             guideName={l('All open relationship removals')}
             mainUrl={'/search/edits?' +
-              'conditions.0.field=type&conditions.0.operator=%3D&conditions.0.args=92%2C235&' +
+              'conditions.0.field=type&conditions.0.operator=%3D&' + relationshipRemovalEditsConditionArgs +
               'conditions.1.field=status&conditions.1.operator=%3D&conditions.1.args=1&' +
               'conditions.2.field=editor&conditions.2.operator=not_me&conditions.2.name=&conditions.2.args.0=&' +
               'conditions.3.field=voter&conditions.3.operator=me&conditions.3.name=&conditions.3.voter_id=&conditions.3.args=no'}
@@ -135,7 +179,7 @@ component VotingIndex() {
           <VotingGuideRow
             guideName={l('All open destructive changes to releases')}
             mainUrl={'/search/edits?' +
-              'conditions.0.field=type&conditions.0.operator=%3D&conditions.0.args=53&conditions.0.args=36&conditions.0.args=211&' +
+              'conditions.0.field=type&conditions.0.operator=%3D&' + releaseLevelDestructiveEditsConditionArgs +
               'conditions.1.field=status&conditions.1.operator=%3D&conditions.1.args=1&' +
               'conditions.2.field=editor&conditions.2.operator=not_me&conditions.2.name=&conditions.2.args.0=&' +
               'conditions.3.field=voter&conditions.3.operator=me&conditions.3.name=&conditions.3.voter_id=&conditions.3.args=no'}
@@ -342,7 +386,7 @@ component VotingIndex() {
           <VotingGuideRow
             guideName={l('All open destructive edits by beginner editors')}
             mainUrl={'/search/edits?' +
-              'conditions.0.field=type&conditions.0.operator=%3D&conditions.0.args=9&conditions.0.args=84&conditions.0.args=4&conditions.0.args=153&conditions.0.args=134&conditions.0.args=14&conditions.0.args=64&conditions.0.args=74&conditions.0.args=24&conditions.0.args=225%2C223%2C311&conditions.0.args=143&conditions.0.args=44&conditions.0.args=83&conditions.0.args=3&conditions.0.args=315&conditions.0.args=152&conditions.0.args=133&conditions.0.args=78&conditions.0.args=410&conditions.0.args=13&conditions.0.args=53&conditions.0.args=63&conditions.0.args=73&conditions.0.args=23&conditions.0.args=36&conditions.0.args=224&conditions.0.args=142&conditions.0.args=211&conditions.0.args=43&conditions.0.args=47&' +
+              'conditions.0.field=type&conditions.0.operator=%3D&' + allDestructiveEditsConditionArgs +
               'conditions.1.field=status&conditions.1.operator=%3D&conditions.1.args=1&' +
               'conditions.2.field=editor&conditions.2.operator=limited&conditions.2.name=&conditions.2.args.0=&' +
               'conditions.3.field=voter&conditions.3.operator=me&conditions.3.name=&conditions.3.voter_id=&conditions.3.args=no'}
