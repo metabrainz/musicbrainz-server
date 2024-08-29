@@ -12,6 +12,20 @@ import Layout from '../layout/index.js';
 const subscribedArtistsCondition =
   '&conditions.9.field=artist&conditions.9.operator=subscribed';
 
+const artworkRemovalEditsConditionArgs =
+  'conditions.0.args=315&' + // Remove cover art
+  'conditions.0.args=159&'; // Remove event art
+
+const artworkEditsConditionArgs =
+  artworkRemovalEditsConditionArgs +
+  'conditions.0.args=314&' + // Add cover art
+  'conditions.0.args=158&' + // Add event art
+  'conditions.0.args=316&' + // Edit cover art
+  'conditions.0.args=1510&' + // Edit event art
+  'conditions.0.args=317&' + // Reorder cover art
+  'conditions.0.args=1511&' + // Reorder event art
+  'conditions.0.args=22&'; // Set cover art
+
 const entityMergeEditsConditionArgs =
   'conditions.0.args=84&' + // Merge areas
   'conditions.0.args=4&' + // Merge artists
@@ -48,13 +62,12 @@ const relationshipRemovalEditsConditionArgs =
   'conditions.0.args=92%2C235&'; // Remove relationship
 
 const allDestructiveEditsConditionArgs =
+  artworkRemovalEditsConditionArgs +
   entityMergeEditsConditionArgs +
   entityRemovalEditsConditionArgs +
   relationshipRemovalEditsConditionArgs +
   releaseLevelDestructiveEditsConditionArgs +
   'conditions.0.args=9&' + // Edit artist credit
-  'conditions.0.args=315&' + // Remove cover art
-  'conditions.0.args=159&' + // Remove event art
   'conditions.0.args=78&' + // Remove ISRC
   'conditions.0.args=410&'; // Remove ISWC
 
@@ -129,14 +142,14 @@ component VotingIndex() {
              guaranteed to remain open for at least two full days even if they
              get three “Yes” votes, to avoid them closing too quickly, but
              it’s always good to get more eyes on them. Below you can find
-             five different searches: one for all destructive edits (which
+             six different searches: one for all destructive edits (which
              might be overwhelming sometimes), one only for those destructive
              edits that have no edit notes (so no reasoning has been provided
              for them at all), one for entity merges and removals only
              (the edits more likely to cause a mess if they incorrectly go
-             through), one for relationship removals only, and one for
+             through), one for relationship removals only, one for
              destructive changes to releases (track, medium and release label
-             removals).`,
+             removals), and one for image removals (cover and event art).`,
           )}
         </p>
         <ul>
@@ -182,6 +195,15 @@ component VotingIndex() {
             guideName={l('All open destructive changes to releases')}
             mainUrl={'/search/edits?' +
               'conditions.0.field=type&conditions.0.operator=%3D&' + releaseLevelDestructiveEditsConditionArgs +
+              'conditions.1.field=status&conditions.1.operator=%3D&conditions.1.args=1&' +
+              'conditions.2.field=editor&conditions.2.operator=not_me&conditions.2.name=&conditions.2.args.0=&' +
+              'conditions.3.field=voter&conditions.3.operator=me&conditions.3.name=&conditions.3.voter_id=&conditions.3.args=no'}
+            showSubscribedArtistsUrl
+          />
+          <VotingGuideRow
+            guideName={l('All open artwork removals')}
+            mainUrl={'/search/edits?' +
+              'conditions.0.field=type&conditions.0.operator=%3D&' + artworkRemovalEditsConditionArgs +
               'conditions.1.field=status&conditions.1.operator=%3D&conditions.1.args=1&' +
               'conditions.2.field=editor&conditions.2.operator=not_me&conditions.2.name=&conditions.2.args.0=&' +
               'conditions.3.field=voter&conditions.3.operator=me&conditions.3.name=&conditions.3.voter_id=&conditions.3.args=no'}
@@ -324,7 +346,9 @@ component VotingIndex() {
              which are probably the most complex and as such reasonably likely
              to have issues, plus for edits adding artists, which might
              include artists trying to add their own data and not doing
-             a great job of it.`,
+             a great job of it, and for artwork-related edits, which often
+             see beginners struggle with picking the right images for the
+             right entity.`,
           )}
         </p>
 
@@ -382,6 +406,19 @@ component VotingIndex() {
             guideName={l('All "Add artist" edits by beginner editors made less than 2 weeks ago')}
             mainUrl={'/search/edits?' +
               'conditions.0.field=type&conditions.0.operator=%3D&conditions.0.args=1&' +
+              'conditions.1.field=editor&conditions.1.operator=limited&conditions.1.name=&conditions.1.args.0=&' +
+              'conditions.2.field=open_time&conditions.2.operator=>&conditions.2.args.0=2+weeks+ago&conditions.2.args.1='}
+          />
+          <VotingGuideRow
+            guideName={l('All artwork edits by beginner editors')}
+            mainUrl={'/search/edits?' +
+              'conditions.0.field=type&conditions.0.operator=%3D&' + artworkEditsConditionArgs +
+              'conditions.1.field=editor&conditions.1.operator=limited&conditions.1.name=&conditions.1.args.0='}
+          />
+          <VotingGuideRow
+            guideName={l('All artwork edits by beginner editors made less than 2 weeks ago')}
+            mainUrl={'/search/edits?' +
+              'conditions.0.field=type&conditions.0.operator=%3D&' + artworkEditsConditionArgs +
               'conditions.1.field=editor&conditions.1.operator=limited&conditions.1.name=&conditions.1.args.0=&' +
               'conditions.2.field=open_time&conditions.2.operator=>&conditions.2.args.0=2+weeks+ago&conditions.2.args.1='}
           />
