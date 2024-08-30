@@ -16,7 +16,7 @@
     // Click the existing release group's radio button.
     {
       command: 'click',
-      target: 'css=#information .duplicate-rgs-list :first-child input',
+      target: 'css=#information .duplicate-release-groups-list :first-child input',
       value: '',
     },
     {
@@ -32,7 +32,7 @@
     // Click the "Add a new release group" radio button.
     {
       command: 'click',
-      target: 'css=#information .duplicate-rgs-list :last-child input',
+      target: 'css=#information .duplicate-release-groups-list :last-child input',
       value: '',
     },
     {

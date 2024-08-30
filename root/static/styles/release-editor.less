@@ -54,9 +54,18 @@ div.half-width {
 
     td.release-artist { width: 100%; }
 
-    .duplicate-rgs-loading { margin-bottom: 0.5em; }
-    .duplicate-rgs-label { font-weight: bold; }
-    .duplicate-rgs-list {
+    .duplicate-release-groups-loading { margin-bottom: 0.5em; }
+    .duplicate-release-groups-error {
+        font-style: italic;
+        margin-bottom: 0.5em;
+        a {
+            cursor: pointer;
+            font-style: normal;
+            margin-left: 0.5em;
+        }
+    }
+    .duplicate-release-groups-label { font-weight: bold; }
+    .duplicate-release-groups-list {
         margin-bottom: 0.5em;
 
         > * {
