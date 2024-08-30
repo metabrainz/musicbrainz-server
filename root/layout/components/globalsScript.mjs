@@ -78,4 +78,4 @@ export default ((
       );
     }}
   </CatalystContext.Consumer>
-): React$MixedElement);
+): React.MixedElement);
