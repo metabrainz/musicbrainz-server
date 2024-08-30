@@ -186,6 +186,7 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
     $c->model('Release')->load_related_info(@$releases);
     $c->model('Release')->load_aliases(@$releases);
     $c->model('Release')->load_meta(@$releases);
+    $c->model('ReleaseStatus')->load(@$releases);
     $c->model('ArtistCredit')->load(@$releases);
 
     my @non_darkened_releases = grep { $_->may_have_cover_art } @$releases;
