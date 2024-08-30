@@ -19,7 +19,7 @@ function buildTabs(
   $c: CatalystContextT,
   user: AccountLayoutUserT,
   page: string,
-): $ReadOnlyArray<React.Element<'li'>> {
+): $ReadOnlyArray<React.MixedElement> {
   const viewingOwnProfile = Boolean($c.user && $c.user.id === user.id);
 
   const userName = encodeURIComponent(user.name);

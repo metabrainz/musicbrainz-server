@@ -15,17 +15,11 @@ import EnterEditNote
 
 import EventLayout from './EventLayout.js';
 
-type Props = {
-  +artwork: EventArtT,
-  +event: EventT,
-  +form: ConfirmFormT,
-};
-
-const RemoveEventArt = ({
-  artwork,
-  event,
-  form,
-}: Props): React.Element<typeof EventLayout> => {
+component RemoveEventArt(
+  artwork: EventArtT,
+  event: EventT,
+  form: ConfirmFormT,
+) {
   const title = lp('Remove event art', 'singular, header');
 
   return (
@@ -46,6 +40,6 @@ const RemoveEventArt = ({
       </form>
     </EventLayout>
   );
-};
+}
 
 export default RemoveEventArt;

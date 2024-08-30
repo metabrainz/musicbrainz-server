@@ -77,27 +77,14 @@ function splitTags(tags: string) {
 
 type VoteT = 1 | 0 | -1;
 
-type GenericVoteButtonPropsT = {
+component VoteButton(
+  activeTitle: string | () => string,
   callback: (VoteT) => void,
   currentVote: VoteT,
-};
-
-type VoteButtonPropsT = {
-  ...GenericVoteButtonPropsT,
-  activeTitle: string | () => string,
   text: string,
   title: string | () => string,
   vote: VoteT,
-};
-
-const VoteButton = ({
-  activeTitle,
-  callback,
-  currentVote,
-  text,
-  title,
-  vote,
-}: VoteButtonPropsT): React.Element<'button'> => {
+ ) {
   const isActive = vote === currentVote;
   const className = 'tag-vote tag-' + VOTE_ACTIONS[vote];
   const buttonTitle = isActive
@@ -117,47 +104,45 @@ const VoteButton = ({
       {text}
     </button>
   );
-};
+}
 
-const UpvoteButton = ({
-  callback,
-  currentVote,
-}: GenericVoteButtonPropsT): React.Element<typeof VoteButton> => (
-  <VoteButton
-    activeTitle={lp('You’ve upvoted this tag', 'folksonomy')}
-    callback={callback}
-    currentVote={currentVote}
-    text="+"
-    title={l('Upvote')}
-    vote={1}
-  />
-);
+component UpvoteButton(
+  callback: (VoteT) => void,
+  currentVote: VoteT,
+) renders VoteButton {
+  return (
+    <VoteButton
+      activeTitle={lp('You’ve upvoted this tag', 'folksonomy')}
+      callback={callback}
+      currentVote={currentVote}
+      text="+"
+      title={l('Upvote')}
+      vote={1}
+    />
+  );
+}
 
-const DownvoteButton = ({
-  callback,
-  currentVote,
-}: GenericVoteButtonPropsT): React.Element<typeof VoteButton> => (
-  <VoteButton
-    activeTitle={lp('You’ve downvoted this tag', 'folksonomy')}
-    callback={callback}
-    currentVote={currentVote}
-    text={'\u2212'}
-    title={l('Downvote')}
-    vote={-1}
-  />
-);
+component DownvoteButton(
+  callback: (VoteT) => void,
+  currentVote: VoteT,
+) renders VoteButton {
+  return (
+    <VoteButton
+      activeTitle={lp('You’ve downvoted this tag', 'folksonomy')}
+      callback={callback}
+      currentVote={currentVote}
+      text={'\u2212'}
+      title={l('Downvote')}
+      vote={-1}
+    />
+  );
+}
 
-type VoteButtonsPropsT = {
+component VoteButtons(
   callback: (VoteT) => void,
   count: number,
   currentVote: VoteT,
-};
-
-const VoteButtons = ({
-  callback,
-  count,
-  currentVote,
-}: VoteButtonsPropsT): React.Element<'span'> => {
+) {
   const $c = React.useContext(SanitizedCatalystContext);
 
   let className = '';
@@ -178,32 +163,26 @@ const VoteButtons = ({
       <span className="tag-count">{count}</span>
     </span>
   );
-};
+}
 
-type TagRowPropsT = {
+component TagRow(
   callback: (VoteT) => void,
   count: number,
   currentVote: VoteT,
   index: number,
   tag: TagT,
-};
-
-const TagRow = ({
-  callback,
-  count,
-  currentVote,
-  index,
-  tag,
-}: TagRowPropsT): React.Element<'li'> => (
-  <li className={loopParity(index)} key={tag.name}>
-    <TagLink tag={tag.name} />
-    <VoteButtons
-      callback={callback}
-      count={count}
-      currentVote={currentVote}
-    />
-  </li>
-);
+) {
+  return (
+    <li className={loopParity(index)} key={tag.name}>
+      <TagLink tag={tag.name} />
+      <VoteButtons
+        callback={callback}
+        count={count}
+        currentVote={currentVote}
+      />
+    </li>
+  );
+}
 
 type TagEditorProps = {
   +aggregatedTags: $ReadOnlyArray<AggregatedTagT>,

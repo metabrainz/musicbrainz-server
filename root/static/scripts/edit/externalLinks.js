@@ -970,7 +970,7 @@ export class _ExternalLinksEditor
     return Boolean(linkChanged || linkTypeChanged);
   }
 
-  render(): React.Element<'table'> {
+  render(): React.MixedElement {
     this.errorObservable(false);
 
     const linksArray = this.state.links;
@@ -1140,21 +1140,12 @@ export class _ExternalLinksEditor
   }
 }
 
-type LinkTypeSelectPropsT = {
-  +handleTypeBlur:
-    (SyntheticFocusEvent<HTMLSelectElement>) => void,
-  +handleTypeChange:
-    (SyntheticEvent<HTMLSelectElement>) => void,
-  +options: Array<LinkTypeOptionT>,
-  +type: number | null,
-};
-
-const LinkTypeSelect = ({
-  handleTypeBlur,
-  handleTypeChange,
-  options,
-  type,
-}: LinkTypeSelectPropsT): React.Element<'select'> => {
+component LinkTypeSelect(
+  handleTypeBlur: (SyntheticFocusEvent<HTMLSelectElement>) => void,
+  handleTypeChange: (SyntheticEvent<HTMLSelectElement>) => void,
+  options: Array<LinkTypeOptionT>,
+  type: number | null,
+) {
   const optionAvailable = options.some(option => option.value === type);
   // If the selected type is not available, display it as placeholder
   const linkType = type ? linkedEntities.link_type[type] : null;
@@ -1184,33 +1175,27 @@ const LinkTypeSelect = ({
       ))}
     </select>
   );
-};
+}
 
-type TypeDescriptionProps = {
-  +type: number | null,
-  +url: string,
-};
+component TypeDescription(type: number | null) renders HelpIcon {
+  const linkType = type ? linkedEntities.link_type[type] : null;
+  let typeDescription: Expand2ReactOutput = '';
 
-const TypeDescription =
-  (props: TypeDescriptionProps): React.Element<typeof HelpIcon> => {
-    const linkType = props.type ? linkedEntities.link_type[props.type] : null;
-    let typeDescription: Expand2ReactOutput = '';
+  if (linkType && linkType.description) {
+    typeDescription = exp.l('{description} ({url|more documentation})', {
+      description: expand2react(l_relationships(linkType.description)),
+      url: '/relationship/' + linkType.gid,
+    });
+  }
 
-    if (linkType && linkType.description) {
-      typeDescription = exp.l('{description} ({url|more documentation})', {
-        description: expand2react(l_relationships(linkType.description)),
-        url: '/relationship/' + linkType.gid,
-      });
-    }
-
-    return (
-      <HelpIcon
-        content={
-          <div style={{textAlign: 'left'}}>{typeDescription}</div>
-        }
-      />
-    );
-  };
+  return (
+    <HelpIcon
+      content={
+        <div style={{textAlign: 'left'}}>{typeDescription}</div>
+      }
+    />
+  );
+}
 
 type ExternalLinkRelationshipProps = {
   +creditableEntityProp: 'entity0_credit' | 'entity1_credit' | null,
@@ -1228,7 +1213,7 @@ type ExternalLinkRelationshipProps = {
 };
 
 const ExternalLinkRelationship =
-  (props: ExternalLinkRelationshipProps): React.Element<'tr'> => {
+  (props: ExternalLinkRelationshipProps): React.MixedElement => {
     const {
       creditableEntityProp,
       link,
@@ -1319,7 +1304,7 @@ const ExternalLinkRelationship =
                   )
               }
               {link.url && !link.error && !hasUrlError
-                ? <TypeDescription type={link.type} url={link.url} />
+                ? <TypeDescription type={link.type} />
                 : null}
               <RelationshipPendingEditsWarning relationship={link} />
               {hasDate ? (

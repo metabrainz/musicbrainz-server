@@ -9,19 +9,15 @@
 
 import ReorderArt from './ReorderArt.js';
 
-type Props = {
-  +edit: ReorderEventArtEditT,
-};
-
-const ReorderEventArt = ({
-  edit,
-}: Props): React.Element<typeof ReorderArt> => (
-  <ReorderArt
-    archiveName="event"
-    edit={edit}
-    entityType="event"
-    formattedEntityType={l('Event')}
-  />
-);
+component ReorderEventArt(edit: ReorderEventArtEditT) {
+  return (
+    <ReorderArt
+      archiveName="event"
+      edit={edit}
+      entityType="event"
+      formattedEntityType={l('Event')}
+    />
+  );
+}
 
 export default ReorderEventArt;

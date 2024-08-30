@@ -157,7 +157,7 @@ class PreferencesForm extends React.Component<Props, State> {
       .final());
   }
 
-  render(): React.Element<'form'> {
+  render(): React.MixedElement {
     const field = this.state.form.field;
     return (
       <form method="post">

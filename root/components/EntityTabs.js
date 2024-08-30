@@ -76,7 +76,7 @@ function buildLinks(
   $c: CatalystContextT,
   entity: RelatableEntityT,
   page?: string,
-): $ReadOnlyArray<React.Element<typeof EntityTabLink>> {
+): $ReadOnlyArray<React.MixedElement> {
   const links = [buildLink(l('Overview'), entity, '', page, false, 'index')];
   const user = $c.user;
 

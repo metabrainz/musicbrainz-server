@@ -9,13 +9,7 @@
 
 import EventLayout from './EventLayout.js';
 
-type Props = {
-  +event: EventT,
-};
-
-const EventArtDarkened = ({
-  event,
-}: Props): React.Element<typeof EventLayout> => {
+component EventArtDarkened(event: EventT) {
   const title = lp('Cannot add event art', 'plural');
 
   return (
@@ -27,6 +21,6 @@ const EventArtDarkened = ({
       </p>
     </EventLayout>
   );
-};
+}
 
 export default EventArtDarkened;

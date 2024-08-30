@@ -11,10 +11,10 @@ import ArtFields, {
   type CommonProps as Props,
 } from '../components/ArtFields.js';
 
-const EventArtFields = ({
+component EventArtFields(...{
   form,
   typeIdOptions,
-}: Props): React.Element<typeof ArtFields> => {
+}: Props) {
   return (
     <ArtFields
       archiveName="event"
@@ -28,6 +28,6 @@ const EventArtFields = ({
       typeIdOptions={typeIdOptions}
     />
   );
-};
+}
 
 export default EventArtFields;
