@@ -93,6 +93,7 @@ component SetCoverArtForm(
             const releaseLabels = hasReleaseLabels
               ? <ReleaseLabelList labels={release.labels} />
               : null;
+            const releaseStatus = release.status;
 
             return (
               <div
@@ -150,6 +151,13 @@ component SetCoverArtForm(
                     {' '}
                     {release.combined_track_count}
                   </p>
+                  {releaseStatus ? (
+                    <p>
+                      {addColonText(lp('Status', 'release'))}
+                      {' '}
+                      {lp_attributes(releaseStatus.name, 'release_status')}
+                    </p>
+                  ) : null}
                   {releaseLabels || releaseCatnos ? (
                     <p>
                       {releaseLabels ? (
