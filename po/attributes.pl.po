@@ -13,21 +13,23 @@
 # Rafał Nawrot <email address hidden>, 2016
 # rawrower <email address hidden>, 2019
 # szczepaxn pax <email address hidden>, 2016
-#   Tobias Toedter <email address hidden>, 2007
+# Tobias Toedter <email address hidden>, 2007
+# Echelon666 <echelon01@wp.pl>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: Michał Furmański <ankhedonic@gmail.com>, 2022\n"
-"Language-Team: Polish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/pl/)\n"
+"PO-Revision-Date: 2024-08-28 22:42+0000\n"
+"Last-Translator: Echelon666 <echelon01@wp.pl>\n"
+"Language-Team: Polish <https://translations.metabrainz.org/projects/"
+"musicbrainz/attributes/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -88,12 +90,9 @@ msgid "12\" Vinyl"
 msgstr "12-calowy winyl"
 
 #: DB:medium_format/name:207
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "7\" Vinyl"
 msgctxt "medium_format"
 msgid "3\" Vinyl"
-msgstr "7-calowy winyl"
+msgstr "3-calowy winyl"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
@@ -149,7 +148,7 @@ msgstr "8cm CD+G"
 #: DB:medium_format/description:166
 msgctxt "medium_format"
 msgid "8cm DVD, often used for video singles."
-msgstr ""
+msgstr "Płyta DVD o średnicy 8 cm, często używana w przypadku singli wideo."
 
 #. name:Pathé disc
 #: DB:medium_format/description:58
@@ -331,6 +330,8 @@ msgid ""
 "A company that manufactures physical releases (such as pressing CDs or vinyl "
 "records)."
 msgstr ""
+"Firma produkująca wydania fizyczne (takie jak tłoczone płyty CD lub płyty "
+"winylowe)."
 
 #. name:Concerto
 #: DB:work_type/description:4
