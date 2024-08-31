@@ -13,13 +13,14 @@
 # yvanz, 2016,2019-2021,2023
 # yvanz, 2016
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
-# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-11 18:31+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-08-23 12:42+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/fr/>\n"
 "Language: fr\n"
@@ -1045,7 +1046,7 @@ msgstr "Illustration"
 #: ../root/statistics/stats.js:23
 msgctxt "noun"
 msgid "Edit information"
-msgstr "Modifier les informations"
+msgstr "Informations des modifications"
 
 #: ../root/statistics/stats.js:24
 msgctxt "noun"

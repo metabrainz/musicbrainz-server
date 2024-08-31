@@ -24,17 +24,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-01 04:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-08-26 17:42+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
@@ -225,47 +225,47 @@ msgstr "página de CPDL para"
 
 #: DB:link_type/name:227 DB:link_type/name:8
 msgid "DJ-mix"
-msgstr "DJ-mix"
+msgstr "mezcla de DJ"
 
 #. name:DJ-mix
 #: DB:link_type/link_phrase:227 DB:link_type/link_phrase:8
 msgid "DJ-mix of"
-msgstr "DJ-mix de"
+msgstr "mezcla de DJ de"
 
 #. name:mix-DJ
 #: DB:link_type/link_phrase:155 DB:link_type/long_link_phrase:155
 msgid "DJ-mixed"
-msgstr "hizo el DJ-mix de"
+msgstr "hizo la mezcla de DJ de"
 
 #. name:DJ-mix
 #: DB:link_type/reverse_link_phrase:8
 msgid "DJ-mixed versions"
-msgstr "versiones en un DJ-mix"
+msgstr "mezclas de DJ"
 
 #. name:mix-DJ
 #: DB:link_type/long_link_phrase:43
 msgid "DJ-mixed {medium:% of}"
-msgstr "hizo el DJ-mix de{medium:l medio % de}"
+msgstr "hizo la mezcla de DJ de{medium:l medio % de}"
 
 #. name:mix-DJ
 #: DB:link_type/link_phrase:43
 msgid "DJ-mixed {medium}"
-msgstr "hizo el DJ-mix de{medium:l medio % de}"
+msgstr "hizo la mezcla de DJ de {medium}"
 
 #. name:mix-DJ
 #: DB:link_type/reverse_link_phrase:155
 msgid "DJ-mixer"
-msgstr "DJ-mix por"
+msgstr "mezcla de DJ por"
 
 #. name:mix-DJ
 #: DB:link_type/reverse_link_phrase:43
 msgid "DJ-mixer {medium}"
-msgstr "DJ-mix ({medium}) por"
+msgstr "mezcla de DJ ({medium}) por"
 
 #. name:DJ-mix
 #: DB:link_type/reverse_link_phrase:227
 msgid "DJ-mixes"
-msgstr "DJ-mixes"
+msgstr "mezclas de DJ"
 
 #. name:mastering engineer position
 #: DB:link_type/description:704
@@ -3017,6 +3017,10 @@ msgid ""
 "relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a> for "
 "crediting the person who created the DJ-mix."
 msgstr ""
+"Enlaza una <a href=\"/doc/Mix_Terminology#DJ_mix\">mezcla de DJ</a> a sus "
+"grabaciones originales. Para indicar la persona que creó la mezcla, usa “<a "
+"href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">mezcla de DJ "
+"por</a>”."
 
 #. name:allmusic
 #: DB:link_type/description:1093
@@ -3082,6 +3086,10 @@ msgid ""
 "relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for "
 "crediting the person who created the DJ-mix."
 msgstr ""
+"Enlaza un grupo de publicaciones para <a href=\"/doc/Mix_Terminology#DJ_mix\""
+">mezclas de DJ</a> al grupo de publicaciones que contiene la publicación "
+"original. Para indicar la persona que creó la mezcla, usa “<a href=\"/"
+"relationship/9162dedd-790c-446c-838e-240f877dbfe2\">mezcla de DJ por</a>”."
 
 #. name:allmusic
 #: DB:link_type/description:284
@@ -3277,8 +3285,8 @@ msgid ""
 "This links a <a href=\"/doc/Mix_Terminology#DJ_mix\" target=\"_blank\">DJ-"
 "mix</a> to the artist who mixed it."
 msgstr ""
-"Enlaza un <a href=\"/doc/Mix_Terminology#DJ_mix\" target=\"_blank\">DJ-mix</"
-"a> al artista que lo mezcló."
+"Enlaza una <a href=\"/doc/Mix_Terminology#DJ_mix\" target=\"_blank\">mezcla "
+"de DJ</a> al artista que la mezcló."
 
 #. name:remix
 #: DB:link_type/description:9
@@ -7095,7 +7103,7 @@ msgstr ""
 #. name:DJ-mix
 #: DB:link_type/long_link_phrase:227 DB:link_type/long_link_phrase:8
 msgid "is a DJ-mix of"
-msgstr "Es un DJ-mix de"
+msgstr "es una mezcla de DJ de"
 
 #. name:compilation
 #: DB:link_type/long_link_phrase:228
