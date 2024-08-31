@@ -42,8 +42,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-25 18:42+0000\n"
-"Last-Translator: Nom d'utilisateur <mail.m7rfi@simplelogin.fr>\n"
+"PO-Revision-Date: 2024-08-29 19:42+0000\n"
+"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
 "Language: fr\n"
@@ -2722,10 +2722,8 @@ msgstr ""
 
 #. name:named after area
 #: DB:link_type/description:1262
-#, fuzzy
-#| msgid "This indicates the artist that inspired this genre’s name."
 msgid "This indicates the area that inspired this genre’s name."
-msgstr "Ceci indique l’artiste qui a inspiré le nom de ce genre."
+msgstr "Ceci indique la région qui a inspiré le nom de ce genre."
 
 #. name:video director
 #: DB:link_type/description:1185
@@ -2880,10 +2878,8 @@ msgstr "Ceci indique le label qui a inspiré le nom de cet artiste."
 
 #. name:named after label
 #: DB:link_type/description:1264
-#, fuzzy
-#| msgid "This indicates the artist that inspired this genre’s name."
 msgid "This indicates the label that inspired this genre’s name."
-msgstr "Ceci indique l’artiste qui a inspiré le nom de ce genre."
+msgstr "Ceci indique le label qui a inspiré le nom de ce genre."
 
 #. name:translator
 #: DB:link_attribute_type/description:1018
@@ -3055,10 +3051,8 @@ msgstr ""
 
 #. name:named after place
 #: DB:link_type/description:1263
-#, fuzzy
-#| msgid "This indicates the artist that inspired this genre’s name."
 msgid "This indicates the place that inspired this genre’s name."
-msgstr "Ceci indique l’artiste qui a inspiré le nom de ce genre."
+msgstr "Ceci indique le lieu qui a inspiré le nom de ce genre."
 
 #. name:pressed
 #: DB:link_type/description:942
@@ -5884,7 +5878,7 @@ msgstr "Chaînes YouTube"
 
 #: DB:link_type/name:1238
 msgid "a cappella"
-msgstr ""
+msgstr "a cappella"
 
 #. name:a cappella
 #: DB:link_type/reverse_link_phrase:1238
@@ -5898,7 +5892,7 @@ msgstr "versions a cappella"
 
 #: DB:link_attribute_type/name:1406
 msgid "acappella"
-msgstr ""
+msgstr "a cappella"
 
 #: DB:link_attribute_type/name:1345
 msgid "accompanying"
@@ -7938,10 +7932,8 @@ msgstr "est nommé d’après le label"
 
 #. name:named after place
 #: DB:link_type/long_link_phrase:1263
-#, fuzzy
-#| msgid "is named after label"
 msgid "is named after place"
-msgstr "est nommé d’après le label"
+msgstr "est nommé d’après le lieu"
 
 #. name:named after release group
 #: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
@@ -8651,10 +8643,8 @@ msgstr "Myspace"
 
 #. name:named after area
 #: DB:link_type/name:1262 DB:link_type/reverse_link_phrase:1262
-#, fuzzy
-#| msgid "named after label"
 msgid "named after area"
-msgstr "nommé d’après le label"
+msgstr "nommé d’après la région"
 
 #. name:named after artist
 #: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1260
@@ -8673,10 +8663,8 @@ msgstr "nommé d’après le label"
 
 #. name:named after place
 #: DB:link_type/name:1263 DB:link_type/link_phrase:1263
-#, fuzzy
-#| msgid "named after label"
 msgid "named after place"
-msgstr "nommé d’après le label"
+msgstr "nommé d’après le lieu"
 
 #. name:named after release group
 #: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
@@ -9737,12 +9725,12 @@ msgstr "programme pour"
 #. name:school director at
 #: DB:link_type/name:1166 DB:link_type/link_phrase:1166
 msgid "school director at"
-msgstr ""
+msgstr "directeur d’école à"
 
 #. name:school director at
 #: DB:link_type/reverse_link_phrase:1166
 msgid "school directors"
-msgstr ""
+msgstr "directeurs d’école"
 
 #: DB:link_type/name:308 DB:link_type/name:976 DB:link_type/name:977
 #: DB:link_type/name:307 DB:link_type/name:280
@@ -10333,7 +10321,7 @@ msgstr "fut une interprétation de"
 #. name:school director at
 #: DB:link_type/long_link_phrase:1166
 msgid "was a school director at"
-msgstr ""
+msgstr "était directeur d’école à"
 
 #. name:support act
 #: DB:link_type/long_link_phrase:799
@@ -11557,10 +11545,8 @@ msgstr "{entity1} est rendu disponible sous les termes de la licence {entity0}"
 
 #. name:named after area
 #: DB:link_type/long_link_phrase:1262
-#, fuzzy
-#| msgid "{entity1} is named after artist {entity0}"
 msgid "{entity1} is named after area {entity0}"
-msgstr "{entity1} est nommé d’après l’artiste {entity0}"
+msgstr "{entity1} est nommé d’après la région {entity0}"
 
 #. name:named after artist
 #: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1260
