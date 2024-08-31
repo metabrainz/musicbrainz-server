@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2024-06-27 07:42+0000\n"
+"PO-Revision-Date: 2024-08-31 00:42+0000\n"
 "Last-Translator: Early6431 <Early6431@users.noreply.translations.metabrainz."
 "org>\n"
 "Language-Team: Spanish (Latin America) <https://translations.metabrainz.org/"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -58,7 +58,7 @@ msgstr "Afrikáans"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:7
 msgid "Afro-Asiatic languages"
-msgstr "Lenguas afroasiáticas"
+msgstr "Camitosemítico"
 
 #. frequency:1 iso_code_3:ain
 #: DB:language/name:473
@@ -88,7 +88,7 @@ msgstr "Aleutiano"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:14
 msgid "Algonquian languages"
-msgstr "Lenguas algonquinas"
+msgstr "Algonquino"
 
 #. frequency:1 iso_code_3:alq
 #: DB:language/name:709
@@ -98,7 +98,7 @@ msgstr "Algonquino"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:434
 msgid "Altaic languages"
-msgstr "Lenguas altaicas"
+msgstr "Altaico"
 
 #. frequency:1 iso_code_3:amh
 #: DB:language/name:15
@@ -113,7 +113,7 @@ msgstr "Angika"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:17
 msgid "Apache languages"
-msgstr "Lenguas apache"
+msgstr "Apache"
 
 #. frequency:2 iso_code_3:ara
 #: DB:language/name:18
@@ -128,17 +128,17 @@ msgstr "Aragonés"
 #. frequency:1 iso_code_3:arp
 #: DB:language/name:23
 msgid "Arapaho"
-msgstr ""
+msgstr "Arapajó"
 
 #. frequency:1 iso_code_3:arw
 #: DB:language/name:25
 msgid "Arawak"
-msgstr ""
+msgstr "Arahuaco"
 
 #. frequency:1 iso_code_3:pka
 #: DB:language/name:5403
 msgid "Ardhamāgadhī Prākrit"
-msgstr ""
+msgstr "Ardhamāgadhī Prākrit"
 
 #. frequency:1 iso_code_3:hye
 #: DB:language/name:21
@@ -148,42 +148,42 @@ msgstr "Armenio"
 #. frequency:1 iso_code_3:rup
 #: DB:language/name:479
 msgid "Aromanian"
-msgstr ""
+msgstr "Valaco"
 
 #. frequency:1 iso_code_3:asm
 #: DB:language/name:26
 msgid "Assamese"
-msgstr ""
+msgstr "Asamés"
 
 #. frequency:1 iso_code_3:ast
 #: DB:language/name:27
 msgid "Asturian"
-msgstr ""
+msgstr "Asturiano"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:28
 msgid "Athapascan languages"
-msgstr ""
+msgstr "Idiomas atasbacanas"
 
 #. frequency:1 iso_code_3:atj
 #: DB:language/name:866
 msgid "Atikamekw"
-msgstr ""
+msgstr "Atikamekw"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:29
 msgid "Australian languages"
-msgstr ""
+msgstr "Idiomas australianos"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:263
 msgid "Austronesian languages"
-msgstr ""
+msgstr "Idiomas austronesios"
 
 #. frequency:1 iso_code_3:ava
 #: DB:language/name:30
 msgid "Avaric"
-msgstr ""
+msgstr "Avar"
 
 #. frequency:1 iso_code_3:ave
 #: DB:language/name:31
@@ -193,22 +193,22 @@ msgstr "Avéstico"
 #. frequency:1 iso_code_3:awa
 #: DB:language/name:32
 msgid "Awadhi"
-msgstr ""
+msgstr "Awadhi"
 
 #. frequency:1 iso_code_3:aym
 #: DB:language/name:33
 msgid "Aymara"
-msgstr ""
+msgstr "Aimara"
 
 #. frequency:1 iso_code_3:aze
 #: DB:language/name:34
 msgid "Azerbaijani"
-msgstr ""
+msgstr "Azerí"
 
 #. frequency:1 iso_code_3:bvd
 #: DB:language/name:1470
 msgid "Baeggu"
-msgstr ""
+msgstr "Baeggu"
 
 #. frequency:1 iso_code_3:ban
 #: DB:language/name:40
@@ -218,52 +218,52 @@ msgstr "Balinés"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:43
 msgid "Baltic languages"
-msgstr ""
+msgstr "Báltico"
 
 #. frequency:1 iso_code_3:bal
 #: DB:language/name:38
 msgid "Baluchi"
-msgstr ""
+msgstr "Baluchi"
 
 #. frequency:1 iso_code_3:bam
 #: DB:language/name:39
 msgid "Bambara"
-msgstr ""
+msgstr "Bambara"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:36
 msgid "Bamileke languages"
-msgstr ""
+msgstr "Idiomas bamilekes"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:35
 msgid "Banda languages"
-msgstr ""
+msgstr "Idiomas bandas"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:55
 msgid "Bantu languages"
-msgstr ""
+msgstr "Bantú"
 
 #. frequency:1 iso_code_3:bas
 #: DB:language/name:42
 msgid "Basa"
-msgstr ""
+msgstr "Basa"
 
 #. frequency:1 iso_code_3:bak
 #: DB:language/name:37
 msgid "Bashkir"
-msgstr ""
+msgstr "Baskir"
 
 #. frequency:1 iso_code_3:eus
 #: DB:language/name:41
 msgid "Basque"
-msgstr ""
+msgstr "Eusquera"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:59
 msgid "Batak languages"
-msgstr ""
+msgstr "Idiomas batak"
 
 #. frequency:1 iso_code_3:bar
 #: DB:language/name:982
