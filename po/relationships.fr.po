@@ -38,11 +38,12 @@
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
+# Nom d'utilisateur <mail.m7rfi@simplelogin.fr>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-05 12:42+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-08-25 18:42+0000\n"
+"Last-Translator: Nom d'utilisateur <mail.m7rfi@simplelogin.fr>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
 "Language: fr\n"
@@ -11893,7 +11894,7 @@ msgstr "{step:beaux-}parents"
 #: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:32
 #: DB:link_type/long_link_phrase:208 DB:link_type/long_link_phrase:362
 msgid "{sub:sub-}published"
-msgstr "{sub:sous-}édité"
+msgstr "{sub:sous-}a publié"
 
 #. name:published, name:publishing
 #: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:32
