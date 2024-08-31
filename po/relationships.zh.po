@@ -8,11 +8,12 @@
 # AshPigeon <1433821055@qq.com>, 2024.
 # weeeeei <weeeeei@duck.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2024.
+# thephy <differentphy@outlook.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-19 17:42+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"PO-Revision-Date: 2024-08-20 12:42+0000\n"
+"Last-Translator: thephy <differentphy@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/relationship-types/zh_Hans/>\n"
 "Language: zh\n"
@@ -743,8 +744,8 @@ msgid ""
 "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</"
 "a>."
 msgstr ""
-"指此专辑的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
-"strong>一个概念。"
+"指此专辑的词曲版权方。这和<a href=\"/doc/Label\" target=\"_blank\""
+">厂牌</a><strong>不是</strong>一个概念。"
 
 #. name:publishing
 #: DB:link_type/description:161 DB:link_type/description:208
@@ -752,8 +753,8 @@ msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
-"指此作品的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
-"strong>一个概念。"
+"指此作品的词曲版权方。这和<a href=\"/doc/Label\" target=\"_blank\""
+">厂牌</a><strong>不是</strong>一个概念。"
 
 #. name:last.fm
 #: DB:link_type/link_phrase:837 DB:link_type/link_phrase:838
