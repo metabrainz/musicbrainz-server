@@ -6,13 +6,14 @@
 # Translators:
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # Felipe Silva <musicbrainz@felipeqq2.rocks>, 2024.
+# tanio <tanioms3@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-19 21:09-0500\n"
-"PO-Revision-Date: 2024-06-26 18:16+0000\n"
-"Last-Translator: Felipe Silva <musicbrainz@felipeqq2.rocks>\n"
+"PO-Revision-Date: 2024-08-26 22:42+0000\n"
+"Last-Translator: tanio <tanioms3@gmail.com>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pt/>\n"
 "Language: pt\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -14614,28 +14615,24 @@ msgid "[removed]"
 msgstr ""
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:194
-#, fuzzy
-#| msgid "New artist credit"
 msgctxt "interactive"
 msgid "Move artist credit down"
-msgstr "Novo crédito do artista"
+msgstr "Mover crédito do artista para baixo"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:205
-#, fuzzy
-#| msgid "New artist credit"
 msgctxt "interactive"
 msgid "Move artist credit up"
-msgstr "Novo crédito do artista"
+msgstr "Mover crédito do artista para cima"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:215
 msgctxt "interactive"
 msgid "Undo artist credit removal"
-msgstr ""
+msgstr "Desfazer remoção de crédito do artista"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:222
 msgctxt "interactive"
 msgid "Remove artist credit"
-msgstr ""
+msgstr "Remover crédito do artista"
 
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:194
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:173
@@ -14656,48 +14653,50 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/EntityPendingEditsWarning.js:30
 msgid "This entity has open edits."
-msgstr ""
+msgstr "Esta entidade tem edições abertas."
 
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:218
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:196
 msgid "This relationship has ended."
-msgstr ""
+msgstr "Esse relacionamento acabou."
 
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:258
 msgctxt "interactive"
 msgid "Edit attributes"
-msgstr ""
+msgstr "Editar atributos"
 
 #: ../root/static/scripts/edit/components/Multiselect.js:197
 msgctxt "generic row"
 msgid "[removed]"
-msgstr ""
+msgstr "[removido]"
 
 #: ../root/static/scripts/edit/components/NewNotesAlertCheckbox.js:29
 msgid "Show me an alert whenever I receive a new edit note."
-msgstr ""
+msgstr "Mostre-me um alerta sempre que eu receber uma nova nota de edição."
 
 #: ../root/static/scripts/edit/components/PartialDateInput.js:43
 msgid "The date you've entered is not valid"
-msgstr ""
+msgstr "A data que você inseriu não é válida"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:19
 msgid "Possible duplicates"
-msgstr ""
+msgstr "Possíveis duplicatas"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:20
 msgid "We found the following entities with very similar names:"
-msgstr ""
+msgstr "Encontramos as seguintes entidades com nomes muito semelhantes:"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:33
 msgid "Yes, I still want to enter “{entity_name}”."
-msgstr ""
+msgstr "Sim, ainda quero inserir “{entity_name}”."
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:40
 msgid ""
 "Please enter a {doc_disambiguation|disambiguation} to help distinguish this "
 "entity from the others."
 msgstr ""
+"Insira uma {doc_disambiguation|disambiguation} para ajudar a distinguir esta "
+"entidade das outras."
 
 #: ../root/static/scripts/edit/components/RelationshipPendingEditsWarning.js:34
 msgid "This relationship has {edit_search|open edits}."
@@ -14705,7 +14704,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/RelationshipPendingEditsWarning.js:39
 msgid "This relationship has open edits."
-msgstr ""
+msgstr "Este relacionamento tem edições abertas."
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:46
 msgid ""
