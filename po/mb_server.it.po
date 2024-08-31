@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-19 21:09-0500\n"
-"PO-Revision-Date: 2024-07-11 22:42+0000\n"
+"PO-Revision-Date: 2024-08-22 13:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -44,8 +44,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -343,18 +343,13 @@ msgstr ""
 "\"Aggiungi una nuova registrazione\" se non ne esiste già una adatta."
 
 #: ../root/layout.tt:16 ../root/layout/index.js:192
-#, fuzzy
-#| msgid ""
-#| "You’re currently not allowed to edit or vote because an admin has revoked "
-#| "your privileges. If you haven’t already been contacted about why, please "
-#| "{uri|send us a message}."
 msgid ""
 "An admin has set the following restrictions on your account: {list}. If you "
 "haven’t already been contacted about why, please {uri|send us a message}."
 msgstr ""
-"Al momento non ti è consentito creare modifiche o votare perché un "
-"amministratore ha revocato i tuoi privilegi. Se non sei ancora stato "
-"contattato riguardo alle ragioni, {uri|inviaci un messaggio}."
+"Un amministratore ha impostato le seguenti restrizioni sul tuo account: "
+"{list}. Se non sei ancora stato contattato riguardo alle ragioni, {uri|"
+"inviaci un messaggio}."
 
 #: ../root/components/common-macros.tt:569
 msgid ""
@@ -1285,12 +1280,12 @@ msgid "I confirm this is an intentional use of Various Artists on tracks."
 msgstr "Confermo che l'utilizzo di Artisti Vari sulle tracce è intenzionale."
 
 #: ../root/release/edit/tracklist.tt:431
-#, fuzzy
-#| msgid "I confirm this is an intentional use of Various Artists on tracks."
 msgid ""
 "I confirm this is an intentional use of featured artists on track titles, or "
 "that these aren’t actually featured artists."
-msgstr "Confermo che l'utilizzo di Artisti Vari sulle tracce è intenzionale."
+msgstr ""
+"Confermo che l'utilizzo di artisti con \"feat.\" nei titoli delle tracce è "
+"intenzionale, o che non si tratta davvero di artisti con \"feat.\"."
 
 #: ../root/release/edit/tracklist.tt:314
 msgid "I don’t know"
@@ -1488,17 +1483,14 @@ msgstr ""
 "sopra. In caso contrario, correggi i dati."
 
 #: ../root/release/edit/tracklist.tt:434
-#, fuzzy
-#| msgid ""
-#| "If you’re sure the use of Various Artists is correct, confirm it above. "
-#| "Otherwise, please fix the data."
 msgid ""
 "If you’re sure the use of featured artists on track titles is correct, "
 "confirm it above. Otherwise, please fix the data (the “Guess feat. artists” "
 "button might help!)."
 msgstr ""
-"Se sei sicuro che l'utilizzo di Artisti Vari è corretto, confermalo qui "
-"sopra. In caso contrario, correggi i dati."
+"Se sei sicuro che l'utilizzo di artisti con \"feat.\" nei titoli delle "
+"tracce è corretto, confermalo qui sopra. In caso contrario, correggi i dati ("
+"il pulsante \"Ritocca artisti feat.\" può aiutarti!)."
 
 #: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:43
 msgid "Image not available, please try again later."
@@ -2899,6 +2891,9 @@ msgid ""
 "This medium seems to have featured artists on the track titles. These should "
 "usually be {featured_style|entered as part of the track artist}."
 msgstr ""
+"Questo supporto sembra avere artisti con \"feat.\" nei titoli delle tracce. "
+"Solitamente questi artisti vanno {featured_style|inseriti come parte degli "
+"artisti delle tracce}."
 
 #: ../root/place/edit_form.tt:32
 msgid "This place has ended."
@@ -3538,7 +3533,7 @@ msgstr "annullato"
 
 #: ../root/edit/search_macros.tt:352
 msgid "do not exist (edit has no notes)"
-msgstr ""
+msgstr "non esiste (la modifica non ha note)"
 
 #: ../root/edit/search_macros.tt:352
 msgid "do not include"
@@ -3684,10 +3679,8 @@ msgid "is not"
 msgstr "non è"
 
 #: ../root/edit/search_macros.tt:363
-#, fuzzy
-#| msgid "is a beginner"
 msgid "is not a beginner"
-msgstr "è un principiante"
+msgstr "non è un principiante"
 
 #: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:323
 #: ../root/edit/search_macros.tt:363 ../root/edit/search_macros.tt:391
@@ -3993,7 +3986,7 @@ msgid ""
 "this user."
 msgstr ""
 "Impossibile inviare una email per reimpostare la password perché non è stato "
-"trovato nessun indirizzo email registrato per questo utente."
+"trovato nessun indirizzo email registrato per quest'utente."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:241
 msgid "Your password has been reset."
@@ -5511,17 +5504,13 @@ msgstr "[nessuno]"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:291
 #: ../root/static/scripts/common/utility/privileges.js:161
-#, fuzzy
-#| msgid "Editing/voting disabled"
 msgid "Editing disabled"
-msgstr "Modifiche/voti disabilitati"
+msgstr "Modifiche disabilitate"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:294
 #: ../root/static/scripts/common/utility/privileges.js:164
-#, fuzzy
-#| msgid "Voting is closed."
 msgid "Voting disabled"
-msgstr "La votazione si è conclusa."
+msgstr "Voti disabilitati"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
 #: ../root/static/scripts/common/utility/privileges.js:167
@@ -5912,11 +5901,9 @@ msgid "As writer"
 msgstr "Come autore"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:47
-#, fuzzy
-#| msgid "Cannot edit"
 msgctxt "language"
 msgid "[not set]"
-msgstr "Impossibile modificare"
+msgstr "[non impostata]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:51
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:47
@@ -8890,7 +8877,7 @@ msgstr "Aggiungi nota"
 
 #: ../root/edit/components/EditorTypeInfo.js:25 ../root/user/UserProfile.js:108
 msgid "This user is new to MusicBrainz."
-msgstr "Questo utente è nuovo su MusicBrainz."
+msgstr "Quest'utente è nuovo su MusicBrainz."
 
 #: ../root/edit/components/EditorTypeInfo.js:27
 msgid "beginner"
@@ -8898,7 +8885,7 @@ msgstr "principiante"
 
 #: ../root/edit/components/EditorTypeInfo.js:35
 msgid "This user is automated."
-msgstr "Questo utente è automatizzato."
+msgstr "Quest'utente è automatizzato."
 
 #: ../root/edit/components/EditorTypeInfo.js:36
 msgid "bot"
@@ -10381,9 +10368,6 @@ msgid "Add event"
 msgstr "Aggiungi evento"
 
 #: ../root/event/EditEvent.js:28
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit event"
 msgctxt "header"
 msgid "Edit event"
 msgstr "Modifica evento"
@@ -10747,7 +10731,7 @@ msgstr "Ricerca avanzata"
 
 #: ../root/layout/components/BottomMenu.js:224
 msgid "Edit search"
-msgstr "Cerca modifiche"
+msgstr "Ricerca modifiche"
 
 #: ../root/layout/components/BottomMenu.js:227
 msgctxt "folksonomy"
@@ -11656,16 +11640,12 @@ msgstr ""
 "su MusicBrainz."
 
 #: ../root/main/index.js:250
-#, fuzzy
-#| msgid "How to add releases"
 msgid "Recently added releases"
-msgstr "Come aggiungere pubblicazioni"
+msgstr "Pubblicazioni aggiunte da poco"
 
 #: ../root/main/index.js:265
-#, fuzzy
-#| msgid "Release events"
 msgid "Recently added events"
-msgstr "Eventi di pubblicazione"
+msgstr "Eventi aggiunti da poco"
 
 #: ../root/mbid/NotFound.js:15
 msgid "MBID not found"
@@ -15974,20 +15954,14 @@ msgid "[removed]"
 msgstr "[rimosso]"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:194
-#, fuzzy
-#| msgctxt "interactive"
-#| msgid "Remove artist credit"
 msgctxt "interactive"
 msgid "Move artist credit down"
-msgstr "Rimuovi accreditamento artista"
+msgstr "Sposta accreditamento artista verso il basso"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:205
-#, fuzzy
-#| msgctxt "interactive"
-#| msgid "Remove artist credit"
 msgctxt "interactive"
 msgid "Move artist credit up"
-msgstr "Rimuovi accreditamento artista"
+msgstr "Sposta accreditamento artista verso l'alto"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:215
 msgctxt "interactive"
@@ -16371,16 +16345,12 @@ msgid "HH:MM"
 msgstr "HH:MM"
 
 #: ../root/static/scripts/event/components/EventEditForm.js:336
-#, fuzzy
-#| msgid ""
-#| "Select any type from the list to see its description. If the work doesn’t "
-#| "seem to match any type, just leave this blank."
 msgid ""
 "Select any type from the list to see its description. If no type seems to "
 "fit, just leave this blank."
 msgstr ""
-"Seleziona un tipo dalla lista per leggerne la descrizione. Se l'opera non ti "
-"sembra corrispondere a nessun tipo, lascia pure il campo vuoto."
+"Seleziona un tipo dalla lista per leggerne la descrizione. Se nessun tipo ti "
+"sembra adatto, lascia pure il campo vuoto."
 
 #: ../root/static/scripts/guess-case/modes.js:313
 msgid ""
@@ -17900,7 +17870,7 @@ msgstr "Entità aggiunte"
 
 #: ../root/user/UserProfile.js:766
 msgid "This user has not added any entities."
-msgstr "Questo utente non ha aggiunto nessuna entità."
+msgstr "Quest'utente non ha aggiunto nessuna entità."
 
 #: ../root/user/UserProfile.js:776
 msgid "This table shows a summary of secondary data added by this editor."
@@ -17953,23 +17923,21 @@ msgid ""
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
 "reporting the spammer from their user page."
 msgstr ""
-"Questo utente è stato bloccato e il suo profilo è nascosto perché si ritiene "
+"Quest'utente è stato bloccato e il suo profilo è nascosto perché si ritiene "
 "fosse uno spammer. Se trovi dello spam su MusicBrainz, faccelo sapere "
 "segnalando lo spammer dalla sua pagina utente."
 
 #: ../root/user/UserProfile.js:964
 msgid "Report this user for bad behavior"
-msgstr "Segnala questo utente per comportamento scorretto"
+msgstr "Segnala quest'utente per comportamento scorretto"
 
 #: ../root/user/UserProfile.js:969
-#, fuzzy
-#| msgid "Recent notes left on your edits"
 msgid "View other users’ notes on your edits"
-msgstr "Note recenti lasciate sulle tue modifiche"
+msgstr "Visualizza le note degli altri utenti sulle tue modifiche"
 
 #: ../root/user/UserProfile.js:970
 msgid "View your notes on this user’s edits"
-msgstr ""
+msgstr "Visualizza le tue note sulle modifiche di quest'utente"
 
 #: ../root/user/UserRatingEntity.js:51
 msgid "No ratings."
@@ -18325,18 +18293,6 @@ msgid "Destructive edits"
 msgstr "Modifiche distruttive"
 
 #: ../root/vote/VotingIndex.js:79
-#, fuzzy
-#| msgid ""
-#| "Destructive edits (removals and merges) are often very hard or even "
-#| "impossible to revert. As such, an incorrect destructive edit that applies "
-#| "unnoticed can cause quite a big mess! Most are guaranteed to remain open "
-#| "for at least two full days even if they get three “Yes” votes, to avoid "
-#| "them closing too quickly, but it’s always good to get more eyes on them. "
-#| "Below you can find four different searches: one for all destructive edits "
-#| "(which might be overwhelming sometimes), one for entity merges and "
-#| "removals only (the edits more likely to cause a mess if they incorrectly "
-#| "go through), one for relationship removals only, and one for destructive "
-#| "changes to releases (track, medium and release label removals)."
 msgid ""
 "Destructive edits (removals and merges) are often very hard or even "
 "impossible to revert. As such, an incorrect destructive edit that applies "
@@ -18356,23 +18312,23 @@ msgstr ""
 "errata applicata senza che nessuno se ne accorga può causare grandi "
 "problemi! La maggior parte resta aperta per almeno due giorni anche se "
 "riceve tre voti \"Sì\", per evitare che si chiuda troppo velocemente, ma è "
-"sempre meglio che più persone le controllino. Qui sotto trovi quattro "
+"sempre meglio che più persone le controllino. Qui sotto trovi cinque "
 "ricerche diverse: una per tutte le modifiche distruttive (che a volte "
-"potrebbe essere troppo ingombrante), una solo per unioni e rimozioni di "
-"entità (le modifiche che più facilmente causano problemi se applicate in "
-"maniera errata), una solo per rimozioni di relazione e una per cambiamenti "
-"distruttivi alle pubblicazioni (rimozioni di traccia, supporto o etichetta "
-"della pubblicazione)."
+"potrebbe essere troppo ingombrante), una solo per le modifiche distruttive "
+"senza note di modifica (cioè per le quali non è stata fornita alcuna "
+"argomentazione), una solo per unioni e rimozioni di entità (le modifiche che "
+"più facilmente causano problemi se applicate in maniera errata), una solo "
+"per rimozioni di relazione e una per cambiamenti distruttivi alle "
+"pubblicazioni (rimozioni di traccia, supporto o etichetta della "
+"pubblicazione)."
 
 #: ../root/vote/VotingIndex.js:98
 msgid "All open destructive edits"
 msgstr "Tutte le modifiche distruttive in corso"
 
 #: ../root/vote/VotingIndex.js:107
-#, fuzzy
-#| msgid "All open destructive edits by beginner editors"
 msgid "All open destructive edits without edit notes"
-msgstr "Tutte le modifiche distruttive in corso di editor principianti"
+msgstr "Tutte le modifiche distruttive in corso senza note di modifica"
 
 #: ../root/vote/VotingIndex.js:117
 msgid "All open entity merges and removals"
@@ -18533,12 +18489,11 @@ msgstr ""
 "Tutte le modifiche di editor principianti create meno di 2 settimane fa"
 
 #: ../root/vote/VotingIndex.js:304
-#, fuzzy
-#| msgid "All edits from beginner editors made less than 2 weeks ago"
 msgid ""
 "All edits from beginner editors without edit notes made less than 2 weeks ago"
 msgstr ""
-"Tutte le modifiche di editor principianti create meno di 2 settimane fa"
+"Tutte le modifiche di editor principianti senza note di modifica create meno "
+"di 2 settimane fa"
 
 #: ../root/vote/VotingIndex.js:314
 msgid "All \"Add release/medium\" edits by beginner editors"

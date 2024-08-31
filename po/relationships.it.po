@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-27 21:17+0000\n"
+"PO-Revision-Date: 2024-08-22 00:45+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -30,9 +30,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -1874,19 +1874,14 @@ msgstr ""
 
 #. name:graphic design
 #: DB:link_type/description:125
-#, fuzzy
-#| msgid ""
-#| "This credits the people or agency who did graphic design for a video "
-#| "recording, arranging pieces of content into a coherent and aesthetically-"
-#| "pleasing whole."
 msgid ""
 "This credits the people or agency who did the graphic design / layout for a "
 "video recording, arranging pieces of content into a coherent and "
 "aesthetically-pleasing whole."
 msgstr ""
-"Accredita le persone o l'agenzia che hanno curato il progetto grafico per "
-"una registrazione video, organizzandone i componenti in un design coerente e "
-"piacevole esteticamente."
+"Accredita le persone o l'agenzia che hanno curato il progetto grafico o il "
+"layout per una registrazione video, organizzandone i componenti in un "
+"insieme coerente e piacevole esteticamente."
 
 #. name:label rename
 #: DB:link_type/description:202
@@ -2285,34 +2280,25 @@ msgstr "Indica un artista che ha curato le illustrazioni della pubblicazione."
 
 #. name:graphic design
 #: DB:link_type/description:1234
-#, fuzzy
-#| msgid ""
-#| "This indicates an artist who did the graphic design for the event, "
-#| "arranging pieces of content into a coherent and aesthetically-pleasing "
-#| "design."
 msgid ""
 "This indicates an artist who did the graphic design / layout for the event, "
 "arranging pieces of content into a coherent and aesthetically-pleasing "
 "design."
 msgstr ""
-"Indica un artista che ha curato il progetto grafico dell'evento, "
-"organizzandone i componenti in un design coerente e piacevole esteticamente."
+"Indica un artista che ha curato il progetto grafico o il layout per "
+"l'evento, organizzandone i componenti in un design coerente e piacevole "
+"esteticamente."
 
 #. name:graphic design
 #: DB:link_type/description:27
-#, fuzzy
-#| msgid ""
-#| "This indicates an artist who did the graphic design for the release, "
-#| "arranging pieces of content into a coherent and aesthetically-pleasing "
-#| "sleeve design."
 msgid ""
 "This indicates an artist who did the graphic design / layout for the "
 "release, arranging pieces of content into a coherent and aesthetically-"
 "pleasing sleeve design."
 msgstr ""
-"Indica un artista che ha curato il progetto grafico della pubblicazione, "
-"organizzandone i componenti in un design della custodia coerente e piacevole "
-"esteticamente."
+"Indica un artista che ha curato il progetto grafico o il layout per la "
+"pubblicazione, organizzandone i componenti in un design della custodia "
+"coerente e piacevole esteticamente."
 
 #. name:producer
 #: DB:link_type/description:141 DB:link_type/description:30
@@ -2728,10 +2714,8 @@ msgstr ""
 
 #. name:named after area
 #: DB:link_type/description:1262
-#, fuzzy
-#| msgid "This indicates the artist that inspired this place’s name."
 msgid "This indicates the area that inspired this genre’s name."
-msgstr "Indica l'artista che ha ispirato il nome di questo luogo."
+msgstr "Indica l'area che ha ispirato il nome di questo genere."
 
 #. name:video director
 #: DB:link_type/description:1185
@@ -2745,17 +2729,13 @@ msgstr "Indica l'artista che ha ispirato il nome di quest'artista."
 
 #. name:named after artist
 #: DB:link_type/description:1260
-#, fuzzy
-#| msgid "This indicates the artist that inspired this place’s name."
 msgid "This indicates the artist that inspired this genre’s name."
-msgstr "Indica l'artista che ha ispirato il nome di questo luogo."
+msgstr "Indica l'artista che ha ispirato il nome di questo genere."
 
 #. name:named after artist
 #: DB:link_type/description:1258
-#, fuzzy
-#| msgid "This indicates the artist that inspired this place’s name."
 msgid "This indicates the artist that inspired this label’s name."
-msgstr "Indica l'artista che ha ispirato il nome di questo luogo."
+msgstr "Indica l'artista che ha ispirato il nome di quest'etichetta."
 
 #. name:named after artist
 #: DB:link_type/description:975
@@ -2773,10 +2753,8 @@ msgstr ""
 
 #. name:named after artist
 #: DB:link_type/description:1257
-#, fuzzy
-#| msgid "This indicates the artist that inspired this artist’s name."
 msgid "This indicates the artist that inspired this work’s name."
-msgstr "Indica l'artista che ha ispirato il nome di quest'artista."
+msgstr "Indica l'artista che ha ispirato il nome di quest'opera."
 
 #. name:audio director
 #: DB:link_type/description:1186
@@ -2877,19 +2855,15 @@ msgstr "Indica il maestro del coro che si è esibito su questa pubblicazione."
 
 #. name:glass mastered
 #: DB:link_type/description:955
-#, fuzzy
-#| msgid ""
-#| "This indicates the company that made the glass master for a release. This "
-#| "is <strong>not</strong> the same concept as the <a href=\"/doc/"
-#| "Label\">record label</a>, nor as mastering engineering."
 msgid ""
 "This indicates the company that made the glass master for a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>, nor as mastering engineering."
 msgstr ""
 "Indica la società che ha creato il master in vetro per una pubblicazione. "
-"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\">etichetta "
-"discografica</a>, né del lavoro del tecnico di mastering."
+"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" target="
+"\"_blank\">etichetta discografica</a>, né del lavoro del tecnico di "
+"mastering."
 
 #. name:owner
 #: DB:link_type/description:989
@@ -2902,17 +2876,13 @@ msgstr ""
 
 #. name:named after label
 #: DB:link_type/description:1259
-#, fuzzy
-#| msgid "This indicates the artist that inspired this artist’s name."
 msgid "This indicates the label that inspired this artist’s name."
-msgstr "Indica l'artista che ha ispirato il nome di quest'artista."
+msgstr "Indica l'etichetta che ha ispirato il nome di quest'artista."
 
 #. name:named after label
 #: DB:link_type/description:1264
-#, fuzzy
-#| msgid "This indicates the artist that inspired this place’s name."
 msgid "This indicates the label that inspired this genre’s name."
-msgstr "Indica l'artista che ha ispirato il nome di questo luogo."
+msgstr "Indica l'etichetta che ha ispirato il nome di questo genere."
 
 #. name:translator
 #: DB:link_attribute_type/description:1018
@@ -2925,13 +2895,6 @@ msgstr ""
 
 #. name:distributed
 #: DB:link_type/description:361
-#, fuzzy
-#| msgid ""
-#| "This indicates the organization that distributes (or contracts out "
-#| "distribution). \n"
-#| "\n"
-#| "This is <strong>not</strong> the same concept as the <a href=\"/doc/"
-#| "Label\">record label</a>."
 msgid ""
 "This indicates the organization that distributes (or contracts out "
 "distribution). \n"
@@ -2942,17 +2905,11 @@ msgstr ""
 "Indica l'organizzazione che si occupa direttamente della distribuzione (o "
 "che stipula contratti di distribuzione). \n"
 "\n"
-"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\">etichetta "
-"discografica</a>."
+"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" target="
+"\"_blank\">etichetta discografica</a>."
 
 #. name:manufactured
 #: DB:link_type/description:360
-#, fuzzy
-#| msgid ""
-#| "This indicates the organization that manufactures (or contracts out "
-#| "manufacturing). \n"
-#| "This is <strong>not</strong> the same concept as the <a href=\"/doc/"
-#| "Label\">record label</a>."
 msgid ""
 "This indicates the organization that manufactures (or contracts out "
 "manufacturing). \n"
@@ -2961,48 +2918,33 @@ msgid ""
 msgstr ""
 "Indica l'organizzazione che si occupa direttamente della fabbricazione (o "
 "che stipula contratti di fabbricazione).\n"
-"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\">etichetta "
-"discografica</a>."
+"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" target="
+"\"_blank\">etichetta discografica</a>."
 
 #. name:marketed
 #: DB:link_type/description:848
-#, fuzzy
-#| msgid ""
-#| "This indicates the organization that markets a release. This is "
-#| "<strong>not</strong> the same concept as the <a href=\"/doc/"
-#| "Label\">record label</a>."
 msgid ""
 "This indicates the organization that markets a release. This is <strong>not</"
 "strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Indica l'organizzazione che commercializza una pubblicazione. <strong>Non</"
-"strong> è la stessa cosa dell'<a href=\"/doc/Label\">etichetta discografica</"
-"a>."
+"strong> è la stessa cosa dell'<a href=\"/doc/Label\" target=\"_blank\""
+">etichetta discografica</a>."
 
 #. name:printed
 #: DB:link_type/description:985
-#, fuzzy
-#| msgid ""
-#| "This indicates the organization that printed a release. This is "
-#| "<strong>not</strong> the same concept as the <a href=\"/doc/"
-#| "Label\">record label</a>."
 msgid ""
 "This indicates the organization that printed a release. This is <strong>not</"
 "strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Indica l'organizzazione che ha stampato una pubblicazione. <strong>Non</"
-"strong> è la stessa cosa dell'<a href=\"/doc/Label\">etichetta discografica</"
-"a>."
+"strong> è la stessa cosa dell'<a href=\"/doc/Label\" target=\"_blank\""
+">etichetta discografica</a>."
 
 #. name:promoted
 #: DB:link_type/description:359
-#, fuzzy
-#| msgid ""
-#| "This indicates the organization that promotes (or contracts out "
-#| "promotion) for a release. This is <strong>not</strong> the same concept "
-#| "as the <a href=\"/doc/Label\">record label</a>."
 msgid ""
 "This indicates the organization that promotes (or contracts out promotion) "
 "for a release. This is <strong>not</strong> the same concept as the <a "
@@ -3010,22 +2952,19 @@ msgid ""
 msgstr ""
 "Indica l'organizzazione che si occupa direttamente della promozione (o che "
 "stipula contratti di promozione) per una pubblicazione. <strong>Non</strong> "
-"è la stessa cosa dell'<a href=\"/doc/Label\">etichetta discografica</a>."
+"è la stessa cosa dell'<a href=\"/doc/Label\" target=\"_blank\">etichetta "
+"discografica</a>."
 
 #. name:published
 #: DB:link_type/description:362
-#, fuzzy
-#| msgid ""
-#| "This indicates the organization which releases a release. This is "
-#| "<strong>not</strong> the same concept as the <a href=\"/doc/"
-#| "Label\">record label</a>."
 msgid ""
 "This indicates the organization which releases a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Indica l'organizzazione che pubblica una pubblicazione. <strong>Non</strong> "
-"è la stessa cosa dell'<a href=\"/doc/Label\">etichetta discografica</a>."
+"è la stessa cosa dell'<a href=\"/doc/Label\" target=\"_blank\">etichetta "
+"discografica</a>."
 
 #. name:orchestrator
 #: DB:link_type/description:300
@@ -3121,26 +3060,19 @@ msgstr ""
 
 #. name:named after place
 #: DB:link_type/description:1263
-#, fuzzy
-#| msgid "This indicates the artist that inspired this place’s name."
 msgid "This indicates the place that inspired this genre’s name."
-msgstr "Indica l'artista che ha ispirato il nome di questo luogo."
+msgstr "Indica il luogo che ha ispirato il nome di questo genere."
 
 #. name:pressed
 #: DB:link_type/description:942
-#, fuzzy
-#| msgid ""
-#| "This indicates the pressing company that presses a release. This is "
-#| "<strong>not</strong> the same concept as the <a href=\"/doc/"
-#| "Label\">record label</a>."
 msgid ""
 "This indicates the pressing company that presses a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Indica la società di pressatura che ha pressato una pubblicazione. "
-"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\">etichetta "
-"discografica</a>."
+"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" target="
+"\"_blank\">etichetta discografica</a>."
 
 #. name:sub
 #: DB:link_attribute_type/description:1310
@@ -3161,11 +3093,9 @@ msgstr ""
 
 #. name:named after release group
 #: DB:link_type/description:1261
-#, fuzzy
-#| msgid "This indicates the release group that inspired this artist’s name."
 msgid "This indicates the release group that inspired this genre’s name."
 msgstr ""
-"Indica il gruppo di pubblicazioni che ha ispirato il nome di quest'artista."
+"Indica il gruppo di pubblicazioni che ha ispirato il nome di questo genere."
 
 #. name:rights society
 #: DB:link_type/description:349
@@ -4780,37 +4710,25 @@ msgstr ""
 
 #. name:phonographic copyright
 #: DB:link_type/description:867
-#, fuzzy
-#| msgid ""
-#| "This relationship indicates the artist is the <a href=\"//en.wikipedia."
-#| "org/wiki/Sound_recording_copyright_symbol\" "
-#| "target=\"_blank\">phonographic copyright</a> holder for this recording, "
-#| "usually indicated with a ℗ symbol."
 msgid ""
 "This relationship indicates the label is the <a href=\"//en.wikipedia.org/"
 "wiki/Sound_recording_copyright_symbol\" target=\"_blank\">phonographic "
 "copyright</a> holder for this recording, usually indicated with a ℗ symbol."
 msgstr ""
-"Questa relazione indica che l'artista detiene i <a href=\"//en.wikipedia.org/"
-"wiki/Sound_recording_copyright_symbol\" target=\"_blank\">diritti "
+"Questa relazione indica che l'etichetta detiene i <a href=\"//en.wikipedia."
+"org/wiki/Sound_recording_copyright_symbol\" target=\"_blank\">diritti "
 "fonografici</a> per questa registrazione, di solito indicati con il simbolo "
 "℗."
 
 #. name:phonographic copyright
 #: DB:link_type/description:711
-#, fuzzy
-#| msgid ""
-#| "This relationship indicates the artist is the <a href=\"//en.wikipedia."
-#| "org/wiki/Sound_recording_copyright_symbol\" "
-#| "target=\"_blank\">phonographic copyright</a> holder for this release, "
-#| "usually indicated with a ℗ symbol."
 msgid ""
 "This relationship indicates the label is the <a href=\"//en.wikipedia.org/"
 "wiki/Sound_recording_copyright_symbol\" target=\"_blank\">phonographic "
 "copyright</a> holder for this release, usually indicated with a ℗ symbol."
 msgstr ""
-"Questa relazione indica che l'artista detiene i <a href=\"//en.wikipedia.org/"
-"wiki/Sound_recording_copyright_symbol\" target=\"_blank\">diritti "
+"Questa relazione indica che l'etichetta detiene i <a href=\"//en.wikipedia."
+"org/wiki/Sound_recording_copyright_symbol\" target=\"_blank\">diritti "
 "fonografici</a> per questa pubblicazione, di solito indicati con il simbolo "
 "℗."
 
@@ -7803,47 +7721,35 @@ msgstr "pagina di informazioni"
 #. name:named after artist, name:named after label, name:named after release group, name:named after work
 #: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
 #: DB:link_type/reverse_link_phrase:1259 DB:link_type/reverse_link_phrase:974
-#, fuzzy
-#| msgid "inspired the name of"
 msgid "inspired the name of artist"
-msgstr "ha ispirato il nome di"
+msgstr "ha ispirato il nome dell'artista"
 
 #. name:named after area, name:named after artist, name:named after label, name:named after place, name:named after release group
 #: DB:link_type/link_phrase:1260 DB:link_type/link_phrase:1262
 #: DB:link_type/reverse_link_phrase:1261 DB:link_type/reverse_link_phrase:1264
 #: DB:link_type/reverse_link_phrase:1263
-#, fuzzy
-#| msgid "inspired the name of"
 msgid "inspired the name of genre"
-msgstr "ha ispirato il nome di"
+msgstr "ha ispirato il nome del genere"
 
 #. name:named after artist
 #: DB:link_type/link_phrase:1258
-#, fuzzy
-#| msgid "inspired the name of"
 msgid "inspired the name of label"
-msgstr "ha ispirato il nome di"
+msgstr "ha ispirato il nome dell'etichetta"
 
 #. name:named after artist
 #: DB:link_type/link_phrase:975
-#, fuzzy
-#| msgid "inspired the name of"
 msgid "inspired the name of place"
-msgstr "ha ispirato il nome di"
+msgstr "ha ispirato il nome del luogo"
 
 #. name:named after artist
 #: DB:link_type/link_phrase:1000
-#, fuzzy
-#| msgid "inspired the name of"
 msgid "inspired the name of series"
-msgstr "ha ispirato il nome di"
+msgstr "ha ispirato il nome della serie"
 
 #. name:named after artist
 #: DB:link_type/link_phrase:1257
-#, fuzzy
-#| msgid "inspired the name of"
 msgid "inspired the name of work"
-msgstr "ha ispirato il nome di"
+msgstr "ha ispirato il nome dell'opera"
 
 #: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
 msgid "instrument"
@@ -8027,38 +7933,28 @@ msgstr "è licenziata sotto"
 
 #. name:named after artist
 #: DB:link_type/long_link_phrase:973
-#, fuzzy
-#| msgid "is named after"
 msgid "is named after artist"
-msgstr "prende il nome da"
+msgstr "prende il nome dall'artista"
 
 #. name:named after label
 #: DB:link_type/long_link_phrase:1259 DB:link_type/long_link_phrase:1264
-#, fuzzy
-#| msgid "is named after"
 msgid "is named after label"
-msgstr "prende il nome da"
+msgstr "prende il nome dall'etichetta"
 
 #. name:named after place
 #: DB:link_type/long_link_phrase:1263
-#, fuzzy
-#| msgid "is named after"
 msgid "is named after place"
-msgstr "prende il nome da"
+msgstr "prende il nome dal luogo"
 
 #. name:named after release group
 #: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
-#, fuzzy
-#| msgid "is named after"
 msgid "is named after release group"
-msgstr "prende il nome da"
+msgstr "prende il nome dal gruppo di pubblicazioni"
 
 #. name:named after work
 #: DB:link_type/long_link_phrase:972
-#, fuzzy
-#| msgid "is named after"
 msgid "is named after work"
-msgstr "prende il nome da"
+msgstr "prende il nome dall'opera"
 
 #: DB:link_type/name:108
 msgid "is person"
@@ -8758,10 +8654,8 @@ msgstr "myspace"
 
 #. name:named after area
 #: DB:link_type/name:1262 DB:link_type/reverse_link_phrase:1262
-#, fuzzy
-#| msgid "named after"
 msgid "named after area"
-msgstr "prende il nome da"
+msgstr "prende il nome dall'area"
 
 #. name:named after artist
 #: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1260
@@ -8769,40 +8663,30 @@ msgstr "prende il nome da"
 #: DB:link_type/link_phrase:973 DB:link_type/reverse_link_phrase:1258
 #: DB:link_type/reverse_link_phrase:1260 DB:link_type/reverse_link_phrase:1257
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
-#, fuzzy
-#| msgid "named after"
 msgid "named after artist"
-msgstr "prende il nome da"
+msgstr "prende il nome dall'artista"
 
 #. name:named after label
 #: DB:link_type/name:1259 DB:link_type/name:1264 DB:link_type/link_phrase:1259
 #: DB:link_type/link_phrase:1264
-#, fuzzy
-#| msgid "named after"
 msgid "named after label"
-msgstr "prende il nome da"
+msgstr "prende il nome dall'etichetta"
 
 #. name:named after place
 #: DB:link_type/name:1263 DB:link_type/link_phrase:1263
-#, fuzzy
-#| msgid "named after"
 msgid "named after place"
-msgstr "prende il nome da"
+msgstr "prende il nome dal luogo"
 
 #. name:named after release group
 #: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
 #: DB:link_type/link_phrase:974
-#, fuzzy
-#| msgid "recorded release groups"
 msgid "named after release group"
-msgstr "gruppi di pubblicazioni registrati"
+msgstr "prende il nome dal gruppo di pubblicazioni"
 
 #. name:named after work
 #: DB:link_type/name:972 DB:link_type/link_phrase:972
-#, fuzzy
-#| msgid "named after"
 msgid "named after work"
-msgstr "prende il nome da"
+msgstr "prende il nome dall'opera"
 
 #. name:non-performing relationships
 #: DB:link_type/name:935 DB:link_type/link_phrase:935
@@ -10469,16 +10353,12 @@ msgstr "è stata un'orchestra presso"
 
 #. name:engineer
 #: DB:link_type/long_link_phrase:1084
-#, fuzzy
-#| msgid ""
-#| "{additional} {assistant} {associate} {co:co-}{executive:executive }"
-#| "engineer"
 msgid ""
 "was an {additional} {assistant} {associate} {co:co-}{executive:executive }"
 "engineer at"
 msgstr ""
-"{assistant:assistente} {co:co-}tecnico {executive:esecutivo} {associate:"
-"associato} {additional:aggiunto}"
+"è stato un {assistant:assistente} {co:co-}tecnico {executive:esecutivo} "
+"{associate:associato} {additional:aggiunto} presso"
 
 #. name:cinematographer
 #: DB:link_type/long_link_phrase:1245
@@ -11690,19 +11570,15 @@ msgstr "{entity1} è licenziata sotto {entity0}"
 
 #. name:named after area
 #: DB:link_type/long_link_phrase:1262
-#, fuzzy
-#| msgid "{entity1} is named after {entity0}"
 msgid "{entity1} is named after area {entity0}"
-msgstr "{entity1} prende il nome da {entity0}"
+msgstr "{entity1} prende il nome dall'area {entity0}"
 
 #. name:named after artist
 #: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1260
 #: DB:link_type/long_link_phrase:1257 DB:link_type/long_link_phrase:975
 #: DB:link_type/long_link_phrase:1000
-#, fuzzy
-#| msgid "{entity1} is named after {entity0}"
 msgid "{entity1} is named after artist {entity0}"
-msgstr "{entity1} prende il nome da {entity0}"
+msgstr "{entity1} prende il nome dall'artista {entity0}"
 
 #. name:anthem
 #: DB:link_type/long_link_phrase:357
