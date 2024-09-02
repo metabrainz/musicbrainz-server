@@ -1,25 +1,27 @@
 #
 # Translators:
-#      Alastair McKinstry <email address hidden>, 2001
-#      Andrzej M. Krzysztofowicz <email address hidden>, 2007
-#      GNOME PL Team <email address hidden>, 2001
+# Alastair McKinstry <email address hidden>, 2001
+# Andrzej M. Krzysztofowicz <email address hidden>, 2007
+# GNOME PL Team <email address hidden>, 2001
 # Skelly 37, 2022
-#   Tobias Toedter <email address hidden>, 2007
+# Tobias Toedter <email address hidden>, 2007
 # Tomasz Małota <email address hidden>, 2021
+# Echelon666 <echelon01@wp.pl>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:21+0000\n"
-"Last-Translator: Skelly 37, 2022\n"
-"Language-Team: Polish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/pl/)\n"
+"PO-Revision-Date: 2024-08-28 22:42+0000\n"
+"Last-Translator: Echelon666 <echelon01@wp.pl>\n"
+"Language-Team: Polish <https://translations.metabrainz.org/projects/"
+"musicbrainz/scripts/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
@@ -104,7 +106,7 @@ msgstr "buhid"
 #. frequency:2 iso_code:Cans
 #: DB:script/name:87
 msgid "Canadian Syllabics"
-msgstr ""
+msgstr "Abugidy kanadyjskie"
 
 #. frequency:2 iso_code:Cari
 #: DB:script/name:108
@@ -314,7 +316,7 @@ msgstr "japoński"
 #. frequency:3 iso_code:Hrkt
 #: DB:script/name:100
 msgid "Japanese syllabaries"
-msgstr ""
+msgstr "Kana"
 
 #. frequency:1 iso_code:Java
 #: DB:script/name:73

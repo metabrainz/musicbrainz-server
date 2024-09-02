@@ -7,11 +7,13 @@
 # ycwei982 <ycwei982@outlook.com>, 2024.
 # AshPigeon <1433821055@qq.com>, 2024.
 # weeeeei <weeeeei@duck.com>, 2024.
+# KenParker_CN <peekabookenny@gmail.com>, 2024.
+# thephy <differentphy@outlook.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-07-17 06:42+0000\n"
-"Last-Translator: weeeeei <weeeeei@duck.com>\n"
+"PO-Revision-Date: 2024-08-20 12:42+0000\n"
+"Last-Translator: thephy <differentphy@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/relationship-types/zh_Hans/>\n"
 "Language: zh\n"
@@ -23,9 +25,8 @@ msgstr ""
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
-#, fuzzy
 msgid "A performance-centered, usually one to three year postgraduate program."
-msgstr "一个以成绩为标准的，通常一至三年的毕业程序。"
+msgstr "一种以表演为中心的、通常为期一到三年的研究生课程。"
 
 #. name:social network
 #: DB:link_type/description:218
@@ -743,8 +744,8 @@ msgid ""
 "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</"
 "a>."
 msgstr ""
-"指此专辑的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
-"strong>一个概念。"
+"指此专辑的词曲版权方。这和<a href=\"/doc/Label\" target=\"_blank\""
+">厂牌</a><strong>不是</strong>一个概念。"
 
 #. name:publishing
 #: DB:link_type/description:161 DB:link_type/description:208
@@ -752,8 +753,8 @@ msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
-"指此作品的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
-"strong>一个概念。"
+"指此作品的词曲版权方。这和<a href=\"/doc/Label\" target=\"_blank\""
+">厂牌</a><strong>不是</strong>一个概念。"
 
 #. name:last.fm
 #: DB:link_type/link_phrase:837 DB:link_type/link_phrase:838
@@ -1173,11 +1174,10 @@ msgstr "演出或者节目播出在当地的预定开始时间，格式为 HH:MM
 
 #. name:meane vocals
 #: DB:link_attribute_type/description:1060
-#, fuzzy
-#| msgid ""
-#| "Meane or mean is a young male singer with a voice lower than a treble"
 msgid "Meane or mean is a young male singer with a voice lower than a treble."
-msgstr "童中音是音高比童高音低的男童歌手。"
+msgstr ""
+"Meane声部(有时拼写为mean)通常由声音比 童声高音 低, 但又不像 假声男高音 那样低"
+"的男孩来演唱。"
 
 #. name:myspace
 #: DB:link_type/link_phrase:215 DB:link_type/link_phrase:462
@@ -1343,10 +1343,8 @@ msgstr "指向此厂牌的维基百科页。"
 
 #. name:wikipedia
 #: DB:link_type/description:595
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this place"
 msgid "Points to the Wikipedia page for this place."
-msgstr "指向此地点的维基百科页。"
+msgstr "指向此位置的维基百科页面。"
 
 #. name:wikipedia
 #: DB:link_type/description:744
@@ -1664,16 +1662,16 @@ msgstr ""
 #: DB:link_type/description:125
 #, fuzzy
 #| msgid ""
-#| "This credits the people or agency who did the graphic design, arranging "
-#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
-#| "design."
+#| "This credits the people or agency who did graphic design for a video "
+#| "recording, arranging pieces of content into a coherent and aesthetically-"
+#| "pleasing whole."
 msgid ""
-"This credits the people or agency who did graphic design for a video "
-"recording, arranging pieces of content into a coherent and aesthetically-"
-"pleasing whole."
+"This credits the people or agency who did the graphic design / layout for a "
+"video recording, arranging pieces of content into a coherent and "
+"aesthetically-pleasing whole."
 msgstr ""
-"这记载的是平面设计师或机构，他们将内容元素组合为符合一致性和审美要求的封套设"
-"计。"
+"为视频录制作品进行图形设计的人或机构，他们负责将内容的各个部分组织成一个既连"
+"贯又美观的整体。"
 
 #. name:label rename
 #: DB:link_type/description:202
@@ -1792,7 +1790,7 @@ msgstr ""
 msgid ""
 "This describes an engineer responsible for transferring a release, for "
 "example from an old tape to digital."
-msgstr ""
+msgstr "这指的是负责将发行作品进行转换的工程师，例如从旧磁带到数字格式的转换。"
 
 #. name:mix
 #: DB:link_type/description:143
@@ -1840,18 +1838,13 @@ msgstr ""
 
 #. name:design/illustration
 #: DB:link_type/description:19
-#, fuzzy
-#| msgid ""
-#| "This indicates a person or agency who did design or illustration for the "
-#| "release. This relationship is deprecated, please use either \"design\" or "
-#| "\"illustration\" (or both!)"
 msgid ""
 "This indicates a person or agency who did design or illustration for the "
 "release. This relationship is deprecated, please use either “design” or "
 "“illustration” (or both!) instead."
 msgstr ""
-"这指的是参与设计专辑或制作专辑插图的个人或机构。此关联已弃用，请使用“设"
-"计”或“插图”之一(或二者！)"
+"这指的是为发行作品进行设计或插图工作的人或机构。这一关系现已废弃，请使用“设"
+"计”或“插图”（或两者）代替。"
 
 #. name:design/illustration
 #: DB:link_type/description:130
@@ -1900,21 +1893,23 @@ msgid ""
 "This indicates a release group is an excerpt from another, such as the "
 "highlights of a box set or a long opera."
 msgstr ""
+"这表明一个发行组是从另一个发行组中摘录出来的，例如盒装集的精选片段或长篇歌剧"
+"的摘录。"
 
 #. name:art direction
 #: DB:link_type/description:1174
 msgid "This indicates an agency that did the art direction for the release."
-msgstr ""
+msgstr "这指明是一家机构为该发行作品进行了艺术指导工作。"
 
 #. name:design
 #: DB:link_type/description:1171
 msgid "This indicates an agency who did design for the release."
-msgstr ""
+msgstr "这表明是一家机构为该发行作品进行了设计工作。"
 
 #. name:illustration
 #: DB:link_type/description:1173
 msgid "This indicates an agency who did illustration for the release."
-msgstr ""
+msgstr "这表明是一家机构为该发行作品进行了插图绘制工作。"
 
 #. name:graphic design
 #: DB:link_type/description:1172
@@ -1923,13 +1918,15 @@ msgid ""
 "arranging pieces of content into a coherent and aesthetically-pleasing "
 "sleeve design."
 msgstr ""
+"这表明是一家机构为该发行作品进行了图形设计，将各种内容元素组织成一个连贯且视"
+"觉上吸引人的封面设计。"
 
 #. name:artwork
 #: DB:link_type/description:1170
 msgid ""
 "This indicates an agency who provided artwork for the release when no more "
 "specific information is available."
-msgstr ""
+msgstr "这表明是一家机构为该发行作品提供了艺术作品，当没有更具体的信息可用时。"
 
 #. name:founder
 #: DB:link_type/description:895
@@ -1943,6 +1940,8 @@ msgid ""
 "This indicates an artist (generally a person) was the founder of a series "
 "(mostly, but not always, an event series such as a festival)."
 msgstr ""
+"这表明一位艺术家（通常是个人）是某个系列的创始人（大多数情况下，但并非总是，"
+"如节日等事件系列）。"
 
 #. name:cancelled
 #: DB:link_attribute_type/description:921
@@ -1959,21 +1958,17 @@ msgstr "这表明艺术家为表演需要重编了某一作品(通常因为乐�
 #. name:art direction
 #: DB:link_type/description:18
 msgid "This indicates an artist that did the art direction for the release."
-msgstr ""
+msgstr "这表明是一位艺术家为该发行作品进行了艺术指导工作。"
 
 #. name:sound effects
 #: DB:link_type/description:1236
-#, fuzzy
-#| msgid "This indicates an artist cancelled their appearance at an event."
 msgid "This indicates an artist that did the sound effects for the recording."
-msgstr "这表明艺术家在活动中取消出席。"
+msgstr "这表明是一位艺术家为录音作品进行了音效制作。。"
 
 #. name:sound effects
 #: DB:link_type/description:1235
-#, fuzzy
-#| msgid "This indicates an artist cancelled their appearance at an event."
 msgid "This indicates an artist that did the sound effects for the release."
-msgstr "这表明艺术家在活动中取消出席。"
+msgstr "这表明是一位艺术家为发行作品进行了音效制作。"
 
 #. name:conductor
 #: DB:link_type/description:151
@@ -1991,67 +1986,63 @@ msgstr "这表明艺术家在此专辑中指挥了乐团，乐队或合唱团。
 
 #. name:design
 #: DB:link_type/description:1242
-#, fuzzy
-#| msgid "This indicates an artist cancelled their appearance at an event."
 msgid "This indicates an artist who did design for a video recording."
-msgstr "这表明艺术家在活动中取消出席。"
+msgstr "这表明是一位艺术家为视频录制进行了设计工作。"
 
 #. name:design
 #: DB:link_type/description:1233
-#, fuzzy
-#| msgid "This indicates an artist cancelled their appearance at an event."
 msgid "This indicates an artist who did design for the event."
-msgstr "这表明艺术家在活动中取消出席。"
+msgstr "这表明是一位艺术家为该活动进行了设计工作。"
 
 #. name:design
 #: DB:link_type/description:928
 msgid "This indicates an artist who did design for the release."
-msgstr ""
+msgstr "这表明是一位艺术家为该发行作品进行了设计工作。"
 
 #. name:illustration
 #: DB:link_type/description:1244
-#, fuzzy
-#| msgid ""
-#| "This indicates a person or agency who did design or illustration for the "
-#| "track."
 msgid "This indicates an artist who did illustration for a video recording."
-msgstr "这指的是参与设计音轨或制作音轨插图的个人或机构。"
+msgstr "这表明是一位艺术家为视频录制作品进行了插图绘制工作。"
 
 #. name:illustration
 #: DB:link_type/description:1232
-#, fuzzy
-#| msgid ""
-#| "This indicates a person or agency who did design or illustration for the "
-#| "track."
 msgid "This indicates an artist who did illustration for the event."
-msgstr "这指的是参与设计音轨或制作音轨插图的个人或机构。"
+msgstr "这表明是一位艺术家为活动进行了插图绘制工作。"
 
 #. name:illustration
 #: DB:link_type/description:927
 msgid "This indicates an artist who did illustration for the release."
-msgstr ""
+msgstr "这表明是一位艺术家为发行作品进行了插图绘制工作。"
 
 #. name:graphic design
 #: DB:link_type/description:1234
 #, fuzzy
 #| msgid ""
-#| "This credits the people or agency who did the graphic design, arranging "
-#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
+#| "This indicates an artist who did the graphic design for the event, "
+#| "arranging pieces of content into a coherent and aesthetically-pleasing "
 #| "design."
 msgid ""
-"This indicates an artist who did the graphic design for the event, arranging "
-"pieces of content into a coherent and aesthetically-pleasing design."
+"This indicates an artist who did the graphic design / layout for the event, "
+"arranging pieces of content into a coherent and aesthetically-pleasing "
+"design."
 msgstr ""
-"这记载的是平面设计师或机构，他们将内容元素组合为符合一致性和审美要求的封套设"
-"计。"
+"这表明是一位艺术家为该活动进行了图形设计，将各种内容元素组织成一个连贯且视觉"
+"上吸引人的封面设计。"
 
 #. name:graphic design
 #: DB:link_type/description:27
+#, fuzzy
+#| msgid ""
+#| "This indicates an artist who did the graphic design for the release, "
+#| "arranging pieces of content into a coherent and aesthetically-pleasing "
+#| "sleeve design."
 msgid ""
-"This indicates an artist who did the graphic design for the release, "
-"arranging pieces of content into a coherent and aesthetically-pleasing "
-"sleeve design."
+"This indicates an artist who did the graphic design / layout for the "
+"release, arranging pieces of content into a coherent and aesthetically-"
+"pleasing sleeve design."
 msgstr ""
+"这表明是一位艺术家为该发行作品进行了图形设计，将各种内容元素组织成一个连贯且"
+"视觉上吸引人的封面设计。"
 
 #. name:producer
 #: DB:link_type/description:141 DB:link_type/description:30
@@ -2407,6 +2398,13 @@ msgid ""
 "This indicates the area (usually a city) where a label is headquartered in."
 msgstr "这表明艺术家正式担任厂牌的制作人。"
 
+#. name:named after area
+#: DB:link_type/description:1262
+#, fuzzy
+#| msgid "Indicates an artist that performed on this release."
+msgid "This indicates the area that inspired this genre’s name."
+msgstr "表明该艺术家在此专辑中有表演。"
+
 #. name:video director
 #: DB:link_type/description:1185
 msgid "This indicates the artist directed video on this release."
@@ -2571,6 +2569,13 @@ msgstr ""
 msgid "This indicates the label that inspired this artist’s name."
 msgstr "这表明一个地点包含于另一地点。"
 
+#. name:named after label
+#: DB:link_type/description:1264
+#, fuzzy
+#| msgid "Indicates an artist that performed on this release."
+msgid "This indicates the label that inspired this genre’s name."
+msgstr "表明该艺术家在此专辑中有表演。"
+
 #. name:translator
 #: DB:link_attribute_type/description:1018
 msgid ""
@@ -2734,6 +2739,13 @@ msgstr ""
 "一首连着一首。如果音轨已调音或混合，将此人记录为<a href=\"/"
 "relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\" target=\"_blank\">混音"
 "DJ</a>更合适。"
+
+#. name:named after place
+#: DB:link_type/description:1263
+#, fuzzy
+#| msgid "Indicates an artist that performed on this release."
+msgid "This indicates the place that inspired this genre’s name."
+msgstr "表明该艺术家在此专辑中有表演。"
 
 #. name:pressed
 #: DB:link_type/description:942
@@ -6949,8 +6961,10 @@ msgstr "信息页"
 msgid "inspired the name of artist"
 msgstr ""
 
-#. name:named after artist, name:named after release group
-#: DB:link_type/link_phrase:1260 DB:link_type/reverse_link_phrase:1261
+#. name:named after area, name:named after artist, name:named after label, name:named after place, name:named after release group
+#: DB:link_type/link_phrase:1260 DB:link_type/link_phrase:1262
+#: DB:link_type/reverse_link_phrase:1261 DB:link_type/reverse_link_phrase:1264
+#: DB:link_type/reverse_link_phrase:1263
 msgid "inspired the name of genre"
 msgstr ""
 
@@ -7164,9 +7178,16 @@ msgid "is named after artist"
 msgstr ""
 
 #. name:named after label
-#: DB:link_type/long_link_phrase:1259
+#: DB:link_type/long_link_phrase:1259 DB:link_type/long_link_phrase:1264
 msgid "is named after label"
 msgstr ""
+
+#. name:named after place
+#: DB:link_type/long_link_phrase:1263
+#, fuzzy
+#| msgid "parent label"
+msgid "is named after place"
+msgstr "母厂牌"
 
 #. name:named after release group
 #: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
@@ -7867,20 +7888,35 @@ msgstr ""
 msgid "myspace"
 msgstr ""
 
+#. name:named after area
+#: DB:link_type/name:1262 DB:link_type/reverse_link_phrase:1262
+#, fuzzy
+#| msgid "parent label"
+msgid "named after area"
+msgstr "母厂牌"
+
 #. name:named after artist
-#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1257
-#: DB:link_type/name:1260 DB:link_type/name:975 DB:link_type/name:1000
+#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1260
+#: DB:link_type/name:1257 DB:link_type/name:975 DB:link_type/name:1000
 #: DB:link_type/link_phrase:973 DB:link_type/reverse_link_phrase:1258
-#: DB:link_type/reverse_link_phrase:1257 DB:link_type/reverse_link_phrase:1260
+#: DB:link_type/reverse_link_phrase:1260 DB:link_type/reverse_link_phrase:1257
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
 msgid "named after artist"
 msgstr ""
 
 #. name:named after label
-#: DB:link_type/name:1259 DB:link_type/link_phrase:1259
+#: DB:link_type/name:1259 DB:link_type/name:1264 DB:link_type/link_phrase:1259
+#: DB:link_type/link_phrase:1264
 #, fuzzy
 #| msgid "parent label"
 msgid "named after label"
+msgstr "母厂牌"
+
+#. name:named after place
+#: DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#, fuzzy
+#| msgid "parent label"
+msgid "named after place"
 msgstr "母厂牌"
 
 #. name:named after release group
@@ -10707,9 +10743,16 @@ msgstr "{entity1} 于 {entity0} 制造"
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
 
+#. name:named after area
+#: DB:link_type/long_link_phrase:1262
+#, fuzzy
+#| msgid "{entity1} was manufactured in {entity0}"
+msgid "{entity1} is named after area {entity0}"
+msgstr "{entity1} 于 {entity0} 制造"
+
 #. name:named after artist
-#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1257
-#: DB:link_type/long_link_phrase:1260 DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1260
+#: DB:link_type/long_link_phrase:1257 DB:link_type/long_link_phrase:975
 #: DB:link_type/long_link_phrase:1000
 #, fuzzy
 #| msgid "{entity1} was manufactured in {entity0}"

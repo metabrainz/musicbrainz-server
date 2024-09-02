@@ -531,6 +531,7 @@ input.icon, div.icon.img, span.icon.img, button.icon, a.icon {
     vertical-align: middle;
     cursor: pointer;
 }
+input.icon:disabled, button.icon:disabled { cursor: default; }
 
 div.img, button.icon, a.icon { display: inline-block; }
 
@@ -622,6 +623,10 @@ div.artist-credit-editor {
     input[type=text], div.autocomplete2 { width: 100%; }
 
     .removed-ac-name { text-align: right; }
+
+    button.move-down:disabled, button.move-up:disabled { opacity: 50%; }
+
+    button.remove-artist-credit { margin-left: 0.5em; }
 
     .buttons {
         #copy-ac, #paste-ac { float: left; }

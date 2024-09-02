@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-11 22:42+0000\n"
+"PO-Revision-Date: 2024-08-22 13:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -24,8 +24,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #: ../root/statistics/timeline.tt:18
@@ -478,7 +478,7 @@ msgstr "Bozze CD (da sempre/attualmente):"
 #: ../root/statistics/Index.js:163
 msgctxt "folksonomy"
 msgid "Tags (raw / aggregated):"
-msgstr "Tag (grezzi/aggregati):"
+msgstr "Tag (grezzi / aggregati):"
 
 #: ../root/statistics/Index.js:169
 msgid "Ratings (raw / aggregated):"
@@ -1007,7 +1007,7 @@ msgstr "Non è disponibile nessuna statistica sulle relazioni."
 #: ../root/statistics/Relationships.js:105
 msgctxt "relationships"
 msgid "This type only"
-msgstr "Solo questo tipo"
+msgstr "Solo di questo tipo"
 
 #: ../root/statistics/Relationships.js:106
 msgctxt "relationships"

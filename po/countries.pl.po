@@ -1,8 +1,8 @@
 #
 # Translators:
 # Alastair McKinstry <email address hidden>, 2002
-#      Alastair McKinstry, <email address hidden>, 2004
-#      Andrzej M. Krzysztofowicz <email address hidden>, 2007
+# Alastair McKinstry, <email address hidden>, 2004
+# Andrzej M. Krzysztofowicz <email address hidden>, 2007
 # czaja <email address hidden>, 2011
 # Formbi Chiss <email address hidden>, 2017
 # Debeat <email address hidden>, 2014-2015
@@ -10,22 +10,24 @@
 # Marcin Rataj <email address hidden>, 2011, 2012
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Piotr Myśliński <email address hidden>, 2013
-#   Tobias Toedter <email address hidden>, 2007
-#      Tomasz Z. Napierala <email address hidden>, 2004,2006
+# Tobias Toedter <email address hidden>, 2007
+# Tomasz Z. Napierala <email address hidden>, 2004,2006
+# Echelon666 <echelon01@wp.pl>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:20+0000\n"
-"Last-Translator: Formbi Chiss <formbi@interia.pl>, 2017\n"
-"Language-Team: Polish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/pl/)\n"
+"PO-Revision-Date: 2024-08-28 15:42+0000\n"
+"Last-Translator: Echelon666 <echelon01@wp.pl>\n"
+"Language-Team: Polish <https://translations.metabrainz.org/projects/"
+"musicbrainz/countries/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. iso.code:AF
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:1
@@ -315,7 +317,7 @@ msgstr "Cypr"
 #. iso.code:CZ
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:56
 msgid "Czechia"
-msgstr ""
+msgstr "Czechy"
 
 #. iso.code:XC
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:245
@@ -390,7 +392,7 @@ msgstr "Estonia"
 #. iso.code:SZ
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:201
 msgid "Eswatini"
-msgstr ""
+msgstr "Eswatini"
 
 #. iso.code:ET
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:68
@@ -865,7 +867,7 @@ msgstr "Korea Północna"
 #. iso.code:MK
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:126
 msgid "North Macedonia"
-msgstr ""
+msgstr "Macedonia Północna"
 
 #. iso.code:MP
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:159
@@ -1210,7 +1212,7 @@ msgstr "Tuvalu"
 #. iso.code:TR
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:214
 msgid "Türkiye"
-msgstr ""
+msgstr "Turcja"
 
 #. iso.code:VI
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:231

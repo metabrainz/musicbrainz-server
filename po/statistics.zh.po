@@ -7,12 +7,13 @@
 # darlingz <yagamidai@gmail.com>, 2024.
 # yyoung <yyoung@users.noreply.translations.metabrainz.org>, 2024.
 # weeeeei <weeeeei@duck.com>, 2024.
+# thephy <differentphy@outlook.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-16 08:17+0000\n"
-"Last-Translator: weeeeei <weeeeei@duck.com>\n"
+"PO-Revision-Date: 2024-08-20 12:42+0000\n"
+"Last-Translator: thephy <differentphy@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
 "projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
@@ -28,7 +29,7 @@ msgstr "添加/删除行 :"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Check boxes above"
-msgstr ""
+msgstr "勾选以上复选框"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Click to deselect"
@@ -94,7 +95,7 @@ msgstr ""
 
 #: ../root/statistics/timeline.tt:6 ../root/statistics/timeline.tt:19
 msgid "MusicBrainz events"
-msgstr ""
+msgstr "MusicBrainz 活动"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:64
 msgid "Overview"
@@ -118,7 +119,7 @@ msgstr "关联"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Reset:"
-msgstr ""
+msgstr "重置:"
 
 #: ../root/statistics/layout.tt:4
 msgid "Timeline"
@@ -207,7 +208,7 @@ msgstr "对于投票统计，只计算赞成票或反对票，不计算弃权票
 
 #: ../root/statistics/Editors.js:102
 msgid "Open and applied edits in past week"
-msgstr ""
+msgstr "过去一周内打开和应用的编辑"
 
 #: ../root/statistics/Editors.js:104 ../root/statistics/Editors.js:110
 msgid "Editor"
@@ -215,11 +216,11 @@ msgstr "编辑者"
 
 #: ../root/statistics/Editors.js:105
 msgid "Most active editors in the past week"
-msgstr ""
+msgstr "过去一周内最活跃的编辑者"
 
 #: ../root/statistics/Editors.js:108
 msgid "Total applied edits"
-msgstr ""
+msgstr "总共被应用的编辑数"
 
 #: ../root/statistics/Editors.js:111
 msgid "Top editors overall"
@@ -247,11 +248,11 @@ msgstr "总票数"
 
 #: ../root/statistics/Editors.js:128
 msgid "Top voters overall"
-msgstr ""
+msgstr "共计最多投票者"
 
 #: ../root/statistics/Edits.js:37
 msgid "No edit statistics available."
-msgstr ""
+msgstr "编辑统计信息不可用."
 
 #: ../root/statistics/Formats.js:38 ../root/statistics/Formats.js:44
 msgid "Release/Medium Formats"

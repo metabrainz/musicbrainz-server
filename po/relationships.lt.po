@@ -1823,10 +1823,15 @@ msgstr ""
 
 #. name:graphic design
 #: DB:link_type/description:125
+#, fuzzy
+#| msgid ""
+#| "This credits the people or agency who did graphic design for a video "
+#| "recording, arranging pieces of content into a coherent and aesthetically-"
+#| "pleasing whole."
 msgid ""
-"This credits the people or agency who did graphic design for a video "
-"recording, arranging pieces of content into a coherent and aesthetically-"
-"pleasing whole."
+"This credits the people or agency who did the graphic design / layout for a "
+"video recording, arranging pieces of content into a coherent and "
+"aesthetically-pleasing whole."
 msgstr ""
 "Tai įvardija asmenis arba agentūrą, kuri atliko vaizdo įrašo grafinį "
 "dizainą, sudėliodama turinio dalis į darnią ir estetiškai patrauklią visumą."
@@ -2207,19 +2212,30 @@ msgstr "Tai nurodo atlikėją, kuris kūrė leidinio iliustraciją."
 
 #. name:graphic design
 #: DB:link_type/description:1234
+#, fuzzy
+#| msgid ""
+#| "This indicates an artist who did the graphic design for the event, "
+#| "arranging pieces of content into a coherent and aesthetically-pleasing "
+#| "design."
 msgid ""
-"This indicates an artist who did the graphic design for the event, arranging "
-"pieces of content into a coherent and aesthetically-pleasing design."
+"This indicates an artist who did the graphic design / layout for the event, "
+"arranging pieces of content into a coherent and aesthetically-pleasing "
+"design."
 msgstr ""
 "Tai nurodo atlikėją, kuris kūrė renginio grafinį dizainą, sudėliodamas "
 "turinio dalis į vientisą ir estetiškai patrauklų dizainą."
 
 #. name:graphic design
 #: DB:link_type/description:27
+#, fuzzy
+#| msgid ""
+#| "This indicates an artist who did the graphic design for the release, "
+#| "arranging pieces of content into a coherent and aesthetically-pleasing "
+#| "sleeve design."
 msgid ""
-"This indicates an artist who did the graphic design for the release, "
-"arranging pieces of content into a coherent and aesthetically-pleasing "
-"sleeve design."
+"This indicates an artist who did the graphic design / layout for the "
+"release, arranging pieces of content into a coherent and aesthetically-"
+"pleasing sleeve design."
 msgstr ""
 "Tai nurodo atlikėją, kuris kūrė leidinio grafinį dizainą, sudėliodamas "
 "turinio dalis į vientisą ir estetiškai patrauklų plėvelės dizainą."
@@ -2599,6 +2615,13 @@ msgid ""
 msgstr ""
 "Tai nurodo teritoriją (paprastai miestą), kurioje yra leidyklos būstinė."
 
+#. name:named after area
+#: DB:link_type/description:1262
+#, fuzzy
+#| msgid "This indicates the artist was the owner of this label."
+msgid "This indicates the area that inspired this genre’s name."
+msgstr "Tai nurodo, kad atlikėjas buvo šios leidyklos savininkas."
+
 #. name:video director
 #: DB:link_type/description:1185
 msgid "This indicates the artist directed video on this release."
@@ -2750,6 +2773,13 @@ msgstr ""
 #, fuzzy
 #| msgid "This indicates the artist was the owner of this label."
 msgid "This indicates the label that inspired this artist’s name."
+msgstr "Tai nurodo, kad atlikėjas buvo šios leidyklos savininkas."
+
+#. name:named after label
+#: DB:link_type/description:1264
+#, fuzzy
+#| msgid "This indicates the artist was the owner of this label."
+msgid "This indicates the label that inspired this genre’s name."
 msgstr "Tai nurodo, kad atlikėjas buvo šios leidyklos savininkas."
 
 #. name:translator
@@ -2908,6 +2938,13 @@ msgid ""
 "relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\" target=\"_blank\">DJ-"
 "mixer</a>."
 msgstr ""
+
+#. name:named after place
+#: DB:link_type/description:1263
+#, fuzzy
+#| msgid "This indicates the artist was the owner of this label."
+msgid "This indicates the place that inspired this genre’s name."
+msgstr "Tai nurodo, kad atlikėjas buvo šios leidyklos savininkas."
 
 #. name:pressed
 #: DB:link_type/description:942
@@ -7001,8 +7038,10 @@ msgstr ""
 msgid "inspired the name of artist"
 msgstr ""
 
-#. name:named after artist, name:named after release group
-#: DB:link_type/link_phrase:1260 DB:link_type/reverse_link_phrase:1261
+#. name:named after area, name:named after artist, name:named after label, name:named after place, name:named after release group
+#: DB:link_type/link_phrase:1260 DB:link_type/link_phrase:1262
+#: DB:link_type/reverse_link_phrase:1261 DB:link_type/reverse_link_phrase:1264
+#: DB:link_type/reverse_link_phrase:1263
 msgid "inspired the name of genre"
 msgstr ""
 
@@ -7218,10 +7257,17 @@ msgid "is named after artist"
 msgstr "pavadintas pagal"
 
 #. name:named after label
-#: DB:link_type/long_link_phrase:1259
+#: DB:link_type/long_link_phrase:1259 DB:link_type/long_link_phrase:1264
 #, fuzzy
 #| msgid "named after"
 msgid "is named after label"
+msgstr "pavadintas pagal"
+
+#. name:named after place
+#: DB:link_type/long_link_phrase:1263
+#, fuzzy
+#| msgid "named after"
+msgid "is named after place"
 msgstr "pavadintas pagal"
 
 #. name:named after release group
@@ -7927,11 +7973,18 @@ msgstr "muzikologija"
 msgid "myspace"
 msgstr "myspace"
 
+#. name:named after area
+#: DB:link_type/name:1262 DB:link_type/reverse_link_phrase:1262
+#, fuzzy
+#| msgid "named after"
+msgid "named after area"
+msgstr "pavadintas pagal"
+
 #. name:named after artist
-#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1257
-#: DB:link_type/name:1260 DB:link_type/name:975 DB:link_type/name:1000
+#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1260
+#: DB:link_type/name:1257 DB:link_type/name:975 DB:link_type/name:1000
 #: DB:link_type/link_phrase:973 DB:link_type/reverse_link_phrase:1258
-#: DB:link_type/reverse_link_phrase:1257 DB:link_type/reverse_link_phrase:1260
+#: DB:link_type/reverse_link_phrase:1260 DB:link_type/reverse_link_phrase:1257
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
 #, fuzzy
 #| msgid "named after"
@@ -7939,10 +7992,18 @@ msgid "named after artist"
 msgstr "pavadintas pagal"
 
 #. name:named after label
-#: DB:link_type/name:1259 DB:link_type/link_phrase:1259
+#: DB:link_type/name:1259 DB:link_type/name:1264 DB:link_type/link_phrase:1259
+#: DB:link_type/link_phrase:1264
 #, fuzzy
 #| msgid "named after"
 msgid "named after label"
+msgstr "pavadintas pagal"
+
+#. name:named after place
+#: DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#, fuzzy
+#| msgid "named after"
+msgid "named after place"
 msgstr "pavadintas pagal"
 
 #. name:named after release group
@@ -10759,9 +10820,16 @@ msgstr "{entity1} būstinė yra {entity0}"
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
 
+#. name:named after area
+#: DB:link_type/long_link_phrase:1262
+#, fuzzy
+#| msgid "{entity1} is headquartered in {entity0}"
+msgid "{entity1} is named after area {entity0}"
+msgstr "{entity1} būstinė yra {entity0}"
+
 #. name:named after artist
-#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1257
-#: DB:link_type/long_link_phrase:1260 DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1260
+#: DB:link_type/long_link_phrase:1257 DB:link_type/long_link_phrase:975
 #: DB:link_type/long_link_phrase:1000
 #, fuzzy
 #| msgid "{entity1} is headquartered in {entity0}"

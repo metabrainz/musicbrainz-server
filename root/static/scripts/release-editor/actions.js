@@ -270,6 +270,43 @@ const actions = {
     track.nameModified(false);
   },
 
+  onTrackInputKeyDown(track, event) {
+    /*
+     * If a bare up or down arrow key event occurs while the cursor is
+     * at the beginning or end of the input, move the focus up or down.
+     */
+    if (
+      (event.key === 'ArrowUp' || event.key === 'ArrowDown') &&
+      !event.altKey && !event.ctrlKey && !event.metaKey &&
+      !event.shiftKey
+    ) {
+      const up = event.key === 'ArrowUp';
+      const input = event.target;
+      if (input.selectionStart === input.selectionEnd && (
+        (up && input.selectionStart === 0) ||
+        (!up && input.selectionStart === input.value.length)
+      )) {
+        const row = input.closest('tr');
+        const rows = [...row.parentNode.children];
+        const rowIndex = rows.indexOf(row);
+        const newRowIndex = rowIndex + (up ? -1 : 1);
+        if (newRowIndex >= 0 && newRowIndex < rows.length) {
+          const cell = input.closest('td');
+          const cellIndex = [...cell.parentNode.children].indexOf(cell);
+          const newCell = [...rows[newRowIndex].children][cellIndex];
+          const newInput = newCell.querySelector('input');
+          deferFocus(newInput);
+          newInput.selectionStart = newInput.selectionEnd =
+            (up ? 0 : newInput.value.length);
+          event.stopPropagation();
+          return false;
+        }
+      }
+    }
+    // If we made it here, let the event be handled like usual.
+    return true;
+  },
+
   /*
    * Shows or hides a preview if event.type is 'mouseenter' or 'mouseleave'.
    * Otherwise, updates the current name.

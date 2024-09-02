@@ -1764,9 +1764,9 @@ msgstr ""
 #| "pieces of content into a coherent and aesthetically-pleasing sleeve "
 #| "design."
 msgid ""
-"This credits the people or agency who did graphic design for a video "
-"recording, arranging pieces of content into a coherent and aesthetically-"
-"pleasing whole."
+"This credits the people or agency who did the graphic design / layout for a "
+"video recording, arranging pieces of content into a coherent and "
+"aesthetically-pleasing whole."
 msgstr ""
 "מזכה את האנשים או הסוכנות שבצעו את העיצוב הגרפי, תוך שהם מסדרים חלקי תוכן "
 "לעיצוב שרוול לכיד ונעים אסתטית."
@@ -2130,19 +2130,27 @@ msgstr ""
 #| "pieces of content into a coherent and aesthetically-pleasing sleeve "
 #| "design."
 msgid ""
-"This indicates an artist who did the graphic design for the event, arranging "
-"pieces of content into a coherent and aesthetically-pleasing design."
+"This indicates an artist who did the graphic design / layout for the event, "
+"arranging pieces of content into a coherent and aesthetically-pleasing "
+"design."
 msgstr ""
 "מזכה את האנשים או הסוכנות שבצעו את העיצוב הגרפי, תוך שהם מסדרים חלקי תוכן "
 "לעיצוב שרוול לכיד ונעים אסתטית."
 
 #. name:graphic design
 #: DB:link_type/description:27
+#, fuzzy
+#| msgid ""
+#| "This credits the people or agency who did the graphic design, arranging "
+#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
+#| "design."
 msgid ""
-"This indicates an artist who did the graphic design for the release, "
-"arranging pieces of content into a coherent and aesthetically-pleasing "
-"sleeve design."
+"This indicates an artist who did the graphic design / layout for the "
+"release, arranging pieces of content into a coherent and aesthetically-"
+"pleasing sleeve design."
 msgstr ""
+"מזכה את האנשים או הסוכנות שבצעו את העיצוב הגרפי, תוך שהם מסדרים חלקי תוכן "
+"לעיצוב שרוול לכיד ונעים אסתטית."
 
 #. name:producer
 #: DB:link_type/description:141 DB:link_type/description:30
@@ -2511,6 +2519,13 @@ msgid ""
 "This indicates the area (usually a city) where a label is headquartered in."
 msgstr "ציון עובדת העסקתו של אמן רשמית על־ידי חברת תקליטים בתפקיד מפיק."
 
+#. name:named after area
+#: DB:link_type/description:1262
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the area that inspired this genre’s name."
+msgstr "ציון האמן שבהשראתו כונה כך המקום."
+
 #. name:video director
 #: DB:link_type/description:1185
 msgid "This indicates the artist directed video on this release."
@@ -2675,6 +2690,13 @@ msgstr ""
 #| msgid "This indicates the artist that inspired this artist’s name."
 msgid "This indicates the label that inspired this artist’s name."
 msgstr "ציון האמן שבהשראתו כונה כך האמן."
+
+#. name:named after label
+#: DB:link_type/description:1264
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the label that inspired this genre’s name."
+msgstr "ציון האמן שבהשראתו כונה כך המקום."
 
 #. name:translator
 #: DB:link_attribute_type/description:1018
@@ -2850,6 +2872,13 @@ msgid ""
 "relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\" target=\"_blank\">DJ-"
 "mixer</a>."
 msgstr ""
+
+#. name:named after place
+#: DB:link_type/description:1263
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the place that inspired this genre’s name."
+msgstr "ציון האמן שבהשראתו כונה כך המקום."
 
 #. name:pressed
 #: DB:link_type/description:942
@@ -7343,8 +7372,10 @@ msgstr "עמוד מידע"
 msgid "inspired the name of artist"
 msgstr "מתן הַשְׁרָאָה לשם של"
 
-#. name:named after artist, name:named after release group
-#: DB:link_type/link_phrase:1260 DB:link_type/reverse_link_phrase:1261
+#. name:named after area, name:named after artist, name:named after label, name:named after place, name:named after release group
+#: DB:link_type/link_phrase:1260 DB:link_type/link_phrase:1262
+#: DB:link_type/reverse_link_phrase:1261 DB:link_type/reverse_link_phrase:1264
+#: DB:link_type/reverse_link_phrase:1263
 #, fuzzy
 #| msgid "inspired the name of"
 msgid "inspired the name of genre"
@@ -7574,10 +7605,17 @@ msgid "is named after artist"
 msgstr "קרוי על שם"
 
 #. name:named after label
-#: DB:link_type/long_link_phrase:1259
+#: DB:link_type/long_link_phrase:1259 DB:link_type/long_link_phrase:1264
 #, fuzzy
 #| msgid "is named after"
 msgid "is named after label"
+msgstr "קרוי על שם"
+
+#. name:named after place
+#: DB:link_type/long_link_phrase:1263
+#, fuzzy
+#| msgid "is named after"
+msgid "is named after place"
 msgstr "קרוי על שם"
 
 #. name:named after release group
@@ -8287,11 +8325,18 @@ msgstr "מֶחְקַר הַמּוּזיקָה"
 msgid "myspace"
 msgstr "מייספייס"
 
+#. name:named after area
+#: DB:link_type/name:1262 DB:link_type/reverse_link_phrase:1262
+#, fuzzy
+#| msgid "named after"
+msgid "named after area"
+msgstr "קרוי על שם"
+
 #. name:named after artist
-#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1257
-#: DB:link_type/name:1260 DB:link_type/name:975 DB:link_type/name:1000
+#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1260
+#: DB:link_type/name:1257 DB:link_type/name:975 DB:link_type/name:1000
 #: DB:link_type/link_phrase:973 DB:link_type/reverse_link_phrase:1258
-#: DB:link_type/reverse_link_phrase:1257 DB:link_type/reverse_link_phrase:1260
+#: DB:link_type/reverse_link_phrase:1260 DB:link_type/reverse_link_phrase:1257
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
 #, fuzzy
 #| msgid "named after"
@@ -8299,10 +8344,18 @@ msgid "named after artist"
 msgstr "קרוי על שם"
 
 #. name:named after label
-#: DB:link_type/name:1259 DB:link_type/link_phrase:1259
+#: DB:link_type/name:1259 DB:link_type/name:1264 DB:link_type/link_phrase:1259
+#: DB:link_type/link_phrase:1264
 #, fuzzy
 #| msgid "named after"
 msgid "named after label"
+msgstr "קרוי על שם"
+
+#. name:named after place
+#: DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#, fuzzy
+#| msgid "named after"
+msgid "named after place"
 msgstr "קרוי על שם"
 
 #. name:named after release group
@@ -11160,9 +11213,16 @@ msgstr "{entity1} נוצר ב־{entity0}"
 msgid "{entity1} is licensed under {entity0}"
 msgstr "{entity1} מורשה מחת רשיון {entity0}"
 
+#. name:named after area
+#: DB:link_type/long_link_phrase:1262
+#, fuzzy
+#| msgid "{entity1} is named after {entity0}"
+msgid "{entity1} is named after area {entity0}"
+msgstr "{entity1} נקראה על שם {entity0}"
+
 #. name:named after artist
-#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1257
-#: DB:link_type/long_link_phrase:1260 DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1260
+#: DB:link_type/long_link_phrase:1257 DB:link_type/long_link_phrase:975
 #: DB:link_type/long_link_phrase:1000
 #, fuzzy
 #| msgid "{entity1} is named after {entity0}"
