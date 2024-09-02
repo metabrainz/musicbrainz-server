@@ -4782,7 +4782,7 @@ const CLEANUPS: CleanupEntries = {
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.recording:
-            if (prefix === 'release' && !(subPath === 'musicvideo')) {
+            if (prefix === 'release' && subPath !== 'musicvideo') {
               return {
                 error:
                   l('Only RYM music videos can be linked to recordings.'),
