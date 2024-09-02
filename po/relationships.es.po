@@ -24,7 +24,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-01 04:42+0000\n"
+"PO-Revision-Date: 2024-08-26 17:42+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -225,47 +225,47 @@ msgstr "página de CPDL para"
 
 #: DB:link_type/name:227 DB:link_type/name:8
 msgid "DJ-mix"
-msgstr "DJ-mix"
+msgstr "mezcla de DJ"
 
 #. name:DJ-mix
 #: DB:link_type/link_phrase:227 DB:link_type/link_phrase:8
 msgid "DJ-mix of"
-msgstr "DJ-mix de"
+msgstr "mezcla de DJ de"
 
 #. name:mix-DJ
 #: DB:link_type/link_phrase:155 DB:link_type/long_link_phrase:155
 msgid "DJ-mixed"
-msgstr "hizo el DJ-mix de"
+msgstr "hizo la mezcla de DJ de"
 
 #. name:DJ-mix
 #: DB:link_type/reverse_link_phrase:8
 msgid "DJ-mixed versions"
-msgstr "versiones en un DJ-mix"
+msgstr "mezclas de DJ"
 
 #. name:mix-DJ
 #: DB:link_type/long_link_phrase:43
 msgid "DJ-mixed {medium:% of}"
-msgstr "hizo el DJ-mix de{medium:l medio % de}"
+msgstr "hizo la mezcla de DJ de{medium:l medio % de}"
 
 #. name:mix-DJ
 #: DB:link_type/link_phrase:43
 msgid "DJ-mixed {medium}"
-msgstr "hizo el DJ-mix de{medium:l medio % de}"
+msgstr "hizo la mezcla de DJ de {medium}"
 
 #. name:mix-DJ
 #: DB:link_type/reverse_link_phrase:155
 msgid "DJ-mixer"
-msgstr "DJ-mix por"
+msgstr "mezcla de DJ por"
 
 #. name:mix-DJ
 #: DB:link_type/reverse_link_phrase:43
 msgid "DJ-mixer {medium}"
-msgstr "DJ-mix ({medium}) por"
+msgstr "mezcla de DJ ({medium}) por"
 
 #. name:DJ-mix
 #: DB:link_type/reverse_link_phrase:227
 msgid "DJ-mixes"
-msgstr "DJ-mixes"
+msgstr "mezclas de DJ"
 
 #. name:mastering engineer position
 #: DB:link_type/description:704
@@ -1845,9 +1845,9 @@ msgstr ""
 #. name:graphic design
 #: DB:link_type/description:125
 msgid ""
-"This credits the people or agency who did graphic design for a video "
-"recording, arranging pieces of content into a coherent and aesthetically-"
-"pleasing whole."
+"This credits the people or agency who did the graphic design / layout for a "
+"video recording, arranging pieces of content into a coherent and "
+"aesthetically-pleasing whole."
 msgstr ""
 
 #. name:label rename
@@ -2161,16 +2161,17 @@ msgstr ""
 #. name:graphic design
 #: DB:link_type/description:1234
 msgid ""
-"This indicates an artist who did the graphic design for the event, arranging "
-"pieces of content into a coherent and aesthetically-pleasing design."
+"This indicates an artist who did the graphic design / layout for the event, "
+"arranging pieces of content into a coherent and aesthetically-pleasing "
+"design."
 msgstr ""
 
 #. name:graphic design
 #: DB:link_type/description:27
 msgid ""
-"This indicates an artist who did the graphic design for the release, "
-"arranging pieces of content into a coherent and aesthetically-pleasing "
-"sleeve design."
+"This indicates an artist who did the graphic design / layout for the "
+"release, arranging pieces of content into a coherent and aesthetically-"
+"pleasing sleeve design."
 msgstr ""
 
 #. name:producer
@@ -2538,6 +2539,13 @@ msgid ""
 msgstr ""
 "Indica el área (normalmente una ciudad) donde la discográfica tiene su sede."
 
+#. name:named after area
+#: DB:link_type/description:1262
+#, fuzzy
+#| msgid "This indicates the artist that inspired this genre’s name."
+msgid "This indicates the area that inspired this genre’s name."
+msgstr "Indica el artista que inspiró el nombre de este género."
+
 #. name:video director
 #: DB:link_type/description:1185
 msgid "This indicates the artist directed video on this release."
@@ -2684,6 +2692,13 @@ msgstr ""
 msgid "This indicates the label that inspired this artist’s name."
 msgstr "Indica la discográfica que inspiró el nombre de este artista."
 
+#. name:named after label
+#: DB:link_type/description:1264
+#, fuzzy
+#| msgid "This indicates the artist that inspired this genre’s name."
+msgid "This indicates the label that inspired this genre’s name."
+msgstr "Indica el artista que inspiró el nombre de este género."
+
 #. name:translator
 #: DB:link_attribute_type/description:1018
 msgid ""
@@ -2702,8 +2717,8 @@ msgid ""
 msgstr ""
 "Indica la organización que distribuye o contrata la distribución.\n"
 "\n"
-"Esto <strong>no es lo mismo</strong> que la <a href=\"/doc/Label\" target="
-"\"_blank\">compañía discográfica</a>."
+"Esto <strong>no es lo mismo</strong> que la <a href=\"/doc/Label\" "
+"target=\"_blank\">compañía discográfica</a>."
 
 #. name:manufactured
 #: DB:link_type/description:360
@@ -2714,8 +2729,8 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Indica la organización fabricante o que contrata la fabricación.\n"
-"Esto <strong>no es lo mismo</strong> que la <a href=\"/doc/Label\" target="
-"\"_blank\">compañía discográfica</a>."
+"Esto <strong>no es lo mismo</strong> que la <a href=\"/doc/Label\" "
+"target=\"_blank\">compañía discográfica</a>."
 
 #. name:marketed
 #: DB:link_type/description:848
@@ -2839,6 +2854,13 @@ msgid ""
 "mixer</a>."
 msgstr ""
 
+#. name:named after place
+#: DB:link_type/description:1263
+#, fuzzy
+#| msgid "This indicates the artist that inspired this genre’s name."
+msgid "This indicates the place that inspired this genre’s name."
+msgstr "Indica el artista que inspiró el nombre de este género."
+
 #. name:pressed
 #: DB:link_type/description:942
 msgid ""
@@ -2847,8 +2869,8 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Indica la compañía de prensado que prensó una publicación. Esto <strong>no "
-"es lo mismo</strong> que la <a href=\"/doc/Label\" target=\"_blank\""
-">compañía discográfica</a>."
+"es lo mismo</strong> que la <a href=\"/doc/Label\" "
+"target=\"_blank\">compañía discográfica</a>."
 
 #. name:sub
 #: DB:link_attribute_type/description:1310
@@ -2995,6 +3017,10 @@ msgid ""
 "relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a> for "
 "crediting the person who created the DJ-mix."
 msgstr ""
+"Enlaza una <a href=\"/doc/Mix_Terminology#DJ_mix\">mezcla de DJ</a> a sus "
+"grabaciones originales. Para indicar la persona que creó la mezcla, usa “<a "
+"href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">mezcla de DJ "
+"por</a>”."
 
 #. name:allmusic
 #: DB:link_type/description:1093
@@ -3060,6 +3086,10 @@ msgid ""
 "relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for "
 "crediting the person who created the DJ-mix."
 msgstr ""
+"Enlaza un grupo de publicaciones para <a href=\"/doc/Mix_Terminology#DJ_mix\""
+">mezclas de DJ</a> al grupo de publicaciones que contiene la publicación "
+"original. Para indicar la persona que creó la mezcla, usa “<a href=\"/"
+"relationship/9162dedd-790c-446c-838e-240f877dbfe2\">mezcla de DJ por</a>”."
 
 #. name:allmusic
 #: DB:link_type/description:284
@@ -3255,8 +3285,8 @@ msgid ""
 "This links a <a href=\"/doc/Mix_Terminology#DJ_mix\" target=\"_blank\">DJ-"
 "mix</a> to the artist who mixed it."
 msgstr ""
-"Enlaza un <a href=\"/doc/Mix_Terminology#DJ_mix\" target=\"_blank\">DJ-mix</"
-"a> al artista que lo mezcló."
+"Enlaza una <a href=\"/doc/Mix_Terminology#DJ_mix\" target=\"_blank\">mezcla "
+"de DJ</a> al artista que la mezcló."
 
 #. name:remix
 #: DB:link_type/description:9
@@ -6975,8 +7005,10 @@ msgstr "página de información"
 msgid "inspired the name of artist"
 msgstr "inspiró el nombre del artista"
 
-#. name:named after artist, name:named after release group
-#: DB:link_type/link_phrase:1260 DB:link_type/reverse_link_phrase:1261
+#. name:named after area, name:named after artist, name:named after label, name:named after place, name:named after release group
+#: DB:link_type/link_phrase:1260 DB:link_type/link_phrase:1262
+#: DB:link_type/reverse_link_phrase:1261 DB:link_type/reverse_link_phrase:1264
+#: DB:link_type/reverse_link_phrase:1263
 msgid "inspired the name of genre"
 msgstr "inspiró el nombre del género"
 
@@ -7071,7 +7103,7 @@ msgstr ""
 #. name:DJ-mix
 #: DB:link_type/long_link_phrase:227 DB:link_type/long_link_phrase:8
 msgid "is a DJ-mix of"
-msgstr "Es un DJ-mix de"
+msgstr "es una mezcla de DJ de"
 
 #. name:compilation
 #: DB:link_type/long_link_phrase:228
@@ -7186,8 +7218,15 @@ msgid "is named after artist"
 msgstr "tiene un nombre inspirado en el artista"
 
 #. name:named after label
-#: DB:link_type/long_link_phrase:1259
+#: DB:link_type/long_link_phrase:1259 DB:link_type/long_link_phrase:1264
 msgid "is named after label"
+msgstr "tiene un nombre inspirado en la discográfica"
+
+#. name:named after place
+#: DB:link_type/long_link_phrase:1263
+#, fuzzy
+#| msgid "is named after label"
+msgid "is named after place"
 msgstr "tiene un nombre inspirado en la discográfica"
 
 #. name:named after release group
@@ -7891,18 +7930,33 @@ msgstr ""
 msgid "myspace"
 msgstr ""
 
+#. name:named after area
+#: DB:link_type/name:1262 DB:link_type/reverse_link_phrase:1262
+#, fuzzy
+#| msgid "named after label"
+msgid "named after area"
+msgstr "nombre inspirado en la discográfica"
+
 #. name:named after artist
-#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1257
-#: DB:link_type/name:1260 DB:link_type/name:975 DB:link_type/name:1000
+#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1260
+#: DB:link_type/name:1257 DB:link_type/name:975 DB:link_type/name:1000
 #: DB:link_type/link_phrase:973 DB:link_type/reverse_link_phrase:1258
-#: DB:link_type/reverse_link_phrase:1257 DB:link_type/reverse_link_phrase:1260
+#: DB:link_type/reverse_link_phrase:1260 DB:link_type/reverse_link_phrase:1257
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
 msgid "named after artist"
 msgstr "nombre inspirado en el artista"
 
 #. name:named after label
-#: DB:link_type/name:1259 DB:link_type/link_phrase:1259
+#: DB:link_type/name:1259 DB:link_type/name:1264 DB:link_type/link_phrase:1259
+#: DB:link_type/link_phrase:1264
 msgid "named after label"
+msgstr "nombre inspirado en la discográfica"
+
+#. name:named after place
+#: DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#, fuzzy
+#| msgid "named after label"
+msgid "named after place"
 msgstr "nombre inspirado en la discográfica"
 
 #. name:named after release group
@@ -10397,8 +10451,8 @@ msgstr ""
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineers"
 msgstr ""
-"{co:co-}ingenieros {executive:ejecutivo} {additional:adicional} "
-"{assistant:asistente} {associate:asociado}"
+"{co:co-}ingenieros {executive:ejecutivo} {additional:adicional} {assistant:"
+"asistente} {associate:asociado}"
 
 #. name:producer
 #: DB:link_type/reverse_link_phrase:141 DB:link_type/reverse_link_phrase:30
@@ -10732,9 +10786,16 @@ msgstr ""
 msgid "{entity1} is licensed under {entity0}"
 msgstr ""
 
+#. name:named after area
+#: DB:link_type/long_link_phrase:1262
+#, fuzzy
+#| msgid "{entity1} is named after artist {entity0}"
+msgid "{entity1} is named after area {entity0}"
+msgstr "{entity1} tiene un nombre inspirado en el artista {entity0}"
+
 #. name:named after artist
-#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1257
-#: DB:link_type/long_link_phrase:1260 DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1260
+#: DB:link_type/long_link_phrase:1257 DB:link_type/long_link_phrase:975
 #: DB:link_type/long_link_phrase:1000
 msgid "{entity1} is named after artist {entity0}"
 msgstr "{entity1} tiene un nombre inspirado en el artista {entity0}"

@@ -1,9 +1,11 @@
 # Early6431 <h9i1o36x@anonaddy.me>, 2023.
+# Early6431 <Early6431@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2023-11-17 08:27+0000\n"
-"Last-Translator: Early6431 <h9i1o36x@anonaddy.me>\n"
+"PO-Revision-Date: 2024-08-31 00:42+0000\n"
+"Last-Translator: Early6431 <Early6431@users.noreply.translations.metabrainz."
+"org>\n"
 "Language-Team: Spanish (Latin America) <https://translations.metabrainz.org/"
 "projects/musicbrainz/scripts/es_419/>\n"
 "Language: es_419\n"
@@ -11,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
@@ -66,7 +68,7 @@ msgstr "Símbolos Bliss"
 #. frequency:1 iso_code:Phlv
 #: DB:script/name:123
 msgid "Book Pahlavi"
-msgstr "Libro pelvi"
+msgstr "Book Pahlavi"
 
 #. frequency:3 iso_code:Bopo
 #: DB:script/name:42

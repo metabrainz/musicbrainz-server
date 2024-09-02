@@ -1729,12 +1729,19 @@ msgstr ""
 
 #. name:ghaychak
 #: DB:instrument/description:931
+#, fuzzy
+#| msgid ""
+#| "Having 4 metal strings, it is carved from a single piece of wood into a "
+#| "particular shape similar to the Sarinda, it has 3 soundholes, two on each "
+#| "side of the short neck and one under the bridge which is membrane-covered."
+#| "<br /> Not to be confused with the Uyghur spike fiddle <a href=\"/"
+#| "instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
 msgid ""
 "Having 4 metal strings, it is carved from a single piece of wood into a "
 "particular shape similar to the Sarinda, it has 3 soundholes, two on each "
 "side of the short neck and one under the bridge which is membrane-covered."
 "<br /> Not to be confused with the Uyghur spike fiddle <a href=\"/"
-"instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
+"instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
 msgstr ""
 "בעלת 4 מיתרי מתכת, מגולפת מפיסת עץ יחידה לצורה מסוימת הדומה לסרינדה, יש לה 3 "
 "חללי קול, שניים מכל צד של הצוואר הקצר ואחד מתחת לגשר המכוסה קרום (ממברנה). "
