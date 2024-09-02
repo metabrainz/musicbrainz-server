@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-07-11 22:42+0000\n"
+"PO-Revision-Date: 2024-08-22 13:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -25,8 +25,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #. name:Motet
@@ -762,6 +762,8 @@ msgid ""
 "A read only memory cartridge or card, such as the ones used by early home "
 "computers and some video game systems."
 msgstr ""
+"Una cartuccia o scheda di memoria in sola lettura, come quelle utilizzate "
+"dai primi home computer e da alcune console di videogiochi."
 
 #. name:Festival
 #: DB:series_type/description:8
@@ -6910,12 +6912,9 @@ msgid "Quartet"
 msgstr "Quartetto"
 
 #: DB:medium_format/name:208
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "Cartridge"
 msgctxt "medium_format"
 msgid "ROM cartridge"
-msgstr "Cartuccia"
+msgstr "Cartuccia ROM"
 
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"
@@ -7165,7 +7164,7 @@ msgstr "Rumeli Türküsü"
 #: DB:series_type/name:9
 msgctxt "series_type"
 msgid "Run"
-msgstr "Serie"
+msgstr "Ciclo"
 
 #: DB:work_attribute_type_allowed_value/value:521
 msgctxt "work_attribute_type_allowed_value"

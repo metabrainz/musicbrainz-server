@@ -15,12 +15,13 @@
 # 和田篤 <email address hidden>, 2019
 # julian45 <techieboy45@gmail.com>, 2023.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
+# tkusano <tkusano@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-04 14:54+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-08-13 15:42+0000\n"
+"Last-Translator: tkusano <tkusano@users.noreply.translations.metabrainz."
+"org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
 "Language: ja\n"
@@ -28,7 +29,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -126,7 +127,7 @@ msgstr "次のAllmusicページ"
 #. name:apple music
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
 msgid "Apple Music"
-msgstr ""
+msgstr "Apple Music"
 
 #. name:apple music
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
@@ -1877,9 +1878,9 @@ msgstr ""
 #| "pieces of content into a coherent and aesthetically-pleasing sleeve "
 #| "design."
 msgid ""
-"This credits the people or agency who did graphic design for a video "
-"recording, arranging pieces of content into a coherent and aesthetically-"
-"pleasing whole."
+"This credits the people or agency who did the graphic design / layout for a "
+"video recording, arranging pieces of content into a coherent and "
+"aesthetically-pleasing whole."
 msgstr ""
 "これは、グラフィックデザインを行い、コンテンツを一貫性のある見た目に美しいス"
 "リーブデザインに配置した人々または代理店のクレジットである。"
@@ -2259,19 +2260,27 @@ msgstr ""
 #| "pieces of content into a coherent and aesthetically-pleasing sleeve "
 #| "design."
 msgid ""
-"This indicates an artist who did the graphic design for the event, arranging "
-"pieces of content into a coherent and aesthetically-pleasing design."
+"This indicates an artist who did the graphic design / layout for the event, "
+"arranging pieces of content into a coherent and aesthetically-pleasing "
+"design."
 msgstr ""
 "これは、グラフィックデザインを行い、コンテンツを一貫性のある見た目に美しいス"
 "リーブデザインに配置した人々または代理店のクレジットである。"
 
 #. name:graphic design
 #: DB:link_type/description:27
+#, fuzzy
+#| msgid ""
+#| "This credits the people or agency who did the graphic design, arranging "
+#| "pieces of content into a coherent and aesthetically-pleasing sleeve "
+#| "design."
 msgid ""
-"This indicates an artist who did the graphic design for the release, "
-"arranging pieces of content into a coherent and aesthetically-pleasing "
-"sleeve design."
+"This indicates an artist who did the graphic design / layout for the "
+"release, arranging pieces of content into a coherent and aesthetically-"
+"pleasing sleeve design."
 msgstr ""
+"これは、グラフィックデザインを行い、コンテンツを一貫性のある見た目に美しいス"
+"リーブデザインに配置した人々または代理店のクレジットである。"
 
 #. name:producer
 #: DB:link_type/description:141 DB:link_type/description:30
@@ -2671,6 +2680,13 @@ msgstr ""
 "これは、アーティストがプロデューサーとしてレーベルに正式に雇用されたことを示"
 "す。"
 
+#. name:named after area
+#: DB:link_type/description:1262
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the area that inspired this genre’s name."
+msgstr "これは、この場所の名前に影響を与えたアーティストを示す。"
+
 #. name:video director
 #: DB:link_type/description:1185
 msgid "This indicates the artist directed video on this release."
@@ -2836,6 +2852,13 @@ msgstr ""
 #| msgid "This indicates the artist that inspired this artist’s name."
 msgid "This indicates the label that inspired this artist’s name."
 msgstr "これは、このアーティストの名前に影響を与えたアーティストを示す。"
+
+#. name:named after label
+#: DB:link_type/description:1264
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the label that inspired this genre’s name."
+msgstr "これは、この場所の名前に影響を与えたアーティストを示す。"
 
 #. name:translator
 #: DB:link_attribute_type/description:1018
@@ -3020,6 +3043,13 @@ msgid ""
 "relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\" target=\"_blank\">DJ-"
 "mixer</a>."
 msgstr ""
+
+#. name:named after place
+#: DB:link_type/description:1263
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the place that inspired this genre’s name."
+msgstr "これは、この場所の名前に影響を与えたアーティストを示す。"
 
 #. name:pressed
 #: DB:link_type/description:942
@@ -7629,8 +7659,10 @@ msgstr "情報ページ"
 msgid "inspired the name of artist"
 msgstr ""
 
-#. name:named after artist, name:named after release group
-#: DB:link_type/link_phrase:1260 DB:link_type/reverse_link_phrase:1261
+#. name:named after area, name:named after artist, name:named after label, name:named after place, name:named after release group
+#: DB:link_type/link_phrase:1260 DB:link_type/link_phrase:1262
+#: DB:link_type/reverse_link_phrase:1261 DB:link_type/reverse_link_phrase:1264
+#: DB:link_type/reverse_link_phrase:1263
 msgid "inspired the name of genre"
 msgstr ""
 
@@ -7844,9 +7876,16 @@ msgid "is named after artist"
 msgstr ""
 
 #. name:named after label
-#: DB:link_type/long_link_phrase:1259
+#: DB:link_type/long_link_phrase:1259 DB:link_type/long_link_phrase:1264
 msgid "is named after label"
 msgstr ""
+
+#. name:named after place
+#: DB:link_type/long_link_phrase:1263
+#, fuzzy
+#| msgid "parent label"
+msgid "is named after place"
+msgstr "親レーベル"
 
 #. name:named after release group
 #: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
@@ -8547,20 +8586,35 @@ msgstr "音楽学"
 msgid "myspace"
 msgstr "myspace"
 
+#. name:named after area
+#: DB:link_type/name:1262 DB:link_type/reverse_link_phrase:1262
+#, fuzzy
+#| msgid "parent label"
+msgid "named after area"
+msgstr "親レーベル"
+
 #. name:named after artist
-#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1257
-#: DB:link_type/name:1260 DB:link_type/name:975 DB:link_type/name:1000
+#: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1260
+#: DB:link_type/name:1257 DB:link_type/name:975 DB:link_type/name:1000
 #: DB:link_type/link_phrase:973 DB:link_type/reverse_link_phrase:1258
-#: DB:link_type/reverse_link_phrase:1257 DB:link_type/reverse_link_phrase:1260
+#: DB:link_type/reverse_link_phrase:1260 DB:link_type/reverse_link_phrase:1257
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
 msgid "named after artist"
 msgstr ""
 
 #. name:named after label
-#: DB:link_type/name:1259 DB:link_type/link_phrase:1259
+#: DB:link_type/name:1259 DB:link_type/name:1264 DB:link_type/link_phrase:1259
+#: DB:link_type/link_phrase:1264
 #, fuzzy
 #| msgid "parent label"
 msgid "named after label"
+msgstr "親レーベル"
+
+#. name:named after place
+#: DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#, fuzzy
+#| msgid "parent label"
+msgid "named after place"
 msgstr "親レーベル"
 
 #. name:named after release group
@@ -11433,9 +11487,16 @@ msgstr "{entity1}は{entity0}で生産されました"
 msgid "{entity1} is licensed under {entity0}"
 msgstr "{entity1} iは {entity0} にライセンスされている"
 
+#. name:named after area
+#: DB:link_type/long_link_phrase:1262
+#, fuzzy
+#| msgid "{entity1} was manufactured in {entity0}"
+msgid "{entity1} is named after area {entity0}"
+msgstr "{entity1}は{entity0}で生産されました"
+
 #. name:named after artist
-#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1257
-#: DB:link_type/long_link_phrase:1260 DB:link_type/long_link_phrase:975
+#: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1260
+#: DB:link_type/long_link_phrase:1257 DB:link_type/long_link_phrase:975
 #: DB:link_type/long_link_phrase:1000
 #, fuzzy
 #| msgid "{entity1} was manufactured in {entity0}"

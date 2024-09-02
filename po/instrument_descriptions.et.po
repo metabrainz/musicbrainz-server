@@ -1666,7 +1666,7 @@ msgid ""
 "particular shape similar to the Sarinda, it has 3 soundholes, two on each "
 "side of the short neck and one under the bridge which is membrane-covered."
 "<br /> Not to be confused with the Uyghur spike fiddle <a href=\"/"
-"instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
+"instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
 msgstr ""
 
 #. name:hümmelchen

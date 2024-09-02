@@ -1,25 +1,14 @@
-#
-# Translators:
-# Jaakko Perttilä <email address hidden>, 2014,2018
-# phonebox, 2013
-# ListMyCDs.com Martikainen <>, 2012
-# Timo Martikainen <email address hidden>, 2012
-# phonebox, 2013-2014
-# phonebox, 2014
-# Timo Martikainen <>, 2012
-# Timo Martikainen <email address hidden>, 2012-2014
+# MØĐĪ <ablayf671@gmail.com>, 2024.
 msgid ""
 msgstr ""
-"Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: Timo Martikainen <>, 2012\n"
-"Language-Team: Finnish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/fi/)\n"
-"Language: fi\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -71,8 +60,6 @@ msgid ""
 "A Turkish version of tambourine / daf, made from animal skin and played with "
 "the fingers."
 msgstr ""
-"Turkkilainen versio tamburiinista / duffista, tehty eläimen nahasta ja "
-"soitetaan sormin."
 
 #. name:barrel organ
 #: DB:instrument/description:490
@@ -80,14 +67,11 @@ msgid ""
 "A barrel organ is a mechanical musical instrument typically operated by a "
 "person turning a crank which turns a barrel which has music encoded onto it."
 msgstr ""
-"Posetiivi on mekaaninen urkusoitin, jota tavallisesti soitetaan kiertämällä "
-"kampea. Kampeen liittyy soittorasiamainen sylinteri, johon musiikki on "
-"koodattu."
 
 #. name:bass synthesizer
 #: DB:instrument/description:456
 msgid "A bass synthesizer is used to create sounds in the bass range."
-msgstr "Bassosyntetisaattorilla luodaan bassotaajuuksisia ääniä."
+msgstr ""
 
 #. name:bell tree
 #: DB:instrument/description:479
@@ -95,20 +79,16 @@ msgid ""
 "A bell tree is a percussion instrument, consisting of vertically nested "
 "inverted metal bowls."
 msgstr ""
-"Lyömäsöitin joka koostuu pystysuoraan upotetuista metallisista kulhoista "
-"jotka ovat väärinpäin. "
 
 #. name:chamber organ
 #: DB:instrument/description:471
 msgid "A chamber organ is a small pipe organ."
-msgstr "Kamariurut ovat pienikokoiset pilliurut."
+msgstr ""
 
 #. name:cuatro
 #: DB:instrument/description:439
-#, fuzzy
-#| msgid "A class of South-American guitars"
 msgid "A class of South-American guitars."
-msgstr "Etelä-Amerikkalaisten kitaroiden luokka"
+msgstr ""
 
 #. name:saduk
 #: DB:instrument/description:804
@@ -159,7 +139,7 @@ msgstr ""
 #: DB:instrument/description:516
 msgid ""
 "A koto with 17 rather than 13 strings, sometimes described as a bass koto."
-msgstr "Koto, jossa on 17 kieltä 13 sijaan, kutsutaan myös bassokotoksi."
+msgstr ""
 
 #. name:daire
 #: DB:instrument/description:532
@@ -209,19 +189,12 @@ msgid ""
 "A mouth organ is a generic term for free reed aerophone with one or more air "
 "chambers fitted with a free reed."
 msgstr ""
-"Suu-urut on yleisnimitys vapaalehdykkäsoittimille, joissa on yksi tai "
-"useampia ilmakammioita, kussakin oma vapaalehdykkänsä."
 
 #. name:bowed piano
 #: DB:instrument/description:504
-#, fuzzy
-#| msgid ""
-#| "A piano whose strings are bowed, using nylon filament or other materials"
 msgid ""
 "A piano whose strings are bowed, using nylon filament or other materials."
 msgstr ""
-"Piano jonka kieliä soitetaan jousella käyttäen nylon säiettä tai muuta "
-"materiaalia. "
 
 #. name:theatre organ
 #: DB:instrument/description:347
@@ -297,7 +270,7 @@ msgstr ""
 #. name:Marxophone
 #: DB:instrument/description:442
 msgid "A type of fretless zither."
-msgstr "Nauhattoman sitran tyyppi. "
+msgstr ""
 
 #. name:tràm plè
 #: DB:instrument/description:308
@@ -326,7 +299,7 @@ msgstr ""
 #. name:acoustic fretless guitar
 #: DB:instrument/description:539
 msgid "Acoustic guitar without frets."
-msgstr "Akustinen kitara ilman otenauhoja."
+msgstr ""
 
 #. name:säckpipa
 #: DB:instrument/description:691
@@ -677,7 +650,7 @@ msgstr ""
 #. name:cajón
 #: DB:instrument/description:336
 msgid "Cajón, Peruvian box drum"
-msgstr "Perulainen laatikkorumpu."
+msgstr ""
 
 #. name:saron demung
 #: DB:instrument/description:1006
@@ -844,15 +817,10 @@ msgstr ""
 
 #. name:disk drive
 #: DB:instrument/description:602
-#, fuzzy
-#| msgid ""
-#| "as using drives for producing music, harddrives, floppy, cd or other."
 msgid ""
 "Computer drives used for producing music, be it hard drives, floppy, CD or "
 "other."
 msgstr ""
-"Levyasemat joita käytetään tuottamaan musiikkia, kuten kiintolevyt, "
-"levykeasemat, cd-asemat ja muut. "
 
 #. name:bombarde
 #: DB:instrument/description:431
@@ -974,7 +942,7 @@ msgstr ""
 #. name:davul
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
-msgstr "Turkkilainen rumpu. "
+msgstr ""
 
 #. name:setar
 #: DB:instrument/description:630
@@ -1132,12 +1100,12 @@ msgstr ""
 #. name:resonator guitar
 #: DB:instrument/description:386
 msgid "Dobro, resonator guitar"
-msgstr "Eräänlainen resonaattorikitara. "
+msgstr ""
 
 #. name:dhol
 #: DB:instrument/description:535
 msgid "Double headed drum from India."
-msgstr "Kaksikalvoinen intialainen rumpu."
+msgstr ""
 
 #. name:gralla
 #: DB:instrument/description:582
@@ -1154,7 +1122,7 @@ msgstr ""
 msgid ""
 "EWI (an acronym for electric wind instrument) is the name of Akai's wind "
 "controller."
-msgstr "Puhaltamalla ohjattava Akain valmistama syntetisaattori."
+msgstr ""
 
 #. name:cornet
 #: DB:instrument/description:25
@@ -1349,13 +1317,9 @@ msgstr ""
 
 #. name:floppy disk drive
 #: DB:instrument/description:604
-#, fuzzy
-#| msgid ""
-#| "Floppy Drives configured to produce tones while reading, software is used."
 msgid ""
 "Floppy drives configured to produce tones while reading, using software."
 msgstr ""
-"Levykeasema joka on ohjelmallisesti saatu tuottamaan ääntä levyä lukemalla."
 
 #. name:hardingfele
 #: DB:instrument/description:78
@@ -1665,11 +1629,8 @@ msgstr ""
 
 #. name:hard disk drive
 #: DB:instrument/description:603
-#, fuzzy
-#| msgid "Harddisk configured to produce tones in pattern."
 msgid "Hard disk configured to produce tones in pattern."
 msgstr ""
-"Kiintolevy, joka on konfiguroitu tuottamaan ääniä tietyn mallin mukaisesti. "
 
 #. name:accordina
 #: DB:instrument/description:778
@@ -1997,7 +1958,6 @@ msgstr ""
 #: DB:instrument/description:378
 msgid "Japanese traditional drum beaten with sticks called bachi."
 msgstr ""
-"Perinteinen japanilainen rumpu jota soitetaan bachi-nimisillä kapuloilla. "
 
 #. name:kanun
 #: DB:instrument/description:288
@@ -2723,12 +2683,12 @@ msgstr ""
 #. name:oboe
 #: DB:instrument/description:8
 msgid "Oboe (soprano)"
-msgstr "Oboe (soprano). "
+msgstr ""
 
 #. name:oboe d'amore
 #: DB:instrument/description:473
 msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
-msgstr "oboe d'amore (mezzo-soprano). "
+msgstr ""
 
 #. name:saron barung
 #: DB:instrument/description:1007
@@ -2966,7 +2926,7 @@ msgstr ""
 #. name:body percussion
 #: DB:instrument/description:500
 msgid "Percussion performed by parts of the body."
-msgstr "Lyömäsoittimet hyödyntäen kehonosia. "
+msgstr ""
 
 #. name:foot stomps
 #: DB:instrument/description:478
@@ -3622,12 +3582,8 @@ msgstr ""
 
 #. name:tenor viol
 #: DB:instrument/description:922
-#, fuzzy
-#| msgid "Violone, The largest/deepest member of the Viol family"
 msgid "Tenor member of the viol family."
 msgstr ""
-"Violone tai kontrabassogamba. Suurikokoisin Viola da gamba-"
-"jousisoitinperheen soitin. "
 
 #. name:Cretan lyra
 #: DB:instrument/description:482
@@ -3639,12 +3595,12 @@ msgstr ""
 #. name:E-flat clarinet
 #: DB:instrument/description:574
 msgid "The E♭ clarinet is a member of the clarinet family."
-msgstr "Es-klarinetti kuuluu klarinettisoitinten perheeseen."
+msgstr ""
 
 #. name:Lyricon
 #: DB:instrument/description:561
 msgid "The Lyricon is an electronic wind instrument."
-msgstr "Sähköinen puhallinsoitin. Puhallinsyntetisaattori. "
+msgstr ""
 
 #. name:Paraguayan harp
 #: DB:instrument/description:664
@@ -3685,8 +3641,6 @@ msgstr ""
 #: DB:instrument/description:563
 msgid "The Xaphoon is a keyless chromatic single-reed woodwind instrument."
 msgstr ""
-"Xaphoon on kromaattinen ruokolehtisen suukappaleen omaava puupuhaltimiin "
-"kuuluva soitin. "
 
 #. name:agogô
 #: DB:instrument/description:487
@@ -3698,7 +3652,7 @@ msgstr ""
 #. name:ajaeng
 #: DB:instrument/description:642
 msgid "The ajaeng is a bowed Korean zither with 7 (sometimes 8 or 9) strings."
-msgstr "Korealainen 7 (joskus myös 8-9) kielinen jousella soitettava sitra. "
+msgstr ""
 
 #. name:alfaia
 #: DB:instrument/description:718
@@ -3751,8 +3705,6 @@ msgid ""
 "The arghul is a traditional Egyptian double-pipe, single-reed woodwind "
 "instrument."
 msgstr ""
-"Arghul on perinteinen egyptiläinen kaksipillinen yksinkertaisella "
-"ruokolehdellä varustettu puupuhallin. "
 
 #. name:atabaque
 #: DB:instrument/description:719
@@ -3789,7 +3741,7 @@ msgstr ""
 #. name:banjitar
 #: DB:instrument/description:396
 msgid "The banjitar is a six-string banjo with the neck of a guitar."
-msgstr "Kuusikielinen banjo, jolla on kitaran kaula. "
+msgstr ""
 
 #. name:bansuri
 #: DB:instrument/description:190
@@ -3797,8 +3749,6 @@ msgid ""
 "The bansuri is a transverse alto flute, which is the North Indian "
 "counterpart to the venu."
 msgstr ""
-"Sivustapuhallettava alttohuilu, joka on pohjois-intialainen vastine venu-"
-"soittimelle. "
 
 #. name:baritone horn
 #: DB:instrument/description:28
@@ -3881,8 +3831,6 @@ msgid ""
 "The buk is a Korean drum. While buk is a generic term for drum, it normally "
 "refers to a shallow barrel-shaped drum with a wooden body."
 msgstr ""
-"Korealainen rumpu. Buk on geneerinen termi rummulle, mutta sillä normaalista "
-"tarkoitetaan tynnyrinmuotoista puurunkoista rumpua. "
 
 #. name:buzuq
 #: DB:instrument/description:655
@@ -4036,8 +3984,6 @@ msgid ""
 "The domra is a long-necked Russian string instrument of the lute family with "
 "a round body and three or four metal strings."
 msgstr ""
-"Pitkäkaulainen venäläinen luuttuperheen jousisoitin. Pyöreä koppa ja kolme "
-"tai neljä metallikieltä. "
 
 #. name:doshpuluur
 #: DB:instrument/description:706
@@ -4395,16 +4341,10 @@ msgstr ""
 
 #. name:mandocello
 #: DB:instrument/description:600
-#, fuzzy
-#| msgid ""
-#| "The domra is a long-necked Russian string instrument of the lute family "
-#| "with a round body and three or four metal strings."
 msgid ""
 "The mandocello is a plucked string instrument of the mandolin family, the "
 "equivalent to the cello in the violin family."
 msgstr ""
-"Pitkäkaulainen venäläinen luuttuperheen jousisoitin. Pyöreä koppa ja kolme "
-"tai neljä metallikieltä. "
 
 #. name:marímbula
 #: DB:instrument/description:633
@@ -4582,8 +4522,6 @@ msgid ""
 "The ranat ek is a Thai xylophone which consists of 21 wooden bars suspended "
 "by cords over a boat-shaped trough resonator and struck by two mallets."
 msgstr ""
-"Thaimaalainen ksylofoni jonka 21 puukapulaa levittäytyvät laivan-muotoisen "
-"resonaattorin ylle. Soitetaan kahdella nuijalla. "
 
 #. name:ranat kaeo
 #: DB:instrument/description:665
@@ -4591,7 +4529,6 @@ msgid ""
 "The ranat kaeo is a Thai instrument similar to a xylophone consisting of "
 "glass bars of varying lengths."
 msgstr ""
-"Thaimaalainen ksylofonin kaltainen soitin jonka kapulat/kielet ovat lasia. "
 
 #. name:ranat thum
 #: DB:instrument/description:620
@@ -4600,8 +4537,6 @@ msgid ""
 "suspended by cords over a boat-shaped trough resonator. It is similar to the "
 "ranat ek but lower in pitch."
 msgstr ""
-"Thaimaalainen ksylofoni jonka 18 puukapulaa levittäytyvät laivan-muotoisen "
-"resonaattorin ylle. Vastaavanlainen mutta matalaäänisempi kuin ranat ek. "
 
 #. name:repinique
 #: DB:instrument/description:722
@@ -4690,10 +4625,8 @@ msgstr ""
 
 #. name:saz
 #: DB:instrument/description:472
-#, fuzzy
-#| msgid "The saz is a long-necked fretted lute"
 msgid "The saz is a long-necked fretted lute."
-msgstr "Saz on pitkäkaulainen nauhaton luuttu"
+msgstr ""
 
 #. name:sheng
 #: DB:instrument/description:45
@@ -4840,7 +4773,7 @@ msgstr ""
 #. name:tenor trombone
 #: DB:instrument/description:662
 msgid "The tenor trombone is a trombone pitched in B♭."
-msgstr "Pasuuna joka on B♭-vireinen. "
+msgstr ""
 
 #. name:thon
 #: DB:instrument/description:584
@@ -4881,10 +4814,8 @@ msgstr ""
 
 #. name:treble viol
 #: DB:instrument/description:921
-#, fuzzy
-#| msgid "The E♭ clarinet is a member of the clarinet family."
 msgid "The treble, descant or soprano member of the viol family."
-msgstr "Es-klarinetti kuuluu klarinettisoitinten perheeseen."
+msgstr ""
 
 #. name:trống bông
 #: DB:instrument/description:305
@@ -4953,7 +4884,7 @@ msgstr ""
 #: DB:instrument/description:651
 msgid ""
 "The xun is a vessel flute from China which has a blowing hole at the top."
-msgstr "Kiinalainen astiahuilu jonka puhallusaukko löytyy yläpuolelta. "
+msgstr ""
 
 #. name:yatga
 #: DB:instrument/description:564
@@ -5716,10 +5647,8 @@ msgstr ""
 
 #. name:fretless bass
 #: DB:instrument/description:435
-#, fuzzy
-#| msgid "Acoustic guitar without frets."
 msgid "Variety of bass guitars without frets."
-msgstr "Akustinen kitara ilman otenauhoja."
+msgstr ""
 
 #. name:cymbal
 #: DB:instrument/description:271
@@ -5755,12 +5684,8 @@ msgstr ""
 
 #. name:violone
 #: DB:instrument/description:420
-#, fuzzy
-#| msgid "Violone, The largest/deepest member of the Viol family"
 msgid "Violone, The largest/deepest member of the Viol family."
 msgstr ""
-"Violone tai kontrabassogamba. Suurikokoisin Viola da gamba-"
-"jousisoitinperheen soitin. "
 
 #. name:shekere
 #: DB:instrument/description:381
@@ -5909,6 +5834,3 @@ msgstr ""
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr ""
-
-#~ msgid "Theatre organ, such as the Wurlitzer"
-#~ msgstr "Teatteriurut, kuten Wurlitzer. "
