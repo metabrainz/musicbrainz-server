@@ -5966,7 +5966,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
+"loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
   dependencies:
@@ -6352,8 +6352,8 @@ __metadata:
     po2json: "https://github.com/metabrainz/po2json.git#905dd32b286c80b973ca3c7c27f31d0ef1f4e65b"
     process: "npm:0.11.10"
     punycode: "npm:2.3.1"
-    react: "npm:18.3.1"
-    react-dom: "npm:18.3.1"
+    react: "npm:19.0.0-rc-1d989965-20240821"
+    react-dom: "npm:19.0.0-rc-1d989965-20240821"
     react-is: "npm:18.3.1"
     react-table: "npm:7.8.0"
     redux: "npm:4.2.0"
@@ -7262,15 +7262,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:18.3.1":
-  version: 18.3.1
-  resolution: "react-dom@npm:18.3.1"
+"react-dom@npm:19.0.0-rc-1d989965-20240821":
+  version: 19.0.0-rc-1d989965-20240821
+  resolution: "react-dom@npm:19.0.0-rc-1d989965-20240821"
   dependencies:
-    loose-envify: "npm:^1.1.0"
-    scheduler: "npm:^0.23.2"
+    scheduler: "npm:0.25.0-rc-1d989965-20240821"
   peerDependencies:
-    react: ^18.3.1
-  checksum: 10c0/a752496c1941f958f2e8ac56239172296fcddce1365ce45222d04a1947e0cc5547df3e8447f855a81d6d39f008d7c32eab43db3712077f09e3f67c4874973e85
+    react: 19.0.0-rc-1d989965-20240821
+  checksum: 10c0/90d13dfae2642bded2f5ea8d29cb065529fe8805d5341f6b9e6f809c2c16e1d3322ef7a2a78c04ca2ed061dc7e7fdda4799e0d586b463b5ce41a9ad57ce419e4
   languageName: node
   linkType: hard
 
@@ -7297,12 +7296,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.3.1":
-  version: 18.3.1
-  resolution: "react@npm:18.3.1"
-  dependencies:
-    loose-envify: "npm:^1.1.0"
-  checksum: 10c0/283e8c5efcf37802c9d1ce767f302dd569dd97a70d9bb8c7be79a789b9902451e0d16334b05d73299b20f048cbc3c7d288bbbde10b701fa194e2089c237dbea3
+"react@npm:19.0.0-rc-1d989965-20240821":
+  version: 19.0.0-rc-1d989965-20240821
+  resolution: "react@npm:19.0.0-rc-1d989965-20240821"
+  checksum: 10c0/b7ce06b6ed7d4bb3acb722dab7e91ef52601f28fb6fd5d46ba0946cbd3bb98c9b4baa2f33ad883eec409d3385777a8a528386fbc254313d61864db326f55af98
   languageName: node
   linkType: hard
 
@@ -7819,12 +7816,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.23.2":
-  version: 0.23.2
-  resolution: "scheduler@npm:0.23.2"
-  dependencies:
-    loose-envify: "npm:^1.1.0"
-  checksum: 10c0/26383305e249651d4c58e6705d5f8425f153211aef95f15161c151f7b8de885f24751b377e4a0b3dd42cce09aad3f87a61dab7636859c0d89b7daf1a1e2a5c78
+"scheduler@npm:0.25.0-rc-1d989965-20240821":
+  version: 0.25.0-rc-1d989965-20240821
+  resolution: "scheduler@npm:0.25.0-rc-1d989965-20240821"
+  checksum: 10c0/a93a32ce651a61ddf33f5cdd945ac3df056a8fee9def99ad3fe7691416a9bef58c89028ee31003cf5a0feb4f0dd3536192c7015326c5cdd5568ab4bf88f25bc7
   languageName: node
   linkType: hard
 

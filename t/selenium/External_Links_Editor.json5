@@ -509,14 +509,24 @@
       value: '',
     },
     {
-      command: 'sendKeys',
+      command: 'type',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: 'https://www.discogs.com/David-Bowie--Blackstar/release/7949394${KEY_ENTER}',
+      value: 'https://www.discogs.com/David-Bowie--Blackstar/release/7949394',
     },
     {
       command: 'sendKeys',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
-      value: 'https://www.amazon.co.jp/Blackstar-David-Bowie/dp/B017VORJK6/${KEY_ENTER}',
+      value: '${KEY_ENTER}',
+    },
+    {
+      command: 'type',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://www.amazon.co.jp/Blackstar-David-Bowie/dp/B017VORJK6/',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: '${KEY_ENTER}',
     },
     {
       command: 'assertElementPresent',

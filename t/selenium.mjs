@@ -649,7 +649,11 @@ async function handleCommand({command, target, value}, t, ...args) {
         'window.MB.setInputValueForReact(arguments[0], "")',
         element,
       );
-      await element.sendKeys(value);
+      await driver.executeScript(
+        'window.MB.setInputValueForReact(arguments[0], ' +
+        `${JSON.stringify(value)})`,
+        element,
+      );
       break;
 
     case 'uncheck':
