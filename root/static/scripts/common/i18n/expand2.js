@@ -19,7 +19,7 @@ export class NO_MATCH {}
 export const NO_MATCH_VALUE: NO_MATCH = new NO_MATCH();
 Object.freeze(NO_MATCH);
 
-export function gotMatch(x: mixed): boolean %checks {
+export function gotMatch<T>(x: T | NO_MATCH): implies x is T {
   return (
     x !== NO_MATCH_VALUE /* flow-include && !(x instanceof NO_MATCH) */
   );

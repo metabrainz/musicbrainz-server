@@ -10,7 +10,7 @@
 import mutate, {type CowContext} from 'mutate-cow';
 import * as React from 'react';
 
-import isDateEmpty from '../../common/utility/isDateEmpty.js';
+import {isDateNonEmpty} from '../../common/utility/isDateEmpty.js';
 import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull.js';
 import useDateRangeFieldset from '../hooks/useDateRangeFieldset.js';
 import {isDatePeriodValid} from '../utility/dates.js';
@@ -111,7 +111,7 @@ export function runReducer(
       );
       if (action.action.type === 'set-date') {
         const newDate = action.action.date;
-        if (!isDateEmpty(newDate)) {
+        if (isDateNonEmpty(newDate)) {
           runReducer(
             state,
             {enabled: true, type: 'set-ended'},
@@ -139,7 +139,7 @@ export function runReducer(
           type: 'set-date',
         },
       );
-      if (!isDateEmpty(newEndDate)) {
+      if (isDateNonEmpty(newEndDate)) {
         runReducer(
           state,
           {enabled: true, type: 'set-ended'},
@@ -210,7 +210,7 @@ component _DateRangeFieldset(
         <FormRowCheckbox
           disabled={
             disabled ||
-            !isDateEmpty(partialDateFromField(subfields.end_date))
+            isDateNonEmpty(partialDateFromField(subfields.end_date))
           }
           field={subfields.ended}
           label={endedLabel}

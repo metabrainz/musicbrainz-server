@@ -39,7 +39,7 @@ import {
 } from '../common/utility/catalyst.js';
 import {compareDatePeriods} from '../common/utility/compareDates.js';
 import formatDatePeriod from '../common/utility/formatDatePeriod.js';
-import isDateEmpty from '../common/utility/isDateEmpty.js';
+import {isDateNonEmpty} from '../common/utility/isDateEmpty.js';
 import {hasSessionStorage} from '../common/utility/storage.js';
 import {uniqueId} from '../common/utility/strings.js';
 import {
@@ -1238,8 +1238,8 @@ const ExternalLinkRelationship =
     } = props;
     const linkType = link.type ? linkedEntities.link_type[link.type] : null;
     const backward = linkType && linkType.type1 > 'url';
-    const hasDate = !isDateEmpty(link.begin_date) ||
-                    !isDateEmpty(link.end_date) ||
+    const hasDate = isDateNonEmpty(link.begin_date) ||
+                    isDateNonEmpty(link.end_date) ||
                     link.ended;
 
     const showTypeSelection = (link.error || hasUrlError)
