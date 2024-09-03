@@ -4742,6 +4742,13 @@ limited_link_type_combinations: [
         only_valid_entity_types: ['place'],
   },
   {
+                     input_url: 'https://rateyourmusic.com/song/rick-astley/never-gonna-give-you-up/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://rateyourmusic.com/song/rick-astley/never-gonna-give-you-up/',
+        only_valid_entity_types: ['recording'],
+  },
+  {
                      input_url: 'https://rateyourmusic.com/release/musicvideo/metallica/one/',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
