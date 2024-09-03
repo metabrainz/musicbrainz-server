@@ -18,7 +18,7 @@ type ControlledPropsT =
   | $ReadOnly<{controlled?: false}>;
 
 component EnterEditNote(
-  children?: React$Node,
+  children?: React.Node,
   field: FieldT<string>,
   hideHelp: boolean = false,
   ...controlledProps: ControlledPropsT

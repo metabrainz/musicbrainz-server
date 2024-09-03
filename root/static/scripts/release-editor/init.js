@@ -377,7 +377,9 @@ releaseEditor.init = function (options) {
         invalidEditNote={rootField.invalidEditNote()}
         loadingEditPreviews={releaseEditor.loadingEditPreviews()}
         missingEditNote={rootField.missingEditNote()}
+        // eslint-disable-next-line react/jsx-no-bind
         onEditNoteChange={handleEditNoteChange}
+        // eslint-disable-next-line react/jsx-no-bind
         onMakeVotableChange={handleMakeVotableChange}
         submissionError={releaseEditor.submissionError()}
         submissionInProgress={releaseEditor.submissionInProgress()}
