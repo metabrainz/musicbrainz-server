@@ -106,7 +106,7 @@ function mapVarSubstArgToScalar(
     return (
       <React.Fragment key={key}>
         {/* $FlowIgnore[unclear-type] We know this is a valid element */}
-        {((x: any): React$MixedElement)}
+        {((x: any): React.MixedElement)}
       </React.Fragment>
     );
   }

@@ -112,8 +112,8 @@ component LicenseDisplay(url: UrlT) {
 }
 
 const cmpLinkPhrase = (
-  a: [string, React$MixedElement],
-  b: [string, React$MixedElement],
+  a: [string, React.MixedElement],
+  b: [string, React.MixedElement],
 ) => compare(a[0], b[0]);
 
 component SidebarLicenses(entity: RelatableEntityT) {
@@ -123,7 +123,7 @@ component SidebarLicenses(entity: RelatableEntityT) {
     return null;
   }
 
-  const licenses: Array<[string, React$MixedElement]> = [];
+  const licenses: Array<[string, React.MixedElement]> = [];
   for (const r of relationships) {
     const target = r.target;
     if (target.entityType === 'url' &&

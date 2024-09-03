@@ -36,7 +36,7 @@ type ListPickerProps = $Values<{
 
 const listPicker = (
   props: ListPickerProps,
-): React$MixedElement => {
+): React.MixedElement => {
   const sharedProps = {
     seriesItemNumbers: props.seriesItemNumbers,
   };

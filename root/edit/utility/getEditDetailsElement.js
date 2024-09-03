@@ -124,7 +124,7 @@ import SetTrackLengths from '../details/SetTrackLengths.js';
 
 export default function getEditDetailsElement(
   edit: EditT,
-): React$MixedElement {
+): React.MixedElement {
   switch (edit.edit_type) {
     case EDIT_TYPES.EDIT_AREA_ADD_ANNOTATION:
     case EDIT_TYPES.EDIT_ARTIST_ADD_ANNOTATION:

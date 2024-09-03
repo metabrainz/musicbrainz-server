@@ -9,19 +9,15 @@
 
 import RemoveArt from './RemoveArt.js';
 
-type Props = {
-  +edit: RemoveEventArtEditT,
-};
-
-const RemoveEventArt = ({
-  edit,
-}: Props): React.Element<typeof RemoveArt> => (
-  <RemoveArt
-    archiveName="event"
-    edit={edit}
-    entityType="event"
-    formattedEntityType={l('Event')}
-  />
-);
+component RemoveEventArt(edit: RemoveEventArtEditT) {
+  return (
+    <RemoveArt
+      archiveName="event"
+      edit={edit}
+      entityType="event"
+      formattedEntityType={l('Event')}
+    />
+  );
+}
 
 export default RemoveEventArt;
