@@ -63,13 +63,14 @@
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # BlueCamille <BlueCamille@users.noreply.translations.metabrainz.org>, 2024.
+# Dibou <doc@boudon.nom.fr>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-19 21:09-0500\n"
-"PO-Revision-Date: 2024-08-29 19:42+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-09-03 06:56+0000\n"
+"Last-Translator: Dibou <doc@boudon.nom.fr>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
 "Language: fr\n"
@@ -78,7 +79,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.7.1\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -2499,7 +2500,7 @@ msgstr "Assigner une image au groupe de parution"
 
 #: ../root/cdtoc/list.tt:54 ../root/release/DiscIds.js:58
 msgid "Set track lengths"
-msgstr "Indiquer les durées de piste"
+msgstr "Remplacer les durées de piste du support par celles de l'ID de disque"
 
 #: ../root/edit/search_macros.tt:43
 msgid ""
