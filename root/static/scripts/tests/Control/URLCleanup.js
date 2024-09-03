@@ -440,6 +440,13 @@ const testData = [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://music.amazon.com/tracks/B0D3QS9NCT?marketplaceId=A3K6Y4MI8GDYMT&musicTerritory=BE&ref=dm_sh_EdiE4H9hCMOGP10oQQVXXcDDa',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.amazon.com/tracks/B0D3QS9NCT',
+       only_valid_entity_types: ['recording'],
+  },
+  {
                      input_url: 'https://music.amazon.co.uk/albums/B07VPBW7S9#',
              input_entity_type: 'release',
     expected_relationship_type: 'streamingpaid',
