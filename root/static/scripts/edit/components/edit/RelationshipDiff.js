@@ -42,7 +42,7 @@ type MakeEntityLinkT = (
   entity: RelatableEntityT,
   content: string,
   relationship: RelationshipT,
-) => React$MixedElement;
+) => React.MixedElement;
 
 const getTypeId = (x: LinkAttrT) => String(x.typeID);
 

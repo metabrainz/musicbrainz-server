@@ -1,6 +1,7 @@
 [%- MACRO link_statistics_tab(link, title) BLOCK -%]
 <span class="mp"><a href="[% link %]">[% title %]</a></span>
 [%- END -%]
+[%- USE Translation('statistics') -%]
 [%- info_links = [
     ['index', link_statistics_tab('/statistics', l('Overview')) ]
     ['countries', link_statistics_tab('/statistics/countries', l('Countries')) ],
@@ -13,22 +14,24 @@
     ['timeline', link_statistics_tab('/statistics/timeline/main', l('Timeline')) ],
 ] -%]
 [%- html_title = l('Database statistics - {title}', {title => title} ) -%]
-[%- PROCESS "statistics/macros-footer.tt" -%]
+[%- USE Translation('mb_server') -%]
 
 
 [%- IF full_width -%]
     [%- WRAPPER "layout.tt" title=html_title full_width=1 -%]
-        [%- PROCESS "statistics/macros-header.tt" -%]
+        [%- USE Translation('statistics') -%]
+        [%- React.embed(c, 'statistics/StatisticsCSS') -%]
         <div class="statisticsheader">
             <h1>[%- l('Database statistics') -%]</h1>
         </div>
         [% INCLUDE 'components/tabs.tt' list=info_links %]
         [%- content -%]
-        [%- PROCESS "statistics/macros-footer.tt" -%]
+        [%- USE Translation('mb_server') -%]
     [%- END -%]
 [%- ELSE -%]
     [%- WRAPPER "layout.tt" title=html_title -%]
-        [%- PROCESS "statistics/macros-header.tt" -%]
+        [%- USE Translation('statistics') -%]
+        [%- React.embed(c, 'statistics/StatisticsCSS') -%]
         <div id="content">
             <div class="statisticsheader">
                 <h1>[%- l('Database statistics') -%]</h1>
@@ -40,6 +43,6 @@
         <div id="sidebar">
             [%- sidebar -%]
         </div>
-        [%- PROCESS "statistics/macros-footer.tt" -%]
+        [%- USE Translation('mb_server') -%]
     [%- END -%]
 [%- END -%]

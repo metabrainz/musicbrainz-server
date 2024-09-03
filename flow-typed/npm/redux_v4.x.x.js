@@ -98,7 +98,4 @@ declare module 'redux' {
     dispatch: D
   ): C;
 
-  declare export function combineReducers<O: {...}, A>(
-    reducers: O
-  ): CombinedReducer<$ObjMap<O, <S>(r: Reducer<S, any>) => S>, A>;
 }

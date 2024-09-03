@@ -16,20 +16,12 @@ import {
   defineNameColumn,
 } from '../../utility/tableColumns.js';
 
-type Props = {
-  +checkboxes?: string,
-  +genres: $ReadOnlyArray<GenreT>,
-  +mergeForm?: MergeFormT,
-  +order?: string,
-  +sortable?: boolean,
-};
-
-const GenreList = ({
-  checkboxes,
-  genres,
-  order,
-  sortable,
-}: Props): React.Element<'table'> => {
+component GenreList(
+  checkboxes?: string,
+  genres: $ReadOnlyArray<GenreT>,
+  order?: string,
+  sortable?: boolean,
+) {
   const $c = React.useContext(CatalystContext);
 
   const columns = React.useMemo(
@@ -52,6 +44,6 @@ const GenreList = ({
   );
 
   return useTable<GenreT>({columns, data: genres});
-};
+}
 
 export default GenreList;

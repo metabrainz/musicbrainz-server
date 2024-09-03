@@ -54,6 +54,32 @@ div.half-width {
 
     td.release-artist { width: 100%; }
 
+    .duplicate-release-groups-loading { margin-bottom: 0.5em; }
+    .duplicate-release-groups-error {
+        font-style: italic;
+        margin-bottom: 0.5em;
+        a {
+            cursor: pointer;
+            font-style: normal;
+            margin-left: 0.5em;
+        }
+    }
+    .duplicate-release-groups-label { font-weight: bold; }
+    .duplicate-release-groups-list {
+        margin-bottom: 0.5em;
+
+        > * {
+            align-items: baseline;
+            display: flex;
+            text-align: left;
+
+            input[type="radio"] {
+                margin-right: 0.5em;
+                width: auto;
+            }
+        }
+    }
+
     #annotation {
         width: @form-input-width;
         max-width: @form-input-width;
@@ -272,12 +298,6 @@ div.changes div.warning { margin: 1em auto; }
     fieldset {
         border: 0;
         background: inherit;
-
-        div.row {
-            margin: 2em 1em;
-            label { vertical-align: top; }
-            textarea { width: 300px; }
-        }
     }
 }
 

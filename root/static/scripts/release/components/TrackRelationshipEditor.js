@@ -97,7 +97,7 @@ component RelatedWorkHeading(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
   isRemoved: boolean,
   isSelected: boolean,
-  removeWorkButton: React$MixedElement,
+  removeWorkButton: React.MixedElement,
   work: WorkT,
 ) {
   const selectWork = React.useCallback((
@@ -110,7 +110,7 @@ component RelatedWorkHeading(
     });
   }, [dispatch, work]);
 
-  let workLink: React$MixedElement = <WorkLink work={work} />;
+  let workLink: React.MixedElement = <WorkLink work={work} />;
   if (isRemoved) {
     workLink = (
       <span className="rel-remove">
@@ -138,7 +138,7 @@ component RelatedWorkHeading(
 component NewRelatedWorkHeading(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
   isSelected: boolean,
-  removeWorkButton: React$MixedElement,
+  removeWorkButton: React.MixedElement,
   work: WorkT,
 ) {
   const selectWork = React.useCallback((

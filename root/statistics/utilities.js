@@ -34,7 +34,7 @@ export function formatCount($c: CatalystContextT, num: ?number): string {
 
 export const TimelineLink = ({
   statName,
-}: {statName: string}): React.Element<'a'> => (
+}: {statName: string}): React.MixedElement => (
   <a
     href={'/statistics/timeline/' + encodeURIComponent(statName)}
     title={l_statistics('See on timeline')}

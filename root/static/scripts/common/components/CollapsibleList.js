@@ -9,8 +9,6 @@
 
 import * as React from 'react';
 
-import {SidebarProperty}
-  from '../../../../layout/components/sidebar/SidebarProperties.js';
 import {bracketedText} from '../utility/bracketed.js';
 
 export type BuildRowPropsT = {
@@ -20,7 +18,7 @@ export type BuildRowPropsT = {
 component CollapsibleList<T>(
   ariaLabel: string,
   buildRow:
-    (T, ?BuildRowPropsT) => React.Element<'li' | typeof SidebarProperty>,
+    (T, ?BuildRowPropsT) => React.MixedElement,
   buildRowProps?: BuildRowPropsT,
   className: string,
   ContainerElement?: 'dl' | 'ul' = 'ul',

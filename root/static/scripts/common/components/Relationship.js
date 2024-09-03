@@ -25,7 +25,7 @@ type MakeEntityLinkT = (
   content: string,
   relationship: RelationshipT,
   allowNew: ?boolean,
-) => React$MixedElement;
+) => React.MixedElement;
 
 const makeDescriptiveLink = (
   entity: RelatableEntityT,

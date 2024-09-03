@@ -1,4 +1,4 @@
 #!/bin/sh
 
 exec chpst -u postgres:postgres \
-    /usr/lib/postgresql/16/bin/postgres -D /var/lib/postgresql/data
+    /usr/lib/postgresql/16/bin/postgres -D /var/lib/postgresql/data 2>&1

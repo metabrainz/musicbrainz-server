@@ -9,19 +9,15 @@
 
 import EditArt from './EditArt.js';
 
-type Props = {
-  +edit: EditEventArtEditT,
-};
-
-const EditEventArt = ({
-  edit,
-}: Props): React.Element<typeof EditArt> => (
-  <EditArt
-    archiveName="event"
-    edit={edit}
-    entityType="event"
-    formattedEntityType={l('Event')}
-  />
-);
+component EditEventArt(edit: EditEventArtEditT) {
+  return (
+    <EditArt
+      archiveName="event"
+      edit={edit}
+      entityType="event"
+      formattedEntityType={l('Event')}
+    />
+  );
+}
 
 export default EditEventArt;

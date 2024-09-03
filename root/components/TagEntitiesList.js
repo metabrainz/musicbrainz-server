@@ -56,7 +56,7 @@ component TagEntitiesList(
   const buildTagEntitiesListSection = (
     entityType: TaggableEntityTypeT,
     title: string,
-    seeAllMessage: $Call<typeof N_ln, string, string>,
+    seeAllMessage: (val: number) => string,
     showDownvoted: boolean,
   ) => {
     const tags = taggedEntities[entityType];

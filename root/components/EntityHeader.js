@@ -9,12 +9,10 @@
 
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-import typeof EntityTabLink from './EntityTabLink.js';
 import EntityTabs from './EntityTabs.js';
 import SubHeader from './SubHeader.js';
 
 component EntityHeader(
-  editTab?: React.Element<EntityTabLink>,
   entity: RelatableEntityT,
   headerClass: string,
   heading?: Expand2ReactOutput,
@@ -31,11 +29,7 @@ component EntityHeader(
         </h1>
         <SubHeader subHeading={subHeading} />
       </div>
-      <EntityTabs
-        editTab={editTab}
-        entity={entity}
-        page={page}
-      />
+      <EntityTabs entity={entity} page={page} />
     </>
   );
 }

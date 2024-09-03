@@ -17,7 +17,7 @@ import CommonsImage
 import areDatesEqual
   from '../../../static/scripts/common/utility/areDatesEqual.js';
 import entityHref from '../../../static/scripts/common/utility/entityHref.js';
-import isDateEmpty
+import {isDateNonEmpty}
   from '../../../static/scripts/common/utility/isDateEmpty.js';
 import ExternalLinks from '../ExternalLinks.js';
 
@@ -36,8 +36,8 @@ import SidebarType from './SidebarType.js';
 
 component EventSidebar(event: EventT) {
   const $c = React.useContext(CatalystContext);
-  const hasBegin = !isDateEmpty(event.begin_date);
-  const hasEnd = !isDateEmpty(event.end_date);
+  const hasBegin = isDateNonEmpty(event.begin_date);
+  const hasEnd = isDateNonEmpty(event.end_date);
   const eventArtwork = $c.stash.event_artwork;
   const eventArtPresence = event.event_art_presence;
 

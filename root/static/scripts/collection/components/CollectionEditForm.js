@@ -181,7 +181,7 @@ function reducer(state: StateT, action: ActionT): StateT {
 const CollectionEditForm = ({
   collectionTypes,
   form,
-}: Props): React$MixedElement => {
+}: Props): React.MixedElement => {
   const typeOptions = {
     grouped: false,
     options: collectionTypes,

@@ -130,7 +130,7 @@ const parseVarSubst = createVarSubstParser<Output, Input>(
 );
 
 const parseLinkSubst: Parser<
-  React.Element<'a'> | string | NO_MATCH,
+  React.MixedElement | string | NO_MATCH,
   Input,
 > = saveMatch(function (args) {
   const name = accept(linkSubstStart);

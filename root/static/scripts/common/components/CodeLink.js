@@ -10,7 +10,7 @@
 import entityHref from '../utility/entityHref.js';
 
 component CodeLink(code: IsrcT | IswcT) {
-  let link: React$MixedElement = (
+  let link: React.MixedElement = (
     <a href={entityHref(code)}>
       <bdi>
         {/* $FlowIssue[prop-missing] */}

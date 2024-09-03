@@ -51,6 +51,49 @@
         </td>
       </tr>
 
+      <tr data-bind="if: $root.loadingDuplicateReleaseGroups()">
+        <td></td>
+        <td colspan="2">
+          <div class="duplicate-release-groups-loading loading-message">
+            [% l('Checking existing release groups…') %]
+          </div>
+        </td>
+      </tr>
+
+      <tr data-bind="if: $root.failedLoadingDuplicateReleaseGroups()">
+        <td></td>
+        <td colspan="2">
+          <div class="duplicate-release-groups-error">
+            [% l('Release group search error') %]
+            <a data-click="loadDuplicateReleaseGroups">[% l('Retry') %]</a>
+          </div>
+        </td>
+      </tr>
+
+      <tr data-bind="if: $root.duplicateReleaseGroups().length > 0">
+        <td></td>
+        <td colspan="2">
+          <div class="duplicate-release-groups-label">
+            [% add_colon(l('Existing release groups with similar names')) %]
+          </div>
+          <div class="duplicate-release-groups-list">
+            <!-- ko foreach: $root.duplicateReleaseGroups -->
+              <label>
+                <input name="release-group-selection" type="radio" data-change="selectReleaseGroup" />
+                <div>
+                  <a target="_blank" data-bind="attr: { href: '/release-group/' + $data.gid }, text: $data.name"></a>
+                  <span data-bind="text: $data.details"></span>
+                </div>
+              </label>
+            <!-- /ko -->
+            <label>
+              <input name="release-group-selection" type="radio" checked data-change="clearReleaseGroup" />
+              <div>[% l('Add a new release group') %]</div>
+            </label>
+          </div>
+        </td>
+      </tr>
+
       [% table_row_help_message(2, 'showMessageRightAway: willCreateReleaseGroup', l('If you don’t select an existing release group, a new one will be added with the types selected below.')) %]
 
       [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsReleaseGroup', l('You must select an existing release group.')) %]

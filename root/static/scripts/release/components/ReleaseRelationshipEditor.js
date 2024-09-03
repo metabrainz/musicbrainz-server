@@ -1744,6 +1744,9 @@ component _ReleaseRelationshipEditor() {
         return undefined;
       }
       if (hasPendingEdits) {
+        if (MUSICBRAINZ_RUNNING_TESTS) {
+          sessionStorage.setItem('didShowBeforeUnloadAlert', 'true');
+        }
         // Modern browsers don't actually display this string for security.
         event.returnValue =
           'All of your changes will be lost if you leave this page.';

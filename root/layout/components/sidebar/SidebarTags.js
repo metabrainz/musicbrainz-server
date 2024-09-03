@@ -24,7 +24,7 @@ component TagList(
 ) {
   const upvotedTags = tags ? tags.filter(tag => tag.count > 0) : null;
   const links = upvotedTags ? upvotedTags.reduce((
-    accum: Array<React.Element<typeof TagLink>>,
+    accum: Array<React.MixedElement>,
     aggregatedTag,
   ) => {
     if (Boolean(aggregatedTag.tag.genre) === isGenreList) {

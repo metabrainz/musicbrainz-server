@@ -77,7 +77,7 @@ class ApplicationForm extends React.Component<Props, State> {
       .final());
   }
 
-  render(): React.Element<'form'> {
+  render(): React.MixedElement {
     return (
       <form method="post">
         <FormCsrfToken form={this.state.form} />

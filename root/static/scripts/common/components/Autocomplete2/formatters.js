@@ -23,7 +23,7 @@ import bracketed, {bracketedText} from '../../utility/bracketed.js';
 import formatDate from '../../utility/formatDate.js';
 import formatDatePeriod from '../../utility/formatDatePeriod.js';
 import formatTrackLength from '../../utility/formatTrackLength.js';
-import isDateEmpty from '../../utility/isDateEmpty.js';
+import {isDateNonEmpty} from '../../utility/isDateEmpty.js';
 import CountryAbbr from '../CountryAbbr.js';
 
 import type {
@@ -128,7 +128,7 @@ function formatArtist(artist: ArtistT) {
     secondInfoLine.push(lp_attributes(artist.typeName, 'artist_type'));
   }
 
-  if (!isDateEmpty(artist.begin_date) || !isDateEmpty(artist.end_date)) {
+  if (isDateNonEmpty(artist.begin_date) || isDateNonEmpty(artist.end_date)) {
     secondInfoLine.push(formatDatePeriod(artist));
   }
 
@@ -274,7 +274,7 @@ function formatLabel(label: LabelT) {
     secondInfoLine.push(lp_attributes(label.typeName, 'label_type'));
   }
 
-  if (!isDateEmpty(label.begin_date) || !isDateEmpty(label.end_date)) {
+  if (isDateNonEmpty(label.begin_date) || isDateNonEmpty(label.end_date)) {
     secondInfoLine.push(formatDatePeriod(label));
   }
 

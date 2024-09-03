@@ -7,9 +7,15 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+export function isDateNonEmpty(
+  date: ?PartialDateT | ?PartialDateStringsT,
+): implies date is PartialDateT | PartialDateStringsT {
+  return /* flow-include (date != null) && */ !isDateEmpty(date);
+}
+
 export default function isDateEmpty(
   date: ?PartialDateT | ?PartialDateStringsT,
-): boolean %checks {
+): boolean {
   return (date == null) ||
          (empty(date.year) && empty(date.month) && empty(date.day));
 }

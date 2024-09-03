@@ -99,13 +99,8 @@
       value: '',
     },
     {
-      command: 'handleAlert',
-      target: 'accept',
-      value: '',
-    },
-    {
-      command: 'waitUntilUrlIs',
-      target: '/',
+      command: 'assertBeforeUnloadAlertWasShown',
+      target: '',
       value: '',
     },
   ],

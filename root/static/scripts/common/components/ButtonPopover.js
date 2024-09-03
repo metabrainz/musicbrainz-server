@@ -43,7 +43,7 @@ component ButtonPopover(
   isDisabled: boolean = false,
   isOpen: boolean,
   toggle: (boolean) => void,
-  wrapButton?: (React$MixedElement) => React$MixedElement,
+  wrapButton?: (React.MixedElement) => React.MixedElement,
   ...dialogProps: {id: string}
 ) {
   const buttonId = buttonProps?.id;
@@ -80,7 +80,7 @@ component ButtonPopover(
       : unwrapNl<string>(buttonProps.title),
   } : null;
 
-  let buttonElement: React$MixedElement = (
+  let buttonElement: React.MixedElement = (
     <button
       {...getReferenceProps()}
       {...customButtonProps}
@@ -107,7 +107,7 @@ component ButtonPopover(
 
   const initialFocusRef = React.useRef<HTMLElement | null>(null);
 
-  let popoverElement: React$MixedElement | null = isOpen ? (
+  let popoverElement: React.MixedElement | null = isOpen ? (
     <FloatingPortal>
       <FloatingFocusManager
         closeOnFocusOut

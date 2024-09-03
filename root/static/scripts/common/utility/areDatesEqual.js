@@ -12,6 +12,6 @@ import compareDates from './compareDates.js';
 export default function areDatesEqual(
   a: PartialDateT | null,
   b: PartialDateT | null,
-): boolean %checks {
+): boolean {
   return (compareDates(a, b) === 0);
 }

@@ -27,7 +27,7 @@ function buildSection(
   props: React.PropsOf<ArtistCreditIndex>,
   entityType: EntityWithArtistCreditsTypeT,
   title: string,
-  seeAllMessage: $Call<typeof N_ln, string, string>,
+  seeAllMessage: (val: number) => string,
   listId: string,
 ) {
   const entities = props.creditedEntities[entityType];

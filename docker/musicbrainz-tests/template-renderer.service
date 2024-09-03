@@ -2,4 +2,4 @@
 
 export RENDERER_WORKERS=2
 
-exec /usr/local/bin/start_template_renderer.sh
+exec /usr/local/bin/start_template_renderer.sh 2>&1
