@@ -14,7 +14,7 @@ import fields from '../release-editor/fields.js';
 
 /* eslint-disable sort-keys */
 test('guessing feat. artists', function (t) {
-  t.plan(24);
+  t.plan(25);
 
   const trackTests = [
     {
@@ -438,6 +438,21 @@ test('guessing feat. artists', function (t) {
             {name: 'DJ Baku', joinPhrase: ' feat. '},
             {name: '漢', joinPhrase: '、'},
             {name: '般若', joinPhrase: ''},
+          ],
+        },
+      },
+    },
+    {
+      input: {
+        name: 'Stuffy Stuff【Feat. Artist】',
+        artistCredit: {names: [{name: 'Someone', joinPhrase: ''}]},
+      },
+      output: {
+        name: 'Stuffy Stuff',
+        artistCredit: {
+          names: [
+            {name: 'Someone', joinPhrase: ' feat. '},
+            {name: 'Artist', joinPhrase: ''},
           ],
         },
       },
