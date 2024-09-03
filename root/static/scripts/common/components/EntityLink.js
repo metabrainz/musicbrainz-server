@@ -168,6 +168,7 @@ component EntityLink(
   hover as passedHover?: string,
   nameVariation as passedNameVariation?: boolean,
   showArtworkPresence: boolean = false,
+  showCreditedAs: boolean = false,
   showDeleted: boolean = true,
   showDisambiguation as passedShowDisambiguation?: boolean | 'hover',
   showEditsPending: boolean = true,
@@ -221,6 +222,16 @@ component EntityLink(
   }
 
   const entityName = ko.unwrap(entity.name);
+
+  /*
+   * If we were asked to display the credited-as text explicitly,
+   * display the entity name as the content instead.
+   */
+  let creditedAs = null;
+  if (showCreditedAs && typeof content === 'string' && nonEmpty(content)) {
+    creditedAs = content;
+    content = undefined;
+  }
 
   if (entity.entityType === 'area') {
     content = empty(content) ? localizeAreaName(entity) : content;
@@ -445,6 +456,15 @@ component EntityLink(
   if (showIcon) {
     parts.unshift(
       <span className={iconClassPicker[entity.entityType]} key="icon" />,
+    );
+  }
+
+  if (nonEmpty(creditedAs)) {
+    parts.push(
+      ' ',
+      bracketed(
+        <span>{texp.l('as “{credit}”', {credit: creditedAs})}</span>,
+      ),
     );
   }
 
