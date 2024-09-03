@@ -14,6 +14,34 @@ type ControlledPropsT =
     }>
   | $ReadOnly<{controlled?: false}>;
 
+export component MakeVotable(
+  disabled: boolean,
+  field: FieldT<boolean>,
+  inputProps: {
+    checked?: boolean,
+    defaultChecked?: boolean,
+    onChange?: (event: SyntheticEvent<HTMLInputElement>) => void,
+  },
+) {
+  return (
+    <div className="row no-label">
+      <div className="auto-editor">
+        <label>
+          <input
+            className="make-votable"
+            disabled={disabled}
+            name={field.html_name}
+            type="checkbox"
+            value="1"
+            {...inputProps}
+          />
+          {l('Make all edits votable.')}
+        </label>
+      </div>
+    </div>
+  );
+}
+
 component EnterEdit(
   children?: React.Node,
   childrenFirst: boolean = false,
@@ -35,21 +63,11 @@ component EnterEdit(
   }
   return (
     <>
-      <div className="row no-label">
-        <div className="auto-editor">
-          <label>
-            <input
-              className="make-votable"
-              disabled={disabled}
-              name={form.field.make_votable.html_name}
-              type="checkbox"
-              value="1"
-              {...makeVotableProps}
-            />
-            {l('Make all edits votable.')}
-          </label>
-        </div>
-      </div>
+      <MakeVotable
+        disabled={disabled}
+        field={form.field.make_votable}
+        inputProps={makeVotableProps}
+      />
       <div className="row no-label buttons">
         {childrenFirst ? children : null}
         <button

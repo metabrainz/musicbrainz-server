@@ -8,6 +8,8 @@
 
 import $ from 'jquery';
 import ko from 'knockout';
+import mutate from 'mutate-cow';
+import {createRoot} from 'react-dom/client';
 
 import {
   artistCreditsAreEqual,
@@ -20,10 +22,12 @@ import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
 import {debounceComputed} from '../common/utility/debounce.js';
 import request from '../common/utility/request.js';
 import * as externalLinks from '../edit/externalLinks.js';
+import {createField} from '../edit/utility/createField.js';
 import getUpdatedTrackArtists from
   '../edit/utility/getUpdatedTrackArtists.js';
 import * as validation from '../edit/validation.js';
 
+import EditNoteTab from './components/EditNoteTab.js';
 import fields from './fields.js';
 import recordingAssociation from './recordingAssociation.js';
 import utils from './utils.js';
@@ -334,6 +338,52 @@ releaseEditor.init = function (options) {
   // Apply root bindings to the page.
 
   ko.applyBindings(this, $pageContent[0]);
+
+  // Keep the React EditNoteTab component in sync.
+
+  const editNoteTabContainer = document.getElementById('edit-note');
+  const editNoteTabRoot = createRoot(editNoteTabContainer);
+  let releaseEditorForm = {
+    field: {
+      edit_note: createField('edit_note', ''),
+      make_votable: createField('make_votable', false),
+    },
+    has_errors: false,
+    name: 'release-editor',
+    type: 'form',
+  };
+  const handleEditNoteChange = (event) => {
+    self.rootField.editNote(event.target.value);
+  };
+  const handleMakeVotableChange = (event) => {
+    self.rootField.makeVotable(event.target.checked);
+  };
+
+  ko.computed(() => {
+    const rootField = self.rootField;
+    releaseEditorForm = mutate(releaseEditorForm)
+      .update('field', (fieldCtx) => {
+        fieldCtx
+          .set('edit_note', 'value', rootField.editNote())
+          .set('make_votable', 'value', rootField.makeVotable());
+      })
+      .final();
+    editNoteTabRoot.render(
+      <EditNoteTab
+        editPreviews={releaseEditor.editPreviews()}
+        editsExist={releaseEditor.allEdits().length > 0}
+        errorsExist={validation.errorsExist()}
+        form={releaseEditorForm}
+        invalidEditNote={rootField.invalidEditNote()}
+        loadingEditPreviews={releaseEditor.loadingEditPreviews()}
+        missingEditNote={rootField.missingEditNote()}
+        onEditNoteChange={handleEditNoteChange}
+        onMakeVotableChange={handleMakeVotableChange}
+        submissionError={releaseEditor.submissionError()}
+        submissionInProgress={releaseEditor.submissionInProgress()}
+      />,
+    );
+  });
 
   // Fancy!
 
