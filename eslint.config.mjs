@@ -419,7 +419,7 @@ export default [
       'import/no-extraneous-dependencies': 'error',
       'import/no-import-module-exports': 'warn',
       'import/no-internal-modules': 'off',
-      // 'import/no-mutable-exports': 'warn',
+      'import/no-mutable-exports': 'warn',
       // 'import/no-named-as-default': 'warn',
       // 'import/no-named-as-default-member': 'warn',
       'import/no-named-default': 'off',

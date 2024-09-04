@@ -7,8 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable import/no-mutable-exports */
 export let hasLocalStorage: boolean = false;
 export let hasSessionStorage: boolean = false;
+/* eslint-enable import/no-mutable-exports */
 
 // https://bugzilla.mozilla.org/show_bug.cgi?id=365772
 try {
