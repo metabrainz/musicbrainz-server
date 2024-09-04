@@ -18,16 +18,9 @@ export const BUILD_DIR = process.env.MBS_STATIC_BUILD_DIR ||
 export const SCRIPTS_DIR = path.resolve(STATIC_DIR, 'scripts');
 export const IMAGES_DIR = path.resolve(STATIC_DIR, 'images');
 
-let WEBPACK_MODE = process.env.WEBPACK_MODE;
-if (typeof WEBPACK_MODE === 'undefined') {
-  if (process.env.NODE_ENV === 'production') {
-    WEBPACK_MODE = 'production';
-  } else {
-    WEBPACK_MODE = 'development';
-  }
-}
-
-export {WEBPACK_MODE};
+export const WEBPACK_MODE = (typeof process.env.WEBPACK_MODE === 'undefined')
+  ? (process.env.NODE_ENV === 'production' ? 'production' : 'development')
+  : process.env.WEBPACK_MODE;
 
 export const GETTEXT_DOMAINS = [
   'attributes',
