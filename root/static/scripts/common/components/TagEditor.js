@@ -644,7 +644,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
       );
     }
   },
-  minimalEntity,
+  {mungeProps: minimalEntity},
 ): React.AbstractComponent<TagEditorProps, void>);
 
 export const SidebarTagEditor = (hydrate<TagEditorProps>(
@@ -702,7 +702,7 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
       );
     }
   },
-  minimalEntity,
+  {mungeProps: minimalEntity},
 ): React.AbstractComponent<TagEditorProps, void>);
 
 function createInitialTagState(

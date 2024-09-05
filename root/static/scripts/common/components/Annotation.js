@@ -113,32 +113,34 @@ component Annotation(
 export default (hydrate<React.PropsOf<Annotation>>(
   'div.annotation',
   Annotation,
-  function (props) {
-    const newProps: {...React.PropsOf<Annotation>} = {...props};
-    const entity = props.entity;
-    const annotation = props.annotation;
+  {
+    mungeProps(props) {
+      const newProps: {...React.PropsOf<Annotation>} = {...props};
+      const entity = props.entity;
+      const annotation = props.annotation;
 
-    // editor data is usually missing on mirror server
-    if (annotation && annotation.editor) {
-      const newAnnotation = {...annotation};
-      newAnnotation.editor = sanitizedEditor(annotation.editor);
-      newProps.annotation = newAnnotation;
-    }
+      // editor data is usually missing on mirror server
+      if (annotation && annotation.editor) {
+        const newAnnotation = {...annotation};
+        newAnnotation.editor = sanitizedEditor(annotation.editor);
+        newProps.annotation = newAnnotation;
+      }
 
-    const newEntity: {...MinimalAnnotatedEntityT} = {
-      entityType: entity.entityType,
-      gid: entity.gid,
-    };
+      const newEntity: {...MinimalAnnotatedEntityT} = {
+        entityType: entity.entityType,
+        gid: entity.gid,
+      };
 
-    const latestAnnotation = entity.latest_annotation;
-    if (latestAnnotation && latestAnnotation.editor) {
-      newEntity.latest_annotation = ({
-        ...latestAnnotation,
-        editor: sanitizedEditor(latestAnnotation.editor),
-      }: {...AnnotationT});
-    }
+      const latestAnnotation = entity.latest_annotation;
+      if (latestAnnotation && latestAnnotation.editor) {
+        newEntity.latest_annotation = ({
+          ...latestAnnotation,
+          editor: sanitizedEditor(latestAnnotation.editor),
+        }: {...AnnotationT});
+      }
 
-    newProps.entity = newEntity;
-    return newProps;
+      newProps.entity = newEntity;
+      return newProps;
+    },
   },
 ): React.AbstractComponent<React.PropsOf<Annotation>>);

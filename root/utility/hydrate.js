@@ -99,8 +99,10 @@ export default function hydrate<
 >(
   containerSelector: string,
   Component: React.AbstractComponent<Config | SanitizedConfig>,
-  mungeProps?: (Config) => SanitizedConfig,
-  createContainer?: boolean = true,
+  options?: {
+    +createContainer?: boolean,
+    +mungeProps?: (Config) => SanitizedConfig,
+  },
 ): React.AbstractComponent<Config, void> {
   const [ContainerTag, ...classes] = containerSelector.split('.');
   if (typeof document !== 'undefined') {
@@ -145,6 +147,8 @@ export default function hydrate<
       }
     });
   }
+  const mungeProps = options?.mungeProps;
+  const createContainer = (options?.createContainer) ?? true;
   return (props: Config) => {
     invariant(
       !Object.hasOwn(props, '$c'),
