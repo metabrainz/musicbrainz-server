@@ -9,9 +9,21 @@
       [%- form_row_name_with_guesscase(r) -%]
       [%- form_row_text_long(r, 'comment', 'Disambiguation:') -%]
       [%- form_row_select(r, 'type_id', 'Type:') -%]
-      [%- form_row_text_list(r, 'iso_3166_1', 'ISO 3166-1:', 'ISO 3166-1') -%]
-      [%- form_row_text_list(r, 'iso_3166_2', 'ISO 3166-2:', 'ISO 3166-2') -%]
-      [%- form_row_text_list(r, 'iso_3166_3', 'ISO 3166-3:', 'ISO 3166-3') -%]
+      [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+           repeatable => form_to_json(form.field('iso_3166_1')),
+           label => 'ISO 3166-1:',
+           itemName => 'ISO 3166-1'
+         }) %]
+      [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+           repeatable => form_to_json(form.field('iso_3166_2')),
+           label => 'ISO 3166-2:',
+           itemName => 'ISO 3166-2'
+         }) %]
+      [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+           repeatable => form_to_json(form.field('iso_3166_3')),
+           label => 'ISO 3166-3:',
+           itemName => 'ISO 3166-3'
+         }) %]
     </fieldset>
 
     [% date_range_fieldset(r, 'area', 'This area has ended.') %]
