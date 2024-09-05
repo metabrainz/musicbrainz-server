@@ -107,7 +107,7 @@ component FormRowTextList(
   };
 
   return (
-    <FormRow>
+    <>
       <FormLabel forField={repeatable} label={label} required={required} />
 
       <div className="form-row-text-list">
@@ -132,8 +132,25 @@ component FormRowTextList(
       </div>
 
       <FieldErrors field={repeatable} />
+    </>
+  );
+}
+
+export component NonHydratedFormRowTextList(
+  ...props: React.PropsOf<FormRowTextList>
+) {
+  return (
+    <FormRow className="form-row-text-list-container">
+      <FormRowTextList {...props} />
     </FormRow>
   );
 }
 
-export default FormRowTextList;
+/*
+ * Hydration must be moved higher up in the component hierarchy once
+ * more of the page is converted to React.
+ */
+export default (hydrate<React.PropsOf<FormRowTextList>>(
+  'div.row.form-row-text-list-container',
+  FormRowTextList,
+): React.AbstractComponent<React.PropsOf<FormRowTextList>, void>);

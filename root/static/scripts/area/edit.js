@@ -8,6 +8,7 @@
  */
 
 import typeBubble from '../edit/typeBubble.js';
+import '../edit/components/FormRowTextList.js';
 
 const typeIdField = 'select[name=edit-area\\.type_id]';
 typeBubble(typeIdField);
