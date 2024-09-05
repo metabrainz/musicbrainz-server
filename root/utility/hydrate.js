@@ -100,6 +100,7 @@ export default function hydrate<
   containerSelector: string,
   Component: React.AbstractComponent<Config | SanitizedConfig>,
   mungeProps?: (Config) => SanitizedConfig,
+  createContainer?: boolean = true,
 ): React.AbstractComponent<Config, void> {
   const [ContainerTag, ...classes] = containerSelector.split('.');
   if (typeof document !== 'undefined') {
@@ -153,6 +154,7 @@ export default function hydrate<
     if (mungeProps) {
       sanitizedProps = mungeProps(props);
     }
+    const content = <Component {...props} />;
     return (
       <>
         <script
@@ -165,9 +167,11 @@ export default function hydrate<
           }}
           type="application/json"
         />
-        <ContainerTag className={classes.join(' ')}>
-          <Component {...props} />
-        </ContainerTag>
+        {createContainer ? (
+          <ContainerTag className={classes.join(' ')}>
+            {content}
+          </ContainerTag>
+        ) : content}
       </>
     );
   };

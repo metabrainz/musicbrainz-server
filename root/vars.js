@@ -32,6 +32,7 @@ declare var hydrate: (
     containerSelector: string,
     Component: React.AbstractComponent<Config | SanitizedConfig, mixed>,
     mungeProps?: (Config) => SanitizedConfig,
+    createContainer?: boolean,
   ) => React.AbstractComponent<Config, void>
 );
 declare var hyphenateTitle: (title: string, subtitle: string) => string;
