@@ -16,30 +16,12 @@ import FormRow from './FormRow.js';
 import RemoveButton from './RemoveButton.js';
 
 component TextListRow(
-  index: number = 0,
   name: string,
-  onChange: (event: SyntheticEvent<HTMLInputElement>) => void = () => {},
-  onRemove: (event: SyntheticEvent<HTMLInputElement>) => void = () => {},
+  onChange: (event: SyntheticEvent<HTMLInputElement>) => void,
+  onRemove: (event: SyntheticEvent<HTMLInputElement>) => void,
   removeButtonLabel: string,
-  template: boolean = false,
-  value: string = '',
+  value: string,
 ) {
-  if (template) {
-    return (
-      <div
-        className={`text-list-row ${name}-template`}
-        style={{display: 'none'}}
-      >
-        <input className="value with-button" type="text" value="" />
-        <RemoveButton
-          dataIndex={index}
-          onClick={onRemove}
-          title={removeButtonLabel}
-        />
-      </div>
-    );
-  }
-
   return (
     <div className="text-list-row">
       <input
@@ -104,12 +86,6 @@ component FormRowTextList(
       <FormLabel forField={repeatable} label={label} required={required} />
 
       <div className="form-row-text-list">
-        <TextListRow
-          name={repeatable.html_name}
-          removeButtonLabel={removeButtonLabel}
-          template
-        />
-
         {rows.map((field, index) => (
           <TextListRow
             key={index}
