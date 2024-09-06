@@ -209,6 +209,7 @@ export default {
   'release/RemoveCoverArt': (): Promise<mixed> => import('../release/RemoveCoverArt.js'),
   'release_group/ReleaseGroupIndex': (): Promise<mixed> => import('../release_group/ReleaseGroupIndex.js'),
   'release_group/ReleaseGroupMerge': (): Promise<mixed> => import('../release_group/ReleaseGroupMerge.js'),
+  'release_group/SetCoverArt': (): Promise<mixed> => import('../release_group/SetCoverArt.js'),
   'report/AnnotationsArtists': (): Promise<mixed> => import('../report/AnnotationsArtists.js'),
   'report/AnnotationsEvents': (): Promise<mixed> => import('../report/AnnotationsEvents.js'),
   'report/AnnotationsLabels': (): Promise<mixed> => import('../report/AnnotationsLabels.js'),

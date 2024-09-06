@@ -7,9 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {Artwork} from '../../../components/Artwork.js';
 import ArtistCreditLink
   from '../../../static/scripts/common/components/ArtistCreditLink.js';
+import {Artwork} from '../../../static/scripts/common/components/Artwork.js';
 import entityHref from '../../../static/scripts/common/utility/entityHref.js';
 import releaseGroupType from '../../../utility/releaseGroupType.js';
 import ExternalLinks from '../ExternalLinks.js';
