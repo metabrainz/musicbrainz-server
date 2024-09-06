@@ -60,13 +60,13 @@ component FormRowTextList(
 
   const [rows, setRows] = useState(initialRows(repeatable));
 
-  const add = () => {
+  const addRow = () => {
     const index = rows.length;
 
     setRows([...rows, newRow(repeatable.html_name, '', index)]);
   };
 
-  const change = (index: number, value: string) => {
+  const changeRow = (index: number, value: string) => {
     const newRows = [...rows];
     newRows[index] = newRow(repeatable.html_name, value, index);
     setRows(newRows);
@@ -90,7 +90,7 @@ component FormRowTextList(
           <TextListRow
             key={index}
             name={field.name}
-            onChange={(event) => change(index, event.currentTarget.value)}
+            onChange={(event) => changeRow(index, event.currentTarget.value)}
             onRemove={() => removeRow(index)}
             removeButtonLabel={removeButtonLabel}
             value={field.value}
@@ -98,7 +98,7 @@ component FormRowTextList(
         ))}
 
         <div className="form-row-add">
-          <AddButton label={addButtonLabel} onClick={add} />
+          <AddButton label={addButtonLabel} onClick={addRow} />
         </div>
       </div>
 
