@@ -1,5 +1,7 @@
 [%- PROCESS 'cdtoc/attach_list.tt' -%]
 
+[% search_link = '/search?query=' _ query_release.field('query').value _ '&type=release&method=indexed' %]
+
 [% WRAPPER 'layout.tt' title=lp('Attach CD TOC', 'header') full_width=1 %]
   <h1>[% lp('Attach CD TOC', 'header') %]</h1>
   <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
@@ -61,7 +63,7 @@
             [%- IF was_mbid_search;
                   l('We couldn’t find a release matching that MBID.');
                 ELSE;
-                  l('No results found. Try refining your search query.');
+                  l('No results found. For performance issues, this search checks only a limited amount of releases closest to your entered query. To ensure a better result, search for the full release title or as close to it as possible. You can also {search_link|search manually} and paste the link to the release here.', { search_link => { href => search_link, target => '_blank' } });
                 END
             -%]
           </p>
