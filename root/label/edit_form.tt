@@ -29,8 +29,20 @@
             LC- [% r.text('label_code', size => 5, class => "label-code", pattern => "[0-9]*") -%]
             [%- field_errors(form, 'label_code') -%]
         [% END %]
-        [%- form_row_text_list(r, 'ipi_codes', add_colon(l('IPI codes')), l('IPI code')) -%]
-        [%- form_row_text_list(r, 'isni_codes', add_colon(l('ISNI codes')), l('ISNI code')) -%]
+        [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+           repeatable => form_to_json(form.field('ipi_codes')),
+           label => add_colon(l('IPI codes')),
+           addButtonId => 'add-ipi-code',
+           addButtonLabel => lp('Add IPI code', 'interactive'),
+           removeButtonLabel => lp('Remove IPI code', 'interactive'),
+         }) %]
+        [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+           repeatable => form_to_json(form.field('isni_codes')),
+           label => add_colon(l('ISNI codes')),
+           addButtonId => 'add-isni-code',
+           addButtonLabel => lp('Add ISNI code', 'interactive'),
+           removeButtonLabel => lp('Remove ISNI code', 'interactive'),
+         }) %]
       </fieldset>
 
       [% date_range_fieldset(r, 'label', l('This label has ended.')) %]

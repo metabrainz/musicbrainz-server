@@ -133,40 +133,6 @@
     [% END %]
 [%- END -%]
 
-[%- MACRO form_row_text_list(r, field_name, label, item_name) BLOCK # Converted to React at root/static/scripts/edit/components/FormTowTextList.js
--%] 
-    [% WRAPPER form_row %]
-      <label>[% label || r.form.field(field_name).label %]</label>
-      <div class="form-row-text-list">
-          <div style="display: none;"
-               class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
-              <input type="text" value="" class="value with-button" />
-              <button type="button" class="nobutton icon remove-item" title="[% l('Remove {item}', item => item_name) %]"></button>
-          </div>
-          [% FOR value=r.form.field(field_name).value -%]
-          <div class="text-list-row">
-              <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value with-button" />
-              <button type="button" class="nobutton icon remove-item" title="[% l('Remove {item}', item => item_name) %]"></button>
-          </div>
-          [% END -%]
-          <div class="form-row-add">
-            <button type="button" class="with-label add-item">
-              [% l('Add {item}', item => item_name) %]
-            </button>
-          </div>
-      </div>
-      <script>
-         [%- IF r.form.field(field_name).value.size -%]
-           MB.Form.TextList("[%- r.form.field(field_name).html_name -%]").init([% r.form.field(field_name).value.size %]);
-         [%- ELSE -%]
-           MB.Form.TextList("[%- r.form.field(field_name).html_name -%]").add('');
-         [%- END -%]
-      </script>
-
-      [% field_errors(r.form, field_name) %]
-    [% END %]
-[%- END -%]
-
 [%- MACRO form_row_date(r, field_name, label) BLOCK # Converted to React at root/components/FormRowPartialDate.js
 -%]
     [% WRAPPER form_row %]
