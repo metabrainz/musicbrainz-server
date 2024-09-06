@@ -9,6 +9,7 @@
 
 import SelectField from '../../common/components/SelectField.js';
 
+import AddButton from './AddButton.js';
 import FieldErrors from './FieldErrors.js';
 import FormRow from './FormRow.js';
 
@@ -49,14 +50,11 @@ component FormRowSelectList<S: {+id: number, ...}>(
         ))}
         {hideAddButton ? null : (
           <div className="form-row-add">
-            <button
-              className="with-label add-item"
+            <AddButton
               id={addId}
+              label={addLabel}
               onClick={onAdd}
-              type="button"
-            >
-              {addLabel}
-            </button>
+            />
           </div>
         )}
       </div>

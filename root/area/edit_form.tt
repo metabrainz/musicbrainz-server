@@ -12,18 +12,21 @@
       [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
            repeatable => form_to_json(form.field('iso_3166_1')),
            label => 'ISO 3166-1:',
+           addButtonId => 'add-iso-3166-1',
            addButtonLabel => 'Add ISO 3166-1',
            removeButtonLabel => 'Remove ISO 3166-1',
          }) %]
       [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
            repeatable => form_to_json(form.field('iso_3166_2')),
            label => 'ISO 3166-2:',
+           addButtonId => 'add-iso-3166-2',
            addButtonLabel => 'Add ISO 3166-2',
            removeButtonLabel => 'Remove ISO 3166-2',
          }) %]
       [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
            repeatable => form_to_json(form.field('iso_3166_3')),
            label => 'ISO 3166-3:',
+           addButtonId => 'add-iso-3166-3',
            addButtonLabel => 'Add ISO 3166-3',
            removeButtonLabel => 'Remove ISO 3166-3',
          }) %]

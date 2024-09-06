@@ -49,6 +49,7 @@ const initialRows = (repeatable: RepeatableFieldT<FieldT<string>>) => {
 
 component FormRowTextList(
   addButtonLabel: string,
+  addButtonId: string,
   label: string,
   removeButtonLabel: string,
   repeatable: RepeatableFieldT<FieldT<string>>,
@@ -100,7 +101,11 @@ component FormRowTextList(
         ))}
 
         <div className="form-row-add">
-          <AddButton label={addButtonLabel} onClick={addRow} />
+          <AddButton
+            id={addButtonId}
+            label={addButtonLabel}
+            onClick={addRow}
+          />
         </div>
       </div>
 
