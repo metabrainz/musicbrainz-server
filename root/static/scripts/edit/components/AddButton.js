@@ -17,7 +17,7 @@ component AddButton(
 
   return (
     <button className="with-label add-item" onClick={onClick} type="button">
-      {l(label)}
+      {label}
     </button>
   );
 }

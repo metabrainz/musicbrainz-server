@@ -15,23 +15,15 @@ import FormLabel from './FormLabel.js';
 import FormRow from './FormRow.js';
 import RemoveButton from './RemoveButton.js';
 
-type TextListRowProps = {
-  +index?: number,
-  +name: string,
-  +onChange?: (event: SyntheticEvent<HTMLInputElement>) => void,
-  +onRemove?: (event: SyntheticEvent<HTMLInputElement>) => void,
-  +template?: boolean,
-  +value?: string,
-};
-
-component TextListRow(...{
-  index = 0,
-  name,
-  onChange = () => {},
-  onRemove = () => {},
-  template = false,
-  value = '',
-}: TextListRowProps) {
+component TextListRow(
+  index: number = 0,
+  name: string,
+  onChange: (event: SyntheticEvent<HTMLInputElement>) => void = () => {},
+  onRemove: (event: SyntheticEvent<HTMLInputElement>) => void = () => {},
+  removeButtonLabel: string,
+  template: boolean = false,
+  value: string = '',
+) {
   if (template) {
     return (
       <div
@@ -42,7 +34,7 @@ component TextListRow(...{
         <RemoveButton
           dataIndex={index}
           onClick={onRemove}
-          title={l('Remove item')}
+          title={removeButtonLabel}
         />
       </div>
     );
@@ -57,7 +49,7 @@ component TextListRow(...{
         type="text"
         value={value}
       />
-      <RemoveButton onClick={onRemove} title={l('Remove item')} />
+      <RemoveButton onClick={onRemove} title={removeButtonLabel} />
     </div>
   );
 }
@@ -74,9 +66,10 @@ const initialRows = (repeatable: RepeatableFieldT<FieldT<string>>) => {
 };
 
 component FormRowTextList(
-  repeatable: RepeatableFieldT<FieldT<string>>,
+  addButtonLabel: string,
   label: string,
-  itemName: string,
+  removeButtonLabel: string,
+  repeatable: RepeatableFieldT<FieldT<string>>,
   required: boolean = false,
 ) {
   const newRow = (name: string, value: string, index: number) => {
@@ -113,6 +106,7 @@ component FormRowTextList(
       <div className="form-row-text-list">
         <TextListRow
           name={repeatable.html_name}
+          removeButtonLabel={removeButtonLabel}
           template
         />
 
@@ -122,12 +116,13 @@ component FormRowTextList(
             name={field.name}
             onChange={(event) => change(index, event.currentTarget.value)}
             onRemove={() => removeRow(index)}
+            removeButtonLabel={removeButtonLabel}
             value={field.value}
           />
         ))}
 
         <div className="form-row-add">
-          <AddButton label={`Add ${itemName}`} onClick={add} />
+          <AddButton label={addButtonLabel} onClick={add} />
         </div>
       </div>
 
