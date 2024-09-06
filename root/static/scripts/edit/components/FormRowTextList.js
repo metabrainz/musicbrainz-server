@@ -78,7 +78,9 @@ component FormRowTextList(
       return;
     }
 
-    setRows(rows.filter((_, i) => i !== index));
+    const newRows = [...rows];
+    newRows.splice(index, 1);
+    setRows(newRows);
   };
 
   return (
