@@ -7,6 +7,7 @@ around 'edit_conditions' => sub {
     my ($orig, $self, @args) = @_;
 
     my $conditions = $self->$orig(@args);
+    $conditions->{default_auto_edit} = 1;
     $conditions->{auto_edit} = 1;
 
     return $conditions;
