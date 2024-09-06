@@ -49,13 +49,35 @@ sub options_parent_id
 after validate => sub {
     my ($self) = @_;
 
-    my $parent = $self->field('parent_id')->value ?
-       $self->ctx->model('LinkAttributeType')->get_by_id($self->field('parent_id')->value) :
-       undef;
+    my $model = $self->ctx->model('LinkAttributeType');
+    my $parent = $self->field('parent_id')->value
+        ? $model->get_by_id($self->field('parent_id')->value)
+        : undef;
+    my $own_id = defined $self->init_object ? $self->init_object->id : undef;
 
-    my $root = defined $parent ? ($parent->root_id // $parent->id) : 0;
-    if ($root == $INSTRUMENT_ROOT_ID) {
-        $self->field('parent_id')->add_error('Cannot add or edit instruments here; use the instrument editing forms instead.');
+    if (defined $parent && defined $own_id) {
+        my $is_self_parent = $parent->id == $own_id;
+        if ($is_self_parent) {
+            $self->field('parent_id')->add_error(
+                'An attribute cannot be its own parent.',
+            );
+        } else {
+            my $is_own_child = $model->is_child($own_id, $parent->id);
+            if ($is_own_child) {
+                $self->field('parent_id')->add_error(
+                    'An attribute cannot be a child of its own child.',
+                );
+            }
+        }
+    }
+
+    my $is_root_instrument = defined $parent && (
+                             $parent->root_id == $INSTRUMENT_ROOT_ID ||
+                             $parent->id == $INSTRUMENT_ROOT_ID);
+    if ($is_root_instrument) {
+        $self->field('parent_id')->add_error(
+            'Cannot add or edit instruments here; use the instrument editing forms instead.',
+        );
     }
 };
 
