@@ -7,7 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import mutate from 'mutate-cow';
 import React, {useState} from 'react';
+
+import {pushField} from '../utility/pushField.js';
 
 import AddButton from './AddButton.js';
 import FieldErrors from './FieldErrors.js';
@@ -36,15 +39,14 @@ component TextListRow(
   );
 }
 
-const initialRows = (repeatable: RepeatableFieldT<FieldT<string>>) => {
-  if (repeatable.field.length === 0) {
-    return [{name: repeatable.html_name + '.0', value: ''}];
+const createInitialState = (repeatable: RepeatableFieldT<FieldT<string>>) => {
+  let newField = {...repeatable};
+  if (newField.last_index === -1) {
+    newField = mutate(newField).update((fieldCtx) => {
+      pushField(fieldCtx, '');
+    }).final();
   }
-
-  return repeatable.field.map((field, index) => ({
-    name: repeatable.html_name + '.' + index,
-    value: field.value ?? '',
-  }));
+  return newField;
 };
 
 component FormRowTextList(
@@ -55,33 +57,40 @@ component FormRowTextList(
   repeatable: RepeatableFieldT<FieldT<string>>,
   required: boolean = false,
 ) {
-  const newRow = (name: string, value: string, index: number) => {
-    return {name: name + '.' + index, value};
-  };
-
-  const [rows, setRows] = useState(initialRows(repeatable));
+  const [compoundField, setCompoundField] =
+    useState(createInitialState(repeatable));
 
   const addRow = () => {
-    const index = rows.length;
+    const newField = mutate(compoundField).update((fieldCtx) => {
+      pushField(fieldCtx, '');
+    }).final();
 
-    setRows([...rows, newRow(repeatable.html_name, '', index)]);
+    setCompoundField(newField);
   };
 
   const changeRow = (index: number, value: string) => {
-    const newRows = [...rows];
-    newRows[index] = newRow(repeatable.html_name, value, index);
-    setRows(newRows);
+    const newField = mutate(compoundField)
+      .set('field', index, 'value', value)
+      .final();
+    setCompoundField(newField);
   };
 
   const removeRow = (index: number) => {
-    if (rows.length === 1) {
-      setRows([newRow(repeatable.html_name, '', 0)]);
+    if (compoundField.field.length === 1) {
+      const newField = mutate(compoundField)
+        .set('field', index, 'value', '')
+        .final();
+
+      setCompoundField(newField);
+
       return;
     }
 
-    const newRows = [...rows];
-    newRows.splice(index, 1);
-    setRows(newRows);
+    const newField = mutate(compoundField).update('field', (fieldCtx) => {
+      fieldCtx.write().splice(index, 1);
+    }).final();
+
+    setCompoundField(newField);
   };
 
   return (
@@ -89,10 +98,10 @@ component FormRowTextList(
       <FormLabel forField={repeatable} label={label} required={required} />
 
       <div className="form-row-text-list">
-        {rows.map((field, index) => (
+        {compoundField.field.map((field, index) => (
           <TextListRow
-            key={index}
-            name={field.name}
+            key={field.id}
+            name={field.html_name}
             onChange={(event) => changeRow(index, event.currentTarget.value)}
             onRemove={() => removeRow(index)}
             removeButtonLabel={removeButtonLabel}
