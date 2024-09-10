@@ -68,14 +68,22 @@ component FormRowTextList(
     setCompoundField(newField);
   };
 
-  const changeRow = (index: number, value: string) => {
+  const changeRow = (id: number, value: string) => {
+    const index = compoundField.field.findIndex(
+      (subfield) => subfield.id === id,
+    );
+
     const newField = mutate(compoundField)
       .set('field', index, 'value', value)
       .final();
     setCompoundField(newField);
   };
 
-  const removeRow = (index: number) => {
+  const removeRow = (id: number) => {
+    const index = compoundField.field.findIndex(
+      (subfield) => subfield.id === id,
+    );
+
     if (compoundField.field.length === 1) {
       const newField = mutate(compoundField)
         .set('field', index, 'value', '')
@@ -98,12 +106,15 @@ component FormRowTextList(
       <FormLabel forField={repeatable} label={label} required={required} />
 
       <div className="form-row-text-list">
-        {compoundField.field.map((field, index) => (
+        {compoundField.field.map((field) => (
           <TextListRow
             key={field.id}
             name={field.html_name}
-            onChange={(event) => changeRow(index, event.currentTarget.value)}
-            onRemove={() => removeRow(index)}
+            onChange={(event) => changeRow(
+              field.id,
+              event.currentTarget.value,
+            )}
+            onRemove={() => removeRow(field.id)}
             removeButtonLabel={removeButtonLabel}
             value={field.value}
           />
