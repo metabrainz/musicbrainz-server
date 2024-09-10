@@ -8,7 +8,7 @@
  */
 
 import mutate from 'mutate-cow';
-import React, {useState} from 'react';
+import React from 'react';
 
 import {pushField} from '../utility/pushField.js';
 
@@ -17,6 +17,13 @@ import FieldErrors from './FieldErrors.js';
 import FormLabel from './FormLabel.js';
 import FormRow from './FormRow.js';
 import RemoveButton from './RemoveButton.js';
+
+type StateT = RepeatableFieldT<FieldT<string>>;
+
+type ActionT =
+  | {+type: 'add-row'}
+  | {+fieldId: number, +type: 'remove-row'}
+  | {+fieldId: number, +type: 'update-row', +value: string};
 
 component TextListRow(
   name: string,
@@ -49,6 +56,44 @@ const createInitialState = (repeatable: RepeatableFieldT<FieldT<string>>) => {
   return newField;
 };
 
+function reducer(state: StateT, action: ActionT): StateT {
+  const newStateCtx = mutate(state);
+  const fieldCtx = newStateCtx.get('field');
+
+  switch (action.type) {
+    case 'add-row': {
+      newStateCtx.update((fieldCtx) => {
+        pushField(fieldCtx, '');
+      });
+      break;
+    }
+    case 'remove-row': {
+      const index = fieldCtx.read().findIndex(
+        (subfield) => subfield.id === action.fieldId,
+      );
+
+      if (fieldCtx.read().length === 1) {
+        newStateCtx.set('field', index, 'value', '');
+        break;
+      }
+
+      newStateCtx.update('field', (fieldCtx) => {
+        fieldCtx.write().splice(index, 1);
+      });
+      break;
+    }
+    case 'update-row': {
+      const index = fieldCtx.read().findIndex(
+        (subfield) => subfield.id === action.fieldId,
+      );
+
+      newStateCtx.set('field', index, 'value', action.value);
+      break;
+    }
+  }
+  return newStateCtx.final();
+}
+
 component FormRowTextList(
   addButtonLabel: string,
   addButtonId: string,
@@ -57,60 +102,40 @@ component FormRowTextList(
   repeatable: RepeatableFieldT<FieldT<string>>,
   required: boolean = false,
 ) {
-  const [compoundField, setCompoundField] =
-    useState(createInitialState(repeatable));
-
-  const addRow = () => {
-    const newField = mutate(compoundField).update((fieldCtx) => {
-      pushField(fieldCtx, '');
-    }).final();
-
-    setCompoundField(newField);
-  };
-
-  const changeRow = (id: number, value: string) => {
-    const index = compoundField.field.findIndex(
-      (subfield) => subfield.id === id,
+  const [state, dispatch] =
+    React.useReducer<StateT, ActionT, RepeatableFieldT<FieldT<string>>>(
+      reducer,
+      repeatable,
+      createInitialState,
     );
 
-    const newField = mutate(compoundField)
-      .set('field', index, 'value', value)
-      .final();
-    setCompoundField(newField);
-  };
+  const removeRow = React.useCallback((
+    fieldId: number,
+  ): void => {
+    dispatch({fieldId, type: 'remove-row'});
+  }, [dispatch]);
 
-  const removeRow = (id: number) => {
-    const index = compoundField.field.findIndex(
-      (subfield) => subfield.id === id,
-    );
+  const addRow = React.useCallback(() => {
+    dispatch({type: 'add-row'});
+  }, [dispatch]);
 
-    if (compoundField.field.length === 1) {
-      const newField = mutate(compoundField)
-        .set('field', index, 'value', '')
-        .final();
-
-      setCompoundField(newField);
-
-      return;
-    }
-
-    const newField = mutate(compoundField).update('field', (fieldCtx) => {
-      fieldCtx.write().splice(index, 1);
-    }).final();
-
-    setCompoundField(newField);
-  };
+  const updateRow = React.useCallback((
+    fieldId: number,
+    value: string,
+  ) => {
+    dispatch({fieldId, type: 'update-row', value});
+  }, [dispatch]);
 
   return (
     <>
       <FormLabel forField={repeatable} label={label} required={required} />
 
       <div className="form-row-text-list">
-        {compoundField.field.map((field) => (
+        {state.field.map((field) => (
           <TextListRow
             key={field.id}
             name={field.html_name}
-            onChange={(event) => changeRow(
+            onChange={(event) => updateRow(
               field.id,
               event.currentTarget.value,
             )}
