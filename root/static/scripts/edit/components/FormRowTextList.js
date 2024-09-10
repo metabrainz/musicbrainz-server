@@ -26,22 +26,36 @@ type ActionT =
   | {+fieldId: number, +type: 'update-row', +value: string};
 
 component TextListRow(
+  dispatch: (ActionT) => void,
+  fieldId: number,
   name: string,
-  onChange: (event: SyntheticEvent<HTMLInputElement>) => void,
-  onRemove: (event: SyntheticEvent<HTMLInputElement>) => void,
   removeButtonLabel: string,
   value: string,
 ) {
+  const removeRow = React.useCallback((): void => {
+    dispatch({fieldId, type: 'remove-row'});
+  }, [dispatch, fieldId]);
+
+  const updateRow = React.useCallback((
+    event: SyntheticKeyboardEvent<HTMLInputElement>,
+  ) => {
+    const value = event.currentTarget.value;
+    dispatch({fieldId, type: 'update-row', value});
+  }, [dispatch, fieldId]);
+
   return (
     <div className="text-list-row">
       <input
         className="value with-button"
         name={name}
-        onChange={onChange}
+        onChange={updateRow}
         type="text"
         value={value}
       />
-      <RemoveButton onClick={onRemove} title={removeButtonLabel} />
+      <RemoveButton
+        onClick={removeRow}
+        title={removeButtonLabel}
+      />
     </div>
   );
 }
@@ -109,21 +123,8 @@ component FormRowTextList(
       createInitialState,
     );
 
-  const removeRow = React.useCallback((
-    fieldId: number,
-  ): void => {
-    dispatch({fieldId, type: 'remove-row'});
-  }, [dispatch]);
-
   const addRow = React.useCallback(() => {
     dispatch({type: 'add-row'});
-  }, [dispatch]);
-
-  const updateRow = React.useCallback((
-    fieldId: number,
-    value: string,
-  ) => {
-    dispatch({fieldId, type: 'update-row', value});
   }, [dispatch]);
 
   return (
@@ -133,13 +134,10 @@ component FormRowTextList(
       <div className="form-row-text-list">
         {state.field.map((field) => (
           <TextListRow
+            dispatch={dispatch}
+            fieldId={field.id}
             key={field.id}
             name={field.html_name}
-            onChange={(event) => updateRow(
-              field.id,
-              event.currentTarget.value,
-            )}
-            onRemove={() => removeRow(field.id)}
             removeButtonLabel={removeButtonLabel}
             value={field.value}
           />
