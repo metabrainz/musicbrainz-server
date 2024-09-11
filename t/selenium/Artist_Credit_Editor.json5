@@ -29,7 +29,7 @@
     },
     {
       command: 'assertEval',
-      target: "window.document.querySelectorAll('#artist-credit-editor input[type=hidden]').length",
+      target: "window.document.querySelectorAll('input[type=hidden][name^=edit-recording\\\\.artist_credit]').length",
       value: '4',
     },
     {
@@ -64,7 +64,7 @@
     },
     {
       command: 'assertEval',
-      target: "window.document.querySelectorAll('#artist-credit-editor input[type=hidden]').length",
+      target: "window.document.querySelectorAll('input[type=hidden][name^=edit-recording\\\\.artist_credit]').length",
       value: '4',
     },
     {
@@ -114,7 +114,7 @@
     },
     {
       command: 'assertEval',
-      target: "window.document.querySelectorAll('#artist-credit-editor input[type=hidden]').length",
+      target: "window.document.querySelectorAll('input[type=hidden][name^=edit-recording\\\\.artist_credit]').length",
       value: '8',
     },
     {
