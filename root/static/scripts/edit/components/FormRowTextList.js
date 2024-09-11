@@ -129,7 +129,7 @@ component FormRowTextList(
 
   return (
     <>
-      <FormLabel forField={repeatable} label={label} required={required} />
+      <FormLabel label={label} required={required} />
 
       <div className="form-row-text-list">
         {state.field.map((field) => (
