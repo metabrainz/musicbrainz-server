@@ -1,6 +1,0 @@
-[% WRAPPER 'layout.tt' title=lp('Add standalone recording', 'header') full_width=1 %]
-    <div id="content">
-        <h1>[%- lp('Add standalone recording', 'header') -%]</h1>
-        [% INCLUDE 'recording/edit_form.tt' %]
-    </div>
-[% END %]
