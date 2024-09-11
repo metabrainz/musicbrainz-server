@@ -42,6 +42,7 @@ component TextListRow(
   dispatch: (ActionT) => void,
   fieldId: number,
   name: string,
+  onFocus?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   removeButtonLabel: string,
   value: string,
 ) {
@@ -62,6 +63,7 @@ component TextListRow(
         className="value with-button"
         name={name}
         onChange={updateRow}
+        onFocus={onFocus}
         type="text"
         value={value}
       />
@@ -145,6 +147,7 @@ component FormRowTextList(
   addButtonId: string,
   initialState: InitialStateT,
   label: string,
+  onFocus?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   removeButtonLabel: string,
   required: boolean = false,
 ) {
@@ -186,6 +189,7 @@ component FormRowTextList(
                 fieldId={field.id}
                 key={field.id}
                 name={field.html_name}
+                onFocus={onFocus}
                 removeButtonLabel={removeButtonLabel}
                 value={field.field.value.value}
               />
@@ -207,10 +211,11 @@ component FormRowTextList(
 }
 
 export component NonHydratedFormRowTextList(
+  rowRef?: {-current: HTMLDivElement | null},
   ...props: React.PropsOf<FormRowTextList>
 ) {
   return (
-    <FormRow className="form-row-text-list-container">
+    <FormRow className="form-row-text-list-container" rowRef={rowRef}>
       <FormRowTextList {...props} />
     </FormRow>
   );
