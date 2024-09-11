@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2014 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,7 +11,7 @@ import leven from 'leven';
 
 const punctuation = /[!"#$%&'()*+,\-.>/:;<=>?¿@[\\\]^_`{|}~⁓〜\u2000-\u206F\s]/g;
 
-function stripSpacesAndPunctuation(str) {
+function stripSpacesAndPunctuation(str?: string) {
   return (str || '').replace(punctuation, '').toLowerCase();
 }
 
@@ -20,7 +21,7 @@ function stripSpacesAndPunctuation(str) {
  * the two strings.
  */
 
-export default function similarity(a, b) {
+export default function similarity(a?: string, b?: string): number {
   /*
    * If a track title is all punctuation, we'll end up with an empty
    * string, so just fall back to the original for comparison.
