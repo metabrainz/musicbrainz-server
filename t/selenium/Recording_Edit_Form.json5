@@ -55,7 +55,7 @@
     // submission of the relationship.
     {
       command: 'click',
-      target: 'css=#artist-credit-editor button.open-ac',
+      target: 'css=.artist-credit-editor button.open-ac',
       value: '',
     },
     {
