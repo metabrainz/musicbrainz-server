@@ -163,6 +163,17 @@
 
     <div style="clear: left;"> </div>
 
+    <div>
+      <p>
+        [% l('Please make sure that you only upload images that match this specific release
+              (for example, ensure the images show the right barcode and catalog number
+              if appropriate). Additionally, do not upload fan-made or edited artwork;
+              this includes AI improvements and square versions of non-square art.
+              See the {cover_art_doc|documentation} for more details.',
+              {cover_art_doc => { href => doc_link('Cover_Art'), target => '_blank' } }) %]
+      </p>
+    </div>
+
     [%- INCLUDE 'forms/edit-note.tt' -%]
     [%- make_votable() -%]
     <div class="row no-label buttons">
