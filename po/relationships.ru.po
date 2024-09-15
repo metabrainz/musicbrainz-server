@@ -31,8 +31,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
@@ -2287,6 +2287,13 @@ msgid ""
 "artists and repertoire (A&R) position."
 msgstr ""
 
+#. name:executive position
+#: DB:link_type/description:1266
+msgid ""
+"This indicates that an artist was officially employed by a label in an "
+"executive position, such as CEO, president or director."
+msgstr ""
+
 #. name:parts
 #: DB:link_type/description:818
 msgid ""
@@ -2842,6 +2849,13 @@ msgstr ""
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr "Указывает на работу, которая вдохновила имя этого исполнителя."
+
+#. name:named after work
+#: DB:link_type/description:1265
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the work that inspired this label’s name."
+msgstr "Указывает на исполнителя, который вдохновил имя этого места."
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -3769,8 +3783,8 @@ msgid ""
 "This links an artist to its page in <a href=\"http://www.imdb.com/\">IMDb</"
 "a>."
 msgstr ""
-"Связывает исполнителя с его страницей на <a href=\"http://www.imdb.com/\""
-">IMDb</a>."
+"Связывает исполнителя с его страницей на <a href=\"http://www.imdb.com/"
+"\">IMDb</a>."
 
 #. name:IMSLP
 #: DB:link_type/description:754
@@ -3778,8 +3792,8 @@ msgid ""
 "This links an artist to its page in <a href=\"http://www.imslp.org/\">IMSLP</"
 "a>."
 msgstr ""
-"Связывает исполнителя с его страницей на <a href=\"http://www.imslp.org/\""
-">IMSLP</a>."
+"Связывает исполнителя с его страницей на <a href=\"http://www.imslp.org/"
+"\">IMSLP</a>."
 
 #. name:CPDL
 #: DB:link_type/description:981
@@ -3787,8 +3801,8 @@ msgid ""
 "This links an artist to its page in <a href=\"https://www.cpdl.org/\">CPDL</"
 "a>."
 msgstr ""
-"Связывает исполнителя с его страницей на <a href=\"https://www.cpdl.org/\""
-">CPDL</a>."
+"Связывает исполнителя с его страницей на <a href=\"https://www.cpdl.org/"
+"\">CPDL</a>."
 
 #. name:soundcloud
 #: DB:link_type/description:291
@@ -3882,7 +3896,8 @@ msgstr ""
 #. name:ticketing
 #: DB:link_type/description:1197
 msgid "This links an event to a site where tickets can be purchased for it."
-msgstr "Связывает событие с сайтом, на котором можно приобрести на него билеты."
+msgstr ""
+"Связывает событие с сайтом, на котором можно приобрести на него билеты."
 
 #. name:crowdfunding
 #: DB:link_type/description:904
@@ -6095,6 +6110,18 @@ msgstr ""
 msgid "executive"
 msgstr ""
 
+#. name:executive position
+#: DB:link_type/name:1266 DB:link_type/link_phrase:1266
+#, fuzzy
+#| msgid "creative direction"
+msgid "executive position"
+msgstr "креативное руководство"
+
+#. name:executive position
+#: DB:link_type/reverse_link_phrase:1266
+msgid "executives"
+msgstr ""
+
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
 #: DB:link_type/reverse_link_phrase:172 DB:link_type/reverse_link_phrase:1189
@@ -6299,6 +6326,11 @@ msgstr ""
 #. name:engineer position
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
+msgstr ""
+
+#. name:executive position
+#: DB:link_type/long_link_phrase:1266
+msgid "had an executive position at"
 msgstr ""
 
 #. name:tribute to
@@ -6917,8 +6949,8 @@ msgstr "вдохновило имя"
 msgid "inspired the name of genre"
 msgstr "вдохновило имя"
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1258
+#. name:named after artist, name:named after work
+#: DB:link_type/link_phrase:1258 DB:link_type/reverse_link_phrase:1265
 #, fuzzy
 #| msgid "inspired the name of"
 msgid "inspired the name of label"
@@ -7158,7 +7190,7 @@ msgid "is named after release group"
 msgstr "назван в честь"
 
 #. name:named after work
-#: DB:link_type/long_link_phrase:972
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1265
 #, fuzzy
 #| msgid "is named after"
 msgid "is named after work"
@@ -7898,7 +7930,8 @@ msgid "named after release group"
 msgstr "названо в честь"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#: DB:link_type/name:972 DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "named after"
 msgid "named after work"

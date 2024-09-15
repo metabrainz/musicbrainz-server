@@ -5705,7 +5705,7 @@ msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:811
 msgctxt "work_attribute_type_allowed_value"
-msgid "Murabba Beste "
+msgid "Murabba Beste"
 msgstr ""
 
 #: DB:work_type/name:29

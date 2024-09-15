@@ -25,16 +25,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-08-26 17:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
@@ -2406,6 +2406,19 @@ msgstr ""
 "Indica un artista empleado oficialmente por una discográfica como A&R "
 "(artistas y repertorio)."
 
+#. name:executive position
+#: DB:link_type/description:1266
+#, fuzzy
+#| msgid ""
+#| "This indicates that an artist was officially employed by a label in a "
+#| "creative position, such as photographer or graphic designer."
+msgid ""
+"This indicates that an artist was officially employed by a label in an "
+"executive position, such as CEO, president or director."
+msgstr ""
+"Indica un artista empleado oficialmente por una discográfica en una posición "
+"creativa, como fotógrafo o diseñador gráfico."
+
 #. name:parts
 #: DB:link_type/description:818
 msgid ""
@@ -2964,6 +2977,13 @@ msgstr ""
 msgid "This indicates the work that inspired this artist’s name."
 msgstr "Indica la obra que inspiró el nombre de este artista."
 
+#. name:named after work
+#: DB:link_type/description:1265
+#, fuzzy
+#| msgid "This indicates the artist that inspired this label’s name."
+msgid "This indicates the work that inspired this label’s name."
+msgstr "Indica el artista que inspiró el nombre de esta discográfica."
+
 #. name:podcast feed
 #: DB:link_type/description:915
 msgid "This indicates where a feed for this podcast can be found."
@@ -3086,9 +3106,10 @@ msgid ""
 "relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for "
 "crediting the person who created the DJ-mix."
 msgstr ""
-"Enlaza un grupo de publicaciones para <a href=\"/doc/Mix_Terminology#DJ_mix\""
-">mezclas de DJ</a> al grupo de publicaciones que contiene la publicación "
-"original. Para indicar la persona que creó la mezcla, usa “<a href=\"/"
+"Enlaza un grupo de publicaciones para <a href=\"/doc/"
+"Mix_Terminology#DJ_mix\">mezclas de DJ</a> al grupo de publicaciones que "
+"contiene la publicación original. Para indicar la persona que creó la "
+"mezcla, usa “<a href=\"/"
 "relationship/9162dedd-790c-446c-838e-240f877dbfe2\">mezcla de DJ por</a>”."
 
 #. name:allmusic
@@ -6196,6 +6217,20 @@ msgstr "extractos"
 msgid "executive"
 msgstr "ejecutivo"
 
+#. name:executive position
+#: DB:link_type/name:1266 DB:link_type/link_phrase:1266
+#, fuzzy
+#| msgid "creative position"
+msgid "executive position"
+msgstr "posición creativa"
+
+#. name:executive position
+#: DB:link_type/reverse_link_phrase:1266
+#, fuzzy
+#| msgid "executive"
+msgid "executives"
+msgstr "ejecutivo"
+
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
 #: DB:link_type/reverse_link_phrase:172 DB:link_type/reverse_link_phrase:1189
@@ -6401,6 +6436,13 @@ msgstr ""
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr "tuvo un puesto de ingeniero/a en"
+
+#. name:executive position
+#: DB:link_type/long_link_phrase:1266
+#, fuzzy
+#| msgid "had a creative position at"
+msgid "had an executive position at"
+msgstr "tuvo una posición creativa en"
 
 #. name:tribute to
 #: DB:link_type/long_link_phrase:936
@@ -7012,8 +7054,8 @@ msgstr "inspiró el nombre del artista"
 msgid "inspired the name of genre"
 msgstr "inspiró el nombre del género"
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1258
+#. name:named after artist, name:named after work
+#: DB:link_type/link_phrase:1258 DB:link_type/reverse_link_phrase:1265
 msgid "inspired the name of label"
 msgstr "inspiró el nombre de la discográfica"
 
@@ -7235,7 +7277,7 @@ msgid "is named after release group"
 msgstr "tiene un nombre inspirado en el grupo de publicaciones"
 
 #. name:named after work
-#: DB:link_type/long_link_phrase:972
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr "tiene un nombre inspirado en la obra"
 
@@ -7966,7 +8008,8 @@ msgid "named after release group"
 msgstr "nombre inspirado en el grupo de publicaciones"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#: DB:link_type/name:972 DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1265
 msgid "named after work"
 msgstr "nombre inspirado en la obra"
 

@@ -2492,6 +2492,19 @@ msgstr ""
 "Tai nurodo, kad atlikėjas oficialiai buvo įdarbintas leidykloje atlikėjų ir "
 "repertuaro (A&R) pareigose."
 
+#. name:executive position
+#: DB:link_type/description:1266
+#, fuzzy
+#| msgid ""
+#| "This indicates that an artist was officially employed by a label in a "
+#| "creative position, such as photographer or graphic designer."
+msgid ""
+"This indicates that an artist was officially employed by a label in an "
+"executive position, such as CEO, president or director."
+msgstr ""
+"Tai nurodo, kad atlikėjas oficialiai buvo įdarbintas leidykloje kūrybinėse "
+"pareigose, pavyzdžiui, fotografo ar grafikos dizainerio."
+
 #. name:parts
 #: DB:link_type/description:818
 msgid ""
@@ -3036,6 +3049,13 @@ msgstr ""
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr ""
+
+#. name:named after work
+#: DB:link_type/description:1265
+#, fuzzy
+#| msgid "This indicates the artist was the owner of this label."
+msgid "This indicates the work that inspired this label’s name."
+msgstr "Tai nurodo, kad atlikėjas buvo šios leidyklos savininkas."
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -6223,6 +6243,18 @@ msgstr ""
 msgid "executive"
 msgstr ""
 
+#. name:executive position
+#: DB:link_type/name:1266 DB:link_type/link_phrase:1266
+#, fuzzy
+#| msgid "mixing engineer position"
+msgid "executive position"
+msgstr "miksavimo inžinieriaus (-ės) pozicija"
+
+#. name:executive position
+#: DB:link_type/reverse_link_phrase:1266
+msgid "executives"
+msgstr ""
+
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
 #: DB:link_type/reverse_link_phrase:172 DB:link_type/reverse_link_phrase:1189
@@ -6428,6 +6460,13 @@ msgstr ""
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr ""
+
+#. name:executive position
+#: DB:link_type/long_link_phrase:1266
+#, fuzzy
+#| msgid "mastering engineer position at"
+msgid "had an executive position at"
+msgstr "masteringo inžinieriaus pozicija vietoje"
 
 #. name:tribute to
 #: DB:link_type/long_link_phrase:936
@@ -7045,8 +7084,8 @@ msgstr ""
 msgid "inspired the name of genre"
 msgstr ""
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1258
+#. name:named after artist, name:named after work
+#: DB:link_type/link_phrase:1258 DB:link_type/reverse_link_phrase:1265
 msgid "inspired the name of label"
 msgstr ""
 
@@ -7278,7 +7317,7 @@ msgid "is named after release group"
 msgstr "yra anksčiausias leidinys"
 
 #. name:named after work
-#: DB:link_type/long_link_phrase:972
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1265
 #, fuzzy
 #| msgid "named after"
 msgid "is named after work"
@@ -8015,7 +8054,8 @@ msgid "named after release group"
 msgstr "vėlesni leidiniai"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#: DB:link_type/name:972 DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "named after"
 msgid "named after work"

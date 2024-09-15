@@ -30,8 +30,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #. name:artist diploma
@@ -2562,6 +2562,19 @@ msgstr ""
 "Indica che un artista è stato impiegato ufficialmente da un'etichetta in una "
 "posizione di addetto artisti e repertorio (A&R)."
 
+#. name:executive position
+#: DB:link_type/description:1266
+#, fuzzy
+#| msgid ""
+#| "This indicates that an artist was officially employed by a label in a "
+#| "creative position, such as photographer or graphic designer."
+msgid ""
+"This indicates that an artist was officially employed by a label in an "
+"executive position, such as CEO, president or director."
+msgstr ""
+"Indica che un artista è stato impiegato ufficialmente da un'etichetta in una "
+"posizione creativa, per es. come fotografo o grafico."
+
 #. name:parts
 #: DB:link_type/description:818
 msgid ""
@@ -2861,8 +2874,8 @@ msgid ""
 "target=\"_blank\">record label</a>, nor as mastering engineering."
 msgstr ""
 "Indica la società che ha creato il master in vetro per una pubblicazione. "
-"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" target="
-"\"_blank\">etichetta discografica</a>, né del lavoro del tecnico di "
+"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" "
+"target=\"_blank\">etichetta discografica</a>, né del lavoro del tecnico di "
 "mastering."
 
 #. name:owner
@@ -2905,8 +2918,8 @@ msgstr ""
 "Indica l'organizzazione che si occupa direttamente della distribuzione (o "
 "che stipula contratti di distribuzione). \n"
 "\n"
-"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" target="
-"\"_blank\">etichetta discografica</a>."
+"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" "
+"target=\"_blank\">etichetta discografica</a>."
 
 #. name:manufactured
 #: DB:link_type/description:360
@@ -2918,8 +2931,8 @@ msgid ""
 msgstr ""
 "Indica l'organizzazione che si occupa direttamente della fabbricazione (o "
 "che stipula contratti di fabbricazione).\n"
-"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" target="
-"\"_blank\">etichetta discografica</a>."
+"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" "
+"target=\"_blank\">etichetta discografica</a>."
 
 #. name:marketed
 #: DB:link_type/description:848
@@ -2929,8 +2942,8 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Indica l'organizzazione che commercializza una pubblicazione. <strong>Non</"
-"strong> è la stessa cosa dell'<a href=\"/doc/Label\" target=\"_blank\""
-">etichetta discografica</a>."
+"strong> è la stessa cosa dell'<a href=\"/doc/Label\" "
+"target=\"_blank\">etichetta discografica</a>."
 
 #. name:printed
 #: DB:link_type/description:985
@@ -2940,8 +2953,8 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Indica l'organizzazione che ha stampato una pubblicazione. <strong>Non</"
-"strong> è la stessa cosa dell'<a href=\"/doc/Label\" target=\"_blank\""
-">etichetta discografica</a>."
+"strong> è la stessa cosa dell'<a href=\"/doc/Label\" "
+"target=\"_blank\">etichetta discografica</a>."
 
 #. name:promoted
 #: DB:link_type/description:359
@@ -3071,8 +3084,8 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Indica la società di pressatura che ha pressato una pubblicazione. "
-"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" target="
-"\"_blank\">etichetta discografica</a>."
+"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" "
+"target=\"_blank\">etichetta discografica</a>."
 
 #. name:sub
 #: DB:link_attribute_type/description:1310
@@ -3165,6 +3178,13 @@ msgstr ""
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr "Indica l'opera che ha ispirato il nome di quest'artista."
+
+#. name:named after work
+#: DB:link_type/description:1265
+#, fuzzy
+#| msgid "This indicates the artist that inspired this label’s name."
+msgid "This indicates the work that inspired this label’s name."
+msgstr "Indica l'artista che ha ispirato il nome di quest'etichetta."
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -6914,6 +6934,20 @@ msgstr "estratti"
 msgid "executive"
 msgstr "esecutivo"
 
+#. name:executive position
+#: DB:link_type/name:1266 DB:link_type/link_phrase:1266
+#, fuzzy
+#| msgid "creative position"
+msgid "executive position"
+msgstr "posizione creativa"
+
+#. name:executive position
+#: DB:link_type/reverse_link_phrase:1266
+#, fuzzy
+#| msgid "executive"
+msgid "executives"
+msgstr "esecutivo"
+
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
 #: DB:link_type/reverse_link_phrase:172 DB:link_type/reverse_link_phrase:1189
@@ -7119,6 +7153,13 @@ msgstr "ha avuto una posizione di addetto artisti e repertorio (A&R) presso"
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr "ha avuto una posizione di tecnico presso"
+
+#. name:executive position
+#: DB:link_type/long_link_phrase:1266
+#, fuzzy
+#| msgid "had a creative position at"
+msgid "had an executive position at"
+msgstr "ha avuto una posizione creativa presso"
 
 #. name:tribute to
 #: DB:link_type/long_link_phrase:936
@@ -7731,8 +7772,8 @@ msgstr "ha ispirato il nome dell'artista"
 msgid "inspired the name of genre"
 msgstr "ha ispirato il nome del genere"
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1258
+#. name:named after artist, name:named after work
+#: DB:link_type/link_phrase:1258 DB:link_type/reverse_link_phrase:1265
 msgid "inspired the name of label"
 msgstr "ha ispirato il nome dell'etichetta"
 
@@ -7952,7 +7993,7 @@ msgid "is named after release group"
 msgstr "prende il nome dal gruppo di pubblicazioni"
 
 #. name:named after work
-#: DB:link_type/long_link_phrase:972
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr "prende il nome dall'opera"
 
@@ -8684,7 +8725,8 @@ msgid "named after release group"
 msgstr "prende il nome dal gruppo di pubblicazioni"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#: DB:link_type/name:972 DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1265
 msgid "named after work"
 msgstr "prende il nome dall'opera"
 
