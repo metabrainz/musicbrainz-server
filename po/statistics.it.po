@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-22 13:42+0000\n"
+"PO-Revision-Date: 2024-09-07 18:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -24,9 +24,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -657,7 +657,7 @@ msgstr "Pubblicazioni con almeno un ID disco:"
 msgid "with {num} disc ID:"
 msgid_plural "with {num} disc IDs:"
 msgstr[0] "con {num} ID disco:"
-msgstr[1] "con {num} ID disco:"
+msgstr[1] "con {num} di ID disco:"
 msgstr[2] "con {num} ID disco:"
 
 #: ../root/statistics/Index.js:550 ../root/statistics/Index.js:592
@@ -1728,28 +1728,28 @@ msgstr "/giorno"
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] "Pubblicazioni con 1 ID disco"
-msgstr[1] "Pubblicazioni con {n} ID disco"
+msgstr[1] "Pubblicazioni con {n} di ID disco"
 msgstr[2] "Pubblicazioni con {n} ID disco"
 
 #: ../root/statistics/stats.js:974
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] "Supporti con 1 ID disco"
-msgstr[1] "Supporti con {n} ID disco"
+msgstr[1] "Supporti con {n} di ID disco"
 msgstr[2] "Supporti con {n} ID disco"
 
 #: ../root/statistics/stats.js:985
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] "Registrazioni con 1 pubblicazione"
-msgstr[1] "Registrazioni con {n} pubblicazioni"
+msgstr[1] "Registrazioni con {n} di pubblicazioni"
 msgstr[2] "Registrazioni con {n} pubblicazioni"
 
 #: ../root/statistics/stats.js:996
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] "Gruppi di pubblicazioni con 1 pubblicazione"
-msgstr[1] "Gruppi di pubblicazioni con {n} pubblicazioni"
+msgstr[1] "Gruppi di pubblicazioni con {n} di pubblicazioni"
 msgstr[2] "Gruppi di pubblicazioni con {n} pubblicazioni"
 
 #: ../root/statistics/stats.js:1049
