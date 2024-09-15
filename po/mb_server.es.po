@@ -56,18 +56,18 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-03 18:30+0200\n"
-"PO-Revision-Date: 2024-08-01 04:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-09-05 13:42+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.7.1\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -701,10 +701,8 @@ msgid "Chat"
 msgstr "Chat"
 
 #: ../root/release/edit/information.tt:58
-#, fuzzy
-#| msgid "You must select an existing release group."
 msgid "Checking existing release groups…"
-msgstr "Debes seleccionar un grupo de publicaciones existente."
+msgstr "Comprobando los grupos de publicaciones existentes…"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -1130,11 +1128,8 @@ msgid "Existing medium"
 msgstr "Medio existente"
 
 #: ../root/release/edit/information.tt:77
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit release group alias"
 msgid "Existing release groups with similar names"
-msgstr "Editar alias de grupo de publicaciones"
+msgstr "Grupos de publicaciones con nombres similares"
 
 #: ../root/release/edit/tracklist.tt:151
 msgid "Expand"
@@ -2230,10 +2225,8 @@ msgid "Release group details"
 msgstr "Detalles del grupo de publicaciones"
 
 #: ../root/release/edit/information.tt:67
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release group search error"
-msgstr "Grupos de publicaciones"
+msgstr "Error al buscar grupos de publicaciones"
 
 #: ../root/release_group/layout.tt:1
 #: ../root/release_group/ReleaseGroupLayout.js:26
@@ -15539,20 +15532,14 @@ msgid "[removed]"
 msgstr "[eliminado]"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:194
-#, fuzzy
-#| msgctxt "interactive"
-#| msgid "Remove artist credit"
 msgctxt "interactive"
 msgid "Move artist credit down"
-msgstr "Eliminar crédito de artista"
+msgstr "Mover artista hacia abajo"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:205
-#, fuzzy
-#| msgctxt "interactive"
-#| msgid "Remove artist credit"
 msgctxt "interactive"
 msgid "Move artist credit up"
-msgstr "Eliminar crédito de artista"
+msgstr "Mover artista hacia arriba"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:215
 msgctxt "interactive"
@@ -16270,14 +16257,11 @@ msgstr[1] "{n} obras seleccionadas"
 msgstr[2] "{n} obras seleccionadas"
 
 #: ../root/static/scripts/release-editor/actions.js:142
-#, fuzzy
-#| msgid "{num} release found"
-#| msgid_plural "{num} releases found"
 msgid "{num} release"
 msgid_plural "{num} releases"
-msgstr[0] "Encontramos una publicación"
-msgstr[1] "Encontramos {num} publicaciones"
-msgstr[2] "Encontramos {num} publicaciones"
+msgstr[0] "Una publicación"
+msgstr[1] "{num} publicaciones"
+msgstr[2] "{num} publicaciones"
 
 #: ../root/static/scripts/release-editor/actions.js:465
 msgid ""
@@ -17549,10 +17533,8 @@ msgid "Report this user for bad behavior"
 msgstr "Denunciar a este usuario por su mal comportamiento"
 
 #: ../root/user/UserProfile.js:969
-#, fuzzy
-#| msgid "Recent notes left on your edits"
 msgid "View other users’ notes on your edits"
-msgstr "Notas recientes en tus ediciones"
+msgstr "Notas de otros usuarios en tus ediciones"
 
 #: ../root/user/UserProfile.js:970
 msgid "View your notes on this user’s edits"
@@ -17915,20 +17897,6 @@ msgid "Destructive edits"
 msgstr "Ediciones destructivas"
 
 #: ../root/vote/VotingIndex.js:139
-#, fuzzy
-#| msgid ""
-#| "Destructive edits (removals and merges) are often very hard or even "
-#| "impossible to revert. As such, an incorrect destructive edit that applies "
-#| "unnoticed can cause quite a big mess! Most are guaranteed to remain open "
-#| "for at least two full days even if they get three “Yes” votes, to avoid "
-#| "them closing too quickly, but it’s always good to get more eyes on them. "
-#| "Below you can find five different searches: one for all destructive edits "
-#| "(which might be overwhelming sometimes), one only for those destructive "
-#| "edits that have no edit notes (so no reasoning has been provided for them "
-#| "at all), one for entity merges and removals only (the edits more likely "
-#| "to cause a mess if they incorrectly go through), one for relationship "
-#| "removals only, and one for destructive changes to releases (track, medium "
-#| "and release label removals)."
 msgid ""
 "Destructive edits (removals and merges) are often very hard or even "
 "impossible to revert. As such, an incorrect destructive edit that applies "
@@ -17948,15 +17916,16 @@ msgstr ""
 "destructiva incorrecta que nadie vea puede causar muchos problemas. La mayor "
 "parte de estas ediciones siempre permanecen abiertas al menos dos días "
 "incluso si reciben tres votos a favor, para evitar que cierren demasiado "
-"rápido, pero cuantos más editores las revisen, mejor. Aquí encontrarás cinco "
+"rápido, pero cuantos más editores las revisen, mejor. Aquí encontrarás seis "
 "búsquedas distintas: una con todas las ediciones destructivas (que a veces "
 "puede ser demasiado estresante), una segunda que incluye solo ediciones "
 "destructivas que no tienen notas de edición (así que nadie ha indicado la "
 "razón de la edición), una tercera que incluye solo fusiones y eliminaciones "
 "de entidades (las ediciones que pueden causar más problemas si se aplican "
-"por error), una cuarta solo con eliminaciones de relaciones, y una última "
-"con cambios destructivos a publicaciones (eliminaciones de pistas, medios y "
-"discográficas de publicación)."
+"por error), una cuarta solo con eliminaciones de relaciones, una quinta con "
+"cambios destructivos a publicaciones (eliminaciones de pistas, medios y "
+"discográficas de publicación), y una última para eliminaciones de imágenes ("
+"de publicaciones y eventos)."
 
 #: ../root/vote/VotingIndex.js:158
 msgid "All open destructive edits"
@@ -17979,10 +17948,8 @@ msgid "All open destructive changes to releases"
 msgstr "Todos los cambios destructivos a publicaciones pendientes"
 
 #: ../root/vote/VotingIndex.js:204
-#, fuzzy
-#| msgid "All open relationship removals"
 msgid "All open artwork removals"
-msgstr "Todas las eliminaciones de relaciones pendientes"
+msgstr "Todas las eliminaciones de imágenes pendientes"
 
 #: ../root/vote/VotingIndex.js:215
 msgid "Unreviewed and potentially problematic edits"
@@ -18109,12 +18076,6 @@ msgstr ""
 "principiante, así que quizá quieras comprobarlas también."
 
 #: ../root/vote/VotingIndex.js:345
-#, fuzzy
-#| msgid ""
-#| "Specific searches are provided for edits adding releases/mediums, which "
-#| "are probably the most complex and as such reasonably likely to have "
-#| "issues, plus for edits adding artists, which might include artists trying "
-#| "to add their own data and not doing a great job of it."
 msgid ""
 "Specific searches are provided for edits adding releases/mediums, which are "
 "probably the most complex and as such reasonably likely to have issues, plus "
@@ -18125,9 +18086,11 @@ msgid ""
 msgstr ""
 "Hemos añadido búsquedas concretas para mostrar ediciones que añaden "
 "publicaciones y medios, puesto que son probablemente las más complicadas y "
-"por tanto es más probable que tengan problemas, y ediciones que añaden "
+"por tanto es más probable que tengan problemas; ediciones que añaden "
 "artistas, que a veces incluyen a artistas que intentan añadir sus propios "
-"datos y no entienden cómo funciona el sistema."
+"datos y no entienden cómo funciona el sistema; y ediciones relacionadas con "
+"imágenes, porque los principiantes suelen tener problemas para asociar las "
+"imágenes más apropiadas a cada entidad."
 
 #: ../root/vote/VotingIndex.js:358
 msgid "All edits from beginner editors"
@@ -18170,20 +18133,14 @@ msgstr ""
 "las últimas 2 semanas"
 
 #: ../root/vote/VotingIndex.js:413
-#, fuzzy
-#| msgid "All \"Add artist\" edits by beginner editors"
 msgid "All artwork edits by beginner editors"
-msgstr ""
-"Todas las ediciones de tipo \"Añadir artista\" de editores principiantes"
+msgstr "Todas las ediciones de imágenes de editores principiantes"
 
 #: ../root/vote/VotingIndex.js:419
-#, fuzzy
-#| msgid ""
-#| "All \"Add artist\" edits by beginner editors made less than 2 weeks ago"
 msgid "All artwork edits by beginner editors made less than 2 weeks ago"
 msgstr ""
-"Todas las ediciones de tipo \"Añadir artista\" de editores principiantes en "
-"las últimas 2 semanas"
+"Todas las ediciones de imágenes de editores principiantes en las últimas 2 "
+"semanas"
 
 #: ../root/vote/VotingIndex.js:426
 msgid "All open destructive edits by beginner editors"

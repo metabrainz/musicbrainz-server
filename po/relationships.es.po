@@ -24,18 +24,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-26 17:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-09-05 13:42+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.7.1\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -3414,7 +3414,7 @@ msgstr ""
 #. name:youtube
 #: DB:link_type/description:225
 msgid "This links a label to the equivalent entry at YouTube."
-msgstr ""
+msgstr "Enlaza una discográfica a su canal de YouTube."
 
 #. name:crowdfunding
 #: DB:link_type/description:903
@@ -3878,7 +3878,7 @@ msgstr ""
 #. name:youtube music
 #: DB:link_type/description:1080
 msgid "This links an artist to its channel at YouTube Music."
-msgstr ""
+msgstr "Enlaza un artista a su canal de YouTube Music."
 
 #. name:apple music
 #: DB:link_type/description:1131
@@ -3944,7 +3944,7 @@ msgstr ""
 #. name:youtube
 #: DB:link_type/description:193
 msgid "This links an artist to the equivalent entry at YouTube."
-msgstr ""
+msgstr "Enlaza un artista a su canal de YouTube."
 
 #. name:crowdfunding
 #: DB:link_type/description:902
@@ -4398,21 +4398,21 @@ msgstr ""
 #. name:school director at
 #: DB:link_type/description:1166
 msgid "This relationship links a person to the music school(s) they directed."
-msgstr ""
+msgstr "Enlaza una persona a la escuela de música que dirigió."
 
 #. name:invented
 #: DB:link_type/description:918
 msgid ""
 "This relationship links an instrument to the company that invented or "
 "designed it."
-msgstr ""
+msgstr "Enlaza un instrumento a la compañía que lo inventó o diseñó."
 
 #. name:invented
 #: DB:link_type/description:896
 msgid ""
 "This relationship links an instrument to the person(s) who invented or "
 "designed it."
-msgstr ""
+msgstr "Enlaza un instrumento a la persona que lo inventó o diseñó."
 
 #. name:organist
 #: DB:link_type/description:856
@@ -4420,6 +4420,8 @@ msgid ""
 "This relationship links an organist to the place(s) (most commonly religious "
 "buildings) at which they are the resident organist."
 msgstr ""
+"Enlaza un lugar (habitualmente un edificio religioso) a sus organistas "
+"residentes."
 
 #. name:show notes
 #: DB:link_type/description:729
@@ -4439,6 +4441,11 @@ msgid ""
 "referred to as cover bands. Some tribute artists may name themselves, dress, "
 "and/or act similarly to the artists they pay tribute to."
 msgstr ""
+"Indica que un artista es un <a href=\"https://es.wikipedia.org/wiki/"
+"Banda_tributo\">tributo</a> a otro artista específico, y generalmente "
+"interpreta solo versiones de la música de dicho artista. Algunas bandas "
+"tributo también se visten y actúan de formas que copian las de los artistas "
+"a los que rinden tributo."
 
 #. name:tribute to
 #: DB:link_type/description:936
@@ -4446,20 +4453,21 @@ msgid ""
 "This relationship specifies that an event was held as a tribute/homage to a "
 "specific artist."
 msgstr ""
+"Indica que un evento fue un tributo u homenaje a un artista en concreto."
 
 #. name:myspace
 #: DB:link_type/description:462
 msgid ""
 "This relationship type can be used to link a MusicBrainz place to the "
 "equivalent entry in Myspace."
-msgstr ""
+msgstr "Indica la página en Myspace para este lugar."
 
 #. name:label founder
 #: DB:link_type/description:116
 msgid ""
 "This relationship type can be used to link a label to the person(s) who "
 "founded it."
-msgstr ""
+msgstr "Enlaza una discográfica a las personas que la fundaron."
 
 #. name:founder
 #: DB:link_type/description:832
@@ -4467,11 +4475,13 @@ msgid ""
 "This relationship type can be used to link a place (generally a studio or "
 "venue) to the person(s) who founded it."
 msgstr ""
+"Enlaza un lugar (habitualmente un estudio o una sala) a las personas que lo "
+"fundaron."
 
 #. name:blog
 #: DB:link_type/description:627
 msgid "This relationship type can be used to link a place to its blog."
-msgstr ""
+msgstr "Enlaza un lugar a su blog."
 
 #. name:youtube
 #: DB:link_type/description:528
@@ -4479,7 +4489,7 @@ msgid ""
 "This relationship type can be used to link a place to the equivalent entry "
 "in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
 "username&gt;."
-msgstr ""
+msgstr "Enlaza un lugar a su canal de YouTube."
 
 #. name:youtube
 #: DB:link_type/description:792
@@ -4487,7 +4497,7 @@ msgid ""
 "This relationship type can be used to link a series to the equivalent entry "
 "in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
 "username&gt;."
-msgstr ""
+msgstr "Enlaza una serie a su canal de YouTube."
 
 #. name:youtube
 #: DB:link_type/description:791
@@ -4495,7 +4505,7 @@ msgid ""
 "This relationship type can be used to link an event to the equivalent entry "
 "in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
 "username&gt;."
-msgstr ""
+msgstr "Enlaza un evento a su canal de YouTube."
 
 #. name:IMDB samples
 #: DB:link_type/description:258
@@ -4589,7 +4599,7 @@ msgstr ""
 #. name:blog
 #: DB:link_type/description:224
 msgid "This relationship type is used to link a label to its blog."
-msgstr ""
+msgstr "Enlaza una discográfica a su blog."
 
 #. name:streaming
 #: DB:link_type/description:979
@@ -4650,7 +4660,7 @@ msgstr ""
 #. name:blog
 #: DB:link_type/description:199
 msgid "This relationship type is used to link an artist to their blog."
-msgstr ""
+msgstr "Enlaza un artista a su blog."
 
 #. name:purchase for mail-order
 #: DB:link_type/description:175
@@ -5175,12 +5185,12 @@ msgstr "página de Wikipedia para"
 #. name:youtube music
 #: DB:link_type/link_phrase:1080
 msgid "YouTube Music"
-msgstr ""
+msgstr "YouTube Music"
 
 #. name:youtube music
 #: DB:link_type/reverse_link_phrase:1080
 msgid "YouTube Music channel for"
-msgstr ""
+msgstr "canal de YouTube Music de"
 
 #. name:youtube
 #: DB:link_type/reverse_link_phrase:792 DB:link_type/reverse_link_phrase:193
@@ -6487,7 +6497,7 @@ msgstr "tiene una ID de VIAF en"
 #. name:youtube music
 #: DB:link_type/long_link_phrase:1080
 msgid "has YouTube Music channel at"
-msgstr ""
+msgstr "tiene un canal de YouTube Music en"
 
 #. name:BBC Music page
 #: DB:link_type/long_link_phrase:190
@@ -9837,11 +9847,11 @@ msgstr ""
 #: DB:link_type/name:792 DB:link_type/name:193 DB:link_type/name:225
 #: DB:link_type/name:528 DB:link_type/name:791
 msgid "youtube"
-msgstr ""
+msgstr "YouTube"
 
 #: DB:link_type/name:1080
 msgid "youtube music"
-msgstr ""
+msgstr "YouTube Music"
 
 #. name:performance
 #: DB:link_type/link_phrase:278
