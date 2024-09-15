@@ -22,8 +22,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-20 22:42+0000\n"
-"Last-Translator: Libra <recreate_squall363@simplelogin.com>\n"
+"PO-Revision-Date: 2024-09-15 21:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -31,9 +32,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.6.2\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -7874,7 +7875,7 @@ msgstr ""
 
 #: DB:link_type/name:106
 msgid "musical relationships"
-msgstr ""
+msgstr "музыкальные отношения"
 
 #: DB:link_attribute_type/name:1221
 msgid "musical theatre"
@@ -7890,10 +7891,8 @@ msgstr "myspace"
 
 #. name:named after area
 #: DB:link_type/name:1262 DB:link_type/reverse_link_phrase:1262
-#, fuzzy
-#| msgid "named after"
 msgid "named after area"
-msgstr "названо в честь"
+msgstr "названо в честь области"
 
 #. name:named after artist
 #: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1260
@@ -7901,33 +7900,25 @@ msgstr "названо в честь"
 #: DB:link_type/link_phrase:973 DB:link_type/reverse_link_phrase:1258
 #: DB:link_type/reverse_link_phrase:1260 DB:link_type/reverse_link_phrase:1257
 #: DB:link_type/reverse_link_phrase:975 DB:link_type/reverse_link_phrase:1000
-#, fuzzy
-#| msgid "named after"
 msgid "named after artist"
-msgstr "названо в честь"
+msgstr "названо в честь исполнителя"
 
 #. name:named after label
 #: DB:link_type/name:1259 DB:link_type/name:1264 DB:link_type/link_phrase:1259
 #: DB:link_type/link_phrase:1264
-#, fuzzy
-#| msgid "named after"
 msgid "named after label"
-msgstr "названо в честь"
+msgstr "названо в честь лейбла"
 
 #. name:named after place
 #: DB:link_type/name:1263 DB:link_type/link_phrase:1263
-#, fuzzy
-#| msgid "named after"
 msgid "named after place"
-msgstr "названо в честь"
+msgstr "названо в честь места"
 
 #. name:named after release group
 #: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
 #: DB:link_type/link_phrase:974
-#, fuzzy
-#| msgid "named after"
 msgid "named after release group"
-msgstr "названо в честь"
+msgstr "названо в честь группы релизов"
 
 #. name:named after work
 #: DB:link_type/name:972 DB:link_type/name:1265 DB:link_type/link_phrase:972

@@ -43,9 +43,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-03 18:30+0200\n"
-"PO-Revision-Date: 2024-08-01 17:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-09-15 21:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -53,9 +53,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.6.2\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -695,10 +695,8 @@ msgid "Chat"
 msgstr "Чат"
 
 #: ../root/release/edit/information.tt:58
-#, fuzzy
-#| msgid "You must select an existing release group."
 msgid "Checking existing release groups…"
-msgstr "Выберите существующую группу релизов."
+msgstr "Проверка наличия существующих групп релизов…"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -1120,11 +1118,8 @@ msgid "Existing medium"
 msgstr "Существующий носитель"
 
 #: ../root/release/edit/information.tt:77
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit release group alias"
 msgid "Existing release groups with similar names"
-msgstr "Правка псевдонима группы релизов"
+msgstr "Существующие группы релизов с похожими именами"
 
 #: ../root/release/edit/tracklist.tt:151
 msgid "Expand"
@@ -2227,10 +2222,8 @@ msgid "Release group details"
 msgstr "Детали о группе релизов"
 
 #: ../root/release/edit/information.tt:67
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release group search error"
-msgstr "Группы релизов"
+msgstr "Ошибка при поиске групп релизов"
 
 #: ../root/release_group/layout.tt:1
 #: ../root/release_group/ReleaseGroupLayout.js:26
@@ -2344,7 +2337,7 @@ msgstr "Результаты:"
 
 #: ../root/release/edit/information.tt:68
 msgid "Retry"
-msgstr ""
+msgstr "Повторить"
 
 #: ../root/release/edit/recordings.tt:14
 msgid "Reuse previous recordings"
@@ -11620,16 +11613,12 @@ msgstr ""
 "strong> для создания своих приложений, использующих данные MusicBrainz."
 
 #: ../root/main/index.js:250
-#, fuzzy
-#| msgid "How to add releases"
 msgid "Recently added releases"
-msgstr "Как добавлять релизы"
+msgstr "Недавно добавленные релизы"
 
 #: ../root/main/index.js:265
-#, fuzzy
-#| msgid "Recent additions"
 msgid "Recently added events"
-msgstr "Последние добавления"
+msgstr "Недавно добавленные события"
 
 #: ../root/mbid/NotFound.js:15
 msgid "MBID not found"
@@ -15993,6 +15982,8 @@ msgid ""
 "A credited name is optional. You can leave this field blank to keep the "
 "current name."
 msgstr ""
+"Присвоенное имя необязательно. Вы можете оставить это поле пустым, чтобы "
+"сохранить текущее имя."
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:39
 msgctxt "noun"
@@ -16023,7 +16014,7 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:128
 msgid "Type or click to search"
-msgstr ""
+msgstr "Начните печатать запрос или нажмите для поиска"
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:309
 msgid "Please select a relationship type. ({url|more documentation})"
@@ -16031,7 +16022,7 @@ msgstr "Пожалуйста, выберите тип отношения. ({url|
 
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:215
 msgid "Please fill out all required fields."
-msgstr ""
+msgstr "Обязательные поля."
 
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:227
 msgid "Change direction"
@@ -16160,11 +16151,9 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:42
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:48
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:376
-#, fuzzy
-#| msgid "Add relationship"
 msgctxt "header"
 msgid "Add relationship"
-msgstr "Добавить связь"
+msgstr "Добавление отношения"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:257
 msgid "no type"
@@ -16175,11 +16164,9 @@ msgid "These relationships have a specific ordering"
 msgstr "Эти связи имеют определённый порядок"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:97
-#, fuzzy
-#| msgid "Add relationship"
 msgctxt "interactive"
 msgid "Add relationship"
-msgstr "Добавить связь"
+msgstr "Добавить отношение"
 
 #: ../root/static/scripts/relationship-editor/utility/getBatchSelectionMessage.js:19
 msgid "{n} recording selected"
@@ -16198,15 +16185,12 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: ../root/static/scripts/release-editor/actions.js:142
-#, fuzzy
-#| msgid "{num} release found"
-#| msgid_plural "{num} releases found"
 msgid "{num} release"
 msgid_plural "{num} releases"
-msgstr[0] "Найден {num} релиз"
-msgstr[1] "Найдено {num} релиза"
-msgstr[2] "Найдено {num} релизов"
-msgstr[3] "Найдено {num} релизов"
+msgstr[0] "{num} релиз"
+msgstr[1] "{num} релиза"
+msgstr[2] "{num} релизов"
+msgstr[3] "{num} релизов"
 
 #: ../root/static/scripts/release-editor/actions.js:465
 msgid ""
@@ -16641,58 +16625,58 @@ msgstr ""
 #: ../root/tag/EntityList.js:70
 msgid "{num} area found"
 msgid_plural "{num} areas found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Найдена {num} зона"
+msgstr[1] "Найдено {num} зоны"
+msgstr[2] "Найдено {num} зон"
+msgstr[3] "Найдено {num} зоны"
 
 #: ../root/tag/EntityList.js:71
 msgid "{num} artist found"
 msgid_plural "{num} artists found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Найден {num} исполнитель"
+msgstr[1] "Найдено {num} исполнителя"
+msgstr[2] "Найдено {num} исполнителей"
+msgstr[3] "Найдено {num} исполнителей"
 
 #: ../root/tag/EntityList.js:72
 msgid "{num} event found"
 msgid_plural "{num} events found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Найдено {num} событие"
+msgstr[1] "Найдено {num} события"
+msgstr[2] "Найдено {num} событий"
+msgstr[3] "Найдено {num} событий"
 
 #: ../root/tag/EntityList.js:73
 msgid "{num} instrument found"
 msgid_plural "{num} instruments found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Найден {num} инструмент"
+msgstr[1] "Найдено {num} инструмента"
+msgstr[2] "Найдено {num} инструментов"
+msgstr[3] "Найдено {num} инструментов"
 
 #: ../root/tag/EntityList.js:74
 msgid "{num} label found"
 msgid_plural "{num} labels found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Найден {num} лейбл"
+msgstr[1] "Найдено {num} лейбла"
+msgstr[2] "Найдено {num} лейблов"
+msgstr[3] "Найдено {num} лейблов"
 
 #: ../root/tag/EntityList.js:75
 msgid "{num} place found"
 msgid_plural "{num} places found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Найдено {num} место"
+msgstr[1] "Найдено {num} места"
+msgstr[2] "Найдено {num} мест"
+msgstr[3] "Найдено {num} мест"
 
 #: ../root/tag/EntityList.js:82
 msgid "{num} series found"
 msgid_plural "{num} series found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Найдена {num} серия"
+msgstr[1] "Найдено {num} серии"
+msgstr[2] "Найдено {num} серий"
+msgstr[3] "Найдено {num} серий"
 
 #: ../root/tag/EntityList.js:83
 msgid "{num} work found"
@@ -16703,21 +16687,21 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: ../root/tag/NotFound.js:14
-#, fuzzy
-#| msgid "Cannot edit"
 msgctxt "folksonomy"
 msgid "Tag not used"
-msgstr "Невозможно редактировать"
+msgstr "Тег не используется"
 
 #: ../root/tag/NotFound.js:17
 msgid "No MusicBrainz entities have yet been tagged with \"{tag}\"."
-msgstr ""
+msgstr "Тег \"{tag}\" еще не был использован ни на одной сущности MusicBrainz."
 
 #: ../root/tag/NotFound.js:23
 msgid ""
 "If you wish to use this tag, please {url|search} for the entity first and "
 "apply the tag using the sidebar."
 msgstr ""
+"Если вы хотите использовать этот тег, сначала {url|найдите} нужную сущность "
+"и добавьте тег на панели справа."
 
 #: ../root/tag/TagCloud.js:54
 msgid "'{tag}' has been used {num} times"
@@ -16726,14 +16710,15 @@ msgstr "Тег \"{tag}\" использовался раз: {num}"
 #: ../root/tag/TagCloud.js:99
 msgid "These are the most used genres and other tags in the database."
 msgstr ""
+"Ниже перечислены самые часто используемые жанры и прочие теги в базе данных."
 
 #: ../root/tag/TagCloud.js:103
 msgid "Show as a cloud instead."
-msgstr ""
+msgstr "Показать в виде облака."
 
 #: ../root/tag/TagCloud.js:105
 msgid "Show as a list instead."
-msgstr ""
+msgstr "Показать списком."
 
 #: ../root/tag/TagCloud.js:115
 msgctxt "folksonomy"
@@ -16742,7 +16727,7 @@ msgstr "Ни одного тега жанра не было использова
 
 #: ../root/tag/TagCloud.js:117
 msgid "Other tags"
-msgstr ""
+msgstr "Прочие теги"
 
 #: ../root/tag/TagCloud.js:122
 msgctxt "folksonomy"
@@ -16758,7 +16743,7 @@ msgstr "Этот тег связан с жанром \"{genre}\"."
 #: ../root/tag/TagLayout.js:51
 msgctxt "folksonomy"
 msgid "Tag “{tag}”"
-msgstr ""
+msgstr "Тег \"{tag}\""
 
 #: ../root/tag/TagLayout.js:56
 #, fuzzy
@@ -16816,11 +16801,9 @@ msgstr "Сделайте пожертвование сейчас!"
 
 #: ../root/taglookup/Nag.js:47
 msgid "I just donated! Why am I seeing this?"
-msgstr "Я сделал пожертвование! Почему по прежнему я вижу это?"
+msgstr "Я сделал пожертвование! Почему я всё еще вижу это?"
 
 #: ../root/taglookup/NotFound.js:14
-#, fuzzy
-#| msgid "Tag Lookup Error"
 msgctxt "audio file metadata"
 msgid "Tag lookup error"
 msgstr "Тег не найден"
@@ -17367,6 +17350,7 @@ msgstr "За последние 24 часа"
 #: ../root/user/UserProfile.js:670
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
+"Данная таблица показывает краткую информацию о голосах, отданных редактором."
 
 #: ../root/user/UserProfile.js:675
 msgid "Votes ({view_url|view})"
@@ -17413,7 +17397,7 @@ msgstr ""
 #: ../root/user/UserProfile.js:793 ../root/user/UserProfile.js:814
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
-msgstr ""
+msgstr "Теги убираются, когда редактор удаляет свой профиль."
 
 #: ../root/user/UserProfile.js:797 ../root/user/UserProfile.js:818
 msgctxt "folksonomy tags"
@@ -17816,20 +17800,6 @@ msgid "Destructive edits"
 msgstr "Деструктивные правки"
 
 #: ../root/vote/VotingIndex.js:139
-#, fuzzy
-#| msgid ""
-#| "Destructive edits (removals and merges) are often very hard or even "
-#| "impossible to revert. As such, an incorrect destructive edit that applies "
-#| "unnoticed can cause quite a big mess! Most are guaranteed to remain open "
-#| "for at least two full days even if they get three “Yes” votes, to avoid "
-#| "them closing too quickly, but it’s always good to get more eyes on them. "
-#| "Below you can find five different searches: one for all destructive edits "
-#| "(which might be overwhelming sometimes), one only for those destructive "
-#| "edits that have no edit notes (so no reasoning has been provided for them "
-#| "at all), one for entity merges and removals only (the edits more likely "
-#| "to cause a mess if they incorrectly go through), one for relationship "
-#| "removals only, and one for destructive changes to releases (track, medium "
-#| "and release label removals)."
 msgid ""
 "Destructive edits (removals and merges) are often very hard or even "
 "impossible to revert. As such, an incorrect destructive edit that applies "
@@ -17848,15 +17818,16 @@ msgstr ""
 "невозможно вернуть. Поэтому незамеченная неправильная деструктивная правка "
 "может привести к большому беспорядку! Большинство из них гарантированно "
 "останутся открытыми как минимум два полных дня, даже если они получат три "
-"голоса \" Да\", чтобы избежать их слишком быстрого закрытия, но всегда "
-"полезно привлечь к ним больше внимания. Ниже вы можете найти пять различных "
+"голоса \"Да\", чтобы избежать их слишком быстрого закрытия, но всегда "
+"полезно привлечь к ним больше внимания. Ниже вы можете найти шесть различных "
 "поисковых запросов: один для всех деструктивных правок (что иногда может "
 "быть слишком сложно), один только для тех деструктивных правок, которые не "
 "имеют комментариев к правкам (поэтому для них не было представлено никаких "
 "обоснований), один только для слияний и удалений сущностей (правки, которые "
 "с большей вероятностью вызовут беспорядок, если пройдут неправильно), один "
-"только для удалений отношений и один для деструктивных изменений в релизах "
-"(удаление треков, носителей и лейблов релизов)."
+"только для удалений отношений, один для деструктивных изменений в релизах ("
+"удаление треков, носителей и лейблов релизов), и один для удаления "
+"изображений (обложек релизов и изображений событий)."
 
 #: ../root/vote/VotingIndex.js:158
 msgid "All open destructive edits"
@@ -17879,10 +17850,8 @@ msgid "All open destructive changes to releases"
 msgstr "Все открытые деструктивные изменения релизов"
 
 #: ../root/vote/VotingIndex.js:204
-#, fuzzy
-#| msgid "All open relationship removals"
 msgid "All open artwork removals"
-msgstr "Все открытые удаления отношений"
+msgstr "Все открытые удаления изображений"
 
 #: ../root/vote/VotingIndex.js:215
 msgid "Unreviewed and potentially problematic edits"
@@ -18003,12 +17972,6 @@ msgstr ""
 "если их вносят новички, так что проверьте и их!"
 
 #: ../root/vote/VotingIndex.js:345
-#, fuzzy
-#| msgid ""
-#| "Specific searches are provided for edits adding releases/mediums, which "
-#| "are probably the most complex and as such reasonably likely to have "
-#| "issues, plus for edits adding artists, which might include artists trying "
-#| "to add their own data and not doing a great job of it."
 msgid ""
 "Specific searches are provided for edits adding releases/mediums, which are "
 "probably the most complex and as such reasonably likely to have issues, plus "
@@ -18017,11 +17980,13 @@ msgid ""
 "which often see beginners struggle with picking the right images for the "
 "right entity."
 msgstr ""
-"Особый поиск предусмотрен для правок, добавляющих издания/носители, которые, "
+"Особый поиск предусмотрен для правок, добавляющих релизы/носители, которые, "
 "вероятно, являются наиболее сложными и, как таковые, имеют достаточно "
 "высокую вероятность возникновения проблем, а также для правок, добавляющих "
 "исполнителей, которые могут включать попытки исполнителей добавить свои "
-"собственные данные без особого успеха."
+"собственные данные без особого успеха, или правок, связанных с фотографиями, "
+"когда у новичков могут возникнуть проблемы с подбором правильных изображений "
+"для сущности."
 
 #: ../root/vote/VotingIndex.js:358
 msgid "All edits from beginner editors"
@@ -18071,13 +18036,9 @@ msgstr ""
 "Все правки типа \"Добавление исполнителя\", сделанные редакторами-новичками"
 
 #: ../root/vote/VotingIndex.js:419
-#, fuzzy
-#| msgid ""
-#| "All \"Add artist\" edits by beginner editors made less than 2 weeks ago"
 msgid "All artwork edits by beginner editors made less than 2 weeks ago"
 msgstr ""
-"Все правки типа \"Добавление исполнителя\", сделанные редакторами-новичками "
-"менее 2 недель назад"
+"Все правки рисунков, сделанные редакторами-новичками менее 2 недель назад"
 
 #: ../root/vote/VotingIndex.js:426
 msgid "All open destructive edits by beginner editors"

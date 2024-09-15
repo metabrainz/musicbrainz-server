@@ -28,8 +28,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-20 22:42+0000\n"
-"Last-Translator: 4irefall <firekonstantin@mail.ru>\n"
+"PO-Revision-Date: 2024-09-15 21:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ru/>\n"
 "Language: ru\n"
@@ -37,9 +38,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.6.2\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -8205,7 +8206,7 @@ msgid ""
 "The operetta is a genre of light opera, in terms both of music and subject "
 "matter. Operettas are generally short and include spoken parts."
 msgstr ""
-"Оперетта это жанр легкой оперы, в плане музыки и тематики. Оперетты обычно "
+"Оперетта — это жанр легкой оперы, в плане музыки и тематики. Оперетты обычно "
 "короткие и включают произносимые части."
 
 #. name:Matrix/Runout
@@ -8252,6 +8253,9 @@ msgid ""
 "singers). Smaller vocal ensembles and groupings that do not generally call "
 "themselves choirs are better entered as “Group”."
 msgstr ""
+"Организованная, обычно большая группа певцов. Вокальные ансамбли меньшего "
+"размера и собрания, которые обычно не называют себя хором, стоит добавлять "
+"под типом \"Группа\"."
 
 #. name:Character
 #: DB:artist_type/description:4
@@ -8260,6 +8264,8 @@ msgid ""
 "This indicates an individual fictional character (whether a fictional "
 "person, animal or any other kind of character)."
 msgstr ""
+"Отдельный вымышленный персонаж (будь то вымышленный человек, животное или "
+"любой другой тип персонажа)."
 
 #. name:Person
 #: DB:artist_type/description:1
@@ -8268,7 +8274,7 @@ msgid ""
 "This indicates an individual person, be it under its legal name (“John "
 "Lennon”), or a performance name (“Sting”)."
 msgstr ""
-"Обозначает человека, будь то под его настоящим именем (\"Джон Леннон\"), или "
+"Отдельный человек, будь то под его настоящим именем (\"Джон Леннон\"), или "
 "сценическим прозвищем (\"Стинг\")."
 
 #. name:Orchestra
@@ -8280,6 +8286,9 @@ msgid ""
 "groupings that do not generally call themselves orchestras are better "
 "entered as “Group”."
 msgstr ""
+"Организованная, обычно большая группа инструменталистов. Ансамбли меньшего "
+"размера (например, трио или квартеты), и собрания, которые обычно не "
+"называют себя оркестром, стоит добавлять под типом \"Группа\"."
 
 #. name:Prose
 #: DB:work_type/description:23
