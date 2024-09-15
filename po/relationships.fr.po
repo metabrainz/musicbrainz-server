@@ -39,11 +39,12 @@
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 # Nom d'utilisateur <mail.m7rfi@simplelogin.fr>, 2024.
+# n26 <jordan.verreaux@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-29 19:42+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-09-07 18:42+0000\n"
+"Last-Translator: n26 <jordan.verreaux@gmail.com>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
 "Language: fr\n"
@@ -52,7 +53,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -6814,7 +6815,7 @@ msgstr "musique ancienne"
 
 #: DB:link_type/name:309
 msgid "edit"
-msgstr "modification"
+msgstr "éditer"
 
 #. name:edit
 #: DB:link_type/link_phrase:309
