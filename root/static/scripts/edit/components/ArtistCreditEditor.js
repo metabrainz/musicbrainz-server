@@ -417,7 +417,6 @@ function createInitialNamesState(
 
 export function createInitialState(
   initialState: {
-    +activeUser: ActiveEditorT,
     +entity: ArtistCreditableT,
     +formName?: string,
     /*
