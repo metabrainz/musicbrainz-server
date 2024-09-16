@@ -24,7 +24,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-05 13:42+0000\n"
+"PO-Revision-Date: 2024-09-16 14:42+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.7.1\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -2554,10 +2554,8 @@ msgstr ""
 
 #. name:named after area
 #: DB:link_type/description:1262
-#, fuzzy
-#| msgid "This indicates the artist that inspired this genre’s name."
 msgid "This indicates the area that inspired this genre’s name."
-msgstr "Indica el artista que inspiró el nombre de este género."
+msgstr "Indica el área que inspiró el nombre de este género."
 
 #. name:video director
 #: DB:link_type/description:1185
@@ -2707,10 +2705,8 @@ msgstr "Indica la discográfica que inspiró el nombre de este artista."
 
 #. name:named after label
 #: DB:link_type/description:1264
-#, fuzzy
-#| msgid "This indicates the artist that inspired this genre’s name."
 msgid "This indicates the label that inspired this genre’s name."
-msgstr "Indica el artista que inspiró el nombre de este género."
+msgstr "Indica la discográfica que inspiró el nombre de este género."
 
 #. name:translator
 #: DB:link_attribute_type/description:1018
@@ -2869,10 +2865,8 @@ msgstr ""
 
 #. name:named after place
 #: DB:link_type/description:1263
-#, fuzzy
-#| msgid "This indicates the artist that inspired this genre’s name."
 msgid "This indicates the place that inspired this genre’s name."
-msgstr "Indica el artista que inspiró el nombre de este género."
+msgstr "Indica el lugar que inspiró el nombre de este género."
 
 #. name:pressed
 #: DB:link_type/description:942
@@ -5545,7 +5539,7 @@ msgstr ""
 #: DB:link_type/link_phrase:205 DB:link_type/reverse_link_phrase:205
 #: DB:link_type/long_link_phrase:205
 msgid "business association"
-msgstr "asociación de negocios"
+msgstr "conexión empresarial"
 
 #. name:publishing
 #: DB:link_type/reverse_link_phrase:66
@@ -5769,7 +5763,7 @@ msgstr "director para"
 
 #: DB:link_type/name:305
 msgid "conductor position"
-msgstr "posición de director"
+msgstr "puesto de director"
 
 #. name:conductor
 #: DB:link_type/reverse_link_phrase:806
@@ -5919,12 +5913,12 @@ msgstr ""
 #. name:creative position
 #: DB:link_type/reverse_link_phrase:115
 msgid "creative persons"
-msgstr "personas creativas"
+msgstr "empleados creativos"
 
 #. name:creative position
 #: DB:link_type/name:115 DB:link_type/link_phrase:115
 msgid "creative position"
-msgstr "posición creativa"
+msgstr "empleado creativo en"
 
 #: DB:link_type/name:904 DB:link_type/name:909 DB:link_type/name:903
 #: DB:link_type/name:905 DB:link_type/name:906 DB:link_type/name:902
@@ -6183,12 +6177,12 @@ msgstr ""
 #. name:engineer position
 #: DB:link_type/name:120 DB:link_type/name:701 DB:link_type/link_phrase:120
 msgid "engineer position"
-msgstr ""
+msgstr "ingeniero"
 
 #. name:engineer position
 #: DB:link_type/link_phrase:701
 msgid "engineer position at"
-msgstr ""
+msgstr "ingeniero en"
 
 #: DB:link_type/name:813 DB:link_type/name:812
 msgid "engineered at"
@@ -6420,7 +6414,7 @@ msgstr "apariciones especiales"
 #. name:creative position
 #: DB:link_type/long_link_phrase:115
 msgid "had a creative position at"
-msgstr "tuvo una posición creativa en"
+msgstr "tuvo un puesto de creativo en"
 
 #. name:misc
 #: DB:link_type/long_link_phrase:162
@@ -6440,7 +6434,7 @@ msgstr "tuvo un contrato de grabación con"
 #. name:artists and repertoire position
 #: DB:link_type/long_link_phrase:1081
 msgid "had an artists and repertoire position at"
-msgstr ""
+msgstr "tuvo un puesto de A&R en"
 
 #. name:engineer position
 #: DB:link_type/long_link_phrase:120
@@ -7276,10 +7270,8 @@ msgstr "tiene un nombre inspirado en la discográfica"
 
 #. name:named after place
 #: DB:link_type/long_link_phrase:1263
-#, fuzzy
-#| msgid "is named after label"
 msgid "is named after place"
-msgstr "tiene un nombre inspirado en la discográfica"
+msgstr "tiene un nombre inspirado en el lugar"
 
 #. name:named after release group
 #: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
@@ -7756,12 +7748,12 @@ msgstr ""
 
 #: DB:link_type/name:704
 msgid "mastering engineer position"
-msgstr ""
+msgstr "ingeniero de máster"
 
 #. name:mastering engineer position
 #: DB:link_type/link_phrase:704
 msgid "mastering engineer position at"
-msgstr ""
+msgstr "ingeniero de máster en"
 
 #. name:mastering engineer position
 #: DB:link_type/reverse_link_phrase:704
@@ -7881,12 +7873,12 @@ msgstr "mezclada en"
 
 #: DB:link_type/name:703
 msgid "mixing engineer position"
-msgstr ""
+msgstr "ingeniero de mezcla"
 
 #. name:mixing engineer position
 #: DB:link_type/link_phrase:703
 msgid "mixing engineer position at"
-msgstr ""
+msgstr "ingeniero de mezcla en"
 
 #. name:mixing engineer position
 #: DB:link_type/reverse_link_phrase:703
@@ -7984,10 +7976,8 @@ msgstr ""
 
 #. name:named after area
 #: DB:link_type/name:1262 DB:link_type/reverse_link_phrase:1262
-#, fuzzy
-#| msgid "named after label"
 msgid "named after area"
-msgstr "nombre inspirado en la discográfica"
+msgstr "nombre inspirado en el área"
 
 #. name:named after artist
 #: DB:link_type/name:973 DB:link_type/name:1258 DB:link_type/name:1260
@@ -8006,10 +7996,8 @@ msgstr "nombre inspirado en la discográfica"
 
 #. name:named after place
 #: DB:link_type/name:1263 DB:link_type/link_phrase:1263
-#, fuzzy
-#| msgid "named after label"
 msgid "named after place"
-msgstr "nombre inspirado en la discográfica"
+msgstr "nombre inspirado en el lugar"
 
 #. name:named after release group
 #: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
@@ -8548,7 +8536,7 @@ msgstr ""
 #. name:producer position
 #: DB:link_type/name:117 DB:link_type/link_phrase:117
 msgid "producer position"
-msgstr "puesto de productor"
+msgstr "productor"
 
 #. name:producer position
 #: DB:link_type/reverse_link_phrase:117
@@ -8798,12 +8786,12 @@ msgstr ""
 
 #: DB:link_type/name:702
 msgid "recording engineer position"
-msgstr ""
+msgstr "ingeniero de grabación"
 
 #. name:recording engineer position
 #: DB:link_type/link_phrase:702
 msgid "recording engineer position at"
-msgstr ""
+msgstr "ingeniero de grabación en"
 
 #. name:recording engineer position
 #: DB:link_type/reverse_link_phrase:702
@@ -8946,7 +8934,7 @@ msgstr ""
 #: DB:link_type/name:1164 DB:link_type/link_phrase:1164
 #: DB:link_type/reverse_link_phrase:1164 DB:link_type/long_link_phrase:1164
 msgid "residence position"
-msgstr ""
+msgstr "posición en residencia"
 
 #. name:residency
 #: DB:link_type/link_phrase:994
@@ -10841,10 +10829,8 @@ msgstr ""
 
 #. name:named after area
 #: DB:link_type/long_link_phrase:1262
-#, fuzzy
-#| msgid "{entity1} is named after artist {entity0}"
 msgid "{entity1} is named after area {entity0}"
-msgstr "{entity1} tiene un nombre inspirado en el artista {entity0}"
+msgstr "{entity1} tiene un nombre inspirado en el área {entity0}"
 
 #. name:named after artist
 #: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1260
