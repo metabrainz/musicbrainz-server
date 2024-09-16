@@ -115,6 +115,21 @@ class Track {
       releaseEditor.copyTrackArtistsToRecordings(),
     );
 
+    /*
+     * When a "copy all" checkbox is unchecked, uncheck our corresponding
+     * checkbox if it isn't currently shown.
+     */
+    releaseEditor.copyTrackTitlesToRecordings.subscribe((checked) => {
+      if (!checked && !this.titleDiffersFromRecording()) {
+        this.updateRecordingTitle(false);
+      }
+    });
+    releaseEditor.copyTrackArtistsToRecordings.subscribe((checked) => {
+      if (!checked && !this.artistDiffersFromRecording()) {
+        this.updateRecordingArtist(false);
+      }
+    });
+
     this.recordingValue = ko.observable(
       new mbEntity.Recording({name: data.name}),
     );
