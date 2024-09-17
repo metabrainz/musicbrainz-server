@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-07-06 05:42+0000\n"
+"PO-Revision-Date: 2024-09-15 00:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/lt/>\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.6.2\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -2492,6 +2492,19 @@ msgstr ""
 "Tai nurodo, kad atlikėjas oficialiai buvo įdarbintas leidykloje atlikėjų ir "
 "repertuaro (A&R) pareigose."
 
+#. name:executive position
+#: DB:link_type/description:1266
+#, fuzzy
+#| msgid ""
+#| "This indicates that an artist was officially employed by a label in a "
+#| "creative position, such as photographer or graphic designer."
+msgid ""
+"This indicates that an artist was officially employed by a label in an "
+"executive position, such as CEO, president or director."
+msgstr ""
+"Tai nurodo, kad atlikėjas oficialiai buvo įdarbintas leidykloje kūrybinėse "
+"pareigose, pavyzdžiui, fotografo ar grafikos dizainerio."
+
 #. name:parts
 #: DB:link_type/description:818
 msgid ""
@@ -3036,6 +3049,13 @@ msgstr ""
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr ""
+
+#. name:named after work
+#: DB:link_type/description:1265
+#, fuzzy
+#| msgid "This indicates the artist was the owner of this label."
+msgid "This indicates the work that inspired this label’s name."
+msgstr "Tai nurodo, kad atlikėjas buvo šios leidyklos savininkas."
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -6223,6 +6243,18 @@ msgstr ""
 msgid "executive"
 msgstr ""
 
+#. name:executive position
+#: DB:link_type/name:1266 DB:link_type/link_phrase:1266
+#, fuzzy
+#| msgid "mixing engineer position"
+msgid "executive position"
+msgstr "miksavimo inžinieriaus (-ės) pozicija"
+
+#. name:executive position
+#: DB:link_type/reverse_link_phrase:1266
+msgid "executives"
+msgstr ""
+
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
 #: DB:link_type/reverse_link_phrase:172 DB:link_type/reverse_link_phrase:1189
@@ -6428,6 +6460,13 @@ msgstr ""
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr ""
+
+#. name:executive position
+#: DB:link_type/long_link_phrase:1266
+#, fuzzy
+#| msgid "mastering engineer position at"
+msgid "had an executive position at"
+msgstr "masteringo inžinieriaus pozicija vietoje"
 
 #. name:tribute to
 #: DB:link_type/long_link_phrase:936
@@ -7045,8 +7084,8 @@ msgstr ""
 msgid "inspired the name of genre"
 msgstr ""
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1258
+#. name:named after artist, name:named after work
+#: DB:link_type/link_phrase:1258 DB:link_type/reverse_link_phrase:1265
 msgid "inspired the name of label"
 msgstr ""
 
@@ -7278,7 +7317,7 @@ msgid "is named after release group"
 msgstr "yra anksčiausias leidinys"
 
 #. name:named after work
-#: DB:link_type/long_link_phrase:972
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1265
 #, fuzzy
 #| msgid "named after"
 msgid "is named after work"
@@ -7286,12 +7325,12 @@ msgstr "pavadintas pagal"
 
 #: DB:link_type/name:108
 msgid "is person"
-msgstr ""
+msgstr "yra asmuo"
 
 #. name:related to
 #: DB:link_type/long_link_phrase:738
 msgid "is related to"
-msgstr ""
+msgstr "yra susiję su"
 
 #. name:based on
 #: DB:link_type/link_phrase:314 DB:link_type/long_link_phrase:314
@@ -7343,7 +7382,7 @@ msgstr ""
 #. name:artistic director
 #: DB:link_type/long_link_phrase:965
 msgid "is/was artistic director for"
-msgstr ""
+msgstr "yra / buvo meno vadovas"
 
 #. name:label distribution
 #: DB:link_type/long_link_phrase:203
@@ -8015,7 +8054,8 @@ msgid "named after release group"
 msgstr "vėlesni leidiniai"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#: DB:link_type/name:972 DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "named after"
 msgid "named after work"
@@ -10426,7 +10466,7 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
 msgstr ""
 "{additional:papildomas} {assistant:pagalbininis} {associate:susietas} {co:ko}"
-"garso režisierius"
+"garso įrašo režisierius"
 
 #. name:balance
 #: DB:link_type/reverse_link_phrase:727 DB:link_type/reverse_link_phrase:726
@@ -10466,8 +10506,8 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:133 DB:link_type/reverse_link_phrase:29
 msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
 msgstr ""
-"{additional:papildomas} {assistant:pagalbininis} {associate:susietas} {co:"
-"bendras}garso inžinierius"
+"{additional:papildomas} {assistant:pagalbininis} {associate:susietas} {co:ko}"
+"garso inžinierius"
 
 #. name:transfer
 #: DB:link_type/link_phrase:1179
@@ -10575,7 +10615,7 @@ msgstr ""
 #. name:tour in support of
 #: DB:link_type/reverse_link_phrase:888
 msgid "{anniversary:anniversary tour for|tour in support of}"
-msgstr ""
+msgstr "{anniversary:jubiliejinis turas|turas, skirtas palaikyti}"
 
 #. name:tour in support of
 #: DB:link_type/link_phrase:888
@@ -10625,7 +10665,7 @@ msgstr ""
 #. name:video director
 #: DB:link_type/reverse_link_phrase:962 DB:link_type/reverse_link_phrase:1185
 msgid "{assistant} video director"
-msgstr ""
+msgstr "vaizdo įrašo režisierius {assistant:pagalbininkas}"
 
 #. name:video director
 #: DB:link_type/link_phrase:962 DB:link_type/link_phrase:1185
@@ -10670,7 +10710,7 @@ msgstr ""
 #. name:VIAF
 #: DB:link_type/long_link_phrase:312
 msgid "{entity1} has VIAF ID at {entity0}"
-msgstr ""
+msgstr "{entity1} turi VIAF ID esybei {entity0}"
 
 #. name:BookBrainz
 #: DB:link_type/long_link_phrase:854

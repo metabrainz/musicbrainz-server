@@ -2389,6 +2389,19 @@ msgid ""
 "artists and repertoire (A&R) position."
 msgstr ""
 
+#. name:executive position
+#: DB:link_type/description:1266
+#, fuzzy
+#| msgid ""
+#| "This indicates that an artist was officially employed by a label in a "
+#| "creative position, such as photographer or graphic designer."
+msgid ""
+"This indicates that an artist was officially employed by a label in an "
+"executive position, such as CEO, president or director."
+msgstr ""
+"ציון עובדת העסקתו של אמן רשמית על־ידי חברת תקליטים בתפקיד ניהול יצירתי, כמו "
+"צלם או מעצב גרפי."
+
 #. name:parts
 #: DB:link_type/description:818
 msgid ""
@@ -2980,6 +2993,13 @@ msgstr ""
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr "ציון יצירה שבהשראתה כונה כך האמן."
+
+#. name:named after work
+#: DB:link_type/description:1265
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the work that inspired this label’s name."
+msgstr "ציון האמן שבהשראתו כונה כך המקום."
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -6553,6 +6573,20 @@ msgstr ""
 msgid "executive"
 msgstr "הַנהָלָה"
 
+#. name:executive position
+#: DB:link_type/name:1266 DB:link_type/link_phrase:1266
+#, fuzzy
+#| msgid "creative position"
+msgid "executive position"
+msgstr "משרת ניהול יצירתי"
+
+#. name:executive position
+#: DB:link_type/reverse_link_phrase:1266
+#, fuzzy
+#| msgid "executive"
+msgid "executives"
+msgstr "הַנהָלָה"
+
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
 #: DB:link_type/reverse_link_phrase:172 DB:link_type/reverse_link_phrase:1189
@@ -6758,6 +6792,13 @@ msgstr ""
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr "החזיקו במשרת מהנדס ב־"
+
+#. name:executive position
+#: DB:link_type/long_link_phrase:1266
+#, fuzzy
+#| msgid "had a creative position at"
+msgid "had an executive position at"
+msgstr "משרת ניהול יצירתי ב־"
 
 #. name:tribute to
 #: DB:link_type/long_link_phrase:936
@@ -7381,8 +7422,8 @@ msgstr "מתן הַשְׁרָאָה לשם של"
 msgid "inspired the name of genre"
 msgstr "מתן הַשְׁרָאָה לשם של"
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1258
+#. name:named after artist, name:named after work
+#: DB:link_type/link_phrase:1258 DB:link_type/reverse_link_phrase:1265
 #, fuzzy
 #| msgid "inspired the name of"
 msgid "inspired the name of label"
@@ -7626,7 +7667,7 @@ msgid "is named after release group"
 msgstr "קרוי על שם"
 
 #. name:named after work
-#: DB:link_type/long_link_phrase:972
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1265
 #, fuzzy
 #| msgid "is named after"
 msgid "is named after work"
@@ -8367,7 +8408,8 @@ msgid "named after release group"
 msgstr "קבוצות הוצאה הוקלטה"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#: DB:link_type/name:972 DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "named after"
 msgid "named after work"
