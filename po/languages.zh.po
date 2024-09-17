@@ -1308,6 +1308,16 @@ msgstr "基尼阿万达语"
 msgid "Kirghiz"
 msgstr "吉尔吉斯语"
 
+#. frequency:1 iso_code_3:mkw
+#: DB:language/name:4291
+msgid "Kituba (Congo)"
+msgstr ""
+
+#. frequency:1 iso_code_3:ktu
+#: DB:language/name:3568
+msgid "Kituba (Democratic Republic of Congo)"
+msgstr ""
+
 #. frequency:1 iso_code_3:tlh
 #: DB:language/name:421
 msgid "Klingon"

@@ -39,11 +39,12 @@
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 # Nom d'utilisateur <mail.m7rfi@simplelogin.fr>, 2024.
+# n26 <jordan.verreaux@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-29 19:42+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2024-09-07 18:42+0000\n"
+"Last-Translator: n26 <jordan.verreaux@gmail.com>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
 "Language: fr\n"
@@ -52,7 +53,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -2564,6 +2565,19 @@ msgid ""
 "artists and repertoire (A&R) position."
 msgstr ""
 
+#. name:executive position
+#: DB:link_type/description:1266
+#, fuzzy
+#| msgid ""
+#| "This indicates that an artist was officially employed by a label in a "
+#| "creative position, such as photographer or graphic designer."
+msgid ""
+"This indicates that an artist was officially employed by a label in an "
+"executive position, such as CEO, president or director."
+msgstr ""
+"Ceci indique qu’un artiste était officiellement engagé par un label à un "
+"poste créatif tel que photographe ou concepteur graphique."
+
 #. name:parts
 #: DB:link_type/description:818
 msgid ""
@@ -3157,6 +3171,13 @@ msgstr ""
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr "Ceci indique l’œuvre qui a inspiré le nom de cet artiste."
+
+#. name:named after work
+#: DB:link_type/description:1265
+#, fuzzy
+#| msgid "This indicates the artist that inspired this label’s name."
+msgid "This indicates the work that inspired this label’s name."
+msgstr "Ceci indique l’artiste qui a inspiré le nom de ce label."
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -6794,7 +6815,7 @@ msgstr "musique ancienne"
 
 #: DB:link_type/name:309
 msgid "edit"
-msgstr "modification"
+msgstr "éditer"
 
 #. name:edit
 #: DB:link_type/link_phrase:309
@@ -6902,6 +6923,20 @@ msgstr "extraits"
 
 #: DB:link_attribute_type/name:425
 msgid "executive"
+msgstr "dirigeant"
+
+#. name:executive position
+#: DB:link_type/name:1266 DB:link_type/link_phrase:1266
+#, fuzzy
+#| msgid "creative position"
+msgid "executive position"
+msgstr "poste créatif"
+
+#. name:executive position
+#: DB:link_type/reverse_link_phrase:1266
+#, fuzzy
+#| msgid "executive"
+msgid "executives"
 msgstr "dirigeant"
 
 #. name:fanpage
@@ -7109,6 +7144,13 @@ msgstr ""
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr "à eu un poste d’ingénieur"
+
+#. name:executive position
+#: DB:link_type/long_link_phrase:1266
+#, fuzzy
+#| msgid "had a creative position at"
+msgid "had an executive position at"
+msgstr "a eu un poste créatif"
 
 #. name:tribute to
 #: DB:link_type/long_link_phrase:936
@@ -7720,8 +7762,8 @@ msgstr "a inspiré le nom de l’artiste"
 msgid "inspired the name of genre"
 msgstr "a inspiré le nom du genre"
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1258
+#. name:named after artist, name:named after work
+#: DB:link_type/link_phrase:1258 DB:link_type/reverse_link_phrase:1265
 msgid "inspired the name of label"
 msgstr "a inspiré le nom du label"
 
@@ -7941,7 +7983,7 @@ msgid "is named after release group"
 msgstr "est nommé d’après le groupe de parution"
 
 #. name:named after work
-#: DB:link_type/long_link_phrase:972
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr "est nommé d’après l’œuvre"
 
@@ -8673,7 +8715,8 @@ msgid "named after release group"
 msgstr "nommé d’après le groupe de parution"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#: DB:link_type/name:972 DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1265
 msgid "named after work"
 msgstr "nommé d’après l’œuvre"
 

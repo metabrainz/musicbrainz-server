@@ -34,93 +34,93 @@ msgstr ""
 "0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.6.2\n"
 
-#: ../root/statistics/timeline.tt:18
+#: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
 msgstr "Añadir/eliminar lineas:"
 
-#: ../root/statistics/timeline.tt:18
+#: ../root/statistics/timeline.tt:19
 msgid "Check boxes above"
 msgstr "Usa las casillas de más arriba"
 
-#: ../root/statistics/timeline.tt:17
+#: ../root/statistics/timeline.tt:18
 msgid "Click to deselect"
 msgstr "Haz clic para deseleccionar"
 
-#: ../root/statistics/timeline.tt:14
+#: ../root/statistics/timeline.tt:15
 msgid "Controls"
 msgstr "Controles"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:39
+#: ../root/statistics/layout.tt:5 ../root/statistics/Countries.js:39
 msgid "Countries"
 msgstr "Países"
 
-#: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
+#: ../root/statistics/layout.tt:25 ../root/statistics/layout.tt:37
 #: ../root/statistics/StatisticsLayout.js:86
 #: ../root/statistics/StatisticsLayout.js:100
 msgid "Database statistics"
 msgstr "Estadísticas de la base de datos"
 
-#: ../root/statistics/layout.tt:15
+#: ../root/statistics/layout.tt:16
 msgid "Database statistics - {title}"
 msgstr "Estadísticas de la base de datos - {title}"
 
-#: ../root/statistics/timeline.tt:16
+#: ../root/statistics/timeline.tt:17
 msgid "Draw a rectangle on either graph"
 msgstr "Dibuja un rectángulo en uno de las gráficos"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:88
+#: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:88
 #: ../root/statistics/Editors.js:100 ../root/statistics/Index.js:1123
 msgid "Editors"
 msgstr "Editores"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:30
+#: ../root/statistics/layout.tt:5 ../root/statistics/Edits.js:30
 #: ../root/statistics/Edits.js:34 ../root/statistics/Edits.js:43
 #: ../root/statistics/Index.js:1249 ../root/statistics/Index.js:1252
 #: ../root/statistics/Index.js:1301 ../root/statistics/stats.js:296
 msgid "Edits"
 msgstr "Ediciones"
 
-#: ../root/statistics/timeline.tt:28
+#: ../root/statistics/timeline.tt:30
 msgid "Exact values (items vs. day)"
 msgstr "Valores exactos (elementos vs día)"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/stats.js:27
+#: ../root/statistics/layout.tt:5 ../root/statistics/stats.js:27
 msgid "Formats"
 msgstr "Formatos"
 
-#: ../root/statistics/timeline.tt:19
+#: ../root/statistics/timeline.tt:20
 msgid "Hover and click on vertical lines"
 msgstr "Pasa el ratón sobre las líneas verticales o haz clic en ellas"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Images.js:70
+#: ../root/statistics/layout.tt:5 ../root/statistics/Images.js:70
 msgid "Images"
 msgstr "Imágenes"
 
-#: ../root/statistics/layout.tt:4
+#: ../root/statistics/layout.tt:5
 msgid "Languages/Scripts"
 msgstr "Idiomas y sistemas de escritura"
 
-#: ../root/statistics/timeline.tt:2
+#: ../root/statistics/timeline.tt:3
 msgid "Legend"
 msgstr "Leyenda"
 
-#: ../root/statistics/timeline.tt:6 ../root/statistics/timeline.tt:19
+#: ../root/statistics/timeline.tt:7 ../root/statistics/timeline.tt:20
 msgid "MusicBrainz events"
 msgstr "Sucesos históricos de MusicBrainz"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:64
+#: ../root/statistics/layout.tt:5 ../root/statistics/Index.js:64
 msgid "Overview"
 msgstr "Resumen"
 
-#: ../root/statistics/timeline.tt:30
+#: ../root/statistics/timeline.tt:32
 msgid "Rate of change (average items/day vs. day)"
 msgstr "Ratio de cambio (media de elementos/día vs día)"
 
-#: ../root/statistics/timeline.tt:10
+#: ../root/statistics/timeline.tt:11
 msgid "Rate of change graph"
 msgstr "Gráfico de ratio de cambio"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:146
+#: ../root/statistics/layout.tt:5 ../root/statistics/Index.js:146
 #: ../root/statistics/Relationships.js:90
 #: ../root/statistics/Relationships.js:95
 #: ../root/statistics/Relationships.js:110 ../root/statistics/stats.js:34
@@ -128,19 +128,19 @@ msgstr "Gráfico de ratio de cambio"
 msgid "Relationships"
 msgstr "Relaciones"
 
-#: ../root/statistics/timeline.tt:17
+#: ../root/statistics/timeline.tt:18
 msgid "Reset:"
 msgstr "Reiniciar:"
 
-#: ../root/statistics/layout.tt:4
+#: ../root/statistics/layout.tt:5
 msgid "Timeline"
 msgstr "Gráfico cronológico"
 
-#: ../root/statistics/timeline.tt:25
+#: ../root/statistics/timeline.tt:27
 msgid "Timeline graph"
 msgstr "Gráfico cronológico"
 
-#: ../root/statistics/timeline.tt:16
+#: ../root/statistics/timeline.tt:17
 msgid "Zoom:"
 msgstr "Zoom:"
 

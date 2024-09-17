@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-22 13:42+0000\n"
+"PO-Revision-Date: 2024-09-07 18:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -26,95 +26,95 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.7.2\n"
 
-#: ../root/statistics/timeline.tt:18
+#: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
 msgstr "Aggiungi/elimina linee:"
 
-#: ../root/statistics/timeline.tt:18
+#: ../root/statistics/timeline.tt:19
 msgid "Check boxes above"
 msgstr "Spunta le caselle in alto"
 
-#: ../root/statistics/timeline.tt:17
+#: ../root/statistics/timeline.tt:18
 msgid "Click to deselect"
 msgstr "Clicca per deselezionare"
 
-#: ../root/statistics/timeline.tt:14
+#: ../root/statistics/timeline.tt:15
 msgid "Controls"
 msgstr "Comandi"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:39
+#: ../root/statistics/layout.tt:5 ../root/statistics/Countries.js:39
 msgid "Countries"
 msgstr "Paesi"
 
-#: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
+#: ../root/statistics/layout.tt:25 ../root/statistics/layout.tt:37
 #: ../root/statistics/StatisticsLayout.js:86
 #: ../root/statistics/StatisticsLayout.js:100
 msgid "Database statistics"
 msgstr "Statistiche database"
 
-#: ../root/statistics/layout.tt:15
+#: ../root/statistics/layout.tt:16
 msgid "Database statistics - {title}"
 msgstr "Statistiche database - {title}"
 
-#: ../root/statistics/timeline.tt:16
+#: ../root/statistics/timeline.tt:17
 msgid "Draw a rectangle on either graph"
 msgstr "Disegna un rettangolo su uno dei grafici"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:88
+#: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:88
 #: ../root/statistics/Editors.js:100 ../root/statistics/Index.js:1123
 msgid "Editors"
 msgstr "Editor"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:30
+#: ../root/statistics/layout.tt:5 ../root/statistics/Edits.js:30
 #: ../root/statistics/Edits.js:34 ../root/statistics/Edits.js:43
 #: ../root/statistics/Index.js:1249 ../root/statistics/Index.js:1252
 #: ../root/statistics/Index.js:1301 ../root/statistics/stats.js:296
 msgid "Edits"
 msgstr "Modifiche"
 
-#: ../root/statistics/timeline.tt:28
+#: ../root/statistics/timeline.tt:30
 msgid "Exact values (items vs. day)"
 msgstr "Valori esatti (elementi per ogni giorno)"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/stats.js:27
+#: ../root/statistics/layout.tt:5 ../root/statistics/stats.js:27
 msgid "Formats"
 msgstr "Formati"
 
-#: ../root/statistics/timeline.tt:19
+#: ../root/statistics/timeline.tt:20
 msgid "Hover and click on vertical lines"
 msgstr "Soffermati e clicca sulle righe verticali"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Images.js:70
+#: ../root/statistics/layout.tt:5 ../root/statistics/Images.js:70
 msgid "Images"
 msgstr "Immagini"
 
-#: ../root/statistics/layout.tt:4
+#: ../root/statistics/layout.tt:5
 msgid "Languages/Scripts"
 msgstr "Lingue/Sistemi di scrittura"
 
-#: ../root/statistics/timeline.tt:2
+#: ../root/statistics/timeline.tt:3
 msgid "Legend"
 msgstr "Legenda"
 
-#: ../root/statistics/timeline.tt:6 ../root/statistics/timeline.tt:19
+#: ../root/statistics/timeline.tt:7 ../root/statistics/timeline.tt:20
 msgid "MusicBrainz events"
 msgstr "Eventi di MusicBrainz"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:64
+#: ../root/statistics/layout.tt:5 ../root/statistics/Index.js:64
 msgid "Overview"
 msgstr "Riepilogo"
 
-#: ../root/statistics/timeline.tt:30
+#: ../root/statistics/timeline.tt:32
 msgid "Rate of change (average items/day vs. day)"
 msgstr "Tasso di variazione (media elementi giornalieri per ogni giorno)"
 
-#: ../root/statistics/timeline.tt:10
+#: ../root/statistics/timeline.tt:11
 msgid "Rate of change graph"
 msgstr "Grafico del tasso di variazione"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:146
+#: ../root/statistics/layout.tt:5 ../root/statistics/Index.js:146
 #: ../root/statistics/Relationships.js:90
 #: ../root/statistics/Relationships.js:95
 #: ../root/statistics/Relationships.js:110 ../root/statistics/stats.js:34
@@ -122,19 +122,19 @@ msgstr "Grafico del tasso di variazione"
 msgid "Relationships"
 msgstr "Relazioni"
 
-#: ../root/statistics/timeline.tt:17
+#: ../root/statistics/timeline.tt:18
 msgid "Reset:"
 msgstr "Reimposta:"
 
-#: ../root/statistics/layout.tt:4
+#: ../root/statistics/layout.tt:5
 msgid "Timeline"
 msgstr "Cronologia"
 
-#: ../root/statistics/timeline.tt:25
+#: ../root/statistics/timeline.tt:27
 msgid "Timeline graph"
 msgstr "Grafico della cronologia"
 
-#: ../root/statistics/timeline.tt:16
+#: ../root/statistics/timeline.tt:17
 msgid "Zoom:"
 msgstr "Ingrandisci:"
 
@@ -657,7 +657,7 @@ msgstr "Pubblicazioni con almeno un ID disco:"
 msgid "with {num} disc ID:"
 msgid_plural "with {num} disc IDs:"
 msgstr[0] "con {num} ID disco:"
-msgstr[1] "con {num} ID disco:"
+msgstr[1] "con {num} di ID disco:"
 msgstr[2] "con {num} ID disco:"
 
 #: ../root/statistics/Index.js:550 ../root/statistics/Index.js:592
@@ -1728,28 +1728,28 @@ msgstr "/giorno"
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] "Pubblicazioni con 1 ID disco"
-msgstr[1] "Pubblicazioni con {n} ID disco"
+msgstr[1] "Pubblicazioni con {n} di ID disco"
 msgstr[2] "Pubblicazioni con {n} ID disco"
 
 #: ../root/statistics/stats.js:974
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] "Supporti con 1 ID disco"
-msgstr[1] "Supporti con {n} ID disco"
+msgstr[1] "Supporti con {n} di ID disco"
 msgstr[2] "Supporti con {n} ID disco"
 
 #: ../root/statistics/stats.js:985
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] "Registrazioni con 1 pubblicazione"
-msgstr[1] "Registrazioni con {n} pubblicazioni"
+msgstr[1] "Registrazioni con {n} di pubblicazioni"
 msgstr[2] "Registrazioni con {n} pubblicazioni"
 
 #: ../root/statistics/stats.js:996
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] "Gruppi di pubblicazioni con 1 pubblicazione"
-msgstr[1] "Gruppi di pubblicazioni con {n} pubblicazioni"
+msgstr[1] "Gruppi di pubblicazioni con {n} di pubblicazioni"
 msgstr[2] "Gruppi di pubblicazioni con {n} pubblicazioni"
 
 #: ../root/statistics/stats.js:1049

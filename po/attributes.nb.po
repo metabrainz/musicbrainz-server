@@ -5599,9 +5599,12 @@ msgid "Murabba"
 msgstr "Murabba"
 
 #: DB:work_attribute_type_allowed_value/value:811
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "Murabba"
 msgctxt "work_attribute_type_allowed_value"
-msgid "Murabba Beste "
-msgstr ""
+msgid "Murabba Beste"
+msgstr "Murabba"
 
 #: DB:work_type/name:29
 msgctxt "work_type"
