@@ -1286,7 +1286,8 @@ msgid ""
 "An event in which the participants perform live and a winner is then chosen "
 "(as opposed to an award ceremony where awards are presented for previously "
 "released or performed music)."
-msgstr "一种活动，参与者现场表演并选出获胜者。（相对的，颁奖仪式是通过先前发行的音乐"
+msgstr ""
+"一种活动，参与者现场表演并选出获胜者。（相对的，颁奖仪式是通过先前发行的音乐"
 "选出获奖者）。"
 
 #. name:Festival
@@ -1307,9 +1308,9 @@ msgid ""
 "more than one art type applies (for example, if a poster is sold as "
 "merchandise) use “merchandise” alongside any other appropriate types."
 msgstr ""
-"一张用于推广或在活动期间出售（或免费分享）的活动相关商品的图片，例如T恤、帽子"
-"、贴纸等。如果有多种艺术类型适用（例如海报作为商品出售），请使用“商品”以及其"
-"他适当的类型。"
+"一张用于推广或在活动期间出售（或免费分享）的活动相关商品的图片，例如T恤、帽"
+"子、贴纸等。如果有多种艺术类型适用（例如海报作为商品出售），请使用“商品”以及"
+"其他适当的类型。"
 
 #. name:Schedule
 #: DB:event_art_archive.art_type/description:5
@@ -5745,8 +5746,11 @@ msgid "Murabba"
 msgstr "Murabba"
 
 #: DB:work_attribute_type_allowed_value/value:811
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "Murabba Beste "
 msgctxt "work_attribute_type_allowed_value"
-msgid "Murabba Beste "
+msgid "Murabba Beste"
 msgstr "Murabba Beste "
 
 #: DB:work_type/name:29

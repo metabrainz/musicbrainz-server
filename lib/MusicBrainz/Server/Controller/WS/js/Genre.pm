@@ -11,7 +11,7 @@ my $ws_defs = Data::OptList::mkopt([
     'genre' => {
         method   => 'GET',
         required => [ qw(q) ],
-        optional => [ qw(direct limit page timestamp) ],
+        optional => [ qw(advanced direct limit page timestamp) ],
     },
 ]);
 

@@ -9,7 +9,7 @@
 
 import test from 'tape';
 
-import isDateEmpty from '../../common/utility/isDateEmpty.js';
+import isDateEmpty, {isDateNonEmpty} from '../../common/utility/isDateEmpty.js';
 
 test('isDateEmpty', function (t) {
   t.plan(8);
@@ -40,17 +40,17 @@ test('isDateEmpty', function (t) {
   );
 
   t.ok(
-    !isDateEmpty({year: 2020}),
+    isDateNonEmpty({year: 2020}),
     'Date with one non-null part and rest undefined is not empty',
   );
 
   t.ok(
-    !isDateEmpty({day: null, month: null, year: 2020}),
+    isDateNonEmpty({day: null, month: null, year: 2020}),
     'Date with one non-null part and rest null is not empty',
   );
 
   t.ok(
-    !isDateEmpty({day: 1, month: 2, year: 2020}),
+    isDateNonEmpty({day: 1, month: 2, year: 2020}),
     'Date with all parts non-null is not empty',
   );
 });

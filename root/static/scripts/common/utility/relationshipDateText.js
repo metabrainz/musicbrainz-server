@@ -10,7 +10,7 @@
 import areDatesEqual from './areDatesEqual.js';
 import {bracketedText} from './bracketed.js';
 import formatDate from './formatDate.js';
-import isDateEmpty from './isDateEmpty.js';
+import {isDateNonEmpty} from './isDateEmpty.js';
 
 export default function relationshipDateText(
   r: $ReadOnly<{...DatePeriodRoleT, ...}>,
@@ -18,8 +18,8 @@ export default function relationshipDateText(
 ): string {
   const beginDate = r.begin_date;
   const endDate = r.end_date;
-  if (!isDateEmpty(beginDate)) {
-    if (!isDateEmpty(endDate)) {
+  if (isDateNonEmpty(beginDate)) {
+    if (isDateNonEmpty(endDate)) {
       if (areDatesEqual(beginDate, endDate)) {
         if (beginDate.day != null) {
           return texp.l('on {date}', {date: formatDate(beginDate)});
@@ -34,7 +34,7 @@ export default function relationshipDateText(
       return texp.l('from {date} to ????', {date: formatDate(beginDate)});
     }
     return texp.l('from {date} to present', {date: formatDate(beginDate)});
-  } else if (!isDateEmpty(endDate)) {
+  } else if (isDateNonEmpty(endDate)) {
     return texp.l('until {date}', {date: formatDate(endDate)});
   } else if (r.ended) {
     let text = l('ended');

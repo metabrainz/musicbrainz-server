@@ -39,7 +39,7 @@ const Buttons = React.memo<ButtonsPropsT>(({
   initialBubbleFocus,
   initialFocusRef,
   isTrack,
-}: ButtonsPropsT): React$MixedElement => (
+}: ButtonsPropsT): React.MixedElement => (
   <div className="buttons">
     <button
       id="copy-ac"
@@ -108,7 +108,7 @@ const ArtistCreditPreview = (React.memo<ArtistCreditPreviewPropsT>(({
   editsPending,
   entity,
   names,
-}: ArtistCreditPreviewPropsT): React$MixedElement => {
+}: ArtistCreditPreviewPropsT): React.MixedElement => {
   const artistCredit = React.useMemo(() => ({
     ...artistCreditFromState(names),
     editsPending,

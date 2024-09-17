@@ -744,8 +744,8 @@ msgid ""
 "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</"
 "a>."
 msgstr ""
-"指此专辑的词曲版权方。这和<a href=\"/doc/Label\" target=\"_blank\""
-">厂牌</a><strong>不是</strong>一个概念。"
+"指此专辑的词曲版权方。这和<a href=\"/doc/Label\" target=\"_blank\">厂牌</"
+"a><strong>不是</strong>一个概念。"
 
 #. name:publishing
 #: DB:link_type/description:161 DB:link_type/description:208
@@ -753,8 +753,8 @@ msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
-"指此作品的词曲版权方。这和<a href=\"/doc/Label\" target=\"_blank\""
-">厂牌</a><strong>不是</strong>一个概念。"
+"指此作品的词曲版权方。这和<a href=\"/doc/Label\" target=\"_blank\">厂牌</"
+"a><strong>不是</strong>一个概念。"
 
 #. name:last.fm
 #: DB:link_type/link_phrase:837 DB:link_type/link_phrase:838
@@ -2271,6 +2271,17 @@ msgid ""
 "artists and repertoire (A&R) position."
 msgstr "这表明艺术家正式担任厂牌的艺术家与作品(A&R)职位。"
 
+#. name:executive position
+#: DB:link_type/description:1266
+#, fuzzy
+#| msgid ""
+#| "This indicates that an artist was officially employed by a label in a "
+#| "creative position, such as photographer or graphic designer."
+msgid ""
+"This indicates that an artist was officially employed by a label in an "
+"executive position, such as CEO, president or director."
+msgstr "这表明艺术家正式担任厂牌的美工设计职位，例如摄影师或平面设计师。"
+
 #. name:parts
 #: DB:link_type/description:818
 msgid ""
@@ -2837,6 +2848,13 @@ msgstr ""
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr ""
+
+#. name:named after work
+#: DB:link_type/description:1265
+#, fuzzy
+#| msgid "Indicates an artist that performed on this release."
+msgid "This indicates the work that inspired this label’s name."
+msgstr "表明该艺术家在此专辑中有表演。"
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -6144,6 +6162,18 @@ msgstr ""
 msgid "executive"
 msgstr ""
 
+#. name:executive position
+#: DB:link_type/name:1266 DB:link_type/link_phrase:1266
+#, fuzzy
+#| msgid "engineer position"
+msgid "executive position"
+msgstr "工程师职位"
+
+#. name:executive position
+#: DB:link_type/reverse_link_phrase:1266
+msgid "executives"
+msgstr ""
+
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
 #: DB:link_type/reverse_link_phrase:172 DB:link_type/reverse_link_phrase:1189
@@ -6348,6 +6378,13 @@ msgstr ""
 #. name:engineer position
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
+msgstr "以工程师职位任职于"
+
+#. name:executive position
+#: DB:link_type/long_link_phrase:1266
+#, fuzzy
+#| msgid "had an engineer position at"
+msgid "had an executive position at"
 msgstr "以工程师职位任职于"
 
 #. name:tribute to
@@ -6968,8 +7005,8 @@ msgstr ""
 msgid "inspired the name of genre"
 msgstr ""
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1258
+#. name:named after artist, name:named after work
+#: DB:link_type/link_phrase:1258 DB:link_type/reverse_link_phrase:1265
 msgid "inspired the name of label"
 msgstr ""
 
@@ -7195,7 +7232,7 @@ msgid "is named after release group"
 msgstr ""
 
 #. name:named after work
-#: DB:link_type/long_link_phrase:972
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr ""
 
@@ -7926,7 +7963,8 @@ msgid "named after release group"
 msgstr ""
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#: DB:link_type/name:972 DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "Geonames page for"
 msgid "named after work"

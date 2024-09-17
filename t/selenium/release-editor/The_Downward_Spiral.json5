@@ -447,18 +447,32 @@
       target: "xpath=//a[@href='#recordings']",
       value: '',
     },
-    // Set the first track to an existing recording, pasting an MBID.
+    // Open the recording bubble for the first (non-pregap) track.
     {
       command: 'click',
       target: "xpath=(//button[contains(@class, 'edit-track-recording')])[2]",
       value: '',
     },
+    // Type some text into the input without selecting an existing recording
+    // and check that the "Update the recording title to match the track
+    // title" checkbox isn't shown (MBS-13744).
+    {
+      command: 'type',
+      target: "xpath=//div[@id='recording-assoc-bubble']//span[contains(@class, 'autocomplete')]//input[contains(@class, 'name')]",
+      value: 'Some text to search for',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelectorAll('input.update-recording-title').length",
+      value: '0',
+    },
+    // Set the first track to an existing recording, pasting an MBID.
     {
       command: 'type',
       target: "xpath=//div[@id='recording-assoc-bubble']//span[contains(@class, 'autocomplete')]//input[contains(@class, 'name')]",
       value: '96f64611-49df-4e54-84e7-0f9a30f01766',
     },
-    // Set the first track to an existing recording, searching for it.
+    // Set the second track to an existing recording, searching for it.
     {
       command: 'click',
       target: "xpath=(//button[contains(@class, 'edit-track-recording')])[3]",

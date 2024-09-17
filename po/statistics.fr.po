@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2024-08-23 12:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/fr/>\n"
 "Language: fr\n"
@@ -31,93 +31,93 @@ msgstr ""
 "1000000 == 0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.6.2\n"
 
-#: ../root/statistics/timeline.tt:18
+#: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
 msgstr "Ajouter/supprimer des lignes :"
 
-#: ../root/statistics/timeline.tt:18
+#: ../root/statistics/timeline.tt:19
 msgid "Check boxes above"
 msgstr "Cochez les cases ci-dessus"
 
-#: ../root/statistics/timeline.tt:17
+#: ../root/statistics/timeline.tt:18
 msgid "Click to deselect"
 msgstr "Cliquez pour désélectionner"
 
-#: ../root/statistics/timeline.tt:14
+#: ../root/statistics/timeline.tt:15
 msgid "Controls"
 msgstr "Contrôles"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:39
+#: ../root/statistics/layout.tt:5 ../root/statistics/Countries.js:39
 msgid "Countries"
 msgstr "Pays"
 
-#: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
+#: ../root/statistics/layout.tt:25 ../root/statistics/layout.tt:37
 #: ../root/statistics/StatisticsLayout.js:86
 #: ../root/statistics/StatisticsLayout.js:100
 msgid "Database statistics"
 msgstr "Statistiques de la base de données"
 
-#: ../root/statistics/layout.tt:15
+#: ../root/statistics/layout.tt:16
 msgid "Database statistics - {title}"
 msgstr "Statistiques de la base de données - {title}"
 
-#: ../root/statistics/timeline.tt:16
+#: ../root/statistics/timeline.tt:17
 msgid "Draw a rectangle on either graph"
 msgstr "Dessinez un rectangle sur l’un des graphiques"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:88
+#: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:88
 #: ../root/statistics/Editors.js:100 ../root/statistics/Index.js:1123
 msgid "Editors"
 msgstr "Éditeurs"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:30
+#: ../root/statistics/layout.tt:5 ../root/statistics/Edits.js:30
 #: ../root/statistics/Edits.js:34 ../root/statistics/Edits.js:43
 #: ../root/statistics/Index.js:1249 ../root/statistics/Index.js:1252
 #: ../root/statistics/Index.js:1301 ../root/statistics/stats.js:296
 msgid "Edits"
 msgstr "Modifications"
 
-#: ../root/statistics/timeline.tt:28
+#: ../root/statistics/timeline.tt:30
 msgid "Exact values (items vs. day)"
 msgstr "Valeurs exactes (articles vs jour)"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/stats.js:27
+#: ../root/statistics/layout.tt:5 ../root/statistics/stats.js:27
 msgid "Formats"
 msgstr "Formats"
 
-#: ../root/statistics/timeline.tt:19
+#: ../root/statistics/timeline.tt:20
 msgid "Hover and click on vertical lines"
 msgstr "Survolez et cliquez sur les lignes verticales"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Images.js:70
+#: ../root/statistics/layout.tt:5 ../root/statistics/Images.js:70
 msgid "Images"
 msgstr "Images"
 
-#: ../root/statistics/layout.tt:4
+#: ../root/statistics/layout.tt:5
 msgid "Languages/Scripts"
 msgstr "Langues/systèmes d’écriture"
 
-#: ../root/statistics/timeline.tt:2
+#: ../root/statistics/timeline.tt:3
 msgid "Legend"
 msgstr "Légende"
 
-#: ../root/statistics/timeline.tt:6 ../root/statistics/timeline.tt:19
+#: ../root/statistics/timeline.tt:7 ../root/statistics/timeline.tt:20
 msgid "MusicBrainz events"
 msgstr "Événements MusicBrainz"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:64
+#: ../root/statistics/layout.tt:5 ../root/statistics/Index.js:64
 msgid "Overview"
 msgstr "Aperçu"
 
-#: ../root/statistics/timeline.tt:30
+#: ../root/statistics/timeline.tt:32
 msgid "Rate of change (average items/day vs. day)"
 msgstr "Taux de modification (articles moyens/jour vs jour)"
 
-#: ../root/statistics/timeline.tt:10
+#: ../root/statistics/timeline.tt:11
 msgid "Rate of change graph"
 msgstr "Graphique du taux de modification"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:146
+#: ../root/statistics/layout.tt:5 ../root/statistics/Index.js:146
 #: ../root/statistics/Relationships.js:90
 #: ../root/statistics/Relationships.js:95
 #: ../root/statistics/Relationships.js:110 ../root/statistics/stats.js:34
@@ -125,19 +125,19 @@ msgstr "Graphique du taux de modification"
 msgid "Relationships"
 msgstr "Relations"
 
-#: ../root/statistics/timeline.tt:17
+#: ../root/statistics/timeline.tt:18
 msgid "Reset:"
 msgstr "Réinitialisation :"
 
-#: ../root/statistics/layout.tt:4
+#: ../root/statistics/layout.tt:5
 msgid "Timeline"
 msgstr "Chronologie"
 
-#: ../root/statistics/timeline.tt:25
+#: ../root/statistics/timeline.tt:27
 msgid "Timeline graph"
 msgstr "Graphique chronologique"
 
-#: ../root/statistics/timeline.tt:16
+#: ../root/statistics/timeline.tt:17
 msgid "Zoom:"
 msgstr "Zoom :"
 

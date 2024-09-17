@@ -37,7 +37,7 @@ function markTabWithErrors($panel) {
   var tabs = releaseEditor.uiTabs;
 
   var $errors = $('.field-error', $panel).filter(function () {
-    return $(this).data('visible') && $(this).text();
+    return String($(this).data('visible')) === 'true' && $(this).text();
   });
 
   tabs.tabs.eq(tabs.panels.index($panel))

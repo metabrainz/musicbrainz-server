@@ -8,8 +8,6 @@
  */
 
 import {CatalystContext} from '../../../context.mjs';
-import typeof EntityLink
-  from '../../../static/scripts/common/components/EntityLink.js';
 import entityHref from '../../../static/scripts/common/utility/entityHref.js';
 import {returnToCurrentPage} from '../../../utility/returnUri.js';
 
@@ -117,7 +115,7 @@ component CollectionList(
   ownCollectionsNoneText: string,
   sectionClass: string,
   userExists: boolean,
-  usersLink: React.Element<EntityLink>,
+  usersLink: React.MixedElement,
   usersLinkHeader: string,
 ) {
   return (

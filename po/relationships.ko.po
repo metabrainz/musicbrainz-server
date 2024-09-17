@@ -2095,6 +2095,13 @@ msgid ""
 "artists and repertoire (A&R) position."
 msgstr ""
 
+#. name:executive position
+#: DB:link_type/description:1266
+msgid ""
+"This indicates that an artist was officially employed by a label in an "
+"executive position, such as CEO, president or director."
+msgstr ""
+
 #. name:parts
 #: DB:link_type/description:818
 msgid ""
@@ -2554,6 +2561,11 @@ msgstr ""
 #. name:named after work
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
+msgstr ""
+
+#. name:named after work
+#: DB:link_type/description:1265
+msgid "This indicates the work that inspired this label’s name."
 msgstr ""
 
 #. name:podcast feed
@@ -5681,6 +5693,16 @@ msgstr ""
 msgid "executive"
 msgstr ""
 
+#. name:executive position
+#: DB:link_type/name:1266 DB:link_type/link_phrase:1266
+msgid "executive position"
+msgstr ""
+
+#. name:executive position
+#: DB:link_type/reverse_link_phrase:1266
+msgid "executives"
+msgstr ""
+
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
 #: DB:link_type/reverse_link_phrase:172 DB:link_type/reverse_link_phrase:1189
@@ -5885,6 +5907,11 @@ msgstr ""
 #. name:engineer position
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
+msgstr ""
+
+#. name:executive position
+#: DB:link_type/long_link_phrase:1266
+msgid "had an executive position at"
 msgstr ""
 
 #. name:tribute to
@@ -6497,8 +6524,8 @@ msgstr ""
 msgid "inspired the name of genre"
 msgstr ""
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1258
+#. name:named after artist, name:named after work
+#: DB:link_type/link_phrase:1258 DB:link_type/reverse_link_phrase:1265
 msgid "inspired the name of label"
 msgstr ""
 
@@ -6718,7 +6745,7 @@ msgid "is named after release group"
 msgstr ""
 
 #. name:named after work
-#: DB:link_type/long_link_phrase:972
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr ""
 
@@ -7443,7 +7470,8 @@ msgid "named after release group"
 msgstr ""
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#: DB:link_type/name:972 DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1265
 msgid "named after work"
 msgstr ""
 

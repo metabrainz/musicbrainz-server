@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-22 00:45+0000\n"
+"PO-Revision-Date: 2024-09-07 18:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -2176,8 +2176,8 @@ msgid ""
 "This indicates an agency who provided artwork for the release when no more "
 "specific information is available."
 msgstr ""
-"Indica un'agenzia che ha curato le copertine della pubblicazione quando non "
-"sono disponibili informazioni più specifiche."
+"Indica un'agenzia che ha fornito materiale grafico per la pubblicazione "
+"quando non sono disponibili informazioni più specifiche."
 
 #. name:founder
 #: DB:link_type/description:895
@@ -2315,8 +2315,8 @@ msgid ""
 "This indicates an artist who provided artwork for a video recording when no "
 "more specific information is available."
 msgstr ""
-"Indica un artista che ha curato il materiale illustrativo di una "
-"registrazione video quando non sono disponibili informazioni più specifiche."
+"Indica un artista che ha fornito materiale grafico per una registrazione "
+"video quando non sono disponibili informazioni più specifiche."
 
 #. name:artwork
 #: DB:link_type/description:1231
@@ -2324,8 +2324,8 @@ msgid ""
 "This indicates an artist who provided artwork for the event when no more "
 "specific information is available."
 msgstr ""
-"Indica un artista che ha curato il materiale illustrativo dell'evento quando "
-"non sono disponibili informazioni più specifiche."
+"Indica un artista che ha fornito materiale grafico per l'evento quando non "
+"sono disponibili informazioni più specifiche."
 
 #. name:artwork
 #: DB:link_type/description:993
@@ -2333,8 +2333,8 @@ msgid ""
 "This indicates an artist who provided artwork for the release when no more "
 "specific information is available."
 msgstr ""
-"Indica un artista che ha curato le copertine della pubblicazione quando non "
-"sono disponibili informazioni più specifiche."
+"Indica un artista che ha fornito materiale grafico per la pubblicazione "
+"quando non sono disponibili informazioni più specifiche."
 
 #. name:concertmaster
 #: DB:link_type/description:760
@@ -2561,6 +2561,16 @@ msgid ""
 msgstr ""
 "Indica che un artista è stato impiegato ufficialmente da un'etichetta in una "
 "posizione di addetto artisti e repertorio (A&R)."
+
+#. name:executive position
+#: DB:link_type/description:1266
+msgid ""
+"This indicates that an artist was officially employed by a label in an "
+"executive position, such as CEO, president or director."
+msgstr ""
+"Indica che un artista è stato impiegato ufficialmente da un'etichetta in una "
+"posizione dirigenziale, per es. come amministratore delegato, presidente o "
+"direttore."
 
 #. name:parts
 #: DB:link_type/description:818
@@ -2861,8 +2871,8 @@ msgid ""
 "target=\"_blank\">record label</a>, nor as mastering engineering."
 msgstr ""
 "Indica la società che ha creato il master in vetro per una pubblicazione. "
-"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" target="
-"\"_blank\">etichetta discografica</a>, né del lavoro del tecnico di "
+"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" "
+"target=\"_blank\">etichetta discografica</a>, né del lavoro del tecnico di "
 "mastering."
 
 #. name:owner
@@ -2905,8 +2915,8 @@ msgstr ""
 "Indica l'organizzazione che si occupa direttamente della distribuzione (o "
 "che stipula contratti di distribuzione). \n"
 "\n"
-"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" target="
-"\"_blank\">etichetta discografica</a>."
+"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" "
+"target=\"_blank\">etichetta discografica</a>."
 
 #. name:manufactured
 #: DB:link_type/description:360
@@ -2918,8 +2928,8 @@ msgid ""
 msgstr ""
 "Indica l'organizzazione che si occupa direttamente della fabbricazione (o "
 "che stipula contratti di fabbricazione).\n"
-"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" target="
-"\"_blank\">etichetta discografica</a>."
+"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" "
+"target=\"_blank\">etichetta discografica</a>."
 
 #. name:marketed
 #: DB:link_type/description:848
@@ -2929,8 +2939,8 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Indica l'organizzazione che commercializza una pubblicazione. <strong>Non</"
-"strong> è la stessa cosa dell'<a href=\"/doc/Label\" target=\"_blank\""
-">etichetta discografica</a>."
+"strong> è la stessa cosa dell'<a href=\"/doc/Label\" "
+"target=\"_blank\">etichetta discografica</a>."
 
 #. name:printed
 #: DB:link_type/description:985
@@ -2940,8 +2950,8 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Indica l'organizzazione che ha stampato una pubblicazione. <strong>Non</"
-"strong> è la stessa cosa dell'<a href=\"/doc/Label\" target=\"_blank\""
-">etichetta discografica</a>."
+"strong> è la stessa cosa dell'<a href=\"/doc/Label\" "
+"target=\"_blank\">etichetta discografica</a>."
 
 #. name:promoted
 #: DB:link_type/description:359
@@ -3071,8 +3081,8 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Indica la società di pressatura che ha pressato una pubblicazione. "
-"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" target="
-"\"_blank\">etichetta discografica</a>."
+"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" "
+"target=\"_blank\">etichetta discografica</a>."
 
 #. name:sub
 #: DB:link_attribute_type/description:1310
@@ -3165,6 +3175,11 @@ msgstr ""
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
 msgstr "Indica l'opera che ha ispirato il nome di quest'artista."
+
+#. name:named after work
+#: DB:link_type/description:1265
+msgid "This indicates the work that inspired this label’s name."
+msgstr "Indica l'opera che ha ispirato il nome di quest'etichetta."
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -5256,7 +5271,7 @@ msgid ""
 "event can be purchased."
 msgstr ""
 "Questo tipo di relazione serve a collegare una pagina da cui è possibile "
-"acquistare materiale illustrativo su questo evento."
+"acquistare materiale grafico di questo evento."
 
 #. name:purchase for mail-order
 #: DB:link_type/description:960
@@ -6062,12 +6077,12 @@ msgstr "posizione di addetto artisti e repertorio (A&R)"
 #: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
 #: DB:link_type/name:1170
 msgid "artwork"
-msgstr "copertine"
+msgstr "materiale grafico"
 
 #. name:purchase artwork
 #: DB:link_type/long_link_phrase:1254
 msgid "artwork can be purchased at"
-msgstr "materiale illustrativo acquistabile su"
+msgstr "materiale grafico acquistabile su"
 
 #: DB:link_attribute_type/name:526
 msgid "assistant"
@@ -6912,7 +6927,17 @@ msgstr "estratti"
 
 #: DB:link_attribute_type/name:425
 msgid "executive"
-msgstr "esecutivo"
+msgstr "dirigente"
+
+#. name:executive position
+#: DB:link_type/name:1266 DB:link_type/link_phrase:1266
+msgid "executive position"
+msgstr "posizione dirigenziale"
+
+#. name:executive position
+#: DB:link_type/reverse_link_phrase:1266
+msgid "executives"
+msgstr "dirigenti"
 
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
@@ -7119,6 +7144,11 @@ msgstr "ha avuto una posizione di addetto artisti e repertorio (A&R) presso"
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr "ha avuto una posizione di tecnico presso"
+
+#. name:executive position
+#: DB:link_type/long_link_phrase:1266
+msgid "had an executive position at"
+msgstr "ha avuto una posizione dirigenziale presso"
 
 #. name:tribute to
 #: DB:link_type/long_link_phrase:936
@@ -7731,8 +7761,8 @@ msgstr "ha ispirato il nome dell'artista"
 msgid "inspired the name of genre"
 msgstr "ha ispirato il nome del genere"
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1258
+#. name:named after artist, name:named after work
+#: DB:link_type/link_phrase:1258 DB:link_type/reverse_link_phrase:1265
 msgid "inspired the name of label"
 msgstr "ha ispirato il nome dell'etichetta"
 
@@ -7952,7 +7982,7 @@ msgid "is named after release group"
 msgstr "prende il nome dal gruppo di pubblicazioni"
 
 #. name:named after work
-#: DB:link_type/long_link_phrase:972
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr "prende il nome dall'opera"
 
@@ -8684,7 +8714,8 @@ msgid "named after release group"
 msgstr "prende il nome dal gruppo di pubblicazioni"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/link_phrase:972
+#: DB:link_type/name:972 DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1265
 msgid "named after work"
 msgstr "prende il nome dall'opera"
 
@@ -9283,7 +9314,7 @@ msgstr "ha fornito direzione artistica {additional:aggiuntiva} su"
 #: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:1241
 #: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
-msgstr "ha curato le copertine {additional:in aggiunta} di"
+msgstr "ha fornito materiale grafico {additional:aggiuntivo} per"
 
 #. name:creative direction
 #: DB:link_type/long_link_phrase:63 DB:link_type/long_link_phrase:146
@@ -9362,7 +9393,7 @@ msgstr "etichetta editoriale"
 #. name:purchase artwork
 #: DB:link_type/name:1254 DB:link_type/link_phrase:1254
 msgid "purchase artwork"
-msgstr "acquistare materiale illustrativo"
+msgstr "acquistare materiale grafico"
 
 #. name:purchase for download
 #: DB:link_type/name:912 DB:link_type/name:959 DB:link_type/name:254
@@ -9390,7 +9421,7 @@ msgstr "acquistare musica per corrispondenza"
 #. name:purchase artwork
 #: DB:link_type/reverse_link_phrase:1254
 msgid "purchase page for the artwork of"
-msgstr "pagina di acquisto per il materiale illustrativo di"
+msgstr "pagina di acquisto per il materiale grafico di"
 
 #. name:purchase for download
 #: DB:link_type/reverse_link_phrase:912
@@ -10905,7 +10936,7 @@ msgstr "direzione artistica {additional:aggiuntiva}"
 #: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
 #: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
 msgid "{additional} artwork"
-msgstr "copertine {additional:aggiuntive}"
+msgstr "materiale grafico {additional:aggiuntivo}"
 
 #. name:composer
 #: DB:link_type/reverse_link_phrase:55 DB:link_type/reverse_link_phrase:168
@@ -11214,15 +11245,11 @@ msgstr ""
 
 #. name:engineer
 #: DB:link_type/reverse_link_phrase:1084
-#, fuzzy
-#| msgid ""
-#| "{additional} {assistant} {associate} {co:co-}{executive:executive }"
-#| "engineer"
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineers"
 msgstr ""
-"{assistant:assistente} {co:co-}tecnico {executive:esecutivo} {associate:"
-"associato} {additional:aggiunto}"
+"{assistant:assistenti} {co:co-}tecnici {executive:esecutivi} "
+"{associate:associati} {additional:aggiunti}"
 
 #. name:producer
 #: DB:link_type/reverse_link_phrase:141 DB:link_type/reverse_link_phrase:30

@@ -76,8 +76,7 @@ function buildLinks(
   $c: CatalystContextT,
   entity: RelatableEntityT,
   page?: string,
-  editTab: ?React.Element<typeof EntityTabLink>,
-): $ReadOnlyArray<React.Element<typeof EntityTabLink>> {
+): $ReadOnlyArray<React.MixedElement> {
   const links = [buildLink(l('Overview'), entity, '', page, false, 'index')];
   const user = $c.user;
 
@@ -165,13 +164,9 @@ function buildLinks(
   }
 
   if (showEditTab(user, entity)) {
-    if (editTab) {
-      links.push(editTab);
-    } else {
-      links.push(
-        buildLink(lp('Edit', 'verb, interactive'), entity, 'edit', page),
-      );
-    }
+    links.push(
+      buildLink(lp('Edit', 'verb, interactive'), entity, 'edit', page),
+    );
   }
 
   if (entity.entityType === 'release') {
@@ -187,14 +182,13 @@ function buildLinks(
 }
 
 component EntityTabs(
-  editTab: ?React.Element<typeof EntityTabLink>,
   entity: RelatableEntityT,
   page?: string,
 ) {
   return (
     <Tabs>
       <CatalystContext.Consumer>
-        {($c: CatalystContextT) => buildLinks($c, entity, page, editTab)}
+        {($c: CatalystContextT) => buildLinks($c, entity, page)}
       </CatalystContext.Consumer>
     </Tabs>
   );

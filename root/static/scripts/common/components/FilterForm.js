@@ -113,51 +113,53 @@ function getSubmitText(type: string) {
   return '';
 }
 
-type FieldProps = {
+component ArtistCreditField(
   field: FieldT<number>,
   options: SelectOptionsT,
-};
+) {
+  return (
+    <tr>
+      <td>
+        {addColonText(l('Artist credit'))}
+      </td>
+      <td>
+        <SelectField
+          field={field}
+          options={{
+            grouped: false,
+            options,
+          }}
+          style={{maxWidth: '40em'}}
+          uncontrolled
+        />
+      </td>
+    </tr>
+  );
+}
 
-const ArtistCreditField = ({
-  field,
-  options,
-}: FieldProps): React.Element<'tr'> => (
-  <tr>
-    <td>
-      {addColonText(l('Artist credit'))}
-    </td>
-    <td>
-      <SelectField
-        field={field}
-        options={{
-          grouped: false,
-          options,
-        }}
-        style={{maxWidth: '40em'}}
-        uncontrolled
-      />
-    </td>
-  </tr>
-);
-
-const TypeField = ({field, options}: FieldProps): React.Element<'tr'> => (
-  <tr>
-    <td>
-      {addColonText(l('Type'))}
-    </td>
-    <td>
-      <SelectField
-        field={field}
-        options={{
-          grouped: false,
-          options,
-        }}
-        style={{maxWidth: '40em'}}
-        uncontrolled
-      />
-    </td>
-  </tr>
-);
+component TypeField(
+  field: FieldT<number>,
+  options: SelectOptionsT,
+) {
+  return (
+    <tr>
+      <td>
+        {addColonText(l('Type'))}
+      </td>
+      <td>
+        <SelectField
+          field={field}
+          options={{
+            grouped: false,
+            options,
+          }}
+          style={{maxWidth: '40em'}}
+          uncontrolled
+        />
+      </td>
+    </tr>
+  );
+}
 
 component FilterForm(form: FilterFormT) {
   return (

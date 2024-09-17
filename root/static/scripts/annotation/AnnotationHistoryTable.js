@@ -15,11 +15,6 @@ import EditorLink from '../common/components/EditorLink.js';
 import bracketed from '../common/utility/bracketed.js';
 import parseInteger from '../common/utility/parseInteger.js';
 
-type Props = {
-  +annotations: $ReadOnlyArray<AnnotationT>,
-  +baseUrl: string,
-};
-
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
   | {+type: 'update-new', +index: number}
@@ -60,10 +55,10 @@ function reducer(state: StateT, action: ActionT): StateT {
   return newState;
 }
 
-const AnnotationHistoryTable = ({
-  annotations,
-  baseUrl,
-}: Props): React.Element<'table'> => {
+component AnnotationHistoryTable(
+  annotations: $ReadOnlyArray<AnnotationT>,
+  baseUrl: string,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
 
   const canCompare = annotations.length > 1;
@@ -159,9 +154,9 @@ const AnnotationHistoryTable = ({
       </tbody>
     </table>
   );
-};
+}
 
-export default (hydrate<Props>(
+export default (hydrate<React.PropsOf<AnnotationHistoryTable>>(
   'div.annotation-history-table',
   AnnotationHistoryTable,
-): React.AbstractComponent<Props, void>);
+): React.AbstractComponent<React.PropsOf<AnnotationHistoryTable>>);

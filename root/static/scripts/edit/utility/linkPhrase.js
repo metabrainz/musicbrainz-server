@@ -323,8 +323,8 @@ export const interpolate = (
   attributes: $ReadOnlyArray<LinkAttrT>,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false, // eslint-disable-line default-param-last
-  entity0?: React$MixedElement,
-  entity1?: React$MixedElement,
+  entity0?: React.MixedElement,
+  entity1?: React.MixedElement,
 ): Expand2ReactOutput | string => getPhraseAndExtraAttributes<
   Expand2ReactOutput,
   Expand2ReactInput,

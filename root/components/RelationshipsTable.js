@@ -97,7 +97,7 @@ component RelationshipsTable(
     +phrase: string,
   }>;
 
-  const tableRows: Array<React$MixedElement> = [];
+  const tableRows: Array<React.MixedElement> = [];
 
   const setColumnVariables = (
     targetType: RelatableEntityTypeT,
@@ -130,7 +130,7 @@ component RelationshipsTable(
 
   const getRelationshipRows = (
     linkTypeGroup: PagedLinkTypeGroupT | PagedLinkTypeGroupWithPhraseT,
-    rows: Array<React$MixedElement>,
+    rows: Array<React.MixedElement>,
   ) => {
     let index = 0;
 
@@ -255,7 +255,7 @@ component RelationshipsTable(
         .sort((a, b) => compare(a.phrase, b.phrase));
 
       for (const linkTypeGroup of linkTypeGroups) {
-        const relationshipRows: Array<React$MixedElement> = [];
+        const relationshipRows: Array<React.MixedElement> = [];
         getRelationshipRows(linkTypeGroup, relationshipRows);
 
         const key = linkTypeGroup.link_type_id + '-' +
@@ -329,7 +329,7 @@ component RelationshipsTable(
       </tbody>
     </table>
   );
-  let pageContent: React$MixedElement = tableElement;
+  let pageContent: React.MixedElement = tableElement;
   let finalHeading = heading;
 
   if (pagedLinkTypeGroup /*:: && pager */) {

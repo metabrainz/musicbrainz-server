@@ -19,93 +19,93 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.3\n"
 
-#: ../root/statistics/timeline.tt:18
+#: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
 msgstr "Joonte lisamine/eemaldamine:"
 
-#: ../root/statistics/timeline.tt:18
+#: ../root/statistics/timeline.tt:19
 msgid "Check boxes above"
 msgstr "Vali ülalolevaid märkeruute"
 
-#: ../root/statistics/timeline.tt:17
+#: ../root/statistics/timeline.tt:18
 msgid "Click to deselect"
 msgstr "Klõpsa valiku eemaldamiseks"
 
-#: ../root/statistics/timeline.tt:14
+#: ../root/statistics/timeline.tt:15
 msgid "Controls"
 msgstr "Juhtimine"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:39
+#: ../root/statistics/layout.tt:5 ../root/statistics/Countries.js:39
 msgid "Countries"
 msgstr "Riigid"
 
-#: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
+#: ../root/statistics/layout.tt:25 ../root/statistics/layout.tt:37
 #: ../root/statistics/StatisticsLayout.js:86
 #: ../root/statistics/StatisticsLayout.js:100
 msgid "Database statistics"
 msgstr "Andmebaasi statistika"
 
-#: ../root/statistics/layout.tt:15
+#: ../root/statistics/layout.tt:16
 msgid "Database statistics - {title}"
 msgstr "Andmebaasi statistika - {title}"
 
-#: ../root/statistics/timeline.tt:16
+#: ../root/statistics/timeline.tt:17
 msgid "Draw a rectangle on either graph"
 msgstr "Joonista ristkülik emmal-kummal graafikul"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:88
+#: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:88
 #: ../root/statistics/Editors.js:100 ../root/statistics/Index.js:1123
 msgid "Editors"
 msgstr "Toimetajad"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:30
+#: ../root/statistics/layout.tt:5 ../root/statistics/Edits.js:30
 #: ../root/statistics/Edits.js:34 ../root/statistics/Edits.js:43
 #: ../root/statistics/Index.js:1249 ../root/statistics/Index.js:1252
 #: ../root/statistics/Index.js:1301 ../root/statistics/stats.js:296
 msgid "Edits"
 msgstr "Toimetused"
 
-#: ../root/statistics/timeline.tt:28
+#: ../root/statistics/timeline.tt:30
 msgid "Exact values (items vs. day)"
 msgstr "Täpsed väärtused (elementide arv vastaval päeval)"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/stats.js:27
+#: ../root/statistics/layout.tt:5 ../root/statistics/stats.js:27
 msgid "Formats"
 msgstr "Formaadid"
 
-#: ../root/statistics/timeline.tt:19
+#: ../root/statistics/timeline.tt:20
 msgid "Hover and click on vertical lines"
 msgstr "Vii kursor püstjoonele ja klõpsa"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Images.js:70
+#: ../root/statistics/layout.tt:5 ../root/statistics/Images.js:70
 msgid "Images"
 msgstr ""
 
-#: ../root/statistics/layout.tt:4
+#: ../root/statistics/layout.tt:5
 msgid "Languages/Scripts"
 msgstr "Keeled ja kirjad"
 
-#: ../root/statistics/timeline.tt:2
+#: ../root/statistics/timeline.tt:3
 msgid "Legend"
 msgstr "Legend"
 
-#: ../root/statistics/timeline.tt:6 ../root/statistics/timeline.tt:19
+#: ../root/statistics/timeline.tt:7 ../root/statistics/timeline.tt:20
 msgid "MusicBrainz events"
 msgstr "MusicBrainzi sündmused"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:64
+#: ../root/statistics/layout.tt:5 ../root/statistics/Index.js:64
 msgid "Overview"
 msgstr "Ülevaade"
 
-#: ../root/statistics/timeline.tt:30
+#: ../root/statistics/timeline.tt:32
 msgid "Rate of change (average items/day vs. day)"
 msgstr "Muutumiskiirus (keskmine elementide arvu muutus vastaval päeval)"
 
-#: ../root/statistics/timeline.tt:10
+#: ../root/statistics/timeline.tt:11
 msgid "Rate of change graph"
 msgstr "Muutumiskiiruse graafik"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:146
+#: ../root/statistics/layout.tt:5 ../root/statistics/Index.js:146
 #: ../root/statistics/Relationships.js:90
 #: ../root/statistics/Relationships.js:95
 #: ../root/statistics/Relationships.js:110 ../root/statistics/stats.js:34
@@ -113,19 +113,19 @@ msgstr "Muutumiskiiruse graafik"
 msgid "Relationships"
 msgstr "Seosed"
 
-#: ../root/statistics/timeline.tt:17
+#: ../root/statistics/timeline.tt:18
 msgid "Reset:"
 msgstr "Lähtestamine:"
 
-#: ../root/statistics/layout.tt:4
+#: ../root/statistics/layout.tt:5
 msgid "Timeline"
 msgstr "Ajatelg"
 
-#: ../root/statistics/timeline.tt:25
+#: ../root/statistics/timeline.tt:27
 msgid "Timeline graph"
 msgstr "Ajatelg"
 
-#: ../root/statistics/timeline.tt:16
+#: ../root/statistics/timeline.tt:17
 msgid "Zoom:"
 msgstr "Suurendamine:"
 

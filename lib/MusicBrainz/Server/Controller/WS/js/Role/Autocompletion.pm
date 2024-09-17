@@ -17,10 +17,12 @@ sub model {
 sub dispatch_search {
     my ($self, $c) = @_;
 
-    my $query = trim $c->stash->{args}->{q};
-    my $limit = $c->stash->{args}->{limit} || 10;
-    my $page = $c->stash->{args}->{page} || 1;
-    my $direct = $c->stash->{args}->{direct} || '';
+    my $args = $c->stash->{args};
+    my $query = trim $args->{q};
+    my $limit = $args->{limit} || 10;
+    my $page = $args->{page} || 1;
+    my $direct = $args->{direct} || '';
+    my $advanced = $args->{advanced} || '';
 
     unless ($query) {
         $c->detach('bad_req');
@@ -28,7 +30,8 @@ sub dispatch_search {
 
     my ($output, $pager) =
         $direct eq 'true' ? $self->_direct_search($c, $query, $page, $limit)
-                          : $self->_indexed_search($c, $query, $page, $limit);
+                          : $self->_indexed_search($c, $query, $page, $limit,
+                                                   $advanced eq 'true');
     my $serialization_routine = 'autocomplete_' . $self->type;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -74,11 +77,17 @@ sub _format_output {
 }
 
 sub _indexed_search {
-    my ($self, $c, $query, $page, $limit) = @_;
+    my ($self, $c, $query, $page, $limit, $advanced) = @_;
 
     my $model = $self->model($c);
 
-    my $response = $c->model('Search')->external_search($self->type, $query, $limit, $page, 0);
+    my $response = $c->model('Search')->external_search(
+        $self->type,
+        $query,
+        $limit,
+        $page,
+        $advanced,
+    );
     my (@output, $pager);
 
     if ($response->{error}) {
@@ -89,15 +98,12 @@ sub _indexed_search {
         $c->detach;
     } else {
         $pager = $response->{pager};
-
-        for my $result (@{ $response->{results} })
-        {
-            next unless $result->entity->{gid};
-            my $entity = $model->get_by_gid($result->{entity}->gid);
-            next unless $entity;
-            push @output, $entity;
-        }
-
+        my @gids = map {
+            my $gid = $_->entity->{gid};
+            $gid ? $gid : ()
+        } @{ $response->{results} };
+        my $entity_map = $model->get_by_gids(@gids);
+        @output = map { $entity_map->{$_} } @gids;
         $self->_load_entities($c, @output);
     }
 

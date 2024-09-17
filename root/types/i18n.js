@@ -19,7 +19,7 @@ declare type AnchorProps = {
 
 declare type VarSubstScalarArg =
   | StrOrNum
-  | React$MixedElement;
+  | React.MixedElement;
 
 declare type VarSubstArg =
   | VarSubstScalarArg
@@ -29,7 +29,7 @@ declare type Expand2ReactInput = VarSubstArg | AnchorProps;
 
 declare type Expand2ReactScalarOutput =
   | string
-  | React$MixedElement;
+  | React.MixedElement;
 
 declare type Expand2ReactOutput =
   | Expand2ReactScalarOutput

@@ -3,15 +3,15 @@
 
 declare module 'he' {
   declare type encodeOptions = {
-    useNamedReferences?: bool,
-    decimal?: bool,
-    encodeEverything?: bool,
-    strict?: bool,
-    allowUnsafeSymbols?: bool,
+    useNamedReferences?: boolean,
+    decimal?: boolean,
+    encodeEverything?: boolean,
+    strict?: boolean,
+    allowUnsafeSymbols?: boolean,
   };
   declare type decodeOptions = {
-    isAttributeValue?: bool,
-    strict?: bool,
+    isAttributeValue?: boolean,
+    strict?: boolean,
   };
   declare module.exports: {
     version: string,

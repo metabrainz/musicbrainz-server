@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-24 11:42+0000\n"
+"PO-Revision-Date: 2024-09-08 08:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/lt/>\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.5.4\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -1295,6 +1295,16 @@ msgstr "kinjaruanda"
 msgid "Kirghiz"
 msgstr "kirgizų"
 
+#. frequency:1 iso_code_3:mkw
+#: DB:language/name:4291
+msgid "Kituba (Congo)"
+msgstr "kitubų (Kongas)"
+
+#. frequency:1 iso_code_3:ktu
+#: DB:language/name:3568
+msgid "Kituba (Democratic Republic of Congo)"
+msgstr "kitubų (Kongo Demokratinė Respublika)"
+
 #. frequency:1 iso_code_3:tlh
 #: DB:language/name:421
 msgid "Klingon"
@@ -1308,12 +1318,12 @@ msgstr "komių"
 #. frequency:1 iso_code_3:kon
 #: DB:language/name:223
 msgid "Kongo"
-msgstr "Kongų"
+msgstr "kongų"
 
 #. frequency:1 iso_code_3:kok
 #: DB:language/name:221
 msgid "Konkani"
-msgstr "Konkanų"
+msgstr "konkanų"
 
 #. frequency:2 iso_code_3:kor
 #: DB:language/name:224
@@ -1323,7 +1333,7 @@ msgstr "korėjiečių"
 #. frequency:1 iso_code_3:kos
 #: DB:language/name:225
 msgid "Kosraean"
-msgstr "Kosrajų"
+msgstr "kosrajų"
 
 #. frequency:1 iso_code_3:kpe
 #: DB:language/name:226
@@ -2673,92 +2683,92 @@ msgstr ""
 #. frequency:1 iso_code_3:sah
 #: DB:language/name:356
 msgid "Yakut"
-msgstr ""
+msgstr "jakutų"
 
 #. frequency:1 iso_code_3:yao
 #: DB:language/name:461
 msgid "Yao"
-msgstr "Jao"
+msgstr "jao"
 
 #. frequency:1 iso_code_3:yap
 #: DB:language/name:462
 msgid "Yapese"
-msgstr "Japiečių"
+msgstr "japiečių"
 
 #. frequency:1 iso_code_3:yid
 #: DB:language/name:463
 msgid "Yiddish"
-msgstr "Jidiš"
+msgstr "jidiš"
 
 #. frequency:1 iso_code_3:yox
 #: DB:language/name:7602
 msgid "Yoron"
-msgstr "Joronų"
+msgstr "joronų"
 
 #. frequency:1 iso_code_3:yor
 #: DB:language/name:464
 msgid "Yoruba"
-msgstr "Jorubų"
+msgstr "jorubų"
 
 #. frequency:1 iso_code_3:yua
 #: DB:language/name:7636
 msgid "Yucateco"
-msgstr "Jukatekų"
+msgstr "jukatekų"
 
 #. frequency:1 iso_code_3:yue
 #: DB:language/name:7640
 msgid "Yue Chinese"
-msgstr "Jue kinų"
+msgstr "jue kinų (kantonų)"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:465
 msgid "Yupik languages"
-msgstr "Jupikų kalbos"
+msgstr "jupikų kalbos"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:469
 msgid "Zande languages"
-msgstr "Zandų kalbos"
+msgstr "zandų kalbos"
 
 #. frequency:1 iso_code_3:zap
 #: DB:language/name:466
 msgid "Zapotec"
-msgstr "Zapotekų"
+msgstr "zapotekų"
 
 #. frequency:1 iso_code_3:dje
 #: DB:language/name:2009
 msgid "Zarma"
-msgstr "Zarmų"
+msgstr "zarmų"
 
 #. frequency:1 iso_code_3:zza
 #: DB:language/name:483
 msgid "Zaza"
-msgstr "Zazų"
+msgstr "zazų"
 
 #. frequency:1 iso_code_3:zen
 #: DB:language/name:467
 msgid "Zenaga"
-msgstr "Zenagų"
+msgstr "zenagų"
 
 #. frequency:1 iso_code_3:zha
 #: DB:language/name:468
 msgid "Zhuang"
-msgstr "Džuangų"
+msgstr "džuangų"
 
 #. frequency:1 iso_code_3:zul
 #: DB:language/name:470
 msgid "Zulu"
-msgstr "Zulusų"
+msgstr "zulusų"
 
 #. frequency:1 iso_code_3:zun
 #: DB:language/name:471
 msgid "Zuni"
-msgstr "Zunų"
+msgstr "zunų"
 
 #. frequency:1 iso_code_3:qaa
 #: DB:language/name:24
 msgid "[Artificial (Other)]"
-msgstr "[Dirbtinis (Kitas)]"
+msgstr "[Dirbtinis (kiti)]"
 
 #. frequency:2 iso_code_3:mul
 #: DB:language/name:284

@@ -112,13 +112,13 @@ declare module 'react-dom' {
   ): null | Element | Text;
 
   declare function render<ElementType: React.ElementType>(
-    element: React.Element<ElementType>,
+    element: React.MixedElement,
     container: Element,
     callback?: () => void
   ): React.ElementRef<ElementType>;
 
   declare function hydrate<ElementType: React.ElementType>(
-    element: React.Element<ElementType>,
+    element: React.MixedElement,
     container: Element,
     callback?: () => void
   ): React.ElementRef<ElementType>;
@@ -145,7 +145,7 @@ declare module 'react-dom' {
     ElementType: React.ElementType
   >(
     parentComponent: React$Component<any, any>,
-    nextElement: React.Element<ElementType>,
+    nextElement: React.MixedElement,
     container: any,
     callback?: () => void
   ): React.ElementRef<ElementType>;
@@ -229,7 +229,7 @@ declare module 'react-dom/test-utils' {
   };
 
   declare function renderIntoDocument(
-    instance: React.Element<any>
+    instance: React.MixedElement
   ): React$Component<any, any>;
 
   declare function mockComponent(
@@ -237,10 +237,10 @@ declare module 'react-dom/test-utils' {
     mockTagName?: string
   ): { [key: string]: mixed, ... };
 
-  declare function isElement(element: React.Element<any>): boolean;
+  declare function isElement(element: React.MixedElement): boolean;
 
   declare function isElementOfType(
-    element: React.Element<any>,
+    element: React.MixedElement,
     componentClass: React.ElementType
   ): boolean;
 

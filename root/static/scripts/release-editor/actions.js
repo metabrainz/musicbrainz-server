@@ -9,17 +9,23 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
+import commaOnlyList from '../common/i18n/commaOnlyList.js';
 import {
   hasVariousArtists,
   isComplexArtistCredit,
   reduceArtistCredit,
 } from '../common/immutable-entities.js';
+import {bracketedText} from '../common/utility/bracketed.js';
+import request from '../common/utility/request.js';
 import deferFocus from '../edit/utility/deferFocus.js';
 import guessFeat from '../edit/utility/guessFeat.js';
 import GuessCase from '../guess-case/MB/GuessCase/Main.js';
 
 import fields from './fields.js';
+import utils from './utils.js';
 import releaseEditor from './viewModel.js';
+
+const maxDuplicateReleaseGroups = 5;
 
 const actions = {
 
@@ -56,6 +62,95 @@ const actions = {
   },
 
   // Information tab
+
+  selectReleaseGroup(releaseGroup) {
+    const release = this.rootField.release.peek();
+    release.releaseGroup(releaseGroup);
+  },
+
+  clearReleaseGroup() {
+    const release = this.rootField.release.peek();
+    release.releaseGroup(new fields.ReleaseGroup({
+      name: release.name.peek(),
+    }));
+  },
+
+  duplicateReleaseGroups: ko.observableArray([]),
+  loadingDuplicateReleaseGroups: ko.observable(false),
+  failedLoadingDuplicateReleaseGroups: ko.observable(false),
+  duplicateReleaseGroupsRequest: null,
+  duplicateReleaseGroupsQuery: null,
+
+  /**
+   * Query for existing release groups that are credited to any of the
+   * currently-credited artists and have similar names to the release.
+   */
+  loadDuplicateReleaseGroups() {
+    const release = this.rootField.release.peek();
+    const query = utils.constructLuceneFieldConjunction({
+      arid: release.artistCredit().names
+        .map((a) => a.artist?.gid)
+        .filter(Boolean),
+      releasegroup: [utils.escapeLuceneValue(release.name() ?? '')],
+    });
+    if (query === this.duplicateReleaseGroupsQuery) {
+      return;
+    }
+
+    // Cancel any in-progress lookup and clear existing results.
+    this.duplicateReleaseGroupsRequest?.abort();
+    this.duplicateReleaseGroupsRequest = null;
+    this.loadingDuplicateReleaseGroups(false);
+    this.failedLoadingDuplicateReleaseGroups(false);
+    this.duplicateReleaseGroupsQuery = query;
+    this.duplicateReleaseGroups.removeAll();
+
+    /*
+     * Make sure that an existing release group isn't selected
+     * and that there's a title and artist to use for searching.
+     */
+    if (
+      release.releaseGroup().gid ||
+      (release.name() ?? '') === '' ||
+      !release.artistCredit().names.some((a) => a.artist?.gid)
+    ) {
+      return;
+    }
+
+    this.loadingDuplicateReleaseGroups(true);
+    this.duplicateReleaseGroupsRequest = request({
+      url: '/ws/js/release-group' +
+        '?direct=false' +
+        '&advanced=true' +
+        '&limit=' + encodeURIComponent(maxDuplicateReleaseGroups) +
+        '&q=' + encodeURIComponent(query),
+    })
+      .always(() => {
+        this.duplicateReleaseGroupsRequest = null;
+        this.loadingDuplicateReleaseGroups(false);
+      })
+      .fail(() => {
+        this.failedLoadingDuplicateReleaseGroups(true);
+        this.duplicateReleaseGroupsQuery = null;
+      })
+      .done((data) => {
+        const results = data.slice(0, -1).map((rg) => {
+          rg.details = bracketedText(
+            commaOnlyList([
+              rg.l_type_name,
+              texp.ln(
+                '{num} release',
+                '{num} releases',
+                rg.release_count,
+                {num: rg.release_count},
+              ),
+            ].filter(Boolean)),
+          );
+          return new fields.ReleaseGroup(rg);
+        });
+        ko.utils.arrayPushAll(this.duplicateReleaseGroups, results);
+      });
+  },
 
   copyTitleToReleaseGroup: ko.observable(false),
   copyArtistToReleaseGroup: ko.observable(false),

@@ -19,15 +19,10 @@ import {commaOnlyListText}
 
 import EventLayout from './EventLayout.js';
 
-type Props = {
-  +event: EventT,
-  +eventArt: $ReadOnlyArray<EventArtT>,
-};
-
-const EventArt = ({
-  eventArt,
-  event,
-}: Props): React.Element<typeof EventLayout> => {
+component EventArt(
+  event: EventT,
+  eventArt: $ReadOnlyArray<EventArtT>,
+) {
   const $c = React.useContext(SanitizedCatalystContext);
   const title = lp('Event art', 'plural, header');
 
@@ -141,6 +136,6 @@ const EventArt = ({
       ) : null}
     </EventLayout>
   );
-};
+}
 
 export default EventArt;

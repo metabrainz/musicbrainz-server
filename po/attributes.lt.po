@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-26 17:42+0000\n"
+"PO-Revision-Date: 2024-09-15 00:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/lt/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
 " n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -1297,7 +1297,7 @@ msgstr ""
 #: DB:release_group_secondary_type/description:5
 msgctxt "release_group_secondary_type"
 msgid "An audiobook is a book read by a narrator without music."
-msgstr "Garso knyga – knyga, kurią skaito pasakotojas (-a) be muzikos."
+msgstr "Garso knyga – knyga, kurią skaito pasakotojas be muzikos."
 
 #. name:Award ceremony
 #: DB:event_type/description:7
@@ -2608,12 +2608,12 @@ msgstr ""
 #: DB:medium_format/name:2
 msgctxt "medium_format"
 msgid "DVD"
-msgstr ""
+msgstr "DVD"
 
 #: DB:medium_format/name:18
 msgctxt "medium_format"
 msgid "DVD-Audio"
-msgstr ""
+msgstr "DVD-Audio"
 
 #: DB:medium_format/name:92
 msgctxt "medium_format"
@@ -5799,8 +5799,11 @@ msgid "Murabba"
 msgstr "Murabba"
 
 #: DB:work_attribute_type_allowed_value/value:811
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "Murabba Beste "
 msgctxt "work_attribute_type_allowed_value"
-msgid "Murabba Beste "
+msgid "Murabba Beste"
 msgstr "Murabba Beste "
 
 #: DB:work_type/name:29
