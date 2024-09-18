@@ -24,7 +24,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-16 14:42+0000\n"
+"PO-Revision-Date: 2024-09-18 12:51+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -2003,6 +2003,9 @@ msgid ""
 "is a small label (usually a subdivision of a larger one) that exclusively "
 "handles releases by that artist."
 msgstr ""
+"Indica el sello personal de un artista, una pequeña discográfica ("
+"normalmente parte de una más grande) que publica solo publicaciones de ese "
+"artista."
 
 #. name:personal publisher
 #: DB:link_type/description:724
@@ -2011,6 +2014,9 @@ msgid ""
 "publishing label is a small label (usually a subdivision of a larger one) "
 "that exclusively handles the rights to works by that artist."
 msgstr ""
+"Indica la editora personal de un artista, una pequeña editora (normalmente "
+"parte de una más grande) que se encarga de los derechos de las obras de ese "
+"artista."
 
 #. name:field recordist
 #: DB:link_type/description:1011
@@ -2279,6 +2285,8 @@ msgid ""
 "This indicates that a person or firm provided legal representation for the "
 "recording."
 msgstr ""
+"Indica una persona o empresa que ofreció representación legal para la "
+"grabación."
 
 #. name:legal representation
 #: DB:link_type/description:22
@@ -2286,6 +2294,8 @@ msgid ""
 "This indicates that a person or firm provided legal representation for the "
 "release."
 msgstr ""
+"Indica una persona o empresa que ofreció representación legal para la "
+"publicación."
 
 #. name:parts
 #: DB:link_type/description:717
@@ -3217,6 +3227,8 @@ msgid ""
 "This is used to link to a page where the artist's releases can be purchased "
 "for download."
 msgstr ""
+"Enlaza un artista a una página donde su música puede ser comprada para "
+"descarga."
 
 #. name:purchase for download
 #: DB:link_type/description:959
@@ -3224,6 +3236,8 @@ msgid ""
 "This is used to link to a page where the label's releases can be purchased "
 "for download."
 msgstr ""
+"Enlaza una discográfica a una página donde su música puede ser comprada para "
+"descarga."
 
 #. name:purchase for download
 #: DB:link_type/description:254
@@ -3231,6 +3245,7 @@ msgid ""
 "This is used to link to a page where the recording can be purchased for "
 "download."
 msgstr ""
+"Enlaza una grabación a una página donde puede ser comprada para descarga."
 
 #. name:purchase for download
 #: DB:link_type/description:74
@@ -3238,6 +3253,7 @@ msgid ""
 "This is used to link to a page where the release can be purchased for "
 "download."
 msgstr ""
+"Enlaza una publicación a una página donde puede ser comprada para descarga."
 
 #. name:performance
 #: DB:link_type/description:278
@@ -3353,6 +3369,8 @@ msgid ""
 "This links a group (often an orchestra) to a composer who has a composer-in-"
 "residence position with the group."
 msgstr ""
+"Enlaza un grupo (normalmente una orquesta) a un artista que es el compositor "
+"residente del grupo."
 
 #. name:video channel
 #: DB:link_type/description:304
@@ -3381,6 +3399,8 @@ msgstr ""
 msgid ""
 "This links a label to a site where tickets can be purchased for their events."
 msgstr ""
+"Enlaza una discográfica a una página donde pueden comprarse entradas para "
+"sus eventos."
 
 #. name:apple music
 #: DB:link_type/description:1130
@@ -3416,6 +3436,8 @@ msgid ""
 "This links a label to their profile at a crowdfunding site like Kickstarter "
 "or Indiegogo."
 msgstr ""
+"Enlaza una discográfica a su perfil en un portal de micromecenazgo como "
+"Kickstarter o Indiegogo."
 
 #. name:composer-in-residence
 #: DB:link_type/description:937
@@ -3423,6 +3445,8 @@ msgid ""
 "This links a place (often a concert hall or educational institution) to a "
 "composer who has a composer-in-residence position with it."
 msgstr ""
+"Enlaza un lugar (normalmente una sala de conciertos o una institución "
+"educativa) a un artista con el puesto de compositor residente en dicho lugar."
 
 #. name:video channel
 #: DB:link_type/description:495
@@ -3450,6 +3474,8 @@ msgstr ""
 msgid ""
 "This links a place to a site where tickets can be purchased for its events."
 msgstr ""
+"Enlaza un lugar a una página donde pueden comprarse entradas para sus "
+"eventos."
 
 #. name:soundcloud
 #: DB:link_type/description:940
@@ -3462,6 +3488,8 @@ msgid ""
 "This links a place to its profile at a crowdfunding site like Kickstarter or "
 "Indiegogo."
 msgstr ""
+"Enlaza un lugar a su perfil en un portal de micromecenazgo como Kickstarter "
+"o Indiegogo."
 
 #. name:rescheduled as
 #: DB:link_type/description:836
@@ -3478,6 +3506,8 @@ msgstr "Enlaza una grabación a una licencia bajo la que está disponible."
 msgid ""
 "This links a recording to a page where it can be legally downloaded for free."
 msgstr ""
+"Enlaza una grabación a una página donde puede ser descargada gratuitamente "
+"de forma legal."
 
 #. name:commentary
 #: DB:link_type/description:1177
@@ -3514,6 +3544,8 @@ msgid ""
 "This links a recording to the relevant crowdfunding project at a "
 "crowdfunding site like Kickstarter or Indiegogo."
 msgstr ""
+"Enlaza una grabación a un proyecto en un portal de micromecenazgo como "
+"Kickstarter o Indiegogo."
 
 #. name:fanpage
 #: DB:link_type/description:1190
@@ -3530,6 +3562,13 @@ msgid ""
 "honor the label. Often they are various artist compilations, but a single "
 "artist can perform the entire tribute album."
 msgstr ""
+"Enlaza un grupo de publicaciones con la discográfica a la que rinde tributo. "
+"Los álbumes tributo suelen tener un título como “Un tributo a Discográfica” "
+"o “Un tributo a los artistas de Discográfica”, y consisten en versiones de "
+"temas publicados por dicha discográfica, interpretados por otros artistas (a "
+"veces completamente desconocidos) en su honor. Normalmente son álbumes con "
+"múltiples artistas, pero es posible que un solo artista interprete todo el "
+"álbum."
 
 #. name:dedicated to
 #: DB:link_type/description:868
@@ -3556,6 +3595,12 @@ msgid ""
 "they are various artist compilations, but a single artist can perform the "
 "entire tribute album."
 msgstr ""
+"Enlaza un grupo de publicaciones con el artista al que rinde tributo. Los "
+"álbumes tributo suelen tener un título como “Un tributo a Artista”, y "
+"consisten en versiones de temas de dicho artista, interpretados por otros "
+"artistas (a veces completamente desconocidos) en su honor. Normalmente son "
+"álbumes con múltiples artistas, pero es posible que un solo artista "
+"interprete todo el álbum."
 
 #. name:commentary
 #: DB:link_type/description:1176
@@ -3563,6 +3608,9 @@ msgid ""
 "This links a release group to another containing official commentary for it "
 "(usually the artist talking about each specific track in an album)."
 msgstr ""
+"Enlaza un grupo de publicaciones a otro que contiene los comentarios "
+"oficiales para el primero (normalmente el artista hablando sobre cada pista "
+"de un álbum)."
 
 #. name:crowdfunding
 #: DB:link_type/description:907
@@ -3570,6 +3618,8 @@ msgid ""
 "This links a release group to the relevant crowdfunding project at a "
 "crowdfunding site like Kickstarter or Indiegogo."
 msgstr ""
+"Enlaza un grupo de publicaciones a un proyecto en un portal de "
+"micromecenazgo como Kickstarter o Indiegogo."
 
 #. name:replaced by
 #: DB:link_type/description:1009
@@ -3578,6 +3628,9 @@ msgid ""
 "defect, but sometimes just to change the artist credits) to a new release "
 "put out to replaced it."
 msgstr ""
+"Enlaza una publicación retirada (normalmente a causa de algún defecto, pero "
+"a veces simplemente para cambiar el nombre del artista) con la publicación "
+"oficial que la sustituye."
 
 #. name:license
 #: DB:link_type/description:301
@@ -3589,6 +3642,8 @@ msgstr "Enlaza una publicación a una licencia bajo la que está disponible."
 msgid ""
 "This links a release to a page where it can be legally downloaded for free."
 msgstr ""
+"Enlaza una publicación a una página donde puede ser descargada gratuitamente "
+"de forma legal."
 
 #. name:programming
 #: DB:link_type/description:37
@@ -3618,6 +3673,8 @@ msgid ""
 "This links a release to the relevant crowdfunding project at a crowdfunding "
 "site like Kickstarter or Indiegogo."
 msgstr ""
+"Enlaza una publicación a un proyecto en un portal de micromecenazgo como "
+"Kickstarter o Indiegogo."
 
 #. name:arranged at
 #: DB:link_type/description:865
@@ -3690,6 +3747,8 @@ msgid ""
 "This links a series to a site where tickets can be purchased for events in "
 "it."
 msgstr ""
+"Enlaza una serie a una página donde pueden comprarse entradas para sus "
+"eventos."
 
 #. name:crowdfunding
 #: DB:link_type/description:910
@@ -3698,6 +3757,9 @@ msgid ""
 "page (such as for a specific tour, or for compiling a classical catalogue) "
 "at a crowdfunding site like Kickstarter or Indiegogo."
 msgstr ""
+"Enlaza una serie a su perfil (para un festival, por ejemplo) o proyecto ("
+"para una gira, o un catálogo de composiciones) en un portal de "
+"micromecenazgo como Kickstarter o Indiegogo."
 
 #. name:IMDb
 #: DB:link_type/description:97
@@ -3746,6 +3808,8 @@ msgid ""
 "This links a work to its project at a crowdfunding site like Kickstarter or "
 "Indiegogo."
 msgstr ""
+"Enlaza una obra a un proyecto en un portal de micromecenazgo como "
+"Kickstarter o Indiegogo."
 
 #. name:arranged in
 #: DB:link_type/description:885
@@ -3849,6 +3913,8 @@ msgid ""
 "This links an artist to a site where tickets can be purchased for their "
 "events."
 msgstr ""
+"Enlaza un artista a una página donde pueden comprarse entradas para sus "
+"eventos."
 
 #. name:interview
 #: DB:link_type/description:707
@@ -3859,7 +3925,7 @@ msgstr ""
 #. name:biography
 #: DB:link_type/description:182
 msgid "This links an artist to an online biography for that artist."
-msgstr ""
+msgstr "Enlaza un artista con una biografía digital."
 
 #. name:discography page
 #: DB:link_type/description:184
@@ -3868,6 +3934,8 @@ msgid ""
 "discography should provide a summary of most, if not all, releases by the "
 "artist, and be as comprehensive as possible."
 msgstr ""
+"Enlaza un artista a una discografía digital que muestra todas o al menos la "
+"gran mayoría de sus publicaciones con tanta información como sea posible."
 
 #. name:youtube music
 #: DB:link_type/description:1080
@@ -3946,6 +4014,8 @@ msgid ""
 "This links an artist to their profile at a crowdfunding site like "
 "Kickstarter or Indiegogo."
 msgstr ""
+"Enlaza un artista a su perfil en un portal de micromecenazgo como "
+"Kickstarter o Indiegogo."
 
 #. name:is person
 #: DB:link_type/description:108
@@ -4008,7 +4078,7 @@ msgstr ""
 #. name:ticketing
 #: DB:link_type/description:1197
 msgid "This links an event to a site where tickets can be purchased for it."
-msgstr ""
+msgstr "Enlaza un evento a una página donde pueden comprarse entradas para él."
 
 #. name:crowdfunding
 #: DB:link_type/description:904
@@ -4016,6 +4086,8 @@ msgid ""
 "This links an event to the relevant crowdfunding project at a crowdfunding "
 "site like Kickstarter or Indiegogo."
 msgstr ""
+"Enlaza un evento a un proyecto en un portal de micromecenazgo como "
+"Kickstarter o Indiegogo."
 
 #. name:derivation
 #: DB:link_type/description:737
@@ -4253,6 +4325,8 @@ msgid ""
 "This relationship indicates the company that was the licensee of this "
 "release (that is, received a license for it from other company)."
 msgstr ""
+"Indica una empresa licenciataria en esta publicación (es decir, que recibió "
+"una licencia de otra empresa)."
 
 #. name:licensor
 #: DB:link_type/description:712
@@ -4582,6 +4656,11 @@ msgid ""
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
+"Enlaza una discográfica a una página donde su música puede ser escuchada en "
+"streaming de forma legal pagando una suscripción, como Apple Music.\n"
+"\n"
+"Si la página permite el streaming gratuito, utiliza \"streaming gratuito\" "
+"en vez de esta relación."
 
 #. name:free streaming
 #: DB:link_type/description:997
@@ -4589,6 +4668,8 @@ msgid ""
 "This relationship type is used to link a label to a site where music can be "
 "legally streamed for free, such as Spotify."
 msgstr ""
+"Enlaza una discográfica a una página donde su música puede ser escuchada "
+"gratuitamente en streaming de forma legal, como Spotify."
 
 #. name:blog
 #: DB:link_type/description:224
@@ -4603,6 +4684,11 @@ msgid ""
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
+"Enlaza una grabación a una página donde puede ser escuchada en streaming de "
+"forma legal pagando una suscripción, como Tidal.\n"
+"\n"
+"Si la página permite el streaming gratuito, utiliza \"streaming gratuito\" "
+"en vez de esta relación."
 
 #. name:free streaming
 #: DB:link_type/description:268
@@ -4611,6 +4697,9 @@ msgid ""
 "legally streamed for free, such as Spotify for audio tracks or YouTube for "
 "videos."
 msgstr ""
+"Enlaza una grabación a una página donde puede ser escuchada gratuitamente en "
+"streaming de forma legal, como Spotify para grabaciones de audio o YouTube "
+"para vídeos."
 
 #. name:official homepage
 #: DB:link_type/description:287
@@ -4627,6 +4716,11 @@ msgid ""
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
+"Enlaza una publicación a una página donde puede ser escuchada en streaming "
+"de forma legal pagando una suscripción, como Tidal.\n"
+"\n"
+"Si la página permite el streaming gratuito, utiliza \"streaming gratuito\" "
+"en vez de esta relación."
 
 #. name:free streaming
 #: DB:link_type/description:85
@@ -4634,6 +4728,8 @@ msgid ""
 "This relationship type is used to link a release to a site where the tracks "
 "can be legally streamed for free, such as Spotify."
 msgstr ""
+"Enlaza una publicación a una página donde puede ser escuchada gratuitamente "
+"en streaming de forma legal, como Spotify."
 
 #. name:streaming
 #: DB:link_type/description:978
@@ -4643,6 +4739,11 @@ msgid ""
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
+"Enlaza un artista a una página donde su música puede ser escuchada en "
+"streaming de forma legal pagando una suscripción, como Tidal.\n"
+"\n"
+"Si la página permite el streaming gratuito, utiliza \"streaming gratuito\" "
+"en vez de esta relación."
 
 #. name:free streaming
 #: DB:link_type/description:194
@@ -4650,6 +4751,8 @@ msgid ""
 "This relationship type is used to link an artist to a site where music can "
 "be legally streamed for free, such as Spotify."
 msgstr ""
+"Enlaza un artista a una página donde su música puede ser escuchada "
+"gratuitamente en streaming de forma legal, como Spotify."
 
 #. name:blog
 #: DB:link_type/description:199
@@ -4662,6 +4765,7 @@ msgid ""
 "This relationship type is used to link to a page where the artist's releases "
 "can be purchased for mail order."
 msgstr ""
+"Enlaza un artista a una página donde su música puede ser comprada por correo."
 
 #. name:purchase artwork
 #: DB:link_type/description:1254
@@ -4677,6 +4781,8 @@ msgid ""
 "This relationship type is used to link to a page where the label's releases "
 "can be purchased for mail order."
 msgstr ""
+"Enlaza una discográfica a una página donde su música puede ser comprada por "
+"correo."
 
 #. name:purchase for mail-order
 #: DB:link_type/description:79
@@ -4684,6 +4790,7 @@ msgid ""
 "This relationship type is used to link to a page where the release can be "
 "purchased for mail order."
 msgstr ""
+"Enlaza una publicación a una página donde puede ser comprada por correo."
 
 #. name:download for free
 #: DB:link_type/description:274
@@ -4691,6 +4798,8 @@ msgid ""
 "This relationship type is used to link to a page where the score / sheet "
 "music for this work can be legally downloaded for free."
 msgstr ""
+"Enlaza una obra a una página donde su partitura puede ser descargada "
+"gratuitamente de forma legal."
 
 #. name:purchase for download
 #: DB:link_type/description:912
@@ -4698,6 +4807,8 @@ msgid ""
 "This relationship type is used to link to a page where the score / sheet "
 "music for this work can be legally purchased for download."
 msgstr ""
+"Enlaza una obra a una página donde su partitura puede ser comprada para "
+"descarga de forma legal."
 
 #. name:purchase for mail-order
 #: DB:link_type/description:913
@@ -4705,6 +4816,8 @@ msgid ""
 "This relationship type is used to link to a page where the score / sheet "
 "music for this work can be legally purchased for mail order."
 msgstr ""
+"Enlaza una obra a una página donde su partitura puede ser comprada por "
+"correo de forma legal."
 
 #. name:myspace
 #: DB:link_type/description:215
@@ -4843,6 +4956,10 @@ msgid ""
 "include forums, LiveJournal communities and groups on Facebook, Last.fm and "
 "Flickr."
 msgstr ""
+"Enlaza un artista a sus comunidades digitales, grupos en los que todos los "
+"miembros pueden comentar y añadir contenidos. El artista puede no ser parte "
+"del grupo directamente. Por ejemplo, foros, comunidades de LiveJournal y "
+"grupos en Facebook, Last.fm o Flickr."
 
 #. name:poster
 #: DB:link_type/description:808
@@ -5333,7 +5450,7 @@ msgstr ""
 #: DB:link_type/link_phrase:135 DB:link_type/link_phrase:62
 #: DB:link_type/reverse_link_phrase:135 DB:link_type/reverse_link_phrase:62
 msgid "artist & repertoire support"
-msgstr "soporte de artistas y repertorio"
+msgstr "apoyo de A&R"
 
 #: DB:link_attribute_type/name:1355
 msgid "artist diploma"
@@ -5365,7 +5482,7 @@ msgstr ""
 #. name:artists and repertoire position
 #: DB:link_type/name:1081 DB:link_type/link_phrase:1081
 msgid "artists and repertoire position"
-msgstr ""
+msgstr "puesto de A&R"
 
 #: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
 #: DB:link_type/name:1170
@@ -5734,7 +5851,7 @@ msgstr "compositor residente en"
 #. name:composer-in-residence
 #: DB:link_type/reverse_link_phrase:937 DB:link_type/reverse_link_phrase:855
 msgid "composers-in-residence"
-msgstr ""
+msgstr "compositores residentes"
 
 #. name:composition
 #: DB:link_attribute_type/name:1126 DB:link_type/name:58 DB:link_type/name:170
@@ -5924,7 +6041,7 @@ msgstr "empleado creativo en"
 #: DB:link_type/name:905 DB:link_type/name:906 DB:link_type/name:902
 #: DB:link_type/name:907 DB:link_type/name:908 DB:link_type/name:910
 msgid "crowdfunding"
-msgstr ""
+msgstr "micromecenazgo"
 
 #. name:crowdfunding
 #: DB:link_type/link_phrase:904 DB:link_type/link_phrase:909
@@ -6323,7 +6440,7 @@ msgstr "página de streaming gratuito para {video:el vídeo}"
 #: DB:link_type/name:997 DB:link_type/name:268 DB:link_type/name:85
 #: DB:link_type/name:194
 msgid "free streaming"
-msgstr ""
+msgstr "streaming gratuito"
 
 #. name:genre origin, name:instrument origin
 #: DB:link_type/reverse_link_phrase:1088 DB:link_type/reverse_link_phrase:752
@@ -6759,7 +6876,7 @@ msgstr "tiene un canal de vídeo oficial en"
 #. name:online community
 #: DB:link_type/long_link_phrase:185
 msgid "has an online community page at"
-msgstr "tiene una comunidad online en"
+msgstr "tiene una comunidad digital en"
 
 #. name:arrangement
 #: DB:link_type/long_link_phrase:350
@@ -6864,7 +6981,7 @@ msgstr "tiene la discográfica personal"
 #. name:personal publisher
 #: DB:link_type/link_phrase:724 DB:link_type/long_link_phrase:724
 msgid "has personal publisher"
-msgstr "tiene la editora privada"
+msgstr "tiene la editora personal"
 
 #. name:poster
 #: DB:link_type/long_link_phrase:808
@@ -7179,7 +7296,7 @@ msgstr "es un mashup de"
 #. name:medley
 #: DB:link_type/long_link_phrase:239
 msgid "is a medley of"
-msgstr "es un medley de"
+msgstr "es un popurrí de"
 
 #. name:other databases
 #: DB:link_type/long_link_phrase:730
@@ -7221,12 +7338,12 @@ msgstr "es un tributo a"
 #. name:cover
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
-msgstr ""
+msgstr "es una {parody:parodia|versión} {translated:traducida} de"
 
 #. name:edit
 #: DB:link_type/long_link_phrase:309
 msgid "is an edit of"
-msgstr "Es una edición de"
+msgstr "es una edición de"
 
 #. name:excerpt from
 #: DB:link_type/long_link_phrase:1240
@@ -7256,7 +7373,7 @@ msgstr "está incluido en"
 #. name:license
 #: DB:link_type/long_link_phrase:302 DB:link_type/long_link_phrase:301
 msgid "is licensed under"
-msgstr "tiene licencia bajo"
+msgstr "tiene la licencia"
 
 #. name:named after artist
 #: DB:link_type/long_link_phrase:973
@@ -7305,7 +7422,7 @@ msgstr "es la primera publicación de"
 #. name:other version
 #: DB:link_type/long_link_phrase:241
 msgid "is the earliest version of {translated} {parody}"
-msgstr "es el original de la versión {translated:traducida} {parody:paródica}"
+msgstr "es el original de la {parody:parodia|versión} {translated:traducida}"
 
 #. name:transl-tracklisting
 #: DB:link_type/long_link_phrase:2
@@ -7469,7 +7586,7 @@ msgstr ""
 #. name:other version
 #: DB:link_type/link_phrase:241
 msgid "later {translated} {parody} versions"
-msgstr "versiones {translated:traducidas} {parody:paródicas}"
+msgstr "{parody:parodias|versiones} {translated:traducidas}"
 
 #: DB:link_type/name:796 DB:link_type/name:797
 msgid "launch event"
@@ -7538,26 +7655,26 @@ msgstr "licencia de"
 #: DB:link_type/link_phrase:712 DB:link_type/link_phrase:1010
 #: DB:link_type/long_link_phrase:712 DB:link_type/long_link_phrase:1010
 msgid "licensed"
-msgstr "licencia"
+msgstr "bajo licencia de"
 
 #. name:licensor
 #: DB:link_type/reverse_link_phrase:712 DB:link_type/reverse_link_phrase:1010
 msgid "licensed from"
-msgstr ""
+msgstr "bajo licencia de"
 
 #. name:licensee
 #: DB:link_type/reverse_link_phrase:833
 msgid "licensed to"
-msgstr "Licencia para"
+msgstr "licenciado a"
 
 #: DB:link_type/name:833
 msgid "licensee"
-msgstr ""
+msgstr "licenciatario"
 
 #. name:licensee
 #: DB:link_type/link_phrase:833
 msgid "licensee for"
-msgstr ""
+msgstr "licenciatario en"
 
 #: DB:link_type/name:712 DB:link_type/name:1010
 msgid "licensor"
@@ -7810,12 +7927,12 @@ msgstr "medio 9"
 
 #: DB:link_attribute_type/name:750 DB:link_type/name:239
 msgid "medley"
-msgstr "recopilación"
+msgstr "popurrí"
 
 #. name:medley
 #: DB:link_type/link_phrase:239
 msgid "medley of"
-msgstr "medley de"
+msgstr "popurrí de"
 
 #: DB:link_type/name:103
 msgid "member of band"
@@ -7824,11 +7941,11 @@ msgstr ""
 #. name:mezzo-soprano vocals
 #: DB:link_attribute_type/name:9 DB:link_attribute_type/description:9
 msgid "mezzo-soprano vocals"
-msgstr "voces mezzo-soprano"
+msgstr "voces mezzosoprano"
 
 #: DB:link_attribute_type/name:2
 msgid "minor"
-msgstr "menor"
+msgstr "secundario"
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
 #: DB:link_type/name:999 DB:link_type/name:998
@@ -7883,7 +8000,7 @@ msgstr "ingeniero de mezcla en"
 #. name:mixing engineer position
 #: DB:link_type/reverse_link_phrase:703
 msgid "mixing engineers"
-msgstr "ingenieros de mezclas"
+msgstr "ingenieros de mezcla"
 
 #: DB:link_attribute_type/name:1031
 msgid "movement"
@@ -7902,7 +8019,7 @@ msgstr "La música de {entity0} puede comprarse para descarga en {entity1}"
 #. name:purchase for mail-order
 #: DB:link_type/long_link_phrase:960 DB:link_type/long_link_phrase:175
 msgid "music can be purchased for mail-order at"
-msgstr "se puede comprar su música por correo en"
+msgstr "música disponible para compra por correo en"
 
 #. name:free streaming
 #: DB:link_type/long_link_phrase:997 DB:link_type/long_link_phrase:194
@@ -7956,7 +8073,7 @@ msgstr ""
 #: DB:link_type/link_phrase:106 DB:link_type/reverse_link_phrase:106
 #: DB:link_type/long_link_phrase:106
 msgid "musical relationship"
-msgstr "Relaciones musicales"
+msgstr "relación musical"
 
 #: DB:link_type/name:106
 msgid "musical relationships"
@@ -8047,16 +8164,16 @@ msgstr ""
 #. name:online community
 #: DB:link_type/link_phrase:185
 msgid "online communities"
-msgstr "comunidades online"
+msgstr "comunidades digitales"
 
 #: DB:link_type/name:185
 msgid "online community"
-msgstr ""
+msgstr "comunidad digital"
 
 #. name:online community
 #: DB:link_type/reverse_link_phrase:185
 msgid "online community page for"
-msgstr "comunidad online para"
+msgstr "comunidad digital para"
 
 #. name:online data
 #: DB:link_type/name:841 DB:link_type/name:221 DB:link_type/name:660
@@ -8066,7 +8183,7 @@ msgstr "comunidad online para"
 #: DB:link_type/long_link_phrase:841 DB:link_type/long_link_phrase:221
 #: DB:link_type/long_link_phrase:660
 msgid "online data"
-msgstr "Datos en línea"
+msgstr "datos en línea"
 
 #: DB:link_attribute_type/name:1220
 msgid "opera"
@@ -8191,7 +8308,7 @@ msgstr ""
 #. name:label ownership
 #: DB:link_type/reverse_link_phrase:200
 msgid "parent label"
-msgstr "Empresa Matriz"
+msgstr "discográfica matriz"
 
 #: DB:link_attribute_type/name:511
 msgid "parody"
@@ -8320,21 +8437,21 @@ msgstr "actúa como"
 
 #: DB:link_type/name:723
 msgid "personal label"
-msgstr ""
+msgstr "sello personal"
 
 #. name:personal label
 #: DB:link_type/reverse_link_phrase:723
 msgid "personal label for"
-msgstr "Discográfica independiente"
+msgstr "sello personal de"
 
 #: DB:link_type/name:724
 msgid "personal publisher"
-msgstr "editora privada"
+msgstr "editora personal"
 
 #. name:personal publisher
 #: DB:link_type/reverse_link_phrase:724
 msgid "personal publisher for"
-msgstr "editora privada de"
+msgstr "editora personal de"
 
 #. name:personal relationship
 #: DB:link_type/name:113 DB:link_type/link_phrase:113
@@ -8361,7 +8478,7 @@ msgstr ""
 #: DB:link_type/link_phrase:173 DB:link_type/link_phrase:396
 #: DB:link_type/link_phrase:732
 msgid "picture"
-msgstr "Imagen"
+msgstr "imagen"
 
 #. name:image
 #: DB:link_type/reverse_link_phrase:173 DB:link_type/reverse_link_phrase:396
@@ -8588,68 +8705,71 @@ msgstr "ofreció representación legal para"
 #. name:animation
 #: DB:link_type/long_link_phrase:1243
 msgid "provided {additional} animation on"
-msgstr "animación {additional:adicional} en"
+msgstr "se encargó de la animación {additional:adicional} en"
 
 #. name:art direction
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:1174
 msgid "provided {additional} art direction on"
-msgstr ""
+msgstr "se encargó de la dirección artística {additional:adicional} en"
 
 #. name:artwork
 #: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:1241
 #: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
 msgid "provided {additional} artwork on"
-msgstr "suministró material gráfico {additional:adicional} para"
+msgstr "se encargó del material gráfico {additional:adicional} para"
 
 #. name:creative direction
 #: DB:link_type/long_link_phrase:63 DB:link_type/long_link_phrase:146
 msgid "provided {additional} creative direction on"
-msgstr ""
+msgstr "se encargó de la dirección creativa {additional:adicional} en"
 
 #. name:design
 #: DB:link_type/long_link_phrase:1171
 msgid "provided {additional} design on"
-msgstr ""
+msgstr "se encargó del diseño {additional:adicional} en"
 
 #. name:design/illustration
 #: DB:link_type/long_link_phrase:19 DB:link_type/long_link_phrase:130
 msgid "provided {additional} design/illustration on"
-msgstr "diseño / ilustración {additional}"
+msgstr "se encargó del diseño / ilustración {additional:adicional} en"
 
 #. name:graphic design
 #: DB:link_type/long_link_phrase:1172 DB:link_type/long_link_phrase:1234
 #: DB:link_type/long_link_phrase:125 DB:link_type/long_link_phrase:27
 msgid "provided {additional} graphic design on"
-msgstr "diseño gráfico {additional}"
+msgstr "se encargó del diseño gráfico {additional:adicional} en"
 
 #. name:illustration
 #: DB:link_type/long_link_phrase:1232 DB:link_type/long_link_phrase:927
 #: DB:link_type/long_link_phrase:1173 DB:link_type/long_link_phrase:1244
 msgid "provided {additional} illustration on"
-msgstr ""
+msgstr "se encargó de las ilustraciones {additional:adicionales} en"
 
 #. name:legal representation
 #: DB:link_type/long_link_phrase:22
 msgid "provided {additional} legal representation for"
-msgstr ""
+msgstr "ofreció representación legal {additional:adicional} para"
 
 #. name:art direction
 #: DB:link_type/long_link_phrase:18
 msgid "provided {additional} {assistant} art direction on"
 msgstr ""
+"{assistant:asistió con|se encargó de} la dirección artistica "
+"{additional:adicional} en"
 
 #. name:design
 #: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
 #: DB:link_type/long_link_phrase:1242
 msgid "provided {additional} {assistant} design on"
 msgstr ""
+"{assistant:asistió con el|se encargó del} diseño {additional:adicional} en"
 
 #. name:publishing
 #: DB:link_type/name:362 DB:link_type/link_phrase:206
 #: DB:link_type/link_phrase:127 DB:link_type/long_link_phrase:206
 #: DB:link_type/long_link_phrase:127
 msgid "published"
-msgstr "publicado"
+msgstr "publicó"
 
 #. name:publishing
 #: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:127
@@ -8682,23 +8802,23 @@ msgstr "comprar material gráfico"
 #: DB:link_type/name:74 DB:link_type/name:176 DB:link_type/link_phrase:254
 #: DB:link_type/link_phrase:74
 msgid "purchase for download"
-msgstr "comprar para descarga"
+msgstr "compra para descarga"
 
 #. name:purchase for mail-order
 #: DB:link_type/name:79 DB:link_type/name:960 DB:link_type/name:175
 #: DB:link_type/name:913 DB:link_type/link_phrase:79
 msgid "purchase for mail-order"
-msgstr "comprar por correo"
+msgstr "compra por correo"
 
 #. name:purchase for download
 #: DB:link_type/link_phrase:959 DB:link_type/link_phrase:176
 msgid "purchase music for download"
-msgstr "comprar música para descarga"
+msgstr "compra de la música para descarga"
 
 #. name:purchase for mail-order
 #: DB:link_type/link_phrase:960 DB:link_type/link_phrase:175
 msgid "purchase music for mail-order"
-msgstr "comprar música por correo"
+msgstr "compra de la música por correo"
 
 #. name:purchase artwork
 #: DB:link_type/reverse_link_phrase:1254
@@ -9097,12 +9217,12 @@ msgstr ""
 #. name:recording contract
 #: DB:link_type/reverse_link_phrase:121
 msgid "signed"
-msgstr "firmado"
+msgstr "firmó a"
 
 #. name:recording contract
 #: DB:link_type/link_phrase:121
 msgid "signed by"
-msgstr "firmado por"
+msgstr "firmó con"
 
 #: DB:link_attribute_type/name:1199
 msgid "singing"
@@ -9401,7 +9521,7 @@ msgstr "página de compra de entradas para"
 
 #: DB:link_attribute_type/name:830
 msgid "time"
-msgstr "Duración"
+msgstr "horario"
 
 #: DB:link_type/name:859
 msgid "tour"
@@ -9440,7 +9560,7 @@ msgstr ""
 #. name:translator
 #: DB:link_attribute_type/name:517 DB:link_type/link_phrase:871
 msgid "translated"
-msgstr "traducida"
+msgstr "tradujo"
 
 #. name:translated at
 #: DB:link_type/name:883 DB:link_type/name:1247
@@ -9769,7 +9889,7 @@ msgstr ""
 #: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:731
 #: DB:link_type/name:89 DB:link_type/name:216 DB:link_type/name:789
 msgid "wikipedia"
-msgstr "wikipedia"
+msgstr "Wikipedia"
 
 #: DB:link_attribute_type/name:1346
 msgid "wind/brass conducting"
@@ -9803,7 +9923,7 @@ msgstr "trabaja como ingeniero de masterización en"
 #. name:mixing engineer position
 #: DB:link_type/long_link_phrase:703
 msgid "works as a mixing engineer at"
-msgstr "trabaja como ingeniero de mezclas en"
+msgstr "trabaja como ingeniero de mezcla en"
 
 #. name:recording engineer position
 #: DB:link_type/long_link_phrase:702
@@ -10057,15 +10177,15 @@ msgstr ""
 #: DB:link_type/long_link_phrase:144 DB:link_type/long_link_phrase:38
 msgid "{additional:additionally} {assistant} {associate} {co:co-}edited"
 msgstr ""
-"{co:co-}editor {additional:adicional} {assistant:asistente} {associate:"
-"asociado} para"
+"{co:co-}editor {additional:adicional} {assistant:asistente} "
+"{associate:asociado} para"
 
 #. name:mastering
 #: DB:link_type/long_link_phrase:136
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgstr ""
-"{co:co-}ingeniero de mastering {additional:adicional} {assistant:asistente} "
-"{associate:asociado} para"
+"{co:co-}ingeniero de masterización {additional:adicional} "
+"{assistant:asistente} {associate:asociado} para"
 
 #. name:mix
 #: DB:link_type/link_phrase:26 DB:link_type/link_phrase:143
@@ -10096,7 +10216,9 @@ msgstr ""
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}{executive:"
 "executive }engineered"
-msgstr "{co:co-}ingeniero {executive} {additional} {assistant} {associate}"
+msgstr ""
+"{co:co-}ingeniero {executive:ejecutivo} {additional:adicional} "
+"{assistant:asistente} {associate:asociado} para"
 
 #. name:producer
 #: DB:link_type/link_phrase:141 DB:link_type/link_phrase:30
@@ -10256,7 +10378,7 @@ msgstr ""
 #. name:legal representation
 #: DB:link_type/link_phrase:22 DB:link_type/reverse_link_phrase:22
 msgid "{additional} legal representation"
-msgstr ""
+msgstr "representación legal {additional:adicional}"
 
 #. name:librettist
 #: DB:link_type/link_phrase:57 DB:link_type/reverse_link_phrase:57
@@ -10435,15 +10557,15 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:144 DB:link_type/reverse_link_phrase:38
 msgid "{additional} {assistant} {associate} {co:co-}editor"
 msgstr ""
-"{co:co-}editor {additional:adicional} {assistant:asistente} {associate:"
-"asociado}"
+"{co:co-}editor {additional:adicional} {assistant:asistente} "
+"{associate:asociado}"
 
 #. name:mastering
 #: DB:link_type/link_phrase:136 DB:link_type/reverse_link_phrase:136
 msgid "{additional} {assistant} {associate} {co:co-}mastering"
 msgstr ""
-"{co:co-}ingeniero de mastering {additional:adicional} {assistant:asistente} "
-"{associate:asociado}"
+"{co:co-}ingeniero de masterización {additional:adicional} "
+"{assistant:asistente} {associate:asociado}"
 
 #. name:mix
 #: DB:link_type/reverse_link_phrase:26 DB:link_type/reverse_link_phrase:143
@@ -10492,8 +10614,8 @@ msgstr ""
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineers"
 msgstr ""
-"{co:co-}ingenieros {executive:ejecutivo} {additional:adicional} {assistant:"
-"asistente} {associate:asociado}"
+"{co:co-}ingenieros {executive:ejecutivos} {additional:adicionales} "
+"{assistant:asistentes} {associate:asociados}"
 
 #. name:producer
 #: DB:link_type/reverse_link_phrase:141 DB:link_type/reverse_link_phrase:30
@@ -10552,7 +10674,7 @@ msgstr ""
 #. name:collaboration
 #: DB:link_type/link_phrase:102
 msgid "{additional} {minor} collaborator on"
-msgstr "colaborador {minor} {additional} en"
+msgstr "colaborador {minor:secundario} {additional:adicional} en"
 
 #. name:collaboration
 #: DB:link_type/reverse_link_phrase:102
@@ -10651,7 +10773,7 @@ msgstr ""
 #. name:part of set
 #: DB:link_type/link_phrase:1
 msgid "{bonus:bonus|next} disc"
-msgstr "{bonus:bonus|next} disco"
+msgstr "disco {bonus:adicional|siguiente}"
 
 #. name:part of set
 #: DB:link_type/long_link_phrase:1
@@ -10825,7 +10947,7 @@ msgstr ""
 #. name:license
 #: DB:link_type/long_link_phrase:939
 msgid "{entity1} is licensed under {entity0}"
-msgstr ""
+msgstr "{entity1} tiene la licencia {entity0}"
 
 #. name:named after area
 #: DB:link_type/long_link_phrase:1262
@@ -10887,7 +11009,7 @@ msgstr "{entity1} tuvo lugar en {entity0}"
 #. name:licensee
 #: DB:link_type/long_link_phrase:833
 msgid "{entity1} was licensed to {entity0}"
-msgstr ""
+msgstr "{entity1} fue licenciada a {entity0}"
 
 #. name:manufactured at
 #: DB:link_type/long_link_phrase:953
@@ -11169,12 +11291,12 @@ msgstr "{sub:sub}editora"
 #. name:cover
 #: DB:link_type/reverse_link_phrase:15
 msgid "{translated} {parody:parodies|covers}"
-msgstr ""
+msgstr "{parody:parodias|versiones} {translated:traducidas}"
 
 #. name:cover
 #: DB:link_type/link_phrase:15
 msgid "{translated} {parody:parody|cover} of"
-msgstr "{translated} {parody:parody|cover} de"
+msgstr "{parody:parodia|versión} {translated:traducida} de"
 
 #. name:other version
 #: DB:link_type/reverse_link_phrase:241
