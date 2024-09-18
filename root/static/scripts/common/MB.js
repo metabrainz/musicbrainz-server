@@ -29,6 +29,7 @@ const MB: {[namespace: string]: {...}, ...} = {
   constants,
 };
 
+// $FlowIgnore[cannot-write]
 globalThis.MB = MB;
 
 export default MB;

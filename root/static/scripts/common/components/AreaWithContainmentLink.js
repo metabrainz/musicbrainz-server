@@ -13,6 +13,7 @@ import EntityLink from './EntityLink.js';
 
 component AreaWithContainmentLink(
   area: AreaT,
+  showCreditedAs: boolean = true,
   showDisambiguation: boolean = true,
   showEditsPending: boolean = true,
   showIcon: boolean = false,
@@ -27,6 +28,7 @@ component AreaWithContainmentLink(
   }
 ) {
   const sharedProps = {
+    showCreditedAs,
     showDisambiguation,
     showEditsPending,
     showIcon,

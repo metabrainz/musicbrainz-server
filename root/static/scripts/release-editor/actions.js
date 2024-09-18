@@ -518,8 +518,39 @@ const actions = {
     }
   },
 
-  copyTrackTitlesToRecordings: ko.observable(false),
-  copyTrackArtistsToRecordings: ko.observable(false),
+  copyTrackTitlesToRecordings: ko.computed({
+    read: () => {
+      const release = releaseEditor.rootField.release();
+      if (!release) {
+        return false;
+      }
+      const tracks = release.countTracks(Boolean);
+      const checked = release.countTracks((t) => t.updateRecordingTitle());
+      return tracks > 0 && checked === tracks;
+    },
+    write: (value) => {
+      for (const track of releaseEditor.rootField.release().allTracks()) {
+        track.updateRecordingTitle(value);
+      }
+    },
+  }),
+
+  copyTrackArtistsToRecordings: ko.computed({
+    read: () => {
+      const release = releaseEditor.rootField.release();
+      if (!release) {
+        return false;
+      }
+      const tracks = release.countTracks(Boolean);
+      const checked = release.countTracks((t) => t.updateRecordingArtist());
+      return tracks > 0 && checked === tracks;
+    },
+    write: (value) => {
+      for (const track of releaseEditor.rootField.release().allTracks()) {
+        track.updateRecordingArtist(value);
+      }
+    },
+  }),
 };
 
 Object.assign(releaseEditor, actions);
