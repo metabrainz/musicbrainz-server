@@ -56,18 +56,18 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-18 14:55+0200\n"
-"PO-Revision-Date: 2024-09-05 13:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-09-18 13:29+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7.1\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -2530,8 +2530,8 @@ msgid ""
 "Some text you entered is overlong! Please shorten it, and if necessary enter "
 "the full text in the annotation for reference."
 msgstr ""
-"El texto que introduciste es demasiado largo. Por favor, acórtelo, y si es "
-"necesario introduzca el texto completo en la anotación para referencia."
+"El texto que introdujiste es demasiado largo. Acórtalo, y si es necesario "
+"añade el texto completo en la anotación como referencia."
 
 #: ../root/components/forms.tt:219 ../root/components/Aliases/AliasTable.js:18
 #: ../root/components/list/ArtistList.js:59 ../root/edit/details/AddArea.js:43
@@ -9198,7 +9198,7 @@ msgstr "Primario para la localización"
 #: ../root/edit/details/EditAlias.js:125
 msgctxt "alias ended boolean"
 msgid "Ended"
-msgstr "Ya no existe"
+msgstr "Ya no aplicable"
 
 #: ../root/edit/details/AddWork.js:63 ../root/edit/details/EditWork.js:80
 #: ../root/layout/components/sidebar/WorkSidebar.js:65
@@ -12246,8 +12246,8 @@ msgid ""
 "as their name. The disambiguation should be removed or, if it is needed, "
 "improved."
 msgstr ""
-"Este reporte lista artistas que tienen su desambiguación configurada como su "
-"nombre. La desambiguación debería ser eliminada o, si es necesario, mejorada."
+"Este informe muestra artistas cuya desambiguación solo repite su nombre. La "
+"desambiguación debería ser eliminada o, si es necesario, mejorada."
 
 #: ../root/report/ArtistsDisambiguationSameName.js:32
 #: ../root/report/ReportsIndex.js:104
@@ -16420,9 +16420,9 @@ msgid ""
 "the annotation field below, and keep the main code “{main_digits}” only in "
 "the barcode field."
 msgstr ""
-"Parece tener un código adicional tras el código de barras principal. Puedes "
-"añadirlo (como “{annotation_text}”) a la anotación, manteniendo el código de "
-"barras principal “{main_digits}” en este campo."
+"Pero parece tener un código adicional tras el código de barras principal. "
+"Puedes añadirlo (como “{annotation_text}”) a la anotación, manteniendo el "
+"código de barras principal “{main_digits}” en este campo."
 
 #: ../root/static/scripts/release-editor/validation.js:253
 msgid "The barcode you entered is not a valid GTIN code."
