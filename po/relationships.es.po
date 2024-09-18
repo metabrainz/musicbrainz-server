@@ -24,7 +24,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-18 11:42+0000\n"
+"PO-Revision-Date: 2024-09-18 12:51+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -3227,6 +3227,8 @@ msgid ""
 "This is used to link to a page where the artist's releases can be purchased "
 "for download."
 msgstr ""
+"Enlaza un artista a una página donde su música puede ser comprada para "
+"descarga."
 
 #. name:purchase for download
 #: DB:link_type/description:959
@@ -3234,6 +3236,8 @@ msgid ""
 "This is used to link to a page where the label's releases can be purchased "
 "for download."
 msgstr ""
+"Enlaza una discográfica a una página donde su música puede ser comprada para "
+"descarga."
 
 #. name:purchase for download
 #: DB:link_type/description:254
@@ -3241,6 +3245,7 @@ msgid ""
 "This is used to link to a page where the recording can be purchased for "
 "download."
 msgstr ""
+"Enlaza una grabación a una página donde puede ser comprada para descarga."
 
 #. name:purchase for download
 #: DB:link_type/description:74
@@ -3248,6 +3253,7 @@ msgid ""
 "This is used to link to a page where the release can be purchased for "
 "download."
 msgstr ""
+"Enlaza una publicación a una página donde puede ser comprada para descarga."
 
 #. name:performance
 #: DB:link_type/description:278
@@ -3393,6 +3399,8 @@ msgstr ""
 msgid ""
 "This links a label to a site where tickets can be purchased for their events."
 msgstr ""
+"Enlaza una discográfica a una página donde pueden comprarse entradas para "
+"sus eventos."
 
 #. name:apple music
 #: DB:link_type/description:1130
@@ -3466,6 +3474,8 @@ msgstr ""
 msgid ""
 "This links a place to a site where tickets can be purchased for its events."
 msgstr ""
+"Enlaza un lugar a una página donde pueden comprarse entradas para sus "
+"eventos."
 
 #. name:soundcloud
 #: DB:link_type/description:940
@@ -3496,6 +3506,8 @@ msgstr "Enlaza una grabación a una licencia bajo la que está disponible."
 msgid ""
 "This links a recording to a page where it can be legally downloaded for free."
 msgstr ""
+"Enlaza una grabación a una página donde puede ser descargada gratuitamente "
+"de forma legal."
 
 #. name:commentary
 #: DB:link_type/description:1177
@@ -3550,6 +3562,13 @@ msgid ""
 "honor the label. Often they are various artist compilations, but a single "
 "artist can perform the entire tribute album."
 msgstr ""
+"Enlaza un grupo de publicaciones con la discográfica a la que rinde tributo. "
+"Los álbumes tributo suelen tener un título como “Un tributo a Discográfica” "
+"o “Un tributo a los artistas de Discográfica”, y consisten en versiones de "
+"temas publicados por dicha discográfica, interpretados por otros artistas (a "
+"veces completamente desconocidos) en su honor. Normalmente son álbumes con "
+"múltiples artistas, pero es posible que un solo artista interprete todo el "
+"álbum."
 
 #. name:dedicated to
 #: DB:link_type/description:868
@@ -3576,6 +3595,12 @@ msgid ""
 "they are various artist compilations, but a single artist can perform the "
 "entire tribute album."
 msgstr ""
+"Enlaza un grupo de publicaciones con el artista al que rinde tributo. Los "
+"álbumes tributo suelen tener un título como “Un tributo a Artista”, y "
+"consisten en versiones de temas de dicho artista, interpretados por otros "
+"artistas (a veces completamente desconocidos) en su honor. Normalmente son "
+"álbumes con múltiples artistas, pero es posible que un solo artista "
+"interprete todo el álbum."
 
 #. name:commentary
 #: DB:link_type/description:1176
@@ -3583,6 +3608,9 @@ msgid ""
 "This links a release group to another containing official commentary for it "
 "(usually the artist talking about each specific track in an album)."
 msgstr ""
+"Enlaza un grupo de publicaciones a otro que contiene los comentarios "
+"oficiales para el primero (normalmente el artista hablando sobre cada pista "
+"de un álbum)."
 
 #. name:crowdfunding
 #: DB:link_type/description:907
@@ -3600,6 +3628,9 @@ msgid ""
 "defect, but sometimes just to change the artist credits) to a new release "
 "put out to replaced it."
 msgstr ""
+"Enlaza una publicación retirada (normalmente a causa de algún defecto, pero "
+"a veces simplemente para cambiar el nombre del artista) con la publicación "
+"oficial que la sustituye."
 
 #. name:license
 #: DB:link_type/description:301
@@ -3611,6 +3642,8 @@ msgstr "Enlaza una publicación a una licencia bajo la que está disponible."
 msgid ""
 "This links a release to a page where it can be legally downloaded for free."
 msgstr ""
+"Enlaza una publicación a una página donde puede ser descargada gratuitamente "
+"de forma legal."
 
 #. name:programming
 #: DB:link_type/description:37
@@ -3714,6 +3747,8 @@ msgid ""
 "This links a series to a site where tickets can be purchased for events in "
 "it."
 msgstr ""
+"Enlaza una serie a una página donde pueden comprarse entradas para sus "
+"eventos."
 
 #. name:crowdfunding
 #: DB:link_type/description:910
@@ -3878,6 +3913,8 @@ msgid ""
 "This links an artist to a site where tickets can be purchased for their "
 "events."
 msgstr ""
+"Enlaza un artista a una página donde pueden comprarse entradas para sus "
+"eventos."
 
 #. name:interview
 #: DB:link_type/description:707
@@ -4041,7 +4078,7 @@ msgstr ""
 #. name:ticketing
 #: DB:link_type/description:1197
 msgid "This links an event to a site where tickets can be purchased for it."
-msgstr ""
+msgstr "Enlaza un evento a una página donde pueden comprarse entradas para él."
 
 #. name:crowdfunding
 #: DB:link_type/description:904
@@ -4619,6 +4656,11 @@ msgid ""
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
+"Enlaza una discográfica a una página donde su música puede ser escuchada en "
+"streaming de forma legal pagando una suscripción, como Apple Music.\n"
+"\n"
+"Si la página permite el streaming gratuito, utiliza \"streaming gratuito\" "
+"en vez de esta relación."
 
 #. name:free streaming
 #: DB:link_type/description:997
@@ -4626,6 +4668,8 @@ msgid ""
 "This relationship type is used to link a label to a site where music can be "
 "legally streamed for free, such as Spotify."
 msgstr ""
+"Enlaza una discográfica a una página donde su música puede ser escuchada "
+"gratuitamente en streaming de forma legal, como Spotify."
 
 #. name:blog
 #: DB:link_type/description:224
@@ -4640,6 +4684,11 @@ msgid ""
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
+"Enlaza una grabación a una página donde puede ser escuchada en streaming de "
+"forma legal pagando una suscripción, como Tidal.\n"
+"\n"
+"Si la página permite el streaming gratuito, utiliza \"streaming gratuito\" "
+"en vez de esta relación."
 
 #. name:free streaming
 #: DB:link_type/description:268
@@ -4648,6 +4697,9 @@ msgid ""
 "legally streamed for free, such as Spotify for audio tracks or YouTube for "
 "videos."
 msgstr ""
+"Enlaza una grabación a una página donde puede ser escuchada gratuitamente en "
+"streaming de forma legal, como Spotify para grabaciones de audio o YouTube "
+"para vídeos."
 
 #. name:official homepage
 #: DB:link_type/description:287
@@ -4664,6 +4716,11 @@ msgid ""
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
+"Enlaza una publicación a una página donde puede ser escuchada en streaming "
+"de forma legal pagando una suscripción, como Tidal.\n"
+"\n"
+"Si la página permite el streaming gratuito, utiliza \"streaming gratuito\" "
+"en vez de esta relación."
 
 #. name:free streaming
 #: DB:link_type/description:85
@@ -4671,6 +4728,8 @@ msgid ""
 "This relationship type is used to link a release to a site where the tracks "
 "can be legally streamed for free, such as Spotify."
 msgstr ""
+"Enlaza una publicación a una página donde puede ser escuchada gratuitamente "
+"en streaming de forma legal, como Spotify."
 
 #. name:streaming
 #: DB:link_type/description:978
@@ -4680,6 +4739,11 @@ msgid ""
 "\n"
 "If the site allows free streaming, use \"free streaming\" instead."
 msgstr ""
+"Enlaza un artista a una página donde su música puede ser escuchada en "
+"streaming de forma legal pagando una suscripción, como Tidal.\n"
+"\n"
+"Si la página permite el streaming gratuito, utiliza \"streaming gratuito\" "
+"en vez de esta relación."
 
 #. name:free streaming
 #: DB:link_type/description:194
@@ -4687,6 +4751,8 @@ msgid ""
 "This relationship type is used to link an artist to a site where music can "
 "be legally streamed for free, such as Spotify."
 msgstr ""
+"Enlaza un artista a una página donde su música puede ser escuchada "
+"gratuitamente en streaming de forma legal, como Spotify."
 
 #. name:blog
 #: DB:link_type/description:199
@@ -4699,6 +4765,7 @@ msgid ""
 "This relationship type is used to link to a page where the artist's releases "
 "can be purchased for mail order."
 msgstr ""
+"Enlaza un artista a una página donde su música puede ser comprada por correo."
 
 #. name:purchase artwork
 #: DB:link_type/description:1254
@@ -4714,6 +4781,8 @@ msgid ""
 "This relationship type is used to link to a page where the label's releases "
 "can be purchased for mail order."
 msgstr ""
+"Enlaza una discográfica a una página donde su música puede ser comprada por "
+"correo."
 
 #. name:purchase for mail-order
 #: DB:link_type/description:79
@@ -4721,6 +4790,7 @@ msgid ""
 "This relationship type is used to link to a page where the release can be "
 "purchased for mail order."
 msgstr ""
+"Enlaza una publicación a una página donde puede ser comprada por correo."
 
 #. name:download for free
 #: DB:link_type/description:274
@@ -4728,6 +4798,8 @@ msgid ""
 "This relationship type is used to link to a page where the score / sheet "
 "music for this work can be legally downloaded for free."
 msgstr ""
+"Enlaza una obra a una página donde su partitura puede ser descargada "
+"gratuitamente de forma legal."
 
 #. name:purchase for download
 #: DB:link_type/description:912
@@ -4735,6 +4807,8 @@ msgid ""
 "This relationship type is used to link to a page where the score / sheet "
 "music for this work can be legally purchased for download."
 msgstr ""
+"Enlaza una obra a una página donde su partitura puede ser comprada para "
+"descarga de forma legal."
 
 #. name:purchase for mail-order
 #: DB:link_type/description:913
@@ -4742,6 +4816,8 @@ msgid ""
 "This relationship type is used to link to a page where the score / sheet "
 "music for this work can be legally purchased for mail order."
 msgstr ""
+"Enlaza una obra a una página donde su partitura puede ser comprada por "
+"correo de forma legal."
 
 #. name:myspace
 #: DB:link_type/description:215
@@ -6364,7 +6440,7 @@ msgstr "página de streaming gratuito para {video:el vídeo}"
 #: DB:link_type/name:997 DB:link_type/name:268 DB:link_type/name:85
 #: DB:link_type/name:194
 msgid "free streaming"
-msgstr ""
+msgstr "streaming gratuito"
 
 #. name:genre origin, name:instrument origin
 #: DB:link_type/reverse_link_phrase:1088 DB:link_type/reverse_link_phrase:752
