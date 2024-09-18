@@ -24,7 +24,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-18 12:51+0000\n"
+"PO-Revision-Date: 2024-09-18 13:30+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -2003,8 +2003,8 @@ msgid ""
 "is a small label (usually a subdivision of a larger one) that exclusively "
 "handles releases by that artist."
 msgstr ""
-"Indica el sello personal de un artista, una pequeña discográfica ("
-"normalmente parte de una más grande) que publica solo publicaciones de ese "
+"Indica el sello personal de un artista, una pequeña discográfica "
+"(normalmente parte de una más grande) que publica solo publicaciones de ese "
 "artista."
 
 #. name:personal publisher
@@ -2382,7 +2382,7 @@ msgstr ""
 "Esto indica que un artista tuvo un contrato de grabación con una "
 "discográfica."
 
-#. name:producer position
+#. name:producer position at
 #: DB:link_type/description:117
 msgid ""
 "This indicates that an artist was officially employed by a label as a "
@@ -2390,7 +2390,7 @@ msgid ""
 msgstr ""
 "Indica un artista empleado oficialmente por una discográfica como productor."
 
-#. name:engineer position
+#. name:engineer position at
 #: DB:link_type/description:120
 msgid ""
 "This indicates that an artist was officially employed by a label as an "
@@ -2398,7 +2398,7 @@ msgid ""
 msgstr ""
 "Indica un artista empleado oficialmente por una discográfica como ingeniero."
 
-#. name:creative position
+#. name:creative position at
 #: DB:link_type/description:115
 msgid ""
 "This indicates that an artist was officially employed by a label in a "
@@ -2407,7 +2407,7 @@ msgstr ""
 "Indica un artista empleado oficialmente por una discográfica en una posición "
 "creativa, como fotógrafo o diseñador gráfico."
 
-#. name:artists and repertoire position
+#. name:artists and repertoire position at
 #: DB:link_type/description:1081
 msgid ""
 "This indicates that an artist was officially employed by a label in an "
@@ -2416,7 +2416,7 @@ msgstr ""
 "Indica un artista empleado oficialmente por una discográfica como A&R "
 "(artistas y repertorio)."
 
-#. name:executive position
+#. name:executive position at
 #: DB:link_type/description:1266
 #, fuzzy
 #| msgid ""
@@ -3402,6 +3402,13 @@ msgstr ""
 "Enlaza una discográfica a una página donde pueden comprarse entradas para "
 "sus eventos."
 
+#. name:youtube
+#: DB:link_type/description:225
+#, fuzzy
+#| msgid "This links an artist to its channel at YouTube Music."
+msgid "This links a label to its channel at YouTube."
+msgstr "Enlaza un artista a su canal de YouTube Music."
+
 #. name:apple music
 #: DB:link_type/description:1130
 msgid "This links a label to its page at Apple Music."
@@ -3424,11 +3431,6 @@ msgstr ""
 #: DB:link_type/description:290
 msgid "This links a label to its profile at SoundCloud."
 msgstr ""
-
-#. name:youtube
-#: DB:link_type/description:225
-msgid "This links a label to the equivalent entry at YouTube."
-msgstr "Enlaza una discográfica a su canal de YouTube."
 
 #. name:crowdfunding
 #: DB:link_type/description:903
@@ -3476,6 +3478,13 @@ msgid ""
 msgstr ""
 "Enlaza un lugar a una página donde pueden comprarse entradas para sus "
 "eventos."
+
+#. name:youtube
+#: DB:link_type/description:528
+#, fuzzy
+#| msgid "This links an artist to its channel at YouTube Music."
+msgid "This links a place to its channel at YouTube."
+msgstr "Enlaza un artista a su canal de YouTube Music."
 
 #. name:soundcloud
 #: DB:link_type/description:940
@@ -3750,6 +3759,13 @@ msgstr ""
 "Enlaza una serie a una página donde pueden comprarse entradas para sus "
 "eventos."
 
+#. name:youtube
+#: DB:link_type/description:792
+#, fuzzy
+#| msgid "This links an artist to its channel at YouTube Music."
+msgid "This links a series to its channel at YouTube."
+msgstr "Enlaza un artista a su canal de YouTube Music."
+
 #. name:crowdfunding
 #: DB:link_type/description:910
 msgid ""
@@ -3757,8 +3773,8 @@ msgid ""
 "page (such as for a specific tour, or for compiling a classical catalogue) "
 "at a crowdfunding site like Kickstarter or Indiegogo."
 msgstr ""
-"Enlaza una serie a su perfil (para un festival, por ejemplo) o proyecto ("
-"para una gira, o un catálogo de composiciones) en un portal de "
+"Enlaza una serie a su perfil (para un festival, por ejemplo) o proyecto "
+"(para una gira, o un catálogo de composiciones) en un portal de "
 "micromecenazgo como Kickstarter o Indiegogo."
 
 #. name:IMDb
@@ -4005,8 +4021,10 @@ msgstr ""
 
 #. name:youtube
 #: DB:link_type/description:193
-msgid "This links an artist to the equivalent entry at YouTube."
-msgstr "Enlaza un artista a su canal de YouTube."
+#, fuzzy
+#| msgid "This links an artist to its channel at YouTube Music."
+msgid "This links an artist to their channel at YouTube."
+msgstr "Enlaza un artista a su canal de YouTube Music."
 
 #. name:crowdfunding
 #: DB:link_type/description:902
@@ -4079,6 +4097,13 @@ msgstr ""
 #: DB:link_type/description:1197
 msgid "This links an event to a site where tickets can be purchased for it."
 msgstr "Enlaza un evento a una página donde pueden comprarse entradas para él."
+
+#. name:youtube
+#: DB:link_type/description:791
+#, fuzzy
+#| msgid "This links an artist to its channel at YouTube Music."
+msgid "This links an event to its channel at YouTube."
+msgstr "Enlaza un artista a su canal de YouTube Music."
 
 #. name:crowdfunding
 #: DB:link_type/description:904
@@ -4550,30 +4575,6 @@ msgstr ""
 #: DB:link_type/description:627
 msgid "This relationship type can be used to link a place to its blog."
 msgstr "Enlaza un lugar a su blog."
-
-#. name:youtube
-#: DB:link_type/description:528
-msgid ""
-"This relationship type can be used to link a place to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;."
-msgstr "Enlaza un lugar a su canal de YouTube."
-
-#. name:youtube
-#: DB:link_type/description:792
-msgid ""
-"This relationship type can be used to link a series to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;."
-msgstr "Enlaza una serie a su canal de YouTube."
-
-#. name:youtube
-#: DB:link_type/description:791
-msgid ""
-"This relationship type can be used to link an event to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;."
-msgstr "Enlaza un evento a su canal de YouTube."
 
 #. name:IMDB samples
 #: DB:link_type/description:258
@@ -5474,14 +5475,20 @@ msgstr "director artístico de"
 msgid "artists and repertoire"
 msgstr ""
 
-#. name:artists and repertoire position
+#. name:artists and repertoire position at
 #: DB:link_type/reverse_link_phrase:1081
 msgid "artists and repertoire persons"
 msgstr ""
 
-#. name:artists and repertoire position
-#: DB:link_type/name:1081 DB:link_type/link_phrase:1081
+#. name:artists and repertoire position at
+#: DB:link_type/link_phrase:1081
 msgid "artists and repertoire position"
+msgstr "puesto de A&R"
+
+#: DB:link_type/name:1081
+#, fuzzy
+#| msgid "artists and repertoire position"
+msgid "artists and repertoire position at"
 msgstr "puesto de A&R"
 
 #: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
@@ -5651,17 +5658,11 @@ msgstr ""
 msgid "broadcast by"
 msgstr ""
 
-#. name:business association, name:publishing
-#: DB:link_type/name:205 DB:link_type/link_phrase:66
-#: DB:link_type/link_phrase:205 DB:link_type/reverse_link_phrase:205
-#: DB:link_type/long_link_phrase:205
+#. name:business association
+#: DB:link_type/name:205 DB:link_type/link_phrase:205
+#: DB:link_type/reverse_link_phrase:205 DB:link_type/long_link_phrase:205
 msgid "business association"
 msgstr "conexión empresarial"
-
-#. name:publishing
-#: DB:link_type/reverse_link_phrase:66
-msgid "business association with"
-msgstr ""
 
 #. name:download for free
 #: DB:link_type/long_link_phrase:75 DB:link_type/long_link_phrase:255
@@ -6027,14 +6028,20 @@ msgstr "versiones"
 msgid "creative direction"
 msgstr ""
 
-#. name:creative position
+#. name:creative position at
 #: DB:link_type/reverse_link_phrase:115
 msgid "creative persons"
 msgstr "empleados creativos"
 
-#. name:creative position
-#: DB:link_type/name:115 DB:link_type/link_phrase:115
+#. name:creative position at
+#: DB:link_type/link_phrase:115
 msgid "creative position"
+msgstr "empleado creativo en"
+
+#: DB:link_type/name:115
+#, fuzzy
+#| msgid "creative position"
+msgid "creative position at"
 msgstr "empleado creativo en"
 
 #: DB:link_type/name:904 DB:link_type/name:909 DB:link_type/name:903
@@ -6291,13 +6298,13 @@ msgstr "emérito"
 msgid "engineer"
 msgstr ""
 
-#. name:engineer position
-#: DB:link_type/name:120 DB:link_type/name:701 DB:link_type/link_phrase:120
+#. name:engineer position at
+#: DB:link_type/name:701 DB:link_type/link_phrase:120
 msgid "engineer position"
 msgstr "ingeniero"
 
 #. name:engineer position
-#: DB:link_type/link_phrase:701
+#: DB:link_type/name:120 DB:link_type/link_phrase:701
 msgid "engineer position at"
 msgstr "ingeniero en"
 
@@ -6309,8 +6316,8 @@ msgstr ""
 msgid "engineered in"
 msgstr ""
 
-#. name:engineer position
-#: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
+#. name:engineer position, name:engineer position at
+#: DB:link_type/reverse_link_phrase:701 DB:link_type/reverse_link_phrase:120
 msgid "engineers"
 msgstr "ingenieros"
 
@@ -6338,14 +6345,20 @@ msgstr "extractos"
 msgid "executive"
 msgstr "ejecutivo"
 
-#. name:executive position
-#: DB:link_type/name:1266 DB:link_type/link_phrase:1266
+#. name:executive position at
+#: DB:link_type/link_phrase:1266
 #, fuzzy
 #| msgid "creative position"
 msgid "executive position"
 msgstr "posición creativa"
 
-#. name:executive position
+#: DB:link_type/name:1266
+#, fuzzy
+#| msgid "creative position"
+msgid "executive position at"
+msgstr "posición creativa"
+
+#. name:executive position at
 #: DB:link_type/reverse_link_phrase:1266
 #, fuzzy
 #| msgid "executive"
@@ -6528,7 +6541,7 @@ msgstr "aparición especial en"
 msgid "guest performers"
 msgstr "apariciones especiales"
 
-#. name:creative position
+#. name:creative position at
 #: DB:link_type/long_link_phrase:115
 msgid "had a creative position at"
 msgstr "tuvo un puesto de creativo en"
@@ -6538,7 +6551,7 @@ msgstr "tuvo un puesto de creativo en"
 msgid "had a miscellaneous role on"
 msgstr ""
 
-#. name:producer position
+#. name:producer position at
 #: DB:link_type/long_link_phrase:117
 msgid "had a producer position at"
 msgstr "tuvo un puesto de productor en"
@@ -6548,17 +6561,17 @@ msgstr "tuvo un puesto de productor en"
 msgid "had a recording contract with"
 msgstr "tuvo un contrato de grabación con"
 
-#. name:artists and repertoire position
+#. name:artists and repertoire position at
 #: DB:link_type/long_link_phrase:1081
 msgid "had an artists and repertoire position at"
 msgstr "tuvo un puesto de A&R en"
 
-#. name:engineer position
+#. name:engineer position at
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr "tuvo un puesto de ingeniero/a en"
 
-#. name:executive position
+#. name:executive position at
 #: DB:link_type/long_link_phrase:1266
 #, fuzzy
 #| msgid "had a creative position at"
@@ -6886,11 +6899,6 @@ msgstr "tiene la versión arreglada"
 #. name:award ceremony
 #: DB:link_type/long_link_phrase:1094
 msgid "has award ceremony"
-msgstr ""
-
-#. name:publishing
-#: DB:link_type/long_link_phrase:66
-msgid "has business association with"
 msgstr ""
 
 #. name:has catalogue
@@ -8650,12 +8658,18 @@ msgstr ""
 msgid "producer"
 msgstr ""
 
-#. name:producer position
-#: DB:link_type/name:117 DB:link_type/link_phrase:117
+#. name:producer position at
+#: DB:link_type/link_phrase:117
 msgid "producer position"
 msgstr "productor"
 
-#. name:producer position
+#: DB:link_type/name:117
+#, fuzzy
+#| msgid "producer position"
+msgid "producer position at"
+msgstr "productor"
+
+#. name:producer position at
 #: DB:link_type/reverse_link_phrase:117
 msgid "producers"
 msgstr "productores"
@@ -8754,8 +8768,8 @@ msgstr "ofreció representación legal {additional:adicional} para"
 #: DB:link_type/long_link_phrase:18
 msgid "provided {additional} {assistant} art direction on"
 msgstr ""
-"{assistant:asistió con|se encargó de} la dirección artistica "
-"{additional:adicional} en"
+"{assistant:asistió con|se encargó de} la dirección artistica {additional:"
+"adicional} en"
 
 #. name:design
 #: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
@@ -8782,8 +8796,11 @@ msgstr "editora"
 msgid "publishes series"
 msgstr ""
 
+#. name:publishing
 #: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:161
 #: DB:link_type/name:66 DB:link_type/name:32 DB:link_type/name:208
+#: DB:link_type/link_phrase:66 DB:link_type/reverse_link_phrase:66
+#: DB:link_type/long_link_phrase:66
 msgid "publishing"
 msgstr ""
 
@@ -10177,15 +10194,15 @@ msgstr ""
 #: DB:link_type/long_link_phrase:144 DB:link_type/long_link_phrase:38
 msgid "{additional:additionally} {assistant} {associate} {co:co-}edited"
 msgstr ""
-"{co:co-}editor {additional:adicional} {assistant:asistente} "
-"{associate:asociado} para"
+"{co:co-}editor {additional:adicional} {assistant:asistente} {associate:"
+"asociado} para"
 
 #. name:mastering
 #: DB:link_type/long_link_phrase:136
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgstr ""
-"{co:co-}ingeniero de masterización {additional:adicional} "
-"{assistant:asistente} {associate:asociado} para"
+"{co:co-}ingeniero de masterización {additional:adicional} {assistant:"
+"asistente} {associate:asociado} para"
 
 #. name:mix
 #: DB:link_type/link_phrase:26 DB:link_type/link_phrase:143
@@ -10217,8 +10234,8 @@ msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}{executive:"
 "executive }engineered"
 msgstr ""
-"{co:co-}ingeniero {executive:ejecutivo} {additional:adicional} "
-"{assistant:asistente} {associate:asociado} para"
+"{co:co-}ingeniero {executive:ejecutivo} {additional:adicional} {assistant:"
+"asistente} {associate:asociado} para"
 
 #. name:producer
 #: DB:link_type/link_phrase:141 DB:link_type/link_phrase:30
@@ -10557,15 +10574,15 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:144 DB:link_type/reverse_link_phrase:38
 msgid "{additional} {assistant} {associate} {co:co-}editor"
 msgstr ""
-"{co:co-}editor {additional:adicional} {assistant:asistente} "
-"{associate:asociado}"
+"{co:co-}editor {additional:adicional} {assistant:asistente} {associate:"
+"asociado}"
 
 #. name:mastering
 #: DB:link_type/link_phrase:136 DB:link_type/reverse_link_phrase:136
 msgid "{additional} {assistant} {associate} {co:co-}mastering"
 msgstr ""
-"{co:co-}ingeniero de masterización {additional:adicional} "
-"{assistant:asistente} {associate:asociado}"
+"{co:co-}ingeniero de masterización {additional:adicional} {assistant:"
+"asistente} {associate:asociado}"
 
 #. name:mix
 #: DB:link_type/reverse_link_phrase:26 DB:link_type/reverse_link_phrase:143
@@ -11322,6 +11339,30 @@ msgstr ""
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr ""
+
+#~ msgid "This links a label to the equivalent entry at YouTube."
+#~ msgstr "Enlaza una discográfica a su canal de YouTube."
+
+#~ msgid "This links an artist to the equivalent entry at YouTube."
+#~ msgstr "Enlaza un artista a su canal de YouTube."
+
+#~ msgid ""
+#~ "This relationship type can be used to link a place to the equivalent "
+#~ "entry in YouTube. URLs should follow the format http://www.youtube.com/"
+#~ "user/&lt;username&gt;."
+#~ msgstr "Enlaza un lugar a su canal de YouTube."
+
+#~ msgid ""
+#~ "This relationship type can be used to link a series to the equivalent "
+#~ "entry in YouTube. URLs should follow the format http://www.youtube.com/"
+#~ "user/&lt;username&gt;."
+#~ msgstr "Enlaza una serie a su canal de YouTube."
+
+#~ msgid ""
+#~ "This relationship type can be used to link an event to the equivalent "
+#~ "entry in YouTube. URLs should follow the format http://www.youtube.com/"
+#~ "user/&lt;username&gt;."
+#~ msgstr "Enlaza un evento a su canal de YouTube."
 
 #~ msgid ""
 #~ "Indicates the publisher of this work. This is <strong>not</strong> the "

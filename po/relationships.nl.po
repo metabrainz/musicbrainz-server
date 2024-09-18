@@ -2564,7 +2564,7 @@ msgstr ""
 "Dit geeft aan dat een artiest een opnamecontract met een platenmaatschappij "
 "had."
 
-#. name:producer position
+#. name:producer position at
 #: DB:link_type/description:117
 msgid ""
 "This indicates that an artist was officially employed by a label as a "
@@ -2573,7 +2573,7 @@ msgstr ""
 "Dit geeft aan dat een artiest officieel bij een platenmaatschappij als "
 "producent in dienst was."
 
-#. name:engineer position
+#. name:engineer position at
 #: DB:link_type/description:120
 msgid ""
 "This indicates that an artist was officially employed by a label as an "
@@ -2582,7 +2582,7 @@ msgstr ""
 "Dit geeft aan dat een artiest officieel bij een platenmaatschappij als "
 "technicus in dienst was."
 
-#. name:creative position
+#. name:creative position at
 #: DB:link_type/description:115
 msgid ""
 "This indicates that an artist was officially employed by a label in a "
@@ -2591,7 +2591,7 @@ msgstr ""
 "Dit geeft aan dat een artiest officieel bij een platenmaatschappij in een "
 "creatieve rol, zoals fotograaf of grafisch ontwerper, in dienst was."
 
-#. name:artists and repertoire position
+#. name:artists and repertoire position at
 #: DB:link_type/description:1081
 msgid ""
 "This indicates that an artist was officially employed by a label in an "
@@ -2600,7 +2600,7 @@ msgstr ""
 "Dit geeft aan dat een artiest officieel bij een platenmaatschappij in dienst "
 "was in de functie artiesten en repertoire (A&R)."
 
-#. name:executive position
+#. name:executive position at
 #: DB:link_type/description:1266
 #, fuzzy
 #| msgid ""
@@ -3743,6 +3743,13 @@ msgstr ""
 "Dit koppelt een platenmaatschappij aan een website waar kaartjes voor hun "
 "evenementen kunnen worden gekocht."
 
+#. name:youtube
+#: DB:link_type/description:225
+#, fuzzy
+#| msgid "This links an artist to its channel at YouTube Music."
+msgid "This links a label to its channel at YouTube."
+msgstr "Dit koppelt een artiest aan zijn YouTube Music-kanaal."
+
 #. name:apple music
 #: DB:link_type/description:1130
 msgid "This links a label to its page at Apple Music."
@@ -3765,11 +3772,6 @@ msgstr ""
 #: DB:link_type/description:290
 msgid "This links a label to its profile at SoundCloud."
 msgstr "Dit koppelt een platenmaatschappij aan haar SoundCloud-profiel."
-
-#. name:youtube
-#: DB:link_type/description:225
-msgid "This links a label to the equivalent entry at YouTube."
-msgstr "Dit koppelt een platenmaatschappij aan haar YouTube-pagina."
 
 #. name:crowdfunding
 #: DB:link_type/description:903
@@ -3819,6 +3821,13 @@ msgid ""
 msgstr ""
 "Dit koppelt een plaats aan een website waar kaartjes voor zijn evenementen "
 "kunnen worden gekocht."
+
+#. name:youtube
+#: DB:link_type/description:528
+#, fuzzy
+#| msgid "This links an artist to its channel at YouTube Music."
+msgid "This links a place to its channel at YouTube."
+msgstr "Dit koppelt een artiest aan zijn YouTube Music-kanaal."
 
 #. name:soundcloud
 #: DB:link_type/description:940
@@ -4130,6 +4139,13 @@ msgstr ""
 "Dit koppelt een serie aan een website waar kaartjes voor de evenementen "
 "kunnen worden gekocht."
 
+#. name:youtube
+#: DB:link_type/description:792
+#, fuzzy
+#| msgid "This links an artist to its channel at YouTube Music."
+msgid "This links a series to its channel at YouTube."
+msgstr "Dit koppelt een artiest aan zijn YouTube Music-kanaal."
+
 #. name:crowdfunding
 #: DB:link_type/description:910
 msgid ""
@@ -4403,8 +4419,10 @@ msgstr "Dit koppelt een artiest aan zijn PureVolume-pagina."
 
 #. name:youtube
 #: DB:link_type/description:193
-msgid "This links an artist to the equivalent entry at YouTube."
-msgstr "Dit koppelt een artiest aan zijn YouTube-pagina."
+#, fuzzy
+#| msgid "This links an artist to its channel at YouTube Music."
+msgid "This links an artist to their channel at YouTube."
+msgstr "Dit koppelt een artiest aan zijn YouTube Music-kanaal."
 
 #. name:crowdfunding
 #: DB:link_type/description:902
@@ -4492,6 +4510,13 @@ msgid "This links an event to a site where tickets can be purchased for it."
 msgstr ""
 "Dit koppelt een evenement aan een website waar kaartjes voor het evenementen "
 "kunnen worden gekocht."
+
+#. name:youtube
+#: DB:link_type/description:791
+#, fuzzy
+#| msgid "This links an artist to its channel at YouTube Music."
+msgid "This links an event to its channel at YouTube."
+msgstr "Dit koppelt een artiest aan zijn YouTube Music-kanaal."
 
 #. name:crowdfunding
 #: DB:link_type/description:904
@@ -5085,36 +5110,6 @@ msgstr ""
 #: DB:link_type/description:627
 msgid "This relationship type can be used to link a place to its blog."
 msgstr "Dit koppelt een plaats aan zijn weblog."
-
-#. name:youtube
-#: DB:link_type/description:528
-msgid ""
-"This relationship type can be used to link a place to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;."
-msgstr ""
-"Dit koppelt een plaats aan zijn YouTube-kanaal. URL’s moeten de opmaak "
-"http://www.youtube.com/user/&lt;username&gt; hebben."
-
-#. name:youtube
-#: DB:link_type/description:792
-msgid ""
-"This relationship type can be used to link a series to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;."
-msgstr ""
-"Dit koppelt een serie aan haar YouTube-kanaal. URL’s moeten de opmaak http://"
-"www.youtube.com/user/&lt;gebruikersnaam&gt hebben."
-
-#. name:youtube
-#: DB:link_type/description:791
-msgid ""
-"This relationship type can be used to link an event to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;."
-msgstr ""
-"Dit koppelt evenement aan zijn YouTube-kanaal. URL’s moeten de opmaak http://"
-"www.youtube.com/user/&lt;gebruikersnaam&gt; hebben."
 
 #. name:IMDB samples
 #: DB:link_type/description:258
@@ -6119,14 +6114,20 @@ msgstr "artistiek directeur van"
 msgid "artists and repertoire"
 msgstr "artiesten en repertoire"
 
-#. name:artists and repertoire position
+#. name:artists and repertoire position at
 #: DB:link_type/reverse_link_phrase:1081
 msgid "artists and repertoire persons"
 msgstr "A&R-medewerkers"
 
-#. name:artists and repertoire position
-#: DB:link_type/name:1081 DB:link_type/link_phrase:1081
+#. name:artists and repertoire position at
+#: DB:link_type/link_phrase:1081
 msgid "artists and repertoire position"
+msgstr "artiesten en repertoire (A&R)"
+
+#: DB:link_type/name:1081
+#, fuzzy
+#| msgid "artists and repertoire position"
+msgid "artists and repertoire position at"
 msgstr "artiesten en repertoire (A&R)"
 
 #: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
@@ -6298,17 +6299,11 @@ msgstr "uitzending"
 msgid "broadcast by"
 msgstr "uitzending door"
 
-#. name:business association, name:publishing
-#: DB:link_type/name:205 DB:link_type/link_phrase:66
-#: DB:link_type/link_phrase:205 DB:link_type/reverse_link_phrase:205
-#: DB:link_type/long_link_phrase:205
+#. name:business association
+#: DB:link_type/name:205 DB:link_type/link_phrase:205
+#: DB:link_type/reverse_link_phrase:205 DB:link_type/long_link_phrase:205
 msgid "business association"
 msgstr "zakenrelatie"
-
-#. name:publishing
-#: DB:link_type/reverse_link_phrase:66
-msgid "business association with"
-msgstr "zakenrelatie met"
 
 #. name:download for free
 #: DB:link_type/long_link_phrase:75 DB:link_type/long_link_phrase:255
@@ -6681,14 +6676,20 @@ msgstr "covers en andere versies"
 msgid "creative direction"
 msgstr "creatieve leiding"
 
-#. name:creative position
+#. name:creative position at
 #: DB:link_type/reverse_link_phrase:115
 msgid "creative persons"
 msgstr "creatieve personen"
 
-#. name:creative position
-#: DB:link_type/name:115 DB:link_type/link_phrase:115
+#. name:creative position at
+#: DB:link_type/link_phrase:115
 msgid "creative position"
+msgstr "creatieve functie"
+
+#: DB:link_type/name:115
+#, fuzzy
+#| msgid "creative position"
+msgid "creative position at"
 msgstr "creatieve functie"
 
 #: DB:link_type/name:904 DB:link_type/name:909 DB:link_type/name:903
@@ -6947,13 +6948,13 @@ msgstr "emeritus"
 msgid "engineer"
 msgstr "technicus"
 
-#. name:engineer position
-#: DB:link_type/name:120 DB:link_type/name:701 DB:link_type/link_phrase:120
+#. name:engineer position at
+#: DB:link_type/name:701 DB:link_type/link_phrase:120
 msgid "engineer position"
 msgstr "technische functie"
 
 #. name:engineer position
-#: DB:link_type/link_phrase:701
+#: DB:link_type/name:120 DB:link_type/link_phrase:701
 msgid "engineer position at"
 msgstr "technische functie bij"
 
@@ -6965,8 +6966,8 @@ msgstr "techniek verzorgd bij"
 msgid "engineered in"
 msgstr "techniek verzorgd in"
 
-#. name:engineer position
-#: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
+#. name:engineer position, name:engineer position at
+#: DB:link_type/reverse_link_phrase:701 DB:link_type/reverse_link_phrase:120
 msgid "engineers"
 msgstr "technici"
 
@@ -6996,14 +6997,20 @@ msgstr ""
 msgid "executive"
 msgstr "leidinggevend"
 
-#. name:executive position
-#: DB:link_type/name:1266 DB:link_type/link_phrase:1266
+#. name:executive position at
+#: DB:link_type/link_phrase:1266
 #, fuzzy
 #| msgid "creative position"
 msgid "executive position"
 msgstr "creatieve functie"
 
-#. name:executive position
+#: DB:link_type/name:1266
+#, fuzzy
+#| msgid "creative position"
+msgid "executive position at"
+msgstr "creatieve functie"
+
+#. name:executive position at
 #: DB:link_type/reverse_link_phrase:1266
 #, fuzzy
 #| msgid "executive"
@@ -7186,7 +7193,7 @@ msgstr "gastartiest op"
 msgid "guest performers"
 msgstr "gastartiesten"
 
-#. name:creative position
+#. name:creative position at
 #: DB:link_type/long_link_phrase:115
 msgid "had a creative position at"
 msgstr "heeft een creatieve functie bij"
@@ -7196,7 +7203,7 @@ msgstr "heeft een creatieve functie bij"
 msgid "had a miscellaneous role on"
 msgstr "had een diverse rol op"
 
-#. name:producer position
+#. name:producer position at
 #: DB:link_type/long_link_phrase:117
 msgid "had a producer position at"
 msgstr "heeft een producerende functie bij"
@@ -7206,17 +7213,17 @@ msgstr "heeft een producerende functie bij"
 msgid "had a recording contract with"
 msgstr "had een platencontract met"
 
-#. name:artists and repertoire position
+#. name:artists and repertoire position at
 #: DB:link_type/long_link_phrase:1081
 msgid "had an artists and repertoire position at"
 msgstr "werkte als A&R bij"
 
-#. name:engineer position
+#. name:engineer position at
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr "heeft een technische functie bij"
 
-#. name:executive position
+#. name:executive position at
 #: DB:link_type/long_link_phrase:1266
 #, fuzzy
 #| msgid "had a creative position at"
@@ -7547,11 +7554,6 @@ msgstr "heeft arrangement"
 #: DB:link_type/long_link_phrase:1094
 msgid "has award ceremony"
 msgstr "heeft prijsuitreiking"
-
-#. name:publishing
-#: DB:link_type/long_link_phrase:66
-msgid "has business association with"
-msgstr "heeft een zakenrelatie met"
 
 #. name:has catalogue
 #: DB:link_type/name:750 DB:link_type/link_phrase:750
@@ -9375,12 +9377,18 @@ msgstr "produceerde materiaal dat {additional:aanvullend} is gesampeld in"
 msgid "producer"
 msgstr "producent"
 
-#. name:producer position
-#: DB:link_type/name:117 DB:link_type/link_phrase:117
+#. name:producer position at
+#: DB:link_type/link_phrase:117
 msgid "producer position"
 msgstr "in dienst als producent"
 
-#. name:producer position
+#: DB:link_type/name:117
+#, fuzzy
+#| msgid "producer position"
+msgid "producer position at"
+msgstr "in dienst als producent"
+
+#. name:producer position at
 #: DB:link_type/reverse_link_phrase:117
 msgid "producers"
 msgstr "producenten"
@@ -9509,8 +9517,11 @@ msgstr "uitgever"
 msgid "publishes series"
 msgstr "publiceert de serie"
 
+#. name:publishing
 #: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:161
 #: DB:link_type/name:66 DB:link_type/name:32 DB:link_type/name:208
+#: DB:link_type/link_phrase:66 DB:link_type/reverse_link_phrase:66
+#: DB:link_type/long_link_phrase:66
 msgid "publishing"
 msgstr "uitgeven"
 
@@ -12155,6 +12166,42 @@ msgstr "{vocal:%|vocale} ondersteuning door"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocale} ondersteuning voor"
+
+#~ msgid "This links a label to the equivalent entry at YouTube."
+#~ msgstr "Dit koppelt een platenmaatschappij aan haar YouTube-pagina."
+
+#~ msgid "This links an artist to the equivalent entry at YouTube."
+#~ msgstr "Dit koppelt een artiest aan zijn YouTube-pagina."
+
+#~ msgid ""
+#~ "This relationship type can be used to link a place to the equivalent "
+#~ "entry in YouTube. URLs should follow the format http://www.youtube.com/"
+#~ "user/&lt;username&gt;."
+#~ msgstr ""
+#~ "Dit koppelt een plaats aan zijn YouTube-kanaal. URL’s moeten de opmaak "
+#~ "http://www.youtube.com/user/&lt;username&gt; hebben."
+
+#~ msgid ""
+#~ "This relationship type can be used to link a series to the equivalent "
+#~ "entry in YouTube. URLs should follow the format http://www.youtube.com/"
+#~ "user/&lt;username&gt;."
+#~ msgstr ""
+#~ "Dit koppelt een serie aan haar YouTube-kanaal. URL’s moeten de opmaak "
+#~ "http://www.youtube.com/user/&lt;gebruikersnaam&gt hebben."
+
+#~ msgid ""
+#~ "This relationship type can be used to link an event to the equivalent "
+#~ "entry in YouTube. URLs should follow the format http://www.youtube.com/"
+#~ "user/&lt;username&gt;."
+#~ msgstr ""
+#~ "Dit koppelt evenement aan zijn YouTube-kanaal. URL’s moeten de opmaak "
+#~ "http://www.youtube.com/user/&lt;gebruikersnaam&gt; hebben."
+
+#~ msgid "business association with"
+#~ msgstr "zakenrelatie met"
+
+#~ msgid "has business association with"
+#~ msgstr "heeft een zakenrelatie met"
 
 #~ msgid ""
 #~ "Indicates the publisher of this work. This is <strong>not</strong> the "

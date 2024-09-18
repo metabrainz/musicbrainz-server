@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-03 18:30+0200\n"
+"POT-Creation-Date: 2024-09-18 14:55+0200\n"
 "PO-Revision-Date: 2024-08-20 12:42+0000\n"
 "Last-Translator: thephy <differentphy@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
@@ -1797,7 +1797,7 @@ msgid "No vote"
 msgstr "没有投票"
 
 #: ../root/release/edit/tracklist.tt:463
-#: ../root/static/scripts/release-editor/fields.js:241
+#: ../root/static/scripts/release-editor/fields.js:249
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
 msgstr "在附加的唱片 ID中，没有一个能对应符合所给长度的前间隙音轨。"
@@ -2744,7 +2744,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:390
-#: ../root/static/scripts/common/components/EntityLink.js:329
+#: ../root/static/scripts/common/components/EntityLink.js:340
 msgid "This recording is a video"
 msgstr "此录音是一个视频"
 
@@ -2823,7 +2823,7 @@ msgstr "音轨解析器"
 #: ../root/cdstub/CDStubIndex.js:33 ../root/edit/details/AddMedium.js:127
 #: ../root/edit/details/EditMedium.js:462
 #: ../root/edit/details/RemoveMedium.js:71
-#: ../root/static/scripts/release-editor/fields.js:837
+#: ../root/static/scripts/release-editor/fields.js:845
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:359
 msgid "Tracklist"
 msgstr "音轨列表"
@@ -3378,7 +3378,7 @@ msgstr "包括"
 #: ../root/components/common-macros.tt:157
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/components/EntityLink.js:151
-#: ../root/static/scripts/common/components/EntityLink.js:490
+#: ../root/static/scripts/common/components/EntityLink.js:510
 msgid "info"
 msgstr "信息"
 
@@ -3525,7 +3525,7 @@ msgid "{doc|Disc ID}:"
 msgstr "{doc|唱片 ID}："
 
 #: ../root/components/common-macros.tt:203 ../root/main/index.js:320
-#: ../root/static/scripts/common/components/DescriptiveLink.js:60
+#: ../root/static/scripts/common/components/DescriptiveLink.js:62
 #: ../root/static/scripts/release-editor/dialogs.js:152
 msgid "{entity} by {artist}"
 msgstr "{artist} 的 {entity}"
@@ -3537,7 +3537,7 @@ msgid ""
 msgstr "你的一些编辑下有 {link|新的备注} 。请务必阅读并进行必要的回应。"
 
 #: ../root/components/common-macros.tt:264
-#: ../root/static/scripts/common/components/EntityLink.js:268
+#: ../root/static/scripts/common/components/EntityLink.js:279
 msgid "{name} – {additional_info}"
 msgstr "{name} – {additional_info}"
 
@@ -3547,7 +3547,7 @@ msgid_plural "{num} releases found matching your query."
 msgstr[0] "找到符合您查询的 {num} 张专辑。"
 
 #: ../root/components/common-macros.tt:203
-#: ../root/static/scripts/common/components/DescriptiveLink.js:73
+#: ../root/static/scripts/common/components/DescriptiveLink.js:75
 msgid "{place} in {area}"
 msgstr "位于 {area} 的 {place}"
 
@@ -4691,7 +4691,7 @@ msgstr "移除 ISRC"
 #: ../root/edit/details/AddRelationship.js:18
 #: ../root/edit/details/RemoveRelationship.js:17
 #: ../root/edit/details/ReorderRelationships.js:17
-#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:195
+#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:213
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:124
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:950
 msgid "Relationship"
@@ -7533,6 +7533,7 @@ msgid "Edit relationships"
 msgstr "编辑关联"
 
 #: ../root/components/InstrumentRelTypes.js:28
+#: ../root/static/scripts/common/components/EntityLink.js:466
 msgid "as “{credit}”"
 msgstr "作为 “{credit}”"
 
@@ -13844,7 +13845,7 @@ msgid ""
 "potentially harmful."
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:343
+#: ../root/static/scripts/common/components/EntityLink.js:354
 #, fuzzy
 #| msgid ""
 #| "Only releases with a front cover on the {caa|Cover Art Archive} can be "
@@ -13852,21 +13853,21 @@ msgstr ""
 msgid "This event has artwork in the Event Art Archive"
 msgstr "只能选择在 {caa|Cover Art Archive} 有正面封面的专辑。"
 
-#: ../root/static/scripts/common/components/EntityLink.js:368
+#: ../root/static/scripts/common/components/EntityLink.js:379
 msgid "This release has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:393
+#: ../root/static/scripts/common/components/EntityLink.js:404
 msgid "This release group has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:421
+#: ../root/static/scripts/common/components/EntityLink.js:432
 msgid ""
 "High quality: All available data has been added, if possible including cover "
 "art with liner info that proves it"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:434
+#: ../root/static/scripts/common/components/EntityLink.js:445
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"
@@ -15419,19 +15420,19 @@ msgctxt "header"
 msgid "Add medium"
 msgstr "添加媒介"
 
-#: ../root/static/scripts/release-editor/fields.js:829
+#: ../root/static/scripts/release-editor/fields.js:837
 msgid "Medium {position}: {title}"
 msgstr "媒介 {position}：{title}"
 
-#: ../root/static/scripts/release-editor/fields.js:835
+#: ../root/static/scripts/release-editor/fields.js:843
 msgid "Medium {position}"
 msgstr "媒介 {position}"
 
-#: ../root/static/scripts/release-editor/fields.js:844
+#: ../root/static/scripts/release-editor/fields.js:852
 msgid "I confirm this medium is actually titled “{medium_title}”."
 msgstr "我确认此媒介的标题确实为“{medium_title}”。"
 
-#: ../root/static/scripts/release-editor/fields.js:859
+#: ../root/static/scripts/release-editor/fields.js:867
 msgid ""
 "“{matched_text}” seems to indicate medium ordering rather than a medium "
 "title. If this is the case, please use the up/down arrows on the right side "
@@ -15440,7 +15441,7 @@ msgid ""
 "the checkbox below."
 msgstr ""
 
-#: ../root/static/scripts/release-editor/fields.js:961
+#: ../root/static/scripts/release-editor/fields.js:969
 msgid "You haven’t selected a label for “{name}”."
 msgstr "您还没有为 “{name}” 选择一个厂牌。"
 
