@@ -42,10 +42,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-03 18:30+0200\n"
+"POT-Creation-Date: 2024-09-18 14:55+0200\n"
 "PO-Revision-Date: 2024-09-15 21:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -53,8 +53,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.7.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -1896,7 +1896,7 @@ msgid "No vote"
 msgstr "Нет голоса"
 
 #: ../root/release/edit/tracklist.tt:463
-#: ../root/static/scripts/release-editor/fields.js:241
+#: ../root/static/scripts/release-editor/fields.js:249
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
 msgstr ""
@@ -2907,7 +2907,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:390
-#: ../root/static/scripts/common/components/EntityLink.js:329
+#: ../root/static/scripts/common/components/EntityLink.js:340
 msgid "This recording is a video"
 msgstr "Эта запись является видео"
 
@@ -2997,7 +2997,7 @@ msgstr "Парсер трек-листа"
 #: ../root/cdstub/CDStubIndex.js:33 ../root/edit/details/AddMedium.js:127
 #: ../root/edit/details/EditMedium.js:462
 #: ../root/edit/details/RemoveMedium.js:71
-#: ../root/static/scripts/release-editor/fields.js:837
+#: ../root/static/scripts/release-editor/fields.js:845
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:359
 msgid "Tracklist"
 msgstr "Треклист"
@@ -3583,7 +3583,7 @@ msgstr "включает"
 #: ../root/components/common-macros.tt:157
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/components/EntityLink.js:151
-#: ../root/static/scripts/common/components/EntityLink.js:490
+#: ../root/static/scripts/common/components/EntityLink.js:510
 msgid "info"
 msgstr "информация"
 
@@ -3731,7 +3731,7 @@ msgid "{doc|Disc ID}:"
 msgstr "{doc|ID диска}:"
 
 #: ../root/components/common-macros.tt:203 ../root/main/index.js:320
-#: ../root/static/scripts/common/components/DescriptiveLink.js:60
+#: ../root/static/scripts/common/components/DescriptiveLink.js:62
 #: ../root/static/scripts/release-editor/dialogs.js:152
 msgid "{entity} by {artist}"
 msgstr "{entity} - {artist}"
@@ -3745,7 +3745,7 @@ msgstr ""
 "Обязательно прочтите их и ответьте, если необходимо."
 
 #: ../root/components/common-macros.tt:264
-#: ../root/static/scripts/common/components/EntityLink.js:268
+#: ../root/static/scripts/common/components/EntityLink.js:279
 msgid "{name} – {additional_info}"
 msgstr "{name} – {additional_info}"
 
@@ -3758,7 +3758,7 @@ msgstr[2] "Найдено {num} релизов по вашему запросу.
 msgstr[3] "Найдено {num} релизов по вашему запросу."
 
 #: ../root/components/common-macros.tt:203
-#: ../root/static/scripts/common/components/DescriptiveLink.js:73
+#: ../root/static/scripts/common/components/DescriptiveLink.js:75
 msgid "{place} in {area}"
 msgstr "{place}, {area}"
 
@@ -4967,7 +4967,7 @@ msgstr "Удаление кода ISRC"
 #: ../root/edit/details/AddRelationship.js:18
 #: ../root/edit/details/RemoveRelationship.js:17
 #: ../root/edit/details/ReorderRelationships.js:17
-#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:195
+#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:213
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:124
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:950
 msgid "Relationship"
@@ -7996,6 +7996,7 @@ msgid "Edit relationships"
 msgstr ""
 
 #: ../root/components/InstrumentRelTypes.js:28
+#: ../root/static/scripts/common/components/EntityLink.js:466
 msgid "as “{credit}”"
 msgstr ""
 
@@ -14576,19 +14577,19 @@ msgid ""
 msgstr ""
 "Ссылка была временно отключена из-за сообщений о её возможной опасности."
 
-#: ../root/static/scripts/common/components/EntityLink.js:343
+#: ../root/static/scripts/common/components/EntityLink.js:354
 msgid "This event has artwork in the Event Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:368
+#: ../root/static/scripts/common/components/EntityLink.js:379
 msgid "This release has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:393
+#: ../root/static/scripts/common/components/EntityLink.js:404
 msgid "This release group has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:421
+#: ../root/static/scripts/common/components/EntityLink.js:432
 msgid ""
 "High quality: All available data has been added, if possible including cover "
 "art with liner info that proves it"
@@ -14596,7 +14597,7 @@ msgstr ""
 "Высокое качество: все возможные данные были добавлены (если возможно, "
 "включая обложку) с информацией, которая может ее подтвердить"
 
-#: ../root/static/scripts/common/components/EntityLink.js:434
+#: ../root/static/scripts/common/components/EntityLink.js:445
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"
@@ -16235,19 +16236,19 @@ msgctxt "header"
 msgid "Add medium"
 msgstr "Добавить носитель"
 
-#: ../root/static/scripts/release-editor/fields.js:829
+#: ../root/static/scripts/release-editor/fields.js:837
 msgid "Medium {position}: {title}"
 msgstr "Носитель {position}: {title}"
 
-#: ../root/static/scripts/release-editor/fields.js:835
+#: ../root/static/scripts/release-editor/fields.js:843
 msgid "Medium {position}"
 msgstr "Носитель {position}"
 
-#: ../root/static/scripts/release-editor/fields.js:844
+#: ../root/static/scripts/release-editor/fields.js:852
 msgid "I confirm this medium is actually titled “{medium_title}”."
 msgstr "Подтверждаю, что носитель действительно называется \"{medium_title}\"."
 
-#: ../root/static/scripts/release-editor/fields.js:859
+#: ../root/static/scripts/release-editor/fields.js:867
 msgid ""
 "“{matched_text}” seems to indicate medium ordering rather than a medium "
 "title. If this is the case, please use the up/down arrows on the right side "
@@ -16256,7 +16257,7 @@ msgid ""
 "the checkbox below."
 msgstr ""
 
-#: ../root/static/scripts/release-editor/fields.js:961
+#: ../root/static/scripts/release-editor/fields.js:969
 msgid "You haven’t selected a label for “{name}”."
 msgstr ""
 
@@ -17825,8 +17826,8 @@ msgstr ""
 "имеют комментариев к правкам (поэтому для них не было представлено никаких "
 "обоснований), один только для слияний и удалений сущностей (правки, которые "
 "с большей вероятностью вызовут беспорядок, если пройдут неправильно), один "
-"только для удалений отношений, один для деструктивных изменений в релизах ("
-"удаление треков, носителей и лейблов релизов), и один для удаления "
+"только для удалений отношений, один для деструктивных изменений в релизах "
+"(удаление треков, носителей и лейблов релизов), и один для удаления "
 "изображений (обложек релизов и изображений событий)."
 
 #: ../root/vote/VotingIndex.js:158

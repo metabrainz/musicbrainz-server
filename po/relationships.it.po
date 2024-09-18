@@ -30,8 +30,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.7.2\n"
 
 #. name:artist diploma
@@ -2526,7 +2526,7 @@ msgstr ""
 "Indica che un artista ha avuto un contratto di registrazione con "
 "un'etichetta."
 
-#. name:producer position
+#. name:producer position at
 #: DB:link_type/description:117
 msgid ""
 "This indicates that an artist was officially employed by a label as a "
@@ -2535,7 +2535,7 @@ msgstr ""
 "Indica che un artista è stato impiegato ufficialmente da un'etichetta come "
 "produttore."
 
-#. name:engineer position
+#. name:engineer position at
 #: DB:link_type/description:120
 msgid ""
 "This indicates that an artist was officially employed by a label as an "
@@ -2544,7 +2544,7 @@ msgstr ""
 "Indica che un artista è stato impiegato ufficialmente da un'etichetta come "
 "tecnico."
 
-#. name:creative position
+#. name:creative position at
 #: DB:link_type/description:115
 msgid ""
 "This indicates that an artist was officially employed by a label in a "
@@ -2553,7 +2553,7 @@ msgstr ""
 "Indica che un artista è stato impiegato ufficialmente da un'etichetta in una "
 "posizione creativa, per es. come fotografo o grafico."
 
-#. name:artists and repertoire position
+#. name:artists and repertoire position at
 #: DB:link_type/description:1081
 msgid ""
 "This indicates that an artist was officially employed by a label in an "
@@ -2562,7 +2562,7 @@ msgstr ""
 "Indica che un artista è stato impiegato ufficialmente da un'etichetta in una "
 "posizione di addetto artisti e repertorio (A&R)."
 
-#. name:executive position
+#. name:executive position at
 #: DB:link_type/description:1266
 msgid ""
 "This indicates that an artist was officially employed by a label in an "
@@ -3666,6 +3666,13 @@ msgstr ""
 "Collega un'etichetta a un sito su cui è possibile acquistare biglietti per i "
 "suoi eventi."
 
+#. name:youtube
+#: DB:link_type/description:225
+#, fuzzy
+#| msgid "This links an artist to its channel at YouTube Music."
+msgid "This links a label to its channel at YouTube."
+msgstr "Collega un artista al suo canale su YouTube Music."
+
 #. name:apple music
 #: DB:link_type/description:1130
 msgid "This links a label to its page at Apple Music."
@@ -3688,11 +3695,6 @@ msgstr ""
 #: DB:link_type/description:290
 msgid "This links a label to its profile at SoundCloud."
 msgstr "Collega un'etichetta al suo profilo su SoundCloud."
-
-#. name:youtube
-#: DB:link_type/description:225
-msgid "This links a label to the equivalent entry at YouTube."
-msgstr "Collega un'etichetta alla voce rispettiva su YouTube."
 
 #. name:crowdfunding
 #: DB:link_type/description:903
@@ -3743,6 +3745,13 @@ msgid ""
 msgstr ""
 "Collega un luogo a un sito su cui è possibile acquistare biglietti per i "
 "suoi eventi."
+
+#. name:youtube
+#: DB:link_type/description:528
+#, fuzzy
+#| msgid "This links an artist to its channel at YouTube Music."
+msgid "This links a place to its channel at YouTube."
+msgstr "Collega un artista al suo canale su YouTube Music."
 
 #. name:soundcloud
 #: DB:link_type/description:940
@@ -4041,6 +4050,13 @@ msgstr ""
 "Collega una serie a un sito su cui è possibile acquistare biglietti per gli "
 "eventi in essa contenuti."
 
+#. name:youtube
+#: DB:link_type/description:792
+#, fuzzy
+#| msgid "This links an artist to its channel at YouTube Music."
+msgid "This links a series to its channel at YouTube."
+msgstr "Collega un artista al suo canale su YouTube Music."
+
 #. name:crowdfunding
 #: DB:link_type/description:910
 msgid ""
@@ -4306,8 +4322,10 @@ msgstr "Collega un artista alla voce rispettiva su PureVolume."
 
 #. name:youtube
 #: DB:link_type/description:193
-msgid "This links an artist to the equivalent entry at YouTube."
-msgstr "Collega un artista alla voce rispettiva su YouTube."
+#, fuzzy
+#| msgid "This links an artist to its channel at YouTube Music."
+msgid "This links an artist to their channel at YouTube."
+msgstr "Collega un artista al suo canale su YouTube Music."
 
 #. name:crowdfunding
 #: DB:link_type/description:902
@@ -4396,6 +4414,13 @@ msgstr ""
 msgid "This links an event to a site where tickets can be purchased for it."
 msgstr ""
 "Collega un evento a un sito su cui è possibile acquistare biglietti per esso."
+
+#. name:youtube
+#: DB:link_type/description:791
+#, fuzzy
+#| msgid "This links an artist to its channel at YouTube Music."
+msgid "This links an event to its channel at YouTube."
+msgstr "Collega un artista al suo canale su YouTube Music."
 
 #. name:crowdfunding
 #: DB:link_type/description:904
@@ -4991,39 +5016,6 @@ msgstr ""
 msgid "This relationship type can be used to link a place to its blog."
 msgstr ""
 "Questo tipo di relazione può essere usato per collegare un luogo al suo blog."
-
-#. name:youtube
-#: DB:link_type/description:528
-msgid ""
-"This relationship type can be used to link a place to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;."
-msgstr ""
-"Questo tipo di relazione può essere usato per collegare un luogo alla voce "
-"rispettiva su YouTube. Gli URL devono essere nel formato http://www.youtube."
-"com/user/&lt;username&gt;."
-
-#. name:youtube
-#: DB:link_type/description:792
-msgid ""
-"This relationship type can be used to link a series to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;."
-msgstr ""
-"Questo tipo di relazione può essere usato per collegare una serie alla voce "
-"rispettiva su YouTube. Gli URL devono essere nel formato http://www.youtube."
-"com/user/&lt;username&gt;."
-
-#. name:youtube
-#: DB:link_type/description:791
-msgid ""
-"This relationship type can be used to link an event to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;."
-msgstr ""
-"Questo tipo di relazione può essere usato per collegare un evento alla voce "
-"rispettiva su YouTube. Gli URL devono essere nel formato http://www.youtube."
-"com/user/&lt;username&gt;."
 
 #. name:IMDB samples
 #: DB:link_type/description:258
@@ -6064,14 +6056,20 @@ msgstr "direttore artistico di"
 msgid "artists and repertoire"
 msgstr "artisti e repertorio (A&R)"
 
-#. name:artists and repertoire position
+#. name:artists and repertoire position at
 #: DB:link_type/reverse_link_phrase:1081
 msgid "artists and repertoire persons"
 msgstr "addetti artisti e repertorio (A&R)"
 
-#. name:artists and repertoire position
-#: DB:link_type/name:1081 DB:link_type/link_phrase:1081
+#. name:artists and repertoire position at
+#: DB:link_type/link_phrase:1081
 msgid "artists and repertoire position"
+msgstr "posizione di addetto artisti e repertorio (A&R)"
+
+#: DB:link_type/name:1081
+#, fuzzy
+#| msgid "artists and repertoire position"
+msgid "artists and repertoire position at"
 msgstr "posizione di addetto artisti e repertorio (A&R)"
 
 #: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
@@ -6241,17 +6239,11 @@ msgstr "ha trasmesso"
 msgid "broadcast by"
 msgstr "trasmessa da"
 
-#. name:business association, name:publishing
-#: DB:link_type/name:205 DB:link_type/link_phrase:66
-#: DB:link_type/link_phrase:205 DB:link_type/reverse_link_phrase:205
-#: DB:link_type/long_link_phrase:205
+#. name:business association
+#: DB:link_type/name:205 DB:link_type/link_phrase:205
+#: DB:link_type/reverse_link_phrase:205 DB:link_type/long_link_phrase:205
 msgid "business association"
 msgstr "associazione di lavoro"
-
-#. name:publishing
-#: DB:link_type/reverse_link_phrase:66
-msgid "business association with"
-msgstr "associato professionalmente con"
 
 #. name:download for free
 #: DB:link_type/long_link_phrase:75 DB:link_type/long_link_phrase:255
@@ -6618,14 +6610,20 @@ msgstr "cover o altre versioni"
 msgid "creative direction"
 msgstr "direzione creativa"
 
-#. name:creative position
+#. name:creative position at
 #: DB:link_type/reverse_link_phrase:115
 msgid "creative persons"
 msgstr "creativi"
 
-#. name:creative position
-#: DB:link_type/name:115 DB:link_type/link_phrase:115
+#. name:creative position at
+#: DB:link_type/link_phrase:115
 msgid "creative position"
+msgstr "posizione creativa"
+
+#: DB:link_type/name:115
+#, fuzzy
+#| msgid "creative position"
+msgid "creative position at"
 msgstr "posizione creativa"
 
 #: DB:link_type/name:904 DB:link_type/name:909 DB:link_type/name:903
@@ -6882,13 +6880,13 @@ msgstr "emerito"
 msgid "engineer"
 msgstr "tecnico"
 
-#. name:engineer position
-#: DB:link_type/name:120 DB:link_type/name:701 DB:link_type/link_phrase:120
+#. name:engineer position at
+#: DB:link_type/name:701 DB:link_type/link_phrase:120
 msgid "engineer position"
 msgstr "posizione di tecnico"
 
 #. name:engineer position
-#: DB:link_type/link_phrase:701
+#: DB:link_type/name:120 DB:link_type/link_phrase:701
 msgid "engineer position at"
 msgstr "posizione di tecnico presso"
 
@@ -6900,8 +6898,8 @@ msgstr "lavorazione tecnica effettuata presso"
 msgid "engineered in"
 msgstr "lavorazione tecnica effettuata a"
 
-#. name:engineer position
-#: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
+#. name:engineer position, name:engineer position at
+#: DB:link_type/reverse_link_phrase:701 DB:link_type/reverse_link_phrase:120
 msgid "engineers"
 msgstr "tecnici"
 
@@ -6929,12 +6927,18 @@ msgstr "estratti"
 msgid "executive"
 msgstr "dirigente"
 
-#. name:executive position
-#: DB:link_type/name:1266 DB:link_type/link_phrase:1266
+#. name:executive position at
+#: DB:link_type/link_phrase:1266
 msgid "executive position"
 msgstr "posizione dirigenziale"
 
-#. name:executive position
+#: DB:link_type/name:1266
+#, fuzzy
+#| msgid "executive position"
+msgid "executive position at"
+msgstr "posizione dirigenziale"
+
+#. name:executive position at
 #: DB:link_type/reverse_link_phrase:1266
 msgid "executives"
 msgstr "dirigenti"
@@ -7115,7 +7119,7 @@ msgstr "artista ospite a"
 msgid "guest performers"
 msgstr "artisti ospiti"
 
-#. name:creative position
+#. name:creative position at
 #: DB:link_type/long_link_phrase:115
 msgid "had a creative position at"
 msgstr "ha avuto una posizione creativa presso"
@@ -7125,7 +7129,7 @@ msgstr "ha avuto una posizione creativa presso"
 msgid "had a miscellaneous role on"
 msgstr "ha avuto un ruolo a vario titolo su"
 
-#. name:producer position
+#. name:producer position at
 #: DB:link_type/long_link_phrase:117
 msgid "had a producer position at"
 msgstr "ha avuto una posizione di produttore presso"
@@ -7135,17 +7139,17 @@ msgstr "ha avuto una posizione di produttore presso"
 msgid "had a recording contract with"
 msgstr "ha avuto un contratto di registrazione con"
 
-#. name:artists and repertoire position
+#. name:artists and repertoire position at
 #: DB:link_type/long_link_phrase:1081
 msgid "had an artists and repertoire position at"
 msgstr "ha avuto una posizione di addetto artisti e repertorio (A&R) presso"
 
-#. name:engineer position
+#. name:engineer position at
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr "ha avuto una posizione di tecnico presso"
 
-#. name:executive position
+#. name:executive position at
 #: DB:link_type/long_link_phrase:1266
 msgid "had an executive position at"
 msgstr "ha avuto una posizione dirigenziale presso"
@@ -7472,11 +7476,6 @@ msgstr "ha l'arrangiamento"
 #: DB:link_type/long_link_phrase:1094
 msgid "has award ceremony"
 msgstr "ha la cerimonia di premiazione"
-
-#. name:publishing
-#: DB:link_type/long_link_phrase:66
-msgid "has business association with"
-msgstr "è associato professionalmente con"
 
 #. name:has catalogue
 #: DB:link_type/name:750 DB:link_type/link_phrase:750
@@ -9248,12 +9247,18 @@ msgstr ""
 msgid "producer"
 msgstr "produttore"
 
-#. name:producer position
-#: DB:link_type/name:117 DB:link_type/link_phrase:117
+#. name:producer position at
+#: DB:link_type/link_phrase:117
 msgid "producer position"
 msgstr "posizione di produttore"
 
-#. name:producer position
+#: DB:link_type/name:117
+#, fuzzy
+#| msgid "producer position"
+msgid "producer position at"
+msgstr "posizione di produttore"
+
+#. name:producer position at
 #: DB:link_type/reverse_link_phrase:117
 msgid "producers"
 msgstr "produttori"
@@ -9380,8 +9385,11 @@ msgstr "editore"
 msgid "publishes series"
 msgstr "pubblica la serie"
 
+#. name:publishing
 #: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:161
 #: DB:link_type/name:66 DB:link_type/name:32 DB:link_type/name:208
+#: DB:link_type/link_phrase:66 DB:link_type/reverse_link_phrase:66
+#: DB:link_type/long_link_phrase:66
 msgid "publishing"
 msgstr "edizione"
 
@@ -11248,8 +11256,8 @@ msgstr ""
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineers"
 msgstr ""
-"{assistant:assistenti} {co:co-}tecnici {executive:esecutivi} "
-"{associate:associati} {additional:aggiunti}"
+"{assistant:assistenti} {co:co-}tecnici {executive:esecutivi} {associate:"
+"associati} {additional:aggiunti}"
 
 #. name:producer
 #: DB:link_type/reverse_link_phrase:141 DB:link_type/reverse_link_phrase:30
@@ -11975,6 +11983,45 @@ msgstr "supporto {vocal:%|alla voce} da parte di"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "supporto {vocal:%|alla voce} per"
+
+#~ msgid "This links a label to the equivalent entry at YouTube."
+#~ msgstr "Collega un'etichetta alla voce rispettiva su YouTube."
+
+#~ msgid "This links an artist to the equivalent entry at YouTube."
+#~ msgstr "Collega un artista alla voce rispettiva su YouTube."
+
+#~ msgid ""
+#~ "This relationship type can be used to link a place to the equivalent "
+#~ "entry in YouTube. URLs should follow the format http://www.youtube.com/"
+#~ "user/&lt;username&gt;."
+#~ msgstr ""
+#~ "Questo tipo di relazione può essere usato per collegare un luogo alla "
+#~ "voce rispettiva su YouTube. Gli URL devono essere nel formato http://www."
+#~ "youtube.com/user/&lt;username&gt;."
+
+#~ msgid ""
+#~ "This relationship type can be used to link a series to the equivalent "
+#~ "entry in YouTube. URLs should follow the format http://www.youtube.com/"
+#~ "user/&lt;username&gt;."
+#~ msgstr ""
+#~ "Questo tipo di relazione può essere usato per collegare una serie alla "
+#~ "voce rispettiva su YouTube. Gli URL devono essere nel formato http://www."
+#~ "youtube.com/user/&lt;username&gt;."
+
+#~ msgid ""
+#~ "This relationship type can be used to link an event to the equivalent "
+#~ "entry in YouTube. URLs should follow the format http://www.youtube.com/"
+#~ "user/&lt;username&gt;."
+#~ msgstr ""
+#~ "Questo tipo di relazione può essere usato per collegare un evento alla "
+#~ "voce rispettiva su YouTube. Gli URL devono essere nel formato http://www."
+#~ "youtube.com/user/&lt;username&gt;."
+
+#~ msgid "business association with"
+#~ msgstr "associato professionalmente con"
+
+#~ msgid "has business association with"
+#~ msgstr "è associato professionalmente con"
 
 #~ msgid ""
 #~ "Indicates the publisher of this work. This is <strong>not</strong> the "

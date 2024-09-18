@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-03 18:30+0200\n"
+"POT-Creation-Date: 2024-09-18 14:55+0200\n"
 "PO-Revision-Date: 2024-09-07 18:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
@@ -44,8 +44,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.7.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -1886,7 +1886,7 @@ msgid "No vote"
 msgstr "Nessun voto"
 
 #: ../root/release/edit/tracklist.tt:463
-#: ../root/static/scripts/release-editor/fields.js:241
+#: ../root/static/scripts/release-editor/fields.js:249
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
 msgstr ""
@@ -2919,7 +2919,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:390
-#: ../root/static/scripts/common/components/EntityLink.js:329
+#: ../root/static/scripts/common/components/EntityLink.js:340
 msgid "This recording is a video"
 msgstr "Questa registrazione è un video"
 
@@ -3010,7 +3010,7 @@ msgstr "Analizzatore di tracce"
 #: ../root/cdstub/CDStubIndex.js:33 ../root/edit/details/AddMedium.js:127
 #: ../root/edit/details/EditMedium.js:462
 #: ../root/edit/details/RemoveMedium.js:71
-#: ../root/static/scripts/release-editor/fields.js:837
+#: ../root/static/scripts/release-editor/fields.js:845
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:359
 msgid "Tracklist"
 msgstr "Elenco tracce"
@@ -3606,7 +3606,7 @@ msgstr "comprende"
 #: ../root/components/common-macros.tt:157
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/components/EntityLink.js:151
-#: ../root/static/scripts/common/components/EntityLink.js:490
+#: ../root/static/scripts/common/components/EntityLink.js:510
 msgid "info"
 msgstr "info"
 
@@ -3753,7 +3753,7 @@ msgid "{doc|Disc ID}:"
 msgstr "{doc|ID disco}:"
 
 #: ../root/components/common-macros.tt:203 ../root/main/index.js:320
-#: ../root/static/scripts/common/components/DescriptiveLink.js:60
+#: ../root/static/scripts/common/components/DescriptiveLink.js:62
 #: ../root/static/scripts/release-editor/dialogs.js:152
 msgid "{entity} by {artist}"
 msgstr "{entity} di {artist}"
@@ -3767,7 +3767,7 @@ msgstr ""
 "Assicurati di leggerle e rispondere se necessario."
 
 #: ../root/components/common-macros.tt:264
-#: ../root/static/scripts/common/components/EntityLink.js:268
+#: ../root/static/scripts/common/components/EntityLink.js:279
 msgid "{name} – {additional_info}"
 msgstr "{name} – {additional_info}"
 
@@ -3779,7 +3779,7 @@ msgstr[1] "Trovate {num} di pubblicazioni corrispondenti alla tua ricerca."
 msgstr[2] "Trovate {num} pubblicazioni corrispondenti alla tua ricerca."
 
 #: ../root/components/common-macros.tt:203
-#: ../root/static/scripts/common/components/DescriptiveLink.js:73
+#: ../root/static/scripts/common/components/DescriptiveLink.js:75
 msgid "{place} in {area}"
 msgstr "{place} in {area}"
 
@@ -5026,7 +5026,7 @@ msgstr "Rimuovi ISRC"
 #: ../root/edit/details/AddRelationship.js:18
 #: ../root/edit/details/RemoveRelationship.js:17
 #: ../root/edit/details/ReorderRelationships.js:17
-#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:195
+#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:213
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:124
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:950
 msgid "Relationship"
@@ -8067,6 +8067,7 @@ msgid "Edit relationships"
 msgstr "Modifica relazioni"
 
 #: ../root/components/InstrumentRelTypes.js:28
+#: ../root/static/scripts/common/components/EntityLink.js:466
 msgid "as “{credit}”"
 msgstr "come “{credit}”"
 
@@ -8263,8 +8264,8 @@ msgid_plural ""
 msgstr[0] ""
 "Chiude tra <span class=\"tooltip\" title=\"{exactdate}\">{num} giorno</span>"
 msgstr[1] ""
-"Chiude tra <span class=\"tooltip\" title=\"{exactdate}\">{num} di "
-"giorni</span>"
+"Chiude tra <span class=\"tooltip\" title=\"{exactdate}\">{num} di giorni</"
+"span>"
 msgstr[2] ""
 "Chiude tra <span class=\"tooltip\" title=\"{exactdate}\">{num} giorni</span>"
 
@@ -8288,8 +8289,8 @@ msgid_plural ""
 msgstr[0] ""
 "Chiude tra <span class=\"tooltip\" title=\"{exactdate}\">{num} minuto</span>"
 msgstr[1] ""
-"Chiude tra <span class=\"tooltip\" title=\"{exactdate}\">{num} di "
-"minuti</span>"
+"Chiude tra <span class=\"tooltip\" title=\"{exactdate}\">{num} di minuti</"
+"span>"
 msgstr[2] ""
 "Chiude tra <span class=\"tooltip\" title=\"{exactdate}\">{num} minuti</span>"
 
@@ -10292,7 +10293,8 @@ msgid "There is currently {num} user subscribed to edits that {user} makes:"
 msgid_plural ""
 "There are currently {num} users subscribed to edits that {user} makes:"
 msgstr[0] "Al momento c'è {num} utente iscritto alle modifiche di {user}:"
-msgstr[1] "Al momento ci sono {num} di utenti iscritti alle modifiche di {user}:"
+msgstr[1] ""
+"Al momento ci sono {num} di utenti iscritti alle modifiche di {user}:"
 msgstr[2] "Al momento ci sono {num} utenti iscritti alle modifiche di {user}:"
 
 #: ../root/entity/Subscribers.js:84
@@ -15024,19 +15026,19 @@ msgstr ""
 "Questo collegamento è stato temporaneamente disabilitato poiché è stato "
 "segnalato come potenzialmente pericoloso."
 
-#: ../root/static/scripts/common/components/EntityLink.js:343
+#: ../root/static/scripts/common/components/EntityLink.js:354
 msgid "This event has artwork in the Event Art Archive"
 msgstr "Quest'evento ha delle immagini nell'Event Art Archive"
 
-#: ../root/static/scripts/common/components/EntityLink.js:368
+#: ../root/static/scripts/common/components/EntityLink.js:379
 msgid "This release has artwork in the Cover Art Archive"
 msgstr "Questa pubblicazione ha delle immagini nel Cover Art Archive"
 
-#: ../root/static/scripts/common/components/EntityLink.js:393
+#: ../root/static/scripts/common/components/EntityLink.js:404
 msgid "This release group has artwork in the Cover Art Archive"
 msgstr "Questo gruppo di pubblicazioni ha delle immagini nel Cover Art Archive"
 
-#: ../root/static/scripts/common/components/EntityLink.js:421
+#: ../root/static/scripts/common/components/EntityLink.js:432
 msgid ""
 "High quality: All available data has been added, if possible including cover "
 "art with liner info that proves it"
@@ -15045,7 +15047,7 @@ msgstr ""
 "possibile, le copertine con note di libretto che dimostrano la completezza "
 "delle informazioni"
 
-#: ../root/static/scripts/common/components/EntityLink.js:434
+#: ../root/static/scripts/common/components/EntityLink.js:445
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"
@@ -16730,19 +16732,19 @@ msgctxt "header"
 msgid "Add medium"
 msgstr "Aggiungi supporto"
 
-#: ../root/static/scripts/release-editor/fields.js:829
+#: ../root/static/scripts/release-editor/fields.js:837
 msgid "Medium {position}: {title}"
 msgstr "Supporto {position}: {title}"
 
-#: ../root/static/scripts/release-editor/fields.js:835
+#: ../root/static/scripts/release-editor/fields.js:843
 msgid "Medium {position}"
 msgstr "Supporto {position}"
 
-#: ../root/static/scripts/release-editor/fields.js:844
+#: ../root/static/scripts/release-editor/fields.js:852
 msgid "I confirm this medium is actually titled “{medium_title}”."
 msgstr "Confermo che questo supporto si intitola davvero “{medium_title}”."
 
-#: ../root/static/scripts/release-editor/fields.js:859
+#: ../root/static/scripts/release-editor/fields.js:867
 msgid ""
 "“{matched_text}” seems to indicate medium ordering rather than a medium "
 "title. If this is the case, please use the up/down arrows on the right side "
@@ -16756,7 +16758,7 @@ msgstr ""
 "le {release_style|linee guida}). Altrimenti, conferma che questo è davvero "
 "il titolo spuntando la casella qui sotto."
 
-#: ../root/static/scripts/release-editor/fields.js:961
+#: ../root/static/scripts/release-editor/fields.js:969
 msgid "You haven’t selected a label for “{name}”."
 msgstr "Non hai selezionato un'etichetta per \"{name}\"."
 

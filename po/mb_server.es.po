@@ -55,18 +55,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-03 18:30+0200\n"
+"POT-Creation-Date: 2024-09-18 14:55+0200\n"
 "PO-Revision-Date: 2024-09-05 13:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.7.1\n"
 
 #: ../root/components/common-macros.tt:12
@@ -1902,7 +1902,7 @@ msgid "No vote"
 msgstr "ninguno"
 
 #: ../root/release/edit/tracklist.tt:463
-#: ../root/static/scripts/release-editor/fields.js:241
+#: ../root/static/scripts/release-editor/fields.js:249
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
 msgstr ""
@@ -2926,7 +2926,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:390
-#: ../root/static/scripts/common/components/EntityLink.js:329
+#: ../root/static/scripts/common/components/EntityLink.js:340
 msgid "This recording is a video"
 msgstr "Esta grabación es un vídeo"
 
@@ -3016,7 +3016,7 @@ msgstr "Editor de pistas"
 #: ../root/cdstub/CDStubIndex.js:33 ../root/edit/details/AddMedium.js:127
 #: ../root/edit/details/EditMedium.js:462
 #: ../root/edit/details/RemoveMedium.js:71
-#: ../root/static/scripts/release-editor/fields.js:837
+#: ../root/static/scripts/release-editor/fields.js:845
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:359
 msgid "Tracklist"
 msgstr "Lista de pistas"
@@ -3608,7 +3608,7 @@ msgstr "incluye"
 #: ../root/components/common-macros.tt:157
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/components/EntityLink.js:151
-#: ../root/static/scripts/common/components/EntityLink.js:490
+#: ../root/static/scripts/common/components/EntityLink.js:510
 msgid "info"
 msgstr "info"
 
@@ -3755,7 +3755,7 @@ msgid "{doc|Disc ID}:"
 msgstr "{doc|ID de disco}:"
 
 #: ../root/components/common-macros.tt:203 ../root/main/index.js:320
-#: ../root/static/scripts/common/components/DescriptiveLink.js:60
+#: ../root/static/scripts/common/components/DescriptiveLink.js:62
 #: ../root/static/scripts/release-editor/dialogs.js:152
 msgid "{entity} by {artist}"
 msgstr "{entity} de {artist}"
@@ -3769,7 +3769,7 @@ msgstr ""
 "responder si es necesario."
 
 #: ../root/components/common-macros.tt:264
-#: ../root/static/scripts/common/components/EntityLink.js:268
+#: ../root/static/scripts/common/components/EntityLink.js:279
 msgid "{name} – {additional_info}"
 msgstr "{name} – {additional_info}"
 
@@ -3781,7 +3781,7 @@ msgstr[1] "Encontramos {num} publicaciones acordes con tu búsqueda."
 msgstr[2] "Encontramos {num} publicaciones acordes con tu búsqueda."
 
 #: ../root/components/common-macros.tt:203
-#: ../root/static/scripts/common/components/DescriptiveLink.js:73
+#: ../root/static/scripts/common/components/DescriptiveLink.js:75
 msgid "{place} in {area}"
 msgstr "{place} en {area}"
 
@@ -5033,7 +5033,7 @@ msgstr "Eliminar ISRC"
 #: ../root/edit/details/AddRelationship.js:18
 #: ../root/edit/details/RemoveRelationship.js:17
 #: ../root/edit/details/ReorderRelationships.js:17
-#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:195
+#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:213
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:124
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:950
 msgid "Relationship"
@@ -8056,6 +8056,7 @@ msgid "Edit relationships"
 msgstr "Editar relaciones"
 
 #: ../root/components/InstrumentRelTypes.js:28
+#: ../root/static/scripts/common/components/EntityLink.js:466
 msgid "as “{credit}”"
 msgstr "como “{credit}”"
 
@@ -14616,19 +14617,19 @@ msgid ""
 msgstr ""
 "Este enlace ha sido bloqueado porque sospechamos que puede ser perjudicial."
 
-#: ../root/static/scripts/common/components/EntityLink.js:343
+#: ../root/static/scripts/common/components/EntityLink.js:354
 msgid "This event has artwork in the Event Art Archive"
 msgstr "Este evento tiene imágenes en el Event Art Archive"
 
-#: ../root/static/scripts/common/components/EntityLink.js:368
+#: ../root/static/scripts/common/components/EntityLink.js:379
 msgid "This release has artwork in the Cover Art Archive"
 msgstr "Esta publicación tiene imágenes en el Cover Art Archive"
 
-#: ../root/static/scripts/common/components/EntityLink.js:393
+#: ../root/static/scripts/common/components/EntityLink.js:404
 msgid "This release group has artwork in the Cover Art Archive"
 msgstr "Este grupo de publicaciones tiene imágenes en el Cover Art Archive"
 
-#: ../root/static/scripts/common/components/EntityLink.js:421
+#: ../root/static/scripts/common/components/EntityLink.js:432
 msgid ""
 "High quality: All available data has been added, if possible including cover "
 "art with liner info that proves it"
@@ -14636,7 +14637,7 @@ msgstr ""
 "Alta calidad: Todos los datos disponibles han sido añadidos, a ser posible "
 "con imágenes que sirvan de prueba"
 
-#: ../root/static/scripts/common/components/EntityLink.js:434
+#: ../root/static/scripts/common/components/EntityLink.js:445
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"
@@ -16311,19 +16312,19 @@ msgctxt "header"
 msgid "Add medium"
 msgstr "Añadir medio"
 
-#: ../root/static/scripts/release-editor/fields.js:829
+#: ../root/static/scripts/release-editor/fields.js:837
 msgid "Medium {position}: {title}"
 msgstr "Medio {position}: {title}"
 
-#: ../root/static/scripts/release-editor/fields.js:835
+#: ../root/static/scripts/release-editor/fields.js:843
 msgid "Medium {position}"
 msgstr "Medio {position}"
 
-#: ../root/static/scripts/release-editor/fields.js:844
+#: ../root/static/scripts/release-editor/fields.js:852
 msgid "I confirm this medium is actually titled “{medium_title}”."
 msgstr "El título del medio es efectivamente “{medium_title}”."
 
-#: ../root/static/scripts/release-editor/fields.js:859
+#: ../root/static/scripts/release-editor/fields.js:867
 msgid ""
 "“{matched_text}” seems to indicate medium ordering rather than a medium "
 "title. If this is the case, please use the up/down arrows on the right side "
@@ -16337,7 +16338,7 @@ msgstr ""
 "directrices}). Si no, confirma que es realmente el título usando la casilla "
 "de más abajo."
 
-#: ../root/static/scripts/release-editor/fields.js:961
+#: ../root/static/scripts/release-editor/fields.js:969
 msgid "You haven’t selected a label for “{name}”."
 msgstr "No has seleccionado una discográfica para “{name}”."
 
@@ -17924,8 +17925,8 @@ msgstr ""
 "de entidades (las ediciones que pueden causar más problemas si se aplican "
 "por error), una cuarta solo con eliminaciones de relaciones, una quinta con "
 "cambios destructivos a publicaciones (eliminaciones de pistas, medios y "
-"discográficas de publicación), y una última para eliminaciones de imágenes ("
-"de publicaciones y eventos)."
+"discográficas de publicación), y una última para eliminaciones de imágenes "
+"(de publicaciones y eventos)."
 
 #: ../root/vote/VotingIndex.js:158
 msgid "All open destructive edits"

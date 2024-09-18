@@ -2510,7 +2510,7 @@ msgstr ""
 "これは、アーティストが過去にレーベルとレコーディング契約を結んでいたことを示"
 "す。"
 
-#. name:producer position
+#. name:producer position at
 #: DB:link_type/description:117
 msgid ""
 "This indicates that an artist was officially employed by a label as a "
@@ -2519,7 +2519,7 @@ msgstr ""
 "これは、アーティストがプロデューサーとしてレーベルに正式に雇用されたことを示"
 "す。"
 
-#. name:engineer position
+#. name:engineer position at
 #: DB:link_type/description:120
 msgid ""
 "This indicates that an artist was officially employed by a label as an "
@@ -2527,7 +2527,7 @@ msgid ""
 msgstr ""
 "これは、アーティストがエンジニアとしてレーベルに正式に雇用されたことを示す。"
 
-#. name:creative position
+#. name:creative position at
 #: DB:link_type/description:115
 msgid ""
 "This indicates that an artist was officially employed by a label in a "
@@ -2536,14 +2536,14 @@ msgstr ""
 "これは、アーティストが写真家やグラフィックデザイナーなどのクリエイティブな立"
 "場としてレーベルに正式に雇用されたことを示す。"
 
-#. name:artists and repertoire position
+#. name:artists and repertoire position at
 #: DB:link_type/description:1081
 msgid ""
 "This indicates that an artist was officially employed by a label in an "
 "artists and repertoire (A&R) position."
 msgstr ""
 
-#. name:executive position
+#. name:executive position at
 #: DB:link_type/description:1266
 #, fuzzy
 #| msgid ""
@@ -3627,6 +3627,13 @@ msgid ""
 "This links a label to a site where tickets can be purchased for their events."
 msgstr ""
 
+#. name:youtube
+#: DB:link_type/description:225
+#, fuzzy
+#| msgid "This links a label to the equivalent entry at YouTube."
+msgid "This links a label to its channel at YouTube."
+msgstr "YouTubeでの同等のエントリに対してラベルをリンクする。"
+
 #. name:apple music
 #: DB:link_type/description:1130
 msgid "This links a label to its page at Apple Music."
@@ -3648,11 +3655,6 @@ msgstr ""
 #: DB:link_type/description:290
 msgid "This links a label to its profile at SoundCloud."
 msgstr "SoundCloud でのプロファイルに対しラベルをリンクする。"
-
-#. name:youtube
-#: DB:link_type/description:225
-msgid "This links a label to the equivalent entry at YouTube."
-msgstr "YouTubeでの同等のエントリに対してラベルをリンクする。"
 
 #. name:crowdfunding
 #: DB:link_type/description:903
@@ -3700,6 +3702,13 @@ msgstr ""
 msgid ""
 "This links a place to a site where tickets can be purchased for its events."
 msgstr ""
+
+#. name:youtube
+#: DB:link_type/description:528
+#, fuzzy
+#| msgid "This links a place to its profile at SoundCloud."
+msgid "This links a place to its channel at YouTube."
+msgstr "SoundCloud でのプロファイルに対し場所をリンクする。"
 
 #. name:soundcloud
 #: DB:link_type/description:940
@@ -3990,6 +3999,13 @@ msgid ""
 "it."
 msgstr ""
 
+#. name:youtube
+#: DB:link_type/description:792
+#, fuzzy
+#| msgid "This links an artist to the equivalent entry at YouTube."
+msgid "This links a series to its channel at YouTube."
+msgstr "アーティストを YouTube での同等エントリにリンクする。"
+
 #. name:crowdfunding
 #: DB:link_type/description:910
 msgid ""
@@ -4246,7 +4262,9 @@ msgstr "アーティストを PureVolume での同等エントリにリンクす
 
 #. name:youtube
 #: DB:link_type/description:193
-msgid "This links an artist to the equivalent entry at YouTube."
+#, fuzzy
+#| msgid "This links an artist to the equivalent entry at YouTube."
+msgid "This links an artist to their channel at YouTube."
 msgstr "アーティストを YouTube での同等エントリにリンクする。"
 
 #. name:crowdfunding
@@ -4330,6 +4348,13 @@ msgstr ""
 #: DB:link_type/description:1197
 msgid "This links an event to a site where tickets can be purchased for it."
 msgstr ""
+
+#. name:youtube
+#: DB:link_type/description:791
+#, fuzzy
+#| msgid "This links an artist to the equivalent entry at YouTube."
+msgid "This links an event to its channel at YouTube."
+msgstr "アーティストを YouTube での同等エントリにリンクする。"
 
 #. name:crowdfunding
 #: DB:link_type/description:904
@@ -4899,49 +4924,6 @@ msgstr ""
 #| msgid "This relationship type can be used to link a place to its blog"
 msgid "This relationship type can be used to link a place to its blog."
 msgstr "この関係タイプは、場所をそのブログにリンク可能である"
-
-#. name:youtube
-#: DB:link_type/description:528
-msgid ""
-"This relationship type can be used to link a place to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;."
-msgstr ""
-"このリレーションシップタイプを使用して、場所をYouTube の同等エントリにリンク"
-"可能である。 URLは http://www.youtube.com/user/&lt;username&gt; の形式に従う"
-"必要がある。"
-
-#. name:youtube
-#: DB:link_type/description:792
-#, fuzzy
-#| msgid ""
-#| "This relationship type can be used to link a series to the equivalent "
-#| "entry in YouTube. URLs should follow the format http://www.youtube.com/"
-#| "user/&lt;username&gt;"
-msgid ""
-"This relationship type can be used to link a series to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;."
-msgstr ""
-"このリレーションシップタイプを使用して、シリーズを YouTube の同等エントリにリ"
-"ンク可能である。 URLは http://www.youtube.com/user/&lt;username&gt; の形式に"
-"従う必要がある。"
-
-#. name:youtube
-#: DB:link_type/description:791
-#, fuzzy
-#| msgid ""
-#| "This relationship type can be used to link an event to the equivalent "
-#| "entry in YouTube. URLs should follow the format http://www.youtube.com/"
-#| "user/&lt;username&gt;"
-msgid ""
-"This relationship type can be used to link an event to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;."
-msgstr ""
-"このリレーションシップタイプを使用して、イベントをYouTube の同等のエントリに"
-"リンク可能である。 URLは http://www.youtube.com/user/&lt;username&gt; の形式"
-"に従う必要がある。"
 
 #. name:IMDB samples
 #: DB:link_type/description:258
@@ -5992,15 +5974,21 @@ msgstr "芸術監督"
 msgid "artists and repertoire"
 msgstr "アーティスト・アンド・レパートリー"
 
-#. name:artists and repertoire position
+#. name:artists and repertoire position at
 #: DB:link_type/reverse_link_phrase:1081
 msgid "artists and repertoire persons"
 msgstr ""
 
-#. name:artists and repertoire position
-#: DB:link_type/name:1081 DB:link_type/link_phrase:1081
+#. name:artists and repertoire position at
+#: DB:link_type/link_phrase:1081
 msgid "artists and repertoire position"
 msgstr ""
+
+#: DB:link_type/name:1081
+#, fuzzy
+#| msgid "artists and repertoire"
+msgid "artists and repertoire position at"
+msgstr "アーティスト・アンド・レパートリー"
 
 #: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
 #: DB:link_type/name:1170
@@ -6171,16 +6159,10 @@ msgstr ""
 msgid "broadcast by"
 msgstr ""
 
-#. name:business association, name:publishing
-#: DB:link_type/name:205 DB:link_type/link_phrase:66
-#: DB:link_type/link_phrase:205 DB:link_type/reverse_link_phrase:205
-#: DB:link_type/long_link_phrase:205
+#. name:business association
+#: DB:link_type/name:205 DB:link_type/link_phrase:205
+#: DB:link_type/reverse_link_phrase:205 DB:link_type/long_link_phrase:205
 msgid "business association"
-msgstr "業界団体"
-
-#. name:publishing
-#: DB:link_type/reverse_link_phrase:66
-msgid "business association with"
 msgstr "業界団体"
 
 #. name:download for free
@@ -6553,15 +6535,21 @@ msgstr ""
 msgid "creative direction"
 msgstr "クリエイティブディレクション"
 
-#. name:creative position
+#. name:creative position at
 #: DB:link_type/reverse_link_phrase:115
 msgid "creative persons"
 msgstr ""
 
-#. name:creative position
-#: DB:link_type/name:115 DB:link_type/link_phrase:115
+#. name:creative position at
+#: DB:link_type/link_phrase:115
 msgid "creative position"
 msgstr ""
+
+#: DB:link_type/name:115
+#, fuzzy
+#| msgid "executive"
+msgid "creative position at"
+msgstr "エグゼクティブ"
 
 #: DB:link_type/name:904 DB:link_type/name:909 DB:link_type/name:903
 #: DB:link_type/name:905 DB:link_type/name:906 DB:link_type/name:902
@@ -6819,13 +6807,13 @@ msgstr ""
 msgid "engineer"
 msgstr "エンジニア"
 
-#. name:engineer position
-#: DB:link_type/name:120 DB:link_type/name:701 DB:link_type/link_phrase:120
+#. name:engineer position at
+#: DB:link_type/name:701 DB:link_type/link_phrase:120
 msgid "engineer position"
 msgstr ""
 
 #. name:engineer position
-#: DB:link_type/link_phrase:701
+#: DB:link_type/name:120 DB:link_type/link_phrase:701
 msgid "engineer position at"
 msgstr ""
 
@@ -6837,8 +6825,8 @@ msgstr ""
 msgid "engineered in"
 msgstr ""
 
-#. name:engineer position
-#: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
+#. name:engineer position, name:engineer position at
+#: DB:link_type/reverse_link_phrase:701 DB:link_type/reverse_link_phrase:120
 msgid "engineers"
 msgstr "エンジニア"
 
@@ -6866,14 +6854,20 @@ msgstr ""
 msgid "executive"
 msgstr "エグゼクティブ"
 
-#. name:executive position
-#: DB:link_type/name:1266 DB:link_type/link_phrase:1266
+#. name:executive position at
+#: DB:link_type/link_phrase:1266
 #, fuzzy
 #| msgid "executive"
 msgid "executive position"
 msgstr "エグゼクティブ"
 
-#. name:executive position
+#: DB:link_type/name:1266
+#, fuzzy
+#| msgid "executive"
+msgid "executive position at"
+msgstr "エグゼクティブ"
+
+#. name:executive position at
 #: DB:link_type/reverse_link_phrase:1266
 #, fuzzy
 #| msgid "executive"
@@ -7056,7 +7050,7 @@ msgstr ""
 msgid "guest performers"
 msgstr "ゲストパフォーマー"
 
-#. name:creative position
+#. name:creative position at
 #: DB:link_type/long_link_phrase:115
 msgid "had a creative position at"
 msgstr ""
@@ -7066,7 +7060,7 @@ msgstr ""
 msgid "had a miscellaneous role on"
 msgstr ""
 
-#. name:producer position
+#. name:producer position at
 #: DB:link_type/long_link_phrase:117
 msgid "had a producer position at"
 msgstr ""
@@ -7076,17 +7070,17 @@ msgstr ""
 msgid "had a recording contract with"
 msgstr ""
 
-#. name:artists and repertoire position
+#. name:artists and repertoire position at
 #: DB:link_type/long_link_phrase:1081
 msgid "had an artists and repertoire position at"
 msgstr ""
 
-#. name:engineer position
+#. name:engineer position at
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr ""
 
-#. name:executive position
+#. name:executive position at
 #: DB:link_type/long_link_phrase:1266
 msgid "had an executive position at"
 msgstr ""
@@ -7412,11 +7406,6 @@ msgstr ""
 #. name:award ceremony
 #: DB:link_type/long_link_phrase:1094
 msgid "has award ceremony"
-msgstr ""
-
-#. name:publishing
-#: DB:link_type/long_link_phrase:66
-msgid "has business association with"
 msgstr ""
 
 #. name:has catalogue
@@ -9202,12 +9191,18 @@ msgstr ""
 msgid "producer"
 msgstr "プロデューサー"
 
-#. name:producer position
-#: DB:link_type/name:117 DB:link_type/link_phrase:117
+#. name:producer position at
+#: DB:link_type/link_phrase:117
 msgid "producer position"
 msgstr "プロデューサーポジション"
 
-#. name:producer position
+#: DB:link_type/name:117
+#, fuzzy
+#| msgid "producer position"
+msgid "producer position at"
+msgstr "プロデューサーポジション"
+
+#. name:producer position at
 #: DB:link_type/reverse_link_phrase:117
 msgid "producers"
 msgstr "プロデューサー"
@@ -9333,8 +9328,11 @@ msgstr "音楽出版社"
 msgid "publishes series"
 msgstr ""
 
+#. name:publishing
 #: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:161
 #: DB:link_type/name:66 DB:link_type/name:32 DB:link_type/name:208
+#: DB:link_type/link_phrase:66 DB:link_type/reverse_link_phrase:66
+#: DB:link_type/long_link_phrase:66
 msgid "publishing"
 msgstr ""
 
@@ -11903,6 +11901,46 @@ msgstr ""
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr ""
+
+#~ msgid ""
+#~ "This relationship type can be used to link a place to the equivalent "
+#~ "entry in YouTube. URLs should follow the format http://www.youtube.com/"
+#~ "user/&lt;username&gt;."
+#~ msgstr ""
+#~ "このリレーションシップタイプを使用して、場所をYouTube の同等エントリにリン"
+#~ "ク可能である。 URLは http://www.youtube.com/user/&lt;username&gt; の形式に"
+#~ "従う必要がある。"
+
+#, fuzzy
+#~| msgid ""
+#~| "This relationship type can be used to link a series to the equivalent "
+#~| "entry in YouTube. URLs should follow the format http://www.youtube.com/"
+#~| "user/&lt;username&gt;"
+#~ msgid ""
+#~ "This relationship type can be used to link a series to the equivalent "
+#~ "entry in YouTube. URLs should follow the format http://www.youtube.com/"
+#~ "user/&lt;username&gt;."
+#~ msgstr ""
+#~ "このリレーションシップタイプを使用して、シリーズを YouTube の同等エントリ"
+#~ "にリンク可能である。 URLは http://www.youtube.com/user/&lt;username&gt; の"
+#~ "形式に従う必要がある。"
+
+#, fuzzy
+#~| msgid ""
+#~| "This relationship type can be used to link an event to the equivalent "
+#~| "entry in YouTube. URLs should follow the format http://www.youtube.com/"
+#~| "user/&lt;username&gt;"
+#~ msgid ""
+#~ "This relationship type can be used to link an event to the equivalent "
+#~ "entry in YouTube. URLs should follow the format http://www.youtube.com/"
+#~ "user/&lt;username&gt;."
+#~ msgstr ""
+#~ "このリレーションシップタイプを使用して、イベントをYouTube の同等のエントリ"
+#~ "にリンク可能である。 URLは http://www.youtube.com/user/&lt;username&gt; の"
+#~ "形式に従う必要がある。"
+
+#~ msgid "business association with"
+#~ msgstr "業界団体"
 
 #~ msgid ""
 #~ "Indicates the publisher of this work. This is <strong>not</strong> the "

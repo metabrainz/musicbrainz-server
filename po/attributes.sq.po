@@ -233,6 +233,15 @@ msgid ""
 "and populated area."
 msgstr ""
 
+#. name:CD-i
+#: DB:medium_format/description:209
+msgctxt "medium_format"
+msgid ""
+"A CD format that combines data/video and audio, used for different purposes "
+"in the 1990s including, in some cases, music releases with accompanying "
+"video content."
+msgstr ""
+
 #. name:Mixed Mode CD
 #: DB:medium_format/description:129
 msgctxt "medium_format"
@@ -2179,6 +2188,11 @@ msgstr "CD+G"
 msgctxt "medium_format"
 msgid "CD-R"
 msgstr "CD-R"
+
+#: DB:medium_format/name:209
+msgctxt "medium_format"
+msgid "CD-i"
+msgstr ""
 
 #: DB:medium_format/name:41
 msgctxt "medium_format"
