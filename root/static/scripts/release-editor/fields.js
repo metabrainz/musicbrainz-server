@@ -115,12 +115,20 @@ class Track {
       releaseEditor.copyTrackArtistsToRecordings(),
     );
 
-    releaseEditor.copyTrackTitlesToRecordings.subscribe(
-      this.updateRecordingTitle,
-    );
-    releaseEditor.copyTrackArtistsToRecordings.subscribe(
-      this.updateRecordingArtist,
-    );
+    /*
+     * When a "copy all" checkbox is unchecked, uncheck our corresponding
+     * checkbox if it isn't currently shown.
+     */
+    releaseEditor.copyTrackTitlesToRecordings.subscribe((checked) => {
+      if (!checked && !this.titleDiffersFromRecording()) {
+        this.updateRecordingTitle(false);
+      }
+    });
+    releaseEditor.copyTrackArtistsToRecordings.subscribe((checked) => {
+      if (!checked && !this.artistDiffersFromRecording()) {
+        this.updateRecordingArtist(false);
+      }
+    });
 
     this.recordingValue = ko.observable(
       new mbEntity.Recording({name: data.name}),
@@ -1229,6 +1237,26 @@ class Release extends mbEntity.Release {
       }
       return result;
     }, []);
+  }
+
+  // Returns a generator for iterating over all tracks.
+  * allTracks() {
+    for (const medium of this.mediums()) {
+      for (const track of medium.tracks()) {
+        yield track;
+      }
+    }
+  }
+
+  // Returns the number of tracks for which trackFunc returns true.
+  countTracks(trackFunc) {
+    let count = 0;
+    for (const track of this.allTracks()) {
+      if (trackFunc(track)) {
+        count++;
+      }
+    }
+    return count;
   }
 
   existingMediumData() {
