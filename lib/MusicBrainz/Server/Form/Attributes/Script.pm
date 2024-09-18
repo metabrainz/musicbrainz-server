@@ -1,15 +1,15 @@
-package MusicBrainz::Server::Form::Admin::Attributes::Language;
+package MusicBrainz::Server::Form::Attributes::Script;
 use strict;
 use warnings;
 
 use HTML::FormHandler::Moose;
 
-use MusicBrainz::Server::Constants qw( :language_frequency );
+use MusicBrainz::Server::Constants qw( :script_frequency );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 
-sub edit_field_names { qw( iso_code_1 iso_code_2b iso_code_2t iso_code_3 name frequency ) }
+sub edit_field_names { qw( iso_code iso_number name frequency ) }
 
 has '+name' => ( default => 'attr' );
 
@@ -19,22 +19,13 @@ has_field 'name' => (
     maxlength => 255,
 );
 
-has_field 'iso_code_1' => (
+has_field 'iso_code' => (
     type => 'Text',
-    maxlength => 2,
+    required  => 1,
+    maxlength => 4,
 );
 
-has_field 'iso_code_2b' => (
-    type => 'Text',
-    maxlength => 3,
-);
-
-has_field 'iso_code_2t' => (
-    type => 'Text',
-    maxlength => 3,
-);
-
-has_field 'iso_code_3' => (
+has_field 'iso_number' => (
     type => 'Text',
     required  => 1,
     maxlength => 3,
@@ -47,9 +38,10 @@ has_field 'frequency' => (
 
 sub options_frequency {
     return [
-        $LANGUAGE_FREQUENCY_HIDDEN, 'Hidden',
-        $LANGUAGE_FREQUENCY_OTHER, 'Other',
-        $LANGUAGE_FREQUENCY_FREQUENT, 'Frequently used',
+        $SCRIPT_FREQUENCY_HIDDEN, 'Hidden',
+        $SCRIPT_FREQUENCY_UNCOMMON, 'Other (Uncommon)',
+        $SCRIPT_FREQUENCY_OTHER, 'Other',
+        $SCRIPT_FREQUENCY_FREQUENT, 'Frequently used',
     ];
 }
 
