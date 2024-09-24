@@ -20,12 +20,12 @@
 # Сергей Салин <email address hidden>, 2017
 # SoundwaveUwU <1337soundwave1337+musicbrainz@gmail.com>, 2023.
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
+# blit <blit@disroot.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-07-20 17:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-09-23 05:42+0000\n"
+"Last-Translator: blit <blit@disroot.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/ru/>\n"
 "Language: ru\n"
@@ -33,9 +33,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.6.2\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -1315,12 +1315,12 @@ msgstr "киргизский"
 #. frequency:1 iso_code_3:mkw
 #: DB:language/name:4291
 msgid "Kituba (Congo)"
-msgstr ""
+msgstr "Китуба (Конго)"
 
 #. frequency:1 iso_code_3:ktu
 #: DB:language/name:3568
 msgid "Kituba (Democratic Republic of Congo)"
-msgstr ""
+msgstr "Китуба (Демократическая Республика Конго)"
 
 #. frequency:1 iso_code_3:tlh
 #: DB:language/name:421
