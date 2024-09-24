@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2024-09-23 23:42+0000\n"
+"PO-Revision-Date: 2024-09-25 00:45+0000\n"
 "Last-Translator: Arainuki <esetipodealla@gmail.com>\n"
 "Language-Team: Spanish (Latin America) <https://translations.metabrainz.org/"
 "projects/musicbrainz/instruments/es_419/>\n"
@@ -44,50 +44,50 @@ msgstr "Tambor Batá"
 #: DB:instrument/name:852
 msgctxt "long metal bar with strings"
 msgid "Blaster Beam"
-msgstr ""
+msgstr "Blaster Beam"
 
 #: DB:instrument/name:794
 msgctxt "electric piano with reeds"
 msgid "Cembalet"
-msgstr ""
+msgstr "Cembalet"
 
 #: DB:instrument/name:183
 msgid "Chapman stick"
-msgstr ""
+msgstr "Chapman stick"
 
 #: DB:instrument/name:482
 msgid "Cretan lyra"
-msgstr ""
+msgstr "Lira de Creta"
 
 #: DB:instrument/name:736
 msgid "Cristal Baschet"
-msgstr ""
+msgstr "Cristal Baschet"
 
 #: DB:instrument/name:118
 msgid "Denis d'or"
-msgstr ""
+msgstr "Denis de oro"
 
 #: DB:instrument/name:119
 msgid "Dubreq Stylophone"
-msgstr ""
+msgstr "Estilófono"
 
 #: DB:instrument/name:574
 msgid "E-flat clarinet"
-msgstr ""
+msgstr "Requinto"
 
 #: DB:instrument/name:441
 msgid "EWI"
-msgstr ""
+msgstr "EWI"
 
 #: DB:instrument/name:837
 msgctxt "Unisonoric concertina"
 msgid "English concertina"
-msgstr ""
+msgstr "Concertina inglesa"
 
 #: DB:instrument/name:844
 msgctxt "1800's improved flageolet"
 msgid "English flageolet"
-msgstr ""
+msgstr "Flageolet inglés"
 
 #: DB:instrument/name:30
 msgid "French horn"
@@ -96,16 +96,16 @@ msgstr "Corno francés"
 #: DB:instrument/name:838
 msgctxt "Bisonoric concertina"
 msgid "German concertina"
-msgstr ""
+msgstr "Concertina alemana"
 
 #: DB:instrument/name:356
 msgid "German harp"
-msgstr ""
+msgstr "Arpa alemana"
 
 #: DB:instrument/name:901
 msgctxt "Modern 24-stringed stainless steel kora"
 msgid "Gravikord"
-msgstr ""
+msgstr "Gravikord"
 
 #: DB:instrument/name:1073
 msgctxt "Large Scottish bagpipe"
@@ -119,33 +119,33 @@ msgstr ""
 
 #: DB:instrument/name:134
 msgid "Hammond organ"
-msgstr ""
+msgstr "Órgano Hammond"
 
 #: DB:instrument/name:323
 msgid "Hawaiian guitar"
-msgstr ""
+msgstr "Guitarra hawaiana"
 
 #: DB:instrument/name:1011
 msgctxt "Indonesian spike-fiddle used in gamelan"
 msgid "Indonesian rebab"
-msgstr ""
+msgstr "Rebab indonesio"
 
 #: DB:instrument/name:406
 msgid "Irish bouzouki"
-msgstr ""
+msgstr "Buzuki irlandés"
 
 #: DB:instrument/name:878
 msgctxt "19th century transverse flute"
 msgid "Irish flute"
-msgstr ""
+msgstr "Flauta irlandesa"
 
 #: DB:instrument/name:355
 msgid "Irish harp / clàrsach"
-msgstr ""
+msgstr "Arpa irlandesa / clàrsach"
 
 #: DB:instrument/name:561
 msgid "Lyricon"
-msgstr ""
+msgstr "Liricón"
 
 #: DB:instrument/name:1200
 msgctxt "Traditional Hungarian bagpipe"
@@ -155,23 +155,23 @@ msgstr ""
 #: DB:instrument/name:637
 msgctxt "Mark Stevens' bar chime"
 msgid "Mark tree"
-msgstr ""
+msgstr "Cortinilla"
 
 #: DB:instrument/name:442
 msgid "Marxophone"
-msgstr ""
+msgstr "Marxófono"
 
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
-msgstr ""
+msgstr "Vihuela mexicana"
 
 #: DB:instrument/name:278
 msgid "Minimoog"
-msgstr ""
+msgstr "Minimoog"
 
 #: DB:instrument/name:277
 msgid "Moog"
-msgstr ""
+msgstr "Moog"
 
 #: DB:instrument/name:358
 msgctxt "Small north east England bagpipes"
@@ -181,11 +181,11 @@ msgstr ""
 #: DB:instrument/name:890
 msgctxt "Toy synthesizer"
 msgid "Otamatone"
-msgstr ""
+msgstr "Otamatone"
 
 #: DB:instrument/name:664
 msgid "Paraguayan harp"
-msgstr ""
+msgstr "Arpa paraguaya"
 
 #: DB:instrument/name:793
 msgctxt "electromechanical piano"
@@ -280,7 +280,7 @@ msgstr ""
 #: DB:instrument/name:41
 msgctxt "Commonly used bellowed free reed with keys/buttons"
 msgid "accordion"
-msgstr ""
+msgstr "acordeón"
 
 #: DB:instrument/name:50
 msgid "acoustic bass guitar"
@@ -301,7 +301,7 @@ msgstr "arpa eólica"
 #: DB:instrument/name:717
 msgctxt "Brazillian rattle-gourd"
 msgid "afoxé"
-msgstr ""
+msgstr "afoxé"
 
 #: DB:instrument/name:487
 msgid "agogô"
