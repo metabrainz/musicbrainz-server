@@ -69,7 +69,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-18 14:55+0200\n"
-"PO-Revision-Date: 2024-09-03 11:42+0000\n"
+"PO-Revision-Date: 2024-09-23 18:42+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -79,7 +79,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7.1\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -714,10 +714,8 @@ msgid "Chat"
 msgstr "Tchat"
 
 #: ../root/release/edit/information.tt:58
-#, fuzzy
-#| msgid "You must select an existing release group."
 msgid "Checking existing release groups…"
-msgstr "Vous devez choisir un groupe de parution existant."
+msgstr "Recherche des groupes de parution existant…"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -1146,11 +1144,8 @@ msgid "Existing medium"
 msgstr "Support existant"
 
 #: ../root/release/edit/information.tt:77
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit release group alias"
 msgid "Existing release groups with similar names"
-msgstr "Modifier l’alias de groupe de parution"
+msgstr "Groupes de parution existant avec des noms similaires"
 
 #: ../root/release/edit/tracklist.tt:151
 msgid "Expand"
@@ -2256,10 +2251,8 @@ msgid "Release group details"
 msgstr "Détails du groupe de parution"
 
 #: ../root/release/edit/information.tt:67
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release group search error"
-msgstr "Groupes de parution"
+msgstr "Erreur de recherche des groupes de parution"
 
 #: ../root/release_group/layout.tt:1
 #: ../root/release_group/ReleaseGroupLayout.js:26
@@ -2373,7 +2366,7 @@ msgstr "Résultats :"
 
 #: ../root/release/edit/information.tt:68
 msgid "Retry"
-msgstr ""
+msgstr "Réessayer"
 
 #: ../root/release/edit/recordings.tt:14
 msgid "Reuse previous recordings"
@@ -16779,14 +16772,11 @@ msgstr[1] "{n} œuvres sélectionnées"
 msgstr[2] "{n} œuvres sélectionnées"
 
 #: ../root/static/scripts/release-editor/actions.js:142
-#, fuzzy
-#| msgid "{num} release found"
-#| msgid_plural "{num} releases found"
 msgid "{num} release"
 msgid_plural "{num} releases"
-msgstr[0] "{num} parution de trouvée"
-msgstr[1] "{num} parutions de trouvées"
-msgstr[2] "{num} parutions de trouvées"
+msgstr[0] "{num} parution"
+msgstr[1] "{num} parutions"
+msgstr[2] "{num} parutions"
 
 #: ../root/static/scripts/release-editor/actions.js:465
 msgid ""
@@ -18433,20 +18423,6 @@ msgid "Destructive edits"
 msgstr "Modifications destructrices"
 
 #: ../root/vote/VotingIndex.js:139
-#, fuzzy
-#| msgid ""
-#| "Destructive edits (removals and merges) are often very hard or even "
-#| "impossible to revert. As such, an incorrect destructive edit that applies "
-#| "unnoticed can cause quite a big mess! Most are guaranteed to remain open "
-#| "for at least two full days even if they get three “Yes” votes, to avoid "
-#| "them closing too quickly, but it’s always good to get more eyes on them. "
-#| "Below you can find five different searches: one for all destructive edits "
-#| "(which might be overwhelming sometimes), one only for those destructive "
-#| "edits that have no edit notes (so no reasoning has been provided for them "
-#| "at all), one for entity merges and removals only (the edits more likely "
-#| "to cause a mess if they incorrectly go through), one for relationship "
-#| "removals only, and one for destructive changes to releases (track, medium "
-#| "and release label removals)."
 msgid ""
 "Destructive edits (removals and merges) are often very hard or even "
 "impossible to revert. As such, an incorrect destructive edit that applies "
@@ -18466,16 +18442,16 @@ msgstr ""
 "destructrice incorrecte qui est appliquée inaperçue peut causer de sérieux "
 "problèmes ! La plupart sont garanties de rester ouvertes pendant deux "
 "journées entières même si elles reçoivent trois votes « Oui », de façon à "
-"éviter qu’elles soient fermées trop rapidement sans permettre d’avoir "
-"d’autres regards dessus. Ci-dessous vous trouverez cinq recherches "
-"différentes : une pour toutes les modifications destructrices (qui peuvent "
-"vous submerger parfois), une pour les modifications destructrices qui n’ont "
-"aucune note (et donc absolument aucun motif n’a été fourni), une pour les "
-"fusions et suppressions seulement (les modifications les plus susceptibles "
-"de créer de sérieux problèmes si elles sont incorrectes), une pour les "
-"suppressions de relations seulement, et une pour les modifications "
-"destructrices de parution (suppression de pistes, supports, et label de "
-"parution)."
+"éviter qu’elles soient fermées trop rapidement sans permettre d’avoir d’"
+"autres regards dessus. Ci-dessous vous trouverez six recherches différentes :"
+" une pour toutes les modifications destructrices (qui peuvent vous submerger "
+"parfois), une pour les modifications destructrices qui n’ont aucune note (et "
+"donc absolument aucun motif n’a été fourni), une pour les fusions et "
+"suppressions seulement (les modifications les plus susceptibles de créer de "
+"sérieux problèmes si elles sont incorrectes), une pour les suppressions de "
+"relations seulement, une pour les modifications destructrices de parution ("
+"suppression de pistes, supports, et label de parution), et une pour les "
+"suppressions d’images (d’événement et de parution)."
 
 #: ../root/vote/VotingIndex.js:158
 msgid "All open destructive edits"
@@ -18500,10 +18476,8 @@ msgid "All open destructive changes to releases"
 msgstr "Toutes les modifications destructrices ouvertes pour des parutions"
 
 #: ../root/vote/VotingIndex.js:204
-#, fuzzy
-#| msgid "All open relationship removals"
 msgid "All open artwork removals"
-msgstr "Toutes les suppressions de relations ouvertes"
+msgstr "Toutes les suppressions d’images"
 
 #: ../root/vote/VotingIndex.js:215
 msgid "Unreviewed and potentially problematic edits"
@@ -18638,12 +18612,6 @@ msgstr ""
 "envisagez donc de les vérifier elles aussi !"
 
 #: ../root/vote/VotingIndex.js:345
-#, fuzzy
-#| msgid ""
-#| "Specific searches are provided for edits adding releases/mediums, which "
-#| "are probably the most complex and as such reasonably likely to have "
-#| "issues, plus for edits adding artists, which might include artists trying "
-#| "to add their own data and not doing a great job of it."
 msgid ""
 "Specific searches are provided for edits adding releases/mediums, which are "
 "probably the most complex and as such reasonably likely to have issues, plus "
@@ -18656,7 +18624,8 @@ msgstr ""
 "parutions/supports, car elles sont plus complexes et donc plus sujettes aux "
 "problèmes, mais aussi pour les modifications ajoutant des artistes, qui "
 "peuvent inclure des artistes essayant d’ajouter leurs propres données sans "
-"grand succès."
+"grand succès, et pour les modifications relatives aux images, que les "
+"débutants ont souvent du mal à associer à la bonne entité."
 
 #: ../root/vote/VotingIndex.js:358
 msgid "All edits from beginner editors"
@@ -18701,20 +18670,14 @@ msgstr ""
 "faites il y a moins de 2 semaines"
 
 #: ../root/vote/VotingIndex.js:413
-#, fuzzy
-#| msgid "All \"Add artist\" edits by beginner editors"
 msgid "All artwork edits by beginner editors"
-msgstr ""
-"Toutes les modifications « Ajouter un artiste » par des éditeurs débutants"
+msgstr "Toutes les modifications d’images par des éditeurs débutants"
 
 #: ../root/vote/VotingIndex.js:419
-#, fuzzy
-#| msgid ""
-#| "All \"Add artist\" edits by beginner editors made less than 2 weeks ago"
 msgid "All artwork edits by beginner editors made less than 2 weeks ago"
 msgstr ""
-"Toutes les modifications « Ajouter un artiste » par des éditeurs débutants "
-"faites il y a moins de 2 semaines"
+"Toutes les modifications d’images par des éditeurs débutants faites il y a "
+"moins de 2 semaines"
 
 #: ../root/vote/VotingIndex.js:426
 msgid "All open destructive edits by beginner editors"
