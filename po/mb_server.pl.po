@@ -23,24 +23,24 @@
 # Tobias Toedter <email address hidden>, 2007
 # yvanz, 2018
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
+# Echelon666 <echelon01@wp.pl>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-18 14:55+0200\n"
-"PO-Revision-Date: 2024-04-17 17:38+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-09-18 23:42+0000\n"
+"Last-Translator: Echelon666 <echelon01@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -3213,7 +3213,7 @@ msgstr "Praca"
 #: ../root/layout/components/sidebar/WorkSidebar.js:89
 #: ../root/static/scripts/common/components/AttributeList.js:61
 msgid "Work attributes"
-msgstr ""
+msgstr "Atrybuty dzieła"
 
 #: ../root/work/edit_form.tt:11
 #, fuzzy
@@ -8886,7 +8886,7 @@ msgstr "Subskrybowani redaktorzy"
 #: ../root/edit/components/ListHeader.js:172 ../root/vote/VotingIndex.js:99
 #: ../root/vote/VotingIndex.js:101
 msgid "Voting suggestions"
-msgstr ""
+msgstr "Sugestie dotyczące głosowania"
 
 #: ../root/edit/components/ListHeader.js:199
 msgid "Quick links:"
@@ -11090,7 +11090,7 @@ msgstr "Dodaj do nowej kolekcji"
 #: ../root/layout/components/sidebar/CollectionLinks.js:41
 #: ../root/user/UserCollections.js:191
 msgid "Collaborative collections"
-msgstr ""
+msgstr "Kolekcje współpracy"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:52
 msgid "Found in {num} user collection"
@@ -17468,10 +17468,8 @@ msgid "{user} has not rated anything."
 msgstr ""
 
 #: ../root/user/UserSubscriptions.js:24
-#, fuzzy
-#| msgid "Series Subscriptions"
 msgid "Artist subscriptions"
-msgstr "Subskrypcje serii"
+msgstr "Subskrypcje artystów"
 
 #: ../root/user/UserSubscriptions.js:25
 #, fuzzy
