@@ -4,18 +4,20 @@
 # Dimitris <email address hidden>, 2013
 # Dimitris <email address hidden>, 2012
 # Marios Pizinas <email address hidden>, 2020
+# Arainuki <esetipodealla@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: Marios Pizinas <speardog98@outlook.com>, 2020\n"
-"Language-Team: Greek (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/el/)\n"
+"PO-Revision-Date: 2024-09-25 00:45+0000\n"
+"Last-Translator: Arainuki <esetipodealla@gmail.com>\n"
+"Language-Team: Greek <https://translations.metabrainz.org/projects/"
+"musicbrainz/instruments/el/>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -284,7 +286,7 @@ msgstr "ακορντίνα"
 #: DB:instrument/name:41
 msgctxt "Commonly used bellowed free reed with keys/buttons"
 msgid "accordion"
-msgstr ""
+msgstr "aκορντεόν"
 
 #: DB:instrument/name:50
 msgid "acoustic bass guitar"
