@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-07 18:42+0000\n"
+"PO-Revision-Date: 2024-09-23 11:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -25,8 +25,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.7.2\n"
 
 #. name:Motet
@@ -324,6 +324,9 @@ msgid ""
 "in the 1990s including, in some cases, music releases with accompanying "
 "video content."
 msgstr ""
+"Un formato di CD che combina dati/video e audio e fu usato negli anni 1990 "
+"in diversi modi, tra cui in alcuni casi per pubblicare musica accompagnata "
+"da contenuti video."
 
 #. name:Mixed Mode CD
 #: DB:medium_format/description:129
@@ -2400,7 +2403,7 @@ msgstr "CD-R"
 #: DB:medium_format/name:209
 msgctxt "medium_format"
 msgid "CD-i"
-msgstr ""
+msgstr "CD-i"
 
 #: DB:medium_format/name:41
 msgctxt "medium_format"
