@@ -741,6 +741,7 @@ const seleniumTests = [
   {name: 'release-editor/MBS-13273.json5', login: true},
   {name: 'release-editor/MBS-13579.json5', login: true},
   {name: 'release-editor/MBS-13692.json5', login: true},
+  {name: 'release-editor/MBS-13715.json5', login: true},
   {
     name: 'Check_Duplicates.json5',
     login: true,
