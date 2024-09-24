@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-23 23:42+0000\n"
+"PO-Revision-Date: 2024-09-25 00:45+0000\n"
 "Last-Translator: Arainuki <esetipodealla@gmail.com>\n"
 "Language-Team: Esperanto <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/eo/>\n"
@@ -167,7 +167,7 @@ msgstr ""
 
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
-msgstr ""
+msgstr "Meksika vihuelao"
 
 #: DB:instrument/name:278
 msgid "Minimoog"
@@ -175,7 +175,7 @@ msgstr ""
 
 #: DB:instrument/name:277
 msgid "Moog"
-msgstr ""
+msgstr "Moog"
 
 #: DB:instrument/name:358
 msgctxt "Small north east England bagpipes"
@@ -185,7 +185,7 @@ msgstr ""
 #: DB:instrument/name:890
 msgctxt "Toy synthesizer"
 msgid "Otamatone"
-msgstr ""
+msgstr "Otamatone"
 
 #: DB:instrument/name:664
 msgid "Paraguayan harp"
@@ -284,7 +284,7 @@ msgstr ""
 #: DB:instrument/name:41
 msgctxt "Commonly used bellowed free reed with keys/buttons"
 msgid "accordion"
-msgstr ""
+msgstr "akordiono"
 
 #: DB:instrument/name:50
 msgid "acoustic bass guitar"
