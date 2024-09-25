@@ -128,7 +128,6 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Event',
     edit_type => $EDIT_EVENT_CREATE,
-    dialog_template => 'event/edit_form.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {

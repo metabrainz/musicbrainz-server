@@ -42,7 +42,13 @@
         [%- END -%]
       [%- END -%]
       [%- form_row_checkbox(r, 'video', l('Video')) -%]
-      [%- form_row_text_list(r, 'isrcs', add_colon(l('ISRCs')), l('ISRC')) -%]
+      [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+          repeatable => form_to_json(form.field('isrcs')),
+          label => add_colon(l('ISRCs')),
+          addButtonId => 'add-isrc',
+          addButtonLabel => lp('Add ISRC', 'interactive'),
+          removeButtonLabel => lp('Remove ISRC', 'interactive'),
+        }) %]
     </fieldset>
 
     [% PROCESS 'forms/relationship-editor.tt' %]

@@ -8,6 +8,7 @@
  */
 
 import './components/ArtistCreditRenamer.js';
+import '../edit/components/FormRowTextList.js';
 import '../relationship-editor/components/RelationshipEditorWrapper.js';
 
 import typeBubble from '../edit/typeBubble.js';

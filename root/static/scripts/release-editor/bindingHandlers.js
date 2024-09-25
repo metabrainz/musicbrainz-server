@@ -105,7 +105,6 @@ ko.bindingHandlers.artistCreditEditor = {
     const artistCredit = entity.artistCredit();
 
     const initialState = createArtistCreditEditorState({
-      activeUser: window[GLOBAL_JS_NAMESPACE].$c.user,
       artistCredit,
       entity,
       id: entity.uniqueID,

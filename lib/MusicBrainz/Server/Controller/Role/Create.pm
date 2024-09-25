@@ -60,10 +60,12 @@ role {
         my $model = $self->config->{model};
         my $entity;
         my %props;
+        my %edit_arguments = $params->edit_arguments->($self, $c);
 
-        if ($model eq 'Event' || $model eq 'Genre') {
+        if ($model eq 'Event' || $model eq 'Genre' || $model eq 'Recording') {
             my $type = model_to_type($model);
-            my $form = $c->form( form => $params->form );
+            my %form_args = %{ $edit_arguments{form_args} || {}};
+            my $form = $c->form( form => $params->form, ctx => $c, %form_args );
             %props = ( form => $form->TO_JSON );
 
             $c->stash(
@@ -98,8 +100,9 @@ role {
                 delete $c->flash->{message};
             },
             pre_validation => sub {
+                my $form = shift;
+
                 if ($model eq 'Event') {
-                    my $form = shift;
                     my %event_descriptions = map {
                         $_->id => $_->l_description
                     } $c->model('EventType')->get_all();
@@ -107,6 +110,11 @@ role {
                     $props{eventTypes} = $form->options_type_id;
                     $props{eventDescriptions} = \%event_descriptions;
                 }
+
+                if ($model eq 'Recording') {
+                    $props{usedByTracks} = $form->used_by_tracks;
+                }
+
             },
             redirect => sub {
                 $c->response->redirect($c->uri_for_action(
@@ -114,7 +122,7 @@ role {
             },
             no_redirect => $args{within_dialog},
             edit_rels   => 1,
-            $params->edit_arguments->($self, $c),
+            %edit_arguments,
         );
     };
 };

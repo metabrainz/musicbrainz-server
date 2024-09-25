@@ -157,7 +157,6 @@ MB.initializeArtistCredit = function (form, initialArtistCredit) {
   });
 
   const initialState = createArtistCreditEditorState({
-    activeUser: window[GLOBAL_JS_NAMESPACE].$c.user,
     artistCredit: initialArtistCredit,
     entity: source,
     formName: form.name,

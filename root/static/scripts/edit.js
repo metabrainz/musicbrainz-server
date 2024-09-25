@@ -21,7 +21,6 @@ require('./edit/MB/Control/Bubble.js');
 require('./edit/URLCleanup.js');
 require('./edit/MB/edit.js');
 require('./edit/MB/reltypeslist.js');
-require('./edit/MB/TextList.js');
 require('./edit/check-duplicates.js');
 
 require('./guess-case/MB/Control/GuessCase.js');
