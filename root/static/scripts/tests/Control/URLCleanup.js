@@ -6026,6 +6026,17 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
        only_valid_entity_types: ['recording'],
   },
   {
+                     input_url: 'https://x.com/i/user/19373710',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'socialnetwork',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'is a redirect link',
+                                  target: 'url',
+                                },
+  },
+  {
                      input_url: 'https://twitter.com/privacy',
              input_entity_type: 'artist',
     expected_relationship_type: undefined,

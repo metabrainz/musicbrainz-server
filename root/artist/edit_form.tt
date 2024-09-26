@@ -26,8 +26,20 @@
           </span>
           [% field_errors(r.form, 'area.name') %]
         [% END %]
-        [%- form_row_text_list(r, 'ipi_codes', add_colon(l('IPI codes')), l('IPI code')) -%]
-        [%- form_row_text_list(r, 'isni_codes', add_colon(l('ISNI codes')), l('ISNI code')) -%]
+        [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+           repeatable => form_to_json(form.field('ipi_codes')),
+           label => add_colon(l('IPI codes')),
+           addButtonId => 'add-ipi-code',
+           addButtonLabel => lp('Add IPI code', 'interactive'),
+           removeButtonLabel => lp('Remove IPI code', 'interactive'),
+         }) %]
+        [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+           repeatable => form_to_json(form.field('isni_codes')),
+           label => add_colon(l('ISNI codes')),
+           addButtonId => 'add-isni-code',
+           addButtonLabel => lp('Add ISNI code', 'interactive'),
+           removeButtonLabel => lp('Remove ISNI code', 'interactive'),
+         }) %]
       </fieldset>
 
       <fieldset>

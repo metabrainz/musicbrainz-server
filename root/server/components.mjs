@@ -530,6 +530,7 @@ export default {
   'static/scripts/common/components/WarningIcon': (): Promise<mixed> => import('../static/scripts/common/components/WarningIcon.js'),
   'static/scripts/edit/components/AddIcon': (): Promise<mixed> => import('../static/scripts/edit/components/AddIcon.js'),
   'static/scripts/edit/components/FormRowNameWithGuessCase': (): Promise<mixed> => import('../static/scripts/edit/components/FormRowNameWithGuessCase.js'),
+  'static/scripts/edit/components/FormRowTextList': (): Promise<mixed> => import('../static/scripts/edit/components/FormRowTextList.js'),
   'static/scripts/edit/components/GuessCaseIcon': (): Promise<mixed> => import('../static/scripts/edit/components/GuessCaseIcon.js'),
   'static/scripts/edit/components/InformationIcon': (): Promise<mixed> => import('../static/scripts/edit/components/InformationIcon.js'),
   'static/scripts/recording/RecordingName': (): Promise<mixed> => import('../static/scripts/recording/RecordingName.js'),

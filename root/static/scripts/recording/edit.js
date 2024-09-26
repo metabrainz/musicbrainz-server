@@ -8,3 +8,4 @@
  */
 
 import './RecordingName.js';
+import '../edit/components/FormRowTextList.js';

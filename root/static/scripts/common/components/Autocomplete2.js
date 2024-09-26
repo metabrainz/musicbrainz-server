@@ -542,6 +542,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
       case 'Tab': {
         if (isOpen && highlightedItem) {
           event.preventDefault();
+          event.stopPropagation();
           selectItem(highlightedItem);
         }
         break;

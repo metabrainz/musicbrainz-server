@@ -1,0 +1,56 @@
+{
+  title: 'MBS-13715: Pressing enter on tracklist AC search dropdown should not move to the next track',
+  commands: [
+    {
+      command: 'open',
+      target: '/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: "xpath=//a[@href='#tracklist']",
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=div.add-tracks button.add-item',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'id=open-ac-18674665',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=ac-18674665-artist-0',
+      value: 'nine',
+    },
+    {
+      command: 'pause',
+      target: '2000',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=ac-18674665-artist-0',
+      value: '${KEY_ENTER}',
+    },
+    {
+      command: 'assertEval',
+      target: 'document.getElementById("artist-credit-bubble").contains(document.getElementById("ac-18674665-artist-0"))',
+      value: 'true',
+    },
+    // Navigate back to the main page.
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'assertBeforeUnloadAlertWasShown',
+      target: '',
+      value: '',
+    },
+  ],
+}
