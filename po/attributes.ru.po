@@ -28,9 +28,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-15 21:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-09-22 12:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ru/>\n"
 "Language: ru\n"
@@ -38,8 +38,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.7.2\n"
 
 #. name:Motet
@@ -329,6 +329,9 @@ msgid ""
 "in the 1990s including, in some cases, music releases with accompanying "
 "video content."
 msgstr ""
+"Формат CD, объединяющий данные/видео с аудио, использовавшийся в 1990-х для "
+"разных целей, включая (в некоторых случаях) музыкальные релизы с "
+"аккомпанирующим видео-контентом."
 
 #. name:Mixed Mode CD
 #: DB:medium_format/description:129
@@ -2353,7 +2356,7 @@ msgstr "CD-R"
 #: DB:medium_format/name:209
 msgctxt "medium_format"
 msgid "CD-i"
-msgstr ""
+msgstr "CD-i"
 
 #: DB:medium_format/name:41
 msgctxt "medium_format"
@@ -2398,7 +2401,7 @@ msgstr ""
 #: DB:release_status/name:6
 msgctxt "release_status"
 msgid "Cancelled"
-msgstr "Отменено"
+msgstr "Отмененный"
 
 #: DB:work_attribute_type_allowed_value/value:64
 msgctxt "work_attribute_type_allowed_value"

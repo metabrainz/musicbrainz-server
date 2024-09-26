@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-31 18:42+0000\n"
+"PO-Revision-Date: 2024-09-23 18:42+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/fr/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -1304,12 +1304,12 @@ msgstr "Kirghiz"
 #. frequency:1 iso_code_3:mkw
 #: DB:language/name:4291
 msgid "Kituba (Congo)"
-msgstr ""
+msgstr "Kituba (Congo)"
 
 #. frequency:1 iso_code_3:ktu
 #: DB:language/name:3568
 msgid "Kituba (Democratic Republic of Congo)"
-msgstr ""
+msgstr "Kituba (République démocratique du Congo)"
 
 #. frequency:1 iso_code_3:tlh
 #: DB:language/name:421

@@ -22,9 +22,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-15 21:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-09-22 12:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -32,8 +32,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.7.2\n"
 
 #. name:artist diploma
@@ -3832,6 +3832,8 @@ msgid ""
 "This links an artist to that artist's page at <a href=\"http://www.bbc.co.uk/"
 "music\">BBC Music</a>."
 msgstr ""
+"Связывает исполнителя с его страницей на <a href=\"http://www.bbc.co.uk/"
+"music\">BBC Music</a>."
 
 #. name:purevolume
 #: DB:link_type/description:174
@@ -3861,6 +3863,8 @@ msgid ""
 "legal name (or a more well know performance name if the legal name is "
 "unknown)."
 msgstr ""
+"Связывает сценическое имя или псевдоним исполнителя с его официальным именем "
+"(или более известным прозвищем, если настоящее имя неизвестно)."
 
 #. name:edit
 #: DB:link_type/description:309
@@ -3920,10 +3924,8 @@ msgstr ""
 
 #. name:youtube
 #: DB:link_type/description:791
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links an event to its channel at YouTube."
-msgstr "Ссылается на канал исполнителя на YouTube Music."
+msgstr "Ссылается на канал события на YouTube."
 
 #. name:crowdfunding
 #: DB:link_type/description:904
@@ -3943,7 +3945,7 @@ msgstr ""
 #. name:subtype
 #: DB:link_type/description:736
 msgid "This links an instrument to more specific subtypes of it."
-msgstr ""
+msgstr "Связывает инструмент с его более конкретными подтипами."
 
 #. name:married
 #: DB:link_type/description:111
@@ -4010,7 +4012,7 @@ msgstr ""
 #. name:sibling
 #: DB:link_type/description:110
 msgid "This links two siblings (brothers or sisters)."
-msgstr ""
+msgstr "Связывает двух братьев или сестёр."
 
 #. name:other version
 #: DB:link_type/description:241
@@ -4148,6 +4150,8 @@ msgid ""
 "This relationship indicates the artist is the copyright holder for this "
 "release, usually indicated with a © symbol."
 msgstr ""
+"Данное отношение указывает, что исполнитель владеет авторскими правами на "
+"релиз, обычно обозначающееся символом ©."
 
 #. name:licensor
 #: DB:link_type/description:1010
@@ -8464,10 +8468,8 @@ msgid "producer position"
 msgstr ""
 
 #: DB:link_type/name:117
-#, fuzzy
-#| msgid "production"
 msgid "producer position at"
-msgstr "производство"
+msgstr "должность продюсера в"
 
 #. name:producer position at
 #: DB:link_type/reverse_link_phrase:117

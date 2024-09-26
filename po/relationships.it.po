@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-07 18:42+0000\n"
+"PO-Revision-Date: 2024-09-23 11:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -30,8 +30,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.7.2\n"
 
 #. name:artist diploma
@@ -3668,10 +3668,8 @@ msgstr ""
 
 #. name:youtube
 #: DB:link_type/description:225
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links a label to its channel at YouTube."
-msgstr "Collega un artista al suo canale su YouTube Music."
+msgstr "Collega un'etichetta al suo canale YouTube."
 
 #. name:apple music
 #: DB:link_type/description:1130
@@ -3748,10 +3746,8 @@ msgstr ""
 
 #. name:youtube
 #: DB:link_type/description:528
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links a place to its channel at YouTube."
-msgstr "Collega un artista al suo canale su YouTube Music."
+msgstr "Collega un luogo al suo canale YouTube."
 
 #. name:soundcloud
 #: DB:link_type/description:940
@@ -4052,10 +4048,8 @@ msgstr ""
 
 #. name:youtube
 #: DB:link_type/description:792
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links a series to its channel at YouTube."
-msgstr "Collega un artista al suo canale su YouTube Music."
+msgstr "Collega una serie al suo canale YouTube."
 
 #. name:crowdfunding
 #: DB:link_type/description:910
@@ -4257,7 +4251,7 @@ msgstr ""
 #. name:youtube music
 #: DB:link_type/description:1080
 msgid "This links an artist to its channel at YouTube Music."
-msgstr "Collega un artista al suo canale su YouTube Music."
+msgstr "Collega un artista al suo canale YouTube Music."
 
 #. name:apple music
 #: DB:link_type/description:1131
@@ -4322,10 +4316,8 @@ msgstr "Collega un artista alla voce rispettiva su PureVolume."
 
 #. name:youtube
 #: DB:link_type/description:193
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links an artist to their channel at YouTube."
-msgstr "Collega un artista al suo canale su YouTube Music."
+msgstr "Collega un artista al suo canale YouTube."
 
 #. name:crowdfunding
 #: DB:link_type/description:902
@@ -4417,10 +4409,8 @@ msgstr ""
 
 #. name:youtube
 #: DB:link_type/description:791
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links an event to its channel at YouTube."
-msgstr "Collega un artista al suo canale su YouTube Music."
+msgstr "Collega un evento al suo canale YouTube."
 
 #. name:crowdfunding
 #: DB:link_type/description:904
@@ -6067,10 +6057,8 @@ msgid "artists and repertoire position"
 msgstr "posizione di addetto artisti e repertorio (A&R)"
 
 #: DB:link_type/name:1081
-#, fuzzy
-#| msgid "artists and repertoire position"
 msgid "artists and repertoire position at"
-msgstr "posizione di addetto artisti e repertorio (A&R)"
+msgstr "posizione di addetto artisti e repertorio (A&R) presso"
 
 #: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
 #: DB:link_type/name:1170
@@ -6621,10 +6609,8 @@ msgid "creative position"
 msgstr "posizione creativa"
 
 #: DB:link_type/name:115
-#, fuzzy
-#| msgid "creative position"
 msgid "creative position at"
-msgstr "posizione creativa"
+msgstr "posizione creativa presso"
 
 #: DB:link_type/name:904 DB:link_type/name:909 DB:link_type/name:903
 #: DB:link_type/name:905 DB:link_type/name:906 DB:link_type/name:902
@@ -6933,10 +6919,8 @@ msgid "executive position"
 msgstr "posizione dirigenziale"
 
 #: DB:link_type/name:1266
-#, fuzzy
-#| msgid "executive position"
 msgid "executive position at"
-msgstr "posizione dirigenziale"
+msgstr "posizione dirigenziale presso"
 
 #. name:executive position at
 #: DB:link_type/reverse_link_phrase:1266
@@ -9253,10 +9237,8 @@ msgid "producer position"
 msgstr "posizione di produttore"
 
 #: DB:link_type/name:117
-#, fuzzy
-#| msgid "producer position"
 msgid "producer position at"
-msgstr "posizione di produttore"
+msgstr "posizione di produttore presso"
 
 #. name:producer position at
 #: DB:link_type/reverse_link_phrase:117

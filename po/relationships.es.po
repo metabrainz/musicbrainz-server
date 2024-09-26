@@ -24,7 +24,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-18 13:30+0000\n"
+"PO-Revision-Date: 2024-09-26 13:41+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -2418,16 +2418,12 @@ msgstr ""
 
 #. name:executive position at
 #: DB:link_type/description:1266
-#, fuzzy
-#| msgid ""
-#| "This indicates that an artist was officially employed by a label in a "
-#| "creative position, such as photographer or graphic designer."
 msgid ""
 "This indicates that an artist was officially employed by a label in an "
 "executive position, such as CEO, president or director."
 msgstr ""
 "Indica un artista empleado oficialmente por una discográfica en una posición "
-"creativa, como fotógrafo o diseñador gráfico."
+"ejecutiva, como director, presidente o CEO."
 
 #. name:parts
 #: DB:link_type/description:818
@@ -2983,10 +2979,8 @@ msgstr "Indica la obra que inspiró el nombre de este artista."
 
 #. name:named after work
 #: DB:link_type/description:1265
-#, fuzzy
-#| msgid "This indicates the artist that inspired this label’s name."
 msgid "This indicates the work that inspired this label’s name."
-msgstr "Indica el artista que inspiró el nombre de esta discográfica."
+msgstr "Indica la obra que inspiró el nombre de esta discográfica."
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -3404,10 +3398,8 @@ msgstr ""
 
 #. name:youtube
 #: DB:link_type/description:225
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links a label to its channel at YouTube."
-msgstr "Enlaza un artista a su canal de YouTube Music."
+msgstr "Enlaza una discográfica a su canal de YouTube."
 
 #. name:apple music
 #: DB:link_type/description:1130
@@ -3481,10 +3473,8 @@ msgstr ""
 
 #. name:youtube
 #: DB:link_type/description:528
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links a place to its channel at YouTube."
-msgstr "Enlaza un artista a su canal de YouTube Music."
+msgstr "Enlaza un lugar a su canal de YouTube."
 
 #. name:soundcloud
 #: DB:link_type/description:940
@@ -3761,10 +3751,8 @@ msgstr ""
 
 #. name:youtube
 #: DB:link_type/description:792
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links a series to its channel at YouTube."
-msgstr "Enlaza un artista a su canal de YouTube Music."
+msgstr "Enlaza una serie a su canal de YouTube."
 
 #. name:crowdfunding
 #: DB:link_type/description:910
@@ -4021,10 +4009,8 @@ msgstr ""
 
 #. name:youtube
 #: DB:link_type/description:193
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links an artist to their channel at YouTube."
-msgstr "Enlaza un artista a su canal de YouTube Music."
+msgstr "Enlaza un artista a su canal de YouTube."
 
 #. name:crowdfunding
 #: DB:link_type/description:902
@@ -4100,10 +4086,8 @@ msgstr "Enlaza un evento a una página donde pueden comprarse entradas para él.
 
 #. name:youtube
 #: DB:link_type/description:791
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links an event to its channel at YouTube."
-msgstr "Enlaza un artista a su canal de YouTube Music."
+msgstr "Enlaza un evento a su canal de YouTube."
 
 #. name:crowdfunding
 #: DB:link_type/description:904
@@ -5486,10 +5470,8 @@ msgid "artists and repertoire position"
 msgstr "puesto de A&R"
 
 #: DB:link_type/name:1081
-#, fuzzy
-#| msgid "artists and repertoire position"
 msgid "artists and repertoire position at"
-msgstr "puesto de A&R"
+msgstr "puesto de A&R en"
 
 #: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
 #: DB:link_type/name:1170
@@ -6036,11 +6018,9 @@ msgstr "empleados creativos"
 #. name:creative position at
 #: DB:link_type/link_phrase:115
 msgid "creative position"
-msgstr "empleado creativo en"
+msgstr "empleado creativo"
 
 #: DB:link_type/name:115
-#, fuzzy
-#| msgid "creative position"
 msgid "creative position at"
 msgstr "empleado creativo en"
 
@@ -6347,23 +6327,17 @@ msgstr "ejecutivo"
 
 #. name:executive position at
 #: DB:link_type/link_phrase:1266
-#, fuzzy
-#| msgid "creative position"
 msgid "executive position"
-msgstr "posición creativa"
+msgstr "posición ejecutiva"
 
 #: DB:link_type/name:1266
-#, fuzzy
-#| msgid "creative position"
 msgid "executive position at"
-msgstr "posición creativa"
+msgstr "posición ejecutiva en"
 
 #. name:executive position at
 #: DB:link_type/reverse_link_phrase:1266
-#, fuzzy
-#| msgid "executive"
 msgid "executives"
-msgstr "ejecutivo"
+msgstr "ejecutivos"
 
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
@@ -6573,10 +6547,8 @@ msgstr "tuvo un puesto de ingeniero/a en"
 
 #. name:executive position at
 #: DB:link_type/long_link_phrase:1266
-#, fuzzy
-#| msgid "had a creative position at"
 msgid "had an executive position at"
-msgstr "tuvo una posición creativa en"
+msgstr "tuvo una posición ejecutiva en"
 
 #. name:tribute to
 #: DB:link_type/long_link_phrase:936
@@ -8664,10 +8636,8 @@ msgid "producer position"
 msgstr "productor"
 
 #: DB:link_type/name:117
-#, fuzzy
-#| msgid "producer position"
 msgid "producer position at"
-msgstr "productor"
+msgstr "productor en"
 
 #. name:producer position at
 #: DB:link_type/reverse_link_phrase:117
