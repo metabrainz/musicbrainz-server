@@ -60,6 +60,7 @@ const entries = [
   'common/components/WorkArtists',
   'confirm-seed',
   'edit',
+  'edit/components/FormRowTextList',
   'edit/components/NewNotesAlertCheckbox',
   'event/components/EventEditForm',
   'event/edit',

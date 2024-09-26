@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import '../edit/components/FormRowTextList.js';
+
 import typeBubble from '../edit/typeBubble.js';
 
 const typeIdField = 'select[name=edit-label\\.type_id]';
