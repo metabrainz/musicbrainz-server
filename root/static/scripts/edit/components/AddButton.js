@@ -12,25 +12,14 @@ component AddButton(
   onClick: (event: SyntheticEvent<HTMLButtonElement>) => void,
   label?: string,
 ) {
-  if (label == null) {
-    return (
-      <button
-        className="add-item"
-        id={id}
-        onClick={onClick}
-        type="button"
-      />
-    );
-  }
-
   return (
     <button
-      className="with-label add-item"
+      className={'add-item' + (nonEmpty(label) ? ' with-label' : '')}
       id={id}
       onClick={onClick}
       type="button"
     >
-      {label}
+      {nonEmpty(label) ? label : null}
     </button>
   );
 }
