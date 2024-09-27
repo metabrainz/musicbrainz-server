@@ -25,6 +25,7 @@ test all => sub {
                 {
                   "id": "e414a176-b978-492f-b6bc-9fd4c89df221",
                   "type": "Group",
+                  "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
                   "score": "97",
                   "name": "L.O.V.E.",
                   "sort-name": "L.O.V.E.",
@@ -61,6 +62,7 @@ test all => sub {
                 {
                   "id": "53299fed-ec27-464f-94eb-5fda2db2902a",
                   "type": "Person",
+                  "type-id": "b6e035f4-3ce9-331c-97df-83397230b0df",
                   "score": "65",
                   "name": "Laura Love",
                   "sort-name": "Love, Laura",

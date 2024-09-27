@@ -187,6 +187,7 @@ sub direct : Private
     elsif ($type eq 'series') {
         $c->model('SeriesType')->load(@entities);
         $c->model('SeriesOrderingType')->load(@entities);
+        $c->model('Series')->load_entity_count(@entities);
     }
     elsif ($type eq 'event') {
         $c->model('Event')->load_meta(@entities);
