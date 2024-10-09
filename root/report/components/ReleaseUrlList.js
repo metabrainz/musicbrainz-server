@@ -75,7 +75,7 @@ component ReleaseUrlList(
                   <tr key={`removed-${item.release_id}`}>
                     <td />
                     <td colSpan="2">
-                      {l('This release no longer exists.')}
+                      {l_reports('This release no longer exists.')}
                     </td>
                   </tr>
                 )}

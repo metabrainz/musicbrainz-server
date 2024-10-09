@@ -21,14 +21,14 @@ component RecordingsWithoutVaLink(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows recordings with "Various Artists" as the
          credited name but not linked to the Various Artists entity.`,
       )}
       entityType="recording"
       filtered={filtered}
       generated={generated}
-      title={l(`Recordings credited to "Various Artists"
+      title={l_reports(`Recordings credited to "Various Artists"
                 but not linked to VA`)}
       totalEntries={pager.total_entries}
     >

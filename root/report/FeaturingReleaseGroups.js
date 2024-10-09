@@ -21,7 +21,7 @@ component FeaturingReleaseGroups(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows release groups with “(feat. Artist)” 
          (or similar) in the title. For classical release groups, 
          consult the {CSG|classical style guidelines}. For 
@@ -36,7 +36,9 @@ component FeaturingReleaseGroups(...{
       entityType="release_group"
       filtered={filtered}
       generated={generated}
-      title={l('Release groups with titles containing featuring artists')}
+      title={l_reports(
+        'Release groups with titles containing featuring artists',
+      )}
       totalEntries={pager.total_entries}
     >
       <ReleaseGroupList items={items} pager={pager} />

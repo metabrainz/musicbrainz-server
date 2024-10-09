@@ -32,7 +32,7 @@ component ReleaseRgDifferentName(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases which are the only ones in their release
          group, yet have a different name than the group. This might mean
          one of the two needs to be renamed to match the other.`,
@@ -40,7 +40,9 @@ component ReleaseRgDifferentName(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with a different name than their release group')}
+      title={l_reports(
+        'Releases with a different name than their release group',
+      )}
       totalEntries={pager.total_entries}
     >
       <ReleaseList

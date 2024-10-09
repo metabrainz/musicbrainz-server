@@ -67,7 +67,7 @@ component LabelUrlList(
                   <tr key={`removed-${item.label_id}`}>
                     <td />
                     <td>
-                      {l('This label no longer exists.')}
+                      {l_reports('This label no longer exists.')}
                     </td>
                   </tr>
                 )}

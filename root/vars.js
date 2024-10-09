@@ -76,6 +76,8 @@ declare var l_relationships: typeof l;
 declare var ln_relationships: typeof ln;
 declare var lp_relationships: typeof lp;
 
+declare var l_reports: typeof l;
+
 declare var l_scripts: typeof l;
 declare var ln_scripts: typeof ln;
 declare var lp_scripts: typeof lp;
@@ -83,6 +85,8 @@ declare var lp_scripts: typeof lp;
 declare var l_statistics: typeof l;
 declare var ln_statistics: typeof ln;
 declare var lp_statistics: typeof lp;
+
+declare var N_l_reports: typeof N_l;
 
 declare var N_l_statistics: typeof N_l;
 declare var N_lp_statistics: typeof N_lp;
@@ -93,6 +97,10 @@ declare var exp: {
     args?: ?{+[arg: string]: Expand2ReactInput, ...},
   ) => Expand2ReactOutput,
   +l_admin: (
+    key: string,
+    args?: ?{+[arg: string]: Expand2ReactInput, ...},
+  ) => Expand2ReactOutput,
+  +l_reports: (
     key: string,
     args?: ?{+[arg: string]: Expand2ReactInput, ...},
   ) => Expand2ReactOutput,
@@ -136,6 +144,10 @@ declare var texp: {
     args: {+[arg: string]: StrOrNum, ...},
   ) => string,
   +l_admin: (
+    key: string,
+    args: {+[arg: string]: StrOrNum, ...},
+  ) => string,
+  +l_reports: (
     key: string,
     args: {+[arg: string]: StrOrNum, ...},
   ) => string,

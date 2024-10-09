@@ -38,6 +38,7 @@ export const GETTEXT_DOMAINS = [
   'languages',
   'mb_server',
   'relationships',
+  'reports',
   'scripts',
   'statistics',
 ];

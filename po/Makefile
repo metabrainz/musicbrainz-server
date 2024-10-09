@@ -12,6 +12,7 @@ GIT_LS_PERL:=git ls-files -- \
 GIT_LS_JS:=git ls-files -- \
 	':(top,glob)root/**/*.js' \
 	':(top,glob,exclude)root/admin/**/*.js' \
+	':(top,glob,exclude)root/report/**/*.js' \
 	':(top,glob,exclude)root/static/scripts/tests/**/*.js' \
 	':(top,glob,exclude)root/static/build/**/*.js' \
 	':(top,glob,exclude)root/static/lib/**/*.js' \
@@ -28,6 +29,10 @@ GIT_LS_STATTT:=git ls-files -- \
 	':(top,glob)root/statistics/**/*.tt' \
 	| $(SED_ESCAPE_SPACES)
 
+GIT_LS_REPORTJS:=git ls-files -- \
+	':(top,glob)root/report/**/*.js' \
+	| $(SED_ESCAPE_SPACES)
+
 GIT_LS_STATJS:=git ls-files -- \
 	':(top,glob)root/statistics/**/*.js' \
 	| $(SED_ESCAPE_SPACES)
@@ -37,6 +42,7 @@ JSFILES=$(shell $(GIT_LS_JS))
 TT=$(shell $(GIT_LS_TT))
 STATTT=$(shell $(GIT_LS_STATTT))
 STATJS=$(shell $(GIT_LS_STATJS))
+REPORTJS=$(shell $(GIT_LS_REPORTJS))
 
 POFILES=$(wildcard *.po)
 MOFILES=$(POFILES:.po=.mo)
@@ -62,7 +68,7 @@ install: $(MOFILES)
 		install -m 0644 $$file ../lib/LocaleData/$$lang/LC_MESSAGES/$$catalog.mo; \
 	done
 
-pot: mb_server.pot statistics.pot countries.pot languages.pot languages_notrim.pot scripts.pot relationships.pot attributes.pot instruments.pot instrument_descriptions.pot history.pot
+pot: mb_server.pot statistics.pot countries.pot languages.pot languages_notrim.pot scripts.pot relationships.pot attributes.pot instruments.pot instrument_descriptions.pot history.pot reports.pot
 
 mb_server.pot: $(POTFILES) $(JSFILES) $(TT) $(wildcard extract_pot_templates)
 	@echo "Rebuilding the mb_server.pot file";
@@ -84,6 +90,11 @@ statistics.pot: $(STATTT) $(STATJS) $(wildcard extract_pot_db) $(wildcard extrac
 	@echo "- Merge";
 	@msgcat -w $(MSGWRAP) -o statistics.pot statistics_db.pot statistics_tmpl.pot statistics_js.pot
 	@rm statistics_db.pot statistics_tmpl.pot statistics_js.pot
+
+reports.pot: $(REPORTJS)
+	@echo "Rebuilding the reports.pot file";
+	@echo "- Update templates .pot";
+	@$(GIT_LS_REPORTJS) | xargs ../script/xgettext.js > reports.pot
 
 countries.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the countries.pot file";

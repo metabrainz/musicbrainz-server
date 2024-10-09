@@ -35,7 +35,7 @@ component ReleaseLabelSameArtist(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report lists releases where the label name is the same as the
          artist name. Often this means the release is self-released, and the
          label {SpecialPurposeLabel|should be "[no label]" instead}.`,
@@ -47,7 +47,9 @@ component ReleaseLabelSameArtist(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases where artist name and label name are the same')}
+      title={l_reports(
+        'Releases where artist name and label name are the same',
+      )}
       totalEntries={pager.total_entries}
     >
       <ReleaseList

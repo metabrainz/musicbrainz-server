@@ -21,7 +21,7 @@ component WorkSameTypeAsParent(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows works with at least one parent work that has the
          same work type as them (such as a work marked as a sonata which is
          part of another sonata). In most cases, that means these works should
@@ -33,7 +33,7 @@ component WorkSameTypeAsParent(...{
       entityType="work"
       filtered={filtered}
       generated={generated}
-      title={l('Works with the same type as their parent')}
+      title={l_reports('Works with the same type as their parent')}
       totalEntries={pager.total_entries}
     >
       <WorkList items={items} pager={pager} />

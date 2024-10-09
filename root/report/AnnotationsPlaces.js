@@ -25,12 +25,12 @@ component AnnotationsPlaces(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l('This report lists places with annotations.')}
+      description={l_reports('This report lists places with annotations.')}
       entityType="place"
       extraInfo={ANNOTATION_REPORT_TEXT()}
       filtered={filtered}
       generated={generated}
-      title={l('Place annotations')}
+      title={l_reports('Place annotations')}
       totalEntries={pager.total_entries}
     >
       <PlaceList

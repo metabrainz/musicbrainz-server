@@ -35,7 +35,7 @@ component VideoRelationshipsOnNonVideos(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows recordings not marked as video, but that use
          relationships meant only for video recordings ({relationship_list}).
          Either they should be marked as video, or the relationships should
@@ -49,7 +49,7 @@ component VideoRelationshipsOnNonVideos(...{
       entityType="recording"
       filtered={filtered}
       generated={generated}
-      title={l('Non-video recordings with video relationships')}
+      title={l_reports('Non-video recordings with video relationships')}
       totalEntries={pager.total_entries}
     >
       <RecordingList items={items} pager={pager} />

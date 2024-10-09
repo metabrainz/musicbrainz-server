@@ -21,7 +21,7 @@ component FeaturingRecordings(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows recordings with “(feat. Artist)” 
          (or similar) in the title. For classical recordings, 
          consult the {CSG|classical style guidelines}. For 
@@ -37,7 +37,7 @@ component FeaturingRecordings(...{
       entityType="recording"
       filtered={filtered}
       generated={generated}
-      title={l('Recordings with titles containing featuring artists')}
+      title={l_reports('Recordings with titles containing featuring artists')}
       totalEntries={pager.total_entries}
     >
       <RecordingList items={items} pager={pager} />

@@ -18,6 +18,7 @@ const i18nPath = path.resolve(commonPath, 'i18n');
 const addColonPath = path.resolve(i18nPath, 'addColon');
 const addQuotesPath = path.resolve(i18nPath, 'addQuotes');
 const lAdminPath = path.resolve(i18nPath, 'admin');
+const lReportsPath = path.resolve(i18nPath, 'reports');
 const lStatisticsPath = path.resolve(i18nPath, 'statistics');
 const hyphenateTitlePath = path.resolve(i18nPath, 'hyphenateTitle');
 const expandPath = path.resolve(i18nPath, 'expand2react');
@@ -62,8 +63,14 @@ const providePluginConfig = {
   'texp.l_admin': [expandTextPath, 'l_admin'],
   'texp.ln_admin': [expandTextPath, 'ln_admin'],
 
+  'l_reports': [lReportsPath, 'l_reports'],
+
+  'N_l_reports': [lReportsPath, 'N_l_reports'],
+
   'N_l_statistics': [lStatisticsPath, 'N_l_statistics'],
   'N_lp_statistics': [lStatisticsPath, 'N_lp_statistics'],
+
+  'exp.l_reports': [expandPath, 'l_reports'],
 
   'exp.l_statistics': [expandPath, 'l_statistics'],
   'exp.ln_statistics': [expandPath, 'ln_statistics'],

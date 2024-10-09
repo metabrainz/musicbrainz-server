@@ -66,7 +66,7 @@ component ArtistUrlList(
                   <tr key={`removed-${item.artist_id}`}>
                     <td />
                     <td>
-                      {l('This artist no longer exists.')}
+                      {l_reports('This artist no longer exists.')}
                     </td>
                   </tr>
                 )}

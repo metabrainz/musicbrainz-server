@@ -21,7 +21,7 @@ component ReleasesWithDownloadRelationships(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases that have relationships
          that only apply to digital media releases (download/streaming),
          but have media whose format is not “Digital Media”.
@@ -32,7 +32,7 @@ component ReleasesWithDownloadRelationships(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Non-digital releases with digital relationships')}
+      title={l_reports('Non-digital releases with digital relationships')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

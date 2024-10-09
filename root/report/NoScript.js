@@ -24,7 +24,7 @@ component NoScript(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases that have no script set. If you
         recognize the script, just add it! Remember that the script used
         for English (and most other European languages) is Latin.`,
@@ -32,7 +32,7 @@ component NoScript(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases without script')}
+      title={l_reports('Releases without script')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList

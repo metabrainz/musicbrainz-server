@@ -50,14 +50,16 @@ component RecordingsWithFutureDates(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows recordings with relationships using dates in
         the future. Those are probably typos (such as 2109 instead of 2019).`,
       )}
       entityType="relationship"
       filtered={filtered}
       generated={generated}
-      title={l('Recordings with relationships having dates in the future')}
+      title={l_reports(
+        'Recordings with relationships having dates in the future',
+      )}
       totalEntries={pager.total_entries}
     >
       <RecordingList

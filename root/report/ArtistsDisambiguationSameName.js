@@ -21,7 +21,7 @@ component ArtistsDisambiguationSameName(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists artists that have their disambiguation set
          to be the same as their name.
          The disambiguation should be removed or, if it is needed, improved.`,
@@ -29,7 +29,7 @@ component ArtistsDisambiguationSameName(...{
       entityType="artist"
       filtered={filtered}
       generated={generated}
-      title={l('Artists with disambiguation the same as the name')}
+      title={l_reports('Artists with disambiguation the same as the name')}
       totalEntries={pager.total_entries}
     >
       <ArtistList items={items} pager={pager} />

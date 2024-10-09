@@ -75,7 +75,7 @@ component ReleaseGroupUrlList(
                   <tr key={`removed-${item.release_group_id}`}>
                     <td />
                     <td colSpan="2">
-                      {l('This release group no longer exists.')}
+                      {l_reports('This release group no longer exists.')}
                     </td>
                   </tr>
                 )}

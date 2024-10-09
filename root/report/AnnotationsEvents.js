@@ -25,12 +25,12 @@ component AnnotationsEvents(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l('This report lists events with annotations.')}
+      description={l_reports('This report lists events with annotations.')}
       entityType="event"
       extraInfo={ANNOTATION_REPORT_TEXT()}
       filtered={filtered}
       generated={generated}
-      title={l('Event annotations')}
+      title={l_reports('Event annotations')}
       totalEntries={pager.total_entries}
     >
       <EventList

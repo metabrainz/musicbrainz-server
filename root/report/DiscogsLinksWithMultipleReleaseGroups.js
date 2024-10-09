@@ -21,14 +21,14 @@ component DiscogsLinksWithMultipleReleaseGroups(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows Discogs URLs which are linked
          to multiple release groups.`,
       )}
       entityType="release_group"
       filtered={filtered}
       generated={generated}
-      title={l('Discogs URLs linked to multiple release groups')}
+      title={l_reports('Discogs URLs linked to multiple release groups')}
       totalEntries={pager.total_entries}
     >
       <ReleaseGroupUrlList items={items} pager={pager} />

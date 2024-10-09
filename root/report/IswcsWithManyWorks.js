@@ -30,7 +30,7 @@ component IswcsWithManyWorks(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report lists {iswc|ISWCs} that are attached to more than
          one work. If the works are the same, this usually means
          they should be merged.`,
@@ -39,7 +39,7 @@ component IswcsWithManyWorks(...{
       entityType="iswc"
       filtered={filtered}
       generated={generated}
-      title={l('ISWCs with multiple works')}
+      title={l_reports('ISWCs with multiple works')}
       totalEntries={pager.total_entries}
     >
       <PaginatedResults pager={pager}>
@@ -80,7 +80,7 @@ component IswcsWithManyWorks(...{
                       <>
                         <td />
                         <td colSpan="5">
-                          {l('This work no longer exists.')}
+                          {l_reports('This work no longer exists.')}
                         </td>
                       </>
                     )}

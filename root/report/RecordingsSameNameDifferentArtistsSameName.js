@@ -27,7 +27,7 @@ component RecordingsSameNameDifferentArtistsSameName(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows all recordings with the same name that have
          different artists (having different MBIDs) with the same name.
          These are most likely cases where the {ac|artist credit} is
@@ -35,13 +35,13 @@ component RecordingsSameNameDifferentArtistsSameName(...{
         {ac: '/doc/Artist_Credits'},
       )}
       entityType="recording"
-      extraInfo={l(
+      extraInfo={l_reports(
         `Currently, this report only works
         with recordings that have one artist.`,
       )}
       filtered={filtered}
       generated={generated}
-      title={l(
+      title={l_reports(
         `Recordings with the same name
          by different artists with the same name`,
       )}
@@ -80,7 +80,7 @@ component RecordingsSameNameDifferentArtistsSameName(...{
                     </>
                   ) : (
                     <td colSpan="2">
-                      {l('This recording no longer exists.')}
+                      {l_reports('This recording no longer exists.')}
                     </td>
                   )}
                 </tr>

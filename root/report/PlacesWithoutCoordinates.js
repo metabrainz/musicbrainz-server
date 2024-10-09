@@ -26,11 +26,11 @@ component PlacesWithoutCoordinates(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l('This report lists places without coordinates.')}
+      description={l_reports('This report lists places without coordinates.')}
       entityType="place"
       filtered={filtered}
       generated={generated}
-      title={l('Places without coordinates')}
+      title={l_reports('Places without coordinates')}
       totalEntries={pager.total_entries}
     >
       <PaginatedResults pager={pager}>
@@ -40,7 +40,7 @@ component PlacesWithoutCoordinates(...{
               <th>{l('Place')}</th>
               <th>{l('Address')}</th>
               <th>{l('Area')}</th>
-              <th>{l('Search for coordinates')}</th>
+              <th>{l_reports('Search for coordinates')}</th>
             </tr>
           </thead>
           <tbody>
@@ -120,7 +120,7 @@ component PlacesWithoutCoordinates(...{
                     </>
                   ) : (
                     <td colSpan="4">
-                      {l('This place no longer exists.')}
+                      {l_reports('This place no longer exists.')}
                     </td>
                   )}
                 </tr>

@@ -42,7 +42,7 @@ component UrlList<D: {+url: ?UrlT, ...}>(
         columnName: 'url_entity',
         getContent: result => result.url?.gid ?? '',
         getHref: result => result.url?.gid ? '/url/' + result.url.gid : '',
-        title: l('URL entity'),
+        title: l_reports('URL entity'),
       });
 
       return [

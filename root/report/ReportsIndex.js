@@ -29,12 +29,12 @@ component ReportsIndexEntry(content: string, reportName: string) {
 component ReportsIndex() {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
-    <Layout fullWidth title={l('Reports')}>
+    <Layout fullWidth title={l_reports('Reports')}>
       <div id="content">
-        <h1>{l('Reports')}</h1>
+        <h1>{l_reports('Reports')}</h1>
 
         <p>
-          {exp.l(
+          {exp.l_reports(
             `If you'd like to participate in the editing process, but do not
              know where to start, the following reports should be useful.
              These reports scour the database looking for data that might
@@ -45,72 +45,80 @@ component ReportsIndex() {
           )}
         </p>
 
-        <h2>{l('Artists')}</h2>
+        <h2>{l_reports('Artists')}</h2>
 
         <ul>
           <ReportsIndexEntry
-            content={l('Artists that may be groups')}
+            content={l_reports('Artists that may be groups')}
             reportName="ArtistsThatMayBeGroups"
           />
           <ReportsIndexEntry
-            content={l('Artists that may be persons')}
+            content={l_reports('Artists that may be persons')}
             reportName="ArtistsThatMayBePersons"
           />
           <ReportsIndexEntry
-            content={l('Artists with no subscribers')}
+            content={l_reports('Artists with no subscribers')}
             reportName="ArtistsWithNoSubscribers"
           />
           <ReportsIndexEntry
-            content={l('Possibly duplicate artists')}
+            content={l_reports('Possibly duplicate artists')}
             reportName="DuplicateArtists"
           />
           <ReportsIndexEntry
-            content={l('Artists which have collaboration relationships')}
+            content={l_reports(
+              'Artists which have collaboration relationships',
+            )}
             reportName="CollaborationRelationships"
           />
           <ReportsIndexEntry
-            content={l('Artists which look like collaborations')}
+            content={l_reports('Artists which look like collaborations')}
             reportName="PossibleCollaborations"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               'Artists containing disambiguation comments in their name',
             )}
             reportName="ArtistsContainingDisambiguationComments"
           />
           <ReportsIndexEntry
-            content={l('Discogs URLs linked to multiple artists')}
+            content={l_reports('Discogs URLs linked to multiple artists')}
             reportName="DiscogsLinksWithMultipleArtists"
           />
           <ReportsIndexEntry
-            content={l('Artists with possible duplicate relationships')}
+            content={l_reports(
+              'Artists with possible duplicate relationships',
+            )}
             reportName="DuplicateRelationshipsArtists"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               'Artists occurring multiple times in the same artist credit',
             )}
             reportName="ArtistsWithMultipleOccurrencesInArtistCredits"
           />
           <ReportsIndexEntry
-            content={l('Artists with deprecated relationships')}
+            content={l_reports('Artists with deprecated relationships')}
             reportName="DeprecatedRelationshipArtists"
           />
           <ReportsIndexEntry
-            content={l('Artists with annotations')}
+            content={l_reports('Artists with annotations')}
             reportName="AnnotationsArtists"
           />
           <ReportsIndexEntry
-            content={l('Artists with disambiguation the same as the name')}
+            content={l_reports(
+              'Artists with disambiguation the same as the name',
+            )}
             reportName="ArtistsDisambiguationSameName"
           />
         </ul>
 
-        <h2>{l('Artist credits')}</h2>
+        <h2>{l_reports('Artist credits')}</h2>
 
         <ul>
           <ReportsIndexEntry
-            content={l('Artist credits with dubious trailing join phrases')}
+            content={l_reports(
+              'Artist credits with dubious trailing join phrases',
+            )}
             reportName="ArtistCreditsWithDubiousTrailingPhrases"
           />
         </ul>
@@ -128,20 +136,22 @@ component ReportsIndex() {
           </>
         ) : null}
 
-        <h2>{l('Events')}</h2>
+        <h2>{l_reports('Events')}</h2>
 
         <ul>
           <ReportsIndexEntry
-            content={l('Events with annotations')}
+            content={l_reports('Events with annotations')}
             reportName="AnnotationsEvents"
           />
           <ReportsIndexEntry
-            content={l('Possibly duplicate events')}
+            content={l_reports('Possibly duplicate events')}
             reportName="DuplicateEvents"
           />
           <ReportsIndexEntry
             content={
-              l('Events which should be part of series or larger event')
+              l_reports(
+                'Events which should be part of series or larger event',
+              )
             }
             reportName="EventSequenceNotInSeries"
           />
@@ -164,75 +174,85 @@ component ReportsIndex() {
           </>
         ) : null}
 
-        <h2>{l('Labels')}</h2>
+        <h2>{l_reports('Labels')}</h2>
 
         <ul>
           <ReportsIndexEntry
-            content={l('Discogs URLs linked to multiple labels')}
+            content={l_reports('Discogs URLs linked to multiple labels')}
             reportName="DiscogsLinksWithMultipleLabels"
           />
           <ReportsIndexEntry
-            content={l('Labels with possible duplicate relationships')}
+            content={l_reports(
+              'Labels with possible duplicate relationships',
+            )}
             reportName="DuplicateRelationshipsLabels"
           />
           <ReportsIndexEntry
-            content={l('Labels with deprecated relationships')}
+            content={l_reports('Labels with deprecated relationships')}
             reportName="DeprecatedRelationshipLabels"
           />
           <ReportsIndexEntry
-            content={l('Labels with annotations')}
+            content={l_reports('Labels with annotations')}
             reportName="AnnotationsLabels"
           />
           <ReportsIndexEntry
-            content={l('Labels with disambiguation the same as the name')}
+            content={l_reports(
+              'Labels with disambiguation the same as the name',
+            )}
             reportName="LabelsDisambiguationSameName"
           />
         </ul>
 
-        <h2>{l('Release groups')}</h2>
+        <h2>{l_reports('Release groups')}</h2>
 
         <ul>
           <ReportsIndexEntry
-            content={l('Release groups that might need to be merged')}
+            content={l_reports('Release groups that might need to be merged')}
             reportName="SetInDifferentRG"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               'Release groups with titles containing featuring artists',
             )}
             reportName="FeaturingReleaseGroups"
           />
           <ReportsIndexEntry
-            content={l('Discogs URLs linked to multiple release groups')}
+            content={l_reports(
+              'Discogs URLs linked to multiple release groups',
+            )}
             reportName="DiscogsLinksWithMultipleReleaseGroups"
           />
           <ReportsIndexEntry
             content={
-              l('Release groups with possible duplicate relationships')
+              l_reports(
+                'Release groups with possible duplicate relationships',
+              )
             }
             reportName="DuplicateRelationshipsReleaseGroups"
           />
           <ReportsIndexEntry
-            content={l('Release groups with deprecated relationships')}
+            content={l_reports(
+              'Release groups with deprecated relationships',
+            )}
             reportName="DeprecatedRelationshipReleaseGroups"
           />
           <ReportsIndexEntry
-            content={l('Possible duplicate release groups')}
+            content={l_reports('Possible duplicate release groups')}
             reportName="DuplicateReleaseGroups"
           />
           <ReportsIndexEntry
-            content={l('Release groups with annotations')}
+            content={l_reports('Release groups with annotations')}
             reportName="AnnotationsReleaseGroups"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               `Release groups not credited to "Various Artists"
               but linked to VA`,
             )}
             reportName="ReleaseGroupsWithoutVACredit"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               `Release groups credited to "Various Artists"
               but not linked to VA`,
             )}
@@ -240,274 +260,304 @@ component ReportsIndex() {
           />
         </ul>
 
-        <h2>{l('Releases')}</h2>
+        <h2>{l_reports('Releases')}</h2>
 
         <ul>
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               'Releases which might need converting to "multiple artists"',
             )}
             reportName="ReleasesToConvert"
           />
           <ReportsIndexEntry
-            content={l('Releases without language')}
+            content={l_reports('Releases without language')}
             reportName="NoLanguage"
           />
           <ReportsIndexEntry
-            content={l('Releases without script')}
+            content={l_reports('Releases without script')}
             reportName="NoScript"
           />
           <ReportsIndexEntry
-            content={l('Releases which have unexpected Amazon URLs')}
+            content={l_reports('Releases which have unexpected Amazon URLs')}
             reportName="BadAmazonURLs"
           />
           <ReportsIndexEntry
-            content={l('Releases which have multiple ASINs')}
+            content={l_reports('Releases which have multiple ASINs')}
             reportName="MultipleASINs"
           />
           <ReportsIndexEntry
-            content={l('Releases which have multiple Discogs links')}
+            content={l_reports('Releases which have multiple Discogs links')}
             reportName="MultipleDiscogsLinks"
           />
           <ReportsIndexEntry
-            content={l('Amazon URLs linked to multiple releases')}
+            content={l_reports('Amazon URLs linked to multiple releases')}
             reportName="ASINsWithMultipleReleases"
           />
           <ReportsIndexEntry
-            content={l('Discogs URLs linked to multiple releases')}
+            content={l_reports('Discogs URLs linked to multiple releases')}
             reportName="DiscogsLinksWithMultipleReleases"
           />
           <ReportsIndexEntry
-            content={l('Releases which have part of set relationships')}
+            content={l_reports(
+              'Releases which have part of set relationships',
+            )}
             reportName="PartOfSetRelationships"
           />
           <ReportsIndexEntry
-            content={l('Discs entered as separate releases')}
+            content={l_reports('Discs entered as separate releases')}
             reportName="SeparateDiscs"
           />
           <ReportsIndexEntry
-            content={l('Tracks whose names include their sequence numbers')}
+            content={l_reports(
+              'Tracks whose names include their sequence numbers',
+            )}
             reportName="TracksNamedWithSequence"
           />
           <ReportsIndexEntry
-            content={l('Releases with non-sequential track numbers')}
+            content={l_reports('Releases with non-sequential track numbers')}
             reportName="TracksWithSequenceIssues"
           />
           <ReportsIndexEntry
-            content={l('Releases with superfluous data tracks')}
+            content={l_reports('Releases with superfluous data tracks')}
             reportName="SuperfluousDataTracks"
           />
           <ReportsIndexEntry
-            content={l('Releases with titles containing featuring artists')}
+            content={l_reports(
+              'Releases with titles containing featuring artists',
+            )}
             reportName="FeaturingReleases"
           />
           <ReportsIndexEntry
-            content={l('Releases released too early')}
+            content={l_reports('Releases released too early')}
             reportName="ReleasedTooEarly"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               `Releases where some (but not all) mediums
               have no format set`,
             )}
             reportName="SomeFormatsUnset"
           />
           <ReportsIndexEntry
-            content={l('Releases with catalog numbers that look like ASINs')}
+            content={l_reports(
+              'Releases with catalog numbers that look like ASINs',
+            )}
             reportName="CatNoLooksLikeASIN"
           />
           <ReportsIndexEntry
-            content={l('Releases with catalog numbers that look like ISRCs')}
+            content={l_reports(
+              'Releases with catalog numbers that look like ISRCs',
+            )}
             reportName="CatNoLooksLikeISRC"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               'Releases with catalog numbers that look like label codes',
             )}
             reportName="CatNoLooksLikeLabelCode"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               `Translated/Transliterated Pseudo-Releases
               marked as the original version`,
             )}
             reportName="MislinkedPseudoReleases"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               `Translated/Transliterated Pseudo-Releases
               not linked to an original version`,
             )}
             reportName="UnlinkedPseudoReleases"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               `Releases that have Amazon cover art
               but no Cover Art Archive front cover`,
             )}
             reportName="ReleasesWithAmazonCoverArt"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               `Releases in the Cover Art Archive
               where no cover art piece has types`,
             )}
             reportName="ReleasesWithCAANoTypes"
           />
           <ReportsIndexEntry
-            content={l('Releases without any art in the Cover Art Archive')}
+            content={l_reports(
+              'Releases without any art in the Cover Art Archive',
+            )}
             reportName="ReleasesWithoutCAA"
           />
           <ReportsIndexEntry
-            content={l('Releases with mediums named after their position')}
+            content={l_reports(
+              'Releases with mediums named after their position',
+            )}
             reportName="MediumsWithOrderInTitle"
           />
           <ReportsIndexEntry
-            content={l('Releases with non-sequential mediums')}
+            content={l_reports('Releases with non-sequential mediums')}
             reportName="MediumsWithSequenceIssues"
           />
           <ReportsIndexEntry
-            content={l('Releases with unlikely language/script pairs')}
+            content={l_reports(
+              'Releases with unlikely language/script pairs',
+            )}
             reportName="ReleasesWithUnlikelyLanguageScript"
           />
           <ReportsIndexEntry
-            content={l('Releases with unknown track times')}
+            content={l_reports('Releases with unknown track times')}
             reportName="TracksWithoutTimes"
           />
           <ReportsIndexEntry
-            content={l('Releases with possible duplicate relationships')}
+            content={l_reports(
+              'Releases with possible duplicate relationships',
+            )}
             reportName="DuplicateRelationshipsReleases"
           />
           <ReportsIndexEntry
-            content={l('Releases with a single medium that has a name')}
+            content={l_reports(
+              'Releases with a single medium that has a name',
+            )}
             reportName="SingleMediumReleasesWithMediumTitles"
           />
           <ReportsIndexEntry
-            content={l('Non-digital releases with digital relationships')}
+            content={l_reports(
+              'Non-digital releases with digital relationships',
+            )}
             reportName="ReleasesWithDownloadRelationships"
           />
           <ReportsIndexEntry
-            content={l('Digital releases with mail order relationships')}
+            content={l_reports(
+              'Digital releases with mail order relationships',
+            )}
             reportName="ReleasesWithMailOrderRelationships"
           />
           <ReportsIndexEntry
-            content={l('Releases with deprecated relationships')}
+            content={l_reports('Releases with deprecated relationships')}
             reportName="DeprecatedRelationshipReleases"
           />
           <ReportsIndexEntry
-            content={l('Releases with annotations')}
+            content={l_reports('Releases with annotations')}
             reportName="AnnotationsReleases"
           />
           <ReportsIndexEntry
-            content={l('Releases with no mediums')}
+            content={l_reports('Releases with no mediums')}
             reportName="ReleasesWithNoMediums"
           />
           <ReportsIndexEntry
-            content={l('Releases with empty mediums')}
+            content={l_reports('Releases with empty mediums')}
             reportName="ReleasesWithEmptyMediums"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               'Releases not credited to "Various Artists" but linked to VA',
             )}
             reportName="ReleasesWithoutVACredit"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               'Releases credited to "Various Artists" but not linked to VA',
             )}
             reportName="ReleasesWithoutVALink"
           />
           <ReportsIndexEntry
-            content={l('Releases missing disc IDs')}
+            content={l_reports('Releases missing disc IDs')}
             reportName="ReleasesMissingDiscIDs"
           />
           <ReportsIndexEntry
-            content={l('Releases with conflicting disc IDs')}
+            content={l_reports('Releases with conflicting disc IDs')}
             reportName="ReleasesConflictingDiscIDs"
           />
           <ReportsIndexEntry
-            content={l('Releases that have disc IDs, but shouldn’t')}
+            content={l_reports('Releases that have disc IDs, but shouldn’t')}
             reportName="ShouldNotHaveDiscIDs"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               'Releases where artist name and label name are the same',
             )}
             reportName="ReleaseLabelSameArtist"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               'Releases with a different name than their release group',
             )}
             reportName="ReleaseRGDifferentName"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               'Releases with the same barcode in different release groups',
             )}
             reportName="ReleasesSameBarcode"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               'Releases on bootleg labels not set to bootleg',
             )}
             reportName="NonBootlegsOnBootlegLabels"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               'Releases on non-bootleg labels set to bootleg',
             )}
             reportName="BootlegsOnNonBootlegLabels"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               'Non-broadcast releases with linked show notes',
             )}
             reportName="ShowNotesButNotBroadcast"
           />
           <ReportsIndexEntry
-            content={l('Releases marked as having low data quality')}
+            content={l_reports('Releases marked as having low data quality')}
             reportName="LowDataQualityReleases"
           />
         </ul>
 
-        <h2>{l('Recordings')}</h2>
+        <h2>{l_reports('Recordings')}</h2>
 
         <ul>
           <ReportsIndexEntry
-            content={l('Recordings with earliest release relationships')}
+            content={l_reports(
+              'Recordings with earliest release relationships',
+            )}
             reportName="RecordingsWithEarliestReleaseRelationships"
           />
           <ReportsIndexEntry
-            content={l('Recordings with titles containing featuring artists')}
+            content={l_reports(
+              'Recordings with titles containing featuring artists',
+            )}
             reportName="FeaturingRecordings"
           />
           <ReportsIndexEntry
-            content={l('Recordings with possible duplicate relationships')}
+            content={l_reports(
+              'Recordings with possible duplicate relationships',
+            )}
             reportName="DuplicateRelationshipsRecordings"
           />
           <ReportsIndexEntry
-            content={l('Recordings with varying track times')}
+            content={l_reports('Recordings with varying track times')}
             reportName="RecordingsWithVaryingTrackLengths"
           />
           <ReportsIndexEntry
-            content={l('Recordings with deprecated relationships')}
+            content={l_reports('Recordings with deprecated relationships')}
             reportName="DeprecatedRelationshipRecordings"
           />
           <ReportsIndexEntry
-            content={l('Recordings with annotations')}
+            content={l_reports('Recordings with annotations')}
             reportName="AnnotationsRecordings"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               `Recordings not credited to "Various Artists"
               but linked to VA`,
             )}
             reportName="RecordingsWithoutVACredit"
           />
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               `Recordings credited to "Various Artists"
               but not linked to VA`,
             )}
@@ -519,7 +569,7 @@ component ReportsIndex() {
             * 5 minutes in production.
             *
             * <ReportsIndexEntry
-            *   content={l(
+            *   content={l_reports(
             *     `Recordings with the same name
             *      by different artists with the same name`,
             *   )}
@@ -527,38 +577,40 @@ component ReportsIndex() {
             * />
             */}
           <ReportsIndexEntry
-            content={l(
+            content={l_reports(
               'Recordings with a different name than their only track',
             )}
             reportName="RecordingTrackDifferentName"
           />
           <ReportsIndexEntry
-            content={l('Recordings with dates in the future')}
+            content={l_reports('Recordings with dates in the future')}
             reportName="RecordingsWithFutureDates"
           />
           <ReportsIndexEntry
-            content={l('Video recordings in non-video mediums')}
+            content={l_reports('Video recordings in non-video mediums')}
             reportName="VideosInNonVideoMediums"
           />
           <ReportsIndexEntry
-            content={l('Non-video recordings with video relationships')}
+            content={l_reports(
+              'Non-video recordings with video relationships',
+            )}
             reportName="VideoRelationshipsOnNonVideos"
           />
         </ul>
 
-        <h2>{l('Places')}</h2>
+        <h2>{l_reports('Places')}</h2>
 
         <ul>
           <ReportsIndexEntry
-            content={l('Places with deprecated relationships')}
+            content={l_reports('Places with deprecated relationships')}
             reportName="DeprecatedRelationshipPlaces"
           />
           <ReportsIndexEntry
-            content={l('Places with annotations')}
+            content={l_reports('Places with annotations')}
             reportName="AnnotationsPlaces"
           />
           <ReportsIndexEntry
-            content={l('Places without coordinates')}
+            content={l_reports('Places without coordinates')}
             reportName="PlacesWithoutCoordinates"
           />
         </ul>
@@ -567,76 +619,76 @@ component ReportsIndex() {
 
         <ul>
           <ReportsIndexEntry
-            content={l('Series with annotations')}
+            content={l_reports('Series with annotations')}
             reportName="AnnotationsSeries"
           />
         </ul>
 
-        <h2>{l('Works')}</h2>
+        <h2>{l_reports('Works')}</h2>
 
         <ul>
           <ReportsIndexEntry
-            content={l('Works with possible duplicate relationships')}
+            content={l_reports('Works with possible duplicate relationships')}
             reportName="DuplicateRelationshipsWorks"
           />
           <ReportsIndexEntry
-            content={l('Works with deprecated relationships')}
+            content={l_reports('Works with deprecated relationships')}
             reportName="DeprecatedRelationshipWorks"
           />
           <ReportsIndexEntry
-            content={l('Works with annotations')}
+            content={l_reports('Works with annotations')}
             reportName="AnnotationsWorks"
           />
           <ReportsIndexEntry
-            content={l('Works with the same type as their parent')}
+            content={l_reports('Works with the same type as their parent')}
             reportName="WorkSameTypeAsParent"
           />
         </ul>
 
-        <h2>{l('URLs')}</h2>
+        <h2>{l_reports('URLs')}</h2>
 
         <ul>
           <ReportsIndexEntry
-            content={l('URLs with deprecated relationships')}
+            content={l_reports('URLs with deprecated relationships')}
             reportName="DeprecatedRelationshipURLs"
           />
           <ReportsIndexEntry
-            content={l('URLs linked to multiple entities')}
+            content={l_reports('URLs linked to multiple entities')}
             reportName="LinksWithMultipleEntities"
           />
           <ReportsIndexEntry
-            content={l('Wikidata URLs linked to multiple entities')}
+            content={l_reports('Wikidata URLs linked to multiple entities')}
             reportName="WikidataLinksWithMultipleEntities"
           />
         </ul>
 
-        <h2>{l('ISRCs')}</h2>
+        <h2>{l_reports('ISRCs')}</h2>
 
         <ul>
           <ReportsIndexEntry
-            content={l('ISRCs with multiple recordings')}
+            content={l_reports('ISRCs with multiple recordings')}
             reportName="ISRCsWithManyRecordings"
           />
         </ul>
 
-        <h2>{l('ISWCs')}</h2>
+        <h2>{l_reports('ISWCs')}</h2>
 
         <ul>
           <ReportsIndexEntry
-            content={l('ISWCs with multiple works')}
+            content={l_reports('ISWCs with multiple works')}
             reportName="ISWCsWithManyWorks"
           />
         </ul>
 
-        <h2>{l('Disc IDs')}</h2>
+        <h2>{l_reports('Disc IDs')}</h2>
 
         <ul>
           <ReportsIndexEntry
-            content={l('Disc IDs with dubious duration')}
+            content={l_reports('Disc IDs with dubious duration')}
             reportName="CDTOCDubiousLength"
           />
           <ReportsIndexEntry
-            content={l('Disc IDs attached but not applied')}
+            content={l_reports('Disc IDs attached but not applied')}
             reportName="CDTOCNotApplied"
           />
         </ul>

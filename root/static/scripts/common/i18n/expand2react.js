@@ -42,6 +42,9 @@ import expand, {
   VarArgs,
 } from './expand2.js';
 import {
+  l_reports as lReportsActual,
+} from './reports.js';
+import {
   l_statistics as lStatisticsActual,
   ln_statistics as lnStatisticsActual,
   lp_statistics as lpStatisticsActual,
@@ -428,6 +431,11 @@ export const l_admin = (
   key: string,
   args?: ?VarArgsObject<Input>,
 ): Output => expand2react(lAdminActual(key), args);
+
+export const l_reports = (
+  key: string,
+  args?: ?VarArgsObject<Input>,
+): Output => expand2react(lReportsActual(key), args);
 
 export const l_statistics = (
   key: string,

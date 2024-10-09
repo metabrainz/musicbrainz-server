@@ -34,7 +34,7 @@ component DuplicateReleaseGroups(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report lists release groups with very similar names and
         artists. If the releases in the release groups should be grouped
         together (see the {url|guidelines}), they can be merged. If they
@@ -48,7 +48,7 @@ component DuplicateReleaseGroups(...{
       entityType="release_group"
       filtered={filtered}
       generated={generated}
-      title={l('Possible duplicate release groups')}
+      title={l_reports('Possible duplicate release groups')}
       totalEntries={pager.total_entries}
     >
       <PaginatedResults pager={pager}>
@@ -96,7 +96,7 @@ component DuplicateReleaseGroups(...{
                       <>
                         <td />
                         <td colSpan="2">
-                          {l('This release group no longer exists.')}
+                          {l_reports('This release group no longer exists.')}
                         </td>
                       </>
                     )}

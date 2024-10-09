@@ -11,7 +11,7 @@ component RemovedUrlRow(colSpan: string, index: number) {
   return (
     <tr className="even" key={index}>
       <td colSpan={colSpan}>
-        {l('This URL no longer exists.')}
+        {l_reports('This URL no longer exists.')}
       </td>
     </tr>
   );

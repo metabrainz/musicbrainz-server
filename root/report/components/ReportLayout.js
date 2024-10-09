@@ -18,23 +18,23 @@ import FilterLink from '../FilterLink.js';
 const countTextPicker: {
   +[entityType: string]: () => string,
 } = {
-  artist: N_l('Total artists found: {count}'),
-  artist_credit: N_l('Total artist credits found: {count}'),
-  discId: N_l('Total discIDs found: {count}'),
-  editor: N_l('Total editors found: {count}'),
-  event: N_l('Total events found: {count}'),
-  instrument: N_l('Total instruments found: {count}'),
-  isrc: N_l('Total ISRCs found: {count}'),
-  iswc: N_l('Total ISWCs found: {count}'),
-  label: N_l('Total labels found: {count}'),
-  place: N_l('Total places found: {count}'),
-  recording: N_l('Total recordings found: {count}'),
-  relationship: N_l('Total relationships found: {count}'),
-  release: N_l('Total releases found: {count}'),
-  release_group: N_l('Total release groups found: {count}'),
-  series: N_l('Total series found: {count}'),
-  url: N_l('Total URLs found: {count}'),
-  work: N_l('Total works found: {count}'),
+  artist: N_l_reports('Total artists found: {count}'),
+  artist_credit: N_l_reports('Total artist credits found: {count}'),
+  discId: N_l_reports('Total discIDs found: {count}'),
+  editor: N_l_reports('Total editors found: {count}'),
+  event: N_l_reports('Total events found: {count}'),
+  instrument: N_l_reports('Total instruments found: {count}'),
+  isrc: N_l_reports('Total ISRCs found: {count}'),
+  iswc: N_l_reports('Total ISWCs found: {count}'),
+  label: N_l_reports('Total labels found: {count}'),
+  place: N_l_reports('Total places found: {count}'),
+  recording: N_l_reports('Total recordings found: {count}'),
+  relationship: N_l_reports('Total relationships found: {count}'),
+  release: N_l_reports('Total releases found: {count}'),
+  release_group: N_l_reports('Total release groups found: {count}'),
+  series: N_l_reports('Total series found: {count}'),
+  url: N_l_reports('Total URLs found: {count}'),
+  work: N_l_reports('Total works found: {count}'),
 };
 
 component ReportLayout(
@@ -71,8 +71,8 @@ component ReportLayout(
           )}
         </li>
         <li>
-          {texp.l('Generated on {date}',
-                  {date: formatUserDate($c, generated)})}
+          {texp.l_reports('Generated on {date}',
+                          {date: formatUserDate($c, generated)})}
         </li>
 
         {canBeFiltered ? <FilterLink filtered={filtered} /> : null}

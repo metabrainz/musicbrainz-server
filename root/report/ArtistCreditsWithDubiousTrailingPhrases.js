@@ -21,7 +21,7 @@ component ArtistCreditsWithDubiousTrailingPhrases(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists artist credits that have a trailing join phrase
          that looks like it might have been left behind in error, such as
          a trailing comma or “feat.”.`,
@@ -29,7 +29,7 @@ component ArtistCreditsWithDubiousTrailingPhrases(...{
       entityType="artist_credit"
       filtered={filtered}
       generated={generated}
-      title={l('Artist credits with dubious trailing join phrases')}
+      title={l_reports('Artist credits with dubious trailing join phrases')}
       totalEntries={pager.total_entries}
     >
       <ArtistCreditList items={items} pager={pager} />

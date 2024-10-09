@@ -21,7 +21,7 @@ component PossibleCollaborations(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report lists artists which have “&” in their names
          but no membership-related relationships (none of member,
          collaborator, conductor, founder nor subgroup). If the artist
@@ -37,7 +37,7 @@ component PossibleCollaborations(...{
       entityType="artist"
       filtered={filtered}
       generated={generated}
-      title={l('Artists that may be collaborations')}
+      title={l_reports('Artists that may be collaborations')}
       totalEntries={pager.total_entries}
     >
       <ArtistList items={items} pager={pager} />

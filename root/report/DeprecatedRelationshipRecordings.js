@@ -25,14 +25,14 @@ component DeprecatedRelationshipRecordings(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists recordings which have relationships using
          deprecated and grouping-only relationship types.`,
       )}
       entityType="recording"
       filtered={filtered}
       generated={generated}
-      title={l('Recordings with deprecated relationships')}
+      title={l_reports('Recordings with deprecated relationships')}
       totalEntries={pager.total_entries}
     >
       <RecordingList

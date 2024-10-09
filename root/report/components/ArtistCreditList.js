@@ -37,7 +37,7 @@ component ArtistCreditList(
                 </td>
               ) : (
                 <td>
-                  {l('This artist credit no longer exists.')}
+                  {l_reports('This artist credit no longer exists.')}
                 </td>
               )}
             </tr>

@@ -49,7 +49,7 @@ component ReleasesSameBarcode(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows non-bootleg releases which have
          the same barcode, yet are placed in different release groups.
          Chances are that the releases are duplicates or parts of a set,
@@ -58,7 +58,9 @@ component ReleasesSameBarcode(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with the same barcode in different release groups')}
+      title={l_reports(
+        'Releases with the same barcode in different release groups',
+      )}
       totalEntries={pager.total_entries}
     >
       <ReleaseList

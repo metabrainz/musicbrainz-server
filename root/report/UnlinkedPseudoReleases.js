@@ -21,7 +21,7 @@ component UnlinkedPseudoReleases(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases with status Pseudo-Release that aren’t
          linked via the translation/transliteration relationship to an
          original version. This could be because the original version is
@@ -30,7 +30,7 @@ component UnlinkedPseudoReleases(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Unlinked pseudo-releases')}
+      title={l_reports('Unlinked pseudo-releases')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

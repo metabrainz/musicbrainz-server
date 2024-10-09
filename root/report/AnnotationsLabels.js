@@ -25,12 +25,12 @@ component AnnotationsLabels(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l('This report lists labels with annotations.')}
+      description={l_reports('This report lists labels with annotations.')}
       entityType="label"
       extraInfo={ANNOTATION_REPORT_TEXT()}
       filtered={filtered}
       generated={generated}
-      title={l('Label annotations')}
+      title={l_reports('Label annotations')}
       totalEntries={pager.total_entries}
     >
       <LabelList
