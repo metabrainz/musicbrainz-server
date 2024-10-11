@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import DBDefs from '../../static/scripts/common/DBDefs.mjs';
+import {GOOGLE_CUSTOM_SEARCH} from '../../static/scripts/common/DBDefs.mjs';
 import FormRowRadio
   from '../../static/scripts/edit/components/FormRowRadio.js';
 import FormRowSelect
@@ -46,7 +46,7 @@ const typeOptions = {
   ],
 };
 
-if (DBDefs.GOOGLE_CUSTOM_SEARCH) {
+if (GOOGLE_CUSTOM_SEARCH) {
   typeOptions.options.push({label: N_l('Documentation'), value: 'doc'});
 }
 

@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import DBDefs from '../../common/DBDefs-client.mjs';
+import {WEB_SERVER} from '../../common/DBDefs-client.mjs';
 
 component ConfirmSeedButtons(autoSubmit: boolean) {
   const submitRef = React.useRef<HTMLButtonElement | null>(null);
@@ -32,7 +32,7 @@ component ConfirmSeedButtons(autoSubmit: boolean) {
           } else {
             window.location.replace(
               window.location.protocol + '//' +
-              DBDefs.WEB_SERVER,
+              WEB_SERVER,
             );
           }
         }}

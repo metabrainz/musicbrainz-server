@@ -50,7 +50,7 @@ utils.withRelease = function (read, defaultValue) {
   );
 };
 
-export function unformatTrackLength(duration) {
+utils.unformatTrackLength = function (duration) {
   if (!duration) {
     return null;
   }
@@ -69,9 +69,7 @@ export function unformatTrackLength(duration) {
   var hours = parseInt(parts.pop() || 0, 10) * 3600;
 
   return (hours + minutes + seconds) * 1000;
-}
-
-utils.unformatTrackLength = unformatTrackLength;
+};
 
 // Webservice helpers
 
@@ -220,7 +218,7 @@ utils.similarLengths = function (oldLength, newLength) {
 };
 
 
-export function calculateDiscID(toc) {
+utils.calculateDiscID = function (toc) {
   var info = toc.split(/\s/);
 
   var temp = paddedHex(info.shift(), 2) + paddedHex(info.shift(), 2);
@@ -230,9 +228,7 @@ export function calculateDiscID(toc) {
   }
 
   return base64(rstrSha1(temp));
-}
-
-utils.calculateDiscID = calculateDiscID;
+};
 
 function paddedHex(str, length) {
   return (parseInt(str, 10) || 0)

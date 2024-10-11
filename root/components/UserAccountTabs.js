@@ -8,7 +8,8 @@
  */
 
 import {CatalystContext} from '../context.mjs';
-import DBDefs from '../static/scripts/common/DBDefs.mjs';
+import {DB_STAGING_TESTING_FEATURES}
+  from '../static/scripts/common/DBDefs.mjs';
 import {isAccountAdmin} from '../static/scripts/common/utility/privileges.js';
 import buildTab from '../utility/buildTab.js';
 
@@ -97,7 +98,7 @@ function buildTabs(
     ));
   }
 
-  if (showAdmin || (DBDefs.DB_STAGING_TESTING_FEATURES && $c.user)) {
+  if (showAdmin || (DB_STAGING_TESTING_FEATURES && $c.user)) {
     tabs.push(buildTab(
       page,
       l_admin('Edit user'),

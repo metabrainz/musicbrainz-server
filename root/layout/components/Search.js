@@ -8,7 +8,7 @@
  */
 
 import SearchIcon from '../../static/scripts/common/components/SearchIcon.js';
-import DBDefs from '../../static/scripts/common/DBDefs.mjs';
+import {GOOGLE_CUSTOM_SEARCH} from '../../static/scripts/common/DBDefs.mjs';
 import {compare} from '../../static/scripts/common/i18n.js';
 
 type SearchOptionValueT =
@@ -48,7 +48,7 @@ const TYPE_OPTION_GROUPS: $ReadOnlyArray<SearchOptionGroupT> = [
     editor:        N_l('Editor'),
   },
   {
-    doc:           DBDefs.GOOGLE_CUSTOM_SEARCH ? N_l('Documentation') : null,
+    doc:           GOOGLE_CUSTOM_SEARCH ? N_l('Documentation') : null,
   },
 ];
 
