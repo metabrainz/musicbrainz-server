@@ -13,13 +13,11 @@ import * as ReactDOMServer from 'react-dom/server';
 import getBooleanCookie from '../common/utility/getBooleanCookie.js';
 import {capitalize} from '../common/utility/strings.js';
 
-import type {GuessCaseModeT} from './types.js';
 import {
   isPrepBracketSingleWord,
   isPrepBracketWord,
-  turkishLowerCase,
-  turkishUpperCase,
-} from './utils.js';
+} from './utils/wordCheckers.js';
+import type {GuessCaseModeT} from './types.js';
 
 /*
  * Words which are always written lowercase.
@@ -415,7 +413,12 @@ export const Turkish: GuessCaseModeT = {
 
   name: 'Turkish',
 
-  toLowerCase: turkishLowerCase,
+  toLowerCase(word: string): string {
+    return word.replace(/I\u0307/g, 'i').replace(/I/g, 'ı').replace(/İ/g, 'i')
+      .toLowerCase();
+  },
 
-  toUpperCase: turkishUpperCase,
+  toUpperCase(word: string): string {
+    return word.replace(/i/g, 'İ').toUpperCase();
+  },
 };

@@ -8,200 +8,35 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import clean from '../common/utility/clean.js';
+import * as flags from '../flags.js';
+import type GuessCaseInput from '../MB/GuessCase/Input.js';
+import type GuessCaseOutput from '../MB/GuessCase/Output.js';
+import * as modes from '../modes.js';
+import type {GuessCaseModeNameT, GuessCaseModeT} from '../types.js';
 
-import input from './MB/GuessCase/Input.js';
-import gc from './MB/GuessCase/Main.js';
-import output from './MB/GuessCase/Output.js';
-import * as flags from './flags.js';
-import * as modes from './modes.js';
-import type {GuessCaseModeNameT, GuessCaseModeT} from './types.js';
-
-/*
- * Words which are turned to lowercase if in brackets, but
- * are *not* put in brackets if they're found at the end of the sentence.
- */
-const preBracketSingleWordsList = [
-  'acoustic',
-  'airplay',
-  'album',
-  'alternate',
-  'alternative',
-  'ambient',
-  'bit',
-  'bonus',
-  'censored',
-  'chillout',
-  'clean',
-  'club',
-  'composition',
-  'cut',
-  'dance',
-  'dialogue',
-  'dirty',
-  'disc',
-  'disco',
-  'dub',
-  'early',
-  'explicit',
-  'extended',
-  'feat',
-  'featuring',
-  'ft',
-  'instrumental',
-  'live',
-  'long',
-  'loop',
-  'main',
-  'megamix',
-  'mix',
-  'official',
-  'original',
-  'piano',
-  'radio',
-  'rap',
-  'rehearsal',
-  'remixed',
-  'remode',
-  'rework',
-  'reworked',
-  'session',
-  'short',
-  'single',
-  'studio',
-  'take',
-  'takes',
-  'techno',
-  'trance',
-  'uncensored',
-  'unknown',
-  'untitled',
-  'version',
-  'video',
-  'vocal',
-  'with',
-  'without',
-];
-
-const preBracketSingleWords = new RegExp(
-  '^(' + preBracketSingleWordsList.join('|') + ')$', 'i',
-);
-
-export function isPrepBracketSingleWord(word: string): boolean {
-  return preBracketSingleWords.test(word);
-}
-
-/*
- * Words which are turned to lowercase if in brackets, and
- * put in brackets if they're found at the end of the sentence.
- */
-const lowerCaseBracketWordsList = [
-  'a_cappella',
-  'clubmix',
-  'demo',
-  'edit',
-  'excerpt',
-  'interlude',
-  'intro',
-  'karaoke',
-  'maxi',
-  'mono',
-  'orchestral',
-  'outro',
-  'outtake',
-  'outtakes',
-  'quadraphonic',
-  'reedit',
-  're_edit',
-  'refix',
-  'reinterpreted',
-  'remake',
-  'remaster',
-  'remastered',
-  'remix',
-  'rmx',
-  'reprise',
-  'skit',
-  'stereo',
-  'unplugged',
-  'vs',
-].concat(preBracketSingleWordsList);
-
-const lowerCaseBracketWords = new RegExp(
-  '^(' + lowerCaseBracketWordsList.join('|') + ')$', 'i',
-);
-
-export function turkishUpperCase(word: string): string {
-  return word.replace(/i/g, 'İ').toUpperCase();
-}
-
-export function turkishLowerCase(word: string): string {
-  return word.replace(/I\u0307/g, 'i').replace(/I/g, 'ı').replace(/İ/g, 'i')
-    .toLowerCase();
-}
-
-export function isLowerCaseBracketWord(word: string | null): boolean {
-  if (word == null) {
-    return false;
-  }
-  return lowerCaseBracketWords.test(word);
-}
-
-// Words which are put into brackets if they aren't yet.
-const prepBracketWords = /^(?:cd|disk|12["”]|7["”]|a_cappella|re_edit)$/i;
-
-export function isPrepBracketWord(word: string | null): boolean {
-  if (word == null) {
-    return false;
-  }
-  return prepBracketWords.test(word) || isLowerCaseBracketWord(word);
-}
-
-const sentenceStopChars = /^[:.;?!/]$/;
-
-export function isSentenceStopChar(word: string | null): boolean {
-  if (word == null) {
-    return false;
-  }
-  return sentenceStopChars.test(word);
-}
-
-const apostropheChars = /^['’]$/;
-
-export function isApostrophe(word: string | null): boolean {
-  if (word == null) {
-    return false;
-  }
-  return apostropheChars.test(word);
-}
-
-const punctuationChars = /^[:.;?!,]$/;
-
-export function isPunctuationChar(word: string | null): boolean {
-  if (word == null) {
-    return false;
-  }
-  return punctuationChars.test(word);
-}
-
-// Trim leading, trailing and running-line whitespace from the given string.
-export function trim(word: string): string {
-  const cleanedWord = clean(word);
-  return cleanedWord.replace(/([([])\s+/, '$1').replace(/\s+([)\]])/, '$1');
-}
+import {
+  isApostrophe,
+  isLowerCaseBracketWord,
+  isPunctuationChar,
+  isSentenceStopChar,
+} from './wordCheckers.js';
 
 /*
  * Uppercase first letter of word unless it's one of the words
  * in the lowercase words array.
  */
-export function titleString(
+function titleString(
+  input: GuessCaseInput,
+  output: GuessCaseOutput,
   inputString: string | null,
+  modeName: GuessCaseModeNameT,
+  CFG_KEEP_UPPERCASED: boolean,
   forceCaps?: boolean,
 ): string {
   if (empty(inputString)) {
     return '';
   }
-  const guessCaseMode = modes[gc.modeName];
+  const guessCaseMode = modes[modeName];
   const localForceCaps = forceCaps == null
     ? flags.context.forceCaps
     : forceCaps;
@@ -227,7 +62,7 @@ export function titleString(
 
   if (inputString === uppercase &&
       inputString.length > 1 &&
-      gc.CFG_KEEP_UPPERCASED) {
+      CFG_KEEP_UPPERCASED) {
     outputString = uppercase;
     // we got an 'x (apostrophe),keep the text lowercased
   } else if (lowercase.length === 1 &&
@@ -272,6 +107,8 @@ export function titleString(
     outputString = uppercase;
   } else {
     outputString = titleStringByMode(
+      input,
+      output,
       guessCaseMode,
       lowercase,
       localForceCaps,
@@ -321,6 +158,8 @@ export function titleString(
  * need to be uppercased as well.
  */
 export function titleStringByMode(
+  input: GuessCaseInput,
+  output: GuessCaseOutput,
   guessCaseMode: GuessCaseModeT,
   inputString: string | null,
   forceCaps: boolean,
@@ -367,13 +206,4 @@ export function titleStringByMode(
   return outputString;
 }
 
-export function isGuessCaseModeName(
-  modeName: string,
-): modeName is GuessCaseModeNameT {
-  return (
-    modeName === 'English' ||
-    modeName === 'French' ||
-    modeName === 'Sentence' ||
-    modeName === 'Turkish'
-  );
-}
+export default titleString;

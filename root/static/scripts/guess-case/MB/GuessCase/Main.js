@@ -11,16 +11,17 @@
 import getCookie from '../../../common/utility/getCookie.js';
 import * as flags from '../../flags.js';
 import {type GuessCaseModeNameT} from '../../types.js';
-import {isGuessCaseModeName} from '../../utils.js';
+import isGuessCaseModeName from '../../utils/isGuessCaseModeName.js';
 
 import GuessCaseAreaHandler from './Handler/Area.js';
 import GuessCaseArtistHandler from './Handler/Artist.js';
-import GuessCaseHandler from './Handler/Base.js';
 import GuessCaseLabelHandler from './Handler/Label.js';
 import GuessCasePlaceHandler from './Handler/Place.js';
 import GuessCaseReleaseHandler from './Handler/Release.js';
 import GuessCaseTrackHandler from './Handler/Track.js';
 import GuessCaseWorkHandler from './Handler/Work.js';
+import GuessCaseInput from './Input.js';
+import GuessCaseOutput from './Output.js';
 
 const handlerPicker = {
   area: GuessCaseAreaHandler,
@@ -136,7 +137,7 @@ class GuessCase {
       return ((inputString) => this.lowercaseEntityName(inputString));
     }
 
-    let handler: GuessCaseHandler;
+    const regexes = this.regexes;
 
     /*
      * Guesses the name (e.g. capitalization) or sort name (for aliases)
@@ -148,10 +149,36 @@ class GuessCase {
       inputString: string,
       isPerson?: boolean = false,
     ): string {
+      const guessCaseModeCookie = getCookie('guesscase_mode');
+      const modeName = isGuessCaseModeName(guessCaseModeCookie)
+        ? guessCaseModeCookie
+        : 'English';
+
+      const CFG_KEEP_UPPERCASED =
+        getCookie('guesscase_keepuppercase') !== 'false';
+
       // Initialise flags for another run.
       flags.init();
 
-      handler ||= new handlerPicker[handlerName]();
+      const input = new GuessCaseInput(
+        inputString,
+        modeName,
+        CFG_KEEP_UPPERCASED,
+        regexes,
+      );
+
+      const output = new GuessCaseOutput(
+        input,
+        modeName,
+        CFG_KEEP_UPPERCASED,
+      );
+
+      const handler = new handlerPicker[handlerName](
+        modeName,
+        regexes,
+        input,
+        output,
+      );
 
       /*
        * We need to query the handler if the input string is
@@ -159,18 +186,18 @@ class GuessCase {
        * returned case is indeed a special case.
        */
       const num = handler.checkSpecialCase(inputString);
-      let output;
+      let result;
       if (handler.isSpecialCase(num)) {
-        output = handler.getSpecialCaseFormatted(inputString, num);
+        result = handler.getSpecialCaseFormatted(inputString, num);
       } else if (handler instanceof GuessCaseArtistHandler &&
                  method === 'guessSortName') {
-        output = handler[method](inputString, isPerson);
+        result = handler[method](inputString, isPerson);
       } else {
-        // $FlowIgnore[prop-missing]
-        output = handler[method](inputString);
+        // $FlowIgnore[incompatible-call]
+        result = handler[method](inputString);
       }
 
-      return output;
+      return result;
     };
   }
 
