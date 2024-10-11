@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
 import {RT_MIRROR} from '../static/scripts/common/constants.js';
-import DBDefs from '../static/scripts/common/DBDefs.mjs';
+import * as DBDefs from '../static/scripts/common/DBDefs.mjs';
 import {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList.js';
 import parseDate from '../static/scripts/common/utility/parseDate.js';

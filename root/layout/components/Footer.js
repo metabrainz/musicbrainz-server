@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {DONATE_URL} from '../../constants.js';
 import {CatalystContext} from '../../context.mjs';
-import DBDefs from '../../static/scripts/common/DBDefs.mjs';
+import * as DBDefs from '../../static/scripts/common/DBDefs.mjs';
 import {bracketedText}
   from '../../static/scripts/common/utility/bracketed.js';
 import formatUserDate from '../../utility/formatUserDate.js';
