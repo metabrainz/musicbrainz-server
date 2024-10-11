@@ -8,7 +8,8 @@
  */
 
 import manifest from '../static/manifest.mjs';
-import DBDefs from '../static/scripts/common/DBDefs-client.mjs';
+import {MAPBOX_ACCESS_TOKEN}
+  from '../static/scripts/common/DBDefs-client.mjs';
 
 import PlaceLayout from './PlaceLayout.js';
 
@@ -24,7 +25,7 @@ component PlaceMap(mapDataArgs: MapDataArgsT, place: PlaceT) {
   return (
     <PlaceLayout entity={place} page="map" title={l('Map')}>
       {place.coordinates ? (
-        DBDefs.MAPBOX_ACCESS_TOKEN ? (
+        MAPBOX_ACCESS_TOKEN ? (
           <>
             <div id="largemap" />
             {manifest('place/map', {'data-args': mapDataArgs})}

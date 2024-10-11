@@ -7,14 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import DBDefs from '../../static/scripts/common/DBDefs.mjs';
+import {WIKITRANS_SERVER} from '../../static/scripts/common/DBDefs.mjs';
 
 component ChangeWikiDoc(edit: ChangeWikiDocEditT) {
   const display = edit.display_data;
   const page = display.page;
   const oldVersion = display.old_version;
   const newVersion = display.new_version;
-  const basePath = DBDefs.WIKITRANS_SERVER;
+  const basePath = WIKITRANS_SERVER;
   const baseLink =
     `//${basePath}/index.php?title=${encodeURIComponent(page)}`;
   const oldLink = oldVersion == null

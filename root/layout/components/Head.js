@@ -11,7 +11,10 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import manifest from '../../static/manifest.mjs';
-import DBDefs from '../../static/scripts/common/DBDefs.mjs';
+import {
+  CANONICAL_SERVER,
+  WEB_SERVER,
+} from '../../static/scripts/common/DBDefs.mjs';
 import commonLessUrl from '../../static/styles/common.less';
 import iconLessUrl from '../../static/styles/icons.less';
 import noScriptLessUrl from '../../static/styles/noscript.less';
@@ -21,10 +24,10 @@ import FaviconLinks from './FaviconLinks.js';
 import globalsScript from './globalsScript.mjs';
 import MetaDescription from './MetaDescription.js';
 
-const canonRegexp = new RegExp('^(https?:)?//' + DBDefs.WEB_SERVER);
+const canonRegexp = new RegExp('^(https?:)?//' + WEB_SERVER);
 function canonicalize(url: string) {
-  return DBDefs.CANONICAL_SERVER
-    ? url.replace(canonRegexp, DBDefs.CANONICAL_SERVER)
+  return CANONICAL_SERVER
+    ? url.replace(canonRegexp, CANONICAL_SERVER)
     : url;
 }
 
