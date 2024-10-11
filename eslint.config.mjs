@@ -167,11 +167,9 @@ export default [
       'no-obj-calls': 'error',
       'no-promise-executor-return': 'error',
       'no-prototype-builtins': 'warn',
-      'no-regex-spaces': 'error',
       'no-self-assign': 'error',
       'no-self-compare': 'error',
       'no-setter-return': 'off', // We should never use setters
-      'no-shadow-restricted-names': 'error',
       'no-sparse-arrays': 'error',
       'no-template-curly-in-string': 'warn',
       'no-this-before-super': 'error',
@@ -185,6 +183,7 @@ export default [
       'no-undef': 'off',
       'no-unexpected-multiline': 'error',
       'no-unmodified-loop-condition': 'error',
+      'no-unreachable': 'off', // Enforced by Flow
       'no-unreachable-loop': 'error',
       'no-unsafe-finally': 'error',
       'no-unsafe-negation': 'error',
@@ -196,7 +195,6 @@ export default [
       }],
       'no-use-before-define': 'off',
       'no-useless-backreference': 'off',
-      'no-with': 'error',
       'require-atomic-updates': 'error',
       'use-isnan': 'error',
       'valid-typeof': 'error',
@@ -252,7 +250,7 @@ export default [
       'default-case': 'off', // Flow enforces this enough for us
       'default-case-last': 'warn',
       'default-param-last': 'warn',
-      'dot-location': ['warn', 'property'],
+      'dot-location': 'off', // deprecated
       'dot-notation': ['warn', {allowKeywords: true}],
       'eqeqeq': ['warn', 'smart'],
       'func-name-matching': 'warn',
@@ -284,6 +282,7 @@ export default [
       'no-div-regex': 'off',
       'no-else-return': 'warn',
       'no-empty': ['error', {allowEmptyCatch: true}],
+      'no-empty-static-block': 'warn',
       'no-eq-null': 'off',
       'no-eval': 'warn',
       'no-extend-native': 'error',
