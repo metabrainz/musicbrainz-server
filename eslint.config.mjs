@@ -190,7 +190,10 @@ export default [
       'no-unsafe-negation': 'error',
       'no-unsafe-optional-chaining': 'off', // Enforced by Flow
       'no-unused-private-class-members': 'off', // We should aim not to use classes
-      'no-unused-vars': ['error', {argsIgnorePattern: '^this$'}],
+      'no-unused-vars': ['error', {
+        argsIgnorePattern: '^this$',
+        caughtErrorsIgnorePattern: 'ignoredError',
+      }],
       'no-use-before-define': 'off',
       'no-useless-backreference': 'off',
       'no-with': 'error',
@@ -1052,6 +1055,16 @@ export default [
     ],
     rules: {
       'ft-flow/no-flow-suppressions-in-strict-files': 'off',
+    },
+  },
+  {
+    files: [
+      'flow-typed/npm/jed_v1.x.x.js',
+      'flow-typed/npm/pg-cursor_v2.x.x.js',
+      'flow-typed/npm/pg_v8.x.x.js',
+    ],
+    rules: {
+      'no-unused-vars': 'off',
     },
   },
 

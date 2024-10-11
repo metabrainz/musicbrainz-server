@@ -110,7 +110,7 @@ class PreferencesForm extends React.Component<Props, State> {
     let maybeGuess;
     try {
       maybeGuess = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    } catch (e) {
+    } catch (ignoredError) {
       // ignored where Intl.DateTimeFormat is unsupported
     }
     const guess = maybeGuess;

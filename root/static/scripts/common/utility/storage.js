@@ -18,7 +18,7 @@ try {
     window.localStorage != null;
   hasSessionStorage = typeof window.sessionStorage === 'object' &&
     window.sessionStorage != null;
-} catch (e) {
+} catch (ignoredError) {
   // NOP
 }
 
@@ -33,7 +33,7 @@ export function localStorage(name: string, value?: string): string | void {
         try {
           window.localStorage.setItem(name, value);
           inLocalStorage = true;
-        } catch (e) {
+        } catch (ignoredError) {
           /*
            * NS_ERROR_DOM_QUOTA_REACHED
            * NS_ERROR_FILE_NO_DEVICE_SPACE
@@ -51,7 +51,7 @@ export function localStorage(name: string, value?: string): string | void {
     let storedValue;
     try {
       storedValue = window.localStorage.getItem(name);
-    } catch (e) {
+    } catch (ignoredError) {
       // NS_ERROR_FILE_CORRUPTED?
     }
     /*
