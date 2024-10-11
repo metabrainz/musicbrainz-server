@@ -488,7 +488,7 @@ trackParser.customDelimiterRegExp = ko.computed(function () {
   try {
     const delimiter = trackParser.options.customDelimiter();
     return new RegExp('(' + delimiter + ')');
-  } catch (e) {
+  } catch (ignoredError) {
     return null;
   }
 });
