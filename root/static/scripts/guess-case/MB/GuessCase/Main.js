@@ -11,16 +11,17 @@
 import getCookie from '../../../common/utility/getCookie.js';
 import * as flags from '../../flags.js';
 import {type GuessCaseModeNameT} from '../../types.js';
-import {isGuessCaseModeName} from '../../utils.js';
+import isGuessCaseModeName from '../../utils/isGuessCaseModeName.js';
 
 import GuessCaseAreaHandler from './Handler/Area.js';
 import GuessCaseArtistHandler from './Handler/Artist.js';
-import GuessCaseHandler from './Handler/Base.js';
 import GuessCaseLabelHandler from './Handler/Label.js';
 import GuessCasePlaceHandler from './Handler/Place.js';
 import GuessCaseReleaseHandler from './Handler/Release.js';
 import GuessCaseTrackHandler from './Handler/Track.js';
 import GuessCaseWorkHandler from './Handler/Work.js';
+import GuessCaseInput from './Input.js';
+import GuessCaseOutput from './Output.js';
 
 const handlerPicker = {
   area: GuessCaseAreaHandler,
@@ -72,56 +73,56 @@ class GuessCase {
 
     this.entities = {
       area: {
-        guess: this.guess('area', 'process'),
-        sortname: this.guess('area', 'guessSortName'),
+        guess: this.guess('area', 'process', this.regexes),
+        sortname: this.guess('area', 'guessSortName', this.regexes),
       },
       artist: {
-        guess: this.guess('artist', 'process'),
-        sortname: this.guess('artist', 'guessSortName'),
+        guess: this.guess('artist', 'process', this.regexes),
+        sortname: this.guess('artist', 'guessSortName', this.regexes),
       },
       event: {
-        guess: this.guess('event', 'process'),
-        sortname: this.guess('event', 'guessSortName'),
+        guess: this.guess('event', 'process', this.regexes),
+        sortname: this.guess('event', 'guessSortName', this.regexes),
       },
       genre: {
-        guess: this.guess('genre', 'process'),
-        sortname: this.guess('genre', 'guessSortName'),
+        guess: this.guess('genre', 'process', this.regexes),
+        sortname: this.guess('genre', 'guessSortName', this.regexes),
       },
       instrument: {
-        guess: this.guess('instrument', 'process'),
-        sortname: this.guess('instrument', 'guessSortName'),
+        guess: this.guess('instrument', 'process', this.regexes),
+        sortname: this.guess('instrument', 'guessSortName', this.regexes),
       },
       label: {
-        guess: this.guess('label', 'process'),
-        sortname: this.guess('label', 'guessSortName'),
+        guess: this.guess('label', 'process', this.regexes),
+        sortname: this.guess('label', 'guessSortName', this.regexes),
       },
       place: {
-        guess: this.guess('place', 'process'),
-        sortname: this.guess('place', 'guessSortName'),
+        guess: this.guess('place', 'process', this.regexes),
+        sortname: this.guess('place', 'guessSortName', this.regexes),
       },
       recording: {
-        guess: this.guess('recording', 'process'),
-        sortname: this.guess('recording', 'guessSortName'),
+        guess: this.guess('recording', 'process', this.regexes),
+        sortname: this.guess('recording', 'guessSortName', this.regexes),
       },
       release: {
-        guess: this.guess('release', 'process'),
-        sortname: this.guess('release', 'guessSortName'),
+        guess: this.guess('release', 'process', this.regexes),
+        sortname: this.guess('release', 'guessSortName', this.regexes),
       },
       release_group: {
-        guess: this.guess('release_group', 'process'),
-        sortname: this.guess('release_group', 'guessSortName'),
+        guess: this.guess('release_group', 'process', this.regexes),
+        sortname: this.guess('release_group', 'guessSortName', this.regexes),
       },
       series: {
-        guess: this.guess('series', 'process'),
-        sortname: this.guess('series', 'guessSortName'),
+        guess: this.guess('series', 'process', this.regexes),
+        sortname: this.guess('series', 'guessSortName', this.regexes),
       },
       track: {
-        guess: this.guess('track', 'process'),
-        sortname: this.guess('track', 'guessSortName'),
+        guess: this.guess('track', 'process', this.regexes),
+        sortname: this.guess('track', 'guessSortName', this.regexes),
       },
       work: {
-        guess: this.guess('work', 'process'),
-        sortname: this.guess('work', 'guessSortName'),
+        guess: this.guess('work', 'process', this.regexes),
+        sortname: this.guess('work', 'guessSortName', this.regexes),
       },
     };
   }
@@ -131,12 +132,11 @@ class GuessCase {
   guess(
     handlerName: $Keys<typeof handlerPicker> | 'genre' | 'instrument',
     method: 'process' | 'guessSortName',
+    regexes: {[regexName: string]: RegExp},
   ): (string) => string {
     if (handlerName === 'genre' || handlerName === 'instrument') {
       return ((inputString) => this.lowercaseEntityName(inputString));
     }
-
-    let handler: GuessCaseHandler;
 
     /*
      * Guesses the name (e.g. capitalization) or sort name (for aliases)
@@ -148,10 +148,36 @@ class GuessCase {
       inputString: string,
       isPerson?: boolean = false,
     ): string {
+      const guessCaseModeCookie = getCookie('guesscase_mode');
+      const modeName = isGuessCaseModeName(guessCaseModeCookie)
+        ? guessCaseModeCookie
+        : 'English';
+
+      const CFG_KEEP_UPPERCASED =
+        getCookie('guesscase_keepuppercase') !== 'false';
+
       // Initialise flags for another run.
       flags.init();
 
-      handler ||= new handlerPicker[handlerName]();
+      const input = new GuessCaseInput(
+        inputString,
+        modeName,
+        CFG_KEEP_UPPERCASED,
+        regexes,
+      );
+
+      const output = new GuessCaseOutput(
+        input,
+        modeName,
+        CFG_KEEP_UPPERCASED,
+      );
+
+      const handler = new handlerPicker[handlerName](
+        modeName,
+        regexes,
+        input,
+        output,
+      );
 
       /*
        * We need to query the handler if the input string is
@@ -159,18 +185,18 @@ class GuessCase {
        * returned case is indeed a special case.
        */
       const num = handler.checkSpecialCase(inputString);
-      let output;
+      let result;
       if (handler.isSpecialCase(num)) {
-        output = handler.getSpecialCaseFormatted(inputString, num);
+        result = handler.getSpecialCaseFormatted(inputString, num);
       } else if (handler instanceof GuessCaseArtistHandler &&
                  method === 'guessSortName') {
-        output = handler[method](inputString, isPerson);
+        result = handler[method](inputString, isPerson);
       } else {
-        // $FlowIgnore[prop-missing]
-        output = handler[method](inputString);
+        // $FlowIgnore[incompatible-call]
+        result = handler[method](inputString);
       }
 
-      return output;
+      return result;
     };
   }
 

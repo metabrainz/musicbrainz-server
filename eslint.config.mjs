@@ -395,7 +395,10 @@ export default [
       'import/dynamic-import-chunkname': 'off',
       'import/export': 'error',
       'import/exports-last': 'off',
-      'import/extensions': ['error', 'ignorePackages'],
+      'import/extensions': ['error', 'always', {
+        checkTypeImports: true,
+        ignorePackages: true,
+      }],
       'import/first': 'warn',
       'import/group-exports': 'off',
       'import/max-dependencies': 'off',
@@ -438,7 +441,7 @@ export default [
       'import/no-webpack-loader-syntax': 'error',
       'import/order': 'off',
       'import/prefer-default-export': ['warn', {target: 'single'}],
-      'import/unambiguous': 'warn',
+      'import/unambiguous': 'off',
 
       // @stylistic/js
       '@stylistic/js/array-bracket-newline': ['warn', 'consistent'],

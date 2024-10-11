@@ -9,10 +9,7 @@
  */
 
 import * as flags from '../../../flags.js';
-import * as utils from '../../../utils.js';
-import input from '../Input.js';
-import gc from '../Main.js';
-import output from '../Output.js';
+import trim from '../../../utils/trim.js';
 
 import GuessCaseHandler from './Base.js';
 
@@ -25,31 +22,31 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
    */
   checkSpecialCase(inputString?: string): number {
     if (inputString != null) {
-      if (!gc.regexes.ARTIST_EMPTY) {
+      if (!this.regexes.ARTIST_EMPTY) {
         // Match empty
-        gc.regexes.ARTIST_EMPTY = /^\s*$/i;
+        this.regexes.ARTIST_EMPTY = /^\s*$/i;
         // Match "unknown" and variants
-        gc.regexes.ARTIST_UNKNOWN = /^[([]?\s*Unknown\s*[)\]]?$/i;
+        this.regexes.ARTIST_UNKNOWN = /^[([]?\s*Unknown\s*[)\]]?$/i;
         // Match "none" and variants
-        gc.regexes.ARTIST_NONE = /^[([]?\s*none\s*[)\]]?$/i;
+        this.regexes.ARTIST_NONE = /^[([]?\s*none\s*[)\]]?$/i;
         // Match "no artist" and variants
-        gc.regexes.ARTIST_NOARTIST = /^[([]?\s*no[\s-]+artist\s*[)\]]?$/i;
+        this.regexes.ARTIST_NOARTIST = /^[([]?\s*no[\s-]+artist\s*[)\]]?$/i;
         // Match "not applicable" and variants
-        gc.regexes.ARTIST_NOTAPPLICABLE = /^[([]?\s*not[\s-]+applicable\s*[)\]]?$/i;
+        this.regexes.ARTIST_NOTAPPLICABLE = /^[([]?\s*not[\s-]+applicable\s*[)\]]?$/i;
         // Match "n/a" and variants
-        gc.regexes.ARTIST_NA = /^[([]?\s*n\s*[\\/]\s*a\s*[)\]]?$/i;
+        this.regexes.ARTIST_NA = /^[([]?\s*n\s*[\\/]\s*a\s*[)\]]?$/i;
       }
-      if (inputString.match(gc.regexes.ARTIST_EMPTY)) {
+      if (inputString.match(this.regexes.ARTIST_EMPTY)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;
-      } else if (inputString.match(gc.regexes.ARTIST_UNKNOWN)) {
+      } else if (inputString.match(this.regexes.ARTIST_UNKNOWN)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;
-      } else if (inputString.match(gc.regexes.ARTIST_NONE)) {
+      } else if (inputString.match(this.regexes.ARTIST_NONE)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;
-      } else if (inputString.match(gc.regexes.ARTIST_NOARTIST)) {
+      } else if (inputString.match(this.regexes.ARTIST_NOARTIST)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;
-      } else if (inputString.match(gc.regexes.ARTIST_NOTAPPLICABLE)) {
+      } else if (inputString.match(this.regexes.ARTIST_NOTAPPLICABLE)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;
-      } else if (inputString.match(gc.regexes.ARTIST_NA)) {
+      } else if (inputString.match(this.regexes.ARTIST_NA)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       }
     }
@@ -61,9 +58,9 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
    * in the common word handlers.
    */
   doWord(): boolean {
-    output.appendSpaceIfNeeded();
-    input.capitalizeCurrentWord();
-    output.appendCurrentWord();
+    this.output.appendSpaceIfNeeded();
+    this.input.capitalizeCurrentWord();
+    this.output.appendCurrentWord();
 
     flags.resetContext();
     flags.context.number = false;
@@ -74,24 +71,24 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
 
   // Guesses the sortname for artists
   guessSortName(inputString: string, isPerson: boolean): string {
-    return this.sortCompoundName(inputString, function (artistName) {
+    return this.sortCompoundName(inputString, function (artistName, regexes) {
       if (artistName) {
-        let modifiedArtistName = utils.trim(artistName);
+        let modifiedArtistName = trim(artistName);
         let append = '';
 
         // Strip Jr./Sr. from the string, and append at the end.
-        if (!gc.regexes.SORTNAME_SR) {
-          gc.regexes.SORTNAME_SR = /,\s*Sr\.?$/i;
-          gc.regexes.SORTNAME_JR = /,\s*Jr\.?$/i;
+        if (!regexes.SORTNAME_SR) {
+          regexes.SORTNAME_SR = /,\s*Sr\.?$/i;
+          regexes.SORTNAME_JR = /,\s*Jr\.?$/i;
         }
 
-        if (modifiedArtistName.match(gc.regexes.SORTNAME_SR)) {
+        if (modifiedArtistName.match(regexes.SORTNAME_SR)) {
           modifiedArtistName =
-            modifiedArtistName.replace(gc.regexes.SORTNAME_SR, '');
+            modifiedArtistName.replace(regexes.SORTNAME_SR, '');
           append = ', Sr.';
-        } else if (modifiedArtistName.match(gc.regexes.SORTNAME_JR)) {
+        } else if (modifiedArtistName.match(regexes.SORTNAME_JR)) {
           modifiedArtistName =
-            modifiedArtistName.replace(gc.regexes.SORTNAME_JR, '');
+            modifiedArtistName.replace(regexes.SORTNAME_JR, '');
           append = ', Jr.';
         }
         let names = modifiedArtistName.split(' ');
@@ -101,23 +98,23 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
          * are sorted at the end.
          */
         let reorder = false;
-        if (!gc.regexes.SORTNAME_DJ) {
-          gc.regexes.SORTNAME_DJ = /^DJ$/i; // match DJ
-          gc.regexes.SORTNAME_THE = /^The$/i; // match The
-          gc.regexes.SORTNAME_LOS = /^Los$/i; // match Los
-          gc.regexes.SORTNAME_DR = /^Dr\.$/i; // match Dr.
+        if (!regexes.SORTNAME_DJ) {
+          regexes.SORTNAME_DJ = /^DJ$/i; // match DJ
+          regexes.SORTNAME_THE = /^The$/i; // match The
+          regexes.SORTNAME_LOS = /^Los$/i; // match Los
+          regexes.SORTNAME_DR = /^Dr\.$/i; // match Dr.
         }
         const firstName = names[0];
-        if (firstName.match(gc.regexes.SORTNAME_DJ)) {
+        if (firstName.match(regexes.SORTNAME_DJ)) {
           append = (', DJ' + append); // handle DJ xyz -> xyz, DJ
           names.shift();
-        } else if (firstName.match(gc.regexes.SORTNAME_THE)) {
+        } else if (firstName.match(regexes.SORTNAME_THE)) {
           append = (', The' + append); // handle The xyz -> xyz, The
           names.shift();
-        } else if (firstName.match(gc.regexes.SORTNAME_LOS)) {
+        } else if (firstName.match(regexes.SORTNAME_LOS)) {
           append = (', Los' + append); // handle Los xyz -> xyz, Los
           names.shift();
-        } else if (firstName.match(gc.regexes.SORTNAME_DR)) {
+        } else if (firstName.match(regexes.SORTNAME_DR)) {
           append = (', Dr.' + append); // handle Dr. xyz -> xyz, Dr.
           names.shift();
           reorder = true; // reorder doctors.
@@ -157,7 +154,7 @@ class GuessCaseArtistHandler extends GuessCaseHandler {
           }
         }
 
-        return utils.trim(names.filter(Boolean).join(' ') + (append || ''));
+        return trim(names.filter(Boolean).join(' ') + (append || ''));
       }
 
       return '';
