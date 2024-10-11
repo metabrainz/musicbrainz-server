@@ -9,17 +9,11 @@
 
 import * as flags from '../../../flags.js';
 import * as modes from '../../../modes.js';
-import gc from '../Main.js';
 
 import GuessCaseHandler from './Base.js';
 
 // Place specific GuessCase functionality
 class GuessCasePlaceHandler extends GuessCaseHandler {
-  // Checks special cases
-  checkSpecialCase(): number {
-    return this.specialCaseValues.NOT_A_SPECIALCASE;
-  }
-
   /*
    * Delegate function which handles words not handled
    * in the common word handlers.
@@ -27,7 +21,7 @@ class GuessCasePlaceHandler extends GuessCaseHandler {
   doWord(): boolean {
     (
       this.doIgnoreWords() ||
-      modes[gc.modeName].doWord() ||
+      modes[this.modeName].doWord() ||
       this.doNormalWord()
     );
     flags.context.number = false;
