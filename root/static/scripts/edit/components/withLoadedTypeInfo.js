@@ -26,9 +26,7 @@ export default function withLoadedTypeInfo<Config, Instance = mixed>(
 ): React.AbstractComponent<Config, Instance> {
   const ComponentWrapper = React.forwardRef((
     props: Config,
-    ref:
-      | {-current: Instance | null, ...}
-      | ((Instance | null) => mixed),
+    ref: React.RefSetter<Instance>,
   ) => {
     const [isLoading, setLoading] = React.useState<boolean>(true);
 
