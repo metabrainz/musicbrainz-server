@@ -85,14 +85,14 @@ parserTest((
   ]
     .join('\n');
 
-  /* eslint-disable @stylistic/js/no-multi-spaces, sort-keys */
+  /* eslint-disable @stylistic/no-multi-spaces, sort-keys */
   common.trackParserTest(t, input, [
     {position: 1, name: 'Forgotten Child', formattedLength: '3:39'},
     {position: 2, name: 'Dirty Looks',     formattedLength: '4:34'},
     {position: 3, name: 'Private Life',    formattedLength: '3:29'},
     {position: 4, name: 'Never Can Wait',  formattedLength: '3:24'},
   ]);
-  /* eslint-enable @stylistic/js/no-multi-spaces, sort-keys */
+  /* eslint-enable @stylistic/no-multi-spaces, sort-keys */
 });
 
 parserTest((
