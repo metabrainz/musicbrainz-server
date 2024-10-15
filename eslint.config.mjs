@@ -547,6 +547,7 @@ export default [
         ignoreRegExpLiterals: true,
       }],
       '@stylistic/max-statements-per-line': ['warn', {max: 1}],
+      '@stylistic/member-delimiter-style': 'off', // for TS
       '@stylistic/multiline-comment-style': ['warn', 'starred-block'],
       '@stylistic/multiline-ternary': 'off',
       '@stylistic/new-parens': 'warn',
@@ -618,6 +619,9 @@ export default [
       }],
       '@stylistic/template-curly-spacing': ['warn', 'never'],
       '@stylistic/template-tag-spacing': ['warn', 'never'],
+      '@stylistic/type-annotation-spacing': 'off', // for TS
+      '@stylistic/type-generic-spacing': 'off', // for TS
+      '@stylistic/type-named-tuple-spacing': 'off', // for TS
       '@stylistic/wrap-iife': 'warn',
       '@stylistic/wrap-regex': 'off',
       '@stylistic/yield-star-spacing': ['warn', 'after'],
