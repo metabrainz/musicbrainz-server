@@ -485,6 +485,7 @@ export default [
         SwitchCase: 1,
         ignoredNodes: ['JSXElement', 'ArrowFunctionExpression'],
       }],
+      '@stylistic/indent-binary-ops': 'off',
       '@stylistic/jsx-child-element-spacing': 'warn',
       '@stylistic/jsx-closing-bracket-location': [
         'error',
