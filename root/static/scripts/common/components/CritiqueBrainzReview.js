@@ -10,18 +10,18 @@
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import formatUserDate from '../../../../utility/formatUserDate.js';
 import hydrate from '../../../../utility/hydrate.js';
-import DBDefs from '../DBDefs-client.mjs';
+import {CRITIQUEBRAINZ_SERVER} from '../DBDefs-client.mjs';
 import bracketed from '../utility/bracketed.js';
 
 import Collapsible from './Collapsible.js';
 import {StaticRatingStars} from './RatingStars.js';
 
 const authorHref = (author: CritiqueBrainzUserT) => (
-  DBDefs.CRITIQUEBRAINZ_SERVER + '/user/' + author.id
+  CRITIQUEBRAINZ_SERVER + '/user/' + author.id
 );
 
 const reviewHref = (review: CritiqueBrainzReviewT) => (
-  DBDefs.CRITIQUEBRAINZ_SERVER + '/review/' + review.id
+  CRITIQUEBRAINZ_SERVER + '/review/' + review.id
 );
 
 component CritiqueBrainzReview(review: CritiqueBrainzReviewT, title: string) {

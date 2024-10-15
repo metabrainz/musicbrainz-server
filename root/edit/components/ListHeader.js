@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import ENTITIES from '../../../entities.mjs';
 import {CatalystContext} from '../../context.mjs';
-import DBDefs from '../../static/scripts/common/DBDefs.mjs';
+import {WEB_SERVER} from '../../static/scripts/common/DBDefs.mjs';
 import uriWith from '../../utility/uriWith.js';
 
 component QuickLinks(
@@ -132,7 +132,7 @@ component QuickLinks(
     quickLinks.push(
       <a
         href={uriWith(
-          protocol + DBDefs.WEB_SERVER + '/search/edits',
+          protocol + WEB_SERVER + '/search/edits',
           refineUrlArgs,
         )}
         key="refine"

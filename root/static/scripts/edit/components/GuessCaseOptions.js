@@ -16,7 +16,8 @@ import setCookie from '../../common/utility/setCookie.js';
 import gc from '../../guess-case/MB/GuessCase/Main.js';
 import * as modes from '../../guess-case/modes.js';
 import {type GuessCaseModeNameT} from '../../guess-case/types.js';
-import {isGuessCaseModeName} from '../../guess-case/utils.js';
+import isGuessCaseModeName
+  from '../../guess-case/utils/isGuessCaseModeName.js';
 
 /* eslint-disable ft-flow/sort-keys */
 export type ActionT =

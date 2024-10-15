@@ -7,8 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable import/no-mutable-exports */
 export let hasLocalStorage: boolean = false;
 export let hasSessionStorage: boolean = false;
+/* eslint-enable import/no-mutable-exports */
 
 // https://bugzilla.mozilla.org/show_bug.cgi?id=365772
 try {
@@ -16,7 +18,7 @@ try {
     window.localStorage != null;
   hasSessionStorage = typeof window.sessionStorage === 'object' &&
     window.sessionStorage != null;
-} catch (e) {
+} catch (ignoredError) {
   // NOP
 }
 
@@ -31,7 +33,7 @@ export function localStorage(name: string, value?: string): string | void {
         try {
           window.localStorage.setItem(name, value);
           inLocalStorage = true;
-        } catch (e) {
+        } catch (ignoredError) {
           /*
            * NS_ERROR_DOM_QUOTA_REACHED
            * NS_ERROR_FILE_NO_DEVICE_SPACE
@@ -49,7 +51,7 @@ export function localStorage(name: string, value?: string): string | void {
     let storedValue;
     try {
       storedValue = window.localStorage.getItem(name);
-    } catch (e) {
+    } catch (ignoredError) {
       // NS_ERROR_FILE_CORRUPTED?
     }
     /*

@@ -213,6 +213,7 @@ test('Release', function (t) {
 
   for (const test of tests) {
     gc.modeName = test.mode;
+    setCookie('guesscase_mode', test.mode);
 
     t.equal(
       gc.entities.release.guess(test.input),
@@ -421,7 +422,9 @@ test('Work', function (t) {
   for (const test of tests) {
     setCookie('guesscase_roman', String(test.roman));
     gc.CFG_KEEP_UPPERCASED = test.keepuppercase;
+    setCookie('guesscase_keepuppercase', test.keepuppercase);
     gc.modeName = test.mode;
+    setCookie('guesscase_mode', test.mode);
 
     const result = gc.entities.work.guess(test.input);
     t.equal(result, test.expected, test.input);
@@ -712,6 +715,7 @@ test('BugFixes', function (t) {
   for (const test of tests) {
     gc.CFG_KEEP_UPPERCASED = false;
     gc.modeName = test.mode;
+    setCookie('guesscase_mode', test.mode);
 
     const result = gc.entities.work.guess(test.input);
     t.equal(result, test.expected, test.bug + ', ' + test.input);

@@ -623,7 +623,6 @@ async function handleCommand({command, target, value}, t, ...args) {
       break;
 
     case 'sendKeys':
-      // eslint-disable-next-line require-atomic-updates
       value = value.split(/(\$\{[A-Z_]+\})/)
         .filter(x => x)
         .map(x => KEY_CODES[x] || x);

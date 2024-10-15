@@ -124,8 +124,8 @@ import {
  *      expected_error
  */
 
-/* eslint-disable @stylistic/js/indent */
-/* eslint-disable @stylistic/js/max-len */
+/* eslint-disable @stylistic/indent */
+/* eslint-disable @stylistic/max-len */
 /* eslint-disable sort-keys */
 const testData = [
   // 45cat
@@ -6978,8 +6978,8 @@ limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
   },
 ];
 /* eslint-enable sort-keys */
-/* eslint-enable @stylistic/js/max-len */
-/* eslint-enable @stylistic/js/indent */
+/* eslint-enable @stylistic/max-len */
+/* eslint-enable @stylistic/indent */
 
 const relationshipTypesByUuid = Object.entries(LINK_TYPES).reduce(function (
   results,

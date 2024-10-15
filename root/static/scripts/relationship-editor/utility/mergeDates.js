@@ -26,13 +26,13 @@ export default function mergeDates(
   ) {
     return null;
   }
-  /* eslint-disable @stylistic/js/no-multi-spaces */
+
   const mergedDate: PartialDateT = {
     day:   ad ?? bd ?? null,
     month: am ?? bm ?? null,
     year:  ay ?? by ?? null,
   };
-  /* eslint-enable @stylistic/js/no-multi-spaces */
+
   if (isDateValid(mergedDate)) {
     return mergedDate;
   }

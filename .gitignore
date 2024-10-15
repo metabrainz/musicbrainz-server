@@ -14,6 +14,7 @@
 /root/static/images/leaflet/marker-shadow.png
 /root/static/scripts/common/DBDefs-client.js
 /root/static/scripts/common/DBDefs-client.mjs
+/root/static/scripts/common/DBDefs-client-browser.mjs
 /root/static/scripts/common/DBDefs.js
 /root/static/scripts/common/DBDefs.mjs
 /root/static/scripts/tests/typeInfo.js
