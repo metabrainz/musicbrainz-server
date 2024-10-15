@@ -270,6 +270,27 @@ releaseEditor.init = function (options) {
     () => this.loadDuplicateReleaseGroups(),
   ));
 
+  // When the release group changes, update the radio buttons.
+  debounceComputed(
+    utils.withRelease(r => r.releaseGroup()), 100,
+  ).subscribe((releaseGroup) => {
+    const gid = releaseGroup?.gid ?? '';
+    const idx = this.duplicateReleaseGroups().findIndex(
+      (rg) => rg.gid === gid,
+    );
+    const inputs = $('.duplicate-release-groups-list input[type="radio"]');
+    if (idx >= 0) {
+      // The chosen RG is listed, so check its input.
+      inputs.eq(idx).prop('checked', true);
+    } else if (gid === '') {
+      // No RG is chosen, so check "Add a new release group".
+      inputs.last().prop('checked', true);
+    } else {
+      // The chosen RG isn't listed, so uncheck the checked input.
+      inputs.filter(':checked').prop('checked', false);
+    }
+  });
+
   /*
    * Make sure the user actually wants to close the page/tab if they've made
    * any changes.
