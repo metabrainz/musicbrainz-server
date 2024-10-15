@@ -72,8 +72,7 @@
   },
   "devDependencies": {
     "@babel/cli": "7.25.6",
-    "@stylistic/eslint-plugin-js": "2.6.4",
-    "@stylistic/eslint-plugin-jsx": "2.6.4",
+    "@stylistic/eslint-plugin": "2.9.0",
     "babel-plugin-istanbul": "7.0.0",
     "babel-plugin-syntax-hermes-parser": "0.24.0",
     "buffer": "6.0.3",
