@@ -466,6 +466,10 @@ export default [
       '@stylistic/computed-property-spacing': ['warn', 'never', {
         enforceForClassMembers: true,
       }],
+      '@stylistic/curly-newline': ['warn', {
+        multiline: true,
+        consistent: true,
+      }],
       '@stylistic/dot-location': ['warn', 'property'],
       '@stylistic/eol-last': ['warn', 'always'],
       '@stylistic/function-call-argument-newline': [
