@@ -481,7 +481,53 @@ export default [
         SwitchCase: 1,
         ignoredNodes: ['JSXElement', 'ArrowFunctionExpression'],
       }],
+      '@stylistic/jsx-child-element-spacing': 'warn',
+      '@stylistic/jsx-closing-bracket-location': [
+        'error',
+        'tag-aligned',
+      ],
+      '@stylistic/jsx-closing-tag-location': 'error',
+      '@stylistic/jsx-curly-brace-presence': ['error', {
+        props: 'never',
+        children: 'ignore',
+      }],
+      '@stylistic/jsx-curly-newline': 'error',
+      '@stylistic/jsx-curly-spacing': ['error', {
+        when: 'never',
+        children: true,
+      }],
+      '@stylistic/jsx-equals-spacing': ['error', 'never'],
+      '@stylistic/jsx-first-prop-new-line': [
+        'error',
+        'multiline-multiprop',
+      ],
+      '@stylistic/jsx-function-call-newline': ['warn', 'multiline'],
+      '@stylistic/jsx-indent': 'off', // deprecated, use /js/indent
+      '@stylistic/jsx-indent-props': ['error', 2],
+      '@stylistic/jsx-max-props-per-line': ['error', {
+        maximum: 1,
+        when: 'multiline',
+      }],
+      '@stylistic/jsx-newline': 'off',
+      '@stylistic/jsx-one-expression-per-line': ['warn', {
+        allow: 'single-line',
+      }],
+      '@stylistic/jsx-pascal-case': 'error',
+      '@stylistic/jsx-props-no-multi-spaces': 'off', // in eslint-js
       '@stylistic/jsx-quotes': ['warn', 'prefer-double'],
+      '@stylistic/jsx-self-closing-comp': 'error',
+      '@stylistic/jsx-sort-props': 'warn',
+      '@stylistic/jsx-tag-spacing': ['error', {beforeClosing: 'never'}],
+      '@stylistic/jsx-wrap-multilines': ['error', {
+        declaration: 'parens-new-line',
+        assignment: 'parens-new-line',
+        return: 'parens-new-line',
+        arrow: 'parens-new-line',
+        condition: 'ignore',
+        logical: 'ignore',
+        prop: 'ignore',
+        propertyValue: 'parens',
+      }],
       '@stylistic/key-spacing': ['warn', {mode: 'minimum'}],
       '@stylistic/keyword-spacing': ['warn', {before: true, after: true}],
       '@stylistic/linebreak-style': ['warn', 'unix'],
@@ -570,54 +616,6 @@ export default [
       '@stylistic/wrap-iife': 'warn',
       '@stylistic/wrap-regex': 'off',
       '@stylistic/yield-star-spacing': ['warn', 'after'],
-
-      // @stylistic
-      '@stylistic/jsx-child-element-spacing': 'warn',
-      '@stylistic/jsx-closing-bracket-location': [
-        'error',
-        'tag-aligned',
-      ],
-      '@stylistic/jsx-closing-tag-location': 'error',
-      '@stylistic/jsx-curly-brace-presence': ['error', {
-        props: 'never',
-        children: 'ignore',
-      }],
-      '@stylistic/jsx-curly-newline': 'error',
-      '@stylistic/jsx-curly-spacing': ['error', {
-        when: 'never',
-        children: true,
-      }],
-      '@stylistic/jsx-equals-spacing': ['error', 'never'],
-      '@stylistic/jsx-first-prop-new-line': [
-        'error',
-        'multiline-multiprop',
-      ],
-      '@stylistic/jsx-function-call-newline': ['warn', 'multiline'],
-      '@stylistic/jsx-indent': 'off', // deprecated, use /js/indent
-      '@stylistic/jsx-indent-props': ['error', 2],
-      '@stylistic/jsx-max-props-per-line': ['error', {
-        maximum: 1,
-        when: 'multiline',
-      }],
-      '@stylistic/jsx-newline': 'off',
-      '@stylistic/jsx-one-expression-per-line': ['warn', {
-        allow: 'single-line',
-      }],
-      '@stylistic/jsx-pascal-case': 'error',
-      '@stylistic/jsx-props-no-multi-spaces': 'off', // in eslint-js
-      '@stylistic/jsx-self-closing-comp': 'error',
-      '@stylistic/jsx-sort-props': 'warn',
-      '@stylistic/jsx-tag-spacing': ['error', {beforeClosing: 'never'}],
-      '@stylistic/jsx-wrap-multilines': ['error', {
-        declaration: 'parens-new-line',
-        assignment: 'parens-new-line',
-        return: 'parens-new-line',
-        arrow: 'parens-new-line',
-        condition: 'ignore',
-        logical: 'ignore',
-        prop: 'ignore',
-        propertyValue: 'parens',
-      }],
 
       // eslint-plugin-react
       'react/boolean-prop-naming': 'off',
