@@ -11,3 +11,12 @@ INSERT INTO artist (id, gid, name, sort_name)
 
 INSERT INTO url (id, gid, url)
     VALUES (2, 'de409476-4ad8-4ce8-af2f-d47bee0edf97', 'http://en.wikipedia.org/wiki/Boredoms');
+
+INSERT INTO work (id, gid, name)
+    VALUES (123, '145c079d-374e-4436-9448-da92dedef3cf', 'a fake work');
+
+INSERT INTO link (id, link_type, attribute_count, begin_date_year, end_date_year, ended)
+    VALUES (333, 168, 0, 2006, 2006, '1');
+
+INSERT INTO l_artist_work (entity0, entity1, id, last_updated, link)
+    VALUES (66666, 123, 66666123, '2013-04-02 17:42:38.063723+00', 333);

@@ -126,10 +126,10 @@ component _RelationshipItem(
     dispatch({relationship, source, type: 'move-relationship-up'});
   }
 
-  const dateText = bracketedText(
-    relationshipDateText(relationship, /* brackedEnded = */ false),
-  );
   const linkType = getRelationshipLinkType(relationship);
+  const dateText = (!linkType || linkType.has_dates) ? bracketedText(
+    relationshipDateText(relationship, /* brackedEnded = */ false),
+  ) : '';
 
   const attributeText = React.useMemo(() => {
     if (!linkType) {

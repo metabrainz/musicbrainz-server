@@ -11,7 +11,6 @@ import {captureException} from '@sentry/browser';
 import * as tree from 'weight-balanced-tree';
 
 import {compactEntityJson} from '../../../../utility/compactEntityJson.js';
-import linkedEntities from '../../common/linkedEntities.mjs';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import {hasSessionStorage} from '../../common/utility/storage.js';
 import {
@@ -30,6 +29,7 @@ import {
   findTargetTypeGroups,
   iterateRelationshipsInTargetTypeGroups,
 } from './findState.js';
+import getRelationshipLinkType from './getRelationshipLinkType.js';
 import isRelationshipBackward from './isRelationshipBackward.js';
 
 function pushRelationshipHiddenInputs(
@@ -104,8 +104,11 @@ function pushRelationshipHiddenInputs(
   pushInput(relPrefix, 'entity0_credit', relationship.entity0_credit);
   pushInput(relPrefix, 'entity1_credit', relationship.entity1_credit);
 
-  const beginDate = relationship.begin_date;
-  const endDate = relationship.end_date;
+  const linkType = getRelationshipLinkType(relationship);
+  const hasDates = linkType ? linkType.has_dates : true;
+
+  const beginDate = hasDates ? relationship.begin_date : null;
+  const endDate = hasDates ? relationship.end_date : null;
 
   pushInput(
     relPrefix,
@@ -121,14 +124,16 @@ function pushRelationshipHiddenInputs(
   pushInput(relPrefix, 'period.end_date.year', String(endDate?.year ?? ''));
   pushInput(relPrefix, 'period.end_date.month', String(endDate?.month ?? ''));
   pushInput(relPrefix, 'period.end_date.day', String(endDate?.day ?? ''));
-  pushInput(relPrefix, 'period.ended', relationship.ended ? '1' : '0');
+  pushInput(
+    relPrefix,
+    'period.ended',
+    hasDates && relationship.ended ? '1' : '0',
+  );
   pushInput(relPrefix, 'backward', backward ? '1' : '0');
 
-  const linkTypeId = relationship.linkTypeID;
-  if (linkTypeId != null) {
-    pushInput(relPrefix, 'link_type_id', String(linkTypeId));
+  if (linkType != null) {
+    pushInput(relPrefix, 'link_type_id', String(linkType.id));
 
-    const linkType = linkedEntities.link_type[linkTypeId];
     if (linkType.orderable_direction !== 0) {
       pushInput(relPrefix, 'link_order', String(relationship.linkOrder));
     }

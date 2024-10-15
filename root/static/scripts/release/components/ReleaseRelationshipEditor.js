@@ -645,6 +645,10 @@ function* getAllRelationshipEdits(
             if (relationship.ended !== origRelationship.ended) {
               editData.ended = relationship.ended;
             }
+          } else {
+            editData.begin_date = EMPTY_PARTIAL_DATE;
+            editData.end_date = EMPTY_PARTIAL_DATE;
+            editData.ended = false;
           }
           if (relationship.linkOrder !== origRelationship.linkOrder) {
             const linkType = getRelationshipLinkType(relationship);
