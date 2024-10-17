@@ -466,7 +466,9 @@ CREATE TABLE artist_release_group (
     is_track_artist                     BOOLEAN NOT NULL,
     artist                              INTEGER NOT NULL, -- references artist.id, CASCADE
     unofficial                          BOOLEAN NOT NULL,
+    primary_type_child_order            SMALLINT,
     primary_type                        SMALLINT,
+    secondary_type_child_orders         SMALLINT[],
     secondary_types                     SMALLINT[],
     first_release_date                  INTEGER,
     -- See comment for `artist_release.sort_character`.

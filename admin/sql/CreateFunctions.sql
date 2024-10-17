@@ -530,6 +530,39 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION a_upd_release_group_primary_type_mirror()
+RETURNS trigger AS $$
+BEGIN
+    -- DO NOT modify any replicated tables in this function; it's used
+    -- by a trigger on mirrors.
+    IF (NEW.child_order IS DISTINCT FROM OLD.child_order)
+    THEN
+        INSERT INTO artist_release_group_pending_update (
+            SELECT id FROM release_group
+            WHERE release_group.type = OLD.id
+        );
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_upd_release_group_secondary_type_mirror()
+RETURNS trigger AS $$
+BEGIN
+    -- DO NOT modify any replicated tables in this function; it's used
+    -- by a trigger on mirrors.
+    IF (NEW.child_order IS DISTINCT FROM OLD.child_order)
+    THEN
+        INSERT INTO artist_release_group_pending_update (
+            SELECT release_group
+            FROM release_group_secondary_type_join
+            WHERE secondary_type = OLD.id
+        );
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION a_ins_release_group_secondary_type_join()
 RETURNS trigger AS $$
 BEGIN
@@ -1928,7 +1961,12 @@ BEGIN
             a_rg.artist,
             -- Withdrawn releases were once official by definition
             bool_and(r.status IS NOT NULL AND r.status != 1 AND r.status != 5),
+            rgpt.child_order::SMALLINT,
             rg.type::SMALLINT,
+            array_agg(
+                DISTINCT rgst.child_order ORDER BY rgst.child_order)
+                FILTER (WHERE rgst.child_order IS NOT NULL
+            )::SMALLINT[],
             array_agg(
                 DISTINCT st.secondary_type ORDER BY st.secondary_type)
                 FILTER (WHERE st.secondary_type IS NOT NULL
@@ -1954,10 +1992,12 @@ BEGIN
         JOIN release_group rg ON rg.id = a_rg.release_group
         LEFT JOIN release r ON r.release_group = rg.id
         JOIN release_group_meta rgm ON rgm.id = rg.id
+        LEFT JOIN release_group_primary_type rgpt ON rgpt.id = rg.type
         LEFT JOIN release_group_secondary_type_join st ON st.release_group = rg.id
+        LEFT JOIN release_group_secondary_type rgst ON rgst.id = st.secondary_type
     $SQL$ || (CASE WHEN release_group_id IS NULL THEN '' ELSE 'WHERE rg.id = $1' END) ||
     $SQL$
-        GROUP BY a_rg.is_track_artist, a_rg.artist, rgm.id, rg.id
+        GROUP BY a_rg.is_track_artist, a_rg.artist, rgm.id, rg.id, rgpt.child_order
         ORDER BY a_rg.artist, rg.id, a_rg.is_track_artist
     $SQL$
     USING release_group_id;
