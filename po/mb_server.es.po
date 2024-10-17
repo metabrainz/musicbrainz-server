@@ -56,17 +56,17 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 19:33+0530\n"
-"PO-Revision-Date: 2024-09-18 13:29+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-10-17 17:42+0000\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.7.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -224,34 +224,24 @@ msgid "Accept"
 msgstr "Aceptar"
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
-#, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Add IPI code"
-msgstr "Código IPI"
+msgstr "Añadir código IPI"
 
 #: ../root/artist/edit_form.tt:36 ../root/label/edit_form.tt:39
-#, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Add ISNI code"
-msgstr "Código ISNI"
+msgstr "Añadir código ISNI"
 
 #: ../root/recording/edit_form.tt:45
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Add ISRCs"
 msgctxt "interactive"
 msgid "Add ISRC"
-msgstr "Añadir ISRCs"
+msgstr "Añadir ISRC"
 
 #: ../root/work/edit_form.tt:16
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Add ISWCs"
 msgctxt "interactive"
 msgid "Add ISWC"
-msgstr "Añadir ISWCs"
+msgstr "Añadir ISWC"
 
 #: ../root/release/edit/tracklist.tt:273
 msgid ""
@@ -2277,31 +2267,21 @@ msgid "Remove"
 msgstr "Eliminar"
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
-#, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Remove IPI code"
-msgstr "Código IPI"
+msgstr "Eliminar código IPI"
 
 #: ../root/artist/edit_form.tt:36 ../root/label/edit_form.tt:39
-#, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Remove ISNI code"
-msgstr "Código ISNI"
+msgstr "Eliminar código ISNI"
 
 #: ../root/recording/edit_form.tt:45
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove ISRC"
 msgctxt "interactive"
 msgid "Remove ISRC"
 msgstr "Eliminar ISRC"
 
 #: ../root/work/edit_form.tt:16
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove ISWC"
 msgctxt "interactive"
 msgid "Remove ISWC"
 msgstr "Eliminar ISWC"
@@ -10417,8 +10397,8 @@ msgid ""
 "These images are part of the {eaa|Event Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr ""
-"Las imágenes son parte del del {eaa|Event Art Archive}. También puedes "
-"verlas en el {ia|Internet Archive}."
+"Las imágenes son parte del {eaa|Event Art Archive}. También puedes verlas en "
+"el {ia|Internet Archive}."
 
 #: ../root/event/EventArt.js:107
 msgid "We do not currently have any event art for {event}."
@@ -16214,7 +16194,7 @@ msgstr "Esto añadirá una relación a todas las obras seleccionadas."
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:100
 msgid "no entity"
-msgstr "sin entidad"
+msgstr "ninguna entidad"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:106
 msgid "{target} (as {credited_name})"
