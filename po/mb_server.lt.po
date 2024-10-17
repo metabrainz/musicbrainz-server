@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 19:33+0530\n"
-"PO-Revision-Date: 2024-09-15 00:42+0000\n"
+"PO-Revision-Date: 2024-09-28 15:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -24,8 +24,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.7.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -180,31 +180,21 @@ msgid "Accept"
 msgstr "Priimti"
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
-#, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Add IPI code"
-msgstr "IPI kodas"
+msgstr "Pridėti IPI kodą"
 
 #: ../root/artist/edit_form.tt:36 ../root/label/edit_form.tt:39
-#, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Add ISNI code"
-msgstr "ISNI kodas"
+msgstr "Pridėti ISNI kodą"
 
 #: ../root/recording/edit_form.tt:45
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Add ISRCs"
 msgctxt "interactive"
 msgid "Add ISRC"
 msgstr "Pridėti ISRC"
 
 #: ../root/work/edit_form.tt:16
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Add ISWCs"
 msgctxt "interactive"
 msgid "Add ISWC"
 msgstr "Pridėti ISWC"
@@ -214,8 +204,8 @@ msgid ""
 "Add a medium by clicking “Add medium” below, or tick the box confirming the "
 "tracklist is unknown."
 msgstr ""
-"Pridėk laikmeną spustelėdamas (-a) toliau esantį mygtuką Pridėti laikmeną "
-"arba pažymėk laukelį, patvirtinantį, kad takelių sąrašas nežinomas."
+"Pridėk laikmeną spustelėjus toliau esantį mygtuką Pridėti laikmeną arba "
+"pažymėk laukelį, patvirtinantį, kad takelių sąrašas nežinomas."
 
 #: ../root/release/edit/recordings.tt:178
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:26
@@ -233,7 +223,7 @@ msgstr "Pridėti naują leidinį"
 #: ../root/release/edit/information.tt:91
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:27
 msgid "Add a new release group"
-msgstr ""
+msgstr "Pridėti naują leidinių grupę"
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 msgctxt "header"
@@ -248,7 +238,7 @@ msgstr "Pridėti atlikėją"
 #: ../root/release/add_cover_art.tt:1 ../root/release/add_cover_art.tt:8
 msgctxt "plural, header"
 msgid "Add cover art"
-msgstr "Pridėti viršelio apipavidalinimą"
+msgstr "Pridėti viršelio apipavidalinimus"
 
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
 msgctxt "plural, header"
@@ -2239,31 +2229,21 @@ msgid "Remove"
 msgstr "Pašalinti"
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
-#, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Remove IPI code"
-msgstr "IPI kodas"
+msgstr "Pašalinti IPI kodą"
 
 #: ../root/artist/edit_form.tt:36 ../root/label/edit_form.tt:39
-#, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Remove ISNI code"
-msgstr "ISNI kodas"
+msgstr "Pašalinti ISNI kodą"
 
 #: ../root/recording/edit_form.tt:45
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove ISRC"
 msgctxt "interactive"
 msgid "Remove ISRC"
 msgstr "Pašalinti ISRC"
 
 #: ../root/work/edit_form.tt:16
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove ISWC"
 msgctxt "interactive"
 msgid "Remove ISWC"
 msgstr "Pašalinti ISWC"
@@ -2333,7 +2313,7 @@ msgstr "Rezultatai:"
 
 #: ../root/release/edit/information.tt:68
 msgid "Retry"
-msgstr ""
+msgstr "Kartoti"
 
 #: ../root/release/edit/recordings.tt:14
 msgid "Reuse previous recordings"
