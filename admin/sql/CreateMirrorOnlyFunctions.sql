@@ -125,6 +125,35 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION a_upd_release_group_primary_type_mirror()
+RETURNS trigger AS $$
+BEGIN
+    IF (NEW.child_order IS DISTINCT FROM OLD.child_order)
+    THEN
+        INSERT INTO artist_release_group_pending_update (
+            SELECT id FROM release_group
+            WHERE release_group.type = OLD.id
+        );
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_upd_release_group_secondary_type_mirror()
+RETURNS trigger AS $$
+BEGIN
+    IF (NEW.child_order IS DISTINCT FROM OLD.child_order)
+    THEN
+        INSERT INTO artist_release_group_pending_update (
+            SELECT release_group
+            FROM release_group_secondary_type_join
+            WHERE secondary_type = OLD.id
+        );
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION a_ins_release_group_secondary_type_join_mirror()
 RETURNS trigger AS $$
 BEGIN

@@ -16,6 +16,8 @@ DROP FUNCTION a_ins_track_mirror();
 DROP FUNCTION a_upd_release_event_mirror();
 DROP FUNCTION a_upd_release_group_meta_mirror();
 DROP FUNCTION a_upd_release_group_mirror();
+DROP FUNCTION a_upd_release_group_primary_type_mirror();
+DROP FUNCTION a_upd_release_group_secondary_type_mirror();
 DROP FUNCTION a_upd_release_label_mirror();
 DROP FUNCTION a_upd_release_mirror();
 DROP FUNCTION a_upd_track_mirror();
