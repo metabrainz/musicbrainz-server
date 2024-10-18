@@ -11,7 +11,9 @@ declare module 'cookie' {
     +expires?: Date,
     +httpOnly?: boolean,
     +maxAge?: number,
+    +partitioned?: boolean,
     +path?: string,
+    +priority?: 'low' | 'medium' | 'high',
     +sameSite?: boolean | 'lax' | 'none' | 'strict',
     +secure?: boolean,
   };
