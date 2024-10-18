@@ -123,6 +123,28 @@ test 'Collection descriptions are shown, but avoid spam risk' => sub {
 
 };
 
+test 'Collection content is shown' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    $mech->get_ok(
+        '/collection/24375a7a-a4bd-11e4-a92c-3b5e54a633eb',
+        'Fetched event collection page',
+    );
+    $mech->text_contains(
+        'Another Event',
+        'Name of event in collection is shown',
+    );
+    $mech->content_contains(
+        'e024804e-a4c4-11e4-884d-df918190e80e',
+        'There is a link to the event',
+    );
+    $mech->text_contains(
+        'testy2',
+        'The comment for this entry in the collection',
+    );
+};
+
 test 'Private collection pages are private' => sub {
     my $test = shift;
     my $mech = $test->mech;

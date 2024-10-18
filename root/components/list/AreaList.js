@@ -11,6 +11,9 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
+import manifest from '../../static/manifest.mjs';
+import {defineNameAndCommentColumn}
+  from '../../static/scripts/common/utility/tableColumns.js';
 import {
   defineCheckboxColumn,
   defineNameColumn,
@@ -20,9 +23,15 @@ import {
 
 component AreaList(
   areas: $ReadOnlyArray<AreaT>,
+  canEditCollectionComments?: boolean,
   checkboxes?: string,
+  collectionComments?: {
+    +[entityGid: string]: string,
+  },
+  collectionId?: number,
   mergeForm?: MergeFormT,
   order?: string,
+  showCollectionComments: boolean = false,
   sortable?: boolean,
 ) {
   const $c = React.useContext(CatalystContext);
@@ -32,11 +41,24 @@ component AreaList(
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
         ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
-      const nameColumn = defineNameColumn<AreaT>({
-        order,
-        sortable,
-        title: l('Area'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<AreaT>({
+          canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId,
+          order,
+          sortable,
+          title: l('Area'),
+        })
+      ) : (
+        defineNameColumn<AreaT>({
+          order,
+          sortable,
+          title: l('Area'),
+        })
+      );
       const typeColumn = defineTypeColumn({
         order,
         sortable,
@@ -50,10 +72,28 @@ component AreaList(
         ...(mergeForm && areas.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
-    [$c.user, areas, checkboxes, mergeForm, order, sortable],
+    [
+      $c.user,
+      areas,
+      canEditCollectionComments,
+      checkboxes,
+      collectionComments,
+      collectionId,
+      mergeForm,
+      order,
+      showCollectionComments,
+      sortable,
+    ],
   );
 
-  return useTable<AreaT>({columns, data: areas});
+  const table = useTable<AreaT>({columns, data: areas});
+
+  return (
+    <>
+      {table}
+      {manifest('common/components/NameWithCommentCell', {async: 'async'})}
+    </>
+  );
 }
 
 export default AreaList;

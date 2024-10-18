@@ -55,6 +55,7 @@ const entries = [
   'common/components/AttributeList',
   'common/components/IsrcList',
   'common/components/IswcList',
+  'common/components/NameWithCommentCell',
   'common/components/ReleaseEvents',
   'common/components/TaggerIcon',
   'common/components/WorkArtists',

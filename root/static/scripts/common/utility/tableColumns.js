@@ -9,7 +9,11 @@
 
 import type {ColumnOptions} from 'react-table';
 
+import SortableTableHeader
+  from '../../../../components/SortableTableHeader.js';
+import type {OrderableProps} from '../../../../utility/tableColumns.js';
 import AcoustIdCell from '../components/AcoustIdCell.js';
+import NameWithCommentCell from '../components/NameWithCommentCell.js';
 
 /*
  * NOTE: This file is like root/utility/tableColumns.js, but contains columns
@@ -25,3 +29,43 @@ export const acoustIdsColumn:
     Header: N_l('AcoustIDs'),
     id: 'acoustid',
   };
+
+export function defineNameAndCommentColumn
+  <T: NonUrlRelatableEntityT | CollectionT>(
+  props: {
+    ...OrderableProps,
+    +canEditCollectionComments?: boolean,
+    +collectionComments?: {+[entityGid: string]: string},
+    +collectionId: number,
+    +descriptive?: boolean,
+    +showArtworkPresence?: boolean,
+    +title: string,
+  },
+): ColumnOptions<T, string> {
+  const descriptive =
+    Object.hasOwn(props, 'descriptive')
+      ? props.descriptive
+      : true;
+  return {
+    Cell: ({row: {original}}) => (
+      <NameWithCommentCell
+        canEditCollectionComments={props.canEditCollectionComments}
+        collectionComments={props.collectionComments}
+        collectionId={props.collectionId}
+        descriptive={descriptive}
+        entity={original}
+        showArtworkPresence={props.showArtworkPresence}
+      />
+    ),
+    Header: (props.sortable /*:: === true */
+      ? (
+        <SortableTableHeader
+          label={props.title}
+          name="name"
+          order={props.order ?? ''}
+        />
+      )
+      : props.title),
+    id: 'name',
+  };
+}

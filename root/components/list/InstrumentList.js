@@ -11,6 +11,9 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
+import manifest from '../../static/manifest.mjs';
+import {defineNameAndCommentColumn}
+  from '../../static/scripts/common/utility/tableColumns.js';
 import {
   defineCheckboxColumn,
   defineNameColumn,
@@ -20,10 +23,16 @@ import {
 } from '../../utility/tableColumns.js';
 
 component InstrumentList(
+  canEditCollectionComments?: boolean,
   checkboxes?: string,
+  collectionComments?: {
+    +[entityGid: string]: string,
+  },
+  collectionId?: number,
   instruments: $ReadOnlyArray<InstrumentT>,
   mergeForm?: MergeFormT,
   order?: string,
+  showCollectionComments: boolean = false,
   sortable?: boolean,
  ) {
   const $c = React.useContext(CatalystContext);
@@ -33,11 +42,24 @@ component InstrumentList(
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
         ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
-      const nameColumn = defineNameColumn<InstrumentT>({
-        order,
-        sortable,
-        title: l('Instrument'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<InstrumentT>({
+          canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId,
+          order,
+          sortable,
+          title: l('Instrument'),
+        })
+      ) : (
+        defineNameColumn<InstrumentT>({
+          order,
+          sortable,
+          title: l('Instrument'),
+        })
+      );
       const typeColumn = defineTypeColumn({
         order,
         sortable,
@@ -54,10 +76,28 @@ component InstrumentList(
           : []),
       ];
     },
-    [$c.user, checkboxes, instruments, mergeForm, order, sortable],
+    [
+      $c.user,
+      canEditCollectionComments,
+      collectionComments,
+      collectionId,
+      checkboxes,
+      instruments,
+      mergeForm,
+      order,
+      showCollectionComments,
+      sortable,
+    ],
   );
 
-  return useTable<InstrumentT>({columns, data: instruments});
+  const table = useTable<InstrumentT>({columns, data: instruments});
+
+  return (
+    <>
+      {table}
+      {manifest('common/components/NameWithCommentCell', {async: 'async'})}
+    </>
+  );
 }
 
 export default InstrumentList;

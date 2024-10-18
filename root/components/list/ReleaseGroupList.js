@@ -11,8 +11,11 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
+import manifest from '../../static/manifest.mjs';
 import {groupBy} from '../../static/scripts/common/utility/arrays.js';
 import parseDate from '../../static/scripts/common/utility/parseDate.js';
+import {defineNameAndCommentColumn}
+  from '../../static/scripts/common/utility/tableColumns.js';
 import releaseGroupType from '../../utility/releaseGroupType.js';
 import {
   defineArtistCreditColumn,
@@ -26,11 +29,17 @@ import {
 } from '../../utility/tableColumns.js';
 
 export component ReleaseGroupListTable(
+  canEditCollectionComments?: boolean,
   checkboxes?: string,
+  collectionComments?: {
+    +[entityGid: string]: string,
+  },
+  collectionId?: number,
   mergeForm?: MergeFormT,
   order?: string,
   releaseGroups: $ReadOnlyArray<ReleaseGroupT>,
   seriesItemNumbers?: $ReadOnlyArray<string>,
+  showCollectionComments: boolean = false,
   showRatings: boolean = false,
   showType: boolean = true,
   sortable?: boolean,
@@ -62,13 +71,28 @@ export component ReleaseGroupListTable(
         sortable,
         title: l('Year'),
       });
-      const nameColumn = defineNameColumn<ReleaseGroupT>({
-        descriptive: false, // since ACs are in the next column
-        order,
-        showArtworkPresence: releaseGroups.some((group) => group.hasCoverArt),
-        sortable,
-        title: l('Title'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<ReleaseGroupT>({
+          canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId,
+          descriptive: false, // since ACs are in the next column
+          order,
+          showArtworkPresence: true,
+          sortable,
+          title: l('Title'),
+        })
+      ) : (
+        defineNameColumn<ReleaseGroupT>({
+          descriptive: false, // since ACs are in the next column
+          order,
+          showArtworkPresence: true,
+          sortable,
+          title: l('Title'),
+        })
+      );
       const artistCreditColumn = defineArtistCreditColumn<ReleaseGroupT>({
         columnName: 'artist',
         getArtistCredit: entity => entity.artistCredit,
@@ -108,11 +132,15 @@ export component ReleaseGroupListTable(
     },
     [
       $c.user,
+      canEditCollectionComments,
       checkboxes,
+      collectionComments,
+      collectionId,
       mergeForm,
       order,
       releaseGroups,
       seriesItemNumbers,
+      showCollectionComments,
       showRatings,
       showType,
       sortable,
@@ -146,6 +174,13 @@ component ReleaseGroupList(...props: React.PropsOf<ReleaseGroupListTable>) {
       </React.Fragment>,
     );
   }
+
+  tables.push(
+    <>
+      {manifest('common/components/NameWithCommentCell', {async: 'async'})}
+    </>,
+  );
+
   return tables;
 }
 

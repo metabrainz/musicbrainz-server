@@ -496,6 +496,20 @@ sub set_collaborators {
     $self->sql->commit;
 }
 
+sub set_comment {
+    my ($self, $collection_id, $entity_id, $entity_type, $comment) = @_;
+
+    my $dbh = $self->sql->dbh;
+    my $table = $dbh->quote_identifier("editor_collection_$entity_type");
+    my $entity_column = $dbh->quote_identifier("$entity_type");
+    $self->sql->do(<<~"SQL", $comment, $collection_id, $entity_id);
+        UPDATE $table
+           SET comment = ?
+         WHERE collection = ?
+           AND $entity_column = ?
+        SQL
+}
+
 sub _hash_to_row {
     my ($self, $collection) = @_;
 
