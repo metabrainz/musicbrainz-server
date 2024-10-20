@@ -707,8 +707,11 @@ const seleniumTests = [
   {name: 'MBS-13615.json5', login: true},
   {name: 'Artist_Credit_Editor.json5', login: true},
   {name: 'Autocomplete2.json5'},
-  {name: 'CAA.json5', login: true},
-  {name: 'EAA.json5', login: true},
+  /*
+   * Image editing temporarily disabled
+   * {name: 'CAA.json5', login: true},
+   * {name: 'EAA.json5', login: true},
+   */
   {name: 'External_Links_Editor.json5', login: true},
   {name: 'Work_Editor.json5', login: true},
   {name: 'Redirect_Merged_Entities.json5', login: true},
