@@ -69,7 +69,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 19:33+0530\n"
-"PO-Revision-Date: 2024-09-23 18:42+0000\n"
+"PO-Revision-Date: 2024-09-28 21:42+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
@@ -237,34 +237,24 @@ msgid "Accept"
 msgstr "Accepter"
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
-#, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Add IPI code"
-msgstr "Code IPI"
+msgstr "Ajouter un code IPI"
 
 #: ../root/artist/edit_form.tt:36 ../root/label/edit_form.tt:39
-#, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Add ISNI code"
-msgstr "Code ISNI"
+msgstr "Ajouter un code ISNI"
 
 #: ../root/recording/edit_form.tt:45
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Add ISRCs"
 msgctxt "interactive"
 msgid "Add ISRC"
-msgstr "Ajouter des ISRC"
+msgstr "Ajouter un code ISRC"
 
 #: ../root/work/edit_form.tt:16
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Add ISWCs"
 msgctxt "interactive"
 msgid "Add ISWC"
-msgstr "Ajouter des ISWC"
+msgstr "Ajouter un code ISWC"
 
 #: ../root/release/edit/tracklist.tt:273
 msgid ""
@@ -1995,6 +1985,12 @@ msgid ""
 "or improved artwork; this includes AI improvements and square versions of "
 "non-square art. See the {cover_art_doc|documentation} for more details."
 msgstr ""
+"Téléversez uniquement des images qui correspondent à cette parution en "
+"particulier. (Par exemple, vérifiez qu'elle affiche le bon code-barres et le "
+"bon numéro de catalogue). Ne téléversez pas d’images créées par des fans, "
+"modifiées ou améliorées ; cela inclut les versions améliorées par IA et les "
+"mises au carré d’images originales non carrées. Consultez la "
+"{cover_art_doc|documentation} pour plus de détails."
 
 #: ../root/edit/search_macros.tt:103
 msgid ""
@@ -2303,31 +2299,21 @@ msgid "Remove"
 msgstr "Enlever"
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
-#, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Remove IPI code"
-msgstr "Code IPI"
+msgstr "Enlever un code IPI"
 
 #: ../root/artist/edit_form.tt:36 ../root/label/edit_form.tt:39
-#, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Remove ISNI code"
-msgstr "Code ISNI"
+msgstr "Enlever un code ISNI"
 
 #: ../root/recording/edit_form.tt:45
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove ISRC"
 msgctxt "interactive"
 msgid "Remove ISRC"
 msgstr "Enlever l’ISRC"
 
 #: ../root/work/edit_form.tt:16
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove ISWC"
 msgctxt "interactive"
 msgid "Remove ISWC"
 msgstr "Enlever l’ISWC"
