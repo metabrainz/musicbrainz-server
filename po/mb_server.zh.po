@@ -17,21 +17,22 @@
 # yyoung <yyoung@users.noreply.translations.metabrainz.org>, 2024.
 # weeeeei <weeeeei@duck.com>, 2024.
 # thephy <differentphy@outlook.com>, 2024.
+# Aris_8585 <qw23355607@outlook.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 19:33+0530\n"
-"PO-Revision-Date: 2024-08-20 12:42+0000\n"
-"Last-Translator: thephy <differentphy@outlook.com>\n"
-"Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
-"projects/musicbrainz/server/zh_Hans/>\n"
+"PO-Revision-Date: 2024-10-20 16:42+0000\n"
+"Last-Translator: Aris_8585 <qw23355607@outlook.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://translations."
+"metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -180,23 +181,16 @@ msgid "Accept"
 msgstr "接受"
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
-#, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Add IPI code"
-msgstr "IPI代码"
+msgstr "添加IPI代码"
 
 #: ../root/artist/edit_form.tt:36 ../root/label/edit_form.tt:39
-#, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Add ISNI code"
-msgstr "ISNI代码"
+msgstr "添加ISNI代码"
 
 #: ../root/recording/edit_form.tt:45
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Add ISRCs"
 msgctxt "interactive"
 msgid "Add ISRC"
 msgstr "添加 ISRC"
@@ -671,10 +665,8 @@ msgid "Chat"
 msgstr "聊天"
 
 #: ../root/release/edit/information.tt:58
-#, fuzzy
-#| msgid "You must select an existing release group."
 msgid "Checking existing release groups…"
-msgstr "您必须选择一个现有的专辑组。"
+msgstr "检查现有的专辑组..…"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
