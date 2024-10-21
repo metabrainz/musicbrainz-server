@@ -178,8 +178,3 @@ declare var exhaustive: (action: empty) => void;
 
 // root/utility/invariant.js
 declare var invariant: (cond: mixed, msg?: string) => empty;
-
-// https://github.com/facebook/flow/issues/7536
-declare var globalThis: {
-  [globalName: string]: mixed,
-};

@@ -42,6 +42,7 @@ type MakeEntityLinkT = (
   entity: RelatableEntityT,
   content: string,
   relationship: RelationshipT,
+  showNoOpCredits: boolean,
 ) => React.MixedElement;
 
 const getTypeId = (x: LinkAttrT) => String(x.typeID);
@@ -50,11 +51,13 @@ const makeDescriptiveLink = (
   entity: RelatableEntityT,
   content: string,
   relationship: RelationshipT,
+  showCreditedAs: boolean,
 ) => (
   <DescriptiveLink
     content={content}
     disableLink={isDisabledLink(relationship, entity)}
     entity={entity}
+    showCreditedAs={showCreditedAs}
   />
 );
 
@@ -121,28 +124,43 @@ component _RelationshipDiff(
   const oldTarget = oldRelationship.entity1 || oldRelationship.target;
   const newTarget = newRelationship.entity1 || newRelationship.target;
 
+  /*
+   * Explicitly show credits if either the entity or credit changed
+   * (MBS-13751).
+   */
+  const showSourceCredits =
+    oldSource.id !== newSource.id ||
+    oldRelationship.entity0_credit !== newRelationship.entity0_credit;
+  const showTargetCredits =
+    oldTarget.id !== newTarget.id ||
+    oldRelationship.entity1_credit !== newRelationship.entity1_credit;
+
   const oldSourceLink = makeEntityLink(
     oldSource,
     oldRelationship.entity0_credit,
     oldRelationship,
+    showSourceCredits,
   );
 
   const newSourceLink = makeEntityLink(
     newSource,
     newRelationship.entity0_credit,
     newRelationship,
+    showSourceCredits,
   );
 
   const oldTargetLink = makeEntityLink(
     oldTarget,
     oldRelationship.entity1_credit,
     oldRelationship,
+    showTargetCredits,
   );
 
   const newTargetLink = makeEntityLink(
     newTarget,
     newRelationship.entity1_credit,
     newRelationship,
+    showTargetCredits,
   );
 
   let oldPhrase: Expand2ReactOutput = '';

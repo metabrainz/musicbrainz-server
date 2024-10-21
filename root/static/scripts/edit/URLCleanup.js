@@ -5815,16 +5815,36 @@ const CLEANUPS: CleanupEntries = {
         'https://twitter.com/',
       );
       url = url.replace(
-        /^(https:\/\/twitter\.com)\/intent\/user\/?\?screen_name=([^/?#]+)/,
-        '$1/$2',
+        /^https:\/\/twitter\.com\/intent\/user\/?\?screen_name=([^/?#]+)/,
+        'https://twitter.com/$1',
       );
+      if (/twitter\.com\/i\/user/i.test(url)) {
+        return url;
+      }
       url = url.replace(
-        /^(https:\/\/twitter\.com)\/@?([^/?#]+(?:\/status\/\d+)?)(?:[/?#].*)?$/,
-        '$1/$2',
+        /^https:\/\/twitter\.com\/@?([^/?#]+(?:\/status\/\d+)?)(?:[/?#].*)?$/,
+        'https://twitter.com/$1',
       );
       return url;
     },
     validate(url, id) {
+      if (/twitter\.com\/i\/user/i.test(url)) {
+        return {
+          error: exp.l(
+            `This is a redirect link. Please follow {redirect_url|your link}
+             and add the link it redirects to instead.`,
+            {
+              redirect_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
       const m = /^https:\/\/twitter\.com\/([^/?#]+)(\/status\/\d+)?$/.exec(url);
       if (m) {
         const username = m[1];

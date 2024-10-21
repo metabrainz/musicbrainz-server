@@ -9,6 +9,7 @@
 
 component FormRow(
   children: React.Node,
+  className as passedClassname?: string,
   hasNoLabel: boolean = false,
   hasNoMargin: boolean = false,
   rowRef?: {-current: HTMLDivElement | null},
@@ -18,7 +19,8 @@ component FormRow(
       className={
         'row' +
         (hasNoLabel ? ' no-label' : '') +
-        (hasNoMargin ? ' no-margin' : '')
+        (hasNoMargin ? ' no-margin' : '') +
+        (nonEmpty(passedClassname) ? ' ' + passedClassname : '')
       }
       ref={rowRef}
     >

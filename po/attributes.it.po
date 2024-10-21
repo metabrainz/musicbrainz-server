@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-07 18:42+0000\n"
+"PO-Revision-Date: 2024-09-23 11:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -315,6 +315,18 @@ msgid ""
 msgstr ""
 "Uno spazio (solitamente verde) deputato ad attività ricreative in un'area "
 "altrimenti edificata e popolata."
+
+#. name:CD-i
+#: DB:medium_format/description:209
+msgctxt "medium_format"
+msgid ""
+"A CD format that combines data/video and audio, used for different purposes "
+"in the 1990s including, in some cases, music releases with accompanying "
+"video content."
+msgstr ""
+"Un formato di CD che combina dati/video e audio e fu usato negli anni 1990 "
+"in diversi modi, tra cui in alcuni casi per pubblicare musica accompagnata "
+"da contenuti video."
 
 #. name:Mixed Mode CD
 #: DB:medium_format/description:129
@@ -2387,6 +2399,11 @@ msgstr "CD+G"
 msgctxt "medium_format"
 msgid "CD-R"
 msgstr "CD-R"
+
+#: DB:medium_format/name:209
+msgctxt "medium_format"
+msgid "CD-i"
+msgstr "CD-i"
 
 #: DB:medium_format/name:41
 msgctxt "medium_format"

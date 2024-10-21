@@ -14,11 +14,12 @@
 # th1rtyf0ur, 2013
 # 和田篤 <email address hidden>, 2019
 # julian45 <techieboy45@gmail.com>, 2023.
+# Arainuki <esetipodealla@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-10-27 01:27+0000\n"
-"Last-Translator: julian45 <techieboy45@gmail.com>\n"
+"PO-Revision-Date: 2024-09-25 00:45+0000\n"
+"Last-Translator: Arainuki <esetipodealla@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/ja/>\n"
 "Language: ja\n"
@@ -26,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -295,7 +296,7 @@ msgstr "アコーディナ"
 #: DB:instrument/name:41
 msgctxt "Commonly used bellowed free reed with keys/buttons"
 msgid "accordion"
-msgstr ""
+msgstr "アコーディオン"
 
 #: DB:instrument/name:50
 msgid "acoustic bass guitar"
