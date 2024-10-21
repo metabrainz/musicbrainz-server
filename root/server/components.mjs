@@ -163,6 +163,7 @@ export default {
   'label/LabelRelationships': (): Promise<mixed> => import('../label/LabelRelationships.js'),
   'label/SpecialPurpose': (): Promise<mixed> => import('../label/SpecialPurpose.js'),
   'main/ConfirmSeed': (): Promise<mixed> => import('../main/ConfirmSeed.js'),
+  'main/ImageEditingUnavailable': (): Promise<mixed> => import('../main/ImageEditingUnavailable.js'),
   'main/error/Error400': (): Promise<mixed> => import('../main/error/Error400.js'),
   'main/error/Error401': (): Promise<mixed> => import('../main/error/Error401.js'),
   'main/error/Error403': (): Promise<mixed> => import('../main/error/Error403.js'),

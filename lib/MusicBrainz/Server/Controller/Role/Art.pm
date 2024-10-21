@@ -189,12 +189,22 @@ role {
         $c->stash->{filename} = $c->req->params->{key};
     };
 
+    method image_editing_unavailable => sub : Private {
+        my ($self, $c) = @_;
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'main/ImageEditingUnavailable',
+        );
+    };
+
     method "add_${archive}_art" => sub :
         Chained('load')
         PathPart("add-$archive-art")
         Edit
     {
         my ($self, $c) = @_;
+
+        $c->detach('image_editing_unavailable');
 
         my $entity = $get_entity->($c);
         my $art_archive_model = $c->model($art_archive_model_name);
@@ -283,6 +293,8 @@ role {
     {
         my ($self, $c, $artwork_id) = @_;
 
+        $c->detach('image_editing_unavailable');
+
         my $entity = $get_entity->($c);
         my $art_archive_model = $c->model($art_archive_model_name);
         my $entity_type = $art_archive_model->art_archive_entity;
@@ -346,6 +358,8 @@ role {
     {
         my ($self, $c, $artwork_id) = @_;
 
+        $c->detach('image_editing_unavailable');
+
         my $entity = $get_entity->($c);
         my $art_archive_model = $c->model($art_archive_model_name);
         my $entity_type = $art_archive_model->art_archive_entity;
@@ -398,6 +412,8 @@ role {
         Edit
     {
         my ($self, $c) = @_;
+
+        $c->detach('image_editing_unavailable');
 
         my $entity = $get_entity->($c);
         my $art_archive_model = $c->model($art_archive_model_name);
