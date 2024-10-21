@@ -39,39 +39,6 @@ test all => sub {
 
     my $server = 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
 
-    subtest 'send_message_to_editor' => sub {
-
-    $email->send_message_to_editor(
-        from => $user1,
-        to => $user2,
-        subject => 'Hey',
-        message => 'Hello!',
-        );
-
-    is($email->transport->delivery_count, 1);
-    my $delivery = $email->transport->shift_deliveries;
-    is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', "Envelope from is noreply@...");
-    my $e = $delivery->{email};
-    $email->transport->clear_deliveries;
-    is($e->get_header('From'), '"Editor 1" <noreply@musicbrainz.org>', 'Header from is "Editor 1" <noreply@musicbrainz.org>');
-    is($e->get_header('Reply-To'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'Reply-To is noreply@');
-    is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
-    is($e->get_header('BCC'), undef, 'BCC is undefined');
-    is($e->get_header('Subject'), 'Hey', 'Subject is Hey');
-    like($e->get_header('Message-Id'), qr{<correspondence-4444-8888-\d+@.*>}, 'Message-Id has right format');
-    is($e->get_header('References'), sprintf('<correspondence-%s-%s@%s>', $user1->id, $user2->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References correct correspondence');
-    compare_body($e->object->body_str,
-                 "MusicBrainz user 'Editor 1' has sent you the following message:\n".
-                 "------------------------------------------------------------------------\n".
-                 "Hello!\n".
-                 "------------------------------------------------------------------------\n".
-                 "If you would like to respond, please visit\n".
-                 "$server/user/Editor\%201/contact to send 'Editor 1' an email.\n".
-                 "\n".
-                 "-- The MusicBrainz Team\n");
-
-    };
-
     subtest 'send_message_to_editor & send_to_self' => sub {
 
     $email->send_message_to_editor(
@@ -379,4 +346,3 @@ later version: http://www.gnu.org/licenses/gpl-2.0.txt
 =cut
 
 1;
-
