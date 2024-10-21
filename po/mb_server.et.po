@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-03 18:30+0200\n"
+"POT-Creation-Date: 2024-09-26 19:33+0530\n"
 "PO-Revision-Date: 2024-04-17 17:31+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations."
 "metabrainz.org>\n"
@@ -39,20 +39,20 @@ msgstr ""
 msgid " ({text})"
 msgstr " ({text})"
 
-#: ../root/components/forms.tt:293
+#: ../root/components/forms.tt:260
 msgid "\"C\" is a single check digit."
 msgstr "„C” on ühekohaline kontrollnumber."
 
-#: ../root/components/forms.tt:303
+#: ../root/components/forms.tt:270
 msgid ""
 "\"CC\" is the appropriate for the registrant two-character country code."
 msgstr "„CC” on registreerija kahetäheline maakood."
 
-#: ../root/components/forms.tt:292
+#: ../root/components/forms.tt:259
 msgid "\"DDD\" is a nine digit work identifier."
 msgstr "„DDD.DDD.DDD” on üheksakohaline teoseidentifikaator."
 
-#: ../root/components/forms.tt:306
+#: ../root/components/forms.tt:273
 msgid ""
 "\"NNNNN\" is a unique 5-digit number identifying the particular sound "
 "recording."
@@ -60,7 +60,7 @@ msgstr ""
 "„NNNNN” on unikaalne viiekohaline number konkreetse helisalvestise "
 "tuvastamiseks."
 
-#: ../root/components/forms.tt:304
+#: ../root/components/forms.tt:271
 msgid ""
 "\"XXX\" is a three character alphanumeric registrant code, uniquely "
 "identifying the organisation which registered the code."
@@ -68,7 +68,7 @@ msgstr ""
 "„XXX” on kolmest tähest ja/või numbrist koosnev registreerija kood ISRC "
 "registreerinud asutuse tuvastamiseks."
 
-#: ../root/components/forms.tt:305
+#: ../root/components/forms.tt:272
 msgid "\"YY\" is the last two digits of the year of registration."
 msgstr "„YY” on registreerimisaasta kaks viimast numbrit."
 
@@ -184,6 +184,36 @@ msgstr "Erapooletu"
 msgid "Accept"
 msgstr "Rakendatakse"
 
+#: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
+#, fuzzy
+#| msgid "IPI code"
+msgctxt "interactive"
+msgid "Add IPI code"
+msgstr "IPI-kood"
+
+#: ../root/artist/edit_form.tt:36 ../root/label/edit_form.tt:39
+#, fuzzy
+#| msgid "ISNI code"
+msgctxt "interactive"
+msgid "Add ISNI code"
+msgstr "ISNI-kood"
+
+#: ../root/recording/edit_form.tt:45
+#, fuzzy
+#| msgctxt "edit type"
+#| msgid "Add ISRCs"
+msgctxt "interactive"
+msgid "Add ISRC"
+msgstr "ISRC-de lisamine"
+
+#: ../root/work/edit_form.tt:16
+#, fuzzy
+#| msgctxt "edit type"
+#| msgid "Add ISWCs"
+msgctxt "interactive"
+msgid "Add ISWC"
+msgstr "ISWC-de lisamine"
+
 #: ../root/release/edit/tracklist.tt:273
 msgid ""
 "Add a medium by clicking “Add medium” below, or tick the box confirming the "
@@ -297,14 +327,10 @@ msgctxt "header"
 msgid "Add work"
 msgstr "Teose lisamine"
 
-#: ../root/work/edit_form.tt:77
+#: ../root/work/edit_form.tt:83
 msgctxt "interactive"
 msgid "Add work attribute"
 msgstr "Lisa teoseatribuut"
-
-#: ../root/components/forms.tt:153
-msgid "Add {item}"
-msgstr "Lisa {item}"
 
 #: ../root/release/edit/tracklist.tt:551
 msgid "Add {num} track(s)"
@@ -542,14 +568,14 @@ msgstr ""
 "Leiud on toodud allpool. Kui soovid oma lisatava väljalaske põhjana kasutada "
 "mõnda olemasolevat, siis vali see allpool."
 
-#: ../root/artist/edit_form.tt:42 ../root/artist/utils.js:19
+#: ../root/artist/edit_form.tt:54 ../root/artist/utils.js:19
 #: ../root/components/list/ArtistList.js:88
 #: ../root/search/components/ArtistResults.js:58
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:81
 msgid "Begin area"
 msgstr "Alguspiirkond"
 
-#: ../root/artist/edit_form.tt:38 ../root/components/forms.tt:192
+#: ../root/artist/edit_form.tt:50 ../root/components/forms.tt:159
 #: ../root/artist/utils.js:34 ../root/components/Aliases/AliasTable.js:19
 #: ../root/edit/details/AddArea.js:85 ../root/edit/details/AddEvent.js:59
 #: ../root/edit/details/AddLabel.js:56 ../root/edit/details/AddPlace.js:69
@@ -715,7 +741,7 @@ msgstr "Artistiteave kopeeritakse seostatud salvestistele"
 msgid "Copy all track titles to associated recordings."
 msgstr "Loopealkirjad kopeeritakse seostatud salvestistele"
 
-#: ../root/components/forms.tt:222
+#: ../root/components/forms.tt:189
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:140
 msgid "Copy name"
 msgstr "Kopeeri nimi"
@@ -794,12 +820,12 @@ msgstr "Andmerajad"
 msgid "Date"
 msgstr "Kuupäev"
 
-#: ../root/artist/edit_form.tt:34 ../root/components/forms.tt:188
+#: ../root/artist/edit_form.tt:46 ../root/components/forms.tt:155
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:177
 msgid "Date period"
 msgstr "Ajavahemik"
 
-#: ../root/artist/edit_form.tt:36 ../root/components/forms.tt:190
+#: ../root/artist/edit_form.tt:48 ../root/components/forms.tt:157
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:179
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
@@ -992,14 +1018,14 @@ msgstr "Toimetaja tüüp"
 msgid "Enable vinyl track numbers"
 msgstr "Vinüülplaatide loonumbrite lubamine"
 
-#: ../root/artist/edit_form.tt:56 ../root/artist/utils.js:47
+#: ../root/artist/edit_form.tt:68 ../root/artist/utils.js:47
 #: ../root/components/list/ArtistList.js:98
 #: ../root/search/components/ArtistResults.js:60
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:82
 msgid "End area"
 msgstr "Lõpp-piirkond"
 
-#: ../root/artist/edit_form.tt:51 ../root/components/forms.tt:194
+#: ../root/artist/edit_form.tt:63 ../root/components/forms.tt:161
 #: ../root/artist/utils.js:65 ../root/components/Aliases/AliasTable.js:20
 #: ../root/edit/details/AddArea.js:92 ../root/edit/details/AddEvent.js:66
 #: ../root/edit/details/AddLabel.js:63 ../root/edit/details/AddPlace.js:75
@@ -1016,7 +1042,7 @@ msgstr "Lõpp-piirkond"
 msgid "End date"
 msgstr "Lõppkuupäev"
 
-#: ../root/components/forms.tt:238 ../root/components/forms.tt:263
+#: ../root/components/forms.tt:205 ../root/components/forms.tt:230
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:106
 msgid "English"
 msgstr "Inglise"
@@ -1032,7 +1058,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/forms.tt:39 ../root/event/add_event_art.tt:170
-#: ../root/release/add_cover_art.tt:170 ../root/release/edit/layout.tt:58
+#: ../root/release/add_cover_art.tt:181 ../root/release/edit/layout.tt:58
 #: ../root/static/scripts/edit/components/EnterEdit.js:78
 msgid "Enter edit"
 msgstr "Toimeta"
@@ -1107,11 +1133,11 @@ msgstr ""
 msgid "Expire action"
 msgstr "Aegumisel"
 
-#: ../root/artist/edit_form.tt:70 ../root/label/edit_form.tt:41
-#: ../root/place/edit_form.tt:37 ../root/recording/edit_form.tt:51
+#: ../root/artist/edit_form.tt:82 ../root/label/edit_form.tt:53
+#: ../root/place/edit_form.tt:37 ../root/recording/edit_form.tt:57
 #: ../root/release/edit/information.tt:311
 #: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:26
-#: ../root/work/edit_form.tt:90 ../root/layout/components/ExternalLinks.js:156
+#: ../root/work/edit_form.tt:96 ../root/layout/components/ExternalLinks.js:156
 #: ../root/static/scripts/event/components/EventEditForm.js:312
 msgid "External links"
 msgstr "Välislingid"
@@ -1180,7 +1206,7 @@ msgid_plural "Found {n} results for \"{q}\""
 msgstr[0] "Päringule „{q}” leiti {n} vaste."
 msgstr[1] "Päringule „{q}” leiti {n} vastet."
 
-#: ../root/components/forms.tt:240 ../root/components/forms.tt:265
+#: ../root/components/forms.tt:207 ../root/components/forms.tt:232
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:108
 msgid "French"
 msgstr "Prantsuse"
@@ -1209,18 +1235,18 @@ msgstr "Sugu"
 msgid "Genre"
 msgstr "Muusikastiil"
 
-#: ../root/components/forms.tt:208 ../root/release/edit/information.tt:14
+#: ../root/components/forms.tt:175 ../root/release/edit/information.tt:14
 #: ../root/release/edit/tracklist.tt:546
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:173
 msgid "Guess case"
 msgstr "Oleta suurtähestus"
 
-#: ../root/components/forms.tt:229
+#: ../root/components/forms.tt:196
 msgctxt "header"
 msgid "Guess case"
 msgstr "Suurtähestuse oletamine"
 
-#: ../root/components/forms.tt:234
+#: ../root/components/forms.tt:201
 msgctxt "interactive"
 msgid "Guess case"
 msgstr "Oleta suurtähestus"
@@ -1229,7 +1255,7 @@ msgstr "Oleta suurtähestus"
 msgid "Guess case medium title"
 msgstr ""
 
-#: ../root/components/forms.tt:212 ../root/release/edit/information.tt:16
+#: ../root/components/forms.tt:179 ../root/release/edit/information.tt:16
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:104
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:18
 #: ../root/static/scripts/guess-case/MB/Control/GuessCase.js:25
@@ -1240,7 +1266,7 @@ msgstr "Suurtähestuse oletamise seaded"
 msgid "Guess case track"
 msgstr "Oleta loo pealkirja suurtähestus"
 
-#: ../root/components/forms.tt:210 ../root/release/edit/information.tt:15
+#: ../root/components/forms.tt:177 ../root/release/edit/information.tt:15
 #: ../root/release/edit/tracklist.tt:225
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:179
 msgid "Guess feat. artists"
@@ -1250,7 +1276,7 @@ msgstr "Oleta kaasategevad artistid"
 msgid "Guess feat. artists from track titles"
 msgstr "Oleta kaasategevad artistid loonimedest"
 
-#: ../root/components/forms.tt:221
+#: ../root/components/forms.tt:188
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:131
 msgid "Guess sort name"
 msgstr "Oleta sortimisnimi"
@@ -1293,45 +1319,26 @@ msgid "ID"
 msgstr "ID"
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
-#: ../root/edit/details/AddArtist.js:132 ../root/edit/details/AddLabel.js:97
-#: ../root/layout/components/sidebar/SidebarIpis.js:16
-msgid "IPI code"
-msgstr "IPI-kood"
-
-#: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
 #: ../root/edit/details/EditArtist.js:168 ../root/edit/details/EditLabel.js:127
 msgid "IPI codes"
 msgstr ""
 
-#: ../root/components/forms.tt:313
+#: ../root/components/forms.tt:280
 msgid ""
 "IPI codes are assigned by CISAC to “interested parties” in musical rights "
 "management. Check {ipi_doc|the documentation} for more info."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
-#: ../root/edit/details/AddArtist.js:141 ../root/edit/details/AddLabel.js:106
-#: ../root/layout/components/sidebar/SidebarIsnis.js:20
-msgid "ISNI code"
-msgstr "ISNI-kood"
-
-#: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
+#: ../root/artist/edit_form.tt:36 ../root/label/edit_form.tt:39
 #: ../root/edit/details/EditArtist.js:176 ../root/edit/details/EditLabel.js:136
 msgid "ISNI codes"
 msgstr ""
 
-#: ../root/components/forms.tt:322
+#: ../root/components/forms.tt:289
 msgid ""
 "ISNI codes are an ISO standard used to uniquely identify persons and "
 "organizations. Check {isni_doc|the documentation} for more info."
 msgstr ""
-
-#: ../root/recording/edit_form.tt:45 ../root/edit/details/RemoveIsrc.js:23
-#: ../root/otherlookup/OtherLookupForm.js:67
-#: ../root/report/IsrcsWithManyRecordings.js:58
-#: ../root/static/scripts/common/components/IsrcList.js:26
-msgid "ISRC"
-msgstr "ISRC"
 
 #: ../root/recording/edit_form.tt:45 ../root/report/ReportsIndex.js:613
 #: ../root/search/components/RecordingResults.js:140
@@ -1341,16 +1348,6 @@ msgstr "ISRC"
 #: ../root/utility/tableColumns.js:696
 msgid "ISRCs"
 msgstr "ISRC-d"
-
-#: ../root/work/edit_form.tt:16 ../root/edit/details/AddWork.js:45
-#: ../root/edit/details/EditWork.js:62 ../root/edit/details/RemoveIswc.js:23
-#: ../root/otherlookup/OtherLookupForm.js:72
-#: ../root/report/IswcsWithManyWorks.js:49
-#: ../root/search/components/WorkResults.js:57
-#: ../root/static/scripts/common/components/IswcList.js:26
-#: ../root/utility/tableColumns.js:710
-msgid "ISWC"
-msgstr "ISWC"
 
 #: ../root/work/edit_form.tt:16 ../root/report/ReportsIndex.js:622
 #: ../root/static/scripts/common/components/IswcList.js:40
@@ -1399,7 +1396,7 @@ msgstr ""
 "Kui sa ei näe otsitavat väljalaset, võid selle CD sisukorra abil andmebaasi "
 "uue lisada."
 
-#: ../root/components/forms.tt:316 ../root/components/forms.tt:325
+#: ../root/components/forms.tt:283 ../root/components/forms.tt:292
 msgid "If you don’t know the code for this entity, just leave the field blank."
 msgstr ""
 
@@ -1478,7 +1475,7 @@ msgstr "Instrument"
 msgid "Javascript is required for this page to work properly."
 msgstr "Selle lehe korralikuks tööks on vaja JavaScripti."
 
-#: ../root/components/forms.tt:247 ../root/components/forms.tt:272
+#: ../root/components/forms.tt:214 ../root/components/forms.tt:239
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:126
 msgid "Keep all-uppercase words uppercased"
 msgstr "Suurtähelisi sõnu ei muudeta"
@@ -1700,7 +1697,7 @@ msgstr "Liiguta lugu allapoole"
 msgid "Move track up"
 msgstr "Liiguta lugu ülespoole"
 
-#: ../root/components/forms.tt:206
+#: ../root/components/forms.tt:173
 #: ../root/components/Aliases/ArtistCreditList.js:45
 #: ../root/components/list/RecordingList.js:79
 #: ../root/edit/details/AddArea.js:37 ../root/edit/details/AddArtist.js:47
@@ -1785,7 +1782,7 @@ msgctxt "vote"
 msgid "No"
 msgstr "Ei"
 
-#: ../root/components/forms.tt:358
+#: ../root/components/forms.tt:325
 #: ../root/static/scripts/event/components/EventEditForm.js:356
 msgid "No description available."
 msgstr ""
@@ -1817,7 +1814,7 @@ msgid "No vote"
 msgstr "Andmata"
 
 #: ../root/release/edit/tracklist.tt:463
-#: ../root/static/scripts/release-editor/fields.js:241
+#: ../root/static/scripts/release-editor/fields.js:249
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
 msgstr "Ükski omistatud plaadi-ID-dest ei luba sellise pikkusega pregap-rada."
@@ -1874,6 +1871,14 @@ msgid ""
 msgstr ""
 "Näidatakse ainult neid väljalaskeid, millel on {n} lugu (ehk sama palju kui "
 "sellel plaadi-ID-l)."
+
+#: ../root/release/add_cover_art.tt:168
+msgid ""
+"Only upload images that match this specific release (for example, check it "
+"shows the right barcode and catalog number). Do not upload fan-made, edited "
+"or improved artwork; this includes AI improvements and square versions of "
+"non-square art. See the {cover_art_doc|documentation} for more details."
+msgstr ""
 
 #: ../root/edit/search_macros.tt:103
 msgid ""
@@ -2178,7 +2183,37 @@ msgstr "Väljalase „{name}” - {artist}"
 msgid "Remove"
 msgstr "Eemalda"
 
-#: ../root/work/edit_form.tt:60
+#: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
+#, fuzzy
+#| msgid "IPI code"
+msgctxt "interactive"
+msgid "Remove IPI code"
+msgstr "IPI-kood"
+
+#: ../root/artist/edit_form.tt:36 ../root/label/edit_form.tt:39
+#, fuzzy
+#| msgid "ISNI code"
+msgctxt "interactive"
+msgid "Remove ISNI code"
+msgstr "ISNI-kood"
+
+#: ../root/recording/edit_form.tt:45
+#, fuzzy
+#| msgctxt "edit type"
+#| msgid "Remove ISRC"
+msgctxt "interactive"
+msgid "Remove ISRC"
+msgstr "ISRC eemaldamine"
+
+#: ../root/work/edit_form.tt:16
+#, fuzzy
+#| msgctxt "edit type"
+#| msgid "Remove ISWC"
+msgctxt "interactive"
+msgid "Remove ISWC"
+msgstr "ISWC eemaldamine"
+
+#: ../root/work/edit_form.tt:66
 msgid "Remove attribute"
 msgstr "Eemalda atribuut"
 
@@ -2215,10 +2250,6 @@ msgstr "Eemalda lugu"
 #: ../root/static/scripts/common/utility/ratingTooltip.js:12
 msgid "Remove your rating"
 msgstr "Eemalda oma hinne"
-
-#: ../root/components/forms.tt:143 ../root/components/forms.tt:148
-msgid "Remove {item}"
-msgstr "Eemalda {item}"
 
 #: ../root/release/reorder_cover_art.tt:1
 #: ../root/release/reorder_cover_art.tt:4
@@ -2291,8 +2322,8 @@ msgstr "Kirjasüsteem"
 #: ../root/layout/components/Search.js:97
 #: ../root/otherlookup/OtherLookupForm.js:39 ../root/search/SearchIndex.js:23
 #: ../root/search/SearchIndex.js:25 ../root/search/components/SearchForm.js:93
-#: ../root/static/scripts/common/components/Autocomplete2.js:801
-#: ../root/static/scripts/common/components/Autocomplete2.js:821
+#: ../root/static/scripts/common/components/Autocomplete2.js:802
+#: ../root/static/scripts/common/components/Autocomplete2.js:822
 #: ../root/static/scripts/common/components/SearchIcon.js:15
 #: ../root/taglookup/Form.js:51
 msgid "Search"
@@ -2362,7 +2393,7 @@ msgid ""
 msgstr ""
 "Nende tüüpide kirjeldused leiad {doc|kaanepilditüüpide} dokumentatsioonist."
 
-#: ../root/components/forms.tt:349
+#: ../root/components/forms.tt:316
 msgid ""
 "Select any type from the list to see its description. If the work doesn’t "
 "seem to match any type, just leave this blank."
@@ -2374,7 +2405,7 @@ msgstr ""
 msgid "Select images..."
 msgstr "Vali pildid..."
 
-#: ../root/components/forms.tt:239 ../root/components/forms.tt:264
+#: ../root/components/forms.tt:206 ../root/components/forms.tt:231
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:107
 msgid "Sentence"
 msgstr "Lause"
@@ -2437,7 +2468,7 @@ msgid ""
 "the full text in the annotation for reference."
 msgstr ""
 
-#: ../root/components/forms.tt:219 ../root/components/Aliases/AliasTable.js:18
+#: ../root/components/forms.tt:186 ../root/components/Aliases/AliasTable.js:18
 #: ../root/components/list/ArtistList.js:59 ../root/edit/details/AddArea.js:43
 #: ../root/edit/details/AddArtist.js:52 ../root/edit/details/AddLabel.js:42
 #: ../root/edit/details/AddRemoveAlias.js:59
@@ -2577,7 +2608,7 @@ msgstr ""
 msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr "Server on hooldustööde tarvis ajutiselt kirjutuskaitstud režiimis."
 
-#: ../root/components/forms.tt:339
+#: ../root/components/forms.tt:306
 msgid ""
 "The sort name is an artist name variant used when sorting alphabetically. "
 "For usage information check the {sort_name_doc|sort name guidelines}."
@@ -2597,7 +2628,7 @@ msgstr ""
 msgid "The tracklist for this medium is unknown."
 msgstr ""
 
-#: ../root/components/forms.tt:181 ../root/release/edit/information.tt:207
+#: ../root/components/forms.tt:148 ../root/release/edit/information.tt:207
 #: ../root/static/scripts/edit/components/PartialDateInput.js:39
 msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
@@ -2644,12 +2675,12 @@ msgid ""
 "promotional texts or other artist or label-owned texts into the annotation."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:53
+#: ../root/artist/edit_form.tt:65
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:78
 msgid "This artist has ended."
 msgstr "See artist ei tegutse enam"
 
-#: ../root/work/edit_form.tt:56
+#: ../root/work/edit_form.tt:62
 msgid "This attribute type is only used for grouping, please select a subtype"
 msgstr ""
 "Seda atribuuditüüpi kasutatakse ainult teiste rühmitamiseks — palun vali "
@@ -2737,7 +2768,7 @@ msgstr ""
 msgid "This is the current release group image"
 msgstr ""
 
-#: ../root/label/edit_form.tt:36
+#: ../root/label/edit_form.tt:48
 msgid "This label has ended."
 msgstr "See plaadifirma ei tegutse enam"
 
@@ -2790,7 +2821,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:390
-#: ../root/static/scripts/common/components/EntityLink.js:329
+#: ../root/static/scripts/common/components/EntityLink.js:340
 msgid "This recording is a video"
 msgstr "See salvestis on video"
 
@@ -2874,7 +2905,7 @@ msgstr "Lugude tuvastaja"
 #: ../root/cdstub/CDStubIndex.js:33 ../root/edit/details/AddMedium.js:127
 #: ../root/edit/details/EditMedium.js:462
 #: ../root/edit/details/RemoveMedium.js:71
-#: ../root/static/scripts/release-editor/fields.js:837
+#: ../root/static/scripts/release-editor/fields.js:845
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:359
 msgid "Tracklist"
 msgstr "Lugude nimekiri"
@@ -2905,7 +2936,7 @@ msgctxt "user type"
 msgid "Transclusion editor"
 msgstr "Transklusioonitoimetaja"
 
-#: ../root/components/forms.tt:241 ../root/components/forms.tt:266
+#: ../root/components/forms.tt:208 ../root/components/forms.tt:233
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:109
 msgid "Turkish"
 msgstr "Türgi"
@@ -3023,7 +3054,7 @@ msgstr "Pealkirja muudatus rakendatakse ka salvestisele"
 msgid "Uploading image..."
 msgstr "Pildi üleslaadimine..."
 
-#: ../root/components/forms.tt:252 ../root/components/forms.tt:277
+#: ../root/components/forms.tt:219 ../root/components/forms.tt:244
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:135
 msgid "Uppercase Roman numerals"
 msgstr "Rooma numbrid suurtähtedega"
@@ -3162,7 +3193,7 @@ msgstr "Wiki"
 msgid "Work"
 msgstr "Teos"
 
-#: ../root/work/edit_form.tt:20
+#: ../root/work/edit_form.tt:26
 #: ../root/layout/components/sidebar/WorkSidebar.js:89
 #: ../root/static/scripts/common/components/AttributeList.js:61
 msgid "Work attributes"
@@ -3185,7 +3216,7 @@ msgctxt "vote"
 msgid "Yes"
 msgstr "Jah"
 
-#: ../root/components/forms.tt:300
+#: ../root/components/forms.tt:267
 msgid ""
 "You are about to add an ISRC to this recording. The ISRC must be entered in "
 "standard <code>CCXXXYYNNNNN</code> format:"
@@ -3193,7 +3224,7 @@ msgstr ""
 "Hakkasid sisestama sellele salvestisele ISRC-d. ISRC tuleb sisestada "
 "standardses <code>CCXXXYYNNNNN</code> vormingus:"
 
-#: ../root/components/forms.tt:289
+#: ../root/components/forms.tt:256
 msgid ""
 "You are about to add an ISWC to this work. The ISWC must be entered in "
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
@@ -3379,7 +3410,7 @@ msgstr "kõigepealt esimesena suletud"
 msgid "edits"
 msgstr "toimetusi"
 
-#: ../root/components/forms.tt:243 ../root/components/forms.tt:268
+#: ../root/components/forms.tt:210 ../root/components/forms.tt:235
 #: ../root/edit/search_macros.tt:190 ../root/release/edit/tracklist.tt:3
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
 #: ../root/release/edit/tracklist.tt:514 ../root/release/edit/tracklist.tt:529
@@ -3438,7 +3469,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:157
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/components/EntityLink.js:151
-#: ../root/static/scripts/common/components/EntityLink.js:490
+#: ../root/static/scripts/common/components/EntityLink.js:510
 msgid "info"
 msgstr "teave"
 
@@ -3586,7 +3617,7 @@ msgid "{doc|Disc ID}:"
 msgstr "{doc|Plaadi-ID}:"
 
 #: ../root/components/common-macros.tt:203 ../root/main/index.js:320
-#: ../root/static/scripts/common/components/DescriptiveLink.js:60
+#: ../root/static/scripts/common/components/DescriptiveLink.js:62
 #: ../root/static/scripts/release-editor/dialogs.js:152
 msgid "{entity} by {artist}"
 msgstr "„{entity}”, artist: {artist}"
@@ -3600,7 +3631,7 @@ msgstr ""
 "ja kui vaja, vasta."
 
 #: ../root/components/common-macros.tt:264
-#: ../root/static/scripts/common/components/EntityLink.js:268
+#: ../root/static/scripts/common/components/EntityLink.js:279
 msgid "{name} – {additional_info}"
 msgstr "{name} – {additional_info}"
 
@@ -3611,7 +3642,7 @@ msgstr[0] "Päringu peale leiti {num} väljalase."
 msgstr[1] "Päringu peale leiti {num} väljalaset."
 
 #: ../root/components/common-macros.tt:203
-#: ../root/static/scripts/common/components/DescriptiveLink.js:73
+#: ../root/static/scripts/common/components/DescriptiveLink.js:75
 msgid "{place} in {area}"
 msgstr "{place}, {area}"
 
@@ -3654,7 +3685,7 @@ msgstr "{variable}:"
 msgid "« Previous"
 msgstr "« Tagasi"
 
-#: ../root/components/forms.tt:342
+#: ../root/components/forms.tt:309
 msgid ""
 "“Last Name, First Name” and “Group, The” are common examples of sort names."
 msgstr ""
@@ -4795,7 +4826,7 @@ msgstr "ISRC eemaldamine"
 #: ../root/edit/details/AddRelationship.js:18
 #: ../root/edit/details/RemoveRelationship.js:17
 #: ../root/edit/details/ReorderRelationships.js:17
-#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:195
+#: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:213
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:124
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:950
 msgid "Relationship"
@@ -7711,6 +7742,7 @@ msgid "Edit relationships"
 msgstr "Toimeta seoseid"
 
 #: ../root/components/InstrumentRelTypes.js:28
+#: ../root/static/scripts/common/components/EntityLink.js:466
 msgid "as “{credit}”"
 msgstr ""
 
@@ -8642,6 +8674,16 @@ msgctxt "artist ended boolean"
 msgid "Ended"
 msgstr ""
 
+#: ../root/edit/details/AddArtist.js:132 ../root/edit/details/AddLabel.js:97
+#: ../root/layout/components/sidebar/SidebarIpis.js:16
+msgid "IPI code"
+msgstr "IPI-kood"
+
+#: ../root/edit/details/AddArtist.js:141 ../root/edit/details/AddLabel.js:106
+#: ../root/layout/components/sidebar/SidebarIsnis.js:20
+msgid "ISNI code"
+msgstr "ISNI-kood"
+
 #: ../root/edit/details/AddEvent.js:46 ../root/edit/details/EditEvent.js:50
 msgctxt "event"
 msgid "Cancelled"
@@ -8830,11 +8872,21 @@ msgctxt "alias ended boolean"
 msgid "Ended"
 msgstr ""
 
+#: ../root/edit/details/AddWork.js:45 ../root/edit/details/EditWork.js:62
+#: ../root/edit/details/RemoveIswc.js:23
+#: ../root/otherlookup/OtherLookupForm.js:72
+#: ../root/report/IswcsWithManyWorks.js:49
+#: ../root/search/components/WorkResults.js:57
+#: ../root/static/scripts/common/components/IswcList.js:26
+#: ../root/utility/tableColumns.js:710
+msgid "ISWC"
+msgstr "ISWC"
+
 #: ../root/edit/details/AddWork.js:63 ../root/edit/details/EditWork.js:80
 #: ../root/layout/components/sidebar/WorkSidebar.js:65
 #: ../root/search/components/WorkResults.js:59
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:144
-#: ../root/static/scripts/work/edit.js:340
+#: ../root/static/scripts/work/edit.js:342
 msgid "Lyrics languages"
 msgstr "Sõnade keeled"
 
@@ -9082,6 +9134,13 @@ msgstr "Siit:"
 #: ../root/edit/details/historic/MoveDiscId.js:28
 msgid "To:"
 msgstr "Siia:"
+
+#: ../root/edit/details/RemoveIsrc.js:23
+#: ../root/otherlookup/OtherLookupForm.js:67
+#: ../root/report/IsrcsWithManyRecordings.js:58
+#: ../root/static/scripts/common/components/IsrcList.js:26
+msgid "ISRC"
+msgstr "ISRC"
 
 #: ../root/edit/details/RemoveMedium.js:49
 msgid ""
@@ -13772,7 +13831,7 @@ msgid "Languages known:"
 msgstr "Keeleoskus:"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:338
-#: ../root/static/scripts/work/edit.js:334
+#: ../root/static/scripts/work/edit.js:336
 msgctxt "interactive"
 msgid "Add language"
 msgstr "Lisa keel"
@@ -14013,7 +14072,7 @@ msgid "Try with indexed search instead."
 msgstr "Proovi selle asemel indekseeritud otsinguga."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:126
-#: ../root/static/scripts/common/components/Autocomplete2.js:790
+#: ../root/static/scripts/common/components/Autocomplete2.js:791
 msgid "Type to search, or paste an MBID"
 msgstr "Kirjuta otsitav sõna või kopeeri MBID"
 
@@ -14279,25 +14338,25 @@ msgid ""
 "potentially harmful."
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:343
+#: ../root/static/scripts/common/components/EntityLink.js:354
 msgid "This event has artwork in the Event Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:368
+#: ../root/static/scripts/common/components/EntityLink.js:379
 msgid "This release has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:393
+#: ../root/static/scripts/common/components/EntityLink.js:404
 msgid "This release group has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:421
+#: ../root/static/scripts/common/components/EntityLink.js:432
 msgid ""
 "High quality: All available data has been added, if possible including cover "
 "art with liner info that proves it"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:434
+#: ../root/static/scripts/common/components/EntityLink.js:445
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"
@@ -14767,6 +14826,7 @@ msgstr ""
 #: ../root/static/scripts/edit/URLCleanup.js:910
 #: ../root/static/scripts/edit/URLCleanup.js:4213
 #: ../root/static/scripts/edit/URLCleanup.js:5281
+#: ../root/static/scripts/edit/URLCleanup.js:5834
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -14888,115 +14948,115 @@ msgstr ""
 msgid "Please link to TikTok profiles, not videos."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5834
+#: ../root/static/scripts/edit/URLCleanup.js:5854
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5848
+#: ../root/static/scripts/edit/URLCleanup.js:5868
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5866
+#: ../root/static/scripts/edit/URLCleanup.js:5886
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6063
+#: ../root/static/scripts/edit/URLCleanup.js:6083
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6234
+#: ../root/static/scripts/edit/URLCleanup.js:6254
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6254
+#: ../root/static/scripts/edit/URLCleanup.js:6274
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6275
+#: ../root/static/scripts/edit/URLCleanup.js:6295
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6293
+#: ../root/static/scripts/edit/URLCleanup.js:6313
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6305
+#: ../root/static/scripts/edit/URLCleanup.js:6325
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6365
+#: ../root/static/scripts/edit/URLCleanup.js:6385
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6390
+#: ../root/static/scripts/edit/URLCleanup.js:6410
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6546
+#: ../root/static/scripts/edit/URLCleanup.js:6566
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6586
+#: ../root/static/scripts/edit/URLCleanup.js:6606
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6631
+#: ../root/static/scripts/edit/URLCleanup.js:6651
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6667
+#: ../root/static/scripts/edit/URLCleanup.js:6687
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6677
+#: ../root/static/scripts/edit/URLCleanup.js:6697
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6687
+#: ../root/static/scripts/edit/URLCleanup.js:6707
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6730
+#: ../root/static/scripts/edit/URLCleanup.js:6750
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6742
+#: ../root/static/scripts/edit/URLCleanup.js:6762
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6952
+#: ../root/static/scripts/edit/URLCleanup.js:6972
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6969
+#: ../root/static/scripts/edit/URLCleanup.js:6989
 #: ../root/static/scripts/edit/externalLinks.js:1073
 msgid "This relationship type combination is invalid."
 msgstr ""
@@ -15843,19 +15903,19 @@ msgctxt "header"
 msgid "Add medium"
 msgstr "Helikandja lisamine"
 
-#: ../root/static/scripts/release-editor/fields.js:829
+#: ../root/static/scripts/release-editor/fields.js:837
 msgid "Medium {position}: {title}"
 msgstr "Helikandja {position}: „{title}”"
 
-#: ../root/static/scripts/release-editor/fields.js:835
+#: ../root/static/scripts/release-editor/fields.js:843
 msgid "Medium {position}"
 msgstr "Helikandja {position}"
 
-#: ../root/static/scripts/release-editor/fields.js:844
+#: ../root/static/scripts/release-editor/fields.js:852
 msgid "I confirm this medium is actually titled “{medium_title}”."
 msgstr ""
 
-#: ../root/static/scripts/release-editor/fields.js:859
+#: ../root/static/scripts/release-editor/fields.js:867
 msgid ""
 "“{matched_text}” seems to indicate medium ordering rather than a medium "
 "title. If this is the case, please use the up/down arrows on the right side "
@@ -15864,7 +15924,7 @@ msgid ""
 "the checkbox below."
 msgstr ""
 
-#: ../root/static/scripts/release-editor/fields.js:961
+#: ../root/static/scripts/release-editor/fields.js:969
 msgid "You haven’t selected a label for “{name}”."
 msgstr "Plaadifirmat pole valitud ({name})."
 
@@ -16087,7 +16147,7 @@ msgstr ""
 msgid "Add lyrics language"
 msgstr ""
 
-#: ../root/static/scripts/work/edit.js:346
+#: ../root/static/scripts/work/edit.js:348
 msgctxt "interactive"
 msgid "Remove language"
 msgstr "Eemalda keel"
@@ -17550,6 +17610,12 @@ msgid ""
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
 msgstr ""
+
+#~ msgid "Add {item}"
+#~ msgstr "Lisa {item}"
+
+#~ msgid "Remove {item}"
+#~ msgstr "Eemalda {item}"
 
 #~ msgid "Recent additions"
 #~ msgstr "Hiljutised lisandused"

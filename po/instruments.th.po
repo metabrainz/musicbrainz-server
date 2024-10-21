@@ -1,13 +1,17 @@
+# Arainuki <esetipodealla@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-09-25 00:45+0000\n"
+"Last-Translator: Arainuki <esetipodealla@gmail.com>\n"
+"Language-Team: Thai <https://translations.metabrainz.org/projects/"
+"musicbrainz/instruments/th/>\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -276,7 +280,7 @@ msgstr ""
 #: DB:instrument/name:41
 msgctxt "Commonly used bellowed free reed with keys/buttons"
 msgid "accordion"
-msgstr ""
+msgstr "หีบเพลงชัก"
 
 #: DB:instrument/name:50
 msgid "acoustic bass guitar"

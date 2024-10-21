@@ -1,17 +1,19 @@
 #
 # Translators:
+# Arainuki <esetipodealla@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Catalan (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/ca/)\n"
+"PO-Revision-Date: 2024-09-25 00:45+0000\n"
+"Last-Translator: Arainuki <esetipodealla@gmail.com>\n"
+"Language-Team: Catalan <https://translations.metabrainz.org/projects/"
+"musicbrainz/instruments/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -163,15 +165,15 @@ msgstr ""
 
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
-msgstr ""
+msgstr "Vihuela mexicana"
 
 #: DB:instrument/name:278
 msgid "Minimoog"
-msgstr ""
+msgstr "Moog Minimoog"
 
 #: DB:instrument/name:277
 msgid "Moog"
-msgstr ""
+msgstr "Moog"
 
 #: DB:instrument/name:358
 msgctxt "Small north east England bagpipes"
@@ -181,7 +183,7 @@ msgstr ""
 #: DB:instrument/name:890
 msgctxt "Toy synthesizer"
 msgid "Otamatone"
-msgstr ""
+msgstr "Otamatone"
 
 #: DB:instrument/name:664
 msgid "Paraguayan harp"
@@ -280,7 +282,7 @@ msgstr ""
 #: DB:instrument/name:41
 msgctxt "Commonly used bellowed free reed with keys/buttons"
 msgid "accordion"
-msgstr ""
+msgstr "acordió"
 
 #: DB:instrument/name:50
 msgid "acoustic bass guitar"

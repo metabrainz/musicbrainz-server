@@ -2068,35 +2068,35 @@ msgstr ""
 msgid "This indicates that an artist had a recording contract with a label."
 msgstr ""
 
-#. name:producer position
+#. name:producer position at
 #: DB:link_type/description:117
 msgid ""
 "This indicates that an artist was officially employed by a label as a "
 "producer."
 msgstr ""
 
-#. name:engineer position
+#. name:engineer position at
 #: DB:link_type/description:120
 msgid ""
 "This indicates that an artist was officially employed by a label as an "
 "engineer."
 msgstr ""
 
-#. name:creative position
+#. name:creative position at
 #: DB:link_type/description:115
 msgid ""
 "This indicates that an artist was officially employed by a label in a "
 "creative position, such as photographer or graphic designer."
 msgstr ""
 
-#. name:artists and repertoire position
+#. name:artists and repertoire position at
 #: DB:link_type/description:1081
 msgid ""
 "This indicates that an artist was officially employed by a label in an "
 "artists and repertoire (A&R) position."
 msgstr ""
 
-#. name:executive position
+#. name:executive position at
 #: DB:link_type/description:1266
 msgid ""
 "This indicates that an artist was officially employed by a label in an "
@@ -2943,6 +2943,11 @@ msgid ""
 "This links a label to a site where tickets can be purchased for their events."
 msgstr ""
 
+#. name:youtube
+#: DB:link_type/description:225
+msgid "This links a label to its channel at YouTube."
+msgstr ""
+
 #. name:apple music
 #: DB:link_type/description:1130
 msgid "This links a label to its page at Apple Music."
@@ -2962,11 +2967,6 @@ msgstr ""
 #. name:soundcloud
 #: DB:link_type/description:290
 msgid "This links a label to its profile at SoundCloud."
-msgstr ""
-
-#. name:youtube
-#: DB:link_type/description:225
-msgid "This links a label to the equivalent entry at YouTube."
 msgstr ""
 
 #. name:crowdfunding
@@ -3006,6 +3006,11 @@ msgstr ""
 #: DB:link_type/description:1195
 msgid ""
 "This links a place to a site where tickets can be purchased for its events."
+msgstr ""
+
+#. name:youtube
+#: DB:link_type/description:528
+msgid "This links a place to its channel at YouTube."
 msgstr ""
 
 #. name:soundcloud
@@ -3238,6 +3243,11 @@ msgstr ""
 msgid ""
 "This links a series to a site where tickets can be purchased for events in "
 "it."
+msgstr ""
+
+#. name:youtube
+#: DB:link_type/description:792
+msgid "This links a series to its channel at YouTube."
 msgstr ""
 
 #. name:crowdfunding
@@ -3473,7 +3483,7 @@ msgstr ""
 
 #. name:youtube
 #: DB:link_type/description:193
-msgid "This links an artist to the equivalent entry at YouTube."
+msgid "This links an artist to their channel at YouTube."
 msgstr ""
 
 #. name:crowdfunding
@@ -3540,6 +3550,11 @@ msgstr ""
 #. name:ticketing
 #: DB:link_type/description:1197
 msgid "This links an event to a site where tickets can be purchased for it."
+msgstr ""
+
+#. name:youtube
+#: DB:link_type/description:791
+msgid "This links an event to its channel at YouTube."
 msgstr ""
 
 #. name:crowdfunding
@@ -3973,30 +3988,6 @@ msgstr ""
 #. name:blog
 #: DB:link_type/description:627
 msgid "This relationship type can be used to link a place to its blog."
-msgstr ""
-
-#. name:youtube
-#: DB:link_type/description:528
-msgid ""
-"This relationship type can be used to link a place to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;."
-msgstr ""
-
-#. name:youtube
-#: DB:link_type/description:792
-msgid ""
-"This relationship type can be used to link a series to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;."
-msgstr ""
-
-#. name:youtube
-#: DB:link_type/description:791
-msgid ""
-"This relationship type can be used to link an event to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
-"username&gt;."
 msgstr ""
 
 #. name:IMDB samples
@@ -4830,14 +4821,18 @@ msgstr ""
 msgid "artists and repertoire"
 msgstr ""
 
-#. name:artists and repertoire position
+#. name:artists and repertoire position at
 #: DB:link_type/reverse_link_phrase:1081
 msgid "artists and repertoire persons"
 msgstr ""
 
-#. name:artists and repertoire position
-#: DB:link_type/name:1081 DB:link_type/link_phrase:1081
+#. name:artists and repertoire position at
+#: DB:link_type/link_phrase:1081
 msgid "artists and repertoire position"
+msgstr ""
+
+#: DB:link_type/name:1081
+msgid "artists and repertoire position at"
 msgstr ""
 
 #: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
@@ -5007,16 +5002,10 @@ msgstr ""
 msgid "broadcast by"
 msgstr ""
 
-#. name:business association, name:publishing
-#: DB:link_type/name:205 DB:link_type/link_phrase:66
-#: DB:link_type/link_phrase:205 DB:link_type/reverse_link_phrase:205
-#: DB:link_type/long_link_phrase:205
+#. name:business association
+#: DB:link_type/name:205 DB:link_type/link_phrase:205
+#: DB:link_type/reverse_link_phrase:205 DB:link_type/long_link_phrase:205
 msgid "business association"
-msgstr ""
-
-#. name:publishing
-#: DB:link_type/reverse_link_phrase:66
-msgid "business association with"
 msgstr ""
 
 #. name:download for free
@@ -5383,14 +5372,18 @@ msgstr ""
 msgid "creative direction"
 msgstr ""
 
-#. name:creative position
+#. name:creative position at
 #: DB:link_type/reverse_link_phrase:115
 msgid "creative persons"
 msgstr ""
 
-#. name:creative position
-#: DB:link_type/name:115 DB:link_type/link_phrase:115
+#. name:creative position at
+#: DB:link_type/link_phrase:115
 msgid "creative position"
+msgstr ""
+
+#: DB:link_type/name:115
+msgid "creative position at"
 msgstr ""
 
 #: DB:link_type/name:904 DB:link_type/name:909 DB:link_type/name:903
@@ -5647,13 +5640,13 @@ msgstr ""
 msgid "engineer"
 msgstr ""
 
-#. name:engineer position
-#: DB:link_type/name:120 DB:link_type/name:701 DB:link_type/link_phrase:120
+#. name:engineer position at
+#: DB:link_type/name:701 DB:link_type/link_phrase:120
 msgid "engineer position"
 msgstr ""
 
 #. name:engineer position
-#: DB:link_type/link_phrase:701
+#: DB:link_type/name:120 DB:link_type/link_phrase:701
 msgid "engineer position at"
 msgstr ""
 
@@ -5665,8 +5658,8 @@ msgstr ""
 msgid "engineered in"
 msgstr ""
 
-#. name:engineer position
-#: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
+#. name:engineer position, name:engineer position at
+#: DB:link_type/reverse_link_phrase:701 DB:link_type/reverse_link_phrase:120
 msgid "engineers"
 msgstr "ingineri"
 
@@ -5694,12 +5687,16 @@ msgstr ""
 msgid "executive"
 msgstr ""
 
-#. name:executive position
-#: DB:link_type/name:1266 DB:link_type/link_phrase:1266
+#. name:executive position at
+#: DB:link_type/link_phrase:1266
 msgid "executive position"
 msgstr ""
 
-#. name:executive position
+#: DB:link_type/name:1266
+msgid "executive position at"
+msgstr ""
+
+#. name:executive position at
 #: DB:link_type/reverse_link_phrase:1266
 msgid "executives"
 msgstr ""
@@ -5880,7 +5877,7 @@ msgstr ""
 msgid "guest performers"
 msgstr ""
 
-#. name:creative position
+#. name:creative position at
 #: DB:link_type/long_link_phrase:115
 msgid "had a creative position at"
 msgstr ""
@@ -5890,7 +5887,7 @@ msgstr ""
 msgid "had a miscellaneous role on"
 msgstr ""
 
-#. name:producer position
+#. name:producer position at
 #: DB:link_type/long_link_phrase:117
 msgid "had a producer position at"
 msgstr ""
@@ -5900,17 +5897,17 @@ msgstr ""
 msgid "had a recording contract with"
 msgstr ""
 
-#. name:artists and repertoire position
+#. name:artists and repertoire position at
 #: DB:link_type/long_link_phrase:1081
 msgid "had an artists and repertoire position at"
 msgstr ""
 
-#. name:engineer position
+#. name:engineer position at
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
 msgstr ""
 
-#. name:executive position
+#. name:executive position at
 #: DB:link_type/long_link_phrase:1266
 msgid "had an executive position at"
 msgstr ""
@@ -6236,11 +6233,6 @@ msgstr ""
 #. name:award ceremony
 #: DB:link_type/long_link_phrase:1094
 msgid "has award ceremony"
-msgstr ""
-
-#. name:publishing
-#: DB:link_type/long_link_phrase:66
-msgid "has business association with"
 msgstr ""
 
 #. name:has catalogue
@@ -7998,12 +7990,16 @@ msgstr ""
 msgid "producer"
 msgstr ""
 
-#. name:producer position
-#: DB:link_type/name:117 DB:link_type/link_phrase:117
+#. name:producer position at
+#: DB:link_type/link_phrase:117
 msgid "producer position"
 msgstr ""
 
-#. name:producer position
+#: DB:link_type/name:117
+msgid "producer position at"
+msgstr ""
+
+#. name:producer position at
 #: DB:link_type/reverse_link_phrase:117
 msgid "producers"
 msgstr ""
@@ -8127,8 +8123,11 @@ msgstr ""
 msgid "publishes series"
 msgstr ""
 
+#. name:publishing
 #: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:161
 #: DB:link_type/name:66 DB:link_type/name:32 DB:link_type/name:208
+#: DB:link_type/link_phrase:66 DB:link_type/reverse_link_phrase:66
+#: DB:link_type/long_link_phrase:66
 msgid "publishing"
 msgstr ""
 

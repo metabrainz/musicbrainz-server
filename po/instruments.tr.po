@@ -4,11 +4,12 @@
 # Sertan Şentürk <email address hidden>, 2017
 # portik <email address hidden>, 2014
 # brtc <boratici@gmail.com>, 2024.
+# Arainuki <esetipodealla@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-03-19 04:28+0000\n"
-"Last-Translator: brtc <boratici@gmail.com>\n"
+"PO-Revision-Date: 2024-09-25 00:45+0000\n"
+"Last-Translator: Arainuki <esetipodealla@gmail.com>\n"
 "Language-Team: Turkish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/tr/>\n"
 "Language: tr\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -306,7 +307,7 @@ msgstr ""
 #: DB:instrument/name:717
 msgctxt "Brazillian rattle-gourd"
 msgid "afoxé"
-msgstr ""
+msgstr "afoxé"
 
 #: DB:instrument/name:487
 msgid "agogô"
