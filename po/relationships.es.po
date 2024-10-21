@@ -24,7 +24,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-26 13:41+0000\n"
+"PO-Revision-Date: 2024-10-21 10:59+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
 ".org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -707,8 +707,8 @@ msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
-"Indica el compositor para esta publicación, es decir, el artista que "
-"escribió la música (pero no necesariamente la letra)."
+"Indica el compositor de esta publicación, es decir, el artista que escribió "
+"la música (pero no necesariamente la letra)."
 
 #. name:composer
 #: DB:link_type/description:168
@@ -716,7 +716,7 @@ msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
-"Indica el compositor para esta obra, es decir, el artista que escribió la "
+"Indica el compositor de esta obra, es decir, el artista que escribió la "
 "música (pero no necesariamente la letra)."
 
 #. name:premiere
@@ -747,12 +747,12 @@ msgstr ""
 #. name:librettist
 #: DB:link_type/description:57
 msgid "Indicates the librettist for this release."
-msgstr "Indica el libretista para esta publicación."
+msgstr "Indica el libretista de esta publicación."
 
 #. name:librettist
 #: DB:link_type/description:169
 msgid "Indicates the librettist for this work."
-msgstr "Indica el libretista para esta obra."
+msgstr "Indica el libretista de esta obra."
 
 #. name:held at
 #: DB:link_type/description:995
@@ -762,7 +762,7 @@ msgstr "Indica dónde tuvo lugar una serie de conciertos o residencia."
 #. name:lyricist
 #: DB:link_type/description:56
 msgid "Indicates the lyricist for this release."
-msgstr "Indica el liricista para esta publicación."
+msgstr "Indica el letrista de esta publicación."
 
 #. name:lyricist
 #: DB:link_type/description:165
@@ -804,7 +804,7 @@ msgstr "Indica la página web oficial de un evento."
 msgid ""
 "Indicates the person who translated the lyrics/libretto for this release."
 msgstr ""
-"Indica la persona que ha traducido las letras o el libreto para esta "
+"Indica la persona que ha traducido las letras o el libreto de esta "
 "publicación."
 
 #. name:translator
@@ -2611,6 +2611,11 @@ msgid ""
 "project (such as an audio drama or audiobook), which is usually based on a "
 "written template and involves the performance of voice actors."
 msgstr ""
+"Indica que el artista fue el director de sonido de esta grabación.\n"
+"\n"
+"El director de sonido es el artista que dirige un proyecto de sonido, como "
+"un audiolibro o audiodrama, que suele estar basado en un guión escrito "
+"previamente y contar con la participación de actores de voz."
 
 #. name:audio director
 #: DB:link_type/description:1187
@@ -2621,6 +2626,11 @@ msgid ""
 "project (such as an audio drama or audiobook), which is usually based on a "
 "written template and involves the performance of voice actors."
 msgstr ""
+"Indica que el artista fue el director de sonido de esta publicación.\n"
+"\n"
+"El director de sonido es el artista que dirige un proyecto de sonido, como "
+"un audiolibro o audiodrama, que suele estar basado en un guión escrito "
+"previamente y contar con la participación de actores de voz."
 
 #. name:choreographer
 #: DB:link_type/description:1230
@@ -2634,7 +2644,7 @@ msgid ""
 "This indicates the artist was the cinematographer / director of photography "
 "for this video recording."
 msgstr ""
-"Indica que el artista fue el director de fotografía para esta grabación de "
+"Indica que el artista fue el director de fotografía de esta grabación de "
 "vídeo."
 
 #. name:video director
@@ -3387,6 +3397,8 @@ msgid ""
 "This links a label to a site where the label can receive donations/"
 "patronage, such as Flattr or PayPal.me."
 msgstr ""
+"Enlaza una discográfica a una página donde puede recibir donaciones "
+"(mecenazgo), como Flattr o PayPal.me."
 
 #. name:ticketing
 #: DB:link_type/description:1194
@@ -3462,6 +3474,8 @@ msgid ""
 "This links a place to a site where the place or the organisation behind it "
 "can receive donations/patronage, such as Flattr or PayPal.me."
 msgstr ""
+"Enlaza un lugar a una página donde el lugar o la organización que lo dirige "
+"pueden recibir donaciones (mecenazgo), como Flattr o PayPal.me."
 
 #. name:ticketing
 #: DB:link_type/description:1195
@@ -3725,6 +3739,9 @@ msgid ""
 "series) to a site where the organisers/creators can receive donations/"
 "patronage, such as Flattr or PayPal.me."
 msgstr ""
+"Enlaza una serie (habitualmente un festival o una serie de conciertos) a una "
+"página donde sus organizadores o creadores pueden recibir donaciones "
+"(mecenazgo), como Flattr o PayPal.me."
 
 #. name:video channel
 #: DB:link_type/description:805
@@ -3823,32 +3840,32 @@ msgstr "Enlaza una obra al área en la que se hiceron los arreglos."
 #. name:composed in
 #: DB:link_type/description:875
 msgid "This links a work with the area it was composed in."
-msgstr ""
+msgstr "Enlaza una obra al área en la que fue compuesta."
 
 #. name:revised in
 #: DB:link_type/description:881
 msgid "This links a work with the area it was revised in."
-msgstr ""
+msgstr "Enlaza una obra al área en la que fue revisada."
 
 #. name:translated in
 #: DB:link_type/description:884
 msgid "This links a work with the area it was translated in."
-msgstr ""
+msgstr "Enlaza una obra al área en la que fue traducida."
 
 #. name:written in
 #: DB:link_type/description:873
 msgid "This links a work with the area it was written in."
-msgstr ""
+msgstr "Enlaza una obra al área en la que fue escrita."
 
 #. name:libretto written in
 #: DB:link_type/description:879
 msgid "This links a work with the area its libretto was written in."
-msgstr ""
+msgstr "Enlaza una obra al área en la que fue escrito su libreto."
 
 #. name:lyrics written in
 #: DB:link_type/description:877
 msgid "This links a work with the area its lyrics were written in."
-msgstr ""
+msgstr "Enlaza una obra al área en la que fue escrita su letra."
 
 #. name:arranged at
 #: DB:link_type/description:886
@@ -3858,37 +3875,37 @@ msgstr "Enlaza una obra al lugar en el que se hiceron los arreglos."
 #. name:composed at
 #: DB:link_type/description:876
 msgid "This links a work with the place it was composed at."
-msgstr ""
+msgstr "Enlaza una obra al lugar en el que fue compuesta."
 
 #. name:revised at
 #: DB:link_type/description:882
 msgid "This links a work with the place it was revised at."
-msgstr ""
+msgstr "Enlaza una obra al lugar en el que fue revisada."
 
 #. name:translated at
 #: DB:link_type/description:883
 msgid "This links a work with the place it was translated at."
-msgstr ""
+msgstr "Enlaza una obra al lugar en el que fue traducida."
 
 #. name:written at
 #: DB:link_type/description:874
 msgid "This links a work with the place it was written at."
-msgstr ""
+msgstr "Enlaza una obra al lugar en el que fue escrita."
 
 #. name:libretto written at
 #: DB:link_type/description:880
 msgid "This links a work with the place its libretto was written at."
-msgstr ""
+msgstr "Enlaza una obra al lugar en el que fue escrito su libreto."
 
 #. name:lyrics written at
 #: DB:link_type/description:878
 msgid "This links a work with the place its lyrics were written at."
-msgstr ""
+msgstr "Enlaza una obra al lugar en el que fue escrita su letra."
 
 #. name:voice actor
 #: DB:link_type/description:292
 msgid "This links an (fictional) artist to the person that voice acted it."
-msgstr ""
+msgstr "Enlaza un artista ficticio al actor de voz que lo interpretó."
 
 #. name:video channel
 #: DB:link_type/description:303
@@ -3902,7 +3919,7 @@ msgstr ""
 #. name:fanpage
 #: DB:link_type/description:172
 msgid "This links an artist to a fan-created website."
-msgstr ""
+msgstr "Enlaza un artista a una web creada por sus fans."
 
 #. name:patronage
 #: DB:link_type/description:897
@@ -3910,6 +3927,8 @@ msgid ""
 "This links an artist to a site where the artist can receive donations/"
 "patronage, such as Flattr or PayPal.me."
 msgstr ""
+"Enlaza un artista a una página donde puede recibir donaciones (mecenazgo), "
+"como Flattr o PayPal.me."
 
 #. name:ticketing
 #: DB:link_type/description:1193
@@ -3925,6 +3944,7 @@ msgstr ""
 msgid ""
 "This links an artist to an URL containing an interview with that artist."
 msgstr ""
+"Enlaza un artista a una página que contiene una entrevista con el artista."
 
 #. name:biography
 #: DB:link_type/description:182
@@ -4005,7 +4025,7 @@ msgstr ""
 #. name:purevolume
 #: DB:link_type/description:174
 msgid "This links an artist to the equivalent entry at PureVolume."
-msgstr ""
+msgstr "Enlaza un artista a su página en PureVolume."
 
 #. name:youtube
 #: DB:link_type/description:193
@@ -4042,6 +4062,12 @@ msgid ""
 "href=\"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">editor "
 "relationship type</a>."
 msgstr ""
+"Enlaza una edición a la grabación original, ya sea una versión para radio ("
+"que suele ser una versión de unos 3 minutos de una pista más larga para que "
+"sea posible reproducirla en la radio) o cualquier otro tipo de versión "
+"censurada, recortada o editada de algún otro modo del mismo audio. Puedes "
+"indicar el artista que editó la grabación con el tipo de relación “<a href=\""
+"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">editor</a>”."
 
 #. name:songfacts
 #: DB:link_type/description:289
@@ -4062,6 +4088,9 @@ msgid ""
 "respect the <a href=\"/doc/Other_Databases_Relationship_Type/"
 "Whitelist\">whitelist</a>."
 msgstr ""
+"Enlaza una entidad a la página equivalente en otra base de datos. Asegúrate "
+"de usar solo enlaces en la <a href=\"/doc/Other_Databases_Relationship_Type/"
+"Whitelist\">lista de sitios permitidos</a>."
 
 #. name:video channel
 #: DB:link_type/description:804
@@ -4078,6 +4107,8 @@ msgid ""
 "This links an event to a site where the event organisers can receive "
 "donations/patronage, such as Flattr or PayPal.me."
 msgstr ""
+"Enlaza un evento a una página donde sus organizadores pueden recibir "
+"donaciones (mecenazgo), como Flattr o PayPal.me."
 
 #. name:ticketing
 #: DB:link_type/description:1197
@@ -4102,6 +4133,8 @@ msgstr ""
 #: DB:link_type/description:737
 msgid "This links an instrument to an older instrument that it was based on."
 msgstr ""
+"Enlaza un instrumento a otro más antiguo que sirvió de base para su "
+"desarrollo."
 
 #. name:subtype
 #: DB:link_type/description:736
@@ -4321,6 +4354,8 @@ msgid ""
 "This relationship indicates the artist is the copyright holder for this "
 "release, usually indicated with a © symbol."
 msgstr ""
+"Indica que el artista tiene los derechos de autor de esta publicación, "
+"normalmente indicados con el símbolo ©."
 
 #. name:licensor
 #: DB:link_type/description:1010
@@ -4372,6 +4407,8 @@ msgid ""
 "This relationship indicates the label is the copyright holder for this "
 "release, usually indicated with a © symbol."
 msgstr ""
+"Indica que la discográfica tiene los derechos de autor de esta publicación, "
+"normalmente indicados con el símbolo ©."
 
 #. name:IMDB samples
 #: DB:link_type/description:83
@@ -4404,6 +4441,8 @@ msgid ""
 "This relationship is used to link a catalogue work series to a person who "
 "was involved in compiling it."
 msgstr ""
+"Enlaza una serie de obras del tipo “Catálogo” con las personas que crearon "
+"el catálogo."
 
 #. name:has catalogue
 #: DB:link_type/description:750
@@ -4411,6 +4450,8 @@ msgid ""
 "This relationship is used to link a catalogue work series to a person whose "
 "work it catalogues."
 msgstr ""
+"Enlaza una serie de obras del tipo “Catálogo” con el artista cuyas obras han "
+"sido catalogadas."
 
 #. name:writer
 #: DB:link_type/description:54
@@ -5698,12 +5739,12 @@ msgstr "catalogó"
 #. name:catalogued
 #: DB:link_type/reverse_link_phrase:751
 msgid "cataloguer"
-msgstr ""
+msgstr "autor del catálogo"
 
 #. name:has catalogue
 #: DB:link_type/reverse_link_phrase:750
 msgid "catalogues work of"
-msgstr ""
+msgstr "cataloga las obras de"
 
 #: DB:link_attribute_type/name:1223
 msgid "chamber music"
@@ -6245,7 +6286,7 @@ msgstr ""
 
 #: DB:link_type/name:144 DB:link_type/name:38
 msgid "editor"
-msgstr ""
+msgstr "editor"
 
 #. name:edit
 #: DB:link_type/reverse_link_phrase:309
@@ -7598,7 +7639,7 @@ msgstr ""
 
 #: DB:link_type/name:57 DB:link_type/name:169
 msgid "librettist"
-msgstr ""
+msgstr "libretista"
 
 #: DB:link_type/name:880 DB:link_type/name:1249
 msgid "libretto written at"
@@ -7707,7 +7748,7 @@ msgstr ""
 
 #: DB:link_type/name:56 DB:link_type/name:165
 msgid "lyricist"
-msgstr ""
+msgstr "letrista"
 
 #: DB:link_type/name:93 DB:link_type/name:271 DB:link_type/name:197
 #: DB:link_type/name:982
@@ -8343,7 +8384,7 @@ msgstr "partes"
 #: DB:link_type/name:901 DB:link_type/name:900 DB:link_type/name:898
 #: DB:link_type/name:899 DB:link_type/name:897
 msgid "patronage"
-msgstr ""
+msgstr "mecenazgo"
 
 #. name:patronage
 #: DB:link_type/link_phrase:901 DB:link_type/link_phrase:900
@@ -9699,7 +9740,7 @@ msgstr "artista de apoyo vocal"
 
 #: DB:link_type/name:292
 msgid "voice actor"
-msgstr ""
+msgstr "actor de voz"
 
 #. name:voice actor
 #: DB:link_type/link_phrase:292
@@ -10371,7 +10412,7 @@ msgstr "representación legal {additional:adicional}"
 #: DB:link_type/link_phrase:57 DB:link_type/reverse_link_phrase:57
 #: DB:link_type/reverse_link_phrase:169
 msgid "{additional} librettist"
-msgstr ""
+msgstr "libretista {additional:adicional}"
 
 #. name:librettist
 #: DB:link_type/link_phrase:169
@@ -10392,7 +10433,7 @@ msgstr ""
 #. name:lyricist
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
 msgid "{additional} lyricist"
-msgstr ""
+msgstr "letrista {additional:adicional}"
 
 #. name:lyricist
 #: DB:link_type/link_phrase:56 DB:link_type/link_phrase:165
@@ -10776,7 +10817,7 @@ msgstr ""
 #. name:has catalogue
 #: DB:link_type/long_link_phrase:750
 msgid "{entity1} catalogues the work of {entity0}"
-msgstr ""
+msgstr "{entity1} cataloga las obras de {entity0}"
 
 #. name:samples from artist
 #: DB:link_type/long_link_phrase:154 DB:link_type/long_link_phrase:49

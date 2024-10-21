@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-18 14:55+0200\n"
+"POT-Creation-Date: 2024-09-26 19:33+0530\n"
 "PO-Revision-Date: 2024-04-17 17:31+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Greek <https://translations.metabrainz.org/projects/"
@@ -38,20 +38,20 @@ msgstr ""
 msgid " ({text})"
 msgstr ""
 
-#: ../root/components/forms.tt:293
+#: ../root/components/forms.tt:260
 msgid "\"C\" is a single check digit."
 msgstr "\"C\" είναι ένα ψηφίου απλού ελέγχου."
 
-#: ../root/components/forms.tt:303
+#: ../root/components/forms.tt:270
 msgid ""
 "\"CC\" is the appropriate for the registrant two-character country code."
 msgstr ""
 
-#: ../root/components/forms.tt:292
+#: ../root/components/forms.tt:259
 msgid "\"DDD\" is a nine digit work identifier."
 msgstr "\"DDD\" είναι το εννιαψήφιο αναγνωριστικό ενός έργου."
 
-#: ../root/components/forms.tt:306
+#: ../root/components/forms.tt:273
 msgid ""
 "\"NNNNN\" is a unique 5-digit number identifying the particular sound "
 "recording."
@@ -59,13 +59,13 @@ msgstr ""
 "\"NNNNN\" είναι ένας μοναδικός 5-ψήφιος αριθμός που ταυτοποιεί την "
 "συγκεκριμένη ηχογράφηση."
 
-#: ../root/components/forms.tt:304
+#: ../root/components/forms.tt:271
 msgid ""
 "\"XXX\" is a three character alphanumeric registrant code, uniquely "
 "identifying the organisation which registered the code."
 msgstr ""
 
-#: ../root/components/forms.tt:305
+#: ../root/components/forms.tt:272
 msgid "\"YY\" is the last two digits of the year of registration."
 msgstr "Το \"YY\" είναι τα τελευταία δύο ψηφία του έτους εγγραφής."
 
@@ -176,6 +176,34 @@ msgstr ""
 #: ../root/doc/edit_type.tt:8
 msgid "Accept"
 msgstr "Αποδοχή"
+
+#: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
+#, fuzzy
+#| msgid "IPI code"
+msgctxt "interactive"
+msgid "Add IPI code"
+msgstr "Κωδικός IPI"
+
+#: ../root/artist/edit_form.tt:36 ../root/label/edit_form.tt:39
+#, fuzzy
+#| msgid "IPI code"
+msgctxt "interactive"
+msgid "Add ISNI code"
+msgstr "Κωδικός IPI"
+
+#: ../root/recording/edit_form.tt:45
+#, fuzzy
+#| msgid "Add ISRCs"
+msgctxt "interactive"
+msgid "Add ISRC"
+msgstr "Προσθήκη ISRC"
+
+#: ../root/work/edit_form.tt:16
+#, fuzzy
+#| msgid "Add ISWCs"
+msgctxt "interactive"
+msgid "Add ISWC"
+msgstr "Προσθήκη ISWCs"
 
 #: ../root/release/edit/tracklist.tt:273
 msgid ""
@@ -315,16 +343,12 @@ msgctxt "header"
 msgid "Add work"
 msgstr "Προσθήκη έργου"
 
-#: ../root/work/edit_form.tt:77
+#: ../root/work/edit_form.tt:83
 #, fuzzy
 #| msgid "Add work annotation"
 msgctxt "interactive"
 msgid "Add work attribute"
 msgstr "Προσθήκη σχολίου έργου"
-
-#: ../root/components/forms.tt:153
-msgid "Add {item}"
-msgstr "Προσθήκη {item}"
 
 #: ../root/release/edit/tracklist.tt:551
 msgid "Add {num} track(s)"
@@ -566,7 +590,7 @@ msgstr ""
 "κυκλοφορία υπάρχει ήδη στο MusicBrainz. Αν επιθυμείτε να βασίσετε την "
 "κυκλοφορίας σας σε μία υπάρχουσα κυκλοφορία, διαλέξτε το παρακάτω."
 
-#: ../root/artist/edit_form.tt:42 ../root/artist/utils.js:19
+#: ../root/artist/edit_form.tt:54 ../root/artist/utils.js:19
 #: ../root/components/list/ArtistList.js:88
 #: ../root/search/components/ArtistResults.js:58
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:81
@@ -575,7 +599,7 @@ msgstr ""
 msgid "Begin area"
 msgstr "Ημερομηνία έναρξης"
 
-#: ../root/artist/edit_form.tt:38 ../root/components/forms.tt:192
+#: ../root/artist/edit_form.tt:50 ../root/components/forms.tt:159
 #: ../root/artist/utils.js:34 ../root/components/Aliases/AliasTable.js:19
 #: ../root/edit/details/AddArea.js:85 ../root/edit/details/AddEvent.js:59
 #: ../root/edit/details/AddLabel.js:56 ../root/edit/details/AddPlace.js:69
@@ -740,7 +764,7 @@ msgstr ""
 msgid "Copy all track titles to associated recordings."
 msgstr ""
 
-#: ../root/components/forms.tt:222
+#: ../root/components/forms.tt:189
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:140
 msgid "Copy name"
 msgstr ""
@@ -823,14 +847,14 @@ msgstr "Συνολικά κομμάτια:"
 msgid "Date"
 msgstr "Ημερομηνία"
 
-#: ../root/artist/edit_form.tt:34 ../root/components/forms.tt:188
+#: ../root/artist/edit_form.tt:46 ../root/components/forms.tt:155
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:177
 #, fuzzy
 #| msgid "Date Period"
 msgid "Date period"
 msgstr "Χρονική περίοδος"
 
-#: ../root/artist/edit_form.tt:36 ../root/components/forms.tt:190
+#: ../root/artist/edit_form.tt:48 ../root/components/forms.tt:157
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:179
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
@@ -1042,7 +1066,7 @@ msgstr "Χρήστης"
 msgid "Enable vinyl track numbers"
 msgstr "Ενεργοποίηση αριθμών κομματιών βινυλίου"
 
-#: ../root/artist/edit_form.tt:56 ../root/artist/utils.js:47
+#: ../root/artist/edit_form.tt:68 ../root/artist/utils.js:47
 #: ../root/components/list/ArtistList.js:98
 #: ../root/search/components/ArtistResults.js:60
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:82
@@ -1051,7 +1075,7 @@ msgstr "Ενεργοποίηση αριθμών κομματιών βινυλί�
 msgid "End area"
 msgstr "Ημερομηνία λήξης"
 
-#: ../root/artist/edit_form.tt:51 ../root/components/forms.tt:194
+#: ../root/artist/edit_form.tt:63 ../root/components/forms.tt:161
 #: ../root/artist/utils.js:65 ../root/components/Aliases/AliasTable.js:20
 #: ../root/edit/details/AddArea.js:92 ../root/edit/details/AddEvent.js:66
 #: ../root/edit/details/AddLabel.js:63 ../root/edit/details/AddPlace.js:75
@@ -1068,7 +1092,7 @@ msgstr "Ημερομηνία λήξης"
 msgid "End date"
 msgstr "Ημερομηνία λήξης"
 
-#: ../root/components/forms.tt:238 ../root/components/forms.tt:263
+#: ../root/components/forms.tt:205 ../root/components/forms.tt:230
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:106
 msgid "English"
 msgstr ""
@@ -1084,7 +1108,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/forms.tt:39 ../root/event/add_event_art.tt:170
-#: ../root/release/add_cover_art.tt:170 ../root/release/edit/layout.tt:58
+#: ../root/release/add_cover_art.tt:181 ../root/release/edit/layout.tt:58
 #: ../root/static/scripts/edit/components/EnterEdit.js:78
 msgid "Enter edit"
 msgstr "Εισαγωγή επεξεργασίας"
@@ -1156,11 +1180,11 @@ msgstr ""
 msgid "Expire action"
 msgstr "Ενέργεια λήξης"
 
-#: ../root/artist/edit_form.tt:70 ../root/label/edit_form.tt:41
-#: ../root/place/edit_form.tt:37 ../root/recording/edit_form.tt:51
+#: ../root/artist/edit_form.tt:82 ../root/label/edit_form.tt:53
+#: ../root/place/edit_form.tt:37 ../root/recording/edit_form.tt:57
 #: ../root/release/edit/information.tt:311
 #: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:26
-#: ../root/work/edit_form.tt:90 ../root/layout/components/ExternalLinks.js:156
+#: ../root/work/edit_form.tt:96 ../root/layout/components/ExternalLinks.js:156
 #: ../root/static/scripts/event/components/EventEditForm.js:312
 msgid "External links"
 msgstr "Εξωτερικοί σύνδεσμοι"
@@ -1225,7 +1249,7 @@ msgid_plural "Found {n} results for \"{q}\""
 msgstr[0] "Βρέθηκε {n} αποτέλεσμα για \"{q}\""
 msgstr[1] "Βρέθηκαν {n} αποτελέσματα για \"{q}\""
 
-#: ../root/components/forms.tt:240 ../root/components/forms.tt:265
+#: ../root/components/forms.tt:207 ../root/components/forms.tt:232
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:108
 msgid "French"
 msgstr ""
@@ -1254,18 +1278,18 @@ msgstr ""
 msgid "Genre"
 msgstr ""
 
-#: ../root/components/forms.tt:208 ../root/release/edit/information.tt:14
+#: ../root/components/forms.tt:175 ../root/release/edit/information.tt:14
 #: ../root/release/edit/tracklist.tt:546
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:173
 msgid "Guess case"
 msgstr ""
 
-#: ../root/components/forms.tt:229
+#: ../root/components/forms.tt:196
 msgctxt "header"
 msgid "Guess case"
 msgstr ""
 
-#: ../root/components/forms.tt:234
+#: ../root/components/forms.tt:201
 #, fuzzy
 #| msgid "Votes cast"
 msgctxt "interactive"
@@ -1276,7 +1300,7 @@ msgstr "Ψήφοι που ρίχτηκαν"
 msgid "Guess case medium title"
 msgstr ""
 
-#: ../root/components/forms.tt:212 ../root/release/edit/information.tt:16
+#: ../root/components/forms.tt:179 ../root/release/edit/information.tt:16
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:104
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:18
 #: ../root/static/scripts/guess-case/MB/Control/GuessCase.js:25
@@ -1287,7 +1311,7 @@ msgstr ""
 msgid "Guess case track"
 msgstr ""
 
-#: ../root/components/forms.tt:210 ../root/release/edit/information.tt:15
+#: ../root/components/forms.tt:177 ../root/release/edit/information.tt:15
 #: ../root/release/edit/tracklist.tt:225
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:179
 msgid "Guess feat. artists"
@@ -1297,7 +1321,7 @@ msgstr ""
 msgid "Guess feat. artists from track titles"
 msgstr ""
 
-#: ../root/components/forms.tt:221
+#: ../root/components/forms.tt:188
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:131
 msgid "Guess sort name"
 msgstr ""
@@ -1340,45 +1364,26 @@ msgid "ID"
 msgstr "ID"
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
-#: ../root/edit/details/AddArtist.js:132 ../root/edit/details/AddLabel.js:97
-#: ../root/layout/components/sidebar/SidebarIpis.js:16
-msgid "IPI code"
-msgstr "Κωδικός IPI"
-
-#: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
 #: ../root/edit/details/EditArtist.js:168 ../root/edit/details/EditLabel.js:127
 msgid "IPI codes"
 msgstr ""
 
-#: ../root/components/forms.tt:313
+#: ../root/components/forms.tt:280
 msgid ""
 "IPI codes are assigned by CISAC to “interested parties” in musical rights "
 "management. Check {ipi_doc|the documentation} for more info."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
-#: ../root/edit/details/AddArtist.js:141 ../root/edit/details/AddLabel.js:106
-#: ../root/layout/components/sidebar/SidebarIsnis.js:20
-msgid "ISNI code"
-msgstr ""
-
-#: ../root/artist/edit_form.tt:30 ../root/label/edit_form.tt:33
+#: ../root/artist/edit_form.tt:36 ../root/label/edit_form.tt:39
 #: ../root/edit/details/EditArtist.js:176 ../root/edit/details/EditLabel.js:136
 msgid "ISNI codes"
 msgstr ""
 
-#: ../root/components/forms.tt:322
+#: ../root/components/forms.tt:289
 msgid ""
 "ISNI codes are an ISO standard used to uniquely identify persons and "
 "organizations. Check {isni_doc|the documentation} for more info."
 msgstr ""
-
-#: ../root/recording/edit_form.tt:45 ../root/edit/details/RemoveIsrc.js:23
-#: ../root/otherlookup/OtherLookupForm.js:67
-#: ../root/report/IsrcsWithManyRecordings.js:58
-#: ../root/static/scripts/common/components/IsrcList.js:26
-msgid "ISRC"
-msgstr "ISRC"
 
 #: ../root/recording/edit_form.tt:45 ../root/report/ReportsIndex.js:613
 #: ../root/search/components/RecordingResults.js:140
@@ -1388,16 +1393,6 @@ msgstr "ISRC"
 #: ../root/utility/tableColumns.js:696
 msgid "ISRCs"
 msgstr "ISRCs"
-
-#: ../root/work/edit_form.tt:16 ../root/edit/details/AddWork.js:45
-#: ../root/edit/details/EditWork.js:62 ../root/edit/details/RemoveIswc.js:23
-#: ../root/otherlookup/OtherLookupForm.js:72
-#: ../root/report/IswcsWithManyWorks.js:49
-#: ../root/search/components/WorkResults.js:57
-#: ../root/static/scripts/common/components/IswcList.js:26
-#: ../root/utility/tableColumns.js:710
-msgid "ISWC"
-msgstr "ISWC"
 
 #: ../root/work/edit_form.tt:16 ../root/report/ReportsIndex.js:622
 #: ../root/static/scripts/common/components/IswcList.js:40
@@ -1448,7 +1443,7 @@ msgstr ""
 "Αν δεν βλέπετε την κυκλοφορία που ψάχνετε, μπορείτε να προσθέσετε μία νέα, "
 "χρησιμοποιώντας αυτό το CD TOC:"
 
-#: ../root/components/forms.tt:316 ../root/components/forms.tt:325
+#: ../root/components/forms.tt:283 ../root/components/forms.tt:292
 msgid "If you don’t know the code for this entity, just leave the field blank."
 msgstr ""
 
@@ -1527,7 +1522,7 @@ msgstr "Όργανο"
 msgid "Javascript is required for this page to work properly."
 msgstr ""
 
-#: ../root/components/forms.tt:247 ../root/components/forms.tt:272
+#: ../root/components/forms.tt:214 ../root/components/forms.tt:239
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:126
 msgid "Keep all-uppercase words uppercased"
 msgstr ""
@@ -1763,7 +1758,7 @@ msgstr "Μετακίνηση κομματιού προς τα  κάτω"
 msgid "Move track up"
 msgstr "Μετακίνηση κομματιού προς τα  πάνω"
 
-#: ../root/components/forms.tt:206
+#: ../root/components/forms.tt:173
 #: ../root/components/Aliases/ArtistCreditList.js:45
 #: ../root/components/list/RecordingList.js:79
 #: ../root/edit/details/AddArea.js:37 ../root/edit/details/AddArtist.js:47
@@ -1850,7 +1845,7 @@ msgctxt "vote"
 msgid "No"
 msgstr "Όχι"
 
-#: ../root/components/forms.tt:358
+#: ../root/components/forms.tt:325
 #: ../root/static/scripts/event/components/EventEditForm.js:356
 msgid "No description available."
 msgstr ""
@@ -1938,6 +1933,14 @@ msgstr ""
 msgid ""
 "Only releases with the same amount of tracks ({n}) as the release the disc "
 "ID is currently attached to are shown."
+msgstr ""
+
+#: ../root/release/add_cover_art.tt:168
+msgid ""
+"Only upload images that match this specific release (for example, check it "
+"shows the right barcode and catalog number). Do not upload fan-made, edited "
+"or improved artwork; this includes AI improvements and square versions of "
+"non-square art. See the {cover_art_doc|documentation} for more details."
 msgstr ""
 
 #: ../root/edit/search_macros.tt:103
@@ -2270,7 +2273,35 @@ msgstr "Κυκλοφορία “{name}” από {artist}"
 msgid "Remove"
 msgstr "Κατάργηση"
 
-#: ../root/work/edit_form.tt:60
+#: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
+#, fuzzy
+#| msgid "IPI code"
+msgctxt "interactive"
+msgid "Remove IPI code"
+msgstr "Κωδικός IPI"
+
+#: ../root/artist/edit_form.tt:36 ../root/label/edit_form.tt:39
+#, fuzzy
+#| msgid "Remove {item}"
+msgctxt "interactive"
+msgid "Remove ISNI code"
+msgstr "Κατάργηση {item}"
+
+#: ../root/recording/edit_form.tt:45
+#, fuzzy
+#| msgid "Remove ISRC"
+msgctxt "interactive"
+msgid "Remove ISRC"
+msgstr "Κατάργηση ISRC"
+
+#: ../root/work/edit_form.tt:16
+#, fuzzy
+#| msgid "Remove ISWC"
+msgctxt "interactive"
+msgid "Remove ISWC"
+msgstr "Κατάργηση ISWC"
+
+#: ../root/work/edit_form.tt:66
 msgid "Remove attribute"
 msgstr ""
 
@@ -2311,10 +2342,6 @@ msgstr "Κατάργηση κομματιού"
 #: ../root/static/scripts/common/utility/ratingTooltip.js:12
 msgid "Remove your rating"
 msgstr "Κατάργηση της βαθμολογίας σας"
-
-#: ../root/components/forms.tt:143 ../root/components/forms.tt:148
-msgid "Remove {item}"
-msgstr "Κατάργηση {item}"
 
 #: ../root/release/reorder_cover_art.tt:1
 #: ../root/release/reorder_cover_art.tt:4
@@ -2387,8 +2414,8 @@ msgstr ""
 #: ../root/layout/components/Search.js:97
 #: ../root/otherlookup/OtherLookupForm.js:39 ../root/search/SearchIndex.js:23
 #: ../root/search/SearchIndex.js:25 ../root/search/components/SearchForm.js:93
-#: ../root/static/scripts/common/components/Autocomplete2.js:801
-#: ../root/static/scripts/common/components/Autocomplete2.js:821
+#: ../root/static/scripts/common/components/Autocomplete2.js:802
+#: ../root/static/scripts/common/components/Autocomplete2.js:822
 #: ../root/static/scripts/common/components/SearchIcon.js:15
 #: ../root/taglookup/Form.js:51
 msgid "Search"
@@ -2447,7 +2474,7 @@ msgid ""
 "a description of these types."
 msgstr ""
 
-#: ../root/components/forms.tt:349
+#: ../root/components/forms.tt:316
 msgid ""
 "Select any type from the list to see its description. If the work doesn’t "
 "seem to match any type, just leave this blank."
@@ -2457,7 +2484,7 @@ msgstr ""
 msgid "Select images..."
 msgstr ""
 
-#: ../root/components/forms.tt:239 ../root/components/forms.tt:264
+#: ../root/components/forms.tt:206 ../root/components/forms.tt:231
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:107
 msgid "Sentence"
 msgstr ""
@@ -2522,7 +2549,7 @@ msgid ""
 "the full text in the annotation for reference."
 msgstr ""
 
-#: ../root/components/forms.tt:219 ../root/components/Aliases/AliasTable.js:18
+#: ../root/components/forms.tt:186 ../root/components/Aliases/AliasTable.js:18
 #: ../root/components/list/ArtistList.js:59 ../root/edit/details/AddArea.js:43
 #: ../root/edit/details/AddArtist.js:52 ../root/edit/details/AddLabel.js:42
 #: ../root/edit/details/AddRemoveAlias.js:59
@@ -2661,7 +2688,7 @@ msgstr ""
 msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr ""
 
-#: ../root/components/forms.tt:339
+#: ../root/components/forms.tt:306
 msgid ""
 "The sort name is an artist name variant used when sorting alphabetically. "
 "For usage information check the {sort_name_doc|sort name guidelines}."
@@ -2681,7 +2708,7 @@ msgstr ""
 msgid "The tracklist for this medium is unknown."
 msgstr ""
 
-#: ../root/components/forms.tt:181 ../root/release/edit/information.tt:207
+#: ../root/components/forms.tt:148 ../root/release/edit/information.tt:207
 #: ../root/static/scripts/edit/components/PartialDateInput.js:39
 msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
@@ -2723,12 +2750,12 @@ msgid ""
 "promotional texts or other artist or label-owned texts into the annotation."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:53
+#: ../root/artist/edit_form.tt:65
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:78
 msgid "This artist has ended."
 msgstr "Αυτός ο καλλιτέχνης έληξε."
 
-#: ../root/work/edit_form.tt:56
+#: ../root/work/edit_form.tt:62
 msgid "This attribute type is only used for grouping, please select a subtype"
 msgstr ""
 
@@ -2802,7 +2829,7 @@ msgstr ""
 msgid "This is the current release group image"
 msgstr ""
 
-#: ../root/label/edit_form.tt:36
+#: ../root/label/edit_form.tt:48
 msgid "This label has ended."
 msgstr "Αυτή η δισκογραφική εταιρεία έχει λήξει."
 
@@ -2967,7 +2994,7 @@ msgctxt "user type"
 msgid "Transclusion editor"
 msgstr "Ακύρωση επεξεργασίας"
 
-#: ../root/components/forms.tt:241 ../root/components/forms.tt:266
+#: ../root/components/forms.tt:208 ../root/components/forms.tt:233
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:109
 msgid "Turkish"
 msgstr ""
@@ -3085,7 +3112,7 @@ msgstr ""
 msgid "Uploading image..."
 msgstr ""
 
-#: ../root/components/forms.tt:252 ../root/components/forms.tt:277
+#: ../root/components/forms.tt:219 ../root/components/forms.tt:244
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:135
 msgid "Uppercase Roman numerals"
 msgstr ""
@@ -3222,7 +3249,7 @@ msgstr "Wiki"
 msgid "Work"
 msgstr "Έργο"
 
-#: ../root/work/edit_form.tt:20
+#: ../root/work/edit_form.tt:26
 #: ../root/layout/components/sidebar/WorkSidebar.js:89
 #: ../root/static/scripts/common/components/AttributeList.js:61
 msgid "Work attributes"
@@ -3247,13 +3274,13 @@ msgctxt "vote"
 msgid "Yes"
 msgstr "Ναι"
 
-#: ../root/components/forms.tt:300
+#: ../root/components/forms.tt:267
 msgid ""
 "You are about to add an ISRC to this recording. The ISRC must be entered in "
 "standard <code>CCXXXYYNNNNN</code> format:"
 msgstr ""
 
-#: ../root/components/forms.tt:289
+#: ../root/components/forms.tt:256
 msgid ""
 "You are about to add an ISWC to this work. The ISWC must be entered in "
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
@@ -3430,7 +3457,7 @@ msgstr ""
 msgid "edits"
 msgstr ""
 
-#: ../root/components/forms.tt:243 ../root/components/forms.tt:268
+#: ../root/components/forms.tt:210 ../root/components/forms.tt:235
 #: ../root/edit/search_macros.tt:190 ../root/release/edit/tracklist.tt:3
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
 #: ../root/release/edit/tracklist.tt:514 ../root/release/edit/tracklist.tt:529
@@ -3699,7 +3726,7 @@ msgstr ""
 msgid "« Previous"
 msgstr "« Προηγούμενο"
 
-#: ../root/components/forms.tt:342
+#: ../root/components/forms.tt:309
 msgid ""
 "“Last Name, First Name” and “Group, The” are common examples of sort names."
 msgstr ""
@@ -8989,6 +9016,16 @@ msgctxt "artist ended boolean"
 msgid "Ended"
 msgstr ""
 
+#: ../root/edit/details/AddArtist.js:132 ../root/edit/details/AddLabel.js:97
+#: ../root/layout/components/sidebar/SidebarIpis.js:16
+msgid "IPI code"
+msgstr "Κωδικός IPI"
+
+#: ../root/edit/details/AddArtist.js:141 ../root/edit/details/AddLabel.js:106
+#: ../root/layout/components/sidebar/SidebarIsnis.js:20
+msgid "ISNI code"
+msgstr ""
+
 #: ../root/edit/details/AddEvent.js:46 ../root/edit/details/EditEvent.js:50
 msgctxt "event"
 msgid "Cancelled"
@@ -9176,11 +9213,21 @@ msgctxt "alias ended boolean"
 msgid "Ended"
 msgstr ""
 
+#: ../root/edit/details/AddWork.js:45 ../root/edit/details/EditWork.js:62
+#: ../root/edit/details/RemoveIswc.js:23
+#: ../root/otherlookup/OtherLookupForm.js:72
+#: ../root/report/IswcsWithManyWorks.js:49
+#: ../root/search/components/WorkResults.js:57
+#: ../root/static/scripts/common/components/IswcList.js:26
+#: ../root/utility/tableColumns.js:710
+msgid "ISWC"
+msgstr "ISWC"
+
 #: ../root/edit/details/AddWork.js:63 ../root/edit/details/EditWork.js:80
 #: ../root/layout/components/sidebar/WorkSidebar.js:65
 #: ../root/search/components/WorkResults.js:59
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:144
-#: ../root/static/scripts/work/edit.js:340
+#: ../root/static/scripts/work/edit.js:342
 #, fuzzy
 #| msgid "Languages:"
 msgid "Lyrics languages"
@@ -9438,6 +9485,13 @@ msgstr "Από:"
 #: ../root/edit/details/historic/MoveDiscId.js:28
 msgid "To:"
 msgstr "Προς:"
+
+#: ../root/edit/details/RemoveIsrc.js:23
+#: ../root/otherlookup/OtherLookupForm.js:67
+#: ../root/report/IsrcsWithManyRecordings.js:58
+#: ../root/static/scripts/common/components/IsrcList.js:26
+msgid "ISRC"
+msgstr "ISRC"
 
 #: ../root/edit/details/RemoveMedium.js:49
 msgid ""
@@ -14185,7 +14239,7 @@ msgid "Languages known:"
 msgstr "Ομιλούμενες γλώσσες:"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:338
-#: ../root/static/scripts/work/edit.js:334
+#: ../root/static/scripts/work/edit.js:336
 #, fuzzy
 #| msgid "Add a language"
 msgctxt "interactive"
@@ -14447,7 +14501,7 @@ msgid "Try with indexed search instead."
 msgstr ""
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:126
-#: ../root/static/scripts/common/components/Autocomplete2.js:790
+#: ../root/static/scripts/common/components/Autocomplete2.js:791
 msgid "Type to search, or paste an MBID"
 msgstr ""
 
@@ -15206,6 +15260,7 @@ msgstr ""
 #: ../root/static/scripts/edit/URLCleanup.js:910
 #: ../root/static/scripts/edit/URLCleanup.js:4213
 #: ../root/static/scripts/edit/URLCleanup.js:5281
+#: ../root/static/scripts/edit/URLCleanup.js:5834
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -15327,115 +15382,115 @@ msgstr ""
 msgid "Please link to TikTok profiles, not videos."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5834
+#: ../root/static/scripts/edit/URLCleanup.js:5854
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5848
+#: ../root/static/scripts/edit/URLCleanup.js:5868
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5866
+#: ../root/static/scripts/edit/URLCleanup.js:5886
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6063
+#: ../root/static/scripts/edit/URLCleanup.js:6083
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6234
+#: ../root/static/scripts/edit/URLCleanup.js:6254
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6254
+#: ../root/static/scripts/edit/URLCleanup.js:6274
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6275
+#: ../root/static/scripts/edit/URLCleanup.js:6295
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6293
+#: ../root/static/scripts/edit/URLCleanup.js:6313
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6305
+#: ../root/static/scripts/edit/URLCleanup.js:6325
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6365
+#: ../root/static/scripts/edit/URLCleanup.js:6385
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6390
+#: ../root/static/scripts/edit/URLCleanup.js:6410
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6546
+#: ../root/static/scripts/edit/URLCleanup.js:6566
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6586
+#: ../root/static/scripts/edit/URLCleanup.js:6606
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6631
+#: ../root/static/scripts/edit/URLCleanup.js:6651
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6667
+#: ../root/static/scripts/edit/URLCleanup.js:6687
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6677
+#: ../root/static/scripts/edit/URLCleanup.js:6697
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6687
+#: ../root/static/scripts/edit/URLCleanup.js:6707
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6730
+#: ../root/static/scripts/edit/URLCleanup.js:6750
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6742
+#: ../root/static/scripts/edit/URLCleanup.js:6762
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6952
+#: ../root/static/scripts/edit/URLCleanup.js:6972
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6969
+#: ../root/static/scripts/edit/URLCleanup.js:6989
 #: ../root/static/scripts/edit/externalLinks.js:1073
 msgid "This relationship type combination is invalid."
 msgstr ""
@@ -16518,7 +16573,7 @@ msgstr ""
 msgid "Add lyrics language"
 msgstr ""
 
-#: ../root/static/scripts/work/edit.js:346
+#: ../root/static/scripts/work/edit.js:348
 #, fuzzy
 #| msgid "Remove Page"
 msgctxt "interactive"
@@ -18055,6 +18110,12 @@ msgid ""
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
 msgstr ""
+
+#~ msgid "Add {item}"
+#~ msgstr "Προσθήκη {item}"
+
+#~ msgid "Remove {item}"
+#~ msgstr "Κατάργηση {item}"
 
 #~ msgid "Type:"
 #~ msgstr "Τύπος:"
