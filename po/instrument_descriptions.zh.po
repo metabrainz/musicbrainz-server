@@ -622,7 +622,7 @@ msgstr ""
 "俄罗斯古代有4至36根弦的扬琴/箱状齐特琴，依种类不同演奏方式不一(见注释)。原本"
 "类似于放平的竖琴，在典礼和节庆场合演奏。"
 
-#. name:ravanahatha
+#. name:ravanahatta
 #: DB:instrument/description:754
 msgid "Ancient bowed fiddle, once popular in Western India and Sri Lanka."
 msgstr "古代提琴类，一度在印度西部和斯里兰卡流行。"

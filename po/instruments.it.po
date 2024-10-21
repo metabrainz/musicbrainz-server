@@ -27,8 +27,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.5.4\n"
 
 #: DB:instrument/name:438
@@ -3266,7 +3266,10 @@ msgid "rauschpfeife"
 msgstr "rauschpfeife"
 
 #: DB:instrument/name:754
-msgid "ravanahatha"
+#, fuzzy
+#| msgid "ravanahatha"
+msgctxt "Indian bowed spikefiddle"
+msgid "ravanahatta"
 msgstr "ravanahatha"
 
 #: DB:instrument/name:239

@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-09-22 12:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -32,8 +32,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.7.2\n"
 
 #. name:artist diploma
@@ -10203,9 +10203,16 @@ msgid "{additional} libretto writing location for"
 msgstr ""
 
 #. name:liner notes
-#: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
+#: DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
 msgstr ""
+
+#. name:liner notes
+#: DB:link_type/link_phrase:24
+#, fuzzy
+#| msgid "{additional} composition location for"
+msgid "{additional} liner notes {translator} for"
+msgstr "{additional:дополнительное} место композиции для"
 
 #. name:lyricist
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165

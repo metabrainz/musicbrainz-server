@@ -27,8 +27,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.6.2\n"
 
 #. name:rebab
@@ -693,7 +693,7 @@ msgstr ""
 "origine simile a un'arpa piatta, era suonato in occasione di cerimonie e "
 "altre festività."
 
-#. name:ravanahatha
+#. name:ravanahatta
 #: DB:instrument/description:754
 msgid "Ancient bowed fiddle, once popular in Western India and Sri Lanka."
 msgstr ""
@@ -2263,8 +2263,9 @@ msgstr ""
 "Strumento con 4 corde in metallo, intagliato a partire da un unico pezzo di "
 "legno in una forma particolare, simile al sarinda. Ha 3 fori di risonanza, "
 "di cui uno ad ogni lato del manico corto e uno sotto il ponte, coperto da "
-"una membrana.<br /> Da non confondere con il <a href=\"/instrument/"
-"0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>, una fidula uigura."
+"una membrana.<br /> Da non confondere con il <a href=\"/"
+"instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>, una fidula "
+"uigura."
 
 #. name:hümmelchen
 #: DB:instrument/description:1205

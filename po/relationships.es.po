@@ -25,16 +25,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-10-21 13:25+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.7.2\n"
 
 #. name:artist diploma
@@ -4071,12 +4071,12 @@ msgid ""
 "href=\"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">editor "
 "relationship type</a>."
 msgstr ""
-"Enlaza una edición a la grabación original, ya sea una versión para radio ("
-"que suele ser una versión de unos 3 minutos de una pista más larga para que "
+"Enlaza una edición a la grabación original, ya sea una versión para radio "
+"(que suele ser una versión de unos 3 minutos de una pista más larga para que "
 "sea posible reproducirla en la radio) o cualquier otro tipo de versión "
 "censurada, recortada o editada de algún otro modo del mismo audio. Puedes "
-"indicar el artista que editó la grabación con el tipo de relación “<a href=\""
-"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">editor</a>”."
+"indicar el artista que editó la grabación con el tipo de relación “<a "
+"href=\"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">editor</a>”."
 
 #. name:songfacts
 #: DB:link_type/description:289
@@ -5204,7 +5204,8 @@ msgstr ""
 msgid ""
 "Use this relationship for credits like “Recording was arranged by X for "
 "Label”."
-msgstr "Representa créditos como “Grabación arreglada por X para Discográfica”."
+msgstr ""
+"Representa créditos como “Grabación arreglada por X para Discográfica”."
 
 #. name:edited for
 #: DB:link_type/description:1252 DB:link_type/description:1253
@@ -5223,7 +5224,8 @@ msgstr "Representa créditos como “Grabación mezclada por X para Discográfic
 msgid ""
 "Use this relationship for credits like “Recording was produced by X for "
 "Label”."
-msgstr "Representa créditos como “Grabación producida por X para Discográfica”."
+msgstr ""
+"Representa créditos como “Grabación producida por X para Discográfica”."
 
 #. name:remixed for
 #: DB:link_type/description:1178
@@ -10506,8 +10508,16 @@ msgid "{additional} libretto writing location for"
 msgstr "lugar de escritura del libreto {additional:adicional} de"
 
 #. name:liner notes
-#: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
+#: DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
+msgstr ""
+"{translator:traductor|escritor} {additional:adicional} de notas de álbum"
+
+#. name:liner notes
+#: DB:link_type/link_phrase:24
+#, fuzzy
+#| msgid "{additional} liner notes {translator}"
+msgid "{additional} liner notes {translator} for"
 msgstr ""
 "{translator:traductor|escritor} {additional:adicional} de notas de álbum"
 

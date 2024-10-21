@@ -697,7 +697,7 @@ msgstr ""
 "(zie de aantekening). Oorspronkelijk leek het instrument op een platte harp "
 "en werd het bespeeld bij ceremonies en andere festiviteiten."
 
-#. name:ravanahatha
+#. name:ravanahatta
 #: DB:instrument/description:754
 msgid "Ancient bowed fiddle, once popular in Western India and Sri Lanka."
 msgstr ""

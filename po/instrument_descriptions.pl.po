@@ -13,8 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
-"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 "X-Generator: Weblate 5.7.2\n"
 
@@ -56,16 +56,16 @@ msgstr ""
 "d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">Ghaychak</a> (w kształcie łódki).<br /"
 "> Na razie nie wiadomo, w jaki sposób, jeśli w ogóle, te 3 podtypy są ze "
 "sobą powiązane.<br /> <br /> Informacje na temat skrzypiec używanych w "
-"gamelanie można znaleźć w artykule <a href=\"/instrument/3dbbb5ff-"
-"103b-4260-8cf6-679a73a7c552\">indonezyjski rebab</a>.<br /> Informacje na "
-"temat szarpanego instrumentu afgańskiego w kształcie łódki, znanego również "
-"jako kabuli rabab, można znaleźć w artykule <a href=\"/instrument/"
-"7e42e637-c7b4-422c-ad56-f7fafbd961bb\">rubab</a>.<br /> Informacje na temat "
-"średniowiecznej indyjskiej lutni szarpanej można znaleźć w artykule <a href="
-"\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">Seni rebab</a>.<br /> "
-"Informacje na temat średniowiecznych europejskich skrzypiec w kształcie "
-"gruszki można znaleźć w artykule <a href=\"/instrument/"
-"3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a>."
+"gamelanie można znaleźć w artykule <a href=\"/"
+"instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">indonezyjski rebab</a>."
+"<br /> Informacje na temat szarpanego instrumentu afgańskiego w kształcie "
+"łódki, znanego również jako kabuli rabab, można znaleźć w artykule <a "
+"href=\"/instrument/7e42e637-c7b4-422c-ad56-f7fafbd961bb\">rubab</a>.<br /> "
+"Informacje na temat średniowiecznej indyjskiej lutni szarpanej można znaleźć "
+"w artykule <a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">Seni "
+"rebab</a>.<br /> Informacje na temat średniowiecznych europejskich skrzypiec "
+"w kształcie gruszki można znaleźć w artykule <a href=\"/instrument/3f7302e4-"
+"f10f-4905-8d71-ef61141da383\">rebec</a>."
 
 #. name:chitra veena
 #: DB:instrument/description:744
@@ -84,9 +84,9 @@ msgstr ""
 "rezonatorem z wydrążonej tykwy, ma 6 głównych, 3 dronowe i 11-12 "
 "sympatycznych strun z przesuwanym blokiem z twardego drewna do zmiany "
 "wysokości dźwięku. Podobnie jak północnoindyjska <a href=\"/instrument/"
-"b4d38ac1-7f12-437c-a61a-be2796ffc559\">vichitra veena</a> ma się do <a href="
-"\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">rudra veena</a>, tak "
-"chitra veena ma się do <a href=\"/instrument/41761936-5dbc-433f-b558-"
+"b4d38ac1-7f12-437c-a61a-be2796ffc559\">vichitra veena</a> ma się do <a "
+"href=\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">rudra veena</a>, "
+"tak chitra veena ma się do <a href=\"/instrument/41761936-5dbc-433f-b558-"
 "a7ef14fe9b08\">saraswati veena</a>."
 
 #. name:kös
@@ -325,8 +325,8 @@ msgid ""
 msgstr ""
 "Suikinkutsu to rodzaj japońskiej ozdoby ogrodowej, która wykorzystuje "
 "kapiącą wodę do tworzenia muzyki. Chociaż jest również znana jako japońska "
-"cytra wodna, jej nazwa pochodzi od dźwięku, jaki wydaje koto (japońska cytra)"
-" i nie jest w rzeczywistości instrumentem strunowym."
+"cytra wodna, jej nazwa pochodzi od dźwięku, jaki wydaje koto (japońska "
+"cytra) i nie jest w rzeczywistości instrumentem strunowym."
 
 #. name:talkbox
 #: DB:instrument/description:453
@@ -556,9 +556,9 @@ msgid ""
 "e139-44a9-8a48-7963eb693dd1\">indung</a>, dual child drums are divided into "
 "the katipung (\"besar\" or larger) and the kutiplak (\"kecil\" or smaller)."
 msgstr ""
-"Zawsze używane razem z <a href=\"/instrument/c588cc24-e139-44a9-8a48-"
-"7963eb693dd1\">indung</a>, podwójne bębny dziecięce dzielą się na katipung "
-"(„besar” lub większe) i kutiplak („kecil” lub mniejsze)."
+"Zawsze używane razem z <a href=\"/instrument/c588cc24-"
+"e139-44a9-8a48-7963eb693dd1\">indung</a>, podwójne bębny dziecięce dzielą "
+"się na katipung („besar” lub większe) i kutiplak („kecil” lub mniejsze)."
 
 #. name:kethuk
 #: DB:instrument/description:986
@@ -665,8 +665,8 @@ msgid ""
 "current “Persian barbat” is more similar to the oud."
 msgstr ""
 "Starożytny środkowoazjatycki/perski instrument strunowy, przodek irańskiego "
-"oud. Był to ważny instrument w przedislamskim Iranie i Persji. Obecny „"
-"perski barbat” jest bardziej podobny do oud."
+"oud. Był to ważny instrument w przedislamskim Iranie i Persji. Obecny "
+"„perski barbat” jest bardziej podobny do oud."
 
 #. name:xiao
 #: DB:instrument/description:484
@@ -687,7 +687,7 @@ msgstr ""
 "(patrz adnotacja). Pierwotnie podobna do płaskiej harfy, grano na niej "
 "podczas ceremonii i innych uroczystości."
 
-#. name:ravanahatha
+#. name:ravanahatta
 #: DB:instrument/description:754
 msgid "Ancient bowed fiddle, once popular in Western India and Sri Lanka."
 msgstr ""
@@ -748,9 +748,9 @@ msgid ""
 msgstr ""
 "Dzwony w kształcie pręta lub słupa, zwykle rozmieszczone w linii lub okręgu, "
 "wiszące swobodnie lub uderzane młotkami. <br /> Informacje na temat "
-"instrumentu często używanego na dzwonnicach można znaleźć w artykule <a href="
-"\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">karyllon</a>.<br /> "
-"Informacje na temat instrumentu używanego w orkiestrze można znaleźć w "
+"instrumentu często używanego na dzwonnicach można znaleźć w artykule <a "
+"href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">karyllon</a>.<br /"
+"> Informacje na temat instrumentu używanego w orkiestrze można znaleźć w "
 "artykule <a href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">dzwony "
 "rurowe</a>."
 
@@ -794,8 +794,8 @@ msgid ""
 msgstr ""
 "Bas jest powszechnym, ale ogólnym określeniem, które odnosi się do więcej "
 "niż jednego instrumentu, przy czym najczęstszymi są gitara basowa i "
-"kontrabas (znany również jako kontrabas, akustyczny kontrabas, drewniany bas)"
-". Proszę użyć właściwego instrumentu, jeśli wiesz, o który chodzi."
+"kontrabas (znany również jako kontrabas, akustyczny kontrabas, drewniany "
+"bas). Proszę użyć właściwego instrumentu, jeśli wiesz, o który chodzi."
 
 #. name:daruan
 #: DB:instrument/description:546
@@ -826,8 +826,8 @@ msgid ""
 msgstr ""
 "Gitara basowa z rodziny gitar. Do wersji elektrycznej użyj <a href=\"/"
 "instrument/0b9d87fa-93fa-4956-8b6a-a419566cc915\">gitary basowej</a>, do "
-"akustycznej użyj <a href=\"/instrument/15861569-249d-4b24-8ce4-d0b001b1f978\""
-">gitary basowej</a>."
+"akustycznej użyj <a href=\"/instrument/15861569-249d-4b24-8ce4-"
+"d0b001b1f978\">gitary basowej</a>."
 
 #. name:bicycle bell
 #: DB:instrument/description:743
@@ -960,7 +960,8 @@ msgstr ""
 #. name:piano duo
 #: DB:instrument/description:1024
 msgid "Chamber ensemble where two pianists play on a different piano each."
-msgstr "Zespół kameralny, w którym dwóch pianistów gra na różnych fortepianach."
+msgstr ""
+"Zespół kameralny, w którym dwóch pianistów gra na różnych fortepianach."
 
 #. name:piano four hands
 #: DB:instrument/description:1025
@@ -1076,11 +1077,11 @@ msgid ""
 msgstr ""
 "Popularny i powszechny metalofon, zwykle układ metalowych klawiszy lub płyt "
 "na drewnianym pudle rezonatorowym. <br /> Aby uzyskać informacje na temat "
-"instrumentu często używanego na dzwonnicach, zobacz <a href=\"/instrument/"
-"0d14d4e0-9ac9-4a96-a595-4145d7794082\">karyllon</a>.<br /> Aby uzyskać "
-"informacje na temat instrumentu nazywanego dzwonem orkiestrowym/dzwonkiem w "
-"niektórych językach, zobacz <a href=\"/instrument/7d6964ff-b1f5-472b-bdd7-"
-"b53de3739ad3\">dzwony rurowe</a>."
+"instrumentu często używanego na dzwonnicach, zobacz <a href=\"/"
+"instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">karyllon</a>.<br /> Aby "
+"uzyskać informacje na temat instrumentu nazywanego dzwonem orkiestrowym/"
+"dzwonkiem w niektórych językach, zobacz <a href=\"/instrument/7d6964ff-"
+"b1f5-472b-bdd7-b53de3739ad3\">dzwony rurowe</a>."
 
 #. name:keyed box zither
 #: DB:instrument/description:1028
@@ -1162,8 +1163,9 @@ msgid ""
 msgstr ""
 "Składa się z nastrojonych metalowych sztabek, płytek lub klawiszy uderzanych "
 "młotkami i układanych (często na rezonatorach z dźwięcznego materiału) w "
-"różnych skalach. Porównaj <a href=\"/instrument/db95a035-6a3d-44b4-8694-"
-"74ff71b61768\">ksylofon</a> z drewnianym odpowiednikiem sztabki."
+"różnych skalach. Porównaj <a href=\"/instrument/"
+"db95a035-6a3d-44b4-8694-74ff71b61768\">ksylofon</a> z drewnianym "
+"odpowiednikiem sztabki."
 
 #. name:gambang
 #: DB:instrument/description:977
@@ -1376,10 +1378,10 @@ msgid ""
 "of wood, often an integral case. It has two courses of strings; drone and "
 "melody strings operated by buttons or keys."
 msgstr ""
-"Opracowany na podstawie japońskiego <a href=\"/instrument/"
-"1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a>, wykonany jest z "
-"drewna, często w integralnej obudowie. Posiada dwa rzędy strun; struny "
-"burdonowe i melodyczne obsługiwane przyciskami lub klawiszami."
+"Opracowany na podstawie japońskiego <a href=\"/"
+"instrument/1975ee04-30de-4835-9656-102ccd49c0c7\">taishogoto</a>, wykonany "
+"jest z drewna, często w integralnej obudowie. Posiada dwa rzędy strun; "
+"struny burdonowe i melodyczne obsługiwane przyciskami lub klawiszami."
 
 #. name:biniou
 #: DB:instrument/description:1117
@@ -1415,8 +1417,8 @@ msgstr ""
 "gamba. <br /> Współcześni członkowie to: <ul> <li> Skrzypce (mała altówka) </"
 "li> <li> Altówka </li> <li> Wiolonczela (mała duża altówka) </li> <li> "
 "Kontrabas (zastępujący violone (dużą altówkę)) </li></ul> Poprzedni "
-"członkowie to violone (obecnie uważane za violę) i basowa viola ("
-"poprzedniczka wiolonczeli). Czasami w skład grupy wchodzi również Octobass."
+"członkowie to violone (obecnie uważane za violę) i basowa viola "
+"(poprzedniczka wiolonczeli). Czasami w skład grupy wchodzi również Octobass."
 
 #. name:taishogoto
 #: DB:instrument/description:555
@@ -1432,7 +1434,8 @@ msgstr ""
 #. name:trikiti
 #: DB:instrument/description:847
 msgid "Diatonic button accordion used in traditional Basque ensemble."
-msgstr "Diatoniczny akordeon guzikowy używany w tradycyjnym zespole baskijskim."
+msgstr ""
+"Diatoniczny akordeon guzikowy używany w tradycyjnym zespole baskijskim."
 
 #. name:laouto
 #: DB:instrument/description:704
@@ -1475,9 +1478,9 @@ msgid ""
 "<li>Unrelated Indian drone “tanpura”.</li> <li>Related Indian “pandour”.</"
 "li> </ul>"
 msgstr ""
-"Nie mylić z: <ul> <li>serbsko-chorwackim zespołem „tamburica”.</li> <li>"
-"perskimi/tureckimi starożytnymi rzeczami, które wyewoluowały z „tanbur”.</"
-"li> <li>niezwiązanym indyjskim dronem „tanpura”.</li> <li>związanym "
+"Nie mylić z: <ul> <li>serbsko-chorwackim zespołem „tamburica”.</li> "
+"<li>perskimi/tureckimi starożytnymi rzeczami, które wyewoluowały z „tanbur”."
+"</li> <li>niezwiązanym indyjskim dronem „tanpura”.</li> <li>związanym "
 "indyjskim „pandour”.</li> </ul>"
 
 #. name:resonator guitar
@@ -1525,9 +1528,9 @@ msgid ""
 "a239-8578723db09c\">diatonic accordion</a>, it was similar to the German "
 "concertina and had 4 fold bellows and brass reeds."
 msgstr ""
-"Wczesny poprzednik <a href=\"/instrument/842d3d24-f638-47e6-a239-"
-"8578723db09c\">akordeon diatoniczny</a>, przypominał niemiecką koncertynę i "
-"miał miech czterokrotny oraz mosiężne stroiki."
+"Wczesny poprzednik <a href=\"/instrument/842d3d24-f638-47e6-"
+"a239-8578723db09c\">akordeon diatoniczny</a>, przypominał niemiecką "
+"koncertynę i miał miech czterokrotny oraz mosiężne stroiki."
 
 #. name:đing buốt
 #: DB:instrument/description:306
@@ -1542,9 +1545,9 @@ msgid ""
 "with a possible secondary resonator (tumba) it was invented in 1825 by sitar-"
 "player Ghulam Mohammed who wanted a deeper sound."
 msgstr ""
-"W rzeczywistości jest to sitar basowy, ma 4 główne, 3-4 chikari (dron) i 10-"
-"11 strun rezonansowych naciągniętych na szeroką drewnianą szyjkę. Wykonany z "
-"płasko ciętej tykwy z możliwym wtórnym rezonatorem (tumba) został "
+"W rzeczywistości jest to sitar basowy, ma 4 główne, 3-4 chikari (dron) i "
+"10-11 strun rezonansowych naciągniętych na szeroką drewnianą szyjkę. "
+"Wykonany z płasko ciętej tykwy z możliwym wtórnym rezonatorem (tumba) został "
 "wynaleziony w 1825 roku przez sitar-playera Ghulama Mohammeda, który chciał "
 "uzyskać głębszy dźwięk."
 
@@ -1599,8 +1602,8 @@ msgid ""
 "instrument/bfe379dc-1d65-4862-acd8-60d53bb963a2\">Harpsichord</a>."
 msgstr ""
 "Pianino elektromechaniczne ze stalowymi stroikami i wzmacnianym "
-"przetwornikiem. Nie należy mylić z „cembalo”, co jest inną nazwą dla <a href="
-"\"/instrument/bfe379dc-1d65-4862-acd8-60d53bb963a2\">klawesynu</a>."
+"przetwornikiem. Nie należy mylić z „cembalo”, co jest inną nazwą dla <a "
+"href=\"/instrument/bfe379dc-1d65-4862-acd8-60d53bb963a2\">klawesynu</a>."
 
 #. name:tubon
 #: DB:instrument/description:775
@@ -1789,8 +1792,8 @@ msgid ""
 "a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br />"
 msgstr ""
 "Informacje na temat brazylijskiego uderzania w bęben obręczowy za pomocą "
-"trzepaczki można znaleźć w artykule <a href=\"/instrument/a96bbbd1-7e44-4e79"
-"-b12e-a03ac232db98\">tamborim</a>.<br />"
+"trzepaczki można znaleźć w artykule <a href=\"/instrument/a96bbbd1-7e44-4e79-"
+"b12e-a03ac232db98\">tamborim</a>.<br />"
 
 #. name:cornamuse
 #: DB:instrument/description:510
@@ -1802,9 +1805,9 @@ msgid ""
 "a paragraph by Praetorius is the only known information, all reconstructions "
 "are approximations."
 msgstr ""
-"W przypadku francuskich dud zobacz <a href=\"/instrument/"
-"fc4a9a4d-3901-4c67-bfe5-5acbcdaef535\">cornemuse du centre</a>.<br /> W "
-"przypadku włoskich cornamusa zobacz <a href=\"/instrument/1d865ced-"
+"W przypadku francuskich dud zobacz <a href=\"/instrument/fc4a9a4d-3901-4c67-"
+"bfe5-5acbcdaef535\">cornemuse du centre</a>.<br /> W przypadku włoskich "
+"cornamusa zobacz <a href=\"/instrument/1d865ced-"
 "d86a-4277-8914-009740e37887\">dudy</a>.<br /> W odniesieniu do crumhornu, "
 "był używany w okresie renesansu. Ponieważ jedyną znaną informacją jest "
 "akapit Praetoriusa, wszystkie rekonstrukcje są przybliżeniami."
@@ -1817,10 +1820,10 @@ msgid ""
 "known as zampona, traditional Andean panpipe has two rows of pipes tied "
 "together with colourful bands."
 msgstr ""
-"Jeśli chodzi o włoskie dudy, zobacz <a href=\"/instrument/"
-"7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> Tradycyjna "
-"andyjska fletnia Pana, znana również jako zampona, składa się z dwóch rzędów "
-"piszczałek połączonych ze sobą kolorowymi opaskami."
+"Jeśli chodzi o włoskie dudy, zobacz <a href=\"/"
+"instrument/7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> "
+"Tradycyjna andyjska fletnia Pana, znana również jako zampona, składa się z "
+"dwóch rzędów piszczałek połączonych ze sobą kolorowymi opaskami."
 
 #. name:chalumeau
 #: DB:instrument/description:436
@@ -1833,8 +1836,8 @@ msgid ""
 "baroque and classical era."
 msgstr ""
 "Informacje na temat japońskiego potomka o nazwie pochodzącej z języka "
-"portugalskiego można znaleźć w artykule <a href=\"/instrument/07b91470-b63e-"
-"41e4-88e6-11c4acac064f\">charumera</a>.<br /> Informacje na temat "
+"portugalskiego można znaleźć w artykule <a href=\"/instrument/07b91470-"
+"b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> Informacje na temat "
 "średniowiecznego instrumentu dętego drewnianego z podwójnym stroikiem można "
 "znaleźć w artykule <a href=\"/instrument/b4f112c3-d666-47f2-bb85-"
 "bae28572ca13\">szałamaja</a>.<br /> Poprzednik współczesnego klarnetu, 7-"
@@ -1854,10 +1857,10 @@ msgid ""
 msgstr ""
 "W przypadku dud majorkańskich patrz <a href=\"/instrument/21d5d4ec-f8ef-44dc-"
 "b02f-e564de057dcc\">xeremies</a>.<br /> W przypadku oboju latynoskiego patrz "
-"<a href=\"/instrument/174e4a7a-dad6-4b3b-95e2-e3010b53a0ca\">chirimía</"
-"a>.<br /> W przypadku średniowiecznych instrumentów dętych drewnianych patrz "
-"<a href=\"/instrument/b4f112c3-d666-47f2-bb85-bae28572ca13\">szałamaja</"
-"a>.<br /> Wykonane są z dwóch związanych ze sobą rur trzcinowych, każda z "
+"<a href=\"/instrument/174e4a7a-dad6-4b3b-95e2-e3010b53a0ca\">chirimía</a>."
+"<br /> W przypadku średniowiecznych instrumentów dętych drewnianych patrz <a "
+"href=\"/instrument/b4f112c3-d666-47f2-bb85-bae28572ca13\">szałamaja</a>.<br /"
+"> Wykonane są z dwóch związanych ze sobą rur trzcinowych, każda z "
 "pojedynczym stroikiem, każda ma 4 otwory rezonansowe z przodu i tradycyjnie "
 "jeden z tyłu."
 
@@ -1873,8 +1876,8 @@ msgid ""
 msgstr ""
 "Jeśli chodzi o południowoamerykańską fletnię Pana, zobacz <a href=\"/"
 "instrument/448eeddf-37a3-49f3-9e46-d46ccd821aaf\">siku</a>.<br /> Jeśli "
-"chodzi o podobnie nazwaną grecką dudę, zobacz <a href=\"/instrument/86cf0eb3"
-"-b12d-40eb-bc32-928a1aebe3b1\">tsampouna</a>.<br /> Wykonana z całej owczej "
+"chodzi o podobnie nazwaną grecką dudę, zobacz <a href=\"/instrument/86cf0eb3-"
+"b12d-40eb-bc32-928a1aebe3b1\">tsampouna</a>.<br /> Wykonana z całej owczej "
 "lub koziej skóry, ma pojedynczy okrągły trzon, do którego przymocowane są "
 "wszystkie piszczałki i burdony."
 
@@ -1892,12 +1895,12 @@ msgid ""
 msgstr ""
 "W przypadku akordeonu znanego również jako Melodeon, patrz <a href=\"/"
 "instrument/842d3d24-f638-47e6-a239-8578723db09c\">diatoniczny akordeon "
-"guzikowy</a>.<br /> W przypadku MELODION z dętymi klawiszami, patrz <a href="
-"\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">melodica</a>.<br /> W "
-"przypadku przenośnych organów piszczałkowych używanych w Indiach patrz <a "
-"href=\"/instrument/c43c7647-077d-4d60-a01b-769de71b82f2\">fisharmonia</"
-"a>.<br /> Znany również jako organy pompowe, jest duży, wygląda jak pianino "
-"i ma pedały przymocowane do miecha ze stroikami. Dźwięk powstaje poprzez grę "
+"guzikowy</a>.<br /> W przypadku MELODION z dętymi klawiszami, patrz <a "
+"href=\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">melodica</a>.<br /"
+"> W przypadku przenośnych organów piszczałkowych używanych w Indiach patrz "
+"<a href=\"/instrument/c43c7647-077d-4d60-a01b-769de71b82f2\">fisharmonia</a>."
+"<br /> Znany również jako organy pompowe, jest duży, wygląda jak pianino i "
+"ma pedały przymocowane do miecha ze stroikami. Dźwięk powstaje poprzez grę "
 "na klawiaturze."
 
 #. name:musette de cour
@@ -1912,10 +1915,10 @@ msgid ""
 msgstr ""
 "W przypadku instrumentu znanego jako „chińskie musette” patrz <a href=\"/"
 "instrument/15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a>.<br /> W "
-"przypadku oboju znanego również jako musette patrz <a href=\"/instrument/"
-"77b29599-96c7-4571-9fae-09e7e42b8175/\">obój piccolo</a>.<br /> Instrument "
-"ten, znany również jako barokowy musette, był małym instrumentem dudowym "
-"używanym głównie przez francuski dwór i szlachtę w latach 1600–1700."
+"przypadku oboju znanego również jako musette patrz <a href=\"/"
+"instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">obój piccolo</a>.<br /> "
+"Instrument ten, znany również jako barokowy musette, był małym instrumentem "
+"dudowym używanym głównie przez francuski dwór i szlachtę w latach 1600–1700."
 
 #. name:fiscorn
 #: DB:instrument/description:1184
@@ -1925,11 +1928,11 @@ msgid ""
 "fd016966-658e-40db-8fe1-f2235fe1e9a3\">flugelhorn</a>.<br /><br /> "
 "Originating in Germanic polka bands, it is used today in Catalan cobla."
 msgstr ""
-"W przypadku instrumentu znanego we Włoszech jako flicorno patrz sakshorn.<br "
-"/> W przypadku instrumentu znanego w Hiszpanii jako fliscorno patrz <a href="
-"\"/instrument/fd016966-658e-40db-8fe1-f2235fe1e9a3\">flugelhorn</a>.<br /"
-"><br /> Instrument ten ma swoje początki w germańskich zespołach grających "
-"polki, a obecnie jest używany w katalońskim cobla."
+"W przypadku instrumentu znanego we Włoszech jako flicorno patrz sakshorn."
+"<br /> W przypadku instrumentu znanego w Hiszpanii jako fliscorno patrz <a "
+"href=\"/instrument/fd016966-658e-40db-8fe1-f2235fe1e9a3\">flugelhorn</a>."
+"<br /><br /> Instrument ten ma swoje początki w germańskich zespołach "
+"grających polki, a obecnie jest używany w katalońskim cobla."
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -1941,8 +1944,8 @@ msgid ""
 "2 rows of buttons that each produce two tones (bisonoric)."
 msgstr ""
 "W przypadku organów znanych również jako Melodeon patrz <a href=\"/"
-"instrument/20443ce3-cde1-4968-b7cc-65e45bb9714f\">organy piszczałkowe</"
-"a>.<br /> W przypadku organów MELODION z dętymi klawiszami patrz <a href=\"/"
+"instrument/20443ce3-cde1-4968-b7cc-65e45bb9714f\">organy piszczałkowe</a>."
+"<br /> W przypadku organów MELODION z dętymi klawiszami patrz <a href=\"/"
 "instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">melodica</a>.<br /> Organ "
 "ten znany jest również jako Melodeon. Posiada od 1 do 2 rzędów przycisków, z "
 "których każdy wytwarza dwa tony (bisonoryczne)."
@@ -1955,9 +1958,10 @@ msgid ""
 "of goatskin, it has two chanters and no drones. Its name is a reborrowing of "
 "the Italian."
 msgstr ""
-"Podobnie nazwane włoskie dudy można znaleźć w <a href=\"/instrument/"
-"7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> Wykonane z koziej "
-"skóry, ma dwa piszczałki i nie ma dronów. Nazwa jest zapożyczeniem włoskiej."
+"Podobnie nazwane włoskie dudy można znaleźć w <a href=\"/"
+"instrument/7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> "
+"Wykonane z koziej skóry, ma dwa piszczałki i nie ma dronów. Nazwa jest "
+"zapożyczeniem włoskiej."
 
 #. name:charumera
 #: DB:instrument/description:1150
@@ -1970,12 +1974,12 @@ msgid ""
 "by ramen street vendors."
 msgstr ""
 "Podobnie nazwany instrument dęty drewniany z pojedynczym stroikiem można "
-"znaleźć w <a href=\"/instrument/e3511ed1-3d73-4340-880f-c8ccc8eda11c\""
-">chalumeau</a>.<br /> W przypadku europejskiego instrumentu można znaleźć w "
-"<a href=\"/instrument/b4f112c3-d666-47f2-bb85-bae28572ca13\">shawm</a>.<br /"
-"> Nazwa pochodzi od portugalskiej nazwy shawm, była importowana przez "
-"iberyjskich handlarzy. Jest używana w teatrze kabuki i przez ulicznych "
-"sprzedawców ramen."
+"znaleźć w <a href=\"/instrument/e3511ed1-3d73-4340-880f-"
+"c8ccc8eda11c\">chalumeau</a>.<br /> W przypadku europejskiego instrumentu "
+"można znaleźć w <a href=\"/instrument/b4f112c3-d666-47f2-bb85-"
+"bae28572ca13\">shawm</a>.<br /> Nazwa pochodzi od portugalskiej nazwy shawm, "
+"była importowana przez iberyjskich handlarzy. Jest używana w teatrze kabuki "
+"i przez ulicznych sprzedawców ramen."
 
 #. name:piffero
 #: DB:instrument/description:1183
@@ -1986,10 +1990,11 @@ msgid ""
 "holes and a conical bore. In Sicily there was a larger bass version named "
 "bifora or pifara."
 msgstr ""
-"W przypadku małego fletu używanego z bębnem zobacz <a href=\"/instrument/"
-"996e6514-37a4-4b22-af71-e968f30913fd\">fife</a>.<br /> Często akompaniowany "
-"akordeonom lub dudom, takim jak zampogna lub müsa, ma 8-9 otworów i stożkowy "
-"otwór. Na Sycylii istniała większa wersja basowa zwana bifora lub pifara."
+"W przypadku małego fletu używanego z bębnem zobacz <a href=\"/"
+"instrument/996e6514-37a4-4b22-af71-e968f30913fd\">fife</a>.<br /> Często "
+"akompaniowany akordeonom lub dudom, takim jak zampogna lub müsa, ma 8-9 "
+"otworów i stożkowy otwór. Na Sycylii istniała większa wersja basowa zwana "
+"bifora lub pifara."
 
 #. name:xeremies
 #: DB:instrument/description:1186
@@ -2029,10 +2034,10 @@ msgid ""
 msgstr ""
 "W przypadku instrumentu smyczkowego, zwanego także „lirą”, patrz <a href=\"/"
 "instrument/303d4f1a-f799-4c42-9bac-dbedd9139e91\">lira korbowa</a>.<br /> W "
-"przypadku instrumentu przypominającego harfę patrz <a href=\"/instrument/"
-"21bd4d63-a75a-4022-abd3-52ba7487c2de\">lira</a>.<br /> W przypadku lutni "
-"smyczkowej patrz kreteńska <a href=\"/instrument/4fe225a3-6939-4fab-a416-"
-"d0cd38c96cb9\">lira</a>."
+"przypadku instrumentu przypominającego harfę patrz <a href=\"/"
+"instrument/21bd4d63-a75a-4022-abd3-52ba7487c2de\">lira</a>.<br /> W "
+"przypadku lutni smyczkowej patrz kreteńska <a href=\"/"
+"instrument/4fe225a3-6939-4fab-a416-d0cd38c96cb9\">lira</a>."
 
 #. name:jeli ngɔni
 #: DB:instrument/description:854
@@ -2300,8 +2305,8 @@ msgid ""
 msgstr ""
 "Historycznie instrument ludowy z Appalachów, jego wydłużony pudło "
 "rezonansowe w kształcie ósemki jest wykonane z różnych gatunków drewna i "
-"często ma otwory rezonansowe w kształcie serca. Ma 3 do 4 metalowych strun ("
-"w tym dron) i jest diatonicznie progowany."
+"często ma otwory rezonansowe w kształcie serca. Ma 3 do 4 metalowych strun "
+"(w tym dron) i jest diatonicznie progowany."
 
 #. name:gaita de boto
 #: DB:instrument/description:1081
@@ -2397,9 +2402,9 @@ msgid ""
 "snake\" bore now is conical, in addition it is played through a removable "
 "metal curled mouth piece."
 msgstr ""
-"Udoskonalony przez Johanna Christopha Dennera około 1730 roku, lufa „"
-"skręconego węża” ma teraz kształt stożkowy, ponadto gra się na nim za pomocą "
-"wyjmowanego metalowego, zakręconego ustnika."
+"Udoskonalony przez Johanna Christopha Dennera około 1730 roku, lufa "
+"„skręconego węża” ma teraz kształt stożkowy, ponadto gra się na nim za "
+"pomocą wyjmowanego metalowego, zakręconego ustnika."
 
 #. name:sursingar
 #: DB:instrument/description:816
@@ -2409,9 +2414,8 @@ msgid ""
 "today, it was used for Dhrupad style music."
 msgstr ""
 "Udoskonalona przez Dżafara Khana, miała drewnianą płytę rezonansową, "
-"podstrunnicę pokrytą żelazem, a wszystkie struny były stalowe lub "
-"brązowe.<br /> Dziś jest mniej popularna, używana była w muzyce w stylu "
-"Dhrupad."
+"podstrunnicę pokrytą żelazem, a wszystkie struny były stalowe lub brązowe."
+"<br /> Dziś jest mniej popularna, używana była w muzyce w stylu Dhrupad."
 
 #. name:elektronium
 #: DB:instrument/description:848
@@ -2474,9 +2478,9 @@ msgid ""
 "Instead of a wooden body, it is amplified by a metal horn resonator; its "
 "louder and more directional sound made it useful in loud areas."
 msgstr ""
-"Zamiast drewnianej obudowy wzmacniacz wyposażono w metalowy rezonator tubowy;"
-" jego głośniejszy i bardziej kierunkowy dźwięk sprawia, że sprawdza się w "
-"głośnych miejscach."
+"Zamiast drewnianej obudowy wzmacniacz wyposażono w metalowy rezonator "
+"tubowy; jego głośniejszy i bardziej kierunkowy dźwięk sprawia, że sprawdza "
+"się w głośnych miejscach."
 
 #. name:traditional basque ensemble
 #: DB:instrument/description:909
@@ -3039,9 +3043,10 @@ msgid ""
 "is made of rubber or cane, the chanter (saqqafa) are two cane pipes, one 2 "
 "holed, the other 5 holed, with the bell of an ox horn."
 msgstr ""
-"Wykonana z całej skóry zwierzęcej, używana na festiwalach. Dmuchawka (mserka)"
-" jest zrobiona z gumy lub trzciny, piszczałka (saqqafa) to dwie piszczałki z "
-"trzciny, jedna z 2 otworami, druga z 5 otworami, z dzwonkiem z rogu wołu."
+"Wykonana z całej skóry zwierzęcej, używana na festiwalach. Dmuchawka "
+"(mserka) jest zrobiona z gumy lub trzciny, piszczałka (saqqafa) to dwie "
+"piszczałki z trzciny, jedna z 2 otworami, druga z 5 otworami, z dzwonkiem z "
+"rogu wołu."
 
 #. name:quijada
 #: DB:instrument/description:755
@@ -3059,8 +3064,8 @@ msgid ""
 "blown\" mirliton.<br /> Not to be confused with the Egyptian/Iraqi zummara "
 "which is an instrument similar to a chalumeau."
 msgstr ""
-"Wykonany z bambusa, z jednym końcem pokrytym papierem pergaminowym, jest to „"
-"bocznie dmuchany” mirliton.<br /> Nie należy go mylić z egipsko-iracką "
+"Wykonany z bambusa, z jednym końcem pokrytym papierem pergaminowym, jest to "
+"„bocznie dmuchany” mirliton.<br /> Nie należy go mylić z egipsko-iracką "
 "zummarą, która jest instrumentem podobnym do chalumeau."
 
 #. name:suling
@@ -3116,7 +3121,8 @@ msgstr ""
 #. name:güiro
 #: DB:instrument/description:112
 msgid "Made of gourd or wood, it is used as a scraper in Latin American music."
-msgstr "Wykonany z tykwy lub drewna, używany jako skrobak w muzyce latynoskiej."
+msgstr ""
+"Wykonany z tykwy lub drewna, używany jako skrobak w muzyce latynoskiej."
 
 #. name:slit drum
 #: DB:instrument/description:366
@@ -3149,8 +3155,8 @@ msgstr ""
 "Wykonane z wielu pionowo zawieszonych bambusowych rurek z wyciętymi "
 "segmentami, aby uzyskać różną wysokość dźwięku. Można na nich grać zarówno "
 "wisząc, jak i na bambusowej ramie, jak na ksylofonie. <br /> W przypadku "
-"balijskiego metalofonu, czasami nazywanego chalung lub calung, patrz <a href="
-"\"/instrument/395bab77-bb77-4696-96d6-dfcade201c6d\">jublag</a>."
+"balijskiego metalofonu, czasami nazywanego chalung lub calung, patrz <a "
+"href=\"/instrument/395bab77-bb77-4696-96d6-dfcade201c6d\">jublag</a>."
 
 #. name:sasando
 #: DB:instrument/description:928
@@ -3370,7 +3376,8 @@ msgstr ""
 #. name:German concertina
 #: DB:instrument/description:838
 msgid "More usually square than hexagonal, with long plate reeds."
-msgstr "Zwykle kwadratowe, a nie sześciokątne, z długimi, płytkowymi stroikami."
+msgstr ""
+"Zwykle kwadratowe, a nie sześciokątne, z długimi, płytkowymi stroikami."
 
 #. name:bass viol
 #: DB:instrument/description:916
@@ -3498,11 +3505,11 @@ msgid ""
 "<br /> Originating in the 19th century horn-design boom, it is used mostly "
 "in outside concert and marching music."
 msgstr ""
-"Nie należy mylić go z <a href=\"/instrument/eafabec6-af67-4a49-be38-"
-"4401e7200494\">melofonem</a>, czyli dźwięcznym, wolnym stroikiem w kształcie "
-"lutni.<br /> Instrument ten, mający swój początek w XIX-wiecznym boomie na "
-"instrumenty dęte, jest wykorzystywany głównie na koncertach plenerowych i w "
-"muzyce marszowej."
+"Nie należy mylić go z <a href=\"/instrument/eafabec6-af67-4a49-"
+"be38-4401e7200494\">melofonem</a>, czyli dźwięcznym, wolnym stroikiem w "
+"kształcie lutni.<br /> Instrument ten, mający swój początek w XIX-wiecznym "
+"boomie na instrumenty dęte, jest wykorzystywany głównie na koncertach "
+"plenerowych i w muzyce marszowej."
 
 #. name:harmonium
 #: DB:instrument/description:135
@@ -3514,13 +3521,13 @@ msgid ""
 "and a bellows in the back; both are operated by the same player, often a "
 "singer. While upright versions exist, they are rare."
 msgstr ""
-"Nie należy mylić z europejskimi pionowymi <a href=\"/instrument/"
-"20443ce3-cde1-4968-b7cc-65e45bb9714f\">organami piszczałkowymi</a>, "
-"powszechnie znanymi jako „Harmonium”. <br /> Znane również jako samvadini, "
-"zostały opracowane w Indiach z importowanych organów piszczałkowych. "
-"Składają się z drewnianej skrzyni w kształcie pudełka z klawiaturą i miechem "
-"z tyłu; oba są obsługiwane przez tego samego gracza, często śpiewaka. "
-"Chociaż istnieją wersje pionowe, są rzadkie."
+"Nie należy mylić z europejskimi pionowymi <a href=\"/instrument/20443ce3-"
+"cde1-4968-b7cc-65e45bb9714f\">organami piszczałkowymi</a>, powszechnie "
+"znanymi jako „Harmonium”. <br /> Znane również jako samvadini, zostały "
+"opracowane w Indiach z importowanych organów piszczałkowych. Składają się z "
+"drewnianej skrzyni w kształcie pudełka z klawiaturą i miechem z tyłu; oba są "
+"obsługiwane przez tego samego gracza, często śpiewaka. Chociaż istnieją "
+"wersje pionowe, są rzadkie."
 
 #. name:cabrette
 #: DB:instrument/description:1195
@@ -3542,8 +3549,8 @@ msgid ""
 "Used during the Renaissance, its double-reed is inside a windcap and its "
 "body ends in a decorative curve."
 msgstr ""
-"Nie należy mylić go z francuskim obojem dworskim cromorne z XVII–XVIII "
-"wieku.<br /> Używany w okresie renesansu, jego podwójny stroik znajduje się "
+"Nie należy mylić go z francuskim obojem dworskim cromorne z XVII–XVIII wieku."
+"<br /> Używany w okresie renesansu, jego podwójny stroik znajduje się "
 "wewnątrz osłony przeciwwiatrowej, a korpus zakończony jest ozdobnym "
 "wygięciem."
 
@@ -3557,8 +3564,8 @@ msgid ""
 "worn by one person and beaten by one hand, it is often combined with tabor "
 "pipes."
 msgstr ""
-"Nie należy mylić go z <a href=\"/instrument/4431f7b0-69a4-49ee-b84f-"
-"15dda19fb70c\">tamburynem</a>.<br /> Informacje na temat brazylijskiego "
+"Nie należy mylić go z <a href=\"/instrument/4431f7b0-69a4-49ee-"
+"b84f-15dda19fb70c\">tamburynem</a>.<br /> Informacje na temat brazylijskiego "
 "bębna obręczowego uderzanego miotełką można znaleźć w artykule <a href=\"/"
 "instrument/a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br /> Bęben "
 "boczny, często z jednym lub kilkoma werblami, noszony przez jedną osobę i "
@@ -3575,14 +3582,14 @@ msgid ""
 "<br /><br /> Used in traditional music together with drums, it has a small "
 "bag made of ewe or goat and double chanters with bells made of cowhorn."
 msgstr ""
-"Nie należy mylić z libijską szałamają, znaną również jako zukra lub "
-"zurna.<br /> Nie należy mylić z <a href=\"/instrument/"
-"826a3a61-75ce-4620-9890-241f118d99e9\">mijwiz</a> lub podobną zummarą.<br /> "
-"<br /> Nie należy również mylić z „mizmar”, ogólnym arabskim terminem "
-"określającym kilka instrumentów trzcinowych, osób grających na nich, a także "
-"taniec. <br /><br /> Używany w muzyce tradycyjnej razem z bębnami, składa "
-"się z małego worka wykonanego z owczej lub koziej skóry oraz podwójnych "
-"piszczałek z dzwonkami wykonanymi z rogu krowiego."
+"Nie należy mylić z libijską szałamają, znaną również jako zukra lub zurna."
+"<br /> Nie należy mylić z <a href=\"/"
+"instrument/826a3a61-75ce-4620-9890-241f118d99e9\">mijwiz</a> lub podobną "
+"zummarą.<br /> <br /> Nie należy również mylić z „mizmar”, ogólnym arabskim "
+"terminem określającym kilka instrumentów trzcinowych, osób grających na "
+"nich, a także taniec. <br /><br /> Używany w muzyce tradycyjnej razem z "
+"bębnami, składa się z małego worka wykonanego z owczej lub koziej skóry oraz "
+"podwójnych piszczałek z dzwonkami wykonanymi z rogu krowiego."
 
 #. name:ghijak
 #: DB:instrument/description:932
@@ -3617,8 +3624,8 @@ msgid ""
 "bd57c6a6-616b-4c00-bcde-f0f34e8d6eb0\">dulzaina</a>.<br /> Used in the "
 "renaissance, it is made of maple wood with a folded bore and conical bell."
 msgstr ""
-"Nie należy mylić jej z hiszpańską <a href=\"/instrument/bd57c6a6-616b-4c00"
-"-bcde-f0f34e8d6eb0\">dulzainą</a> z podwójnym stroikiem.<br /> Używana w "
+"Nie należy mylić jej z hiszpańską <a href=\"/instrument/bd57c6a6-616b-4c00-"
+"bcde-f0f34e8d6eb0\">dulzainą</a> z podwójnym stroikiem.<br /> Używana w "
 "renesansie, wykonana z drewna klonowego, ze składanym kanałem i stożkową "
 "czarą."
 
@@ -3640,15 +3647,15 @@ msgid ""
 "and one from bagpipe chanters. A combination of both were used to develop "
 "the modern oboe."
 msgstr ""
-"Nie mylić z zummara ani innymi podwójnymi klarnetami o podobnych nazwach.<br "
-"/> Informacje na temat wielootworowego stroika wolnego stworzonego w 1880 r. "
-"można znaleźć w artykule Martinshorn.<br /> Informacje na temat podobnie "
-"nazwanego instrumentu dętego drewnianego z pojedynczym stroikiem można "
-"znaleźć w artykule <a href=\"/instrument/e3511ed1-3d73-4340-880f-"
+"Nie mylić z zummara ani innymi podwójnymi klarnetami o podobnych nazwach."
+"<br /> Informacje na temat wielootworowego stroika wolnego stworzonego w "
+"1880 r. można znaleźć w artykule Martinshorn.<br /> Informacje na temat "
+"podobnie nazwanego instrumentu dętego drewnianego z pojedynczym stroikiem "
+"można znaleźć w artykule <a href=\"/instrument/e3511ed1-3d73-4340-880f-"
 "c8ccc8eda11c\">chalumeau</a>.<br /> Informacje na temat japońskiego "
 "odpowiednika tego instrumentu, którego nazwa wywodzi się z języka "
-"portugalskiego, można znaleźć w artykule <a href=\"/instrument/07b91470-b63e-"
-"41e4-88e6-11c4acac064f\">charumera</a>.<br /> Informacje na temat "
+"portugalskiego, można znaleźć w artykule <a href=\"/instrument/07b91470-"
+"b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> Informacje na temat "
 "katalońskiego szałamaja można znaleźć w artykule <a href=\"/instrument/"
 "dffe56f5-cd75-4392-ad31-1c3abf2b8e37\"> tible</a>.<br /> W przypadku "
 "włoskiej ciaramelli zobacz <a href=\"/instrument/814816db-3368-4889-a8cd-"
@@ -3673,7 +3680,8 @@ msgstr "Obój d'amore / Obój d'amour (mezzosopran)"
 #. name:saron barung
 #: DB:instrument/description:1007
 msgid "Often called simply \"saron\", it plays the basic, balungan melody."
-msgstr "Często nazywany po prostu „saron”, gra podstawową, balungańską melodię."
+msgstr ""
+"Często nazywany po prostu „saron”, gra podstawową, balungańską melodię."
 
 #. name:neyanban
 #: DB:instrument/description:1206
@@ -3682,8 +3690,8 @@ msgid ""
 "Persia. It has a single reed with a double piped chanter with 6-7 holes."
 msgstr ""
 "Często kolorowo zdobiony, znany od czasów starożytnych w południowej Persji. "
-"Ma pojedynczą stroikową piszczałkę z podwójnym piszczałkowym piszczałką z 6-"
-"7 otworami."
+"Ma pojedynczą stroikową piszczałkę z podwójnym piszczałkowym piszczałką z "
+"6-7 otworami."
 
 #. name:slapstick
 #: DB:instrument/description:107
@@ -3772,9 +3780,9 @@ msgid ""
 "f778-4942-8fba-6f33ebfb2ac6\">panerus</a>, it plays elaborate melodies and "
 "is one of the most important instruments in the ensemble."
 msgstr ""
-"Jedna lub dwie oktawy poniżej <a href=\"/instrument/7e024f24-f778-4942-8fba-"
-"6f33ebfb2ac6\">panerus</a>, gra skomplikowane melodie i jest jednym z "
-"najważniejszych instrumentów w zespole."
+"Jedna lub dwie oktawy poniżej <a href=\"/instrument/7e024f24-"
+"f778-4942-8fba-6f33ebfb2ac6\">panerus</a>, gra skomplikowane melodie i jest "
+"jednym z najważniejszych instrumentów w zespole."
 
 #. name:handbell
 #: DB:instrument/description:275
@@ -4137,11 +4145,11 @@ msgid ""
 "from vihuelists starting to play with bows, viols have frets, flat backs, "
 "sloped shoulders, c-holes and are tuned in fourths."
 msgstr ""
-"Proszę używać <a href=\"/instrument/be34e4e5-6e77-46f5-ab56-c9641d3da213\""
-">Viola da Gamba</a> z oznaczeniem „viol” dla ogólnych/nieokreślonych "
-"oznaczeń violi, a nie tego. Viole, opracowane w XV wieku przez vihuelistów, "
-"którzy zaczęli grać smyczkami, mają progi, płaskie płyty tylne, pochyłe "
-"ramiona, otwory w kształcie litery C i są strojone w kwartach."
+"Proszę używać <a href=\"/instrument/be34e4e5-6e77-46f5-ab56-"
+"c9641d3da213\">Viola da Gamba</a> z oznaczeniem „viol” dla ogólnych/"
+"nieokreślonych oznaczeń violi, a nie tego. Viole, opracowane w XV wieku "
+"przez vihuelistów, którzy zaczęli grać smyczkami, mają progi, płaskie płyty "
+"tylne, pochyłe ramiona, otwory w kształcie litery C i są strojone w kwartach."
 
 #. name:mouth harp
 #: DB:instrument/description:80
@@ -4159,8 +4167,8 @@ msgid ""
 "Plucked idiophones have spikes, nails or flexible tongues (\"lamellae\") "
 "that are plucked in various ways to produce sound."
 msgstr ""
-"Idiofony szarpane posiadają kolce, gwoździe lub giętkie języczki („blaszki”)"
-", które są szarpane na różne sposoby w celu wytworzenia dźwięku."
+"Idiofony szarpane posiadają kolce, gwoździe lub giętkie języczki "
+"(„blaszki”), które są szarpane na różne sposoby w celu wytworzenia dźwięku."
 
 #. name:melodica
 #: DB:instrument/description:44
@@ -4183,8 +4191,8 @@ msgid ""
 msgstr ""
 "Popularny w latach 1500-1650, znany również jako cynkowy, miał ośmiokątny "
 "kształt z siedmioma otworami jak flet, ale ustnik jak trąbka.<br /> W "
-"przypadku współczesnego instrumentu dętego zobacz <a href=\"/instrument/"
-"257dad59-02e6-47d9-958a-659843737827\">kornet</a>."
+"przypadku współczesnego instrumentu dętego zobacz <a href=\"/"
+"instrument/257dad59-02e6-47d9-958a-659843737827\">kornet</a>."
 
 #. name:claviorganum
 #: DB:instrument/description:912
@@ -4254,7 +4262,8 @@ msgstr ""
 msgid ""
 "Precursor of the cobla used in sardana, it was in use since the medieval "
 "period."
-msgstr "Poprzednik cobli używanej w sardanie; był w użyciu już w średniowieczu."
+msgstr ""
+"Poprzednik cobli używanej w sardanie; był w użyciu już w średniowieczu."
 
 #. name:baroque guitar
 #: DB:instrument/description:917
@@ -4406,8 +4415,8 @@ msgstr ""
 "Jest to drugi pod względem wysokości instrument gangsa, ma od 4 do 7 "
 "brązowych klawiszy zawieszonych nad długimi bambusowymi rezonatorami.<br /> "
 "Informacje na temat sundajskiego ksylofonu bambusowego, używanego również w "
-"gamelanie, można znaleźć w artykule <a href=\"/instrument/6e180df5-6df9-46bb-"
-"8ebf-c576a010fb5a\">calung</a>."
+"gamelanie, można znaleźć w artykule <a href=\"/"
+"instrument/6e180df5-6df9-46bb-8ebf-c576a010fb5a\">calung</a>."
 
 #. name:brač
 #: DB:instrument/description:825
@@ -4466,8 +4475,8 @@ msgstr ""
 "przypadku metalofonu ze stalowym prętem, używanego od zabawek po orkiestrę, "
 "patrz <a href=\"/instrument/340b8043-e3c4-443e-afb8-7fce24fe0ce4\">dzwonki</"
 "a>. <br /> W przypadku idiofonu szarpanego z korbką, obracającego się "
-"cylindra/tarczy, patrz <a href=\"/instrument/2f5f6a67-2b2b-4857-92b0-"
-"5b25d485f632\">pudełko muzyczne</a>."
+"cylindra/tarczy, patrz <a href=\"/"
+"instrument/2f5f6a67-2b2b-4857-92b0-5b25d485f632\">pudełko muzyczne</a>."
 
 #. name:shaken idiophone
 #: DB:instrument/description:954
@@ -4532,11 +4541,11 @@ msgid ""
 "cm long hardwood body with 7 finger holes and 5 wax-fillable tuning holes "
 "and a wide flaring wooden bell; shorter variants have a metal bell."
 msgstr ""
-"Podobnie jak północnoindyjski <a href=\"/instrument/5e17d5f8-65b1-464d-9f90-"
-"47259d832507\">shahnai</a>, ma 95-centymetrowy korpus z twardego drewna z 7 "
-"otworami na palce i 5 otworami do strojenia wypełnianymi woskiem oraz "
-"szeroki, rozszerzający się drewniany dzwon; krótsze wersje mają metalowy "
-"dzwon."
+"Podobnie jak północnoindyjski <a href=\"/"
+"instrument/5e17d5f8-65b1-464d-9f90-47259d832507\">shahnai</a>, ma 95-"
+"centymetrowy korpus z twardego drewna z 7 otworami na palce i 5 otworami do "
+"strojenia wypełnianymi woskiem oraz szeroki, rozszerzający się drewniany "
+"dzwon; krótsze wersje mają metalowy dzwon."
 
 #. name:tin whistle
 #: DB:instrument/description:197
@@ -4746,8 +4755,9 @@ msgid ""
 "> In Sunda it is known as kendhang katipung."
 msgstr ""
 "Najmniejszy z kendangów, przeznaczony specjalnie do gry na dwóch "
-"instrumentach: <a href=\"/instrument/14acd267-2e1b-459d-b41e-058d2c106345\""
-">gendhing</a>.<br /> W Sunda znany jest jako kendhang katipung."
+"instrumentach: <a href=\"/instrument/14acd267-2e1b-459d-"
+"b41e-058d2c106345\">gendhing</a>.<br /> W Sunda znany jest jako kendhang "
+"katipung."
 
 #. name:electric bass guitar
 #: DB:instrument/description:51
@@ -5129,8 +5139,8 @@ msgid ""
 "The bass harmonica is a type of octave harmonica where the lowest note (E) "
 "is the same as that on a bass guitar."
 msgstr ""
-"Harmonijka basowa to rodzaj harmonijki oktawowej, w której najniższa nuta (E)"
-" jest taka sama, jak w gitarze basowej."
+"Harmonijka basowa to rodzaj harmonijki oktawowej, w której najniższa nuta "
+"(E) jest taka sama, jak w gitarze basowej."
 
 #. name:bass oboe
 #: DB:instrument/description:732
@@ -5284,7 +5294,8 @@ msgstr ""
 #: DB:instrument/description:492
 msgid ""
 "The daegeum is a large transverse flute from Korea which is made of bamboo."
-msgstr "Daegeum to duży poprzeczny flet pochodzący z Korei, wykonany z bambusa."
+msgstr ""
+"Daegeum to duży poprzeczny flet pochodzący z Korei, wykonany z bambusa."
 
 #. name:daf
 #: DB:instrument/description:326
@@ -6401,8 +6412,8 @@ msgid ""
 "wikipedia.org/wiki/Thon_and_rammana\">thon and rammana</a>."
 msgstr ""
 "Thon to bęben w kształcie kielicha z korpusem ceramicznym lub drewnianym, "
-"używany w klasycznej muzyce tajskiej i kambodżańskiej. Stanowi część <a href="
-"\"http://en.wikipedia.org/wiki/Thon_and_rammana\">thon i rammana</a>."
+"używany w klasycznej muzyce tajskiej i kambodżańskiej. Stanowi część <a "
+"href=\"http://en.wikipedia.org/wiki/Thon_and_rammana\">thon i rammana</a>."
 
 #. name:tinya
 #: DB:instrument/description:724
@@ -6412,7 +6423,8 @@ msgstr "Tinya to mały bębenek używany w tradycyjnej muzyce Andów."
 #. name:tiêu
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
-msgstr "Tiêu to wietnamski flet o dęciu końcowym, spokrewniony z chińskim xiao."
+msgstr ""
+"Tiêu to wietnamski flet o dęciu końcowym, spokrewniony z chińskim xiao."
 
 #. name:tololoche
 #: DB:instrument/description:746
@@ -6597,9 +6609,9 @@ msgid ""
 "Gourd_mouth_organ\">gourd mouth organ</a> used by minority ethnic groups in "
 "the central highlands of Vietnam."
 msgstr ""
-"đing năm to <a href=\"https://en.wikipedia.org/wiki/Gourd_mouth_organ\""
-">organ ustny wykonany z tykwy</a> używany przez mniejszości etniczne "
-"zamieszkujące centralne wyżyny Wietnamu."
+"đing năm to <a href=\"https://en.wikipedia.org/wiki/"
+"Gourd_mouth_organ\">organ ustny wykonany z tykwy</a> używany przez "
+"mniejszości etniczne zamieszkujące centralne wyżyny Wietnamu."
 
 #. name:đàn nguyệt
 #: DB:instrument/description:242
@@ -6670,7 +6682,8 @@ msgstr "ģīga to dwustrunowa cytra smyczkowa występująca na Łotwie."
 #, fuzzy
 msgid ""
 "The ōtsuzumi is an hourglass-shaped Japanese drum, larger than the kotsuzumi."
-msgstr "ōtsuzumi to japoński bęben w kształcie klepsydry, większy od kotsuzumi."
+msgstr ""
+"ōtsuzumi to japoński bęben w kształcie klepsydry, większy od kotsuzumi."
 
 #. name:šargija
 #: DB:instrument/description:680
@@ -6688,8 +6701,8 @@ msgid ""
 "(made of tin, pottery or wood) covered with animal skin with a long Arundo "
 "donax reed attached."
 msgstr ""
-"Żafżafa lub rabbaba to maltański bęben cierny składający się z pojemnika ("
-"wykonanego z cyny, ceramiki lub drewna) pokrytego skórą zwierzęcą, do "
+"Żafżafa lub rabbaba to maltański bęben cierny składający się z pojemnika "
+"(wykonanego z cyny, ceramiki lub drewna) pokrytego skórą zwierzęcą, do "
 "którego przymocowano długą trzcinę Arundo donax."
 
 #. name:kacapi
@@ -6726,9 +6739,9 @@ msgid ""
 "This is the specific instrument, for other, \"lute-like\" instruments, see "
 "<a href=\"/instrument/1a28f232-38ee-4293-9f4c-e0daed92b926\">lute family</a>."
 msgstr ""
-"To jest konkretny instrument. Informacje na temat innych instrumentów „"
-"podobnych do lutni” można znaleźć w <a href=\"/instrument/1a28f232-38ee-4293"
-"-9f4c-e0daed92b926\">rodzinie lutni</a>."
+"To jest konkretny instrument. Informacje na temat innych instrumentów "
+"„podobnych do lutni” można znaleźć w <a href=\"/"
+"instrument/1a28f232-38ee-4293-9f4c-e0daed92b926\">rodzinie lutni</a>."
 
 #. name:akete
 #: DB:instrument/description:747
@@ -6739,11 +6752,11 @@ msgid ""
 "instrument/30aeef52-3ebf-405e-9baa-ef6c6f3ef6d5\">kete</a>) commonly used in "
 "Burru and Nyabinghi musics."
 msgstr ""
-"Trzyczęściowy zestaw perkusyjny (<a href=\"/instrument/ed1628bd-8541-4874"
-"-b8ca-2cec8b4c5140\">baandu</a>, <a href=\"/instrument/"
-"81b68590-5c82-47a3-9790-1570ca60f711\">funde </a> i <a href=\"/instrument/"
-"30aeef52-3ebf-405e-9baa-ef6c6f3ef6d5\">kete</a>) powszechnie używane w "
-"muzyce Burru i Nyabinghi."
+"Trzyczęściowy zestaw perkusyjny (<a href=\"/instrument/ed1628bd-8541-4874-"
+"b8ca-2cec8b4c5140\">baandu</a>, <a href=\"/"
+"instrument/81b68590-5c82-47a3-9790-1570ca60f711\">funde </a> i <a href=\"/"
+"instrument/30aeef52-3ebf-405e-9baa-ef6c6f3ef6d5\">kete</a>) powszechnie "
+"używane w muzyce Burru i Nyabinghi."
 
 #. name:timpani
 #: DB:instrument/description:167
@@ -6769,11 +6782,11 @@ msgid ""
 "horsehair, later metal, strings and a modern \"Concert\" box-zither variant "
 "with a switch mechanism to alter the up to 40 strings sharps and flats."
 msgstr ""
-"Tradycyjny i mitologiczny psalterium z Finlandii, występuje w dwóch wersjach:"
-" najstarsza, jednoczęściowa, bez mostka, z 5 do 20 strunami, pierwotnie z "
-"końskiego włosia, później z metalu, oraz nowoczesna odmiana „koncertowej” "
-"cytry pudełkowej z mechanizmem przełącznikowym umożliwiającym zmianę do 40 "
-"strun (krzyżyków i bemoli)."
+"Tradycyjny i mitologiczny psalterium z Finlandii, występuje w dwóch "
+"wersjach: najstarsza, jednoczęściowa, bez mostka, z 5 do 20 strunami, "
+"pierwotnie z końskiego włosia, później z metalu, oraz nowoczesna odmiana "
+"„koncertowej” cytry pudełkowej z mechanizmem przełącznikowym umożliwiającym "
+"zmianę do 40 strun (krzyżyków i bemoli)."
 
 #. name:khene
 #: DB:instrument/description:611
@@ -6917,7 +6930,8 @@ msgstr ""
 #. name:kemençe of the Black Sea
 #: DB:instrument/description:541
 msgid "Turkish box-shaped kemenche, mainly used for folk music."
-msgstr "Turecki kemenche w kształcie pudełka, używany głównie w muzyce ludowej."
+msgstr ""
+"Turecki kemenche w kształcie pudełka, używany głównie w muzyce ludowej."
 
 #. name:kudüm
 #: DB:instrument/description:525
@@ -6974,9 +6988,9 @@ msgid ""
 "the modernised gamelan."
 msgstr ""
 "W odróżnieniu od innych saronów, ich sześć-siedem klawiszy nie jest "
-"gładkich, lecz ściętych lub wypustkowanych, jak w przypadku gender i <a href="
-"\"/instrument/73173277-b7ef-4d5e-83b2-205cd2f12488\">slenthem</a>, który w "
-"dużej mierze zastąpił go w zmodernizowanym gamelanie."
+"gładkich, lecz ściętych lub wypustkowanych, jak w przypadku gender i <a "
+"href=\"/instrument/73173277-b7ef-4d5e-83b2-205cd2f12488\">slenthem</a>, "
+"który w dużej mierze zastąpił go w zmodernizowanym gamelanie."
 
 #. name:pūkaea
 #: DB:instrument/description:788
@@ -6991,7 +7005,8 @@ msgstr ""
 #. name:tenor banjo
 #: DB:instrument/description:657
 msgid "Used as rhythm accompaniment, it has a shorter neck and 17-19 frets."
-msgstr "Używana jako akompaniament rytmiczny, ma krótszą szyjkę i 17-19 progów."
+msgstr ""
+"Używana jako akompaniament rytmiczny, ma krótszą szyjkę i 17-19 progów."
 
 #. name:gaita gallega
 #: DB:instrument/description:1079
@@ -7132,9 +7147,9 @@ msgid ""
 "c6dba89cf8ff\">sitar</a>”."
 msgstr ""
 "Używana w Indiach w okresie średniowiecza, miała korpus w kształcie cytry "
-"pałkowej z 3 strunami. <br /> W przypadku lutni o długiej szyjce zwanej „"
-"tritantri veena” w XIX wieku patrz „<a href=\"/instrument/9290b2c1-97c3-4355"
-"-a26f-c6dba89cf8ff\">sitar</a>”."
+"pałkowej z 3 strunami. <br /> W przypadku lutni o długiej szyjce zwanej "
+"„tritantri veena” w XIX wieku patrz „<a href=\"/"
+"instrument/9290b2c1-97c3-4355-a26f-c6dba89cf8ff\">sitar</a>”."
 
 #. name:slenthem
 #: DB:instrument/description:962
@@ -7606,8 +7621,8 @@ msgstr ""
 "instrument/3bccb7eb-cbca-42cd-b0ac-a5e959df7221\">membranofony</a> (od "
 "bębnów do ksylofonów). Użyj najbliższego przybliżonego instrumentu, jaki "
 "jest możliwy do uzyskania punktów, użyj instrumentów perkusyjnych z punktem, "
-"jeśli nie można znaleźć lepszego i <a href=\"/doc/How_to_Add_Instruments\""
-">utwórz bilet instrumentu</a>, jeśli to konieczne."
+"jeśli nie można znaleźć lepszego i <a href=\"/doc/"
+"How_to_Add_Instruments\">utwórz bilet instrumentu</a>, jeśli to konieczne."
 
 #. name:violone
 #: DB:instrument/description:420
@@ -7743,7 +7758,8 @@ msgstr ""
 msgid ""
 "Without strings or membranes, sound is created by the whole instrument "
 "vibrating."
-msgstr "Bez strun i membran, dźwięk powstaje w wyniku drgań całego instrumentu."
+msgstr ""
+"Bez strun i membran, dźwięk powstaje w wyniku drgań całego instrumentu."
 
 #. name:vibrandoneon
 #: DB:instrument/description:840

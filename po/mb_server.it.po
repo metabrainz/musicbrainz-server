@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 19:33+0530\n"
+"POT-Creation-Date: 2024-10-21 13:22+0000\n"
 "PO-Revision-Date: 2024-10-03 00:45+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
@@ -44,8 +44,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.7.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -14847,7 +14847,7 @@ msgstr "Immagine {current} di {total}"
 #: ../root/static/scripts/common/components/FingerprintTable.js:115
 #: ../root/static/scripts/common/hooks/usePagedMediumTable.js:108
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:84
-#: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:144
+#: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:142
 msgid "Loading..."
 msgstr "Caricamento in corso..."
 
@@ -16198,7 +16198,7 @@ msgstr "Accreditato a"
 
 #: ../root/static/scripts/edit/components/forms.js:224
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
-#: ../root/static/scripts/release-editor/init.js:287
+#: ../root/static/scripts/release-editor/init.js:308
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Se lasci questa pagina perderai tutte le tue modifiche."
 
