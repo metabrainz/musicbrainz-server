@@ -38,6 +38,7 @@ has 'c' => (
 );
 
 Readonly our $url_prefix => 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
+Readonly our $mail_service_base_url => DBDefs->MAIL_SERVICE_BASE_URL;
 
 sub _encode_header {
     my $header = shift;
