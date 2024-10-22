@@ -1017,7 +1017,7 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042',
   },
   // Beatport
-  {                             // Closed in Dec. 2017, replaced with www.beatport.com/chart
+  {                             // Old DJ page, closed in Dec. 2017, replaced with www.beatport.com/chart
                      input_url: 'http://dj.beatport.com/thegoldenboyuk',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
@@ -1064,9 +1064,20 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://dj.beatport.com/artists/4orce-dj/208047',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.beatport.com/artist/4orce-dj/208047',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'https://www.beatport.com/release/pryda-10-vol-i/1563118',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'downloadpurchase',
+                                ],
             expected_clean_url: 'https://www.beatport.com/release/pryda-10-vol-i/1563118',
        only_valid_entity_types: ['release'],
   },
@@ -1074,6 +1085,10 @@ limited_link_type_combinations: [
                      input_url: 'http://classic.beatport.com/release/4/2361374',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'downloadpurchase',
+                                ],
             expected_clean_url: 'https://www.beatport.com/release/4/2361374',
        only_valid_entity_types: ['release'],
   },
@@ -1081,6 +1096,10 @@ limited_link_type_combinations: [
                      input_url: 'https://www.beatport.com/en-US/html/content/release/detail/161035/Back%20To%20The%20Future',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'downloadpurchase',
+                                ],
             expected_clean_url: 'https://www.beatport.com/release/back-to-the-future/161035',
        only_valid_entity_types: ['release'],
   },
@@ -1088,6 +1107,10 @@ limited_link_type_combinations: [
                      input_url: 'https://www.beatport.com/en-US/html/content/release/detail/06130/%40@%26%25%24$%23%22%21!-&tracks#',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'downloadpurchase',
+                                ],
             expected_clean_url: 'https://www.beatport.com/release/at-at-and-percent-money-money-pound-!!/6130',
        only_valid_entity_types: ['release'],
   },
@@ -1095,27 +1118,54 @@ limited_link_type_combinations: [
                      input_url: 'https://www.beatport.com/en-US/html/content/release/detail/287442/',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://www.beatport.com/release/---/287442',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'downloadpurchase',
+                                ],
+            expected_clean_url: 'https://www.beatport.com/release/-/287442',
        only_valid_entity_types: ['release'],
   },
   {                             // Nowadays erroneous redirect for legacy URL format missing slug (same example)
                      input_url: 'https://www.beatport.com/release//287442',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://www.beatport.com/release/---/287442',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'downloadpurchase',
+                                ],
+            expected_clean_url: 'https://www.beatport.com/release/-/287442',
        only_valid_entity_types: ['release'],
   },
   {                             // Used to be rejected by validation (MBS-11263)
                      input_url: 'https://www.beatport.com/release/riva-starr-presents-square-pegs-round-holes-5-years-of-snatch%21-sampler/1520186',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'downloadpurchase',
+                                ],
             expected_clean_url: 'https://www.beatport.com/release/riva-starr-presents-square-pegs-round-holes-5-years-of-snatch%21-sampler/1520186',
+       only_valid_entity_types: ['release'],
+  },
+  {                             // DJ page (no slug available)
+                     input_url: 'https://dj.beatport.com/releases/3794236',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'downloadpurchase',
+                                ],
+            expected_clean_url: 'https://www.beatport.com/release/-/3794236',
        only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://www.beatport.com/chart/eric-prydz-february-chart/32623',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'downloadpurchase',
+                                ],
             expected_clean_url: 'https://www.beatport.com/chart/eric-prydz-february-chart/32623',
        only_valid_entity_types: ['release'],
   },
@@ -1123,6 +1173,10 @@ limited_link_type_combinations: [
                      input_url: 'https://www.beatport.com/stem-pack/my-colors-ep/3030',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'downloadpurchase',
+                                ],
             expected_clean_url: 'https://www.beatport.com/stem-pack/my-colors-ep/3030',
        only_valid_entity_types: ['release'],
   },
@@ -1130,6 +1184,10 @@ limited_link_type_combinations: [
                      input_url: 'https://www.beatport.com/stem/celestial/7380',
              input_entity_type: 'recording',
     expected_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'downloadpurchase',
+                                ],
             expected_clean_url: 'https://www.beatport.com/stem/celestial/7380',
        only_valid_entity_types: ['recording'],
   },
@@ -1137,7 +1195,22 @@ limited_link_type_combinations: [
                      input_url: 'https://www.beatport.com/track/full-stop-original-mix/1682783',
              input_entity_type: 'recording',
     expected_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'downloadpurchase',
+                                ],
             expected_clean_url: 'https://www.beatport.com/track/full-stop-original-mix/1682783',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://dj.beatport.com/releases/4758665/19583630',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'downloadpurchase',
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'downloadpurchase',
+                                ],
+            expected_clean_url: 'https://www.beatport.com/track/-/19583630',
        only_valid_entity_types: ['recording'],
   },
   {
@@ -1145,6 +1218,13 @@ limited_link_type_combinations: [
              input_entity_type: 'label',
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://www.beatport.com/label/mouseville/1421',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://dj.beatport.com/labels/justice-hardcore/30135',
+             input_entity_type: 'label',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.beatport.com/label/justice-hardcore/30135',
        only_valid_entity_types: ['label'],
   },
   // Behance
