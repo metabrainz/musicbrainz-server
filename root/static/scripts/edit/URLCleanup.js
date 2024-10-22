@@ -1406,7 +1406,11 @@ const CLEANUPS: CleanupEntries = {
       return false;
     },
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:(?:classic|pro|www)\.)?beatport\.com\//, 'https://www.beatport.com/');
+      url = url.replace(/^(?:https?:\/\/)?([^/]+\.)?beatport\.com\//, 'https://$1beatport.com/');
+      url = url.replace(/^https:\/\/(?:(?:classic|pro|www)\.)?beatport\.com\//, 'https://www.beatport.com/');
+      url = url.replace(/^https:\/\/dj\.beatport\.com\/(artist|label)s\/([\w-]+)\/([1-9][0-9]*)/, 'https://www.beatport.com/$1/$2/$3');
+      url = url.replace(/^https:\/\/dj\.beatport\.com\/releases\/[1-9][0-9]*\/([1-9][0-9]*)/, 'https://www.beatport.com/track/-/$1');
+      url = url.replace(/^https:\/\/dj\.beatport\.com\/releases\/([1-9][0-9]*)/, 'https://www.beatport.com/release/-/$1');
       const m = url.match(/^(https:\/\/www\.beatport\.com)\/[\w-]+\/html\/content\/([\w-]+)\/detail\/0*([0-9]+)\/([^/?&#]*).*$/);
       if (m) {
         const slug = m[4].toLowerCase()
