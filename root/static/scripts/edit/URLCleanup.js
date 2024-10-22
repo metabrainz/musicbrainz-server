@@ -1368,7 +1368,43 @@ const CLEANUPS: CleanupEntries = {
   },
   'beatport': {
     match: [/^(https?:\/\/)?([^/]+\.)?beatport\.com/i],
-    restrict: [LINK_TYPES.downloadpurchase],
+    restrict: [
+      LINK_TYPES.downloadpurchase,
+      {
+        recording: [
+          LINK_TYPES.downloadpurchase.recording,
+          LINK_TYPES.streamingpaid.recording,
+        ],
+      },
+      {
+        release: [
+          LINK_TYPES.downloadpurchase.release,
+          LINK_TYPES.streamingpaid.release,
+        ],
+      },
+    ],
+    select(url, sourceType) {
+      const m = /^https?:\/\/(?:sounds|www)\.beatport\.com\/([\w-]+)\/[\w!%-]+\/[1-9][0-9]*$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (prefix) {
+          case 'chart':
+          case 'release':
+          case 'stem-pack':
+            if (sourceType === 'release') {
+              return LINK_TYPES.downloadpurchase.release;
+            }
+            break;
+          case 'stem':
+          case 'track':
+            if (sourceType === 'recording') {
+              return LINK_TYPES.downloadpurchase.recording;
+            }
+            break;
+        }
+      }
+      return false;
+    },
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?(?:(?:classic|pro|www)\.)?beatport\.com\//, 'https://www.beatport.com/');
       const m = url.match(/^(https:\/\/www\.beatport\.com)\/[\w-]+\/html\/content\/([\w-]+)\/detail\/0*([0-9]+)\/([^/?&#]*).*$/);
@@ -1405,11 +1441,13 @@ const CLEANUPS: CleanupEntries = {
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.recording:
+          case LINK_TYPES.streamingpaid.recording:
             return {
               result: prefix === 'track' || prefix === 'stem',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.streamingpaid.release:
             return {
               result: prefix === 'release' ||
                 prefix === 'chart' ||
