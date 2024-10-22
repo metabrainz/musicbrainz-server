@@ -13,6 +13,13 @@ declare type DeepReadOnly<T> =
   T extends $ReadOnlyArray<infer V> ? $ReadOnlyArray<DeepReadOnly<V>> :
   T extends {...} ? {+[K in keyof T]: DeepReadOnly<T[K]>} : T;
 
+declare type DocPageT = {
+  +content: string,
+  +hierarchy: $ReadOnlyArray<string>,
+  +title: string,
+  +version: number,
+};
+
 /*
  * See http://search.cpan.org/~lbrocard/Data-Page-2.02/lib/Data/Page.pm
  * Serialized in MusicBrainz::Server::TO_JSON.
