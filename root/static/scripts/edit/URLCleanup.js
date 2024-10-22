@@ -1423,11 +1423,11 @@ const CLEANUPS: CleanupEntries = {
           .replace(/[^a-z0-9!]/g, '-')
           .replace(/-+/g, '-')
           .replace(/^-|-$/g, '')
-          .replace(/^$/, '---');
+          .replace(/^$/, '-');
         url = [m[1], m[2], slug, m[3]].join('/');
       }
       url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/([\w!-]+)\/0*([0-9]+).*$/, '$1/$2/$3/$4');
-      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/\/0*([0-9]+)(?![\w!-]|\/[0-9]).*$/, '$1/$2/---/$3');
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/\/0*([0-9]+)(?![\w!-]|\/[0-9]).*$/, '$1/$2/-/$3');
       return url;
     },
     validate(url, id) {

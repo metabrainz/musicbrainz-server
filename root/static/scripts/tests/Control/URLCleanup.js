@@ -1017,7 +1017,7 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042',
   },
   // Beatport
-  {                             // Closed in Dec. 2017, replaced with www.beatport.com/chart
+  {                             // Old DJ page, closed in Dec. 2017, replaced with www.beatport.com/chart
                      input_url: 'http://dj.beatport.com/thegoldenboyuk',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
@@ -1115,7 +1115,7 @@ limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
                                   'downloadpurchase',
                                 ],
-            expected_clean_url: 'https://www.beatport.com/release/---/287442',
+            expected_clean_url: 'https://www.beatport.com/release/-/287442',
        only_valid_entity_types: ['release'],
   },
   {                             // Nowadays erroneous redirect for legacy URL format missing slug (same example)
@@ -1126,7 +1126,7 @@ limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
                                   'downloadpurchase',
                                 ],
-            expected_clean_url: 'https://www.beatport.com/release/---/287442',
+            expected_clean_url: 'https://www.beatport.com/release/-/287442',
        only_valid_entity_types: ['release'],
   },
   {                             // Used to be rejected by validation (MBS-11263)
