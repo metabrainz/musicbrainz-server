@@ -32,7 +32,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-23 18:42+0000\n"
+"PO-Revision-Date: 2024-10-22 10:42+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/fr/>\n"
@@ -4652,12 +4652,9 @@ msgstr "ID pour la SESAC, société états-unienne de gestion des droits"
 
 #. name:UACRR ID
 #: DB:work_attribute_type/description:209
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Brazilian rights society ECAD"
 msgctxt "work_attribute_type"
 msgid "ID for the Ukrainian rights society UACRR"
-msgstr "ID pour l’ECAD, société brésilienne de gestion des droits"
+msgstr "ID pour l’UACRR, société ukrainienne de gestion des droits"
 
 #. name:AGADU ID
 #: DB:work_attribute_type/description:43
@@ -8616,7 +8613,7 @@ msgstr "Tôdî"
 #: DB:work_attribute_type/name:209
 msgctxt "work_attribute_type"
 msgid "UACRR ID"
-msgstr ""
+msgstr "ID UACRR"
 
 #: DB:medium_format/name:28
 msgctxt "medium_format"

@@ -43,8 +43,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-07 18:42+0000\n"
-"Last-Translator: n26 <jordan.verreaux@gmail.com>\n"
+"PO-Revision-Date: 2024-10-22 10:42+0000\n"
+"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/fr/>\n"
 "Language: fr\n"
@@ -11033,11 +11033,9 @@ msgstr ""
 
 #. name:liner notes
 #: DB:link_type/link_phrase:24
-#, fuzzy
-#| msgid "{additional} liner notes {translator}"
 msgid "{additional} liner notes {translator} for"
 msgstr ""
-"{translator:traduction des} notes de livret {additional:supplémentaires}"
+"{translator:traduction des} notes de livret {additional:supplémentaires} de"
 
 #. name:lyricist
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
