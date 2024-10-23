@@ -30,8 +30,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.7.2\n"
 
 #. name:artist diploma
@@ -11011,8 +11011,15 @@ msgid "{additional} libretto writing location for"
 msgstr "luogo {additional:aggiuntivo} di scrittura del libretto per"
 
 #. name:liner notes
-#: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
+#: DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
+msgstr "{translator:traduttore} delle note di libretto {additional:aggiuntivo}"
+
+#. name:liner notes
+#: DB:link_type/link_phrase:24
+#, fuzzy
+#| msgid "{additional} liner notes {translator}"
+msgid "{additional} liner notes {translator} for"
 msgstr "{translator:traduttore} delle note di libretto {additional:aggiuntivo}"
 
 #. name:lyricist

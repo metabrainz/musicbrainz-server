@@ -25,8 +25,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.7.2\n"
 
 #. name:Motet
@@ -4630,6 +4630,15 @@ msgctxt "work_attribute_type"
 msgid "ID for the US rights society SESAC"
 msgstr "ID per la società di diritti statunitense SESAC"
 
+#. name:UACRR ID
+#: DB:work_attribute_type/description:209
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Brazilian rights society ECAD"
+msgctxt "work_attribute_type"
+msgid "ID for the Ukrainian rights society UACRR"
+msgstr "ID per la società di diritti brasiliana ECAD"
+
 #. name:AGADU ID
 #: DB:work_attribute_type/description:43
 msgctxt "work_attribute_type"
@@ -8574,6 +8583,11 @@ msgstr "Tōḍi"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tōḍī"
 msgstr "Tōḍī"
+
+#: DB:work_attribute_type/name:209
+msgctxt "work_attribute_type"
+msgid "UACRR ID"
+msgstr ""
 
 #: DB:medium_format/name:28
 msgctxt "medium_format"

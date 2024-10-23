@@ -9801,9 +9801,16 @@ msgid "{additional} libretto writing location for"
 msgstr ""
 
 #. name:liner notes
-#: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
+#: DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
 msgstr ""
+
+#. name:liner notes
+#: DB:link_type/link_phrase:24
+#, fuzzy
+#| msgid "{additional} composer"
+msgid "{additional} liner notes {translator} for"
+msgstr "{additional} helilooja"
 
 #. name:lyricist
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165

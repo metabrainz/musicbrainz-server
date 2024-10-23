@@ -11192,8 +11192,15 @@ msgstr ""
 "is de locatie waar het libretto {additional:aanvullend} geschreven werd"
 
 #. name:liner notes
-#: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
+#: DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
+msgstr "{additional:aanvullende} boektekst {translator:(als vertaler)}"
+
+#. name:liner notes
+#: DB:link_type/link_phrase:24
+#, fuzzy
+#| msgid "{additional} liner notes {translator}"
+msgid "{additional} liner notes {translator} for"
 msgstr "{additional:aanvullende} boektekst {translator:(als vertaler)}"
 
 #. name:lyricist

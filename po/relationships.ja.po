@@ -10972,8 +10972,15 @@ msgid "{additional} libretto writing location for"
 msgstr "ここで{additional:補助的に}台本が書かれた作品"
 
 #. name:liner notes
-#: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
+#: DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
+msgstr "{additional:補助的な}ライナーノーツ{translator:翻訳}"
+
+#. name:liner notes
+#: DB:link_type/link_phrase:24
+#, fuzzy
+#| msgid "{additional} liner notes {translator}"
+msgid "{additional} liner notes {translator} for"
 msgstr "{additional:補助的な}ライナーノーツ{translator:翻訳}"
 
 #. name:lyricist

@@ -4650,6 +4650,15 @@ msgctxt "work_attribute_type"
 msgid "ID for the US rights society SESAC"
 msgstr "ID pour la SESAC, société états-unienne de gestion des droits"
 
+#. name:UACRR ID
+#: DB:work_attribute_type/description:209
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Brazilian rights society ECAD"
+msgctxt "work_attribute_type"
+msgid "ID for the Ukrainian rights society UACRR"
+msgstr "ID pour l’ECAD, société brésilienne de gestion des droits"
+
 #. name:AGADU ID
 #: DB:work_attribute_type/description:43
 msgctxt "work_attribute_type"
@@ -8603,6 +8612,11 @@ msgstr "Tôdi"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tōḍī"
 msgstr "Tôdî"
+
+#: DB:work_attribute_type/name:209
+msgctxt "work_attribute_type"
+msgid "UACRR ID"
+msgstr ""
 
 #: DB:medium_format/name:28
 msgctxt "medium_format"

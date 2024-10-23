@@ -515,7 +515,7 @@ msgid ""
 "festivities."
 msgstr ""
 
-#. name:ravanahatha
+#. name:ravanahatta
 #: DB:instrument/description:754
 msgid "Ancient bowed fiddle, once popular in Western India and Sri Lanka."
 msgstr ""

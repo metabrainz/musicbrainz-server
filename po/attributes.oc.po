@@ -4294,6 +4294,12 @@ msgctxt "work_attribute_type"
 msgid "ID for the US rights society SESAC"
 msgstr ""
 
+#. name:UACRR ID
+#: DB:work_attribute_type/description:209
+msgctxt "work_attribute_type"
+msgid "ID for the Ukrainian rights society UACRR"
+msgstr ""
+
 #. name:AGADU ID
 #: DB:work_attribute_type/description:43
 msgctxt "work_attribute_type"
@@ -8141,6 +8147,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:1045
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tōḍī"
+msgstr ""
+
+#: DB:work_attribute_type/name:209
+msgctxt "work_attribute_type"
+msgid "UACRR ID"
 msgstr ""
 
 #: DB:medium_format/name:28

@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 19:33+0530\n"
+"POT-Creation-Date: 2024-10-21 13:22+0000\n"
 "PO-Revision-Date: 2024-04-17 17:39+0000\n"
 "Last-Translator: reosarevok <reosarevok@users.noreply.translations."
 "metabrainz.org>\n"
@@ -14353,7 +14353,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/FingerprintTable.js:115
 #: ../root/static/scripts/common/hooks/usePagedMediumTable.js:108
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:84
-#: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:144
+#: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:142
 msgid "Loading..."
 msgstr "Läser in..."
 
@@ -15589,7 +15589,7 @@ msgstr "Tack till"
 
 #: ../root/static/scripts/edit/components/forms.js:224
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
-#: ../root/static/scripts/release-editor/init.js:287
+#: ../root/static/scripts/release-editor/init.js:308
 msgid "All of your changes will be lost if you leave this page."
 msgstr ""
 

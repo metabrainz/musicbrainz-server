@@ -10524,8 +10524,16 @@ msgid "{additional} libretto writing location for"
 msgstr "lugar de escritura del libreto {additional:adicional} de"
 
 #. name:liner notes
-#: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
+#: DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
+msgstr ""
+"{translator:traductor|escritor} {additional:adicional} de notas de álbum"
+
+#. name:liner notes
+#: DB:link_type/link_phrase:24
+#, fuzzy
+#| msgid "{additional} liner notes {translator}"
+msgid "{additional} liner notes {translator} for"
 msgstr ""
 "{translator:traductor|escritor} {additional:adicional} de notas de álbum"
 

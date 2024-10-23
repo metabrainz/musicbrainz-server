@@ -3298,7 +3298,10 @@ msgid "rauschpfeife"
 msgstr ""
 
 #: DB:instrument/name:754
-msgid "ravanahatha"
+#, fuzzy
+#| msgid "ravanahatha"
+msgctxt "Indian bowed spikefiddle"
+msgid "ravanahatta"
 msgstr "רוואנאהאתא"
 
 #: DB:instrument/name:239

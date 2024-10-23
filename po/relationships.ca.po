@@ -9724,8 +9724,13 @@ msgid "{additional} libretto writing location for"
 msgstr ""
 
 #. name:liner notes
-#: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
+#: DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
+msgstr ""
+
+#. name:liner notes
+#: DB:link_type/link_phrase:24
+msgid "{additional} liner notes {translator} for"
 msgstr ""
 
 #. name:lyricist
