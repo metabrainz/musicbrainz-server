@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-21 13:22+0000\n"
-"PO-Revision-Date: 2024-09-28 15:42+0000\n"
+"PO-Revision-Date: 2024-10-23 13:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -24,8 +24,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.7.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -43,7 +43,7 @@ msgstr "„CC“ – tinkamas registruotojo dviejų ženklų šalies kodas."
 
 #: ../root/components/forms.tt:259
 msgid "\"DDD\" is a nine digit work identifier."
-msgstr "\"DDD\" – devynių skaitmenų darbo identifikatorius."
+msgstr "\"DDD\" – devynių skaitmenų kūrinio identifikatorius."
 
 #: ../root/components/forms.tt:273
 msgid ""
@@ -57,7 +57,7 @@ msgid ""
 "\"XXX\" is a three character alphanumeric registrant code, uniquely "
 "identifying the organisation which registered the code."
 msgstr ""
-"„XXX“ – trijų ženklų raidinis-skaitmeninis registruotojo kodas, unikaliai "
+"„XXX“ – trijų ženklų raidinis skaitmeninis registruotojo kodas, unikaliai "
 "identifikuojantis kodą įregistravo organizacija."
 
 #: ../root/components/forms.tt:272
@@ -101,7 +101,7 @@ msgstr "&#x26a0; Klaida įkeliant vaizdą."
 
 #: ../root/event/add_event_art.tt:103 ../root/release/add_cover_art.tt:103
 msgid "&#x26a0; Server busy, try again later"
-msgstr "&#x26a0; Serveris užimtas, bandyk vėliau."
+msgstr "&#x26a0; Serveris užimtas. Bandykite vėliau."
 
 #: ../root/event/add_event_art.tt:87 ../root/release/add_cover_art.tt:87
 msgid "&#x26a0; Unrecognized file"
@@ -139,8 +139,9 @@ msgid ""
 msgstr ""
 "<strong>Pastaba:</strong> klasikinėje muzikoje {csg_recording_artist|įrašų "
 "atlikėjai} beveik visada turėtų skirtis nuo {csg_track_artist|takelių "
-"atlikėjų}, todėl redaguojant klasikinės muzikos leidinį nenaudok parinkties "
-"„kopijuoti atlikėjų įrašus“, nebent esi tikras (-a), kad tai gera idėja!"
+"atlikėjų}, todėl redaguojant klasikinės muzikos leidinį nenaudokite "
+"parinkties Kopijuoti atlikėjų įrašus, nebent esate visiškai tikri, kad tai "
+"gera idėja."
 
 #: ../root/components/common-macros.tt:484 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
@@ -152,21 +153,21 @@ msgid ""
 "tracklist appears correct, you may use it as a starting point for a new "
 "MusicBrainz release."
 msgstr ""
-"Buvo rastas CD atplaiša, atitinkanti tavo pateiktą disko ID. Jei toliau "
-"pateiktas takelių sąrašas atrodo teisingas, gali naudoti jį kaip pradinį "
-"tašką naujai MusicBrainz leidiniui."
+"Buvo rasta CD atplaiša, atitinkanti jūsų pateiktą disko ID. Jei toliau "
+"pateiktas takelių sąrašas atrodo teisingas, galite jį naudoti kaip pradžios "
+"tašką naujam „MusicBrainz“ leidiniui."
 
 #: ../root/release/edit/tracklist.tt:323
 msgid ""
 "A format is required. If you don’t know it, tick the “I don’t know” checkbox "
 "next to the format dropdown."
 msgstr ""
-"Formatas – reikalingas. Jei jo nežinai, pažymėk šalia išskleidžiamojo sąrašo "
-"formatas esantį žymimąjį langelį „Nežinau“."
+"Privalomas formatas. Jei jo nežinote, pažymėkite šalia formato "
+"išskleidžiamojo sąrašo esantį žymimąjį langelį Nežinau."
 
 #: ../root/release/edit/information.tt:23
 msgid "A release title is required."
-msgstr "Būtinas leidinio pavadinimas."
+msgstr "Privalomas leidinio pavadinimas."
 
 #: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:309
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:189
@@ -17578,11 +17579,11 @@ msgstr[3] "prieš {num} dienų"
 
 #: ../root/utility/edit.js:36
 msgid "Accept upon closing"
-msgstr ""
+msgstr "priimti uždarius"
 
 #: ../root/utility/edit.js:37
 msgid "Reject upon closing"
-msgstr ""
+msgstr "atmesti uždarius"
 
 #: ../root/utility/edit.js:62
 msgid "This edit is open for voting."
@@ -17622,7 +17623,7 @@ msgstr ""
 
 #: ../root/utility/edit.js:91
 msgid "This edit was cancelled."
-msgstr ""
+msgstr "Šis redagavimas buvo atšauktas."
 
 #: ../root/utility/tableColumns.js:752
 #, fuzzy
@@ -17643,11 +17644,9 @@ msgid "Subscribed"
 msgstr ""
 
 #: ../root/utility/tableColumns.js:823
-#, fuzzy
-#| msgid "Languages"
 msgctxt "header"
 msgid "Lyrics languages"
-msgstr "Kalbos"
+msgstr "Dainos žodžių kalbos"
 
 #: ../root/vote/VotingIndex.js:88
 msgid "…related to artists in my subscriptions"
@@ -17703,13 +17702,11 @@ msgstr ""
 
 #: ../root/vote/VotingIndex.js:158
 msgid "All open destructive edits"
-msgstr ""
+msgstr "Visi atviri destruktyvūs redagavimai"
 
 #: ../root/vote/VotingIndex.js:167
-#, fuzzy
-#| msgid "All open destructive edits by beginner editors"
 msgid "All open destructive edits without edit notes"
-msgstr "Visi atviri destruktyvūs redagavimai pradedantiesiems redaktoriams"
+msgstr "Visi atviri destruktyvūs redagavimai be redagavimo pastabų"
 
 #: ../root/vote/VotingIndex.js:177
 msgid "All open entity merges and removals"
@@ -17926,7 +17923,8 @@ msgstr "Visi atviri destruktyvūs redagavimai pradedantiesiems redaktoriams"
 #: ../root/vote/VotingIndex.js:435
 msgid "All open unreviewed edits (0 votes) by beginner editors"
 msgstr ""
-"Visi atviri ir neperžiūrėti redagavimai (0 balsų) pradedančiųjų redaktorių"
+"Visi atviri ir neperžiūrėti redagavimai (0 balsų), kuriuos atliko "
+"pradedantieji redaktoriai"
 
 #: ../root/vote/VotingIndex.js:447 ../root/vote/VotingIndex.js:469
 msgid "All edits"
@@ -17940,12 +17938,12 @@ msgid ""
 "experiment with different edit search filters to limit the amount of edits "
 "shown a bit and make it more manageable"
 msgstr ""
-"Kartais dėl tam tikrų priežasčių norisi tiesiog peržiūrėti visus "
-"redagavimus. Jei jaučiatės (-a), kad labai ilgas redagavimų sąrašas yra kaip "
-"tik tai, ko reikia gydytojui, tiesiog patikrink toliau pateiktas paieškas! "
-"Nepamiršk, kad visada gali eksperimentuoti su įvairiais redagavimo paieškos "
-"filtrais, kad šiek tiek apribotum rodomų redagavimų kiekį ir padarytum jį "
-"lengviau valdomą"
+"Kartais dėl tam tikrų priežasčių norite tiesiog patikrinti visus "
+"redagavimus. Jei jaučiatės, kad labai ilgas redagavimų sąrašas yra kaip tik "
+"tai, ko reikia gydytojui, tiesiog patikrinkite toliau pateiktas paieškas! "
+"Nepamirškite, kad visada galite eksperimentuoti su įvairiais redagavimo "
+"paieškos filtrais, kad šiek tiek apribotumėte rodomų redagavimų kiekį ir "
+"padarytumėte jį lengviau tvarkomą."
 
 #: ../root/vote/VotingIndex.js:462
 msgid "All open edits"
@@ -17953,14 +17951,14 @@ msgstr "Visi atviri redagavimai"
 
 #: ../root/work/WorkMerge.js:25 ../root/work/WorkMerge.js:27
 msgid "Merge works"
-msgstr ""
+msgstr "Sujungti kūrinius"
 
 #: ../root/work/WorkMerge.js:29
 msgid ""
 "You are about to merge all these works into a single one. Please select the "
 "work all others should be merged into:"
 msgstr ""
-"Netrukus visus šiuos kūrinius sujungsi į vieną. Pasirink kūrinį, į kurį "
+"Ketinate sujungti visus šiuos kūrinius į vieną. Pasirinkite kūrinį, į kurį "
 "turėtų būti sujungti visi kiti:"
 
 #: ../root/work/WorkMerge.js:36
@@ -17969,8 +17967,8 @@ msgid ""
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
 msgstr ""
-"<strong>Įspėjimas:</strong> Kai kurių kūrinių, kuriuos sujungi, ISWC "
-"skirtingi. Įsitikink, kad tai tikrai tie patys kūriniai ir nori tęsti "
+"<strong>Įspėjimas</strong>: kai kurių kūrinių, kuriuos sujungiate, ISWC "
+"skiriasi. Įsitikinkite, kad tai tikrai tie patys kūriniai ir norite tęsti "
 "sujungimą."
 
 #~ msgid "Add {item}"
