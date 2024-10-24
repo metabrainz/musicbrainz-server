@@ -15,6 +15,8 @@ import {
 } from '../../constants.js';
 import {CatalystContext} from '../../context.mjs';
 import DBDefs from '../../static/scripts/common/DBDefs.mjs';
+import {isAccountAdmin}
+  from '../../static/scripts/common/utility/privileges.js';
 import {
   editorMayAddNote,
   editorMayApprove,
@@ -31,6 +33,7 @@ component EditSummary(
 ) {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
+  const isAdmin = isAccountAdmin(user);
   const mayAddNote = editorMayAddNote(edit, user);
   const mayApprove = editorMayApprove(edit, user);
   const mayCancel = editorMayCancel(edit, user);
@@ -75,17 +78,17 @@ component EditSummary(
           ) : null}
 
           {edit.status === EDIT_STATUS_OPEN &&
-            DBDefs.DB_STAGING_TESTING_FEATURES ? (
+            (DBDefs.DB_STAGING_TESTING_FEATURES || isAdmin) ? (
               <>
                 <a
                   className="positive"
-                  href={`/test/accept-edit/${edit.id}`}
+                  href={`/admin/accept-edit/${edit.id}`}
                 >
                   {l('Accept edit')}
                 </a>
                 <a
                   className="negative"
-                  href={`/test/reject-edit/${edit.id}`}
+                  href={`/admin/reject-edit/${edit.id}`}
                 >
                   {l('Reject edit')}
                 </a>

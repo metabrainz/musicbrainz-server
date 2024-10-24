@@ -73,9 +73,20 @@ sub enter_votes
             # not sufficient to filter the vote because the actual approval is happening elsewhere
             confess 'Unauthorized editor ' . $editor->id . ' tried to approve edit #' . $_->{edit_id};
         }
+        if (any { $_->{vote} == $VOTE_ADMIN_APPROVE && !$editor->is_account_admin } @votes) {
+            # not sufficient to filter the vote because the actual approval is happening elsewhere
+            confess 'Unauthorized editor ' . $editor->id . ' tried to admin-approve edit #' . $_->{edit_id};
+        }
+        if (any { $_->{vote} == $VOTE_ADMIN_REJECT && !$editor->is_account_admin } @votes) {
+            # not sufficient to filter the vote because the actual rejection is happening elsewhere
+            confess 'Unauthorized editor ' . $editor->id . ' tried to admin-reject edit #' . $_->{edit_id};
+        }
         unless ($opts{override_privs}) {
             @votes = grep {
-                $_->{vote} == $VOTE_APPROVE || $edits->{ $_->{edit_id} }->editor_may_vote_on_edit($editor)
+                $_->{vote} == $VOTE_APPROVE ||
+                $_->{vote} == $VOTE_ADMIN_APPROVE ||
+                $_->{vote} == $VOTE_ADMIN_REJECT ||
+                $edits->{ $_->{edit_id} }->editor_may_vote_on_edit($editor)
             } @votes;
         }
 
@@ -169,6 +180,12 @@ sub editor_statistics
             ? $self->summarize_votes($VOTE_APPROVE, $all_votes, $recent_votes)
             : (),
 
+        # Show admin votes only if editor is an admin
+        $editor->is_account_admin ? (
+            $self->summarize_votes($VOTE_ADMIN_APPROVE, $all_votes, $recent_votes),
+            $self->summarize_votes($VOTE_ADMIN_REJECT, $all_votes, $recent_votes),
+        ) : (),
+
         # Add totals
         {
             name => l('Total'),
@@ -190,6 +207,8 @@ sub summarize_votes
         $VOTE_NO => lp('No', 'vote'),
         $VOTE_YES => lp('Yes', 'vote'),
         $VOTE_APPROVE => lp('Approve', 'vote'),
+        $VOTE_ADMIN_APPROVE => lp('Admin approval', 'vote'),
+        $VOTE_ADMIN_REJECT => lp('Admin rejection', 'vote'),
     );
 
     return (

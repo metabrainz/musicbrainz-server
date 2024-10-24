@@ -12,7 +12,7 @@ import * as React from 'react';
 import RequestLogin from '../../components/RequestLogin.js';
 import SubHeader from '../../components/SubHeader.js';
 import VotingPeriod from '../../components/VotingPeriod.js';
-import {EDIT_VOTE_APPROVE} from '../../constants.js';
+import {EDIT_VOTE_ADMIN_APPROVE, EDIT_VOTE_APPROVE} from '../../constants.js';
 import {CatalystContext} from '../../context.mjs';
 import EditLink from '../../static/scripts/common/components/EditLink.js';
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
@@ -62,7 +62,8 @@ component EditHeader(
     ? getVoteName(latestVoteForVoter.vote)
     : null;
   const editWasApproved = !edit.is_open && edit.votes.some(
-    (vote) => vote.vote === EDIT_VOTE_APPROVE,
+    (vote) => (vote.vote === EDIT_VOTE_APPROVE ||
+               vote.vote === EDIT_VOTE_ADMIN_APPROVE),
   );
   const showVoteTally = latestVoteForEditor || isEditEditor || !edit.is_open;
 

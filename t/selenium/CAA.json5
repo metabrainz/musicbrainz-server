@@ -167,7 +167,7 @@
     // Approve both 'Add Cover Art' edits.
     {
       command: 'open',
-      target: '/test/accept-edit/1',
+      target: '/admin/accept-edit/1',
       value: '',
     },
     {
@@ -177,7 +177,7 @@
     },
     {
       command: 'open',
-      target: '/test/accept-edit/2',
+      target: '/admin/accept-edit/2',
       value: '',
     },
     // Wait for the artwork-indexer to catch up.
@@ -492,7 +492,7 @@
     },
     {
       command: 'open',
-      target: '/test/accept-edit/5',
+      target: '/admin/accept-edit/5',
       value: '',
     },
     // Wait for the artwork-indexer to catch up.
