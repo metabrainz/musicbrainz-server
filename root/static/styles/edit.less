@@ -157,7 +157,7 @@ table.vote-tally {
     }
 
     /* Adding voting icons to avatars */
-    h3.Approve, h3.No, h3.Yes {
+    h3.approve, h3.no, h3.yes, h3.admin-approval, h3.admin-rejection {
         position: relative;
 
         .voting-icon {
@@ -170,7 +170,7 @@ table.vote-tally {
         }
     }
 
-    h3.Approve {
+    h3.approve, h3.admin-approval {
         a img {
             border-color: @yes-border;
         }
@@ -180,7 +180,7 @@ table.vote-tally {
         }
     }
 
-    h3.No {
+    h3.no, h3.admin-rejection {
         a img {
             border-color: @no-border;
         }
@@ -190,7 +190,7 @@ table.vote-tally {
         }
     }
 
-    h3.Yes {
+    h3.yes {
         a img {
             border-color: @yes-border;
         }

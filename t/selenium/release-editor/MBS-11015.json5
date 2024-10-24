@@ -60,7 +60,7 @@
     },
     {
       command: 'open',
-      target: '/test/accept-edit/1',
+      target: '/admin/accept-edit/1',
       value: '',
     },
     {

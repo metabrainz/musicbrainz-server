@@ -110,7 +110,8 @@ component PrivilegedUsers(
 
         <h2>{lp('Account administrators', 'header')}</h2>
         <p>
-          {l('Account administrators can edit and delete user accounts.')}
+          {l(`Account administrators can edit and delete user accounts,
+              and immediately accept and reject edits.`)}
         </p>
         <p>
           {texp.l(

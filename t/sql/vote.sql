@@ -11,4 +11,6 @@ INSERT INTO editor (id, name, password, email, ha1, email_confirm_date, member_s
     -- Non-verified editor
     (5, 'editor5', '{CLEARTEXT}pass', null, '01de7bc91330d78a6d0a84033e293f15', null, '2014-12-03', 0),
     -- Beginner editor
-    (6, 'editor6', '{CLEARTEXT}pass', 'editor6@example.com', '01de7bc91330d78a6d0a84033e293f11', now(), '2014-12-03', 8192);
+    (6, 'editor6', '{CLEARTEXT}pass', 'editor6@example.com', '01de7bc91330d78a6d0a84033e293f11', now(), '2014-12-03', 8192),
+    -- Account admin
+    (7, 'editor7', '{CLEARTEXT}pass', 'editor7@example.com', '01de7bc91330d78a6d0a84033e293f12', now(), '2014-12-03', 128);

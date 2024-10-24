@@ -48,6 +48,7 @@ my %action_name = (
     $STATUS_FAILEDPREREQ => 'failed prereq',
     $STATUS_NOVOTES => 'no votes',
     $STATUS_DELETED => 'deleted',
+    $STATUS_FAILEDADMIN => 'rejected by admin',
     $STATUS_ERROR => 'error',
 );
 

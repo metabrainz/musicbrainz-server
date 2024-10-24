@@ -310,6 +310,11 @@ const stats = {
     color: '#ff0000',
     label: l_statistics('Error edits'),
   },
+  'count.edit.failedadmin': {
+    category: 'edit-information',
+    color: '#ff0000',
+    label: l_statistics('Edits that have been voted down'),
+  },
   'count.edit.faileddep': {
     category: 'edit-information',
     color: '#ff0000',
@@ -898,6 +903,16 @@ const stats = {
     category: 'edit-information',
     color: '#00ffff',
     label: l_statistics('Abstentions'),
+  },
+  'count.vote.admin_approve': {
+    category: 'edit-information',
+    color: '#00ffff',
+    label: l_statistics('Admin approvals'),
+  },
+  'count.vote.admin_reject': {
+    category: 'edit-information',
+    color: '#00ffff',
+    label: l_statistics('Admin rejections'),
   },
   'count.vote.approve': {
     category: 'edit-information',

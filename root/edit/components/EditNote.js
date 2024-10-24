@@ -10,6 +10,8 @@
 import * as React from 'react';
 
 import {
+  EDIT_VOTE_ADMIN_APPROVE,
+  EDIT_VOTE_ADMIN_REJECT,
   EDIT_VOTE_APPROVE,
   EDIT_VOTE_NO,
   EDIT_VOTE_YES,
@@ -20,6 +22,7 @@ import EditorLink from '../../static/scripts/common/components/EditorLink.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import {isAccountAdmin, isAddingNotesDisabled}
   from '../../static/scripts/common/utility/privileges.js';
+import {kebabCase} from '../../static/scripts/common/utility/strings.js';
 import getVoteName from '../../static/scripts/edit/utility/getVoteName.js';
 import formatUserDate from '../../utility/formatUserDate.js';
 import parseIsoDate from '../../utility/parseIsoDate.js';
@@ -34,7 +37,7 @@ function returnVoteClass(vote: ?VoteT, isOwner: boolean) {
   let className = '';
 
   if (vote) {
-    className = getVoteName(vote.vote);
+    className = kebabCase(getVoteName(vote.vote));
   }
 
   if (isOwner) {
@@ -68,7 +71,9 @@ component EditNote(
   ));
   const showVotingIcon = lastRelevantVote && (
     lastRelevantVote.vote === EDIT_VOTE_APPROVE ||
+    lastRelevantVote.vote === EDIT_VOTE_ADMIN_APPROVE ||
     lastRelevantVote.vote === EDIT_VOTE_NO ||
+    lastRelevantVote.vote === EDIT_VOTE_ADMIN_REJECT ||
     lastRelevantVote.vote === EDIT_VOTE_YES
   );
 

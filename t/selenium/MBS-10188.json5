@@ -13,7 +13,7 @@
     },
     {
       command: 'open',
-      target: '/test/accept-edit/60868023',
+      target: '/admin/accept-edit/60868023',
       value: '',
     },
     {

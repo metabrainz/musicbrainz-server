@@ -49,6 +49,8 @@ export const EDIT_VOTE_ABSTAIN = -1;
 export const EDIT_VOTE_NO = 0;
 export const EDIT_VOTE_YES = 1;
 export const EDIT_VOTE_APPROVE = 2;
+export const EDIT_VOTE_ADMIN_APPROVE = 3;
+export const EDIT_VOTE_ADMIN_REJECT = 4;
 
 export const QUALITY_UNKNOWN = -1;
 export const QUALITY_UNKNOWN_MAPPED = 1;
