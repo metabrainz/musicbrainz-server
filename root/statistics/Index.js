@@ -1354,6 +1354,22 @@ component Index(
             <td>{fp('vote.abstain', 'vote')}</td>
           </tr>
           <tr>
+            <th />
+            <th colSpan="3">
+              {addColonText(lp_statistics('Admin approval', 'vote'))}
+            </th>
+            <td>{fc('vote.admin_approve')}</td>
+            <td>{fp('vote.admin_approve', 'vote')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="3">
+              {addColonText(lp_statistics('Admin rejection', 'vote'))}
+            </th>
+            <td>{fc('vote.admin_reject')}</td>
+            <td>{fp('vote.admin_reject', 'vote')}</td>
+          </tr>
+          <tr>
             <th colSpan="4">{addColonText(l_statistics('Votes'))}</th>
             <td>{fc('vote')}</td>
             <td />

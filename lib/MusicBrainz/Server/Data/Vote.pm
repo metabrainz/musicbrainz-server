@@ -169,6 +169,12 @@ sub editor_statistics
             ? $self->summarize_votes($VOTE_APPROVE, $all_votes, $recent_votes)
             : (),
 
+        # Show admin votes only if editor is an admin
+        $editor->is_account_admin ? (
+            $self->summarize_votes($VOTE_ADMIN_APPROVE, $all_votes, $recent_votes),
+            $self->summarize_votes($VOTE_ADMIN_REJECT, $all_votes, $recent_votes),
+        ) : (),
+
         # Add totals
         {
             name => l('Total'),
@@ -190,6 +196,8 @@ sub summarize_votes
         $VOTE_NO => lp('No', 'vote'),
         $VOTE_YES => lp('Yes', 'vote'),
         $VOTE_APPROVE => lp('Approve', 'vote'),
+        $VOTE_ADMIN_APPROVE => lp('Admin approval', 'vote'),
+        $VOTE_ADMIN_REJECT => lp('Admin rejection', 'vote'),
     );
 
     return (

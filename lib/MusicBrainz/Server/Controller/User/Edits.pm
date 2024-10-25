@@ -350,6 +350,8 @@ sub votes : Chained('/user/load') PathPart('votes') RequireAuth HiddenOnMirrors 
         'conditions.0.args.1' => $VOTE_NO,
         'conditions.0.args.2' => $VOTE_YES,
         'conditions.0.args.3' => $VOTE_APPROVE,
+        'conditions.0.args.4' => $VOTE_ADMIN_APPROVE,
+        'conditions.0.args.5' => $VOTE_ADMIN_REJECT,
     };
 
     $c->stash(
