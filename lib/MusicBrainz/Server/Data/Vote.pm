@@ -73,9 +73,20 @@ sub enter_votes
             # not sufficient to filter the vote because the actual approval is happening elsewhere
             confess 'Unauthorized editor ' . $editor->id . ' tried to approve edit #' . $_->{edit_id};
         }
+        if (any { $_->{vote} == $VOTE_ADMIN_APPROVE && !$editor->is_account_admin } @votes) {
+            # not sufficient to filter the vote because the actual approval is happening elsewhere
+            confess 'Unauthorized editor ' . $editor->id . ' tried to admin-approve edit #' . $_->{edit_id};
+        }
+        if (any { $_->{vote} == $VOTE_ADMIN_REJECT && !$editor->is_account_admin } @votes) {
+            # not sufficient to filter the vote because the actual rejection is happening elsewhere
+            confess 'Unauthorized editor ' . $editor->id . ' tried to admin-reject edit #' . $_->{edit_id};
+        }
         unless ($opts{override_privs}) {
             @votes = grep {
-                $_->{vote} == $VOTE_APPROVE || $edits->{ $_->{edit_id} }->editor_may_vote_on_edit($editor)
+                $_->{vote} == $VOTE_APPROVE ||
+                $_->{vote} == $VOTE_ADMIN_APPROVE ||
+                $_->{vote} == $VOTE_ADMIN_REJECT ||
+                $edits->{ $_->{edit_id} }->editor_may_vote_on_edit($editor)
             } @votes;
         }
 
