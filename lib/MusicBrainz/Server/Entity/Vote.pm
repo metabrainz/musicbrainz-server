@@ -51,6 +51,8 @@ sub vote_name
         $VOTE_NO => 'No',
         $VOTE_YES => 'Yes',
         $VOTE_APPROVE => 'Approve',
+        $VOTE_ADMIN_APPROVE => 'Admin approval',
+        $VOTE_ADMIN_REJECT => 'Admin rejection',
     );
     return $names{$self->vote};
 }
