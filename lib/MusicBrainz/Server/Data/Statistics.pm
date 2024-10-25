@@ -1553,10 +1553,12 @@ my %stats = (
             my %dist = map { @$_ } @$data;
 
             +{
-                'count.vote.yes'        => $dist{$VOTE_YES} || 0,
-                'count.vote.no'         => $dist{$VOTE_NO}  || 0,
-                'count.vote.abstain'    => $dist{$VOTE_ABSTAIN} || 0,
-                'count.vote.approve'    => $dist{$VOTE_APPROVE} || 0,
+                'count.vote.yes'            => $dist{$VOTE_YES} || 0,
+                'count.vote.no'             => $dist{$VOTE_NO}  || 0,
+                'count.vote.abstain'        => $dist{$VOTE_ABSTAIN} || 0,
+                'count.vote.approve'        => $dist{$VOTE_APPROVE} || 0,
+                'count.vote.admin_approve'  => $dist{$VOTE_ADMIN_APPROVE} || 0,
+                'count.vote.admin_reject'   => $dist{$VOTE_ADMIN_REJECT} || 0,
             };
         },
         NONREPLICATED => 1,
@@ -1575,6 +1577,18 @@ my %stats = (
     },
     'count.vote.approve' => {
         DESC => 'Count of auto-editor approvals',
+        PREREQ => [qw[ count.vote.yes ]],
+        PREREQ_ONLY => 1,
+        NONREPLICATED => 1,
+    },
+    'count.vote.admin_approve' => {
+        DESC => 'Count of admin approvals',
+        PREREQ => [qw[ count.vote.yes ]],
+        PREREQ_ONLY => 1,
+        NONREPLICATED => 1,
+    },
+    'count.vote.admin_reject' => {
+        DESC => 'Count of admin rejections',
         PREREQ => [qw[ count.vote.yes ]],
         PREREQ_ONLY => 1,
         NONREPLICATED => 1,

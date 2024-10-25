@@ -15,7 +15,9 @@ declare type VoteOptionT =
   | -1   // Abstain
   |  0   // No
   |  1   // Yes
-  |  2;  // Approve
+  |  2  // Approve
+  |  3  // Admin approve
+  |  4;  // Admin reject
 /* eslint-enable @stylistic/no-multi-spaces */
 
 // MusicBrainz::Server::Entity::Vote::TO_JSON

@@ -934,8 +934,13 @@ sub insert_votes_and_notes {
     my @votes = @{ $data{votes} || [] };
     my @notes = @{ $data{notes} || [] };
 
-    # Filter out approvals, they can only be entered via the approve method
-    @votes = grep { $_->{vote} != $VOTE_APPROVE } @votes;
+    # Filter out approvals (they can only be entered via the approve method)
+    # and admin votes (they too have their own separate mechanisms)
+    @votes = grep {
+        $_->{vote} != $VOTE_APPROVE &&
+        $_->{vote} != $VOTE_ADMIN_APPROVE &&
+        $_->{vote} != $VOTE_ADMIN_REJECT
+    } @votes;
 
     Sql::run_in_transaction(sub {
         $self->c->model('Vote')->enter_votes($editor, \@votes);
