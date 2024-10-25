@@ -52,6 +52,14 @@ test 'Check edit page displays basic components' => sub {
         'Edit by <a href="/user/editor1">',
         'The edit page lists the editor who entered the edit',
     );
+    $mech->content_lacks(
+        '/admin/accept-edit/' . $edit->id,
+        'The edit page lacks the button for the admin to accept the edit',
+    );
+    $mech->content_lacks(
+        '/admin/reject-edit/' . $edit->id,
+        'The edit page lacks the button for the admin to reject the edit',
+    );
 };
 
 test 'Check edit page differences for own edit' => sub {
@@ -78,6 +86,14 @@ test 'Check edit page differences for own edit' => sub {
     $mech->content_lacks(
         'You are not currently able to vote on this edit',
         'The message about not being able to vote is not present',
+    );
+    $mech->content_lacks(
+        '/admin/accept-edit/' . $edit->id,
+        'The edit page lacks the button for the admin to accept the edit',
+    );
+    $mech->content_lacks(
+        '/admin/reject-edit/' . $edit->id,
+        'The edit page lacks the button for the admin to reject the edit',
     );
 };
 
@@ -106,6 +122,14 @@ test 'Check edit page differences for editor without confirmed email' => sub {
         'You are not currently able to add notes to this edit',
         'The message about not being able to add notes is present',
     );
+    $mech->content_lacks(
+        '/admin/accept-edit/' . $edit->id,
+        'The edit page lacks the button for the admin to accept the edit',
+    );
+    $mech->content_lacks(
+        '/admin/reject-edit/' . $edit->id,
+        'The edit page lacks the button for the admin to reject the edit',
+    );
 };
 
 test 'Check edit page differences for beginner editor' => sub {
@@ -132,6 +156,14 @@ test 'Check edit page differences for beginner editor' => sub {
     $mech->content_contains(
         'You are not currently able to vote on this edit',
         'The message about not being able to vote is present',
+    );
+    $mech->content_lacks(
+        '/admin/accept-edit/' . $edit->id,
+        'The edit page lacks the button for the admin to accept the edit',
+    );
+    $mech->content_lacks(
+        '/admin/reject-edit/' . $edit->id,
+        'The edit page lacks the button for the admin to reject the edit',
     );
 };
 
@@ -166,16 +198,87 @@ test 'Check edit page differences when logged out' => sub {
         'Raw edit data for this edit',
         'The raw data link is hidden',
     );
+    $mech->content_lacks(
+        '/admin/accept-edit/' . $edit->id,
+        'The edit page lacks the button for the admin to accept the edit',
+    );
+    $mech->content_lacks(
+        '/admin/reject-edit/' . $edit->id,
+        'The edit page lacks the button for the admin to reject the edit',
+    );
+};
+
+test 'Check edit page differences for account admin' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $edit = prepare($test);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => {
+        username => 'editor7',
+        password => 'pass',
+    } );
+
+    $mech->get_ok(
+        '/edit/' . $edit->id,
+        'Fetched edit page as an account admin other than the edit author',
+    );
+    html_ok($mech->content);
+
+    $mech->content_contains(
+        'Submit vote and note',
+        'The edit page contains the button to vote and add an edit note',
+    );
+    $mech->content_contains(
+        '/admin/accept-edit/' . $edit->id,
+        'The edit page contains the button for the admin to accept the edit',
+    );
+    $mech->content_contains(
+        '/admin/reject-edit/' . $edit->id,
+        'The edit page contains the button for the admin to reject the edit',
+    );
+};
+
+test 'Check edit page differences for account admin on own edit' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $edit = prepare($test, 7);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => {
+        username => 'editor7',
+        password => 'pass',
+    } );
+
+    $mech->get_ok(
+        '/edit/' . $edit->id,
+        'Fetched edit page as an account admin who is the edit author',
+    );
+    html_ok($mech->content);
+
+    $mech->content_contains(
+        'Submit note',
+        'The edit page contains the button to add an edit note',
+    );
+    $mech->content_contains(
+        'Accept edit',
+        'The edit page contains the button for the admin to accept the edit',
+    );
+    $mech->content_contains(
+        'Reject edit',
+        'The edit page contains the button for the admin to reject the edit',
+    );
 };
 
 sub prepare {
-    my $test = shift;
+    my ($test, $editor_id) = @_;
+
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+vote');
 
     my $edit = $test->c->model('Edit')->create(
-        editor_id => 1,
+        editor_id => $editor_id // 1,
         edit_type => $EDIT_ARTIST_EDIT,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'Changed comment',

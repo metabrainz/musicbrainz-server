@@ -17,6 +17,8 @@ import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import {DB_STAGING_TESTING_FEATURES}
   from '../static/scripts/common/DBDefs.mjs';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
+import {isAccountAdmin}
+  from '../static/scripts/common/utility/privileges.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import getVoteName from '../static/scripts/edit/utility/getVoteName.js';
 import {editorMayAddNote, editorMayVoteOnEdit}
@@ -36,10 +38,12 @@ component EditIndex(
   fullWidth: boolean = false,
 ) {
   const $c = React.useContext(CatalystContext);
+  const isAdmin = isAccountAdmin($c.user);
   const canAddNote = Boolean($c.user && editorMayAddNote(edit, $c.user));
   const isOwnEdit = Boolean($c.user && $c.user.id === edit.editor_id);
   const canVoteHere = Boolean($c.user && editorMayVoteOnEdit(edit, $c.user));
   const detailsElement = getEditDetailsElement(edit);
+  const showAcceptReject = DB_STAGING_TESTING_FEATURES || isAdmin;
 
   return (
     <Layout fullWidth={fullWidth} title={texp.l('Edit #{id}', {id: edit.id})}>
@@ -123,26 +127,44 @@ component EditIndex(
           ) : null}
 
           {$c.user ? (
-            edit.is_open && DB_STAGING_TESTING_FEATURES ? (
-              <>
-                <h2>{l('Testing features')}</h2>
-                <p>
-                  {l(`To aid in testing, the following features
-                      have been made available on testing servers:`)}
-                </p>
-                <ul>
-                  <li>
-                    <a href={'/test/accept-edit/' + edit.id}>
-                      {l('Accept edit')}
-                    </a>
-                  </li>
-                  <li>
-                    <a href={'/test/reject-edit/' + edit.id}>
-                      {l('Reject edit')}
-                    </a>
-                  </li>
-                </ul>
-              </>
+            edit.is_open && showAcceptReject ? (
+              isAdmin ? (
+                <>
+                  <h2>{l_admin('Admin features')}</h2>
+                  <ul>
+                    <li>
+                      <a href={'/admin/accept-edit/' + edit.id}>
+                        {l('Accept edit')}
+                      </a>
+                    </li>
+                    <li>
+                      <a href={'/admin/reject-edit/' + edit.id}>
+                        {l('Reject edit')}
+                      </a>
+                    </li>
+                  </ul>
+                </>
+              ) : (
+                <>
+                  <h2>{l('Testing features')}</h2>
+                  <p>
+                    {l(`To aid in testing, the following features
+                        have been made available on testing servers:`)}
+                  </p>
+                  <ul>
+                    <li>
+                      <a href={'/test/accept-edit/' + edit.id}>
+                        {l('Accept edit')}
+                      </a>
+                    </li>
+                    <li>
+                      <a href={'/test/reject-edit/' + edit.id}>
+                        {l('Reject edit')}
+                      </a>
+                    </li>
+                  </ul>
+                </>
+              )
             ) : null
           ) : (
             <p>
