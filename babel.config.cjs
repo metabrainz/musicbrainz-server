@@ -27,7 +27,7 @@ module.exports = function (api) {
 
   const presets = [
     ['@babel/preset-env', {
-      corejs: 3,
+      corejs: 3.38,
       targets: api.caller(caller => caller && caller.target === 'node')
         ? NODE_TARGETS
         : (process.env.MODERN_BROWSERS === '1'
