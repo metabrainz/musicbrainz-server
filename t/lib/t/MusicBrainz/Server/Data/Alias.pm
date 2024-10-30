@@ -8,6 +8,7 @@ use Test::More;
 use Test::Deep qw( cmp_deeply );
 
 use DateTime;
+use List::AllUtils qw( first );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 use Sql;
@@ -131,7 +132,7 @@ test all => sub {
                                  primary_for_locale => 1,
                                  ended => 0,
                                 });
-    my $alias_id = $alias2->{id};
+    my $alias2_id = $alias2->{id};
     $alias_set = $artist_data->alias->find_by_entity_id(1);
     is(scalar @$alias_set, 1, 'Artist #1 has a single newly inserted alias');
     verify_artist_alias(
@@ -140,7 +141,7 @@ test all => sub {
     );
 
     # Test overriding primary for locale on insert
-    $artist_data->alias->insert({
+    my $alias3 = $artist_data->alias->insert({
                                  artist_id => 1,
                                  name => 'Newer alias',
                                  sort_name => 'Newer sort name',
@@ -148,6 +149,7 @@ test all => sub {
                                  primary_for_locale => 1,
                                  ended => 0,
                                 });
+    my $alias3_id = $alias3->{id};
     $alias_set = $artist_data->alias->find_by_entity_id(1);
     is(scalar @$alias_set, 2, 'Artist #1 has a second newly inserted alias');
     verify_artist_alias(
@@ -162,7 +164,7 @@ test all => sub {
     );
 
     # Test overriding primary for locale on update
-    $artist_data->alias->update($alias_id, {primary_for_locale => 1});
+    $artist_data->alias->update($alias2_id, {primary_for_locale => 1});
     $alias_set = $artist_data->alias->find_by_entity_id(1);
     is(scalar @$alias_set, 2, 'Artist #1 still has two aliases');
     is($alias_set->[1]->primary_for_locale,
@@ -171,6 +173,35 @@ test all => sub {
     is($alias_set->[0]->primary_for_locale,
        1,
        'old alias is again primary_for_locale');
+
+    # Test overriding primary for locale on locale change of alias set as primary (MBS-13564)
+    my $alias4 = $artist_data->alias->insert({
+                                 artist_id => 1,
+                                 name => 'New US alias',
+                                 sort_name => 'New US sort name',
+                                 locale => 'en_US',
+                                 primary_for_locale => 1,
+                                 ended => 0,
+                                });
+    my $alias4_id = $alias4->{id};
+    $alias_set = $artist_data->alias->find_by_entity_id(1);
+    is(scalar @$alias_set, 3, 'Artist #1 now has three aliases');
+
+    $artist_data->alias->update($alias4_id, {locale => 'en_AU'});
+    $alias_set = $artist_data->alias->find_by_entity_id(1);
+    is(scalar @$alias_set, 3, 'Artist #1 still has three aliases');
+    my $updated_alias3 = first { $_->id == $alias3_id } @$alias_set;
+    my $updated_alias4 = first { $_->id == $alias4_id } @$alias_set;
+    verify_artist_alias(
+        $updated_alias3,
+        'Newer alias', 'Newer sort name', 1, 'en_AU', 0,
+        'The previous primary alias is no longer marked as primary',
+    );
+    verify_artist_alias(
+        $updated_alias4,
+        'New US alias', 'New US sort name', 1, 'en_AU', 1,
+        'The changed alias has the updated locale and is marked as primary',
+    );
 
     $test->c->sql->commit;
 
