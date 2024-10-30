@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e -o pipefail
+set -e -o pipefail -x
 
 function sv_start_if_down() {
   while [[ $# -gt 0 ]]
@@ -8,7 +8,7 @@ function sv_start_if_down() {
     if [[ -e "/etc/service/$1/down" ]]
     then
       rm -fv "/etc/service/$1/down"
-      sv start "$1"
+      sv -w 30 start "$1"
     fi
     shift
   done

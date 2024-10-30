@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -x
+
 function sv_start_if_down() {
   while [[ $# -gt 0 ]]
   do
@@ -66,8 +68,6 @@ NODE_ENV=test \
      NO_PROGRESS=1 \
      sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh default tests
 
-# Add mbtest host alias to work around NO_PROXY restriction.
-# See add_mbtest_alias.sh for details.
 ./docker/musicbrainz-tests/add_mbtest_alias.sh
 
 sv_start_if_down template-renderer website
