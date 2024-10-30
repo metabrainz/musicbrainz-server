@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches-ignore:
+      - translations
+  pull_request:
+    branches-ignore:
+      - translations
+
+jobs:
+  js-perl-and-pgtap:
+    runs-on: ubuntu-latest
+    env:
+      TERM: ansi
+      MBS_ROOT: /home/musicbrainz/musicbrainz-server
+      NO_YARN: 1 # disables yarn within compile_resources.sh
+    container:
+      image: metabrainz/musicbrainz-tests:v-2024-10-30
+      options: --user root
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: |
+          [ -d "$MBS_ROOT" ] && rm -rf "$MBS_ROOT"
+          ln -s "$GITHUB_WORKSPACE" "$MBS_ROOT"
+          chown -R musicbrainz:musicbrainz .
+          corepack enable
+
+      - id: cache-restore-node-modules
+        uses: actions/cache/restore@v4
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('yarn.lock') }}
+
+      - if: steps.cache-restore-node-modules.outputs.cache-hit == 'true'
+        run: |
+          chown -R musicbrainz:musicbrainz node_modules
+
+      - if: steps.cache-restore-node-modules.outputs.cache-hit != 'true'
+        run: |
+          sudo -E -H -u musicbrainz yarn
+
+      - if: steps.cache-restore-node-modules.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: node_modules
+          key: ${{ steps.cache-restore-node-modules.outputs.cache-primary-key }}
+
+      - run: |
+          /sbin/my_init &
+          sleep 5
+          ./docker/musicbrainz-tests/run_js_perl_and_pgtap_tests.sh
+
+      - if: always()
+        uses: mikepenz/action-junit-report@v5
+        with:
+          report_paths: 'junit_output/*.xml'
+          fail_on_failure: true
+          require_tests: true

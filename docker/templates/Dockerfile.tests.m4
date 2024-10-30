@@ -233,5 +233,3 @@ RUN --mount=type=bind,source=docker/scripts/install_svlogd_services.sh,target=/u
 # Allow the musicbrainz user execute any command with sudo.
 # Primarily needed to run rabbitmqctl.
 RUN echo 'musicbrainz ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-LABEL com.circleci.preserve-entrypoint=true
