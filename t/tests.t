@@ -26,7 +26,7 @@ MusicBrainz::Server::Test->prepare_test_server;
 @classes = commandline_override('t::MusicBrainz::Server::', @classes);
 
 # Image editing temporarily disabled
-@classes = grep { $_ !~ /Art/ } @classes;
+# @classes = grep { $_ !~ /Art/ } @classes;
 
 plan tests => scalar(@classes);
 run_tests($_ => $_) for @classes;
