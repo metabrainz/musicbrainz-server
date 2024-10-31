@@ -424,6 +424,116 @@ test 'Type can be set to group when gender is removed (MBS-8801)' => sub {
     is($c->model('Artist')->get_by_id(2)->type_id, 2);
 };
 
+test 'Fails edits trying to set an end date to a character artist' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<~'SQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (2, 'cdf5588d-cca8-4e0c-bae1-d53bc73b012a', 'person', 'person');
+        SQL
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(2),
+        end_date => { year => 2000, month => 3, day => 20 },
+        ipi_codes => [],
+        isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    ok($edit->is_open);
+    $c->sql->do('UPDATE artist SET type = 4 WHERE id = 2');
+
+    my $exception = exception { $edit->accept };
+    isa_ok $exception, 'MusicBrainz::Server::Edit::Exceptions::GeneralError';
+    is $exception->message, 'Characters cannot have an end date.';
+};
+
+test 'Fails edits trying to set an artist with an end date as a character' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<~'SQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (2, 'cdf5588d-cca8-4e0c-bae1-d53bc73b012a', 'person', 'person');
+        SQL
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(2),
+        type_id => 4,
+        ipi_codes => [],
+        isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    ok($edit->is_open);
+    $c->sql->do('UPDATE artist SET end_date_year = 1991 WHERE id = 2');
+
+    my $exception = exception { $edit->accept };
+    isa_ok $exception, 'MusicBrainz::Server::Edit::Exceptions::GeneralError';
+    is $exception->message, 'Characters cannot have an end date.';
+};
+
+test 'Fails edits trying to set a character artist as ended' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<~'SQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (2, 'cdf5588d-cca8-4e0c-bae1-d53bc73b012a', 'person', 'person');
+        SQL
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(2),
+        ended => 1,
+        ipi_codes => [],
+        isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    ok($edit->is_open);
+    $c->sql->do('UPDATE artist SET type = 4 WHERE id = 2');
+
+    my $exception = exception { $edit->accept };
+    isa_ok $exception, 'MusicBrainz::Server::Edit::Exceptions::GeneralError';
+    is $exception->message, 'Characters cannot be marked as ended.';
+};
+
+test 'Fails edits trying to set an end area to a character artist' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<~'SQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+            VALUES (2, 'cdf5588d-cca8-4e0c-bae1-d53bc73b012a', 'person', 'person');
+        INSERT INTO area (id, gid, name, type)
+            VALUES (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
+        SQL
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(2),
+        end_area_id => 221,
+        ipi_codes => [],
+        isni_codes => [],
+        privileges => $UNTRUSTED_FLAG,
+    );
+
+    ok($edit->is_open);
+    $c->sql->do('UPDATE artist SET type = 4 WHERE id = 2');
+
+    my $exception = exception { $edit->accept };
+    isa_ok $exception, 'MusicBrainz::Server::Edit::Exceptions::GeneralError';
+    is $exception->message, 'Characters cannot have an end area.';
+};
+
 sub _create_full_edit {
     my ($c, $artist) = @_;
     return $c->model('Edit')->create(

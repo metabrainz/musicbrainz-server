@@ -16,12 +16,23 @@ MB.Control.ArtistEdit = function () {
   self.$name = $('#id-edit-artist\\.name');
   self.$begin = $('#label-id-edit-artist\\.period\\.begin_date');
   self.$ended = $('#label-id-edit-artist\\.period\\.ended');
+  self.$ended_checkbox = $('#id-edit-artist\\.period\\.ended');
   self.$end = $('#label-id-edit-artist\\.period\\.end_date');
+  self.$end_section = $('#artist\\.end_date_section');
+  self.$end_year = $('#id-edit-artist\\.period\\.end_date\\.year');
+  self.$end_month = $('#id-edit-artist\\.period\\.end_date\\.month');
+  self.$end_day = $('#id-edit-artist\\.period\\.end_date\\.day');
   self.$beginarea = $('#label-id-edit-artist\\.begin_area\\.name');
   self.$endarea = $('#label-id-edit-artist\\.end_area\\.name');
   self.$type = $('#id-edit-artist\\.type_id');
   self.$gender = $('#id-edit-artist\\.gender_id');
+  self.$end_area_id = $('#id-edit-artist\\.end_area_id');
   self.old_gender = self.$gender.val();
+  self.old_ended_checkbox = self.$ended_checkbox.prop('checked');
+  self.old_end_year = self.$end_year.val();
+  self.old_end_month = self.$end_month.val();
+  self.old_end_day = self.$end_day.val();
+  self.old_end_area = self.$end_area_id.val();
 
   self.changeDateText = function (begin, end, ended) {
     self.$begin.text(begin);
@@ -54,6 +65,7 @@ MB.Control.ArtistEdit = function () {
         );
         self.changeAreaText(l('Born in:'), l('Died in:'));
         self.enableGender();
+        self.enableEndSection();
         break;
 
       case '2':
@@ -69,6 +81,7 @@ MB.Control.ArtistEdit = function () {
           addColonText(lp('Dissolved in', 'group artist')),
         );
         self.disableGender();
+        self.enableEndSection();
         break;
 
       case '4':
@@ -82,6 +95,7 @@ MB.Control.ArtistEdit = function () {
           addColonText(l('End area')),
         );
         self.enableGender();
+        self.disableEndSection();
         break;
 
       case '0':
@@ -96,6 +110,7 @@ MB.Control.ArtistEdit = function () {
           addColonText(l('End area')),
         );
         self.enableGender();
+        self.enableEndSection();
         break;
     }
   };
@@ -112,6 +127,36 @@ MB.Control.ArtistEdit = function () {
     self.$gender.prop('disabled', true);
     self.old_gender = self.$gender.val();
     self.$gender.val('');
+  };
+
+  self.enableEndSection = function () {
+    if (self.$end_section.is(':hidden')) {
+      self.$end_section.show();
+      self.$ended_checkbox.prop('checked', self.old_ended_checkbox);
+      self.$end_area_id.val(self.old_end_area);
+      self.$end_year.val(self.old_end_year);
+      self.$end_month.val(self.old_end_month);
+      self.$end_day.val(self.old_end_day);
+    }
+  };
+
+  self.disableEndSection = function () {
+    self.old_ended_checkbox = self.$ended_checkbox.prop('checked');
+    self.$ended_checkbox.prop('checked', false);
+
+    self.old_end_area = self.$end_area_id.val();
+    self.$end_area_id.val('');
+
+    self.old_end_year = self.$end_year.val();
+    self.$end_year.val('');
+
+    self.old_end_month = self.$end_month.val();
+    self.$end_month.val('');
+
+    self.old_end_day = self.$end_day.val();
+    self.$end_day.val('');
+
+    self.$end_section.hide();
   };
 
   self.typeChanged();
