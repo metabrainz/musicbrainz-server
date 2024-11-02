@@ -14,15 +14,7 @@ function sv_start_if_down() {
   done
 }
 
-sudo -E -H -u musicbrainz mkdir -p junit_output
-
-sudo -E -H -u musicbrainz cp docker/musicbrainz-tests/DBDefs.pm lib/
-
-sv_start_if_down postgresql redis
-
-sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
-
-sudo -E -H -u musicbrainz make -C po test_source all_quiet deploy
+sudo -E -H -u musicbrainz make -C po test_source
 
 MUSICBRAINZ_RUNNING_TESTS=1 \
     NODE_ENV=test \
