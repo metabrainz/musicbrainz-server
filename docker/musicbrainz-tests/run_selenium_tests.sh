@@ -16,16 +16,7 @@ function sv_start_if_down() {
 
 cd /home/musicbrainz/musicbrainz-server
 
-sv_start_if_down postgresql redis
-
-# Wait for the database to start.
-sleep 10
-
-# Copy in DBDefs.pm, which is required before invoking create_test_db.sh.
-sudo -E -H -u musicbrainz cp docker/musicbrainz-tests/DBDefs.pm lib/
-
-# Create the musicbrainz_test and musicbrainz_selenium DBs.
-sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
+# Create the musicbrainz_selenium DB.
 pushd /var/lib/postgresql
 sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres \
      musicbrainz_selenium
@@ -59,9 +50,6 @@ cd /home/musicbrainz/musicbrainz-server
 sv_start_if_down artwork-indexer artwork-redirect ssssss
 
 # Compile static resources.
-corepack enable
-sudo -E -H -u musicbrainz yarn
-sudo -E -H -u musicbrainz make -C po all_quiet deploy
 NODE_ENV=test \
      WEBPACK_MODE=development \
      MUSICBRAINZ_RUNNING_TESTS=1 \
@@ -74,8 +62,6 @@ sv_start_if_down template-renderer website
 
 # Wait for plackup to start.
 sleep 10
-
-sudo -E -H -u musicbrainz mkdir -p junit_output
 
 sudo -E -H -u musicbrainz carton exec -- \
      ./t/selenium.js --browser-binary-path=/opt/chrome-linux64/chrome \
