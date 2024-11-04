@@ -77,6 +77,7 @@ Images:
 
     external-favicons/home-32.png (original: https://www.iconfinder.com/icons/42257/about_icon)
     external-favicons/blog-32.png (original: https://www.iconfinder.com/icons/42282/notepad_icon)
+    external-favicons/review-32.png (original: https://www.iconfinder.com/icons/42347/line_spechbubble_sq_icon)
 
 ----------------------------------------------------------------------------
 

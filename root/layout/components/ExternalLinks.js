@@ -76,7 +76,7 @@ component ExternalLinks(
   }
 
   const links = [];
-  const blogLinks = [];
+  const blogsAndReviews = [];
   const otherLinks: Array<{
     +editsPending: boolean,
     +entityCredit: string,
@@ -109,13 +109,24 @@ component ExternalLinks(
         />,
       );
     } else if (/^blog$/.test(linkType.name)) {
-      blogLinks.push(
+      blogsAndReviews.push(
         <ExternalLink
           className="blog-favicon"
           editsPending={relationship.editsPending}
           entityCredit={entityCredit}
           key={relationship.id}
           text={l('Blog')}
+          url={target}
+        />,
+      );
+    } else if (/^review$/.test(linkType.name)) {
+      blogsAndReviews.push(
+        <ExternalLink
+          className="review-favicon"
+          editsPending={relationship.editsPending}
+          entityCredit={entityCredit}
+          key={relationship.id}
+          text={l('Review')}
           url={target}
         />,
       );
@@ -129,7 +140,7 @@ component ExternalLinks(
     }
   }
 
-  if (!(links.length || blogLinks.length || otherLinks.length)) {
+  if (!(links.length || blogsAndReviews.length || otherLinks.length)) {
     return null;
   }
 
@@ -142,8 +153,8 @@ component ExternalLinks(
       compare(a.url.href_url, b.url.href_url)
     ));
 
-  // We ensure official sites are listed above blogs, and blogs above others
-  links.push(...blogLinks);
+  // We list official sites above blogs/reviews, and those above others
+  links.push(...blogsAndReviews);
   links.push(...uniqueOtherLinks.map(({id, ...props}) => (
     <ExternalLink key={id} {...props} />
   )));

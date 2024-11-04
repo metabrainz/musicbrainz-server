@@ -1460,7 +1460,20 @@ export class ExternalLink extends React.Component<LinkProps> {
         if (isBlog) {
           faviconClass = 'blog';
         } else {
-          faviconClass = 'no';
+          const isReview = props.relationships.some(link => {
+            const linkType = link.type
+              ? linkedEntities.link_type[link.type]
+              : null;
+            if (linkType) {
+              return /^review$/.test(linkType.name);
+            }
+            return false;
+          });
+          if (isReview) {
+            faviconClass = 'review';
+          } else {
+            faviconClass = 'no';
+          }
         }
       }
     }
