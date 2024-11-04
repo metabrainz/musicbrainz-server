@@ -6,7 +6,7 @@ use Test::Routine;
 
 with 't::Context', 't::Mechanize';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether release and CD stub matches are shown when a user
 tries to submit a CD TOC / disc ID to MusicBrainz.

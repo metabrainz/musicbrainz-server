@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Edit', 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether basic recording editing works, including replacing
 ISRCs. It also checks if it still works if you don't indicate

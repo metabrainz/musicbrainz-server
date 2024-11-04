@@ -18,7 +18,7 @@ use MusicBrainz::Server::Test qw( capture_edits );
 
 with 't::Context', 't::Mechanize';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether non-URL relationships are correctly added, removed
 and modified when editing artists, including several edge cases.

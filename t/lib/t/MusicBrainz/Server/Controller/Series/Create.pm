@@ -10,7 +10,7 @@ use MusicBrainz::Server::Test qw( html_ok capture_edits );
 
 with 't::Edit', 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether basic series creation works, including adding
 relationships during the creation process.

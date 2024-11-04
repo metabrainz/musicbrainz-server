@@ -10,7 +10,7 @@ use MusicBrainz::Server::Test qw( accept_edit capture_edits html_ok );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether basic work editing works, and specifically tests
 work attributes and languages. It also ensures a work can be added to a series
