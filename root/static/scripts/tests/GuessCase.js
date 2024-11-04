@@ -223,7 +223,7 @@ test('Release', function (t) {
 });
 
 test('Work', function (t) {
-  t.plan(26);
+  t.plan(27);
 
   const tests = [
     {
@@ -409,8 +409,16 @@ test('Work', function (t) {
       keepuppercase: false,
     },
     {
-      input: 'cmxcix + x = mix',
-      expected: 'CMXCIX + X = MIX',
+      input: 'mi amor',
+      expected: 'Mi amor',
+      bug: 'MBS-13806',
+      mode: 'Sentence',
+      roman: true,
+      keepuppercase: false,
+    },
+    {
+      input: 'cmxcix + v = miv',
+      expected: 'CMXCIX + V = MIV',
       bug: 'MBS-12523',
       mode: 'English',
       roman: true,
