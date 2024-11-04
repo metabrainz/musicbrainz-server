@@ -1429,13 +1429,7 @@ export class ExternalLink extends React.Component<LinkProps> {
     const firstLink = props.relationships[0];
 
     let faviconClass: string | void;
-    for (const key of Object.keys(FAVICON_CLASSES)) {
-      if (props.url.indexOf(key) > 0) {
-        faviconClass = FAVICON_CLASSES[key];
-        break;
-      }
-    }
-    if (notEmpty && !faviconClass) {
+    if (notEmpty) {
       const isHomepage = props.relationships.some(link => {
         const linkType = link.type
           ? linkedEntities.link_type[link.type]
@@ -1472,7 +1466,15 @@ export class ExternalLink extends React.Component<LinkProps> {
           if (isReview) {
             faviconClass = 'review';
           } else {
-            faviconClass = 'no';
+            for (const key of Object.keys(FAVICON_CLASSES)) {
+              if (props.url.indexOf(key) > 0) {
+                faviconClass = FAVICON_CLASSES[key];
+                break;
+              }
+            }
+            if (!faviconClass) {
+              faviconClass = 'no';
+            }
           }
         }
       }
