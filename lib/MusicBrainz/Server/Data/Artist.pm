@@ -4,7 +4,10 @@ use namespace::autoclean;
 
 use Carp;
 use List::AllUtils qw( any );
-use MusicBrainz::Server::Constants qw( $ARTIST_TYPE_GROUP );
+use MusicBrainz::Server::Constants qw(
+    $ARTIST_TYPE_CHARACTER
+    $ARTIST_TYPE_GROUP
+);
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::ArtistCredit;
@@ -18,6 +21,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     merge_table_attributes
     merge_date_period
+    merge_partial_date
     order_by
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
@@ -388,12 +392,21 @@ sub merge
     # that's arguably more annoying for the editor. See MBS-10187.
     my %dropped_columns;
     unless (is_special_artist($new_id)) {
-        my $merge_columns = [ qw( area begin_area end_area ) ];
-        my $target_row = $self->sql->select_single_row_hash('SELECT gender, type FROM artist WHERE id = ?', $new_id);
+        my $merge_columns = [ qw( area begin_area ) ];
+        my $target_row = $self->sql->select_single_row_hash(
+            'SELECT gender, type, ended, end_area, end_date_year, end_date_month, end_date_day FROM artist WHERE id = ?',
+            $new_id,
+        );
         my $target_type = $target_row->{type};
         my $target_gender = $target_row->{gender};
+        my $target_ended = $target_row->{ended};
+        my $target_end_date = MusicBrainz::Server::Entity::PartialDate->new_from_row($target_row, 'end_date_');
+        my $target_end_area = $target_row->{end_area};
         my $merged_type = $target_type;
         my $merged_gender = $target_gender;
+        my $merged_ended = $target_ended;
+        my $merged_end_date = $target_end_date;
+        my $merged_end_area = $target_end_area;
 
         if (!$merged_type) {
             my ($query, $args) = conditional_merge_column_query(
@@ -405,6 +418,38 @@ sub merge
             my ($query, $args) = conditional_merge_column_query(
                 'artist', 'gender', $new_id, [$new_id, @$old_ids], 'IS NOT NULL');
             $merged_gender = $self->c->sql->select_single_value($query, @$args);
+        }
+
+        if (!$merged_ended) {
+            my ($query, $args) = conditional_merge_column_query(
+                'artist', 'ended', $new_id, [$new_id, @$old_ids], '= TRUE');
+            $merged_ended = $self->c->sql->select_single_value($query, @$args) // 0;
+        }
+
+        if ($merged_end_date->is_empty) {
+            my ($query, $args) = conditional_merge_column_query(
+                'artist', 'end_date_year', $new_id, [$new_id, @$old_ids], 'IS NOT NULL');
+            my $merged_end_year = $self->c->sql->select_single_value($query, @$args);
+
+            ($query, $args) = conditional_merge_column_query(
+                'artist', 'end_date_month', $new_id, [$new_id, @$old_ids], 'IS NOT NULL');
+            my $merged_end_month = $self->c->sql->select_single_value($query, @$args);
+
+            ($query, $args) = conditional_merge_column_query(
+                'artist', 'end_date_day', $new_id, [$new_id, @$old_ids], 'IS NOT NULL');
+            my $merged_end_day = $self->c->sql->select_single_value($query, @$args);
+
+            $merged_end_date = MusicBrainz::Server::Entity::PartialDate->new(
+                year => $merged_end_year,
+                month => $merged_end_month,
+                day => $merged_end_day,
+            );
+        }
+
+        if (!$merged_end_area) {
+            my ($query, $args) = conditional_merge_column_query(
+                'artist', 'end_area', $new_id, [$new_id, @$old_ids], 'IS NOT NULL');
+            $merged_end_area = $self->c->sql->select_single_value($query, @$args);
         }
 
         my $group_types = $self->sql->select_single_column_array(q{
@@ -421,23 +466,61 @@ sub merge
             defined $merged_type &&
             contains_string($group_types, $merged_type);
 
-        if ($merged_type_is_group && $merged_gender) {
-            my $target_type_is_group =
-                defined $target_type &&
-                contains_string($group_types, $target_type);
+        my $merged_type_is_character =
+            defined $merged_type && $merged_type == $ARTIST_TYPE_CHARACTER;
 
-            if ($target_type_is_group) {
-                $dropped_columns{gender} = $merged_gender;
-                push @$merge_columns, 'type';
-            } elsif ($target_gender) {
-                $dropped_columns{type} = $merged_type;
-                push @$merge_columns, 'gender';
+        my $merge_ended = 0;
+
+        if ($merged_type_is_group || $merged_type_is_character) {
+            if ($merged_type_is_group && $merged_gender) {
+                my $target_type_is_group =
+                    defined $target_type &&
+                    contains_string($group_types, $target_type);
+
+                if ($target_type_is_group) {
+                    $dropped_columns{gender} = $merged_gender;
+                    push @$merge_columns, 'type';
+                } elsif ($target_gender) {
+                    $dropped_columns{type} = $merged_type;
+                    push @$merge_columns, 'gender';
+                } else {
+                    $dropped_columns{gender} = $merged_gender;
+                    $dropped_columns{type} = $merged_type;
+                }
             } else {
-                $dropped_columns{gender} = $merged_gender;
-                $dropped_columns{type} = $merged_type;
+                push @$merge_columns, 'gender';
+            }
+
+            if (
+                $merged_type_is_character && (
+                    $merged_ended ||
+                    $merged_end_area ||
+                    !($merged_end_date->is_empty)
+                )
+            ) {
+                my $target_type_is_character =
+                    defined $target_type && $target_type == $ARTIST_TYPE_CHARACTER;
+
+                if ($target_type_is_character) {
+                    $dropped_columns{ended} = $merged_ended;
+                    $dropped_columns{end_area} = $merged_end_area;
+                    $dropped_columns{end_date} = $merged_end_date->format;
+                    push @$merge_columns, 'type';
+                } elsif ($target_ended || $target_end_area || !($target_end_date->is_empty)) {
+                    $dropped_columns{type} = $merged_type;
+                    push @$merge_columns, 'end_area';
+                    $merge_ended = 1;
+                } else {
+                    $dropped_columns{ended} = $merged_ended;
+                    $dropped_columns{type} = $merged_type;
+                }
+            } else {
+                push @$merge_columns, 'end_area';
+                $merge_ended = 1;
             }
         } else {
-            push @$merge_columns, qw( gender type );
+            push @$merge_columns, qw( type gender end_area );
+            $merge_ended = 1;
         }
 
         merge_table_attributes(
@@ -449,13 +532,24 @@ sub merge
             ),
         );
 
-        merge_date_period(
-            $self->sql => (
-                table => 'artist',
-                old_ids => $old_ids,
-                new_id => $new_id,
-            ),
-        );
+        if ($merge_ended) {
+            merge_date_period(
+                $self->sql => (
+                    table => 'artist',
+                    old_ids => $old_ids,
+                    new_id => $new_id,
+                ),
+            );
+        } else {
+            merge_partial_date(
+                $self->sql => (
+                    table => 'artist',
+                    old_ids => $old_ids,
+                    new_id => $new_id,
+                ),
+                field => 'begin_date',
+            );
+        }
     }
 
     $self->_delete_and_redirect_gids('artist', $new_id, @$old_ids);
