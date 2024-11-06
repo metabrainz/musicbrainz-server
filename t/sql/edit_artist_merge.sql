@@ -25,3 +25,6 @@ INSERT INTO recording (id, gid, name, artist_credit, length)
 INSERT INTO link (id, link_type, attribute_count) VALUES (1, 156, 0);
 
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 3, 1);
+
+INSERT INTO area (id, gid, name, type) VALUES
+  (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1);
