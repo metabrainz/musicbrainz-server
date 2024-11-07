@@ -52,7 +52,7 @@ sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbr
 
 sv_start_if_down template-renderer vnu website
 
-export MMD_SCHEMA_ROOT=/home/musicbrainz/mb-solr/mmd-schema
+export MMD_SCHEMA_ROOT=/home/musicbrainz/mmd-schema
 export JUNIT_OUTPUT_FILE=junit_output/perl_and_pgtap.xml
 
 sudo -E -H -u musicbrainz carton exec -- prove \
