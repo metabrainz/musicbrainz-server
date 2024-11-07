@@ -7,7 +7,6 @@ runs:
   using: 'composite'
   steps:
     - run: |
-        [ -d "$MBS_ROOT" ] && rm -rf "$MBS_ROOT"
         ln -s "$GITHUB_WORKSPACE" "$MBS_ROOT"
         chown -R musicbrainz:musicbrainz .
         corepack enable
