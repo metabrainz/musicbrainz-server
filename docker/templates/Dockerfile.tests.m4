@@ -55,7 +55,6 @@ RUN with_cpanm_cache \
     sudo -E -H -u musicbrainz carton install --deployment && \
     rm cpanfile cpanfile.snapshot
 
-RUN mkdir musicbrainz-server
 ARG PG_AMQP_COMMIT=240d477
 
 RUN git clone --depth 1 https://github.com/omniti-labs/pg_amqp.git && \
