@@ -56,7 +56,7 @@ RUN with_cpanm_cache \
     rm cpanfile cpanfile.snapshot
 
 RUN mkdir musicbrainz-server
-ENV PG_AMQP_COMMIT 240d477
+ARG PG_AMQP_COMMIT=240d477
 
 RUN git clone --depth 1 https://github.com/omniti-labs/pg_amqp.git && \
     cd pg_amqp && \
@@ -87,7 +87,7 @@ RUN curl -sSLO http://archive.apache.org/dist/solr/solr/$SOLR_VERSION/solr-$SOLR
     ./install_solr_service.sh solr-$SOLR_VERSION.tgz && \
     systemctl disable solr
 
-ENV MB_SOLR_TAG master
+ARG MB_SOLR_TAG=master
 
 # Steps taken from https://github.com/metabrainz/mb-solr/blob/master/Dockerfile
 RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recursive https://github.com/metabrainz/mb-solr.git && \
@@ -104,14 +104,14 @@ RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recurs
     chown -R solr:solr /opt/solr/ /var/solr/data/ && \
     cd /home/musicbrainz
 
-ENV SIR_TAG v3.0.1
+ARG SIR_TAG=v3.0.1
 
 RUN sudo -E -H -u musicbrainz git clone --branch $SIR_TAG https://github.com/metabrainz/sir.git && \
     cd sir && \
     sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install --upgrade pip; pip install -r requirements.txt; pip install git+https://github.com/esnme/ultrajson.git@7d0f4fb7e911120fd09075049233b587936b0a65' && \
     cd /home/musicbrainz
 
-ENV ARTWORK_INDEXER_COMMIT 776046c
+ARG ARTWORK_INDEXER_COMMIT=776046c
 
 RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-indexer.git && \
     cd artwork-indexer && \
@@ -119,7 +119,7 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-in
     sudo -E -H -u musicbrainz sh -c 'python3.11 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
     cd /home/musicbrainz
 
-ENV ARTWORK_REDIRECT_COMMIT 1ab748a
+ARG ARTWORK_REDIRECT_COMMIT=1ab748a
 
 RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-redirect.git && \
     cd artwork-redirect && \
