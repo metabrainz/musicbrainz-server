@@ -55,7 +55,9 @@ run_with_apt_cache \
 ENV JAVA_HOME=/usr/local/jdk \
     PATH=/usr/local/jdk/bin:$PATH \
     PGHOME=/var/lib/postgresql \
-    PGDATA=/var/lib/postgresql/data
+    PGDATA=/var/lib/postgresql/data \
+    TERM=ansi \
+    `MBS_ROOT'=MBS_ROOT
 
 FROM build AS pgdata
 
