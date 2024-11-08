@@ -40,10 +40,6 @@ jobs:
   js-perl-and-pgtap:
     needs: build-tests-image
     runs-on: ubuntu-latest
-    env:
-      TERM: ansi
-      MBS_ROOT: /home/musicbrainz/musicbrainz-server
-      NO_YARN: 1 # disables yarn within compile_resources.sh
     container:
       image: metabrainz/musicbrainz-tests:${{ github.event_name == 'pull_request' && format('{0}-{1}', github.base_ref, github.head_ref) || github.ref_name }}
       options: --user root
@@ -66,10 +62,6 @@ jobs:
   selenium:
     needs: build-tests-image
     runs-on: ubuntu-latest
-    env:
-      TERM: ansi
-      MBS_ROOT: /home/musicbrainz/musicbrainz-server
-      NO_YARN: 1
     container:
       image: metabrainz/musicbrainz-tests:${{ github.event_name == 'pull_request' && format('{0}-{1}', github.base_ref, github.head_ref) || github.ref_name }}
       options: --user root
