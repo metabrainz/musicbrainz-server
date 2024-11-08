@@ -14,7 +14,7 @@ function sv_start_if_down() {
   done
 }
 
-cd /home/musicbrainz/musicbrainz-server
+cd "$MBS_ROOT"
 
 # Create the musicbrainz_selenium DB.
 pushd /var/lib/postgresql
@@ -44,7 +44,7 @@ psql -U musicbrainz -f sql/CreateTriggers.sql musicbrainz_selenium
 cd /home/musicbrainz/artwork-indexer
 sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python indexer.py --setup-schema'
 
-cd /home/musicbrainz/musicbrainz-server
+cd "$MBS_ROOT"
 
 # Start the various CAA-related services.
 sv_start_if_down artwork-indexer artwork-redirect ssssss
