@@ -25,19 +25,3 @@ which will require updating the version of ChromeDriver installed through
 version of ChromeDriver for the new version of Chrome from
 https://chromedriver.chromium.org/downloads and modify the Dockerfile
 accordingly.
-
-Then you will need to create a Docker `musicbrainz-tests` image. This step
-also takes quite a while, so you might want to consider running it inside a
-MetaBrainz server to make it faster. In any case, inside a musicbrainz-server
-checkout running the updated branch, you should run (note the dot at the end):
-
-    $ docker build --tag metabrainz/musicbrainz-tests:v-YYYY-MM --file docker/Dockerfile.tests .
-
-Then log into Docker Hub with `docker login` (the credentials are in the
-syswiki repo) and push the created image to Docker Hub:
-
-    $ docker push metabrainz/musicbrainz-tests:v-YYYY-MM
-
-Finally, you will need to update the `musicbrainz-tests` image version in
-[.github/workflows/ci.yml](.github/workflows/ci.yml)
-and push the changes.
