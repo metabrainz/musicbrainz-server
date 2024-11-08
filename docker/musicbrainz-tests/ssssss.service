@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /home/musicbrainz/musicbrainz-server
+cd "$MBS_ROOT"
 
 export SSSSSS_STORAGE=/var/ssssss
 mkdir -p "$SSSSSS_STORAGE"
