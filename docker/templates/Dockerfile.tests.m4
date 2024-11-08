@@ -50,7 +50,8 @@ run_with_apt_cache \
     locale-gen && \
     # Allow the musicbrainz user execute any command with sudo.
     # Primarily needed to run rabbitmqctl.
-    echo 'musicbrainz ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+    echo 'musicbrainz ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+    sudo -E -H -u musicbrainz mkdir MBS_ROOT
 
 ENV JAVA_HOME=/usr/local/jdk \
     PATH=/usr/local/jdk/bin:$PATH \
@@ -142,15 +143,22 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-re
 
 COPY docker/musicbrainz-tests/artwork-redirect-config.ini artwork-redirect/config.ini
 
+FROM build AS node_modules
+
+COPY --chown=musicbrainz:musicbrainz .yarnrc.yml package.json yarn.lock MBS_ROOT/
+RUN cd MBS_ROOT && \
+    corepack enable && \
+    sudo -E -H -u musicbrainz yarn
+
 FROM build
 
-COPY --chown=musicbrainz:musicbrainz cpanfile cpanfile.snapshot ./
+COPY --chown=musicbrainz:musicbrainz cpanfile cpanfile.snapshot MBS_ROOT/
 # Install Perl module dependencies for MusicBrainz Server
 RUN with_cpanm_cache \
     chown_mb(``/home/musicbrainz/.cpanm'') && \
     chown_mb(``$PERL_CARTON_PATH'') && \
-    sudo -E -H -u musicbrainz carton install --deployment && \
-    rm cpanfile cpanfile.snapshot
+    cd MBS_ROOT && \
+    sudo -E -H -u musicbrainz carton install --deployment
 
 COPY --from=mb_solr /usr/local/jdk/ /usr/local/jdk/
 RUN update-alternatives --install /usr/bin/java java /usr/local/jdk/bin/java 10000 && \
@@ -188,6 +196,7 @@ COPY --from=pg_amqp --chown=musicbrainz:musicbrainz /home/musicbrainz/pg_amqp/ta
 COPY --from=sir --chown=musicbrainz:musicbrainz /home/musicbrainz/sir/ /home/musicbrainz/sir/
 COPY --from=artwork_indexer --chown=musicbrainz:musicbrainz /home/musicbrainz/artwork-indexer/ /home/musicbrainz/artwork-indexer/
 COPY --from=artwork_redirect --chown=musicbrainz:musicbrainz /home/musicbrainz/artwork-redirect/ /home/musicbrainz/artwork-redirect/
+COPY --from=node_modules --chown=musicbrainz:musicbrainz MBS_ROOT/node_modules/ MBS_ROOT/node_modules/
 COPY --chmod=0755 docker/musicbrainz-tests/service/ /etc/service/
 
 COPY --chmod=0755 \
@@ -206,3 +215,8 @@ RUN --mount=type=bind,source=docker/scripts/setup_services.sh,target=/usr/local/
         template-renderer \
         vnu \
         website
+
+COPY --chown=musicbrainz:musicbrainz ./ MBS_ROOT/
+
+RUN cd MBS_ROOT && \
+    ./docker/musicbrainz-tests/initialize_tests_image.sh
