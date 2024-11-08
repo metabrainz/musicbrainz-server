@@ -7,53 +7,58 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as Sentry from '@sentry/browser';
 import * as React from 'react';
 
 import {minimalEntity} from '../../../../utility/hydrate.js';
 import entityHref from '../utility/entityHref.js';
 
-type Props = {
-  +cachedImage: ?CommonsImageT,
-  +entity: NonUrlRelatableEntityT,
-};
+type CommonsImageRequestCallbackT = (CommonsImageT | null) => void;
 
-type State = {
-  image: ?CommonsImageT,
-};
+function loadCommonsImage(
+  entity: NonUrlRelatableEntityT,
+  callback: CommonsImageRequestCallbackT,
+): void {
+  const url = entityHref(entity, '/commons-image');
 
-class CommonsImage extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {image: props.cachedImage};
-  }
-
-  componentDidMount() {
-    if (!this.state.image) {
-      const $ = require('jquery');
-      $.get(entityHref(this.props.entity, '/commons-image'), data => {
-        this.setState({image: data.image});
-      });
-    }
-  }
-
-  render(): React.MixedElement | null {
-    const {image} = this.state;
-    return image ? (
-      <div className="picture">
-        <img src={image.thumb_url} />
-        <br />
-        <span className="picture-note">
-          <a href={image.page_url}>
-            {l('Image from Wikimedia Commons')}
-          </a>
-        </span>
-      </div>
-    ) : null;
-  }
+  fetch(url)
+    .then(resp => resp.json())
+    .then((reqData) => {
+      callback(reqData.image);
+    })
+    .catch((error) => {
+      console.error(error);
+      Sentry.captureException(error);
+    });
 }
 
-export default (hydrate<Props>(
+component CommonsImage(
+  cachedImage: ?CommonsImageT,
+  entity: NonUrlRelatableEntityT,
+) {
+  const [commonsImage, setCommonsImage] = React.useState(cachedImage);
+
+  React.useEffect(() => {
+    if (cachedImage == null) {
+      loadCommonsImage(entity, setCommonsImage);
+    }
+  }, [entity]);
+
+  return commonsImage ? (
+    <div className="picture">
+      <img src={commonsImage.thumb_url} />
+      <br />
+      <span className="picture-note">
+        <a href={commonsImage.page_url}>
+          {l('Image from Wikimedia Commons')}
+        </a>
+      </span>
+    </div>
+  ) : null;
+}
+
+export default (hydrate<React.PropsOf<CommonsImage>>(
   'div.commons-image',
   CommonsImage,
   minimalEntity,
-): React.AbstractComponent<Props, void>);
+): component(...React.PropsOf<CommonsImage>));
