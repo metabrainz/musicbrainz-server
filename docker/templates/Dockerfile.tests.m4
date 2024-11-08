@@ -118,6 +118,8 @@ RUN sudo -E -H -u musicbrainz git clone --branch $SIR_TAG --depth 1 https://gith
     cd sir && \
     sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install --upgrade pip; pip install -r requirements.txt; pip install git+https://github.com/esnme/ultrajson.git@7d0f4fb7e911120fd09075049233b587936b0a65'
 
+COPY docker/musicbrainz-tests/sir-config.ini sir/config.ini
+
 FROM build AS artwork_indexer
 
 ARG ARTWORK_INDEXER_COMMIT=776046c
@@ -127,6 +129,8 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-in
     sudo -E -H -u musicbrainz git reset --hard $ARTWORK_INDEXER_COMMIT && \
     sudo -E -H -u musicbrainz sh -c 'python3.11 -m venv venv; . venv/bin/activate; pip install -r requirements.txt'
 
+COPY docker/musicbrainz-tests/artwork-indexer-config.ini artwork-indexer/config.ini
+
 FROM build AS artwork_redirect
 
 ARG ARTWORK_REDIRECT_COMMIT=1ab748a
@@ -135,6 +139,8 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-re
     cd artwork-redirect && \
     sudo -E -H -u musicbrainz git reset --hard $ARTWORK_REDIRECT_COMMIT && \
     sudo -E -H -u musicbrainz sh -c 'python3.11 -m venv venv; . venv/bin/activate; pip install -r requirements.txt'
+
+COPY docker/musicbrainz-tests/artwork-redirect-config.ini artwork-redirect/config.ini
 
 FROM build
 
@@ -182,59 +188,14 @@ COPY --from=pg_amqp --chown=musicbrainz:musicbrainz /home/musicbrainz/pg_amqp/ta
 COPY --from=sir --chown=musicbrainz:musicbrainz /home/musicbrainz/sir/ /home/musicbrainz/sir/
 COPY --from=artwork_indexer --chown=musicbrainz:musicbrainz /home/musicbrainz/artwork-indexer/ /home/musicbrainz/artwork-indexer/
 COPY --from=artwork_redirect --chown=musicbrainz:musicbrainz /home/musicbrainz/artwork-redirect/ /home/musicbrainz/artwork-redirect/
-
-COPY docker/musicbrainz-tests/artwork-indexer-config.ini artwork-indexer/config.ini
-COPY docker/musicbrainz-tests/artwork-redirect-config.ini artwork-redirect/config.ini
-COPY docker/musicbrainz-tests/sir-config.ini sir/config.ini
-
-COPY --chmod=0755 \
-    docker/musicbrainz-tests/artwork-indexer.service \
-    /etc/service/artwork-indexer/run
-COPY --chmod=0755 \
-    docker/musicbrainz-tests/artwork-redirect.service \
-    /etc/service/artwork-redirect/run
-COPY --chmod=0755 \
-    docker/musicbrainz-tests/chrome.service \
-    /etc/service/chrome/run
-COPY --chmod=0755 \
-    docker/musicbrainz-tests/postgresql.service \
-    /etc/service/postgresql/run
-COPY --chmod=0755 \
-    docker/musicbrainz-tests/redis.service \
-    /etc/service/redis/run
-COPY --chmod=0755 \
-    docker/musicbrainz-tests/solr.service \
-    /etc/service/solr/run
-COPY --chmod=0755 \
-    docker/musicbrainz-tests/ssssss.service \
-    /etc/service/ssssss/run
-COPY --chmod=0755 \
-    docker/musicbrainz-tests/template-renderer.service \
-    /etc/service/template-renderer/run
-COPY --chmod=0755 \
-    docker/musicbrainz-tests/vnu.service \
-    /etc/service/vnu/run
-COPY --chmod=0755 \
-    docker/musicbrainz-tests/website.service \
-    /etc/service/website/run
-RUN touch \
-    /etc/service/artwork-indexer/down \
-    /etc/service/artwork-redirect/down \
-    /etc/service/chrome/down \
-    /etc/service/postgresql/down \
-    /etc/service/redis/down \
-    /etc/service/solr/down \
-    /etc/service/ssssss/down \
-    /etc/service/template-renderer/down \
-    /etc/service/vnu/down \
-    /etc/service/website/down
+COPY --chmod=0755 docker/musicbrainz-tests/service/ /etc/service/
 
 COPY --chmod=0755 \
     docker/scripts/start_template_renderer.sh \
     /usr/local/bin/
 
-RUN --mount=type=bind,source=docker/scripts/install_svlogd_services.sh,target=/usr/local/bin/install_svlogd_services.sh \
-    install_svlogd_services.sh \
+RUN --mount=type=bind,source=docker/scripts/setup_services.sh,target=/usr/local/bin/setup_services.sh \
+    setup_services.sh \
         artwork-indexer \
         artwork-redirect \
         chrome \
