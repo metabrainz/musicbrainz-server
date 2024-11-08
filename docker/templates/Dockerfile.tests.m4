@@ -106,9 +106,9 @@ RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recurs
     cd mb-solr/mmd-schema/brainz-mmd2-jaxb && \
     # Assume that Java classes have been regenerated and patched
     find src/main/java -type f -print0 | xargs -0 touch && \
-    mvn install && \
+    mvn --batch-mode install && \
     cd ../../mb-solr && \
-    mvn package -DskipTests
+    mvn --batch-mode package -DskipTests
 
 FROM build AS sir
 
