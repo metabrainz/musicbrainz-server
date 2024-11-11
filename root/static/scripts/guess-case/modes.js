@@ -49,6 +49,12 @@ const LOWER_CASE_WORDS_TURKISH = /^(ve|ile|ya|veya|yahut|ki|mı|mi|mu|mü|mısı
 const UPPER_CASE_WORDS = /^(dj|mc|tv|mtv|ep|lp|ymca|nyc|ny|ussr|usa|r&b|bbc|fm|bc|ac|dc|uk|bpm|ok|nba|rza|gza|odb|dmx|2xlc)$/;
 const ROMAN_NUMERALS = /^m{0,4}(cm|cd|d?c{0,3})(xc|xl|l?x{0,3})(ix|iv|v?i{0,3})$/;
 
+/*
+ * Roman numerals which should not be uppercased since they're also
+ * frequently-used words.
+ */
+const EXCLUDED_ROMAN_NUMERALS = /^(?:mi|mix)$/;
+
 /* eslint-disable @stylistic/js/no-multi-spaces */
 const PREPROCESS_FIXLIST = [
   // trim spaces from brackets.
@@ -184,7 +190,9 @@ const DefaultMode: GuessCaseModeT = {
   },
 
   isRomanNumber(word) {
-    return getBooleanCookie('guesscase_roman') && ROMAN_NUMERALS.test(word);
+    return getBooleanCookie('guesscase_roman') &&
+      ROMAN_NUMERALS.test(word) &&
+      !EXCLUDED_ROMAN_NUMERALS.test(word);
   },
 
   isSentenceCaps() {
