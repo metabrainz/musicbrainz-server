@@ -707,11 +707,6 @@ const seleniumTests = [
   {name: 'MBS-13615.json5', login: true},
   {name: 'Artist_Credit_Editor.json5', login: true},
   {name: 'Autocomplete2.json5'},
-  /*
-   * Image editing temporarily disabled
-   * {name: 'CAA.json5', login: true},
-   * {name: 'EAA.json5', login: true},
-   */
   {name: 'External_Links_Editor.json5', login: true},
   {name: 'Work_Editor.json5', login: true},
   {name: 'Redirect_Merged_Entities.json5', login: true},
@@ -784,6 +779,13 @@ const seleniumTests = [
     sql: 'vote_and_note_selenium.sql',
   },
 ];
+
+if (!DBDefs.DISABLE_IMAGE_EDITING) {
+  seleniumTests.push(
+    {name: 'CAA.json5', login: true},
+    {name: 'EAA.json5', login: true},
+  );
+}
 /* eslint-enable sort-keys */
 
 const testPath =

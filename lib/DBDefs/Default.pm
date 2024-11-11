@@ -304,6 +304,11 @@ This server is temporarily in read-only mode
 for database maintainance.
 EOF
 
+# Set this value to something true (e.g. 1) to disable any editing that involves
+# images in the Internet Archive hosted collaboration projects (currently CAA
+# and EAA), for example in case of a known long downtime of the Internet Archive.
+sub DISABLE_IMAGE_EDITING { 0 }
+
 # Development server feature.
 # Used to display which git branch is currently running along with information
 # about the last commit
