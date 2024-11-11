@@ -6,7 +6,7 @@ use Test::Routine;
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether artist annotation revision pages load,
 and whether they display the entirety of the annotation.

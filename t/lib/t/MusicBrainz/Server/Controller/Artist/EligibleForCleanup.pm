@@ -7,7 +7,7 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether artists are correctly displayed as eligible for
 cleanup (in risk of being auto-removed).

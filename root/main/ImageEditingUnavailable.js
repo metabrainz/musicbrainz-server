@@ -11,15 +11,10 @@ import ErrorLayout from './error/ErrorLayout.js';
 
 component ImageEditingUnavailable() {
   return (
-    <ErrorLayout title="Image editing unavailable">
+    <ErrorLayout title={l('Image editing unavailable')}>
       <p>
         <strong>
-          {'Images currently cannot be edited while the Internet Archive ' +
-           'recovers from a DDoS attack. Follow their '}
-          <a href="https://mastodon.archive.org/@internetarchive">
-            {'Mastodon account'}
-          </a>
-          {' for the latest information.'}
+          {l('Image editing is currently unavailable.')}
         </strong>
       </p>
     </ErrorLayout>

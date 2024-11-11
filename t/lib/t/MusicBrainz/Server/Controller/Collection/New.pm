@@ -19,7 +19,7 @@ around run_test => sub {
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks collection creation, with and without seeded entities,
 including the addition of collaborators.

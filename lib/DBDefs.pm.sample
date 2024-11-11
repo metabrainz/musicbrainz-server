@@ -330,6 +330,11 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 # for database maintainance.
 # EOF
 
+# Set this value to something true (e.g. 1) to disable any editing that involves
+# images in the Internet Archive hosted collaboration projects (currently CAA
+# and EAA), for example in case of a known long downtime of the Internet Archive.
+# sub DISABLE_IMAGE_EDITING { 0 }
+
 # Amazon associate and developer ids
 #my %amazon_store_associate_ids = (
 #    'amazon.ca'         => 'music0b72-20',

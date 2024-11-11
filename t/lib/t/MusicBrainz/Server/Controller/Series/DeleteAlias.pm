@@ -8,7 +8,7 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Edit', 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks that series alias deletion works, and that it requires
 an edit note.

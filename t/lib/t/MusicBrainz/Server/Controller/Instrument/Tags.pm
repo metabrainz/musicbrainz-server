@@ -7,7 +7,7 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether instrument tagging is working correctly. It checks
 both up- and downvoting, plus withdrawing/removing tags.

@@ -7,7 +7,7 @@ use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
 with 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether the artist relationships page properly displays
 relationships for the artist, and also the expected JSON-LD data.
