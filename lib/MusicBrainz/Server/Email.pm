@@ -389,8 +389,6 @@ sub send_message_to_editor
 {
     my ($self, %opts) = @_;
 
-    my $_url = "$mail_service_base_url/send_single";
-
     my $from = $opts{from} or die q(Missing 'from' argument);
     my $to = $opts{to} or die q(Missing 'to' argument);
     my $subject = $opts{subject} or die q(Missing 'subject' argument);
@@ -425,16 +423,7 @@ sub send_message_to_editor
         $body->{reply_to} = $EMAIL_NOREPLY_ADDRESS;
     }
 
-    my $header_params = {
-        'Content-Type' => 'application/json',
-        'Accept' => 'application/json',
-    };
-
-    my $res = $self->c->lwp->request(POST $_url, %$header_params, Content => encode_json($body));
-    unless ($res->is_success) {
-        my $status = $res->code;
-        die "Failed to send mail ($status):\n" . Dumper($res->content);
-    }
+    $self->_mb_mail_service_send_single($body);
 
     if ($opts{send_to_self}) {
         $body->{to} = _user_address($from);
@@ -447,11 +436,7 @@ sub send_message_to_editor
             $body->{reply_to} = $EMAIL_NOREPLY_ADDRESS;
         }
 
-        my $res = $self->c->lwp->request(POST $_url, %$header_params, Content => encode_json($body));
-        unless ($res->is_success) {
-            my $status = $res->code;
-            die "Failed to send mail ($status):\n" . Dumper($res->content);
-        }
+        $self->_mb_mail_service_send_single($body);
     }
 }
 
@@ -697,6 +682,22 @@ sub _send_email
     }
 
     return sendmail($email, $args);
+}
+
+sub _mb_mail_service_send_single {
+    my ($self, $body) = @_;
+
+    my $res = $self->c->lwp->request(
+        POST "$mail_service_base_url/send_single",
+        'Content-Type' => 'application/json',
+        'Accept' => 'application/json',
+        'Content' => encode_json($body),
+    );
+    unless ($res->is_success) {
+        my $status = $res->code;
+        die "Failed to send mail ($status):\n" . Dumper($res->content);
+    }
+    return;
 }
 
 __PACKAGE__->meta->make_immutable;
