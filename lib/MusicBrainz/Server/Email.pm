@@ -13,6 +13,8 @@ use URI::Escape qw( uri_escape_utf8 );
 use DBDefs;
 use Try::Tiny;
 use List::AllUtils qw( any sort_by );
+use JSON::XS qw( encode_json ); 
+use HTTP::Request::Common qw(DELETE POST GET HEAD PUT);
 
 use MusicBrainz::Server::Constants qw(
     :edit_status
@@ -38,6 +40,7 @@ has 'c' => (
 );
 
 Readonly our $url_prefix => 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
+Readonly our $mail_service_base_url => DBDefs->MAIL_SERVICE_BASE_URL;
 
 sub _encode_header {
     my $header = shift;
@@ -81,103 +84,6 @@ sub _create_email
             charset      => 'UTF-8',
             encoding     => 'quoted-printable',
         });
-}
-
-sub _create_message_to_editor_email
-{
-    my ($self, %opts) = @_;
-
-    my $from = $opts{from} or die q(Missing 'from' argument);
-    my $to = $opts{to} or die q(Missing 'to' argument);
-    my $subject = $opts{subject} or die q(Missing 'subject' argument);
-    my $message = $opts{message} or die q(Missing 'message' argument);
-
-    my $time = $opts{time} || time();
-
-    my @correspondents = sort_by { $_->name } ($from, $to);
-    my @headers = (
-        'To'          => _user_address($to),
-        'Sender'      => $EMAIL_NOREPLY_ADDRESS,
-        'Subject'     => _encode_header($subject),
-        'Message-Id'  => _message_id('correspondence-%s-%s-%d', $correspondents[0]->id, $correspondents[1]->id, $time),
-        'References'  => _message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id),
-        'In-Reply-To' => _message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id),
-    );
-
-    push @headers, 'From', _user_address($from, 1);
-    if ($opts{reveal_address}) {
-        push @headers, 'Reply-To', _user_address($from);
-    }
-    else {
-        push @headers, 'Reply-To', $EMAIL_NOREPLY_ADDRESS;
-    }
-
-    my $from_name = $from->name;
-    my $contact_url = $url_prefix .
-        sprintf '/user/%s/contact', uri_escape_utf8($from->name);
-
-    my $body = <<"EOS";
-MusicBrainz user '$from_name' has sent you the following message:
-------------------------------------------------------------------------
-$message
-------------------------------------------------------------------------
-EOS
-
-    if ($opts{reveal_address}) {
-        $body .= <<"EOS";
-If you would like to respond, please reply to this message or visit
-$contact_url to send '$from_name' an email.
-
--- The MusicBrainz Team
-EOS
-    }
-    else {
-        $body .= <<"EOS";
-If you would like to respond, please visit
-$contact_url to send '$from_name' an email.
-
--- The MusicBrainz Team
-EOS
-    }
-
-    return $self->_create_email(\@headers, $body);
-}
-
-sub _create_email_verification_email
-{
-    my ($self, %opts) = @_;
-
-    my @headers = (
-        'To'         => $opts{email},
-        'From'       => $EMAIL_NOREPLY_ADDRESS,
-        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => _message_id('verify-email-%d', time()),
-        'Subject'    => 'Please verify your email address',
-    );
-
-    my $verification_link = $opts{verification_link};
-    my $ip = $opts{ip};
-    my $user_name = $opts{editor}->name;
-
-    my $body = <<"EOS";
-Hello $user_name,
-
-This is a verification email for your MusicBrainz account. Please click
-on the link below to verify your email address:
-
-$verification_link
-
-If clicking the link above doesn't work, please copy and paste the URL in a
-new browser window instead.
-
-This email was triggered by a request from the IP address [$ip].
-
-Thanks for using MusicBrainz!
-
--- The MusicBrainz Team
-EOS
-
-    return $self->_create_email(\@headers, $body);
 }
 
 sub _create_email_in_use_email
@@ -322,43 +228,6 @@ EOS
     return $self->_create_email(\@headers, $body);
 }
 
-sub _create_password_reset_request_email
-{
-    my ($self, %opts) = @_;
-
-    my @headers = (
-        'To'         => _user_address($opts{user}),
-        'From'       => $EMAIL_NOREPLY_ADDRESS,
-        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => _message_id('password-reset-%d', time()),
-        'Subject'    => 'Password reset request',
-    );
-
-    my $reset_password_link = $opts{reset_password_link};
-
-    my $body = <<"EOS";
-Someone, probably you, asked that your MusicBrainz password be reset.
-
-To reset your password, click the link below:
-
-$reset_password_link
-
-If clicking the link above doesn't work, please copy and paste the URL in a
-new browser window instead.
-
-If you didn't initiate this request and feel that you've received this email in
-error, don't worry, you don't need to take any further action and can safely
-disregard this email.
-
-If you still have problems logging in, please drop us a line - see
-$CONTACT_URL for details.
-
--- The MusicBrainz Team
-EOS
-
-    return $self->_create_email(\@headers, $body);
-}
-
 sub _create_edit_note_email
 {
     my ($self, %opts) = @_;
@@ -445,36 +314,119 @@ sub send_message_to_editor
 {
     my ($self, %opts) = @_;
 
-    $opts{time} = time();
-    {
-        my $email = $self->_create_message_to_editor_email(%opts);
-        $self->_send_email($email);
+    my $_url = $mail_service_base_url . "/send_single";
+
+    my $from = $opts{from} or die q(Missing 'from' argument);
+    my $to = $opts{to} or die q(Missing 'to' argument);
+    my $subject = $opts{subject} or die q(Missing 'subject' argument);
+    my $message = $opts{message} or die q(Missing 'message' argument);
+
+    my @correspondents = sort_by { $_->name } ($from, $to);
+    my $contact_url = $url_prefix .
+        sprintf '/user/%s/contact', uri_escape_utf8($from->name);
+    my $body = {
+        'template_id' => 'editor-message',
+        'to'          => _user_address($to),
+        'from'        => $EMAIL_NOREPLY_ADDRESS,
+        # 'lang'
+        'message_id'  => _message_id('correspondence-%s-%s-%d', $correspondents[0]->id, $correspondents[1]->id, time()),
+        'references'  => [_message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id)],
+        'in_reply_to' => [_message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id)],
+        'params'      => {
+            'to_name'          => $to -> name,
+            'from_name'        => $from -> name,
+            'subject'          => $subject,
+            'message'          => $message,
+            'contact_url'      => $contact_url,
+            'revealed_address' => \$opts{reveal_address}
+        }
+    };
+    
+    if ($opts{reveal_address}) {
+        $body->{reply_to} = _user_address($from);
+    } else {
+        $body->{reply_to} = $EMAIL_NOREPLY_ADDRESS;
+    }
+
+    my $header_params = {
+        'Content-Type' => 'application/json',
+        'Accept' => 'application/json'
+    };
+
+    my $res = $self->c->lwp->request(POST $_url, %$header_params, Content => encode_json($body));
+    if (! $res->is_success) {
+        print "Failed to send!"
     }
 
     if ($opts{send_to_self}) {
-        my $copy = $self->_create_message_to_editor_email(%opts);
-        my $toname = $opts{to}->name;
-        my $message = $opts{message};
+        my $self_body = {
+            'template_id' => 'editor-message',
+            'to'          => _user_address($from),
+            'from'        => $EMAIL_NOREPLY_ADDRESS,
+            # 'lang'
+            'message_id'  => _message_id('correspondence-%s-%s-%d', $correspondents[0]->id, $correspondents[1]->id, time()),
+            'references'  => [_message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id)],
+            'in_reply_to' => [_message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id)],
+            'params'      => {
+                'to_name'          => $to -> name,
+                'from_name'        => $from -> name,
+                'subject'          => $subject,
+                'message'          => $message,
+                'contact_url'      => $contact_url,
+                'revealed_address' => \$opts{reveal_address},
+                'is_self_copy'     => \1
+            }
+        };
+        
+        if ($opts{reveal_address}) {
+            $self_body->{reply_to} = _user_address($from);
+        } else {
+            $self_body->{reply_to} = $EMAIL_NOREPLY_ADDRESS;
+        }
 
-        $copy->header_str_set( To => _user_address($opts{from}) );
-        $copy->body_str_set(<<"EOF");
-This is a copy of the message you sent to MusicBrainz editor '$toname':
-------------------------------------------------------------------------
-$message
-------------------------------------------------------------------------
-Please do not respond to this e-mail.
-EOF
-
-        $self->_send_email($copy);
+        my $res = $self->c->lwp->request(POST $_url, %$header_params, Content => encode_json($self_body));
+        if (! $res->is_success) {
+            print "Failed to send!"
+        }
     }
 }
 
 sub send_email_verification
 {
     my ($self, %opts) = @_;
+    my $_url = $mail_service_base_url . "/send_single";
 
-    my $email = $self->_create_email_verification_email(%opts);
-    return $self->_send_email($email);
+    my $ip = $opts{ip};
+    my $to_name = $opts{editor}->name;
+    my $verification_link = $opts{verification_link};
+
+    if(blessed($verification_link) && $verification_link->can('as_string')) {
+        $verification_link = $verification_link->as_string;
+    }
+
+    my $body = {
+        'template_id' => 'verify-email',
+        'to'          => $opts{email},
+        'from'        => $EMAIL_NOREPLY_ADDRESS,
+        # 'lang'
+        'message_id'  => _message_id('verify-email-%d', time()),
+        'reply_to'  => $EMAIL_NOREPLY_ADDRESS,
+        'params'      => {
+            'to_name'          => $to_name,
+            'verification_url' => "$verification_link",
+            'ip'               => $ip
+        }
+    };
+    
+    my $header_params = {
+        'Content-Type' => 'application/json',
+        'Accept' => 'application/json'
+    };
+    
+    my $res = $self->c->lwp->request(POST $_url, %$header_params, Content => encode_json($body));
+    if (! $res->is_success) {
+        print "Failed to send!"
+    }
 }
 
 sub send_email_in_use
@@ -497,8 +449,32 @@ sub send_password_reset_request
 {
     my ($self, %opts) = @_;
 
-    my $email = $self->_create_password_reset_request_email(%opts);
-    return $self->_send_email($email);
+    my $_url = $mail_service_base_url . "/send_single";
+
+    my $to = $opts{user} or die q(Missing 'user' argument);
+    my $reset_password_link = $opts{reset_password_link} or die q(Missing 'reset_password_link' argument);
+
+    my $body = {
+        'template_id' => 'reset-password',
+        'to'          => _user_address($to),
+        'from'        => $EMAIL_NOREPLY_ADDRESS,
+        # 'lang'
+        'message_id'  => _message_id('password-reset-%d', time()),
+        'params'      => {
+            'to_name'     => $to -> name,
+            'reset_url'   => "$reset_password_link"
+        }
+    };
+
+    my $header_params = {
+        'Content-Type' => 'application/json',
+        'Accept' => 'application/json'
+    };
+
+    my $res = $self->c->lwp->request(POST $_url, %$header_params, Content => encode_json($body));
+    if (! $res->is_success) {
+        print "Failed to send!"
+    }
 }
 
 sub send_subscriptions_digest
