@@ -373,10 +373,9 @@ sub contact : Chained('load') RequireAuth HiddenOnMirrors SecureForm
     my $form = $c->form( form => 'User::Contact' );
 
     if ($c->form_posted_and_valid($form)) {
-
-        my $result;
+        my $sent;
         try {
-            $result = $c->model('Email')->send_message_to_editor(
+            $c->model('Email')->send_message_to_editor(
                 from           => $c->user,
                 to             => $editor,
                 subject        => $form->value->{subject},
@@ -384,14 +383,16 @@ sub contact : Chained('load') RequireAuth HiddenOnMirrors SecureForm
                 reveal_address => $form->value->{reveal_address},
                 send_to_self   => $form->value->{send_to_self},
             );
+            $sent = 1;
         }
         catch {
             log_debug { "Couldn't send email: $_" } $_;
             $c->flash->{message} = l('Your message could not be sent');
         };
-
-        $c->res->redirect($c->uri_for_action('/user/contact', [ $editor->name ], { sent => $result }));
-        $c->detach;
+        if ($sent) {
+            $c->res->redirect($c->uri_for_action('/user/contact', [ $editor->name ], { sent => 1 }));
+            $c->detach;
+        }
     }
 
     $c->stash(
