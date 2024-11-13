@@ -3,12 +3,15 @@ package MusicBrainz::Server::Email;
 use utf8;
 use Moose;
 use Readonly;
+use Data::Dumper;
 use Encode qw( encode );
 use Email::Address::XS;
 use Email::Sender::Simple qw( sendmail );
 use Email::MIME;
 use Email::MIME::Creator;
 use Email::Sender::Transport::SMTP;
+use HTTP::Request::Common qw( POST );
+use JSON::XS qw( encode_json );
 use URI::Escape qw( uri_escape_utf8 );
 use DBDefs;
 use Try::Tiny;
@@ -38,6 +41,7 @@ has 'c' => (
 );
 
 Readonly our $url_prefix => 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
+Readonly our $mail_service_base_url => DBDefs->MAIL_SERVICE_BASE_URL;
 
 sub _encode_header {
     my $header = shift;
@@ -81,66 +85,6 @@ sub _create_email
             charset      => 'UTF-8',
             encoding     => 'quoted-printable',
         });
-}
-
-sub _create_message_to_editor_email
-{
-    my ($self, %opts) = @_;
-
-    my $from = $opts{from} or die q(Missing 'from' argument);
-    my $to = $opts{to} or die q(Missing 'to' argument);
-    my $subject = $opts{subject} or die q(Missing 'subject' argument);
-    my $message = $opts{message} or die q(Missing 'message' argument);
-
-    my $time = $opts{time} || time();
-
-    my @correspondents = sort_by { $_->name } ($from, $to);
-    my @headers = (
-        'To'          => _user_address($to),
-        'Sender'      => $EMAIL_NOREPLY_ADDRESS,
-        'Subject'     => _encode_header($subject),
-        'Message-Id'  => _message_id('correspondence-%s-%s-%d', $correspondents[0]->id, $correspondents[1]->id, $time),
-        'References'  => _message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id),
-        'In-Reply-To' => _message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id),
-    );
-
-    push @headers, 'From', _user_address($from, 1);
-    if ($opts{reveal_address}) {
-        push @headers, 'Reply-To', _user_address($from);
-    }
-    else {
-        push @headers, 'Reply-To', $EMAIL_NOREPLY_ADDRESS;
-    }
-
-    my $from_name = $from->name;
-    my $contact_url = $url_prefix .
-        sprintf '/user/%s/contact', uri_escape_utf8($from->name);
-
-    my $body = <<"EOS";
-MusicBrainz user '$from_name' has sent you the following message:
-------------------------------------------------------------------------
-$message
-------------------------------------------------------------------------
-EOS
-
-    if ($opts{reveal_address}) {
-        $body .= <<"EOS";
-If you would like to respond, please reply to this message or visit
-$contact_url to send '$from_name' an email.
-
--- The MusicBrainz Team
-EOS
-    }
-    else {
-        $body .= <<"EOS";
-If you would like to respond, please visit
-$contact_url to send '$from_name' an email.
-
--- The MusicBrainz Team
-EOS
-    }
-
-    return $self->_create_email(\@headers, $body);
 }
 
 sub _create_email_verification_email
@@ -445,27 +389,54 @@ sub send_message_to_editor
 {
     my ($self, %opts) = @_;
 
-    $opts{time} = time();
-    {
-        my $email = $self->_create_message_to_editor_email(%opts);
-        $self->_send_email($email);
+    my $from = $opts{from} or die q(Missing 'from' argument);
+    my $to = $opts{to} or die q(Missing 'to' argument);
+    my $subject = $opts{subject} or die q(Missing 'subject' argument);
+    my $message = $opts{message} or die q(Missing 'message' argument);
+
+    my @correspondents = sort_by { $_->name } ($from, $to);
+    my $contact_url = $url_prefix .
+        sprintf '/user/%s/contact', uri_escape_utf8($from->name);
+    my $body = {
+        template_id => 'editor-message',
+        to          => _user_address($to),
+        from        => $EMAIL_NOREPLY_ADDRESS,
+        # TODO: send the user's language preference here. (This preference is not yet stored on the server)
+        # Which language should we use, as this email is going to a different user?
+        # 'lang'
+        message_id  => _message_id('correspondence-%s-%s-%d', $correspondents[0]->id, $correspondents[1]->id, time()),
+        references  => [_message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id)],
+        in_reply_to => [_message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id)],
+        params      => {
+            to_name          => $to->name,
+            from_name        => $from->name,
+            subject          => $subject,
+            message          => $message,
+            contact_url      => $contact_url,
+            revealed_address => $opts{reveal_address} ? \1 : \0,
+        },
+    };
+
+    if ($opts{reveal_address}) {
+        $body->{reply_to} = _user_address($from);
+    } else {
+        $body->{reply_to} = $EMAIL_NOREPLY_ADDRESS;
     }
 
+    $self->_mb_mail_service_send_single($body);
+
     if ($opts{send_to_self}) {
-        my $copy = $self->_create_message_to_editor_email(%opts);
-        my $toname = $opts{to}->name;
-        my $message = $opts{message};
+        $body->{to} = _user_address($from);
+        $body->{params}{is_self_copy} = \1;
+        # TODO: Should we set language here to the initiator's language?
 
-        $copy->header_str_set( To => _user_address($opts{from}) );
-        $copy->body_str_set(<<"EOF");
-This is a copy of the message you sent to MusicBrainz editor '$toname':
-------------------------------------------------------------------------
-$message
-------------------------------------------------------------------------
-Please do not respond to this e-mail.
-EOF
+        if ($opts{reveal_address}) {
+            $body->{reply_to} = _user_address($from);
+        } else {
+            $body->{reply_to} = $EMAIL_NOREPLY_ADDRESS;
+        }
 
-        $self->_send_email($copy);
+        $self->_mb_mail_service_send_single($body);
     }
 }
 
@@ -711,6 +682,22 @@ sub _send_email
     }
 
     return sendmail($email, $args);
+}
+
+sub _mb_mail_service_send_single {
+    my ($self, $body) = @_;
+
+    my $res = $self->c->lwp->request(
+        POST "$mail_service_base_url/send_single",
+        'Content-Type' => 'application/json',
+        'Accept' => 'application/json',
+        'Content' => encode_json($body),
+    );
+    unless ($res->is_success) {
+        my $status = $res->code;
+        die "Failed to send mail ($status):\n" . Dumper($res->content);
+    }
+    return;
 }
 
 __PACKAGE__->meta->make_immutable;
