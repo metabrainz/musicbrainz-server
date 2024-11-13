@@ -108,7 +108,7 @@ component ExternalLinks(
           url={target}
         />,
       );
-    } else if (/^blog$/.test(linkType.name)) {
+    } else if (linkType.name === 'blog') {
       blogsAndReviews.push(
         <ExternalLink
           className="blog-favicon"
@@ -119,7 +119,7 @@ component ExternalLinks(
           url={target}
         />,
       );
-    } else if (/^review$/.test(linkType.name)) {
+    } else if (linkType.name === 'review') {
       blogsAndReviews.push(
         <ExternalLink
           className="review-favicon"
