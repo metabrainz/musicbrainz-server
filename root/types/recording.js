@@ -15,7 +15,6 @@ declare type RecordingT = $ReadOnly<{
   ...CommentRoleT,
   ...RelatableEntityRoleT<'recording'>,
   ...RatableRoleT,
-  ...ReviewableRoleT,
   +appearsOn?: AppearancesT<{gid: string, name: string}>,
   +artist?: string,
   +artistCredit?: ArtistCreditT,

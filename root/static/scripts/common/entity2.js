@@ -311,7 +311,6 @@ export function createReleaseGroupObject(
     last_updated: null,
     name: '',
     release_count: 0,
-    review_count: 0,
     secondaryTypeIDs: [],
     typeID: null,
     typeName: '',

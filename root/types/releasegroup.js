@@ -19,7 +19,6 @@ declare type ReleaseGroupT = $ReadOnly<{
   ...CommentRoleT,
   ...RelatableEntityRoleT<'release_group'>,
   ...RatableRoleT,
-  ...ReviewableRoleT,
   ...TypeRoleT<ReleaseGroupTypeT>,
   +cover_art?: ReleaseArtT,
   +firstReleaseDate: string | null,

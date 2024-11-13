@@ -18,7 +18,6 @@ declare type ArtistT = $ReadOnly<{
   ...IpiCodesRoleT,
   ...IsniCodesRoleT,
   ...RatableRoleT,
-  ...ReviewableRoleT,
   ...TypeRoleT<ArtistTypeT>,
   +area: AreaT | null,
   +begin_area: AreaT | null,

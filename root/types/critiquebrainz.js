@@ -30,7 +30,3 @@ declare type ReviewableT =
   | RecordingT
   | ReleaseGroupT
   | WorkT;
-
-declare type ReviewableRoleT = {
-  +review_count?: number,
-};
