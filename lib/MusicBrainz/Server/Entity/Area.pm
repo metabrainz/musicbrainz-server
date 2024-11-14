@@ -8,7 +8,8 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use List::AllUtils qw( first );
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Annotation',
+with 'MusicBrainz::Server::Entity::Role::Alias',
+     'MusicBrainz::Server::Entity::Role::Annotation',
      'MusicBrainz::Server::Entity::Role::Comment',
      'MusicBrainz::Server::Entity::Role::DatePeriod',
      'MusicBrainz::Server::Entity::Role::Relatable',

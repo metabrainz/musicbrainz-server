@@ -11,7 +11,8 @@ use MusicBrainz::Server::Entity::Util::JSON qw(
 use List::AllUtils qw( uniq_by );
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Annotation',
+with 'MusicBrainz::Server::Entity::Role::Alias',
+     'MusicBrainz::Server::Entity::Role::Annotation',
      'MusicBrainz::Server::Entity::Role::ArtistCredit',
      'MusicBrainz::Server::Entity::Role::Comment',
      'MusicBrainz::Server::Entity::Role::Rating',
