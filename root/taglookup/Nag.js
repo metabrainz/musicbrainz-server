@@ -31,8 +31,8 @@ component TagLookupNagSection() {
       </p>
       <p>
         {exp.l(
-          `If you donate <strong>$4</strong> you will not get this nag text 
-           for a <strong>month</strong>. We encourage people to donate $12
+          `If you donate <strong>$5</strong> you will not get this nag text 
+           for a <strong>month</strong>. We encourage people to donate $15
            to make the nag screen disappear for 3 months. Or even better,
            sign up for a recurring donation every three months
            to not have to think about or see this nag again.`,
