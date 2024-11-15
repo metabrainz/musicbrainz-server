@@ -15,12 +15,15 @@ extends 'Catalyst::Controller';
 
 # Import MusicBrainz libraries
 use DBDefs;
-use MusicBrainz::Server::Constants qw( $VARTIST_GID $CONTACT_URL );
+use MusicBrainz::Server::Constants qw(
+    %ENTITIES
+    $VARTIST_GID
+    $CONTACT_URL
+);
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     non_empty
-    type_to_model
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Replication qw( :replication_type );
@@ -449,11 +452,13 @@ sub begin : Private
 
     # Merging
     if (my $merger = $c->try_get_session('merger')) {
-        my $model = $c->model(type_to_model($merger->type));
+        my $entity_properties = $ENTITIES{$merger->type};
+        my $model = $c->model($entity_properties->{model});
         my @merge = values %{
             $model->get_by_ids($merger->all_entities);
         };
-        $c->model('ArtistCredit')->load(@merge);
+        $c->model('ArtistCredit')->load(@merge)
+            if $entity_properties->{artist_credits};
 
         my @areas = ();
         push @areas, @merge if $merger->type eq 'area';

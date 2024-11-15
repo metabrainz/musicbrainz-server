@@ -6,7 +6,7 @@ use HTTP::Status qw( :constants );
 
 extends 'MusicBrainz::Server::Controller';
 
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -90,8 +90,8 @@ sub show : Chained('load') PathPart('')
             tag => $tag->TO_JSON,
             taggedEntities => {
                 map {
-
-                    my $model = $c->model(type_to_model($_));
+                    my $entity_properties = $ENTITIES{$_};
+                    my $model = $c->model($entity_properties->{model});
 
                     my ($entity_tags, $total) = $model->tags->find_entities(
                         $tag->id, 10, 0);
@@ -99,7 +99,8 @@ sub show : Chained('load') PathPart('')
                     my @entities = map { $_->entity } @$entity_tags;
                     $model->load_aliases(@entities)
                         if $model->can('load_aliases');
-                    $c->model('ArtistCredit')->load(@entities);
+                    $c->model('ArtistCredit')->load(@entities)
+                        if $entity_properties->{artist_credits};
 
                     ("$_" => {
                         count => $total,
