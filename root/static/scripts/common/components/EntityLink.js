@@ -483,7 +483,8 @@ component EntityLink(
       );
     }
     const primaryAlias =
-      (entity.entityType !== 'track' &&
+      (entity.entityType !== 'instrument' &&
+        entity.entityType !== 'track' &&
         nonEmpty(entity.primaryAlias) &&
         entity.primaryAlias !== entityName)
         ? entity.primaryAlias
