@@ -487,11 +487,10 @@ sub _hash_to_row
 }
 
 sub load_related_info {
-    my ($self, $artists_ref, $user_lang) = @_;
+    my ($self, @artists) = @_;
 
     my $c = $self->c;
-    my @artists = @{$artists_ref};
-    $self->load_aliases($artists_ref, $user_lang);
+    $self->load_aliases(@artists);
     $c->model('ArtistType')->load(@artists);
     $c->model('Gender')->load(@artists);
     $c->model('Area')->load(@artists);

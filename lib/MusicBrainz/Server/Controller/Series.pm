@@ -72,7 +72,7 @@ sub show : PathPart('') Chained('load') {
     }
 
     if ($series->type->item_entity_type eq 'artist') {
-        $c->model('Artist')->load_related_info(\@entities);
+        $c->model('Artist')->load_related_info(@entities);
         $c->model('Artist')->load_meta(@entities);
         $c->model('Artist')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }

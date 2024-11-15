@@ -125,12 +125,7 @@ sub show : Chained('load') PathPart('') {
     });
 
     if ($model->can('load_related_info')) {
-        if ($entity_type eq 'artist') {
-            my $lang = $c->stash->{current_language} // 'en';
-            $model->load_related_info($entities, $lang);
-        } else {
-            $model->load_related_info(@$entities);
-        }
+        $model->load_related_info(@$entities);
     }
 
     if ($model->can('load_meta')) {

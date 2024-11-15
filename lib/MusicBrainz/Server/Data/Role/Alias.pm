@@ -86,9 +86,8 @@ role
     };
 
     method 'load_aliases' => sub {
-        my ($self, $entities_ref, $user_lang) = @_;
+        my ($self, @entities) = @_;
 
-        my @entities = @{$entities_ref};
         my $entity_aliases = $self->alias->find_by_entity_ids(
             map { $_->id } @entities,
         );
@@ -97,10 +96,11 @@ role
         for my $entity (@entities) {
             my @aliases = @{ $entity_aliases->{$entity->id} };
             $entity->aliases(\@aliases);
-            if (defined $user_lang) {
-                my $best_alias = find_best_primary_alias(\@aliases, $user_lang);
-                $entity->primary_alias($best_alias->name) if defined $best_alias;
-            }
+            my $best_alias = find_best_primary_alias(
+                \@aliases,
+                $self->c->current_language,
+            );
+            $entity->primary_alias($best_alias->name) if defined $best_alias;
         }
     };
 };

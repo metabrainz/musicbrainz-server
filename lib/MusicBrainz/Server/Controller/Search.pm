@@ -125,8 +125,7 @@ sub direct : Private
     my @entities = map { $_->entity } @$results;
 
     if ($type eq 'artist') {
-        my $lang = $c->stash->{current_language} // 'en';
-        $c->model('Artist')->load_related_info(\@entities, $lang);
+        $c->model('Artist')->load_related_info(@entities);
     }
     elsif ($type eq 'editor') {
         $c->model('Editor')->load_preferences(@entities);
@@ -245,15 +244,12 @@ sub do_external_search {
     my $query = $opts{query};
     my $type  = $opts{type};
 
-    my $lang = $c->stash->{current_language} // 'en';
-
     my $search = $c->model('Search');
     my $ret = $search->external_search($type,
                                        $query,
                                        $limit,
                                        $page,
-                                       $advanced,
-                                       $lang);
+                                       $advanced);
 
     if (exists $ret->{error})
     {

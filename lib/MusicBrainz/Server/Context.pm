@@ -208,6 +208,12 @@ has 'max_request_time' => (
     isa => 'Maybe[Int]',
 );
 
+has current_language => (
+    is => 'rw',
+    isa => 'Str',
+    default => 'en',
+);
+
 has 'catalyst_context' => (
     is => 'rw',
     isa => 'Maybe[MusicBrainz::Server]',

@@ -92,13 +92,13 @@ sub show : Chained('load') PathPart('')
                 map {
 
                     my $model = $c->model(type_to_model($_));
-                    my $lang = $c->stash->{current_language} // 'en';
 
                     my ($entity_tags, $total) = $model->tags->find_entities(
                         $tag->id, 10, 0);
 
                     my @entities = map { $_->entity } @$entity_tags;
-                    $model->load_aliases(\@entities, $lang) if $model->can('load_aliases');
+                    $model->load_aliases(@entities)
+                        if $model->can('load_aliases');
                     $c->model('ArtistCredit')->load(@entities);
 
                     ("$_" => {
@@ -124,13 +124,12 @@ for my $entity_type (entities_with('tags')) {
         my ($self, $c) = @_;
 
         my $model = $c->model($entity_properties->{model});
-        my $lang = $c->stash->{current_language} // 'en';
         my $entity_tags = $self->_load_paged($c, sub {
             $model->tags->find_entities($c->stash->{tag}->id, shift, shift);
         });
         my @entities = map { $_->entity } @$entity_tags;
 
-        $model->load_aliases(\@entities, $lang) if $model->can('load_aliases');
+        $model->load_aliases(@entities) if $model->can('load_aliases');
         $c->model('ArtistCredit')->load(@entities) if $entity_properties->{artist_credits};
         $c->stash(
             current_view => 'Node',

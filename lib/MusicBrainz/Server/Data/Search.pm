@@ -424,7 +424,7 @@ sub schema_fixup_type {
 # matches up with the data returned from the DB for easy object creation
 sub schema_fixup
 {
-    my ($self, $data, $type, $user_lang) = @_;
+    my ($self, $data, $type) = @_;
 
     return unless (ref($data) eq 'HASH');
 
@@ -690,7 +690,7 @@ sub schema_fixup
 
             my %entity = %{ $rel->{$entity_type} };
 
-            $self->schema_fixup(\%entity, $entity_type, $user_lang);
+            $self->schema_fixup(\%entity, $entity_type);
 
             # The search server returns the MBID in the 'id' attribute, so we
             # need to delete that. (`schema_fixup` copies it to gid.)
@@ -721,13 +721,13 @@ sub schema_fixup
         next if $k eq '_extra';
         if (ref($data->{$k}) eq 'HASH')
         {
-            $self->schema_fixup($data->{$k}, $type, $user_lang);
+            $self->schema_fixup($data->{$k}, $type);
         }
         if (ref($data->{$k}) eq 'ARRAY')
         {
             foreach my $item (@{$data->{$k}})
             {
-                $self->schema_fixup($item, $type, $user_lang);
+                $self->schema_fixup($item, $type);
             }
         }
     }
@@ -754,10 +754,11 @@ sub schema_fixup
                 primary_for_locale => $_->{primary},
             )
         } @{ $data->{aliases} };
-        if (defined $user_lang) {
-            my $best_alias = find_best_primary_alias(\@aliases, $user_lang);
-            $data->{primary_alias} = $best_alias->{name} if defined $best_alias;
-        }
+        my $best_alias = find_best_primary_alias(
+            \@aliases,
+            $self->c->current_language,
+        );
+        $data->{primary_alias} = $best_alias->{name} if defined $best_alias;
 
         # Save the new objects so validation will pass, but note that the search
         # API doesn't include all attributes that are present in Entity::Alias,
@@ -847,7 +848,7 @@ sub escape_query
 
 sub external_search
 {
-    my ($self, $type, $query, $limit, $page, $adv, $user_lang) = @_;
+    my ($self, $type, $query, $limit, $page, $adv) = @_;
 
     my $entity_model = $self->c->model( type_to_model($type) )->_entity_class;
     load_class($entity_model);
@@ -931,7 +932,7 @@ sub external_search
 
         foreach my $t (@{$data->{$xmltype}})
         {
-            $self->schema_fixup($t, $type, $user_lang);
+            $self->schema_fixup($t, $type);
             push @results, MusicBrainz::Server::Entity::SearchResult->new(
                     position => $pos++,
                     score  => $t->{score},

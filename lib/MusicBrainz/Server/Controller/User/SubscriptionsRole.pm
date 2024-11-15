@@ -39,11 +39,10 @@ role {
         }
 
         my $model = $c->model(type_to_model($type));
-        my $lang = $c->stash->{current_language} // 'en';
         my $entities = $self->_load_paged($c, sub {
             $model->find_by_subscribed_editor($user->id, shift, shift);
         });
-        $model->load_aliases($entities, $lang) if $model->can('load_aliases');
+        $model->load_aliases(@$entities) if $model->can('load_aliases');
 
         my %extra_props;
 
