@@ -187,6 +187,14 @@ component EntityLink(
   const hasSubPath = nonEmpty(subPath);
   // $FlowIgnore[prop-missing]
   const comment = nonEmpty(entity.comment) ? ko.unwrap(entity.comment) : '';
+  const entityName = ko.unwrap(entity.name);
+  const primaryAlias = (entity.entityType !== 'instrument' &&
+                        entity.entityType !== 'track' &&
+                        nonEmpty(entity.primaryAlias) &&
+                        entity.primaryAlias !== entityName)
+    ? entity.primaryAlias
+    : '';
+
 
   let content = passedContent;
   let hover = '';
@@ -212,14 +220,13 @@ component EntityLink(
 
   if (showDisambiguation === 'hover' || entity.entityType === 'artist') {
     const sortName = entity.entityType === 'artist' ? entity.sort_name : '';
-    hover = nonEmpty(sortName) ? (
+    const additionalName = nonEmpty(primaryAlias) ? primaryAlias : sortName;
+    hover = nonEmpty(additionalName) ? (
       nonEmpty(comment) ? (
-        sortName + ' ' + bracketedText(comment)
-      ) : sortName
+        additionalName + ' ' + bracketedText(comment)
+      ) : additionalName
     ) : comment;
   }
-
-  const entityName = ko.unwrap(entity.name);
 
   /*
    * If we were asked to display the credited-as text explicitly,
@@ -480,13 +487,6 @@ component EntityLink(
         />,
       );
     }
-    const primaryAlias =
-      (entity.entityType !== 'instrument' &&
-        entity.entityType !== 'track' &&
-        nonEmpty(entity.primaryAlias) &&
-        entity.primaryAlias !== entityName)
-        ? entity.primaryAlias
-        : '';
     if (nonEmpty(comment) || nonEmpty(primaryAlias)) {
       parts.push(
         <Comment
