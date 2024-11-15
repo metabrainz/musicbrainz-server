@@ -38,9 +38,13 @@ role {
                 unless $user->preferences->public_subscriptions;
         }
 
+        my $model = $c->model(type_to_model($type));
+        my $lang = $c->stash->{current_language} // 'en';
         my $entities = $self->_load_paged($c, sub {
-            $c->model(type_to_model($type))->find_by_subscribed_editor($user->id, shift, shift);
+            $model->find_by_subscribed_editor($user->id, shift, shift);
         });
+        $model->load_aliases($entities, $lang) if $model->can('load_aliases');
+
         my %extra_props;
 
         if ($type eq 'collection') {
