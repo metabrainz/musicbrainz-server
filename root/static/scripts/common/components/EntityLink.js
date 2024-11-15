@@ -165,7 +165,6 @@ component EntityLink(
     | LinkTypeT
     | TrackT
     | ReleaseEditorTrackT,
-  hover as passedHover?: string,
   nameVariation as passedNameVariation?: boolean,
   showArtworkPresence: boolean = false,
   showCreditedAs: boolean = false,
@@ -190,7 +189,7 @@ component EntityLink(
   const comment = nonEmpty(entity.comment) ? ko.unwrap(entity.comment) : '';
 
   let content = passedContent;
-  let hover = passedHover;
+  let hover = '';
   let nameVariation = passedNameVariation;
   let showDisambiguation = passedShowDisambiguation;
   let showIcon = passedShowIcon;
@@ -211,14 +210,13 @@ component EntityLink(
     showDisambiguation = !hasCustomContent;
   }
 
-  if (entity.entityType === 'artist' && empty(hover)) {
-    hover = entity.sort_name + (comment ? ' ' + bracketedText(comment) : '');
-  }
-
-  if (showDisambiguation === 'hover') {
-    hover = empty(hover)
-      ? comment
-      : hover + ' ' + bracketedText(comment);
+  if (showDisambiguation === 'hover' || entity.entityType === 'artist') {
+    const sortName = entity.entityType === 'artist' ? entity.sort_name : '';
+    hover = nonEmpty(sortName) ? (
+      nonEmpty(comment) ? (
+        sortName + ' ' + bracketedText(comment)
+      ) : sortName
+    ) : comment;
   }
 
   const entityName = ko.unwrap(entity.name);
