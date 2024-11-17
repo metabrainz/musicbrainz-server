@@ -45,7 +45,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-11 13:37-0600\n"
-"PO-Revision-Date: 2024-11-13 17:42+0000\n"
+"PO-Revision-Date: 2024-11-17 16:42+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
@@ -3290,9 +3290,8 @@ msgstr "存在しているリリースグループを選択する必要があり
 msgid ""
 "Your search took too long and was cancelled. It may help to be more "
 "specific, or to try again."
-msgstr ""
-"検索に時間がかかりすぎたためキャンセルされました。条件を追加するか、もう一度"
-"お試しください。"
+msgstr "検索に時間がかかりすぎたため中止されました。条件を追加するか、もう一度お試し"
+"ください。"
 
 #: ../root/release/edit/tracklist.tt:289
 msgid ""
@@ -5606,11 +5605,11 @@ msgstr "[なし]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:39
 msgid "As performer"
-msgstr ""
+msgstr "パフォーマーとして"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:40
 msgid "As writer"
-msgstr ""
+msgstr "作者として"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:47
 #, fuzzy
@@ -13978,7 +13977,7 @@ msgstr "作品フィルター"
 
 #: ../root/static/scripts/common/components/FilterForm.js:190
 msgid "Setlist contains"
-msgstr ""
+msgstr "セットリストに含む"
 
 #: ../root/static/scripts/common/components/FilterForm.js:229
 msgid "Hide recordings that only appear on bootleg releases"
