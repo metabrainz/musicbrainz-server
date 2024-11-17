@@ -18,13 +18,14 @@
 # weeeeei <weeeeei@duck.com>, 2024.
 # thephy <differentphy@outlook.com>, 2024.
 # Aris_8585 <qw23355607@outlook.com>, 2024.
+# KenParker_CN <peekabookenny@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-11 13:37-0600\n"
-"PO-Revision-Date: 2024-10-20 16:42+0000\n"
-"Last-Translator: Aris_8585 <qw23355607@outlook.com>\n"
+"PO-Revision-Date: 2024-11-16 06:42+0000\n"
+"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translations."
 "metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -32,7 +33,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -196,9 +197,6 @@ msgid "Add ISRC"
 msgstr "添加 ISRC"
 
 #: ../root/work/edit_form.tt:16
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Add ISWCs"
 msgctxt "interactive"
 msgid "Add ISWC"
 msgstr "添加 ISWC"
@@ -16333,11 +16331,9 @@ msgid "{user} isn’t collaborating in any public collections."
 msgstr ""
 
 #: ../root/user/UserCollections.js:216
-#, fuzzy
-#| msgid "Add to a new collection"
 msgctxt "interactive"
 msgid "Add a new collection"
-msgstr "添加到一个新歌曲集"
+msgstr "添加一个新收藏夹"
 
 #: ../root/user/UserEdits.js:33 ../root/user/UserEdits.js:34
 msgid "Votes by {name}"
@@ -16579,11 +16575,11 @@ msgstr "添加的实体"
 
 #: ../root/user/UserProfile.js:766
 msgid "This user has not added any entities."
-msgstr ""
+msgstr "此用户尚未添加任何实体。"
 
 #: ../root/user/UserProfile.js:776
 msgid "This table shows a summary of secondary data added by this editor."
-msgstr ""
+msgstr "此表格显示了该编辑者添加的次要数据的摘要。"
 
 #: ../root/user/UserProfile.js:782
 #, fuzzy
@@ -16602,7 +16598,7 @@ msgstr "已赞成的标签"
 #: ../root/user/UserProfile.js:793 ../root/user/UserProfile.js:814
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
-msgstr ""
+msgstr "编辑者被删除时，标签会被移除。"
 
 #: ../root/user/UserProfile.js:797 ../root/user/UserProfile.js:818
 msgctxt "folksonomy tags"
@@ -16618,16 +16614,14 @@ msgstr "已否决的标签"
 
 #: ../root/user/UserProfile.js:835
 msgid "Ratings are removed when an editor is deleted."
-msgstr ""
+msgstr "编辑者被删除后，其评分也会被移除。"
 
 #: ../root/user/UserProfile.js:838
 msgctxt "ratings"
 msgid "Removed"
-msgstr ""
+msgstr "移除"
 
 #: ../root/user/UserProfile.js:904
-#, fuzzy
-#| msgid "Blocked Spam Account"
 msgid "Blocked spam account"
 msgstr "被封禁的垃圾信息账号"
 
@@ -16637,20 +16631,21 @@ msgid ""
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
 "reporting the spammer from their user page."
 msgstr ""
+"该用户因被视为垃圾邮件发送者而被封禁，其个人资料也被隐藏。如果您在 "
+"MusicBrainz "
+"中看到垃圾邮件，请通过在其用户页面上举报垃圾邮件发送者的方式告知我们。"
 
 #: ../root/user/UserProfile.js:964
 msgid "Report this user for bad behavior"
 msgstr "报告此用户的不良行为"
 
 #: ../root/user/UserProfile.js:969
-#, fuzzy
-#| msgid "Recent Notes Left on Your Edits"
 msgid "View other users’ notes on your edits"
-msgstr "最近您的编辑收到的备注"
+msgstr "您的编辑内容收到的他人回复"
 
 #: ../root/user/UserProfile.js:970
 msgid "View your notes on this user’s edits"
-msgstr ""
+msgstr "查看你对这个用户的编辑的回复"
 
 #: ../root/user/UserRatingEntity.js:51
 msgid "No ratings."
@@ -16764,8 +16759,6 @@ msgid_plural "{editor} is subscribed to {n} private collections."
 msgstr[0] "{editor} 订阅了 {n} 个私有收藏。"
 
 #: ../root/user/UserTagList.js:21
-#, fuzzy
-#| msgid "Tags {user} downvoted"
 msgctxt "folksonomy"
 msgid "Tags {user} downvoted"
 msgstr "{user} 否决的标签"
@@ -16892,7 +16885,8 @@ msgid ""
 "This edit failed because the data it was changing was modified after this "
 "edit was entered. This may happen when the same edit is entered in twice; "
 "one will pass but the other will fail."
-msgstr ""
+msgstr "此编辑失败是因为它要修改的数据在编辑提交后已被更改。这可能发生在同一编辑被重"
+"复提交时；其中一个会成功，但另一个会失败。"
 
 #: ../root/utility/edit.js:87
 msgid ""
@@ -16935,6 +16929,10 @@ msgid ""
 "comfortable with the edit search you can refine them further or just create "
 "your own personal searches and bookmark them for your own use!"
 msgstr ""
+"如果你想帮助确保对 MusicBrainz 数据所做的更改是正确的，但不知道从哪里开始，以"
+"下建议应该会很有帮助。这些都是预定义的{edit_search|编辑搜索}; 一旦你熟悉了这"
+"些编辑搜索，你可以进一步细化它们，或者创建自己的个性化搜索并将其收藏以供自己"
+"使用！"
 
 #: ../root/vote/VotingIndex.js:116
 msgid ""
@@ -16946,6 +16944,11 @@ msgid ""
 "you find an editor that seems to be vandalizing the data, you can always "
 "report them from their profile."
 msgstr ""
+"在审查其他编辑的工作时，始终牢记{coc|Code of Conduct}。大部分编辑者都希望提供"
+"帮助，因此你作为投票者的目的是帮助他们更好地做贡献。这尤其适用于初学者：即使"
+"他们有些地方出现错误，也要尽量耐心和友好地对待他们，以便他们能够成长为更好的"
+"编辑者！当然，如果你发现某个编辑者似乎在破坏数据，你可以从他们的个人资料中举"
+"报他们。"
 
 #: ../root/vote/VotingIndex.js:129
 msgid ""
@@ -16954,6 +16957,8 @@ msgid ""
 "the conditions “Editor is not me” and “Voter is me and voted No vote”, "
 "respectively."
 msgstr ""
+"默认情况下，这些搜索会跳过你本人的编辑和你已经投票的编辑（如果有关的话）。要"
+"更改这一点，加载搜索后，分别移除条件“编辑者不是我”和“我可投票但未投的”。"
 
 #: ../root/vote/VotingIndex.js:136
 msgid "Destructive edits"
@@ -16974,16 +16979,22 @@ msgid ""
 "destructive changes to releases (track, medium and release label removals), "
 "and one for image removals (cover and event art)."
 msgstr ""
+"破坏性编辑（移除和合并）往往难以甚至不能撤销。因此，未经审核的错误的破坏性编"
+"辑可能会造成很大的混乱！大多数破坏性编辑即使获得三个“同意”票，也保证至少会保"
+"持开放两天，以避免其过快关闭，但让更多人有时间审查总是好的。以下你可以找到六"
+"种不同的搜索：1. 所有破坏性编辑（有时可能会令人不知所措）, 2. "
+"仅没有编辑注释的破坏性编辑（完全不提供任何理由）, 3. "
+"仅实体的合并和移除（如果错误地允许并通过了，这些编辑最有可能造成混乱）, 4. "
+"仅关系的移除, 5. 仅对发行版本的破坏性更改（移除相关的音轨、介质和发行厂牌）, "
+"5. 仅图像的移除（封面/活动图)"
 
 #: ../root/vote/VotingIndex.js:158
 msgid "All open destructive edits"
 msgstr "所有待审核的破坏性编辑"
 
 #: ../root/vote/VotingIndex.js:167
-#, fuzzy
-#| msgid "All open destructive edits by beginner editors"
 msgid "All open destructive edits without edit notes"
-msgstr "所有由新手编辑者创建的待审核破坏性编辑"
+msgstr "所有待审核的破坏性编辑且无编辑注释"
 
 #: ../root/vote/VotingIndex.js:177
 msgid "All open entity merges and removals"
@@ -16998,14 +17009,12 @@ msgid "All open destructive changes to releases"
 msgstr "所有待审核的专辑破坏性更改"
 
 #: ../root/vote/VotingIndex.js:204
-#, fuzzy
-#| msgid "All open relationship removals"
 msgid "All open artwork removals"
-msgstr "所有待审核的关联移除"
+msgstr "所有开放的艺术作品移除请求"
 
 #: ../root/vote/VotingIndex.js:215
 msgid "Unreviewed and potentially problematic edits"
-msgstr ""
+msgstr "未审查且可能存在问题的编辑"
 
 #: ../root/vote/VotingIndex.js:218
 msgid ""
@@ -17015,6 +17024,9 @@ msgid ""
 "edit: it’s perfectly fine to just abstain if you feel something doesn’t seem "
 "wrong but it’s also not 100% obvious that it is right without further checks."
 msgstr ""
+"从未有人见过的编辑总是可以从速检中受益：即使你对相关音乐不熟悉，你也可能会注"
+"意到某处似乎不对。请记住，你不必对每个编辑进行投票：如果你觉得某项编辑看起来"
+"没问题，但又不确定是完全正确的，可以选择弃权。"
 
 #: ../root/vote/VotingIndex.js:229
 msgid "Unreviewed edits (0 votes) that will close in less than a day"
