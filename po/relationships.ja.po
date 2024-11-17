@@ -16,12 +16,12 @@
 # julian45 <techieboy45@gmail.com>, 2023.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # tkusano <tkusano@users.noreply.translations.metabrainz.org>, 2024.
+# yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-13 15:42+0000\n"
-"Last-Translator: tkusano <tkusano@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2024-11-15 16:42+0000\n"
+"Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
 "Language: ja\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -5935,11 +5935,11 @@ msgstr "アートディレクション"
 #. name:art gallery
 #: DB:link_type/link_phrase:1192
 msgid "art galleries"
-msgstr ""
+msgstr "アートギャラリー"
 
 #: DB:link_type/name:1192
 msgid "art gallery"
-msgstr ""
+msgstr "アートギャラリー"
 
 #. name:art gallery
 #: DB:link_type/reverse_link_phrase:1192
@@ -6726,7 +6726,7 @@ msgstr "次のダウンロード販売ページ"
 #. name:purchase for download
 #: DB:link_type/link_phrase:912
 msgid "download purchase page for the score of"
-msgstr ""
+msgstr "次の楽譜のダウンロード販売ページ"
 
 #. name:download for free
 #: DB:link_type/reverse_link_phrase:274
@@ -6793,7 +6793,7 @@ msgstr "教育者"
 
 #: DB:link_attribute_type/name:1352
 msgid "electroacoustic music"
-msgstr ""
+msgstr "電子音響音楽"
 
 #: DB:link_attribute_type/name:1127
 msgid "electronic music"
@@ -6810,7 +6810,7 @@ msgstr "エンジニア"
 #. name:engineer position at
 #: DB:link_type/name:701 DB:link_type/link_phrase:120
 msgid "engineer position"
-msgstr ""
+msgstr "エンジニアポジション"
 
 #. name:engineer position
 #: DB:link_type/name:120 DB:link_type/link_phrase:701
@@ -6838,7 +6838,7 @@ msgstr "由来"
 #: DB:link_type/name:1003 DB:link_type/link_phrase:1003
 #: DB:link_type/reverse_link_phrase:1003 DB:link_type/long_link_phrase:1003
 msgid "event artists"
-msgstr ""
+msgstr "イベントアーティスト"
 
 #. name:excerpt from
 #: DB:link_type/name:1240 DB:link_type/link_phrase:1240
@@ -6856,10 +6856,8 @@ msgstr "エグゼクティブ"
 
 #. name:executive position at
 #: DB:link_type/link_phrase:1266
-#, fuzzy
-#| msgid "executive"
 msgid "executive position"
-msgstr "エグゼクティブ"
+msgstr "エグゼクティブポジション"
 
 #: DB:link_type/name:1266
 #, fuzzy

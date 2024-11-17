@@ -45,7 +45,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 19:33+0530\n"
-"PO-Revision-Date: 2024-07-04 15:42+0000\n"
+"PO-Revision-Date: 2024-11-13 17:42+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
@@ -54,7 +54,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -1131,11 +1131,8 @@ msgid "Existing medium"
 msgstr "既存のメディア"
 
 #: ../root/release/edit/information.tt:77
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit release group alias"
 msgid "Existing release groups with similar names"
-msgstr "リリースグループの別名を編集"
+msgstr "類似した名前の既存のリリースグループ"
 
 #: ../root/release/edit/tracklist.tt:151
 msgid "Expand"
@@ -1179,15 +1176,14 @@ msgstr ""
 msgid ""
 "For more information, check the {doc_doc|documentation} and {doc_styleguide|"
 "style guidelines}."
-msgstr ""
-"より詳細な情報は、 {doc_doc|ドキュメント} および {doc_styleguide|スタイル指"
-"針} を参照してください。"
+msgstr "より詳細な情報は、{doc_doc|ドキュメント}および{doc_styleguide|スタイル指針}を"
+"参照してください。"
 
 #: ../root/label/edit_form.tt:3 ../root/place/edit_form.tt:3
 #: ../root/work/edit_form.tt:4 ../root/search/components/SearchForm.js:99
 #: ../root/static/scripts/event/components/EventEditForm.js:231
 msgid "For more information, check the {doc_doc|documentation}."
-msgstr "より詳細な情報は、 {doc_doc|ドキュメント} を参照してください。"
+msgstr "より詳細な情報は、{doc_doc|ドキュメント}を参照してください。"
 
 #: ../root/cdtoc/list.tt:9 ../root/release/edit/duplicates.tt:11
 #: ../root/release/edit/tracklist.tt:305
@@ -1218,7 +1214,7 @@ msgstr[0] "{n}件の結果が見つかりました"
 #: ../root/components/with-pager.tt:7 ../root/components/PaginatedResults.js:49
 msgid "Found {n} result for \"{q}\""
 msgid_plural "Found {n} results for \"{q}\""
-msgstr[0] "\"{q}\" に対して{n}件の結果が見つかりました"
+msgstr[0] "\"{q}\"に対して{n}件の結果が見つかりました"
 
 #: ../root/components/forms.tt:207 ../root/components/forms.tt:232
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:108
@@ -3623,7 +3619,7 @@ msgstr "{name} – {additional_info}"
 #: ../root/cdtoc/attach_filter_release.tt:20
 msgid "{num} release found matching your query."
 msgid_plural "{num} releases found matching your query."
-msgstr[0] "検索条件に一致した {num} 件のリリースがあります"
+msgstr[0] "検索条件に一致した{num}件のリリースがあります。"
 
 #: ../root/components/common-macros.tt:203
 #: ../root/static/scripts/common/components/DescriptiveLink.js:75
@@ -5070,7 +5066,7 @@ msgstr "失敗した投票"
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:274 ../root/utility/edit.js:44
 msgctxt "edit status"
 msgid "Failed dependency"
-msgstr ""
+msgstr "競合による失敗"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:275 ../root/utility/edit.js:43
 msgctxt "edit status"
@@ -5173,7 +5169,7 @@ msgstr "第二賛成者待ち"
 #, perl-brace-format
 msgctxt "autoeditor election status"
 msgid "Voting open since {date}"
-msgstr "{date} まで投票中"
+msgstr "{date}まで投票中"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:94
 #, perl-brace-format
@@ -5211,17 +5207,17 @@ msgstr "投票中"
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:103
 msgctxt "autoeditor election status (short)"
 msgid "Accepted"
-msgstr "承認された"
+msgstr "承認"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:104
 msgctxt "autoeditor election status (short)"
 msgid "Declined"
-msgstr "拒否された"
+msgstr "却下"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:105
 msgctxt "autoeditor election status (short)"
 msgid "Cancelled"
-msgstr "キャンセルされた"
+msgstr "キャンセル"
 
 #: ../lib/MusicBrainz/Server/Entity/Barcode.pm:18
 #: ../root/static/scripts/common/utility/formatBarcode.js:15
@@ -5355,7 +5351,7 @@ msgstr "Spotifyでの配信"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Tidal.pm:14
 msgid "Purchase at Tidal"
-msgstr ""
+msgstr "Tidalでの販売"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Tidal.pm:16
 msgid "Stream at Tidal"
@@ -5452,7 +5448,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:51
 #, perl-brace-format
 msgid "Please add an artist name for {credit}"
-msgstr "{credit} のアーティスト名を追加してください。"
+msgstr "{credit}のアーティスト名を追加してください"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:58
 #, perl-brace-format
@@ -5482,11 +5478,11 @@ msgstr "有効なディスクIDではありません"
 
 #: ../lib/MusicBrainz/Server/Form/Field/FreeDBID.pm:15
 msgid "This is not a valid FreeDB ID"
-msgstr "有効な FreeDB ID ではありません"
+msgstr "有効なFreeDB IDではありません"
 
 #: ../lib/MusicBrainz/Server/Form/Field/GID.pm:15
 msgid "This is not a valid MBID"
-msgstr "有効な MBID ではありません"
+msgstr "有効なMBIDではありません"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ID.pm:15
 msgid "This is not a valid database ID"
@@ -5504,25 +5500,25 @@ msgstr "有効なISNIではありません。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISO_3166_1.pm:15
 msgid "This is not a valid ISO 3166-1 code"
-msgstr "有効な ISO 3166-1 コードではありません"
+msgstr "有効なISO 3166-1コードではありません"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISO_3166_2.pm:15
 msgid "This is not a valid ISO 3166-2 code"
-msgstr "有効な ISO 3166-2 コードではありません"
+msgstr "有効なISO 3166-2コードではありません"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISO_3166_3.pm:15
 msgid "This is not a valid ISO 3166-3 code"
-msgstr "有効な ISO 3166-3 コードではありません"
+msgstr "有効なISO 3166-3コードではありません"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISRC.pm:17
 #: ../lib/MusicBrainz/Server/Form/Field/ISRC.pm:21
 msgid "This is not a valid ISRC."
-msgstr "有効な ISRC ではありません。"
+msgstr "有効なISRCではありません。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISWC.pm:15
 #: ../lib/MusicBrainz/Server/Form/Field/ISWC.pm:19
 msgid "This is not a valid ISWC"
-msgstr "有効な ISWC ではありません"
+msgstr "有効なISWCではありません"
 
 #: ../lib/MusicBrainz/Server/Form/Field/LabelCode.pm:17
 msgid "Label codes must be greater than 0 and 6 digits at most"
@@ -5679,7 +5675,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:34
 msgid "Invalid URL format"
-msgstr "URL 形式が不正です"
+msgstr "URL形式が不正です"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:65
 msgid "A language is required."
@@ -7028,12 +7024,12 @@ msgstr[0] "{num} 件のレコーディングがあります"
 #: ../root/artist_credit/EntityList.js:23 ../root/tag/EntityList.js:77
 msgid "{num} release found"
 msgid_plural "{num} releases found"
-msgstr[0] "{num} 件のリリースがあります"
+msgstr[0] "{num}件のリリースがあります"
 
 #: ../root/artist_credit/EntityList.js:25 ../root/tag/EntityList.js:79
 msgid "{num} release group found"
 msgid_plural "{num} release groups found"
-msgstr[0] "{num} 件のリリースグループがあります"
+msgstr[0] "{num}件のリリースグループがあります"
 
 #: ../root/artist_credit/EntityList.js:28
 msgid "{num} track found"
@@ -8242,7 +8238,7 @@ msgstr "投票"
 
 #: ../root/edit/components/EditHeader.js:143
 msgid "Approved"
-msgstr ""
+msgstr "承認"
 
 #: ../root/edit/components/EditHeader.js:171
 #: ../root/edit/components/EditSummary.js:64
@@ -9169,7 +9165,7 @@ msgstr "属性をマージ:"
 
 #: ../root/edit/details/historic/MergeReleases.js:46
 msgid "Merge language & script:"
-msgstr "言語と文字をマージ"
+msgstr "言語と文字をマージ:"
 
 #: ../root/edit/details/historic/MergeReleases.js:53
 msgid ""
@@ -9179,12 +9175,12 @@ msgstr ""
 
 #: ../root/edit/details/historic/MoveRelease.js:23
 msgid "Change track artists:"
-msgstr "トラックのアーティストを変更"
+msgstr "トラックアーティストを変更:"
 
 #: ../root/elections/ElectionDetails.js:28
 #: ../root/elections/ElectionTable/index.js:17
 msgid "Candidate"
-msgstr "候補"
+msgstr "候補者"
 
 #: ../root/elections/ElectionDetails.js:32
 #: ../root/elections/ElectionTable/index.js:21
@@ -9194,16 +9190,16 @@ msgstr "推薦者"
 #: ../root/elections/ElectionDetails.js:36
 #: ../root/elections/ElectionTable/index.js:22
 msgid "1st seconder"
-msgstr ""
+msgstr "第一賛成者"
 
 #: ../root/elections/ElectionDetails.js:44
 #: ../root/elections/ElectionTable/index.js:23
 msgid "2nd seconder"
-msgstr ""
+msgstr "第二賛成者"
 
 #: ../root/elections/ElectionDetails.js:55
 msgid "Total votes"
-msgstr ""
+msgstr "合計投票数"
 
 #: ../root/elections/ElectionDetails.js:59
 #: ../root/elections/ElectionTable/index.js:24
@@ -9217,7 +9213,7 @@ msgstr "反対投票数"
 
 #: ../root/elections/ElectionDetails.js:67
 msgid "Abstentions"
-msgstr ""
+msgstr "棄権数"
 
 #: ../root/elections/ElectionDetails.js:75
 msgid "Votes for/against:"
@@ -13275,7 +13271,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:23
 #: ../root/search/components/SearchForm.js:24
 msgid "Up to {n}"
-msgstr "{n} まで"
+msgstr "{n}件まで"
 
 #: ../root/search/components/SearchForm.js:56
 msgid "Indexed search with {doc|advanced query syntax}"
@@ -14320,7 +14316,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/utility/relationshipDateText.js:29
 msgid "from {begin_date} until {end_date}"
-msgstr "{begin_date} から {end_date} まで"
+msgstr "{begin_date}から{end_date}まで"
 
 #: ../root/static/scripts/common/utility/relationshipDateText.js:34
 msgid "from {date} to ????"
@@ -14332,7 +14328,7 @@ msgstr "{date}から現在まで"
 
 #: ../root/static/scripts/common/utility/relationshipDateText.js:38
 msgid "until {date}"
-msgstr "{date} まで"
+msgstr "{date}まで"
 
 #: ../root/static/scripts/common/utility/relationshipDateText.js:40
 msgid "ended"
@@ -15155,7 +15151,7 @@ msgstr "楽器を追加"
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:43
 msgid "Add vocal"
-msgstr ""
+msgstr "ヴォーカルを追加"
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:45
 msgctxt "relationship attribute"
