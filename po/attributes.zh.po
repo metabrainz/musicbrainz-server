@@ -635,17 +635,16 @@ msgid ""
 "usually chosen for their sound and for the images and ideas they suggest."
 msgstr "诗歌是通常较短并成行的文学作品，其语言押韵并用于表达意象及思想。"
 
-#. name:Withdrawn
-#: DB:release_status/description:5
+#. name:Expunged
+#: DB:release_status/description:38
 msgctxt "release_status"
 msgid ""
-"A previously official release that was actively withdrawn from circulation "
-"by the artist and/or their record company after being released, whether to "
-"replace it with a new version with some changes or to just retire it "
-"altogether (e.g. because of legal issues)."
+"A previously official release that was actively expunged from an artist or "
+"records company’s discography. This should not be used in cases where the "
+"release was just withdrawn, there needs to be known artist or label intent "
+"to disown the release and no longer consider it part of their discography. "
+"If it is unclear, use Withdrawn."
 msgstr ""
-"被艺术家和/或唱片公司在发行后中止流通的正式专辑，不管是改为新版本还是彻底绝版"
-"(如因为法律诉讼问题)。"
 
 #. name:Demo
 #: DB:release_group_secondary_type/description:10
@@ -1361,6 +1360,26 @@ msgstr ""
 msgctxt "release_group_secondary_type"
 msgid "An interview release contains an interview, generally with an artist."
 msgstr "包含一段采访的采访专辑，通常为对艺术家的采访片段。"
+
+#. name:Withdrawn
+#: DB:release_status/description:5
+#, fuzzy
+#| msgctxt "release_status"
+#| msgid ""
+#| "A previously official release that was actively withdrawn from "
+#| "circulation by the artist and/or their record company after being "
+#| "released, whether to replace it with a new version with some changes or "
+#| "to just retire it altogether (e.g. because of legal issues)."
+msgctxt "release_status"
+msgid ""
+"An official release that was actively withdrawn from circulation by the "
+"artist and/or their record company after being released, whether to replace "
+"it with a new version or to retire it altogether. This does not include "
+"releases that have reached the end of their “natural” life cycle, such as "
+"being sold out and out of print."
+msgstr ""
+"被艺术家和/或唱片公司在发行后中止流通的正式专辑，不管是改为新版本还是彻底绝版"
+"(如因为法律诉讼问题)。"
 
 #. name:Metal Tin
 #: DB:release_packaging/description:54
@@ -3201,6 +3220,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Evsat"
 msgstr "Evsat"
 
+#: DB:release_status/name:38
+msgctxt "release_status"
+msgid "Expunged"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:614
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ezan"
@@ -4433,6 +4457,15 @@ msgstr "美国版权协会GMR ID"
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society SESAC"
 msgstr "美国著作权协会SESAC ID"
+
+#. name:UACRR ID
+#: DB:work_attribute_type/description:209
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Brazilian rights society ECAD"
+msgctxt "work_attribute_type"
+msgid "ID for the Ukrainian rights society UACRR"
+msgstr "巴西著作权协会ECAD ID"
 
 #. name:AGADU ID
 #: DB:work_attribute_type/description:43
@@ -6427,6 +6460,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Pahāḍi"
 msgstr "Pahāḍi"
 
+#: DB:cover_art_archive.art_type/name:81
+msgctxt "cover_art_type"
+msgid "Panel"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:839
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pan̄cam savārī"
@@ -8047,6 +8085,14 @@ msgstr ""
 "盒子或类似包装的底面(对于最常见的六面体包装选项而言，指垂直于正面，背面和侧面"
 "且位于下方的面)。"
 
+#. name:Panel
+#: DB:cover_art_archive.art_type/description:81
+msgctxt "cover_art_type"
+msgid ""
+"The individual segments of a folded packaging, such as a gatefold cover, "
+"digipak or cassette inlay (don't use this for folded booklets nor posters)."
+msgstr ""
+
 #. name:Madrigal
 #: DB:work_type/description:7
 msgctxt "work_type"
@@ -8324,6 +8370,11 @@ msgstr "Tōḍi"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tōḍī"
 msgstr "Tōḍī"
+
+#: DB:work_attribute_type/name:209
+msgctxt "work_attribute_type"
+msgid "UACRR ID"
+msgstr ""
 
 #: DB:medium_format/name:28
 msgctxt "medium_format"

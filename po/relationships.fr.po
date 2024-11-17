@@ -1035,6 +1035,14 @@ msgstr ""
 msgid "Links a release group with a launch event for it."
 msgstr "Relie un groupe de parution à un événement de lancement."
 
+#. name:production coordinator
+#: DB:link_type/description:1267
+#, fuzzy
+#| msgid "Links a release to the place it was produced at."
+msgid ""
+"Links a release to a person credited as a production coordinator for it."
+msgstr "Relie une parution au lieu où elle a été produite."
+
 #. name:arranged in
 #: DB:link_type/description:863
 msgid ""
@@ -1649,7 +1657,7 @@ msgid ""
 msgstr "Le livret de {entity1} a été {additional:de plus} écrit à {entity0}"
 
 #. name:libretto written in
-#: DB:link_type/long_link_phrase:879
+#: DB:link_type/long_link_phrase:879 DB:link_type/long_link_phrase:1271
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written in {entity0}"
 msgstr "Le livret de {entity1} a été {additional:de plus} écrit en {entity0}"
@@ -1662,7 +1670,7 @@ msgstr ""
 "Les paroles de {entity1} ont {additional:en plus} été écrites à {entity0}"
 
 #. name:lyrics written in
-#: DB:link_type/long_link_phrase:877
+#: DB:link_type/long_link_phrase:877 DB:link_type/long_link_phrase:1270
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written in {entity0}"
 msgstr "Les paroles de {entity1} a été {additional:de plus} écrit à {entity0}"
@@ -2558,6 +2566,20 @@ msgstr ""
 "Ceci indique qu’un artiste était officiellement engagé par un label à un "
 "poste créatif tel que photographe ou concepteur graphique."
 
+#. name:position at
+#: DB:link_type/description:119
+#, fuzzy
+#| msgid ""
+#| "This indicates that an artist was officially employed by a label in a "
+#| "creative position, such as photographer or graphic designer."
+msgid ""
+"This indicates that an artist was officially employed by a label in a "
+"position not covered by any more specific relationship. Specify the position "
+"using the “Task” attribute."
+msgstr ""
+"Ceci indique qu’un artiste était officiellement engagé par un label à un "
+"poste créatif tel que photographe ou concepteur graphique."
+
 #. name:artists and repertoire position at
 #: DB:link_type/description:1081
 msgid ""
@@ -2687,6 +2709,13 @@ msgid ""
 msgstr ""
 "Ceci indique qu’un enregistrement n’est pas une œuvre complète, tel que par "
 "exemple des extraits, une conclusion, etc."
+
+#. name:demo
+#: DB:link_attribute_type/description:1417
+#, fuzzy
+#| msgid "This indicates that the recording is of a live performance."
+msgid "This indicates that the recording is of a demo version."
+msgstr "Ceci indique qu’un enregistrement est une représentation en public."
 
 #. name:live
 #: DB:link_attribute_type/description:578
@@ -3967,6 +3996,97 @@ msgid ""
 msgstr ""
 "Indique pour une parution le projet correspondant sur un site de financement "
 "participatif tel que Kickstarter ou Indiegogo."
+
+#. name:arranged in
+#: DB:link_type/description:1274
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was arranged in. Use only when the place "
+#| "is unknown!"
+msgid ""
+"This links a release with the area it was arranged in. Use only when the "
+"place is unknown!"
+msgstr ""
+"Relie une parution à la région où elle a été arrangée. À n’utiliser que si "
+"le lieu est inconnu !"
+
+#. name:composed in
+#: DB:link_type/description:1269
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was mixed in. Use only when the place is "
+#| "unknown!"
+msgid ""
+"This links a release with the area it was composed in. Use only when the "
+"place is unknown!"
+msgstr ""
+"Relie une parution à la région où elle a été mixée. À n’utiliser que si le "
+"lieu est inconnu !"
+
+#. name:revised in
+#: DB:link_type/description:1272
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was remixed in. Use only when the place is "
+#| "unknown!"
+msgid ""
+"This links a release with the area it was revised in. Use only when the "
+"place is unknown!"
+msgstr ""
+"Relie une parution à la région où elle a été remixée. À n’utiliser que "
+"lorsque le lieu est inconnu !"
+
+#. name:translated in
+#: DB:link_type/description:1273
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was arranged in. Use only when the place "
+#| "is unknown!"
+msgid ""
+"This links a release with the area it was translated in. Use only when the "
+"place is unknown!"
+msgstr ""
+"Relie une parution à la région où elle a été arrangée. À n’utiliser que si "
+"le lieu est inconnu !"
+
+#. name:written in
+#: DB:link_type/description:1268
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was edited in. Use only when the place is "
+#| "unknown!"
+msgid ""
+"This links a release with the area it was written in. Use only when the "
+"place is unknown!"
+msgstr ""
+"Relie une parution à la région où elle a été montée. À n’utiliser que "
+"lorsque le lieu est inconnu !"
+
+#. name:libretto written in
+#: DB:link_type/description:1271
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was edited in. Use only when the place is "
+#| "unknown!"
+msgid ""
+"This links a release with the area its libretto was written in. Use only "
+"when the place is unknown!"
+msgstr ""
+"Relie une parution à la région où elle a été montée. À n’utiliser que "
+"lorsque le lieu est inconnu !"
+
+#. name:lyrics written in
+#: DB:link_type/description:1270
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was edited in. Use only when the place is "
+#| "unknown!"
+msgid ""
+"This links a release with the area its lyrics were written in. Use only when "
+"the place is unknown!"
+msgstr ""
+"Relie une parution à la région où elle a été montée. À n’utiliser que "
+"lorsque le lieu est inconnu !"
 
 #. name:arranged at
 #: DB:link_type/description:865
@@ -5974,7 +6094,8 @@ msgstr "arrangé à"
 msgid "arranged for"
 msgstr "arrangé pour"
 
-#: DB:link_type/name:863 DB:link_type/name:885 DB:link_type/name:864
+#: DB:link_type/name:1274 DB:link_type/name:863 DB:link_type/name:885
+#: DB:link_type/name:864
 msgid "arranged in"
 msgstr "arrangé dans"
 
@@ -6406,7 +6527,7 @@ msgstr "compilateur"
 msgid "composed at"
 msgstr "composé à"
 
-#: DB:link_type/name:875
+#: DB:link_type/name:875 DB:link_type/name:1269
 msgid "composed in"
 msgstr "composé en"
 
@@ -6495,12 +6616,6 @@ msgstr "contient des échantillons {additional:supplémentaires} de"
 #: DB:link_attribute_type/name:1227
 msgid "contemporary music"
 msgstr "musique contemporaine"
-
-#. name:contract
-#: DB:link_type/name:119 DB:link_type/link_phrase:119
-#: DB:link_type/reverse_link_phrase:119 DB:link_type/long_link_phrase:119
-msgid "contract"
-msgstr "contrat"
 
 #. name:arranged for
 #: DB:link_type/link_phrase:949 DB:link_type/link_phrase:948
@@ -6671,6 +6786,10 @@ msgstr "dédicace"
 #: DB:link_type/link_phrase:868
 msgid "dedications"
 msgstr "dédicaces"
+
+#: DB:link_attribute_type/name:1417
+msgid "demo"
+msgstr ""
 
 #: DB:link_type/name:737
 msgid "derivation"
@@ -6871,6 +6990,18 @@ msgstr "musique électronique"
 #: DB:link_attribute_type/name:617
 msgid "emeritus"
 msgstr "émérite"
+
+#. name:position at
+#: DB:link_type/link_phrase:119
+#, fuzzy
+#| msgid "replaced by"
+msgid "employed by"
+msgstr "remplacée par"
+
+#. name:position at
+#: DB:link_type/reverse_link_phrase:119
+msgid "employees"
+msgstr ""
 
 #: DB:link_type/name:1084 DB:link_type/name:28 DB:link_type/name:138
 msgid "engineer"
@@ -8027,9 +8158,13 @@ msgstr "est le {step:beau-}père ou la {step:belle-}mère de"
 
 #. name:performance
 #: DB:link_type/long_link_phrase:278
+#, fuzzy
+#| msgid ""
+#| "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley "
+#| "including a} {partial} {instrumental} {cover} {karaoke} recording of"
 msgid ""
 "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
-"a} {partial} {instrumental} {cover} {karaoke} recording of"
+"a} {partial} {instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
 "est un {medley:pot-pourri incluant un} enregistrement {karaoke:karaoké} "
 "{partial:partiel} {acappella:a cappella} {instrumental:instrumental} {live:"
@@ -8215,7 +8350,7 @@ msgstr "librettiste"
 msgid "libretto written at"
 msgstr "libretto écrit à"
 
-#: DB:link_type/name:879
+#: DB:link_type/name:879 DB:link_type/name:1271
 msgid "libretto written in"
 msgstr "libretto écrit en"
 
@@ -8225,7 +8360,7 @@ msgid "libretto {additional:additionally} written at"
 msgstr "livret {additional:de plus} écrit à"
 
 #. name:libretto written in
-#: DB:link_type/reverse_link_phrase:879
+#: DB:link_type/reverse_link_phrase:879 DB:link_type/reverse_link_phrase:1271
 msgid "libretto {additional:additionally} written in"
 msgstr "livret {additional:de plus} écrit en"
 
@@ -8346,7 +8481,7 @@ msgstr "paroles citées dans"
 msgid "lyrics written at"
 msgstr "paroles écrites à"
 
-#: DB:link_type/name:877
+#: DB:link_type/name:877 DB:link_type/name:1270
 msgid "lyrics written in"
 msgstr "paroles écrites en"
 
@@ -9095,6 +9230,12 @@ msgstr "flux de baladodiffusion de"
 msgid "popular / rock music"
 msgstr "musique pop / rock"
 
+#: DB:link_type/name:119
+#, fuzzy
+#| msgid "composition"
+msgid "position at"
+msgstr "composition"
+
 #. name:poster
 #: DB:link_type/name:808 DB:link_type/link_phrase:808
 msgid "poster"
@@ -9272,6 +9413,20 @@ msgstr "producteurs"
 #: DB:link_type/long_link_phrase:72
 msgid "production"
 msgstr "production"
+
+#. name:production coordinator
+#: DB:link_type/name:1267 DB:link_type/reverse_link_phrase:1267
+#, fuzzy
+#| msgid "production"
+msgid "production coordinator"
+msgstr "production"
+
+#. name:production coordinator
+#: DB:link_type/link_phrase:1267
+#, fuzzy
+#| msgid "{additional} recording location for"
+msgid "production coordinator for"
+msgstr "lieu {additional:supplémentaire} d’enregistrement de"
 
 #: DB:link_type/name:37 DB:link_type/name:132
 msgid "programming"
@@ -9706,13 +9861,14 @@ msgid "revised by"
 msgstr "révisé par"
 
 #. name:revised in
-#: DB:link_type/name:881 DB:link_type/reverse_link_phrase:881
+#: DB:link_type/name:881 DB:link_type/name:1272
+#: DB:link_type/reverse_link_phrase:881 DB:link_type/reverse_link_phrase:1272
 msgid "revised in"
 msgstr "révisé en"
 
 #. name:revised at, name:revised in
 #: DB:link_type/link_phrase:881 DB:link_type/link_phrase:882
-#: DB:link_type/link_phrase:1248
+#: DB:link_type/link_phrase:1272 DB:link_type/link_phrase:1248
 msgid "revising location for"
 msgstr "lieu de révision de"
 
@@ -10167,13 +10323,11 @@ msgstr "translittération/traduction"
 msgid "translated"
 msgstr "traduit"
 
-#. name:translated at
-#: DB:link_type/name:883 DB:link_type/name:1247
-#: DB:link_type/reverse_link_phrase:883 DB:link_type/reverse_link_phrase:1247
+#: DB:link_type/name:1247 DB:link_type/name:883
 msgid "translated at"
 msgstr "traduit à"
 
-#: DB:link_type/name:884
+#: DB:link_type/name:884 DB:link_type/name:1273
 msgid "translated in"
 msgstr "traduit en"
 
@@ -10409,6 +10563,13 @@ msgstr "était cinématographe pour"
 msgid "was commissioned by"
 msgstr "a été commandé par"
 
+#. name:position at
+#: DB:link_type/long_link_phrase:119
+#, fuzzy
+#| msgid "was replaced by"
+msgid "was employed by"
+msgstr "a été remplacée par"
+
 #. name:held at
 #: DB:link_type/long_link_phrase:794
 msgid "was held at"
@@ -10438,6 +10599,13 @@ msgstr "a été remplacée par"
 #: DB:link_type/long_link_phrase:836
 msgid "was rescheduled as"
 msgstr "a été reprogrammé comme"
+
+#. name:production coordinator
+#: DB:link_type/long_link_phrase:1267
+#, fuzzy
+#| msgid "was the {guest} concertmaster for"
+msgid "was the production coordinator for"
+msgstr "était le premier violon {guest:invité} pour"
 
 #. name:concertmaster
 #: DB:link_type/long_link_phrase:760 DB:link_type/long_link_phrase:759
@@ -10555,7 +10723,7 @@ msgstr "écrivain"
 msgid "written at"
 msgstr "écrit à"
 
-#: DB:link_type/name:873
+#: DB:link_type/name:873 DB:link_type/name:1268
 msgid "written in"
 msgstr "écrit en"
 
@@ -10570,9 +10738,13 @@ msgstr "youtube music"
 
 #. name:performance
 #: DB:link_type/link_phrase:278
+#, fuzzy
+#| msgid ""
+#| "{acappella:a cappella} {live} {medley:medley including a} {partial} "
+#| "{instrumental} {cover} {karaoke} recording of"
 msgid ""
 "{acappella:a cappella} {live} {medley:medley including a} {partial} "
-"{instrumental} {cover} {karaoke} recording of"
+"{instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
 "{medley:pot-pourri incluant un} enregistrement {karaoke:karaoké} {partial:"
 "partiel} {acappella:a cappella} {instrumental:instrumental} {live:en public} "
@@ -10580,9 +10752,13 @@ msgstr ""
 
 #. name:performance
 #: DB:link_type/reverse_link_phrase:278
+#, fuzzy
+#| msgid ""
+#| "{acappella:a cappella} {live} {medley:medleys including} {partial} "
+#| "{instrumental} {cover} {karaoke} recordings"
 msgid ""
 "{acappella:a cappella} {live} {medley:medleys including} {partial} "
-"{instrumental} {cover} {karaoke} recordings"
+"{instrumental} {cover} {karaoke} {demo} recordings"
 msgstr ""
 "{medley:pot-pourri incluant des} enregistrements {karaoke:karaoké} {partial:"
 "partiels} {acappella:a cappella} {instrumental:instrumentaux} {live:en "
@@ -10595,8 +10771,8 @@ msgid "{additional:additionally} arranged at"
 msgstr "{additional:aussi} arrangé à"
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:863 DB:link_type/reverse_link_phrase:885
-#: DB:link_type/reverse_link_phrase:864
+#: DB:link_type/reverse_link_phrase:1274 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr "{additional:de plus} arrangé en"
 
@@ -10612,7 +10788,7 @@ msgid "{additional:additionally} composed at"
 msgstr "{additional:aussi} composé à"
 
 #. name:composed in
-#: DB:link_type/reverse_link_phrase:875
+#: DB:link_type/reverse_link_phrase:875 DB:link_type/reverse_link_phrase:1269
 msgid "{additional:additionally} composed in"
 msgstr "{additional:aussi} composé en"
 
@@ -10719,8 +10895,15 @@ msgstr "transférée {additional:en plus} en"
 msgid "{additional:additionally} translated"
 msgstr "{additional:aussi} traduit"
 
+#. name:translated at
+#: DB:link_type/reverse_link_phrase:1247 DB:link_type/reverse_link_phrase:883
+#, fuzzy
+#| msgid "{additional:additionally} translated"
+msgid "{additional:additionally} translated at"
+msgstr "{additional:aussi} traduit"
+
 #. name:translated in
-#: DB:link_type/reverse_link_phrase:884
+#: DB:link_type/reverse_link_phrase:884 DB:link_type/reverse_link_phrase:1273
 msgid "{additional:additionally} translated in"
 msgstr "{additional:de plus} traduit en"
 
@@ -10730,7 +10913,7 @@ msgid "{additional:additionally} written at"
 msgstr "{additional:aussi} écrit à"
 
 #. name:written in
-#: DB:link_type/reverse_link_phrase:873
+#: DB:link_type/reverse_link_phrase:873 DB:link_type/reverse_link_phrase:1268
 msgid "{additional:additionally} written in"
 msgstr "{additional:aussi} écrit en"
 
@@ -10921,9 +11104,10 @@ msgid "{additional} animation"
 msgstr "animation {additional:supplémentaire}"
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:863
-#: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
-#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
+#: DB:link_type/link_phrase:1274 DB:link_type/link_phrase:865
+#: DB:link_type/link_phrase:863 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:866
+#: DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr "lieu {additional:supplémentaire} d’arrangement de"
 
@@ -10951,8 +11135,8 @@ msgstr "compositeur {additional:supplémentaire}"
 msgid "{additional} composing location for"
 msgstr "lieu {additional:supplémentaire} de composition de"
 
-#. name:composed at
-#: DB:link_type/link_phrase:1251
+#. name:composed at, name:composed in
+#: DB:link_type/link_phrase:1269 DB:link_type/link_phrase:1251
 #, fuzzy
 #| msgid "{additional} composing location for"
 msgid "{additional} composition location for"
@@ -11021,13 +11205,21 @@ msgstr "livret {additional:supplémentaire}"
 
 #. name:libretto written at, name:libretto written in
 #: DB:link_type/link_phrase:879 DB:link_type/link_phrase:880
-#: DB:link_type/link_phrase:1249
+#: DB:link_type/link_phrase:1271 DB:link_type/link_phrase:1249
 msgid "{additional} libretto writing location for"
 msgstr "lieu {additional:supplémentaire} d’écriture du livret de"
 
 #. name:liner notes
-#: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
+#: DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
+msgstr ""
+"{translator:traduction des} notes de livret {additional:supplémentaires}"
+
+#. name:liner notes
+#: DB:link_type/link_phrase:24
+#, fuzzy
+#| msgid "{additional} liner notes {translator}"
+msgid "{additional} liner notes {translator} for"
 msgstr ""
 "{translator:traduction des} notes de livret {additional:supplémentaires}"
 
@@ -11043,7 +11235,7 @@ msgstr "paroles {additional:supplémentaires}"
 
 #. name:lyrics written at, name:lyrics written in
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
-#: DB:link_type/link_phrase:1250
+#: DB:link_type/link_phrase:1270 DB:link_type/link_phrase:1250
 msgid "{additional} lyrics writing location for"
 msgstr "lieu {additional:supplémentaire} d’écriture des paroles de"
 
@@ -11053,7 +11245,7 @@ msgid "{additional} lyrics written at"
 msgstr "paroles {additional:de plus} écrites à"
 
 #. name:lyrics written in
-#: DB:link_type/reverse_link_phrase:877
+#: DB:link_type/reverse_link_phrase:877 DB:link_type/reverse_link_phrase:1270
 msgid "{additional} lyrics written in"
 msgstr "paroles {additional:de plus} écrites en"
 
@@ -11121,8 +11313,8 @@ msgid "{additional} transferring location for"
 msgstr "lieu {additional:supplémentaire} pour le transfert de"
 
 #. name:translated at, name:translated in
-#: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
-#: DB:link_type/link_phrase:1247
+#: DB:link_type/link_phrase:884 DB:link_type/link_phrase:1273
+#: DB:link_type/link_phrase:1247 DB:link_type/link_phrase:883
 msgid "{additional} translating location for"
 msgstr "lieu {additional:supplémentaire} de traduction de"
 
@@ -11138,7 +11330,7 @@ msgstr "auteur {additional:supplémentaire}"
 
 #. name:written at, name:written in
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
-#: DB:link_type/link_phrase:1246
+#: DB:link_type/link_phrase:1268 DB:link_type/link_phrase:1246
 msgid "{additional} writing location for"
 msgstr "lieu {additional:supplémentaire} d’écriture de"
 
@@ -11724,7 +11916,7 @@ msgid "{entity1} was revised at {entity0}"
 msgstr "{entity1} a été révisé à {entity0}"
 
 #. name:revised in
-#: DB:link_type/long_link_phrase:881
+#: DB:link_type/long_link_phrase:881 DB:link_type/long_link_phrase:1272
 msgid "{entity1} was revised in {entity0}"
 msgstr "{entity1} a été révisé en {entity0}"
 
@@ -11735,8 +11927,8 @@ msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr "{entity1} a été {additional:de plus} arrangé à {entity0}"
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:863 DB:link_type/long_link_phrase:885
-#: DB:link_type/long_link_phrase:864
+#: DB:link_type/long_link_phrase:1274 DB:link_type/long_link_phrase:863
+#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr "{entity1} a été {additional:de plus} arrangé en {entity0}"
 
@@ -11746,7 +11938,7 @@ msgid "{entity1} was {additional:additionally} composed at {entity0}"
 msgstr "{entity1} a {additional:de plus} été composé à {entity0}"
 
 #. name:composed in
-#: DB:link_type/long_link_phrase:875
+#: DB:link_type/long_link_phrase:875 DB:link_type/long_link_phrase:1269
 msgid "{entity1} was {additional:additionally} composed in {entity0}"
 msgstr "{entity1} a {additional:de plus} été composé en {entity0}"
 
@@ -11839,12 +12031,12 @@ msgid "{entity1} was {additional:additionally} transferred in {entity0}"
 msgstr "{entity1} a {additional:en plus} été transférée à {entity0}"
 
 #. name:translated at
-#: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
+#: DB:link_type/long_link_phrase:1247 DB:link_type/long_link_phrase:883
 msgid "{entity1} was {additional:additionally} translated at {entity0}"
 msgstr "{entity1} a été {additional:de plus} traduit à {entity0}"
 
 #. name:translated in
-#: DB:link_type/long_link_phrase:884
+#: DB:link_type/long_link_phrase:884 DB:link_type/long_link_phrase:1273
 msgid "{entity1} was {additional:additionally} translated in {entity0}"
 msgstr "{entity1} a été {additional:de plus} traduit à {entity0}"
 
@@ -11854,7 +12046,7 @@ msgid "{entity1} was {additional:additionally} written at {entity0}"
 msgstr "{entity1} a été {additional:de plus} écrit à {entity0}"
 
 #. name:written in
-#: DB:link_type/long_link_phrase:873
+#: DB:link_type/long_link_phrase:873 DB:link_type/long_link_phrase:1268
 msgid "{entity1} was {additional:additionally} written in {entity0}"
 msgstr "{entity1} a été {additional:de plus} écrit en {entity0}"
 
@@ -11974,6 +12166,9 @@ msgstr "{vocal:%|voix} de soutien par"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|voix} de soutien pour"
+
+#~ msgid "contract"
+#~ msgstr "contrat"
 
 #~ msgid "This links a label to the equivalent entry at YouTube."
 #~ msgstr "Ceci relie un label à l’entrée équivalente sur YouTube."
