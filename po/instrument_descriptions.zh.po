@@ -7,42 +7,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-19 17:42+0000\n"
+"PO-Revision-Date: 2024-11-16 06:42+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
-"projects/musicbrainz/instrument-descriptions/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://translations."
+"metabrainz.org/projects/musicbrainz/instrument-descriptions/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #. name:rebab
 #: DB:instrument/description:239
-#, fuzzy
-#| msgid ""
-#| "\"Rebab\" (and other variant spellings) is the name for chiefly these 3 "
-#| "types of bowed/plucked string instrument families: <br /> <ul> <li>Large, "
-#| "short necked boatshaped \"sarinda\" type, here the kabuli rebab</li> "
-#| "<li>Small, long necked spike fiddle \"huqyin\" type, here the Indonesian "
-#| "rebab</li> <li>various sizes, varying necklength, pearshaped \"Cretan "
-#| "lyra\" type, here the bowed lutes proper</li> </ul> <br /> <br /> Given "
-#| "the name cross-overs they are confused with eachother in most sources. "
-#| "Curiously, this cross-over confusion extends to related but separately or "
-#| "similarly named instruments as well, for example <a href=\"/"
-#| "instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">Ghijak</a> (a "
-#| "spikefiddle) and <a href=\"/instrument/d50ba107-4930-4e0b-8b3f-"
-#| "ffbea4a1ade1\">Ghaychak</a> (a boat-shaped).<br /> It is, for the "
-#| "meantime, unknown how, if at all, these 3 subtypes are related.<br /> "
-#| "<br /> For the spike fiddle used in gamelan, see <a href=\"/"
-#| "instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">Indonesian rebab</a>."
-#| "<br /> For the plucked, boat-shaped Afghani instrument also know as "
-#| "kabuli rabab, see <a href=\"/instrument/7e42e637-c7b4-422c-ad56-"
-#| "f7fafbd961bb\">rubab</a>.<br /> For the medieval Indian plucked lute see "
-#| "<a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">Seni rebab</"
-#| "a>.<br /> For the medieval European pear-shaped fiddle see <a href=\"/"
-#| "instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a>."
 msgid ""
 "\"Rebab\" (and other variant spellings) is the name for chiefly these 3 "
 "types of bowed/plucked string instrument families: <br /> <ul> <li>Large, "
@@ -66,21 +43,23 @@ msgid ""
 "the medieval European pear-shaped fiddle see <a href=\"/instrument/3f7302e4-"
 "f10f-4905-8d71-ef61141da383\">rebec</a>."
 msgstr ""
-"\"雷贝琴\"(或者其他类似的词)可用于指代3种拉弦/弹拨乐器:<br /><ul><li>大而短颈"
-"的船形\"萨林达\"式，即喀布尔雷贝琴；</li><li>小而长颈的提琴类\"胡琴\"式，即印"
-"尼雷贝琴；</li><li>大小和颈长不一的梨形\"克里特里拉琴\"式，称为拉弦鲁特琴较合"
-"适。</li></ul><br /><br />因名称类似，大多数资料中这三类乐器经常混淆。奇怪的"
-"是，部分名称类似或无关的乐器也会和雷贝琴混淆，比如<a href=\"/"
-"instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">艾捷克</a>(一种类似于二胡的"
-"乐器)和<a href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">盖查克琴"
-"</a>(船形)。<br />此乐器种类用于不知道具体属于3种雷贝琴中何种的场合。<br /"
-"><br />对于甘美兰中使用的类似于二胡的乐器，参见<a href=\"/"
-"instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">印尼雷贝琴</a>。<br />对于"
-"称为喀布尔雷贝琴的船形弹拨乐器，参见<a href=\"/instrument/7e42e637-c7b4-422c-"
-"ad56-f7fafbd961bb\">热瓦甫</a>。<br />对于中世纪印度弹拨鲁特琴，参见<a "
-"href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">塞尼雷贝琴</a>。"
-"<br />对于中世纪欧洲的梨形提琴，参见<a href=\"/instrument/3f7302e4-"
-"f10f-4905-8d71-ef61141da383\">雷贝克琴</a>。"
+"\"Rebab\"(及其变体拼写)是指主要属于以下三种弓弦或拨弦乐器家族的乐器:<br "
+"/><ul><li>大型短颈船形“sarinda”型, 代表乐器：卡布里雷巴卜 kabuli "
+"rebab</li><li>小型长颈尖琴“huqin”型, 代表乐器：印尼雷巴卜 Indonesian "
+"rehab</li><li>大小不一、颈长各异的梨形状的“Cretan lyra”型, 代表乐器： "
+"弓弦鲁特琴 bowed lutes</li></ul><br /><br />由于名称的交叉使用，这些乐器在大"
+"多数资料中常常被混淆。这种混淆甚至扩展到相关但名称不同或相似的乐器，比如<a "
+"href=\"/instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">艾捷克琴</a> "
+"(一种尖琴)，还有<a href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\""
+">盖查克 Ghaychak</a>(船形的)<br "
+"/>目前尚不清楚这三种亚型之间是否存在关联，以及如何关联。<br /><br "
+"/>用于甘美兰音乐的尖琴，见<a href=\"/instrument/3dbbb5ff-103b-4260-8cf6-"
+"679a73a7c552\">印尼雷巴卜 Indonesian rehab</a>。<br />拨弦的船形阿富汗乐器，"
+"又叫做卡布里雷巴卜 kabuli rebab，见<a href=\"/instrument/7e42e637-c7b4-422c-"
+"ad56-f7fafbd961bb\">鲁巴卜 rubab</a>。<br />中世纪印度拨弦鲁特琴，见<a href="
+"\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">塞尼雷巴卜 seni "
+"rebab</a>。<br />中世纪欧洲的梨形提琴，见<a href=\"/instrument/"
+"3f7302e4-f10f-4905-8d71-ef61141da383\">雷贝克 rebec</a>。"
 
 #. name:chitra veena
 #: DB:instrument/description:744
@@ -274,14 +253,10 @@ msgstr "具有长的木质吹口的普塔塔拉，音色比普塔塔拉重。"
 
 #. name:chirimía
 #: DB:instrument/description:821
-#, fuzzy
-#| msgid ""
-#| "a relative of the shawm, it was introduced to central and south-america "
-#| "by the spanish in the sixteenth and seventeenth century."
 msgid ""
 "A relative of the shawm, it was introduced to central and south-america by "
 "the Spanish in the sixteenth and seventeenth century."
-msgstr "与肖姆管有关，由西班牙人在十六和十七世纪引入中南美洲。"
+msgstr "shawm的近亲乐器，由西班牙人在16和17世纪引入中南美洲。"
 
 #. name:spinet
 #: DB:instrument/description:797
@@ -412,18 +387,13 @@ msgstr ""
 
 #. name:samica
 #: DB:instrument/description:830
-#, fuzzy
-#| msgid ""
-#| "also known as dangubica or kuterevka, it is similar to the bisernica and "
-#| "the ancestor of the entire tamburica ensemble. this plucked long-necked "
-#| "lute has two double strings and is played solo."
 msgid ""
 "Also known as dangubica or kuterevka, it is similar to the bisernica and the "
 "ancestor of the entire tamburica ensemble. This plucked long-necked lute has "
 "two double strings and is played solo."
 msgstr ""
-"又称dangubica或kuterevka，类似于碧森尼卡琴和整个坦布里卡琴乐器组的前身。这种"
-"长颈弹拨鲁特琴具有两根双弦，用于独奏。"
+"又称dangubica或kuterevka，类似于碧森尼卡琴 bisernica和整个坦布里卡琴乐器组的"
+"前身。这种长颈弹拨鲁特琴具有两根双弦，用于独奏。"
 
 #. name:gopichant
 #: DB:instrument/description:643
@@ -542,14 +512,10 @@ msgstr "拱头吉他是具有特有拱形头的原声或半原声吉他，尤其
 
 #. name:clavioline
 #: DB:instrument/description:815
-#, fuzzy
-#| msgid ""
-#| "an early analogue synthesizer, it had a vacuum tube oscillator and high/"
-#| "low pass filtering to produce vibrato"
 msgid ""
 "An early analogue synthesizer, it had a vacuum tube oscillator and high/low "
 "pass filtering to produce vibrato."
-msgstr "早期模拟合成器，具有一个电子管振荡器和高/低通滤波器产生振荡信号。"
+msgstr "一种早期的模拟合成器，它具有真空管振荡器和高低通滤波器，用于产生颤音效果。"
 
 #. name:gizmo
 #: DB:instrument/description:796
@@ -560,14 +526,10 @@ msgstr "夹在琴马上的效果器，产生\"类合成器\"的声音。"
 
 #. name:electric sitar
 #: DB:instrument/description:246
-#, fuzzy
-#| msgid ""
-#| "an electric derivation of the sitar, it often features sympathetic "
-#| "strings and a more guitar shaped body."
 msgid ""
 "An electric derivation of the sitar, it often features sympathetic strings "
 "and a more guitar shaped body."
-msgstr "锡塔琴的电子化版本，通常具有感应弦，琴身形状更接近吉他。"
+msgstr "西塔尔琴的电子化版本，通常具有共鸣弦，更像是吉他的琴身。"
 
 #. name:jug
 #: DB:instrument/description:505
@@ -720,15 +682,10 @@ msgstr "中国阮族的低音种类。"
 
 #. name:berda
 #: DB:instrument/description:828
-#, fuzzy
-#| msgid ""
-#| "Bass member of the Serbo-Croatian tamburica orchestra, it is contrabass "
-#| "like. it has four thick metal strings"
 msgid ""
 "Bass member of the Serbo-Croatian tamburica orchestra, it is contrabass "
 "like. It has four thick metal strings."
-msgstr ""
-"塞尔维亚克罗地亚坦布里卡乐团的低音部分，类似于低音提琴，具有四根粗的金属弦。"
+msgstr "Serbo-Croatian tamburica 乐团的低音部，类似于低音提琴。它有四根粗金属弦。"
 
 #. name:segunda
 #: DB:instrument/description:757
@@ -926,16 +883,11 @@ msgstr "泰国镲是用于泰国和柬埔寨音乐中的一对小镲。"
 
 #. name:bugarija
 #: DB:instrument/description:826
-#, fuzzy
-#| msgid ""
-#| "chord rhythm member of the Serbo-Croatian tamburica orchestra, it is "
-#| "guitar like. it has one double string D and three single strings"
 msgid ""
 "Chord rhythm member of the Serbo-Croatian tamburica orchestra, it is guitar "
 "like. It has one double string D and three single strings."
-msgstr ""
-"塞尔维亚克罗地亚坦布里卡乐团的和弦节奏部分，类似于吉他，具有一根D调双弦和三根"
-"单弦。"
+msgstr "Serbo-Croatian地区坦布尔里察乐团的和弦节奏成员，类似吉他。有一组双弦 D "
+"和三根单弦。"
 
 #. name:stick zither
 #: DB:instrument/description:1031
@@ -977,13 +929,10 @@ msgstr ""
 
 #. name:disk drive
 #: DB:instrument/description:602
-#, fuzzy
-#| msgid ""
-#| "as using drives for producing music, harddrives, floppy, cd or other."
 msgid ""
 "Computer drives used for producing music, be it hard drives, floppy, CD or "
 "other."
-msgstr "使用驱动器奏乐，包括硬盘，软驱，CD机等。"
+msgstr "用于制作音乐的计算机驱动器，包括硬盘、软盘、CD 或其他类型。"
 
 #. name:bombarde
 #: DB:instrument/description:431
@@ -992,10 +941,6 @@ msgstr "布列塔尼的锥形孔双簧乐器。"
 
 #. name:telharmonium
 #: DB:instrument/description:125
-#, fuzzy
-#| msgid ""
-#| "considered the first electromechanical musical instrument, an early "
-#| "electronic organ."
 msgid ""
 "Considered the first electromechanical musical instrument, an early "
 "electronic organ."
@@ -1080,26 +1025,18 @@ msgstr "倒梯形的蒙古族提琴类，马头琴的前身。"
 
 #. name:čelo
 #: DB:instrument/description:827
-#, fuzzy
-#| msgid ""
-#| "counterpoint member of the Serbo-Coatian tamburica orchestra, it is "
-#| "guitar like like the bugarija. it can either have two double strings and "
-#| "two single strings (čelović) or now four single strings are more common. "
-#| "(čelo/čelović/) the čelović is a different pitch than the čelo"
 msgid ""
 "Counterpoint member of the Serbo-Coatian tamburica orchestra, it is guitar "
 "like like the bugarija. It can have two double strings and two single "
 "strings (čelović) but now four single strings are more common (čelo/"
 "čelović). The čelović is a different pitch than the čelo."
 msgstr ""
-"塞尔维亚克罗地亚坦布里卡乐团的复调部分，和保加利亚琴一样类似于吉他，具有两根"
-"双弦和两根单弦(切洛维奇)或四根单弦(切洛维奇/切洛琴)，后一种现今更常见。切洛维"
-"奇与切洛琴音调不同。"
+"塞尔维亚克罗地亚坦布里卡乐团的复调部分，和保加利亚琴一样, "
+"类似于吉他，具有两根双弦和两根单弦(čelović)或四根单弦(čelo/"
+"čelović)，后一种现今更常见。切洛维奇与切洛琴音调不同。"
 
 #. name:ki pah
 #: DB:instrument/description:307
-#, fuzzy
-#| msgid "cow horns without fingerholes. with mouthpiece and free reed"
 msgid "Cow horns without fingerholes, with mouthpiece and free reed."
 msgstr "没有指孔的牛角号。有吹口和自由簧。"
 

@@ -9,7 +9,7 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 with 't::Edit', 't::Mechanize', 't::Context';
 
-=head2 Test description
+=head1 DESCRIPTION
 
 This test checks whether basic series editing works, and whether editing
 the parts of series data works.

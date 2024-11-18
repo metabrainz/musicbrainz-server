@@ -675,19 +675,16 @@ msgid ""
 "usually chosen for their sound and for the images and ideas they suggest."
 msgstr ""
 
-#. name:Withdrawn
-#: DB:release_status/description:5
+#. name:Expunged
+#: DB:release_status/description:38
 msgctxt "release_status"
 msgid ""
-"A previously official release that was actively withdrawn from circulation "
-"by the artist and/or their record company after being released, whether to "
-"replace it with a new version with some changes or to just retire it "
-"altogether (e.g. because of legal issues)."
+"A previously official release that was actively expunged from an artist or "
+"records company’s discography. This should not be used in cases where the "
+"release was just withdrawn, there needs to be known artist or label intent "
+"to disown the release and no longer consider it part of their discography. "
+"If it is unclear, use Withdrawn."
 msgstr ""
-"Anksčiau oficialus leidinys, kurį atlikėjas (-a) ir (arba) jo įrašų "
-"kompanija po išleidimo aktyviai išėmė iš apyvartos, kad jį pakeistų nauja "
-"versija su tam tikrais pakeitimais arba apskritai pašalintų iš apyvartos "
-"(pvz., dėl teisinių problemų)."
 
 #. name:Demo
 #: DB:release_group_secondary_type/description:10
@@ -1410,6 +1407,28 @@ msgstr ""
 msgctxt "release_group_secondary_type"
 msgid "An interview release contains an interview, generally with an artist."
 msgstr ""
+
+#. name:Withdrawn
+#: DB:release_status/description:5
+#, fuzzy
+#| msgctxt "release_status"
+#| msgid ""
+#| "A previously official release that was actively withdrawn from "
+#| "circulation by the artist and/or their record company after being "
+#| "released, whether to replace it with a new version with some changes or "
+#| "to just retire it altogether (e.g. because of legal issues)."
+msgctxt "release_status"
+msgid ""
+"An official release that was actively withdrawn from circulation by the "
+"artist and/or their record company after being released, whether to replace "
+"it with a new version or to retire it altogether. This does not include "
+"releases that have reached the end of their “natural” life cycle, such as "
+"being sold out and out of print."
+msgstr ""
+"Anksčiau oficialus leidinys, kurį atlikėjas (-a) ir (arba) jo įrašų "
+"kompanija po išleidimo aktyviai išėmė iš apyvartos, kad jį pakeistų nauja "
+"versija su tam tikrais pakeitimais arba apskritai pašalintų iš apyvartos "
+"(pvz., dėl teisinių problemų)."
 
 #. name:Metal Tin
 #: DB:release_packaging/description:54
@@ -3247,6 +3266,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Evsat"
 msgstr ""
 
+#: DB:release_status/name:38
+msgctxt "release_status"
+msgid "Expunged"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:614
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ezan"
@@ -4474,6 +4498,15 @@ msgstr "JAV teisių organizacijos GMR identifikatorius."
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society SESAC"
 msgstr "JAV teisių organizacijos SESAC identifikatorius."
+
+#. name:UACRR ID
+#: DB:work_attribute_type/description:209
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Brazilian rights society ECAD"
+msgctxt "work_attribute_type"
+msgid "ID for the Ukrainian rights society UACRR"
+msgstr "Brazilijos teisių organizacijos ECAD identifikatorius."
 
 #. name:AGADU ID
 #: DB:work_attribute_type/description:43
@@ -6483,6 +6516,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Pahāḍi"
 msgstr "Pahāḍi"
 
+#: DB:cover_art_archive.art_type/name:81
+msgctxt "cover_art_type"
+msgid "Panel"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:839
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pan̄cam savārī"
@@ -8131,6 +8169,14 @@ msgstr ""
 "pakuočių atveju – statmenas priekinei, galinei ir knygos nugarėlei dalims ir "
 "žemiau jų)."
 
+#. name:Panel
+#: DB:cover_art_archive.art_type/description:81
+msgctxt "cover_art_type"
+msgid ""
+"The individual segments of a folded packaging, such as a gatefold cover, "
+"digipak or cassette inlay (don't use this for folded booklets nor posters)."
+msgstr ""
+
 #. name:Madrigal
 #: DB:work_type/description:7
 msgctxt "work_type"
@@ -8397,6 +8443,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:1045
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tōḍī"
+msgstr ""
+
+#: DB:work_attribute_type/name:209
+msgctxt "work_attribute_type"
+msgid "UACRR ID"
 msgstr ""
 
 #: DB:medium_format/name:28

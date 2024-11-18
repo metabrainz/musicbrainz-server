@@ -204,7 +204,8 @@ role {
     {
         my ($self, $c) = @_;
 
-        $c->detach('image_editing_unavailable');
+        $c->detach('image_editing_unavailable')
+            if DBDefs->DISABLE_IMAGE_EDITING;
 
         my $entity = $get_entity->($c);
         my $art_archive_model = $c->model($art_archive_model_name);
@@ -293,7 +294,8 @@ role {
     {
         my ($self, $c, $artwork_id) = @_;
 
-        $c->detach('image_editing_unavailable');
+        $c->detach('image_editing_unavailable')
+            if DBDefs->DISABLE_IMAGE_EDITING;
 
         my $entity = $get_entity->($c);
         my $art_archive_model = $c->model($art_archive_model_name);
@@ -358,7 +360,8 @@ role {
     {
         my ($self, $c, $artwork_id) = @_;
 
-        $c->detach('image_editing_unavailable');
+        $c->detach('image_editing_unavailable')
+            if DBDefs->DISABLE_IMAGE_EDITING;
 
         my $entity = $get_entity->($c);
         my $art_archive_model = $c->model($art_archive_model_name);
@@ -413,7 +416,8 @@ role {
     {
         my ($self, $c) = @_;
 
-        $c->detach('image_editing_unavailable');
+        $c->detach('image_editing_unavailable')
+            if DBDefs->DISABLE_IMAGE_EDITING;
 
         my $entity = $get_entity->($c);
         my $art_archive_model = $c->model($art_archive_model_name);

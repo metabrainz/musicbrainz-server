@@ -2,10 +2,13 @@ package t::MusicBrainz::Server::Email;
 use strict;
 use warnings;
 
+use Test::Deep qw( cmp_deeply re );
 use Test::Routine;
 use Test::LongString;
 use Test::More;
 
+use HTTP::Status qw( :constants );
+use JSON::XS qw( decode_json );
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Email;
 use DBDefs;
@@ -13,6 +16,7 @@ use MusicBrainz::Server::Constants qw(
     $EDITOR_MODBOT
     $MINIMUM_RESPONSE_PERIOD
 );
+use Types::Serialiser;
 
 with 't::Context';
 
@@ -39,87 +43,110 @@ test all => sub {
 
     my $server = 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
 
+    my @mail_service_reqs;
+
+    local *LWP::UserAgent::request = sub {
+        my ($lwp, $req) = @_;
+        push @mail_service_reqs, $req;
+        my $res = HTTP::Response->new;
+        $res->code(HTTP_OK);
+        return $res;
+    };
+
     subtest 'send_message_to_editor' => sub {
-
-    $email->send_message_to_editor(
-        from => $user1,
-        to => $user2,
-        subject => 'Hey',
-        message => 'Hello!',
+        $email->send_message_to_editor(
+            from => $user1,
+            to => $user2,
+            subject => 'Hey',
+            message => 'Hello!',
         );
-
-    is($email->transport->delivery_count, 1);
-    my $delivery = $email->transport->shift_deliveries;
-    is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', "Envelope from is noreply@...");
-    my $e = $delivery->{email};
-    $email->transport->clear_deliveries;
-    is($e->get_header('From'), '"Editor 1" <noreply@musicbrainz.org>', 'Header from is "Editor 1" <noreply@musicbrainz.org>');
-    is($e->get_header('Reply-To'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'Reply-To is noreply@');
-    is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
-    is($e->get_header('BCC'), undef, 'BCC is undefined');
-    is($e->get_header('Subject'), 'Hey', 'Subject is Hey');
-    like($e->get_header('Message-Id'), qr{<correspondence-4444-8888-\d+@.*>}, 'Message-Id has right format');
-    is($e->get_header('References'), sprintf('<correspondence-%s-%s@%s>', $user1->id, $user2->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References correct correspondence');
-    compare_body($e->object->body_str,
-                 "MusicBrainz user 'Editor 1' has sent you the following message:\n".
-                 "------------------------------------------------------------------------\n".
-                 "Hello!\n".
-                 "------------------------------------------------------------------------\n".
-                 "If you would like to respond, please visit\n".
-                 "$server/user/Editor\%201/contact to send 'Editor 1' an email.\n".
-                 "\n".
-                 "-- The MusicBrainz Team\n");
-
+        my $mail_service_req = pop(@mail_service_reqs);
+        my $mail_service_req_content = decode_json($mail_service_req->content);
+        is($mail_service_req->method, 'POST', 'mail service request method is POST');
+        is($mail_service_req->uri, 'http://localhost:3000/send_single', 'mail service request uri is send_single');
+        is($mail_service_req->header('Accept'), 'application/json', 'client accepts application/json');
+        is($mail_service_req->header('Content-Length'), '527', 'mail service content-length is correct');
+        is($mail_service_req->header('Content-Type'), 'application/json', 'mail service content-type is application/json');
+        cmp_deeply($mail_service_req_content, {
+            template_id => 'editor-message',
+            to => '"Editor 2" <bar@example.com>',
+            from => 'MusicBrainz Server <noreply@musicbrainz.org>',
+            message_id => re(qr/^<correspondence-4444-8888-[0-9]+\@localhost>$/),
+            references => ['<correspondence-4444-8888@localhost>'],
+            in_reply_to => ['<correspondence-4444-8888@localhost>'],
+            reply_to => 'MusicBrainz Server <noreply@musicbrainz.org>',
+            params => {
+                contact_url => 'https://localhost/user/Editor%201/contact',
+                from_name => 'Editor 1',
+                message => 'Hello!',
+                revealed_address => $Types::Serialiser::false,
+                subject => 'Hey',
+                to_name => 'Editor 2',
+            },
+        }, 'mail service request content is correct');
     };
 
     subtest 'send_message_to_editor & send_to_self' => sub {
-
-    $email->send_message_to_editor(
-        from => $user1,
-        to => $user2,
-        subject => 'Hey',
-        message => 'Hello!',
-        reveal_address => 1,
-        send_to_self => 1,
+        $email->send_message_to_editor(
+            from => $user1,
+            to => $user2,
+            subject => 'Hey',
+            message => 'Hello!',
+            reveal_address => 1,
+            send_to_self => 1,
         );
 
-    is($email->transport->delivery_count, 2);
-    my $delivery = $email->transport->shift_deliveries;
-    is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', "Envelope from is noreply@...");
-    my $e = $delivery->{email};
-    is($e->get_header('From'), '"Editor 1" <noreply@musicbrainz.org>', 'Header from is "Editor 1" <noreply@musicbrainz.org>');
-    is($e->get_header('Reply-To'), '"Editor 1" <foo@example.com>', 'Reply-To is Editor 1, foo@example.com');
-    is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
-    is($e->get_header('BCC'), undef, 'BCC is undefined');
-    is($e->get_header('Subject'), 'Hey', 'Subject is Hey');
-    like($e->get_header('Message-Id'), qr{<correspondence-4444-8888-\d+@.*>}, 'Message-Id has right format');
-    is($e->get_header('References'), sprintf('<correspondence-%s-%s@%s>', $user1->id, $user2->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References correct correspondence');
-    compare_body($e->object->body_str,
-                 "MusicBrainz user 'Editor 1' has sent you the following message:\n".
-                 "------------------------------------------------------------------------\n".
-                 "Hello!\n".
-                 "------------------------------------------------------------------------\n".
-                 "If you would like to respond, please reply to this message or visit\n".
-                 "$server/user/Editor\%201/contact to send 'Editor 1' an email.\n".
-                 "\n".
-                 "-- The MusicBrainz Team\n");
+        my $mail_service_req = shift(@mail_service_reqs);
+        my $mail_service_req_content = decode_json($mail_service_req->content);
+        is($mail_service_req->method, 'POST', 'mail service request method is POST');
+        is($mail_service_req->uri, 'http://localhost:3000/send_single', 'mail service request uri is send_single');
+        is($mail_service_req->header('Accept'), 'application/json', 'client accepts application/json');
+        is($mail_service_req->header('Content-Length'), '512', 'mail service content-length is correct');
+        is($mail_service_req->header('Content-Type'), 'application/json', 'mail service content-type is application/json');
+        cmp_deeply($mail_service_req_content, {
+            template_id => 'editor-message',
+            to => '"Editor 2" <bar@example.com>',
+            from => 'MusicBrainz Server <noreply@musicbrainz.org>',
+            message_id => re(qr/^<correspondence-4444-8888-[0-9]+\@localhost>$/),
+            references => ['<correspondence-4444-8888@localhost>'],
+            in_reply_to => ['<correspondence-4444-8888@localhost>'],
+            reply_to => '"Editor 1" <foo@example.com>',
+            params => {
+                contact_url => 'https://localhost/user/Editor%201/contact',
+                from_name => 'Editor 1',
+                message => 'Hello!',
+                revealed_address => $Types::Serialiser::true,
+                subject => 'Hey',
+                to_name => 'Editor 2',
+            },
+        }, 'mail service request content is correct');
 
-    $delivery = $email->transport->shift_deliveries;
-    is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org');
-    $e = $delivery->{email};
-    $email->transport->clear_deliveries;
-    is($e->get_header('From'), '"Editor 1" <noreply@musicbrainz.org>', 'Header from is "Editor 1" <noreply@musicbrainz.org>');
-    is($e->get_header('Reply-To'), '"Editor 1" <foo@example.com>', 'Reply-To is Editor 1, foo@example.com');
-    is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
-    is($e->get_header('BCC'), undef, 'BCC is undefined');
-    is($e->get_header('Subject'), 'Hey', 'Subject is Hey');
-    compare_body($e->object->body_str,
-                 "This is a copy of the message you sent to MusicBrainz editor 'Editor 2':\n".
-                 "------------------------------------------------------------------------\n".
-                 "Hello!\n".
-                 "------------------------------------------------------------------------\n".
-                 "Please do not respond to this e-mail.\n");
-
+        # send_to_self
+        $mail_service_req = shift(@mail_service_reqs);
+        $mail_service_req_content = decode_json($mail_service_req->content);
+        is($mail_service_req->method, 'POST', 'mail service request method is POST');
+        is($mail_service_req->uri, 'http://localhost:3000/send_single', 'mail service request uri is send_single');
+        is($mail_service_req->header('Accept'), 'application/json', 'client accepts application/json');
+        is($mail_service_req->header('Content-Length'), '532', 'mail service content-length is correct');
+        is($mail_service_req->header('Content-Type'), 'application/json', 'mail service content-type is application/json');
+        cmp_deeply($mail_service_req_content, {
+            template_id => 'editor-message',
+            to => '"Editor 1" <foo@example.com>',
+            from => 'MusicBrainz Server <noreply@musicbrainz.org>',
+            message_id => re(qr/^<correspondence-4444-8888-[0-9]+\@localhost>$/),
+            references => ['<correspondence-4444-8888@localhost>'],
+            in_reply_to => ['<correspondence-4444-8888@localhost>'],
+            reply_to => '"Editor 1" <foo@example.com>',
+            params => {
+                contact_url => 'https://localhost/user/Editor%201/contact',
+                from_name => 'Editor 1',
+                is_self_copy => $Types::Serialiser::true,
+                message => 'Hello!',
+                revealed_address => $Types::Serialiser::true,
+                subject => 'Hey',
+                to_name => 'Editor 2',
+            },
+        }, 'mail service request content is correct');
     };
 
     subtest 'send_email_verification' => sub {
@@ -365,7 +392,6 @@ EOS
                  "Please do not respond to this email.\n".
                  "\n".
                  "-- The MusicBrainz Team\n");
-
 };
 
 =head1 COPYRIGHT AND LICENSE

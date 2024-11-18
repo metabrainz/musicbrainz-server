@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-06-30 13:42+0000\n"
+"PO-Revision-Date: 2024-11-13 17:42+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/ja/>\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -258,7 +258,7 @@ msgstr "過去1週間で最もアクティブな投票者"
 
 #: ../root/statistics/Editors.js:125
 msgid "Total votes"
-msgstr "総投票数"
+msgstr "合計投票数"
 
 #: ../root/statistics/Editors.js:128
 msgid "Top voters overall"
@@ -1808,7 +1808,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:900
 msgid "Abstentions"
-msgstr ""
+msgstr "棄権数"
 
 #: ../root/statistics/stats.js:905
 msgid "Approvals"

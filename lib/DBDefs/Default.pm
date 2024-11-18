@@ -115,6 +115,9 @@ sub STATIC_RESOURCES_LOCATION { '//' . shift->WEB_SERVER . '/static/build' }
 
 sub SMTP_SERVER { 'localhost' }
 
+# An instance of https://github.com/metabrainz/mb-mail-service.
+sub MAIL_SERVICE_BASE_URL { 'http://localhost:3000' }
+
 # This value should be set to some secret value for your server.  Any old
 # string of stuff should do; something suitably long and random, like for
 # passwords.  However you MUST change it from the default
@@ -303,6 +306,11 @@ sub DB_READ_ONLY_MESSAGE { <<'EOF' }
 This server is temporarily in read-only mode
 for database maintainance.
 EOF
+
+# Set this value to something true (e.g. 1) to disable any editing that involves
+# images in the Internet Archive hosted collaboration projects (currently CAA
+# and EAA), for example in case of a known long downtime of the Internet Archive.
+sub DISABLE_IMAGE_EDITING { 0 }
 
 # Development server feature.
 # Used to display which git branch is currently running along with information
