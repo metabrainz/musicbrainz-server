@@ -8,20 +8,21 @@
 # yyoung <yyoung@users.noreply.translations.metabrainz.org>, 2024.
 # weeeeei <weeeeei@duck.com>, 2024.
 # thephy <differentphy@outlook.com>, 2024.
+# KenParker_CN <peekabookenny@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-20 12:42+0000\n"
-"Last-Translator: thephy <differentphy@outlook.com>\n"
-"Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
-"projects/musicbrainz/statistics/zh_Hans/>\n"
+"PO-Revision-Date: 2024-11-16 06:42+0000\n"
+"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://translations."
+"metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -37,7 +38,7 @@ msgstr "点击以取消选择"
 
 #: ../root/statistics/timeline.tt:15
 msgid "Controls"
-msgstr ""
+msgstr "控件"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Countries.js:39
 msgid "Countries"
@@ -55,7 +56,7 @@ msgstr "数据库统计信息 - {title}"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Draw a rectangle on either graph"
-msgstr ""
+msgstr "在任意一张图表上绘制一个矩形"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:88
 #: ../root/statistics/Editors.js:100 ../root/statistics/Index.js:1123
@@ -71,7 +72,7 @@ msgstr "修改"
 
 #: ../root/statistics/timeline.tt:30
 msgid "Exact values (items vs. day)"
-msgstr ""
+msgstr "确切的值（项目 vs.天数）"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/stats.js:27
 msgid "Formats"
@@ -79,7 +80,7 @@ msgstr "格式"
 
 #: ../root/statistics/timeline.tt:20
 msgid "Hover and click on vertical lines"
-msgstr ""
+msgstr "悬停并点击垂直线"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Images.js:70
 msgid "Images"
@@ -87,11 +88,11 @@ msgstr "图片"
 
 #: ../root/statistics/layout.tt:5
 msgid "Languages/Scripts"
-msgstr ""
+msgstr "语言/文字"
 
 #: ../root/statistics/timeline.tt:3
 msgid "Legend"
-msgstr ""
+msgstr "图例"
 
 #: ../root/statistics/timeline.tt:7 ../root/statistics/timeline.tt:20
 msgid "MusicBrainz events"
@@ -103,11 +104,11 @@ msgstr "概要"
 
 #: ../root/statistics/timeline.tt:32
 msgid "Rate of change (average items/day vs. day)"
-msgstr ""
+msgstr "变化率（平均每天项目数 vs. 天数）"
 
 #: ../root/statistics/timeline.tt:11
 msgid "Rate of change graph"
-msgstr ""
+msgstr "变化率图表"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Index.js:146
 #: ../root/statistics/Relationships.js:90
@@ -131,7 +132,7 @@ msgstr "时间线"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Zoom:"
-msgstr ""
+msgstr "缩放："
 
 #: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:91
 #: ../root/statistics/Edits.js:32 ../root/statistics/Formats.js:41
@@ -191,8 +192,6 @@ msgid "Total"
 msgstr "总计"
 
 #: ../root/statistics/Countries.js:96
-#, fuzzy
-#| msgid "Unknown Country"
 msgid "Unknown country"
 msgstr "未知国家"
 
@@ -224,7 +223,7 @@ msgstr "总共被应用的编辑数"
 
 #: ../root/statistics/Editors.js:111
 msgid "Top editors overall"
-msgstr ""
+msgstr "Top 编辑者总览"
 
 #: ../root/statistics/Editors.js:117
 msgid "Voters"
@@ -256,7 +255,7 @@ msgstr "编辑统计信息不可用."
 
 #: ../root/statistics/Formats.js:38 ../root/statistics/Formats.js:44
 msgid "Release/Medium Formats"
-msgstr ""
+msgstr "发行/介质格式"
 
 #: ../root/statistics/Formats.js:49
 msgid "Format"
@@ -264,7 +263,7 @@ msgstr "格式"
 
 #: ../root/statistics/Formats.js:51
 msgid "% of total releases"
-msgstr ""
+msgstr "% 的总发行量"
 
 #: ../root/statistics/Formats.js:52 ../root/statistics/Index.js:87
 #: ../root/statistics/Index.js:555 ../root/statistics/stats.js:563
@@ -273,55 +272,47 @@ msgstr "媒介"
 
 #: ../root/statistics/Formats.js:53
 msgid "% of total mediums"
-msgstr ""
+msgstr "% 的总介质数"
 
 #: ../root/statistics/Formats.js:87
-#, fuzzy
-#| msgid "Unknown Format"
 msgid "Unknown format"
 msgstr "未知格式"
 
 #: ../root/statistics/Images.js:75
 msgid "Basics"
-msgstr ""
+msgstr "基础信息"
 
 #: ../root/statistics/Images.js:78
-#, fuzzy
-#| msgid "No Statistics"
 msgid "No image statistics available."
-msgstr "无统计信息"
+msgstr "无可用的统计信息。"
 
 #: ../root/statistics/Images.js:84 ../root/statistics/Images.js:149
 #: ../root/statistics/Images.js:186 ../root/statistics/Images.js:224
 #: ../root/statistics/Images.js:362
 msgid "Releases with cover art:"
-msgstr ""
+msgstr "有封面的发行："
 
 #: ../root/statistics/Images.js:99 ../root/statistics/Images.js:327
 msgid "Pieces of cover art:"
-msgstr ""
+msgstr "封面艺术的部分："
 
 #: ../root/statistics/Images.js:108 ../root/statistics/Images.js:442
 #: ../root/statistics/Images.js:528
-#, fuzzy
-#| msgid "Release editor"
 msgid "Events with event art"
-msgstr "发布了编辑器"
+msgstr "带有活动图的活动"
 
 #: ../root/statistics/Images.js:123 ../root/statistics/Images.js:478
 #: ../root/statistics/Images.js:491 ../root/statistics/stats.js:473
 msgid "Pieces of event art"
-msgstr ""
+msgstr "活动图的部分"
 
 #: ../root/statistics/Images.js:139 ../root/statistics/Images.js:318
 msgid "No cover art statistics available."
 msgstr "无封面。"
 
 #: ../root/statistics/Images.js:145
-#, fuzzy
-#| msgid "Release groups"
 msgid "By release group type"
-msgstr "专辑组"
+msgstr "按发行组类型"
 
 #: ../root/statistics/Images.js:164 ../root/statistics/Images.js:341
 #: ../root/statistics/Images.js:457 ../root/statistics/Images.js:506
@@ -329,18 +320,16 @@ msgid "No type"
 msgstr "无类型"
 
 #: ../root/statistics/Images.js:182
-#, fuzzy
-#| msgid "Release Status"
 msgid "By release status"
-msgstr "专辑状态"
+msgstr "按专辑状态"
 
 #: ../root/statistics/Images.js:201
 msgid "No status"
-msgstr ""
+msgstr "未注明状态"
 
 #: ../root/statistics/Images.js:220
 msgid "By release format"
-msgstr ""
+msgstr "按发行格式"
 
 #: ../root/statistics/Images.js:239
 msgid "No format"
@@ -354,7 +343,7 @@ msgstr "专辑组"
 
 #: ../root/statistics/Images.js:264
 msgid "Release groups with cover art:"
-msgstr ""
+msgstr "有封面的发行组："
 
 #: ../root/statistics/Images.js:275
 msgid "manually selected:"
@@ -366,7 +355,7 @@ msgstr "自动判断："
 
 #: ../root/statistics/Images.js:315 ../root/statistics/stats.js:285
 msgid "Pieces of cover art"
-msgstr ""
+msgstr "封面的一部分"
 
 #: ../root/statistics/Images.js:324
 msgid "By cover art type"
@@ -374,55 +363,49 @@ msgstr "按封面类型"
 
 #: ../root/statistics/Images.js:359
 msgid "Per release"
-msgstr ""
+msgstr "每个发行版本"
 
 #: ../root/statistics/Images.js:375
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
-msgstr[0] ""
+msgstr[0] "包含 {num} 张封面图："
 
 #: ../root/statistics/Images.js:405
 msgid "with 30 or more pieces of cover art:"
-msgstr ""
+msgstr "包含 30 张或更多封面艺术图："
 
 #: ../root/statistics/Images.js:432 ../root/statistics/Images.js:481
-#, fuzzy
-#| msgid "No Statistics"
 msgid "No event art statistics available."
-msgstr "无统计信息"
+msgstr "无可用的活动图统计信息。"
 
 #: ../root/statistics/Images.js:438
-#, fuzzy
-#| msgid "Events"
 msgid "By event type"
-msgstr "活动"
+msgstr "按活动类型"
 
 #: ../root/statistics/Images.js:487
-#, fuzzy
-#| msgid "Events"
 msgid "By event art type"
-msgstr "活动"
+msgstr "按活动图类型"
 
 #: ../root/statistics/Images.js:524
 msgid "Per event"
-msgstr ""
+msgstr "每个活动"
 
 #: ../root/statistics/Images.js:542
 msgid "with {num} piece of event art:"
 msgid_plural "with {num} pieces of event art:"
-msgstr[0] ""
+msgstr[0] "包含 {num} 张活动图："
 
 #: ../root/statistics/Images.js:572
 msgid "with 15 or more pieces of event art:"
-msgstr ""
+msgstr "包含 15 张或更多活动图："
 
 #: ../root/statistics/Index.js:68
 msgid "Basic metadata"
-msgstr ""
+msgstr "基础元数据"
 
 #: ../root/statistics/Index.js:72 ../root/statistics/stats.js:20
 msgid "Core entities"
-msgstr ""
+msgstr "核心实体"
 
 #: ../root/statistics/Index.js:91 ../root/statistics/Index.js:673
 #: ../root/statistics/Index.js:677 ../root/statistics/Index.js:680
@@ -466,11 +449,11 @@ msgstr "流派"
 
 #: ../root/statistics/Index.js:137
 msgid "Other entities"
-msgstr ""
+msgstr "其他实体"
 
 #: ../root/statistics/Index.js:140
 msgid "Editors (valid / deleted):"
-msgstr ""
+msgstr "编辑者 (有效/已删除)："
 
 #: ../root/statistics/Index.js:150 ../root/statistics/Index.js:952
 #: ../root/statistics/Index.js:956 ../root/statistics/Index.js:959
@@ -480,16 +463,16 @@ msgstr "收藏集"
 
 #: ../root/statistics/Index.js:154
 msgid "CD stubs (all time / current):"
-msgstr ""
+msgstr "CD 存根（全部时间 / 当前）："
 
 #: ../root/statistics/Index.js:163
 msgctxt "folksonomy"
 msgid "Tags (raw / aggregated):"
-msgstr ""
+msgstr "标签（原始 / 聚合）："
 
 #: ../root/statistics/Index.js:169
 msgid "Ratings (raw / aggregated):"
-msgstr ""
+msgstr "评分（原始 / 聚合）："
 
 #: ../root/statistics/Index.js:177
 msgid "Identifiers"
@@ -497,15 +480,15 @@ msgstr "标识符"
 
 #: ../root/statistics/Index.js:180 ../root/statistics/stats.js:558
 msgid "MBIDs"
-msgstr ""
+msgstr "MBID"
 
 #: ../root/statistics/Index.js:184
 msgid "ISRCs (all / unique):"
-msgstr ""
+msgstr "ISRC (所有/唯一)："
 
 #: ../root/statistics/Index.js:190
 msgid "ISWCs (all / unique):"
-msgstr ""
+msgstr "ISWC（全部 / 唯一）："
 
 #: ../root/statistics/Index.js:196 ../root/statistics/Index.js:503
 #: ../root/statistics/Index.js:506 ../root/statistics/stats.js:290
@@ -522,35 +505,35 @@ msgstr "IPI"
 
 #: ../root/statistics/Index.js:208 ../root/statistics/stats.js:508
 msgid "ISNIs"
-msgstr ""
+msgstr "ISNI"
 
 #: ../root/statistics/Index.js:227
 msgid "of type Person:"
-msgstr ""
+msgstr "类型为个人："
 
 #: ../root/statistics/Index.js:233
 msgid "of type Group:"
-msgstr ""
+msgstr "类型为群体："
 
 #: ../root/statistics/Index.js:239
 msgid "of type Orchestra:"
-msgstr ""
+msgstr "类型为管弦乐队："
 
 #: ../root/statistics/Index.js:245
 msgid "of type Choir:"
-msgstr ""
+msgstr "类型为合唱团："
 
 #: ../root/statistics/Index.js:251
 msgid "of type Character:"
-msgstr ""
+msgstr "类型为角色："
 
 #: ../root/statistics/Index.js:257
 msgid "of type Other:"
-msgstr ""
+msgstr "类型为其他："
 
 #: ../root/statistics/Index.js:263
 msgid "with no type set:"
-msgstr ""
+msgstr "类型未设置："
 
 #: ../root/statistics/Index.js:269
 msgid "with appearances in artist credits:"
@@ -562,7 +545,7 @@ msgstr "未出现在艺术家名单中："
 
 #: ../root/statistics/Index.js:280
 msgid "Non-group artists:"
-msgstr ""
+msgstr "非团体艺术家："
 
 #: ../root/statistics/Index.js:286
 msgid "Male:"
@@ -570,7 +553,7 @@ msgstr "男性："
 
 #: ../root/statistics/Index.js:297
 msgid "Female:"
-msgstr ""
+msgstr "女："
 
 #: ../root/statistics/Index.js:308
 msgid "Non-binary"
@@ -578,43 +561,39 @@ msgstr "非二进制"
 
 #: ../root/statistics/Index.js:319
 msgid "Other gender:"
-msgstr ""
+msgstr "其他性别："
 
 #: ../root/statistics/Index.js:330
 msgid "Gender not applicable:"
-msgstr ""
+msgstr "性别不适用："
 
 #: ../root/statistics/Index.js:341
 msgid "with no gender set:"
-msgstr ""
+msgstr "未设置性别："
 
 #: ../root/statistics/Index.js:353
 msgid "Releases, Data Quality, and Disc IDs"
-msgstr ""
+msgstr "发行版本，数据质量，和唱片 ID"
 
 #: ../root/statistics/Index.js:366
 msgid "by various artists:"
-msgstr ""
+msgstr "由群星："
 
 #: ../root/statistics/Index.js:372
 msgid "by a single artist:"
-msgstr ""
+msgstr "由一位单人艺术家："
 
 #: ../root/statistics/Index.js:379
-#, fuzzy
-#| msgid "Release Status"
 msgid "Release status"
-msgstr "专辑状态"
+msgstr "发行状态"
 
 #: ../root/statistics/Index.js:398
 msgid "No status set"
-msgstr ""
+msgstr "未设置状态"
 
 #: ../root/statistics/Index.js:405
-#, fuzzy
-#| msgid "Release group ratings"
 msgid "Release packaging"
-msgstr "专辑组评分"
+msgstr "发行包装"
 
 #: ../root/statistics/Index.js:424
 msgid "No packaging set"

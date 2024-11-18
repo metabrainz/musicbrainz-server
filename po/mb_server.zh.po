@@ -18,13 +18,14 @@
 # weeeeei <weeeeei@duck.com>, 2024.
 # thephy <differentphy@outlook.com>, 2024.
 # Aris_8585 <qw23355607@outlook.com>, 2024.
+# KenParker_CN <peekabookenny@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 19:33+0530\n"
-"PO-Revision-Date: 2024-10-20 16:42+0000\n"
-"Last-Translator: Aris_8585 <qw23355607@outlook.com>\n"
+"POT-Creation-Date: 2024-11-11 13:37-0600\n"
+"PO-Revision-Date: 2024-11-16 06:42+0000\n"
+"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translations."
 "metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -32,7 +33,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -196,9 +197,6 @@ msgid "Add ISRC"
 msgstr "添加 ISRC"
 
 #: ../root/work/edit_form.tt:16
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Add ISWCs"
 msgctxt "interactive"
 msgid "Add ISWC"
 msgstr "添加 ISWC"
@@ -10682,6 +10680,18 @@ msgstr ""
 "这种确认对于确保任何恶意行为者可以在您不知情的情况下使用您的帐户修改数据非常"
 "重要。在这行代码下面，您可以查看正在发送的数据，并根据需要进行任何修改。"
 
+#: ../root/main/ImageEditingUnavailable.js:14
+#, fuzzy
+#| msgid "No description available."
+msgid "Image editing unavailable"
+msgstr "无可用描述。"
+
+#: ../root/main/ImageEditingUnavailable.js:17
+#, fuzzy
+#| msgid "The blog is currently unavailable."
+msgid "Image editing is currently unavailable."
+msgstr "博客目前不可用。"
+
 #: ../root/main/error/Error400.js:19
 msgid "Bad request"
 msgstr "请求错误"
@@ -13688,7 +13698,7 @@ msgstr "第 {current} 张图片，共 {total} 张"
 #: ../root/static/scripts/common/components/FingerprintTable.js:115
 #: ../root/static/scripts/common/hooks/usePagedMediumTable.js:108
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:84
-#: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:144
+#: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:142
 msgid "Loading..."
 msgstr "正在载入..."
 
@@ -14390,9 +14400,9 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:651
 #: ../root/static/scripts/edit/URLCleanup.js:910
-#: ../root/static/scripts/edit/URLCleanup.js:4213
-#: ../root/static/scripts/edit/URLCleanup.js:5281
-#: ../root/static/scripts/edit/URLCleanup.js:5834
+#: ../root/static/scripts/edit/URLCleanup.js:4255
+#: ../root/static/scripts/edit/URLCleanup.js:5323
+#: ../root/static/scripts/edit/URLCleanup.js:5876
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -14446,39 +14456,39 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1497
+#: ../root/static/scripts/edit/URLCleanup.js:1539
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1499
+#: ../root/static/scripts/edit/URLCleanup.js:1541
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2206
+#: ../root/static/scripts/edit/URLCleanup.js:2248
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2920
+#: ../root/static/scripts/edit/URLCleanup.js:2962
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2938
+#: ../root/static/scripts/edit/URLCleanup.js:2980
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2980
+#: ../root/static/scripts/edit/URLCleanup.js:3022
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3008
+#: ../root/static/scripts/edit/URLCleanup.js:3050
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
@@ -14487,57 +14497,57 @@ msgstr ""
 "请不要直接链接到图片，而是链接到适当的Instagram主页。如果你想链接到一个视频，"
 "{url|添加一个独立的录音}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3033
+#: ../root/static/scripts/edit/URLCleanup.js:3075
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4113
+#: ../root/static/scripts/edit/URLCleanup.js:4155
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4793
+#: ../root/static/scripts/edit/URLCleanup.js:4835
 msgid "Only RYM music videos can be linked to recordings."
 msgstr "只有RYM的音乐视频可以链接到录音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:4858
+#: ../root/static/scripts/edit/URLCleanup.js:4900
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5453
+#: ../root/static/scripts/edit/URLCleanup.js:5495
 msgid "Please link to Threads profiles, not threads."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5576
+#: ../root/static/scripts/edit/URLCleanup.js:5618
 #, fuzzy
 #| msgid "Please link to Twitter profiles, not tweets."
 msgid "Please link to TikTok profiles, not videos."
 msgstr "请链接至 Twitter 个人资料，而非推文。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5854
+#: ../root/static/scripts/edit/URLCleanup.js:5896
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr "这不是个人资料页，而是一个 Twitter 文档页面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5868
+#: ../root/static/scripts/edit/URLCleanup.js:5910
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "请链接至 Twitter 个人资料，而非推文。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5886
+#: ../root/static/scripts/edit/URLCleanup.js:5928
 msgid "This site does not allow direct links to their images."
 msgstr "此网站不允许图片直链。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6083
+#: ../root/static/scripts/edit/URLCleanup.js:6125
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6254
+#: ../root/static/scripts/edit/URLCleanup.js:6296
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
@@ -14546,25 +14556,25 @@ msgstr ""
 "此 URL 中有未编码的 “?” 或 “#” 字符。请检查它们是否是无用的，并且应该被移除，"
 "或是 URL 被错误编码。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6274
+#: ../root/static/scripts/edit/URLCleanup.js:6316
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6295
+#: ../root/static/scripts/edit/URLCleanup.js:6337
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr "请将 WhoSampled “{album_url_pattern}” 页面链接至专辑组。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6313
+#: ../root/static/scripts/edit/URLCleanup.js:6355
 msgid "Please link WhoSampled artist pages to artists."
 msgstr "请将 WhoSampled 艺术家页面链接至艺术家。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6325
+#: ../root/static/scripts/edit/URLCleanup.js:6367
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "请将 WhoSampled 音轨页面链接至录音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6385
+#: ../root/static/scripts/edit/URLCleanup.js:6427
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
@@ -14572,13 +14582,13 @@ msgstr ""
 "不允许链接至维基百科文字的特定部分。如果合适，请移除 “{fragment}”。详见 {url|"
 "指南}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6410
+#: ../root/static/scripts/edit/URLCleanup.js:6452
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6566
+#: ../root/static/scripts/edit/URLCleanup.js:6608
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
@@ -14587,17 +14597,17 @@ msgstr ""
 "这是一个播放列表链接，不是视频频道，也不能保证得到官方批准。如果该实体存在，"
 "请链接到该实体的官方频道。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6606
+#: ../root/static/scripts/edit/URLCleanup.js:6648
 msgid "Only video and playlist links are allowed on releases."
 msgstr "专辑只能有视频或播放列表链接。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6651
+#: ../root/static/scripts/edit/URLCleanup.js:6693
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6687
+#: ../root/static/scripts/edit/URLCleanup.js:6729
 #, fuzzy
 #| msgid ""
 #| "Please link to a specific video. Add channel pages to the relevant "
@@ -14607,7 +14617,7 @@ msgid ""
 "to the relevant recordings instead."
 msgstr "请链接到具体的视频。添加相关的歌手，标签等渠道页面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6697
+#: ../root/static/scripts/edit/URLCleanup.js:6739
 #, fuzzy
 #| msgid ""
 #| "Please link to a specific video. Add channel pages to the relevant "
@@ -14617,7 +14627,7 @@ msgid ""
 "relevant artists instead."
 msgstr "请链接到具体的视频。添加相关的歌手，标签等渠道页面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6707
+#: ../root/static/scripts/edit/URLCleanup.js:6749
 #, fuzzy
 #| msgid ""
 #| "This is a redirect link. Please follow {redirect_url|your link} and add "
@@ -14628,25 +14638,25 @@ msgid ""
 msgstr ""
 "这是一个重定向链接。请关注{redirect_url|您的链接}并添加它重定向后的链接。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6750
+#: ../root/static/scripts/edit/URLCleanup.js:6792
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6762
+#: ../root/static/scripts/edit/URLCleanup.js:6804
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6972
+#: ../root/static/scripts/edit/URLCleanup.js:7014
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6989
+#: ../root/static/scripts/edit/URLCleanup.js:7031
 #: ../root/static/scripts/edit/externalLinks.js:1073
 msgid "This relationship type combination is invalid."
 msgstr ""
@@ -14946,7 +14956,7 @@ msgstr "署名为"
 
 #: ../root/static/scripts/edit/components/forms.js:224
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:44
-#: ../root/static/scripts/release-editor/init.js:287
+#: ../root/static/scripts/release-editor/init.js:308
 msgid "All of your changes will be lost if you leave this page."
 msgstr "如果离开此网页，您的所有更改将会丢失。"
 
@@ -15135,14 +15145,14 @@ msgid ""
 "fit, just leave this blank."
 msgstr "从列表中选择任一类型来查看其描述。如果作品不匹配任何类型，留空即可。"
 
-#: ../root/static/scripts/guess-case/modes.js:313
+#: ../root/static/scripts/guess-case/modes.js:321
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and "
 "short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/guess-case/modes.js:350
+#: ../root/static/scripts/guess-case/modes.js:358
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -15150,14 +15160,14 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/guess-case/modes.js:374
+#: ../root/static/scripts/guess-case/modes.js:382
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/guess-case/modes.js:389
+#: ../root/static/scripts/guess-case/modes.js:397
 msgid ""
 "This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I'). "
 "Some words may need to be manually corrected according to the {url|Turkish "
@@ -16321,11 +16331,9 @@ msgid "{user} isn’t collaborating in any public collections."
 msgstr ""
 
 #: ../root/user/UserCollections.js:216
-#, fuzzy
-#| msgid "Add to a new collection"
 msgctxt "interactive"
 msgid "Add a new collection"
-msgstr "添加到一个新歌曲集"
+msgstr "添加一个新收藏夹"
 
 #: ../root/user/UserEdits.js:33 ../root/user/UserEdits.js:34
 msgid "Votes by {name}"
@@ -16567,11 +16575,11 @@ msgstr "添加的实体"
 
 #: ../root/user/UserProfile.js:766
 msgid "This user has not added any entities."
-msgstr ""
+msgstr "此用户尚未添加任何实体。"
 
 #: ../root/user/UserProfile.js:776
 msgid "This table shows a summary of secondary data added by this editor."
-msgstr ""
+msgstr "此表格显示了该编辑者添加的次要数据的摘要。"
 
 #: ../root/user/UserProfile.js:782
 #, fuzzy
@@ -16590,7 +16598,7 @@ msgstr "已赞成的标签"
 #: ../root/user/UserProfile.js:793 ../root/user/UserProfile.js:814
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
-msgstr ""
+msgstr "编辑者被删除时，标签会被移除。"
 
 #: ../root/user/UserProfile.js:797 ../root/user/UserProfile.js:818
 msgctxt "folksonomy tags"
@@ -16606,16 +16614,14 @@ msgstr "已否决的标签"
 
 #: ../root/user/UserProfile.js:835
 msgid "Ratings are removed when an editor is deleted."
-msgstr ""
+msgstr "编辑者被删除后，其评分也会被移除。"
 
 #: ../root/user/UserProfile.js:838
 msgctxt "ratings"
 msgid "Removed"
-msgstr ""
+msgstr "移除"
 
 #: ../root/user/UserProfile.js:904
-#, fuzzy
-#| msgid "Blocked Spam Account"
 msgid "Blocked spam account"
 msgstr "被封禁的垃圾信息账号"
 
@@ -16625,20 +16631,21 @@ msgid ""
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
 "reporting the spammer from their user page."
 msgstr ""
+"该用户因被视为垃圾邮件发送者而被封禁，其个人资料也被隐藏。如果您在 "
+"MusicBrainz "
+"中看到垃圾邮件，请通过在其用户页面上举报垃圾邮件发送者的方式告知我们。"
 
 #: ../root/user/UserProfile.js:964
 msgid "Report this user for bad behavior"
 msgstr "报告此用户的不良行为"
 
 #: ../root/user/UserProfile.js:969
-#, fuzzy
-#| msgid "Recent Notes Left on Your Edits"
 msgid "View other users’ notes on your edits"
-msgstr "最近您的编辑收到的备注"
+msgstr "您的编辑内容收到的他人回复"
 
 #: ../root/user/UserProfile.js:970
 msgid "View your notes on this user’s edits"
-msgstr ""
+msgstr "查看你对这个用户的编辑的回复"
 
 #: ../root/user/UserRatingEntity.js:51
 msgid "No ratings."
@@ -16752,8 +16759,6 @@ msgid_plural "{editor} is subscribed to {n} private collections."
 msgstr[0] "{editor} 订阅了 {n} 个私有收藏。"
 
 #: ../root/user/UserTagList.js:21
-#, fuzzy
-#| msgid "Tags {user} downvoted"
 msgctxt "folksonomy"
 msgid "Tags {user} downvoted"
 msgstr "{user} 否决的标签"
@@ -16880,7 +16885,8 @@ msgid ""
 "This edit failed because the data it was changing was modified after this "
 "edit was entered. This may happen when the same edit is entered in twice; "
 "one will pass but the other will fail."
-msgstr ""
+msgstr "此编辑失败是因为它要修改的数据在编辑提交后已被更改。这可能发生在同一编辑被重"
+"复提交时；其中一个会成功，但另一个会失败。"
 
 #: ../root/utility/edit.js:87
 msgid ""
@@ -16923,6 +16929,10 @@ msgid ""
 "comfortable with the edit search you can refine them further or just create "
 "your own personal searches and bookmark them for your own use!"
 msgstr ""
+"如果你想帮助确保对 MusicBrainz 数据所做的更改是正确的，但不知道从哪里开始，以"
+"下建议应该会很有帮助。这些都是预定义的{edit_search|编辑搜索}; 一旦你熟悉了这"
+"些编辑搜索，你可以进一步细化它们，或者创建自己的个性化搜索并将其收藏以供自己"
+"使用！"
 
 #: ../root/vote/VotingIndex.js:116
 msgid ""
@@ -16934,6 +16944,11 @@ msgid ""
 "you find an editor that seems to be vandalizing the data, you can always "
 "report them from their profile."
 msgstr ""
+"在审查其他编辑的工作时，始终牢记{coc|Code of Conduct}。大部分编辑者都希望提供"
+"帮助，因此你作为投票者的目的是帮助他们更好地做贡献。这尤其适用于初学者：即使"
+"他们有些地方出现错误，也要尽量耐心和友好地对待他们，以便他们能够成长为更好的"
+"编辑者！当然，如果你发现某个编辑者似乎在破坏数据，你可以从他们的个人资料中举"
+"报他们。"
 
 #: ../root/vote/VotingIndex.js:129
 msgid ""
@@ -16942,6 +16957,8 @@ msgid ""
 "the conditions “Editor is not me” and “Voter is me and voted No vote”, "
 "respectively."
 msgstr ""
+"默认情况下，这些搜索会跳过你本人的编辑和你已经投票的编辑（如果有关的话）。要"
+"更改这一点，加载搜索后，分别移除条件“编辑者不是我”和“我可投票但未投的”。"
 
 #: ../root/vote/VotingIndex.js:136
 msgid "Destructive edits"
@@ -16962,16 +16979,22 @@ msgid ""
 "destructive changes to releases (track, medium and release label removals), "
 "and one for image removals (cover and event art)."
 msgstr ""
+"破坏性编辑（移除和合并）往往难以甚至不能撤销。因此，未经审核的错误的破坏性编"
+"辑可能会造成很大的混乱！大多数破坏性编辑即使获得三个“同意”票，也保证至少会保"
+"持开放两天，以避免其过快关闭，但让更多人有时间审查总是好的。以下你可以找到六"
+"种不同的搜索：1. 所有破坏性编辑（有时可能会令人不知所措）, 2. "
+"仅没有编辑注释的破坏性编辑（完全不提供任何理由）, 3. "
+"仅实体的合并和移除（如果错误地允许并通过了，这些编辑最有可能造成混乱）, 4. "
+"仅关系的移除, 5. 仅对发行版本的破坏性更改（移除相关的音轨、介质和发行厂牌）, "
+"5. 仅图像的移除（封面/活动图)"
 
 #: ../root/vote/VotingIndex.js:158
 msgid "All open destructive edits"
 msgstr "所有待审核的破坏性编辑"
 
 #: ../root/vote/VotingIndex.js:167
-#, fuzzy
-#| msgid "All open destructive edits by beginner editors"
 msgid "All open destructive edits without edit notes"
-msgstr "所有由新手编辑者创建的待审核破坏性编辑"
+msgstr "所有待审核的破坏性编辑且无编辑注释"
 
 #: ../root/vote/VotingIndex.js:177
 msgid "All open entity merges and removals"
@@ -16986,14 +17009,12 @@ msgid "All open destructive changes to releases"
 msgstr "所有待审核的专辑破坏性更改"
 
 #: ../root/vote/VotingIndex.js:204
-#, fuzzy
-#| msgid "All open relationship removals"
 msgid "All open artwork removals"
-msgstr "所有待审核的关联移除"
+msgstr "所有开放的艺术作品移除请求"
 
 #: ../root/vote/VotingIndex.js:215
 msgid "Unreviewed and potentially problematic edits"
-msgstr ""
+msgstr "未审查且可能存在问题的编辑"
 
 #: ../root/vote/VotingIndex.js:218
 msgid ""
@@ -17003,6 +17024,9 @@ msgid ""
 "edit: it’s perfectly fine to just abstain if you feel something doesn’t seem "
 "wrong but it’s also not 100% obvious that it is right without further checks."
 msgstr ""
+"从未有人见过的编辑总是可以从速检中受益：即使你对相关音乐不熟悉，你也可能会注"
+"意到某处似乎不对。请记住，你不必对每个编辑进行投票：如果你觉得某项编辑看起来"
+"没问题，但又不确定是完全正确的，可以选择弃权。"
 
 #: ../root/vote/VotingIndex.js:229
 msgid "Unreviewed edits (0 votes) that will close in less than a day"

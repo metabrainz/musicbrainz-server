@@ -12,16 +12,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-20 12:42+0000\n"
-"Last-Translator: thephy <differentphy@outlook.com>\n"
-"Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
-"projects/musicbrainz/relationship-types/zh_Hans/>\n"
+"PO-Revision-Date: 2024-11-17 16:42+0000\n"
+"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://translations."
+"metabrainz.org/projects/musicbrainz/relationship-types/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -732,10 +732,8 @@ msgstr "指该作品的歌词/歌剧剧本译者。"
 
 #. name:premiere
 #: DB:link_type/description:716
-#, fuzzy
-#| msgid "Indicates the place where the work had its first performance"
 msgid "Indicates the place where the work had its first performance."
-msgstr "指该作品初次演出所在地点。"
+msgstr "指该作品首次演出的地点。"
 
 #. name:publishing
 #: DB:link_type/description:32
@@ -775,10 +773,8 @@ msgstr "主唱或独唱"
 
 #. name:jury member
 #: DB:link_type/description:1255
-#, fuzzy
-#| msgid "Links an event to an artist that was a conductor in it."
 msgid "Links a competition event to an artist that was a jury member in it."
-msgstr "将活动链接到作为指挥的艺术家。"
+msgstr "将比赛与作为评委的艺术家相关联。"
 
 #. name:participant
 #: DB:link_type/description:1256
@@ -899,6 +895,12 @@ msgstr "将专辑组链接到录制时的活动系列(巡演，驻留演出等)�
 #: DB:link_type/description:797
 msgid "Links a release group with a launch event for it."
 msgstr "将专辑组链接到首发活动。"
+
+#. name:production coordinator
+#: DB:link_type/description:1267
+msgid ""
+"Links a release to a person credited as a production coordinator for it."
+msgstr "将发行与作为制作协调员的人相关联。"
 
 #. name:arranged in
 #: DB:link_type/description:863
@@ -1450,7 +1452,7 @@ msgid ""
 msgstr "{entity1}的歌剧剧本由{entity0}{additional:额外}撰写"
 
 #. name:libretto written in
-#: DB:link_type/long_link_phrase:879
+#: DB:link_type/long_link_phrase:879 DB:link_type/long_link_phrase:1271
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written in {entity0}"
 msgstr "{entity1}的歌剧剧本由{entity0}{additional:额外}撰写"
@@ -1462,7 +1464,7 @@ msgid ""
 msgstr "{entity1}的歌词由{entity0}{additional:额外}撰写"
 
 #. name:lyrics written in
-#: DB:link_type/long_link_phrase:877
+#: DB:link_type/long_link_phrase:877 DB:link_type/long_link_phrase:1270
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written in {entity0}"
 msgstr "{entity1}的歌词由{entity0}{additional:额外}撰写"
@@ -1660,18 +1662,12 @@ msgstr ""
 
 #. name:graphic design
 #: DB:link_type/description:125
-#, fuzzy
-#| msgid ""
-#| "This credits the people or agency who did graphic design for a video "
-#| "recording, arranging pieces of content into a coherent and aesthetically-"
-#| "pleasing whole."
 msgid ""
 "This credits the people or agency who did the graphic design / layout for a "
 "video recording, arranging pieces of content into a coherent and "
 "aesthetically-pleasing whole."
-msgstr ""
-"为视频录制作品进行图形设计的人或机构，他们负责将内容的各个部分组织成一个既连"
-"贯又美观的整体。"
+msgstr "负责视频录制的图形设计/布局的个人或机构，他们将内容元素排列成一个连贯且美观的"
+"整体。"
 
 #. name:label rename
 #: DB:link_type/description:202
@@ -2016,33 +2012,20 @@ msgstr "这表明是一位艺术家为发行作品进行了插图绘制工作。
 
 #. name:graphic design
 #: DB:link_type/description:1234
-#, fuzzy
-#| msgid ""
-#| "This indicates an artist who did the graphic design for the event, "
-#| "arranging pieces of content into a coherent and aesthetically-pleasing "
-#| "design."
 msgid ""
 "This indicates an artist who did the graphic design / layout for the event, "
 "arranging pieces of content into a coherent and aesthetically-pleasing "
 "design."
-msgstr ""
-"这表明是一位艺术家为该活动进行了图形设计，将各种内容元素组织成一个连贯且视觉"
-"上吸引人的封面设计。"
+msgstr "指负责活动的图形设计/布局的艺术家，他们将内容元素排列成一个连贯且美观的设计。"
 
 #. name:graphic design
 #: DB:link_type/description:27
-#, fuzzy
-#| msgid ""
-#| "This indicates an artist who did the graphic design for the release, "
-#| "arranging pieces of content into a coherent and aesthetically-pleasing "
-#| "sleeve design."
 msgid ""
 "This indicates an artist who did the graphic design / layout for the "
 "release, arranging pieces of content into a coherent and aesthetically-"
 "pleasing sleeve design."
-msgstr ""
-"这表明是一位艺术家为该发行作品进行了图形设计，将各种内容元素组织成一个连贯且"
-"视觉上吸引人的封面设计。"
+msgstr "指负责发行的图形设计/布局的艺术家，他们将内容元素排列成一个连贯且美观的封套设"
+"计。"
 
 #. name:producer
 #: DB:link_type/description:141 DB:link_type/description:30
@@ -2053,32 +2036,24 @@ msgstr "这表明艺术家负责录音制作期间的创作和日常实践。"
 
 #. name:artwork
 #: DB:link_type/description:1241
-#, fuzzy
-#| msgid ""
-#| "This indicates an artist who conducted an orchestra, band or choir on "
-#| "this release."
 msgid ""
 "This indicates an artist who provided artwork for a video recording when no "
 "more specific information is available."
-msgstr "这表明艺术家在此专辑中指挥了乐团，乐队或合唱团。"
+msgstr "指为视频录制提供艺术作品的艺术家，当没有更具体的信息时。"
 
 #. name:artwork
 #: DB:link_type/description:1231
-#, fuzzy
-#| msgid ""
-#| "This indicates an artist who conducted an orchestra, band or choir on "
-#| "this release."
 msgid ""
 "This indicates an artist who provided artwork for the event when no more "
 "specific information is available."
-msgstr "这表明艺术家在此专辑中指挥了乐团，乐队或合唱团。"
+msgstr "指为活动提供艺术作品的艺术家，当没有更具体的信息时。"
 
 #. name:artwork
 #: DB:link_type/description:993
 msgid ""
 "This indicates an artist who provided artwork for the release when no more "
 "specific information is available."
-msgstr ""
+msgstr "指为发行提供艺术作品的艺术家，当没有更具体的信息时。"
 
 #. name:concertmaster
 #: DB:link_type/description:760
@@ -2096,14 +2071,10 @@ msgstr "这表明艺术家是专辑中乐团或乐队的首席演奏者/领班�
 
 #. name:broadcast
 #: DB:link_type/description:1228
-#, fuzzy
-#| msgid ""
-#| "This indicates that a person or agency did the art direction for the "
-#| "recording."
 msgid ""
 "This indicates an organization (often a radio station) broadcast the given "
 "recording."
-msgstr "这指的是对录音进行艺术指导的个人或机构。"
+msgstr "指一个组织（通常是广播电台）播放了该录音。"
 
 #. name:commissioned
 #: DB:link_type/description:891
@@ -2139,7 +2110,7 @@ msgstr "这指的是现在是或曾是团体指挥的个人。"
 msgid ""
 "This indicates that a person is, or was, the artistic director of a group "
 "(such as a ballet/opera company)."
-msgstr ""
+msgstr "指一个人目前或曾经是某个团体（如芭蕾舞团或歌剧团）的艺术总监。"
 
 #. name:art direction
 #: DB:link_type/description:137
@@ -2222,14 +2193,10 @@ msgstr ""
 
 #. name:parts
 #: DB:link_type/description:281
-#, fuzzy
-#| msgid ""
-#| "This indicates that an event is made up of multiple parts (e.g. a "
-#| "festival happening on multiple venues over the course of a few days)."
 msgid ""
 "This indicates that a work is made up of multiple parts (such as an "
 "orchestral suite broken into movements)."
-msgstr "这表明活动包含多个部分(例如几天内在多处场地举行的音乐节)。"
+msgstr "指某部作品由多个部分组成（如管弦乐组曲分为多个乐章）。"
 
 #. name:video appearance
 #: DB:link_type/description:858
@@ -2264,6 +2231,15 @@ msgid ""
 "creative position, such as photographer or graphic designer."
 msgstr "这表明艺术家正式担任厂牌的美工设计职位，例如摄影师或平面设计师。"
 
+#. name:position at
+#: DB:link_type/description:119
+msgid ""
+"This indicates that an artist was officially employed by a label in a "
+"position not covered by any more specific relationship. Specify the position "
+"using the “Task” attribute."
+msgstr "指一位艺术家被某厂牌正式雇用，担任一个未被更具体的关系覆盖的职位。可使用“任务"
+"”属性指定该职位。"
+
 #. name:artists and repertoire position at
 #: DB:link_type/description:1081
 msgid ""
@@ -2273,14 +2249,10 @@ msgstr "这表明艺术家正式担任厂牌的艺术家与作品(A&R)职位。"
 
 #. name:executive position at
 #: DB:link_type/description:1266
-#, fuzzy
-#| msgid ""
-#| "This indicates that an artist was officially employed by a label in a "
-#| "creative position, such as photographer or graphic designer."
 msgid ""
 "This indicates that an artist was officially employed by a label in an "
 "executive position, such as CEO, president or director."
-msgstr "这表明艺术家正式担任厂牌的美工设计职位，例如摄影师或平面设计师。"
+msgstr "指一位艺术家被某厂牌正式雇用，担任执行职位，如首席执行官（CEO）、总裁或董事。"
 
 #. name:parts
 #: DB:link_type/description:818
@@ -2368,7 +2340,12 @@ msgstr ""
 msgid ""
 "This indicates that the recording is not of the entire work, such as "
 "excerpts from, conclusion of, etc."
-msgstr ""
+msgstr "指该录音并不是其对应作品的完整部分，比如节选自...、总结自...，等等。"
+
+#. name:demo
+#: DB:link_attribute_type/description:1417
+msgid "This indicates that the recording is of a demo version."
+msgstr "指该录音是初版(demo)。"
 
 #. name:live
 #: DB:link_attribute_type/description:578
@@ -2380,7 +2357,7 @@ msgstr "表明这是现场表演的录音。"
 msgid ""
 "This indicates that the recording is of a medley, of which the work is one "
 "part."
-msgstr ""
+msgstr "指该录音是一首组曲的一部分，其中该作品是组曲的一个部分。"
 
 #. name:karaoke
 #: DB:link_attribute_type/description:1261
@@ -2391,73 +2368,63 @@ msgid ""
 "still contain backing vocals and other sections that would not be present in "
 "a true instrumental recording."
 msgstr ""
+"指明这是一首卡拉OK录音。这与器乐伴奏录音不同，因为它是专门用于伴唱的，因此仍"
+"然具有歌词。它可能也包含背景人声和其他在纯器乐伴奏录音中不会出现的部分。"
 
 #. name:related to
 #: DB:link_type/description:738
 msgid ""
 "This indicates that two instruments are related in a way not covered by "
 "other, more specific relationships."
-msgstr ""
+msgstr "指两种乐器以一种未被其他更具体关系覆盖的方式相关联。"
 
 #. name:headquarters
 #: DB:link_type/description:1237
-#, fuzzy
-#| msgid ""
-#| "This indicates that an artist was officially employed by a label as a "
-#| "producer."
 msgid ""
 "This indicates the area (usually a city) where a label is headquartered in."
-msgstr "这表明艺术家正式担任厂牌的制作人。"
+msgstr "指厂牌的总部所在地（通常是一个城市）。"
 
 #. name:named after area
 #: DB:link_type/description:1262
-#, fuzzy
-#| msgid "Indicates an artist that performed on this release."
 msgid "This indicates the area that inspired this genre’s name."
-msgstr "表明该艺术家在此专辑中有表演。"
+msgstr "指该地区启发了这个流派的名字。"
 
 #. name:video director
 #: DB:link_type/description:1185
 msgid "This indicates the artist directed video on this release."
-msgstr ""
+msgstr "指该发行中的视频由某位艺术家执导。"
 
 #. name:named after artist
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
-msgstr ""
+msgstr "指某艺术家的名字启发了这位艺术家的名字。"
 
 #. name:named after artist
 #: DB:link_type/description:1260
-#, fuzzy
-#| msgid "Indicates an artist that performed on this release."
 msgid "This indicates the artist that inspired this genre’s name."
-msgstr "表明该艺术家在此专辑中有表演。"
+msgstr "指某位艺术家启发了这个流派的名称。"
 
 #. name:named after artist
 #: DB:link_type/description:1258
-#, fuzzy
-#| msgid "Indicates an artist that performed on this release."
 msgid "This indicates the artist that inspired this label’s name."
-msgstr "表明该艺术家在此专辑中有表演。"
+msgstr "指某位艺术家启发了这个厂牌的名称。"
 
 #. name:named after artist
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
-msgstr ""
+msgstr "表示此地名的灵感来源于某位艺术家。"
 
 #. name:named after artist
 #: DB:link_type/description:1000
 msgid ""
 "This indicates the artist that inspired this series' name, for example for "
 "an award named after a musician."
-msgstr ""
+msgstr "指启发该系列名称的艺术家，例如以音乐家命名的奖项。"
 
 #. name:named after artist
 #: DB:link_type/description:1257
-#, fuzzy
-#| msgid "Indicates an artist that performed on this release."
 msgid "This indicates the artist that inspired this work’s name."
-msgstr "表明该艺术家在此专辑中有表演。"
+msgstr "表示该作品名称的灵感来自某艺术家。"
 
 #. name:audio director
 #: DB:link_type/description:1186
@@ -2468,6 +2435,10 @@ msgid ""
 "project (such as an audio drama or audiobook), which is usually based on a "
 "written template and involves the performance of voice actors."
 msgstr ""
+"表示某位艺术家是该录音的音频导演。\n"
+"\n"
+"这是负责音频项目（如有声剧或有声读物）创意实现的艺术家，通常以书面模板为基础"
+"，并涉及配音演员的表演。"
 
 #. name:audio director
 #: DB:link_type/description:1187
@@ -2478,44 +2449,40 @@ msgid ""
 "project (such as an audio drama or audiobook), which is usually based on a "
 "written template and involves the performance of voice actors."
 msgstr ""
+"指某位艺术家是该发行整体的音频导演。\n"
+"\n"
+"这是负责音频项目（如有声戏剧或有声读物）创意实现的艺术家，通常以书面模板为基"
+"础，并涉及配音演员的表演。"
 
 #. name:choreographer
 #: DB:link_type/description:1230
-#, fuzzy
-#| msgid ""
-#| "This indicates an artist who was the concertmaster/leader for an "
-#| "orchestra or band on this recording."
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
-msgstr "这表明艺术家是录音中乐团或乐队的首席演奏者/领班。"
+msgstr "指某位艺术家是这个视频录制的编舞。"
 
 #. name:cinematographer
 #: DB:link_type/description:1245
-#, fuzzy
-#| msgid ""
-#| "This indicates an artist who was the concertmaster/leader for an "
-#| "orchestra or band on this recording."
 msgid ""
 "This indicates the artist was the cinematographer / director of photography "
 "for this video recording."
-msgstr "这表明艺术家是录音中乐团或乐队的首席演奏者/领班。"
+msgstr "指某位艺术家担任了此视频录制的摄影指导（或摄影导演）。"
 
 #. name:video director
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this video recording."
-msgstr ""
+msgstr "指某位艺术家导演了这个视频录制。"
 
 #. name:owner
 #: DB:link_type/description:991
 msgid "This indicates the artist was the owner of this label."
-msgstr ""
+msgstr "指某位艺术家是这个厂牌的拥有者。"
 
 #. name:owner
 #: DB:link_type/description:988
 msgid ""
 "This indicates the artist was the owner of this place (often a studio, but "
 "sometimes also a venue)."
-msgstr ""
+msgstr "指某位艺术家是这个地点的所有者 (通常是录音室，有时也是一个场地)。"
 
 #. name:arranger, name:instrument arranger, name:vocal arranger
 #: DB:link_type/description:295 DB:link_type/description:294
@@ -2523,84 +2490,64 @@ msgstr ""
 #: DB:link_type/description:41 DB:link_type/description:296
 #: DB:link_type/description:293 DB:link_type/description:282
 #: DB:link_type/description:298
-#, fuzzy
-#| msgid ""
-#| "This indicates the artist who arranged a tune into a form suitable for "
-#| "performance. 'Arrangement' is used as a catch-all term for all processes "
-#| "that turn a composition into a form that can be played by a specific type "
-#| "of ensemble."
 msgid ""
 "This indicates the artist who arranged a tune into a form suitable for "
 "performance. “Arrangement” is used as a catch-all term for all processes "
 "that turn a composition into a form that can be played by a specific type of "
 "ensemble."
-msgstr ""
-"这表明艺术家将乐曲编为适合表演的形式。“编曲”是针对将原始音乐创作转变为特定乐"
-"队类型能够演奏的形式这一过程的概括性说法。"
+msgstr "指将乐曲改编成适合演出形式的艺术家。“编曲”是一个通用术语，涵盖了将作品改编成"
+"特定类型合奏可演奏形式的所有过程。"
 
 #. name:chorus master
 #: DB:link_type/description:152
 msgid ""
 "This indicates the chorus master of a choir which performed on this "
 "recording."
-msgstr ""
+msgstr "指某位艺术家是此录音中的表演合唱团的合唱指挥。"
 
 #. name:chorus master
 #: DB:link_type/description:53
 msgid ""
 "This indicates the chorus master of a choir which performed on this release."
-msgstr ""
+msgstr "指某位艺术家是此发行整体的的表演合唱团的合唱指挥。"
 
 #. name:glass mastered
 #: DB:link_type/description:955
-#, fuzzy
-#| msgid ""
-#| "Indicates the publisher of this release. This is <strong>not</strong> the "
-#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
-#| "label</a>."
 msgid ""
 "This indicates the company that made the glass master for a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>, nor as mastering engineering."
 msgstr ""
-"指此专辑的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
-"strong>一个概念。"
+"指为该发行版本制作玻璃母盘的公司。这与<a href=\"/doc/Label\" target=\"_blank"
+"\">唱片公司</a>和母带工程是<strong>不同的</strong>概念。"
 
 #. name:owner
 #: DB:link_type/description:989
 msgid ""
 "This indicates the label / organization was the owner of this place (often a "
 "studio, but sometimes also a venue)."
-msgstr ""
+msgstr "这表示某唱片公司或组织是这个地点（通常是录音室，但有时也可能是演出场地）的所"
+"有者。"
 
 #. name:named after label
 #: DB:link_type/description:1259
-#, fuzzy
-#| msgid "This indicates that a place is part of another place."
 msgid "This indicates the label that inspired this artist’s name."
-msgstr "这表明一个地点包含于另一地点。"
+msgstr "表示某个厂牌名启发了这个艺术家的名字。"
 
 #. name:named after label
 #: DB:link_type/description:1264
-#, fuzzy
-#| msgid "Indicates an artist that performed on this release."
 msgid "This indicates the label that inspired this genre’s name."
-msgstr "表明该艺术家在此专辑中有表演。"
+msgstr "指某个厂牌名启发了这个流派的名称。"
 
 #. name:translator
 #: DB:link_attribute_type/description:1018
 msgid ""
 "This indicates the linked entity translated something, rather than being the "
 "original writer."
-msgstr ""
+msgstr "这指某个链接的实体是翻译者，而不是作为原作者。"
 
 #. name:distributed
 #: DB:link_type/description:361
-#, fuzzy
-#| msgid ""
-#| "Indicates the publisher of this work. This is <strong>not</strong> the "
-#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
-#| "label</a>."
 msgid ""
 "This indicates the organization that distributes (or contracts out "
 "distribution). \n"
@@ -2608,84 +2555,60 @@ msgid ""
 "This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"指此作品的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
-"strong>一个概念。"
+"指某个负责分销（或外包分销）的组织。\n"
+"这和<a href=\"/doc/Label\">厂牌</a><strong>不是</strong>一个概念。"
 
 #. name:manufactured
 #: DB:link_type/description:360
-#, fuzzy
-#| msgid ""
-#| "Indicates the publisher of this work. This is <strong>not</strong> the "
-#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
-#| "label</a>."
 msgid ""
 "This indicates the organization that manufactures (or contracts out "
 "manufacturing). \n"
 "This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"指此作品的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
-"strong>一个概念。"
+"指负责制造（或外包制造）的组织。\n"
+"这和<a href=\"/doc/Label\" target=\"_blank\""
+">唱片厂牌</a><strong>不是</strong>一个概念。"
 
 #. name:marketed
 #: DB:link_type/description:848
-#, fuzzy
-#| msgid ""
-#| "Indicates the publisher of this release. This is <strong>not</strong> the "
-#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
-#| "label</a>."
 msgid ""
 "This indicates the organization that markets a release. This is <strong>not</"
 "strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"指此专辑的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
-"strong>一个概念。"
+"指负责营销该发行版本的组织。这和<a href=\"/doc/Label\" target=\"_blank\""
+">厂牌</a><strong>不是</strong>一个概念。"
 
 #. name:printed
 #: DB:link_type/description:985
-#, fuzzy
-#| msgid ""
-#| "Indicates the publisher of this release. This is <strong>not</strong> the "
-#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
-#| "label</a>."
 msgid ""
 "This indicates the organization that printed a release. This is <strong>not</"
 "strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"指此专辑的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
-"strong>一个概念。"
+"指此负责印刷该发行版本的组织。这和<a href=\"/doc/Label\" target=\"_blank\""
+">厂牌</a><strong>不是</strong>一个概念。"
 
 #. name:promoted
 #: DB:link_type/description:359
-#, fuzzy
-#| msgid ""
-#| "Indicates the publisher of this release. This is <strong>not</strong> the "
-#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
-#| "label</a>."
 msgid ""
 "This indicates the organization that promotes (or contracts out promotion) "
 "for a release. This is <strong>not</strong> the same concept as the <a "
 "href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
-"指此专辑的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
-"strong>一个概念。"
+"指负责宣传（或外包宣传）该发行版本的组织。这和<a href=\"/doc/Label\" target="
+"\"_blank\">厂牌</a><strong>不是</strong>一个概念。"
 
 #. name:published
 #: DB:link_type/description:362
-#, fuzzy
-#| msgid ""
-#| "Indicates the publisher of this release. This is <strong>not</strong> the "
-#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
-#| "label</a>."
 msgid ""
 "This indicates the organization which releases a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"指此专辑的词曲版权方。这和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
-"strong>一个概念。"
+"指负责出版该发行版本的组织。这和<a href=\"/doc/Label\" target=\"_blank\""
+">厂牌</a><strong>不是</strong>一个概念。"
 
 #. name:orchestrator
 #: DB:link_type/description:300
@@ -2698,6 +2621,10 @@ msgid ""
 "In practical terms it consists of deciding which instruments should play "
 "which notes in a piece of music."
 msgstr ""
+"指负责该录音的配器的人。配器是一种特殊的编曲形式，指的是将作品改编为交响乐团"
+"演奏的形式，同时保持音乐内容基本不变。配器者还负责为交响乐团、乐队、合唱团、"
+"独奏乐器或独唱歌手编写乐谱。实际上，配器包括决定乐曲中每种乐器应演奏哪些音符"
+"。"
 
 #. name:orchestrator
 #: DB:link_type/description:40
@@ -2710,6 +2637,10 @@ msgid ""
 "In practical terms it consists of deciding which instruments should play "
 "which notes in a piece of music."
 msgstr ""
+"指为这个发行版本的整体的配器者。配器是一种特殊的编曲形式，指的是将作品改编为"
+"交响乐团演奏的形式，同时保持音乐内容基本不变。配器者还负责为交响乐团、乐队、"
+"合唱团、独奏乐器或独唱歌手编写乐谱。实际上，配器包括决定乐曲中每种乐器应演奏"
+"哪些音符。"
 
 #. name:orchestrator
 #: DB:link_type/description:164
@@ -2722,6 +2653,9 @@ msgid ""
 "In practical terms it consists of deciding which instruments should play "
 "which notes in a piece of music."
 msgstr ""
+"负责该作品的配器者。配器是一种特殊的编曲形式，指的是将作品改编为交响乐团演奏"
+"的形式，同时保持音乐内容基本不变。配器者还负责为交响乐团、乐队、合唱团、独奏"
+"乐器或独唱歌手编写乐谱。实际上，配器包括决定乐曲中每种乐器应演奏哪些音符。"
 
 #. name:compiler
 #: DB:link_type/description:48
@@ -2753,25 +2687,18 @@ msgstr ""
 
 #. name:named after place
 #: DB:link_type/description:1263
-#, fuzzy
-#| msgid "Indicates an artist that performed on this release."
 msgid "This indicates the place that inspired this genre’s name."
-msgstr "表明该艺术家在此专辑中有表演。"
+msgstr "指某个地名启发了这个流派的名称。"
 
 #. name:pressed
 #: DB:link_type/description:942
-#, fuzzy
-#| msgid ""
-#| "This indicates the pressing company that presses a release. This is "
-#| "<strong>not</strong> the same concept as the <a href=\"/doc/"
-#| "Label\">record label</a>."
 msgid ""
 "This indicates the pressing company that presses a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"这指的是压制专辑的压盘公司。和<a href=\"/doc/Label\">厂牌</a><strong>不是</"
-"strong>同一概念。"
+"这指的是压制专辑的压片公司。和<a href=\"/doc/Label\" target=\"_blank\""
+">厂牌</a><strong>不是</strong>同一概念。"
 
 #. name:sub
 #: DB:link_attribute_type/description:1310
@@ -2779,62 +2706,64 @@ msgid ""
 "This indicates the publisher subcontracted to publish a release or work in a "
 "specific territory. Use this only when you have a specific sub-publisher "
 "credit, do not guess."
-msgstr ""
+msgstr "指负责在特定地区出版该发行版本或作品的子出版商。只有在你有具体的子出版商署名"
+"信息时才使用此选项，不要猜测。"
 
 #. name:named after release group
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
-msgstr ""
+msgstr "指某个发行组的名称启发了这个艺术家的名字。"
 
 #. name:named after release group
 #: DB:link_type/description:1261
-#, fuzzy
-#| msgid "Indicates that the release group is part of a series."
 msgid "This indicates the release group that inspired this genre’s name."
-msgstr "表明该专辑组是系列的一部分。"
+msgstr "指某个发行组的名称启发了这个流派的名称。"
 
 #. name:rights society
 #: DB:link_type/description:349
 msgid ""
 "This indicates the rights society associated with a release. The rights "
 "society is an organization which collects royalties on behalf of the artists."
-msgstr ""
+msgstr "指与该发行版本相关的权利协会。权利协会是一个代表艺术家收取版税的组织。"
 
 #. name:video shot at
 #: DB:link_type/description:963
 msgid "This indicates the video was shot at this place."
-msgstr ""
+msgstr "指视频是在此处地点录制的。"
 
 #. name:video shot at
 #: DB:link_type/description:966
 msgid "This indicates the video was shot at/during this event."
-msgstr ""
+msgstr "指视频是在这个活动当时或活动期间录制的。"
 
 #. name:video shot in
 #: DB:link_type/description:964
 msgid "This indicates the video was shot in this area."
-msgstr ""
+msgstr "指视频是在这个地区录制的。"
 
 #. name:dedication
 #: DB:link_type/description:914
 msgid ""
 "This indicates the work is dedicated to a specific area. This is most common "
 "for classical works, but also exists in other genres to a degree."
-msgstr ""
+msgstr "这表示该作品献给一个特定的地区。这种情况在古典音乐作品中最常见，但在其他流派"
+"中也有一定的体现。"
 
 #. name:dedication
 #: DB:link_type/description:922
 msgid ""
 "This indicates the work is dedicated to a specific organization. This is "
 "most common for classical works, but also exists in other genres to a degree."
-msgstr ""
+msgstr "这表示该作品献给一个特定的组织。这种情况在古典音乐作品中最常见，但在其他流派"
+"中也有一定的体现。"
 
 #. name:dedication
 #: DB:link_type/description:846
 msgid ""
 "This indicates the work is dedicated to a specific person. This is most "
 "common for classical works, but also exists in other genres to a degree."
-msgstr ""
+msgstr "这表示该作品献给一个特定的人。这种情况在古典音乐作品中最常见，但在其他流派中"
+"也有一定的体现。"
 
 #. name:dedication
 #: DB:link_type/description:983
@@ -2842,38 +2771,37 @@ msgid ""
 "This indicates the work is dedicated to a specific place (such an "
 "educational institution). This is most common for classical works, but also "
 "exists in other genres to a degree."
-msgstr ""
+msgstr "这表示该作品献给一个特定的地点(比如一个教育机构)。这种情况在古典音乐作品中最"
+"常见，但在其他流派中也有一定的体现。"
 
 #. name:named after work
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
-msgstr ""
+msgstr "指某个作品启发了这个艺术家的名字。"
 
 #. name:named after work
 #: DB:link_type/description:1265
-#, fuzzy
-#| msgid "Indicates an artist that performed on this release."
 msgid "This indicates the work that inspired this label’s name."
-msgstr "表明该艺术家在此专辑中有表演。"
+msgstr "指某个作品启发了这个厂牌的名字。"
 
 #. name:podcast feed
 #: DB:link_type/description:915
 msgid "This indicates where a feed for this podcast can be found."
-msgstr ""
+msgstr "指该播客的订阅源。"
 
 #. name:live performance
 #: DB:link_type/description:17
 msgid ""
 "This is used to indicate that a release group is a live performance of a "
 "studio release group."
-msgstr ""
+msgstr "指一个发行组是一个录音室版发行组的现场表演版本。"
 
 #. name:translated version
 #: DB:link_type/description:1082
 msgid ""
 "This is used to indicate that a release group is a translated version of "
 "another."
-msgstr ""
+msgstr "指一个发行组是另一个发行组的翻译版本。"
 
 #. name:medley
 #: DB:link_type/description:239
@@ -2884,13 +2812,17 @@ msgid ""
 "d3fd781c-5894-47e2-8c12-86cc0e2c8d08\">arranger</a> for crediting the person "
 "who arranges songs into a medley."
 msgstr ""
+"用来表示一首作品是其他几首歌的混合，(古典：组曲/流行：串烧)。这意味着原歌曲经"
+"过重新编曲，以这种形式创作出了新作品。请参阅<a href=\"/relationship/"
+"d3fd781c-5894-47e2-8c12-86cc0e2c8d08\">编曲者</a>，表示将歌曲编入其中的人。"
 
 #. name:mashes up
 #: DB:link_type/description:232
 msgid ""
 "This is used to indicate that the recording is a <a href=\"/doc/"
 "Mix_Terminology#mash-up\">mash-up</a> of two (or more) other recordings."
-msgstr ""
+msgstr "用于表示该录音是两个(或多个)其他录音的<a href=\"/doc/Mix_Terminology#mash-"
+"up\">混接作品</a>。"
 
 #. name:mashes up
 #: DB:link_type/description:10
@@ -2898,6 +2830,8 @@ msgid ""
 "This is used to indicate that the release group is a mash-up <a href=\"/doc/"
 "Mix_Terminology#mash-up\">mash-up</a> of two (or more) other release groups."
 msgstr ""
+"用于表示该发行组是两个(或多个)其他发行组的混接<a href=\"/doc/Mix_Terminology"
+"#mash-up\">混接</a>。"
 
 #. name:DJ-mix
 #: DB:link_type/description:227
@@ -2914,7 +2848,7 @@ msgstr ""
 #. name:allmusic
 #: DB:link_type/description:1093
 msgid "This is used to link a genre to its corresponding page on Allmusic."
-msgstr ""
+msgstr "这用于将一个音乐流派链接到其在 AllMusic 上对应的页面。"
 
 #. name:karaoke
 #: DB:link_type/description:226
@@ -2928,41 +2862,46 @@ msgid ""
 "numerous different ways other than \"karaoke\": instrumental (even if "
 "backing vocals are still present), off vocal, backing track, etc."
 msgstr ""
+"这用于将一首歌的卡拉OK版本链接到原版歌曲。<br/><br/>\n"
+"卡拉OK版本是指去除了主要人声的歌曲版本，设计用于卡拉OK演唱。这些版本通常是从"
+"原版母带通过静音主要人声轨道或使用后期处理滤镜去除人声的方法制作而成。卡拉OK"
+"版本可能以多种不同的标签出现，而不仅仅是‘卡拉OK’：例如器乐伴奏（即使背景人声"
+"仍然存在）、无主唱版、伴奏等。"
 
 #. name:logo
 #: DB:link_type/description:213
 msgid "This is used to link a label to an image of its logo."
-msgstr ""
+msgstr "这用于将一个唱片厂牌链接到其商标标志的图片。"
 
 #. name:secondhandsongs
 #: DB:link_type/description:977
 msgid ""
 "This is used to link a label to its corresponding page in the "
 "SecondHandSongs database."
-msgstr ""
+msgstr "这用于将一个唱片厂牌链接到其在 SecondHandSongs 数据库中对应的页面。"
 
 #. name:music video
 #: DB:link_type/description:857
 msgid ""
 "This is used to link a music video to the corresponding audio recording."
-msgstr ""
+msgstr "用于将音乐视频与相应的音频录音连接起来。"
 
 #. name:discogs
 #: DB:link_type/description:705
 msgid "This is used to link a place to the equivalent entry in Discogs."
-msgstr ""
+msgstr "用于将一个地点链接到其在 Discogs 中对应的条目。"
 
 #. name:secondhandsongs
 #: DB:link_type/description:976
 msgid ""
 "This is used to link a recording to its corresponding page in the "
 "SecondHandSongs database."
-msgstr ""
+msgstr "用于将一个录音链接到其在 SecondHandSongs 数据库中对应的页面。"
 
 #. name:allmusic
 #: DB:link_type/description:285
 msgid "This is used to link a recording to its corresponding page on Allmusic."
-msgstr ""
+msgstr "用于将一个录音链接到其在 AllMusic 上对应的页面。"
 
 #. name:DJ-mix
 #: DB:link_type/description:8
@@ -2981,36 +2920,36 @@ msgstr ""
 #: DB:link_type/description:284
 msgid ""
 "This is used to link a release group to its corresponding page on Allmusic."
-msgstr ""
+msgstr "用于将一个发行组链接到其在 AllMusic 上对应的页面。"
 
 #. name:secondhandsongs
 #: DB:link_type/description:308
 msgid ""
 "This is used to link a release to its corresponding page in the "
 "SecondHandSongs database."
-msgstr ""
+msgstr "用于将一个发行链接到其在 SecondHandSongs 数据库中对应的页面。"
 
 #. name:allmusic
 #: DB:link_type/description:755
 msgid "This is used to link a release to its corresponding page on Allmusic."
-msgstr ""
+msgstr "用于将一个发行链接到其在 AllMusic 上对应的页面。"
 
 #. name:discogs
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
-msgstr ""
+msgstr "用于将一个系列链接到其在 Discogs 中对应的条目。"
 
 #. name:secondhandsongs
 #: DB:link_type/description:280
 msgid ""
 "This is used to link a work to its corresponding page in the SecondHandSongs "
 "database."
-msgstr ""
+msgstr "用于将一个作品链接到其在 SecondHandSongs 数据库中对应的页面。"
 
 #. name:allmusic
 #: DB:link_type/description:286
 msgid "This is used to link a work to its corresponding page on Allmusic."
-msgstr ""
+msgstr "用于将一个作品链接到其在 AllMusic 上对应的页面。"
 
 #. name:a cappella
 #: DB:link_type/description:1238
@@ -3020,23 +2959,26 @@ msgid ""
 "An a cappella version is a version of the song with only the vocal tracks "
 "(for example, a hip hop vocal track without the beat)."
 msgstr ""
+"用于将一首歌的阿卡贝拉版本链接到原版歌曲。<br/><br/>\n"
+"阿卡贝拉(无伴奏合唱)版本是指只有人声轨的歌曲版本（例如，没有节奏拍子的嘻哈人"
+"声轨）。"
 
 #. name:secondhandsongs
 #: DB:link_type/description:307
 msgid ""
 "This is used to link an artist to its corresponding page in the "
 "SecondHandSongs database."
-msgstr ""
+msgstr "用于将一个艺术家链接到其在 SecondHandSongs 数据库中对应的页面。"
 
 #. name:allmusic
 #: DB:link_type/description:283
 msgid "This is used to link an artist to its corresponding page on Allmusic."
-msgstr ""
+msgstr "用于将一个艺术家链接到其在 AllMusic 上对应的页面。"
 
 #. name:primary concert venue
 #: DB:link_type/description:714
 msgid "This is used to link an artist to its primary concert venue."
-msgstr ""
+msgstr "用于将一位艺术家链接到其主要的演出场地。"
 
 #. name:instrumental
 #: DB:link_type/description:1239
@@ -3047,6 +2989,9 @@ msgid ""
 "(for example, a hip hop beat without the rap tracks). For karaoke tracks, "
 "use the karaoke relationship."
 msgstr ""
+"这用于将一首歌的器乐版本链接到原版歌曲。<br/><br/>\n"
+"器乐版本是指去除了所有人声的歌曲版本（例如，没有说唱部分的嘻哈节拍）。对于卡"
+"拉OK版本，请使用卡拉OK关系类型。"
 
 #. name:discogs
 #: DB:link_type/description:180
@@ -3056,7 +3001,7 @@ msgstr "用于链接艺术家的Discogs页。"
 #. name:discogs
 #: DB:link_type/description:1089
 msgid "This is used to link the Discogs page for this genre/style."
-msgstr ""
+msgstr "用于将这一音乐流派/风格链接到其在 Discogs 上的页面。"
 
 #. name:discogs
 #: DB:link_type/description:217
@@ -3109,7 +3054,7 @@ msgstr "用于链接专辑的付费下载页面。"
 #. name:performance
 #: DB:link_type/description:278
 msgid "This is used to link works to their recordings."
-msgstr ""
+msgstr "用于将作品链接到其录音。"
 
 #. name:collaboration
 #: DB:link_type/description:102
@@ -3129,6 +3074,9 @@ msgid ""
 "requirement. For a work that includes significantly more of another than "
 "just a brief quotation, consider using “based on” instead."
 msgstr ""
+"用于表示某作品中包含了另一作品的歌词片段。大多数情况下，这种引用是未标注出处"
+"的，但这并不是硬性要求。如果某作品中大量使用了另一作品的内容而不仅仅是简短的"
+"引用，建议使用\"基于\"关系类型。"
 
 #. name:musical quotation
 #: DB:link_type/description:1046
@@ -3138,6 +3086,9 @@ msgid ""
 "requirement. For a work that includes significantly more of another than "
 "just a brief quotation, consider using “based on” instead."
 msgstr ""
+"用于表示某作品中包含了另一作品的音乐片段。大多数情况下，这种引用是未标注出处"
+"的，但这并不是硬性要求。如果某作品中大量使用了另一作品的内容而不仅仅是简短的"
+"引用，建议使用\"基于\"关系类型。"
 
 #. name:discography entry
 #: DB:link_type/description:1169
@@ -3145,7 +3096,8 @@ msgid ""
 "This link points to a page for a particular release group within a "
 "discography for an artist or label. If the page is for a particular release, "
 "prefer the release level relationship."
-msgstr ""
+msgstr "此链接指向艺术家或唱片厂牌的唱片目录中的某个发行组的页面。如果页面是针对某个"
+"特定发行，请优先使用发行级别的关系类型。"
 
 #. name:discography entry
 #: DB:link_type/description:288
@@ -3178,163 +3130,169 @@ msgid ""
 "includes remixed versions of all (or most of) the tracks in the other "
 "release group."
 msgstr ""
+"此链接将一个<a href=\"/doc/Mix_Terminology#remix\">混音</a>发行组与源发行组相"
+"连，用于表明该发行组包含另一个发行组中所有（或大部分）曲目的混音版本。"
 
 #. name:remix
 #: DB:link_type/description:230
 msgid ""
 "This links a <a href=\"/doc/Mix_Terminology#remix\">remixed</a> recording to "
 "the source recording."
-msgstr ""
+msgstr "此链接将一个<a href=\"/doc/Mix_Terminology#remix\">混音</a>录音与源录音相连。"
 
 #. name:amazon asin
 #: DB:link_type/description:77
 msgid "This links a MusicBrainz release to the equivalent entry at Amazon."
-msgstr ""
+msgstr "此链接将一个 MusicBrainz 上的发行与亚马逊上的对应条目相连。"
 
 #. name:tour in support of
 #: DB:link_type/description:888
 msgid ""
 "This links a concert tour with a release group (generally an album) the tour "
 "is connected with."
-msgstr ""
+msgstr "此链接将一场演唱会巡演与一个发行组（通常是专辑）相连，表示该巡演与该发行组有"
+"关联。"
 
 #. name:bandcamp
 #: DB:link_type/description:1092
 msgid "This links a genre to its page at Bandcamp."
-msgstr ""
+msgstr "此链接将一个音乐流派与其在 Bandcamp 上的页面相连。"
 
 #. name:subgenre
 #: DB:link_type/description:1095
 msgid "This links a genre to its subgenres."
-msgstr ""
+msgstr "此链接将一个音乐流派与其子流派相连。"
 
 #. name:composer-in-residence
 #: DB:link_type/description:855
 msgid ""
 "This links a group (often an orchestra) to a composer who has a composer-in-"
 "residence position with the group."
-msgstr ""
+msgstr "此链接将一个团体（通常是乐团）与担任该团体驻团作曲家的作曲家相连。"
 
 #. name:video channel
 #: DB:link_type/description:304
 msgid ""
 "This links a label to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
-msgstr ""
+msgstr "此链接将一个唱片厂牌与视频分享网站上的频道、播放列表或用户页面相连，这些页面"
+"由该厂牌策划并包含其相关的视频内容。"
 
 #. name:fanpage
 #: DB:link_type/description:214
 msgid "This links a label to a fan-created website."
-msgstr ""
+msgstr "此链接将一个唱片厂牌与粉丝创建的网站相连。"
 
 #. name:patronage
 #: DB:link_type/description:899
 msgid ""
 "This links a label to a site where the label can receive donations/"
 "patronage, such as Flattr or PayPal.me."
-msgstr ""
+msgstr "此链接将一个唱片厂牌与可以接收捐赠或赞助的网站相连，例如 Flattr 或 PayPal."
+"me。"
 
 #. name:ticketing
 #: DB:link_type/description:1194
 msgid ""
 "This links a label to a site where tickets can be purchased for their events."
-msgstr ""
+msgstr "此链接将一个唱片厂牌与可以购买其活动门票的网站相连。"
 
 #. name:youtube
 #: DB:link_type/description:225
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links a label to its channel at YouTube."
-msgstr "此链接为艺人的 YouTube Music 频道"
+msgstr "此链接为厂牌的 YouTube Music 频道"
 
 #. name:apple music
 #: DB:link_type/description:1130
 msgid "This links a label to its page at Apple Music."
-msgstr ""
+msgstr "此链接将一个唱片厂牌与该厂牌在 Apple Music 上的页面相连。"
 
 #. name:bandcamp
 #: DB:link_type/description:719
 msgid "This links a label to its page at Bandcamp."
-msgstr ""
+msgstr "此链接将一个唱片厂牌与该厂牌在 Bandcamp 上的页面相连。"
 
 #. name:IMDb
 #: DB:link_type/description:313
 msgid ""
 "This links a label to its page in <a href=\"http://www.imdb.com/\">IMDb</a>."
-msgstr ""
+msgstr "此链接将一个唱片厂牌与该厂牌在<a href=\"http://www.imdb.com/\""
+">IMDb</a>上的页面相连。"
 
 #. name:soundcloud
 #: DB:link_type/description:290
 msgid "This links a label to its profile at SoundCloud."
-msgstr ""
+msgstr "此链接将一个唱片厂牌与该厂牌在 SoundCloud 上的资料页相连。"
 
 #. name:crowdfunding
 #: DB:link_type/description:903
 msgid ""
 "This links a label to their profile at a crowdfunding site like Kickstarter "
 "or Indiegogo."
-msgstr ""
+msgstr "此链接将一个唱片厂牌与该厂牌在众筹网站（如 Kickstarter 或 "
+"Indiegogo）上的资料页相连。"
 
 #. name:composer-in-residence
 #: DB:link_type/description:937
 msgid ""
 "This links a place (often a concert hall or educational institution) to a "
 "composer who has a composer-in-residence position with it."
-msgstr ""
+msgstr "此链接将一个地点（通常是音乐厅或教育机构）与担任该地点驻场作曲家的作曲家相连"
+"。"
 
 #. name:video channel
 #: DB:link_type/description:495
 msgid ""
 "This links a place to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
-msgstr ""
+msgstr "此链接将一个地点与视频分享网站上的频道、播放列表或用户页面相连，这些页面由该"
+"地点策划并包含其相关的视频内容。"
 
 #. name:fanpage
 #: DB:link_type/description:1191
 msgid "This links a place to a fan-created website."
-msgstr ""
+msgstr "此链接将一个地点与粉丝创建的网站相连。"
 
 #. name:patronage
 #: DB:link_type/description:900
 msgid ""
 "This links a place to a site where the place or the organisation behind it "
 "can receive donations/patronage, such as Flattr or PayPal.me."
-msgstr ""
+msgstr "此链接将一个地点与可以接收捐赠或赞助的网站相连，例如 Flattr 或 PayPal.me。"
 
 #. name:ticketing
 #: DB:link_type/description:1195
 msgid ""
 "This links a place to a site where tickets can be purchased for its events."
-msgstr ""
+msgstr "此链接将一个地点与可以购买其活动门票的网站相连。"
 
 #. name:youtube
 #: DB:link_type/description:528
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links a place to its channel at YouTube."
-msgstr "此链接为艺人的 YouTube Music 频道"
+msgstr "此链接将一个地点与该地点在 YouTube 上的频道相连。"
 
 #. name:soundcloud
 #: DB:link_type/description:940
 msgid "This links a place to its profile at SoundCloud."
-msgstr ""
+msgstr "此链接将一个地点与该地点在 SoundCloud 上的资料页相连。"
 
 #. name:crowdfunding
 #: DB:link_type/description:909
 msgid ""
 "This links a place to its profile at a crowdfunding site like Kickstarter or "
 "Indiegogo."
-msgstr ""
+msgstr "此链接将一个地点与该地点在众筹网站（如 Kickstarter 或 "
+"Indiegogo）上的资料页相连。"
 
 #. name:rescheduled as
 #: DB:link_type/description:836
 msgid "This links a postponed event to the later rescheduled event."
-msgstr ""
+msgstr "此链接将一个延期的活动与其后来重新安排的活动相连。"
 
 #. name:license
 #: DB:link_type/description:302
 msgid "This links a recording to a license under which it is available."
-msgstr ""
+msgstr "此链接将一个录音与其可用的许可相连。"
 
 #. name:download for free
 #: DB:link_type/description:255
@@ -3486,6 +3444,83 @@ msgid ""
 "This links a release to the relevant crowdfunding project at a crowdfunding "
 "site like Kickstarter or Indiegogo."
 msgstr "这将专辑指向Kickstarter或者Indiegogo一类众筹网站上的众筹项目。"
+
+#. name:arranged in
+#: DB:link_type/description:1274
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was arranged in. Use only when the place "
+#| "is unknown!"
+msgid ""
+"This links a release with the area it was arranged in. Use only when the "
+"place is unknown!"
+msgstr "将专辑链接到编曲地区。仅在具体地点未知时使用！"
+
+#. name:composed in
+#: DB:link_type/description:1269
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was mixed in. Use only when the place is "
+#| "unknown!"
+msgid ""
+"This links a release with the area it was composed in. Use only when the "
+"place is unknown!"
+msgstr "将专辑链接到混音地区。仅在具体地点未知时使用！"
+
+#. name:revised in
+#: DB:link_type/description:1272
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was remixed in. Use only when the place is "
+#| "unknown!"
+msgid ""
+"This links a release with the area it was revised in. Use only when the "
+"place is unknown!"
+msgstr "将专辑链接到重混音地区。仅在具体地点未知时使用！"
+
+#. name:translated in
+#: DB:link_type/description:1273
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was arranged in. Use only when the place "
+#| "is unknown!"
+msgid ""
+"This links a release with the area it was translated in. Use only when the "
+"place is unknown!"
+msgstr "将专辑链接到编曲地区。仅在具体地点未知时使用！"
+
+#. name:written in
+#: DB:link_type/description:1268
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was edited in. Use only when the place is "
+#| "unknown!"
+msgid ""
+"This links a release with the area it was written in. Use only when the "
+"place is unknown!"
+msgstr "将专辑链接到编辑地区。仅在具体地点未知时使用！"
+
+#. name:libretto written in
+#: DB:link_type/description:1271
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was edited in. Use only when the place is "
+#| "unknown!"
+msgid ""
+"This links a release with the area its libretto was written in. Use only "
+"when the place is unknown!"
+msgstr "将专辑链接到编辑地区。仅在具体地点未知时使用！"
+
+#. name:lyrics written in
+#: DB:link_type/description:1270
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was edited in. Use only when the place is "
+#| "unknown!"
+msgid ""
+"This links a release with the area its lyrics were written in. Use only when "
+"the place is unknown!"
+msgstr "将专辑链接到编辑地区。仅在具体地点未知时使用！"
 
 #. name:arranged at
 #: DB:link_type/description:865
@@ -5217,7 +5252,8 @@ msgstr "编曲，在"
 msgid "arranged for"
 msgstr "编曲，为"
 
-#: DB:link_type/name:863 DB:link_type/name:885 DB:link_type/name:864
+#: DB:link_type/name:1274 DB:link_type/name:863 DB:link_type/name:885
+#: DB:link_type/name:864
 msgid "arranged in"
 msgstr "编曲，在"
 
@@ -5654,7 +5690,7 @@ msgstr ""
 msgid "composed at"
 msgstr "作曲地"
 
-#: DB:link_type/name:875
+#: DB:link_type/name:875 DB:link_type/name:1269
 msgid "composed in"
 msgstr "作曲地"
 
@@ -5742,12 +5778,6 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1227
 msgid "contemporary music"
-msgstr ""
-
-#. name:contract
-#: DB:link_type/name:119 DB:link_type/link_phrase:119
-#: DB:link_type/reverse_link_phrase:119 DB:link_type/long_link_phrase:119
-msgid "contract"
 msgstr ""
 
 #. name:arranged for
@@ -5916,6 +5946,10 @@ msgstr ""
 #. name:dedicated to
 #: DB:link_type/link_phrase:868
 msgid "dedications"
+msgstr ""
+
+#: DB:link_attribute_type/name:1417
+msgid "demo"
 msgstr ""
 
 #: DB:link_type/name:737
@@ -6116,6 +6150,18 @@ msgstr "电子音乐"
 
 #: DB:link_attribute_type/name:617
 msgid "emeritus"
+msgstr ""
+
+#. name:position at
+#: DB:link_type/link_phrase:119
+#, fuzzy
+#| msgid "voiced by"
+msgid "employed by"
+msgstr "配音演员"
+
+#. name:position at
+#: DB:link_type/reverse_link_phrase:119
+msgid "employees"
 msgstr ""
 
 #: DB:link_type/name:1084 DB:link_type/name:28 DB:link_type/name:138
@@ -7287,7 +7333,7 @@ msgstr "是{step:继}父母，对于"
 #: DB:link_type/long_link_phrase:278
 msgid ""
 "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
-"a} {partial} {instrumental} {cover} {karaoke} recording of"
+"a} {partial} {instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
 
 #. name:subgroup
@@ -7466,7 +7512,7 @@ msgstr ""
 msgid "libretto written at"
 msgstr ""
 
-#: DB:link_type/name:879
+#: DB:link_type/name:879 DB:link_type/name:1271
 msgid "libretto written in"
 msgstr ""
 
@@ -7476,7 +7522,7 @@ msgid "libretto {additional:additionally} written at"
 msgstr ""
 
 #. name:libretto written in
-#: DB:link_type/reverse_link_phrase:879
+#: DB:link_type/reverse_link_phrase:879 DB:link_type/reverse_link_phrase:1271
 msgid "libretto {additional:additionally} written in"
 msgstr ""
 
@@ -7597,7 +7643,7 @@ msgstr ""
 msgid "lyrics written at"
 msgstr "歌词作于某地点"
 
-#: DB:link_type/name:877
+#: DB:link_type/name:877 DB:link_type/name:1270
 msgid "lyrics written in"
 msgstr "歌词作于某地"
 
@@ -8354,6 +8400,12 @@ msgstr ""
 msgid "popular / rock music"
 msgstr "流行 / 摇滚音乐"
 
+#: DB:link_type/name:119
+#, fuzzy
+#| msgid "engineer position at"
+msgid "position at"
+msgstr "以工程师职位任职于"
+
 #. name:poster
 #: DB:link_type/name:808 DB:link_type/link_phrase:808
 msgid "poster"
@@ -8531,6 +8583,18 @@ msgstr "制作人"
 #: DB:link_type/long_link_phrase:72
 msgid "production"
 msgstr "制作"
+
+#. name:production coordinator
+#: DB:link_type/name:1267 DB:link_type/reverse_link_phrase:1267
+#, fuzzy
+#| msgid "production"
+msgid "production coordinator"
+msgstr "制作"
+
+#. name:production coordinator
+#: DB:link_type/link_phrase:1267
+msgid "production coordinator for"
+msgstr ""
 
 #: DB:link_type/name:37 DB:link_type/name:132
 msgid "programming"
@@ -8967,13 +9031,14 @@ msgid "revised by"
 msgstr ""
 
 #. name:revised in
-#: DB:link_type/name:881 DB:link_type/reverse_link_phrase:881
+#: DB:link_type/name:881 DB:link_type/name:1272
+#: DB:link_type/reverse_link_phrase:881 DB:link_type/reverse_link_phrase:1272
 msgid "revised in"
 msgstr "修订于"
 
 #. name:revised at, name:revised in
 #: DB:link_type/link_phrase:881 DB:link_type/link_phrase:882
-#: DB:link_type/link_phrase:1248
+#: DB:link_type/link_phrase:1272 DB:link_type/link_phrase:1248
 msgid "revising location for"
 msgstr ""
 
@@ -9434,13 +9499,11 @@ msgstr ""
 msgid "translated"
 msgstr "翻译"
 
-#. name:translated at
-#: DB:link_type/name:883 DB:link_type/name:1247
-#: DB:link_type/reverse_link_phrase:883 DB:link_type/reverse_link_phrase:1247
+#: DB:link_type/name:1247 DB:link_type/name:883
 msgid "translated at"
 msgstr "翻译于某地点"
 
-#: DB:link_type/name:884
+#: DB:link_type/name:884 DB:link_type/name:1273
 msgid "translated in"
 msgstr "翻译于某地"
 
@@ -9678,6 +9741,11 @@ msgstr "的唱片条目"
 msgid "was commissioned by"
 msgstr ""
 
+#. name:position at
+#: DB:link_type/long_link_phrase:119
+msgid "was employed by"
+msgstr ""
+
 #. name:held at
 #: DB:link_type/long_link_phrase:794
 msgid "was held at"
@@ -9706,6 +9774,11 @@ msgstr ""
 #. name:rescheduled as
 #: DB:link_type/long_link_phrase:836
 msgid "was rescheduled as"
+msgstr ""
+
+#. name:production coordinator
+#: DB:link_type/long_link_phrase:1267
+msgid "was the production coordinator for"
 msgstr ""
 
 #. name:concertmaster
@@ -9822,7 +9895,7 @@ msgstr "作者"
 msgid "written at"
 msgstr ""
 
-#: DB:link_type/name:873
+#: DB:link_type/name:873 DB:link_type/name:1268
 msgid "written in"
 msgstr ""
 
@@ -9839,14 +9912,14 @@ msgstr "youtube music"
 #: DB:link_type/link_phrase:278
 msgid ""
 "{acappella:a cappella} {live} {medley:medley including a} {partial} "
-"{instrumental} {cover} {karaoke} recording of"
+"{instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
 
 #. name:performance
 #: DB:link_type/reverse_link_phrase:278
 msgid ""
 "{acappella:a cappella} {live} {medley:medleys including} {partial} "
-"{instrumental} {cover} {karaoke} recordings"
+"{instrumental} {cover} {karaoke} {demo} recordings"
 msgstr ""
 
 #. name:arranged at
@@ -9856,8 +9929,8 @@ msgid "{additional:additionally} arranged at"
 msgstr ""
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:863 DB:link_type/reverse_link_phrase:885
-#: DB:link_type/reverse_link_phrase:864
+#: DB:link_type/reverse_link_phrase:1274 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr ""
 
@@ -9873,7 +9946,7 @@ msgid "{additional:additionally} composed at"
 msgstr ""
 
 #. name:composed in
-#: DB:link_type/reverse_link_phrase:875
+#: DB:link_type/reverse_link_phrase:875 DB:link_type/reverse_link_phrase:1269
 msgid "{additional:additionally} composed in"
 msgstr ""
 
@@ -9980,8 +10053,15 @@ msgstr ""
 msgid "{additional:additionally} translated"
 msgstr ""
 
+#. name:translated at
+#: DB:link_type/reverse_link_phrase:1247 DB:link_type/reverse_link_phrase:883
+#, fuzzy
+#| msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
+msgid "{additional:additionally} translated at"
+msgstr "{additional:额外}{assistant:助理}{associate:联合}{co:共同}母带处理"
+
 #. name:translated in
-#: DB:link_type/reverse_link_phrase:884
+#: DB:link_type/reverse_link_phrase:884 DB:link_type/reverse_link_phrase:1273
 msgid "{additional:additionally} translated in"
 msgstr ""
 
@@ -9991,7 +10071,7 @@ msgid "{additional:additionally} written at"
 msgstr ""
 
 #. name:written in
-#: DB:link_type/reverse_link_phrase:873
+#: DB:link_type/reverse_link_phrase:873 DB:link_type/reverse_link_phrase:1268
 msgid "{additional:additionally} written in"
 msgstr ""
 
@@ -10157,9 +10237,10 @@ msgid "{additional} animation"
 msgstr "额外"
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:863
-#: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
-#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
+#: DB:link_type/link_phrase:1274 DB:link_type/link_phrase:865
+#: DB:link_type/link_phrase:863 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:866
+#: DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr ""
 
@@ -10187,8 +10268,8 @@ msgstr ""
 msgid "{additional} composing location for"
 msgstr ""
 
-#. name:composed at
-#: DB:link_type/link_phrase:1251
+#. name:composed at, name:composed in
+#: DB:link_type/link_phrase:1269 DB:link_type/link_phrase:1251
 #, fuzzy
 #| msgid "additional"
 msgid "{additional} composition location for"
@@ -10257,14 +10338,21 @@ msgstr ""
 
 #. name:libretto written at, name:libretto written in
 #: DB:link_type/link_phrase:879 DB:link_type/link_phrase:880
-#: DB:link_type/link_phrase:1249
+#: DB:link_type/link_phrase:1271 DB:link_type/link_phrase:1249
 msgid "{additional} libretto writing location for"
 msgstr ""
 
 #. name:liner notes
-#: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
+#: DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
 msgstr ""
+
+#. name:liner notes
+#: DB:link_type/link_phrase:24
+#, fuzzy
+#| msgid "additional"
+msgid "{additional} liner notes {translator} for"
+msgstr "额外"
 
 #. name:lyricist
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
@@ -10278,7 +10366,7 @@ msgstr ""
 
 #. name:lyrics written at, name:lyrics written in
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
-#: DB:link_type/link_phrase:1250
+#: DB:link_type/link_phrase:1270 DB:link_type/link_phrase:1250
 msgid "{additional} lyrics writing location for"
 msgstr ""
 
@@ -10288,7 +10376,7 @@ msgid "{additional} lyrics written at"
 msgstr ""
 
 #. name:lyrics written in
-#: DB:link_type/reverse_link_phrase:877
+#: DB:link_type/reverse_link_phrase:877 DB:link_type/reverse_link_phrase:1270
 msgid "{additional} lyrics written in"
 msgstr ""
 
@@ -10356,8 +10444,8 @@ msgid "{additional} transferring location for"
 msgstr ""
 
 #. name:translated at, name:translated in
-#: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
-#: DB:link_type/link_phrase:1247
+#: DB:link_type/link_phrase:884 DB:link_type/link_phrase:1273
+#: DB:link_type/link_phrase:1247 DB:link_type/link_phrase:883
 msgid "{additional} translating location for"
 msgstr ""
 
@@ -10373,7 +10461,7 @@ msgstr ""
 
 #. name:written at, name:written in
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
-#: DB:link_type/link_phrase:1246
+#: DB:link_type/link_phrase:1268 DB:link_type/link_phrase:1246
 msgid "{additional} writing location for"
 msgstr ""
 
@@ -10932,7 +11020,7 @@ msgid "{entity1} was revised at {entity0}"
 msgstr ""
 
 #. name:revised in
-#: DB:link_type/long_link_phrase:881
+#: DB:link_type/long_link_phrase:881 DB:link_type/long_link_phrase:1272
 msgid "{entity1} was revised in {entity0}"
 msgstr ""
 
@@ -10943,8 +11031,8 @@ msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr ""
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:863 DB:link_type/long_link_phrase:885
-#: DB:link_type/long_link_phrase:864
+#: DB:link_type/long_link_phrase:1274 DB:link_type/long_link_phrase:863
+#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr ""
 
@@ -10954,7 +11042,7 @@ msgid "{entity1} was {additional:additionally} composed at {entity0}"
 msgstr ""
 
 #. name:composed in
-#: DB:link_type/long_link_phrase:875
+#: DB:link_type/long_link_phrase:875 DB:link_type/long_link_phrase:1269
 msgid "{entity1} was {additional:additionally} composed in {entity0}"
 msgstr ""
 
@@ -11044,12 +11132,12 @@ msgid "{entity1} was {additional:additionally} transferred in {entity0}"
 msgstr "{entity1}的歌剧剧本由{entity0}{additional:额外}撰写"
 
 #. name:translated at
-#: DB:link_type/long_link_phrase:883 DB:link_type/long_link_phrase:1247
+#: DB:link_type/long_link_phrase:1247 DB:link_type/long_link_phrase:883
 msgid "{entity1} was {additional:additionally} translated at {entity0}"
 msgstr ""
 
 #. name:translated in
-#: DB:link_type/long_link_phrase:884
+#: DB:link_type/long_link_phrase:884 DB:link_type/long_link_phrase:1273
 msgid "{entity1} was {additional:additionally} translated in {entity0}"
 msgstr ""
 
@@ -11059,7 +11147,7 @@ msgid "{entity1} was {additional:additionally} written at {entity0}"
 msgstr ""
 
 #. name:written in
-#: DB:link_type/long_link_phrase:873
+#: DB:link_type/long_link_phrase:873 DB:link_type/long_link_phrase:1268
 msgid "{entity1} was {additional:additionally} written in {entity0}"
 msgstr ""
 
