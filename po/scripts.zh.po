@@ -1,19 +1,20 @@
 #
 # Translators:
 # xuanqidongjim <xuanqidongjim@gmail.com>, 2023.
+# KenParker_CN <peekabookenny@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-12-29 21:28+0000\n"
-"Last-Translator: xuanqidongjim <xuanqidongjim@gmail.com>\n"
-"Language-Team: Chinese (Simplified) <https://translations.metabrainz.org/"
-"projects/musicbrainz/scripts/zh_Hans/>\n"
+"PO-Revision-Date: 2024-11-15 16:42+0000\n"
+"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://translations."
+"metabrainz.org/projects/musicbrainz/scripts/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
@@ -128,22 +129,22 @@ msgstr "奇尔斯文"
 #. frequency:1 iso_code:Zinh
 #: DB:script/name:159
 msgid "Code for inherited script"
-msgstr ""
+msgstr "继承脚本的代码"
 
 #. frequency:1 iso_code:Zzzz
 #: DB:script/name:130
 msgid "Code for uncoded script"
-msgstr ""
+msgstr "未编码脚本的代码"
 
 #. frequency:1 iso_code:Zyyy
 #: DB:script/name:129
 msgid "Code for undetermined script"
-msgstr ""
+msgstr "未确定脚本的代码"
 
 #. frequency:1 iso_code:Zxxx
 #: DB:script/name:128
 msgid "Code for unwritten documents"
-msgstr ""
+msgstr "未编写文档的代码"
 
 #. frequency:2 iso_code:Copt
 #: DB:script/name:23

@@ -751,19 +751,16 @@ msgstr ""
 "mots sont habituellement choisis pour leur sonorité et pour les images et "
 "les idées qu’ils suggèrent."
 
-#. name:Withdrawn
-#: DB:release_status/description:5
+#. name:Expunged
+#: DB:release_status/description:38
 msgctxt "release_status"
 msgid ""
-"A previously official release that was actively withdrawn from circulation "
-"by the artist and/or their record company after being released, whether to "
-"replace it with a new version with some changes or to just retire it "
-"altogether (e.g. because of legal issues)."
+"A previously official release that was actively expunged from an artist or "
+"records company’s discography. This should not be used in cases where the "
+"release was just withdrawn, there needs to be known artist or label intent "
+"to disown the release and no longer consider it part of their discography. "
+"If it is unclear, use Withdrawn."
 msgstr ""
-"Une parution précédemment officielle qui a été activement retirée de la "
-"circulation par l’artiste ou la maison de disques après sa parution, qu’elle "
-"soit remplacée par une nouvelle version avec des changements ou qu’elle soit "
-"simplement retirée (par exemple pour des problèmes de droit)."
 
 #. name:Demo
 #: DB:release_group_secondary_type/description:10
@@ -1545,6 +1542,28 @@ msgctxt "release_group_secondary_type"
 msgid "An interview release contains an interview, generally with an artist."
 msgstr ""
 "Une parution d'entrevue contient une entrevue, généralement avec un artiste."
+
+#. name:Withdrawn
+#: DB:release_status/description:5
+#, fuzzy
+#| msgctxt "release_status"
+#| msgid ""
+#| "A previously official release that was actively withdrawn from "
+#| "circulation by the artist and/or their record company after being "
+#| "released, whether to replace it with a new version with some changes or "
+#| "to just retire it altogether (e.g. because of legal issues)."
+msgctxt "release_status"
+msgid ""
+"An official release that was actively withdrawn from circulation by the "
+"artist and/or their record company after being released, whether to replace "
+"it with a new version or to retire it altogether. This does not include "
+"releases that have reached the end of their “natural” life cycle, such as "
+"being sold out and out of print."
+msgstr ""
+"Une parution précédemment officielle qui a été activement retirée de la "
+"circulation par l’artiste ou la maison de disques après sa parution, qu’elle "
+"soit remplacée par une nouvelle version avec des changements ou qu’elle soit "
+"simplement retirée (par exemple pour des problèmes de droit)."
 
 #. name:Metal Tin
 #: DB:release_packaging/description:54
@@ -3409,6 +3428,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Evsat"
 msgstr "Evsat"
 
+#: DB:release_status/name:38
+msgctxt "release_status"
+msgid "Expunged"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:614
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ezan"
@@ -4649,6 +4673,15 @@ msgstr "ID pour la GMR, société états-unienne de gestion des droits"
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society SESAC"
 msgstr "ID pour la SESAC, société états-unienne de gestion des droits"
+
+#. name:UACRR ID
+#: DB:work_attribute_type/description:209
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Brazilian rights society ECAD"
+msgctxt "work_attribute_type"
+msgid "ID for the Ukrainian rights society UACRR"
+msgstr "ID pour l’ECAD, société brésilienne de gestion des droits"
 
 #. name:AGADU ID
 #: DB:work_attribute_type/description:43
@@ -6658,6 +6691,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Pahāḍi"
 msgstr "Pahâdi"
 
+#: DB:cover_art_archive.art_type/name:81
+msgctxt "cover_art_type"
+msgid "Panel"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:839
 msgctxt "work_attribute_type_allowed_value"
 msgid "Pan̄cam savārī"
@@ -8308,6 +8346,14 @@ msgstr ""
 "des emballages à six faces, celle qui est perpendiculaire à et en-dessous du "
 "devant, du derrière, et de la tranche)."
 
+#. name:Panel
+#: DB:cover_art_archive.art_type/description:81
+msgctxt "cover_art_type"
+msgid ""
+"The individual segments of a folded packaging, such as a gatefold cover, "
+"digipak or cassette inlay (don't use this for folded booklets nor posters)."
+msgstr ""
+
 #. name:Madrigal
 #: DB:work_type/description:7
 msgctxt "work_type"
@@ -8603,6 +8649,11 @@ msgstr "Tôdi"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tōḍī"
 msgstr "Tôdî"
+
+#: DB:work_attribute_type/name:209
+msgctxt "work_attribute_type"
+msgid "UACRR ID"
+msgstr ""
 
 #: DB:medium_format/name:28
 msgctxt "medium_format"
