@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-07-29 00:42+0000\n"
+"PO-Revision-Date: 2024-11-18 16:42+0000\n"
 "Last-Translator: \"ApeKattQuest, MonkeyPython\" <monkeypython+inst@yepmail."
 "net>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -5587,26 +5587,26 @@ msgstr ""
 #: DB:link_type/name:361 DB:link_type/link_phrase:361
 #: DB:link_type/long_link_phrase:361
 msgid "distributed"
-msgstr ""
+msgstr "distribuert"
 
 #. name:distributed
 #: DB:link_type/reverse_link_phrase:361
 msgid "distributed by"
-msgstr ""
+msgstr "distribuert av"
 
 #. name:label distribution
 #: DB:link_type/link_phrase:203
 msgid "distributor for"
-msgstr ""
+msgstr "distributør for"
 
 #. name:label distribution
 #: DB:link_type/reverse_link_phrase:203
 msgid "distributors"
-msgstr ""
+msgstr "distributører"
 
 #: DB:link_attribute_type/name:1139
 msgid "doctoral degree"
-msgstr ""
+msgstr "doktorgrad"
 
 #. name:instrumental supporting musician
 #: DB:link_type/long_link_phrase:105
@@ -5628,7 +5628,7 @@ msgstr "last ned gratis"
 #. name:download for free
 #: DB:link_type/link_phrase:958 DB:link_type/link_phrase:177
 msgid "download music for free"
-msgstr ""
+msgstr "last ned musikken gratis"
 
 #. name:purchase for download
 #: DB:link_type/reverse_link_phrase:959 DB:link_type/reverse_link_phrase:254
@@ -5644,16 +5644,16 @@ msgstr ""
 #. name:download for free
 #: DB:link_type/reverse_link_phrase:274
 msgid "download score for free"
-msgstr ""
+msgstr "last ned noter gratis"
 
 #. name:first track release
 #: DB:link_type/reverse_link_phrase:238
 msgid "earliest release"
-msgstr ""
+msgstr "første utgivelse"
 
 #: DB:link_attribute_type/name:1131
 msgid "early music"
-msgstr ""
+msgstr "tidlig musikk"
 
 #: DB:link_type/name:309
 msgid "edit"
@@ -5666,17 +5666,17 @@ msgstr ""
 
 #: DB:link_type/name:819 DB:link_type/name:820
 msgid "edited at"
-msgstr ""
+msgstr "redigert ved"
 
 #. name:edited for
 #: DB:link_type/name:1252 DB:link_type/name:1253
 #: DB:link_type/reverse_link_phrase:1252 DB:link_type/reverse_link_phrase:1253
 msgid "edited for"
-msgstr ""
+msgstr "redigert for"
 
 #: DB:link_type/name:822 DB:link_type/name:821
 msgid "edited in"
-msgstr ""
+msgstr "redigert i"
 
 #. name:booklet editor
 #: DB:link_type/long_link_phrase:929
@@ -5717,26 +5717,26 @@ msgstr "emeritus"
 #. name:position at
 #: DB:link_type/link_phrase:119
 msgid "employed by"
-msgstr ""
+msgstr "ansatt av"
 
 #. name:position at
 #: DB:link_type/reverse_link_phrase:119
 msgid "employees"
-msgstr ""
+msgstr "ansatte"
 
 #: DB:link_type/name:1084 DB:link_type/name:28 DB:link_type/name:138
 msgid "engineer"
-msgstr ""
+msgstr "ingeniør"
 
 #. name:engineer position at
 #: DB:link_type/name:701 DB:link_type/link_phrase:120
 msgid "engineer position"
-msgstr ""
+msgstr "ingeniørposisjon"
 
 #. name:engineer position
 #: DB:link_type/name:120 DB:link_type/link_phrase:701
 msgid "engineer position at"
-msgstr ""
+msgstr "ingeniørposisjon ved"
 
 #: DB:link_type/name:813 DB:link_type/name:812
 msgid "engineered at"
@@ -5749,7 +5749,7 @@ msgstr ""
 #. name:engineer position, name:engineer position at
 #: DB:link_type/reverse_link_phrase:701 DB:link_type/reverse_link_phrase:120
 msgid "engineers"
-msgstr ""
+msgstr "ingeniører"
 
 #: DB:link_attribute_type/name:1094
 msgid "eponymous"
@@ -5764,12 +5764,12 @@ msgstr "arrangementsartister"
 #. name:excerpt from
 #: DB:link_type/name:1240 DB:link_type/link_phrase:1240
 msgid "excerpt from"
-msgstr ""
+msgstr "utdrag fra"
 
 #. name:excerpt from
 #: DB:link_type/reverse_link_phrase:1240
 msgid "excerpts"
-msgstr ""
+msgstr "utdrag"
 
 #: DB:link_attribute_type/name:425
 msgid "executive"
@@ -5815,7 +5815,7 @@ msgstr ""
 #. name:field recordist
 #: DB:link_type/reverse_link_phrase:1011 DB:link_type/reverse_link_phrase:1012
 msgid "field recordings"
-msgstr ""
+msgstr "feltopptak"
 
 #: DB:link_type/name:1011 DB:link_type/name:1012
 msgid "field recordist"
@@ -5828,7 +5828,7 @@ msgstr ""
 
 #: DB:link_type/name:238
 msgid "first track release"
-msgstr ""
+msgstr "første sporutgivelse"
 
 #: DB:link_attribute_type/name:1133
 msgid "folk music"
@@ -5839,6 +5839,7 @@ msgstr "folkemusikk"
 #: DB:link_type/link_phrase:895 DB:link_type/link_phrase:1004
 #: DB:link_type/long_link_phrase:832 DB:link_type/long_link_phrase:116
 #: DB:link_type/long_link_phrase:895 DB:link_type/long_link_phrase:1004
+#, fuzzy
 msgid "founded"
 msgstr "grunnla"
 
@@ -5871,12 +5872,12 @@ msgstr ""
 #. name:free streaming
 #: DB:link_type/reverse_link_phrase:997 DB:link_type/reverse_link_phrase:194
 msgid "free music streaming page for"
-msgstr ""
+msgstr "gratis musikkstrømmingsside for"
 
 #. name:free streaming
 #: DB:link_type/reverse_link_phrase:268 DB:link_type/reverse_link_phrase:85
 msgid "free music {video} streaming page for"
-msgstr ""
+msgstr "gratis musikk{video}strømmingsside for"
 
 #: DB:link_type/name:997 DB:link_type/name:268 DB:link_type/name:85
 #: DB:link_type/name:194
@@ -5895,7 +5896,7 @@ msgstr "fusjon av"
 
 #: DB:link_type/name:1088
 msgid "genre origin"
-msgstr ""
+msgstr "sjangeropprinnelse"
 
 #. name:genre origin
 #: DB:link_type/link_phrase:1088
@@ -5923,7 +5924,7 @@ msgstr "få tak i musikken"
 #: DB:link_type/name:911 DB:link_type/link_phrase:911
 #: DB:link_type/reverse_link_phrase:911 DB:link_type/long_link_phrase:911
 msgid "get the score"
-msgstr ""
+msgstr "få tak i notene"
 
 #. name:glass mastered
 #: DB:link_type/name:955 DB:link_type/link_phrase:955
@@ -5982,7 +5983,7 @@ msgstr "hadde en uspesifisert rolle på"
 #. name:producer position at
 #: DB:link_type/long_link_phrase:117
 msgid "had a producer position at"
-msgstr ""
+msgstr "hadde en produsentposisjon på"
 
 #. name:recording contract
 #: DB:link_type/long_link_phrase:121
@@ -5997,7 +5998,7 @@ msgstr ""
 #. name:engineer position at
 #: DB:link_type/long_link_phrase:120
 msgid "had an engineer position at"
-msgstr ""
+msgstr "hadde en ingeniørposisjon ved"
 
 #. name:executive position at
 #: DB:link_type/long_link_phrase:1266
@@ -6027,7 +6028,7 @@ msgstr "har Amazon ASIN"
 #. name:apple music
 #: DB:link_type/long_link_phrase:1131 DB:link_type/long_link_phrase:1130
 msgid "has Apple Music page at"
-msgstr ""
+msgstr "har ei Apple Music side på"
 
 #. name:bandcamp
 #: DB:link_type/long_link_phrase:1092 DB:link_type/long_link_phrase:718
@@ -6038,7 +6039,7 @@ msgstr "har Bandcampside på"
 #. name:CD Baby
 #: DB:link_type/long_link_phrase:919
 msgid "has CD Baby page at"
-msgstr ""
+msgstr "har ei CD Baby side på"
 
 #. name:VIAF
 #: DB:link_type/long_link_phrase:311 DB:link_type/long_link_phrase:310
@@ -6049,12 +6050,12 @@ msgstr ""
 #. name:youtube music
 #: DB:link_type/long_link_phrase:1080
 msgid "has YouTube Music channel at"
-msgstr ""
+msgstr "har en YouTube musikkanal på"
 
 #. name:BBC Music page
 #: DB:link_type/long_link_phrase:190
 msgid "has a BBC Music page at"
-msgstr ""
+msgstr "har ei BBC Music side på"
 
 #. name:bandsintown
 #: DB:link_type/long_link_phrase:861 DB:link_type/long_link_phrase:862
