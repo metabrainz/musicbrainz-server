@@ -536,6 +536,7 @@ sub _find_areas
 
     my @area_ids = map { $_->[1] } @$rows;
     my $areas = $self->c->model('Area')->get_by_ids(@area_ids);
+    $self->c->model('Area')->load_aliases(values %$areas);
 
     for my $row (@$rows) {
         my ($event_id, $area_id, $credit) = @$row;

@@ -13,6 +13,7 @@ import * as React from 'react';
 
 import type {ReleaseEditorTrackT} from '../../release-editor/types.js';
 import isGreyedOut from '../../url/utility/isGreyedOut.js';
+import {AREA_TYPE_COUNTRY} from '../constants.js';
 import commaOnlyList from '../i18n/commaOnlyList.js';
 import localizeAreaName from '../i18n/localizeAreaName.js';
 import localizeInstrumentName from '../i18n/localizeInstrumentName.js';
@@ -188,7 +189,10 @@ component EntityLink(
   // $FlowIgnore[prop-missing]
   const comment = nonEmpty(entity.comment) ? ko.unwrap(entity.comment) : '';
   const entityName = ko.unwrap(entity.name);
-  const primaryAlias = (entity.entityType !== 'instrument' &&
+  const isCountryArea = entity.entityType === 'area' &&
+                        entity.typeID === AREA_TYPE_COUNTRY;
+  const primaryAlias = (!isCountryArea &&
+                        entity.entityType !== 'instrument' &&
                         entity.entityType !== 'track' &&
                         nonEmpty(entity.primaryAlias) &&
                         entity.primaryAlias !== entityName)

@@ -414,8 +414,9 @@ Readonly our @ENTITIES_WITH_SIMPLE_TYPES => entities_with(['type', 'simple']);
 sub schema_fixup_type {
     my ($self, $data, $type) = @_;
     if (defined $data->{type} && contains_string(\@ENTITIES_WITH_SIMPLE_TYPES, $type)) {
-        my $model = 'MusicBrainz::Server::Entity::' . type_to_model($type) . 'Type';
-        $data->{type} = $model->new( name => $data->{type} );
+        my $model = $self->c->model( type_to_model($type) . 'Type' );
+        $data->{type} = $model->find_by_name($data->{type});
+        $data->{type_id} = $data->{type}->{id};
     }
     return $data;
 }

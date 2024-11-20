@@ -81,6 +81,7 @@ after 'load' => sub {
     my $area = $c->stash->{area};
 
     $c->model('AreaType')->load($area);
+    $c->model('Area')->load_aliases($area);
     $c->model('Area')->load_containment($area);
 };
 
@@ -409,6 +410,7 @@ before qw( create edit ) => sub {
 sub _merge_load_entities
 {
     my ($self, $c, @areas) = @_;
+    $c->model('Area')->load_aliases(@areas);
     $c->model('Area')->load_containment(@areas);
     $c->model('AreaType')->load(@areas);
 }
