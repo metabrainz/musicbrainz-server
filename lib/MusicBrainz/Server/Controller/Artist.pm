@@ -146,7 +146,7 @@ after 'load' => sub
         }
     }
 
-    $c->model('Artist')->load_related_info($artist);
+    $artist_model->load_related_info($artist);
     $c->model('ArtistType')->load(map { $_->target } @{ $artist->relationships_by_type('artist') });
     $c->model('Area')->load_containment($artist->area, $artist->begin_area, $artist->end_area);
 };
