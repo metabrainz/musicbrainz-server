@@ -61,6 +61,7 @@ after 'load' => sub {
     my $event = $c->stash->{event};
 
     my $event_model = $c->model('Event');
+    $event_model->load_aliases($event);
     $event_model->load_meta($event);
     if ($c->user_exists) {
         $event_model->rating->load_user_ratings($c->user->id, $event);
@@ -114,6 +115,7 @@ sub show : PathPart('') Chained('load') {
 
 sub _merge_load_entities {
     my ($self, $c, @events) = @_;
+    $c->model('Event')->load_aliases(@events);
     $c->model('Event')->load_related_info(@events);
 }
 

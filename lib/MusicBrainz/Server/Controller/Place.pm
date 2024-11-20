@@ -129,6 +129,7 @@ sub events : Chained('load')
         $c->model('Event')->find_by_place($c->stash->{place}->id, shift, shift);
     });
     $c->model('Event')->load_related_info(@$events);
+    $c->model('Event')->load_aliases(@$events);
     $c->model('Event')->load_meta(@$events);
     $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
 
