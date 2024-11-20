@@ -93,6 +93,7 @@ after 'load' => sub
     my $label_model = $c->model('Label');
 
     unless ($returning_jsonld) {
+        $label_model->load_aliases($label);
         $label_model->load_meta($label);
 
         if ($c->user_exists) {
@@ -197,6 +198,7 @@ after [qw( show collections details tags ratings aliases subscribers relationshi
 sub _merge_load_entities
 {
     my ($self, $c, @labels) = @_;
+    $c->model('Label')->load_aliases(@labels);
     $c->model('LabelType')->load(@labels);
     $c->model('Area')->load(@labels);
 }

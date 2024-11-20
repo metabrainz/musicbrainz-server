@@ -189,6 +189,7 @@ sub labels : Chained('load')
     $c->model('LabelType')->load(@$labels);
     $c->model('Area')->load(@$labels);
     $c->model('Area')->load_containment(map { $_->{area} } @$labels);
+    $c->model('Label')->load_aliases(@$labels);
     $c->model('Label')->load_meta(@$labels);
     if ($c->user_exists) {
         $c->model('Label')->rating->load_user_ratings($c->user->id, @$labels);
