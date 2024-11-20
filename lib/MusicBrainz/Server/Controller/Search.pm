@@ -124,6 +124,12 @@ sub direct : Private
 
     my @entities = map { $_->entity } @$results;
 
+    my $model = $c->model(type_to_model($type));
+
+    if ($model->can('load_aliases')) {
+        $model->load_aliases(@entities);
+    }
+
     if ($type eq 'artist') {
         $c->model('Artist')->load_related_info(@entities);
     }

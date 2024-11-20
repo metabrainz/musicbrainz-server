@@ -490,7 +490,6 @@ sub load_related_info {
     my ($self, @artists) = @_;
 
     my $c = $self->c;
-    $self->load_aliases(@artists);
     $c->model('ArtistType')->load(@artists);
     $c->model('Gender')->load(@artists);
     $c->model('Area')->load(@artists);

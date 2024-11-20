@@ -128,6 +128,10 @@ sub show : Chained('load') PathPart('') {
         $model->load_related_info(@$entities);
     }
 
+    if ($model->can('load_aliases')) {
+        $model->load_aliases(@$entities);
+    }
+
     if ($model->can('load_meta')) {
         $model->load_meta(@$entities);
     }

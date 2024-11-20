@@ -9,6 +9,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_SERIES_MERGE
 );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( l );
 
@@ -71,32 +72,39 @@ sub show : PathPart('') Chained('load') {
         push @item_numbers, $_->{ordering_key};
     }
 
-    if ($series->type->item_entity_type eq 'artist') {
+    my $entity_type = $series->type->item_entity_type;
+    my $model = $c->model(type_to_model($entity_type));
+
+    if ($model->can('load_aliases')) {
+        $model->load_aliases(@entities);
+    }
+
+    if ($entity_type eq 'artist') {
         $c->model('Artist')->load_related_info(@entities);
         $c->model('Artist')->load_meta(@entities);
         $c->model('Artist')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }
 
-    if ($series->type->item_entity_type eq 'event') {
+    if ($entity_type eq 'event') {
         $c->model('Event')->load_related_info(@entities);
         $c->model('Event')->load_areas(@entities);
         $c->model('Event')->load_meta(@entities);
         $c->model('Event')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }
 
-    if ($series->type->item_entity_type eq 'recording') {
+    if ($entity_type eq 'recording') {
         $c->model('ISRC')->load_for_recordings(@entities);
         $c->model('ArtistCredit')->load(@entities);
         $c->model('Recording')->load_meta(@entities);
         $c->model('Recording')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
     }
 
-    if ($series->type->item_entity_type eq 'release') {
+    if ($entity_type eq 'release') {
         $c->model('Release')->load_related_info(@entities);
         $c->model('ArtistCredit')->load(@entities);
     }
 
-    if ($series->type->item_entity_type eq 'release_group') {
+    if ($entity_type eq 'release_group') {
         $c->model('ArtistCredit')->load(@entities);
         $c->model('ReleaseGroupType')->load(@entities);
         $c->model('ReleaseGroup')->load_meta(@entities);
@@ -104,7 +112,7 @@ sub show : PathPart('') Chained('load') {
         $c->model('ReleaseGroup')->load_has_cover_art(@entities);
     }
 
-    if ($series->type->item_entity_type eq 'work') {
+    if ($entity_type eq 'work') {
         $c->model('Work')->load_related_info(@entities);
         $c->model('Work')->load_meta(@entities);
         $c->model('Work')->rating->load_user_ratings($c->user->id, @entities) if $c->user_exists;
@@ -113,7 +121,7 @@ sub show : PathPart('') Chained('load') {
     my %props = (
         listProps  => {
             entities => to_json_array(\@entities),
-            seriesEntityType => $series->type->item_entity_type,
+            seriesEntityType => $entity_type,
             seriesItemNumbers => \@item_numbers,
         },
         numberOfRevisions => $c->stash->{number_of_revisions},

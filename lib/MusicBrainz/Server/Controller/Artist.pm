@@ -134,6 +134,7 @@ after 'load' => sub
     my $artist_model = $c->model('Artist');
 
     unless ($returning_jsonld) {
+        $artist_model->load_aliases($artist);
         $artist_model->load_meta($artist);
 
         if ($c->user_exists) {
