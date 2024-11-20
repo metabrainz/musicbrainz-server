@@ -200,6 +200,7 @@ sub direct : Private
     }
     elsif ($type eq 'tag') {
         $c->model('Genre')->load(@entities);
+        $c->model('Genre')->load_aliases(map { $_->{genre} // () } @entities);
     }
 
     if ($type =~ /(recording|release|release_group)/)
