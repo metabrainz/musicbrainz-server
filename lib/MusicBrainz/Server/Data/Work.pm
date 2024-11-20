@@ -448,6 +448,7 @@ sub _find_writers
 
     my @artist_ids = map { $_->[1] } @$rows;
     my $artists = $self->c->model('Artist')->get_by_ids(@artist_ids);
+    $self->c->model('Artist')->load_aliases(values %$artists);
 
     for my $row (@$rows) {
         my ($work_id, $artist_id, $credit, $roles) = @$row;

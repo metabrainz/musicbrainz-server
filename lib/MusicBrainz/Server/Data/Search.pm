@@ -771,13 +771,18 @@ sub schema_fixup
             my %relationship_map = partition_by { $_->entity1->gid }
                 @{ $data->{relationships} };
 
+            my $artist_model = $self->c->model('Artist');
             $data->{writers} = [
                 map {
                     my @relationships = @{ $relationship_map{$_} };
+
+                    my $artist = $artist_model->get_by_gid($relationships[0]->{entity1}->{gid});
+                    $artist_model->load_aliases($artist);
+
                     {
                         # TODO: Pass the actual credit when SEARCH-585 is fixed
                         credit => '',
-                        entity => $relationships[0]->entity1,
+                        entity => $artist,
                         roles  => [ map { $_->link->type->name } grep { $_->link->type->entity1_type eq 'artist' } @relationships ],
                     }
                 } grep {
