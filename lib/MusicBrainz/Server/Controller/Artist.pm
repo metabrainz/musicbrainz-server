@@ -254,6 +254,7 @@ sub show : PathPart('') Chained('load')
             );
         });
         $c->model('ArtistCredit')->load(@$recordings);
+        $c->model('Recording')->load_aliases(@$recordings);
         $c->model('Recording')->load_meta(@$recordings);
         $c->model('ISRC')->load_for_recordings(@$recordings);
         if ($c->user_exists) {
@@ -476,6 +477,7 @@ sub recordings : Chained('load')
         });
     }
 
+    $c->model('Recording')->load_aliases(@$recordings);
     $c->model('Recording')->load_meta(@$recordings);
 
     my $release_group_appearances = $c->model('Recording')->appears_on($recordings, 10, 1);

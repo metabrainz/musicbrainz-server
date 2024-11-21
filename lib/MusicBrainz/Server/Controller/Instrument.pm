@@ -113,6 +113,7 @@ sub recordings : Chained('load') {
         $instrument_credits_and_rel_types{$item->{recording}->gid} = \@credits_and_rel_types if @credits_and_rel_types;
     }
 
+    $c->model('Recording')->load_aliases(@recordings);
     $c->model('Recording')->load_meta(@recordings);
 
     if ($c->user_exists) {
