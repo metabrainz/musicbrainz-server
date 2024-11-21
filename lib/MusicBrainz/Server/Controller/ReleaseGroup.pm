@@ -55,6 +55,7 @@ after 'load' => sub {
     my $returning_jsonld = $self->should_return_jsonld($c);
 
     unless ($returning_jsonld) {
+        $c->model('ReleaseGroup')->load_aliases($rg);
         $c->model('ReleaseGroup')->load_meta($rg);
 
         if ($c->user_exists) {
@@ -152,6 +153,7 @@ sub _merge_load_entities
     my ($self, $c, @rgs) = @_;
 
     $c->model('ArtistCredit')->load(@rgs);
+    $c->model('ReleaseGroup')->load_aliases(@rgs);
     $c->model('ReleaseGroup')->load_meta(@rgs);
     $c->model('ReleaseGroupType')->load(@rgs);
 }
