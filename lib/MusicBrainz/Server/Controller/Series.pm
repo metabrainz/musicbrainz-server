@@ -46,6 +46,7 @@ after load => sub {
 
     my $series = $c->stash->{series};
 
+    $c->model('Series')->load_aliases($series);
     $c->model('SeriesType')->load($series);
     $c->model('SeriesOrderingType')->load($series);
 
@@ -150,6 +151,7 @@ sub _merge_load_entities {
     my ($self, $c, @series) = @_;
 
     $c->model('Relationship')->load(@series);
+    $c->model('Series')->load_aliases(@series);
     $c->model('SeriesType')->load(@series);
     $c->model('SeriesOrderingType')->load(@series);
 }
