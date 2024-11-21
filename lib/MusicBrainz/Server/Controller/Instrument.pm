@@ -73,6 +73,7 @@ sub artists : Chained('load') {
         $instrument_credits_and_rel_types{$item->{artist}->gid} = \@credits_and_rel_types if @credits_and_rel_types;
     }
 
+    $c->model('Artist')->load_aliases(@artists);
     $c->model('Artist')->load_meta(@artists);
     $c->model('ArtistType')->load(@artists);
     $c->model('Gender')->load(@artists);
