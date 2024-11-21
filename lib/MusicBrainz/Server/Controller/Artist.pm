@@ -599,6 +599,7 @@ sub releases : Chained('load')
 
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('Release')->load_related_info(@$releases);
+    $c->model('Release')->load_aliases(@$releases);
     $c->model('Release')->load_meta(@$releases);
     $c->stash(
         current_view => 'Node',

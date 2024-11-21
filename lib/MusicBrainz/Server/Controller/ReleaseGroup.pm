@@ -79,6 +79,7 @@ sub show : Chained('load') PathPart('') {
     });
 
     $c->model('Release')->load_related_info(@$releases);
+    $c->model('Release')->load_aliases(@$releases);
     $c->model('Release')->load_meta(@$releases);
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('ReleaseStatus')->load(@$releases);
@@ -165,6 +166,7 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
     my ($releases, undef) = $c->model('Release')->find_by_release_group(
         $entity->id);
     $c->model('Release')->load_related_info(@$releases);
+    $c->model('Release')->load_aliases(@$releases);
     $c->model('Release')->load_meta(@$releases);
     $c->model('ArtistCredit')->load(@$releases);
 
