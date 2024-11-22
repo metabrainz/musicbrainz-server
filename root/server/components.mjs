@@ -256,6 +256,7 @@ export default {
   'report/DuplicateRelationshipsReleases': (): Promise<mixed> => import('../report/DuplicateRelationshipsReleases.js'),
   'report/DuplicateRelationshipsWorks': (): Promise<mixed> => import('../report/DuplicateRelationshipsWorks.js'),
   'report/DuplicateReleaseGroups': (): Promise<mixed> => import('../report/DuplicateReleaseGroups.js'),
+  'report/EmptyReleaseGroups': (): Promise<mixed> => import('../report/EmptyReleaseGroups.js'),
   'report/EventSequenceNotInSeries': (): Promise<mixed> => import('../report/EventSequenceNotInSeries.js'),
   'report/FeaturingRecordings': (): Promise<mixed> => import('../report/FeaturingRecordings.js'),
   'report/FeaturingReleaseGroups': (): Promise<mixed> => import('../report/FeaturingReleaseGroups.js'),
