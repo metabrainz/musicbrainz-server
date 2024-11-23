@@ -16,6 +16,8 @@ import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList.js';
 import localizeArtistRoles
   from '../../static/scripts/common/i18n/localizeArtistRoles.js';
+import {defineNameAndCommentColumn}
+  from '../../static/scripts/common/utility/tableColumns.js';
 import {
   defineArtistRolesColumn,
   defineCheckboxColumn,
@@ -32,12 +34,18 @@ import {
 component EventList(
   artist?: ArtistT,
   artistRoles: boolean = false,
+  canEditCollectionComments?: boolean,
   checkboxes?: string,
+  collectionComments?: {
+    +[entityGid: string]: string,
+  },
+  collectionId?: number,
   events: $ReadOnlyArray<EventT>,
   mergeForm?: MergeFormT,
   order?: string,
   seriesItemNumbers?: $ReadOnlyArray<string>,
   showArtists: boolean = false,
+  showCollectionComments: boolean = false,
   showLocation: boolean = false,
   showRatings: boolean = false,
   showType: boolean = false,
@@ -53,14 +61,26 @@ component EventList(
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn({seriesItemNumbers})
         : null;
-      const nameColumn = defineNameColumn<EventT>({
-        descriptive: false, // since dates have their own column
-        order,
-        showArtworkPresence: events
-          .some((event) => event.event_art_presence === 'present'),
-        sortable,
-        title: l('Event'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<EventT>({
+          canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId,
+          descriptive: false, // since dates have their own column
+          order,
+          sortable,
+          title: l('Event'),
+        })
+      ) : (
+        defineNameColumn<EventT>({
+          descriptive: false, // since dates have their own column
+          order,
+          sortable,
+          title: l('Event'),
+        })
+      );
       const typeColumn = defineTypeColumn({
         order,
         sortable,
@@ -121,14 +141,18 @@ component EventList(
     },
     [
       $c.user,
+      canEditCollectionComments,
       artist,
       artistRoles,
       checkboxes,
+      collectionComments,
+      collectionId,
       events,
       mergeForm,
       order,
       seriesItemNumbers,
       showArtists,
+      showCollectionComments,
       showLocation,
       showRatings,
       showType,
@@ -142,6 +166,7 @@ component EventList(
     <>
       {table}
       {manifest('common/components/ArtistRoles', {async: 'async'})}
+      {manifest('common/components/NameWithCommentCell', {async: 'async'})}
     </>
   );
 }

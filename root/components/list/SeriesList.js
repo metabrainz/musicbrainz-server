@@ -11,6 +11,9 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
+import manifest from '../../static/manifest.mjs';
+import {defineNameAndCommentColumn}
+  from '../../static/scripts/common/utility/tableColumns.js';
 import {
   defineCheckboxColumn,
   defineNameColumn,
@@ -20,10 +23,16 @@ import {
 } from '../../utility/tableColumns.js';
 
 component SeriesList(
+  canEditCollectionComments?: boolean,
   checkboxes?: string,
+  collectionComments?: {
+    +[entityGid: string]: string,
+  },
+  collectionId?: number,
   mergeForm?: MergeFormT,
   order?: string,
   series: $ReadOnlyArray<SeriesT>,
+  showCollectionComments: boolean = false,
   sortable?: boolean,
 ) {
   const $c = React.useContext(CatalystContext);
@@ -33,11 +42,24 @@ component SeriesList(
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
         ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
-      const nameColumn = defineNameColumn<SeriesT>({
-        order,
-        sortable,
-        title: lp('Series', 'singular'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<SeriesT>({
+          canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId,
+          order,
+          sortable,
+          title: lp('Series', 'singular'),
+        })
+      ) : (
+        defineNameColumn<SeriesT>({
+          order,
+          sortable,
+          title: lp('Series', 'singular'),
+        })
+      );
       const typeColumn = defineTypeColumn({
         order,
         sortable,
@@ -52,10 +74,28 @@ component SeriesList(
         ...(mergeForm && series.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
-    [$c.user, checkboxes, mergeForm, order, series, sortable],
+    [
+      $c.user,
+      canEditCollectionComments,
+      checkboxes,
+      collectionComments,
+      collectionId,
+      mergeForm,
+      order,
+      series.length,
+      showCollectionComments,
+      sortable,
+    ],
   );
 
-  return useTable<SeriesT>({columns, data: series});
+  const table = useTable<SeriesT>({columns, data: series});
+
+  return (
+    <>
+      {table}
+      {manifest('common/components/NameWithCommentCell', {async: 'async'})}
+    </>
+  );
 }
 
 export default SeriesList;

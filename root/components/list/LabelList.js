@@ -11,6 +11,9 @@ import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
+import manifest from '../../static/manifest.mjs';
+import {defineNameAndCommentColumn}
+  from '../../static/scripts/common/utility/tableColumns.js';
 import formatLabelCode from '../../utility/formatLabelCode.js';
 import {
   defineBeginDateColumn,
@@ -25,10 +28,16 @@ import {
 } from '../../utility/tableColumns.js';
 
 component LabelList(
+  canEditCollectionComments?: boolean,
   checkboxes?: string,
+  collectionComments?: {
+    +[entityGid: string]: string,
+  },
+  collectionId?: number,
   labels: $ReadOnlyArray<LabelT>,
   mergeForm?: MergeFormT,
   order?: string,
+  showCollectionComments: boolean = false,
   showRatings: boolean = false,
   sortable?: boolean,
 ) {
@@ -39,11 +48,24 @@ component LabelList(
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
         ? defineCheckboxColumn({mergeForm, name: checkboxes})
         : null;
-      const nameColumn = defineNameColumn<LabelT>({
-        order,
-        sortable,
-        title: l('Label'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<LabelT>({
+          canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId,
+          order,
+          sortable,
+          title: l('Label'),
+        })
+      ) : (
+        defineNameColumn<LabelT>({
+          order,
+          sortable,
+          title: l('Label'),
+        })
+      );
       const typeColumn = defineTypeColumn({
         order,
         sortable,
@@ -91,16 +113,27 @@ component LabelList(
     },
     [
       $c.user,
+      canEditCollectionComments,
       checkboxes,
-      labels,
+      collectionComments,
+      collectionId,
+      labels.length,
       mergeForm,
       order,
+      showCollectionComments,
       showRatings,
       sortable,
     ],
   );
 
-  return useTable<LabelT>({columns, data: labels});
+  const table = useTable<LabelT>({columns, data: labels});
+
+  return (
+    <>
+      {table}
+      {manifest('common/components/NameWithCommentCell', {async: 'async'})}
+    </>
+  );
 }
 
 export default LabelList;

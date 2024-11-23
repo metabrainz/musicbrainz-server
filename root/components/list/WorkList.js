@@ -12,6 +12,8 @@ import * as React from 'react';
 import {CatalystContext} from '../../context.mjs';
 import useTable from '../../hooks/useTable.js';
 import manifest from '../../static/manifest.mjs';
+import {defineNameAndCommentColumn}
+  from '../../static/scripts/common/utility/tableColumns.js';
 import {
   attributesColumn,
   defineArtistRolesColumn,
@@ -27,10 +29,16 @@ import {
 } from '../../utility/tableColumns.js';
 
 component WorkList(
+  canEditCollectionComments?: boolean,
   checkboxes?: string,
+  collectionComments?: {
+    +[entityGid: string]: string,
+  },
+  collectionId?: number,
   mergeForm?: MergeFormT,
   order?: string,
   seriesItemNumbers?: $ReadOnlyArray<string>,
+  showCollectionComments: boolean = false,
   showRatings: boolean = false,
   sortable?: boolean,
   works: $ReadOnlyArray<WorkT>,
@@ -45,11 +53,24 @@ component WorkList(
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn({seriesItemNumbers})
         : null;
-      const nameColumn = defineNameColumn<WorkT>({
-        order,
-        sortable,
-        title: l('Work'),
-      });
+      const nameColumn = showCollectionComments && nonEmpty(collectionId) ? (
+        defineNameAndCommentColumn<WorkT>({
+          canEditCollectionComments,
+          collectionComments: showCollectionComments
+            ? collectionComments
+            : undefined,
+          collectionId,
+          order,
+          sortable,
+          title: l('Work'),
+        })
+      ) : (
+        defineNameColumn<WorkT>({
+          order,
+          sortable,
+          title: l('Work'),
+        })
+      );
       const writersColumn = defineArtistRolesColumn<WorkT>({
         columnName: 'writers',
         getRoles: entity => entity.writers,
@@ -80,10 +101,14 @@ component WorkList(
     },
     [
       $c.user,
+      canEditCollectionComments,
       checkboxes,
+      collectionComments,
+      collectionId,
       mergeForm,
       order,
       seriesItemNumbers,
+      showCollectionComments,
       showRatings,
       sortable,
       works,
@@ -98,6 +123,7 @@ component WorkList(
       {manifest('common/components/ArtistRoles', {async: 'async'})}
       {manifest('common/components/AttributeList', {async: 'async'})}
       {manifest('common/components/IswcList', {async: 'async'})}
+      {manifest('common/components/NameWithCommentCell', {async: 'async'})}
       {manifest('common/components/WorkArtists', {async: 'async'})}
     </>
   );
