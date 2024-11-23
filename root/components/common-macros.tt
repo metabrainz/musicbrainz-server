@@ -75,10 +75,6 @@ END; -%]
     </a>
 [%- END -%]
 
-[%~ MACRO display_missing_artwork BLOCK -%]
-    <img src="/static/images/no-cover-art.png" title="No cover art available" />
-[%- END -%]
-
 [%~ MACRO disambiguation(entity) BLOCK -%]
     [%- IF entity.isa('MusicBrainz::Server::Entity::Event') -%]
         [%- cancelled(entity) -%]
@@ -505,33 +501,6 @@ END -%]
 
 [%~ MACRO medium_format_name(medium) BLOCK # Converted to React at root/static/scripts/common/utility/mediumFormatName.js -%]
     [% medium.l_format_name or l("Medium") | html %]
-[%- END -%]
-
-[%~ MACRO release_countries_list(release_events) BLOCK;
-    out = [];
-    FOR event=release_events;
-      IF event.country;
-        out.push(country_abbr(event.country));
-      END;
-    END;
-    comma_only_list(out);
-END -%]
-
-[%~ MACRO release_dates_list(release_events) BLOCK;
-    out = [];
-    seen = {};
-    FOR event=release_events;
-      IF !event.date.is_empty AND !seen.${ event.date.format };
-        out.push(event.date.format);
-        seen.${ event.date.format } = 1;
-      END;
-    END;
-    comma_only_list(out);
-END -%]
-
-[%~ MACRO country_abbr(country) BLOCK # Converted to React at root/static/scripts/common/components/CountryAbbr.js -%]
-    <span class="flag flag-[% country.primary_code %]"></span>
-    <abbr title="[% html_escape(country.l_name) %]">[% country.primary_code %]</abbr>
 [%- END -%]
 
 [%~ MACRO set_header BLOCK -%]
