@@ -65,12 +65,13 @@ test all => sub {
         is($mail_service_req->method, 'POST', 'mail service request method is POST');
         is($mail_service_req->uri, 'http://localhost:3000/send_single', 'mail service request uri is send_single');
         is($mail_service_req->header('Accept'), 'application/json', 'client accepts application/json');
-        is($mail_service_req->header('Content-Length'), '527', 'mail service content-length is correct');
+        is($mail_service_req->header('Content-Length'), '577', 'mail service content-length is correct');
         is($mail_service_req->header('Content-Type'), 'application/json', 'mail service content-type is application/json');
         cmp_deeply($mail_service_req_content, {
             template_id => 'editor-message',
             to => '"Editor 2" <bar@example.com>',
-            from => 'MusicBrainz Server <noreply@musicbrainz.org>',
+            from => '"Editor 1" <noreply@musicbrainz.org>',
+            sender => 'MusicBrainz Server <noreply@musicbrainz.org>',
             message_id => re(qr/^<correspondence-4444-8888-[0-9]+\@localhost>$/),
             references => ['<correspondence-4444-8888@localhost>'],
             in_reply_to => ['<correspondence-4444-8888@localhost>'],
@@ -101,12 +102,13 @@ test all => sub {
         is($mail_service_req->method, 'POST', 'mail service request method is POST');
         is($mail_service_req->uri, 'http://localhost:3000/send_single', 'mail service request uri is send_single');
         is($mail_service_req->header('Accept'), 'application/json', 'client accepts application/json');
-        is($mail_service_req->header('Content-Length'), '512', 'mail service content-length is correct');
+        is($mail_service_req->header('Content-Length'), '562', 'mail service content-length is correct');
         is($mail_service_req->header('Content-Type'), 'application/json', 'mail service content-type is application/json');
         cmp_deeply($mail_service_req_content, {
             template_id => 'editor-message',
             to => '"Editor 2" <bar@example.com>',
-            from => 'MusicBrainz Server <noreply@musicbrainz.org>',
+            from => '"Editor 1" <noreply@musicbrainz.org>',
+            sender => 'MusicBrainz Server <noreply@musicbrainz.org>',
             message_id => re(qr/^<correspondence-4444-8888-[0-9]+\@localhost>$/),
             references => ['<correspondence-4444-8888@localhost>'],
             in_reply_to => ['<correspondence-4444-8888@localhost>'],
@@ -127,12 +129,13 @@ test all => sub {
         is($mail_service_req->method, 'POST', 'mail service request method is POST');
         is($mail_service_req->uri, 'http://localhost:3000/send_single', 'mail service request uri is send_single');
         is($mail_service_req->header('Accept'), 'application/json', 'client accepts application/json');
-        is($mail_service_req->header('Content-Length'), '532', 'mail service content-length is correct');
+        is($mail_service_req->header('Content-Length'), '582', 'mail service content-length is correct');
         is($mail_service_req->header('Content-Type'), 'application/json', 'mail service content-type is application/json');
         cmp_deeply($mail_service_req_content, {
             template_id => 'editor-message',
             to => '"Editor 1" <foo@example.com>',
-            from => 'MusicBrainz Server <noreply@musicbrainz.org>',
+            from => '"Editor 1" <noreply@musicbrainz.org>',
+            sender => 'MusicBrainz Server <noreply@musicbrainz.org>',
             message_id => re(qr/^<correspondence-4444-8888-[0-9]+\@localhost>$/),
             references => ['<correspondence-4444-8888@localhost>'],
             in_reply_to => ['<correspondence-4444-8888@localhost>'],
