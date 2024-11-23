@@ -127,11 +127,11 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-re
     sudo -E -H -u musicbrainz sh -c 'python3.11 -m venv venv; . venv/bin/activate; pip install -r requirements.txt' && \
     cd /home/musicbrainz
 
-RUN curl -sSLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/127.0.6533.119/linux64/chrome-linux64.zip && \
+RUN curl -sSLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/130.0.6723.91/linux64/chrome-linux64.zip && \
     unzip chrome-linux64.zip -d /opt && \
     rm chrome-linux64.zip
 
-RUN curl -sSLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/127.0.6533.119/linux64/chromedriver-linux64.zip && \
+RUN curl -sSLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/130.0.6723.91/linux64/chromedriver-linux64.zip && \
     unzip chromedriver-linux64.zip -d /tmp && \
     mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/ && \
     chmod +x /usr/local/bin/chromedriver && \
