@@ -1035,7 +1035,7 @@ const CLEANUPS: CleanupEntries = {
             };
           case LINK_TYPES.streamingfree.release:
             return {
-              result: prefix === 'album',
+              result: prefix === 'album' || prefix === 'song',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.recording:
