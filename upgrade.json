@@ -233,7 +233,8 @@
   },
   "30": {
     "all": [
-      "20241017-mbs-9253.sql"
+      "20241017-mbs-9253.sql",
+      "20241125-mbs-13832.sql"
     ],
     "master_and_standalone": [
       "20241017-mbs-9253-master_and_standalone.sql"
