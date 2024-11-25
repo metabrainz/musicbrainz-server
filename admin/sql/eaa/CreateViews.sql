@@ -11,7 +11,6 @@ SELECT event_art.*,
                    JOIN event_art_archive.event_art ea_front USING (id)
                    WHERE ea_front.event = event_art.event
                    AND type_id = 1
-                   AND mime_type != 'application/pdf'
                    ORDER BY ea_front.ordering
                    LIMIT 1), FALSE) AS is_front,
   array(SELECT art_type.name
