@@ -11,6 +11,7 @@ use DBDefs;
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
+use MusicBrainz::Server::Translation qw( l );
 
 parameter 'art_archive_name' => (
     isa => 'Str',
