@@ -18,7 +18,7 @@ import ReleaseGroupHeader from './ReleaseGroupHeader.js';
 component ReleaseGroupLayout(
   children: React.Node,
   entity as releaseGroup: ReleaseGroupT,
-  firstReleaseGid?: string | null,
+  hasReleases: boolean,
   fullWidth: boolean = false,
   page: string,
   title?: string,
@@ -37,7 +37,7 @@ component ReleaseGroupLayout(
       </div>
       {fullWidth ? null : (
         <ReleaseGroupSidebar
-          firstReleaseGid={firstReleaseGid}
+          hasReleases={hasReleases}
           releaseGroup={releaseGroup}
         />
       )}
