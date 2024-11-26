@@ -55,6 +55,7 @@ after 'load' => sub {
     my $returning_jsonld = $self->should_return_jsonld($c);
 
     unless ($returning_jsonld) {
+        $c->model('ReleaseGroup')->load_aliases($rg);
         $c->model('ReleaseGroup')->load_meta($rg);
 
         if ($c->user_exists) {
@@ -79,6 +80,7 @@ sub show : Chained('load') PathPart('') {
     });
 
     $c->model('Release')->load_related_info(@$releases);
+    $c->model('Release')->load_aliases(@$releases);
     $c->model('Release')->load_meta(@$releases);
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('ReleaseStatus')->load(@$releases);
@@ -151,6 +153,7 @@ sub _merge_load_entities
     my ($self, $c, @rgs) = @_;
 
     $c->model('ArtistCredit')->load(@rgs);
+    $c->model('ReleaseGroup')->load_aliases(@rgs);
     $c->model('ReleaseGroup')->load_meta(@rgs);
     $c->model('ReleaseGroupType')->load(@rgs);
 }
@@ -165,6 +168,7 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
     my ($releases, undef) = $c->model('Release')->find_by_release_group(
         $entity->id);
     $c->model('Release')->load_related_info(@$releases);
+    $c->model('Release')->load_aliases(@$releases);
     $c->model('Release')->load_meta(@$releases);
     $c->model('ArtistCredit')->load(@$releases);
 

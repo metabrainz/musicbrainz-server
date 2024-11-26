@@ -29,6 +29,7 @@ component _MediumTrackRow(
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   const recordingAC = track.recording?.artistCredit;
+  const recordingAlias = track.recording?.primaryAlias;
 
   return (
     <tr
@@ -44,6 +45,22 @@ component _MediumTrackRow(
           content={track.name}
           entity={track.recording}
         />
+
+        {/* Show recording primary alias only to logged in users to avoid
+          * confusing visitors with recordings.
+          */}
+        {(
+          $c.user &&
+          nonEmpty(recordingAlias) &&
+          track.name !== recordingAlias
+        ) ? (
+          <div className="small">
+            {texp.l(
+              'Recording alias: {alias}',
+              {alias: recordingAlias},
+            )}
+          </div>
+          ) : null}
 
         {/* Show recording artist only to logged in users to avoid confusing
           * visitors with recordings.

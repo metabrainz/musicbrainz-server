@@ -82,6 +82,7 @@ after 'load' => sub {
     my $returning_jsonld = $self->should_return_jsonld($c);
 
     unless ($returning_jsonld) {
+        $c->model('Place')->load_aliases($place);
         $c->model('Place')->load_meta($place);
 
         if ($c->user_exists) {
@@ -129,6 +130,7 @@ sub events : Chained('load')
         $c->model('Event')->find_by_place($c->stash->{place}->id, shift, shift);
     });
     $c->model('Event')->load_related_info(@$events);
+    $c->model('Event')->load_aliases(@$events);
     $c->model('Event')->load_meta(@$events);
     $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
 
@@ -247,6 +249,7 @@ before qw( create edit ) => sub {
 sub _merge_load_entities
 {
     my ($self, $c, @places) = @_;
+    $c->model('Place')->load_aliases(@places);
     $c->model('PlaceType')->load(@places);
     $c->model('Area')->load(@places);
     $c->model('Area')->load_containment(map { $_->area } @places);

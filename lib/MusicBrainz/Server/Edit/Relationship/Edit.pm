@@ -9,6 +9,7 @@ use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw(
+    %ENTITIES
     $AMAZON_ASIN_LINK_TYPE_ID
     $EDIT_RELATIONSHIP_EDIT
 );
@@ -118,8 +119,11 @@ sub foreign_keys
 {
     my ($self) = @_;
 
-    my $model0 = type_to_model($self->data->{type0});
-    my $model1 = type_to_model($self->data->{type1});
+    my $entity0_properties = $ENTITIES{$self->data->{type0}};
+    my $entity1_properties = $ENTITIES{$self->data->{type1}};
+
+    my $model0 = $entity0_properties->{model};
+    my $model1 = $entity1_properties->{model};
 
     my %load;
     my $old = $self->data->{old};
@@ -142,15 +146,35 @@ sub foreign_keys
     $load{$model0} = {};
     $load{$model1} = {};
 
-    $load{$model0}->{gid_or_id($link->{entity0})} = ['ArtistCredit'];
-    $load{$model1}->{gid_or_id($link->{entity1})} = ['ArtistCredit'];
-
     # Autovivification can create subtle bugs elsewhere if the change data is modified,
-    # so guard these to where the properties exist.
-    $load{$model0}->{gid_or_id($old->{entity0})} = ['ArtistCredit'] if defined $old->{entity0};
-    $load{$model1}->{gid_or_id($old->{entity1})} = ['ArtistCredit'] if defined $old->{entity1};
-    $load{$model0}->{gid_or_id($new->{entity0})} = ['ArtistCredit'] if defined $new->{entity0};
-    $load{$model1}->{gid_or_id($new->{entity1})} = ['ArtistCredit'] if defined $new->{entity1};
+    # so guard old and new to where the properties exist.
+    if ($entity0_properties->{artist_credits}) {
+        $load{$model0} = { gid_or_id($link->{entity0}) => [ 'ArtistCredit' ] };
+        $load{$model0} = { gid_or_id($old->{entity0}) => [ 'ArtistCredit' ] }
+            if defined $old->{entity0};
+        $load{$model0} = { gid_or_id($new->{entity0}) => [ 'ArtistCredit' ] }
+            if defined $new->{entity0};
+    } else {
+        $load{$model0} = [ gid_or_id($link->{entity0}) ];
+        $load{$model0} = [ gid_or_id($old->{entity0}) ]
+            if defined $old->{entity0};
+        $load{$model0} = [ gid_or_id($new->{entity0}) ]
+            if defined $new->{entity0};
+    }
+
+    if ($entity1_properties->{artist_credits}) {
+        $load{$model1} = { gid_or_id($link->{entity1}) => [ 'ArtistCredit' ] };
+        $load{$model1} = { gid_or_id($old->{entity1}) => [ 'ArtistCredit' ] }
+            if defined $old->{entity1};
+        $load{$model1} = { gid_or_id($new->{entity1}) => [ 'ArtistCredit' ] }
+            if defined $new->{entity1};
+    } else {
+        $load{$model1} = [ gid_or_id($link->{entity1}) ];
+        $load{$model1} = [ gid_or_id($old->{entity1}) ]
+            if defined $old->{entity1};
+        $load{$model1} = [ gid_or_id($new->{entity1}) ]
+            if defined $new->{entity1};
+    }
 
     return \%load;
 }

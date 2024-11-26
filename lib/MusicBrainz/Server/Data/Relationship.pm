@@ -439,6 +439,13 @@ sub load_entities
 
     my @series = values %{$data_by_type{'series'}};
     $self->c->model('SeriesType')->load(@series);
+
+    for my $type (keys %data_by_type) {
+        my $model = $self->c->model(type_to_model($type));
+        next unless $model->can('load_aliases');
+        my @entities = values %{$data_by_type{$type}};
+        $model->load_aliases(@entities);
+    }
 }
 
 sub _load_subset {

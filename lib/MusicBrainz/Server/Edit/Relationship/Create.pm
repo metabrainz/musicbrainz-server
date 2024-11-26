@@ -15,6 +15,7 @@ with 'MusicBrainz::Server::Edit::Relationship',
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw(
+    %ENTITIES
     $AMAZON_ASIN_LINK_TYPE_ID
     $EDIT_RELATIONSHIP_CREATE
 );
@@ -161,11 +162,29 @@ sub foreign_keys
     my $entity0_id = gid_or_id($self->data->{entity0});
     my $entity1_id = gid_or_id($self->data->{entity1});
 
-    $load{ type_to_model($type0) } = { $entity0_id => ['ArtistCredit'] } if $entity0_id;
+    my $entity0_properties = $ENTITIES{$type0};
+    my $entity0_model = $entity0_properties->{model};
+
+    if ($entity0_id) {
+        if ($entity0_properties->{artist_credits}) {
+            $load{ $entity0_model } = { $entity0_id => ['ArtistCredit'] };
+        } else {
+            $load{ $entity0_model } = [ $entity0_id ];
+        }
+    }
 
     # Type 1 my be equal to type 0, so we need to be careful
-    $load{ type_to_model($type1) } ||= {};
-    $load{ type_to_model($type1) }{$entity1_id} = [ 'ArtistCredit' ] if $entity1_id;
+    my $entity1_properties = $ENTITIES{$type1};
+    my $entity1_model = $entity1_properties->{model};
+
+    $load{ $entity1_model } ||= {};
+    if ($entity1_id) {
+        if ($entity1_properties->{artist_credits}) {
+            $load{ $entity1_model } = { $entity1_id => ['ArtistCredit'] };
+        } else {
+            $load{ $entity1_model } = [ $entity1_id ];
+        }
+    }
 
     return \%load;
 }

@@ -251,7 +251,6 @@ sub set_lengths_to_cdtoc
         or die 'Could not load tracklist';
 
     $self->c->model('Track')->load_for_mediums($medium);
-    $self->c->model('ArtistCredit')->load($medium->all_tracks);
 
     my @recording_ids;
     my @info = @{ $cdtoc->track_details };

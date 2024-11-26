@@ -21,7 +21,7 @@ role {
         return map +{
             entity => $_,
             aliases => $aliases->{$_->id},
-            current_language => $c->stash->{current_language} // 'en',
+            current_language => $c->current_language,
         }, $self->$orig($c, @entities);
     };
 };

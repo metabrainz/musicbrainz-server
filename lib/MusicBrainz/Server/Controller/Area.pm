@@ -81,6 +81,7 @@ after 'load' => sub {
     my $area = $c->stash->{area};
 
     $c->model('AreaType')->load($area);
+    $c->model('Area')->load_aliases($area);
     $c->model('Area')->load_containment($area);
 };
 
@@ -157,6 +158,7 @@ sub events : Chained('load')
     $c->model('Area')->load(map { $_->{entity} } map { $_->all_places } @$events);
     $c->model('Area')->load_containment(map { (map { $_->{entity} } $_->all_areas),
                                               (map { $_->{entity}->area } $_->all_places) } @$events);
+    $c->model('Event')->load_aliases(@$events);
     $c->model('Event')->load_meta(@$events);
     $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
 
@@ -188,6 +190,7 @@ sub labels : Chained('load')
     $c->model('LabelType')->load(@$labels);
     $c->model('Area')->load(@$labels);
     $c->model('Area')->load_containment(map { $_->{area} } @$labels);
+    $c->model('Label')->load_aliases(@$labels);
     $c->model('Label')->load_meta(@$labels);
     if ($c->user_exists) {
         $c->model('Label')->rating->load_user_ratings($c->user->id, @$labels);
@@ -261,6 +264,7 @@ sub places : Chained('load')
     $c->model('PlaceType')->load(@$places);
     $c->model('Area')->load(@$places);
     $c->model('Area')->load_containment(map { $_->area } @$places);
+    $c->model('Place')->load_aliases(@$places);
     $c->model('Place')->load_meta(@$places);
     $c->model('Place')->rating->load_user_ratings($c->user->id, @$places) if $c->user_exists;
 
@@ -409,6 +413,7 @@ before qw( create edit ) => sub {
 sub _merge_load_entities
 {
     my ($self, $c, @areas) = @_;
+    $c->model('Area')->load_aliases(@areas);
     $c->model('Area')->load_containment(@areas);
     $c->model('AreaType')->load(@areas);
 }

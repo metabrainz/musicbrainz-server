@@ -13,7 +13,7 @@ use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw( l lp );
@@ -546,7 +546,9 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnMirrors
 {
     my ($self, $c, $type) = @_;
 
-    my $model = try { type_to_model($type) };
+    my $entity_properties = $ENTITIES{$type};
+
+    my $model = try { $entity_properties->{model} };
 
     if (!$model || !$c->model($model)->can('rating')) {
         $c->stash(
@@ -569,7 +571,8 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnMirrors
         $c->model($model)->rating->find_editor_ratings(
             $user->id, $c->user_exists && $user->id == $c->user->id, shift, shift);
     }, limit => 100);
-    $c->model('ArtistCredit')->load(@$ratings);
+    $c->model('ArtistCredit')->load(@$ratings)
+        if $entity_properties->{artist_credits};
 
     my %props = (
         entityType => $type,
@@ -651,9 +654,12 @@ sub tag : Chained('load_tag') PathPart('')
     # Determine whether this tag exists in the database
     if ($tag) {
         %tagged_entities = map {
-            my ($entities, $total) = $c->model(type_to_model($_))->tags->find_editor_entities(
+            my $entity_properties = $ENTITIES{$_};
+
+            my ($entities, $total) = $c->model($entity_properties->{model})->tags->find_editor_entities(
                 $user->id, $tag->id, $show_downvoted, 10, 0);
-            $c->model('ArtistCredit')->load(map { $_->entity } @$entities);
+            $c->model('ArtistCredit')->load(map { $_->entity } @$entities)
+                if $entity_properties->{artist_credits};
 
             ("$_" => {
                 count => $total,

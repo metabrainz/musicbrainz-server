@@ -79,7 +79,9 @@ sub get_by_ids
 sub load
 {
     my ($self, @objs) = @_;
-    load_subobjects($self, 'artist_credit', @objs);
+    my @artist_credits = load_subobjects($self, 'artist_credit', @objs);
+    my @artists = map { map { $_->artist } $_->all_names } @artist_credits;
+    $self->c->model('Artist')->load_aliases(@artists);
 }
 
 sub find_by_ids

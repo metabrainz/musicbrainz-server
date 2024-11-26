@@ -39,6 +39,8 @@ after 'load' => sub {
     my ($self, $c) = @_;
     my $entity_name = $self->{entity_name};
     my $entity = $c->stash->{ $entity_name };
+    $c->model('Genre')->load_aliases($entity);
+
     $c->stash(
         can_delete => $c->model('Genre')->can_delete($entity->id),
     );
@@ -102,6 +104,7 @@ sub list : Path('/genres') Args(0) {
     my ($self, $c) = @_;
 
     my @genres = $c->model('Genre')->get_all;
+    $c->model('Genre')->load_aliases(@genres);
     my $coll = $c->get_collator();
     my @sorted_genres = sort_by { $coll->getSortKey($_->name) } @genres;
 

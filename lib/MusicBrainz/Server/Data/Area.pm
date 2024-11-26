@@ -85,7 +85,8 @@ sub _column_mapping
 sub load
 {
     my ($self, @objs) = @_;
-    load_subobjects($self, ['area', 'begin_area', 'end_area', 'country'], @objs);
+    my @areas = load_subobjects($self, ['area', 'begin_area', 'end_area', 'country'], @objs);
+    $self->c->model('Area')->load_aliases(@areas);
 }
 
 sub load_containment {
@@ -111,6 +112,8 @@ sub load_containment {
     my $parent_areas = $self->get_by_ids(
         map { $_->{parent} } @results,
     );
+
+    $self->c->model('Area')->load_aliases(values %$parent_areas);
 
     for my $area (@areas) {
         my @parent_ids = map {

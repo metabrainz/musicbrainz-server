@@ -336,6 +336,12 @@ sub handle_unicode_encoding_exception {
     $self->res->status(HTTP_BAD_REQUEST);
 }
 
+has current_language => (
+    is => 'rw',
+    isa => 'Str',
+    default => 'en',
+);
+
 # Set and unset translation language
 sub with_translations {
     my ($c, $code) = @_;
@@ -355,6 +361,8 @@ sub with_translations {
     my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
     $c->set_language_cookie($c->request->cookies->{lang}->value) if defined $c->request->cookies->{lang};
     my $lang = Translation->instance->set_language($cookie_lang);
+    $c->current_language($lang);
+    $c->model('MB')->context->current_language($lang);
     my $html_lang = $lang =~ s/_([A-Z0-9]{2,})/-\L$1/r;
 
     $c->stash(
