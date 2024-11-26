@@ -94,7 +94,7 @@ FROM build AS mb_solr
 
 ARG OPENJDK_VERSION=17.0.11+9 \
     OPENJDK_SRC_SUM=aa7fb6bb342319d227a838af5c363bfa1b4a670c209372f9e6585bd79da6220c \
-    MB_SOLR_TAG=master
+    MB_SOLR_TAG=SEARCH-732
 
 RUN curl -sSLO https://github.com/adoptium/temurin17-binaries/releases/download/jdk-${OPENJDK_VERSION/+/%2B}/OpenJDK17U-jdk_x64_linux_hotspot_${OPENJDK_VERSION/+/_}.tar.gz && \
     echo "$OPENJDK_SRC_SUM *OpenJDK17U-jdk_x64_linux_hotspot_${OPENJDK_VERSION/+/_}.tar.gz" | sha256sum --strict --check - && \
