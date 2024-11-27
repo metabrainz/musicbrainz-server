@@ -120,19 +120,17 @@ const LanguageMultiselect = (
   // eslint-disable-next-line ft-flow/enforce-suppression-code
   // $FlowIgnore
   Multiselect:
-    React.AbstractComponent<
+    React.ComponentType<
       MultiselectPropsT<
         LanguageT,
         MultiselectLanguageValueStateT,
         MultiselectLanguageStateT,
-      >,
-      mixed,
+      >
     >
 );
 
-const WorkLanguageMultiselect: React.AbstractComponent<
+const WorkLanguageMultiselect: React.ComponentType<
   WorkLanguageMultiselectPropsT,
-  mixed,
 > = React.memo<
   WorkLanguageMultiselectPropsT,
 >(({
