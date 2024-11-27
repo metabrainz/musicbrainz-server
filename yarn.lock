@@ -4596,12 +4596,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-bin@npm:0.254.2":
-  version: 0.254.2
-  resolution: "flow-bin@npm:0.254.2"
+"flow-bin@npm:0.255.0":
+  version: 0.255.0
+  resolution: "flow-bin@npm:0.255.0"
   bin:
     flow: cli.js
-  checksum: 10c0/1fca11eacdb313819dc139ea656706db793cfcbbf74dd5a0d484732adc0fa778a2b609ac6e8d1bb1849a9b88d85083d5ec874acce62618010bd0e66d0f4fadf4
+  checksum: 10c0/1f1e90cfbcc3b5cbb0159e7c5b9ac79b3fbcfc7600c65e1ab8a32cff9046b52319b6c81b62d2376a36176f1b126a742742760c69630f10ed64ed631509d60e28
   languageName: node
   linkType: hard
 
@@ -6572,7 +6572,7 @@ __metadata:
     eslint-plugin-simple-import-sort: "npm:^7.0.0"
     fast-diff: "npm:1.3.0"
     filesize: "npm:10.1.4"
-    flow-bin: "npm:0.254.2"
+    flow-bin: "npm:0.255.0"
     generic-diff: "npm:1.0.1"
     gettext-parser: "npm:4.2.0"
     globals: "npm:15.9.0"
