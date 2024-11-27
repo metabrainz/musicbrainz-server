@@ -1861,7 +1861,7 @@ component _ReleaseRelationshipEditor() {
   );
 }
 
-const NonHydratedReleaseRelationshipEditor: React.AbstractComponent<{}> =
+const NonHydratedReleaseRelationshipEditor =
   withLoadedTypeInfoForRelationshipEditor<{}>(
     _ReleaseRelationshipEditor,
     ['language', 'work_type'],
@@ -1870,6 +1870,6 @@ const NonHydratedReleaseRelationshipEditor: React.AbstractComponent<{}> =
 const ReleaseRelationshipEditor = (hydrate<{}>(
   'div.release-relationship-editor',
   NonHydratedReleaseRelationshipEditor,
-): React.AbstractComponent<{}, void>);
+): component());
 
 export default ReleaseRelationshipEditor;

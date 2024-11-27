@@ -17,7 +17,6 @@ import {default as autocompleteReducer}
 import type {
   ActionT as AutocompleteActionT,
   OptionItemT,
-  PropsT as AutocompletePropsT,
   StateT as AutocompleteStateT,
 } from '../../common/components/Autocomplete2/types.js';
 import {
@@ -297,12 +296,6 @@ export function reducer(
   }
 }
 
-// XXX Until Flow supports https://github.com/facebook/flow/issues/7672
-const TargetAutocomplete:
-  React.AbstractComponent<AutocompletePropsT<NonUrlRelatableEntityT>> =
-  // $FlowIgnore[incompatible-type]
-  Autocomplete2;
-
 component _DialogTargetEntity(
   backward: boolean,
   dispatch: (DialogTargetEntityActionT) => void,
@@ -361,7 +354,7 @@ component _DialogTargetEntity(
             value={state.target.name}
           />
         ) : autocomplete ? (
-          <TargetAutocomplete
+          <Autocomplete2
             dispatch={autocompleteDispatch}
             state={autocomplete}
           />
@@ -387,8 +380,8 @@ component _DialogTargetEntity(
   );
 }
 
-const DialogTargetEntity: React.AbstractComponent<
-  React.PropsOf<_DialogTargetEntity>
-> = React.memo(_DialogTargetEntity);
+const DialogTargetEntity:
+  component(...React.PropsOf<_DialogTargetEntity>) =
+  React.memo(_DialogTargetEntity);
 
 export default DialogTargetEntity;

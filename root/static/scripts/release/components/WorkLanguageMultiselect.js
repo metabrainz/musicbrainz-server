@@ -24,7 +24,6 @@ import linkedEntities from '../../common/linkedEntities.mjs';
 import {uniqueId} from '../../common/utility/numbers.js';
 import Multiselect, {
   type MultiselectActionT,
-  type MultiselectPropsT,
   runReducer as runMultiselectReducer,
 } from '../../edit/components/Multiselect.js';
 import type {
@@ -110,47 +109,28 @@ export function runReducer(
   );
 }
 
-type WorkLanguageMultiselectPropsT = {
-  +dispatch: (MultiselectActionT<LanguageT>) => void,
-  +state: MultiselectLanguageStateT,
-};
+component _WorkLanguageMultiselect(
+  dispatch: (MultiselectActionT<LanguageT>) => void,
+  state: MultiselectLanguageStateT,
+) {
+  return (
+    <tr>
+      <td className="section">
+        {addColonText(l('Lyrics languages'))}
+      </td>
+      <td className="lyrics-languages">
+        <Multiselect
+          addLabel={l('Add lyrics language')}
+          dispatch={dispatch}
+          state={state}
+        />
+      </td>
+    </tr>
+  );
+}
 
-// XXX: https://github.com/facebook/flow/issues/7672
-const LanguageMultiselect = (
-  // eslint-disable-next-line ft-flow/enforce-suppression-code
-  // $FlowIgnore
-  Multiselect:
-    React.AbstractComponent<
-      MultiselectPropsT<
-        LanguageT,
-        MultiselectLanguageValueStateT,
-        MultiselectLanguageStateT,
-      >,
-      mixed,
-    >
-);
-
-const WorkLanguageMultiselect: React.AbstractComponent<
-  WorkLanguageMultiselectPropsT,
-  mixed,
-> = React.memo<
-  WorkLanguageMultiselectPropsT,
->(({
-  dispatch,
-  state,
-}: WorkLanguageMultiselectPropsT): React.MixedElement => (
-  <tr>
-    <td className="section">
-      {addColonText(l('Lyrics languages'))}
-    </td>
-    <td className="lyrics-languages">
-      <LanguageMultiselect
-        addLabel={l('Add lyrics language')}
-        dispatch={dispatch}
-        state={state}
-      />
-    </td>
-  </tr>
-));
+const WorkLanguageMultiselect: typeof _WorkLanguageMultiselect =
+  // $FlowIssue[incompatible-type]
+  React.memo(_WorkLanguageMultiselect);
 
 export default WorkLanguageMultiselect;

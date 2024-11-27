@@ -354,5 +354,5 @@ export type EditProfileFormPropsT = Props;
 
 export default (
   hydrate<Props>('div.edit-profile-form', EditProfileForm):
-  React.AbstractComponent<Props, void>
+  component(...Props)
 );

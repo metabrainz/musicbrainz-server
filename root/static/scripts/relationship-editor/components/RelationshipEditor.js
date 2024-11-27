@@ -556,7 +556,7 @@ type ErrorMessagePropsT = {
 };
 
 export const ErrorMessage:
-  React.AbstractComponent<ErrorMessagePropsT, mixed> =
+  component(ref: React.RefSetter<mixed>, ...ErrorMessagePropsT) =
   React.memo<ErrorMessagePropsT>(({
     error,
   }: ErrorMessagePropsT): React.MixedElement => (

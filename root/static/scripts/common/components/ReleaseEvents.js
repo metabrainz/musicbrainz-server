@@ -98,4 +98,4 @@ component ReleaseEvents(
 export default (hydrate<React.PropsOf<ReleaseEvents>>(
   'div.release-events-container',
   ReleaseEvents,
-): React.AbstractComponent<React.PropsOf<ReleaseEvents>>);
+): component(...React.PropsOf<ReleaseEvents>));

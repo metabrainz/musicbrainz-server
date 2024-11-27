@@ -36,8 +36,8 @@ component _DialogButtons(
   );
 }
 
-const DialogButtons: React.AbstractComponent<
-  React.PropsOf<_DialogButtons>
-> = React.memo(_DialogButtons);
+const DialogButtons:
+  component(...React.PropsOf<_DialogButtons>) =
+  React.memo(_DialogButtons);
 
 export default DialogButtons;

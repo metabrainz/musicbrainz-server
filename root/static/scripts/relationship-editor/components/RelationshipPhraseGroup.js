@@ -302,8 +302,8 @@ component _RelationshipPhraseGroup(
   ) : null;
 }
 
-const RelationshipPhraseGroup: React.AbstractComponent<
-  React.PropsOf<_RelationshipPhraseGroup>
-> = React.memo(_RelationshipPhraseGroup);
+const RelationshipPhraseGroup:
+  component(...React.PropsOf<_RelationshipPhraseGroup>) =
+  React.memo(_RelationshipPhraseGroup);
 
 export default RelationshipPhraseGroup;

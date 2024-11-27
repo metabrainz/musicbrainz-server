@@ -261,7 +261,7 @@ function accumulateDialogAttributeByRootId(
 }
 
 const LinkTypeAutocomplete:
-  React.AbstractComponent<AutocompletePropsT<LinkTypeT>> =
+  component(...AutocompletePropsT<LinkTypeT>) =
   Autocomplete2;
 
 component _DialogLinkType(
@@ -335,8 +335,8 @@ component _DialogLinkType(
   );
 }
 
-const DialogLinkType: React.AbstractComponent<
-  React.PropsOf<_DialogLinkType>
-> = React.memo(_DialogLinkType);
+const DialogLinkType:
+  component(...React.PropsOf<_DialogLinkType>) =
+  React.memo(_DialogLinkType);
 
 export default DialogLinkType;

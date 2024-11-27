@@ -23,7 +23,6 @@ import localizeLinkAttributeTypeName
   from '../../../common/i18n/localizeLinkAttributeTypeName.js';
 import {uniqueId} from '../../../common/utility/numbers.js';
 import Multiselect, {
-  type MultiselectPropsT,
   runReducer as runMultiselectReducer,
   updateValue as updateMultiselectValue,
 } from '../../../edit/components/Multiselect.js';
@@ -219,23 +218,8 @@ component MultiselectAttributeComponent(
     state.type.creditable,
   ]);
 
-  // XXX: https://github.com/facebook/flow/issues/7672
-  const LinkAttrTypeMultiselect = (
-    // eslint-disable-next-line ft-flow/enforce-suppression-code
-    // $FlowIgnore
-    Multiselect:
-      React.AbstractComponent<
-        MultiselectPropsT<
-          LinkAttrTypeT,
-          DialogMultiselectAttributeValueStateT,
-          DialogMultiselectAttributeStateT,
-        >,
-        mixed,
-      >
-  );
-
   return (
-    <LinkAttrTypeMultiselect
+    <Multiselect
       addLabel={addLabel}
       buildExtraValueChildren={buildExtraValueChildren}
       dispatch={multiselectDispatch}
@@ -245,7 +229,7 @@ component MultiselectAttributeComponent(
 }
 
 type MultiselectAttributeMemoT =
-  React.AbstractComponent<React.PropsOf<MultiselectAttributeComponent>>;
+  component(...React.PropsOf<MultiselectAttributeComponent>);
 
 const MultiselectAttribute: MultiselectAttributeMemoT =
   React.memo(MultiselectAttributeComponent);

@@ -141,8 +141,8 @@ component _StaticRelationshipsDisplay(
   return tables;
 }
 
-const StaticRelationshipsDisplay: React.AbstractComponent<
-  React.PropsOf<_StaticRelationshipsDisplay>
-> = React.memo(_StaticRelationshipsDisplay);
+const StaticRelationshipsDisplay:
+  component(...React.PropsOf<_StaticRelationshipsDisplay>) =
+  React.memo(_StaticRelationshipsDisplay);
 
 export default StaticRelationshipsDisplay;
