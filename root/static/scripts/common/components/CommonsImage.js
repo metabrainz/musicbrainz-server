@@ -61,4 +61,4 @@ export default (hydrate<React.PropsOf<CommonsImage>>(
   'div.commons-image',
   CommonsImage,
   minimalEntity,
-): component(...React.PropsOf<CommonsImage>));
+): React.ComponentType<React.PropsOf<CommonsImage>>);

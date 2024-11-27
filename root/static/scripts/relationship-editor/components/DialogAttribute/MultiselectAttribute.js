@@ -224,13 +224,12 @@ component MultiselectAttributeComponent(
     // eslint-disable-next-line ft-flow/enforce-suppression-code
     // $FlowIgnore
     Multiselect:
-      React.AbstractComponent<
+      React.ComponentType<
         MultiselectPropsT<
           LinkAttrTypeT,
           DialogMultiselectAttributeValueStateT,
           DialogMultiselectAttributeStateT,
         >,
-        mixed,
       >
   );
 
@@ -245,7 +244,7 @@ component MultiselectAttributeComponent(
 }
 
 type MultiselectAttributeMemoT =
-  React.AbstractComponent<React.PropsOf<MultiselectAttributeComponent>>;
+  React.ComponentType<React.PropsOf<MultiselectAttributeComponent>>;
 
 const MultiselectAttribute: MultiselectAttributeMemoT =
   React.memo(MultiselectAttributeComponent);

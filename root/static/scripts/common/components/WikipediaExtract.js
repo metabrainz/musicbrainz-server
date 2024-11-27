@@ -90,4 +90,4 @@ export default (hydrate<React.PropsOf<WikipediaExtract>>(
   'div.wikipedia-extract',
   WikipediaExtract,
   minimalEntity,
-): component(...React.PropsOf<WikipediaExtract>));
+): React.ComponentType<React.PropsOf<WikipediaExtract>>);

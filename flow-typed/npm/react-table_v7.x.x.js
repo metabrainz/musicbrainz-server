@@ -22,7 +22,7 @@ declare module 'react-table' {
      * `D` contravariant above.
      */
     +accessor?: (D) => V,
-    +Cell?: React.AbstractComponent<CellRenderProps<D, V>, mixed>,
+    +Cell?: component(...CellRenderProps<D, V>),
     +Header?: React.ComponentType<mixed> | React.Node,
     +id?: string,
     ...
@@ -30,7 +30,7 @@ declare module 'react-table' {
 
   declare export type ColumnOptionsNoValue<-D> = {
     +accessor?: (D) => mixed,
-    +Cell?: React.AbstractComponent<CellRenderProps<D, empty>, mixed>,
+    +Cell?: component(...CellRenderProps<D, empty>),
     +Header?: React.ComponentType<mixed> | React.Node,
     +id?: string,
     ...
