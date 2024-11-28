@@ -28,9 +28,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-22 12:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-11-23 22:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ru/>\n"
 "Language: ru\n"
@@ -38,9 +38,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.7.2\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -1484,17 +1484,10 @@ msgstr ""
 #: DB:release_group_secondary_type/description:4
 msgctxt "release_group_secondary_type"
 msgid "An interview release contains an interview, generally with an artist."
-msgstr ""
+msgstr "Релиз, содержащий интервью, обычно с исполнителем."
 
 #. name:Withdrawn
 #: DB:release_status/description:5
-#, fuzzy
-#| msgctxt "release_status"
-#| msgid ""
-#| "A previously official release that was actively withdrawn from "
-#| "circulation by the artist and/or their record company after being "
-#| "released, whether to replace it with a new version with some changes or "
-#| "to just retire it altogether (e.g. because of legal issues)."
 msgctxt "release_status"
 msgid ""
 "An official release that was actively withdrawn from circulation by the "
@@ -1503,16 +1496,19 @@ msgid ""
 "releases that have reached the end of their “natural” life cycle, such as "
 "being sold out and out of print."
 msgstr ""
-"Ранее официальное издание, которое после выпуска было активно изъято из "
-"обращения исполнителем и/или звукозаписывающей компанией, либо для замены "
-"его новой версией с некоторыми изменениями, либо для полного изъятия из "
-"обращения (например, из-за юридических проблем)."
+"Официальное издание, которое после выпуска было активно изъято из обращения "
+"исполнителем и/или звукозаписывающей компанией, либо для замены его новой "
+"версией, либо для полного изъятия из обращениям). Это не включает в себя "
+"релизы, достигшее конца своего \"натурального\" цикла жизни, например, из-за "
+"прекращения производства или выхода из тиража."
 
 #. name:Metal Tin
 #: DB:release_packaging/description:54
 msgctxt "release_packaging"
 msgid "An often decorated metal tin containing one or more CDs."
 msgstr ""
+"Металическая банка (часто декорированная), содержащая один или более "
+"компакт-дисков."
 
 #. name:Opera
 #: DB:work_type/description:10
@@ -1544,7 +1540,7 @@ msgstr ""
 #: DB:label_type/description:8
 msgctxt "label_type"
 msgid "An organization which collects royalties on behalf of artists."
-msgstr ""
+msgstr "Организация, собирающая роялти от имени исполнителей."
 
 #. name:Overture
 #: DB:work_type/description:12
@@ -4598,12 +4594,9 @@ msgstr ""
 
 #. name:UACRR ID
 #: DB:work_attribute_type/description:209
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Mexican rights society SACM"
 msgctxt "work_attribute_type"
 msgid "ID for the Ukrainian rights society UACRR"
-msgstr "ID Мексиканского правового общества SACM"
+msgstr "ID Украинского агентства по авторским и смежным правам (УААСП)"
 
 #. name:AGADU ID
 #: DB:work_attribute_type/description:43
