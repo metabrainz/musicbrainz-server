@@ -31,7 +31,8 @@ component Footer() {
         </a>
         <a className="internal" href="http://tickets.metabrainz.org/">{l('Bug tracker')}</a>
         <a className="internal" href="https://blog.metabrainz.org/">{l('Blog')}</a>
-        <a className="internal" href="https://twitter.com/MusicBrainz">{l('Twitter')}</a>
+        <a className="internal" href="https://mastodon.social/@MusicBrainz">{l('Mastodon')}</a>
+        <a className="internal" href="https://bsky.app/profile/musicbrainz.org">{l('Bluesky')}</a>
 
         {DBDefs.BETA_REDIRECT_HOSTNAME ? (
           <a
