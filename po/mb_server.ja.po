@@ -45,7 +45,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-11 13:37-0600\n"
-"PO-Revision-Date: 2024-11-17 16:42+0000\n"
+"PO-Revision-Date: 2024-11-19 18:42+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
@@ -11266,7 +11266,7 @@ msgstr "リリースへの登場"
 
 #: ../root/recording/RecordingIndex.js:175
 msgid "No releases found which feature this recording."
-msgstr ""
+msgstr "このレコーディングに関連付けられたリリースはありません。"
 
 #: ../root/recording/RecordingMerge.js:25
 #: ../root/recording/RecordingMerge.js:27
