@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-23 11:42+0000\n"
+"PO-Revision-Date: 2024-11-24 04:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -30,9 +30,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -1001,11 +1001,11 @@ msgstr "Collega un gruppo di pubblicazioni al suo evento di lancio."
 
 #. name:production coordinator
 #: DB:link_type/description:1267
-#, fuzzy
-#| msgid "Links a release to the place it was produced at."
 msgid ""
 "Links a release to a person credited as a production coordinator for it."
-msgstr "Collega una pubblicazione al luogo in cui è stata prodotta."
+msgstr ""
+"Collega una pubblicazione alla persona accreditata come coordinatore di "
+"produzione per essa."
 
 #. name:arranged in
 #: DB:link_type/description:863
@@ -2563,17 +2563,14 @@ msgstr ""
 
 #. name:position at
 #: DB:link_type/description:119
-#, fuzzy
-#| msgid ""
-#| "This indicates that an artist was officially employed by a label in an "
-#| "artists and repertoire (A&R) position."
 msgid ""
 "This indicates that an artist was officially employed by a label in a "
 "position not covered by any more specific relationship. Specify the position "
 "using the “Task” attribute."
 msgstr ""
 "Indica che un artista è stato impiegato ufficialmente da un'etichetta in una "
-"posizione di addetto artisti e repertorio (A&R)."
+"posizione non coperta da una relazione più specifica. Specifica la posizione "
+"utilizzando l'attributo \"Incarico\"."
 
 #. name:artists and repertoire position at
 #: DB:link_type/description:1081
@@ -2702,10 +2699,8 @@ msgstr ""
 
 #. name:demo
 #: DB:link_attribute_type/description:1417
-#, fuzzy
-#| msgid "This indicates that the recording is of a live performance."
 msgid "This indicates that the recording is of a demo version."
-msgstr "Indica che la registrazione è di un'esibizione dal vivo."
+msgstr "Indica che la registrazione è di una versione demo."
 
 #. name:live
 #: DB:link_attribute_type/description:578
@@ -3997,10 +3992,6 @@ msgstr ""
 
 #. name:arranged in
 #: DB:link_type/description:1274
-#, fuzzy
-#| msgid ""
-#| "Links a release to the area it was arranged in. Use only when the place "
-#| "is unknown!"
 msgid ""
 "This links a release with the area it was arranged in. Use only when the "
 "place is unknown!"
@@ -4010,81 +4001,57 @@ msgstr ""
 
 #. name:composed in
 #: DB:link_type/description:1269
-#, fuzzy
-#| msgid ""
-#| "Links a release to the area it was mixed in. Use only when the place is "
-#| "unknown!"
 msgid ""
 "This links a release with the area it was composed in. Use only when the "
 "place is unknown!"
 msgstr ""
-"Collega una pubblicazione all'area in cui è stata mixata. Da usare solo "
+"Collega una pubblicazione all'area in cui è stata composta. Da usare solo "
 "quando il luogo è sconosciuto!"
 
 #. name:revised in
 #: DB:link_type/description:1272
-#, fuzzy
-#| msgid ""
-#| "Links a release to the area it was remixed in. Use only when the place is "
-#| "unknown!"
 msgid ""
 "This links a release with the area it was revised in. Use only when the "
 "place is unknown!"
 msgstr ""
-"Collega una pubblicazione all'area in cui è stata remixata. Da usare solo "
+"Collega una pubblicazione all'area in cui è stata rivista. Da usare solo "
 "quando il luogo è sconosciuto!"
 
 #. name:translated in
 #: DB:link_type/description:1273
-#, fuzzy
-#| msgid ""
-#| "Links a release to the area it was transferred in. Use only when the "
-#| "place is unknown!"
 msgid ""
 "This links a release with the area it was translated in. Use only when the "
 "place is unknown!"
 msgstr ""
-"Collega una pubblicazione all'area in cui è stata trasferita. Da usare solo "
+"Collega una pubblicazione all'area in cui è stata tradotta. Da usare solo "
 "quando il luogo è sconosciuto!"
 
 #. name:written in
 #: DB:link_type/description:1268
-#, fuzzy
-#| msgid ""
-#| "Links a release to the area it was edited in. Use only when the place is "
-#| "unknown!"
 msgid ""
 "This links a release with the area it was written in. Use only when the "
 "place is unknown!"
 msgstr ""
-"Collega una pubblicazione all'area in cui ne è stato fatto l'editing. Da "
-"usare solo quando il luogo è sconosciuto!"
+"Collega una pubblicazione all'area in cui è stata scritta. Da usare solo "
+"quando il luogo è sconosciuto!"
 
 #. name:libretto written in
 #: DB:link_type/description:1271
-#, fuzzy
-#| msgid ""
-#| "Links a release to the area it was edited in. Use only when the place is "
-#| "unknown!"
 msgid ""
 "This links a release with the area its libretto was written in. Use only "
 "when the place is unknown!"
 msgstr ""
-"Collega una pubblicazione all'area in cui ne è stato fatto l'editing. Da "
+"Collega una pubblicazione all'area in cui ne è stato scritto il libretto. Da "
 "usare solo quando il luogo è sconosciuto!"
 
 #. name:lyrics written in
 #: DB:link_type/description:1270
-#, fuzzy
-#| msgid ""
-#| "Links a release to the area it was edited in. Use only when the place is "
-#| "unknown!"
 msgid ""
 "This links a release with the area its lyrics were written in. Use only when "
 "the place is unknown!"
 msgstr ""
-"Collega una pubblicazione all'area in cui ne è stato fatto l'editing. Da "
-"usare solo quando il luogo è sconosciuto!"
+"Collega una pubblicazione all'area in cui sono stati scritti i suoi testi. "
+"Da usare solo quando il luogo è sconosciuto!"
 
 #. name:arranged at
 #: DB:link_type/description:865
@@ -6781,7 +6748,7 @@ msgstr "dediche"
 
 #: DB:link_attribute_type/name:1417
 msgid "demo"
-msgstr ""
+msgstr "demo"
 
 #: DB:link_type/name:737
 msgid "derivation"
@@ -6983,15 +6950,13 @@ msgstr "emerito"
 
 #. name:position at
 #: DB:link_type/link_phrase:119
-#, fuzzy
-#| msgid "replaced by"
 msgid "employed by"
-msgstr "sostituita da"
+msgstr "impiegato da"
 
 #. name:position at
 #: DB:link_type/reverse_link_phrase:119
 msgid "employees"
-msgstr ""
+msgstr "impiegati"
 
 #: DB:link_type/name:1084 DB:link_type/name:28 DB:link_type/name:138
 msgid "engineer"
@@ -8141,17 +8106,13 @@ msgstr "è il genitore {step:acquisito} di"
 
 #. name:performance
 #: DB:link_type/long_link_phrase:278
-#, fuzzy
-#| msgid ""
-#| "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley "
-#| "including a} {partial} {instrumental} {cover} {karaoke} recording of"
 msgid ""
 "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
 "a} {partial} {instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
 "è {medley:un medley che comprende} una registrazione {acappella:a cappella} "
 "{live:dal vivo} {partial:parziale} {instrumental:strumentale} {cover} "
-"{karaoke} di"
+"{karaoke} {demo} di"
 
 #. name:subgroup
 #: DB:link_type/long_link_phrase:722
@@ -9109,7 +9070,7 @@ msgstr "esecuzione di"
 #. name:performance of
 #: DB:link_type/reverse_link_phrase:887
 msgid "performed at"
-msgstr "si è esibito a"
+msgstr "è stato eseguito a"
 
 #. name:voice actor
 #: DB:link_type/long_link_phrase:292
@@ -9216,10 +9177,8 @@ msgid "popular / rock music"
 msgstr "musica pop / rock"
 
 #: DB:link_type/name:119
-#, fuzzy
-#| msgid "composition"
 msgid "position at"
-msgstr "composizione"
+msgstr "posizione presso"
 
 #. name:poster
 #: DB:link_type/name:808 DB:link_type/link_phrase:808
@@ -9400,17 +9359,13 @@ msgstr "produzione"
 
 #. name:production coordinator
 #: DB:link_type/name:1267 DB:link_type/reverse_link_phrase:1267
-#, fuzzy
-#| msgid "production"
 msgid "production coordinator"
-msgstr "produzione"
+msgstr "coordinatore di produzione"
 
 #. name:production coordinator
 #: DB:link_type/link_phrase:1267
-#, fuzzy
-#| msgid "{additional} recording location for"
 msgid "production coordinator for"
-msgstr "luogo {additional:aggiuntivo} di registrazione per"
+msgstr "coordinatore di produzione per"
 
 #: DB:link_type/name:37 DB:link_type/name:132
 msgid "programming"
@@ -10548,10 +10503,8 @@ msgstr "è stata commissionata da"
 
 #. name:position at
 #: DB:link_type/long_link_phrase:119
-#, fuzzy
-#| msgid "was replaced by"
 msgid "was employed by"
-msgstr "è stata sostituita da"
+msgstr "è stato impiegato da"
 
 #. name:held at
 #: DB:link_type/long_link_phrase:794
@@ -10585,10 +10538,8 @@ msgstr "è stato riprogrammato come"
 
 #. name:production coordinator
 #: DB:link_type/long_link_phrase:1267
-#, fuzzy
-#| msgid "was the {guest} concertmaster for"
 msgid "was the production coordinator for"
-msgstr "è stato il primo violino {guest:ospite} per"
+msgstr "è stato coordinatore di produzione su"
 
 #. name:concertmaster
 #: DB:link_type/long_link_phrase:760 DB:link_type/long_link_phrase:759
@@ -10721,29 +10672,23 @@ msgstr "youtube music"
 
 #. name:performance
 #: DB:link_type/link_phrase:278
-#, fuzzy
-#| msgid ""
-#| "{acappella:a cappella} {live} {medley:medley including a} {partial} "
-#| "{instrumental} {cover} {karaoke} recording of"
 msgid ""
 "{acappella:a cappella} {live} {medley:medley including a} {partial} "
 "{instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
 "{medley:medley che comprende una} registrazione {acappella:a cappella} {live:"
-"dal vivo} {partial:parziale} {instrumental:strumentale} {cover} {karaoke} di"
+"dal vivo} {partial:parziale} {instrumental:strumentale} {cover} {karaoke} "
+"{demo} di"
 
 #. name:performance
 #: DB:link_type/reverse_link_phrase:278
-#, fuzzy
-#| msgid ""
-#| "{acappella:a cappella} {live} {medley:medleys including} {partial} "
-#| "{instrumental} {cover} {karaoke} recordings"
 msgid ""
 "{acappella:a cappella} {live} {medley:medleys including} {partial} "
 "{instrumental} {cover} {karaoke} {demo} recordings"
 msgstr ""
 "{medley:medley che comprendono} registrazioni {acappella:a cappella} {live:"
-"dal vivo} {partial:parziali} {instrumental:strumentali} {cover} {karaoke}"
+"dal vivo} {partial:parziali} {instrumental:strumentali} {cover} {karaoke} "
+"{demo}"
 
 #. name:arranged at
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
@@ -10878,10 +10823,8 @@ msgstr "ha tradotto {additional:in aggiunta}"
 
 #. name:translated at
 #: DB:link_type/reverse_link_phrase:1247 DB:link_type/reverse_link_phrase:883
-#, fuzzy
-#| msgid "{additional:additionally} translated"
 msgid "{additional:additionally} translated at"
-msgstr "ha tradotto {additional:in aggiunta}"
+msgstr "tradotta {additional:in aggiunta} presso"
 
 #. name:translated in
 #: DB:link_type/reverse_link_phrase:884 DB:link_type/reverse_link_phrase:1273
@@ -11197,14 +11140,13 @@ msgstr "luogo {additional:aggiuntivo} di scrittura del libretto per"
 #. name:liner notes
 #: DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
-msgstr "{translator:traduttore} delle note di libretto {additional:aggiuntivo}"
+msgstr "{translator:traduttore delle} note di libretto {additional:in aggiunta}"
 
 #. name:liner notes
 #: DB:link_type/link_phrase:24
-#, fuzzy
-#| msgid "{additional} liner notes {translator}"
 msgid "{additional} liner notes {translator} for"
-msgstr "{translator:traduttore} delle note di libretto {additional:aggiuntivo}"
+msgstr ""
+"{translator:traduttore delle} note di libretto {additional:in aggiunta} per"
 
 #. name:lyricist
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
