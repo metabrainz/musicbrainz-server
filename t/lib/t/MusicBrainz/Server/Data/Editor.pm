@@ -13,7 +13,9 @@ use DateTime;
 use DateTime::Format::Pg;
 use MusicBrainz::Server::Constants qw(
     :edit_status
+    $EDIT_SERIES_CREATE
     $EDIT_ARTIST_EDIT
+    $EDIT_RELATIONSHIP_CREATE
     $UNTRUSTED_FLAG
     $VOTING_DISABLED_FLAG
     :vote
@@ -825,6 +827,7 @@ test 'Marking an editor as spammer cancels all open edits' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
 
+    note('We enter an edit that should apply immediately');
     my $applied_edit = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
@@ -834,26 +837,56 @@ test 'Marking an editor as spammer cancels all open edits' => sub {
         isni_codes => [],
     );
 
-    is($applied_edit->status, $STATUS_APPLIED);
+    is($applied_edit->status, $STATUS_APPLIED, 'The edit is applied');
 
-    my $open_edit = $c->model('Edit')->create(
-        edit_type => $EDIT_ARTIST_EDIT,
+    note('We enter two edits that should remain open');
+    my $open_edit1 = $c->model('Edit')->create(
+        edit_type => $EDIT_SERIES_CREATE,
         editor_id => 1,
-        to_edit => $c->model('Artist')->get_by_id(1),
-        comment => 'A Comment',
-        ipi_codes => [],
-        isni_codes => [],
+        name => 'New Series',
+        comment => '',
+        type_id => 2,
+        ordering_type_id => 1,
         privileges => $UNTRUSTED_FLAG,
     );
 
-    is($open_edit->status, $STATUS_OPEN);
+    my $open_edit2 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_CREATE,
+        editor_id => 1,
+        entity0 => $c->model('Release')->get_by_id(1),
+        entity1 => $c->model('Series')->get_by_id($open_edit1->series_id),
+        link_type => $c->model('LinkType')->get_by_id(741),
+        attributes => [],
+        privileges => $UNTRUSTED_FLAG,
+    );
 
+    is($open_edit1->status, $STATUS_OPEN, 'The add series edit is open');
+    is(
+        $open_edit2->status,
+        $STATUS_OPEN,
+        'The edit adding a relationship to the series is open',
+    );
+
+    note('We set the editor as a spammer');
     my $editor = $c->model('Editor')->get_by_id(1);
 
     $c->model('Editor')->update_privileges($editor, { spammer => 1 });
 
-    is($c->model('Edit')->get_by_id($applied_edit->id)->status, $STATUS_APPLIED);
-    is($c->model('Edit')->get_by_id($open_edit->id)->status, $STATUS_DELETED);
+    is(
+        $c->model('Edit')->get_by_id($applied_edit->id)->status,
+        $STATUS_APPLIED,
+        'The applied edit is still applied',
+    );
+    is(
+        $c->model('Edit')->get_by_id($open_edit1->id)->status,
+        $STATUS_DELETED,
+        'The add series edit was cancelled',
+    );
+    is(
+        $c->model('Edit')->get_by_id($open_edit2->id)->status,
+        $STATUS_DELETED,
+        'The add relationship edit was cancelled',
+    );
 };
 
 test 'Marking an editor as spammer changes all Yes/No votes on open edits to Abstain' => sub {

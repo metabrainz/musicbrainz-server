@@ -641,7 +641,7 @@ sub cancel_edits_and_votes {
     # no conflicts happen that make some cancelling fail and all
     # entities that should be autoremoved do get removed
     my $own_edit_ids = $self->sql->select_single_column_array(
-            'SELECT id FROM edit WHERE editor = ? AND status = ? ORDER BY open_time DESC',
+            'SELECT id FROM edit WHERE editor = ? AND status = ? ORDER BY open_time DESC, id DESC',
             $editor->id, $STATUS_OPEN);
     my $own_edits = $self->c->model('Edit')->get_by_ids(@$own_edit_ids);
 
