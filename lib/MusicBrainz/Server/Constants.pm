@@ -341,10 +341,12 @@ Readonly our $SCRIPT_FREQUENCY_UNCOMMON =>  2;
 Readonly our $SCRIPT_FREQUENCY_OTHER    =>  3;
 Readonly our $SCRIPT_FREQUENCY_FREQUENT =>  4;
 
-Readonly our $VOTE_ABSTAIN => -1;
-Readonly our $VOTE_NO      =>  0;
-Readonly our $VOTE_YES     =>  1;
-Readonly our $VOTE_APPROVE =>  2;
+Readonly our $VOTE_ABSTAIN          => -1;
+Readonly our $VOTE_NO               =>  0;
+Readonly our $VOTE_YES              =>  1;
+Readonly our $VOTE_APPROVE          =>  2;
+Readonly our $VOTE_ADMIN_APPROVE    =>  3;
+Readonly our $VOTE_ADMIN_REJECT     =>  4;
 
 Readonly our $STATUS_OPEN         => 1;
 Readonly our $STATUS_APPLIED      => 2;

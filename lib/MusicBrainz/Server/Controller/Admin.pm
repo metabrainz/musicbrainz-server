@@ -7,7 +7,13 @@ use Try::Tiny;
 
 extends 'MusicBrainz::Server::Controller';
 
-use MusicBrainz::Server::Constants qw( :privileges );
+use DBDefs;
+
+use MusicBrainz::Server::Constants qw(
+    :privileges
+    $VOTE_ADMIN_APPROVE
+    $VOTE_ADMIN_REJECT
+);
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
@@ -338,6 +344,63 @@ sub unlock_username : Path('/admin/locked-usernames/unlock') Args(1) RequireAuth
             username => $username,
         },
     );
+}
+
+sub accept_edit : Path('/admin/accept-edit') Args(1) RequireAuth(account_admin)
+{
+    my ($self, $c, $edit_id) = @_;
+
+    my $edit = $c->model('Edit')->get_by_id($edit_id)
+        or $c->detach('/error_404');
+
+    _accept_edit($c, $edit) if $edit->is_open;
+    $c->response->redirect($c->uri_for_action('/edit/show', [ $edit->id ]));
+}
+
+sub reject_edit : Path('/admin/reject-edit') Args(1) RequireAuth(account_admin)
+{
+    my ($self, $c, $edit_id) = @_;
+
+    my $edit = $c->model('Edit')->get_by_id($edit_id)
+        or $c->detach('/error_404');
+
+    _reject_edit($c, $edit) if $edit->is_open;
+    $c->response->redirect($c->uri_for_action('/edit/show', [ $edit->id ]));
+}
+
+sub _accept_edit
+{
+    my ($c, $edit) = @_;
+
+    my $sql = $c->model('MB')->context->sql;
+
+    Sql::run_in_transaction( sub {
+        $c->model('Vote')->enter_votes(
+            $c->user,
+            [{
+                vote    => $VOTE_ADMIN_APPROVE,
+                edit_id => $edit->id,
+            }],
+        );
+        $c->model('Edit')->accept($edit);
+    }, $sql );
+}
+
+sub _reject_edit
+{
+    my ($c, $edit) = @_;
+
+    my $sql = $c->model('MB')->context->sql;
+    Sql::run_in_transaction( sub {
+        $c->model('Vote')->enter_votes(
+            $c->user,
+            [{
+                vote    => $VOTE_ADMIN_REJECT,
+                edit_id => $edit->id,
+            }],
+        );
+        $c->model('Edit')->reject($edit);
+    }, $sql );
 }
 
 1;
