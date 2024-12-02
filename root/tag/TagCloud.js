@@ -96,7 +96,8 @@ component TagCloud(
         <h1>{lp('Tags', 'folksonomy')}</h1>
         <p>
           {l(
-            'These are the most used genres and other tags in the database.',
+            `These are the most popular tags in MusicBrainz,
+             based on their total counts (upvotes minus downvotes).`,
           )}
           {' '}
           {showList ? (

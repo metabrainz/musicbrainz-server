@@ -115,7 +115,8 @@
                 <a href="/doc/Communication/ChatBrainz" class="internal">[% l('Chat') %]</a>
                 <a href="https://tickets.metabrainz.org/" class="internal">[% l('Bug tracker') %]</a>
                 <a href="https://blog.metabrainz.org/" class="internal">[% l('Blog') %]</a>
-                <a href="https://twitter.com/MusicBrainz" class="internal">[% l('Twitter') %]</a>
+                <a href="https://mastodon.social/@MusicBrainz" class="internal">[% l('Mastodon') %]</a>
+                <a href="https://bsky.app/profile/musicbrainz.org" class="internal">[% l('Bluesky') %]</a>
                 [%- IF server_details.beta_redirect %]
                 <a href="[% c.uri_for('/set-beta-preference', {returnto => c.relative_uri}) %]" class="internal">[% server_details.is_beta ? l('Stop using beta site') : l('Use beta site') %]</a>
                 [%- END -%]

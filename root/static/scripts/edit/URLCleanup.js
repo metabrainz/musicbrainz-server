@@ -1035,7 +1035,7 @@ const CLEANUPS: CleanupEntries = {
             };
           case LINK_TYPES.streamingfree.release:
             return {
-              result: prefix === 'album',
+              result: prefix === 'album' || prefix === 'song',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.recording:
@@ -4491,7 +4491,7 @@ const CLEANUPS: CleanupEntries = {
       /^(https?:\/\/)?(www\.)?musicmoz\.org\//i,
       /^(https?:\/\/)?(www\.)?discografia\.dds\.it\//i,
       /^(https?:\/\/)?(www\.)?encyclopedisque\.fr\//i,
-      /^(https?:\/\/)?(www\.)?discosdobrasil\.com\.br\//i,
+      /^(https?:\/\/)?((?:discografia|www)\.)?discosdobrasil\.com\.br\//i,
       /^(https?:\/\/)?(www\.)?isrc\.ncl\.edu\.tw\//i,
       /^(https?:\/\/)?(www\.)?rolldabeats\.com\//i,
       /^(https?:\/\/)?(www\.)?psydb\.net\//i,

@@ -400,7 +400,8 @@ sub send_message_to_editor
     my $body = {
         template_id => 'editor-message',
         to          => _user_address($to),
-        from        => $EMAIL_NOREPLY_ADDRESS,
+        from        => _user_address($from, 1),
+        sender      => $EMAIL_NOREPLY_ADDRESS,
         # TODO: send the user's language preference here. (This preference is not yet stored on the server)
         # Which language should we use, as this email is going to a different user?
         # 'lang'

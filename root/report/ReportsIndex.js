@@ -217,6 +217,10 @@ component ReportsIndex() {
             reportName="DeprecatedRelationshipReleaseGroups"
           />
           <ReportsIndexEntry
+            content={l('Release groups without any releases')}
+            reportName="EmptyReleaseGroups"
+          />
+          <ReportsIndexEntry
             content={l('Possible duplicate release groups')}
             reportName="DuplicateReleaseGroups"
           />
