@@ -156,14 +156,15 @@ export function runReducer<
   }
 }
 
-type MultiselectValueComponentT = React.AbstractComponent<
+type MultiselectValueComponentT = React.ComponentType<
   MultiselectValuePropsT<
     AutocompleteEntityItemT,
     MultiselectValueStateT<AutocompleteEntityItemT>,
   >,
-  mixed,
 >;
 
+// $FlowIgnore[incompatible-type]
+// $FlowIgnore[incompatible-type-arg]
 export const MultiselectValue: MultiselectValueComponentT = React.memo(<
   V: AutocompleteEntityItemT,
   VS: MultiselectValueStateT<V>,
@@ -214,6 +215,7 @@ export const MultiselectValue: MultiselectValueComponentT = React.memo(<
   );
 });
 
+// $FlowIgnore[incompatible-cast]
 const Multiselect = (React.memo(<
   V: AutocompleteEntityItemT,
   VS: MultiselectValueStateT<V>,
@@ -236,9 +238,8 @@ const Multiselect = (React.memo(<
   const GenericMultiselectValue = (
     // $FlowIgnore[incompatible-cast]
     MultiselectValue:
-      React.AbstractComponent<
+      React.ComponentType<
         MultiselectValuePropsT<V, VS>,
-        mixed,
       >
   );
 
@@ -263,7 +264,7 @@ const Multiselect = (React.memo(<
       ) : null}
     </>
   );
-}): React.AbstractComponent<
+}): React.ComponentType<
   MultiselectPropsT<
     AutocompleteEntityItemT,
     MultiselectValueStateT<AutocompleteEntityItemT>,
@@ -272,7 +273,6 @@ const Multiselect = (React.memo(<
       MultiselectValueStateT<AutocompleteEntityItemT>,
     >,
   >,
-  mixed,
 >);
 
 export default Multiselect;

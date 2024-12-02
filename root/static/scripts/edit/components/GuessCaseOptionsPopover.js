@@ -62,7 +62,7 @@ component _GuessCaseOptionsPopover(
   );
 }
 
-const GuessCaseOptionsPopover: React.AbstractComponent<
+const GuessCaseOptionsPopover: React.ComponentType<
   React.PropsOf<_GuessCaseOptionsPopover>
 > = React.memo(_GuessCaseOptionsPopover);
 

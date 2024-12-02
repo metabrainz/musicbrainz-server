@@ -596,7 +596,7 @@ component _ArtistCreditEditor(
   );
 }
 
-const ArtistCreditEditor: React.AbstractComponent<
+const ArtistCreditEditor: React.ComponentType<
   React.PropsOf<_ArtistCreditEditor>
 > = React.memo(_ArtistCreditEditor);
 

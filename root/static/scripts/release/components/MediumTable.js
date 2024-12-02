@@ -137,7 +137,7 @@ component _MediumTable(
   );
 }
 
-const MediumTable: React.AbstractComponent<
+const MediumTable: React.ComponentType<
   React.PropsOf<_MediumTable>
 > = React.memo(_MediumTable);
 
