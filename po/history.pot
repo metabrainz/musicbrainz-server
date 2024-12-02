@@ -349,6 +349,14 @@ msgstr ""
 msgid "Cover Art Uploader"
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2024-10-09
+msgid "Cover and Event Art Archives down"
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2024-11-12
+msgid "Cover and Event Art Archives up in Beta"
+msgstr ""
+
 #. title:Increased CritiqueBrainz integration
 #: DB:statistics.statistic_event/description:2022-08-08
 msgid ""
@@ -622,6 +630,17 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2021-02-01
 msgid "Italian translation released, IPI and ISNI become autoedits"
+msgstr ""
+
+#. title:Julian Anderson joins the MetaBrainz team
+#: DB:statistics.statistic_event/description:2024-11-13
+msgid ""
+"Julian Anderson (julian45) joins the MetaBrainz team pro-bono as a system "
+"administrator."
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2024-11-13
+msgid "Julian Anderson joins the MetaBrainz team"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2021-02-23
@@ -1073,6 +1092,22 @@ msgstr ""
 #. title:Event Art Archive
 #: DB:statistics.statistic_event/description:2024-06-30
 msgid "The Event Art Archive is officially released."
+msgstr ""
+
+#. title:Cover and Event Art Archives up in Beta
+#: DB:statistics.statistic_event/description:2024-11-12
+msgid ""
+"The Internet Archive, which hosts the Cover and Event Art Archives, comes "
+"back online, and artwork uploading is enabled on the MusicBrainz Beta "
+"website."
+msgstr ""
+
+#. title:Cover and Event Art Archives down
+#: DB:statistics.statistic_event/description:2024-10-09
+msgid ""
+"The Internet Archive, which hosts the Cover and Event Art Archives, goes "
+"down due to a cyber-attack, meaning that MusicBrainz artwork can no longer "
+"be uploaded or displayed."
 msgstr ""
 
 #. title:Italian translation released, IPI and ISNI become autoedits
