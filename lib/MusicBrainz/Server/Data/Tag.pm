@@ -87,7 +87,6 @@ sub _get_cloud_data
                 WHERE $condition
              GROUP BY tag.id
              ORDER BY sum(count) DESC
-                LIMIT \$1
             )
             SQL
     } entities_with('tags');
