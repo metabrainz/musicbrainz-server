@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-15 00:42+0000\n"
+"PO-Revision-Date: 2024-11-30 22:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/lt/>\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.7.2\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -709,12 +709,15 @@ msgid ""
 "A read only memory cartridge or card, such as the ones used by early home "
 "computers and some video game systems."
 msgstr ""
+"Pastovios atminties kasetė arba kortelė, pavyzdžiui, naudojama "
+"ankstyvuosiuose namų kompiuteriuose ir kai kuriose vaizdo žaidimų sistemose."
 
 #. name:Festival
 #: DB:series_type/description:8
 msgctxt "series_type"
 msgid "A recurring festival, usually happening annually in the same location."
 msgstr ""
+"Pasikartojantis festivalis, paprastai vykstantis kasmet toje pačioje vietoje."
 
 #. name:Field recording
 #: DB:release_group_secondary_type/description:12
@@ -723,12 +726,14 @@ msgid ""
 "A release mostly consisting of field recordings (such as nature sounds or "
 "city/industrial noise)."
 msgstr ""
+"Leidinys, kurį daugiausia sudaro lauko įrašai (pavyzdžiui, gamtos garsai "
+"arba miesto / pramonės triukšmas)."
 
 #. name:Remix
 #: DB:release_group_secondary_type/description:7
 msgctxt "release_group_secondary_type"
 msgid "A release that primarily contains remixed material."
-msgstr ""
+msgstr "Leidinys, kuriame daugiausia yra remiksuotos medžiagos."
 
 #. name:Live
 #: DB:release_group_secondary_type/description:6
@@ -6815,12 +6820,9 @@ msgid "Quartet"
 msgstr "kvartetas"
 
 #: DB:medium_format/name:208
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "8-Track Cartridge"
 msgctxt "medium_format"
 msgid "ROM cartridge"
-msgstr "8 takelių kasetė"
+msgstr "ROM kasetė"
 
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"

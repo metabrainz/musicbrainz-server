@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-11-16 06:42+0000\n"
+"PO-Revision-Date: 2024-11-23 08:42+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translations."
 "metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -597,17 +597,15 @@ msgstr "发行包装"
 
 #: ../root/statistics/Index.js:424
 msgid "No packaging set"
-msgstr ""
+msgstr "未设定包装"
 
 #: ../root/statistics/Index.js:431
-#, fuzzy
-#| msgid "Cover Art"
 msgid "Cover art sources"
-msgstr "专辑封面"
+msgstr "专辑封面源"
 
 #: ../root/statistics/Index.js:440
 msgid "CAA:"
-msgstr ""
+msgstr "CAA:"
 
 #: ../root/statistics/Index.js:446
 msgid "No front cover art:"
@@ -618,59 +616,49 @@ msgid "Data quality"
 msgstr "数据质量"
 
 #: ../root/statistics/Index.js:463 ../root/statistics/stats.js:598
-#, fuzzy
-#| msgid "Data Quality"
 msgid "High data quality"
-msgstr "数据质量"
+msgstr "高质量数据"
 
 #: ../root/statistics/Index.js:471
-#, fuzzy
-#| msgid "Data Quality"
 msgid "Default data quality"
-msgstr "数据质量"
+msgstr "默认数据质量"
 
 #: ../root/statistics/Index.js:479 ../root/statistics/stats.js:608
-#, fuzzy
-#| msgid "Data Quality"
 msgid "Normal data quality"
-msgstr "数据质量"
+msgstr "正常数据质量"
 
 #: ../root/statistics/Index.js:486 ../root/statistics/stats.js:613
-#, fuzzy
-#| msgid "Unknown Country"
 msgid "Unknown data quality"
-msgstr "未知国家"
+msgstr "未知数据质量"
 
 #: ../root/statistics/Index.js:495 ../root/statistics/stats.js:603
-#, fuzzy
-#| msgid "Data Quality"
 msgid "Low data quality"
-msgstr "数据质量"
+msgstr "低质量数据"
 
 #: ../root/statistics/Index.js:517
 msgid "Releases with no disc IDs:"
-msgstr ""
+msgstr "无唱片 ID的发行:"
 
 #: ../root/statistics/Index.js:524
 msgid "Releases with at least one disc ID:"
-msgstr ""
+msgstr "至少有一个唱片 ID的发行："
 
 #: ../root/statistics/Index.js:535 ../root/statistics/Index.js:579
 msgid "with {num} disc ID:"
 msgid_plural "with {num} disc IDs:"
-msgstr[0] ""
+msgstr[0] "有 {num} 个唱片 ID:"
 
 #: ../root/statistics/Index.js:550 ../root/statistics/Index.js:592
 msgid "with 10 or more disc IDs:"
-msgstr ""
+msgstr "有十个或多个唱片 ID:"
 
 #: ../root/statistics/Index.js:561
 msgid "Mediums with no disc IDs:"
-msgstr ""
+msgstr "无唱片 ID的媒介:"
 
 #: ../root/statistics/Index.js:568
 msgid "Mediums with at least one disc ID:"
-msgstr ""
+msgstr "至少有一个唱片 ID 的介质："
 
 #: ../root/statistics/Index.js:603
 msgid "Primary types"
