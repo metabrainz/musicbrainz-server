@@ -114,7 +114,7 @@ test 'collection lookup' => sub {
                     'type' => 'Genre',
                     'type-id' => '1210f9ce-e138-3b08-94b5-05d21032b696',
                     'editor' => 'the-anti-kuno',
-                    'genre-count' => '0',
+                    'genre-count' => '1',
                 },
                 {
                     'id' => '7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1b',
@@ -123,7 +123,7 @@ test 'collection lookup' => sub {
                     'type' => 'Genre',
                     'type-id' => '1210f9ce-e138-3b08-94b5-05d21032b696',
                     'editor' => 'the-anti-kuno',
-                    'genre-count' => '0',
+                    'genre-count' => '1',
                 },
                 {
                     'id' => '7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1f',

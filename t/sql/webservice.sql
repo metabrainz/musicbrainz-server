@@ -1635,6 +1635,8 @@ INSERT INTO editor_collection_artist (collection, artist) VALUES (3, 9496);
 INSERT INTO editor_collection_artist (collection, artist) VALUES (4, 135345);
 INSERT INTO editor_collection_event (collection, event) VALUES (5, 7);
 INSERT INTO editor_collection_event (collection, event) VALUES (6, 8);
+INSERT INTO editor_collection_genre (collection, genre) VALUES (23, 3);
+INSERT INTO editor_collection_genre (collection, genre) VALUES (24, 3);
 INSERT INTO editor_collection_instrument (collection, instrument) VALUES (7, 7);
 INSERT INTO editor_collection_instrument (collection, instrument) VALUES (8, 7);
 INSERT INTO editor_collection_label (collection, label) VALUES (9, 8092);
