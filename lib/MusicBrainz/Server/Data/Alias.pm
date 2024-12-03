@@ -285,12 +285,19 @@ sub update
 
     # Clear existing primary for locale flag for the chosen locale
     # if we are overriding them (the user chose this as primary)
-    if ($row{primary_for_locale}) {
-        # We need to load the alias because %row only contains changed values
+    # We need to check if either primary or the locale changed
+    # and then load the alias because %row only contains changed values
+    if ($row{primary_for_locale} || $row{locale}) {
         my $alias = $self->get_by_id($alias_id);
         my $locale = $row{locale} // $alias->{locale};
+        my $primary_for_locale = $row{primary_for_locale} // $alias->{primary_for_locale};
         my $entity_id = $alias->{$type . '_id'};
-        $self->clear_primary_for_locale($locale, $entity_id);
+        # Whether we just set primary or it was already set and we
+        # are keeping it while changing the locale, we need to clear
+        # the existing primary
+        if ($primary_for_locale) {
+            $self->clear_primary_for_locale($locale, $entity_id);
+        }
     }
 
     add_partial_date_to_row(\%row, $alias_hash->{begin_date}, 'begin_date')
