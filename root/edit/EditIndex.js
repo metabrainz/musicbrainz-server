@@ -14,7 +14,8 @@ import {CatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
 import EditLink from '../static/scripts/common/components/EditLink.js';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
-import DBDefs from '../static/scripts/common/DBDefs.mjs';
+import {DB_STAGING_TESTING_FEATURES}
+  from '../static/scripts/common/DBDefs.mjs';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import getVoteName from '../static/scripts/edit/utility/getVoteName.js';
@@ -122,7 +123,7 @@ component EditIndex(
           ) : null}
 
           {$c.user ? (
-            edit.is_open && DBDefs.DB_STAGING_TESTING_FEATURES ? (
+            edit.is_open && DB_STAGING_TESTING_FEATURES ? (
               <>
                 <h2>{l('Testing features')}</h2>
                 <p>

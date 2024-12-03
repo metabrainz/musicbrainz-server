@@ -8,23 +8,40 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as utils from '../../utils.js';
+import type {GuessCaseModeNameT} from '../../types.js';
+import titleString from '../../utils/titleString.js';
 
-import gc from './Main.js';
+import type GuessCaseOutput from './Output.js';
 
 /*
  * Holds the input variables
  */
 class GuessCaseInput {
+  CFG_KEEP_UPPERCASED: boolean;
+
+  modeName: GuessCaseModeNameT;
+
+  output: GuessCaseOutput;
+
+  regexes: {[regexName: string]: RegExp};
+
   source: string;
 
   wordIndex: number;
 
   wordList: Array<string>;
 
-  constructor() {
+  constructor(
+    inputString: string,
+    modeName: GuessCaseModeNameT,
+    CFG_KEEP_UPPERCASED: boolean,
+    regexes: {[regexName: string]: RegExp},
+  ) {
     // Member variables
-    this.source = '';
+    this.CFG_KEEP_UPPERCASED = CFG_KEEP_UPPERCASED;
+    this.modeName = modeName;
+    this.regexes = regexes;
+    this.source = (inputString || '');
     this.wordList = [];
     this.wordIndex = 0;
   }
@@ -32,10 +49,9 @@ class GuessCaseInput {
   // Member functions
 
   // Initialise the GcInput object
-  init(inputString: string, wordlist: Array<string>) {
-    this.source = (inputString || '');
+  init(wordlist: Array<string>, output: GuessCaseOutput) {
+    this.output = output;
     this.wordList = (wordlist || []);
-    this.wordIndex = 0;
   }
 
   // Returns the length of the wordlist
@@ -145,7 +161,13 @@ class GuessCaseInput {
     if (word == null) {
       return null;
     }
-    const output = utils.titleString(word);
+    const output = titleString(
+      this,
+      this.output,
+      word,
+      this.modeName,
+      this.CFG_KEEP_UPPERCASED,
+    );
     if (word !== output) {
       this.updateCurrentWord(output);
     }
@@ -178,11 +200,11 @@ class GuessCaseInput {
     const chars = input.split('');
     const splitwords = [];
     let word: Array<string> = [];
-    if (!gc.regexes.SPLITWORDSANDPUNCTUATION) {
-      gc.regexes.SPLITWORDSANDPUNCTUATION = /[^!¿¡"%&'´`‘’‹›“”„“«»()[\]{}*+‐\-,./:;<=>?\s#]/;
+    if (!this.regexes.SPLITWORDSANDPUNCTUATION) {
+      this.regexes.SPLITWORDSANDPUNCTUATION = /[^!¿¡"%&'´`‘’‹›“”„“«»()[\]{}*+‐\-,./:;<=>?\s#]/;
     }
     for (let i = 0; i < chars.length; i++) {
-      if (chars[i].match(gc.regexes.SPLITWORDSANDPUNCTUATION)) {
+      if (chars[i].match(this.regexes.SPLITWORDSANDPUNCTUATION)) {
         /*
          * See http://www.codingforums.com/archive/index.php/t-49001
          * for reference (escaping the sequence)
@@ -204,4 +226,4 @@ class GuessCaseInput {
   }
 }
 
-export default (new GuessCaseInput(): GuessCaseInput);
+export default GuessCaseInput;

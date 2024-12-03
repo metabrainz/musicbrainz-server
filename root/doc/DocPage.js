@@ -10,7 +10,10 @@
 import * as React from 'react';
 
 import Layout from '../layout/index.js';
-import DBDefs from '../static/scripts/common/DBDefs.mjs';
+import {
+  GOOGLE_CUSTOM_SEARCH,
+  WIKITRANS_SERVER,
+} from '../static/scripts/common/DBDefs.mjs';
 
 import DocSearchBox from './components/DocSearchBox.js';
 
@@ -25,8 +28,8 @@ component DocPage(id: string, page: DocPageT) {
   let doc = '';
   let lastDoc = '';
   // We check whether we have a Google Custom Search engine
-  const useGoogleCustomSearch = nonEmpty(DBDefs.GOOGLE_CUSTOM_SEARCH);
-  const wikiPageUrl = `//${DBDefs.WIKITRANS_SERVER}/${id}`;
+  const useGoogleCustomSearch = nonEmpty(GOOGLE_CUSTOM_SEARCH);
+  const wikiPageUrl = `//${WIKITRANS_SERVER}/${id}`;
   const wikiPage = (
     <a
       className="internal"

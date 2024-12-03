@@ -658,7 +658,7 @@ function submissionErrorOccurred(data) {
         error = he.escape(data.statusText + ': ' + data.status);
       }
     }
-  } catch (e) {
+  } catch (ignoredError) {
     error = he.escape(data.statusText + ': ' + data.status);
   }
 

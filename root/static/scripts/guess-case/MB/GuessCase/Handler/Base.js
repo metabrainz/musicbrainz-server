@@ -10,16 +10,36 @@
 
 import * as flags from '../../../flags.js';
 import * as modes from '../../../modes.js';
-import * as utils from '../../../utils.js';
-import input from '../Input.js';
-import gc from '../Main.js';
-import output from '../Output.js';
+import {type GuessCaseModeNameT} from '../../../types.js';
+import trim from '../../../utils/trim.js';
+import {isLowerCaseBracketWord} from '../../../utils/wordCheckers.js';
+import type GuessCaseInput from '../Input.js';
+import type GuessCaseOutput from '../Output.js';
 
 // Base class of the type specific handlers
 class GuessCaseHandler {
   specialCaseValues: {[name: string]: number};
 
-  constructor() {
+  input: GuessCaseInput;
+
+  modeName: GuessCaseModeNameT;
+
+  output: GuessCaseOutput;
+
+  regexes: {
+    [regexName: string]: RegExp,
+  };
+
+  constructor(
+    modeName: GuessCaseModeNameT,
+    regexes: {[regexName: string]: RegExp},
+    input: GuessCaseInput,
+    output: GuessCaseOutput,
+  ) {
+    this.modeName = modeName;
+    this.regexes = regexes;
+    this.input = input;
+    this.output = output;
     this.specialCaseValues = {
       NOT_A_SPECIALCASE: -1,
       SPECIALCASE_CROWD_NOISE: 33,  // [crowd noise]
@@ -82,16 +102,15 @@ class GuessCaseHandler {
   }
 
   getWordsForProcessing(inputString: string): Array<string> {
-    return input.splitWordsAndPunctuation(inputString);
+    return this.input.splitWordsAndPunctuation(inputString);
   }
 
   process(inputString: string): string {
-    output.init();
-    input.init(inputString, this.getWordsForProcessing(inputString));
-    while (!input.isIndexAtEnd()) {
+    this.input.init(this.getWordsForProcessing(inputString), this.output);
+    while (!this.input.isIndexAtEnd()) {
       this.processWord();
     }
-    return modes[gc.modeName].runPostProcess(output.getOutput());
+    return modes[this.modeName].runPostProcess(this.output.getOutput());
   }
 
   /*
@@ -110,10 +129,10 @@ class GuessCaseHandler {
        * check them.
        */
       let handled = false;
-      if (!gc.regexes.SPECIALCASES) {
-        gc.regexes.SPECIALCASES = /(&|¿|¡|\?|!|;|:|'|‘|’|‹|›|"|“|”|„|“|«|»|-|‐|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
+      if (!this.regexes.SPECIALCASES) {
+        this.regexes.SPECIALCASES = /(&|¿|¡|\?|!|;|:|'|‘|’|‹|›|"|“|”|„|“|«|»|-|‐|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
       }
-      if (input.matchCurrentWord(gc.regexes.SPECIALCASES)) {
+      if (this.input.matchCurrentWord(this.regexes.SPECIALCASES)) {
         handled = this.doDoubleQuote() ||
           this.doSingleQuote() ||
           this.doOpeningBracket() ||
@@ -138,7 +157,7 @@ class GuessCaseHandler {
         this.doWord()
       );
     }
-    input.nextIndex();
+    this.input.nextIndex();
   }
 
   // Delegate function for specific handlers
@@ -147,9 +166,9 @@ class GuessCaseHandler {
   }
 
   doNormalWord() {
-    output.appendSpaceIfNeeded();
-    input.capitalizeCurrentWord();
-    output.appendCurrentWord();
+    this.output.appendSpaceIfNeeded();
+    this.input.capitalizeCurrentWord();
+    this.output.appendCurrentWord();
     flags.resetContext();
     flags.context.forceCaps = false;
     flags.context.spaceNextWord = true;
@@ -160,10 +179,10 @@ class GuessCaseHandler {
    * Primarily we only look at whitespace for context purposes
    */
   doWhiteSpace(): boolean {
-    if (!gc.regexes.WHITESPACE) {
-      gc.regexes.WHITESPACE = /^ $/;
+    if (!this.regexes.WHITESPACE) {
+      this.regexes.WHITESPACE = /^ $/;
     }
-    if (input.matchCurrentWord(gc.regexes.WHITESPACE)) {
+    if (this.input.matchCurrentWord(this.regexes.WHITESPACE)) {
       flags.context.whitespace = true;
       flags.context.spaceNextWord = true;
       if (flags.context.openingBracket) {
@@ -179,23 +198,23 @@ class GuessCaseHandler {
    * Colons are used as a sub-title split,and also for disc/box name splits
    */
   doColon(): boolean {
-    if (!gc.regexes.COLON) {
-      gc.regexes.COLON = /^:$/;
+    if (!this.regexes.COLON) {
+      this.regexes.COLON = /^:$/;
     }
 
-    if (input.matchCurrentWord(gc.regexes.COLON)) {
+    if (this.input.matchCurrentWord(this.regexes.COLON)) {
       /*
        * Capitalize the last word before the colon (it's a line stop)
        * -- handle special case feat. "role" lowercase.
        */
-      const featIndex = output.getLength() - 3;
-      const role = output.getLastWord();
+      const featIndex = this.output.getLength() - 3;
+      const role = this.output.getLastWord();
       if (flags.context.slurpExtraTitleInformation &&
           featIndex > 0 &&
-          output.getWordAtIndex(featIndex) === 'feat.' &&
+          this.output.getWordAtIndex(featIndex) === 'feat.' &&
           nonEmpty(role)) {
-        output.setWordAtIndex(
-          output.getLength() - 1,
+        this.output.setWordAtIndex(
+          this.output.getLength() - 1,
           role.toLowerCase(),
         );
       } else {
@@ -203,34 +222,36 @@ class GuessCaseHandler {
          * Force capitalization of the last word,
          * because we are starting a new subtitle
          */
-        output.capitalizeLastWord(!modes[gc.modeName].isSentenceCaps());
+        this.output.capitalizeLastWord(
+          !modes[this.modeName].isSentenceCaps(),
+        );
       }
 
       // from next position on, skip spaces and dots.
       let skip = false;
-      const cursorPosition = input.getCursorPosition();
-      const length = input.getLength();
+      const cursorPosition = this.input.getCursorPosition();
+      const length = this.input.getLength();
       if (cursorPosition < length - 2) {
-        const nextWord = input.getWordAtIndex(cursorPosition + 1);
-        const afterNextWord = input.getWordAtIndex(cursorPosition + 2);
-        if (nextWord != null && nextWord.match(gc.regexes.OPENBRACKET)) {
+        const nextWord = this.input.getWordAtIndex(cursorPosition + 1);
+        const afterNextWord = this.input.getWordAtIndex(cursorPosition + 2);
+        if (nextWord != null && nextWord.match(this.regexes.OPENBRACKET)) {
           skip = true;
           flags.context.spaceNextWord = true;
         }
-        if (input.isNextWord(' ') && afterNextWord != null &&
-          afterNextWord.match(gc.regexes.OPENBRACKET)) {
+        if (this.input.isNextWord(' ') && afterNextWord != null &&
+          afterNextWord.match(this.regexes.OPENBRACKET)) {
           flags.context.spaceNextWord = true;
           skip = true;
-          input.nextIndex();
+          this.input.nextIndex();
         }
       }
       if (!skip) {
         // No whitespace before colons
-        output.appendCurrentWord();
+        this.output.appendCurrentWord();
         flags.resetContext();
         flags.context.forceCaps = true;
         flags.context.colon = true;
-        flags.context.spaceNextWord = (input.isNextWord(' '));
+        flags.context.spaceNextWord = (this.input.isNextWord(' '));
       }
       return true;
     }
@@ -239,11 +260,11 @@ class GuessCaseHandler {
 
   // Deal with asterisk (*)
   doAsterisk(): boolean {
-    if (!gc.regexes.ASTERISK) {
-      gc.regexes.ASTERISK = /^\*$/;
+    if (!this.regexes.ASTERISK) {
+      this.regexes.ASTERISK = /^\*$/;
     }
-    if (input.matchCurrentWord(gc.regexes.ASTERISK)) {
-      output.appendWordPreserveWhiteSpace(true);
+    if (this.input.matchCurrentWord(this.regexes.ASTERISK)) {
+      this.output.appendWordPreserveWhiteSpace(true);
       flags.resetContext();
       return true;
     }
@@ -252,11 +273,11 @@ class GuessCaseHandler {
 
   // Deal with diamond (#)
   doDiamond(): boolean {
-    if (!gc.regexes.DIAMOND) {
-      gc.regexes.DIAMOND = /^#$/;
+    if (!this.regexes.DIAMOND) {
+      this.regexes.DIAMOND = /^#$/;
     }
-    if (input.matchCurrentWord(gc.regexes.DIAMOND)) {
-      output.appendWordPreserveWhiteSpace(true);
+    if (this.input.matchCurrentWord(this.regexes.DIAMOND)) {
+      this.output.appendWordPreserveWhiteSpace(true);
       flags.resetContext();
       return true;
     }
@@ -268,11 +289,11 @@ class GuessCaseHandler {
    * TODO: lots of methods for special chars look the same, combine?
    */
   doPercent(): boolean {
-    if (!gc.regexes.PERCENT) {
-      gc.regexes.PERCENT = /^%$/;
+    if (!this.regexes.PERCENT) {
+      this.regexes.PERCENT = /^%$/;
     }
-    if (input.matchCurrentWord(gc.regexes.PERCENT)) {
-      output.appendWordPreserveWhiteSpace(true);
+    if (this.input.matchCurrentWord(this.regexes.PERCENT)) {
+      this.output.appendWordPreserveWhiteSpace(true);
       flags.resetContext();
       return true;
     }
@@ -281,15 +302,15 @@ class GuessCaseHandler {
 
   // Deal with ampersands (&)
   doAmpersand(): boolean {
-    if (!gc.regexes.AMPERSAND) {
-      gc.regexes.AMPERSAND = /^&$/;
+    if (!this.regexes.AMPERSAND) {
+      this.regexes.AMPERSAND = /^&$/;
     }
-    if (input.matchCurrentWord(gc.regexes.AMPERSAND)) {
+    if (this.input.matchCurrentWord(this.regexes.AMPERSAND)) {
       flags.resetContext();
       flags.context.forceCaps = true;
-      output.appendSpace(); // Add a space,and remember to
+      this.output.appendSpace(); // Add a space,and remember to
       flags.context.spaceNextWord = true; // Add one before the next word
-      output.appendCurrentWord();
+      this.output.appendCurrentWord();
       return true;
     }
     return false;
@@ -297,21 +318,21 @@ class GuessCaseHandler {
 
   // Deal with line terminators other than the period (?!;)
   doLineStop(): boolean {
-    if (!gc.regexes.LINESTOP) {
-      gc.regexes.LINESTOP = /[?!;]/;
+    if (!this.regexes.LINESTOP) {
+      this.regexes.LINESTOP = /[?!;]/;
     }
-    if (input.matchCurrentWord(gc.regexes.LINESTOP)) {
+    if (this.input.matchCurrentWord(this.regexes.LINESTOP)) {
       flags.resetContext();
 
       /*
        * Force caps on word before the colon, if
        * the mode is not sentencecaps
        */
-      output.capitalizeLastWord(!modes[gc.modeName].isSentenceCaps());
+      this.output.capitalizeLastWord(!modes[this.modeName].isSentenceCaps());
 
       flags.context.forceCaps = true;
       flags.context.spaceNextWord = true;
-      output.appendCurrentWord();
+      this.output.appendCurrentWord();
       return true;
     }
     return false;
@@ -325,15 +346,15 @@ class GuessCaseHandler {
    * we'll treat a spaced hyphen as an em-dash for the purposes of caps.
    */
   doHyphen(): boolean {
-    if (!gc.regexes.HYPHEN) {
-      gc.regexes.HYPHEN = /^[-‐]$/;
+    if (!this.regexes.HYPHEN) {
+      this.regexes.HYPHEN = /^[-‐]$/;
     }
-    if (input.matchCurrentWord(gc.regexes.HYPHEN)) {
-      output.appendWordPreserveWhiteSpace(true);
+    if (this.input.matchCurrentWord(this.regexes.HYPHEN)) {
+      this.output.appendWordPreserveWhiteSpace(true);
       flags.resetContext();
 
       // Don't capitalize next word after hyphen in sentence mode.
-      flags.context.forceCaps = !modes[gc.modeName].isSentenceCaps();
+      flags.context.forceCaps = !modes[this.modeName].isSentenceCaps();
       flags.context.hyphen = true;
       return true;
     }
@@ -342,11 +363,11 @@ class GuessCaseHandler {
 
   // Deal with inverted question (¿) and exclamation marks (¡).
   doInvertedMarks(): boolean {
-    if (!gc.regexes.INVERTEDMARKS) {
-      gc.regexes.INVERTEDMARKS = /(¿|¡)/;
+    if (!this.regexes.INVERTEDMARKS) {
+      this.regexes.INVERTEDMARKS = /(¿|¡)/;
     }
-    if (input.matchCurrentWord(gc.regexes.INVERTEDMARKS)) {
-      output.appendWordPreserveWhiteSpace(false);
+    if (this.input.matchCurrentWord(this.regexes.INVERTEDMARKS)) {
+      this.output.appendWordPreserveWhiteSpace(false);
       flags.resetContext();
 
       // Next word is start of a new sentence.
@@ -358,11 +379,11 @@ class GuessCaseHandler {
 
   // Deal with plus symbol    (+)
   doPlus(): boolean {
-    if (!gc.regexes.PLUS) {
-      gc.regexes.PLUS = /^\+$/;
+    if (!this.regexes.PLUS) {
+      this.regexes.PLUS = /^\+$/;
     }
-    if (input.matchCurrentWord(gc.regexes.PLUS)) {
-      output.appendWordPreserveWhiteSpace(true);
+    if (this.input.matchCurrentWord(this.regexes.PLUS)) {
+      this.output.appendWordPreserveWhiteSpace(true);
       flags.resetContext();
       return true;
     }
@@ -374,11 +395,11 @@ class GuessCaseHandler {
    * If a slash has a space near it, pad it out, otherwise leave as is.
    */
   doSlash(): boolean {
-    if (!gc.regexes.SLASH) {
-      gc.regexes.SLASH = /[\\/]/;
+    if (!this.regexes.SLASH) {
+      this.regexes.SLASH = /[\\/]/;
     }
-    if (input.matchCurrentWord(gc.regexes.SLASH)) {
-      output.appendWordPreserveWhiteSpace(true);
+    if (this.input.matchCurrentWord(this.regexes.SLASH)) {
+      this.output.appendWordPreserveWhiteSpace(true);
       flags.resetContext();
       flags.context.forceCaps = true;
       return true;
@@ -388,16 +409,16 @@ class GuessCaseHandler {
 
   // Deal with double quotes (")
   doDoubleQuote(): boolean {
-    if (!gc.regexes.DOUBLEQUOTE) {
-      gc.regexes.DOUBLEQUOTE = /["“”„“«»]/;
+    if (!this.regexes.DOUBLEQUOTE) {
+      this.regexes.DOUBLEQUOTE = /["“”„“«»]/;
     }
-    if (input.matchCurrentWord(gc.regexes.DOUBLEQUOTE)) {
+    if (this.input.matchCurrentWord(this.regexes.DOUBLEQUOTE)) {
       // Changed 05/2006: do not force capitalization before quotes
-      output.appendWordPreserveWhiteSpace(false);
+      this.output.appendWordPreserveWhiteSpace(false);
 
       // Changed 05/2006: do not force capitalization after quotes
       flags.resetContext();
-      flags.context.forceCaps = !input.isNextWord(' ');
+      flags.context.forceCaps = !this.input.isNextWord(' ');
       return true;
     }
     return false;
@@ -405,20 +426,20 @@ class GuessCaseHandler {
 
   /*
    * Deal with single quotes (')
-   * * Need to keep context on whether gc.regexes.inside quotes or not.
+   * * Need to keep context on whether this.regexes.inside quotes or not.
    * * Look for contractions (see contractions_words for a list of
    *   contractions that are handled), and format the right part (after)
    *   the (') as lowercase.
    */
   doSingleQuote(): boolean {
-    if (!gc.regexes.SINGLEQUOTE) {
-      gc.regexes.SINGLEQUOTE = /['‘’‹›]/;
+    if (!this.regexes.SINGLEQUOTE) {
+      this.regexes.SINGLEQUOTE = /['‘’‹›]/;
     }
 
-    if (input.matchCurrentWord(gc.regexes.SINGLEQUOTE)) {
+    if (this.input.matchCurrentWord(this.regexes.SINGLEQUOTE)) {
       flags.context.forceCaps = false;
-      const isPreviousSpace = input.isPreviousWord(' ');
-      const isNextSpace = input.isNextWord(' ');
+      const isPreviousSpace = this.input.isPreviousWord(' ');
+      const isNextSpace = this.input.isNextWord(' ');
       const state = flags.context.openedSingleQuote;
 
       /*
@@ -426,7 +447,7 @@ class GuessCaseHandler {
        * -- if it's a "Asdf 'Text in Quotes'"
        */
       if (isPreviousSpace && !isNextSpace) {
-        output.appendSpace();
+        this.output.appendSpace();
         flags.context.openedSingleQuote = true;
         flags.context.forceCaps = true;
 
@@ -436,10 +457,10 @@ class GuessCaseHandler {
           flags.context.forceCaps = true;
           flags.context.openedSingleQuote = false;
         }
-        output.capitalizeLastWord();
+        this.output.capitalizeLastWord();
       }
       flags.context.spaceNextWord = isNextSpace; // and keep whitespace intact
-      output.appendCurrentWord(); // append current word
+      this.output.appendCurrentWord(); // append current word
 
       /*
        * If there is a space after the '
@@ -468,26 +489,26 @@ class GuessCaseHandler {
    * is important for determining what words should be capped or not.
    */
   doOpeningBracket(): boolean {
-    if (!gc.regexes.OPENBRACKET) {
-      gc.regexes.OPENBRACKET = /[([{<]/;
+    if (!this.regexes.OPENBRACKET) {
+      this.regexes.OPENBRACKET = /[([{<]/;
     }
-    const currentWord = input.getCurrentWord();
-    if (currentWord != null && currentWord.match(gc.regexes.OPENBRACKET)) {
+    const currentWord = this.input.getCurrentWord();
+    if (currentWord != null && currentWord.match(this.regexes.OPENBRACKET)) {
       /*
        * Force caps on last word before the opending bracket,
        * if the current mode is not sentence mode.
        */
-      output.capitalizeLastWord(!modes[gc.modeName].isSentenceCaps());
+      this.output.capitalizeLastWord(!modes[this.modeName].isSentenceCaps());
 
       // register current bracket as openening bracket
       flags.pushBracket(currentWord);
       const closingBracket = flags.getCurrentCloseBracket();
       let forcelowercase = false;
-      const cursorPosition = input.getCursorPosition() + 1;
-      for (let i = cursorPosition; i < input.getLength(); i++) {
-        const word = (input.getWordAtIndex(i) || '');
+      const cursorPosition = this.input.getCursorPosition() + 1;
+      for (let i = cursorPosition; i < this.input.getLength(); i++) {
+        const word = (this.input.getWordAtIndex(i) || '');
         if (word !== ' ') {
-          if ((utils.isLowerCaseBracketWord(word)) ||
+          if ((isLowerCaseBracketWord(word)) ||
               (word.match(/^featuring$|^ft$|^feat$/i) != null)) {
             flags.context.slurpExtraTitleInformation = true;
 
@@ -500,12 +521,12 @@ class GuessCaseHandler {
           }
         }
       }
-      output.appendSpace(); // Always space brackets
+      this.output.appendSpace(); // Always space brackets
       flags.resetContext();
       flags.context.spaceNextWord = false;
       flags.context.openingBracket = true;
       flags.context.forceCaps = !forcelowercase;
-      output.appendCurrentWord();
+      this.output.appendCurrentWord();
       return true;
     }
     return false;
@@ -517,24 +538,24 @@ class GuessCaseHandler {
    * is important for determining what words should be capped or not.
    */
   doClosingBracket(): boolean {
-    if (!gc.regexes.CLOSEBRACKET) {
-      gc.regexes.CLOSEBRACKET = /[)\]}>]/;
+    if (!this.regexes.CLOSEBRACKET) {
+      this.regexes.CLOSEBRACKET = /[)\]}>]/;
     }
-    if (input.matchCurrentWord(gc.regexes.CLOSEBRACKET)) {
+    if (this.input.matchCurrentWord(this.regexes.CLOSEBRACKET)) {
       /*
        * Capitalize the last word, if forceCaps was
        * set, else leave it like it is.
        */
-      output.capitalizeLastWord();
+      this.output.capitalizeLastWord();
 
       if (flags.isInsideBrackets()) {
         flags.popBracket();
         flags.context.slurpExtraTitleInformation = false;
       }
       flags.resetContext();
-      flags.context.forceCaps = !modes[gc.modeName].isSentenceCaps();
+      flags.context.forceCaps = !modes[this.modeName].isSentenceCaps();
       flags.context.spaceNextWord = true;
-      output.appendCurrentWord();
+      this.output.appendCurrentWord();
       return true;
     }
     return false;
@@ -547,12 +568,12 @@ class GuessCaseHandler {
    * triplet checking later on. Multiple commas are removed.
    */
   doComma(): boolean {
-    if (!gc.regexes.COMMA) {
-      gc.regexes.COMMA = /^,$/;
+    if (!this.regexes.COMMA) {
+      this.regexes.COMMA = /^,$/;
     }
-    if (input.matchCurrentWord(gc.regexes.COMMA)) {
+    if (this.input.matchCurrentWord(this.regexes.COMMA)) {
       // Skip duplicate commas.
-      if (output.getLastWord() !== ',') {
+      if (this.output.getLastWord() !== ',') {
         /*
          * Capitalize the last word before the colon.
          * -- Do words before comma need to be titled?
@@ -563,7 +584,7 @@ class GuessCaseHandler {
         flags.resetContext();
         flags.context.spaceNextWord = true;
         flags.context.forceCaps = false;
-        output.appendCurrentWord();
+        this.output.appendCurrentWord();
       }
       return true;
     }
@@ -580,16 +601,16 @@ class GuessCaseHandler {
    * We flag digits and digit triplets in the words routine.
    */
   doPeriod(): boolean {
-    if (!gc.regexes.PERIOD) {
-      gc.regexes.PERIOD = /^\.$/;
+    if (!this.regexes.PERIOD) {
+      this.regexes.PERIOD = /^\.$/;
     }
 
-    if (input.matchCurrentWord(gc.regexes.PERIOD)) {
-      if (output.getLastWord() === '.') {
+    if (this.input.matchCurrentWord(this.regexes.PERIOD)) {
+      if (this.output.getLastWord() === '.') {
         if (!flags.context.ellipsis) {
-          output.appendWord('..');
-          while (input.isNextWord('.')) {
-            input.nextIndex(); // Skip trailing (.)
+          this.output.appendWord('..');
+          while (this.input.isNextWord('.')) {
+            this.input.nextIndex(); // Skip trailing (.)
           }
           flags.resetContext();
           flags.context.ellipsis = true;
@@ -597,17 +618,17 @@ class GuessCaseHandler {
         flags.context.forceCaps = true; // Capitalize next word in any case.
         flags.context.spaceNextWord = true;
       } else {
-        if (!input.hasMoreWords() || input.getNextWord() !== '.') {
+        if (!this.input.hasMoreWords() || this.input.getNextWord() !== '.') {
           /*
            * Capitalize the last word, if forceCaps was
            * set, else leave it like it is.
            */
-          output.capitalizeLastWord();
+          this.output.capitalizeLastWord();
         }
-        output.appendWord('.');
+        this.output.appendWord('.');
         flags.resetContext();
         flags.context.forceCaps = true; // Force caps on next word
-        flags.context.spaceNextWord = (input.isNextWord(' '));
+        flags.context.spaceNextWord = (this.input.isNextWord(' '));
       }
       return true;
     }
@@ -616,8 +637,8 @@ class GuessCaseHandler {
 
   // Check for an acronym
   doAcronym(): boolean {
-    if (!gc.regexes.ACRONYM) {
-      gc.regexes.ACRONYM = /^\w$/;
+    if (!this.regexes.ACRONYM) {
+      this.regexes.ACRONYM = /^\w$/;
     }
 
     /*
@@ -631,23 +652,23 @@ class GuessCaseHandler {
      * "A.B.C I Love You"           => "A.B. C I Love You"
      * "P.S I Love You"             => "P. S I Love You"
      */
-    let subIndex = input.getCursorPosition() + 1;
+    let subIndex = this.input.getCursorPosition() + 1;
     const tmp = [];
-    const currentWord = input.getCurrentWord();
-    if (currentWord != null && currentWord.match(gc.regexes.ACRONYM)) {
+    const currentWord = this.input.getCurrentWord();
+    if (currentWord != null && currentWord.match(this.regexes.ACRONYM)) {
       tmp.push(currentWord.toUpperCase()); // Add current word
       let expectWord = false;
       let gotPeriod = false;
       acronymloop:
       for (
         subIndex;
-        subIndex < input.getLength();
+        subIndex < this.input.getLength();
       ) {
         // Remember current word
-        const wordAtIndex = input.getWordAtIndex(subIndex);
+        const wordAtIndex = this.input.getWordAtIndex(subIndex);
 
         if (expectWord && wordAtIndex != null &&
-            wordAtIndex.match(gc.regexes.ACRONYM)) {
+            wordAtIndex.match(this.regexes.ACRONYM)) {
           tmp.push(wordAtIndex.toUpperCase()); // Do character
           expectWord = false;
           gotPeriod = false;
@@ -673,15 +694,15 @@ class GuessCaseHandler {
       let string = tmp.join(''); // Yes, we have an acronym, get string
       string = string.replace(/(\.)*$/, '.'); // Replace any number of trailing "." with ". "
 
-      output.appendSpaceIfNeeded();
-      output.appendWord(string);
+      this.output.appendSpaceIfNeeded();
+      this.output.appendWord(string);
 
       flags.resetContext();
       flags.context.acronym = true;
       flags.context.spaceNextWord = true;
       flags.context.forceCaps = false;
       // Set pointer to after acronym
-      input.setCursorPosition(subIndex - 1);
+      this.input.setCursorPosition(subIndex - 1);
       return true;
     }
     return false;
@@ -689,49 +710,52 @@ class GuessCaseHandler {
 
   // Check for a digit only string
   doDigits(): boolean {
-    if (!gc.regexes.DIGITS) {
-      gc.regexes.DIGITS = /^\d+$/;
-      gc.regexes.DIGITS_NUMBERSPLIT = /[,.]/;
-      gc.regexes.DIGITS_DUPLE = /^\d\d$/;
-      gc.regexes.DIGITS_TRIPLE = /^\d\d\d$/;
-      gc.regexes.DIGITS_NTUPLE = /^\d\d\d\d+$/;
+    if (!this.regexes.DIGITS) {
+      this.regexes.DIGITS = /^\d+$/;
+      this.regexes.DIGITS_NUMBERSPLIT = /[,.]/;
+      this.regexes.DIGITS_DUPLE = /^\d\d$/;
+      this.regexes.DIGITS_TRIPLE = /^\d\d\d$/;
+      this.regexes.DIGITS_NTUPLE = /^\d\d\d\d+$/;
     }
 
-    let subIndex = input.getCursorPosition() + 1;
+    let subIndex = this.input.getCursorPosition() + 1;
     const tmp = [];
-    if (input.matchCurrentWord(gc.regexes.DIGITS)) {
-      tmp.push(input.getCurrentWord());
+    if (this.input.matchCurrentWord(this.regexes.DIGITS)) {
+      tmp.push(this.input.getCurrentWord());
       flags.context.numberSplitExpect = true;
 
       numberloop:
       for (
         subIndex;
-        subIndex < input.getLength();
+        subIndex < this.input.getLength();
       ) {
         if (flags.context.numberSplitExpect) {
-          if (input.matchWordAtIndex(
+          if (this.input.matchWordAtIndex(
             subIndex,
-            gc.regexes.DIGITS_NUMBERSPLIT,
+            this.regexes.DIGITS_NUMBERSPLIT,
           )) {
             // Found a potential number split
-            tmp.push(input.getWordAtIndex(subIndex));
+            tmp.push(this.input.getWordAtIndex(subIndex));
             flags.context.numberSplitExpect = false;
           } else {
             break numberloop;
           }
-        } else if (input.matchWordAtIndex(
+        } else if (this.input.matchWordAtIndex(
           subIndex,
-          gc.regexes.DIGITS_TRIPLE,
+          this.regexes.DIGITS_TRIPLE,
         )) {
           // Found for a group of 3 digits
           if (flags.context.numberSplitChar == null) {
             // Confirmed number split
             flags.context.numberSplitChar = tmp[tmp.length - 1];
           }
-          tmp.push(input.getWordAtIndex(subIndex));
+          tmp.push(this.input.getWordAtIndex(subIndex));
           flags.context.numberSplitExpect = true;
         } else {
-          if (input.matchWordAtIndex(subIndex, gc.regexes.DIGITS_DUPLE)) {
+          if (this.input.matchWordAtIndex(
+            subIndex,
+            this.regexes.DIGITS_DUPLE,
+          )) {
             if (tmp.length > 2 &&
                 flags.context.numberSplitChar !== tmp[tmp.length - 1]) {
               /*
@@ -740,20 +764,20 @@ class GuessCaseHandler {
                * 1,000,936.00 or 1.300.402,00 depending on
                * the country
                */
-              tmp.push(input.getWordAtIndex(subIndex++));
+              tmp.push(this.input.getWordAtIndex(subIndex++));
             } else {
               tmp.pop(); // stand-alone number pair
               subIndex--;
             }
-          } else if (input.matchWordAtIndex(
+          } else if (this.input.matchWordAtIndex(
             subIndex,
-            gc.regexes.DIGITS_NTUPLE,
+            this.regexes.DIGITS_NTUPLE,
           )) {
             /*
              * Big number at the end, probably a decimal point,
              * end of number in any case
              */
-            tmp.push(input.getWordAtIndex(subIndex++));
+            tmp.push(this.input.getWordAtIndex(subIndex++));
           } else {
             tmp.pop(); // Last number split was not
             subIndex--; // actually a number split
@@ -762,10 +786,10 @@ class GuessCaseHandler {
         }
         subIndex++;
       }
-      input.setCursorPosition(subIndex - 1);
+      this.input.setCursorPosition(subIndex - 1);
 
-      output.appendSpaceIfNeeded();
-      output.appendWord(tmp.join(''));
+      this.output.appendSpaceIfNeeded();
+      this.output.appendWord(tmp.join(''));
 
       flags.resetContext();
       flags.context.forceCaps = false;
@@ -783,9 +807,9 @@ class GuessCaseHandler {
    */
   doIgnoreWords(): boolean {
     // deciBel
-    if (input.getCurrentWord() === 'dB') {
-      output.appendSpaceIfNeeded();
-      output.appendCurrentWord();
+    if (this.input.getCurrentWord() === 'dB') {
+      this.output.appendSpaceIfNeeded();
+      this.output.appendCurrentWord();
       return true;
     }
     return false;
@@ -798,22 +822,22 @@ class GuessCaseHandler {
    * ---------------------------------------------------
    */
   doFeaturingArtistStyle(): boolean {
-    if (!gc.regexes.FEAT) {
-      gc.regexes.FEAT = /^featuring$|^f$|^ft$|^feat$/i;
-      gc.regexes.FEAT_F = /^f$/i; // Match word "f"
-      gc.regexes.FEAT_FEAT = /^feat$/i; // Match word "feat"
+    if (!this.regexes.FEAT) {
+      this.regexes.FEAT = /^featuring$|^f$|^ft$|^feat$/i;
+      this.regexes.FEAT_F = /^f$/i; // Match word "f"
+      this.regexes.FEAT_FEAT = /^feat$/i; // Match word "feat"
     }
-    const currentWord = input.getCurrentWord();
+    const currentWord = this.input.getCurrentWord();
     if (currentWord == null) {
       return false;
     }
-    if (currentWord.match(gc.regexes.FEAT)) {
-      const nextWord = input.getNextWord();
+    if (currentWord.match(this.regexes.FEAT)) {
+      const nextWord = this.input.getNextWord();
       /*
        * Special cases (f.) and (f/),
        * have to check if next word is a "." or a "/"
        */
-      if ((currentWord.match(gc.regexes.FEAT_F)) &&
+      if ((currentWord.match(this.regexes.FEAT_F)) &&
           nextWord != null && !nextWord.match(/^[/.]$/)) {
         return false;
       }
@@ -822,13 +846,13 @@ class GuessCaseHandler {
        * Only try to convert to feat. if there are
        * enough words after the keyword
        */
-      if (input.getCursorPosition() < input.getLength() - 2) {
-        const nextWord = input.getNextWord();
+      if (this.input.getCursorPosition() < this.input.getLength() - 2) {
+        const nextWord = this.input.getNextWord();
         const featWord = currentWord + (
           nextWord != null && (nextWord === '.' || nextWord === '/')
             ? nextWord
             // Special case (feat), fix typo by adding a "." if missing
-            : currentWord.match(gc.regexes.FEAT_FEAT) ? '.' : ''
+            : currentWord.match(this.regexes.FEAT_FEAT) ? '.' : ''
         );
 
         if (!flags.context.openingBracket && !flags.isInsideBrackets()) {
@@ -837,9 +861,11 @@ class GuessCaseHandler {
             while (flags.isInsideBrackets()) {
               // Close brackets that were opened before
               const cb = flags.popBracket();
-              output.appendWord(cb);
-              if (input.getWordAtIndex(input.getLength() - 1) === cb) {
-                input.dropLastWord();
+              this.output.appendWord(cb);
+              if (this.input.getWordAtIndex(
+                this.input.getLength() - 1,
+              ) === cb) {
+                this.input.dropLastWord();
                 /*
                  * Get rid of duplicate bracket at the end (will be
                  * added again by closeOpenBrackets if they wern't
@@ -859,11 +885,11 @@ class GuessCaseHandler {
            *    though :]
            * Blah (feat. Erroll Flynn Some Remixname) (remix)
            */
-          const cursorPosition = input.getCursorPosition();
-          const length = input.getLength();
+          const cursorPosition = this.input.getCursorPosition();
+          const length = this.input.getLength();
           let i = cursorPosition;
           for (; i < length; i++) {
-            if (input.getWordAtIndex(i) === '(') {
+            if (this.input.getWordAtIndex(i) === '(') {
               break;
             }
           }
@@ -873,24 +899,24 @@ class GuessCaseHandler {
            * close feat. part, and add space to next set of brackets
            */
           if (i !== cursorPosition && i < length - 1) {
-            input.insertWordsAtIndex(i, [')', ' ']);
+            this.input.insertWordsAtIndex(i, [')', ' ']);
           }
-          input.updateCurrentWord('(');
+          this.input.updateCurrentWord('(');
           this.doOpeningBracket();
         } else {
-          output.appendWord(' ');
+          this.output.appendWord(' ');
         }
 
         // output.appendSpaceIfNeeded();
-        output.appendWord(featWord);
+        this.output.appendWord(featWord);
 
         flags.resetContext();
         flags.context.forceCaps = true;
         flags.context.openingBracket = false;
         flags.context.spaceNextWord = true;
         flags.context.slurpExtraTitleInformation = true;
-        if (input.isNextWord('.') || input.isNextWord('/')) {
-          input.nextIndex();  // skip trailing (.) or (/)
+        if (this.input.isNextWord('.') || this.input.isNextWord('/')) {
+          this.input.nextIndex();  // skip trailing (.) or (/)
         }
         return true;
       }
@@ -899,7 +925,7 @@ class GuessCaseHandler {
   }
 
   moveArticleToEnd(inputString: string): string {
-    return utils.trim(inputString).replace(
+    return trim(inputString).replace(
       /^(The|Los) (.+)$/,
       function (match, article, name) {
         return name + ', ' + article;
@@ -909,15 +935,18 @@ class GuessCaseHandler {
 
   sortCompoundName(
     inputString: string,
-    callback: (string) => string,
+    callback: (string, {[regexName: string]: RegExp}) => string,
   ): string {
-    const trimmedString = utils.trim(inputString);
+    const trimmedString = trim(inputString);
 
     let joinPhrase = ' and ';
     joinPhrase = (trimmedString.indexOf(' + ') === -1 ? joinPhrase : ' + ');
     joinPhrase = (trimmedString.indexOf(' & ') === -1 ? joinPhrase : ' & ');
 
-    return trimmedString.split(joinPhrase).map(callback).join(joinPhrase);
+    return trimmedString
+      .split(joinPhrase)
+      .map(string => callback(string, this.regexes))
+      .join(joinPhrase);
   }
 }
 

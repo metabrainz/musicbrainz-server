@@ -14,7 +14,7 @@ import Autocomplete from '../../common/components/Autocomplete.js';
 import SelectField from '../../common/components/SelectField.js';
 import Warning from '../../common/components/Warning.js';
 import {FLUENCY_NAMES} from '../../common/constants.js';
-import DBDefs from '../../common/DBDefs-client.mjs';
+import {DB_STAGING_TESTING_FEATURES} from '../../common/DBDefs-client.mjs';
 import {N_lp_attributes} from '../../common/i18n/attributes.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
 import FormCsrfToken from '../../edit/components/FormCsrfToken.js';
@@ -212,7 +212,7 @@ class EditProfileForm extends React.Component<Props, State> {
           readOnly
           value={field.username.value}
         />
-        {DBDefs.DB_STAGING_TESTING_FEATURES ? (
+        {DB_STAGING_TESTING_FEATURES ? (
           <Warning
             message={l(
               `This is a development server. Your email address is not private

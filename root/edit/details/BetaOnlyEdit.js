@@ -10,18 +10,21 @@
 import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../context.mjs';
-import DBDefs from '../../static/scripts/common/DBDefs.mjs';
+import {
+  BETA_REDIRECT_HOSTNAME,
+  IS_BETA,
+} from '../../static/scripts/common/DBDefs.mjs';
 
 component BetaOnlyEdit(edit: EditT) {
   const $c = React.useContext(SanitizedCatalystContext);
   const editId = edit.id;
   if (
-    !DBDefs.IS_BETA &&
-    nonEmpty(DBDefs.BETA_REDIRECT_HOSTNAME) &&
+    !IS_BETA &&
+    nonEmpty(BETA_REDIRECT_HOSTNAME) &&
     editId != null
   ) {
     const betaUri = new URL($c.req.uri);
-    betaUri.host = DBDefs.BETA_REDIRECT_HOSTNAME;
+    betaUri.host = BETA_REDIRECT_HOSTNAME;
     betaUri.pathname = '/edit/' + encodeURIComponent(String(editId));
     betaUri.search = '';
     return (

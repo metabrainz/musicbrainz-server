@@ -248,7 +248,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
         return new this.options.entityConstructor(data);
       }
       return mbEntity(data, this.entity);
-    } catch (e) {
+    } catch (ignoredError) {
       return data;
     }
   },
