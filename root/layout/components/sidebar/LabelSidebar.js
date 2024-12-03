@@ -32,6 +32,7 @@ import SidebarIsnis from './SidebarIsnis.js';
 import SidebarLicenses from './SidebarLicenses.js';
 import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
+import SidebarReviews from './SidebarReviews.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 import SubscriptionLinks from './SubscriptionLinks.js';
@@ -90,6 +91,8 @@ component LabelSidebar(label: LabelT) {
       </SidebarProperties>
 
       <SidebarRating entity={label} />
+
+      <SidebarReviews entity={label} />
 
       <SidebarTags entity={label} />
 

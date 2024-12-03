@@ -18,7 +18,6 @@ declare type LabelT = $ReadOnly<{
   ...IpiCodesRoleT,
   ...IsniCodesRoleT,
   ...RatableRoleT,
-  ...ReviewableRoleT,
   ...TypeRoleT<LabelTypeT>,
   +area: AreaT | null,
   +label_code: number,

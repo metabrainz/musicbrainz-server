@@ -16,18 +16,6 @@ has 'most_popular_review' => (
     isa => 'Maybe[CritiqueBrainz::Review]',
 );
 
-around TO_JSON => sub {
-    my ($orig, $self) = @_;
-
-    my $json = $self->$orig;
-
-    if (defined $self->review_count) {
-        $json->{review_count} = $self->review_count;
-    }
-
-    return $json;
-};
-
 no Moose::Role;
 1;
 

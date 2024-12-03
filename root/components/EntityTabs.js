@@ -8,6 +8,8 @@
  */
 
 import {CatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
+import ReviewsTab from '../static/scripts/common/components/ReviewsTab.js';
 import {ENTITIES} from '../static/scripts/common/constants.js';
 import isSpecialPurpose
   from '../static/scripts/common/utility/isSpecialPurpose.js';
@@ -33,6 +35,18 @@ const tabLinkNames: {
   releases: N_l('Releases'),
   users: N_l('Users'),
   works: N_l('Works'),
+};
+
+const buildReviewsLink = (
+  entity: ReviewableT,
+  page?: string,
+) => {
+  return (
+    <>
+      <ReviewsTab entity={entity} page={page} />
+      {manifest('reviews', {async: 'async'})}
+    </>
+  );
 };
 
 const buildLink = (
@@ -77,7 +91,8 @@ function buildLinks(
   entity: RelatableEntityT,
   page?: string,
 ): $ReadOnlyArray<React.MixedElement> {
-  const links = [buildLink(l('Overview'), entity, '', page, false, 'index')];
+  const links: Array<React.MixedElement> =
+    [buildLink(l('Overview'), entity, '', page, false, 'index')];
   const user = $c.user;
 
   const entityProperties = ENTITIES[entity.entityType];
@@ -153,10 +168,8 @@ function buildLinks(
     // $FlowIssue[prop-missing]
     entityProperties.reviews
   ) {
-    const ratingsTabTitle = entityProperties.reviews
-      ? l('Reviews')
-      : l('Ratings');
-    links.push(buildLink(ratingsTabTitle, entity, 'ratings', page));
+    // $FlowExpectedError[incompatible-call]
+    links.push(buildReviewsLink(entity, page));
   }
 
   if (!entityProperties.mbid.no_details) {

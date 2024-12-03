@@ -30,6 +30,7 @@ import MergeLink from './MergeLink.js';
 import SidebarLicenses from './SidebarLicenses.js';
 import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
+import SidebarReviews from './SidebarReviews.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 
@@ -95,6 +96,8 @@ component WorkSidebar(work: WorkT) {
       ) : null}
 
       <SidebarRating entity={work} />
+
+      <SidebarReviews entity={work} />
 
       <SidebarTags entity={work} />
 

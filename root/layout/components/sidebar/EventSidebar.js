@@ -31,6 +31,7 @@ import SidebarEndDate from './SidebarEndDate.js';
 import SidebarLicenses from './SidebarLicenses.js';
 import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
+import SidebarReviews from './SidebarReviews.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 
@@ -116,6 +117,8 @@ component EventSidebar(event: EventT) {
       </SidebarProperties>
 
       <SidebarRating entity={event} />
+
+      <SidebarReviews entity={event} />
 
       <SidebarTags entity={event} />
 

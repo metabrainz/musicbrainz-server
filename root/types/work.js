@@ -15,7 +15,6 @@ declare type WorkT = $ReadOnly<{
   ...CommentRoleT,
   ...RelatableEntityRoleT<'work'>,
   ...RatableRoleT,
-  ...ReviewableRoleT,
   ...TypeRoleT<WorkTypeT>,
   +_fromBatchCreateWorksDialog?: boolean,
   +artists: $ReadOnlyArray<ArtistCreditT>,

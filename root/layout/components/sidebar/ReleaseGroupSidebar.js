@@ -23,6 +23,7 @@ import PlayOnListenBrainzButton from './PlayOnListenBrainzButton.js';
 import SidebarLicenses from './SidebarLicenses.js';
 import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
+import SidebarReviews from './SidebarReviews.js';
 import SidebarTags from './SidebarTags.js';
 
 component ReleaseGroupSidebar(
@@ -64,6 +65,8 @@ component ReleaseGroupSidebar(
       </SidebarProperties>
 
       <SidebarRating entity={releaseGroup} />
+
+      <SidebarReviews entity={releaseGroup} />
 
       <SidebarTags entity={releaseGroup} />
 

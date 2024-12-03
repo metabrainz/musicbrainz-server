@@ -117,12 +117,6 @@ after 'load' => sub {
     $c->model('Language')->load($release);
     $c->model('Script')->load($release);
     $c->model('Release')->load_related_info($release);
-
-    if ($c->action->name ne 'edit') {
-        # Only needed by pages showing the sidebar
-        $c->model('CritiqueBrainz')->load_display_reviews($release->release_group)
-            unless $returning_jsonld;
-    }
 };
 
 # Stuff that has the side bar and thus needs to display collection information

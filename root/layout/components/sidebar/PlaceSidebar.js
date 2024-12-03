@@ -30,6 +30,7 @@ import SidebarEndDate from './SidebarEndDate.js';
 import SidebarLicenses from './SidebarLicenses.js';
 import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
+import SidebarReviews from './SidebarReviews.js';
 import SidebarTags from './SidebarTags.js';
 import SidebarType from './SidebarType.js';
 
@@ -102,6 +103,8 @@ component PlaceSidebar(place: PlaceT) {
       </SidebarProperties>
 
       <SidebarRating entity={place} />
+
+      <SidebarReviews entity={place} />
 
       <SidebarTags entity={place} />
 

@@ -12,6 +12,8 @@ use aliased 'MusicBrainz::Server::Entity::CritiqueBrainz::User';
 
 with 'MusicBrainz::Server::Data::Role::Context';
 
+# TODO: improve this file to use an entity endpoint if CB-427 is merged
+
 sub load_display_reviews {
     my ($self, $entity) = @_;
 
