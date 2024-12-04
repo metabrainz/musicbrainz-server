@@ -1,11 +1,12 @@
 package MusicBrainz::Server::Entity::URL::HMikuWiki;
 
 use Moose;
+use utf8;
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name { 'Miku Hatsune Wiki' }
+sub sidebar_name { '初音ミク Wiki' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
