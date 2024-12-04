@@ -108,7 +108,10 @@ component CDTocReleaseListRowMediums(
         >
           <td />
           <td colSpan="6">
-            <table style={{borderCollapse: 'collapse'}}>
+            <table
+              className="tbl medium"
+              style={{borderCollapse: 'collapse'}}
+            >
               <tbody>
                 <MediumTracklist tracks={medium.tracks} />
               </tbody>

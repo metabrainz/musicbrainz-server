@@ -71,7 +71,7 @@ component RemoveMedium(edit: RemoveMediumEditT) {
               : addColonText(l('Tracklist'))}
           </th>
           <td>
-            <table className="tbl">
+            <table className="tbl medium">
               <tbody>
                 {originalTracklist.length ? (
                   <MediumTracklist
@@ -88,7 +88,7 @@ component RemoveMedium(edit: RemoveMediumEditT) {
           <tr>
             <th>{addColonText(l('Current tracklist'))}</th>
             <td>
-              <table className="tbl">
+              <table className="tbl medium">
                 <tbody>
                   {currentTracklist.length ? (
                     <MediumTracklist
