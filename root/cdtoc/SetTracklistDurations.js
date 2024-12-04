@@ -41,7 +41,7 @@ component SetTracklistDurations(
       <CDTocInfo cdToc={cdToc} />
 
       <h2>{l('Medium')}</h2>
-      <table className="tbl">
+      <table className="tbl medium">
         <tbody>
           <MediumTracklist showArtists tracks={medium.tracks} />
         </tbody>
