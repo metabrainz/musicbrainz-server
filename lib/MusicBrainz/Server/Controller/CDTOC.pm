@@ -288,7 +288,8 @@ sub _attach_list {
         });
         $c->model('Release')->load_related_info(@$releases);
 
-        my @mediums = map { $_->all_mediums } @$releases;
+        my @mediums = grep { !$_->format || $_->format->has_discids }
+            map { $_->all_mediums } @$releases;
         $c->model('Track')->load_for_mediums(@mediums);
 
         my @tracks = map { $_->all_tracks } @mediums;
@@ -358,7 +359,8 @@ sub _attach_list {
 
             my @releases = map { $_->entity } @$releases;
             $c->model('Release')->load_related_info(@releases);
-            my @mediums = map { $_->all_mediums } @releases;
+            my @mediums = grep { !$_->format || $_->format->has_discids }
+                map { $_->all_mediums } @releases;
             $c->model('Track')->load_for_mediums(@mediums);
 
             my @tracks = map { $_->all_tracks } @mediums;
