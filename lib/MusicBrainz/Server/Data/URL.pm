@@ -35,6 +35,7 @@ my %URL_SPECIALIZATIONS = (
     'Bandsintown'         => qr{^https?://(?:www\.)?bandsintown\.com/}i,
     'Beatport'            => qr{^https?://([^/]+\.)?beatport\.com/}i,
     'BigCartel'           => qr{^https?://([^/]+\.)?bigcartel\.com}i,
+    'Bluesky'             => qr{^https?://(?:www\.)?bsky\.app/}i,
     'BnFCatalogue'        => qr{^https?://catalogue\.bnf\.fr/}i,
     'BookBrainz'          => qr{^https?://(?:www\.)?bookbrainz\.org}i,
     'Boomkat'             => qr{^https?://(?:www\.)?boomkat\.com}i,
