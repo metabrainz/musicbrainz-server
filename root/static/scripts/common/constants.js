@@ -97,6 +97,7 @@ export const FAVICON_CLASSES: {
   'books.apple.com': 'applebooks',
   'boomkat.com': 'boomkat',
   'boomplay.com': 'boomplay',
+  'bsky.app': 'bluesky',
   'cancioneros.si': 'cancioneros',
   'castalbums.org': 'castalbums',
   'catalogue.bnf.fr': 'bnfcatalogue',
