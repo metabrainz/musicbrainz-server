@@ -5504,11 +5504,12 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?(www\.)?ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}/i],
     restrict: [LINK_TYPES.ticketing],
     clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.fr\/(?:[\w-]+\/)?(manifestation|salle)\/(?:[\w-]+\/)?(idmanif|idsite)\/([\w-]+).*$/, 'https://www.ticketmaster.fr/$1/$2/$3');
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(?:[\w-]+\/)?(artist|event|venue)\/(?:[\w-]+\/)?([\w-]+).*$/, 'https://www.ticketmaster.$1/$2/$3');
       return url;
     },
     validate(url, id) {
-      const m = /^https:\/\/www\.ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|venue)\/[\w-]+$/.exec(url);
+      const m = /^https:\/\/www\.ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|manifestation\/idmanif|salle\/idsite|venue)\/[\w-]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -5518,12 +5519,12 @@ const CLEANUPS: CleanupEntries = {
             }
             return {result: false, target: ERROR_TARGETS.ENTITY};
           case LINK_TYPES.ticketing.event:
-            if (prefix === 'event') {
+            if (prefix === 'event' || prefix === 'manifestation/idmanif') {
               return {result: true};
             }
             return {result: false, target: ERROR_TARGETS.ENTITY};
           case LINK_TYPES.ticketing.place:
-            if (prefix === 'venue') {
+            if (prefix === 'venue' || prefix === 'salle/idsite') {
               return {result: true};
             }
             return {result: false, target: ERROR_TARGETS.ENTITY};
