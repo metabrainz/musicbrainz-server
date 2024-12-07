@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-02 16:32+0100\n"
-"PO-Revision-Date: 2024-11-23 22:42+0000\n"
+"PO-Revision-Date: 2024-12-03 23:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -44,8 +44,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.8.4\n"
 
 #: ../root/components/common-macros.tt:12
@@ -617,7 +617,7 @@ msgstr "Blog"
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:35
 msgid "Bluesky"
-msgstr ""
+msgstr "Bluesky"
 
 #: ../root/edit/search_macros.tt:401
 msgctxt "user type"
@@ -1697,7 +1697,7 @@ msgstr "Inserimento manuale"
 
 #: ../root/layout.tt:118 ../root/layout/components/Footer.js:34
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: ../root/cdtoc/lookup.tt:5
 msgid "Matching CDs"
@@ -6548,18 +6548,14 @@ msgstr ""
 "{doc|documentazione} prima di {con|contattarci}."
 
 #: ../root/account/Register.js:80
-#, fuzzy
-#| msgid ""
-#| "Follow our {blog_link|blog} or {twitterx_link|twitter account}! To talk "
-#| "to other users, try the {forum_link|forums} or the {chat_link|chat}."
 msgid ""
 "Follow our {blog_link|blog} or our {bluesky_link|Bluesky} or {mastodon_link|"
 "Mastodon} accounts! To talk to other users, try the {forum_link|forums} or "
 "the {chat_link|chat}."
 msgstr ""
-"Segui il nostro {blog_link|blog} o l'{twitterx_link|account Twitter}! Per "
-"parlare con gli altri utenti, prova il {forum_link|forum} o la {chat_link|"
-"chat}."
+"Segui il nostro {blog_link|blog} o i nostri account {bluesky_link|Bluesky} o "
+"{mastodon_link|Mastodon}! Per parlare con gli altri utenti, prova il "
+"{forum_link|forum} o la {chat_link|chat}."
 
 #: ../root/account/Register.js:95
 msgid ""
@@ -12990,12 +12986,21 @@ msgid ""
 "time; in most cases, a release can be added with some research, although "
 "this might not be possible for underdocumented or not yet released music."
 msgstr ""
+"Questo rapporto elenca i gruppi di pubblicazioni che non contengono alcuna "
+"pubblicazione. Ci sono due ragioni principali che possono portare a ciò; in "
+"entrambi i casi, i dati possono solitamente essere migliorati. La prima è "
+"che il gruppo di pubblicazioni conteneva delle pubblicazioni che sono state "
+"spostate o unite senza unire il gruppo stesso (e in questo caso il gruppo va "
+"unito a un altro). La seconda è che il gruppo di pubblicazioni è stato "
+"aggiunto per contenere dei collegamenti (per esempio, delle recensioni) "
+"senza che fosse aggiunta contemporaneamente una pubblicazione; nella maggior "
+"parte dei casi è possibile, con un po' di ricerca, aggiungere una "
+"pubblicazione, anche se questo potrebbe non essere possibile per musica poco "
+"documentata o non ancora pubblicata."
 
 #: ../root/report/EmptyReleaseGroups.js:52 ../root/report/ReportsIndex.js:220
-#, fuzzy
-#| msgid "Release groups with annotations"
 msgid "Release groups without any releases"
-msgstr "Gruppi di pubblicazioni con annotazioni"
+msgstr "Gruppi di pubblicazioni senza pubblicazioni"
 
 #: ../root/report/EventSequenceNotInSeries.js:25
 msgid ""
@@ -17302,6 +17307,8 @@ msgid ""
 "These are the most popular tags in MusicBrainz, based on their total counts "
 "(upvotes minus downvotes)."
 msgstr ""
+"Questi sono i tag più popolari su MusicBrainz in base ai loro totali (voti a "
+"favore meno voti contro)."
 
 #: ../root/tag/TagCloud.js:104
 msgid "Show as a cloud instead."
@@ -17372,21 +17379,14 @@ msgstr ""
 "karma!"
 
 #: ../root/taglookup/Nag.js:34
-#, fuzzy
-#| msgid ""
-#| "If you donate <strong>$4</strong> you will not get this nag text for a "
-#| "<strong>month</strong>. We encourage people to donate $12 to make the nag "
-#| "screen disappear for 3 months. Or even better, sign up for a recurring "
-#| "donation every three months to not have to think about or see this nag "
-#| "again."
 msgid ""
 "If you donate <strong>$5</strong> you will not get this nag text for a "
 "<strong>month</strong>. We encourage people to donate $15 to make the nag "
 "screen disappear for 3 months. Or even better, sign up for a recurring "
 "donation every three months to not have to think about or see this nag again."
 msgstr ""
-"Se doni <strong>4$</strong> non vedrai questo testo scocciante per un "
-"<strong>mese</strong>. Ti invitiamo a donare 12$ per far scomparire la "
+"Se doni <strong>5$</strong> non vedrai questo testo scocciante per un "
+"<strong>mese</strong>. Ti invitiamo a donare 15$ per far scomparire la "
 "schermata di scocciatura per 3 mesi. O ancora meglio, registrati per una "
 "donazione ricorrente ogni tre mesi, così non dovrai preoccuparti mai più di "
 "questa scocciatura."
