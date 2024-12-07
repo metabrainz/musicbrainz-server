@@ -30,8 +30,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.8.4\n"
 
 #. name:artist diploma
@@ -10930,7 +10930,7 @@ msgstr ""
 "associato} {additional:aggiunto} su"
 
 #. name:transfer
-#: DB:link_type/long_link_phrase:1179
+#: DB:link_type/link_phrase:1179 DB:link_type/long_link_phrase:1179
 msgid "{additional:additionally} {assistant} {associate} {co:co-}transferred"
 msgstr ""
 "è stato un {assistant:assistente} {co:co-}tecnico di trasferimento "
@@ -11140,7 +11140,8 @@ msgstr "luogo {additional:aggiuntivo} di scrittura del libretto per"
 #. name:liner notes
 #: DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
-msgstr "{translator:traduttore delle} note di libretto {additional:in aggiunta}"
+msgstr ""
+"{translator:traduttore delle} note di libretto {additional:in aggiunta}"
 
 #. name:liner notes
 #: DB:link_type/link_phrase:24
@@ -11343,13 +11344,6 @@ msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
 msgstr ""
 "{assistant:assistente} {co:co-}tecnico audio {associate:associato} "
 "{additional:aggiunto}"
-
-#. name:transfer
-#: DB:link_type/link_phrase:1179
-msgid "{additional} {assistant} {associate} {co:co-}transferred"
-msgstr ""
-"è stato un {assistant:assistente} {co:co-}tecnico di trasferimento "
-"{associate:associato} {additional:aggiunto} su"
 
 #. name:transfer
 #: DB:link_type/reverse_link_phrase:1179
@@ -12098,6 +12092,11 @@ msgstr "supporto {vocal:%|alla voce} da parte di"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "supporto {vocal:%|alla voce} per"
+
+#~ msgid "{additional} {assistant} {associate} {co:co-}transferred"
+#~ msgstr ""
+#~ "è stato un {assistant:assistente} {co:co-}tecnico di trasferimento "
+#~ "{associate:associato} {additional:aggiunto} su"
 
 #~ msgid "contract"
 #~ msgstr "contratto"

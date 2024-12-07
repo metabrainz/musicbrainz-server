@@ -1666,7 +1666,8 @@ msgid ""
 "This credits the people or agency who did the graphic design / layout for a "
 "video recording, arranging pieces of content into a coherent and "
 "aesthetically-pleasing whole."
-msgstr "负责视频录制的图形设计/布局的个人或机构，他们将内容元素排列成一个连贯且美观的"
+msgstr ""
+"负责视频录制的图形设计/布局的个人或机构，他们将内容元素排列成一个连贯且美观的"
 "整体。"
 
 #. name:label rename
@@ -2016,7 +2017,8 @@ msgid ""
 "This indicates an artist who did the graphic design / layout for the event, "
 "arranging pieces of content into a coherent and aesthetically-pleasing "
 "design."
-msgstr "指负责活动的图形设计/布局的艺术家，他们将内容元素排列成一个连贯且美观的设计。"
+msgstr ""
+"指负责活动的图形设计/布局的艺术家，他们将内容元素排列成一个连贯且美观的设计。"
 
 #. name:graphic design
 #: DB:link_type/description:27
@@ -2024,7 +2026,8 @@ msgid ""
 "This indicates an artist who did the graphic design / layout for the "
 "release, arranging pieces of content into a coherent and aesthetically-"
 "pleasing sleeve design."
-msgstr "指负责发行的图形设计/布局的艺术家，他们将内容元素排列成一个连贯且美观的封套设"
+msgstr ""
+"指负责发行的图形设计/布局的艺术家，他们将内容元素排列成一个连贯且美观的封套设"
 "计。"
 
 #. name:producer
@@ -2237,8 +2240,9 @@ msgid ""
 "This indicates that an artist was officially employed by a label in a "
 "position not covered by any more specific relationship. Specify the position "
 "using the “Task” attribute."
-msgstr "指一位艺术家被某厂牌正式雇用，担任一个未被更具体的关系覆盖的职位。可使用“任务"
-"”属性指定该职位。"
+msgstr ""
+"指一位艺术家被某厂牌正式雇用，担任一个未被更具体的关系覆盖的职位。可使用“任"
+"务”属性指定该职位。"
 
 #. name:artists and repertoire position at
 #: DB:link_type/description:1081
@@ -2252,7 +2256,8 @@ msgstr "这表明艺术家正式担任厂牌的艺术家与作品(A&R)职位。"
 msgid ""
 "This indicates that an artist was officially employed by a label in an "
 "executive position, such as CEO, president or director."
-msgstr "指一位艺术家被某厂牌正式雇用，担任执行职位，如首席执行官（CEO）、总裁或董事。"
+msgstr ""
+"指一位艺术家被某厂牌正式雇用，担任执行职位，如首席执行官（CEO）、总裁或董事。"
 
 #. name:parts
 #: DB:link_type/description:818
@@ -2437,8 +2442,8 @@ msgid ""
 msgstr ""
 "表示某位艺术家是该录音的音频导演。\n"
 "\n"
-"这是负责音频项目（如有声剧或有声读物）创意实现的艺术家，通常以书面模板为基础"
-"，并涉及配音演员的表演。"
+"这是负责音频项目（如有声剧或有声读物）创意实现的艺术家，通常以书面模板为基"
+"础，并涉及配音演员的表演。"
 
 #. name:audio director
 #: DB:link_type/description:1187
@@ -2495,7 +2500,8 @@ msgid ""
 "performance. “Arrangement” is used as a catch-all term for all processes "
 "that turn a composition into a form that can be played by a specific type of "
 "ensemble."
-msgstr "指将乐曲改编成适合演出形式的艺术家。“编曲”是一个通用术语，涵盖了将作品改编成"
+msgstr ""
+"指将乐曲改编成适合演出形式的艺术家。“编曲”是一个通用术语，涵盖了将作品改编成"
 "特定类型合奏可演奏形式的所有过程。"
 
 #. name:chorus master
@@ -2518,15 +2524,16 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>, nor as mastering engineering."
 msgstr ""
-"指为该发行版本制作玻璃母盘的公司。这与<a href=\"/doc/Label\" target=\"_blank"
-"\">唱片公司</a>和母带工程是<strong>不同的</strong>概念。"
+"指为该发行版本制作玻璃母盘的公司。这与<a href=\"/doc/Label\" "
+"target=\"_blank\">唱片公司</a>和母带工程是<strong>不同的</strong>概念。"
 
 #. name:owner
 #: DB:link_type/description:989
 msgid ""
 "This indicates the label / organization was the owner of this place (often a "
 "studio, but sometimes also a venue)."
-msgstr "这表示某唱片公司或组织是这个地点（通常是录音室，但有时也可能是演出场地）的所"
+msgstr ""
+"这表示某唱片公司或组织是这个地点（通常是录音室，但有时也可能是演出场地）的所"
 "有者。"
 
 #. name:named after label
@@ -2567,8 +2574,8 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 "指负责制造（或外包制造）的组织。\n"
-"这和<a href=\"/doc/Label\" target=\"_blank\""
-">唱片厂牌</a><strong>不是</strong>一个概念。"
+"这和<a href=\"/doc/Label\" target=\"_blank\">唱片厂牌</a><strong>不是</"
+"strong>一个概念。"
 
 #. name:marketed
 #: DB:link_type/description:848
@@ -2577,8 +2584,8 @@ msgid ""
 "strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"指负责营销该发行版本的组织。这和<a href=\"/doc/Label\" target=\"_blank\""
-">厂牌</a><strong>不是</strong>一个概念。"
+"指负责营销该发行版本的组织。这和<a href=\"/doc/Label\" target=\"_blank\">厂牌"
+"</a><strong>不是</strong>一个概念。"
 
 #. name:printed
 #: DB:link_type/description:985
@@ -2587,8 +2594,8 @@ msgid ""
 "strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"指此负责印刷该发行版本的组织。这和<a href=\"/doc/Label\" target=\"_blank\""
-">厂牌</a><strong>不是</strong>一个概念。"
+"指此负责印刷该发行版本的组织。这和<a href=\"/doc/Label\" target=\"_blank\">厂"
+"牌</a><strong>不是</strong>一个概念。"
 
 #. name:promoted
 #: DB:link_type/description:359
@@ -2597,8 +2604,8 @@ msgid ""
 "for a release. This is <strong>not</strong> the same concept as the <a "
 "href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
-"指负责宣传（或外包宣传）该发行版本的组织。这和<a href=\"/doc/Label\" target="
-"\"_blank\">厂牌</a><strong>不是</strong>一个概念。"
+"指负责宣传（或外包宣传）该发行版本的组织。这和<a href=\"/doc/Label\" "
+"target=\"_blank\">厂牌</a><strong>不是</strong>一个概念。"
 
 #. name:published
 #: DB:link_type/description:362
@@ -2607,8 +2614,8 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"指负责出版该发行版本的组织。这和<a href=\"/doc/Label\" target=\"_blank\""
-">厂牌</a><strong>不是</strong>一个概念。"
+"指负责出版该发行版本的组织。这和<a href=\"/doc/Label\" target=\"_blank\">厂牌"
+"</a><strong>不是</strong>一个概念。"
 
 #. name:orchestrator
 #: DB:link_type/description:300
@@ -2623,8 +2630,8 @@ msgid ""
 msgstr ""
 "指负责该录音的配器的人。配器是一种特殊的编曲形式，指的是将作品改编为交响乐团"
 "演奏的形式，同时保持音乐内容基本不变。配器者还负责为交响乐团、乐队、合唱团、"
-"独奏乐器或独唱歌手编写乐谱。实际上，配器包括决定乐曲中每种乐器应演奏哪些音符"
-"。"
+"独奏乐器或独唱歌手编写乐谱。实际上，配器包括决定乐曲中每种乐器应演奏哪些音"
+"符。"
 
 #. name:orchestrator
 #: DB:link_type/description:40
@@ -2697,8 +2704,8 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"这指的是压制专辑的压片公司。和<a href=\"/doc/Label\" target=\"_blank\""
-">厂牌</a><strong>不是</strong>同一概念。"
+"这指的是压制专辑的压片公司。和<a href=\"/doc/Label\" target=\"_blank\">厂牌</"
+"a><strong>不是</strong>同一概念。"
 
 #. name:sub
 #: DB:link_attribute_type/description:1310
@@ -2706,7 +2713,8 @@ msgid ""
 "This indicates the publisher subcontracted to publish a release or work in a "
 "specific territory. Use this only when you have a specific sub-publisher "
 "credit, do not guess."
-msgstr "指负责在特定地区出版该发行版本或作品的子出版商。只有在你有具体的子出版商署名"
+msgstr ""
+"指负责在特定地区出版该发行版本或作品的子出版商。只有在你有具体的子出版商署名"
 "信息时才使用此选项，不要猜测。"
 
 #. name:named after release group
@@ -2746,7 +2754,8 @@ msgstr "指视频是在这个地区录制的。"
 msgid ""
 "This indicates the work is dedicated to a specific area. This is most common "
 "for classical works, but also exists in other genres to a degree."
-msgstr "这表示该作品献给一个特定的地区。这种情况在古典音乐作品中最常见，但在其他流派"
+msgstr ""
+"这表示该作品献给一个特定的地区。这种情况在古典音乐作品中最常见，但在其他流派"
 "中也有一定的体现。"
 
 #. name:dedication
@@ -2754,7 +2763,8 @@ msgstr "这表示该作品献给一个特定的地区。这种情况在古典音
 msgid ""
 "This indicates the work is dedicated to a specific organization. This is "
 "most common for classical works, but also exists in other genres to a degree."
-msgstr "这表示该作品献给一个特定的组织。这种情况在古典音乐作品中最常见，但在其他流派"
+msgstr ""
+"这表示该作品献给一个特定的组织。这种情况在古典音乐作品中最常见，但在其他流派"
 "中也有一定的体现。"
 
 #. name:dedication
@@ -2762,7 +2772,8 @@ msgstr "这表示该作品献给一个特定的组织。这种情况在古典音
 msgid ""
 "This indicates the work is dedicated to a specific person. This is most "
 "common for classical works, but also exists in other genres to a degree."
-msgstr "这表示该作品献给一个特定的人。这种情况在古典音乐作品中最常见，但在其他流派中"
+msgstr ""
+"这表示该作品献给一个特定的人。这种情况在古典音乐作品中最常见，但在其他流派中"
 "也有一定的体现。"
 
 #. name:dedication
@@ -2771,7 +2782,8 @@ msgid ""
 "This indicates the work is dedicated to a specific place (such an "
 "educational institution). This is most common for classical works, but also "
 "exists in other genres to a degree."
-msgstr "这表示该作品献给一个特定的地点(比如一个教育机构)。这种情况在古典音乐作品中最"
+msgstr ""
+"这表示该作品献给一个特定的地点(比如一个教育机构)。这种情况在古典音乐作品中最"
 "常见，但在其他流派中也有一定的体现。"
 
 #. name:named after work
@@ -2821,7 +2833,8 @@ msgstr ""
 msgid ""
 "This is used to indicate that the recording is a <a href=\"/doc/"
 "Mix_Terminology#mash-up\">mash-up</a> of two (or more) other recordings."
-msgstr "用于表示该录音是两个(或多个)其他录音的<a href=\"/doc/Mix_Terminology#mash-"
+msgstr ""
+"用于表示该录音是两个(或多个)其他录音的<a href=\"/doc/Mix_Terminology#mash-"
 "up\">混接作品</a>。"
 
 #. name:mashes up
@@ -2830,8 +2843,8 @@ msgid ""
 "This is used to indicate that the release group is a mash-up <a href=\"/doc/"
 "Mix_Terminology#mash-up\">mash-up</a> of two (or more) other release groups."
 msgstr ""
-"用于表示该发行组是两个(或多个)其他发行组的混接<a href=\"/doc/Mix_Terminology"
-"#mash-up\">混接</a>。"
+"用于表示该发行组是两个(或多个)其他发行组的混接<a href=\"/doc/"
+"Mix_Terminology#mash-up\">混接</a>。"
 
 #. name:DJ-mix
 #: DB:link_type/description:227
@@ -3096,7 +3109,8 @@ msgid ""
 "This link points to a page for a particular release group within a "
 "discography for an artist or label. If the page is for a particular release, "
 "prefer the release level relationship."
-msgstr "此链接指向艺术家或唱片厂牌的唱片目录中的某个发行组的页面。如果页面是针对某个"
+msgstr ""
+"此链接指向艺术家或唱片厂牌的唱片目录中的某个发行组的页面。如果页面是针对某个"
 "特定发行，请优先使用发行级别的关系类型。"
 
 #. name:discography entry
@@ -3138,7 +3152,8 @@ msgstr ""
 msgid ""
 "This links a <a href=\"/doc/Mix_Terminology#remix\">remixed</a> recording to "
 "the source recording."
-msgstr "此链接将一个<a href=\"/doc/Mix_Terminology#remix\">混音</a>录音与源录音相连。"
+msgstr ""
+"此链接将一个<a href=\"/doc/Mix_Terminology#remix\">混音</a>录音与源录音相连。"
 
 #. name:amazon asin
 #: DB:link_type/description:77
@@ -3150,7 +3165,8 @@ msgstr "此链接将一个 MusicBrainz 上的发行与亚马逊上的对应条�
 msgid ""
 "This links a concert tour with a release group (generally an album) the tour "
 "is connected with."
-msgstr "此链接将一场演唱会巡演与一个发行组（通常是专辑）相连，表示该巡演与该发行组有"
+msgstr ""
+"此链接将一场演唱会巡演与一个发行组（通常是专辑）相连，表示该巡演与该发行组有"
 "关联。"
 
 #. name:bandcamp
@@ -3175,7 +3191,8 @@ msgstr "此链接将一个团体（通常是乐团）与担任该团体驻团作
 msgid ""
 "This links a label to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
-msgstr "此链接将一个唱片厂牌与视频分享网站上的频道、播放列表或用户页面相连，这些页面"
+msgstr ""
+"此链接将一个唱片厂牌与视频分享网站上的频道、播放列表或用户页面相连，这些页面"
 "由该厂牌策划并包含其相关的视频内容。"
 
 #. name:fanpage
@@ -3188,7 +3205,8 @@ msgstr "此链接将一个唱片厂牌与粉丝创建的网站相连。"
 msgid ""
 "This links a label to a site where the label can receive donations/"
 "patronage, such as Flattr or PayPal.me."
-msgstr "此链接将一个唱片厂牌与可以接收捐赠或赞助的网站相连，例如 Flattr 或 PayPal."
+msgstr ""
+"此链接将一个唱片厂牌与可以接收捐赠或赞助的网站相连，例如 Flattr 或 PayPal."
 "me。"
 
 #. name:ticketing
@@ -3216,8 +3234,9 @@ msgstr "此链接将一个唱片厂牌与该厂牌在 Bandcamp 上的页面相�
 #: DB:link_type/description:313
 msgid ""
 "This links a label to its page in <a href=\"http://www.imdb.com/\">IMDb</a>."
-msgstr "此链接将一个唱片厂牌与该厂牌在<a href=\"http://www.imdb.com/\""
-">IMDb</a>上的页面相连。"
+msgstr ""
+"此链接将一个唱片厂牌与该厂牌在<a href=\"http://www.imdb.com/\">IMDb</a>上的页"
+"面相连。"
 
 #. name:soundcloud
 #: DB:link_type/description:290
@@ -3229,23 +3248,26 @@ msgstr "此链接将一个唱片厂牌与该厂牌在 SoundCloud 上的资料页
 msgid ""
 "This links a label to their profile at a crowdfunding site like Kickstarter "
 "or Indiegogo."
-msgstr "此链接将一个唱片厂牌与该厂牌在众筹网站（如 Kickstarter 或 "
-"Indiegogo）上的资料页相连。"
+msgstr ""
+"此链接将一个唱片厂牌与该厂牌在众筹网站（如 Kickstarter 或 Indiegogo）上的资料"
+"页相连。"
 
 #. name:composer-in-residence
 #: DB:link_type/description:937
 msgid ""
 "This links a place (often a concert hall or educational institution) to a "
 "composer who has a composer-in-residence position with it."
-msgstr "此链接将一个地点（通常是音乐厅或教育机构）与担任该地点驻场作曲家的作曲家相连"
-"。"
+msgstr ""
+"此链接将一个地点（通常是音乐厅或教育机构）与担任该地点驻场作曲家的作曲家相"
+"连。"
 
 #. name:video channel
 #: DB:link_type/description:495
 msgid ""
 "This links a place to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
-msgstr "此链接将一个地点与视频分享网站上的频道、播放列表或用户页面相连，这些页面由该"
+msgstr ""
+"此链接将一个地点与视频分享网站上的频道、播放列表或用户页面相连，这些页面由该"
 "地点策划并包含其相关的视频内容。"
 
 #. name:fanpage
@@ -3258,7 +3280,8 @@ msgstr "此链接将一个地点与粉丝创建的网站相连。"
 msgid ""
 "This links a place to a site where the place or the organisation behind it "
 "can receive donations/patronage, such as Flattr or PayPal.me."
-msgstr "此链接将一个地点与可以接收捐赠或赞助的网站相连，例如 Flattr 或 PayPal.me。"
+msgstr ""
+"此链接将一个地点与可以接收捐赠或赞助的网站相连，例如 Flattr 或 PayPal.me。"
 
 #. name:ticketing
 #: DB:link_type/description:1195
@@ -3281,8 +3304,9 @@ msgstr "此链接将一个地点与该地点在 SoundCloud 上的资料页相连
 msgid ""
 "This links a place to its profile at a crowdfunding site like Kickstarter or "
 "Indiegogo."
-msgstr "此链接将一个地点与该地点在众筹网站（如 Kickstarter 或 "
-"Indiegogo）上的资料页相连。"
+msgstr ""
+"此链接将一个地点与该地点在众筹网站（如 Kickstarter 或 Indiegogo）上的资料页相"
+"连。"
 
 #. name:rescheduled as
 #: DB:link_type/description:836
@@ -10149,7 +10173,7 @@ msgid ""
 msgstr ""
 
 #. name:transfer
-#: DB:link_type/long_link_phrase:1179
+#: DB:link_type/link_phrase:1179 DB:link_type/long_link_phrase:1179
 msgid "{additional:additionally} {assistant} {associate} {co:co-}transferred"
 msgstr ""
 
@@ -10531,11 +10555,6 @@ msgstr ""
 #. name:sound
 #: DB:link_type/reverse_link_phrase:133 DB:link_type/reverse_link_phrase:29
 msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
-msgstr ""
-
-#. name:transfer
-#: DB:link_type/link_phrase:1179
-msgid "{additional} {assistant} {associate} {co:co-}transferred"
 msgstr ""
 
 #. name:transfer

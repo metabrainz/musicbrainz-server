@@ -7,7 +7,7 @@ msgstr ""
 "Language-Team: none\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. name:Motet
@@ -4085,6 +4085,12 @@ msgstr ""
 #: DB:work_attribute_type/description:70
 msgctxt "work_attribute_type"
 msgid "ID for the Indian rights society IPRS"
+msgstr ""
+
+#. name:WAMI ID
+#: DB:work_attribute_type/description:210
+msgctxt "work_attribute_type"
+msgid "ID for the Indonesian rights society WAMI"
 msgstr ""
 
 #. name:ICE ID
@@ -8434,6 +8440,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:276
 msgctxt "work_attribute_type_allowed_value"
 msgid "Vīra vasantaṁ"
+msgstr ""
+
+#: DB:work_attribute_type/name:210
+msgctxt "work_attribute_type"
+msgid "WAMI ID"
 msgstr ""
 
 #: DB:cover_art_archive.art_type/name:13

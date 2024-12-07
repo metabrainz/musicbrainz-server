@@ -4290,6 +4290,15 @@ msgctxt "work_attribute_type"
 msgid "ID for the Indian rights society IPRS"
 msgstr ""
 
+#. name:WAMI ID
+#: DB:work_attribute_type/description:210
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Austrian rights society AKM"
+msgctxt "work_attribute_type"
+msgid "ID for the Indonesian rights society WAMI"
+msgstr " オーストリアの権利者団体AKMのID"
+
 #. name:ICE ID
 #: DB:work_attribute_type/description:29
 msgctxt "work_attribute_type"
@@ -8744,6 +8753,14 @@ msgstr ""
 msgctxt "work_attribute_type_allowed_value"
 msgid "Vīra vasantaṁ"
 msgstr ""
+
+#: DB:work_attribute_type/name:210
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "BMI ID"
+msgctxt "work_attribute_type"
+msgid "WAMI ID"
+msgstr "BMI ID"
 
 #: DB:cover_art_archive.art_type/name:13
 msgctxt "cover_art_type"
