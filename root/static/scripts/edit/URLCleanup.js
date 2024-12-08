@@ -2816,13 +2816,13 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'hmikuwiki': {
-    match: [/^(https?:\/\/)?(?:www5\.)?atwiki\.jp\/hmiku\//i],
+    match: [/^(https?:\/\/)?(?:www5\.|w\.)?atwiki\.jp\/hmiku\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www5\.)?atwiki\.jp\/([^#]+)(?:#.*)?$/, 'https://www5.atwiki.jp/$1');
+      return url.replace(/^(?:https?:\/\/)?(?:www5\.|w\.)?atwiki\.jp\/([^#]+)(?:#.*)?$/, 'https://w.atwiki.jp/$1');
     },
     validate(url, id) {
-      if (/^https:\/\/www5\.atwiki\.jp\/hmiku\/pages\/[1-9][0-9]*\.html$/.test(url)) {
+      if (/^https:\/\/w\.atwiki\.jp\/hmiku\/pages\/[1-9][0-9]*\.html$/.test(url)) {
         if (id === LINK_TYPES.otherdatabases.artist ||
             id === LINK_TYPES.otherdatabases.release_group ||
             id === LINK_TYPES.otherdatabases.work) {
