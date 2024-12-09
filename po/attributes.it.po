@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-23 11:42+0000\n"
+"PO-Revision-Date: 2024-12-03 23:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -25,9 +25,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -742,6 +742,12 @@ msgid ""
 "to disown the release and no longer consider it part of their discography. "
 "If it is unclear, use Withdrawn."
 msgstr ""
+"Una pubblicazione in precedenza ufficiale che è stata attivamente epurata "
+"dalla discografia di un artista o di una casa discografica. Questo status "
+"non va usato nei casi in cui la pubblicazione è stata semplicemente "
+"ritirata, deve esistere un intento noto dell'artista o dell'etichetta di "
+"rinnegare la pubblicazione e di non considerarla più come parte della "
+"propria discografia. In caso di incertezza, usa Ritirata."
 
 #. name:Demo
 #: DB:release_group_secondary_type/description:10
@@ -1531,13 +1537,6 @@ msgstr ""
 
 #. name:Withdrawn
 #: DB:release_status/description:5
-#, fuzzy
-#| msgctxt "release_status"
-#| msgid ""
-#| "A previously official release that was actively withdrawn from "
-#| "circulation by the artist and/or their record company after being "
-#| "released, whether to replace it with a new version with some changes or "
-#| "to just retire it altogether (e.g. because of legal issues)."
 msgctxt "release_status"
 msgid ""
 "An official release that was actively withdrawn from circulation by the "
@@ -1546,10 +1545,12 @@ msgid ""
 "releases that have reached the end of their “natural” life cycle, such as "
 "being sold out and out of print."
 msgstr ""
-"Una pubblicazione in precedenza ufficiale che è stata attivamente ritirata "
-"dalla circolazione dall'artista e/o dalla sua casa discografica dopo essere "
-"stata pubblicata, che sia per sostituirla con una nuova versione con alcuni "
-"cambiamenti o per ritirarla del tutto (per es. a causa di problemi legali)."
+"Una pubblicazione ufficiale che è stata attivamente ritirata dalla "
+"circolazione dall'artista e/o dalla sua casa discografica dopo essere stata "
+"pubblicata, che sia per sostituirla con una nuova versione o per ritirarla "
+"del tutto. Ciò non comprende le pubblicazioni che hanno raggiunto la fine "
+"del proprio ciclo di vita \"naturale\", come per esempio quelle andate "
+"esaurite e fuori catalogo."
 
 #. name:Metal Tin
 #: DB:release_packaging/description:54
@@ -3415,7 +3416,7 @@ msgstr "Evsat"
 #: DB:release_status/name:38
 msgctxt "release_status"
 msgid "Expunged"
-msgstr ""
+msgstr "Epurata"
 
 #: DB:work_attribute_type_allowed_value/value:614
 msgctxt "work_attribute_type_allowed_value"
@@ -4456,6 +4457,12 @@ msgctxt "work_attribute_type"
 msgid "ID for the Indian rights society IPRS"
 msgstr "ID per la società di diritti indiana IPRS"
 
+#. name:WAMI ID
+#: DB:work_attribute_type/description:210
+msgctxt "work_attribute_type"
+msgid "ID for the Indonesian rights society WAMI"
+msgstr "ID per la società di diritti indonesiana WAMI"
+
 #. name:ICE ID
 #: DB:work_attribute_type/description:29
 msgctxt "work_attribute_type"
@@ -4656,12 +4663,9 @@ msgstr "ID per la società di diritti statunitense SESAC"
 
 #. name:UACRR ID
 #: DB:work_attribute_type/description:209
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Brazilian rights society ECAD"
 msgctxt "work_attribute_type"
 msgid "ID for the Ukrainian rights society UACRR"
-msgstr "ID per la società di diritti brasiliana ECAD"
+msgstr "ID per la società di diritti ucraina UACRR"
 
 #. name:AGADU ID
 #: DB:work_attribute_type/description:43
@@ -6669,7 +6673,7 @@ msgstr "Pahāḍi"
 #: DB:cover_art_archive.art_type/name:81
 msgctxt "cover_art_type"
 msgid "Panel"
-msgstr ""
+msgstr "Pannello"
 
 #: DB:work_attribute_type_allowed_value/value:839
 msgctxt "work_attribute_type_allowed_value"
@@ -8326,6 +8330,9 @@ msgid ""
 "The individual segments of a folded packaging, such as a gatefold cover, "
 "digipak or cassette inlay (don't use this for folded booklets nor posters)."
 msgstr ""
+"Ciascuna delle sezioni di una confezione pieghevole, come una copertina "
+"pieghevole (gatefold), un digipak o il pieghevole di una cassetta (da non "
+"utilizzare per i libretti pieghevoli né per i poster)."
 
 #. name:Madrigal
 #: DB:work_type/description:7
@@ -8624,7 +8631,7 @@ msgstr "Tōḍī"
 #: DB:work_attribute_type/name:209
 msgctxt "work_attribute_type"
 msgid "UACRR ID"
-msgstr ""
+msgstr "ID UACRR"
 
 #: DB:medium_format/name:28
 msgctxt "medium_format"
@@ -8931,6 +8938,11 @@ msgstr "Vēlāvali"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Vīra vasantaṁ"
 msgstr "Vīra vasantaṁ"
+
+#: DB:work_attribute_type/name:210
+msgctxt "work_attribute_type"
+msgid "WAMI ID"
+msgstr "ID WAMI"
 
 #: DB:cover_art_archive.art_type/name:13
 msgctxt "cover_art_type"

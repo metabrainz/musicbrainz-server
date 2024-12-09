@@ -746,7 +746,7 @@ limited_link_type_combinations: [
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://audiomack.com/dablixx-osha/song/they-cant-understand',
-       only_valid_entity_types: ['recording'],
+       only_valid_entity_types: ['recording', 'release'],
   },
   {
                      input_url: 'https://audiomack.com/dablixx-osha/album/country-boy#testy',

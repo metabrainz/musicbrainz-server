@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-15 00:42+0000\n"
+"PO-Revision-Date: 2024-11-30 22:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/lt/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -2881,48 +2881,36 @@ msgstr ""
 
 #. name:printed
 #: DB:link_type/description:985
-#, fuzzy
-#| msgid ""
-#| "Indicates the publisher of this release. This is <strong>not</strong> the "
-#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
-#| "label</a>."
 msgid ""
 "This indicates the organization that printed a release. This is <strong>not</"
 "strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"Nurodo šio leidinio leidėją. Tai <strong>nėra</strong>ta pati sąvoka kaip <a "
-"href=\"/doc/Label\" target=\"_blank\">įrašų kompanija</a>."
+"Tai nurodo organizaciją, kuri išspausdino leidinį. Tai <strong>nėra</strong> "
+"ta pati sąvoka kaip <a href=\"/doc/Label\" target=\"_blank\">įrašų "
+"kompanija</a>."
 
 #. name:promoted
 #: DB:link_type/description:359
-#, fuzzy
-#| msgid ""
-#| "Indicates the publisher of this release. This is <strong>not</strong> the "
-#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
-#| "label</a>."
 msgid ""
 "This indicates the organization that promotes (or contracts out promotion) "
 "for a release. This is <strong>not</strong> the same concept as the <a "
 "href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
-"Nurodo šio leidinio leidėją. Tai <strong>nėra</strong>ta pati sąvoka kaip <a "
-"href=\"/doc/Label\" target=\"_blank\">įrašų kompanija</a>."
+"Tai nurodo organizaciją, kuri reklamuoja leidinį (arba sudaro reklamos "
+"sutartis). Tai <strong>nėra</strong>ta pati sąvoka kaip <a href=\"/doc/"
+"Label\" target=\"_blank\">įrašų kompanija</a>."
 
 #. name:published
 #: DB:link_type/description:362
-#, fuzzy
-#| msgid ""
-#| "Indicates the publisher of this release. This is <strong>not</strong> the "
-#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
-#| "label</a>."
 msgid ""
 "This indicates the organization which releases a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"Nurodo šio leidinio leidėją. Tai <strong>nėra</strong>ta pati sąvoka kaip <a "
-"href=\"/doc/Label\" target=\"_blank\">įrašų kompanija</a>."
+"Tai nurodo organizaciją, kuri išleidžia leidinį. Tai <strong>nėra</strong>ta "
+"pati sąvoka kaip <a href=\"/doc/Label\" target=\"_blank\">įrašų kompanija</"
+"a>."
 
 #. name:orchestrator
 #: DB:link_type/description:300
@@ -2990,18 +2978,14 @@ msgstr "Tai nurodo, kad atlikėjas buvo šios leidyklos savininkas."
 
 #. name:pressed
 #: DB:link_type/description:942
-#, fuzzy
-#| msgid ""
-#| "Indicates the publisher of this release. This is <strong>not</strong> the "
-#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
-#| "label</a>."
 msgid ""
 "This indicates the pressing company that presses a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"Nurodo šio leidinio leidėją. Tai <strong>nėra</strong>ta pati sąvoka kaip <a "
-"href=\"/doc/Label\" target=\"_blank\">įrašų kompanija</a>."
+"Tai nurodo presavimo bendrovę, kuri presuoja leidinį. Tai <strong>nėra</"
+"strong>ta pati sąvoka kaip <a href=\"/doc/Label\" target=\"_blank\">įrašų "
+"kompanija</a>."
 
 #. name:sub
 #: DB:link_attribute_type/description:1310
@@ -4440,6 +4424,9 @@ msgid ""
 "wiki/Sound_recording_copyright_symbol\" target=\"_blank\">phonographic "
 "copyright</a> holder for this release, usually indicated with a ℗ symbol."
 msgstr ""
+"Šis santykis nurodo, kad leidykla yra šio leidinio <a href=\"//en.wikipedia."
+"org/wiki/Sound_recording_copyright_symbol\" target=\"_blank\">fonografinės "
+"autorinės teisės</a> turėtoja, paprastai nurodoma ženklu ℗."
 
 #. name:copyright
 #: DB:link_type/description:708
@@ -9879,14 +9866,12 @@ msgstr "buvo orkestras vietoje"
 
 #. name:engineer
 #: DB:link_type/long_link_phrase:1084
-#, fuzzy
-#| msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
 msgid ""
 "was an {additional} {assistant} {associate} {co:co-}{executive:executive }"
 "engineer at"
 msgstr ""
-"{additional:papildomas} {assistant:pagalbininis} {associate:susietas} {co:ko}"
-"garso režisierius"
+"buvo {additional:papildomas} {assistant:pagalbininis} {associate:susietas} "
+"{co:ko}{executive:vykdomasis } inžinierius vietoje"
 
 #. name:cinematographer
 #: DB:link_type/long_link_phrase:1245
@@ -9929,12 +9914,12 @@ msgstr ""
 #. name:replaced by
 #: DB:link_type/long_link_phrase:1009
 msgid "was replaced by"
-msgstr ""
+msgstr "buvo pakeistas"
 
 #. name:rescheduled as
 #: DB:link_type/long_link_phrase:836
 msgid "was rescheduled as"
-msgstr ""
+msgstr "buvo perkeltas kaip"
 
 #. name:production coordinator
 #: DB:link_type/long_link_phrase:1267
@@ -10015,7 +10000,7 @@ msgstr "kūrinių katalogavimas"
 #. name:work list entry
 #: DB:link_type/name:921 DB:link_type/reverse_link_phrase:921
 msgid "work list entry"
-msgstr ""
+msgstr "kūrinių sąrašo įrašas"
 
 #. name:work list entry
 #: DB:link_type/link_phrase:921
@@ -10049,24 +10034,24 @@ msgstr ""
 
 #: DB:link_type/name:54 DB:link_type/name:167
 msgid "writer"
-msgstr ""
+msgstr "rašytojas"
 
 #: DB:link_type/name:874 DB:link_type/name:1246
 msgid "written at"
-msgstr ""
+msgstr "parašyta vietoje"
 
 #: DB:link_type/name:873 DB:link_type/name:1268
 msgid "written in"
-msgstr ""
+msgstr "parašyta teritorijoje"
 
 #: DB:link_type/name:792 DB:link_type/name:193 DB:link_type/name:225
 #: DB:link_type/name:528 DB:link_type/name:791
 msgid "youtube"
-msgstr "youtube"
+msgstr "„youtube“"
 
 #: DB:link_type/name:1080
 msgid "youtube music"
-msgstr "youtube music"
+msgstr "„youtube music“"
 
 #. name:performance
 #: DB:link_type/link_phrase:278
@@ -10074,6 +10059,9 @@ msgid ""
 "{acappella:a cappella} {live} {medley:medley including a} {partial} "
 "{instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
+"{acappella:akapelos} {live:gyvo} {medley:melodijos, įskaitant} {partial:"
+"dalinės} {instrumental:instrumentinio} {cover:perdainavimo} {karaoke:"
+"karaokės} {demo:demo versijos} įrašą"
 
 #. name:performance
 #: DB:link_type/reverse_link_phrase:278
@@ -10309,7 +10297,7 @@ msgid ""
 msgstr ""
 
 #. name:transfer
-#: DB:link_type/long_link_phrase:1179
+#: DB:link_type/link_phrase:1179 DB:link_type/long_link_phrase:1179
 msgid "{additional:additionally} {assistant} {associate} {co:co-}transferred"
 msgstr ""
 
@@ -10700,11 +10688,6 @@ msgstr ""
 "garso inžinierius"
 
 #. name:transfer
-#: DB:link_type/link_phrase:1179
-msgid "{additional} {assistant} {associate} {co:co-}transferred"
-msgstr ""
-
-#. name:transfer
 #: DB:link_type/reverse_link_phrase:1179
 msgid "{additional} {assistant} {associate} {co:co-}transferrer"
 msgstr ""
@@ -10717,13 +10700,11 @@ msgstr ""
 
 #. name:engineer
 #: DB:link_type/reverse_link_phrase:1084
-#, fuzzy
-#| msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineers"
 msgstr ""
-"{additional:papildomas} {assistant:pagalbininis} {associate:susietas} {co:ko}"
-"garso režisierius"
+"{additional:papildomi} {assistant:pagalbininiai} {associate:susieti} {co:ko}"
+"{executive:vykdomieji } inžinieriai"
 
 #. name:producer
 #: DB:link_type/reverse_link_phrase:141 DB:link_type/reverse_link_phrase:30
