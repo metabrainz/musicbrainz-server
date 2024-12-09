@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-11-23 22:42+0000\n"
+"PO-Revision-Date: 2024-12-03 23:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -25,8 +25,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.8.4\n"
 
 #. name:Motet
@@ -4459,12 +4459,9 @@ msgstr "ID per la società di diritti indiana IPRS"
 
 #. name:WAMI ID
 #: DB:work_attribute_type/description:210
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Indian rights society IPRS"
 msgctxt "work_attribute_type"
 msgid "ID for the Indonesian rights society WAMI"
-msgstr "ID per la società di diritti indiana IPRS"
+msgstr "ID per la società di diritti indonesiana WAMI"
 
 #. name:ICE ID
 #: DB:work_attribute_type/description:29
@@ -8943,12 +8940,9 @@ msgid "Vīra vasantaṁ"
 msgstr "Vīra vasantaṁ"
 
 #: DB:work_attribute_type/name:210
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "BMI ID"
 msgctxt "work_attribute_type"
 msgid "WAMI ID"
-msgstr "ID BMI"
+msgstr "ID WAMI"
 
 #: DB:cover_art_archive.art_type/name:13
 msgctxt "cover_art_type"
