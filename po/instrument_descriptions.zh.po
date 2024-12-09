@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-11-16 06:42+0000\n"
+"PO-Revision-Date: 2024-11-23 08:42+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translations."
 "metabrainz.org/projects/musicbrainz/instrument-descriptions/zh_Hans/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1049,16 +1049,11 @@ msgstr "一种类似于班卓林的现代土耳其乐器，由 Zeynel Abidin Cü
 
 #. name:kōauau
 #: DB:instrument/description:782
-#, fuzzy
-#| msgid ""
-#| "cross-blown flute made of stone, bone or wood. It is 10 to 39 cm long, "
-#| "with usually 3, but everything from none to 5 holes is known."
 msgid ""
 "Cross-blown flute made of stone, bone or wood. It is 10 to 39 cm long, with "
 "usually 3 holes, but everything from none to 5 is known."
-msgstr ""
-"由石材，骨头或木材制成的横吹笛。有10至39厘米长，通常由3个孔，但无孔到5个孔的"
-"变种都有。"
+msgstr "一种横吹的笛子，通常由石头、骨头或木头制成。它的长度大约在10到39厘米之间，通"
+"常有3个孔，但也存在从无孔到5个孔的不同变体。"
 
 #. name:bell
 #: DB:instrument/description:116
@@ -1093,18 +1088,14 @@ msgstr ""
 
 #. name:tenora
 #: DB:instrument/description:869
-#, fuzzy
-#| msgid ""
-#| "Derived from the tenor shawm, it was independently developed in Catalonia "
-#| "by oboe player Andreu Turon in the 19th century. Made of ginjoler wood "
-#| "with a metal cone, it is used in the traditional Cobla and Sardana music."
 msgid ""
 "Derived from the tenor shawm, it was independently developed in Catalonia by "
 "oboe player Andreu Turon in the 19th century. Made of ginjoler wood with a "
 "metal cone, it is used in the traditional cobla and sardana music."
 msgstr ""
-"由次中音肖姆管衍生而来，它是在加泰隆尼亚由双簧管演奏家安德鲁·图龙在19世纪发"
-"明。由加泰隆尼亚枣木制成并带有金属锥部，用于传统科布拉和萨尔达纳音乐。"
+"一种源自次中音肖姆管的乐器，19世纪由双簧管演奏家 Andreu Turon 在 Catalonia 独"
+"立发展出来。它由金霍勒木制成，带有一个金属锥形部分，常用于传统的科布拉和萨尔"
+"达纳音乐中。"
 
 #. name:flamenco guitar
 #: DB:instrument/description:938
