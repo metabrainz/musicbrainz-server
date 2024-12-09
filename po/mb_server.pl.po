@@ -24,56 +24,63 @@
 # yvanz, 2018
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # Echelon666 <echelon01@wp.pl>, 2024.
+# Peter69 <echelon01@wp.pl>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-02 16:32+0100\n"
-"PO-Revision-Date: 2024-09-18 23:42+0000\n"
-"Last-Translator: Echelon666 <echelon01@wp.pl>\n"
+"PO-Revision-Date: 2024-12-09 11:42+0000\n"
+"Last-Translator: Peter69 <echelon01@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #: ../root/components/common-macros.tt:12
+#, fuzzy
 msgid " ({text})"
 msgstr " ({text})"
 
 #: ../root/components/forms.tt:260
+#, fuzzy
 msgid "\"C\" is a single check digit."
-msgstr ""
+msgstr "„C” jest pojedynczą cyfrą kontrolną."
 
 #: ../root/components/forms.tt:270
 msgid ""
 "\"CC\" is the appropriate for the registrant two-character country code."
-msgstr ""
+msgstr "„CC” to odpowiedni dwuliterowy kod kraju rejestrującego."
 
 #: ../root/components/forms.tt:259
 msgid "\"DDD\" is a nine digit work identifier."
-msgstr ""
+msgstr "„DDD” to dziewięciocyfrowy identyfikator dzieła."
 
 #: ../root/components/forms.tt:273
 msgid ""
 "\"NNNNN\" is a unique 5-digit number identifying the particular sound "
 "recording."
 msgstr ""
+"„NNNNN” to unikalny 5-cyfrowy numer identyfikujący konkretne nagranie "
+"dźwiękowe."
 
 #: ../root/components/forms.tt:271
 msgid ""
 "\"XXX\" is a three character alphanumeric registrant code, uniquely "
 "identifying the organisation which registered the code."
 msgstr ""
+"„XXX” to trzyznakowy alfanumeryczny kod rejestrującego, jednoznacznie "
+"identyfikujący organizację, która zarejestrowała kod."
 
 #: ../root/components/forms.tt:272
 msgid "\"YY\" is the last two digits of the year of registration."
-msgstr ""
+msgstr "„YY” to dwie ostatnie cyfry roku rejestracji."
 
 #: ../root/cdstub/cdstub.tt:4 ../root/release/edit/tracklist.tt:161
 #: ../root/release/edit/tracklist.tt:470 ../root/cdstub/CDStubInfo.js:19
@@ -88,15 +95,15 @@ msgstr ""
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1551
 #: ../root/utility/tableColumns.js:574
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: ../root/doc/edit_type.tt:43
 msgid "&#10004;"
-msgstr ""
+msgstr "&#10004;"
 
 #: ../root/doc/edit_type.tt:43
 msgid "&#10005;"
-msgstr ""
+msgstr "&#10005;"
 
 #: ../root/event/add_event_art.tt:104 ../root/release/add_cover_art.tt:104
 msgid "&#x26a0; Error creating edit"
@@ -141,32 +148,43 @@ msgstr "(brak okładki)"
 #: ../root/utility/tableColumns.js:515 ../root/utility/tableColumns.js:523
 msgctxt "and"
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../root/release/edit/recordings.tt:137
+#, fuzzy
 msgid ""
 "<strong>Note:</strong> In classical music, {csg_recording_artist|recording "
 "artists} should almost always be different from {csg_track_artist|track "
 "artists}, so don’t use the “copy artist credits” option while editing a "
 "classical release unless you’re very sure it’s a good idea!"
 msgstr ""
+"<strong>Uwaga:</strong> w muzyce klasycznej {csg_recording_artist|recording "
+"artists} prawie zawsze powinni być inni niż {csg_track_artist|track artists}"
+", więc nie używaj opcji „kopiuj informacje o artyście” podczas edycji "
+"wydania muzyki klasycznej, chyba że jesteś pewien, że to dobry pomysł!"
 
 #: ../root/components/common-macros.tt:484 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
 msgstr "<strong>Ostrzeżenie</strong>:"
 
 #: ../root/cdtoc/lookup.tt:22
+#, fuzzy
 msgid ""
 "A CD stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point for a new "
 "MusicBrainz release."
 msgstr ""
+"Znaleziono fragment płyty CD, który pasuje do podanego identyfikatora płyty. "
+"Jeśli poniższa lista utworów wydaje się prawidłowa, możesz jej użyć jako "
+"punktu wyjścia do nowego wydania MusicBrainz."
 
 #: ../root/release/edit/tracklist.tt:323
 msgid ""
 "A format is required. If you don’t know it, tick the “I don’t know” checkbox "
 "next to the format dropdown."
 msgstr ""
+"Wymagany jest format. Jeśli go nie znasz, zaznacz pole wyboru „Nie wiem” "
+"obok listy rozwijanej formatu."
 
 #: ../root/release/edit/information.tt:23
 msgid "A release title is required."
@@ -216,6 +234,8 @@ msgid ""
 "Add a medium by clicking “Add medium” below, or tick the box confirming the "
 "tracklist is unknown."
 msgstr ""
+"Dodaj medium klikając „Dodaj medium” poniżej lub zaznacz pole "
+"potwierdzające, że lista utworów jest nieznana."
 
 #: ../root/release/edit/recordings.tt:178
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:26
@@ -364,7 +384,7 @@ msgstr "Dodaj {num} utwór/utworów"
 
 #: ../root/release/edit/information.tt:290
 msgid "Additional information"
-msgstr ""
+msgstr "Informacje dodatkowe"
 
 #: ../root/place/edit_form.tt:16 ../root/components/list/PlaceList.js:57
 #: ../root/edit/details/AddPlace.js:51 ../root/edit/details/EditPlace.js:64
@@ -385,20 +405,26 @@ msgstr ""
 "jeśli odpowiednie dla tej ścieżki jeszcze nie istnieje."
 
 #: ../root/layout.tt:16 ../root/layout/index.js:192
+#, fuzzy
 msgid ""
 "An admin has set the following restrictions on your account: {list}. If you "
 "haven’t already been contacted about why, please {uri|send us a message}."
 msgstr ""
+"Administrator ustawił następujące ograniczenia na Twoim koncie: {list}. "
+"Jeśli jeszcze nie skontaktowano się z Tobą w sprawie powodu, {uri|send us a "
+"message}."
 
 #: ../root/components/common-macros.tt:569
 msgid ""
 "An entity with that name and disambiguation already exists. You must enter a "
 "unique disambiguation comment."
 msgstr ""
+"Jednostka o tej nazwie i ujednoznacznieniu już istnieje. Musisz wprowadzić "
+"unikalny komentarz ujednoznaczniający."
 
 #: ../root/release/edit/tracklist.tt:144
 msgid "An error occurred: "
-msgstr ""
+msgstr "Wystąpił błąd: "
 
 #: ../root/release/edit/information.tt:294
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
@@ -414,7 +440,7 @@ msgstr "Adnotacja"
 
 #: ../root/edit/search_macros.tt:436
 msgid "Applied edit count of editor"
-msgstr ""
+msgstr "Zastosowana liczba edycji edytora"
 
 #: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:309
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:192
@@ -535,13 +561,13 @@ msgstr "Szczegóły aliasu"
 #: ../root/cdtoc/SelectArtistForCDToc.js:25
 msgctxt "header"
 msgid "Attach CD TOC"
-msgstr ""
+msgstr "Dołącz CD TOC"
 
 #: ../root/cdtoc/attach_artist_releases.tt:40
 #: ../root/cdtoc/attach_filter_release.tt:54
 msgctxt "interactive"
 msgid "Attach CD TOC"
-msgstr ""
+msgstr "Dołącz CD TOC"
 
 #: ../root/cdtoc/lookup.tt:68 ../root/release/edit/tracklist.tt:497
 #, fuzzy
@@ -551,7 +577,7 @@ msgstr "Dodaj ID dysku"
 
 #: ../root/cdtoc/index.tt:8
 msgid "Attached to releases"
-msgstr ""
+msgstr "Dołączono do wydań"
 
 #: ../root/edit/search_macros.tt:401 ../root/user/UserProfile.js:75
 #, fuzzy
@@ -581,7 +607,7 @@ msgstr "Auto-redaktor"
 #: ../root/report/ReleasesSameBarcode.js:40
 #: ../root/search/components/ReleaseResults.js:127
 msgid "Barcode"
-msgstr ""
+msgstr "Kod kreskowy"
 
 #: ../root/cdtoc/lookup.tt:33
 msgid ""
@@ -597,6 +623,9 @@ msgid ""
 "similar release to already exist in MusicBrainz. If you wish to base your "
 "release on an existing release, select it below."
 msgstr ""
+"Na podstawie podanych przez Ciebie informacji, znaleźliśmy następującą "
+"podobną wersję, która już istnieje w MusicBrainz. Jeśli chcesz oprzeć swoją "
+"wersję na istniejącej wersji, wybierz ją poniżej."
 
 #: ../root/artist/edit_form.tt:54 ../root/artist/utils.js:19
 #: ../root/components/list/ArtistList.js:88
@@ -624,31 +653,38 @@ msgstr "Data rozpoczęcia"
 
 #: ../root/event/add_event_art.tt:95 ../root/release/add_cover_art.tt:95
 #: ../root/search/error/InternalError.js:22
+#, fuzzy
 msgid ""
 "Below is the error information. If you wish to file a bug report, you may do "
 "so at {bugs|our bug tracker}. The information below will help, so please be "
 "sure to include it!"
 msgstr ""
+"Poniżej znajdują się informacje o błędzie. Jeśli chcesz zgłosić błąd, możesz "
+"to zrobić w {bugs|our bug tracker}. Poniższe informacje będą pomocne, więc "
+"pamiętaj, aby je uwzględnić!"
 
 #: ../root/layout.tt:117 ../root/layout/components/ExternalLinks.js:118
 #: ../root/layout/components/Footer.js:33
 msgid "Blog"
-msgstr ""
+msgstr "Blog"
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:35
 msgid "Bluesky"
-msgstr ""
+msgstr "Bluesky"
 
 #: ../root/edit/search_macros.tt:401
 msgctxt "user type"
 msgid "Bot"
-msgstr ""
+msgstr "Bot"
 
 #: ../root/layout.tt:126 ../root/layout/components/Footer.js:53
+#, fuzzy
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}."
 msgstr ""
+"Dostarczone przez {MeB|MetaBrainz Foundation} i naszych {spon|sponsors} i "
+"{supp|supporters}."
 
 #: ../root/layout.tt:116 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:210
@@ -659,11 +695,12 @@ msgstr "Bug Tracker"
 
 #: ../root/release/edit/tracklist.tt:6
 msgid "By default, the parser expects the following format:"
-msgstr ""
+msgstr "Domyślnie parser oczekuje następującego formatu:"
 
 #: ../root/cdstub/header.tt:5 ../root/cdstub/CDStubHeader.js:15
+#, fuzzy
 msgid "CD stub by {artist}"
-msgstr ""
+msgstr "Wycinek płyty CD autorstwa {artist}"
 
 #: ../root/cdtoc/lookup.tt:21
 #, fuzzy
@@ -672,12 +709,14 @@ msgid "CD stub found"
 msgstr "Nie znaleziono CD TOC"
 
 #: ../root/release/edit/tracklist.tt:248
+#, fuzzy
 msgid "CD stub import"
-msgstr ""
+msgstr "Importowanie wycinka CD"
 
 #: ../root/cdstub/layout.tt:2 ../root/cdstub/CDStubLayout.js:21
+#, fuzzy
 msgid "CD stub “{title}” by {artist}"
-msgstr ""
+msgstr "Fragment płyty CD „{title}” autorstwa {artist}"
 
 #: ../root/doc/edit_type.tt:42
 msgid "Can be approved"
@@ -715,11 +754,11 @@ msgstr "Nr kat.:"
 #: ../root/search/components/ReleaseResults.js:126
 #: ../root/utility/tableColumns.js:489 ../root/utility/tableColumns.js:494
 msgid "Catalog#"
-msgstr ""
+msgstr "Catalog#"
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:30
 msgid "Chat"
-msgstr ""
+msgstr "Czat"
 
 #: ../root/release/edit/information.tt:58
 #, fuzzy
@@ -729,7 +768,7 @@ msgstr "Scal grupy wydań"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
-msgstr ""
+msgstr "Kliknij Edytuj, aby edytować skojarzenia nagrań dla tego dysku."
 
 #: ../root/release/edit/tracklist.tt:237 ../root/release/edit/tracklist.tt:266
 msgid "Close"
@@ -742,11 +781,11 @@ msgstr "Zamknięte"
 
 #: ../root/artist/split.tt:36
 msgid "Collaborators on this artist"
-msgstr ""
+msgstr "Współpracownicy tego artysty"
 
 #: ../root/release/edit/tracklist.tt:301
 msgid "Collapse medium"
-msgstr ""
+msgstr "Zwiń medium"
 
 #: ../root/cdstub/index.tt:3 ../root/event/add_event_art.tt:69
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
@@ -756,7 +795,7 @@ msgstr ""
 #: ../root/components/ArtFields.js:97 ../root/edit/details/AddArt.js:58
 #: ../root/edit/details/EditArt.js:74 ../root/edit/details/RemoveArt.js:60
 msgid "Comment"
-msgstr ""
+msgstr "Komentarz"
 
 #: ../root/place/edit_form.tt:28 ../root/edit/details/AddPlace.js:63
 #: ../root/edit/details/EditPlace.js:82
@@ -767,10 +806,11 @@ msgstr "Współrzędne"
 #: ../root/release/edit/recordings.tt:149
 msgid "Copy all track artist credits to associated recordings."
 msgstr ""
+"Skopiuj wszystkie informacje o wykonawcach utworów do powiązanych nagrań."
 
 #: ../root/release/edit/recordings.tt:143
 msgid "Copy all track titles to associated recordings."
-msgstr ""
+msgstr "Skopiuj wszystkie tytuły utworów do powiązanych nagrań."
 
 #: ../root/components/forms.tt:189
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:140
@@ -779,11 +819,11 @@ msgstr "Kopiuj nazwę"
 
 #: ../root/release/edit/information.tt:126
 msgid "Copy the release artist credit to the release group"
-msgstr ""
+msgstr "Skopiuj informacje o autorze wydania do grupy wydania"
 
 #: ../root/release/edit/information.tt:111
 msgid "Copy the release title to the release group"
-msgstr ""
+msgstr "Skopiuj tytuł wydania do grupy wydań"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:10
@@ -800,7 +840,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/FilterForm.js:271
 #: ../root/utility/tableColumns.js:511 ../root/utility/tableColumns.js:523
 msgid "Country"
-msgstr ""
+msgstr "Kraj"
 
 #: ../root/release_group/set_cover_art.tt:67
 #: ../root/edit/components/EditArtwork.js:26 ../root/user/UserProfile.js:52
@@ -816,7 +856,7 @@ msgstr "Tworzenie edycji..."
 
 #: ../root/release/edit/tracklist.tt:81
 msgid "Custom delimiter"
-msgstr ""
+msgstr "Niestandardowy ogranicznik"
 
 #: ../root/release/edit/information.tt:191
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:253
@@ -858,7 +898,7 @@ msgstr "Data"
 #: ../root/artist/edit_form.tt:46 ../root/components/forms.tt:155
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:177
 msgid "Date period"
-msgstr ""
+msgstr "Okres daty"
 
 #: ../root/artist/edit_form.tt:48 ../root/components/forms.tt:157
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:179
@@ -866,6 +906,8 @@ msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
 msgstr ""
+"Daty są w formacie YYYY-MM-DD. Częściowe daty, takie jak YYYY-MM lub po "
+"prostu YYYY są OK, lub możesz pominąć datę całkowicie."
 
 #: ../root/doc/edit_type.tt:23 ../root/collection/CollectionIndex.js:199
 #: ../root/edit/details/AddInstrument.js:60
@@ -887,7 +929,7 @@ msgstr ""
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:210
 #: ../root/utility/tableColumns.js:683
 msgid "Description"
-msgstr ""
+msgstr "Opis"
 
 #: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:163
 #: ../root/elections/ElectionDetails.js:25 ../root/entity/Details.js:79
@@ -919,23 +961,26 @@ msgstr "Szczegóły"
 #: ../root/static/scripts/common/components/FilterForm.js:389
 #: ../root/static/scripts/event/components/EventEditForm.js:249
 msgid "Disambiguation"
-msgstr ""
+msgstr "Ujednoznacznienie"
 
 #: ../root/cdstub/index.tt:10 ../root/cdstub/CDStubIndex.js:36
+#, fuzzy
 msgid "Disc ID information"
-msgstr ""
+msgstr "Informacje o identyfikatorze dysku"
 
 #: ../root/cdtoc/index.tt:3
+#, fuzzy
 msgid "Disc ID “<code>{discid}</code>”"
-msgstr ""
+msgstr "Identyfikator płyty “<code>{discid}</code>”"
 
 #: ../root/cdtoc/index.tt:1
+#, fuzzy
 msgid "Disc ID “{discid}”"
-msgstr ""
+msgstr "Identyfikator płyty “{discid}”"
 
 #: ../root/release/edit/duplicates.tt:40
 msgid "Do not use any of the above releases as a starting point"
-msgstr ""
+msgstr "Nie należy używać żadnej z powyższych wersji jako punktu wyjścia"
 
 #: ../root/layout.tt:112 ../root/layout/components/Footer.js:26
 msgid "Donate"
@@ -955,6 +1000,8 @@ msgid ""
 "Each track in the MusicBrainz database has to be linked to a recording, "
 "choose the appropriate recording or look for it in the database."
 msgstr ""
+"Każdy utwór w bazie danych MusicBrainz musi być powiązany z nagraniem – "
+"wybierz odpowiednie nagranie lub poszukaj go w bazie danych."
 
 #: ../root/release/edit/recordings.tt:109
 msgid "Edit"
@@ -1035,7 +1082,7 @@ msgstr "Edytuj wydarzenie"
 #: ../root/components/forms.tt:29
 #: ../root/static/scripts/edit/components/EnterEditNote.js:69
 msgid "Edit note:"
-msgstr ""
+msgstr "Edytuj notatkę:"
 
 #: ../root/doc/edit_type.tt:18 ../root/doc/EditTypeList.js:35
 #: ../root/doc/EditTypeList.js:37 ../root/edit/components/EditSidebar.js:93
@@ -1048,7 +1095,7 @@ msgstr "Typy Edycji"
 
 #: ../root/edit/search_macros.tt:436
 msgid "Edited entity"
-msgstr ""
+msgstr "Edytowany obiekt"
 
 #: ../root/edit/search_macros.tt:436
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:48
@@ -1066,7 +1113,7 @@ msgstr "Redaktor"
 
 #: ../root/release/edit/tracklist.tt:45
 msgid "Enable vinyl track numbers"
-msgstr ""
+msgstr "Włącz numery ścieżek winylowych"
 
 #: ../root/artist/edit_form.tt:68 ../root/artist/utils.js:47
 #: ../root/components/list/ArtistList.js:98
@@ -1101,44 +1148,57 @@ msgstr "angielski"
 
 #: ../root/release/edit/tracklist.tt:3
 msgid "Enter a tracklist below:"
-msgstr ""
+msgstr "Wprowadź listę utworów poniżej:"
 
 #: ../root/place/edit_form.tt:50
 msgid ""
 "Enter coordinates manually or click the map to get coordinates from the "
 "marker. If you’re too far out, clicking will zoom instead."
 msgstr ""
+"Wprowadź współrzędne ręcznie lub kliknij mapę, aby uzyskać współrzędne z "
+"markera. Jeśli jesteś zbyt daleko, kliknięcie spowoduje powiększenie."
 
 #: ../root/components/forms.tt:39 ../root/event/add_event_art.tt:170
 #: ../root/release/add_cover_art.tt:181 ../root/release/edit/layout.tt:58
 #: ../root/static/scripts/edit/components/EnterEdit.js:78
 msgid "Enter edit"
-msgstr ""
+msgstr "Wprowadź edycję"
 
 #: ../root/release/edit/tracklist.tt:86
 msgid ""
 "Enter the delimiter that separates the track name from the artist name "
 "(valid {url|regular expressions} are accepted)."
 msgstr ""
+"Wprowadź rozdzielacz, który będzie oddzielał nazwę utworu od nazwy wykonawcy "
+"(akceptowane są prawidłowe {url|regular expressions})."
 
 #: ../root/edit/search_macros.tt:436
 msgid "Entered"
-msgstr ""
+msgstr "Wprowadzono"
 
 #: ../root/components/forms.tt:23
+#, fuzzy
 msgid ""
 "Entering an {note|edit note} that describes where you got your information "
 "is highly recommended. Not only does it make it clear where you got your "
 "information, but it can also encourage other users to vote on your edit "
 "&#x2014; thus making your edit get applied faster."
 msgstr ""
+"Zdecydowanie zalecane jest wprowadzenie {note|edit note} opisującą, skąd "
+"wziąłeś swoje informacje. Nie tylko wyjaśnia to, skąd wziąłeś swoje "
+"informacje, ale może również zachęcić innych użytkowników do głosowania na "
+"twoją edycję &#x2014;, dzięki czemu twoja edycja zostanie zastosowana "
+"szybciej."
 
 #: ../root/components/forms.tt:25
 #: ../root/static/scripts/edit/components/EnterEditNote.js:54
+#, fuzzy
 msgid ""
 "Even just providing a URL or two is helpful! For more suggestions, see "
 "{doc_how_to|our guide for writing good edit notes}."
 msgstr ""
+"Nawet podanie jednego lub dwóch adresów URL jest pomocne! Więcej sugestii "
+"znajdziesz w {doc_how_to|our guide for writing good edit notes}."
 
 #: ../root/edit/search_macros.tt:436 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
@@ -1158,7 +1218,7 @@ msgstr "Wydarzenie"
 
 #: ../root/release/edit/tracklist.tt:247
 msgid "Existing medium"
-msgstr ""
+msgstr "Istniejący nośnik"
 
 #: ../root/release/edit/information.tt:77
 #, fuzzy
@@ -1168,15 +1228,15 @@ msgstr "Edytuj alias grupy wydań"
 
 #: ../root/release/edit/tracklist.tt:151
 msgid "Expand"
-msgstr ""
+msgstr "Rozwiń"
 
 #: ../root/release/edit/tracklist.tt:301
 msgid "Expand medium"
-msgstr ""
+msgstr "Rozwiń nośnik"
 
 #: ../root/doc/edit_type.tt:38
 msgid "Expire action"
-msgstr ""
+msgstr "Wygaśnięcie akcji"
 
 #: ../root/artist/edit_form.tt:82 ../root/label/edit_form.tt:53
 #: ../root/place/edit_form.tt:37 ../root/recording/edit_form.tt:57
@@ -1193,26 +1253,32 @@ msgstr "Plik:"
 
 #: ../root/release/edit/layout.tt:64
 msgid "Finish"
-msgstr ""
+msgstr "Zakończ"
 
 #: ../root/release/edit/layout.tt:17
 msgid ""
 "First enter all track information, including titles and artist credits, in "
 "order to edit their recordings."
 msgstr ""
+"Najpierw wprowadź wszystkie informacje o utworach, w tym tytuły i nazwiska "
+"wykonawców, aby móc edytować nagrania."
 
 #: ../root/artist/edit_form.tt:3 ../root/recording/edit_form.tt:17
 #: ../root/release_group/edit_form.tt:5 ../root/series/edit_form.tt:3
+#, fuzzy
 msgid ""
 "For more information, check the {doc_doc|documentation} and {doc_styleguide|"
 "style guidelines}."
 msgstr ""
+"Aby uzyskać więcej informacji, zapoznaj się z {doc_doc|documentation} i "
+"{doc_styleguide|style guidelines}."
 
 #: ../root/label/edit_form.tt:3 ../root/place/edit_form.tt:3
 #: ../root/work/edit_form.tt:4 ../root/search/components/SearchForm.js:99
 #: ../root/static/scripts/event/components/EventEditForm.js:231
+#, fuzzy
 msgid "For more information, check the {doc_doc|documentation}."
-msgstr ""
+msgstr "Więcej informacji znajdziesz w {doc_doc|documentation}."
 
 #: ../root/cdtoc/list.tt:9 ../root/release/edit/duplicates.tt:11
 #: ../root/release/edit/tracklist.tt:305
@@ -1228,7 +1294,7 @@ msgstr ""
 #: ../root/report/components/CDTocList.js:44
 #: ../root/search/components/ReleaseResults.js:122
 msgid "Format"
-msgstr ""
+msgstr "Format"
 
 #: ../root/layout.tt:114 ../root/layout/components/Footer.js:28
 #: ../root/main/index.js:213
@@ -1259,7 +1325,7 @@ msgstr "francuski"
 #: ../root/cdstub/index.tt:30 ../root/cdstub/CDStubIndex.js:51
 #: ../root/cdtoc/CDTocInfo.js:22
 msgid "Full TOC:"
-msgstr ""
+msgstr "Pełny TOC:"
 
 #: ../root/artist/edit_form.tt:17 ../root/components/list/ArtistList.js:73
 #: ../root/edit/details/AddArtist.js:72 ../root/edit/details/EditArtist.js:93
@@ -1278,13 +1344,14 @@ msgstr "Płeć"
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
 #: ../root/tag/TagIndex.js:22
 msgid "Genre"
-msgstr ""
+msgstr "Gatunek"
 
 #: ../root/components/forms.tt:175 ../root/release/edit/information.tt:14
 #: ../root/release/edit/tracklist.tt:546
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:173
+#, fuzzy
 msgid "Guess case"
-msgstr ""
+msgstr "Zgadnij wielkość liter"
 
 #: ../root/components/forms.tt:196
 msgctxt "header"
@@ -1333,24 +1400,31 @@ msgstr "Potwierdzam, że jest to kod kreskowy widoczny na wydaniu."
 #: ../root/release/edit/tracklist.tt:390
 msgid "I confirm this is a correct medium format/packaging combination."
 msgstr ""
+"Potwierdzam, że jest to prawidłowa kombinacja formatu i opakowania nośnika."
 
 #: ../root/release/edit/tracklist.tt:413
 msgid "I confirm this is an intentional use of Various Artists on tracks."
 msgstr ""
+"Potwierdzam, że jest to celowe wykorzystanie nazwy Various Artists w "
+"utworach."
 
 #: ../root/release/edit/tracklist.tt:431
+#, fuzzy
 msgid ""
 "I confirm this is an intentional use of featured artists on track titles, or "
 "that these aren’t actually featured artists."
 msgstr ""
+"Potwierdzam, że jest to celowe wykorzystanie nazw wyróżnionych artystów w "
+"tytułach utworów lub że nie są to faktycznie wyróżnieni artyści."
 
 #: ../root/release/edit/tracklist.tt:314
+#, fuzzy
 msgid "I don’t know"
-msgstr ""
+msgstr "Nie znam"
 
 #: ../root/release/edit/tracklist.tt:445
 msgid "I don’t know the tracklist for this medium."
-msgstr ""
+msgstr "Nie znam listy utworów dla tego nośnika."
 
 #: ../root/release/edit/tracklist.tt:280
 msgid "I have no information about this release’s media and tracklist."
@@ -1683,11 +1757,11 @@ msgstr ""
 
 #: ../root/layout.tt:118 ../root/layout/components/Footer.js:34
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: ../root/cdtoc/lookup.tt:5
 msgid "Matching CDs"
-msgstr ""
+msgstr "Pasujące płyty CD"
 
 #: ../root/cdtoc/lookup.tt:41 ../root/components/common-macros.tt:507
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
@@ -11447,16 +11521,12 @@ msgid ""
 msgstr ""
 
 #: ../root/main/ImageEditingUnavailable.js:14
-#, fuzzy
-#| msgid "No cover art available."
 msgid "Image editing unavailable"
-msgstr "Okładka nie jest dostępna."
+msgstr "Edycja obrazu niedostępna"
 
 #: ../root/main/ImageEditingUnavailable.js:17
-#, fuzzy
-#| msgid "The blog is currently unavailable."
 msgid "Image editing is currently unavailable."
-msgstr "Blog jest obecnie niedostępny."
+msgstr "Edycja obrazu jest obecnie niedostępna."
 
 #: ../root/main/error/Error400.js:19
 msgid "Bad request"
@@ -12895,23 +12965,24 @@ msgid ""
 msgstr ""
 
 #: ../root/report/EmptyReleaseGroups.js:52 ../root/report/ReportsIndex.js:220
-#, fuzzy
-#| msgid "Release groups with annotations"
 msgid "Release groups without any releases"
-msgstr "Grupy wydań z adnotacjami"
+msgstr "Grupy wydań bez żadnych wydań"
 
 #: ../root/report/EventSequenceNotInSeries.js:25
 msgid ""
 "This report lists events where the event name indicates that it may have to "
 "be part of a series or a larger event."
 msgstr ""
+"W raporcie tym wymienione są zdarzenia, których nazwa wskazuje, że mogą być "
+"częścią serii lub większego zdarzenia."
 
 #: ../root/report/EventSequenceNotInSeries.js:31
 #: ../root/report/ReportsIndex.js:144
 msgid "Events which should be part of series or larger event"
-msgstr ""
+msgstr "Wydarzenia, które powinny być częścią serii lub większego wydarzenia"
 
 #: ../root/report/FeaturingRecordings.js:25
+#, fuzzy
 msgid ""
 "This report shows recordings with “(feat. Artist)” (or similar) in the "
 "title. For classical recordings, consult the {CSG|classical style "
@@ -12920,12 +12991,19 @@ msgid ""
 "on the tracks!). Consult the {featured_artists|page about featured artists} "
 "to know more."
 msgstr ""
+"Ten raport pokazuje nagrania z „(feat. Artist)” (lub podobnym) w tytule. W "
+"przypadku nagrań klasycznych zapoznaj się z {CSG|classical style guidelines}"
+". W przypadku nagrań nieklasycznych jest to zwykle dziedziczone ze starszej "
+"wersji MusicBrainz i powinno zostać naprawione (zarówno w nagraniach, jak i "
+"w utworach!). Zapoznaj się ze stroną {featured_artists|page about featured "
+"artists}, aby dowiedzieć się więcej."
 
 #: ../root/report/FeaturingRecordings.js:40 ../root/report/ReportsIndex.js:487
 msgid "Recordings with titles containing featuring artists"
 msgstr "Nagrania z tytułami zawierającymi gościnny udział wykonawców"
 
 #: ../root/report/FeaturingReleaseGroups.js:25
+#, fuzzy
 msgid ""
 "This report shows release groups with “(feat. Artist)” (or similar) in the "
 "title. For classical release groups, consult the {CSG|classical style "
@@ -12933,6 +13011,12 @@ msgid ""
 "from an older version of MusicBrainz and should be fixed. Consult the "
 "{featured_artists|page about featured artists} to know more."
 msgstr ""
+"Ten raport pokazuje grupy wydawców z „(feat. Artist)” (lub podobnym) w "
+"tytule. W przypadku grup wydawców muzyki klasycznej zapoznaj się z {CSG|"
+"klasycznymi wytycznymi dotyczącymi stylu}. W przypadku grup wydawców muzyki "
+"innej niż klasyczna, jest to zwykle dziedziczone ze starszej wersji "
+"MusicBrainz i powinno zostać naprawione. Zapoznaj się ze stroną "
+"{featured_artists|o wyróżnionych artystach}, aby dowiedzieć się więcej."
 
 #: ../root/report/FeaturingReleaseGroups.js:39
 #: ../root/report/ReportsIndex.js:201
@@ -12940,6 +13024,7 @@ msgid "Release groups with titles containing featuring artists"
 msgstr "Grupy wydań z tytułami zawierającymi gościnny udział wykonawców"
 
 #: ../root/report/FeaturingReleases.js:25
+#, fuzzy
 msgid ""
 "This report shows releases with “(feat. Artist)” (or similar) in the title. "
 "For classical releases, consult the {CSG|classical style guidelines}. For "
@@ -12949,6 +13034,14 @@ msgid ""
 "to tracks, so if the track titles also include featuring credits you can fix "
 "them too while you edit the release!"
 msgstr ""
+"Ten raport pokazuje wydania z „(feat. Artist)” (lub podobnym) w tytule. W "
+"przypadku wydań klasycznych zapoznaj się z {CSG|classical style guidelines}. "
+"W przypadku wydań nieklasycznych jest to zazwyczaj dziedziczone ze starszej "
+"wersji MusicBrainz i powinno zostać naprawione. Zapoznaj się ze stroną "
+"{featured_artists|page about featured artists}, aby dowiedzieć się więcej. "
+"Nie zapomnij, że to samo dotyczy utworów, więc jeśli tytuły utworów "
+"zawierają również wyróżnienia, możesz je również poprawić podczas edycji "
+"wydania!"
 
 #: ../root/report/FeaturingReleases.js:42 ../root/report/ReportsIndex.js:305
 msgid "Releases with titles containing featuring artists"
@@ -12956,7 +13049,7 @@ msgstr "Wydania z tytułami zawierającymi gościnny udział wykonawców"
 
 #: ../root/report/FilterLink.js:23
 msgid "Show all results."
-msgstr ""
+msgstr "Pokaż wszystkie wyniki."
 
 #: ../root/report/FilterLink.js:27
 msgid "Show only results that are in my subscribed entities."
