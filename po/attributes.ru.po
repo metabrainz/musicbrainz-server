@@ -29,8 +29,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-11-23 22:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ru/>\n"
 "Language: ru\n"
@@ -38,8 +38,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.8.4\n"
 
 #. name:Motet
@@ -1507,8 +1507,8 @@ msgstr ""
 msgctxt "release_packaging"
 msgid "An often decorated metal tin containing one or more CDs."
 msgstr ""
-"Металическая банка (часто декорированная), содержащая один или более "
-"компакт-дисков."
+"Металическая банка (часто декорированная), содержащая один или более компакт-"
+"дисков."
 
 #. name:Opera
 #: DB:work_type/description:10
@@ -4393,6 +4393,15 @@ msgstr ""
 msgctxt "work_attribute_type"
 msgid "ID for the Indian rights society IPRS"
 msgstr ""
+
+#. name:WAMI ID
+#: DB:work_attribute_type/description:210
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Mexican rights society SACM"
+msgctxt "work_attribute_type"
+msgid "ID for the Indonesian rights society WAMI"
+msgstr "ID Мексиканского правового общества SACM"
 
 #. name:ICE ID
 #: DB:work_attribute_type/description:29
@@ -8863,6 +8872,14 @@ msgstr ""
 msgctxt "work_attribute_type_allowed_value"
 msgid "Vīra vasantaṁ"
 msgstr ""
+
+#: DB:work_attribute_type/name:210
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "BMI ID"
+msgctxt "work_attribute_type"
+msgid "WAMI ID"
+msgstr "BMI ID"
 
 #: DB:cover_art_archive.art_type/name:13
 msgctxt "cover_art_type"

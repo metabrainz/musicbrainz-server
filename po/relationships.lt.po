@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
-" n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.8.4\n"
 
 #. name:artist diploma
@@ -2909,8 +2909,8 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Tai nurodo organizaciją, kuri išleidžia leidinį. Tai <strong>nėra</strong>ta "
-"pati sąvoka kaip <a href=\"/doc/Label\" target=\"_blank\">įrašų "
-"kompanija</a>."
+"pati sąvoka kaip <a href=\"/doc/Label\" target=\"_blank\">įrašų kompanija</"
+"a>."
 
 #. name:orchestrator
 #: DB:link_type/description:300
@@ -10059,9 +10059,9 @@ msgid ""
 "{acappella:a cappella} {live} {medley:medley including a} {partial} "
 "{instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
-"{acappella:akapelos} {live:gyvo} {medley:melodijos, įskaitant} "
-"{partial:dalinės} {instrumental:instrumentinio} {cover:perdainavimo} "
-"{karaoke:karaokės} {demo:demo versijos} įrašą"
+"{acappella:akapelos} {live:gyvo} {medley:melodijos, įskaitant} {partial:"
+"dalinės} {instrumental:instrumentinio} {cover:perdainavimo} {karaoke:"
+"karaokės} {demo:demo versijos} įrašą"
 
 #. name:performance
 #: DB:link_type/reverse_link_phrase:278
@@ -10297,7 +10297,7 @@ msgid ""
 msgstr ""
 
 #. name:transfer
-#: DB:link_type/long_link_phrase:1179
+#: DB:link_type/link_phrase:1179 DB:link_type/long_link_phrase:1179
 msgid "{additional:additionally} {assistant} {associate} {co:co-}transferred"
 msgstr ""
 
@@ -10688,11 +10688,6 @@ msgstr ""
 "garso inžinierius"
 
 #. name:transfer
-#: DB:link_type/link_phrase:1179
-msgid "{additional} {assistant} {associate} {co:co-}transferred"
-msgstr ""
-
-#. name:transfer
 #: DB:link_type/reverse_link_phrase:1179
 msgid "{additional} {assistant} {associate} {co:co-}transferrer"
 msgstr ""
@@ -10708,8 +10703,8 @@ msgstr ""
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineers"
 msgstr ""
-"{additional:papildomi} {assistant:pagalbininiai} {associate:susieti} "
-"{co:ko}{executive:vykdomieji } inžinieriai"
+"{additional:papildomi} {assistant:pagalbininiai} {associate:susieti} {co:ko}"
+"{executive:vykdomieji } inžinieriai"
 
 #. name:producer
 #: DB:link_type/reverse_link_phrase:141 DB:link_type/reverse_link_phrase:30
