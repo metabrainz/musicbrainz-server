@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-11-23 22:42+0000\n"
+"PO-Revision-Date: 2024-12-03 23:42+0000\n"
 "Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
 "metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -4456,6 +4456,12 @@ msgstr "ID per la società di diritti islandese STEF"
 msgctxt "work_attribute_type"
 msgid "ID for the Indian rights society IPRS"
 msgstr "ID per la società di diritti indiana IPRS"
+
+#. name:WAMI ID
+#: DB:work_attribute_type/description:210
+msgctxt "work_attribute_type"
+msgid "ID for the Indonesian rights society WAMI"
+msgstr "ID per la società di diritti indonesiana WAMI"
 
 #. name:ICE ID
 #: DB:work_attribute_type/description:29
@@ -8932,6 +8938,11 @@ msgstr "Vēlāvali"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Vīra vasantaṁ"
 msgstr "Vīra vasantaṁ"
+
+#: DB:work_attribute_type/name:210
+msgctxt "work_attribute_type"
+msgid "WAMI ID"
+msgstr "ID WAMI"
 
 #: DB:cover_art_archive.art_type/name:13
 msgctxt "cover_art_type"

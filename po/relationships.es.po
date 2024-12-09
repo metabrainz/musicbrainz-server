@@ -10527,7 +10527,7 @@ msgstr ""
 "{associate:asociado} para"
 
 #. name:transfer
-#: DB:link_type/long_link_phrase:1179
+#: DB:link_type/link_phrase:1179 DB:link_type/long_link_phrase:1179
 msgid "{additional:additionally} {assistant} {associate} {co:co-}transferred"
 msgstr ""
 
@@ -10928,11 +10928,6 @@ msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
 msgstr ""
 "{co:co-}ingeniero de sonido {additional:adicional} {assistant:asistente} "
 "{associate:asociado}"
-
-#. name:transfer
-#: DB:link_type/link_phrase:1179
-msgid "{additional} {assistant} {associate} {co:co-}transferred"
-msgstr ""
 
 #. name:transfer
 #: DB:link_type/reverse_link_phrase:1179

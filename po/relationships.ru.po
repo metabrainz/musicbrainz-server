@@ -22,9 +22,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-22 12:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-12-08 16:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -32,14 +32,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.7.2\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
-msgstr ""
+msgstr "Программа аспирантуры, обычно рассчитанная на один-три года."
 
 #. name:social network
 #: DB:link_type/description:218
@@ -489,16 +489,12 @@ msgstr ""
 
 #. name:review
 #: DB:link_type/description:842
-#, fuzzy
-#| msgid ""
-#| "Indicates a page that reviews the release (group) in question, whether it "
-#| "be in text, audio or video form."
 msgid ""
 "Indicates a webpage that reviews the event in question, whether it be in "
 "text, audio or video form."
 msgstr ""
-"Указывает на страницу, на которой опубликован обзор релиза (или группы "
-"релизов), неважно, в текстовом, видео- или аудиоформате."
+"Указывает на веб-страницу, на которой опубликован обзор на событие, неважно, "
+"в текстовом, видео- или аудиоформате."
 
 #. name:download for free
 #: DB:link_type/description:958
@@ -581,7 +577,7 @@ msgstr "Указывает оркестр на этой записи."
 #. name:performing orchestra
 #: DB:link_type/description:45
 msgid "Indicates an orchestra that performed on this release."
-msgstr ""
+msgstr "Указывает на оркестр, выступивший на этом релизе."
 
 #. name:amount
 #: DB:link_attribute_type/description:1080
@@ -595,6 +591,8 @@ msgid ""
 "Indicates that an artist revised a work. In most cases, this will be the "
 "original composer revising the work at a later date."
 msgstr ""
+"Указывает на то, что исполнитель переработал произведение. В большинстве "
+"случаев речь идет о том, что композитор переработал произведение позднее."
 
 #. name:performance of
 #: DB:link_type/description:887
@@ -602,23 +600,23 @@ msgid ""
 "Indicates that an event was intended as a performance of a specific release "
 "group (usually an album)."
 msgstr ""
+"Указывает на то, что мероприятие было задумано как исполнение конкретной "
+"группы релизов (обычно альбома)."
 
 #. name:cover
 #: DB:link_attribute_type/description:567
-#, fuzzy
-#| msgid "Indicates that one entity is a cover of another entity"
 msgid "Indicates that one entity is a cover of another entity."
 msgstr "Указывает, что одна сущность является кавером другой сущности."
 
 #. name:part of
 #: DB:link_type/description:996
 msgid "Indicates that the artist is part of a series."
-msgstr ""
+msgstr "Указывает, что исполнитель является частью серии."
 
 #. name:part of
 #: DB:link_type/description:802
 msgid "Indicates that the event is part of a series."
-msgstr ""
+msgstr "Указывает, что событие является частью серии."
 
 #. name:samples material
 #: DB:link_type/description:231
@@ -650,6 +648,7 @@ msgstr "Указывает, что запись является частью с
 #: DB:link_attribute_type/description:1053
 msgid "Indicates that the relationship is optional - doesn't always apply."
 msgstr ""
+"Указывает, что отношение является необязательным и не всегда применяется."
 
 #. name:samples from artist
 #: DB:link_type/description:49
@@ -658,11 +657,14 @@ msgid ""
 "artist. Use this only if you really cannot figure out the particular "
 "recording that has been sampled."
 msgstr ""
+"Указывает, что релиз содержит сэмплы из материала указанного исполнителя. "
+"Используйте данное отношение только в том случае, если вы не можете "
+"определить, с какой именно записи были взяты сэмплы."
 
 #. name:part of
 #: DB:link_type/description:742
 msgid "Indicates that the release group is part of a series."
-msgstr ""
+msgstr "Указывает, что группа релизов является частью серии."
 
 #. name:part of
 #: DB:link_type/description:741
@@ -685,15 +687,13 @@ msgstr ""
 
 #. name:held in
 #: DB:link_type/description:1085
-#, fuzzy
-#| msgid "Indicates the location a run or residency was held at."
 msgid "Indicates the area an event series was held in."
-msgstr "Указывает место проведения мероприятия или резиденции."
+msgstr "Указывает область проведения серии мероприятий."
 
 #. name:premiere
 #: DB:link_type/description:715
 msgid "Indicates the area where the work had its first performance."
-msgstr ""
+msgstr "Указывает область, где произведение было впервые исполнено."
 
 #. name:premiere
 #: DB:link_type/description:956
@@ -701,6 +701,8 @@ msgid ""
 "Indicates the artist(s) who gave the first performance of the work; this is "
 "usually mostly relevant for classical music."
 msgstr ""
+"Указывает исполнителя (исполнителей), который впервые исполнил произведение; "
+"обычно это актуально для классической музыки."
 
 #. name:composer
 #: DB:link_type/description:55
@@ -708,7 +710,7 @@ msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
-"Указывает на композитора этого релиза, то есть, артиста, который написал "
+"Указывает на композитора этого релиза, то есть, исполнителя, который написал "
 "музыку (но необязательно слова)."
 
 #. name:composer
@@ -717,13 +719,13 @@ msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
-"Указывает на композитора, который является исполнителем, написавшим музыку "
-"для этой работы (но не обязательно лирику)."
+"Указывает на композитора этого произведения, то есть, исполнителя, который "
+"написал музыку (но необязательно слова)."
 
 #. name:premiere
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance."
-msgstr "Указывает на событие, на котором впервые была представлена эта работа."
+msgstr "Указывает на событие, на котором впервые была исполнена эта работа."
 
 #. name:instrument technician
 #: DB:link_type/description:986
@@ -731,6 +733,9 @@ msgid ""
 "Indicates the instrument technician for this recording. Use also for \"piano "
 "tuner\" credits and other similar ones."
 msgstr ""
+"Указывает на специалиста по настройке инструмента для этой записи. "
+"Используется также для обозначения «настройщика фортепиано» и других "
+"подобных кредитов."
 
 #. name:instrument technician
 #: DB:link_type/description:987
@@ -738,16 +743,19 @@ msgid ""
 "Indicates the instrument technician for this release. Use also for \"piano "
 "tuner\" credits and other similar ones."
 msgstr ""
+"Указывает на специалиста по настройке инструмента для этого релиза. "
+"Используется также для обозначения «настройщика фортепиано» и других "
+"подобных кредитов."
 
 #. name:librettist
 #: DB:link_type/description:57
 msgid "Indicates the librettist for this release."
-msgstr ""
+msgstr "Указывает либреттиста для данного релиза."
 
 #. name:librettist
 #: DB:link_type/description:169
 msgid "Indicates the librettist for this work."
-msgstr ""
+msgstr "Указывает либреттиста для данной работы."
 
 #. name:held at
 #: DB:link_type/description:995
@@ -762,14 +770,12 @@ msgstr "Указывает автора слов этого издания."
 #. name:lyricist
 #: DB:link_type/description:165
 msgid "Indicates the lyricist for this work."
-msgstr ""
+msgstr "Указывает автора слов этой работы."
 
 #. name:mastering
 #: DB:link_type/description:42
-#, fuzzy
-#| msgid "Indicates the lyricist for this release."
 msgid "Indicates the mastering engineer for this release."
-msgstr "Указывает автора слов этого издания."
+msgstr "Указывает мастеринг-инженера данного релиза."
 
 #. name:official site
 #: DB:link_type/description:219
@@ -784,7 +790,7 @@ msgstr "Указывает на официальный сайт места."
 #. name:official homepage
 #: DB:link_type/description:745
 msgid "Indicates the official homepage for a series."
-msgstr ""
+msgstr "Указывает на официальный сайт серии."
 
 #. name:official homepage
 #: DB:link_type/description:183
@@ -800,17 +806,17 @@ msgstr "Указывает на официальный сайт события."
 #: DB:link_type/description:871
 msgid ""
 "Indicates the person who translated the lyrics/libretto for this release."
-msgstr ""
+msgstr "Указывает на человека, который перевел текст/либретто для этого релиза."
 
 #. name:translator
 #: DB:link_type/description:872
 msgid "Indicates the person who translated the lyrics/libretto for this work."
-msgstr ""
+msgstr "Указывает на человека, который перевел текст/либретто этой работы."
 
 #. name:premiere
 #: DB:link_type/description:716
 msgid "Indicates the place where the work had its first performance."
-msgstr ""
+msgstr "Указывает место, где работа была впервые исполнена."
 
 #. name:publishing
 #: DB:link_type/description:32
@@ -819,8 +825,8 @@ msgid ""
 "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</"
 "a>."
 msgstr ""
-"Указывает на издателя релиза. Не путать с <a href=\"/doc/Label\" "
-"target=\"_blank\">лейблом</a>."
+"Указывает на издателя релиза. <strong>Не путать</strong> с <a href=\"/doc/"
+"Label\" target=\"_blank\">лейблом</a>."
 
 #. name:publishing
 #: DB:link_type/description:161 DB:link_type/description:208
@@ -828,6 +834,8 @@ msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
+"Указывает на издателя работы. <strong>Не путать</strong> с <a href=\"/doc/"
+"Label\" target=\"_blank\">лейблом</a>."
 
 #. name:last.fm
 #: DB:link_type/link_phrase:837 DB:link_type/link_phrase:838
@@ -844,17 +852,17 @@ msgstr "Страница на Last.fm"
 #. name:lead vocals
 #: DB:link_attribute_type/description:4
 msgid "Lead or solo vocal"
-msgstr ""
+msgstr "Ведущий или сольный вокал"
 
 #. name:jury member
 #: DB:link_type/description:1255
 msgid "Links a competition event to an artist that was a jury member in it."
-msgstr ""
+msgstr "Связывает конкурс с исполнителем, который входил в его состав жюри."
 
 #. name:participant
 #: DB:link_type/description:1256
 msgid "Links a competition event to an artist that was a participant in it."
-msgstr ""
+msgstr "Связывает конкурс с исполнителем, который участвовал в нем."
 
 #. name:arranged in
 #: DB:link_type/description:864
@@ -862,6 +870,8 @@ msgid ""
 "Links a recording to the area it was arranged in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Связывает запись с областью, в которой она была сделана. Используйте только "
+"в тех случаях, когда место неизвестно!"
 
 #. name:edited in
 #: DB:link_type/description:821
@@ -869,6 +879,8 @@ msgid ""
 "Links a recording to the area it was edited in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Связывает запись с областью, в которой она была редактирована. Используйте "
+"только в тех случаях, когда место неизвестно!"
 
 #. name:engineered in
 #: DB:link_type/description:814
@@ -876,6 +888,8 @@ msgid ""
 "Links a recording to the area it was engineered in. Use only when the place "
 "is unknown!"
 msgstr ""
+"Связывает запись с областью, в которой она была сведена. Используйте только "
+"в тех случаях, когда место неизвестно!"
 
 #. name:mixed in
 #: DB:link_type/description:758
@@ -883,6 +897,8 @@ msgid ""
 "Links a recording to the area it was mixed in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Связывает запись с областью, в которой она была замиксована. Используйте "
+"только в тех случаях, когда место неизвестно!"
 
 #. name:produced in
 #: DB:link_type/description:827
@@ -890,6 +906,8 @@ msgid ""
 "Links a recording to the area it was produced in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Связывает запись с областью, в которой она была спродюсирована. Используйте "
+"только в тех случаях, когда место неизвестно!"
 
 #. name:recorded in
 #: DB:link_type/description:698
@@ -897,6 +915,8 @@ msgid ""
 "Links a recording to the area it was recorded in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Связывает запись с областью, в которой она была записана. Используйте только "
+"в тех случаях, когда место неизвестно!"
 
 #. name:remixed in
 #: DB:link_type/description:830
@@ -904,11 +924,13 @@ msgid ""
 "Links a recording to the area it was remixed in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Связывает запись с областью, в которой она была ремиксована. Используйте "
+"только в тех случаях, когда место неизвестно!"
 
 #. name:recorded at
 #: DB:link_type/description:809
 msgid "Links a recording to the event it was recorded at."
-msgstr ""
+msgstr "Связывает запись с событием, на котором она была записана."
 
 #. name:recorded during
 #: DB:link_type/description:1006
@@ -916,41 +938,43 @@ msgid ""
 "Links a recording to the event series (tour, residency, etc.) it was "
 "recorded during."
 msgstr ""
+"Связывает запись с серией событий (тур, резиденция и т.д.), на которой она "
+"была записана."
 
 #. name:arranged at
 #: DB:link_type/description:866
 msgid "Links a recording to the place it was arranged at."
-msgstr ""
+msgstr "Связывает запись с местом, в котором она была аранжирована."
 
 #. name:edited at
 #: DB:link_type/description:819
 msgid "Links a recording to the place it was edited at."
-msgstr ""
+msgstr "Связывает запись с местом, в котором она была редактирована."
 
 #. name:engineered at
 #: DB:link_type/description:813
 msgid "Links a recording to the place it was engineered at."
-msgstr ""
+msgstr "Связывает запись с местом, в котором она была сведена."
 
 #. name:mixed at
 #: DB:link_type/description:694
 msgid "Links a recording to the place it was mixed at."
-msgstr ""
+msgstr "Связывает запись с местом, в котором она была замиксована."
 
 #. name:produced at
 #: DB:link_type/description:825
 msgid "Links a recording to the place it was produced at."
-msgstr ""
+msgstr "Связывает запись с местом, в котором она была спродюсирована."
 
 #. name:recorded at
 #: DB:link_type/description:693
 msgid "Links a recording to the place it was recorded at."
-msgstr ""
+msgstr "Связывает запись с местом, в котором она была записана."
 
 #. name:remixed at
 #: DB:link_type/description:829
 msgid "Links a recording to the place it was remixed at."
-msgstr ""
+msgstr "Связывает запись с местом, в котором она была ремиксована."
 
 #. name:recorded during
 #: DB:link_type/description:1008
@@ -958,6 +982,8 @@ msgid ""
 "Links a recording, release or release group series to the event series "
 "(tour, residency, etc.) it was recorded during."
 msgstr ""
+"Связывает запись, релиз или группу релизов с серией событий (тур, резиденция "
+"и т.д.), на которой они были записаны."
 
 #. name:recorded during
 #: DB:link_type/description:1007
@@ -965,17 +991,20 @@ msgid ""
 "Links a release group to the event series (tour, residency, etc.) it was "
 "recorded during."
 msgstr ""
+"Связывает группу релизов с серией событий (тур, резиденция и т.д.), на "
+"которой она была записана."
 
 #. name:launch event
 #: DB:link_type/description:797
 msgid "Links a release group with a launch event for it."
-msgstr ""
+msgstr "Связывает группу релизов с мероприятием, посвященным ее выходу."
 
 #. name:production coordinator
 #: DB:link_type/description:1267
 msgid ""
 "Links a release to a person credited as a production coordinator for it."
 msgstr ""
+"Связывает релиз с человеком, указанным в качестве координатора производства."
 
 #. name:arranged in
 #: DB:link_type/description:863
@@ -983,6 +1012,8 @@ msgid ""
 "Links a release to the area it was arranged in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Связывает релиз с областью, в которой он был арранжирован. Используйте "
+"только в тех случаях, когда место неизвестно!"
 
 #. name:edited in
 #: DB:link_type/description:822
@@ -4331,6 +4362,10 @@ msgid ""
 "Concert_residency\" target=\"_blank\">concert residency</a> to the artist(s) "
 "who held the residency."
 msgstr ""
+"Отношение связывает <a href=\"https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D0%B"
+"D%D1%86%D0%B5%D1%80%D1%82%D0%BD%D0%B0%D1%8F_%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0"
+"%B5%D0%BD%D1%86%D0%B8%D1%8F\" target=\"_blank\">концертную резиденцию</a> и "
+"исполнителя(-ей), который(-е) её проводил."
 
 #. name:carillonneur
 #: DB:link_type/description:1165
@@ -4342,7 +4377,7 @@ msgstr ""
 #. name:tour
 #: DB:link_type/description:859
 msgid "This relationship links a concert tour to the artist(s) the tour is by."
-msgstr ""
+msgstr "Данное отношение связывает концертный тур и его исполнителя(-ей)."
 
 #. name:associated with
 #: DB:link_type/description:926
@@ -4413,6 +4448,8 @@ msgid ""
 "This relationship specifies that an event was held as a tribute/homage to a "
 "specific artist."
 msgstr ""
+"Отношение указывает, что мероприятие проводилось в качестве трибьюта/"
+"посвящения конкретному исполнителю."
 
 #. name:myspace
 #: DB:link_type/description:462
@@ -4805,6 +4842,8 @@ msgid ""
 "This relationship type links an event to a promotional poster for the event. "
 "Deprecated, use the Event Art Archive instead."
 msgstr ""
+"Данный тип отношения связывал событие с рекламным постером к событию. На "
+"данный момент является устаревшим; используйте Event Art Archive."
 
 #. name:vgmdb
 #: DB:link_type/description:788
@@ -6850,7 +6889,7 @@ msgstr "имеет личное издательство"
 #. name:poster
 #: DB:link_type/long_link_phrase:808
 msgid "has poster at"
-msgstr "имеет постер"
+msgstr "имеет постер по адресу"
 
 #. name:remix
 #: DB:link_type/reverse_link_phrase:230
@@ -6905,7 +6944,7 @@ msgstr ""
 #: DB:link_type/name:794 DB:link_type/name:995 DB:link_type/link_phrase:794
 #: DB:link_type/reverse_link_phrase:995
 msgid "held at"
-msgstr ""
+msgstr "место проведения"
 
 #. name:held at, name:held in
 #: DB:link_type/link_phrase:793 DB:link_type/reverse_link_phrase:794
@@ -7622,7 +7661,7 @@ msgstr ""
 
 #: DB:link_type/name:56 DB:link_type/name:165
 msgid "lyricist"
-msgstr "автор"
+msgstr "автор текста"
 
 #: DB:link_type/name:93 DB:link_type/name:271 DB:link_type/name:197
 #: DB:link_type/name:982
@@ -7677,7 +7716,7 @@ msgstr ""
 #. name:main performer
 #: DB:link_type/reverse_link_phrase:798
 msgid "main performers"
-msgstr ""
+msgstr "основные исполнители"
 
 #. name:manufactured
 #: DB:link_type/name:360 DB:link_type/link_phrase:360
@@ -8408,12 +8447,12 @@ msgstr "креативное руководство"
 #. name:poster
 #: DB:link_type/name:808 DB:link_type/link_phrase:808
 msgid "poster"
-msgstr ""
+msgstr "постер"
 
 #. name:poster
 #: DB:link_type/reverse_link_phrase:808
 msgid "poster for"
-msgstr ""
+msgstr "постер для"
 
 #: DB:link_attribute_type/name:1219
 msgid "postgraduate"
@@ -9005,7 +9044,7 @@ msgstr ""
 #. name:review
 #: DB:link_type/link_phrase:94 DB:link_type/link_phrase:842
 msgid "reviews"
-msgstr "reviews"
+msgstr "обзоры"
 
 #. name:revised by
 #: DB:link_type/link_phrase:844 DB:link_type/long_link_phrase:844
@@ -9454,7 +9493,7 @@ msgstr "тур"
 #. name:tour
 #: DB:link_type/reverse_link_phrase:859
 msgid "tour by"
-msgstr "tour by"
+msgstr "тур исполнителя"
 
 #: DB:link_type/name:888
 msgid "tour in support of"
@@ -9732,7 +9771,7 @@ msgstr ""
 #. name:held at
 #: DB:link_type/long_link_phrase:794
 msgid "was held at"
-msgstr ""
+msgstr "проводилось в"
 
 #. name:recorded during
 #: DB:link_type/long_link_phrase:1006 DB:link_type/long_link_phrase:1007
@@ -10146,7 +10185,7 @@ msgid ""
 msgstr ""
 
 #. name:transfer
-#: DB:link_type/long_link_phrase:1179
+#: DB:link_type/link_phrase:1179 DB:link_type/long_link_phrase:1179
 msgid "{additional:additionally} {assistant} {associate} {co:co-}transferred"
 msgstr ""
 
@@ -10524,11 +10563,6 @@ msgstr ""
 #. name:sound
 #: DB:link_type/reverse_link_phrase:133 DB:link_type/reverse_link_phrase:29
 msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
-msgstr ""
-
-#. name:transfer
-#: DB:link_type/link_phrase:1179
-msgid "{additional} {assistant} {associate} {co:co-}transferred"
 msgstr ""
 
 #. name:transfer
@@ -10927,7 +10961,7 @@ msgstr ""
 #. name:held at, name:held in
 #: DB:link_type/long_link_phrase:995 DB:link_type/long_link_phrase:1085
 msgid "{entity1} was held at {entity0}"
-msgstr ""
+msgstr "{entity1} проводилось в {entity0}"
 
 #. name:held in
 #: DB:link_type/long_link_phrase:793

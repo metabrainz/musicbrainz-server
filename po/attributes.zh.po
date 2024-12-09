@@ -291,8 +291,8 @@ msgid ""
 "in the 1990s including, in some cases, music releases with accompanying "
 "video content."
 msgstr ""
-"一种综合了数据、视频与音频的CD格式，该格式在20世纪90年代被广泛应用于多种场景"
-"，其中包括一些音乐作品的发行，这些音乐作品通常会伴随有相应的视频内容。"
+"一种综合了数据、视频与音频的CD格式，该格式在20世纪90年代被广泛应用于多种场"
+"景，其中包括一些音乐作品的发行，这些音乐作品通常会伴随有相应的视频内容。"
 
 #. name:Mixed Mode CD
 #: DB:medium_format/description:129
@@ -1336,7 +1336,8 @@ msgid ""
 "An image usually showing the order and time for the performances in an "
 "event. Can be a standalone image, but also a poster or banner (in which case "
 "all applicable types should be set)."
-msgstr "通常是一张显示活动中的表演顺序和时间安排的图像。它可以是一个独立的图像，也可"
+msgstr ""
+"通常是一张显示活动中的表演顺序和时间安排的图像。它可以是一个独立的图像，也可"
 "以是海报或横幅的一部分(在这种情况下，所有适用的类型都应被设置)。"
 
 #. name:Concert
@@ -1363,7 +1364,8 @@ msgid ""
 "An internal plan of the event venue, or an external access map specifically "
 "created for the event, for example showing the recommended ways to access "
 "the venue, or the location of specific stages and stands inside of it."
-msgstr "活动场地的内部平面图，或是专门为活动创建的外部访问地图，例如展示到达场地的推"
+msgstr ""
+"活动场地的内部平面图，或是专门为活动创建的外部访问地图，例如展示到达场地的推"
 "荐路线，或是在场地内部特定舞台和展位的位置。"
 
 #. name:Interview
@@ -4257,6 +4259,15 @@ msgstr "冰岛著作权协会 STEF 的 ID"
 #: DB:work_attribute_type/description:70
 msgctxt "work_attribute_type"
 msgid "ID for the Indian rights society IPRS"
+msgstr "印度著作权协会IPRS ID"
+
+#. name:WAMI ID
+#: DB:work_attribute_type/description:210
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Indian rights society IPRS"
+msgctxt "work_attribute_type"
+msgid "ID for the Indonesian rights society WAMI"
 msgstr "印度著作权协会IPRS ID"
 
 #. name:ICE ID
@@ -8075,8 +8086,9 @@ msgctxt "cover_art_type"
 msgid ""
 "The individual segments of a folded packaging, such as a gatefold cover, "
 "digipak or cassette inlay (don't use this for folded booklets nor posters)."
-msgstr "折叠包装中的各个独立部分，例如双扉封面(gatefold "
-"cover)、Digipak塑封盒或磁带内页(不是指折叠的小册子或海报)。"
+msgstr ""
+"折叠包装中的各个独立部分，例如双扉封面(gatefold cover)、Digipak塑封盒或磁带内"
+"页(不是指折叠的小册子或海报)。"
 
 #. name:Madrigal
 #: DB:work_type/description:7
@@ -8397,7 +8409,8 @@ msgctxt "cover_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
-msgstr "用于标记那些需要进一步处理才能用于公开展示的图像，但目前已经可以用于参考。"
+msgstr ""
+"用于标记那些需要进一步处理才能用于公开展示的图像，但目前已经可以用于参考。"
 
 #. name:Raw/Unedited
 #: DB:event_art_archive.art_type/description:9
@@ -8405,7 +8418,8 @@ msgctxt "event_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
-msgstr "用于标记那些需要进一步处理才能用于公开展示的图像，但目前已经可以用于参考。"
+msgstr ""
+"用于标记那些需要进一步处理才能用于公开展示的图像，但目前已经可以用于参考。"
 
 #. name:Military base
 #: DB:area_type/description:8
@@ -8432,7 +8446,8 @@ msgctxt "event_art_type"
 msgid ""
 "Usually a large printed or digital sheet, that often contains pictures, and "
 "is generally posted publicly to promote the event."
-msgstr "通常是一张大尺寸的印刷品或数字图像，常包含图片和文字，主要用于公开张贴以宣传"
+msgstr ""
+"通常是一张大尺寸的印刷品或数字图像，常包含图片和文字，主要用于公开张贴以宣传"
 "某个活动。"
 
 #. name:Banner
@@ -8641,6 +8656,14 @@ msgstr "Vēlāvali"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Vīra vasantaṁ"
 msgstr "Vīra vasantaṁ"
+
+#: DB:work_attribute_type/name:210
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "BMI ID"
+msgctxt "work_attribute_type"
+msgid "WAMI ID"
+msgstr "BMI ID"
 
 #: DB:cover_art_archive.art_type/name:13
 msgctxt "cover_art_type"

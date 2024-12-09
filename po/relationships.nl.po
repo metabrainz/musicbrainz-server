@@ -11150,7 +11150,7 @@ msgstr ""
 "co-}geluidstechnicus op"
 
 #. name:transfer
-#: DB:link_type/long_link_phrase:1179
+#: DB:link_type/link_phrase:1179 DB:link_type/long_link_phrase:1179
 msgid "{additional:additionally} {assistant} {associate} {co:co-}transferred"
 msgstr ""
 "zorgde {additional:aanvullend}{assistant: als assistent}{associate: als "
@@ -11572,13 +11572,6 @@ msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
 msgstr ""
 "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:"
 "co-}geluidstechnicus"
-
-#. name:transfer
-#: DB:link_type/link_phrase:1179
-msgid "{additional} {assistant} {associate} {co:co-}transferred"
-msgstr ""
-"zorgde {additional:aanvullend}{assistant: als assistent}{associate: als "
-"partner}{co:gezamenlijk} voor het overzetten van"
 
 #. name:transfer
 #: DB:link_type/reverse_link_phrase:1179
@@ -12345,6 +12338,11 @@ msgstr "{vocal:%|vocale} ondersteuning door"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocale} ondersteuning voor"
+
+#~ msgid "{additional} {assistant} {associate} {co:co-}transferred"
+#~ msgstr ""
+#~ "zorgde {additional:aanvullend}{assistant: als assistent}{associate: als "
+#~ "partner}{co:gezamenlijk} voor het overzetten van"
 
 #~ msgid "contract"
 #~ msgstr "contract"

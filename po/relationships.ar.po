@@ -7,7 +7,7 @@ msgstr ""
 "Language-Team: none\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. name:artist diploma
@@ -9637,7 +9637,7 @@ msgid ""
 msgstr ""
 
 #. name:transfer
-#: DB:link_type/long_link_phrase:1179
+#: DB:link_type/link_phrase:1179 DB:link_type/long_link_phrase:1179
 msgid "{additional:additionally} {assistant} {associate} {co:co-}transferred"
 msgstr ""
 
@@ -10013,11 +10013,6 @@ msgstr ""
 #. name:sound
 #: DB:link_type/reverse_link_phrase:133 DB:link_type/reverse_link_phrase:29
 msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
-msgstr ""
-
-#. name:transfer
-#: DB:link_type/link_phrase:1179
-msgid "{additional} {assistant} {associate} {co:co-}transferred"
 msgstr ""
 
 #. name:transfer
