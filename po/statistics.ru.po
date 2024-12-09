@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-21 14:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-12-07 14:42+0000\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
+".org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/ru/>\n"
 "Language: ru\n"
@@ -28,9 +28,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.6.2\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -136,11 +136,11 @@ msgstr "Хронология"
 
 #: ../root/statistics/timeline.tt:27
 msgid "Timeline graph"
-msgstr "Хронология"
+msgstr "Хронологический график"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Zoom:"
-msgstr "Зум:"
+msgstr "Масштаб:"
 
 #: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:91
 #: ../root/statistics/Edits.js:32 ../root/statistics/Formats.js:41
@@ -312,7 +312,7 @@ msgstr "События с фотографиями"
 #: ../root/statistics/Images.js:123 ../root/statistics/Images.js:478
 #: ../root/statistics/Images.js:491 ../root/statistics/stats.js:473
 msgid "Pieces of event art"
-msgstr ""
+msgstr "Части фото событий"
 
 #: ../root/statistics/Images.js:139 ../root/statistics/Images.js:318
 msgid "No cover art statistics available."
@@ -479,7 +479,7 @@ msgstr "Коллекции"
 
 #: ../root/statistics/Index.js:154
 msgid "CD stubs (all time / current):"
-msgstr ""
+msgstr "Стабы компакт-дисков (за всё время / текущие):"
 
 #: ../root/statistics/Index.js:163
 msgctxt "folksonomy"
@@ -500,11 +500,11 @@ msgstr "MBID"
 
 #: ../root/statistics/Index.js:184
 msgid "ISRCs (all / unique):"
-msgstr "ISRC (все / уникальные):"
+msgstr "Коды ISRC (все / уникальные):"
 
 #: ../root/statistics/Index.js:190
 msgid "ISWCs (all / unique):"
-msgstr "ISWC (все / уникальные):"
+msgstr "Коды ISWC (все / уникальные):"
 
 #: ../root/statistics/Index.js:196 ../root/statistics/Index.js:503
 #: ../root/statistics/Index.js:506 ../root/statistics/stats.js:290
@@ -521,7 +521,7 @@ msgstr "Коды IPI"
 
 #: ../root/statistics/Index.js:208 ../root/statistics/stats.js:508
 msgid "ISNIs"
-msgstr "ISNIs"
+msgstr "Коды ISNI"
 
 #: ../root/statistics/Index.js:227
 msgid "of type Person:"
@@ -669,7 +669,7 @@ msgstr[3] "Релизы с {num} ID диска:"
 
 #: ../root/statistics/Index.js:550 ../root/statistics/Index.js:592
 msgid "with 10 or more disc IDs:"
-msgstr "с 10 или более идентификаторами диска:"
+msgstr "с 10 или более ID диска:"
 
 #: ../root/statistics/Index.js:561
 msgid "Mediums with no disc IDs:"
@@ -745,7 +745,7 @@ msgstr "Основные"
 
 #: ../root/statistics/Index.js:981
 msgid "Owned music"
-msgstr ""
+msgstr "Собственная музыка"
 
 #: ../root/statistics/Index.js:990
 msgid "Wishlist"
@@ -858,7 +858,7 @@ msgstr "кто использовал теги:"
 
 #: ../root/statistics/Index.js:1194
 msgid "who use ratings:"
-msgstr "кто оставляет оценки:"
+msgstr "кто использовал оценки:"
 
 #: ../root/statistics/Index.js:1203
 msgid "who use subscriptions:"
@@ -894,7 +894,7 @@ msgstr "Принятые"
 
 #: ../root/statistics/Index.js:1270
 msgid "Voted down"
-msgstr ""
+msgstr "Отклоенные большинством голосов"
 
 #: ../root/statistics/Index.js:1276
 msgid "Failed (dependency):"
@@ -902,7 +902,7 @@ msgstr "Неудавшиеся (зависимости):"
 
 #: ../root/statistics/Index.js:1282
 msgid "Failed (prerequisite):"
-msgstr ""
+msgstr "Неудавшиеся (предварительно):"
 
 #: ../root/statistics/Index.js:1288
 msgid "Failed (internal error):"
@@ -965,7 +965,7 @@ msgstr "Неизвестный язык"
 
 #: ../root/statistics/LanguagesScripts.js:143
 msgid "Scripts"
-msgstr "Скрипты"
+msgstr "Написания"
 
 #: ../root/statistics/LanguagesScripts.js:149
 msgid "Script"
@@ -973,7 +973,7 @@ msgstr "Написание"
 
 #: ../root/statistics/LanguagesScripts.js:166
 msgid "Unknown script"
-msgstr "Неизвестный скрипт"
+msgstr "Неизвестное написание"
 
 #: ../root/statistics/MusicBrainzHistory.js:15
 msgid "History"
@@ -1001,9 +1001,9 @@ msgid ""
 "administrator for this server, you should run <code>./admin/CollectStats.pl</"
 "code> or import <code>mbdump-stats.tar.bz2</code>."
 msgstr ""
-"Для данного сервера не собиралась статистика. Если вы администратор сервера, "
-"запустите <code>./admin/CollectStats.pl</code> или импортируйте <code>mbdump-"
-"stats.tar.bz2</code>."
+"Для данного сервера никогда не собиралась статистика. Если вы администратор "
+"сервера, запустите файл <code>./admin/CollectStats.pl</code> или "
+"импортируйте <code>mbdump-stats.tar.bz2</code>."
 
 #: ../root/statistics/Relationships.js:98
 msgid "No relationship statistics available."
@@ -1209,17 +1209,15 @@ msgstr "Рейтинги исполнителей"
 
 #: ../root/statistics/stats.js:160
 msgid "CD stubs (current)"
-msgstr ""
+msgstr "Стабы компакт-дисков (текущие)"
 
 #: ../root/statistics/stats.js:165
 msgid "CD stubs (ever submitted)"
-msgstr ""
+msgstr "Стабы компакт-дисков (когда-либо отправленные)"
 
 #: ../root/statistics/stats.js:170
-#, fuzzy
-#| msgid "Non album tracks"
 msgid "CD stub tracks"
-msgstr "Треки вне альбома"
+msgstr "Треки из стабов компакт-дисков"
 
 #: ../root/statistics/stats.js:180
 msgid "Collections with collaborators"
@@ -1271,7 +1269,7 @@ msgstr "Коллекции типа \"Возможно пойду\""
 
 #: ../root/statistics/stats.js:240
 msgid "Collections of type Owned music"
-msgstr ""
+msgstr "Коллекции типа \"Собственная музыка\""
 
 #: ../root/statistics/stats.js:245
 msgid "Place collections"
@@ -1315,7 +1313,7 @@ msgstr "Отменённые правки"
 
 #: ../root/statistics/stats.js:311
 msgid "Error edits"
-msgstr ""
+msgstr "Правки-ошибки"
 
 #: ../root/statistics/stats.js:316
 msgid "Edits that have failed dependency checks"
@@ -1323,11 +1321,11 @@ msgstr "Правки с неудачными проверками зависим
 
 #: ../root/statistics/stats.js:321
 msgid "Edits that have failed prerequisite checks"
-msgstr ""
+msgstr "Правки с неудачными предварительными проверками"
 
 #: ../root/statistics/stats.js:326
 msgid "Edits that have been voted down"
-msgstr ""
+msgstr "Правки, отклоненные большинством голосов"
 
 #: ../root/statistics/stats.js:331
 msgctxt "noun"
@@ -1348,7 +1346,7 @@ msgstr "Редакторы (все)"
 
 #: ../root/statistics/stats.js:353
 msgid "Editors who edited or voted in the last week"
-msgstr ""
+msgstr "Редакторы, которые редактировали или голосовали за последнюю неделю"
 
 #: ../root/statistics/stats.js:359
 msgid "Editors (deleted)"
@@ -1360,11 +1358,11 @@ msgstr "Редакторы, вносившие правки за последн�
 
 #: ../root/statistics/stats.js:370
 msgid "Editors (current)"
-msgstr ""
+msgstr "Редакторы (действующие)"
 
 #: ../root/statistics/stats.js:376
 msgid "Editors (current) who have ever been active"
-msgstr ""
+msgstr "Редакторы (действующие), которые когда-либо были активны"
 
 #: ../root/statistics/stats.js:381
 msgid "Editors who have registered applications"
@@ -1376,40 +1374,40 @@ msgstr "Редакторы, использующие коллекции"
 
 #: ../root/statistics/stats.js:391
 msgid "Editors who have made edits"
-msgstr ""
+msgstr "Редакторы, которые вносили правки"
 
 #: ../root/statistics/stats.js:396
 msgid "Editors who have written edit notes"
-msgstr ""
+msgstr "Редакторы, которые писали комментарии к правкам"
 
 #: ../root/statistics/stats.js:401
 msgid "Editors who have added ratings"
-msgstr ""
+msgstr "Редакторы, которые добавляли оценки"
 
 #: ../root/statistics/stats.js:406
 msgid "Editors who use subscriptions"
-msgstr ""
+msgstr "Редакторы, которые используют подписки"
 
 #: ../root/statistics/stats.js:411
 msgctxt "folksonomy"
 msgid "Editors who have added tags"
-msgstr ""
+msgstr "Редакторы, которые добавляли теги"
 
 #: ../root/statistics/stats.js:416
 msgid "Editors who have voted on edits"
-msgstr ""
+msgstr "Редакторы, голосовавшие за правки"
 
 #: ../root/statistics/stats.js:421
 msgid "Editors who have not been active at all"
-msgstr ""
+msgstr "Редакторы, которые вообще не проявляли активности"
 
 #: ../root/statistics/stats.js:426
 msgid "Editors who have only validated their email"
-msgstr ""
+msgstr "Редакторы, которые только подтвердили свою электронную почту"
 
 #: ../root/statistics/stats.js:431
 msgid "Editors who voted in the last week"
-msgstr ""
+msgstr "Редакторы, которые голосовали за последнюю неделю"
 
 #: ../root/statistics/stats.js:441
 msgid "Events with no country set"
@@ -1445,7 +1443,7 @@ msgstr "IPI-коды исполнителей"
 
 #: ../root/statistics/stats.js:503
 msgid "Label IPIs"
-msgstr "Коды IPI"
+msgstr "IPI-коды лейблов"
 
 #: ../root/statistics/stats.js:513
 msgid "Artist ISNIs"
@@ -1453,23 +1451,23 @@ msgstr "ISNI-коды исполнителей"
 
 #: ../root/statistics/stats.js:518
 msgid "Label ISNIs"
-msgstr "Коды ISNI"
+msgstr "ISNI-коды лейблов"
 
 #: ../root/statistics/stats.js:523
 msgid "ISRCs (unique)"
-msgstr "ISRC (уникальные)"
+msgstr "Коды ISRC (уникальные)"
 
 #: ../root/statistics/stats.js:528
 msgid "ISRCs (all uses)"
-msgstr "ISRC (все используемые)"
+msgstr "Коды ISRC (все используемые)"
 
 #: ../root/statistics/stats.js:533
 msgid "ISWCs (unique)"
-msgstr "ISWC (уникальные)"
+msgstr "Коды ISWC (уникальные)"
 
 #: ../root/statistics/stats.js:538
 msgid "ISWCs (all uses)"
-msgstr "ISWC (все используемые)"
+msgstr "Коды ISWC (все используемые)"
 
 #: ../root/statistics/stats.js:548
 msgid "Labels with no country set"
@@ -1533,7 +1531,7 @@ msgstr "Рейтинги к местам"
 
 #: ../root/statistics/stats.js:658
 msgid "Recording ratings"
-msgstr "Рейтинги Записи"
+msgstr "Рейтинги к записям"
 
 #: ../root/statistics/stats.js:663
 msgid "Release group ratings"
@@ -1597,7 +1595,7 @@ msgstr "Релизы без установленного языка"
 
 #: ../root/statistics/stats.js:750
 msgid "Releases not credited to Various Artists"
-msgstr ""
+msgstr "Релизы, не приписанные различным артистам"
 
 #: ../root/statistics/stats.js:755
 msgid "Releases with no packaging set"
@@ -1605,7 +1603,7 @@ msgstr "Релизы без установленного типа упаковк
 
 #: ../root/statistics/stats.js:760
 msgid "Releases with no script set"
-msgstr ""
+msgstr "Релизы без установленного написания"
 
 #: ../root/statistics/stats.js:765
 msgid "Releases with no status set"
@@ -1621,7 +1619,7 @@ msgstr "Релизы в группах с обложкой, но без уста
 
 #: ../root/statistics/stats.js:782
 msgid "Releases credited to Various Artists"
-msgstr ""
+msgstr "Релизы, приписанные различным артистам"
 
 #: ../root/statistics/stats.js:793
 msgid "Release groups with automatically inferred cover art"
@@ -1736,10 +1734,10 @@ msgstr "/day"
 #: ../root/statistics/stats.js:963
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Релизы с {n} ID диска"
+msgstr[1] "Релизы с {n} ID диска"
+msgstr[2] "Релизы с {n} ID диска"
+msgstr[3] "Релизы с {n} ID диска"
 
 #: ../root/statistics/stats.js:974
 msgid "Mediums with 1 Disc ID"
