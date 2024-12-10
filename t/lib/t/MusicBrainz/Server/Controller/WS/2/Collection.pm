@@ -44,7 +44,7 @@ test 'collection lookup' => sub {
     <collection entity-type="genre" type="Genre" id="7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1b">
       <name>private genre collection</name>
       <editor>the-anti-kuno</editor>
-      <genre-list count="0" />
+      <genre-list count="1" />
     </collection>
     <collection entity-type="instrument" type="Instrument" id="cdef54c4-2798-4d39-a0c9-5074191f9b6e">
       <name>private instrument collection</name>
@@ -104,7 +104,7 @@ test 'collection lookup' => sub {
     <collection entity-type="genre" type="Genre" id="7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1a">
       <name>public genre collection</name>
       <editor>the-anti-kuno</editor>
-      <genre-list count="0" />
+      <genre-list count="1" />
     </collection>
     <collection id="7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1f" type="Instrument" entity-type="instrument">
       <name>public instrument collection</name>
@@ -230,7 +230,7 @@ test 'collection lookup' => sub {
     <collection entity-type="genre" type="Genre" id="7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1a">
       <name>public genre collection</name>
       <editor>the-anti-kuno</editor>
-      <genre-list count="0" />
+      <genre-list count="1" />
     </collection>
     <collection id="7749c811-d77c-4ea5-9a9e-e2a4e7ae0d1f" type="Instrument" entity-type="instrument">
       <name>public instrument collection</name>
