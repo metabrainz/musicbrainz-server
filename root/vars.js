@@ -30,7 +30,7 @@ declare var hydrate: (
     SanitizedConfig = Config,
   >(
     containerSelector: string,
-    Component: React.AbstractComponent<Config | SanitizedConfig, mixed>,
+    Component: React.ComponentType<Config | SanitizedConfig>,
     mungeProps?: (Config) => SanitizedConfig,
   ) => React.AbstractComponent<Config, void>
 );

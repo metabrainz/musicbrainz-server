@@ -179,7 +179,7 @@ component _SeriesRelationshipEditor(...props: PropsT) {
   );
 }
 
-const NonHydratedSeriesRelationshipEditor: React.AbstractComponent<PropsT> =
+const NonHydratedSeriesRelationshipEditor: React.ComponentType<PropsT> =
   withLoadedTypeInfoForRelationshipEditor<PropsT>(
     _SeriesRelationshipEditor,
   );
@@ -187,6 +187,6 @@ const NonHydratedSeriesRelationshipEditor: React.AbstractComponent<PropsT> =
 const SeriesRelationshipEditor = (hydrate<PropsT>(
   'div.relationship-editor',
   NonHydratedSeriesRelationshipEditor,
-): React.AbstractComponent<PropsT>);
+): React.ComponentType<PropsT>);
 
 export default SeriesRelationshipEditor;

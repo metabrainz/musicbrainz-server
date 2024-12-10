@@ -311,7 +311,7 @@ component _ArtistCreditBubble(
   );
 }
 
-const ArtistCreditBubble: React.AbstractComponent<
+const ArtistCreditBubble: React.ComponentType<
   React.PropsOf<_ArtistCreditBubble>
 > = React.memo(_ArtistCreditBubble);
 
