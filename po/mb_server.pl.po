@@ -30,7 +30,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-02 16:32+0100\n"
-"PO-Revision-Date: 2024-12-09 11:42+0000\n"
+"PO-Revision-Date: 2024-12-11 11:42+0000\n"
 "Last-Translator: Peter69 <echelon01@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pl/>\n"
@@ -2509,10 +2509,8 @@ msgstr ""
 #: ../root/release_group/edit_form.tt:17
 #: ../root/edit/details/AddReleaseGroup.js:74
 #: ../root/edit/details/EditReleaseGroup.js:76
-#, fuzzy
-#| msgid "Secondary Types:"
 msgid "Secondary types"
-msgstr "Typy podrzędne:"
+msgstr "Typy drugorzędne"
 
 #: ../root/cdtoc/move_search.tt:42 ../root/cdtoc/SelectArtistForCDToc.js:87
 msgid "Select"
@@ -3133,10 +3131,8 @@ msgstr "Typ"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 #: ../root/components/ArtFields.js:64
-#, fuzzy
-#| msgid "Type"
 msgid "Types"
-msgstr "Typ"
+msgstr "Typy"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
@@ -7443,7 +7439,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:33
 #: ../root/tag/TagLayout.js:18
 msgid "Release groups"
-msgstr ""
+msgstr "Grupy wydań"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:125
 #: ../root/components/TagEntitiesList.js:177
@@ -9781,7 +9777,7 @@ msgstr ""
 
 #: ../root/elections/ElectionDetails.js:55
 msgid "Total votes"
-msgstr ""
+msgstr "Łączna liczba głosów"
 
 #: ../root/elections/ElectionDetails.js:59
 #: ../root/elections/ElectionTable/index.js:24
@@ -9795,7 +9791,7 @@ msgstr "Głosy przeciw"
 
 #: ../root/elections/ElectionDetails.js:67
 msgid "Abstentions"
-msgstr ""
+msgstr "Wstrzymania się od głosu"
 
 #: ../root/elections/ElectionDetails.js:75
 msgid "Votes for/against:"
@@ -14407,7 +14403,7 @@ msgstr[3] ""
 
 #: ../root/static/scripts/area/places-map.js:107
 msgid "No type"
-msgstr ""
+msgstr "Brak typu"
 
 #: ../root/static/scripts/area/places-map.js:109
 msgid "{place_name} (closed)"
@@ -17187,13 +17183,11 @@ msgstr ""
 #, fuzzy
 #| msgid "Area Collections"
 msgid "Area collections"
-msgstr "Kolekcje rejonu"
+msgstr "Kolekcje obszarowe"
 
 #: ../root/user/UserCollections.js:38
-#, fuzzy
-#| msgid "Artist Collections"
 msgid "Artist collections"
-msgstr "Kolekcje artysty"
+msgstr "Kolekcje artystów"
 
 #: ../root/user/UserCollections.js:39
 #, fuzzy
@@ -17209,10 +17203,8 @@ msgid "Genre collections"
 msgstr "Kolekcje serii"
 
 #: ../root/user/UserCollections.js:41
-#, fuzzy
-#| msgid "Area Collections"
 msgid "Instrument collections"
-msgstr "Kolekcje rejonu"
+msgstr "Kolekcje instrumentów"
 
 #: ../root/user/UserCollections.js:42
 #, fuzzy
@@ -17221,17 +17213,12 @@ msgid "Label collections"
 msgstr "Kolekcje wytwórni"
 
 #: ../root/user/UserCollections.js:43
-#, fuzzy
-#| msgid "Place Collections"
 msgid "Place collections"
-msgstr "Kolekcje miejsca"
+msgstr "Kolekcje miejsc"
 
 #: ../root/user/UserCollections.js:44
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Series Collections"
 msgid "Recording collections"
-msgstr "Kolekcje serii"
+msgstr "Kolekcje nagrań"
 
 #: ../root/user/UserCollections.js:45
 #, fuzzy
@@ -17240,10 +17227,8 @@ msgid "Release collections"
 msgstr "Kolekcje miejsca"
 
 #: ../root/user/UserCollections.js:46
-#, fuzzy
-#| msgid "Release group annotations"
 msgid "Release group collections"
-msgstr "Adnotacje grupy wydań"
+msgstr "Kolekcje grup wydań"
 
 #: ../root/user/UserCollections.js:47
 #, fuzzy
@@ -17498,7 +17483,7 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:606
 msgid "Voted down"
-msgstr ""
+msgstr "Zagłosowano przeciwko"
 
 #: ../root/user/UserProfile.js:616
 msgid "Failed"
@@ -17510,8 +17495,9 @@ msgid "Cancelled"
 msgstr ""
 
 #: ../root/user/UserProfile.js:636
+#, fuzzy
 msgid "Open"
-msgstr ""
+msgstr "Otwarte"
 
 #: ../root/user/UserProfile.js:646
 msgid "Last 24 hours"
@@ -17635,7 +17621,7 @@ msgstr ""
 
 #: ../root/user/UserRatingList.js:28
 msgid "Place ratings"
-msgstr ""
+msgstr "Oceny miejsc"
 
 #: ../root/user/UserRatingList.js:29
 msgid "Recording ratings"
@@ -17739,7 +17725,7 @@ msgstr ""
 
 #: ../root/user/UserSubscriptions.js:245
 msgid "Private collections"
-msgstr ""
+msgstr "Kolekcje prywatne"
 
 #: ../root/user/UserSubscriptions.js:259
 msgid "{editor} is also subscribed to {n} other private collection."
