@@ -10,26 +10,35 @@
 
 import * as flags from '../../flags.js';
 import * as modes from '../../modes.js';
-import * as utils from '../../utils.js';
+import type {GuessCaseModeNameT} from '../../types.js';
+import titleString from '../../utils/titleString.js';
+import trim from '../../utils/trim.js';
+import {isLowerCaseBracketWord} from '../../utils/wordCheckers.js';
 
-import input from './Input.js';
-import gc from './Main.js';
+import type GuessCaseInput from './Input.js';
 
 // Holds the output variables
 class GuessCaseOutput {
+  CFG_KEEP_UPPERCASED: boolean;
+
+  input: GuessCaseInput;
+
+  modeName: GuessCaseModeNameT;
+
   wordList: Array<string>;
 
-  constructor() {
-    // Member variables
+  constructor(
+    input: GuessCaseInput,
+    modeName: GuessCaseModeNameT,
+    CFG_KEEP_UPPERCASED: boolean,
+  ) {
+    this.CFG_KEEP_UPPERCASED = CFG_KEEP_UPPERCASED;
+    this.modeName = modeName;
+    this.input = input;
     this.wordList = [];
   }
 
   // Member functions
-
-  // Initialise the GcOutput object for another run
-  init() {
-    this.wordList = [];
-  }
 
   // Returns the length of the wordlist
   getLength(): number {
@@ -45,7 +54,7 @@ class GuessCaseOutput {
    * object, and appends it to the wordlist.
    */
   appendCurrentWord() {
-    const currentWord = input.getCurrentWord();
+    const currentWord = this.input.getCurrentWord();
     if (currentWord != null) {
       this.appendWord(currentWord);
     }
@@ -98,7 +107,7 @@ class GuessCaseOutput {
     const forceCaps = overrideCaps == null
       ? flags.context.forceCaps
       : overrideCaps;
-    if ((!modes[gc.modeName].isSentenceCaps() || forceCaps) &&
+    if ((!modes[this.modeName].isSentenceCaps() || forceCaps) &&
         (!this.isEmpty())) {
       const word = this.getWordAtIndex(index);
       if (word != null) {
@@ -107,31 +116,38 @@ class GuessCaseOutput {
         // Check that last word is NOT an acronym.
         if (word.match(/^\w\..*/) == null) {
           // Some words that were manipulated might have space padding
-          const probe = utils.trim(word.toLowerCase());
+          const probe = trim(word.toLowerCase());
 
           if (!forceCaps &&
               flags.isInsideBrackets() &&
-              utils.isLowerCaseBracketWord(probe)) {
+              isLowerCaseBracketWord(probe)) {
             // If inside brackets, do nothing.
           } else if (
-            !forceCaps && modes[gc.modeName].isUpperCaseWord(probe)
+            !forceCaps && modes[this.modeName].isUpperCaseWord(probe)
           ) {
             // If it is an UPPERCASE word,do nothing.
           } else { // Else capitalize the current word.
             // Rewind pos pointer on input
-            const originalPosition = input.getCursorPosition();
+            const originalPosition = this.input.getCursorPosition();
             let position = originalPosition - 1;
             while (position >= 0) {
-              const word = input.getWordAtIndex(position);
-              if (word == null || utils.trim(word.toLowerCase()) === probe) {
+              const word = this.input.getWordAtIndex(position);
+              if (word == null || trim(word.toLowerCase()) === probe) {
                 break;
               }
               position--;
             }
-            input.setCursorPosition(position);
-            output = utils.titleString(word, forceCaps);
+            this.input.setCursorPosition(position);
+            output = titleString(
+              this.input,
+              this,
+              word,
+              this.modeName,
+              this.CFG_KEEP_UPPERCASED,
+              forceCaps,
+            );
             // Restore pos pointer on input
-            input.setCursorPosition(originalPosition);
+            this.input.setCursorPosition(originalPosition);
             if (word !== output) {
               this.setWordAtIndex(index, output);
             }
@@ -154,11 +170,11 @@ class GuessCaseOutput {
   // Apply post-processing, and return the string
   getOutput(): string {
     // If *not* sentence mode, force caps on last word.
-    flags.context.forceCaps = !modes[gc.modeName].isSentenceCaps();
+    flags.context.forceCaps = !modes[this.modeName].isSentenceCaps();
     this.capitalizeLastWord();
 
     this.closeOpenBrackets();
-    return utils.trim(this.wordList.join(''));
+    return trim(this.wordList.join(''));
   }
 
   // Work through the stack of opened parentheses and close them
@@ -178,12 +194,12 @@ class GuessCaseOutput {
    */
   appendWordPreserveWhiteSpace(capitalizeLast: boolean) {
     const whitespace = {
-      after: input.isNextWord(' '),
-      before: input.isPreviousWord(' '),
+      after: this.input.isNextWord(' '),
+      before: this.input.isPreviousWord(' '),
     };
     if (capitalizeLast) {
       // capitalize last word before current
-      this.capitalizeLastWord(!modes[gc.modeName].isSentenceCaps());
+      this.capitalizeLastWord(!modes[this.modeName].isSentenceCaps());
     }
     if (whitespace.before) {
       // preserve whitespace before,
@@ -195,4 +211,4 @@ class GuessCaseOutput {
   }
 }
 
-export default (new GuessCaseOutput(): GuessCaseOutput);
+export default GuessCaseOutput;

@@ -7,11 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable ft-flow/sort-keys */
-
 declare module 'knockout' {
   declare type Observable<T> = {
-    // eslint-disable-next-line no-undef
     [[call]]: (() => T) & ((T) => empty),
     peek: () => T,
     subscribe: (

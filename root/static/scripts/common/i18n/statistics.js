@@ -25,7 +25,6 @@ export const N_l_statistics = (key: string): (() => string) => (
 export const N_lp_statistics = (
   key: string,
   context: string,
-// eslint-disable-next-line function-paren-newline -- likely eslint bug
 ): (() => string) => (
   () => lp_statistics(key, context)
 );

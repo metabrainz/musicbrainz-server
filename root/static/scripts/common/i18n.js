@@ -44,15 +44,13 @@ if (typeof document !== 'undefined') {
 
 const collatorOptions = {numeric: true};
 
-let compare: ((a: string, b: string) => number);
-if (typeof Intl === 'undefined') {
-  compare = function (a: string, b: string) {
-    return a.localeCompare(b, documentLang, collatorOptions);
-  };
-} else {
-  const collator = new Intl.Collator(documentLang, collatorOptions);
-  compare = function (a: string, b: string) {
+const collator = typeof Intl === 'undefined'
+  ? null
+  : new Intl.Collator(documentLang, collatorOptions);
+
+export function compare(a: string, b: string): number {
+  if (collator) {
     return collator.compare(a, b);
-  };
+  }
+  return a.localeCompare(b, documentLang, collatorOptions);
 }
-export {compare};

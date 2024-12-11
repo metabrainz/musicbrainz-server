@@ -14,7 +14,10 @@ import {
   EDIT_STATUS_OPEN,
 } from '../../constants.js';
 import {CatalystContext} from '../../context.mjs';
-import DBDefs from '../../static/scripts/common/DBDefs.mjs';
+import {
+  DB_READ_ONLY,
+  DB_STAGING_TESTING_FEATURES,
+} from '../../static/scripts/common/DBDefs.mjs';
 import {
   editorMayAddNote,
   editorMayApprove,
@@ -46,7 +49,7 @@ component EditSummary(
 
       <Vote edit={edit} index={index} summary />
 
-      {($c.user && !DBDefs.DB_READ_ONLY &&
+      {($c.user && !DB_READ_ONLY &&
         (mayAddNote || mayApprove || mayCancel)
       ) ? (
         <div className="cancel-edit buttons">
@@ -75,7 +78,7 @@ component EditSummary(
           ) : null}
 
           {edit.status === EDIT_STATUS_OPEN &&
-            DBDefs.DB_STAGING_TESTING_FEATURES ? (
+            DB_STAGING_TESTING_FEATURES ? (
               <>
                 <a
                   className="positive"
