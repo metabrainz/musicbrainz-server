@@ -11,12 +11,12 @@
 # Дмитрий <email address hidden>, 2014
 # Екатерина Тишина <email address hidden>, 2016
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
+# liilliil <liilliil@liilliil.net>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-03 14:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2024-12-11 20:42+0000\n"
+"Last-Translator: liilliil <liilliil@liilliil.net>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/ru/>\n"
 "Language: ru\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
@@ -311,7 +311,7 @@ msgstr "пехлевийская (написная)"
 #. frequency:1 iso_code:Prti
 #: DB:script/name:124
 msgid "Inscriptional Parthian"
-msgstr ""
+msgstr "Парфянская письменность"
 
 #. frequency:4 iso_code:Jpan
 #: DB:script/name:85
@@ -411,32 +411,32 @@ msgstr "латиница (гэльская)"
 #. frequency:2 iso_code:Lepc
 #: DB:script/name:57
 msgid "Lepcha"
-msgstr ""
+msgstr "лепча"
 
 #. frequency:2 iso_code:Limb
 #: DB:script/name:58
 msgid "Limbu"
-msgstr ""
+msgstr "лимбу"
 
 #. frequency:1 iso_code:Lina
 #: DB:script/name:80
 msgid "Linear A"
-msgstr ""
+msgstr "линейное письмо А"
 
 #. frequency:2 iso_code:Linb
 #: DB:script/name:81
 msgid "Linear B"
-msgstr ""
+msgstr "линейное письмо Б"
 
 #. frequency:1 iso_code:Lisu
 #: DB:script/name:157
 msgid "Lisu (Fraser)"
-msgstr ""
+msgstr "лису (Фрейзера)"
 
 #. frequency:1 iso_code:Loma
 #: DB:script/name:147
 msgid "Loma"
-msgstr ""
+msgstr "лоома"
 
 #. frequency:2 iso_code:Lyci
 #: DB:script/name:109
@@ -466,12 +466,12 @@ msgstr ""
 #. frequency:2 iso_code:Zmth
 #: DB:script/name:111
 msgid "Mathematical notation"
-msgstr ""
+msgstr "математическая запись"
 
 #. frequency:1 iso_code:Maya
 #: DB:script/name:7
 msgid "Mayan hieroglyphs"
-msgstr ""
+msgstr "иероглифы майя"
 
 #. frequency:1 iso_code:Mtei
 #: DB:script/name:120
@@ -486,12 +486,12 @@ msgstr "менде"
 #. frequency:1 iso_code:Merc
 #: DB:script/name:153
 msgid "Meroitic Cursive"
-msgstr ""
+msgstr "Мероитский курсив"
 
 #. frequency:1 iso_code:Mero
 #: DB:script/name:8
 msgid "Meroitic Hieroglyphs"
-msgstr ""
+msgstr "Мероитские иероглифы"
 
 #. frequency:1 iso_code:Plrd
 #: DB:script/name:41
@@ -501,7 +501,7 @@ msgstr ""
 #. frequency:3 iso_code:Mong
 #: DB:script/name:17
 msgid "Mongolian"
-msgstr ""
+msgstr "монгольский"
 
 #. frequency:1 iso_code:Moon
 #: DB:script/name:119
@@ -571,12 +571,12 @@ msgstr "старосеверноарабское"
 #. frequency:1 iso_code:Perm
 #: DB:script/name:34
 msgid "Old Permic"
-msgstr ""
+msgstr "древнепермская"
 
 #. frequency:2 iso_code:Xpeo
 #: DB:script/name:2
 msgid "Old Persian"
-msgstr ""
+msgstr "староперсидская"
 
 #. frequency:1 iso_code:Sarb
 #: DB:script/name:156
@@ -631,17 +631,17 @@ msgstr ""
 #. frequency:1 iso_code:Roro
 #: DB:script/name:98
 msgid "Rongorongo"
-msgstr ""
+msgstr "ронгоронго"
 
 #. frequency:2 iso_code:Runr
 #: DB:script/name:26
 msgid "Runic"
-msgstr ""
+msgstr "рунический"
 
 #. frequency:1 iso_code:Samr
 #: DB:script/name:125
 msgid "Samaritan"
-msgstr ""
+msgstr "самаритянское"
 
 #. frequency:1 iso_code:Sara
 #: DB:script/name:46
@@ -691,7 +691,7 @@ msgstr ""
 #. frequency:3 iso_code:Zsym
 #: DB:script/name:112
 msgid "Symbols"
-msgstr "Символы"
+msgstr "символы"
 
 #. frequency:2 iso_code:Syrc
 #: DB:script/name:12
@@ -736,12 +736,12 @@ msgstr ""
 #. frequency:1 iso_code:Tavt
 #: DB:script/name:127
 msgid "Tai Viet"
-msgstr ""
+msgstr "тай-вьетское"
 
 #. frequency:1 iso_code:Takr
 #: DB:script/name:139
 msgid "Takri"
-msgstr "Такри"
+msgstr "такри"
 
 #. frequency:3 iso_code:Taml
 #: DB:script/name:61
@@ -821,4 +821,4 @@ msgstr ""
 #. frequency:2 iso_code:Qaaa
 #: DB:script/name:160
 msgid "[Multiple scripts]"
-msgstr "[Несколько сценариев]"
+msgstr "[Несколько письменностей]"

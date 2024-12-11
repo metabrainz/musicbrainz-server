@@ -25,12 +25,12 @@
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
 # 4irefall <firekonstantin@mail.ru>, 2024.
+# liilliil <liilliil@liilliil.net>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-12-07 14:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2024-12-11 20:42+0000\n"
+"Last-Translator: liilliil <liilliil@liilliil.net>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ru/>\n"
 "Language: ru\n"
@@ -1340,11 +1340,11 @@ msgid ""
 "EP is fairly difficult to define; usually it should only be assumed that a "
 "release is an EP if the artist defines it as such."
 msgstr ""
-"Мини-альбом (или чаще всего EP, от \"Extended Play\") обычно короче обычного "
-"альбома (LP, от \"Long Play\"), а треки обычно эксклюзивны для конкретного "
-"EP и не появлялись где-то еще до этого. Довольно трудно отличить EP от "
-"сингла; обычно стоит предполагать, что релиз является EP, только если "
-"исполнитель так его определяет."
+"Мини-альбом (или EP, от \"Extended Play\") обычно короче обычного альбома ("
+"LP, от \"Long Play\"), а треки обычно эксклюзивны для конкретного EP и не "
+"появлялись где-то ещё до этого. Довольно трудно отличить EP от сингла; "
+"обычно стоит считать, что релиз является EP, только если исполнитель так его "
+"определяет."
 
 #. name:Album
 #: DB:release_group_primary_type/description:1

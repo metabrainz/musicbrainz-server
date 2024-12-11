@@ -10,12 +10,12 @@
 # Дмитрий <email address hidden>, 2014
 # cijic <altcode@ya.ru>, 2024.
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
+# liilliil <liilliil@liilliil.net>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-07-21 14:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-12-11 20:42+0000\n"
+"Last-Translator: liilliil <liilliil@liilliil.net>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ru/>\n"
 "Language: ru\n"
@@ -23,9 +23,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.6.2\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -169,8 +169,8 @@ msgid ""
 "A hollowed out gourd (hue) with one to three holes, swung around creating a "
 "whistling, chattering sound that resembled birds."
 msgstr ""
-"Полая гурда (hue) с одним-тремя отверстиями, которая раскачивается, издавая "
-"свистящий, дребезжащий звук, напоминающий птичий."
+"Полая тыква (бутылочная) с одним-тремя отверстиями, которая раскачивается, "
+"издавая свистящий, дребезжащий звук, напоминающий птичий."
 
 #. name:17-string bass koto
 #: DB:instrument/description:516
@@ -236,17 +236,24 @@ msgid ""
 "A mouth organ is a generic term for free reed aerophone with one or more air "
 "chambers fitted with a free reed."
 msgstr ""
+"Губной орган - это общий термин для обозначения свободного язычкового "
+"духового инструмента с одной или несколькими воздушными камерами, "
+"оснащенными свободным язычком."
 
 #. name:bowed piano
 #: DB:instrument/description:504
 msgid ""
 "A piano whose strings are bowed, using nylon filament or other materials."
 msgstr ""
+"Фортепиано, на струны которого воздействуют смычком из нейлоновой нити или "
+"других материалов."
 
 #. name:theatre organ
 #: DB:instrument/description:347
 msgid "A pipe organ, such as the Wurlitzer, meant to accompany early films."
 msgstr ""
+"Духовой орган, например, Wurlitzer, предназначался для сопровождения ранних "
+"фильмов."
 
 #. name:prepared piano
 #: DB:instrument/description:481

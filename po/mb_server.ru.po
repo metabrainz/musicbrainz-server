@@ -38,14 +38,14 @@
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
 # nkm01 <matsuk-nikita@rambler.ru>, 2024.
+# liilliil <liilliil@liilliil.net>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-02 16:32+0100\n"
-"PO-Revision-Date: 2024-12-07 14:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2024-12-11 20:42+0000\n"
+"Last-Translator: liilliil <liilliil@liilliil.net>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -214,11 +214,9 @@ msgid "Accept"
 msgstr "Принять"
 
 #: ../root/artist/edit_form.tt:29 ../root/label/edit_form.tt:32
-#, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Add IPI code"
-msgstr "Код IPI"
+msgstr "Добавить код IPI"
 
 #: ../root/artist/edit_form.tt:36 ../root/label/edit_form.tt:39
 #, fuzzy
@@ -228,20 +226,14 @@ msgid "Add ISNI code"
 msgstr "Код ISNI"
 
 #: ../root/recording/edit_form.tt:45
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Add ISRCs"
 msgctxt "interactive"
 msgid "Add ISRC"
-msgstr "Добавление кода(-ов) ISRC"
+msgstr "Добавить код(-ы) ISRC"
 
 #: ../root/work/edit_form.tt:16
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Add ISWCs"
 msgctxt "interactive"
 msgid "Add ISWC"
-msgstr "Добавление кодов ISWC"
+msgstr "Добавить код(-ы) ISWC"
 
 #: ../root/release/edit/tracklist.tt:273
 msgid ""
@@ -642,8 +634,9 @@ msgid "Blog"
 msgstr "Блог"
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:35
+#, fuzzy
 msgid "Bluesky"
-msgstr ""
+msgstr "Bluesky"
 
 #: ../root/edit/search_macros.tt:401
 msgctxt "user type"
@@ -677,7 +670,7 @@ msgstr "CD-заглушки найдены"
 
 #: ../root/release/edit/tracklist.tt:248
 msgid "CD stub import"
-msgstr ""
+msgstr "Импортировать шаблон CD"
 
 #: ../root/cdstub/layout.tt:2 ../root/cdstub/CDStubLayout.js:21
 msgid "CD stub “{title}” by {artist}"
