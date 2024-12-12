@@ -1295,6 +1295,19 @@ limited_link_type_combinations: [
     expected_relationship_type: undefined,
             expected_clean_url: 'afroliciousoriginal.blogspot.com/',
   },
+  // Bluesky
+  {
+                     input_url: 'bsky.app/profile/tmbg.bsky.social#root',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://bsky.app/profile/tmbg.bsky.social',
+  },
+  {
+                     input_url: 'https://bsky.app/profile/thecure.com/follows/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://bsky.app/profile/thecure.com',
+  },
   // BnF (Bibliothèque nationale de France) Catalogue
   {
                      input_url: 'http://ark.bnf.fr/ark:/12148/cb11923342r',

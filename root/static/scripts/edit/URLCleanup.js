@@ -1575,6 +1575,27 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/(?:www\.)?([^./]+)\.blogspot\.(?:[a-z]{2,3}\.)?[a-z]{2,3}(?:\/)?/, '$1.blogspot.com/');
     },
   },
+  'bluesky': {
+    match: [/^(https?:\/\/)?([^/]+\.)?bsky\.app\//i],
+    restrict: [LINK_TYPES.socialnetwork],
+    clean(url) {
+      url = url.replace(
+        /^(?:https?:\/\/)?(?:www\.)?bsky\.app\//,
+        'https://bsky.app/',
+      );
+      url = url.replace(
+        /^https:\/\/bsky\.app\/profile\/([^/?#]+).*$/,
+        'https://bsky.app/profile/$1',
+      );
+      return url;
+    },
+    validate(url) {
+      if (/^https:\/\/bsky\.app\/profile\/([^/?#]+)$/.test(url)) {
+        return {result: true};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'bnfcatalogue': {
     match: [
       /^(https?:\/\/)?(catalogue|data)\.bnf\.fr\//i,
