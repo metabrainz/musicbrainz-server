@@ -302,7 +302,7 @@ component _RelationshipPhraseGroup(
   ) : null;
 }
 
-const RelationshipPhraseGroup: React.AbstractComponent<
+const RelationshipPhraseGroup: React.ComponentType<
   React.PropsOf<_RelationshipPhraseGroup>
 > = React.memo(_RelationshipPhraseGroup);
 

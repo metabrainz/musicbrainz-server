@@ -293,7 +293,7 @@ const CollaboratorsFormList = (hydrate<CollaboratorsFormListPropsT>(
       </div>
     );
   }),
-): React.AbstractComponent<CollaboratorsFormListPropsT, void>);
+): React.ComponentType<CollaboratorsFormListPropsT>);
 
 type CollaboratorRowPropsT = {
   +collaborator: CollaboratorStateT,

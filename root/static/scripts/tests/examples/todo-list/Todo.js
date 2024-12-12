@@ -50,7 +50,7 @@ export function reducer(
   }
 }
 
-type TodoComponentT = React.AbstractComponent<PropsT, mixed>;
+type TodoComponentT = React.ComponentType<PropsT>;
 
 const Todo: TodoComponentT = React.memo<PropsT>(({
   dispatch,
