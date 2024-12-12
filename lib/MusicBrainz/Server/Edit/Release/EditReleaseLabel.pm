@@ -265,7 +265,7 @@ sub accept {
     my $release_label = $self->release_label;
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        'This release label no longer exists.',
+        'This label is no longer associated with the release.',
     ) unless defined $release_label;
 
     my %args = %{ $self->merge_changes };
