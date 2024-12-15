@@ -6,11 +6,13 @@ extends 'MusicBrainz::Server::Controller';
 
 use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
+use Email::Address::XS;
 use JSON;
 use List::AllUtils qw( uniq );
+use DBDefs;
 use MusicBrainz::Server::Constants qw( $BEGINNER_FLAG $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json contains_string );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
@@ -636,13 +638,25 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
 
         if ($valid)
         {
+            my $email = $form->field('email')->value;
+
+            my @blocked_domains = DBDefs->BLOCKED_EMAIL_DOMAINS;
+            if ($email && scalar @blocked_domains) {
+                my $parsed_email = Email::Address::XS->parse_bare_address($email);
+                if (
+                    $parsed_email->is_valid &&
+                    contains_string(\@blocked_domains, lc $parsed_email->host)
+                ) {
+                    $c->detach('/error_400');
+                }
+            }
+
             my $editor = $c->model('Editor')->insert({
                 name => $form->field('username')->value,
                 password => $form->field('password')->value,
                 privs => $BEGINNER_FLAG,
             });
 
-            my $email = $form->field('email')->value;
             if ($email) {
                 $self->_send_confirmation_email($c, $editor, $email);
             }
