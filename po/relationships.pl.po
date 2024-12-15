@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-12-12 17:42+0000\n"
+"PO-Revision-Date: 2024-12-15 15:50+0000\n"
 "Last-Translator: Peter69 <echelon01@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/pl/>\n"
@@ -593,6 +593,8 @@ msgid ""
 "Indicates that an event was intended as a performance of a specific release "
 "group (usually an album)."
 msgstr ""
+"Oznacza, że wydarzenie miało być wykonaniem utworu konkretnego zespołu "
+"muzycznego (zwykle albumu)."
 
 #. name:cover
 #: DB:link_attribute_type/description:567
@@ -1363,7 +1365,7 @@ msgstr "Odsyła do strony Geonames dotyczącej tego miejsca."
 #. name:IMDb
 #: DB:link_type/description:706
 msgid "Points to the Internet Movie Database page for this place."
-msgstr ""
+msgstr "Wskazuje na stronę Internet Movie Database dotyczącą tego miejsca."
 
 #. name:wikidata
 #: DB:link_type/description:358
@@ -1434,6 +1436,8 @@ msgid ""
 "Points to the Wikidata page for this release group, and will be used to "
 "fetch Wikipedia summaries."
 msgstr ""
+"Wskazuje na stronę Wikidata dla tej grupy wydań i będzie używana do "
+"pobierania streszczeń Wikipedii."
 
 #. name:wikidata
 #: DB:link_type/description:749
@@ -1476,7 +1480,7 @@ msgstr "Wskazuje na artykuł w Wikipedii dla tego wydarzenia."
 #. name:wikipedia
 #: DB:link_type/description:731
 msgid "Points to the Wikipedia page for this instrument."
-msgstr ""
+msgstr "Odsyła do strony Wikipedii poświęconej temu instrumentowi."
 
 #. name:wikipedia
 #: DB:link_type/description:216
@@ -1509,6 +1513,9 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
+"Zamiast tego należy dodawać wydawców do prac. Należy pamiętać, że "
+"<strong>nie</strong> jest to ta sama koncepcja co <a href=\"/doc/Label\" "
+"target=\"_blank\">wytwórnia płytowa</a>."
 
 #. name:purevolume
 #: DB:link_type/link_phrase:174
@@ -1574,6 +1581,7 @@ msgid ""
 "Specifies the level of studies that a student studied towards in an "
 "educational institution."
 msgstr ""
+"Określa poziom kształcenia, jaki student podjął w danej placówce edukacyjnej."
 
 #. name:subject
 #: DB:link_attribute_type/description:1125
@@ -1581,11 +1589,13 @@ msgid ""
 "Specifies the subject that was taught by a teacher in an institution and/or "
 "to a student."
 msgstr ""
+"Określa przedmiot, który był nauczany przez nauczyciela w placówce i/lub "
+"nauczany przez ucznia."
 
 #. name:spoken vocals
 #: DB:link_attribute_type/description:561
 msgid "Spoken vocals (speech)"
-msgstr ""
+msgstr "Śpiew mówiony (mowa)"
 
 #. name:libretto written at
 #: DB:link_type/long_link_phrase:880 DB:link_type/long_link_phrase:1249
@@ -1629,12 +1639,12 @@ msgstr ""
 #. name:publishes series
 #: DB:link_type/description:933
 msgid "This allows linking a series to the label who publishes it."
-msgstr ""
+msgstr "Umożliwia to powiązanie serii z wytwórnią, która ją publikuje."
 
 #. name:vocal
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
-msgstr ""
+msgstr "Atrybut ten opisuje rodzaj występu wokalnego."
 
 #. name:minor
 #: DB:link_attribute_type/description:2
@@ -1642,6 +1652,8 @@ msgid ""
 "This attribute describes if a particular collaboration was considered equal "
 "or minor."
 msgstr ""
+"Atrybut ten opisuje, czy dana współpraca została uznana za równą czy "
+"drugorzędną."
 
 #. name:additional
 #: DB:link_attribute_type/description:1
@@ -1649,6 +1661,7 @@ msgid ""
 "This attribute describes if a particular role was considered normal or "
 "additional."
 msgstr ""
+"Atrybut ten opisuje, czy dana rola została uznana za normalną czy dodatkową."
 
 #. name:instrument
 #: DB:link_attribute_type/description:14
@@ -1659,6 +1672,11 @@ msgid ""
 "Can't find an instrument? <a href=\"https://musicbrainz.org/doc/"
 "How_to_Add_Instruments\" target=\"_blank\">Request it!</a>"
 msgstr ""
+"Ten atrybut opisuje możliwe instrumenty, które można uchwycić jako część "
+"występu.\n"
+"<br/>\n"
+"Nie możesz znaleźć instrumentu? <a href=\"https://musicbrainz.org/doc/"
+"How_to_Add_Instruments\" target=\"_blank\">Poproś o niego!</a>"
 
 #. name:guest
 #: DB:link_attribute_type/description:194
@@ -1666,6 +1684,8 @@ msgid ""
 "This attribute indicates a 'guest' performance where the performer is not "
 "usually part of the band."
 msgstr ""
+"Atrybut ten wskazuje na występ gościnny, podczas którego wykonawca zazwyczaj "
+"nie jest członkiem zespołu."
 
 #. name:eponymous
 #: DB:link_attribute_type/description:1094
@@ -1673,6 +1693,8 @@ msgid ""
 "This attribute indicates a member the band is named after and without which "
 "it wouldn't exist (such as Miles Davis -&gt; Miles Davis Sextet)."
 msgstr ""
+"Atrybut ten wskazuje na członka, od którego pochodzi nazwa zespołu i bez "
+"którego nie mógłby on istnieć (np. Miles Davis -&gt; Miles Davis Sextet)."
 
 #. name:parody
 #: DB:link_attribute_type/description:511
@@ -1680,6 +1702,9 @@ msgid ""
 "This attribute indicates a version with satirical, ironic, or otherwise "
 "humorous intent. Parodies in most cases have altered lyrics."
 msgstr ""
+"Ten atrybut wskazuje na wersję o satyrycznym, ironicznym lub innym "
+"humorystycznym zamiarze. Parodie w większości przypadków mają zmienione "
+"teksty."
 
 #. name:original
 #: DB:link_attribute_type/description:525
@@ -1687,6 +1712,7 @@ msgid ""
 "This attribute indicates that an artist was an original member of a group "
 "artist."
 msgstr ""
+"Atrybut ten wskazuje, że artysta był oryginalnym członkiem grupy artystów."
 
 #. name:translated
 #: DB:link_attribute_type/description:517
@@ -1695,6 +1721,9 @@ msgid ""
 "freely, from the original language. This does not apply if an entirely new "
 "set of lyrics have been set to an existing melody."
 msgstr ""
+"Ten atrybut wskazuje, że tekst został przetłumaczony, dosłownie lub "
+"swobodnie, z języka oryginalnego. Nie dotyczy to sytuacji, gdy zupełnie nowy "
+"zestaw tekstów został ustawiony na istniejącą melodię."
 
 #. name:video
 #: DB:link_attribute_type/description:582
@@ -1702,17 +1731,19 @@ msgid ""
 "This attribute indicates that the content is not audio (or text) only, but "
 "video."
 msgstr ""
+"Ten atrybut wskazuje, że treść nie obejmuje wyłącznie dźwięku (lub tekstu), "
+"lecz wideo."
 
 #. name:number
 #: DB:link_attribute_type/description:788
 msgid "This attribute indicates the number of an entity in a series."
-msgstr ""
+msgstr "Ten atrybut wskazuje numer obiektu w serii."
 
 #. name:winner
 #: DB:link_attribute_type/description:1416
 msgid ""
 "This attribute indicates the winning participant in a competition event."
-msgstr ""
+msgstr "Atrybut ten wskazuje zwycięskiego uczestnika konkursu."
 
 #. name:executive
 #: DB:link_attribute_type/description:425
@@ -1720,22 +1751,32 @@ msgid ""
 "This attribute is to be used if the role was fulfilled in an executive "
 "capacity."
 msgstr ""
+"Ten atrybut należy stosować, jeżeli rola została pełniona w charakterze "
+"kierowniczym."
 
 #. name:creative direction
 #: DB:link_type/description:146
+#, fuzzy
 msgid ""
 "This credits a person or agency who provided some kind of general creative "
 "inspiration during the recording of this recording, without actually "
 "contributing to the writing or performance."
 msgstr ""
+"W tym miejscu przyznaje się uznanie osobie lub agencji, która zapewniła "
+"pewnego rodzaju ogólną twórczą inspirację podczas nagrywania tego nagrania, "
+"bez faktycznego wkładu w pisanie lub wykonanie."
 
 #. name:creative direction
 #: DB:link_type/description:63
+#, fuzzy
 msgid ""
 "This credits a person or agency who provided some kind of general creative "
 "inspiration during the recording of this release group, without actually "
 "contributing to the writing or performance."
 msgstr ""
+"W tym miejscu należy wyróżnić osobę lub agencję, która zapewniła pewnego "
+"rodzaju ogólną twórczą inspirację podczas nagrywania tego zespołu, bez "
+"faktycznego wkładu w pisanie lub wykonanie."
 
 #. name:animation
 #: DB:link_type/description:1243
@@ -1743,6 +1784,8 @@ msgid ""
 "This credits a person or agency who worked on animation for a video "
 "recording."
 msgstr ""
+"W tym miejscu wymieniona jest osoba lub agencja, która pracowała nad "
+"animacją do nagrania wideo."
 
 #. name:photography
 #: DB:link_type/description:123
@@ -1750,6 +1793,8 @@ msgid ""
 "This credits a person or agency whose photographs are included as part of a "
 "recording."
 msgstr ""
+"W tym miejscu wymienia się osobę lub agencję, której zdjęcia zamieszczono w "
+"nagraniu."
 
 #. name:booking
 #: DB:link_type/description:134
@@ -1757,6 +1802,8 @@ msgid ""
 "This credits a person who was responsible for booking the studio or "
 "performance venue where the recording was recorded."
 msgstr ""
+"W tym miejscu należy się uznanie osobie odpowiedzialnej za rezerwację studia "
+"lub miejsca, w którym nagranie zostało nagrane."
 
 #. name:booking
 #: DB:link_type/description:23
@@ -1764,12 +1811,16 @@ msgid ""
 "This credits a person who was responsible for booking the studio or "
 "performance venue where the release was recorded."
 msgstr ""
+"W tym miejscu należy się uznanie osobie, która była odpowiedzialna za "
+"rezerwację studia lub miejsca, w którym nagranie zostało wykonane."
 
 #. name:photography
 #: DB:link_type/description:1175
 msgid ""
 "This credits an agency whose photographs are included as part of a release."
 msgstr ""
+"W tym miejscu wymieniona jest agencja, której zdjęcia zamieszczono w "
+"komunikacie."
 
 #. name:photography
 #: DB:link_type/description:20
@@ -1785,6 +1836,11 @@ msgid ""
 "production data, in some cases they consist of a blurb of text (article). "
 "This relationship type should be used in this last case."
 msgstr ""
+"W tym miejscu wymienia się autora notatek dołączonych do wydania (zazwyczaj "
+"na okładce). Podczas gdy większość notatek dołączonych do wydania to tylko "
+"informacje o personelu i dane produkcyjne, w niektórych przypadkach składają "
+"się one z krótkiego tekstu (artykułu). Ten typ relacji powinien być używany "
+"w tym ostatnim przypadku."
 
 #. name:graphic design
 #: DB:link_type/description:125
@@ -1793,6 +1849,9 @@ msgid ""
 "video recording, arranging pieces of content into a coherent and "
 "aesthetically-pleasing whole."
 msgstr ""
+"W tym miejscu należy się uznanie osobom lub agencji, które wykonały projekt "
+"graficzny/układ nagrania wideo, układając elementy treści w spójną i "
+"estetycznie przyjemną całość."
 
 #. name:label rename
 #: DB:link_type/description:202
@@ -1805,6 +1864,14 @@ msgid ""
 "into <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music "
 "Group</a>, as Verve continued its existence thereafter as an imprint."
 msgstr ""
+"Opisuje to sytuację, w której wytwórnia zmieniła nazwę, albo z czysto "
+"estetycznych powodów, albo po wykupie/sprzedaży/wydzieleniu. Należy zachować "
+"szczególną ostrożność w przypadkach, w których przeprowadzane są "
+"skomplikowane operacje finansowe związane z fuzją/podziałem/"
+"restrukturyzacją. Na przykład nie jest dobrym pomysłem zmiana nazwy wytwórni "
+"<a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> na <a href="
+"\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music Group</a>, "
+"ponieważ Verve kontynuowała swoją działalność jako odcisk."
 
 #. name:artist rename
 #: DB:link_type/description:1079
@@ -1812,6 +1879,8 @@ msgid ""
 "This describes a situation where an artist (generally a group) changed its "
 "name, leading to the start of a new project."
 msgstr ""
+"Opisuje sytuację, w której artysta (zazwyczaj grupa) zmienił nazwę, co "
+"doprowadziło do rozpoczęcia nowego projektu."
 
 #. name:label ownership
 #: DB:link_type/description:200
@@ -1822,6 +1891,10 @@ msgid ""
 "corporate acquisition of the former label, has become a subdivision of "
 "another one."
 msgstr ""
+"Opisuje sytuację, w której jedna wytwórnia jest (lub była) spółką zależną "
+"innej wytwórni w danym okresie czasu. Należy tego używać albo do opisania "
+"faktu, że wytwórnia jest pododdziałem innej wytwórni, albo, poprzez "
+"korporacyjne przejęcie byłej wytwórni, stała się pododdziałem innej wytwórni."
 
 #. name:label distribution
 #: DB:link_type/description:203
@@ -1829,6 +1902,8 @@ msgid ""
 "This describes a situation where one label is distributing (part of) another "
 "label's catalog, in a country/region of the world, during a period of time."
 msgstr ""
+"Opisuje sytuację, w której jedna wytwórnia dystrybuuje (część) katalogu "
+"innej wytwórni w danym kraju/regionie świata przez pewien okres czasu."
 
 #. name:label reissue
 #: DB:link_type/description:201
@@ -1843,26 +1918,47 @@ msgid ""
 "<li>A bootleg label reissues another label's catalog.</li>\n"
 "</ul>"
 msgstr ""
+"Opisuje to sytuację, w której jedna wytwórnia ponownie wydaje, pod własną "
+"nazwą, (część) katalogu innej wytwórni. Może się to zdarzyć w co najmniej "
+"trzech przypadkach:\n"
+"<ul>\n"
+"<li>Wytwórnia nabywa dzierżawę katalogu innej wytwórni na określony czas w "
+"określonym regionie świata.</li>\n"
+"<li>Wytwórnia kupuje prawa do katalogu nieistniejącej wytwórni lub kupuje "
+"wytwórnię (z jej katalogiem) i ją demontuje.</li>\n"
+"<li>Wytwórnia bootlegowa ponownie wydaje katalog innej wytwórni.</li>\n"
+"</ul>"
 
 #. name:audio
 #: DB:link_type/description:140 DB:link_type/description:31
+#, fuzzy
 msgid ""
 "This describes an engineer involved with the machines used to generate "
 "sound, such as effects processors and digital audio equipment used to modify "
 "or manipulate sound in either an analogue or digital form."
 msgstr ""
+"Określenie to odnosi się do inżyniera zajmującego się urządzeniami służącymi "
+"do generowania dźwięku, takimi jak procesory efektów i cyfrowy sprzęt audio, "
+"służącymi do modyfikowania lub manipulowania dźwiękiem w formie analogowej "
+"lub cyfrowej."
 
 #. name:recording
 #: DB:link_type/description:128 DB:link_type/description:36
+#, fuzzy
 msgid ""
 "This describes an engineer responsible for committing the performance to "
 "tape or another recording medium. This can be as complex as setting up the "
 "microphones, amplifiers, and recording devices, or as simple as pressing the "
 "'record' button on a 4-track or a digital audio workstation."
 msgstr ""
+"Opisuje to inżyniera odpowiedzialnego za nagrywanie na taśmę lub inny "
+"nośnik. Może to być tak złożone, jak ustawienie mikrofonów, wzmacniaczy i "
+"urządzeń nagrywających, lub tak proste, jak naciśnięcie przycisku „nagraj” "
+"na 4-ścieżkowej lub cyfrowej stacji roboczej audio."
 
 #. name:editor
 #: DB:link_type/description:144 DB:link_type/description:38
+#, fuzzy
 msgid ""
 "This describes an engineer responsible for either connecting disparate "
 "elements of the audio recording, or otherwise redistributing material "
@@ -1871,6 +1967,11 @@ msgid ""
 "track to around the 3 minute mark in order to make it suitable for radio "
 "play (a \"radio edit\")."
 msgstr ""
+"Opisuje to inżyniera odpowiedzialnego za łączenie różnych elementów nagrania "
+"audio lub redystrybucję materiału nagranego podczas sesji. Jest to zazwyczaj "
+"drugorzędne lub dodatkowe w stosunku do pracy wykonywanej przez inżyniera "
+"miksu. Może to również obejmować usprawnienie dłuższego utworu do około 3 "
+"minut, aby nadawał się do odtwarzania w radiu („edycja radiowa”)."
 
 #. name:sound
 #: DB:link_type/description:133 DB:link_type/description:29
@@ -1879,6 +1980,9 @@ msgid ""
 "artists make reach the microphones sounding pleasant, without unwanted "
 "resonance or noise. Sometimes known as acoustical engineering."
 msgstr ""
+"Opisuje to inżyniera odpowiedzialnego za zapewnienie, że dźwięki wydawane "
+"przez artystów docierają do mikrofonów w przyjemny sposób, bez niepożądanego "
+"rezonansu lub szumu. Czasami nazywane inżynierią akustyczną."
 
 #. name:transfer
 #: DB:link_type/description:1179
@@ -1886,6 +1990,8 @@ msgid ""
 "This describes an engineer responsible for transferring a release, for "
 "example from an old tape to digital."
 msgstr ""
+"Określa inżyniera odpowiedzialnego za przeniesienie wydania, na przykład ze "
+"starej taśmy na nośnik cyfrowy."
 
 #. name:mix
 #: DB:link_type/description:143
@@ -1895,6 +2001,10 @@ msgid ""
 "remixing, see <a href=\"/relationship/7950be4d-13a3-48e7-906b-5af562e39544\" "
 "target=\"_blank\">remixer</a>."
 msgstr ""
+"Opisuje to inżyniera odpowiedzialnego za używanie konsoli miksującej do "
+"miksowania nagranego utworu w pojedynczy utwór nadający się do wydania. W "
+"przypadku remiksowania zobacz <a href=\"/relationship/7950be4d-13a3-48e7"
+"-906b-5af562e39544\" target=\"_blank\">remikser</a>."
 
 #. name:mix
 #: DB:link_type/description:26
@@ -1904,11 +2014,16 @@ msgid ""
 "remixing, see <a href=\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\" "
 "target=\"_blank\">remixer</a>."
 msgstr ""
+"Opisuje to inżyniera odpowiedzialnego za używanie konsoli miksującej do "
+"miksowania nagranego utworu w pojedynczy utwór nadający się do wydania. W "
+"przypadku remiksowania zobacz <a href=\"/relationship/ac6a86db-f757-4815"
+"-a07e-744428d2382b\" target=\"_blank\">remikser</a>."
 
 #. name:engineer
 #: DB:link_type/description:28 DB:link_type/description:138
+#, fuzzy
 msgid "This describes an engineer who performed a general engineering role."
-msgstr ""
+msgstr "Opisuje inżyniera wykonującego ogólne zadania inżynieryjne."
 
 #. name:member of band
 #: DB:link_type/description:103
@@ -1945,6 +2060,9 @@ msgid ""
 "is a small label (usually a subdivision of a larger one) that exclusively "
 "handles releases by that artist."
 msgstr ""
+"Oznacza to osobistą wytwórnię produkcyjną dla artysty. Osobista wytwórnia to "
+"mała wytwórnia (zwykle pododdział większej), która wyłącznie zajmuje się "
+"wydawnictwami tego artysty."
 
 #. name:personal publisher
 #: DB:link_type/description:724
