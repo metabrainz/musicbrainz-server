@@ -69,6 +69,12 @@ sub get_multi {
     return \%result;
 }
 
+sub increment {
+    my ($self, $key) = @_;
+
+    $self->_connection->incr($self->_prepare_key($key));
+}
+
 sub set_add {
     my ($self, $key, @values) = @_;
 
