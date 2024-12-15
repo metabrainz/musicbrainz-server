@@ -100,6 +100,10 @@ sub get {
     shift->_exec_method_wantscalar('get', \&_is_defined, @_);
 }
 
+sub increment {
+    shift->_exec_method_wantscalar('increment', \&_exec_all, @_);
+}
+
 sub remove {
     shift->delete(@_);
 }

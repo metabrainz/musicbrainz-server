@@ -14,6 +14,10 @@ use MusicBrainz::Server::Constants qw( $BEGINNER_FLAG $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json contains_string );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
+use MusicBrainz::Errors qw(
+    build_request_and_user_context
+    send_message_to_sentry
+);
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
     language_options
@@ -647,8 +651,28 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
                     $parsed_email->is_valid &&
                     contains_string(\@blocked_domains, lc $parsed_email->host)
                 ) {
+                    send_message_to_sentry(
+                        'Attempt to use a blocked email domain during account registration',
+                        build_request_and_user_context($c),
+                    );
                     $c->detach('/error_400');
                 }
+            }
+
+            # Limit the number of accounts registered from the same IP per day.
+            my $store = $c->model('MB')->context->store;
+            my $newusercount_key = 'newusercount:' . $c->req->address;
+            my $newusercount = $store->increment($newusercount_key);
+            if ($newusercount == 1) {
+                # Store the count of users registered from this IP for 1 day.
+                $store->expire($newusercount_key, 60 * 60 * 24);
+            }
+            if ($newusercount > 5) {
+                send_message_to_sentry(
+                    'Attempt to register more than 5 accounts in one day',
+                    build_request_and_user_context($c),
+                );
+                $c->detach('/error_400');
             }
 
             my $editor = $c->model('Editor')->insert({
