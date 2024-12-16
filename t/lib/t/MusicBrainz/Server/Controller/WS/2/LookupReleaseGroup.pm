@@ -97,6 +97,7 @@ ws_test 'release group lookup with artists',
             <name-credit>
                 <artist id="472bc127-8861-45e8-bc9e-31e8dd32de7a" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                     <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
+                    <country>GB</country>
                 </artist>
             </name-credit>
         </artist-credit>
@@ -115,6 +116,7 @@ ws_test 'release group lookup with inc=artists+releases+tags+ratings',
             <name-credit>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
+                    <country>JP</country>
                     <rating votes-count="3">3</rating>
                 </artist>
             </name-credit>
@@ -160,6 +162,7 @@ ws_test 'release group lookup with pseudo-releases',
             <name-credit>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
+                    <country>JP</country>
                 </artist>
             </name-credit>
         </artist-credit>

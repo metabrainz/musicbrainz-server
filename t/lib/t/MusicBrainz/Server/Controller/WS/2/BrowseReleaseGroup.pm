@@ -34,6 +34,7 @@ ws_test 'browse release group via release',
                         <sort-name>Distance</sort-name>
                         <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
                         <rating votes-count="1">5</rating>
+                        <country>GB</country>
                     </artist>
                 </name-credit>
             </artist-credit>
@@ -63,6 +64,7 @@ ws_test 'browse release group via artist',
                         <sort-name>Distance</sort-name>
                         <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
                         <rating votes-count="1">5</rating>
+                        <country>GB</country>
                     </artist>
                 </name-credit>
             </artist-credit>
@@ -87,6 +89,7 @@ ws_test 'browse release group via artist',
                         <sort-name>Distance</sort-name>
                         <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
                         <rating votes-count="1">5</rating>
+                        <country>GB</country>
                     </artist>
                 </name-credit>
             </artist-credit>
@@ -117,6 +120,7 @@ ws_test 'browse official release groups via artist',
                         <sort-name>Distance</sort-name>
                         <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
                         <rating votes-count="1">5</rating>
+                        <country>GB</country>
                     </artist>
                 </name-credit>
             </artist-credit>

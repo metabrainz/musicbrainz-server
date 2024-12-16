@@ -51,6 +51,7 @@ ws_test 'basic url lookup (with inc=artist-rels)',
           <artist id="05d83760-08b5-42bb-a8d7-00d80b3bf47c" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
             <name>Paul Allgood</name>
             <sort-name>Allgood, Paul</sort-name>
+            <country>US</country>
           </artist>
         </relation>
       </relation-list>
