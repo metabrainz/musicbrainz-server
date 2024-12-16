@@ -2,6 +2,10 @@ package MusicBrainz::Server::Controller::Role::EditRelationships;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
+use MusicBrainz::Errors qw(
+    build_request_and_user_context
+    send_message_to_sentry
+);
 use MusicBrainz::Server::Constants qw(
     $DIRECTION_BACKWARD
     $DIRECTION_FORWARD
@@ -392,17 +396,31 @@ role {
         for my $field (@field_values) {
             my %args;
             my $link_type = $field->{link_type};
+            my $period = $field->{period};
+            my $begin_date = $period->{begin_date};
+            my $end_date = $period->{end_date};
 
             $link_types_by_id->{$link_type->id} = $link_type;
 
             if (!($link_type->has_dates)) {
+                if (
+                    defined $begin_date->{year} || $begin_date->{month} || $begin_date->{day} ||
+                    defined $end_date->{year} || $end_date->{month} || $end_date->{day} ||
+                    $period->{ended}
+                ) {
+                    send_message_to_sentry(
+                        'Warning: dates submitted with relationship type that does not support them',
+                        build_request_and_user_context($c),
+                        extra => {link_type_id => $link_type->id},
+                    );
+                }
                 # Enforce blank dates for types that do not support them
                 $args{begin_date} = { year => undef, month => undef, day => undef };
                 $args{end_date} = { year => undef, month => undef, day => undef };
                 $args{ended} = 0;
-            } elsif (my $period = $field->{period}) {
-                $args{begin_date} = $period->{begin_date} if $period->{begin_date};
-                $args{end_date} = $period->{end_date} if $period->{end_date};
+            } elsif ($period) {
+                $args{begin_date} = $begin_date if $begin_date;
+                $args{end_date} = $end_date if $end_date;
                 $args{ended} = $period->{ended} if defined $period->{ended};
             }
 
