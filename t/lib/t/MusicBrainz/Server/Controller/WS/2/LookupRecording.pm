@@ -196,13 +196,11 @@ ws_test 'recording lookup with artists',
             <name-credit joinphrase="♥">
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
-                    <country>JP</country>
                 </artist>
             </name-credit>
             <name-credit>
                 <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                     <name>BoA</name><sort-name>BoA</sort-name>
-                    <country>KR</country>
                 </artist>
             </name-credit>
         </artist-credit>
@@ -236,7 +234,6 @@ ws_test 'recording lookup with release relationships and artist credits',
                     <name>Wedlock</name>
                     <sort-name>Wedlock</sort-name>
                     <disambiguation>USA electro pop</disambiguation>
-                    <country>US</country>
                 </artist>
             </name-credit>
         </artist-credit>
@@ -254,7 +251,6 @@ ws_test 'recording lookup with release relationships and artist credits',
                             <artist id="05d83760-08b5-42bb-a8d7-00d80b3bf47c">
                                 <name>Paul Allgood</name>
                                 <sort-name>Allgood, Paul</sort-name>
-                                <country>US</country>
                             </artist>
                         </name-credit>
                     </artist-credit>

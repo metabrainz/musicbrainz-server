@@ -289,7 +289,6 @@ ws_test 'release lookup with artists + aliases',
             <name-credit>
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
-                    <country>JP</country>
                     <alias-list count="6">
                         <alias sort-name="m-flow">m-flow</alias>
                         <alias sort-name="mediarite-flow crew">mediarite-flow crew</alias>
@@ -429,7 +428,6 @@ ws_test 'release lookup with release-groups and ratings',
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name>
                     <sort-name>m-flo</sort-name>
-                    <country>JP</country>
                     <rating votes-count="3">3</rating>
                 </artist>
             </name-credit>
@@ -443,7 +441,6 @@ ws_test 'release lookup with release-groups and ratings',
                     <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                         <name>m-flo</name>
                         <sort-name>m-flo</sort-name>
-                        <country>JP</country>
                         <rating votes-count="3">3</rating>
                     </artist>
                 </name-credit>
@@ -764,7 +761,6 @@ ws_test 'release lookup, relation attributes',
                 <artist id="4d5ec626-2251-4bb1-b62a-f24f471e3f2c" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                     <name>이수만</name>
                     <sort-name>Lee, Soo-Man</sort-name>
-                    <country>KR</country>
                 </artist>
             </relation>
         </relation-list>
@@ -814,7 +810,6 @@ ws_test 'release lookup, related artists have no tags',
       <name-credit>
         <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
           <name>Plone</name><sort-name>Plone</sort-name>
-          <country>GB</country>
           <tag-list>
             <tag count="1">
               <name>british</name>
@@ -872,7 +867,6 @@ ws_test 'release lookup, related artists have no tags',
                   <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name><sort-name>Plone</sort-name>
-                    <country>GB</country>
                   </artist>
                 </relation>
               </relation-list>
@@ -889,7 +883,6 @@ ws_test 'release lookup, related artists have no tags',
                   <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name><sort-name>Plone</sort-name>
-                    <country>GB</country>
                   </artist>
                 </relation>
               </relation-list>
@@ -906,7 +899,6 @@ ws_test 'release lookup, related artists have no tags',
                   <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name><sort-name>Plone</sort-name>
-                    <country>GB</country>
                   </artist>
                 </relation>
               </relation-list>
@@ -923,7 +915,6 @@ ws_test 'release lookup, related artists have no tags',
                   <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name><sort-name>Plone</sort-name>
-                    <country>GB</country>
                   </artist>
                 </relation>
               </relation-list>
@@ -940,7 +931,6 @@ ws_test 'release lookup, related artists have no tags',
                   <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name><sort-name>Plone</sort-name>
-                    <country>GB</country>
                   </artist>
                 </relation>
               </relation-list>
@@ -957,7 +947,6 @@ ws_test 'release lookup, related artists have no tags',
                   <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name><sort-name>Plone</sort-name>
-                    <country>GB</country>
                   </artist>
                 </relation>
               </relation-list>
@@ -974,7 +963,6 @@ ws_test 'release lookup, related artists have no tags',
                   <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name><sort-name>Plone</sort-name>
-                    <country>GB</country>
                   </artist>
                 </relation>
               </relation-list>
@@ -991,7 +979,6 @@ ws_test 'release lookup, related artists have no tags',
                   <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name><sort-name>Plone</sort-name>
-                    <country>GB</country>
                   </artist>
                 </relation>
               </relation-list>
@@ -1008,7 +995,6 @@ ws_test 'release lookup, related artists have no tags',
                   <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name><sort-name>Plone</sort-name>
-                    <country>GB</country>
                   </artist>
                 </relation>
               </relation-list>
@@ -1025,7 +1011,6 @@ ws_test 'release lookup, related artists have no tags',
                   <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name><sort-name>Plone</sort-name>
-                    <country>GB</country>
                   </artist>
                 </relation>
               </relation-list>
@@ -1041,7 +1026,6 @@ ws_test 'release lookup, related artists have no tags',
         <direction>backward</direction>
         <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
           <name>Plone</name><sort-name>Plone</sort-name>
-          <country>GB</country>
         </artist>
       </relation>
     </relation-list>
@@ -1063,7 +1047,6 @@ ws_test 'release lookup, track artists have no aliases',
       <name-credit>
         <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
           <name>m-flo</name><sort-name>m-flo</sort-name>
-          <country>JP</country>
           <alias-list count="6">
             <alias sort-name="m-flow">m-flow</alias><alias sort-name="mediarite-flow crew">mediarite-flow crew</alias><alias sort-name="meteorite-flow crew">meteorite-flow crew</alias><alias sort-name="mflo">mflo</alias><alias sort-name="えむふろう">えむふろう</alias><alias sort-name="エムフロウ">エムフロウ</alias>
           </alias-list>
@@ -1099,7 +1082,6 @@ ws_test 'release lookup, track artists have no aliases',
                 <name-credit joinphrase="♥">
                   <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
-                    <country>JP</country>
                     <alias-list count="6">
                       <alias sort-name="m-flow">m-flow</alias><alias sort-name="mediarite-flow crew">mediarite-flow crew</alias><alias sort-name="meteorite-flow crew">meteorite-flow crew</alias><alias sort-name="mflo">mflo</alias><alias sort-name="えむふろう">えむふろう</alias><alias sort-name="エムフロウ">エムフロウ</alias>
                     </alias-list>
@@ -1108,7 +1090,6 @@ ws_test 'release lookup, track artists have no aliases',
                 <name-credit>
                   <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                     <name>BoA</name><sort-name>BoA</sort-name>
-                    <country>KR</country>
                     <alias-list count="5">
                       <alias sort-name="Beat of Angel">Beat of Angel</alias>
                       <alias sort-name="BoA Kwon">BoA Kwon</alias>
@@ -1125,7 +1106,6 @@ ws_test 'release lookup, track artists have no aliases',
                   <direction>backward</direction>
                   <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
-                    <country>JP</country>
                   </artist>
                 </relation>
                 <relation type-id="36c50022-44e0-488d-994b-33f11d20301e" type="programming">
@@ -1133,7 +1113,6 @@ ws_test 'release lookup, track artists have no aliases',
                   <direction>backward</direction>
                   <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
-                    <country>JP</country>
                   </artist>
                 </relation>
                 <relation type-id="0fdbe3c6-7700-4a31-ae54-b53f06ae1cfa" type="vocal">
@@ -1144,7 +1123,6 @@ ws_test 'release lookup, track artists have no aliases',
                   </attribute-list>
                   <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                     <name>BoA</name><sort-name>BoA</sort-name>
-                    <country>KR</country>
                   </artist>
                 </relation>
               </relation-list>
@@ -1159,7 +1137,6 @@ ws_test 'release lookup, track artists have no aliases',
                 <name-credit joinphrase="♥">
                   <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
-                    <country>JP</country>
                     <alias-list count="6">
                       <alias sort-name="m-flow">m-flow</alias><alias sort-name="mediarite-flow crew">mediarite-flow crew</alias><alias sort-name="meteorite-flow crew">meteorite-flow crew</alias><alias sort-name="mflo">mflo</alias><alias sort-name="えむふろう">えむふろう</alias><alias sort-name="エムフロウ">エムフロウ</alias>
                     </alias-list>
@@ -1168,7 +1145,6 @@ ws_test 'release lookup, track artists have no aliases',
                 <name-credit>
                   <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                     <name>BoA</name><sort-name>BoA</sort-name>
-                    <country>KR</country>
                     <alias-list count="5">
                       <alias sort-name="Beat of Angel">Beat of Angel</alias>
                       <alias sort-name="BoA Kwon">BoA Kwon</alias>
@@ -1190,7 +1166,6 @@ ws_test 'release lookup, track artists have no aliases',
                 <name-credit>
                   <artist id="97fa3f6e-557c-4227-bc0e-95a7f9f3285d">
                     <name>BAGDAD CAFE THE trench town</name><sort-name>BAGDAD CAFE THE trench town</sort-name>
-                    <country>JP</country>
                   </artist>
                 </name-credit>
               </artist-credit>
@@ -1220,7 +1195,6 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
         <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
           <name>Plone</name>
           <sort-name>Plone</sort-name>
-          <country>GB</country>
           <tag-list>
             <tag count="1">
               <name>british</name>
@@ -1286,7 +1260,6 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
                     <sort-name>Plone</sort-name>
-                    <country>GB</country>
                     <tag-list>
                       <tag count="1">
                         <name>british</name>
@@ -1328,7 +1301,6 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
                     <sort-name>Plone</sort-name>
-                    <country>GB</country>
                     <tag-list>
                       <tag count="1">
                         <name>british</name>
@@ -1370,7 +1342,6 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
                     <sort-name>Plone</sort-name>
-                    <country>GB</country>
                     <tag-list>
                       <tag count="1">
                         <name>british</name>
@@ -1412,7 +1383,6 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
                     <sort-name>Plone</sort-name>
-                    <country>GB</country>
                     <tag-list>
                       <tag count="1">
                         <name>british</name>
@@ -1454,7 +1424,6 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
                     <sort-name>Plone</sort-name>
-                    <country>GB</country>
                     <tag-list>
                       <tag count="1">
                         <name>british</name>
@@ -1496,7 +1465,6 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
                     <sort-name>Plone</sort-name>
-                    <country>GB</country>
                     <tag-list>
                       <tag count="1">
                         <name>british</name>
@@ -1538,7 +1506,6 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
                     <sort-name>Plone</sort-name>
-                    <country>GB</country>
                     <tag-list>
                       <tag count="1">
                         <name>british</name>
@@ -1580,7 +1547,6 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
                     <sort-name>Plone</sort-name>
-                    <country>GB</country>
                     <tag-list>
                       <tag count="1">
                         <name>british</name>
@@ -1622,7 +1588,6 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
                     <sort-name>Plone</sort-name>
-                    <country>GB</country>
                     <tag-list>
                       <tag count="1">
                         <name>british</name>
@@ -1664,7 +1629,6 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Plone</name>
                     <sort-name>Plone</sort-name>
-                    <country>GB</country>
                     <tag-list>
                       <tag count="1">
                         <name>british</name>
@@ -1717,7 +1681,6 @@ ws_test 'release lookup, pregap track',
         <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
           <name>Blind Melon</name>
           <sort-name>Blind Melon</sort-name>
-          <country>US</country>
         </artist>
       </name-credit>
     </artist-credit>
@@ -1744,7 +1707,6 @@ ws_test 'release lookup, pregap track',
                 <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                   <name>Blind Melon</name>
                   <sort-name>Blind Melon</sort-name>
-                  <country>US</country>
                 </artist>
               </name-credit>
             </artist-credit>
@@ -1764,7 +1726,6 @@ ws_test 'release lookup, pregap track',
                   <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Blind Melon</name>
                     <sort-name>Blind Melon</sort-name>
-                    <country>US</country>
                   </artist>
                 </name-credit>
               </artist-credit>
@@ -1782,7 +1743,6 @@ ws_test 'release lookup, pregap track',
                   <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Blind Melon</name>
                     <sort-name>Blind Melon</sort-name>
-                    <country>US</country>
                   </artist>
                 </name-credit>
               </artist-credit>
@@ -1814,7 +1774,6 @@ test 'MBS-7914' => sub {
         <artist id="8d610e51-64b4-4654-b8df-064b0fb7a9d9" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
           <name>Gustav Mahler</name>
           <sort-name>Mahler, Gustav</sort-name>
-          <country>AT</country>
           <alias-list count="1">
             <alias sort-name="グスタフ・マーラー">グスタフ・マーラー</alias>
           </alias-list>
@@ -1839,7 +1798,6 @@ test 'MBS-7914' => sub {
                 <artist id="8d610e51-64b4-4654-b8df-064b0fb7a9d9" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                   <name>Gustav Mahler</name>
                   <sort-name>Mahler, Gustav</sort-name>
-                  <country>AT</country>
                   <alias-list count="1">
                     <alias sort-name="グスタフ・マーラー">グスタフ・マーラー</alias>
                   </alias-list>
@@ -1853,7 +1811,6 @@ test 'MBS-7914' => sub {
                   <artist id="509c772e-1164-4457-8d09-0553cfa77d64" type="Orchestra" type-id="a0b36c92-3eb1-3839-a4f9-4799823f54a5">
                     <name>Chicago Symphony Orchestra</name>
                     <sort-name>Chicago Symphony Orchestra</sort-name>
-                    <country>US</country>
                     <alias-list count="1">
                       <alias sort-name="CSO">CSO</alias>
                     </alias-list>

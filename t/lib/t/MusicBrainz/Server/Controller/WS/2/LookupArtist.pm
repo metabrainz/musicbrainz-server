@@ -33,7 +33,6 @@ ws_test 'basic artist lookup',
     <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
         <name>Distance</name><sort-name>Distance</sort-name>
         <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
-        <country>GB</country>
     </artist>
 </metadata>';
 
@@ -56,7 +55,6 @@ ws_test 'artist lookup, inc=aliases',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
         <name>BoA</name><sort-name>BoA</sort-name>
-        <country>KR</country>
         <life-span>
             <begin>1986-11-05</begin>
         </life-span>
@@ -78,7 +76,6 @@ ws_test 'artist lookup, inc=annotation',
         <name>Distance</name><sort-name>Distance</sort-name>
         <annotation><text>this is an artist annotation</text></annotation>
         <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
-        <country>GB</country>
     </artist>
 </metadata>';
 
@@ -88,7 +85,6 @@ ws_test 'artist lookup with releases',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b" id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
         <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
-        <country>JP</country>
         <release-list count="2">
             <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                 <title>Summer Reggae! Rainbow</title>
@@ -148,7 +144,6 @@ ws_test 'artist lookup with pseudo-releases',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
         <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
-        <country>JP</country>
         <release-list count="1">
             <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                 <title>Summer Reggae! Rainbow</title>
@@ -184,7 +179,6 @@ ws_test 'artist lookup with releases and discids',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
         <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
-        <country>GB</country>
         <release-list count="2">
             <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
                 <title>My Demons</title>
@@ -315,7 +309,6 @@ ws_test 'artist lookup with recordings and artist credits',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
         <name>m-flo</name><sort-name>m-flo</sort-name>
-        <country>JP</country>
         <life-span>
             <begin>1998</begin>
         </life-span>
@@ -327,14 +320,12 @@ ws_test 'artist lookup with recordings and artist credits',
                         <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                             <name>m-flo</name>
                             <sort-name>m-flo</sort-name>
-                            <country>JP</country>
                         </artist>
                     </name-credit>
                     <name-credit>
                         <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                             <name>BoA</name>
                             <sort-name>BoA</sort-name>
-                            <country>KR</country>
                         </artist>
                     </name-credit>
                 </artist-credit>
@@ -346,14 +337,12 @@ ws_test 'artist lookup with recordings and artist credits',
                         <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                             <name>m-flo</name>
                             <sort-name>m-flo</sort-name>
-                            <country>JP</country>
                         </artist>
                     </name-credit>
                     <name-credit>
                         <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                             <name>BoA</name>
                             <sort-name>BoA</sort-name>
-                            <country>KR</country>
                         </artist>
                     </name-credit>
                 </artist-credit>
@@ -368,7 +357,6 @@ ws_test 'artist lookup with release groups',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
         <name>m-flo</name><sort-name>m-flo</sort-name>
-        <country>JP</country>
         <life-span>
             <begin>1998</begin>
         </life-span>
@@ -388,7 +376,6 @@ ws_test 'single artist release lookup',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
         <name>m-flo</name><sort-name>m-flo</sort-name>
-        <country>JP</country>
         <life-span>
             <begin>1998</begin>
         </life-span>
@@ -427,7 +414,6 @@ ws_test 'various artists release lookup',
     <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
         <name>BoA</name>
         <sort-name>BoA</sort-name>
-        <country>KR</country>
         <life-span><begin>1986-11-05</begin></life-span>
         <release-list count="1">
             <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
@@ -472,7 +458,6 @@ ws_test 'artist lookup with works (using l_artist_work)',
   <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
     <name>Distance</name><sort-name>Distance</sort-name>
     <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
-    <country>GB</country>
     <work-list count="1">
       <work id="f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8">
         <title>Asseswaving</title>
@@ -491,7 +476,6 @@ ws_test 'artist lookup with works (using l_recording_work)',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
     <name>BoA</name><sort-name>BoA</sort-name>
-    <country>KR</country>
     <life-span><begin>1986-11-05</begin></life-span>
     <work-list count="15">
       <work id="53d1fbac-e60a-38cb-85ff-e5a9224c9749"><title>Be the one</title></work>
@@ -540,7 +524,6 @@ ws_test 'artist lookup with artist relations',
                 <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>7人祭</name>
                     <sort-name>7nin Matsuri</sort-name>
-                    <country>JP</country>
                 </artist>
                 <source-credit>Maki Goto</source-credit>
                 <target-credit>7nin Matsuri</target-credit>
@@ -556,7 +539,6 @@ ws_test 'artist lookup with event relations',
     <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="05d83760-08b5-42bb-a8d7-00d80b3bf47c">
         <name>Paul Allgood</name>
         <sort-name>Allgood, Paul</sort-name>
-        <country>US</country>
         <relation-list target-type="event">
             <relation type-id="936c7c95-3156-3889-a062-8a0cd57f8946" type="main performer">
                 <target>166359d1-5a63-4033-945c-a6707844fb19</target>

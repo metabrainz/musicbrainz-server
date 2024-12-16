@@ -433,7 +433,6 @@ ws_test 'browse releases via recording, with recording and work rels',
                                                 <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                                                     <name>Blind Melon</name>
                                                     <sort-name>Blind Melon</sort-name>
-                                                    <country>US</country>
                                                 </artist>
                                             </relation>
                                         </relation-list>
@@ -461,7 +460,6 @@ ws_test 'browse releases via recording, with recording and work rels',
                                 <artist id="05d83760-08b5-42bb-a8d7-00d80b3bf47c" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                                     <name>Paul Allgood</name>
                                     <sort-name>Allgood, Paul</sort-name>
-                                    <country>US</country>
                                 </artist>
                                 </relation>
                             </relation-list>
