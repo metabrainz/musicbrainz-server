@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-12-15 15:50+0000\n"
+"PO-Revision-Date: 2024-12-16 20:42+0000\n"
 "Last-Translator: Peter69 <echelon01@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/pl/>\n"
@@ -2028,7 +2028,7 @@ msgstr "Opisuje inżyniera wykonującego ogólne zadania inżynieryjne."
 #. name:member of band
 #: DB:link_type/description:103
 msgid "This indicates a person is a member of a group."
-msgstr ""
+msgstr "Oznacza to, że dana osoba jest członkiem grupy."
 
 #. name:artists and repertoire
 #: DB:link_type/description:135 DB:link_type/description:62
@@ -2037,14 +2037,21 @@ msgid ""
 "overseeing the artistic development of an artist, and acting as liaison "
 "between artists and the labels."
 msgstr ""
+"Oznacza osobę lub agencję odpowiedzialną za wyszukiwanie talentów, "
+"nadzorowanie rozwoju artystycznego artysty i działanie jako łącznik między "
+"artystami a wytwórniami."
 
 #. name:design/illustration
 #: DB:link_type/description:19
+#, fuzzy
 msgid ""
 "This indicates a person or agency who did design or illustration for the "
 "release. This relationship is deprecated, please use either “design” or "
 "“illustration” (or both!) instead."
 msgstr ""
+"Oznacza to osobę lub agencję, która wykonała projekt lub ilustrację dla "
+"wydania. Ta relacja jest niezalecana, zamiast tego należy używać „projektu” "
+"lub „ilustracji” (lub obu!)."
 
 #. name:design/illustration
 #: DB:link_type/description:130
@@ -2052,6 +2059,8 @@ msgid ""
 "This indicates a person or agency who did design or illustration for the "
 "track."
 msgstr ""
+"Oznacza osobę lub agencję, która zaprojektowała utwór lub wykonała jego "
+"ilustrację."
 
 #. name:personal label
 #: DB:link_type/description:723
@@ -2071,6 +2080,9 @@ msgid ""
 "publishing label is a small label (usually a subdivision of a larger one) "
 "that exclusively handles the rights to works by that artist."
 msgstr ""
+"Oznacza to osobistą wytwórnię wydawniczą dla artysty. Osobista wytwórnia "
+"wydawnicza to mała wytwórnia (zwykle pododdział większej), która wyłącznie "
+"zajmuje się prawami do prac tego artysty."
 
 #. name:field recordist
 #: DB:link_type/description:1011
@@ -2092,16 +2104,20 @@ msgid ""
 "This indicates a release group is an excerpt from another, such as the "
 "highlights of a box set or a long opera."
 msgstr ""
+"Oznacza to, że grupa wydawnicza stanowi fragment innej, np. najważniejsze "
+"fragmenty zestawu pudełkowego lub długiej opery."
 
 #. name:art direction
 #: DB:link_type/description:1174
 msgid "This indicates an agency that did the art direction for the release."
 msgstr ""
+"Oznacza to, że agencja była odpowiedzialna za kierownictwo artystyczne "
+"wydania."
 
 #. name:design
 #: DB:link_type/description:1171
 msgid "This indicates an agency who did design for the release."
-msgstr ""
+msgstr "Oznacza to, że agencja zaprojektowała wydanie."
 
 #. name:illustration
 #: DB:link_type/description:1173
@@ -2115,6 +2131,8 @@ msgid ""
 "arranging pieces of content into a coherent and aesthetically-pleasing "
 "sleeve design."
 msgstr ""
+"Oznacza to, że agencja wykonała projekt graficzny publikacji, układając "
+"elementy treści w spójny i estetycznie przyjemny projekt okładki."
 
 #. name:artwork
 #: DB:link_type/description:1170
@@ -2122,12 +2140,14 @@ msgid ""
 "This indicates an agency who provided artwork for the release when no more "
 "specific information is available."
 msgstr ""
+"Oznacza agencję, która dostarczyła materiały graficzne do publikacji, gdy "
+"nie ma bardziej szczegółowych informacji na ten temat."
 
 #. name:founder
 #: DB:link_type/description:895
 msgid ""
 "This indicates an artist (generally a person) was the founder of a group."
-msgstr ""
+msgstr "Oznacza to, że artysta (zazwyczaj osoba) był założycielem grupy."
 
 #. name:founder
 #: DB:link_type/description:1004
