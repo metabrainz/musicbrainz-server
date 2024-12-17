@@ -899,6 +899,16 @@ const stats = {
     color: '#00ffff',
     label: l_statistics('Abstentions'),
   },
+  'count.vote.admin_approve': {
+    category: 'edit-information',
+    color: '#00ffff',
+    label: l_statistics('Admin approvals'),
+  },
+  'count.vote.admin_reject': {
+    category: 'edit-information',
+    color: '#00ffff',
+    label: l_statistics('Admin rejections'),
+  },
   'count.vote.approve': {
     category: 'edit-information',
     color: '#00ffff',

@@ -291,11 +291,13 @@
 
   <select name="args" multiple="multiple" size="5">
     [%- FOR item=[ [  2,   lp('Approve', 'vote') ]
-                , [  1,   lp('Yes', 'vote') ]
-                , [  0,   lp('No', 'vote') ]
-                , [ -1,   lp('Abstain', 'vote') ]
-                , [ 'no', l('No vote') ]
-                ] %]
+                 , [  1,   lp('Yes', 'vote') ]
+                 , [  0,   lp('No', 'vote') ]
+                 , [ -1,   lp('Abstain', 'vote') ]
+                 , [  4,   lp('Admin rejection', 'vote') ]
+                 , [  3,   lp('Admin approval', 'vote') ]
+                 , [ 'no', l('No vote') ]
+                 ] %]
     <option value="[% html_escape(item.0) %]"
             [%~ ' selected="selected"' IF field_contents.find_argument(item.0).defined ~%]
             >[% html_escape(item.1) %]</option>
@@ -310,6 +312,8 @@
                  , [  1,   lp('Yes', 'vote') ]
                  , [  0,   lp('No', 'vote') ]
                  , [ -1,   lp('Abstain', 'vote') ]
+                 , [  4,   lp('Admin rejection', 'vote') ]
+                 , [  3,   lp('Admin approval', 'vote') ]
                  ] %]
     <option value="[% html_escape(item.0) %]"
             [%~ ' selected="selected"' IF field_contents.vote == item.0 ~%]
