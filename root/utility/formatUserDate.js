@@ -110,7 +110,7 @@ try {
   const now = new Date();
   formatDateUsingPattern(now, '%a', TZ_CHICAGO, 'en-US');
   formatDateUsingPattern(now, '%c', TZ_CHICAGO, 'en-US');
-} catch (e) {
+} catch (ignoredError) {
   HAS_INTL_DATETIMEFORMAT = false;
 }
 

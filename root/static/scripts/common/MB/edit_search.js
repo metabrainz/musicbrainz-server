@@ -3,7 +3,6 @@ import $ from 'jquery';
 import MB from '../MB.js';
 
 $(function () {
-  /* eslint-disable sort-keys */
   const cardinalityMap = {
     id: {
       '=': 1, '!=': 1, '>': 1, '<': 1, 'BETWEEN': 2,
@@ -52,7 +51,7 @@ $(function () {
       'beginner': 0,
     },
   };
-  /* eslint-enable sort-keys */
+
 
   let conditionCounter = 0;
 

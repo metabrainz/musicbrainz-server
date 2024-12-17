@@ -18,7 +18,6 @@ declare module 'pg' {
     +host?: string,
   };
 
-  // eslint-disable-next-line no-unused-vars
   declare export type QueryConfig<+V = mixed> = {
     +name?: string,
     +text: string,

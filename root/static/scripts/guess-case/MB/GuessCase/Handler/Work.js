@@ -10,8 +10,6 @@
 
 import * as flags from '../../../flags.js';
 import * as modes from '../../../modes.js';
-import input from '../Input.js';
-import gc from '../Main.js';
 
 import GuessCaseHandler from './Base.js';
 
@@ -20,11 +18,11 @@ class GuessCaseWorkHandler extends GuessCaseHandler {
   // Checks special cases of releases
   checkSpecialCase(inputString?: string): number {
     if (inputString != null) {
-      if (!gc.regexes.RELEASE_UNTITLED) {
+      if (!this.regexes.RELEASE_UNTITLED) {
         // Untitled
-        gc.regexes.RELEASE_UNTITLED = /^([([]?\s*untitled\s*[)\]]?)$/i;
+        this.regexes.RELEASE_UNTITLED = /^([([]?\s*untitled\s*[)\]]?)$/i;
       }
-      if (inputString.match(gc.regexes.RELEASE_UNTITLED)) {
+      if (inputString.match(this.regexes.RELEASE_UNTITLED)) {
         return this.specialCaseValues.SPECIALCASE_UNTITLED;
       }
     }
@@ -32,9 +30,9 @@ class GuessCaseWorkHandler extends GuessCaseHandler {
   }
 
   getWordsForProcessing(inputString: string): Array<string> {
-    const preppedString = modes[gc.modeName].preProcessTitles(inputString);
-    return modes[gc.modeName].prepExtraTitleInfo(
-      input.splitWordsAndPunctuation(preppedString),
+    const preppedString = modes[this.modeName].preProcessTitles(inputString);
+    return modes[this.modeName].prepExtraTitleInfo(
+      this.input.splitWordsAndPunctuation(preppedString),
     );
   }
 
@@ -49,7 +47,7 @@ class GuessCaseWorkHandler extends GuessCaseHandler {
     (
       this.doIgnoreWords() ||
       this.doFeaturingArtistStyle() ||
-      modes[gc.modeName].doWord() ||
+      modes[this.modeName].doWord() ||
       this.doNormalWord()
     );
     flags.context.number = false;

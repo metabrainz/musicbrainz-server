@@ -16,7 +16,10 @@ import manifest from '../static/manifest.mjs';
 import PostParameters, {
   type PostParametersT,
 } from '../static/scripts/common/components/PostParameters.js';
-import DBDefs from '../static/scripts/common/DBDefs.mjs';
+import {
+  DB_STAGING_SERVER,
+  DB_STAGING_SERVER_SANITIZED,
+} from '../static/scripts/common/DBDefs.mjs';
 import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';
 import FormRowCheckbox
@@ -104,7 +107,7 @@ component Login(
           uncontrolled
         />
 
-        {(DBDefs.DB_STAGING_SERVER && DBDefs.DB_STAGING_SERVER_SANITIZED) ? (
+        {(DB_STAGING_SERVER && DB_STAGING_SERVER_SANITIZED) ? (
           <div className="row no-label">
             <span className="input-note sanitized-password-note">
               {l(`This is a development server;

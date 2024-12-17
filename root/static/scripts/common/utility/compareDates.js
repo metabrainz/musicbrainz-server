@@ -9,13 +9,11 @@
 
 import {EMPTY_PARTIAL_DATE} from '../constants.js';
 
-/* eslint-disable sort-keys */
 const NULL_DATE_PERIOD: DatePeriodRoleT = Object.freeze({
   begin_date: EMPTY_PARTIAL_DATE,
   end_date: EMPTY_PARTIAL_DATE,
   ended: false,
 });
-/* eslint-enable sort-keys */
 
 function compareNullableNumbers(a: ?number, b: ?number) {
   // Sort null values first

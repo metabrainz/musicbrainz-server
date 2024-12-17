@@ -12,7 +12,10 @@ import * as React from 'react';
 import {CatalystContext} from '../context.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import {ENTITIES} from '../static/scripts/common/constants.js';
-import DBDefs from '../static/scripts/common/DBDefs.mjs';
+import {
+  CANONICAL_SERVER,
+  WEB_SERVER,
+} from '../static/scripts/common/DBDefs.mjs';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 import formatUserDate from '../utility/formatUserDate.js';
 
@@ -53,7 +56,7 @@ component WSLink(
     searchParams.set('fmt', 'json');
   }
   const protocol = isSecureConnection ? 'https://' : 'http://';
-  const urlObject = new URL(protocol + DBDefs.WEB_SERVER +
+  const urlObject = new URL(protocol + WEB_SERVER +
                             '/ws/2/' + entityTypeForUrl + '/' + entityGid);
   urlObject.search = searchParams.toString();
 
@@ -68,7 +71,7 @@ component Details(entity: NonUrlRelatableEntityT) {
   const entityProperties = ENTITIES[entityType];
   const entityTypeForUrl = entityProperties.url
     ? entityProperties.url : entityType;
-  const canonicalLink = DBDefs.CANONICAL_SERVER +
+  const canonicalLink = CANONICAL_SERVER +
     '/' + entityTypeForUrl + '/' + entity.gid;
   const LayoutComponent = chooseLayoutComponent(entityType);
 

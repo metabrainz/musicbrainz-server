@@ -133,8 +133,21 @@ sub get_value {
 my $json = JSON->new->allow_nonref->ascii->canonical;
 my $server_code = "// \@flow strict\n";
 my $client_code = "// \@flow strict\n";
+my $browser_code = <<'EOF';
+// @flow strict
 
-my (@all_client_defs, @all_server_defs);
+/*
+ * window[GLOBAL_JS_NAMESPACE].DBDefs contains the values exported by
+ * DBDefs-client.mjs.
+ * See root/layout/components/globalsScript.mjs for more info.
+ *
+ * This file should not be imported directly. It's substituted for
+ * ./DBDefs-client.mjs via the NormalModuleReplacementPlugin in
+ * webpack/browserConfig.js.
+ */
+
+const DBDefs = window[GLOBAL_JS_NAMESPACE].DBDefs;
+EOF
 
 for my $conversion (@conversions) {
     my ($defs, $convert, $flowtype) = @{$conversion}{qw(defs convert flowtype)};
@@ -144,22 +157,18 @@ for my $conversion (@conversions) {
         my $json_value = $json->encode(${$convert->(@raw_value)});
         my $line = "export const $def/*: $flowtype */ = $json_value;\n";
         $server_code .= $line;
-        push @all_server_defs, $def;
         if ($CLIENT_DEFS{$def}) {
             $client_code .= $line;
-            push @all_client_defs, $def;
+            my $browser_line  = "export const $def = DBDefs.$def;\n";
+            $browser_code .= $browser_line;
         }
     }
 }
 
-# Continue to allow importing as `import DBDefs from ...` by providing a
-# default export.
-$server_code .= 'export default {' . (join q(, ), @all_server_defs) . "};\n";
-$client_code .= 'export default {' . (join q(, ), @all_client_defs) . "};\n";
-
 my $common_dir = "$FindBin::Bin/../root/static/scripts/common";
 my $server_js_path = "$common_dir/DBDefs.mjs";
 my $client_js_path = "$common_dir/DBDefs-client.mjs";
+my $browser_js_path = "$common_dir/DBDefs-client-browser.mjs";
 
 open(my $fh, '>', $server_js_path);
 print $fh $server_code;
@@ -167,4 +176,8 @@ close $fh;
 
 open($fh, '>', $client_js_path);
 print $fh $client_code;
+close $fh;
+
+open($fh, '>', $browser_js_path);
+print $fh $browser_code;
 close $fh;

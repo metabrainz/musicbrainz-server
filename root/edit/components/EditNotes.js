@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
-import DBDefs from '../../static/scripts/common/DBDefs.mjs';
+import {DB_READ_ONLY} from '../../static/scripts/common/DBDefs.mjs';
 import {
   editorMayAddNote,
 } from '../../utility/edit.js';
@@ -50,7 +50,7 @@ component EditNotes(
         </div>
       ) : null}
 
-      {DBDefs.DB_READ_ONLY ? null : (
+      {DB_READ_ONLY ? null : (
         mayAddNote ? (
           <div
             className="add-edit-note edit-note"

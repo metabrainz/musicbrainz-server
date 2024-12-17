@@ -9,7 +9,7 @@
 import * as Sentry from '@sentry/browser';
 
 import getScriptArgs from './utility/getScriptArgs.js';
-import DBDefs from './DBDefs-client.mjs';
+import * as DBDefs from './DBDefs-client.mjs';
 
 const {user} = getScriptArgs();
 
