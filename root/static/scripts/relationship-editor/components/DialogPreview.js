@@ -21,6 +21,7 @@ import type {
   RelationshipStateT,
 } from '../types.js';
 import getBatchSelectionMessage from '../utility/getBatchSelectionMessage.js';
+import getRelationshipLinkType from '../utility/getRelationshipLinkType.js';
 import relationshipsHaveSamePhraseGroup
   from '../utility/relationshipsHaveSamePhraseGroup.js';
 
@@ -30,13 +31,16 @@ const createRelationshipTFromState = (
   backward: boolean,
 ) => {
   const target = backward ? relationship.entity0 : relationship.entity1;
+  const linkType = getRelationshipLinkType(relationship);
+  const hasDates = linkType ? linkType.has_dates : true;
+
   return {
     attributes: tree.toArray(relationship.attributes),
     backward,
-    begin_date: relationship.begin_date,
+    begin_date: hasDates ? relationship.begin_date : null,
     editsPending: relationship.editsPending,
-    end_date: relationship.end_date,
-    ended: relationship.ended,
+    end_date: hasDates ? relationship.end_date : null,
+    ended: hasDates ? relationship.ended : false,
     entity0: relationship.entity0,
     entity0_credit: relationship.entity0_credit,
     entity0_id: relationship.entity0.id,
