@@ -1079,6 +1079,14 @@ msgctxt "work_attribute_type"
 msgid "ASCAP ID"
 msgstr "ASCAP ID"
 
+#: DB:work_attribute_type/name:211
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "KODA ID"
+msgctxt "work_attribute_type"
+msgid "AUTODIA ID"
+msgstr "KODA ID"
+
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem"
@@ -4254,6 +4262,15 @@ msgctxt "work_attribute_type"
 msgid "ID for the German rights society GEMA"
 msgstr "ドイツの権利者団体GEMAのID"
 
+#. name:AUTODIA ID
+#: DB:work_attribute_type/description:211
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Czech rights society OSA"
+msgctxt "work_attribute_type"
+msgid "ID for the Greek rights society AUTODIA"
+msgstr "チェコの権利者団体OSAのID"
+
 #. name:AEI ID
 #: DB:work_attribute_type/description:58
 msgctxt "work_attribute_type"
@@ -4605,6 +4622,23 @@ msgstr "付随音楽は、（通常は）演劇の背景として書かれた音
 msgctxt "area_type"
 msgid "Indigenous territory / reserve"
 msgstr "先住民の領土/保護区"
+
+#. name:Indigenous territory / reserve
+#: DB:area_type/description:9
+#, fuzzy
+#| msgctxt "area_type"
+#| msgid ""
+#| "Used for semi-autonomous territories governed by indigenous peoples, such "
+#| "as Indian reserves/reservations in North America and indigenous "
+#| "territories in Central and South America."
+msgctxt "area_type"
+msgid ""
+"Indigenous territory / reserve is used for semi-autonomous territories "
+"governed by indigenous peoples, such as Indian reserves/reservations in "
+"North America and indigenous territories in Central and South America."
+msgstr ""
+"北米のインディアン居留地/居留地や中南米の先住民の領土など、先住民が統治する半"
+"自治区に使用される。"
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -5633,6 +5667,19 @@ msgstr "マイクロカセット"
 msgctxt "area_type"
 msgid "Military base"
 msgstr "軍事基地"
+
+#. name:Military base
+#: DB:area_type/description:8
+#, fuzzy
+#| msgctxt "area_type"
+#| msgid ""
+#| "Used for any military bases that are large enough to be considered an "
+#| "area, not just a place."
+msgctxt "area_type"
+msgid ""
+"Military base is used only for any military bases that are large enough to "
+"be considered an area, not just a place."
+msgstr "場所ではなく、エリアと見なすのに十分な大きさの軍事基地で使用される"
 
 #: DB:medium_format/name:166
 msgctxt "medium_format"
@@ -8517,25 +8564,6 @@ msgid ""
 msgstr ""
 "タグ付けに使用する作業が必要な画像に使用（ただし、参照用にすでに使用されてい"
 "る可能性あり）"
-
-#. name:Military base
-#: DB:area_type/description:8
-msgctxt "area_type"
-msgid ""
-"Used for any military bases that are large enough to be considered an area, "
-"not just a place."
-msgstr "場所ではなく、エリアと見なすのに十分な大きさの軍事基地で使用される"
-
-#. name:Indigenous territory / reserve
-#: DB:area_type/description:9
-msgctxt "area_type"
-msgid ""
-"Used for semi-autonomous territories governed by indigenous peoples, such as "
-"Indian reserves/reservations in North America and indigenous territories in "
-"Central and South America."
-msgstr ""
-"北米のインディアン居留地/居留地や中南米の先住民の領土など、先住民が統治する半"
-"自治区に使用される。"
 
 #. name:Poster
 #: DB:event_art_archive.art_type/description:1
