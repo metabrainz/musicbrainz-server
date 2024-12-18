@@ -18,9 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-12-09 11:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2024-12-11 20:42+0000\n"
+"Last-Translator: liilliil <liilliil@liilliil.net>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/history/ru/>\n"
 "Language: ru\n"
@@ -206,6 +205,8 @@ msgid ""
 "After unexpected upheaval on Freenode, MetaBrainz moves all official "
 "channels to Libera.Chat instead."
 msgstr ""
+"После неожиданных потрясений на Freenode, MetaBrainz переносит все "
+"официальные каналы на Libera.Chat."
 
 #: DB:statistics.statistic_event/title:2005-05-22
 msgid "Album languages"
@@ -225,7 +226,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-05-19
 msgid "Aliases for recordings, releases and release groups"
-msgstr ""
+msgstr "Псевдонимы для записей, релизов и релиз-групп"
 
 #: DB:statistics.statistic_event/description:2008-09-01
 msgid ""
