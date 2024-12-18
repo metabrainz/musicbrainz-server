@@ -9,9 +9,6 @@
  */
 
 import * as flags from '../../../flags.js';
-import input from '../Input.js';
-import gc from '../Main.js';
-import output from '../Output.js';
 
 import GuessCaseHandler from './Base.js';
 
@@ -24,31 +21,31 @@ class GuessCaseLabelHandler extends GuessCaseHandler {
    */
   checkSpecialCase(inputString?: string): number {
     if (inputString != null) {
-      if (!gc.regexes.LABEL_EMPTY) {
+      if (!this.regexes.LABEL_EMPTY) {
         // Match empty
-        gc.regexes.LABEL_EMPTY = /^\s*$/i;
+        this.regexes.LABEL_EMPTY = /^\s*$/i;
         // Match "unknown" and variants
-        gc.regexes.LABEL_UNKNOWN = /^[([]?\s*Unknown\s*[)\]]?$/i;
+        this.regexes.LABEL_UNKNOWN = /^[([]?\s*Unknown\s*[)\]]?$/i;
         // Match "none" and variants
-        gc.regexes.LABEL_NONE = /^[([]?\s*none\s*[)\]]?$/i;
+        this.regexes.LABEL_NONE = /^[([]?\s*none\s*[)\]]?$/i;
         // Match "no label" and variants
-        gc.regexes.LABEL_NOLABEL = /^[([]?\s*no[\s-]+label\s*[)\]]?$/i;
+        this.regexes.LABEL_NOLABEL = /^[([]?\s*no[\s-]+label\s*[)\]]?$/i;
         // Match "not applicable" and variants
-        gc.regexes.LABEL_NOTAPPLICABLE = /^[([]?\s*not[\s-]+applicable\s*[)\]]?$/i;
+        this.regexes.LABEL_NOTAPPLICABLE = /^[([]?\s*not[\s-]+applicable\s*[)\]]?$/i;
         // Match "n/a" and variants
-        gc.regexes.LABEL_NA = /^[([]?\s*n\s*[\\/]\s*a\s*[)\]]?$/i;
+        this.regexes.LABEL_NA = /^[([]?\s*n\s*[\\/]\s*a\s*[)\]]?$/i;
       }
-      if (inputString.match(gc.regexes.LABEL_EMPTY)) {
+      if (inputString.match(this.regexes.LABEL_EMPTY)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;
-      } else if (inputString.match(gc.regexes.LABEL_UNKNOWN)) {
+      } else if (inputString.match(this.regexes.LABEL_UNKNOWN)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;
-      } else if (inputString.match(gc.regexes.LABEL_NONE)) {
+      } else if (inputString.match(this.regexes.LABEL_NONE)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;
-      } else if (inputString.match(gc.regexes.LABEL_NOLABEL)) {
+      } else if (inputString.match(this.regexes.LABEL_NOLABEL)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;
-      } else if (inputString.match(gc.regexes.LABEL_NOTAPPLICABLE)) {
+      } else if (inputString.match(this.regexes.LABEL_NOTAPPLICABLE)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;
-      } else if (inputString.match(gc.regexes.LABEL_NA)) {
+      } else if (inputString.match(this.regexes.LABEL_NA)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       }
     }
@@ -60,9 +57,9 @@ class GuessCaseLabelHandler extends GuessCaseHandler {
    * in the common word handlers.
    */
   doWord(): boolean {
-    output.appendSpaceIfNeeded();
-    input.capitalizeCurrentWord();
-    output.appendCurrentWord();
+    this.output.appendSpaceIfNeeded();
+    this.input.capitalizeCurrentWord();
+    this.output.appendCurrentWord();
 
     flags.resetContext();
     flags.context.number = false;

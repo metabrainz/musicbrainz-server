@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable @stylistic/js/no-multi-spaces */
+/* eslint-disable @stylistic/no-multi-spaces */
 /* eslint-disable no-unused-vars */
 
 declare type VoteOptionT =
@@ -16,7 +16,7 @@ declare type VoteOptionT =
   |  0   // No
   |  1   // Yes
   |  2;  // Approve
-/* eslint-enable @stylistic/js/no-multi-spaces */
+/* eslint-enable @stylistic/no-multi-spaces */
 
 // MusicBrainz::Server::Entity::Vote::TO_JSON
 declare type VoteT = {

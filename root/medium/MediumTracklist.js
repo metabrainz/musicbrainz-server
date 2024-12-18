@@ -39,7 +39,7 @@ component MediumTracklist(
     if (track.isDataTrack && !dataTracksStarted) {
       dataTracksStarted = true;
       tracklist.push(
-        <tr className="subh">
+        <tr className="subh" key="data-tracks-subheader">
           <td colSpan="6">
             <DataTrackIcon />
             {' '}
@@ -53,6 +53,7 @@ component MediumTracklist(
       <tr
         className={loopParity(index) + (track.editsPending ? ' mp' : '')}
         id={track.gid}
+        key={index}
       >
         <td className="pos t">
           {track.position === 0 ? (

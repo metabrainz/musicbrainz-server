@@ -3,7 +3,10 @@ use MooseX::Role::Parameterized;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Data::Alias;
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw(
+    find_best_primary_alias
+    type_to_model
+);
 use Moose::Util qw( ensure_all_roles );
 
 parameter 'type' => (
@@ -80,6 +83,25 @@ role
         }
 
         return \%ret;
+    };
+
+    method 'load_aliases' => sub {
+        my ($self, @entities) = @_;
+
+        my $entity_aliases = $self->alias->find_by_entity_ids(
+            map { $_->id } @entities,
+        );
+        my @all_aliases = map { @$_ } values %$entity_aliases;
+        $self->alias_type->load(@all_aliases);
+        for my $entity (@entities) {
+            my @aliases = @{ $entity_aliases->{$entity->id} };
+            $entity->aliases(\@aliases);
+            my $best_alias = find_best_primary_alias(
+                \@aliases,
+                $self->c->current_language,
+            );
+            $entity->primary_alias($best_alias->name) if defined $best_alias;
+        }
     };
 };
 

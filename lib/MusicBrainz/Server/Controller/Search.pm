@@ -124,9 +124,14 @@ sub direct : Private
 
     my @entities = map { $_->entity } @$results;
 
+    my $model = $c->model(type_to_model($type));
+
+    if ($model->can('load_aliases')) {
+        $model->load_aliases(@entities);
+    }
+
     if ($type eq 'artist') {
-        my $lang = $c->stash->{current_language} // 'en';
-        $c->model('Artist')->load_related_info(\@entities, $lang);
+        $c->model('Artist')->load_related_info(@entities);
     }
     elsif ($type eq 'editor') {
         $c->model('Editor')->load_preferences(@entities);
@@ -195,6 +200,7 @@ sub direct : Private
     }
     elsif ($type eq 'tag') {
         $c->model('Genre')->load(@entities);
+        $c->model('Genre')->load_aliases(map { $_->{genre} // () } @entities);
     }
 
     if ($type =~ /(recording|release|release_group)/)
@@ -245,15 +251,12 @@ sub do_external_search {
     my $query = $opts{query};
     my $type  = $opts{type};
 
-    my $lang = $c->stash->{current_language} // 'en';
-
     my $search = $c->model('Search');
     my $ret = $search->external_search($type,
                                        $query,
                                        $limit,
                                        $page,
-                                       $advanced,
-                                       $lang);
+                                       $advanced);
 
     if (exists $ret->{error})
     {

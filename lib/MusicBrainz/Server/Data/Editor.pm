@@ -20,14 +20,18 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     placeholders
     sanitize
-    type_to_model
 );
-use MusicBrainz::Server::Constants qw( :edit_status :privileges );
-use MusicBrainz::Server::Constants qw( $PASSPHRASE_BCRYPT_COST );
-use MusicBrainz::Server::Constants qw( :create_entity $EDIT_HISTORIC_ADD_RELEASE );
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
-use MusicBrainz::Server::Constants qw( $EDIT_EVENT_ADD_EVENT_ART );
-use MusicBrainz::Server::Constants qw( :vote );
+use MusicBrainz::Server::Constants qw(
+    :create_entity
+    :edit_status
+    :privileges
+    :vote
+    %ENTITIES
+    $EDIT_HISTORIC_ADD_RELEASE
+    $EDIT_RELEASE_ADD_COVER_ART
+    $EDIT_EVENT_ADD_EVENT_ART
+    $PASSPHRASE_BCRYPT_COST
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -117,10 +121,12 @@ sub summarize_ratings
 
     return {
         map {
-            my ($entities) = $self->c->model(type_to_model($_))->rating
+            my $entity_properties = $ENTITIES{$_};
+            my ($entities) = $self->c->model($entity_properties->{model})->rating
                 ->find_editor_ratings($user->id, $me, 10, 0);
 
-            $self->c->model('ArtistCredit')->load(@$entities);
+            $self->c->model('ArtistCredit')->load(@$entities)
+                if $entity_properties->{artist_credits};
 
             ($_ => to_json_array($entities));
         } entities_with('ratings'),

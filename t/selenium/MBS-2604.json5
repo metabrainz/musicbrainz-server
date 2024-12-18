@@ -63,6 +63,11 @@
       value: '',
     },
     {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
       command: 'type',
       target: 'id=id-edit-artist.name',
       value: 'Test Artist',

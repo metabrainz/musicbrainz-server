@@ -9,18 +9,12 @@
 
 import * as flags from '../../../flags.js';
 import * as modes from '../../../modes.js';
-import * as utils from '../../../utils.js';
-import gc from '../Main.js';
+import trim from '../../../utils/trim.js';
 
 import GuessCaseHandler from './Base.js';
 
 // Area specific GuessCase functionality
 class GuessCaseAreaHandler extends GuessCaseHandler {
-  // Checks special cases
-  checkSpecialCase(): number {
-    return this.specialCaseValues.NOT_A_SPECIALCASE;
-  }
-
   /*
    * Delegate function which handles words not handled
    * in the common word handlers.
@@ -32,7 +26,7 @@ class GuessCaseAreaHandler extends GuessCaseHandler {
     (
       this.doIgnoreWords() ||
       this.doFeaturingArtistStyle() ||
-      modes[gc.modeName].doWord() ||
+      modes[this.modeName].doWord() ||
       this.doNormalWord()
     );
     flags.context.number = false;
@@ -41,7 +35,7 @@ class GuessCaseAreaHandler extends GuessCaseHandler {
 
   // Guesses the sortname for areas
   guessSortName(inputString: string): string {
-    return utils.trim(inputString);
+    return trim(inputString);
   }
 }
 

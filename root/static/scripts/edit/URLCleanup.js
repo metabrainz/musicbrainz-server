@@ -1575,6 +1575,27 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/(?:www\.)?([^./]+)\.blogspot\.(?:[a-z]{2,3}\.)?[a-z]{2,3}(?:\/)?/, '$1.blogspot.com/');
     },
   },
+  'bluesky': {
+    match: [/^(https?:\/\/)?([^/]+\.)?bsky\.app\//i],
+    restrict: [LINK_TYPES.socialnetwork],
+    clean(url) {
+      url = url.replace(
+        /^(?:https?:\/\/)?(?:www\.)?bsky\.app\//,
+        'https://bsky.app/',
+      );
+      url = url.replace(
+        /^https:\/\/bsky\.app\/profile\/([^/?#]+).*$/,
+        'https://bsky.app/profile/$1',
+      );
+      return url;
+    },
+    validate(url) {
+      if (/^https:\/\/bsky\.app\/profile\/([^/?#]+)$/.test(url)) {
+        return {result: true};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'bnfcatalogue': {
     match: [
       /^(https?:\/\/)?(catalogue|data)\.bnf\.fr\//i,
@@ -2816,13 +2837,13 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'hmikuwiki': {
-    match: [/^(https?:\/\/)?(?:www5\.)?atwiki\.jp\/hmiku\//i],
+    match: [/^(https?:\/\/)?(?:www5\.|w\.)?atwiki\.jp\/hmiku\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www5\.)?atwiki\.jp\/([^#]+)(?:#.*)?$/, 'https://www5.atwiki.jp/$1');
+      return url.replace(/^(?:https?:\/\/)?(?:www5\.|w\.)?atwiki\.jp\/([^#]+)(?:#.*)?$/, 'https://w.atwiki.jp/$1');
     },
     validate(url, id) {
-      if (/^https:\/\/www5\.atwiki\.jp\/hmiku\/pages\/[1-9][0-9]*\.html$/.test(url)) {
+      if (/^https:\/\/w\.atwiki\.jp\/hmiku\/pages\/[1-9][0-9]*\.html$/.test(url)) {
         if (id === LINK_TYPES.otherdatabases.artist ||
             id === LINK_TYPES.otherdatabases.release_group ||
             id === LINK_TYPES.otherdatabases.work) {
@@ -5504,11 +5525,12 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?(www\.)?ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}/i],
     restrict: [LINK_TYPES.ticketing],
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(?:[\w-]+\/)?(artist|event|venue)\/(?:[\w-]+\/)?(\w+).*$/, 'https://www.ticketmaster.$1/$2/$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.fr\/(?:[\w-]+\/)?(manifestation|salle)\/(?:[\w-]+\/)?(idmanif|idsite)\/([\w-]+).*$/, 'https://www.ticketmaster.fr/$1/$2/$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(?:[\w-]+\/)?(artist|event|venue)\/(?:[\w-]+\/)?([\w-]+).*$/, 'https://www.ticketmaster.$1/$2/$3');
       return url;
     },
     validate(url, id) {
-      const m = /^https:\/\/www\.ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|venue)\/\w+$/.exec(url);
+      const m = /^https:\/\/www\.ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|manifestation\/idmanif|salle\/idsite|venue)\/[\w-]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -5518,12 +5540,12 @@ const CLEANUPS: CleanupEntries = {
             }
             return {result: false, target: ERROR_TARGETS.ENTITY};
           case LINK_TYPES.ticketing.event:
-            if (prefix === 'event') {
+            if (prefix === 'event' || prefix === 'manifestation/idmanif') {
               return {result: true};
             }
             return {result: false, target: ERROR_TARGETS.ENTITY};
           case LINK_TYPES.ticketing.place:
-            if (prefix === 'venue') {
+            if (prefix === 'venue' || prefix === 'salle/idsite') {
               return {result: true};
             }
             return {result: false, target: ERROR_TARGETS.ENTITY};

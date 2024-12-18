@@ -24,6 +24,7 @@ use MusicBrainz::Server::Constants qw(
     $EDITOR_MODBOT
     $MINIMUM_RESPONSE_PERIOD
 );
+use MusicBrainz::Server::Data::Utils qw( generate_gid );
 use MusicBrainz::Server::Email::AutoEditorElection::Nomination;
 use MusicBrainz::Server::Email::AutoEditorElection::VotingOpen;
 use MusicBrainz::Server::Email::AutoEditorElection::Timeout;
@@ -75,7 +76,7 @@ sub _create_email
 
     # Add a Message-Id header if there isn't one.
     if ( !(any { "$_" eq 'Message-Id' } @$headers) ) {
-        push @$headers, 'Message-Id', _message_id('uncategorized-email-%d', time());
+        push @$headers, 'Message-Id', _message_id('uncategorized-email-%s', generate_gid());
     }
     return Email::MIME->create(
         header => $headers,
@@ -95,7 +96,7 @@ sub _create_email_verification_email
         'To'         => $opts{email},
         'From'       => $EMAIL_NOREPLY_ADDRESS,
         'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => _message_id('verify-email-%d', time()),
+        'Message-Id' => _message_id('verify-email-%s', generate_gid()),
         'Subject'    => 'Please verify your email address',
     );
 
@@ -132,7 +133,7 @@ sub _create_email_in_use_email
         'To'         => $opts{email},
         'From'       => $EMAIL_NOREPLY_ADDRESS,
         'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => _message_id('email-in-use-%d', time()),
+        'Message-Id' => _message_id('email-in-use-%s', generate_gid()),
         'Subject'    => 'Email address already in use',
     );
 
@@ -186,7 +187,7 @@ sub _create_lost_username_email
         'To'         => _user_address($opts{user}),
         'From'       => $EMAIL_NOREPLY_ADDRESS,
         'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => _message_id('lost-username-%d', time()),
+        'Message-Id' => _message_id('lost-username-%s', generate_gid()),
         'Subject'    => 'Lost username',
     );
 
@@ -224,7 +225,7 @@ sub _create_no_vote_email
         'To'          => _user_address($opts{editor}),
         'From'        => $EMAIL_NOREPLY_ADDRESS,
         'Reply-To'    => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id'  => _message_id('edit-%d-%d-no-vote-%d', $edit_id, $voter->id, time()),
+        'Message-Id'  => _message_id('edit-%d-%d-no-vote-%s', $edit_id, $voter->id, generate_gid()),
         'References'  => _message_id('edit-%d', $edit_id),
         'In-Reply-To' => _message_id('edit-%d', $edit_id),
         'Subject'     => "Someone has voted against your edit #$edit_id",
@@ -274,7 +275,7 @@ sub _create_password_reset_request_email
         'To'         => _user_address($opts{user}),
         'From'       => $EMAIL_NOREPLY_ADDRESS,
         'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => _message_id('password-reset-%d', time()),
+        'Message-Id' => _message_id('password-reset-%s', generate_gid()),
         'Subject'    => 'Password reset request',
     );
 
@@ -335,7 +336,7 @@ sub _create_edit_note_email
         'To'          => _user_address($editor),
         'From'        => _user_address($from_editor, 1),
         'Sender'      => $EMAIL_NOREPLY_ADDRESS,
-        'Message-Id'  => _message_id('edit-%d-%s-edit-note-%d', $edit_id, $from_editor->id, time()),
+        'Message-Id'  => _message_id('edit-%d-%s-edit-note-%s', $edit_id, $from_editor->id, generate_gid()),
         'References'  => _message_id('edit-%d', $edit_id),
         'In-Reply-To' => _message_id('edit-%d', $edit_id),
     );
@@ -405,7 +406,7 @@ sub send_message_to_editor
         # TODO: send the user's language preference here. (This preference is not yet stored on the server)
         # Which language should we use, as this email is going to a different user?
         # 'lang'
-        message_id  => _message_id('correspondence-%s-%s-%d', $correspondents[0]->id, $correspondents[1]->id, time()),
+        message_id  => _message_id('correspondence-%s-%s-%s', $correspondents[0]->id, $correspondents[1]->id, generate_gid()),
         references  => [_message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id)],
         in_reply_to => [_message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id)],
         params      => {
@@ -591,7 +592,7 @@ sub send_editor_report {
         'To'          => $EMAIL_ACCOUNT_ADMINS_ADDRESS,
         'Sender'      => $EMAIL_NOREPLY_ADDRESS,
         'Subject'     => _encode_header($subject),
-        'Message-Id'  => _message_id('editor-report-%s-%d', $reported_user->id, time),
+        'Message-Id'  => _message_id('editor-report-%s-%s', $reported_user->id, generate_gid()),
     );
 
     push @headers, 'From', _user_address($reporter, 1);
@@ -611,7 +612,7 @@ sub send_editor_report {
             'To'          => _user_address($reporter),
             'Sender'      => $EMAIL_NOREPLY_ADDRESS,
             'Subject'     => _encode_header($copy_subject),
-            'Message-Id'  => _message_id('editor-report-copy-%s-%d', $reported_user->id, time),
+            'Message-Id'  => _message_id('editor-report-copy-%s-%s', $reported_user->id, generate_gid()),
         );
 
         push @copy_headers, 'From', _user_address($reporter, 1);

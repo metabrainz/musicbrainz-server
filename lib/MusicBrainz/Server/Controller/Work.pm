@@ -67,6 +67,7 @@ after 'load' => sub
     my $returning_jsonld = $self->should_return_jsonld($c);
 
     unless ($returning_jsonld) {
+        $c->model('Work')->load_aliases($work);
         $c->model('Work')->load_meta($work);
 
         if ($c->user_exists) {
@@ -173,6 +174,7 @@ sub stash_work_form_json {
 sub _merge_load_entities
 {
     my ($self, $c, @works) = @_;
+    $c->model('Work')->load_aliases(@works);
     $c->model('Work')->load_meta(@works);
     $c->model('WorkType')->load(@works);
     $c->model('Work')->load_writers(@works);

@@ -6,7 +6,7 @@ use HTTP::Status qw( :constants );
 
 extends 'MusicBrainz::Server::Controller';
 
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json type_to_model );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -90,9 +90,17 @@ sub show : Chained('load') PathPart('')
             tag => $tag->TO_JSON,
             taggedEntities => {
                 map {
-                    my ($entities, $total) = $c->model(type_to_model($_))->tags->find_entities(
+                    my $entity_properties = $ENTITIES{$_};
+                    my $model = $c->model($entity_properties->{model});
+
+                    my ($entity_tags, $total) = $model->tags->find_entities(
                         $tag->id, 10, 0);
-                    $c->model('ArtistCredit')->load(map { $_->entity } @$entities);
+
+                    my @entities = map { $_->entity } @$entity_tags;
+                    $model->load_aliases(@entities)
+                        if $model->can('load_aliases');
+                    $c->model('ArtistCredit')->load(@entities)
+                        if $entity_properties->{artist_credits};
 
                     ("$_" => {
                         count => $total,
@@ -100,7 +108,7 @@ sub show : Chained('load') PathPart('')
                             count => $_->{count},
                             entity => $_->{entity}->TO_JSON,
                             entity_id => $_->{entity_id},
-                        }, @$entities],
+                        }, @$entity_tags],
                     })
                 } entities_with('tags'),
             },
@@ -116,11 +124,14 @@ for my $entity_type (entities_with('tags')) {
     my $method = sub {
         my ($self, $c) = @_;
 
+        my $model = $c->model($entity_properties->{model});
         my $entity_tags = $self->_load_paged($c, sub {
-            $c->model($entity_properties->{model})->tags->find_entities($c->stash->{tag}->id, shift, shift);
+            $model->tags->find_entities($c->stash->{tag}->id, shift, shift);
         });
+        my @entities = map { $_->entity } @$entity_tags;
 
-        $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags) if $entity_properties->{artist_credits};
+        $model->load_aliases(@entities) if $model->can('load_aliases');
+        $c->model('ArtistCredit')->load(@entities) if $entity_properties->{artist_credits};
         $c->stash(
             current_view => 'Node',
             component_path => 'tag/EntityList',

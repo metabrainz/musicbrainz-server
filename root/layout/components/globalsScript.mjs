@@ -8,7 +8,7 @@
  */
 
 import {CatalystContext} from '../../context.mjs';
-import DBDefs from '../../static/scripts/common/DBDefs-client.mjs';
+import * as DBDefs from '../../static/scripts/common/DBDefs-client.mjs';
 import escapeClosingTags from '../../utility/escapeClosingTags.js';
 import sanitizedContext from '../../utility/sanitizedContext.mjs';
 

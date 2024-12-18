@@ -126,7 +126,7 @@ component AddMedium(allowNew?: boolean, edit: AddMediumEditT) {
       <tr>
         <th>{addColonText(l('Tracklist'))}</th>
         <td>
-          <table className="tbl">
+          <table className="tbl medium">
             <tbody>
               {display.tracks?.length ? (
                 <MediumTracklist

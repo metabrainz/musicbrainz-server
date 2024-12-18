@@ -15,6 +15,8 @@ export function artistBeginAreaLabel(typeId: ?number): string {
     case 5:
     case 6:
       return addColonText(lp('Founded in', 'group artist'));
+    case 4:
+      return addColonText(lp('Created in', 'character artist'));
     default:
       return addColonText(l('Begin area'));
   }

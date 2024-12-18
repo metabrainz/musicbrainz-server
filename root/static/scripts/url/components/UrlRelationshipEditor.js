@@ -42,9 +42,7 @@ component _UrlRelationshipEditor(...props: PropsT) {
     const urlControl = document.getElementById('id-edit-url.url');
 
     function handleUrlChange(this: HTMLInputElement) {
-      /* eslint-disable react/no-this-in-sfc */
       this.value = getUnicodeUrl(this.value);
-      /* eslint-enable react/no-this-in-sfc */
     }
 
     urlControl?.addEventListener('change', handleUrlChange);

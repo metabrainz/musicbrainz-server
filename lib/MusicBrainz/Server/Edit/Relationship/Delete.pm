@@ -4,6 +4,7 @@ use Try::Tiny;
 
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw(
+    %ENTITIES
     $AMAZON_ASIN_LINK_TYPE_ID
     $CONTACT_URL
     $EDIT_RELATIONSHIP_DELETE
@@ -97,8 +98,20 @@ sub foreign_keys
     my $entity0 = $self->data->{relationship}{entity0};
     my $entity1 = $self->data->{relationship}{entity1};
 
-    $ids{$self->model0}->{gid_or_id($entity0)} = [ 'ArtistCredit' ];
-    $ids{$self->model1}->{gid_or_id($entity1)} = [ 'ArtistCredit' ];
+    my $entity0_properties = $ENTITIES{$self->data->{relationship}{link}{type}{entity0_type}};
+    my $entity1_properties = $ENTITIES{$self->data->{relationship}{link}{type}{entity1_type}};
+
+    if ($entity0_properties->{artist_credits}) {
+        $ids{$self->model0} = { gid_or_id($entity0) => [ 'ArtistCredit' ] };
+    } else {
+        $ids{$self->model0} = [ gid_or_id($entity0) ];
+    }
+
+    if ($entity1_properties->{artist_credits}) {
+        $ids{$self->model1} = { gid_or_id($entity1) => [ 'ArtistCredit' ] };
+    } else {
+        $ids{$self->model1} = [ gid_or_id($entity1) ];
+    }
 
     $ids{LinkType} = [$self->data->{link}{type}{id}];
     $ids{LinkAttributeType} = { map { $_->{type}{id} => ['LinkAttributeType'] } @{ $self->data->{relationship}{link}{attributes} // [] } };

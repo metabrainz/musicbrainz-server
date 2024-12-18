@@ -13,7 +13,8 @@ import PlaceList from '../components/list/PlaceList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
-import DBDefs from '../static/scripts/common/DBDefs-client.mjs';
+import {MAPBOX_ACCESS_TOKEN}
+  from '../static/scripts/common/DBDefs-client.mjs';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
@@ -31,7 +32,7 @@ component AreaPlaces(
 
       {places?.length ? (
         <>
-          {DBDefs.MAPBOX_ACCESS_TOKEN ? (
+          {MAPBOX_ACCESS_TOKEN ? (
             <>
               <div id="largemap" />
               {manifest('area/places-map', {'data-args': mapDataArgs})}
