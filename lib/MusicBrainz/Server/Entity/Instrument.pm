@@ -6,7 +6,8 @@ use MusicBrainz::Server::Translation::Instruments;
 use MusicBrainz::Server::Translation::InstrumentDescriptions;
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Annotation',
+with 'MusicBrainz::Server::Entity::Role::Alias',
+     'MusicBrainz::Server::Entity::Role::Annotation',
      'MusicBrainz::Server::Entity::Role::Comment',
      'MusicBrainz::Server::Entity::Role::Relatable',
      'MusicBrainz::Server::Entity::Role::Taggable',

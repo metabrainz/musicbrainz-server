@@ -84,14 +84,13 @@ after 'load' => sub {
     my $release = $c->stash->{release};
     my $returning_jsonld = $self->should_return_jsonld($c);
 
-    $c->model('Release')->load_meta($release)
-        unless $returning_jsonld;
-
     # Load release group
     $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroupType')->load($release->release_group);
 
     unless ($returning_jsonld) {
+        $c->model('Release')->load_aliases($release);
+        $c->model('Release')->load_meta($release);
         $c->model('ReleaseGroup')->load_meta($release->release_group);
         $c->model('Relationship')->load($release->release_group);
         $c->model('ArtistType')->load(map { $_->target } @{ $release->relationships_by_type('artist') }, @{ $release->release_group->relationships_by_type('artist') });
@@ -493,6 +492,7 @@ around _validate_merge => sub {
 sub _merge_load_entities {
     my ($self, $c, @releases) = @_;
     $c->model('ArtistCredit')->load(@releases);
+    $c->model('Release')->load_aliases(@releases);
     $c->model('Release')->load_related_info(@releases);
 }
 
@@ -505,6 +505,7 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
+    $c->model('Release')->load_aliases($release);
     $c->model('Release')->load_meta($release);
     $c->model('ArtistCredit')->load($release);
     $c->model('ReleaseGroup')->load($release);

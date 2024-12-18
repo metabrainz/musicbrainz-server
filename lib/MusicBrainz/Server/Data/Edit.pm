@@ -687,7 +687,9 @@ sub load_all
     my $load_arguments = {};
     while (my ($model, $ids) = each %$objects_to_load) {
         my $m = ref $model ? $model : $self->c->model($model);
-        $loaded->{$model} = $m->get_by_any_ids(@$ids);
+        my $loaded_for_model = $m->get_by_any_ids(@$ids);
+        $m->load_aliases(values %$loaded_for_model) if $m->can('load_aliases');
+        $loaded->{$model} = $loaded_for_model;
 
         # Now we need to load any extra information about each object
         for my $id (@$ids) {

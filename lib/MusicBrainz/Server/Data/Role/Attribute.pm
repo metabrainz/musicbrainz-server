@@ -34,6 +34,14 @@ sub _column_mapping {
     };
 }
 
+sub find_by_name {
+    my ($self, $name) = @_;
+    my $row = $self->sql->select_single_row_hash(
+        'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
+        WHERE lower(name) = lower(?)', $name);
+    return $row ? $self->_new_from_row($row) : undef;
+}
+
 sub has_children {
     my ($self, $id) = @_;
     return $self->sql->select_single_value(

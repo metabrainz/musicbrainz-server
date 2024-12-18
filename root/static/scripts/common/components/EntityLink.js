@@ -13,6 +13,7 @@ import * as React from 'react';
 
 import type {ReleaseEditorTrackT} from '../../release-editor/types.js';
 import isGreyedOut from '../../url/utility/isGreyedOut.js';
+import {AREA_TYPE_COUNTRY} from '../constants.js';
 import commaOnlyList from '../i18n/commaOnlyList.js';
 import localizeAreaName from '../i18n/localizeAreaName.js';
 import localizeInstrumentName from '../i18n/localizeInstrumentName.js';
@@ -165,7 +166,6 @@ component EntityLink(
     | LinkTypeT
     | TrackT
     | ReleaseEditorTrackT,
-  hover as passedHover?: string,
   nameVariation as passedNameVariation?: boolean,
   showArtworkPresence: boolean = false,
   showCreditedAs: boolean = false,
@@ -188,9 +188,20 @@ component EntityLink(
   const hasSubPath = nonEmpty(subPath);
   // $FlowIgnore[prop-missing]
   const comment = nonEmpty(entity.comment) ? ko.unwrap(entity.comment) : '';
+  const entityName = ko.unwrap(entity.name);
+  const isCountryArea = entity.entityType === 'area' &&
+                        entity.typeID === AREA_TYPE_COUNTRY;
+  const primaryAlias = (!isCountryArea &&
+                        entity.entityType !== 'instrument' &&
+                        entity.entityType !== 'track' &&
+                        nonEmpty(entity.primaryAlias) &&
+                        entity.primaryAlias !== entityName)
+    ? entity.primaryAlias
+    : '';
+
 
   let content = passedContent;
-  let hover = passedHover;
+  let hover = '';
   let nameVariation = passedNameVariation;
   let showDisambiguation = passedShowDisambiguation;
   let showIcon = passedShowIcon;
@@ -211,17 +222,15 @@ component EntityLink(
     showDisambiguation = !hasCustomContent;
   }
 
-  if (entity.entityType === 'artist' && empty(hover)) {
-    hover = entity.sort_name + (comment ? ' ' + bracketedText(comment) : '');
+  if (showDisambiguation === 'hover' || entity.entityType === 'artist') {
+    const sortName = entity.entityType === 'artist' ? entity.sort_name : '';
+    const additionalName = nonEmpty(primaryAlias) ? primaryAlias : sortName;
+    hover = nonEmpty(additionalName) ? (
+      nonEmpty(comment) ? (
+        additionalName + ' ' + bracketedText(comment)
+      ) : additionalName
+    ) : comment;
   }
-
-  if (showDisambiguation === 'hover') {
-    hover = empty(hover)
-      ? comment
-      : hover + ' ' + bracketedText(comment);
-  }
-
-  const entityName = ko.unwrap(entity.name);
 
   /*
    * If we were asked to display the credited-as text explicitly,
@@ -482,12 +491,6 @@ component EntityLink(
         />,
       );
     }
-    const primaryAlias =
-      (entity.entityType !== 'track' &&
-        nonEmpty(entity.primaryAlias) &&
-        entity.primaryAlias !== entityName)
-        ? entity.primaryAlias
-        : '';
     if (nonEmpty(comment) || nonEmpty(primaryAlias)) {
       parts.push(
         <Comment

@@ -73,6 +73,7 @@ sub artists : Chained('load') {
         $instrument_credits_and_rel_types{$item->{artist}->gid} = \@credits_and_rel_types if @credits_and_rel_types;
     }
 
+    $c->model('Artist')->load_aliases(@artists);
     $c->model('Artist')->load_meta(@artists);
     $c->model('ArtistType')->load(@artists);
     $c->model('Gender')->load(@artists);
@@ -112,6 +113,7 @@ sub recordings : Chained('load') {
         $instrument_credits_and_rel_types{$item->{recording}->gid} = \@credits_and_rel_types if @credits_and_rel_types;
     }
 
+    $c->model('Recording')->load_aliases(@recordings);
     $c->model('Recording')->load_meta(@recordings);
 
     if ($c->user_exists) {
@@ -152,6 +154,7 @@ sub releases : Chained('load') {
     }
 
     $c->model('ArtistCredit')->load(@releases);
+    $c->model('Release')->load_aliases(@releases);
     $c->model('Release')->load_related_info(@releases);
 
     my %props = (
