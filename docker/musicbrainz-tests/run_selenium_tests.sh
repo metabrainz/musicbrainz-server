@@ -60,6 +60,7 @@ sudo -E -H -u musicbrainz carton exec -- \
 sv down template-renderer
 sleep 10
 sudo -E -H -u musicbrainz ./node_modules/.bin/nyc report --reporter=html
+sudo -E -H -u musicbrainz ./node_modules/.bin/nyc report --reporter=cobertura
 
 if [ "$GITHUB_ACTIONS" = 'true' ]; then
   if [ -d junit_output ]; then
@@ -72,4 +73,5 @@ if [ "$GITHUB_ACTIONS" = 'true' ]; then
   done
   cp -a t/selenium/.sir-*.log "$artifacts"
   cp -Ra coverage "$artifacts"
+  cp -a coverage/cobertura-coverage.xml "$GITHUB_WORKSPACE"
 fi

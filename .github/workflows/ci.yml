@@ -83,3 +83,8 @@ jobs:
           report_paths: 'junit_output/*.xml'
           fail_on_failure: true
           require_tests: true
+
+      - uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: cobertura-coverage.xml
+          format: markdown
