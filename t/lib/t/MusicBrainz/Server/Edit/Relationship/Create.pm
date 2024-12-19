@@ -4,6 +4,7 @@ use warnings;
 
 use Test::Routine;
 use Test::More;
+use MusicBrainz::Server::Entity::Util::JSON;
 
 with 't::Edit';
 with 't::Context';
@@ -161,6 +162,28 @@ test 'Adding an Amazon relationship updates the release ASIN' => sub {
         $e0->amazon_asin,
         'B00005CDNG',
         'Release ASIN is set after adding relationship',
+    );
+};
+
+test 'MBS-13862: entity0 is loaded for display when it has the same type as entity1' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $linked_entities = {};
+    local $MusicBrainz::Server::Entity::Util::JSON::linked_entities = $linked_entities;
+
+    my $edit = _create_edit($c);
+    die 'invalid test' # in case _create_edit accidentally changes
+        unless $edit->{data}{type0} eq $edit->{data}{type1};
+
+    $c->model('Edit')->load_all($edit);
+
+    my $entity0_id = $edit->display_data->{relationship}{entity0_id};
+    ok(
+        defined $linked_entities->{artist}{$entity0_id}{gid},
+        'entity0 is loaded into $linked_entities',
     );
 };
 
