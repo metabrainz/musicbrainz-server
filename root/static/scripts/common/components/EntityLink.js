@@ -191,14 +191,6 @@ component EntityLink(
   const entityName = ko.unwrap(entity.name);
   const isCountryArea = entity.entityType === 'area' &&
                         entity.typeID === AREA_TYPE_COUNTRY;
-  const primaryAlias = (!isCountryArea &&
-                        entity.entityType !== 'instrument' &&
-                        entity.entityType !== 'track' &&
-                        nonEmpty(entity.primaryAlias) &&
-                        entity.primaryAlias !== entityName)
-    ? entity.primaryAlias
-    : '';
-
 
   let content = passedContent;
   let hover = '';
@@ -216,20 +208,6 @@ component EntityLink(
       invariant(false, errorMessage);
     }
     Sentry.captureException(new Error(errorMessage));
-  }
-
-  if (showDisambiguation === undefined) {
-    showDisambiguation = !hasCustomContent;
-  }
-
-  if (showDisambiguation === 'hover' || entity.entityType === 'artist') {
-    const sortName = entity.entityType === 'artist' ? entity.sort_name : '';
-    const additionalName = nonEmpty(primaryAlias) ? primaryAlias : sortName;
-    hover = nonEmpty(additionalName) ? (
-      nonEmpty(comment) ? (
-        additionalName + ' ' + bracketedText(comment)
-      ) : additionalName
-    ) : comment;
   }
 
   /*
@@ -251,6 +229,29 @@ component EntityLink(
   }
 
   content = empty(content) ? entityName : content;
+
+  const primaryAlias = (!isCountryArea &&
+                        entity.entityType !== 'instrument' &&
+                        entity.entityType !== 'track' &&
+                        nonEmpty(entity.primaryAlias) &&
+                        entity.primaryAlias !== content)
+    ? entity.primaryAlias
+    : '';
+
+
+  if (showDisambiguation === undefined) {
+    showDisambiguation = !hasCustomContent;
+  }
+
+  if (showDisambiguation === 'hover' || entity.entityType === 'artist') {
+    const sortName = entity.entityType === 'artist' ? entity.sort_name : '';
+    const additionalName = nonEmpty(primaryAlias) ? primaryAlias : sortName;
+    hover = nonEmpty(additionalName) ? (
+      nonEmpty(comment) ? (
+        additionalName + ' ' + bracketedText(comment)
+      ) : additionalName
+    ) : comment;
+  }
 
   if (!ko.unwrap(entity.gid)) {
     if (entity.entityType === 'url') {
