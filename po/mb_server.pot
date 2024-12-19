@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-18 12:55+0200\n"
+"POT-Creation-Date: 2024-12-19 11:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4218,7 +4218,7 @@ msgid "Add disc ID"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:11
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:33
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:32
 msgctxt "edit type"
 msgid "Add relationship"
 msgstr ""
@@ -4276,7 +4276,7 @@ msgid "Edit track (historic)"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditLink.pm:16
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:41
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:40
 msgctxt "edit type"
 msgid "Edit relationship"
 msgstr ""
@@ -4325,7 +4325,7 @@ msgid "Remove label alias"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:11
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:37
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:36
 msgctxt "edit type"
 msgid "Remove relationship"
 msgstr ""
@@ -4563,14 +4563,14 @@ msgctxt "edit type"
 msgid "Add relationship type"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:308
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:295
 msgid ""
 "This edit would remove a relationship that is set as an example of its "
 "relationship type in the documentation. If you still think this should be "
 "removed, please {contact_url|contact us}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:447
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:423
 #, perl-brace-format
 msgid ""
 "The “{relationship_type}” relationship between “{entity0}” and “{entity1}” "
