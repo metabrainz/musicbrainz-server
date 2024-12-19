@@ -27,8 +27,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
-"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 "X-Generator: Weblate 5.8.4\n"
 
@@ -200,8 +200,8 @@ msgstr ""
 "<li>zbiór nagrań z różnych starych źródeł (niekoniecznie wydanych) "
 "połączonych razem. Na przykład wydanie typu „best of”, retrospektywa lub "
 "rzadkość.</li>\n"
-"<li>zbiór piosenek różnych artystów, zwykle oparty na ogólnym temacie („"
-"Songs for Lovers”), określonym okresie („Hits of 1998”) lub innego rodzaju "
+"<li>zbiór piosenek różnych artystów, zwykle oparty na ogólnym temacie "
+"(„Songs for Lovers”), określonym okresie („Hits of 1998”) lub innego rodzaju "
 "grupowaniu („Songs From the Movies”, seria „Café del Mar” itp.).</li>\n"
 "</ul>\n"
 "\n"
@@ -211,8 +211,8 @@ msgstr ""
 "<ul>\n"
 "<li>reedycja albumu, nawet jeśli zawiera dodatkowe utwory.</li>\n"
 "<li>wydanie hołdownicze zawierające covery utworów innego artysty.</li>\n"
-"<li>wydanie klasyczne zawierające nowe nagrania utworów klasycznego "
-"artysty.</li>\n"
+"<li>wydanie klasyczne zawierające nowe nagrania utworów klasycznego artysty."
+"</li>\n"
 "<li>wydanie podzielone zawierające nową muzykę kilku artystów</li>\n"
 "</ul>\n"
 "\n"
@@ -258,8 +258,8 @@ msgid ""
 "songs by two different artists are released on the one disc, typically vinyl."
 "</p>"
 msgstr ""
-"<p>Singiel ma różne definicje w zależności od rynku, na którym jest "
-"wydawany.</p>\n"
+"<p>Singiel ma różne definicje w zależności od rynku, na którym jest wydawany."
+"</p>\n"
 "\n"
 "<ul>\n"
 "<li>Na rynku amerykańskim singiel zazwyczaj ma jedną główną piosenkę i "
@@ -757,7 +757,8 @@ msgstr ""
 msgctxt "work_type"
 msgid ""
 "A quartet is a musical composition scored for four voices or instruments."
-msgstr "Kwartet to utwór muzyczny przeznaczony na cztery głosy lub instrumenty."
+msgstr ""
+"Kwartet to utwór muzyczny przeznaczony na cztery głosy lub instrumenty."
 
 #. name:ROM cartridge
 #: DB:medium_format/description:208
@@ -865,7 +866,8 @@ msgstr ""
 #: DB:series_type/description:12
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in the same location."
-msgstr "Seria powiązanych ze sobą koncertów danego artysty w tym samym miejscu."
+msgstr ""
+"Seria powiązanych ze sobą koncertów danego artysty w tym samym miejscu."
 
 #. name:Podcast
 #: DB:series_type/description:80
@@ -1184,6 +1186,14 @@ msgctxt "work_attribute_type"
 msgid "ASCAP ID"
 msgstr "ASCAP ID"
 
+#: DB:work_attribute_type/name:211
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "APRA ID"
+msgctxt "work_attribute_type"
+msgid "AUTODIA ID"
+msgstr "APRA ID"
+
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem"
@@ -1400,8 +1410,8 @@ msgid ""
 "always, meant for radio). Unlike audiobooks, it usually has multiple "
 "performers rather than a main narrator."
 msgstr ""
-"Audiodramat to przedstawienie sztuki teatralnej wyłącznie w formie audio ("
-"często, ale nie zawsze, przeznaczone do radia). W przeciwieństwie do "
+"Audiodramat to przedstawienie sztuki teatralnej wyłącznie w formie audio "
+"(często, ale nie zawsze, przeznaczone do radia). W przeciwieństwie do "
 "audiobooków, zwykle ma wielu wykonawców, a nie głównego narratora."
 
 #. name:Audiobook
@@ -2629,11 +2639,11 @@ msgid ""
 "ripped. There are a number of software variants: the most well-known are "
 "Macrovision's Cactus Data Shield (CDS) and SunnComm's MediaMax."
 msgstr ""
-"Copy Control CD (CCCD) to termin zbiorczy dla płyt CD wydanych około 2001-"
-"2006 r. zawierających oprogramowanie, które rzekomo ma na celu zapobieganie "
-"zgrywaniu płyt CD. Istnieje wiele wariantów oprogramowania: najbardziej "
-"znane to Cactus Data Shield (CDS) firmy Macrovision i MediaMax firmy "
-"SunnComm."
+"Copy Control CD (CCCD) to termin zbiorczy dla płyt CD wydanych około "
+"2001-2006 r. zawierających oprogramowanie, które rzekomo ma na celu "
+"zapobieganie zgrywaniu płyt CD. Istnieje wiele wariantów oprogramowania: "
+"najbardziej znane to Cactus Data Shield (CDS) firmy Macrovision i MediaMax "
+"firmy SunnComm."
 
 #: DB:area_type/name:1
 msgctxt "area_type"
@@ -4322,7 +4332,8 @@ msgstr ""
 #: DB:work_attribute_type/description:34
 msgctxt "work_attribute_type"
 msgid "ID for the British rights society PRS for Music"
-msgstr "Identyfikator brytyjskiego stowarzyszenia praw autorskich PRS for Music"
+msgstr ""
+"Identyfikator brytyjskiego stowarzyszenia praw autorskich PRS for Music"
 
 #. name:SOCAN ID
 #: DB:work_attribute_type/description:10
@@ -4414,7 +4425,8 @@ msgstr "Identyfikator fińskiego stowarzyszenia praw autorskich twórców TEOSTO
 #: DB:work_attribute_type/description:21
 msgctxt "work_attribute_type"
 msgid "ID for the French rights society Sacem"
-msgstr "Identyfikator francuskiego stowarzyszenia praw autorskich twórców Sacem"
+msgstr ""
+"Identyfikator francuskiego stowarzyszenia praw autorskich twórców Sacem"
 
 #. name:GEMA ID
 #: DB:work_attribute_type/description:9
@@ -4422,11 +4434,21 @@ msgctxt "work_attribute_type"
 msgid "ID for the German rights society GEMA"
 msgstr "Identyfikator niemieckiego stowarzyszenia praw autorskich twórców GEMA"
 
+#. name:AUTODIA ID
+#: DB:work_attribute_type/description:211
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Czech rights society OSA"
+msgctxt "work_attribute_type"
+msgid "ID for the Greek rights society AUTODIA"
+msgstr "Identyfikator czeskiego stowarzyszenia praw autorskich twórców OSA"
+
 #. name:AEI ID
 #: DB:work_attribute_type/description:58
 msgctxt "work_attribute_type"
 msgid "ID for the Guatemalan rights society AEI"
-msgstr "Identyfikator gwatemalskiego stowarzyszenia praw autorskich twórców AEI"
+msgstr ""
+"Identyfikator gwatemalskiego stowarzyszenia praw autorskich twórców AEI"
 
 #. name:AACIMH ID
 #: DB:work_attribute_type/description:57
@@ -4500,7 +4522,8 @@ msgstr "Identyfikator jamajskiego stowarzyszenia praw autorskich twórców JACAP
 #: DB:work_attribute_type/description:3
 msgctxt "work_attribute_type"
 msgid "ID for the Japanese rights society JASRAC"
-msgstr "Identyfikator japońskiego stowarzyszenia praw autorskich twórców JASRAC"
+msgstr ""
+"Identyfikator japońskiego stowarzyszenia praw autorskich twórców JASRAC"
 
 #. name:NexTone ID
 #: DB:work_attribute_type/description:33
@@ -4513,7 +4536,8 @@ msgstr ""
 #: DB:work_attribute_type/description:11
 msgctxt "work_attribute_type"
 msgid "ID for the Korean rights society KOMCA"
-msgstr "Identyfikator koreańskiego stowarzyszenia praw autorskich twórców KOMCA"
+msgstr ""
+"Identyfikator koreańskiego stowarzyszenia praw autorskich twórców KOMCA"
 
 #. name:AKKA/LAA ID
 #: DB:work_attribute_type/description:63
@@ -4531,7 +4555,8 @@ msgstr "Identyfikator litewskiego stowarzyszenia praw autorskich twórców LATGA
 #: DB:work_attribute_type/description:49
 msgctxt "work_attribute_type"
 msgid "ID for the Malaysian rights society MACP"
-msgstr "Identyfikator malezyjskiego stowarzyszenia praw autorskich twórców MACP"
+msgstr ""
+"Identyfikator malezyjskiego stowarzyszenia praw autorskich twórców MACP"
 
 #. name:SACM ID
 #: DB:work_attribute_type/description:27
@@ -4564,7 +4589,8 @@ msgstr "Identyfikator panamskiego stowarzyszenia praw autorskich twórców SPAC"
 #: DB:work_attribute_type/description:46
 msgctxt "work_attribute_type"
 msgid "ID for the Paraguayan rights society APA"
-msgstr "Identyfikator paragwajskiego stowarzyszenia praw autorskich twórców APA"
+msgstr ""
+"Identyfikator paragwajskiego stowarzyszenia praw autorskich twórców APA"
 
 #. name:APDAYC ID
 #: DB:work_attribute_type/description:41
@@ -4583,7 +4609,8 @@ msgstr "Identyfikator polskiego stowarzyszenia praw autorskich twórców ZAiKS"
 #: DB:work_attribute_type/description:35
 msgctxt "work_attribute_type"
 msgid "ID for the Portuguese rights society SPA"
-msgstr "Identyfikator portugalskiego stowarzyszenia praw autorskich twórców SPA"
+msgstr ""
+"Identyfikator portugalskiego stowarzyszenia praw autorskich twórców SPA"
 
 #. name:SACIM ID
 #: DB:work_attribute_type/description:56
@@ -4603,7 +4630,8 @@ msgstr ""
 #: DB:work_attribute_type/description:140
 msgctxt "work_attribute_type"
 msgid "ID for the Slovenian rights society SAZAS"
-msgstr "Identyfikator słoweńskiego stowarzyszenia praw autorskich twórców SAZAS"
+msgstr ""
+"Identyfikator słoweńskiego stowarzyszenia praw autorskich twórców SAZAS"
 
 #. name:SAMRO ID
 #: DB:work_attribute_type/description:68
@@ -4617,7 +4645,8 @@ msgstr ""
 #: DB:work_attribute_type/description:20
 msgctxt "work_attribute_type"
 msgid "ID for the Spanish rights society SGAE"
-msgstr "Identyfikator hiszpańskiego stowarzyszenia praw autorskich twórców SGAE"
+msgstr ""
+"Identyfikator hiszpańskiego stowarzyszenia praw autorskich twórców SGAE"
 
 #. name:STIM ID
 #: DB:work_attribute_type/description:50
@@ -4663,13 +4692,15 @@ msgstr ""
 #: DB:work_attribute_type/description:7
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society BMI"
-msgstr "Identyfikator amerykańskiego stowarzyszenia praw autorskich twórców BMI"
+msgstr ""
+"Identyfikator amerykańskiego stowarzyszenia praw autorskich twórców BMI"
 
 #. name:GMR ID
 #: DB:work_attribute_type/description:106
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society GMR"
-msgstr "Identyfikator amerykańskiego stowarzyszenia praw autorskich twórców GMR"
+msgstr ""
+"Identyfikator amerykańskiego stowarzyszenia praw autorskich twórców GMR"
 
 #. name:SESAC ID
 #: DB:work_attribute_type/description:8
@@ -4682,7 +4713,8 @@ msgstr ""
 #: DB:work_attribute_type/description:209
 msgctxt "work_attribute_type"
 msgid "ID for the Ukrainian rights society UACRR"
-msgstr "Identyfikator ukraińskiego stowarzyszenia praw autorskich twórców UACRR"
+msgstr ""
+"Identyfikator ukraińskiego stowarzyszenia praw autorskich twórców UACRR"
 
 #. name:AGADU ID
 #: DB:work_attribute_type/description:43
@@ -4786,6 +4818,24 @@ msgstr ""
 msgctxt "area_type"
 msgid "Indigenous territory / reserve"
 msgstr "Terytorium / rezerwat rdzennej ludności"
+
+#. name:Indigenous territory / reserve
+#: DB:area_type/description:9
+#, fuzzy
+#| msgctxt "area_type"
+#| msgid ""
+#| "Used for semi-autonomous territories governed by indigenous peoples, such "
+#| "as Indian reserves/reservations in North America and indigenous "
+#| "territories in Central and South America."
+msgctxt "area_type"
+msgid ""
+"Indigenous territory / reserve is used for semi-autonomous territories "
+"governed by indigenous peoples, such as Indian reserves/reservations in "
+"North America and indigenous territories in Central and South America."
+msgstr ""
+"Stosowane w odniesieniu do półautonomicznych terytoriów rządzonych przez "
+"ludność tubylczą, takich jak rezerwaty indiańskie w Ameryce Północnej i "
+"terytoria tubylcze w Ameryce Środkowej i Południowej."
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -5815,6 +5865,17 @@ msgstr ""
 msgctxt "area_type"
 msgid "Military base"
 msgstr ""
+
+#. name:Military base
+#: DB:area_type/description:8
+#, fuzzy
+msgctxt "area_type"
+msgid ""
+"Military base is used only for any military bases that are large enough to "
+"be considered an area, not just a place."
+msgstr ""
+"Stosowane w odniesieniu do baz wojskowych, które są na tyle duże, że można "
+"je uznać za obszar, a nie tylko miejsce."
 
 #: DB:medium_format/name:166
 msgctxt "medium_format"
@@ -8468,9 +8529,9 @@ msgid ""
 "groupings that do not generally call themselves orchestras are better "
 "entered as “Group”."
 msgstr ""
-"Oznacza to orkiestrę (zorganizowaną, zazwyczaj dużą grupę instrumentalistów)"
-". Mniejsze zespoły (takie jak tria i kwartety) oraz grupy, które zazwyczaj "
-"nie nazywają siebie orkiestrami, lepiej wpisać jako „Grupa”."
+"Oznacza to orkiestrę (zorganizowaną, zazwyczaj dużą grupę "
+"instrumentalistów). Mniejsze zespoły (takie jak tria i kwartety) oraz grupy, "
+"które zazwyczaj nie nazywają siebie orkiestrami, lepiej wpisać jako „Grupa”."
 
 #. name:Prose
 #: DB:work_type/description:23
@@ -8727,29 +8788,6 @@ msgid ""
 msgstr ""
 "Używaj w połączeniu z innymi odpowiednimi typami w przypadku obrazów, które "
 "wymagają obróbki przed wyświetleniem (ale mogą już służyć jako odniesienie)."
-
-#. name:Military base
-#: DB:area_type/description:8
-#, fuzzy
-msgctxt "area_type"
-msgid ""
-"Used for any military bases that are large enough to be considered an area, "
-"not just a place."
-msgstr ""
-"Stosowane w odniesieniu do baz wojskowych, które są na tyle duże, że można "
-"je uznać za obszar, a nie tylko miejsce."
-
-#. name:Indigenous territory / reserve
-#: DB:area_type/description:9
-msgctxt "area_type"
-msgid ""
-"Used for semi-autonomous territories governed by indigenous peoples, such as "
-"Indian reserves/reservations in North America and indigenous territories in "
-"Central and South America."
-msgstr ""
-"Stosowane w odniesieniu do półautonomicznych terytoriów rządzonych przez "
-"ludność tubylczą, takich jak rezerwaty indiańskie w Ameryce Północnej i "
-"terytoria tubylcze w Ameryce Środkowej i Południowej."
 
 #. name:Poster
 #: DB:event_art_archive.art_type/description:1

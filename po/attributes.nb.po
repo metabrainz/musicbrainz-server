@@ -948,6 +948,14 @@ msgctxt "work_attribute_type"
 msgid "ASCAP ID"
 msgstr "ASCAP ID"
 
+#: DB:work_attribute_type/name:211
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "APRA ID"
+msgctxt "work_attribute_type"
+msgid "AUTODIA ID"
+msgstr "APRA ID"
+
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem"
@@ -4071,6 +4079,12 @@ msgctxt "work_attribute_type"
 msgid "ID for the German rights society GEMA"
 msgstr ""
 
+#. name:AUTODIA ID
+#: DB:work_attribute_type/description:211
+msgctxt "work_attribute_type"
+msgid "ID for the Greek rights society AUTODIA"
+msgstr ""
+
 #. name:AEI ID
 #: DB:work_attribute_type/description:58
 msgctxt "work_attribute_type"
@@ -4406,6 +4420,15 @@ msgstr ""
 #: DB:area_type/name:9
 msgctxt "area_type"
 msgid "Indigenous territory / reserve"
+msgstr ""
+
+#. name:Indigenous territory / reserve
+#: DB:area_type/description:9
+msgctxt "area_type"
+msgid ""
+"Indigenous territory / reserve is used for semi-autonomous territories "
+"governed by indigenous peoples, such as Indian reserves/reservations in "
+"North America and indigenous territories in Central and South America."
 msgstr ""
 
 #: DB:place_type/name:5
@@ -5430,6 +5453,14 @@ msgstr ""
 #: DB:area_type/name:8
 msgctxt "area_type"
 msgid "Military base"
+msgstr ""
+
+#. name:Military base
+#: DB:area_type/description:8
+msgctxt "area_type"
+msgid ""
+"Military base is used only for any military bases that are large enough to "
+"be considered an area, not just a place."
 msgstr ""
 
 #: DB:medium_format/name:166
@@ -8243,23 +8274,6 @@ msgctxt "event_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
-msgstr ""
-
-#. name:Military base
-#: DB:area_type/description:8
-msgctxt "area_type"
-msgid ""
-"Used for any military bases that are large enough to be considered an area, "
-"not just a place."
-msgstr ""
-
-#. name:Indigenous territory / reserve
-#: DB:area_type/description:9
-msgctxt "area_type"
-msgid ""
-"Used for semi-autonomous territories governed by indigenous peoples, such as "
-"Indian reserves/reservations in North America and indigenous territories in "
-"Central and South America."
 msgstr ""
 
 #. name:Poster

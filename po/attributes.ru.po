@@ -38,8 +38,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.8.4\n"
 
 #. name:Motet
@@ -1188,6 +1188,14 @@ msgctxt "work_attribute_type"
 msgid "ASCAP ID"
 msgstr "ASCAP ID"
 
+#: DB:work_attribute_type/name:211
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "LATGA ID"
+msgctxt "work_attribute_type"
+msgid "AUTODIA ID"
+msgstr "LATGA ID"
+
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem"
@@ -1340,8 +1348,8 @@ msgid ""
 "EP is fairly difficult to define; usually it should only be assumed that a "
 "release is an EP if the artist defines it as such."
 msgstr ""
-"Мини-альбом (или EP, от \"Extended Play\") обычно короче обычного альбома ("
-"LP, от \"Long Play\"), а треки обычно эксклюзивны для конкретного EP и не "
+"Мини-альбом (или EP, от \"Extended Play\") обычно короче обычного альбома "
+"(LP, от \"Long Play\"), а треки обычно эксклюзивны для конкретного EP и не "
 "появлялись где-то ещё до этого. Довольно трудно отличить EP от сингла; "
 "обычно стоит считать, что релиз является EP, только если исполнитель так его "
 "определяет."
@@ -4400,6 +4408,15 @@ msgctxt "work_attribute_type"
 msgid "ID for the German rights society GEMA"
 msgstr "ID для немецкого правозащитного общества GEMA"
 
+#. name:AUTODIA ID
+#: DB:work_attribute_type/description:211
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Czech rights society OSA"
+msgctxt "work_attribute_type"
+msgid "ID for the Greek rights society AUTODIA"
+msgstr "ID для чешского правозащитного общества OSA"
+
 #. name:AEI ID
 #: DB:work_attribute_type/description:58
 msgctxt "work_attribute_type"
@@ -4738,6 +4755,24 @@ msgstr ""
 msgctxt "area_type"
 msgid "Indigenous territory / reserve"
 msgstr "Земля коренных народов"
+
+#. name:Indigenous territory / reserve
+#: DB:area_type/description:9
+#, fuzzy
+#| msgctxt "area_type"
+#| msgid ""
+#| "Used for semi-autonomous territories governed by indigenous peoples, such "
+#| "as Indian reserves/reservations in North America and indigenous "
+#| "territories in Central and South America."
+msgctxt "area_type"
+msgid ""
+"Indigenous territory / reserve is used for semi-autonomous territories "
+"governed by indigenous peoples, such as Indian reserves/reservations in "
+"North America and indigenous territories in Central and South America."
+msgstr ""
+"Используется для обозначения полуавтономных территорий, управляемых "
+"коренными народами, таких как индейские резервации/заповедники в Северной "
+"Америке и территории коренных народов в Центральной и Южной Америке."
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -5762,6 +5797,21 @@ msgstr ""
 msgctxt "area_type"
 msgid "Military base"
 msgstr "Военная база"
+
+#. name:Military base
+#: DB:area_type/description:8
+#, fuzzy
+#| msgctxt "area_type"
+#| msgid ""
+#| "Used for any military bases that are large enough to be considered an "
+#| "area, not just a place."
+msgctxt "area_type"
+msgid ""
+"Military base is used only for any military bases that are large enough to "
+"be considered an area, not just a place."
+msgstr ""
+"Используется для военных баз достаточно больших, чтобы считаться "
+"самостоятельной областью, а не местом."
 
 #: DB:medium_format/name:166
 msgctxt "medium_format"
@@ -8670,28 +8720,6 @@ msgstr ""
 "Используйте в сочетании с любыми другими подходящими типами для изображений, "
 "которые нуждаются в доработке для использования в тегах (но, возможно, уже "
 "могут использоваться для ссылок)."
-
-#. name:Military base
-#: DB:area_type/description:8
-msgctxt "area_type"
-msgid ""
-"Used for any military bases that are large enough to be considered an area, "
-"not just a place."
-msgstr ""
-"Используется для военных баз достаточно больших, чтобы считаться "
-"самостоятельной областью, а не местом."
-
-#. name:Indigenous territory / reserve
-#: DB:area_type/description:9
-msgctxt "area_type"
-msgid ""
-"Used for semi-autonomous territories governed by indigenous peoples, such as "
-"Indian reserves/reservations in North America and indigenous territories in "
-"Central and South America."
-msgstr ""
-"Используется для обозначения полуавтономных территорий, управляемых "
-"коренными народами, таких как индейские резервации/заповедники в Северной "
-"Америке и территории коренных народов в Центральной и Южной Америке."
 
 #. name:Poster
 #: DB:event_art_archive.art_type/description:1
