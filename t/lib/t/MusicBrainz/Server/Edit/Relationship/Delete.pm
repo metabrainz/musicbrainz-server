@@ -5,6 +5,7 @@ use warnings;
 use Test::Routine;
 use Test::More;
 use Test::Fatal;
+use MusicBrainz::Server::Entity::Util::JSON;
 
 with 't::Edit';
 with 't::Context';
@@ -219,6 +220,33 @@ test 'Deleting an Amazon relationship updates the release ASIN' => sub {
         $release->amazon_asin,
         undef,
         'Release ASIN is unset after deleting relationship',
+    );
+};
+
+test 'MBS-13862: entity0 is loaded for display when it has the same type as entity1' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_delete');
+
+    my $linked_entities = {};
+    local $MusicBrainz::Server::Entity::Util::JSON::linked_entities = $linked_entities;
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_DELETE,
+        editor_id => 1,
+        type0 => 'artist',
+        type1 => 'artist',
+        relationship => _get_relationship($c, 'artist', 'artist', 1),
+        privileges => $AUTO_EDITOR_FLAG,
+    );
+
+    $c->model('Edit')->load_all($edit);
+
+    my $entity0_id = $edit->display_data->{relationship}{entity0_id};
+    ok(
+        defined $linked_entities->{artist}{$entity0_id}{gid},
+        'entity0 is loaded into $linked_entities',
     );
 };
 

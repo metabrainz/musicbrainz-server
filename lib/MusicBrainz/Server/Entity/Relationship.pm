@@ -295,14 +295,6 @@ around TO_JSON => sub {
 
     my $link = $self->link;
 
-    if (defined $self->source) {
-        $self->link_entity(
-            $self->source_type,
-            $self->source->id,
-            $self->source,
-        );
-    }
-
     my $json = {
         attributes      => [map {
             my $type = $_->type;
