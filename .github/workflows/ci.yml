@@ -67,7 +67,7 @@ jobs:
           fail_on_failure: true
           require_tests: true
 
-  selenium:
+  selenium-1:
     needs: build-tests-image
     runs-on: ubuntu-latest
     container:
@@ -79,27 +79,60 @@ jobs:
 
     steps:
       - run: |
-          ./docker/musicbrainz-tests/run_selenium_tests.sh
+          SELENIUM_JS_OPTIONS='--run-partition 1/2' \
+            ./docker/musicbrainz-tests/run_selenium_tests.sh
 
       - uses: actions/upload-artifact@v4
         with:
-          name: service_logs
+          name: selenium_1_service_logs
           path: service_logs
 
       - uses: actions/upload-artifact@v4
         with:
-          name: selenium_nyc_output
+          name: selenium_1_nyc_output
           path: nyc_output
 
       - uses: mikepenz/action-junit-report@v5
         with:
-          check_name: Selenium Test Report
+          check_name: Selenium \#1 Test Report
+          report_paths: 'junit_output/*.xml'
+          fail_on_failure: true
+          require_tests: true
+
+  selenium-2:
+    needs: build-tests-image
+    runs-on: ubuntu-latest
+    container:
+      image: metabrainz/musicbrainz-tests:${{ env.IMAGE_TAG }}
+      options: --user root
+    defaults:
+      run:
+        working-directory: /home/musicbrainz/musicbrainz-server
+
+    steps:
+      - run: |
+          SELENIUM_JS_OPTIONS='--run-partition 2/2' \
+            ./docker/musicbrainz-tests/run_selenium_tests.sh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: selenium_2_service_logs
+          path: service_logs
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: selenium_2_nyc_output
+          path: nyc_output
+
+      - uses: mikepenz/action-junit-report@v5
+        with:
+          check_name: Selenium \#2 Test Report
           report_paths: 'junit_output/*.xml'
           fail_on_failure: true
           require_tests: true
 
   coverage:
-    needs: [js-perl-and-pgtap, selenium]
+    needs: [js-perl-and-pgtap, selenium-1, selenium-2]
     runs-on: ubuntu-latest
     container:
       image: metabrainz/musicbrainz-tests:${{ env.IMAGE_TAG }}
@@ -116,12 +149,21 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: selenium_nyc_output
-          path: selenium_nyc_output
+          name: selenium_1_nyc_output
+          path: selenium_1_nyc_output
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: selenium_2_nyc_output
+          path: selenium_2_nyc_output
 
       - run: |
           sudo -E -H -u musicbrainz mkdir -p .nyc_output
-          mv js_nyc_output/*.json selenium_nyc_output/*.json .nyc_output/
+          mv \
+            js_nyc_output/*.json \
+            selenium_1_nyc_output/*.json \
+            selenium_2_nyc_output/*.json \
+            .nyc_output/
           sudo -E -H -u musicbrainz ./node_modules/.bin/nyc report --reporter=html
           mv coverage "$GITHUB_WORKSPACE"
 
@@ -136,4 +178,8 @@ jobs:
 
       - uses: geekyeggo/delete-artifact@v5
         with:
-          name: selenium_nyc_output
+          name: selenium_1_nyc_output
+
+      - uses: geekyeggo/delete-artifact@v5
+        with:
+          name: selenium_2_nyc_output
