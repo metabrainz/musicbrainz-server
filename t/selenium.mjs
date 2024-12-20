@@ -25,6 +25,8 @@ import TestCls from 'tape/lib/test.js';
 import yargs from 'yargs';
 
 import * as DBDefs from '../root/static/scripts/common/DBDefs.mjs';
+import {compareStrings}
+  from '../root/static/scripts/common/utility/compare.mjs';
 import deepEqual from '../root/static/scripts/common/utility/deepEqual.js';
 import escapeRegExp
   from '../root/static/scripts/common/utility/escapeRegExp.mjs';
@@ -61,6 +63,14 @@ const argv = yargs
     default: '',
     describe: 'path to the browser binary, in case it cannot be auto-detected',
     type: 'string',
+  })
+  .option('r', {
+    alias: 'run-partition',
+    default: false,
+    describe: 'run a partition of the tests, specified as a fraction; ' +
+              'e.g., 2/4 will divide the tests into four deterministic ' +
+              'partitions and run the second one',
+    type: 'strings',
   })
   .option('s', {
     alias: 'stay-open',
@@ -798,32 +808,15 @@ if (!DBDefs.DISABLE_IMAGE_EDITING) {
     {name: 'EAA.json5', login: true},
   );
 }
+
 /* eslint-enable sort-keys */
 
-const testPath =
-  name => path.resolve(DBDefs.MB_SERVER_ROOT, 't/selenium', name);
+function setTestPath(test) {
+  test.path = path.resolve(DBDefs.MB_SERVER_ROOT, 't/selenium', test.name);
+}
 
-seleniumTests.forEach(x => {
-  x.path = testPath(x.name);
-});
-
-function getPlan(file) {
-  const document = JSON5.parse(fs.readFileSync(file));
-  const commands = document.commands;
-  let plan = 0;
-
-  for (let i = 0; i < commands.length; i++) {
-    const row = commands[i];
-
-    if (/^assert/.test(row.command)) {
-      plan++;
-    }
-
-    row.file = file;
-  }
-
-  document.plan = plan;
-  return document;
+function loadTestDocument(test) {
+  test.document = JSON5.parse(fs.readFileSync(test.path));
 }
 
 async function runCommands(commands, t) {
@@ -918,19 +911,84 @@ async function runCommands(commands, t) {
     ));
   }
 
-  const loginPlan = getPlan(testPath('Log_In.json5'));
-  const logoutPlan = getPlan(testPath('Log_Out.json5'));
+  seleniumTests.forEach(setTestPath);
+  const loginPlan = {name: 'Log_In.json5'};
+  const logoutPlan = {name: 'Log_Out.json5'};
+  setTestPath(loginPlan);
+  setTestPath(logoutPlan);
+
   const testsPathsToRun = argv._.map(x => path.resolve(x));
-  const testsToRun = testsPathsToRun.length
+  let testsToRun = testsPathsToRun.length
     ? seleniumTests.filter(x => testsPathsToRun.includes(x.path))
     : seleniumTests;
+
+  const partitionConfig = argv.runPartition;
+  if (partitionConfig) {
+    if (testsPathsToRun.length) {
+      console.error('Cannot specify a list of tests in addition to run-partition');
+      quit();
+      process.exit(1);
+    }
+    const match = partitionConfig.match(/^([0-9]+)\/([0-9]+)$/);
+    const partitionToRun = match ? parseInt(match[1], 10) : -1;
+    const numPartitions = match ? parseInt(match[2], 10) : -1;
+    if (
+      numPartitions < 2 ||
+      numPartitions > seleniumTests.length ||
+      partitionToRun < 1 ||
+      partitionToRun > numPartitions
+    ) {
+      console.error('Invalid value for run-partition: ' + partitionConfig);
+      quit();
+      process.exit(1);
+    }
+    seleniumTests.forEach(loadTestDocument);
+    /*
+     * Sort by number of commands (steps) in each test, then by name.
+     * The first criterion is needed for the greedy number partitioning
+     * algorithm to work more optimally. The second criterion is to ensure
+     * a deterministic result.
+     */
+    seleniumTests.sort((a, b) => (
+      (b.document.commands.length - a.document.commands.length) ||
+      compareStrings(a.name, b.name)
+    ));
+    const partitions = Array.from({length: numPartitions}, () => ({
+      tests: [],
+      totalCommands: 0,
+    }));
+    for (const test of seleniumTests) {
+      let smallestPartition = partitions[0];
+      for (let i = 1; i < numPartitions; i++) {
+        if (partitions[i].totalCommands < smallestPartition.totalCommands) {
+          smallestPartition = partitions[i];
+        }
+      }
+      smallestPartition.tests.push(test);
+      smallestPartition.totalCommands += test.document.commands.length;
+    }
+    testsToRun = partitions[partitionToRun - 1].tests;
+  } else {
+    testsToRun.forEach(loadTestDocument);
+  }
+
+  loadTestDocument(loginPlan);
+  loadTestDocument(logoutPlan);
 
   customProxyServer.listen(5051);
 
   let shouldCleanSeleniumDb = true;
 
   await testsToRun.reduce(function (accum, stest, index) {
-    const {commands, plan, title} = getPlan(stest.path);
+    const {commands, title} = stest.document;
+
+    let plan = 0;
+    for (let i = 0; i < commands.length; i++) {
+      const row = commands[i];
+      if (/^assert/.test(row.command)) {
+        plan++;
+      }
+    }
 
     const isLastTest = index === testsToRun.length - 1;
 
@@ -958,14 +1016,14 @@ async function runCommands(commands, t) {
 
           try {
             if (stest.login) {
-              await runCommands(loginPlan.commands, t);
+              await runCommands(loginPlan.document.commands, t);
             }
 
             await runCommands(commands, t);
 
             if (!(isLastTest && argv.stayOpen)) {
               if (stest.login) {
-                await runCommands(logoutPlan.commands, t);
+                await runCommands(logoutPlan.document.commands, t);
               }
             }
           } catch (error) {
