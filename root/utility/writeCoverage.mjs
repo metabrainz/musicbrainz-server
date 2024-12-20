@@ -7,7 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable-next-line import/newline-after-import */
+/* eslint-disable import/newline-after-import */
+import crypto from 'crypto';
 import fs from 'fs';
 // $FlowIssue[cannot-resolve-module]
 import fsPromises from 'fs/promises';
@@ -25,7 +26,8 @@ export default async function writeCoverage(
   fileName: string,
   coverageString: string,
 ): Promise<void> {
-  const coverageFileName = `${fileName}.json`;
+  const uniqueExt = crypto.randomBytes(8).toString('hex');
+  const coverageFileName = `${fileName}-${uniqueExt}.json`;
   const fd = await fsPromises.open(
     path.resolve(COVERAGE_DIR, coverageFileName),
     'w',

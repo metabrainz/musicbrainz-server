@@ -70,27 +70,32 @@ jobs:
     container:
       image: metabrainz/musicbrainz-tests:${{ github.event_name == 'pull_request' && format('{0}-{1}', github.base_ref, github.head_ref) || github.ref_name }}
       options: --user root
+    strategy:
+      matrix:
+        partition: [1, 2, 3, 4]
+      fail-fast: false
     defaults:
       run:
         working-directory: /home/musicbrainz/musicbrainz-server
 
     steps:
       - run: |
-          ./docker/musicbrainz-tests/run_selenium_tests.sh
+          SELENIUM_JS_OPTIONS='--run-partition ${{ matrix.partition }}/4' \
+            ./docker/musicbrainz-tests/run_selenium_tests.sh
 
       - uses: actions/upload-artifact@v4
         with:
-          name: selenium_service_logs
+          name: selenium_${{ matrix.partition }}_service_logs
           path: service_logs
 
       - uses: actions/upload-artifact@v4
         with:
-          name: selenium_nyc_output
+          name: selenium_${{ matrix.partition }}_nyc_output
           path: nyc_output
 
       - uses: mikepenz/action-junit-report@v5
         with:
-          check_name: Selenium Test Report
+          check_name: "Selenium #${{ matrix.partition }} Test Report"
           report_paths: 'junit_output/*.xml'
           fail_on_failure: true
           require_tests: true

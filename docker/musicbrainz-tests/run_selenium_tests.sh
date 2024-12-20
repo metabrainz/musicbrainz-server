@@ -53,7 +53,7 @@ sv_start_if_down \
 sleep 10
 
 sudo -E -H -u musicbrainz carton exec -- \
-     ./t/selenium.js --browser-binary-path=/opt/chrome-linux64/chrome \
+     ./t/selenium.js --browser-binary-path=/opt/chrome-linux64/chrome $SELENIUM_JS_OPTIONS \
      | tee >(./node_modules/.bin/tap-junit > ./junit_output/selenium.xml) \
      | ./node_modules/.bin/tap-difflet
 
