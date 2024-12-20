@@ -10,7 +10,7 @@
 import test from 'tape';
 
 import * as arrays from '../../common/utility/arrays.js';
-import {compareStrings} from '../../common/utility/compare.js';
+import {compareStrings} from '../../common/utility/compare.mjs';
 
 const emptyArray: Array<string> = [];
 const oneItemStringArray = ['platypus'];

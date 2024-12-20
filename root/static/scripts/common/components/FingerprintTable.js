@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import loopParity from '../../../../utility/loopParity.js';
 import coerceToError from '../utility/coerceToError.js';
-import {compareStrings} from '../utility/compare.js';
+import {compareStrings} from '../utility/compare.mjs';
 
 type AcoustIdTrackT = {
   +disabled?: boolean,
