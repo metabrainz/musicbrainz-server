@@ -74,6 +74,9 @@ sudo -E -H -u musicbrainz carton exec -- prove \
     -v
 
 if [ "$GITHUB_ACTIONS" = 'true' ]; then
+  if [[ -d .nyc_output && $(ls -A .nyc_output) ]]; then
+      cp -Ra .nyc_output "$GITHUB_WORKSPACE"/nyc_output
+  fi
   if [ -d junit_output ]; then
     cp -Ra junit_output "$GITHUB_WORKSPACE"
   fi
