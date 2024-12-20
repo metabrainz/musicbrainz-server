@@ -60,9 +60,11 @@ sudo -E -H -u musicbrainz carton exec -- \
 # Stop the template-renderer so that it dumps coverage.
 sv down template-renderer
 sleep 10
-sudo -E -H -u musicbrainz ./node_modules/.bin/nyc report --reporter=html
 
 if [ "$GITHUB_ACTIONS" = 'true' ]; then
+  if [[ -d .nyc_output && $(ls -A .nyc_output) ]]; then
+      cp -Ra .nyc_output "$GITHUB_WORKSPACE"/nyc_output
+  fi
   if [ -d junit_output ]; then
     cp -Ra junit_output "$GITHUB_WORKSPACE"
   fi
@@ -75,7 +77,6 @@ if [ "$GITHUB_ACTIONS" = 'true' ]; then
       base_fname="$(basename "$sir_log")"
       cp -a "$sir_log" "$logs"/"${base_fname#.}"
   done
-  cp -Ra coverage "$GITHUB_WORKSPACE"
 fi
 
 exit 0
