@@ -7,7 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable-next-line import/newline-after-import */
 import fs from 'fs';
+// $FlowIssue[cannot-resolve-module]
+import fsPromises from 'fs/promises';
 import path from 'path';
 
 import * as DBDefs from '../static/scripts/common/DBDefs.mjs';
@@ -18,30 +21,16 @@ if (!fs.existsSync(COVERAGE_DIR)) {
   fs.mkdirSync(COVERAGE_DIR);
 }
 
-export default function writeCoverage(
+export default async function writeCoverage(
   fileName: string,
   coverageString: string,
-) {
+): Promise<void> {
   const coverageFileName = `${fileName}.json`;
-
-  fs.open(
+  const fd = await fsPromises.open(
     path.resolve(COVERAGE_DIR, coverageFileName),
     'w',
     0o755,
-    function (err, fd) {
-      if (err) {
-        throw err;
-      }
-      fs.write(fd, coverageString, function (err) {
-        if (err) {
-          throw err;
-        }
-        fs.close(fd, function (err) {
-          if (err) {
-            throw err;
-          }
-        });
-      });
-    },
   );
+  await fsPromises.writeFile(fd, coverageString);
+  await fd.close();
 }

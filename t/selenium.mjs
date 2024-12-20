@@ -359,7 +359,7 @@ function getPageErrors() {
 
 let coverageObjectIndex = 0;
 function writeSeleniumCoverage(coverageString) {
-  writeCoverage(`selenium-${coverageObjectIndex++}`, coverageString);
+  return writeCoverage(`selenium-${coverageObjectIndex++}`, coverageString);
 }
 
 async function writePreviousSeleniumCoverage() {
@@ -386,7 +386,7 @@ async function writePreviousSeleniumCoverage() {
      return null;`,
   );
   if (previousCoverage) {
-    writeSeleniumCoverage(previousCoverage);
+    await writeSeleniumCoverage(previousCoverage);
   }
 }
 
