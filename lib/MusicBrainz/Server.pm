@@ -457,7 +457,7 @@ before dispatch => sub {
         # The Redis store may be the same instance as the cache in development.
         $ctx->clear_store;
         # CSP script-src directives conflict with `Function` constructor calls
-        # injected by babel-plugin-instanbul (unsafe-eval).
+        # injected by babel-plugin-istanbul (unsafe-eval).
         $self->res->header('Content-Security-Policy', '');
     } else {
         # Use a fresh database connection for every request, and
