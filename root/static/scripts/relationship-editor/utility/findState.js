@@ -10,7 +10,7 @@
 import * as tree from 'weight-balanced-tree';
 
 import {compare} from '../../common/i18n.js';
-import {compareStrings} from '../../common/utility/compare.js';
+import {compareStrings} from '../../common/utility/compare.mjs';
 import type {
   RelationshipLinkTypeGroupKeyT,
   RelationshipLinkTypeGroupsT,

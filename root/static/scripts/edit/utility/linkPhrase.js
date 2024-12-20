@@ -18,7 +18,7 @@ import {
 import {expand2textWithVarArgsClass} from '../../common/i18n/expand2text.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import clean from '../../common/utility/clean.js';
-import {compareStrings} from '../../common/utility/compare.js';
+import {compareStrings} from '../../common/utility/compare.mjs';
 import displayLinkAttribute, {displayLinkAttributeText}
   from '../../common/utility/displayLinkAttribute.js';
 
