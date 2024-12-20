@@ -179,6 +179,19 @@ proxy.on('proxyReq', function (req) {
 
 const customProxyServer = http.createServer(function (req, res) {
   const host = req.headers.host;
+  if (
+    /*
+     * This is hit due to the .caa-warning/.eaa-warning toggle.
+     * We don't have any tests that care about that warning, and the IA
+     * seems to block requests from GitHub Actions runners, so it causes
+     * pointless timeouts.
+     */
+    host === 's3.us.archive.org'
+  ) {
+    res.writeHead(503);
+    res.end('');
+    return;
+  }
   if (host === DBDefs.WEB_SERVER) {
     req.headers['mb-set-database'] = 'SELENIUM';
     req.rawHeaders['mb-set-database'] = 'SELENIUM';
