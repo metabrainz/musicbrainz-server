@@ -221,3 +221,5 @@ COPY --chown=musicbrainz:musicbrainz ./ MBS_ROOT/
 
 RUN cd MBS_ROOT && \
     ./docker/musicbrainz-tests/initialize_tests_image.sh
+
+LABEL org.opencontainers.image.source=https://github.com/metabrainz/musicbrainz-server
