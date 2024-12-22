@@ -52,6 +52,7 @@ sv_start_if_down template-renderer vnu website
 export MMD_SCHEMA_ROOT=/home/musicbrainz/mmd-schema
 export JUNIT_OUTPUT_FILE=junit_output/perl_and_pgtap.xml
 
+prove_exit_code=0
 sudo -E -H -u musicbrainz carton exec -- prove \
     --pgtap-option dbname=musicbrainz_test \
     --pgtap-option host=localhost \
@@ -73,7 +74,7 @@ sudo -E -H -u musicbrainz carton exec -- prove \
     t/script/UpdateDatabasePrivileges.t \
     t/tests.t \
     --harness=TAP::Harness::JUnit \
-    -v
+    -v || { prove_exit_code=$?; true; }
 
 if [ "$GITHUB_ACTIONS" = 'true' ]; then
   if [[ -d .nyc_output && $(ls -A .nyc_output) ]]; then
@@ -83,3 +84,5 @@ if [ "$GITHUB_ACTIONS" = 'true' ]; then
     cp -Ra junit_output "$GITHUB_WORKSPACE"
   fi
 fi
+
+exit $prove_exit_code
