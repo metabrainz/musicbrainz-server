@@ -74,6 +74,10 @@ sudo -E -H -u musicbrainz carton exec -- prove \
     --harness=TAP::Harness::JUnit \
     -v || { prove_exit_code=$?; true; }
 
+# Stop the template-renderer so that it dumps coverage.
+sv down template-renderer
+sleep 10
+
 if [ "$GITHUB_ACTIONS" = 'true' ]; then
   if [[ -d .nyc_output && $(ls -A .nyc_output) ]]; then
       cp -Ra .nyc_output "$GITHUB_WORKSPACE"/nyc_output
