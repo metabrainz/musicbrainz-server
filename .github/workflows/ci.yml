@@ -57,13 +57,10 @@ jobs:
           name: js_nyc_output
           path: nyc_output
 
-      - if: always()
-        uses: mikepenz/action-junit-report@v5
+      - uses: actions/upload-artifact@v4
         with:
-          check_name: JavaScript, Perl and pgTap Test Report
-          report_paths: 'junit_output/*.xml'
-          fail_on_failure: true
-          require_tests: true
+          name: js_perl_and_pgtap_junit_output
+          path: junit_output
 
   selenium:
     needs: build-tests-image
@@ -94,14 +91,12 @@ jobs:
           name: selenium_${{ matrix.partition }}_nyc_output
           path: nyc_output
 
-      - uses: mikepenz/action-junit-report@v5
+      - uses: actions/upload-artifact@v4
         with:
-          check_name: "Selenium #${{ matrix.partition }} Test Report"
-          report_paths: 'junit_output/*.xml'
-          fail_on_failure: true
-          require_tests: true
+          name: selenium_${{ matrix.partition }}_junit_output
+          path: junit_output
 
-  coverage:
+  generate-reports:
     needs: [js-perl-and-pgtap, selenium]
     if: always()
     runs-on: ubuntu-latest
@@ -113,19 +108,37 @@ jobs:
         working-directory: /home/musicbrainz/musicbrainz-server
 
     steps:
-      - uses: actions/download-artifact@v4
+      - if: always()
+        uses: actions/download-artifact@v4
         with:
           pattern: "*_nyc_output"
+        id: nyc_download
 
-      - run: |
+      - if: steps.nyc_download.outcome == 'success'
+        run: |
           sudo -E -H -u musicbrainz mkdir -p .nyc_output
           mv \
             "$GITHUB_WORKSPACE"/*_nyc_output/*.json \
             .nyc_output/
           sudo -E -H -u musicbrainz ./node_modules/.bin/nyc report --reporter=html
           mv coverage "$GITHUB_WORKSPACE"
+        id: nyc_merge
 
-      - uses: actions/upload-artifact@v4
+      - if: steps.nyc_merge.outcome == 'success'
+        uses: actions/upload-artifact@v4
         with:
           name: coverage_report
           path: coverage
+
+      - if: always()
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*_junit_output"
+        id: junit_download
+
+      - if: steps.junit_download.outcome == 'success'
+        uses: mikepenz/action-junit-report@v5
+        with:
+          report_paths: '*_junit_output/*.xml'
+          fail_on_failure: true
+          require_tests: true
