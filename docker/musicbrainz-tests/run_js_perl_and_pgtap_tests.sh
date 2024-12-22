@@ -20,6 +20,7 @@ sudo -E -H -u musicbrainz make -C po test_source
 
 echo Checking JavaScript code’s static types with Flow
 sudo -E -H -u musicbrainz ./node_modules/.bin/flow --quiet
+sudo -E -H -u musicbrainz ./node_modules/.bin/flow stop --quiet
 echo OK
 
 echo Checking JavaScript code’s quality and style with ESLint
