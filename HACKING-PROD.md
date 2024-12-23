@@ -18,10 +18,3 @@ you have a Docker service running, run:
 
 Generating the snapshot will take quite a while. Once it is done, commit it
 and push it.
-
-Generating this new snapshot will often install the latest version of Chrome,
-which will require updating the version of ChromeDriver installed through
-[docker/Dockerfile.tests](docker/Dockerfile.tests). Check the appropriate
-version of ChromeDriver for the new version of Chrome from
-https://chromedriver.chromium.org/downloads and modify the Dockerfile
-accordingly.
