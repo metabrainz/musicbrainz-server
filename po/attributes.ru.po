@@ -29,8 +29,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-12-11 20:42+0000\n"
-"Last-Translator: liilliil <liilliil@liilliil.net>\n"
+"PO-Revision-Date: 2024-12-21 22:42+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ru/>\n"
 "Language: ru\n"
@@ -38,9 +39,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.8.4\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -5800,33 +5801,28 @@ msgstr "Военная база"
 
 #. name:Military base
 #: DB:area_type/description:8
-#, fuzzy
-#| msgctxt "area_type"
-#| msgid ""
-#| "Used for any military bases that are large enough to be considered an "
-#| "area, not just a place."
 msgctxt "area_type"
 msgid ""
 "Military base is used only for any military bases that are large enough to "
 "be considered an area, not just a place."
 msgstr ""
-"Используется для военных баз достаточно больших, чтобы считаться "
+"Используется только для военных баз достаточно больших, чтобы считаться "
 "самостоятельной областью, а не местом."
 
 #: DB:medium_format/name:166
 msgctxt "medium_format"
 msgid "MiniDVD"
-msgstr ""
+msgstr "MiniDVD"
 
 #: DB:medium_format/name:168
 msgctxt "medium_format"
 msgid "MiniDVD-Audio"
-msgstr ""
+msgstr "MiniDVD-Audio"
 
 #: DB:medium_format/name:169
 msgctxt "medium_format"
 msgid "MiniDVD-Video"
-msgstr ""
+msgstr "MiniDVD-Video"
 
 #: DB:medium_format/name:6
 msgctxt "medium_format"
@@ -5836,22 +5832,22 @@ msgstr "Минидиск"
 #: DB:medium_format/name:165
 msgctxt "medium_format"
 msgid "Minimax CD"
-msgstr ""
+msgstr "Minimax CD"
 
 #: DB:medium_format/name:167
 msgctxt "medium_format"
 msgid "Minimax DVD"
-msgstr ""
+msgstr "Minimax DVD"
 
 #: DB:medium_format/name:170
 msgctxt "medium_format"
 msgid "Minimax DVD-Audio"
-msgstr ""
+msgstr "Minimax DVD-Audio"
 
 #: DB:medium_format/name:171
 msgctxt "medium_format"
 msgid "Minimax DVD-Video"
-msgstr ""
+msgstr "Minimax DVD-Video"
 
 #: DB:work_attribute_type_allowed_value/value:644
 msgctxt "work_attribute_type_allowed_value"
