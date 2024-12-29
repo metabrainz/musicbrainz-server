@@ -35,18 +35,18 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-12-19 11:37+0200\n"
-"PO-Revision-Date: 2024-12-03 23:42+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-12-23 20:42+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.8.4\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -7270,12 +7270,9 @@ msgstr "Fondato in"
 
 #: ../root/artist/utils.js:19
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:81
-#, fuzzy
-#| msgctxt "character artist"
-#| msgid "Created"
 msgctxt "character artist"
 msgid "Created in"
-msgstr "Create"
+msgstr "Creato a"
 
 #: ../root/artist/utils.js:28
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:51
@@ -7517,23 +7514,17 @@ msgid "Medium track lengths"
 msgstr "Durata delle tracce del supporto"
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:39
-#, fuzzy
-#| msgid "Move Disc ID"
 msgctxt "header"
 msgid "Move Disc ID"
 msgstr "Sposta ID disco"
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:51
-#, fuzzy
-#| msgid ""
-#| "Select a release to which the disc ID <code>{discid}</code>. should be "
-#| "moved to."
 msgid ""
 "Select a release to which the disc ID <code>{discid}</code> should be moved "
 "to."
 msgstr ""
-"Seleziona la pubblicazione in cui vuoi spostare l'ID disco <code>{discid}</"
-"code>."
+"Seleziona la pubblicazione in cui vuoi spostare l'ID disco "
+"<code>{discid}</code>."
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:59
 msgid ""
@@ -10332,9 +10323,9 @@ msgstr[2] "{count} valutazioni private non elencate."
 #: ../root/entity/Ratings.js:74
 msgid "{count} hidden rating by a spammer user."
 msgid_plural "{count} hidden ratings by spammer users."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "{count} valutazione nascosta di un utente spammer."
+msgstr[1] "{count} di valutazioni nascoste di utenti spammer."
+msgstr[2] "{count} valutazioni nascoste di utenti spammer."
 
 #: ../root/entity/Ratings.js:84
 msgid "Average rating:"
@@ -15096,15 +15087,11 @@ msgid "{medium_format} {position}"
 msgstr "{medium_format} {position}"
 
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:51
-#, fuzzy
-#| msgid "{medium_format} {position}"
 msgid "{medium_format_and_position}: {medium_name}"
-msgstr "{medium_format} {position}"
+msgstr "{medium_format_and_position}: {medium_name}"
 
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:65
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:98
-#, fuzzy
-#| msgid "This CD TOC is already attached to this medium."
 msgid "This CDTOC is already attached to this medium."
 msgstr "Questo TOC (indice) CD è già associato a questo supporto."
 
@@ -17044,10 +17031,8 @@ msgid "Display credits at bottom"
 msgstr "Visualizza gli accreditamenti in fondo"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:59
-#, fuzzy
-#| msgid "Recording by {artist}"
 msgid "Recording alias: {alias}"
-msgstr "Registrazione di {artist}"
+msgstr "Alias della registrazione: {alias}"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:74
 msgid "Recording artist:"
