@@ -150,7 +150,6 @@ test all => sub {
         $email->send_email_verification(
             email => 'user@example.com',
             verification_link => "$server/verify-email",
-            ip => '127.0.0.1',
             editor => $user1,
         );
 
@@ -159,23 +158,24 @@ test all => sub {
         my $email = shift @emails;
         is($email->{headers}{From}, '"MusicBrainz Server" <noreply@musicbrainz.org>', 'From is noreply@...');
         is($email->{headers}{To}, 'user@example.com', 'To is user@example.com');
-        is($email->{headers}{Subject}, 'Please verify your email address', 'Subject is Please verify your email address');
-        like($email->{headers}{'Message-Id'}, qr{<verify-email-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
-        compare_body($email->{body},
-                     "Hello Editor 1,\n".
-                     "\n".
-                     "This is a verification email for your MusicBrainz account. Please click\n".
-                     "on the link below to verify your email address:\n".
-                     "\n".
-                     "$server/verify-email\n".
-                     "\n".
-                     "If clicking the link above doesn't work, please copy and paste the URL in a\n".
-                     "new browser window instead.\n".
-                     "This email was triggered by a request from the IP address [127.0.0.1].\n".
-                     "\n".
-                     "Thanks for using MusicBrainz!\n".
-                     "\n".
-                     "-- The MusicBrainz Team\n");
+        is($email->{headers}{Subject}, 'Verify your email', 'Subject is "Verify your email"');
+        like($email->{headers}{'Message-ID'}, qr{<verify-email-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-ID has right format');
+        compare_body($email->{body}, <<~"EOS");
+            [MusicBrainz]
+            Hello Editor 1,
+
+            Click on the link below to verify your email address:
+            [https://localhost/verify-email][1]
+            If clicking the link above doesn't work, please copy and paste the URL into
+            a new browser window instead.
+            Welcome!
+
+            *\x{2014} The MetaBrainz community*
+            Do not reply to this message. For assistance please contact the team or the
+            community.
+
+            [1]: https://localhost/verify-email
+            EOS
     };
 
     subtest 'send_lost_username' => sub {

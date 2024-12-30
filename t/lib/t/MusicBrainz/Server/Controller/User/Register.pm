@@ -48,11 +48,12 @@ test 'Registering and verifying an email address' => sub {
 
     my @emails = $test->get_emails;
     my $email = shift @emails;
-    is($email->{headers}{Subject}, 'Please verify your email address');
+    is($email->{headers}{Subject}, 'Verify your email');
     my $email_body = $email->{body};
     like($email_body, qr{/verify-email}, 'has a link to verify email address');
 
-    my ($verify_link) = $email_body =~ qr{http://localhost(/verify-email.*)};
+    $email_body =~ qr{\[http://localhost(/verify-email.*?)\]}ms;
+    my $verify_link = ($1 =~ s/\R//gr);
     $mech->get_ok($verify_link, 'verify account');
     $mech->content_like(qr/Thank you, your email address has now been verified/);
 

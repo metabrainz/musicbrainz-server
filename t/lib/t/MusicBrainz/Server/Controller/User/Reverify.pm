@@ -31,12 +31,12 @@ test all => sub {
    my @emails = $test->get_emails;
    my $reverify_email = shift @emails;
    is($reverify_email->{headers}{To}, 'new_email@example.com', 'email sent to right place');
-   is($reverify_email->{headers}{Subject}, 'Please verify your email address', 'email subject is correct');
+   is($reverify_email->{headers}{Subject}, 'Verify your email', 'email subject is correct');
    my $reverify_email_body = $reverify_email->{body};
    like($reverify_email_body, qr{http://localhost/verify-email.*}, 'email contains verify-email link');
 
-   $reverify_email_body =~ qr{http://localhost(/verify-email.*)};
-   my $reverify_email_path = $1;
+   $reverify_email_body =~ qr{\[http://localhost(/verify-email.*?)\]}ms;
+   my $reverify_email_path = ($1 =~ s/\R//gr);
    $mech->get_ok($reverify_email_path);
    $mech->content_contains('Thank you, your email address has now been verified!');
 

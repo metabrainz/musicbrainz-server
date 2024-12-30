@@ -50,14 +50,13 @@ test all => sub {
     my @emails = $test->get_emails;
     my $email = shift @emails;
     is($email->{headers}{To}, 'new_email@example.com', 'Verification email sent to correct address');
-    is($email->{headers}{Subject}, 'Please verify your email address', 'Verification email has correct subject');
+    is($email->{headers}{Subject}, 'Verify your email', 'Verification email has correct subject');
 
     my $email_body = $email->{body};
     like($email_body, qr{http://localhost/verify-email.*}, 'Verification email contains verification link');
-    like($email_body, qr{\[127\.0\.0\.1\]}, 'Verification email contains request IP');
 
-    $email_body =~ qr{http://localhost(/verify-email.*)};
-    my $verify_email_path = $1;
+    $email_body =~ qr{\[http://localhost(/verify-email.*?)\]}ms;
+    my $verify_email_path = ($1 =~ s/\R//gr);
     $mech->get_ok($verify_email_path);
     $mech->content_contains('Thank you, your email address has now been verified!');
 
