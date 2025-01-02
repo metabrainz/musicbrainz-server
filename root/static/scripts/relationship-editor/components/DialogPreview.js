@@ -236,7 +236,7 @@ component _DialogPreview(
   );
 }
 
-const DialogPreview: React.AbstractComponent<
+const DialogPreview: React.ComponentType<
   React.PropsOf<_DialogPreview>
 > = React.memo(_DialogPreview);
 

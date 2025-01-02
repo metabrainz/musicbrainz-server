@@ -132,7 +132,7 @@ component _DialogSourceEntity(
   );
 }
 
-const DialogSourceEntity: React.AbstractComponent<
+const DialogSourceEntity: React.ComponentType<
   React.PropsOf<_DialogSourceEntity>
 > = React.memo(_DialogSourceEntity);
 

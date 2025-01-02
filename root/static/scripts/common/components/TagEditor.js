@@ -645,7 +645,7 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
     }
   },
   minimalEntity,
-): React.AbstractComponent<TagEditorProps, void>);
+): React.ComponentType<TagEditorProps>);
 
 export const SidebarTagEditor = (hydrate<TagEditorProps>(
   'div.sidebar-tags',
@@ -703,7 +703,7 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
     }
   },
   minimalEntity,
-): React.AbstractComponent<TagEditorProps, void>);
+): React.ComponentType<TagEditorProps>);
 
 function createInitialTagState(
   aggregatedTags: $ReadOnlyArray<AggregatedTagT>,

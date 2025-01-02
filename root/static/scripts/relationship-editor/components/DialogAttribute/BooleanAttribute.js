@@ -64,7 +64,7 @@ component _BooleanAttribute(
   );
 }
 
-const BooleanAttribute: React.AbstractComponent<
+const BooleanAttribute: React.ComponentType<
   React.PropsOf<_BooleanAttribute>
 > = React.memo(_BooleanAttribute);
 

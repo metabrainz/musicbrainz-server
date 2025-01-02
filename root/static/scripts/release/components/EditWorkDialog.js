@@ -187,7 +187,7 @@ component _EditWorkDialog(
   );
 }
 
-const EditWorkDialog: React.AbstractComponent<
+const EditWorkDialog: React.ComponentType<
   React.PropsOf<_EditWorkDialog>
 > = React.memo(_EditWorkDialog);
 
