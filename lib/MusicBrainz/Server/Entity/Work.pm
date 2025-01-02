@@ -81,6 +81,11 @@ has attributes => (
     },
 );
 
+has 'length' => (
+    is => 'rw',
+    isa => 'Maybe[Int]',
+);
+
 sub sorted_attributes {
     my $self = shift;
     sort_by { $_->type->l_name } sort_by { $_->l_value } $self->all_attributes;
@@ -99,6 +104,7 @@ around TO_JSON => sub {
         %{ $self->$orig },
         attributes => to_json_array([$self->sorted_attributes]),
         languages => to_json_array($self->languages),
+        defined $self->length ? (length => $self->length) : (),
         iswcs => to_json_array($self->iswcs),
         artists => to_json_array($self->artists),
         writers => [map +{
