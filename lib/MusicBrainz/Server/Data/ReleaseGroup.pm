@@ -349,14 +349,20 @@ sub _find_by_artist_slow
                         ON rgstj.secondary_type = rgst.id
                       WHERE rgstj.release_group = rg.id
                       ORDER BY name ASC
-                    ) secondary_types
+                    ) secondary_types,
+                    (CASE
+                        WHEN rg.type = 3 THEN 2 -- Sort EPs above singles
+                        WHEN rg.type = 2 THEN 3 -- Sort singles below EPs
+                        ELSE rg.type
+                        END
+                    ) as sorted_type
                  FROM ' . $self->_table . '
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
                      ' . join(' ', @$extra_joins) . '
                  WHERE ' . join(' AND ', @$conditions) . '
                  ORDER BY
-                    rg.type, secondary_types,
+                    sorted_type, secondary_types,
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
