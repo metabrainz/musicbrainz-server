@@ -5497,10 +5497,15 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?([^/]+\.)?threads\.net\//i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
     clean(url) {
-      return url.replace(
+      url = url.replace(
         /^(?:https?:\/\/)?(?:www\.)?threads\.net(?:\/#!)?\/([^#?]+).*$/,
         'https://www.threads.net/$1',
       );
+      url = url.replace(
+        /^https:\/\/www\.threads\.net\/@[^/]+\/post\/([^/]+)/,
+        'https://www.threads.net/t/$1',
+      );
+      return url;
     },
     validate(url, id) {
       const isAProfile = /^https:\/\/www\.threads\.net\/@[^/]+$/.test(url);

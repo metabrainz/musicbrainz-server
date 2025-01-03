@@ -5725,6 +5725,13 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
             expected_clean_url: 'https://www.threads.net/t/CucwR6erBPo',
        only_valid_entity_types: ['recording'],
   },
+  {
+                     input_url: 'https://www.threads.net/@pijusmusic/post/DESGn_BsdiQ',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.threads.net/t/DESGn_BsdiQ',
+       only_valid_entity_types: ['recording'],
+  },
   // Ticketmaster
   {
                      input_url: 'http://ticketmaster.com/depeche-mode-tickets/artist/734907#about',
