@@ -7,6 +7,7 @@ use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( contains_string model_to_type );
 use MusicBrainz::Server::Validation qw( is_guid is_positive_integer );
 use MusicBrainz::Server::Constants qw( :direction %ENTITIES );
+use MusicBrainz::Server::Translation qw( l );
 use Readonly;
 use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';
 
@@ -89,6 +90,13 @@ role
                 my %opts;
 
                 if (is_positive_integer($link_type_id)) {
+                    my $link_type = $c->model('LinkType')->get_by_id($link_type_id);
+                    unless ($link_type) {
+                        $c->stash(
+                            message  => l('The provided relationship type ID is not valid.'),
+                        );
+                        $c->detach('/error_400');
+                    }
                     $opts{link_type_id} = $link_type_id;
                     $opts{limit} = $RELATIONSHIP_PAGE_SIZE;
 
