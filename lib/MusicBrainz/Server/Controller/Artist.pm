@@ -271,6 +271,7 @@ sub show : PathPart('') Chained('load')
     $c->model('ArtistCredit')->load(@$release_groups);
     $c->model('ArtistType')->load(map { map { $_->artist } $_->artist_credit->all_names} @$release_groups);
     $c->model('ReleaseGroupType')->load(@$release_groups);
+    $c->model('ReleaseGroup')->load_aliases(@$release_groups);
     $c->stash(
         recordings => $recordings,
         recordings_jsonld => {items => $recordings},
