@@ -5498,8 +5498,8 @@ const CLEANUPS: CleanupEntries = {
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
     clean(url) {
       return url.replace(
-        /^(?:https?:\/\/)?(?:www\.)?threads\.net(?:\/#!)?\//,
-        'https://www.threads.net/',
+        /^(?:https?:\/\/)?(?:www\.)?threads\.net(?:\/#!)?\/([^#?]+).*$/,
+        'https://www.threads.net/$1',
       );
     },
     validate(url, id) {

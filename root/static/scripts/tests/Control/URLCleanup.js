@@ -5712,6 +5712,13 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
+                     input_url: 'https://www.threads.net/@pijusmusic?xmt=AQGzAol_Hx_F7AhixuRL9azxH4P2AYJKBOasDrM7Y2yyf6Y',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.threads.net/@pijusmusic',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
                      input_url: 'https://threads.net/t/CucwR6erBPo',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
