@@ -130,7 +130,7 @@ sub summarize_ratings
                 if $entity_properties->{artist_credits};
 
             $model->load_aliases(@$entities)
-                if $model->can('load_aliases');
+                if $entity_properties->{aliases};
 
             ($_ => to_json_array($entities));
         } entities_with('ratings'),

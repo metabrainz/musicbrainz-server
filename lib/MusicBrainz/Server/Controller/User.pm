@@ -574,7 +574,7 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnMirrors
     $c->model('ArtistCredit')->load(@$ratings)
         if $entity_properties->{artist_credits};
     $c->model($model)->load_aliases(@$ratings)
-        if $c->model($model)->can('load_aliases');
+        if $entity_properties->{aliases};
 
     my %props = (
         entityType => $type,
@@ -665,7 +665,7 @@ sub tag : Chained('load_tag') PathPart('')
             $c->model('ArtistCredit')->load(@entity_entries)
                 if $entity_properties->{artist_credits};
             $model->load_aliases(@entity_entries)
-                if $model->can('load_aliases');
+                if $entity_properties->{aliases};
 
             ("$_" => {
                 count => $total,
@@ -722,7 +722,7 @@ for my $entity_type (entities_with('tags')) {
         $c->model('ArtistCredit')->load(@entity_entries)
             if $entity_properties->{artist_credits};
         $model->load_aliases(@entity_entries)
-            if $model->can('load_aliases');
+            if $entity_properties->{aliases};
 
         $c->stash(
             current_view => 'Node',
