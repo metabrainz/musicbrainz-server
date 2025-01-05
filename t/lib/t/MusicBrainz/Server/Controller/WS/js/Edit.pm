@@ -113,7 +113,7 @@ test 'previewing/creating/editing a release group and release' => sub {
 
     $html = $response->{previews}->[0]->{preview};
 
-    like($html, qr{<bdi>Boredoms</bdi></a> plus <a href=".*" title="a fake artist"><bdi>a fake artist</bdi></a> and a trailing join phrase}, 'preview has artist name');
+    like($html, qr{<bdi><a href=".*" title="Boredoms">Boredoms</a> plus <a href=".*" title="a fake artist">a fake artist</a> and a trailing join phrase</bdi>}, 'preview has artist name');
     like($html, qr/0798d15b-64e2-499f-9969-70167b1d8617/, 'preview has artist gid');
     like($html, qr/Vision Creation Newsun/, 'preview has release name');
     like($html, qr/limited edition/, 'preview has release comment');

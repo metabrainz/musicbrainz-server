@@ -22,11 +22,16 @@ import entityHref from '../utility/entityHref.js';
 import formatDatePeriod from '../utility/formatDatePeriod.js';
 import isolateText from '../utility/isolateText.js';
 
+function maybeIsolated(shouldIsolate: boolean, content: ?React.Node) {
+  return shouldIsolate ? isolateText(content) : content;
+}
+
 export component DeletedLink(
   allowNew: boolean,
   className?: string,
   deletedCaption?: string,
   name: ?Expand2ReactOutput,
+  shouldIsolate: boolean = true,
 ) {
   const caption = nonEmpty(deletedCaption) ? deletedCaption : (allowNew
     ? l('This entity will be added by this edit.')
@@ -41,7 +46,7 @@ export component DeletedLink(
       }
       title={caption}
     >
-      {isolateText(nonEmpty(name)
+      {maybeIsolated(shouldIsolate, nonEmpty(name)
         ? name
         : lp('[removed]', 'generic entity'))}
     </span>
@@ -175,6 +180,7 @@ component EntityLink(
   showEventDate: boolean = true,
   showIcon as passedShowIcon?: boolean = false,
   subPath?: string,
+  shouldIsolate: boolean = true,
   ...passedAnchorProps: {
     className?: string,
     href?: string,
@@ -314,9 +320,13 @@ component EntityLink(
           ? disabledLinkText()
           : null}
       >
-        {isolateText(content)}
+        {maybeIsolated(shouldIsolate, content)}
       </span>
-    ) : <a key="link" {...anchorProps}>{isolateText(content)}</a>;
+    ) : (
+      <a key="link" {...anchorProps}>
+        {maybeIsolated(shouldIsolate, content)}
+      </a>
+    );
 
   if (nameVariation === true) {
     content = (
