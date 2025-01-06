@@ -2471,12 +2471,18 @@ const CLEANUPS: CleanupEntries = {
           };
         }
         const hardcodedPaths = [
+          'designers',
           'directories',
           'for-designers',
           'hiring',
+          'jobs',
           'learn',
           'pro',
+          'session',
           'shots',
+          'signup',
+          'stories',
+          'submit-brief',
           'tags',
         ];
         if (hardcodedPaths.includes(userName)) {
