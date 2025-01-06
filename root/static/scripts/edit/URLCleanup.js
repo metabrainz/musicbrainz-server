@@ -2460,7 +2460,7 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate(url) {
-      const m = /^https:\/\/www\.artstation\.com\/([^/]+)$/.exec(url);
+      const m = /^https:\/\/dribbble\.com\/([^/]+)$/.exec(url);
       if (m) {
         const userName = m[1];
         if (userName === 'search') {
