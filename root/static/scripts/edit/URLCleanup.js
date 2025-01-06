@@ -1142,7 +1142,10 @@ const CLEANUPS: CleanupEntries = {
               target: ERROR_TARGETS.ENTITY,
             };
           }
-          return {result: /^https:\/\/[^/]+\.bandcamp\.com\/$/.test(url)};
+          return {
+            result: /^https:\/\/[^/]+\.bandcamp\.com\/$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
         case LINK_TYPES.bandcamp.genre:
           return {
             result: /^https:\/\/bandcamp\.com\/discover\/[\w-]+$/.test(url),
