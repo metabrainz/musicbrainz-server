@@ -13,6 +13,7 @@ import * as React from 'react';
 import {CatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import {l as lMbServer} from '../static/scripts/common/i18n.js';
 import loopParity from '../utility/loopParity.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
@@ -47,27 +48,27 @@ component Countries(
           <tr>
             <th className="pos">{l_statistics('Rank')}</th>
             <th>
-              {l_statistics('Country')}
+              {lMbServer('Country')}
               <div className="arrow" />
             </th>
             <th>
-              {l_statistics('Artists')}
+              {lMbServer('Artists')}
               <div className="arrow" />
             </th>
             <th>
-              {l_statistics('Releases')}
+              {lMbServer('Releases')}
               <div className="arrow" />
             </th>
             <th>
-              {l_statistics('Labels')}
+              {lMbServer('Labels')}
               <div className="arrow" />
             </th>
             <th>
-              {l_statistics('Events')}
+              {lMbServer('Events')}
               <div className="arrow" />
             </th>
             <th>
-              {l_statistics('Places')}
+              {lMbServer('Places')}
               <div className="arrow" />
             </th>
             <th>

@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import {compare} from '../static/scripts/common/i18n.js';
+import {compare, l as lMbServer} from '../static/scripts/common/i18n.js';
 import formatEntityTypeName
   from '../static/scripts/common/utility/formatEntityTypeName.js';
 
@@ -87,12 +87,12 @@ component Relationships(
     <StatisticsLayout
       fullWidth
       page="relationships"
-      title={l_statistics('Relationships')}
+      title={lMbServer('Relationships')}
     >
       <p>
         {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
       </p>
-      <h2>{l_statistics('Relationships')}</h2>
+      <h2>{lMbServer('Relationships')}</h2>
       {stats['count.ar.links'] < 1 ? (
         <p>
           {l_statistics('No relationship statistics available.')}
@@ -107,7 +107,7 @@ component Relationships(
               <th />
             </tr>
             <tr>
-              <th>{addColonText(l_statistics('Relationships'))}</th>
+              <th>{addColonText(lMbServer('Relationships'))}</th>
               <td />
               <td>
                 {formatCount($c, stats['count.ar.links'])}

@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {l as lMbServer, lp as lpMbServer}
+  from '../static/scripts/common/i18n.js';
 import formatEntityTypeName
   from '../static/scripts/common/utility/formatEntityTypeName.js';
 import {fixedWidthInteger} from '../static/scripts/common/utility/strings.js';
@@ -16,13 +18,19 @@ const stats = {
     'area-types': {label: l_statistics('Area types')},
     'artist-countries': {label: l_statistics('Artist countries')},
     'artist-other': {label: l_statistics('Artist types and genders')},
-    'collection': {label: l_statistics('Collections')},
+    'collection': {label: lMbServer('Collections')},
     'core-entities': {label: l_statistics('Core entities')},
-    'cover-art': {hide: true, label: lp_statistics('Cover art', 'plural')},
+    'cover-art': {
+      hide: true,
+      label: lp_statistics('Cover art', 'plural, multiple releases, header'),
+    },
     'edit-information':
       {hide: true, label: lp_statistics('Edit information', 'noun')},
     'edit-types': {label: lp_statistics('Edit types', 'noun')},
-    'event-art': {hide: true, label: lp_statistics('Event art', 'plural')},
+    'event-art': {
+      hide: true,
+      label: lp_statistics('Event art', 'plural, multiple events, header'),
+    },
     'event-types': {label: l_statistics('Event types')},
     'formats': {label: l_statistics('Formats')},
     'instrument-types': {label: l_statistics('Instrument types')},
@@ -31,7 +39,7 @@ const stats = {
     'other': {label: lp_statistics('Other', 'stats category')},
     'place-types': {label: l_statistics('Place types')},
     'ratings-tags': {label: lp_statistics('Ratings and tags', 'folksonomy')},
-    'relationships': {hide: true, label: l_statistics('Relationships')},
+    'relationships': {hide: true, label: lMbServer('Relationships')},
     'release-countries': {label: l_statistics('Release countries')},
     'release-group-types': {label: l_statistics('Release group types')},
     'release-languages': {label: l_statistics('Release languages')},
@@ -47,12 +55,12 @@ const stats = {
   'count.ar.links': {
     category: 'relationships',
     color: '#ff0000',
-    label: l_statistics('Relationships'),
+    label: lMbServer('Relationships'),
   },
   'count.area': {
     category: 'core-entities',
     color: '#ff0000',
-    label: l_statistics('Areas'),
+    label: lMbServer('Areas'),
   },
   'count.area.type.null': {
     category: 'area-types',
@@ -62,7 +70,7 @@ const stats = {
   'count.artist': {
     category: 'core-entities',
     color: '#ff8a00',
-    label: l_statistics('Artists'),
+    label: lMbServer('Artists'),
   },
   'count.artist.0credits': {
     category: 'artist-other',
@@ -147,7 +155,7 @@ const stats = {
   'count.artistcredit': {
     category: 'other',
     color: '#ff0000',
-    label: l_statistics('Artist credits'),
+    label: lMbServer('Artist credits'),
   },
   'count.barcode': {
     category: 'other',
@@ -172,7 +180,7 @@ const stats = {
   'count.collection': {
     category: 'collection',
     color: '#ff0000',
-    label: l_statistics('Collections'),
+    label: lMbServer('Collections'),
   },
   'count.collection.has_collaborators': {
     category: 'collection',
@@ -287,13 +295,13 @@ const stats = {
   'count.discid': {
     category: 'other',
     color: '#ff0000',
-    label: l_statistics('Disc IDs'),
+    label: lMbServer('Disc IDs'),
   },
   'count.edit': {
     category: 'edit-information',
     color: '#ff00ff',
     hide: true,
-    label: l_statistics('Edits'),
+    label: lMbServer('Edits'),
   },
   'count.edit.applied': {
     category: 'edit-information',
@@ -328,7 +336,7 @@ const stats = {
   'count.edit.open': {
     category: 'edit-information',
     color: '#ffe400',
-    label: lp_statistics('Open edits', 'noun'),
+    label: lpMbServer('Open edits', 'noun'),
   },
   'count.edit.perday': {
     category: 'edit-information',
@@ -433,7 +441,7 @@ const stats = {
   'count.event': {
     category: 'core-entities',
     color: '#e8ab08',
-    label: l_statistics('Events'),
+    label: lMbServer('Events'),
   },
   'count.event.country.null': {
     category: 'event-countries',
@@ -475,12 +483,12 @@ const stats = {
   'count.genre': {
     category: 'core-entities',
     color: '#ff0000',
-    label: l_statistics('Genres'),
+    label: lMbServer('Genres'),
   },
   'count.instrument': {
     category: 'core-entities',
     color: '#8fddc9',
-    label: l_statistics('Instruments'),
+    label: lMbServer('Instruments'),
   },
   'count.instrument.type.null': {
     category: 'instrument-types',
@@ -540,7 +548,7 @@ const stats = {
   'count.label': {
     category: 'core-entities',
     color: '#ff0096',
-    label: l_statistics('Labels'),
+    label: lMbServer('Labels'),
   },
   'count.label.country.null': {
     category: 'label-countries',
@@ -560,7 +568,7 @@ const stats = {
   'count.medium': {
     category: 'core-entities',
     color: '#00c0ff',
-    label: l_statistics('Mediums'),
+    label: lMbServer('Mediums'),
   },
   'count.medium.format.null': {
     category: 'formats',
@@ -575,7 +583,7 @@ const stats = {
   'count.place': {
     category: 'core-entities',
     color: '#bc0a0a',
-    label: l_statistics('Places'),
+    label: lMbServer('Places'),
   },
   'count.place.country.null': {
     category: 'place-countries',
@@ -635,7 +643,7 @@ const stats = {
   'count.rating.raw': {
     category: 'ratings-tags',
     color: '#ff0000',
-    label: l_statistics('Ratings'),
+    label: lMbServer('Ratings'),
   },
   'count.rating.raw.artist': {
     category: 'ratings-tags',
@@ -685,7 +693,7 @@ const stats = {
   'count.recording': {
     category: 'core-entities',
     color: '#4800ff',
-    label: l_statistics('Recordings'),
+    label: lMbServer('Recordings'),
   },
   'count.recording.has_isrc': {
     category: 'other',
@@ -700,7 +708,7 @@ const stats = {
   'count.release': {
     category: 'core-entities',
     color: '#a8ff00',
-    label: l_statistics('Releases'),
+    label: lMbServer('Releases'),
   },
   'count.release.country.null': {
     category: 'release-countries',
@@ -784,7 +792,7 @@ const stats = {
   'count.releasegroup': {
     category: 'core-entities',
     color: '#ae00ff',
-    label: l_statistics('Release groups'),
+    label: lMbServer('Release groups'),
   },
   'count.releasegroup.caa.inferred': {
     category: 'cover-art',
@@ -811,7 +819,7 @@ const stats = {
   'count.series': {
     category: 'core-entities',
     color: '#1a6756',
-    label: lp_statistics('Series', 'plural'),
+    label: lpMbServer('Series', 'plural'),
   },
   'count.series.type.null': {
     category: 'series-types',
@@ -876,12 +884,12 @@ const stats = {
   'count.track': {
     category: 'other',
     color: '#ff0000',
-    label: l_statistics('Tracks'),
+    label: lMbServer('Tracks'),
   },
   'count.url': {
     category: 'core-entities',
     color: '#1a6756',
-    label: l_statistics('URLs'),
+    label: lMbServer('URLs'),
   },
   'count.video': {
     category: 'other',
@@ -892,7 +900,7 @@ const stats = {
     category: 'edit-information',
     color: '#00ffff',
     hide: true,
-    label: l_statistics('Votes'),
+    label: lMbServer('Votes'),
   },
   'count.vote.abstain': {
     category: 'edit-information',
@@ -938,7 +946,7 @@ const stats = {
   'count.work': {
     category: 'core-entities',
     color: '#00ffa8',
-    label: l_statistics('Works'),
+    label: lMbServer('Works'),
   },
   'count.work.attribute.null': {
     category: 'work-attributes',

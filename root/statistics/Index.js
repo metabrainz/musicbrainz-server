@@ -11,6 +11,8 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
+import {l as lMbServer, lp as lpMbServer}
+  from '../static/scripts/common/i18n.js';
 import mapRange from '../static/scripts/common/utility/mapRange.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
@@ -72,63 +74,63 @@ component Index(
             <th colSpan="4">{l_statistics('Core entities')}</th>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Artists'))}</th>
+            <th>{addColonText(lMbServer('Artists'))}</th>
             <td colSpan="3">{fc('artist')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Release groups'))}</th>
+            <th>{addColonText(lMbServer('Release groups'))}</th>
             <td colSpan="3">{fc('releasegroup')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Releases'))}</th>
+            <th>{addColonText(lMbServer('Releases'))}</th>
             <td colSpan="3">{fc('release')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Mediums'))}</th>
+            <th>{addColonText(lMbServer('Mediums'))}</th>
             <td colSpan="3">{fc('medium')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Recordings'))}</th>
+            <th>{addColonText(lMbServer('Recordings'))}</th>
             <td colSpan="3">{fc('recording')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Tracks'))}</th>
+            <th>{addColonText(lMbServer('Tracks'))}</th>
             <td colSpan="3">{fc('track')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Labels'))}</th>
+            <th>{addColonText(lMbServer('Labels'))}</th>
             <td colSpan="3">{fc('label')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Works'))}</th>
+            <th>{addColonText(lMbServer('Works'))}</th>
             <td colSpan="3">{fc('work')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('URLs'))}</th>
+            <th>{addColonText(lMbServer('URLs'))}</th>
             <td colSpan="3">{fc('url')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Areas'))}</th>
+            <th>{addColonText(lMbServer('Areas'))}</th>
             <td colSpan="3">{fc('area')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Places'))}</th>
+            <th>{addColonText(lMbServer('Places'))}</th>
             <td colSpan="3">{fc('place')}</td>
           </tr>
           <tr>
-            <th>{addColonText(lp_statistics('Series', 'plural'))}</th>
+            <th>{addColonText(lpMbServer('Series', 'plural'))}</th>
             <td colSpan="3">{fc('series')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Instruments'))}</th>
+            <th>{addColonText(lMbServer('Instruments'))}</th>
             <td colSpan="3">{fc('instrument')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Events'))}</th>
+            <th>{addColonText(lMbServer('Events'))}</th>
             <td colSpan="3">{fc('event')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Genres'))}</th>
+            <th>{addColonText(lMbServer('Genres'))}</th>
             <td colSpan="3">{fc('genre')}</td>
           </tr>
         </tbody>
@@ -143,11 +145,11 @@ component Index(
             <td>{fc('editor.deleted')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Relationships'))}</th>
+            <th>{addColonText(lMbServer('Relationships'))}</th>
             <td colSpan="3">{fc('ar.links')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Collections'))}</th>
+            <th>{addColonText(lMbServer('Collections'))}</th>
             <td colSpan="3">{fc('collection')}</td>
           </tr>
           <tr>
@@ -193,7 +195,7 @@ component Index(
             <td>{fc('iswc')}</td>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Disc IDs'))}</th>
+            <th>{addColonText(lMbServer('Disc IDs'))}</th>
             <td colSpan="3">{fc('discid')}</td>
           </tr>
           <tr>
@@ -211,14 +213,14 @@ component Index(
         </tbody>
       </table>
 
-      <h2>{l_statistics('Artists')}</h2>
+      <h2>{lMbServer('Artists')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l_statistics('Artists')}</th>
+            <th colSpan="4">{lMbServer('Artists')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_statistics('Artists'))}</th>
+            <th colSpan="2">{addColonText(lMbServer('Artists'))}</th>
             <td>{fc('artist')}</td>
             <td />
           </tr>
@@ -283,7 +285,7 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th>{l_statistics('Male:')}</th>
+            <th>{addColonText(lp_attributes('Male', 'gender'))}</th>
             <td>{fc('artist.gender.male')}</td>
             <td>
               {_formatPercentage(
@@ -294,7 +296,7 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th>{l_statistics('Female:')}</th>
+            <th>{addColonText(lp_attributes('Female', 'gender'))}</th>
             <td>{fc('artist.gender.female')}</td>
             <td>
               {_formatPercentage(
@@ -305,7 +307,7 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th>{addColonText(l_statistics('Non-binary'))}</th>
+            <th>{addColonText(lp_attributes('Non-binary', 'gender'))}</th>
             <td>{fc('artist.gender.nonbinary')}</td>
             <td>
               {_formatPercentage(
@@ -354,10 +356,10 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l_statistics('Releases')}</th>
+            <th colSpan="5">{lMbServer('Releases')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_statistics('Releases'))}</th>
+            <th colSpan="3">{addColonText(lMbServer('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
@@ -379,7 +381,7 @@ component Index(
             <th colSpan="5">{l_statistics('Release status')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_statistics('Releases'))}</th>
+            <th colSpan="3">{addColonText(lMbServer('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
@@ -405,7 +407,7 @@ component Index(
             <th colSpan="5">{l_statistics('Release packaging')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_statistics('Releases'))}</th>
+            <th colSpan="3">{addColonText(lMbServer('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
@@ -431,7 +433,7 @@ component Index(
             <th colSpan="5">{l_statistics('Cover art sources')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_statistics('Releases'))}</th>
+            <th colSpan="3">{addColonText(lMbServer('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
@@ -450,10 +452,10 @@ component Index(
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l_statistics('Data quality')}</th>
+            <th colSpan="5">{lMbServer('Data quality')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_statistics('Releases'))}</th>
+            <th colSpan="3">{addColonText(lMbServer('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
@@ -500,15 +502,15 @@ component Index(
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l_statistics('Disc IDs')}</th>
+            <th colSpan="5">{lMbServer('Disc IDs')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_statistics('Disc IDs'))}</th>
+            <th colSpan="3">{addColonText(lMbServer('Disc IDs'))}</th>
             <td>{fc('discid')}</td>
             <td />
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_statistics('Releases'))}</th>
+            <th colSpan="3">{addColonText(lMbServer('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
@@ -552,7 +554,7 @@ component Index(
             <td>{fp('release.10discids', 'release.has_discid')}</td>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_statistics('Mediums'))}</th>
+            <th colSpan="3">{addColonText(lMbServer('Mediums'))}</th>
             <td>{fc('medium')}</td>
             <td />
           </tr>
@@ -596,7 +598,7 @@ component Index(
         </tbody>
       </table>
 
-      <h2>{l_statistics('Release groups')}</h2>
+      <h2>{lMbServer('Release groups')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
@@ -604,7 +606,7 @@ component Index(
           </tr>
           <tr>
             <th colSpan="2">
-              {addColonText(l_statistics('Release groups'))}
+              {addColonText(lMbServer('Release groups'))}
             </th>
             <td>{fc('releasegroup')}</td>
             <td />
@@ -629,7 +631,7 @@ component Index(
           ))}
           <tr>
             <th />
-            <th>{l_statistics('None')}</th>
+            <th>{lp_statistics('None', 'release group primary type')}</th>
             <td>{fc('releasegroup.primary_type.null')}</td>
             <td>{fp('releasegroup.primary_type.null', 'releasegroup')}</td>
           </tr>
@@ -638,7 +640,7 @@ component Index(
           </tr>
           <tr>
             <th colSpan="2">
-              {addColonText(l_statistics('Release groups'))}
+              {addColonText(lMbServer('Release groups'))}
             </th>
             <td>{fc('releasegroup')}</td>
             <td />
@@ -663,21 +665,21 @@ component Index(
           ))}
           <tr>
             <th />
-            <th>{l_statistics('None')}</th>
+            <th>{lp_statistics('None', 'release group secondary type')}</th>
             <td>{fc('releasegroup.secondary_type.null')}</td>
             <td>{fp('releasegroup.secondary_type.null', 'releasegroup')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{l_statistics('Recordings')}</h2>
+      <h2>{lMbServer('Recordings')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="3">{l_statistics('Recordings')}</th>
+            <th colSpan="3">{lMbServer('Recordings')}</th>
           </tr>
           <tr>
-            <th>{addColonText(l_statistics('Recordings'))}</th>
+            <th>{addColonText(lMbServer('Recordings'))}</th>
             <td>{fc('recording')}</td>
             <td />
           </tr>
@@ -699,14 +701,14 @@ component Index(
         </tbody>
       </table>
 
-      <h2>{l_statistics('Labels')}</h2>
+      <h2>{lMbServer('Labels')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
             <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_statistics('Labels'))}</th>
+            <th colSpan="2">{addColonText(lMbServer('Labels'))}</th>
             <td>{fc('label')}</td>
             <td />
           </tr>
@@ -720,21 +722,21 @@ component Index(
           ))}
           <tr>
             <th />
-            <th>{l_statistics('None')}</th>
+            <th>{lp_statistics('None', 'label type')}</th>
             <td>{fc('label.type.null')}</td>
             <td>{fp('label.type.null', 'label')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{l_statistics('Works')}</h2>
+      <h2>{lMbServer('Works')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
             <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_statistics('Works'))}</th>
+            <th colSpan="2">{addColonText(lMbServer('Works'))}</th>
             <td>{fc('work')}</td>
             <td />
           </tr>
@@ -748,7 +750,7 @@ component Index(
           ))}
           <tr>
             <th />
-            <th>{l_statistics('None')}</th>
+            <th>{lp_statistics('None', 'work type')}</th>
             <td>{fc('work.type.null')}</td>
             <td>{fp('work.type.null', 'work')}</td>
           </tr>
@@ -766,7 +768,7 @@ component Index(
             <th colSpan="4">{l_statistics('Attributes')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_statistics('Works'))}</th>
+            <th colSpan="2">{addColonText(lMbServer('Works'))}</th>
             <td>{fc('work')}</td>
             <td />
           </tr>
@@ -782,21 +784,21 @@ component Index(
           ))}
           <tr>
             <th />
-            <th>{l_statistics('None')}</th>
+            <th>{lp_statistics('None', 'work attribute')}</th>
             <td>{fc('work.attribute.null')}</td>
             <td>{fp('work.attribute.null', 'work')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{l_statistics('Areas')}</h2>
+      <h2>{lMbServer('Areas')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
             <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_statistics('Areas'))}</th>
+            <th colSpan="2">{addColonText(lMbServer('Areas'))}</th>
             <td>{fc('area')}</td>
             <td />
           </tr>
@@ -810,21 +812,21 @@ component Index(
           ))}
           <tr>
             <th />
-            <th>{l_statistics('None')}</th>
+            <th>{lp_statistics('None', 'area type')}</th>
             <td>{fc('area.type.null')}</td>
             <td>{fp('area.type.null', 'area')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{l_statistics('Places')}</h2>
+      <h2>{lMbServer('Places')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
             <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_statistics('Places'))}</th>
+            <th colSpan="2">{addColonText(lMbServer('Places'))}</th>
             <td>{fc('place')}</td>
             <td />
           </tr>
@@ -838,14 +840,14 @@ component Index(
           ))}
           <tr>
             <th />
-            <th>{l_statistics('None')}</th>
+            <th>{lp_statistics('None', 'place type')}</th>
             <td>{fc('place.type.null')}</td>
             <td>{fp('place.type.null', 'place')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{lp_statistics('Series', 'plural')}</h2>
+      <h2>{lpMbServer('Series', 'plural')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
@@ -853,7 +855,7 @@ component Index(
           </tr>
           <tr>
             <th colSpan="2">
-              {addColonText(lp_statistics('Series', 'plural'))}
+              {addColonText(lpMbServer('Series', 'plural'))}
             </th>
             <td>{fc('series')}</td>
             <td />
@@ -869,14 +871,14 @@ component Index(
         </tbody>
       </table>
 
-      <h2>{l_statistics('Instruments')}</h2>
+      <h2>{lMbServer('Instruments')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
             <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_statistics('Instruments'))}</th>
+            <th colSpan="2">{addColonText(lMbServer('Instruments'))}</th>
             <td>{fc('instrument')}</td>
             <td />
           </tr>
@@ -892,21 +894,21 @@ component Index(
           ))}
           <tr>
             <th />
-            <th>{l_statistics('None')}</th>
+            <th>{lp_statistics('None', 'instrument type')}</th>
             <td>{fc('instrument.type.null')}</td>
             <td>{fp('instrument.type.null', 'instrument')}</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>{l_statistics('Events')}</h2>
+      <h2>{lMbServer('Events')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
             <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_statistics('Events'))}</th>
+            <th colSpan="2">{addColonText(lMbServer('Events'))}</th>
             <td>{fc('event')}</td>
             <td />
           </tr>
@@ -920,17 +922,19 @@ component Index(
           ))}
           <tr>
             <th />
-            <th>{l_statistics('None')}</th>
+            <th>{lp_statistics('None', 'event type')}</th>
             <td>{fc('event.type.null')}</td>
             <td>{fp('event.type.null', 'event')}</td>
           </tr>
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l_statistics('Event art')}</th>
+            <th colSpan="5">
+              {lp_statistics('Event art', 'plural, multiple events, header')}
+            </th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_statistics('Events'))}</th>
+            <th colSpan="3">{addColonText(lMbServer('Events'))}</th>
             <td>{fc('event')}</td>
             <td />
           </tr>
@@ -949,14 +953,14 @@ component Index(
         </tbody>
       </table>
 
-      <h2>{l_statistics('Collections')}</h2>
+      <h2>{lMbServer('Collections')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l_statistics('Collections')}</th>
+            <th colSpan="5">{lMbServer('Collections')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_statistics('Collections'))}</th>
+            <th colSpan="3">{addColonText(lMbServer('Collections'))}</th>
             <td>{fc('collection')}</td>
             <td />
           </tr>
@@ -1095,13 +1099,13 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Public'))}</th>
+            <th colSpan="2">{addColonText(lMbServer('Public'))}</th>
             <td>{fc('collection.public')}</td>
             <td>{fp('collection.public', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Private'))}</th>
+            <th colSpan="2">{addColonText(lMbServer('Private'))}</th>
             <td>{fc('collection.private')}</td>
             <td>{fp('collection.private', 'collection')}</td>
           </tr>
@@ -1120,7 +1124,7 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="6">{l_statistics('Editors')}</th>
+            <th colSpan="6">{lMbServer('Editors')}</th>
           </tr>
           <tr>
             <th colSpan="4">{l_statistics('Editors (valid):')}</th>
@@ -1246,22 +1250,26 @@ component Index(
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="6">{l_statistics('Edits')}</th>
+            <th colSpan="6">{lMbServer('Edits')}</th>
           </tr>
           <tr>
-            <th colSpan="4">{addColonText(l_statistics('Edits'))}</th>
+            <th colSpan="4">{addColonText(lMbServer('Edits'))}</th>
             <td>{fc('edit')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(l_statistics('Open'))}</th>
+            <th colSpan="3">
+              {addColonText(lpMbServer('Open', 'adjective, edit status'))}
+            </th>
             <td>{fc('edit.open')}</td>
             <td>{fp('edit.open', 'edit')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(l_statistics('Applied'))}</th>
+            <th colSpan="3">
+              {addColonText(lpMbServer('Applied', 'edit status'))}
+            </th>
             <td>{fc('edit.applied')}</td>
             <td>{fp('edit.applied', 'edit')}</td>
           </tr>
@@ -1292,13 +1300,13 @@ component Index(
           <tr>
             <th />
             <th colSpan="3">
-              {addColonText(lp_statistics('Cancelled', 'edit'))}
+              {addColonText(lpMbServer('Cancelled', 'edit'))}
             </th>
             <td>{fc('edit.deleted')}</td>
             <td>{fp('edit.deleted', 'edit')}</td>
           </tr>
           <tr>
-            <th colSpan="4">{addColonText(l_statistics('Edits'))}</th>
+            <th colSpan="4">{addColonText(lMbServer('Edits'))}</th>
             <td>{fc('edit')}</td>
             <td />
           </tr>
@@ -1318,45 +1326,41 @@ component Index(
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="6">{l_statistics('Votes')}</th>
+            <th colSpan="6">{lMbServer('Votes')}</th>
           </tr>
           <tr>
-            <th colSpan="4">{addColonText(l_statistics('Votes'))}</th>
+            <th colSpan="4">{addColonText(lMbServer('Votes'))}</th>
             <td>{fc('vote')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="3">
-              {addColonText(lp_statistics('Approve', 'vote'))}
-            </th>
+            <th colSpan="3">{addColonText(lpMbServer('Approve', 'vote'))}</th>
             <td>{fc('vote.approve')}</td>
             <td>{fp('vote.approve', 'vote')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(lp_statistics('Yes', 'vote'))}</th>
+            <th colSpan="3">{addColonText(lpMbServer('Yes', 'vote'))}</th>
             <td>{fc('vote.yes')}</td>
             <td>{fp('vote.yes', 'vote')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(lp_statistics('No', 'vote'))}</th>
+            <th colSpan="3">{addColonText(lpMbServer('No', 'vote'))}</th>
             <td>{fc('vote.no')}</td>
             <td>{fp('vote.no', 'vote')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">
-              {addColonText(lp_statistics('Abstain', 'vote'))}
-            </th>
+            <th colSpan="3">{addColonText(lpMbServer('Abstain', 'vote'))}</th>
             <td>{fc('vote.abstain')}</td>
             <td>{fp('vote.abstain', 'vote')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="3">
-              {addColonText(lp('Admin approval', 'vote'))}
+              {addColonText(lpMbServer('Admin approval', 'vote'))}
             </th>
             <td>{fc('vote.admin_approve')}</td>
             <td>{fp('vote.admin_approve', 'vote')}</td>
@@ -1364,13 +1368,13 @@ component Index(
           <tr>
             <th />
             <th colSpan="3">
-              {addColonText(lp('Admin rejection', 'vote'))}
+              {addColonText(lpMbServer('Admin rejection', 'vote'))}
             </th>
             <td>{fc('vote.admin_reject')}</td>
             <td>{fp('vote.admin_reject', 'vote')}</td>
           </tr>
           <tr>
-            <th colSpan="4">{addColonText(l_statistics('Votes'))}</th>
+            <th colSpan="4">{addColonText(lMbServer('Votes'))}</th>
             <td>{fc('vote')}</td>
             <td />
           </tr>

@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
+import {l as lMbServer} from '../static/scripts/common/i18n.js';
 import loopParity from '../utility/loopParity.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
@@ -85,7 +86,7 @@ component Editors(
     <StatisticsLayout
       fullWidth
       page="editors"
-      title={l_statistics('Editors')}
+      title={lMbServer('Editors')}
     >
       <p>
         {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
@@ -101,13 +102,13 @@ component Editors(
         <EditorStatsTable
           countLabel={l_statistics('Open and applied edits in past week')}
           dataPoints={topRecentlyActiveEditors}
-          editorLabel={l_statistics('Editor')}
+          editorLabel={lMbServer('Editor')}
           tableLabel={l_statistics('Most active editors in the past week')}
         />
         <EditorStatsTable
           countLabel={l_statistics('Total applied edits')}
           dataPoints={topEditors}
-          editorLabel={l_statistics('Editor')}
+          editorLabel={lMbServer('Editor')}
           tableLabel={l_statistics('Top editors overall')}
         />
       </div>

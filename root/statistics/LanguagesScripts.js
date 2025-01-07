@@ -13,6 +13,7 @@ import * as React from 'react';
 import LinkSearchableProperty from '../components/LinkSearchableProperty.js';
 import {CatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
+import {l as lMbServer} from '../static/scripts/common/i18n.js';
 import loopParity from '../utility/loopParity.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
@@ -58,15 +59,15 @@ component LanguagesScripts(
             <tr>
               <th className="pos">{l_statistics('Rank')}</th>
               <th>
-                {l_statistics('Languages')}
+                {lMbServer('Language')}
                 <div className="arrow" />
               </th>
               <th>
-                {l_statistics('Releases')}
+                {lMbServer('Releases')}
                 <div className="arrow" />
               </th>
               <th>
-                {l_statistics('Works')}
+                {lMbServer('Works')}
                 <div className="arrow" />
               </th>
               <th>
@@ -146,11 +147,11 @@ component LanguagesScripts(
             <tr>
               <th className="pos">{l_statistics('Rank')}</th>
               <th>
-                {l_statistics('Script')}
+                {lMbServer('Script')}
                 <div className="arrow" />
               </th>
               <th>
-                {l_statistics('Releases')}
+                {lMbServer('Releases')}
                 <div className="arrow" />
               </th>
             </tr>

@@ -12,6 +12,7 @@ import * as React from 'react';
 
 import LinkSearchableProperty from '../components/LinkSearchableProperty.js';
 import {CatalystContext} from '../context.mjs';
+import {l as lMbServer} from '../static/scripts/common/i18n.js';
 import loopParity from '../utility/loopParity.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
@@ -46,10 +47,10 @@ component Formats(
         <thead>
           <tr>
             <th className="pos">{l_statistics('Rank')}</th>
-            <th>{l_statistics('Format')}</th>
-            <th>{l_statistics('Releases')}</th>
+            <th>{lMbServer('Format')}</th>
+            <th>{lMbServer('Releases')}</th>
             <th>{l_statistics('% of total releases')}</th>
-            <th>{l_statistics('Mediums')}</th>
+            <th>{lMbServer('Mediums')}</th>
             <th>{l_statistics('% of total mediums')}</th>
           </tr>
         </thead>
