@@ -1142,7 +1142,10 @@ const CLEANUPS: CleanupEntries = {
               target: ERROR_TARGETS.ENTITY,
             };
           }
-          return {result: /^https:\/\/[^/]+\.bandcamp\.com\/$/.test(url)};
+          return {
+            result: /^https:\/\/[^/]+\.bandcamp\.com\/$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
         case LINK_TYPES.bandcamp.genre:
           return {
             result: /^https:\/\/bandcamp\.com\/discover\/[\w-]+$/.test(url),
@@ -2460,7 +2463,7 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate(url) {
-      const m = /^https:\/\/www\.artstation\.com\/([^/]+)$/.exec(url);
+      const m = /^https:\/\/dribbble\.com\/([^/]+)$/.exec(url);
       if (m) {
         const userName = m[1];
         if (userName === 'search') {
@@ -2471,12 +2474,18 @@ const CLEANUPS: CleanupEntries = {
           };
         }
         const hardcodedPaths = [
+          'designers',
           'directories',
           'for-designers',
           'hiring',
+          'jobs',
           'learn',
           'pro',
+          'session',
           'shots',
+          'signup',
+          'stories',
+          'submit-brief',
           'tags',
         ];
         if (hardcodedPaths.includes(userName)) {
@@ -3198,13 +3207,13 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'jaxsta': {
-    match: [/^(https?:\/\/)?(www\.)?jaxsta\.com/i],
+    match: [/^(https?:\/\/)?(www\.)?jaxsta\.(com|io)/i],
     restrict: [
       LINK_TYPES.otherdatabases,
       {work: [LINK_TYPES.otherdatabases.work, LINK_TYPES.lyrics.work]},
     ],
     select(url, sourceType) {
-      const m = /^https:\/\/jaxsta\.com\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
+      const m = /^https:\/\/jaxsta\.io\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (prefix) {
@@ -3218,12 +3227,12 @@ const CLEANUPS: CleanupEntries = {
       return false;
     },
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?jaxsta\.com\/([^#?]+).*$/, 'https://jaxsta.com/$1');
-      url = url.replace(/^https:\/\/jaxsta\.com\/(\w+)\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?.*$/, 'https://jaxsta.com/$1/$2$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?jaxsta\.(?:com|io)\/([^#?]+).*$/, 'https://jaxsta.io/$1');
+      url = url.replace(/^https:\/\/jaxsta\.io\/(\w+)\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?.*$/, 'https://jaxsta.io/$1/$2$3');
       return url;
     },
     validate(url, id) {
-      const m = /^https:\/\/jaxsta\.com\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
+      const m = /^https:\/\/jaxsta\.io\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
       if (m) {
         const type = m[1];
         const hasVariant = Boolean(m[2]);
@@ -4772,16 +4781,16 @@ const CLEANUPS: CleanupEntries = {
     clean(url) {
       url = url.replace(
         /^(?:https?:\/\/)?(?:www\.)?(?:qim|quebecinfomusique)\.com\/([^#]+).*$/i,
-        'http://www.qim.com/$1',
+        'http://www.quebecinfomusique.com/$1',
       );
       url = url.replace(
-        /^(http:\/\/www\.qim\.com\/artistes)\/(?:albums|oeuvres)\b/,
+        /^(http:\/\/www\.quebecinfomusique\.com\/artistes)\/(?:albums|oeuvres)\b/,
         '$1/biographie',
       );
       return url;
     },
     validate(url, id) {
-      const m = /^http:\/\/www\.qim\.com\/(\w+)\/(\w+)\.asp\?(.+)$/.exec(url);
+      const m = /^http:\/\/www\.quebecinfomusique\.com\/(\w+)\/(\w+)\.asp\?(.+)$/.exec(url);
       if (m) {
         const [/* matched string */, type, page, query] = m;
         switch (id) {
@@ -5497,10 +5506,15 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?([^/]+\.)?threads\.net\//i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
     clean(url) {
-      return url.replace(
-        /^(?:https?:\/\/)?(?:www\.)?threads\.net(?:\/#!)?\//,
-        'https://www.threads.net/',
+      url = url.replace(
+        /^(?:https?:\/\/)?(?:www\.)?threads\.net(?:\/#!)?\/([^#?]+).*$/,
+        'https://www.threads.net/$1',
       );
+      url = url.replace(
+        /^https:\/\/www\.threads\.net\/@[^/]+\/post\/([^/]+)/,
+        'https://www.threads.net/t/$1',
+      );
+      return url;
     },
     validate(url, id) {
       const isAProfile = /^https:\/\/www\.threads\.net\/@[^/]+$/.test(url);

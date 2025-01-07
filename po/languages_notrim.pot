@@ -30423,7 +30423,7 @@ msgstr ""
 msgid "Serbian"
 msgstr ""
 
-#. frequency:0 iso_code_3:hbs
+#. frequency:1 iso_code_3:hbs
 #: DB:language/name:2670
 msgid "Serbo-Croatian"
 msgstr ""

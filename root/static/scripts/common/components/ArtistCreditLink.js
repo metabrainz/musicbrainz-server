@@ -9,6 +9,7 @@
 
 import informationIconUrl from '../../../images/icons/information.png';
 import Tooltip from '../../edit/components/Tooltip.js';
+import isolateText from '../utility/isolateText.js';
 
 import EntityLink, {DeletedLink} from './EntityLink.js';
 
@@ -69,6 +70,7 @@ component ArtistCreditLink(
           content={credit.name}
           entity={artist}
           key={`${artist.id}-${i}`}
+          shouldIsolate={false}
           showDeleted={showDeleted}
           showDisambiguation={showDisambiguation}
           showEditsPending={showEditsPending && !artistCredit.editsPending}
@@ -82,6 +84,7 @@ component ArtistCreditLink(
           allowNew={false}
           key={`deleted-${i}`}
           name={credit.name}
+          shouldIsolate={false}
         />,
       );
     }
@@ -95,7 +98,7 @@ component ArtistCreditLink(
       </span>
     );
   }
-  return parts;
+  return isolateText(parts);
 }
 
 export default ArtistCreditLink;
