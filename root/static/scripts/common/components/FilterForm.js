@@ -33,6 +33,7 @@ type RecordingFilterFormT = FormT<{
   +artist_credit_id: FieldT<number>,
   +hide_bootlegs: FieldT<boolean>,
   +video: FieldT<number>,
+  +works: FieldT<number>,
 }>;
 
 export type RecordingFilterT = $ReadOnly<{
@@ -40,6 +41,7 @@ export type RecordingFilterT = $ReadOnly<{
   +entity_type: 'recording',
   +options_artist_credit_id: SelectOptionsT,
   +options_video: SelectOptionsT,
+  +options_works: SelectOptionsT,
 }>;
 
 type ReleaseFilterFormT = FormT<{
@@ -218,6 +220,22 @@ component FilterForm(form: FilterFormT) {
                       options={{
                         grouped: false,
                         options: form.options_video,
+                      }}
+                      style={{maxWidth: '40em'}}
+                      uncontrolled
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    {addColonText(l('Works'))}
+                  </td>
+                  <td>
+                    <SelectField
+                      field={form.field.works}
+                      options={{
+                        grouped: false,
+                        options: form.options_works,
                       }}
                       style={{maxWidth: '40em'}}
                       uncontrolled

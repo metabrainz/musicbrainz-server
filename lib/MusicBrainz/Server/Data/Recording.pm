@@ -126,6 +126,22 @@ sub find_by_artist
             push @where_query, 'recording.artist_credit = ?';
             push @where_args, $filter{artist_credit_id};
         }
+        if (exists $filter{works}) {
+            my $works_query = <<~'SQL';
+                EXISTS (
+                    SELECT TRUE
+                    FROM   l_recording_work lrw
+                    WHERE  lrw.entity0 = recording.id
+                )
+                SQL
+            if ($filter{works} == 1) {
+                # Show only recordings with works
+                push @where_query, $works_query;
+            } elsif ($filter{works} == 2) {
+                # Show only recordings without works
+                push @where_query, "NOT $works_query";
+            }
+        }
         if (exists $filter{hide_bootlegs}) {
             push @where_query, <<~'SQL';
                 (

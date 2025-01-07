@@ -464,7 +464,7 @@ test 'Recording page filtering' => sub {
     my $tx = test_xpath_html($mech->content);
     $tx->is(
         'count(//table[@class="tbl"]/tbody/tr)',
-        '4',
+        '5',
         'There are four entries in the unfiltered recording table',
     );
 
@@ -527,8 +527,37 @@ test 'Recording page filtering' => sub {
     $tx = test_xpath_html($mech->content);
     $tx->is(
         'count(//table[@class="tbl"]/tbody/tr)',
-        '3',
-        'There are three entries in the recording table after filtering by non-videos only',
+        '4',
+        'There are four entries in the recording table after filtering by non-videos only',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/recordings?filter.works=1',
+        'Fetched artist recordings page with related works option',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '4',
+        'There are four entries in the recording table after filtering to show recordings with works only',
+    );
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/recordings?filter.works=2',
+        'Fetched artist recordings page with no related works option',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '1',
+        'There is one entry in the recording table after filtering to show recordings without works only',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr/td[1]',
+        'Improvisation (No work here)',
+        'The entry is named "Improvisation"',
     );
 
     $mech->get_ok(
@@ -551,8 +580,8 @@ test 'Recording page filtering' => sub {
     $tx = test_xpath_html($mech->content);
     $tx->is(
         'count(//table[@class="tbl"]/tbody/tr)',
-        '3',
-        'There are three entries in the recording table after filtering by non-bootleg only',
+        '4',
+        'There are four entries in the recording table after filtering by non-bootleg only',
     );
 };
 
