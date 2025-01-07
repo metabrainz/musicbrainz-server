@@ -1356,7 +1356,7 @@ component Index(
           <tr>
             <th />
             <th colSpan="3">
-              {addColonText(lp_statistics('Admin approval', 'vote'))}
+              {addColonText(lp('Admin approval', 'vote'))}
             </th>
             <td>{fc('vote.admin_approve')}</td>
             <td>{fp('vote.admin_approve', 'vote')}</td>
@@ -1364,7 +1364,7 @@ component Index(
           <tr>
             <th />
             <th colSpan="3">
-              {addColonText(lp_statistics('Admin rejection', 'vote'))}
+              {addColonText(lp('Admin rejection', 'vote'))}
             </th>
             <td>{fc('vote.admin_reject')}</td>
             <td>{fp('vote.admin_reject', 'vote')}</td>
