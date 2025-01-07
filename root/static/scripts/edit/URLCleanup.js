@@ -4781,16 +4781,16 @@ const CLEANUPS: CleanupEntries = {
     clean(url) {
       url = url.replace(
         /^(?:https?:\/\/)?(?:www\.)?(?:qim|quebecinfomusique)\.com\/([^#]+).*$/i,
-        'http://www.qim.com/$1',
+        'http://www.quebecinfomusique.com/$1',
       );
       url = url.replace(
-        /^(http:\/\/www\.qim\.com\/artistes)\/(?:albums|oeuvres)\b/,
+        /^(http:\/\/www\.quebecinfomusique\.com\/artistes)\/(?:albums|oeuvres)\b/,
         '$1/biographie',
       );
       return url;
     },
     validate(url, id) {
-      const m = /^http:\/\/www\.qim\.com\/(\w+)\/(\w+)\.asp\?(.+)$/.exec(url);
+      const m = /^http:\/\/www\.quebecinfomusique\.com\/(\w+)\/(\w+)\.asp\?(.+)$/.exec(url);
       if (m) {
         const [/* matched string */, type, page, query] = m;
         switch (id) {
