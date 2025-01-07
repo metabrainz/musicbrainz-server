@@ -43,10 +43,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 11:37+0200\n"
+"POT-Creation-Date: 2025-01-07 14:07+0100\n"
 "PO-Revision-Date: 2024-12-22 17:42+0000\n"
-"Last-Translator: wileyfoxyx "
-"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -54,8 +54,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.9.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -2776,12 +2776,12 @@ msgid "This disc has a hidden pregap track before track 1"
 msgstr "Диск содержит скрытый прегап перед первым треком"
 
 #: ../root/components/common-macros.tt:190
-#: ../root/static/scripts/common/components/EntityLink.js:33
+#: ../root/static/scripts/common/components/EntityLink.js:38
 msgid "This entity has been removed, and cannot be displayed correctly."
 msgstr "Эта сущность была удалена и не может отображаться правильно."
 
 #: ../root/components/common-macros.tt:190
-#: ../root/static/scripts/common/components/EntityLink.js:32
+#: ../root/static/scripts/common/components/EntityLink.js:37
 msgid "This entity will be added by this edit."
 msgstr "Эта сущность будет добавлена этой правкой."
 
@@ -2906,7 +2906,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:390
-#: ../root/static/scripts/common/components/EntityLink.js:349
+#: ../root/static/scripts/common/components/EntityLink.js:360
 msgid "This recording is a video"
 msgstr "Эта запись является видео"
 
@@ -3435,7 +3435,7 @@ msgstr ""
 "Пожалуйста, проверьте, что исполнители введены верно."
 
 #: ../root/components/common-macros.tt:190
-#: ../root/static/scripts/common/components/EntityLink.js:46
+#: ../root/static/scripts/common/components/EntityLink.js:51
 msgctxt "generic entity"
 msgid "[removed]"
 msgstr "[удалено]"
@@ -3479,7 +3479,7 @@ msgid "by"
 msgstr " "
 
 #: ../root/components/common-macros.tt:111
-#: ../root/static/scripts/common/components/EntityLink.js:106
+#: ../root/static/scripts/common/components/EntityLink.js:111
 msgctxt "event"
 msgid "cancelled"
 msgstr "отменено"
@@ -3531,17 +3531,17 @@ msgid "hide tracklist"
 msgstr "скрыть треклист"
 
 #: ../root/components/common-macros.tt:102
-#: ../root/static/scripts/common/components/EntityLink.js:127
+#: ../root/static/scripts/common/components/EntityLink.js:132
 msgid "historical"
 msgstr "исторический"
 
 #: ../root/components/common-macros.tt:100
-#: ../root/static/scripts/common/components/EntityLink.js:129
+#: ../root/static/scripts/common/components/EntityLink.js:134
 msgid "historical, until {end}"
 msgstr "исторический, до {end}"
 
 #: ../root/components/common-macros.tt:98
-#: ../root/static/scripts/common/components/EntityLink.js:123
+#: ../root/static/scripts/common/components/EntityLink.js:128
 msgid "historical, {begin}-{end}"
 msgstr "исторический, с {begin} по {end}"
 
@@ -3575,8 +3575,8 @@ msgstr "включает"
 
 #: ../root/components/common-macros.tt:157
 #: ../root/components/common-macros.tt:233
-#: ../root/static/scripts/common/components/EntityLink.js:152
-#: ../root/static/scripts/common/components/EntityLink.js:513
+#: ../root/static/scripts/common/components/EntityLink.js:157
+#: ../root/static/scripts/common/components/EntityLink.js:524
 msgid "info"
 msgstr "информация"
 
@@ -3739,7 +3739,7 @@ msgstr ""
 "Обязательно прочтите их и ответьте, если необходимо."
 
 #: ../root/components/common-macros.tt:264
-#: ../root/static/scripts/common/components/EntityLink.js:288
+#: ../root/static/scripts/common/components/EntityLink.js:295
 msgid "{name} – {additional_info}"
 msgstr "{name} – {additional_info}"
 
@@ -3995,12 +3995,12 @@ msgstr "Не найдено токена OAuth с данными парамет�
 msgid "The provided collection ID doesn’t exist."
 msgstr "Введённый ID коллекции не найден."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:739
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:741
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr ""
 "Нельзя объединить исполнителя специального назначения в другого исполнителя"
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:744
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:746
 msgid "You cannot merge into Deleted Artist"
 msgstr "Нельзя объединять с удалённым исполнителем"
 
@@ -4268,11 +4268,11 @@ msgstr "Ваше сообщение не может быть отправлен�
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:815
+#: ../lib/MusicBrainz/Server/Controller/User.pm:826
 msgid "An error occurred while trying to send your report."
 msgstr "Возникла ошибка при попытке отправить жалобу."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:819
+#: ../lib/MusicBrainz/Server/Controller/User.pm:830
 msgid "Your report has been sent."
 msgstr ""
 
@@ -7456,7 +7456,8 @@ msgstr "Сравнение длины дорожек"
 #: ../root/cdtoc/AttachCDTocConfirmation.js:72
 #: ../root/cdtoc/SetTracklistDurations.js:54
 msgid "This edit would only make subsecond changes to track lengths."
-msgstr "В ходе этой правки длительность дорожек изменится лишь на доли секунды."
+msgstr ""
+"В ходе этой правки длительность дорожек изменится лишь на доли секунды."
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:76
 msgid "CD TOC track lengths"
@@ -8050,7 +8051,7 @@ msgid "Edit relationships"
 msgstr "Править отношения"
 
 #: ../root/components/InstrumentRelTypes.js:28
-#: ../root/static/scripts/common/components/EntityLink.js:475
+#: ../root/static/scripts/common/components/EntityLink.js:486
 msgid "as “{credit}”"
 msgstr ""
 
@@ -14526,11 +14527,11 @@ msgstr ""
 msgid "Annotation last modified on {date}."
 msgstr "Аннотация последний раз изменена {date}."
 
-#: ../root/static/scripts/common/components/ArtistCreditLink.js:34
+#: ../root/static/scripts/common/components/ArtistCreditLink.js:35
 msgid "This artist credit has {edit_search|open edits}."
 msgstr ""
 
-#: ../root/static/scripts/common/components/ArtistCreditLink.js:39
+#: ../root/static/scripts/common/components/ArtistCreditLink.js:40
 msgid "This artist credit has open edits."
 msgstr ""
 
@@ -14633,7 +14634,7 @@ msgid "Search for a work"
 msgstr ""
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:87
-#: ../root/static/scripts/common/components/EntityLink.js:77
+#: ../root/static/scripts/common/components/EntityLink.js:82
 #, fuzzy
 #| msgctxt "folksonomy"
 #| msgid "Primary tag"
@@ -14730,7 +14731,7 @@ msgstr ""
 msgid "[missing editor]"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:135
+#: ../root/static/scripts/common/components/EntityLink.js:140
 #: ../root/url/UrlIndex.js:28
 msgid ""
 "This link has been temporarily disabled because it has been reported as "
@@ -14738,19 +14739,19 @@ msgid ""
 msgstr ""
 "Ссылка была временно отключена из-за сообщений о её возможной опасности."
 
-#: ../root/static/scripts/common/components/EntityLink.js:363
+#: ../root/static/scripts/common/components/EntityLink.js:374
 msgid "This event has artwork in the Event Art Archive"
 msgstr "У события есть фото в Event Art Archive"
 
-#: ../root/static/scripts/common/components/EntityLink.js:388
+#: ../root/static/scripts/common/components/EntityLink.js:399
 msgid "This release has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:413
+#: ../root/static/scripts/common/components/EntityLink.js:424
 msgid "This release group has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:441
+#: ../root/static/scripts/common/components/EntityLink.js:452
 msgid ""
 "High quality: All available data has been added, if possible including cover "
 "art with liner info that proves it"
@@ -14758,7 +14759,7 @@ msgstr ""
 "Высокое качество: все возможные данные были добавлены (если возможно, "
 "включая обложку) с информацией, которая может ее подтвердить"
 
-#: ../root/static/scripts/common/components/EntityLink.js:454
+#: ../root/static/scripts/common/components/EntityLink.js:465
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"
@@ -15247,9 +15248,9 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:651
 #: ../root/static/scripts/edit/URLCleanup.js:910
-#: ../root/static/scripts/edit/URLCleanup.js:4276
-#: ../root/static/scripts/edit/URLCleanup.js:5344
-#: ../root/static/scripts/edit/URLCleanup.js:5898
+#: ../root/static/scripts/edit/URLCleanup.js:4285
+#: ../root/static/scripts/edit/URLCleanup.js:5353
+#: ../root/static/scripts/edit/URLCleanup.js:5912
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -15288,14 +15289,14 @@ msgstr ""
 "Пожалуйста, добавьте ссылку на основную страницу исполнителя, а не "
 "конкретного альбома или трека."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1155
+#: ../root/static/scripts/edit/URLCleanup.js:1158
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr ""
 "Пожалуйста, добавьте ссылку на основную страницу лейбла, а не конкретного "
 "альбома или трека."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1177
+#: ../root/static/scripts/edit/URLCleanup.js:1180
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -15309,7 +15310,7 @@ msgstr ""
 "(\"{single_url_pattern}\"), а эту страницу профиля - к подходящему "
 "исполнителю или лейблу."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1205
+#: ../root/static/scripts/edit/URLCleanup.js:1208
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -15323,33 +15324,33 @@ msgstr ""
 "(\"{album_url_pattern}\" или \"{single_url_pattern}\"), а эту страницу "
 "профиля - к подходящему исполнителю или лейблу."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1539
+#: ../root/static/scripts/edit/URLCleanup.js:1542
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1541
+#: ../root/static/scripts/edit/URLCleanup.js:1544
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2269
+#: ../root/static/scripts/edit/URLCleanup.js:2272
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2983
+#: ../root/static/scripts/edit/URLCleanup.js:2992
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3001
+#: ../root/static/scripts/edit/URLCleanup.js:3010
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3043
+#: ../root/static/scripts/edit/URLCleanup.js:3052
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
@@ -15357,62 +15358,62 @@ msgstr ""
 "Ссылки на Instagram (\"{explore_url_pattern}\") не разрешены. Добавьте "
 "ссылку на конкретный профиль, если такая имеется."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3071
+#: ../root/static/scripts/edit/URLCleanup.js:3080
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3096
+#: ../root/static/scripts/edit/URLCleanup.js:3105
 msgid "This is an internal Instagram page and should not be added."
 msgstr "Не стоит добавлять внутренние страницы Instagram."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4176
+#: ../root/static/scripts/edit/URLCleanup.js:4185
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4856
+#: ../root/static/scripts/edit/URLCleanup.js:4865
 msgid "Only RYM music videos can be linked to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4921
+#: ../root/static/scripts/edit/URLCleanup.js:4930
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5516
+#: ../root/static/scripts/edit/URLCleanup.js:5530
 msgid "Please link to Threads profiles, not threads."
 msgstr "Добавьте ссылки на профили в Threads, а не отдельные ветки."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5640
+#: ../root/static/scripts/edit/URLCleanup.js:5654
 msgid "Please link to TikTok profiles, not videos."
 msgstr "Добавьте ссылки на профили в TikTok, а не отдельные видео."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5918
+#: ../root/static/scripts/edit/URLCleanup.js:5932
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr "Это страница документации Твиттера, а не профиля."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5932
+#: ../root/static/scripts/edit/URLCleanup.js:5946
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "Добавьте ссылки на профили в Твиттере, а не отдельные твиты."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5950
+#: ../root/static/scripts/edit/URLCleanup.js:5964
 msgid "This site does not allow direct links to their images."
 msgstr "На этом сайте запрещены прямые ссылки к изображениям."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6147
+#: ../root/static/scripts/edit/URLCleanup.js:6161
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6318
+#: ../root/static/scripts/edit/URLCleanup.js:6332
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
@@ -15421,25 +15422,25 @@ msgstr ""
 "В ссылке есть незакодированный символ \"?\" или \"#\". Проверьте, стоит ли "
 "ее убрать, или это ошибка и ссылка неправильно закодирована."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6338
+#: ../root/static/scripts/edit/URLCleanup.js:6352
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6359
+#: ../root/static/scripts/edit/URLCleanup.js:6373
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6377
+#: ../root/static/scripts/edit/URLCleanup.js:6391
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6389
+#: ../root/static/scripts/edit/URLCleanup.js:6403
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6449
+#: ../root/static/scripts/edit/URLCleanup.js:6463
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
@@ -15447,7 +15448,7 @@ msgstr ""
 "Ссылки на отдельные разделы статей Википедии запрещены. Уберите "
 "\"{fragment}\" из ссылки и ознакомьтесь с {url|руководством}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6474
+#: ../root/static/scripts/edit/URLCleanup.js:6488
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
@@ -15455,18 +15456,18 @@ msgstr ""
 "Ссылки на страницы пользователей Википедии не разрешены. Добавляйте ссылки "
 "только на конкретные статьи."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6630
+#: ../root/static/scripts/edit/URLCleanup.js:6644
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6670
+#: ../root/static/scripts/edit/URLCleanup.js:6684
 msgid "Only video and playlist links are allowed on releases."
 msgstr "В релизах разрешены ссылки только на видео или плейлисты."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6715
+#: ../root/static/scripts/edit/URLCleanup.js:6729
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
@@ -15474,7 +15475,7 @@ msgstr ""
 "Это ссылка релиза (плейлиста), а не канала исполнителя. Пожалуйста, добавьте "
 "ссылку на канал исполнителя."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6751
+#: ../root/static/scripts/edit/URLCleanup.js:6765
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
@@ -15482,7 +15483,7 @@ msgstr ""
 "Пожалуйста, добавьте ссылку на конкретный релиз (плейлист). Ссылки на треки "
 "(видео) стоит добавлять к связанным записям."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6761
+#: ../root/static/scripts/edit/URLCleanup.js:6775
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
@@ -15490,31 +15491,31 @@ msgstr ""
 "Пожалуйста, добавьте ссылку на конкретный релиз (плейлист). Ссылки на каналы "
 "стоит добавлять к связанным исполнителям."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6771
+#: ../root/static/scripts/edit/URLCleanup.js:6785
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6814
+#: ../root/static/scripts/edit/URLCleanup.js:6828
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6826
+#: ../root/static/scripts/edit/URLCleanup.js:6840
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7036
+#: ../root/static/scripts/edit/URLCleanup.js:7050
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7053
+#: ../root/static/scripts/edit/URLCleanup.js:7067
 #: ../root/static/scripts/edit/externalLinks.js:1073
 msgid "This relationship type combination is invalid."
 msgstr ""
