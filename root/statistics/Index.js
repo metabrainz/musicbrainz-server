@@ -906,7 +906,7 @@ component Index(
             <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(('Events'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Events'))}</th>
             <td>{fc('event')}</td>
             <td />
           </tr>
