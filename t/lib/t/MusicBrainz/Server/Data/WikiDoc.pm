@@ -25,12 +25,21 @@ my $wd = $test->c->model('WikiDoc');
 
 my $page = $wd->_create_page('Artist_Name', 123, '
 <h3><span class="editsection">[<a href="http://wiki.musicbrainz.org/?title=Artist_Name&amp;action=edit&amp;section=6" title="Edit section: Section">edit</a>]</span> Section</h3>
-<p>Foo</p>
+<p><a href="/Foo" title="Foo">Foo</a></p>
 ');
 
-is($page->title, 'Artist Name');
-is($page->version, 123);
-like($page->content, qr{<h3> Section</h3>});
+is($page->title, 'Artist Name', 'The doc page has the right title');
+is($page->version, 123, 'The doc page has the right version');
+like(
+    $page->content,
+    qr{<h3> Section</h3>},
+    'The doc page contains the section header',
+);
+like(
+    $page->content,
+    qr{/doc/Foo},
+    'The relative wiki link was converted to use /doc',
+);
 
 $wd = $test->c->model('WikiDoc');
 $page = $wd->get_page('XML_Webservice');
