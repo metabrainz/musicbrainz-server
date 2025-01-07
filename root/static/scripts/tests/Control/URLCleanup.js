@@ -951,6 +951,13 @@ limited_link_type_combinations: [
                                   target: 'url',
                                 },
   },
+  {
+                     input_url: 'https://bandcamp.com/slowmouth',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'bandcamp',
+       only_valid_entity_types: [],
+  },
   // Bandsintown
   {
                      input_url: "https://m.bandsintown.com/MattDobberteen's50thBirthday?came_from=178",
