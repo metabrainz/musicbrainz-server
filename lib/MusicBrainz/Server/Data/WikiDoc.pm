@@ -54,7 +54,7 @@ sub _fix_html_links
     # Relative links inside the wiki should be wiki links, so convert them too.
     elsif ($href =~ m,^(?:\/|(?:https?:)?//$wiki_server),)
     {
-        $href =~ s,^(?:\/|(?:https?:)?//$wiki_server/?),/doc/,;
+        $href =~ s,^(?:/|(?:https?:)?//$wiki_server/?),/doc/,;
         $node->attr('href', $href);
     }
     elsif ($href =~ m,^$WIKI_IMAGE_PREFIX,) {
