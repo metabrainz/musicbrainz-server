@@ -726,6 +726,7 @@ sub _merge_load_entities {
     my ($self, $c, @artists) = @_;
 
     $c->model('ArtistType')->load(@artists);
+    $c->model('Artist')->load_aliases(@artists);
     $c->model('Gender')->load(@artists);
     $c->model('Area')->load(@artists);
     $c->model('Area')->load_containment(map { $_->{area} } @artists);

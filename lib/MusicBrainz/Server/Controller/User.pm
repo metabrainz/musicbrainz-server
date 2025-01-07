@@ -573,6 +573,8 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnMirrors
     }, limit => 100);
     $c->model('ArtistCredit')->load(@$ratings)
         if $entity_properties->{artist_credits};
+    $c->model($model)->load_aliases(@$ratings)
+        if $entity_properties->{aliases};
 
     my %props = (
         entityType => $type,
@@ -655,11 +657,15 @@ sub tag : Chained('load_tag') PathPart('')
     if ($tag) {
         %tagged_entities = map {
             my $entity_properties = $ENTITIES{$_};
+            my $model = $c->model($entity_properties->{model});
 
-            my ($entities, $total) = $c->model($entity_properties->{model})->tags->find_editor_entities(
+            my ($entities, $total) = $model->tags->find_editor_entities(
                 $user->id, $tag->id, $show_downvoted, 10, 0);
-            $c->model('ArtistCredit')->load(map { $_->entity } @$entities)
+            my @entity_entries = map { $_->entity } @$entities;
+            $c->model('ArtistCredit')->load(@entity_entries)
                 if $entity_properties->{artist_credits};
+            $model->load_aliases(@entity_entries)
+                if $entity_properties->{aliases};
 
             ("$_" => {
                 count => $total,
@@ -694,6 +700,7 @@ for my $entity_type (entities_with('tags')) {
     my $method = sub {
         my ($self, $c) = @_;
 
+        my $model = $c->model($entity_properties->{model});
         my $user = $c->stash->{user};
         my $tag = $c->stash->{tag};
         my $show_downvoted = $c->req->params->{show_downvoted} ? 1 : 0;
@@ -708,10 +715,14 @@ for my $entity_type (entities_with('tags')) {
 
         my $entity_tags = $self->_load_paged($c, sub {
             return ([], 0) unless $tag;
-            return $c->model($entity_properties->{model})->tags->find_editor_entities(
+            return $model->tags->find_editor_entities(
                 $user->id, $c->stash->{tag}->id, $show_downvoted, shift, shift);
         });
-        $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags) if $entity_properties->{artist_credits};
+        my @entity_entries = map { $_->entity } @$entity_tags;
+        $c->model('ArtistCredit')->load(@entity_entries)
+            if $entity_properties->{artist_credits};
+        $model->load_aliases(@entity_entries)
+            if $entity_properties->{aliases};
 
         $c->stash(
             current_view => 'Node',
