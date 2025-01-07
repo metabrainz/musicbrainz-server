@@ -98,7 +98,7 @@ sub show : Chained('load') PathPart('')
 
                     my @entities = map { $_->entity } @$entity_tags;
                     $model->load_aliases(@entities)
-                        if $model->can('load_aliases');
+                        if $entity_properties->{aliases};
                     $c->model('ArtistCredit')->load(@entities)
                         if $entity_properties->{artist_credits};
 

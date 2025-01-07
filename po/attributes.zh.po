@@ -10,19 +10,20 @@
 # LiarOnce <liaronce@hotmail.com>, 2024.
 # weeeeei <weeeeei@duck.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2024.
+# imgradeone <imgradeone@outlook.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-11-15 16:42+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
+"PO-Revision-Date: 2025-01-03 15:42+0000\n"
+"Last-Translator: imgradeone <imgradeone@outlook.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -1063,12 +1064,9 @@ msgid "ASCAP ID"
 msgstr "ASCAP ID"
 
 #: DB:work_attribute_type/name:211
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "KODA ID"
 msgctxt "work_attribute_type"
 msgid "AUTODIA ID"
-msgstr "KODA ID"
+msgstr "AUTODIA ID"
 
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
@@ -4235,12 +4233,9 @@ msgstr "德国著作权协会GEMA ID"
 
 #. name:AUTODIA ID
 #: DB:work_attribute_type/description:211
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Czech rights society OSA"
 msgctxt "work_attribute_type"
 msgid "ID for the Greek rights society AUTODIA"
-msgstr "捷克著作权协会OSA ID"
+msgstr "希腊著作权协会AUTODIA ID"
 
 #. name:AEI ID
 #: DB:work_attribute_type/description:58
@@ -4280,12 +4275,9 @@ msgstr "印度著作权协会IPRS ID"
 
 #. name:WAMI ID
 #: DB:work_attribute_type/description:210
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Indian rights society IPRS"
 msgctxt "work_attribute_type"
 msgid "ID for the Indonesian rights society WAMI"
-msgstr "印度著作权协会IPRS ID"
+msgstr "印度尼西亚著作权协会WAMI ID"
 
 #. name:ICE ID
 #: DB:work_attribute_type/description:29

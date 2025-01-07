@@ -43,9 +43,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-18 12:55+0200\n"
-"PO-Revision-Date: 2024-12-11 20:42+0000\n"
-"Last-Translator: liilliil <liilliil@liilliil.net>\n"
+"POT-Creation-Date: 2024-12-19 11:37+0200\n"
+"PO-Revision-Date: 2024-12-22 17:42+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -53,9 +54,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.8.4\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -154,7 +155,7 @@ msgstr "(нет других изображений)"
 #: ../root/cdtoc/attach_artist_releases.tt:16 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/edit/details/MergeReleases.js:230
 #: ../root/recording/RecordingIndex.js:50
-#: ../root/release_group/ReleaseGroupIndex.js:172
+#: ../root/release_group/ReleaseGroupIndex.js:170
 #: ../root/search/components/ReleaseResults.js:124
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
 #: ../root/utility/tableColumns.js:515 ../root/utility/tableColumns.js:523
@@ -436,7 +437,7 @@ msgstr "Одобрить"
 #: ../root/edit/details/AddPlace.js:57 ../root/edit/details/EditArea.js:39
 #: ../root/edit/details/EditArtist.js:108 ../root/edit/details/EditLabel.js:115
 #: ../root/edit/details/EditPlace.js:71 ../root/layout/components/Search.js:35
-#: ../root/layout/components/sidebar/ArtistSidebar.js:122
+#: ../root/layout/components/sidebar/ArtistSidebar.js:128
 #: ../root/layout/components/sidebar/LabelSidebar.js:86
 #: ../root/layout/components/sidebar/PlaceSidebar.js:87
 #: ../root/report/PlacesWithoutCoordinates.js:42
@@ -488,7 +489,7 @@ msgstr "Область"
 #: ../root/layout/components/Search.js:24
 #: ../root/layout/components/sidebar/RecordingSidebar.js:45
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:55
-#: ../root/release_group/ReleaseGroupIndex.js:169
+#: ../root/release_group/ReleaseGroupIndex.js:167
 #: ../root/report/DuplicateArtists.js:67
 #: ../root/report/DuplicateReleaseGroups.js:58
 #: ../root/report/EmptyReleaseGroups.js:59
@@ -570,7 +571,7 @@ msgstr "Авторедактор"
 #: ../root/layout/components/sidebar/CDStubSidebar.js:67
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:126
 #: ../root/otherlookup/OtherLookupForm.js:57
-#: ../root/release_group/ReleaseGroupIndex.js:175
+#: ../root/release_group/ReleaseGroupIndex.js:173
 #: ../root/report/ReleasesSameBarcode.js:40
 #: ../root/search/components/ReleaseResults.js:127
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:42
@@ -707,7 +708,7 @@ msgstr "Кат. №:"
 #: ../root/release_group/set_cover_art.tt:56
 #: ../root/edit/details/MergeReleases.js:232
 #: ../root/recording/RecordingIndex.js:52
-#: ../root/release_group/ReleaseGroupIndex.js:174
+#: ../root/release_group/ReleaseGroupIndex.js:172
 #: ../root/search/components/ReleaseResults.js:126
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:41
 #: ../root/utility/tableColumns.js:489 ../root/utility/tableColumns.js:494
@@ -789,7 +790,7 @@ msgstr "Скопировать название издания в группу �
 #: ../root/edit/details/historic/AddRelease.js:118
 #: ../root/edit/details/historic/EditReleaseEvents.js:107
 #: ../root/recording/RecordingIndex.js:50
-#: ../root/release_group/ReleaseGroupIndex.js:172
+#: ../root/release_group/ReleaseGroupIndex.js:170
 #: ../root/search/components/ReleaseResults.js:124
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
 #: ../root/static/scripts/common/components/FilterForm.js:271
@@ -835,7 +836,7 @@ msgstr "Трек с данными"
 #: ../root/elections/ElectionVotes.js:24
 #: ../root/layout/components/sidebar/EventSidebar.js:92
 #: ../root/recording/RecordingIndex.js:50
-#: ../root/release_group/ReleaseGroupIndex.js:172
+#: ../root/release_group/ReleaseGroupIndex.js:170
 #: ../root/search/components/EventResults.js:83
 #: ../root/search/components/ReleaseResults.js:124
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:101
@@ -1208,7 +1209,7 @@ msgstr "Для дополнительной информации прочтит�
 #: ../root/edit/details/historic/AddRelease.js:122
 #: ../root/edit/details/historic/EditReleaseEvents.js:111
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:135
-#: ../root/release_group/ReleaseGroupIndex.js:170
+#: ../root/release_group/ReleaseGroupIndex.js:168
 #: ../root/report/components/CDTocList.js:44
 #: ../root/search/components/ReleaseResults.js:122
 msgid "Format"
@@ -1247,7 +1248,7 @@ msgstr "Полный TOC:"
 
 #: ../root/artist/edit_form.tt:17 ../root/components/list/ArtistList.js:73
 #: ../root/edit/details/AddArtist.js:72 ../root/edit/details/EditArtist.js:93
-#: ../root/layout/components/sidebar/ArtistSidebar.js:85
+#: ../root/layout/components/sidebar/ArtistSidebar.js:91
 #: ../root/search/components/ArtistResults.js:55
 #: ../root/static/scripts/account/components/EditProfileForm.js:245
 #: ../root/user/UserProfile.js:260
@@ -1588,7 +1589,7 @@ msgstr ""
 #: ../root/edit/details/historic/EditReleaseEvents.js:108
 #: ../root/label/LabelHeader.js:18 ../root/layout/components/Search.js:37
 #: ../root/recording/RecordingIndex.js:51
-#: ../root/release_group/ReleaseGroupIndex.js:173
+#: ../root/release_group/ReleaseGroupIndex.js:171
 #: ../root/report/ReleaseLabelSameArtist.js:24
 #: ../root/report/components/LabelList.js:40
 #: ../root/report/components/LabelUrlList.js:30
@@ -2142,7 +2143,7 @@ msgstr "Тип отношений"
 #: ../root/edit/details/historic/EditReleaseEvents.js:105
 #: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:19
 #: ../root/layout/components/Search.js:29
-#: ../root/release_group/ReleaseGroupIndex.js:168
+#: ../root/release_group/ReleaseGroupIndex.js:166
 #: ../root/report/components/CDTocReleaseList.js:45
 #: ../root/report/components/ReleaseList.js:44
 #: ../root/report/components/ReleaseUrlList.js:32
@@ -2525,7 +2526,7 @@ msgstr ""
 #: ../root/edit/details/AddRemoveAlias.js:59
 #: ../root/edit/details/EditAlias.js:87 ../root/edit/details/EditArea.js:55
 #: ../root/edit/details/EditArtist.js:68 ../root/edit/details/EditLabel.js:53
-#: ../root/layout/components/sidebar/ArtistSidebar.js:74
+#: ../root/layout/components/sidebar/ArtistSidebar.js:80
 #: ../root/report/DuplicateArtists.js:68
 #: ../root/search/components/ArtistResults.js:53
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:123
@@ -2538,7 +2539,7 @@ msgid "Split artist"
 msgstr "Разделить исполнителя"
 
 #: ../root/artist/split.tt:6 ../root/artist/CannotSplit.js:15
-#: ../root/layout/components/sidebar/ArtistSidebar.js:171
+#: ../root/layout/components/sidebar/ArtistSidebar.js:177
 msgid "Split into separate artists"
 msgstr "Разделить на отдельных исполнителей"
 
@@ -2572,7 +2573,7 @@ msgstr "Поменять названия треков и исполнителе
 
 #: ../root/cdtoc/attach_artist_releases.tt:21 ../root/cdtoc/list.tt:15
 #: ../root/cdtoc/lookup.tt:48 ../root/recording/RecordingIndex.js:55
-#: ../root/release_group/ReleaseGroupIndex.js:178
+#: ../root/release_group/ReleaseGroupIndex.js:176
 #: ../root/search/components/RecordingResults.js:144
 #: ../root/search/components/ReleaseResults.js:133
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:43
@@ -3007,7 +3008,7 @@ msgstr "Треклист"
 #: ../root/components/list/ReleaseList.js:93
 #: ../root/edit/details/MergeReleases.js:229
 #: ../root/edit/details/historic/AddRelease.js:79 ../root/release/DiscIds.js:96
-#: ../root/release_group/ReleaseGroupIndex.js:171
+#: ../root/release_group/ReleaseGroupIndex.js:169
 #: ../root/search/components/CDStubResults.js:47
 #: ../root/search/components/ReleaseResults.js:123
 msgid "Tracks"
@@ -4610,7 +4611,7 @@ msgid "Add disc ID"
 msgstr "Добавление идентификатора диска"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:11
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:33
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:32
 msgctxt "edit type"
 msgid "Add relationship"
 msgstr "Добавление отношения"
@@ -4668,7 +4669,7 @@ msgid "Edit track (historic)"
 msgstr "Редактирование трека (исторический)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditLink.pm:16
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:41
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:40
 msgctxt "edit type"
 msgid "Edit relationship"
 msgstr "Редактирование отношения"
@@ -4719,7 +4720,7 @@ msgid "Remove label alias"
 msgstr "Удаление псевдоним лейбла"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:11
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:37
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:36
 msgctxt "edit type"
 msgid "Remove relationship"
 msgstr "Удаление отношения"
@@ -4959,7 +4960,7 @@ msgctxt "edit type"
 msgid "Add relationship type"
 msgstr "Добавление типа отношения"
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:308
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:295
 msgid ""
 "This edit would remove a relationship that is set as an example of its "
 "relationship type in the documentation. If you still think this should be "
@@ -4969,7 +4970,7 @@ msgstr ""
 "документации. Если вы думаете, что его все-таки стоит удалить, пожалуйста, "
 "{contact_url|напишите нам}."
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:447
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:423
 #, perl-brace-format
 msgid ""
 "The “{relationship_type}” relationship between “{entity0}” and “{entity1}” "
@@ -6917,7 +6918,7 @@ msgstr "Релизы"
 
 #: ../root/area/AreaReleases.js:45 ../root/artist/ArtistReleases.js:53
 #: ../root/instrument/InstrumentReleases.js:51 ../root/label/LabelIndex.js:85
-#: ../root/release_group/ReleaseGroupIndex.js:193
+#: ../root/release_group/ReleaseGroupIndex.js:191
 msgid "Add selected releases for merging"
 msgstr "Добавить выбранные релизы для объединения"
 
@@ -7058,7 +7059,7 @@ msgstr "У данного исполнителя нет групп релизо�
 
 #: ../root/artist/ArtistIndex.js:296
 msgid "No results found that match this search."
-msgstr ""
+msgstr "Не найдено результатов, соответствующих данному запросу."
 
 #: ../root/artist/ArtistMerge.js:23 ../root/artist/ArtistMerge.js:25
 msgid "Merge artists"
@@ -7133,7 +7134,7 @@ msgstr ""
 
 #: ../root/artist/ArtistReleases.js:63
 #: ../root/instrument/InstrumentReleases.js:59
-#: ../root/release_group/ReleaseGroupIndex.js:199
+#: ../root/release_group/ReleaseGroupIndex.js:197
 msgid "No releases found."
 msgstr ""
 
@@ -7290,19 +7291,19 @@ msgstr "Группы релизов"
 #: ../root/components/TagEntitiesList.js:177
 msgid "See all {num} release groups"
 msgid_plural "See all {num} release groups"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Смотреть всю {num} группу релизов"
+msgstr[1] "Смотреть все {num} группы релизов"
+msgstr[2] "Смотреть все {num} групп релизов"
+msgstr[3] "Смотреть все {num} групп релизов"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:136
 #: ../root/components/TagEntitiesList.js:181
 msgid "See all {num} releases"
 msgid_plural "See all {num} releases"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Смотреть все {num} релиз"
+msgstr[1] "Смотреть все {num} релиза"
+msgstr[2] "Смотреть все {num} релизов"
+msgstr[3] "Смотреть все {num} релизов"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:147
 #: ../root/components/TagEntitiesList.js:185
@@ -7360,10 +7361,10 @@ msgstr[3] "Найдено {num} групп релизов"
 #: ../root/artist_credit/EntityList.js:28
 msgid "{num} track found"
 msgid_plural "{num} tracks found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Найден {num} трек"
+msgstr[1] "Найдено {num} трека"
+msgstr[2] "Найдено {num} треков"
+msgstr[3] "Найдено {num} треков"
 
 #: ../root/artist_credit/EntityList.js:32
 msgid "No recordings with this artist credit were found."
@@ -7421,10 +7422,8 @@ msgid ""
 msgstr ""
 
 #: ../root/cdstub/DiscIdNotValid.js:14
-#, fuzzy
-#| msgid "Add disc ID"
 msgid "Invalid disc ID"
-msgstr "Добавление идентификатора диска"
+msgstr "Неверный идентификатор диска"
 
 #: ../root/cdstub/DiscIdNotValid.js:17
 msgid "Sorry, <code>{discid}</code> is not a valid disc ID."
@@ -7440,6 +7439,7 @@ msgstr "Импорт CD-заглушки"
 #: ../root/cdstub/ImportCDStub.js:32
 msgid "Please search for the artist you wish to add a new release for:"
 msgstr ""
+"Пожалуйста, найдите исполнителя, для которого вы хотите добавить новый релиз:"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:41
 msgid ""
@@ -7447,20 +7447,20 @@ msgid ""
 "{format} {pos} of {release} by {artist}?"
 msgstr ""
 "Вы уверены, что хотите добавить ID диска <code>{discid}</code> к {format} "
-"{pos} {release} {artist}?"
+"{pos} релиза \"{release}\" исполнителя {artist}?"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:68
 msgid "Track length comparison"
-msgstr ""
+msgstr "Сравнение длины дорожек"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:72
 #: ../root/cdtoc/SetTracklistDurations.js:54
 msgid "This edit would only make subsecond changes to track lengths."
-msgstr ""
+msgstr "В ходе этой правки длительность дорожек изменится лишь на доли секунды."
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:76
 msgid "CD TOC track lengths"
-msgstr ""
+msgstr "Длина дорожек CD TOC"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:78
 msgid "Medium track lengths"
@@ -7542,7 +7542,7 @@ msgstr "FreeDB:"
 
 #: ../root/cdtoc/CDTocInfo.js:43
 msgid "Track details:"
-msgstr ""
+msgstr "Подробности трека:"
 
 #: ../root/cdtoc/CDTocInfo.js:47
 #: ../root/edit/details/historic/RemoveTrack.js:20
@@ -7553,7 +7553,7 @@ msgstr "Трек"
 
 #: ../root/cdtoc/CDTocInfo.js:48
 msgid "Start"
-msgstr ""
+msgstr "Начало"
 
 #: ../root/cdtoc/CDTocInfo.js:50 ../root/search/components/AreaResults.js:67
 #: ../root/search/components/ArtistResults.js:59
@@ -7572,11 +7572,9 @@ msgstr "Время"
 #: ../root/cdtoc/CDTocInfo.js:54 ../root/cdtoc/CDTocInfo.js:56
 #: ../root/cdtoc/CDTocInfo.js:58
 msgid "Sectors"
-msgstr ""
+msgstr "Сектора"
 
 #: ../root/cdtoc/RemoveDiscId.js:33 ../root/cdtoc/RemoveDiscId.js:35
-#, fuzzy
-#| msgid "Remove disc ID"
 msgctxt "header"
 msgid "Remove disc ID"
 msgstr "Удалить идентификатор диска"
@@ -7586,8 +7584,8 @@ msgid ""
 "Are you sure you want to remove the disc ID <code>{discid}</code> from the "
 "release {release} by {artist}?"
 msgstr ""
-"Вы уверены что хотите удалить диск с ID <code>{discid}</code> из релиза "
-"{release} {artist}?"
+"Вы уверены что хотите удалить ID диска <code>{discid}</code> из релиза "
+"\"{release}\" исполнителя {artist}?"
 
 #: ../root/cdtoc/RemoveDiscId.js:51
 msgid ""
@@ -7596,6 +7594,11 @@ msgid ""
 "ID can belong to more than one release. For more in-depth information about "
 "this topic, please see our {doc|CD submission guide}."
 msgstr ""
+"Вы должны быть уверены, что этот идентификатор диска был добавлен в этот "
+"релиз ошибочно, поскольку у релиза может быть несколько допустимых "
+"идентификаторов дисков, и каждый идентификатор диска может принадлежать "
+"нескольким релизам. Более подробную информацию по этому вопросу можно найти "
+"в {doc|нашем руководстве (на английском)}."
 
 #: ../root/cdtoc/SelectArtistForCDToc.js:30
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:128
@@ -7640,23 +7643,23 @@ msgstr "Изменения"
 
 #: ../root/cdtoc/SetTracklistDurations.js:65
 msgid "The medium you are altering is part of the following release: {release}"
-msgstr ""
+msgstr "Изменяемый носитель является частью релиза \"{release}\""
 
 #: ../root/collection/CollectionHeader.js:29
 msgid "Public collection by {owner}"
-msgstr ""
+msgstr "Публичная коллекция пользователя {owner}"
 
 #: ../root/collection/CollectionHeader.js:32
 msgid "Private collection by {owner}"
-msgstr ""
+msgstr "Приватная коллекция пользователя {owner}"
 
 #: ../root/collection/CollectionHeader.js:47
 msgid "See all of your collections"
-msgstr ""
+msgstr "Смотреть все свои коллекции"
 
 #: ../root/collection/CollectionHeader.js:49
 msgid "See all of {editor}'s public collections"
-msgstr ""
+msgstr "Смотреть все публичные коллекции пользователя {editor}"
 
 #: ../root/collection/CollectionHeader.js:78
 msgctxt "verb, header, interactive"
@@ -7668,21 +7671,23 @@ msgstr "Править"
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
+"Этот контент скрыт для предотвращения спама. Чтобы просмотреть его, "
+"пожалуйста, {url|войдите в систему}."
 
 #: ../root/collection/CollectionIndex.js:215
 #: ../root/collection/CollectionMerge.js:58
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:222
 #: ../root/user/UserCollections.js:106
 msgid "Collaborators"
-msgstr ""
+msgstr "Со-авторы"
 
 #: ../root/collection/CollectionIndex.js:229
 msgid "Remove selected items from collection"
-msgstr ""
+msgstr "Удалить выбранные элементы из коллекции"
 
 #: ../root/collection/CollectionIndex.js:234
 msgid "This collection is empty."
-msgstr ""
+msgstr "Эта коллекция пуста."
 
 #: ../root/collection/CollectionLayout.js:25
 msgid "Collection “{collection}”"
@@ -7696,11 +7701,11 @@ msgstr "Коллекция"
 
 #: ../root/collection/CollectionMerge.js:46 ../root/futureColumnLabels.js:18
 msgid "Entity type"
-msgstr ""
+msgstr "Тип сущности"
 
 #: ../root/collection/CollectionMerge.js:51
 msgid "Entities"
-msgstr ""
+msgstr "Сущности"
 
 #: ../root/collection/CollectionMerge.js:65 ../root/user/UserCollections.js:72
 msgid "Public"
@@ -7719,7 +7724,7 @@ msgstr "Конфиденциальность"
 #: ../root/collection/CollectionMerge.js:104
 #: ../root/collection/CollectionMerge.js:106
 msgid "Merge collections"
-msgstr ""
+msgstr "Объединить коллекции"
 
 #: ../root/collection/CollectionMerge.js:108
 msgid ""
@@ -7801,7 +7806,7 @@ msgstr "Псевдоним"
 #: ../root/edit/details/EditAlias.js:93
 #: ../root/static/scripts/alias/AliasEditForm.js:314
 msgid "Locale"
-msgstr ""
+msgstr "Язык"
 
 #: ../root/components/Aliases/AliasTableRow.js:45
 msgid "primary"
@@ -10780,13 +10785,13 @@ msgid "Add artist"
 msgstr "Добавить исполнителя"
 
 #: ../root/layout/components/BottomMenu.js:253
-#: ../root/layout/components/sidebar/ArtistSidebar.js:143
+#: ../root/layout/components/sidebar/ArtistSidebar.js:149
 msgctxt "interactive"
 msgid "Add release group"
 msgstr "Добавить группу релизов"
 
 #: ../root/layout/components/BottomMenu.js:257
-#: ../root/layout/components/sidebar/ArtistSidebar.js:148
+#: ../root/layout/components/sidebar/ArtistSidebar.js:154
 #: ../root/layout/components/sidebar/LabelSidebar.js:101
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:75
 msgctxt "interactive"
@@ -10804,7 +10809,7 @@ msgid "Add standalone recording"
 msgstr "Добавить отдельную запись"
 
 #: ../root/layout/components/BottomMenu.js:270
-#: ../root/layout/components/sidebar/ArtistSidebar.js:158
+#: ../root/layout/components/sidebar/ArtistSidebar.js:164
 msgctxt "interactive"
 msgid "Add work"
 msgstr "Добавить работу"
@@ -10820,7 +10825,7 @@ msgid "Add series"
 msgstr "Добавить серию"
 
 #: ../root/layout/components/BottomMenu.js:281
-#: ../root/layout/components/sidebar/ArtistSidebar.js:163
+#: ../root/layout/components/sidebar/ArtistSidebar.js:169
 #: ../root/layout/components/sidebar/PlaceSidebar.js:117
 msgctxt "interactive"
 msgid "Add event"
@@ -10973,11 +10978,11 @@ msgstr "Показать историю аннотаций"
 msgid "Area information"
 msgstr "Информация об области"
 
-#: ../root/layout/components/sidebar/ArtistSidebar.js:67
+#: ../root/layout/components/sidebar/ArtistSidebar.js:73
 msgid "Artist information"
 msgstr "Информация о исполнителе"
 
-#: ../root/layout/components/sidebar/ArtistSidebar.js:153
+#: ../root/layout/components/sidebar/ArtistSidebar.js:159
 msgctxt "interactive"
 msgid "Add recording"
 msgstr "Добавить запись"
@@ -11194,11 +11199,11 @@ msgctxt "place"
 msgid "Closed"
 msgstr "Закрыто"
 
-#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:54
+#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:63
 msgid "ListenBrainz"
 msgstr "ListenBrainz"
 
-#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:59
+#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:68
 msgid "Play on ListenBrainz"
 msgstr "Слушать на ListenBrainz"
 
@@ -11814,8 +11819,6 @@ msgstr ""
 #: ../root/otherlookup/OtherLookupReleaseResults.js:16
 #: ../root/search/components/ResultsLayout.js:26
 #: ../root/search/components/ResultsLayout.js:28
-#, fuzzy
-#| msgid "Search Results"
 msgid "Search results"
 msgstr "Результаты поиска"
 
@@ -15869,6 +15872,8 @@ msgid ""
 "Please don’t enter links to search results. If you’ve found any links "
 "through your search that seem useful, do enter those instead."
 msgstr ""
+"Пожалуйста, не добавляйте ссылки на результаты поисковой выдачи. Если в ходе "
+"поиска вы нашли ссылки, которые кажутся вам полезными, укажите их."
 
 #: ../root/static/scripts/edit/externalLinks.js:808
 msgid "Please select a link type for the URL you’ve entered."
@@ -17601,10 +17606,8 @@ msgid "Report this user for bad behavior"
 msgstr "Пожаловаться на плохое поведение пользователя"
 
 #: ../root/user/UserProfile.js:969
-#, fuzzy
-#| msgid "Recent notes left on your edits"
 msgid "View other users’ notes on your edits"
-msgstr "Последние комментарии к вашим правкам"
+msgstr "Смотреть комментарии других пользователей к вашим правкам"
 
 #: ../root/user/UserProfile.js:970
 msgid "View your notes on this user’s edits"

@@ -457,7 +457,7 @@ sub begin : Private
         my @merge = values %{
             $model->get_by_ids($merger->all_entities);
         };
-        $model->load_aliases(@merge) if $model->can('load_aliases');
+        $model->load_aliases(@merge) if $entity_properties->{aliases};
         $c->model('ArtistCredit')->load(@merge)
             if $entity_properties->{artist_credits};
 
