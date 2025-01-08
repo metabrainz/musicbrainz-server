@@ -7,12 +7,18 @@ extends 'MusicBrainz::Server::ControllerBase::WS::2';
 
 use MusicBrainz::Server::WebService::TXTSerializer;
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+use MusicBrainz::Server::Validation qw( is_guid );
 
 my $ws_defs = Data::OptList::mkopt([
     genre => {
         method   => 'GET',
         # TODO: Add include when implementing MBS-10062
         # inc      => [ qw(aliases) ],
+        optional => [ qw(fmt limit offset) ],
+        linked   => [ qw( collection ) ],
+    },
+    genre => {
+        method   => 'GET',
         optional => [ qw(fmt limit offset) ],
     },
     genre => {
@@ -30,6 +36,8 @@ with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
     model => 'Genre',
 };
 
+with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
+
 sub serializers {
     [
         'MusicBrainz::Server::WebService::XMLSerializer',
@@ -42,6 +50,38 @@ sub base : Chained('root') PathPart('genre') CaptureArgs(0) { }
 
 # Nothing extra to load yet, but this is required by Role::Lookup
 sub genre_toplevel {}
+
+sub genre_browse : Private {
+    my ($self, $c) = @_;
+
+    my ($resource, $id) = @{ $c->stash->{linked} };
+    my ($limit, $offset) = $self->_limit_and_offset($c);
+
+    if (!is_guid($id)) {
+        $c->stash->{error} = 'Invalid mbid.';
+        $c->detach('bad_req');
+    }
+
+    my $genres;
+
+    if ($resource eq 'collection') {
+        $genres = $self->browse_by_collection($c, 'genre', $id, $limit, $offset);
+    }
+
+    my $stash = WebServiceStash->new;
+
+    $self->genre_toplevel($c, $stash, $genres->{items});
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('genre-list', $genres, $c->stash->{inc}, $stash));
+}
+
+sub genre_search : Chained('root') PathPart('genre') Args(0) {
+    my ($self, $c) = @_;
+
+    $c->detach('genre_browse') if $c->stash->{linked};
+    $c->detach('not_implemented');
+}
 
 sub genre_all : Chained('base') PathPart('all') {
     my ($self, $c) = @_;
@@ -74,18 +114,6 @@ sub genre_all : Chained('base') PathPart('all') {
     ));
 }
 
-sub genre_browse : Private {
-    my ($self, $c) = @_;
-
-    $c->detach('not_implemented');
-}
-
-sub genre_search : Chained('root') PathPart('genre') Args(0) {
-    my ($self, $c) = @_;
-
-    $c->detach('genre_browse') if $c->stash->{linked};
-    $c->detach('not_implemented');
-}
 __PACKAGE__->meta->make_immutable;
 1;
 
