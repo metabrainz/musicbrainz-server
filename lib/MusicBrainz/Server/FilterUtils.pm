@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use base 'Exporter';
+use List::AllUtils qw( any );
 
 our @EXPORT_OK = qw(
     create_artist_events_form
@@ -34,6 +35,7 @@ sub create_artist_release_groups_form {
 
     $form_args{artist_credits} =
         $c->model('ReleaseGroup')->find_artist_credits_by_artist($artist_id, $want_all_statuses, $want_va_only);
+    preserve_selected_artist_credit($c, $form_args{artist_credits});
 
     return $c->form(filter_form => 'Filter::ReleaseGroup', %form_args);
 }
@@ -45,6 +47,7 @@ sub create_artist_releases_form {
 
     $form_args{artist_credits} =
         $c->model('Release')->find_artist_credits_by_artist($artist_id);
+    preserve_selected_artist_credit($c, $form_args{artist_credits});
     $form_args{countries} = [$c->model('CountryArea')->get_all];
     $form_args{labels} =
         $c->model('Release')->find_labels_by_artist($artist_id);
@@ -60,6 +63,7 @@ sub create_artist_recordings_form {
 
     $form_args{artist_credits} =
         $c->model('Recording')->find_artist_credits_by_artist($artist_id);
+    preserve_selected_artist_credit($c, $form_args{artist_credits});
 
     return $c->form(filter_form => 'Filter::Recording', %form_args);
 }
@@ -74,6 +78,22 @@ sub create_artist_works_form {
     );
 
     return $c->form(filter_form => 'Filter::Work', %form_args);
+}
+
+sub preserve_selected_artist_credit {
+    my ($c, $artist_credits) = @_;
+
+    # In case a filter link is bookmarked but the selected artist credit is
+    # later not among the available options, push it onto the option list
+    # to preserve the intent of the filter (showing no results until the AC
+    # is possibly used again).
+    my $selected_artist_credit_id = $c->req->query_params->{'filter.artist_credit_id'};
+    unless (any { $_->id == $selected_artist_credit_id } @$artist_credits) {
+        my $artist_credit = $c->model('ArtistCredit')->get_by_id($selected_artist_credit_id);
+        if ($artist_credit) {
+            unshift @$artist_credits, $artist_credit;
+        }
+    }
 }
 
 1;
