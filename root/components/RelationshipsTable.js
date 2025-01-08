@@ -347,9 +347,7 @@ component RelationshipsTable(
     } else {
       pageContent = (
         <p>
-          {linkPhrase
-            ? l('No relationships of the selected type were found.')
-            : l('The provided relationship type ID is not valid.')}
+          {l('No relationships of the selected type were found.')}
         </p>
       );
     }
