@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Utils;
 use strict;
 use warnings;
 
-use MusicBrainz::Server::Data::Utils qw( sanitize );
+use MusicBrainz::Server::Data::Utils qw( sanitize_username );
 use MusicBrainz::Server::Translation qw( l lp );
 use List::AllUtils qw( sort_by );
 
@@ -212,7 +212,7 @@ sub validate_username {
 
     if (defined $username) {
         unless (defined $previous_username && $editor_model->are_names_equivalent($previous_username, $username)) {
-            my $sanitized_name = sanitize($username);
+            my $sanitized_name = sanitize_username($username);
             if (
                 $username ne $sanitized_name ||
                 $sanitized_name =~ qr{://}

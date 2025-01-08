@@ -73,6 +73,7 @@ our @EXPORT_OK = qw(
     remove_equal
     remove_invisible_characters
     sanitize
+    sanitize_username
     take_while
     trim
     trim_comment
@@ -345,6 +346,17 @@ sub sanitize {
     $t = remove_direction_marks($t);
     # Collapse spaces again, since characters may have been removed.
     $t = collapse_whitespace($t);
+
+    return $t;
+}
+
+sub sanitize_username {
+    my $t = shift;
+
+    return '' unless non_empty($t);
+
+    $t = sanitize($t);
+    $t = remove_invisible_characters($t);
 
     return $t;
 }
