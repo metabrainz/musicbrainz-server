@@ -357,6 +357,7 @@ sub sanitize_username {
 
     $t = sanitize($t);
     $t = remove_invisible_characters($t);
+    $t = remove_tag_characters($t);
 
     return $t;
 }
@@ -480,6 +481,16 @@ sub remove_lineformatting_characters {
     # - shy
     # - Other, control (including TAB \x09, LF \x0A, and CR \x0D)
     =~ s/[\N{ZERO WIDTH SPACE}\N{SOFT HYPHEN}\p{Cc}]//gr;
+}
+
+sub remove_tag_characters {
+    my $string = shift;
+
+    # https://en.wikipedia.org/wiki/Tags_(Unicode_block)
+    # Can be used for flag emojis but also as invisible chars
+    $string =~ s/[\x{E0000}-\x{E007F}]//g;
+
+    return $string;
 }
 
 sub type_to_model

@@ -107,6 +107,15 @@ test 'Trying to register with an invalid name' => sub {
     $mech->content_contains('username contains invalid characters', 'form has error message for invisible characters in username');
 
     $mech->submit_form( with_fields => {
+        'register.username' => "test\N{TAG LATIN CAPITAL LETTER T}\N{TAG LATIN CAPITAL LETTER E}\N{TAG LATIN CAPITAL LETTER S}\N{TAG LATIN CAPITAL LETTER T}",
+        'register.password' => 'foo',
+        'register.confirm_password' => 'foo',
+        'register.email' => 'foobar@example.org',
+    });
+    like($mech->uri, qr{/register}, 'stays on registration page');
+    $mech->content_contains('username contains invalid characters', 'form has error message for tag characters in username');
+
+    $mech->submit_form( with_fields => {
         'register.username' => 'looks://like_a_url_to_me',
         'register.password' => 'foo',
         'register.confirm_password' => 'foo',
