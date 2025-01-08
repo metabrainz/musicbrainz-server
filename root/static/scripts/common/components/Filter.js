@@ -14,7 +14,12 @@ import setCookie from '../utility/setCookie.js';
 
 import FilterForm, {type FilterFormT} from './FilterForm.js';
 
-component Filter(ajaxFormUrl: string, initialFilterForm: ?FilterFormT) {
+component Filter(
+  ajaxFormUrl: string,
+  initialFilterForm: ?FilterFormT,
+  showAllReleaseGroups?: boolean,
+  showVAReleaseGroups?: boolean,
+) {
   const [filterForm, setFilterForm] = React.useState<?FilterFormT>(
     initialFilterForm,
   );
@@ -61,7 +66,11 @@ component Filter(ajaxFormUrl: string, initialFilterForm: ?FilterFormT) {
       </div>
 
       {(filterForm && !hidden) ? (
-        <FilterForm form={filterForm} />
+        <FilterForm
+          form={filterForm}
+          showAllReleaseGroups={showAllReleaseGroups}
+          showVAReleaseGroups={showVAReleaseGroups}
+        />
       ) : null}
     </>
   );
