@@ -102,13 +102,14 @@ function generateUserTypesList(
   }
   if (isBeginner(user)) {
     typesList.push(
-      <span
+      <a
         className="tooltip"
+        href="/doc/Editor#Beginner_editor"
         key="beginner"
         title={l('This user is new to MusicBrainz.')}
       >
         {lp('Beginner', 'user type')}
-      </span>,
+      </a>,
     );
   }
   // If no other types apply, then this is a normal user
