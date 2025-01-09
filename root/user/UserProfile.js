@@ -83,6 +83,13 @@ function generateUserTypesList(
       </a>,
     );
   }
+  if (isAccountAdmin(user)) {
+    typesList.push(
+      <a href="/doc/Editor#Account_admin" key="account-admin">
+        {lp('Account admin', 'user type')}
+      </a>,
+    );
+  }
   if (isRelationshipEditor(user)) {
     typesList.push(
       <a href="/doc/Editor#Relationship_editor" key="relationship-editor">
