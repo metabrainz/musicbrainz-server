@@ -77,7 +77,11 @@ function generateUserTypesList(
     );
   }
   if (isBot(user)) {
-    typesList.push(lp('Internal/Bot', 'user type'));
+    typesList.push(
+      <a href="/doc/Editor#Bot" key="bot">
+        {lp('Internal/Bot', 'user type')}
+      </a>,
+    );
   }
   if (isRelationshipEditor(user)) {
     typesList.push(
