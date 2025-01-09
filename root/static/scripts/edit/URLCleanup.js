@@ -2036,6 +2036,24 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/^(?:https?:\/\/)?(?:www[0-9]?\.)?cpdl\.org/, 'http://cpdl.org');
     },
   },
+  'crewunited': {
+    match: [/^(https?:\/\/)?(www\.)?crew-united\.com\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?crew-united\.com\/(?:[a-z]+\/)?([\w-]+_[\d]+\.html).*?$/, 'https://www.crew-united.com/en/$1');
+    },
+    validate(url, id) {
+      if (/^https:\/\/www\.crew-united\.com\/en\/[\w-]+_[\d]+\.html$/.test(url)) {
+        if (id === LINK_TYPES.otherdatabases.artist ||
+            id === LINK_TYPES.otherdatabases.label ||
+            id === LINK_TYPES.otherdatabases.recording) {
+          return {result: true};
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'dahr': {
     match: [
       /^(https?:\/\/)?adp\.library\.ucsb\.edu\/index\.php\/(mastertalent|matrix|objects|talent)/i,

@@ -1913,6 +1913,28 @@ limited_link_type_combinations: [
     expected_relationship_type: 'license',
             expected_clean_url: 'https://creativecommons.org/publicdomain/zero/1.0/',
   },
+  // Crew United
+  {
+                     input_url: 'http://www.crew-united.com/Jaques-Linon_89709.html',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.crew-united.com/en/Jaques-Linon_89709.html',
+       only_valid_entity_types: ['artist', 'label', 'recording'],
+  },
+  {
+                     input_url: 'https://crew-united.com/ro/Hell-Raisa-Records_147592.html',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.crew-united.com/en/Hell-Raisa-Records_147592.html',
+       only_valid_entity_types: ['artist', 'label', 'recording'],
+  },
+  {
+                     input_url: 'https://www.crew-united.com/en/Kaisa-Den-Schlechten-geht-es-gut__143909.html#!&tabctl_15249142_activeTab=1189721449',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.crew-united.com/en/Kaisa-Den-Schlechten-geht-es-gut__143909.html',
+       only_valid_entity_types: ['artist', 'label', 'recording'],
+  },
   // DAHR
   {
                      input_url: 'https://adp.library.ucsb.edu/index.php/talent/detail/800/Louis_Armstrong_All-Stars_Musical_group',
