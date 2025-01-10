@@ -71,44 +71,56 @@ function generateUserTypesList(
   }
   if (isAutoEditor(user)) {
     typesList.push(
-      <a href="/doc/Editor#Auto-editors" key="auto-editor">
+      <a href="/doc/Editor#Auto-editor" key="auto-editor">
         {lp('Auto-editor', 'user type')}
       </a>,
     );
   }
   if (isBot(user)) {
-    typesList.push(lp('Internal/Bot', 'user type'));
+    typesList.push(
+      <a href="/doc/Editor#Bot" key="bot">
+        {lp('Internal/Bot', 'user type')}
+      </a>,
+    );
+  }
+  if (isAccountAdmin(user)) {
+    typesList.push(
+      <a href="/doc/Editor#Account_admin" key="account-admin">
+        {lp('Account admin', 'user type')}
+      </a>,
+    );
   }
   if (isRelationshipEditor(user)) {
     typesList.push(
-      <a href="/doc/Editor#Relationship_editors" key="relationship-editor">
+      <a href="/doc/Editor#Relationship_editor" key="relationship-editor">
         {lp('Relationship editor', 'user type')}
       </a>,
     );
   }
   if (isWikiTranscluder(user)) {
     typesList.push(
-      <a href="/doc/Editor#Transclusion_editors" key="transclusion-editor">
+      <a href="/doc/Editor#Transclusion_editor" key="transclusion-editor">
         {lp('Transclusion editor', 'user type')}
       </a>,
     );
   }
   if (isLocationEditor(user)) {
     typesList.push(
-      <a href="/doc/Editor#Location_editors" key="location-editor">
+      <a href="/doc/Editor#Location_editor" key="location-editor">
         {lp('Location editor', 'user type')}
       </a>,
     );
   }
   if (isBeginner(user)) {
     typesList.push(
-      <span
+      <a
         className="tooltip"
+        href="/doc/Editor#Beginner_editor"
         key="beginner"
         title={l('This user is new to MusicBrainz.')}
       >
         {lp('Beginner', 'user type')}
-      </span>,
+      </a>,
     );
   }
   // If no other types apply, then this is a normal user
