@@ -42,7 +42,7 @@ function getResultBuilder(showArtworkPresence: boolean) {
   ) {
     const release = result.entity;
     const score = result.score;
-    const typeName = release.releaseGroup?.typeName;
+    const typeName = release.releaseGroup?.l_type_name;
 
     return (
       <tr className={loopParity(index)} data-score={score} key={release.id}>
@@ -80,9 +80,7 @@ function getResultBuilder(showArtworkPresence: boolean) {
           <ReleaseLanguageScript release={release} />
         </td>
         <td>
-          {nonEmpty(typeName)
-            ? lp_attributes(typeName, 'release_group_primary_type')
-            : null}
+          {nonEmpty(typeName) ? typeName : null}
         </td>
         <td>
           {release.status

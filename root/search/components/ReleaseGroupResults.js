@@ -42,10 +42,8 @@ function getResultBuilder(showArtworkPresence: boolean) {
           <ArtistCreditLink artistCredit={releaseGroup.artistCredit} />
         </td>
         <td>
-          {nonEmpty(releaseGroup.typeName)
-            ? lp_attributes(
-              releaseGroup.typeName, 'release_group_primary_type',
-            )
+          {nonEmpty(releaseGroup.l_type_name)
+            ? releaseGroup.l_type_name
             : null}
         </td>
       </tr>
