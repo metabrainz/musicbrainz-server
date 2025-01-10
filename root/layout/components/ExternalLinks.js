@@ -120,13 +120,19 @@ component ExternalLinks(
         />,
       );
     } else if (linkType.name === 'review') {
+      const urlObject = new URL(target.name);
+      const hostName = urlObject.host.replace('www.', '');
+
       blogsAndReviews.push(
         <ExternalLink
           className="review-favicon"
           editsPending={relationship.editsPending}
           entityCredit={entityCredit}
           key={relationship.id}
-          text={l('Review')}
+          text={texp.l(
+            'Review ({hostname})',
+            {hostname: hostName},
+          )}
           url={target}
         />,
       );
