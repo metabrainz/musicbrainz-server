@@ -26,7 +26,6 @@ export function isPerfectMatch(
   medium: MediumT,
   cdToc: CDTocT,
 ): boolean {
-  console.log(medium);
   const mediumLengths = medium.cdtoc_track_lengths;
   if (!mediumLengths) {
     throw new Error('cdtoc_track_lengths were not loaded');

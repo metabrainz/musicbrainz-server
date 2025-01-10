@@ -72,11 +72,12 @@ Images:
 Image set:   Gentleface Mono Icon Set
 Author:      Gentleface.com
 License:     CC-NC-ND-BY/3.0 (see: http://creativecommons.org/licenses/by-nc-nd/3.0/)
-Download:    http://gentleface.com/free_icon_set.html
+Download:    https://www.iconfinder.com/iconsets/cc_mono_icon_set
 Images:
 
-    external-favicons/home-32.png (original: black/png/home_icon&32.png)
-    external-favicons/blog-32.png (original: black/png/speechbubble_sq_line_icon&32.png)
+    external-favicons/home-32.png (original: https://www.iconfinder.com/icons/42257/about_icon)
+    external-favicons/blog-32.png (original: https://www.iconfinder.com/icons/42282/notepad_icon)
+    external-favicons/review-32.png (original: https://www.iconfinder.com/icons/42347/line_spechbubble_sq_icon)
 
 ----------------------------------------------------------------------------
 
