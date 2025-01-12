@@ -1,11 +1,12 @@
 #
 # Translators:
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# Besnik <besnik@programeshqip.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-24 14:27+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2025-01-12 19:44+0000\n"
+"Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/sq/>\n"
 "Language: sq\n"
@@ -13,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -203,7 +204,7 @@ msgstr ""
 #. frequency:1 iso_code_3:aze
 #: DB:language/name:34
 msgid "Azerbaijani"
-msgstr "Azerbajxhane"
+msgstr "Azerbajxhanisht"
 
 #. frequency:1 iso_code_3:bvd
 #: DB:language/name:1470
@@ -268,7 +269,7 @@ msgstr ""
 #. frequency:1 iso_code_3:bar
 #: DB:language/name:982
 msgid "Bavarian"
-msgstr ""
+msgstr "Bavarisht"
 
 #. frequency:1 iso_code_3:bej
 #: DB:language/name:44
@@ -293,7 +294,7 @@ msgstr "Bengalisht"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:48
 msgid "Berber languages"
-msgstr "Gjuhët berbere"
+msgstr "Gjuhë berbere"
 
 #. frequency:1 iso_code_3:bho
 #: DB:language/name:49
@@ -418,7 +419,7 @@ msgstr "Gjuhë kelte"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:66
 msgid "Central American Indian languages"
-msgstr ""
+msgstr "Gjuhë Indiane të Amerikës Qendrore"
 
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
@@ -493,7 +494,7 @@ msgstr ""
 #. frequency:1 iso_code_3:chu
 #: DB:language/name:83
 msgid "Church Slavic"
-msgstr "Sllave Kishtare"
+msgstr "Sllavishte Kishtare"
 
 #. frequency:1 iso_code_3:chk
 #: DB:language/name:77
@@ -738,7 +739,7 @@ msgstr ""
 #. frequency:1 iso_code_3:fij
 #: DB:language/name:129
 msgid "Fijian"
-msgstr ""
+msgstr "Fixhisht"
 
 #. frequency:1 iso_code_3:fil
 #: DB:language/name:130
@@ -843,7 +844,7 @@ msgstr ""
 #. frequency:1 iso_code_3:kat
 #: DB:language/name:144
 msgid "Georgian"
-msgstr "Gjeorgjianisht"
+msgstr "Gjeorgjisht"
 
 #. frequency:2 iso_code_3:deu
 #: DB:language/name:145
@@ -1533,7 +1534,7 @@ msgstr ""
 #. frequency:1 iso_code_3:mlg
 #: DB:language/name:275
 msgid "Malagasy"
-msgstr ""
+msgstr "Malagashe"
 
 #. frequency:1 iso_code_3:msa
 #: DB:language/name:266
@@ -1543,7 +1544,7 @@ msgstr ""
 #. frequency:1 iso_code_3:mal
 #: DB:language/name:260
 msgid "Malayalam"
-msgstr ""
+msgstr "Malajalamisht"
 
 #. frequency:1 iso_code_3:mlt
 #: DB:language/name:276
@@ -1967,10 +1968,8 @@ msgstr "Provençale, e Vjetër (deri më 1500)"
 
 #. frequency:1 iso_code_3:prg
 #: DB:language/name:5521
-#, fuzzy
-#| msgid "Russian"
 msgid "Prussian"
-msgstr "Rusisht"
+msgstr "Prusisht"
 
 #. frequency:1 iso_code_3:fuc
 #: DB:language/name:2321
@@ -2135,12 +2134,12 @@ msgstr ""
 #. frequency:1 iso_code_3:sco
 #: DB:language/name:365
 msgid "Scots"
-msgstr ""
+msgstr "Skocisht"
 
 #. frequency:1 iso_code_3:gla
 #: DB:language/name:148
 msgid "Scottish Gaelic"
-msgstr ""
+msgstr "Skocishte Gaelike"
 
 #. frequency:1 iso_code_3:gul
 #: DB:language/name:2586
@@ -2164,10 +2163,8 @@ msgstr "Serbisht"
 
 #. frequency:1 iso_code_3:hbs
 #: DB:language/name:2670
-#, fuzzy
-#| msgid "Croatian"
 msgid "Serbo-Croatian"
-msgstr "Kroatisht"
+msgstr "Serbokroatisht"
 
 #. frequency:1 iso_code_3:srr
 #: DB:language/name:395
@@ -2242,7 +2239,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:376
 msgid "Slavic languages"
-msgstr "Gjuhë Slavike"
+msgstr "Gjuhë slavike"
 
 #. frequency:1 iso_code_3:slk
 #: DB:language/name:377
@@ -2282,22 +2279,22 @@ msgstr ""
 #. frequency:1 iso_code_3:dsb
 #: DB:language/name:110
 msgid "Sorbian, Lower"
-msgstr ""
+msgstr "Sorbishte, e Poshtme"
 
 #. frequency:1 iso_code_3:hsb
 #: DB:language/name:175
 msgid "Sorbian, Upper"
-msgstr ""
+msgstr "Sorbishte, e Sipërme"
 
 #. frequency:1 iso_code_3:nso
 #: DB:language/name:310
 msgid "Sotho, Northern"
-msgstr ""
+msgstr "Soto, Veriore"
 
 #. frequency:1 iso_code_3:sot
 #: DB:language/name:392
 msgid "Sotho, Southern"
-msgstr ""
+msgstr "Soto, Jugore"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:357
@@ -2427,7 +2424,7 @@ msgstr "Tajlandisht"
 #. frequency:1 iso_code_3:bod
 #: DB:language/name:416
 msgid "Tibetan"
-msgstr "Tibetanase"
+msgstr "Tibetisht"
 
 #. frequency:1 iso_code_3:tig
 #: DB:language/name:417
@@ -2627,7 +2624,7 @@ msgstr ""
 #. frequency:1 iso_code_3:wln
 #: DB:language/name:457
 msgid "Walloon"
-msgstr ""
+msgstr "Valonisht"
 
 #. frequency:1 iso_code_3:wae
 #: DB:language/name:6981
@@ -2652,7 +2649,7 @@ msgstr ""
 #. frequency:1 iso_code_3:cym
 #: DB:language/name:455
 msgid "Welsh"
-msgstr ""
+msgstr "Uellsisht"
 
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
@@ -2782,7 +2779,7 @@ msgstr "[Disa gjuhë]"
 #. frequency:1 iso_code_3:zxx
 #: DB:language/name:486
 msgid "[No linguistic content]"
-msgstr ""
+msgstr "[Pa lëndë gjuhësore]"
 
 #~ msgid "No linguistic content"
 #~ msgstr "Pa përmbajtje gjuhësore"
