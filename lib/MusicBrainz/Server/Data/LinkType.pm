@@ -18,7 +18,9 @@ use MusicBrainz::Server::Validation qw( is_positive_integer );
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::GetByGID',
      'MusicBrainz::Server::Data::Role::EntityCache',
-     'MusicBrainz::Server::Data::Role::SelectAll';
+     'MusicBrainz::Server::Data::Role::OptionsTree' => {
+        order_by => [qw( entity_type0 entity_type1 child_order id )],
+     };
 
 sub _type { 'link_type' }
 
@@ -147,7 +149,7 @@ around '_get_all_from_db' => sub {
     return @all;
 };
 
-sub get_tree
+sub get_entity_types_tree
 {
     my ($self, $type0, $type1, %opts) = @_;
 
@@ -294,34 +296,6 @@ sub load_root_ids {
     for my $obj (@objs) {
         $obj->root_id($mapping{$obj->id});
     }
-}
-
-=method is_child
-
-Checks whether a specific attribute is a child of the given one in the tree.
-Used to block creating loops where a parent is set as its own child.
-
-=cut
-
-sub is_child {
-    my ($self, $own_id, $possible_child_id) = @_;
-
-    return $self->sql->select_single_value(<<~'SQL', $own_id, $possible_child_id);
-        WITH RECURSIVE hierarchy(parent, children) AS (
-                SELECT parent, ARRAY[id] AS children
-                  FROM link_type
-            UNION ALL
-                SELECT link_type.parent, hierarchy.children || link_type.id
-                  FROM link_type
-                  JOIN hierarchy ON link_type.id = hierarchy.parent
-                 WHERE link_type.parent != any(hierarchy.children)
-        )
-        SELECT 1
-          FROM hierarchy
-         WHERE parent = ?
-           AND ? = any(children)
-         LIMIT 1
-        SQL
 }
 
 sub insert

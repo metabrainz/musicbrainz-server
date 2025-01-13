@@ -91,9 +91,10 @@ sub tree : Chained('type_specific') PathPart('')
 {
     my ($self, $c) = @_;
 
-    my $root = $c->model('LinkType')->get_tree($c->stash->{type0},
-                                                $c->stash->{type1},
-                                                get_deprecated_and_empty => 1);
+    my $root = $c->model('LinkType')->get_entity_types_tree(
+        $c->stash->{type0},
+        $c->stash->{type1},
+        get_deprecated_and_empty => 1);
 
     $c->stash(
         component_path  => 'relationship/linktype/RelationshipTypePairTree',
@@ -130,7 +131,7 @@ sub create : Chained('type_specific') PathPart('create') RequireAuth(relationshi
     my $form = $c->form(
         form => 'Admin::LinkType',
         init_object => { attributes => $attribs },
-        root => $c->model('LinkType')->get_tree(
+        root => $c->model('LinkType')->get_entity_types_tree(
             $c->stash->{type0},
             $c->stash->{type1},
             get_deprecated_and_empty => 1),
@@ -177,9 +178,10 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
                     examples is_deprecated has_dates entity0_cardinality entity1_cardinality
                     orderable_direction ),
         },
-        root => $c->model('LinkType')->get_tree($link_type->entity0_type,
-                                                $link_type->entity1_type,
-                                                get_deprecated_and_empty => 1),
+        root => $c->model('LinkType')->get_entity_types_tree(
+            $link_type->entity0_type,
+            $link_type->entity1_type,
+            get_deprecated_and_empty => 1),
     );
     $form->field('parent_id')->_load_options;
 
