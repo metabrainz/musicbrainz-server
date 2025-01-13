@@ -16,6 +16,7 @@ export type StateT<T: EntityItemT> = {
   +entityType: T['entityType'],
   +error: number,
   +highlightedIndex: number,
+  +htmlName?: string,
   +id: string,
   +indexedSearch: boolean,
   +inputChangeHook?: (
@@ -31,6 +32,7 @@ export type StateT<T: EntityItemT> = {
   +isLookupPerformed?: boolean,
   +isOpen: boolean,
   +items: $ReadOnlyArray<ItemT<T>>,
+  +label?: string,
   +labelClass?: string,
   +labelStyle?: {...},
   +page: number,

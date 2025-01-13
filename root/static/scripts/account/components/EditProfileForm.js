@@ -10,11 +10,20 @@
 import mutate from 'mutate-cow';
 import * as React from 'react';
 
-import Autocomplete from '../../common/components/Autocomplete.js';
+import Autocomplete2, {
+  createInitialState as createInitialAutocompleteState,
+} from '../../common/components/Autocomplete2.js';
+import autocompleteReducer
+  from '../../common/components/Autocomplete2/reducer.js';
+import type {
+  ActionT as AutocompleteActionT,
+  StateT as AutocompleteStateT,
+} from '../../common/components/Autocomplete2/types.js';
 import SelectField from '../../common/components/SelectField.js';
 import Warning from '../../common/components/Warning.js';
 import {FLUENCY_NAMES} from '../../common/constants.js';
 import {DB_STAGING_TESTING_FEATURES} from '../../common/DBDefs-client.mjs';
+import {createAreaObject} from '../../common/entity2.js';
 import {N_lp_attributes} from '../../common/i18n/attributes.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
 import FormCsrfToken from '../../edit/components/FormCsrfToken.js';
@@ -28,13 +37,6 @@ import FormRowURLLong from '../../edit/components/FormRowURLLong.js';
 import FormSubmit from '../../edit/components/FormSubmit.js';
 import {pushCompoundField} from '../../edit/utility/pushField.js';
 
-// Models just what we need from root/static/scripts/common/entity.js
-type AreaClassT = {
-  gid: string | null,
-  id: string | null,
-  name: string,
-};
-
 type UserLanguageFieldT = CompoundFieldT<{
   +fluency: FieldT<FluencyT | null>,
   +language_id: FieldT<string | null>,
@@ -42,7 +44,6 @@ type UserLanguageFieldT = CompoundFieldT<{
 
 type EditProfileFormT = FormT<{
   +area: AreaFieldT,
-  +area_id: FieldT<string | null>,
   +biography: FieldT<string>,
   +birth_date: PartialDateFieldT,
   +csrf_token: FieldT<string>,
@@ -57,10 +58,14 @@ type EditProfileFormT = FormT<{
 type ActionT =
   | {+type: 'add-language'}
   | {+type: 'remove-language', +index: number}
-  | {+type: 'set-area', +area: AreaClassT};
+  | {
+      +action: AutocompleteActionT<AreaT>,
+      +type: 'update-area',
+    };
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
+  +area: AutocompleteStateT<AreaT>,
   +form: EditProfileFormT,
 };
 
@@ -84,6 +89,33 @@ const fluencyOptions = {
   ],
 };
 
+function createInitialState(
+  initialForm: EditProfileFormT,
+): StateT {
+  const areaField = initialForm.field.area;
+  const areaSubfields = areaField.field;
+  const gid = areaSubfields.gid.value ?? '';
+  const id = parseInt(areaSubfields.id.value ?? '0', 10);
+  const name = areaSubfields.name.value;
+  return {
+    area: createInitialAutocompleteState({
+      entityType: 'area',
+      htmlName: areaField.html_name,
+      id: 'id-' + areaField.html_name,
+      inputValue: name,
+      label: lp('Location', 'user area'),
+      labelStyle: {},
+      selectedItem: id ? {
+        entity: createAreaObject({gid, id, name}),
+        id,
+        name,
+        type: 'option',
+      } : null,
+    }),
+    form: initialForm,
+  };
+}
+
 function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
   switch (action.type) {
@@ -104,13 +136,11 @@ function reducer(state: StateT, action: ActionT): StateT {
         .splice(action.index, 1);
       break;
     }
-    case 'set-area': {
-      newStateCtx
-        .get('form', 'field')
-        .set('area_id', 'value', action.area.id)
-        .get('area', 'field')
-        .set('name', 'value', action.area.name)
-        .set('gid', 'value', action.area.gid);
+    case 'update-area': {
+      newStateCtx.set(
+        'area',
+        autocompleteReducer(state.area, action.action),
+      );
       break;
     }
     default: {
@@ -126,13 +156,14 @@ component EditProfileForm(
 ) {
   const [state, dispatch] = React.useReducer(
     reducer,
-    {form: initialForm},
+    initialForm,
+    createInitialState,
   );
 
-  const handleAreaChange = React.useCallback((
-    area: AreaClassT,
+  const areaDispatch = React.useCallback((
+    action: AutocompleteActionT<AreaT>,
   ) => {
-    dispatch({area, type: 'set-area'});
+    dispatch({action, type: 'update-area'});
   }, [dispatch]);
 
   const removeLanguage = React.useCallback((
@@ -195,29 +226,12 @@ component EditProfileForm(
       />
 
       <FormRow>
-        <FormLabel
-          forField={areaField.name}
-          label={addColonText(lp('Location', 'user area'))}
+        <Autocomplete2
+          dispatch={areaDispatch}
+          state={state.area}
         />
-        <Autocomplete
-          currentSelection={{
-            gid: areaField.gid.value,
-            id: field.area_id.value,
-            name: areaField.name.value,
-          }}
-          entity="area"
-          inputID={'id-' + areaField.name.html_name}
-          inputName={areaField.name.html_name}
-          onChange={handleAreaChange}
-        >
-          <input
-            name={field.area_id.html_name}
-            type="hidden"
-            value={field.area_id.value || ''}
-          />
-        </Autocomplete>
         <FieldErrors field={areaField.gid} />
-        <FieldErrors field={field.area_id} />
+        <FieldErrors field={areaField.id} />
         <FieldErrors field={areaField.name} />
       </FormRow>
       <FormRow hasNoLabel>
