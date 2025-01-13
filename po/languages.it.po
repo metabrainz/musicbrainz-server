@@ -8,22 +8,22 @@
 # salo.rock, 2023
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
-# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2024.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-23 11:42+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-01-13 21:19+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -2172,10 +2172,8 @@ msgstr "Serbo"
 
 #. frequency:1 iso_code_3:hbs
 #: DB:language/name:2670
-#, fuzzy
-#| msgid "Croatian"
 msgid "Serbo-Croatian"
-msgstr "Croato"
+msgstr "Serbo-croato"
 
 #. frequency:1 iso_code_3:srr
 #: DB:language/name:395
