@@ -104,13 +104,13 @@ function createInitialState(
       id: 'id-' + areaField.html_name,
       inputValue: name,
       label: lp('Location', 'user area'),
-      labelStyle: {},
       selectedItem: id ? {
         entity: createAreaObject({gid, id, name}),
         id,
         name,
         type: 'option',
       } : null,
+      showLabel: true,
     }),
     form: initialForm,
   };
