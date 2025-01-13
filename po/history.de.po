@@ -26,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-05 12:42+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2024-12-28 17:42+0000\n"
+"Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/history/de/>\n"
 "Language: de\n"
@@ -35,15 +35,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
-msgstr ""
+msgstr "„Do Not Cluster“ Richtlinie verworfen"
 
 #: DB:statistics.statistic_event/title:2017-04-11
 msgid "\"feat.\" standardization dropped"
-msgstr ""
+msgstr "„feat.“ Standardisierung verworfen"
 
 #: DB:statistics.statistic_event/title:2021-04-19
 msgid "1200px thumbnails"
@@ -100,7 +100,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2003-04-05
 msgid "A new, much faster search mechanism is added."
-msgstr ""
+msgstr "Ein neuer, sehr viel schnellerer Suchmechanismus wird hinzugefügt."
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
@@ -117,6 +117,8 @@ msgstr ""
 msgid ""
 "A way to search for edits based on several different criteria is released."
 msgstr ""
+"Eine Möglichkeit zur Suche von Bearbeitungen basierend auf verschiedenen "
+"Kriterien wird veröffentlicht."
 
 #: DB:statistics.statistic_event/description:2014-11-19
 msgid ""
@@ -159,6 +161,8 @@ msgstr ""
 msgid ""
 "After a successful Summer of Code, Ian McEwen joins the MusicBrainz team."
 msgstr ""
+"Nach einem erfolgreichen Summer of Code tritt Ian McEwen dem MusicBrainz "
+"Team bei."
 
 #: DB:statistics.statistic_event/description:2016-11-08
 msgid ""
@@ -199,7 +203,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-05-19
 msgid "Aliases for recordings, releases and release groups"
-msgstr ""
+msgstr "Aliasse für Aufnahmen, Veröffentlichungen and Veröffentlichungsgruppen"
 
 #: DB:statistics.statistic_event/description:2008-09-01
 msgid ""
@@ -243,6 +247,8 @@ msgstr "Anmerkungen"
 #: DB:statistics.statistic_event/title:2013-05-15
 msgid "Areas, ISNI codes and multiple release events per release"
 msgstr ""
+"Gebiete, ISNI-Codes und mehrere Veröffentlichungsereignisse pro "
+"Veröffentlichung"
 
 #: DB:statistics.statistic_event/title:2003-06-22
 msgid "Artist subscriptions"
@@ -282,7 +288,7 @@ msgstr "Die BBC geht eine Partnerschaft mit MetaBrainz ein"
 
 #: DB:statistics.statistic_event/title:2018-09-10
 msgid "BookBrainz becomes official MetaBrainz project"
-msgstr ""
+msgstr "BookBrainz wird ein offizielles MetaBrainz Projekt"
 
 #: DB:statistics.statistic_event/title:2012-04-30
 msgid "CAA initial release"
@@ -328,6 +334,10 @@ msgid ""
 "create series of artists, and to rate places (the only entity that could be "
 "reviewed on CritiqueBrainz but not rated on MusicBrainz)."
 msgstr ""
+"Sammlungen können nun vereint werden, falls ein Bearbeiter mehrere seiner "
+"Sammlungen konsolidieren möchte. Außerdem ist es nun möglich Sammlungen für "
+"Künstler anzulegen und Örtlichkeiten zu bewerten (die einzige Art von Objekt "
+"die zwar auf CritiqueBrainz aber nicht MusicBrainz bewertet werden konnte)."
 
 #: DB:statistics.statistic_event/title:2013-08-05
 msgid "Cover Art Uploader"
@@ -343,7 +353,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-07-25
 msgid "Easier edit note adding"
-msgstr ""
+msgstr "Vereinfachtes Hinzufügen von Bearbeitungsbemerkungen"
 
 #: DB:statistics.statistic_event/description:2004-05-09
 msgid ""
@@ -355,7 +365,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2020-02-18
 msgid "Edit history visible without logging in"
-msgstr ""
+msgstr "Bearbeitungshistorie ohne Anmeldung sichtbar"
 
 #: DB:statistics.statistic_event/title:2015-12-28
 msgid "Edit note notifications"
@@ -366,6 +376,9 @@ msgid ""
 "Edit notes can now be added when creating an edit, making it much easier for "
 "editors to explain their changes."
 msgstr ""
+"Bearbeitungsbemerkungen können nun bei der Erstellung einer Bearbeitung "
+"hinzugefügt werden, was es Bearbeitern leichter macht, ihre Änderungen zu "
+"erklären."
 
 #: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
@@ -476,11 +489,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-07-17
 msgid "Ian McEwen leaves MetaBrainz"
-msgstr ""
+msgstr "Ian McEwen verlässt MetaBrainz"
 
 #: DB:statistics.statistic_event/description:2015-07-17
 msgid "Ian McEwen leaves the project for personal reasons."
-msgstr ""
+msgstr "Ian McEwen verlässt aus persönlichen Gründen das Projekt."
 
 #: DB:statistics.statistic_event/title:2009-06-17
 msgid "Imported CD Baby catalog as CD Stubs"
@@ -560,7 +573,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2014-05-14
 msgid "Instruments and series"
-msgstr ""
+msgstr "Instrumente und Serien"
 
 #: DB:statistics.statistic_event/title:2021-02-01
 msgid "Italian translation released, IPI and ISNI become autoedits"
@@ -568,7 +581,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2021-02-23
 msgid "Kartik Ohri joins the MetaBrainz team"
-msgstr ""
+msgstr "Kartik Ohri tritt dem MetaBrainz Team bei"
 
 #: DB:statistics.statistic_event/description:2021-02-23
 msgid ""

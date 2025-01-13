@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-18 23:42+0000\n"
-"Last-Translator: Echelon666 <echelon01@wp.pl>\n"
+"PO-Revision-Date: 2024-12-10 15:42+0000\n"
+"Last-Translator: Peter69 <echelon01@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/history/pl/>\n"
 "Language: pl\n"
@@ -24,15 +24,16 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
 "n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
 msgstr "Wycofano zasadę „Nie grupować”"
 
 #: DB:statistics.statistic_event/title:2017-04-11
+#, fuzzy
 msgid "\"feat.\" standardization dropped"
-msgstr ""
+msgstr "standaryzacja „feat.” opuszczona"
 
 #: DB:statistics.statistic_event/title:2021-04-19
 msgid "1200px thumbnails"
@@ -558,7 +559,7 @@ msgstr "Importowany katalog CD Baby w formie CD Stubs"
 #: DB:statistics.statistic_event/description:2009-06-17
 msgid ""
 "Imported the metadata from the CD Baby catalog into our CD Stubs collection."
-msgstr ""
+msgstr "Zaimportowano metadane z katalogu CD Baby do naszej kolekcji CD Stubs."
 
 #: DB:statistics.statistic_event/title:2004-07-24
 msgid "Improve voting"
@@ -783,8 +784,9 @@ msgstr ""
 "dostępne na serwerze głównym."
 
 #: DB:statistics.statistic_event/title:2006-02-27
+#, fuzzy
 msgid "MusicBrainz Move"
-msgstr ""
+msgstr "MusicBrainz Move"
 
 #: DB:statistics.statistic_event/description:2010-02-08
 msgid "MusicBrainz Server source code moved to Git from Subversion."
@@ -930,8 +932,9 @@ msgid "Relationship Editor"
 msgstr "Redaktor relacji"
 
 #: DB:statistics.statistic_event/title:2015-06-02
+#, fuzzy
 msgid "Relationship credits become available"
-msgstr ""
+msgstr "Relacje stają się dostępne"
 
 #: DB:statistics.statistic_event/title:2011-11-23
 msgid "Relationships displayed on release pages"
@@ -1042,7 +1045,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
-msgstr ""
+msgstr "SoC 2008"
 
 #: DB:statistics.statistic_event/title:2018-06-30
 msgid "Solr-based search server deployed"
@@ -1076,7 +1079,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2007-04-01
 msgid "Support for Labels and data quality are released."
-msgstr ""
+msgstr "Wprowadzono obsługę etykiet i jakości danych."
 
 #: DB:statistics.statistic_event/title:2015-06-29
 #, fuzzy
@@ -1106,8 +1109,9 @@ msgstr ""
 "BBC zostaje klientem MetaBrainz i zaczyna korzystać z danych MusicBrainz."
 
 #: DB:statistics.statistic_event/description:2012-04-30
+#, fuzzy
 msgid "The Cover Art Archive becomes initially available."
-msgstr ""
+msgstr "Archiwum okładek będzie początkowo dostępne."
 
 #: DB:statistics.statistic_event/description:2012-10-10
 #, fuzzy

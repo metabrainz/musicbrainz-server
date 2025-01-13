@@ -2179,6 +2179,13 @@ msgstr "闪语诸语言"
 msgid "Serbian"
 msgstr "塞尔维亚语"
 
+#. frequency:1 iso_code_3:hbs
+#: DB:language/name:2670
+#, fuzzy
+#| msgid "Croatian"
+msgid "Serbo-Croatian"
+msgstr "克罗地亚语"
+
 #. frequency:1 iso_code_3:srr
 #: DB:language/name:395
 msgid "Serer"

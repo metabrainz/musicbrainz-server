@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-07 14:00+0100\n"
+"POT-Creation-Date: 2025-01-07 14:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2648,7 +2648,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:390
-#: ../root/static/scripts/common/components/EntityLink.js:359
+#: ../root/static/scripts/common/components/EntityLink.js:360
 msgid "This recording is a video"
 msgstr ""
 
@@ -3261,7 +3261,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:157
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/components/EntityLink.js:157
-#: ../root/static/scripts/common/components/EntityLink.js:523
+#: ../root/static/scripts/common/components/EntityLink.js:524
 msgid "info"
 msgstr ""
 
@@ -3420,7 +3420,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/common-macros.tt:264
-#: ../root/static/scripts/common/components/EntityLink.js:294
+#: ../root/static/scripts/common/components/EntityLink.js:295
 msgid "{name} – {additional_info}"
 msgstr ""
 
@@ -3622,11 +3622,11 @@ msgstr ""
 msgid "The provided collection ID doesn’t exist."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:739
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:741
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:744
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:746
 msgid "You cannot merge into Deleted Artist"
 msgstr ""
 
@@ -3883,11 +3883,11 @@ msgstr ""
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:815
+#: ../lib/MusicBrainz/Server/Controller/User.pm:826
 msgid "An error occurred while trying to send your report."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:819
+#: ../lib/MusicBrainz/Server/Controller/User.pm:830
 msgid "Your report has been sent."
 msgstr ""
 
@@ -4218,7 +4218,7 @@ msgid "Add disc ID"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:11
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:33
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:32
 msgctxt "edit type"
 msgid "Add relationship"
 msgstr ""
@@ -4276,7 +4276,7 @@ msgid "Edit track (historic)"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditLink.pm:16
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:41
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:40
 msgctxt "edit type"
 msgid "Edit relationship"
 msgstr ""
@@ -4325,7 +4325,7 @@ msgid "Remove label alias"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:11
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:37
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:36
 msgctxt "edit type"
 msgid "Remove relationship"
 msgstr ""
@@ -4563,14 +4563,14 @@ msgctxt "edit type"
 msgid "Add relationship type"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:308
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:295
 msgid ""
 "This edit would remove a relationship that is set as an example of its "
 "relationship type in the documentation. If you still think this should be "
 "removed, please {contact_url|contact us}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:447
+#: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:423
 #, perl-brace-format
 msgid ""
 "The “{relationship_type}” relationship between “{entity0}” and “{entity1}” "
@@ -7369,7 +7369,7 @@ msgid "Edit relationships"
 msgstr ""
 
 #: ../root/components/InstrumentRelTypes.js:28
-#: ../root/static/scripts/common/components/EntityLink.js:485
+#: ../root/static/scripts/common/components/EntityLink.js:486
 msgid "as “{credit}”"
 msgstr ""
 
@@ -13565,25 +13565,25 @@ msgid ""
 "potentially harmful."
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:373
+#: ../root/static/scripts/common/components/EntityLink.js:374
 msgid "This event has artwork in the Event Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:398
+#: ../root/static/scripts/common/components/EntityLink.js:399
 msgid "This release has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:423
+#: ../root/static/scripts/common/components/EntityLink.js:424
 msgid "This release group has artwork in the Cover Art Archive"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:451
+#: ../root/static/scripts/common/components/EntityLink.js:452
 msgid ""
 "High quality: All available data has been added, if possible including cover "
 "art with liner info that proves it"
 msgstr ""
 
-#: ../root/static/scripts/common/components/EntityLink.js:464
+#: ../root/static/scripts/common/components/EntityLink.js:465
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"

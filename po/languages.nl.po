@@ -2168,6 +2168,13 @@ msgstr "Semitische talen"
 msgid "Serbian"
 msgstr "Servisch"
 
+#. frequency:1 iso_code_3:hbs
+#: DB:language/name:2670
+#, fuzzy
+#| msgid "Croatian"
+msgid "Serbo-Croatian"
+msgstr "Kroatisch"
+
 #. frequency:1 iso_code_3:srr
 #: DB:language/name:395
 msgid "Serer"

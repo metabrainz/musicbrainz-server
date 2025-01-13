@@ -25,12 +25,13 @@
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
 # 4irefall <firekonstantin@mail.ru>, 2024.
+# liilliil <liilliil@liilliil.net>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-12-07 14:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2024-12-21 22:42+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ru/>\n"
 "Language: ru\n"
@@ -40,7 +41,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.8.4\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -1188,6 +1189,14 @@ msgctxt "work_attribute_type"
 msgid "ASCAP ID"
 msgstr "ASCAP ID"
 
+#: DB:work_attribute_type/name:211
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "LATGA ID"
+msgctxt "work_attribute_type"
+msgid "AUTODIA ID"
+msgstr "LATGA ID"
+
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem"
@@ -1340,11 +1349,11 @@ msgid ""
 "EP is fairly difficult to define; usually it should only be assumed that a "
 "release is an EP if the artist defines it as such."
 msgstr ""
-"Мини-альбом (или чаще всего EP, от \"Extended Play\") обычно короче обычного "
-"альбома (LP, от \"Long Play\"), а треки обычно эксклюзивны для конкретного "
-"EP и не появлялись где-то еще до этого. Довольно трудно отличить EP от "
-"сингла; обычно стоит предполагать, что релиз является EP, только если "
-"исполнитель так его определяет."
+"Мини-альбом (или EP, от \"Extended Play\") обычно короче обычного альбома "
+"(LP, от \"Long Play\"), а треки обычно эксклюзивны для конкретного EP и не "
+"появлялись где-то ещё до этого. Довольно трудно отличить EP от сингла; "
+"обычно стоит считать, что релиз является EP, только если исполнитель так его "
+"определяет."
 
 #. name:Album
 #: DB:release_group_primary_type/description:1
@@ -4400,6 +4409,15 @@ msgctxt "work_attribute_type"
 msgid "ID for the German rights society GEMA"
 msgstr "ID для немецкого правозащитного общества GEMA"
 
+#. name:AUTODIA ID
+#: DB:work_attribute_type/description:211
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Czech rights society OSA"
+msgctxt "work_attribute_type"
+msgid "ID for the Greek rights society AUTODIA"
+msgstr "ID для чешского правозащитного общества OSA"
+
 #. name:AEI ID
 #: DB:work_attribute_type/description:58
 msgctxt "work_attribute_type"
@@ -4738,6 +4756,24 @@ msgstr ""
 msgctxt "area_type"
 msgid "Indigenous territory / reserve"
 msgstr "Земля коренных народов"
+
+#. name:Indigenous territory / reserve
+#: DB:area_type/description:9
+#, fuzzy
+#| msgctxt "area_type"
+#| msgid ""
+#| "Used for semi-autonomous territories governed by indigenous peoples, such "
+#| "as Indian reserves/reservations in North America and indigenous "
+#| "territories in Central and South America."
+msgctxt "area_type"
+msgid ""
+"Indigenous territory / reserve is used for semi-autonomous territories "
+"governed by indigenous peoples, such as Indian reserves/reservations in "
+"North America and indigenous territories in Central and South America."
+msgstr ""
+"Используется для обозначения полуавтономных территорий, управляемых "
+"коренными народами, таких как индейские резервации/заповедники в Северной "
+"Америке и территории коренных народов в Центральной и Южной Америке."
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -5763,20 +5799,30 @@ msgctxt "area_type"
 msgid "Military base"
 msgstr "Военная база"
 
+#. name:Military base
+#: DB:area_type/description:8
+msgctxt "area_type"
+msgid ""
+"Military base is used only for any military bases that are large enough to "
+"be considered an area, not just a place."
+msgstr ""
+"Используется только для военных баз достаточно больших, чтобы считаться "
+"самостоятельной областью, а не местом."
+
 #: DB:medium_format/name:166
 msgctxt "medium_format"
 msgid "MiniDVD"
-msgstr ""
+msgstr "MiniDVD"
 
 #: DB:medium_format/name:168
 msgctxt "medium_format"
 msgid "MiniDVD-Audio"
-msgstr ""
+msgstr "MiniDVD-Audio"
 
 #: DB:medium_format/name:169
 msgctxt "medium_format"
 msgid "MiniDVD-Video"
-msgstr ""
+msgstr "MiniDVD-Video"
 
 #: DB:medium_format/name:6
 msgctxt "medium_format"
@@ -5786,22 +5832,22 @@ msgstr "Минидиск"
 #: DB:medium_format/name:165
 msgctxt "medium_format"
 msgid "Minimax CD"
-msgstr ""
+msgstr "Minimax CD"
 
 #: DB:medium_format/name:167
 msgctxt "medium_format"
 msgid "Minimax DVD"
-msgstr ""
+msgstr "Minimax DVD"
 
 #: DB:medium_format/name:170
 msgctxt "medium_format"
 msgid "Minimax DVD-Audio"
-msgstr ""
+msgstr "Minimax DVD-Audio"
 
 #: DB:medium_format/name:171
 msgctxt "medium_format"
 msgid "Minimax DVD-Video"
-msgstr ""
+msgstr "Minimax DVD-Video"
 
 #: DB:work_attribute_type_allowed_value/value:644
 msgctxt "work_attribute_type_allowed_value"
@@ -8670,28 +8716,6 @@ msgstr ""
 "Используйте в сочетании с любыми другими подходящими типами для изображений, "
 "которые нуждаются в доработке для использования в тегах (но, возможно, уже "
 "могут использоваться для ссылок)."
-
-#. name:Military base
-#: DB:area_type/description:8
-msgctxt "area_type"
-msgid ""
-"Used for any military bases that are large enough to be considered an area, "
-"not just a place."
-msgstr ""
-"Используется для военных баз достаточно больших, чтобы считаться "
-"самостоятельной областью, а не местом."
-
-#. name:Indigenous territory / reserve
-#: DB:area_type/description:9
-msgctxt "area_type"
-msgid ""
-"Used for semi-autonomous territories governed by indigenous peoples, such as "
-"Indian reserves/reservations in North America and indigenous territories in "
-"Central and South America."
-msgstr ""
-"Используется для обозначения полуавтономных территорий, управляемых "
-"коренными народами, таких как индейские резервации/заповедники в Северной "
-"Америке и территории коренных народов в Центральной и Южной Америке."
 
 #. name:Poster
 #: DB:event_art_archive.art_type/description:1

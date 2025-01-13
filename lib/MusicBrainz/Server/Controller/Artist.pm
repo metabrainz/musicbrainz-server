@@ -276,6 +276,7 @@ sub show : PathPart('') Chained('load')
     $c->model('ArtistCredit')->load(@$release_groups);
     $c->model('ArtistType')->load(map { map { $_->artist } $_->artist_credit->all_names} @$release_groups);
     $c->model('ReleaseGroupType')->load(@$release_groups);
+    $c->model('ReleaseGroup')->load_aliases(@$release_groups);
     $c->stash(
         recordings => $recordings,
         recordings_jsonld => {items => $recordings},
@@ -730,6 +731,7 @@ sub _merge_load_entities {
     my ($self, $c, @artists) = @_;
 
     $c->model('ArtistType')->load(@artists);
+    $c->model('Artist')->load_aliases(@artists);
     $c->model('Gender')->load(@artists);
     $c->model('Area')->load(@artists);
     $c->model('Area')->load_containment(map { $_->{area} } @artists);

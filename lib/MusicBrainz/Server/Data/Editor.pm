@@ -122,11 +122,15 @@ sub summarize_ratings
     return {
         map {
             my $entity_properties = $ENTITIES{$_};
-            my ($entities) = $self->c->model($entity_properties->{model})->rating
+            my $model = $self->c->model($entity_properties->{model});
+            my ($entities) = $model->rating
                 ->find_editor_ratings($user->id, $me, 10, 0);
 
             $self->c->model('ArtistCredit')->load(@$entities)
                 if $entity_properties->{artist_credits};
+
+            $model->load_aliases(@$entities)
+                if $entity_properties->{aliases};
 
             ($_ => to_json_array($entities));
         } entities_with('ratings'),

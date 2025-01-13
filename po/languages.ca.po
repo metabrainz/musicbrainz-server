@@ -2163,6 +2163,13 @@ msgstr ""
 msgid "Serbian"
 msgstr ""
 
+#. frequency:1 iso_code_3:hbs
+#: DB:language/name:2670
+#, fuzzy
+#| msgid "Croatian"
+msgid "Serbo-Croatian"
+msgstr "Croat"
+
 #. frequency:1 iso_code_3:srr
 #: DB:language/name:395
 msgid "Serer"
