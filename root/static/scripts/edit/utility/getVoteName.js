@@ -9,6 +9,8 @@
 
 import {
   EDIT_VOTE_ABSTAIN,
+  EDIT_VOTE_ADMIN_APPROVE,
+  EDIT_VOTE_ADMIN_REJECT,
   EDIT_VOTE_APPROVE,
   EDIT_VOTE_NO,
   EDIT_VOTE_NONE,
@@ -21,6 +23,10 @@ export default function getVoteName(
   switch (vote) {
     case EDIT_VOTE_ABSTAIN:
       return 'Abstain';
+    case EDIT_VOTE_ADMIN_APPROVE:
+      return 'Admin approval';
+    case EDIT_VOTE_ADMIN_REJECT:
+      return 'Admin rejection';
     case EDIT_VOTE_APPROVE:
       return 'Approve';
     case EDIT_VOTE_YES:

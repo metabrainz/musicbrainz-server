@@ -19,7 +19,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     placeholders
-    sanitize
+    sanitize_username
 );
 use MusicBrainz::Server::Constants qw(
     :create_entity
@@ -286,7 +286,7 @@ sub find_subscribers
 
 sub _die_if_username_invalid {
     my $name = shift;
-    my $sanitized_name = sanitize($name);
+    my $sanitized_name = sanitize_username($name);
 
     die 'Invalid user name' if (
         $name ne $sanitized_name ||

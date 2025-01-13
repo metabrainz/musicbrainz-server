@@ -38,6 +38,7 @@ const defaultSanitizedContext = {
   relative_uri: '',
   req: {
     method: '',
+    query_params: {},
     uri: '',
   },
   session: null,

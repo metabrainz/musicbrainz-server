@@ -906,7 +906,7 @@ component Index(
             <th colSpan="4">{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(('Events'))}</th>
+            <th colSpan="2">{addColonText(l_statistics('Events'))}</th>
             <td>{fc('event')}</td>
             <td />
           </tr>
@@ -1352,6 +1352,22 @@ component Index(
             </th>
             <td>{fc('vote.abstain')}</td>
             <td>{fp('vote.abstain', 'vote')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="3">
+              {addColonText(lp('Admin approval', 'vote'))}
+            </th>
+            <td>{fc('vote.admin_approve')}</td>
+            <td>{fp('vote.admin_approve', 'vote')}</td>
+          </tr>
+          <tr>
+            <th />
+            <th colSpan="3">
+              {addColonText(lp('Admin rejection', 'vote'))}
+            </th>
+            <td>{fc('vote.admin_reject')}</td>
+            <td>{fp('vote.admin_reject', 'vote')}</td>
           </tr>
           <tr>
             <th colSpan="4">{addColonText(l_statistics('Votes'))}</th>
