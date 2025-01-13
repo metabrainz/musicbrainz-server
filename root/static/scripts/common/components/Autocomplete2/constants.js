@@ -21,22 +21,6 @@ import type {
   SearchableTypeT,
 } from './types.js';
 
-export const ARIA_LIVE_STYLE: {
-  +height: string,
-  +left: string,
-  +overflow: string,
-  +position: string,
-  +top: string,
-  +width: string,
-} = Object.seal({
-  height: '1px',
-  left: '-1px',
-  overflow: 'hidden',
-  position: 'absolute',
-  top: '-1px',
-  width: '1px',
-});
-
 export const ERROR_LOOKUP: 1 = 1;
 export const ERROR_LOOKUP_TYPE: 2 = 2;
 export const ERROR_SEARCH: 3 = 3;

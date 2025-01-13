@@ -35,7 +35,6 @@ import {
   STOP_SEARCH,
 } from './Autocomplete2/actions.js';
 import {
-  ARIA_LIVE_STYLE,
   SEARCH_PLACEHOLDERS,
 } from './Autocomplete2/constants.js';
 import formatItem, {
@@ -161,11 +160,11 @@ type InitialStateT<T: EntityItemT> = {
   +inputValue?: string,
   +isLookupPerformed?: boolean,
   +label?: string,
-  +labelStyle?: {...},
   +placeholder?: string,
   +recentItemsKey?: string,
   +required?: boolean,
   +selectedItem?: OptionItemT<T> | null,
+  +showLabel?: boolean,
   +staticItems?: $ReadOnlyArray<OptionItemT<T>>,
   +width?: string,
 };
@@ -255,17 +254,6 @@ component _AutocompleteItem<T: EntityItemT>(
     invariant(item.level == null || item.level >= 0);
   }
 
-  let style: ?{
-    +paddingLeft?: string,
-    +textAlign?: string,
-  } = (item.level != null && item.level > 0)
-    ? {paddingLeft: String(4 + (item.level * 8)) + 'px'}
-    : null;
-
-  if (item.action) {
-    style = {textAlign: 'center'};
-  }
-
   function handleItemClick() {
     if (!isDisabled) {
       selectItem(item);
@@ -287,6 +275,7 @@ component _AutocompleteItem<T: EntityItemT>(
         (isHighlighted ? 'highlighted ' : '') +
         (isSelected ? 'selected ' : '') +
         (isSeparator ? 'separator ' : '') +
+        (item.level != null && item.level > 0 ? `level${item.level} ` : '') +
         `${item.type}-item `
       }
       id={itemId}
@@ -295,7 +284,6 @@ component _AutocompleteItem<T: EntityItemT>(
       onMouseDown={handleItemMouseDown}
       onMouseOver={handleItemMouseOver}
       role="option"
-      style={style}
     >
       {formatItem<T>(item, formatOptions)}
     </li>
@@ -745,7 +733,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
       style={nonEmpty(state.width) ? {width: state.width} : null}
     >
       <div
-        aria-expanded={isOpen ? 'true' : 'false'}
+        aria-expanded={(isOpen && !disabled) ? 'true' : 'false'}
         aria-haspopup="listbox"
         aria-owns={menuId}
         className={state.required ? 'required' : undefined}
@@ -823,11 +811,6 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
         id={menuId}
         onMouseDown={handleMenuMouseDown}
         role="listbox"
-        style={{
-          visibility: (isOpen && !disabled)
-            ? 'visible'
-            : 'hidden',
-        }}
         tabIndex="-1"
       >
         {disabled ? null : menuItemElements}
@@ -838,7 +821,6 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
         aria-relevant="additions text"
         id={statusId}
         role="status"
-        style={ARIA_LIVE_STYLE}
       >
         {statusMessage}
       </div>
@@ -872,12 +854,12 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
   const labelElement = (
     <label
       className={
-        (state.labelClass ?? '') +
+        'autocomplete2-label' +
+        (state.showLabel === true ? ' visible' : '') +
         (state.required ? ' required' : '')
       }
       htmlFor={inputId}
       id={labelId}
-      style={state.labelStyle || DISPLAY_NONE_STYLE}
     >
       {addColonText(
         nonEmpty(state.label)
