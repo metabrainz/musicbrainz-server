@@ -14,18 +14,20 @@
 # Timo Martikainen <>, 2012
 # Timo Martikainen <email address hidden>, 2012
 # Timo Martikainen <email address hidden>, 2012-2014
+# poromies00 <valtteri.malila@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: Juhana Uuttu <rexroom@sci.fi>, 2023\n"
-"Language-Team: Finnish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/fi/)\n"
+"PO-Revision-Date: 2025-01-08 20:42+0000\n"
+"Last-Translator: poromies00 <valtteri.malila@gmail.com>\n"
+"Language-Team: Finnish <https://translations.metabrainz.org/projects/"
+"musicbrainz/attributes/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -52,7 +54,7 @@ msgstr ""
 #: DB:medium_format/name:205
 msgctxt "medium_format"
 msgid "10\" Acetate"
-msgstr ""
+msgstr "10\" pikalevy"
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
@@ -67,7 +69,7 @@ msgstr "10″ vinyyli"
 #: DB:medium_format/name:206
 msgctxt "medium_format"
 msgid "12\" Acetate"
-msgstr ""
+msgstr "12\" pikalevy"
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
@@ -85,12 +87,9 @@ msgid "12\" Vinyl"
 msgstr "12″ vinyyli"
 
 #: DB:medium_format/name:207
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "7\" Vinyl"
 msgctxt "medium_format"
 msgid "3\" Vinyl"
-msgstr "7″ vinyyli"
+msgstr "3″ vinyyli"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
@@ -105,7 +104,7 @@ msgstr "5,25\" levyke"
 #: DB:medium_format/name:204
 msgctxt "medium_format"
 msgid "7\" Acetate"
-msgstr ""
+msgstr "7\" pikalevy"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -146,7 +145,7 @@ msgstr "8 cm CD+G"
 #: DB:medium_format/description:166
 msgctxt "medium_format"
 msgid "8cm DVD, often used for video singles."
-msgstr ""
+msgstr "8 cm DVD, käytetään usein single videoille."
 
 #. name:Pathé disc
 #: DB:medium_format/description:58
@@ -267,6 +266,10 @@ msgid ""
 "connected to a phone via Bluetooth or headphone jack and unlocks the release "
 "for listening in a companion app for a limited period of time."
 msgstr ""
+"\"Digitaalinen keräiltävä\" laite jota käytetään pääasiassa kpop musiikille "
+"ja joka yhdistetään puhelimeen Blutetooth-yhteydellä tai kuulokeliitännällä, "
+"jonka jälkeen julkaisun lukitus vapautuu ja julkaisua pystyy kuuntelemaan "
+"kumppanisovelluksessa rajoitetun ajan."
 
 #. name:Park
 #: DB:place_type/description:9
@@ -374,6 +377,8 @@ msgid ""
 "A company that manufactures physical releases (such as pressing CDs or vinyl "
 "records)."
 msgstr ""
+"Yhtiö, joka valmistaa fyysisiä julkaisuja (esimerkiksi CD- tai "
+"vinyylilevyjen puristamista)."
 
 #. name:Concerto
 #: DB:work_type/description:4

@@ -3,11 +3,12 @@
 # A. Regnander <email address hidden>, 2017
 # efef6ec5b435a041fce803c7f8af77d2_2341d43, 2017
 # abbedabb <albin@albinolsson.com>, 2024.
+# Crowbardoctor <elin.ax1111@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-02-19 01:28+0000\n"
-"Last-Translator: abbedabb <albin@albinolsson.com>\n"
+"PO-Revision-Date: 2025-01-12 19:44+0000\n"
+"Last-Translator: Crowbardoctor <elin.ax1111@gmail.com>\n"
 "Language-Team: Swedish <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/sv/>\n"
 "Language: sv\n"
@@ -15,12 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
 msgid "Afaka"
-msgstr ""
+msgstr "Afaka"
 
 #. frequency:4 iso_code:Arab
 #: DB:script/name:18
@@ -45,17 +46,17 @@ msgstr "balinesiska"
 #. frequency:1 iso_code:Bamu
 #: DB:script/name:155
 msgid "Bamum"
-msgstr ""
+msgstr "Bamum"
 
 #. frequency:1 iso_code:Bass
 #: DB:script/name:145
 msgid "Bassa Vah"
-msgstr ""
+msgstr "Bassa Vah"
 
 #. frequency:1 iso_code:Batk
 #: DB:script/name:74
 msgid "Batak"
-msgstr ""
+msgstr "Batak"
 
 #. frequency:3 iso_code:Beng
 #: DB:script/name:53
@@ -65,47 +66,47 @@ msgstr "bengali"
 #. frequency:1 iso_code:Blis
 #: DB:script/name:95
 msgid "Blissymbols"
-msgstr ""
+msgstr "Bliss"
 
 #. frequency:1 iso_code:Phlv
 #: DB:script/name:123
 msgid "Book Pahlavi"
-msgstr ""
+msgstr "Bok Pahlavi"
 
 #. frequency:3 iso_code:Bopo
 #: DB:script/name:42
 msgid "Bopomofo"
-msgstr ""
+msgstr "Bopomofo"
 
 #. frequency:1 iso_code:Brah
 #: DB:script/name:47
 msgid "Brahmi"
-msgstr ""
+msgstr "Brahmi"
 
 #. frequency:2 iso_code:Brai
 #: DB:script/name:96
 msgid "Braille"
-msgstr ""
+msgstr "Punktskrift"
 
 #. frequency:2 iso_code:Bugi
 #: DB:script/name:75
 msgid "Buginese"
-msgstr ""
+msgstr "Buginesiska"
 
 #. frequency:2 iso_code:Buhd
 #: DB:script/name:78
 msgid "Buhid"
-msgstr ""
+msgstr "Buhid"
 
 #. frequency:2 iso_code:Cans
 #: DB:script/name:87
 msgid "Canadian Syllabics"
-msgstr ""
+msgstr "Kanadensiska syllabics"
 
 #. frequency:2 iso_code:Cari
 #: DB:script/name:108
 msgid "Carian"
-msgstr ""
+msgstr "Carian"
 
 #. frequency:1 iso_code:Cakm
 #: DB:script/name:115

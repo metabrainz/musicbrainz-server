@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-19 11:37+0200\n"
+"POT-Creation-Date: 2025-01-07 14:07+0100\n"
 "PO-Revision-Date: 2024-12-29 00:42+0000\n"
 "Last-Translator: guardiansock <guardian.sock5925@fastmail.com>\n"
-"Language-Team: Chinese (Traditional Han script) <https://"
-"translations.metabrainz.org/projects/musicbrainz/server/zh_Hant/>\n"
+"Language-Team: Chinese (Traditional Han script) <https://translations."
+"metabrainz.org/projects/musicbrainz/server/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,7 +46,8 @@ msgstr "“NNNNN” 是唯一的5位數字，用於標識特定的錄音。"
 msgid ""
 "\"XXX\" is a three character alphanumeric registrant code, uniquely "
 "identifying the organisation which registered the code."
-msgstr "“XXX”是一個三個字元的字母數字登記人代碼，是登記該代碼的組織的唯一標識。"
+msgstr ""
+"“XXX”是一個三個字元的字母數字登記人代碼，是登記該代碼的組織的唯一標識。"
 
 #: ../root/components/forms.tt:272
 msgid "\"YY\" is the last two digits of the year of registration."
@@ -125,10 +126,9 @@ msgid ""
 "artists}, so don’t use the “copy artist credits” option while editing a "
 "classical release unless you’re very sure it’s a good idea!"
 msgstr ""
-"<strong>注意：</strong> 在古典音樂中，{csg_recording_artist|錄音創作者} "
-"應該總是與{csg_track_artist|音軌創作者} "
-"不同，因此，除非您確認無誤，否則在編輯古典音樂專輯時不要使用“複製創作者名單”"
-"選項！"
+"<strong>注意：</strong> 在古典音樂中，{csg_recording_artist|錄音創作者} 應該"
+"總是與{csg_track_artist|音軌創作者} 不同，因此，除非您確認無誤，否則在編輯古"
+"典音樂專輯時不要使用“複製創作者名單”選項！"
 
 #: ../root/components/common-macros.tt:484 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
@@ -139,14 +139,16 @@ msgid ""
 "A CD stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point for a new "
 "MusicBrainz release."
-msgstr "CD 草稿成功匹配了你提供的碟片 ID。如果下面音軌列表內容正確，你可以將它作為 "
+msgstr ""
+"CD 草稿成功匹配了你提供的碟片 ID。如果下面音軌列表內容正確，你可以將它作為 "
 "MusicBrainz 的新發行版。"
 
 #: ../root/release/edit/tracklist.tt:323
 msgid ""
 "A format is required. If you don’t know it, tick the “I don’t know” checkbox "
 "next to the format dropdown."
-msgstr "必須選擇格式。 如果你不清楚，請勾選格式下拉選單旁邊的“我不知道”複選框。"
+msgstr ""
+"必須選擇格式。 如果你不清楚，請勾選格式下拉選單旁邊的“我不知道”複選框。"
 
 #: ../root/release/edit/information.tt:23
 msgid "A release title is required."
@@ -317,15 +319,17 @@ msgid ""
 "All tracks require an associated recording. Click “Edit” to select a "
 "recording for each track. Choose “Add a new recording” if an appropriate one "
 "doesn’t exist yet."
-msgstr "所有音軌都要求關聯一個專輯。點擊“編輯”為每條音軌選擇一個轉機。如果沒有合適的"
+msgstr ""
+"所有音軌都要求關聯一個專輯。點擊“編輯”為每條音軌選擇一個轉機。如果沒有合適的"
 "專輯則選擇“添加一新專輯”。"
 
 #: ../root/layout.tt:16 ../root/layout/index.js:192
 msgid ""
 "An admin has set the following restrictions on your account: {list}. If you "
 "haven’t already been contacted about why, please {uri|send us a message}."
-msgstr "管理員已對您的帳戶做出了如下限制: "
-"{list}。如果您還沒有被告知原因，請{uri|發送消息}。"
+msgstr ""
+"管理員已對您的帳戶做出了如下限制: {list}。如果您還沒有被告知原因，請{uri|發送"
+"消息}。"
 
 #: ../root/components/common-macros.tt:569
 msgid ""
@@ -523,7 +527,8 @@ msgid ""
 "Based on the information you have provided, we have found the following "
 "similar release to already exist in MusicBrainz. If you wish to base your "
 "release on an existing release, select it below."
-msgstr "根據您提供的資訊，我們發現MusicBrainz中已經存在一下類似的發行版。如果您希望將"
+msgstr ""
+"根據您提供的資訊，我們發現MusicBrainz中已經存在一下類似的發行版。如果您希望將"
 "您的版本基於現有的基礎上，請在下面選擇它。"
 
 #: ../root/artist/edit_form.tt:54 ../root/artist/utils.js:21
@@ -554,8 +559,9 @@ msgid ""
 "Below is the error information. If you wish to file a bug report, you may do "
 "so at {bugs|our bug tracker}. The information below will help, so please be "
 "sure to include it!"
-msgstr "以下是錯誤資訊。如果您想提交一份錯誤報告，您可以前往 "
-"{bugs|我們的錯誤追蹤器}。請務必在報告中包含以下的資訊！"
+msgstr ""
+"以下是錯誤資訊。如果您想提交一份錯誤報告，您可以前往 {bugs|我們的錯誤追蹤"
+"器}。請務必在報告中包含以下的資訊！"
 
 #: ../root/layout.tt:117 ../root/layout/components/ExternalLinks.js:118
 #: ../root/layout/components/Footer.js:33
@@ -575,7 +581,8 @@ msgstr "機器人"
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}."
-msgstr "由 {MeB|MetaBrainz 基金會} 和我們的 {spon|贊助商} 和 {supp|支援者} 為您呈現。"
+msgstr ""
+"由 {MeB|MetaBrainz 基金會} 和我們的 {spon|贊助商} 和 {supp|支援者} 為您呈現。"
 
 #: ../root/layout.tt:116 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:210
@@ -782,8 +789,9 @@ msgstr "日期範圍"
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
-msgstr "日期的格式為YYYY-MM-DD。部分日期（如YYYY-"
-"MM或只是YYYY）也可以，或者你可以省略該日期。"
+msgstr ""
+"日期的格式為YYYY-MM-DD。部分日期（如YYYY-MM或只是YYYY）也可以，或者你可以省略"
+"該日期。"
 
 #: ../root/doc/edit_type.tt:23 ../root/collection/CollectionIndex.js:199
 #: ../root/edit/details/AddInstrument.js:60
@@ -872,8 +880,9 @@ msgstr "已完成"
 msgid ""
 "Each track in the MusicBrainz database has to be linked to a recording, "
 "choose the appropriate recording or look for it in the database."
-msgstr "MusicBrainz資料庫中的每首音軌都必須連結到錄音，選擇合適的錄音或在資料庫中尋找"
-"。"
+msgstr ""
+"MusicBrainz資料庫中的每首音軌都必須連結到錄音，選擇合適的錄音或在資料庫中尋"
+"找。"
 
 #: ../root/release/edit/recordings.tt:109
 msgid "Edit"
@@ -1003,7 +1012,8 @@ msgstr "在下面輸入音軌列表："
 msgid ""
 "Enter coordinates manually or click the map to get coordinates from the "
 "marker. If you’re too far out, clicking will zoom instead."
-msgstr "手動輸入坐標或點擊地圖以從標記獲取坐標。如果你離得太遠，請點擊進行縮放。"
+msgstr ""
+"手動輸入坐標或點擊地圖以從標記獲取坐標。如果你離得太遠，請點擊進行縮放。"
 
 #: ../root/components/forms.tt:39 ../root/event/add_event_art.tt:170
 #: ../root/release/add_cover_art.tt:181 ../root/release/edit/layout.tt:58
@@ -1028,17 +1038,17 @@ msgid ""
 "information, but it can also encourage other users to vote on your edit "
 "&#x2014; thus making your edit get applied faster."
 msgstr ""
-"我們強烈建議您撰寫一份 {note|編輯備註} "
-"，描述您從何處獲取這些資訊。這不僅能夠標識資訊來源，"
-"也能鼓勵其他使用者為您的編輯投票 &#x2014; 使其能更快地生效。"
+"我們強烈建議您撰寫一份 {note|編輯備註} ，描述您從何處獲取這些資訊。這不僅能夠"
+"標識資訊來源，也能鼓勵其他使用者為您的編輯投票 &#x2014; 使其能更快地生效。"
 
 #: ../root/components/forms.tt:25
 #: ../root/static/scripts/edit/components/EnterEditNote.js:54
 msgid ""
 "Even just providing a URL or two is helpful! For more suggestions, see "
 "{doc_how_to|our guide for writing good edit notes}."
-msgstr "即使只提供一兩個 URL 也是有益的！如需更多建議，請查看 "
-"{doc_how_to|如何撰寫良好編輯備註的指南}。"
+msgstr ""
+"即使只提供一兩個 URL 也是有益的！如需更多建議，請查看 {doc_how_to|如何撰寫良"
+"好編輯備註的指南}。"
 
 #: ../root/edit/search_macros.tt:436 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
@@ -1264,8 +1274,9 @@ msgstr "IPI 代碼"
 msgid ""
 "IPI codes are assigned by CISAC to “interested parties” in musical rights "
 "management. Check {ipi_doc|the documentation} for more info."
-msgstr "IPI編號由CISAC向音樂版權管理\"利益相關方\"分配"
-"。如需更多資訊，請查看{ipi_doc|文件}。"
+msgstr ""
+"IPI編號由CISAC向音樂版權管理\"利益相關方\"分配。如需更多資訊，請查看{ipi_doc|"
+"文件}。"
 
 #: ../root/artist/edit_form.tt:36 ../root/label/edit_form.tt:39
 #: ../root/edit/details/EditArtist.js:176 ../root/edit/details/EditLabel.js:136
@@ -1276,8 +1287,9 @@ msgstr "ISNI 代碼"
 msgid ""
 "ISNI codes are an ISO standard used to uniquely identify persons and "
 "organizations. Check {isni_doc|the documentation} for more info."
-msgstr "ISNI編號是一對一識別個人和團體的ISO標準。如需更多資訊，請查看{isni_doc|文件}"
-"。"
+msgstr ""
+"ISNI編號是一對一識別個人和團體的ISO標準。如需更多資訊，請查看{isni_doc|文"
+"件}。"
 
 #: ../root/recording/edit_form.tt:45 ../root/report/ReportsIndex.js:617
 #: ../root/search/components/RecordingResults.js:140
@@ -1298,14 +1310,16 @@ msgid ""
 "If the {recording_doc|recording titles/artists} listed above are incorrect, "
 "you can check the boxes below to replace them with the track titles/artists "
 "for this release."
-msgstr "如果上列{recording_doc|錄音標題/創作者} "
-"不正確，您可以選中下方的複選框用音軌標題/此專輯創作者替代。"
+msgstr ""
+"如果上列{recording_doc|錄音標題/創作者} 不正確，您可以選中下方的複選框用音軌"
+"標題/此專輯創作者替代。"
 
 #: ../root/release/edit/information.tt:343
 msgid ""
 "If this is an Amazon ASIN, please do not enter it in the catalog number "
 "field, but add it as a URL relationship later."
-msgstr "如果這是一個亞馬遜 ASIN，請勿填寫在目錄編號欄內，而是稍後將其添加為一個 URL "
+msgstr ""
+"如果這是一個亞馬遜 ASIN，請勿填寫在目錄編號欄內，而是稍後將其添加為一個 URL "
 "關聯。"
 
 #: ../root/release/edit/recordings.tt:160
@@ -1332,7 +1346,8 @@ msgstr "如果您不知道此實體的代碼，將此欄留空即可。"
 msgid ""
 "If you don’t select an existing release group, a new one will be added with "
 "the types selected below."
-msgstr "如果您沒有選擇現有存在的版本組，則將添加一個新的版本組，其中包含下面選擇的類"
+msgstr ""
+"如果您沒有選擇現有存在的版本組，則將添加一個新的版本組，其中包含下面選擇的類"
 "型。"
 
 #: ../root/release/edit/tracklist.tt:5
@@ -1343,7 +1358,8 @@ msgstr "如果您有可以複製和貼上的音軌列表，可在此處輸入。
 msgid ""
 "If you select “{enable_vinyl_numbers}”, the parser will also accept strings "
 "such as “A1” as track numbers."
-msgstr "如果您選擇 “{enable_vinyl_numbers}”，解析器將同時接受類似 “A1” 的音軌編號。"
+msgstr ""
+"如果您選擇 “{enable_vinyl_numbers}”，解析器將同時接受類似 “A1” 的音軌編號。"
 
 #: ../root/edit/search_macros.tt:10
 msgid ""
@@ -1354,7 +1370,8 @@ msgstr "如果想要儲存一次搜尋以便今後使用，您可以直接添加
 msgid ""
 "If you’re sure the combination of “Digital Media” and the selected packaging "
 "is correct, confirm it above. Otherwise, please fix the data."
-msgstr "如果您確定“數位媒體”和所選包裝的組合正確，請在上方確認。否則，請修復資料。"
+msgstr ""
+"如果您確定“數位媒體”和所選包裝的組合正確，請在上方確認。否則，請修復資料。"
 
 #: ../root/release/edit/tracklist.tt:353
 msgid ""
@@ -1373,7 +1390,8 @@ msgid ""
 "If you’re sure the use of featured artists on track titles is correct, "
 "confirm it above. Otherwise, please fix the data (the “Guess feat. artists” "
 "button might help!)."
-msgstr "如果您確定使用特邀創作者是正確的，請在上方確認。否則，請修正資料（使用“猜測 "
+msgstr ""
+"如果您確定使用特邀創作者是正確的，請在上方確認。否則，請修正資料（使用“猜測 "
 "feat. 創作者”按鈕可能有所幫助）。"
 
 #: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:43
@@ -1419,25 +1437,27 @@ msgid ""
 "elsewhere and the durations are significantly different, consider adding a "
 "new recording instead."
 msgstr ""
-"請記住，一旦軌道的時長發生變化，系統會{doc_link|根據軌道資訊重新計算錄音時長}"
-"。因此，如果您更正了僅在此專輯中使用的錄音的音軌時長，只需重複使用舊錄音，無"
-"需添加新錄音。如果錄音也在其他地方使用，並且時長明顯不同，請考慮添加新的錄音"
-"。"
+"請記住，一旦軌道的時長發生變化，系統會{doc_link|根據軌道資訊重新計算錄音時"
+"長}。因此，如果您更正了僅在此專輯中使用的錄音的音軌時長，只需重複使用舊錄音，"
+"無需添加新錄音。如果錄音也在其他地方使用，並且時長明顯不同，請考慮添加新的錄"
+"音。"
 
 #: ../root/release/edit/tracklist.tt:521
 msgid ""
 "Keep in mind that unselecting this will remove the track if the medium has a "
 "disc ID! If you unselect it by mistake, please readd the pregap track before "
 "submitting."
-msgstr "請注意，如果媒體具有碟片ID，取消選取此項目將會移除該音軌！如果不小心取消選取"
-"，請在提交前重新新增預間隙音軌。"
+msgstr ""
+"請注意，如果媒體具有碟片ID，取消選取此項目將會移除該音軌！如果不小心取消選"
+"取，請在提交前重新新增預間隙音軌。"
 
 #: ../root/release/edit/tracklist.tt:536
 msgid ""
 "Keep in mind that unselecting this will remove the tracks if the medium has "
 "a disc ID! If you unselect it by mistake, please readd the data tracks "
 "before submitting."
-msgstr "請注意，如果媒體具有碟片ID，取消選取此項目將會移除這些音軌！如果不小心取消選"
+msgstr ""
+"請注意，如果媒體具有碟片ID，取消選取此項目將會移除這些音軌！如果不小心取消選"
 "取，請在提交前重新新增資料軌。"
 
 #: ../root/cdtoc/attach_artist_releases.tt:17 ../root/cdtoc/list.tt:11
@@ -1767,7 +1787,8 @@ msgid ""
 "Note! If you do not know the month or day of release, please leave them "
 "empty.  January 1st is not often the actual release date, please double "
 "check that you have entered the release date correctly."
-msgstr "注意！如果您不知道專輯的發行月份或日期，請留空。一月一日通常都不是實際的發行"
+msgstr ""
+"注意！如果您不知道專輯的發行月份或日期，請留空。一月一日通常都不是實際的發行"
 "日期，請再三檢查您輸入的發行日期是否正確。"
 
 #: ../root/edit/search_macros.tt:245
@@ -1776,8 +1797,8 @@ msgid ""
 "2011-05-16; or which remove relationships, entered after 2013-07-08; or "
 "which reorder relationships."
 msgstr ""
-"注意：僅搜尋以下類型的編輯：新增或編輯關聯（於 2011-05-16 "
-"之後輸入的）、移除關聯（於 2013-07-08 之後輸入的）、或重新排序關聯。"
+"注意：僅搜尋以下類型的編輯：新增或編輯關聯（於 2011-05-16 之後輸入的）、移除"
+"關聯（於 2013-07-08 之後輸入的）、或重新排序關聯。"
 
 #: ../root/release/edit/recordings.tt:120
 msgid "Now loading recording associations..."
@@ -1801,8 +1822,8 @@ msgid ""
 "non-square art. See the {cover_art_doc|documentation} for more details."
 msgstr ""
 "僅上傳符合此特定發行版本的圖片（例如，確認圖片顯示正確的條碼與目錄編號）。請"
-"勿上傳粉絲製作、編輯或改進過的藝術作品；這包括 AI "
-"改進和非方形藝術的方形版本。有關更多詳細資訊，請參閱{cover_art_doc|文件}。"
+"勿上傳粉絲製作、編輯或改進過的藝術作品；這包括 AI 改進和非方形藝術的方形版"
+"本。有關更多詳細資訊，請參閱{cover_art_doc|文件}。"
 
 #: ../root/edit/search_macros.tt:103
 msgid ""
@@ -1860,8 +1881,9 @@ msgstr "請選擇一個條件"
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
-msgstr "請輸入目前專輯的條碼，如需更多資訊請查閱 <a href=\"{url}\" target=\"_blank\""
-">條碼</a>。"
+msgstr ""
+"請輸入目前專輯的條碼，如需更多資訊請查閱 <a href=\"{url}\" target=\"_blank\">"
+"條碼</a>。"
 
 #: ../root/layout/merge-helper.tt:24
 #: ../root/layout/components/MergeHelper.js:54
@@ -2205,7 +2227,8 @@ msgstr "查看關於專輯編輯器制種的{url|文件}，確保您的資料格
 #: ../root/layout.tt:132
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
-msgstr "正在執行：<span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
+msgstr ""
+"正在執行：<span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
 #: ../root/release/edit/information.tt:160
 #: ../root/edit/details/AddRelease.js:93
@@ -2265,13 +2288,15 @@ msgstr "從以下的搜尋結果中選擇一個媒體，然後點擊“添加媒
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "a description of these types."
-msgstr "選擇所有適用的類型。關於這些類型的描述，請查看 {doc|封面圖片類型} 文件。"
+msgstr ""
+"選擇所有適用的類型。關於這些類型的描述，請查看 {doc|封面圖片類型} 文件。"
 
 #: ../root/event/add_event_art.tt:66
 msgid ""
 "Select all types that apply. See the {doc|Event Art Types} documentation for "
 "a description of these types."
-msgstr "選擇所有適用的類型。關於這些類型的描述，請查看 {doc|活動圖片類型} 文件。"
+msgstr ""
+"選擇所有適用的類型。關於這些類型的描述，請查看 {doc|活動圖片類型} 文件。"
 
 #: ../root/components/forms.tt:316
 msgid ""
@@ -2331,16 +2356,17 @@ msgstr "類似專輯"
 msgid ""
 "Some discs contain a hidden track in the pregap section that precedes track "
 "1. Use this to add (or remove) the special pregap track section."
-msgstr "某些碟片在音軌 1 "
-"之前的前置間隙部分包含了一條隱藏音軌。使用這個來添加（或移除）特殊的前間隙音"
-"軌部分。"
+msgstr ""
+"某些碟片在音軌 1 之前的前置間隙部分包含了一條隱藏音軌。使用這個來添加（或移"
+"除）特殊的前間隙音軌部分。"
 
 #: ../root/release/edit/tracklist.tt:533
 msgid ""
 "Some discs contain one or more data tracks after all audio tracks. Use this "
 "to add (or remove) the special data tracks section. You should only add data "
 "tracks that contain audio or video ({info|more info})"
-msgstr "一些碟片在所有音軌後含有一或多個資料軌。使用此宣講添加(或移除)特設的資料軌部"
+msgstr ""
+"一些碟片在所有音軌後含有一或多個資料軌。使用此宣講添加(或移除)特設的資料軌部"
 "分。您應該之添加含有影音資訊的資料軌({info|更多資訊})"
 
 #: ../root/layout.tt:90 ../root/layout/index.js:271
@@ -2450,7 +2476,8 @@ msgstr "消歧義欄用於幫助使用者區分同名專輯。"
 msgid ""
 "The filters below allow you to find only edits fulfilling specific criteria. "
 "See the {doc_link|documentation} for more info about using the filters."
-msgstr "下列過濾器允許您按照特定條件篩選編輯。如需更多關於過濾器的資訊，請查看 "
+msgstr ""
+"下列過濾器允許您按照特定條件篩選編輯。如需更多關於過濾器的資訊，請查看 "
 "{doc_link|文件}。"
 
 #: ../root/release/edit/information.tt:357
@@ -2459,7 +2486,8 @@ msgid ""
 "title and track titles. It should not be set to the language the lyrics are "
 "written in, nor to the language used for other extra information on the "
 "cover."
-msgstr "語言屬性應設為發行品標題和音軌標題所使用的語言。它不應設為歌詞所寫的語言，也"
+msgstr ""
+"語言屬性應設為發行品標題和音軌標題所使用的語言。它不應設為歌詞所寫的語言，也"
 "不應設為封面上其他額外資訊所使用的語言。"
 
 #: ../root/release/edit/information.tt:394
@@ -2469,9 +2497,8 @@ msgid ""
 "technical limitations that may be addressed later, or because the "
 "information in itself has to be free-text)."
 msgstr ""
-"此欄用於添加不符合 MusicBrainz "
-"嚴格資料結構的資訊，這可能是因為當前的技術限制（未來可能會解決），或是因為這"
-"些資訊本身需要自由文字的格式。"
+"此欄用於添加不符合 MusicBrainz 嚴格資料結構的資訊，這可能是因為當前的技術限制"
+"（未來可能會解決），或是因為這些資訊本身需要自由文字的格式。"
 
 #: ../root/release/edit/information.tt:363
 msgid ""
@@ -2487,15 +2514,17 @@ msgstr "出於資料庫維護的需要，此伺服器臨時處於唯讀模式。
 msgid ""
 "The sort name is an artist name variant used when sorting alphabetically. "
 "For usage information check the {sort_name_doc|sort name guidelines}."
-msgstr "排序名稱是用於按字母順序排序時的創作者名稱變體。如需使用說明，請參閱{sort_nam"
-"e_doc|排序名稱指南}。"
+msgstr ""
+"排序名稱是用於按字母順序排序時的創作者名稱變體。如需使用說明，請參閱"
+"{sort_name_doc|排序名稱指南}。"
 
 #: ../root/release/edit/tracklist.tt:124
 msgid ""
 "The tracklist for the medium (including the track/recording associations, "
 "but not other data such as medium format) will be loaded as a medium on this "
 "release."
-msgstr "媒體的音軌列表(含音軌/錄音關聯，但不含諸如媒體格式一類的其他資料)會作為專輯中"
+msgstr ""
+"媒體的音軌列表(含音軌/錄音關聯，但不含諸如媒體格式一類的其他資料)會作為專輯中"
 "的一個媒體匯入。"
 
 #: ../root/release/edit/recordings.tt:30 ../root/edit/details/AddMedium.js:137
@@ -2510,7 +2539,8 @@ msgstr "此媒體的音軌列表未知。"
 msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
 "1000 CE, please pad with zeros, such as “0123”."
-msgstr "年份應為四位數字。如要輸入早於公元 1000 年的年份，請用零補全，如“0123”。"
+msgstr ""
+"年份應為四位數字。如要輸入早於公元 1000 年的年份，請用零補全，如“0123”。"
 
 #: ../root/cdtoc/lookup.tt:14
 msgid ""
@@ -2531,9 +2561,9 @@ msgid ""
 "{rel_uri|relationships} instead, which will allow ModBot to automatically "
 "remove this artist in the upcoming days."
 msgstr ""
-"沒有錄音，專輯組，專輯或音軌是在{name}名下的。如果你想要移除{name}，請編輯{al"
-"ias_uri|別名}選項底部的所有創作者名單並移除所有現存的{rel_uri|關聯}，這樣ModB"
-"ot可以在日後自動移除這個創作者。"
+"沒有錄音，專輯組，專輯或音軌是在{name}名下的。如果你想要移除{name}，請編輯"
+"{alias_uri|別名}選項底部的所有創作者名單並移除所有現存的{rel_uri|關聯}，這樣"
+"ModBot可以在日後自動移除這個創作者。"
 
 #: ../root/place/edit_form.tt:29
 #: ../lib/MusicBrainz/Server/Form/Field/Coordinates.pm:58
@@ -2553,9 +2583,9 @@ msgid ""
 "promotional texts or other artist or label-owned texts into the annotation."
 msgstr ""
 "該注釋將以開放授權條款的形式發布 (<a href=\"{url}\" target=\"_blank\">CC BY-"
-"NC-SA 3.0</a>) "
-"故因此，它不應該包含你在該許可下無權發布的文字。雖然你可以引用一個來源來支持"
-"你的觀點，但你不應該在注釋中輸入宣傳文字或其他創作者或標籤的文字。"
+"NC-SA 3.0</a>) 故因此，它不應該包含你在該許可下無權發布的文字。雖然你可以引用"
+"一個來源來支持你的觀點，但你不應該在注釋中輸入宣傳文字或其他創作者或標籤的文"
+"字。"
 
 #: ../root/artist/edit_form.tt:65
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:78
@@ -2581,12 +2611,12 @@ msgid "This disc has a hidden pregap track before track 1"
 msgstr "此碟片在音軌 1 之前有隱藏的前間隙音軌"
 
 #: ../root/components/common-macros.tt:190
-#: ../root/static/scripts/common/components/EntityLink.js:33
+#: ../root/static/scripts/common/components/EntityLink.js:38
 msgid "This entity has been removed, and cannot be displayed correctly."
 msgstr "這個項目已被移除，無法正常顯示。"
 
 #: ../root/components/common-macros.tt:190
-#: ../root/static/scripts/common/components/EntityLink.js:32
+#: ../root/static/scripts/common/components/EntityLink.js:37
 msgid "This entity will be added by this edit."
 msgstr "此項實體將由此次編輯新增。"
 
@@ -2601,7 +2631,8 @@ msgid ""
 "This form allows you to edit the artist credit \"{ac}\". When the edit is "
 "accepted, all tracks, recordings, releases and release groups using this "
 "artist credit will be update to use the new one."
-msgstr "此表格允許您編輯創作者署名“{ac}”。編輯被接受後，所有使用此創作者署名的音軌、"
+msgstr ""
+"此表格允許您編輯創作者署名“{ac}”。編輯被接受後，所有使用此創作者署名的音軌、"
 "錄音、發行品和發行組都將更新為新的值。"
 
 #: ../root/artist/split.tt:29
@@ -2609,7 +2640,8 @@ msgid ""
 "This form allows you to split {artist} into separate artists. When the edit "
 "is accepted, existing artist credits will be updated, and collaboration "
 "relationships will be removed"
-msgstr "此表格允許你將{artist}拆分為多個創作者。在此編輯被接受後，現存的創作者名單會"
+msgstr ""
+"此表格允許你將{artist}拆分為多個創作者。在此編輯被接受後，現存的創作者名單會"
 "更新，而合作品關聯則會被移除"
 
 #: ../root/layout.tt:31 ../root/layout/index.js:129
@@ -2620,8 +2652,9 @@ msgstr "這是一台 MusicBrainz 開發伺服器。"
 msgid ""
 "This is a MusicBrainz mirror server. To edit or make changes to the data, "
 "please {uri|return to musicbrainz.org}."
-msgstr "這是一台 MusicBrainz 鏡像伺服器。若要編輯資料，請 {uri|返回 "
-"musicbrainz.org}。"
+msgstr ""
+"這是一台 MusicBrainz 鏡像伺服器。若要編輯資料，請 {uri|返回 musicbrainz."
+"org}。"
 
 #: ../root/components/common-macros.tt:71 ../root/components/Artwork.js:66
 msgid ""
@@ -2634,8 +2667,9 @@ msgid ""
 "This is almost always incorrect. Please make sure whether you actually "
 "wanted a different format (such as “USB Flash Drive” or “Download Card”) or "
 "packaging type."
-msgstr "這幾乎總是不正確的。請確定您是否確實需要不同的格式（例如“USB "
-"隨身碟”或“下載卡”）或包裝類型。"
+msgstr ""
+"這幾乎總是不正確的。請確定您是否確實需要不同的格式（例如“USB 隨身碟”或“下載"
+"卡”）或包裝類型。"
 
 #: ../root/release_group/set_cover_art.tt:76
 msgid "This is the current release group image"
@@ -2664,8 +2698,9 @@ msgstr "此媒體的格式為“數字媒體”，但此專輯的包裝類型不
 msgid ""
 "This medium has a disc ID, pregap track, or data track, so you can only "
 "change the format to one that can have disc IDs."
-msgstr "此媒體具有碟片 ID、預間隙音軌或資料軌，因此您只能將格式變更為可具有碟片 ID "
-"的格式。"
+msgstr ""
+"此媒體具有碟片 ID、預間隙音軌或資料軌，因此您只能將格式變更為可具有碟片 ID 的"
+"格式。"
 
 #: ../root/release/edit/tracklist.tt:363 ../root/release/edit/tracklist.tt:373
 msgid ""
@@ -2677,7 +2712,8 @@ msgstr "此媒體設定為所選發行日期不存在的格式。"
 msgid ""
 "This medium seems to have featured artists on the track titles. These should "
 "usually be {featured_style|entered as part of the track artist}."
-msgstr "這個媒體的音軌標題上似乎包含了客串創作者。這些通常應該是{featured_style|作為"
+msgstr ""
+"這個媒體的音軌標題上似乎包含了客串創作者。這些通常應該是{featured_style|作為"
 "音軌創作者的一部分輸入}。"
 
 #: ../root/place/edit_form.tt:32
@@ -2697,7 +2733,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:390
-#: ../root/static/scripts/common/components/EntityLink.js:349
+#: ../root/static/scripts/common/components/EntityLink.js:360
 msgid "This recording is a video"
 msgstr "此錄音是一個影片"
 
@@ -2714,16 +2750,16 @@ msgid ""
 "corresponding real release with the {url|transl(iter)ation relationship}."
 msgstr ""
 "此發行狀態應用於非官方的音軌列表和發行品標題的翻譯或音譯，並不表示它是一個真"
-"正的獨立發行品。它不應標示為盜版、mixtape/street "
-"專輯、示範錄音或數位專輯。請確保通過{url|翻譯或音譯關聯}連結到對應真正的發行"
-"品。"
+"正的獨立發行品。它不應標示為盜版、mixtape/street 專輯、示範錄音或數位專輯。請"
+"確保通過{url|翻譯或音譯關聯}連結到對應真正的發行品。"
 
 #: ../root/release/edit/tracklist.tt:366
 msgid ""
 "This should never be correct. Make sure that, say, your release set to CD "
 "isn’t meant to be a vinyl, or your vinyl isn’t actually a shellac disc."
-msgstr "這幾乎不會是正確的。請確保您設定為 CD "
-"的發行品不是黑膠唱片，或者您的黑膠唱片其實不是蟲膠唱片。"
+msgstr ""
+"這幾乎不會是正確的。請確保您設定為 CD 的發行品不是黑膠唱片，或者您的黑膠唱片"
+"其實不是蟲膠唱片。"
 
 #: ../root/components/common-macros.tt:551
 #: ../root/static/scripts/common/components/DataTrackIcon.js:14
@@ -2756,7 +2792,8 @@ msgstr "要修改類型，請 {edit_page|編輯專輯組}。"
 msgid ""
 "To enter a new tracklist, use an existing medium or import a disc from a CD "
 "stub, select the appropriate tab."
-msgstr "要輸入新的音軌列表，請使用現有的媒體或從 CD 草稿匯入碟片，並選擇適當的標籤。"
+msgstr ""
+"要輸入新的音軌列表，請使用現有的媒體或從 CD 草稿匯入碟片，並選擇適當的標籤。"
 
 #: ../root/cdstub/index.tt:21 ../root/cdstub/CDStubIndex.js:47
 #: ../root/cdtoc/CDTocInfo.js:39
@@ -3029,9 +3066,9 @@ msgid ""
 "below in order to attach this disc to another MusicBrainz release, or to add "
 "a new one if the search shows it is missing from the database."
 msgstr ""
-"我們找到了與您要求的資訊相匹配的光碟，如下所示。如果這些都不是你想要的發行版"
-"，你可以使用下面的表單進行搜尋，以便將此光碟附加到MusicBrainz的另一個發行版中"
-"，或者如果搜尋結果顯示資料庫中缺少該光碟，則添加一個新光碟。"
+"我們找到了與您要求的資訊相匹配的光碟，如下所示。如果這些都不是你想要的發行"
+"版，你可以使用下面的表單進行搜尋，以便將此光碟附加到MusicBrainz的另一個發行版"
+"中，或者如果搜尋結果顯示資料庫中缺少該光碟，則添加一個新光碟。"
 
 #: ../root/cdtoc/lookup.tt:12
 msgid "We used disc ID <code>{discid}</code> to look up this information."
@@ -3043,7 +3080,8 @@ msgid ""
 "When you are ready to merge these, just click the Merge button. You may "
 "still add more to this merge queue by simply browsing to the entities page "
 "and following the merge link."
-msgstr "當您準備合併這些時，只需單擊“合併”按鈕。您仍然可以透過簡單地瀏覽實體頁面並點"
+msgstr ""
+"當您準備合併這些時，只需單擊“合併”按鈕。您仍然可以透過簡單地瀏覽實體頁面並點"
 "擊合併連結向該合併佇列添加更多內容。"
 
 #: ../root/layout.tt:113 ../root/layout/components/Footer.js:27
@@ -3091,14 +3129,16 @@ msgstr "是"
 msgid ""
 "You are about to add an ISRC to this recording. The ISRC must be entered in "
 "standard <code>CCXXXYYNNNNN</code> format:"
-msgstr "您將要為此錄音添加 ISRC。ISRC 必須以 <code>CCXXXYYNNNNN</code> 標準格式輸入："
+msgstr ""
+"您將要為此錄音添加 ISRC。ISRC 必須以 <code>CCXXXYYNNNNN</code> 標準格式輸入："
 
 #: ../root/components/forms.tt:256
 msgid ""
 "You are about to add an ISWC to this work. The ISWC must be entered in "
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
-msgstr "您將要為此作品添加 ISWC。ISWC 必須以 <code>T-DDD.DDD.DDD-C</code> "
-"標準格式輸入："
+msgstr ""
+"您將要為此作品添加 ISWC。ISWC 必須以 <code>T-DDD.DDD.DDD-C</code> 標準格式輸"
+"入："
 
 #: ../root/cdtoc/attach_artist_releases.tt:5
 msgid "You are viewing releases by {artist}."
@@ -3153,9 +3193,9 @@ msgid ""
 "down."
 msgstr ""
 "您必須為每個音軌選擇一位創作者（每個創作者欄位的背景顏色應為綠色）。如果您輸"
-"入了創作者但背景保持未著色，請點擊放大鏡以將名稱與 MusicBrainz "
-"創作者相匹配。如果該創作者尚不存在，您可以從搜尋結果下拉清單底部選擇\""
-"{add_a_new_artist}\"來新增它。"
+"入了創作者但背景保持未著色，請點擊放大鏡以將名稱與 MusicBrainz 創作者相匹配。"
+"如果該創作者尚不存在，您可以從搜尋結果下拉清單底部選擇"
+"\"{add_a_new_artist}\"來新增它。"
 
 #: ../root/release/edit/information.tt:30
 msgid ""
@@ -3167,9 +3207,9 @@ msgid ""
 "down."
 msgstr ""
 "您必須選擇此發行品的創作者（創作者欄位的背景顏色應為綠色）。如果您輸入了創作"
-"者但背景保持未著色，請點擊放大鏡以將名稱與 MusicBrainz "
-"創作者相匹配。如果該創作者尚不存在，您可以從搜尋結果下拉清單底部選擇「{add_a_"
-"new_artist}」來新增它。"
+"者但背景保持未著色，請點擊放大鏡以將名稱與 MusicBrainz 創作者相匹配。如果該創"
+"作者尚不存在，您可以從搜尋結果下拉清單底部選擇「{add_a_new_artist}」來新增"
+"它。"
 
 #: ../root/release/edit/information.tt:99
 msgid "You must select an existing release group."
@@ -3185,7 +3225,8 @@ msgstr "您的搜尋花費了太長時間，已經被取消。請細化搜尋條
 msgid ""
 "You’ve seeded some disc IDs that aren’t matched to any medium. If this is "
 "wrong, use the “Attach disc ID” options below."
-msgstr "您給未附加至任何媒體的碟片ID制了種。如有誤，請使用下方的\"附上碟片 ID\"選項。"
+msgstr ""
+"您給未附加至任何媒體的碟片ID制了種。如有誤，請使用下方的\"附上碟片 ID\"選項。"
 
 #: ../root/release/edit/tracklist.tt:409
 msgid ""
@@ -3197,7 +3238,7 @@ msgstr ""
 "Various Artists} 很少用於音軌；請確保創作者輸入正確。"
 
 #: ../root/components/common-macros.tt:190
-#: ../root/static/scripts/common/components/EntityLink.js:46
+#: ../root/static/scripts/common/components/EntityLink.js:51
 msgctxt "generic entity"
 msgid "[removed]"
 msgstr "[已移除]"
@@ -3241,7 +3282,7 @@ msgid "by"
 msgstr "來自"
 
 #: ../root/components/common-macros.tt:111
-#: ../root/static/scripts/common/components/EntityLink.js:106
+#: ../root/static/scripts/common/components/EntityLink.js:111
 msgctxt "event"
 msgid "cancelled"
 msgstr "已取消"
@@ -3293,17 +3334,17 @@ msgid "hide tracklist"
 msgstr "隱藏音軌列表"
 
 #: ../root/components/common-macros.tt:102
-#: ../root/static/scripts/common/components/EntityLink.js:127
+#: ../root/static/scripts/common/components/EntityLink.js:132
 msgid "historical"
 msgstr "歷史"
 
 #: ../root/components/common-macros.tt:100
-#: ../root/static/scripts/common/components/EntityLink.js:129
+#: ../root/static/scripts/common/components/EntityLink.js:134
 msgid "historical, until {end}"
 msgstr "歷史，直到{end}"
 
 #: ../root/components/common-macros.tt:98
-#: ../root/static/scripts/common/components/EntityLink.js:123
+#: ../root/static/scripts/common/components/EntityLink.js:128
 msgid "historical, {begin}-{end}"
 msgstr "歷史，{begin}-{end}"
 
@@ -3337,8 +3378,8 @@ msgstr "包括"
 
 #: ../root/components/common-macros.tt:157
 #: ../root/components/common-macros.tt:233
-#: ../root/static/scripts/common/components/EntityLink.js:152
-#: ../root/static/scripts/common/components/EntityLink.js:513
+#: ../root/static/scripts/common/components/EntityLink.js:157
+#: ../root/static/scripts/common/components/EntityLink.js:524
 msgid "info"
 msgstr "資訊"
 
@@ -3496,7 +3537,7 @@ msgid ""
 msgstr "你的一些編輯下有 {link|新的備註} 。請務必閱讀並進行必要的回應。"
 
 #: ../root/components/common-macros.tt:264
-#: ../root/static/scripts/common/components/EntityLink.js:288
+#: ../root/static/scripts/common/components/EntityLink.js:295
 msgid "{name} – {additional_info}"
 msgstr "{name} – {additional_info}"
 
@@ -3560,9 +3601,9 @@ msgid ""
 "avoid another automatic removal."
 msgstr ""
 "這個實體被自動刪除，因為它是空的:它沒有與它相關聯的關係，也沒有(如果與問題中"
-"的實體類型相關)任何錄音、專輯或專輯組。如果您認為這是一個有效的、不重複的條目"
-"，並且確實屬於MusicBrainz，可以再次添加它，但請確保這次添加了足夠的資料，以避"
-"免再次被自動刪除。"
+"的實體類型相關)任何錄音、專輯或專輯組。如果您認為這是一個有效的、不重複的條"
+"目，並且確實屬於MusicBrainz，可以再次添加它，但請確保這次添加了足夠的資料，以"
+"避免再次被自動刪除。"
 
 #: ../lib/MusicBrainz/Server/Controller.pm:37
 #, perl-brace-format
@@ -3577,7 +3618,8 @@ msgid ""
 msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been "
 "automatically accepted and applied."
-msgstr[0] "謝謝您，您的 {num_edits} 個 {edit_url|編輯} ({edit_ids}) 已自動接受並應用。"
+msgstr[0] ""
+"謝謝您，您的 {num_edits} 個 {edit_url|編輯} ({edit_ids}) 已自動接受並應用。"
 
 #: ../lib/MusicBrainz/Server/Controller.pm:133
 #, perl-brace-format
@@ -3587,8 +3629,9 @@ msgid ""
 msgid_plural ""
 "Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered "
 "into the edit queue for peer review."
-msgstr[0] "謝謝您，您的 {num_edits} 個 {edit_url|編輯} ({edit_ids}) "
-"已進入同儕審查的編輯佇列。"
+msgstr[0] ""
+"謝謝您，您的 {num_edits} 個 {edit_url|編輯} ({edit_ids}) 已進入同儕審查的編輯"
+"佇列。"
 
 #: ../lib/MusicBrainz/Server/Controller.pm:141
 #, perl-brace-format
@@ -3639,8 +3682,9 @@ msgstr "使用者ID '{user_id}' 無法被找到。"
 msgid ""
 "We were unable to send login information to your email address. Please try "
 "again, and if that still doesn’t work, {contact_url|contact us}."
-msgstr "無法向您的電子郵件地址發送登入資訊。請再試一次，如果您仍然遇到問題，請{contac"
-"t_url|聯繫我們}。"
+msgstr ""
+"無法向您的電子郵件地址發送登入資訊。請再試一次，如果您仍然遇到問題，請"
+"{contact_url|聯繫我們}。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:209
 msgid "There is no user with this username"
@@ -3682,7 +3726,8 @@ msgid ""
 "We have sent you a verification email to <code>{email}</code>. Please check "
 "your mailbox and click on the link in the email to verify the new email "
 "address."
-msgstr "我們已經向<code>{email}</code>發送了一封確認電子郵件。請查看您的收件箱並點擊"
+msgstr ""
+"我們已經向<code>{email}</code>發送了一封確認電子郵件。請查看您的收件箱並點擊"
 "電子郵件中的連結來驗證新電子郵件地址。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:473
@@ -3695,9 +3740,8 @@ msgid ""
 "re-enter your address in your {settings|account settings}. If that still "
 "doesn’t work, {contact_url|contact us}."
 msgstr ""
-"<strong>我們無法向您發送驗證郵件。</strong><br/"
-">請在{settings|帳號設定}重新輸入電子郵件地址。如果問題仍然存在，請透過{contac"
-"t_url|聯繫我們}。"
+"<strong>我們無法向您發送驗證郵件。</strong><br/>請在{settings|帳號設定}重新輸"
+"入電子郵件地址。如果問題仍然存在，請透過{contact_url|聯繫我們}。"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:869
 msgid "There is no OAuth token with these parameters."
@@ -3707,11 +3751,11 @@ msgstr "這些參數中沒有 OAuth 令牌。"
 msgid "The provided collection ID doesn’t exist."
 msgstr "提供的收藏 ID 不存在。"
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:739
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:741
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "無法將特殊用途創作者合併至另一個創作者"
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:744
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:746
 msgid "You cannot merge into Deleted Artist"
 msgstr "無法合併至已刪除的創作者"
 
@@ -3761,9 +3805,9 @@ msgid ""
 "software you used to generate it. Try again and please report the error to "
 "your software maker if it persists, including the technical information "
 "below."
-msgstr "提供的 CD "
-"目錄無效。這可能是您用來生成它的軟體問題。請再試一次，如果問題持續，請將錯誤"
-"報告給您的軟體製造商，包括以下技術資訊。"
+msgstr ""
+"提供的 CD 目錄無效。這可能是您用來生成它的軟體問題。請再試一次，如果問題持"
+"續，請將錯誤報告給您的軟體製造商，包括以下技術資訊。"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:236
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:468
@@ -3824,7 +3868,8 @@ msgid ""
 "You’re currently not allowed to leave or change edit notes because an admin "
 "has revoked your privileges. If you haven’t already been contacted about "
 "why, please {uri|send us a message}."
-msgstr "您目前不允許離開或更改編輯筆記，因為管理員已經復原了您的權限。如果您還沒有被"
+msgstr ""
+"您目前不允許離開或更改編輯筆記，因為管理員已經復原了您的權限。如果您還沒有被"
 "告知原因，請給我們{uri|發送消息}。"
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:97
@@ -3836,15 +3881,17 @@ msgid ""
 "You can’t change this note, since somebody else has already replied to it. "
 "If there’s an important reason why it should be changed (for example, it "
 "contains private data), please {contact_url|contact us}."
-msgstr "您無法更改此備註，因為其他人已經對其做出了回覆。如果有重要原因需要更改（例如"
-"，包含私人資料），請 {contact_url|聯絡我們}。"
+msgstr ""
+"您無法更改此備註，因為其他人已經對其做出了回覆。如果有重要原因需要更改（例"
+"如，包含私人資料），請 {contact_url|聯絡我們}。"
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:142
 msgid ""
 "You can’t change this note, since it was entered too long ago. If there’s an "
 "important reason why it should be changed (for example, it contains private "
 "data), please {contact_url|contact us}."
-msgstr "您無法更改此備註，因為它已經太久以前輸入。如果有重要原因需要更改（例如，包含"
+msgstr ""
+"您無法更改此備註，因為它已經太久以前輸入。如果有重要原因需要更改（例如，包含"
 "私人資料），請 {contact_url|聯絡我們}。"
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:212
@@ -3973,11 +4020,11 @@ msgstr "您的資訊無法被送達"
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "‘{type}’ 不是可評分的實體類型。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:815
+#: ../lib/MusicBrainz/Server/Controller/User.pm:826
 msgid "An error occurred while trying to send your report."
 msgstr "嘗試發送您的報告時發生了錯誤。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:819
+#: ../lib/MusicBrainz/Server/Controller/User.pm:830
 msgid "Your report has been sent."
 msgstr "您的報告已發送。"
 
@@ -3995,8 +4042,9 @@ msgstr "連接 Internet Archive 伺服器時發生了錯誤。請等待幾分鐘
 msgid ""
 "We’ve hit a temporary delay while trying to fetch metadata from the Internet "
 "Archive. Please wait a minute and try again."
-msgstr "我們在嘗試從Internet "
-"Archive提取中繼資料時遇到了暫時的延遲。請稍等片刻後再試一次。"
+msgstr ""
+"我們在嘗試從Internet Archive提取中繼資料時遇到了暫時的延遲。請稍等片刻後再試"
+"一次。"
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:323
 #, perl-brace-format
@@ -4005,8 +4053,8 @@ msgid ""
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
 msgstr ""
-"無法將封面藝術上傳到此發行品，因為我們在Internet Archive中不擁有相關項目。"
-"請聯絡我們 {contact_url}，以便我們能夠解決此問題。"
+"無法將封面藝術上傳到此發行品，因為我們在Internet Archive中不擁有相關項目。請"
+"聯絡我們 {contact_url}，以便我們能夠解決此問題。"
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:342
 #, perl-brace-format
@@ -4015,15 +4063,16 @@ msgid ""
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
 msgstr ""
-"無法將活動藝術上傳到此活動，因為我們在Internet Archive中不擁有相關項目。"
-"請聯絡我們 {contact_url}，以便我們能夠解決此問題。"
+"無法將活動藝術上傳到此活動，因為我們在Internet Archive中不擁有相關項目。請聯"
+"絡我們 {contact_url}，以便我們能夠解決此問題。"
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:465
 #: ../root/event/EventArtDarkened.js:19 ../root/release/CoverArtDarkened.js:19
 msgid ""
 "The Internet Archive has had a takedown request in the past for this item, "
 "so we are unable to allow any more uploads."
-msgstr "Internet Archive過去對此項目提出過下架請求，因此我們無法允許任何更多的上傳。"
+msgstr ""
+"Internet Archive過去對此項目提出過下架請求，因此我們無法允許任何更多的上傳。"
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:510
 #, perl-brace-format
@@ -4031,7 +4080,8 @@ msgid ""
 "Images can’t be uploaded here because we don’t own the associated item at "
 "the Internet Archive. Please contact us at {contact_url} so we can resolve "
 "this."
-msgstr "無法在此上傳圖片，因為我們在Internet Archive中不擁有相關項目。請聯絡我們 "
+msgstr ""
+"無法在此上傳圖片，因為我們在Internet Archive中不擁有相關項目。請聯絡我們 "
 "{contact_url}，以便我們能夠解決此問題。"
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:731
@@ -4053,7 +4103,8 @@ msgstr "您的編輯備註似乎沒有實際內容。請提供一個有助於同
 msgid ""
 "Since your edit adding this object was still open, that edit has been "
 "cancelled instead of opening a new edit."
-msgstr "由於添加此物件的編輯仍處於打開狀態，因此該編輯已被取消，而不是打開新的編輯。"
+msgstr ""
+"由於添加此物件的編輯仍處於打開狀態，因此該編輯已被取消，而不是打開新的編輯。"
 
 #: ../lib/MusicBrainz/Server/Data/LinkType.pm:232
 #, perl-brace-format
@@ -4065,14 +4116,16 @@ msgstr "{t0}-{t1}關係"
 msgid ""
 "Unable to determine which recording {source_recording} should be merged "
 "into. There are multiple valid options: {target_recordings}."
-msgstr "無法確定應將哪個錄音 {source_recording} "
-"合併進去。存在多個有效選項：{target_recordings}。"
+msgstr ""
+"無法確定應將哪個錄音 {source_recording} 合併進去。存在多個有效選項："
+"{target_recordings}。"
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:54
 msgid ""
 "Some mediums being merged don’t have an equivalent on the target release: "
 "either the target release has less mediums, or the positions don’t match."
-msgstr "某些被合併的媒體在目標發行品上沒有對應項目：要嘛目標發行品的媒體較少，要嘛位"
+msgstr ""
+"某些被合併的媒體在目標發行品上沒有對應項目：要嘛目標發行品的媒體較少，要嘛位"
 "置不匹配。"
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:55
@@ -4088,7 +4141,8 @@ msgstr "至少一組相應媒體上的音軌數不匹配。"
 msgid ""
 "Merging a medium with tracks into one without them is not currently "
 "supported. You can always merge in the other direction!"
-msgstr "將包含音軌的媒體合併為不包含音軌的媒體目前不被支援。您可以始終反向合併！"
+msgstr ""
+"將包含音軌的媒體合併為不包含音軌的媒體目前不被支援。您可以始終反向合併！"
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:58
 msgid ""
@@ -4103,9 +4157,8 @@ msgid ""
 "each want to merge into the other. This is likely because the tracks or "
 "recordings are in an inconsistent order on the releases."
 msgstr ""
-"存在合併循環，其中兩個錄音（{recording1} 和 "
-"{recording2}）彼此想要合併。這可能是因為這些錄音的音軌或順序在發行品上不一致"
-"。"
+"存在合併循環，其中兩個錄音（{recording1} 和 {recording2}）彼此想要合併。這可"
+"能是因為這些錄音的音軌或順序在發行品上不一致。"
 
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:174
 msgid "Total"
@@ -4202,9 +4255,9 @@ msgid ""
 "The “{artist_type}” type has not been added to the destination artist "
 "because it conflicted with the gender setting of one of the artists here. "
 "Group artists cannot have a gender."
-msgstr "“{artist_type}” "
-"類型未被新增到目標創作者，因為它與此處某個創作者的性別設定衝突。團體創作者不"
-"能有性別。"
+msgstr ""
+"“{artist_type}” 類型未被新增到目標創作者，因為它與此處某個創作者的性別設定衝"
+"突。團體創作者不能有性別。"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:97
 #, perl-brace-format
@@ -4212,9 +4265,9 @@ msgid ""
 "The “{gender}” gender has not been added to the destination artist because "
 "it conflicted with the group type of one of the artists here. Group artists "
 "cannot have a gender."
-msgstr "“{gender}” "
-"性別未被新增到目標創作者，因為它與此處某個創作者的團體類型衝突。團體創作者不"
-"能有性別。"
+msgstr ""
+"“{gender}” 性別未被新增到目標創作者，因為它與此處某個創作者的團體類型衝突。團"
+"體創作者不能有性別。"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
 msgctxt "edit type"
@@ -4673,8 +4726,9 @@ msgid ""
 "This edit would remove a relationship that is set as an example of its "
 "relationship type in the documentation. If you still think this should be "
 "removed, please {contact_url|contact us}."
-msgstr "此編輯將移除在說明檔案中設為其關聯類型範例的關聯。如果您仍然認為這應該被移除"
-"，請 {contact_url|聯絡我們}。"
+msgstr ""
+"此編輯將移除在說明檔案中設為其關聯類型範例的關聯。如果您仍然認為這應該被移"
+"除，請 {contact_url|聯絡我們}。"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:423
 #, perl-brace-format
@@ -4843,7 +4897,8 @@ msgid ""
 msgid_plural ""
 "The IPI {ipi} is already in use on {artist_count} artists. Please check "
 "{artist_search|all uses of this IPI}."
-msgstr[0] "IPI {ipi} 已經在 {artist_count} 位創作者中使用。請檢查 {artist_search|此 IPI "
+msgstr[0] ""
+"IPI {ipi} 已經在 {artist_count} 位創作者中使用。請檢查 {artist_search|此 IPI "
 "的所有使用情況}。"
 
 #: ../lib/MusicBrainz/Server/Edit/Role/IPI.pm:46
@@ -4854,8 +4909,9 @@ msgid ""
 msgid_plural ""
 "The IPI {ipi} is already in use on {label_count} labels. Please check "
 "{label_search|all uses of this IPI}."
-msgstr[0] "IPI {ipi} 已經在 {label_count} 個廠牌中使用。請檢查 {label_search|此 IPI "
-"的所有使用情況}。"
+msgstr[0] ""
+"IPI {ipi} 已經在 {label_count} 個廠牌中使用。請檢查 {label_search|此 IPI 的所"
+"有使用情況}。"
 
 #: ../lib/MusicBrainz/Server/Edit/Role/ISNI.pm:40
 #, perl-brace-format
@@ -4877,7 +4933,8 @@ msgid ""
 msgid_plural ""
 "The ISNI {isni} is already in use on {label_count} labels. Please check "
 "{label_search|all uses of this ISNI}."
-msgstr[0] "ISNI {isni} 已經在 {label_count} 個廠牌中使用。請檢查 {label_search|此 ISNI "
+msgstr[0] ""
+"ISNI {isni} 已經在 {label_count} 個廠牌中使用。請檢查 {label_search|此 ISNI "
 "的所有使用情況}。"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
@@ -5266,7 +5323,8 @@ msgstr "網頁應用程式的重定向 URL 協議必須為“http”或“https�
 msgid ""
 "Redirect URL scheme must be a reverse-DNS string, as in “{example_url}”, for "
 "installed applications."
-msgstr "對於已安裝的應用程式，重定向 URL Scheme 必須是一個反向 DNS 字串，例如 "
+msgstr ""
+"對於已安裝的應用程式，重定向 URL Scheme 必須是一個反向 DNS 字串，例如 "
 "“{example_url}”。"
 
 #: ../lib/MusicBrainz/Server/Form/Area.pm:88
@@ -5323,7 +5381,8 @@ msgstr "請給 {credit} 添加創作者姓名"
 msgid ""
 "Artist \"{artist}\" is unlinked, please select an existing artist. You may "
 "need to add a new artist to MusicBrainz first."
-msgstr "歌手“{artist}”未關聯，請選擇一個現有的歌手。你可能需要先向MusicBrainz添加一個"
+msgstr ""
+"歌手“{artist}”未關聯，請選擇一個現有的歌手。你可能需要先向MusicBrainz添加一個"
 "新的歌手。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:64
@@ -5461,7 +5520,8 @@ msgstr "[無]"
 msgid ""
 "Must be a valid date or partial date. Examples: 2006-05-25, "
 "1990-01, ????-01, ..."
-msgstr "必須是一個有效的日期或部分日期。例如：2006-05-25, 1990-01, ????-01, ..."
+msgstr ""
+"必須是一個有效的日期或部分日期。例如：2006-05-25, 1990-01, ????-01, ..."
 
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:54
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseGroup.pm:63
@@ -5798,10 +5858,10 @@ msgid ""
 "change their passwords. Sorry for the inconvenience. For more information "
 "see {blog|the recent blog post}."
 msgstr ""
-"請修改您的密碼。我們不幸發現一些使用者密碼的密文曾短暫地在我們的 FTP "
-"站點提供下載。雖然因此次意外而被破解出密碼明文的機率非常低，我們仍然建議所有"
-"使用者修改密碼。我們對此造成的不便深表感抱歉。如需更多資訊，請查看 "
-"{blog|最近的部落格文章}。"
+"請修改您的密碼。我們不幸發現一些使用者密碼的密文曾短暫地在我們的 FTP 站點提供"
+"下載。雖然因此次意外而被破解出密碼明文的機率非常低，我們仍然建議所有使用者修"
+"改密碼。我們對此造成的不便深表感抱歉。如需更多資訊，請查看 {blog|最近的部落格"
+"文章}。"
 
 #: ../root/account/ChangePassword.js:53
 msgid "Please enter your old password below, and then your new password."
@@ -5861,8 +5921,9 @@ msgstr "這也將取消您所有開放的編輯，並改變您對目前開放的
 msgid ""
 "Keep in mind this process might take a fairly long time if you have entered "
 "a lot of tags. If the process times out, please {contact_url|contact us}."
-msgstr "注意，如果您輸入了很多標籤，此過程可能需要相當長的時間。如果行程超時，請{cont"
-"act_url|contact us}。"
+msgstr ""
+"注意，如果您輸入了很多標籤，此過程可能需要相當長的時間。如果行程超時，請"
+"{contact_url|contact us}。"
 
 #: ../root/account/DeleteOwnAccount.js:65
 msgid "Are you sure you want to delete your account? This cannot be undone!"
@@ -5890,15 +5951,16 @@ msgid ""
 "PayPal donation, then we have not received a notification from PayPal yet. "
 "Please wait a few minutes and reload this page to check again."
 msgstr ""
-"我們最近沒有收到來自你的捐贈。如果你近期使用 PayPal 進行了捐贈，"
-"那麼我們可能還沒有從 PayPayl 收到通知。請等待幾分鐘後重新整理此頁面重新查看。"
+"我們最近沒有收到來自你的捐贈。如果你近期使用 PayPal 進行了捐贈，那麼我們可能"
+"還沒有從 PayPayl 收到通知。請等待幾分鐘後重新整理此頁面重新查看。"
 
 #: ../root/account/Donation.js:46
 msgid ""
 "If you would like to make a donation, {donate|you can do that here}. If you "
 "have donated, but you are still being nagged, please {contact|contact us}."
-msgstr "如果您想要捐款，{donate|您可以在這裡進行捐款}。如果您已經捐款，但仍然受到催促"
-"，請 {contact|聯絡我們}。"
+msgstr ""
+"如果您想要捐款，{donate|您可以在這裡進行捐款}。如果您已經捐款，但仍然受到催"
+"促，請 {contact|聯絡我們}。"
 
 #: ../root/account/Donation.js:56
 msgid "Thank you for contributing to MusicBrainz."
@@ -5931,7 +5993,8 @@ msgstr "電子郵件驗證"
 msgid ""
 "Thank you, your email address has now been verified! If you still can't "
 "edit, please try to log out and log in again."
-msgstr "謝謝，您的電子郵件地址已驗證！如果您仍然無法編輯，請嘗試登出並再次登入。"
+msgstr ""
+"謝謝，您的電子郵件地址已驗證！如果您仍然無法編輯，請嘗試登出並再次登入。"
 
 #: ../root/account/LostPassword.js:26 ../root/account/LostPassword.js:27
 #: ../root/account/LostPasswordSent.js:16
@@ -5945,8 +6008,8 @@ msgid ""
 "it} first and then reset your password."
 msgstr ""
 "請在下方輸入您的使用者名稱和電子郵件地址。我們將會給您發送一封含有密碼重設連"
-"結的電子郵件。如果您忘記了您的使用者名稱，請先 {link|取回您的使用者名稱} "
-"再重設密碼。"
+"結的電子郵件。如果您忘記了您的使用者名稱，請先 {link|取回您的使用者名稱} 再重"
+"設密碼。"
 
 #: ../root/account/LostPassword.js:47 ../root/account/LostUsername.js:34
 #: ../root/static/scripts/account/components/EditProfileForm.js:226
@@ -5966,7 +6029,8 @@ msgid ""
 "We've sent you instructions on how to reset your password. If you don't "
 "receive this email or still have problems logging in, please {link|contact "
 "us}."
-msgstr "我們已將重設密碼的說明發送給您。如果您沒有收到電子郵件或仍然無法登入，請 "
+msgstr ""
+"我們已將重設密碼的說明發送給您。如果您沒有收到電子郵件或仍然無法登入，請 "
 "{link|聯繫我們}。"
 
 #: ../root/account/LostUsername.js:24 ../root/account/LostUsername.js:25
@@ -5978,8 +6042,9 @@ msgstr "忘記使用者名稱"
 msgid ""
 "Enter your email address below and we will send you an email with your "
 "MusicBrainz account information."
-msgstr "請在下方輸入您的電子郵件地址，我們會給您發送一封含有您 MusicBrainz "
-"帳號資訊的電子郵件。"
+msgstr ""
+"請在下方輸入您的電子郵件地址，我們會給您發送一封含有您 MusicBrainz 帳號資訊的"
+"電子郵件。"
 
 #: ../root/account/LostUsername.js:39 ../root/user/ContactUser.js:73
 msgctxt "interactive"
@@ -5991,9 +6056,9 @@ msgid ""
 "We've sent you information about your MusicBrainz account. If you don't "
 "receive this email or still have problems logging in, please {link|contact "
 "us}."
-msgstr "我們已給您發送一封含有您 MusicBrainz "
-"帳號資訊的電子郵件。如果您沒有收到電子郵件或仍然無法登入，請 "
-"{link|聯繫我們}。"
+msgstr ""
+"我們已給您發送一封含有您 MusicBrainz 帳號資訊的電子郵件。如果您沒有收到電子郵"
+"件或仍然無法登入，請 {link|聯繫我們}。"
 
 #: ../root/account/Preferences.js:32 ../root/account/PreferencesSaved.js:18
 #: ../root/components/UserAccountTabs.js:83
@@ -6032,23 +6097,25 @@ msgid ""
 "MusicBrainz believes strongly in the privacy of its users! Any personal "
 "information you choose to provide will not be sold or shared with anyone "
 "else. For full details, please read our {doc|Privacy Policy}."
-msgstr "MusicBrainz "
-"非常注重使用者的隱私！我們不會向任何人出售或分享您選擇提供的個人資料。"
-"詳情請參見我們的 {doc|隱私政策}。"
+msgstr ""
+"MusicBrainz 非常注重使用者的隱私！我們不會向任何人出售或分享您選擇提供的個人"
+"資料。詳情請參見我們的 {doc|隱私政策}。"
 
 #: ../root/account/Register.js:56
 msgid ""
 "You may remove your personal information from our services anytime by "
 "deleting your account. For more details, see our {doc|GDPR compliance "
 "statement}."
-msgstr "您可以在任何時間刪除您的帳號，以移除您的個人資訊。詳情請見我們的{doc|GDPR合規"
+msgstr ""
+"您可以在任何時間刪除您的帳號，以移除您的個人資訊。詳情請見我們的{doc|GDPR合規"
 "宣告}。"
 
 #: ../root/account/Register.js:68
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
 "documentation} before {con|contacting us}."
-msgstr "如果您有任何問題，請在{con|聯繫我們}之前查看{faq|常見問題}和{doc|文件}。"
+msgstr ""
+"如果您有任何問題，請在{con|聯繫我們}之前查看{faq|常見問題}和{doc|文件}。"
 
 #: ../root/account/Register.js:80
 msgid ""
@@ -6064,9 +6131,9 @@ msgstr ""
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
-msgstr "MusicBrainz "
-"對所有使用者提供同一種帳號類型。如果您代表一位創作者或一個廠牌，請使用以上的"
-"表單建立一個帳號。"
+msgstr ""
+"MusicBrainz 對所有使用者提供同一種帳號類型。如果您代表一位創作者或一個廠牌，"
+"請使用以上的表單建立一個帳號。"
 
 #: ../root/account/ResetPassword.js:24 ../root/account/ResetPassword.js:25
 #: ../root/account/ResetPasswordStatus.js:14
@@ -6115,10 +6182,9 @@ msgid ""
 "MusicBrainz account. If you no longer use some of the applications, you can "
 "revoke their access."
 msgstr ""
-"一些應用程式和網站支援從 MusicBrainz "
-"訪問私人資料或提交資料，但需要您授權訪問您的帳號。這些是您已授權訪問您的 "
-"MusicBrainz "
-"帳號的應用程式。如果您不再使用某些應用程式，可以復原它們的訪問權限。"
+"一些應用程式和網站支援從 MusicBrainz 訪問私人資料或提交資料，但需要您授權訪問"
+"您的帳號。這些是您已授權訪問您的 MusicBrainz 帳號的應用程式。如果您不再使用某"
+"些應用程式，可以復原它們的訪問權限。"
 
 #: ../root/account/applications/ApplicationList.js:108
 #: ../root/account/applications/ApplicationList.js:147
@@ -6158,9 +6224,9 @@ msgid ""
 "MusicBrainz API}? {register_url|Register an application} to generate OAuth "
 "tokens. See our {oauth2_doc_url|OAuth documentation} for more details."
 msgstr ""
-"您想要開發使用 {mb_api_doc_url|MusicBrainz API} 的應用程式嗎？ "
-"{register_url|註冊應用程式} 以生成 OAuth 令牌。請參閱我們的 {oauth2_doc_url|"
-"OAuth 說明檔案} 獲取更多詳細資訊。"
+"您想要開發使用 {mb_api_doc_url|MusicBrainz API} 的應用程式嗎？ {register_url|"
+"註冊應用程式} 以生成 OAuth 令牌。請參閱我們的 {oauth2_doc_url|OAuth 說明檔"
+"案} 獲取更多詳細資訊。"
 
 #: ../root/account/applications/ApplicationList.js:149
 msgid "OAuth client ID"
@@ -6229,15 +6295,17 @@ msgstr "帳號已建立"
 msgid ""
 "You must verify your email address before you can log in to {discourse|"
 "MetaBrainz Community Discourse}."
-msgstr "您必須驗證您的電子郵件地址才能登入 {discourse|MetaBrainz 社群 Discourse "
-"論壇}。"
+msgstr ""
+"您必須驗證您的電子郵件地址才能登入 {discourse|MetaBrainz 社群 Discourse 論"
+"壇}。"
 
 #: ../root/account/sso/DiscourseRegistered.js:25
 msgid ""
 "An email has been sent to {addr}. Please check your mailbox and click on the "
 "link in the email to verify your email address."
-msgstr "已向 {addr} "
-"發送了一封電子郵件。請檢查您的收件箱並點擊其中的連結來驗證您的電子郵件地址。"
+msgstr ""
+"已向 {addr} 發送了一封電子郵件。請檢查您的收件箱並點擊其中的連結來驗證您的電"
+"子郵件地址。"
 
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:14
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:15
@@ -6263,8 +6331,9 @@ msgstr "新注釋"
 msgid ""
 "Comparing revision by {user_old} on {date_old} with revision by {user_new} "
 "on {date_new}."
-msgstr "正在對比 {user_old} 建立於 {date_old} 的修訂版和 {user_new} 建立於 {date_new}"
-" 的修訂版。"
+msgstr ""
+"正在對比 {user_old} 建立於 {date_old} 的修訂版和 {user_new} 建立於 "
+"{date_new} 的修訂版。"
 
 #: ../root/annotation/AnnotationComparison.js:80
 msgid "View annotation history."
@@ -6294,8 +6363,9 @@ msgid ""
 "Please note that any content submitted to MusicBrainz will be made available "
 "to the public under {open|open licenses}, do not submit any copyrighted text "
 "here!"
-msgstr "請注意任何提交到 MusicBrainz 的內容都將以 {open|開放協議} "
-"公開，請勿提交任何版權文字！"
+msgstr ""
+"請注意任何提交到 MusicBrainz 的內容都將以 {open|開放協議} 公開，請勿提交任何"
+"版權文字！"
 
 #: ../root/annotation/EditAnnotation.js:55
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:292
@@ -6347,8 +6417,9 @@ msgstr "列表："
 msgid ""
 "tab or 4 spaces and: * bullets or 1., a., A., i., I. numbered items "
 "(rendered with 1.)"
-msgstr "使用標籤或 4 個空格和：* 項目符號或 1.、a.、A.、i.、I. 編號項目（以 1. "
-"顯示）。"
+msgstr ""
+"使用標籤或 4 個空格和：* 項目符號或 1.、a.、A.、i.、I. 編號項目（以 1. 顯"
+"示）。"
 
 #: ../root/annotation/EditAnnotation.js:119
 msgid "Links:"
@@ -6367,11 +6438,10 @@ msgid ""
 "write <code>&amp;#91;unknown&amp;#93;</code> then it will appear the way you "
 "intended it to show."
 msgstr ""
-"方括號 [] 用於建立超連結，如果您不希望它們被轉換為超連結，"
-"您必須使用等價的HTML 編碼（<code>&amp;#91;</code>對應 "
-"[）和（<code>&amp;#93;</code>對應 ]）。例如：如果您想要在注釋內使用 [未知] "
-"，您必須輸入「<code>&amp;#91;未知&amp;#93;</code>」，這樣才能按照您的意願顯示"
-"。"
+"方括號 [] 用於建立超連結，如果您不希望它們被轉換為超連結，您必須使用等價的"
+"HTML 編碼（<code>&amp;#91;</code>對應 [）和（<code>&amp;#93;</code>對應 ]）。"
+"例如：如果您想要在注釋內使用 [未知] ，您必須輸入「<code>&amp;#91;未知&amp;"
+"#93;</code>」，這樣才能按照您的意願顯示。"
 
 #: ../root/area/AreaArtists.js:26 ../root/area/AreaArtists.js:27
 #: ../root/components/EntityTabs.js:25
@@ -6646,7 +6716,8 @@ msgstr "合併創作者"
 msgid ""
 "You are about to merge all these artists into a single one. Please select "
 "the artist all others should be merged into:"
-msgstr "您即將將所有這些創作者合併為一位。請選擇所有其他創作者應合併到的創作者："
+msgstr ""
+"您即將將所有這些創作者合併為一位。請選擇所有其他創作者應合併到的創作者："
 
 #: ../root/artist/ArtistMerge.js:43
 msgid "You should only use the checkbox above to fix errors (such as typos)."
@@ -6657,7 +6728,8 @@ msgid ""
 "If a name appears on the cover of a release, don’t check the box: the "
 "artists will still be combined if you don’t, but the {doc_acs|artist "
 "credits} will be kept as they are now."
-msgstr "如果一個名字出現在專輯封面上，不要選中複選框：創作者仍然會合併，但是{doc_acs|"
+msgstr ""
+"如果一個名字出現在專輯封面上，不要選中複選框：創作者仍然會合併，但是{doc_acs|"
 "創作者名單}會保持現狀。"
 
 #: ../root/artist/ArtistMerge.js:58
@@ -6755,8 +6827,9 @@ msgid ""
 "This artist has relationships other than collaboration relationships, and "
 "cannot be split until these are removed. {relationships|View all "
 "relationships}."
-msgstr "除了合作關係之外，歌手還有其他關係，除非這些關係被刪除，否則不能拆分。{relati"
-"onships|查看所有關係}。"
+msgstr ""
+"除了合作關係之外，歌手還有其他關係，除非這些關係被刪除，否則不能拆分。"
+"{relationships|查看所有關係}。"
 
 #: ../root/artist/SpecialPurpose.js:18 ../root/label/SpecialPurpose.js:18
 msgid "Cannot edit"
@@ -6960,7 +7033,8 @@ msgstr "未找到 CD 草稿"
 msgid ""
 "Sorry, <code>{discid}</code> does not match a CD stub. You can try "
 "{search_url|searching for it} instead."
-msgstr "抱歉，<code>{discid}</code>不匹配任何 CD 草稿。您可以嘗試 {search_url|搜尋}。"
+msgstr ""
+"抱歉，<code>{discid}</code>不匹配任何 CD 草稿。您可以嘗試 {search_url|搜尋}。"
 
 #: ../root/cdstub/DiscIdNotValid.js:14
 msgid "Invalid disc ID"
@@ -6983,7 +7057,8 @@ msgstr "請搜尋您希望新增發行品的創作者："
 msgid ""
 "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
 "{format} {pos} of {release} by {artist}?"
-msgstr "您確定要將碟片 ID <code>{discid}</code> 附加到{artist}的{release}的{format} "
+msgstr ""
+"您確定要將碟片 ID <code>{discid}</code> 附加到{artist}的{release}的{format} "
 "{pos}？"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:68
@@ -7104,7 +7179,8 @@ msgstr "移除碟片 ID"
 msgid ""
 "Are you sure you want to remove the disc ID <code>{discid}</code> from the "
 "release {release} by {artist}?"
-msgstr "確定要從 {artist} 的專輯 {release} 中移除碟片 ID<code>{discid}</code>嗎？"
+msgstr ""
+"確定要從 {artist} 的專輯 {release} 中移除碟片 ID<code>{discid}</code>嗎？"
 
 #: ../root/cdtoc/RemoveDiscId.js:51
 msgid ""
@@ -7113,9 +7189,9 @@ msgid ""
 "ID can belong to more than one release. For more in-depth information about "
 "this topic, please see our {doc|CD submission guide}."
 msgstr ""
-"您需要證明此碟片 "
-"ID是錯誤地加入了專輯中，這是因為一個專輯能具有多個有效的碟片ID，而每個碟片 "
-"ID能屬於多個專輯。如需這一方面更深入的資訊，請查看我們的{doc|CD提交指南}。"
+"您需要證明此碟片 ID是錯誤地加入了專輯中，這是因為一個專輯能具有多個有效的碟片"
+"ID，而每個碟片 ID能屬於多個專輯。如需這一方面更深入的資訊，請查看我們的{doc|"
+"CD提交指南}。"
 
 #: ../root/cdtoc/SelectArtistForCDToc.js:30
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:128
@@ -7137,7 +7213,8 @@ msgid ""
 "If you don't see the artist you are looking for, you can still add a new "
 "release. This will allow you to add this artist and a release at the same "
 "time"
-msgstr "如果您找不到您正在尋找的創作者，您仍然可以新增一個發行品。這將允許您同時新增"
+msgstr ""
+"如果您找不到您正在尋找的創作者，您仍然可以新增一個發行品。這將允許您同時新增"
 "此創作者和一個發行品"
 
 #: ../root/cdtoc/SetTracklistDurations.js:33
@@ -7249,15 +7326,17 @@ msgid ""
 "<strong>Warning:</strong> These collections are for different entity types. "
 "Please remove some collections from the merge queue until you only have "
 "collections for the same entity type."
-msgstr "<strong>警告：</strong>這些收藏屬於不同的實體類型。請從合併佇列中移除一些收藏"
-"，直到僅剩下相同實體類型的收藏。"
+msgstr ""
+"<strong>警告：</strong>這些收藏屬於不同的實體類型。請從合併佇列中移除一些收"
+"藏，直到僅剩下相同實體類型的收藏。"
 
 #: ../root/collection/CollectionMerge.js:124
 msgid ""
 "<strong>Warning:</strong> These collections are for different entity types. "
 "Only collections for the same entity type can be merged."
-msgstr "<strong>警告：</strong>這些收藏屬於不同的實體類型。只能合併相同實體類型的收藏"
-"。"
+msgstr ""
+"<strong>警告：</strong>這些收藏屬於不同的實體類型。只能合併相同實體類型的收"
+"藏。"
 
 #: ../root/collection/CollectionMerge.js:136
 msgid ""
@@ -7327,8 +7406,9 @@ msgstr "創作者名單"
 msgid ""
 "This is a list of all the different ways {artist} is credited in the "
 "database. View the {doc|artist credit documentation} for more details."
-msgstr "這是 {artist} 在資料庫中被署名的所有不同方式的列表。查看 "
-"{doc|創作者署名說明檔案} 獲取更多詳細資訊。"
+msgstr ""
+"這是 {artist} 在資料庫中被署名的所有不同方式的列表。查看 {doc|創作者署名說明"
+"檔案} 獲取更多詳細資訊。"
 
 #: ../root/components/Aliases/ArtistCreditList.js:64
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:157
@@ -7346,7 +7426,8 @@ msgid ""
 "An alias is an alternate name for an entity. They typically contain common "
 "misspellings or variations of the name and are also used to improve search "
 "results. View the {doc|alias documentation} for more details."
-msgstr "別名是實體的替代名稱。它們通常包含常見的拼寫錯誤或名稱變體，並且也用於改善搜"
+msgstr ""
+"別名是實體的替代名稱。它們通常包含常見的拼寫錯誤或名稱變體，並且也用於改善搜"
 "尋結果。查看 {doc|別名說明檔案} 獲取更多詳細資訊。"
 
 #: ../root/components/Aliases/index.js:67
@@ -7379,14 +7460,16 @@ msgid ""
 "This artist has no relationships, recordings, releases or release groups, "
 "and will be removed automatically in the next few days. If this is not "
 "intended, please add more data to this artist."
-msgstr "這位歌手沒有任何關係，沒有錄音，沒有專輯作品，也沒有專輯組，他將在未來幾天內"
+msgstr ""
+"這位歌手沒有任何關係，沒有錄音，沒有專輯作品，也沒有專輯組，他將在未來幾天內"
 "被自動刪除。如果您不希望這樣做，請添加這個歌手更多的資料。"
 
 #: ../root/components/CleanupBanner.js:18
 msgid ""
 "This event has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this event."
-msgstr "此事件沒有任何關係，將在未來幾天內自動刪除。如果您不希望這樣做，請在此事件中"
+msgstr ""
+"此事件沒有任何關係，將在未來幾天內自動刪除。如果您不希望這樣做，請在此事件中"
 "添加更多資料。"
 
 #: ../root/components/CleanupBanner.js:23
@@ -7394,14 +7477,16 @@ msgid ""
 "This label has no relationships or releases and will be removed "
 "automatically in the next few days. If this is not intended, please add more "
 "data to this label."
-msgstr "此標籤沒有關係或專輯，並將在未來幾天內自動刪除。如果您不希望這樣做，請在這個"
+msgstr ""
+"此標籤沒有關係或專輯，並將在未來幾天內自動刪除。如果您不希望這樣做，請在這個"
 "標籤上添加更多的資料。"
 
 #: ../root/components/CleanupBanner.js:28
 msgid ""
 "This place has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this place."
-msgstr "這個地方沒有任何關係，將在未來幾天內自動刪除。如果您不希望這樣做，請添加更多"
+msgstr ""
+"這個地方沒有任何關係，將在未來幾天內自動刪除。如果您不希望這樣做，請添加更多"
 "的資料到這個地方。"
 
 #: ../root/components/CleanupBanner.js:33
@@ -7409,21 +7494,24 @@ msgid ""
 "This release group has no relationships or releases associated, and will be "
 "removed automatically in the next few days. If this is not intended, please "
 "add more data to this release group."
-msgstr "此發行組沒有關聯或發行品，將在接下來的幾天內自動移除。如果這不是預期的，請為"
+msgstr ""
+"此發行組沒有關聯或發行品，將在接下來的幾天內自動移除。如果這不是預期的，請為"
 "此發行組新增更多資料。"
 
 #: ../root/components/CleanupBanner.js:38
 msgid ""
 "This series has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this series."
-msgstr "此專輯組沒有關聯的關係或專輯，並且將在接下來的幾天內自動刪除。如果您不希望這"
+msgstr ""
+"此專輯組沒有關聯的關係或專輯，並且將在接下來的幾天內自動刪除。如果您不希望這"
 "樣做，請向此專輯組添加更多資料。"
 
 #: ../root/components/CleanupBanner.js:43
 msgid ""
 "This work has no relationships and will be removed automatically in the next "
 "few days. If this is not intended, please add relationships to this work."
-msgstr "此作品沒有關聯，將在接下來的幾天內自動移除。如果這不是預期的，請為此作品新增"
+msgstr ""
+"此作品沒有關聯，將在接下來的幾天內自動移除。如果這不是預期的，請為此作品新增"
 "關聯。"
 
 #: ../root/components/ConfirmLayout.js:32 ../root/edit/DeleteNote.js:59
@@ -7459,7 +7547,8 @@ msgstr "你確定要從 MusicBrainz 刪除 {entity} 嗎？"
 msgid ""
 "If it’s a duplicate, {doc_merge|you should probably merge it instead}. If it "
 "just has some small errors, it’s usually better to just fix those."
-msgstr "如果是重複條目，{doc_merge|您需要合併}。如果只是些小錯誤，直接修正更好。"
+msgstr ""
+"如果是重複條目，{doc_merge|您需要合併}。如果只是些小錯誤，直接修正更好。"
 
 #: ../root/components/EntityTabs.js:27
 #: ../root/recording/RecordingFingerprints.js:20
@@ -7533,7 +7622,7 @@ msgid "Edit relationships"
 msgstr "編輯關聯"
 
 #: ../root/components/InstrumentRelTypes.js:28
-#: ../root/static/scripts/common/components/EntityLink.js:475
+#: ../root/static/scripts/common/components/EntityLink.js:486
 msgid "as “{credit}”"
 msgstr "作為 “{credit}”"
 
@@ -7709,21 +7798,24 @@ msgid ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} day</span>"
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} days</span>"
-msgstr[0] "將於 <span class=\"tooltip\" title=\"{exactdate}\">{num} 天</span> 關閉"
+msgstr[0] ""
+"將於 <span class=\"tooltip\" title=\"{exactdate}\">{num} 天</span> 關閉"
 
 #: ../root/components/VotingPeriod.js:43
 msgid ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} hour</span>"
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} hours</span>"
-msgstr[0] "將於 <span class=\"tooltip\" title=\"{exactdate}\">{num} 小時</span> 關閉"
+msgstr[0] ""
+"將於 <span class=\"tooltip\" title=\"{exactdate}\">{num} 小時</span> 關閉"
 
 #: ../root/components/VotingPeriod.js:52
 msgid ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} minute</span>"
 msgid_plural ""
 "Closes in <span class=\"tooltip\" title=\"{exactdate}\">{num} minutes</span>"
-msgstr[0] "將於 <span class=\"tooltip\" title=\"{exactdate}\">{num} 分鐘</span> 關閉"
+msgstr[0] ""
+"將於 <span class=\"tooltip\" title=\"{exactdate}\">{num} 分鐘</span> 關閉"
 
 #: ../root/components/VotingPeriod.js:60
 msgid "About to close"
@@ -7924,8 +8016,9 @@ msgid ""
 "Providing a reason for the removal is recommended if you feel it will make "
 "things clearer for other editors checking the editing history in the future. "
 "Otherwise it can be omitted."
-msgstr "如果您認為提供移除原因會讓其他編輯在未來檢查編輯歷史時更清楚，建議您提供理由"
-"。否則可以省略。"
+msgstr ""
+"如果您認為提供移除原因會讓其他編輯在未來檢查編輯歷史時更清楚，建議您提供理"
+"由。否則可以省略。"
 
 #: ../root/edit/DeleteNote.js:49 ../root/edit/ModifyNote.js:67
 #: ../root/user/ReportUser.js:134
@@ -8025,15 +8118,17 @@ msgstr "新編輯筆記"
 msgid ""
 "Keep in mind modification of edit notes is mostly intended to correct small "
 "mistakes. Editors won’t be notified of your changes via email."
-msgstr "記住，修改編輯筆記主要是為了糾正小錯誤。編輯者不會透過電子郵件通知您更改內容"
-"。"
+msgstr ""
+"記住，修改編輯筆記主要是為了糾正小錯誤。編輯者不會透過電子郵件通知您更改內"
+"容。"
 
 #: ../root/edit/ModifyNote.js:61
 msgid ""
 "Providing a reason is optional but can make things more clear for editors "
 "checking this edit in the future. Keep in mind the reason will be displayed "
 "to other editors."
-msgstr "提供理由是可選的，但可以讓其他編輯在未來檢查此編輯時更加清楚。請記住，理由將"
+msgstr ""
+"提供理由是可選的，但可以讓其他編輯在未來檢查此編輯時更加清楚。請記住，理由將"
 "顯示給其他編輯者。"
 
 #: ../root/edit/ModifyNote.js:77 ../root/oauth2/OAuth2FormPost.js:38
@@ -8078,8 +8173,9 @@ msgid ""
 "This page lists edits linked to entities you are directly subscribed to, as "
 "well as edits linked to entities which are part of a collection you are "
 "subscribed to."
-msgstr "此頁面列出與您直接訂閱的實體相關的編輯，以及與您訂閱的收藏中的實體相關的編輯"
-"。"
+msgstr ""
+"此頁面列出與您直接訂閱的實體相關的編輯，以及與您訂閱的收藏中的實體相關的編"
+"輯。"
 
 #: ../root/edit/components/EditArtwork.js:23 ../root/user/UserProfile.js:54
 msgctxt "singular"
@@ -8207,7 +8303,8 @@ msgid ""
 "Edit notes support {doc_formatting|a limited set of wiki formatting "
 "options}. Please do always keep the {doc_coc|Code of Conduct} in mind when "
 "writing edit notes!"
-msgstr "編輯筆記支援{doc_formatting|一組有限的wiki格式選項}。請在編寫編輯筆記時始終牢"
+msgstr ""
+"編輯筆記支援{doc_formatting|一組有限的wiki格式選項}。請在編寫編輯筆記時始終牢"
 "記{doc_coc|行為準則}!"
 
 #: ../root/edit/components/EditNotes.js:49
@@ -8736,8 +8833,9 @@ msgid ""
 "The data for this edit seems to have been damaged during the 2011 transition "
 "to the current MusicBrainz schema. The remaining data is displayed below, "
 "but might not be fully accurate."
-msgstr "此編輯的資料似乎在 2011 年轉換到目前 MusicBrainz "
-"架構時受損。其餘資料顯示如下，但可能不完全準確。"
+msgstr ""
+"此編輯的資料似乎在 2011 年轉換到目前 MusicBrainz 架構時受損。其餘資料顯示如"
+"下，但可能不完全準確。"
 
 #: ../root/edit/details/EditRelationshipType.js:241
 #: ../root/edit/details/EditRelationshipType.js:249
@@ -8882,7 +8980,8 @@ msgid ""
 "The number of tracks on the medium being removed has changed since the "
 "removal edit was entered. Please check the changes and ensure the removal is "
 "still correct."
-msgstr "在移除編輯提交後，將被移除的媒體上的音軌數量已發生變化。請檢查變更並確保移除"
+msgstr ""
+"在移除編輯提交後，將被移除的媒體上的音軌數量已發生變化。請檢查變更並確保移除"
 "仍然正確。"
 
 #: ../root/edit/details/RemoveMedium.js:53
@@ -8890,7 +8989,8 @@ msgid ""
 "Some track lengths, titles or artists have changed since the removal edit "
 "was entered. Please check the changes and ensure the removal is still "
 "correct."
-msgstr "自移除編輯提交後，某些音軌的長度、標題或創作者已發生變化。請檢查變更並確保移"
+msgstr ""
+"自移除編輯提交後，某些音軌的長度、標題或創作者已發生變化。請檢查變更並確保移"
 "除仍然正確。"
 
 #: ../root/edit/details/RemoveMedium.js:70
@@ -8922,8 +9022,8 @@ msgid ""
 "Medium <span class=\"new\">{new}</span>: {title} (moved from position <span "
 "class=\"old\">{old}</span>)"
 msgstr ""
-"媒體 <span class=\"new\">{new}</span>：{title}（從位置 <span class=\"old\""
-">{old}</span> 移動）"
+"媒體 <span class=\"new\">{new}</span>：{title}（從位置 <span "
+"class=\"old\">{old}</span> 移動）"
 
 #: ../root/edit/details/ReorderMediums.js:54
 msgid "Medium <span class=\"new\">{new}</span> (new medium)"
@@ -9072,7 +9172,8 @@ msgstr "合併語言 & 文字："
 msgid ""
 "This edit was a \"Merge Releases (Various Artists)\" edit which additionally "
 "set the release artist to Various Artists."
-msgstr "此編輯是“合併發行品（多位創作者）”編輯，並同時將發行創作者設為多位創作者。"
+msgstr ""
+"此編輯是“合併發行品（多位創作者）”編輯，並同時將發行創作者設為多位創作者。"
 
 #: ../root/edit/details/historic/MoveRelease.js:23
 msgid "Change track artists:"
@@ -9171,7 +9272,8 @@ msgid ""
 "second their nomination. If you do not support this candidate, please note "
 "that you cannot cast a \"No\" vote (or abstain) until two seconders have "
 "been found."
-msgstr "投票尚未開始。如果您希望支援此候選人，可以附議他們的提名。如果您不支援此候選"
+msgstr ""
+"投票尚未開始。如果您希望支援此候選人，可以附議他們的提名。如果您不支援此候選"
 "人，請注意，在找到兩位附議者之前，您無法投下“反對”票（或棄權）。"
 
 #: ../root/elections/ElectionVoting.js:64
@@ -9301,8 +9403,9 @@ msgstr "未找到地區"
 msgid ""
 "Sorry, we could not find an area with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "抱歉，我們找不到具有該 MusicBrainz ID 的地區。您可以嘗試 "
-"{search_url|搜尋它}。"
+msgstr ""
+"抱歉，我們找不到具有該 MusicBrainz ID 的地區。您可以嘗試 {search_url|搜尋"
+"它}。"
 
 #: ../root/entity/NotFound.js:35
 msgctxt "header"
@@ -9313,8 +9416,9 @@ msgstr "未找到創作者"
 msgid ""
 "Sorry, we could not find an artist with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "抱歉，我們找不到具有該 MusicBrainz ID 的創作者。您可以嘗試 "
-"{search_url|搜尋它}。"
+msgstr ""
+"抱歉，我們找不到具有該 MusicBrainz ID 的創作者。您可以嘗試 {search_url|搜尋"
+"它}。"
 
 #: ../root/entity/NotFound.js:44
 msgctxt "header"
@@ -9352,7 +9456,8 @@ msgstr "未找到編輯"
 msgid ""
 "Sorry, we could not find an edit with that edit ID. You may wish to try and "
 "perform an {search_url|edit search} instead."
-msgstr "抱歉，我們找不到具有該編輯 ID 的編輯。您可以嘗試執行 {search_url|編輯搜尋}。"
+msgstr ""
+"抱歉，我們找不到具有該編輯 ID 的編輯。您可以嘗試執行 {search_url|編輯搜尋}。"
 
 #: ../root/entity/NotFound.js:73
 msgctxt "header"
@@ -9385,8 +9490,9 @@ msgstr "未找到活動"
 msgid ""
 "Sorry, we could not find an event with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "抱歉，我們找不到具有該 MusicBrainz ID 的事件。您可以嘗試 "
-"{search_url|搜尋它}。"
+msgstr ""
+"抱歉，我們找不到具有該 MusicBrainz ID 的事件。您可以嘗試 {search_url|搜尋"
+"它}。"
 
 #: ../root/entity/NotFound.js:96
 msgctxt "header"
@@ -9397,8 +9503,9 @@ msgstr "未找到流派"
 msgid ""
 "Sorry, we could not find a genre with that MusicBrainz ID. You can see all "
 "available genres on our {genre_list|genre list}."
-msgstr "抱歉，我們找不到具有該 MusicBrainz ID 的類型。您可以在我們的 "
-"{genre_list|類型列表} 中查看所有可用的類型。"
+msgstr ""
+"抱歉，我們找不到具有該 MusicBrainz ID 的類型。您可以在我們的 {genre_list|類型"
+"列表} 中查看所有可用的類型。"
 
 #: ../root/entity/NotFound.js:105
 msgctxt "header"
@@ -9409,8 +9516,9 @@ msgstr "未找到樂器"
 msgid ""
 "Sorry, we could not find an instrument with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
-msgstr "抱歉，我們找不到具有該 MusicBrainz ID 的樂器。您可以嘗試 "
-"{search_url|搜尋它}。"
+msgstr ""
+"抱歉，我們找不到具有該 MusicBrainz ID 的樂器。您可以嘗試 {search_url|搜尋"
+"它}。"
 
 #: ../root/entity/NotFound.js:114
 msgctxt "header"
@@ -9421,8 +9529,9 @@ msgstr "未被使用的 ISRC"
 msgid ""
 "This ISRC is not associated with any recordings. If you wish to associate it "
 "with a recording, please {search_url|search for the recording} and add it."
-msgstr "此 ISRC 沒有關聯任何錄音。如果您想要將它與某錄音關聯，請 "
-"{search_url|搜尋該錄音} 並編輯。"
+msgstr ""
+"此 ISRC 沒有關聯任何錄音。如果您想要將它與某錄音關聯，請 {search_url|搜尋該錄"
+"音} 並編輯。"
 
 #: ../root/entity/NotFound.js:124
 msgctxt "header"
@@ -9433,8 +9542,9 @@ msgstr "未被使用的 ISWC"
 msgid ""
 "This ISWC is not associated with any works. If you wish to associate it with "
 "a work, please {search_url|search for the work} and add it."
-msgstr "此 ISWC 沒有關聯任何作品。如果您想要將它與某作品關聯，請 "
-"{search_url|搜尋該作品} 並編輯。"
+msgstr ""
+"此 ISWC 沒有關聯任何作品。如果您想要將它與某作品關聯，請 {search_url|搜尋該作"
+"品} 並編輯。"
 
 #: ../root/entity/NotFound.js:133
 msgctxt "header"
@@ -9445,8 +9555,9 @@ msgstr "未找到廠牌"
 msgid ""
 "Sorry, we could not find a label with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "抱歉，我們找不到具有該 MusicBrainz ID 的廠牌。您可以嘗試 "
-"{search_url|搜尋它}。"
+msgstr ""
+"抱歉，我們找不到具有該 MusicBrainz ID 的廠牌。您可以嘗試 {search_url|搜尋"
+"它}。"
 
 #: ../root/entity/NotFound.js:142
 msgctxt "header"
@@ -9457,8 +9568,9 @@ msgstr "未找到實體"
 msgid ""
 "Sorry, we could not find a MusicBrainz entity with that ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "抱歉，我們找不到具有該 ID 的 MusicBrainz 實體。您可以嘗試 "
-"{search_url|搜尋它}。"
+msgstr ""
+"抱歉，我們找不到具有該 ID 的 MusicBrainz 實體。您可以嘗試 {search_url|搜尋"
+"它}。"
 
 #: ../root/entity/NotFound.js:151
 msgctxt "header"
@@ -9469,8 +9581,9 @@ msgstr "未找到地點"
 msgid ""
 "Sorry, we could not find a place with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "抱歉，我們找不到具有該 MusicBrainz ID 的地點。您可以嘗試 "
-"{search_url|搜尋它}。"
+msgstr ""
+"抱歉，我們找不到具有該 MusicBrainz ID 的地點。您可以嘗試 {search_url|搜尋"
+"它}。"
 
 #: ../root/entity/NotFound.js:160
 msgctxt "header"
@@ -9481,8 +9594,9 @@ msgstr "未找到錄音"
 msgid ""
 "Sorry, we could not find a recording with that MusicBrainz ID. You may wish "
 "to try and {search_url|search for it} instead."
-msgstr "抱歉，我們找不到具有該 MusicBrainz ID 的錄音。您可以嘗試 "
-"{search_url|搜尋它}。"
+msgstr ""
+"抱歉，我們找不到具有該 MusicBrainz ID 的錄音。您可以嘗試 {search_url|搜尋"
+"它}。"
 
 #: ../root/entity/NotFound.js:169
 msgctxt "header"
@@ -9512,8 +9626,9 @@ msgstr "未找到專輯"
 msgid ""
 "Sorry, we could not find a release with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "抱歉，我們找不到具有該 MusicBrainz ID 的發行品。您可以嘗試 "
-"{search_url|搜尋它}。"
+msgstr ""
+"抱歉，我們找不到具有該 MusicBrainz ID 的發行品。您可以嘗試 {search_url|搜尋"
+"它}。"
 
 #: ../root/entity/NotFound.js:196
 msgctxt "header"
@@ -9524,8 +9639,9 @@ msgstr "未找到專輯組"
 msgid ""
 "Sorry, we could not find a release group with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
-msgstr "抱歉，我們找不到具有該 MusicBrainz ID 的發行組。您可以嘗試 "
-"{search_url|搜尋它}。"
+msgstr ""
+"抱歉，我們找不到具有該 MusicBrainz ID 的發行組。您可以嘗試 {search_url|搜尋"
+"它}。"
 
 #: ../root/entity/NotFound.js:205
 msgctxt "singular, header"
@@ -9536,8 +9652,9 @@ msgstr "未找到系列"
 msgid ""
 "Sorry, we could not find a series with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "抱歉，我們找不到具有該 MusicBrainz ID 的系列。您可以嘗試 "
-"{search_url|搜尋它}。"
+msgstr ""
+"抱歉，我們找不到具有該 MusicBrainz ID 的系列。您可以嘗試 {search_url|搜尋"
+"它}。"
 
 #: ../root/entity/NotFound.js:214
 msgctxt "header"
@@ -9548,8 +9665,9 @@ msgstr "未找到音軌"
 msgid ""
 "Sorry, we could not find neither a recording nor a track with that "
 "MusicBrainz ID. You may wish to try and {search_url|search for it} instead."
-msgstr "抱歉，我們找不到具有該 MusicBrainz ID 的錄音或音軌。您可以嘗試 "
-"{search_url|搜尋它}。"
+msgstr ""
+"抱歉，我們找不到具有該 MusicBrainz ID 的錄音或音軌。您可以嘗試 {search_url|搜"
+"尋它}。"
 
 #: ../root/entity/NotFound.js:224
 msgctxt "header"
@@ -9580,8 +9698,9 @@ msgstr "未找到作品"
 msgid ""
 "Sorry, we could not find a work with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "抱歉，我們找不到具有該 MusicBrainz ID 的作品。您可以嘗試 "
-"{search_url|搜尋它}。"
+msgstr ""
+"抱歉，我們找不到具有該 MusicBrainz ID 的作品。您可以嘗試 {search_url|搜尋"
+"它}。"
 
 #: ../root/entity/Ratings.js:63
 msgid "{count} private rating not listed."
@@ -9724,8 +9843,9 @@ msgstr "所有尺寸:"
 msgid ""
 "These images are part of the {eaa|Event Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
-msgstr "這些圖片由{eaa|Event Art Archive}提供。你也可以在{ia|Internet "
-"Archive}看到它們。"
+msgstr ""
+"這些圖片由{eaa|Event Art Archive}提供。你也可以在{ia|Internet Archive}看到它"
+"們。"
 
 #: ../root/event/EventArt.js:107
 msgid "We do not currently have any event art for {event}."
@@ -10578,8 +10698,9 @@ msgid ""
 msgid_plural ""
 "You’ve been a MusicBrainz editor for {num} years! Happy anniversary, and "
 "thanks for contributing to MusicBrainz!"
-msgstr[0] "您已經成為 MusicBrainz 編輯者 {num} 年！祝您周年快樂，感謝您為 MusicBrainz "
-"的貢獻！"
+msgstr[0] ""
+"您已經成為 MusicBrainz 編輯者 {num} 年！祝您周年快樂，感謝您為 MusicBrainz 的"
+"貢獻！"
 
 #: ../root/layout/index.js:232
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
@@ -10624,7 +10745,8 @@ msgstr "抱歉，您的請求存在問題。"
 msgid ""
 "Found a problem on our site? Please {report|report a bug} and include any "
 "error message that is shown above."
-msgstr "在我們的網站上發現問題嗎？請 {report|報告錯誤} 並包含上面顯示的任何錯誤訊息。"
+msgstr ""
+"在我們的網站上發現問題嗎？請 {report|報告錯誤} 並包含上面顯示的任何錯誤訊息。"
 
 #: ../root/main/error/Error400.js:45 ../root/main/error/TimeoutError.js:32
 msgid "Technical information"
@@ -10642,7 +10764,8 @@ msgstr "抱歉，您無權瀏覽此頁面。"
 msgid ""
 "You must first {url|add and verify your email address} before being able to "
 "edit or add anything to the database."
-msgstr "您必須先 {url|新增並驗證您的電子郵件地址}，才能編輯或新增任何資料到資料庫中。"
+msgstr ""
+"您必須先 {url|新增並驗證您的電子郵件地址}，才能編輯或新增任何資料到資料庫中。"
 
 #: ../root/main/error/Error401.js:39 ../root/user/Login.js:86
 msgid ""
@@ -10662,8 +10785,9 @@ msgstr "您所請求的頁面是私有的。"
 msgid ""
 "If you followed a link on our site to get here, please {report|report a bug} "
 "and the URL of the page that sent you here."
-msgstr "如果您是透過我們網站上的連結來到這裡的，請 {report|報告錯誤} "
-"並提供發送您來這裡的頁面的 URL。"
+msgstr ""
+"如果您是透過我們網站上的連結來到這裡的，請 {report|報告錯誤} 並提供發送您來這"
+"裡的頁面的 URL。"
 
 #: ../root/main/error/Error404.js:29
 msgid "Sorry, the page you're looking for does not exist."
@@ -10678,8 +10802,9 @@ msgstr "錯誤資訊： "
 msgid ""
 "Found a broken link on our site? Please {report|report a bug} and include "
 "any error message that is shown above."
-msgstr "在我們的網站上發現了壞連結？請 {report|報告錯誤} "
-"並包含上面顯示的任何錯誤訊息。"
+msgstr ""
+"在我們的網站上發現了壞連結？請 {report|報告錯誤} 並包含上面顯示的任何錯誤訊"
+"息。"
 
 #: ../root/main/error/Error500.js:30
 msgid "Internal server error"
@@ -10734,8 +10859,9 @@ msgstr "抱歉，您無法在鏡像伺服器上執行此操作。"
 msgid ""
 "In order to log in or make changes to the database you must visit the main "
 "server at {mb|https://musicbrainz.org/}."
-msgstr "為了登入或對資料庫進行更改，您必須訪問位於{mb|https://musicbrainz.org/"
-"}的主伺服器。"
+msgstr ""
+"為了登入或對資料庫進行更改，您必須訪問位於{mb|https://musicbrainz.org/}的主伺"
+"服器。"
 
 #: ../root/main/error/MirrorError404.js:17
 msgid "Sorry, the page you're looking for is not available on a mirror server."
@@ -10807,15 +10933,17 @@ msgstr "MusicBrainz 的目標是成為："
 msgid ""
 "<strong>The ultimate source of music information</strong> by allowing anyone "
 "to contribute and releasing the {doc|data} under {doc2|open licenses}."
-msgstr "<strong>音樂資訊的終極來源</strong>，任何人都能貢獻且 {doc|資料} 以 "
-"{doc2|開放授權} 發布。"
+msgstr ""
+"<strong>音樂資訊的終極來源</strong>，任何人都能貢獻且 {doc|資料} 以 {doc2|開"
+"放授權} 發布。"
 
 #: ../root/main/index.js:64
 msgid ""
 "<strong>The universal lingua franca for music</strong> by providing a "
 "reliable and unambiguous form of {doc|music identification}, enabling both "
 "people and machines to have meaningful conversations about music."
-msgstr "<strong>音樂的通用語言</strong>透過提供可靠且明確的{doc|音樂識別}形式，使人和"
+msgstr ""
+"<strong>音樂的通用語言</strong>透過提供可靠且明確的{doc|音樂識別}形式，使人和"
 "機器都能就音樂進行有意義的對話。"
 
 #: ../root/main/index.js:77
@@ -10824,8 +10952,8 @@ msgid ""
 "we want everyone &#x2014; including you &#x2014; to {doc|participate and "
 "contribute}."
 msgstr ""
-"如同維基百科，MusicBrainz 由全球使用者社群維護，我們希望所有人 &#x2014; "
-"包含您 &#x2014; 來 {doc|參與和貢獻}。"
+"如同維基百科，MusicBrainz 由全球使用者社群維護，我們希望所有人 &#x2014; 包含"
+"您 &#x2014; 來 {doc|參與和貢獻}。"
 
 #: ../root/main/index.js:88
 msgid ""
@@ -10838,8 +10966,8 @@ msgid ""
 "based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
 "MusicBrainz {free|free and open source}."
 msgstr ""
-"MusicBrainz 是由 {uri|MetaBrainz 基金會} 運作的一家加州 501(c)(3) "
-"免稅非盈利公司，致力於保持 MusicBrainz {free|自由與開源}。"
+"MusicBrainz 是由 {uri|MetaBrainz 基金會} 運作的一家加州 501(c)(3) 免稅非盈利"
+"公司，致力於保持 MusicBrainz {free|自由與開源}。"
 
 #: ../root/main/index.js:113
 msgid "MetaBrainz blog"
@@ -10892,8 +11020,8 @@ msgid ""
 "released into the <strong>Public Domain</strong> and can be downloaded and "
 "used <strong>for free</strong>."
 msgstr ""
-"<strong>MusicBrainz資料庫</strong>中的大部分資料被發布到<strong>公共域</stron"
-"g>，可以<strong>免費</strong>下載和使用 。"
+"<strong>MusicBrainz資料庫</strong>中的大部分資料被發布到<strong>公共域</"
+"strong>，可以<strong>免費</strong>下載和使用 。"
 
 #: ../root/main/index.js:233
 msgid "Developers"
@@ -10904,8 +11032,8 @@ msgid ""
 "Use our <strong>XML web service</strong> or <strong>development libraries</"
 "strong> to create your own MusicBrainz-enabled applications."
 msgstr ""
-"使用我們的 <strong>XML 網路服務</strong> 或 <strong>開發庫</strong> "
-"建立您自己的 MusicBrainz 應用程式。"
+"使用我們的 <strong>XML 網路服務</strong> 或 <strong>開發庫</strong> 建立您自"
+"己的 MusicBrainz 應用程式。"
 
 #: ../root/main/index.js:250
 msgid "Recently added releases"
@@ -10930,9 +11058,9 @@ msgid ""
 "it is an ID for something else than an entity (for example, a "
 "{rel_type_table|relationship type})."
 msgstr ""
-"沒有任何 MusicBrainz {entity_doc|實體} 與 {mbid_doc|MBID} {mbid} "
-"匹配。要嘛是錯誤的，要嘛是針對已被移除的實體，或者是其他非實體的 ID（例如，"
-"一種 {rel_type_table|關聯類型}）。"
+"沒有任何 MusicBrainz {entity_doc|實體} 與 {mbid_doc|MBID} {mbid} 匹配。要嘛是"
+"錯誤的，要嘛是針對已被移除的實體，或者是其他非實體的 ID（例如，一種 "
+"{rel_type_table|關聯類型}）。"
 
 #: ../root/mbid/NotFound.js:33
 msgid "{mbid} is not a valid {mbid_doc|MBID}."
@@ -10991,7 +11119,8 @@ msgstr "成功！"
 msgid ""
 "You have granted access to {app}. Next, return to {app} and copy this token "
 "to complete the authorization process:"
-msgstr "您已授予對{app}的訪問權限。接下來，返回{app}並複製此指令以完成授權過程："
+msgstr ""
+"您已授予對{app}的訪問權限。接下來，返回{app}並複製此指令以完成授權過程："
 
 #: ../root/otherlookup/OtherLookupForm.js:77
 msgid "Artist IPI:"
@@ -11129,7 +11258,8 @@ msgid ""
 "<strong>Warning:</strong> Some of the recordings you're merging have "
 "different ISRCs. Please make sure they are indeed the same recordings and "
 "you wish to continue with the merge."
-msgstr "<strong>警告:</strong>正在合併的某些錄音具有不同的isrc。請確保它們確實是相同"
+msgstr ""
+"<strong>警告:</strong>正在合併的某些錄音具有不同的isrc。請確保它們確實是相同"
 "的錄音，並且您希望繼續合併。"
 
 #: ../root/relationship/RelationshipsHeader.js:24
@@ -11294,9 +11424,8 @@ msgid ""
 "is. It is not a mark of how good or bad the music itself is — for that, use "
 "{ratings_doc|ratings}."
 msgstr ""
-"{data_quality_doc|資料品質} "
-"指示發行品的資料質量。這不是對音樂本身好壞的評價——對此請使用 "
-"{ratings_doc|評分}。"
+"{data_quality_doc|資料品質} 指示發行品的資料質量。這不是對音樂本身好壞的評價"
+"——對此請使用 {ratings_doc|評分}。"
 
 #: ../root/release/CoverArt.js:28
 msgctxt "plural, header"
@@ -11322,7 +11451,8 @@ msgstr "目前沒有 {release} 的封面圖片。"
 msgid ""
 "Keep in mind pseudo-releases generally shouldn’t have cover art. See {doc|"
 "the guidelines for pseudo-releases} for more info."
-msgstr "請注意，偽發行品通常不應有封面藝術。請參見 {doc|偽發行品指南} 獲取更多資訊。"
+msgstr ""
+"請注意，偽發行品通常不應有封面藝術。請參見 {doc|偽發行品指南} 獲取更多資訊。"
 
 #: ../root/release/CoverArt.js:133
 msgctxt "plural, interactive"
@@ -11413,7 +11543,8 @@ msgstr "{artist} 的發布組"
 msgid ""
 "You are about to merge all these release groups into a single one. Please "
 "select the release group all others should be merged into:"
-msgstr "您即將將所有這些發行組合併為一個。請選擇所有其他發行組應合併進去的發行組："
+msgstr ""
+"您即將將所有這些發行組合併為一個。請選擇所有其他發行組應合併進去的發行組："
 
 #: ../root/report/AnnotationsArtists.js:28
 msgid "This report lists artists with annotations."
@@ -11492,8 +11623,9 @@ msgid ""
 "This report lists artist credits that have a trailing join phrase that looks "
 "like it might have been left behind in error, such as a trailing comma or "
 "“feat.”."
-msgstr "此報告列出了可能由於錯誤而殘留有連接短語後綴的創作者名單，例如後綴的逗號或者“"
-"feat.”。"
+msgstr ""
+"此報告列出了可能由於錯誤而殘留有連接短語後綴的創作者名單，例如後綴的逗號或"
+"者“feat.”。"
 
 #: ../root/report/ArtistCreditsWithDubiousTrailingPhrases.js:32
 #: ../root/report/ReportsIndex.js:113
@@ -11504,8 +11636,9 @@ msgstr "具有可疑的連接短語後綴的創作者名單"
 msgid ""
 "This report lists artists that may have disambiguation comments in their "
 "name, rather than the actual disambiguation comment field."
-msgstr "此報告列出了在其名稱中可能有消除歧義注釋的歌手，而不是實際的消除歧義注釋欄位"
-"。"
+msgstr ""
+"此報告列出了在其名稱中可能有消除歧義注釋的歌手，而不是實際的消除歧義注釋欄"
+"位。"
 
 #: ../root/report/ArtistsContainingDisambiguationComments.js:31
 #: ../root/report/ReportsIndex.js:77
@@ -11517,7 +11650,8 @@ msgid ""
 "This report lists artists that have their disambiguation set to be the same "
 "as their name. The disambiguation should be removed or, if it is needed, "
 "improved."
-msgstr "此報告列出了將消除歧義設定為與其姓名相同的歌手。消除歧義應該被刪除，或者如果"
+msgstr ""
+"此報告列出了將消除歧義設定為與其姓名相同的歌手。消除歧義應該被刪除，或者如果"
 "需要的話，加以改進。"
 
 #: ../root/report/ArtistsDisambiguationSameName.js:32
@@ -11538,10 +11672,10 @@ msgid ""
 "“performs as” relationships, and so on."
 msgstr ""
 "此報告列出其類型設定為非團體（或團體子類型）的創作者，但可能是一個團體，因為"
-"他們列出了其他創作者作為成員或使用了通常僅針對團體的其他關聯（不論是雙向，如“"
-"子團體”和“改名”，或單向，如“藝術總監”、“指揮”和“駐場作曲家”）。如果您發現這裡"
-"的某位創作者確實是一個團體，請更改其類型。如果不是，請確保“成員於”關聯的方向"
-"正確且有效，並檢查“改名為”是否需要轉換為“以…表演”的關聯，等等。"
+"他們列出了其他創作者作為成員或使用了通常僅針對團體的其他關聯（不論是雙向，"
+"如“子團體”和“改名”，或單向，如“藝術總監”、“指揮”和“駐場作曲家”）。如果您發現"
+"這裡的某位創作者確實是一個團體，請更改其類型。如果不是，請確保“成員於”關聯的"
+"方向正確且有效，並檢查“改名為”是否需要轉換為“以…表演”的關聯，等等。"
 
 #: ../root/report/ArtistsThatMayBeGroups.js:39
 #: ../root/report/ReportsIndex.js:52
@@ -11557,10 +11691,10 @@ msgid ""
 "type. If it is not, please make sure that all the relationships are correct "
 "and make sense."
 msgstr ""
-"此報告列出其類型設定為非人或角色的創作者，但根據他們的關聯可能是一個人。例如"
-"，如果一位創作者被列為另一位創作者的成員，他將出現在此處。如果您發現這裡的某"
-"位創作者確實是一個人（或角色），請更改其類型。如果不是，請確保所有關聯都是正"
-"確且合理的。"
+"此報告列出其類型設定為非人或角色的創作者，但根據他們的關聯可能是一個人。例"
+"如，如果一位創作者被列為另一位創作者的成員，他將出現在此處。如果您發現這裡的"
+"某位創作者確實是一個人（或角色），請更改其類型。如果不是，請確保所有關聯都是"
+"正確且合理的。"
 
 #: ../root/report/ArtistsThatMayBePersons.js:36
 #: ../root/report/ReportsIndex.js:56
@@ -11583,7 +11717,8 @@ msgid ""
 "This report lists artists that have no editors subscribed to them, and whose "
 "changes may therefore be under-reviewed. Artists with more release groups "
 "and more open edits are listed first."
-msgstr "此報告列出未有編輯者訂閱的創作者，因此他們的變更可能會被低估。擁有更多發行組"
+msgstr ""
+"此報告列出未有編輯者訂閱的創作者，因此他們的變更可能會被低估。擁有更多發行組"
 "和開放編輯的創作者將優先列出。"
 
 #: ../root/report/ArtistsWithNoSubscribers.js:32
@@ -11601,12 +11736,11 @@ msgid ""
 "might also find some ASINs linked to several discs of a multi-disc release: "
 "just merge those (see {how_to_merge_releases|How to Merge Releases})."
 msgstr ""
-"此報告顯示與多個發行品相關聯的 Amazon 網址。在大多數情況下，Amazon ASIN "
-"應該對應於 MusicBrainz 發行品 1:1，因此只有一個連結會是正確的。請檢查哪個 "
-"MusicBrainz 發行品符合 Amazon "
-"中的發行品（查看格式、音軌列表等）。如果發行品有條碼，您也可以在 Amazon "
-"上搜尋它，以查看哪個 ASIN 匹配。您可能還會發現一些 ASIN "
-"與多碟發行的幾個碟片相關聯：只需將這些合併（請參見 "
+"此報告顯示與多個發行品相關聯的 Amazon 網址。在大多數情況下，Amazon ASIN 應該"
+"對應於 MusicBrainz 發行品 1:1，因此只有一個連結會是正確的。請檢查哪個 "
+"MusicBrainz 發行品符合 Amazon 中的發行品（查看格式、音軌列表等）。如果發行品"
+"有條碼，您也可以在 Amazon 上搜尋它，以查看哪個 ASIN 匹配。您可能還會發現一些 "
+"ASIN 與多碟發行的幾個碟片相關聯：只需將這些合併（請參見 "
 "{how_to_merge_releases|如何合併發行品}）。"
 
 #: ../root/report/AsinsWithMultipleReleases.js:39
@@ -11627,8 +11761,8 @@ msgid ""
 "format. They might still be correct if they're archive.org cover links, but "
 "in any other case they should probably be fixed or removed."
 msgstr ""
-"此報告顯示與 Amazon 網址不符合預期格式的發行品。如果它們是 archive.org "
-"的封面連結，則可能仍然正確，但在其他情況下，這些應該被修正或移除。"
+"此報告顯示與 Amazon 網址不符合預期格式的發行品。如果它們是 archive.org 的封面"
+"連結，則可能仍然正確，但在其他情況下，這些應該被修正或移除。"
 
 #: ../root/report/BadAmazonUrls.js:55
 msgid "Bad Amazon URLs"
@@ -11642,9 +11776,9 @@ msgid ""
 "bootleg releases, so chances are that either the label or the status is "
 "wrong."
 msgstr ""
-"此報告顯示狀態為“盜版”的發行品，但其標籤列表中至少有一個標籤不是“[無標籤]"
-"”或類型為“盜版製作”。其他類型的標籤幾乎不會發行盜版發行品，因此可能標籤或狀態"
-"是錯誤的。"
+"此報告顯示狀態為“盜版”的發行品，但其標籤列表中至少有一個標籤不是“[無標籤]”或"
+"類型為“盜版製作”。其他類型的標籤幾乎不會發行盜版發行品，因此可能標籤或狀態是"
+"錯誤的。"
 
 #: ../root/report/BootlegsOnNonBootlegLabels.js:34
 #: ../root/report/ReportsIndex.js:463
@@ -11659,8 +11793,8 @@ msgid ""
 "or with a buggy tool."
 msgstr ""
 "此報告顯示總持續時間遠長於標準 CD 允許的時間的碟片 ID（至少 88 分鐘的 CD，或 "
-"30 分鐘的迷你 CD）。這通常意味著碟片 ID "
-"是為錯誤格式（SACD）生成的或使用了有故障的工具。"
+"30 分鐘的迷你 CD）。這通常意味著碟片 ID 是為錯誤格式（SACD）生成的或使用了有"
+"故障的工具。"
 
 #: ../root/report/CDTocDubiousLength.js:33 ../root/report/ReportsIndex.js:639
 msgid "Disc IDs with dubious duration"
@@ -11675,10 +11809,9 @@ msgid ""
 "sure though that no existing lengths clash with the disc ID, or that any "
 "clashes are clear mistakes."
 msgstr ""
-"此報告顯示與發行品相關聯的碟片 "
-"ID，但顯然未應用，因為該發行品上至少有一個音軌長度未知。"
-"該報告也限於僅附加一個碟片 ID 的媒體，因此該碟片 ID 很可能可以無憂應用。"
-"請確保沒有現有的長度與碟片 ID 衝突，或任何衝突都是明顯的錯誤。"
+"此報告顯示與發行品相關聯的碟片 ID，但顯然未應用，因為該發行品上至少有一個音軌"
+"長度未知。該報告也限於僅附加一個碟片 ID 的媒體，因此該碟片 ID 很可能可以無憂"
+"應用。請確保沒有現有的長度與碟片 ID 衝突，或任何衝突都是明顯的錯誤。"
 
 #: ../root/report/CDTocNotApplied.js:35 ../root/report/ReportsIndex.js:643
 msgid "Disc IDs attached but not applied"
@@ -11691,8 +11824,8 @@ msgid ""
 "releases and should be linked to the release with an Amazon URL relationship "
 "instead."
 msgstr ""
-"此報告顯示目錄號看起來像 ASIN 的發行品。這幾乎總是錯誤的：ASIN 只是 Amazon "
-"對發行品的條目，應該透過 Amazon 網址關聯來連結到發行品。"
+"此報告顯示目錄號看起來像 ASIN 的發行品。這幾乎總是錯誤的：ASIN 只是 Amazon 對"
+"發行品的條目，應該透過 Amazon 網址關聯來連結到發行品。"
 
 #: ../root/report/CatNoLooksLikeAsin.js:36 ../root/report/ReportsIndex.js:320
 msgid "Releases with catalog numbers that look like ASINs"
@@ -11724,10 +11857,10 @@ msgid ""
 "confirm this is a label code (check the label page to see if they match, for "
 "example), remove it or, even better, try to find the actual catalog number."
 msgstr ""
-"此報告顯示目錄號看起來像 {doc_link|標籤程式碼} "
-"的發行品。這通常是錯誤的，因為兩者經常混淆：標籤程式碼適用於標籤，而不是特定"
-"的發行品。如果您確認這是一個標籤程式碼（例如，檢查分頁以查看是否匹配），請將"
-"其移除，或者更好的是，嘗試找到實際的目錄號。"
+"此報告顯示目錄號看起來像 {doc_link|標籤程式碼} 的發行品。這通常是錯誤的，因為"
+"兩者經常混淆：標籤程式碼適用於標籤，而不是特定的發行品。如果您確認這是一個標"
+"籤程式碼（例如，檢查分頁以查看是否匹配），請將其移除，或者更好的是，嘗試找到"
+"實際的目錄號。"
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:39
 #: ../root/report/ReportsIndex.js:329
@@ -11890,12 +12023,11 @@ msgid ""
 "multi-disc release: just merge those (see {how_to_merge_releases|How to "
 "Merge Releases})."
 msgstr ""
-"此報告顯示與多個發行品相關聯的 Discogs 網址。在大多數情況下，Discogs "
-"發行品應該與 MusicBrainz 發行品 1:1 對應，因此只有一個連結會是正確的。"
-"請檢查哪個 MusicBrainz 發行品符合 Discogs "
-"中的發行品（查看格式、音軌列表、發行國家等）。您可能還會發現一些 Discogs "
-"網址與多碟發行的幾個碟片相關聯：只需將這些合併（請參見 "
-"{how_to_merge_releases|如何合併發行品}）。"
+"此報告顯示與多個發行品相關聯的 Discogs 網址。在大多數情況下，Discogs 發行品應"
+"該與 MusicBrainz 發行品 1:1 對應，因此只有一個連結會是正確的。請檢查哪個 "
+"MusicBrainz 發行品符合 Discogs 中的發行品（查看格式、音軌列表、發行國家等）。"
+"您可能還會發現一些 Discogs 網址與多碟發行的幾個碟片相關聯：只需將這些合併（請"
+"參見 {how_to_merge_releases|如何合併發行品}）。"
 
 #: ../root/report/DiscogsLinksWithMultipleReleases.js:37
 #: ../root/report/ReportsIndex.js:281
@@ -11943,7 +12075,8 @@ msgid ""
 "This report lists events happening at the same place on the same date. If "
 "there are duplicates (for example, if there are separate events for "
 "headliner and supporting artist) please merge them."
-msgstr "此報告列出在同一地點同一日期發生的事件。如果有重複的事件（例如，若主打藝人和"
+msgstr ""
+"此報告列出在同一地點同一日期發生的事件。如果有重複的事件（例如，若主打藝人和"
 "開場藝人有單獨事件），請合併它們。"
 
 #: ../root/report/DuplicateEvents.js:33 ../root/report/ReportsIndex.js:139
@@ -11956,7 +12089,8 @@ msgid ""
 "artist, label or URL using the same relationship type. For multiple "
 "relationships to release groups, recordings or works, see the reports for "
 "those entities."
-msgstr "此報告列出對同一創作者、廠牌或網址具有多重關聯的創作者，使用相同的關聯類型。"
+msgstr ""
+"此報告列出對同一創作者、廠牌或網址具有多重關聯的創作者，使用相同的關聯類型。"
 "對於多重關聯到發行組、錄音或作品的情況，請參見這些實體的報告。"
 
 #: ../root/report/DuplicateRelationshipsArtists.js:33
@@ -12013,7 +12147,8 @@ msgid ""
 "This report lists works which have multiple relationships to the same entity "
 "using the same relationship type. This excludes recording-work "
 "relationships. See the recording version of this report for those."
-msgstr "此報告列出對同一實體具有多重關聯的作品。這不包括錄音-作品關聯。請參見錄音版本"
+msgstr ""
+"此報告列出對同一實體具有多重關聯的作品。這不包括錄音-作品關聯。請參見錄音版本"
 "的報告以獲取那些。"
 
 #: ../root/report/DuplicateRelationshipsWorks.js:33
@@ -12031,10 +12166,9 @@ msgid ""
 "change anything. In other cases, a disambiguation comment may be helpful."
 msgstr ""
 "此報告列出名稱和創作者非常相似的發行組。如果發行組中的發行品應該被分組在一起"
-"（請參見 "
-"{url|指南}），則可以合併。如果不應該分組在一起，但可以根據發行組類型進行區分"
-"，例如當一位創作者有同名的專輯和單曲時，則通常不需要更改任何內容。在其他情況"
-"下，消歧義註解可能會有所幫助。"
+"（請參見 {url|指南}），則可以合併。如果不應該分組在一起，但可以根據發行組類型"
+"進行區分，例如當一位創作者有同名的專輯和單曲時，則通常不需要更改任何內容。在"
+"其他情況下，消歧義註解可能會有所幫助。"
 
 #: ../root/report/DuplicateReleaseGroups.js:51
 #: ../root/report/ReportsIndex.js:224
@@ -12089,9 +12223,9 @@ msgid ""
 "to know more."
 msgstr ""
 "此報告顯示標題中包含“（feat. 藝人）”或類似內容的錄音。對於古典錄音，請參考 "
-"{CSG|古典風格指南}。對於非古典錄音，這通常是從較舊版本的 MusicBrainz "
-"繼承的，應該進行修正（無論是錄音還是音軌！）。請參閱 "
-"{featured_artists|有關特邀創作者的頁面} 獲取更多資訊。"
+"{CSG|古典風格指南}。對於非古典錄音，這通常是從較舊版本的 MusicBrainz 繼承的，"
+"應該進行修正（無論是錄音還是音軌！）。請參閱 {featured_artists|有關特邀創作者"
+"的頁面} 獲取更多資訊。"
 
 #: ../root/report/FeaturingRecordings.js:40 ../root/report/ReportsIndex.js:487
 msgid "Recordings with titles containing featuring artists"
@@ -12105,10 +12239,10 @@ msgid ""
 "from an older version of MusicBrainz and should be fixed. Consult the "
 "{featured_artists|page about featured artists} to know more."
 msgstr ""
-"此報告顯示標題中包含“（feat. 藝人）”或類似內容的發行組。對於古典發行組，"
-"請參考 {CSG|古典風格指南}。對於非古典發行組，這通常是從較舊版本的 "
-"MusicBrainz 繼承的，應該進行修正。請參閱 "
-"{featured_artists|有關特邀創作者的頁面} 獲取更多資訊。"
+"此報告顯示標題中包含“（feat. 藝人）”或類似內容的發行組。對於古典發行組，請參"
+"考 {CSG|古典風格指南}。對於非古典發行組，這通常是從較舊版本的 MusicBrainz 繼"
+"承的，應該進行修正。請參閱 {featured_artists|有關特邀創作者的頁面} 獲取更多資"
+"訊。"
 
 #: ../root/report/FeaturingReleaseGroups.js:39
 #: ../root/report/ReportsIndex.js:201
@@ -12125,12 +12259,11 @@ msgid ""
 "to tracks, so if the track titles also include featuring credits you can fix "
 "them too while you edit the release!"
 msgstr ""
-"此報告顯示標題中包含“（feat. 藝人）”或類似內容的發行品。對於古典發行品，"
-"請參考 {CSG|古典風格指南}。對於非古典發行品，這通常是從較舊版本的 "
-"MusicBrainz 繼承的，應該進行修正。請參閱 "
-"{featured_artists|有關特邀創作者的頁面} "
-"獲取更多資訊。不要忘記，這通常也適用於音軌，因此如果音軌標題也包含特邀署名，"
-"您在編輯發行品時也可以進行修正！"
+"此報告顯示標題中包含“（feat. 藝人）”或類似內容的發行品。對於古典發行品，請參"
+"考 {CSG|古典風格指南}。對於非古典發行品，這通常是從較舊版本的 MusicBrainz 繼"
+"承的，應該進行修正。請參閱 {featured_artists|有關特邀創作者的頁面} 獲取更多資"
+"訊。不要忘記，這通常也適用於音軌，因此如果音軌標題也包含特邀署名，您在編輯發"
+"行品時也可以進行修正！"
 
 #: ../root/report/FeaturingReleases.js:42 ../root/report/ReportsIndex.js:305
 msgid "Releases with titles containing featuring artists"
@@ -12154,11 +12287,10 @@ msgid ""
 "same ISRC appears on two unrelated recordings on the same release, this is "
 "usually means there was an error when reading the disc."
 msgstr ""
-"此報告列出附加到多個錄音的 "
-"{isrc|ISRCs}。如果錄音相同，這通常意味著它們應該被合併（ISRC "
-"可能被錯誤分配，因此仍需小心以確保它們確實相同）。如果錄音是較大錄音的一部分"
-"，則 ISRC 可能正確，應該保留。如果相同的 ISRC "
-"出現在同一發行品上的兩個無關錄音中，這通常意味著在讀取光碟時出現了錯誤。"
+"此報告列出附加到多個錄音的 {isrc|ISRCs}。如果錄音相同，這通常意味著它們應該被"
+"合併（ISRC 可能被錯誤分配，因此仍需小心以確保它們確實相同）。如果錄音是較大錄"
+"音的一部分，則 ISRC 可能正確，應該保留。如果相同的 ISRC 出現在同一發行品上的"
+"兩個無關錄音中，這通常意味著在讀取光碟時出現了錯誤。"
 
 #: ../root/report/IsrcsWithManyRecordings.js:51
 #: ../root/report/ReportsIndex.js:621
@@ -12174,8 +12306,9 @@ msgstr "此錄音已不存在。"
 msgid ""
 "This report lists {iswc|ISWCs} that are attached to more than one work. If "
 "the works are the same, this usually means they should be merged."
-msgstr "此報告列出附加到多個作品的 "
-"{iswc|ISWCs}。如果作品相同，這通常意味著它們應該被合併。"
+msgstr ""
+"此報告列出附加到多個作品的 {iswc|ISWCs}。如果作品相同，這通常意味著它們應該被"
+"合併。"
 
 #: ../root/report/IswcsWithManyWorks.js:42 ../root/report/ReportsIndex.js:630
 msgid "ISWCs with multiple works"
@@ -12190,7 +12323,8 @@ msgid ""
 "This report lists labels that have their disambiguation set to be the same "
 "as their name. The disambiguation should be removed or, if it is needed, "
 "improved."
-msgstr "此報告列出了將消除歧義設定為與其名稱相同的標籤。消除歧義應該被刪除，或者如果"
+msgstr ""
+"此報告列出了將消除歧義設定為與其名稱相同的標籤。消除歧義應該被刪除，或者如果"
 "需要的話，加以改進。"
 
 #: ../root/report/LabelsDisambiguationSameName.js:32
@@ -12267,7 +12401,8 @@ msgstr "以其位置命名的媒體的發行品"
 msgid ""
 "This report lists all releases with gaps in the medium numbers (for example, "
 "there is a medium 1 and 3 but no medium 2)."
-msgstr "此報告列出所有媒體編號中有間隙的發行品（例如，有媒體1和3，但沒有媒體2）。"
+msgstr ""
+"此報告列出所有媒體編號中有間隙的發行品（例如，有媒體1和3，但沒有媒體2）。"
 
 #: ../root/report/MediumsWithSequenceIssues.js:31
 msgid "Releases with medium number issues"
@@ -12298,9 +12433,9 @@ msgid ""
 "search Amazon for it and see which ASIN matches."
 msgstr ""
 "此報告顯示有多個亞馬遜ASIN的發行品。在大多數情況下，ASIN應該與MusicBrainz發行"
-"品一對一對應，因此只有其中一個是正確的。只需檢查哪些不符合該發行品（因為格式"
-"、音軌數量不同等）。如果發行品有條碼，您可以在亞馬遜上搜尋它，看看哪個ASIN匹"
-"配。"
+"品一對一對應，因此只有其中一個是正確的。只需檢查哪些不符合該發行品（因為格"
+"式、音軌數量不同等）。如果發行品有條碼，您可以在亞馬遜上搜尋它，看看哪個ASIN"
+"匹配。"
 
 #: ../root/report/MultipleAsins.js:35
 msgid "Releases with multiple ASINs"
@@ -12315,8 +12450,8 @@ msgid ""
 "Discogs page belongs at the {release_group|release group level}, not at the "
 "release level, and should be removed from releases too."
 msgstr ""
-"此報告顯示有多個Discogs連結的發行品。在大多數情況下，MusicBrainz發行品應該在D"
-"iscogs中只有一個等效項，因此只有其中一個是正確的。只需檢查哪些不符合該發行品"
+"此報告顯示有多個Discogs連結的發行品。在大多數情況下，MusicBrainz發行品應該在"
+"Discogs中只有一個等效項，因此只有其中一個是正確的。只需檢查哪些不符合該發行品"
 "（因為格式、音軌數量不同等）。任何“母版”Discogs頁面應該放在{release_group|發"
 "行組層級}，而不是發行層級，並且也應該從發行品中移除。"
 
@@ -12342,7 +12477,8 @@ msgid ""
 "This report shows releases that have no script set. If you recognize the "
 "script, just add it! Remember that the script used for English (and most "
 "other European languages) is Latin."
-msgstr "此報告顯示沒有設定文字系統的發行品。如果您認識文字系統，請直接新增！請記住，"
+msgstr ""
+"此報告顯示沒有設定文字系統的發行品。如果您認識文字系統，請直接新增！請記住，"
 "英語（以及大多數其他歐洲語言）使用的文字系統是拉丁文字。"
 
 #: ../root/report/NoScript.js:35 ../root/report/ReportsIndex.js:261
@@ -12425,7 +12561,8 @@ msgid ""
 "This report shows recordings that are linked to only one track, yet have a "
 "different name than the track. This might mean one of the two needs to be "
 "renamed to match the other."
-msgstr "此報告顯示僅連結到一個音軌的錄音，但名稱與該音軌不同。這可能意味著其中一個需"
+msgstr ""
+"此報告顯示僅連結到一個音軌的錄音，但名稱與該音軌不同。這可能意味著其中一個需"
 "要重新命名以匹配另一個。"
 
 #: ../root/report/RecordingTrackDifferentName.js:44
@@ -12439,7 +12576,8 @@ msgid ""
 "artists (having different MBIDs) with the same name. These are most likely "
 "cases where the {ac|artist credit} is incorrect for at least one of the "
 "recordings."
-msgstr "此報告顯示名稱相同但創作者不同（具有不同MBID）的錄音。這些最有可能是{ac|創作"
+msgstr ""
+"此報告顯示名稱相同但創作者不同（具有不同MBID）的錄音。這些最有可能是{ac|創作"
 "者署名}在至少一個錄音中不正確的情況。"
 
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:39
@@ -12471,8 +12609,9 @@ msgstr "具有最早發行關係的錄音"
 msgid ""
 "This report shows recordings with relationships using dates in the future. "
 "Those are probably typos (such as 2109 instead of 2019)."
-msgstr "此報告顯示與關係使用未來日期的錄音。這些可能是打字錯誤（例如2109而不是2019）"
-"。"
+msgstr ""
+"此報告顯示與關係使用未來日期的錄音。這些可能是打字錯誤（例如2109而不是"
+"2019）。"
 
 #: ../root/report/RecordingsWithFutureDates.js:60
 msgid "Recordings with relationships having dates in the future"
@@ -12539,8 +12678,8 @@ msgid ""
 "name. Often this means the release is self-released, and the label "
 "{SpecialPurposeLabel|should be \"[no label]\" instead}."
 msgstr ""
-"此報告列出標籤名稱與創作者名稱相同的發行品。通常這意味著該發行品是自我發行的"
-"，標籤{SpecialPurposeLabel|應該是“[無標籤]”}。"
+"此報告列出標籤名稱與創作者名稱相同的發行品。通常這意味著該發行品是自我發行"
+"的，標籤{SpecialPurposeLabel|應該是“[無標籤]”}。"
 
 #: ../root/report/ReleaseLabelSameArtist.js:50
 #: ../root/report/ReportsIndex.js:439
@@ -12552,7 +12691,8 @@ msgid ""
 "This report shows releases which are the only ones in their release group, "
 "yet have a different name than the group. This might mean one of the two "
 "needs to be renamed to match the other."
-msgstr "此報告顯示在其發行組中唯一的發行品，但名稱與該組不同。這可能意味著其中一個需"
+msgstr ""
+"此報告顯示在其發行組中唯一的發行品，但名稱與該組不同。這可能意味著其中一個需"
 "要重新命名以匹配另一個。"
 
 #: ../root/report/ReleaseRgDifferentName.js:43
@@ -12566,7 +12706,8 @@ msgid ""
 "released too early to have disc IDs, where one of the medium formats didn't "
 "exist at the time the release was released or where a disc ID is attached to "
 "a medium whose format does not have disc IDs."
-msgstr "此報告顯示發行時間太早而不應有碟片ID但是實際上有碟片ID，使用了發行時不存在媒"
+msgstr ""
+"此報告顯示發行時間太早而不應有碟片ID但是實際上有碟片ID，使用了發行時不存在媒"
 "體格式或者媒體格式沒有碟片ID但是附加了碟片ID的專輯。"
 
 #: ../root/report/ReleasedTooEarly.js:34 ../root/report/ReportsIndex.js:309
@@ -12578,7 +12719,8 @@ msgid ""
 "This report shows releases that have conflicting disc IDs on the same medium "
 "with significant differences in duration. This usually means a disc ID was "
 "applied to the wrong medium or the wrong release."
-msgstr "此報告顯示在同一媒體上具有衝突的碟片ID且持續時間存在顯著差異的發行品。這通常"
+msgstr ""
+"此報告顯示在同一媒體上具有衝突的碟片ID且持續時間存在顯著差異的發行品。這通常"
 "意味著碟片ID應用於錯誤的媒體或錯誤的發行品。"
 
 #: ../root/report/ReleasesConflictingDiscIds.js:33
@@ -12590,8 +12732,9 @@ msgstr "具有衝突碟片ID的發行品"
 msgid ""
 "This report shows releases (official and promotional only) that have at "
 "least one medium with a format that supports disc IDs, but is missing one."
-msgstr "此報告顯示（官方和促銷）發行品至少有一個媒體具有支援碟片ID的格式，但缺少一個"
-"。"
+msgstr ""
+"此報告顯示（官方和促銷）發行品至少有一個媒體具有支援碟片ID的格式，但缺少一"
+"個。"
 
 #: ../root/report/ReleasesMissingDiscIds.js:31
 msgid ""
@@ -12624,8 +12767,8 @@ msgid ""
 "Currently it does this by looking for releases where every track contains \"/"
 "\" or \"-\"."
 msgstr ""
-"此報告旨在識別需要轉換為多位創作者的發行品（因為音軌創作者在標題欄位中，例如"
-"）。目前，它透過尋找每個音軌都包含“/”或“-”的發行品來實現此目的。"
+"此報告旨在識別需要轉換為多位創作者的發行品（因為音軌創作者在標題欄位中，例"
+"如）。目前，它透過尋找每個音軌都包含“/”或“-”的發行品來實現此目的。"
 
 #: ../root/report/ReleasesToConvert.js:33 ../root/report/ReportsIndex.js:252
 msgid "Releases which might need converting to \"multiple artists\""
@@ -12653,9 +12796,9 @@ msgid ""
 "This report shows releases which have cover art in the Cover Art Archive, "
 "but where none of it has any types set. This often means a front cover was "
 "added, but not marked as such."
-msgstr "此報告顯示在Cover Art "
-"Archive中具有封面藝術的發行品，但其中沒有任何標記類型。這通常意味著新增了正面"
-"封面，但未標記為正面封面。"
+msgstr ""
+"此報告顯示在Cover Art Archive中具有封面藝術的發行品，但其中沒有任何標記類型。"
+"這通常意味著新增了正面封面，但未標記為正面封面。"
 
 #: ../root/report/ReleasesWithCaaNoTypes.js:32
 #: ../root/report/ReportsIndex.js:356
@@ -12682,7 +12825,8 @@ msgstr "非數位發行的數位關聯"
 msgid ""
 "This report shows releases with at least one medium that is missing a "
 "tracklist. If you can find the tracklist, please help complete the data!"
-msgstr "此報告顯示至少有一個媒體缺少音軌列表的發行品。如果您能找到音軌列表，請協助補"
+msgstr ""
+"此報告顯示至少有一個媒體缺少音軌列表的發行品。如果您能找到音軌列表，請協助補"
 "全資料！"
 
 #: ../root/report/ReleasesWithEmptyMediums.js:32
@@ -12719,7 +12863,8 @@ msgstr "沒有媒體的專輯"
 msgid ""
 "This report shows releases that have an unlikely combination of language and "
 "script properties, such as German and Ethiopic."
-msgstr "此報告顯示具有不太可能的語言和文字屬性組合的發行品，例如德語和衣索比亞文字。"
+msgstr ""
+"此報告顯示具有不太可能的語言和文字屬性組合的發行品，例如德語和衣索比亞文字。"
 
 #: ../root/report/ReleasesWithUnlikelyLanguageScript.js:34
 #: ../root/report/ReportsIndex.js:374
@@ -12736,18 +12881,18 @@ msgid ""
 "they should have the same barcode, format, etc.). This report skips pseudo-"
 "releases, since they should generally not have cover art."
 msgstr ""
-"此報告顯示在Cover Art "
-"Archive中沒有封面藝術的發行品。考慮到大多數發行品都有某種形式的封面藝術，"
-"這份報告中的絕大多數發行品應該有藝術作品 {caa_how_to|上傳到Cover Art "
-"Archive}。請注意，為發行品上傳的封面藝術必須始終與該特定發行品的實際藝術完全"
-"匹配（例如，它們應具有相同的條碼、格式等）。此報告跳過偽發行版，因為它們通常"
-"不應有封面藝術。"
+"此報告顯示在Cover Art Archive中沒有封面藝術的發行品。考慮到大多數發行品都有某"
+"種形式的封面藝術，這份報告中的絕大多數發行品應該有藝術作品 {caa_how_to|上傳到"
+"Cover Art Archive}。請注意，為發行品上傳的封面藝術必須始終與該特定發行品的實"
+"際藝術完全匹配（例如，它們應具有相同的條碼、格式等）。此報告跳過偽發行版，因"
+"為它們通常不應有封面藝術。"
 
 #: ../root/report/ReleasesWithoutCaa.js:38
 msgid ""
 "We strongly suggest restricting this report to entities in your "
 "subscriptions only for a more manageable list of results."
-msgstr "我們強烈建議將此報告限制為僅顯示您訂閱中的實體，以便獲得更易管理的結果列表。"
+msgstr ""
+"我們強烈建議將此報告限制為僅顯示您訂閱中的實體，以便獲得更易管理的結果列表。"
 
 #: ../root/report/ReleasesWithoutCaa.js:43 ../root/report/ReportsIndex.js:362
 msgid "Releases without any art in the Cover Art Archive"
@@ -12757,7 +12902,8 @@ msgstr "Cover Art Archive 中沒有任何此發行品的圖片"
 msgid ""
 "This report shows releases linked to the Various Artists entity without "
 "\"Various Artists\" as the credited name."
-msgstr "此報告顯示與「多位創作者」實體相關聯，但未以「多位創作者」作為署名名稱的發行"
+msgstr ""
+"此報告顯示與「多位創作者」實體相關聯，但未以「多位創作者」作為署名名稱的發行"
 "品。"
 
 #: ../root/report/ReleasesWithoutVaCredit.js:31
@@ -12769,7 +12915,8 @@ msgstr "未以「多位創作者」署名但與VA相關聯的發行品"
 msgid ""
 "This report shows releases with \"Various Artists\" as the credited name but "
 "not linked to the Various Artists entity."
-msgstr "此報告顯示以「多位創作者」作為署名名稱，但未與「多位創作者」實體相關聯的發行"
+msgstr ""
+"此報告顯示以「多位創作者」作為署名名稱，但未與「多位創作者」實體相關聯的發行"
 "品。"
 
 #: ../root/report/ReleasesWithoutVaLink.js:31
@@ -12790,8 +12937,8 @@ msgid ""
 "up\" tasks are required."
 msgstr ""
 "如果您想參與編輯過程，但不知道從何開始，以下報告應該會對您有幫助。這些報告會"
-"在資料庫中搜尋可能需要修正的資料，以符合 "
-"{style|風格指南}，或在其他需要進行管理「清理」任務的情況下。"
+"在資料庫中搜尋可能需要修正的資料，以符合 {style|風格指南}，或在其他需要進行管"
+"理「清理」任務的情況下。"
 
 #: ../root/report/ReportsIndex.js:68
 msgid "Artists which have collaboration relationships"
@@ -12972,7 +13119,8 @@ msgid ""
 "This report shows releases that have at least one medium with a format that "
 "does not support disc IDs, yet have disc IDs attached. Usually this means "
 "the disc IDs ended up here because of a bug and should be moved or removed."
-msgstr "此報告顯示了至少一個媒體格式上不支援碟片ID，但仍附加了碟片ID的專輯。這通常表"
+msgstr ""
+"此報告顯示了至少一個媒體格式上不支援碟片ID，但仍附加了碟片ID的專輯。這通常表"
 "明某個程式缺陷附加了碟片ID，應移動或移除。"
 
 #: ../root/report/ShowNotesButNotBroadcast.js:25
@@ -12985,18 +13133,18 @@ msgid ""
 "a better type or removed if nothing is a good fit. If the release is indeed "
 "a podcast, the release group type should be set to Broadcast."
 msgstr ""
-"此報告顯示具有 {doc|節目註解關係} "
-"的發行品，但不在廣播類型的發行組中。節目註解是為播客和類似節目設計的，不應用"
-"於連結與任何類型的發行品相關的隨機註解，但該關係經常被用於這種方式。如果是這"
-"種情況，則該關係應該轉換為更合適的類型或如果沒有合適的選項則應移除。如果該發"
-"行品確實是播客，則發行組類型應設定為廣播。"
+"此報告顯示具有 {doc|節目註解關係} 的發行品，但不在廣播類型的發行組中。節目註"
+"解是為播客和類似節目設計的，不應用於連結與任何類型的發行品相關的隨機註解，但"
+"該關係經常被用於這種方式。如果是這種情況，則該關係應該轉換為更合適的類型或如"
+"果沒有合適的選項則應移除。如果該發行品確實是播客，則發行組類型應設定為廣播。"
 
 #: ../root/report/SingleMediumReleasesWithMediumTitles.js:25
 msgid ""
 "This report shows releases that have a single medium, where this medium also "
 "has a specific name. Usually, this is not necessary and is duplicate "
 "information which can be removed."
-msgstr "此報告顯示了含有一個媒體，且此媒體也有特定名稱的專輯。通常這是不必要的，是可"
+msgstr ""
+"此報告顯示了含有一個媒體，且此媒體也有特定名稱的專輯。通常這是不必要的，是可"
 "移除的重複資訊。"
 
 #: ../root/report/SomeFormatsUnset.js:25
@@ -13022,9 +13170,9 @@ msgid ""
 "See the {data_track_guidelines|data track guidelines}."
 msgstr ""
 "該報告列出了沒有任何磁碟id的發行版本，這些版本可能在媒體的末尾包含資料音軌(如"
-"影片)，但沒有標記為資料音軌。如果資料軌道是CD的最後一個軌道並且包含音訊或影片"
-"，則應這樣標記。否則，它應該被刪除。參見{data_track_guidelines|資料跟蹤指南}"
-"。"
+"影片)，但沒有標記為資料音軌。如果資料軌道是CD的最後一個軌道並且包含音訊或影"
+"片，則應這樣標記。否則，它應該被刪除。參見{data_track_guidelines|資料跟蹤指"
+"南}。"
 
 #: ../root/report/TracksNamedWithSequence.js:25
 msgid ""
@@ -13033,9 +13181,9 @@ msgid ""
 "Notice that sometimes this is justified and correct, don't automatically "
 "assume it is a mistake! If you confirm it is a mistake, please correct it."
 msgstr ""
-"此報告旨在識別音軌名稱中包含其自身音軌編號的發行品，例如「1) "
-"某些名稱」（而不僅僅是「某些名稱」）。請注意，有時這是正當且正確的，請不要自"
-"動假設這是錯誤！如果您確認這是錯誤的，請進行修正。"
+"此報告旨在識別音軌名稱中包含其自身音軌編號的發行品，例如「1) 某些名稱」（而不"
+"僅僅是「某些名稱」）。請注意，有時這是正當且正確的，請不要自動假設這是錯誤！"
+"如果您確認這是錯誤的，請進行修正。"
 
 #: ../root/report/TracksNamedWithSequence.js:34
 msgid "Releases where track names start with their track number"
@@ -13046,7 +13194,8 @@ msgid ""
 "This report lists all releases where the track numbers are not continuous "
 "(for example, there is no \"track 2\"), or with duplicated track numbers "
 "(for example, there are two \"track 4\"s)."
-msgstr "此報告列出所有音軌編號不連續（例如，沒有「音軌2」）或重複音軌編號（例如，有兩"
+msgstr ""
+"此報告列出所有音軌編號不連續（例如，沒有「音軌2」）或重複音軌編號（例如，有兩"
 "個「音軌4」）的發行品。"
 
 #: ../root/report/TracksWithSequenceIssues.js:32
@@ -13065,7 +13214,8 @@ msgid ""
 "the translation/transliteration relationship to an original version. This "
 "could be because the original version is missing, or just because the "
 "release status is wrongly set."
-msgstr "此報告顯示狀態為偽發行版的發行品，但未透過翻譯/音譯關聯連結到原始版本。這可能"
+msgstr ""
+"此報告顯示狀態為偽發行版的發行品，但未透過翻譯/音譯關聯連結到原始版本。這可能"
 "是因為原始版本缺失，或只是因為發行狀態設定錯誤。"
 
 #: ../root/report/UnlinkedPseudoReleases.js:33
@@ -13079,8 +13229,8 @@ msgid ""
 "marked as video, or the relationships should be moved to a related video "
 "recording."
 msgstr ""
-"此報告顯示未標記為影片的錄音，但使用僅適用於影片錄音的關聯（{relationship_lis"
-"t}）。它們應該標記為影片，或將關聯移至相關的影片錄音。"
+"此報告顯示未標記為影片的錄音，但使用僅適用於影片錄音的關聯"
+"（{relationship_list}）。它們應該標記為影片，或將關聯移至相關的影片錄音。"
 
 #: ../root/report/VideosInNonVideoMediums.js:25
 msgid ""
@@ -13097,10 +13247,10 @@ msgid ""
 "should always be separate. If you split the recordings, consider whether it "
 "makes sense to link them with a {doc_link|music video relationship}."
 msgstr ""
-"這裡主要有兩種可能:一種是標記為影片的錄音正確，但格式不對(例如，CD應該是VCD)"
-"，另一種是同時用於影片和只用於音訊的錄音，在這種情況下，兩者應該分開，因為影"
-"片錄音總是分開的。如果你拆分錄音，考慮是否有意義的連結它們與{doc_link|音樂影"
-"片關係}。"
+"這裡主要有兩種可能:一種是標記為影片的錄音正確，但格式不對(例如，CD應該是"
+"VCD)，另一種是同時用於影片和只用於音訊的錄音，在這種情況下，兩者應該分開，因"
+"為影片錄音總是分開的。如果你拆分錄音，考慮是否有意義的連結它們與{doc_link|音"
+"樂影片關係}。"
 
 #: ../root/report/WikidataLinksWithMultipleEntities.js:40
 msgid ""
@@ -13109,9 +13259,9 @@ msgid ""
 "most of these should indicate either an error in MusicBrainz or a too-wide "
 "Wikidata page."
 msgstr ""
-"此報告顯示連結到多個實體的Wikidata網址。一般來說，Wikidata實體應該與MusicBrai"
-"nz實體一對一匹配，因此大多數這些應該表示MusicBrainz中的錯誤或Wikidata頁面過於"
-"寬泛。"
+"此報告顯示連結到多個實體的Wikidata網址。一般來說，Wikidata實體應該與"
+"MusicBrainz實體一對一匹配，因此大多數這些應該表示MusicBrainz中的錯誤或"
+"Wikidata頁面過於寬泛。"
 
 #: ../root/report/WorkSameTypeAsParent.js:25
 msgid ""
@@ -13123,9 +13273,9 @@ msgid ""
 "be changed."
 msgstr ""
 "此報告顯示了作品類型與至少一個母作品相同的作品（例如一個標記為奏鳴曲的作品是"
-"另一首奏鳴曲的一部分）。在大多數情況下，根據 "
-"{work_style_doc|作品風格指南}，這意味著這些作品應該是不同的類型或（很可能）根"
-"本沒有類型。有時，可能需要更改的是母作品的類型。"
+"另一首奏鳴曲的一部分）。在大多數情況下，根據 {work_style_doc|作品風格指南}，"
+"這意味著這些作品應該是不同的類型或（很可能）根本沒有類型。有時，可能需要更改"
+"的是母作品的類型。"
 
 #: ../root/report/components/ArtistCreditList.js:40
 msgid "This artist credit no longer exists."
@@ -13217,7 +13367,8 @@ msgid ""
 "relationship instead, please add a relationship and remove that part of the "
 "annotation. If something is marked as “sub-optimal”, consider checking if a "
 "better way to store that data has been added in the meantime."
-msgstr "如果您在這些註解中看到可以用關聯表示的內容，請新增關聯並移除該部分註解。如果"
+msgstr ""
+"如果您在這些註解中看到可以用關聯表示的內容，請新增關聯並移除該部分註解。如果"
 "某些內容被標記為「次優」，請考慮檢查是否有更好的方法來儲存該資料。"
 
 #: ../root/report/hooks/useAnnotationColumns.js:34
@@ -13331,14 +13482,16 @@ msgstr "或者，您可以 {uri|添加新作品}。"
 msgid ""
 "Sorry, but your query “(<code>{query}</code>)” could not be performed, due "
 "to an error which we are not quite able to identify."
-msgstr "抱歉，但您的查詢「(<code>{query}</code>)」無法執行，因為出現了一個我們無法確"
+msgstr ""
+"抱歉，但您的查詢「(<code>{query}</code>)」無法執行，因為出現了一個我們無法確"
 "定的錯誤。"
 
 #: ../root/search/error/InternalError.js:16
 msgid ""
 "The search server could not fulfill your request due to an internal error. "
 "This is usually only temporary, so please retry your search again later."
-msgstr "搜尋伺服器因內部錯誤無法滿足您的請求。這通常只是暫時的，因此請稍後再試一次。"
+msgstr ""
+"搜尋伺服器因內部錯誤無法滿足您的請求。這通常只是暫時的，因此請稍後再試一次。"
 
 #: ../root/search/error/Invalid.js:16
 msgid "Your search query was deemed invalid by our ruthless search server."
@@ -13364,8 +13517,9 @@ msgid ""
 "Sorry, but your query “(<code>{query}</code>)” could not be performed, "
 "because it appears you’ve been rate-limited. Either the server is overloaded "
 "or you’re making a lot of requests all at once."
-msgstr "抱歉，但您的查詢「(<code>{query}</code>)」無法執行，因為您似乎已達到速率限制"
-"。要嘛伺服器超載，要嘛您同時發出了很多請求。"
+msgstr ""
+"抱歉，但您的查詢「(<code>{query}</code>)」無法執行，因為您似乎已達到速率限"
+"制。要嘛伺服器超載，要嘛您同時發出了很多請求。"
 
 #: ../root/search/error/UriTooLarge.js:15
 msgid "Sorry, your query was too large."
@@ -13395,14 +13549,15 @@ msgid ""
 "be a custom reverse-DNS string, as in <code>org.example.app://auth</code>, "
 "for installed applications."
 msgstr ""
-"安裝應用程式的回呼URI是可選的。如果設定，則其方案必須是自訂的反向DNS字串，如<"
-"code>org.example.app://auth</code>，用於已安裝的應用程式。"
+"安裝應用程式的回呼URI是可選的。如果設定，則其方案必須是自訂的反向DNS字串，如"
+"<code>org.example.app://auth</code>，用於已安裝的應用程式。"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:218
 msgid ""
 "This is a development server. Your email address is not private or secure. "
 "Proceed with caution!"
-msgstr "這是一台開發用伺服器。您的電子郵件地址可能不是私有和安全的。請慎重行事！"
+msgstr ""
+"這是一台開發用伺服器。您的電子郵件地址可能不是私有和安全的。請慎重行事！"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:231
 msgid "If you change your email address, you will be required to verify it."
@@ -13422,7 +13577,8 @@ msgstr "位置"
 msgid ""
 "You can pick the level you prefer here: your country, region or city. Be as "
 "specific as you want to!"
-msgstr "您可以選擇您想要的詳細程度：您的國家，地區，或城市。您想要多詳細就能多詳細！"
+msgstr ""
+"您可以選擇您想要的詳細程度：您的國家，地區，或城市。您想要多詳細就能多詳細！"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:285
 msgid "Birth date:"
@@ -13617,7 +13773,8 @@ msgid ""
 "This will enter additional edits to change each specific credit to use the "
 "new name. Only use this if you are sure the existing credits are incorrect "
 "(such as for typos)."
-msgstr "這將進行額外的編輯，將每個特定的署名改為使用新名稱。只有在確定現有署名不正確"
+msgstr ""
+"這將進行額外的編輯，將每個特定的署名改為使用新名稱。只有在確定現有署名不正確"
 "（例如因為錯字）時才使用此功能。"
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:244
@@ -13625,7 +13782,8 @@ msgid ""
 "Keep in mind artist credits should generally follow what is printed on "
 "releases. If an artist has changed their name, but old releases were "
 "credited to the existing name, do not change the artist credit."
-msgstr "請注意，創作者的署名通常應遵循發行品上印刷的內容。如果創作者已更改名稱，但舊"
+msgstr ""
+"請注意，創作者的署名通常應遵循發行品上印刷的內容。如果創作者已更改名稱，但舊"
 "的發行品是以現有名稱署名的，則不要更改創作者的署名。"
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:269
@@ -13753,18 +13911,19 @@ msgstr "注釋最後被 {user} 編輯於 {date}。"
 msgid ""
 "This is an {history|old revision} of this annotation, as edited by {user} on "
 "{date}. {current|View current revision}."
-msgstr "這是此註解的 {history|舊修訂}，由 {user} 在 {date} 編輯。 "
-"{current|檢視目前修訂}。"
+msgstr ""
+"這是此註解的 {history|舊修訂}，由 {user} 在 {date} 編輯。 {current|檢視目前修"
+"訂}。"
 
 #: ../root/static/scripts/common/components/Annotation.js:102
 msgid "Annotation last modified on {date}."
 msgstr "注釋最後被編輯於 {date}。"
 
-#: ../root/static/scripts/common/components/ArtistCreditLink.js:34
+#: ../root/static/scripts/common/components/ArtistCreditLink.js:35
 msgid "This artist credit has {edit_search|open edits}."
 msgstr "此創作者署名有 {edit_search|待審核編輯}。"
 
-#: ../root/static/scripts/common/components/ArtistCreditLink.js:39
+#: ../root/static/scripts/common/components/ArtistCreditLink.js:40
 msgid "This artist credit has open edits."
 msgstr "此創作者署名有待審核編輯。"
 
@@ -13867,7 +14026,7 @@ msgid "Search for a work"
 msgstr "搜尋作品"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:87
-#: ../root/static/scripts/common/components/EntityLink.js:77
+#: ../root/static/scripts/common/components/EntityLink.js:82
 msgid "Primary alias"
 msgstr "主要別名"
 
@@ -13952,32 +14111,33 @@ msgstr "該編輯者在此伺服器上缺失，無法正確顯示。"
 msgid "[missing editor]"
 msgstr "[缺失編輯者]"
 
-#: ../root/static/scripts/common/components/EntityLink.js:135
+#: ../root/static/scripts/common/components/EntityLink.js:140
 #: ../root/url/UrlIndex.js:28
 msgid ""
 "This link has been temporarily disabled because it has been reported as "
 "potentially harmful."
 msgstr "該連結已暫時停用，因為它被報告為潛在危險。"
 
-#: ../root/static/scripts/common/components/EntityLink.js:363
+#: ../root/static/scripts/common/components/EntityLink.js:374
 msgid "This event has artwork in the Event Art Archive"
 msgstr "Event Art Archive 有此活動的藝術插圖"
 
-#: ../root/static/scripts/common/components/EntityLink.js:388
+#: ../root/static/scripts/common/components/EntityLink.js:399
 msgid "This release has artwork in the Cover Art Archive"
 msgstr "此發行品在封Cover Art Archive中有藝術作品"
 
-#: ../root/static/scripts/common/components/EntityLink.js:413
+#: ../root/static/scripts/common/components/EntityLink.js:424
 msgid "This release group has artwork in the Cover Art Archive"
 msgstr "此發行組在Cover Art Archive中有藝術作品"
 
-#: ../root/static/scripts/common/components/EntityLink.js:441
+#: ../root/static/scripts/common/components/EntityLink.js:452
 msgid ""
 "High quality: All available data has been added, if possible including cover "
 "art with liner info that proves it"
-msgstr "高品質：所有可用資料已加入，如果可能，包括證明其存在的封面藝術和內頁資訊"
+msgstr ""
+"高品質：所有可用資料已加入，如果可能，包括證明其存在的封面藝術和內頁資訊"
 
-#: ../root/static/scripts/common/components/EntityLink.js:454
+#: ../root/static/scripts/common/components/EntityLink.js:465
 msgid ""
 "Low quality: The release needs serious fixes, or its existence is hard to "
 "prove (but it’s not clearly fake)"
@@ -14282,7 +14442,8 @@ msgstr "載入媒體失敗。"
 msgid ""
 "This medium has too many tracks to load at once; currently showing "
 "{loaded_track_count} out of {total_track_count} total."
-msgstr "此媒體的音軌數量過多，無法一次載入；目前顯示 {loaded_track_count} 之 "
+msgstr ""
+"此媒體的音軌數量過多，無法一次載入；目前顯示 {loaded_track_count} 之 "
 "{total_track_count} 總數。"
 
 #: ../root/static/scripts/common/hooks/usePagedMediumTable.js:226
@@ -14397,13 +14558,15 @@ msgstr "開始於："
 msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
-msgstr "請連結到某個頻道，而不是某個特定的影片。影片應該連結到適當的錄音或專輯。"
+msgstr ""
+"請連結到某個頻道，而不是某個特定的影片。影片應該連結到適當的錄音或專輯。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:392
 msgid ""
 "This is a link to a search result. Please link to any page in the results "
 "that is relevant to this entity instead, if available."
-msgstr "這是指向搜尋結果的連結。請連結到結果中與此實體相關的任何頁面（如果有的話）。"
+msgstr ""
+"這是指向搜尋結果的連結。請連結到結果中與此實體相關的任何頁面（如果有的話）。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:397
 msgid ""
@@ -14416,7 +14579,8 @@ msgid ""
 "This is a lyrics site. As such, links to the site should be added at the "
 "release group level with the “lyrics” relationship, rather than directly to "
 "any specific release."
-msgstr "這是一個歌詞網站。因此，網站的連結應該在專輯組級別添加“歌詞”關係，而不是直接"
+msgstr ""
+"這是一個歌詞網站。因此，網站的連結應該在專輯組級別添加“歌詞”關係，而不是直接"
 "添加到任何特定的專輯。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:572
@@ -14430,13 +14594,14 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:651
 #: ../root/static/scripts/edit/URLCleanup.js:910
-#: ../root/static/scripts/edit/URLCleanup.js:4276
-#: ../root/static/scripts/edit/URLCleanup.js:5344
-#: ../root/static/scripts/edit/URLCleanup.js:5898
+#: ../root/static/scripts/edit/URLCleanup.js:4285
+#: ../root/static/scripts/edit/URLCleanup.js:5353
+#: ../root/static/scripts/edit/URLCleanup.js:5912
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
-msgstr "這是一個重定向連結。請關注{redirect_url|您的連結}並添加它重定向後的連結。"
+msgstr ""
+"這是一個重定向連結。請關注{redirect_url|您的連結}並添加它重定向後的連結。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:669
 msgid ""
@@ -14456,7 +14621,8 @@ msgstr ""
 msgid ""
 "Please do not add “{blocked_url_pattern}” links, link to the appropriate "
 "“{wanted_url_pattern}” page instead."
-msgstr "請不要新增 “{blocked_url_pattern}” 連結，請改為連結到相應的 "
+msgstr ""
+"請不要新增 “{blocked_url_pattern}” 連結，請改為連結到相應的 "
 "“{wanted_url_pattern}” 頁面。"
 
 #: ../root/static/scripts/edit/URLCleanup.js:1138
@@ -14465,12 +14631,12 @@ msgid ""
 "track."
 msgstr "請連結到此創作者的首頁，而非特定專輯或音軌。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1155
+#: ../root/static/scripts/edit/URLCleanup.js:1158
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr "請連結到此廠牌的首頁，而非特定專輯或音軌。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1177
+#: ../root/static/scripts/edit/URLCleanup.js:1180
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -14478,12 +14644,11 @@ msgid ""
 "(“{single_url_pattern}”) instead, and feel free to add this profile link to "
 "the appropriate artist or label."
 msgstr ""
-"這是一個 Bandcamp "
-"個人資料，而不是特定錄音的頁面。即使它現在顯示單個錄音，當創作者發布另一個時"
-"，這也可能會改變。請找到並新增適當的錄音頁面 "
+"這是一個 Bandcamp 個人資料，而不是特定錄音的頁面。即使它現在顯示單個錄音，當"
+"創作者發布另一個時，這也可能會改變。請找到並新增適當的錄音頁面 "
 "(“{single_url_pattern}”)，並隨意將此個人資料連結新增到適當的創作者或廠牌。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1205
+#: ../root/static/scripts/edit/URLCleanup.js:1208
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14491,118 +14656,124 @@ msgid ""
 "(“{album_url_pattern}” or “{single_url_pattern}”) instead, and feel free to "
 "add this profile link to the appropriate artist or label."
 msgstr ""
-"這是一個 Bandcamp "
-"個人資料，而不是特定發行品的頁面。即使它現在顯示此發行品，當創作者發布另一個"
-"時，這也可能會改變。請找到並新增適當的發行頁面 (“{album_url_pattern}” 或 "
-"“{single_url_pattern}”)，並隨意將此個人資料連結新增到適當的創作者或廠牌。"
+"這是一個 Bandcamp 個人資料，而不是特定發行品的頁面。即使它現在顯示此發行品，"
+"當創作者發布另一個時，這也可能會改變。請找到並新增適當的發行頁面 "
+"(“{album_url_pattern}” 或 “{single_url_pattern}”)，並隨意將此個人資料連結新增"
+"到適當的創作者或廠牌。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1539
+#: ../root/static/scripts/edit/URLCleanup.js:1542
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr "請連結到創作者的首頁，而不是特定產品。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1541
+#: ../root/static/scripts/edit/URLCleanup.js:1544
 msgid "Please link to the main page for the label, not a specific product."
 msgstr "請連結到廠牌的首頁，而不是特定產品。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:2269
+#: ../root/static/scripts/edit/URLCleanup.js:2272
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
-msgstr "Discogs 的 “{master_url_pattern}” "
-"連結將多個發行品分組，因此應該將其新增到發行組中。"
+msgstr ""
+"Discogs 的 “{master_url_pattern}” 連結將多個發行品分組，因此應該將其新增到發"
+"行組中。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:2983
+#: ../root/static/scripts/edit/URLCleanup.js:2992
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
-msgstr "僅允許 IMSLP “{category_url_pattern}” "
-"連結用於創作者。請將作品頁面連結到特定作品。"
+msgstr ""
+"僅允許 IMSLP “{category_url_pattern}” 連結用於創作者。請將作品頁面連結到特定"
+"作品。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3001
+#: ../root/static/scripts/edit/URLCleanup.js:3010
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
-msgstr "IMSLP “{category_url_pattern}” "
-"連結僅允許用於創作者。請將特定作品頁面連結到該作品，而不是連結。"
+msgstr ""
+"IMSLP “{category_url_pattern}” 連結僅允許用於創作者。請將特定作品頁面連結到該"
+"作品，而不是連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3043
+#: ../root/static/scripts/edit/URLCleanup.js:3052
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
-msgstr "Instagram “{explore_url_pattern}” "
-"連結不被允許。請連結到個人資料，如果有的話。"
+msgstr ""
+"Instagram “{explore_url_pattern}” 連結不被允許。請連結到個人資料，如果有的"
+"話。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3071
+#: ../root/static/scripts/edit/URLCleanup.js:3080
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
-msgstr "請不要直接連結到圖片，而是連結到適當的Instagram首頁。如果你想連結到一個影片，"
+msgstr ""
+"請不要直接連結到圖片，而是連結到適當的Instagram首頁。如果你想連結到一個影片，"
 "{url|添加一個獨立的錄音}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3096
+#: ../root/static/scripts/edit/URLCleanup.js:3105
 msgid "This is an internal Instagram page and should not be added."
 msgstr "這是一個內部 Instagram 頁面，不應該被新增。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:4176
+#: ../root/static/scripts/edit/URLCleanup.js:4185
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
-"Musixmatch 的 “{album_url_pattern}” 頁面與 MusicBrainz "
-"發行組不匹配，並且目前不允許連結到它們。請考慮將 Musixmatch "
-"連結新增到相關的創作者和作品中。"
+"Musixmatch 的 “{album_url_pattern}” 頁面與 MusicBrainz 發行組不匹配，並且目前"
+"不允許連結到它們。請考慮將 Musixmatch 連結新增到相關的創作者和作品中。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:4856
+#: ../root/static/scripts/edit/URLCleanup.js:4865
 msgid "Only RYM music videos can be linked to recordings."
 msgstr "只有RYM的音樂影片可以連結到錄音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:4921
+#: ../root/static/scripts/edit/URLCleanup.js:4930
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
-"這是一個指向舊 Resident Advisor 網域的連結。請遵循 "
-"{ra_url|您的連結}，確保重新導向的連結仍然是正確的，如果是，則請新增該連結。"
+"這是一個指向舊 Resident Advisor 網域的連結。請遵循 {ra_url|您的連結}，確保重"
+"新導向的連結仍然是正確的，如果是，則請新增該連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5516
+#: ../root/static/scripts/edit/URLCleanup.js:5530
 msgid "Please link to Threads profiles, not threads."
 msgstr "請連結到 Threads 個人資料，而不是執行緒。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5640
+#: ../root/static/scripts/edit/URLCleanup.js:5654
 msgid "Please link to TikTok profiles, not videos."
 msgstr "請連結至 Twitter 個人資料，而非推文。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5918
+#: ../root/static/scripts/edit/URLCleanup.js:5932
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr "這不是個人資料頁，而是一個 Twitter 文件頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5932
+#: ../root/static/scripts/edit/URLCleanup.js:5946
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "請連結至 Twitter 個人資料，而非推文。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5950
+#: ../root/static/scripts/edit/URLCleanup.js:5964
 msgid "This site does not allow direct links to their images."
 msgstr "此網站不允許圖片直鏈。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6147
+#: ../root/static/scripts/edit/URLCleanup.js:6161
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
-msgstr "請連結到 “{allowed_url_pattern}” 頁面，而不是此 “{current_url_pattern}” "
-"連結。"
+msgstr ""
+"請連結到 “{allowed_url_pattern}” 頁面，而不是此 “{current_url_pattern}” 連"
+"結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6318
+#: ../root/static/scripts/edit/URLCleanup.js:6332
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
-msgstr "此 URL 中有未編碼的 “?” 或 “#” 字元。請檢查它們是否是無用的，並且應該被移除，"
+msgstr ""
+"此 URL 中有未編碼的 “?” 或 “#” 字元。請檢查它們是否是無用的，並且應該被移除，"
 "或是 URL 被錯誤編碼。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6338
+#: ../root/static/scripts/edit/URLCleanup.js:6352
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
@@ -14610,89 +14781,93 @@ msgstr ""
 "請不要直接連結到 WhoSampled 的 “{unwanted_url_pattern}” 頁面。請連結到適當的 "
 "WhoSampled 創作者、音軌或專輯頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6359
+#: ../root/static/scripts/edit/URLCleanup.js:6373
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr "請將 WhoSampled “{album_url_pattern}” 頁面連結至專輯組。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6377
+#: ../root/static/scripts/edit/URLCleanup.js:6391
 msgid "Please link WhoSampled artist pages to artists."
 msgstr "請將 WhoSampled 創作者頁面連結至創作者。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6389
+#: ../root/static/scripts/edit/URLCleanup.js:6403
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "請將 WhoSampled 音軌頁面連結至錄音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6449
+#: ../root/static/scripts/edit/URLCleanup.js:6463
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
-msgstr "不允許連結至維基百科文字的特定部分。如果合適，請移除 “{fragment}”。詳見 "
-"{url|指南}。"
+msgstr ""
+"不允許連結至維基百科文字的特定部分。如果合適，請移除 “{fragment}”。詳見 {url|"
+"指南}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6474
+#: ../root/static/scripts/edit/URLCleanup.js:6488
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr "連結到維基百科使用者頁面是不允許的。請僅連結到實際的維基百科文章。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6630
+#: ../root/static/scripts/edit/URLCleanup.js:6644
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
-msgstr "這是一個播放列錶連結，不是影片頻道，也不能保證得到官方批准。如果該實體存在，"
+msgstr ""
+"這是一個播放列錶連結，不是影片頻道，也不能保證得到官方批准。如果該實體存在，"
 "請連結到該實體的官方頻道。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6670
+#: ../root/static/scripts/edit/URLCleanup.js:6684
 msgid "Only video and playlist links are allowed on releases."
 msgstr "專輯只能有影片或播放列錶連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6715
+#: ../root/static/scripts/edit/URLCleanup.js:6729
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr "這是一個發行品（播放清單）連結，而不是創作者頻道。請連結到創作者頻道。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6751
+#: ../root/static/scripts/edit/URLCleanup.js:6765
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr "請連結到具體的影片。添加相關的歌手，標籤等渠道頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6761
+#: ../root/static/scripts/edit/URLCleanup.js:6775
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
 msgstr "請連結到具體的影片。添加相關的歌手，標籤等渠道頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6771
+#: ../root/static/scripts/edit/URLCleanup.js:6785
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
-msgstr "這是一個重定向連結。請關注{redirect_url|您的連結}並添加它重定向後的連結。"
+msgstr ""
+"這是一個重定向連結。請關注{redirect_url|您的連結}並添加它重定向後的連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6814
+#: ../root/static/scripts/edit/URLCleanup.js:6828
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
-msgstr "維基百科通常沒有針對特定發行品的條目，因此目前不允許將維基百科連結新增到發行"
+msgstr ""
+"維基百科通常沒有針對特定發行品的條目，因此目前不允許將維基百科連結新增到發行"
 "品。請將此維基百科連結新增到發行組中，如果適用的話。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6826
+#: ../root/static/scripts/edit/URLCleanup.js:6840
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
-"Wikidata 通常沒有針對特定發行品的條目，因此目前不允許將 Wikidata "
-"連結新增到發行品。請將此 Wikidata 連結新增到發行組中，如果適用的話。"
+"Wikidata 通常沒有針對特定發行品的條目，因此目前不允許將 Wikidata 連結新增到發"
+"行品。請將此 Wikidata 連結新增到發行組中，如果適用的話。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7036
+#: ../root/static/scripts/edit/URLCleanup.js:7050
 msgid "Some relationship types are missing for this URL."
 msgstr "此 URL 缺少某些關聯類型。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7053
+#: ../root/static/scripts/edit/URLCleanup.js:7067
 #: ../root/static/scripts/edit/externalLinks.js:1073
 msgid "This relationship type combination is invalid."
 msgstr "此關聯類型組合無效。"
@@ -14749,7 +14924,8 @@ msgid ""
 "Use the following fields to enter artist name variations and multiple artist "
 "collaborations. See the {ac|Artist Credit} documentation for more "
 "information."
-msgstr "使用以下表單欄來輸入合作關係。如需更多資訊請參見 {ac|創作者名單} 文件。"
+msgstr ""
+"使用以下表單欄來輸入合作關係。如需更多資訊請參見 {ac|創作者名單} 文件。"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:129
 msgid "[missing track name]"
@@ -14892,9 +15068,8 @@ msgid ""
 "title. If this is the case, please set the appropriate medium position "
 "instead of adding a title (see {release_style|the guidelines})."
 msgstr ""
-"“{matched_text}” "
-"似乎表示媒體排序而不是媒體標題。如果是這樣，請設定適當的媒體位置，而不是新增"
-"標題（參見 {release_style|指南}）。"
+"“{matched_text}” 似乎表示媒體排序而不是媒體標題。如果是這樣，請設定適當的媒體"
+"位置，而不是新增標題（參見 {release_style|指南}）。"
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:112
 msgid ""
@@ -14902,7 +15077,8 @@ msgid ""
 "may specify the new order of mediums. The order does not have to be "
 "continuous, but all medium positions must be positive, and multiple mediums "
 "cannot be in the same position"
-msgstr "使用此合併策略，將使用所有發行品的所有媒體。您可以指定媒體的新順序。順序不必"
+msgstr ""
+"使用此合併策略，將使用所有發行品的所有媒體。您可以指定媒體的新順序。順序不必"
 "是連續的，但所有媒體位置必須是正數，且多個媒體不能在同一位置"
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:139
@@ -14926,7 +15102,8 @@ msgid ""
 "This merge strategy will merge all mediums together into a single set of "
 "mediums. Recordings between mediums will also be merged, into the recordings "
 "used on the target mediums."
-msgstr "此合併策略將所有媒體合併為一組媒體。媒體之間的錄音也將合併，成為目標媒體上使"
+msgstr ""
+"此合併策略將所有媒體合併為一組媒體。媒體之間的錄音也將合併，成為目標媒體上使"
 "用的錄音。"
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:258
@@ -14939,7 +15116,8 @@ msgid ""
 "Make sure all mediums in the releases being merged are in the correct "
 "position. For example, to merge a medium into medium 2 of a release, it will "
 "need to be set as medium 2 of the release being merged."
-msgstr "請確認所有媒體在合併的專輯中位置正確。例如，要將一個媒體合併為專輯中的媒體2，"
+msgstr ""
+"請確認所有媒體在合併的專輯中位置正確。例如，要將一個媒體合併為專輯中的媒體2，"
 "需要將其設為待合併專輯的媒體2。"
 
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:272
@@ -14993,7 +15171,8 @@ msgstr "不允許添加 MusicBrainz 的 URL。您是想要貼上其他 URL 嗎�
 msgid ""
 "Please don’t enter CritiqueBrainz links — reviews are automatically linked "
 "from the “{reviews_tab_name}” tab."
-msgstr "請不要新增 CritiqueBrainz 連結——評論會自動從 “{reviews_tab_name}” 標籤連結。"
+msgstr ""
+"請不要新增 CritiqueBrainz 連結——評論會自動從 “{reviews_tab_name}” 標籤連結。"
 
 #: ../root/static/scripts/edit/externalLinks.js:782
 msgid ""
@@ -15010,13 +15189,15 @@ msgstr "請勿輸入捆綁連結或短連結，請輸入目標網站 URL。"
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
-msgstr "請勿輸入 Google AMP 連結，因為它們只是一次額外的重定向。請輸入目標 URL。"
+msgstr ""
+"請勿輸入 Google AMP 連結，因為它們只是一次額外的重定向。請輸入目標 URL。"
 
 #: ../root/static/scripts/edit/externalLinks.js:801
 msgid ""
 "Please don’t enter links to search results. If you’ve found any links "
 "through your search that seem useful, do enter those instead."
-msgstr "請不要新增指向搜尋結果的連結。如果您從搜尋中找到任何似乎有用的連結，請新增這"
+msgstr ""
+"請不要新增指向搜尋結果的連結。如果您從搜尋中找到任何似乎有用的連結，請新增這"
 "些連結。"
 
 #: ../root/static/scripts/edit/externalLinks.js:808
@@ -15132,7 +15313,8 @@ msgid ""
 "Add \"@ \" at line start to indicate artists, \"* \" for a work/song, \"# \" "
 "for additional info (such as \"Encore\"). [mbid|name] allows linking to "
 "artists and works."
-msgstr "在行首插入“@”表示創作者、“*”表示作品或樂曲、“#”表示補充資訊（如“Encore”）。"
+msgstr ""
+"在行首插入“@”表示創作者、“*”表示作品或樂曲、“#”表示補充資訊（如“Encore”）。"
 "[mbid|name] 能連結創作者和作品。"
 
 #: ../root/static/scripts/event/components/EventEditForm.js:284
@@ -15141,8 +15323,9 @@ msgid ""
 "HTML entities \"<code>&amp;lsqb;</code>\", \"<code>&amp;rsqb;</code>\", and "
 "\"<code>&amp;amp;</code>\" respectively."
 msgstr ""
-"如果有需要，\"[\"，\"]\"，和\"&\"等字元可分別用 HTML 的\"<code>&lsqb;</code>"
-"\"，\"<code>&rsqb;</code>\"，和 \"<code>&amp;</code>\" 實體編碼符號取代。"
+"如果有需要，\"[\"，\"]\"，和\"&\"等字元可分別用 HTML 的\"<code>&lsqb;</"
+"code>\"，\"<code>&rsqb;</code>\"，和 \"<code>&amp;</code>\" 實體編碼符號取"
+"代。"
 
 #: ../root/static/scripts/event/components/EventEditForm.js:300
 msgid "HH:MM"
@@ -15159,8 +15342,9 @@ msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and "
 "short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
-msgstr "此模式幾乎將所有單字大寫，部分單字（主要是冠詞和短介詞）會小寫。"
-"某些單字可能需要手動大寫以遵循 {url|英語大寫指南}。"
+msgstr ""
+"此模式幾乎將所有單字大寫，部分單字（主要是冠詞和短介詞）會小寫。某些單字可能"
+"需要手動大寫以遵循 {url|英語大寫指南}。"
 
 #: ../root/static/scripts/guess-case/modes.js:356
 msgid ""
@@ -15177,7 +15361,8 @@ msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
-msgstr "此模式將句子的第一個單字大寫，其他大多數單字小寫。某些單字，通常是專有名詞，"
+msgstr ""
+"此模式將句子的第一個單字大寫，其他大多數單字小寫。某些單字，通常是專有名詞，"
 "可能需要根據 {url|相關語言指南} 手動修正。"
 
 #: ../root/static/scripts/guess-case/modes.js:395
@@ -15185,7 +15370,8 @@ msgid ""
 "This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I'). "
 "Some words may need to be manually corrected according to the {url|Turkish "
 "language guidelines}."
-msgstr "此模式處理土耳其語中 ‘i’ 的大寫 (‘İ’) 和 ‘ı’ (‘I’)。某些單字可能需要根據 "
+msgstr ""
+"此模式處理土耳其語中 ‘i’ 的大寫 (‘İ’) 和 ‘ı’ (‘I’)。某些單字可能需要根據 "
 "{url|土耳其語指南} 手動修正。"
 
 #: ../root/static/scripts/main/components/ConfirmSeedButtons.js:25
@@ -15219,7 +15405,8 @@ msgid ""
 "If you want to set the relationship as happening on one specific date, just "
 "set the same end date and start date. You can use the arrow button to copy "
 "the begin date to the end date."
-msgstr "如果您需要將關聯設定為在特定的一天發生，可以將起始和截止日期設為同一天。你可"
+msgstr ""
+"如果您需要將關聯設定為在特定的一天發生，可以將起始和截止日期設為同一天。你可"
 "以用箭頭按鈕將起始日期複製到終止日期。"
 
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:217
@@ -15227,7 +15414,8 @@ msgid ""
 "If you do not know the end date, but you know the relationship has ended and "
 "this seems like useful information to store (for example, if someone is no "
 "longer a member of a band), you can indicate it with the checkbox above."
-msgstr "如果您不知道終止日期，但是您知道關聯已經終止並且這一資訊有記錄的意義(例如某人"
+msgstr ""
+"如果您不知道終止日期，但是您知道關聯已經終止並且這一資訊有記錄的意義(例如某人"
 "不再是樂隊成員)，您可以選中上方的複選框以標記。"
 
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:114
@@ -15238,7 +15426,8 @@ msgstr "更改此頁面上的其他 {entity} 關聯。"
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to use this option, "
 "please close this dialog and load all tracks/mediums beforehand."
-msgstr "某些音軌/媒體尚未載入。如果您想使用此選項，請關閉此對話並提前載入所有音軌/媒"
+msgstr ""
+"某些音軌/媒體尚未載入。如果您想使用此選項，請關閉此對話並提前載入所有音軌/媒"
 "體。"
 
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:139
@@ -15269,7 +15458,8 @@ msgid ""
 "If this relationship has a specific order among others of the same type, you "
 "may set its position in the list here (as an alternative to the up- and down-"
 "arrow buttons)."
-msgstr "如果此關聯在同類型中的其他關聯之間有特定順序，您可以在此設定其在列表中的位置"
+msgstr ""
+"如果此關聯在同類型中的其他關聯之間有特定順序，您可以在此設定其在列表中的位置"
 "（作為上/下箭頭按鈕的替代選項）。"
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:58
@@ -15334,7 +15524,8 @@ msgstr "相關類型"
 msgid ""
 "Warning: This relationship has open edits. {show|Click here} to view these "
 "edits and make sure they do not conflict with your own."
-msgstr "警告：此關聯有待審核編輯。{show|點擊這裡}查看這些編輯，並確保它們與您的編輯不"
+msgstr ""
+"警告：此關聯有待審核編輯。{show|點擊這裡}查看這些編輯，並確保它們與您的編輯不"
 "衝突。"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1023
@@ -15455,7 +15646,8 @@ msgid ""
 "This tracklist has artist credits with information that will be lost if you "
 "swap artist credits with track titles. This cannot be undone. Do you wish to "
 "continue?"
-msgstr "如果您將創作者名單與音軌標題交換，此音軌列表中的創作者名單將遺失。此操作不可"
+msgstr ""
+"如果您將創作者名單與音軌標題交換，此音軌列表中的創作者名單將遺失。此操作不可"
 "復原。您想繼續嗎？"
 
 #: ../root/static/scripts/release-editor/bindingHandlers.js:36
@@ -15512,10 +15704,9 @@ msgid ""
 "guidelines}). Otherwise, please confirm that this is the actual title using "
 "the checkbox below."
 msgstr ""
-"“{matched_text}” "
-"似乎表示媒體排序而不是媒體標題。如果是這樣，請使用右側的上/下箭頭設定媒體位置"
-"，而不是新增標題（參見 "
-"{release_style|指南}）。否則，請使用下面的勾選框確認這是實際標題。"
+"“{matched_text}” 似乎表示媒體排序而不是媒體標題。如果是這樣，請使用右側的上/"
+"下箭頭設定媒體位置，而不是新增標題（參見 {release_style|指南}）。否則，請使用"
+"下面的勾選框確認這是實際標題。"
 
 #: ../root/static/scripts/release-editor/fields.js:969
 msgid "You haven’t selected a label for “{name}”."
@@ -15540,7 +15731,8 @@ msgid ""
 "The following releases with that barcode are already in the MusicBrainz "
 "database. Please make sure you are not adding an exact duplicate of any of "
 "these:"
-msgstr "在MusicBrainz資料庫中已經存在以下帶有該條碼的版本。請確保你沒有添加這些完全相"
+msgstr ""
+"在MusicBrainz資料庫中已經存在以下帶有該條碼的版本。請確保你沒有添加這些完全相"
 "同的內容:"
 
 #: ../root/static/scripts/release-editor/validation.js:178
@@ -15595,8 +15787,8 @@ msgid ""
 "the annotation field below, and keep the main code “{main_digits}” only in "
 "the barcode field."
 msgstr ""
-"然而，它以附加程式碼結尾。請將其作為 “{annotation_text}” "
-"新增到下面的註解欄位，並僅在條碼欄位中保留主要程式碼 “{main_digits}”。"
+"然而，它以附加程式碼結尾。請將其作為 “{annotation_text}” 新增到下面的註解欄"
+"位，並僅在條碼欄位中保留主要程式碼 “{main_digits}”。"
 
 #: ../root/static/scripts/release-editor/validation.js:253
 msgid "The barcode you entered is not a valid GTIN code."
@@ -15614,15 +15806,17 @@ msgstr "您輸入的條碼不是有效的 UPC 或 EAN 代碼。"
 msgid ""
 "This will add a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
-msgstr "這將為每個已勾選的錄音新增新作品，這些錄音尚未有作品。作品名稱將與各自的錄音"
+msgstr ""
+"這將為每個已勾選的錄音新增新作品，這些錄音尚未有作品。作品名稱將與各自的錄音"
 "相同。"
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:234
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to add, and are certain they do not already exist on MusicBrainz."
-msgstr "僅在您已嘗試搜尋要新增的作品，並確定它們尚不存在於 MusicBrainz "
-"上後使用此選項。"
+msgstr ""
+"僅在您已嘗試搜尋要新增的作品，並確定它們尚不存在於 MusicBrainz 上後使用此選"
+"項。"
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:310
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:72
@@ -15939,7 +16133,8 @@ msgstr "‘{tag}’ 已經被使用了 {num} 次"
 msgid ""
 "These are the most popular tags in MusicBrainz, based on their total counts "
 "(upvotes minus downvotes)."
-msgstr "這些是 MusicBrainz 中最受歡迎的標籤，基於其總計數（上票數減去一下票數）。"
+msgstr ""
+"這些是 MusicBrainz 中最受歡迎的標籤，基於其總計數（上票數減去一下票數）。"
 
 #: ../root/tag/TagCloud.js:104
 msgid "Show as a cloud instead."
@@ -15997,12 +16192,11 @@ msgid ""
 "donations <strong>tax deductible</strong> for US taxpayers. And it's simply "
 "good karma everywhere else!"
 msgstr ""
-"然而，我們仍然需要支付帳單，並且維護此網站的費用超過 "
-"{finances|每月1000美元}。我們需要使用者幫助我們維持生計，並希望能有剩餘的資金"
-"來支援更多的開發。 {metabrainz_foundation|MetaBrainz 基金會} "
-"是一家位於加州的501©3免稅非營利機構，運營 MusicBrainz "
-"項目，所有捐款對美國納稅人來說<strong>可抵稅</strong>。而且這在其他地方也會帶"
-"來好運氣！"
+"然而，我們仍然需要支付帳單，並且維護此網站的費用超過 {finances|每月1000美"
+"元}。我們需要使用者幫助我們維持生計，並希望能有剩餘的資金來支援更多的開發。 "
+"{metabrainz_foundation|MetaBrainz 基金會} 是一家位於加州的501©3免稅非營利機"
+"構，運營 MusicBrainz 項目，所有捐款對美國納稅人來說<strong>可抵稅</strong>。"
+"而且這在其他地方也會帶來好運氣！"
 
 #: ../root/taglookup/Nag.js:34
 msgid ""
@@ -16032,7 +16226,8 @@ msgstr "標籤尋找錯誤"
 msgid ""
 "That search can't be performed, because you must provide at least one of "
 "'recording', 'track number', 'duration', 'release', or 'artist'."
-msgstr "無法執行該搜尋，您必須提供“錄製方式”，“音軌號”，“持續時間”，“發行形式”或“創作"
+msgstr ""
+"無法執行該搜尋，您必須提供“錄製方式”，“音軌號”，“持續時間”，“發行形式”或“創作"
 "者”中的至少一個。"
 
 #: ../root/taglookup/NotFound.js:24
@@ -16114,9 +16309,9 @@ msgid ""
 "automatically approved without going through the normal voting process, as "
 "well as the ability to instantly approve other users' edits."
 msgstr ""
-"自動編輯者是被授予 {url|自動編輯者} "
-"權限的受信使用者。這些權限使他們能夠進行選定的編輯，這些編輯會自動獲得批准，"
-"而無需經過正常的投票過程，並且可以立即批准其他使用者的編輯。"
+"自動編輯者是被授予 {url|自動編輯者} 權限的受信使用者。這些權限使他們能夠進行"
+"選定的編輯，這些編輯會自動獲得批准，而無需經過正常的投票過程，並且可以立即批"
+"准其他使用者的編輯。"
 
 #: ../root/user/PrivilegedUsers.js:41
 msgid "The following {count} users have auto-editor privileges:"
@@ -16179,7 +16374,8 @@ msgid ""
 "Banner message editors are users who can set a message that is shown in a "
 "banner on all pages, for example to warn users about upcoming site "
 "maintenance."
-msgstr "橫幅訊息編輯者是可以設定在所有頁面上顯示的訊息的使用者，例如警告使用者即將進"
+msgstr ""
+"橫幅訊息編輯者是可以設定在所有頁面上顯示的訊息的使用者，例如警告使用者即將進"
 "行的網站維護。"
 
 #: ../root/user/PrivilegedUsers.js:105
@@ -16218,7 +16414,8 @@ msgid ""
 "This user account has already been deleted, so there’s probably no need to "
 "report it. If you feel there’s a problem that still needs action, please "
 "{link|contact us}."
-msgstr "該使用者帳號已被刪除，因此可能不需要報告。如果您認為仍有需要採取行動的問題，"
+msgstr ""
+"該使用者帳號已被刪除，因此可能不需要報告。如果您認為仍有需要採取行動的問題，"
 "請 {link|聯繫我們}。"
 
 #: ../root/user/ReportUser.js:96
@@ -16243,11 +16440,11 @@ msgid ""
 "of additional research."
 msgstr ""
 "請務必提供報告行為的直接連結範例（例如，使用“<code>https://musicbrainz.org/"
-"edit/23</code>”而不是“編輯#23”，並使用“<code>https://musicbrainz.org/edit/"
-"42</code>和<code>https://musicbrainz.org/edit/43</code>”而不是“<code>https://"
-"musicbrainz.org/user/SomeUser/"
-"edits</code>”）。提供連結使報告的接收方更容易調查問題；沒有連結的報告不太可能"
-"快速處理，因為這將需要大量的額外研究。"
+"edit/23</code>”而不是“編輯#23”，並使用“<code>https://musicbrainz.org/"
+"edit/42</code>和<code>https://musicbrainz.org/edit/43</code>”而不"
+"是“<code>https://musicbrainz.org/user/SomeUser/edits</code>”）。提供連結使報"
+"告的接收方更容易調查問題；沒有連結的報告不太可能快速處理，因為這將需要大量的"
+"額外研究。"
 
 #: ../root/user/ReportUser.js:153
 msgid ""
@@ -16256,9 +16453,9 @@ msgid ""
 "so that you can be contacted if the report is resolved or the admins need "
 "more information."
 msgstr ""
-"如果您不希望我們的管理員因此報告進一步聯絡您，請取消勾選上方的複選框。<br "
-"/>我們建議您保持勾選，這樣在報告的問題被解決或管理員需要更多資訊時，我們能夠"
-"能聯絡您。"
+"如果您不希望我們的管理員因此報告進一步聯絡您，請取消勾選上方的複選框。<br />"
+"我們建議您保持勾選，這樣在報告的問題被解決或管理員需要更多資訊時，我們能夠能"
+"聯絡您。"
 
 #: ../root/user/ReportUser.js:163
 msgid "Receive email updates about this report"
@@ -16635,8 +16832,8 @@ msgid ""
 "reporting the spammer from their user page."
 msgstr ""
 "該使用者因被視為垃圾郵件發送者而被封禁，其個人資料也被隱藏。如果您在 "
-"MusicBrainz "
-"中看到垃圾郵件，請透過在其使用者頁面上檢舉垃圾郵件發送者的方式告知我們。"
+"MusicBrainz 中看到垃圾郵件，請透過在其使用者頁面上檢舉垃圾郵件發送者的方式告"
+"知我們。"
 
 #: ../root/user/UserProfile.js:964
 msgid "Report this user for bad behavior"
@@ -16872,8 +17069,9 @@ msgstr "此次編輯已失敗，因為沒有足夠的贊成票。"
 msgid ""
 "This edit failed either because an entity it was modifying no longer exists, "
 "or the entity can not be modified in this manner anymore."
-msgstr "此次編輯已失敗，可能因為它正在修改的物件不再存在，或該物件無法再以此方式修改"
-"。"
+msgstr ""
+"此次編輯已失敗，可能因為它正在修改的物件不再存在，或該物件無法再以此方式修"
+"改。"
 
 #: ../root/utility/edit.js:76
 msgid ""
@@ -16885,7 +17083,8 @@ msgid ""
 "This edit failed because the data it was changing was modified after this "
 "edit was entered. This may happen when the same edit is entered in twice; "
 "one will pass but the other will fail."
-msgstr "此編輯失敗是因為它要修改的資料在編輯提交後已被更改。這可能發生在同一編輯被重"
+msgstr ""
+"此編輯失敗是因為它要修改的資料在編輯提交後已被更改。這可能發生在同一編輯被重"
 "複提交時；其中一個會成功，但另一個會失敗。"
 
 #: ../root/utility/edit.js:87
@@ -16929,11 +17128,10 @@ msgid ""
 "comfortable with the edit search you can refine them further or just create "
 "your own personal searches and bookmark them for your own use!"
 msgstr ""
-"如果你想幫助確保對 MusicBrainz "
-"資料所做的更改是正確的，但不知道從哪裡開始，以下建議應該會很有幫助。這些都是"
-"預定義的{edit_search|編輯搜尋}; "
-"一旦你熟悉了這些編輯搜尋，你可以進一步細化它們，或者建立自己的個性化搜尋並將"
-"其收藏以供自己使用！"
+"如果你想幫助確保對 MusicBrainz 資料所做的更改是正確的，但不知道從哪裡開始，以"
+"下建議應該會很有幫助。這些都是預定義的{edit_search|編輯搜尋}; 一旦你熟悉了這"
+"些編輯搜尋，你可以進一步細化它們，或者建立自己的個性化搜尋並將其收藏以供自己"
+"使用！"
 
 #: ../root/vote/VotingIndex.js:116
 msgid ""
@@ -16945,11 +17143,11 @@ msgid ""
 "you find an editor that seems to be vandalizing the data, you can always "
 "report them from their profile."
 msgstr ""
-"在審查其他編輯的工作時，始終牢記{coc|Code of "
-"Conduct}。大部分編輯者都希望提供幫助，因此你作為投票者的目的是幫助他們更好地"
-"做貢獻。這尤其適用於初學者：即使他們有些地方出現錯誤，也要盡量耐心和友好地對"
-"待他們，以便他們能夠成長為更好的編輯者！當然，如果你發現某個編輯者似乎在破壞"
-"資料，你可以從他們的個人資料中檢舉他們。"
+"在審查其他編輯的工作時，始終牢記{coc|Code of Conduct}。大部分編輯者都希望提供"
+"幫助，因此你作為投票者的目的是幫助他們更好地做貢獻。這尤其適用於初學者：即使"
+"他們有些地方出現錯誤，也要盡量耐心和友好地對待他們，以便他們能夠成長為更好的"
+"編輯者！當然，如果你發現某個編輯者似乎在破壞資料，你可以從他們的個人資料中檢"
+"舉他們。"
 
 #: ../root/vote/VotingIndex.js:129
 msgid ""
@@ -16983,11 +17181,10 @@ msgstr ""
 "破壞性編輯（刪除和合併）往往難以復原。因此，如果一個錯誤的破壞性編輯未被注意"
 "到並應用可能會造成很大的混亂！大多數破壞性編輯即使獲得三個“同意”票，也保證至"
 "少會保持開放兩天，以避免其過快關閉，但讓更多人有時間審查總是好的。以下你可以"
-"找到六種不同的搜尋：1. 所有破壞性編輯（有時可能會令人不知所措）, 2. "
-"僅沒有編輯注釋的破壞性編輯（完全不提供任何理由）, 3. "
-"僅實體的合併和移除（如果錯誤地允許並透過了，這些編輯最有可能造成混亂）, 4. "
-"僅關係的移除, 5. 僅對發行版本的破壞性更改（移除相關的音軌、介質和發行廠牌）, "
-"5. 僅圖像的移除（封面/活動圖)。"
+"找到六種不同的搜尋：1. 所有破壞性編輯（有時可能會令人不知所措）, 2. 僅沒有編"
+"輯注釋的破壞性編輯（完全不提供任何理由）, 3. 僅實體的合併和移除（如果錯誤地允"
+"許並透過了，這些編輯最有可能造成混亂）, 4. 僅關係的移除, 5. 僅對發行版本的破"
+"壞性更改（移除相關的音軌、介質和發行廠牌）, 5. 僅圖像的移除（封面/活動圖)。"
 
 #: ../root/vote/VotingIndex.js:158
 msgid "All open destructive edits"
@@ -17113,9 +17310,9 @@ msgid ""
 "amount of edits that auto-apply might still be worth reviewing when entered "
 "by beginners, so consider checking those too!"
 msgstr ""
-"您尚未投票的編輯的過濾器將僅顯示開放編輯（因為您無法對已關閉的編輯進行投票）"
-"。話雖如此，仍然有相當數量的自動應用的編輯值得在初學者輸入時進行審查，因此也"
-"可以考慮檢查這些！"
+"您尚未投票的編輯的過濾器將僅顯示開放編輯（因為您無法對已關閉的編輯進行投"
+"票）。話雖如此，仍然有相當數量的自動應用的編輯值得在初學者輸入時進行審查，因"
+"此也可以考慮檢查這些！"
 
 #: ../root/vote/VotingIndex.js:345
 msgid ""
@@ -17213,6 +17410,6 @@ msgid ""
 "<strong>Warning:</strong> Some of the works you’re merging have different "
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
-msgstr "<strong>警告：</strong> "
-"你正在合併的作品中有一些擁有不同的ISWC編號。請先確保這些作品確實為相同作品，"
-"然後再繼續進行合併。"
+msgstr ""
+"<strong>警告：</strong> 你正在合併的作品中有一些擁有不同的ISWC編號。請先確保"
+"這些作品確實為相同作品，然後再繼續進行合併。"

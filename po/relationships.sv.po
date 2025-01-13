@@ -7,11 +7,12 @@
 # Kristoffer Grundström <email address hidden>, 2018
 # Killinstinct <email address hidden>, 2015
 # Autom <filipbengtsson@live.se>, 2024.
+# Crowbardoctor <elin.ax1111@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-04-21 14:42+0000\n"
-"Last-Translator: Autom <filipbengtsson@live.se>\n"
+"PO-Revision-Date: 2025-01-12 19:44+0000\n"
+"Last-Translator: Crowbardoctor <elin.ax1111@gmail.com>\n"
 "Language-Team: Swedish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/sv/>\n"
 "Language: sv\n"
@@ -19,12 +20,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
 msgstr ""
+"Ett prestationscentrerat, vanligtvis ett till treårigt "
+"forskarutbildningsprogram."
 
 #. name:social network
 #: DB:link_type/description:218
