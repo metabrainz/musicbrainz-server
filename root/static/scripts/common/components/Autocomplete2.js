@@ -149,6 +149,7 @@ type InitialStateT<T: EntityItemT> = {
   +disabled?: boolean,
   +entityType: T['entityType'],
   +extractSearchTerms?: (OptionItemT<T>) => Array<string>,
+  +htmlName?: string,
   +id: string,
   +inputChangeHook?: (
     inputValue: string,
@@ -159,6 +160,7 @@ type InitialStateT<T: EntityItemT> = {
   +inputRef?: {-current: HTMLInputElement | null},
   +inputValue?: string,
   +isLookupPerformed?: boolean,
+  +label?: string,
   +labelStyle?: {...},
   +placeholder?: string,
   +recentItemsKey?: string,
@@ -311,6 +313,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
     disabled = false,
     entityType,
     highlightedIndex,
+    htmlName,
     id: inputId,
     inputChangeHook,
     inputRef: externalInputRef,
@@ -729,7 +732,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
       : state.isLookupPerformed
   );
 
-  return (
+  const containerElement = (
     <div
       className={
         'autocomplete2' +
@@ -741,18 +744,6 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
       }}
       style={nonEmpty(state.width) ? {width: state.width} : null}
     >
-      <label
-        className={state.labelClass}
-        htmlFor={inputId}
-        id={labelId}
-        style={state.labelStyle || DISPLAY_NONE_STYLE}
-      >
-        {addColonText(
-          nonEmpty(state.placeholder)
-            ? state.placeholder
-            : SEARCH_PLACEHOLDERS[entityType](),
-        )}
-      </label>
       <div
         aria-expanded={isOpen ? 'true' : 'false'}
         aria-haspopup="listbox"
@@ -781,6 +772,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
           }
           disabled={disabled}
           id={inputId}
+          name={nonEmpty(htmlName) ? (htmlName + '.name') : null}
           onBlur={handleInputBlur}
           onChange={handleInputChange}
           onFocus={handleInputFocus}
@@ -851,6 +843,21 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
         {statusMessage}
       </div>
 
+      {nonEmpty(htmlName) ? (
+        <>
+          <input
+            name={htmlName + '.id'}
+            type="hidden"
+            value={selectedItem ? selectedItem.entity.id : ''}
+          />
+          <input
+            name={htmlName + '.gid'}
+            type="hidden"
+            value={selectedItem ? selectedItem.entity.gid : ''}
+          />
+        </>
+      ) : null}
+
       {isAddEntityDialogOpen ? (
         <AddEntityDialog
           callback={addEntityDialogCallback}
@@ -860,6 +867,35 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
         />
       ) : null}
     </div>
+  );
+
+  const labelElement = (
+    <label
+      className={
+        (state.labelClass ?? '') +
+        (state.required ? ' required' : '')
+      }
+      htmlFor={inputId}
+      id={labelId}
+      style={state.labelStyle || DISPLAY_NONE_STYLE}
+    >
+      {addColonText(
+        nonEmpty(state.label)
+          ? state.label
+          : (
+            nonEmpty(state.placeholder)
+              ? state.placeholder
+              : SEARCH_PLACEHOLDERS[entityType]()
+          ),
+      )}
+    </label>
+  );
+
+  return (
+    <>
+      {labelElement}
+      {containerElement}
+    </>
   );
 }
 

@@ -47,7 +47,6 @@ has_field 'gender_id' => (
     type => 'Select',
 );
 
-has_field 'area_id'   => ( type => 'Hidden' );
 has_field 'area'      => (
     type => '+MusicBrainz::Server::Form::Field::Area',
 );
