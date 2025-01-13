@@ -13,6 +13,7 @@ import * as React from 'react';
 
 import type {ReleaseEditorTrackT} from '../../release-editor/types.js';
 import isGreyedOut from '../../url/utility/isGreyedOut.js';
+import {AREA_TYPE_COUNTRY} from '../constants.js';
 import commaOnlyList from '../i18n/commaOnlyList.js';
 import localizeAreaName from '../i18n/localizeAreaName.js';
 import localizeInstrumentName from '../i18n/localizeInstrumentName.js';
@@ -21,11 +22,16 @@ import entityHref from '../utility/entityHref.js';
 import formatDatePeriod from '../utility/formatDatePeriod.js';
 import isolateText from '../utility/isolateText.js';
 
+function maybeIsolated(shouldIsolate: boolean, content: ?React.Node) {
+  return shouldIsolate ? isolateText(content) : content;
+}
+
 export component DeletedLink(
   allowNew: boolean,
   className?: string,
   deletedCaption?: string,
   name: ?Expand2ReactOutput,
+  shouldIsolate: boolean = true,
 ) {
   const caption = nonEmpty(deletedCaption) ? deletedCaption : (allowNew
     ? l('This entity will be added by this edit.')
@@ -40,7 +46,7 @@ export component DeletedLink(
       }
       title={caption}
     >
-      {isolateText(nonEmpty(name)
+      {maybeIsolated(shouldIsolate, nonEmpty(name)
         ? name
         : lp('[removed]', 'generic entity'))}
     </span>
@@ -165,7 +171,6 @@ component EntityLink(
     | LinkTypeT
     | TrackT
     | ReleaseEditorTrackT,
-  hover as passedHover?: string,
   nameVariation as passedNameVariation?: boolean,
   showArtworkPresence: boolean = false,
   showCreditedAs: boolean = false,
@@ -175,6 +180,7 @@ component EntityLink(
   showEventDate: boolean = true,
   showIcon as passedShowIcon?: boolean = false,
   subPath?: string,
+  shouldIsolate: boolean = true,
   ...passedAnchorProps: {
     className?: string,
     href?: string,
@@ -188,9 +194,12 @@ component EntityLink(
   const hasSubPath = nonEmpty(subPath);
   // $FlowIgnore[prop-missing]
   const comment = nonEmpty(entity.comment) ? ko.unwrap(entity.comment) : '';
+  const entityName = ko.unwrap(entity.name);
+  const isCountryArea = entity.entityType === 'area' &&
+                        entity.typeID === AREA_TYPE_COUNTRY;
 
   let content = passedContent;
-  let hover = passedHover;
+  let hover = '';
   let nameVariation = passedNameVariation;
   let showDisambiguation = passedShowDisambiguation;
   let showIcon = passedShowIcon;
@@ -206,22 +215,6 @@ component EntityLink(
     }
     Sentry.captureException(new Error(errorMessage));
   }
-
-  if (showDisambiguation === undefined) {
-    showDisambiguation = !hasCustomContent;
-  }
-
-  if (entity.entityType === 'artist' && empty(hover)) {
-    hover = entity.sort_name + (comment ? ' ' + bracketedText(comment) : '');
-  }
-
-  if (showDisambiguation === 'hover') {
-    hover = empty(hover)
-      ? comment
-      : hover + ' ' + bracketedText(comment);
-  }
-
-  const entityName = ko.unwrap(entity.name);
 
   /*
    * If we were asked to display the credited-as text explicitly,
@@ -242,6 +235,29 @@ component EntityLink(
   }
 
   content = empty(content) ? entityName : content;
+
+  const primaryAlias = (!isCountryArea &&
+                        entity.entityType !== 'instrument' &&
+                        entity.entityType !== 'track' &&
+                        nonEmpty(entity.primaryAlias) &&
+                        entity.primaryAlias !== content)
+    ? entity.primaryAlias
+    : '';
+
+
+  if (showDisambiguation === undefined) {
+    showDisambiguation = !hasCustomContent;
+  }
+
+  if (showDisambiguation === 'hover' || entity.entityType === 'artist') {
+    const sortName = entity.entityType === 'artist' ? entity.sort_name : '';
+    const additionalName = nonEmpty(primaryAlias) ? primaryAlias : sortName;
+    hover = nonEmpty(additionalName) ? (
+      nonEmpty(comment) ? (
+        additionalName + ' ' + bracketedText(comment)
+      ) : additionalName
+    ) : comment;
+  }
 
   if (!ko.unwrap(entity.gid)) {
     if (entity.entityType === 'url') {
@@ -305,9 +321,13 @@ component EntityLink(
           ? disabledLinkText()
           : null}
       >
-        {isolateText(content)}
+        {maybeIsolated(shouldIsolate, content)}
       </span>
-    ) : <a key="link" {...anchorProps}>{isolateText(content)}</a>;
+    ) : (
+      <a key="link" {...anchorProps}>
+        {maybeIsolated(shouldIsolate, content)}
+      </a>
+    );
 
   if (nameVariation === true) {
     content = (
@@ -482,12 +502,6 @@ component EntityLink(
         />,
       );
     }
-    const primaryAlias =
-      (entity.entityType !== 'track' &&
-        nonEmpty(entity.primaryAlias) &&
-        entity.primaryAlias !== entityName)
-        ? entity.primaryAlias
-        : '';
     if (nonEmpty(comment) || nonEmpty(primaryAlias)) {
       parts.push(
         <Comment

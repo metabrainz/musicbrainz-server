@@ -8,21 +8,22 @@
  */
 
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
-import DBDefs from '../static/scripts/common/DBDefs-client.mjs';
+import {CRITIQUEBRAINZ_SERVER}
+  from '../static/scripts/common/DBDefs-client.mjs';
 
 const seeReviewsHref = (entity: ReviewableT) => {
   const reviewUrlEntity = entity.entityType === 'release_group'
     ? 'release-group'
     : entity.entityType;
   return (
-    DBDefs.CRITIQUEBRAINZ_SERVER +
+    CRITIQUEBRAINZ_SERVER +
     `/${reviewUrlEntity}/` +
     entity.gid
   );
 };
 
 const writeReviewLink = (entity: ReviewableT) => (
-  DBDefs.CRITIQUEBRAINZ_SERVER +
+  CRITIQUEBRAINZ_SERVER +
   `/review/write?${entity.entityType}=` +
   entity.gid
 );

@@ -22,9 +22,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-12-08 16:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2024-12-22 17:42+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.8.4\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -344,19 +344,15 @@ msgstr ""
 
 #. name:acappella
 #: DB:link_attribute_type/description:1406
-#, fuzzy
-#| msgid ""
-#| "For works that have lyrics, this indicates that those lyrics are not "
-#| "relevant to this recording. Examples include instrumental arrangements, "
-#| "or \"beats\" from hip-hop songs which may be reused with different lyrics."
 msgid ""
 "For works that usually have instruments and vocals, this indicates that the "
 "instrumental parts are not relevant to this recording. Examples include rap "
 "tracks from hip hop songs that can be remixed and used with different beats."
 msgstr ""
-"К произведениям, имеющим текстовую составляющую, этот признак неприменим. "
-"Примерами записи тут чаще выступают инструментальные аранжировки или хип-хоп "
-"биты, которые можно повторно применять с разными текстами."
+"Для произведений, в которых обычно есть инструменты и вокал, это означает, "
+"что инструментальные части не имеют отношения к данной записи. В качестве "
+"примера можно привести рэп-треки из хип-хоп песен, которые можно "
+"ремикшировать и использовать с другими ритмами."
 
 #. name:geonames
 #: DB:link_type/link_phrase:934 DB:link_type/link_phrase:713
@@ -7370,17 +7366,13 @@ msgstr ""
 
 #. name:performance
 #: DB:link_type/long_link_phrase:278
-#, fuzzy
-#| msgid ""
-#| "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley "
-#| "including a} {partial} {instrumental} {cover} {karaoke} recording of"
 msgid ""
 "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
 "a} {partial} {instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
-"является {partial:частичной} {instrumental:инструментальной} {karaoke:"
-"караоке} {live:концертной}{acappella:акапелла} {medley:поппури} записью "
-"{cover:кавера} работы"
+"является {partial:частичной} {instrumental:инструментальной} "
+"{karaoke:караоке} {live:концертной}{acappella:акапелла} {medley:поппури} "
+"{demo:демо} записью {cover:кавера} работы"
 
 #. name:subgroup
 #: DB:link_type/long_link_phrase:722
@@ -8951,7 +8943,7 @@ msgstr ""
 #. name:remix
 #: DB:link_type/link_phrase:230 DB:link_type/link_phrase:9
 msgid "remix of"
-msgstr ""
+msgstr "является ремиксом"
 
 #: DB:link_type/name:829 DB:link_type/name:828
 msgid "remixed at"
@@ -8968,7 +8960,7 @@ msgstr ""
 
 #: DB:link_type/name:153 DB:link_type/name:47
 msgid "remixer"
-msgstr ""
+msgstr "ремиксер"
 
 #. name:remix
 #: DB:link_type/reverse_link_phrase:9
@@ -9934,17 +9926,13 @@ msgstr ""
 
 #. name:performance
 #: DB:link_type/link_phrase:278
-#, fuzzy
-#| msgid ""
-#| "{acappella:a cappella} {live} {medley:medley including a} {partial} "
-#| "{instrumental} {cover} {karaoke} recording of"
 msgid ""
 "{acappella:a cappella} {live} {medley:medley including a} {partial} "
 "{instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
-"{partial:частичная} {instrumental:инструментальная} {karaoke:караоке} {live:"
-"концертная} {acappella:акапелла} {medley:поппури} запись {cover:кавера} "
-"работы"
+"{partial:частичная} {instrumental:инструментальная} {karaoke:караоке} "
+"{live:концертная} {acappella:акапелла} {medley:поппури} {demo:демо} запись "
+"{cover:кавера} работы"
 
 #. name:performance
 #: DB:link_type/reverse_link_phrase:278
@@ -10389,18 +10377,18 @@ msgstr "{additional:дополнительное} место композици�
 #. name:lyricist
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
 msgid "{additional} lyricist"
-msgstr ""
+msgstr "{additional:дополнительный} автор слов"
 
 #. name:lyricist
 #: DB:link_type/link_phrase:56 DB:link_type/link_phrase:165
 msgid "{additional} lyrics"
-msgstr ""
+msgstr "{additional:дополнительные} тексты"
 
 #. name:lyrics written at, name:lyrics written in
 #: DB:link_type/link_phrase:877 DB:link_type/link_phrase:878
 #: DB:link_type/link_phrase:1270 DB:link_type/link_phrase:1250
 msgid "{additional} lyrics writing location for"
-msgstr ""
+msgstr "{additional:дополнительное} место написания слов для"
 
 #. name:lyrics written at
 #: DB:link_type/reverse_link_phrase:878 DB:link_type/reverse_link_phrase:1250
@@ -10484,12 +10472,12 @@ msgstr ""
 #. name:translator
 #: DB:link_type/reverse_link_phrase:871 DB:link_type/reverse_link_phrase:872
 msgid "{additional} translator"
-msgstr ""
+msgstr "{additional:дополнительный} переводчик"
 
 #. name:writer
 #: DB:link_type/reverse_link_phrase:54 DB:link_type/reverse_link_phrase:167
 msgid "{additional} writer"
-msgstr ""
+msgstr "{additional:дополнительный} автор"
 
 #. name:written at, name:written in
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
@@ -10523,7 +10511,7 @@ msgstr ""
 #. name:remixer
 #: DB:link_type/reverse_link_phrase:153 DB:link_type/reverse_link_phrase:47
 msgid "{additional} {assistant} remixer"
-msgstr ""
+msgstr "{additional:дополнительный} ремиксер {assistant:помощник}"
 
 #. name:audio
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31

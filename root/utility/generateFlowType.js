@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable @stylistic/js/multiline-comment-style */
+/* eslint-disable @stylistic/multiline-comment-style */
 /* eslint-disable import/no-commonjs */
 
 const crypto = require('crypto');

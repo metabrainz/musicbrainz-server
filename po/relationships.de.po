@@ -17,7 +17,7 @@
 # TL, 2016
 # Tobias Sarner <email address hidden>, 2020
 # Ulrich Klauer <email address hidden>, 2016
-# chaban <chaban@users.noreply.translations.metabrainz.org>, 2023.
+# chaban <chaban@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # aerozol <aerozol@users.noreply.translations.metabrainz.org>, 2023.
@@ -25,9 +25,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-21 14:42+0000\n"
-"Last-Translator: kellnerd <kellnerd@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2024-12-26 16:43+0000\n"
+"Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/de/>\n"
 "Language: de\n"
@@ -35,7 +34,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -1670,7 +1669,7 @@ msgstr ""
 #. name:number
 #: DB:link_attribute_type/description:788
 msgid "This attribute indicates the number of an entity in a series."
-msgstr ""
+msgstr "Dieses Attribut kennzeichnet die Nummer eines Objekts in einer Serie."
 
 #. name:winner
 #: DB:link_attribute_type/description:1416

@@ -73,6 +73,7 @@ after 'load' => sub
     my $returning_jsonld = $self->should_return_jsonld($c);
 
     unless ($returning_jsonld) {
+        $c->model('Recording')->load_aliases($recording);
         $c->model('Recording')->load_meta($recording);
         $c->model('Recording')->load_first_release_date($recording);
 
@@ -203,6 +204,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 
 sub _merge_load_entities {
     my ($self, $c, @recordings) = @_;
+    $c->model('Recording')->load_aliases(@recordings);
     $c->model('ArtistCredit')->load(@recordings);
     $c->model('ISRC')->load_for_recordings(@recordings);
 

@@ -11,19 +11,28 @@ import listenBrainzIconUrl
   from '../../../static/images/icons/listenbrainz.png';
 
 function getListenBrainzLink(
-  entityType: 'release' | 'recording',
+  entityType: 'album' | 'artist' | 'recording',
   mbids: string | $ReadOnlyArray<string>,
 ): string | null {
   let formattedMbids;
 
   if (Array.isArray(mbids)) {
-    formattedMbids = mbids.join(',');
+    if (entityType === 'recording') {
+      formattedMbids = encodeURIComponent(mbids.join(','));
+    } else {
+      // Multiple MBIDs are only supported for recordings
+      return null;
+    }
   } else {
-    formattedMbids = mbids;
+    formattedMbids = encodeURIComponent(mbids);
   }
 
-  if (entityType === 'release') {
-    return `//listenbrainz.org/player/release/${formattedMbids}`;
+  if (entityType === 'artist') {
+    return `//listenbrainz.org/artist/${formattedMbids}`;
+  }
+
+  if (entityType === 'album') {
+    return `//listenbrainz.org/album/${formattedMbids}`;
   }
 
   if (entityType === 'recording') {
@@ -34,7 +43,7 @@ function getListenBrainzLink(
 }
 
 component PlayOnListenBrainzButton(
-  entityType: 'release' | 'recording',
+  entityType: 'album' | 'artist' | 'recording',
   mbids: string | $ReadOnlyArray<string>,
 ) {
   const link = getListenBrainzLink(entityType, mbids);

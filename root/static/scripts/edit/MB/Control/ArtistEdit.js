@@ -40,6 +40,7 @@ MB.Control.ArtistEdit = function () {
    *   Unknown: 0
    *   Person: 1
    *   Group: 2
+   *   Character: 4
    *   Orchestra: 5
    *   Choir: 6
    */
@@ -68,6 +69,19 @@ MB.Control.ArtistEdit = function () {
           addColonText(lp('Dissolved in', 'group artist')),
         );
         self.disableGender();
+        break;
+
+      case '4':
+        self.changeDateText(
+          addColonText(lp('Created', 'character artist')),
+          addColonText(lp('Ended', 'artist end date')),
+          l('This artist has ended.'),
+        );
+        self.changeAreaText(
+          addColonText(lp('Created in', 'character artist')),
+          addColonText(l('End area')),
+        );
+        self.enableGender();
         break;
 
       case '0':

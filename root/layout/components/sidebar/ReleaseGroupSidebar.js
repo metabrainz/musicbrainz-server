@@ -26,7 +26,7 @@ import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 
 component ReleaseGroupSidebar(
-  firstReleaseGid?: string | null,
+  hasReleases: boolean,
   releaseGroup: ReleaseGroupT,
 ) {
   const gid = encodeURIComponent(releaseGroup.gid);
@@ -40,10 +40,10 @@ component ReleaseGroupSidebar(
         </div>
       ) : null}
 
-      {nonEmpty(firstReleaseGid) ? (
+      {hasReleases ? (
         <PlayOnListenBrainzButton
-          entityType="release"
-          mbids={firstReleaseGid}
+          entityType="album"
+          mbids={gid}
         />
       ) : null}
 

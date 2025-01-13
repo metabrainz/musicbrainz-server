@@ -33,6 +33,7 @@ import CollectionLinks from './CollectionLinks.js';
 import EditLinks from './EditLinks.js';
 import LastUpdated from './LastUpdated.js';
 import MergeLink from './MergeLink.js';
+import PlayOnListenBrainzButton from './PlayOnListenBrainzButton.js';
 import SidebarBeginDate from './SidebarBeginDate.js';
 import SidebarEndDate from './SidebarEndDate.js';
 import SidebarIpis from './SidebarIpis.js';
@@ -61,6 +62,11 @@ component ArtistSidebar(artist: ArtistT) {
       <CommonsImage
         cachedImage={$c.stash.commons_image}
         entity={artist}
+      />
+
+      <PlayOnListenBrainzButton
+        entityType="artist"
+        mbids={artist.gid}
       />
 
       <h2 className="artist-information">

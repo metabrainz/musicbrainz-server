@@ -72,7 +72,6 @@ export default function useEventTrap<T: HTMLElement>(
 
   const targetActions = setupEventHandler(eventType);
 
-  /* eslint-disable-next-line react-hooks/rules-of-hooks */
   useEffect(() => {
     targetActions.set(targetRef, action);
     return () => {

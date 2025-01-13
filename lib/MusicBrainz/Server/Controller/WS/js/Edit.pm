@@ -6,6 +6,10 @@ use HTTP::Status qw( :constants );
 use JSON qw( encode_json );
 use Moose;
 use MooseX::MethodAttributes;
+use MusicBrainz::Errors qw(
+    build_request_and_user_context
+    send_message_to_sentry
+);
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASE_EDIT
@@ -406,28 +410,47 @@ sub process_relationship {
     trim_string($data, 'entity0_credit');
     trim_string($data, 'entity1_credit');
 
+    my $link_type = $data->{link_type};
     my $begin_date = clean_partial_date(delete $data->{begin_date});
     my $end_date = clean_partial_date(delete $data->{end_date});
     my $ended = delete $data->{ended};
 
-    if (!defined($begin_date) && $data->{relationship}) {
-        $begin_date = partial_date_to_hash($data->{relationship}->link->begin_date);
-    }
+    if ($link_type->has_dates) {
+        if (!defined($begin_date) && $data->{relationship}) {
+            $begin_date = partial_date_to_hash($data->{relationship}->link->begin_date);
+        }
 
-    if (!defined($end_date) && $data->{relationship}) {
-        $end_date = partial_date_to_hash($data->{relationship}->link->end_date);
-    }
+        if (!defined($end_date) && $data->{relationship}) {
+            $end_date = partial_date_to_hash($data->{relationship}->link->end_date);
+        }
 
-    $data->{begin_date} = $begin_date;
-    $data->{end_date} = $end_date;
-    $data->{ended} = boolean_from_json($ended) if defined $ended;
+        $data->{begin_date} = $begin_date;
+        $data->{end_date} = $end_date;
+        $data->{ended} = boolean_from_json($ended) if defined $ended;
 
-    if (
-        non_empty($begin_date->{year}) &&
-        non_empty($end_date->{year}) &&
-        !is_date_range_valid($begin_date, $end_date)
-    ) {
-        die 'invalid date range: the end date cannot precede the begin date';
+        if (
+            non_empty($begin_date->{year}) &&
+            non_empty($end_date->{year}) &&
+            !is_date_range_valid($begin_date, $end_date)
+        ) {
+            die 'invalid date range: the end date cannot precede the begin date';
+        }
+    } else {
+        if (
+            defined $begin_date->{year} || $begin_date->{month} || $begin_date->{day} ||
+            defined $end_date->{year} || $end_date->{month} || $end_date->{day} ||
+            $ended
+        ) {
+            send_message_to_sentry(
+                'Warning: dates submitted with relationship type that does not support them',
+                build_request_and_user_context($c),
+                extra => {link_type_id => $link_type->id},
+            );
+        }
+        # Enforce blank dates for types that do not support them
+        $data->{begin_date} = { year => undef, month => undef, day => undef };
+        $data->{end_date} = { year => undef, month => undef, day => undef };
+        $data->{ended} = 0;
     }
 
     if (defined $data->{attributes}) {
@@ -444,7 +467,7 @@ sub process_relationship {
     my $link_order = delete $data->{linkOrder};
     if (
         is_database_row_id($link_order) &&
-        $data->{link_type}->orderable_direction &&
+        $link_type->orderable_direction &&
         $data->{edit_type} == $EDIT_RELATIONSHIP_CREATE
     ) {
         $data->{link_order} = $link_order;
@@ -456,7 +479,7 @@ sub process_relationship {
         if ($entity_data) {
             my $name = $entity_data->{name};
             my $entity_type_prop = "${prop}_type";
-            my $model = type_to_model($data->{link_type}->$entity_type_prop);
+            my $model = type_to_model($link_type->$entity_type_prop);
 
             if ($model eq 'URL') {
                 my $url = URI->new($name)->canonical;

@@ -120,9 +120,7 @@ component ReleaseGroupIndex(
   wikipediaExtract: WikipediaExtractT | null,
 ) {
   const $c = React.useContext(CatalystContext);
-  const firstReleaseGid = releases.length
-    ? releases[0][0].gid
-    : null;
+  const hasReleases = releases.length > 0;
   const
     showArtworkPresence = releases.some(
       (sub) => sub.some(
@@ -133,7 +131,7 @@ component ReleaseGroupIndex(
   return (
     <ReleaseGroupLayout
       entity={releaseGroup}
-      firstReleaseGid={firstReleaseGid}
+      hasReleases={hasReleases}
       page="index"
     >
       {eligibleForCleanup ? (
@@ -149,7 +147,7 @@ component ReleaseGroupIndex(
         cachedWikipediaExtract={wikipediaExtract}
         entity={releaseGroup}
       />
-      {releases.length ? (
+      {hasReleases ? (
         <>
           <h2>{releaseGroupType(releaseGroup)}</h2>
           <form

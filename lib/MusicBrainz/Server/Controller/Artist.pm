@@ -134,6 +134,7 @@ after 'load' => sub
     my $artist_model = $c->model('Artist');
 
     unless ($returning_jsonld) {
+        $artist_model->load_aliases($artist);
         $artist_model->load_meta($artist);
 
         if ($c->user_exists) {
@@ -146,8 +147,7 @@ after 'load' => sub
         }
     }
 
-    my $lang = $c->stash->{current_language} // 'en';
-    $c->model('Artist')->load_related_info([$artist], $lang);
+    $artist_model->load_related_info($artist);
     $c->model('ArtistType')->load(map { $_->target } @{ $artist->relationships_by_type('artist') });
     $c->model('Area')->load_containment($artist->area, $artist->begin_area, $artist->end_area);
 };
@@ -254,6 +254,7 @@ sub show : PathPart('') Chained('load')
             );
         });
         $c->model('ArtistCredit')->load(@$recordings);
+        $c->model('Recording')->load_aliases(@$recordings);
         $c->model('Recording')->load_meta(@$recordings);
         $c->model('ISRC')->load_for_recordings(@$recordings);
         if ($c->user_exists) {
@@ -270,6 +271,7 @@ sub show : PathPart('') Chained('load')
     $c->model('ArtistCredit')->load(@$release_groups);
     $c->model('ArtistType')->load(map { map { $_->artist } $_->artist_credit->all_names} @$release_groups);
     $c->model('ReleaseGroupType')->load(@$release_groups);
+    $c->model('ReleaseGroup')->load_aliases(@$release_groups);
     $c->stash(
         recordings => $recordings,
         recordings_jsonld => {items => $recordings},
@@ -410,6 +412,7 @@ sub works : Chained('load')
         );
     });
     $c->model('Work')->load_related_info(@$works);
+    $c->model('Work')->load_aliases(@$works);
     $c->model('Work')->load_meta(@$works);
     $c->model('Work')->rating->load_user_ratings($c->user->id, @$works) if $c->user_exists;
 
@@ -475,6 +478,7 @@ sub recordings : Chained('load')
         });
     }
 
+    $c->model('Recording')->load_aliases(@$recordings);
     $c->model('Recording')->load_meta(@$recordings);
 
     my $release_group_appearances = $c->model('Recording')->appears_on($recordings, 10, 1);
@@ -532,6 +536,7 @@ sub events : Chained('load')
     });
     $c->model('Event')->load_related_info(@$events);
     $c->model('Event')->load_areas(@$events);
+    $c->model('Event')->load_aliases(@$events);
     $c->model('Event')->load_meta(@$events);
     $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
 
@@ -595,6 +600,7 @@ sub releases : Chained('load')
 
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('Release')->load_related_info(@$releases);
+    $c->model('Release')->load_aliases(@$releases);
     $c->model('Release')->load_meta(@$releases);
     $c->stash(
         current_view => 'Node',
@@ -720,6 +726,7 @@ sub _merge_load_entities {
     my ($self, $c, @artists) = @_;
 
     $c->model('ArtistType')->load(@artists);
+    $c->model('Artist')->load_aliases(@artists);
     $c->model('Gender')->load(@artists);
     $c->model('Area')->load(@artists);
     $c->model('Area')->load_containment(map { $_->{area} } @artists);

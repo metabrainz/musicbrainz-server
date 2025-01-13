@@ -1142,7 +1142,10 @@ const CLEANUPS: CleanupEntries = {
               target: ERROR_TARGETS.ENTITY,
             };
           }
-          return {result: /^https:\/\/[^/]+\.bandcamp\.com\/$/.test(url)};
+          return {
+            result: /^https:\/\/[^/]+\.bandcamp\.com\/$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
         case LINK_TYPES.bandcamp.genre:
           return {
             result: /^https:\/\/bandcamp\.com\/discover\/[\w-]+$/.test(url),
@@ -1573,6 +1576,27 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?(www\.)?[^./]+\.blogspot\.([a-z]{2,3}\.)?[a-z]{2,3}\/?/i],
     clean(url) {
       return url.replace(/(?:www\.)?([^./]+)\.blogspot\.(?:[a-z]{2,3}\.)?[a-z]{2,3}(?:\/)?/, '$1.blogspot.com/');
+    },
+  },
+  'bluesky': {
+    match: [/^(https?:\/\/)?([^/]+\.)?bsky\.app\//i],
+    restrict: [LINK_TYPES.socialnetwork],
+    clean(url) {
+      url = url.replace(
+        /^(?:https?:\/\/)?(?:www\.)?bsky\.app\//,
+        'https://bsky.app/',
+      );
+      url = url.replace(
+        /^https:\/\/bsky\.app\/profile\/([^/?#]+).*$/,
+        'https://bsky.app/profile/$1',
+      );
+      return url;
+    },
+    validate(url) {
+      if (/^https:\/\/bsky\.app\/profile\/([^/?#]+)$/.test(url)) {
+        return {result: true};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'bnfcatalogue': {
@@ -2439,7 +2463,7 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate(url) {
-      const m = /^https:\/\/www\.artstation\.com\/([^/]+)$/.exec(url);
+      const m = /^https:\/\/dribbble\.com\/([^/]+)$/.exec(url);
       if (m) {
         const userName = m[1];
         if (userName === 'search') {
@@ -2450,12 +2474,18 @@ const CLEANUPS: CleanupEntries = {
           };
         }
         const hardcodedPaths = [
+          'designers',
           'directories',
           'for-designers',
           'hiring',
+          'jobs',
           'learn',
           'pro',
+          'session',
           'shots',
+          'signup',
+          'stories',
+          'submit-brief',
           'tags',
         ];
         if (hardcodedPaths.includes(userName)) {
@@ -2816,13 +2846,13 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'hmikuwiki': {
-    match: [/^(https?:\/\/)?(?:www5\.)?atwiki\.jp\/hmiku\//i],
+    match: [/^(https?:\/\/)?(?:www5\.|w\.)?atwiki\.jp\/hmiku\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www5\.)?atwiki\.jp\/([^#]+)(?:#.*)?$/, 'https://www5.atwiki.jp/$1');
+      return url.replace(/^(?:https?:\/\/)?(?:www5\.|w\.)?atwiki\.jp\/([^#]+)(?:#.*)?$/, 'https://w.atwiki.jp/$1');
     },
     validate(url, id) {
-      if (/^https:\/\/www5\.atwiki\.jp\/hmiku\/pages\/[1-9][0-9]*\.html$/.test(url)) {
+      if (/^https:\/\/w\.atwiki\.jp\/hmiku\/pages\/[1-9][0-9]*\.html$/.test(url)) {
         if (id === LINK_TYPES.otherdatabases.artist ||
             id === LINK_TYPES.otherdatabases.release_group ||
             id === LINK_TYPES.otherdatabases.work) {
@@ -3177,13 +3207,13 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'jaxsta': {
-    match: [/^(https?:\/\/)?(www\.)?jaxsta\.com/i],
+    match: [/^(https?:\/\/)?(www\.)?jaxsta\.(com|io)/i],
     restrict: [
       LINK_TYPES.otherdatabases,
       {work: [LINK_TYPES.otherdatabases.work, LINK_TYPES.lyrics.work]},
     ],
     select(url, sourceType) {
-      const m = /^https:\/\/jaxsta\.com\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
+      const m = /^https:\/\/jaxsta\.io\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (prefix) {
@@ -3197,12 +3227,12 @@ const CLEANUPS: CleanupEntries = {
       return false;
     },
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?jaxsta\.com\/([^#?]+).*$/, 'https://jaxsta.com/$1');
-      url = url.replace(/^https:\/\/jaxsta\.com\/(\w+)\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?.*$/, 'https://jaxsta.com/$1/$2$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?jaxsta\.(?:com|io)\/([^#?]+).*$/, 'https://jaxsta.io/$1');
+      url = url.replace(/^https:\/\/jaxsta\.io\/(\w+)\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?.*$/, 'https://jaxsta.io/$1/$2$3');
       return url;
     },
     validate(url, id) {
-      const m = /^https:\/\/jaxsta\.com\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
+      const m = /^https:\/\/jaxsta\.io\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
       if (m) {
         const type = m[1];
         const hasVariant = Boolean(m[2]);
@@ -4751,16 +4781,16 @@ const CLEANUPS: CleanupEntries = {
     clean(url) {
       url = url.replace(
         /^(?:https?:\/\/)?(?:www\.)?(?:qim|quebecinfomusique)\.com\/([^#]+).*$/i,
-        'http://www.qim.com/$1',
+        'http://www.quebecinfomusique.com/$1',
       );
       url = url.replace(
-        /^(http:\/\/www\.qim\.com\/artistes)\/(?:albums|oeuvres)\b/,
+        /^(http:\/\/www\.quebecinfomusique\.com\/artistes)\/(?:albums|oeuvres)\b/,
         '$1/biographie',
       );
       return url;
     },
     validate(url, id) {
-      const m = /^http:\/\/www\.qim\.com\/(\w+)\/(\w+)\.asp\?(.+)$/.exec(url);
+      const m = /^http:\/\/www\.quebecinfomusique\.com\/(\w+)\/(\w+)\.asp\?(.+)$/.exec(url);
       if (m) {
         const [/* matched string */, type, page, query] = m;
         switch (id) {
@@ -5476,10 +5506,15 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?([^/]+\.)?threads\.net\//i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
     clean(url) {
-      return url.replace(
-        /^(?:https?:\/\/)?(?:www\.)?threads\.net(?:\/#!)?\//,
-        'https://www.threads.net/',
+      url = url.replace(
+        /^(?:https?:\/\/)?(?:www\.)?threads\.net(?:\/#!)?\/([^#?]+).*$/,
+        'https://www.threads.net/$1',
       );
+      url = url.replace(
+        /^https:\/\/www\.threads\.net\/@[^/]+\/post\/([^/]+)/,
+        'https://www.threads.net/t/$1',
+      );
+      return url;
     },
     validate(url, id) {
       const isAProfile = /^https:\/\/www\.threads\.net\/@[^/]+$/.test(url);
@@ -5504,11 +5539,12 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?(www\.)?ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}/i],
     restrict: [LINK_TYPES.ticketing],
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(?:[\w-]+\/)?(artist|event|venue)\/(?:[\w-]+\/)?(\w+).*$/, 'https://www.ticketmaster.$1/$2/$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.fr\/(?:[\w-]+\/)?(manifestation|salle)\/(?:[\w-]+\/)?(idmanif|idsite)\/([\w-]+).*$/, 'https://www.ticketmaster.fr/$1/$2/$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ticketmaster\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(?:[\w-]+\/)?(artist|event|venue)\/(?:[\w-]+\/)?([\w-]+).*$/, 'https://www.ticketmaster.$1/$2/$3');
       return url;
     },
     validate(url, id) {
-      const m = /^https:\/\/www\.ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|venue)\/\w+$/.exec(url);
+      const m = /^https:\/\/www\.ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist|event|manifestation\/idmanif|salle\/idsite|venue)\/[\w-]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -5518,12 +5554,12 @@ const CLEANUPS: CleanupEntries = {
             }
             return {result: false, target: ERROR_TARGETS.ENTITY};
           case LINK_TYPES.ticketing.event:
-            if (prefix === 'event') {
+            if (prefix === 'event' || prefix === 'manifestation/idmanif') {
               return {result: true};
             }
             return {result: false, target: ERROR_TARGETS.ENTITY};
           case LINK_TYPES.ticketing.place:
-            if (prefix === 'venue') {
+            if (prefix === 'venue' || prefix === 'salle/idsite') {
               return {result: true};
             }
             return {result: false, target: ERROR_TARGETS.ENTITY};

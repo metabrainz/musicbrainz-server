@@ -16,7 +16,7 @@ import {
   EDIT_VOTE_YES,
 } from '../../constants.js';
 import {CatalystContext} from '../../context.mjs';
-import DBDefs from '../../static/scripts/common/DBDefs.mjs';
+import {DB_READ_ONLY} from '../../static/scripts/common/DBDefs.mjs';
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 import {
   editorMayVoteOnEdit,
@@ -57,7 +57,7 @@ component Vote(
 ) {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
-  if (DBDefs.DB_READ_ONLY || !user || !editorMayVoteOnEdit(edit, user)) {
+  if (DB_READ_ONLY || !user || !editorMayVoteOnEdit(edit, user)) {
     return null;
   }
   const props = {

@@ -10,9 +10,6 @@
 
 import * as flags from '../../../flags.js';
 import * as modes from '../../../modes.js';
-import input from '../Input.js';
-import gc from '../Main.js';
-import output from '../Output.js';
 
 import GuessCaseHandler from './Base.js';
 
@@ -29,15 +26,15 @@ class GuessCaseTrackHandler extends GuessCaseHandler {
    * returns the guessed name.
    */
   process(inputString: string): string {
-    return modes[gc.modeName].fixVinylSizes(super.process(inputString));
+    return modes[this.modeName].fixVinylSizes(super.process(inputString));
   }
 
   getWordsForProcessing(inputString: string): Array<string> {
-    const preppedString = modes[gc.modeName].preProcessTitles(
+    const preppedString = modes[this.modeName].preProcessTitles(
       this.removeBonusInfo(inputString),
     );
-    return modes[gc.modeName].prepExtraTitleInfo(
-      input.splitWordsAndPunctuation(preppedString),
+    return modes[this.modeName].prepExtraTitleInfo(
+      this.input.splitWordsAndPunctuation(preppedString),
     );
   }
 
@@ -52,27 +49,27 @@ class GuessCaseTrackHandler extends GuessCaseHandler {
    */
   checkSpecialCase(inputString?: string): number {
     if (inputString != null) {
-      if (!gc.regexes.TRACK_DATATRACK) {
+      if (!this.regexes.TRACK_DATATRACK) {
         // Data tracks
-        gc.regexes.TRACK_DATATRACK = /^([([]?\s*data(\s+track)?\s*[)\]]?$)/i;
+        this.regexes.TRACK_DATATRACK = /^([([]?\s*data(\s+track)?\s*[)\]]?$)/i;
         // Silence
-        gc.regexes.TRACK_SILENCE = /^([([]?\s*(silen(t|ce)|blank)(\s+track)?\s*[)\]]?)$/i;
+        this.regexes.TRACK_SILENCE = /^([([]?\s*(silen(t|ce)|blank)(\s+track)?\s*[)\]]?)$/i;
         // Untitled
-        gc.regexes.TRACK_UNTITLED = /^([([]?\s*untitled(\s+track)?\s*[)\]]?)$/i;
+        this.regexes.TRACK_UNTITLED = /^([([]?\s*untitled(\s+track)?\s*[)\]]?)$/i;
         // Unknown
-        gc.regexes.TRACK_UNKNOWN = /^([([]?\s*(unknown|bonus|hidden)(\s+track)?\s*[)\]]?)$/i;
+        this.regexes.TRACK_UNKNOWN = /^([([]?\s*(unknown|bonus|hidden)(\s+track)?\s*[)\]]?)$/i;
         // Any number of question marks
-        gc.regexes.TRACK_MYSTERY = /^\?+$/i;
+        this.regexes.TRACK_MYSTERY = /^\?+$/i;
       }
-      if (inputString.match(gc.regexes.TRACK_DATATRACK)) {
+      if (inputString.match(this.regexes.TRACK_DATATRACK)) {
         return this.specialCaseValues.SPECIALCASE_DATA_TRACK;
-      } else if (inputString.match(gc.regexes.TRACK_SILENCE)) {
+      } else if (inputString.match(this.regexes.TRACK_SILENCE)) {
         return this.specialCaseValues.SPECIALCASE_SILENCE;
-      } else if (inputString.match(gc.regexes.TRACK_UNTITLED)) {
+      } else if (inputString.match(this.regexes.TRACK_UNTITLED)) {
         return this.specialCaseValues.SPECIALCASE_UNTITLED;
-      } else if (inputString.match(gc.regexes.TRACK_UNKNOWN)) {
+      } else if (inputString.match(this.regexes.TRACK_UNKNOWN)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;
-      } else if (inputString.match(gc.regexes.TRACK_MYSTERY)) {
+      } else if (inputString.match(this.regexes.TRACK_MYSTERY)) {
         return this.specialCaseValues.SPECIALCASE_UNKNOWN;
       }
     }
@@ -89,26 +86,26 @@ class GuessCaseTrackHandler extends GuessCaseHandler {
     if (
       !this.doIgnoreWords() &&
       !this.doFeaturingArtistStyle() &&
-      !modes[gc.modeName].doWord()
+      !modes[this.modeName].doWord()
     ) {
-      if (input.matchCurrentWord(/7in/i)) {
-        output.appendSpaceIfNeeded();
-        output.appendWord('7"');
+      if (this.input.matchCurrentWord(/7in/i)) {
+        this.output.appendSpaceIfNeeded();
+        this.output.appendWord('7"');
         flags.resetContext();
         flags.context.spaceNextWord = false;
         flags.context.forceCaps = false;
-      } else if (input.matchCurrentWord(/12in/i)) {
-        output.appendSpaceIfNeeded();
-        output.appendWord('12"');
+      } else if (this.input.matchCurrentWord(/12in/i)) {
+        this.output.appendSpaceIfNeeded();
+        this.output.appendWord('12"');
         flags.resetContext();
         flags.context.spaceNextWord = false;
         flags.context.forceCaps = false;
       } else {
         // Handle other cases (e.g. normal words)
-        output.appendSpaceIfNeeded();
-        input.capitalizeCurrentWord();
+        this.output.appendSpaceIfNeeded();
+        this.input.capitalizeCurrentWord();
 
-        output.appendCurrentWord();
+        this.output.appendCurrentWord();
         flags.resetContext();
         flags.context.spaceNextWord = true;
         flags.context.forceCaps = false;

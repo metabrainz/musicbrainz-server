@@ -1,17 +1,18 @@
 # WorldPioneerXXX <peter04peter04p@gmail.com>, 2024.
+# guardiansock <guardian.sock5925@fastmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2024-06-26 15:42+0000\n"
-"Last-Translator: WorldPioneerXXX <peter04peter04p@gmail.com>\n"
-"Language-Team: Chinese (Traditional) <https://translations.metabrainz.org/"
-"projects/musicbrainz/languages/zh_Hant/>\n"
+"PO-Revision-Date: 2024-12-24 23:42+0000\n"
+"Last-Translator: guardiansock <guardian.sock5925@fastmail.com>\n"
+"Language-Team: Chinese (Traditional Han script) <https://translations."
+"metabrainz.org/projects/musicbrainz/languages/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -61,1657 +62,1657 @@ msgstr "亞細亞-阿非羅語系"
 #. frequency:1 iso_code_3:ain
 #: DB:language/name:473
 msgid "Ainu"
-msgstr ""
+msgstr "阿依努語"
 
 #. frequency:1 iso_code_3:aka
 #: DB:language/name:10
 msgid "Akan"
-msgstr ""
+msgstr "阿坎語"
 
 #. frequency:1 iso_code_3:akk
 #: DB:language/name:11
 msgid "Akkadian"
-msgstr ""
+msgstr "阿卡德語"
 
 #. frequency:1 iso_code_3:sqi
 #: DB:language/name:12
 msgid "Albanian"
-msgstr ""
+msgstr "阿爾巴尼亞語"
 
 #. frequency:1 iso_code_3:ale
 #: DB:language/name:13
 msgid "Aleut"
-msgstr ""
+msgstr "阿留申語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:14
 msgid "Algonquian languages"
-msgstr ""
+msgstr "阿爾岡昆語系"
 
 #. frequency:1 iso_code_3:alq
 #: DB:language/name:709
 msgid "Algonquin"
-msgstr ""
+msgstr "阿爾岡琴語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:434
 msgid "Altaic languages"
-msgstr ""
+msgstr "阿爾泰語系"
 
 #. frequency:1 iso_code_3:amh
 #: DB:language/name:15
 msgid "Amharic"
-msgstr ""
+msgstr "阿姆哈拉語"
 
 #. frequency:1 iso_code_3:anp
 #: DB:language/name:475
 msgid "Angika"
-msgstr ""
+msgstr "安吉卡語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:17
 msgid "Apache languages"
-msgstr ""
+msgstr "阿帕切語系"
 
 #. frequency:2 iso_code_3:ara
 #: DB:language/name:18
 msgid "Arabic"
-msgstr ""
+msgstr "阿拉伯文"
 
 #. frequency:1 iso_code_3:arg
 #: DB:language/name:20
 msgid "Aragonese"
-msgstr ""
+msgstr "亞拉岡語"
 
 #. frequency:1 iso_code_3:arp
 #: DB:language/name:23
 msgid "Arapaho"
-msgstr ""
+msgstr "阿拉帕霍語"
 
 #. frequency:1 iso_code_3:arw
 #: DB:language/name:25
 msgid "Arawak"
-msgstr ""
+msgstr "阿拉瓦克語"
 
 #. frequency:1 iso_code_3:pka
 #: DB:language/name:5403
 msgid "Ardhamāgadhī Prākrit"
-msgstr ""
+msgstr "半摩揭陀語"
 
 #. frequency:1 iso_code_3:hye
 #: DB:language/name:21
 msgid "Armenian"
-msgstr ""
+msgstr "亞美尼亞文"
 
 #. frequency:1 iso_code_3:rup
 #: DB:language/name:479
 msgid "Aromanian"
-msgstr ""
+msgstr "羅馬尼亞語"
 
 #. frequency:1 iso_code_3:asm
 #: DB:language/name:26
 msgid "Assamese"
-msgstr ""
+msgstr "阿薩姆語"
 
 #. frequency:1 iso_code_3:ast
 #: DB:language/name:27
 msgid "Asturian"
-msgstr ""
+msgstr "阿斯圖里亞斯語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:28
 msgid "Athapascan languages"
-msgstr ""
+msgstr "阿薩帕斯坎語"
 
 #. frequency:1 iso_code_3:atj
 #: DB:language/name:866
 msgid "Atikamekw"
-msgstr ""
+msgstr "阿提卡米克語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:29
 msgid "Australian languages"
-msgstr ""
+msgstr "澳大利亞語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:263
 msgid "Austronesian languages"
-msgstr ""
+msgstr "南島語系"
 
 #. frequency:1 iso_code_3:ava
 #: DB:language/name:30
 msgid "Avaric"
-msgstr ""
+msgstr "阿瓦爾語"
 
 #. frequency:1 iso_code_3:ave
 #: DB:language/name:31
 msgid "Avestan"
-msgstr ""
+msgstr "阿維斯陀文"
 
 #. frequency:1 iso_code_3:awa
 #: DB:language/name:32
 msgid "Awadhi"
-msgstr ""
+msgstr "阿瓦德語"
 
 #. frequency:1 iso_code_3:aym
 #: DB:language/name:33
 msgid "Aymara"
-msgstr ""
+msgstr "艾馬拉語"
 
 #. frequency:1 iso_code_3:aze
 #: DB:language/name:34
 msgid "Azerbaijani"
-msgstr ""
+msgstr "亞塞拜然語"
 
 #. frequency:1 iso_code_3:bvd
 #: DB:language/name:1470
 msgid "Baeggu"
-msgstr ""
+msgstr "柏古語"
 
 #. frequency:1 iso_code_3:ban
 #: DB:language/name:40
 msgid "Balinese"
-msgstr ""
+msgstr "峇里文"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:43
 msgid "Baltic languages"
-msgstr ""
+msgstr "波羅的語系"
 
 #. frequency:1 iso_code_3:bal
 #: DB:language/name:38
 msgid "Baluchi"
-msgstr ""
+msgstr "俾路支語"
 
 #. frequency:1 iso_code_3:bam
 #: DB:language/name:39
 msgid "Bambara"
-msgstr ""
+msgstr "班巴拉語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:36
 msgid "Bamileke languages"
-msgstr ""
+msgstr "巴米累克語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:35
 msgid "Banda languages"
-msgstr ""
+msgstr "班達語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:55
 msgid "Bantu languages"
-msgstr ""
+msgstr "班圖語系"
 
 #. frequency:1 iso_code_3:bas
 #: DB:language/name:42
 msgid "Basa"
-msgstr ""
+msgstr "巴薩語"
 
 #. frequency:1 iso_code_3:bak
 #: DB:language/name:37
 msgid "Bashkir"
-msgstr ""
+msgstr "巴什基爾語"
 
 #. frequency:1 iso_code_3:eus
 #: DB:language/name:41
 msgid "Basque"
-msgstr ""
+msgstr "巴斯克語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:59
 msgid "Batak languages"
-msgstr ""
+msgstr "巴塔克語"
 
 #. frequency:1 iso_code_3:bar
 #: DB:language/name:982
 msgid "Bavarian"
-msgstr ""
+msgstr "巴伐利亞語"
 
 #. frequency:1 iso_code_3:bej
 #: DB:language/name:44
 msgid "Beja"
-msgstr ""
+msgstr "貝扎語"
 
 #. frequency:1 iso_code_3:bel
 #: DB:language/name:45
 msgid "Belarusian"
-msgstr ""
+msgstr "白俄羅斯語"
 
 #. frequency:1 iso_code_3:bem
 #: DB:language/name:46
 msgid "Bemba"
-msgstr ""
+msgstr "本巴語"
 
 #. frequency:1 iso_code_3:ben
 #: DB:language/name:47
 msgid "Bengali"
-msgstr ""
+msgstr "孟加拉文"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:48
 msgid "Berber languages"
-msgstr ""
+msgstr "柏柏爾語"
 
 #. frequency:1 iso_code_3:bho
 #: DB:language/name:49
 msgid "Bhojpuri"
-msgstr ""
+msgstr "博傑普里語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:50
 msgid "Bihari languages"
-msgstr ""
+msgstr "比哈爾語"
 
 #. frequency:1 iso_code_3:bik
 #: DB:language/name:51
 msgid "Bikol"
-msgstr ""
+msgstr "比科爾語"
 
 #. frequency:1 iso_code_3:bin
 #: DB:language/name:52
 msgid "Bini"
-msgstr ""
+msgstr "貝南語"
 
 #. frequency:1 iso_code_3:bis
 #: DB:language/name:53
 msgid "Bislama"
-msgstr ""
+msgstr "比斯拉瑪語"
 
 #. frequency:1 iso_code_3:byn
 #: DB:language/name:64
 msgid "Blin"
-msgstr ""
+msgstr "比林語"
 
 #. frequency:0 iso_code_3:zbl
 #: DB:language/name:482
 msgid "Blissymbols"
-msgstr ""
+msgstr "布列斯符號"
 
 #. frequency:1 iso_code_3:brx
 #: DB:language/name:1394
 msgid "Bodo (India)"
-msgstr ""
+msgstr "博多語(印度)"
 
 #. frequency:1 iso_code_3:bos
 #: DB:language/name:56
 msgid "Bosnian"
-msgstr ""
+msgstr "波士尼亞語"
 
 #. frequency:1 iso_code_3:bra
 #: DB:language/name:57
 msgid "Braj"
-msgstr ""
+msgstr "布拉吉語"
 
 #. frequency:1 iso_code_3:bre
 #: DB:language/name:58
 msgid "Breton"
-msgstr ""
+msgstr "布里多尼語"
 
 #. frequency:1 iso_code_3:box
 #: DB:language/name:1322
 msgid "Buamu"
-msgstr ""
+msgstr "布阿穆語"
 
 #. frequency:1 iso_code_3:bug
 #: DB:language/name:61
 msgid "Buginese"
-msgstr ""
+msgstr "武吉斯文"
 
 #. frequency:1 iso_code_3:bul
 #: DB:language/name:62
 msgid "Bulgarian"
-msgstr ""
+msgstr "保加利亞語"
 
 #. frequency:1 iso_code_3:bua
 #: DB:language/name:60
 msgid "Buriat"
-msgstr ""
+msgstr "布里亞特語"
 
 #. frequency:1 iso_code_3:mya
 #: DB:language/name:63
 msgid "Burmese"
-msgstr ""
+msgstr "緬甸語"
 
 #. frequency:1 iso_code_3:bsk
 #: DB:language/name:1406
 msgid "Burushaski"
-msgstr ""
+msgstr "布魯沙斯基語"
 
 #. frequency:1 iso_code_3:cad
 #: DB:language/name:65
 msgid "Caddo"
-msgstr ""
+msgstr "卡多語"
 
 #. frequency:1 iso_code_3:frc
 #: DB:language/name:2311
 msgid "Cajun French"
-msgstr ""
+msgstr "卡津法語"
 
 #. frequency:1 iso_code_3:cat
 #: DB:language/name:68
 msgid "Catalan"
-msgstr ""
+msgstr "加泰隆尼亞語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:69
 msgid "Caucasian languages"
-msgstr ""
+msgstr "高加索語系"
 
 #. frequency:1 iso_code_3:ceb
 #: DB:language/name:70
 msgid "Cebuano"
-msgstr ""
+msgstr "宿務語"
 
 #. frequency:1 iso_code_3:xce
 #: DB:language/name:7217
 msgid "Celtiberian"
-msgstr ""
+msgstr "凱爾特伊比利亞語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:71
 msgid "Celtic languages"
-msgstr ""
+msgstr "凱爾特語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:66
 msgid "Central American Indian languages"
-msgstr ""
+msgstr "中美洲印第安語"
 
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
 msgid "Central Okinawan"
-msgstr ""
+msgstr "琉球語"
 
 #. frequency:1 iso_code_3:esu
 #: DB:language/name:2243
 msgid "Central Yupik"
-msgstr ""
+msgstr "中阿拉斯加尤皮克語"
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75
 msgid "Chagatai"
-msgstr ""
+msgstr "查加台語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:86
 msgid "Chamic languages"
-msgstr ""
+msgstr "占語諸語言"
 
 #. frequency:1 iso_code_3:cha
 #: DB:language/name:72
 msgid "Chamorro"
-msgstr ""
+msgstr "查莫羅語"
 
 #. frequency:1 iso_code_3:che
 #: DB:language/name:74
 msgid "Chechen"
-msgstr ""
+msgstr "車臣語"
 
 #. frequency:1 iso_code_3:chr
 #: DB:language/name:82
 msgid "Cherokee"
-msgstr ""
+msgstr "切羅基文"
 
 #. frequency:1 iso_code_3:chy
 #: DB:language/name:85
 msgid "Cheyenne"
-msgstr ""
+msgstr "夏延語"
 
 #. frequency:1 iso_code_3:chb
 #: DB:language/name:73
 msgid "Chibcha"
-msgstr ""
+msgstr "奇布查語"
 
 #. frequency:1 iso_code_3:nya
 #: DB:language/name:313
 msgid "Chichewa"
-msgstr ""
+msgstr "齊切瓦語"
 
 #. frequency:2 iso_code_3:zho
 #: DB:language/name:76
 msgid "Chinese"
-msgstr ""
+msgstr "漢語"
 
 #. frequency:1 iso_code_3:chn
 #: DB:language/name:79
 msgid "Chinook jargon"
-msgstr ""
+msgstr "奇努克混合語"
 
 #. frequency:1 iso_code_3:chp
 #: DB:language/name:81
 msgid "Chipewyan"
-msgstr ""
+msgstr "奇帕維安"
 
 #. frequency:1 iso_code_3:cho
 #: DB:language/name:80
 msgid "Choctaw"
-msgstr ""
+msgstr "喬克托語"
 
 #. frequency:1 iso_code_3:chu
 #: DB:language/name:83
 msgid "Church Slavic"
-msgstr ""
+msgstr "教會斯拉夫語"
 
 #. frequency:1 iso_code_3:chk
 #: DB:language/name:77
 msgid "Chuukese"
-msgstr ""
+msgstr "丘克語"
 
 #. frequency:1 iso_code_3:chv
 #: DB:language/name:84
 msgid "Chuvash"
-msgstr ""
+msgstr "楚瓦什語"
 
 #. frequency:0 iso_code_3:nwc
 #: DB:language/name:312
 msgid "Classical Newari"
-msgstr ""
+msgstr "古尼瓦爾語"
 
 #. frequency:0 iso_code_3:syc
 #: DB:language/name:481
 msgid "Classical Syriac"
-msgstr ""
+msgstr "古敘利亞語"
 
 #. frequency:1 iso_code_3:cop
 #: DB:language/name:87
 msgid "Coptic"
-msgstr ""
+msgstr "科普特文"
 
 #. frequency:1 iso_code_3:cor
 #: DB:language/name:88
 msgid "Cornish"
-msgstr ""
+msgstr "康沃爾語"
 
 #. frequency:1 iso_code_3:cos
 #: DB:language/name:89
 msgid "Corsican"
-msgstr ""
+msgstr "科西嘉語"
 
 #. frequency:1 iso_code_3:cre
 #: DB:language/name:93
 msgid "Cree"
-msgstr ""
+msgstr "克里語"
 
 #. frequency:1 iso_code_3:mus
 #: DB:language/name:286
 msgid "Creek"
-msgstr ""
+msgstr "克里克語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:95
 msgid "Creoles and pidgins"
-msgstr ""
+msgstr "克里奧爾混合語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:90
 msgid "Creoles and pidgins, English based"
-msgstr ""
+msgstr "英語克里奧爾混合語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:91
 msgid "Creoles and pidgins, French-based"
-msgstr ""
+msgstr "法語克里奧爾混合語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:92
 msgid "Creoles and pidgins, Portuguese-based"
-msgstr ""
+msgstr "葡萄牙語克里奧爾混合語"
 
 #. frequency:1 iso_code_3:crh
 #: DB:language/name:94
 msgid "Crimean Tatar"
-msgstr ""
+msgstr "克里米亞韃靼語"
 
 #. frequency:1 iso_code_3:hrv
 #: DB:language/name:366
 msgid "Croatian"
-msgstr ""
+msgstr "克羅埃西亞語"
 
 #. frequency:1 iso_code_3:xlu
 #: DB:language/name:7303
 msgid "Cuneiform Luwian"
-msgstr ""
+msgstr "楔形文字盧維語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:97
 msgid "Cushitic languages"
-msgstr ""
+msgstr "庫施特諸語言"
 
 #. frequency:1 iso_code_3:ces
 #: DB:language/name:98
 msgid "Czech"
-msgstr ""
+msgstr "捷克語"
 
 #. frequency:1 iso_code_3:dak
 #: DB:language/name:99
 msgid "Dakota"
-msgstr ""
+msgstr "達科他語"
 
 #. frequency:1 iso_code_3:dan
 #: DB:language/name:100
 msgid "Danish"
-msgstr ""
+msgstr "丹麥語"
 
 #. frequency:1 iso_code_3:dar
 #: DB:language/name:101
 msgid "Dargwa"
-msgstr ""
+msgstr "達爾格瓦語"
 
 #. frequency:1 iso_code_3:del
 #: DB:language/name:103
 msgid "Delaware"
-msgstr ""
+msgstr "德拉瓦語"
 
 #. frequency:1 iso_code_3:din
 #: DB:language/name:106
 msgid "Dinka"
-msgstr ""
+msgstr "丁卡語"
 
 #. frequency:1 iso_code_3:div
 #: DB:language/name:107
 msgid "Divehi"
-msgstr ""
+msgstr "迪維西語"
 
 #. frequency:1 iso_code_3:doi
 #: DB:language/name:108
 msgid "Dogri"
-msgstr ""
+msgstr "多格拉語"
 
 #. frequency:1 iso_code_3:dgr
 #: DB:language/name:105
 msgid "Dogrib"
-msgstr ""
+msgstr "多格里布語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:109
 msgid "Dravidian languages"
-msgstr ""
+msgstr "達羅毗荼諸語言"
 
 #. frequency:1 iso_code_3:dua
 #: DB:language/name:111
 msgid "Duala"
-msgstr ""
+msgstr "杜亞拉語"
 
 #. frequency:2 iso_code_3:nld
 #: DB:language/name:113
 msgid "Dutch"
-msgstr ""
+msgstr "荷蘭語"
 
 #. frequency:1 iso_code_3:dum
 #: DB:language/name:112
 msgid "Dutch, Middle (ca.1050-1350)"
-msgstr ""
+msgstr "中古荷蘭語"
 
 #. frequency:1 iso_code_3:dyu
 #: DB:language/name:114
 msgid "Dyula"
-msgstr ""
+msgstr "迪尤拉語"
 
 #. frequency:1 iso_code_3:dzo
 #: DB:language/name:115
 msgid "Dzongkha"
-msgstr ""
+msgstr "不丹語"
 
 #. frequency:1 iso_code_3:aer
 #: DB:language/name:584
 msgid "Eastern Arrernte"
-msgstr ""
+msgstr "東阿蘭達語"
 
 #. frequency:1 iso_code_3:efi
 #: DB:language/name:116
 msgid "Efik"
-msgstr ""
+msgstr "埃菲克語"
 
 #. frequency:1 iso_code_3:egy
 #: DB:language/name:117
 msgid "Egyptian (Ancient)"
-msgstr ""
+msgstr "古埃及語"
 
 #. frequency:1 iso_code_3:eka
 #: DB:language/name:118
 msgid "Ekajuk"
-msgstr ""
+msgstr "埃克丘克語"
 
 #. frequency:1 iso_code_3:elx
 #: DB:language/name:119
 msgid "Elamite"
-msgstr ""
+msgstr "埃蘭語"
 
 #. frequency:2 iso_code_3:eng
 #: DB:language/name:120
 msgid "English"
-msgstr ""
+msgstr "英語"
 
 #. frequency:1 iso_code_3:enm
 #: DB:language/name:121
 msgid "English, Middle (1100-1500)"
-msgstr ""
+msgstr "中古英語"
 
 #. frequency:1 iso_code_3:ang
 #: DB:language/name:16
 msgid "English, Old (ca.450-1100)"
-msgstr ""
+msgstr "古英語"
 
 #. frequency:1 iso_code_3:myv
 #: DB:language/name:290
 msgid "Erzya"
-msgstr ""
+msgstr "厄爾茲亞語"
 
 #. frequency:1 iso_code_3:epo
 #: DB:language/name:122
 msgid "Esperanto"
-msgstr ""
+msgstr "世界語"
 
 #. frequency:1 iso_code_3:est
 #: DB:language/name:123
 msgid "Estonian"
-msgstr ""
+msgstr "愛沙尼亞語"
 
 #. frequency:1 iso_code_3:ewe
 #: DB:language/name:124
 msgid "Ewe"
-msgstr ""
+msgstr "埃維語"
 
 #. frequency:1 iso_code_3:ewo
 #: DB:language/name:125
 msgid "Ewondo"
-msgstr ""
+msgstr "埃翁多語"
 
 #. frequency:1 iso_code_3:fan
 #: DB:language/name:126
 msgid "Fang"
-msgstr ""
+msgstr "芳語"
 
 #. frequency:1 iso_code_3:fat
 #: DB:language/name:128
 msgid "Fanti"
-msgstr ""
+msgstr "芳蒂語"
 
 #. frequency:1 iso_code_3:fao
 #: DB:language/name:127
 msgid "Faroese"
-msgstr ""
+msgstr "法羅語"
 
 #. frequency:1 iso_code_3:fij
 #: DB:language/name:129
 msgid "Fijian"
-msgstr ""
+msgstr "斐濟語"
 
 #. frequency:1 iso_code_3:fil
 #: DB:language/name:130
 msgid "Filipino"
-msgstr ""
+msgstr "菲律賓語"
 
 #. frequency:2 iso_code_3:fin
 #: DB:language/name:131
 msgid "Finnish"
-msgstr ""
+msgstr "芬蘭語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:132
 msgid "Finno-Ugrian languages"
-msgstr ""
+msgstr "芬蘭-烏戈爾諸語言"
 
 #. frequency:1 iso_code_3:fon
 #: DB:language/name:133
 msgid "Fon"
-msgstr ""
+msgstr "豐語"
 
 #. frequency:2 iso_code_3:fra
 #: DB:language/name:134
 msgid "French"
-msgstr ""
+msgstr "法語"
 
 #. frequency:0 iso_code_3:frm
 #: DB:language/name:135
 msgid "French, Middle (ca.1400-1600)"
-msgstr ""
+msgstr "中古法語"
 
 #. frequency:1 iso_code_3:fro
 #: DB:language/name:136
 msgid "French, Old (842-ca.1400)"
-msgstr ""
+msgstr "古法語"
 
 #. frequency:1 iso_code_3:frs
 #: DB:language/name:485
 msgid "Frisian, Eastern"
-msgstr ""
+msgstr "東弗里西語"
 
 #. frequency:1 iso_code_3:frr
 #: DB:language/name:484
 msgid "Frisian, Northern"
-msgstr ""
+msgstr "北弗里西語"
 
 #. frequency:1 iso_code_3:fry
 #: DB:language/name:137
 msgid "Frisian, Western"
-msgstr ""
+msgstr "西弗里西語"
 
 #. frequency:1 iso_code_3:fur
 #: DB:language/name:139
 msgid "Friulian"
-msgstr ""
+msgstr "弗留利語"
 
 #. frequency:1 iso_code_3:ful
 #: DB:language/name:138
 msgid "Fulah"
-msgstr ""
+msgstr "富拉語"
 
 #. frequency:1 iso_code_3:gaa
 #: DB:language/name:140
 msgid "Ga"
-msgstr ""
+msgstr "加語"
 
 #. frequency:1 iso_code_3:car
 #: DB:language/name:67
 msgid "Galibi Carib"
-msgstr ""
+msgstr "加勒比諸語言"
 
 #. frequency:1 iso_code_3:glg
 #: DB:language/name:150
 msgid "Galician"
-msgstr ""
+msgstr "加利西亞語"
 
 #. frequency:1 iso_code_3:lug
 #: DB:language/name:249
 msgid "Ganda"
-msgstr ""
+msgstr "干達語"
 
 #. frequency:1 iso_code_3:cab
 #: DB:language/name:1591
 msgid "Garifuna"
-msgstr ""
+msgstr "加利夫納語"
 
 #. frequency:1 iso_code_3:gay
 #: DB:language/name:141
 msgid "Gayo"
-msgstr ""
+msgstr "卡約語"
 
 #. frequency:1 iso_code_3:gba
 #: DB:language/name:142
 msgid "Gbaya"
-msgstr ""
+msgstr "巴亞語"
 
 #. frequency:1 iso_code_3:gez
 #: DB:language/name:146
 msgid "Geez"
-msgstr ""
+msgstr "吉茲語"
 
 #. frequency:1 iso_code_3:kat
 #: DB:language/name:144
 msgid "Georgian"
-msgstr ""
+msgstr "喬治亞文"
 
 #. frequency:2 iso_code_3:deu
 #: DB:language/name:145
 msgid "German"
-msgstr ""
+msgstr "德語"
 
 #. frequency:1 iso_code_3:nds
 #: DB:language/name:299
 msgid "German, Low"
-msgstr ""
+msgstr "低地德語"
 
 #. frequency:1 iso_code_3:gmh
 #: DB:language/name:152
 msgid "German, Middle High (ca.1050-1500)"
-msgstr ""
+msgstr "中古高地德語"
 
 #. frequency:1 iso_code_3:goh
 #: DB:language/name:153
 msgid "German, Old High (ca.750-1050)"
-msgstr ""
+msgstr "古高地德語"
 
 #. frequency:1 iso_code_3:gsw
 #: DB:language/name:476
 msgid "German, Swiss"
-msgstr ""
+msgstr "瑞士德語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:143
 msgid "Germanic languages"
-msgstr ""
+msgstr "日爾曼諸語言"
 
 #. frequency:1 iso_code_3:gil
 #: DB:language/name:147
 msgid "Gilbertese"
-msgstr ""
+msgstr "吉伯特語"
 
 #. frequency:1 iso_code_3:gon
 #: DB:language/name:154
 msgid "Gondi"
-msgstr ""
+msgstr "貢德語"
 
 #. frequency:1 iso_code_3:gor
 #: DB:language/name:155
 msgid "Gorontalo"
-msgstr ""
+msgstr "哥倫打洛語"
 
 #. frequency:1 iso_code_3:got
 #: DB:language/name:156
 msgid "Gothic"
-msgstr ""
+msgstr "哥德文"
 
 #. frequency:1 iso_code_3:grb
 #: DB:language/name:157
 msgid "Grebo"
-msgstr ""
+msgstr "格列博語"
 
 #. frequency:2 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
-msgstr ""
+msgstr "希臘文"
 
 #. frequency:1 iso_code_3:grc
 #: DB:language/name:158
 msgid "Greek, Ancient"
-msgstr ""
+msgstr "古希臘語"
 
 #. frequency:1 iso_code_3:kal
 #: DB:language/name:204
 msgid "Greenlandic"
-msgstr ""
+msgstr "格陵蘭語"
 
 #. frequency:1 iso_code_3:gos
 #: DB:language/name:2534
 msgid "Gronings"
-msgstr ""
+msgstr "格羅寧根方言"
 
 #. frequency:1 iso_code_3:gcf
 #: DB:language/name:2386
 msgid "Guadeloupean Creole French"
-msgstr ""
+msgstr "瓜德羅普克里奧爾法語"
 
 #. frequency:1 iso_code_3:grn
 #: DB:language/name:160
 msgid "Guarani"
-msgstr ""
+msgstr "瓜拉尼語"
 
 #. frequency:1 iso_code_3:guj
 #: DB:language/name:161
 msgid "Gujarati"
-msgstr ""
+msgstr "古吉拉特文"
 
 #. frequency:1 iso_code_3:gnn
 #: DB:language/name:2511
 msgid "Gumatj"
-msgstr ""
+msgstr "古馬齊語"
 
 #. frequency:1 iso_code_3:guf
 #: DB:language/name:2581
 msgid "Gupapuyngu"
-msgstr ""
+msgstr "古帕普伊古語"
 
 #. frequency:1 iso_code_3:gyn
 #: DB:language/name:2638
 msgid "Guyanese Creole English"
-msgstr ""
+msgstr "蓋亞那克里奧爾英語"
 
 #. frequency:1 iso_code_3:gwi
 #: DB:language/name:162
 msgid "Gwich'in"
-msgstr ""
+msgstr "庫臣語"
 
 #. frequency:1 iso_code_3:hai
 #: DB:language/name:163
 msgid "Haida"
-msgstr ""
+msgstr "海達語"
 
 #. frequency:1 iso_code_3:hat
 #: DB:language/name:164
 msgid "Haitian Creole"
-msgstr ""
+msgstr "海地克里奧爾語"
 
 #. frequency:1 iso_code_3:hau
 #: DB:language/name:165
 msgid "Hausa"
-msgstr ""
+msgstr "豪薩語"
 
 #. frequency:1 iso_code_3:haw
 #: DB:language/name:166
 msgid "Hawaiian"
-msgstr ""
+msgstr "夏威夷語"
 
 #. frequency:1 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
-msgstr ""
+msgstr "希伯來文"
 
 #. frequency:1 iso_code_3:her
 #: DB:language/name:168
 msgid "Herero"
-msgstr ""
+msgstr "赫雷羅語"
 
 #. frequency:1 iso_code_3:hil
 #: DB:language/name:169
 msgid "Hiligaynon"
-msgstr ""
+msgstr "希利蓋農語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:170
 msgid "Himachali languages"
-msgstr ""
+msgstr "喜馬偕爾語"
 
 #. frequency:2 iso_code_3:hin
 #: DB:language/name:171
 msgid "Hindi"
-msgstr ""
+msgstr "印地語"
 
 #. frequency:1 iso_code_3:hmo
 #: DB:language/name:174
 msgid "Hiri Motu"
-msgstr ""
+msgstr "希里莫圖語"
 
 #. frequency:0 iso_code_3:hit
 #: DB:language/name:172
 msgid "Hittite"
-msgstr ""
+msgstr "西臺語"
 
 #. frequency:1 iso_code_3:hmn
 #: DB:language/name:173
 msgid "Hmong"
-msgstr ""
+msgstr "苗語"
 
 #. frequency:1 iso_code_3:hun
 #: DB:language/name:176
 msgid "Hungarian"
-msgstr ""
+msgstr "匈牙利語"
 
 #. frequency:1 iso_code_3:hup
 #: DB:language/name:177
 msgid "Hupa"
-msgstr ""
+msgstr "胡帕語"
 
 #. frequency:1 iso_code_3:iba
 #: DB:language/name:178
 msgid "Iban"
-msgstr ""
+msgstr "伊班語"
 
 #. frequency:1 iso_code_3:isl
 #: DB:language/name:180
 msgid "Icelandic"
-msgstr ""
+msgstr "冰島語"
 
 #. frequency:1 iso_code_3:ido
 #: DB:language/name:181
 msgid "Ido"
-msgstr ""
+msgstr "伊多語"
 
 #. frequency:1 iso_code_3:ibo
 #: DB:language/name:179
 msgid "Igbo"
-msgstr ""
+msgstr "伊博語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:183
 msgid "Ijo languages"
-msgstr ""
+msgstr "伊喬語"
 
 #. frequency:1 iso_code_3:ilo
 #: DB:language/name:186
 msgid "Iloko"
-msgstr ""
+msgstr "伊洛卡諾語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:188
 msgid "Indic languages"
-msgstr ""
+msgstr "印度諸語言"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:190
 msgid "Indo-European languages"
-msgstr ""
+msgstr "印歐諸語言"
 
 #. frequency:1 iso_code_3:ind
 #: DB:language/name:189
 msgid "Indonesian"
-msgstr ""
+msgstr "印尼語"
 
 #. frequency:1 iso_code_3:izh
 #: DB:language/name:2967
 msgid "Ingrian"
-msgstr ""
+msgstr "英格里亞語"
 
 #. frequency:1 iso_code_3:inh
 #: DB:language/name:191
 msgid "Ingush"
-msgstr ""
+msgstr "印古什語"
 
 #. frequency:1 iso_code_3:moe
 #: DB:language/name:4369
 msgid "Innu"
-msgstr ""
+msgstr "因紐語"
 
 #. frequency:1 iso_code_3:ina
 #: DB:language/name:187
 msgid "Interlingua"
-msgstr ""
+msgstr "國際語"
 
 #. frequency:1 iso_code_3:ile
 #: DB:language/name:185
 msgid "Interlingue"
-msgstr ""
+msgstr "西方國際語"
 
 #. frequency:1 iso_code_3:iku
 #: DB:language/name:184
 msgid "Inuktitut"
-msgstr ""
+msgstr "伊努伊特語"
 
 #. frequency:1 iso_code_3:ipk
 #: DB:language/name:192
 msgid "Inupiaq"
-msgstr ""
+msgstr "依努庇克語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:193
 msgid "Iranian languages"
-msgstr ""
+msgstr "伊朗諸語言"
 
 #. frequency:1 iso_code_3:gle
 #: DB:language/name:149
 msgid "Irish"
-msgstr ""
+msgstr "愛爾蘭語"
 
 #. frequency:0 iso_code_3:mga
 #: DB:language/name:270
 msgid "Irish, Middle (900-1200)"
-msgstr ""
+msgstr "中古愛爾蘭語"
 
 #. frequency:0 iso_code_3:sga
 #: DB:language/name:369
 msgid "Irish, Old (to 900)"
-msgstr ""
+msgstr "古愛爾蘭語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:194
 msgid "Iroquoian languages"
-msgstr ""
+msgstr "易洛魁語"
 
 #. frequency:2 iso_code_3:ita
 #: DB:language/name:195
 msgid "Italian"
-msgstr ""
+msgstr "義大利語"
 
 #. frequency:1 iso_code_3:jam
 #: DB:language/name:2980
 msgid "Jamaican Creole English"
-msgstr ""
+msgstr "牙買加克里奧爾語"
 
 #. frequency:2 iso_code_3:jpn
 #: DB:language/name:198
 msgid "Japanese"
-msgstr ""
+msgstr "日文"
 
 #. frequency:1 iso_code_3:jav
 #: DB:language/name:196
 msgid "Javanese"
-msgstr ""
+msgstr "爪哇文"
 
 #. frequency:1 iso_code_3:tmr
 #: DB:language/name:6526
 msgid "Jewish Babylonian Aramaic (ca. 200-1200 CE)"
-msgstr ""
+msgstr "猶太巴比倫亞拉姆語"
 
 #. frequency:1 iso_code_3:jrb
 #: DB:language/name:200
 msgid "Judeo-Arabic"
-msgstr ""
+msgstr "猶太-阿拉伯語"
 
 #. frequency:1 iso_code_3:jpr
 #: DB:language/name:199
 msgid "Judeo-Persian"
-msgstr ""
+msgstr "猶太-波斯語"
 
 #. frequency:1 iso_code_3:kbd
 #: DB:language/name:212
 msgid "Kabardian"
-msgstr ""
+msgstr "卡巴爾德語"
 
 #. frequency:1 iso_code_3:kea
 #: DB:language/name:3185
 msgid "Kabuverdianu"
-msgstr ""
+msgstr "維德角克里奧爾語"
 
 #. frequency:1 iso_code_3:kab
 #: DB:language/name:202
 msgid "Kabyle"
-msgstr ""
+msgstr "卡拜爾語"
 
 #. frequency:1 iso_code_3:kac
 #: DB:language/name:203
 msgid "Kachin"
-msgstr ""
+msgstr "克欽語"
 
 #. frequency:1 iso_code_3:xal
 #: DB:language/name:459
 msgid "Kalmyk"
-msgstr ""
+msgstr "卡爾梅克語"
 
 #. frequency:1 iso_code_3:kam
 #: DB:language/name:205
 msgid "Kamba"
-msgstr ""
+msgstr "坎巴語"
 
 #. frequency:1 iso_code_3:kan
 #: DB:language/name:206
 msgid "Kannada"
-msgstr ""
+msgstr "卡納達文"
 
 #. frequency:1 iso_code_3:kau
 #: DB:language/name:209
 msgid "Kanuri"
-msgstr ""
+msgstr "卡努里語"
 
 #. frequency:1 iso_code_3:kaa
 #: DB:language/name:201
 msgid "Kara-Kalpak"
-msgstr ""
+msgstr "卡拉卡爾帕克語"
 
 #. frequency:1 iso_code_3:krc
 #: DB:language/name:227
 msgid "Karachay-Balkar"
-msgstr ""
+msgstr "卡拉恰伊-巴爾卡爾語"
 
 #. frequency:1 iso_code_3:krl
 #: DB:language/name:477
 msgid "Karelian"
-msgstr ""
+msgstr "卡累利阿語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:207
 msgid "Karen languages"
-msgstr ""
+msgstr "克倫語"
 
 #. frequency:1 iso_code_3:kas
 #: DB:language/name:208
 msgid "Kashmiri"
-msgstr ""
+msgstr "克什米爾語"
 
 #. frequency:1 iso_code_3:csb
 #: DB:language/name:96
 msgid "Kashubian"
-msgstr ""
+msgstr "卡舒比語"
 
 #. frequency:0 iso_code_3:kaw
 #: DB:language/name:210
 msgid "Kawi"
-msgstr ""
+msgstr "卡威語"
 
 #. frequency:1 iso_code_3:kaz
 #: DB:language/name:211
 msgid "Kazakh"
-msgstr ""
+msgstr "哈薩克語"
 
 #. frequency:1 iso_code_3:kca
 #: DB:language/name:3137
 msgid "Khanty"
-msgstr ""
+msgstr "漢特語"
 
 #. frequency:1 iso_code_3:kha
 #: DB:language/name:213
 msgid "Khasi"
-msgstr ""
+msgstr "卡西語"
 
 #. frequency:1 iso_code_3:khm
 #: DB:language/name:215
 msgid "Khmer, Central"
-msgstr ""
+msgstr "中部高棉語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:214
 msgid "Khoisan languages"
-msgstr ""
+msgstr "科伊桑諸語言"
 
 #. frequency:0 iso_code_3:kho
 #: DB:language/name:216
 msgid "Khotanese"
-msgstr ""
+msgstr "和田語"
 
 #. frequency:1 iso_code_3:kik
 #: DB:language/name:217
 msgid "Kikuyu"
-msgstr ""
+msgstr "基庫尤語"
 
 #. frequency:1 iso_code_3:kmb
 #: DB:language/name:220
 msgid "Kimbundu"
-msgstr ""
+msgstr "金本杜語"
 
 #. frequency:1 iso_code_3:kin
 #: DB:language/name:218
 msgid "Kinyarwanda"
-msgstr ""
+msgstr "基尼阿萬達語"
 
 #. frequency:1 iso_code_3:kir
 #: DB:language/name:219
 msgid "Kirghiz"
-msgstr ""
+msgstr "吉爾吉斯語"
 
 #. frequency:1 iso_code_3:mkw
 #: DB:language/name:4291
 msgid "Kituba (Congo)"
-msgstr ""
+msgstr "吉土巴語（剛果）"
 
 #. frequency:1 iso_code_3:ktu
 #: DB:language/name:3568
 msgid "Kituba (Democratic Republic of Congo)"
-msgstr ""
+msgstr "吉土巴語（剛果民主共和國）"
 
 #. frequency:1 iso_code_3:tlh
 #: DB:language/name:421
 msgid "Klingon"
-msgstr ""
+msgstr "克林貢語"
 
 #. frequency:1 iso_code_3:kom
 #: DB:language/name:222
 msgid "Komi"
-msgstr ""
+msgstr "科米語"
 
 #. frequency:1 iso_code_3:kon
 #: DB:language/name:223
 msgid "Kongo"
-msgstr ""
+msgstr "剛果語"
 
 #. frequency:1 iso_code_3:kok
 #: DB:language/name:221
 msgid "Konkani"
-msgstr ""
+msgstr "孔卡尼語"
 
 #. frequency:2 iso_code_3:kor
 #: DB:language/name:224
 msgid "Korean"
-msgstr ""
+msgstr "朝鮮文"
 
 #. frequency:1 iso_code_3:kos
 #: DB:language/name:225
 msgid "Kosraean"
-msgstr ""
+msgstr "科斯拉伊語"
 
 #. frequency:1 iso_code_3:kpe
 #: DB:language/name:226
 msgid "Kpelle"
-msgstr ""
+msgstr "克佩勒文"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:228
 msgid "Kru languages"
-msgstr ""
+msgstr "克魯語"
 
 #. frequency:1 iso_code_3:kua
 #: DB:language/name:230
 msgid "Kuanyama"
-msgstr ""
+msgstr "寬亞馬語"
 
 #. frequency:1 iso_code_3:kum
 #: DB:language/name:231
 msgid "Kumyk"
-msgstr ""
+msgstr "庫梅克語"
 
 #. frequency:1 iso_code_3:xug
 #: DB:language/name:7421
 msgid "Kunigami"
-msgstr ""
+msgstr "國頭語"
 
 #. frequency:1 iso_code_3:kur
 #: DB:language/name:232
 msgid "Kurdish"
-msgstr ""
+msgstr "庫德語"
 
 #. frequency:1 iso_code_3:kru
 #: DB:language/name:229
 msgid "Kurukh"
-msgstr ""
+msgstr "庫盧克語"
 
 #. frequency:1 iso_code_3:kut
 #: DB:language/name:233
 msgid "Kutenai"
-msgstr ""
+msgstr "庫特內語"
 
 #. frequency:1 iso_code_3:ksh
 #: DB:language/name:3529
 msgid "Kölsch"
-msgstr ""
+msgstr "科隆語"
 
 #. frequency:1 iso_code_3:lld
 #: DB:language/name:3885
 msgid "Ladin"
-msgstr ""
+msgstr "拉登語"
 
 #. frequency:1 iso_code_3:lad
 #: DB:language/name:234
 msgid "Ladino"
-msgstr ""
+msgstr "拉迪諾語"
 
 #. frequency:1 iso_code_3:lah
 #: DB:language/name:235
 msgid "Lahnda"
-msgstr ""
+msgstr "拉亨達語"
 
 #. frequency:1 iso_code_3:lkt
 #: DB:language/name:3880
 msgid "Lakota"
-msgstr ""
+msgstr "拉科塔語"
 
 #. frequency:1 iso_code_3:lam
 #: DB:language/name:236
 msgid "Lamba"
-msgstr ""
+msgstr "蘭巴語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:102
 msgid "Land Dayak languages"
-msgstr ""
+msgstr "達雅克語"
 
 #. frequency:1 iso_code_3:lao
 #: DB:language/name:237
 msgid "Lao"
-msgstr ""
+msgstr "寮國文"
 
 #. frequency:1 iso_code_3:lat
 #: DB:language/name:238
 msgid "Latin"
-msgstr ""
+msgstr "拉丁文"
 
 #. frequency:1 iso_code_3:lav
 #: DB:language/name:239
 msgid "Latvian"
-msgstr ""
+msgstr "拉脫維亞語"
 
 #. frequency:1 iso_code_3:lzz
 #: DB:language/name:4039
 msgid "Laz"
-msgstr ""
+msgstr "拉茲語"
 
 #. frequency:1 iso_code_3:lez
 #: DB:language/name:240
 msgid "Lezghian"
-msgstr ""
+msgstr "列茲金語"
 
 #. frequency:1 iso_code_3:lim
 #: DB:language/name:241
 msgid "Limburgish"
-msgstr ""
+msgstr "林堡語"
 
 #. frequency:1 iso_code_3:lin
 #: DB:language/name:242
 msgid "Lingala"
-msgstr ""
+msgstr "林加拉語"
 
 #. frequency:1 iso_code_3:lit
 #: DB:language/name:243
 msgid "Lithuanian"
-msgstr ""
+msgstr "立陶宛語"
 
 #. frequency:1 iso_code_3:liv
 #: DB:language/name:3858
 msgid "Liv"
-msgstr ""
+msgstr "利窩尼亞語"
 
 #. frequency:1 iso_code_3:jbo
 #: DB:language/name:197
 msgid "Lojban"
-msgstr ""
+msgstr "邏輯語"
 
 #. frequency:1 iso_code_3:lou
 #: DB:language/name:3958
 msgid "Louisiana Creole French"
-msgstr ""
+msgstr "路易斯安那克里奧爾法語"
 
 #. frequency:1 iso_code_3:loz
 #: DB:language/name:245
 msgid "Lozi"
-msgstr ""
+msgstr "洛齊語"
 
 #. frequency:1 iso_code_3:lub
 #: DB:language/name:248
 msgid "Luba-Katanga"
-msgstr ""
+msgstr "盧巴-喀坦加語"
 
 #. frequency:1 iso_code_3:lua
 #: DB:language/name:247
 msgid "Luba-Lulua"
-msgstr ""
+msgstr "盧巴-盧拉語"
 
 #. frequency:1 iso_code_3:lui
 #: DB:language/name:250
 msgid "Luiseno"
-msgstr ""
+msgstr "盧伊塞諾語"
 
 #. frequency:1 iso_code_3:lun
 #: DB:language/name:251
 msgid "Lunda"
-msgstr ""
+msgstr "隆達語"
 
 #. frequency:1 iso_code_3:luo
 #: DB:language/name:252
 msgid "Luo"
-msgstr ""
+msgstr "盧歐語"
 
 #. frequency:1 iso_code_3:lus
 #: DB:language/name:253
 msgid "Lushai"
-msgstr ""
+msgstr "盧薩語"
 
 #. frequency:1 iso_code_3:ltz
 #: DB:language/name:246
 msgid "Luxembourgish"
-msgstr ""
+msgstr "盧森堡語"
 
 #. frequency:1 iso_code_3:luy
 #: DB:language/name:4018
 msgid "Luyia"
-msgstr ""
+msgstr "盧希亞語"
 
 #. frequency:1 iso_code_3:mkd
 #: DB:language/name:254
 msgid "Macedonian"
-msgstr ""
+msgstr "馬其頓語"
 
 #. frequency:1 iso_code_3:mad
 #: DB:language/name:255
 msgid "Madurese"
-msgstr ""
+msgstr "馬都拉語"
 
 #. frequency:1 iso_code_3:mag
 #: DB:language/name:256
 msgid "Magahi"
-msgstr ""
+msgstr "馬加赫語"
 
 #. frequency:1 iso_code_3:mai
 #: DB:language/name:258
 msgid "Maithili"
-msgstr ""
+msgstr "米德勒語"
 
 #. frequency:1 iso_code_3:mak
 #: DB:language/name:259
 msgid "Makasar"
-msgstr ""
+msgstr "望加錫語"
 
 #. frequency:1 iso_code_3:mlg
 #: DB:language/name:275
 msgid "Malagasy"
-msgstr ""
+msgstr "馬達加斯加語"
 
 #. frequency:1 iso_code_3:msa
 #: DB:language/name:266
 msgid "Malay"
-msgstr ""
+msgstr "馬來語"
 
 #. frequency:1 iso_code_3:mal
 #: DB:language/name:260
 msgid "Malayalam"
-msgstr ""
+msgstr "馬拉雅拉姆文"
 
 #. frequency:1 iso_code_3:mlt
 #: DB:language/name:276
 msgid "Maltese"
-msgstr ""
+msgstr "馬耳他語"
 
 #. frequency:1 iso_code_3:mnc
 #: DB:language/name:277
 msgid "Manchu"
-msgstr ""
+msgstr "滿語"
 
 #. frequency:1 iso_code_3:mdr
 #: DB:language/name:268
 msgid "Mandar"
-msgstr ""
+msgstr "曼達語"
 
 #. frequency:1 iso_code_3:cmn
 #: DB:language/name:1739
 msgid "Mandarin Chinese"
-msgstr ""
+msgstr "國語"
 
 #. frequency:1 iso_code_3:man
 #: DB:language/name:261
 msgid "Mandingo"
-msgstr ""
+msgstr "曼丁哥語"
 
 #. frequency:1 iso_code_3:mni
 #: DB:language/name:278
 msgid "Manipuri"
-msgstr ""
+msgstr "曼尼普爾語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:279
 msgid "Manobo languages"
-msgstr ""
+msgstr "馬諾博諸語言"
 
 #. frequency:1 iso_code_3:mns
 #: DB:language/name:4358
 msgid "Mansi"
-msgstr ""
+msgstr "曼西語"
 
 #. frequency:1 iso_code_3:glv
 #: DB:language/name:151
 msgid "Manx"
-msgstr ""
+msgstr "馬恩島語"
 
 #. frequency:1 iso_code_3:mri
 #: DB:language/name:262
 msgid "Maori"
-msgstr ""
+msgstr "毛利語"
 
 #. frequency:1 iso_code_3:arn
 #: DB:language/name:22
 msgid "Mapudungun"
-msgstr ""
+msgstr "馬普切語"
 
 #. frequency:1 iso_code_3:mar
 #: DB:language/name:264
 msgid "Marathi"
-msgstr ""
+msgstr "馬拉提語"
 
 #. frequency:1 iso_code_3:chm
 #: DB:language/name:78
 msgid "Mari"
-msgstr ""
+msgstr "馬里語"
 
 #. frequency:1 iso_code_3:mah
 #: DB:language/name:257
 msgid "Marshallese"
-msgstr ""
+msgstr "馬紹爾語"
 
 #. frequency:1 iso_code_3:mwr
 #: DB:language/name:288
 msgid "Marwari"
-msgstr ""
+msgstr "馬爾瓦利語"
 
 #. frequency:1 iso_code_3:mas
 #: DB:language/name:265
 msgid "Masai"
-msgstr ""
+msgstr "馬薩伊語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:289
 msgid "Mayan languages"
-msgstr ""
+msgstr "瑪雅諸語言"
 
 #. frequency:1 iso_code_3:men
 #: DB:language/name:269
 msgid "Mende"
-msgstr ""
+msgstr "門德文"
 
 #. frequency:1 iso_code_3:mic
 #: DB:language/name:271
 msgid "Mi'kmaq"
-msgstr ""
+msgstr "米克馬克語"
 
 #. frequency:1 iso_code_3:nan
 #: DB:language/name:4663
 msgid "Min Nan Chinese"
-msgstr ""
+msgstr "閩南語"
 
 #. frequency:1 iso_code_3:hna
 #: DB:language/name:2735
 msgid "Mina (Cameroon)"
-msgstr ""
+msgstr "米納語 (喀麥隆)"
 
 #. frequency:1 iso_code_3:min
 #: DB:language/name:272
 msgid "Minangkabau"
-msgstr ""
+msgstr "米南卡保語"
 
 #. frequency:1 iso_code_3:mwl
 #: DB:language/name:287
 msgid "Mirandese"
-msgstr ""
+msgstr "米蘭德斯語"
 
 #. frequency:1 iso_code_3:mvi
 #: DB:language/name:4538
 msgid "Miyako"
-msgstr ""
+msgstr "宮古語"
 
 #. frequency:1 iso_code_3:moh
 #: DB:language/name:280
 msgid "Mohawk"
-msgstr ""
+msgstr "莫霍克語"
 
 #. frequency:1 iso_code_3:mdf
 #: DB:language/name:267
 msgid "Moksha"
-msgstr ""
+msgstr "莫克沙語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:281
 msgid "Moldavian"
-msgstr ""
+msgstr "摩爾多瓦語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:274
 msgid "Mon-Khmer languages"
-msgstr ""
+msgstr "孟-高棉諸語言"
 
 #. frequency:1 iso_code_3:lol
 #: DB:language/name:244
 msgid "Mongo"
-msgstr ""
+msgstr "芒戈語"
 
 #. frequency:1 iso_code_3:mon
 #: DB:language/name:282
 msgid "Mongolian"
-msgstr ""
+msgstr "蒙古文"
 
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283
 msgid "Mossi"
-msgstr ""
+msgstr "莫西語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:285
 msgid "Munda languages"
-msgstr ""
+msgstr "蒙達諸語言"
 
 #. frequency:1 iso_code_3:nqo
 #: DB:language/name:478
 msgid "N'Ko"
-msgstr ""
+msgstr "N'Ko"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:291
 msgid "Nahuatl languages"
-msgstr ""
+msgstr "納瓦特爾語"
 
 #. frequency:1 iso_code_3:nau
 #: DB:language/name:294
@@ -1721,732 +1722,739 @@ msgstr ""
 #. frequency:1 iso_code_3:nav
 #: DB:language/name:295
 msgid "Navajo"
-msgstr ""
+msgstr "納瓦荷語"
 
 #. frequency:1 iso_code_3:nde
 #: DB:language/name:297
 msgid "Ndebele, North"
-msgstr ""
+msgstr "北恩德貝萊語"
 
 #. frequency:1 iso_code_3:nbl
 #: DB:language/name:296
 msgid "Ndebele, South"
-msgstr ""
+msgstr "南恩德貝萊語"
 
 #. frequency:1 iso_code_3:ndo
 #: DB:language/name:298
 msgid "Ndonga"
-msgstr ""
+msgstr "恩敦加語"
 
 #. frequency:1 iso_code_3:nap
 #: DB:language/name:293
 msgid "Neapolitan"
-msgstr ""
+msgstr "拿坡里語"
 
 #. frequency:1 iso_code_3:new
 #: DB:language/name:301
 msgid "Nepal Bhasa"
-msgstr ""
+msgstr "尼瓦爾語"
 
 #. frequency:1 iso_code_3:nep
 #: DB:language/name:300
 msgid "Nepali"
-msgstr ""
+msgstr "尼泊爾語"
 
 #. frequency:1 iso_code_3:yrl
 #: DB:language/name:7618
 msgid "Nhengatu"
-msgstr ""
+msgstr "涅恩阿圖語"
 
 #. frequency:1 iso_code_3:nia
 #: DB:language/name:302
 msgid "Nias"
-msgstr ""
+msgstr "尼亞斯語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:303
 msgid "Niger-Kordofanian languages"
-msgstr ""
+msgstr "尼日-科爾多凡諸語言"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:396
 msgid "Nilo-Saharan languages"
-msgstr ""
+msgstr "尼羅-撒哈拉諸語言"
 
 #. frequency:1 iso_code_3:niu
 #: DB:language/name:304
 msgid "Niuean"
-msgstr ""
+msgstr "紐埃語"
 
 #. frequency:1 iso_code_3:nog
 #: DB:language/name:307
 msgid "Nogai"
-msgstr ""
+msgstr "諾蓋語"
 
 #. frequency:1 iso_code_3:nrn
 #: DB:language/name:4991
 msgid "Norn"
-msgstr ""
+msgstr "諾恩語"
 
 #. frequency:1 iso_code_3:non
 #: DB:language/name:308
 msgid "Norse, Old"
-msgstr ""
+msgstr "古諾爾斯語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:292
 msgid "North American Indian languages"
-msgstr ""
+msgstr "北美洲土著諸語言"
 
 #. frequency:2 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
-msgstr ""
+msgstr "挪威語"
 
 #. frequency:1 iso_code_3:nob
 #: DB:language/name:306
 msgid "Norwegian Bokmål"
-msgstr ""
+msgstr "書面挪威語"
 
 #. frequency:1 iso_code_3:nno
 #: DB:language/name:305
 msgid "Norwegian Nynorsk"
-msgstr ""
+msgstr "新挪威語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:311
 msgid "Nubian languages"
-msgstr ""
+msgstr "努比亞語諸語言"
 
 #. frequency:1 iso_code_3:nym
 #: DB:language/name:314
 msgid "Nyamwezi"
-msgstr ""
+msgstr "尼揚韋齊語"
 
 #. frequency:1 iso_code_3:nyn
 #: DB:language/name:315
 msgid "Nyankole"
-msgstr ""
+msgstr "尼揚科勒語"
 
 #. frequency:1 iso_code_3:nyo
 #: DB:language/name:316
 msgid "Nyoro"
-msgstr ""
+msgstr "尼奧羅語"
 
 #. frequency:1 iso_code_3:nzi
 #: DB:language/name:317
 msgid "Nzima"
-msgstr ""
+msgstr "恩濟馬語"
 
 #. frequency:1 iso_code_3:oci
 #: DB:language/name:318
 msgid "Occitan"
-msgstr ""
+msgstr "奧克語"
 
 #. frequency:0 iso_code_3:arc
 #: DB:language/name:19
 msgid "Official Aramaic (700-300 BCE)"
-msgstr ""
+msgstr "官方亞拉姆語"
 
 #. frequency:1 iso_code_3:oji
 #: DB:language/name:319
 msgid "Ojibwa"
-msgstr ""
+msgstr "奧傑布瓦語"
 
 #. frequency:1 iso_code_3:ori
 #: DB:language/name:320
 msgid "Oriya"
-msgstr ""
+msgstr "奧利亞文"
 
 #. frequency:1 iso_code_3:orm
 #: DB:language/name:321
 msgid "Oromo"
-msgstr ""
+msgstr "奧洛莫語"
 
 #. frequency:1 iso_code_3:osa
 #: DB:language/name:322
 msgid "Osage"
-msgstr ""
+msgstr "奧薩格語"
 
 #. frequency:1 iso_code_3:oss
 #: DB:language/name:323
 msgid "Ossetian"
-msgstr ""
+msgstr "奧賽梯語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:325
 msgid "Otomian languages"
-msgstr ""
+msgstr "奧托米諸語言"
 
 #. frequency:1 iso_code_3:pal
 #: DB:language/name:328
 msgid "Pahlavi"
-msgstr ""
+msgstr "缽羅缽語"
 
 #. frequency:1 iso_code_3:pau
 #: DB:language/name:332
 msgid "Palauan"
-msgstr ""
+msgstr "帛琉語"
 
 #. frequency:1 iso_code_3:pli
 #: DB:language/name:337
 msgid "Pali"
-msgstr ""
+msgstr "巴利語"
 
 #. frequency:1 iso_code_3:pam
 #: DB:language/name:329
 msgid "Pampanga"
-msgstr ""
+msgstr "邦板牙語"
 
 #. frequency:1 iso_code_3:pag
 #: DB:language/name:327
 msgid "Pangasinan"
-msgstr ""
+msgstr "邦阿西楠語"
 
 #. frequency:1 iso_code_3:pap
 #: DB:language/name:331
 msgid "Papiamento"
-msgstr ""
+msgstr "帕皮阿門托語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:326
 msgid "Papuan languages"
-msgstr ""
+msgstr "巴布亞諸語言"
 
 #. frequency:1 iso_code_3:fas
 #: DB:language/name:334
 msgid "Persian"
-msgstr ""
+msgstr "波斯語"
 
 #. frequency:0 iso_code_3:peo
 #: DB:language/name:333
 msgid "Persian, Old (ca.600-400 B.C.)"
-msgstr ""
+msgstr "古波斯語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:335
 msgid "Philippine languages"
-msgstr ""
+msgstr "菲律賓諸語言"
 
 #. frequency:0 iso_code_3:phn
 #: DB:language/name:336
 msgid "Phoenician"
-msgstr ""
+msgstr "腓尼基文"
 
 #. frequency:1 iso_code_3:pjt
 #: DB:language/name:5402
 msgid "Pitjantjatjara"
-msgstr ""
+msgstr "皮詹加加拉語"
 
 #. frequency:1 iso_code_3:pon
 #: DB:language/name:339
 msgid "Pohnpeian"
-msgstr ""
+msgstr "波納佩語"
 
 #. frequency:2 iso_code_3:pol
 #: DB:language/name:338
 msgid "Polish"
-msgstr ""
+msgstr "波蘭語"
 
 #. frequency:2 iso_code_3:por
 #: DB:language/name:340
 msgid "Portuguese"
-msgstr ""
+msgstr "葡萄牙語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:341
 msgid "Prakrit languages"
-msgstr ""
+msgstr "普拉克里特諸語言"
 
 #. frequency:1 iso_code_3:pro
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
-msgstr ""
+msgstr "古普羅旺斯語"
 
 #. frequency:1 iso_code_3:prg
 #: DB:language/name:5521
 msgid "Prussian"
-msgstr ""
+msgstr "普魯士語"
 
 #. frequency:1 iso_code_3:fuc
 #: DB:language/name:2321
 msgid "Pulaar"
-msgstr ""
+msgstr "普拉爾語"
 
 #. frequency:1 iso_code_3:pan
 #: DB:language/name:330
 msgid "Punjabi"
-msgstr ""
+msgstr "旁遮普語"
 
 #. frequency:1 iso_code_3:pus
 #: DB:language/name:343
 msgid "Pushto"
-msgstr ""
+msgstr "普什圖語"
 
 #. frequency:1 iso_code_3:pyu
 #: DB:language/name:5603
 msgid "Puyuma"
-msgstr ""
+msgstr "卑南語"
 
 #. frequency:1 iso_code_3:que
 #: DB:language/name:344
 msgid "Quechua"
-msgstr ""
+msgstr "凱楚亞語"
 
 #. frequency:1 iso_code_3:qya
 #: DB:language/name:5662
 msgid "Quenya"
-msgstr ""
+msgstr "昆雅語"
 
 #. frequency:1 iso_code_3:raj
 #: DB:language/name:345
 msgid "Rajasthani"
-msgstr ""
+msgstr "拉賈斯坦語"
 
 #. frequency:1 iso_code_3:rap
 #: DB:language/name:346
 msgid "Rapanui"
-msgstr ""
+msgstr "拉帕努伊語"
 
 #. frequency:1 iso_code_3:rar
 #: DB:language/name:347
 msgid "Rarotongan"
-msgstr ""
+msgstr "庫克群島毛利語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:348
 msgid "Romance languages"
-msgstr ""
+msgstr "羅曼諸語言"
 
 #. frequency:1 iso_code_3:ron
 #: DB:language/name:351
 msgid "Romanian"
-msgstr ""
+msgstr "羅馬尼亞語"
 
 #. frequency:1 iso_code_3:roh
 #: DB:language/name:349
 msgid "Romansh"
-msgstr ""
+msgstr "利托-羅曼語"
 
 #. frequency:1 iso_code_3:rom
 #: DB:language/name:350
 msgid "Romany"
-msgstr ""
+msgstr "吉普賽語"
 
 #. frequency:1 iso_code_3:run
 #: DB:language/name:352
 msgid "Rundi"
-msgstr ""
+msgstr "基隆迪語"
 
 #. frequency:2 iso_code_3:rus
 #: DB:language/name:353
 msgid "Russian"
-msgstr ""
+msgstr "俄語"
 
 #. frequency:1 iso_code_3:rue
 #: DB:language/name:5790
 msgid "Rusyn"
-msgstr ""
+msgstr "盧森尼亞語"
 
 #. frequency:1 iso_code_3:rcf
 #: DB:language/name:5690
 msgid "Réunion Creole French"
-msgstr ""
+msgstr "留尼旺克里奧爾法語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:358
 msgid "Salishan languages"
-msgstr ""
+msgstr "薩利什諸語言"
 
 #. frequency:1 iso_code_3:sam
 #: DB:language/name:359
 msgid "Samaritan Aramaic"
-msgstr ""
+msgstr "薩馬利亞阿拉米語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:381
 msgid "Sami languages"
-msgstr ""
+msgstr "薩莫斯諸語言"
 
 #. frequency:1 iso_code_3:smn
 #: DB:language/name:383
 msgid "Sami, Inari"
-msgstr ""
+msgstr "伊納里薩米語"
 
 #. frequency:1 iso_code_3:smj
 #: DB:language/name:382
 msgid "Sami, Lule"
-msgstr ""
+msgstr "呂勒薩米語"
 
 #. frequency:1 iso_code_3:sme
 #: DB:language/name:380
 msgid "Sami, Northern"
-msgstr ""
+msgstr "北方薩米語"
 
 #. frequency:1 iso_code_3:sms
 #: DB:language/name:385
 msgid "Sami, Skolt"
-msgstr ""
+msgstr "斯科爾特薩米語"
 
 #. frequency:1 iso_code_3:sma
 #: DB:language/name:379
 msgid "Sami, Southern"
-msgstr ""
+msgstr "南方薩米語"
 
 #. frequency:1 iso_code_3:smo
 #: DB:language/name:384
 msgid "Samoan"
-msgstr ""
+msgstr "薩摩亞語"
 
 #. frequency:1 iso_code_3:sad
 #: DB:language/name:354
 msgid "Sandawe"
-msgstr ""
+msgstr "桑達韋語"
 
 #. frequency:1 iso_code_3:sag
 #: DB:language/name:355
 msgid "Sango"
-msgstr ""
+msgstr "桑戈語"
 
 #. frequency:1 iso_code_3:san
 #: DB:language/name:360
 msgid "Sanskrit"
-msgstr ""
+msgstr "梵語"
 
 #. frequency:1 iso_code_3:sat
 #: DB:language/name:362
 msgid "Santali"
-msgstr ""
+msgstr "桑塔利語"
 
 #. frequency:1 iso_code_3:srd
 #: DB:language/name:394
 msgid "Sardinian"
-msgstr ""
+msgstr "撒丁語"
 
 #. frequency:1 iso_code_3:sas
 #: DB:language/name:361
 msgid "Sasak"
-msgstr ""
+msgstr "薩薩克語"
 
 #. frequency:1 iso_code_3:sco
 #: DB:language/name:365
 msgid "Scots"
-msgstr ""
+msgstr "蘇格蘭語"
 
 #. frequency:1 iso_code_3:gla
 #: DB:language/name:148
 msgid "Scottish Gaelic"
-msgstr ""
+msgstr "蘇格蘭蓋爾語"
 
 #. frequency:1 iso_code_3:gul
 #: DB:language/name:2586
 msgid "Sea Island Creole English"
-msgstr ""
+msgstr "海島克里奧爾英語"
 
 #. frequency:1 iso_code_3:sel
 #: DB:language/name:367
 msgid "Selkup"
-msgstr ""
+msgstr "塞爾庫普語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
 msgid "Semitic languages"
-msgstr ""
+msgstr "閃語諸語言"
 
 #. frequency:1 iso_code_3:srp
 #: DB:language/name:363
 msgid "Serbian"
-msgstr ""
+msgstr "塞爾維亞語"
+
+#. frequency:1 iso_code_3:hbs
+#: DB:language/name:2670
+#, fuzzy
+#| msgid "Croatian"
+msgid "Serbo-Croatian"
+msgstr "克羅埃西亞語"
 
 #. frequency:1 iso_code_3:srr
 #: DB:language/name:395
 msgid "Serer"
-msgstr ""
+msgstr "塞雷爾語"
 
 #. frequency:1 iso_code_3:shn
 #: DB:language/name:371
 msgid "Shan"
-msgstr ""
+msgstr "撣語"
 
 #. frequency:1 iso_code_3:sna
 #: DB:language/name:386
 msgid "Shona"
-msgstr ""
+msgstr "紹納語"
 
 #. frequency:1 iso_code_3:iii
 #: DB:language/name:182
 msgid "Sichuan Yi"
-msgstr ""
+msgstr "涼山彝語"
 
 #. frequency:1 iso_code_3:scn
 #: DB:language/name:364
 msgid "Sicilian"
-msgstr ""
+msgstr "西西里語"
 
 #. frequency:1 iso_code_3:sid
 #: DB:language/name:372
 msgid "Sidamo"
-msgstr ""
+msgstr "錫達莫語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:370
 msgid "Sign Languages"
-msgstr ""
+msgstr "手語"
 
 #. frequency:1 iso_code_3:bla
 #: DB:language/name:54
 msgid "Siksika"
-msgstr ""
+msgstr "西克西卡語"
 
 #. frequency:1 iso_code_3:sjn
 #: DB:language/name:5989
 msgid "Sindarin"
-msgstr ""
+msgstr "辛達林語"
 
 #. frequency:1 iso_code_3:snd
 #: DB:language/name:387
 msgid "Sindhi"
-msgstr ""
+msgstr "信德語"
 
 #. frequency:1 iso_code_3:sin
 #: DB:language/name:373
 msgid "Sinhala"
-msgstr ""
+msgstr "僧伽羅文"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:375
 msgid "Sino-Tibetan languages"
-msgstr ""
+msgstr "漢藏諸語言"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:374
 msgid "Siouan languages"
-msgstr ""
+msgstr "蘇語諸語言"
 
 #. frequency:1 iso_code_3:den
 #: DB:language/name:104
 msgid "Slave (Athapascan)"
-msgstr ""
+msgstr "史拉維語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:376
 msgid "Slavic languages"
-msgstr ""
+msgstr "斯拉夫諸語言"
 
 #. frequency:1 iso_code_3:slk
 #: DB:language/name:377
 msgid "Slovak"
-msgstr ""
+msgstr "斯洛伐克語"
 
 #. frequency:1 iso_code_3:slv
 #: DB:language/name:378
 msgid "Slovenian"
-msgstr ""
+msgstr "斯洛維尼亞語"
 
 #. frequency:0 iso_code_3:sog
 #: DB:language/name:389
 msgid "Sogdian"
-msgstr ""
+msgstr "粟特語"
 
 #. frequency:1 iso_code_3:som
 #: DB:language/name:390
 msgid "Somali"
-msgstr ""
+msgstr "索馬利亞語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:391
 msgid "Songhai languages"
-msgstr ""
+msgstr "桑海語"
 
 #. frequency:1 iso_code_3:snk
 #: DB:language/name:388
 msgid "Soninke"
-msgstr ""
+msgstr "索寧克語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:456
 msgid "Sorbian languages"
-msgstr ""
+msgstr "索布諸語言"
 
 #. frequency:1 iso_code_3:dsb
 #: DB:language/name:110
 msgid "Sorbian, Lower"
-msgstr ""
+msgstr "低地索布語"
 
 #. frequency:1 iso_code_3:hsb
 #: DB:language/name:175
 msgid "Sorbian, Upper"
-msgstr ""
+msgstr "高地索布語"
 
 #. frequency:1 iso_code_3:nso
 #: DB:language/name:310
 msgid "Sotho, Northern"
-msgstr ""
+msgstr "北索托語"
 
 #. frequency:1 iso_code_3:sot
 #: DB:language/name:392
 msgid "Sotho, Southern"
-msgstr ""
+msgstr "南索托語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:357
 msgid "South American Indian languages"
-msgstr ""
+msgstr "南美洲土著諸語言"
 
 #. frequency:1 iso_code_3:alt
 #: DB:language/name:474
 msgid "Southern Altai"
-msgstr ""
+msgstr "南阿爾泰語"
 
 #. frequency:1 iso_code_3:kjd
 #: DB:language/name:3309
 msgid "Southern Kiwai"
-msgstr ""
+msgstr "南基瓦伊語"
 
 #. frequency:2 iso_code_3:spa
 #: DB:language/name:393
 msgid "Spanish"
-msgstr ""
+msgstr "西班牙語"
 
 #. frequency:1 iso_code_3:srn
 #: DB:language/name:480
 msgid "Sranan Tongo"
-msgstr ""
+msgstr "蘇利南東加語"
 
 #. frequency:1 iso_code_3:suk
 #: DB:language/name:398
 msgid "Sukuma"
-msgstr ""
+msgstr "蘇庫馬語"
 
 #. frequency:0 iso_code_3:sux
 #: DB:language/name:401
 msgid "Sumerian"
-msgstr ""
+msgstr "蘇美語"
 
 #. frequency:1 iso_code_3:sun
 #: DB:language/name:399
 msgid "Sundanese"
-msgstr ""
+msgstr "巽他文"
 
 #. frequency:1 iso_code_3:sus
 #: DB:language/name:400
 msgid "Susu"
-msgstr ""
+msgstr "蘇蘇語"
 
 #. frequency:1 iso_code_3:sva
 #: DB:language/name:6216
 msgid "Svan"
-msgstr ""
+msgstr "斯凡語"
 
 #. frequency:1 iso_code_3:swa
 #: DB:language/name:402
 msgid "Swahili"
-msgstr ""
+msgstr "斯瓦希里語"
 
 #. frequency:1 iso_code_3:ssw
 #: DB:language/name:397
 msgid "Swati"
-msgstr ""
+msgstr "斯瓦特語"
 
 #. frequency:2 iso_code_3:swe
 #: DB:language/name:403
 msgid "Swedish"
-msgstr ""
+msgstr "瑞典語"
 
 #. frequency:1 iso_code_3:syr
 #: DB:language/name:404
 msgid "Syriac"
-msgstr ""
+msgstr "敘利亞文"
 
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414
 msgid "Tagalog"
-msgstr ""
+msgstr "塔加洛文"
 
 #. frequency:1 iso_code_3:tah
 #: DB:language/name:405
 msgid "Tahitian"
-msgstr ""
+msgstr "大溪地語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:406
 msgid "Tai languages"
-msgstr ""
+msgstr "傣語諸語言"
 
 #. frequency:1 iso_code_3:tgk
 #: DB:language/name:413
 msgid "Tajik"
-msgstr ""
+msgstr "塔吉克語"
 
 #. frequency:1 iso_code_3:tmh
 #: DB:language/name:423
 msgid "Tamashek"
-msgstr ""
+msgstr "塔馬奇克語"
 
 #. frequency:1 iso_code_3:tam
 #: DB:language/name:407
 msgid "Tamil"
-msgstr ""
+msgstr "泰米爾文"
 
 #. frequency:1 iso_code_3:tat
 #: DB:language/name:408
 msgid "Tatar"
-msgstr ""
+msgstr "塔塔爾語"
 
 #. frequency:1 iso_code_3:tel
 #: DB:language/name:409
 msgid "Telugu"
-msgstr ""
+msgstr "泰盧固文"
 
 #. frequency:1 iso_code_3:ter
 #: DB:language/name:411
 msgid "Tereno"
-msgstr ""
+msgstr "特列納語"
 
 #. frequency:1 iso_code_3:tet
 #: DB:language/name:412
 msgid "Tetum"
-msgstr ""
+msgstr "德頓語"
 
 #. frequency:1 iso_code_3:tha
 #: DB:language/name:415
 msgid "Thai"
-msgstr ""
+msgstr "泰文"
 
 #. frequency:1 iso_code_3:bod
 #: DB:language/name:416
 msgid "Tibetan"
-msgstr ""
+msgstr "藏文"
 
 #. frequency:1 iso_code_3:tig
 #: DB:language/name:417
 msgid "Tigre"
-msgstr ""
+msgstr "提格雷語"
 
 #. frequency:1 iso_code_3:tir
 #: DB:language/name:418
 msgid "Tigrinya"
-msgstr ""
+msgstr "提格里尼亞語"
 
 #. frequency:1 iso_code_3:tem
 #: DB:language/name:410
 msgid "Timne"
-msgstr ""
+msgstr "滕內語"
 
 #. frequency:1 iso_code_3:tiv
 #: DB:language/name:419
 msgid "Tiv"
-msgstr ""
+msgstr "蒂夫語"
 
 #. frequency:1 iso_code_3:tli
 #: DB:language/name:422
 msgid "Tlingit"
-msgstr ""
+msgstr "特林吉特語"
 
 #. frequency:1 iso_code_3:tpi
 #: DB:language/name:426
 msgid "Tok Pisin"
-msgstr ""
+msgstr "托克皮辛語"
 
 #. frequency:1 iso_code_3:tkl
 #: DB:language/name:420
@@ -2456,57 +2464,57 @@ msgstr ""
 #. frequency:1 iso_code_3:tok
 #: DB:language/name:7845
 msgid "Toki Pona"
-msgstr ""
+msgstr "道本語"
 
 #. frequency:1 iso_code_3:tog
 #: DB:language/name:424
 msgid "Tonga (Nyasa)"
-msgstr ""
+msgstr "東加語 (尼亞薩)"
 
 #. frequency:1 iso_code_3:ton
 #: DB:language/name:425
 msgid "Tonga (Tonga Islands)"
-msgstr ""
+msgstr "東加語 (東加島)"
 
 #. frequency:1 iso_code_3:tsi
 #: DB:language/name:427
 msgid "Tsimshian"
-msgstr ""
+msgstr "欽西安語"
 
 #. frequency:1 iso_code_3:tso
 #: DB:language/name:429
 msgid "Tsonga"
-msgstr ""
+msgstr "宗加語"
 
 #. frequency:1 iso_code_3:tsn
 #: DB:language/name:428
 msgid "Tswana"
-msgstr ""
+msgstr "塞茨瓦納語"
 
 #. frequency:1 iso_code_3:tum
 #: DB:language/name:431
 msgid "Tumbuka"
-msgstr ""
+msgstr "奇圖姆布卡語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:432
 msgid "Tupi languages"
-msgstr ""
+msgstr "圖皮語諸語言"
 
 #. frequency:2 iso_code_3:tur
 #: DB:language/name:433
 msgid "Turkish"
-msgstr ""
+msgstr "土耳其語"
 
 #. frequency:1 iso_code_3:ota
 #: DB:language/name:324
 msgid "Turkish, Ottoman"
-msgstr ""
+msgstr "鄂圖曼土耳其語"
 
 #. frequency:1 iso_code_3:tuk
 #: DB:language/name:430
 msgid "Turkmen"
-msgstr ""
+msgstr "土庫曼語"
 
 #. frequency:1 iso_code_3:tvl
 #: DB:language/name:435
@@ -2516,259 +2524,259 @@ msgstr ""
 #. frequency:1 iso_code_3:tyv
 #: DB:language/name:437
 msgid "Tuvinian"
-msgstr ""
+msgstr "圖瓦語"
 
 #. frequency:1 iso_code_3:twi
 #: DB:language/name:436
 msgid "Twi"
-msgstr ""
+msgstr "特威語"
 
 #. frequency:1 iso_code_3:udm
 #: DB:language/name:438
 msgid "Udmurt"
-msgstr ""
+msgstr "烏德穆爾特語"
 
 #. frequency:0 iso_code_3:uga
 #: DB:language/name:439
 msgid "Ugaritic"
-msgstr ""
+msgstr "烏加里特文"
 
 #. frequency:1 iso_code_3:uig
 #: DB:language/name:440
 msgid "Uighur"
-msgstr ""
+msgstr "維吾爾語"
 
 #. frequency:1 iso_code_3:ukr
 #: DB:language/name:441
 msgid "Ukrainian"
-msgstr ""
+msgstr "烏克蘭語"
 
 #. frequency:1 iso_code_3:umb
 #: DB:language/name:442
 msgid "Umbundu"
-msgstr ""
+msgstr "翁本杜語"
 
 #. frequency:1 iso_code_3:sju
 #: DB:language/name:5995
 msgid "Ume Sami"
-msgstr ""
+msgstr "烏美薩米語"
 
 #. frequency:0 iso_code_3:mis
 #: DB:language/name:273
 msgid "Uncoded languages"
-msgstr ""
+msgstr "未編碼語言"
 
 #. frequency:0 iso_code_3:und
 #: DB:language/name:443
 msgid "Undetermined"
-msgstr ""
+msgstr "未確定的語種"
 
 #. frequency:1 iso_code_3:urd
 #: DB:language/name:444
 msgid "Urdu"
-msgstr ""
+msgstr "烏爾都語"
 
 #. frequency:1 iso_code_3:uzb
 #: DB:language/name:445
 msgid "Uzbek"
-msgstr ""
+msgstr "烏茲別克語"
 
 #. frequency:1 iso_code_3:vai
 #: DB:language/name:446
 msgid "Vai"
-msgstr ""
+msgstr "瓦伊文"
 
 #. frequency:1 iso_code_3:ven
 #: DB:language/name:447
 msgid "Venda"
-msgstr ""
+msgstr "文達語"
 
 #. frequency:1 iso_code_3:vep
 #: DB:language/name:6913
 msgid "Veps"
-msgstr ""
+msgstr "維普森語"
 
 #. frequency:1 iso_code_3:vie
 #: DB:language/name:448
 msgid "Vietnamese"
-msgstr ""
+msgstr "越南語"
 
 #. frequency:1 iso_code_3:vol
 #: DB:language/name:449
 msgid "Volapük"
-msgstr ""
+msgstr "沃拉普克語"
 
 #. frequency:1 iso_code_3:vot
 #: DB:language/name:450
 msgid "Votic"
-msgstr ""
+msgstr "沃提克語"
 
 #. frequency:1 iso_code_3:vro
 #: DB:language/name:6966
 msgid "Võro"
-msgstr ""
+msgstr "佛羅語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:451
 msgid "Wakashan languages"
-msgstr ""
+msgstr "瓦卡什諸語言"
 
 #. frequency:1 iso_code_3:wln
 #: DB:language/name:457
 msgid "Walloon"
-msgstr ""
+msgstr "沃倫語"
 
 #. frequency:1 iso_code_3:wae
 #: DB:language/name:6981
 msgid "Walser"
-msgstr ""
+msgstr "瓦爾瑟文"
 
 #. frequency:1 iso_code_3:war
 #: DB:language/name:453
 msgid "Waray"
-msgstr ""
+msgstr "瓦賴語"
 
 #. frequency:1 iso_code_3:wbp
 #: DB:language/name:7009
 msgid "Warlpiri"
-msgstr ""
+msgstr "瓦爾皮里語"
 
 #. frequency:1 iso_code_3:was
 #: DB:language/name:454
 msgid "Washo"
-msgstr ""
+msgstr "瓦肖語"
 
 #. frequency:1 iso_code_3:cym
 #: DB:language/name:455
 msgid "Welsh"
-msgstr ""
+msgstr "威爾斯語"
 
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
 msgid "Western Arrarnta"
-msgstr ""
+msgstr "西阿蘭達語"
 
 #. frequency:1 iso_code_3:wal
 #: DB:language/name:452
 msgid "Wolaitta"
-msgstr ""
+msgstr "瓦拉莫語"
 
 #. frequency:1 iso_code_3:wol
 #: DB:language/name:458
 msgid "Wolof"
-msgstr ""
+msgstr "沃洛夫語"
 
 #. frequency:1 iso_code_3:wya
 #: DB:language/name:7181
 msgid "Wyandot"
-msgstr ""
+msgstr "懷安多特語"
 
 #. frequency:1 iso_code_3:xho
 #: DB:language/name:460
 msgid "Xhosa"
-msgstr ""
+msgstr "科薩語"
 
 #. frequency:1 iso_code_3:rys
 #: DB:language/name:5808
 msgid "Yaeyama"
-msgstr ""
+msgstr "八重山語"
 
 #. frequency:1 iso_code_3:sah
 #: DB:language/name:356
 msgid "Yakut"
-msgstr ""
+msgstr "雅庫特語"
 
 #. frequency:1 iso_code_3:yao
 #: DB:language/name:461
 msgid "Yao"
-msgstr ""
+msgstr "瑤語"
 
 #. frequency:1 iso_code_3:yap
 #: DB:language/name:462
 msgid "Yapese"
-msgstr ""
+msgstr "雅浦語"
 
 #. frequency:1 iso_code_3:yid
 #: DB:language/name:463
 msgid "Yiddish"
-msgstr ""
+msgstr "依地語"
 
 #. frequency:1 iso_code_3:yox
 #: DB:language/name:7602
 msgid "Yoron"
-msgstr ""
+msgstr "約倫語"
 
 #. frequency:1 iso_code_3:yor
 #: DB:language/name:464
 msgid "Yoruba"
-msgstr ""
+msgstr "約魯巴語"
 
 #. frequency:1 iso_code_3:yua
 #: DB:language/name:7636
 msgid "Yucateco"
-msgstr ""
+msgstr "猶加敦瑪雅語"
 
 #. frequency:1 iso_code_3:yue
 #: DB:language/name:7640
 msgid "Yue Chinese"
-msgstr ""
+msgstr "粵語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:465
 msgid "Yupik languages"
-msgstr ""
+msgstr "尤皮克諸語言"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:469
 msgid "Zande languages"
-msgstr ""
+msgstr "贊德語"
 
 #. frequency:1 iso_code_3:zap
 #: DB:language/name:466
 msgid "Zapotec"
-msgstr ""
+msgstr "薩波特克語"
 
 #. frequency:1 iso_code_3:dje
 #: DB:language/name:2009
 msgid "Zarma"
-msgstr ""
+msgstr "扎爾馬語"
 
 #. frequency:1 iso_code_3:zza
 #: DB:language/name:483
 msgid "Zaza"
-msgstr ""
+msgstr "扎扎其語"
 
 #. frequency:1 iso_code_3:zen
 #: DB:language/name:467
 msgid "Zenaga"
-msgstr ""
+msgstr "哲納加語"
 
 #. frequency:1 iso_code_3:zha
 #: DB:language/name:468
 msgid "Zhuang"
-msgstr ""
+msgstr "壯語"
 
 #. frequency:1 iso_code_3:zul
 #: DB:language/name:470
 msgid "Zulu"
-msgstr ""
+msgstr "祖魯語"
 
 #. frequency:1 iso_code_3:zun
 #: DB:language/name:471
 msgid "Zuni"
-msgstr ""
+msgstr "祖尼語"
 
 #. frequency:1 iso_code_3:qaa
 #: DB:language/name:24
 msgid "[Artificial (Other)]"
-msgstr ""
+msgstr "[其他人造語言]"
 
 #. frequency:2 iso_code_3:mul
 #: DB:language/name:284
 msgid "[Multiple languages]"
-msgstr ""
+msgstr "[多語種]"
 
 #. frequency:1 iso_code_3:zxx
 #: DB:language/name:486
 msgid "[No linguistic content]"
-msgstr ""
+msgstr "[無語言內容]"

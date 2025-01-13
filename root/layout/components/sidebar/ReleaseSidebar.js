@@ -110,8 +110,8 @@ component ReleaseSidebar(release: ReleaseT) {
 
       {isEmpty ? null : (
         <PlayOnListenBrainzButton
-          entityType="release"
-          mbids={release.gid}
+          entityType="album"
+          mbids={releaseGroup.gid}
         />
       )}
 

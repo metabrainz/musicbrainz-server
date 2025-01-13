@@ -7,7 +7,8 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Annotation',
+with 'MusicBrainz::Server::Entity::Role::Alias',
+     'MusicBrainz::Server::Entity::Role::Annotation',
      'MusicBrainz::Server::Entity::Role::Area',
      'MusicBrainz::Server::Entity::Role::Comment',
      'MusicBrainz::Server::Entity::Role::DatePeriod',
@@ -22,17 +23,6 @@ with 'MusicBrainz::Server::Entity::Role::Annotation',
 sub entity_type { 'artist' }
 
 has 'sort_name' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
-has 'aliases' => (
-    is => 'rw',
-    isa => 'ArrayRef[MusicBrainz::Server::Entity::Alias]',
-    default => sub { [] },
-);
-
-has 'primary_alias' => (
     is => 'rw',
     isa => 'Str',
 );
@@ -94,7 +84,6 @@ around TO_JSON => sub {
         begin_area => to_json_object($self->begin_area),
         end_area => to_json_object($self->end_area),
         gender => to_json_object($self->gender),
-        $self->primary_alias ? (primaryAlias => $self->primary_alias) : (),
         begin_area_id => defined $self->begin_area_id ? (0 + $self->begin_area_id) : undef,
         end_area_id => defined $self->end_area_id ? (0 + $self->end_area_id) : undef,
         gender_id => defined $self->gender_id ? (0 + $self->gender_id) : undef,

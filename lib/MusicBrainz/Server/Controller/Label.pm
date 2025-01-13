@@ -93,6 +93,7 @@ after 'load' => sub
     my $label_model = $c->model('Label');
 
     unless ($returning_jsonld) {
+        $label_model->load_aliases($label);
         $label_model->load_meta($label);
 
         if ($c->user_exists) {
@@ -129,6 +130,7 @@ sub show : PathPart('') Chained('load')
 
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('Release')->load_release_events(@$releases);
+    $c->model('Release')->load_aliases(@$releases);
     $c->model('Release')->load_meta(@$releases);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
@@ -197,6 +199,7 @@ after [qw( show collections details tags ratings aliases subscribers relationshi
 sub _merge_load_entities
 {
     my ($self, $c, @labels) = @_;
+    $c->model('Label')->load_aliases(@labels);
     $c->model('LabelType')->load(@labels);
     $c->model('Area')->load(@labels);
 }

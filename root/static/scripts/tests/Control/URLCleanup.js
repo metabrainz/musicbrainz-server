@@ -124,8 +124,8 @@ import {
  *      expected_error
  */
 
-/* eslint-disable @stylistic/js/indent */
-/* eslint-disable @stylistic/js/max-len */
+/* eslint-disable @stylistic/indent */
+/* eslint-disable @stylistic/max-len */
 /* eslint-disable sort-keys */
 const testData = [
   // 45cat
@@ -951,6 +951,13 @@ limited_link_type_combinations: [
                                   target: 'url',
                                 },
   },
+  {
+                     input_url: 'https://bandcamp.com/slowmouth',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'bandcamp',
+       only_valid_entity_types: [],
+  },
   // Bandsintown
   {
                      input_url: "https://m.bandsintown.com/MattDobberteen's50thBirthday?came_from=178",
@@ -1294,6 +1301,19 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: undefined,
             expected_clean_url: 'afroliciousoriginal.blogspot.com/',
+  },
+  // Bluesky
+  {
+                     input_url: 'bsky.app/profile/tmbg.bsky.social#root',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://bsky.app/profile/tmbg.bsky.social',
+  },
+  {
+                     input_url: 'https://bsky.app/profile/thecure.com/follows/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://bsky.app/profile/thecure.com',
   },
   // BnF (Bibliothèque nationale de France) Catalogue
   {
@@ -2856,11 +2876,17 @@ limited_link_type_combinations: [
                      input_url: 'atwiki.jp/hmiku/pages/178.html#id_077d534d',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www5.atwiki.jp/hmiku/pages/178.html',
+            expected_clean_url: 'https://w.atwiki.jp/hmiku/pages/178.html',
        only_valid_entity_types: ['artist', 'release_group', 'work'],
   },
   {
-                     input_url: 'https://www5.atwiki.jp/hmiku/tag/96crow',
+                     input_url: 'www5.atwiki.jp/hmiku/pages/36575.html',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://w.atwiki.jp/hmiku/pages/36575.html',
+  },
+  {
+                     input_url: 'https://w.atwiki.jp/hmiku/tag/96crow',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
        only_valid_entity_types: [],
@@ -3195,28 +3221,35 @@ limited_link_type_combinations: [
                      input_url: 'http://www.jaxsta.com/profile/8a9bd5c6-1ce2-4f1d-bfdc-1a2383129c79/catalogue?role_group=Featured%20Artist&view=tile',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.com/profile/8a9bd5c6-1ce2-4f1d-bfdc-1a2383129c79',
+            expected_clean_url: 'https://jaxsta.io/profile/8a9bd5c6-1ce2-4f1d-bfdc-1a2383129c79',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://jaxsta.io/profile/902b15e8-ed89-41d7-a7c0-a35caf2c2801/credits',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://jaxsta.io/profile/902b15e8-ed89-41d7-a7c0-a35caf2c2801',
        only_valid_entity_types: ['artist', 'label'],
   },
   {
                      input_url: 'https://jaxsta.com/profile/5a50b1be-7473-4e51-ae4b-bb8d9ac13407/catalogue?view=tile',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.com/profile/5a50b1be-7473-4e51-ae4b-bb8d9ac13407',
+            expected_clean_url: 'https://jaxsta.io/profile/5a50b1be-7473-4e51-ae4b-bb8d9ac13407',
        only_valid_entity_types: ['artist', 'label'],
   },
   {
                      input_url: 'https://jaxsta.com/recording/5b01140a-a82f-5f5c-aa81-93d61de00f94/releases',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.com/recording/5b01140a-a82f-5f5c-aa81-93d61de00f94',
+            expected_clean_url: 'https://jaxsta.io/recording/5b01140a-a82f-5f5c-aa81-93d61de00f94',
        only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'https://jaxsta.com/release/66512305-5fb7-5d43-a194-d5ed56c16cab/7c5528fe-96f7-5c0c-9af2-9b756b909436/variants',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.com/release/66512305-5fb7-5d43-a194-d5ed56c16cab/7c5528fe-96f7-5c0c-9af2-9b756b909436',
+            expected_clean_url: 'https://jaxsta.io/release/66512305-5fb7-5d43-a194-d5ed56c16cab/7c5528fe-96f7-5c0c-9af2-9b756b909436',
        only_valid_entity_types: ['release'],
   },
   {
@@ -3227,7 +3260,7 @@ limited_link_type_combinations: [
                                   'otherdatabases',
                                   ['lyrics', 'otherdatabases'],
                                 ],
-            expected_clean_url: 'https://jaxsta.com/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32',
+            expected_clean_url: 'https://jaxsta.io/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32',
        only_valid_entity_types: ['work'],
   },
   // Jazz Music Archives
@@ -4753,28 +4786,28 @@ limited_link_type_combinations: [
                      input_url: 'http://QIM.com/artistes/biographie.asp?artistid=47',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.qim.com/artistes/biographie.asp?artistid=47',
+            expected_clean_url: 'http://www.quebecinfomusique.com/artistes/biographie.asp?artistid=47',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'https://QuebecInfoMusique.com/artistes/albums.asp?artistid=47',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.qim.com/artistes/biographie.asp?artistid=47',
+            expected_clean_url: 'http://www.quebecinfomusique.com/artistes/biographie.asp?artistid=47',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'http://www.quebecinfomusique.com/artistes/oeuvres.asp?artistid=47#',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.qim.com/artistes/biographie.asp?artistid=47',
+            expected_clean_url: 'http://www.quebecinfomusique.com/artistes/biographie.asp?artistid=47',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'http://www.qim.com/artistes/nawak.asp?artistid=47',
              input_entity_type: 'artist',
     expected_relationship_type: undefined,
-            expected_clean_url: 'http://www.qim.com/artistes/nawak.asp?artistid=47',
+            expected_clean_url: 'http://www.quebecinfomusique.com/artistes/nawak.asp?artistid=47',
        input_relationship_type: 'otherdatabases',
        only_valid_entity_types: [],
   },
@@ -4782,14 +4815,14 @@ limited_link_type_combinations: [
                      input_url: 'http://www.qim.com/albums/description.asp?albumid=16',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.qim.com/albums/description.asp?albumid=16',
+            expected_clean_url: 'http://www.quebecinfomusique.com/albums/description.asp?albumid=16',
        only_valid_entity_types: ['release_group'],
   },
   {
                      input_url: 'http://www.qim.com/oeuvres/oeuvre.asp?oeuvreid=716&albumid=16',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.qim.com/oeuvres/oeuvre.asp?oeuvreid=716&albumid=16',
+            expected_clean_url: 'http://www.quebecinfomusique.com/oeuvres/oeuvre.asp?oeuvreid=716&albumid=16',
        only_valid_entity_types: ['work'],
   },
   // RateYourMusic
@@ -5693,10 +5726,24 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
+                     input_url: 'https://www.threads.net/@pijusmusic?xmt=AQGzAol_Hx_F7AhixuRL9azxH4P2AYJKBOasDrM7Y2yyf6Y',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.threads.net/@pijusmusic',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
                      input_url: 'https://threads.net/t/CucwR6erBPo',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.threads.net/t/CucwR6erBPo',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://www.threads.net/@pijusmusic/post/DESGn_BsdiQ',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.threads.net/t/DESGn_BsdiQ',
        only_valid_entity_types: ['recording'],
   },
   // Ticketmaster
@@ -5729,6 +5776,20 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
        only_valid_entity_types: ['event'],
   },
   {
+                     input_url: 'https://www.ticketmaster.pe/event/pierce-the-veil-2025',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.pe/event/pierce-the-veil-2025',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.fr/fr/manifestation/billie-eilish-billet/idmanif/582807',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.fr/manifestation/idmanif/582807',
+       only_valid_entity_types: ['event'],
+  },
+  {
                      input_url: 'https://www.ticketmaster.co.uk/pendulum-premium-package-suites-leeds-24-03-2024/event/1F005F0AFB9A3A6F',
              input_entity_type: 'event',
     expected_relationship_type: 'ticketing',
@@ -5740,6 +5801,13 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
              input_entity_type: 'place',
     expected_relationship_type: 'ticketing',
             expected_clean_url: 'https://www.ticketmaster.com/venue/8839',
+       only_valid_entity_types: ['place'],
+  },
+  {
+                     input_url: 'https://www.ticketmaster.fr/fr/salle/accor-arena/idsite/1',
+             input_entity_type: 'place',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.ticketmaster.fr/salle/idsite/1',
        only_valid_entity_types: ['place'],
   },
   {
@@ -7058,8 +7126,8 @@ limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
   },
 ];
 /* eslint-enable sort-keys */
-/* eslint-enable @stylistic/js/max-len */
-/* eslint-enable @stylistic/js/indent */
+/* eslint-enable @stylistic/max-len */
+/* eslint-enable @stylistic/indent */
 
 const relationshipTypesByUuid = Object.entries(LINK_TYPES).reduce(function (
   results,

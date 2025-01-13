@@ -10,19 +10,20 @@
 # LiarOnce <liaronce@hotmail.com>, 2024.
 # weeeeei <weeeeei@duck.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2024.
+# imgradeone <imgradeone@outlook.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-11-15 16:42+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
+"PO-Revision-Date: 2025-01-03 15:42+0000\n"
+"Last-Translator: imgradeone <imgradeone@outlook.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -1061,6 +1062,11 @@ msgstr "ARTISJUS ID"
 msgctxt "work_attribute_type"
 msgid "ASCAP ID"
 msgstr "ASCAP ID"
+
+#: DB:work_attribute_type/name:211
+msgctxt "work_attribute_type"
+msgid "AUTODIA ID"
+msgstr "AUTODIA ID"
 
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
@@ -4225,6 +4231,12 @@ msgctxt "work_attribute_type"
 msgid "ID for the German rights society GEMA"
 msgstr "德国著作权协会GEMA ID"
 
+#. name:AUTODIA ID
+#: DB:work_attribute_type/description:211
+msgctxt "work_attribute_type"
+msgid "ID for the Greek rights society AUTODIA"
+msgstr "希腊著作权协会AUTODIA ID"
+
 #. name:AEI ID
 #: DB:work_attribute_type/description:58
 msgctxt "work_attribute_type"
@@ -4263,12 +4275,9 @@ msgstr "印度著作权协会IPRS ID"
 
 #. name:WAMI ID
 #: DB:work_attribute_type/description:210
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Indian rights society IPRS"
 msgctxt "work_attribute_type"
 msgid "ID for the Indonesian rights society WAMI"
-msgstr "印度著作权协会IPRS ID"
+msgstr "印度尼西亚著作权协会WAMI ID"
 
 #. name:ICE ID
 #: DB:work_attribute_type/description:29
@@ -4564,6 +4573,23 @@ msgstr "配乐指（通常）为戏剧演出伴奏创作的音乐。"
 msgctxt "area_type"
 msgid "Indigenous territory / reserve"
 msgstr "土著领地/保护区"
+
+#. name:Indigenous territory / reserve
+#: DB:area_type/description:9
+#, fuzzy
+#| msgctxt "area_type"
+#| msgid ""
+#| "Used for semi-autonomous territories governed by indigenous peoples, such "
+#| "as Indian reserves/reservations in North America and indigenous "
+#| "territories in Central and South America."
+msgctxt "area_type"
+msgid ""
+"Indigenous territory / reserve is used for semi-autonomous territories "
+"governed by indigenous peoples, such as Indian reserves/reservations in "
+"North America and indigenous territories in Central and South America."
+msgstr ""
+"用于原住民统治的半自治领土，如北美洲的印第安人保留地/保护区以及中美洲和南美洲"
+"的土著领地。"
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -5587,6 +5613,19 @@ msgstr "微型卡式录音带"
 msgctxt "area_type"
 msgid "Military base"
 msgstr "军事基地"
+
+#. name:Military base
+#: DB:area_type/description:8
+#, fuzzy
+#| msgctxt "area_type"
+#| msgid ""
+#| "Used for any military bases that are large enough to be considered an "
+#| "area, not just a place."
+msgctxt "area_type"
+msgid ""
+"Military base is used only for any military bases that are large enough to "
+"be considered an area, not just a place."
+msgstr "用于任何足够大的军事基地，可以被视为一个区域，而不仅仅是一个场所。"
 
 #: DB:medium_format/name:166
 msgctxt "medium_format"
@@ -8420,25 +8459,6 @@ msgid ""
 "work to be used for display (but can possibly already be used for reference)."
 msgstr ""
 "用于标记那些需要进一步处理才能用于公开展示的图像，但目前已经可以用于参考。"
-
-#. name:Military base
-#: DB:area_type/description:8
-msgctxt "area_type"
-msgid ""
-"Used for any military bases that are large enough to be considered an area, "
-"not just a place."
-msgstr "用于任何足够大的军事基地，可以被视为一个区域，而不仅仅是一个场所。"
-
-#. name:Indigenous territory / reserve
-#: DB:area_type/description:9
-msgctxt "area_type"
-msgid ""
-"Used for semi-autonomous territories governed by indigenous peoples, such as "
-"Indian reserves/reservations in North America and indigenous territories in "
-"Central and South America."
-msgstr ""
-"用于原住民统治的半自治领土，如北美洲的印第安人保留地/保护区以及中美洲和南美洲"
-"的土著领地。"
 
 #. name:Poster
 #: DB:event_art_archive.art_type/description:1

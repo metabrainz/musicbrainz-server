@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
-import DBDefs from '../static/scripts/common/DBDefs.mjs';
+import {GOOGLE_CUSTOM_SEARCH} from '../static/scripts/common/DBDefs.mjs';
 import bugTrackerURL from '../static/scripts/common/utility/bugTrackerURL.js';
 
 import DocSearchBox from './components/DocSearchBox.js';
@@ -20,7 +20,7 @@ component DocError(id: string) {
   const $c = React.useContext(CatalystContext);
 
   // We check whether we have a Google Custom Search engine
-  const useGoogleCustomSearch = nonEmpty(DBDefs.GOOGLE_CUSTOM_SEARCH);
+  const useGoogleCustomSearch = nonEmpty(GOOGLE_CUSTOM_SEARCH);
 
   return (
     <Layout fullWidth title={l('Page not found')}>

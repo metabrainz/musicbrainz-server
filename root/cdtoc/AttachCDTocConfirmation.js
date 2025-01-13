@@ -51,7 +51,7 @@ component AttachCDTocConfirmation(
       </p>
 
       <h2>{l('Medium')}</h2>
-      <table className="tbl">
+      <table className="tbl medium">
         <thead>
           <tr>
             <th>{l('#')}</th>

@@ -16,9 +16,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-12-03 23:42+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2024-12-23 20:42+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/it/>\n"
 "Language: it\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.8.4\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -1194,6 +1194,11 @@ msgstr "ID ARTISJUS"
 msgctxt "work_attribute_type"
 msgid "ASCAP ID"
 msgstr "ID ASCAP"
+
+#: DB:work_attribute_type/name:211
+msgctxt "work_attribute_type"
+msgid "AUTODIA ID"
+msgstr "ID AUTODIA"
 
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
@@ -4421,6 +4426,12 @@ msgctxt "work_attribute_type"
 msgid "ID for the German rights society GEMA"
 msgstr "ID per la società di diritti tedesca GEMA"
 
+#. name:AUTODIA ID
+#: DB:work_attribute_type/description:211
+msgctxt "work_attribute_type"
+msgid "ID for the Greek rights society AUTODIA"
+msgstr "ID per la società di diritti greca AUTODIA"
+
 #. name:AEI ID
 #: DB:work_attribute_type/description:58
 msgctxt "work_attribute_type"
@@ -4763,6 +4774,18 @@ msgstr ""
 msgctxt "area_type"
 msgid "Indigenous territory / reserve"
 msgstr "Territorio/Riserva indigena"
+
+#. name:Indigenous territory / reserve
+#: DB:area_type/description:9
+msgctxt "area_type"
+msgid ""
+"Indigenous territory / reserve is used for semi-autonomous territories "
+"governed by indigenous peoples, such as Indian reserves/reservations in "
+"North America and indigenous territories in Central and South America."
+msgstr ""
+"Utilizzato per territori semi-autonomi amministrati da popolazioni indigene, "
+"come per es. le riserve indiane in Nord America e i territori indigeni in "
+"Centro e Sud America."
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -5789,6 +5812,16 @@ msgstr "Microcassetta"
 msgctxt "area_type"
 msgid "Military base"
 msgstr "Base militare"
+
+#. name:Military base
+#: DB:area_type/description:8
+msgctxt "area_type"
+msgid ""
+"Military base is used only for any military bases that are large enough to "
+"be considered an area, not just a place."
+msgstr ""
+"Utilizzato per basi militari sufficientemente grandi da essere considerate "
+"un'area e non solo un luogo."
 
 #: DB:medium_format/name:166
 msgctxt "medium_format"
@@ -8693,28 +8726,6 @@ msgstr ""
 "Da usare, in combinazione con gli altri tipi correspondenti, per immagini "
 "che richiedono una lavorazione per essere adatte ad essere esposte (ma che "
 "possono già essere utili come riferimento)."
-
-#. name:Military base
-#: DB:area_type/description:8
-msgctxt "area_type"
-msgid ""
-"Used for any military bases that are large enough to be considered an area, "
-"not just a place."
-msgstr ""
-"Utilizzato per basi militari sufficientemente grandi da essere considerate "
-"un'area e non solo un luogo."
-
-#. name:Indigenous territory / reserve
-#: DB:area_type/description:9
-msgctxt "area_type"
-msgid ""
-"Used for semi-autonomous territories governed by indigenous peoples, such as "
-"Indian reserves/reservations in North America and indigenous territories in "
-"Central and South America."
-msgstr ""
-"Utilizzato per territori semi-autonomi amministrati da popolazioni indigene, "
-"come per es. le riserve indiane in Nord America e i territori indigeni in "
-"Centro e Sud America."
 
 #. name:Poster
 #: DB:event_art_archive.art_type/description:1
