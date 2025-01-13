@@ -6,7 +6,8 @@ use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 
 extends 'MusicBrainz::Server::Form';
-with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::Edit',
+     'MusicBrainz::Server::Form::Role::OptionsTree';
 
 sub edit_field_names {
     qw( parent_id child_order name link_phrase reverse_link_phrase
@@ -120,33 +121,7 @@ sub options_parent_id
     return select_options_tree($self->ctx, $self->root, accessor => 'name');
 }
 
-after validate => sub {
-    my ($self) = @_;
-
-    my $model = $self->ctx->model('LinkType');
-    my $parent = $self->field('parent_id')->value
-        ? $model->get_by_id($self->field('parent_id')->value)
-        : undef;
-    my $own_id = defined $self->init_object
-        ? $self->init_object->{id}
-        : undef;
-
-    if (defined $parent && defined $own_id) {
-        my $is_self_parent = $parent->id == $own_id;
-        if ($is_self_parent) {
-            $self->field('parent_id')->add_error(
-                'A relationship type cannot be its own parent.',
-            );
-        } else {
-            my $is_own_child = $model->is_child($own_id, $parent->id);
-            if ($is_own_child) {
-                $self->field('parent_id')->add_error(
-                    'A relationship type cannot be a child of its own child.',
-                );
-            }
-        }
-    }
-};
+sub options_tree_model_name { 'LinkType' }
 
 1;
 
