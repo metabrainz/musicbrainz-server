@@ -26,7 +26,6 @@ export type ApplicationFormT = FormT<{
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
-  | {+type: 'set-oauth-redirect-uri', +oauthRedirectURI: string}
   | {+type: 'set-oauth-type', +oauthType: string};
 /* eslint-enable ft-flow/sort-keys */
 
@@ -45,16 +44,6 @@ const oauthTypeOptions = {
 function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
   switch (action.type) {
-    case 'set-oauth-redirect-uri': {
-      newStateCtx.set(
-        'form',
-        'field',
-        'oauth_redirect_uri',
-        'value',
-        action.oauthRedirectURI,
-      );
-      break;
-    }
     case 'set-oauth-type': {
       newStateCtx
         .set('form', 'field', 'oauth_type', 'value', action.oauthType);
@@ -76,16 +65,6 @@ component ApplicationForm(
     reducer,
     {form: initialForm},
   );
-
-  const handleOauthRedirectURIChange = React.useCallback((
-    event: SyntheticEvent<HTMLInputElement>,
-  ) => {
-    const selectedOauthRedirectURI = event.currentTarget.value;
-    dispatch({
-      oauthRedirectURI: selectedOauthRedirectURI,
-      type: 'set-oauth-redirect-uri',
-    });
-  }, [dispatch]);
 
   const handleOauthTypeChange = React.useCallback((
     event: SyntheticEvent<HTMLSelectElement>,
@@ -115,8 +94,8 @@ component ApplicationForm(
       <FormRowURLLong
         field={state.form.field.oauth_redirect_uri}
         label={addColonText(l('Callback URI'))}
-        onChange={handleOauthRedirectURIChange}
         required={state.form.field.oauth_type.value === 'web'}
+        uncontrolled
       />
       {state.form.field.oauth_type.value === 'web' ? null : (
         <FormRow hasNoLabel>

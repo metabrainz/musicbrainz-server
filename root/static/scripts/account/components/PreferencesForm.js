@@ -39,7 +39,6 @@ type PreferencesFormT = FormT<{
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
   | {+type: 'guess-timezone', +options: GroupedOptionsT | SelectOptionsT}
-  | {+type: 'set-email-period', +emailPeriod: string}
   | {+type: 'set-time-format', +timeFormat: string}
   | {+type: 'set-timezone', +timezone: string};
 /* eslint-enable ft-flow/sort-keys */
@@ -108,16 +107,6 @@ function reducer(state: StateT, action: ActionT): StateT {
       }
       break;
     }
-    case 'set-email-period': {
-      newStateCtx.set(
-        'form',
-        'field',
-        'subscriptions_email_period',
-        'value',
-        action.emailPeriod,
-      );
-      break;
-    }
     case 'set-time-format': {
       newStateCtx
         .set('form', 'field', 'datetime_format', 'value', action.timeFormat);
@@ -159,16 +148,6 @@ component PreferencesForm(
   ) => {
     const selectedDateTimeFormat = event.currentTarget.value;
     dispatch({timeFormat: selectedDateTimeFormat, type: 'set-time-format'});
-  }, [dispatch]);
-
-  const handleSubscriptionsEmailPeriodChange = React.useCallback((
-    event: SyntheticEvent<HTMLSelectElement>,
-  ) => {
-    const selectedSubscriptionsEmailPeriod = event.currentTarget.value;
-    dispatch({
-      emailPeriod: selectedSubscriptionsEmailPeriod,
-      type: 'set-email-period',
-    });
   }, [dispatch]);
 
   const field = state.form.field;
@@ -257,8 +236,8 @@ component PreferencesForm(
           label={addColonText(l(
             'Send me mails with edits to my subscriptions',
           ))}
-          onChange={handleSubscriptionsEmailPeriodChange}
           options={subscriptionsEmailPeriodOptions}
+          uncontrolled
         />
       </fieldset>
       <fieldset>

@@ -57,10 +57,7 @@ type EditProfileFormT = FormT<{
 type ActionT =
   | {+type: 'add-language'}
   | {+type: 'remove-language', +index: number}
-  | {+type: 'set-area', +area: AreaClassT}
-  | {+type: 'set-fluency', +index: number, +fluency: FluencyT | null}
-  | {+type: 'set-gender', +gender: string}
-  | {+type: 'set-language', +index: number, +language: string};
+  | {+type: 'set-area', +area: AreaClassT};
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
@@ -116,44 +113,6 @@ function reducer(state: StateT, action: ActionT): StateT {
         .set('gid', 'value', action.area.gid);
       break;
     }
-    case 'set-fluency': {
-      newStateCtx.set(
-        'form',
-        'field',
-        'languages',
-        'field',
-        action.index,
-        'field',
-        'fluency',
-        'value',
-        action.fluency,
-      );
-      break;
-    }
-    case 'set-gender': {
-      newStateCtx.set(
-        'form',
-        'field',
-        'gender_id',
-        'value',
-        action.gender,
-      );
-      break;
-    }
-    case 'set-language': {
-      newStateCtx.set(
-        'form',
-        'field',
-        'languages',
-        'field',
-        action.index,
-        'field',
-        'language_id',
-        'value',
-        action.language,
-      );
-      break;
-    }
     default: {
       /*:: exhaustive(action); */
     }
@@ -174,48 +133,6 @@ component EditProfileForm(
     area: AreaClassT,
   ) => {
     dispatch({area, type: 'set-area'});
-  }, [dispatch]);
-
-  const handleGenderChange = React.useCallback((
-    event: SyntheticEvent<HTMLSelectElement>,
-  ) => {
-    const selectedGender = event.currentTarget.value;
-    dispatch({
-      gender: selectedGender,
-      type: 'set-gender',
-    });
-  }, [dispatch]);
-
-  const handleLanguageChange = React.useCallback((
-    event: SyntheticEvent<HTMLSelectElement>,
-    languageIndex: number,
-  ) => {
-    const selectedLanguage = event.currentTarget.value;
-    dispatch({
-      index: languageIndex,
-      language: selectedLanguage,
-      type: 'set-language',
-    });
-  }, [dispatch]);
-
-  const handleFluencyChange = React.useCallback((
-    event: SyntheticEvent<HTMLSelectElement>,
-    languageIndex: number,
-  ) => {
-    const selectedValue = event.currentTarget.value;
-    let selectedFluency: FluencyT | null = null;
-    switch (selectedValue) {
-      case 'basic':
-      case 'intermediate':
-      case 'advanced':
-      case 'native':
-        selectedFluency = selectedValue;
-    }
-    dispatch({
-      fluency: selectedFluency,
-      index: languageIndex,
-      type: 'set-fluency',
-    });
   }, [dispatch]);
 
   const removeLanguage = React.useCallback((
@@ -273,8 +190,8 @@ component EditProfileForm(
         allowEmpty
         field={field.gender_id}
         label={addColonText(l('Gender'))}
-        onChange={handleGenderChange}
         options={genderOptions}
+        uncontrolled
       />
 
       <FormRow>
@@ -336,14 +253,14 @@ component EditProfileForm(
               <SelectField
                 allowEmpty
                 field={languageField.field.language_id}
-                onChange={(e) => handleLanguageChange(e, index)}
                 options={language_options}
+                uncontrolled
               />
               <SelectField
                 allowEmpty
                 field={languageField.field.fluency}
-                onChange={(e) => handleFluencyChange(e, index)}
                 options={fluencyOptions}
+                uncontrolled
               />
               <span className="buttons inline">
                 <button
