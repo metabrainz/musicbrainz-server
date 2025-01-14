@@ -16,6 +16,7 @@
 
 declare type AreaFieldT = CompoundFieldT<{
   +gid: FieldT<string | null>,
+  +id: FieldT<string | null>,
   +name: FieldT<string>,
 }>;
 
