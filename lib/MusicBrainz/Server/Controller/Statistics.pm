@@ -412,7 +412,17 @@ sub relationships : Path('relationships') {
     my ($self, $c) = @_;
     my $stats = try_fetch_latest_statistics($c);
     my $pairs = [ $c->model('Relationship')->all_pairs() ];
-    my $types = { map { (join '_', 'l', @$_) => { entity_types => \@$_, tree => build_type_info($c, qr/.*/, $c->model('LinkType')->get_tree($_->[0], $_->[1])) } } @$pairs };
+    my $types = {
+        map {
+            (join '_', 'l', @$_) => {
+                entity_types => \@$_,
+                tree => build_type_info(
+                    $c, qr/.*/,
+                    $c->model('LinkType')->get_entity_types_tree($_->[0], $_->[1]),
+                ),
+            }
+        } @$pairs,
+    };
 
     my %props = (
         dateCollected => $stats->{date_collected},
