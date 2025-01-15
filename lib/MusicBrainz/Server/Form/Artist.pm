@@ -89,6 +89,21 @@ sub validate {
             $self->field('gender_id')->add_error(l('Choirs cannot have a gender.'));
         }
     }
+
+    if ($self->field('type_id')->value &&
+        $self->field('type_id')->value == 4) {
+        if ($self->field('period.end_date.year')->value ||
+            $self->field('period.end_date.month')->value ||
+            $self->field('period.end_date.day')->value) {
+            $self->field('period.end_date')->add_error(l('Characters cannot have an end date.'));
+        }
+        if ($self->field('period.ended')->value) {
+            $self->field('period.ended')->add_error(l('Characters cannot be marked as ended.'));
+        }
+        if ($self->field('end_area_id')->value) {
+            $self->field('end_area.name')->add_error(l('Characters cannot have an end area.'));
+        }
+    }
 }
 
 1;

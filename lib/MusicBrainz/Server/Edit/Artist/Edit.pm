@@ -3,6 +3,7 @@ use 5.10.0;
 use Moose;
 
 use MusicBrainz::Server::Constants qw(
+    $ARTIST_TYPE_CHARACTER
     $ARTIST_TYPE_GROUP
     $EDIT_ARTIST_CREATE
     $EDIT_ARTIST_EDIT
@@ -272,6 +273,12 @@ around merge_changes => sub {
     my $artist = $self->current_instance;
     my $gender_id = exists $merged->{gender_id} ?
             $merged->{gender_id} : $artist->gender_id;
+    my $end_date = exists $merged->{end_date} ?
+            PartialDate->new($merged->{end_date}) : $artist->end_date;
+    my $ended = (exists $merged->{ended} ?
+            $merged->{ended} : $artist->ended) // 0;
+    my $end_area_id = exists $merged->{end_area_id} ?
+            $merged->{end_area_id} : $artist->end_area_id;
     my $type_id = exists $merged->{type_id} ?
             $merged->{type_id} : $artist->type_id;
 
@@ -282,6 +289,24 @@ around merge_changes => sub {
             'SELECT 1 FROM artist_type WHERE id = ? AND parent = ?',
             $type_id, $ARTIST_TYPE_GROUP,
         );
+    }
+
+    if (defined $end_date && !$end_date->is_empty && defined $type_id) {
+        MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
+            'Characters cannot have an end date.',
+        ) if ($type_id == $ARTIST_TYPE_CHARACTER);
+    }
+
+    if (defined $end_area_id && defined $type_id) {
+        MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
+            'Characters cannot have an end area.',
+        ) if ($type_id == $ARTIST_TYPE_CHARACTER);
+    }
+
+    if ($ended && defined $type_id) {
+        MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
+            'Characters cannot be marked as ended.',
+        ) if ($type_id == $ARTIST_TYPE_CHARACTER);
     }
 
     return $merged;

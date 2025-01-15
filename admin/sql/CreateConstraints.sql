@@ -170,6 +170,17 @@ ADD CONSTRAINT group_type_implies_null_gender CHECK (
   OR type IS NULL
 );
 
+ALTER TABLE artist
+ADD CONSTRAINT character_type_implies_no_end CHECK (
+  type != 4 OR (
+    end_date_day IS NULL AND
+    end_date_month IS NULL AND
+    end_date_year IS NULL AND
+    end_area IS NULL AND
+    ended = FALSE
+  )
+);
+
 ALTER TABLE release_label
 ADD CHECK (catalog_number IS NOT NULL OR label IS NOT NULL);
 

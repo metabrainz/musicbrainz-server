@@ -207,6 +207,198 @@ test 'Merging a group, and an artist with no type and a gender, into an artist w
     );
 };
 
+test 'Merging an artist with no type and an end date into a character' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
+    $c->sql->do(<<~'SQL');
+        UPDATE artist SET type = 4, end_date_year = NULL WHERE id = 4;
+        UPDATE artist SET type = NULL, end_date_year = 1999 WHERE id = 3;
+        SQL
+
+    # merge 3 -> 4
+    my $edit = create_edit($c);
+
+    ok(!exception { accept_edit($c, $edit) },
+       'Edit merging an artist with no type and an end date into a character does not cause an exception');
+
+    my $row = $c->sql->select_single_row_hash('SELECT * FROM artist WHERE id = 4');
+    is($row->{type}, 4, 'The resulting type is a character');
+    is($row->{end_date_year}, undef, 'The resulting end date year is null');
+
+    $c->model('EditNote')->load_for_edits($edit);
+    is(scalar $edit->all_edit_notes, 1);
+
+    my $note = scalar($edit->all_edit_notes) ? $edit->edit_notes->[0] : undef;
+    is(
+        defined $note && $note->localize,
+        'The following data has not been added to the destination artist ' .
+        'because it conflicted with other data: Ended: Yes and End date: 1999. ' .
+        'Characters cannot have an end date nor area nor be marked as ended.',
+    );
+};
+
+test 'Merging an artist with no type and an end area into a character' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
+    $c->sql->do(<<~'SQL');
+        UPDATE artist SET type = 4, end_area = NULL WHERE id = 4;
+        UPDATE artist SET type = NULL, end_area = 221 WHERE id = 3;
+        SQL
+
+    # merge 3 -> 4
+    my $edit = create_edit($c);
+
+    ok(!exception { accept_edit($c, $edit) },
+       'Edit merging an artist with no type and an end date into a character does not cause an exception');
+
+    my $row = $c->sql->select_single_row_hash('SELECT * FROM artist WHERE id = 4');
+    is($row->{type}, 4, 'The resulting type is a character');
+    is($row->{end_area}, undef, 'The resulting end area is null');
+
+    $c->model('EditNote')->load_for_edits($edit);
+    is(scalar $edit->all_edit_notes, 1);
+
+    my $note = scalar($edit->all_edit_notes) ? $edit->edit_notes->[0] : undef;
+    is(
+        defined $note && $note->localize,
+        'The following data has not been added to the destination artist because ' .
+        'it conflicted with other data: Ended: Yes and End area: United Kingdom. ' .
+        'Characters cannot have an end date nor area nor be marked as ended.',
+    );
+};
+
+test 'Merging an artist with no type and marked as ended into a character' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
+    $c->sql->do(<<~'SQL');
+        UPDATE artist SET type = 4, ended = FALSE WHERE id = 4;
+        UPDATE artist SET type = NULL, ended = TRUE WHERE id = 3;
+        SQL
+
+    # merge 3 -> 4
+    my $edit = create_edit($c);
+
+    ok(!exception { accept_edit($c, $edit) },
+       'Edit merging an artist with no type and an end date into a character does not cause an exception');
+
+    my $row = $c->sql->select_single_row_hash('SELECT * FROM artist WHERE id = 4');
+    is($row->{type}, 4, 'The resulting type is a character');
+    is($row->{ended}, 0, 'The resulting ended value is false');
+
+    $c->model('EditNote')->load_for_edits($edit);
+    is(scalar $edit->all_edit_notes, 1);
+
+    my $note = scalar($edit->all_edit_notes) ? $edit->edit_notes->[0] : undef;
+    is(
+        defined $note && $note->localize,
+        'The following data has not been added to the destination artist ' .
+        'because it conflicted with other data: Ended: Yes. ' .
+        'Characters cannot have an end date nor area nor be marked as ended.',
+    );
+};
+
+test 'Merging a character into an artist with no type and an end date' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
+    $c->sql->do(<<~'SQL');
+        UPDATE artist SET type = NULL, end_date_year = 1999 WHERE id = 4;
+        UPDATE artist SET type = 4, end_date_year = NULL WHERE id = 3;
+        SQL
+
+    # merge 3 -> 4
+    my $edit = create_edit($c);
+
+    ok(!exception { accept_edit($c, $edit) },
+       'Edit merging a character into an artist with no type and an end date does not cause an exception');
+
+    my $row = $c->sql->select_single_row_hash('SELECT * FROM artist WHERE id = 4');
+    is($row->{type}, undef, 'The resulting type is null');
+    is($row->{end_date_year}, 1999, 'The resulting end date year is 1999');
+
+    $c->model('EditNote')->load_for_edits($edit);
+    is(scalar $edit->all_edit_notes, 1);
+
+    my $note = scalar($edit->all_edit_notes) ? $edit->edit_notes->[0] : undef;
+    is(
+        defined $note && $note->localize,
+        'The following data has not been added to the destination artist ' .
+        'because it conflicted with other data: Type: Character. ' .
+        'Characters cannot have an end date nor area nor be marked as ended.',
+    );
+};
+
+test 'Merging a character into an artist with no type and an end area' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
+    $c->sql->do(<<~'SQL');
+        UPDATE artist SET type = NULL, end_area = 221 WHERE id = 4;
+        UPDATE artist SET type = 4, end_area = NULL WHERE id = 3;
+        SQL
+
+    # merge 3 -> 4
+    my $edit = create_edit($c);
+
+    ok(!exception { accept_edit($c, $edit) },
+       'Edit merging a character into an artist with no type and an end date does not cause an exception');
+
+    my $row = $c->sql->select_single_row_hash('SELECT * FROM artist WHERE id = 4');
+    is($row->{type}, undef, 'The resulting type is null');
+    is($row->{end_area}, 221, 'The resulting end area is the United Kingdom');
+
+    $c->model('EditNote')->load_for_edits($edit);
+    is(scalar $edit->all_edit_notes, 1);
+
+    my $note = scalar($edit->all_edit_notes) ? $edit->edit_notes->[0] : undef;
+    is(
+        defined $note && $note->localize,
+        'The following data has not been added to the destination artist ' .
+        'because it conflicted with other data: Type: Character. ' .
+        'Characters cannot have an end date nor area nor be marked as ended.',
+    );
+};
+
+test 'Merging a character into an artist with no type marked as ended' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
+    $c->sql->do(<<~'SQL');
+        UPDATE artist SET type = NULL, ended = TRUE WHERE id = 4;
+        UPDATE artist SET type = 4, ended = FALSE WHERE id = 3;
+        SQL
+
+    # merge 3 -> 4
+    my $edit = create_edit($c);
+
+    ok(!exception { accept_edit($c, $edit) },
+       'Edit merging a character into an artist with no type and an end date does not cause an exception');
+
+    my $row = $c->sql->select_single_row_hash('SELECT * FROM artist WHERE id = 4');
+    is($row->{type}, undef, 'The resulting type is null');
+    is($row->{ended}, 1, 'The resulting ended value is true');
+
+    $c->model('EditNote')->load_for_edits($edit);
+    is(scalar $edit->all_edit_notes, 1);
+
+    my $note = scalar($edit->all_edit_notes) ? $edit->edit_notes->[0] : undef;
+    is(
+        defined $note && $note->localize,
+        'The following data has not been added to the destination artist ' .
+        'because it conflicted with other data: Type: Character. ' .
+        'Characters cannot have an end date nor area nor be marked as ended.',
+    );
+};
+
 # The name of this test may be confusing, since the code should do the opposite
 # of what is understood to happen in the UI. By "renaming" the credits, the code
 # should do nothing and leave them empty, so that they take on the new artist
