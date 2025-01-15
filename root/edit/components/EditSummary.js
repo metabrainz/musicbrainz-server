@@ -18,8 +18,6 @@ import {
   DB_READ_ONLY,
   DB_STAGING_TESTING_FEATURES,
 } from '../../static/scripts/common/DBDefs.mjs';
-import {isAccountAdmin}
-  from '../../static/scripts/common/utility/privileges.js';
 import {
   editorMayAddNote,
   editorMayApprove,
@@ -36,11 +34,9 @@ component EditSummary(
 ) {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
-  const isAdmin = isAccountAdmin(user);
   const mayAddNote = editorMayAddNote(edit, user);
   const mayApprove = editorMayApprove(edit, user);
   const mayCancel = editorMayCancel(edit, user);
-  const showAcceptReject = DB_STAGING_TESTING_FEATURES || isAdmin;
 
   return (
     <>
@@ -81,23 +77,8 @@ component EditSummary(
             </a>
           ) : null}
 
-          {edit.status === EDIT_STATUS_OPEN && showAcceptReject ? (
-            isAdmin ? (
-              <>
-                <a
-                  className="positive"
-                  href={`/admin/accept-edit/${edit.id}`}
-                >
-                  {l('Accept edit')}
-                </a>
-                <a
-                  className="negative"
-                  href={`/admin/reject-edit/${edit.id}`}
-                >
-                  {l('Reject edit')}
-                </a>
-              </>
-            ) : (
+          {edit.status === EDIT_STATUS_OPEN &&
+            DB_STAGING_TESTING_FEATURES ? (
               <>
                 <a
                   className="positive"
@@ -112,8 +93,7 @@ component EditSummary(
                   {l('Reject edit')}
                 </a>
               </>
-            )
-          ) : null}
+            ) : null}
         </div>) : null}
     </>
   );
