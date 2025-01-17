@@ -239,6 +239,19 @@ sub find_artist_credits_by_artist
     return $self->c->model('ArtistCredit')->find_by_ids($ids);
 }
 
+sub find_artist_credits_by_label
+{
+    my ($self, $label_id) = @_;
+
+    my $query = 'SELECT DISTINCT rel.artist_credit
+                 FROM release rel
+                 JOIN release_label rl
+                     ON rl.release = rel.id
+                 WHERE rl.label = ?';
+    my $ids = $self->sql->select_single_column_array($query, $label_id);
+    return $self->c->model('ArtistCredit')->find_by_ids($ids);
+}
+
 sub find_labels_by_artist
 {
     my ($self, $artist_id) = @_;
@@ -250,6 +263,25 @@ sub find_labels_by_artist
                      ON acn.artist_credit = rel.artist_credit
                  WHERE acn.artist = ?';
     my $ids = $self->sql->select_single_column_array($query, $artist_id);
+    return $self->c->model('Label')->get_by_ids_sorted_by_name(@$ids);
+}
+
+# This might seem stupid, but it helps filtering multi-label releases
+sub find_labels_by_label
+{
+    my ($self, $label_id) = @_;
+
+    my $query = <<~'SQL';
+        SELECT DISTINCT rl.label
+          FROM release_label rl
+         WHERE rl.release IN (
+            SELECT rl2.release
+              FROM release_label rl2
+             WHERE rl2.label = ?
+         )
+        SQL
+
+    my $ids = $self->sql->select_single_column_array($query, $label_id);
     return $self->c->model('Label')->get_by_ids_sorted_by_name(@$ids);
 }
 
