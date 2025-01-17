@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {l as lMbServer, lp as lpMbServer}
+import {l as l_mb_server, lp as lp_mb_server}
   from '../static/scripts/common/i18n.js';
 import formatEntityTypeName
   from '../static/scripts/common/utility/formatEntityTypeName.js';
@@ -18,7 +18,7 @@ const stats = {
     'area-types': {label: l_statistics('Area types')},
     'artist-countries': {label: l_statistics('Artist countries')},
     'artist-other': {label: l_statistics('Artist types and genders')},
-    'collection': {label: lMbServer('Collections')},
+    'collection': {label: l_mb_server('Collections')},
     'core-entities': {label: l_statistics('Core entities')},
     'cover-art': {
       hide: true,
@@ -39,7 +39,7 @@ const stats = {
     'other': {label: lp_statistics('Other', 'stats category')},
     'place-types': {label: l_statistics('Place types')},
     'ratings-tags': {label: lp_statistics('Ratings and tags', 'folksonomy')},
-    'relationships': {hide: true, label: lMbServer('Relationships')},
+    'relationships': {hide: true, label: l_mb_server('Relationships')},
     'release-countries': {label: l_statistics('Release countries')},
     'release-group-types': {label: l_statistics('Release group types')},
     'release-languages': {label: l_statistics('Release languages')},
@@ -55,12 +55,12 @@ const stats = {
   'count.ar.links': {
     category: 'relationships',
     color: '#ff0000',
-    label: lMbServer('Relationships'),
+    label: l_mb_server('Relationships'),
   },
   'count.area': {
     category: 'core-entities',
     color: '#ff0000',
-    label: lMbServer('Areas'),
+    label: l_mb_server('Areas'),
   },
   'count.area.type.null': {
     category: 'area-types',
@@ -70,7 +70,7 @@ const stats = {
   'count.artist': {
     category: 'core-entities',
     color: '#ff8a00',
-    label: lMbServer('Artists'),
+    label: l_mb_server('Artists'),
   },
   'count.artist.0credits': {
     category: 'artist-other',
@@ -155,7 +155,7 @@ const stats = {
   'count.artistcredit': {
     category: 'other',
     color: '#ff0000',
-    label: lMbServer('Artist credits'),
+    label: l_mb_server('Artist credits'),
   },
   'count.barcode': {
     category: 'other',
@@ -180,7 +180,7 @@ const stats = {
   'count.collection': {
     category: 'collection',
     color: '#ff0000',
-    label: lMbServer('Collections'),
+    label: l_mb_server('Collections'),
   },
   'count.collection.has_collaborators': {
     category: 'collection',
@@ -295,13 +295,13 @@ const stats = {
   'count.discid': {
     category: 'other',
     color: '#ff0000',
-    label: lMbServer('Disc IDs'),
+    label: l_mb_server('Disc IDs'),
   },
   'count.edit': {
     category: 'edit-information',
     color: '#ff00ff',
     hide: true,
-    label: lMbServer('Edits'),
+    label: l_mb_server('Edits'),
   },
   'count.edit.applied': {
     category: 'edit-information',
@@ -336,7 +336,7 @@ const stats = {
   'count.edit.open': {
     category: 'edit-information',
     color: '#ffe400',
-    label: lpMbServer('Open edits', 'noun'),
+    label: lp_mb_server('Open edits', 'noun'),
   },
   'count.edit.perday': {
     category: 'edit-information',
@@ -441,7 +441,7 @@ const stats = {
   'count.event': {
     category: 'core-entities',
     color: '#e8ab08',
-    label: lMbServer('Events'),
+    label: l_mb_server('Events'),
   },
   'count.event.country.null': {
     category: 'event-countries',
@@ -483,12 +483,12 @@ const stats = {
   'count.genre': {
     category: 'core-entities',
     color: '#ff0000',
-    label: lMbServer('Genres'),
+    label: l_mb_server('Genres'),
   },
   'count.instrument': {
     category: 'core-entities',
     color: '#8fddc9',
-    label: lMbServer('Instruments'),
+    label: l_mb_server('Instruments'),
   },
   'count.instrument.type.null': {
     category: 'instrument-types',
@@ -548,7 +548,7 @@ const stats = {
   'count.label': {
     category: 'core-entities',
     color: '#ff0096',
-    label: lMbServer('Labels'),
+    label: l_mb_server('Labels'),
   },
   'count.label.country.null': {
     category: 'label-countries',
@@ -568,7 +568,7 @@ const stats = {
   'count.medium': {
     category: 'core-entities',
     color: '#00c0ff',
-    label: lMbServer('Mediums'),
+    label: l_mb_server('Mediums'),
   },
   'count.medium.format.null': {
     category: 'formats',
@@ -583,7 +583,7 @@ const stats = {
   'count.place': {
     category: 'core-entities',
     color: '#bc0a0a',
-    label: lMbServer('Places'),
+    label: l_mb_server('Places'),
   },
   'count.place.country.null': {
     category: 'place-countries',
@@ -643,7 +643,7 @@ const stats = {
   'count.rating.raw': {
     category: 'ratings-tags',
     color: '#ff0000',
-    label: lMbServer('Ratings'),
+    label: l_mb_server('Ratings'),
   },
   'count.rating.raw.artist': {
     category: 'ratings-tags',
@@ -693,7 +693,7 @@ const stats = {
   'count.recording': {
     category: 'core-entities',
     color: '#4800ff',
-    label: lMbServer('Recordings'),
+    label: l_mb_server('Recordings'),
   },
   'count.recording.has_isrc': {
     category: 'other',
@@ -708,7 +708,7 @@ const stats = {
   'count.release': {
     category: 'core-entities',
     color: '#a8ff00',
-    label: lMbServer('Releases'),
+    label: l_mb_server('Releases'),
   },
   'count.release.country.null': {
     category: 'release-countries',
@@ -792,7 +792,7 @@ const stats = {
   'count.releasegroup': {
     category: 'core-entities',
     color: '#ae00ff',
-    label: lMbServer('Release groups'),
+    label: l_mb_server('Release groups'),
   },
   'count.releasegroup.caa.inferred': {
     category: 'cover-art',
@@ -819,7 +819,7 @@ const stats = {
   'count.series': {
     category: 'core-entities',
     color: '#1a6756',
-    label: lpMbServer('Series', 'plural'),
+    label: lp_mb_server('Series', 'plural'),
   },
   'count.series.type.null': {
     category: 'series-types',
@@ -884,12 +884,12 @@ const stats = {
   'count.track': {
     category: 'other',
     color: '#ff0000',
-    label: lMbServer('Tracks'),
+    label: l_mb_server('Tracks'),
   },
   'count.url': {
     category: 'core-entities',
     color: '#1a6756',
-    label: lMbServer('URLs'),
+    label: l_mb_server('URLs'),
   },
   'count.video': {
     category: 'other',
@@ -900,7 +900,7 @@ const stats = {
     category: 'edit-information',
     color: '#00ffff',
     hide: true,
-    label: lMbServer('Votes'),
+    label: l_mb_server('Votes'),
   },
   'count.vote.abstain': {
     category: 'edit-information',
@@ -946,7 +946,7 @@ const stats = {
   'count.work': {
     category: 'core-entities',
     color: '#00ffa8',
-    label: lMbServer('Works'),
+    label: l_mb_server('Works'),
   },
   'count.work.attribute.null': {
     category: 'work-attributes',

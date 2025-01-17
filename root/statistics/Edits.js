@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import LinkSearchableEditType from '../components/LinkSearchableEditType.js';
 import {CatalystContext} from '../context.mjs';
-import {l as lMbServer} from '../static/scripts/common/i18n.js';
+import {l as l_mb_server} from '../static/scripts/common/i18n.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
@@ -32,7 +32,7 @@ component Edits(
       <p>
         {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
       </p>
-      <h2>{lMbServer('Edits')}</h2>
+      <h2>{l_mb_server('Edits')}</h2>
       {Object.keys(statsByCategory).length === 0 ? (
         <p>
           {l_statistics('No edit statistics available.')}

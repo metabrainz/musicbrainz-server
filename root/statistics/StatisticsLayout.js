@@ -10,7 +10,8 @@
 
 import Tabs from '../components/Tabs.js';
 import Layout from '../layout/index.js';
-import {N_l as N_lMbServer, unwrapNl} from '../static/scripts/common/i18n.js';
+import {N_l as N_l_mb_server, unwrapNl}
+  from '../static/scripts/common/i18n.js';
 import statisticsLessUrl from '../static/styles/statistics.less';
 
 component LinkStatisticsTab(
@@ -52,12 +53,12 @@ const infoLinks = [
   {
     link: '/statistics/relationships',
     page: 'relationships',
-    title: N_lMbServer('Relationships'),
+    title: N_l_mb_server('Relationships'),
   },
   {
     link: '/statistics/edits',
     page: 'edits',
-    title: N_lMbServer('Edits'),
+    title: N_l_mb_server('Edits'),
   },
   {
     link: '/statistics/formats',
