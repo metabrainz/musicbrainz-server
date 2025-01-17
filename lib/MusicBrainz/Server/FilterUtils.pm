@@ -88,10 +88,12 @@ sub preserve_selected_artist_credit {
     # to preserve the intent of the filter (showing no results until the AC
     # is possibly used again).
     my $selected_artist_credit_id = $c->req->query_params->{'filter.artist_credit_id'};
-    unless (any { $_->id == $selected_artist_credit_id } @$artist_credits) {
-        my $artist_credit = $c->model('ArtistCredit')->get_by_id($selected_artist_credit_id);
-        if ($artist_credit) {
-            unshift @$artist_credits, $artist_credit;
+    if ($selected_artist_credit_id) {
+        unless (any { $_->id == $selected_artist_credit_id } @$artist_credits) {
+            my $artist_credit = $c->model('ArtistCredit')->get_by_id($selected_artist_credit_id);
+            if ($artist_credit) {
+                unshift @$artist_credits, $artist_credit;
+            }
         }
     }
 }
