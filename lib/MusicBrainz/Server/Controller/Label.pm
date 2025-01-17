@@ -26,6 +26,7 @@ with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
+with 'MusicBrainz::Server::Controller::Role::Filter';
 with 'MusicBrainz::Server::Controller::Role::IPI';
 with 'MusicBrainz::Server::Controller::Role::ISNI';
 with 'MusicBrainz::Server::Controller::Role::Rating';
@@ -52,8 +53,14 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use Data::Page;
-use MusicBrainz::Server::Data::Utils qw( is_special_label );
+use MusicBrainz::Server::Data::Utils qw(
+    boolean_to_json
+    is_special_label
+);
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
+use MusicBrainz::Server::FilterUtils qw(
+    create_label_releases_form
+);
 use MusicBrainz::Server::Translation qw( l );
 use HTTP::Status qw( :constants );
 use List::AllUtils qw( any );
@@ -124,8 +131,13 @@ sub show : PathPart('') Chained('load')
 
     my $label = $c->stash->{label};
 
+    my %filter = %{ $self->process_filter($c, sub {
+        return create_label_releases_form($c, $label->id);
+    }) };
+    my $has_filter = %filter ? 1 : 0;
+
     my $releases = $self->_load_paged($c, sub {
-            $c->model('Release')->find_by_label($label->id, shift, shift);
+            $c->model('Release')->find_by_label($label->id, shift, shift, filter => \%filter);
         });
 
     $c->model('ArtistCredit')->load(@$releases);
@@ -156,6 +168,9 @@ sub show : PathPart('') Chained('load')
     }
 
     my %props = (
+        ajaxFilterFormUrl => '' . $c->uri_for_action('/ajax/filter_label_releases_form', { label_id => $label->id }),
+        filterForm        => to_json_object($c->stash->{filter_form}),
+        hasFilter         => boolean_to_json($has_filter),
         label             => $label->TO_JSON,
         numberOfRevisions => $c->stash->{number_of_revisions},
         pager             => serialize_pager($c->stash->{pager}),
