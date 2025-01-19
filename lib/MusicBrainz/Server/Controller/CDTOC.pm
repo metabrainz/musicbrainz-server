@@ -376,6 +376,7 @@ sub _attach_list {
                     : ''
             } @$releases];
 
+            my $medium_has_cdtoc = $c->stash->{medium_has_cdtoc};
             my %props = (
                 action      => 'add',
                 form        => $search_release->TO_JSON,
@@ -384,6 +385,7 @@ sub _attach_list {
                 results     => to_json_array($sorted_releases),
                 tocString   => $c->stash->{toc},
                 wasMbidSearch => boolean_to_json($was_mbid_search),
+                associatedMedium => defined $medium_has_cdtoc ? (0 + $medium_has_cdtoc) : undef,
             );
 
             $c->stash(
