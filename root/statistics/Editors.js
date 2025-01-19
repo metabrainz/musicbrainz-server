@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
-import {l as l_mb_server} from '../static/scripts/common/i18n.js';
 import loopParity from '../utility/loopParity.js';
 
 import StatisticsLayout from './StatisticsLayout.js';

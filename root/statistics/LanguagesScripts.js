@@ -13,7 +13,6 @@ import * as React from 'react';
 import LinkSearchableProperty from '../components/LinkSearchableProperty.js';
 import {CatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
-import {l as l_mb_server} from '../static/scripts/common/i18n.js';
 import loopParity from '../utility/loopParity.js';
 
 import StatisticsLayout from './StatisticsLayout.js';

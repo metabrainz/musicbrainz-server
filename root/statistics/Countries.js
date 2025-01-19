@@ -13,7 +13,6 @@ import * as React from 'react';
 import {CatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
-import {l as l_mb_server} from '../static/scripts/common/i18n.js';
 import loopParity from '../utility/loopParity.js';
 
 import StatisticsLayout from './StatisticsLayout.js';

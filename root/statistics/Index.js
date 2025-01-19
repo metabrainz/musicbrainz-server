@@ -11,8 +11,6 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import {l as l_mb_server, lp as lp_mb_server}
-  from '../static/scripts/common/i18n.js';
 import mapRange from '../static/scripts/common/utility/mapRange.js';
 
 import StatisticsLayout from './StatisticsLayout.js';

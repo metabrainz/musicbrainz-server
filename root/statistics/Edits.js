@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import LinkSearchableEditType from '../components/LinkSearchableEditType.js';
 import {CatalystContext} from '../context.mjs';
-import {l as l_mb_server} from '../static/scripts/common/i18n.js';
 
 import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';

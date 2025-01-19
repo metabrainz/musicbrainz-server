@@ -10,8 +10,7 @@
 
 import Tabs from '../components/Tabs.js';
 import Layout from '../layout/index.js';
-import {N_l as N_l_mb_server, unwrapNl}
-  from '../static/scripts/common/i18n.js';
+import {unwrapNl} from '../static/scripts/common/i18n.js';
 import statisticsLessUrl from '../static/styles/statistics.less';
 
 component LinkStatisticsTab(
