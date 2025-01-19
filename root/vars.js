@@ -72,6 +72,14 @@ declare var l_languages: typeof l;
 declare var ln_languages: typeof ln;
 declare var lp_languages: typeof lp;
 
+declare var l_mb_server: typeof l;
+declare var ln_mb_server: typeof ln;
+declare var lp_mb_server: typeof lp;
+
+declare var N_l_mb_server: typeof N_l;
+declare var N_ln_mb_server: typeof N_ln;
+declare var N_lp_mb_server: typeof N_lp;
+
 declare var l_relationships: typeof l;
 declare var ln_relationships: typeof ln;
 declare var lp_relationships: typeof lp;

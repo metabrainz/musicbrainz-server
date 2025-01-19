@@ -46,10 +46,10 @@ component Formats(
         <thead>
           <tr>
             <th className="pos">{l_statistics('Rank')}</th>
-            <th>{l_statistics('Format')}</th>
-            <th>{l_statistics('Releases')}</th>
+            <th>{l_mb_server('Format')}</th>
+            <th>{l_mb_server('Releases')}</th>
             <th>{l_statistics('% of total releases')}</th>
-            <th>{l_statistics('Mediums')}</th>
+            <th>{l_mb_server('Mediums')}</th>
             <th>{l_statistics('% of total mediums')}</th>
           </tr>
         </thead>

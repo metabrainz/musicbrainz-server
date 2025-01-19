@@ -47,27 +47,27 @@ component Countries(
           <tr>
             <th className="pos">{l_statistics('Rank')}</th>
             <th>
-              {l_statistics('Country')}
+              {l_mb_server('Country')}
               <div className="arrow" />
             </th>
             <th>
-              {l_statistics('Artists')}
+              {l_mb_server('Artists')}
               <div className="arrow" />
             </th>
             <th>
-              {l_statistics('Releases')}
+              {l_mb_server('Releases')}
               <div className="arrow" />
             </th>
             <th>
-              {l_statistics('Labels')}
+              {l_mb_server('Labels')}
               <div className="arrow" />
             </th>
             <th>
-              {l_statistics('Events')}
+              {l_mb_server('Events')}
               <div className="arrow" />
             </th>
             <th>
-              {l_statistics('Places')}
+              {l_mb_server('Places')}
               <div className="arrow" />
             </th>
             <th>

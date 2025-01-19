@@ -52,12 +52,12 @@ const infoLinks = [
   {
     link: '/statistics/relationships',
     page: 'relationships',
-    title: N_l_statistics('Relationships'),
+    title: N_l_mb_server('Relationships'),
   },
   {
     link: '/statistics/edits',
     page: 'edits',
-    title: N_l_statistics('Edits'),
+    title: N_l_mb_server('Edits'),
   },
   {
     link: '/statistics/formats',
