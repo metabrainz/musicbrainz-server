@@ -74,15 +74,6 @@ sub options_country_id {
     ];
 }
 
-sub options_label_id {
-    my ($self, $field) = @_;
-    return [
-        { value => '-1', label => lp('[none]', 'release label') },
-        map +{ value => $_->id, label => $_->name },
-        @{ $self->labels },
-    ];
-}
-
 sub options_status_id {
     my ($self, $field) = @_;
     return [
@@ -105,7 +96,6 @@ around TO_JSON => sub {
     my $json = $self->$orig;
     $json->{options_artist_credit_id} = $self->options_artist_credit_id;
     $json->{options_country_id} = $self->options_country_id;
-    $json->{options_label_id} = $self->options_label_id;
     $json->{options_status_id} = $self->options_status_id;
     return $json;
 };

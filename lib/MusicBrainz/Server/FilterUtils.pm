@@ -11,6 +11,7 @@ our @EXPORT_OK = qw(
     create_artist_releases_form
     create_artist_recordings_form
     create_artist_works_form
+    create_label_releases_form
 );
 
 sub create_artist_events_form {
@@ -53,7 +54,7 @@ sub create_artist_releases_form {
         $c->model('Release')->find_labels_by_artist($artist_id);
     $form_args{statuses} = [$c->model('ReleaseStatus')->get_all];
 
-    return $c->form(filter_form => 'Filter::Release', %form_args);
+    return $c->form(filter_form => 'Filter::ReleaseForArtist', %form_args);
 }
 
 sub create_artist_recordings_form {
@@ -80,6 +81,22 @@ sub create_artist_works_form {
     return $c->form(filter_form => 'Filter::Work', %form_args);
 }
 
+sub create_label_releases_form {
+    my ($c, $label_id) = @_;
+
+    my %form_args = (entity_type => 'release');
+
+    $form_args{artist_credits} =
+        $c->model('Release')->find_artist_credits_by_label($label_id);
+    preserve_selected_artist_credit($c, $form_args{artist_credits});
+    $form_args{countries} = [$c->model('CountryArea')->get_all];
+    $form_args{labels} =
+        $c->model('Release')->find_labels_by_label($label_id);
+    $form_args{statuses} = [$c->model('ReleaseStatus')->get_all];
+
+    return $c->form(filter_form => 'Filter::ReleaseForLabel', %form_args);
+}
+
 sub preserve_selected_artist_credit {
     my ($c, $artist_credits) = @_;
 
@@ -88,10 +105,12 @@ sub preserve_selected_artist_credit {
     # to preserve the intent of the filter (showing no results until the AC
     # is possibly used again).
     my $selected_artist_credit_id = $c->req->query_params->{'filter.artist_credit_id'};
-    unless (any { $_->id == $selected_artist_credit_id } @$artist_credits) {
-        my $artist_credit = $c->model('ArtistCredit')->get_by_id($selected_artist_credit_id);
-        if ($artist_credit) {
-            unshift @$artist_credits, $artist_credit;
+    if ($selected_artist_credit_id) {
+        unless (any { $_->id == $selected_artist_credit_id } @$artist_credits) {
+            my $artist_credit = $c->model('ArtistCredit')->get_by_id($selected_artist_credit_id);
+            if ($artist_credit) {
+                unshift @$artist_credits, $artist_credit;
+            }
         }
     }
 }
