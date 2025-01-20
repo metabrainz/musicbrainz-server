@@ -8,7 +8,7 @@
  */
 
 import {compare} from '../../common/i18n.js';
-import {compareStrings} from '../../common/utility/compare.js';
+import {compareStrings} from '../../common/utility/compare.mjs';
 import type {
   MediumWorkStateT,
   RelationshipSourceGroupT,
