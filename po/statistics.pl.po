@@ -10,12 +10,12 @@
 # Tobias Toedter <email address hidden>, 2007
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # Echelon666 <echelon01@wp.pl>, 2024.
-# Peter69 <echelon01@wp.pl>, 2024.
+# Peter69 <echelon01@wp.pl>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-12-11 11:42+0000\n"
+"PO-Revision-Date: 2025-01-20 10:44+0000\n"
 "Last-Translator: Peter69 <echelon01@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/pl/>\n"
@@ -23,10 +23,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.8.4\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -1011,11 +1011,9 @@ msgid "Abstain"
 msgstr "Wstrzymaj się"
 
 #: ../root/statistics/Index.js:1359
-#, fuzzy
-#| msgid "Approvals"
 msgctxt "vote"
 msgid "Admin approval"
-msgstr "Zatwierdzenia"
+msgstr "Zatwierdzenie administratora"
 
 #: ../root/statistics/Index.js:1367
 msgctxt "vote"
@@ -1856,15 +1854,13 @@ msgid "Abstentions"
 msgstr "Wstrzymania się od głosu"
 
 #: ../root/statistics/stats.js:905
-#, fuzzy
-#| msgid "Approvals"
 msgid "Admin approvals"
-msgstr "Zatwierdzenia"
+msgstr "Zatwierdzenia administratora"
 
 #: ../root/statistics/stats.js:910
 #, fuzzy
 msgid "Admin rejections"
-msgstr "Kolekcje obszarowe"
+msgstr "Odrzucenia administratora"
 
 #: ../root/statistics/stats.js:915
 msgid "Approvals"
