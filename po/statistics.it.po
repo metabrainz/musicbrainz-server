@@ -8,25 +8,25 @@
 # salo.rock, 2012
 # salo.rock, 2021,2023
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
-# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # bovirus <bovirus@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-07 18:42+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-01-15 01:44+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -941,16 +941,14 @@ msgid "Abstain"
 msgstr "Astenuto"
 
 #: ../root/statistics/Index.js:1359
-#, fuzzy
-#| msgid "Approvals"
 msgctxt "vote"
 msgid "Admin approval"
-msgstr "Approvazioni"
+msgstr "Approvazione amministratore"
 
 #: ../root/statistics/Index.js:1367
 msgctxt "vote"
 msgid "Admin rejection"
-msgstr ""
+msgstr "Rifiuto amministratore"
 
 #: ../root/statistics/LanguagesScripts.js:43
 msgid "Languages and scripts"
@@ -1698,16 +1696,12 @@ msgid "Abstentions"
 msgstr "Astenuti"
 
 #: ../root/statistics/stats.js:905
-#, fuzzy
-#| msgid "Approvals"
 msgid "Admin approvals"
-msgstr "Approvazioni"
+msgstr "Approvazioni amministratore"
 
 #: ../root/statistics/stats.js:910
-#, fuzzy
-#| msgid "Area collections"
 msgid "Admin rejections"
-msgstr "Collezioni di aree"
+msgstr "Rifiuti amministratore"
 
 #: ../root/statistics/stats.js:915
 msgid "Approvals"
