@@ -1315,6 +1315,12 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://bsky.app/profile/thecure.com',
   },
+  {
+                     input_url: 'https://bsky.app/profile/did:plc:vqm2zcwhku3u7schrnrh74hb/followers',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://bsky.app/profile/did:plc:vqm2zcwhku3u7schrnrh74hb',
+  },
   // BnF (Bibliothèque nationale de France) Catalogue
   {
                      input_url: 'http://ark.bnf.fr/ark:/12148/cb11923342r',
