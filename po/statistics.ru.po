@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2024-12-07 14:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz"
-".org>\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/ru/>\n"
 "Language: ru\n"
@@ -28,8 +28,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.8.4\n"
 
 #: ../root/statistics/timeline.tt:19
@@ -184,7 +184,8 @@ msgstr "Лейблы"
 
 #: ../root/statistics/Countries.js:66 ../root/statistics/Images.js:429
 #: ../root/statistics/Index.js:127 ../root/statistics/Index.js:902
-#: ../root/statistics/Index.js:933 ../root/statistics/stats.js:436
+#: ../root/statistics/Index.js:909 ../root/statistics/Index.js:933
+#: ../root/statistics/stats.js:436
 msgid "Events"
 msgstr "События"
 
@@ -435,7 +436,7 @@ msgstr "Треки"
 
 #: ../root/statistics/Index.js:103 ../root/statistics/Index.js:730
 #: ../root/statistics/Index.js:737 ../root/statistics/Index.js:769
-#: ../root/statistics/LanguagesScripts.js:69 ../root/statistics/stats.js:931
+#: ../root/statistics/LanguagesScripts.js:69 ../root/statistics/stats.js:941
 msgid "Works"
 msgstr "Работы"
 
@@ -913,16 +914,16 @@ msgctxt "edit"
 msgid "Cancelled"
 msgstr "Отмененные"
 
-#: ../root/statistics/Index.js:1307 ../root/statistics/Index.js:1363
+#: ../root/statistics/Index.js:1307 ../root/statistics/Index.js:1379
 msgid "Last 7 days:"
 msgstr "За последние 7 дней:"
 
-#: ../root/statistics/Index.js:1314 ../root/statistics/Index.js:1370
+#: ../root/statistics/Index.js:1314 ../root/statistics/Index.js:1386
 msgid "Yesterday:"
 msgstr "Вчера:"
 
 #: ../root/statistics/Index.js:1321 ../root/statistics/Index.js:1324
-#: ../root/statistics/Index.js:1357 ../root/statistics/stats.js:895
+#: ../root/statistics/Index.js:1373 ../root/statistics/stats.js:895
 msgid "Votes"
 msgstr "Голоса"
 
@@ -945,6 +946,18 @@ msgstr "Нет"
 msgctxt "vote"
 msgid "Abstain"
 msgstr "Воздержаться"
+
+#: ../root/statistics/Index.js:1359
+#, fuzzy
+#| msgid "Approvals"
+msgctxt "vote"
+msgid "Admin approval"
+msgstr "Одобрения"
+
+#: ../root/statistics/Index.js:1367
+msgctxt "vote"
+msgid "Admin rejection"
+msgstr ""
 
 #: ../root/statistics/LanguagesScripts.js:43
 msgid "Languages and scripts"
@@ -1692,46 +1705,58 @@ msgid "Abstentions"
 msgstr "Возражения"
 
 #: ../root/statistics/stats.js:905
-msgid "Approvals"
+#, fuzzy
+#| msgid "Approvals"
+msgid "Admin approvals"
 msgstr "Одобрения"
 
 #: ../root/statistics/stats.js:910
+#, fuzzy
+#| msgid "Area collections"
+msgid "Admin rejections"
+msgstr "Коллекции областей"
+
+#: ../root/statistics/stats.js:915
+msgid "Approvals"
+msgstr "Одобрения"
+
+#: ../root/statistics/stats.js:920
 msgid "No votes"
 msgstr "Нет голосов"
 
-#: ../root/statistics/stats.js:916
+#: ../root/statistics/stats.js:926
 msgid "Votes per day"
 msgstr "Голоса за день"
 
-#: ../root/statistics/stats.js:921
+#: ../root/statistics/stats.js:931
 msgid "Votes per week"
 msgstr "Голоса за неделю"
 
-#: ../root/statistics/stats.js:926
+#: ../root/statistics/stats.js:936
 msgid "Yes votes"
 msgstr "Голоса \"да\""
 
-#: ../root/statistics/stats.js:936
+#: ../root/statistics/stats.js:946
 msgid "Works with no attributes"
 msgstr "Работы без атрибутов"
 
-#: ../root/statistics/stats.js:941
+#: ../root/statistics/stats.js:951
 msgid "Works with ISWCs"
 msgstr "Работы с кодами ISWC"
 
-#: ../root/statistics/stats.js:946
+#: ../root/statistics/stats.js:956
 msgid "Works with no language set"
 msgstr "Работы без установленного языка"
 
-#: ../root/statistics/stats.js:951
+#: ../root/statistics/stats.js:961
 msgid "Works with no type set"
 msgstr "Работы без установленного типа"
 
-#: ../root/statistics/stats.js:953
+#: ../root/statistics/stats.js:963
 msgid "/day"
 msgstr "/day"
 
-#: ../root/statistics/stats.js:963
+#: ../root/statistics/stats.js:973
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] "Релизы с {n} ID диска"
@@ -1739,7 +1764,7 @@ msgstr[1] "Релизы с {n} ID диска"
 msgstr[2] "Релизы с {n} ID диска"
 msgstr[3] "Релизы с {n} ID диска"
 
-#: ../root/statistics/stats.js:974
+#: ../root/statistics/stats.js:984
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] "Носители с {n} ID диска"
@@ -1747,7 +1772,7 @@ msgstr[1] "Носители с {n} ID диска"
 msgstr[2] "Носители с {n} ID диска"
 msgstr[3] "Носители с {n} ID диска"
 
-#: ../root/statistics/stats.js:985
+#: ../root/statistics/stats.js:995
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] "Записи с {n} релизом"
@@ -1755,7 +1780,7 @@ msgstr[1] "Записи с {n} релизами"
 msgstr[2] "Записи с {n} релизами"
 msgstr[3] "Записи с {n} релизами"
 
-#: ../root/statistics/stats.js:996
+#: ../root/statistics/stats.js:1006
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] "Группы релизов с {n} релизом"
@@ -1763,123 +1788,123 @@ msgstr[1] "Группы релизов с {n} релизами"
 msgstr[2] "Группы релизов с {n} релизами"
 msgstr[3] "Группы релизов с {n} релизами"
 
-#: ../root/statistics/stats.js:1049
+#: ../root/statistics/stats.js:1059
 msgid "{type} areas"
 msgstr "Области типа \"{type}\""
 
-#: ../root/statistics/stats.js:1061
+#: ../root/statistics/stats.js:1071
 msgid "{country} artists"
 msgstr "Исполнители из страны {country}"
 
-#: ../root/statistics/stats.js:1067
+#: ../root/statistics/stats.js:1077
 msgid "{country} events"
 msgstr "События в стране {country}"
 
-#: ../root/statistics/stats.js:1073
+#: ../root/statistics/stats.js:1083
 msgid "{country} labels"
 msgstr "Лейблы из страны {country}"
 
-#: ../root/statistics/stats.js:1079
+#: ../root/statistics/stats.js:1089
 msgid "{country} places"
 msgstr "Места в стране {country}"
 
-#: ../root/statistics/stats.js:1085
+#: ../root/statistics/stats.js:1095
 msgid "{country} releases"
 msgstr "Релизы, выпущенные в стране {country}"
 
-#: ../root/statistics/stats.js:1096
+#: ../root/statistics/stats.js:1106
 msgid "{type} edits"
 msgstr "Правки типа \"{type}\""
 
-#: ../root/statistics/stats.js:1107
+#: ../root/statistics/stats.js:1117
 msgid "{type} events"
 msgstr "События типа \"{type}\""
 
-#: ../root/statistics/stats.js:1114
+#: ../root/statistics/stats.js:1124
 msgid "Events of type “{type}” with event art"
 msgstr "События типа \"{type}\" с фотографиями"
 
-#: ../root/statistics/stats.js:1127
+#: ../root/statistics/stats.js:1137
 msgid "{name} releases"
 msgstr "Релизы на носителе \"{name}\""
 
-#: ../root/statistics/stats.js:1133
+#: ../root/statistics/stats.js:1143
 msgid "{name} mediums"
 msgstr "Носители формата \"{name}\""
 
-#: ../root/statistics/stats.js:1140
+#: ../root/statistics/stats.js:1150
 msgid "Releases with a medium of format “{format}” that have cover art"
 msgstr "Релизы с обложкой и носителем типа \"{format}\""
 
-#: ../root/statistics/stats.js:1153
+#: ../root/statistics/stats.js:1163
 msgid "{type} instruments"
 msgstr "Инструменты типа \"{type}\""
 
-#: ../root/statistics/stats.js:1164
+#: ../root/statistics/stats.js:1174
 msgid "{type} labels"
 msgstr "Лейблы типа \"{type}\""
 
-#: ../root/statistics/stats.js:1175
+#: ../root/statistics/stats.js:1185
 msgid "{language} releases"
 msgstr "Релизы на языке \"{language}\""
 
-#: ../root/statistics/stats.js:1182
+#: ../root/statistics/stats.js:1192
 msgid "{language} works"
 msgstr "Работы на языке \"{language}\""
 
-#: ../root/statistics/stats.js:1194
+#: ../root/statistics/stats.js:1204
 msgid "Releases with packaging “{packaging}”"
 msgstr "Релизы с типом упаковки \"{packaging}\""
 
-#: ../root/statistics/stats.js:1207
+#: ../root/statistics/stats.js:1217
 msgid "{type} places"
 msgstr "Места типа \"{type}\""
 
-#: ../root/statistics/stats.js:1215
+#: ../root/statistics/stats.js:1225
 msgid "{first_entity_type}-{second_entity_type} Relationships"
 msgstr "Отношения типа {first_entity_type}-{second_entity_type}"
 
-#: ../root/statistics/stats.js:1234
+#: ../root/statistics/stats.js:1244
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships"
 msgstr ""
 
-#: ../root/statistics/stats.js:1250
+#: ../root/statistics/stats.js:1260
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships including child relationship types"
 msgstr ""
 
-#: ../root/statistics/stats.js:1273 ../root/statistics/stats.js:1293
+#: ../root/statistics/stats.js:1283 ../root/statistics/stats.js:1303
 msgid "{type} release groups"
 msgstr "Группы релизов типа \"{type}\""
 
-#: ../root/statistics/stats.js:1280
+#: ../root/statistics/stats.js:1290
 msgid "Releases in groups of type “{type}” with cover art"
 msgstr "Релизы с обложкой в группах типа \"{type}\""
 
-#: ../root/statistics/stats.js:1304
+#: ../root/statistics/stats.js:1314
 msgid "{script} releases"
 msgstr "Релизы с написанием \"{script}\""
 
-#: ../root/statistics/stats.js:1315
+#: ../root/statistics/stats.js:1325
 msgid "{type} series"
 msgstr "Серии типа \"{type}\""
 
-#: ../root/statistics/stats.js:1326
+#: ../root/statistics/stats.js:1336
 msgid "{status} releases"
 msgstr "Релизы со статусом {status}"
 
-#: ../root/statistics/stats.js:1333
+#: ../root/statistics/stats.js:1343
 msgid "Releases of status “{status}” with cover art"
 msgstr "Релизы с обложками и статусом \"{status}\""
 
-#: ../root/statistics/stats.js:1350
+#: ../root/statistics/stats.js:1360
 msgid "Works with attribute “{attribute}”"
 msgstr "Работы с атрибутом \"{attribute}\""
 
-#: ../root/statistics/stats.js:1363
+#: ../root/statistics/stats.js:1373
 msgid "{type} works"
 msgstr "Работы типа \"{type}\""
 

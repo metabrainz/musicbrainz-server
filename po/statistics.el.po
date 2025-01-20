@@ -184,7 +184,8 @@ msgstr "Δισκογραφικές εταιρείες"
 
 #: ../root/statistics/Countries.js:66 ../root/statistics/Images.js:429
 #: ../root/statistics/Index.js:127 ../root/statistics/Index.js:902
-#: ../root/statistics/Index.js:933 ../root/statistics/stats.js:436
+#: ../root/statistics/Index.js:909 ../root/statistics/Index.js:933
+#: ../root/statistics/stats.js:436
 msgid "Events"
 msgstr ""
 
@@ -464,7 +465,7 @@ msgstr "Κομμάτια"
 
 #: ../root/statistics/Index.js:103 ../root/statistics/Index.js:730
 #: ../root/statistics/Index.js:737 ../root/statistics/Index.js:769
-#: ../root/statistics/LanguagesScripts.js:69 ../root/statistics/stats.js:931
+#: ../root/statistics/LanguagesScripts.js:69 ../root/statistics/stats.js:941
 msgid "Works"
 msgstr "Έργα"
 
@@ -974,16 +975,16 @@ msgctxt "edit"
 msgid "Cancelled"
 msgstr "Ακυρώθηκε:"
 
-#: ../root/statistics/Index.js:1307 ../root/statistics/Index.js:1363
+#: ../root/statistics/Index.js:1307 ../root/statistics/Index.js:1379
 msgid "Last 7 days:"
 msgstr ""
 
-#: ../root/statistics/Index.js:1314 ../root/statistics/Index.js:1370
+#: ../root/statistics/Index.js:1314 ../root/statistics/Index.js:1386
 msgid "Yesterday:"
 msgstr "Χθες:"
 
 #: ../root/statistics/Index.js:1321 ../root/statistics/Index.js:1324
-#: ../root/statistics/Index.js:1357 ../root/statistics/stats.js:895
+#: ../root/statistics/Index.js:1373 ../root/statistics/stats.js:895
 msgid "Votes"
 msgstr "Ψήφοι"
 
@@ -1008,6 +1009,16 @@ msgstr "Όχι"
 msgctxt "vote"
 msgid "Abstain"
 msgstr "Αποχές"
+
+#: ../root/statistics/Index.js:1359
+msgctxt "vote"
+msgid "Admin approval"
+msgstr ""
+
+#: ../root/statistics/Index.js:1367
+msgctxt "vote"
+msgid "Admin rejection"
+msgstr ""
 
 #: ../root/statistics/LanguagesScripts.js:43
 #, fuzzy
@@ -1825,192 +1836,204 @@ msgid "Abstentions"
 msgstr "Αποχές"
 
 #: ../root/statistics/stats.js:905
-msgid "Approvals"
+msgid "Admin approvals"
 msgstr ""
 
 #: ../root/statistics/stats.js:910
+#, fuzzy
+#| msgid "Collections"
+msgid "Admin rejections"
+msgstr ""
+"Συλλογές\n"
+"Συλλογών"
+
+#: ../root/statistics/stats.js:915
+msgid "Approvals"
+msgstr ""
+
+#: ../root/statistics/stats.js:920
 #, fuzzy
 #| msgid "No Votes"
 msgid "No votes"
 msgstr "Αρνητικές ψήφοι"
 
-#: ../root/statistics/stats.js:916
+#: ../root/statistics/stats.js:926
 msgid "Votes per day"
 msgstr "Ψήφοι ανά ημέρα"
 
-#: ../root/statistics/stats.js:921
+#: ../root/statistics/stats.js:931
 msgid "Votes per week"
 msgstr "Ψήφοι ανά βδομάδα"
 
-#: ../root/statistics/stats.js:926
+#: ../root/statistics/stats.js:936
 #, fuzzy
 #| msgid "Yes Votes"
 msgid "Yes votes"
 msgstr "Θετικές ψήφοι"
 
-#: ../root/statistics/stats.js:936
+#: ../root/statistics/stats.js:946
 msgid "Works with no attributes"
 msgstr ""
 
-#: ../root/statistics/stats.js:941
+#: ../root/statistics/stats.js:951
 msgid "Works with ISWCs"
 msgstr ""
 
-#: ../root/statistics/stats.js:946
+#: ../root/statistics/stats.js:956
 msgid "Works with no language set"
 msgstr ""
 
-#: ../root/statistics/stats.js:951
+#: ../root/statistics/stats.js:961
 msgid "Works with no type set"
 msgstr ""
 
-#: ../root/statistics/stats.js:953
+#: ../root/statistics/stats.js:963
 msgid "/day"
 msgstr "/ημέρα"
 
-#: ../root/statistics/stats.js:963
+#: ../root/statistics/stats.js:973
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/stats.js:974
+#: ../root/statistics/stats.js:984
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/stats.js:985
+#: ../root/statistics/stats.js:995
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] "Ηχογραφήσεις με 1 κυκλοφορία"
 msgstr[1] "Ηχογραφήσεις με {n} κυκλοφορίες"
 
-#: ../root/statistics/stats.js:996
+#: ../root/statistics/stats.js:1006
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] "Ομάδες κυκλοφοριών με 1 κυκλοφορία"
 msgstr[1] "Ομάδες κυκλοφοριών με {n} κυκλοφορίες"
 
-#: ../root/statistics/stats.js:1049
+#: ../root/statistics/stats.js:1059
 msgid "{type} areas"
 msgstr ""
 
-#: ../root/statistics/stats.js:1061
+#: ../root/statistics/stats.js:1071
 msgid "{country} artists"
 msgstr "Καλλιτέχνες από {country}"
 
-#: ../root/statistics/stats.js:1067
+#: ../root/statistics/stats.js:1077
 msgid "{country} events"
 msgstr ""
 
-#: ../root/statistics/stats.js:1073
+#: ../root/statistics/stats.js:1083
 msgid "{country} labels"
 msgstr "Δισκογραφικές εταιρείες από {country}"
 
-#: ../root/statistics/stats.js:1079
+#: ../root/statistics/stats.js:1089
 msgid "{country} places"
 msgstr ""
 
-#: ../root/statistics/stats.js:1085
+#: ../root/statistics/stats.js:1095
 msgid "{country} releases"
 msgstr "Κυκλοφορίες από {country}"
 
-#: ../root/statistics/stats.js:1096
+#: ../root/statistics/stats.js:1106
 msgid "{type} edits"
 msgstr ""
 
-#: ../root/statistics/stats.js:1107
+#: ../root/statistics/stats.js:1117
 msgid "{type} events"
 msgstr ""
 
-#: ../root/statistics/stats.js:1114
+#: ../root/statistics/stats.js:1124
 #, fuzzy
 #| msgid "Releases with cover art:"
 msgid "Events of type “{type}” with event art"
 msgstr "Κυκλοφορίες με εξώφυλλο:"
 
-#: ../root/statistics/stats.js:1127
+#: ../root/statistics/stats.js:1137
 msgid "{name} releases"
 msgstr "Κυκλοφορίες {name}"
 
-#: ../root/statistics/stats.js:1133
+#: ../root/statistics/stats.js:1143
 msgid "{name} mediums"
 msgstr "Μέσα {name}"
 
-#: ../root/statistics/stats.js:1140
+#: ../root/statistics/stats.js:1150
 msgid "Releases with a medium of format “{format}” that have cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1153
+#: ../root/statistics/stats.js:1163
 msgid "{type} instruments"
 msgstr ""
 
-#: ../root/statistics/stats.js:1164
+#: ../root/statistics/stats.js:1174
 msgid "{type} labels"
 msgstr ""
 
-#: ../root/statistics/stats.js:1175
+#: ../root/statistics/stats.js:1185
 msgid "{language} releases"
 msgstr "Κυκλοφορίες στα {language} "
 
-#: ../root/statistics/stats.js:1182
+#: ../root/statistics/stats.js:1192
 msgid "{language} works"
 msgstr ""
 
-#: ../root/statistics/stats.js:1194
+#: ../root/statistics/stats.js:1204
 msgid "Releases with packaging “{packaging}”"
 msgstr ""
 
-#: ../root/statistics/stats.js:1207
+#: ../root/statistics/stats.js:1217
 msgid "{type} places"
 msgstr ""
 
-#: ../root/statistics/stats.js:1215
+#: ../root/statistics/stats.js:1225
 msgid "{first_entity_type}-{second_entity_type} Relationships"
 msgstr ""
 
-#: ../root/statistics/stats.js:1234
+#: ../root/statistics/stats.js:1244
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships"
 msgstr ""
 
-#: ../root/statistics/stats.js:1250
+#: ../root/statistics/stats.js:1260
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships including child relationship types"
 msgstr ""
 
-#: ../root/statistics/stats.js:1273 ../root/statistics/stats.js:1293
+#: ../root/statistics/stats.js:1283 ../root/statistics/stats.js:1303
 msgid "{type} release groups"
 msgstr ""
 
-#: ../root/statistics/stats.js:1280
+#: ../root/statistics/stats.js:1290
 msgid "Releases in groups of type “{type}” with cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1304
+#: ../root/statistics/stats.js:1314
 msgid "{script} releases"
 msgstr "Κυκλοφορίες με {script} "
 
-#: ../root/statistics/stats.js:1315
+#: ../root/statistics/stats.js:1325
 msgid "{type} series"
 msgstr ""
 
-#: ../root/statistics/stats.js:1326
+#: ../root/statistics/stats.js:1336
 msgid "{status} releases"
 msgstr ""
 
-#: ../root/statistics/stats.js:1333
+#: ../root/statistics/stats.js:1343
 msgid "Releases of status “{status}” with cover art"
 msgstr ""
 
-#: ../root/statistics/stats.js:1350
+#: ../root/statistics/stats.js:1360
 msgid "Works with attribute “{attribute}”"
 msgstr ""
 
-#: ../root/statistics/stats.js:1363
+#: ../root/statistics/stats.js:1373
 msgid "{type} works"
 msgstr ""
 
