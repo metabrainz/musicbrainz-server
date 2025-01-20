@@ -3,20 +3,21 @@
 # suming <331874545@qq.com>, 2023.
 # claybiockiller <clay0305@hotmail.com>, 2023.
 # weeeeei <weeeeei@duck.com>, 2024.
-# KenParker_CN <peekabookenny@gmail.com>, 2024.
+# KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-11-23 08:42+0000\n"
+"PO-Revision-Date: 2025-01-15 01:44+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/instrument-descriptions/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
+"zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.4\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1269,19 +1270,16 @@ msgstr ""
 
 #. name:tambura
 #: DB:instrument/description:391
-#, fuzzy
-#| msgid ""
-#| "do not confuse with: Serb-Croat \"tamburica\" ensemble. Persian/Turkish "
-#| "ancient things evolved/came from \"tanbur\". unrelated Indian drone "
-#| "\"tanpura\" related Indian \"pandour\""
 msgid ""
 "Do not confuse with: <ul> <li>Serbo-Croat “tamburica” ensemble.</li> "
 "<li>Persian/Turkish ancient things that evolved from “tanbur”.</li> "
 "<li>Unrelated Indian drone “tanpura”.</li> <li>Related Indian “pandour”.</"
 "li> </ul>"
 msgstr ""
-"不要和以下术语混淆:塞尔维亚克罗地亚坦布里卡琴乐团。发展自\"弹拨尔\"的土耳其/"
-"波斯古代乐器。无关的印度持续音乐器\"坦普拉琴\"和有关的印度乐器\"潘多尔琴\""
+"请勿混淆：<ul><li>塞尔维亚 - "
+"克罗地亚的“坦布尔里察琴”乐团。</li><li>由“坦布尔琴”演变而来的波斯/土耳其古代"
+"乐器。</li><li>与之无关的印度持续音乐器“坦布拉琴”。</li><li>与之相关的印度“潘"
+"杜尔琴”。</li></ul>"
 
 #. name:resonator guitar
 #: DB:instrument/description:386

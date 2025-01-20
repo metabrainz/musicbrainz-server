@@ -8,21 +8,21 @@
 # yyoung <yyoung@users.noreply.translations.metabrainz.org>, 2024.
 # weeeeei <weeeeei@duck.com>, 2024.
 # thephy <differentphy@outlook.com>, 2024.
-# KenParker_CN <peekabookenny@gmail.com>, 2024.
+# KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-11-23 08:42+0000\n"
+"PO-Revision-Date: 2025-01-15 01:44+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.4\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -663,7 +663,7 @@ msgstr "至少有一个唱片 ID 的介质："
 
 #: ../root/statistics/Index.js:603
 msgid "Primary types"
-msgstr ""
+msgstr "主要类型"
 
 #: ../root/statistics/Index.js:632 ../root/statistics/Index.js:666
 #: ../root/statistics/Index.js:723 ../root/statistics/Index.js:751
@@ -679,16 +679,16 @@ msgstr "二级类型"
 
 #: ../root/statistics/Index.js:685 ../root/statistics/stats.js:889
 msgid "Videos"
-msgstr ""
+msgstr "视频"
 
 #: ../root/statistics/Index.js:690
 msgctxt "recording"
 msgid "Standalone"
-msgstr ""
+msgstr "独立"
 
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
-msgstr ""
+msgstr "有ISRC"
 
 #: ../root/statistics/Index.js:706 ../root/statistics/Index.js:734
 #: ../root/statistics/Index.js:796 ../root/statistics/Index.js:824
@@ -699,27 +699,23 @@ msgstr "类型"
 
 #: ../root/statistics/Index.js:756
 msgid "With ISWCs"
-msgstr ""
+msgstr "有ISWC"
 
 #: ../root/statistics/Index.js:766
 msgid "Attributes"
 msgstr "属性"
 
 #: ../root/statistics/Index.js:930
-#, fuzzy
-#| msgid "Events"
 msgid "Event art"
-msgstr "活动"
+msgstr "活动图"
 
 #: ../root/statistics/Index.js:939
 msgid "With EAA poster art:"
-msgstr ""
+msgstr "有EAA的海报图:"
 
 #: ../root/statistics/Index.js:945
-#, fuzzy
-#| msgid "No front cover art:"
 msgid "No poster art:"
-msgstr "无封面图片："
+msgstr "无海报图片："
 
 #: ../root/statistics/Index.js:965
 msgid "Of releases"
@@ -727,7 +723,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:972 ../root/statistics/Index.js:1005
 msgid "Generic"
-msgstr ""
+msgstr "通类"
 
 #: ../root/statistics/Index.js:981
 msgid "Owned music"

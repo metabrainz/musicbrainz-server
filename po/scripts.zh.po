@@ -1,20 +1,20 @@
 #
 # Translators:
 # xuanqidongjim <xuanqidongjim@gmail.com>, 2023.
-# KenParker_CN <peekabookenny@gmail.com>, 2024.
+# KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-11-15 16:42+0000\n"
+"PO-Revision-Date: 2025-01-15 01:44+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/scripts/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/scripts/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
@@ -774,7 +774,7 @@ msgstr "提非纳文"
 #. frequency:1 iso_code:Tirh
 #: DB:script/name:132
 msgid "Tiruta"
-msgstr ""
+msgstr "底罗仆多文"
 
 #. frequency:2 iso_code:Ugar
 #: DB:script/name:3
