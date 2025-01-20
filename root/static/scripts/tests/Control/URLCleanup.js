@@ -2118,12 +2118,20 @@ limited_link_type_combinations: [
              input_entity_type: 'label',
     expected_relationship_type: 'discogs',
             expected_clean_url: 'https://www.discogs.com/label/2262',
+       only_valid_entity_types: ['event', 'label', 'place', 'series'],
   },
   {                             // old-style URL without numerical ID
                      input_url: 'http://www.discogs.com/label/Demonic',
              input_entity_type: 'label',
     expected_relationship_type: 'discogs',
        only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://www.discogs.com/label/418444-Monterey-Pop-Festival?page=1',
+             input_entity_type: 'label',
+    expected_relationship_type: 'discogs',
+            expected_clean_url: 'https://www.discogs.com/label/418444',
+       only_valid_entity_types: ['event', 'label', 'place', 'series'],
   },
   {
                      input_url: 'http://www.discogs.com/release/12130',
