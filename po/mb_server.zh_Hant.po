@@ -2,16 +2,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# guardiansock <guardian.sock5925@fastmail.com>, 2024.
+# guardiansock <guardian.sock5925@fastmail.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-13 22:25+0100\n"
-"PO-Revision-Date: 2024-12-29 00:42+0000\n"
+"PO-Revision-Date: 2025-01-14 18:44+0000\n"
 "Last-Translator: guardiansock <guardian.sock5925@fastmail.com>\n"
-"Language-Team: Chinese (Traditional Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/server/zh_Hant/>\n"
+"Language-Team: Chinese (Traditional Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/server/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -318,15 +318,13 @@ msgstr "地址"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:213
 msgctxt "vote"
 msgid "Admin approval"
-msgstr ""
+msgstr "管理員批准"
 
 #: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:311
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:214
-#, fuzzy
-#| msgid "Add collection"
 msgctxt "vote"
 msgid "Admin rejection"
-msgstr "添加收藏集"
+msgstr "管理員拒絕"
 
 #: ../root/release/edit/recordings.tt:3
 msgid ""
@@ -1016,7 +1014,7 @@ msgstr "結束日期"
 #: ../root/components/forms.tt:205 ../root/components/forms.tt:230
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:107
 msgid "English"
-msgstr ""
+msgstr "英語"
 
 #: ../root/release/edit/tracklist.tt:3
 msgid "Enter a tracklist below:"
@@ -1170,7 +1168,7 @@ msgstr[0] "找到 \"{q}\" 的 {n} 個結果"
 #: ../root/components/forms.tt:207 ../root/components/forms.tt:232
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:109
 msgid "French"
-msgstr ""
+msgstr "法語"
 
 #: ../root/cdstub/index.tt:30 ../root/cdstub/CDStubIndex.js:51
 #: ../root/cdtoc/CDTocInfo.js:22
@@ -2869,7 +2867,7 @@ msgstr "位置編輯者"
 #: ../root/components/forms.tt:208 ../root/components/forms.tt:233
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:110
 msgid "Turkish"
-msgstr ""
+msgstr "土耳其語"
 
 #: ../root/artist/edit_form.tt:16 ../root/edit/search_macros.tt:440
 #: ../root/label/edit_form.tt:15 ../root/place/edit_form.tt:15
@@ -3120,7 +3118,7 @@ msgstr "作品"
 #: ../root/layout/components/sidebar/WorkSidebar.js:89
 #: ../root/static/scripts/common/components/AttributeList.js:61
 msgid "Work attributes"
-msgstr ""
+msgstr "作品屬性"
 
 #: ../root/work/edit_form.tt:11
 msgid "Work details"
@@ -5520,16 +5518,12 @@ msgid "Non-videos only"
 msgstr "僅限非影片"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:53
-#, fuzzy
-#| msgid "Related works"
 msgid "Related to works"
-msgstr "相關作品"
+msgstr "與作品相關"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:54
-#, fuzzy
-#| msgid "Related works"
 msgid "Not related to works"
-msgstr "相關作品"
+msgstr "與作品無關"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:71
 msgctxt "release country"
@@ -6736,10 +6730,8 @@ msgid "This artist has no release groups, only standalone recordings."
 msgstr "此創作者沒有專輯組，只有獨立錄音。"
 
 #: ../root/artist/ArtistIndex.js:313
-#, fuzzy
-#| msgid "No releases found that match this search."
 msgid "No release groups found that match this search."
-msgstr "未找到符合此搜尋條件的專輯。"
+msgstr "未找到符合此搜尋條件的發行組。"
 
 #: ../root/artist/ArtistMerge.js:23 ../root/artist/ArtistMerge.js:25
 msgid "Merge artists"
@@ -8468,7 +8460,7 @@ msgstr "已訂閱的編輯者"
 #: ../root/edit/components/ListHeader.js:172 ../root/vote/VotingIndex.js:99
 #: ../root/vote/VotingIndex.js:101
 msgid "Voting suggestions"
-msgstr ""
+msgstr "投票建議"
 
 #: ../root/edit/components/ListHeader.js:199
 msgid "Quick links:"
@@ -10188,7 +10180,7 @@ msgstr "進階搜尋"
 
 #: ../root/layout/components/BottomMenu.js:224
 msgid "Edit search"
-msgstr ""
+msgstr "編輯搜尋"
 
 #: ../root/layout/components/BottomMenu.js:227
 msgctxt "folksonomy"
@@ -10487,7 +10479,7 @@ msgstr "添加到一個新歌曲集"
 #: ../root/layout/components/sidebar/CollectionLinks.js:41
 #: ../root/user/UserCollections.js:191
 msgid "Collaborative collections"
-msgstr ""
+msgstr "合作編輯收藏"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:52
 msgid "Found in {num} user collection"
@@ -11177,7 +11169,7 @@ msgstr "FreeDB ID："
 
 #: ../root/otherlookup/OtherLookupForm.js:102
 msgid "MBID"
-msgstr ""
+msgstr "MBID"
 
 #: ../root/otherlookup/OtherLookupIndex.js:17
 #: ../root/otherlookup/OtherLookupIndex.js:19 ../root/search/SearchIndex.js:29
@@ -16421,12 +16413,10 @@ msgid "Account administrators"
 msgstr "帳號管理員"
 
 #: ../root/user/PrivilegedUsers.js:113
-#, fuzzy
-#| msgid "Account administrators can edit and delete user accounts."
 msgid ""
 "Account administrators can edit and delete user accounts, and immediately "
 "accept and reject edits."
-msgstr "帳號管理員可以編輯和刪除使用者帳號。"
+msgstr "帳號管理員可以編輯和刪除使用者帳號，並立即接受和拒絕編輯。"
 
 #: ../root/user/PrivilegedUsers.js:118
 msgid "The following {count} users are account administrators:"
@@ -16627,9 +16617,6 @@ msgid "Internal/Bot"
 msgstr "內部使用/機器人"
 
 #: ../root/user/UserProfile.js:89
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Account administrators"
 msgctxt "user type"
 msgid "Account admin"
 msgstr "帳號管理員"

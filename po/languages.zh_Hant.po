@@ -1,12 +1,12 @@
 # WorldPioneerXXX <peter04peter04p@gmail.com>, 2024.
-# guardiansock <guardian.sock5925@fastmail.com>, 2024.
+# guardiansock <guardian.sock5925@fastmail.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2024-12-24 23:42+0000\n"
+"PO-Revision-Date: 2025-01-14 18:44+0000\n"
 "Last-Translator: guardiansock <guardian.sock5925@fastmail.com>\n"
-"Language-Team: Chinese (Traditional Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/languages/zh_Hant/>\n"
+"Language-Team: Chinese (Traditional Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/languages/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1717,7 +1717,7 @@ msgstr "納瓦特爾語"
 #. frequency:1 iso_code_3:nau
 #: DB:language/name:294
 msgid "Nauru"
-msgstr ""
+msgstr "諾魯語"
 
 #. frequency:1 iso_code_3:nav
 #: DB:language/name:295
@@ -2161,10 +2161,8 @@ msgstr "塞爾維亞語"
 
 #. frequency:1 iso_code_3:hbs
 #: DB:language/name:2670
-#, fuzzy
-#| msgid "Croatian"
 msgid "Serbo-Croatian"
-msgstr "克羅埃西亞語"
+msgstr "塞爾維亞-克羅埃西亞語"
 
 #. frequency:1 iso_code_3:srr
 #: DB:language/name:395
@@ -2459,7 +2457,7 @@ msgstr "托克皮辛語"
 #. frequency:1 iso_code_3:tkl
 #: DB:language/name:420
 msgid "Tokelau"
-msgstr ""
+msgstr "托克勞語"
 
 #. frequency:1 iso_code_3:tok
 #: DB:language/name:7845
@@ -2519,7 +2517,7 @@ msgstr "土庫曼語"
 #. frequency:1 iso_code_3:tvl
 #: DB:language/name:435
 msgid "Tuvalu"
-msgstr ""
+msgstr "吐瓦魯語"
 
 #. frequency:1 iso_code_3:tyv
 #: DB:language/name:437
