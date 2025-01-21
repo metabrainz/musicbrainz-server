@@ -60,6 +60,32 @@ sub options_item_entity_type {
     return map { $_ => $_ } sort { $a cmp $b } entities_with($entity_type);
 }
 
+after validate => sub {
+    my ($self) = @_;
+
+    my $model = $self->ctx->model($self->ctx->stash->{model});
+    my $parent = $self->field('parent_id')->value
+        ? $model->get_by_id($self->field('parent_id')->value)
+        : undef;
+    my $own_id = defined $self->init_object ? $self->init_object->{id} : undef;
+
+    if (defined $parent && defined $own_id) {
+        my $is_self_parent = $parent->id == $own_id;
+        if ($is_self_parent) {
+            $self->field('parent_id')->add_error(
+                'An attribute cannot be its own parent.',
+            );
+        } else {
+            my $is_own_child = $model->is_child($own_id, $parent->id);
+            if ($is_own_child) {
+                $self->field('parent_id')->add_error(
+                    'An attribute cannot be a child of its own child.',
+                );
+            }
+        }
+    }
+};
+
 1;
 
 =head1 COPYRIGHT AND LICENSE

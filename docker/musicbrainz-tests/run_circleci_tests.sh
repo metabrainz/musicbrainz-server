@@ -40,7 +40,9 @@ sudo -E -H -u musicbrainz ./node_modules/.bin/eslint --max-warnings 0 .
 echo OK
 
 echo Checking translation domain in statistics code
-! sudo -E -H -u musicbrainz git grep -Pw '(N_)?l[np]?\(' -- 'root/statistics/**.js'
+sudo -E -H -u musicbrainz \
+    git --no-pager grep -Pw '(N_)?l[np]?\(' -- 'root/statistics/**.js' \
+    && { exit 1; }
 echo OK
 
 sv_start_if_down chrome

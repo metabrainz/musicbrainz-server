@@ -101,13 +101,13 @@ component Editors(
         <EditorStatsTable
           countLabel={l_statistics('Open and applied edits in past week')}
           dataPoints={topRecentlyActiveEditors}
-          editorLabel={l_statistics('Editor')}
+          editorLabel={l_mb_server('Editor')}
           tableLabel={l_statistics('Most active editors in the past week')}
         />
         <EditorStatsTable
           countLabel={l_statistics('Total applied edits')}
           dataPoints={topEditors}
-          editorLabel={l_statistics('Editor')}
+          editorLabel={l_mb_server('Editor')}
           tableLabel={l_statistics('Top editors overall')}
         />
       </div>

@@ -131,7 +131,7 @@ component Images(
           </tbody>
         </table>
       )}
-      <h2>{l_statistics('Releases')}</h2>
+      <h2>{l_mb_server('Releases')}</h2>
       {(releaseTypeStats.length === 0 &&
         releaseStatusStats.length === 0 &&
         releaseFormatStats.length === 0) ? (
@@ -256,7 +256,7 @@ component Images(
               ))}
             </tbody>
           </table>)}
-      <h2>{l_statistics('Release groups')}</h2>
+      <h2>{l_mb_server('Release groups')}</h2>
       <table className="database-statistics">
         <tbody>
           <tr>
@@ -426,7 +426,7 @@ component Images(
         </table>
       )}
 
-      <h2>{l_statistics('Events')}</h2>
+      <h2>{l_mb_server('Events')}</h2>
       {eventTypeStats.length === 0 ? (
         <p>
           {l_statistics('No event art statistics available.')}

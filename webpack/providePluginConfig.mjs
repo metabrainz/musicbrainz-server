@@ -46,6 +46,14 @@ const providePluginConfig = {
   'N_ln': [i18nPath, 'N_ln'],
   'N_lp': [i18nPath, 'N_lp'],
 
+  'l_mb_server': [i18nPath, 'l'],
+  'ln_mb_server': [i18nPath, 'ln'],
+  'lp_mb_server': [i18nPath, 'lp'],
+
+  'N_l_mb_server': [i18nPath, 'N_l'],
+  'N_ln_mb_server': [i18nPath, 'N_ln'],
+  'N_lp_mb_server': [i18nPath, 'N_lp'],
+
   'exp.l': [expandPath, 'l'],
   'exp.ln': [expandPath, 'ln'],
   'exp.lp': [expandPath, 'lp'],
