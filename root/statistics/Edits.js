@@ -31,7 +31,7 @@ component Edits(
       <p>
         {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
       </p>
-      <h2>{l_statistics('Edits')}</h2>
+      <h2>{l_mb_server('Edits')}</h2>
       {Object.keys(statsByCategory).length === 0 ? (
         <p>
           {l_statistics('No edit statistics available.')}
