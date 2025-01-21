@@ -85,7 +85,7 @@ component Editors(
     <StatisticsLayout
       fullWidth
       page="editors"
-      title={l_mb_server('Editors')}
+      title={l_statistics('Editors')}
     >
       <p>
         {texp.l_statistics('Last updated: {date}', {date: dateCollected})}

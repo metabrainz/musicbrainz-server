@@ -27,7 +27,7 @@ component Edits(
 ) {
   const $c = React.useContext(CatalystContext);
   return (
-    <StatisticsLayout fullWidth page="edits" title={l_statistics('Edits')}>
+    <StatisticsLayout fullWidth page="edits" title={l_mb_server('Edits')}>
       <p>
         {texp.l_statistics('Last updated: {date}', {date: dateCollected})}
       </p>
@@ -40,7 +40,7 @@ component Edits(
         <table className="database-statistics">
           <tbody>
             <tr>
-              <th colSpan="2">{addColonText(l_statistics('Edits'))}</th>
+              <th colSpan="2">{addColonText(l_mb_server('Edits'))}</th>
               <td>
                 {formatCount($c, stats['count.edit'])}
                 {' '}

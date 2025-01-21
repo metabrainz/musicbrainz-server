@@ -1122,7 +1122,7 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="6">{l_mb_server('Editors')}</th>
+            <th colSpan="6">{l_statistics('Editors')}</th>
           </tr>
           <tr>
             <th colSpan="4">{l_statistics('Editors (valid):')}</th>
