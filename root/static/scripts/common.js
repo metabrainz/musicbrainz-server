@@ -6,7 +6,6 @@
 /* eslint-disable import/no-commonjs */
 
 /* Global polyfills not provided by core-js */
-require('whatwg-fetch');
 require('./common/focusin-focusout-polyfill.js');
 /* End of global polyfills */
 

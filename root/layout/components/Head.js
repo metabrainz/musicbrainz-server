@@ -132,6 +132,8 @@ component Head(
 
       {manifest('runtime')}
 
+      {manifest('whatwg-fetch')}
+
       {manifest('common-chunks')}
 
       {manifest('jed-data')}
