@@ -108,6 +108,11 @@ const entries = [
   return accum;
 }, {});
 
+entries['whatwg-fetch'] = path.resolve(
+  MB_SERVER_ROOT,
+  'node_modules/whatwg-fetch/fetch.js',
+);
+
 function langToPosix(lang) {
   return lang.replace(/^([a-zA-Z]+)-([a-zA-Z0-9]+)$/, function (match, l, c) {
     l = l.toLowerCase();
