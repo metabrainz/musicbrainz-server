@@ -212,10 +212,15 @@ sub _list_edits {
 
     $self->collection_collaborator($c) if !$collection->public;
 
+    my $hide_own = 0;
+    if (($c->req->query_params->{hide_own} // '') eq '1') {
+        $hide_own = 1;
+    }
+
     my $status = $show_open_only ? $STATUS_OPEN : undef;
     my $edits  = $self->_load_paged($c, sub {
         my ($limit, $offset) = @_;
-        $c->model('Edit')->find_by_collection($collection->id, $limit, $offset, $status);
+        $c->model('Edit')->find_by_collection($collection->id, $limit, $offset, $status, $hide_own, $c->user->id);
     });
 
     $c->stash(edits => $edits); # stash early in case an ISE occurs while loading the edits
