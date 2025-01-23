@@ -144,11 +144,7 @@ component Head(
         ? null
         : manifest('jed-' + $c.stash.current_language)}
 
-      {manifest('common', {
-        'data-args': JSON.stringify({
-          user: $c.user ? {id: $c.user.id, name: $c.user.name} : null,
-        }),
-      })}
+      {manifest('common')}
 
       {MUSICBRAINZ_RUNNING_TESTS ? manifest('selenium') : null}
 
