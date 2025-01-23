@@ -10,8 +10,12 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
+import manifest from '../../../static/manifest.mjs';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage.js';
+import {
+  WIKIMEDIA_COMMONS_IMAGES_ENABLED,
+} from '../../../static/scripts/common/DBDefs.mjs';
 import {isLocationEditor}
   from '../../../static/scripts/common/utility/privileges.js';
 import * as age from '../../../utility/age.js';
@@ -36,10 +40,15 @@ component AreaSidebar(area: AreaT) {
 
   return (
     <div id="sidebar">
-      <CommonsImage
-        cachedImage={$c.stash.commons_image}
-        entity={area}
-      />
+      {WIKIMEDIA_COMMONS_IMAGES_ENABLED ? (
+        <>
+          <CommonsImage
+            cachedImage={$c.stash.commons_image}
+            entity={area}
+          />
+          {manifest('common/components/CommonsImage', {async: 'async'})}
+        </>
+      ) : null}
 
       <h2 className="area-information">
         {l('Area information')}
