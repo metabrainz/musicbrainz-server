@@ -138,6 +138,8 @@ component Head(
 
       {manifest('common-chunks')}
 
+      {manifest('common/sentry')}
+
       {manifest('jed-data')}
 
       {$c.stash.current_language === 'en'
