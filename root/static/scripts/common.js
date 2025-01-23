@@ -7,8 +7,6 @@
 
 window.$ = window.jQuery = require('jquery');
 
-require('../lib/jquery.ui/ui/jquery-ui.custom.js');
-
 require('./common/components/Annotation.js');
 require('./common/components/CommonsImage.js');
 require('./common/components/FingerprintTable.js');
