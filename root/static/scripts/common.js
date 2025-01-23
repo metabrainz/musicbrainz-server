@@ -5,7 +5,6 @@
 
 /* eslint-disable import/no-commonjs */
 
-window.ko = require('knockout');
 window.$ = window.jQuery = require('jquery');
 
 require('../lib/jquery.ui/ui/jquery-ui.custom.js');
