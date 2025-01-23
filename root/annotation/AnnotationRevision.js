@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
@@ -32,6 +33,7 @@ component AnnotationRevision(
         showChangeLog
         showEmpty
       />
+      {manifest('common/components/Annotation', {async: 'async'})}
     </LayoutComponent>
   );
 }

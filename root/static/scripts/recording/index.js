@@ -1,6 +1,6 @@
 /*
  * @flow strict
- * Copyright (C) 2021 MetaBrainz Foundation
+ * Copyright (C) 2025 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
@@ -8,4 +8,3 @@
  */
 
 import '../common/components/Annotation.js';
-import './components/TracklistAndCredits.js';
