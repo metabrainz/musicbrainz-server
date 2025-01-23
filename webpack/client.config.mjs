@@ -56,6 +56,7 @@ const entries = [
   'common/components/AttributeList',
   'common/components/CDTocReleaseListTable',
   'common/components/CommonsImage',
+  'common/components/FingerprintTable',
   'common/components/IsrcList',
   'common/components/IswcList',
   'common/components/ListMergeButtonsRow',
