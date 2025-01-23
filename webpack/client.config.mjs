@@ -76,6 +76,7 @@ const entries = [
   'place/edit',
   'place/index',
   'place/map',
+  'public-path',
   'recording/edit',
   'relationship-editor',
   'release/coverart',
