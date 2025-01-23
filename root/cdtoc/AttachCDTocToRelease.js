@@ -39,6 +39,9 @@ component AttachCDTocToRelease(
     ? lp('Move Disc ID', 'header')
     : lp('Attach CD TOC', 'header');
   const cdTocTrackCount = cdToc.track_count;
+  const searchLink = '/search?query=' +
+    form.field.query.value +
+    '&type=release&method=indexed';
 
   return (
     <Layout fullWidth title={title}>
@@ -121,13 +124,32 @@ component AttachCDTocToRelease(
             <div className="row">
               <div className="label required">{l('Results:')}</div>
               <div className="no-label">
-                <p>
-                  {wasMbidSearch ? (
-                    l('We couldn’t find a release matching that MBID.')
-                  ) : (
-                    l('No results found. Try refining your search query.')
-                  )}
-                </p>
+                {wasMbidSearch ? (
+                  <p>{l('We couldn’t find a release matching that MBID.')}</p>
+                ) : (
+                  <>
+                    <p>
+                      {l('No results found. Try refining your search query.')}
+                    </p>
+                    {/* Can be removed if limits dropped with MBS-12971 */}
+                    <p>
+                      {l(
+                        `For performance reasons, this search only checks the
+                         appropriateness of a limited amount of releases with
+                         titles closest to your entered query.
+                         To ensure a better result, search for the full
+                         release title or as close to it as possible.`,
+                      )}
+                    </p>
+                    <p>
+                      {exp.l(
+                        `You can also {search_link|search manually}
+                         and paste the link to the release here.`,
+                        {search_link: {href: searchLink, target: '_blank'}},
+                      )}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           )
