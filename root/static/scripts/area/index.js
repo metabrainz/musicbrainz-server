@@ -7,5 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import '../common/components/Annotation.js';
 import '../common/components/CommonsImage.js';
 import '../common/components/WikipediaExtract.js';
