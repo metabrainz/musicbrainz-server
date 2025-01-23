@@ -55,6 +55,7 @@ const entries = [
   'common/components/ArtistRoles',
   'common/components/AttributeList',
   'common/components/CDTocReleaseListTable',
+  'common/components/CommonsImage',
   'common/components/IsrcList',
   'common/components/IswcList',
   'common/components/ListMergeButtonsRow',
