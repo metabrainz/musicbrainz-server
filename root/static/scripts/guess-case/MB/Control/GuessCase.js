@@ -9,6 +9,8 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
+import '../../../../lib/jquery-ui.js';
+
 import MB from '../../../common/MB.js';
 import getBooleanCookie from '../../../common/utility/getBooleanCookie.js';
 import setCookie from '../../../common/utility/setCookie.js';
