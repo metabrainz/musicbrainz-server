@@ -5,8 +5,6 @@
 
 /* eslint-disable import/no-commonjs */
 
-require('./common/sentry.js');
-
 window.ko = require('knockout');
 window.$ = window.jQuery = require('jquery');
 
