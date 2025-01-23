@@ -18,6 +18,9 @@ import AttributeList
 import CommonsImage from
   '../../../static/scripts/common/components/CommonsImage.js';
 import IswcList from '../../../static/scripts/common/components/IswcList.js';
+import {
+  WIKIMEDIA_COMMONS_IMAGES_ENABLED,
+} from '../../../static/scripts/common/DBDefs.mjs';
 import commaOnlyList
   from '../../../static/scripts/common/i18n/commaOnlyList.js';
 import ExternalLinks from '../ExternalLinks.js';
@@ -45,10 +48,15 @@ component WorkSidebar(work: WorkT) {
 
   return (
     <div id="sidebar">
-      <CommonsImage
-        cachedImage={$c.stash.commons_image}
-        entity={work}
-      />
+      {WIKIMEDIA_COMMONS_IMAGES_ENABLED ? (
+        <>
+          <CommonsImage
+            cachedImage={$c.stash.commons_image}
+            entity={work}
+          />
+          {manifest('common/components/CommonsImage', {async: 'async'})}
+        </>
+      ) : null}
 
       {showInfo ? (
         <>

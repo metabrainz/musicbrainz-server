@@ -10,10 +10,14 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
+import manifest from '../../../static/manifest.mjs';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage.js';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
+import {
+  WIKIMEDIA_COMMONS_IMAGES_ENABLED,
+} from '../../../static/scripts/common/DBDefs.mjs';
 import isSpecialPurpose
   from '../../../static/scripts/common/utility/isSpecialPurpose.js';
 import * as age from '../../../utility/age.js';
@@ -45,10 +49,15 @@ component LabelSidebar(label: LabelT) {
 
   return (
     <div id="sidebar">
-      <CommonsImage
-        cachedImage={$c.stash.commons_image}
-        entity={label}
-      />
+      {WIKIMEDIA_COMMONS_IMAGES_ENABLED ? (
+        <>
+          <CommonsImage
+            cachedImage={$c.stash.commons_image}
+            entity={label}
+          />
+          {manifest('common/components/CommonsImage', {async: 'async'})}
+        </>
+      ) : null}
 
       <h2 className="label-information">
         {l('Label information')}

@@ -10,8 +10,12 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
+import manifest from '../../../static/manifest.mjs';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage.js';
+import {
+  WIKIMEDIA_COMMONS_IMAGES_ENABLED,
+} from '../../../static/scripts/common/DBDefs.mjs';
 import linkedEntities
   from '../../../static/scripts/common/linkedEntities.mjs';
 import {formatCount} from '../../../statistics/utilities.js';
@@ -33,10 +37,15 @@ component SeriesSidebar(series: SeriesT) {
 
   return (
     <div id="sidebar">
-      <CommonsImage
-        cachedImage={$c.stash.commons_image}
-        entity={series}
-      />
+      {WIKIMEDIA_COMMONS_IMAGES_ENABLED ? (
+        <>
+          <CommonsImage
+            cachedImage={$c.stash.commons_image}
+            entity={series}
+          />
+          {manifest('common/components/CommonsImage', {async: 'async'})}
+        </>
+      ) : null}
 
       <h2 className="series-information">
         {l('Series information')}
