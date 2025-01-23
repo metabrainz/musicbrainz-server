@@ -10,6 +10,8 @@ import $ from 'jquery';
 import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
+import '../../lib/jquery-ui.js';
+
 import {reduceArtistCredit} from '../common/immutable-entities.js';
 import {bracketedText} from '../common/utility/bracketed.js';
 import formatTrackLength from '../common/utility/formatTrackLength.js';
