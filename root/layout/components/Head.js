@@ -130,6 +130,8 @@ component Head(
 
       {globalsScript}
 
+      {manifest('public-path')}
+
       {manifest('runtime')}
 
       {manifest('whatwg-fetch')}

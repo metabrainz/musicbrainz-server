@@ -5,7 +5,6 @@
 
 /* eslint-disable import/no-commonjs */
 
-require('./public-path.js');
 require('./common/sentry.js');
 
 window.ko = require('knockout');
