@@ -15,10 +15,10 @@ import shell from 'shelljs';
 import TerserPlugin from 'terser-webpack-plugin';
 import webpack from 'webpack';
 
+import jedDataTemplate from '../root/jedDataTemplate.mjs';
 import * as poFile from '../root/server/gettext/poFile.mjs';
 import {cloneObjectDeep}
   from '../root/static/scripts/common/utility/cloneDeep.mjs';
-import jedDataTemplate from '../root/static/scripts/jed-data.mjs';
 import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';
 
 import browserConfig from './browserConfig.mjs';
@@ -26,6 +26,7 @@ import cacheConfig from './cacheConfig.mjs';
 import {
   BUILD_DIR,
   GETTEXT_DOMAINS,
+  GLOBAL_JS_NAMESPACE,
   PO_DIR,
   PRODUCTION_MODE,
   SCRIPTS_DIR,
@@ -84,7 +85,6 @@ const entries = [
   'genre/components/GenreEditForm',
   'genre/index',
   'instrument/index',
-  'jed-data.mjs',
   'label/edit',
   'label/index',
   'place/edit',
@@ -242,16 +242,14 @@ MB_LANGUAGES.forEach(function (lang) {
 
   if (loadedNewPoData) {
     const source = (
-      'import jedData from ' +
-      JSON.stringify(path.resolve(SCRIPTS_DIR, 'jed-data.mjs')) + ';\n' +
-      'const locale = ' + JSON.stringify(lang) + ';\n' +
+      'window[' + JSON.stringify(GLOBAL_JS_NAMESPACE) + ']' +
+      '.jedData[' + JSON.stringify(lang) + '] = ' +
       // https://v8.dev/blog/cost-of-javascript-2019#json
-      'jedData[locale] = JSON.parse(\'' +
+      'JSON.parse(\'' +
       canonicalJson(langJedData)
         .replace(/\\/g, '\\\\')
         .replace(/'/g, "\\'") +
-      '\');\n' +
-      'jedData.locale = locale;\n'
+      '\');\n'
     );
     fs.writeFileSync(filePath, source);
   }
