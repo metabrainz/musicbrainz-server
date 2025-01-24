@@ -38,6 +38,7 @@ component ReleaseGroupSidebar(
       {releaseGroup.cover_art ? (
         <div className="cover-art present">
           <Artwork artwork={releaseGroup.cover_art} />
+          {manifest('common/loadArtwork', {async: 'async'})}
           {manifest('common/artworkViewer', {async: 'async'})}
         </div>
       ) : null}

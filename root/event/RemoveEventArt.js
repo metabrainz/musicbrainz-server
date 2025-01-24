@@ -39,6 +39,7 @@ component RemoveEventArt(
         <EnterEditNote field={form.field.edit_note} />
         <EnterEdit form={form} />
       </form>
+      {manifest('common/loadArtwork', {async: 'async'})}
       {manifest('common/artworkViewer', {async: 'async'})}
     </EventLayout>
   );
