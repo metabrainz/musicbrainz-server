@@ -50,14 +50,17 @@ component EventSidebar(event: EventT) {
       {(eventArtPresence === 'present' || !$c.stash.commons_image) ? (
         <div className="event-art">
           {eventArtPresence === 'present' && eventArtwork ? (
-            <Artwork
-              artwork={eventArtwork}
-              message={ReactDOMServer.renderToStaticMarkup(exp.l(
-                'Image failed to load correctly.' +
-                '<br/>{all|View all images}.',
-                {all: entityHref(event, 'event-art')},
-              ))}
-            />
+            <>
+              <Artwork
+                artwork={eventArtwork}
+                message={ReactDOMServer.renderToStaticMarkup(exp.l(
+                  'Image failed to load correctly.' +
+                  '<br/>{all|View all images}.',
+                  {all: entityHref(event, 'event-art')},
+                ))}
+              />
+              {manifest('common/artworkViewer', {async: 'async'})}
+            </>
           ) : eventArtPresence === 'darkened' ? (
             l(`Images for this item have been hidden
                by the Internet Archive because of a takedown request.`)

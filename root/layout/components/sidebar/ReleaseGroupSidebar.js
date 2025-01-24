@@ -8,6 +8,7 @@
  */
 
 import {Artwork} from '../../../components/Artwork.js';
+import manifest from '../../../static/manifest.mjs';
 import ArtistCreditLink
   from '../../../static/scripts/common/components/ArtistCreditLink.js';
 import entityHref from '../../../static/scripts/common/utility/entityHref.js';
@@ -37,6 +38,7 @@ component ReleaseGroupSidebar(
       {releaseGroup.cover_art ? (
         <div className="cover-art present">
           <Artwork artwork={releaseGroup.cover_art} />
+          {manifest('common/artworkViewer', {async: 'async'})}
         </div>
       ) : null}
 
