@@ -17,6 +17,7 @@ import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 import {legacy_createStore as createStore} from 'redux';
 
+import '../../lib/knockout/knockout-delegatedEvents.js';
 import '../edit/components/FormRowTextList.js';
 
 import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from '../common/constants.js';
