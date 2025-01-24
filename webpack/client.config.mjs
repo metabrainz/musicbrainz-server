@@ -49,7 +49,6 @@ const entries = [
   'artist/edit',
   'artist/index',
   'collection/edit',
-  'common',
   'common/artworkViewer',
   'common/banner',
   'common/components/AcoustIdCell',

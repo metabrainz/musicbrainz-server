@@ -1,7 +1,5 @@
 /* eslint-disable import/no-commonjs */
 
-require('./common.js');
-
 require('../lib/knockout/knockout-delegatedEvents.js');
 
 require('./edit/common.js');
