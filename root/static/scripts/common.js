@@ -7,5 +7,5 @@
 
 window.$ = window.jQuery = require('jquery');
 
-import('./common/coverart.js');
+import('./common/loadArtwork.js');
 import('./common/banner.js');
