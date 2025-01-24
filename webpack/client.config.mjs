@@ -305,7 +305,7 @@ export default {
       cacheGroups: {
         'common-chunks': {
           chunks: 'initial',
-          minChunks: 2,
+          minChunks: 5,
           name: 'common-chunks',
           priority: -30,
           reuseExistingChunk: true,
