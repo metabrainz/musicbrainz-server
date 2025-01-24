@@ -142,8 +142,6 @@ component Head(
 
       {manifest('common/sentry')}
 
-      {manifest('jed-data')}
-
       {$c.stash.current_language === 'en'
         ? null
         : manifest('jed-' + $c.stash.current_language)}
