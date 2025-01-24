@@ -59,6 +59,7 @@ component EventSidebar(event: EventT) {
                   {all: entityHref(event, 'event-art')},
                 ))}
               />
+              {manifest('common/loadArtwork', {async: 'async'})}
               {manifest('common/artworkViewer', {async: 'async'})}
             </>
           ) : eventArtPresence === 'darkened' ? (
