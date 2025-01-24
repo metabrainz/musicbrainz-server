@@ -10,6 +10,7 @@ import $ from 'jquery';
 import ko from 'knockout';
 
 import '../../../../lib/jquery-ui.js';
+import '../../../common/dialogs.js';
 
 import MB from '../../../common/MB.js';
 import getBooleanCookie from '../../../common/utility/getBooleanCookie.js';
