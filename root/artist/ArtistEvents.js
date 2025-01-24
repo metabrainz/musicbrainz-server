@@ -74,6 +74,7 @@ component ArtistEvents(
             : l('This artist is not currently associated with any events.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </ArtistLayout>
   );
 }
