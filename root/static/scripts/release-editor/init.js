@@ -27,6 +27,7 @@ import clean from '../common/utility/clean.js';
 import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
 import {debounceComputed} from '../common/utility/debounce.js';
 import request from '../common/utility/request.js';
+import confirmNavigationFallback from '../edit/confirmNavigationFallback.js';
 import * as externalLinks from '../edit/externalLinks.js';
 import {createField} from '../edit/utility/createField.js';
 import getUpdatedTrackArtists from
@@ -529,4 +530,4 @@ releaseEditor.allowsSubmission = function () {
 
 MB._releaseEditor = releaseEditor;
 
-$(MB.confirmNavigationFallback);
+$(confirmNavigationFallback);

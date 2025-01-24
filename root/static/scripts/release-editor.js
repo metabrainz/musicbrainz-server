@@ -4,8 +4,6 @@ require('./common/MB/Control/Autocomplete.js');
 
 require('./edit.js');
 
-require('./edit/confirmNavigationFallback.js');
-
 // The order here is important!
 require('./release-editor/viewModel.js');
 require('./release-editor/utils.js');
