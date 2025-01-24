@@ -78,6 +78,7 @@ const entries = [
   'edit',
   'edit/components/FormRowTextList',
   'edit/components/NewNotesAlertCheckbox',
+  'edit/ExampleRelationships',
   'event/components/EventEditForm',
   'event/eventart',
   'event/index',
