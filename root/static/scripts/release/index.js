@@ -1,5 +1,5 @@
 /*
- * @flow strict
+ * @flow
  * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,4 +8,5 @@
  */
 
 import '../common/components/Annotation.js';
+import '../common/ratings.js';
 import './components/TracklistAndCredits.js';

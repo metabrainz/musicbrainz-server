@@ -7,6 +7,5 @@
 
 window.$ = window.jQuery = require('jquery');
 
-import('./common/ratings.js');
 import('./common/coverart.js');
 import('./common/banner.js');
