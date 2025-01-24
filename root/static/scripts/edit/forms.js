@@ -294,6 +294,21 @@ ko.virtualElements.allowedBindings.loop = true;
 
 
 /*
+ * By default, knockout limits the number of items it'll loop through before
+ * giving up finding any moves in an arrayChange sequence, presumably to
+ * limit its polynomial time complexity in the case of really large arrays.
+ * But the loop bindingHandler which we use depends on moves always being
+ * detected, so we must disable this limit by passing a falsy value as the
+ * third argument.
+ */
+ko.utils.__findMovesInArrayComparison = ko.utils.findMovesInArrayComparison;
+
+ko.utils.findMovesInArrayComparison = function (left, right) {
+  ko.utils.__findMovesInArrayComparison(left, right, false);
+};
+
+
+/*
  * Helper binding that matches an input and label (assuming a table layout)
  * together in a foreach loop, by assigning an id composed of a prefix
  * concatenated with the index of the item in the loop.
