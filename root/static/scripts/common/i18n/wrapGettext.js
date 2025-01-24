@@ -10,8 +10,8 @@
 import isNodeJS from 'detect-node';
 import Jed from 'jed';
 
+import jedDataTemplate from '../../../../jedDataTemplate.mjs';
 import * as serverGettext from '../../../../server/gettext.mjs';
-import jedData from '../../jed-data.mjs';
 
 import cleanMsgid from './cleanMsgid.js';
 
@@ -19,7 +19,10 @@ let gettext;
 if (isNodeJS) {
   gettext = serverGettext;
 } else {
-  // jedData contains all domains used by the client.
+  let jedData = window[GLOBAL_JS_NAMESPACE]?.jedData;
+  if (jedData == null || jedData.locale === 'en') {
+    jedData = jedDataTemplate;
+  }
   gettext = new Jed(jedData[jedData.locale]);
 }
 
