@@ -65,6 +65,7 @@ const entries = [
   'common/components/TagEditor',
   'common/components/TaggerIcon',
   'common/components/WorkArtists',
+  'common/MB/Control/Menu',
   'common/MB/Control/SelectAll',
   'common/sentry',
   'confirm-seed',
