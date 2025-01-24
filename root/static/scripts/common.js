@@ -7,7 +7,6 @@
 
 window.$ = window.jQuery = require('jquery');
 
-import('./common/MB/Control/Menu.js');
 import('./common/MB/edit_search.js');
 import('./common/ratings.js');
 import('./common/coverart.js');
