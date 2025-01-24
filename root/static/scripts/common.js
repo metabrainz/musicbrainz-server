@@ -7,8 +7,6 @@
 
 window.$ = window.jQuery = require('jquery');
 
-require('./common/components/TagEditor.js');
-
 import('./common/artworkViewer.js');
 import('./common/dialogs.js');
 import('./common/components/Filter.js');
