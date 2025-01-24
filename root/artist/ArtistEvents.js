@@ -74,6 +74,7 @@ component ArtistEvents(
 
       {manifest('common/components/Filter', {async: 'async'})}
       {manifest('common/MB/Control/SelectAll', {async: 'async'})}
+      {manifest('common/ratings', {async: 'async'})}
     </ArtistLayout>
   );
 }

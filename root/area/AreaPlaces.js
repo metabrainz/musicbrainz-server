@@ -73,6 +73,7 @@ component AreaPlaces(
         </p>
       )}
       {manifest('common/MB/Control/SelectAll', {async: 'async'})}
+      {manifest('common/ratings', {async: 'async'})}
     </AreaLayout>
   );
 }
