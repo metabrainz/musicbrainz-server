@@ -45,7 +45,7 @@
     "leaflet.markercluster": "1.5.3",
     "less": "4.2.0",
     "less-loader": "12.2.0",
-    "less-plugin-clean-css": "1.5.1",
+    "less-plugin-clean-css": "1.6.0",
     "leven": "4.0.0",
     "mutate-cow": "5.0.0",
     "nodemon": "3.1.4",
