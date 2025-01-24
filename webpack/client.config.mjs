@@ -61,6 +61,7 @@ const entries = [
   'common/components/IswcList',
   'common/components/ListMergeButtonsRow',
   'common/components/ReleaseEvents',
+  'common/components/TagEditor',
   'common/components/TaggerIcon',
   'common/components/WorkArtists',
   'common/MB/Control/SelectAll',
