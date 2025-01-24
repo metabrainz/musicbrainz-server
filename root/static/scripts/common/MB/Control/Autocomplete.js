@@ -573,9 +573,10 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     if (item.action) {
       return this._renderAction(ul, item);
     }
-    var formatters = MB.Control.autocomplete_formatters;
-    var entityType = formatters[this.entity] ? this.entity : 'generic';
-    return formatters[entityType](ul, item);
+    var entityType = autocompleteFormatters[this.entity]
+      ? this.entity
+      : 'generic';
+    return autocompleteFormatters[entityType](ul, item);
   },
 
   changeEntity(entity) {
@@ -644,7 +645,7 @@ $.widget('ui.menu', $.ui.menu, {
 });
 
 
-MB.Control.autocomplete_formatters = {
+const autocompleteFormatters = {
   'generic'(ul, item) {
     var a = $('<a>').text(item.name);
 
