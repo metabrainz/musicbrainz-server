@@ -1,5 +1,6 @@
 [%- WRAPPER "event/layout.tt" title=lp('Edit event art', 'singular, header') page='edit_event_art' -%]
   [%- script_manifest('edit.js') -%]
+  [%- script_manifest('common/loadArtwork.js', {async => 'async'}) -%]
   [%- script_manifest('common/artworkViewer.js', {async => 'async'}) -%]
 
   <h2>[%- lp('Edit event art', 'singular, header') -%]</h2>
