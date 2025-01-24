@@ -69,6 +69,7 @@ const entries = [
   'common/MB/Control/Menu',
   'common/MB/Control/SelectAll',
   'common/MB/edit_search',
+  'common/ratings',
   'common/sentry',
   'confirm-seed',
   'edit',

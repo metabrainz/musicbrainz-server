@@ -65,6 +65,7 @@ component InstrumentArtists(
         </p>
       )}
       {manifest('common/MB/Control/SelectAll', {async: 'async'})}
+      {manifest('common/ratings', {async: 'async'})}
     </InstrumentLayout>
   );
 }
