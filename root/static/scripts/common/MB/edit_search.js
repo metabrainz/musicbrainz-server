@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-import MB from '../MB.js';
+import EntityAutocomplete from './Control/Autocomplete.js';
 
 $(function () {
   const cardinalityMap = {
@@ -93,7 +93,7 @@ $(function () {
           .find('select.operator').trigger('change');
 
         $li.find('span.autocomplete').each(function () {
-          MB.Control.EntityAutocomplete({inputs: $(this)});
+          EntityAutocomplete({inputs: $(this)});
         });
 
         $li.find(':input').each(function () {
@@ -150,6 +150,6 @@ $(function () {
   });
 
   $('ul.conditions span.autocomplete').each(function () {
-    MB.Control.EntityAutocomplete({inputs: $(this)});
+    EntityAutocomplete({inputs: $(this)});
   });
 });
