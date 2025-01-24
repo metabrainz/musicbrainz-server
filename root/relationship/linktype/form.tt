@@ -150,7 +150,7 @@
             </div>
         [% END %]
 
-        [% script_manifest('edit.js') %]
+        [% script_manifest('edit/ExampleRelationships.js') %]
         <script type="text/javascript">
 var editor = MB.ExampleRelationshipsEditor.init({
     type0: '[% link_type.entity0_type %]',
