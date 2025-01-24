@@ -7,7 +7,6 @@
 
 window.$ = window.jQuery = require('jquery');
 
-import('./common/dialogs.js');
 import('./common/components/Filter.js');
 import('./common/MB/Control/Menu.js');
 import('./common/MB/edit_search.js');
