@@ -148,8 +148,6 @@ component Head(
         ? null
         : manifest('jed-' + $c.stash.current_language)}
 
-      {manifest('common')}
-
       {MUSICBRAINZ_RUNNING_TESTS ? manifest('selenium') : null}
 
       {$c.stash.jsonld_data ? (
