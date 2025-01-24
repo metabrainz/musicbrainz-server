@@ -122,6 +122,8 @@ component EditList(
           type="text/javascript"
         />
       ) : null}
+
+      {manifest('common/artworkViewer', {async: 'async'})}
     </>
   );
 }
