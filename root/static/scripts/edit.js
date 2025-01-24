@@ -1,6 +1,5 @@
 /* eslint-disable import/no-commonjs */
 
-require('./edit/ExampleRelationships.js');
 require('./edit/forms.js');
 require('./edit/validation.js');
 require('./edit/externalLinks.js');
