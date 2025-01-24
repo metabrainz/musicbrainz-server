@@ -12,6 +12,7 @@ import * as React from 'react';
 import UserAccountLayout, {type AccountLayoutUserT}
   from '../components/UserAccountLayout.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
 import RatingStars, {StaticRatingStars}
@@ -77,6 +78,9 @@ component UserRatingList(ratings: UserRatingsT, user: AccountLayoutUserT) {
           <p>{exp.l('{user} has not rated anything.', {user: user.name})}</p>
         </>
       )}
+      {viewingOwnProfile ? (
+        manifest('common/ratings', {async: 'async'})
+      ) : null}
     </UserAccountLayout>
   );
 }
