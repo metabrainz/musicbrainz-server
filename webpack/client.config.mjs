@@ -50,6 +50,7 @@ const entries = [
   'artist/index',
   'collection/edit',
   'common',
+  'common/artworkViewer',
   'common/components/AcoustIdCell',
   'common/components/Annotation',
   'common/components/ArtistRoles',
