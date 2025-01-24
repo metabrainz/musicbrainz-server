@@ -85,9 +85,6 @@ dl.ars dt {
     [%- IF show_artists -%]
         <td>[% artist_credit(track.artist_credit) %]</td>
     [%- END -%]
-    [% UNLESS hide_rating %]
-    <td class="rating c">[% rating_stars(recording) %]</td>
-    [% END %]
     <td class="treleases">[% format_length(track.length) %]</td>
 </tr>
 [%- END -%]
