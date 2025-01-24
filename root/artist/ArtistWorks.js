@@ -70,6 +70,7 @@ component ArtistWorks(
             : l('This artist is not currently associated with any works.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </ArtistLayout>
   );
 }

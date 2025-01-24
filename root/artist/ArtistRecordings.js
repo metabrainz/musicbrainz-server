@@ -161,6 +161,8 @@ component ArtistRecordings(
       )}
 
       <FooterSwitch {...footerSwitchProps} />
+
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </ArtistLayout>
   );
 }

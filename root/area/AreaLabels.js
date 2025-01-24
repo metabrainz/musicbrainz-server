@@ -57,6 +57,7 @@ component AreaLabels(
           {l('This area is not currently associated with any labels.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </AreaLayout>
   );
 }

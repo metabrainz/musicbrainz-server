@@ -19,6 +19,9 @@ import {
 } from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
 import {
+  initializeRangeSelect,
+} from '../common/MB/Control/SelectAll.js';
+import {
   getCatalystContext,
   getSourceEntityData,
 } from '../common/utility/catalyst.js';
@@ -78,12 +81,12 @@ releaseEditor.init = function (options) {
    * Allow using range-select (shift-click) on the change recording artist
    * and change recording title checkboxes in the Recordings page.
    */
-  MB.Control.RangeSelect(
+  initializeRangeSelect(
     '#track-recording-assignation input.' +
     'update-recording-title[type="checkbox"]',
   );
 
-  MB.Control.RangeSelect(
+  initializeRangeSelect(
     '#track-recording-assignation input.' +
     'update-recording-artist[type="checkbox"]',
   );

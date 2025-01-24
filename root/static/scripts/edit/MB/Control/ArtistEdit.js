@@ -9,6 +9,9 @@
 import $ from 'jquery';
 
 import MB from '../../../common/MB.js';
+import {
+  initializeRangeSelect,
+} from '../../../common/MB/Control/SelectAll.js';
 
 MB.Control.ArtistEdit = function () {
   var self = {};
@@ -117,7 +120,7 @@ MB.Control.ArtistEdit = function () {
   self.typeChanged();
   self.$type.bind('change.mb', self.typeChanged);
 
-  MB.Control.RangeSelect(
+  initializeRangeSelect(
     '#artist-credit-renamer input[type="checkbox"]',
   );
 
