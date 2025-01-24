@@ -54,6 +54,7 @@ component CancelEdit(
         </div>
       </form>
 
+      {manifest('common/loadArtwork', {async: 'async'})}
       {manifest('common/artworkViewer', {async: 'async'})}
     </Layout>
   );

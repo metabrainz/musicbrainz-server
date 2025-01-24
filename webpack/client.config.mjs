@@ -66,6 +66,7 @@ const entries = [
   'common/components/TagEditor',
   'common/components/TaggerIcon',
   'common/components/WorkArtists',
+  'common/loadArtwork',
   'common/MB/Control/Menu',
   'common/MB/Control/SelectAll',
   'common/MB/edit_search',

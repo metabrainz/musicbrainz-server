@@ -199,6 +199,7 @@ component EditIndex(
         <EditSidebar edit={edit} />
       )}
 
+      {manifest('common/loadArtwork', {async: 'async'})}
       {manifest('common/artworkViewer', {async: 'async'})}
     </Layout>
   );
