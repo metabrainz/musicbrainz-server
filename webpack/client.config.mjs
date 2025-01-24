@@ -68,6 +68,7 @@ const entries = [
   'common/components/WorkArtists',
   'common/MB/Control/Menu',
   'common/MB/Control/SelectAll',
+  'common/MB/edit_search',
   'common/sentry',
   'confirm-seed',
   'edit',
