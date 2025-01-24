@@ -12,6 +12,7 @@ import * as React from 'react';
 import LabelList from '../components/list/LabelList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
@@ -53,6 +54,7 @@ component AreaLabels(
           {l('This area is not currently associated with any labels.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </AreaLayout>
   );
 }

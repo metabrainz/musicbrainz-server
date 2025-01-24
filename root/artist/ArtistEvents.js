@@ -12,6 +12,7 @@ import * as React from 'react';
 import EventList from '../components/list/EventList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import Filter from '../static/scripts/common/components/Filter.js';
 import {type EventFilterT}
   from '../static/scripts/common/components/FilterForm.js';
@@ -70,6 +71,7 @@ component ArtistEvents(
             : l('This artist is not currently associated with any events.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </ArtistLayout>
   );
 }

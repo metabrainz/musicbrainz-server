@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import FormRow from '../static/scripts/edit/components/FormRow.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
@@ -129,6 +130,7 @@ component DuplicateArtists(...{
           ) : null}
         </PaginatedResults>
       </form>
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </ReportLayout>
   );
 }

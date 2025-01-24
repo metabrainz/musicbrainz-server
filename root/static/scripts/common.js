@@ -7,7 +7,6 @@
 
 window.$ = window.jQuery = require('jquery');
 
-require('./common/MB/Control/SelectAll.js');
 require('./common/components/TagEditor.js');
 
 import('./common/artworkViewer.js');

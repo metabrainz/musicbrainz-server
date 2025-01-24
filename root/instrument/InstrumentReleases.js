@@ -12,6 +12,7 @@ import * as React from 'react';
 import ReleaseList from '../components/list/ReleaseList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import InstrumentLayout from './InstrumentLayout.js';
@@ -59,6 +60,7 @@ component InstrumentReleases(
           {l('No releases found.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </InstrumentLayout>
   );
 }

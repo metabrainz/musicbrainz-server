@@ -62,6 +62,7 @@ const entries = [
   'common/components/ReleaseEvents',
   'common/components/TaggerIcon',
   'common/components/WorkArtists',
+  'common/MB/Control/SelectAll',
   'common/sentry',
   'confirm-seed',
   'edit',

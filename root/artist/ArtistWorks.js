@@ -12,6 +12,7 @@ import * as React from 'react';
 import WorkList from '../components/list/WorkList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import Filter from '../static/scripts/common/components/Filter.js';
 import {type WorkFilterT}
   from '../static/scripts/common/components/FilterForm.js';
@@ -66,6 +67,7 @@ component ArtistWorks(
             : l('This artist is not currently associated with any works.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </ArtistLayout>
   );
 }
