@@ -7,7 +7,6 @@
 
 window.$ = window.jQuery = require('jquery');
 
-require('./common/components/WikipediaExtract.js');
 require('./common/MB/Control/Autocomplete.js');
 require('./common/MB/Control/SelectAll.js');
 require('./common/components/TagEditor.js');
