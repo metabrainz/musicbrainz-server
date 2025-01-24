@@ -1,5 +1,7 @@
 /* eslint-disable import/no-commonjs */
 
+require('./common/MB/Control/Autocomplete.js');
+
 require('./edit.js');
 
 require('./edit/confirmNavigationFallback.js');
