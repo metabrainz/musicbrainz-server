@@ -1,7 +1,5 @@
 /* eslint-disable import/no-commonjs */
 
-require('../lib/knockout/knockout-delegatedEvents.js');
-
 require('./edit/common.js');
 require('./edit/confirmNavigationFallback.js');
 require('./edit/ExampleRelationships.js');

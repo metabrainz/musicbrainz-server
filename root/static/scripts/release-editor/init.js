@@ -12,6 +12,7 @@ import mutate from 'mutate-cow';
 import {createRoot} from 'react-dom/client';
 
 import '../../lib/jquery-ui.js';
+import '../../lib/knockout/knockout-delegatedEvents.js';
 
 import {
   artistCreditsAreEqual,
