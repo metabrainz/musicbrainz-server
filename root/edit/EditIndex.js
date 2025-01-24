@@ -12,6 +12,7 @@ import * as React from 'react';
 import RequestLogin from '../components/RequestLogin.js';
 import {CatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
+import manifest from '../static/manifest.mjs';
 import EditLink from '../static/scripts/common/components/EditLink.js';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import {DB_STAGING_TESTING_FEATURES}
@@ -197,6 +198,8 @@ component EditIndex(
       {fullWidth ? null : (
         <EditSidebar edit={edit} />
       )}
+
+      {manifest('common/artworkViewer', {async: 'async'})}
     </Layout>
   );
 }
