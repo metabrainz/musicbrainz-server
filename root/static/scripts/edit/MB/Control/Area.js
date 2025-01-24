@@ -10,6 +10,7 @@ import $ from 'jquery';
 import ko from 'knockout';
 
 import MB from '../../../common/MB.js';
+import EntityAutocomplete from '../../../common/MB/Control/Autocomplete.js';
 
 MB.Control.Area = function (...selectors) {
   var bubble = new MB.Control.BubbleDoc();
@@ -23,7 +24,7 @@ MB.Control.Area = function (...selectors) {
   for (const selector of selectors) {
     const $span = $(selector);
     const name = $span.find('input.name')[0];
-    const ac = MB.Control.EntityAutocomplete({inputs: $span});
+    const ac = EntityAutocomplete({inputs: $span});
 
     ko.applyBindingsToNode(
       name, {controlsBubble: bubble}, {area: ac.currentSelection},
