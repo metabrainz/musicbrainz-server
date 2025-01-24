@@ -68,6 +68,7 @@ component AreaReleases(
         pagedLinkTypeGroup={pagedLinkTypeGroup}
         pager={pager}
       />
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </AreaLayout>
   );
 }

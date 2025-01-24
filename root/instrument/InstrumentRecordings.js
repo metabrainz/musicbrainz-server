@@ -64,6 +64,7 @@ component InstrumentRecordings(
           {l('No recordings found.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </InstrumentLayout>
   );
 }
