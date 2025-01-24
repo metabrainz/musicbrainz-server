@@ -9,5 +9,6 @@
 
 import '../common/components/Annotation.js';
 import '../common/components/CommonsImage.js';
+import '../common/components/Filter.js';
 import '../common/components/WikipediaExtract.js';
 import '../common/MB/Control/SelectAll.js';
