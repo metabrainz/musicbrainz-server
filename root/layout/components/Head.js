@@ -138,6 +138,8 @@ component Head(
 
       {manifest('common-chunks')}
 
+      {manifest('common/jquery')}
+
       {manifest('common/sentry')}
 
       {manifest('jed-data')}
