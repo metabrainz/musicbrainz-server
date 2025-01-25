@@ -226,3 +226,5 @@ MB.installFormUnloadWarning = function () {
     return event.returnValue;
   });
 };
+
+export const installFormUnloadWarning = MB.installFormUnloadWarning;

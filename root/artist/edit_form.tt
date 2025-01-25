@@ -113,20 +113,3 @@
 
 [%- guesscase_options() -%]
 [% script_manifest('artist/edit.js', {async => 'async'}) %]
-
-<script type="text/javascript">
-  (function () {
-    MB.Control.ArtistEdit();
-
-    MB.initializeDuplicateChecker('artist');
-
-    MB.initializeToggleEnded('id-edit-artist');
-    MB.initializeTooShortYearChecks('artist');
-
-    MB.Control.initializeBubble("#sort-name-bubble", "input[name=edit-artist\\.sort_name");
-    MB.Control.initializeBubble("#ipi-bubble", "input[name=edit-artist\\.ipi_codes\\.0]");
-    MB.Control.initializeBubble("#isni-bubble", "input[name=edit-artist\\.isni_codes\\.0]");
-
-    MB.installFormUnloadWarning();
-  }());
-</script>
