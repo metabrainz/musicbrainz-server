@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-12-22 17:42+0000\n"
-"Last-Translator: wileyfoxyx "
-"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -32,8 +32,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.9.2\n"
 
 #. name:artist diploma
@@ -310,7 +310,8 @@ msgstr "Обозначает, что одна зона содержится в �
 #: DB:link_type/link_phrase:1089 DB:link_type/link_phrase:180
 #: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
 #: DB:link_type/link_phrase:90 DB:link_type/link_phrase:747
-#: DB:link_type/link_phrase:705 DB:link_type/reverse_link_phrase:971
+#: DB:link_type/link_phrase:1275 DB:link_type/link_phrase:705
+#: DB:link_type/reverse_link_phrase:971
 msgid "Discogs"
 msgstr "Discogs"
 
@@ -318,7 +319,8 @@ msgstr "Discogs"
 #: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:1089
 #: DB:link_type/reverse_link_phrase:180 DB:link_type/reverse_link_phrase:76
 #: DB:link_type/reverse_link_phrase:217 DB:link_type/reverse_link_phrase:90
-#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:705
+#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:1275
+#: DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
 msgstr "страница на Discogs для"
 
@@ -802,7 +804,8 @@ msgstr "Указывает на официальный сайт события."
 #: DB:link_type/description:871
 msgid ""
 "Indicates the person who translated the lyrics/libretto for this release."
-msgstr "Указывает на человека, который перевел текст/либретто для этого релиза."
+msgstr ""
+"Указывает на человека, который перевел текст/либретто для этого релиза."
 
 #. name:translator
 #: DB:link_type/description:872
@@ -3098,6 +3101,13 @@ msgid "This is used to link the Discogs page for this artist."
 msgstr ""
 
 #. name:discogs
+#: DB:link_type/description:1275
+#, fuzzy
+#| msgid "Points to the Wikipedia page for this event."
+msgid "This is used to link the Discogs page for this event."
+msgstr "Указывает на страницу в Википедии для данного мероприятия."
+
+#. name:discogs
 #: DB:link_type/description:1089
 msgid "This is used to link the Discogs page for this genre/style."
 msgstr ""
@@ -4358,10 +4368,10 @@ msgid ""
 "Concert_residency\" target=\"_blank\">concert residency</a> to the artist(s) "
 "who held the residency."
 msgstr ""
-"Отношение связывает <a href=\"https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D0%B"
-"D%D1%86%D0%B5%D1%80%D1%82%D0%BD%D0%B0%D1%8F_%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0"
-"%B5%D0%BD%D1%86%D0%B8%D1%8F\" target=\"_blank\">концертную резиденцию</a> и "
-"исполнителя(-ей), который(-е) её проводил."
+"Отношение связывает <a href=\"https://ru.wikipedia.org/wiki/"
+"%D0%9A%D0%BE%D0%BD%D1%86%D0%B5%D1%80%D1%82%D0%BD%D0%B0%D1%8F_%D1%80%D0%B5%D0%B7%D0%B8%D0%B4%D0%B5%D0%BD%D1%86%D0%B8%D1%8F\" "
+"target=\"_blank\">концертную резиденцию</a> и исполнителя(-ей), который(-е) "
+"её проводил."
 
 #. name:carillonneur
 #: DB:link_type/description:1165
@@ -5364,8 +5374,8 @@ msgstr ""
 msgid "artists and repertoire position at"
 msgstr ""
 
-#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
-#: DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:1170
+#: DB:link_type/name:993
 msgid "artwork"
 msgstr ""
 
@@ -6038,7 +6048,7 @@ msgstr "страницы дискографии"
 
 #: DB:link_type/name:1089 DB:link_type/name:180 DB:link_type/name:76
 #: DB:link_type/name:217 DB:link_type/name:90 DB:link_type/name:747
-#: DB:link_type/name:705 DB:link_type/name:971
+#: DB:link_type/name:1275 DB:link_type/name:705 DB:link_type/name:971
 msgid "discogs"
 msgstr "discogs"
 
@@ -6539,7 +6549,7 @@ msgstr "имеет страницу CPDL"
 #: DB:link_type/long_link_phrase:1089 DB:link_type/long_link_phrase:180
 #: DB:link_type/long_link_phrase:76 DB:link_type/long_link_phrase:217
 #: DB:link_type/long_link_phrase:90 DB:link_type/long_link_phrase:747
-#: DB:link_type/long_link_phrase:705
+#: DB:link_type/long_link_phrase:1275 DB:link_type/long_link_phrase:705
 msgid "has a Discogs page at"
 msgstr "имеет страницу в Discogs"
 
@@ -7370,9 +7380,9 @@ msgid ""
 "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
 "a} {partial} {instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
-"является {partial:частичной} {instrumental:инструментальной} "
-"{karaoke:караоке} {live:концертной}{acappella:акапелла} {medley:поппури} "
-"{demo:демо} записью {cover:кавера} работы"
+"является {partial:частичной} {instrumental:инструментальной} {karaoke:"
+"караоке} {live:концертной}{acappella:акапелла} {medley:поппури} {demo:демо} "
+"записью {cover:кавера} работы"
 
 #. name:subgroup
 #: DB:link_type/long_link_phrase:722
@@ -8666,7 +8676,7 @@ msgstr ""
 
 #. name:artwork
 #: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:1241
-#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1170 DB:link_type/long_link_phrase:993
 msgid "provided {additional} artwork on"
 msgstr ""
 
@@ -9930,9 +9940,9 @@ msgid ""
 "{acappella:a cappella} {live} {medley:medley including a} {partial} "
 "{instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
-"{partial:частичная} {instrumental:инструментальная} {karaoke:караоке} "
-"{live:концертная} {acappella:акапелла} {medley:поппури} {demo:демо} запись "
-"{cover:кавера} работы"
+"{partial:частичная} {instrumental:инструментальная} {karaoke:караоке} {live:"
+"концертная} {acappella:акапелла} {medley:поппури} {demo:демо} запись {cover:"
+"кавера} работы"
 
 #. name:performance
 #: DB:link_type/reverse_link_phrase:278
@@ -10274,9 +10284,9 @@ msgstr ""
 
 #. name:artwork
 #: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1241
-#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:1170 DB:link_type/link_phrase:993
 #: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
-#: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
+#: DB:link_type/reverse_link_phrase:1170 DB:link_type/reverse_link_phrase:993
 msgid "{additional} artwork"
 msgstr ""
 

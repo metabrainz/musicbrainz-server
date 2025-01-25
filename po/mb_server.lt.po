@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-13 22:25+0100\n"
+"POT-Creation-Date: 2025-01-21 12:01+0100\n"
 "PO-Revision-Date: 2024-09-28 15:42+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
@@ -4015,7 +4015,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:94
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:215
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:455
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:457
 #, fuzzy
 #| msgid "The date you've entered is not valid."
 msgid "The provided medium ID is not valid."
@@ -4023,7 +4023,7 @@ msgstr "Įvesta data yra netinkama."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:100
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:228
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:461
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:463
 msgid "The provided medium ID doesn’t exist."
 msgstr ""
 
@@ -4046,7 +4046,7 @@ msgid ""
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:236
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:468
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:470
 msgid "The selected medium cannot have disc IDs"
 msgstr "Pasirinkta laikmena negali turėti diskų ID."
 
@@ -4054,7 +4054,7 @@ msgstr "Pasirinkta laikmena negali turėti diskų ID."
 msgid "The provided artist id is not valid"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:441
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:443
 msgid "The provided CD TOC ID doesn’t exist."
 msgstr "Pateiktas CD TOC ID neegzistuoja."
 
@@ -4363,7 +4363,7 @@ msgstr ""
 "Kadangi redagavimas, kuriuo pridėjai šį objektą, vis dar buvo atidarytas, "
 "šis redagavimas buvo atšauktas, o ne atidarytas naujas redagavimas."
 
-#: ../lib/MusicBrainz/Server/Data/LinkType.pm:232
+#: ../lib/MusicBrainz/Server/Data/LinkType.pm:234
 #, perl-brace-format
 msgid "{t0}-{t1} relationships"
 msgstr "{t0}–{t1} santykiai"
@@ -8558,14 +8558,12 @@ msgid "You are not currently able to vote on this edit. ({url|Details})"
 msgstr "Šiuo metu negali balsuoti už šį redagavimą. ({url|Išsamiau})"
 
 #: ../root/edit/EditIndex.js:137 ../root/edit/EditIndex.js:157
-#: ../root/edit/components/EditSummary.js:91
-#: ../root/edit/components/EditSummary.js:106
+#: ../root/edit/components/EditSummary.js:87
 msgid "Accept edit"
 msgstr "Priimti redagavimą"
 
 #: ../root/edit/EditIndex.js:142 ../root/edit/EditIndex.js:162
-#: ../root/edit/components/EditSummary.js:97
-#: ../root/edit/components/EditSummary.js:112
+#: ../root/edit/components/EditSummary.js:93
 msgid "Reject edit"
 msgstr "Atmesti redagavimą"
 
@@ -8738,12 +8736,12 @@ msgid "Approved"
 msgstr ""
 
 #: ../root/edit/components/EditHeader.js:172
-#: ../root/edit/components/EditSummary.js:71
+#: ../root/edit/components/EditSummary.js:67
 msgid "Approve edit"
 msgstr ""
 
 #: ../root/edit/components/EditHeader.js:180
-#: ../root/edit/components/EditSummary.js:80
+#: ../root/edit/components/EditSummary.js:76
 msgid "Cancel edit"
 msgstr ""
 
@@ -8859,7 +8857,7 @@ msgstr ""
 msgid "Editing FAQ"
 msgstr ""
 
-#: ../root/edit/components/EditSummary.js:62
+#: ../root/edit/components/EditSummary.js:58
 #: ../root/static/scripts/common/MB/Control/EditSummary.js:31
 msgctxt "interactive"
 msgid "Add note"
@@ -15099,7 +15097,7 @@ msgstr ""
 msgid "Began:"
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:386
+#: ../root/static/scripts/edit/URLCleanup.js:387
 msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
@@ -15107,49 +15105,49 @@ msgstr ""
 "Pateik nuorodą į kanalą, o ne į konkretų vaizdo kilpą. Vietoj nuorodų į "
 "vaizdo kilpus reikėtų pateikti nuorodas į atitinkamus įrašus ar leidinius."
 
-#: ../root/static/scripts/edit/URLCleanup.js:392
+#: ../root/static/scripts/edit/URLCleanup.js:393
 msgid ""
 "This is a link to a search result. Please link to any page in the results "
 "that is relevant to this entity instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:397
+#: ../root/static/scripts/edit/URLCleanup.js:398
 msgid ""
 "Please link to a specific video. Add channel pages to the relevant artist, "
 "label, etc. instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:402
+#: ../root/static/scripts/edit/URLCleanup.js:403
 msgid ""
 "This is a lyrics site. As such, links to the site should be added at the "
 "release group level with the “lyrics” relationship, rather than directly to "
 "any specific release."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:572
+#: ../root/static/scripts/edit/URLCleanup.js:573
 msgid ""
 "Allmusic “{album_url_pattern}” links should be added to release groups. To "
 "find the appropriate release link for this release, please check the "
 "Releases tab from {album_url|your link}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:651
-#: ../root/static/scripts/edit/URLCleanup.js:910
-#: ../root/static/scripts/edit/URLCleanup.js:4303
-#: ../root/static/scripts/edit/URLCleanup.js:5371
-#: ../root/static/scripts/edit/URLCleanup.js:5930
+#: ../root/static/scripts/edit/URLCleanup.js:652
+#: ../root/static/scripts/edit/URLCleanup.js:911
+#: ../root/static/scripts/edit/URLCleanup.js:4309
+#: ../root/static/scripts/edit/URLCleanup.js:5377
+#: ../root/static/scripts/edit/URLCleanup.js:5936
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:669
+#: ../root/static/scripts/edit/URLCleanup.js:670
 msgid ""
 "This is a link to a user video and should not be added. Please add the "
 "product link instead, if relevant."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:870
+#: ../root/static/scripts/edit/URLCleanup.js:871
 msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
@@ -15157,24 +15155,24 @@ msgstr ""
 "Tik „Apple Books“garso knygas galima pridėti prie „MusicBrainz“. Apsvarstyk "
 "galimybę knygas pridėti į „{bookbrainz_url|BookBrainz}“."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1118
+#: ../root/static/scripts/edit/URLCleanup.js:1119
 msgid ""
 "Please do not add “{blocked_url_pattern}” links, link to the appropriate "
 "“{wanted_url_pattern}” page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1138
+#: ../root/static/scripts/edit/URLCleanup.js:1139
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1158
+#: ../root/static/scripts/edit/URLCleanup.js:1159
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1180
+#: ../root/static/scripts/edit/URLCleanup.js:1181
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -15183,7 +15181,7 @@ msgid ""
 "the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1208
+#: ../root/static/scripts/edit/URLCleanup.js:1209
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -15197,15 +15195,15 @@ msgstr ""
 "(„{album_url_pattern}“ arba „{single_url_pattern}“) ir nedvejodamas (-a) "
 "pridėk šio profilio nuorodą atitinkamam atlikėjui ar įrašų kompanijai."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1542
+#: ../root/static/scripts/edit/URLCleanup.js:1543
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1544
+#: ../root/static/scripts/edit/URLCleanup.js:1545
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2290
+#: ../root/static/scripts/edit/URLCleanup.js:2296
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
@@ -15213,36 +15211,36 @@ msgstr ""
 "Discogs „{master_url_pattern}“ nuorodos grupuoja kelis leidinius, todėl tai "
 "turėtų būti pridėta į leidinių grupę."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3010
+#: ../root/static/scripts/edit/URLCleanup.js:3016
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3028
+#: ../root/static/scripts/edit/URLCleanup.js:3034
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3070
+#: ../root/static/scripts/edit/URLCleanup.js:3076
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3098
+#: ../root/static/scripts/edit/URLCleanup.js:3104
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3123
+#: ../root/static/scripts/edit/URLCleanup.js:3129
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4203
+#: ../root/static/scripts/edit/URLCleanup.js:4209
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
@@ -15253,134 +15251,134 @@ msgstr ""
 "Apsvarstyk galimybę vietoj to pridėti „Musixmatch“ nuorodas į tinkamus "
 "atlikėjus ir kūrinius."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4883
+#: ../root/static/scripts/edit/URLCleanup.js:4889
 msgid "Only RYM music videos can be linked to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4948
+#: ../root/static/scripts/edit/URLCleanup.js:4954
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5548
+#: ../root/static/scripts/edit/URLCleanup.js:5554
 msgid "Please link to Threads profiles, not threads."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5672
+#: ../root/static/scripts/edit/URLCleanup.js:5678
 msgid "Please link to TikTok profiles, not videos."
 msgstr "Pateik nuorodas į TikTok profilius, o ne vaizdo įrašus."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5950
+#: ../root/static/scripts/edit/URLCleanup.js:5956
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5964
+#: ../root/static/scripts/edit/URLCleanup.js:5970
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5982
+#: ../root/static/scripts/edit/URLCleanup.js:5988
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6179
+#: ../root/static/scripts/edit/URLCleanup.js:6185
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6350
+#: ../root/static/scripts/edit/URLCleanup.js:6356
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6370
+#: ../root/static/scripts/edit/URLCleanup.js:6376
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6391
+#: ../root/static/scripts/edit/URLCleanup.js:6397
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6409
+#: ../root/static/scripts/edit/URLCleanup.js:6415
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6421
+#: ../root/static/scripts/edit/URLCleanup.js:6427
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6481
+#: ../root/static/scripts/edit/URLCleanup.js:6487
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6506
+#: ../root/static/scripts/edit/URLCleanup.js:6512
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6662
+#: ../root/static/scripts/edit/URLCleanup.js:6668
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6702
+#: ../root/static/scripts/edit/URLCleanup.js:6708
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6747
+#: ../root/static/scripts/edit/URLCleanup.js:6753
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6783
+#: ../root/static/scripts/edit/URLCleanup.js:6789
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6793
+#: ../root/static/scripts/edit/URLCleanup.js:6799
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6803
+#: ../root/static/scripts/edit/URLCleanup.js:6809
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6846
+#: ../root/static/scripts/edit/URLCleanup.js:6852
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6858
+#: ../root/static/scripts/edit/URLCleanup.js:6864
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7068
+#: ../root/static/scripts/edit/URLCleanup.js:7074
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7085
+#: ../root/static/scripts/edit/URLCleanup.js:7091
 #: ../root/static/scripts/edit/externalLinks.js:1073
 msgid "This relationship type combination is invalid."
 msgstr ""
