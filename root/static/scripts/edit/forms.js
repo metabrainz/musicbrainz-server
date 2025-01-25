@@ -381,3 +381,5 @@ MB.initializeTooShortYearChecks = function (type) {
 
   blockTooShortEndYear();
 };
+
+export const initializeTooShortYearChecks = MB.initializeTooShortYearChecks;
