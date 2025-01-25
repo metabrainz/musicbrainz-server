@@ -21,7 +21,7 @@ function cmpOptions(a, b) {
     compare(a.text, b.text);
 }
 
-MB.forms = {
+const formUtils = {
 
   buildOptionsTree(root, textAttr, valueAttr) {
     var options = [];
@@ -73,7 +73,7 @@ MB.forms = {
       );
     }
 
-    var options = MB.forms.buildOptionsTree(root, getText, 'id');
+    var options = formUtils.buildOptionsTree(root, getText, 'id');
 
     for (var i = 0, len = options.length, option; i < len; i++) {
       if ((option = options[i]) && !option.data.description) {
@@ -348,9 +348,9 @@ ko.bindingHandlers.withLabel = {
   },
 };
 
-export const buildOptionsTree = MB.forms.buildOptionsTree;
-export const linkTypeOptions = MB.forms.linkTypeOptions;
-export const setDisabledOption = MB.forms.setDisabledOption;
+export const buildOptionsTree = formUtils.buildOptionsTree;
+export const linkTypeOptions = formUtils.linkTypeOptions;
+export const setDisabledOption = formUtils.setDisabledOption;
 
 MB.initializeTooShortYearChecks = function (type) {
   function blockTooShortBeginYear() {
