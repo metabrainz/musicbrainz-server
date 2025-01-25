@@ -9,7 +9,6 @@ require('./edit/MB/Control/Area.js');
 require('./edit/components/ArtistCreditEditor.js');
 require('./edit/components/ReleaseMergeStrategy.js');
 require('./edit/components/forms.js');
-require('./edit/MB/Control/ArtistEdit.js');
 require('./edit/MB/Control/Bubble.js');
 require('./edit/URLCleanup.js');
 require('./edit/MB/edit.js');
