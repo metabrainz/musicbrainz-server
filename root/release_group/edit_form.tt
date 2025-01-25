@@ -1,6 +1,7 @@
 [%~ javascript_required() ~%]
 
 [% script_manifest('edit.js') %]
+[% script_manifest('release-group/edit.js') %]
 
 <p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => { href => doc_link('Release_Group'), target => '_blank' }, doc_styleguide => { href => doc_link('Style/Release_Group'), target => '_blank' }}) -%]</p>
 
