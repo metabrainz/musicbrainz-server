@@ -3,11 +3,11 @@
 # Vaclovas lntas (Vac.) <email address hidden>, 2023
 # "Vac31." <gateway_31@protonmail.com>, 2023, 2024.
 # "Vac31." <Vaclovas@users.noreply.translations.metabrainz.org>, 2024.
-# Vaclovas Intas <gateway_31@protonmail.com>, 2024.
+# Vaclovas Intas <gateway_31@protonmail.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-08 08:42+0000\n"
+"PO-Revision-Date: 2025-01-23 15:44+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/lt/>\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.7.2\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -2625,42 +2625,42 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:451
 msgid "Wakashan languages"
-msgstr "Vakašanų kalbos"
+msgstr "vakašanų kalbos"
 
 #. frequency:1 iso_code_3:wln
 #: DB:language/name:457
 msgid "Walloon"
-msgstr "Valonų"
+msgstr "valonų"
 
 #. frequency:1 iso_code_3:wae
 #: DB:language/name:6981
 msgid "Walser"
-msgstr "Valserių"
+msgstr "valserių"
 
 #. frequency:1 iso_code_3:war
 #: DB:language/name:453
 msgid "Waray"
-msgstr "Varajų"
+msgstr "varajų"
 
 #. frequency:1 iso_code_3:wbp
 #: DB:language/name:7009
 msgid "Warlpiri"
-msgstr "Varlpirių"
+msgstr "varlpirių"
 
 #. frequency:1 iso_code_3:was
 #: DB:language/name:454
 msgid "Washo"
-msgstr "Vašų"
+msgstr "vašų"
 
 #. frequency:1 iso_code_3:cym
 #: DB:language/name:455
 msgid "Welsh"
-msgstr "Velsiečių"
+msgstr "velsiečių"
 
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
 msgid "Western Arrarnta"
-msgstr ""
+msgstr "vakarų ararinta"
 
 #. frequency:1 iso_code_3:wal
 #: DB:language/name:452
@@ -2680,7 +2680,7 @@ msgstr ""
 #. frequency:1 iso_code_3:xho
 #: DB:language/name:460
 msgid "Xhosa"
-msgstr "Ksosų"
+msgstr "ksosų"
 
 #. frequency:1 iso_code_3:rys
 #: DB:language/name:5808
@@ -2775,14 +2775,14 @@ msgstr "zunų"
 #. frequency:1 iso_code_3:qaa
 #: DB:language/name:24
 msgid "[Artificial (Other)]"
-msgstr "[Dirbtinis (kiti)]"
+msgstr "[dirbtinis (kiti)]"
 
 #. frequency:2 iso_code_3:mul
 #: DB:language/name:284
 msgid "[Multiple languages]"
-msgstr "[Kelios kalbos]"
+msgstr "[kelios kalbos]"
 
 #. frequency:1 iso_code_3:zxx
 #: DB:language/name:486
 msgid "[No linguistic content]"
-msgstr "[Nėra kalbinio turinio]"
+msgstr "[nėra kalbinio turinio]"
