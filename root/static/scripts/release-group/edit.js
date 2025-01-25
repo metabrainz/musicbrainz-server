@@ -8,3 +8,7 @@
  */
 
 import '../edit/validation.js';
+
+import {initGuessFeatButton} from '../edit/utility/guessFeat.js';
+
+initGuessFeatButton('edit-release-group');
