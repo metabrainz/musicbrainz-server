@@ -13,7 +13,7 @@ import {
   initializeRangeSelect,
 } from '../../../common/MB/Control/SelectAll.js';
 
-MB.Control.ArtistEdit = function () {
+export default function ArtistEdit() {
   var self = {};
 
   self.$name = $('#id-edit-artist\\.name');
@@ -129,4 +129,4 @@ MB.Control.ArtistEdit = function () {
   MB.Control.Area('#area', '#begin_area', '#end_area');
 
   return self;
-};
+}
