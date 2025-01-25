@@ -7,4 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import $ from 'jquery';
+
 import '../edit/validation.js';
+
+import {initGuessFeatButton} from '../edit/utility/guessFeat.js';
+
+$(function () {
+  initGuessFeatButton('edit-release-group');
+});

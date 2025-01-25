@@ -7,6 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import $ from 'jquery';
+
 import './RecordingName.js';
 import '../edit/components/FormRowTextList.js';
 import '../edit/validation.js';
+
+import {initGuessFeatButton} from '../edit/utility/guessFeat.js';
+
+$(function () {
+  initGuessFeatButton('edit-recording');
+});
