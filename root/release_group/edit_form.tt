@@ -43,3 +43,5 @@
     MB.installFormUnloadWarning();
   });
 </script>
+
+[% script_manifest('release-group/edit.js', {async => 'async'}) %]

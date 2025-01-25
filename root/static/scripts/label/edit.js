@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow
  * Copyright (C) 2023 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,6 +10,7 @@
 import $ from 'jquery';
 
 import '../edit/components/FormRowTextListSimple.js';
+import '../edit/validation.js';
 
 import typeBubble from '../edit/typeBubble.js';
 
