@@ -1,6 +1,5 @@
 /* eslint-disable import/no-commonjs */
 
-require('./edit/validation.js');
 require('./edit/externalLinks.js');
 require('./edit/utility/guessFeat.js');
 require('./edit/utility/toggleEnded.js');

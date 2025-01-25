@@ -2,6 +2,7 @@ import $ from 'jquery';
 import ko from 'knockout';
 
 import '../common/entity.js';
+import '../edit/validation.js';
 import './components/SeriesRelationshipEditor.js';
 
 import MB from '../common/MB.js';

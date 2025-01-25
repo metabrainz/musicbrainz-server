@@ -1,4 +1,5 @@
 [% script_manifest('edit.js') %]
+[% script_manifest('instrument/edit.js') %]
 
 <form action="[% c.req.uri %]" method="post" class="edit-instrument">
   [%- USE r = FormRenderer(form) -%]
