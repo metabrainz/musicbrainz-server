@@ -9,8 +9,10 @@
 
 import $ from 'jquery';
 
+import {initGuessFeatButton} from '../edit/utility/guessFeat.js';
 import initializeValidation from '../edit/validation.js';
 
 $(function () {
+  initGuessFeatButton('edit-release-group');
   initializeValidation();
 });
