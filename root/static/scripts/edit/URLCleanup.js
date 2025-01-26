@@ -558,17 +558,17 @@ const CLEANUPS: CleanupEntries = {
             return {
               result: /\/results\?(creatorid=I-\d+-\d|creatoripnnumber=\d+|performerid=\d+)$/.test(url),
               target: ERROR_TARGETS.ENTITY,
-            }
+            };
           case LINK_TYPES.otherdatabases.label:
             return {
               result: /\/results\?(creatorid=I-\d+-\d|creatoripnnumber=\d+)$/.test(url),
               target: ERROR_TARGETS.ENTITY,
-            }
+            };
           case LINK_TYPES.otherdatabases.release:
             return {
               result: /\/album\?albumid=[0-9A-Z]+$/.test(url),
               target: ERROR_TARGETS.ENTITY,
-            }
+            };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
       }
