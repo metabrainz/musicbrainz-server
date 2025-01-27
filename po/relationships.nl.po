@@ -300,7 +300,8 @@ msgstr "Geeft aan dat een gebied deel uitmaakt van een ander gebied."
 #: DB:link_type/link_phrase:1089 DB:link_type/link_phrase:180
 #: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
 #: DB:link_type/link_phrase:90 DB:link_type/link_phrase:747
-#: DB:link_type/link_phrase:705 DB:link_type/reverse_link_phrase:971
+#: DB:link_type/link_phrase:1275 DB:link_type/link_phrase:705
+#: DB:link_type/reverse_link_phrase:971
 msgid "Discogs"
 msgstr "Discogs"
 
@@ -308,7 +309,8 @@ msgstr "Discogs"
 #: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:1089
 #: DB:link_type/reverse_link_phrase:180 DB:link_type/reverse_link_phrase:76
 #: DB:link_type/reverse_link_phrase:217 DB:link_type/reverse_link_phrase:90
-#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:705
+#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:1275
+#: DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
 msgstr "Discogspagina over"
 
@@ -3544,6 +3546,13 @@ msgid "This is used to link the Discogs page for this artist."
 msgstr "Dit koppelt de artiest aan zijn Discogs-pagina."
 
 #. name:discogs
+#: DB:link_type/description:1275
+#, fuzzy
+#| msgid "This is used to link the Discogs page for this release."
+msgid "This is used to link the Discogs page for this event."
+msgstr "Dit koppelt de uitgave aan haar Discogs-pagina."
+
+#. name:discogs
 #: DB:link_type/description:1089
 msgid "This is used to link the Discogs page for this genre/style."
 msgstr "Dit koppelt het genre / de stijl aan zijn Discogs-pagina."
@@ -6251,8 +6260,8 @@ msgstr "artiesten en repertoire (A&R)"
 msgid "artists and repertoire position at"
 msgstr "artiesten en repertoire (A&R)"
 
-#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
-#: DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:1170
+#: DB:link_type/name:993
 msgid "artwork"
 msgstr "artwork"
 
@@ -6926,7 +6935,7 @@ msgstr "discografie"
 
 #: DB:link_type/name:1089 DB:link_type/name:180 DB:link_type/name:76
 #: DB:link_type/name:217 DB:link_type/name:90 DB:link_type/name:747
-#: DB:link_type/name:705 DB:link_type/name:971
+#: DB:link_type/name:1275 DB:link_type/name:705 DB:link_type/name:971
 msgid "discogs"
 msgstr "Discogs"
 
@@ -7433,7 +7442,7 @@ msgstr "heeft een CPDL-pagina op"
 #: DB:link_type/long_link_phrase:1089 DB:link_type/long_link_phrase:180
 #: DB:link_type/long_link_phrase:76 DB:link_type/long_link_phrase:217
 #: DB:link_type/long_link_phrase:90 DB:link_type/long_link_phrase:747
-#: DB:link_type/long_link_phrase:705
+#: DB:link_type/long_link_phrase:1275 DB:link_type/long_link_phrase:705
 msgid "has a Discogs page at"
 msgstr "heeft een Discogs-pagina op"
 
@@ -9600,7 +9609,7 @@ msgstr "verzorgde {additional:aanvullende} artistieke leiding op"
 
 #. name:artwork
 #: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:1241
-#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1170 DB:link_type/long_link_phrase:993
 msgid "provided {additional} artwork on"
 msgstr "leverde {additional:aanvullende} artwork voor"
 
@@ -11272,9 +11281,9 @@ msgstr "{additional:aanvullende} artistieke leiding"
 
 #. name:artwork
 #: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1241
-#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:1170 DB:link_type/link_phrase:993
 #: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
-#: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
+#: DB:link_type/reverse_link_phrase:1170 DB:link_type/reverse_link_phrase:993
 msgid "{additional} artwork"
 msgstr "{additional:aanvullend} artwork"
 

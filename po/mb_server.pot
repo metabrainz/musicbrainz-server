@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-21 11:42+0100\n"
+"POT-Creation-Date: 2025-01-21 12:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7838,14 +7838,12 @@ msgid "You are not currently able to vote on this edit. ({url|Details})"
 msgstr ""
 
 #: ../root/edit/EditIndex.js:137 ../root/edit/EditIndex.js:157
-#: ../root/edit/components/EditSummary.js:91
-#: ../root/edit/components/EditSummary.js:106
+#: ../root/edit/components/EditSummary.js:87
 msgid "Accept edit"
 msgstr ""
 
 #: ../root/edit/EditIndex.js:142 ../root/edit/EditIndex.js:162
-#: ../root/edit/components/EditSummary.js:97
-#: ../root/edit/components/EditSummary.js:112
+#: ../root/edit/components/EditSummary.js:93
 msgid "Reject edit"
 msgstr ""
 
@@ -8011,12 +8009,12 @@ msgid "Approved"
 msgstr ""
 
 #: ../root/edit/components/EditHeader.js:172
-#: ../root/edit/components/EditSummary.js:71
+#: ../root/edit/components/EditSummary.js:67
 msgid "Approve edit"
 msgstr ""
 
 #: ../root/edit/components/EditHeader.js:180
-#: ../root/edit/components/EditSummary.js:80
+#: ../root/edit/components/EditSummary.js:76
 msgid "Cancel edit"
 msgstr ""
 
@@ -8126,7 +8124,7 @@ msgstr ""
 msgid "Editing FAQ"
 msgstr ""
 
-#: ../root/edit/components/EditSummary.js:62
+#: ../root/edit/components/EditSummary.js:58
 #: ../root/static/scripts/common/MB/Control/EditSummary.js:31
 msgctxt "interactive"
 msgid "Add note"

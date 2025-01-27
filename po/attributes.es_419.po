@@ -123,6 +123,11 @@ msgctxt "medium_format"
 msgid "8cm CD+G"
 msgstr ""
 
+#: DB:medium_format/name:210
+msgctxt "medium_format"
+msgid "8cm CD-R"
+msgstr ""
+
 #. name:MiniDVD
 #: DB:medium_format/description:166
 msgctxt "medium_format"

@@ -19,8 +19,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
-"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 "X-Generator: Weblate 5.8.4\n"
 
@@ -39,8 +39,8 @@ msgid ""
 "people involved with the label can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Strona sieci społecznościowej to własna strona wytwórni w <a href=\"https"
-"://en.wikipedia.org/wiki/Social_networking_service\">sieci społecznościowej</"
+"Strona sieci społecznościowej to własna strona wytwórni w <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">sieci społecznościowej</"
 "a>, na której tylko osoby zaangażowane w wytwórnię mogą publikować treści. "
 "Przykłady obejmują strony na Facebooku oraz konta na Twitterze, Instagramie "
 "i Flickr."
@@ -67,9 +67,9 @@ msgid ""
 "people involved with the place can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Strona sieci społecznościowej to własna strona miejsca w <a href=\"https://en"
-".wikipedia.org/wiki/Social_networking_service\">sieci społecznościowej</a>, "
-"na której tylko osoby zaangażowane w miejsce mogą publikować treści. "
+"Strona sieci społecznościowej to własna strona miejsca w <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">sieci społecznościowej</"
+"a>, na której tylko osoby zaangażowane w miejsce mogą publikować treści. "
 "Przykłady obejmują strony na Facebooku oraz konta na Twitterze, Instagramie "
 "i Flickr."
 
@@ -84,13 +84,13 @@ msgid ""
 "post. Examples include Facebook pages and profiles, Last.fm users and "
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Strona sieci społecznościowej to własna strona profilowa artysty w <a href="
-"\"https://en.wikipedia.org/wiki/Social_networking_service\" target=\"_blank\""
-">sieci społecznościowej</a>, w której tylko on (lub jego zarząd) może "
-"publikować treści. Inne osoby mogą tworzyć własne profile i wchodzić w "
-"interakcje z artystą, na przykład dodając go jako znajomego lub komentując "
-"rzeczy, które publikuje. Przykłady obejmują strony i profile na Facebooku, "
-"użytkowników Last.fm i konta na Twitterze, Instagramie i Flickr."
+"Strona sieci społecznościowej to własna strona profilowa artysty w <a "
+"href=\"https://en.wikipedia.org/wiki/Social_networking_service\" "
+"target=\"_blank\">sieci społecznościowej</a>, w której tylko on (lub jego "
+"zarząd) może publikować treści. Inne osoby mogą tworzyć własne profile i "
+"wchodzić w interakcje z artystą, na przykład dodając go jako znajomego lub "
+"komentując rzeczy, które publikuje. Przykłady obejmują strony i profile na "
+"Facebooku, użytkowników Last.fm i konta na Twitterze, Instagramie i Flickr."
 
 #. name:social network
 #: DB:link_type/description:783
@@ -101,11 +101,11 @@ msgid ""
 "Facebook pages and event entries, and accounts on Twitter, Instagram and "
 "Flickr."
 msgstr ""
-"Strona sieci społecznościowej to osobna strona wydarzenia w <a href=\"https"
-"://en.wikipedia.org/wiki/Social_networking_service\">sieci społecznościowej</"
-"a>, na której tylko osoby zaangażowane w wydarzenie mogą publikować treści. "
-"Przykłady obejmują strony na Facebooku i wpisy na wydarzeniach oraz konta na "
-"Twitterze, Instagramie i Flickr."
+"Strona sieci społecznościowej to osobna strona wydarzenia w <a "
+"href=\"https://en.wikipedia.org/wiki/Social_networking_service\">sieci "
+"społecznościowej</a>, na której tylko osoby zaangażowane w wydarzenie mogą "
+"publikować treści. Przykłady obejmują strony na Facebooku i wpisy na "
+"wydarzeniach oraz konta na Twitterze, Instagramie i Flickr."
 
 #. name:amazon asin
 #: DB:link_type/link_phrase:77 DB:link_type/reverse_link_phrase:77
@@ -304,7 +304,8 @@ msgstr "Oznacza, że jeden obszar jest zawarty w innym."
 #: DB:link_type/link_phrase:1089 DB:link_type/link_phrase:180
 #: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
 #: DB:link_type/link_phrase:90 DB:link_type/link_phrase:747
-#: DB:link_type/link_phrase:705 DB:link_type/reverse_link_phrase:971
+#: DB:link_type/link_phrase:1275 DB:link_type/link_phrase:705
+#: DB:link_type/reverse_link_phrase:971
 msgid "Discogs"
 msgstr "Discogs"
 
@@ -312,7 +313,8 @@ msgstr "Discogs"
 #: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:1089
 #: DB:link_type/reverse_link_phrase:180 DB:link_type/reverse_link_phrase:76
 #: DB:link_type/reverse_link_phrase:217 DB:link_type/reverse_link_phrase:90
-#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:705
+#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:1275
+#: DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
 msgstr "Strona Discogs dla"
 
@@ -702,8 +704,8 @@ msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
-"Oznacza kompozytora tego wydania, czyli artystę, który napisał muzykę ("
-"niekoniecznie słowa)."
+"Oznacza kompozytora tego wydania, czyli artystę, który napisał muzykę "
+"(niekoniecznie słowa)."
 
 #. name:composer
 #: DB:link_type/description:168
@@ -711,8 +713,8 @@ msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
-"Oznacza kompozytora danego utworu, czyli artystę, który napisał muzykę ("
-"niekoniecznie słowa)."
+"Oznacza kompozytora danego utworu, czyli artystę, który napisał muzykę "
+"(niekoniecznie słowa)."
 
 #. name:premiere
 #: DB:link_type/description:845
@@ -725,8 +727,8 @@ msgid ""
 "Indicates the instrument technician for this recording. Use also for \"piano "
 "tuner\" credits and other similar ones."
 msgstr ""
-"Wskazuje technika instrumentu dla tego nagrania. Używaj również dla napisów „"
-"stroiciel fortepianu” i innych podobnych."
+"Wskazuje technika instrumentu dla tego nagrania. Używaj również dla napisów "
+"„stroiciel fortepianu” i innych podobnych."
 
 #. name:instrument technician
 #: DB:link_type/description:987
@@ -734,8 +736,8 @@ msgid ""
 "Indicates the instrument technician for this release. Use also for \"piano "
 "tuner\" credits and other similar ones."
 msgstr ""
-"Wskazuje technika instrumentu dla tego wydania. Używaj również dla napisów „"
-"stroiciel fortepianu” i innych podobnych."
+"Wskazuje technika instrumentu dla tego wydania. Używaj również dla napisów "
+"„stroiciel fortepianu” i innych podobnych."
 
 #. name:librettist
 #: DB:link_type/description:57
@@ -1869,9 +1871,9 @@ msgstr ""
 "szczególną ostrożność w przypadkach, w których przeprowadzane są "
 "skomplikowane operacje finansowe związane z fuzją/podziałem/"
 "restrukturyzacją. Na przykład nie jest dobrym pomysłem zmiana nazwy wytwórni "
-"<a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> na <a href="
-"\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music Group</a>, "
-"ponieważ Verve kontynuowała swoją działalność jako odcisk."
+"<a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> na <a "
+"href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music Group</"
+"a>, ponieważ Verve kontynuowała swoją działalność jako odcisk."
 
 #. name:artist rename
 #: DB:link_type/description:1079
@@ -2003,8 +2005,9 @@ msgid ""
 msgstr ""
 "Opisuje to inżyniera odpowiedzialnego za używanie konsoli miksującej do "
 "miksowania nagranego utworu w pojedynczy utwór nadający się do wydania. W "
-"przypadku remiksowania zobacz <a href=\"/relationship/7950be4d-13a3-48e7"
-"-906b-5af562e39544\" target=\"_blank\">remikser</a>."
+"przypadku remiksowania zobacz <a href=\"/"
+"relationship/7950be4d-13a3-48e7-906b-5af562e39544\" "
+"target=\"_blank\">remikser</a>."
 
 #. name:mix
 #: DB:link_type/description:26
@@ -2016,8 +2019,8 @@ msgid ""
 msgstr ""
 "Opisuje to inżyniera odpowiedzialnego za używanie konsoli miksującej do "
 "miksowania nagranego utworu w pojedynczy utwór nadający się do wydania. W "
-"przypadku remiksowania zobacz <a href=\"/relationship/ac6a86db-f757-4815"
-"-a07e-744428d2382b\" target=\"_blank\">remikser</a>."
+"przypadku remiksowania zobacz <a href=\"/relationship/ac6a86db-f757-4815-"
+"a07e-744428d2382b\" target=\"_blank\">remikser</a>."
 
 #. name:engineer
 #: DB:link_type/description:28 DB:link_type/description:138
@@ -3118,6 +3121,13 @@ msgstr ""
 #: DB:link_type/description:180
 msgid "This is used to link the Discogs page for this artist."
 msgstr ""
+
+#. name:discogs
+#: DB:link_type/description:1275
+#, fuzzy
+#| msgid "Points to the Wikipedia page for this event."
+msgid "This is used to link the Discogs page for this event."
+msgstr "Wskazuje na artykuł w Wikipedii dla tego wydarzenia."
 
 #. name:discogs
 #: DB:link_type/description:1089
@@ -5246,8 +5256,8 @@ msgstr ""
 msgid "artists and repertoire position at"
 msgstr ""
 
-#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
-#: DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:1170
+#: DB:link_type/name:993
 msgid "artwork"
 msgstr ""
 
@@ -5910,7 +5920,7 @@ msgstr "strony z dyskografią"
 
 #: DB:link_type/name:1089 DB:link_type/name:180 DB:link_type/name:76
 #: DB:link_type/name:217 DB:link_type/name:90 DB:link_type/name:747
-#: DB:link_type/name:705 DB:link_type/name:971
+#: DB:link_type/name:1275 DB:link_type/name:705 DB:link_type/name:971
 msgid "discogs"
 msgstr ""
 
@@ -6403,7 +6413,7 @@ msgstr ""
 #: DB:link_type/long_link_phrase:1089 DB:link_type/long_link_phrase:180
 #: DB:link_type/long_link_phrase:76 DB:link_type/long_link_phrase:217
 #: DB:link_type/long_link_phrase:90 DB:link_type/long_link_phrase:747
-#: DB:link_type/long_link_phrase:705
+#: DB:link_type/long_link_phrase:1275 DB:link_type/long_link_phrase:705
 msgid "has a Discogs page at"
 msgstr ""
 
@@ -8499,7 +8509,7 @@ msgstr ""
 
 #. name:artwork
 #: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:1241
-#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1170 DB:link_type/long_link_phrase:993
 msgid "provided {additional} artwork on"
 msgstr ""
 
@@ -10093,9 +10103,9 @@ msgstr ""
 
 #. name:artwork
 #: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1241
-#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:1170 DB:link_type/link_phrase:993
 #: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
-#: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
+#: DB:link_type/reverse_link_phrase:1170 DB:link_type/reverse_link_phrase:993
 msgid "{additional} artwork"
 msgstr ""
 

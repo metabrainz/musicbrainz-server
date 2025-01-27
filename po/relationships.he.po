@@ -275,7 +275,8 @@ msgstr "ציון העובדה שאזוא אחד מוכל באזוא אחר."
 #: DB:link_type/link_phrase:1089 DB:link_type/link_phrase:180
 #: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
 #: DB:link_type/link_phrase:90 DB:link_type/link_phrase:747
-#: DB:link_type/link_phrase:705 DB:link_type/reverse_link_phrase:971
+#: DB:link_type/link_phrase:1275 DB:link_type/link_phrase:705
+#: DB:link_type/reverse_link_phrase:971
 msgid "Discogs"
 msgstr "דיסקוגז"
 
@@ -283,7 +284,8 @@ msgstr "דיסקוגז"
 #: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:1089
 #: DB:link_type/reverse_link_phrase:180 DB:link_type/reverse_link_phrase:76
 #: DB:link_type/reverse_link_phrase:217 DB:link_type/reverse_link_phrase:90
-#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:705
+#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:1275
+#: DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
 msgstr "עמוד דיסקוגז עבור"
 
@@ -3244,6 +3246,13 @@ msgid "This is used to link the Discogs page for this artist."
 msgstr "משמש לקישור לעמוד הדיסקוגז של האמן."
 
 #. name:discogs
+#: DB:link_type/description:1275
+#, fuzzy
+#| msgid "This is used to link the Discogs page for this release."
+msgid "This is used to link the Discogs page for this event."
+msgstr "משמש לקישור לעמוד הדיסקוגז להוצאה זו."
+
+#. name:discogs
 #: DB:link_type/description:1089
 msgid "This is used to link the Discogs page for this genre/style."
 msgstr ""
@@ -5801,8 +5810,8 @@ msgstr ""
 msgid "artists and repertoire position at"
 msgstr "אמן ומַעֲרֶכֶת־הַצָּגוֹת"
 
-#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
-#: DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:1170
+#: DB:link_type/name:993
 msgid "artwork"
 msgstr "תמונות עטיפה"
 
@@ -6479,7 +6488,7 @@ msgstr "עמודי דיסקוגרפיה"
 
 #: DB:link_type/name:1089 DB:link_type/name:180 DB:link_type/name:76
 #: DB:link_type/name:217 DB:link_type/name:90 DB:link_type/name:747
-#: DB:link_type/name:705 DB:link_type/name:971
+#: DB:link_type/name:1275 DB:link_type/name:705 DB:link_type/name:971
 msgid "discogs"
 msgstr "דיסקוגז"
 
@@ -6986,7 +6995,7 @@ msgstr "קיים עמוד CPDL ב־"
 #: DB:link_type/long_link_phrase:1089 DB:link_type/long_link_phrase:180
 #: DB:link_type/long_link_phrase:76 DB:link_type/long_link_phrase:217
 #: DB:link_type/long_link_phrase:90 DB:link_type/long_link_phrase:747
-#: DB:link_type/long_link_phrase:705
+#: DB:link_type/long_link_phrase:1275 DB:link_type/long_link_phrase:705
 msgid "has a Discogs page at"
 msgstr "קיים עמוד דיסקוגז ב־"
 
@@ -9144,7 +9153,7 @@ msgstr "{additional} נהול אמנותי ב־"
 
 #. name:artwork
 #: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:1241
-#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1170 DB:link_type/long_link_phrase:993
 msgid "provided {additional} artwork on"
 msgstr "provided {additional} תמונות עטיפה ב־"
 
@@ -10780,9 +10789,9 @@ msgstr "{additional} ניהול אמנותי"
 
 #. name:artwork
 #: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1241
-#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:1170 DB:link_type/link_phrase:993
 #: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
-#: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
+#: DB:link_type/reverse_link_phrase:1170 DB:link_type/reverse_link_phrase:993
 msgid "{additional} artwork"
 msgstr "{additional} תמונות עטיפה"
 

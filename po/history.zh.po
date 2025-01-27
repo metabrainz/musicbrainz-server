@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-11-23 08:42+0000\n"
+"PO-Revision-Date: 2025-01-15 01:44+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/history/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/history/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.4\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -774,27 +774,27 @@ msgstr "Oliver Charles 开始全职为 MusicBrainz 工作。"
 
 #: DB:statistics.statistic_event/title:2010-06-18
 msgid "Oliver Charles joins MusicBrainz full-time"
-msgstr ""
+msgstr "Oliver Charles 加入 MusicBrainz 全职工作"
 
 #: DB:statistics.statistic_event/description:2018-06-30
 msgid ""
 "Our old search server gets a significant upgrade with its move to Solr, "
 "including almost-instant index updates."
-msgstr ""
+msgstr "我们的旧搜索服务器通过迁移到 Solr 得到了重大升级，包括几乎即时的索引更新。"
 
 #: DB:statistics.statistic_event/title:2013-10-14
 msgid "PUID support is removed"
-msgstr ""
+msgstr "移除对 PUID 的支持"
 
 #: DB:statistics.statistic_event/title:2021-04-05
 msgid "Pagination added for relationships, user tags"
-msgstr ""
+msgstr "为关系、用户标签添加分页"
 
 #: DB:statistics.statistic_event/description:2021-04-05
 msgid ""
 "Pagination was added for two very long lists that sometimes couldn't be "
 "loaded in full because of timeouts: user tags and entity relationships."
-msgstr ""
+msgstr "有时由于超时而无法完全加载用户标签和实体关系的列表，所以添加了分页。"
 
 #: DB:statistics.statistic_event/title:2012-06-02
 msgid "Picard 1.0 released"
@@ -809,7 +809,8 @@ msgid ""
 "Rather than having to notice any errors during a fairly brief 1 hour period, "
 "editors now have 24 hours to correct errors in the data they have added "
 "without needing a vote."
-msgstr ""
+msgstr "编辑们现在有24小时的时间来修正他们添加的数据中的错误，而无需进行投票，而不是"
+"必须在相当短的1小时内注意到任何错误。"
 
 #: DB:statistics.statistic_event/title:2012-10-15
 msgid "Relationship Editor"
@@ -821,15 +822,15 @@ msgstr "关联名单可用"
 
 #: DB:statistics.statistic_event/title:2011-11-23
 msgid "Relationships displayed on release pages"
-msgstr ""
+msgstr "发行页上显示的关系"
 
 #: DB:statistics.statistic_event/title:2015-04-06
 msgid "Release \"stubs\", minimum voting period for destructive edits"
-msgstr ""
+msgstr "发行“stubs”，针对破坏性编辑的最短投票期限"
 
 #: DB:statistics.statistic_event/title:2009-05-24
 msgid "Release Groups, ISRCs, CDStub searching"
-msgstr ""
+msgstr "搜索发行组, ISRC, CD存根"
 
 #: DB:statistics.statistic_event/title:2006-07-12
 #: DB:statistics.statistic_event/title:2003-10-19
