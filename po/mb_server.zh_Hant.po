@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-13 22:25+0100\n"
+"POT-Creation-Date: 2025-01-21 12:01+0100\n"
 "PO-Revision-Date: 2025-01-14 18:44+0000\n"
 "Last-Translator: guardiansock <guardian.sock5925@fastmail.com>\n"
-"Language-Team: Chinese (Traditional Han script) <https://"
-"translations.metabrainz.org/projects/musicbrainz/server/zh_Hant/>\n"
+"Language-Team: Chinese (Traditional Han script) <https://translations."
+"metabrainz.org/projects/musicbrainz/server/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3791,13 +3791,13 @@ msgstr "請提供一個媒體 ID。"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:94
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:215
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:455
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:457
 msgid "The provided medium ID is not valid."
 msgstr "提供的媒體 ID 無效。"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:100
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:228
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:461
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:463
 msgid "The provided medium ID doesn’t exist."
 msgstr "提供的媒體 ID 不存在。"
 
@@ -3822,7 +3822,7 @@ msgstr ""
 "續，請將錯誤報告給您的軟體製造商，包括以下技術資訊。"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:236
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:468
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:470
 msgid "The selected medium cannot have disc IDs"
 msgstr "選擇的媒體無法關聯碟片 ID"
 
@@ -3830,7 +3830,7 @@ msgstr "選擇的媒體無法關聯碟片 ID"
 msgid "The provided artist id is not valid"
 msgstr "提供的創作者 ID 無效"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:441
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:443
 msgid "The provided CD TOC ID doesn’t exist."
 msgstr "提供的 CD 目錄不存在。"
 
@@ -4122,7 +4122,7 @@ msgid ""
 msgstr ""
 "由於添加此物件的編輯仍處於打開狀態，因此該編輯已被取消，而不是打開新的編輯。"
 
-#: ../lib/MusicBrainz/Server/Data/LinkType.pm:232
+#: ../lib/MusicBrainz/Server/Data/LinkType.pm:234
 #, perl-brace-format
 msgid "{t0}-{t1} relationships"
 msgstr "{t0}-{t1}關係"
@@ -8084,14 +8084,12 @@ msgid "You are not currently able to vote on this edit. ({url|Details})"
 msgstr "您目前無法對此編輯進行投票。（{url|詳情}）"
 
 #: ../root/edit/EditIndex.js:137 ../root/edit/EditIndex.js:157
-#: ../root/edit/components/EditSummary.js:91
-#: ../root/edit/components/EditSummary.js:106
+#: ../root/edit/components/EditSummary.js:87
 msgid "Accept edit"
 msgstr "接受編輯"
 
 #: ../root/edit/EditIndex.js:142 ../root/edit/EditIndex.js:162
-#: ../root/edit/components/EditSummary.js:97
-#: ../root/edit/components/EditSummary.js:112
+#: ../root/edit/components/EditSummary.js:93
 msgid "Reject edit"
 msgstr "駁回編輯"
 
@@ -8263,12 +8261,12 @@ msgid "Approved"
 msgstr "已批准"
 
 #: ../root/edit/components/EditHeader.js:172
-#: ../root/edit/components/EditSummary.js:71
+#: ../root/edit/components/EditSummary.js:67
 msgid "Approve edit"
 msgstr "透過編輯"
 
 #: ../root/edit/components/EditHeader.js:180
-#: ../root/edit/components/EditSummary.js:80
+#: ../root/edit/components/EditSummary.js:76
 msgid "Cancel edit"
 msgstr "取消編輯"
 
@@ -8377,7 +8375,7 @@ msgstr "投票常見問題"
 msgid "Editing FAQ"
 msgstr "編輯常見問題"
 
-#: ../root/edit/components/EditSummary.js:62
+#: ../root/edit/components/EditSummary.js:58
 #: ../root/static/scripts/common/MB/Control/EditSummary.js:31
 msgctxt "interactive"
 msgid "Add note"
@@ -14579,27 +14577,27 @@ msgstr "結束"
 msgid "Began:"
 msgstr "開始於："
 
-#: ../root/static/scripts/edit/URLCleanup.js:386
+#: ../root/static/scripts/edit/URLCleanup.js:387
 msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
 msgstr ""
 "請連結到某個頻道，而不是某個特定的影片。影片應該連結到適當的錄音或專輯。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:392
+#: ../root/static/scripts/edit/URLCleanup.js:393
 msgid ""
 "This is a link to a search result. Please link to any page in the results "
 "that is relevant to this entity instead, if available."
 msgstr ""
 "這是指向搜尋結果的連結。請連結到結果中與此實體相關的任何頁面（如果有的話）。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:397
+#: ../root/static/scripts/edit/URLCleanup.js:398
 msgid ""
 "Please link to a specific video. Add channel pages to the relevant artist, "
 "label, etc. instead."
 msgstr "請連結到具體的影片。添加相關的歌手，標籤等渠道頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:402
+#: ../root/static/scripts/edit/URLCleanup.js:403
 msgid ""
 "This is a lyrics site. As such, links to the site should be added at the "
 "release group level with the “lyrics” relationship, rather than directly to "
@@ -14608,7 +14606,7 @@ msgstr ""
 "這是一個歌詞網站。因此，網站的連結應該在專輯組級別添加“歌詞”關係，而不是直接"
 "添加到任何特定的專輯。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:572
+#: ../root/static/scripts/edit/URLCleanup.js:573
 msgid ""
 "Allmusic “{album_url_pattern}” links should be added to release groups. To "
 "find the appropriate release link for this release, please check the "
@@ -14617,24 +14615,24 @@ msgstr ""
 "所有音樂的“{album_url_pattern}”連結都應該添加到專輯組中。要找到這個專輯的適當"
 "發行連結，請從{album_url|您的連結}檢查專輯頁籤。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:651
-#: ../root/static/scripts/edit/URLCleanup.js:910
-#: ../root/static/scripts/edit/URLCleanup.js:4303
-#: ../root/static/scripts/edit/URLCleanup.js:5371
-#: ../root/static/scripts/edit/URLCleanup.js:5930
+#: ../root/static/scripts/edit/URLCleanup.js:652
+#: ../root/static/scripts/edit/URLCleanup.js:911
+#: ../root/static/scripts/edit/URLCleanup.js:4309
+#: ../root/static/scripts/edit/URLCleanup.js:5377
+#: ../root/static/scripts/edit/URLCleanup.js:5936
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr ""
 "這是一個重定向連結。請關注{redirect_url|您的連結}並添加它重定向後的連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:669
+#: ../root/static/scripts/edit/URLCleanup.js:670
 msgid ""
 "This is a link to a user video and should not be added. Please add the "
 "product link instead, if relevant."
 msgstr "這是一個使用者影片的連結，不應該添加。如果相關，請添加產品連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:870
+#: ../root/static/scripts/edit/URLCleanup.js:871
 msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
@@ -14642,7 +14640,7 @@ msgstr ""
 "只有 Apple Books 有聲書可以新增到 MusicBrainz。考慮改為將書籍新增到 "
 "{bookbrainz_url|BookBrainz}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1118
+#: ../root/static/scripts/edit/URLCleanup.js:1119
 msgid ""
 "Please do not add “{blocked_url_pattern}” links, link to the appropriate "
 "“{wanted_url_pattern}” page instead."
@@ -14650,18 +14648,18 @@ msgstr ""
 "請不要新增 “{blocked_url_pattern}” 連結，請改為連結到相應的 "
 "“{wanted_url_pattern}” 頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1138
+#: ../root/static/scripts/edit/URLCleanup.js:1139
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr "請連結到此創作者的首頁，而非特定專輯或音軌。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1158
+#: ../root/static/scripts/edit/URLCleanup.js:1159
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr "請連結到此廠牌的首頁，而非特定專輯或音軌。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1180
+#: ../root/static/scripts/edit/URLCleanup.js:1181
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -14673,7 +14671,7 @@ msgstr ""
 "創作者發布另一個時，這也可能會改變。請找到並新增適當的錄音頁面 "
 "(“{single_url_pattern}”)，並隨意將此個人資料連結新增到適當的創作者或廠牌。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1208
+#: ../root/static/scripts/edit/URLCleanup.js:1209
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -14686,15 +14684,15 @@ msgstr ""
 "(“{album_url_pattern}” 或 “{single_url_pattern}”)，並隨意將此個人資料連結新增"
 "到適當的創作者或廠牌。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1542
+#: ../root/static/scripts/edit/URLCleanup.js:1543
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr "請連結到創作者的首頁，而不是特定產品。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1544
+#: ../root/static/scripts/edit/URLCleanup.js:1545
 msgid "Please link to the main page for the label, not a specific product."
 msgstr "請連結到廠牌的首頁，而不是特定產品。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:2290
+#: ../root/static/scripts/edit/URLCleanup.js:2296
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
@@ -14702,7 +14700,7 @@ msgstr ""
 "Discogs 的 “{master_url_pattern}” 連結將多個發行品分組，因此應該將其新增到發"
 "行組中。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3010
+#: ../root/static/scripts/edit/URLCleanup.js:3016
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
@@ -14710,7 +14708,7 @@ msgstr ""
 "僅允許 IMSLP “{category_url_pattern}” 連結用於創作者。請將作品頁面連結到特定"
 "作品。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3028
+#: ../root/static/scripts/edit/URLCleanup.js:3034
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
@@ -14718,7 +14716,7 @@ msgstr ""
 "IMSLP “{category_url_pattern}” 連結僅允許用於創作者。請將特定作品頁面連結到該"
 "作品，而不是連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3070
+#: ../root/static/scripts/edit/URLCleanup.js:3076
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
@@ -14726,7 +14724,7 @@ msgstr ""
 "Instagram “{explore_url_pattern}” 連結不被允許。請連結到個人資料，如果有的"
 "話。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3098
+#: ../root/static/scripts/edit/URLCleanup.js:3104
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
@@ -14735,11 +14733,11 @@ msgstr ""
 "請不要直接連結到圖片，而是連結到適當的Instagram首頁。如果你想連結到一個影片，"
 "{url|添加一個獨立的錄音}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3123
+#: ../root/static/scripts/edit/URLCleanup.js:3129
 msgid "This is an internal Instagram page and should not be added."
 msgstr "這是一個內部 Instagram 頁面，不應該被新增。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:4203
+#: ../root/static/scripts/edit/URLCleanup.js:4209
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
@@ -14748,11 +14746,11 @@ msgstr ""
 "Musixmatch 的 “{album_url_pattern}” 頁面與 MusicBrainz 發行組不匹配，並且目前"
 "不允許連結到它們。請考慮將 Musixmatch 連結新增到相關的創作者和作品中。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:4883
+#: ../root/static/scripts/edit/URLCleanup.js:4889
 msgid "Only RYM music videos can be linked to recordings."
 msgstr "只有RYM的音樂影片可以連結到錄音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:4948
+#: ../root/static/scripts/edit/URLCleanup.js:4954
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
@@ -14761,27 +14759,27 @@ msgstr ""
 "這是一個指向舊 Resident Advisor 網域的連結。請遵循 {ra_url|您的連結}，確保重"
 "新導向的連結仍然是正確的，如果是，則請新增該連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5548
+#: ../root/static/scripts/edit/URLCleanup.js:5554
 msgid "Please link to Threads profiles, not threads."
 msgstr "請連結到 Threads 個人資料，而不是執行緒。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5672
+#: ../root/static/scripts/edit/URLCleanup.js:5678
 msgid "Please link to TikTok profiles, not videos."
 msgstr "請連結至 Twitter 個人資料，而非推文。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5950
+#: ../root/static/scripts/edit/URLCleanup.js:5956
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr "這不是個人資料頁，而是一個 Twitter 文件頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5964
+#: ../root/static/scripts/edit/URLCleanup.js:5970
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "請連結至 Twitter 個人資料，而非推文。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5982
+#: ../root/static/scripts/edit/URLCleanup.js:5988
 msgid "This site does not allow direct links to their images."
 msgstr "此網站不允許圖片直鏈。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6179
+#: ../root/static/scripts/edit/URLCleanup.js:6185
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
@@ -14789,7 +14787,7 @@ msgstr ""
 "請連結到 “{allowed_url_pattern}” 頁面，而不是此 “{current_url_pattern}” 連"
 "結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6350
+#: ../root/static/scripts/edit/URLCleanup.js:6356
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
@@ -14798,7 +14796,7 @@ msgstr ""
 "此 URL 中有未編碼的 “?” 或 “#” 字元。請檢查它們是否是無用的，並且應該被移除，"
 "或是 URL 被錯誤編碼。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6370
+#: ../root/static/scripts/edit/URLCleanup.js:6376
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
@@ -14806,19 +14804,19 @@ msgstr ""
 "請不要直接連結到 WhoSampled 的 “{unwanted_url_pattern}” 頁面。請連結到適當的 "
 "WhoSampled 創作者、音軌或專輯頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6391
+#: ../root/static/scripts/edit/URLCleanup.js:6397
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr "請將 WhoSampled “{album_url_pattern}” 頁面連結至專輯組。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6409
+#: ../root/static/scripts/edit/URLCleanup.js:6415
 msgid "Please link WhoSampled artist pages to artists."
 msgstr "請將 WhoSampled 創作者頁面連結至創作者。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6421
+#: ../root/static/scripts/edit/URLCleanup.js:6427
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "請將 WhoSampled 音軌頁面連結至錄音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6481
+#: ../root/static/scripts/edit/URLCleanup.js:6487
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
@@ -14826,13 +14824,13 @@ msgstr ""
 "不允許連結至維基百科文字的特定部分。如果合適，請移除 “{fragment}”。詳見 {url|"
 "指南}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6506
+#: ../root/static/scripts/edit/URLCleanup.js:6512
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr "連結到維基百科使用者頁面是不允許的。請僅連結到實際的維基百科文章。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6662
+#: ../root/static/scripts/edit/URLCleanup.js:6668
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
@@ -14841,36 +14839,36 @@ msgstr ""
 "這是一個播放列錶連結，不是影片頻道，也不能保證得到官方批准。如果該實體存在，"
 "請連結到該實體的官方頻道。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6702
+#: ../root/static/scripts/edit/URLCleanup.js:6708
 msgid "Only video and playlist links are allowed on releases."
 msgstr "專輯只能有影片或播放列錶連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6747
+#: ../root/static/scripts/edit/URLCleanup.js:6753
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr "這是一個發行品（播放清單）連結，而不是創作者頻道。請連結到創作者頻道。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6783
+#: ../root/static/scripts/edit/URLCleanup.js:6789
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr "請連結到具體的影片。添加相關的歌手，標籤等渠道頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6793
+#: ../root/static/scripts/edit/URLCleanup.js:6799
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
 msgstr "請連結到具體的影片。添加相關的歌手，標籤等渠道頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6803
+#: ../root/static/scripts/edit/URLCleanup.js:6809
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
 msgstr ""
 "這是一個重定向連結。請關注{redirect_url|您的連結}並添加它重定向後的連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6846
+#: ../root/static/scripts/edit/URLCleanup.js:6852
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
@@ -14879,7 +14877,7 @@ msgstr ""
 "維基百科通常沒有針對特定發行品的條目，因此目前不允許將維基百科連結新增到發行"
 "品。請將此維基百科連結新增到發行組中，如果適用的話。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6858
+#: ../root/static/scripts/edit/URLCleanup.js:6864
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
@@ -14888,11 +14886,11 @@ msgstr ""
 "Wikidata 通常沒有針對特定發行品的條目，因此目前不允許將 Wikidata 連結新增到發"
 "行品。請將此 Wikidata 連結新增到發行組中，如果適用的話。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7068
+#: ../root/static/scripts/edit/URLCleanup.js:7074
 msgid "Some relationship types are missing for this URL."
 msgstr "此 URL 缺少某些關聯類型。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7085
+#: ../root/static/scripts/edit/URLCleanup.js:7091
 #: ../root/static/scripts/edit/externalLinks.js:1073
 msgid "This relationship type combination is invalid."
 msgstr "此關聯類型組合無效。"
