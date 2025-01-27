@@ -543,11 +543,17 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https:\/\/)?nocs\.acum\.org\.il\/acumsitesearchdb\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      return url.replace(/&.*/, '').replace('/version?', '/work?');
+      return url
+        // Standardise to https
+        .replace(/^https?:\/\//, 'https://')
+        // keep just one query param
+        .replace(/&.*/, '')
+        // prefer works to versions
+        .replace('/version?', '/work?');
     },
     validate(url, id) {
-      const m = /^(https:\/\/)?nocs\.acum\.org\.il\/acumsitesearchdb\//i.test(url);
-      if (m) {
+      const isAcumUrl = /^https:\/\/nocs\.acum\.org\.il\/acumsitesearchdb\//i.test(url);
+      if (isAcumUrl) {
         switch (id) {
           case LINK_TYPES.otherdatabases.work:
             return {
