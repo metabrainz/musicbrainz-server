@@ -1315,6 +1315,12 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://bsky.app/profile/thecure.com',
   },
+  {
+                     input_url: 'https://bsky.app/profile/did:plc:vqm2zcwhku3u7schrnrh74hb/followers',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://bsky.app/profile/did:plc:vqm2zcwhku3u7schrnrh74hb',
+  },
   // BnF (Bibliothèque nationale de France) Catalogue
   {
                      input_url: 'http://ark.bnf.fr/ark:/12148/cb11923342r',
@@ -1913,6 +1919,28 @@ limited_link_type_combinations: [
     expected_relationship_type: 'license',
             expected_clean_url: 'https://creativecommons.org/publicdomain/zero/1.0/',
   },
+  // Crew United
+  {
+                     input_url: 'http://www.crew-united.com/Jaques-Linon_89709.html',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.crew-united.com/en/Jaques-Linon_89709.html',
+       only_valid_entity_types: ['artist', 'label', 'recording'],
+  },
+  {
+                     input_url: 'https://crew-united.com/ro/Hell-Raisa-Records_147592.html',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.crew-united.com/en/Hell-Raisa-Records_147592.html',
+       only_valid_entity_types: ['artist', 'label', 'recording'],
+  },
+  {
+                     input_url: 'https://www.crew-united.com/en/Kaisa-Den-Schlechten-geht-es-gut__143909.html#!&tabctl_15249142_activeTab=1189721449',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.crew-united.com/en/Kaisa-Den-Schlechten-geht-es-gut__143909.html',
+       only_valid_entity_types: ['artist', 'label', 'recording'],
+  },
   // DAHR
   {
                      input_url: 'https://adp.library.ucsb.edu/index.php/talent/detail/800/Louis_Armstrong_All-Stars_Musical_group',
@@ -2096,12 +2124,20 @@ limited_link_type_combinations: [
              input_entity_type: 'label',
     expected_relationship_type: 'discogs',
             expected_clean_url: 'https://www.discogs.com/label/2262',
+       only_valid_entity_types: ['event', 'label', 'place', 'series'],
   },
   {                             // old-style URL without numerical ID
                      input_url: 'http://www.discogs.com/label/Demonic',
              input_entity_type: 'label',
     expected_relationship_type: 'discogs',
        only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://www.discogs.com/label/418444-Monterey-Pop-Festival?page=1',
+             input_entity_type: 'label',
+    expected_relationship_type: 'discogs',
+            expected_clean_url: 'https://www.discogs.com/label/418444',
+       only_valid_entity_types: ['event', 'label', 'place', 'series'],
   },
   {
                      input_url: 'http://www.discogs.com/release/12130',

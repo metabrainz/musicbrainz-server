@@ -186,10 +186,10 @@ sub show : PathPart('') Chained('load')
     my $has_va = $c->model('ReleaseGroup')->has_by_track_artist($artist->id, 0);
     my $has_va_extra = $c->model('ReleaseGroup')->has_by_track_artist($artist->id, 1);
 
-    my $want_va_only = $c->req->query_params->{va};
-    my $want_all_statuses = $c->req->query_params->{all};
     my $including_all_statuses;
     my $showing_va_only;
+    my $want_va_only = $c->req->query_params->{va};
+    my $want_all_statuses = $c->req->query_params->{all};
 
     my $has_release_groups = $has_default || $has_extra || $has_va || $has_va_extra;
     my $force_release_groups = $want_va_only || $want_all_statuses;
@@ -219,7 +219,12 @@ sub show : PathPart('') Chained('load')
             { artist_id => $artist->id },
         );
         %filter = %{ $self->process_filter($c, sub {
-            return create_artist_release_groups_form($c, $artist->id);
+            return create_artist_release_groups_form(
+                $c,
+                $artist->id,
+                $want_all_statuses,
+                $want_va_only,
+            );
         }) };
 
         my @attempts = grep {

@@ -7,7 +7,8 @@ use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID );
 
 extends 'MusicBrainz::Server::Form';
-with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::Edit',
+     'MusicBrainz::Server::Form::Role::OptionsTree';
 
 sub edit_field_names { qw( parent_id child_order name description creditable free_text ) }
 
@@ -46,16 +47,19 @@ sub options_parent_id
     return select_options_tree($self->ctx, $self->ctx->stash->{root}, accessor => 'name');
 }
 
+sub options_tree_model_name { 'LinkAttributeType' }
+
 after validate => sub {
     my ($self) = @_;
 
-    my $parent = $self->field('parent_id')->value ?
-       $self->ctx->model('LinkAttributeType')->get_by_id($self->field('parent_id')->value) :
-       undef;
-
-    my $root = defined $parent ? ($parent->root_id // $parent->id) : 0;
-    if ($root == $INSTRUMENT_ROOT_ID) {
-        $self->field('parent_id')->add_error('Cannot add or edit instruments here; use the instrument editing forms instead.');
+    my $parent = $self->get_parent;
+    my $is_root_instrument = defined $parent && (
+                             $parent->root_id == $INSTRUMENT_ROOT_ID ||
+                             $parent->id == $INSTRUMENT_ROOT_ID);
+    if ($is_root_instrument) {
+        $self->field('parent_id')->add_error(
+            'Cannot add or edit instruments here; use the instrument editing forms instead.',
+        );
     }
 };
 

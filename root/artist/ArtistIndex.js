@@ -27,14 +27,14 @@ import WikipediaExtract
 import commaOnlyList, {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList.js';
 import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
-import entityHref from '../static/scripts/common/utility/entityHref.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
+import uriWith from '../utility/uriWith.js';
 
 import ArtistLayout from './ArtistLayout.js';
 
 component FooterSwitch(
-  artist: ArtistT,
+  $c: CatalystContextT,
   hasDefault: boolean,
   hasExtra: boolean,
   hasVariousArtists: boolean,
@@ -42,7 +42,7 @@ component FooterSwitch(
   includingAllStatuses: boolean,
   showingVariousArtistsOnly: boolean,
 ) {
-  const artistLink = entityHref(artist);
+  const artistLink = $c.req.uri;
 
   function buildLinks(
     showDefault: boolean,
@@ -53,28 +53,40 @@ component FooterSwitch(
     const links = [];
     if (showDefault) {
       links.push(
-        <a href={artistLink} key="show-default">
+        <a
+          href={uriWith(artistLink, {all: 0, va: 0})}
+          key="show-default"
+        >
           {l('Show official release groups')}
         </a>,
       );
     }
     if (showAll) {
       links.push(
-        <a href={`${artistLink}?all=1`} key="show-all">
+        <a
+          href={uriWith(artistLink, {all: 1, va: 0})}
+          key="show-all"
+        >
           {l('Show all release groups')}
         </a>,
       );
     }
     if (showVA) {
       links.push(
-        <a href={`${artistLink}?va=1`} key="show-va">
+        <a
+          href={uriWith(artistLink, {all: 0, va: 1})}
+          key="show-va"
+        >
           {l('Show official various artist release groups')}
         </a>,
       );
     }
     if (showAllVA) {
       links.push(
-        <a href={`${artistLink}?all=1&va=1`} key="show-all-va">
+        <a
+          href={uriWith(artistLink, {all: 1, va: 1})}
+          key="show-all-va"
+        >
           {l('Show all various artist release groups')}
         </a>,
       );
@@ -161,6 +173,7 @@ component FooterSwitch(
 
 component ArtistIndex(
   ajaxFilterFormUrl: string,
+  artist: ArtistT,
   baseName: ?ArtistT,
   baseNameLegalNameAliases: ?$ReadOnlyArray<string>,
   eligibleForCleanup: boolean,
@@ -180,7 +193,7 @@ component ArtistIndex(
   const $c = React.useContext(SanitizedCatalystContext);
   const existingRecordings = recordings?.length ? recordings : null;
   const existingReleaseGroups = releaseGroups?.length ? releaseGroups : null;
-  const artist = footerSwitchProps.artist;
+
 
   return (
     <ArtistLayout entity={artist} page="index">
@@ -244,6 +257,8 @@ component ArtistIndex(
       <Filter
         ajaxFormUrl={ajaxFilterFormUrl}
         initialFilterForm={filterForm}
+        showAllReleaseGroups={footerSwitchProps.includingAllStatuses}
+        showVAReleaseGroups={footerSwitchProps.showingVariousArtistsOnly}
       />
 
       {existingReleaseGroups ? (
@@ -292,10 +307,14 @@ component ArtistIndex(
             'This artist has no release groups, only standalone recordings.',
           )}
         </p>
-      ) : (!existingReleaseGroups && hasFilter) ? (
-        <p>{l('No results found that match this search.')}</p>
       ) : (
-        <FooterSwitch {...footerSwitchProps} />
+        <>
+          {(!existingReleaseGroups && hasFilter) ? (
+            <p>{l('No release groups found that match this search.')}</p>
+          ) : null}
+
+          <FooterSwitch $c={$c} {...footerSwitchProps} />
+        </>
       )}
 
       {manifest('artist/index', {async: 'async'})}

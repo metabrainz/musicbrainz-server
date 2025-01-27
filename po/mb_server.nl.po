@@ -36,7 +36,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-07 14:07+0100\n"
+"POT-Creation-Date: 2025-01-21 12:01+0100\n"
 "PO-Revision-Date: 2024-08-05 12:42+0000\n"
 "Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
 "metabrainz.org>\n"
@@ -146,7 +146,7 @@ msgstr "(geen andere afbeeldingen)"
 #: ../root/cdtoc/lookup.tt:43 ../root/edit/details/MergeReleases.js:230
 #: ../root/recording/RecordingIndex.js:50
 #: ../root/release_group/ReleaseGroupIndex.js:170
-#: ../root/search/components/ReleaseResults.js:124
+#: ../root/search/components/ReleaseResults.js:122
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
 #: ../root/utility/tableColumns.js:515 ../root/utility/tableColumns.js:523
 msgctxt "and"
@@ -191,8 +191,8 @@ msgstr ""
 msgid "A release title is required."
 msgstr "De uitgave heeft een titel nodig."
 
-#: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:309
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:189
+#: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:311
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:209
 #: ../root/edit/components/Vote.js:86
 msgctxt "vote"
 msgid "Abstain"
@@ -363,6 +363,20 @@ msgstr "Extra informatie"
 msgid "Address"
 msgstr "Adres"
 
+#: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:311
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:213
+msgctxt "vote"
+msgid "Admin approval"
+msgstr ""
+
+#: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:311
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:214
+#, fuzzy
+#| msgid "Add collection"
+msgctxt "vote"
+msgid "Admin rejection"
+msgstr "Collectie toevoegen"
+
 #: ../root/release/edit/recordings.tt:3
 msgid ""
 "All tracks require an associated recording. Click “Edit” to select a "
@@ -405,17 +419,17 @@ msgstr "Er is een fout opgetreden: "
 msgid "Annotation"
 msgstr "Aantekening"
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 msgid "Applied edit count of editor"
 msgstr "Aantal doorgevoerde bewerkingen van de gebruiker"
 
-#: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:309
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:192
+#: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:311
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:212
 msgctxt "vote"
 msgid "Approve"
 msgstr "Goedkeuren"
 
-#: ../root/artist/edit_form.tt:20 ../root/edit/search_macros.tt:436
+#: ../root/artist/edit_form.tt:20 ../root/edit/search_macros.tt:440
 #: ../root/label/edit_form.tt:18 ../root/place/edit_form.tt:19
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:44
@@ -443,7 +457,7 @@ msgstr "Gebied"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/list.tt:8
 #: ../root/cdtoc/lookup.tt:42 ../root/cdtoc/lookup.tt:77
-#: ../root/edit/search_macros.tt:436 ../root/release/edit/information.tt:26
+#: ../root/edit/search_macros.tt:440 ../root/release/edit/information.tt:26
 #: ../root/release/edit/tracklist.tt:110 ../root/release/edit/tracklist.tt:163
 #: ../root/release/edit/tracklist.tt:472
 #: ../root/release_group/set_cover_art.tt:32
@@ -495,8 +509,8 @@ msgstr "Gebied"
 #: ../root/report/components/ReleaseUrlList.js:33
 #: ../root/search/components/CDStubResults.js:46
 #: ../root/search/components/RecordingResults.js:139
-#: ../root/search/components/ReleaseGroupResults.js:77
-#: ../root/search/components/ReleaseResults.js:121
+#: ../root/search/components/ReleaseGroupResults.js:75
+#: ../root/search/components/ReleaseResults.js:119
 #: ../root/search/components/SearchForm.js:31
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:38
 #: ../root/static/scripts/common/constants.js:36
@@ -508,7 +522,7 @@ msgstr "Gebied"
 msgid "Artist"
 msgstr "Artiest"
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 msgid "Artist area"
 msgstr "Gebied van artiest"
 
@@ -540,7 +554,7 @@ msgstr "Disc-ID toevoegen"
 msgid "Attached to releases"
 msgstr "Gekoppeld aan uitgaven"
 
-#: ../root/edit/search_macros.tt:401 ../root/user/UserProfile.js:75
+#: ../root/edit/search_macros.tt:405 ../root/user/UserProfile.js:75
 msgctxt "user type"
 msgid "Auto-editor"
 msgstr "Autoredacteur"
@@ -563,7 +577,7 @@ msgstr "Autoredacteur"
 #: ../root/otherlookup/OtherLookupForm.js:57
 #: ../root/release_group/ReleaseGroupIndex.js:173
 #: ../root/report/ReleasesSameBarcode.js:40
-#: ../root/search/components/ReleaseResults.js:127
+#: ../root/search/components/ReleaseResults.js:125
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:42
 msgid "Barcode"
 msgstr "Streepjescode"
@@ -628,7 +642,7 @@ msgstr "Weblog"
 msgid "Bluesky"
 msgstr ""
 
-#: ../root/edit/search_macros.tt:401
+#: ../root/edit/search_macros.tt:405
 msgctxt "user type"
 msgid "Bot"
 msgstr "Robot"
@@ -682,7 +696,7 @@ msgstr "Kan worden goedgekeurd"
 #: ../root/release/ReleaseMerge.js:64
 #: ../root/release_group/ReleaseGroupMerge.js:48
 #: ../root/series/SeriesMerge.js:44
-#: ../root/static/scripts/common/components/FilterForm.js:413
+#: ../root/static/scripts/common/components/FilterForm.js:443
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:236
 #: ../root/static/scripts/edit/components/URLInputPopover.js:123
 #: ../root/static/scripts/relationship-editor/components/DialogButtons.js:23
@@ -700,7 +714,7 @@ msgstr "Catalogusnr.:"
 #: ../root/edit/details/MergeReleases.js:232
 #: ../root/recording/RecordingIndex.js:52
 #: ../root/release_group/ReleaseGroupIndex.js:172
-#: ../root/search/components/ReleaseResults.js:126
+#: ../root/search/components/ReleaseResults.js:124
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:41
 #: ../root/utility/tableColumns.js:489 ../root/utility/tableColumns.js:494
 msgid "Catalog#"
@@ -724,7 +738,7 @@ msgstr "Klik op Bewerken om de gekoppelde opnamen voor dit medium te wijzigen."
 msgid "Close"
 msgstr "Afsluiten"
 
-#: ../root/edit/search_macros.tt:436 ../root/edit/components/EditHeader.js:149
+#: ../root/edit/search_macros.tt:440 ../root/edit/components/EditHeader.js:150
 #: ../root/edit/components/EditSidebar.js:53
 msgid "Closed"
 msgstr "Gesloten"
@@ -785,9 +799,9 @@ msgstr "Kopieer de titel van de uitgave naar de uitgavegroep"
 #: ../root/edit/details/historic/EditReleaseEvents.js:107
 #: ../root/recording/RecordingIndex.js:50
 #: ../root/release_group/ReleaseGroupIndex.js:170
-#: ../root/search/components/ReleaseResults.js:124
+#: ../root/search/components/ReleaseResults.js:122
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
-#: ../root/static/scripts/common/components/FilterForm.js:271
+#: ../root/static/scripts/common/components/FilterForm.js:293
 #: ../root/utility/tableColumns.js:511 ../root/utility/tableColumns.js:523
 msgid "Country"
 msgstr "Land"
@@ -832,10 +846,10 @@ msgstr "Datanummers"
 #: ../root/recording/RecordingIndex.js:50
 #: ../root/release_group/ReleaseGroupIndex.js:170
 #: ../root/search/components/EventResults.js:83
-#: ../root/search/components/ReleaseResults.js:124
+#: ../root/search/components/ReleaseResults.js:122
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:101
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
-#: ../root/static/scripts/common/components/FilterForm.js:303
+#: ../root/static/scripts/common/components/FilterForm.js:325
 #: ../root/utility/tableColumns.js:286 ../root/utility/tableColumns.js:291
 #: ../root/utility/tableColumns.js:517 ../root/utility/tableColumns.js:523
 msgid "Date"
@@ -904,7 +918,7 @@ msgstr "Details"
 #: ../root/edit/details/EditRelease.js:89
 #: ../root/edit/details/EditReleaseGroup.js:46
 #: ../root/edit/details/EditSeries.js:44 ../root/edit/details/EditWork.js:55
-#: ../root/static/scripts/common/components/FilterForm.js:389
+#: ../root/static/scripts/common/components/FilterForm.js:411
 #: ../root/static/scripts/event/components/EventEditForm.js:249
 msgid "Disambiguation"
 msgstr "Verduidelijking"
@@ -996,11 +1010,11 @@ msgctxt "noun"
 msgid "Edit note"
 msgstr "Bewerkingsnotitie"
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 msgid "Edit note authors"
 msgstr "Auteurs van bewerkingsnotities"
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 msgid "Edit note content"
 msgstr "Inhoud van de bewerkingsnotitie"
 
@@ -1016,11 +1030,11 @@ msgctxt "noun"
 msgid "Edit types"
 msgstr "Bewerkingstypes"
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 msgid "Edited entity"
 msgstr "Bewerkt object"
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:48
 #: ../root/layout/components/Search.js:48
 #: ../root/search/components/SearchForm.js:41
@@ -1028,7 +1042,7 @@ msgstr "Bewerkt object"
 msgid "Editor"
 msgstr "Redacteur"
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 msgid "Editor flag"
 msgstr "Type redacteur"
 
@@ -1093,7 +1107,7 @@ msgstr ""
 "Geef het scheidingsteken tussen de titel van het nummer en de artiest op "
 "(geldige {url|reguliere expressies} zijn mogelijk)."
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 msgid "Entered"
 msgstr "Ingediend"
 
@@ -1120,7 +1134,7 @@ msgstr ""
 "Het kan al genoeg zijn om één of twee links toe te voegen. Voor meer "
 "suggesties kan je {doc_how_to|onze korte handleiding} raadplegen."
 
-#: ../root/edit/search_macros.tt:436 ../lib/MusicBrainz/Server/Edit/Event.pm:7
+#: ../root/edit/search_macros.tt:440 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
 #: ../root/components/list/EventList.js:62 ../root/edit/details/AddEvent.js:23
 #: ../root/edit/details/AddEventArt.js:18 ../root/edit/details/EditEvent.js:31
@@ -1211,7 +1225,7 @@ msgstr "Lees de {doc_doc|documentatie} voor meer informatie."
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:135
 #: ../root/release_group/ReleaseGroupIndex.js:168
 #: ../root/report/components/CDTocList.js:44
-#: ../root/search/components/ReleaseResults.js:122
+#: ../root/search/components/ReleaseResults.js:120
 msgid "Format"
 msgstr "Type medium"
 
@@ -1247,11 +1261,11 @@ msgstr "Volledige TOC:"
 #: ../root/layout/components/sidebar/ArtistSidebar.js:91
 #: ../root/search/components/ArtistResults.js:55
 #: ../root/static/scripts/account/components/EditProfileForm.js:245
-#: ../root/user/UserProfile.js:260
+#: ../root/user/UserProfile.js:272
 msgid "Gender"
 msgstr "Geslacht"
 
-#: ../root/edit/search_macros.tt:436 ../lib/MusicBrainz/Server/Edit/Genre.pm:7
+#: ../root/edit/search_macros.tt:440 ../lib/MusicBrainz/Server/Edit/Genre.pm:7
 #: ../root/components/list/GenreList.js:35 ../root/edit/details/AddGenre.js:20
 #: ../root/edit/details/EditGenre.js:24 ../root/genre/GenreHeader.js:22
 #: ../root/search/components/TagResults.js:53
@@ -1341,7 +1355,7 @@ msgstr "Ik weet de nummerlijst van dit medium niet."
 msgid "I have no information about this release’s media and tracklist."
 msgstr "Ik heb geen informatie over de media en nummerlijst van deze uitgave."
 
-#: ../root/edit/search_macros.tt:436 ../root/futureColumnLabels.js:22
+#: ../root/edit/search_macros.tt:440 ../root/futureColumnLabels.js:22
 #: ../root/futureColumnLabels.js:38
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:111
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:152
@@ -1505,7 +1519,7 @@ msgctxt "interactive"
 msgid "Import CD stub"
 msgstr "Een cd-beginnetje importeren"
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:50
 #: ../root/components/list/InstrumentList.js:39
@@ -1568,7 +1582,7 @@ msgstr ""
 "je de pregapnummers weer toevoegen voordat je de bewerking indient."
 
 #: ../root/cdtoc/attach_artist_releases.tt:17 ../root/cdtoc/list.tt:11
-#: ../root/cdtoc/lookup.tt:44 ../root/edit/search_macros.tt:436
+#: ../root/cdtoc/lookup.tt:44 ../root/edit/search_macros.tt:440
 #: ../root/release/edit/duplicates.tt:15
 #: ../root/release/edit/information.tt:222
 #: ../root/release_group/set_cover_art.tt:52
@@ -1588,10 +1602,10 @@ msgstr ""
 #: ../root/report/ReleaseLabelSameArtist.js:24
 #: ../root/report/components/LabelList.js:40
 #: ../root/report/components/LabelUrlList.js:30
-#: ../root/search/components/ReleaseResults.js:125
+#: ../root/search/components/ReleaseResults.js:123
 #: ../root/search/components/SearchForm.js:36
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:40
-#: ../root/static/scripts/common/components/FilterForm.js:255
+#: ../root/static/scripts/common/components/FilterForm.js:277
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
 #: ../root/user/UserProfile.js:56 ../root/utility/tableColumns.js:540
@@ -1599,7 +1613,7 @@ msgstr ""
 msgid "Label"
 msgstr "Platenmaatschappij"
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 msgid "Label area"
 msgstr "Gebied van platenmaatschappij"
 
@@ -1619,8 +1633,8 @@ msgstr "Platenmaatschappijdetails"
 #: ../root/edit/details/historic/AddRelease.js:70 ../root/iswc/Index.js:59
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:189
 #: ../root/report/IswcsWithManyWorks.js:54
-#: ../root/search/components/ReleaseResults.js:128
-#: ../root/static/scripts/common/components/FilterForm.js:355
+#: ../root/search/components/ReleaseResults.js:126
+#: ../root/static/scripts/common/components/FilterForm.js:377
 #: ../root/utility/tableColumns.js:561
 msgid "Language"
 msgstr "Taal"
@@ -1660,7 +1674,7 @@ msgstr "Regels bevatten de artiestennamen"
 msgid "Lines start with a track number"
 msgstr "Regels beginnen met de positie van het nummer"
 
-#: ../root/edit/search_macros.tt:401 ../root/user/UserProfile.js:99
+#: ../root/edit/search_macros.tt:405 ../root/user/UserProfile.js:110
 msgctxt "user type"
 msgid "Location editor"
 msgstr "Locatieredacteur"
@@ -1803,13 +1817,13 @@ msgstr "Nummer omhoog verplaatsen"
 #: ../root/search/components/LabelResults.js:66
 #: ../root/search/components/PlaceResults.js:63
 #: ../root/search/components/RecordingResults.js:137
-#: ../root/search/components/ReleaseResults.js:120
+#: ../root/search/components/ReleaseResults.js:118
 #: ../root/search/components/SeriesResults.js:57
 #: ../root/search/components/TagResults.js:52
 #: ../root/search/components/WorkResults.js:54
 #: ../root/static/scripts/account/components/ApplicationForm.js:87
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:198
-#: ../root/static/scripts/common/components/FilterForm.js:171
+#: ../root/static/scripts/common/components/FilterForm.js:177
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:98
 #: ../root/static/scripts/event/components/EventEditForm.js:245
 #: ../root/static/scripts/release/components/EditWorkDialog.js:156
@@ -1837,8 +1851,8 @@ msgstr "Volgende"
 msgid "Next »"
 msgstr "Volgende »"
 
-#: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:309
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:190
+#: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:311
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:210
 #: ../root/edit/components/Vote.js:79
 msgctxt "vote"
 msgid "No"
@@ -1972,7 +1986,7 @@ msgstr "Verpakking"
 msgid "Parse tracks"
 msgstr "Nummers invullen"
 
-#: ../root/edit/search_macros.tt:436 ../lib/MusicBrainz/Server/Edit/Place.pm:8
+#: ../root/edit/search_macros.tt:440 ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:45
 #: ../root/components/list/PlaceList.js:45 ../root/edit/details/AddPlace.js:26
 #: ../root/edit/details/EditPlace.js:36 ../root/layout/components/Search.js:38
@@ -1989,7 +2003,7 @@ msgstr "Plaats"
 msgid "Place details"
 msgstr "Details van de plaats"
 
-#: ../root/edit/search_macros.tt:434
+#: ../root/edit/search_macros.tt:438
 msgid "Please choose a condition"
 msgstr "Kies een voorwaarde"
 
@@ -2051,7 +2065,7 @@ msgid_plural "Rate: {rating} stars"
 msgstr[0] "Waardeer: {rating} ster"
 msgstr[1] "Waardeer: {rating} sterren"
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:41
 #: ../root/edit/details/AddStandaloneRecording.js:27
@@ -2099,12 +2113,12 @@ msgstr "Opnamen"
 msgid "Reject"
 msgstr "Verwerpen"
 
-#: ../root/edit/search_macros.tt:401 ../root/user/UserProfile.js:85
+#: ../root/edit/search_macros.tt:405 ../root/user/UserProfile.js:96
 msgctxt "user type"
 msgid "Relationship editor"
 msgstr "Relatieredacteur"
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 #: ../root/edit/details/AddRelationshipType.js:48
 #: ../root/edit/details/EditRelationshipType.js:148
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:82
@@ -2113,7 +2127,7 @@ msgid "Relationship type"
 msgstr "Relatietype"
 
 #: ../root/cdtoc/attach_artist_releases.tt:15 ../root/cdtoc/lookup.tt:40
-#: ../root/edit/search_macros.tt:436 ../root/release/edit/duplicates.tt:10
+#: ../root/edit/search_macros.tt:440 ../root/release/edit/duplicates.tt:10
 #: ../root/release/edit/tracklist.tt:105
 #: ../lib/MusicBrainz/Server/Edit/Release.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
@@ -2148,11 +2162,11 @@ msgstr "Relatietype"
 msgid "Release"
 msgstr "Uitgave"
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 msgid "Release country"
 msgstr "Land van uitgave"
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 msgid "Release data quality"
 msgstr "Gegevenskwaliteit van de uitgave"
 
@@ -2165,7 +2179,7 @@ msgstr "Duplicaten van de uitgave"
 msgid "Release event"
 msgstr "Uitgavegebeurtenis"
 
-#: ../root/edit/search_macros.tt:436 ../root/release/edit/information.tt:37
+#: ../root/edit/search_macros.tt:440 ../root/release/edit/information.tt:37
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:39
 #: ../root/edit/details/AddRelease.js:60
@@ -2182,7 +2196,7 @@ msgstr "Uitgavegebeurtenis"
 #: ../root/report/ReleasesSameBarcode.js:46
 #: ../root/report/components/ReleaseGroupList.js:43
 #: ../root/report/components/ReleaseGroupUrlList.js:32
-#: ../root/search/components/ReleaseGroupResults.js:76
+#: ../root/search/components/ReleaseGroupResults.js:74
 #: ../root/search/components/SearchForm.js:32
 #: ../root/static/scripts/common/constants.js:44
 #: ../root/static/scripts/common/i18n/localizeTypeNameForEntity.js:36
@@ -2217,7 +2231,7 @@ msgstr "Uitgavegroep: {release_group_link}"
 msgid "Release information"
 msgstr "Informatie over de uitgave"
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 msgid "Release language"
 msgstr "Taal van de uitgave"
 
@@ -2451,7 +2465,7 @@ msgstr "Bestanden selecteren …"
 msgid "Sentence"
 msgstr "Zin"
 
-#: ../root/edit/search_macros.tt:436 ../lib/MusicBrainz/Server/Edit/Series.pm:7
+#: ../root/edit/search_macros.tt:440 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:51
 #: ../root/components/list/SeriesList.js:39
 #: ../root/edit/details/AddSeries.js:21 ../root/edit/details/EditSeries.js:30
@@ -2541,7 +2555,7 @@ msgstr "Artiest splitsen"
 msgid "Split into separate artists"
 msgstr "In aparte artiesten splitsen"
 
-#: ../root/edit/search_macros.tt:436 ../root/edit/components/EditSidebar.js:33
+#: ../root/edit/search_macros.tt:440 ../root/edit/components/EditSidebar.js:33
 msgctxt "edit status"
 msgid "Status"
 msgstr "Status"
@@ -2551,8 +2565,8 @@ msgstr "Status"
 #: ../root/edit/details/AddRelease.js:77 ../root/edit/details/EditRelease.js:97
 #: ../root/edit/details/historic/AddRelease.js:52
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:177
-#: ../root/search/components/ReleaseResults.js:130
-#: ../root/static/scripts/common/components/FilterForm.js:287
+#: ../root/search/components/ReleaseResults.js:128
+#: ../root/static/scripts/common/components/FilterForm.js:309
 msgctxt "release"
 msgid "Status"
 msgstr "Status"
@@ -2573,7 +2587,7 @@ msgstr "Nummers en artiesten omdraaien"
 #: ../root/cdtoc/lookup.tt:48 ../root/recording/RecordingIndex.js:55
 #: ../root/release_group/ReleaseGroupIndex.js:176
 #: ../root/search/components/RecordingResults.js:144
-#: ../root/search/components/ReleaseResults.js:133
+#: ../root/search/components/ReleaseResults.js:131
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:43
 #: ../root/static/scripts/common/components/TaggerIcon.js:74
 #: ../root/utility/tableColumns.js:784
@@ -3018,7 +3032,7 @@ msgstr "Nummerlijst"
 #: ../root/edit/details/historic/AddRelease.js:79 ../root/release/DiscIds.js:96
 #: ../root/release_group/ReleaseGroupIndex.js:169
 #: ../root/search/components/CDStubResults.js:47
-#: ../root/search/components/ReleaseResults.js:123
+#: ../root/search/components/ReleaseResults.js:121
 msgid "Tracks"
 msgstr "Nummers"
 
@@ -3035,7 +3049,7 @@ msgstr ""
 "de beschikbare informatie toevoegen. Als je helemaal geen informatie over de "
 "media van deze uitgave hebt, kan je alle media verwijderen."
 
-#: ../root/edit/search_macros.tt:401 ../root/user/UserProfile.js:92
+#: ../root/edit/search_macros.tt:405 ../root/user/UserProfile.js:103
 msgctxt "user type"
 msgid "Transclusion editor"
 msgstr "Transclusieredacteur"
@@ -3045,7 +3059,7 @@ msgstr "Transclusieredacteur"
 msgid "Turkish"
 msgstr "Turks"
 
-#: ../root/artist/edit_form.tt:16 ../root/edit/search_macros.tt:436
+#: ../root/artist/edit_form.tt:16 ../root/edit/search_macros.tt:440
 #: ../root/label/edit_form.tt:15 ../root/place/edit_form.tt:15
 #: ../root/release/edit/information.tt:146 ../root/series/edit_form.tt:16
 #: ../root/work/edit_form.tt:14
@@ -3087,8 +3101,8 @@ msgstr "Turks"
 #: ../root/search/components/LabelResults.js:67
 #: ../root/search/components/PlaceResults.js:64
 #: ../root/search/components/RecordingResults.js:147
-#: ../root/search/components/ReleaseGroupResults.js:78
-#: ../root/search/components/ReleaseResults.js:129
+#: ../root/search/components/ReleaseGroupResults.js:76
+#: ../root/search/components/ReleaseResults.js:127
 #: ../root/search/components/SearchForm.js:77
 #: ../root/search/components/SeriesResults.js:58
 #: ../root/search/components/WorkResults.js:58
@@ -3097,7 +3111,7 @@ msgstr "Turks"
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:204
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:551
-#: ../root/static/scripts/common/components/FilterForm.js:147
+#: ../root/static/scripts/common/components/FilterForm.js:149
 #: ../root/static/scripts/edit/externalLinks.js:1258
 #: ../root/static/scripts/edit/externalLinks.js:1606
 #: ../root/static/scripts/event/components/EventEditForm.js:255
@@ -3118,7 +3132,7 @@ msgstr "Types"
 msgid "Types:"
 msgstr "Types:"
 
-#: ../root/edit/search_macros.tt:436 ../root/url/edit_form.tt:6
+#: ../root/edit/search_macros.tt:440 ../root/url/edit_form.tt:6
 #: ../lib/MusicBrainz/Server/Edit/URL.pm:7 ../root/edit/details/EditUrl.js:28
 #: ../root/edit/details/EditUrl.js:33
 #: ../root/main/error/components/ErrorEnvironment.js:41
@@ -3197,7 +3211,7 @@ msgstr "Bestand wordt gevalideerd"
 #: ../root/recording/edit_form.tt:44
 #: ../root/edit/details/AddStandaloneRecording.js:59
 #: ../root/edit/details/EditRecording.js:73
-#: ../root/static/scripts/common/components/FilterForm.js:213
+#: ../root/static/scripts/common/components/FilterForm.js:219
 msgid "Video"
 msgstr "Video"
 
@@ -3205,21 +3219,21 @@ msgstr "Video"
 msgid "Video “{name}” by {artist}"
 msgstr "Video ‘{name}’ van {artist}"
 
-#: ../root/edit/search_macros.tt:436 ../root/edit/EditIndex.js:72
-#: ../root/edit/components/EditHeader.js:122
+#: ../root/edit/search_macros.tt:440 ../root/edit/EditIndex.js:76
+#: ../root/edit/components/EditHeader.js:123
 msgid "Vote tally"
 msgstr "Telling"
 
-#: ../root/edit/search_macros.tt:436 ../root/elections/ElectionVotes.js:22
+#: ../root/edit/search_macros.tt:440 ../root/elections/ElectionVotes.js:22
 msgid "Voter"
 msgstr "Stemmer"
 
-#: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:61
-#: ../root/user/UserProfile.js:677
+#: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:65
+#: ../root/user/UserProfile.js:689
 msgid "Votes"
 msgstr "Stemmen"
 
-#: ../root/edit/search_macros.tt:436
+#: ../root/edit/search_macros.tt:440
 msgid "Voting closed"
 msgstr "Stemmen gesloten"
 
@@ -3283,7 +3297,7 @@ msgstr ""
 msgid "Wiki"
 msgstr "Wiki"
 
-#: ../root/edit/search_macros.tt:436 ../lib/MusicBrainz/Server/Edit/Work.pm:9
+#: ../root/edit/search_macros.tt:440 ../lib/MusicBrainz/Server/Edit/Work.pm:9
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:42
 #: ../root/components/list/WorkList.js:51 ../root/edit/details/AddWork.js:28
 #: ../root/edit/details/EditWork.js:41 ../root/edit/details/RemoveIswc.js:27
@@ -3313,8 +3327,8 @@ msgstr "Details van de compositie"
 msgid "YYYY"
 msgstr "JJJJ"
 
-#: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:309
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:191
+#: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:311
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:211
 #: ../root/edit/components/Vote.js:72
 msgctxt "vote"
 msgid "Yes"
@@ -3369,7 +3383,7 @@ msgstr ""
 "Je hebt de speciale artiest {valink|Diverse Artiesten} gebruikt op deze "
 "opname."
 
-#: ../root/edit/search_macros.tt:427
+#: ../root/edit/search_macros.tt:431
 msgid "You must be logged in to use this option."
 msgstr "Je moet aangemeld zijn om deze optie te gebruiken."
 
@@ -3497,19 +3511,19 @@ msgctxt "event"
 msgid "cancelled"
 msgstr "afgelast"
 
-#: ../root/edit/search_macros.tt:352
+#: ../root/edit/search_macros.tt:356
 msgid "do not exist (edit has no notes)"
 msgstr "bestaat niet (bewerking heeft geen notities)"
 
-#: ../root/edit/search_macros.tt:352
+#: ../root/edit/search_macros.tt:356
 msgid "do not include"
 msgstr "zonder"
 
-#: ../root/edit/search_macros.tt:352
+#: ../root/edit/search_macros.tt:356
 msgid "do not include editors in my subscriptions"
 msgstr "zonder redacteuren waarop ik ben geabonneerd"
 
-#: ../root/edit/search_macros.tt:352
+#: ../root/edit/search_macros.tt:356
 msgid "do not include me"
 msgstr "zonder mij"
 
@@ -3517,7 +3531,7 @@ msgstr "zonder mij"
 msgid "do not match"
 msgstr "niet overeenkomend met"
 
-#: ../root/edit/search_macros.tt:382
+#: ../root/edit/search_macros.tt:386
 msgid "does not include"
 msgstr "zonder"
 
@@ -3562,27 +3576,27 @@ msgstr "historisch, {begin} – {end}"
 msgid "in an unspecified order (possibly faster)"
 msgstr "Ongesorteerd (mogelijk sneller)"
 
-#: ../root/edit/search_macros.tt:352
+#: ../root/edit/search_macros.tt:356
 msgid "include"
 msgstr "waaronder"
 
-#: ../root/edit/search_macros.tt:352
+#: ../root/edit/search_macros.tt:356
 msgid "include a beginner editor"
 msgstr "waaronder een beginnende redacteur"
 
-#: ../root/edit/search_macros.tt:352
+#: ../root/edit/search_macros.tt:356
 msgid "include an editor in my subscriptions"
 msgstr "waaronder een redacteur waarop ik ben geabonneerd"
 
-#: ../root/edit/search_macros.tt:352
+#: ../root/edit/search_macros.tt:356
 msgid "include me"
 msgstr "waaronder ikzelf"
 
-#: ../root/edit/search_macros.tt:352
+#: ../root/edit/search_macros.tt:356
 msgid "include someone other than the edit author"
 msgstr "waaronder iemand die de bewerking niet heeft gemaakt"
 
-#: ../root/edit/search_macros.tt:382
+#: ../root/edit/search_macros.tt:386
 msgid "includes"
 msgstr "bevat"
 
@@ -3596,13 +3610,13 @@ msgstr "info"
 #: ../root/edit/search_macros.tt:136 ../root/edit/search_macros.tt:153
 #: ../root/edit/search_macros.tt:195 ../root/edit/search_macros.tt:210
 #: ../root/edit/search_macros.tt:232 ../root/edit/search_macros.tt:250
-#: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:323
-#: ../root/edit/search_macros.tt:338 ../root/edit/search_macros.tt:363
-#: ../root/edit/search_macros.tt:397 ../root/edit/search_macros.tt:418
+#: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:327
+#: ../root/edit/search_macros.tt:342 ../root/edit/search_macros.tt:367
+#: ../root/edit/search_macros.tt:401 ../root/edit/search_macros.tt:422
 msgid "is"
 msgstr "is"
 
-#: ../root/edit/search_macros.tt:363
+#: ../root/edit/search_macros.tt:367
 msgid "is a beginner"
 msgstr "is een beginner"
 
@@ -3618,8 +3632,8 @@ msgstr "is voor"
 msgid "is between"
 msgstr "is tussen"
 
-#: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:323
-#: ../root/edit/search_macros.tt:363 ../root/edit/search_macros.tt:391
+#: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:327
+#: ../root/edit/search_macros.tt:367 ../root/edit/search_macros.tt:395
 msgid "is in my subscriptions"
 msgstr "is in mijn abonnementen"
 
@@ -3627,7 +3641,7 @@ msgstr "is in mijn abonnementen"
 msgid "is less than"
 msgstr "is minder dan"
 
-#: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:363
+#: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:367
 msgid "is me"
 msgstr "ben ik"
 
@@ -3639,22 +3653,22 @@ msgstr "is meer dan"
 #: ../root/edit/search_macros.tt:174 ../root/edit/search_macros.tt:195
 #: ../root/edit/search_macros.tt:210 ../root/edit/search_macros.tt:232
 #: ../root/edit/search_macros.tt:250 ../root/edit/search_macros.tt:273
-#: ../root/edit/search_macros.tt:323 ../root/edit/search_macros.tt:338
-#: ../root/edit/search_macros.tt:363 ../root/edit/search_macros.tt:397
-#: ../root/edit/search_macros.tt:418
+#: ../root/edit/search_macros.tt:327 ../root/edit/search_macros.tt:342
+#: ../root/edit/search_macros.tt:367 ../root/edit/search_macros.tt:401
+#: ../root/edit/search_macros.tt:422
 msgid "is not"
 msgstr "is niet"
 
-#: ../root/edit/search_macros.tt:363
+#: ../root/edit/search_macros.tt:367
 msgid "is not a beginner"
 msgstr "is geen beginner"
 
-#: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:323
-#: ../root/edit/search_macros.tt:363 ../root/edit/search_macros.tt:391
+#: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:327
+#: ../root/edit/search_macros.tt:367 ../root/edit/search_macros.tt:395
 msgid "is not in my subscriptions"
 msgstr "is niet in mijn abonnementen"
 
-#: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:363
+#: ../root/edit/search_macros.tt:273 ../root/edit/search_macros.tt:367
 msgid "is not me"
 msgstr "ben ik niet"
 
@@ -3988,11 +4002,11 @@ msgstr "Er is geen OAuth-token met deze parameters."
 msgid "The provided collection ID doesn’t exist."
 msgstr "De opgegeven collectie-ID bestaat niet."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:741
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:746
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Je kan een speciale artiest niet samenvoegen met een normale artiest."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:746
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:751
 msgid "You cannot merge into Deleted Artist"
 msgstr "Je kan een artiest niet met een verwijderde artiest samenvoegen"
 
@@ -4016,13 +4030,13 @@ msgstr "Geef een medium-ID op."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:94
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:215
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:455
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:457
 msgid "The provided medium ID is not valid."
 msgstr "De opgegeven medium-ID is niet geldig."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:100
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:228
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:461
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:463
 msgid "The provided medium ID doesn’t exist."
 msgstr "De opgegeven medium-ID bestaat niet."
 
@@ -4052,7 +4066,7 @@ msgstr ""
 "te voegen."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:236
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:468
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:470
 msgid "The selected medium cannot have disc IDs"
 msgstr "Het geselecteerde medium kan geen disc-ID’s hebben"
 
@@ -4060,7 +4074,7 @@ msgstr "Het geselecteerde medium kan geen disc-ID’s hebben"
 msgid "The provided artist id is not valid"
 msgstr "De ingevoerde artiest-ID is niet geldig"
 
-#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:441
+#: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:443
 msgid "The provided CD TOC ID doesn’t exist."
 msgstr "De opgegeven TOC van de cd bestaat niet."
 
@@ -4208,6 +4222,10 @@ msgstr "Geen afbeelding met de ID ‘{id}’ gevonden."
 msgctxt "generic entity"
 msgid "[unknown]"
 msgstr "[onbekend]"
+
+#: ../lib/MusicBrainz/Server/Controller/Role/Load.pm:96
+msgid "The provided relationship type ID is not valid."
+msgstr "De ingevoerde relatietype-ID is niet geldig."
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:99
 #, perl-brace-format
@@ -4388,7 +4406,7 @@ msgstr ""
 "Aangezien je bewerking die dit object toevoegt nog openstond, is die "
 "bewerking geannuleerd in plaats van een nieuwe bewerking te openen."
 
-#: ../lib/MusicBrainz/Server/Data/LinkType.pm:232
+#: ../lib/MusicBrainz/Server/Data/LinkType.pm:234
 #, perl-brace-format
 msgid "{t0}-{t1} relationships"
 msgstr "{t0}-{t1}-relaties"
@@ -4450,7 +4468,7 @@ msgstr ""
 "doordat de nummers of de opnamen op de uitgaven niet in dezelfde volgorde "
 "staan."
 
-#: ../lib/MusicBrainz/Server/Data/Vote.pm:174
+#: ../lib/MusicBrainz/Server/Data/Vote.pm:194
 msgid "Total"
 msgstr "Totaal"
 
@@ -5813,13 +5831,25 @@ msgctxt "event type"
 msgid "[none]"
 msgstr "[geen]"
 
-#: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:42
+#: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:46
 msgid "Videos only"
 msgstr "Alleen video’s"
 
-#: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:43
+#: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:47
 msgid "Non-videos only"
 msgstr "Alleen niet-video’s"
+
+#: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:53
+#, fuzzy
+#| msgid "Related works"
+msgid "Related to works"
+msgstr "Gerelateerde composities"
+
+#: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:54
+#, fuzzy
+#| msgid "Related works"
+msgid "Not related to works"
+msgstr "Gerelateerde composities"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:71
 msgctxt "release country"
@@ -6365,7 +6395,7 @@ msgstr ""
 #: ../root/static/scripts/account/components/EditProfileForm.js:226
 #: ../root/static/scripts/account/components/PreferencesForm.js:221
 #: ../root/static/scripts/account/components/RegisterForm.js:92
-#: ../root/user/UserProfile.js:181
+#: ../root/user/UserProfile.js:193
 msgid "Email"
 msgstr "E-mail"
 
@@ -6534,7 +6564,7 @@ msgid "Applications"
 msgstr "Applicaties"
 
 #: ../root/account/applications/ApplicationList.js:90
-#: ../root/user/UserProfile.js:294
+#: ../root/user/UserProfile.js:306
 msgid "Authorized applications"
 msgstr "Gemachtigde applicaties"
 
@@ -6580,7 +6610,7 @@ msgid "You have not authorized any applications."
 msgstr "Je hebt geen applicaties geautoriseerd."
 
 #: ../root/account/applications/ApplicationList.js:125
-#: ../root/user/UserProfile.js:308
+#: ../root/user/UserProfile.js:320
 msgid "Developer applications"
 msgstr "Applicaties voor ontwikkelaars"
 
@@ -6976,6 +7006,7 @@ msgstr "Er zijn momenteel geen gebruikers in dit gebied."
 #: ../root/area/AreaWorks.js:20 ../root/artist/ArtistWorks.js:32
 #: ../root/artist/ArtistWorks.js:33 ../root/components/EntityTabs.js:35
 #: ../root/components/TagEntitiesList.js:192 ../root/report/ReportsIndex.js:579
+#: ../root/static/scripts/common/components/FilterForm.js:235
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:39
 #: ../root/tag/TagLayout.js:21
 msgid "Works"
@@ -6993,97 +7024,97 @@ msgstr "Geen evenementen gevonden die aan deze zoekopdracht voldoen."
 msgid "This artist is not currently associated with any events."
 msgstr "Deze artiest is momenteel niet gekoppeld aan evenementen."
 
-#: ../root/artist/ArtistIndex.js:57
+#: ../root/artist/ArtistIndex.js:60
 msgid "Show official release groups"
 msgstr "Alle officiële uitgavegroepen weergeven"
 
-#: ../root/artist/ArtistIndex.js:64
+#: ../root/artist/ArtistIndex.js:70
 msgid "Show all release groups"
 msgstr "Alle uitgavegroepen weergeven"
 
-#: ../root/artist/ArtistIndex.js:71
+#: ../root/artist/ArtistIndex.js:80
 msgid "Show official various artist release groups"
 msgstr "Officiële uitgavegroepen van diverse artiesten weergeven"
 
-#: ../root/artist/ArtistIndex.js:78
+#: ../root/artist/ArtistIndex.js:90
 msgid "Show all various artist release groups"
 msgstr "Alle uitgavegroepen van diverse artiesten weergeven"
 
-#: ../root/artist/ArtistIndex.js:107
+#: ../root/artist/ArtistIndex.js:119
 msgid "This artist only has unofficial release groups by various artists."
 msgstr ""
 "De artiest heeft alleen onofficiële uitgavegroepen van diverse artiesten."
 
-#: ../root/artist/ArtistIndex.js:113
+#: ../root/artist/ArtistIndex.js:125
 msgid "Showing all release groups for various artists"
 msgstr "Alle uitgavegroepen van diverse artiesten worden weergegeven"
 
-#: ../root/artist/ArtistIndex.js:114
+#: ../root/artist/ArtistIndex.js:126
 msgid "This artist does not have any various artists release groups"
 msgstr "De artiest heeft geen uitgavegroepen van diverse artiesten"
 
-#: ../root/artist/ArtistIndex.js:123
+#: ../root/artist/ArtistIndex.js:135
 msgid "This artist only has release groups by various artists."
 msgstr "Deze artiest heeft alleen uitgavegroepen van diverse artiesten."
 
-#: ../root/artist/ArtistIndex.js:127
+#: ../root/artist/ArtistIndex.js:139
 msgid "Showing official release groups for various artists"
 msgstr "Officiële uitgavegroepen van diverse artiesten worden weergegeven"
 
-#: ../root/artist/ArtistIndex.js:135
+#: ../root/artist/ArtistIndex.js:147
 msgid "This artist only has unofficial release groups."
 msgstr "Deze artiest heeft alleen onofficiële uitgavegroepen."
 
-#: ../root/artist/ArtistIndex.js:139
+#: ../root/artist/ArtistIndex.js:151
 msgid "Showing all release groups by this artist"
 msgstr "Alle uitgavegroepen van deze artiest worden weergegeven"
 
-#: ../root/artist/ArtistIndex.js:150
+#: ../root/artist/ArtistIndex.js:162
 msgid "Showing official release groups by this artist"
 msgstr "Officiële uitgavegroepen van deze artiest worden weergegeven"
 
-#: ../root/artist/ArtistIndex.js:199
+#: ../root/artist/ArtistIndex.js:212
 msgid "Performance name of"
 msgstr "Artiestennaam van"
 
-#: ../root/artist/ArtistIndex.js:207
+#: ../root/artist/ArtistIndex.js:220
 msgid "Legal name"
 msgstr "Officiële naam"
 
-#: ../root/artist/ArtistIndex.js:213 ../root/label/LabelIndex.js:53
+#: ../root/artist/ArtistIndex.js:226 ../root/label/LabelIndex.js:53
 msgid "Previously known as"
 msgstr "Oude naam"
 
-#: ../root/artist/ArtistIndex.js:220 ../root/label/LabelIndex.js:60
+#: ../root/artist/ArtistIndex.js:233 ../root/label/LabelIndex.js:60
 msgid "Renamed to"
 msgstr "Hernoemd naar"
 
-#: ../root/artist/ArtistIndex.js:228
+#: ../root/artist/ArtistIndex.js:241
 msgid "Also performs as"
 msgstr "Treedt ook op als"
 
-#: ../root/artist/ArtistIndex.js:242
+#: ../root/artist/ArtistIndex.js:255
 msgid "Discography"
 msgstr "Discografie"
 
-#: ../root/artist/ArtistIndex.js:263
+#: ../root/artist/ArtistIndex.js:278
 #: ../root/release_group/ReleaseGroupMerge.js:24
 #: ../root/release_group/ReleaseGroupMerge.js:26
 msgid "Merge release groups"
 msgstr "Uitgavegroepen samenvoegen"
 
-#: ../root/artist/ArtistIndex.js:283 ../root/artist/ArtistRecordings.js:144
+#: ../root/artist/ArtistIndex.js:298 ../root/artist/ArtistRecordings.js:144
 #: ../root/instrument/InstrumentRecordings.js:52 ../root/isrc/Index.js:94
 msgid "Add selected recordings for merging"
 msgstr "Geselecteerde opnamen samenvoegen"
 
-#: ../root/artist/ArtistIndex.js:292
+#: ../root/artist/ArtistIndex.js:307
 msgid "This artist has no release groups, only standalone recordings."
 msgstr "Deze artiest heeft geen uitgavegroepen, alleen losse opnamen."
 
-#: ../root/artist/ArtistIndex.js:296
-msgid "No results found that match this search."
-msgstr "Geen resultaten voor deze zoekopdracht gevonden."
+#: ../root/artist/ArtistIndex.js:313
+msgid "No release groups found that match this search."
+msgstr "Geen uitgavegroepen gevonden die aan deze zoekopdracht voldoen."
 
 #: ../root/artist/ArtistMerge.js:23 ../root/artist/ArtistMerge.js:25
 msgid "Merge artists"
@@ -7651,7 +7682,7 @@ msgstr ""
 "Je staat op het punt om een bewerking toe te voegen die de duur van de "
 "nummers verandert zodat ze overeenkomen met de onderstaande disc-ID."
 
-#: ../root/cdtoc/SetTracklistDurations.js:50 ../root/edit/EditIndex.js:49
+#: ../root/cdtoc/SetTracklistDurations.js:50 ../root/edit/EditIndex.js:53
 msgid "Changes"
 msgstr "Bewerkingen"
 
@@ -7681,8 +7712,8 @@ msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "Bewerken"
 
-#: ../root/collection/CollectionIndex.js:204 ../root/user/UserProfile.js:331
-#: ../root/user/UserProfile.js:392
+#: ../root/collection/CollectionIndex.js:204 ../root/user/UserProfile.js:343
+#: ../root/user/UserProfile.js:404
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
@@ -8059,7 +8090,7 @@ msgstr "Recensies"
 
 #: ../root/components/EntityTabs.js:158
 #: ../root/components/UserAccountTabs.js:71 ../root/entity/Ratings.js:45
-#: ../root/user/UserProfile.js:831 ../root/user/UserRatingList.js:42
+#: ../root/user/UserProfile.js:843 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
 msgstr "Waarderingen"
@@ -8105,13 +8136,9 @@ msgstr "Relaties voor ‘{link_phrase}’"
 msgid "Invalid relationship type"
 msgstr "Ongeldig relatietype"
 
-#: ../root/components/RelationshipsTable.js:351
+#: ../root/components/RelationshipsTable.js:350
 msgid "No relationships of the selected type were found."
 msgstr "Er zijn geen relaties met het geselecteerde type gevonden."
-
-#: ../root/components/RelationshipsTable.js:352
-msgid "The provided relationship type ID is not valid."
-msgstr "De ingevoerde relatietype-ID is niet geldig."
 
 #: ../root/components/ReleaseLanguageScript.js:20
 #: ../root/components/ReleaseLanguageScript.js:26
@@ -8234,7 +8261,7 @@ msgstr "Abonnementen"
 #: ../root/entity/Subscribers.js:45
 #: ../root/layout/components/sidebar/CollectionSidebar.js:120
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:52
-#: ../root/user/UserProfile.js:341
+#: ../root/user/UserProfile.js:353
 msgid "Subscribers"
 msgstr "Abonnees"
 
@@ -8295,7 +8322,7 @@ msgid "Time"
 msgstr "Tijdstip"
 
 #: ../root/components/list/EventList.js:96
-#: ../root/static/scripts/common/components/FilterForm.js:371
+#: ../root/static/scripts/common/components/FilterForm.js:393
 msgid "Role"
 msgstr "Rol"
 
@@ -8415,7 +8442,7 @@ msgstr ""
 "Weet je zeker dat je bewerking #{n} wil annuleren? Dit kan niet ongedaan "
 "worden gemaakt!"
 
-#: ../root/edit/CancelEdit.js:37 ../root/edit/EditIndex.js:52
+#: ../root/edit/CancelEdit.js:37 ../root/edit/EditIndex.js:56
 #: ../root/edit/components/ListEdit.js:46
 #: ../root/edit/details/historic/RemoveRelationship.js:32
 msgid "An error occurred while loading this edit."
@@ -8478,7 +8505,7 @@ msgid "You’re not currently allowed to vote, please read the banner."
 msgstr "Je mag nu niet stemmen; lees de mededeling bovenaan de pagina."
 
 #: ../root/edit/DeleteNote.js:27 ../root/edit/DeleteNote.js:28
-#: ../root/edit/components/EditNote.js:140
+#: ../root/edit/components/EditNote.js:145
 msgid "Remove edit note"
 msgstr "Bewerkingsnotitie verwijderen"
 
@@ -8524,27 +8551,37 @@ msgstr ""
 msgid "View the human-readable rendering instead."
 msgstr "Bekijk in plaats hiervan de door mensen leesbare weergave."
 
-#: ../root/edit/EditIndex.js:45
+#: ../root/edit/EditIndex.js:49
 msgid "Edit #{id}"
 msgstr "Bewerking #{id}"
 
-#: ../root/edit/EditIndex.js:54
+#: ../root/edit/EditIndex.js:58
 msgid "Raw edit data may be available."
 msgstr "Onbewerkte bewerkingsgegevens zijn mogelijk beschikbaar."
 
-#: ../root/edit/EditIndex.js:79
+#: ../root/edit/EditIndex.js:83
 msgid "My vote:"
 msgstr "Mijn stem:"
 
-#: ../root/edit/EditIndex.js:118
+#: ../root/edit/EditIndex.js:122
 msgid "You are not currently able to vote on this edit. ({url|Details})"
 msgstr "Je kan momenteel niet op deze bewerking stemmen. ({url|Details})"
 
-#: ../root/edit/EditIndex.js:128
+#: ../root/edit/EditIndex.js:137 ../root/edit/EditIndex.js:157
+#: ../root/edit/components/EditSummary.js:87
+msgid "Accept edit"
+msgstr "Bewerking accepteren"
+
+#: ../root/edit/EditIndex.js:142 ../root/edit/EditIndex.js:162
+#: ../root/edit/components/EditSummary.js:93
+msgid "Reject edit"
+msgstr "Bewerking verwerpen"
+
+#: ../root/edit/EditIndex.js:149
 msgid "Testing features"
 msgstr "Testfuncties"
 
-#: ../root/edit/EditIndex.js:130
+#: ../root/edit/EditIndex.js:151
 msgid ""
 "To aid in testing, the following features have been made available on "
 "testing servers:"
@@ -8552,37 +8589,29 @@ msgstr ""
 "Om het testen te vergemakkelijken zijn de volgende mogelijkheden beschikbaar "
 "gemaakt op testservers:"
 
-#: ../root/edit/EditIndex.js:136 ../root/edit/components/EditSummary.js:87
-msgid "Accept edit"
-msgstr "Bewerking accepteren"
-
-#: ../root/edit/EditIndex.js:141 ../root/edit/components/EditSummary.js:93
-msgid "Reject edit"
-msgstr "Bewerking verwerpen"
-
-#: ../root/edit/EditIndex.js:149
+#: ../root/edit/EditIndex.js:171
 msgid "You must be logged in to vote on edits."
 msgstr "Je moet aangemeld zijn om op bewerkingen te stemmen."
 
-#: ../root/edit/EditIndex.js:155
+#: ../root/edit/EditIndex.js:177
 msgctxt "noun"
 msgid "Edit notes"
 msgstr "Bewerkingsnotities"
 
-#: ../root/edit/EditIndex.js:160 ../root/edit/components/Vote.js:98
+#: ../root/edit/EditIndex.js:182 ../root/edit/components/Vote.js:98
 msgid "Submit vote and note"
 msgstr "Notitie toevoegen en stem uitbrengen"
 
-#: ../root/edit/EditIndex.js:162
+#: ../root/edit/EditIndex.js:184
 msgid "Submit note"
 msgstr "Notitie toevoegen"
 
-#: ../root/edit/EditIndex.js:167
+#: ../root/edit/EditIndex.js:189
 msgid "You must be logged in to see edit notes."
 msgstr "Je moet aangemeld zijn om bewerkingsnotities te bekijken."
 
 #: ../root/edit/ModifyNote.js:31 ../root/edit/ModifyNote.js:32
-#: ../root/edit/components/EditNote.js:135
+#: ../root/edit/components/EditNote.js:140
 msgid "Modify edit note"
 msgstr "Bewerkingsnotitie bewerken"
 
@@ -8690,50 +8719,50 @@ msgstr "We kunnen de geschiedenis van deze afbeelding niet laten zien."
 msgid "Edit #{id} - {name}"
 msgstr "Bewerking #{id} – {name}"
 
-#: ../root/edit/components/EditHeader.js:72
+#: ../root/edit/components/EditHeader.js:73
 msgid "Edit by {editor}"
 msgstr "Bewerking door {editor}"
 
-#: ../root/edit/components/EditHeader.js:80
+#: ../root/edit/components/EditHeader.js:81
 msgid "Editor hidden"
 msgstr "Redacteur verborgen"
 
-#: ../root/edit/components/EditHeader.js:86
+#: ../root/edit/components/EditHeader.js:87
 msgid "log in to see who"
 msgstr "meld je aan om de redacteur te zien"
 
-#: ../root/edit/components/EditHeader.js:101
+#: ../root/edit/components/EditHeader.js:102
 msgid "Their vote: "
 msgstr "Hun stem: "
 
-#: ../root/edit/components/EditHeader.js:108
+#: ../root/edit/components/EditHeader.js:109
 msgid "My vote: "
 msgstr "Mijn stem: "
 
-#: ../root/edit/components/EditHeader.js:112
+#: ../root/edit/components/EditHeader.js:113
 msgid "N/A"
 msgstr "Geen"
 
-#: ../root/edit/components/EditHeader.js:113 ../root/edit/components/Vote.js:93
+#: ../root/edit/components/EditHeader.js:114 ../root/edit/components/Vote.js:93
 msgctxt "vote"
 msgid "None"
 msgstr "Geen"
 
-#: ../root/edit/components/EditHeader.js:135
+#: ../root/edit/components/EditHeader.js:136
 #: ../root/edit/components/EditSidebar.js:47 ../root/elections/Show.js:28
 msgid "Voting"
 msgstr "Stemming"
 
-#: ../root/edit/components/EditHeader.js:143
+#: ../root/edit/components/EditHeader.js:144
 msgid "Approved"
 msgstr "Goedgekeurd"
 
-#: ../root/edit/components/EditHeader.js:171
+#: ../root/edit/components/EditHeader.js:172
 #: ../root/edit/components/EditSummary.js:67
 msgid "Approve edit"
 msgstr "Direct goedkeuren"
 
-#: ../root/edit/components/EditHeader.js:179
+#: ../root/edit/components/EditHeader.js:180
 #: ../root/edit/components/EditSummary.js:76
 msgid "Cancel edit"
 msgstr "Bewerking annuleren"
@@ -8755,50 +8784,50 @@ msgstr[1] "{n} bewerkingen gevonden"
 msgid "Submit votes & edit notes"
 msgstr "Stemmen uitbrengen en notities indienen"
 
-#: ../root/edit/components/EditNote.js:152
+#: ../root/edit/components/EditNote.js:157
 msgid "[time missing]"
 msgstr "[duur ontbreekt]"
 
-#: ../root/edit/components/EditNote.js:161
+#: ../root/edit/components/EditNote.js:166
 msgid "This edit note was removed by its author. Reason given: “{reason}”."
 msgstr ""
 "Deze bewerkingsnotitie is door haar auteur verwijderd. Gegeven reden: "
 "“{reason}”."
 
-#: ../root/edit/components/EditNote.js:166
+#: ../root/edit/components/EditNote.js:171
 msgid "This edit note was removed by its author. No reason was provided."
 msgstr ""
 "Deze bewerkingsnotitie is door haar auteur verwijderd. Er is geen reden "
 "gegeven."
 
-#: ../root/edit/components/EditNote.js:172
+#: ../root/edit/components/EditNote.js:177
 msgid "This edit note was removed by an admin. Reason given: “{reason}”."
 msgstr ""
 "Deze bewerkingsnotitie is door een beheerder verwijderd. Gegeven reden: "
 "“{reason}”."
 
-#: ../root/edit/components/EditNote.js:177
+#: ../root/edit/components/EditNote.js:182
 msgid "This edit note was removed by an admin. No reason was provided."
 msgstr ""
 "Deze bewerkingsnotitie is door een beheerder verwijderd. Er is geen reden "
 "gegeven."
 
-#: ../root/edit/components/EditNote.js:204
+#: ../root/edit/components/EditNote.js:209
 msgid "Last modified by the note author ({time}). Reason given: “{reason}”."
 msgstr ""
 "Laatste aanpassing door de auteur van de notitie ({time}). Gegeven reden: "
 "“{reason}”."
 
-#: ../root/edit/components/EditNote.js:213
+#: ../root/edit/components/EditNote.js:218
 msgid "Last modified by the note author ({time})."
 msgstr "Laatste aanpassing door de auteur van de notitie ({time})."
 
-#: ../root/edit/components/EditNote.js:220
+#: ../root/edit/components/EditNote.js:225
 msgid "Last modified by an admin ({time}). Reason given: “{reason}”."
 msgstr ""
 "Laatste aanpassing door een beheerder ({time}). Gegeven reden: “{reason}”."
 
-#: ../root/edit/components/EditNote.js:229
+#: ../root/edit/components/EditNote.js:234
 msgid "Last modified by an admin ({time})."
 msgstr "Laatste aanpassing door een beheerder ({time})."
 
@@ -8865,7 +8894,7 @@ msgctxt "interactive"
 msgid "Add note"
 msgstr "Notitie toevoegen"
 
-#: ../root/edit/components/EditorTypeInfo.js:25 ../root/user/UserProfile.js:108
+#: ../root/edit/components/EditorTypeInfo.js:25 ../root/user/UserProfile.js:120
 msgid "This user is new to MusicBrainz."
 msgstr "Deze gebruiker is nieuw op MusicBrainz."
 
@@ -9294,7 +9323,7 @@ msgstr "[verwijderd]"
 
 #: ../root/edit/details/EditArtistCredit.js:22
 #: ../root/report/components/ArtistCreditList.js:25
-#: ../root/static/scripts/common/components/FilterForm.js:123
+#: ../root/static/scripts/common/components/FilterForm.js:125
 msgid "Artist credit"
 msgstr "Artiestvermelding"
 
@@ -10675,7 +10704,7 @@ msgstr "Beleid voor gegevens verwijderen"
 msgid "Privileged user accounts"
 msgstr "Geprivilegieerde gebruikers"
 
-#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:554
+#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:566
 msgid "Statistics"
 msgstr "Statistieken"
 
@@ -14300,11 +14329,11 @@ msgstr "(losse opname)"
 msgid "Alternatively, you may {uri|add a new recording}."
 msgstr "Je kan ook {uri|een nieuwe opname toevoegen}."
 
-#: ../root/search/components/ReleaseGroupResults.js:87
+#: ../root/search/components/ReleaseGroupResults.js:85
 msgid "Alternatively, you may {uri|add a new release group}."
 msgstr "Je kan ook {uri|een nieuwe uitgavegroep toevoegen}."
 
-#: ../root/search/components/ReleaseResults.js:160
+#: ../root/search/components/ReleaseResults.js:158
 msgid "Alternatively, you may {uri|add a new release}."
 msgstr "Je kan ook {uri|een nieuwe uitgave toevoegen}."
 
@@ -14450,7 +14479,7 @@ msgid "Website"
 msgstr "Website"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:253
-#: ../root/user/UserProfile.js:267
+#: ../root/user/UserProfile.js:279
 msgctxt "user area"
 msgid "Location"
 msgstr "Locatie"
@@ -14476,7 +14505,7 @@ msgstr ""
 "tonen."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:297
-#: ../root/user/UserProfile.js:385
+#: ../root/user/UserProfile.js:397
 msgid "Bio"
 msgstr "Bio"
 
@@ -15002,7 +15031,7 @@ msgstr "laat {n} meer zien"
 msgid "show less"
 msgstr "laat minder zien"
 
-#: ../root/static/scripts/common/components/CommonsImage.js:47
+#: ../root/static/scripts/common/components/CommonsImage.js:53
 msgid "Image from Wikimedia Commons"
 msgstr "Afbeelding van Wikimedia Commons"
 
@@ -15058,43 +15087,43 @@ msgstr ""
 "Lage kwaliteit: de uitgave heeft nog veel werk nodig, of het bestaan ervan "
 "is moeilijk te bewijzen (maar het tegendeel ook)"
 
-#: ../root/static/scripts/common/components/Filter.js:59
+#: ../root/static/scripts/common/components/Filter.js:64
 msgid "Filter"
 msgstr "Filter"
 
-#: ../root/static/scripts/common/components/FilterForm.js:103
+#: ../root/static/scripts/common/components/FilterForm.js:105
 msgid "Filter events"
 msgstr "Evenementen filteren"
 
-#: ../root/static/scripts/common/components/FilterForm.js:105
+#: ../root/static/scripts/common/components/FilterForm.js:107
 msgid "Filter recordings"
 msgstr "Opnamen filteren"
 
-#: ../root/static/scripts/common/components/FilterForm.js:107
+#: ../root/static/scripts/common/components/FilterForm.js:109
 msgid "Filter releases"
 msgstr "Uitgaven filteren"
 
-#: ../root/static/scripts/common/components/FilterForm.js:109
+#: ../root/static/scripts/common/components/FilterForm.js:111
 msgid "Filter release groups"
 msgstr "Uitgavegroepen filteren"
 
-#: ../root/static/scripts/common/components/FilterForm.js:111
+#: ../root/static/scripts/common/components/FilterForm.js:113
 msgid "Filter works"
 msgstr "Composities filteren"
 
-#: ../root/static/scripts/common/components/FilterForm.js:190
+#: ../root/static/scripts/common/components/FilterForm.js:196
 msgid "Setlist contains"
 msgstr "De speellijst bevat"
 
-#: ../root/static/scripts/common/components/FilterForm.js:229
+#: ../root/static/scripts/common/components/FilterForm.js:251
 msgid "Hide recordings that only appear on bootleg releases"
 msgstr "Verberg opnamen die alleen op bootlegs staan"
 
-#: ../root/static/scripts/common/components/FilterForm.js:232
+#: ../root/static/scripts/common/components/FilterForm.js:254
 msgid "Hide bootleg-only"
 msgstr "Verberg alleen-bootlegopnamen"
 
-#: ../root/static/scripts/common/components/FilterForm.js:330
+#: ../root/static/scripts/common/components/FilterForm.js:352
 msgid "Secondary type"
 msgstr "Secundair type"
 
@@ -15324,15 +15353,15 @@ msgctxt "audio file metadata"
 msgid "Open in tagger"
 msgstr "In de tagger openen"
 
-#: ../root/static/scripts/common/components/WikipediaExtract.js:64
+#: ../root/static/scripts/common/components/WikipediaExtract.js:69
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
-#: ../root/static/scripts/common/components/WikipediaExtract.js:70
+#: ../root/static/scripts/common/components/WikipediaExtract.js:75
 msgid "Continue reading at Wikipedia..."
 msgstr "Lees verder op Wikipedia …"
 
-#: ../root/static/scripts/common/components/WikipediaExtract.js:75
+#: ../root/static/scripts/common/components/WikipediaExtract.js:80
 msgid ""
 "Wikipedia content provided under the terms of the {license_link|Creative "
 "Commons BY-SA license}"
@@ -15480,7 +15509,7 @@ msgstr "Beëindigd"
 msgid "Began:"
 msgstr "Begonnen:"
 
-#: ../root/static/scripts/edit/URLCleanup.js:386
+#: ../root/static/scripts/edit/URLCleanup.js:387
 msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
@@ -15489,7 +15518,7 @@ msgstr ""
 "specifieke video. Video’s moeten aan de bijbehorende opnamen of uitgaven "
 "worden gekoppeld."
 
-#: ../root/static/scripts/edit/URLCleanup.js:392
+#: ../root/static/scripts/edit/URLCleanup.js:393
 msgid ""
 "This is a link to a search result. Please link to any page in the results "
 "that is relevant to this entity instead, if available."
@@ -15497,7 +15526,7 @@ msgstr ""
 "Dit is een link naar een zoekresultaat. Als een van de gevonden pagina’s "
 "voor dit object relevant is, kan je beter die link toevoegen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:397
+#: ../root/static/scripts/edit/URLCleanup.js:398
 msgid ""
 "Please link to a specific video. Add channel pages to the relevant artist, "
 "label, etc. instead."
@@ -15505,7 +15534,7 @@ msgstr ""
 "Voeg een link naar een specifieke video toe. Kanalen moeten aan de relevante "
 "artiest, platenmaatschappij etc. worden gekoppeld."
 
-#: ../root/static/scripts/edit/URLCleanup.js:402
+#: ../root/static/scripts/edit/URLCleanup.js:403
 msgid ""
 "This is a lyrics site. As such, links to the site should be added at the "
 "release group level with the “lyrics” relationship, rather than directly to "
@@ -15515,7 +15544,7 @@ msgstr ""
 "tekstrelatie op het niveau van de uitgavegroep worden toegevoegd in plaats "
 "van aan een specifieke uitgave."
 
-#: ../root/static/scripts/edit/URLCleanup.js:572
+#: ../root/static/scripts/edit/URLCleanup.js:573
 msgid ""
 "Allmusic “{album_url_pattern}” links should be added to release groups. To "
 "find the appropriate release link for this release, please check the "
@@ -15525,11 +15554,11 @@ msgstr ""
 "toegevoegd. Je kan de juiste link voor deze uitgave vinden in het tabblad "
 "“Releases” op {album_url|de pagina die je wilde toevoegen}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:651
-#: ../root/static/scripts/edit/URLCleanup.js:910
-#: ../root/static/scripts/edit/URLCleanup.js:4285
-#: ../root/static/scripts/edit/URLCleanup.js:5353
-#: ../root/static/scripts/edit/URLCleanup.js:5912
+#: ../root/static/scripts/edit/URLCleanup.js:652
+#: ../root/static/scripts/edit/URLCleanup.js:911
+#: ../root/static/scripts/edit/URLCleanup.js:4309
+#: ../root/static/scripts/edit/URLCleanup.js:5377
+#: ../root/static/scripts/edit/URLCleanup.js:5936
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -15537,7 +15566,7 @@ msgstr ""
 "Dit is een omleidings-URL. Volg {redirect_url|je link} en voer het doeladres "
 "in."
 
-#: ../root/static/scripts/edit/URLCleanup.js:669
+#: ../root/static/scripts/edit/URLCleanup.js:670
 msgid ""
 "This is a link to a user video and should not be added. Please add the "
 "product link instead, if relevant."
@@ -15545,7 +15574,7 @@ msgstr ""
 "Dit is een link naar een video van een gebruiker, en moet niet worden "
 "toegevoegd. Voeg de productlink toe als die relevant is."
 
-#: ../root/static/scripts/edit/URLCleanup.js:870
+#: ../root/static/scripts/edit/URLCleanup.js:871
 msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
@@ -15553,7 +15582,7 @@ msgstr ""
 "Alleen Apple Books-luisterboeken kunnen aan MusicBrainz worden toegevoegd. "
 "Je kan boeken wel aan {bookbrainz_url|BookBrainz} toevoegen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1118
+#: ../root/static/scripts/edit/URLCleanup.js:1119
 msgid ""
 "Please do not add “{blocked_url_pattern}” links, link to the appropriate "
 "“{wanted_url_pattern}” page instead."
@@ -15561,7 +15590,7 @@ msgstr ""
 "Voeg geen link naar “{blocked_url_pattern}” toe; gebruik de relevante pagina "
 "in de vorm “{wanted_url_pattern}”."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1138
+#: ../root/static/scripts/edit/URLCleanup.js:1139
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
@@ -15569,14 +15598,14 @@ msgstr ""
 "Voeg een link naar de hoofdpagina van de artiest toe in plaats van een "
 "specifiek album of nummer."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1158
+#: ../root/static/scripts/edit/URLCleanup.js:1159
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr ""
 "Voeg een link naar de hoofdpagina van de platenmaatschappij toe in plaats "
 "van een specifiek album of nummer."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1180
+#: ../root/static/scripts/edit/URLCleanup.js:1181
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -15590,7 +15619,7 @@ msgstr ""
 "({single_url_pattern}) toe. Je kan dit profiel wel aan de bijbehorende "
 "platenmaatschappij of artiest toevoegen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1208
+#: ../root/static/scripts/edit/URLCleanup.js:1209
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -15604,19 +15633,19 @@ msgstr ""
 "({album_url_pattern} of {single_url_pattern}) toe. Je kan dit profiel wel "
 "aan de bijbehorende platenmaatschappij of artiest toevoegen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1542
+#: ../root/static/scripts/edit/URLCleanup.js:1543
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 "Voeg een link naar de hoofdpagina van de artiest toe in plaats van een "
 "specifiek product."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1544
+#: ../root/static/scripts/edit/URLCleanup.js:1545
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 "Voer een link naar de hoofdpagina van de platenmaatschappij toe in plaats "
 "van een specifiek product."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2272
+#: ../root/static/scripts/edit/URLCleanup.js:2296
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
@@ -15625,7 +15654,7 @@ msgstr ""
 "verschillende uitgaven worden gegroepeerd, dus deze link moet aan de "
 "uitgavegroep worden toegevoegd."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2992
+#: ../root/static/scripts/edit/URLCleanup.js:3016
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
@@ -15633,7 +15662,7 @@ msgstr ""
 "Alleen IMSLP-links met de vorm “{category_url_pattern}” mogen aan artiesten "
 "worden toegevoegd. Koppel compositiepagina’s aan de specifieke compositie."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3010
+#: ../root/static/scripts/edit/URLCleanup.js:3034
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
@@ -15641,7 +15670,7 @@ msgstr ""
 "IMSLP-links met de vorm “{category_url_pattern}” mogen alleen aan artiesten "
 "worden toegevoegd. Koppel de compositiepagina aan de specifieke compositie."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3052
+#: ../root/static/scripts/edit/URLCleanup.js:3076
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
@@ -15649,7 +15678,7 @@ msgstr ""
 "Instagram-links met de vorm “{explore_url_pattern}” zijn niet toegestaan. Je "
 "kan eventueel een link naar een profiel toevoegen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3080
+#: ../root/static/scripts/edit/URLCleanup.js:3104
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
@@ -15659,11 +15688,11 @@ msgstr ""
 "relevante Instagram-profielpagina. Als je een link naar een video wil "
 "toevoegen, moet je {url|een losse opname toevoegen}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3105
+#: ../root/static/scripts/edit/URLCleanup.js:3129
 msgid "This is an internal Instagram page and should not be added."
 msgstr "Dit is een interne Instagram-pagina en moet niet worden toegevoegd."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4185
+#: ../root/static/scripts/edit/URLCleanup.js:4209
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
@@ -15673,11 +15702,11 @@ msgstr ""
 "MusicBrainz-uitgavegroepen, dus deze koppeling is nu niet toegestaan. Je kan "
 "Musixmatch-pagina’s wel aan relevante artiesten en composities koppelen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4865
+#: ../root/static/scripts/edit/URLCleanup.js:4889
 msgid "Only RYM music videos can be linked to recordings."
 msgstr "Alleen RYM-videoclips kunnen aan opnamen worden gekoppeld."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4930
+#: ../root/static/scripts/edit/URLCleanup.js:4954
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
@@ -15687,29 +15716,29 @@ msgstr ""
 "link} controleer of de link waarnaar wordt doorverwezen nog steeds klopt, en "
 "voeg vervolgens die link toe."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5530
+#: ../root/static/scripts/edit/URLCleanup.js:5554
 msgid "Please link to Threads profiles, not threads."
 msgstr "Link naar Threads-profielen, niet naar draadjes op Threads."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5654
+#: ../root/static/scripts/edit/URLCleanup.js:5678
 msgid "Please link to TikTok profiles, not videos."
 msgstr "Link naar TikTok-profielen, niet naar video’s."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5932
+#: ../root/static/scripts/edit/URLCleanup.js:5956
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr "Dit is geen openbaar profiel, maar een documentatiepagina van Twitter."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5946
+#: ../root/static/scripts/edit/URLCleanup.js:5970
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 "Voeg alleen links naar Twitter-profielen toe, en niet naar afzonderlijke "
 "berichten."
 
-#: ../root/static/scripts/edit/URLCleanup.js:5964
+#: ../root/static/scripts/edit/URLCleanup.js:5988
 msgid "This site does not allow direct links to their images."
 msgstr "Deze website staat geen rechtstreekse links naar afbeeldingen toe."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6161
+#: ../root/static/scripts/edit/URLCleanup.js:6185
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
@@ -15717,7 +15746,7 @@ msgstr ""
 "Link de pagina “{allowed_url_pattern}” in plaats van deze link "
 "“{current_url_pattern}”."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6332
+#: ../root/static/scripts/edit/URLCleanup.js:6356
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
@@ -15727,7 +15756,7 @@ msgstr ""
 "bepalen of het teken overbodig is en moet worden verwijderd, of dat de URL "
 "verkeerd is gecodeerd."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6352
+#: ../root/static/scripts/edit/URLCleanup.js:6376
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
@@ -15736,22 +15765,22 @@ msgstr ""
 "“{unwanted_url_pattern}” toevoegen. Gebruik in plaats daarvan de WhoSampled-"
 "pagina’s voor artiesten, nummers of uitgaven."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6373
+#: ../root/static/scripts/edit/URLCleanup.js:6397
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 "Je kan WhoSampled-pagina’s met de vorm “{album_url_pattern}” alleen aan "
 "uitgavegroepen koppelen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6391
+#: ../root/static/scripts/edit/URLCleanup.js:6415
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 "Je kan WhoSampled-pagina’s voor artiesten alleen aan artiesten toevoegen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6403
+#: ../root/static/scripts/edit/URLCleanup.js:6427
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "Je kan WhoSampled-pagina’s over nummers alleen aan opnamen koppelen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6463
+#: ../root/static/scripts/edit/URLCleanup.js:6487
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
@@ -15760,7 +15789,7 @@ msgstr ""
 "Verwijder ‘{fragment}’ of verwijder de link als de hele pagina niet relevant "
 "is voor dit object. Zie onze {url|richtlijnen}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6488
+#: ../root/static/scripts/edit/URLCleanup.js:6512
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
@@ -15768,7 +15797,7 @@ msgstr ""
 "Links naar Wikipedia-gebruikerspagina’s zijn niet toegestaan. Link alleen "
 "naar Wikipedia-artikelen."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6644
+#: ../root/static/scripts/edit/URLCleanup.js:6668
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
@@ -15778,13 +15807,13 @@ msgstr ""
 "officieel goedgekeurd. Voeg in plaats van deze link een link naar het "
 "officiële kanaal van dit object toe, als dat bestaat."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6684
+#: ../root/static/scripts/edit/URLCleanup.js:6708
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 "Alleen links naar video’s en speellijsten mogen aan uitgaven worden "
 "toegevoegd."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6729
+#: ../root/static/scripts/edit/URLCleanup.js:6753
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
@@ -15792,7 +15821,7 @@ msgstr ""
 "Dit is een link naar een uitgave (afspeellijst), niet een kanaal van een "
 "artiest. Link naar het kanaal van de artiest."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6765
+#: ../root/static/scripts/edit/URLCleanup.js:6789
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
@@ -15800,7 +15829,7 @@ msgstr ""
 "Voeg een link naar een specifieke uitgave (afspeellijst) toe. Nummers "
 "(video’s) moeten aan de relevante opnamen worden gekoppeld."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6775
+#: ../root/static/scripts/edit/URLCleanup.js:6799
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
@@ -15808,7 +15837,7 @@ msgstr ""
 "Voeg een link naar een specifieke uitgave (afspeellijst) toe. Kanalen moeten "
 "aan de relevante artiesten worden gekoppeld."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6785
+#: ../root/static/scripts/edit/URLCleanup.js:6809
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
@@ -15816,7 +15845,7 @@ msgstr ""
 "Dit is een omleidings-URL. Volg {redirect_url|je link} en voer het doeladres "
 "in."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6828
+#: ../root/static/scripts/edit/URLCleanup.js:6852
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
@@ -15826,7 +15855,7 @@ msgstr ""
 "het toevoegen van Wikipedia-links aan een uitgave wordt geblokkeerd. Voeg de "
 "Wikipedia-link, als hij relevant is, toe aan de uitgavegroep."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6840
+#: ../root/static/scripts/edit/URLCleanup.js:6864
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
@@ -15836,11 +15865,11 @@ msgstr ""
 "het toevoegen van Wikidata-links aan een uitgave wordt geblokkeerd. Voeg de "
 "Wikidata-link, als hij relevant is, toe aan de uitgavegroep."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7050
+#: ../root/static/scripts/edit/URLCleanup.js:7074
 msgid "Some relationship types are missing for this URL."
 msgstr "Voor deze URL ontbreken bepaalde relatietypes."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7067
+#: ../root/static/scripts/edit/URLCleanup.js:7091
 #: ../root/static/scripts/edit/externalLinks.js:1073
 msgid "This relationship type combination is invalid."
 msgstr "Deze combinatie van relaties is ongeldig."
@@ -17482,19 +17511,23 @@ msgid "Account administrators"
 msgstr "Accountbeheerders"
 
 #: ../root/user/PrivilegedUsers.js:113
-msgid "Account administrators can edit and delete user accounts."
+#, fuzzy
+#| msgid "Account administrators can edit and delete user accounts."
+msgid ""
+"Account administrators can edit and delete user accounts, and immediately "
+"accept and reject edits."
 msgstr "Accountbeheerders kunnen accounts bewerken en verwijderen."
 
-#: ../root/user/PrivilegedUsers.js:117
+#: ../root/user/PrivilegedUsers.js:118
 msgid "The following {count} users are account administrators:"
 msgstr "De volgende {count} gebruikers zijn accountbeheerders:"
 
-#: ../root/user/PrivilegedUsers.js:123
+#: ../root/user/PrivilegedUsers.js:124
 msgctxt "header"
 msgid "Bots"
 msgstr "Robots"
 
-#: ../root/user/PrivilegedUsers.js:126
+#: ../root/user/PrivilegedUsers.js:127
 msgid "The following {count} user accounts are bots:"
 msgstr "De volgende {count} gebruikers zijn robots:"
 
@@ -17684,30 +17717,37 @@ msgctxt "user type"
 msgid "Deleted user"
 msgstr "Verwijderde gebruiker"
 
-#: ../root/user/UserProfile.js:80
+#: ../root/user/UserProfile.js:82
 msgctxt "user type"
 msgid "Internal/Bot"
 msgstr "Intern/Robot"
 
-#: ../root/user/UserProfile.js:110
+#: ../root/user/UserProfile.js:89
+#, fuzzy
+#| msgid "Account admin"
+msgctxt "user type"
+msgid "Account admin"
+msgstr "Accountbeheerder"
+
+#: ../root/user/UserProfile.js:122
 msgctxt "user type"
 msgid "Beginner"
 msgstr "Beginner"
 
-#: ../root/user/UserProfile.js:116
+#: ../root/user/UserProfile.js:128
 msgctxt "user type"
 msgid "Normal user"
 msgstr "Normale gebruiker"
 
-#: ../root/user/UserProfile.js:149
+#: ../root/user/UserProfile.js:161
 msgid "The dawn of the project"
 msgstr "De start van het project"
 
-#: ../root/user/UserProfile.js:151
+#: ../root/user/UserProfile.js:163
 msgid "The early days of the project"
 msgstr "De begindagen van het project"
 
-#: ../root/user/UserProfile.js:159
+#: ../root/user/UserProfile.js:171
 msgid ""
 "Your homepage and biography will not show until you have completed the email "
 "verification process."
@@ -17715,226 +17755,226 @@ msgstr ""
 "Je website en biografie worden niet getoond tot je je e-mailadres hebt "
 "geverifieerd."
 
-#: ../root/user/UserProfile.js:178
+#: ../root/user/UserProfile.js:190
 msgid "General information"
 msgstr "Algemene informatie"
 
-#: ../root/user/UserProfile.js:184
+#: ../root/user/UserProfile.js:196
 msgctxt "email address"
 msgid "(hidden)"
 msgstr "(verborgen)"
 
-#: ../root/user/UserProfile.js:187
+#: ../root/user/UserProfile.js:199
 msgctxt "email address"
 msgid "(verified at {date})"
 msgstr "(geverifieerd op {date})"
 
-#: ../root/user/UserProfile.js:192
+#: ../root/user/UserProfile.js:204
 msgctxt "email address"
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>ongeverifieerd!</strong>)"
 
-#: ../root/user/UserProfile.js:201
+#: ../root/user/UserProfile.js:213
 msgid "resend verification email"
 msgstr "verstuur de verificatiemail opnieuw"
 
-#: ../root/user/UserProfile.js:209
+#: ../root/user/UserProfile.js:221
 msgid "send email"
 msgstr "e-mail versturen"
 
-#: ../root/user/UserProfile.js:234
+#: ../root/user/UserProfile.js:246
 msgctxt "email address"
 msgid "(none)"
 msgstr "(geen)"
 
-#: ../root/user/UserProfile.js:241
+#: ../root/user/UserProfile.js:253
 msgid "User type:"
 msgstr "Gebruikerstype:"
 
-#: ../root/user/UserProfile.js:247
+#: ../root/user/UserProfile.js:259
 msgid "nominate for auto-editor"
 msgstr "nomineer voor autoredacteurschap"
 
-#: ../root/user/UserProfile.js:254
+#: ../root/user/UserProfile.js:266
 msgid "Age:"
 msgstr "Leeftijd:"
 
-#: ../root/user/UserProfile.js:273
+#: ../root/user/UserProfile.js:285
 msgid "Member since"
 msgstr "Lid sinds"
 
-#: ../root/user/UserProfile.js:279
+#: ../root/user/UserProfile.js:291
 msgid "Restrictions"
 msgstr "Beperkingen"
 
-#: ../root/user/UserProfile.js:286
+#: ../root/user/UserProfile.js:298
 msgid "Last login"
 msgstr "Laatste aanmelding"
 
-#: ../root/user/UserProfile.js:289
+#: ../root/user/UserProfile.js:301
 msgid "Hasn't logged in yet"
 msgstr "Heeft zich nog nooit aangemeld"
 
-#: ../root/user/UserProfile.js:297 ../root/user/UserProfile.js:311
-#: ../root/user/UserProfile.js:344
+#: ../root/user/UserProfile.js:309 ../root/user/UserProfile.js:323
+#: ../root/user/UserProfile.js:356
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|bekijk lijst})"
 
-#: ../root/user/UserProfile.js:323
+#: ../root/user/UserProfile.js:335
 msgid "Homepage:"
 msgstr "Website:"
 
-#: ../root/user/UserProfile.js:351
+#: ../root/user/UserProfile.js:363
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:364
+#: ../root/user/UserProfile.js:376
 msgid "unsubscribe"
 msgstr "abonnement opzeggen"
 
-#: ../root/user/UserProfile.js:373
+#: ../root/user/UserProfile.js:385
 msgid "subscribe"
 msgstr "abonneren"
 
-#: ../root/user/UserProfile.js:402
+#: ../root/user/UserProfile.js:414
 msgid "Languages"
 msgstr "Talen"
 
-#: ../root/user/UserProfile.js:473 ../root/user/UserProfile.js:568
-#: ../root/user/UserProfile.js:578 ../root/user/UserProfile.js:588
-#: ../root/user/UserProfile.js:598 ../root/user/UserProfile.js:608
-#: ../root/user/UserProfile.js:618 ../root/user/UserProfile.js:628
-#: ../root/user/UserProfile.js:638 ../root/user/UserProfile.js:647
-#: ../root/user/UserProfile.js:800 ../root/user/UserProfile.js:821
-#: ../root/user/UserProfile.js:842
+#: ../root/user/UserProfile.js:485 ../root/user/UserProfile.js:580
+#: ../root/user/UserProfile.js:590 ../root/user/UserProfile.js:600
+#: ../root/user/UserProfile.js:610 ../root/user/UserProfile.js:620
+#: ../root/user/UserProfile.js:630 ../root/user/UserProfile.js:640
+#: ../root/user/UserProfile.js:650 ../root/user/UserProfile.js:659
+#: ../root/user/UserProfile.js:812 ../root/user/UserProfile.js:833
+#: ../root/user/UserProfile.js:854
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|bekijk lijst})"
 
-#: ../root/user/UserProfile.js:560
+#: ../root/user/UserProfile.js:572
 msgid "Edits"
 msgstr "Bewerkingen"
 
-#: ../root/user/UserProfile.js:566
+#: ../root/user/UserProfile.js:578
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr "Totaal"
 
-#: ../root/user/UserProfile.js:576
+#: ../root/user/UserProfile.js:588
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Geaccepteerd"
 
-#: ../root/user/UserProfile.js:586
+#: ../root/user/UserProfile.js:598
 msgid "Auto-edits"
 msgstr "Automatische bewerkingen"
 
-#: ../root/user/UserProfile.js:596
+#: ../root/user/UserProfile.js:608
 msgid "Total applied"
 msgstr "Totaal doorgevoerd"
 
-#: ../root/user/UserProfile.js:606
+#: ../root/user/UserProfile.js:618
 msgid "Voted down"
 msgstr "Weggestemd"
 
-#: ../root/user/UserProfile.js:616
+#: ../root/user/UserProfile.js:628
 msgid "Failed"
 msgstr "Mislukt"
 
-#: ../root/user/UserProfile.js:626
+#: ../root/user/UserProfile.js:638
 msgctxt "edit"
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
-#: ../root/user/UserProfile.js:636
+#: ../root/user/UserProfile.js:648
 msgid "Open"
 msgstr "Open"
 
-#: ../root/user/UserProfile.js:646
+#: ../root/user/UserProfile.js:658
 msgid "Last 24 hours"
 msgstr "Afgelopen 24 uur"
 
-#: ../root/user/UserProfile.js:670
+#: ../root/user/UserProfile.js:682
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
 "In deze tabel zie je een samenvatting van alle stemmen die door deze "
 "redacteur zijn uitgebracht."
 
-#: ../root/user/UserProfile.js:675
+#: ../root/user/UserProfile.js:687
 msgid "Votes ({view_url|view})"
 msgstr "Stemmen ({view_url|bekijken})"
 
-#: ../root/user/UserProfile.js:683
+#: ../root/user/UserProfile.js:695
 msgid "Last 28 days"
 msgstr "Afgelopen 28 dagen"
 
-#: ../root/user/UserProfile.js:686
+#: ../root/user/UserProfile.js:698
 msgid "Overall"
 msgstr "Algemeen"
 
-#: ../root/user/UserProfile.js:734
+#: ../root/user/UserProfile.js:746
 msgid "This table shows a summary of entities added by this editor."
 msgstr ""
 "In deze tabel zie je een samenvatting van de objecten die door deze "
 "redacteur zijn toegevoegd."
 
-#: ../root/user/UserProfile.js:740
+#: ../root/user/UserProfile.js:752
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr "Het kan zijn dat doorgevoerde bewerkingen pas na 24 uur verschijnen"
 
-#: ../root/user/UserProfile.js:743
+#: ../root/user/UserProfile.js:755
 msgid "Added entities"
 msgstr "Toegevoegde objecten"
 
-#: ../root/user/UserProfile.js:766
+#: ../root/user/UserProfile.js:778
 msgid "This user has not added any entities."
 msgstr "Deze gebruiker heeft geen objecten toegevoegd."
 
-#: ../root/user/UserProfile.js:776
+#: ../root/user/UserProfile.js:788
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 "In deze tabel zie je een samenvatting van de secondaire gegevens die door "
 "deze redacteur zijn toegevoegd."
 
-#: ../root/user/UserProfile.js:782
+#: ../root/user/UserProfile.js:794
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "Tags en waarderingen"
 
-#: ../root/user/UserProfile.js:789
+#: ../root/user/UserProfile.js:801
 msgctxt "folksonomy"
 msgid "Tags upvoted"
 msgstr "Tags omhoog gestemd"
 
-#: ../root/user/UserProfile.js:793 ../root/user/UserProfile.js:814
+#: ../root/user/UserProfile.js:805 ../root/user/UserProfile.js:826
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
 msgstr "Als een redacteur wordt verwijderd, worden tags ook verwijderd."
 
-#: ../root/user/UserProfile.js:797 ../root/user/UserProfile.js:818
+#: ../root/user/UserProfile.js:809 ../root/user/UserProfile.js:830
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "Verwijderd"
 
-#: ../root/user/UserProfile.js:809
+#: ../root/user/UserProfile.js:821
 msgctxt "folksonomy"
 msgid "Tags downvoted"
 msgstr "Tags omlaag gestemd"
 
-#: ../root/user/UserProfile.js:835
+#: ../root/user/UserProfile.js:847
 msgid "Ratings are removed when an editor is deleted."
 msgstr ""
 "Als een redacteur wordt verwijderd, worden waarderingen ook verwijderd."
 
-#: ../root/user/UserProfile.js:838
+#: ../root/user/UserProfile.js:850
 msgctxt "ratings"
 msgid "Removed"
 msgstr "Verwijderd"
 
-#: ../root/user/UserProfile.js:904
+#: ../root/user/UserProfile.js:916
 msgid "Blocked spam account"
 msgstr "Geblokkeerd spamaccount"
 
-#: ../root/user/UserProfile.js:906
+#: ../root/user/UserProfile.js:918
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
@@ -17944,17 +17984,17 @@ msgstr ""
 "als spammer is aangemerkt. Als je in MusicBrainz spam ziet, kan je dat ons "
 "laten weten door de spammer via zijn gebruikerspagina te rapporteren."
 
-#: ../root/user/UserProfile.js:964
+#: ../root/user/UserProfile.js:976
 msgid "Report this user for bad behavior"
 msgstr "Deze gebruiker rapporteren voor slecht gedrag"
 
-#: ../root/user/UserProfile.js:969
+#: ../root/user/UserProfile.js:981
 #, fuzzy
 #| msgid "Recent notes left on your edits"
 msgid "View other users’ notes on your edits"
 msgstr "Recente notities bij mijn bewerkingen"
 
-#: ../root/user/UserProfile.js:970
+#: ../root/user/UserProfile.js:982
 msgid "View your notes on this user’s edits"
 msgstr ""
 
@@ -18620,6 +18660,9 @@ msgstr ""
 "<strong>Waarschuwing:</strong> een paar van de composities die je wil "
 "samenvoegen, hebben verschillende ISWC’s. Controleer voordat je de "
 "composities samenvoegt of het echt dezelfde compositie is."
+
+#~ msgid "No results found that match this search."
+#~ msgstr "Geen resultaten voor deze zoekopdracht gevonden."
 
 #~ msgctxt "header"
 #~ msgid "Move disc ID"
@@ -19369,9 +19412,6 @@ msgstr ""
 
 #~ msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
 #~ msgstr "<abbr title=\"MusicBrainz Identifier\">MBID</abbr>-indiener"
-
-#~ msgid "Account admin"
-#~ msgstr "Accountbeheerder"
 
 #~ msgid "Skip verification"
 #~ msgstr "Verificatie overslaan"
@@ -20591,9 +20631,6 @@ msgstr ""
 #~ "You may not specify a combination of track artists and a release artist."
 #~ msgstr ""
 #~ "Je kan geen combinatie van nummerartiesten en een uitgaveartiest opgeven."
-
-#~ msgid "No release groups found that match this search."
-#~ msgstr "Geen uitgavegroepen gevonden die aan deze zoekopdracht voldoen."
 
 #~ msgid "Username:"
 #~ msgstr "Gebruikersnaam:"

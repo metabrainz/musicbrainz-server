@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Vote;
 use Moose;
 use namespace::autoclean;
 
-use List::AllUtils qw( any sum );
+use List::AllUtils qw( sum );
 use Carp qw( confess );
 use MusicBrainz::Server::Data::Utils qw( map_query placeholders );
 use MusicBrainz::Server::Email;
@@ -69,13 +69,27 @@ sub enter_votes
         my @edit_ids = map { $_->{edit_id} } @votes;
         my $edits = $self->c->model('Edit')->get_by_ids(@edit_ids);
         @votes = grep { defined $edits->{ $_->{edit_id} } } @votes;
-        if (any { $_->{vote} == $VOTE_APPROVE && !$edits->{ $_->{edit_id} }->editor_may_approve($editor) } @votes) {
-            # not sufficient to filter the vote because the actual approval is happening elsewhere
-            confess 'Unauthorized editor ' . $editor->id . ' tried to approve edit #' . $_->{edit_id};
+        for my $vote (@votes) {
+            my $edit_id = $vote->{edit_id};
+            if ($vote->{vote} == $VOTE_APPROVE && !$edits->{ $edit_id }->editor_may_approve($editor)) {
+                # not sufficient to filter the vote because the actual approval is happening elsewhere
+                confess 'Unauthorized editor ' . $editor->id . ' tried to approve edit #' . $edit_id;
+            }
+            if ($vote->{vote} == $VOTE_ADMIN_APPROVE && !$editor->is_account_admin) {
+                # not sufficient to filter the vote because the actual approval is happening elsewhere
+                confess 'Unauthorized editor ' . $editor->id . ' tried to admin-approve edit #' . $edit_id;
+            }
+            if ($vote->{vote} == $VOTE_ADMIN_REJECT && !$editor->is_account_admin) {
+                # not sufficient to filter the vote because the actual rejection is happening elsewhere
+                confess 'Unauthorized editor ' . $editor->id . ' tried to admin-reject edit #' . $edit_id;
+            }
         }
         unless ($opts{override_privs}) {
             @votes = grep {
-                $_->{vote} == $VOTE_APPROVE || $edits->{ $_->{edit_id} }->editor_may_vote_on_edit($editor)
+                $_->{vote} == $VOTE_APPROVE ||
+                $_->{vote} == $VOTE_ADMIN_APPROVE ||
+                $_->{vote} == $VOTE_ADMIN_REJECT ||
+                $edits->{ $_->{edit_id} }->editor_may_vote_on_edit($editor)
             } @votes;
         }
 

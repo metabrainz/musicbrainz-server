@@ -1,17 +1,19 @@
 #
 # Translators:
+# Besnik <besnik@programeshqip.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Albanian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/sq/)\n"
+"PO-Revision-Date: 2025-01-27 13:44+0000\n"
+"Last-Translator: Besnik <besnik@programeshqip.org>\n"
+"Language-Team: Albanian <https://translations.metabrainz.org/projects/"
+"musicbrainz/relationship-types/sq/>\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -266,10 +268,8 @@ msgstr ""
 
 #. name:anthem
 #: DB:link_type/description:357
-#, fuzzy
-#| msgid "Designates that a work is or was the anthem for an area"
 msgid "Designates that a work is or was the anthem for an area."
-msgstr "Përcakton që një vepër është ose ka qenë himni për një zonë"
+msgstr "Përcakton që një vepër është ose ka qenë himni për një zonë."
 
 #. name:part of
 #: DB:link_type/description:356
@@ -280,7 +280,8 @@ msgstr "Përcakton se një zonë përmbahet nga një tjetër."
 #: DB:link_type/link_phrase:1089 DB:link_type/link_phrase:180
 #: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
 #: DB:link_type/link_phrase:90 DB:link_type/link_phrase:747
-#: DB:link_type/link_phrase:705 DB:link_type/reverse_link_phrase:971
+#: DB:link_type/link_phrase:1275 DB:link_type/link_phrase:705
+#: DB:link_type/reverse_link_phrase:971
 msgid "Discogs"
 msgstr "Discogs"
 
@@ -288,7 +289,8 @@ msgstr "Discogs"
 #: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:1089
 #: DB:link_type/reverse_link_phrase:180 DB:link_type/reverse_link_phrase:76
 #: DB:link_type/reverse_link_phrase:217 DB:link_type/reverse_link_phrase:90
-#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:705
+#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:1275
+#: DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
 msgstr "Faqe në Discogs për"
 
@@ -372,10 +374,8 @@ msgstr "Faqe në IMSLP për"
 
 #. name:bonus
 #: DB:link_attribute_type/description:516
-#, fuzzy
-#| msgid "Indicates a bonus disc"
 msgid "Indicates a bonus disc."
-msgstr "Tregon një disk bonus"
+msgstr "Tregon një disk bonus."
 
 #. name:misc
 #: DB:link_type/description:162
@@ -431,10 +431,8 @@ msgstr "Tregon një marrëdhënie prind-fëmijë."
 
 #. name:image
 #: DB:link_type/description:396
-#, fuzzy
-#| msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place."
-msgstr "Tregon një figurë (JPEG, GIF, PNG) të një vendi"
+msgstr "Tregon një figurë (JPEG, GIF, PNG) të një vendi."
 
 #. name:image
 #: DB:link_type/description:173
@@ -452,21 +450,18 @@ msgstr ""
 
 #. name:half
 #: DB:link_attribute_type/description:1019
-#, fuzzy
-#| msgid ""
-#| "Indicates a sibling with whom the artist has only one parent in common"
 msgid "Indicates a sibling with whom the artist has only one parent in common."
 msgstr ""
-"Tregon një vëlla/motër me të cilin artisti ka vetëm një prind të përbashkët"
+"Tregon një vëlla/motër me të cilin artisti ka vetëm një prind të përbashkët."
 
 #. name:review
 #: DB:link_type/description:842
-#, fuzzy
-#| msgid "Indicates a webpage that reviews the event in question."
 msgid ""
 "Indicates a webpage that reviews the event in question, whether it be in "
 "text, audio or video form."
-msgstr "Tregon një faqe web që shqyrton veprimtarinë në fjalë."
+msgstr ""
+"Tregon një faqe web që shqyrton veprimtarinë në fjalë, qoftë në formë tekst, "
+"audio apo video."
 
 #. name:download for free
 #: DB:link_type/description:958
@@ -580,10 +575,8 @@ msgstr ""
 
 #. name:cover
 #: DB:link_attribute_type/description:567
-#, fuzzy
-#| msgid "Indicates that one entity is a cover of another entity"
 msgid "Indicates that one entity is a cover of another entity."
-msgstr "Tregon se një njësi është interpretim i ri i një njësie tjetër"
+msgstr "Tregon se një njësi është interpretim i ri i një njësie tjetër."
 
 #. name:part of
 #: DB:link_type/description:996
@@ -663,17 +656,13 @@ msgstr ""
 
 #. name:held in
 #: DB:link_type/description:1085
-#, fuzzy
-#| msgid "Indicates that the event is part of a series."
 msgid "Indicates the area an event series was held in."
-msgstr "Tregon se një veprimtari është pjesë e një serie."
+msgstr "Tregon zonën ku është zhvilluar një seri veprimtarish."
 
 #. name:premiere
 #: DB:link_type/description:715
-#, fuzzy
-#| msgid "Indicates the area where the work had its first performance"
 msgid "Indicates the area where the work had its first performance."
-msgstr "Tregon zonën ku vepra u ekzekutua për herë të parë"
+msgstr "Tregon zonën ku vepra u ekzekutua për herë të parë."
 
 #. name:premiere
 #: DB:link_type/description:956
@@ -698,10 +687,8 @@ msgstr ""
 
 #. name:premiere
 #: DB:link_type/description:845
-#, fuzzy
-#| msgid "Indicates the event where the work had its first performance"
 msgid "Indicates the event where the work had its first performance."
-msgstr "Tregon veprimtarinë ku vepra u ekzekutua për herë të parë"
+msgstr "Tregon veprimtarinë ku vepra u ekzekutua për herë të parë."
 
 #. name:instrument technician
 #: DB:link_type/description:986
@@ -744,10 +731,8 @@ msgstr "Tregon hartuesin e vargjeve për këtë vepër."
 
 #. name:mastering
 #: DB:link_type/description:42
-#, fuzzy
-#| msgid "Indicates the mastering engineer for this work."
 msgid "Indicates the mastering engineer for this release."
-msgstr "Tregon inxhinierin e masterizimit për këtë vepër."
+msgstr "Tregon inxhinierin e masterizimit për këtë hedhje në qarkullim."
 
 #. name:official site
 #: DB:link_type/description:219
@@ -788,10 +773,8 @@ msgstr "Tregon personin që përktheu vargjet/libretin për këtë hedhje vepër
 
 #. name:premiere
 #: DB:link_type/description:716
-#, fuzzy
-#| msgid "Indicates the place where the work had its first performance"
 msgid "Indicates the place where the work had its first performance."
-msgstr "Tregon vendin ku vepra pat ekzekutimin e saj të parë"
+msgstr "Tregon vendin ku vepra pat ekzekutimin e saj të parë."
 
 #. name:publishing
 #: DB:link_type/description:32
@@ -827,10 +810,9 @@ msgstr "Zëri i parë ose solo"
 
 #. name:jury member
 #: DB:link_type/description:1255
-#, fuzzy
-#| msgid "Links an event to an artist that was a conductor in it."
 msgid "Links a competition event to an artist that was a jury member in it."
-msgstr "Lidh një veprimtari me një artist që qe dirigjent në të."
+msgstr ""
+"Lidh një veprimtari konkurrimesh me një artist që qe anëtar jurie në të."
 
 #. name:participant
 #: DB:link_type/description:1256
@@ -3069,6 +3051,13 @@ msgid "This is used to link the Discogs page for this artist."
 msgstr ""
 
 #. name:discogs
+#: DB:link_type/description:1275
+#, fuzzy
+#| msgid "Points to the Wikipedia page for this event."
+msgid "This is used to link the Discogs page for this event."
+msgstr "Shpie te faqja në Wikipedia për këtë veprimtari."
+
+#. name:discogs
 #: DB:link_type/description:1089
 msgid "This is used to link the Discogs page for this genre/style."
 msgstr ""
@@ -5263,8 +5252,8 @@ msgstr ""
 msgid "artists and repertoire position at"
 msgstr "artistë dhe repertor"
 
-#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:993
-#: DB:link_type/name:1170
+#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:1170
+#: DB:link_type/name:993
 msgid "artwork"
 msgstr ""
 
@@ -5935,7 +5924,7 @@ msgstr "faqe diskografie"
 
 #: DB:link_type/name:1089 DB:link_type/name:180 DB:link_type/name:76
 #: DB:link_type/name:217 DB:link_type/name:90 DB:link_type/name:747
-#: DB:link_type/name:705 DB:link_type/name:971
+#: DB:link_type/name:1275 DB:link_type/name:705 DB:link_type/name:971
 msgid "discogs"
 msgstr "discogs"
 
@@ -6432,7 +6421,7 @@ msgstr ""
 #: DB:link_type/long_link_phrase:1089 DB:link_type/long_link_phrase:180
 #: DB:link_type/long_link_phrase:76 DB:link_type/long_link_phrase:217
 #: DB:link_type/long_link_phrase:90 DB:link_type/long_link_phrase:747
-#: DB:link_type/long_link_phrase:705
+#: DB:link_type/long_link_phrase:1275 DB:link_type/long_link_phrase:705
 msgid "has a Discogs page at"
 msgstr "ka një faqe në Discogs te"
 
@@ -8568,7 +8557,7 @@ msgstr ""
 
 #. name:artwork
 #: DB:link_type/long_link_phrase:1231 DB:link_type/long_link_phrase:1241
-#: DB:link_type/long_link_phrase:993 DB:link_type/long_link_phrase:1170
+#: DB:link_type/long_link_phrase:1170 DB:link_type/long_link_phrase:993
 msgid "provided {additional} artwork on"
 msgstr ""
 
@@ -10178,9 +10167,9 @@ msgstr ""
 
 #. name:artwork
 #: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1241
-#: DB:link_type/link_phrase:993 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:1170 DB:link_type/link_phrase:993
 #: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
-#: DB:link_type/reverse_link_phrase:993 DB:link_type/reverse_link_phrase:1170
+#: DB:link_type/reverse_link_phrase:1170 DB:link_type/reverse_link_phrase:993
 msgid "{additional} artwork"
 msgstr ""
 

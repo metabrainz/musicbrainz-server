@@ -18,7 +18,9 @@ use MusicBrainz::Server::Validation qw( is_positive_integer );
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::GetByGID',
      'MusicBrainz::Server::Data::Role::EntityCache',
-     'MusicBrainz::Server::Data::Role::SelectAll';
+     'MusicBrainz::Server::Data::Role::OptionsTree' => {
+        order_by => [qw( entity_type0 entity_type1 child_order id )],
+     };
 
 sub _type { 'link_type' }
 
@@ -147,7 +149,7 @@ around '_get_all_from_db' => sub {
     return @all;
 };
 
-sub get_tree
+sub get_entity_types_tree
 {
     my ($self, $type0, $type1, %opts) = @_;
 

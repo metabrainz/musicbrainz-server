@@ -6,7 +6,8 @@ use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 
 extends 'MusicBrainz::Server::Form';
-with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::Edit',
+     'MusicBrainz::Server::Form::Role::OptionsTree';
 
 sub edit_field_names {
     qw( parent_id child_order name link_phrase reverse_link_phrase
@@ -119,6 +120,8 @@ sub options_parent_id
     my ($self) = @_;
     return select_options_tree($self->ctx, $self->root, accessor => 'name');
 }
+
+sub options_tree_model_name { 'LinkType' }
 
 1;
 

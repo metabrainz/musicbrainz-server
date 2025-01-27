@@ -58,15 +58,15 @@ component LanguagesScripts(
             <tr>
               <th className="pos">{l_statistics('Rank')}</th>
               <th>
-                {l_statistics('Languages')}
+                {l_mb_server('Language')}
                 <div className="arrow" />
               </th>
               <th>
-                {l_statistics('Releases')}
+                {l_mb_server('Releases')}
                 <div className="arrow" />
               </th>
               <th>
-                {l_statistics('Works')}
+                {l_mb_server('Works')}
                 <div className="arrow" />
               </th>
               <th>
@@ -146,11 +146,11 @@ component LanguagesScripts(
             <tr>
               <th className="pos">{l_statistics('Rank')}</th>
               <th>
-                {l_statistics('Script')}
+                {l_mb_server('Script')}
                 <div className="arrow" />
               </th>
               <th>
-                {l_statistics('Releases')}
+                {l_mb_server('Releases')}
                 <div className="arrow" />
               </th>
             </tr>

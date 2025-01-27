@@ -95,6 +95,7 @@ export const LINK_TYPES: LinkTypeMap = {
   },
   discogs: {
     artist: '04a5b104-a4c2-4bac-99a1-7b837c37d9e4',
+    event: '73713a50-1377-44cd-b429-4a2c0c612bf1',
     genre: '4c8510c9-1dc2-49b9-9693-27bdc5cc8311',
     label: '5b987f87-25bc-4a2d-b3f1-3618795b8207',
     place: '1c140ac8-8dc2-449e-92cb-52c90d525640',
@@ -2036,6 +2037,24 @@ const CLEANUPS: CleanupEntries = {
       return url.replace(/^(?:https?:\/\/)?(?:www[0-9]?\.)?cpdl\.org/, 'http://cpdl.org');
     },
   },
+  'crewunited': {
+    match: [/^(https?:\/\/)?(www\.)?crew-united\.com\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?crew-united\.com\/(?:[a-z]+\/)?([\w-]+_[\d]+\.html).*?$/, 'https://www.crew-united.com/en/$1');
+    },
+    validate(url, id) {
+      if (/^https:\/\/www\.crew-united\.com\/en\/[\w-]+_[\d]+\.html$/.test(url)) {
+        if (id === LINK_TYPES.otherdatabases.artist ||
+            id === LINK_TYPES.otherdatabases.label ||
+            id === LINK_TYPES.otherdatabases.recording) {
+          return {result: true};
+        }
+        return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'dahr': {
     match: [
       /^(https?:\/\/)?adp\.library\.ucsb\.edu\/index\.php\/(mastertalent|matrix|objects|talent)/i,
@@ -2242,6 +2261,11 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.discogs.artist:
             return {
               result: prefix === 'artist' || prefix === 'user',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.discogs.event:
+            return {
+              result: prefix === 'label',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.discogs.genre:

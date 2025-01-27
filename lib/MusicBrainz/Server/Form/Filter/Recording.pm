@@ -21,12 +21,16 @@ has_field 'video' => (
     type => 'Select',
 );
 
+has_field 'works' => (
+    type => 'Select',
+);
+
 has_field 'hide_bootlegs' => (
     type => 'Checkbox',
 );
 
 sub filter_field_names {
-    return qw/ disambiguation name artist_credit_id hide_bootlegs video /;
+    return qw/ disambiguation name artist_credit_id hide_bootlegs video works /;
 }
 
 sub options_artist_credit_id {
@@ -44,12 +48,20 @@ sub options_video {
     ];
 }
 
+sub options_works {
+    return [
+        { value => 1, label => l('Related to works') },
+        { value => 2, label => l('Not related to works') },
+    ];
+}
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $json = $self->$orig;
     $json->{options_artist_credit_id} = $self->options_artist_credit_id;
     $json->{options_video} = $self->options_video;
+    $json->{options_works} = $self->options_works;
     return $json;
 };
 
