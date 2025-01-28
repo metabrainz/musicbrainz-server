@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import EntityLink from '../../common/components/EntityLink.js';
+import isolateText from '../../common/utility/isolateText.js';
 import DiffSide from '../components/edit/DiffSide.js';
 
 import editDiff, {
@@ -161,7 +162,7 @@ export default function diffArtistCredits(
   }
 
   return {
-    new: newNames,
-    old: oldNames,
+    new: isolateText(newNames),
+    old: isolateText(oldNames),
   };
 }
