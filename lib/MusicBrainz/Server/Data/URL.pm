@@ -184,6 +184,7 @@ my %URL_SPECIALIZATIONS = (
     'SpiritOfMetal'       => qr{^https?://(?:www\.)?spirit-of-metal\.com/}i,
     'SpiritOfRock'        => qr{^https?://(?:www\.)?spirit-of-rock\.com/}i,
     'Stage48'             => qr{^https?://(?:www\.)?stage48\.net/}i,
+    'SteamDB'             => qr{^https?://([^/]+\.)?steamdb\.info/}i,
     'Target'              => qr{^https?://(?:(?:intl|www)\.)?target\.com/}i,
     'Theatricalia'        => qr{^https?://(?:www\.)?theatricalia\.com/}i,
     'TheDanceGypsy'       => qr{^https?://(?:www\.)?thedancegypsy\.com/}i,
