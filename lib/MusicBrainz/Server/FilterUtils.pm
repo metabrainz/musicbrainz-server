@@ -47,11 +47,11 @@ sub create_artist_releases_form {
     my %form_args = (entity_type => 'release');
 
     $form_args{artist_credits} =
-        $c->model('Release')->find_artist_credits_by_artist($artist_id);
+        $c->model('ArtistCredit')->find_by_release_artist($artist_id);
     preserve_selected_artist_credit($c, $form_args{artist_credits});
     $form_args{countries} = [$c->model('CountryArea')->get_all];
     $form_args{labels} =
-        $c->model('Release')->find_labels_by_artist($artist_id);
+        [$c->model('Label')->find_by_release_artist($artist_id)];
     $form_args{statuses} = [$c->model('ReleaseStatus')->get_all];
 
     return $c->form(filter_form => 'Filter::ReleaseForArtist', %form_args);
@@ -63,7 +63,7 @@ sub create_artist_recordings_form {
     my %form_args = (entity_type => 'recording');
 
     $form_args{artist_credits} =
-        $c->model('Recording')->find_artist_credits_by_artist($artist_id);
+        $c->model('ArtistCredit')->find_by_recording_artist($artist_id);
     preserve_selected_artist_credit($c, $form_args{artist_credits});
 
     return $c->form(filter_form => 'Filter::Recording', %form_args);
@@ -87,11 +87,11 @@ sub create_label_releases_form {
     my %form_args = (entity_type => 'release');
 
     $form_args{artist_credits} =
-        $c->model('Release')->find_artist_credits_by_label($label_id);
+        $c->model('ArtistCredit')->find_by_release_label($label_id);
     preserve_selected_artist_credit($c, $form_args{artist_credits});
     $form_args{countries} = [$c->model('CountryArea')->get_all];
     $form_args{labels} =
-        $c->model('Release')->find_labels_by_label($label_id);
+        [$c->model('Label')->find_by_release_label($label_id)];
     $form_args{statuses} = [$c->model('ReleaseStatus')->get_all];
 
     return $c->form(filter_form => 'Filter::ReleaseForLabel', %form_args);

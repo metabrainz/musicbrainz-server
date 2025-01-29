@@ -102,6 +102,45 @@ sub find_by_artist_id
     return $self->find_by_ids($ids);
 }
 
+sub find_by_recording_artist
+{
+    my ($self, $artist_id) = @_;
+
+    my $query = 'SELECT DISTINCT rec.artist_credit
+                 FROM recording rec
+                 JOIN artist_credit_name acn
+                     ON acn.artist_credit = rec.artist_credit
+                 WHERE acn.artist = ?';
+    my $ids = $self->sql->select_single_column_array($query, $artist_id);
+    return $self->find_by_ids($ids);
+}
+
+sub find_by_release_artist
+{
+    my ($self, $artist_id) = @_;
+
+    my $query = 'SELECT DISTINCT rel.artist_credit
+                 FROM release rel
+                 JOIN artist_credit_name acn
+                     ON acn.artist_credit = rel.artist_credit
+                 WHERE acn.artist = ?';
+    my $ids = $self->sql->select_single_column_array($query, $artist_id);
+    return $self->find_by_ids($ids);
+}
+
+sub find_by_release_label
+{
+    my ($self, $label_id) = @_;
+
+    my $query = 'SELECT DISTINCT rel.artist_credit
+                 FROM release rel
+                 JOIN release_label rl
+                     ON rl.release = rel.id
+                 WHERE rl.label = ?';
+    my $ids = $self->sql->select_single_column_array($query, $label_id);
+    return $self->find_by_ids($ids);
+}
+
 sub uncache_for_artist_ids
 {
     my ($self, @artist_ids) = @_;

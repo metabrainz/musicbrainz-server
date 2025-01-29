@@ -81,19 +81,6 @@ sub _id_column
     return 'recording.id';
 }
 
-sub find_artist_credits_by_artist
-{
-    my ($self, $artist_id) = @_;
-
-    my $query = 'SELECT DISTINCT rec.artist_credit
-                 FROM recording rec
-                 JOIN artist_credit_name acn
-                     ON acn.artist_credit = rec.artist_credit
-                 WHERE acn.artist = ?';
-    my $ids = $self->sql->select_single_column_array($query, $artist_id);
-    return $self->c->model('ArtistCredit')->find_by_ids($ids);
-}
-
 sub find_by_artist
 {
     my ($self, $artist_id, $limit, $offset, %args) = @_;
