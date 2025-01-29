@@ -352,23 +352,23 @@ test 'Loading different subsets of work artists' => sub {
         'The misc artist has the expected MBID',
     );
 
-    $c->model('Work')->load_writers($work);
-    my @writers = $work->all_writers;
-    is(@writers, 2, 'There are two writers');
+    $c->model('Work')->load_authors($work);
+    my @authors = $work->all_authors;
+    is(@authors, 2, 'There are two authors');
     is_deeply(
-        $writers[0]->{roles},
+        $authors[0]->{roles},
         ['composer', 'lyricist'],
-        'The first writer has the "composer" and "lyricist" roles',
+        'The first author has the "composer" and "lyricist" roles',
     );
     is(
-        $writers[0]->{credit},
+        $authors[0]->{credit},
         '',
-        'The first writer has no credit credit',
+        'The first author has no credit credit',
     );
     is(
-        $writers[0]->{entity}{gid},
+        $authors[0]->{entity}{gid},
         '2f031686-3f01-4f33-a4fc-fb3944532efa',
-        'The first writer has the expected MBID',
+        'The first author has the expected MBID',
     );
 
     $c->model('Work')->load_recording_artists($work);

@@ -369,6 +369,7 @@ export function createWorkObject(
   return {
     artists: [],
     attributes: [],
+    authors: [],
     comment: '',
     editsPending: false,
     entityType: 'work',
@@ -380,7 +381,6 @@ export function createWorkObject(
     misc_artists: [],
     name: '',
     typeID: null,
-    writers: [],
     ...props,
   };
 }

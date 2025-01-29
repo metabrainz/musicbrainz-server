@@ -49,7 +49,7 @@ export component WorkListRow(
       ) : null}
       <td><EntityLink entity={work} /></td>
       <td>
-        <ArtistRoles relations={work.writers} />
+        <ArtistRoles relations={work.authors} />
         {manifest('common/components/ArtistRoles', {async: 'async'})}
       </td>
       <td>

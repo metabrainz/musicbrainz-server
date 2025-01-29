@@ -33,7 +33,7 @@ before build_display_data => sub {
     my ($self, $loaded) = @_;
 
     my @works = grep { defined } map { $loaded->{Work}{$_} } $self->work_ids;
-    $self->c->model('Work')->load_writers(@works);
+    $self->c->model('Work')->load_authors(@works);
     $self->c->model('Work')->load_misc_artists(@works);
     $self->c->model('Work')->load_recording_artists(@works);
     $self->c->model('WorkAttribute')->load_for_works(@works);

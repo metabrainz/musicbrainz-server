@@ -84,7 +84,7 @@ sub show : PathPart('') Chained('load')
     my ($self, $c) = @_;
 
     my $stash = $c->stash;
-    $c->model('Work')->load_writers($stash->{work});
+    $c->model('Work')->load_authors($stash->{work});
 
     my $pager = defined $stash->{pager}
         ? serialize_pager($stash->{pager})
@@ -177,7 +177,7 @@ sub _merge_load_entities
     $c->model('Work')->load_aliases(@works);
     $c->model('Work')->load_meta(@works);
     $c->model('WorkType')->load(@works);
-    $c->model('Work')->load_writers(@works);
+    $c->model('Work')->load_authors(@works);
     $c->model('Work')->load_misc_artists(@works);
     $c->model('Work')->load_recording_artists(@works);
     $c->model('WorkAttribute')->load_for_works(@works);

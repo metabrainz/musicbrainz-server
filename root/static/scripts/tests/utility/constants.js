@@ -188,6 +188,7 @@ export const genericUrl: UrlT = {
 export const genericWork: WorkT = {
   artists: [],
   attributes: [],
+  authors: [],
   comment: '',
   editsPending: false,
   entityType: 'work',
@@ -199,5 +200,4 @@ export const genericWork: WorkT = {
   misc_artists: [],
   name: 'Test Work',
   typeID: null,
-  writers: [],
 };

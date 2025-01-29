@@ -50,10 +50,10 @@ component WorkList(
         sortable,
         title: l('Work'),
       });
-      const writersColumn = defineArtistRolesColumn<WorkT>({
-        columnName: 'writers',
-        getRoles: entity => entity.writers,
-        title: l('Writers'),
+      const authorsColumn = defineArtistRolesColumn<WorkT>({
+        columnName: 'authors',
+        getRoles: entity => entity.authors,
+        title: l('Authors'),
       });
       const otherArtistsColumn = defineArtistRolesColumn<WorkT>({
         columnName: 'misc_artists',
@@ -73,7 +73,7 @@ component WorkList(
         ...(checkboxColumn ? [checkboxColumn] : []),
         ...(seriesNumberColumn ? [seriesNumberColumn] : []),
         nameColumn,
-        writersColumn,
+        authorsColumn,
         workRecordingArtistsColumn,
         otherArtistsColumn,
         iswcsColumn,

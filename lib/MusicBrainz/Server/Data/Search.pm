@@ -936,7 +936,7 @@ sub external_search
         {
             my @entities = map { $_->entity } @results;
             $self->c->model('Work')->load_ids(@entities);
-            $self->c->model('Work')->load_writers(@entities);
+            $self->c->model('Work')->load_authors(@entities);
             $self->c->model('Work')->load_recording_artists(@entities);
             $self->c->model('Work')->load_misc_artists(@entities);
         }

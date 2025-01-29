@@ -20,6 +20,11 @@ declare type WorkT = $ReadOnly<{
   +_fromBatchCreateWorksDialog?: boolean,
   +artists: $ReadOnlyArray<ArtistCreditT>,
   +attributes: $ReadOnlyArray<WorkAttributeT>,
+  +authors: $ReadOnlyArray<{
+    +credit: string,
+    +entity: ArtistT,
+    +roles: $ReadOnlyArray<string>,
+  }>,
   +iswcs: $ReadOnlyArray<IswcT>,
   +languages: $ReadOnlyArray<WorkLanguageT>,
   +misc_artists: $ReadOnlyArray<{
@@ -30,13 +35,8 @@ declare type WorkT = $ReadOnly<{
   +primaryAlias?: string | null,
   +related_artists?: {
     +artists: AppearancesT<string>,
-    +writers: AppearancesT<string>,
+    +authors: AppearancesT<string>,
   },
-  +writers: $ReadOnlyArray<{
-    +credit: string,
-    +entity: ArtistT,
-    +roles: $ReadOnlyArray<string>,
-  }>,
 }>;
 
 declare type WorkTypeT = OptionTreeT<'work_type'>;

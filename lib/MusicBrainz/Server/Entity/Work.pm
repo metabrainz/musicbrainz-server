@@ -42,7 +42,7 @@ has 'artists' => (
     },
 );
 
-has 'writers' => (
+has 'authors' => (
     traits => [ 'Array' ],
     is => 'ro',
     isa => ArrayRef[
@@ -54,8 +54,8 @@ has 'writers' => (
     ],
     default => sub { [] },
     handles => {
-        add_writer => 'push',
-        all_writers => 'elements',
+        add_author => 'push',
+        all_authors => 'elements',
     },
 );
 
@@ -123,11 +123,11 @@ around TO_JSON => sub {
             entity => to_json_object($_->{entity}),
             roles => $_->{roles},
         }, $self->all_misc_artists],
-        writers => [map +{
+        authors => [map +{
             credit => $_->{credit},
             entity => to_json_object($_->{entity}),
             roles => $_->{roles},
-        }, $self->all_writers],
+        }, $self->all_authors],
     };
 };
 

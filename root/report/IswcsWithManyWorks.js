@@ -48,7 +48,7 @@ component IswcsWithManyWorks(...{
             <tr>
               <th>{l('ISWC')}</th>
               <th>{l('Work')}</th>
-              <th>{l('Writers')}</th>
+              <th>{l('Authors')}</th>
               <th>{l('Recording artists')}</th>
               <th>{l('Type')}</th>
               <th>{l('Language')}</th>

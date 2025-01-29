@@ -52,7 +52,7 @@ component WorkResults(...{
         columns={
           <>
             <th>{l('Name')}</th>
-            <th>{l('Writers')}</th>
+            <th>{l('Authors')}</th>
             <th>{l('Recording artists')}</th>
             <th>{l('Other artists')}</th>
             <th>{l('ISWC')}</th>
