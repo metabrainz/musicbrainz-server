@@ -95,7 +95,7 @@ sub find_by_artist
         SQL
 
     # Select works that this artist is related to
-    my $authors_query = <<~'SQL';
+    my $relationships_query = <<~'SQL';
         SELECT DISTINCT law.entity1 AS work
           FROM l_artist_work law
           JOIN link ON law.link = link.id
@@ -103,7 +103,7 @@ sub find_by_artist
          WHERE law.entity0 = ?
         SQL
 
-    my $inner_query = $performers_query . ' UNION ' . $authors_query;
+    my $inner_query = $performers_query . ' UNION ' . $relationships_query;
 
     if (exists $args{filter}) {
         my %filter = %{ $args{filter} };
@@ -115,8 +115,18 @@ sub find_by_artist
                 push @where_args, $artist_id;
             } elsif ($filter{role_type} == 2) {
                 # Show only works as author
-                $inner_query = $authors_query;
-                push @where_args, $artist_id;
+                my @authorship_gids =
+                    $self->c->model('LinkType')->get_authorship_relationship_gids;
+                my $extra_condition = ' AND lt.gid = any(?) ';
+                $inner_query = $relationships_query . $extra_condition;
+                push @where_args, $artist_id, [@authorship_gids];
+            } elsif ($filter{role_type} == 3) {
+                # Show only works with other rels than authorship ones
+                my @authorship_gids =
+                    $self->c->model('LinkType')->get_authorship_relationship_gids;
+                my $extra_condition = ' AND NOT (lt.gid = any(?)) ';
+                $inner_query = $relationships_query . $extra_condition;
+                push @where_args, $artist_id, [@authorship_gids];
             }
         } else {
             push @where_args, ($artist_id) x 2;

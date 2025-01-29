@@ -633,6 +633,24 @@ test 'Work page filtering' => sub {
         'Not written work is not shown',
     );
 
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/works?filter.role_type=3',
+        'Fetched artist works page with "as other artist" filter',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '1',
+        'There is one entry in the "as other artist" work table',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr/td[1]',
+        'Brandenburgisches Konzert Nr. 5 D-Dur, BWV 1050',
+        'The entry is named "Brandenburgisches Konzert Nr. 5 D-Dur, BWV 1050"',
+    );
+
     $mech->get_ok(
         '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/works?filter.type_id=16',
         'Fetched artist works page with type filter "Symphony"',

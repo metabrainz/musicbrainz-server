@@ -36,8 +36,9 @@ sub filter_field_names {
 
 sub options_role_type {
     return [
-        { value => 1, label => l('As performer') },
+        { value => 1, label => l('As recording artist') },
         { value => 2, label => l('As author') },
+        { value => 3, label => l('As other artist') },
     ];
 }
 
