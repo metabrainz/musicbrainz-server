@@ -69,6 +69,7 @@ our @EXPORT_OK = (
         $AREA_TYPE_COUNTRY $AREA_TYPE_CITY
         $ARTIST_TYPE_PERSON $ARTIST_TYPE_GROUP
         $INSTRUMENT_ROOT_ID $VOCAL_ROOT_ID
+        $WORK_AUTHORSHIP_ROOT_ID
         $REQUIRED_VOTES $OPEN_EDIT_DURATION
         $MINIMUM_RESPONSE_PERIOD $MINIMUM_VOTING_PERIOD
         $LIMIT_FOR_EDIT_LISTING
@@ -102,7 +103,6 @@ our @EXPORT_OK = (
         $EDITOR_SANITISED_COLUMNS
         $PASSPHRASE_BCRYPT_COST
         %ALIAS_LOCALES
-        @WRITER_RELATIONSHIP_GIDS
     ),
 );
 
@@ -392,6 +392,7 @@ Readonly our $COVERART_BACK_TYPE   => 2;
 
 Readonly our $INSTRUMENT_ROOT_ID => 14;
 Readonly our $VOCAL_ROOT_ID => 3;
+Readonly our $WORK_AUTHORSHIP_ROOT_ID => 170;
 
 Readonly our $AREA_TYPE_COUNTRY => 1;
 Readonly our $AREA_TYPE_CITY => 3;
@@ -440,22 +441,6 @@ Readonly our %PART_OF_SERIES => (
 Readonly our $AMAZON_ASIN_LINK_TYPE_ID => 77;
 
 Readonly our $PART_OF_AREA_LINK_TYPE => 'de7cc874-8b1b-3a05-8272-f3834c968fb7';
-
-# All autorship rels, plus "previous attribution"
-Readonly our @WRITER_RELATIONSHIP_GIDS => qw(
-    a255bca1-b157-4518-9108-7b147dc3fc68
-    d59d99ea-23d4-4a80-b066-edca32ee158f
-    3e48faba-ec01-47fd-8e89-30e81161661c
-    7474ab81-486f-40b5-8685-3a4f8ea624cb
-    eeb9c319-9fde-4313-b76d-29db1576aad8
-    da6c5d8a-ce13-474d-9375-61feb29039a5
-    cb887d1b-5267-4f3d-badb-5b3fba7349f6
-    d3fd781c-5894-47e2-8c12-86cc0e2c8d08
-    0084e70a-873e-4f7f-b3ff-635b9e863dae
-    0a1771e1-8639-4740-8a43-bdafc050c3da
-    6a88b92b-8fb5-41b3-aa1f-169ee7e05ed6
-    7231dcac-d2dc-4b4a-b218-ecea4123a4cd
-);
 
 Readonly our $PART_OF_AREA_LINK_TYPE_ID => 356;
 

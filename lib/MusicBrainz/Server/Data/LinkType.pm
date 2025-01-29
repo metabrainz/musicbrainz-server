@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::LinkType;
 use Moose;
 use namespace::autoclean;
 use Sql;
+use MusicBrainz::Server::Constants qw( $WORK_AUTHORSHIP_ROOT_ID );
 use MusicBrainz::Server::Entity::ExampleRelationship;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::LinkTypeAttribute;
@@ -275,6 +276,22 @@ sub get_attribute_type_list
     }
 
     return \@result;
+}
+
+sub get_authorship_relationship_gids {
+    my ($self) = @_;
+
+    my @artist_work_types = $self->query_to_list(<<~"SQL");
+        SELECT ${\($self->_columns)}
+          FROM ${\($self->_table)} lt
+         WHERE entity_type0 = 'artist' AND entity_type1 = 'work';
+        SQL
+
+    $self->load_root_ids(@artist_work_types);
+
+    return map { $_->gid }
+           grep { $_->root_id == $WORK_AUTHORSHIP_ROOT_ID }
+           @artist_work_types;
 }
 
 sub load_root_ids {

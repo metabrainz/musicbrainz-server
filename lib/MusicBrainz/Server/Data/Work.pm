@@ -3,7 +3,6 @@ package MusicBrainz::Server::Data::Work;
 use Moose;
 use namespace::autoclean;
 use List::AllUtils qw( uniq );
-use MusicBrainz::Server::Constants qw( @WRITER_RELATIONSHIP_GIDS );
 use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
@@ -451,6 +450,8 @@ sub _find_writers_or_misc_artists
     my ($self, $ids, $map, $find_misc) = @_;
     return unless @$ids;
 
+    my @authorship_gids =
+        $self->c->model('LinkType')->get_authorship_relationship_gids;
     my $reltypes_condition;
     if ($find_misc) {
         $reltypes_condition = 'AND NOT (lt.gid = any(?)) ';
@@ -475,7 +476,7 @@ sub _find_writers_or_misc_artists
     my $rows = $self->sql->select_list_of_lists(
         $query,
         $ids,
-        [@WRITER_RELATIONSHIP_GIDS],
+        [@authorship_gids],
     );
 
     my @artist_ids = map { $_->[1] } @$rows;
