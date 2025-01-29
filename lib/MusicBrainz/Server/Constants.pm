@@ -441,7 +441,7 @@ Readonly our $AMAZON_ASIN_LINK_TYPE_ID => 77;
 
 Readonly our $PART_OF_AREA_LINK_TYPE => 'de7cc874-8b1b-3a05-8272-f3834c968fb7';
 
-# All composition rels, plus "previous attribution"
+# All autorship rels, plus "previous attribution"
 Readonly our @WRITER_RELATIONSHIP_GIDS => qw(
     a255bca1-b157-4518-9108-7b147dc3fc68
     d59d99ea-23d4-4a80-b066-edca32ee158f
