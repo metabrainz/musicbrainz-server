@@ -13,10 +13,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-01-15 01:44+0000\n"
+"PO-Revision-Date: 2025-01-30 11:44+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -534,8 +534,6 @@ msgid "Primary types"
 msgstr "主要类型"
 
 #: ../root/statistics/Index.js:632
-#, fuzzy
-#| msgid "None"
 msgctxt "release group primary type"
 msgid "None"
 msgstr "无"
@@ -545,8 +543,6 @@ msgid "Secondary types"
 msgstr "二级类型"
 
 #: ../root/statistics/Index.js:666
-#, fuzzy
-#| msgid "None"
 msgctxt "release group secondary type"
 msgid "None"
 msgstr "无"
@@ -572,15 +568,11 @@ msgid "Types"
 msgstr "类型"
 
 #: ../root/statistics/Index.js:723
-#, fuzzy
-#| msgid "None"
 msgctxt "label type"
 msgid "None"
 msgstr "无"
 
 #: ../root/statistics/Index.js:751
-#, fuzzy
-#| msgid "None"
 msgctxt "work type"
 msgid "None"
 msgstr "无"
@@ -594,46 +586,34 @@ msgid "Attributes"
 msgstr "属性"
 
 #: ../root/statistics/Index.js:785
-#, fuzzy
-#| msgid "None"
 msgctxt "work attribute"
 msgid "None"
 msgstr "无"
 
 #: ../root/statistics/Index.js:813
-#, fuzzy
-#| msgid "None"
 msgctxt "area type"
 msgid "None"
 msgstr "无"
 
 #: ../root/statistics/Index.js:841
-#, fuzzy
-#| msgid "None"
 msgctxt "place type"
 msgid "None"
 msgstr "无"
 
 #: ../root/statistics/Index.js:895
-#, fuzzy
-#| msgid "None"
 msgctxt "instrument type"
 msgid "None"
 msgstr "无"
 
 #: ../root/statistics/Index.js:923
-#, fuzzy
-#| msgid "None"
 msgctxt "event type"
 msgid "None"
 msgstr "无"
 
 #: ../root/statistics/Index.js:931 ../root/statistics/stats.js:30
-#, fuzzy
-#| msgid "Event art"
 msgctxt "plural, multiple events, header"
 msgid "Event art"
-msgstr "活动图"
+msgstr "活动艺术"
 
 #: ../root/statistics/Index.js:941
 msgid "With EAA poster art:"
@@ -645,7 +625,7 @@ msgstr "无海报图片："
 
 #: ../root/statistics/Index.js:967
 msgid "Of releases"
-msgstr ""
+msgstr "发行量"
 
 #: ../root/statistics/Index.js:974 ../root/statistics/Index.js:1007
 msgid "Generic"
@@ -661,146 +641,144 @@ msgstr "愿望单"
 
 #: ../root/statistics/Index.js:1000
 msgid "Of events"
-msgstr ""
+msgstr "活动数量"
 
 #: ../root/statistics/Index.js:1016
 msgid "Of type Attending"
-msgstr ""
+msgstr "参与类型"
 
 #: ../root/statistics/Index.js:1025
 msgid "Of type Maybe attending"
-msgstr ""
+msgstr "可能参与的类型"
 
 #: ../root/statistics/Index.js:1036
 msgid "Of areas"
-msgstr ""
+msgstr "区域"
 
 #: ../root/statistics/Index.js:1042
 msgid "Of artists"
-msgstr ""
+msgstr "艺术家"
 
 #: ../root/statistics/Index.js:1048
-#, fuzzy
-#| msgid "Genres"
 msgid "Of genres"
 msgstr "流派"
 
 #: ../root/statistics/Index.js:1055
 msgid "Of instruments"
-msgstr ""
+msgstr "乐器"
 
 #: ../root/statistics/Index.js:1062
 msgid "Of labels"
-msgstr ""
+msgstr "厂牌"
 
 #: ../root/statistics/Index.js:1068
 msgid "Of places"
-msgstr ""
+msgstr "地点"
 
 #: ../root/statistics/Index.js:1074
 msgid "Of recordings"
-msgstr ""
+msgstr "录音"
 
 #: ../root/statistics/Index.js:1081
 msgid "Of release groups"
-msgstr ""
+msgstr "发行组"
 
 #: ../root/statistics/Index.js:1088
 msgid "Of series"
-msgstr ""
+msgstr "系列"
 
 #: ../root/statistics/Index.js:1094
 msgid "Of works"
-msgstr ""
+msgstr "作品"
 
 #: ../root/statistics/Index.js:1113
 msgid "With collaborators"
-msgstr ""
+msgstr "合作者"
 
 #: ../root/statistics/Index.js:1121
 msgid "Editors, Edits, and Votes"
-msgstr ""
+msgstr "编辑者，编辑和投票"
 
 #: ../root/statistics/Index.js:1128
 msgid "Editors (valid):"
-msgstr ""
+msgstr "编辑者 (合格)："
 
 #: ../root/statistics/Index.js:1134
 msgid "active ever:"
-msgstr ""
+msgstr "历史活跃："
 
 #: ../root/statistics/Index.js:1142
 msgid "who edited and/or voted in the last 7 days:"
-msgstr ""
+msgstr "过去 7 天内编辑和/或投票的人员："
 
 #: ../root/statistics/Index.js:1151
 msgid "who edited in the last 7 days:"
-msgstr ""
+msgstr "过去 7 天内编辑的人员："
 
 #: ../root/statistics/Index.js:1159
 msgid "who voted in the last 7 days:"
-msgstr ""
+msgstr "过去 7 天内投票的人员："
 
 #: ../root/statistics/Index.js:1166
 msgid "who edit:"
-msgstr ""
+msgstr "编辑者："
 
 #: ../root/statistics/Index.js:1173
 msgid "who vote:"
-msgstr ""
+msgstr "投票者："
 
 #: ../root/statistics/Index.js:1180
 msgid "who leave edit notes:"
-msgstr ""
+msgstr "留有编辑备注的人："
 
 #: ../root/statistics/Index.js:1188
 msgctxt "folksonomy"
 msgid "who use tags:"
-msgstr ""
+msgstr "使用了标签的人："
 
 #: ../root/statistics/Index.js:1196
 msgid "who use ratings:"
-msgstr ""
+msgstr "使用的评分的人："
 
 #: ../root/statistics/Index.js:1205
 msgid "who use subscriptions:"
-msgstr ""
+msgstr "使用了订阅的人："
 
 #: ../root/statistics/Index.js:1214
 msgid "who use collections:"
-msgstr ""
+msgstr "使用了收藏集的人："
 
 #: ../root/statistics/Index.js:1224
 msgid "who have registered applications:"
-msgstr ""
+msgstr "已注册的应用："
 
 #: ../root/statistics/Index.js:1233
 msgid "validated email only:"
-msgstr ""
+msgstr "仅经过验证的电子邮件："
 
 #: ../root/statistics/Index.js:1239
 msgid "inactive:"
-msgstr ""
+msgstr "不活跃："
 
 #: ../root/statistics/Index.js:1244
 msgid "Editors (deleted):"
-msgstr ""
+msgstr "编辑者 (已删除的)："
 
 #: ../root/statistics/Index.js:1276
 msgid "Voted down"
-msgstr ""
+msgstr "反对票"
 
 #: ../root/statistics/Index.js:1282
 msgid "Failed (dependency):"
-msgstr ""
+msgstr "失败 (依赖相关)："
 
 #: ../root/statistics/Index.js:1288
 msgid "Failed (prerequisite):"
-msgstr ""
+msgstr "失败 (先决条件相关)："
 
 #: ../root/statistics/Index.js:1294
 msgid "Failed (internal error):"
-msgstr ""
+msgstr "失败 (内部错误)："
 
 #: ../root/statistics/Index.js:1313 ../root/statistics/Index.js:1385
 msgid "Last 7 days:"
@@ -811,14 +789,12 @@ msgid "Yesterday:"
 msgstr "昨天："
 
 #: ../root/statistics/LanguagesScripts.js:43
-#, fuzzy
-#| msgid "Install scripts"
 msgid "Languages and scripts"
-msgstr "安装脚本"
+msgstr "语言和文字"
 
 #: ../root/statistics/LanguagesScripts.js:49
 msgid "All other available languages and scripts have 0 releases and works."
-msgstr ""
+msgstr "所有其他可用的语言和文字均有 0 个版本和作品。"
 
 #: ../root/statistics/LanguagesScripts.js:55
 msgid "Languages"
@@ -838,23 +814,21 @@ msgstr "位置脚本"
 
 #: ../root/statistics/MusicBrainzHistory.js:15
 msgid "History"
-msgstr ""
+msgstr "历史记录"
 
 #: ../root/statistics/MusicBrainzHistory.js:16
 msgid "Our glorious history"
-msgstr ""
+msgstr "我们的荣誉历史"
 
 #: ../root/statistics/MusicBrainzHistory.js:20
 msgid "{date} - {title}"
-msgstr ""
+msgstr "{date} - {title}"
 
 #: ../root/statistics/MusicBrainzHistory.js:36
 msgid "It seems we have no history to show at all!"
-msgstr ""
+msgstr "看来我们根本没有历史可以展示！"
 
 #: ../root/statistics/NoStatistics.js:17 ../root/statistics/NoStatistics.js:19
-#, fuzzy
-#| msgid "No Statistics"
 msgid "No statistics"
 msgstr "无统计信息"
 
@@ -864,20 +838,22 @@ msgid ""
 "administrator for this server, you should run <code>./admin/CollectStats.pl</"
 "code> or import <code>mbdump-stats.tar.bz2</code>."
 msgstr ""
+"从未收集过此服务器的统计信息。如果您是此服务器的管理员，则应运行 <code>./"
+"admin/CollectStats.pl</code> 或导入 <code>mbdump-stats.tar.bz2</code>。"
 
 #: ../root/statistics/Relationships.js:98
 msgid "No relationship statistics available."
-msgstr ""
+msgstr "没有可用的关系统计数据。"
 
 #: ../root/statistics/Relationships.js:105
 msgctxt "relationships"
 msgid "This type only"
-msgstr ""
+msgstr "仅此类型"
 
 #: ../root/statistics/Relationships.js:106
 msgctxt "relationships"
 msgid "Including subtypes"
-msgstr ""
+msgstr "包括亚型"
 
 #: ../root/statistics/Relationships.js:128
 msgid "{type0}-{type1}"
@@ -885,13 +861,11 @@ msgstr "{type0}-{type1}"
 
 #: ../root/statistics/Relationships.js:136
 msgid "{type0}-{type1} relationships:"
-msgstr ""
+msgstr "{type0}-{type1} 关系:"
 
 #: ../root/statistics/stats.js:16
-#, fuzzy
-#| msgid "Areas"
 msgid "Area types"
-msgstr "区域"
+msgstr "区域类型"
 
 #: ../root/statistics/stats.js:17
 #, fuzzy
@@ -901,52 +875,38 @@ msgstr "艺术家国家"
 
 #: ../root/statistics/stats.js:18
 msgid "Artist types and genders"
-msgstr ""
+msgstr "艺术家类型和性别"
 
 #: ../root/statistics/stats.js:23
-#, fuzzy
-#| msgid "Cover Art"
 msgctxt "plural, multiple releases, header"
 msgid "Cover art"
 msgstr "专辑封面"
 
 #: ../root/statistics/stats.js:26
-#, fuzzy
-#| msgid "Edit note notifications"
 msgctxt "noun"
 msgid "Edit information"
-msgstr "编辑备注通知"
+msgstr "编辑通知"
 
 #: ../root/statistics/stats.js:27
-#, fuzzy
-#| msgid "Edit Types"
 msgctxt "noun"
 msgid "Edit types"
 msgstr "编辑类型"
 
 #: ../root/statistics/stats.js:32
-#, fuzzy
-#| msgid "Events"
 msgid "Event types"
-msgstr "活动"
+msgstr "活动类型"
 
 #: ../root/statistics/stats.js:34
-#, fuzzy
-#| msgid "Instruments"
 msgid "Instrument types"
-msgstr "乐器"
+msgstr "乐器类型"
 
 #: ../root/statistics/stats.js:35
-#, fuzzy
-#| msgid "Label Countries"
 msgid "Label countries"
 msgstr "唱片公司国家"
 
 #: ../root/statistics/stats.js:36
-#, fuzzy
-#| msgid "Labels"
 msgid "Label types"
-msgstr "唱片公司"
+msgstr "唱片公司类型"
 
 #: ../root/statistics/stats.js:37
 msgctxt "stats category"
@@ -954,10 +914,8 @@ msgid "Other"
 msgstr "其他"
 
 #: ../root/statistics/stats.js:38
-#, fuzzy
-#| msgid "Places"
 msgid "Place types"
-msgstr "地点"
+msgstr "地点类型"
 
 #: ../root/statistics/stats.js:39
 #, fuzzy
@@ -967,71 +925,52 @@ msgid "Ratings and tags"
 msgstr "评分及标签"
 
 #: ../root/statistics/stats.js:41
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release countries"
-msgstr "专辑组"
+msgstr "发行国家"
 
 #: ../root/statistics/stats.js:42
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release group types"
-msgstr "专辑组"
+msgstr "发行组类型"
 
 #: ../root/statistics/stats.js:43
-#, fuzzy
-#| msgid "Release Languages"
 msgid "Release languages"
-msgstr "发行团语言"
+msgstr "发行语言"
 
 #: ../root/statistics/stats.js:44
-#, fuzzy
-#| msgid "Release group ratings"
 msgid "Release packagings"
-msgstr "专辑组评分"
+msgstr "发行包装"
 
 #: ../root/statistics/stats.js:45
 msgid "Release data quality"
 msgstr "专辑数据质量"
 
 #: ../root/statistics/stats.js:46
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release scripts"
-msgstr "专辑组"
+msgstr "发行文字"
 
 #: ../root/statistics/stats.js:47
-#, fuzzy
-#| msgid "Release Status"
 msgid "Release statuses"
-msgstr "专辑状态"
+msgstr "发行状态"
 
 #: ../root/statistics/stats.js:48
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Series"
 msgid "Series types"
-msgstr "系列"
+msgstr "系列类型"
 
 #: ../root/statistics/stats.js:49
 msgid "Work attributes"
 msgstr "作品属性"
 
 #: ../root/statistics/stats.js:50
-#, fuzzy
-#| msgid "Languages"
 msgid "Work languages"
-msgstr "语言"
+msgstr "作品语言"
 
 #: ../root/statistics/stats.js:51
-#, fuzzy
-#| msgid "No type"
 msgid "Work types"
-msgstr "无类型"
+msgstr "作品类型"
 
 #: ../root/statistics/stats.js:66
 msgid "Areas with no type set"
-msgstr ""
+msgstr "未设置类型的区域"
 
 #: ../root/statistics/stats.js:76
 msgid "Artists with no appearances in artist credits"
@@ -1039,35 +978,31 @@ msgstr "未出现在艺术家名单中的艺术家"
 
 #: ../root/statistics/stats.js:81
 msgid "Artists with no country set"
-msgstr ""
+msgstr "未设置国家的艺术家"
 
 #: ../root/statistics/stats.js:86
-#, fuzzy
-#| msgid "Female Artists"
 msgid "Female artists"
 msgstr "女性艺术家"
 
 #: ../root/statistics/stats.js:91
-#, fuzzy
-#| msgid "Male Artists"
 msgid "Male artists"
 msgstr "男性艺术家"
 
 #: ../root/statistics/stats.js:96
 msgid "Non-binary Artists"
-msgstr ""
+msgstr "非二元性别艺术家"
 
 #: ../root/statistics/stats.js:101
 msgid "Gender not applicable"
-msgstr ""
+msgstr "性别不适用"
 
 #: ../root/statistics/stats.js:106
 msgid "Artists with no gender set (non-group artists)"
-msgstr ""
+msgstr "未设置性别的艺术家 (非群体)"
 
 #: ../root/statistics/stats.js:111
 msgid "Artists with gender set to Other"
-msgstr ""
+msgstr "性别设置为\"其他\"的艺术家"
 
 #: ../root/statistics/stats.js:116
 msgid "Artists with at least one artist credit appearance"
@@ -1087,7 +1022,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:136
 msgid "Artists with no type set"
-msgstr ""
+msgstr "未设置类型的艺术家"
 
 #: ../root/statistics/stats.js:141
 msgid "Orchestras"
@@ -1095,11 +1030,11 @@ msgstr "管弦乐团"
 
 #: ../root/statistics/stats.js:146
 msgid "Artists with type set to Other"
-msgstr ""
+msgstr "类型设为 \"其他\" 的艺术家"
 
 #: ../root/statistics/stats.js:151
 msgid "Persons"
-msgstr ""
+msgstr "人"
 
 #: ../root/statistics/stats.js:166
 msgid "CD stubs (current)"

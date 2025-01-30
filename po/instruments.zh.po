@@ -5,20 +5,20 @@
 # claybiockiller <clay0305@hotmail.com>, 2023.
 # AshPigeon <1433821055@qq.com>, 2024.
 # darlingz <yagamidai@gmail.com>, 2024.
-# KenParker_CN <peekabookenny@gmail.com>, 2024.
+# KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-11-17 16:42+0000\n"
+"PO-Revision-Date: 2025-01-30 11:44+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/instruments/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/instruments/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -718,20 +718,14 @@ msgid "birbynė"
 msgstr "毕尔宾内管"
 
 #: DB:instrument/name:801
-#, fuzzy
-#| msgctxt "Wooden natural brass"
-#| msgid "birch lur"
 msgctxt "wooden natural brass"
 msgid "birch lur"
-msgstr "桦木卢尔号（一种斯堪的纳维亚半岛的管乐器）"
+msgstr "桦木卢尔号"
 
 #: DB:instrument/name:824
-#, fuzzy
-#| msgctxt "prim, small serbo-croatian plucked stringinstrument"
-#| msgid "bisernica"
 msgctxt "prim, small Serbo-Croatian plucked string instrument"
 msgid "bisernica"
-msgstr "碧森尼卡琴/坦布里卡(Tamburica)琴"
+msgstr "碧森尼卡琴"
 
 #: DB:instrument/name:70
 msgid "biwa"
@@ -758,10 +752,9 @@ msgid "bombarde"
 msgstr "大芦管"
 
 #: DB:instrument/name:1071
-#, fuzzy
 msgctxt "Andean bass-drum"
 msgid "bombo legüero"
-msgstr "南美低音鼓"
+msgstr "雷圭罗鼓"
 
 #: DB:instrument/name:969
 msgctxt "Family of bronze gong-chime sets used in Javanese gamelan"
@@ -836,9 +829,6 @@ msgid "brass"
 msgstr "铜管乐器"
 
 #: DB:instrument/name:825
-#, fuzzy
-#| msgctxt "basprim, serbo-croatian plucked stringinstrument"
-#| msgid "brač"
 msgctxt "basprim, Serbo-Croatian plucked string instrument"
 msgid "brač"
 msgstr "布拉奇琴"
@@ -853,9 +843,6 @@ msgid "brushes"
 msgstr "刷子"
 
 #: DB:instrument/name:826
-#, fuzzy
-#| msgctxt "kontra, serbo-croatian plucked stringinstrument"
-#| msgid "bugarija"
 msgctxt "kontra, Serbo-Croatian plucked string instrument"
 msgid "bugarija"
 msgstr "保加利亚琴"

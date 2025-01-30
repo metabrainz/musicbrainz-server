@@ -7,21 +7,22 @@
 # ycwei982 <ycwei982@outlook.com>, 2024.
 # AshPigeon <1433821055@qq.com>, 2024.
 # weeeeei <weeeeei@duck.com>, 2024.
-# KenParker_CN <peekabookenny@gmail.com>, 2024.
+# KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
 # thephy <differentphy@outlook.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-11-17 16:42+0000\n"
+"PO-Revision-Date: 2025-01-30 11:44+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/relationship-types/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hans/>"
+"\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -3015,10 +3016,8 @@ msgstr "用于链接艺术家的Discogs页。"
 
 #. name:discogs
 #: DB:link_type/description:1275
-#, fuzzy
-#| msgid "This is used to link the Discogs page for this release."
 msgid "This is used to link the Discogs page for this event."
-msgstr "用于链接专辑的Discogs页。"
+msgstr "用于链接活动的Discogs页。"
 
 #. name:discogs
 #: DB:link_type/description:1089
