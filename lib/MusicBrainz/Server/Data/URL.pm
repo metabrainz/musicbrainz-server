@@ -77,6 +77,7 @@ my %URL_SPECIALIZATIONS = (
     'FonoFi'              => qr{^https?://(?:www\.)?fono\.fi/}i,
     'Gakki'               => qr{^https?://(?:www\.)?saisaibatake\.ame-zaiku\.com/(?:gakki|musical|musical_instrument)/}i,
     'Generasia'           => qr{^https?://(?:www\.)?generasia\.com/wiki/}i,
+    'Genie'               => qr{^https?://(?:www\.)?genie\.co\.kr/}i,
     'Genius'              => qr{^https?://(?:[^/]+\.)?genius\.com/}i,
     'GeoNames'            => qr{^http://sws\.geonames\.org/}i,
     'Goodreads'           => qr{^https?://(?:www\.)?goodreads\.com/}i,

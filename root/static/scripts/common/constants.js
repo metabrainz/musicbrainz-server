@@ -127,6 +127,7 @@ export const FAVICON_CLASSES: {
   'flattr.com': 'flattr',
   'fono.fi': 'fonofi',
   'generasia.com/wiki': 'generasia',
+  'genie.co.kr': 'genie',
   'genius.com': 'genius',
   'geonames.org': 'geonames',
   'goodreads.com': 'goodreads',
