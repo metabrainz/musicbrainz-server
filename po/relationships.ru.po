@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-02-01 23:44+0000\n"
+"PO-Revision-Date: 2025-02-02 14:44+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -10731,12 +10731,12 @@ msgstr ""
 #. name:part of set
 #: DB:link_type/link_phrase:1
 msgid "{bonus:bonus|next} disc"
-msgstr ""
+msgstr "{bonus:бонусный|следующий} диск"
 
 #. name:part of set
 #: DB:link_type/long_link_phrase:1
 msgid "{bonus:may be|is} part of a set, the next disc in the set is"
-msgstr ""
+msgstr "{bonus:может быть|является} частью сета, следующий диск в сете:"
 
 #. name:produced for
 #: DB:link_type/reverse_link_phrase:951 DB:link_type/reverse_link_phrase:950
@@ -10826,7 +10826,7 @@ msgstr ""
 #. name:lyrics
 #: DB:link_type/long_link_phrase:271
 msgid "{entity1} has lyrics available at {entity0}"
-msgstr ""
+msgstr "тексты к {entity1} доступны по адресу: {entity0}"
 
 #. name:photography
 #: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:1175
@@ -10899,7 +10899,7 @@ msgstr "{entity1} посвящено {entity0}"
 #. name:headquarters
 #: DB:link_type/long_link_phrase:1237
 msgid "{entity1} is headquartered in {entity0}"
-msgstr ""
+msgstr "штаб-квартира {entity1} находится в {entity0}"
 
 #. name:license
 #: DB:link_type/long_link_phrase:939
@@ -10925,7 +10925,7 @@ msgstr "{entity1} посвящено {entity0}"
 #. name:anthem
 #: DB:link_type/long_link_phrase:357
 msgid "{entity1} is/was an anthem of {entity0}"
-msgstr ""
+msgstr "{entity1} был/является гимном {entity0}"
 
 #. name:primary concert venue
 #: DB:link_type/long_link_phrase:714
@@ -11183,6 +11183,7 @@ msgid ""
 "{entity1} was {anniversary:an anniversary tour for|a tour in support of} "
 "{entity0}"
 msgstr ""
+"\"{entity1}\" был туром {anniversary:в честь годовщины|в поддержку} {entity0}"
 
 #. name:produced for
 #: DB:link_type/long_link_phrase:951 DB:link_type/long_link_phrase:950
@@ -11222,12 +11223,12 @@ msgstr ""
 #. name:parent
 #: DB:link_type/link_phrase:109
 msgid "{step}children"
-msgstr ""
+msgstr "{step:приемные} дети"
 
 #. name:parent
 #: DB:link_type/reverse_link_phrase:109
 msgid "{step}parents"
-msgstr ""
+msgstr "{step:приемные} родители"
 
 #. name:published, name:publishing
 #: DB:link_type/link_phrase:161 DB:link_type/link_phrase:32
@@ -11241,22 +11242,22 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:32
 #: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:362
 msgid "{sub:sub-}publisher"
-msgstr ""
+msgstr "{sub:суб-}издатель"
 
 #. name:cover
 #: DB:link_type/reverse_link_phrase:15
 msgid "{translated} {parody:parodies|covers}"
-msgstr ""
+msgstr "{translated:переведенные} {parody:пародии|кавера}"
 
 #. name:cover
 #: DB:link_type/link_phrase:15
 msgid "{translated} {parody:parody|cover} of"
-msgstr ""
+msgstr "{translated:перевод} {parody:пародия|кавер} работы"
 
 #. name:other version
 #: DB:link_type/reverse_link_phrase:241
 msgid "{translated} {parody} version of"
-msgstr ""
+msgstr "{translated:переведенная} {parody:пародийная} версия работы"
 
 #. name:liner notes
 #: DB:link_type/long_link_phrase:24
