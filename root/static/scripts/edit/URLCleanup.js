@@ -6206,10 +6206,10 @@ const CLEANUPS: CleanupEntries = {
       return false;
     },
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?music\.naver\.com\/album\/index\.nhn\?albumId=(\d+)(?:&.+)/, 'https://vibe.naver.com/album/$1');
-      url = url.replace(/^(?:https?:\/\/)?music\.naver\.com\/artist\/(?:\w+)\.nhn\?artistId=(\d+)(?:&.+)/, 'https://vibe.naver.com/artist/$1');
-      url = url.replace(/^(?:https?:\/\/)?music\.naver\.com\/video\/(?:\w+)\.nhn\?videoId=(\d+)(?:&.+)/, 'https://vibe.naver.com/video/$1');
-      url = url.replace(/^(?:https?:\/\/)?vibe\.naver\.com\/(album|artist|track|video)\/(\d+)(?:\/\w+)/, 'https://vibe.naver.com/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?music\.naver\.com\/album\/index\.nhn\?albumId=(\d+).*$/, 'https://vibe.naver.com/album/$1');
+      url = url.replace(/^(?:https?:\/\/)?music\.naver\.com\/artist\/(?:\w+)\.nhn\?artistId=(\d+).*$/, 'https://vibe.naver.com/artist/$1');
+      url = url.replace(/^(?:https?:\/\/)?music\.naver\.com\/video\/(?:\w+)\.nhn\?videoId=(\d+).*$/, 'https://vibe.naver.com/video/$1');
+      url = url.replace(/^(?:https?:\/\/)?vibe\.naver\.com\/(album|artist|track|video)\/(\d+).*$/, 'https://vibe.naver.com/$1/$2');
       return url;
     },
     validate(url, id) {
