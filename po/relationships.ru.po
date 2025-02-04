@@ -16,15 +16,15 @@
 # Екатерина Тишина <email address hidden>, 2016
 # Иван Стасюк <email address hidden>, 2016
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
-# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
+# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025.
 # nkm01 <matsuk-nikita@rambler.ru>, 2024.
 # Libra <recreate_squall363@simplelogin.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-12-22 17:42+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-02-02 14:44+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -32,8 +32,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.9.2\n"
 
 #. name:artist diploma
@@ -846,7 +846,7 @@ msgstr "Last.fm"
 #: DB:link_type/reverse_link_phrase:837 DB:link_type/reverse_link_phrase:838
 #: DB:link_type/reverse_link_phrase:839 DB:link_type/reverse_link_phrase:840
 msgid "Last.fm page for"
-msgstr "Страница на Last.fm"
+msgstr "страница на Last.fm"
 
 #. name:lead vocals
 #: DB:link_attribute_type/description:4
@@ -1020,6 +1020,8 @@ msgid ""
 "Links a release to the area it was edited in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Связывает релиз с областью, в которой он был редактирован. Используйте "
+"только в тех случаях, когда место неизвестно!"
 
 #. name:engineered in
 #: DB:link_type/description:815
@@ -1031,7 +1033,7 @@ msgstr ""
 #. name:manufactured in
 #: DB:link_type/description:835
 msgid "Links a release to the area it was manufactured (\"made\") in."
-msgstr ""
+msgstr "Связывает релиз с областью, в которой он был произведен (\"сделан\")."
 
 #. name:mastered in
 #: DB:link_type/description:756
@@ -3102,35 +3104,33 @@ msgstr ""
 
 #. name:discogs
 #: DB:link_type/description:1275
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this event."
 msgid "This is used to link the Discogs page for this event."
-msgstr "Указывает на страницу в Википедии для данного мероприятия."
+msgstr "Указывает на страницу в Discogs для данного мероприятия."
 
 #. name:discogs
 #: DB:link_type/description:1089
 msgid "This is used to link the Discogs page for this genre/style."
-msgstr ""
+msgstr "Указывает на страницу в Discogs для данного жанра/стиля."
 
 #. name:discogs
 #: DB:link_type/description:217
 msgid "This is used to link the Discogs page for this label."
-msgstr ""
+msgstr "Указывает на страницу в Discogs для данного лейбла."
 
 #. name:discogs
 #: DB:link_type/description:90
 msgid "This is used to link the Discogs page for this release group."
-msgstr ""
+msgstr "Указывает на страницу в Discogs для данной группы релизов."
 
 #. name:discogs
 #: DB:link_type/description:76
 msgid "This is used to link the Discogs page for this release."
-msgstr ""
+msgstr "Указывает на страницу в Discogs для данного релиза."
 
 #. name:discogs
 #: DB:link_type/description:971
 msgid "This is used to link the Discogs page for this work."
-msgstr ""
+msgstr "Указывает на страницу в Discogs для данной работы."
 
 #. name:purchase for download
 #: DB:link_type/description:176
@@ -3166,7 +3166,7 @@ msgstr "Добавляет ссылку на страницу, где релиз
 #. name:performance
 #: DB:link_type/description:278
 msgid "This is used to link works to their recordings."
-msgstr ""
+msgstr "Связывает работы с соответствующими записями."
 
 #. name:collaboration
 #: DB:link_type/description:102
@@ -3286,7 +3286,7 @@ msgstr ""
 #. name:fanpage
 #: DB:link_type/description:214
 msgid "This links a label to a fan-created website."
-msgstr ""
+msgstr "Связывает лейбл с фанатским веб-сайтом."
 
 #. name:patronage
 #: DB:link_type/description:899
@@ -3300,34 +3300,35 @@ msgstr "Указывает на сайт, где лейбл может полу�
 msgid ""
 "This links a label to a site where tickets can be purchased for their events."
 msgstr ""
+"Добавляет ссылку на сайт, где можно купить билеты на мероприятия лейбла."
 
 #. name:youtube
 #: DB:link_type/description:225
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links a label to its channel at YouTube."
-msgstr "Ссылается на канал исполнителя на YouTube Music."
+msgstr "Добавляет ссылку на YouTube-канал лейбла."
 
 #. name:apple music
 #: DB:link_type/description:1130
 msgid "This links a label to its page at Apple Music."
-msgstr ""
+msgstr "Добавляет ссылку на страницу лейбла на Apple Music."
 
 #. name:bandcamp
 #: DB:link_type/description:719
 msgid "This links a label to its page at Bandcamp."
-msgstr ""
+msgstr "Добавляет ссылку на страницу лейбла на Bandcamp."
 
 #. name:IMDb
 #: DB:link_type/description:313
 msgid ""
 "This links a label to its page in <a href=\"http://www.imdb.com/\">IMDb</a>."
 msgstr ""
+"Добавляет ссылку на страницу лейбла на <a href=\"http://www.imdb.com/\""
+">IMDb</a>."
 
 #. name:soundcloud
 #: DB:link_type/description:290
 msgid "This links a label to its profile at SoundCloud."
-msgstr ""
+msgstr "Добавляет ссылку на профиль лейбла на SoundCloud."
 
 #. name:crowdfunding
 #: DB:link_type/description:903
@@ -10730,12 +10731,12 @@ msgstr ""
 #. name:part of set
 #: DB:link_type/link_phrase:1
 msgid "{bonus:bonus|next} disc"
-msgstr ""
+msgstr "{bonus:бонусный|следующий} диск"
 
 #. name:part of set
 #: DB:link_type/long_link_phrase:1
 msgid "{bonus:may be|is} part of a set, the next disc in the set is"
-msgstr ""
+msgstr "{bonus:может быть|является} частью сета, следующий диск в сете:"
 
 #. name:produced for
 #: DB:link_type/reverse_link_phrase:951 DB:link_type/reverse_link_phrase:950
@@ -10825,7 +10826,7 @@ msgstr ""
 #. name:lyrics
 #: DB:link_type/long_link_phrase:271
 msgid "{entity1} has lyrics available at {entity0}"
-msgstr ""
+msgstr "тексты к {entity1} доступны по адресу: {entity0}"
 
 #. name:photography
 #: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:1175
@@ -10898,7 +10899,7 @@ msgstr "{entity1} посвящено {entity0}"
 #. name:headquarters
 #: DB:link_type/long_link_phrase:1237
 msgid "{entity1} is headquartered in {entity0}"
-msgstr ""
+msgstr "штаб-квартира {entity1} находится в {entity0}"
 
 #. name:license
 #: DB:link_type/long_link_phrase:939
@@ -10924,7 +10925,7 @@ msgstr "{entity1} посвящено {entity0}"
 #. name:anthem
 #: DB:link_type/long_link_phrase:357
 msgid "{entity1} is/was an anthem of {entity0}"
-msgstr ""
+msgstr "{entity1} был/является гимном {entity0}"
 
 #. name:primary concert venue
 #: DB:link_type/long_link_phrase:714
@@ -11182,6 +11183,7 @@ msgid ""
 "{entity1} was {anniversary:an anniversary tour for|a tour in support of} "
 "{entity0}"
 msgstr ""
+"\"{entity1}\" был туром {anniversary:в честь годовщины|в поддержку} {entity0}"
 
 #. name:produced for
 #: DB:link_type/long_link_phrase:951 DB:link_type/long_link_phrase:950
@@ -11221,12 +11223,12 @@ msgstr ""
 #. name:parent
 #: DB:link_type/link_phrase:109
 msgid "{step}children"
-msgstr ""
+msgstr "{step:приемные} дети"
 
 #. name:parent
 #: DB:link_type/reverse_link_phrase:109
 msgid "{step}parents"
-msgstr ""
+msgstr "{step:приемные} родители"
 
 #. name:published, name:publishing
 #: DB:link_type/link_phrase:161 DB:link_type/link_phrase:32
@@ -11240,22 +11242,22 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:32
 #: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:362
 msgid "{sub:sub-}publisher"
-msgstr ""
+msgstr "{sub:суб-}издатель"
 
 #. name:cover
 #: DB:link_type/reverse_link_phrase:15
 msgid "{translated} {parody:parodies|covers}"
-msgstr ""
+msgstr "{translated:переведенные} {parody:пародии|кавера}"
 
 #. name:cover
 #: DB:link_type/link_phrase:15
 msgid "{translated} {parody:parody|cover} of"
-msgstr ""
+msgstr "{translated:перевод} {parody:пародия|кавер} работы"
 
 #. name:other version
 #: DB:link_type/reverse_link_phrase:241
 msgid "{translated} {parody} version of"
-msgstr ""
+msgstr "{translated:переведенная} {parody:пародийная} версия работы"
 
 #. name:liner notes
 #: DB:link_type/long_link_phrase:24
