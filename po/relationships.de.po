@@ -2378,6 +2378,21 @@ msgid ""
 msgstr ""
 
 #. name:commissioned
+#: DB:link_type/description:1279
+#, fuzzy
+#| msgid ""
+#| "This indicates the work is dedicated to a specific place (such an "
+#| "educational institution). This is most common for classical works, but "
+#| "also exists in other genres to a degree."
+msgid ""
+"This indicates that the area commissioned the work. This is most common for "
+"classical works, but also exists in other genres to a degree."
+msgstr ""
+"Dies gibt an, dass das Werk einer bestimmten Örtlichkeit (wie einer "
+"Bildungseinrichtung) gewidmet ist. Am häufigsten ist dies bei klassischen "
+"Werken der Fall, aber zu einem gewissen Grad auch in anderen Genres."
+
+#. name:commissioned
 #: DB:link_type/description:889
 msgid ""
 "This indicates that the artist commissioned the work. This is most common "
@@ -2918,6 +2933,13 @@ msgstr ""
 #, fuzzy
 #| msgid "This indicates the artist was the owner of this label."
 msgid "This indicates the work that inspired this label’s name."
+msgstr "Gibt an, dass der Künstler der Eigentümer dieses Labels war."
+
+#. name:named after work
+#: DB:link_type/description:1278
+#, fuzzy
+#| msgid "This indicates the artist was the owner of this label."
+msgid "This indicates the work that inspired this work's name."
 msgstr "Gibt an, dass der Künstler der Eigentümer dieses Labels war."
 
 #. name:podcast feed
@@ -4296,6 +4318,15 @@ msgid ""
 "release, usually indicated with a © symbol."
 msgstr ""
 
+#. name:video copyright
+#: DB:link_type/description:1276
+#, fuzzy
+#| msgid "This indicates the artist was the owner of this label."
+msgid ""
+"This relationship indicates the artist is the copyright holder for this "
+"video, usually indicated with a © symbol."
+msgstr "Gibt an, dass der Künstler der Eigentümer dieses Labels war."
+
 #. name:licensor
 #: DB:link_type/description:1010
 msgid ""
@@ -4337,6 +4368,13 @@ msgstr ""
 msgid ""
 "This relationship indicates the label is the copyright holder for this "
 "release, usually indicated with a © symbol."
+msgstr ""
+
+#. name:video copyright
+#: DB:link_type/description:1277
+msgid ""
+"This relationship indicates the label is the copyright holder for this "
+"video, usually indicated with a © symbol."
 msgstr ""
 
 #. name:IMDB samples
@@ -5473,6 +5511,16 @@ msgstr "Audio"
 msgid "audio director"
 msgstr ""
 
+#. name:authorship
+#: DB:link_type/name:170 DB:link_type/name:58 DB:link_type/link_phrase:170
+#: DB:link_type/link_phrase:58 DB:link_type/reverse_link_phrase:170
+#: DB:link_type/reverse_link_phrase:58 DB:link_type/long_link_phrase:170
+#: DB:link_type/long_link_phrase:58
+#, fuzzy
+#| msgid "ownership"
+msgid "authorship"
+msgstr "Eigentum"
+
 #. name:available at
 #: DB:link_type/name:795 DB:link_type/reverse_link_phrase:795
 msgid "available at"
@@ -5737,11 +5785,12 @@ msgstr ""
 
 #. name:commissioned
 #: DB:link_type/name:890 DB:link_type/name:889 DB:link_type/name:892
-#: DB:link_type/name:891 DB:link_type/link_phrase:890
+#: DB:link_type/name:891 DB:link_type/name:1279 DB:link_type/link_phrase:890
 #: DB:link_type/link_phrase:889 DB:link_type/link_phrase:892
-#: DB:link_type/link_phrase:891 DB:link_type/long_link_phrase:890
-#: DB:link_type/long_link_phrase:889 DB:link_type/long_link_phrase:892
-#: DB:link_type/long_link_phrase:891
+#: DB:link_type/link_phrase:891 DB:link_type/link_phrase:1279
+#: DB:link_type/long_link_phrase:890 DB:link_type/long_link_phrase:889
+#: DB:link_type/long_link_phrase:892 DB:link_type/long_link_phrase:891
+#: DB:link_type/long_link_phrase:1279
 msgid "commissioned"
 msgstr ""
 
@@ -5797,11 +5846,7 @@ msgstr ""
 msgid "composers-in-residence"
 msgstr ""
 
-#. name:composition
-#: DB:link_attribute_type/name:1126 DB:link_type/name:58 DB:link_type/name:170
-#: DB:link_type/link_phrase:58 DB:link_type/link_phrase:170
-#: DB:link_type/reverse_link_phrase:58 DB:link_type/reverse_link_phrase:170
-#: DB:link_type/long_link_phrase:58 DB:link_type/long_link_phrase:170
+#: DB:link_attribute_type/name:1126
 msgid "composition"
 msgstr "Komposition"
 
@@ -7043,6 +7088,14 @@ msgstr "Geschichte-Seite"
 msgid "holds copyright (©) for"
 msgstr ""
 
+#. name:video copyright
+#: DB:link_type/link_phrase:1277 DB:link_type/link_phrase:1276
+#: DB:link_type/long_link_phrase:1277 DB:link_type/long_link_phrase:1276
+#, fuzzy
+#| msgid "copyrighted (©) by"
+msgid "holds copyright (©) for video"
+msgstr "urheberrechtlich geschützt (©) von"
+
 #. name:phonographic copyright
 #: DB:link_type/link_phrase:710 DB:link_type/link_phrase:867
 #: DB:link_type/link_phrase:711 DB:link_type/link_phrase:869
@@ -7169,8 +7222,8 @@ msgstr "inspirierte den Namen von"
 msgid "inspired the name of series"
 msgstr "inspirierte den Namen von"
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1257
+#. name:named after artist, name:named after work
+#: DB:link_type/link_phrase:1257 DB:link_type/reverse_link_phrase:1278
 #, fuzzy
 #| msgid "inspired the name of"
 msgid "inspired the name of work"
@@ -7391,7 +7444,8 @@ msgid "is named after release group"
 msgstr "ist benannt nach"
 
 #. name:named after work
-#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
+#: DB:link_type/long_link_phrase:1265
 #, fuzzy
 #| msgid "is named after"
 msgid "is named after work"
@@ -8137,7 +8191,8 @@ msgid "named after release group"
 msgstr "spätere Veröffentlichungen"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1265
+#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:1278
 #: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "named after"
@@ -9736,6 +9791,19 @@ msgstr "Videokanal"
 msgid "video channel for"
 msgstr "Videokanal für"
 
+#: DB:link_type/name:1277 DB:link_type/name:1276
+#, fuzzy
+#| msgid "copyright"
+msgid "video copyright"
+msgstr "Copyright"
+
+#. name:video copyright
+#: DB:link_type/reverse_link_phrase:1277 DB:link_type/reverse_link_phrase:1276
+#, fuzzy
+#| msgid "copyrighted (©) by"
+msgid "video copyrighted (©) by"
+msgstr "urheberrechtlich geschützt (©) von"
+
 #: DB:link_type/name:962 DB:link_type/name:1185
 msgid "video director"
 msgstr ""
@@ -9866,6 +9934,7 @@ msgstr "war {assistant:assistierender} Organist bei"
 #. name:commissioned
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
 #: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
+#: DB:link_type/reverse_link_phrase:1279
 msgid "was commissioned by"
 msgstr ""
 

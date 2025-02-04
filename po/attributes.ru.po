@@ -4327,6 +4327,15 @@ msgctxt "work_attribute_type"
 msgid "ID for the British rights society PRS for Music"
 msgstr "ID для британского правозащитного общества PRS for Music"
 
+#. name:MUSICAUTOR ID
+#: DB:work_attribute_type/description:212
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Nicaraguan rights society NICAUTOR"
+msgctxt "work_attribute_type"
+msgid "ID for the Bulgarian rights society MUSICAUTOR"
+msgstr "ID для никарагуанского правозащитного общества NICAUTOR"
+
 #. name:SOCAN ID
 #: DB:work_attribute_type/description:10
 msgctxt "work_attribute_type"
@@ -5561,6 +5570,14 @@ msgstr ""
 msgctxt "work_attribute_type"
 msgid "MCT ID"
 msgstr ""
+
+#: DB:work_attribute_type/name:212
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "LATGA ID"
+msgctxt "work_attribute_type"
+msgid "MUSICAUTOR ID"
+msgstr "LATGA ID"
 
 #: DB:work_attribute_type_allowed_value/value:963
 msgctxt "work_attribute_type_allowed_value"
