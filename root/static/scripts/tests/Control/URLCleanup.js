@@ -5663,6 +5663,14 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
                                   target: 'url',
                                 },
   },
+  // SteamDB
+  {
+                     input_url: 'http://www.steamdb.info/app/331230/info/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://steamdb.info/app/331230/',
+       only_valid_entity_types: ['release'],
+  },
   // Target
   {
                      input_url: 'https://www.target.com/b/universal-music-group/-/N-l4bvw',

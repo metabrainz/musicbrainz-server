@@ -5448,6 +5448,23 @@ const CLEANUPS: CleanupEntries = {
       };
     },
   },
+  'steamdb': {
+    match: [/^(https?:\/\/)?(www\.)?steamdb\.info\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?steamdb\.info\/app\/(\d+).*$/, 'https://steamdb.info/app/$1/');
+    },
+    validate(url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.release:
+          return {
+            result: /^https:\/\/steamdb\.info\/app\/\d+\/$/.test(url),
+            target: ERROR_TARGETS.URL,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.ENTITY};
+    },
+  },
   'target': {
     match: [/^(https?:\/\/)?((intl|www)\.)?target\.com\/(b|p)/i],
     restrict: [LINK_TYPES.mailorder],
