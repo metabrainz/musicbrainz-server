@@ -1,20 +1,11 @@
-package MusicBrainz::Server::Entity::URL::Bluesky;
+package MusicBrainz::Server::Entity::URL::SteamDB;
 
 use Moose;
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name {
-    my $self = shift;
-
-    if ($self->url =~ m{^https?://(?:www\.)?bsky\.app/profile/((?!did:plc)[^/]+)/?$}i) {
-        return '@' . $1;
-    }
-    else {
-        return 'Bluesky';
-    }
-}
+sub sidebar_name { 'SteamDB' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -22,7 +13,7 @@ no Moose;
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2024 MetaBrainz Foundation
+Copyright (C) 2025 MetaBrainz Foundation
 
 This file is part of MusicBrainz, the open internet music database,
 and is licensed under the GPL version 2, or (at your option) any

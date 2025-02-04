@@ -145,6 +145,42 @@ type LinksEditorState = {
   +links: $ReadOnlyArray<LinkStateT>,
 };
 
+function getFaviconClass(
+  relationships: $ReadOnlyArray<LinkRelationshipT>,
+  url: string,
+) {
+  let faviconClass = '';
+
+  for (const relationship of relationships) {
+    const linkType = relationship.type
+      ? linkedEntities.link_type[relationship.type]
+      : null;
+
+    if (linkType) {
+      // If we find a homepage, that's the icon we want and we're done
+      if (/^official (?:homepage|site)$/.test(linkType.name)) {
+        return 'home';
+      } else if (linkType.name === 'blog') {
+        faviconClass = 'blog';
+      } else if (linkType.name === 'review') {
+        faviconClass = 'review';
+      }
+    }
+  }
+
+  if (nonEmpty(faviconClass)) {
+    return faviconClass;
+  }
+
+  for (const key of Object.keys(FAVICON_CLASSES)) {
+    if (url.indexOf(key) > 0) {
+      return FAVICON_CLASSES[key];
+    }
+  }
+
+  return 'no';
+}
+
 export class _ExternalLinksEditor
   extends React.Component<LinksEditorProps, LinksEditorState> {
   creditableEntityProp: 'entity0_credit' | 'entity1_credit' | null;
@@ -1428,42 +1464,9 @@ export class ExternalLink extends React.Component<LinkProps> {
     });
     const firstLink = props.relationships[0];
 
-    let faviconClass: string | void;
-    for (const key of Object.keys(FAVICON_CLASSES)) {
-      if (props.url.indexOf(key) > 0) {
-        faviconClass = FAVICON_CLASSES[key];
-        break;
-      }
-    }
-    if (notEmpty && !faviconClass) {
-      const isHomepage = props.relationships.some(link => {
-        const linkType = link.type
-          ? linkedEntities.link_type[link.type]
-          : null;
-        if (linkType) {
-          return /^official (?:homepage|site)$/.test(linkType.name);
-        }
-        return false;
-      });
-      if (isHomepage) {
-        faviconClass = 'home';
-      } else {
-        const isBlog = props.relationships.some(link => {
-          const linkType = link.type
-            ? linkedEntities.link_type[link.type]
-            : null;
-          if (linkType) {
-            return /^blog$/.test(linkType.name);
-          }
-          return false;
-        });
-        if (isBlog) {
-          faviconClass = 'blog';
-        } else {
-          faviconClass = 'no';
-        }
-      }
-    }
+    const faviconClass = notEmpty
+      ? getFaviconClass(props.relationships, props.url)
+      : null;
 
     return (
       <>

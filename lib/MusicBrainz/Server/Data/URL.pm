@@ -18,6 +18,7 @@ sub _type { 'url' }
 my %URL_SPECIALIZATIONS = (
 
     # External links section
+    '7digital'            => qr{^https?://([^/]+\.)?7digital\.com/}i,
     '45cat'               => qr{^https?://(?:www\.)?45cat\.com/}i,
     '45worlds'            => qr{^https?://(?:www\.)?45worlds\.com/}i,
     'Allmusic'            => qr{^https?://(?:www\.)?allmusic\.com/}i,
@@ -77,6 +78,7 @@ my %URL_SPECIALIZATIONS = (
     'FonoFi'              => qr{^https?://(?:www\.)?fono\.fi/}i,
     'Gakki'               => qr{^https?://(?:www\.)?saisaibatake\.ame-zaiku\.com/(?:gakki|musical|musical_instrument)/}i,
     'Generasia'           => qr{^https?://(?:www\.)?generasia\.com/wiki/}i,
+    'Genie'               => qr{^https?://(?:www\.)?genie\.co\.kr/}i,
     'Genius'              => qr{^https?://(?:[^/]+\.)?genius\.com/}i,
     'GeoNames'            => qr{^http://sws\.geonames\.org/}i,
     'Goodreads'           => qr{^https?://(?:www\.)?goodreads\.com/}i,
@@ -184,6 +186,7 @@ my %URL_SPECIALIZATIONS = (
     'SpiritOfMetal'       => qr{^https?://(?:www\.)?spirit-of-metal\.com/}i,
     'SpiritOfRock'        => qr{^https?://(?:www\.)?spirit-of-rock\.com/}i,
     'Stage48'             => qr{^https?://(?:www\.)?stage48\.net/}i,
+    'SteamDB'             => qr{^https?://([^/]+\.)?steamdb\.info/}i,
     'Target'              => qr{^https?://(?:(?:intl|www)\.)?target\.com/}i,
     'Theatricalia'        => qr{^https?://(?:www\.)?theatricalia\.com/}i,
     'TheDanceGypsy'       => qr{^https?://(?:www\.)?thedancegypsy\.com/}i,

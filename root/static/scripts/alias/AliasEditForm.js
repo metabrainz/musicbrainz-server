@@ -323,7 +323,15 @@ const AliasEditForm = ({
                   state.isTypeSearchHint || !state.form.field.locale.value
                 }
                 field={state.form.field.primary_for_locale}
-                label={l('This is the primary alias for this locale')}
+                label={exp.l(
+                  'This is the {alias_doc|primary alias} for this locale',
+                  {
+                    alias_doc: {
+                      href: '/doc/Style/Aliases#Localised_names',
+                      target: '_blank',
+                    },
+                  },
+                )}
                 onChange={setPrimaryForLocale}
               />
             </div>
