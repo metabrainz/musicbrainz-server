@@ -75,6 +75,7 @@ export const DLABEL_ID = 1;
 export const FAVICON_CLASSES: {
   +[host: string]: string,
 } = {
+  '7digital.com': 'sevendigital',
   '45cat.com': 'fortyfivecat',
   '45worlds.com': 'fortyfiveworlds',
   'abc.net.au/triplejunearthed': 'triplejunearthed',
