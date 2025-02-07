@@ -43,6 +43,7 @@ const ArtistLink = ({content, credit, nameVariation}: ArtistLinkProps) => (
       content={empty(content) ? credit.name : content}
       entity={credit.artist}
       nameVariation={nameVariation}
+      shouldIsolate={false}
     />
   ) : null
 );
