@@ -14,9 +14,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2025-01-30 11:44+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://"
-"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hans/>"
-"\n"
+"Language-Team: Chinese (Simplified Han script) <https://translations."
+"metabrainz.org/projects/musicbrainz/relationship-types/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2294,6 +2293,18 @@ msgstr ""
 "他文字)。"
 
 #. name:commissioned
+#: DB:link_type/description:1279
+#, fuzzy
+#| msgid ""
+#| "This indicates that the place commissioned the work. This is most common "
+#| "for classical works, but also exists in other genres to a degree."
+msgid ""
+"This indicates that the area commissioned the work. This is most common for "
+"classical works, but also exists in other genres to a degree."
+msgstr ""
+"这表明作品由地点委托制作。最常见于古典作品，但也或多或少存在于其他流派。"
+
+#. name:commissioned
 #: DB:link_type/description:889
 msgid ""
 "This indicates that the artist commissioned the work. This is most common "
@@ -2798,6 +2809,13 @@ msgstr "指某个作品启发了这个艺术家的名字。"
 #: DB:link_type/description:1265
 msgid "This indicates the work that inspired this label’s name."
 msgstr "指某个作品启发了这个厂牌的名字。"
+
+#. name:named after work
+#: DB:link_type/description:1278
+#, fuzzy
+#| msgid "This indicates the work that inspired this artist’s name."
+msgid "This indicates the work that inspired this work's name."
+msgstr "指某个作品启发了这个艺术家的名字。"
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -4249,6 +4267,20 @@ msgid ""
 "release, usually indicated with a © symbol."
 msgstr ""
 
+#. name:video copyright
+#: DB:link_type/description:1276
+#, fuzzy
+#| msgid ""
+#| "This relationship links a <a href=\"https://en.wikipedia.org/wiki/"
+#| "Concert_residency\" target=\"_blank\">concert residency</a> to the "
+#| "artist(s) who held the residency."
+msgid ""
+"This relationship indicates the artist is the copyright holder for this "
+"video, usually indicated with a © symbol."
+msgstr ""
+"此关联将<a href=\"https://en.wikipedia.org/wiki/Concert_residency\" "
+"target=\"_blank\">驻留音乐会</a>链接至举行驻留活动的艺术家。"
+
 #. name:licensor
 #: DB:link_type/description:1010
 msgid ""
@@ -4305,6 +4337,20 @@ msgid ""
 "This relationship indicates the label is the copyright holder for this "
 "release, usually indicated with a © symbol."
 msgstr ""
+
+#. name:video copyright
+#: DB:link_type/description:1277
+#, fuzzy
+#| msgid ""
+#| "This relationship links a <a href=\"https://en.wikipedia.org/wiki/"
+#| "Concert_residency\" target=\"_blank\">concert residency</a> to the "
+#| "artist(s) who held the residency."
+msgid ""
+"This relationship indicates the label is the copyright holder for this "
+"video, usually indicated with a © symbol."
+msgstr ""
+"此关联将<a href=\"https://en.wikipedia.org/wiki/Concert_residency\" "
+"target=\"_blank\">驻留音乐会</a>链接至举行驻留活动的艺术家。"
 
 #. name:IMDB samples
 #: DB:link_type/description:83
@@ -5420,6 +5466,14 @@ msgstr "音频"
 msgid "audio director"
 msgstr ""
 
+#. name:authorship
+#: DB:link_type/name:170 DB:link_type/name:58 DB:link_type/link_phrase:170
+#: DB:link_type/link_phrase:58 DB:link_type/reverse_link_phrase:170
+#: DB:link_type/reverse_link_phrase:58 DB:link_type/long_link_phrase:170
+#: DB:link_type/long_link_phrase:58
+msgid "authorship"
+msgstr ""
+
 #. name:available at
 #: DB:link_type/name:795 DB:link_type/reverse_link_phrase:795
 msgid "available at"
@@ -5684,11 +5738,12 @@ msgstr ""
 
 #. name:commissioned
 #: DB:link_type/name:890 DB:link_type/name:889 DB:link_type/name:892
-#: DB:link_type/name:891 DB:link_type/link_phrase:890
+#: DB:link_type/name:891 DB:link_type/name:1279 DB:link_type/link_phrase:890
 #: DB:link_type/link_phrase:889 DB:link_type/link_phrase:892
-#: DB:link_type/link_phrase:891 DB:link_type/long_link_phrase:890
-#: DB:link_type/long_link_phrase:889 DB:link_type/long_link_phrase:892
-#: DB:link_type/long_link_phrase:891
+#: DB:link_type/link_phrase:891 DB:link_type/link_phrase:1279
+#: DB:link_type/long_link_phrase:890 DB:link_type/long_link_phrase:889
+#: DB:link_type/long_link_phrase:892 DB:link_type/long_link_phrase:891
+#: DB:link_type/long_link_phrase:1279
 msgid "commissioned"
 msgstr ""
 
@@ -5744,11 +5799,7 @@ msgstr ""
 msgid "composers-in-residence"
 msgstr ""
 
-#. name:composition
-#: DB:link_attribute_type/name:1126 DB:link_type/name:58 DB:link_type/name:170
-#: DB:link_type/link_phrase:58 DB:link_type/link_phrase:170
-#: DB:link_type/reverse_link_phrase:58 DB:link_type/reverse_link_phrase:170
-#: DB:link_type/long_link_phrase:58 DB:link_type/long_link_phrase:170
+#: DB:link_attribute_type/name:1126
 msgid "composition"
 msgstr ""
 
@@ -6988,6 +7039,12 @@ msgstr ""
 msgid "holds copyright (©) for"
 msgstr ""
 
+#. name:video copyright
+#: DB:link_type/link_phrase:1277 DB:link_type/link_phrase:1276
+#: DB:link_type/long_link_phrase:1277 DB:link_type/long_link_phrase:1276
+msgid "holds copyright (©) for video"
+msgstr ""
+
 #. name:phonographic copyright
 #: DB:link_type/link_phrase:710 DB:link_type/link_phrase:867
 #: DB:link_type/link_phrase:711 DB:link_type/link_phrase:869
@@ -7106,8 +7163,8 @@ msgstr ""
 msgid "inspired the name of series"
 msgstr ""
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1257
+#. name:named after artist, name:named after work
+#: DB:link_type/link_phrase:1257 DB:link_type/reverse_link_phrase:1278
 msgid "inspired the name of work"
 msgstr ""
 
@@ -7318,7 +7375,8 @@ msgid "is named after release group"
 msgstr ""
 
 #. name:named after work
-#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
+#: DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr ""
 
@@ -8049,7 +8107,8 @@ msgid "named after release group"
 msgstr ""
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1265
+#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:1278
 #: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "Geonames page for"
@@ -9648,6 +9707,17 @@ msgstr ""
 msgid "video channel for"
 msgstr ""
 
+#: DB:link_type/name:1277 DB:link_type/name:1276
+#, fuzzy
+#| msgid "copyright"
+msgid "video copyright"
+msgstr "版权"
+
+#. name:video copyright
+#: DB:link_type/reverse_link_phrase:1277 DB:link_type/reverse_link_phrase:1276
+msgid "video copyrighted (©) by"
+msgstr ""
+
 #: DB:link_type/name:962 DB:link_type/name:1185
 msgid "video director"
 msgstr ""
@@ -9770,6 +9840,7 @@ msgstr "的唱片条目"
 #. name:commissioned
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
 #: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
+#: DB:link_type/reverse_link_phrase:1279
 msgid "was commissioned by"
 msgstr ""
 

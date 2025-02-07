@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2025-02-02 14:44+0000\n"
-"Last-Translator: wileyfoxyx "
-"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
+"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -32,8 +32,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.9.2\n"
 
 #. name:artist diploma
@@ -2371,6 +2371,20 @@ msgid ""
 msgstr ""
 
 #. name:commissioned
+#: DB:link_type/description:1279
+#, fuzzy
+#| msgid ""
+#| "This indicates that the artist commissioned the work. This is most common "
+#| "for classical works, but also exists in other genres to a degree."
+msgid ""
+"This indicates that the area commissioned the work. This is most common for "
+"classical works, but also exists in other genres to a degree."
+msgstr ""
+"Это свидетельствует о том, что исполнитель заказал работу. Это наиболее "
+"характерно для классических произведений, но в большей степени существует в "
+"других жанрах."
+
+#. name:commissioned
 #: DB:link_type/description:889
 msgid ""
 "This indicates that the artist commissioned the work. This is most common "
@@ -2911,6 +2925,13 @@ msgstr "Указывает на работу, которая вдохновил�
 msgid "This indicates the work that inspired this label’s name."
 msgstr "Указывает на исполнителя, который вдохновил имя этого места."
 
+#. name:named after work
+#: DB:link_type/description:1278
+#, fuzzy
+#| msgid "This indicates the work that inspired this artist’s name."
+msgid "This indicates the work that inspired this work's name."
+msgstr "Указывает на работу, которая вдохновила имя этого исполнителя."
+
 #. name:podcast feed
 #: DB:link_type/description:915
 msgid "This indicates where a feed for this podcast can be found."
@@ -3322,8 +3343,8 @@ msgstr "Добавляет ссылку на страницу лейбла на 
 msgid ""
 "This links a label to its page in <a href=\"http://www.imdb.com/\">IMDb</a>."
 msgstr ""
-"Добавляет ссылку на страницу лейбла на <a href=\"http://www.imdb.com/\""
-">IMDb</a>."
+"Добавляет ссылку на страницу лейбла на <a href=\"http://www.imdb.com/"
+"\">IMDb</a>."
 
 #. name:soundcloud
 #: DB:link_type/description:290
@@ -4263,6 +4284,19 @@ msgstr ""
 "Данное отношение указывает, что исполнитель владеет авторскими правами на "
 "релиз, обычно обозначающееся символом ©."
 
+#. name:video copyright
+#: DB:link_type/description:1276
+#, fuzzy
+#| msgid ""
+#| "This relationship indicates the artist is the copyright holder for this "
+#| "release, usually indicated with a © symbol."
+msgid ""
+"This relationship indicates the artist is the copyright holder for this "
+"video, usually indicated with a © symbol."
+msgstr ""
+"Данное отношение указывает, что исполнитель владеет авторскими правами на "
+"релиз, обычно обозначающееся символом ©."
+
 #. name:licensor
 #: DB:link_type/description:1010
 msgid ""
@@ -4305,6 +4339,19 @@ msgid ""
 "This relationship indicates the label is the copyright holder for this "
 "release, usually indicated with a © symbol."
 msgstr ""
+
+#. name:video copyright
+#: DB:link_type/description:1277
+#, fuzzy
+#| msgid ""
+#| "This relationship indicates the artist is the copyright holder for this "
+#| "release, usually indicated with a © symbol."
+msgid ""
+"This relationship indicates the label is the copyright holder for this "
+"video, usually indicated with a © symbol."
+msgstr ""
+"Данное отношение указывает, что исполнитель владеет авторскими правами на "
+"релиз, обычно обозначающееся символом ©."
 
 #. name:IMDB samples
 #: DB:link_type/description:83
@@ -5422,6 +5469,16 @@ msgstr ""
 msgid "audio director"
 msgstr ""
 
+#. name:authorship
+#: DB:link_type/name:170 DB:link_type/name:58 DB:link_type/link_phrase:170
+#: DB:link_type/link_phrase:58 DB:link_type/reverse_link_phrase:170
+#: DB:link_type/reverse_link_phrase:58 DB:link_type/long_link_phrase:170
+#: DB:link_type/long_link_phrase:58
+#, fuzzy
+#| msgid "ownership"
+msgid "authorship"
+msgstr "владение"
+
 #. name:available at
 #: DB:link_type/name:795 DB:link_type/reverse_link_phrase:795
 msgid "available at"
@@ -5686,11 +5743,12 @@ msgstr ""
 
 #. name:commissioned
 #: DB:link_type/name:890 DB:link_type/name:889 DB:link_type/name:892
-#: DB:link_type/name:891 DB:link_type/link_phrase:890
+#: DB:link_type/name:891 DB:link_type/name:1279 DB:link_type/link_phrase:890
 #: DB:link_type/link_phrase:889 DB:link_type/link_phrase:892
-#: DB:link_type/link_phrase:891 DB:link_type/long_link_phrase:890
-#: DB:link_type/long_link_phrase:889 DB:link_type/long_link_phrase:892
-#: DB:link_type/long_link_phrase:891
+#: DB:link_type/link_phrase:891 DB:link_type/link_phrase:1279
+#: DB:link_type/long_link_phrase:890 DB:link_type/long_link_phrase:889
+#: DB:link_type/long_link_phrase:892 DB:link_type/long_link_phrase:891
+#: DB:link_type/long_link_phrase:1279
 msgid "commissioned"
 msgstr ""
 
@@ -5746,11 +5804,7 @@ msgstr ""
 msgid "composers-in-residence"
 msgstr ""
 
-#. name:composition
-#: DB:link_attribute_type/name:1126 DB:link_type/name:58 DB:link_type/name:170
-#: DB:link_type/link_phrase:58 DB:link_type/link_phrase:170
-#: DB:link_type/reverse_link_phrase:58 DB:link_type/reverse_link_phrase:170
-#: DB:link_type/long_link_phrase:58 DB:link_type/long_link_phrase:170
+#: DB:link_attribute_type/name:1126
 msgid "composition"
 msgstr ""
 
@@ -6984,6 +7038,14 @@ msgstr ""
 msgid "holds copyright (©) for"
 msgstr "держит авторские права (©) для"
 
+#. name:video copyright
+#: DB:link_type/link_phrase:1277 DB:link_type/link_phrase:1276
+#: DB:link_type/long_link_phrase:1277 DB:link_type/long_link_phrase:1276
+#, fuzzy
+#| msgid "holds copyright (©) for"
+msgid "holds copyright (©) for video"
+msgstr "держит авторские права (©) для"
+
 #. name:phonographic copyright
 #: DB:link_type/link_phrase:710 DB:link_type/link_phrase:867
 #: DB:link_type/link_phrase:711 DB:link_type/link_phrase:869
@@ -7110,8 +7172,8 @@ msgstr "вдохновило имя"
 msgid "inspired the name of series"
 msgstr "вдохновило имя"
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1257
+#. name:named after artist, name:named after work
+#: DB:link_type/link_phrase:1257 DB:link_type/reverse_link_phrase:1278
 #, fuzzy
 #| msgid "inspired the name of"
 msgid "inspired the name of work"
@@ -7330,7 +7392,8 @@ msgid "is named after release group"
 msgstr "назван в честь"
 
 #. name:named after work
-#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
+#: DB:link_type/long_link_phrase:1265
 #, fuzzy
 #| msgid "is named after"
 msgid "is named after work"
@@ -8060,7 +8123,8 @@ msgid "named after release group"
 msgstr "названо в честь группы релизов"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1265
+#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:1278
 #: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "named after"
@@ -9645,6 +9709,19 @@ msgstr "видео-канал"
 msgid "video channel for"
 msgstr "видео-канал для"
 
+#: DB:link_type/name:1277 DB:link_type/name:1276
+#, fuzzy
+#| msgid "copyright"
+msgid "video copyright"
+msgstr "авторское право"
+
+#. name:video copyright
+#: DB:link_type/reverse_link_phrase:1277 DB:link_type/reverse_link_phrase:1276
+#, fuzzy
+#| msgid "copyrighted (©) by"
+msgid "video copyrighted (©) by"
+msgstr "владелец авторских прав (©)"
+
 #: DB:link_type/name:962 DB:link_type/name:1185
 msgid "video director"
 msgstr ""
@@ -9763,6 +9840,7 @@ msgstr ""
 #. name:commissioned
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
 #: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
+#: DB:link_type/reverse_link_phrase:1279
 msgid "was commissioned by"
 msgstr ""
 
