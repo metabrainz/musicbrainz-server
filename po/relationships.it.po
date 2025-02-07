@@ -2957,6 +2957,27 @@ msgstr ""
 "<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" "
 "target=\"_blank\">etichetta discografica</a>."
 
+#. name:exported
+#: DB:link_type/description:1280
+#, fuzzy
+#| msgid ""
+#| "This indicates the organization that distributes (or contracts out "
+#| "distribution). \n"
+#| "\n"
+#| "This is <strong>not</strong> the same concept as the <a href=\"/doc/"
+#| "Label\" target=\"_blank\">record label</a>."
+msgid ""
+"This indicates the organization that exports (or contracts out exports).\n"
+"\n"
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
+msgstr ""
+"Indica l'organizzazione che si occupa direttamente della distribuzione (o "
+"che stipula contratti di distribuzione). \n"
+"\n"
+"<strong>Non</strong> è la stessa cosa dell'<a href=\"/doc/Label\" "
+"target=\"_blank\">etichetta discografica</a>."
+
 #. name:manufactured
 #: DB:link_type/description:360
 msgid ""
@@ -3106,6 +3127,13 @@ msgstr ""
 "nell'altra, è più appropriato accreditare questa persona come <a href=\"/"
 "relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\" target=\"_blank\">DJ "
 "mixer</a>."
+
+#. name:named after place
+#: DB:link_type/description:1281
+#, fuzzy
+#| msgid "This indicates the label that inspired this artist’s name."
+msgid "This indicates the place that inspired this artist’s name."
+msgstr "Indica l'etichetta che ha ispirato il nome di quest'artista."
 
 #. name:named after place
 #: DB:link_type/description:1263
@@ -7083,6 +7111,19 @@ msgstr "posizione dirigenziale presso"
 msgid "executives"
 msgstr "dirigenti"
 
+#. name:exported
+#: DB:link_type/name:1280 DB:link_type/link_phrase:1280
+#: DB:link_type/long_link_phrase:1280
+msgid "exported"
+msgstr ""
+
+#. name:exported
+#: DB:link_type/reverse_link_phrase:1280
+#, fuzzy
+#| msgid "printed by"
+msgid "exported by"
+msgstr "stampata da"
+
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
 #: DB:link_type/reverse_link_phrase:172 DB:link_type/reverse_link_phrase:1189
@@ -7895,9 +7936,10 @@ msgstr "generi influenzati"
 msgid "information page"
 msgstr "pagina di informazioni"
 
-#. name:named after artist, name:named after label, name:named after release group, name:named after work
-#: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
-#: DB:link_type/reverse_link_phrase:1259 DB:link_type/reverse_link_phrase:974
+#. name:named after artist, name:named after label, name:named after place, name:named after release group, name:named after work
+#: DB:link_type/link_phrase:1281 DB:link_type/reverse_link_phrase:973
+#: DB:link_type/reverse_link_phrase:972 DB:link_type/reverse_link_phrase:1259
+#: DB:link_type/reverse_link_phrase:974
 msgid "inspired the name of artist"
 msgstr "ha ispirato il nome dell'artista"
 
@@ -8119,7 +8161,7 @@ msgid "is named after label"
 msgstr "prende il nome dall'etichetta"
 
 #. name:named after place
-#: DB:link_type/long_link_phrase:1263
+#: DB:link_type/long_link_phrase:1281 DB:link_type/long_link_phrase:1263
 msgid "is named after place"
 msgstr "prende il nome dal luogo"
 
@@ -8851,7 +8893,8 @@ msgid "named after label"
 msgstr "prende il nome dall'etichetta"
 
 #. name:named after place
-#: DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#: DB:link_type/name:1281 DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#: DB:link_type/reverse_link_phrase:1281
 msgid "named after place"
 msgstr "prende il nome dal luogo"
 

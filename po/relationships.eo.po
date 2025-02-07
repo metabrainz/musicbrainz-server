@@ -2426,6 +2426,15 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 
+#. name:exported
+#: DB:link_type/description:1280
+msgid ""
+"This indicates the organization that exports (or contracts out exports).\n"
+"\n"
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
+msgstr ""
+
 #. name:manufactured
 #: DB:link_type/description:360
 msgid ""
@@ -2522,6 +2531,11 @@ msgid ""
 "other, it is more appropriate to credit this person as a <a href=\"/"
 "relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\" target=\"_blank\">DJ-"
 "mixer</a>."
+msgstr ""
+
+#. name:named after place
+#: DB:link_type/description:1281
+msgid "This indicates the place that inspired this artist’s name."
 msgstr ""
 
 #. name:named after place
@@ -5835,6 +5849,17 @@ msgstr ""
 msgid "executives"
 msgstr ""
 
+#. name:exported
+#: DB:link_type/name:1280 DB:link_type/link_phrase:1280
+#: DB:link_type/long_link_phrase:1280
+msgid "exported"
+msgstr ""
+
+#. name:exported
+#: DB:link_type/reverse_link_phrase:1280
+msgid "exported by"
+msgstr ""
+
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
 #: DB:link_type/reverse_link_phrase:172 DB:link_type/reverse_link_phrase:1189
@@ -6644,9 +6669,10 @@ msgstr ""
 msgid "information page"
 msgstr ""
 
-#. name:named after artist, name:named after label, name:named after release group, name:named after work
-#: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
-#: DB:link_type/reverse_link_phrase:1259 DB:link_type/reverse_link_phrase:974
+#. name:named after artist, name:named after label, name:named after place, name:named after release group, name:named after work
+#: DB:link_type/link_phrase:1281 DB:link_type/reverse_link_phrase:973
+#: DB:link_type/reverse_link_phrase:972 DB:link_type/reverse_link_phrase:1259
+#: DB:link_type/reverse_link_phrase:974
 msgid "inspired the name of artist"
 msgstr ""
 
@@ -6868,7 +6894,7 @@ msgid "is named after label"
 msgstr ""
 
 #. name:named after place
-#: DB:link_type/long_link_phrase:1263
+#: DB:link_type/long_link_phrase:1281 DB:link_type/long_link_phrase:1263
 msgid "is named after place"
 msgstr ""
 
@@ -7593,7 +7619,8 @@ msgid "named after label"
 msgstr ""
 
 #. name:named after place
-#: DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#: DB:link_type/name:1281 DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#: DB:link_type/reverse_link_phrase:1281
 msgid "named after place"
 msgstr ""
 

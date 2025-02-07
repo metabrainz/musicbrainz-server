@@ -2473,6 +2473,15 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 
+#. name:exported
+#: DB:link_type/description:1280
+msgid ""
+"This indicates the organization that exports (or contracts out exports).\n"
+"\n"
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
+msgstr ""
+
 #. name:manufactured
 #: DB:link_type/description:360
 msgid ""
@@ -2570,6 +2579,13 @@ msgid ""
 "relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\" target=\"_blank\">DJ-"
 "mixer</a>."
 msgstr ""
+
+#. name:named after place
+#: DB:link_type/description:1281
+#, fuzzy
+#| msgid "This indicates that the recording is of a live performance."
+msgid "This indicates the place that inspired this artist’s name."
+msgstr "Αυτό υποδεικνύει ότι η ηχογράφηση είναι από ζωντανή εκτέλεση."
 
 #. name:named after place
 #: DB:link_type/description:1263
@@ -5962,6 +5978,19 @@ msgstr "δημιουργική θέση"
 msgid "executives"
 msgstr ""
 
+#. name:exported
+#: DB:link_type/name:1280 DB:link_type/link_phrase:1280
+#: DB:link_type/long_link_phrase:1280
+msgid "exported"
+msgstr ""
+
+#. name:exported
+#: DB:link_type/reverse_link_phrase:1280
+#, fuzzy
+#| msgid "voiced by"
+msgid "exported by"
+msgstr "φωνητικά από"
+
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
 #: DB:link_type/reverse_link_phrase:172 DB:link_type/reverse_link_phrase:1189
@@ -6777,9 +6806,10 @@ msgstr ""
 msgid "information page"
 msgstr ""
 
-#. name:named after artist, name:named after label, name:named after release group, name:named after work
-#: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
-#: DB:link_type/reverse_link_phrase:1259 DB:link_type/reverse_link_phrase:974
+#. name:named after artist, name:named after label, name:named after place, name:named after release group, name:named after work
+#: DB:link_type/link_phrase:1281 DB:link_type/reverse_link_phrase:973
+#: DB:link_type/reverse_link_phrase:972 DB:link_type/reverse_link_phrase:1259
+#: DB:link_type/reverse_link_phrase:974
 msgid "inspired the name of artist"
 msgstr ""
 
@@ -7007,7 +7037,7 @@ msgid "is named after label"
 msgstr ""
 
 #. name:named after place
-#: DB:link_type/long_link_phrase:1263
+#: DB:link_type/long_link_phrase:1281 DB:link_type/long_link_phrase:1263
 #, fuzzy
 #| msgid "parent label"
 msgid "is named after place"
@@ -7740,7 +7770,8 @@ msgid "named after label"
 msgstr "μητρική εταιρία"
 
 #. name:named after place
-#: DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#: DB:link_type/name:1281 DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#: DB:link_type/reverse_link_phrase:1281
 #, fuzzy
 #| msgid "parent label"
 msgid "named after place"
