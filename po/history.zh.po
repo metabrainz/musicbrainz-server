@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-01-30 11:44+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"PO-Revision-Date: 2025-02-09 17:44+0000\n"
+"Last-Translator: Ral Hole <ral-hole@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/history/zh_Hans/>\n"
 "Language: zh\n"
@@ -938,11 +938,11 @@ msgstr "引入了 <样式准则 5> 的解决方案，并从数据库中删除了
 
 #: DB:statistics.statistic_event/title:2014-10-17
 msgid "Style process updated again, reosarevok \"promoted\" to Style BDFL"
-msgstr ""
+msgstr "样式流程再次更新，reosarevok“升级”为样式BDFL"
 
 #: DB:statistics.statistic_event/description:2007-04-01
 msgid "Support for Labels and data quality are released."
-msgstr ""
+msgstr "发布了对厂牌和数据质量的支持。"
 
 #: DB:statistics.statistic_event/title:2015-06-29
 msgid "Tag up/downvoting"
