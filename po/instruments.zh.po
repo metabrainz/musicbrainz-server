@@ -6,11 +6,12 @@
 # AshPigeon <1433821055@qq.com>, 2024.
 # darlingz <yagamidai@gmail.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
+# Ral Hole <ral-hole@outlook.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-01-30 11:44+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"PO-Revision-Date: 2025-02-09 17:44+0000\n"
+"Last-Translator: Ral Hole <ral-hole@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instruments/zh_Hans/>\n"
 "Language: zh\n"
@@ -1107,9 +1108,6 @@ msgid "clavinet"
 msgstr "电小键琴"
 
 #: DB:instrument/name:780
-#, fuzzy
-#| msgctxt "free reed aerophone with pitching pipes."
-#| msgid "claviola"
 msgctxt "free reed aerophone with pitching pipes"
 msgid "claviola"
 msgstr "键盘风笛"
@@ -1130,7 +1128,6 @@ msgid "cobla"
 msgstr "加泰罗尼亚长笛"
 
 #: DB:instrument/name:1189
-#, fuzzy
 msgctxt "Catalonian ancient cobla ensemble"
 msgid "cobla de tres quartans"
 msgstr "加泰罗尼亚传统乐器合奏"
@@ -1197,7 +1194,7 @@ msgstr "直管"
 #: DB:instrument/name:1190
 msgctxt "French two-drone bagpipes"
 msgid "cornemuse du Centre"
-msgstr ""
+msgstr "法国中部风笛"
 
 #: DB:instrument/name:25
 msgctxt "19th century brass trumpet-like"
@@ -1224,8 +1221,6 @@ msgid "crotales"
 msgstr "古钹"
 
 #: DB:instrument/name:348
-#, fuzzy
-#| msgid "crumhorn"
 msgctxt "Curved capped double reed"
 msgid "crumhorn"
 msgstr "克鲁姆管"
@@ -1256,9 +1251,6 @@ msgid "cò ke"
 msgstr "芒族胡琴"
 
 #: DB:instrument/name:410
-#, fuzzy
-#| msgctxt "Turkish oud like"
-#| msgid "cümbüş"
 msgctxt "Turkish oud-like"
 msgid "cümbüş"
 msgstr "昆不什琴"
@@ -1411,17 +1403,17 @@ msgstr "都都克笛"
 #: DB:instrument/name:1203
 msgctxt "Czechian / Bohemian bagpipe"
 msgid "dudy"
-msgstr ""
+msgstr "风笛"
 
 #: DB:instrument/name:1202
 msgctxt "Podhale bagpipe"
 msgid "dudy podhalanskie"
-msgstr ""
+msgstr "波德哈莱风笛"
 
 #: DB:instrument/name:1201
 msgctxt "Great Polish bagpipe"
 msgid "dudy wielkopolskie"
-msgstr ""
+msgstr "波德哈莱风笛"
 
 #: DB:instrument/name:851
 msgctxt "indian clay kettle drum"
@@ -1462,7 +1454,7 @@ msgstr "独弦琴"
 #: DB:instrument/name:1204
 msgctxt "Lithuanian bagpipe"
 msgid "dūdmaišis"
-msgstr ""
+msgstr "立陶宛风笛"
 
 #: DB:instrument/name:327
 msgid "ebow"
@@ -1580,9 +1572,6 @@ msgid "fipple flute"
 msgstr "直笛"
 
 #: DB:instrument/name:1184
-#, fuzzy
-#| msgctxt "19th century brass trumpet-like"
-#| msgid "cornet"
 msgctxt "bass flugelhorn used in cobla"
 msgid "fiscorn"
 msgstr "短号"
@@ -1620,9 +1609,6 @@ msgid "flumpet"
 msgstr "柔音小号"
 
 #: DB:instrument/name:13
-#, fuzzy
-#| msgctxt "Reedless aerophone"
-#| msgid "flute"
 msgctxt "reedless aerophone"
 msgid "flute"
 msgstr "笛子"
@@ -1825,9 +1811,6 @@ msgid "gittern"
 msgstr "吉特恩琴"
 
 #: DB:instrument/name:796
-#, fuzzy
-#| msgctxt "Elguitar/bass effect device"
-#| msgid "gizmo"
 msgctxt "electric guitar/bass effect device"
 msgid "gizmo"
 msgstr "电吉他音效器"
@@ -3421,9 +3404,6 @@ msgid "samba whistle"
 msgstr "桑巴哨"
 
 #: DB:instrument/name:830
-#, fuzzy
-#| msgctxt "solo serbo-croatian plucked lute"
-#| msgid "samica"
 msgctxt "solo Serbo-Croatian plucked lute"
 msgid "samica"
 msgstr "萨米卡琴"
