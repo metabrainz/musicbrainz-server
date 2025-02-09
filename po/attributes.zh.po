@@ -11,13 +11,14 @@
 # weeeeei <weeeeei@duck.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
 # imgradeone <imgradeone@outlook.com>, 2025.
+# Ral Hole <ral-hole@outlook.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-01-30 11:44+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
+"PO-Revision-Date: 2025-02-09 17:44+0000\n"
+"Last-Translator: Ral Hole <ral-hole@outlook.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4148,12 +4149,9 @@ msgstr "英国音乐著作权协会PRS ID"
 
 #. name:MUSICAUTOR ID
 #: DB:work_attribute_type/description:212
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Nicaraguan rights society NICAUTOR"
 msgctxt "work_attribute_type"
 msgid "ID for the Bulgarian rights society MUSICAUTOR"
-msgstr "尼加拉瓜著作权协会NICAUTOR ID"
+msgstr "保加利亚权协MUSICAUTOR的ID"
 
 #. name:SOCAN ID
 #: DB:work_attribute_type/description:10
@@ -4590,20 +4588,13 @@ msgstr "土著领地/保护区"
 
 #. name:Indigenous territory / reserve
 #: DB:area_type/description:9
-#, fuzzy
-#| msgctxt "area_type"
-#| msgid ""
-#| "Used for semi-autonomous territories governed by indigenous peoples, such "
-#| "as Indian reserves/reservations in North America and indigenous "
-#| "territories in Central and South America."
 msgctxt "area_type"
 msgid ""
 "Indigenous territory / reserve is used for semi-autonomous territories "
 "governed by indigenous peoples, such as Indian reserves/reservations in "
 "North America and indigenous territories in Central and South America."
-msgstr ""
-"用于原住民统治的半自治领土，如北美洲的印第安人保留地/保护区以及中美洲和南美洲"
-"的土著领地。"
+msgstr "土著领土/保留地用于由土著人民管理的半自治领土，如北美的印第安人保留地/保留地"
+"以及中美洲和南美洲的土著领土。"
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -5384,12 +5375,9 @@ msgid "MCT ID"
 msgstr "MCT ID"
 
 #: DB:work_attribute_type/name:212
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "NICAUTOR ID"
 msgctxt "work_attribute_type"
 msgid "MUSICAUTOR ID"
-msgstr "NICAUTOR ID"
+msgstr "MUSICAUTOR ID"
 
 #: DB:work_attribute_type_allowed_value/value:963
 msgctxt "work_attribute_type_allowed_value"
@@ -5638,16 +5626,11 @@ msgstr "军事基地"
 
 #. name:Military base
 #: DB:area_type/description:8
-#, fuzzy
-#| msgctxt "area_type"
-#| msgid ""
-#| "Used for any military bases that are large enough to be considered an "
-#| "area, not just a place."
 msgctxt "area_type"
 msgid ""
 "Military base is used only for any military bases that are large enough to "
 "be considered an area, not just a place."
-msgstr "用于任何足够大的军事基地，可以被视为一个区域，而不仅仅是一个场所。"
+msgstr "军事基地仅用于任何足够大地区的军事基地，而不仅仅是一个地点。"
 
 #: DB:medium_format/name:166
 msgctxt "medium_format"
@@ -8700,12 +8683,9 @@ msgid "Vīra vasantaṁ"
 msgstr "Vīra vasantaṁ"
 
 #: DB:work_attribute_type/name:210
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "BMI ID"
 msgctxt "work_attribute_type"
 msgid "WAMI ID"
-msgstr "BMI ID"
+msgstr "WAMI ID"
 
 #: DB:cover_art_archive.art_type/name:13
 msgctxt "cover_art_type"
