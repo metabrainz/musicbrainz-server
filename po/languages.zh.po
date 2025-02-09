@@ -20,19 +20,20 @@
 # xuanqidongjim <xuanqidongjim@gmail.com>, 2023.
 # xiaole_0714223 <374721531@qq.com>, 2024.
 # "3035134331@qq.com" <3035134331@qq.com>, 2024.
+# Ral Hole <ral-hole@outlook.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-10-06 23:42+0000\n"
-"Last-Translator: \"3035134331@qq.com\" <3035134331@qq.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/languages/zh_Hans/>\n"
+"PO-Revision-Date: 2025-02-09 17:44+0000\n"
+"Last-Translator: Ral Hole <ral-hole@outlook.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/languages/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -2181,8 +2182,6 @@ msgstr "塞尔维亚语"
 
 #. frequency:1 iso_code_3:hbs
 #: DB:language/name:2670
-#, fuzzy
-#| msgid "Croatian"
 msgid "Serbo-Croatian"
 msgstr "克罗地亚语"
 
