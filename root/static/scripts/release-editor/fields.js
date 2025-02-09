@@ -1179,6 +1179,9 @@ class Release extends mbEntity.Release {
     this.hasUnconfirmedVariousArtists = errorField(
       this.mediums.any('hasUnconfirmedVariousArtists'),
     );
+    this.hasUnconfirmedFeatOnTrackTitles = errorField(
+      this.mediums.any('hasUnconfirmedFeatOnTrackTitles'),
+    );
     this.needsMediums = errorField(function () {
       return !(self.mediums().length || self.hasUnknownTracklist());
     });
