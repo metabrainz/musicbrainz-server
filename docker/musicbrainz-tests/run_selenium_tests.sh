@@ -74,6 +74,10 @@ if [ "$GITHUB_ACTIONS" = 'true' ]; then
       base_fname="$(basename "$sir_log")"
       cp -a "$sir_log" "$logs"/"${base_fname#.}"
   done
+  if [ -f t/selenium/.failure-screenshot.png ]; then
+      cp -a t/selenium/.failure-screenshot.png \
+        "$GITHUB_WORKSPACE"/selenium_failure_screenshot.png
+  fi
 fi
 
 exit $tests_exit_code
