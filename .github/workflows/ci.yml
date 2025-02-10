@@ -171,6 +171,10 @@ jobs:
 
       - if: steps.nyc_download.outcome == 'success'
         run: |
+          if [ -z "$(find "$GITHUB_WORKSPACE" -type f -path '*_nyc_output/*.json')" ]; then
+            echo 'No istanbul artifacts found.'
+            exit 1
+          fi
           docker exec --user musicbrainz mbtest mkdir -p .nyc_output
           docker exec mbtest sh -c 'mv /workspace/*_nyc_output/*.json .nyc_output/; chown -R musicbrainz:musicbrainz .nyc_output'
           docker exec --user musicbrainz mbtest ./node_modules/.bin/nyc report --reporter=html
