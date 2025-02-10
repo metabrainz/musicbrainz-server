@@ -14,6 +14,11 @@ import path from 'path';
 import httpProxy from 'http-proxy';
 import JSON5 from 'json5';
 import webdriver from 'selenium-webdriver';
+import getBrowsingContextInstance from 'selenium-webdriver/bidi/browsingContext.js';
+import {
+  CaptureScreenshotParameters,
+  Origin,
+} from 'selenium-webdriver/bidi/captureScreenshotParameters.js';
 import chrome from 'selenium-webdriver/chrome.js';
 import firefox from 'selenium-webdriver/firefox.js';
 import {Key} from 'selenium-webdriver/lib/input.js';
@@ -255,6 +260,9 @@ const driver = (x => {
     options.addArguments('--headless=new');
   }
 
+  // Needed to take a screenshot in case of failure.
+  options.enableBidi();
+
   return x.build();
 })(new webdriver.Builder());
 
@@ -266,6 +274,21 @@ function quit() {
 
 async function unhandledRejection(err) {
   console.error(err);
+  try {
+    const browsingContext = await getBrowsingContextInstance(driver, {
+      browsingContextId: await driver.getWindowHandle(),
+    });
+    const captureParams = new CaptureScreenshotParameters();
+    captureParams.origin(Origin.DOCUMENT);
+    fs.writeFileSync(
+      path.resolve(DBDefs.MB_SERVER_ROOT, 't/selenium/.failure-screenshot.png'),
+      await browsingContext.captureScreenshot(captureParams),
+      'base64',
+    );
+  } catch (err) {
+    console.error('Failed to take a screenshot:');
+    console.error(err);
+  }
   if (!argv.stayOpen) {
     await quit();
     process.exit(1);

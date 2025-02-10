@@ -129,6 +129,13 @@ jobs:
           name: selenium_${{ matrix.partition }}_junit_output
           path: junit_output
 
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium_${{ matrix.partition }}_failure_screenshot.png
+          path: selenium_failure_screenshot.png
+          if-no-files-found: ignore
+
   generate-reports:
     needs: [js-perl-and-pgtap, selenium]
     if: always()
