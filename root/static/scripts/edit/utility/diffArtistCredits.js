@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import EntityLink from '../../common/components/EntityLink.js';
+import isolateText from '../../common/utility/isolateText.js';
 import DiffSide from '../components/edit/DiffSide.js';
 
 import editDiff, {
@@ -43,6 +44,7 @@ const ArtistLink = ({content, credit, nameVariation}: ArtistLinkProps) => (
       content={empty(content) ? credit.name : content}
       entity={credit.artist}
       nameVariation={nameVariation}
+      shouldIsolate={false}
     />
   ) : null
 );
@@ -161,7 +163,7 @@ export default function diffArtistCredits(
   }
 
   return {
-    new: newNames,
-    old: oldNames,
+    new: isolateText(newNames),
+    old: isolateText(oldNames),
   };
 }

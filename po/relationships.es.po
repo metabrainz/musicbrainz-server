@@ -2501,6 +2501,19 @@ msgstr ""
 "escritura."
 
 #. name:commissioned
+#: DB:link_type/description:1279
+#, fuzzy
+#| msgid ""
+#| "This indicates that the place commissioned the work. This is most common "
+#| "for classical works, but also exists in other genres to a degree."
+msgid ""
+"This indicates that the area commissioned the work. This is most common for "
+"classical works, but also exists in other genres to a degree."
+msgstr ""
+"Indica que un lugar comisionó la obra. Esto es más habitual con obras de "
+"música clásica, pero también sucede en algunos casos en otros géneros."
+
+#. name:commissioned
 #: DB:link_type/description:889
 msgid ""
 "This indicates that the artist commissioned the work. This is most common "
@@ -2797,6 +2810,26 @@ msgstr ""
 "Esto <strong>no es lo mismo</strong> que la <a href=\"/doc/Label\" "
 "target=\"_blank\">compañía discográfica</a>."
 
+#. name:exported
+#: DB:link_type/description:1280
+#, fuzzy
+#| msgid ""
+#| "This indicates the organization that distributes (or contracts out "
+#| "distribution). \n"
+#| "\n"
+#| "This is <strong>not</strong> the same concept as the <a href=\"/doc/"
+#| "Label\" target=\"_blank\">record label</a>."
+msgid ""
+"This indicates the organization that exports (or contracts out exports).\n"
+"\n"
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
+msgstr ""
+"Indica la organización que distribuye o contrata la distribución.\n"
+"\n"
+"Esto <strong>no es lo mismo</strong> que la <a href=\"/doc/Label\" "
+"target=\"_blank\">compañía discográfica</a>."
+
 #. name:manufactured
 #: DB:link_type/description:360
 msgid ""
@@ -2932,6 +2965,13 @@ msgid ""
 msgstr ""
 
 #. name:named after place
+#: DB:link_type/description:1281
+#, fuzzy
+#| msgid "This indicates the label that inspired this artist’s name."
+msgid "This indicates the place that inspired this artist’s name."
+msgstr "Indica la discográfica que inspiró el nombre de este artista."
+
+#. name:named after place
 #: DB:link_type/description:1263
 msgid "This indicates the place that inspired this genre’s name."
 msgstr "Indica el lugar que inspiró el nombre de este género."
@@ -3043,6 +3083,13 @@ msgstr "Indica la obra que inspiró el nombre de este artista."
 #: DB:link_type/description:1265
 msgid "This indicates the work that inspired this label’s name."
 msgstr "Indica la obra que inspiró el nombre de esta discográfica."
+
+#. name:named after work
+#: DB:link_type/description:1278
+#, fuzzy
+#| msgid "This indicates the work that inspired this artist’s name."
+msgid "This indicates the work that inspired this work's name."
+msgstr "Indica la obra que inspiró el nombre de este artista."
 
 #. name:podcast feed
 #: DB:link_type/description:915
@@ -4556,6 +4603,19 @@ msgstr ""
 "Indica que el artista tiene los derechos de autor de esta publicación, "
 "normalmente indicados con el símbolo ©."
 
+#. name:video copyright
+#: DB:link_type/description:1276
+#, fuzzy
+#| msgid ""
+#| "This relationship indicates the artist is the copyright holder for this "
+#| "release, usually indicated with a © symbol."
+msgid ""
+"This relationship indicates the artist is the copyright holder for this "
+"video, usually indicated with a © symbol."
+msgstr ""
+"Indica que el artista tiene los derechos de autor de esta publicación, "
+"normalmente indicados con el símbolo ©."
+
 #. name:licensor
 #: DB:link_type/description:1010
 msgid ""
@@ -4605,6 +4665,19 @@ msgstr ""
 msgid ""
 "This relationship indicates the label is the copyright holder for this "
 "release, usually indicated with a © symbol."
+msgstr ""
+"Indica que la discográfica tiene los derechos de autor de esta publicación, "
+"normalmente indicados con el símbolo ©."
+
+#. name:video copyright
+#: DB:link_type/description:1277
+#, fuzzy
+#| msgid ""
+#| "This relationship indicates the label is the copyright holder for this "
+#| "release, usually indicated with a © symbol."
+msgid ""
+"This relationship indicates the label is the copyright holder for this "
+"video, usually indicated with a © symbol."
 msgstr ""
 "Indica que la discográfica tiene los derechos de autor de esta publicación, "
 "normalmente indicados con el símbolo ©."
@@ -5814,6 +5887,14 @@ msgstr ""
 msgid "audio director"
 msgstr "director de sonido"
 
+#. name:authorship
+#: DB:link_type/name:170 DB:link_type/name:58 DB:link_type/link_phrase:170
+#: DB:link_type/link_phrase:58 DB:link_type/reverse_link_phrase:170
+#: DB:link_type/reverse_link_phrase:58 DB:link_type/long_link_phrase:170
+#: DB:link_type/long_link_phrase:58
+msgid "authorship"
+msgstr ""
+
 #. name:available at
 #: DB:link_type/name:795 DB:link_type/reverse_link_phrase:795
 msgid "available at"
@@ -6072,11 +6153,12 @@ msgstr ""
 
 #. name:commissioned
 #: DB:link_type/name:890 DB:link_type/name:889 DB:link_type/name:892
-#: DB:link_type/name:891 DB:link_type/link_phrase:890
+#: DB:link_type/name:891 DB:link_type/name:1279 DB:link_type/link_phrase:890
 #: DB:link_type/link_phrase:889 DB:link_type/link_phrase:892
-#: DB:link_type/link_phrase:891 DB:link_type/long_link_phrase:890
-#: DB:link_type/long_link_phrase:889 DB:link_type/long_link_phrase:892
-#: DB:link_type/long_link_phrase:891
+#: DB:link_type/link_phrase:891 DB:link_type/link_phrase:1279
+#: DB:link_type/long_link_phrase:890 DB:link_type/long_link_phrase:889
+#: DB:link_type/long_link_phrase:892 DB:link_type/long_link_phrase:891
+#: DB:link_type/long_link_phrase:1279
 msgid "commissioned"
 msgstr ""
 
@@ -6132,11 +6214,7 @@ msgstr "compositor residente en"
 msgid "composers-in-residence"
 msgstr "compositores residentes"
 
-#. name:composition
-#: DB:link_attribute_type/name:1126 DB:link_type/name:58 DB:link_type/name:170
-#: DB:link_type/link_phrase:58 DB:link_type/link_phrase:170
-#: DB:link_type/reverse_link_phrase:58 DB:link_type/reverse_link_phrase:170
-#: DB:link_type/long_link_phrase:58 DB:link_type/long_link_phrase:170
+#: DB:link_attribute_type/name:1126
 msgid "composition"
 msgstr "composición"
 
@@ -6644,6 +6722,19 @@ msgstr "posición ejecutiva en"
 #: DB:link_type/reverse_link_phrase:1266
 msgid "executives"
 msgstr "ejecutivos"
+
+#. name:exported
+#: DB:link_type/name:1280 DB:link_type/link_phrase:1280
+#: DB:link_type/long_link_phrase:1280
+msgid "exported"
+msgstr ""
+
+#. name:exported
+#: DB:link_type/reverse_link_phrase:1280
+#, fuzzy
+#| msgid "printed by"
+msgid "exported by"
+msgstr "impresa por"
 
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
@@ -7360,6 +7451,14 @@ msgstr ""
 msgid "holds copyright (©) for"
 msgstr ""
 
+#. name:video copyright
+#: DB:link_type/link_phrase:1277 DB:link_type/link_phrase:1276
+#: DB:link_type/long_link_phrase:1277 DB:link_type/long_link_phrase:1276
+#, fuzzy
+#| msgid "holds phonographic copyright (℗) for"
+msgid "holds copyright (©) for video"
+msgstr "tiene los derechos fonográficos (℗) de"
+
 #. name:phonographic copyright
 #: DB:link_type/link_phrase:710 DB:link_type/link_phrase:867
 #: DB:link_type/link_phrase:711 DB:link_type/link_phrase:869
@@ -7448,9 +7547,10 @@ msgstr ""
 msgid "information page"
 msgstr "página de información"
 
-#. name:named after artist, name:named after label, name:named after release group, name:named after work
-#: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
-#: DB:link_type/reverse_link_phrase:1259 DB:link_type/reverse_link_phrase:974
+#. name:named after artist, name:named after label, name:named after place, name:named after release group, name:named after work
+#: DB:link_type/link_phrase:1281 DB:link_type/reverse_link_phrase:973
+#: DB:link_type/reverse_link_phrase:972 DB:link_type/reverse_link_phrase:1259
+#: DB:link_type/reverse_link_phrase:974
 msgid "inspired the name of artist"
 msgstr "inspiró el nombre del artista"
 
@@ -7476,8 +7576,8 @@ msgstr "inspiró el nombre del lugar"
 msgid "inspired the name of series"
 msgstr "inspiró el nombre de la serie"
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1257
+#. name:named after artist, name:named after work
+#: DB:link_type/link_phrase:1257 DB:link_type/reverse_link_phrase:1278
 msgid "inspired the name of work"
 msgstr "inspiró el nombre de la obra"
 
@@ -7672,7 +7772,7 @@ msgid "is named after label"
 msgstr "tiene un nombre inspirado en la discográfica"
 
 #. name:named after place
-#: DB:link_type/long_link_phrase:1263
+#: DB:link_type/long_link_phrase:1281 DB:link_type/long_link_phrase:1263
 msgid "is named after place"
 msgstr "tiene un nombre inspirado en el lugar"
 
@@ -7682,7 +7782,8 @@ msgid "is named after release group"
 msgstr "tiene un nombre inspirado en el grupo de publicaciones"
 
 #. name:named after work
-#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
+#: DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr "tiene un nombre inspirado en la obra"
 
@@ -8398,7 +8499,8 @@ msgid "named after label"
 msgstr "nombre inspirado en la discográfica"
 
 #. name:named after place
-#: DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#: DB:link_type/name:1281 DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#: DB:link_type/reverse_link_phrase:1281
 msgid "named after place"
 msgstr "nombre inspirado en el lugar"
 
@@ -8409,7 +8511,8 @@ msgid "named after release group"
 msgstr "nombre inspirado en el grupo de publicaciones"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1265
+#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:1278
 #: DB:link_type/link_phrase:1265
 msgid "named after work"
 msgstr "nombre inspirado en la obra"
@@ -9993,6 +10096,19 @@ msgstr "canal de vídeo"
 msgid "video channel for"
 msgstr "canal de vídeo de"
 
+#: DB:link_type/name:1277 DB:link_type/name:1276
+#, fuzzy
+#| msgid "copyright"
+msgid "video copyright"
+msgstr "derechos de autor"
+
+#. name:video copyright
+#: DB:link_type/reverse_link_phrase:1277 DB:link_type/reverse_link_phrase:1276
+#, fuzzy
+#| msgid "copyrighted (©) by"
+msgid "video copyrighted (©) by"
+msgstr "derechos de autor (©) de"
+
 #: DB:link_type/name:962 DB:link_type/name:1185
 msgid "video director"
 msgstr ""
@@ -10113,6 +10229,7 @@ msgstr "fue director de fotografía en"
 #. name:commissioned
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
 #: DB:link_type/reverse_link_phrase:892 DB:link_type/reverse_link_phrase:891
+#: DB:link_type/reverse_link_phrase:1279
 msgid "was commissioned by"
 msgstr ""
 

@@ -75,6 +75,7 @@ export const DLABEL_ID = 1;
 export const FAVICON_CLASSES: {
   +[host: string]: string,
 } = {
+  '7digital.com': 'sevendigital',
   '45cat.com': 'fortyfivecat',
   '45worlds.com': 'fortyfiveworlds',
   'abc.net.au/triplejunearthed': 'triplejunearthed',
@@ -127,6 +128,7 @@ export const FAVICON_CLASSES: {
   'flattr.com': 'flattr',
   'fono.fi': 'fonofi',
   'generasia.com/wiki': 'generasia',
+  'genie.co.kr': 'genie',
   'genius.com': 'genius',
   'geonames.org': 'geonames',
   'goodreads.com': 'goodreads',
@@ -230,6 +232,7 @@ export const FAVICON_CLASSES: {
   'spirit-of-rock.com': 'spiritofrock',
   'spotify.com': 'spotify',
   'stage48.net': 'stage48',
+  'steamdb.info': 'steamdb',
   'target.com': 'target',
   'tedcrane.com/DanceDB': 'dancedb',
   'theatricalia.com': 'theatricalia',
