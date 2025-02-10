@@ -2059,6 +2059,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@metabrainz/xgettext-js@npm:4.0.0":
+  version: 4.0.0
+  resolution: "@metabrainz/xgettext-js@npm:4.0.0"
+  dependencies:
+    estree-walker: "npm:^0.6.1"
+    hermes-parser: "npm:0.26.0"
+    lodash: "npm:^4.17.15"
+  checksum: 10c0/bad982ec2a3ca4956c36f9b9f8dbef7ec1597a8eed9e83b928c6630ea57cd6e50f1da0e1ae93b0a2cbc368b736cd1c23410e0d2c429c0d0330685fdc9f5631dc
+  languageName: node
+  linkType: hard
+
 "@nicolo-ribaudo/chokidar-2@npm:2.1.8-no-fsevents.3":
   version: 2.1.8-no-fsevents.3
   resolution: "@nicolo-ribaudo/chokidar-2@npm:2.1.8-no-fsevents.3"
@@ -5052,13 +5063,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-estree@npm:0.23.0":
-  version: 0.23.0
-  resolution: "hermes-estree@npm:0.23.0"
-  checksum: 10c0/5505fdefc119c516b92adbf7b89cc25768ff5e99b0faca3a5ce4af79cc51feef3236227774ee2f6c45bbe1d9a3fa33786e660195a264697171a85b707bc2cec8
-  languageName: node
-  linkType: hard
-
 "hermes-estree@npm:0.24.0":
   version: 0.24.0
   resolution: "hermes-estree@npm:0.24.0"
@@ -5066,12 +5070,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-parser@npm:0.23.0":
-  version: 0.23.0
-  resolution: "hermes-parser@npm:0.23.0"
-  dependencies:
-    hermes-estree: "npm:0.23.0"
-  checksum: 10c0/a4ca7a66dd8cc65dfc4bb223f696e62ac06f0f32fe8b5889a03ea082291636696e36b1e1593885a19dc2a624d78a96a82cd046fef093de812b27e333350fceea
+"hermes-estree@npm:0.26.0":
+  version: 0.26.0
+  resolution: "hermes-estree@npm:0.26.0"
+  checksum: 10c0/4bf734b0ae484f654724f114939d349b39afe81af0f255b2e15d0fecfe2fd122f36f0b65893e936336e1a4cc77e4124ca962d054a17519f33036e20706a5386d
   languageName: node
   linkType: hard
 
@@ -5081,6 +5083,15 @@ __metadata:
   dependencies:
     hermes-estree: "npm:0.24.0"
   checksum: 10c0/7159497a425cef0e6259f5db01480110c031e86772c6ff0ef73664be94448c3f004a10ef1ec8ff32faf6a069b69f1c15f7007ff9c520b212f9a31410832285f7
+  languageName: node
+  linkType: hard
+
+"hermes-parser@npm:0.26.0":
+  version: 0.26.0
+  resolution: "hermes-parser@npm:0.26.0"
+  dependencies:
+    hermes-estree: "npm:0.26.0"
+  checksum: 10c0/8c6340a52a10ac59ff7ab6c48a9cf09a3752d1707f8dc8962f8309da5edddf6e1dd1f403f01c85103908c74232368a8db9e076615adec925f781a0e918ec85f4
   languageName: node
   linkType: hard
 
@@ -6537,6 +6548,7 @@ __metadata:
     "@babel/register": "npm:7.24.6"
     "@babel/runtime": "npm:7.25.6"
     "@floating-ui/react": "npm:0.26.22"
+    "@metabrainz/xgettext-js": "npm:4.0.0"
     "@sentry/browser": "npm:7.119.2"
     "@sentry/node": "npm:7.119.2"
     "@stylistic/eslint-plugin": "npm:2.12.0 "
@@ -6610,7 +6622,6 @@ __metadata:
     webpack-node-externals: "npm:3.0.0"
     weight-balanced-tree: "npm:0.6.1"
     whatwg-fetch: "npm:3.6.20"
-    xgettext-js: "https://github.com/metabrainz/xgettext-js#4da48ff9996565a4df6ea1e51a0425aa2309e079"
     yargs: "npm:3.10.0"
   languageName: unknown
   linkType: soft
@@ -9578,17 +9589,6 @@ __metadata:
     utf-8-validate:
       optional: true
   checksum: 10c0/aec4ef4eb65821a7dde7b44790f8699cfafb7978c9b080f6d7a98a7f8fc0ce674c027073a78574c94786ba7112cc90fa2cc94fc224ceba4d4b1030cff9662494
-  languageName: node
-  linkType: hard
-
-"xgettext-js@https://github.com/metabrainz/xgettext-js#4da48ff9996565a4df6ea1e51a0425aa2309e079":
-  version: 3.0.0
-  resolution: "xgettext-js@https://github.com/metabrainz/xgettext-js.git#commit=4da48ff9996565a4df6ea1e51a0425aa2309e079"
-  dependencies:
-    estree-walker: "npm:^0.6.1"
-    hermes-parser: "npm:0.23.0"
-    lodash: "npm:^4.17.15"
-  checksum: 10c0/138cb76d7fce628f381fa6e4213c4565bb40dbaf32b3350e7a97e91494ad9ea6c8fa0ca925b83782fccc85fe1fa39e5f514191b307359ac47a124e51828f2c45
   languageName: node
   linkType: hard
 
