@@ -4,11 +4,12 @@
 # claybiockiller <clay0305@hotmail.com>, 2023.
 # weeeeei <weeeeei@duck.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
+# Ral Hole <ral-hole@outlook.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-01-15 01:44+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"PO-Revision-Date: 2025-02-10 08:44+0000\n"
+"Last-Translator: Ral Hole <ral-hole@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
 "zh_Hans/>\n"
@@ -1204,15 +1205,6 @@ msgstr ""
 
 #. name:violin family
 #: DB:instrument/description:59
-#, fuzzy
-#| msgid ""
-#| "Developed in the 16th century, these violas da braccio are distinct from "
-#| "the violas da gamba family. <br /> Modern members are: <ul> <li> Violin "
-#| "(little viola) </li> <li> Viola </li> <li> Violoncello (small big viola) "
-#| "</li> <li> Double Bass (replacing the violone (big viola)) </li></ul> "
-#| "Past members include the violone (now a considered a viol) and bass viol "
-#| "(a forerunner to the violoncello). Occasionally Octobass is also included "
-#| "as a member."
 msgid ""
 "Developed in the 16th century, these violas da braccio are distinct from the "
 "viola da gamba family. <br /> Modern members are: <ul> <li> Violin (little "
@@ -1221,10 +1213,11 @@ msgid ""
 "include the violone (now considered a viol) and bass viol (a forerunner to "
 "the violoncello). Occasionally Octobass is also included as a member."
 msgstr ""
-"由16世纪的古小提琴发展而来，有别于古大提琴族。<br />现代成员包括:<ul><li>小提"
-"琴(小的中提琴)</li><li>中提琴</li><li>大提琴(小型大的中提琴)</li><li>倍大提琴"
-"(取代了维奥隆尼(大的中提琴))</li></ul>过去的成员包括维奥隆尼(现在认为是维奥尔"
-"琴的一种)和低音维奥尔琴(大提琴的前身)。超极大贝斯也被认为是成员之一。"
+"这些弓弦提琴在16世纪创制，与大提琴家族不同。<br />现代成员包括：<ul> <li> "
+"小提琴（小型的弓弦提琴） </li> <li> 中提琴 </li> <li> 大提琴（小型大提琴） </"
+"li> <li> 低音提琴（取代了大低音提琴（大的提琴）） </li></ul> "
+"过去的成员包括大提琴（现被认为是提琴的一种）和低音提琴（大提琴的前身）。偶尔"
+"，八弦低音提琴也被包括其中。"
 
 #. name:taishogoto
 #: DB:instrument/description:555
@@ -1536,12 +1529,9 @@ msgstr ""
 
 #. name:floppy disk drive
 #: DB:instrument/description:604
-#, fuzzy
-#| msgid ""
-#| "Floppy Drives configured to produce tones while reading, software is used."
 msgid ""
 "Floppy drives configured to produce tones while reading, using software."
-msgstr "写有读取时会发出音符的编码的软盘，需使用软件。"
+msgstr "通过软件配置软盘驱动器在读取数据时发出音调。"
 
 #. name:hardingfele
 #: DB:instrument/description:78
@@ -1803,10 +1793,6 @@ msgstr "类似于口风琴的自由簧乐器，像手风琴一样佩戴，通过
 
 #. name:bellowed reed
 #: DB:instrument/description:983
-#, fuzzy
-#| msgid ""
-#| "Free reeds with bellows attached, often in a square shape, thence called "
-#| "squeezebox"
 msgid ""
 "Free reeds with bellows attached, often in a square shape, thence called "
 "squeezebox."
@@ -1951,24 +1937,16 @@ msgstr "泰国和柬埔寨的击弦扬琴，从中国引入。"
 
 #. name:hard disk drive
 #: DB:instrument/description:603
-#, fuzzy
-#| msgid "Harddisk configured to produce tones in pattern."
 msgid "Hard disk configured to produce tones in pattern."
-msgstr "按一定方式编码有音符的硬盘。"
+msgstr "将硬盘配置成以某种特定的模式发出音调。"
 
 #. name:accordina
 #: DB:instrument/description:778
-#, fuzzy
-#| msgid ""
-#| "Harmonica/Accordion hybrid where the bellows for the accordion bit with "
-#| "buttons/keys receive air though the user blowing into the instrument like "
-#| "an harmonica"
 msgid ""
 "Harmonica/accordion hybrid where the bellows for the accordion bit with "
 "buttons/keys receive air though the user blowing into the instrument like an "
 "harmonica."
-msgstr ""
-"口琴/手风琴的混合体，为装有按钮/琴键的可以接纳气流的手风琴风箱，但是使用者像"
+msgstr "口琴/手风琴的混合体，为装有按钮/琴键的可以接纳气流的手风琴风箱，但是使用者像"
 "演奏口琴那样向乐器中吹入空气。"
 
 #. name:parkapzuk
@@ -1983,13 +1961,6 @@ msgstr ""
 
 #. name:ghaychak
 #: DB:instrument/description:931
-#, fuzzy
-#| msgid ""
-#| "Having 4 metal strings, it is carved from a single piece of wood into a "
-#| "particular shape similar to the Sarinda, it has 3 soundholes, two on each "
-#| "side of the short neck and one under the bridge which is membrane-covered."
-#| "<br /> Not to be confused with the Uyghur spike fiddle <a href=\"/"
-#| "instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
 msgid ""
 "Having 4 metal strings, it is carved from a single piece of wood into a "
 "particular shape similar to the Sarinda, it has 3 soundholes, two on each "
@@ -1998,8 +1969,8 @@ msgid ""
 "instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
 msgstr ""
 "具有4根金属弦，由一整块木料雕刻成类似于萨林达琴的形状，有3个音孔，两个在短颈"
-"的两侧，一个在琴马下方，覆有膜。<br />切莫与类似于二胡的维吾尔族乐器<a "
-"href=\"/instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">艾捷克</a>混淆。"
+"的两侧，一个在琴马下方，覆有膜。<br />切莫与类似于二胡的维吾尔族乐器<a href="
+"\"/instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">艾捷克</a>混淆。"
 
 #. name:hümmelchen
 #: DB:instrument/description:1205
@@ -2007,7 +1978,8 @@ msgid ""
 "Having a small bag, it has a soft sound. Its chanter and two drones of "
 "differing length are made of fruitwood. It historically had single reeds, "
 "modern creations are more complex and double-reeded."
-msgstr ""
+msgstr "其鼓袋很小，声音柔和。它的吹奏器和两个不同长度的低音部分由果木制成。它历史上"
+"只有单簧片，现代作品则更为复杂，有双簧片。"
 
 #. name:kantilan
 #: DB:instrument/description:975
@@ -2044,7 +2016,8 @@ msgid ""
 "Historically solo instrument used in traditional and ritual dances, the "
 "drones have reinforced pewter rings and the goatskin bag is covered with a "
 "colourful fabric."
-msgstr ""
+msgstr "历史上，这种独奏乐器用于传统舞蹈和仪式舞蹈，其共鸣器加固了锡铅合金环，而羊皮"
+"袋则覆盖着彩色织物。"
 
 #. name:monkey stick
 #: DB:instrument/description:114
@@ -2052,7 +2025,8 @@ msgid ""
 "Homemade combination of a wooden pole with beer bottle tops and other "
 "jingles and a hefty boot at the bottom to create thumping bass, it is often "
 "decorated with hats, hair or stuffed animals."
-msgstr ""
+msgstr "这是自制的组合乐器，由一根木杆、啤酒瓶盖和其他铃铛组成，底部装有沉重的靴子以"
+"产生沉重的低音，上面通常装饰着帽子、假发或毛绒玩具。"
 
 #. name:olifant
 #: DB:instrument/description:888
@@ -2132,17 +2106,11 @@ msgstr ""
 
 #. name:elektronium
 #: DB:instrument/description:848
-#, fuzzy
-#| msgid ""
-#| "in the form of a piano accordion, the keys control the output, pitch and "
-#| "sound, bellows control only volume. Sold by Hohner since 1952, it has "
-#| "gone through many modernisations through the years."
 msgid ""
 "In the form of a piano accordion, the keys control the output, pitch and "
 "sound, bellows control only volume. Sold by Hohner since 1952, it has gone "
 "through many modernisations through the years."
-msgstr ""
-"形式类似于钢琴式手风琴，琴键控制输出，音高和声音，风箱只控制音量。1952年起由"
+msgstr "形式类似于钢琴式手风琴，琴键控制输出，音高和声音，风箱只控制音量。1952年起由"
 "和来公司销售，在多年的时间中经历了多次现代化。"
 
 #. name:morsing
@@ -2155,7 +2123,7 @@ msgstr "印度口弦，在卡纳蒂克和拉贾斯坦民间音乐中演奏。"
 msgid ""
 "Ingenious to the Ainu, it is made of bamboo with a string that vibrated "
 "creates sound."
-msgstr ""
+msgstr "对于阿伊努人来说，这种乐器十分精巧，由竹子制成，通过弦的振动发声。"
 
 #. name:autoharp
 #: DB:instrument/description:409
@@ -2164,6 +2132,9 @@ msgid ""
 "Zimmerman in America and became popular in the 1910 and onward. Wooden box "
 "zither has spring mounted bars used to mute strings for chords."
 msgstr ""
+"这种乐器最初由 Gütte 于 19 世纪 80 年代开发，后来由美国的 Zimmerman "
+"生产和销售，并于 20 世纪 10 "
+"年代开始流行起来。木盒扬琴装有弹簧条，用于使琴弦消音，从而奏出和弦。"
 
 #. name:viololyra
 #: DB:instrument/description:834
@@ -2207,17 +2178,11 @@ msgstr ""
 
 #. name:tubulum
 #: DB:instrument/description:873
-#, fuzzy
-#| msgid ""
-#| "Invented (or atleast made popular by) Blue Man Group, it is made of "
-#| "alternating length PVC pipes and hit with sticks or flaps. It is popular "
-#| "with street musicians."
 msgid ""
 "Invented (or at least made popular) by Blue Man Group, it is made of "
 "alternating length PVC pipes and hit with sticks or flaps. It is popular "
 "with street musicians."
-msgstr ""
-"由蓝人剧团发明(或至少是推广)，它是由不同长度的PVC水管制成，用鼓棒敲打或用手拍"
+msgstr "由蓝人剧团发明(或至少是推广)，它是由不同长度的PVC水管制成，用鼓棒敲打或用手拍"
 "击。它流行于街头音乐家中。"
 
 #. name:accordion
@@ -2441,7 +2406,8 @@ msgstr ""
 msgid ""
 "Known since atleast the 16th century, it has a long chanter, a three-"
 "segmented shoulder drone and a short blowpipe."
-msgstr ""
+msgstr "自 16 "
+"世纪以来就已为人所知，它有一个长箫管、一个三段式肩式持续音管和一根短吹管。"
 
 #. name:cimpoi
 #: DB:instrument/description:1194
@@ -2449,7 +2415,8 @@ msgid ""
 "Known since the 15th century, it is made of a whole goat or sheep skin with "
 "fur either in or out. It has from 5 to 8 fingerholes and metalwork decorated "
 "wooden chanters."
-msgstr ""
+msgstr "自15世纪以来，它便已知存在，由整张山羊皮或绵羊皮制成，皮毛可朝内或朝外。它有5"
+"到8个指孔，以及用金属装饰的木制箫管。"
 
 #. name:dudy podhalanskie
 #: DB:instrument/description:1202
@@ -2458,6 +2425,9 @@ msgid ""
 "and two in the chanter (which as three channels), it has no bells and is "
 "mouthblown."
 msgstr ""
+"自 16 世纪以来，这种乐器便已知存在，它有 3 "
+"个持续音管；其中一个在单独的持续音管中，另外两个在箫管中（有三个声道），它没"
+"有铃铛，是通过嘴吹气发声的。"
 
 #. name:krakebs
 #: DB:instrument/description:652
@@ -2496,10 +2466,6 @@ msgstr ""
 
 #. name:hue puruhau
 #: DB:instrument/description:858
-#, fuzzy
-#| msgid ""
-#| "large gourd (hue) with no finger-holes, it is blown like a jug and has a "
-#| "booming bass sound."
 msgid ""
 "Large gourd (hue) with no finger-holes, it is blown like a jug and has a "
 "booming bass sound."

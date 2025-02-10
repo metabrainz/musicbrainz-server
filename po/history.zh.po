@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-01-15 01:44+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"PO-Revision-Date: 2025-02-09 17:44+0000\n"
+"Last-Translator: Ral Hole <ral-hole@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/history/zh_Hans/>\n"
 "Language: zh\n"
@@ -844,7 +844,7 @@ msgstr "发布了专辑编辑器以及Guess Case。"
 #: DB:statistics.statistic_event/description:2009-05-24
 msgid ""
 "Release groups, ISRC support, CDStub searching and search fixes released."
-msgstr ""
+msgstr "发布了发行组、ISRC 支持、CDStub 搜索以及搜索修复。"
 
 #: DB:statistics.statistic_event/description:2015-04-06
 msgid ""
@@ -855,6 +855,9 @@ msgid ""
 "votes, but they remain open for at least 48 hours to ensure people who "
 "oppose them have time to see them."
 msgstr ""
+"现在可以添加没有介质的发行，例如只包含标题、日期、厂牌和目录号的条目。此外，"
+"任何破坏性编辑（例如实体的合并或删除）不会再在获得 3 票同意后立即关闭，"
+"而会至少保持开放 48 小时，以确保持有不同意见的人有足够时间查看并进行反馈。"
 
 #: DB:statistics.statistic_event/description:2017-09-06
 msgid ""
@@ -862,18 +865,20 @@ msgid ""
 "Singh are hired as replacements to work on search and Picard and on "
 "ListenBrainz, respectively."
 msgstr ""
+"Roman Tsukanov 决定不再续签合同，Sambhav Kothari 和 Param Singh "
+"分别被聘为新成员，负责 Search 和 Picard 以及 ListenBrainz 的相关工作。"
 
 #: DB:statistics.statistic_event/title:2015-09-04
 msgid "Roman Tsukanov joins the MetaBrainz team"
-msgstr ""
+msgstr "Roman Tsukanov 加入 MetaBrain 团队"
 
 #: DB:statistics.statistic_event/title:2006-01-08
 msgid "SG5 Fixes"
-msgstr ""
+msgstr "SG5 修复"
 
 #: DB:statistics.statistic_event/title:2017-09-06
 msgid "Sambhav Kothari and Param Singh replace Roman Tsukanov"
-msgstr ""
+msgstr "Sambhav Kothari 和 Param Singh 接替了 Roman Tsukanov 的工作"
 
 #: DB:statistics.statistic_event/description:2018-09-09
 msgid ""
@@ -881,18 +886,21 @@ msgid ""
 "server ready. Nicolás Tamargo (reosarevok) joins as a programmer part-time "
 "in addition to his style and support positions, to work on MusicBrainz."
 msgstr ""
+"Sambhav Kothari 在为准备 SOLR 服务器 付出了大量努力后离开了 MetaBrainz。"
+"Nicolás Tamargo（reosarevok）加入了 "
+"MusicBrainz，担任程序员兼职工作，同时继续承担他在样式和支持方面的职务。"
 
 #: DB:statistics.statistic_event/title:2018-09-09
 msgid "Sambhav Kothari leaves, Nicolás Tamargo joins as a programmer"
-msgstr ""
+msgstr "Sambhav Kothari 离职，Nicolás Tamargo 加入担任程序员"
 
 #: DB:statistics.statistic_event/title:2006-12-17
 msgid "Search improvements"
-msgstr ""
+msgstr "搜索改进"
 
 #: DB:statistics.statistic_event/title:2015-11-16
 msgid "Several new auto-edit types and translations"
-msgstr ""
+msgstr "几种新的自动确认编辑类型和翻译"
 
 #: DB:statistics.statistic_event/description:2020-05-16
 msgid ""
@@ -901,43 +909,48 @@ msgid ""
 "users are suggested to just run their own Docker setup for MusicBrainz "
 "(which the Virtual Machine already did behind the scenes)."
 msgstr ""
+"由于虚拟机项目因为每次更新版本所需的时间而总是落后于当前数据，因此该项目被取"
+"消。用户被建议自行运行 Docker 设置来使用 "
+"MusicBrainz（这是虚拟机在幕后已经完成的功能）。"
 
 #: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
-msgstr ""
+msgstr "SoC 2008"
 
 #: DB:statistics.statistic_event/title:2018-06-30
 msgid "Solr-based search server deployed"
-msgstr ""
+msgstr "已部署基于 Solr 的搜索服务器"
 
 #: DB:statistics.statistic_event/description:2020-12-31
 msgid ""
 "Some instrument pages start displaying instrument illustrations by IROM. "
 "Additionally, a first release date starts being calculated and displayed for "
 "recordings based on the releases they appear on."
-msgstr ""
+msgstr "一些乐器页面开始显示由 IROM "
+"提供的乐器插图。此外，基于录音出现的发行版本，开始计算并显示首个发行日期。"
 
 #: DB:statistics.statistic_event/description:2006-01-08
 msgid ""
 "Style Guideline 5 workaround introduced and unused TRMs pruned from the "
 "database."
-msgstr ""
+msgstr "引入了 <样式准则 5> 的解决方案，并从数据库中删除了未使用的 "
+"TRM（资源管理条目）。"
 
 #: DB:statistics.statistic_event/title:2014-10-17
 msgid "Style process updated again, reosarevok \"promoted\" to Style BDFL"
-msgstr ""
+msgstr "样式流程再次更新，reosarevok“升级”为样式BDFL"
 
 #: DB:statistics.statistic_event/description:2007-04-01
 msgid "Support for Labels and data quality are released."
-msgstr ""
+msgstr "发布了对厂牌和数据质量的支持。"
 
 #: DB:statistics.statistic_event/title:2015-06-29
 msgid "Tag up/downvoting"
-msgstr ""
+msgstr "标签 认同/反对"
 
 #: DB:statistics.statistic_event/title:2007-10-17
 msgid "Tags, editor subscriptions, relationship batch-adding"
-msgstr ""
+msgstr "批量添加标签、编辑者的订阅、关系"
 
 #: DB:statistics.statistic_event/title:2014-11-19
 msgid "The AcousticBrainz project goes live"
@@ -945,28 +958,28 @@ msgstr "AcousticBrainz 项目上线"
 
 #: DB:statistics.statistic_event/title:2022-02-16
 msgid "The AcousticBrainz project is discontinued"
-msgstr ""
+msgstr "AcousticBrainz 项目已停止"
 
 #: DB:statistics.statistic_event/title:2011-08-03
 msgid "The Android app goes live"
-msgstr ""
+msgstr "Android 应用程序上线"
 
 #: DB:statistics.statistic_event/description:2007-06-28
 msgid ""
 "The BBC becomes a MetaBrainz customer and starts using MusicBrainz data."
-msgstr ""
+msgstr "BBC 成为 MetaBrainz 客户并开始使用 MusicBrainz 数据。"
 
 #: DB:statistics.statistic_event/description:2012-04-30
 msgid "The Cover Art Archive becomes initially available."
-msgstr ""
+msgstr "Cover Art Archive现已初步开放。"
 
 #: DB:statistics.statistic_event/description:2012-10-10
 msgid "The Cover Art Archive is officially released."
-msgstr ""
+msgstr "Cover Art Archive已正式发布。"
 
 #: DB:statistics.statistic_event/title:2014-05-19
 msgid "The CritiqueBrainz project goes live"
-msgstr ""
+msgstr "CritiqueBrainz 项目上线"
 
 #: DB:statistics.statistic_event/description:2021-02-01
 msgid ""
@@ -974,56 +987,62 @@ msgid ""
 "released. Adding the first IPI and/or ISNI code for an entity becomes an "
 "autoedit, unless the same code is already in use for another."
 msgstr ""
+"意大利语翻译版已正式发布，主要由 salo.rock 负责。为实体添加第一个 IPI 和/或 "
+"ISNI 代码将自动编辑，除非同一代码已用于其他实体。"
 
 #: DB:statistics.statistic_event/title:2015-09-17
 msgid "The ListenBrainz project goes live"
-msgstr ""
+msgstr "ListenBrainz 项目上线"
 
 #: DB:statistics.statistic_event/description:2005-04-19
 msgid ""
 "The MetaBrainz Foundation, the legal home for MusicBrainz is announced to "
 "the public."
-msgstr ""
+msgstr "MetaBrainz 基金会，MusicBrainz 的合法归属地，向公众公布。"
 
 #: DB:statistics.statistic_event/title:2020-05-16
 msgid "The MusicBrainz Virtual Machine is replaced by MusicBrainz Docker"
-msgstr ""
+msgstr "MusicBrainz 虚拟机被 MusicBrainz Docker 取代"
 
 #: DB:statistics.statistic_event/description:2015-09-17
 msgid ""
 "The alpha version of ListenBrainz, an open source and open data alternative "
 "to Last.fm®, goes live."
-msgstr ""
+msgstr "ListenBrainz 的 alpha 版本上线，它是 Last.fm® 的开源和开放数据替代品。"
 
 #: DB:statistics.statistic_event/description:2014-05-19
 msgid "The beta version of CritiqueBrainz is launched."
-msgstr ""
+msgstr "CritiqueBrainz 测试版已推出。"
 
 #: DB:statistics.statistic_event/description:2013-10-14
 msgid ""
 "The diminishing quality of the PUID fingerprinting service and the continued "
 "availability of an open source alternative in AcoustID leads to the decision "
 "of dropping PUIDs from MusicBrainz and supporting only AcoustID."
-msgstr ""
+msgstr "PUID 指纹服务质量的下降和 声学ID 中开源替代方案的持续可用性导致决定从 "
+"MusicBrainz 中删除 PUID 并仅支持 声学ID。"
 
 #: DB:statistics.statistic_event/description:2020-02-18
 msgid ""
 "The edit history for entities is made visible even when logged out, to make "
 "it easier to understand how each entity has changed (edit notes are kept "
 "hidden to preserve some privacy)."
-msgstr ""
+msgstr "即使退出时，实体的编辑历史仍然可见，以便更容易了解每个实体是如何变化的（编辑"
+"注释保持隐藏以保护一些隐私）。"
 
 #: DB:statistics.statistic_event/description:2012-06-02
 msgid ""
 "The first full-version release of the Picard tagger comes out, with a lot of "
 "changes and improvements."
-msgstr ""
+msgstr "Picard 的第一个完整版本发布，包含许多变化和改进。"
 
 #: DB:statistics.statistic_event/description:2011-08-03
 msgid ""
 "The first version of the MusicBrainz Android app, a Google Summer of Code "
 "project by Jamie McDonald, is made officially available."
 msgstr ""
+"Jamie McDonald 发起的 Google Summer of Code 项目 MusicBrainz Android "
+"应用程序的第一个版本现已正式发布。"
 
 #: DB:statistics.statistic_event/description:2015-09-08
 msgid ""
@@ -1032,17 +1051,21 @@ msgid ""
 "is dropped - avoiding duplicate data becomes a task for relationship "
 "designers, not users entering the data."
 msgstr ""
+"越来越有争议的‘禁止聚类’指导方针被废除，该指导方针曾禁止类似将每个Jackson兄弟"
+"姐妹相互关联的关系聚类——避免重复数据的任务将由关系设计者负责，而不是由输入数"
+"据的用户负责。"
 
 #: DB:statistics.statistic_event/title:2015-05-18
 msgid "The new MetaBrainz website goes live"
-msgstr ""
+msgstr "MetaBrainz 新网站上线"
 
 #: DB:statistics.statistic_event/description:2015-05-18
 msgid ""
 "The new MetaBrainz website, featuring an all-new design and online sign-up "
 "for commercial users, is launched, replacing the one designed in the year "
 "2000!"
-msgstr ""
+msgstr "新版 MetaBrainz 网站现已上线，采用全新设计，并为商业用户提供在线注册功能，"
+"取代 2000 年设计的网站！"
 
 #: DB:statistics.statistic_event/description:2012-01-12
 msgid ""
@@ -1050,16 +1073,18 @@ msgid ""
 "MusicBrainz Lukáš Lalinský) starts being used alongside PUID on MusicBrainz "
 "fingerprint pages."
 msgstr ""
+"开源指纹解决方案 AcoustID（由 MusicBrainz 的朋友 Lukáš Lalinský 开发）开始与 "
+"PUID 一起在 MusicBrainz 指纹页面上使用。"
 
 #: DB:statistics.statistic_event/description:2012-10-15
 msgid ""
 "The relationship editor, for bulk-editing relationships for a release, is "
 "released to production."
-msgstr ""
+msgstr "用于批量编辑发布关系的关系编辑器已发布到生产环境中。"
 
 #: DB:statistics.statistic_event/description:2006-12-17
 msgid "The search features and web service improvements are released."
-msgstr ""
+msgstr "搜索功能和网络服务改进已发布。"
 
 #: DB:statistics.statistic_event/description:2014-10-17
 msgid ""
@@ -1068,12 +1093,15 @@ msgid ""
 "veto, decisions are taken by a BDFL who consults the community when needed. "
 "Nicolás Tamargo (reosarevok) is \"promoted\" from style leader to style BDFL."
 msgstr ""
+"样式流程再次更新。不再需要经过漫长且经常引起激烈争论的社区辩论，直到某件事在"
+"社区一致同意下通过而没有遭到否决，而是由 BDFL 做出决定，并在必要时咨询社区。"
+"Nicolás Tamargo (reosarevok) 从样式负责人“晋升”为样式 BDFL。"
 
 #: DB:statistics.statistic_event/description:2013-06-24
 msgid ""
 "The voting period for edits that get a No vote is extended to give users "
 "more time to react to the issues."
-msgstr ""
+msgstr "对于获得反对票的编辑的投票期将延长，以便用户有更多时间对问题做出反应。"
 
 #: DB:statistics.statistic_event/description:2005-10-23
 msgid ""
@@ -1089,34 +1117,36 @@ msgstr "从 DiscIDs 设置音轨时长"
 msgid ""
 "Two new entity types are added to MusicBrainz: instruments and series. "
 "Series of recordings, releases, release groups and works are supported."
-msgstr ""
+msgstr "MusicBrainz "
+"添加了两种新的实体类型：乐器和系列。支持一系列录音、发行、发行组和作品。"
 
 #: DB:statistics.statistic_event/title:2005-02-13
 msgid "User improvements"
-msgstr ""
+msgstr "用户改进"
 
 #: DB:statistics.statistic_event/description:2003-06-07
 msgid "Users now have to verify their email address for editing."
-msgstr ""
+msgstr "用户现在必须验证他们的电子邮件地址才能进行编辑。"
 
 #: DB:statistics.statistic_event/description:2019-04-26
 msgid ""
 "Version 1 of the web service (already deprecated since 2011) is finally "
 "taken down for good (more than a year after announcing it would happen in "
 "six months!)."
-msgstr ""
+msgstr "该网络服务的 1.0 版（自 2011 "
+"年起已弃用）最终被永久停用（在宣布将在六个月内停用后一年多！）。"
 
 #: DB:statistics.statistic_event/description:2004-07-24
 msgid "Voting logic was improved, web based autoeditor elections released."
-msgstr ""
+msgstr "投票逻辑得到了改进，基于网络的自动编辑选举发布了。"
 
 #: DB:statistics.statistic_event/title:2013-06-24
 msgid "Voting period for contested edits extended"
-msgstr ""
+msgstr "有争议编辑的投票期限延长"
 
 #: DB:statistics.statistic_event/title:2013-02-11
 msgid "Voting period shortened to 7 days"
-msgstr ""
+msgstr "投票期缩短至7天"
 
 #: DB:statistics.statistic_event/title:2019-11-12
 msgid "Voting suggestions"
@@ -1124,7 +1154,7 @@ msgstr "投票建议"
 
 #: DB:statistics.statistic_event/title:2019-04-26
 msgid "Web service version 1 taken down"
-msgstr ""
+msgstr "Web 服务版本 1 已停用"
 
 #: DB:statistics.statistic_event/description:2022-02-16
 msgid ""
@@ -1132,6 +1162,8 @@ msgid ""
 "goals, the MetaBrainz Foundation decides to stop work on it, with a view to "
 "shut down the site in 2023."
 msgstr ""
+"由于 AcousticBrainz 项目被认为未能实现其最初的目标，MetaBrainz "
+"基金会决定停止该项目，并计划在 2023 年关闭该网站。"
 
 #: DB:statistics.statistic_event/title:2014-03-17
 #: ../root/statistics/stats.js:43
@@ -1143,22 +1175,23 @@ msgid ""
 "Works get their first attributes (such as keys) allowing us to store data "
 "that doesn't make sense as relationships but deserves more than an "
 "annotation entry."
-msgstr ""
+msgstr "作品获得了它们的第一个属性（例如键值），使我们能够存储作为关系没有意义的、但"
+"值得比注释条目更多的东西的数据。"
 
 #: DB:statistics.statistic_event/title:2017-03-13
 msgid "Yvanzo joins MusicBrainz as a developer"
-msgstr ""
+msgstr "Yvanzo 加入 MusicBrainz 担任开发人员"
 
 #: DB:statistics.statistic_event/description:2017-03-13
 msgid ""
 "Yvanzo joins the development team as a second dedicated MusicBrainz "
 "developer."
-msgstr ""
+msgstr "Yvanzo 作为第二位专职 MusicBrainz 开发人员加入了开发团队。"
 
 #: DB:statistics.statistic_event/title:2010-02-08
 msgid "mb_server now hosted on Git"
-msgstr ""
+msgstr "mb_server 现在托管在 Git 上"
 
 #: DB:statistics.statistic_event/title:2012-02-17
 msgid "reosarevok becomes the MusicBrainz style leader"
-msgstr ""
+msgstr "reosarevok 成为 MusicBrainz 风格的领导者"
