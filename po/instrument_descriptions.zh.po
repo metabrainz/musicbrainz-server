@@ -4,11 +4,12 @@
 # claybiockiller <clay0305@hotmail.com>, 2023.
 # weeeeei <weeeeei@duck.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
+# Ral Hole <ral-hole@outlook.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-01-30 11:44+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"PO-Revision-Date: 2025-02-10 08:44+0000\n"
+"Last-Translator: Ral Hole <ral-hole@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
 "zh_Hans/>\n"
@@ -2015,7 +2016,8 @@ msgid ""
 "Historically solo instrument used in traditional and ritual dances, the "
 "drones have reinforced pewter rings and the goatskin bag is covered with a "
 "colourful fabric."
-msgstr ""
+msgstr "历史上，这种独奏乐器用于传统舞蹈和仪式舞蹈，其共鸣器加固了锡铅合金环，而羊皮"
+"袋则覆盖着彩色织物。"
 
 #. name:monkey stick
 #: DB:instrument/description:114
@@ -2023,7 +2025,8 @@ msgid ""
 "Homemade combination of a wooden pole with beer bottle tops and other "
 "jingles and a hefty boot at the bottom to create thumping bass, it is often "
 "decorated with hats, hair or stuffed animals."
-msgstr ""
+msgstr "这是自制的组合乐器，由一根木杆、啤酒瓶盖和其他铃铛组成，底部装有沉重的靴子以"
+"产生沉重的低音，上面通常装饰着帽子、假发或毛绒玩具。"
 
 #. name:olifant
 #: DB:instrument/description:888
@@ -2103,17 +2106,11 @@ msgstr ""
 
 #. name:elektronium
 #: DB:instrument/description:848
-#, fuzzy
-#| msgid ""
-#| "in the form of a piano accordion, the keys control the output, pitch and "
-#| "sound, bellows control only volume. Sold by Hohner since 1952, it has "
-#| "gone through many modernisations through the years."
 msgid ""
 "In the form of a piano accordion, the keys control the output, pitch and "
 "sound, bellows control only volume. Sold by Hohner since 1952, it has gone "
 "through many modernisations through the years."
-msgstr ""
-"形式类似于钢琴式手风琴，琴键控制输出，音高和声音，风箱只控制音量。1952年起由"
+msgstr "形式类似于钢琴式手风琴，琴键控制输出，音高和声音，风箱只控制音量。1952年起由"
 "和来公司销售，在多年的时间中经历了多次现代化。"
 
 #. name:morsing
@@ -2126,7 +2123,7 @@ msgstr "印度口弦，在卡纳蒂克和拉贾斯坦民间音乐中演奏。"
 msgid ""
 "Ingenious to the Ainu, it is made of bamboo with a string that vibrated "
 "creates sound."
-msgstr ""
+msgstr "对于阿伊努人来说，这种乐器十分精巧，由竹子制成，通过弦的振动发声。"
 
 #. name:autoharp
 #: DB:instrument/description:409
@@ -2135,6 +2132,9 @@ msgid ""
 "Zimmerman in America and became popular in the 1910 and onward. Wooden box "
 "zither has spring mounted bars used to mute strings for chords."
 msgstr ""
+"这种乐器最初由 Gütte 于 19 世纪 80 年代开发，后来由美国的 Zimmerman "
+"生产和销售，并于 20 世纪 10 "
+"年代开始流行起来。木盒扬琴装有弹簧条，用于使琴弦消音，从而奏出和弦。"
 
 #. name:viololyra
 #: DB:instrument/description:834
@@ -2178,17 +2178,11 @@ msgstr ""
 
 #. name:tubulum
 #: DB:instrument/description:873
-#, fuzzy
-#| msgid ""
-#| "Invented (or atleast made popular by) Blue Man Group, it is made of "
-#| "alternating length PVC pipes and hit with sticks or flaps. It is popular "
-#| "with street musicians."
 msgid ""
 "Invented (or at least made popular) by Blue Man Group, it is made of "
 "alternating length PVC pipes and hit with sticks or flaps. It is popular "
 "with street musicians."
-msgstr ""
-"由蓝人剧团发明(或至少是推广)，它是由不同长度的PVC水管制成，用鼓棒敲打或用手拍"
+msgstr "由蓝人剧团发明(或至少是推广)，它是由不同长度的PVC水管制成，用鼓棒敲打或用手拍"
 "击。它流行于街头音乐家中。"
 
 #. name:accordion
@@ -2412,7 +2406,8 @@ msgstr ""
 msgid ""
 "Known since atleast the 16th century, it has a long chanter, a three-"
 "segmented shoulder drone and a short blowpipe."
-msgstr ""
+msgstr "自 16 "
+"世纪以来就已为人所知，它有一个长箫管、一个三段式肩式持续音管和一根短吹管。"
 
 #. name:cimpoi
 #: DB:instrument/description:1194
@@ -2420,7 +2415,8 @@ msgid ""
 "Known since the 15th century, it is made of a whole goat or sheep skin with "
 "fur either in or out. It has from 5 to 8 fingerholes and metalwork decorated "
 "wooden chanters."
-msgstr ""
+msgstr "自15世纪以来，它便已知存在，由整张山羊皮或绵羊皮制成，皮毛可朝内或朝外。它有5"
+"到8个指孔，以及用金属装饰的木制箫管。"
 
 #. name:dudy podhalanskie
 #: DB:instrument/description:1202
@@ -2429,6 +2425,9 @@ msgid ""
 "and two in the chanter (which as three channels), it has no bells and is "
 "mouthblown."
 msgstr ""
+"自 16 世纪以来，这种乐器便已知存在，它有 3 "
+"个持续音管；其中一个在单独的持续音管中，另外两个在箫管中（有三个声道），它没"
+"有铃铛，是通过嘴吹气发声的。"
 
 #. name:krakebs
 #: DB:instrument/description:652
@@ -2467,10 +2466,6 @@ msgstr ""
 
 #. name:hue puruhau
 #: DB:instrument/description:858
-#, fuzzy
-#| msgid ""
-#| "large gourd (hue) with no finger-holes, it is blown like a jug and has a "
-#| "booming bass sound."
 msgid ""
 "Large gourd (hue) with no finger-holes, it is blown like a jug and has a "
 "booming bass sound."

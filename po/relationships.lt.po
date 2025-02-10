@@ -2865,6 +2865,22 @@ msgstr ""
 "Nurodo šio kūrinio leidėją. Tai <strong>nėra</strong>ta pati sąvoka kaip <a "
 "href=\"/doc/Label\" target=\"_blank\">įrašų kompanija</a>."
 
+#. name:exported
+#: DB:link_type/description:1280
+#, fuzzy
+#| msgid ""
+#| "Indicates the publisher of this work. This is <strong>not</strong> the "
+#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
+#| "label</a>."
+msgid ""
+"This indicates the organization that exports (or contracts out exports).\n"
+"\n"
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
+msgstr ""
+"Nurodo šio kūrinio leidėją. Tai <strong>nėra</strong>ta pati sąvoka kaip <a "
+"href=\"/doc/Label\" target=\"_blank\">įrašų kompanija</a>."
+
 #. name:manufactured
 #: DB:link_type/description:360
 #, fuzzy
@@ -2985,6 +3001,13 @@ msgid ""
 "relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\" target=\"_blank\">DJ-"
 "mixer</a>."
 msgstr ""
+
+#. name:named after place
+#: DB:link_type/description:1281
+#, fuzzy
+#| msgid "This indicates the artist was the owner of this label."
+msgid "This indicates the place that inspired this artist’s name."
+msgstr "Tai nurodo, kad atlikėjas buvo šios leidyklos savininkas."
 
 #. name:named after place
 #: DB:link_type/description:1263
@@ -6450,6 +6473,19 @@ msgstr "miksavimo inžinieriaus (-ės) pozicija"
 msgid "executives"
 msgstr ""
 
+#. name:exported
+#: DB:link_type/name:1280 DB:link_type/link_phrase:1280
+#: DB:link_type/long_link_phrase:1280
+msgid "exported"
+msgstr ""
+
+#. name:exported
+#: DB:link_type/reverse_link_phrase:1280
+#, fuzzy
+#| msgid "premiered by"
+msgid "exported by"
+msgstr "premjera atliko"
+
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
 #: DB:link_type/reverse_link_phrase:172 DB:link_type/reverse_link_phrase:1189
@@ -7269,9 +7305,10 @@ msgstr ""
 msgid "information page"
 msgstr ""
 
-#. name:named after artist, name:named after label, name:named after release group, name:named after work
-#: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
-#: DB:link_type/reverse_link_phrase:1259 DB:link_type/reverse_link_phrase:974
+#. name:named after artist, name:named after label, name:named after place, name:named after release group, name:named after work
+#: DB:link_type/link_phrase:1281 DB:link_type/reverse_link_phrase:973
+#: DB:link_type/reverse_link_phrase:972 DB:link_type/reverse_link_phrase:1259
+#: DB:link_type/reverse_link_phrase:974
 msgid "inspired the name of artist"
 msgstr ""
 
@@ -7501,7 +7538,7 @@ msgid "is named after label"
 msgstr "pavadintas pagal"
 
 #. name:named after place
-#: DB:link_type/long_link_phrase:1263
+#: DB:link_type/long_link_phrase:1281 DB:link_type/long_link_phrase:1263
 #, fuzzy
 #| msgid "named after"
 msgid "is named after place"
@@ -8238,7 +8275,8 @@ msgid "named after label"
 msgstr "pavadintas pagal"
 
 #. name:named after place
-#: DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#: DB:link_type/name:1281 DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#: DB:link_type/reverse_link_phrase:1281
 #, fuzzy
 #| msgid "named after"
 msgid "named after place"

@@ -2571,6 +2571,26 @@ msgstr ""
 "這和<a href=\"/doc/Label\" target=\"_blank\">唱片廠牌</a> <strong>不是</"
 "strong>同一個概念。"
 
+#. name:exported
+#: DB:link_type/description:1280
+#, fuzzy
+#| msgid ""
+#| "This indicates the organization that distributes (or contracts out "
+#| "distribution). \n"
+#| "\n"
+#| "This is <strong>not</strong> the same concept as the <a href=\"/doc/"
+#| "Label\" target=\"_blank\">record label</a>."
+msgid ""
+"This indicates the organization that exports (or contracts out exports).\n"
+"\n"
+"This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
+"target=\"_blank\">record label</a>."
+msgstr ""
+"指某個負責分銷（或外包分銷）的組織。\n"
+"\n"
+"這和<a href=\"/doc/Label\" target=\"_blank\">唱片廠牌</a> <strong>不是</"
+"strong>同一個概念。"
+
 #. name:manufactured
 #: DB:link_type/description:360
 msgid ""
@@ -2697,6 +2717,13 @@ msgstr ""
 "一首連著一首。如果音軌已調音或混合，將此人記錄為<a href=\"/"
 "relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\" target=\"_blank\">混音"
 "DJ</a>更合適。"
+
+#. name:named after place
+#: DB:link_type/description:1281
+#, fuzzy
+#| msgid "This indicates the label that inspired this artist’s name."
+msgid "This indicates the place that inspired this artist’s name."
+msgstr "表示某個廠牌名啟發了這個創作者的名字。"
 
 #. name:named after place
 #: DB:link_type/description:1263
@@ -6311,6 +6338,19 @@ msgstr "工程師職位"
 msgid "executives"
 msgstr "執行者"
 
+#. name:exported
+#: DB:link_type/name:1280 DB:link_type/link_phrase:1280
+#: DB:link_type/long_link_phrase:1280
+msgid "exported"
+msgstr ""
+
+#. name:exported
+#: DB:link_type/reverse_link_phrase:1280
+#, fuzzy
+#| msgid "printed by"
+msgid "exported by"
+msgstr "印刷，由"
+
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
 #: DB:link_type/reverse_link_phrase:172 DB:link_type/reverse_link_phrase:1189
@@ -7122,9 +7162,10 @@ msgstr "影響類型"
 msgid "information page"
 msgstr "資訊頁面"
 
-#. name:named after artist, name:named after label, name:named after release group, name:named after work
-#: DB:link_type/reverse_link_phrase:973 DB:link_type/reverse_link_phrase:972
-#: DB:link_type/reverse_link_phrase:1259 DB:link_type/reverse_link_phrase:974
+#. name:named after artist, name:named after label, name:named after place, name:named after release group, name:named after work
+#: DB:link_type/link_phrase:1281 DB:link_type/reverse_link_phrase:973
+#: DB:link_type/reverse_link_phrase:972 DB:link_type/reverse_link_phrase:1259
+#: DB:link_type/reverse_link_phrase:974
 msgid "inspired the name of artist"
 msgstr "啟發了創作者的名稱"
 
@@ -7346,7 +7387,7 @@ msgid "is named after label"
 msgstr "以廠牌命名"
 
 #. name:named after place
-#: DB:link_type/long_link_phrase:1263
+#: DB:link_type/long_link_phrase:1281 DB:link_type/long_link_phrase:1263
 msgid "is named after place"
 msgstr "母廠牌"
 
@@ -8074,7 +8115,8 @@ msgid "named after label"
 msgstr "母廠牌"
 
 #. name:named after place
-#: DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#: DB:link_type/name:1281 DB:link_type/name:1263 DB:link_type/link_phrase:1263
+#: DB:link_type/reverse_link_phrase:1281
 msgid "named after place"
 msgstr "母廠牌"
 
