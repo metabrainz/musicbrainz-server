@@ -35,10 +35,6 @@ pushd "$SIR_DIR"
 sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python -m sir amqp_setup'
 popd
 
-# GitHub Actions overrides the container entrypoint.
-/sbin/my_init &
-sleep 5
-
 sv_start_if_down \
   artwork-indexer \
   artwork-redirect \
@@ -52,10 +48,11 @@ sv_start_if_down \
 # Wait for services to start.
 sleep 10
 
+tests_exit_code=0
 sudo -E -H -u musicbrainz carton exec -- \
      ./t/selenium.js --browser-binary-path=/opt/chrome-linux64/chrome $SELENIUM_JS_OPTIONS \
      | tee >(./node_modules/.bin/tap-junit > ./junit_output/selenium.xml) \
-     | ./node_modules/.bin/tap-difflet
+     | ./node_modules/.bin/tap-difflet || { tests_exit_code=$?; true; }
 
 # Stop the template-renderer so that it dumps coverage.
 sv down template-renderer
@@ -79,4 +76,4 @@ if [ "$GITHUB_ACTIONS" = 'true' ]; then
   done
 fi
 
-exit 0
+exit $tests_exit_code

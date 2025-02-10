@@ -33,10 +33,6 @@ sudo -E -H -u musicbrainz \
     && { exit 1; }
 echo OK
 
-# GitHub Actions overrides the container entrypoint.
-/sbin/my_init &
-sleep 5
-
 sv_start_if_down chrome postgresql redis
 
 sudo -E -H -u musicbrainz carton exec -- ./bin/sucrase-node \
