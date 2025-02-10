@@ -81,6 +81,8 @@
 /t/selenium/.sir-amqp_watch.log
 /t/selenium/.sir-amqp_watch.pid
 /t/selenium/.sir-reindex.log
+# screenshot taken by t/selenium.mjs in case of failure
+/t/selenium/.failure-screenshot.png
 
 # IDE configs
 .idea
