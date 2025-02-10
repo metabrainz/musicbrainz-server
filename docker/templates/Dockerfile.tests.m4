@@ -178,11 +178,11 @@ COPY --from=mb_solr --chown=solr:solr /home/musicbrainz/mb-solr/mb-solr/target/m
 COPY --from=mb_solr --chown=solr:solr /home/musicbrainz/mb-solr/mbsssss/ /var/solr/data/mycores/mbsssss/
 COPY --from=mb_solr --chown=musicbrainz:musicbrainz /home/musicbrainz/mb-solr/mmd-schema/ /home/musicbrainz/mmd-schema/
 
-RUN curl -sSLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/131.0.6778.204/linux64/chrome-linux64.zip && \
+RUN curl -sSLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/133.0.6943.53/linux64/chrome-linux64.zip && \
     unzip chrome-linux64.zip -d /opt && \
     rm chrome-linux64.zip
 
-RUN curl -sSLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/131.0.6778.204/linux64/chromedriver-linux64.zip && \
+RUN curl -sSLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/133.0.6943.53/linux64/chromedriver-linux64.zip && \
     unzip chromedriver-linux64.zip -d /tmp && \
     mv /tmp/chromedriver-linux64/chromedriver /usr/local/bin/ && \
     chmod +x /usr/local/bin/chromedriver && \
