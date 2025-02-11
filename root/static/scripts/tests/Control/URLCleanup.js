@@ -5663,6 +5663,13 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
                                   target: 'url',
                                 },
   },
+  {
+                     input_url: 'http://artists.spotify.com/songwriter/4wmgHQAAzg3gbnQWSyoMZp',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://artists.spotify.com/songwriter/4wmgHQAAzg3gbnQWSyoMZp',
+       only_valid_entity_types: ['artist'],
+  },
   // SteamDB
   {
                      input_url: 'http://www.steamdb.info/app/331230/info/',
