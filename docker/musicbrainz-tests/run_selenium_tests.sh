@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -x
+shopt -s nullglob
 
 function sv_start_if_down() {
   while [[ $# -gt 0 ]]
@@ -16,51 +17,39 @@ function sv_start_if_down() {
 
 cd "$MBS_ROOT"
 
-# Create the musicbrainz_selenium DB.
-pushd /var/lib/postgresql
-sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres \
-     musicbrainz_selenium
-popd
-
-# Set the open file limit Solr requests on startup, then start Solr.
+# Set the open file limit Solr requests on startup.
 ulimit -n 65000
-sv_start_if_down solr
+
+./docker/musicbrainz-tests/add_mbtest_alias.sh
+
+service rabbitmq-server start
 
 # Setup the rabbitmq user/vhost used by pg_amqp + sir.
-service rabbitmq-server start
 rabbitmqctl add_user sir sir
 rabbitmqctl add_vhost /sir-test
 rabbitmqctl set_permissions -p /sir-test sir '.*' '.*' '.*'
 
-# Install the sir triggers into musicbrainz_selenium.
 export SIR_DIR=/home/musicbrainz/sir
-cd "$SIR_DIR"
-sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python -m sir amqp_setup; python -m sir extension; python -m sir triggers --broker-id=1'
-psql -U postgres -f sql/CreateExtension.sql musicbrainz_selenium
-psql -U musicbrainz -f sql/CreateFunctions.sql musicbrainz_selenium
-psql -U musicbrainz -f sql/CreateTriggers.sql musicbrainz_selenium
+pushd "$SIR_DIR"
+# Setup the RabbitMQ channels/queues used by sir.
+sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python -m sir amqp_setup'
+popd
 
-# Install the artwork_indexer schema into musicbrainz_selenium.
-cd /home/musicbrainz/artwork-indexer
-sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python indexer.py --setup-schema'
+# GitHub Actions overrides the container entrypoint.
+/sbin/my_init &
+sleep 5
 
-cd "$MBS_ROOT"
+sv_start_if_down \
+  artwork-indexer \
+  artwork-redirect \
+  postgresql \
+  redis \
+  solr \
+  ssssss \
+  template-renderer \
+  website
 
-# Start the various CAA-related services.
-sv_start_if_down artwork-indexer artwork-redirect ssssss
-
-# Compile static resources.
-NODE_ENV=test \
-     WEBPACK_MODE=development \
-     MUSICBRAINZ_RUNNING_TESTS=1 \
-     NO_PROGRESS=1 \
-     sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh default tests
-
-./docker/musicbrainz-tests/add_mbtest_alias.sh
-
-sv_start_if_down template-renderer website
-
-# Wait for plackup to start.
+# Wait for services to start.
 sleep 10
 
 sudo -E -H -u musicbrainz carton exec -- \
@@ -73,8 +62,20 @@ sv down template-renderer
 sleep 10
 sudo -E -H -u musicbrainz ./node_modules/.bin/nyc report --reporter=html
 
-sudo -E -H -u musicbrainz mkdir -p svlog
-for service in /var/log/service/*; do
-     cp "$service"/current svlog/"$(basename "$service")".log
-done
-chown musicbrainz:musicbrainz svlog/*.log
+if [ "$GITHUB_ACTIONS" = 'true' ]; then
+  if [ -d junit_output ]; then
+    cp -Ra junit_output "$GITHUB_WORKSPACE"
+  fi
+  logs="$GITHUB_WORKSPACE"/service_logs
+  mkdir -p "$logs"
+  for service in /var/log/service/*; do
+      cp -a "$service"/current "$logs"/"$(basename "$service")".log
+  done
+  for sir_log in t/selenium/.sir-*.log; do
+      base_fname="$(basename "$sir_log")"
+      cp -a "$sir_log" "$logs"/"${base_fname#.}"
+  done
+  cp -Ra coverage "$GITHUB_WORKSPACE"
+fi
+
+exit 0
