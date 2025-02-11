@@ -132,8 +132,8 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: selenium_${{ matrix.partition }}_failure_screenshot.png
-          path: selenium_failure_screenshot.png
+          name: selenium_${{ matrix.partition }}_screenshots
+          path: screenshots
           if-no-files-found: ignore
 
   generate-reports:

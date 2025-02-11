@@ -272,16 +272,22 @@ function quit() {
   return driver.quit().catch(console.error);
 }
 
-async function unhandledRejection(err) {
-  console.error(err);
+const SCREENSHOTS_DIR = path.resolve(
+  DBDefs.MB_SERVER_ROOT,
+  't/selenium/.screenshots',
+);
+
+async function takeScreenshot(fname) {
   try {
     const browsingContext = await getBrowsingContextInstance(driver, {
       browsingContextId: await driver.getWindowHandle(),
     });
     const captureParams = new CaptureScreenshotParameters();
     captureParams.origin(Origin.DOCUMENT);
+    const fpath = path.join(SCREENSHOTS_DIR, `${fname}.png`);
+    fs.mkdirSync(path.dirname(fpath), {recursive: true});
     fs.writeFileSync(
-      path.resolve(DBDefs.MB_SERVER_ROOT, 't/selenium/.failure-screenshot.png'),
+      fpath,
       await browsingContext.captureScreenshot(captureParams),
       'base64',
     );
@@ -289,6 +295,13 @@ async function unhandledRejection(err) {
     console.error('Failed to take a screenshot:');
     console.error(err);
   }
+}
+
+async function unhandledRejection(err) {
+  console.error(err);
+
+  await takeScreenshot('failure');
+
   if (!argv.stayOpen) {
     await quit();
     process.exit(1);
@@ -489,17 +502,32 @@ async function getSeleniumDbTupStats() {
   return JSON.parse(result.stdout);
 }
 
-async function handleCommandAndWait({command, target, value}, t) {
+async function handleCommandAndWait(
+  stest,
+  {command, index, target, value},
+  t,
+) {
   const newCommand = command.replace(/AndWait$/, '');
 
   const html = await findElement('css=html');
-  await handleCommand({command: newCommand, target, value}, t);
+  await handleCommand(stest, {command: newCommand, index, target, value}, t);
   return driver.wait(until.stalenessOf(html), 30000);
 }
 
-async function handleCommand({command, target, value}, t, ...args) {
+async function handleCommand(stest, {command, index, target, value}, t) {
   if (/AndWait$/.test(command)) {
-    return handleCommandAndWait({command, target, value}, t, ...args);
+    return handleCommandAndWait(stest, {command, index, target, value}, t);
+  }
+
+  /*
+   * This is performed before running the command (rather than after) because
+   * the page can become stale by executing the command (via navigation),
+   * which seems to trigger some exceptions when taking a screenshot.
+   */
+  if (stest.screenshot !== false) {
+    await takeScreenshot(
+      `${stest.name.replace(/\.json5$/, '')}_${index}_${command}`,
+    );
   }
 
   // Wait for all pending network requests before running the next command.
@@ -606,7 +634,8 @@ async function handleCommand({command, target, value}, t, ...args) {
       break;
 
     case 'check':
-      return setChecked(findElement(target), true);
+      await setChecked(findElement(target), true);
+      break;
 
     case 'click':
       element = await findElement(target);
@@ -715,6 +744,7 @@ async function handleCommand({command, target, value}, t, ...args) {
     default:
       throw 'Unsupported command: ' + command;
   }
+
   return null;
 }
 
@@ -851,7 +881,7 @@ function loadTestDocument(test) {
   test.document = JSON5.parse(fs.readFileSync(test.path));
 }
 
-async function runCommands(commands, t) {
+async function runCommands(stest, commands, t) {
   await driver.manage().window().setRect({height: 768, width: 1024});
 
   for (let i = 0; i < commands.length; i++) {
@@ -859,7 +889,7 @@ async function runCommands(commands, t) {
     const reqsCountBeforeCommand = reqsCount;
     const locationBeforeCommand = await getDocumentLocation();
 
-    await handleCommand(command, t);
+    await handleCommand(stest, {...command, index: i}, t);
 
     const locationAfterCommand = await getDocumentLocation();
 
@@ -944,8 +974,8 @@ async function runCommands(commands, t) {
   }
 
   seleniumTests.forEach(setTestPath);
-  const loginPlan = {name: 'Log_In.json5'};
-  const logoutPlan = {name: 'Log_Out.json5'};
+  const loginPlan = {name: 'Log_In.json5', screenshot: false};
+  const logoutPlan = {name: 'Log_Out.json5', screenshot: false};
   setTestPath(loginPlan);
   setTestPath(logoutPlan);
 
@@ -1048,14 +1078,18 @@ async function runCommands(commands, t) {
 
           try {
             if (stest.login) {
-              await runCommands(loginPlan.document.commands, t);
+              await runCommands(loginPlan, loginPlan.document.commands, t);
             }
 
-            await runCommands(commands, t);
+            await runCommands(stest, commands, t);
 
             if (!(isLastTest && argv.stayOpen)) {
               if (stest.login) {
-                await runCommands(logoutPlan.document.commands, t);
+                await runCommands(
+                  logoutPlan,
+                  logoutPlan.document.commands,
+                  t,
+                );
               }
             }
           } catch (error) {
