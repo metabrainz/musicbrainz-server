@@ -14,14 +14,9 @@ function sv_start_if_down() {
   done
 }
 
-sudo -E -H -u musicbrainz make -C po test_source
+cd "$MBS_ROOT"
 
-MUSICBRAINZ_RUNNING_TESTS=1 \
-    NODE_ENV=test \
-    WEBPACK_MODE=development \
-    NO_PROGRESS=1 \
-    sudo -E -H -u musicbrainz \
-        carton exec -- ./script/compile_resources.sh client server web-tests
+sudo -E -H -u musicbrainz make -C po test_source
 
 echo Checking JavaScript code’s static types with Flow
 sudo -E -H -u musicbrainz ./node_modules/.bin/flow --quiet
@@ -37,7 +32,11 @@ sudo -E -H -u musicbrainz \
     && { exit 1; }
 echo OK
 
-sv_start_if_down chrome
+# GitHub Actions overrides the container entrypoint.
+/sbin/my_init &
+sleep 5
+
+sv_start_if_down chrome postgresql redis
 
 sudo -E -H -u musicbrainz carton exec -- node \
     t/web.js \
@@ -47,10 +46,6 @@ sudo -E -H -u musicbrainz carton exec -- node \
 sv kill chrome
 
 ./docker/musicbrainz-tests/add_mbtest_alias.sh
-
-sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_json_dump
-sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_full_export
-sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_sitemaps
 
 sv_start_if_down template-renderer vnu website
 
@@ -79,3 +74,9 @@ sudo -E -H -u musicbrainz carton exec -- prove \
     t/tests.t \
     --harness=TAP::Harness::JUnit \
     -v
+
+if [ "$GITHUB_ACTIONS" = 'true' ]; then
+  if [ -d junit_output ]; then
+    cp -Ra junit_output "$GITHUB_WORKSPACE"
+  fi
+fi
