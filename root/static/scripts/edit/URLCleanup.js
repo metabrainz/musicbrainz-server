@@ -5134,6 +5134,47 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'rockit': {
+    match: [/^(https?:\/\/)?(www\.)?rockit\.it\/(?!recensione)/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?rockit\.it\/([^#]+)(?:#.*)?$/, 'https://www.rockit.it/$1');
+      url = url.replace(/^https:\/\/www\.rockit\.it\/professionista\/([^/]+).*$/, 'https://www.rockit.it/professionista/$1');
+      url = url.replace(/^https:\/\/www\.rockit\.it\/(?!professionista)([^/]+)(\/album\/[^/]+\/\d+)?.*$/, 'https://www.rockit.it/$1$2');
+      return url;
+    },
+    validate(url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.artist:
+          return {
+            result: /^https:\/\/www\.rockit\.it\/[^/]+$/.test(url) ||
+                    /^https:\/\/www\.rockit\.it\/professionista\/[^/]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.otherdatabases.event:
+        case LINK_TYPES.otherdatabases.label:
+        case LINK_TYPES.otherdatabases.place:
+        case LINK_TYPES.otherdatabases.series:
+          return {
+            result: /^https:\/\/www\.rockit\.it\/[^/]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.otherdatabases.release_group:
+          return {
+            result: /^https:\/\/www\.rockit\.it\/[^/]+\/album\/[^/]+\/\d+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'rockitreview': {
+    match: [/^(https?:\/\/)?(www\.)?rockit\.it\/recensione/i],
+    restrict: [LINK_TYPES.review],
+    clean(url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?rockit\.it\/recensione\/([^#]+)(?:#.*)?$/, 'https://www.rockit.it/recensione/$1');
+    },
+  },
   'runeberg': {
     match: [/^(https?:\/\/)?([^/]+\.)?runeberg\.org\//i],
     restrict: [LINK_TYPES.lyrics],

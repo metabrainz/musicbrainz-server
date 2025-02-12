@@ -172,6 +172,7 @@ my %URL_SPECIALIZATIONS = (
     'RockensDanmarkskort' => qr{^https?://(?:www\.)?rockensdanmarkskort\.dk/}i,
     'RockInChina'         => qr{^https?://(?:www\.)?rockinchina\.com/}i,
     'Rockipedia'          => qr{^https?://(?:www\.)?rockipedia\.no/}i,
+    'Rockit'              => qr{^https?://(?:www\.)?rockit\.it/}i,
     'Rolldabeats'         => qr{^https?://(?:www\.)?rolldabeats\.com/}i,
     'Runeberg'            => qr{^https?://(?:www\.)?runeberg\.org/}i,
     'SecondHandSongs'     => qr{^https?://(?:www\.)?secondhandsongs\.com/}i,
