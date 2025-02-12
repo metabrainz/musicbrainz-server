@@ -1029,7 +1029,8 @@ async function runCommands(stest, commands, t) {
 
   let shouldCleanSeleniumDb = true;
 
-  await testsToRun.reduce(function (accum, stest, index) {
+  for (let index = 0; index < testsToRun.length; index++) {
+    const stest = testsToRun[index];
     const {commands, title} = stest.document;
 
     let plan = 0;
@@ -1044,92 +1045,83 @@ async function runCommands(stest, commands, t) {
 
     const testOptions = {objectPrintDepth: 10, timeout: TEST_TIMEOUT};
 
-    return new Promise(function (resolve) {
-      test(title, testOptions, function (t) {
+    const shouldCleanSeleniumDbNow = shouldCleanSeleniumDb;
+    shouldCleanSeleniumDb = await new Promise(function (resolve) {
+      test(title, testOptions, async function (t) {
         t.plan(plan);
 
         const timeout = setTimeout(resolve, TEST_TIMEOUT);
 
-        accum.then(async function () {
-          const hasExtraSql = typeof stest.sql === 'string';
+        const hasExtraSql = typeof stest.sql === 'string';
 
-          if (hasExtraSql || shouldCleanSeleniumDb) {
-            await cleanSeleniumDb(t, stest.sql);
+        if (hasExtraSql || shouldCleanSeleniumDbNow) {
+          await cleanSeleniumDb(t, stest.sql);
+        }
+
+        const startTime = new Date();
+
+        let didDatabaseChange = hasExtraSql;
+        const startTupStats = didDatabaseChange
+          ? null
+          : (await getSeleniumDbTupStats());
+
+        try {
+          if (stest.login) {
+            await runCommands(loginPlan, loginPlan.document.commands, t);
           }
 
-          const startTime = new Date();
+          await runCommands(stest, commands, t);
 
-          let didDatabaseChange = hasExtraSql;
-          const startTupStats = didDatabaseChange
-            ? null
-            : (await getSeleniumDbTupStats());
-
-          try {
+          if (!(isLastTest && argv.stayOpen)) {
             if (stest.login) {
-              await runCommands(loginPlan, loginPlan.document.commands, t);
-            }
-
-            await runCommands(stest, commands, t);
-
-            if (!(isLastTest && argv.stayOpen)) {
-              if (stest.login) {
-                await runCommands(
-                  logoutPlan,
-                  logoutPlan.document.commands,
-                  t,
-                );
-              }
-            }
-          } catch (error) {
-            t.fail(
-              'caught exception: ' +
-              (error && error.stack ? error.stack : error.toString()),
-            );
-            throw error;
-          } finally {
-            if (argv.browser === 'chrome') {
-              await driver.manage().logs().get(logging.Type.BROWSER)
-                .then(function (entries) {
-                  entries.forEach(function (entry) {
-                    t.comment(
-                      '[browser console log] ' +
-                      `[${entry.level.name}] ${entry.message}`,
-                    );
-                  });
-                });
-            }
-
-            const finishTime = new Date();
-            const elapsedTime = (finishTime - startTime) / 1000;
-            t.comment(timePrefix(
-              `${title}: took ${elapsedTime} seconds`,
-            ));
-
-            if (!didDatabaseChange) {
-              const finishTupStats = await getSeleniumDbTupStats();
-              didDatabaseChange = (
-                finishTupStats.tup_inserted > startTupStats.tup_inserted ||
-                finishTupStats.tup_updated > startTupStats.tup_updated ||
-                finishTupStats.tup_deleted > startTupStats.tup_deleted
+              await runCommands(
+                logoutPlan,
+                logoutPlan.document.commands,
+                t,
               );
             }
-
-            /*
-             * Tests always run serially, one after another.
-             * The require-atomic-updates violation appears to be a false-
-             * positive from eslint.
-             */
-            // eslint-disable-next-line require-atomic-updates
-            shouldCleanSeleniumDb = didDatabaseChange;
+          }
+        } catch (error) {
+          t.fail(
+            'caught exception: ' +
+            (error && error.stack ? error.stack : error.toString()),
+          );
+          throw error;
+        } finally {
+          if (argv.browser === 'chrome') {
+            await driver.manage().logs().get(logging.Type.BROWSER)
+              .then(function (entries) {
+                entries.forEach(function (entry) {
+                  t.comment(
+                    '[browser console log] ' +
+                    `[${entry.level.name}] ${entry.message}`,
+                  );
+                });
+              });
           }
 
-          t.end();
-          clearTimeout(timeout);
-          resolve();
-        });
+          const finishTime = new Date();
+          const elapsedTime = (finishTime - startTime) / 1000;
+          t.comment(timePrefix(
+            `${title}: took ${elapsedTime} seconds`,
+          ));
+
+          if (!didDatabaseChange) {
+            const finishTupStats = await getSeleniumDbTupStats();
+            didDatabaseChange = (
+              finishTupStats.tup_inserted > startTupStats.tup_inserted ||
+              finishTupStats.tup_updated > startTupStats.tup_updated ||
+              finishTupStats.tup_deleted > startTupStats.tup_deleted
+            );
+          }
+        }
+
+        t.end();
+        clearTimeout(timeout);
+        resolve(didDatabaseChange);
       });
     });
-  }, Promise.resolve());
+  }
 
   if (argv.coverage) {
     const remainingCoverage = await driver.executeScript(
