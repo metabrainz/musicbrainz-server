@@ -6173,6 +6173,98 @@ const CLEANUPS: CleanupEntries = {
       };
     },
   },
+  'vibe': {
+    match: [
+      /^(https?:\/\/)?vibe\.naver\.com\//i,
+      /^(https?:\/\/)?music\.naver\.com\//i, // legacy URL
+    ],
+    restrict: [
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+      LINK_TYPES.streamingpaid,
+    ],
+    select(url, sourceType) {
+      const m = /^https:\/\/vibe\.naver\.com\/(album|artist|track|video)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (prefix) {
+          case 'album':
+            if (sourceType === 'release') {
+              return [
+                LINK_TYPES.downloadpurchase.release,
+                LINK_TYPES.streamingpaid.release,
+              ];
+            }
+            break;
+          case 'artist':
+            if (sourceType === 'artist') {
+              return [
+                LINK_TYPES.downloadpurchase.artist,
+                LINK_TYPES.streamingpaid.artist,
+              ];
+            }
+            break;
+          case 'track':
+            if (sourceType === 'recording') {
+              return [
+                LINK_TYPES.downloadpurchase.recording,
+                LINK_TYPES.streamingpaid.recording,
+              ];
+            }
+            break;
+          default: // video
+            if (sourceType === 'release') {
+              return LINK_TYPES.streamingpaid.release;
+            } else if (sourceType === 'recording') {
+              return LINK_TYPES.streamingpaid.recording;
+            }
+            break;
+        }
+      }
+      return false;
+    },
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?music\.naver\.com\/album\/index\.nhn\?albumId=(\d+).*$/, 'https://vibe.naver.com/album/$1');
+      url = url.replace(/^(?:https?:\/\/)?music\.naver\.com\/artist\/(?:\w+)\.nhn\?artistId=(\d+).*$/, 'https://vibe.naver.com/artist/$1');
+      url = url.replace(/^(?:https?:\/\/)?music\.naver\.com\/video\/(?:\w+)\.nhn\?videoId=(\d+).*$/, 'https://vibe.naver.com/video/$1');
+      url = url.replace(/^(?:https?:\/\/)?vibe\.naver\.com\/(album|artist|track|video)\/(\d+).*$/, 'https://vibe.naver.com/$1/$2');
+      return url;
+    },
+    validate(url, id) {
+      if (/https:\/\/vibe\.naver\.com\/search/.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      const m = /^https?:\/\/vibe\.naver\.com\/(album|artist|track|video)\/(\d+)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'album' || prefix === 'video',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.recording:
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'track' || prefix === 'video',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'vimeo': {
     match: [/^(https?:\/\/)?([^/]+\.)?vimeo\.com\/(?!(?:ondemand|store\/ondemand))/i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel}],

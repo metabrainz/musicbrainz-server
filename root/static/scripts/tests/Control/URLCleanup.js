@@ -6459,6 +6459,66 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
                      input_url: 'www.viaf.org/viaf/16766997/',
             expected_clean_url: 'http://viaf.org/viaf/16766997',
   },
+  // Naver Vibe
+  {
+                     input_url: 'https://vibe.naver.com/album/32004180',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://vibe.naver.com/album/32004180',
+  },
+  {
+                     input_url: 'https://vibe.naver.com/artist/5176052',
+             input_entity_type: 'artist',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://vibe.naver.com/artist/5176052',
+  },
+  {
+                     input_url: 'https://vibe.naver.com/artist/5176052/albums',
+             input_entity_type: 'artist',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://vibe.naver.com/artist/5176052',
+  },
+  {
+                     input_url: 'https://vibe.naver.com/video/406927',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://vibe.naver.com/video/406927',
+       only_valid_entity_types: ['release', 'recording'],
+  },
+  {
+                     input_url: 'https://vibe.naver.com/search?query=NMIXX',
+             input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://vibe.naver.com/search?query=NMIXX',
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'http://music.naver.com/album/index.nhn?albumId=307278',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                   ['downloadpurchase', 'streamingpaid'],
+                                   'streamingpaid',
+                                ],
+            expected_clean_url: 'https://vibe.naver.com/album/307278',
+  },
   // Videogam.in
   {
                      input_url: 'http://videogam.in/music/?id=PCCG-00486',
