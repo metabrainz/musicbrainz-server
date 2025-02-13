@@ -27,7 +27,7 @@ sub build_term {
 
     my $term = ($is_regex || $is_quoted)
         ? $value
-        : "\"$escaped_value\"";
+        : qq("$escaped_value");
 
     return $term;
 }
