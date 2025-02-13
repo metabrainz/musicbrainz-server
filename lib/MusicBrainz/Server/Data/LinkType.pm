@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::LinkType;
 
 use Moose;
 use namespace::autoclean;
+use Readonly;
 use Sql;
 use MusicBrainz::Server::Constants qw( $WORK_AUTHORSHIP_ROOT_ID );
 use MusicBrainz::Server::Entity::ExampleRelationship;
@@ -22,6 +23,16 @@ with 'MusicBrainz::Server::Data::Role::GetByGID',
      'MusicBrainz::Server::Data::Role::OptionsTree' => {
         order_by => [qw( entity_type0 entity_type1 child_order id )],
      };
+
+Readonly our $link_type_hierarchy_cte => q{
+    WITH RECURSIVE link_type_hierarchy(id, gid, root_id) AS (
+      SELECT id, gid, id FROM link_type WHERE parent IS NULL
+       UNION ALL
+      SELECT child.id, child.gid, parent.root_id
+        FROM link_type_hierarchy parent, link_type child
+       WHERE parent.id = child.parent
+    )
+};
 
 sub _type { 'link_type' }
 
@@ -281,35 +292,29 @@ sub get_attribute_type_list
 sub get_authorship_relationship_gids {
     my ($self) = @_;
 
-    my @artist_work_types = $self->query_to_list(<<~"SQL");
-        SELECT ${\($self->_columns)}
-          FROM ${\($self->_table)} lt
-         WHERE entity_type0 = 'artist' AND entity_type1 = 'work';
-        SQL
-
-    $self->load_root_ids(@artist_work_types);
-
-    return map { $_->gid }
-           grep { $_->root_id == $WORK_AUTHORSHIP_ROOT_ID }
-           @artist_work_types;
+    return @{ $self->sql->select_single_column_array(
+        $link_type_hierarchy_cte .
+        q{
+            SELECT gid FROM link_type_hierarchy
+             WHERE root_id = ?
+        },
+        $WORK_AUTHORSHIP_ROOT_ID,
+    ) };
 }
 
 sub load_root_ids {
     my ($self, @objs) = @_;
 
-    my $rows = $self->sql->select_list_of_hashes(q{
-        WITH RECURSIVE link_type_hierarchy(id, root) AS (
-          SELECT id, id FROM link_type WHERE parent IS NULL
-           UNION ALL
-          SELECT child.id, parent.root
-            FROM link_type_hierarchy parent, link_type child
-           WHERE parent.id = child.parent
-        )
-        SELECT * FROM link_type_hierarchy
-         WHERE id = any(?)
-    }, [map { $_->id } @objs]);
+    my $rows = $self->sql->select_list_of_hashes(
+        $link_type_hierarchy_cte .
+        q{
+            SELECT * FROM link_type_hierarchy
+            WHERE id = any(?)
+        },
+        [map { $_->id } @objs],
+    );
 
-    my %mapping = map { $_->{id} => $_->{root} } @{$rows};
+    my %mapping = map { $_->{id} => $_->{root_id} } @{$rows};
     for my $obj (@objs) {
         $obj->root_id($mapping{$obj->id});
     }
