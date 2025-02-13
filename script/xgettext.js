@@ -24,7 +24,7 @@ require('@babel/register')({
   root: rootPath,
 });
 
-const XGettext = require('xgettext-js');
+const XGettext = require('@metabrainz/xgettext-js');
 const argv = require('yargs').argv;
 
 const cleanMsgid =
