@@ -286,12 +286,14 @@ async function takeScreenshot(fname) {
       await browsingContext.captureScreenshot(),
       'base64',
     );
+    return fpath;
   } catch (err) {
     console.error('Failed to take a screenshot:');
     console.error(err);
   } finally {
     await browsingContext?.close();
   }
+  return null;
 }
 
 async function unhandledRejection(err) {
@@ -731,11 +733,9 @@ async function handleCommand(stest, {command, index, target, value}, t) {
       throw 'Unsupported command: ' + command;
   }
 
-  if (stest.screenshot !== false) {
-    await takeScreenshot(
-      `${stest.name.replace(/\.json5$/, '')}_${index}_${command}`,
-    );
-  }
+  (stest.screenshots ??= []).push(await takeScreenshot(
+    `${stest.name.replace(/\.json5$/, '')}_${index}_${command}`,
+  ));
 
   return null;
 }
@@ -962,8 +962,8 @@ async function runCommands(stest, commands, t) {
   }
 
   seleniumTests.forEach(setTestPath);
-  const loginPlan = {name: 'Log_In.json5', screenshot: false};
-  const logoutPlan = {name: 'Log_Out.json5', screenshot: false};
+  const loginPlan = {name: 'Log_In.json5'};
+  const logoutPlan = {name: 'Log_Out.json5'};
   setTestPath(loginPlan);
   setTestPath(logoutPlan);
 
@@ -1042,6 +1042,7 @@ async function runCommands(stest, commands, t) {
     }
 
     const isLastTest = index === testsToRun.length - 1;
+    let didTestFail = false;
 
     const testOptions = {objectPrintDepth: 10, timeout: TEST_TIMEOUT};
 
@@ -1049,6 +1050,19 @@ async function runCommands(stest, commands, t) {
     shouldCleanSeleniumDb = await new Promise(function (resolve) {
       test(title, testOptions, async function (t) {
         t.plan(plan);
+
+        t.on('fail', () => {
+          didTestFail = true;
+        });
+
+        t.on('end', () => {
+          // Remove screenshots if the test was succesful.
+          if (stest.screenshots?.length && !didTestFail) {
+            for (const screenshotPath of stest.screenshots) {
+              fs.unlinkSync(screenshotPath);
+            }
+          }
+        });
 
         const timeout = setTimeout(resolve, TEST_TIMEOUT);
 
