@@ -72,6 +72,7 @@
   },
   "devDependencies": {
     "@babel/cli": "7.25.6",
+    "@metabrainz/xgettext-js": "4.0.0",
     "@stylistic/eslint-plugin": "2.12.0 ",
     "babel-plugin-istanbul": "7.0.0",
     "babel-plugin-syntax-hermes-parser": "0.24.0",
@@ -99,8 +100,7 @@
     "tap-difflet": "0.7.2",
     "tap-junit": "3.1.0",
     "tape": "4.7.0",
-    "utf8": "3.0.0",
-    "xgettext-js": "https://github.com/metabrainz/xgettext-js#4da48ff9996565a4df6ea1e51a0425aa2309e079"
+    "utf8": "3.0.0"
   },
   "private": true,
   "packageManager": "yarn@4.2.2"
