@@ -13,6 +13,9 @@ import ReleaseList from '../components/list/ReleaseList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import RelationshipsTable from '../components/RelationshipsTable.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
+import ListMergeButtonsRow
+  from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
@@ -39,13 +42,15 @@ component AreaReleases(
                 <ReleaseList checkboxes="add-to-merge" releases={releases} />
               </PaginatedResults>
               {$c.user ? (
-                <div className="row">
-                  <span className="buttons">
-                    <button type="submit">
-                      {l('Add selected releases for merging')}
-                    </button>
-                  </span>
-                </div>
+                <>
+                  <ListMergeButtonsRow
+                    label={l('Add selected releases for merging')}
+                  />
+                  {manifest(
+                    'common/components/ListMergeButtonsRow',
+                    {async: 'async'},
+                  )}
+                </>
               ) : null}
             </form>
           ) : (

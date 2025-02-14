@@ -37,6 +37,8 @@ component WorkList(
 ) {
   const $c = React.useContext(CatalystContext);
 
+  const className = checkboxes === 'add-to-merge' ? 'mergeable-table' : '';
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
@@ -96,7 +98,7 @@ component WorkList(
     ],
   );
 
-  const table = useTable<WorkT>({columns, data: works});
+  const table = useTable<WorkT>({className, columns, data: works});
 
   return (
     <>

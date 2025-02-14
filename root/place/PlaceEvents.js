@@ -12,6 +12,9 @@ import * as React from 'react';
 import EventList from '../components/list/EventList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
+import ListMergeButtonsRow
+  from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import PlaceLayout from './PlaceLayout.js';
@@ -41,13 +44,15 @@ component PlaceEvents(
             />
           </PaginatedResults>
           {$c.user ? (
-            <div className="row">
-              <span className="buttons">
-                <button type="submit">
-                  {l('Add selected events for merging')}
-                </button>
-              </span>
-            </div>
+            <>
+              <ListMergeButtonsRow
+                label={l('Add selected events for merging')}
+              />
+              {manifest(
+                'common/components/ListMergeButtonsRow',
+                {async: 'async'},
+              )}
+            </>
           ) : null}
         </form>
       ) : (
