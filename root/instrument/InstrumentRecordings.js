@@ -35,6 +35,8 @@ component InstrumentRecordings(
         <form
           action={'/recording/merge_queue?' + returnToCurrentPage($c)}
           method="post"
+          rel="noopener noreferrer"
+          target="_blank"
         >
           <PaginatedResults pager={pager}>
             <RecordingList

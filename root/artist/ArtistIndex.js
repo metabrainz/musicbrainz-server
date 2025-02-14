@@ -265,6 +265,8 @@ component ArtistIndex(
         <form
           action={'/release_group/merge_queue?' + returnToCurrentPage($c)}
           method="post"
+          rel="noopener noreferrer"
+          target="_blank"
         >
           <PaginatedResults pager={pager}>
             <ReleaseGroupList
@@ -285,6 +287,8 @@ component ArtistIndex(
         <form
           action={'/recording/merge_queue?' + returnToCurrentPage($c)}
           method="post"
+          rel="noopener noreferrer"
+          target="_blank"
         >
           <PaginatedResults pager={pager}>
             <RecordingList

@@ -49,6 +49,8 @@ component Index(
       <form
         action={'/recording/merge_queue?' + returnToCurrentPage($c)}
         method="post"
+        rel="noopener noreferrer"
+        target="_blank"
       >
         <table className="tbl">
           <thead>

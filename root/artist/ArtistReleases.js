@@ -44,6 +44,8 @@ component ArtistReleases(
         <form
           action={'/release/merge_queue?' + returnToCurrentPage($c)}
           method="post"
+          rel="noopener noreferrer"
+          target="_blank"
         >
           <PaginatedResults pager={pager}>
             <ReleaseList checkboxes="add-to-merge" releases={releases} />
