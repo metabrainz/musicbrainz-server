@@ -21,8 +21,6 @@ import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 import {type RelationshipAttributeTypeEditFormT} from './types.js';
 
 component RelationshipAttributeTypeEditForm(
-  disableCreditable?: boolean = false,
-  disableFreeText?: boolean = false,
   form: RelationshipAttributeTypeEditFormT,
   parentSelectOptions: SelectOptionsT,
 ) {
@@ -64,14 +62,14 @@ component RelationshipAttributeTypeEditForm(
       />
 
       <FormRowCheckbox
-        disabled={disableCreditable}
+        disabled={form.field.creditable.disabled}
         field={form.field.creditable}
         label="This attribute supports free text credits"
         uncontrolled
       />
 
       <FormRowCheckbox
-        disabled={disableFreeText}
+        disabled={form.field.free_text.disabled}
         field={form.field.free_text}
         label="This attribute uses free text values"
         uncontrolled

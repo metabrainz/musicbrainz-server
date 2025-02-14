@@ -9,7 +9,6 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_ATTRIBUTE
     $INSTRUMENT_ROOT_ID
 );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 use MusicBrainz::Server::Validation qw( is_guid );
@@ -168,8 +167,6 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
         current_view => 'Node',
         component_path => 'relationship/linkattributetype/EditRelationshipAttributeType',
         component_props => {
-            disableCreditable => boolean_to_json($attribute_in_use && $link_attr_type->creditable),
-            disableFreeText => boolean_to_json($attribute_in_use),
             form => $form->TO_JSON,
             parentSelectOptions => $form->options_parent_id,
         },

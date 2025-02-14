@@ -14,8 +14,6 @@ import RelationshipAttributeTypeEditForm
 import type {RelationshipAttributeTypeEditFormT} from './types.js';
 
 component EditRelationshipAttributeType(
-  disableCreditable: boolean,
-  disableFreeText: boolean,
   form: RelationshipAttributeTypeEditFormT,
   parentSelectOptions: SelectOptionsT,
 ) {
@@ -27,8 +25,6 @@ component EditRelationshipAttributeType(
       <div id="content">
         <h1>{'Edit relationship attribute'}</h1>
         <RelationshipAttributeTypeEditForm
-          disableCreditable={disableCreditable}
-          disableFreeText={disableFreeText}
           form={form}
           parentSelectOptions={parentSelectOptions}
         />
