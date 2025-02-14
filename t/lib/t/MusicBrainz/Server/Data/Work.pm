@@ -330,26 +330,26 @@ test 'Loading different subsets of work artists' => sub {
 
     my $work = $c->model('Work')->get_by_id(1);
 
-    my @misc_artists = $work->all_misc_artists;
-    is(@misc_artists, 0, 'No artists are loaded until requested');
+    my @other_artists = $work->all_other_artists;
+    is(@other_artists, 0, 'No artists are loaded until requested');
 
-    $c->model('Work')->load_misc_artists($work);
-    @misc_artists = $work->all_misc_artists;
-    is(@misc_artists, 1, 'There is one misc artist');
+    $c->model('Work')->load_other_artists($work);
+    @other_artists = $work->all_other_artists;
+    is(@other_artists, 1, 'There is one other artist');
     is_deeply(
-        $misc_artists[0]->{roles},
+        $other_artists[0]->{roles},
         ['dedication'],
-        'The misc artist has the "dedication" role',
+        'The other artist has the "dedication" role',
     );
     is(
-        $misc_artists[0]->{credit},
+        $other_artists[0]->{credit},
         'NIN',
-        'The misc artist has the expected credit',
+        'The other artist has the expected credit',
     );
     is(
-        $misc_artists[0]->{entity}{gid},
+        $other_artists[0]->{entity}{gid},
         'b7ffd2af-418f-4be2-bdd1-22f8b48613da',
-        'The misc artist has the expected MBID',
+        'The other artist has the expected MBID',
     );
 
     $c->model('Work')->load_authors($work);

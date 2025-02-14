@@ -27,7 +27,7 @@ declare type WorkT = $ReadOnly<{
   }>,
   +iswcs: $ReadOnlyArray<IswcT>,
   +languages: $ReadOnlyArray<WorkLanguageT>,
-  +misc_artists: $ReadOnlyArray<{
+  +other_artists: $ReadOnlyArray<{
     +credit: string,
     +entity: ArtistT,
     +roles: $ReadOnlyArray<string>,

@@ -59,7 +59,7 @@ has 'authors' => (
     },
 );
 
-has 'misc_artists' => (
+has 'other_artists' => (
     traits => [ 'Array' ],
     is => 'ro',
     isa => ArrayRef[
@@ -71,8 +71,8 @@ has 'misc_artists' => (
     ],
     default => sub { [] },
     handles => {
-        add_misc_artist => 'push',
-        all_misc_artists => 'elements',
+        add_other_artist => 'push',
+        all_other_artists => 'elements',
     },
 );
 
@@ -118,11 +118,11 @@ around TO_JSON => sub {
         languages => to_json_array($self->languages),
         iswcs => to_json_array($self->iswcs),
         artists => to_json_array($self->artists),
-        misc_artists => [map +{
+        other_artists => [map +{
             credit => $_->{credit},
             entity => to_json_object($_->{entity}),
             roles => $_->{roles},
-        }, $self->all_misc_artists],
+        }, $self->all_other_artists],
         authors => [map +{
             credit => $_->{credit},
             entity => to_json_object($_->{entity}),

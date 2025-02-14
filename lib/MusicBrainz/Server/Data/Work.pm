@@ -338,7 +338,7 @@ sub load_related_info {
 
     my $c = $self->c;
     $c->model('Work')->load_authors(@works);
-    $c->model('Work')->load_misc_artists(@works);
+    $c->model('Work')->load_other_artists(@works);
     $c->model('Work')->load_recording_artists(@works);
     $c->model('WorkAttribute')->load_for_works(@works);
     $c->model('ISWC')->load_for_works(@works);
@@ -388,7 +388,7 @@ sub find_artists
     return () unless @ids;
 
     my (%authors, %artists);
-    $self->_find_authors_or_misc_artists(\@ids, \%authors);
+    $self->_find_authors_or_other_artists(\@ids, \%authors);
     $self->_find_recording_artists(\@ids, \%artists);
 
     my %map;
@@ -432,38 +432,38 @@ sub load_authors
     return () unless @ids;
 
     my %map;
-    $self->_find_authors_or_misc_artists(\@ids, \%map);
+    $self->_find_authors_or_other_artists(\@ids, \%map);
     for my $work (@works) {
         $work->add_author(@{ $map{$work->id} })
             if exists $map{$work->id};
     }
 }
 
-sub load_misc_artists
+sub load_other_artists
 {
     my ($self, @works) = @_;
 
-    @works = grep { defined $_ && scalar $_->all_misc_artists == 0 } @works;
+    @works = grep { defined $_ && scalar $_->all_other_artists == 0 } @works;
     my @ids = map { $_->id } @works;
     return () unless @ids;
 
     my %map;
-    $self->_find_authors_or_misc_artists(\@ids, \%map, 1);
+    $self->_find_authors_or_other_artists(\@ids, \%map, 1);
     for my $work (@works) {
-        $work->add_misc_artist(@{ $map{$work->id} })
+        $work->add_other_artist(@{ $map{$work->id} })
             if exists $map{$work->id};
     }
 }
 
-sub _find_authors_or_misc_artists
+sub _find_authors_or_other_artists
 {
-    my ($self, $ids, $map, $find_misc) = @_;
+    my ($self, $ids, $map, $find_other) = @_;
     return unless @$ids;
 
     my @authorship_gids =
         $self->c->model('LinkType')->get_authorship_relationship_gids;
     my $reltypes_condition;
-    if ($find_misc) {
+    if ($find_other) {
         $reltypes_condition = 'AND NOT (lt.gid = any(?)) ';
     } else {
         $reltypes_condition = 'AND lt.gid = any(?) ';

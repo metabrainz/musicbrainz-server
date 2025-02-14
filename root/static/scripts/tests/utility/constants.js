@@ -197,7 +197,7 @@ export const genericWork: WorkT = {
   iswcs: [],
   languages: [],
   last_updated: null,
-  misc_artists: [],
   name: 'Test Work',
+  other_artists: [],
   typeID: null,
 };

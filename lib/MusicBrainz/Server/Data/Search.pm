@@ -938,7 +938,7 @@ sub external_search
             $self->c->model('Work')->load_ids(@entities);
             $self->c->model('Work')->load_authors(@entities);
             $self->c->model('Work')->load_recording_artists(@entities);
-            $self->c->model('Work')->load_misc_artists(@entities);
+            $self->c->model('Work')->load_other_artists(@entities);
         }
 
         if ($type eq 'event')

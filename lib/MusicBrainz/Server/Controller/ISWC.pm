@@ -38,7 +38,7 @@ sub show : Chained('load') PathPart('')
     my @works = sort_by { $_->name } $c->model('Work')->load(@$iswcs);
     $c->model('WorkType')->load(@works);
     $c->model('Work')->load_authors(@works);
-    $c->model('Work')->load_misc_artists(@works);
+    $c->model('Work')->load_other_artists(@works);
     $c->model('Work')->load_recording_artists(@works);
     $c->model('Language')->load_for_works(@works);
     $c->stash(

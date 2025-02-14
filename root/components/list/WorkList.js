@@ -56,8 +56,8 @@ component WorkList(
         title: l('Authors'),
       });
       const otherArtistsColumn = defineArtistRolesColumn<WorkT>({
-        columnName: 'misc_artists',
-        getRoles: entity => entity.misc_artists,
+        columnName: 'other_artists',
+        getRoles: entity => entity.other_artists,
         title: l('Other artists'),
       });
       const typeColumn = defineTypeColumn({

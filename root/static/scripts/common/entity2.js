@@ -378,8 +378,8 @@ export function createWorkObject(
     iswcs: [],
     languages: [],
     last_updated: null,
-    misc_artists: [],
     name: '',
+    other_artists: [],
     typeID: null,
     ...props,
   };
