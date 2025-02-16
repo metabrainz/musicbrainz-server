@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-01-30 11:44+0000\n"
+"PO-Revision-Date: 2025-02-13 17:32+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
@@ -226,7 +226,7 @@ msgstr "基础信息"
 
 #: ../root/statistics/Images.js:78
 msgid "No image statistics available."
-msgstr "无可用的统计信息。"
+msgstr "无可用的图像统计信息。"
 
 #: ../root/statistics/Images.js:84 ../root/statistics/Images.js:149
 #: ../root/statistics/Images.js:186 ../root/statistics/Images.js:224
