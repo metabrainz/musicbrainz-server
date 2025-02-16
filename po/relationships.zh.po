@@ -9,13 +9,15 @@
 # weeeeei <weeeeei@duck.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
 # thephy <differentphy@outlook.com>, 2024.
+# percylee <freedomeng419@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-01-30 11:44+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/relationship-types/zh_Hans/>\n"
+"PO-Revision-Date: 2025-02-12 00:44+0000\n"
+"Last-Translator: percylee <freedomeng419@gmail.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hans/>"
+"\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3380,7 +3382,7 @@ msgstr "这会将录音链接到合法免费下载页面。"
 msgid ""
 "This links a recording to another containing official commentary for it "
 "(usually the artist talking about it)."
-msgstr ""
+msgstr "此链接将一个官方解说（通常由艺术家本人进行）与该录音相连。"
 
 #. name:programming
 #: DB:link_type/description:132
@@ -3388,7 +3390,8 @@ msgid ""
 "This links a recording to the artist who did the programming for electronic "
 "instruments used on the recording. In the most cases, the 'electronic "
 "instrument' is either a synthesizer or a drum machine."
-msgstr ""
+msgstr "此链接用于将一个录音与负责编录该录音中电子乐器（通常指合成器或鼓机）的艺术家"
+"关联起来。"
 
 #. name:balance
 #: DB:link_type/description:726
