@@ -194,15 +194,17 @@ sub find_by_collection
 {
     my ($self, $collection_id, $limit, $offset, $status, $hide_own, $editor_id) = @_;
 
-    my @conditions;
+    my (@conditions, @args);
     my $query_conditions = '';
 
     if (defined $status) {
-        push @conditions, 'status = ' . $status;
+        push @conditions, 'status = ?';
+        push @args, $status;
     }
 
     if ($hide_own) {
-        push @conditions, 'editor != ' . $editor_id;
+        push @conditions, 'editor != ?';
+        push @args, $editor_id;
     }
 
     if (@conditions) {
@@ -232,7 +234,7 @@ sub find_by_collection
 
     $self->query_to_list_limited(
         $query,
-        [($collection_id) x entities_with('collections')],
+        [($collection_id) x entities_with('collections'), @args],
         $limit,
         $offset,
     );
