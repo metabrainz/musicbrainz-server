@@ -1608,7 +1608,7 @@ const CLEANUPS: CleanupEntries = {
     ],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      let m = /^(?:https?:\/\/)?data\.bnf\.fr\/(?:[a-z-]+\/)?([1-4][0-9]{7})(?:[0-9b-z])?(?:[./?#].*)?$/.exec(url);
+      let m = /^(?:https?:\/\/)?data\.bnf\.fr\/(?:[a-z]{2}\/)?(?:[a-z-]+\/)?([1-4][0-9]{7})(?:[0-9b-z])?(?:[./?#].*)?$/.exec(url);
       if (m) {
         const frBnF = m[1];
         const phbt = '0123456789bcdfghjkmnpqrstvwxz';
@@ -1617,7 +1617,7 @@ const CLEANUPS: CleanupEntries = {
         }, 2) % 29];
         url = 'https://catalogue.bnf.fr/ark:/12148/cb' + frBnF + controlChar;
       } else {
-        m = /^(?:https?:\/\/)?(?:n2t\.net|(?:ark|catalogue|data)\.bnf\.fr)\/(ark:\/12148\/cb[1-4][0-9]{7}[0-9b-z])(?:[./?#].*)?$/.exec(url);
+        m = /^(?:https?:\/\/)?(?:n2t\.net|(?:ark|catalogue|data)\.bnf\.fr)\/(?:[a-z]{2}\/)?(ark:\/12148\/cb[1-4][0-9]{7}[0-9b-z])(?:[./?#].*)?$/.exec(url);
         if (m) {
           const persistentARK = m[1];
           url = 'https://catalogue.bnf.fr/' + persistentARK;

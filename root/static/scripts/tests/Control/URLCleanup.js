@@ -1337,7 +1337,7 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work'],
   },
   {
-                     input_url: 'http://data.bnf.fr/ark:/12148/cb11923342r',
+                     input_url: 'https://data.bnf.fr/en/ark:/12148/cb11923342r',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11923342r',
@@ -1351,7 +1351,7 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work'],
   },
   {
-                     input_url: 'http://data.bnf.fr/linked-authors/11923342/r/220',
+                     input_url: 'https://data.bnf.fr/fr/linked-authors/11923342/r/220/page1',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11923342r',
