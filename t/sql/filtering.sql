@@ -57,6 +57,7 @@ INSERT INTO label (id, gid, name)
 INSERT INTO release_label (release, label, catalog_number)
     VALUES (3400, NULL, '4509-91711-2'),
            (3401, 3401, '0289 479 4518'),
+           (3402, 3401, '123456'),
            (3402, 3402, '8.501066'),
            (3403, 3403, NULL),
            (3404, 3401, NULL),
