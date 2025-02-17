@@ -6444,7 +6444,7 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
             expected_clean_url: 'http://viaf.org/viaf/16766997',
   },
   {
-                     input_url: 'http://viaf.org/viaf/32197206/#Mozart,_Wolfgang_Amadeus,_1756-1791',
+                     input_url: 'http://viaf.org/en/viaf/32197206/#Mozart,_Wolfgang_Amadeus,_1756-1791',
             expected_clean_url: 'http://viaf.org/viaf/32197206',
   },
   {
@@ -6452,7 +6452,7 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
             expected_clean_url: 'http://viaf.org/viaf/16766997',
   },
   {
-                     input_url: 'viaf.org/viaf/16766997/',
+                     input_url: 'viaf.org/fr/viaf/16766997/',
             expected_clean_url: 'http://viaf.org/viaf/16766997',
   },
   {
