@@ -38,8 +38,8 @@ declare module 'react-table' {
 
   declare export type ColumnInstance = {
     +cellProps?: {[attribute: string]: string},
-    +getCellProps: (props?: {...}) => {...},
-    +getHeaderProps: (props?: {...}) => {...},
+    +getCellProps: (props?: {...}) => {+key: string, ...},
+    +getHeaderProps: (props?: {...}) => {+key: string, ...},
     // Not actually part of react-table but our own expansion of it
     +headerProps?: {[attribute: string]: string},
     +render: (type: 'Header' | string, props?: {...}) => React.Node,
@@ -47,20 +47,20 @@ declare module 'react-table' {
 
   declare export type HeaderGroup = $ReadOnly<{
     ...$ReadOnly<ColumnInstance>,
-    +getHeaderGroupProps: (props?: {...}) => {...},
+    +getHeaderGroupProps: (props?: {...}) => {+key: string, ...},
     +headers: $ReadOnlyArray<ColumnInstance>,
   }>;
 
   declare export type Cell<+V> = {
     +column: ColumnInstance,
-    +getCellProps: (props?: {...}) => {...},
+    +getCellProps: (props?: {...}) => {+key: string, ...},
     +render: (type: 'Cell' | string, userProps?: {...}) => React.Node,
     +value: V,
   };
 
   declare export type Row<+D> = {
     +cells: $ReadOnlyArray<Cell<mixed>>,
-    +getRowProps: (props?: {...}) => {...},
+    +getRowProps: (props?: {...}) => {+key: string, ...},
     +index: number,
     +original: D,
   };
