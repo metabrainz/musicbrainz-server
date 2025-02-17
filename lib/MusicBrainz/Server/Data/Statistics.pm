@@ -126,6 +126,33 @@ my %stats = (
             return \%map;
         },
     },
+    'editor.top_yearly_active' => {
+        DESC => 'Top active editors in the past year',
+        CALC => sub {
+            my ($self, $sql) = @_;
+            my $id_edits = $sql->select_list_of_lists(
+                q{SELECT edit.editor, COUNT(edit.id)
+                   FROM edit JOIN editor ON edit.editor = editor.id
+                  WHERE status = ?
+                    AND open_time >= now() - '1 year'::INTERVAL
+                    AND cast(editor.privs AS bit(2)) & B'10' = B'00'
+                  GROUP BY edit.editor, editor.name
+                  ORDER BY COUNT(edit.id) DESC, editor.name COLLATE musicbrainz
+                  LIMIT 25},
+                $STATUS_APPLIED,
+            );
+
+            my %map;
+            my $count = 1;
+            foreach my $editor (@$id_edits) {
+                $map{"editor.top_yearly_active.rank.$count"} = $editor->[0];
+                $map{"count.edit.top_yearly_active.rank.$count"} = $editor->[1];
+                $count++;
+            }
+
+            return \%map;
+        },
+    },
     'editor.top_active' => {
         DESC => 'Top active editors',
         CALC => sub {
@@ -172,6 +199,32 @@ my %stats = (
             foreach my $editor (@$id_edits) {
                 $map{"editor.top_recently_active_voters.rank.$count"} = $editor->[0];
                 $map{"count.vote.top_recently_active_voters.rank.$count"} = $editor->[1];
+                $count++;
+            }
+
+            return \%map;
+        },
+    },
+    'editor.top_yearly_active_voters' => {
+        DESC => 'Top active voters in the past year',
+        CALC => sub {
+            my ($self, $sql) = @_;
+            my $id_edits = $sql->select_list_of_lists(
+                q{SELECT editor, count(vote.id) FROM vote
+                 JOIN editor ON vote.editor = editor.id
+                 WHERE NOT superseded AND vote != -1
+                   AND vote_time >= now() - '1 year'::INTERVAL
+                   AND cast(privs AS bit(10)) & 2::bit(10) = 0::bit(10)
+                 GROUP BY editor, editor.name
+                 ORDER BY count(vote.id) DESC, editor.name COLLATE musicbrainz
+                 LIMIT 25},
+            );
+
+            my %map;
+            my $count = 1;
+            foreach my $editor (@$id_edits) {
+                $map{"editor.top_yearly_active_voters.rank.$count"} = $editor->[0];
+                $map{"count.vote.top_yearly_active_voters.rank.$count"} = $editor->[1];
                 $count++;
             }
 
