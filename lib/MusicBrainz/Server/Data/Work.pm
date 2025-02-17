@@ -473,7 +473,7 @@ sub _find_authors_or_other_artists
           SELECT law.entity1 AS work,
                  law.entity0 AS artist,
                  law.entity0_credit AS credit,
-                 array_agg(lt.name) AS roles
+                 array_agg(lt.name ORDER BY lt.name) AS roles
             FROM l_artist_work law
             JOIN link l ON law.link = l.id
             JOIN link_type lt ON l.link_type = lt.id
