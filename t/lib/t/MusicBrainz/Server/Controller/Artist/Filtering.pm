@@ -619,18 +619,36 @@ test 'Work page filtering' => sub {
 
     $mech->get_ok(
         '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/works?filter.role_type=2',
-        'Fetched artist works page with "as writer" filter',
+        'Fetched artist works page with "as author" filter',
     );
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
         'count(//table[@class="tbl"]/tbody/tr)',
         '4',
-        'There are four entries in the "as writer" work table',
+        'There are four entries in the "as author" work table',
     );
     $mech->content_lacks(
         'Brandenburgisches Konzert',
         'Not written work is not shown',
+    );
+
+
+    $mech->get_ok(
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/works?filter.role_type=3',
+        'Fetched artist works page with "as other artist" filter',
+    );
+
+    $tx = test_xpath_html($mech->content);
+    $tx->is(
+        'count(//table[@class="tbl"]/tbody/tr)',
+        '1',
+        'There is one entry in the "as other artist" work table',
+    );
+    $tx->is(
+        '//table[@class="tbl"]/tbody/tr/td[1]',
+        'Brandenburgisches Konzert Nr. 5 D-Dur, BWV 1050',
+        'The entry is named "Brandenburgisches Konzert Nr. 5 D-Dur, BWV 1050"',
     );
 
     $mech->get_ok(

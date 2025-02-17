@@ -42,10 +42,10 @@ component WorkList<D: {+work: ?WorkT, ...}>(
         getEntity: result => result.work ?? null,
         title: l('Work'),
       });
-      const writersColumn = defineArtistRolesColumn<D>({
-        columnName: 'writers',
-        getRoles: result => result.work?.writers ?? [],
-        title: l('Writers'),
+      const authorsColumn = defineArtistRolesColumn<D>({
+        columnName: 'authors',
+        getRoles: result => result.work?.authors ?? [],
+        title: l('Authors'),
       });
       const typeColumn = defineTextColumn<D>({
         columnName: 'type',
@@ -62,7 +62,7 @@ component WorkList<D: {+work: ?WorkT, ...}>(
       return [
         ...(columnsBefore ? [...columnsBefore] : []),
         nameColumn,
-        writersColumn,
+        authorsColumn,
         typeColumn,
         ...(columnsAfter ? [...columnsAfter] : []),
       ];

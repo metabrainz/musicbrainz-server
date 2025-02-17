@@ -555,7 +555,7 @@ function formatWork(work: WorkT) {
 
       {work.artists ? (
         <>
-          {showRelatedEntities(l('Writers'), work.related_artists?.writers)}
+          {showRelatedEntities(l('Authors'), work.related_artists?.authors)}
           {showRelatedEntities(l('Artists'), work.related_artists?.artists)}
         </>
       ) : null}
