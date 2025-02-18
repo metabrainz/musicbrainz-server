@@ -6203,7 +6203,7 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?([^/]+\.)?viaf\.org/i],
     restrict: [LINK_TYPES.viaf],
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?viaf\.org\/viaf\/([0-9]+).*$/,
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?viaf\.org\/(?:[a-z]{2}\/)?viaf\/([0-9]+).*$/,
                         'http://viaf.org/viaf/$1');
       return url;
     },
