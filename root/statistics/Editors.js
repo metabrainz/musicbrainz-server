@@ -80,6 +80,8 @@ component Editors(
   topRecentlyActiveEditors: $ReadOnlyArray<EditorStatT>,
   topRecentlyActiveVoters: $ReadOnlyArray<EditorStatT>,
   topVoters: $ReadOnlyArray<EditorStatT>,
+  topYearlyEditors: $ReadOnlyArray<EditorStatT>,
+  topYearlyVoters: $ReadOnlyArray<EditorStatT>,
 ) {
   return (
     <StatisticsLayout
@@ -105,6 +107,12 @@ component Editors(
           tableLabel={l_statistics('Most active editors in the past week')}
         />
         <EditorStatsTable
+          countLabel={l_statistics('Applied edits in past year')}
+          dataPoints={topYearlyEditors}
+          editorLabel={l_mb_server('Editor')}
+          tableLabel={l_statistics('Most active editors in the past year')}
+        />
+        <EditorStatsTable
           countLabel={l_statistics('Total applied edits')}
           dataPoints={topEditors}
           editorLabel={l_mb_server('Editor')}
@@ -120,6 +128,12 @@ component Editors(
           dataPoints={topRecentlyActiveVoters}
           editorLabel={l_statistics('Voter')}
           tableLabel={l_statistics('Most active voters in the past week')}
+        />
+        <EditorStatsTable
+          countLabel={l_statistics('Votes in past year')}
+          dataPoints={topYearlyVoters}
+          editorLabel={l_mb_server('Editor')}
+          tableLabel={l_statistics('Most active voters in the past year')}
         />
         <EditorStatsTable
           countLabel={l_statistics('Total votes')}

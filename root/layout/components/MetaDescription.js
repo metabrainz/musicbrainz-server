@@ -170,10 +170,10 @@ function workDescription(work: WorkT) {
       work.languages.map(getLanguageName).join(', '),
     );
   }
-  if (work.writers) {
+  if (work.authors) {
     desc.push(
-      'Writers: ' +
-      work.writers.map(getEntityName).join(', '),
+      'Authors: ' +
+      work.authors.map(getEntityName).join(', '),
     );
   }
   if (work.iswcs) {

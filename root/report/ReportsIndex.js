@@ -555,6 +555,10 @@ component ReportsIndex() {
             content={l('Non-video recordings with video relationships')}
             reportName="VideoRelationshipsOnNonVideos"
           />
+          <ReportsIndexEntry
+            content={l('Recordings marked as both karaoke and instrumental')}
+            reportName="KaraokePlusInstrumentalRecordings"
+          />
         </ul>
 
         <h2>{l('Places')}</h2>

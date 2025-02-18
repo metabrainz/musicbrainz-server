@@ -1608,7 +1608,7 @@ const CLEANUPS: CleanupEntries = {
     ],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      let m = /^(?:https?:\/\/)?data\.bnf\.fr\/(?:[a-z-]+\/)?([1-4][0-9]{7})(?:[0-9b-z])?(?:[./?#].*)?$/.exec(url);
+      let m = /^(?:https?:\/\/)?data\.bnf\.fr\/(?:[a-z]{2}\/)?(?:[a-z-]+\/)?([1-4][0-9]{7})(?:[0-9b-z])?(?:[./?#].*)?$/.exec(url);
       if (m) {
         const frBnF = m[1];
         const phbt = '0123456789bcdfghjkmnpqrstvwxz';
@@ -1617,7 +1617,7 @@ const CLEANUPS: CleanupEntries = {
         }, 2) % 29];
         url = 'https://catalogue.bnf.fr/ark:/12148/cb' + frBnF + controlChar;
       } else {
-        m = /^(?:https?:\/\/)?(?:n2t\.net|(?:ark|catalogue|data)\.bnf\.fr)\/(ark:\/12148\/cb[1-4][0-9]{7}[0-9b-z])(?:[./?#].*)?$/.exec(url);
+        m = /^(?:https?:\/\/)?(?:n2t\.net|(?:ark|catalogue|data)\.bnf\.fr)\/(?:[a-z]{2}\/)?(ark:\/12148\/cb[1-4][0-9]{7}[0-9b-z])(?:[./?#].*)?$/.exec(url);
         if (m) {
           const persistentARK = m[1];
           url = 'https://catalogue.bnf.fr/' + persistentARK;
@@ -3237,7 +3237,7 @@ const CLEANUPS: CleanupEntries = {
       {work: [LINK_TYPES.otherdatabases.work, LINK_TYPES.lyrics.work]},
     ],
     select(url, sourceType) {
-      const m = /^https:\/\/jaxsta\.io\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
+      const m = /^https:\/\/jaxsta\.com\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (prefix) {
@@ -3251,12 +3251,12 @@ const CLEANUPS: CleanupEntries = {
       return false;
     },
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?jaxsta\.(?:com|io)\/([^#?]+).*$/, 'https://jaxsta.io/$1');
-      url = url.replace(/^https:\/\/jaxsta\.io\/(\w+)\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?.*$/, 'https://jaxsta.io/$1/$2$3');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?jaxsta\.(?:com|io)\/([^#?]+).*$/, 'https://jaxsta.com/$1');
+      url = url.replace(/^https:\/\/jaxsta\.com\/(\w+)\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?.*$/, 'https://jaxsta.com/$1/$2$3');
       return url;
     },
     validate(url, id) {
-      const m = /^https:\/\/jaxsta\.io\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
+      const m = /^https:\/\/jaxsta\.com\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
       if (m) {
         const type = m[1];
         const hasVariant = Boolean(m[2]);
@@ -5134,6 +5134,47 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'rockit': {
+    match: [/^(https?:\/\/)?(www\.)?rockit\.it\/(?!recensione)/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?rockit\.it\/([^#]+)(?:#.*)?$/, 'https://www.rockit.it/$1');
+      url = url.replace(/^https:\/\/www\.rockit\.it\/professionista\/([^/]+).*$/, 'https://www.rockit.it/professionista/$1');
+      url = url.replace(/^https:\/\/www\.rockit\.it\/(?!professionista)([^/]+)(\/album\/[^/]+\/\d+)?.*$/, 'https://www.rockit.it/$1$2');
+      return url;
+    },
+    validate(url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.artist:
+          return {
+            result: /^https:\/\/www\.rockit\.it\/[^/]+$/.test(url) ||
+                    /^https:\/\/www\.rockit\.it\/professionista\/[^/]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.otherdatabases.event:
+        case LINK_TYPES.otherdatabases.label:
+        case LINK_TYPES.otherdatabases.place:
+        case LINK_TYPES.otherdatabases.series:
+          return {
+            result: /^https:\/\/www\.rockit\.it\/[^/]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.otherdatabases.release_group:
+          return {
+            result: /^https:\/\/www\.rockit\.it\/[^/]+\/album\/[^/]+\/\d+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'rockitreview': {
+    match: [/^(https?:\/\/)?(www\.)?rockit\.it\/recensione/i],
+    restrict: [LINK_TYPES.review],
+    clean(url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?rockit\.it\/recensione\/([^#]+)(?:#.*)?$/, 'https://www.rockit.it/recensione/$1');
+    },
+  },
   'runeberg': {
     match: [/^(https?:\/\/)?([^/]+\.)?runeberg\.org\//i],
     restrict: [LINK_TYPES.lyrics],
@@ -5363,7 +5404,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'spotify': {
-    match: [/^(https?:\/\/)?(((?!shop)[^/])+\.)?(spotify\.(?:com|link))\/(?!(?:intl-[a-z]+\/)?user)/i],
+    match: [/^(https?:\/\/)?(((?!(?:artists|shop))[^/])+\.)?(spotify\.(?:com|link))\/(?!(?:intl-[a-z]+\/)?user)/i],
     restrict: [LINK_TYPES.streamingfree],
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, 'https://open.spotify.com/$1/$2');
@@ -5428,6 +5469,24 @@ const CLEANUPS: CleanupEntries = {
         case LINK_TYPES.mailorder.release:
           return {
             result: /^https:\/\/shop\.spotify\.com\/[^?#]+$/.test(url),
+            target: ERROR_TARGETS.URL,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.ENTITY};
+    },
+  },
+  'spotifysongwriter': {
+    match: [/^(https?:\/\/)?artists\.spotify\.com\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?artists\.spotify\.com\/songwriter\/(\w+).*$/, 'https://artists.spotify.com/songwriter/$1');
+      return url;
+    },
+    validate(url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.artist:
+          return {
+            result: /^https:\/\/artists\.spotify\.com\/songwriter\/\w+$/.test(url),
             target: ERROR_TARGETS.URL,
           };
       }
@@ -6162,7 +6221,7 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?([^/]+\.)?viaf\.org/i],
     restrict: [LINK_TYPES.viaf],
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?viaf\.org\/viaf\/([0-9]+).*$/,
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?viaf\.org\/(?:[a-z]{2}\/)?viaf\/([0-9]+).*$/,
                         'http://viaf.org/viaf/$1');
       return url;
     },
@@ -6171,6 +6230,98 @@ const CLEANUPS: CleanupEntries = {
         result: /^http:\/\/viaf\.org\/viaf\/[1-9][0-9]*$/.test(url),
         target: ERROR_TARGETS.URL,
       };
+    },
+  },
+  'vibe': {
+    match: [
+      /^(https?:\/\/)?vibe\.naver\.com\//i,
+      /^(https?:\/\/)?music\.naver\.com\//i, // legacy URL
+    ],
+    restrict: [
+      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+      LINK_TYPES.streamingpaid,
+    ],
+    select(url, sourceType) {
+      const m = /^https:\/\/vibe\.naver\.com\/(album|artist|track|video)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (prefix) {
+          case 'album':
+            if (sourceType === 'release') {
+              return [
+                LINK_TYPES.downloadpurchase.release,
+                LINK_TYPES.streamingpaid.release,
+              ];
+            }
+            break;
+          case 'artist':
+            if (sourceType === 'artist') {
+              return [
+                LINK_TYPES.downloadpurchase.artist,
+                LINK_TYPES.streamingpaid.artist,
+              ];
+            }
+            break;
+          case 'track':
+            if (sourceType === 'recording') {
+              return [
+                LINK_TYPES.downloadpurchase.recording,
+                LINK_TYPES.streamingpaid.recording,
+              ];
+            }
+            break;
+          default: // video
+            if (sourceType === 'release') {
+              return LINK_TYPES.streamingpaid.release;
+            } else if (sourceType === 'recording') {
+              return LINK_TYPES.streamingpaid.recording;
+            }
+            break;
+        }
+      }
+      return false;
+    },
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?music\.naver\.com\/album\/index\.nhn\?albumId=(\d+).*$/, 'https://vibe.naver.com/album/$1');
+      url = url.replace(/^(?:https?:\/\/)?music\.naver\.com\/artist\/(?:\w+)\.nhn\?artistId=(\d+).*$/, 'https://vibe.naver.com/artist/$1');
+      url = url.replace(/^(?:https?:\/\/)?music\.naver\.com\/video\/(?:\w+)\.nhn\?videoId=(\d+).*$/, 'https://vibe.naver.com/video/$1');
+      url = url.replace(/^(?:https?:\/\/)?vibe\.naver\.com\/(album|artist|track|video)\/(\d+).*$/, 'https://vibe.naver.com/$1/$2');
+      return url;
+    },
+    validate(url, id) {
+      if (/https:\/\/vibe\.naver\.com\/search/.test(url)) {
+        return {
+          error: noLinkToSearchMsg(),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      const m = /^https?:\/\/vibe\.naver\.com\/(album|artist|track|video)\/(\d+)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.downloadpurchase.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'album' || prefix === 'video',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.artist:
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.downloadpurchase.recording:
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'track' || prefix === 'video',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'vimeo': {

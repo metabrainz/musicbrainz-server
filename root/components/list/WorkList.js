@@ -22,8 +22,8 @@ import {
   defineTypeColumn,
   iswcsColumn,
   removeFromMergeColumn,
-  workArtistsColumn,
   workLanguagesColumn,
+  workRecordingArtistsColumn,
 } from '../../utility/tableColumns.js';
 
 component WorkList(
@@ -50,10 +50,15 @@ component WorkList(
         sortable,
         title: l('Work'),
       });
-      const writersColumn = defineArtistRolesColumn<WorkT>({
-        columnName: 'writers',
-        getRoles: entity => entity.writers,
-        title: l('Writers'),
+      const authorsColumn = defineArtistRolesColumn<WorkT>({
+        columnName: 'authors',
+        getRoles: entity => entity.authors,
+        title: l('Authors'),
+      });
+      const otherArtistsColumn = defineArtistRolesColumn<WorkT>({
+        columnName: 'other_artists',
+        getRoles: entity => entity.other_artists,
+        title: l('Other artists'),
       });
       const typeColumn = defineTypeColumn({
         order,
@@ -68,8 +73,9 @@ component WorkList(
         ...(checkboxColumn ? [checkboxColumn] : []),
         ...(seriesNumberColumn ? [seriesNumberColumn] : []),
         nameColumn,
-        writersColumn,
-        workArtistsColumn,
+        authorsColumn,
+        workRecordingArtistsColumn,
+        otherArtistsColumn,
         iswcsColumn,
         typeColumn,
         workLanguagesColumn,

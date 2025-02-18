@@ -14,6 +14,8 @@ sub sidebar_name {
         return l('Playlists at Spotify');
     } elsif ($self->url =~ m{^(?:https?:)?//shop\.spotify\.com/[^/?#]+/?}i) {
         return l('Purchase at Spotify');
+    } elsif ($self->url =~ m{^(?:https?:)?//artists\.spotify\.com/songwriter/[^/?#]+/?}i) {
+        return l('Songwriter info at Spotify');
     } else {
         return l('Stream at Spotify');
     }

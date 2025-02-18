@@ -94,7 +94,7 @@ my %end_point_map = (
  },
  'artist' => {
     'track' => {
-        13 => [ [ 'artist', 'work' ] ], # composition
+        13 => [ [ 'artist', 'work' ] ], # authorship
         14 => [ [ 'artist', 'work' ] ], # composer
         16 => [ [ 'artist', 'work' ] ], # lyricist
         43 => [ [ 'artist', 'work' ] ], # instrumentator

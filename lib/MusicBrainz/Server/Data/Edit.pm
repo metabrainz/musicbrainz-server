@@ -192,16 +192,29 @@ sub find
 
 sub find_by_collection
 {
-    my ($self, $collection_id, $limit, $offset, $status) = @_;
+    my ($self, $collection_id, $limit, $offset, $status, $hide_own, $editor_id) = @_;
 
-    my $status_cond = '';
+    my (@conditions, @args);
+    my $query_conditions = '';
 
-    $status_cond = 'WHERE status = ' . $status if defined $status;
+    if (defined $status) {
+        push @conditions, 'status = ?';
+        push @args, $status;
+    }
+
+    if ($hide_own) {
+        push @conditions, 'editor != ?';
+        push @args, $editor_id;
+    }
+
+    if (@conditions) {
+        $query_conditions = ' WHERE ' . (join ' AND ', @conditions);
+    }
 
     my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table . "
                       JOIN ($EDIT_IDS_FOR_COLLECTION_SQL) relevant_edits
                         ON relevant_edits.edit = edit.id
-                  $status_cond
+                  $query_conditions
                   ORDER BY edit.id DESC
                   LIMIT $LIMIT_FOR_EDIT_LISTING";
         # XXX Do not rewrite this query without extensive performance tests
@@ -221,7 +234,7 @@ sub find_by_collection
 
     $self->query_to_list_limited(
         $query,
-        [($collection_id) x entities_with('collections')],
+        [($collection_id) x entities_with('collections'), @args],
         $limit,
         $offset,
     );

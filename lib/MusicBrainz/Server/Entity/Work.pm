@@ -42,7 +42,7 @@ has 'artists' => (
     },
 );
 
-has 'writers' => (
+has 'authors' => (
     traits => [ 'Array' ],
     is => 'ro',
     isa => ArrayRef[
@@ -54,8 +54,25 @@ has 'writers' => (
     ],
     default => sub { [] },
     handles => {
-        add_writer => 'push',
-        all_writers => 'elements',
+        add_author => 'push',
+        all_authors => 'elements',
+    },
+);
+
+has 'other_artists' => (
+    traits => [ 'Array' ],
+    is => 'ro',
+    isa => ArrayRef[
+        Dict[
+            credit => Str,
+            roles => ArrayRef[Str],
+            entity => Object,
+        ],
+    ],
+    default => sub { [] },
+    handles => {
+        add_other_artist => 'push',
+        all_other_artists => 'elements',
     },
 );
 
@@ -101,11 +118,16 @@ around TO_JSON => sub {
         languages => to_json_array($self->languages),
         iswcs => to_json_array($self->iswcs),
         artists => to_json_array($self->artists),
-        writers => [map +{
+        other_artists => [map +{
             credit => $_->{credit},
             entity => to_json_object($_->{entity}),
             roles => $_->{roles},
-        }, $self->all_writers],
+        }, $self->all_other_artists],
+        authors => [map +{
+            credit => $_->{credit},
+            entity => to_json_object($_->{entity}),
+            roles => $_->{roles},
+        }, $self->all_authors],
     };
 };
 

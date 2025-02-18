@@ -14,6 +14,7 @@ import linkedEntities, {
 } from '../../../common/linkedEntities.mjs';
 import {
   getPhraseAndExtraAttributesText,
+  stripAttributes,
 } from '../../../edit/utility/linkPhrase.js';
 import {
   exportLinkAttributeTypeInfo,
@@ -221,5 +222,39 @@ test('MBS-6129: Interpolating link phrases containing %', function (t) {
   t.deepEqual(
     result,
     ['lead vocals', ([]: Array<LinkAttrT>)],
+  );
+});
+
+test('MBS-13925: Attribute is erroneously cached in link phrase', function (t) {
+  t.plan(2);
+
+  const supportingInstrumentLinkType =
+    linkedEntities.link_type['ed6a7891-ce70-4e08-9839-1f2f62270497'];
+  const hornAttribute = {
+    type: {
+      gid: 'e798a2bd-a578-4c28-8eea-6eca2d8b2c5d',
+    },
+    typeID: 40,
+    typeName: 'horn',
+  };
+
+  const result = getPhraseAndExtraAttributesText(
+    supportingInstrumentLinkType,
+    [hornAttribute],
+    'link_phrase',
+    true, /* forGrouping */
+  );
+  t.deepEqual(
+    result,
+    ['supporting horn for', []],
+  );
+
+  const strippedLinkPhrase = stripAttributes(
+    supportingInstrumentLinkType,
+    supportingInstrumentLinkType.link_phrase,
+  );
+  t.equal(
+    strippedLinkPhrase,
+    'supporting instrument for',
   );
 });

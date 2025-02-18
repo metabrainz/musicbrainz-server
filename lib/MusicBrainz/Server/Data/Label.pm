@@ -121,6 +121,48 @@ sub find_by_release
     $self->query_to_list_limited($query, [$release_id], $limit, $offset);
 }
 
+sub find_by_release_artist
+{
+    my ($self, $artist_id) = @_;
+
+    my $query = <<~"SQL";
+        SELECT ${\($self->_columns)}
+          FROM ${\($self->_table)}
+         WHERE id IN (
+            SELECT DISTINCT rl.label
+              FROM release_label rl
+              JOIN release rel ON rl.release = rel.id
+              JOIN artist_credit_name acn
+                ON acn.artist_credit = rel.artist_credit
+             WHERE acn.artist = ?
+        )
+        SQL
+
+    $self->query_to_list($query, [$artist_id]);
+}
+
+# This might seem stupid, but it helps filtering multi-label releases
+sub find_by_release_label
+{
+    my ($self, $label_id) = @_;
+
+    my $query = <<~"SQL";
+        SELECT ${\($self->_columns)}
+          FROM ${\($self->_table)}
+         WHERE id IN (
+            SELECT DISTINCT rl.label
+              FROM release_label rl
+             WHERE rl.release IN (
+                SELECT rl2.release
+                  FROM release_label rl2
+                 WHERE rl2.label = ?
+            )
+        )
+        SQL
+
+    $self->query_to_list($query, [$label_id]);
+}
+
 sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, 'name', {

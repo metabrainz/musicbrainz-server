@@ -18,31 +18,41 @@ import {
 
 import loopParity from '../utility/loopParity.js';
 
-const renderTableHeaderCell = (column: ColumnInstance) => (
-  <th
-    {...column.getHeaderProps(column.headerProps)}
-  >
-    {column.render('Header')}
-  </th>
-);
+const renderTableHeaderCell = (column: ColumnInstance) => {
+  const {key, ...headerProps} = column.getHeaderProps(column.headerProps);
+  return (
+    <th {...headerProps} key={key}>
+      {column.render('Header')}
+    </th>
+  );
+};
 
-const renderTableHeaderRow = (headerGroup: HeaderGroup) => (
-  <tr {...headerGroup.getHeaderGroupProps()}>
-    {headerGroup.headers.map(renderTableHeaderCell)}
-  </tr>
-);
+const renderTableHeaderRow = (headerGroup: HeaderGroup) => {
+  const {key, ...headerGroupProps} = headerGroup.getHeaderGroupProps();
+  return (
+    <tr {...headerGroupProps} key={key}>
+      {headerGroup.headers.map(renderTableHeaderCell)}
+    </tr>
+  );
+};
 
-const renderTableCell = (cell: Cell<mixed>) => (
-  <td {...cell.getCellProps(cell.column.cellProps)}>
-    {cell.render('Cell')}
-  </td>
-);
+const renderTableCell = (cell: Cell<mixed>) => {
+  const {key, ...cellProps} = cell.getCellProps(cell.column.cellProps);
+  return (
+    <td {...cellProps} key={key}>
+      {cell.render('Cell')}
+    </td>
+  );
+};
 
-const renderTableRow = <D>(row: Row<D>, i: number): React.MixedElement => (
-  <tr {...row.getRowProps({className: loopParity(i)})}>
-    {row.cells.map(renderTableCell)}
-  </tr>
-);
+const renderTableRow = <D>(row: Row<D>, i: number): React.MixedElement => {
+  const {key, ...rowProps} = row.getRowProps({className: loopParity(i)});
+  return (
+    <tr {...rowProps} key={key}>
+      {row.cells.map(renderTableCell)}
+    </tr>
+  );
+};
 
 type Props<D> = {
   className?: string,

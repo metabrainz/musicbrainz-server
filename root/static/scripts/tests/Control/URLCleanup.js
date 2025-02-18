@@ -1337,7 +1337,7 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work'],
   },
   {
-                     input_url: 'http://data.bnf.fr/ark:/12148/cb11923342r',
+                     input_url: 'https://data.bnf.fr/en/ark:/12148/cb11923342r',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11923342r',
@@ -1351,7 +1351,7 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work'],
   },
   {
-                     input_url: 'http://data.bnf.fr/linked-authors/11923342/r/220',
+                     input_url: 'https://data.bnf.fr/fr/linked-authors/11923342/r/220/page1',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11923342r',
@@ -3257,46 +3257,46 @@ limited_link_type_combinations: [
                      input_url: 'http://www.jaxsta.com/profile/8a9bd5c6-1ce2-4f1d-bfdc-1a2383129c79/catalogue?role_group=Featured%20Artist&view=tile',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.io/profile/8a9bd5c6-1ce2-4f1d-bfdc-1a2383129c79',
+            expected_clean_url: 'https://jaxsta.com/profile/8a9bd5c6-1ce2-4f1d-bfdc-1a2383129c79',
        only_valid_entity_types: ['artist', 'label'],
   },
   {
                      input_url: 'https://jaxsta.io/profile/902b15e8-ed89-41d7-a7c0-a35caf2c2801/credits',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.io/profile/902b15e8-ed89-41d7-a7c0-a35caf2c2801',
+            expected_clean_url: 'https://jaxsta.com/profile/902b15e8-ed89-41d7-a7c0-a35caf2c2801',
        only_valid_entity_types: ['artist', 'label'],
   },
   {
                      input_url: 'https://jaxsta.com/profile/5a50b1be-7473-4e51-ae4b-bb8d9ac13407/catalogue?view=tile',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.io/profile/5a50b1be-7473-4e51-ae4b-bb8d9ac13407',
+            expected_clean_url: 'https://jaxsta.com/profile/5a50b1be-7473-4e51-ae4b-bb8d9ac13407',
        only_valid_entity_types: ['artist', 'label'],
   },
   {
                      input_url: 'https://jaxsta.com/recording/5b01140a-a82f-5f5c-aa81-93d61de00f94/releases',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.io/recording/5b01140a-a82f-5f5c-aa81-93d61de00f94',
+            expected_clean_url: 'https://jaxsta.com/recording/5b01140a-a82f-5f5c-aa81-93d61de00f94',
        only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'https://jaxsta.com/release/66512305-5fb7-5d43-a194-d5ed56c16cab/7c5528fe-96f7-5c0c-9af2-9b756b909436/variants',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.io/release/66512305-5fb7-5d43-a194-d5ed56c16cab/7c5528fe-96f7-5c0c-9af2-9b756b909436',
+            expected_clean_url: 'https://jaxsta.com/release/66512305-5fb7-5d43-a194-d5ed56c16cab/7c5528fe-96f7-5c0c-9af2-9b756b909436',
        only_valid_entity_types: ['release'],
   },
   {
-                     input_url: 'https://jaxsta.com/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32/overview',
+                     input_url: 'https://jaxsta.io/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32/overview',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
 limited_link_type_combinations: [
                                   'otherdatabases',
                                   ['lyrics', 'otherdatabases'],
                                 ],
-            expected_clean_url: 'https://jaxsta.io/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32',
+            expected_clean_url: 'https://jaxsta.com/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32',
        only_valid_entity_types: ['work'],
   },
   // Jazz Music Archives
@@ -5256,6 +5256,48 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
   },
+  // Rockit
+  {
+                     input_url: 'https://rockit.it/bluem/articoli',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.rockit.it/bluem',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.rockit.it/professionista/Gabriele+Uccello',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.rockit.it/professionista/Gabriele+Uccello',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://www.rockit.it/bluem/album/nou/63204',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.rockit.it/bluem/album/nou/63204',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.rockit.it/dischibervisti',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.rockit.it/dischibervisti',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.rockit.it/teatrodellacquario',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.rockit.it/teatrodellacquario',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.rockit.it/recensione/6868/spiteful-come-out-and-play',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'review',
+            expected_clean_url: 'https://www.rockit.it/recensione/6868/spiteful-come-out-and-play',
+  },
   // Runeberg
   {
                      input_url: 'http://runeberg.org/f3gd/31/0194.html',
@@ -5662,6 +5704,13 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
                                   error: 'is a redirect link',
                                   target: 'url',
                                 },
+  },
+  {
+                     input_url: 'http://artists.spotify.com/songwriter/4wmgHQAAzg3gbnQWSyoMZp',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://artists.spotify.com/songwriter/4wmgHQAAzg3gbnQWSyoMZp',
+       only_valid_entity_types: ['artist'],
   },
   // SteamDB
   {
@@ -6444,7 +6493,7 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
             expected_clean_url: 'http://viaf.org/viaf/16766997',
   },
   {
-                     input_url: 'http://viaf.org/viaf/32197206/#Mozart,_Wolfgang_Amadeus,_1756-1791',
+                     input_url: 'http://viaf.org/en/viaf/32197206/#Mozart,_Wolfgang_Amadeus,_1756-1791',
             expected_clean_url: 'http://viaf.org/viaf/32197206',
   },
   {
@@ -6452,12 +6501,72 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
             expected_clean_url: 'http://viaf.org/viaf/16766997',
   },
   {
-                     input_url: 'viaf.org/viaf/16766997/',
+                     input_url: 'viaf.org/fr/viaf/16766997/',
             expected_clean_url: 'http://viaf.org/viaf/16766997',
   },
   {
                      input_url: 'www.viaf.org/viaf/16766997/',
             expected_clean_url: 'http://viaf.org/viaf/16766997',
+  },
+  // Naver Vibe
+  {
+                     input_url: 'https://vibe.naver.com/album/32004180',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://vibe.naver.com/album/32004180',
+  },
+  {
+                     input_url: 'https://vibe.naver.com/artist/5176052',
+             input_entity_type: 'artist',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://vibe.naver.com/artist/5176052',
+  },
+  {
+                     input_url: 'https://vibe.naver.com/artist/5176052/albums',
+             input_entity_type: 'artist',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                  ['downloadpurchase', 'streamingpaid'],
+                                  'streamingpaid',
+                                ],
+            expected_clean_url: 'https://vibe.naver.com/artist/5176052',
+  },
+  {
+                     input_url: 'https://vibe.naver.com/video/406927',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://vibe.naver.com/video/406927',
+       only_valid_entity_types: ['release', 'recording'],
+  },
+  {
+                     input_url: 'https://vibe.naver.com/search?query=NMIXX',
+             input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://vibe.naver.com/search?query=NMIXX',
+                expected_error: {
+                                  error: 'a link to a search result',
+                                  target: 'url',
+                                },
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'http://music.naver.com/album/index.nhn?albumId=307278',
+             input_entity_type: 'release',
+    expected_relationship_type: ['downloadpurchase', 'streamingpaid'],
+limited_link_type_combinations: [
+                                   ['downloadpurchase', 'streamingpaid'],
+                                   'streamingpaid',
+                                ],
+            expected_clean_url: 'https://vibe.naver.com/album/307278',
   },
   // Videogam.in
   {
