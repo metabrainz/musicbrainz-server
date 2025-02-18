@@ -5404,7 +5404,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'spotify': {
-    match: [/^(https?:\/\/)?(((?!shop)[^/])+\.)?(spotify\.(?:com|link))\/(?!(?:intl-[a-z]+\/)?user)/i],
+    match: [/^(https?:\/\/)?(((?!(?:artists|shop))[^/])+\.)?(spotify\.(?:com|link))\/(?!(?:intl-[a-z]+\/)?user)/i],
     restrict: [LINK_TYPES.streamingfree],
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, 'https://open.spotify.com/$1/$2');
@@ -5469,6 +5469,24 @@ const CLEANUPS: CleanupEntries = {
         case LINK_TYPES.mailorder.release:
           return {
             result: /^https:\/\/shop\.spotify\.com\/[^?#]+$/.test(url),
+            target: ERROR_TARGETS.URL,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.ENTITY};
+    },
+  },
+  'spotifysongwriter': {
+    match: [/^(https?:\/\/)?artists\.spotify\.com\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?artists\.spotify\.com\/songwriter\/(\w+).*$/, 'https://artists.spotify.com/songwriter/$1');
+      return url;
+    },
+    validate(url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.artist:
+          return {
+            result: /^https:\/\/artists\.spotify\.com\/songwriter\/\w+$/.test(url),
             target: ERROR_TARGETS.URL,
           };
       }
