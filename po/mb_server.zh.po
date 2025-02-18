@@ -19,15 +19,16 @@
 # thephy <differentphy@outlook.com>, 2024.
 # Aris_8585 <qw23355607@outlook.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
+# percylee <freedomeng419@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-07 11:53+0100\n"
-"PO-Revision-Date: 2025-01-30 11:44+0000\n"
+"PO-Revision-Date: 2025-02-13 17:32+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1847,6 +1848,9 @@ msgid ""
 "or improved artwork; this includes AI improvements and square versions of "
 "non-square art. See the {cover_art_doc|documentation} for more details."
 msgstr ""
+"仅上传符合此特定发行的图片（例如，检查是否显示了相同条码或目录编号）。不要上"
+"传粉丝自制、修改过或优化过的图片；包括AI改进版和非方形作品的方形版本图片。在 "
+"{cover_art_doc|documentation} 查看更多细节。"
 
 #: ../root/edit/search_macros.tt:103
 msgid ""
@@ -2408,7 +2412,7 @@ msgstr ""
 msgid ""
 "Some text you entered is overlong! Please shorten it, and if necessary enter "
 "the full text in the annotation for reference."
-msgstr ""
+msgstr "输入的文本过长！请缩短，如有必要请在注释中输入完整文本以供参考。"
 
 #: ../root/components/forms.tt:186 ../root/components/Aliases/AliasTable.js:18
 #: ../root/components/list/ArtistList.js:59 ../root/edit/details/AddArea.js:43
@@ -2651,7 +2655,7 @@ msgstr "这个项目已被移除，无法正常显示。"
 #: ../root/components/common-macros.tt:190
 #: ../root/static/scripts/common/components/EntityLink.js:37
 msgid "This entity will be added by this edit."
-msgstr ""
+msgstr "此实体会在编辑后新增。"
 
 #: ../root/release/edit/information.tt:407
 msgid ""
@@ -2754,6 +2758,8 @@ msgid ""
 "trying to find out what the real format should be or if the release should "
 "be split!"
 msgstr ""
+"这问题在你打开发布编辑器之前就已经存在了，所以你无需做任何处理。但如果你有时"
+"间，可以考虑查明实际的格式应该是什么，或者看看这个发布是否需要拆分！"
 
 #: ../root/components/common-macros.tt:233
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689

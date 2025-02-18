@@ -35,17 +35,17 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-07 11:53+0100\n"
-"PO-Revision-Date: 2025-01-25 15:44+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-02-11 00:44+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.9.2\n"
 
 #: ../root/components/common-macros.tt:12
@@ -7586,12 +7586,19 @@ msgid ""
 "ensure a better result, search for the full release title or as close to it "
 "as possible."
 msgstr ""
+"Per ragioni legate alle prestazioni, questa ricerca controlla solo la "
+"pertinenza di un numero limitato di pubblicazioni i cui titoli sono i più "
+"prossimi alla ricerca che hai inserito. Per assicurarti risultati migliori, "
+"cerca il titolo completo della pubblicazione o comunque un titolo il più "
+"prossimo possibile."
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:146
 msgid ""
 "You can also {search_link|search manually} and paste the link to the release "
 "here."
 msgstr ""
+"Puoi anche {search_link|cercare manualmente} e incollare qui il collegamento "
+"alla pubblicazione."
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:163
 msgid ""
@@ -10955,7 +10962,7 @@ msgstr "Pagina ufficiale"
 
 #: ../root/layout/components/ExternalLinks.js:133
 msgid "Review ({hostname})"
-msgstr ""
+msgstr "Recensione ({hostname})"
 
 #: ../root/layout/components/ExternalLinks.js:180
 msgid "View all relationships"
@@ -13244,13 +13251,6 @@ msgid "Usage count"
 msgstr "Numero di usi"
 
 #: ../root/report/LonelyPseudoReleases.js:25
-#, fuzzy
-#| msgid ""
-#| "This report shows releases with status Pseudo-Release that are marked as "
-#| "the original version of a translation/transliteration relationship. The "
-#| "pseudo-release should be the one marked as a translated/transliterated "
-#| "version instead. If both releases are pseudo-releases, consider linking "
-#| "both to an official release rather than to each other."
 msgid ""
 "This report shows releases with status “Pseudo-Release” that are in release "
 "groups that contain only pseudo-releases. This should never be fully "
@@ -13258,16 +13258,18 @@ msgid ""
 "example, a badly indicated bootleg), or the official release is missing and "
 "needs to be added."
 msgstr ""
-"Questo rapporto mostra le pubblicazioni con status di pseudo-pubblicazione "
-"che sono contrassegnate come la versione originale di una relazione di "
-"traduzione/traslitterazione. La pseudo-pubblicazione dovrebbe invece essere "
-"quella contrassegnata come versione tradotta/traslitterata. Se entrambe le "
-"pubblicazioni sono pseudo-pubblicazioni, valuta la possibilità di collegarle "
-"entrambe a una pubblicazione ufficiale anziché l'una con l'altra."
+"Questo rapporto mostra le pubblicazioni con status \"Pseudo-pubblicazione\" "
+"che si trovano in gruppi di pubblicazioni che contengono solo pseudo-"
+"pubblicazioni. Ciò non dovrebbe essere mai del tutto corretto: o la "
+"pubblicazione in questione non è davvero una pseudo-pubblicazione (per "
+"esempio, perché è un bootleg inserito male), o la pubblicazione ufficiale è "
+"mancante e va aggiunta."
 
 #: ../root/report/LonelyPseudoReleases.js:35 ../root/report/ReportsIndex.js:335
 msgid "Pseudo-releases in release groups that contain only pseudo-releases"
 msgstr ""
+"Pseudo-pubblicazioni in gruppi di pubblicazioni che contengono solo pseudo-"
+"pubblicazioni"
 
 #: ../root/report/LowDataQualityReleases.js:25
 msgid ""
@@ -14785,10 +14787,8 @@ msgid "Alias name:"
 msgstr "Nome alias:"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:327
-#, fuzzy
-#| msgid "This is the primary alias for this locale"
 msgid "This is the {alias_doc|primary alias} for this locale"
-msgstr "Questo è l'alias principale per quest'ambiente linguistico"
+msgstr "Questo è l'{alias_doc|alias principale} per quest'ambiente linguistico"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:349
 msgid "This alias is no longer current."
