@@ -5256,6 +5256,48 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
   },
+  // Rockit
+  {
+                     input_url: 'https://rockit.it/bluem/articoli',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.rockit.it/bluem',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.rockit.it/professionista/Gabriele+Uccello',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.rockit.it/professionista/Gabriele+Uccello',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://www.rockit.it/bluem/album/nou/63204',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.rockit.it/bluem/album/nou/63204',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.rockit.it/dischibervisti',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.rockit.it/dischibervisti',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.rockit.it/teatrodellacquario',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.rockit.it/teatrodellacquario',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.rockit.it/recensione/6868/spiteful-come-out-and-play',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'review',
+            expected_clean_url: 'https://www.rockit.it/recensione/6868/spiteful-come-out-and-play',
+  },
   // Runeberg
   {
                      input_url: 'http://runeberg.org/f3gd/31/0194.html',

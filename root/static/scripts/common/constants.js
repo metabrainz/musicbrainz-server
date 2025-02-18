@@ -216,6 +216,7 @@ export const FAVICON_CLASSES: {
   'rockensdanmarkskort.dk': 'rockensdanmarkskort',
   'rockinchina.com': 'ric',
   'rockipedia.no': 'rockipedia',
+  'rockit.it': 'rockit',
   'rolldabeats.com': 'rolldabeats',
   'runeberg.org': 'runeberg',
   'saisaibatake.ame-zaiku.com/gakki': 'gakki',
