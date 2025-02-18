@@ -30,6 +30,8 @@ component AreaArtists(
         <form
           action={'/artist/merge_queue?' + returnToCurrentPage($c)}
           method="post"
+          rel="noopener noreferrer"
+          target="_blank"
         >
           <PaginatedResults pager={pager}>
             <ArtistList
