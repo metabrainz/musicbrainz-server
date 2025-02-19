@@ -10,8 +10,8 @@
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
-import {Artwork} from '../../../components/Artwork.js';
 import {CatalystContext} from '../../../context.mjs';
+import {Artwork} from '../../../static/scripts/common/components/Artwork.js';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage.js';
 import areDatesEqual
