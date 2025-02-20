@@ -57,7 +57,7 @@ sub url_browse : Private
     my $url;
     if ($resource eq 'resource')
     {
-        ($url) = $c->model('URL')->find_by_url($id);
+        $url = $c->model('URL')->find_by_url($id);
         $c->detach('not_found') unless ($url);
     }
 
