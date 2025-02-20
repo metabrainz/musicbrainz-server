@@ -15,18 +15,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-01-25 15:44+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-02-18 21:02+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.9.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.10\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -175,16 +175,12 @@ msgid "Most active editors in the past week"
 msgstr "Editor più attivi nell'ultima settimana"
 
 #: ../root/statistics/Editors.js:110
-#, fuzzy
-#| msgid "Open and applied edits in past week"
 msgid "Applied edits in past year"
-msgstr "Modifiche in corso e applicate nell'ultima settimana"
+msgstr "Modifiche applicate nell'ultimo anno"
 
 #: ../root/statistics/Editors.js:113
-#, fuzzy
-#| msgid "Most active editors in the past week"
 msgid "Most active editors in the past year"
-msgstr "Editor più attivi nell'ultima settimana"
+msgstr "Editor più attivi nell'ultimo anno"
 
 #: ../root/statistics/Editors.js:116
 msgid "Total applied edits"
@@ -211,16 +207,12 @@ msgid "Most active voters in the past week"
 msgstr "Votanti più attivi nell'ultima settimana"
 
 #: ../root/statistics/Editors.js:133
-#, fuzzy
-#| msgid "Votes in past week"
 msgid "Votes in past year"
-msgstr "Voti nell'ultima settimana"
+msgstr "Voti nell'ultimo anno"
 
 #: ../root/statistics/Editors.js:136
-#, fuzzy
-#| msgid "Most active voters in the past week"
 msgid "Most active voters in the past year"
-msgstr "Votanti più attivi nell'ultima settimana"
+msgstr "Votanti più attivi nell'ultimo anno"
 
 #: ../root/statistics/Editors.js:139
 msgid "Total votes"

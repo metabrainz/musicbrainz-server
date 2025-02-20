@@ -35,18 +35,18 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 10:52+0100\n"
-"PO-Revision-Date: 2025-02-11 00:44+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-02-18 21:02+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.9.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.10\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -2940,10 +2940,10 @@ msgid ""
 msgstr ""
 "Questo status della pubblicazione va usato per traduzioni e traslitterazioni "
 "non ufficiali di elenchi tracce e titoli di pubblicazioni, e non indica una "
-"reale pubblicazione distinta. Non deve essere usato per indicare bootleg, "
-"album mixtape/street, demo o album digitali. Assicurati che la pubblicazione "
-"sia collegata alla corrispondente pubblicazione reale con una {url|relazione "
-"di traduzione/traslitterazione}."
+"reale pubblicazione distinta. Non va usato per indicare bootleg, album "
+"mixtape/street, demo o album digitali. Assicurati che la pubblicazione sia "
+"collegata alla corrispondente pubblicazione reale con una {url|relazione di "
+"traduzione/traslitterazione}."
 
 #: ../root/release/edit/tracklist.tt:366
 msgid ""
@@ -5608,10 +5608,8 @@ msgid "Purchase at Spotify"
 msgstr "Acquista su Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:18
-#, fuzzy
-#| msgid "Stream at Spotify"
 msgid "Songwriter info at Spotify"
-msgstr "Streaming su Spotify"
+msgstr "Informazioni sugli autori su Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:20
 msgid "Stream at Spotify"
@@ -5898,20 +5896,16 @@ msgid "[none]"
 msgstr "[nessuno]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:39
-#, fuzzy
-#| msgid "Recording artist:"
 msgid "As recording artist"
-msgstr "Artista della registrazione:"
+msgstr "Come artista della registrazione"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:40
 msgid "As author"
-msgstr ""
+msgstr "Come autore"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:41
-#, fuzzy
-#| msgid "Add another artist"
 msgid "As other artist"
-msgstr "Aggiungi un altro artista"
+msgstr "Come altro artista"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:48
 msgctxt "language"
@@ -8431,17 +8425,13 @@ msgstr "[supporti mancanti]"
 #: ../root/search/components/WorkResults.js:55
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:895
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:558
-#, fuzzy
-#| msgid "Authorization"
 msgid "Authors"
-msgstr "Autorizzazione"
+msgstr "Autori"
 
 #: ../root/components/list/WorkList.js:61 ../root/iswc/Index.js:58
 #: ../root/search/components/WorkResults.js:57
-#, fuzzy
-#| msgid "Merge artists"
 msgid "Other artists"
-msgstr "Unisci artisti"
+msgstr "Altri artisti"
 
 #: ../root/constants.js:22
 msgid "View and modify your private collections"
@@ -9028,16 +9018,12 @@ msgid "All edits for this entity"
 msgstr "Tutte le modifiche per questa entità"
 
 #: ../root/edit/components/ListHeader.js:93
-#, fuzzy
-#| msgid "Open edits for this collection"
 msgid "Everyone’s edits for this collection"
-msgstr "Modifiche in corso per questa collezione"
+msgstr "Modifiche di tutti per questa collezione"
 
 #: ../root/edit/components/ListHeader.js:104
-#, fuzzy
-#| msgid "Open edits for this collection"
 msgid "Others’ edits for this collection"
-msgstr "Modifiche in corso per questa collezione"
+msgstr "Modifiche altrui per questa collezione"
 
 #: ../root/edit/components/ListHeader.js:116
 msgid "All edits for your subscribed entities"
@@ -10730,10 +10716,8 @@ msgstr[2] "Associato a {num} opere"
 #: ../root/iswc/Index.js:57 ../root/report/IswcsWithManyWorks.js:52
 #: ../root/search/components/WorkResults.js:56
 #: ../root/utility/tableColumns.js:804
-#, fuzzy
-#| msgid "Recording artist:"
 msgid "Recording artists"
-msgstr "Artista della registrazione:"
+msgstr "Artisti della registrazione"
 
 #: ../root/label/LabelIndex.js:105
 msgid "This label does not have any releases."
@@ -12146,7 +12130,7 @@ msgstr "{entity0}-{entity1}"
 #: ../root/static/scripts/edit/externalLinks.js:854
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:64
 msgid "This relationship type is deprecated and should not be used."
-msgstr "Questo tipo di relazione è obsoleto e non deve essere utilizzato."
+msgstr "Questo tipo di relazione è obsoleto e non va usato."
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:190
 msgid "Link phrases"
@@ -13248,6 +13232,11 @@ msgid ""
 "with an {doc_instrumental_rel|“instrumental” relationship} and the "
 "{doc_karaoke_attr|“karaoke” attribute}."
 msgstr ""
+"Questo rapporto mostra le registrazioni che hanno una {doc_karaoke_rel|"
+"relazione “karaoke”} con un'altra registrazione, ma sono collegate a "
+"un'opera con l' {doc_instrumental_attr|attributo “strumentale”} o, "
+"viceversa, con una {doc_instrumental_rel|relazione “strumentale”} e "
+"l'{doc_karaoke_attr|attributo “karaoke”}."
 
 #: ../root/report/KaraokePlusInstrumentalRecordings.js:45
 msgid ""
@@ -13258,11 +13247,18 @@ msgid ""
 "standard instrumental recording, it shouldn’t be linked to another recording "
 "with a “karaoke” relationship, but with an “instrumental” one."
 msgstr ""
+"Tieni presente che su MusicBrainz “strumentale” sottintende che i testi non "
+"sono rilevanti per la registrazione. Visto che i testi sono per definizione "
+"rilevanti per le registrazioni karaoke, “strumentale” non va usato su di "
+"esse (usa piuttosto “karaoke”). In alternativa, se non si tratta di una "
+"registrazione karaoke, ma di una registrazione strumentale standard, essa "
+"non dovrebbe essere collegata a un'altra registrazione con una relazione "
+"“karaoke”, bensì con una relazione “strumentale”."
 
 #: ../root/report/KaraokePlusInstrumentalRecordings.js:55
 #: ../root/report/ReportsIndex.js:559
 msgid "Recordings marked as both karaoke and instrumental"
-msgstr ""
+msgstr "Registrazioni contrassegnate sia come karaoke che come strumentali"
 
 #: ../root/report/LabelsDisambiguationSameName.js:25
 msgid ""
@@ -14219,9 +14215,9 @@ msgstr ""
 "Questo rapporto mostra le pubblicazioni che hanno una {doc|relazione di note "
 "all'episodio}, ma non sono in un gruppo di pubblicazioni di tipo "
 "Trasmissione. Le note all'episodio sono realizzate per podcast e spettacoli "
-"simili e non vanno utilizzate per collegare note a caso su un tipo di "
-"pubblicazione qualsiasi, ma purtroppo la relazione viene spesso utilizzata "
-"in quel modo. Se è quello il caso, la relazione va cambiata in un tipo più "
+"simili e non vanno usate per collegare note a caso su un tipo di "
+"pubblicazione qualsiasi, ma purtroppo la relazione viene usata spesso in "
+"quel modo. Se è quello il caso, la relazione va cambiata in un tipo più "
 "adatto o rimossa se non ce n'è una adatta. Se invece la pubblicazione è un "
 "podcast, il tipo del gruppo di pubblicazioni va impostato su Trasmissione."
 
