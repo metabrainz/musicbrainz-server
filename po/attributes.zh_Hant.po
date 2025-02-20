@@ -2,19 +2,20 @@
 # Evergarden <minna1012@gmail.com>, 2024.
 # WorldPioneerXXX <peter04peter04p@gmail.com>, 2024.
 # guardiansock <guardian.sock5925@fastmail.com>, 2024.
+# KenParker_CN <peekabookenny@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2024-12-29 00:42+0000\n"
-"Last-Translator: guardiansock <guardian.sock5925@fastmail.com>\n"
-"Language-Team: Chinese (Traditional Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/attributes/zh_Hant/>\n"
+"PO-Revision-Date: 2025-02-19 13:44+0000\n"
+"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"Language-Team: Chinese (Traditional Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/attributes/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -128,12 +129,9 @@ msgid "8cm CD+G"
 msgstr "8公分 CD+G"
 
 #: DB:medium_format/name:210
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "8cm CD"
 msgctxt "medium_format"
 msgid "8cm CD-R"
-msgstr "8 公分光碟"
+msgstr "8cm 可录式光碟"
 
 #. name:MiniDVD
 #: DB:medium_format/description:166
