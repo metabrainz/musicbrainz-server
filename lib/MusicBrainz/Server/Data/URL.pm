@@ -325,6 +325,18 @@ sub find_by_url {
     return;
 }
 
+sub find_by_urls {
+    my ($self, $urls) = @_;
+
+    my $normalized = [map { URI->new($_)->canonical->as_string } @$urls];
+    $self->query_to_list(<<~"SQL", [$normalized]);
+        SELECT ${\($self->_columns)}
+          FROM ${\($self->_table)}
+         WHERE url = any(?)
+         ORDER BY url
+        SQL
+}
+
 sub update
 {
     my ($self, $url_id, $url_hash) = @_;
