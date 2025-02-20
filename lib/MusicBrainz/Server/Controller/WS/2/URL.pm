@@ -37,7 +37,7 @@ with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
     model => 'URL',
 };
 
-Readonly our $MAX_ITEMS => 25;
+Readonly our $MAX_RESOURCE_PARAMS => 100;
 
 sub base : Chained('root') PathPart('url') CaptureArgs(0) { }
 
@@ -54,19 +54,32 @@ sub url_browse : Private
 
     my ($resource, $id) = @{ $c->stash->{linked} };
 
-    my $url;
-    if ($resource eq 'resource')
-    {
-        $url = $c->model('URL')->find_by_url($id);
-        $c->detach('not_found') unless ($url);
+    my $is_list = ref($id) eq 'ARRAY';
+    my @urls;
+    if ($resource eq 'resource') {
+        if ($is_list) {
+            if (scalar(@$id) > $MAX_RESOURCE_PARAMS) {
+                @$id = @$id[0 .. ($MAX_RESOURCE_PARAMS - 1)];
+            }
+            @urls = $c->model('URL')->find_by_urls($id);
+        } else {
+            my $url = $c->model('URL')->find_by_url($id);
+            $c->detach('not_found') unless $url;
+            @urls = $url;
+        }
     }
 
     my $stash = WebServiceStash->new;
-
-    $self->url_toplevel($c, $stash, [$url]);
+    $self->url_toplevel($c, $stash, \@urls);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('url', $url, $c->stash->{inc}, $stash));
+
+    if ($is_list) {
+        my $url_list = $self->make_list(\@urls, scalar @urls, 0);
+        $c->res->body($c->stash->{serializer}->serialize('url-list', $url_list, $c->stash->{inc}, $stash));
+    } else {
+        $c->res->body($c->stash->{serializer}->serialize('url', $urls[0], $c->stash->{inc}, $stash));
+    }
 }
 
 sub url_search : Chained('root') PathPart('url') Args(0)
