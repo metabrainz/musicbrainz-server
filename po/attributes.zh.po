@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2025-02-16 20:44+0000\n"
 "Last-Translator: delamons <lamons.n@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://"
-"translations.metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://translations."
+"metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -343,10 +343,31 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "A Dorian"
 msgstr "多利亚"
 
+#: DB:work_attribute_type_allowed_value/value:1070
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "A Dorian"
+msgctxt "work_attribute_type_allowed_value"
+msgid "A Locrian"
+msgstr "多利亚"
+
+#: DB:work_attribute_type_allowed_value/value:1063
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "A Mixolydian"
+msgctxt "work_attribute_type_allowed_value"
+msgid "A Lydian"
+msgstr "混合利底亚"
+
 #: DB:work_attribute_type_allowed_value/value:806
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Mixolydian"
 msgstr "混合利底亚"
+
+#: DB:work_attribute_type_allowed_value/value:1056
+msgctxt "work_attribute_type_allowed_value"
+msgid "A Phrygian"
+msgstr ""
 
 #. name:Ballet
 #: DB:work_type/description:2
@@ -670,7 +691,8 @@ msgid ""
 "A promotional release mostly meant to have limited circulation and "
 "demonstrate the sound of an artist to record labels, publishers and other "
 "artists."
-msgstr "一种推广性质的发行，通常仅具有有限的流通价值，具有向厂牌，出版方以及其他艺术"
+msgstr ""
+"一种推广性质的发行，通常仅具有有限的流通价值，具有向厂牌，出版方以及其他艺术"
 "家展示作品的作用。"
 
 #. name:Quartet
@@ -1722,10 +1744,31 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "B Dorian"
 msgstr "多利安B调式"
 
+#: DB:work_attribute_type_allowed_value/value:1071
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "B Dorian"
+msgctxt "work_attribute_type_allowed_value"
+msgid "B Locrian"
+msgstr "多利安B调式"
+
+#: DB:work_attribute_type_allowed_value/value:1064
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "B Mixolydian"
+msgctxt "work_attribute_type_allowed_value"
+msgid "B Lydian"
+msgstr "混合吕底安B调式"
+
 #: DB:work_attribute_type_allowed_value/value:807
 msgctxt "work_attribute_type_allowed_value"
 msgid "B Mixolydian"
 msgstr "混合吕底安B调式"
+
+#: DB:work_attribute_type_allowed_value/value:1057
+msgctxt "work_attribute_type_allowed_value"
+msgid "B Phrygian"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:33
 msgctxt "work_attribute_type_allowed_value"
@@ -2192,10 +2235,31 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "C Dorian"
 msgstr "多利安C调式"
 
+#: DB:work_attribute_type_allowed_value/value:1065
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "C Dorian"
+msgctxt "work_attribute_type_allowed_value"
+msgid "C Locrian"
+msgstr "多利安C调式"
+
+#: DB:work_attribute_type_allowed_value/value:1058
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "C Mixolydian"
+msgctxt "work_attribute_type_allowed_value"
+msgid "C Lydian"
+msgstr "混合吕底安C调式"
+
 #: DB:work_attribute_type_allowed_value/value:801
 msgctxt "work_attribute_type_allowed_value"
 msgid "C Mixolydian"
 msgstr "混合吕底安C调式"
+
+#: DB:work_attribute_type_allowed_value/value:1051
+msgctxt "work_attribute_type_allowed_value"
+msgid "C Phrygian"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:2
 msgctxt "work_attribute_type_allowed_value"
@@ -2553,10 +2617,31 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "D Dorian"
 msgstr "多利安D调式"
 
+#: DB:work_attribute_type_allowed_value/value:1066
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "D Dorian"
+msgctxt "work_attribute_type_allowed_value"
+msgid "D Locrian"
+msgstr "多利安D调式"
+
+#: DB:work_attribute_type_allowed_value/value:1059
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "D Mixolydian"
+msgctxt "work_attribute_type_allowed_value"
+msgid "D Lydian"
+msgstr "混合吕底安D调式"
+
 #: DB:work_attribute_type_allowed_value/value:802
 msgctxt "work_attribute_type_allowed_value"
 msgid "D Mixolydian"
 msgstr "混合吕底安D调式"
+
+#: DB:work_attribute_type_allowed_value/value:1052
+msgctxt "work_attribute_type_allowed_value"
+msgid "D Phrygian"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:8
 msgctxt "work_attribute_type_allowed_value"
@@ -3081,10 +3166,31 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "E Dorian"
 msgstr "多利安E调式"
 
+#: DB:work_attribute_type_allowed_value/value:1067
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "E Dorian"
+msgctxt "work_attribute_type_allowed_value"
+msgid "E Locrian"
+msgstr "多利安E调式"
+
+#: DB:work_attribute_type_allowed_value/value:1060
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "E Mixolydian"
+msgctxt "work_attribute_type_allowed_value"
+msgid "E Lydian"
+msgstr "混合吕底安E调式"
+
 #: DB:work_attribute_type_allowed_value/value:803
 msgctxt "work_attribute_type_allowed_value"
 msgid "E Mixolydian"
 msgstr "混合吕底安E调式"
+
+#: DB:work_attribute_type_allowed_value/value:1053
+msgctxt "work_attribute_type_allowed_value"
+msgid "E Phrygian"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:13
 msgctxt "work_attribute_type_allowed_value"
@@ -3251,10 +3357,31 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "F Dorian"
 msgstr "多利安F调式"
 
+#: DB:work_attribute_type_allowed_value/value:1068
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "F Dorian"
+msgctxt "work_attribute_type_allowed_value"
+msgid "F Locrian"
+msgstr "多利安F调式"
+
+#: DB:work_attribute_type_allowed_value/value:1061
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "F Mixolydian"
+msgctxt "work_attribute_type_allowed_value"
+msgid "F Lydian"
+msgstr "混合吕底安F调式"
+
 #: DB:work_attribute_type_allowed_value/value:804
 msgctxt "work_attribute_type_allowed_value"
 msgid "F Mixolydian"
 msgstr "混合吕底安F调式"
+
+#: DB:work_attribute_type_allowed_value/value:1054
+msgctxt "work_attribute_type_allowed_value"
+msgid "F Phrygian"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:17
 msgctxt "work_attribute_type_allowed_value"
@@ -3457,10 +3584,31 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "G Dorian"
 msgstr "多利安G调式"
 
+#: DB:work_attribute_type_allowed_value/value:1069
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "G Dorian"
+msgctxt "work_attribute_type_allowed_value"
+msgid "G Locrian"
+msgstr "多利安G调式"
+
+#: DB:work_attribute_type_allowed_value/value:1062
+#, fuzzy
+#| msgctxt "work_attribute_type_allowed_value"
+#| msgid "G Mixolydian"
+msgctxt "work_attribute_type_allowed_value"
+msgid "G Lydian"
+msgstr "混合吕底安G调式"
+
 #: DB:work_attribute_type_allowed_value/value:805
 msgctxt "work_attribute_type_allowed_value"
 msgid "G Mixolydian"
 msgstr "混合吕底安G调式"
+
+#: DB:work_attribute_type_allowed_value/value:1055
+msgctxt "work_attribute_type_allowed_value"
+msgid "G Phrygian"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:22
 msgctxt "work_attribute_type_allowed_value"
@@ -4593,7 +4741,8 @@ msgid ""
 "Indigenous territory / reserve is used for semi-autonomous territories "
 "governed by indigenous peoples, such as Indian reserves/reservations in "
 "North America and indigenous territories in Central and South America."
-msgstr "土著领土/保留地用于由土著人民管理的半自治领土，如北美的印第安人保留地/保留地"
+msgstr ""
+"土著领土/保留地用于由土著人民管理的半自治领土，如北美的印第安人保留地/保留地"
 "以及中美洲和南美洲的土著领土。"
 
 #: DB:place_type/name:5

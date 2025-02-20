@@ -8217,7 +8217,7 @@ msgstr "管弦樂隊 {additional:additionally} 表演"
 msgid "orchestras"
 msgstr "管弦樂團"
 
-#: DB:link_type/name:316
+#: DB:link_attribute_type/name:1418 DB:link_type/name:316
 msgid "orchestration"
 msgstr "管弦樂編排"
 

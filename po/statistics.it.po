@@ -16,16 +16,16 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2025-01-25 15:44+0000\n"
-"Last-Translator: \"salo.rock\" "
-"<salo.rock@users.noreply.translations.metabrainz.org>\n"
+"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
+"metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.9.2\n"
 
 #: ../root/statistics/timeline.tt:19
@@ -62,8 +62,8 @@ msgstr "Statistiche database - {title}"
 msgid "Draw a rectangle on either graph"
 msgstr "Disegna un rettangolo su uno dei grafici"
 
-#: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:88
-#: ../root/statistics/Editors.js:100 ../root/statistics/Index.js:1125
+#: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:90
+#: ../root/statistics/Editors.js:102 ../root/statistics/Index.js:1125
 msgid "Editors"
 msgstr "Editor"
 
@@ -131,7 +131,7 @@ msgstr "Grafico della cronologia"
 msgid "Zoom:"
 msgstr "Ingrandisci:"
 
-#: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:91
+#: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:93
 #: ../root/statistics/Edits.js:32 ../root/statistics/Formats.js:41
 #: ../root/statistics/Images.js:73 ../root/statistics/Index.js:66
 #: ../root/statistics/LanguagesScripts.js:46
@@ -158,7 +158,7 @@ msgstr "Paese sconosciuto"
 msgid "There is no data to display here."
 msgstr "Nessun dato da visualizzare."
 
-#: ../root/statistics/Editors.js:94
+#: ../root/statistics/Editors.js:96
 msgid ""
 "For the vote statistics, only yes or no votes are counted, abstain votes are "
 "not counted."
@@ -166,43 +166,67 @@ msgstr ""
 "Per le statistiche sui voti vengono considerati solo i voti \"Sì\" o \"No\", "
 "ma non le astensioni."
 
-#: ../root/statistics/Editors.js:102
+#: ../root/statistics/Editors.js:104
 msgid "Open and applied edits in past week"
 msgstr "Modifiche in corso e applicate nell'ultima settimana"
 
-#: ../root/statistics/Editors.js:105
+#: ../root/statistics/Editors.js:107
 msgid "Most active editors in the past week"
 msgstr "Editor più attivi nell'ultima settimana"
 
-#: ../root/statistics/Editors.js:108
+#: ../root/statistics/Editors.js:110
+#, fuzzy
+#| msgid "Open and applied edits in past week"
+msgid "Applied edits in past year"
+msgstr "Modifiche in corso e applicate nell'ultima settimana"
+
+#: ../root/statistics/Editors.js:113
+#, fuzzy
+#| msgid "Most active editors in the past week"
+msgid "Most active editors in the past year"
+msgstr "Editor più attivi nell'ultima settimana"
+
+#: ../root/statistics/Editors.js:116
 msgid "Total applied edits"
 msgstr "Totale modifiche applicate"
 
-#: ../root/statistics/Editors.js:111
+#: ../root/statistics/Editors.js:119
 msgid "Top editors overall"
 msgstr "Editor più attivi di sempre"
 
-#: ../root/statistics/Editors.js:117
+#: ../root/statistics/Editors.js:125
 msgid "Voters"
 msgstr "Votanti"
 
-#: ../root/statistics/Editors.js:119
+#: ../root/statistics/Editors.js:127
 msgid "Votes in past week"
 msgstr "Voti nell'ultima settimana"
 
-#: ../root/statistics/Editors.js:121 ../root/statistics/Editors.js:127
+#: ../root/statistics/Editors.js:129 ../root/statistics/Editors.js:141
 msgid "Voter"
 msgstr "Votante"
 
-#: ../root/statistics/Editors.js:122
+#: ../root/statistics/Editors.js:130
 msgid "Most active voters in the past week"
 msgstr "Votanti più attivi nell'ultima settimana"
 
-#: ../root/statistics/Editors.js:125
+#: ../root/statistics/Editors.js:133
+#, fuzzy
+#| msgid "Votes in past week"
+msgid "Votes in past year"
+msgstr "Voti nell'ultima settimana"
+
+#: ../root/statistics/Editors.js:136
+#, fuzzy
+#| msgid "Most active voters in the past week"
+msgid "Most active voters in the past year"
+msgstr "Votanti più attivi nell'ultima settimana"
+
+#: ../root/statistics/Editors.js:139
 msgid "Total votes"
 msgstr "Voti totali"
 
-#: ../root/statistics/Editors.js:128
+#: ../root/statistics/Editors.js:142
 msgid "Top voters overall"
 msgstr "Votanti più attivi di sempre"
 

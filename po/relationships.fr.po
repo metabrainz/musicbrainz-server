@@ -9053,7 +9053,7 @@ msgstr "orchestre a {additional:aussi} interprété"
 msgid "orchestras"
 msgstr "orchestres"
 
-#: DB:link_type/name:316
+#: DB:link_attribute_type/name:1418 DB:link_type/name:316
 msgid "orchestration"
 msgstr "orchestration"
 
