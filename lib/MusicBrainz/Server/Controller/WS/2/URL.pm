@@ -16,7 +16,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      url => {
                          method   => 'GET',
-                         linked   => [ qw(resource) ],
+                         required => [ qw(resource) ],
                          inc      => [ qw(_relations) ],
                          optional => [ qw(fmt) ],
      },
@@ -48,25 +48,23 @@ sub url_toplevel
     $self->load_relationships($c, $stash, @{$urls});
 }
 
-sub url_browse : Private
+sub url_lookup_by_resource : Private
 {
     my ($self, $c) = @_;
 
-    my ($resource, $id) = @{ $c->stash->{linked} };
-
-    my $is_list = ref($id) eq 'ARRAY';
+    my $resource = $c->req->query_params->{resource};
+    my $is_list = ref($resource) eq 'ARRAY';
     my @urls;
-    if ($resource eq 'resource') {
-        if ($is_list) {
-            if (scalar(@$id) > $MAX_RESOURCE_PARAMS) {
-                @$id = @$id[0 .. ($MAX_RESOURCE_PARAMS - 1)];
-            }
-            @urls = $c->model('URL')->find_by_urls($id);
-        } else {
-            my $url = $c->model('URL')->find_by_url($id);
-            $c->detach('not_found') unless $url;
-            @urls = $url;
+
+    if ($is_list) {
+        if (scalar(@$resource) > $MAX_RESOURCE_PARAMS) {
+            @$resource = @$resource[0 .. ($MAX_RESOURCE_PARAMS - 1)];
         }
+        @urls = $c->model('URL')->find_by_urls($resource);
+    } else {
+        my $url = $c->model('URL')->find_by_url($resource);
+        $c->detach('not_found') unless $url;
+        @urls = $url;
     }
 
     my $stash = WebServiceStash->new;
@@ -86,7 +84,9 @@ sub url_search : Chained('root') PathPart('url') Args(0)
 {
     my ($self, $c) = @_;
 
-    $c->detach('url_browse') if ($c->stash->{linked});
+    $c->detach('url_lookup_by_resource')
+        if defined $c->req->query_params->{resource};
+
     $self->_search($c, 'url');
 }
 
