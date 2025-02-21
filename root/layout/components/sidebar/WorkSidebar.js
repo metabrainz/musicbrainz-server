@@ -83,14 +83,14 @@ component WorkSidebar(work: WorkT) {
                 )}
               </SidebarProperty>
             ) : null}
-
-            {iswcs.length ? (
-              <>
-                <IswcList isSidebar iswcs={iswcs} />
-                {manifest('common/components/IswcList', {async: 'async'})}
-              </>
-            ) : null}
           </SidebarProperties>
+
+          {iswcs.length ? (
+            <>
+              <IswcList isSidebar iswcs={iswcs} />
+              {manifest('common/components/IswcList', {async: 'async'})}
+            </>
+          ) : null}
 
           {attributes.length ? (
             <>
