@@ -86,6 +86,8 @@
                predicate_country(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType';
                predicate_link_type(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::WorkType';
+               predicate_entity_type(field.field_name, work_types, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::EditorFlag';
                predicate_editor_flag(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::AppliedEdits';
@@ -344,7 +346,7 @@
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
 
-  <select name="args" multiple="multiple" size=[% set_contents.size %]>
+  <select name="args" multiple="multiple" size=[% set_contents.size < 10 ? set_contents.size : 10 %]>
     [%- FOR type=set_contents %]
     <option value="[% type.id %]"
             [%- 'selected="selected"' IF field_contents.find_argument(type.id) %]>
@@ -476,6 +478,7 @@
                    [ 'series', lp('Series', 'singular') ],
                    [ 'url', l('URL') ],
                    [ 'work', l('Work') ],
+                   [ 'work_type', l('Work type') ],
                    [ 'editor', l('Editor'), {requires_login => 1} ],
                    [ 'voter', l('Voter'), {requires_login => 1} ]
                    [ 'release_language', l('Release language') ],
@@ -521,6 +524,7 @@
     [% predicate_voter('voter') %]
     [% predicate_release_language('release_language') %]
     [% predicate_entity_type('release_group_primary_type', rg_types) %]
+    [% predicate_entity_type('work_type', work_types) %]
     [% predicate_link('artist_area', undef, 'area') %]
     [% predicate_link('label_area', undef, 'area') %]
     [% predicate_country('release_country') %]
