@@ -80,10 +80,14 @@
                predicate_link(field.field_name, field, 'area');
              CASE 'MusicBrainz::Server::EditSearch::Predicate::LabelArea';
                predicate_link(field.field_name, field, 'area');
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupPrimaryType';
+               predicate_entity_type(field.field_name, rg_types, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry';
                predicate_country(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType';
                predicate_link_type(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::WorkType';
+               predicate_entity_type(field.field_name, work_types, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::EditorFlag';
                predicate_editor_flag(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::AppliedEdits';
@@ -338,6 +342,19 @@
   </span>
 [% END %]
 
+[% MACRO predicate_entity_type(field, set_contents, field_contents) WRAPPER wfield predicate="set" %]
+  [% operators([ [ '=', l('is') ]
+                 [ '!=', l('is not') ] ], field_contents) %]
+
+  <select name="args" multiple="multiple" size=[% set_contents.size < 10 ? set_contents.size : 10 %]>
+    [%- FOR type=set_contents %]
+    <option value="[% type.id %]"
+            [%- 'selected="selected"' IF field_contents.find_argument(type.id) %]>
+        [%- html_escape(type.l_name) -%]</option>
+    [%- END %]
+  </select>
+[% END %]
+
 [% MACRO predicate_country(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
@@ -457,9 +474,11 @@
                    [ 'recording', l('Recording') ],
                    [ 'release', l('Release') ],
                    [ 'release_group', l('Release group') ],
+                   [ 'release_group_primary_type', l('Release group primary type') ],
                    [ 'series', lp('Series', 'singular') ],
                    [ 'url', l('URL') ],
                    [ 'work', l('Work') ],
+                   [ 'work_type', l('Work type') ],
                    [ 'editor', l('Editor'), {requires_login => 1} ],
                    [ 'voter', l('Voter'), {requires_login => 1} ]
                    [ 'release_language', l('Release language') ],
@@ -504,6 +523,8 @@
     [% predicate_user('editor') %]
     [% predicate_voter('voter') %]
     [% predicate_release_language('release_language') %]
+    [% predicate_entity_type('release_group_primary_type', rg_types) %]
+    [% predicate_entity_type('work_type', work_types) %]
     [% predicate_link('artist_area', undef, 'area') %]
     [% predicate_link('label_area', undef, 'area') %]
     [% predicate_country('release_country') %]

@@ -296,7 +296,9 @@ sub search : Path('/search/edits')
         quality => [ [$QUALITY_LOW => N_l('Low')], [$QUALITY_NORMAL => N_l('Normal')], [$QUALITY_HIGH => N_l('High')], [$QUALITY_UNKNOWN => N_l('Default')] ],
         languages => [ grep { $_->frequency > 0 } $c->model('Language')->get_all ],
         countries => [ $c->model('CountryArea')->get_all ],
+        rg_types => [ $c->model('ReleaseGroupType')->get_all ],
         relationship_type => [ $c->model('LinkType')->get_full_tree(get_deprecated_and_empty => 1) ],
+        work_types => [ $c->model('WorkType')->get_all ],
     );
     return unless %{ $c->req->query_params };
 
