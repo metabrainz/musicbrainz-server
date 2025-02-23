@@ -153,39 +153,29 @@ test all => sub {
     };
 
     subtest 'send_email_verification' => sub {
+        $email->send_email_verification(
+            email => 'user@example.com',
+            verification_link => "$server/verify-email",
+            editor => $user1,
+        );
 
-    $email->send_email_verification(
-        email => 'user@example.com',
-        verification_link => "$server/verify-email",
-        ip => '127.0.0.1',
-        editor => $user1,
-    );
-
-    is($email->transport->delivery_count, 1);
-    my $delivery = $email->transport->shift_deliveries;
-    is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', "Envelope from is noreply@...");
-    my $e = $delivery->{email};
-    $email->transport->clear_deliveries;
-    is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
-    is($e->get_header('To'), 'user@example.com', 'To is user@example.com');
-    is($e->get_header('Subject'), 'Please verify your email address', 'Subject is Please verify your email address');
-    like($e->get_header('Message-Id'), qr{<verify-email-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
-    compare_body($e->object->body_str,
-                 "Hello Editor 1,\n".
-                 "\n".
-                 "This is a verification email for your MusicBrainz account. Please click\n".
-                 "on the link below to verify your email address:\n".
-                 "\n".
-                 "$server/verify-email\n".
-                 "\n".
-                 "If clicking the link above doesn't work, please copy and paste the URL in a\n".
-                 "new browser window instead.\n".
-                 "This email was triggered by a request from the IP address [127.0.0.1].\n".
-                 "\n".
-                 "Thanks for using MusicBrainz!\n".
-                 "\n".
-                 "-- The MusicBrainz Team\n");
-
+        my $mail_service_req = shift(@mail_service_reqs);
+        my $mail_service_req_content = decode_json($mail_service_req->content);
+        is($mail_service_req->method, 'POST', 'mail service request method is POST');
+        is($mail_service_req->uri, 'http://localhost:3000/send_single', 'mail service request uri is send_single');
+        is($mail_service_req->header('Accept'), 'application/json', 'client accepts application/json');
+        is($mail_service_req->header('Content-Type'), 'application/json', 'mail service content-type is application/json');
+        cmp_deeply($mail_service_req_content, {
+            template_id => 'verify-email',
+            to => 'user@example.com',
+            from => 'MusicBrainz Server <noreply@musicbrainz.org>',
+            reply_to => 'MusicBrainz Server <noreply@musicbrainz.org>',
+            message_id => re(qr/^<verify-email-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\@localhost>$/),
+            params => {
+                verification_url => "$server/verify-email",
+                to_name => 'Editor 1',
+            },
+        }, 'mail service request content is correct');
     };
 
     subtest 'send_lost_username' => sub {
