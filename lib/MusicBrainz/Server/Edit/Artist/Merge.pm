@@ -65,25 +65,55 @@ sub do_merge
         my $dropped_type =
             $self->c->model('ArtistType')->get_by_id($dropped_columns->{type});
 
-        $self->c->model('EditNote')->add_note(
-            $self->id => {
-                editor_id => $EDITOR_MODBOT,
-                text => localized_note(
-                    N_l('The “{artist_type}” type has not been added to the ' .
-                        'destination artist because it conflicted with the ' .
-                        'gender setting of one of the artists here. Group ' .
-                        'artists cannot have a gender.'),
-                    vars => {
-                        artist_type => localized_note(
-                            $dropped_type->name,
-                            function => 'lp',
-                            domain => 'attributes',
-                            args => ['artist_type'],
-                        ),
-                    },
-                ),
-            },
-        );
+        if ($dropped_type->id == 4) {
+            $self->c->model('EditNote')->add_note(
+                $self->id => {
+                    editor_id => $EDITOR_MODBOT,
+                    text => localized_note(
+                        N_l('The following data has not been added to the destination ' .
+                            'artist because it conflicted with other data: ' .
+                            '{dropped_data}. {reason}'),
+                        vars => {
+                            dropped_data => localized_note(
+                                N_l('Type: {artist_type}'),
+                                vars => {
+                                    artist_type => localized_note(
+                                        $dropped_type->name,
+                                        function => 'lp',
+                                        domain => 'attributes',
+                                        args => ['artist_type'],
+                                    ),
+                                },
+                            ),
+                            reason => localized_note(
+                                N_l('Characters cannot have an end date nor area ' .
+                                    'nor be marked as ended.'),
+                            ),
+                        },
+                    ),
+                },
+            );
+        } else {
+            $self->c->model('EditNote')->add_note(
+                $self->id => {
+                    editor_id => $EDITOR_MODBOT,
+                    text => localized_note(
+                        N_l('The “{artist_type}” type has not been added to the ' .
+                            'destination artist because it conflicted with the ' .
+                            'gender setting of one of the artists here. Group ' .
+                            'artists cannot have a gender.'),
+                        vars => {
+                            artist_type => localized_note(
+                                $dropped_type->name,
+                                function => 'lp',
+                                domain => 'attributes',
+                                args => ['artist_type'],
+                            ),
+                        },
+                    ),
+                },
+            );
+        }
     }
 
     if ($dropped_columns->{gender}) {
@@ -104,6 +134,60 @@ sub do_merge
                             function => 'lp',
                             domain => 'attributes',
                             args => ['gender'],
+                        ),
+                    },
+                ),
+            },
+        );
+    }
+
+    my $dropped_ended = defined $dropped_columns->{ended};
+
+    if ($dropped_ended ||
+        $dropped_columns->{end_date} ||
+        $dropped_columns->{end_area}
+    ) {
+        my $dropped_area = $dropped_columns->{end_area}
+            ? $self->c->model('Area')->get_by_id($dropped_columns->{end_area})
+            : undef;
+
+        my $dropped_data = [];
+
+        if ($dropped_ended) {
+            push @$dropped_data, localized_note( N_l('Ended: Yes') );
+        }
+
+        if ($dropped_columns->{end_date}) {
+            push @$dropped_data, localized_note(
+                N_l('End date: {end_date}'),
+                vars => { end_date => $dropped_columns->{end_date} },
+            );
+        }
+
+        if ($dropped_area) {
+            push @$dropped_data, localized_note(
+                N_l('End area: {end_area}'),
+                vars => { end_area => $dropped_area->name },
+            );
+        }
+
+        $self->c->model('EditNote')->add_note(
+            $self->id => {
+                editor_id => $EDITOR_MODBOT,
+                text => localized_note(
+                    N_l('The following data has not been added to the destination ' .
+                        'artist because it conflicted with other data: ' .
+                        '{dropped_data}. {reason}'),
+                    vars => {
+                        dropped_data => localized_note(
+                            undef,
+                            function => 'comma_list',
+                            domain => 'mb_server',
+                            args => $dropped_data,
+                        ),
+                        reason => localized_note(
+                            N_l('Characters cannot have an end date nor area ' .
+                                'nor be marked as ended.'),
                         ),
                     },
                 ),
