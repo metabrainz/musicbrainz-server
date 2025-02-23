@@ -8,6 +8,7 @@
  */
 
 import Layout from '../layout/index.js';
+import manifest from '../static/manifest.mjs';
 import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 
@@ -52,6 +53,9 @@ component CancelEdit(
           </button>
         </div>
       </form>
+
+      {manifest('common/loadArtwork', {async: 'async'})}
+      {manifest('common/artworkViewer', {async: 'async'})}
     </Layout>
   );
 }

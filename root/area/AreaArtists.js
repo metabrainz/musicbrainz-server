@@ -12,6 +12,7 @@ import * as React from 'react';
 import ArtistList from '../components/list/ArtistList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
@@ -54,6 +55,8 @@ component AreaArtists(
           {l('This area is not currently associated with any artists.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
+      {manifest('common/ratings', {async: 'async'})}
     </AreaLayout>
   );
 }

@@ -1,5 +1,5 @@
 /*
- * @flow strict
+ * @flow
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,3 +9,8 @@
 
 import './RecordingName.js';
 import '../edit/components/FormRowTextList.js';
+import '../edit/validation.js';
+
+import {initGuessFeatButton} from '../edit/utility/guessFeat.js';
+
+initGuessFeatButton('edit-recording');

@@ -1,5 +1,5 @@
 /*
- * @flow strict
+ * @flow strict-local
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,11 +9,16 @@
 
 import Jed from 'jed';
 
+import jedDataTemplate from '../jedDataTemplate.mjs';
+import {
+  cloneObjectDeep,
+} from '../static/scripts/common/utility/cloneDeep.mjs';
 import nonEmpty from '../static/scripts/common/utility/nonEmpty.js';
-import jedData from '../static/scripts/jed-data.mjs';
 import invariant from '../utility/invariant.js';
 
 import * as poFile from './gettext/poFile.mjs';
+
+const jedData = cloneObjectDeep(jedDataTemplate);
 
 export const jedInstance: Jed = new Jed(jedData.en);
 jedInstance.locale = 'en';

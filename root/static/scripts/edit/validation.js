@@ -8,8 +8,6 @@
 
 import ko from 'knockout';
 
-import MB from '../common/MB.js';
-
 export const errorFields = ko.observableArray([]);
 
 export function errorField(func) {
@@ -29,13 +27,6 @@ export const errorsExist = ko.computed(function () {
 
   return false;
 });
-
-// XXX needed by inline scripts
-MB.validation = {
-  errorField,
-  errorFields,
-  errorsExist,
-};
 
 if (typeof document !== 'undefined') {
   const $ = require('jquery');
