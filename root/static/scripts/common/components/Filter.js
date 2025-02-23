@@ -78,5 +78,5 @@ component Filter(
 
 export default (
   hydrate<React.PropsOf<Filter>>('div.filter', Filter):
-  React.AbstractComponent<React.PropsOf<Filter>>
+  React.ComponentType<React.PropsOf<Filter>>
 );

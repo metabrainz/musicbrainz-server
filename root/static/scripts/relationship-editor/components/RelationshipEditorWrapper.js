@@ -57,7 +57,7 @@ component _RelationshipEditorWrapper(...props: PropsT) {
 }
 
 export const NonHydratedRelationshipEditorWrapper:
-  React.AbstractComponent<PropsT> =
+  React.ComponentType<PropsT> =
   withLoadedTypeInfoForRelationshipEditor<PropsT>(
     _RelationshipEditorWrapper,
   );
@@ -65,6 +65,6 @@ export const NonHydratedRelationshipEditorWrapper:
 const RelationshipEditorWrapper = (hydrate<PropsT>(
   'div.relationship-editor',
   NonHydratedRelationshipEditorWrapper,
-): React.AbstractComponent<PropsT>);
+): React.ComponentType<PropsT>);
 
 export default RelationshipEditorWrapper;
