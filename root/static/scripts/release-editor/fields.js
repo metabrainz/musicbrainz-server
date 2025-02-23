@@ -72,7 +72,7 @@ class Track {
      * Check that the track has a valid ID to avoid treating a newly-added
      * title as original when seeding a new release (see MBS-13920).
      */
-    this.hasFeatOnOrigTitle =
+    this.hasFeatInOrigTitle =
       isDatabaseRowId(this.id) &&
       featRegex.test(data.name.replace(bracketRegex, ' '));
 
@@ -366,7 +366,7 @@ class Track {
     return hasVariousArtists(this.artistCredit());
   }
 
-  hasFeatOnTitle() {
+  hasFeatInTitle() {
     return featRegex.test(this.name().replace(bracketRegex, ' '));
   }
 
@@ -498,22 +498,22 @@ class Medium {
       return self.tracksUnknownToUser() ||
              self.tracks().every(t => t.hasTitle());
     });
-    this.hasVariousArtistTracks = ko.computed(function () {
+    this.hasVariousArtistsTracks = ko.computed(function () {
       return !self.tracksUnknownToUser() &&
              self.tracks().some(t => t.hasVariousArtists());
     });
     this.confirmedVariousArtists = ko.observable(false);
-    this.hasFeatOnTrackTitles = ko.computed(function () {
+    this.hasFeatInTrackTitles = ko.computed(function () {
       return !self.tracksUnknownToUser() &&
-             self.tracks().some(t => t.hasFeatOnTitle());
+             self.tracks().some(t => t.hasFeatInTitle());
     });
-    this.hasAddedFeatOnTrackTitles = ko.computed(function () {
-      return self.hasFeatOnTrackTitles() &&
+    this.hasAddedFeatInTrackTitles = ko.computed(function () {
+      return self.hasFeatInTrackTitles() &&
              self.tracks().some(
-               t => !t.hasFeatOnOrigTitle && t.hasFeatOnTitle(),
+               t => !t.hasFeatInOrigTitle && t.hasFeatInTitle(),
              );
     });
-    this.confirmedFeatOnTrackTitles = ko.observable(false);
+    this.confirmedFeatInTrackTitles = ko.observable(false);
     this.hasTooEarlyFormat = ko.computed(function () {
       const mediumFormatDate = MB.mediumFormatDates[self.formatID()];
       return Boolean(mediumFormatDate && self.release.earliestYear() &&
@@ -610,24 +610,24 @@ class Medium {
     });
 
     this.hasUnconfirmedVariousArtists = ko.computed(function () {
-      return (self.hasVariousArtistTracks() &&
+      return (self.hasVariousArtistsTracks() &&
               !self.confirmedVariousArtists());
     });
 
-    this.hasUnconfirmedFeatOnTrackTitles = ko.computed(function () {
-      return (self.hasAddedFeatOnTrackTitles() &&
-              !self.confirmedFeatOnTrackTitles());
+    this.hasUnconfirmedFeatInTrackTitles = ko.computed(function () {
+      return (self.hasAddedFeatInTrackTitles() &&
+              !self.confirmedFeatInTrackTitles());
     });
 
-    this.hasVariousArtistTracks.subscribe(function (value) {
+    this.hasVariousArtistsTracks.subscribe(function (value) {
       if (!value) {
         self.confirmedVariousArtists(false);
       }
     });
 
-    this.hasFeatOnTrackTitles.subscribe(function (value) {
+    this.hasFeatInTrackTitles.subscribe(function (value) {
       if (!value) {
-        self.confirmedFeatOnTrackTitles(false);
+        self.confirmedFeatInTrackTitles(false);
       }
     });
 
@@ -819,8 +819,8 @@ class Medium {
     this.loaded(true);
     this.loading(false);
     this.collapsed(false);
-    this.confirmedVariousArtists(this.hasVariousArtistTracks());
-    this.confirmedFeatOnTrackTitles(this.hasFeatOnTrackTitles());
+    this.confirmedVariousArtists(this.hasVariousArtistsTracks());
+    this.confirmedFeatInTrackTitles(this.hasFeatInTrackTitles());
   }
 
   hasTracks() {
@@ -1180,8 +1180,8 @@ class Release extends mbEntity.Release {
     this.hasUnconfirmedVariousArtists = errorField(
       this.mediums.any('hasUnconfirmedVariousArtists'),
     );
-    this.hasUnconfirmedFeatOnTrackTitles = errorField(
-      this.mediums.any('hasUnconfirmedFeatOnTrackTitles'),
+    this.hasUnconfirmedFeatInTrackTitles = errorField(
+      this.mediums.any('hasUnconfirmedFeatInTrackTitles'),
     );
     this.needsMediums = errorField(function () {
       return !(self.mediums().length || self.hasUnknownTracklist());

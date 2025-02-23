@@ -401,16 +401,16 @@
       </div>
     <!-- /ko -->
 
-    <!-- ko if: hasVariousArtistTracks -->
+    <!-- ko if: hasVariousArtistsTracks -->
       <div class="various-artists warning">
         [%- warning_icon %]
         <p>
           <strong>[% add_colon(l('Warning')) | html_entity %]</strong>
-          [% l('You’ve used the {valink|Various Artists} special purpose artist on some tracks below. {valink|Various Artists} should very rarely be used on tracks; please make sure the artists have been entered correctly.', { valink => { href => va_doc_link, target => '_blank' } }) %]
+          [% l('You’ve used the {valink|Various Artists} special purpose artist for some tracks below. {valink|Various Artists} should very rarely be used for tracks; please make sure the artists have been entered correctly.', { valink => { href => va_doc_link, target => '_blank' } }) %]
         </p>
         <label>
           <input id="confirm-va" type="checkbox" data-bind="checked: confirmedVariousArtists" />
-          [% l('I confirm this is an intentional use of Various Artists on tracks.') %]
+          [% l('I confirm this is an intentional use of Various Artists for tracks.') %]
         </label>
         <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: hasUnconfirmedVariousArtists">
           [%~ l('If you’re sure the use of Various Artists is correct, confirm it above. Otherwise, please fix the data.') %]
@@ -418,20 +418,20 @@
       </div>
     <!-- /ko -->
 
-    <!-- ko if: hasFeatOnTrackTitles -->
+    <!-- ko if: hasFeatInTrackTitles -->
       <div class="feat-titles warning">
         [%- warning_icon %]
         <p>
           <strong>[% l('Warning:') | html_entity %]</strong>
-          [% l('This medium seems to have featured artists on the track titles. These should usually be {featured_style|entered as part of the track artist}.', { featured_style => { href => doc_link('Style/Artist_Credits'), target => '_blank' } }) %]
+          [% l('This medium seems to have featured artists in the track titles. These should usually be {featured_style|entered as part of the track artist}.', { featured_style => { href => doc_link('Style/Artist_Credits'), target => '_blank' } }) %]
         </p>
-        <!-- ko if: hasAddedFeatOnTrackTitles -->
+        <!-- ko if: hasAddedFeatInTrackTitles -->
           <label>
-            <input id="confirm-feat" type="checkbox" data-bind="checked: confirmedFeatOnTrackTitles" />
-            [% l('I confirm this is an intentional use of featured artists on track titles, or that these aren’t actually featured artists.') %]
+            <input id="confirm-feat" type="checkbox" data-bind="checked: confirmedFeatInTrackTitles" />
+            [% l('I confirm this is an intentional use of featured artists in track titles, or that these aren’t actually featured artists.') %]
           </label>
-          <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: hasUnconfirmedFeatOnTrackTitles">
-            [%~ l('If you’re sure the use of featured artists on track titles is correct, confirm it above. Otherwise, please fix the data (the “Guess feat. artists” button might help!).') %]
+          <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: hasUnconfirmedFeatInTrackTitles">
+            [%~ l('If you’re sure the use of featured artists in track titles is correct, confirm it above. Otherwise, please fix the data (the “Guess feat. artists” button might help!).') %]
           </p>
         <!-- /ko -->
       </div>
