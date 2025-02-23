@@ -45,6 +45,7 @@ test 'basic url lookup' => sub {
                         disambiguation => '',
                         'type' => 'Person',
                         'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
+                        country => 'US',
                     },
                     ended => JSON::false,
                     begin => JSON::null,
