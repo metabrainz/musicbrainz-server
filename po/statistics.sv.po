@@ -58,8 +58,8 @@ msgstr "Databasstatistik - {title}"
 msgid "Draw a rectangle on either graph"
 msgstr "Rita en rektangel på varje graf"
 
-#: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:88
-#: ../root/statistics/Editors.js:100 ../root/statistics/Index.js:1125
+#: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:90
+#: ../root/statistics/Editors.js:102 ../root/statistics/Index.js:1125
 msgid "Editors"
 msgstr "Redigerare"
 
@@ -131,7 +131,7 @@ msgstr "Tidslinjegraf"
 msgid "Zoom:"
 msgstr "Zoom:"
 
-#: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:91
+#: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:93
 #: ../root/statistics/Edits.js:32 ../root/statistics/Formats.js:41
 #: ../root/statistics/Images.js:73 ../root/statistics/Index.js:66
 #: ../root/statistics/LanguagesScripts.js:46
@@ -160,49 +160,69 @@ msgstr "Okänt land"
 msgid "There is no data to display here."
 msgstr "Det finns ingen data att visa här."
 
-#: ../root/statistics/Editors.js:94
+#: ../root/statistics/Editors.js:96
 msgid ""
 "For the vote statistics, only yes or no votes are counted, abstain votes are "
 "not counted."
 msgstr ""
 
-#: ../root/statistics/Editors.js:102
+#: ../root/statistics/Editors.js:104
 msgid "Open and applied edits in past week"
 msgstr "Öppnade och tillämpade redigeringar under senaste veckan."
 
-#: ../root/statistics/Editors.js:105
+#: ../root/statistics/Editors.js:107
 msgid "Most active editors in the past week"
 msgstr ""
 
-#: ../root/statistics/Editors.js:108
+#: ../root/statistics/Editors.js:110
+#, fuzzy
+#| msgid "Open and applied edits in past week"
+msgid "Applied edits in past year"
+msgstr "Öppnade och tillämpade redigeringar under senaste veckan."
+
+#: ../root/statistics/Editors.js:113
+msgid "Most active editors in the past year"
+msgstr ""
+
+#: ../root/statistics/Editors.js:116
 msgid "Total applied edits"
 msgstr ""
 
-#: ../root/statistics/Editors.js:111
+#: ../root/statistics/Editors.js:119
 msgid "Top editors overall"
 msgstr ""
 
-#: ../root/statistics/Editors.js:117
+#: ../root/statistics/Editors.js:125
 msgid "Voters"
 msgstr "Röstare"
 
-#: ../root/statistics/Editors.js:119
+#: ../root/statistics/Editors.js:127
 msgid "Votes in past week"
 msgstr "Röster under senaste veckan"
 
-#: ../root/statistics/Editors.js:121 ../root/statistics/Editors.js:127
+#: ../root/statistics/Editors.js:129 ../root/statistics/Editors.js:141
 msgid "Voter"
 msgstr "Röstare"
 
-#: ../root/statistics/Editors.js:122
+#: ../root/statistics/Editors.js:130
 msgid "Most active voters in the past week"
 msgstr ""
 
-#: ../root/statistics/Editors.js:125
+#: ../root/statistics/Editors.js:133
+#, fuzzy
+#| msgid "Votes in past week"
+msgid "Votes in past year"
+msgstr "Röster under senaste veckan"
+
+#: ../root/statistics/Editors.js:136
+msgid "Most active voters in the past year"
+msgstr ""
+
+#: ../root/statistics/Editors.js:139
 msgid "Total votes"
 msgstr "Totala röster"
 
-#: ../root/statistics/Editors.js:128
+#: ../root/statistics/Editors.js:142
 msgid "Top voters overall"
 msgstr ""
 

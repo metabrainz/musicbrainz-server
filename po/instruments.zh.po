@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-02-13 21:44+0000\n"
+"PO-Revision-Date: 2025-02-20 21:44+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instruments/zh_Hans/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -465,11 +465,11 @@ msgstr "巴拉莱卡琴"
 
 #: DB:instrument/name:193
 msgid "bandoneón"
-msgstr "班多钮琴"
+msgstr "班顿里昂"
 
 #: DB:instrument/name:488
 msgid "bandora"
-msgstr "班多拉琴"
+msgstr "bandora"
 
 #: DB:instrument/name:394
 msgctxt "Ukraininan lute-zither"

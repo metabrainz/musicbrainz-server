@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-02-10 08:44+0000\n"
-"Last-Translator: Ral Hole <ral-hole@outlook.com>\n"
+"PO-Revision-Date: 2025-02-20 21:44+0000\n"
+"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
 "zh_Hans/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -45,23 +45,25 @@ msgid ""
 "the medieval European pear-shaped fiddle see <a href=\"/instrument/3f7302e4-"
 "f10f-4905-8d71-ef61141da383\">rebec</a>."
 msgstr ""
-"\"Rebab\"(及其变体拼写)是指主要属于以下三种弓弦或拨弦乐器家族的乐器:<br "
-"/><ul><li>大型短颈船形“sarinda”型, 代表乐器：卡布里雷巴卜 kabuli "
-"rebab</li><li>小型长颈尖琴“huqin”型, 代表乐器：印尼雷巴卜 Indonesian "
-"rehab</li><li>大小不一、颈长各异的梨形状的“Cretan lyra”型, 代表乐器： "
-"弓弦鲁特琴 bowed lutes</li></ul><br /><br />由于名称的交叉使用，这些乐器在大"
-"多数资料中常常被混淆。这种混淆甚至扩展到相关但名称不同或相似的乐器，比如<a "
-"href=\"/instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">艾捷克琴</a> "
-"(一种尖琴)，还有<a href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\""
-">盖查克 Ghaychak</a>(船形的)<br "
-"/>目前尚不清楚这三种亚型之间是否存在关联，以及如何关联。<br /><br "
-"/>用于甘美兰音乐的尖琴，见<a href=\"/instrument/3dbbb5ff-103b-4260-8cf6-"
-"679a73a7c552\">印尼雷巴卜 Indonesian rehab</a>。<br />拨弦的船形阿富汗乐器，"
-"又叫做卡布里雷巴卜 kabuli rebab，见<a href=\"/instrument/7e42e637-c7b4-422c-"
-"ad56-f7fafbd961bb\">鲁巴卜 rubab</a>。<br />中世纪印度拨弦鲁特琴，见<a href="
-"\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">塞尼雷巴卜 seni "
-"rebab</a>。<br />中世纪欧洲的梨形提琴，见<a href=\"/instrument/"
-"3f7302e4-f10f-4905-8d71-ef61141da383\">雷贝克 rebec</a>。"
+"\"Rebab\"（及其他变体拼写）主要指以下三类弓弦或拨弦乐器家族： <br /> <ul> "
+"<li>L大型、短颈、舟形的 \"sarinda\" 类型，此处指 Kabuli Rebab。</li> <li>"
+"小型长颈钉琴\"huqyin"
+"\" 类型，此处指 印尼Rebab。</li> <li>不同尺寸、颈长各异、梨形的 \"Cretan "
+"Lyra\" 类型，此处指 bowed lutes proper。</li> </ul> <br /> <br /> "
+"由于名称的交叉使用，这些乐器在大多数资料中常被混淆。更有趣的是，这种混淆还延"
+"伸到其他相关但名称独立或相似的乐器，例如 <a href="
+"\"/instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">Ghijak</a> (一种钉琴）"
+"和 <a href=\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">Ghaychak</a> "
+"（一种舟形乐器）。<br /> "
+"目前尚不清楚这三种子类型之间是否存在联系，或者它们的关系如何。<br /> <br /> "
+"对于用于加美兰（Gamelan）音乐的钉琴，请参阅 <a href="
+"\"/instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">印尼Rebab</a>。<br /> "
+"对于阿富汗的拨弦舟形乐器，也被称为 Kabuli Rabab，请参阅 <a href="
+"\"/instrument/7e42e637-c7b4-422c-ad56-f7fafbd961bb\">rubab</a>。<br /> "
+"对于中世纪印度的拨弦琉特，请参阅 <a href="
+"\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">Seni rebab</a>。<br /> "
+"F对于中世纪欧洲的梨形弓弦琴，请参阅 <a href="
+"\"/instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a>。"
 
 #. name:chitra veena
 #: DB:instrument/description:744
@@ -75,44 +77,46 @@ msgid ""
 "veena</a>, chitra veena is to the <a href=\"/instrument/41761936-5dbc-433f-"
 "b558-a7ef14fe9b08\">Saraswati veena</a>."
 msgstr ""
-"13世纪或者更早时期的南印度无品滑音鲁特琴，用于卡纳蒂克音乐。空心的琴身使用菠"
-"萝蜜制成并带有使用空葫芦支撑的第二共鸣腔，有6根主弦，3根持续音弦以及11-12根共"
-"鸣弦和硬木质调音滑块。齐特拉维纳琴与<a href=\"/instrument/41761936-5dbc-433f-"
-"b558-a7ef14fe9b08\">娑罗室伐底维纳琴</a>的关系与<a href=\"/instrument/"
-"b4d38ac1-7f12-437c-a61a-be2796ffc559\">维齐特拉维纳琴</a>和<a href=\"/"
-"instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">楼陀罗维纳琴</a>的关系类"
-"似。"
+"13世纪或更早时期的南印度无品滑音琉特，用于卡纳提克音乐。其共鸣箱由菠萝蜜木制"
+"成，并带有一个由中空葫芦制成的辅助共鸣器。该乐器拥有 6 根主弦、3 根嗡鸣弦，"
+"以及 11-12 根共鸣弦，演奏时通过硬木滑块变换音高。 正如北印度的 <a href="
+"\"/instrument/b4d38ac1-7f12-437c-a61a-be2796ffc559\">维奇特拉维纳</a> 对应于 "
+"<a href=\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">鲁德拉维纳</a>，"
+"奇特拉维纳则对应于 <a href="
+"\"/instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">萨拉斯瓦蒂维纳</a>。"
 
 #. name:kös
 #: DB:instrument/description:739
 msgid "A Turkish drum used in the traditional Ottoman military bands."
-msgstr "传统奥斯曼军乐队使用的一种鼓。"
+msgstr "一种土耳其鼓，常用于传统奥斯曼军乐队演奏。"
 
 #. name:tef
 #: DB:instrument/description:531
 msgid ""
 "A Turkish version of tambourine / daf, made from animal skin and played with "
 "the fingers."
-msgstr "土耳其版的铃鼓/达甫，由动物皮制成，用手指弹奏。"
+msgstr "一种土耳其版本的手鼓（tambourine / daf），由动物皮制成，使用手指演奏。"
 
 #. name:barrel organ
 #: DB:instrument/description:490
 msgid ""
 "A barrel organ is a mechanical musical instrument typically operated by a "
 "person turning a crank which turns a barrel which has music encoded onto it."
-msgstr "手摇风琴是一种一般由人摇曲柄驱动编码有音乐的转筒的机械式乐器。"
+msgstr ""
+"桶风琴是一种机械音乐器，通常由人转动曲柄操作，曲柄带动桶转动，桶风琴上的桶上"
+"刻有音乐的孔或凹槽，随着桶的转动，这些孔或凹槽会触发音簧或管子以此发出声音。"
 
 #. name:bass synthesizer
 #: DB:instrument/description:456
 msgid "A bass synthesizer is used to create sounds in the bass range."
-msgstr "低音合成器用于产生低音音域的声音。"
+msgstr "低音合成器用于产生低音范围的声音。"
 
 #. name:bell tree
 #: DB:instrument/description:479
 msgid ""
 "A bell tree is a percussion instrument, consisting of vertically nested "
 "inverted metal bowls."
-msgstr "铃树是一种打击乐器，含有垂直排布的倒置金属碗。"
+msgstr "铃铛树是一种打击乐器，由垂直嵌套的倒置金属碗组成。"
 
 #. name:chamber organ
 #: DB:instrument/description:471
@@ -122,65 +126,67 @@ msgstr "室风琴是一种小型管风琴。"
 #. name:cuatro
 #: DB:instrument/description:439
 msgid "A class of South-American guitars."
-msgstr "一类南美洲吉他。"
+msgstr "一个南美洲吉他的种类。"
 
 #. name:saduk
 #: DB:instrument/description:804
 msgid ""
 "A cross between a saxophone and a duduk invented and played by Alexander "
 "Berne."
-msgstr "一种萨克斯和杜读管的杂交乐器，由亚历山大·伯尔尼发明并演奏。"
+msgstr "由亚历山大 · 伯恩（Alexander "
+"Berne）发明并演奏的乐器，结合了萨克斯风和杜杜克的特点。"
 
 #. name:cylindrical drum
 #: DB:instrument/description:658
 msgid "A cylindrical drum is a straight-sided and generally two-headed drum."
-msgstr "圆柱形鼓是侧面呈直线状，通常为双面的鼓。"
+msgstr "圆柱鼓是一种直筒形的通常有两面鼓皮的鼓。"
 
 #. name:dolceola
 #: DB:instrument/description:750
 msgid ""
 "A dolceola is a musical instrument resembling a miniature piano, but which "
 "is in fact a zither with a keyboard."
-msgstr "多尔绰拉琴是一种形似小型钢琴的乐器，实质是带有键盘的齐特琴。"
+msgstr "多尔绰拉琴是一种类似迷你钢琴的乐器，但实际上它是一个带有键盘的齐特琴。"
 
 #. name:gong bass drum
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
-msgstr "锣低音鼓是一个形似锣的大型单一鼓面。"
+msgstr "锣低音鼓(又称锣鼓)是一种使用单个大型鼓皮的鼓，外形类似锣。"
 
 #. name:guitar synthesizer
 #: DB:instrument/description:763
 msgid ""
 "A guitar synthesizer is any one of a number of systems that allow a guitar "
 "player to play synthesizer sound."
-msgstr "吉他合成器是诸多可由吉他演奏者演奏合成器音色的系统之一。"
+msgstr "吉他合成器是指一类系统，允许吉他手演奏合成器音效的设备。"
 
 #. name:hi-hat
 #: DB:instrument/description:454
 msgid ""
 "A hi-hat is a typical part of a drum kit, consisting of a pair of cymbals "
 "mounted on a stand."
-msgstr "踩镲是爵士鼓的典型部件，包含安装在架子上的的一对钹。"
+msgstr "脚踏钹是鼓组中的典型组成部分，由一对安装在支架上的钹组成。"
 
 #. name:poi āwhiowhio
 #: DB:instrument/description:792
 msgid ""
 "A hollowed out gourd (hue) with one to three holes, swung around creating a "
 "whistling, chattering sound that resembled birds."
-msgstr "开有一至三个孔的葫芦(hue)，摇晃以发出类似于鸟叫的叽叽喳喳的哨声。"
+msgstr "由中空的葫芦制成，在两侧钻孔，并系上绳索。演奏时，演奏者可挥舞绳索，使乐器在"
+"空中旋转，发出类似啸声或喋喋不休的声音，从而吸引鸟类。"
 
 #. name:17-string bass koto
 #: DB:instrument/description:516
 msgid ""
 "A koto with 17 rather than 13 strings, sometimes described as a bass koto."
-msgstr "有17而非13根弦的日本筝，有时称为低音日本筝。"
+msgstr "17弦低音箏 是一种拥有 17 根弦（而非传统的 13 根弦）的箏，有时被称为低音箏。"
 
 #. name:daire
 #: DB:instrument/description:532
 msgid ""
 "A larger version of tef, used to indicate the rhythmic structures (usul) in "
 "makam music."
-msgstr "较大型的台甫，(通常)用于在木卡姆音乐中指明节奏结构。"
+msgstr "Tef的较大版本，在 Makam音乐中用于标示节奏结构。"
 
 #. name:laser harp
 #: DB:instrument/description:515
@@ -188,14 +194,16 @@ msgid ""
 "A laser harp is an electronic musical instrument consisting of several laser "
 "beams to be blocked, in analogy with the plucking of the strings of a harp, "
 "in order to produce sounds."
-msgstr "激光竖琴是包含数根激光束的电子乐器，以遮挡光束模拟拨动竖琴弦而发声。"
+msgstr "激光竖琴 "
+"是一种电子乐器，由多束激光组成，演奏者通过阻挡激光束（类似于拨动竖琴的琴弦）"
+"来产生声音。"
 
 #. name:đàn tứ dây
 #: DB:instrument/description:233
 msgid ""
 "A latter-day construction in the form of a four-stringed, square-bodied bass "
 "guitar."
-msgstr "近代发明的四弦方体低音吉他。"
+msgstr "一种现代构造的四弦方形低音吉他。"
 
 #. name:pōrutu
 #: DB:instrument/description:787
@@ -204,39 +212,41 @@ msgid ""
 "length and often made of bone and hardwoods such as porokaiwhiria, mataī and "
 "tutu."
 msgstr ""
-"加长版的科奥奥，长度从30-40厘米到60厘米不等，常由骨头和蜜盘桂，新西兰黑松和新"
-"西兰马桑一类硬木制成。"
+"Kōauau 的加长版本，通常长度在 38 至 57 厘米（15 至 22 "
+"英寸）之间。其音色取决于制作材料，使用新西兰本土硬木（如 Mānuka、Mataī 或 "
+"Black Maire）可以产生清晰的共鸣效果。与 Pūtorino 类似，Pōrutu "
+"具有两种声音——雄声（类似小号）和雌声（类似长笛）。根据管腔的结构，雌声可产生"
+"多达五种泛音。"
 
 #. name:ngɔni
 #: DB:instrument/description:729
 msgid "A lute from West Africa, made of wood or gourd."
-msgstr "一种西非鲁特琴，由木材或葫芦制成。"
+msgstr "一种来自西非的鲁特琴，由木材或葫芦制成。"
 
 #. name:mandolute
 #: DB:instrument/description:766
 msgid ""
 "A mandolute is a North African fretted string instrument which combines a "
 "traditional oud string format with five pairs of metal strings."
-msgstr "曼陀鲁特是一种北非有品弦乐器，结合传统乌德琴样式及五对金属弦。"
+msgstr "Mandolute 是一种北非的品丝弦乐器，结合了传统乌德琴的弦制，并采用五对金属弦。"
 
 #. name:mouth organ
 #: DB:instrument/description:610
 msgid ""
 "A mouth organ is a generic term for free reed aerophone with one or more air "
 "chambers fitted with a free reed."
-msgstr ""
-"口琴类是构造上包含一个或多个气室和一个自由簧的一类自由簧气鸣乐器的统称。"
+msgstr "口风琴是指一类自由簧气鸣乐器，它有一个或多个气室，气室内装有自由簧。"
 
 #. name:bowed piano
 #: DB:instrument/description:504
 msgid ""
 "A piano whose strings are bowed, using nylon filament or other materials."
-msgstr "用弓拉弦的钢琴，使用尼龙丝或其他材料制成。"
+msgstr "一种通过弓弦演奏的钢琴，使用尼龙纤维或其他材料的弓来摩擦钢琴的弦。"
 
 #. name:theatre organ
 #: DB:instrument/description:347
 msgid "A pipe organ, such as the Wurlitzer, meant to accompany early films."
-msgstr "一种管风琴，比如沃利策风琴（Wurlitzer），用于早期电影伴奏。"
+msgstr "一种管风琴，例如 Wurlitzer，旨在为早期电影伴奏。"
 
 #. name:prepared piano
 #: DB:instrument/description:481
@@ -244,14 +254,16 @@ msgid ""
 "A prepared piano is a piano that has had its sound altered by placing "
 "objects (preparations) between or on the strings or on the hammers or "
 "dampers."
-msgstr "预调钢琴是通过在琴弦，击弦机或制音器上加装物件(预调)以改变声音的钢琴。"
+msgstr "准备钢琴 "
+"是一种通过在琴弦之间、琴槌或琴键上放置物体（称为“准备物”）来改变其声音的钢琴"
+"。"
 
 #. name:pūpakapaka
 #: DB:instrument/description:861
 msgid ""
 "A pūtātara with a long wooden mouth piece, it has a deeper timbre than the "
 "pūtātara."
-msgstr "具有长的木质吹口的普塔塔拉，音色比普塔塔拉重。"
+msgstr "一种带有长木质吹嘴的 pūtātara，其音色比普通 pūtātara 更加低沉。"
 
 #. name:chirimía
 #: DB:instrument/description:821
