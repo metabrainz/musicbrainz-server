@@ -42,24 +42,6 @@ has 'artists' => (
     },
 );
 
-# TODO: Remove this after the next MBS release
-has 'writers' => (
-    traits => [ 'Array' ],
-    is => 'ro',
-    isa => ArrayRef[
-        Dict[
-            credit => Str,
-            roles => ArrayRef[Str],
-            entity => Object,
-        ],
-    ],
-    default => sub { [] },
-    handles => {
-        add_writer => 'push',
-        all_writers => 'elements',
-    },
-);
-
 has 'authors' => (
     traits => [ 'Array' ],
     is => 'ro',
