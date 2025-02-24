@@ -96,7 +96,7 @@ lookup_handler 'mbid' => sub {
 lookup_handler 'url' => sub {
     my ($self, $c, $url) = @_;
 
-    my ($entity) = $c->model('URL')->find_by_url($url);
+    my $entity = $c->model('URL')->find_by_url($url);
     if (defined $entity) {
         $c->response->redirect(
             $c->uri_for_action(
