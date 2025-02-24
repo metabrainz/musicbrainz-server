@@ -2,11 +2,12 @@
 # Translators:
 # Piotr Myśliński <email address hidden>, 2013
 # Echelon666 <echelon01@wp.pl>, 2024.
+# PS123 <adres2015@wp.pl>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-08 23:42+0000\n"
-"Last-Translator: Echelon666 <echelon01@wp.pl>\n"
+"PO-Revision-Date: 2025-02-11 00:44+0000\n"
+"Last-Translator: PS123 <adres2015@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/pl/>\n"
 "Language: pl\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
 "n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -3452,7 +3453,7 @@ msgstr ""
 "skrzypiec opracowanych głównie przez Carleen Hutchins, z których każde jest "
 "oparte bezpośrednio na standardowych skrzypcach i ich właściwościach "
 "akustycznych, dzięki czemu ich dźwięk ma bardziej jednorodną wysokość „w "
-"pobliżu dwóch środkowych otwartych strun”."
+"pobliżu dwóch środkowych otwartych strun.”"
 
 #. name:kōauau ponga ihu
 #: DB:instrument/description:856

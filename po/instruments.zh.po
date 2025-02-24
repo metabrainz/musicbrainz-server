@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-02-09 17:44+0000\n"
-"Last-Translator: Ral Hole <ral-hole@outlook.com>\n"
+"PO-Revision-Date: 2025-02-20 21:44+0000\n"
+"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instruments/zh_Hans/>\n"
 "Language: zh\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -465,11 +465,11 @@ msgstr "巴拉莱卡琴"
 
 #: DB:instrument/name:193
 msgid "bandoneón"
-msgstr "班多钮琴"
+msgstr "班顿里昂"
 
 #: DB:instrument/name:488
 msgid "bandora"
-msgstr "班多拉琴"
+msgstr "bandora"
 
 #: DB:instrument/name:394
 msgctxt "Ukraininan lute-zither"
@@ -1615,7 +1615,7 @@ msgstr "笛子"
 
 #: DB:instrument/name:1074
 msgid "flutina"
-msgstr ""
+msgstr "南美小横笛"
 
 #: DB:instrument/name:415
 msgid "flûte d'amour"
@@ -1693,7 +1693,7 @@ msgstr "阿斯图里亚斯风笛"
 #: DB:instrument/name:1081
 msgctxt "Cloth covered Aragonese bagpipe"
 msgid "gaita de boto"
-msgstr ""
+msgstr "河马皮风笛"
 
 #: DB:instrument/name:1079
 msgctxt "Two to three drone Galician bagpipe"
@@ -1703,12 +1703,12 @@ msgstr "加利西亚风笛"
 #: DB:instrument/name:1078
 msgctxt "Small single drone Sanabrian bagpipe"
 msgid "gaita sanabresa"
-msgstr ""
+msgstr "圣地亚哥风笛"
 
 #: DB:instrument/name:1114
 msgctxt "Large Silesian bellow-blown bagpipe"
 msgid "gajdy"
-msgstr ""
+msgstr "波兰高地风笛"
 
 #: DB:instrument/name:977
 msgctxt "Indonesian wood box-resonated xylophone"
@@ -1750,7 +1750,7 @@ msgstr "加克莱因竖笛"
 #: DB:instrument/name:1075
 msgctxt "Russian diatonic folk accordion"
 msgid "garmon"
-msgstr ""
+msgstr "俄罗斯手风琴"
 
 #: DB:instrument/name:75
 msgid "gayageum"
@@ -2080,7 +2080,7 @@ msgstr "瑞典哨笛"
 #: DB:instrument/name:1205
 msgctxt "Small German Renaissance bagpipe"
 msgid "hümmelchen"
-msgstr ""
+msgstr "德国小风笛"
 
 #: DB:instrument/name:674
 msgid "idiophone"
@@ -2650,17 +2650,14 @@ msgid "marímbula"
 msgstr "马林布拉"
 
 #: DB:instrument/name:1208
-#, fuzzy
-#| msgctxt "Latin-American tube rattle"
-#| msgid "shakers"
 msgctxt "Northern Indian bagpipe"
 msgid "mashak"
-msgstr "沙铃类"
+msgstr "北印度袋风笛"
 
 #: DB:instrument/name:1199
 msgctxt "Belorussian duda"
 msgid "matstsyanka"
-msgstr ""
+msgstr "白俄罗斯风笛"
 
 #: DB:instrument/name:85
 msgid "mbira"
@@ -2698,7 +2695,7 @@ msgstr "铁琴"
 #: DB:instrument/name:1209
 msgctxt "Tunisian and Algerian bagpipe"
 msgid "mezwed"
-msgstr ""
+msgstr "阿尔及利亚风笛"
 
 #: DB:instrument/name:876
 msgctxt "twin bamboo single reed pipe"
@@ -2716,7 +2713,7 @@ msgstr "太监笛"
 #: DB:instrument/name:114
 msgctxt "Traditional English percussion stick"
 msgid "monkey stick"
-msgstr ""
+msgstr "莫里斯舞棒"
 
 #: DB:instrument/name:224
 msgctxt "traditional bowed Mongol fiddle"
@@ -2811,7 +2808,7 @@ msgstr "波斯长笛"
 #: DB:instrument/name:1206
 msgctxt "Iranian single reed bagpipe"
 msgid "neyanban"
-msgstr ""
+msgstr "伊朗袋风笛"
 
 #: DB:instrument/name:783
 msgctxt "Māori taonga pūoro small vessel flute"

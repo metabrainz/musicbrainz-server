@@ -63,8 +63,8 @@ msgstr "データベース統計 - {title}"
 msgid "Draw a rectangle on either graph"
 msgstr ""
 
-#: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:88
-#: ../root/statistics/Editors.js:100 ../root/statistics/Index.js:1125
+#: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:90
+#: ../root/statistics/Editors.js:102 ../root/statistics/Index.js:1125
 msgid "Editors"
 msgstr "編集者"
 
@@ -138,7 +138,7 @@ msgstr "タイムライングラフ"
 msgid "Zoom:"
 msgstr "ズーム："
 
-#: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:91
+#: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:93
 #: ../root/statistics/Edits.js:32 ../root/statistics/Formats.js:41
 #: ../root/statistics/Images.js:73 ../root/statistics/Index.js:66
 #: ../root/statistics/LanguagesScripts.js:46
@@ -167,7 +167,7 @@ msgstr "不明な国"
 msgid "There is no data to display here."
 msgstr "表示するデータがありません。"
 
-#: ../root/statistics/Editors.js:94
+#: ../root/statistics/Editors.js:96
 msgid ""
 "For the vote statistics, only yes or no votes are counted, abstain votes are "
 "not counted."
@@ -175,43 +175,67 @@ msgstr ""
 "投票統計では、賛成か反対の投票のみカウントされ、棄権投票はカウントされませ"
 "ん。"
 
-#: ../root/statistics/Editors.js:102
+#: ../root/statistics/Editors.js:104
 msgid "Open and applied edits in past week"
 msgstr "過去1週間の適用・未確定の編集"
 
-#: ../root/statistics/Editors.js:105
+#: ../root/statistics/Editors.js:107
 msgid "Most active editors in the past week"
 msgstr "過去1週間で最もアクティブな編集者"
 
-#: ../root/statistics/Editors.js:108
+#: ../root/statistics/Editors.js:110
+#, fuzzy
+#| msgid "Open and applied edits in past week"
+msgid "Applied edits in past year"
+msgstr "過去1週間の適用・未確定の編集"
+
+#: ../root/statistics/Editors.js:113
+#, fuzzy
+#| msgid "Most active editors in the past week"
+msgid "Most active editors in the past year"
+msgstr "過去1週間で最もアクティブな編集者"
+
+#: ../root/statistics/Editors.js:116
 msgid "Total applied edits"
 msgstr "合計適用編集数"
 
-#: ../root/statistics/Editors.js:111
+#: ../root/statistics/Editors.js:119
 msgid "Top editors overall"
 msgstr "上位の編集者"
 
-#: ../root/statistics/Editors.js:117
+#: ../root/statistics/Editors.js:125
 msgid "Voters"
 msgstr "投票者"
 
-#: ../root/statistics/Editors.js:119
+#: ../root/statistics/Editors.js:127
 msgid "Votes in past week"
 msgstr "過去1週間の投票"
 
-#: ../root/statistics/Editors.js:121 ../root/statistics/Editors.js:127
+#: ../root/statistics/Editors.js:129 ../root/statistics/Editors.js:141
 msgid "Voter"
 msgstr "投票者"
 
-#: ../root/statistics/Editors.js:122
+#: ../root/statistics/Editors.js:130
 msgid "Most active voters in the past week"
 msgstr "過去1週間で最もアクティブな投票者"
 
-#: ../root/statistics/Editors.js:125
+#: ../root/statistics/Editors.js:133
+#, fuzzy
+#| msgid "Votes in past week"
+msgid "Votes in past year"
+msgstr "過去1週間の投票"
+
+#: ../root/statistics/Editors.js:136
+#, fuzzy
+#| msgid "Most active voters in the past week"
+msgid "Most active voters in the past year"
+msgstr "過去1週間で最もアクティブな投票者"
+
+#: ../root/statistics/Editors.js:139
 msgid "Total votes"
 msgstr "合計投票数"
 
-#: ../root/statistics/Editors.js:128
+#: ../root/statistics/Editors.js:142
 msgid "Top voters overall"
 msgstr "上位の投票者"
 
