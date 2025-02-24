@@ -1,11 +1,11 @@
 #
 # Translators:
-# koukei07 <teamedia@duck.com>, 2024.
+# koukei07 <teamedia@duck.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-05 00:42+0000\n"
+"PO-Revision-Date: 2025-02-24 23:33+0000\n"
 "Last-Translator: koukei07 <teamedia@duck.com>\n"
 "Language-Team: Indonesian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/id/>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.10.1\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -1140,7 +1140,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:271
 msgid "Release group collections"
-msgstr ""
+msgstr "Rilis koleksi grup"
 
 #: ../root/statistics/stats.js:276
 msgid "Series collections"
