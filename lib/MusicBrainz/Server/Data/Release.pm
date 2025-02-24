@@ -226,33 +226,6 @@ sub load
     return load_subobjects($self, 'release', @objs);
 }
 
-sub find_artist_credits_by_artist
-{
-    my ($self, $artist_id) = @_;
-
-    my $query = 'SELECT DISTINCT rel.artist_credit
-                 FROM release rel
-                 JOIN artist_credit_name acn
-                     ON acn.artist_credit = rel.artist_credit
-                 WHERE acn.artist = ?';
-    my $ids = $self->sql->select_single_column_array($query, $artist_id);
-    return $self->c->model('ArtistCredit')->find_by_ids($ids);
-}
-
-sub find_labels_by_artist
-{
-    my ($self, $artist_id) = @_;
-
-    my $query = 'SELECT DISTINCT rl.label
-                 FROM release_label rl
-                 JOIN release rel ON rl.release = rel.id
-                 JOIN artist_credit_name acn
-                     ON acn.artist_credit = rel.artist_credit
-                 WHERE acn.artist = ?';
-    my $ids = $self->sql->select_single_column_array($query, $artist_id);
-    return $self->c->model('Label')->get_by_ids_sorted_by_name(@$ids);
-}
-
 sub find_by_area {
     my ($self, $area_id, $limit, $offset) = @_;
     my $query = 'SELECT ' . $self->_columns . '

@@ -892,7 +892,7 @@ MB.Control.autocomplete_formatters = {
     }
 
     if (item.related_artists) {
-      artistRenderer(l('Writers'), item.related_artists.writers);
+      artistRenderer(l('Authors'), item.related_artists.authors);
       artistRenderer(l('Artists'), item.related_artists.artists);
     }
 

@@ -172,7 +172,8 @@ sub direct : Private
         $c->model('ISRC')->load_for_recordings(map { $_->entity } @$results);
     }
     elsif ($type eq 'work') {
-        $c->model('Work')->load_writers(@entities);
+        $c->model('Work')->load_authors(@entities);
+        $c->model('Work')->load_other_artists(@entities);
         $c->model('Work')->load_recording_artists(@entities);
         $c->model('ISWC')->load_for_works(@entities);
         $c->model('Language')->load_for_works(@entities);

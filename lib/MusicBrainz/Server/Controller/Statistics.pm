@@ -354,18 +354,28 @@ sub editors : Path('editors') {
     my $top_recently_active_editors =
         _editor_data_points($stats, 'editor.top_recently_active.rank',
                             'count.edit.top_recently_active.rank');
+    my $top_yearly_active_editors =
+        _editor_data_points($stats, 'editor.top_yearly_active.rank',
+                            'count.edit.top_yearly_active.rank');
     my $top_active_editors =
         _editor_data_points($stats, 'editor.top_active.rank',
                             'count.edit.top_active.rank');
     my $top_recently_active_voters =
         _editor_data_points($stats, 'editor.top_recently_active_voters.rank',
                             'count.vote.top_recently_active_voters.rank');
+    my $top_yearly_active_voters =
+        _editor_data_points($stats, 'editor.top_yearly_active_voters.rank',
+                            'count.vote.top_yearly_active_voters.rank');
     my $top_active_voters =
         _editor_data_points($stats, 'editor.top_active_voters.rank',
                             'count.vote.top_active_voters.rank');
 
-    my @data_points = ( @$top_recently_active_editors, @$top_active_editors,
-                        @$top_recently_active_voters, @$top_active_voters );
+    my @data_points = ( @$top_recently_active_editors,
+                        @$top_yearly_active_editors,
+                        @$top_active_editors,
+                        @$top_recently_active_voters,
+                        @$top_yearly_active_voters,
+                        @$top_active_voters );
 
     my $editors = $c->model('Editor')->get_by_ids(map { $_->{editor_id} } @data_points);
     for my $data_point (@data_points) {
@@ -375,8 +385,10 @@ sub editors : Path('editors') {
     my %props = (
         dateCollected => $stats->{date_collected},
         topRecentlyActiveEditors => $top_recently_active_editors,
+        topYearlyEditors => $top_yearly_active_editors,
         topEditors => $top_active_editors,
         topRecentlyActiveVoters => $top_recently_active_voters,
+        topYearlyVoters => $top_yearly_active_voters,
         topVoters => $top_active_voters,
     );
 

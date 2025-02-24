@@ -125,8 +125,8 @@ for my $arg (@ARGV)
 for (@tar_to_extract)
 {
     my ($tar, $dir, $decompress) = @$_;
-    print localtime() . " : tar -C $dir $decompress -xvf $tar\n";
-    system "tar -C $dir $decompress -xvf $tar";
+    print localtime() . " : tar -C $dir $decompress --no-same-owner -xvf $tar\n";
+    system "tar -C $dir $decompress --no-same-owner -xvf $tar";
     exit($CHILD_ERROR >> 8) if $CHILD_ERROR;
 }
 

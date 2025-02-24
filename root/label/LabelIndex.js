@@ -18,6 +18,9 @@ import manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
+import Filter from '../static/scripts/common/components/Filter.js';
+import {type ReleaseFilterT}
+  from '../static/scripts/common/components/FilterForm.js';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract.js';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
@@ -28,7 +31,10 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 import LabelLayout from './LabelLayout.js';
 
 component LabelIndex(
+  ajaxFilterFormUrl: string,
   eligibleForCleanup: boolean,
+  filterForm: ?ReleaseFilterT,
+  hasFilter: boolean,
   label: LabelT,
   numberOfRevisions: number,
   pager: PagerT,
@@ -68,6 +74,12 @@ component LabelIndex(
         entity={label}
       />
       <h2 className="releases">{l('Releases')}</h2>
+
+      <Filter
+        ajaxFormUrl={ajaxFilterFormUrl}
+        initialFilterForm={filterForm}
+      />
+
       {releases?.length ? (
         <form
           action={'/release/merge_queue?' + returnToCurrentPage($c)}
@@ -87,7 +99,11 @@ component LabelIndex(
           ) : null}
         </form>
       ) : (
-        <p>{l('This label does not have any releases.')}</p>
+        <p>
+          {hasFilter
+            ? l('No releases found that match this search.')
+            : l('This label does not have any releases.')}
+        </p>
       )}
       {manifest('label/index', {async: 'async'})}
     </LabelLayout>

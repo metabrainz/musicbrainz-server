@@ -61,6 +61,7 @@ my @all = qw(
     InstrumentsWithoutWikidata
     ISRCsWithManyRecordings
     ISWCsWithManyWorks
+    KaraokePlusInstrumentalRecordings
     LabelsDisambiguationSameName
     LimitedEditors
     LinksWithMultipleEntities
@@ -166,6 +167,7 @@ use MusicBrainz::Server::Report::InstrumentsWithoutAnImage;
 use MusicBrainz::Server::Report::InstrumentsWithoutWikidata;
 use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
 use MusicBrainz::Server::Report::ISWCsWithManyWorks;
+use MusicBrainz::Server::Report::KaraokePlusInstrumentalRecordings;
 use MusicBrainz::Server::Report::LabelsDisambiguationSameName;
 use MusicBrainz::Server::Report::LimitedEditors;
 use MusicBrainz::Server::Report::LinksWithMultipleEntities;

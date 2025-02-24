@@ -48,8 +48,8 @@ msgstr "資料庫統計資訊 - {title}"
 msgid "Draw a rectangle on either graph"
 msgstr "在任意一張圖表上繪製一個矩形"
 
-#: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:88
-#: ../root/statistics/Editors.js:100 ../root/statistics/Index.js:1125
+#: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:90
+#: ../root/statistics/Editors.js:102 ../root/statistics/Index.js:1125
 msgid "Editors"
 msgstr "編輯者"
 
@@ -117,7 +117,7 @@ msgstr "時間軸"
 msgid "Zoom:"
 msgstr "縮放："
 
-#: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:91
+#: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:93
 #: ../root/statistics/Edits.js:32 ../root/statistics/Formats.js:41
 #: ../root/statistics/Images.js:73 ../root/statistics/Index.js:66
 #: ../root/statistics/LanguagesScripts.js:46
@@ -144,49 +144,73 @@ msgstr "未知國家"
 msgid "There is no data to display here."
 msgstr "此處沒有可顯示的數據。"
 
-#: ../root/statistics/Editors.js:94
+#: ../root/statistics/Editors.js:96
 msgid ""
 "For the vote statistics, only yes or no votes are counted, abstain votes are "
 "not counted."
 msgstr "對於投票統計，只計算贊成票或反對票，不計算棄權票."
 
-#: ../root/statistics/Editors.js:102
+#: ../root/statistics/Editors.js:104
 msgid "Open and applied edits in past week"
 msgstr "過去一週內打開和應用的編輯"
 
-#: ../root/statistics/Editors.js:105
+#: ../root/statistics/Editors.js:107
 msgid "Most active editors in the past week"
 msgstr "過去一週內最活躍的編輯者"
 
-#: ../root/statistics/Editors.js:108
+#: ../root/statistics/Editors.js:110
+#, fuzzy
+#| msgid "Open and applied edits in past week"
+msgid "Applied edits in past year"
+msgstr "過去一週內打開和應用的編輯"
+
+#: ../root/statistics/Editors.js:113
+#, fuzzy
+#| msgid "Most active editors in the past week"
+msgid "Most active editors in the past year"
+msgstr "過去一週內最活躍的編輯者"
+
+#: ../root/statistics/Editors.js:116
 msgid "Total applied edits"
 msgstr "總共被應用的編輯數"
 
-#: ../root/statistics/Editors.js:111
+#: ../root/statistics/Editors.js:119
 msgid "Top editors overall"
 msgstr "Top 編輯者總覽"
 
-#: ../root/statistics/Editors.js:117
+#: ../root/statistics/Editors.js:125
 msgid "Voters"
 msgstr "投票者"
 
-#: ../root/statistics/Editors.js:119
+#: ../root/statistics/Editors.js:127
 msgid "Votes in past week"
 msgstr "上週的投票者"
 
-#: ../root/statistics/Editors.js:121 ../root/statistics/Editors.js:127
+#: ../root/statistics/Editors.js:129 ../root/statistics/Editors.js:141
 msgid "Voter"
 msgstr "投票者"
 
-#: ../root/statistics/Editors.js:122
+#: ../root/statistics/Editors.js:130
 msgid "Most active voters in the past week"
 msgstr "上週最活躍的投票者"
 
-#: ../root/statistics/Editors.js:125
+#: ../root/statistics/Editors.js:133
+#, fuzzy
+#| msgid "Votes in past week"
+msgid "Votes in past year"
+msgstr "上週的投票者"
+
+#: ../root/statistics/Editors.js:136
+#, fuzzy
+#| msgid "Most active voters in the past week"
+msgid "Most active voters in the past year"
+msgstr "上週最活躍的投票者"
+
+#: ../root/statistics/Editors.js:139
 msgid "Total votes"
 msgstr "總票數"
 
-#: ../root/statistics/Editors.js:128
+#: ../root/statistics/Editors.js:142
 msgid "Top voters overall"
 msgstr "共計最多投票者"
 

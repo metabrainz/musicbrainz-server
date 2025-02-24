@@ -9176,7 +9176,7 @@ msgstr "speelde {additional:aanvullend} als orkest op"
 msgid "orchestras"
 msgstr "orkesten"
 
-#: DB:link_type/name:316
+#: DB:link_attribute_type/name:1418 DB:link_type/name:316
 msgid "orchestration"
 msgstr "orkestratie"
 

@@ -60,8 +60,8 @@ msgstr "Statistieken over MusicBrainz: {title}"
 msgid "Draw a rectangle on either graph"
 msgstr "Trek een rechthoek op een grafiek"
 
-#: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:88
-#: ../root/statistics/Editors.js:100 ../root/statistics/Index.js:1125
+#: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:90
+#: ../root/statistics/Editors.js:102 ../root/statistics/Index.js:1125
 msgid "Editors"
 msgstr "Redacteurs"
 
@@ -131,7 +131,7 @@ msgstr "Tijdslijn"
 msgid "Zoom:"
 msgstr "Vergroten:"
 
-#: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:91
+#: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:93
 #: ../root/statistics/Edits.js:32 ../root/statistics/Formats.js:41
 #: ../root/statistics/Images.js:73 ../root/statistics/Index.js:66
 #: ../root/statistics/LanguagesScripts.js:46
@@ -158,7 +158,7 @@ msgstr "Onbekend land"
 msgid "There is no data to display here."
 msgstr "Er zijn geen gegevens om hier te tonen."
 
-#: ../root/statistics/Editors.js:94
+#: ../root/statistics/Editors.js:96
 msgid ""
 "For the vote statistics, only yes or no votes are counted, abstain votes are "
 "not counted."
@@ -166,43 +166,67 @@ msgstr ""
 "Voor de stemstatistieken worden alleen voor- en tegenstemmen geteld, geen "
 "onthoudingen."
 
-#: ../root/statistics/Editors.js:102
+#: ../root/statistics/Editors.js:104
 msgid "Open and applied edits in past week"
 msgstr "Open en doorgevoerde bewerkingen in de afgelopen week"
 
-#: ../root/statistics/Editors.js:105
+#: ../root/statistics/Editors.js:107
 msgid "Most active editors in the past week"
 msgstr "Meest actieve redacteurs in de afgelopen week (bewerken)"
 
-#: ../root/statistics/Editors.js:108
+#: ../root/statistics/Editors.js:110
+#, fuzzy
+#| msgid "Open and applied edits in past week"
+msgid "Applied edits in past year"
+msgstr "Open en doorgevoerde bewerkingen in de afgelopen week"
+
+#: ../root/statistics/Editors.js:113
+#, fuzzy
+#| msgid "Most active editors in the past week"
+msgid "Most active editors in the past year"
+msgstr "Meest actieve redacteurs in de afgelopen week (bewerken)"
+
+#: ../root/statistics/Editors.js:116
 msgid "Total applied edits"
 msgstr "Totaal aantal doorgevoerde bewerkingen"
 
-#: ../root/statistics/Editors.js:111
+#: ../root/statistics/Editors.js:119
 msgid "Top editors overall"
 msgstr "Topredacteurs (altijd)"
 
-#: ../root/statistics/Editors.js:117
+#: ../root/statistics/Editors.js:125
 msgid "Voters"
 msgstr "Stemmers"
 
-#: ../root/statistics/Editors.js:119
+#: ../root/statistics/Editors.js:127
 msgid "Votes in past week"
 msgstr "Stemmen in de afgelopen week"
 
-#: ../root/statistics/Editors.js:121 ../root/statistics/Editors.js:127
+#: ../root/statistics/Editors.js:129 ../root/statistics/Editors.js:141
 msgid "Voter"
 msgstr "Stemmer"
 
-#: ../root/statistics/Editors.js:122
+#: ../root/statistics/Editors.js:130
 msgid "Most active voters in the past week"
 msgstr "Meest actieve redacteurs in de afgelopen week (stemmen)"
 
-#: ../root/statistics/Editors.js:125
+#: ../root/statistics/Editors.js:133
+#, fuzzy
+#| msgid "Votes in past week"
+msgid "Votes in past year"
+msgstr "Stemmen in de afgelopen week"
+
+#: ../root/statistics/Editors.js:136
+#, fuzzy
+#| msgid "Most active voters in the past week"
+msgid "Most active voters in the past year"
+msgstr "Meest actieve redacteurs in de afgelopen week (stemmen)"
+
+#: ../root/statistics/Editors.js:139
 msgid "Total votes"
 msgstr "Totaal aantal stemmen"
 
-#: ../root/statistics/Editors.js:128
+#: ../root/statistics/Editors.js:142
 msgid "Top voters overall"
 msgstr "Topstemmers (altijd)"
 

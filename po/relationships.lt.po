@@ -8383,7 +8383,7 @@ msgstr "orkestras {additional:papildomai} atliko"
 msgid "orchestras"
 msgstr "orkestrai"
 
-#: DB:link_type/name:316
+#: DB:link_attribute_type/name:1418 DB:link_type/name:316
 msgid "orchestration"
 msgstr "orkestravimas"
 

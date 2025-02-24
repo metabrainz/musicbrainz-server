@@ -124,7 +124,7 @@ const textI18n: LinkPhraseI18n<string> = {
 function _getAttributesByRootName(
   linkType: LinkTypeT,
   attributes: $ReadOnlyArray<LinkAttrT>,
-): LinkAttrsByRootName {
+): $ReadOnly<LinkAttrsByRootName> {
   const values: LinkAttrsByRootName = {};
 
   for (let i = 0; i < attributes.length; i++) {
@@ -183,14 +183,13 @@ export function cmpLinkAttrs(a: LinkAttrT, b: LinkAttrT): number {
 
 const requiredAttributesCache: {
   __proto__: null,
-  [linkTypeId: number]: {+[attributeName: string]: LinkAttrs},
+  [linkTypeId: number]: $ReadOnly<LinkAttrsByRootName>,
   ...
 } = Object.create(null);
 
 function _getRequiredAttributes(
   linkType: LinkTypeT,
-  attributesByRootName: ?LinkAttrsByRootName,
-) {
+): $ReadOnly<LinkAttrsByRootName> {
   const cached = requiredAttributesCache[linkType.id];
   if (cached) {
     return cached;
@@ -200,15 +199,14 @@ function _getRequiredAttributes(
     const {min} = linkType.attributes[Number(typeId)];
     if (min != null && min > 0) {
       const attribute = linkedEntities.link_attribute_type[Number(typeId)];
-      required[attribute.name] = attributesByRootName ? (
-        attributesByRootName[attribute.name]
-      ) : {
+      required[attribute.name] = {
         type: attribute,
         typeID: attribute.id,
         typeName: attribute.name,
       };
     }
   }
+  Object.freeze(required);
   return (requiredAttributesCache[linkType.id] = required || EMPTY_OBJECT);
 }
 
@@ -263,9 +261,13 @@ export function getPhraseAndExtraAttributes<T>(
     }
   }
 
-  const requiredAttributes = _getRequiredAttributes(
-    linkType,
-    attributesByRootName,
+  const requiredAttributes = Object.fromEntries(
+    Object.entries(_getRequiredAttributes(linkType)).map(
+      ([rootAttributeName, linkAttrs]) => [
+        rootAttributeName,
+        attributesByRootName[rootAttributeName] ?? linkAttrs,
+      ],
+    ),
   );
 
   const varArgs = new PhraseVarArgs(
@@ -371,7 +373,7 @@ export const stripAttributes = (
   phrase: string,
 ): string => {
   return clean(textI18n.expand(phrase, new PhraseVarArgs(
-    _getRequiredAttributes(linkType, null),
+    _getRequiredAttributes(linkType),
     textI18n,
     null,
     null,

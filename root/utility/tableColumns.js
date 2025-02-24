@@ -797,12 +797,12 @@ export const trackColumn:
     id: 'track',
   };
 
-export const workArtistsColumn:
+export const workRecordingArtistsColumn:
   ColumnOptions<WorkT, $ReadOnlyArray<ArtistCreditT>> = {
     accessor: x => x.artists,
     Cell: ({cell: {value}}) => <WorkArtists artists={value} />,
-    Header: N_l('Artists'),
-    id: 'work-artists',
+    Header: N_l('Recording artists'),
+    id: 'work-recording-artists',
   };
 
 export const workLanguagesColumn:

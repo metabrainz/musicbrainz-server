@@ -28,6 +28,7 @@ import {debounceComputed} from '../common/utility/debounce.js';
 import escapeRegExp from '../common/utility/escapeRegExp.mjs';
 import formatTrackLength from '../common/utility/formatTrackLength.js';
 import isBlank from '../common/utility/isBlank.js';
+import isDatabaseRowId from '../common/utility/isDatabaseRowId.js';
 import releaseLabelKey from '../common/utility/releaseLabelKey.js';
 import request from '../common/utility/request.js';
 import {fixedWidthInteger, uniqueId} from '../common/utility/strings.js';
@@ -67,9 +68,13 @@ class Track {
     this.name.original = data.name;
     this.name.subscribe(this.nameChanged, this);
 
-    this.hasFeatOnOrigTitle = featRegex.test(
-      data.name.replace(bracketRegex, ' '),
-    );
+    /*
+     * Check that the track has a valid ID to avoid treating a newly-added
+     * title as original when seeding a new release (see MBS-13920).
+     */
+    this.hasFeatOnOrigTitle =
+      isDatabaseRowId(this.id) &&
+      featRegex.test(data.name.replace(bracketRegex, ' '));
 
     this.previewName = ko.observable(null);
     this.previewNameDiffers = ko.computed(() => {
@@ -497,9 +502,7 @@ class Medium {
       return !self.tracksUnknownToUser() &&
              self.tracks().some(t => t.hasVariousArtists());
     });
-    this.confirmedVariousArtists = ko.observable(
-      this.hasVariousArtistTracks(),
-    );
+    this.confirmedVariousArtists = ko.observable(false);
     this.hasFeatOnTrackTitles = ko.computed(function () {
       return !self.tracksUnknownToUser() &&
              self.tracks().some(t => t.hasFeatOnTitle());
@@ -510,9 +513,7 @@ class Medium {
                t => !t.hasFeatOnOrigTitle && t.hasFeatOnTitle(),
              );
     });
-    this.confirmedFeatOnTrackTitles = ko.observable(
-      this.hasFeatOnTrackTitles.peek(),
-    );
+    this.confirmedFeatOnTrackTitles = ko.observable(false);
     this.hasTooEarlyFormat = ko.computed(function () {
       const mediumFormatDate = MB.mediumFormatDates[self.formatID()];
       return Boolean(mediumFormatDate && self.release.earliestYear() &&
@@ -1178,6 +1179,9 @@ class Release extends mbEntity.Release {
       errorField(this.mediums.any('hasUnconfirmedStrangeDigitalPackaging'));
     this.hasUnconfirmedVariousArtists = errorField(
       this.mediums.any('hasUnconfirmedVariousArtists'),
+    );
+    this.hasUnconfirmedFeatOnTrackTitles = errorField(
+      this.mediums.any('hasUnconfirmedFeatOnTrackTitles'),
     );
     this.needsMediums = errorField(function () {
       return !(self.mediums().length || self.hasUnknownTracklist());

@@ -25,6 +25,7 @@ component QuickLinks(
   const isSecureConnection = $c.req.secure;
   const protocol = isSecureConnection ? 'https://' : 'http://';
   const openParam = $c.req.query_params.open;
+  const hideOwnParam = $c.req.query_params.hide_own;
   const entityUrlFragment = entity
     ? ENTITIES[entity.entityType].url
     : undefined;
@@ -55,14 +56,15 @@ component QuickLinks(
     }
   }
   if (entity && entityUrlFragment) {
+    const isCollection = entity.entityType === 'collection';
+    const allPage = `/${entityUrlFragment}/${entity.gid}/edits`;
+    const openPage = `/${entityUrlFragment}/${entity.gid}/open_edits`;
+
     if (isEntityAllPage) {
       quickLinks.push(
-        <a
-          href={`/${entityUrlFragment}/${entity.gid}/open_edits`}
-          key="entity-open"
-        >
+        <a href={openPage} key="entity-open">
           <strong>
-            {entity.entityType === 'collection'
+            {isCollection
               ? l('Open edits for this collection')
               : l('Open edits for this entity')}
           </strong>
@@ -71,17 +73,39 @@ component QuickLinks(
     }
     if (isEntityOpenPage) {
       quickLinks.push(
-        <a
-          href={`/${entityUrlFragment}/${entity.gid}/edits`}
-          key="entity-all"
-        >
+        <a href={allPage} key="entity-all">
           <strong>
-            {entity.entityType === 'collection'
+            {isCollection
               ? l('All edits for this collection')
               : l('All edits for this entity')}
           </strong>
         </a>,
       );
+    }
+    if (isCollection) {
+      if (hideOwnParam === '1') {
+        quickLinks.push(
+          <a
+            href={(isEntityAllPage ? allPage : openPage) + '?hide_own=0'}
+            key="show-all-collection-edits"
+          >
+            <strong>
+              {l('Everyone’s edits for this collection')}
+            </strong>
+          </a>,
+        );
+      } else {
+        quickLinks.push(
+          <a
+            href={(isEntityAllPage ? allPage : openPage) + '?hide_own=1'}
+            key="hide-own-collection-edits"
+          >
+            <strong>
+              {l('Others’ edits for this collection')}
+            </strong>
+          </a>,
+        );
+      }
     }
   }
   if (page === 'subscribed') {

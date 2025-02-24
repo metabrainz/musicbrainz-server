@@ -95,7 +95,7 @@ sub find_by_artist
         SQL
 
     # Select works that this artist is related to
-    my $writers_query = <<~'SQL';
+    my $relationships_query = <<~'SQL';
         SELECT DISTINCT law.entity1 AS work
           FROM l_artist_work law
           JOIN link ON law.link = link.id
@@ -103,7 +103,7 @@ sub find_by_artist
          WHERE law.entity0 = ?
         SQL
 
-    my $inner_query = $performers_query . ' UNION ' . $writers_query;
+    my $inner_query = $performers_query . ' UNION ' . $relationships_query;
 
     if (exists $args{filter}) {
         my %filter = %{ $args{filter} };
@@ -114,9 +114,19 @@ sub find_by_artist
                 $inner_query = $performers_query;
                 push @where_args, $artist_id;
             } elsif ($filter{role_type} == 2) {
-                # Show only works as writer
-                $inner_query = $writers_query;
-                push @where_args, $artist_id;
+                # Show only works as author
+                my @authorship_gids =
+                    $self->c->model('LinkType')->get_authorship_relationship_gids;
+                my $extra_condition = ' AND lt.gid = any(?) ';
+                $inner_query = $relationships_query . $extra_condition;
+                push @where_args, $artist_id, [@authorship_gids];
+            } elsif ($filter{role_type} == 3) {
+                # Show only works with other rels than authorship ones
+                my @authorship_gids =
+                    $self->c->model('LinkType')->get_authorship_relationship_gids;
+                my $extra_condition = ' AND NOT (lt.gid = any(?)) ';
+                $inner_query = $relationships_query . $extra_condition;
+                push @where_args, $artist_id, [@authorship_gids];
             }
         } else {
             push @where_args, ($artist_id) x 2;
@@ -327,7 +337,8 @@ sub load_related_info {
     my ($self, @works) = @_;
 
     my $c = $self->c;
-    $c->model('Work')->load_writers(@works);
+    $c->model('Work')->load_authors(@works);
+    $c->model('Work')->load_other_artists(@works);
     $c->model('Work')->load_recording_artists(@works);
     $c->model('WorkAttribute')->load_for_works(@works);
     $c->model('ISWC')->load_for_works(@works);
@@ -363,7 +374,7 @@ sub load_ids
 =method find_artists
 
 This method will return a map with lists of artist names for the given
-recordings. The names are taken both from the writers and recording artists.
+recordings. The names are taken from both authors and recording artists.
 This function is meant to be used to disambiguate works (e.g. in lookup
 results).
 
@@ -376,22 +387,22 @@ sub find_artists
     my @ids = map { $_->id } @$works;
     return () unless @ids;
 
-    my (%writers, %artists);
-    $self->_find_writers(\@ids, \%writers);
+    my (%authors, %artists);
+    $self->_find_authors_or_other_artists(\@ids, \%authors);
     $self->_find_recording_artists(\@ids, \%artists);
 
     my %map;
 
     for my $work_id (@ids) {
         my @artists = uniq map { $_->{entity}->name } @{ $artists{$work_id} };
-        my @writers = uniq map { $_->{entity}->name } @{ $writers{$work_id} };
+        my @authors = uniq map { $_->{entity}->name } @{ $authors{$work_id} };
 
         $map{$work_id} = {
-            writers => {
-                hits => scalar @writers,
-                results => $limit && scalar @writers > $limit
-                    ? [ @writers[ 0 .. ($limit-1) ] ]
-                    : \@writers,
+            authors => {
+                hits => scalar @authors,
+                results => $limit && scalar @authors > $limit
+                    ? [ @authors[ 0 .. ($limit-1) ] ]
+                    : \@authors,
             },
             artists => {
                 hits => scalar @artists,
@@ -405,46 +416,78 @@ sub find_artists
     return %map;
 }
 
-=method load_writers
+=method load_authors
 
-This method will load the work's writers based on the work-artist
+This method will load the work's authors based on the work-artist
 relationships.
 
 =cut
 
-sub load_writers
+sub load_authors
 {
     my ($self, @works) = @_;
 
-    @works = grep { defined $_ && scalar $_->all_writers == 0 } @works;
+    @works = grep { defined $_ && scalar $_->all_authors == 0 } @works;
     my @ids = map { $_->id } @works;
     return () unless @ids;
 
     my %map;
-    $self->_find_writers(\@ids, \%map);
+    $self->_find_authors_or_other_artists(\@ids, \%map);
     for my $work (@works) {
-        $work->add_writer(@{ $map{$work->id} })
+        $work->add_author(@{ $map{$work->id} })
             if exists $map{$work->id};
     }
 }
 
-sub _find_writers
+sub load_other_artists
 {
-    my ($self, $ids, $map) = @_;
+    my ($self, @works) = @_;
+
+    @works = grep { defined $_ && scalar $_->all_other_artists == 0 } @works;
+    my @ids = map { $_->id } @works;
+    return () unless @ids;
+
+    my %map;
+    $self->_find_authors_or_other_artists(\@ids, \%map, 1);
+    for my $work (@works) {
+        $work->add_other_artist(@{ $map{$work->id} })
+            if exists $map{$work->id};
+    }
+}
+
+sub _find_authors_or_other_artists
+{
+    my ($self, $ids, $map, $find_other) = @_;
     return unless @$ids;
 
-    my $query = '
-        SELECT law.entity1 AS work, law.entity0 AS artist, 
-            law.entity0_credit AS credit, array_agg(lt.name) AS roles
-        FROM l_artist_work law
-        JOIN link l ON law.link = l.id
-        JOIN link_type lt ON l.link_type = lt.id
-        WHERE law.entity1 IN (' . placeholders(@$ids) . ')
+    my @authorship_gids =
+        $self->c->model('LinkType')->get_authorship_relationship_gids;
+    my $reltypes_condition;
+    if ($find_other) {
+        $reltypes_condition = 'AND NOT (lt.gid = any(?)) ';
+    } else {
+        $reltypes_condition = 'AND lt.gid = any(?) ';
+    }
+
+    my $query = <<~"SQL";
+          SELECT law.entity1 AS work,
+                 law.entity0 AS artist,
+                 law.entity0_credit AS credit,
+                 array_agg(lt.name ORDER BY lt.name) AS roles
+            FROM l_artist_work law
+            JOIN link l ON law.link = l.id
+            JOIN link_type lt ON l.link_type = lt.id
+           WHERE law.entity1 = any(?)
+                 $reltypes_condition
         GROUP BY law.entity1, law.entity0, law.entity0_credit
         ORDER BY count(*) DESC, artist, credit
-    ';
+        SQL
 
-    my $rows = $self->sql->select_list_of_lists($query, @$ids);
+    my $rows = $self->sql->select_list_of_lists(
+        $query,
+        $ids,
+        [@authorship_gids],
+    );
 
     my @artist_ids = map { $_->[1] } @$rows;
     my $artists = $self->c->model('Artist')->get_by_ids(@artist_ids);

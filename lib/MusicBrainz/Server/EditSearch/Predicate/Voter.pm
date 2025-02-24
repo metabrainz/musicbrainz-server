@@ -4,6 +4,7 @@ use namespace::autoclean;
 use Scalar::Util qw( looks_like_number );
 
 use MusicBrainz::Server::Constants qw( :vote );
+use MusicBrainz::Server::Types qw( VoteOption );
 use MusicBrainz::Server::Validation qw( is_database_row_id );
 
 with 'MusicBrainz::Server::EditSearch::Predicate';
@@ -37,6 +38,9 @@ sub operator_cardinality_map {
 sub valid {
     my ($self) = @_;
     return unless $self->arguments > 0;
+    for my $argument ($self->arguments) {
+        return unless VoteOption->check($argument) || $argument eq 'no';
+    }
     return $self->operator ne '=' && $self->operator ne '!=' || is_database_row_id($self->voter_id);
 }
 
