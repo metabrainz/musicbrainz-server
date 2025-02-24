@@ -6340,6 +6340,13 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
             expected_clean_url: 'https://vocadb.net/S/143473',
        only_valid_entity_types: ['recording', 'work'],
   },
+  {
+                     input_url: 'https://touhoudb.com/T/1041/pumpcore',
+             input_entity_type: 'event',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://touhoudb.com/T/1041',
+       only_valid_entity_types: ['genre'],
+  },
   // Utamap
   {
                      input_url: 'http://www.utamap.com/showkasi.php?surl=34985',
