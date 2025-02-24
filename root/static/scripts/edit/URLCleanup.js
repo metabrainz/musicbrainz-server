@@ -6110,6 +6110,11 @@ const CLEANUPS: CleanupEntries = {
               result: prefix === 'Es',
               target: ERROR_TARGETS.ENTITY,
             };
+          case LINK_TYPES.otherdatabases.genre:
+            return {
+              result: prefix === 'T',
+              target: ERROR_TARGETS.ENTITY,
+            };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
       }
