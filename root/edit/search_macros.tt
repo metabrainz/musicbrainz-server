@@ -94,6 +94,8 @@
                predicate_entity_type(field.field_name, event_types, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::InstrumentType';
                predicate_entity_type(field.field_name, instrument_types, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::LabelType';
+               predicate_entity_type(field.field_name, label_types, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::WorkType';
                predicate_entity_type(field.field_name, work_types, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::EditorFlag';
@@ -482,6 +484,7 @@
                    [ 'instrument', l('Instrument') ],
                    [ 'instrument_type', l('Instrument type') ],
                    [ 'label', l('Label') ],
+                   [ 'label_type', l('Label type') ],
                    [ 'place', l('Place') ],
                    [ 'recording', l('Recording') ],
                    [ 'release', l('Release') ],
@@ -540,6 +543,7 @@
     [% predicate_entity_type('artist_type', artist_types) %]
     [% predicate_entity_type('event_type', event_types) %]
     [% predicate_entity_type('instrument_type', instrument_types) %]
+    [% predicate_entity_type('label_type', label_types) %]
     [% predicate_entity_type('work_type', work_types) %]
     [% predicate_link('artist_area', undef, 'area') %]
     [% predicate_link('label_area', undef, 'area') %]
