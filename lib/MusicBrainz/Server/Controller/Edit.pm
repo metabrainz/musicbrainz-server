@@ -301,6 +301,7 @@ sub search : Path('/search/edits')
         area_types => [ $c->model('AreaType')->get_all ],
         artist_types => [ $c->model('ArtistType')->get_all ],
         event_types => [ $c->model('EventType')->get_all ],
+        instrument_types => [ $c->model('InstrumentType')->get_all ],
         work_types => [ $c->model('WorkType')->get_all ],
     );
     return unless %{ $c->req->query_params };
