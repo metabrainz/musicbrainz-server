@@ -80,10 +80,6 @@
                predicate_link(field.field_name, field, 'area');
              CASE 'MusicBrainz::Server::EditSearch::Predicate::LabelArea';
                predicate_link(field.field_name, field, 'area');
-             CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupPrimaryType';
-               predicate_entity_type(field.field_name, rg_types, field);
-             CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupSecondaryType';
-               predicate_entity_type(field.field_name, rg_secondary_types, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry';
                predicate_country(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType';
@@ -100,6 +96,10 @@
                predicate_entity_type(field.field_name, label_types, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::PlaceType';
                predicate_entity_type(field.field_name, place_types, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupPrimaryType';
+               predicate_entity_type(field.field_name, rg_types, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupSecondaryType';
+               predicate_entity_type(field.field_name, rg_secondary_types, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::SeriesType';
                predicate_entity_type(field.field_name, series_types, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::WorkType';
@@ -547,14 +547,14 @@
     [% predicate_user('editor') %]
     [% predicate_voter('voter') %]
     [% predicate_release_language('release_language') %]
-    [% predicate_entity_type('release_group_primary_type', rg_types) %]
-    [% predicate_entity_type('release_group_secondary_type', rg_secondary_types) %]
     [% predicate_entity_type('area_type', area_types) %]
     [% predicate_entity_type('artist_type', artist_types) %]
     [% predicate_entity_type('event_type', event_types) %]
     [% predicate_entity_type('instrument_type', instrument_types) %]
     [% predicate_entity_type('label_type', label_types) %]
     [% predicate_entity_type('place_type', place_types) %]
+    [% predicate_entity_type('release_group_primary_type', rg_types) %]
+    [% predicate_entity_type('release_group_secondary_type', rg_secondary_types) %]
     [% predicate_entity_type('series_type', series_types) %]
     [% predicate_entity_type('work_type', work_types) %]
     [% predicate_link('artist_area', undef, 'area') %]
