@@ -299,6 +299,7 @@ sub search : Path('/search/edits')
         rg_types => [ $c->model('ReleaseGroupType')->get_all ],
         relationship_type => [ $c->model('LinkType')->get_full_tree(get_deprecated_and_empty => 1) ],
         area_types => [ $c->model('AreaType')->get_all ],
+        artist_types => [ $c->model('ArtistType')->get_all ],
         work_types => [ $c->model('WorkType')->get_all ],
     );
     return unless %{ $c->req->query_params };

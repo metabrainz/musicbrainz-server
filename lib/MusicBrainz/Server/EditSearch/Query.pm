@@ -21,6 +21,7 @@ use MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupPrimaryType;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality;
 use MusicBrainz::Server::EditSearch::Predicate::AreaType;
+use MusicBrainz::Server::EditSearch::Predicate::ArtistType;
 use MusicBrainz::Server::EditSearch::Predicate::WorkType;
 use MusicBrainz::Server::EditSearch::Predicate::ArtistArea;
 use MusicBrainz::Server::EditSearch::Predicate::LabelArea;
@@ -47,6 +48,7 @@ my %field_map = (
     release_language => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage',
     release_quality => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality',
     area_type => 'MusicBrainz::Server::EditSearch::Predicate::AreaType',
+    artist_type => 'MusicBrainz::Server::EditSearch::Predicate::ArtistType',
     work_type => 'MusicBrainz::Server::EditSearch::Predicate::WorkType',
     artist_area => 'MusicBrainz::Server::EditSearch::Predicate::ArtistArea',
     label_area => 'MusicBrainz::Server::EditSearch::Predicate::LabelArea',
