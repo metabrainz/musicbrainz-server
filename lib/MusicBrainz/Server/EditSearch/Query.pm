@@ -18,6 +18,7 @@ use MusicBrainz::Server::EditSearch::Predicate::VoteCount;
 use MusicBrainz::Server::EditSearch::Predicate::AppliedEdits;
 use MusicBrainz::Server::EditSearch::Predicate::Voter;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupPrimaryType;
+use MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupSecondaryType;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality;
 use MusicBrainz::Server::EditSearch::Predicate::AreaType;
@@ -50,6 +51,7 @@ my %field_map = (
     editor => 'MusicBrainz::Server::EditSearch::Predicate::Editor',
     voter => 'MusicBrainz::Server::EditSearch::Predicate::Voter',
     release_group_primary_type => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupPrimaryType',
+    release_group_secondary_type => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupSecondaryType',
     release_language => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage',
     release_quality => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality',
     area_type => 'MusicBrainz::Server::EditSearch::Predicate::AreaType',

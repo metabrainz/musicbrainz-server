@@ -297,6 +297,7 @@ sub search : Path('/search/edits')
         languages => [ grep { $_->frequency > 0 } $c->model('Language')->get_all ],
         countries => [ $c->model('CountryArea')->get_all ],
         rg_types => [ $c->model('ReleaseGroupType')->get_all ],
+        rg_secondary_types => [ $c->model('ReleaseGroupSecondaryType')->get_all ],
         relationship_type => [ $c->model('LinkType')->get_full_tree(get_deprecated_and_empty => 1) ],
         area_types => [ $c->model('AreaType')->get_all ],
         artist_types => [ $c->model('ArtistType')->get_all ],

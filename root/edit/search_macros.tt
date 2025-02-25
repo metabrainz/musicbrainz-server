@@ -82,6 +82,8 @@
                predicate_link(field.field_name, field, 'area');
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupPrimaryType';
                predicate_entity_type(field.field_name, rg_types, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupSecondaryType';
+               predicate_entity_type(field.field_name, rg_secondary_types, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry';
                predicate_country(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType';
@@ -495,6 +497,7 @@
                    [ 'release', l('Release') ],
                    [ 'release_group', l('Release group') ],
                    [ 'release_group_primary_type', l('Release group primary type') ],
+                   [ 'release_group_secondary_type', l('Release group secondary type') ],
                    [ 'series', lp('Series', 'singular') ],
                    [ 'series_type', l('Series type') ],
                    [ 'url', l('URL') ],
@@ -545,6 +548,7 @@
     [% predicate_voter('voter') %]
     [% predicate_release_language('release_language') %]
     [% predicate_entity_type('release_group_primary_type', rg_types) %]
+    [% predicate_entity_type('release_group_secondary_type', rg_secondary_types) %]
     [% predicate_entity_type('area_type', area_types) %]
     [% predicate_entity_type('artist_type', artist_types) %]
     [% predicate_entity_type('event_type', event_types) %]
