@@ -303,6 +303,7 @@ sub search : Path('/search/edits')
         event_types => [ $c->model('EventType')->get_all ],
         instrument_types => [ $c->model('InstrumentType')->get_all ],
         label_types => [ $c->model('LabelType')->get_all ],
+        place_types => [ $c->model('PlaceType')->get_all ],
         work_types => [ $c->model('WorkType')->get_all ],
     );
     return unless %{ $c->req->query_params };

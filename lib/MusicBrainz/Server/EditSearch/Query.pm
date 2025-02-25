@@ -25,6 +25,7 @@ use MusicBrainz::Server::EditSearch::Predicate::ArtistType;
 use MusicBrainz::Server::EditSearch::Predicate::EventType;
 use MusicBrainz::Server::EditSearch::Predicate::InstrumentType;
 use MusicBrainz::Server::EditSearch::Predicate::LabelType;
+use MusicBrainz::Server::EditSearch::Predicate::PlaceType;
 use MusicBrainz::Server::EditSearch::Predicate::WorkType;
 use MusicBrainz::Server::EditSearch::Predicate::ArtistArea;
 use MusicBrainz::Server::EditSearch::Predicate::LabelArea;
@@ -55,6 +56,7 @@ my %field_map = (
     event_type => 'MusicBrainz::Server::EditSearch::Predicate::EventType',
     instrument_type => 'MusicBrainz::Server::EditSearch::Predicate::InstrumentType',
     label_type => 'MusicBrainz::Server::EditSearch::Predicate::LabelType',
+    place_type => 'MusicBrainz::Server::EditSearch::Predicate::PlaceType',
     work_type => 'MusicBrainz::Server::EditSearch::Predicate::WorkType',
     artist_area => 'MusicBrainz::Server::EditSearch::Predicate::ArtistArea',
     label_area => 'MusicBrainz::Server::EditSearch::Predicate::LabelArea',
