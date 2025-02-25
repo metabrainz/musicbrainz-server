@@ -26,6 +26,7 @@ use MusicBrainz::Server::EditSearch::Predicate::EventType;
 use MusicBrainz::Server::EditSearch::Predicate::InstrumentType;
 use MusicBrainz::Server::EditSearch::Predicate::LabelType;
 use MusicBrainz::Server::EditSearch::Predicate::PlaceType;
+use MusicBrainz::Server::EditSearch::Predicate::SeriesType;
 use MusicBrainz::Server::EditSearch::Predicate::WorkType;
 use MusicBrainz::Server::EditSearch::Predicate::ArtistArea;
 use MusicBrainz::Server::EditSearch::Predicate::LabelArea;
@@ -57,10 +58,11 @@ my %field_map = (
     instrument_type => 'MusicBrainz::Server::EditSearch::Predicate::InstrumentType',
     label_type => 'MusicBrainz::Server::EditSearch::Predicate::LabelType',
     place_type => 'MusicBrainz::Server::EditSearch::Predicate::PlaceType',
+    series_type => 'MusicBrainz::Server::EditSearch::Predicate::SeriesType',
     work_type => 'MusicBrainz::Server::EditSearch::Predicate::WorkType',
     artist_area => 'MusicBrainz::Server::EditSearch::Predicate::ArtistArea',
-    label_area => 'MusicBrainz::Server::EditSearch::Predicate::LabelArea',
-    release_country => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry',
+    label_area => 'MusicBrainz::MusicBrainzServer::EditSearch::Predicate::LabelArea',
+    release_country => '::Server::EditSearch::Predicate::ReleaseCountry',
     link_type => 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType',
     editor_flag => 'MusicBrainz::Server::EditSearch::Predicate::EditorFlag',
     applied_edits => 'MusicBrainz::Server::EditSearch::Predicate::AppliedEdits',
