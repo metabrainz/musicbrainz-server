@@ -84,6 +84,26 @@
                predicate_country(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType';
                predicate_link_type(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::AreaType';
+               predicate_entity_type(field.field_name, area_types, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::ArtistType';
+               predicate_entity_type(field.field_name, artist_types, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::EventType';
+               predicate_entity_type(field.field_name, event_types, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::InstrumentType';
+               predicate_entity_type(field.field_name, instrument_types, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::LabelType';
+               predicate_entity_type(field.field_name, label_types, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::PlaceType';
+               predicate_entity_type(field.field_name, place_types, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupPrimaryType';
+               predicate_entity_type(field.field_name, rg_types, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupSecondaryType';
+               predicate_entity_type(field.field_name, rg_secondary_types, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::SeriesType';
+               predicate_entity_type(field.field_name, series_types, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::WorkType';
+               predicate_entity_type(field.field_name, work_types, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::EditorFlag';
                predicate_editor_flag(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::AppliedEdits';
@@ -338,6 +358,19 @@
   </span>
 [% END %]
 
+[% MACRO predicate_entity_type(field, set_contents, field_contents) WRAPPER wfield predicate="set" %]
+  [% operators([ [ '=', l('is') ]
+                 [ '!=', l('is not') ] ], field_contents) %]
+
+  <select name="args" multiple="multiple" size=[% set_contents.size < 10 ? set_contents.size : 10 %]>
+    [%- FOR type=set_contents %]
+    <option value="[% type.id %]"
+            [%- 'selected="selected"' IF field_contents.find_argument(type.id) %]>
+        [%- html_escape(type.l_name) -%]</option>
+    [%- END %]
+  </select>
+[% END %]
+
 [% MACRO predicate_country(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
@@ -448,18 +481,28 @@
                    [ 'edit_note_content', l('Edit note content'), {requires_login => 1} ],
                    [ 'edit_subscription', l('Edited entity'), {requires_login => 1} ],
                    [ 'area', l('Area') ],
+                   [ 'area_type', l('Area type') ],
                    [ 'artist', l('Artist') ],
+                   [ 'artist_type', l('Artist type') ],
                    [ 'event', l('Event') ],
+                   [ 'event_type', l('Event type') ],
                    [ 'genre', l('Genre') ],
                    [ 'instrument', l('Instrument') ],
+                   [ 'instrument_type', l('Instrument type') ],
                    [ 'label', l('Label') ],
+                   [ 'label_type', l('Label type') ],
                    [ 'place', l('Place') ],
+                   [ 'place_type', l('Place type') ],
                    [ 'recording', l('Recording') ],
                    [ 'release', l('Release') ],
                    [ 'release_group', l('Release group') ],
+                   [ 'release_group_primary_type', l('Release group primary type') ],
+                   [ 'release_group_secondary_type', l('Release group secondary type') ],
                    [ 'series', lp('Series', 'singular') ],
+                   [ 'series_type', l('Series type') ],
                    [ 'url', l('URL') ],
                    [ 'work', l('Work') ],
+                   [ 'work_type', l('Work type') ],
                    [ 'editor', l('Editor'), {requires_login => 1} ],
                    [ 'voter', l('Voter'), {requires_login => 1} ]
                    [ 'release_language', l('Release language') ],
@@ -504,6 +547,16 @@
     [% predicate_user('editor') %]
     [% predicate_voter('voter') %]
     [% predicate_release_language('release_language') %]
+    [% predicate_entity_type('area_type', area_types) %]
+    [% predicate_entity_type('artist_type', artist_types) %]
+    [% predicate_entity_type('event_type', event_types) %]
+    [% predicate_entity_type('instrument_type', instrument_types) %]
+    [% predicate_entity_type('label_type', label_types) %]
+    [% predicate_entity_type('place_type', place_types) %]
+    [% predicate_entity_type('release_group_primary_type', rg_types) %]
+    [% predicate_entity_type('release_group_secondary_type', rg_secondary_types) %]
+    [% predicate_entity_type('series_type', series_types) %]
+    [% predicate_entity_type('work_type', work_types) %]
     [% predicate_link('artist_area', undef, 'area') %]
     [% predicate_link('label_area', undef, 'area') %]
     [% predicate_country('release_country') %]
