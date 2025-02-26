@@ -568,6 +568,17 @@ sub _serialize_url
     $self->_serialize_relation_lists($url_node, $url, $url->relationships, $inc, $stash) if $inc->has_rels;
 }
 
+sub _serialize_url_list {
+    my ($self, $parent_node, $list, $inc, $stash, $toplevel) = @_;
+
+    my $list_node = $parent_node->addNewChild(undef, 'url-list');
+    set_list_attributes($list_node, $list);
+
+    for my $url (@{ $list->{items} }) {
+        $self->_serialize_url($list_node, $url, $inc, $stash, $toplevel);
+    }
+}
+
 sub _serialize_recording_list
 {
     my ($self, $parent_node, $list, $inc, $stash, $toplevel) = @_;
