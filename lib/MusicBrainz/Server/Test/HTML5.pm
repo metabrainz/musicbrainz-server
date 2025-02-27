@@ -26,11 +26,7 @@ Currently we ignore the following warnings:
      attribute.  <button><img src="" alt="" /></button> would be better
      solution.  See MBS-xxxx.
 
-  3. Element "foo" now allowed as child of element "bar" ...
-     These are problems with how our HTML is structured, and these should
-     be fixed.  See MBS-xxxx.
-
-  4. Bad value "X-UA-Compatible" for attribute "http-equiv" on element "meta".
+  3. Bad value "X-UA-Compatible" for attribute "http-equiv" on element "meta".
      I assume this is some whitelist it has, and it's an IE workaround anyway,
      so I'm ignoring it.
 
@@ -43,7 +39,6 @@ sub ignore_warning
     my @ignored = (
         '^An .img. element must have an .alt. attribute',
         '^Element .input. with attribute .type. whose value is .button.',
-        '^Element .* not allowed as child of element .* in this context.',
         '^Bad value .X-UA-Compatible. for attribute .http-equiv. on element .meta..',
         '^Bad value .dialog. for attribute .aria-haspopup. on element .button..',
     );
