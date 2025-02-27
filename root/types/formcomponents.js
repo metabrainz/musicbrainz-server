@@ -36,6 +36,7 @@ declare type DatePeriodFieldT = CompoundFieldT<{
 }>;
 
 declare type FieldT<+V> = {
+  +disabled: boolean,
   +errors: $ReadOnlyArray<string>,
   +has_errors: boolean,
   +html_name: string,
