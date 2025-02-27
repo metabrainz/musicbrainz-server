@@ -9,6 +9,8 @@
 
 import * as React from 'react';
 
+import newTabIconUrl from '../../../images/icons/new_tab.svg';
+
 component ListMergeButtonsRow(
   label: string,
 ) {
@@ -26,16 +28,30 @@ component ListMergeButtonsRow(
     }, 0);
   };
 
+  const newTabLabel = exp.l(
+    '{action_label} (in a new tab)',
+    {action_label: label},
+  );
+
   return (
     <div className="row">
-        <span className="buttons">
+      <span className="buttons">
         <button onClick={handleClick} type="submit">
             {label}
         </button>
-        <button formTarget="_blank" onClick={handleClick} type="submit">
-            {exp.l('{action_label} (in a new tab)', {action_label: label})}
+        <button
+          aria-label={newTabLabel}
+          formTarget="_blank"
+          onClick={handleClick}
+          title={newTabLabel}
+          type="submit"
+        >
+          <img
+            alt={newTabLabel}
+            src={newTabIconUrl}
+          />
         </button>
-        </span>
+      </span>
     </div>
   );
 }
