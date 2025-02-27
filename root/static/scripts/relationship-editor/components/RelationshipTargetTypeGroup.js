@@ -55,8 +55,8 @@ component _RelationshipTargetTypeGroup(
   return elements;
 }
 
-const RelationshipTargetTypeGroup: React.AbstractComponent<
-  React.PropsOf<_RelationshipTargetTypeGroup>
-> = React.memo(_RelationshipTargetTypeGroup);
+const RelationshipTargetTypeGroup:
+  component(...React.PropsOf<_RelationshipTargetTypeGroup>) =
+  React.memo(_RelationshipTargetTypeGroup);
 
 export default RelationshipTargetTypeGroup;

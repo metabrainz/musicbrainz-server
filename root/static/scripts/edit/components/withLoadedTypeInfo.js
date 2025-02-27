@@ -20,10 +20,10 @@ import {
 const typeInfoPromises = new Map<string, Promise<void>>();
 const loadedTypeInfo = new Set<string>();
 
-export default function withLoadedTypeInfo<Config, Instance = mixed>(
-  WrappedComponent: React.AbstractComponent<Config, Instance>,
+export default function withLoadedTypeInfo<Config: {...}, Instance = mixed>(
+  WrappedComponent: component(ref: React.RefSetter<Instance>, ...Config),
   typeInfoToLoad: $ReadOnlySet<string>,
-): React.AbstractComponent<Config, Instance> {
+): component(ref: React.RefSetter<Instance>, ...Config) {
   const ComponentWrapper = React.forwardRef((
     props: Config,
     ref: React.RefSetter<Instance>,
@@ -143,7 +143,7 @@ export default function withLoadedTypeInfo<Config, Instance = mixed>(
           </p>
         )
       ) : (
-        <WrappedComponent ref={ref} {...props} />
+        <WrappedComponent {...props} ref={ref} />
       )
     );
   });
@@ -152,12 +152,12 @@ export default function withLoadedTypeInfo<Config, Instance = mixed>(
 }
 
 export function withLoadedTypeInfoForRelationshipEditor<
-  Config,
+  Config: {...},
   Instance = mixed,
 >(
-  WrappedComponent: React.AbstractComponent<Config, Instance>,
+  WrappedComponent: component(ref: React.RefSetter<Instance>, ...Config),
   extraTypeInfoToLoad?: $ReadOnlyArray<string> = [],
-): React.AbstractComponent<Config, Instance> {
+): component(ref: React.RefSetter<Instance>, ...Config) {
   return withLoadedTypeInfo(
     WrappedComponent,
     new Set([

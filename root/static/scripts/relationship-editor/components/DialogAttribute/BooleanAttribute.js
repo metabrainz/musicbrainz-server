@@ -64,8 +64,8 @@ component _BooleanAttribute(
   );
 }
 
-const BooleanAttribute: React.AbstractComponent<
-  React.PropsOf<_BooleanAttribute>
-> = React.memo(_BooleanAttribute);
+const BooleanAttribute:
+  component(...React.PropsOf<_BooleanAttribute>) =
+  React.memo(_BooleanAttribute);
 
 export default BooleanAttribute;

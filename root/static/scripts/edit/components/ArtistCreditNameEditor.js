@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import {ArtistAutocomplete} from '../../common/components/Autocomplete2.js';
+import Autocomplete2 from '../../common/components/Autocomplete2.js';
 import type {
   ActionT as AutocompleteActionT,
 } from '../../common/components/Autocomplete2/types.js';
@@ -158,7 +158,7 @@ component _ArtistCreditNameEditor(
       ) : (
         <>
           <td>
-            <ArtistAutocomplete
+            <Autocomplete2
               dispatch={artistDispatch}
               state={artistCreditName.artist}
             />
@@ -228,8 +228,8 @@ component _ArtistCreditNameEditor(
   );
 }
 
-const ArtistCreditNameEditor: React.AbstractComponent<
-  React.PropsOf<_ArtistCreditNameEditor>
-> = React.memo(_ArtistCreditNameEditor);
+const ArtistCreditNameEditor:
+  component(...React.PropsOf<_ArtistCreditNameEditor>) =
+  React.memo(_ArtistCreditNameEditor);
 
 export default ArtistCreditNameEditor;

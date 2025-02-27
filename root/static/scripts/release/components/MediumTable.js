@@ -137,8 +137,8 @@ component _MediumTable(
   );
 }
 
-const MediumTable: React.AbstractComponent<
-  React.PropsOf<_MediumTable>
-> = React.memo(_MediumTable);
+const MediumTable:
+  component(...React.PropsOf<_MediumTable>) =
+  React.memo(_MediumTable);
 
 export default MediumTable;

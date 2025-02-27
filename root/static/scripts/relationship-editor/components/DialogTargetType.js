@@ -59,8 +59,8 @@ component _DialogTargetType(
   );
 }
 
-const DialogTargetType: React.AbstractComponent<
-  React.PropsOf<_DialogTargetType>
-> = React.memo(_DialogTargetType);
+const DialogTargetType:
+  component(...React.PropsOf<_DialogTargetType>) =
+  React.memo(_DialogTargetType);
 
 export default DialogTargetType;

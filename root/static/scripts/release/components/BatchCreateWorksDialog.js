@@ -334,6 +334,6 @@ component _BatchCreateWorksButtonPopover(
   );
 }
 
-export const BatchCreateWorksButtonPopover: React.AbstractComponent<
-  React.PropsOf<_BatchCreateWorksButtonPopover>
-> = React.memo(_BatchCreateWorksButtonPopover);
+export const BatchCreateWorksButtonPopover:
+  component(...React.PropsOf<_BatchCreateWorksButtonPopover>) =
+  React.memo(_BatchCreateWorksButtonPopover);

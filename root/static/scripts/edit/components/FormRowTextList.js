@@ -174,4 +174,4 @@ export component NonHydratedFormRowTextList(
 export default (hydrate<React.PropsOf<FormRowTextList>>(
   'div.row.form-row-text-list-container',
   FormRowTextList,
-): React.AbstractComponent<React.PropsOf<FormRowTextList>, void>);
+): component(...React.PropsOf<FormRowTextList>));

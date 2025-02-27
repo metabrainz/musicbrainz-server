@@ -132,8 +132,8 @@ component _DialogSourceEntity(
   );
 }
 
-const DialogSourceEntity: React.AbstractComponent<
-  React.PropsOf<_DialogSourceEntity>
-> = React.memo(_DialogSourceEntity);
+const DialogSourceEntity:
+  component(...React.PropsOf<_DialogSourceEntity>) =
+  React.memo(_DialogSourceEntity);
 
 export default DialogSourceEntity;

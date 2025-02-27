@@ -59,4 +59,4 @@ export component RecordingName(
 export default (hydrate<React.PropsOf<RecordingName>>(
   'div.recording-name',
   RecordingName,
-): React.AbstractComponent<React.PropsOf<RecordingName>, void>);
+): component(...React.PropsOf<RecordingName>));

@@ -36,4 +36,4 @@ component WorkArtists(artists: ?$ReadOnlyArray<ArtistCreditT>) {
 export default (hydrate<React.PropsOf<WorkArtists>>(
   'div.work-artists-container',
   WorkArtists,
-): React.AbstractComponent<React.PropsOf<WorkArtists>, void>);
+): component(...React.PropsOf<WorkArtists>));
