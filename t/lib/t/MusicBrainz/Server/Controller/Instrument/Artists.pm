@@ -32,17 +32,17 @@ test 'Instrument artists page contains the expected data' => sub {
     html_ok($mech->content);
     my $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the artists table',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr/td[1]',
         'Salvatore Accardo',
         'The entry is for Salvatore Accardo',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr/td[6]',
+        '//table[contains(@class, "tbl")]/tbody/tr/td[6]',
         'instrument (as “violino”), instrument, teacher',
         'The entry lists both relevant roles, "instrument" and "teacher", with one credit too',
     );

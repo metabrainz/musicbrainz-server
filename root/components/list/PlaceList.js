@@ -33,6 +33,8 @@ component PlaceList(
 ) {
   const $c = React.useContext(CatalystContext);
 
+  const className = checkboxes === 'add-to-merge' ? 'mergeable-table' : '';
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
@@ -90,7 +92,7 @@ component PlaceList(
     ],
   );
 
-  return useTable<PlaceT>({columns, data: places});
+  return useTable<PlaceT>({className, columns, data: places});
 }
 
 export default PlaceList;

@@ -21,11 +21,11 @@ import DescriptiveLink
 import Filter from '../static/scripts/common/components/Filter.js';
 import {type ReleaseFilterT}
   from '../static/scripts/common/components/FilterForm.js';
+import ListMergeButtonsRow
+  from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract.js';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
-import FormRow from '../static/scripts/edit/components/FormRow.js';
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import LabelLayout from './LabelLayout.js';
@@ -93,9 +93,15 @@ component LabelIndex(
             />
           </PaginatedResults>
           {$c.user ? (
-            <FormRow>
-              <FormSubmit label={l('Add selected releases for merging')} />
-            </FormRow>
+            <>
+              <ListMergeButtonsRow
+                label={l('Add selected releases for merging')}
+              />
+              {manifest(
+                'common/components/ListMergeButtonsRow',
+                {async: 'async'},
+              )}
+            </>
           ) : null}
         </form>
       ) : (

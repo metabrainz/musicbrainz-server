@@ -29,7 +29,7 @@ test 'Overview (release group) filtering' => sub {
 
     my $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl release-group-list"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '6',
         'There are six entries in the unfiltered release group tables',
     );
@@ -41,12 +41,12 @@ test 'Overview (release group) filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl release-group-list"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '2',
         'There are two entries in the release group tables after filtering by name',
     );
     $tx->is(
-        '//table[@class="tbl release-group-list"]/tbody/tr[1]/td[2]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[2]',
         'Concerto for Orchestra / Symphony no. 3',
         'The first entry is named "Concerto for Orchestra / Symphony no. 3"',
     );
@@ -58,12 +58,12 @@ test 'Overview (release group) filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl release-group-list"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the release group tables after filtering by credit',
     );
     $tx->is(
-        '//table[@class="tbl release-group-list"]/tbody/tr[1]/td[2]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[2]',
         'Piano Concerto / Symphony no. 2',
         'The entry is named "Piano Concerto / Symphony no. 2"',
     );
@@ -75,12 +75,12 @@ test 'Overview (release group) filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl release-group-list"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the release group tables after filtering by "Single" type',
     );
     $tx->is(
-        '//table[@class="tbl release-group-list"]/tbody/tr[1]/td[2]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[2]',
         'Jeux vénetiens',
         'The entry is named "Jeux vénetiens"',
     );
@@ -92,12 +92,12 @@ test 'Overview (release group) filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl release-group-list"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the release group tables after filtering by no type',
     );
     $tx->is(
-        '//table[@class="tbl release-group-list"]/tbody/tr[1]/td[2]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[2]',
         'String Quartet',
         'The entry is named "String Quartet"',
     );
@@ -109,12 +109,12 @@ test 'Overview (release group) filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl release-group-list"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '2',
         'There are two entries in the release group tables after filtering by "Live" secondary type',
     );
     $tx->is(
-        'count(//table[@class="tbl release-group-list"])',
+        'count(//table[contains(@class, "tbl")])',
         '2',
         'There are two tables present, for albums and singles',
     );
@@ -126,12 +126,12 @@ test 'Overview (release group) filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl release-group-list"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the release group tables after filtering by both "Album" and "Live"',
     );
     $tx->is(
-        '//table[@class="tbl release-group-list"]/tbody/tr[1]/td[2]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[2]',
         'Lutosławski',
         'The entry is named "Lutosławski"',
     );
@@ -143,7 +143,7 @@ test 'Overview (release group) filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl release-group-list"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '3',
         'There are three entries in the release group tables after filtering by album with no secondary type',
     );
@@ -173,7 +173,7 @@ test 'Release page filtering' => sub {
 
     my $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '7',
         'There are seven entries in the unfiltered release table',
     );
@@ -185,12 +185,12 @@ test 'Release page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '2',
         'There are two entries in the release table after filtering by name',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
         'Concerto for Orchestra / Symphony no. 3',
         'The first entry is named "Concerto for Orchestra / Symphony no. 3"',
     );
@@ -202,12 +202,12 @@ test 'Release page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the release table after filtering by credit',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
         'Piano Concerto / Symphony no. 2',
         'The entry is named "Piano Concerto / Symphony no. 2"',
     );
@@ -219,12 +219,12 @@ test 'Release page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the release table after filtering by "Withdrawn" status',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
         'Jeux vénetiens',
         'The entry is named "Jeux vénetiens"',
     );
@@ -236,12 +236,12 @@ test 'Release page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the release table after filtering by no status',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
         'String Quartet',
         'The entry is named "String Quartet"',
     );
@@ -253,12 +253,12 @@ test 'Release page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '3',
         'There are three entries in the release table after filtering by date',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
         'Piano Concerto / Symphony no. 2',
         'The first entry is named "Piano Concerto / Symphony no. 2"',
     );
@@ -270,12 +270,12 @@ test 'Release page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '2',
         'There are two entries in the release table after filtering by label',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
         'Lutosławski',
         'The first entry is named "Lutosławski"',
     );
@@ -287,12 +287,12 @@ test 'Release page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '2',
         'There are two entries in the release table after filtering by no label',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
         'Concerto for Orchestra / Symphony no. 3',
         'The first entry is named "Concerto for Orchestra / Symphony no. 3"',
     );
@@ -304,12 +304,12 @@ test 'Release page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '2',
         'There are two entries in the release table after filtering by country',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
         'Concerto for Orchestra / Symphony no. 3',
         'The first entry is named "Concerto for Orchestra / Symphony no. 3"',
     );
@@ -321,12 +321,12 @@ test 'Release page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '4',
         'There are four entries in the release table after filtering by no country',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
         'Symphonies / Concertos / Choral and Vocal Works',
         'The first entry is named "Symphonies / Concertos / Choral and Vocal Works"',
     );
@@ -338,12 +338,12 @@ test 'Release page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '2',
         'There are two entries in the release table after filtering by no country + date 2010',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
         'Lutosławski',
         'The first entry is named "Lutosławski"',
     );
@@ -355,12 +355,12 @@ test 'Release page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the release table after filtering by country and label',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
         'Piano Concerto / Symphony no. 2',
         'The entry is named "Piano Concerto / Symphony no. 2"',
     );
@@ -380,7 +380,7 @@ test 'Event page filtering' => sub {
 
     my $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '4',
         'There are four entries in the unfiltered event table',
     );
@@ -392,12 +392,12 @@ test 'Event page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the event table after filtering by name',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr/td[1]',
         'Berliner Philharmoniker plays Schnittke and Shostakovich',
         'The entry is named "Berliner Philharmoniker plays Schnittke and Shostakovich"',
     );
@@ -409,7 +409,7 @@ test 'Event page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '3',
         'There are three entries in the event table after filtering by "Concert" type',
     );
@@ -421,12 +421,12 @@ test 'Event page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the event table after filtering by no type',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr/td[1]',
         'Uncertain',
         'The entry is named "Uncertain"',
     );
@@ -438,12 +438,12 @@ test 'Event page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '2',
         'There are two entries in the event table after filtering by setlist',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr[1]/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
         '[concert]',
         'The first entry is named [concert]',
     );
@@ -463,7 +463,7 @@ test 'Recording page filtering' => sub {
 
     my $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '5',
         'There are four entries in the unfiltered recording table',
     );
@@ -475,12 +475,12 @@ test 'Recording page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the recording table after filtering by name',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr/td[1]',
         'Symphony no. 3 (Testy 2)',
         'The entry is named "Symphony no. 3"',
     );
@@ -492,12 +492,12 @@ test 'Recording page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '2',
         'There are two entries in the recording table after filtering by credit',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr[1]/td[2]',
+        '//table[contains(@class, "tbl")]/tbody/tr[1]/td[2]',
         'Sinfonia Varsovia, Witold Lutosławski',
         'The first has the expected artist credit"',
     );
@@ -509,12 +509,12 @@ test 'Recording page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the recording table after filtering by videos only',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr/td[1]',
         'Interludium (Testy)',
         'The entry is named "Interludium"',
     );
@@ -526,7 +526,7 @@ test 'Recording page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '4',
         'There are four entries in the recording table after filtering by non-videos only',
     );
@@ -538,7 +538,7 @@ test 'Recording page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '4',
         'There are four entries in the recording table after filtering to show recordings with works only',
     );
@@ -550,12 +550,12 @@ test 'Recording page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the recording table after filtering to show recordings without works only',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr/td[1]',
         'Improvisation (No work here)',
         'The entry is named "Improvisation"',
     );
@@ -567,7 +567,7 @@ test 'Recording page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '2',
         'There are two entries in the recording table after filtering by disambiguation',
     );
@@ -579,7 +579,7 @@ test 'Recording page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '4',
         'There are four entries in the recording table after filtering by non-bootleg only',
     );
@@ -599,7 +599,7 @@ test 'Work page filtering' => sub {
 
     my $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '5',
         'There are five entries in the unfiltered work table',
     );
@@ -611,7 +611,7 @@ test 'Work page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '3',
         'There are three entries in the "as performer" work table (even though one work was performed twice)',
     );
@@ -624,7 +624,7 @@ test 'Work page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '4',
         'There are four entries in the "as author" work table',
     );
@@ -641,12 +641,12 @@ test 'Work page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the "as other artist" work table',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr/td[1]',
         'Brandenburgisches Konzert Nr. 5 D-Dur, BWV 1050',
         'The entry is named "Brandenburgisches Konzert Nr. 5 D-Dur, BWV 1050"',
     );
@@ -658,7 +658,7 @@ test 'Work page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '2',
         'There are two entries in the work table after filtering by "Symphony" type',
     );
@@ -670,12 +670,12 @@ test 'Work page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the work table after filtering by no type',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr/td[1]',
         'Interlude',
         'The entry is named "Interlude"',
     );
@@ -687,7 +687,7 @@ test 'Work page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '2',
         'There are two entries in the work table after filtering by "English" language',
     );
@@ -699,7 +699,7 @@ test 'Work page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '3',
         'There are three entries in the work table after filtering by no language set',
     );
@@ -711,7 +711,7 @@ test 'Work page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the work table after filtering by name "Interlude"',
     );
@@ -723,12 +723,12 @@ test 'Work page filtering' => sub {
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the work table after filtering by disambiguation',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr/td[1]',
         'Mini Overture (Testy)',
         'The entry is named "Mini Overture" and the disambiguation is indeed "Testy"',
     );

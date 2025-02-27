@@ -11,10 +11,13 @@ import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
+import manifest from '../static/manifest.mjs';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import CodeLink from '../static/scripts/common/components/CodeLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import ListMergeButtonsRow
+  from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength.js';
 import loopParity from '../utility/loopParity.js';
@@ -50,7 +53,7 @@ component Index(
         action={'/recording/merge_queue?' + returnToCurrentPage($c)}
         method="post"
       >
-        <table className="tbl">
+        <table className="tbl mergeable-table">
           <thead>
             <tr>
               {userExists ? (
@@ -88,13 +91,15 @@ component Index(
           </tbody>
         </table>
         {userExists ? (
-          <div className="row">
-            <span className="buttons">
-              <button type="submit">
-                {l('Add selected recordings for merging')}
-              </button>
-            </span>
-          </div>
+          <>
+            <ListMergeButtonsRow
+              label={l('Add selected recordings for merging')}
+            />
+            {manifest(
+              'common/components/ListMergeButtonsRow',
+              {async: 'async'},
+            )}
+          </>
         ) : null}
       </form>
     </Layout>
