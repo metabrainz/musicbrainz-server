@@ -14,6 +14,7 @@ import path from 'path';
 import httpProxy from 'http-proxy';
 import JSON5 from 'json5';
 import webdriver from 'selenium-webdriver';
+import getBrowsingContextInstance from 'selenium-webdriver/bidi/browsingContext.js';
 import chrome from 'selenium-webdriver/chrome.js';
 import firefox from 'selenium-webdriver/firefox.js';
 import {Key} from 'selenium-webdriver/lib/input.js';
@@ -25,6 +26,8 @@ import TestCls from 'tape/lib/test.js';
 import yargs from 'yargs';
 
 import * as DBDefs from '../root/static/scripts/common/DBDefs.mjs';
+import {compareStrings}
+  from '../root/static/scripts/common/utility/compare.mjs';
 import deepEqual from '../root/static/scripts/common/utility/deepEqual.js';
 import escapeRegExp
   from '../root/static/scripts/common/utility/escapeRegExp.mjs';
@@ -61,6 +64,14 @@ const argv = yargs
     default: '',
     describe: 'path to the browser binary, in case it cannot be auto-detected',
     type: 'string',
+  })
+  .option('r', {
+    alias: 'run-partition',
+    default: false,
+    describe: 'run a partition of the tests, specified as a fraction; ' +
+              'e.g., 2/4 will divide the tests into four deterministic ' +
+              'partitions and run the second one',
+    type: 'strings',
   })
   .option('s', {
     alias: 'stay-open',
@@ -179,6 +190,19 @@ proxy.on('proxyReq', function (req) {
 
 const customProxyServer = http.createServer(function (req, res) {
   const host = req.headers.host;
+  if (
+    /*
+     * This is hit due to the .caa-warning/.eaa-warning toggle.
+     * We don't have any tests that care about that warning, and the IA
+     * seems to block requests from GitHub Actions runners, so it causes
+     * pointless timeouts.
+     */
+    host === 's3.us.archive.org'
+  ) {
+    res.writeHead(503);
+    res.end('');
+    return;
+  }
   if (host === DBDefs.WEB_SERVER) {
     req.headers['mb-set-database'] = 'SELENIUM';
     req.rawHeaders['mb-set-database'] = 'SELENIUM';
@@ -200,6 +224,11 @@ const driver = (x => {
         'no-sandbox',
         'proxy-server=http://localhost:5051',
       );
+      options.setUserPreferences({
+        'credentials_enable_service': false,
+        'profile.password_manager_enabled': false,
+        'profile.password_manager_leak_detection': false,
+      });
       if (argv.browserBinaryPath) {
         options.setChromeBinaryPath(argv.browserBinaryPath);
       }
@@ -209,7 +238,7 @@ const driver = (x => {
     case 'firefox':
       x.forBrowser('firefox');
       options = new firefox.Options();
-      options.setPreference('dom.disable_beforeunload', false);
+      options.setPreference('dom.disable_beforeunload', true);
       options.setPreference('network.proxy.allow_hijacking_localhost', true);
       if (argv.browserBinaryPath) {
         options.setBinary(argv.browserBinaryPath);
@@ -224,8 +253,11 @@ const driver = (x => {
   x.setProxy(webdriverProxy.manual({http: 'localhost:5051'}));
 
   if (argv.headless) {
-    options.addArguments('--headless=new');
+    options.addArguments('--headless');
   }
+
+  // Needed to take a screenshot in case of failure.
+  options.enableBidi();
 
   return x.build();
 })(new webdriver.Builder());
@@ -236,8 +268,39 @@ function quit() {
   return driver.quit().catch(console.error);
 }
 
+const SCREENSHOTS_DIR = path.resolve(
+  DBDefs.MB_SERVER_ROOT,
+  't/selenium/.screenshots',
+);
+
+async function takeScreenshot(fname) {
+  let browsingContext;
+  try {
+    browsingContext = await getBrowsingContextInstance(driver, {
+      browsingContextId: await driver.getWindowHandle(),
+    });
+    const fpath = path.join(SCREENSHOTS_DIR, `${fname}.png`);
+    fs.mkdirSync(path.dirname(fpath), {recursive: true});
+    fs.writeFileSync(
+      fpath,
+      await browsingContext.captureScreenshot(),
+      'base64',
+    );
+    return fpath;
+  } catch (err) {
+    console.error('Failed to take a screenshot:');
+    console.error(err);
+  } finally {
+    await browsingContext?.close();
+  }
+  return null;
+}
+
 async function unhandledRejection(err) {
   console.error(err);
+
+  await takeScreenshot('failure');
+
   if (!argv.stayOpen) {
     await quit();
     process.exit(1);
@@ -341,7 +404,7 @@ function getPageErrors() {
 
 let coverageObjectIndex = 0;
 function writeSeleniumCoverage(coverageString) {
-  writeCoverage(`selenium-${coverageObjectIndex++}`, coverageString);
+  return writeCoverage(`selenium-${coverageObjectIndex++}`, coverageString);
 }
 
 async function writePreviousSeleniumCoverage() {
@@ -368,7 +431,7 @@ async function writePreviousSeleniumCoverage() {
      return null;`,
   );
   if (previousCoverage) {
-    writeSeleniumCoverage(previousCoverage);
+    await writeSeleniumCoverage(previousCoverage);
   }
 }
 
@@ -438,17 +501,21 @@ async function getSeleniumDbTupStats() {
   return JSON.parse(result.stdout);
 }
 
-async function handleCommandAndWait({command, target, value}, t) {
+async function handleCommandAndWait(
+  stest,
+  {command, index, target, value},
+  t,
+) {
   const newCommand = command.replace(/AndWait$/, '');
 
   const html = await findElement('css=html');
-  await handleCommand({command: newCommand, target, value}, t);
+  await handleCommand(stest, {command: newCommand, index, target, value}, t);
   return driver.wait(until.stalenessOf(html), 30000);
 }
 
-async function handleCommand({command, target, value}, t, ...args) {
+async function handleCommand(stest, {command, index, target, value}, t) {
   if (/AndWait$/.test(command)) {
-    return handleCommandAndWait({command, target, value}, t, ...args);
+    return handleCommandAndWait(stest, {command, index, target, value}, t);
   }
 
   // Wait for all pending network requests before running the next command.
@@ -555,7 +622,8 @@ async function handleCommand({command, target, value}, t, ...args) {
       break;
 
     case 'check':
-      return setChecked(findElement(target), true);
+      await setChecked(findElement(target), true);
+      break;
 
     case 'click':
       element = await findElement(target);
@@ -664,6 +732,11 @@ async function handleCommand({command, target, value}, t, ...args) {
     default:
       throw 'Unsupported command: ' + command;
   }
+
+  (stest.screenshots ??= []).push(await takeScreenshot(
+    `${stest.name.replace(/\.json5$/, '')}_${index}_${command}`,
+  ));
+
   return null;
 }
 
@@ -785,43 +858,26 @@ if (!DBDefs.DISABLE_IMAGE_EDITING) {
     {name: 'EAA.json5', login: true},
   );
 }
+
 /* eslint-enable sort-keys */
 
-const testPath =
-  name => path.resolve(DBDefs.MB_SERVER_ROOT, 't/selenium', name);
-
-seleniumTests.forEach(x => {
-  x.path = testPath(x.name);
-});
-
-function getPlan(file) {
-  const document = JSON5.parse(fs.readFileSync(file));
-  const commands = document.commands;
-  let plan = 0;
-
-  for (let i = 0; i < commands.length; i++) {
-    const row = commands[i];
-
-    if (/^assert/.test(row.command)) {
-      plan++;
-    }
-
-    row.file = file;
-  }
-
-  document.plan = plan;
-  return document;
+function setTestPath(test) {
+  test.path = path.resolve(DBDefs.MB_SERVER_ROOT, 't/selenium', test.name);
 }
 
-async function runCommands(commands, t) {
-  await driver.manage().window().setRect({height: 768, width: 1024});
+function loadTestDocument(test) {
+  test.document = JSON5.parse(fs.readFileSync(test.path));
+}
+
+async function runCommands(stest, commands, t) {
+  await driver.manage().window().maximize();
 
   for (let i = 0; i < commands.length; i++) {
     const command = commands[i];
     const reqsCountBeforeCommand = reqsCount;
     const locationBeforeCommand = await getDocumentLocation();
 
-    await handleCommand(command, t);
+    await handleCommand(stest, {...command, index: i}, t);
 
     const locationAfterCommand = await getDocumentLocation();
 
@@ -905,63 +961,148 @@ async function runCommands(commands, t) {
     ));
   }
 
-  const loginPlan = getPlan(testPath('Log_In.json5'));
-  const logoutPlan = getPlan(testPath('Log_Out.json5'));
+  seleniumTests.forEach(setTestPath);
+  const loginPlan = {name: 'Log_In.json5'};
+  const logoutPlan = {name: 'Log_Out.json5'};
+  setTestPath(loginPlan);
+  setTestPath(logoutPlan);
+
   const testsPathsToRun = argv._.map(x => path.resolve(x));
-  const testsToRun = testsPathsToRun.length
+  let testsToRun = testsPathsToRun.length
     ? seleniumTests.filter(x => testsPathsToRun.includes(x.path))
     : seleniumTests;
+
+  const partitionConfig = argv.runPartition;
+  if (partitionConfig) {
+    if (testsPathsToRun.length) {
+      console.error('Cannot specify a list of tests in addition to run-partition');
+      quit();
+      process.exit(1);
+    }
+    const match = partitionConfig.match(/^([0-9]+)\/([0-9]+)$/);
+    const partitionToRun = match ? parseInt(match[1], 10) : -1;
+    const numPartitions = match ? parseInt(match[2], 10) : -1;
+    if (
+      numPartitions < 2 ||
+      numPartitions > seleniumTests.length ||
+      partitionToRun < 1 ||
+      partitionToRun > numPartitions
+    ) {
+      console.error('Invalid value for run-partition: ' + partitionConfig);
+      quit();
+      process.exit(1);
+    }
+    seleniumTests.forEach(loadTestDocument);
+    /*
+     * Sort by number of commands (steps) in each test, then by name.
+     * The first criterion is needed for the greedy number partitioning
+     * algorithm to work more optimally. The second criterion is to ensure
+     * a deterministic result.
+     */
+    seleniumTests.sort((a, b) => (
+      (b.document.commands.length - a.document.commands.length) ||
+      compareStrings(a.name, b.name)
+    ));
+    const partitions = Array.from({length: numPartitions}, () => ({
+      tests: [],
+      totalCommands: 0,
+    }));
+    for (const test of seleniumTests) {
+      let smallestPartition = partitions[0];
+      for (let i = 1; i < numPartitions; i++) {
+        if (partitions[i].totalCommands < smallestPartition.totalCommands) {
+          smallestPartition = partitions[i];
+        }
+      }
+      smallestPartition.tests.push(test);
+      smallestPartition.totalCommands += test.document.commands.length;
+    }
+    testsToRun = partitions[partitionToRun - 1].tests;
+  } else {
+    testsToRun.forEach(loadTestDocument);
+  }
+
+  loadTestDocument(loginPlan);
+  loadTestDocument(logoutPlan);
 
   customProxyServer.listen(5051);
 
   let shouldCleanSeleniumDb = true;
 
-  await testsToRun.reduce(function (accum, stest, index) {
-    const {commands, plan, title} = getPlan(stest.path);
+  for (let index = 0; index < testsToRun.length; index++) {
+    const stest = testsToRun[index];
+    const {commands, title} = stest.document;
+
+    let plan = 0;
+    for (let i = 0; i < commands.length; i++) {
+      const row = commands[i];
+      if (/^assert/.test(row.command)) {
+        plan++;
+      }
+    }
 
     const isLastTest = index === testsToRun.length - 1;
+    let didTestFail = false;
 
     const testOptions = {objectPrintDepth: 10, timeout: TEST_TIMEOUT};
 
-    return new Promise(function (resolve) {
-      test(title, testOptions, function (t) {
+    const shouldCleanSeleniumDbNow = shouldCleanSeleniumDb;
+    shouldCleanSeleniumDb = await new Promise(function (resolve) {
+      test(title, testOptions, async function (t) {
         t.plan(plan);
+
+        t.on('fail', () => {
+          didTestFail = true;
+        });
+
+        t.on('end', () => {
+          // Remove screenshots if the test was succesful.
+          if (stest.screenshots?.length && !didTestFail) {
+            for (const screenshotPath of stest.screenshots) {
+              fs.unlinkSync(screenshotPath);
+            }
+          }
+        });
 
         const timeout = setTimeout(resolve, TEST_TIMEOUT);
 
-        accum.then(async function () {
-          const hasExtraSql = typeof stest.sql === 'string';
+        const hasExtraSql = typeof stest.sql === 'string';
 
-          if (hasExtraSql || shouldCleanSeleniumDb) {
-            await cleanSeleniumDb(t, stest.sql);
+        if (hasExtraSql || shouldCleanSeleniumDbNow) {
+          await cleanSeleniumDb(t, stest.sql);
+        }
+
+        const startTime = new Date();
+
+        let didDatabaseChange = hasExtraSql;
+        const startTupStats = didDatabaseChange
+          ? null
+          : (await getSeleniumDbTupStats());
+
+        try {
+          if (stest.login) {
+            await runCommands(loginPlan, loginPlan.document.commands, t);
           }
 
-          const startTime = new Date();
+          await runCommands(stest, commands, t);
 
-          let didDatabaseChange = hasExtraSql;
-          const startTupStats = didDatabaseChange
-            ? null
-            : (await getSeleniumDbTupStats());
-
-          try {
+          if (!(isLastTest && argv.stayOpen)) {
             if (stest.login) {
-              await runCommands(loginPlan.commands, t);
+              await runCommands(
+                logoutPlan,
+                logoutPlan.document.commands,
+                t,
+              );
             }
-
-            await runCommands(commands, t);
-
-            if (!(isLastTest && argv.stayOpen)) {
-              if (stest.login) {
-                await runCommands(logoutPlan.commands, t);
-              }
-            }
-          } catch (error) {
-            t.fail(
-              'caught exception: ' +
-              (error && error.stack ? error.stack : error.toString()),
-            );
-            throw error;
-          } finally {
+          }
+        } catch (error) {
+          t.fail(
+            'caught exception: ' +
+            (error && error.stack ? error.stack : error.toString()),
+          );
+          throw error;
+        } finally {
+          if (argv.browser === 'chrome') {
             await driver.manage().logs().get(logging.Type.BROWSER)
               .then(function (entries) {
                 entries.forEach(function (entry) {
@@ -971,38 +1112,30 @@ async function runCommands(commands, t) {
                   );
                 });
               });
-
-            const finishTime = new Date();
-            const elapsedTime = (finishTime - startTime) / 1000;
-            t.comment(timePrefix(
-              `${title}: took ${elapsedTime} seconds`,
-            ));
-
-            if (!didDatabaseChange) {
-              const finishTupStats = await getSeleniumDbTupStats();
-              didDatabaseChange = (
-                finishTupStats.tup_inserted > startTupStats.tup_inserted ||
-                finishTupStats.tup_updated > startTupStats.tup_updated ||
-                finishTupStats.tup_deleted > startTupStats.tup_deleted
-              );
-            }
-
-            /*
-             * Tests always run serially, one after another.
-             * The require-atomic-updates violation appears to be a false-
-             * positive from eslint.
-             */
-            // eslint-disable-next-line require-atomic-updates
-            shouldCleanSeleniumDb = didDatabaseChange;
           }
 
-          t.end();
-          clearTimeout(timeout);
-          resolve();
-        });
+          const finishTime = new Date();
+          const elapsedTime = (finishTime - startTime) / 1000;
+          t.comment(timePrefix(
+            `${title}: took ${elapsedTime} seconds`,
+          ));
+
+          if (!didDatabaseChange) {
+            const finishTupStats = await getSeleniumDbTupStats();
+            didDatabaseChange = (
+              finishTupStats.tup_inserted > startTupStats.tup_inserted ||
+              finishTupStats.tup_updated > startTupStats.tup_updated ||
+              finishTupStats.tup_deleted > startTupStats.tup_deleted
+            );
+          }
+        }
+
+        t.end();
+        clearTimeout(timeout);
+        resolve(didDatabaseChange);
       });
     });
-  }, Promise.resolve());
+  }
 
   if (argv.coverage) {
     const remainingCoverage = await driver.executeScript(
