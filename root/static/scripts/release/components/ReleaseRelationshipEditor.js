@@ -1001,7 +1001,7 @@ export const reducer: ((
           });
           mergeLinkedEntities({
             work: {
-              [String(newWork.id)]: newWork,
+              [newWork.id]: newWork,
             },
           });
           const relationship: RelationshipStateT = {
@@ -1042,7 +1042,7 @@ export const reducer: ((
       });
       mergeLinkedEntities({
         work: {
-          [String(newWork.id)]: newWork,
+          [newWork.id]: newWork,
         },
       });
       const targetTypeGroups = findTargetTypeGroups(

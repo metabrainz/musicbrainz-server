@@ -370,6 +370,7 @@ declare type HistoricEditT =
   | AddTrackOldHistoricEditT
   | ChangeArtistQualityHistoricEditT
   | ChangeReleaseArtistHistoricEditT
+  | ChangeReleaseGroupHistoricEditT
   | ChangeReleaseQualityHistoricEditT
   | EditRelationshipHistoricEditT
   | EditReleaseAttributesHistoricEditT
