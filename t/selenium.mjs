@@ -1099,15 +1099,17 @@ async function runCommands(stest, commands, t) {
             );
             throw error;
           } finally {
-            await driver.manage().logs().get(logging.Type.BROWSER)
-              .then(function (entries) {
-                entries.forEach(function (entry) {
-                  t.comment(
-                    '[browser console log] ' +
-                    `[${entry.level.name}] ${entry.message}`,
-                  );
+            if (argv.browser === 'chrome') {
+              await driver.manage().logs().get(logging.Type.BROWSER)
+                .then(function (entries) {
+                  entries.forEach(function (entry) {
+                    t.comment(
+                      '[browser console log] ' +
+                      `[${entry.level.name}] ${entry.message}`,
+                    );
+                  });
                 });
-              });
+            }
 
             const finishTime = new Date();
             const elapsedTime = (finishTime - startTime) / 1000;
