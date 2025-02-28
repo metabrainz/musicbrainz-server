@@ -683,11 +683,14 @@ async function handleCommand(stest, {command, index, target, value}, t) {
       break;
     }
 
-    case 'mouseOver':
+    case 'mouseOver': {
+      const element = await findElement(target);
+      await driver.executeScript('arguments[0].scrollIntoView()', element);
       await driver.actions()
-        .move({origin: await findElement(target)})
+        .move({origin: element})
         .perform();
       break;
+    }
 
     case 'open':
       await driver.get('http://' + DBDefs.WEB_SERVER + target);
