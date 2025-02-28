@@ -21,6 +21,7 @@ run_with_apt_cache \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     add-apt-repository ppa:deadsnakes/ppa && \
+    add-apt-repository ppa:mozillateam/ppa && \
     apt_install(`m4_dnl
         mbs_build_deps
         mbs_javascript_deps
@@ -30,6 +31,8 @@ run_with_apt_cache \
         chrome_for_testing_deps
         search_deps
         selenium_caa_deps
+        firefox-esr
+        firefox-esr-geckodriver
         locales
         openssh-client
         postgresql-16

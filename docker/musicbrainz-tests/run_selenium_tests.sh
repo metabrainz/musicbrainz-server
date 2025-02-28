@@ -50,7 +50,7 @@ sleep 10
 
 tests_exit_code=0
 sudo -E -H -u musicbrainz carton exec -- \
-     ./t/selenium.js --browser-binary-path=/opt/chrome-linux64/chrome $SELENIUM_JS_OPTIONS \
+     ./t/selenium.js --browser=firefox --browser-binary-path=/usr/bin/firefox-esr $SELENIUM_JS_OPTIONS \
      | tee >(./node_modules/.bin/tap-junit > ./junit_output/selenium.xml) \
      | ./node_modules/.bin/tap-difflet || { tests_exit_code=$?; true; }
 
