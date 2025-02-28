@@ -20,7 +20,7 @@ component AddDiscId(allowNew?: boolean, edit: AddDiscIdEditT) {
       {medium ? (
         <tr>
           <th>{addColonText(l('Medium'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             <MediumLink allowNew={allowNew} medium={medium} />
           </td>
         </tr>

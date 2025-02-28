@@ -69,10 +69,10 @@ component EnterEditNote(
         <label htmlFor="edit-note-text">{l('Edit note:')}</label>
         <textarea
           className="edit-note"
-          cols="80"
+          cols={80}
           id="edit-note-text"
           name={field.html_name}
-          rows="5"
+          rows={5}
           {...textAreaProps}
         />
         <FieldErrors field={field} />

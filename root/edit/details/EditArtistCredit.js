@@ -30,7 +30,7 @@ component EditArtistCredit(edit: EditArtistCreditEditT) {
         {edit.is_open && display.artist_credit.old.id != null ? (
           <tr>
             <th />
-            <td colSpan="2">
+            <td colSpan={2}>
               <ArtistCreditUsageLink
                 artistCredit={display.artist_credit.old}
                 content={l(

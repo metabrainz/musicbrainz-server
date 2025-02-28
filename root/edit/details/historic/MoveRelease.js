@@ -16,12 +16,12 @@ component MoveRelease(edit: MoveReleaseHistoricEditT) {
   return (
     <table className="details edit-release">
       <HistoricReleaseList
-        colSpan="2"
+        colSpan={2}
         releases={edit.display_data.releases}
       />
       <tr>
         <th>{l('Change track artists:')}</th>
-        <td colSpan="2">{yesNo(edit.display_data.move_tracks)}</td>
+        <td colSpan={2}>{yesNo(edit.display_data.move_tracks)}</td>
       </tr>
       <tr>
         <th>{addColonText(l('Artist'))}</th>

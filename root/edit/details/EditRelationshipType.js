@@ -192,7 +192,7 @@ component EditRelationshipType(edit: EditRelationshipTypeEditT) {
         ) : nonEmpty(oldDescription) ? (
           <tr>
             <th>{addColonText(l('Description'))}</th>
-            <td colSpan="2">
+            <td colSpan={2}>
               {expand2react(l_relationships(oldDescription))}
             </td>
           </tr>

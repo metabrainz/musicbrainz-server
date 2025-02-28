@@ -65,7 +65,7 @@ component LanguageMenu(
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
-    <li className="language-selector" tabIndex="-1">
+    <li className="language-selector" tabIndex={-1}>
       <span className="menu-header">
         {languageName(
           serverLanguages.find(x => x.name === currentBCP47Language),
@@ -100,7 +100,7 @@ component LanguageMenu(
 
 component AboutMenu() {
   return (
-    <li className="about" tabIndex="-1">
+    <li className="about" tabIndex={-1}>
       <span className="menu-header">
         {l('About us')}
         {'\xA0\u25BE'}
@@ -166,7 +166,7 @@ component AboutMenu() {
 
 component ProductsMenu() {
   return (
-    <li className="products" tabIndex="-1">
+    <li className="products" tabIndex={-1}>
       <span className="menu-header">
         {l('Products')}
         {'\xA0\u25BE'}
@@ -211,7 +211,7 @@ component ProductsMenu() {
 
 component SearchMenu() {
   return (
-    <li className="search" tabIndex="-1">
+    <li className="search" tabIndex={-1}>
       <span className="menu-header">
         {l('Search')}
         {'\xA0\u25BE'}
@@ -236,7 +236,7 @@ component SearchMenu() {
 
 component EditingMenu() {
   return (
-    <li className="editing" tabIndex="-1">
+    <li className="editing" tabIndex={-1}>
       <span className="menu-header">
         {l('Editing')}
         {'\xA0\u25BE'}
@@ -293,7 +293,7 @@ component EditingMenu() {
 
 component DocumentationMenu() {
   return (
-    <li className="documentation" tabIndex="-1">
+    <li className="documentation" tabIndex={-1}>
       <span className="menu-header">
         {l('Documentation')}
         {'\xA0\u25BE'}
