@@ -137,9 +137,9 @@ RUN curl -sSLO https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/127.0
     chmod +x /usr/local/bin/chromedriver && \
     rm -r chromedriver-linux64.zip /tmp/chromedriver-linux64
 
-RUN curl -sSLO https://github.com/validator/validator/releases/download/18.11.5/vnu.jar_18.11.5.zip && \
-    unzip -d vnu -j vnu.jar_18.11.5.zip && \
-    rm vnu.jar_18.11.5.zip
+RUN curl -sSLO https://github.com/validator/validator/releases/download/20.6.30/vnu.jar_20.6.30.zip && \
+    unzip -d vnu -j vnu.jar_20.6.30.zip && \
+    rm vnu.jar_20.6.30.zip
 
 RUN echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && \
     locale-gen

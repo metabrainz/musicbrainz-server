@@ -46,6 +46,7 @@ component Filter(
       $.getJSON(ajaxFormUrl, function (data) {
         setFilterForm(data);
         setHidden(false);
+        setCookie('filter', '1');
       });
     }
   }

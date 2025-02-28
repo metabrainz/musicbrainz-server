@@ -127,19 +127,19 @@ component Paginator(
           </li>
         ) : null}
 
-        <li className="separator" key="separate-next">
-          {nextPage == null ? (
-            <li key="no-next">
-              <span>{l('Next')}</span>
-            </li>
-          ) : (
-            <li key="next">
-              <a href={uriPage(reqUri, pageVar, nextPage, hash)}>
-                {l('Next')}
-              </a>
-            </li>
-          )}
-        </li>
+        <li className="separator" key="separate-next" />
+
+        {nextPage == null ? (
+          <li key="no-next">
+            <span>{l('Next')}</span>
+          </li>
+        ) : (
+          <li key="next">
+            <a href={uriPage(reqUri, pageVar, nextPage, hash)}>
+              {l('Next')}
+            </a>
+          </li>
+        )}
       </ul>
     </nav>
   );
