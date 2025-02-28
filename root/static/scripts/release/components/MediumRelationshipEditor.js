@@ -188,8 +188,8 @@ component _MediumRelationshipEditor(
   );
 }
 
-const MediumRelationshipEditor: React.AbstractComponent<
-  React.PropsOf<_MediumRelationshipEditor>
-> = React.memo(_MediumRelationshipEditor);
+const MediumRelationshipEditor:
+  component(...React.PropsOf<_MediumRelationshipEditor>) =
+  React.memo(_MediumRelationshipEditor);
 
 export default MediumRelationshipEditor;

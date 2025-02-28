@@ -98,9 +98,9 @@ export default function hydrate<
   SanitizedConfig = Config,
 >(
   containerSelector: string,
-  Component: React.AbstractComponent<Config | SanitizedConfig>,
+  Component: React.ComponentType<Config | SanitizedConfig>,
   mungeProps?: (Config) => SanitizedConfig,
-): React.AbstractComponent<Config, void> {
+): component(...Config) {
   const [ContainerTag, ...classes] = containerSelector.split('.');
   if (typeof document !== 'undefined') {
     // This should only run on the client.
