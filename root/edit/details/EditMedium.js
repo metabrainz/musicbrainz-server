@@ -51,7 +51,7 @@ component TracklistChangesAdd(
   const track = change.new_track;
   return (
     <tr className="diff-addition edit-medium-track">
-      <td colSpan="4" />
+      <td colSpan={4} />
       <td className="pos t">
         {track.number}
       </td>
@@ -253,7 +253,7 @@ component TracklistChangesRemove(
       <td>
         {formatTrackLength(track.length)}
       </td>
-      <td colSpan={changedMbids ? '5' : '4'} />
+      <td colSpan={changedMbids ? 5 : 4} />
     </tr>
   );
 }
@@ -269,8 +269,8 @@ component TracklistChangesTable (
     <table className="tbl">
       <thead>
         <tr>
-          <th colSpan="4">{l('Old tracklist')}</th>
-          <th colSpan="4">{l('New tracklist')}</th>
+          <th colSpan={4}>{l('Old tracklist')}</th>
+          <th colSpan={4}>{l('New tracklist')}</th>
           {changedMbids ? <th /> : null}
         </tr>
         <tr>
@@ -424,7 +424,7 @@ component EditMedium(edit: EditMediumEditT) {
     <table className="details edit-medium">
       <tr>
         <th>{addColonText(l('Medium'))}</th>
-        <td colSpan="2">
+        <td colSpan={2}>
           <MediumLink medium={display.medium} />
         </td>
       </tr>
@@ -460,7 +460,7 @@ component EditMedium(edit: EditMediumEditT) {
       {tracklistChanges?.length ? (
         <tr>
           <th>{addColonText(l('Tracklist'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             <TracklistChangesTable
               changedMbids={changedMbids}
               changes={tracklistChanges}
@@ -477,7 +477,7 @@ component EditMedium(edit: EditMediumEditT) {
       {recordingChanges?.length ? (
         <tr>
           <th>{addColonText(l('Recordings'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             <table className="tbl">
               <thead>
                 <tr>
@@ -535,7 +535,7 @@ component EditMedium(edit: EditMediumEditT) {
       {artistCreditChanges?.length ? (
         <tr>
           <th>{addColonText(l('Artist credits'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             <table className="tbl">
               <thead>
                 <tr>

@@ -54,7 +54,7 @@ component EditRelationshipAttribute(edit: EditRelationshipAttributeEditT) {
       ) : attributeType ? (
         <tr>
           <th>{addColonText(l('Name'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             {l_relationships(attributeType.name)}
           </td>
         </tr>
@@ -71,7 +71,7 @@ component EditRelationshipAttribute(edit: EditRelationshipAttributeEditT) {
       ) : nonEmpty(oldDescription) ? (
         <tr>
           <th>{addColonText(l('Description'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             {expand2react(l_relationships(oldDescription))}
           </td>
         </tr>

@@ -18,7 +18,7 @@ component ChangeReleaseQuality(edit: ChangeReleaseQualityEditT) {
     <table className="details change-release-quality">
       <tr>
         <th>{addColonText(l('Release'))}</th>
-        <td colSpan="2">
+        <td colSpan={2}>
           <DescriptiveLink entity={edit.display_data.release} />
         </td>
       </tr>

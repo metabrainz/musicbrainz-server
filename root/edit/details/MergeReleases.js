@@ -68,7 +68,7 @@ function buildReleaseRow(release: ReleaseT, index?: number) {
           </td>
         </>
       ) : (
-        <td colSpan="8">
+        <td colSpan={8}>
           <EntityLink entity={release} />
         </td>
       )}
@@ -95,7 +95,7 @@ function buildChangesRow(
             className={loopParity(innerIndex)}
             key={'changes-' + index + '-medium-' + innerIndex}
           >
-            <td colSpan="9">
+            <td colSpan={9}>
               {editVersion === 3 && hasNames ? (
                 hasBothNames ? (
                   exp.l(
@@ -241,7 +241,7 @@ component MergeReleases(edit: MergeReleasesEditT) {
                   <React.Fragment key={'empty-release-' + index}>
                     {buildReleaseRow(release)}
                     <tr className={loopParity(index)}>
-                      <td colSpan="9">
+                      <td colSpan={9}>
                         {l('This release has no media to merge.')}
                       </td>
                     </tr>
@@ -259,7 +259,7 @@ component MergeReleases(edit: MergeReleasesEditT) {
                 <>
                   {display.old.map(buildReleaseRow)}
                   <tr className="subh">
-                    <th colSpan="9">
+                    <th colSpan={9}>
                       {addColonText(lp('Into', 'header, paired with Merge'))}
                     </th>
                   </tr>
@@ -268,7 +268,7 @@ component MergeReleases(edit: MergeReleasesEditT) {
               ) : (
                 <>
                   <tr className="subh">
-                    <th colSpan="9">
+                    <th colSpan={9}>
                       {addColonText(lp('Into', 'header, paired with Merge'))}
                     </th>
                   </tr>
@@ -280,7 +280,7 @@ component MergeReleases(edit: MergeReleasesEditT) {
             <>
               {display.old.map(buildReleaseRow)}
               <tr className="subh">
-                <th colSpan="9">
+                <th colSpan={9}>
                   {addColonText(lp('Into', 'header, paired with Merge'))}
                 </th>
               </tr>
@@ -295,12 +295,12 @@ component MergeReleases(edit: MergeReleasesEditT) {
           <table className="tbl">
             <thead>
               <tr>
-                <th colSpan="5">{l('Recording merges')}</th>
+                <th colSpan={5}>{l('Recording merges')}</th>
               </tr>
               <tr>
                 <th>{l('Track #')}</th>
-                <th colSpan="2">{l('Recording')}</th>
-                <th colSpan="2">
+                <th colSpan={2}>{l('Recording')}</th>
+                <th colSpan={2}>
                   {addColonText(lp('Into', 'header, paired with Merge'))}
                 </th>
               </tr>

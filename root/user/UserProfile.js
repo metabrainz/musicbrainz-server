@@ -568,7 +568,7 @@ component UserProfileStatistics(
       <table className="statistics">
         <thead>
           <tr>
-            <th colSpan="2">
+            <th colSpan={2}>
               {l('Edits')}
             </th>
           </tr>
@@ -683,7 +683,7 @@ component UserProfileStatistics(
       >
         <thead>
           <tr>
-            <th colSpan="3">
+            <th colSpan={3}>
               {$c.user ? exp.l('Votes ({view_url|view})', {
                 view_url: `/user/${encodedName}/votes`,
               }) : l('Votes')}
@@ -748,7 +748,7 @@ component UserProfileStatistics(
       >
         <thead>
           <tr>
-            <th colSpan={hasAddedEntities ? '2' : null}>
+            <th colSpan={hasAddedEntities ? 2 : null}>
               <abbr title={l('Newly applied edits may ' +
                              'need 24 hours to appear')}
               >
@@ -790,7 +790,7 @@ component UserProfileStatistics(
         >
           <thead>
             <tr>
-              <th colSpan="2">
+              <th colSpan={2}>
                 {lp('Tags and ratings', 'folksonomy')}
               </th>
             </tr>

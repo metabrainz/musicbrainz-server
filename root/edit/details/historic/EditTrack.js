@@ -21,7 +21,7 @@ component EditTrack(edit: EditTrackHistoricEditT) {
     <table className="details edit-track">
       <tr>
         <th>{addColonText(l('Recording'))}</th>
-        <td colSpan="2">
+        <td colSpan={2}>
           <DescriptiveLink entity={display.recording} />
         </td>
       </tr>

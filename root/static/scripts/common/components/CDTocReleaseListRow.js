@@ -99,7 +99,7 @@ component CDTocReleaseListRowMediums(
             </div>
           ) : null}
         </td>
-        <td colSpan="6" />
+        <td colSpan={6} />
       </tr>
       {hasLoadedTracks ? (
         <tr
@@ -107,7 +107,7 @@ component CDTocReleaseListRowMediums(
           style={hidden ? {display: 'none'} : {}}
         >
           <td />
-          <td colSpan="6">
+          <td colSpan={6}>
             <table
               className="tbl medium"
               style={{borderCollapse: 'collapse'}}
@@ -141,7 +141,7 @@ component CDTocReleaseListRow(
   return (
     <>
       <tr className={loopClass}>
-        <td colSpan="2">
+        <td colSpan={2}>
           <EntityLink entity={release} />
         </td>
         {showArtists ? (
@@ -177,7 +177,7 @@ component CDTocReleaseListRow(
       )) : null}
       {wasMbidSearch && attachableMediums?.length === 0 ? (
         <tr className={loopClass}>
-          <td className="error" colSpan="7">
+          <td className="error" colSpan={7}>
             {l(`None of the mediums on this release can have the given CD TOC
                 attached, because they have the wrong number of tracks.`)}
           </td>

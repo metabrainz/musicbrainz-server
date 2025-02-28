@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-component RemovedUrlRow(colSpan: string, index: number) {
+component RemovedUrlRow(colSpan: number, index: number) {
   return (
     <tr className="even" key={index}>
       <td colSpan={colSpan}>

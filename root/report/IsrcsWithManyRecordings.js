@@ -74,7 +74,7 @@ component IsrcsWithManyRecordings(...{
                         <a href={'/isrc/' + item.isrc}>{item.isrc}</a>
                         {' ' + bracketedText(item.recordingcount)}
                       </td>
-                      <td colSpan="5" />
+                      <td colSpan={5} />
                     </tr>
                   )}
                   <tr>
@@ -94,7 +94,7 @@ component IsrcsWithManyRecordings(...{
                     ) : (
                       <>
                         <td />
-                        <td colSpan="3">
+                        <td colSpan={3}>
                           {l('This recording no longer exists.')}
                         </td>
                       </>

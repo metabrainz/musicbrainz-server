@@ -44,10 +44,10 @@ component CDTocInfo(cdToc: CDTocT) {
           <td>
             <table>
               <tr>
-                <th rowSpan="2">{l('Track')}</th>
-                <th colSpan="2">{l('Start')}</th>
-                <th colSpan="2">{l('Length')}</th>
-                <th colSpan="2">{l('End')}</th>
+                <th rowSpan={2}>{l('Track')}</th>
+                <th colSpan={2}>{l('Start')}</th>
+                <th colSpan={2}>{l('Length')}</th>
+                <th colSpan={2}>{l('End')}</th>
               </tr>
               <tr>
                 <th>{lp('Time', 'CD timecode')}</th>
