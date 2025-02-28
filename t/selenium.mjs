@@ -885,7 +885,7 @@ function loadTestDocument(test) {
 }
 
 async function runCommands(stest, commands, t) {
-  await driver.manage().window().setRect({height: 768, width: 1024});
+  await driver.manage().window().maximize();
 
   for (let i = 0; i < commands.length; i++) {
     const command = commands[i];
