@@ -1001,7 +1001,8 @@ export const reducer: ((
           });
           mergeLinkedEntities({
             work: {
-              [String(newWork.id)]: newWork,
+              // $FlowIgnore[invalid-computed-prop]
+              [newWork.id]: newWork,
             },
           });
           const relationship: RelationshipStateT = {
@@ -1042,7 +1043,8 @@ export const reducer: ((
       });
       mergeLinkedEntities({
         work: {
-          [String(newWork.id)]: newWork,
+          // $FlowIgnore[invalid-computed-prop]
+          [newWork.id]: newWork,
         },
       });
       const targetTypeGroups = findTargetTypeGroups(
