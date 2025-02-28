@@ -214,3 +214,13 @@ Images:
     icons/open_edits_for_rel.svg
 
 ----------------------------------------------------------------------------
+
+Image set:   Font Awesome Free v6
+Author:      Font Awesome
+License:     CC-BY/4.0 (see: http://creativecommons.org/licenses/by/4.0/) (https://fontawesome.com/license/free)
+Download:    https://fontawesome.com/
+Images:
+
+    icons/new_tab.svg (original: https://fontawesome.com/icons/up-right-from-square?f=classic&s=solid)
+    
+----------------------------------------------------------------------------

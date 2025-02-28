@@ -31,17 +31,17 @@ test 'Instrument releases page contains the expected data' => sub {
     html_ok($mech->content);
     my $tx = test_xpath_html($mech->content);
     $tx->is(
-        'count(//table[@class="tbl"]/tbody/tr)',
+        'count(//table[contains(@class, "tbl")]/tbody/tr)',
         '1',
         'There is one entry in the releases table',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr/td[1]',
+        '//table[contains(@class, "tbl")]/tbody/tr/td[1]',
         'Diabolus in Musica - Accardo interpreta Paganini',
         'The entry is for the expected release',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr/td[9]',
+        '//table[contains(@class, "tbl")]/tbody/tr/td[9]',
         'instrument',
         'The entry lists the relevant role, "instrument"',
     );

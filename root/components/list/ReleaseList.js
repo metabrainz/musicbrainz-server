@@ -49,6 +49,8 @@ component ReleaseList(
 ) {
   const $c = React.useContext(CatalystContext);
 
+  const className = checkboxes === 'add-to-merge' ? 'mergeable-table' : '';
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
@@ -192,7 +194,7 @@ component ReleaseList(
     ],
   );
 
-  const table = useTable<ReleaseT>({columns, data: releases});
+  const table = useTable<ReleaseT>({className, columns, data: releases});
 
   return (
     <>

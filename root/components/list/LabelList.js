@@ -34,6 +34,8 @@ component LabelList(
 ) {
   const $c = React.useContext(CatalystContext);
 
+  const className = checkboxes === 'add-to-merge' ? 'mergeable-table' : '';
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
@@ -100,7 +102,7 @@ component LabelList(
     ],
   );
 
-  return useTable<LabelT>({columns, data: labels});
+  return useTable<LabelT>({className, columns, data: labels});
 }
 
 export default LabelList;

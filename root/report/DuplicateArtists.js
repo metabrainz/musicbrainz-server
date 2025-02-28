@@ -11,9 +11,10 @@ import * as React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
-import FormRow from '../static/scripts/edit/components/FormRow.js';
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
+import ListMergeButtonsRow
+  from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import loopParity from '../utility/loopParity.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
@@ -60,7 +61,7 @@ component DuplicateArtists(...{
         method="post"
       >
         <PaginatedResults pager={pager}>
-          <table className="tbl">
+          <table className="tbl mergeable-table">
             <thead>
               <tr>
                 <th className="check" />
@@ -123,9 +124,15 @@ component DuplicateArtists(...{
             </tbody>
           </table>
           {$c.user ? (
-            <FormRow>
-              <FormSubmit label={l('Add selected artists for merging')} />
-            </FormRow>
+            <>
+              <ListMergeButtonsRow
+                label={l('Add selected artists for merging')}
+              />
+              {manifest(
+                'common/components/ListMergeButtonsRow',
+                {async: 'async'},
+              )}
+            </>
           ) : null}
         </PaginatedResults>
       </form>

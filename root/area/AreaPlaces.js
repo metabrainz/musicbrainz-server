@@ -13,6 +13,8 @@ import PlaceList from '../components/list/PlaceList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
+import ListMergeButtonsRow
+  from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import {MAPBOX_ACCESS_TOKEN}
   from '../static/scripts/common/DBDefs-client.mjs';
 import {returnToCurrentPage} from '../utility/returnUri.js';
@@ -57,13 +59,15 @@ component AreaPlaces(
               />
             </PaginatedResults>
             {$c.user ? (
-              <div className="row">
-                <span className="buttons">
-                  <button type="submit">
-                    {l('Add selected places for merging')}
-                  </button>
-                </span>
-              </div>
+              <>
+                <ListMergeButtonsRow
+                  label={l('Add selected places for merging')}
+                />
+                {manifest(
+                  'common/components/ListMergeButtonsRow',
+                  {async: 'async'},
+                )}
+              </>
             ) : null}
           </form>
         </>

@@ -56,6 +56,7 @@ const entries = [
   'common/components/CDTocReleaseListTable',
   'common/components/IsrcList',
   'common/components/IswcList',
+  'common/components/ListMergeButtonsRow',
   'common/components/ReleaseEvents',
   'common/components/TaggerIcon',
   'common/components/WorkArtists',
