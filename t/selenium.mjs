@@ -242,7 +242,7 @@ const driver = (x => {
     case 'firefox':
       x.forBrowser('firefox');
       options = new firefox.Options();
-      options.setPreference('dom.disable_beforeunload', false);
+      options.setPreference('dom.disable_beforeunload', true);
       options.setPreference('network.proxy.allow_hijacking_localhost', true);
       if (argv.browserBinaryPath) {
         options.setBinary(argv.browserBinaryPath);
