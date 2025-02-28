@@ -257,7 +257,7 @@ const driver = (x => {
   x.setProxy(webdriverProxy.manual({http: 'localhost:5051'}));
 
   if (argv.headless) {
-    options.addArguments('--headless=new');
+    options.addArguments('--headless');
   }
 
   // Needed to take a screenshot in case of failure.
