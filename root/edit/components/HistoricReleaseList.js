@@ -33,7 +33,7 @@ export component HistoricReleaseListContent(
 }
 
 component HistoricReleaseList(
-  colSpan?: string,
+  colSpan?: number,
   label?: string,
   ...contentProps: React.PropsOf<HistoricReleaseListContent>
 ) {

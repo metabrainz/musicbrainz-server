@@ -37,7 +37,7 @@ component EditAlias(edit: EditAliasEditT) {
       <tbody>
         <tr>
           <th>{addColonText(formatEntityTypeName(entityType))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             <DescriptiveLink entity={entity} />
             {entityWithGid ? (
               <>
@@ -57,7 +57,7 @@ component EditAlias(edit: EditAliasEditT) {
         {entityWithGid ? (
           <tr>
             <th>{addColonText(l('Alias'))}</th>
-            <td colSpan="2">
+            <td colSpan={2}>
               {aliasName ? (
                 <>
                   {isolateText(aliasName)}

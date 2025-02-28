@@ -142,10 +142,10 @@ component Images(
           <table className="database-statistics">
             <tbody>
               <tr className="thead">
-                <th colSpan="4">{l_statistics('By release group type')}</th>
+                <th colSpan={4}>{l_statistics('By release group type')}</th>
               </tr>
               <tr>
-                <th colSpan="2">
+                <th colSpan={2}>
                   {l_statistics('Releases with cover art:')}
                 </th>
                 <td>
@@ -179,10 +179,10 @@ component Images(
                 </tr>
               ))}
               <tr className="thead">
-                <th colSpan="4">{l_statistics('By release status')}</th>
+                <th colSpan={4}>{l_statistics('By release status')}</th>
               </tr>
               <tr>
-                <th colSpan="2">
+                <th colSpan={2}>
                   {l_statistics('Releases with cover art:')}
                 </th>
                 <td>
@@ -217,10 +217,10 @@ component Images(
                 </tr>
               ))}
               <tr className="thead">
-                <th colSpan="4">{l_statistics('By release format')}</th>
+                <th colSpan={4}>{l_statistics('By release format')}</th>
               </tr>
               <tr>
-                <th colSpan="2">
+                <th colSpan={2}>
                   {l_statistics('Releases with cover art:')}
                 </th>
                 <td>
@@ -260,7 +260,7 @@ component Images(
       <table className="database-statistics">
         <tbody>
           <tr>
-            <th colSpan="2">
+            <th colSpan={2}>
               {l_statistics('Release groups with cover art:')}
             </th>
             <td>
@@ -321,10 +321,10 @@ component Images(
         <table className="database-statistics">
           <tbody>
             <tr className="thead">
-              <th colSpan="4">{l_statistics('By cover art type')}</th>
+              <th colSpan={4}>{l_statistics('By cover art type')}</th>
             </tr>
             <tr>
-              <th colSpan="2">{l_statistics('Pieces of cover art:')}</th>
+              <th colSpan={2}>{l_statistics('Pieces of cover art:')}</th>
               <td>
                 {formatCount($c, stats['count.coverart'])}
                 {' '}
@@ -356,10 +356,10 @@ component Images(
               </tr>
             ))}
             <tr className="thead">
-              <th colSpan="4">{l_statistics('Per release')}</th>
+              <th colSpan={4}>{l_statistics('Per release')}</th>
             </tr>
             <tr>
-              <th colSpan="2">{l_statistics('Releases with cover art:')}</th>
+              <th colSpan={2}>{l_statistics('Releases with cover art:')}</th>
               <td>
                 {formatCount($c, stats['count.release.has_caa'])}
                 {' '}
@@ -435,10 +435,10 @@ component Images(
         <table className="database-statistics">
           <tbody>
             <tr className="thead">
-              <th colSpan="4">{l_statistics('By event type')}</th>
+              <th colSpan={4}>{l_statistics('By event type')}</th>
             </tr>
             <tr>
-              <th colSpan="2">
+              <th colSpan={2}>
                 {addColonText(l_statistics('Events with event art'))}
               </th>
               <td>
@@ -484,10 +484,10 @@ component Images(
         <table className="database-statistics">
           <tbody>
             <tr className="thead">
-              <th colSpan="4">{l_statistics('By event art type')}</th>
+              <th colSpan={4}>{l_statistics('By event art type')}</th>
             </tr>
             <tr>
-              <th colSpan="2">
+              <th colSpan={2}>
                 {addColonText(l_statistics('Pieces of event art'))}
               </th>
               <td>
@@ -521,10 +521,10 @@ component Images(
               </tr>
             ))}
             <tr className="thead">
-              <th colSpan="4">{l_statistics('Per event')}</th>
+              <th colSpan={4}>{l_statistics('Per event')}</th>
             </tr>
             <tr>
-              <th colSpan="2">
+              <th colSpan={2}>
                 {addColonText(l_statistics('Events with event art'))}
               </th>
               <td>

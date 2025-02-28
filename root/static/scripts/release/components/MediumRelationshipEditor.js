@@ -177,7 +177,7 @@ component _MediumRelationshipEditor(
           })
         ) : hasUnloadedTracks ? null : (
           <tr>
-            <td colSpan="3">
+            <td colSpan={3}>
               {l('The tracklist for this medium is unknown.')}
             </td>
           </tr>

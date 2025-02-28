@@ -40,7 +40,7 @@ component Edits(
         <table className="database-statistics">
           <tbody>
             <tr>
-              <th colSpan="2">{addColonText(l_mb_server('Edits'))}</th>
+              <th colSpan={2}>{addColonText(l_mb_server('Edits'))}</th>
               <td>
                 {formatCount($c, stats['count.edit'])}
                 {' '}
@@ -56,7 +56,7 @@ component Edits(
                 return (
                   <>
                     <tr className="thead">
-                      <th colSpan="4">{categoryKey}</th>
+                      <th colSpan={4}>{categoryKey}</th>
                     </tr>
                     {category.map((type) => (
                       <tr key={type.edit_type}>

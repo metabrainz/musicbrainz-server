@@ -39,7 +39,7 @@ component EditWork(edit: EditWorkEditT) {
     <table className="details edit-work">
       <tr>
         <th>{addColonText(l('Work'))}</th>
-        <td colSpan="2">
+        <td colSpan={2}>
           <DescriptiveLink entity={display.work} />
         </td>
       </tr>

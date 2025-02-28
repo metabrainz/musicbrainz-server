@@ -30,7 +30,7 @@ component EditReleaseGroup(edit: EditReleaseGroupEditT) {
     <table className="details edit-release-group">
       <tr>
         <th>{addColonText(l('Release group'))}</th>
-        <td colSpan="2">
+        <td colSpan={2}>
           <DescriptiveLink entity={display.release_group} />
         </td>
       </tr>
