@@ -1001,7 +1001,6 @@ export const reducer: ((
           });
           mergeLinkedEntities({
             work: {
-              // $FlowIgnore[invalid-computed-prop]
               [newWork.id]: newWork,
             },
           });
@@ -1043,7 +1042,6 @@ export const reducer: ((
       });
       mergeLinkedEntities({
         work: {
-          // $FlowIgnore[invalid-computed-prop]
           [newWork.id]: newWork,
         },
       });
