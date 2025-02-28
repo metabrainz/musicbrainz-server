@@ -363,4 +363,4 @@ const AliasEditForm = ({
 export default (hydrate<Props>(
   'div.alias-edit-form',
   AliasEditForm,
-): React.AbstractComponent<Props, void>);
+): component(...Props));

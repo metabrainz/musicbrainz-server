@@ -192,7 +192,7 @@ function concatArrayMatch<T: MatchUpperBoundT>(
   match: Array<T> | T,
 ): Array<T> {
   let matchedChildren = children;
-  if (!gotMatch(matchedChildren)) {
+  if (!gotMatch<Array<T>>(matchedChildren)) {
     matchedChildren = [];
   }
   if (Array.isArray(match)) {

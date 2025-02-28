@@ -11,8 +11,7 @@ import ko from 'knockout';
 import mutate, {type CowContext} from 'mutate-cow';
 import * as React from 'react';
 
-import {
-  ArtistAutocomplete,
+import Autocomplete2, {
   createInitialState as createInitialAutocompleteState,
 } from '../../common/components/Autocomplete2.js';
 import {
@@ -547,7 +546,7 @@ component _ArtistCreditEditor(
 
   return (
     <>
-      <ArtistAutocomplete
+      <Autocomplete2
         dispatch={firstArtistDispatch}
         state={singleArtistAutocomplete}
       >
@@ -559,7 +558,7 @@ component _ArtistCreditEditor(
           isOpen={isOpen}
           toggle={toggleDialog}
         />
-      </ArtistAutocomplete>
+      </Autocomplete2>
 
       {hiddenInputsPrefix ? (
         names.filter(isNameNotRemoved).map(function (name, i) {
@@ -596,8 +595,8 @@ component _ArtistCreditEditor(
   );
 }
 
-const ArtistCreditEditor: React.AbstractComponent<
-  React.PropsOf<_ArtistCreditEditor>
-> = React.memo(_ArtistCreditEditor);
+const ArtistCreditEditor:
+  component(...React.PropsOf<_ArtistCreditEditor>) =
+  React.memo(_ArtistCreditEditor);
 
 export default ArtistCreditEditor;

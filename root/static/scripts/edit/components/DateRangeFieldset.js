@@ -222,8 +222,8 @@ component _DateRangeFieldset(
   );
 }
 
-const DateRangeFieldset: React.AbstractComponent<
-  React.PropsOf<_DateRangeFieldset>
-> = React.memo(_DateRangeFieldset);
+const DateRangeFieldset:
+  component(...React.PropsOf<_DateRangeFieldset>) =
+  React.memo(_DateRangeFieldset);
 
 export default DateRangeFieldset;

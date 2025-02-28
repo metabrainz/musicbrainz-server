@@ -165,4 +165,4 @@ component GenreEditForm(form as initialForm: GenreFormT) {
 export default (hydrate<React.PropsOf<GenreEditForm>>(
   'div.genre-edit-form',
   GenreEditForm,
-): React.AbstractComponent<React.PropsOf<GenreEditForm>, void>);
+): component(...React.PropsOf<GenreEditForm>));

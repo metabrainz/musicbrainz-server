@@ -122,4 +122,4 @@ component RegisterForm(captcha?: string, form: RegisterFormT) {
 export default (hydrate<React.PropsOf<RegisterForm>>(
   'div.register-form',
   RegisterForm,
-): React.AbstractComponent<React.PropsOf<RegisterForm>, void>);
+): component(...React.PropsOf<RegisterForm>));

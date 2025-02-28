@@ -57,7 +57,7 @@ component PostParameters(params: PostParametersT) {
                       defaultValue={value}
                       id={id}
                       name={param}
-                      rows="10"
+                      rows={10}
                     />
                   ) : Array.isArray(value) ? (
                     value.map((subValue, index) => (
@@ -90,4 +90,4 @@ component PostParameters(params: PostParametersT) {
 export default (hydrate(
   'div.post-parameters',
   PostParameters,
-): React.AbstractComponent<React.PropsOf<PostParameters>>);
+): component(...React.PropsOf<PostParameters>));

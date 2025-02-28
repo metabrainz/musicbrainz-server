@@ -40,7 +40,7 @@ component EditRelease(edit: EditReleaseEditT) {
       {edit.preview /*:: === true */ ? null : (
         <tr>
           <th>{addColonText(l('Release'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             {display.release
               ? <DescriptiveLink entity={display.release} />
               : null}

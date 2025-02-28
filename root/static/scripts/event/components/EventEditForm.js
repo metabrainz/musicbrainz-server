@@ -367,4 +367,4 @@ component EventEditForm(
 export default (hydrate<React.PropsOf<EventEditForm>>(
   'div.event-edit-form',
   EventEditForm,
-): React.AbstractComponent<React.PropsOf<EventEditForm>>);
+): component(...React.PropsOf<EventEditForm>));

@@ -177,7 +177,7 @@ component _MediumRelationshipEditor(
           })
         ) : hasUnloadedTracks ? null : (
           <tr>
-            <td colSpan="3">
+            <td colSpan={3}>
               {l('The tracklist for this medium is unknown.')}
             </td>
           </tr>
@@ -188,8 +188,8 @@ component _MediumRelationshipEditor(
   );
 }
 
-const MediumRelationshipEditor: React.AbstractComponent<
-  React.PropsOf<_MediumRelationshipEditor>
-> = React.memo(_MediumRelationshipEditor);
+const MediumRelationshipEditor:
+  component(...React.PropsOf<_MediumRelationshipEditor>) =
+  React.memo(_MediumRelationshipEditor);
 
 export default MediumRelationshipEditor;

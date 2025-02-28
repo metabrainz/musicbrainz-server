@@ -159,4 +159,4 @@ component AnnotationHistoryTable(
 export default (hydrate<React.PropsOf<AnnotationHistoryTable>>(
   'div.annotation-history-table',
   AnnotationHistoryTable,
-): React.AbstractComponent<React.PropsOf<AnnotationHistoryTable>>);
+): component(...React.PropsOf<AnnotationHistoryTable>));

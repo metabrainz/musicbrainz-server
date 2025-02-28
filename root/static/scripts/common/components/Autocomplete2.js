@@ -818,7 +818,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
           onKeyDown={handleInputKeyDown}
           ref={buttonRef}
           role="button"
-          tabIndex="-1"
+          tabIndex={-1}
           title={l('Search')}
           type="button"
         />
@@ -836,7 +836,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
             ? 'visible'
             : 'hidden',
         }}
-        tabIndex="-1"
+        tabIndex={-1}
       >
         {disabled ? null : menuItemElements}
       </ul>
@@ -863,14 +863,8 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
   );
 }
 
-// $FlowIgnore[unclear-type]
-const Autocomplete2: React.AbstractComponent<PropsT<any>, mixed> =
+const Autocomplete2: typeof _Autocomplete2 =
+  // $FlowIssue[incompatible-type]
   React.memo(_Autocomplete2);
 
 export default Autocomplete2;
-
-// XXX Until Flow supports https://github.com/facebook/flow/issues/7672
-export const ArtistAutocomplete:
-  React.AbstractComponent<PropsT<ArtistT>, void> =
-  // $FlowIgnore[unclear-type]
-  (Autocomplete2: any);

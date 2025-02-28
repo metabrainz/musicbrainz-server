@@ -59,8 +59,8 @@ component _TextAttribute(
   );
 }
 
-const TextAttribute: React.AbstractComponent<
-  React.PropsOf<_TextAttribute>
-> = React.memo(_TextAttribute);
+const TextAttribute:
+  component(...React.PropsOf<_TextAttribute>) =
+  React.memo(_TextAttribute);
 
 export default TextAttribute;

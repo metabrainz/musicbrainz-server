@@ -44,7 +44,7 @@ component BrowseCDStubs(cdStubs: $ReadOnlyArray<CDStubT>, pager: PagerT) {
                   <td>{cdStub.modify_count}</td>
                 </tr>
                 <tr className={loopParity(index)}>
-                  <td className="lastupdate" colSpan="4">
+                  <td className="lastupdate" colSpan={4}>
                     {exp.l(
                       'Added {add}, last modified {lastmod}',
                       {

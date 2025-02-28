@@ -228,8 +228,8 @@ component _DialogDatePeriod(
   );
 }
 
-const DialogDatePeriod: React.AbstractComponent<
-  React.PropsOf<_DialogDatePeriod>
-> = React.memo(_DialogDatePeriod);
+const DialogDatePeriod:
+  component(...React.PropsOf<_DialogDatePeriod>) =
+  React.memo(_DialogDatePeriod);
 
 export default DialogDatePeriod;

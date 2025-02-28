@@ -115,7 +115,7 @@ component EditReleaseEvents(edit: EditReleaseEventsHistoricEditT) {
         <>
           <thead>
             <tr>
-              <th colSpan="7">
+              <th colSpan={7}>
                 {lp('Added', 'list of added release events')}
               </th>
             </tr>
@@ -131,7 +131,7 @@ component EditReleaseEvents(edit: EditReleaseEventsHistoricEditT) {
         <>
           <thead>
             <tr>
-              <th colSpan="7">
+              <th colSpan={7}>
                 {lp('Removed', 'list of removed release events')}
               </th>
             </tr>
@@ -147,7 +147,7 @@ component EditReleaseEvents(edit: EditReleaseEventsHistoricEditT) {
         <>
           <thead>
             <tr>
-              <th colSpan="7">
+              <th colSpan={7}>
                 {lp('Edited', 'list of edited release events')}
               </th>
             </tr>

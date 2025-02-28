@@ -119,7 +119,7 @@ component PlacesWithoutCoordinates(...{
                       </td>
                     </>
                   ) : (
-                    <td colSpan="4">
+                    <td colSpan={4}>
                       {l('This place no longer exists.')}
                     </td>
                   )}

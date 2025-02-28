@@ -295,7 +295,7 @@ declare module '@floating-ui/react' {
   };
 
   declare export const FloatingArrow:
-    React.AbstractComponent<FloatingArrowProps, Element>;
+    component(ref: React.RefSetter<Element>, ...FloatingArrowProps);
 
   /*
    * FloatingFocusManager
@@ -310,7 +310,7 @@ declare module '@floating-ui/react' {
   };
 
   declare export const FloatingFocusManager:
-    React.AbstractComponent<FloatingFocusManagerProps>;
+    component(...FloatingFocusManagerProps);
 
   /*
    * FloatingNode
@@ -321,7 +321,7 @@ declare module '@floating-ui/react' {
   };
 
   declare export const FloatingNode:
-    React.AbstractComponent<FloatingNodeProps>;
+    component(...FloatingNodeProps);
 
   /*
    * FloatingOverlay
@@ -334,7 +334,7 @@ declare module '@floating-ui/react' {
   };
 
   declare export const FloatingOverlay:
-    React.AbstractComponent<FloatingOverlayProps>;
+    component(...FloatingOverlayProps);
 
   /*
    * FloatingPortal
@@ -345,7 +345,7 @@ declare module '@floating-ui/react' {
   };
 
   declare export const FloatingPortal:
-    React.AbstractComponent<FloatingPortalProps>;
+    component(...FloatingPortalProps);
 
   /*
    * FloatingTree
@@ -355,5 +355,5 @@ declare module '@floating-ui/react' {
   };
 
   declare export const FloatingTree:
-    React.AbstractComponent<FloatingTreeProps>;
+    component(...FloatingTreeProps);
 }

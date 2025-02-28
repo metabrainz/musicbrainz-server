@@ -33,7 +33,7 @@ export component StaticRatingStars(rating: ?number) {
   const starRating = rating == null ? 0 : (5 * rating / 100);
   return (
     <span className="inline-rating">
-      <span className="star-rating" tabIndex="-1">
+      <span className="star-rating" tabIndex={-1}>
         <span
           className="current-rating"
           style={{width: `${rating ?? 0}%`}}
@@ -52,7 +52,7 @@ component RatingStars(entity: RatableT) {
 
   return (
     <span className="inline-rating">
-      <span className="star-rating" tabIndex="-1">
+      <span className="star-rating" tabIndex={-1}>
         {entity.user_rating == null ? (
           entity.rating == null ? null : (
             <span
