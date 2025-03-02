@@ -92,11 +92,14 @@ pkg-config
 
 # postgresql-server-dev-16 provides pg_config, which is needed by InitDb.pl
 # at run-time.
+# iproute2 provides ss, which is used by
+# docker/musicbrainz-website/website.service.
 m4_define(
     `mbs_run_deps',
     `m4_dnl
 bzip2
 ca-certificates
+iproute2
 libdb5.3
 libexpat1
 libicu70
