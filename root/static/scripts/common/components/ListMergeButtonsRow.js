@@ -36,7 +36,7 @@ component ListMergeButtonsRow(
   return (
     <div className="row">
       <span className="buttons">
-        <button onClick={handleClick} type="submit">
+        <button type="submit">
             {label}
         </button>
         <button
