@@ -1928,7 +1928,12 @@ BEGIN
             a_rg.artist,
             -- Withdrawn releases were once official by definition
             bool_and(r.status IS NOT NULL AND r.status != 1 AND r.status != 5),
-            rg.type::SMALLINT,
+            (CASE
+              WHEN rg.type = 3 THEN 2 -- Sort EPs above singles
+              WHEN rg.type = 2 THEN 3 -- Sort singles below EPs
+              ELSE rg.type
+              END
+            )::SMALLINT,
             array_agg(
                 DISTINCT st.secondary_type ORDER BY st.secondary_type)
                 FILTER (WHERE st.secondary_type IS NOT NULL
