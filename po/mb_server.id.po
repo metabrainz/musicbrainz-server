@@ -4,13 +4,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# koukei07 <teamedia@duck.com>, 2024.
+# koukei07 <teamedia@duck.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 10:52+0100\n"
-"PO-Revision-Date: 2024-08-05 00:42+0000\n"
+"PO-Revision-Date: 2025-02-24 23:33+0000\n"
 "Last-Translator: koukei07 <teamedia@duck.com>\n"
 "Language-Team: Indonesian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/id/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.10.1\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -43,16 +43,20 @@ msgid ""
 "\"NNNNN\" is a unique 5-digit number identifying the particular sound "
 "recording."
 msgstr ""
+"\"NNNNN\" adalah nomor unik 5 digit yang mengidentifikasi rekaman suara "
+"tertentu."
 
 #: ../root/components/forms.tt:271
 msgid ""
 "\"XXX\" is a three character alphanumeric registrant code, uniquely "
 "identifying the organisation which registered the code."
 msgstr ""
+"\"XXX\" adalah kode pendaftar alfanumerik tiga karakter yang secara unik "
+"mengidentifikasi organisasi yang mendaftarkan kode tersebut."
 
 #: ../root/components/forms.tt:272
 msgid "\"YY\" is the last two digits of the year of registration."
-msgstr ""
+msgstr "“YY” adalah dua digit terakhir tahun pendaftaran."
 
 #: ../root/cdstub/cdstub.tt:4 ../root/release/edit/tracklist.tt:161
 #: ../root/release/edit/tracklist.tt:470 ../root/cdstub/CDStubInfo.js:19
@@ -67,23 +71,23 @@ msgstr ""
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1555
 #: ../root/utility/tableColumns.js:574
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: ../root/doc/edit_type.tt:43
 msgid "&#10004;"
-msgstr ""
+msgstr "&#10004;"
 
 #: ../root/doc/edit_type.tt:43
 msgid "&#10005;"
-msgstr ""
+msgstr "&#10005;"
 
 #: ../root/event/add_event_art.tt:104 ../root/release/add_cover_art.tt:104
 msgid "&#x26a0; Error creating edit"
-msgstr ""
+msgstr "&#x26a0; Terjadi kesalahan saat membuat editan"
 
 #: ../root/event/add_event_art.tt:88 ../root/release/add_cover_art.tt:88
 msgid "&#x26a0; Error requesting signature"
-msgstr ""
+msgstr "&#x26a0; Kesalahan saat meminta tanda tangan"
 
 #: ../root/event/add_event_art.tt:102 ../root/release/add_cover_art.tt:102
 msgid "&#x26a0; Error uploading image"
@@ -531,7 +535,7 @@ msgstr ""
 #: ../root/search/components/ReleaseResults.js:125
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:42
 msgid "Barcode"
-msgstr "Barcode"
+msgstr "Kode batang"
 
 #: ../root/cdtoc/lookup.tt:33
 msgid ""
@@ -664,10 +668,8 @@ msgid "Chat"
 msgstr ""
 
 #: ../root/release/edit/information.tt:58
-#, fuzzy
-#| msgid "Release Group"
 msgid "Checking existing release groups…"
-msgstr "Grup Rilis"
+msgstr "Memeriksa grup rilis yang ada…"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -1163,7 +1165,7 @@ msgstr[0] ""
 #: ../root/components/forms.tt:207 ../root/components/forms.tt:232
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:109
 msgid "French"
-msgstr ""
+msgstr "Perancis"
 
 #: ../root/cdstub/index.tt:30 ../root/cdstub/CDStubIndex.js:51
 #: ../root/cdtoc/CDTocInfo.js:22
@@ -10383,10 +10385,8 @@ msgid "You have no event collections!"
 msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:22
-#, fuzzy
-#| msgid "Collections"
 msgid "You have no genre collections!"
-msgstr "Koleksi"
+msgstr "Anda tidak memiliki koleksi genre!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:23
 msgid "You have no instrument collections!"
@@ -12211,7 +12211,7 @@ msgstr ""
 #: ../root/report/KaraokePlusInstrumentalRecordings.js:55
 #: ../root/report/ReportsIndex.js:559
 msgid "Recordings marked as both karaoke and instrumental"
-msgstr ""
+msgstr "Rekaman ditandai sebagai karaoke dan instrumental"
 
 #: ../root/report/LabelsDisambiguationSameName.js:25
 msgid ""
@@ -12219,11 +12219,14 @@ msgid ""
 "as their name. The disambiguation should be removed or, if it is needed, "
 "improved."
 msgstr ""
+"Laporan ini mencantumkan label yang disambiguasinya ditetapkan sama dengan "
+"namanya. Disambiguasi tersebut harus dihilangkan atau, jika perlu, "
+"diperbaiki."
 
 #: ../root/report/LabelsDisambiguationSameName.js:32
 #: ../root/report/ReportsIndex.js:187
 msgid "Labels with disambiguation the same as the name"
-msgstr ""
+msgstr "Label dengan disambiguasi yang sama dengan nama"
 
 #: ../root/report/LinksWithMultipleEntities.js:40
 msgid ""
@@ -12235,22 +12238,29 @@ msgid ""
 "links, and a link attached to all movements of a classical work might be a "
 "better fit for the main parent work only."
 msgstr ""
+"Laporan ini menunjukkan URL yang ditautkan ke beberapa entitas. Laporan ini "
+"tidak termasuk hubungan lisensi (di mana penggunaan ulang diharapkan) dan "
+"Amazon (untuk rilis), Discogs, dan Wikidata, yang memiliki laporan mereka "
+"sendiri. Tautan di sini harus ditinjau untuk melihat apakah mereka benar-"
+"benar cocok: misalnya, tautan generik ke halaman toko dapat diganti dengan "
+"tautan toko per rilis yang spesifik, dan tautan yang dilampirkan ke semua "
+"gerakan karya klasik mungkin lebih cocok untuk karya induk utama saja."
 
 #: ../root/report/LinksWithMultipleEntities.js:53
 #: ../root/report/ReportsIndex.js:619
 msgid "URLs linked to multiple entities"
-msgstr ""
+msgstr "URL yang terhubung ke beberapa entitas"
 
 #: ../root/report/LinksWithMultipleEntities.js:61
 #: ../root/report/WikidataLinksWithMultipleEntities.js:56
 #: ../root/report/components/UrlList.js:45
 msgid "URL entity"
-msgstr ""
+msgstr "entitas URL"
 
 #: ../root/report/LinksWithMultipleEntities.js:62
 #: ../root/report/WikidataLinksWithMultipleEntities.js:57
 msgid "Usage count"
-msgstr ""
+msgstr "Jumlah penggunaan"
 
 #: ../root/report/LonelyPseudoReleases.js:25
 msgid ""
@@ -12260,10 +12270,15 @@ msgid ""
 "example, a badly indicated bootleg), or the official release is missing and "
 "needs to be added."
 msgstr ""
+"Laporan ini menunjukkan rilis dengan status “Pseudo-Release” yang ada di "
+"grup rilis yang hanya berisi pseudo-release. Hal ini tidak boleh sepenuhnya "
+"benar; baik rilisan tersebut bukanlah rilisan semu (misalnya, bajakan yang "
+"diindikasikan dengan buruk), atau rilis resminya tidak ada dan perlu "
+"ditambahkan."
 
 #: ../root/report/LonelyPseudoReleases.js:35 ../root/report/ReportsIndex.js:335
 msgid "Pseudo-releases in release groups that contain only pseudo-releases"
-msgstr ""
+msgstr "Rilis semu dalam grup rilis yang hanya berisi rilis semu"
 
 #: ../root/report/LowDataQualityReleases.js:25
 msgid ""
@@ -12274,11 +12289,18 @@ msgid ""
 "improved but the data quality wasn’t changed accordingly, just enter a data "
 "quality change to remove it from this report."
 msgstr ""
+"Laporan ini menunjukkan rilis yang ditandai memiliki kualitas data rendah. "
+"Jika Anda punya waktu, Anda dapat meninjau data tersebut dan mencoba "
+"meningkatkan data tersebut semaksimal mungkin sebelum mengubah kualitas "
+"datanya kembali ke Normal (atau bahkan ke Tinggi, jika Anda menambahkan "
+"semua data yang mungkin!). Jika rilis telah ditingkatkan tetapi kualitas "
+"data tidak diubah sebagaimana mestinya, cukup masukkan perubahan kualitas "
+"data untuk menghapusnya dari laporan ini."
 
 #: ../root/report/LowDataQualityReleases.js:37
 #: ../root/report/ReportsIndex.js:481
 msgid "Releases marked as having low data quality"
-msgstr ""
+msgstr "Rilis yang ditandai memiliki kualitas data rendah"
 
 #: ../root/report/MediumsWithOrderInTitle.js:25
 msgid ""
@@ -12287,11 +12309,15 @@ msgid ""
 "1”). These should usually be removed, as per {release_style|the release "
 "guidelines}."
 msgstr ""
+"Laporan ini mencantumkan rilisan yang setidaknya satu medianya memiliki "
+"judul yang tampaknya hanya menunjukkan posisinya (seperti media pertama "
+"dengan judul “Disc 1”). Ini biasanya harus dihapus, sesuai dengan "
+"{release_style|pedoman rilis}."
 
 #: ../root/report/MediumsWithOrderInTitle.js:34
 #: ../root/report/ReportsIndex.js:373
 msgid "Releases with mediums named after their position"
-msgstr ""
+msgstr "Rilisan dengan media yang dinamai berdasarkan posisi mereka"
 
 #: ../root/report/MediumsWithSequenceIssues.js:25
 msgid ""
@@ -15331,11 +15357,9 @@ msgid_plural "{n} works selected"
 msgstr[0] ""
 
 #: ../root/static/scripts/release-editor/actions.js:142
-#, fuzzy
-#| msgid "Release"
 msgid "{num} release"
 msgid_plural "{num} releases"
-msgstr[0] "Rilis"
+msgstr[0] "{num} rilis"
 
 #: ../root/static/scripts/release-editor/actions.js:465
 msgid ""
@@ -15539,10 +15563,8 @@ msgid "Display credits at bottom"
 msgstr ""
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:59
-#, fuzzy
-#| msgid "Recording"
 msgid "Recording alias: {alias}"
-msgstr "Rekaman"
+msgstr "Alias rekaman: {alias}"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:74
 msgid "Recording artist:"
@@ -16189,10 +16211,8 @@ msgid "Release collections"
 msgstr "Koleksi"
 
 #: ../root/user/UserCollections.js:46
-#, fuzzy
-#| msgid "Release Group"
 msgid "Release group collections"
-msgstr "Grup Rilis"
+msgstr "Rilis koleksi grup"
 
 #: ../root/user/UserCollections.js:47
 #, fuzzy
