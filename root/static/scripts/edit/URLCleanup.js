@@ -7075,7 +7075,7 @@ entitySpecificRules.release_group = function (url) {
  * 1, 2, 3, [1, 2], [1, 3], [2, 3], [1, 2, 3]
  */
 function anyCombinationOf(
-  entityType: string,
+  entityType: RelatableEntityTypeT,
   types: $ReadOnlyArray<string>,
 ): $ReadOnlyArray<EntityTypesMap> {
   const result = [];
