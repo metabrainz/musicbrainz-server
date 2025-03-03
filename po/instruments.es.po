@@ -22,12 +22,12 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # ChurruKa <churruka@hangar18.cc>, 2023.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
+# BenjaBarcos1 <barcosbenjamin@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-07-23 12:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2025-03-03 21:44+0000\n"
+"Last-Translator: BenjaBarcos1 <barcosbenjamin@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/es/>\n"
 "Language: es\n"
@@ -36,7 +36,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.10.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -402,7 +402,7 @@ msgstr "angklung"
 
 #: DB:instrument/name:373
 msgid "ankle rattlers"
-msgstr ""
+msgstr "Coyoleras"
 
 #: DB:instrument/name:1068
 msgctxt "Andean single row panpipe"
@@ -452,7 +452,7 @@ msgstr ""
 #: DB:instrument/name:409
 msgctxt "Damper bar box zither"
 msgid "autoharp"
-msgstr ""
+msgstr "Autoarpa"
 
 #: DB:instrument/name:880
 msgctxt "Nyabinghi bass drum"
@@ -462,7 +462,7 @@ msgstr ""
 #: DB:instrument/name:236
 msgctxt "Treble bouzouki"
 msgid "baglamas"
-msgstr ""
+msgstr "Baglamá"
 
 #: DB:instrument/name:4
 msgid "bagpipe"
