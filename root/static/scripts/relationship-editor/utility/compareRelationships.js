@@ -24,6 +24,7 @@ import compareDates, {
 import {areLinkAttrsEqual} from '../../common/utility/groupRelationships.js';
 import {memoizeWithDefault} from '../../common/utility/memoize.js';
 import {fixedWidthInteger} from '../../common/utility/strings.js';
+import {REL_STATUS_ADD} from '../constants.js';
 import type {
   RelationshipStateT,
 } from '../types.js';
@@ -284,10 +285,12 @@ export default function compareRelationships(
   }
 
   const linkTypeId = a.linkTypeID;
+  const isPartOfSeries = PART_OF_SERIES_LINK_TYPE_IDS.includes(linkTypeId);
   const source = backward ? a.entity1 : a.entity0;
   const targetA = backward ? a.entity0 : a.entity1;
   const targetB = backward ? b.entity0 : b.entity1;
   const targetIdCmp = targetA.id - targetB.id;
+  const isAdd = a._status === REL_STATUS_ADD || b._status === REL_STATUS_ADD;
 
   if (__DEV__) {
     invariant(
@@ -311,7 +314,7 @@ export default function compareRelationships(
     source.entityType === 'series' &&
     source.orderingTypeID === SERIES_ORDERING_TYPE_AUTOMATIC &&
     linkTypeId != null &&
-    PART_OF_SERIES_LINK_TYPE_IDS.includes(linkTypeId)
+    isPartOfSeries
   ) {
     const seriesItemCmp = (
       /*
@@ -336,7 +339,7 @@ export default function compareRelationships(
     targetA.entityType === 'series' &&
     targetA.orderingTypeID === SERIES_ORDERING_TYPE_AUTOMATIC &&
     linkTypeId != null &&
-    PART_OF_SERIES_LINK_TYPE_IDS.includes(linkTypeId)
+    isPartOfSeries
   ) {
     const seriesItemCmp = (
       /*
@@ -356,7 +359,13 @@ export default function compareRelationships(
   }
 
   const linkOrderCmp = a.linkOrder - b.linkOrder;
-  if (linkOrderCmp) {
+  /*
+   * For part of series, do not count link order as different when adding
+   * if everything else is the same in order to avoid duplicate additions
+   * (different number attributes still allowed). Still show the rels
+   * separately when not adding so it is possible to edit them as neeeded.
+   */
+  if (linkOrderCmp && !(isPartOfSeries && isAdd)) {
     return linkOrderCmp;
   }
 
