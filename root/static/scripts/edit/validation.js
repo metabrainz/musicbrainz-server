@@ -48,6 +48,9 @@ if (typeof document !== 'undefined') {
 
   $(document).on('submit', '#page form', function (event) {
     if (errorsExist()) {
+      console.warn(
+        'Form submission was prevented due to errors on the page.',
+      );
       event.preventDefault();
     }
   });
