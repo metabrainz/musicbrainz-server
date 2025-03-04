@@ -6,6 +6,7 @@ use List::AllUtils qw( uniq );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MOVE );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
 
@@ -16,7 +17,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { N_lp('Edit release', 'edit type') }
-sub edit_kind { 'edit' }
+sub edit_kind { $EDIT_KIND_LABELS{'edit'} }
 sub edit_type { $EDIT_RELEASE_MOVE }
 sub edit_template { 'historic/MoveReleaseToReleaseGroup' }
 
