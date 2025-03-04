@@ -25,7 +25,7 @@ function getAllEntitiesTagUrl(
   user: string,
   tag: string,
   showDownvoted: boolean,
-): Expand2ReactOutput {
+): string {
   return (
     '/user/' + encodeURIComponent(user) +
     '/tag/' + encodeURIComponent(tag) +
