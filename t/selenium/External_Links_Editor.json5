@@ -415,6 +415,16 @@
       value: 'No Age',
     },
     {
+      command: 'fireEvent',
+      target: 'id=id-edit-artist.sort_name',
+      value: 'input',
+    },
+    {
+      command: 'pause',
+      target: '250',
+      value: '',
+    },
+    {
       command: 'clickAndWait',
       target: 'css=button.submit.positive',
       value: '',
