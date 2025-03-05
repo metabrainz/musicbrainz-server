@@ -30,6 +30,7 @@ run_with_apt_cache \
         chrome_for_testing_deps
         search_deps
         selenium_caa_deps
+        expect
         locales
         openssh-client
         postgresql-16
