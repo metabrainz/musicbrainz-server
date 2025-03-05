@@ -279,6 +279,14 @@ export type ReportSeriesAnnotationT = $ReadOnly<{
   +series_id: number,
 }>;
 
+export type ReportSeriesDuplicatesT = {
+  +entity: ?EntityWithSeriesT,
+  +entity_gid: string,
+  +row_number: number,
+  +series: ?SeriesT,
+  +series_id: number,
+};
+
 export type ReportUrlRelationshipT = $ReadOnly<{
   ...ReportRelationshipRoleT,
   +row_number: number,
