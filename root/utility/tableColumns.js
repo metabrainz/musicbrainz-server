@@ -319,11 +319,13 @@ export function defineEntityColumn<D>(
     +columnName: string,
     +descriptive?: boolean,
     +getEntity: (D) => RelatableEntityT | null,
+    +showIcon?: boolean,
     +subPath?: string,
     +title: string,
   },
 ): ColumnOptions<D, string> {
   const descriptive = props.descriptive ?? true;
+  const showIcon = props.showIcon ?? false;
   const sortable = props.sortable ?? false;
   const subPath =
     Object.hasOwn(props, 'subPath')
@@ -335,12 +337,18 @@ export function defineEntityColumn<D>(
       const entity = props.getEntity(original);
       return (entity
         ? descriptive
-          ? <DescriptiveLink entity={entity} subPath={subPath} />
-          : (
+          ? (
+            <DescriptiveLink
+              entity={entity}
+              showIcon={showIcon}
+              subPath={subPath}
+            />
+          ) : (
             <EntityLink
               entity={entity}
               // Event lists show date in its own column
               showEventDate={false}
+              showIcon={showIcon}
               subPath={subPath}
             />
           )
