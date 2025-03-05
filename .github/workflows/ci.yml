@@ -8,30 +8,46 @@ on:
     branches-ignore:
       - translations
 
+env:
+  TESTS_IMAGE_TAG: v-2025-03-05
+
 jobs:
   build-tests-image:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Check the cache for musicbrainz-tests-image
+        id: tests-image-cache-check
+        uses: actions/cache/restore@v4
+        with:
+          path: /tmp/musicbrainz-tests.tar
+          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
+          lookup-only: true
 
-      - uses: docker/setup-buildx-action@v3
+      - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
+        uses: actions/checkout@v4
 
-      - run: make -C docker config
+      - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
+        uses: docker/setup-buildx-action@v3
 
-      - uses: docker/build-push-action@v6
+      - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
+        run: make -C docker config
+
+      - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: docker/Dockerfile.tests
-          tags: metabrainz/musicbrainz-tests:${{ github.sha }}
+          tags: metabrainz/musicbrainz-tests:${{ env.TESTS_IMAGE_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: false
           outputs: type=docker,dest=/tmp/musicbrainz-tests.tar
 
-      - uses: actions/cache/save@v4
+      - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
         with:
           path: /tmp/musicbrainz-tests.tar
-          key: musicbrainz-tests-image-${{ github.sha }}
+          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
 
   js-perl-and-pgtap:
     needs: build-tests-image
@@ -42,7 +58,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: /tmp/musicbrainz-tests.tar
-          key: musicbrainz-tests-image-${{ github.sha }}
+          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
 
       - name: Load musicbrainz-tests image from .tar file
         run: docker load -i /tmp/musicbrainz-tests.tar
@@ -58,7 +74,7 @@ jobs:
             --env GITHUB_ACTIONS=true \
             --env GITHUB_WORKSPACE=/workspace \
             --name mbtest \
-            metabrainz/musicbrainz-tests:${{ github.sha }}
+            metabrainz/musicbrainz-tests:${{ env.TESTS_IMAGE_TAG }}
 
       - run: docker exec mbtest ./docker/musicbrainz-tests/run_js_perl_and_pgtap_tests.sh
 
@@ -85,7 +101,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: /tmp/musicbrainz-tests.tar
-          key: musicbrainz-tests-image-${{ github.sha }}
+          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
 
       - name: Load musicbrainz-tests image from .tar file
         run: docker load -i /tmp/musicbrainz-tests.tar
@@ -101,7 +117,7 @@ jobs:
             --env GITHUB_ACTIONS=true \
             --env GITHUB_WORKSPACE=/workspace \
             --name mbtest \
-            metabrainz/musicbrainz-tests:${{ github.sha }}
+            metabrainz/musicbrainz-tests:${{ env.TESTS_IMAGE_TAG }}
 
       - run: |
           docker exec \
@@ -142,7 +158,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: /tmp/musicbrainz-tests.tar
-          key: musicbrainz-tests-image-${{ github.sha }}
+          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
 
       - name: Load musicbrainz-tests image from .tar file
         run: docker load -i /tmp/musicbrainz-tests.tar
@@ -158,7 +174,7 @@ jobs:
             --env GITHUB_ACTIONS=true \
             --env GITHUB_WORKSPACE=/workspace \
             --name mbtest \
-            metabrainz/musicbrainz-tests:${{ github.sha }}
+            metabrainz/musicbrainz-tests:${{ env.TESTS_IMAGE_TAG }}
 
       - uses: actions/download-artifact@v4
         with:
