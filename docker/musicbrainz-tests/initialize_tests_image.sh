@@ -4,11 +4,15 @@ set -e -x
 
 cd "$MBS_ROOT"
 
+. docker/musicbrainz-tests/sv_start_if_down.sh
+
 sudo -E -H -u musicbrainz mkdir -p junit_output
 
 sudo -E -H -u musicbrainz cp docker/musicbrainz-tests/DBDefs.pm lib/
 
-sudo -E -H -u postgres /usr/lib/postgresql/16/bin/pg_ctl start -D /var/lib/postgresql/data
+sv_start_if_down \
+    postgresql \
+    redis # script/dump_js_type_info.pl needs Redis running.
 
 sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
 
@@ -38,10 +42,6 @@ cd "$MBS_ROOT"
 
 sudo -E -H -u musicbrainz make -C po all_quiet deploy
 
-# script/dump_js_type_info.pl needs Redis running.
-redis-server &
-REDIS_PID=$!
-
 # Compile static resources.
 NODE_ENV=test \
     WEBPACK_MODE=development \
@@ -49,7 +49,3 @@ NODE_ENV=test \
     NO_PROGRESS=1 \
     NO_YARN=1 \
     sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh default tests
-
-kill "$REDIS_PID"
-
-sudo -E -H -u postgres /usr/lib/postgresql/16/bin/pg_ctl stop -D /var/lib/postgresql/data

@@ -18,3 +18,6 @@ you have a Docker service running, run:
 
 Generating the snapshot will take quite a while. Once it is done, commit it
 and push it.
+
+To rebuild the tests image, just update `TESTS_IMAGE_TAG` in
+[.github/workflows/ci.yml](.github/workflows/ci.yml).

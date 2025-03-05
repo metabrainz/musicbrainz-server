@@ -216,9 +216,4 @@ RUN setup_test_service(`artwork-indexer') && \
     setup_test_service(`vnu') &&\
     setup_test_service(`website')
 
-COPY --chown=musicbrainz:musicbrainz ./ MBS_ROOT/
-
-RUN cd MBS_ROOT && \
-    ./docker/musicbrainz-tests/initialize_tests_image.sh
-
 LABEL org.opencontainers.image.source=https://github.com/metabrainz/musicbrainz-server
