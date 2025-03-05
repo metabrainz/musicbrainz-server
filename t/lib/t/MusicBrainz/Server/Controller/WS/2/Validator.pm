@@ -118,7 +118,8 @@ test 'Tag auth validation' => sub {
         'You are not authorized to access this resource',
         'Querying for a tag does not require log in',
     );
-    # We can't test for 200 because circleci will 503 due to no search server
+    # We can't test for 200 because our GitHub Actions workflow doesn't
+    # have a search server set up for the js-perl-and-pgtap job.
     isnt(
         $mech->status,
         HTTP_UNAUTHORIZED,
