@@ -19,10 +19,10 @@ import {
   CaptureScreenshotParameters,
   Origin,
 } from 'selenium-webdriver/bidi/captureScreenshotParameters.js';
+import logInspector from 'selenium-webdriver/bidi/logInspector.js';
 import chrome from 'selenium-webdriver/chrome.js';
 import firefox from 'selenium-webdriver/firefox.js';
 import {Key} from 'selenium-webdriver/lib/input.js';
-import logging from 'selenium-webdriver/lib/logging.js';
 import until from 'selenium-webdriver/lib/until.js';
 import webdriverProxy from 'selenium-webdriver/proxy.js';
 import test from 'tape';
@@ -1125,6 +1125,11 @@ async function runCommands(stest, commands, t) {
             ? null
             : (await getSeleniumDbTupStats());
 
+          const inspector = await logInspector(driver);
+          await inspector.onConsoleEntry(function (log) {
+            t.comment(`[${log.type}] [${log.level}] ${log.text}`);
+          });
+
           try {
             if (stest.login) {
               await runCommands(loginPlan, loginPlan.document.commands, t);
@@ -1148,17 +1153,7 @@ async function runCommands(stest, commands, t) {
             );
             throw error;
           } finally {
-            if (argv.browser === 'chrome') {
-              await driver.manage().logs().get(logging.Type.BROWSER)
-                .then(function (entries) {
-                  entries.forEach(function (entry) {
-                    t.comment(
-                      '[browser console log] ' +
-                      `[${entry.level.name}] ${entry.message}`,
-                    );
-                  });
-                });
-            }
+            await inspector.close();
 
             const finishTime = new Date();
             const elapsedTime = (finishTime - startTime) / 1000;
