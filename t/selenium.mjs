@@ -192,6 +192,33 @@ proxy.on('proxyReq', function (req) {
   reqsCount++;
 });
 
+/*
+ * We want to log the responses of failed search requests, particularly
+ * to /ws/js, as plackup may not log enough or any information about the
+ * internal failure.
+ */
+proxy.on('proxyRes', function (proxyRes, req) {
+  const webServerPath = (new URL(req.url)).pathname;
+  if (
+    /^\/ws\/js\//.test(webServerPath) &&
+    proxyRes.statusCode >= 400
+  ) {
+    const body = [];
+    proxyRes.on('data', function (chunk) {
+      body.push(chunk);
+    });
+    proxyRes.on('end', function () {
+      console.error(
+        `# Got ${proxyRes.statusCode} from ${webServerPath}:\n` +
+        '# \tResponse body:\n' +
+        `# \t\t${Buffer.concat(body).toString()}\n` +
+        '# \tResponse headers:\n' +
+        `# \t\t${JSON.stringify(proxyRes.rawHeaders)}`,
+      );
+    });
+  }
+});
+
 const customProxyServer = http.createServer(function (req, res) {
   const host = req.headers.host;
   if (
