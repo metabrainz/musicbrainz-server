@@ -535,7 +535,9 @@ async function handleCommand(stest, {command, index, target, value}, t) {
 
   // Wait for all pending network requests before running the next command.
   await driver.wait(function () {
-    pendingReqs = pendingReqs.filter(req => !(req.aborted || req.finished));
+    pendingReqs = pendingReqs.filter(
+      req => !(req.destroyed || req.writableEnded),
+    );
     return pendingReqs.length === 0;
   });
 
