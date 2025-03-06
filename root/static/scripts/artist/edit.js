@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import $ from 'jquery';
+
 import './components/ArtistCreditRenamer.js';
 import '../edit/components/FormRowTextList.js';
 import '../relationship-editor/components/RelationshipEditorWrapper.js';
@@ -15,3 +17,11 @@ import typeBubble from '../edit/typeBubble.js';
 
 const typeIdField = 'select[name=edit-artist\\.type_id]';
 typeBubble(typeIdField);
+
+$(function() {
+  function logEvent(event) {
+    console.debug('event.type:', event.type, 'event.target:', event.target, 'event.defaultPrevented:', event.defaultPrevented);
+  }
+  document.addEventListener('click', logEvent, true);
+  document.addEventListener('submit', logEvent, true);
+});
