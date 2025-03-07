@@ -135,6 +135,7 @@ sub _load
     my @target_types = uniq @{ $args{target_types} };
     my @types = map { [ sort($source_type, $_) ] } @target_types;
     my $use_cardinality = $args{use_cardinality};
+    my $rel_ids_by_target_type = $args{rel_ids_by_target_type};
     my @rels;
     foreach my $t (@types) {
         my $target_type = $source_type eq $t->[0] ? $t->[1] : $t->[0];
@@ -146,6 +147,13 @@ sub _load
         my $type0 = $t->[0];
         my $type1 = $t->[1];
         my (@cond, @params, $target_id, $source_id, $query);
+
+        if (defined $rel_ids_by_target_type) {
+            my $rel_ids = $rel_ids_by_target_type->{$target_type};
+            next unless defined $rel_ids && @$rel_ids;
+            push @cond, "l_${type0}_${type1}.id = any(?)";
+            push @params, $rel_ids;
+        }
 
         if ($source_type eq $type0) {
             my $condstring = 'entity0 IN (' . placeholders(@source_ids) . ')';
@@ -466,6 +474,12 @@ sub _load_subset {
         }
     }
 
+    my $rel_ids_by_target_type;
+    if (ref($target_types) eq 'HASH') {
+        $rel_ids_by_target_type = $target_types;
+        $target_types = [keys %{$target_types}];
+    }
+
     my @rels;
     foreach my $source_type (keys %source_objs_by_type) {
         push @rels, $self->_load(
@@ -473,6 +487,7 @@ sub _load_subset {
             target_types => $target_types,
             use_cardinality => $use_cardinality,
             source_objs => $source_objs_by_type{$source_type},
+            rel_ids_by_target_type => $rel_ids_by_target_type,
         );
     }
 
