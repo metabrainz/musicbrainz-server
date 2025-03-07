@@ -524,7 +524,7 @@ role {
             );
         }
 
-        return @edits;
+        return grep { defined } @edits;
     };
 };
 
