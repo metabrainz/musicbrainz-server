@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {captureException} from '@sentry/browser';
+
 function getCurrentScript() {
   let currentScript = document.currentScript;
 
@@ -24,7 +26,12 @@ function getScriptArgs(): mixed {
   if (currentScript) {
     const args = currentScript.getAttribute('data-args');
     if (nonEmpty(args)) {
-      return JSON.parse(args);
+      try {
+        return JSON.parse(args);
+      } catch (error) {
+        console.error(error);
+        captureException(error);
+      }
     }
   }
   return {};
