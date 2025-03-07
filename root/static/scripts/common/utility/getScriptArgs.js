@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -18,11 +19,11 @@ function getCurrentScript() {
   return currentScript;
 }
 
-function getScriptArgs() {
+function getScriptArgs(): mixed {
   const currentScript = getCurrentScript();
   if (currentScript) {
     const args = currentScript.getAttribute('data-args');
-    if (args) {
+    if (nonEmpty(args)) {
       return JSON.parse(args);
     }
   }
