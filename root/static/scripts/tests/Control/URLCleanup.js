@@ -4912,6 +4912,13 @@ limited_link_type_combinations: [
         only_valid_entity_types: ['recording', 'release', 'release_group'],
   },
   {
+                     input_url: 'https://rateyourmusic.com/release/video/ensemble-for-new-music-tallinn-arash-yazdani/in-vain/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://rateyourmusic.com/release/video/ensemble-for-new-music-tallinn-arash-yazdani/in-vain/',
+        only_valid_entity_types: ['recording', 'release', 'release_group'],
+  },
+  {
                      input_url: 'https://rateyourmusic.com/release/single/tori_amos/a_sorta_fairytale/',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
