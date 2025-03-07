@@ -145,7 +145,7 @@ sub _load
 
         my $type0 = $t->[0];
         my $type1 = $t->[1];
-        my (@cond, @params, $target, $target_id, $source_id, $query);
+        my (@cond, @params, $target_id, $source_id, $query);
 
         if ($source_type eq $type0) {
             my $condstring = 'entity0 IN (' . placeholders(@source_ids) . ')';
@@ -154,7 +154,6 @@ sub _load
             }
             push @cond, $condstring;
             push @params, @source_ids;
-            $target = $type1;
             $target_id = 'entity1';
             $source_id = 'entity0';
         }
@@ -165,7 +164,6 @@ sub _load
             }
             push @cond, $condstring;
             push @params, @source_ids;
-            $target = $type0;
             $target_id = 'entity0';
             $source_id = 'entity1';
         }
@@ -183,16 +181,16 @@ sub _load
                      l.end_date_year,   l.end_date_month,   l.end_date_day,
                      l.ended';
 
-        if ($ENTITIES{$target}{sort_name}) {
-            $order .= ", ${target}.sort_name COLLATE musicbrainz";
-        } elsif ($target eq 'url') {
+        if ($ENTITIES{$target_type}{sort_name}) {
+            $order .= ", ${target_type}.sort_name COLLATE musicbrainz";
+        } elsif ($target_type eq 'url') {
             $order .= ', url';
         } else {
-            $order .= ", ${target}.name COLLATE musicbrainz";
+            $order .= ", ${target_type}.name COLLATE musicbrainz";
         }
 
         $query = "SELECT $select
-                    JOIN $target ON $target_id = ${target}.id
+                    JOIN $target_type ON $target_id = ${target_type}.id
                    WHERE " . join(' AND ', @cond) . "
                    ORDER BY $order";
 
