@@ -28,7 +28,10 @@ import {
 import coerceToError from '../../common/utility/coerceToError.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import {uniqueNegativeId} from '../../common/utility/numbers.js';
-import {hasSessionStorage} from '../../common/utility/storage.js';
+import {
+  hasSessionStorage,
+  sessionStorageWrapper,
+} from '../../common/utility/storage.js';
 import reducerWithErrorHandling
   from '../../edit/utility/reducerWithErrorHandling.js';
 import {
@@ -64,8 +67,9 @@ import getRelationshipTarget from '../utility/getRelationshipTarget.js';
 import isRelationshipBackward from '../utility/isRelationshipBackward.js';
 import mergeRelationship from '../utility/mergeRelationship.js';
 import moveRelationship from '../utility/moveRelationship.js';
-import prepareHtmlFormSubmission
-  from '../utility/prepareHtmlFormSubmission.js';
+import prepareHtmlFormSubmission, {
+  getSessionStorageKey as getHtmlFormSubmissionSessionStorageKey,
+} from '../utility/prepareHtmlFormSubmission.js';
 import relationshipsAreIdentical
   from '../utility/relationshipsAreIdentical.js';
 import splitRelationshipByAttributes
@@ -222,8 +226,10 @@ export function loadOrCreateInitialState(
   const $c = getCatalystContext();
   let submittedRelationships;
   if (hasSessionStorage && $c.req.method === 'POST') {
+    const source = args.source ?? getSourceEntityDataForRelationshipEditor();
+    const sessionStorageKey = getHtmlFormSubmissionSessionStorageKey(source);
     const submittedRelationshipsJson =
-      sessionStorage.getItem('relationshipEditorChanges');
+      sessionStorageWrapper.get(sessionStorageKey);
     if (nonEmpty(submittedRelationshipsJson)) {
       try {
         submittedRelationships = ((decompactEntityJson(
@@ -238,7 +244,7 @@ export function loadOrCreateInitialState(
          * development, so delay the sessionStorage removal.
          */
         setTimeout(() => {
-          sessionStorage.removeItem('relationshipEditorChanges');
+          sessionStorageWrapper.remove(sessionStorageKey);
         }, 1000);
       }
     }

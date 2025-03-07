@@ -7,12 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {captureException} from '@sentry/browser';
 import * as tree from 'weight-balanced-tree';
 
 import {compactEntityJson} from '../../../../utility/compactEntityJson.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
-import {hasSessionStorage} from '../../common/utility/storage.js';
+import {
+  hasSessionStorage,
+  sessionStorageWrapper,
+} from '../../common/utility/storage.js';
 import {
   REL_STATUS_NOOP,
   REL_STATUS_REMOVE,
@@ -187,6 +189,13 @@ export function appendHiddenRelationshipInputs(
   return fieldCount;
 }
 
+export function getSessionStorageKey(
+  source: RelatableEntityT,
+): string {
+  const sourceId = isDatabaseRowId(source.id) ? source.id : 'new';
+  return `relationshipEditorChanges_${source.entityType}_${sourceId}`;
+}
+
 export default function prepareHtmlFormSubmission(
   formName: string,
   state: RelationshipEditorStateT,
@@ -219,20 +228,10 @@ export default function prepareHtmlFormSubmission(
       }
 
       if (hasSessionStorage) {
-        try {
-          window.sessionStorage.setItem(
-            'relationshipEditorChanges',
-            JSON.stringify(compactEntityJson(changes)),
-          );
-        } catch (error) {
-          /*
-           * Don't prevent the form from submitting if we encounter
-           * an error; for instance, "quota exceeded," which we can't do
-           * anything about. Exceeding the storage quota should be much
-           * less likely now that MBS-13393 is mitigated.
-           */
-          captureException(error);
-        }
+        sessionStorageWrapper.set(
+          getSessionStorageKey(state.entity),
+          JSON.stringify(compactEntityJson(changes)),
+        );
       }
     },
   );

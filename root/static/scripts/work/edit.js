@@ -32,6 +32,7 @@ import {pushCompoundField, pushField} from '../edit/utility/pushField.js';
 import subfieldErrors from '../edit/utility/subfieldErrors.js';
 import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
+// eslint-disable-next-line ft-flow/no-weak-types
 const scriptArgs: any = getScriptArgs();
 
 type WorkAttributeField = CompoundFieldT<{
