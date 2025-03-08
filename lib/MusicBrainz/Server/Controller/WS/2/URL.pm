@@ -62,7 +62,7 @@ sub url_lookup_by_resource : Private
         }
         @urls = $c->model('URL')->find_by_urls($resource);
     } else {
-        my $url = $c->model('URL')->find_by_url($resource);
+        my $url = $c->model('URL')->get_by_url($resource);
         $c->detach('not_found') unless $url;
         @urls = $url;
     }

@@ -307,7 +307,7 @@ sub _merge_impl
     return 1;
 }
 
-sub find_by_url {
+sub get_by_url {
     my ($self, $url) = @_;
 
     my $normalized = URI->new($url)->canonical;
@@ -342,7 +342,7 @@ sub update
     my ($self, $url_id, $url_hash) = @_;
     croak '$url_id must be present and > 0' unless $url_id > 0;
 
-    my $merge_into = $self->find_by_url($url_hash->{url});
+    my $merge_into = $self->get_by_url($url_hash->{url});
     if (defined $merge_into && $merge_into->id != $url_id) {
         $self->merge($merge_into->id, $url_id);
         return $merge_into->id;
