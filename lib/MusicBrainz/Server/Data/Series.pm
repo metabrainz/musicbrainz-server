@@ -4,7 +4,6 @@ use List::AllUtils qw( max partition_by );
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Constants qw(
-    entities_with
     $SERIES_ORDERING_TYPE_AUTOMATIC
 );
 use MusicBrainz::Server::Data::Utils qw(
@@ -255,7 +254,10 @@ sub load_entity_count {
     my ($self, @series) = @_;
     return unless @series;
 
-    my @entity_types = entities_with('series');
+    my %series_by_item_type = partition_by {
+        $_->type->item_entity_type
+    } @series;
+    my @entity_types = sort keys %series_by_item_type;
 
     my $query = join(' UNION ALL ',
        map {
@@ -268,8 +270,9 @@ sub load_entity_count {
        } @entity_types,
     );
 
-    my @series_ids = map { $_->id } @series;
-    my @query_params = (\@series_ids) x scalar(@entity_types);
+    my @query_params = map {
+        [map { $_->id } @{ $series_by_item_type{$_} }]
+    } @entity_types;
     my $rows = $self->sql->select_list_of_hashes($query, @query_params);
     my %rows_by_id = partition_by { $_->{series} } @$rows;
 
