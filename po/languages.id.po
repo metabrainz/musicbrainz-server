@@ -1,11 +1,12 @@
 #
 # Translators:
 # Ian Perdiansah <email address hidden>, 2020
+# koukei07 <teamedia@duck.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-30 01:27+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2025-02-24 23:33+0000\n"
+"Last-Translator: koukei07 <teamedia@duck.com>\n"
 "Language-Team: Indonesian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/id/>\n"
 "Language: id\n"
@@ -13,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.10.1\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -763,7 +764,7 @@ msgstr ""
 #. frequency:2 iso_code_3:fra
 #: DB:language/name:134
 msgid "French"
-msgstr "Bahasa Prancis"
+msgstr "Perancis"
 
 #. frequency:0 iso_code_3:frm
 #: DB:language/name:135
