@@ -11,22 +11,23 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # Echelon666 <echelon01@wp.pl>, 2024.
 # Peter69 <echelon01@wp.pl>, 2024, 2025.
+# Michal77 <michal_wilk@poczta.fm>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-01-27 20:44+0000\n"
-"Last-Translator: Peter69 <echelon01@wp.pl>\n"
+"PO-Revision-Date: 2025-02-26 18:44+0000\n"
+"Last-Translator: Michal77 <michal_wilk@poczta.fm>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10.1\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -1147,16 +1148,12 @@ msgid "Artists with no country set"
 msgstr "Artyści bez określonego kraju"
 
 #: ../root/statistics/stats.js:86
-#, fuzzy
-#| msgid "by a single artist:"
 msgid "Female artists"
-msgstr "autorstwa pojedynczego artysty:"
+msgstr "Artystki:"
 
 #: ../root/statistics/stats.js:91
-#, fuzzy
-#| msgid "by a single artist:"
 msgid "Male artists"
-msgstr "autorstwa pojedynczego artysty:"
+msgstr "Artyści:"
 
 #: ../root/statistics/stats.js:96
 msgid "Non-binary Artists"
@@ -1416,20 +1413,16 @@ msgid "Events with no country set"
 msgstr "Wydarzenia bez określonego kraju"
 
 #: ../root/statistics/stats.js:452
-#, fuzzy
-#| msgid "Releases with no disc IDs:"
 msgid "Events with EAA event art"
-msgstr "Wydania bez Disc ID:"
+msgstr "Wydania bez Disc ID"
 
 #: ../root/statistics/stats.js:457
 msgid "Events with an EAA poster"
 msgstr "Wydarzenia z plakatem EAA"
 
 #: ../root/statistics/stats.js:462
-#, fuzzy
-#| msgid "Releases with no disc IDs:"
 msgid "Events without an EAA poster"
-msgstr "Wydania bez Disc ID:"
+msgstr "Wydania bez Disc ID"
 
 #: ../root/statistics/stats.js:467
 msgid "Events with no type set"
