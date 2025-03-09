@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 10:52+0100\n"
-"PO-Revision-Date: 2025-01-20 10:44+0000\n"
+"PO-Revision-Date: 2025-03-08 22:44+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/sq/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -10061,7 +10061,7 @@ msgstr "S’u Gjet Përpunues"
 
 #: ../root/entity/NotFound.js:75
 msgid "Sorry, we could not find an edit note with that ID."
-msgstr "Na ndjeni, s’gjetëm dot një shënim përpunimi me me atë ID."
+msgstr "Na ndjeni, s’gjetëm dot një shënim përpunimi me atë ID."
 
 #: ../root/entity/NotFound.js:81
 #, fuzzy
@@ -10665,10 +10665,8 @@ msgstr[1] "Përshoqëruar me {num} vepra"
 #: ../root/iswc/Index.js:57 ../root/report/IswcsWithManyWorks.js:52
 #: ../root/search/components/WorkResults.js:56
 #: ../root/utility/tableColumns.js:804
-#, fuzzy
-#| msgid "Recording by {artist}"
 msgid "Recording artists"
-msgstr "Incizim nga {artist}"
+msgstr ""
 
 #: ../root/label/LabelIndex.js:105
 msgid "This label does not have any releases."
@@ -11819,7 +11817,7 @@ msgstr ""
 
 #: ../root/main/index.js:250
 msgid "Recently added releases"
-msgstr "Hedhje në qarkullim të shtuara së fundi:"
+msgstr "Hedhje në qarkullim të shtuara së fundi"
 
 #: ../root/main/index.js:265
 #, fuzzy
@@ -14372,10 +14370,8 @@ msgid "Alias name:"
 msgstr "Emër aliasi:"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:327
-#, fuzzy
-#| msgid "This is the primary alias for this locale"
 msgid "This is the {alias_doc|primary alias} for this locale"
-msgstr "Ky është aliasi parësor për këtë vendore"
+msgstr "Ky është {alias_doc|aliasi parësor} për këtë vendore"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:349
 msgid "This alias is no longer current."
@@ -17259,7 +17255,7 @@ msgstr "Koleksione Hedhjesh Në Qarkullim"
 
 #: ../root/user/UserCollections.js:46
 msgid "Release group collections"
-msgstr "Koleksioni grupesh hedhjesh në qarkullim"
+msgstr "Koleksione grupesh hedhjesh në qarkullim"
 
 #: ../root/user/UserCollections.js:47
 #, fuzzy
@@ -17487,7 +17483,7 @@ msgstr "pajtohuni"
 
 #: ../root/user/UserProfile.js:414
 msgid "Languages"
-msgstr ""
+msgstr "Gjuhë"
 
 #: ../root/user/UserProfile.js:485 ../root/user/UserProfile.js:580
 #: ../root/user/UserProfile.js:590 ../root/user/UserProfile.js:600
@@ -17777,7 +17773,7 @@ msgstr ""
 #: ../root/user/UserTagList.js:22
 msgctxt "folksonomy"
 msgid "Tags {user} upvoted"
-msgstr "Etiketa të votuara nga përdoruesi"
+msgstr "Etiketa të votuara nga {user}"
 
 #: ../root/user/UserTagList.js:123
 msgid "{user} has not downvoted any tags."
