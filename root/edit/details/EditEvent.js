@@ -29,7 +29,7 @@ component EditEvent(edit: EditEventEditT) {
     <table className="details edit-event">
       <tr>
         <th>{addColonText(l('Event'))}</th>
-        <td colSpan="2"><EntityLink entity={display.event} /></td>
+        <td colSpan={2}><EntityLink entity={display.event} /></td>
       </tr>
       {name ? (
         <WordDiff

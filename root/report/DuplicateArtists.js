@@ -80,7 +80,7 @@ component DuplicateArtists(...{
                   >
                     {lastKey === item.key ? null : (
                       <tr className="subh">
-                        <td colSpan="4" />
+                        <td colSpan={4} />
                       </tr>
                     )}
                     {artist ? (
@@ -112,7 +112,7 @@ component DuplicateArtists(...{
                     ) : (
                       <tr>
                         <td />
-                        <td colSpan="3">
+                        <td colSpan={3}>
                           {l('This artist no longer exists.')}
                         </td>
                       </tr>

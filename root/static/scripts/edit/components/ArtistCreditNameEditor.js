@@ -152,7 +152,7 @@ component _ArtistCreditNameEditor(
   return (
     <tr>
       {artistCreditName.removed ? (
-        <td className="removed-ac-name" colSpan="3">
+        <td className="removed-ac-name" colSpan={3}>
           {lp('[removed]', 'artist credit name')}
         </td>
       ) : (
