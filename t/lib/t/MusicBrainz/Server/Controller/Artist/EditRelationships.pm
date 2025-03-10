@@ -321,6 +321,26 @@ test 'Editing a relationship' => sub {
 
         ok !exception { $edit->accept }, 'The edit could be accepted';
     };
+
+    subtest 'MBS-13959: Editing a relationship from another source entity is rejected' => sub {
+        my @edits = capture_edits {
+            $mech->post('/recording/659f405b-b4ee-4033-868a-0daa27784b89/edit', {
+                'edit-recording.name' => 'π',
+                'edit-recording.artist_credit.names.0.name' => 'Kate Bush',
+                'edit-recording.artist_credit.names.0.join_phrase' => '',
+                'edit-recording.artist_credit.names.0.artist.name' => 'Kate Bush',
+                'edit-recording.artist_credit.names.0.artist.id' => '7',
+                'edit-recording.comment' => '',
+                'edit-recording.edit_note' => '',
+                # relationship id=3 belongs to recording 54b9d183-7dab-42ba-94a3-7388a66604b8
+                'edit-recording.rel.0.relationship_id' => '3',
+                'edit-recording.rel.0.link_type_id' => '148',
+                'edit-recording.rel.0.target' => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
+            });
+        } $c;
+
+        is(@edits, 0, 'No edits were entered');
+    };
 };
 
 
@@ -442,6 +462,96 @@ test 'Ensure duplicate link attribute types are ignored' => sub {
         [$guitar_attribute],
         'The edit stores the right attributes data',
     );
+};
+
+test 'Changing the direction of a relationship' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    my @edits = capture_edits {
+        $mech->post('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/edit', {
+            'edit-artist.name' => 'Test Alias',
+            'edit-artist.sort_name' => 'Kate Bush',
+            'edit-artist.rel.0.relationship_id' => '1',
+            'edit-artist.rel.0.link_type_id' => '108',
+            'edit-artist.rel.0.target' => '2fed031c-0e89-406e-b9f0-3d192637907a',
+            'edit-artist.rel.0.backward' => '1',
+        });
+    } $c;
+
+    is(@edits, 1, 'One edit was entered');
+
+    my $edit = $edits[0];
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Edit');
+
+    cmp_deeply($edit->data, {
+        edit_version => 2,
+        relationship_id => 1,
+        type0 => 'artist',
+        type1 => 'artist',
+        entity0_credit => '',
+        entity1_credit => '',
+        link => {
+            link_type => {
+                id => 108,
+                link_phrase => 'performs as',
+                long_link_phrase => 'performs as',
+                name => 'is person',
+                reverse_link_phrase => 'legal name',
+            },
+            entity0 => {
+                gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
+                id => 8,
+                name => 'Test Alias',
+            },
+            entity1 => {
+                gid => '2fed031c-0e89-406e-b9f0-3d192637907a',
+                id => 9,
+                name => 'Test Alias',
+            },
+            attributes => [],
+            begin_date => {
+                day => undef,
+                month => undef,
+                year => undef,
+            },
+            end_date => {
+                day => undef,
+                month => undef,
+                year => undef,
+            },
+            ended => 0,
+        },
+        old => {
+            entity0 => {
+                gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
+                id => 8,
+                name => 'Test Alias',
+            },
+            entity1 => {
+                gid => '2fed031c-0e89-406e-b9f0-3d192637907a',
+                id => 9,
+                name => 'Test Alias',
+            },
+        },
+        new => {
+            entity0 => {
+                gid => '2fed031c-0e89-406e-b9f0-3d192637907a',
+                id => 9,
+                name => 'Test Alias',
+            },
+            entity1 => {
+                gid => 'e2a083a9-9942-4d6e-b4d2-8397320b95f7',
+                id => 8,
+                name => 'Test Alias',
+            },
+        },
+    }, 'The edit contains the right data');
 };
 
 1;
