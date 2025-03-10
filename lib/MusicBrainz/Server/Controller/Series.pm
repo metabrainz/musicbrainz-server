@@ -49,6 +49,7 @@ after load => sub {
     $c->model('Series')->load_aliases($series);
     $c->model('SeriesType')->load($series);
     $c->model('SeriesOrderingType')->load($series);
+    $c->model('Series')->load_entity_count($series);
 
     if ($c->user_exists) {
         $c->stash->{subscribed} = $c->model('Series')

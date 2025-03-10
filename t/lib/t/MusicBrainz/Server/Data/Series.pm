@@ -409,4 +409,35 @@ test 'Can reorder series with multiple of the same item without conflicts (MBS-8
     is_deeply([map { $_->{entity}->id } @$items], [1, 1]);
 };
 
+test 'load_entity_count' => sub {
+    my $c = shift->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+series');
+
+    note('We load the entity count for a work series');
+    my $series = $c->model('Series')->get_by_id(2);
+    $c->model('SeriesType')->load($series);
+    $c->model('Series')->load_entity_count($series);
+
+    is($series->entity_count, 4, 'The series entity count is 4');
+
+    note('We add another work relationship to the series');
+    $c->model('Relationship')->insert('series', 'work', {
+        entity0_id      => 2,
+        entity1_id      => 4,
+        link_type_id    => 743,
+        link_order      => 5,
+        attributes => [{ type => { id => 788 }, text_value => 'oh look a number' }],
+    });
+
+    $c->model('Series')->load_entity_count($series);
+    is($series->entity_count, 5, 'The series entity count is now 5');
+
+    note('We remove two work relationships from the series');
+    $c->model('Relationship')->delete('series', 'work', 1, 2);
+
+    $c->model('Series')->load_entity_count($series);
+    is($series->entity_count, 3, 'The series entity count is now 3');
+};
+
 1;
