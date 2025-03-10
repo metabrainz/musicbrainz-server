@@ -307,12 +307,34 @@ sub _merge_impl
     return 1;
 }
 
-sub find_by_url {
+sub get_by_url {
     my ($self, $url) = @_;
+
     my $normalized = URI->new($url)->canonical;
-    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
-                ' WHERE url = ?';
-    $self->query_to_list($query, [$normalized]);
+    my $row = $self->c->prefer_ro_sql->select_single_row_hash(
+        <<~"SQL",
+        SELECT ${\($self->_columns)}
+          FROM ${\($self->_table)}
+         WHERE url = ?
+        SQL
+        $normalized,
+    );
+    if (defined $row) {
+        return $self->_new_from_row($row);
+    }
+    return;
+}
+
+sub find_by_urls {
+    my ($self, $urls) = @_;
+
+    my $normalized = [map { URI->new($_)->canonical->as_string } @$urls];
+    $self->query_to_list(<<~"SQL", [$normalized]);
+        SELECT ${\($self->_columns)}
+          FROM ${\($self->_table)}
+         WHERE url = any(?)
+         ORDER BY url
+        SQL
 }
 
 sub update
@@ -320,10 +342,8 @@ sub update
     my ($self, $url_id, $url_hash) = @_;
     croak '$url_id must be present and > 0' unless $url_id > 0;
 
-    my ($merge_into) = grep { $_->id != $url_id }
-        $self->find_by_url($url_hash->{url});
-
-    if ($merge_into) {
+    my $merge_into = $self->get_by_url($url_hash->{url});
+    if (defined $merge_into && $merge_into->id != $url_id) {
         $self->merge($merge_into->id, $url_id);
         return $merge_into->id;
     }

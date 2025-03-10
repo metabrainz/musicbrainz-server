@@ -130,7 +130,7 @@ after insert => sub {
     # would produce a merge).
     $self->data->{is_merge} = 0;
     if (my $new_url = $self->data->{new}{url}) {
-        if ($self->c->model('URL')->find_by_url($new_url)) {
+        if ($self->c->model('URL')->get_by_url($new_url)) {
             $self->data->{is_merge} = 1;
             $self->auto_edit(0);
         }
