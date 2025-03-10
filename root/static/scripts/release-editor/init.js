@@ -11,16 +11,23 @@ import ko from 'knockout';
 import mutate from 'mutate-cow';
 import {createRoot} from 'react-dom/client';
 
+import '../../lib/jquery-ui.js';
+import '../../lib/knockout/knockout-delegatedEvents.js';
+
 import {
   artistCreditsAreEqual,
   hasVariousArtists,
 } from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
+import {
+  initializeRangeSelect,
+} from '../common/MB/Control/SelectAll.js';
 import {getSourceEntityData} from '../common/utility/catalyst.js';
 import clean from '../common/utility/clean.js';
 import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
 import {debounceComputed} from '../common/utility/debounce.js';
 import request from '../common/utility/request.js';
+import confirmNavigationFallback from '../edit/confirmNavigationFallback.js';
 import * as externalLinks from '../edit/externalLinks.js';
 import {createField} from '../edit/utility/createField.js';
 import getUpdatedTrackArtists from
@@ -71,12 +78,12 @@ releaseEditor.init = function (options) {
    * Allow using range-select (shift-click) on the change recording artist
    * and change recording title checkboxes in the Recordings page.
    */
-  MB.Control.RangeSelect(
+  initializeRangeSelect(
     '#track-recording-assignation input.' +
     'update-recording-title[type="checkbox"]',
   );
 
-  MB.Control.RangeSelect(
+  initializeRangeSelect(
     '#track-recording-assignation input.' +
     'update-recording-artist[type="checkbox"]',
   );
@@ -523,4 +530,4 @@ releaseEditor.allowsSubmission = function () {
 
 MB._releaseEditor = releaseEditor;
 
-$(MB.confirmNavigationFallback);
+$(confirmNavigationFallback);

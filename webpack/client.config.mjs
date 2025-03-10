@@ -15,10 +15,10 @@ import shell from 'shelljs';
 import TerserPlugin from 'terser-webpack-plugin';
 import webpack from 'webpack';
 
+import jedDataTemplate from '../root/jedDataTemplate.mjs';
 import * as poFile from '../root/server/gettext/poFile.mjs';
 import {cloneObjectDeep}
   from '../root/static/scripts/common/utility/cloneDeep.mjs';
-import jedDataTemplate from '../root/static/scripts/jed-data.mjs';
 import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';
 
 import browserConfig from './browserConfig.mjs';
@@ -26,6 +26,7 @@ import cacheConfig from './cacheConfig.mjs';
 import {
   BUILD_DIR,
   GETTEXT_DOMAINS,
+  GLOBAL_JS_NAMESPACE,
   PO_DIR,
   PRODUCTION_MODE,
   SCRIPTS_DIR,
@@ -49,39 +50,56 @@ const entries = [
   'artist/edit',
   'artist/index',
   'collection/edit',
-  'common',
+  'common/artworkViewer',
+  'common/banner',
   'common/components/AcoustIdCell',
+  'common/components/Annotation',
   'common/components/ArtistRoles',
   'common/components/AttributeList',
   'common/components/CDTocReleaseListTable',
+  'common/components/CommonsImage',
+  'common/components/Filter',
+  'common/components/FingerprintTable',
   'common/components/IsrcList',
   'common/components/IswcList',
   'common/components/ReleaseEvents',
+  'common/components/TagEditor',
   'common/components/TaggerIcon',
   'common/components/WorkArtists',
+  'common/jquery',
+  'common/loadArtwork',
+  'common/MB/Control/Menu',
+  'common/MB/Control/SelectAll',
+  'common/MB/edit_search',
+  'common/ratings',
+  'common/sentry',
   'confirm-seed',
   'edit',
   'edit/components/FormRowTextList',
   'edit/components/NewNotesAlertCheckbox',
+  'edit/ExampleRelationships',
   'event/components/EventEditForm',
   'event/edit',
   'event/eventart',
   'event/index',
   'genre/components/GenreEditForm',
   'genre/index',
+  'instrument/edit',
   'instrument/index',
-  'jed-data.mjs',
   'label/edit',
   'label/index',
   'place/edit',
   'place/index',
   'place/map',
+  'public-path',
   'recording/edit',
+  'recording/index',
   'relationship-editor',
   'release/coverart',
   'release/edit-relationships',
   'release/index',
   'release-editor',
+  'release-group/edit',
   'release-group/index',
   'selenium',
   'series/edit',
@@ -106,6 +124,11 @@ const entries = [
   accum[nameWithoutExt] = path.resolve(SCRIPTS_DIR, nameWithExt);
   return accum;
 }, {});
+
+entries['whatwg-fetch'] = path.resolve(
+  MB_SERVER_ROOT,
+  'node_modules/whatwg-fetch/fetch.js',
+);
 
 function langToPosix(lang) {
   return lang.replace(/^([a-zA-Z]+)-([a-zA-Z0-9]+)$/, function (match, l, c) {
@@ -221,16 +244,14 @@ MB_LANGUAGES.forEach(function (lang) {
 
   if (loadedNewPoData) {
     const source = (
-      'import jedData from ' +
-      JSON.stringify(path.resolve(SCRIPTS_DIR, 'jed-data.mjs')) + ';\n' +
-      'const locale = ' + JSON.stringify(lang) + ';\n' +
+      'window[' + JSON.stringify(GLOBAL_JS_NAMESPACE) + ']' +
+      '.jedData[' + JSON.stringify(lang) + '] = ' +
       // https://v8.dev/blog/cost-of-javascript-2019#json
-      'jedData[locale] = JSON.parse(\'' +
+      'JSON.parse(\'' +
       canonicalJson(langJedData)
         .replace(/\\/g, '\\\\')
         .replace(/'/g, "\\'") +
-      '\');\n' +
-      'jedData.locale = locale;\n'
+      '\');\n'
     );
     fs.writeFileSync(filePath, source);
   }
@@ -284,7 +305,7 @@ export default {
       cacheGroups: {
         'common-chunks': {
           chunks: 'initial',
-          minChunks: 2,
+          minChunks: 10,
           name: 'common-chunks',
           priority: -30,
           reuseExistingChunk: true,

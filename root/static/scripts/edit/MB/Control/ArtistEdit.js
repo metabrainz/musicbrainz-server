@@ -9,8 +9,11 @@
 import $ from 'jquery';
 
 import MB from '../../../common/MB.js';
+import {
+  initializeRangeSelect,
+} from '../../../common/MB/Control/SelectAll.js';
 
-MB.Control.ArtistEdit = function () {
+export default function ArtistEdit() {
   var self = {};
 
   self.$name = $('#id-edit-artist\\.name');
@@ -117,7 +120,7 @@ MB.Control.ArtistEdit = function () {
   self.typeChanged();
   self.$type.bind('change.mb', self.typeChanged);
 
-  MB.Control.RangeSelect(
+  initializeRangeSelect(
     '#artist-credit-renamer input[type="checkbox"]',
   );
 
@@ -126,4 +129,4 @@ MB.Control.ArtistEdit = function () {
   MB.Control.Area('#area', '#begin_area', '#end_area');
 
   return self;
-};
+}

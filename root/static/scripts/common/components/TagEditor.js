@@ -10,6 +10,8 @@
 import he from 'he';
 import * as React from 'react';
 
+import '../../../lib/jquery-ui.js';
+
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import {minimalEntity} from '../../../../utility/hydrate.js';
 import loopParity from '../../../../utility/loopParity.js';

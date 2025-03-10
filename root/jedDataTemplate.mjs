@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import deepFreezeStrict from 'deep-freeze-strict';
 import type {JedOptions} from 'jed';
 
 type JedData = {
@@ -15,7 +16,7 @@ type JedData = {
   ...
 };
 
-const jedData: JedData = {
+const jedData: JedData = deepFreezeStrict({
   en: {
     domain: 'mb_server',
     locale_data: {
@@ -92,6 +93,6 @@ const jedData: JedData = {
     },
   },
   locale: 'en',
-};
+});
 
 export default jedData;

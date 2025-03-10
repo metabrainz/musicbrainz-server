@@ -9,5 +9,6 @@
     [%- END -%]
     [% PROCESS search_form %]
   </div>
+  [% script_manifest('common/MB/edit_search.js', {async => 'async'}) %]
 [% END %]
 

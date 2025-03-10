@@ -13,6 +13,7 @@ import ReleaseList from '../components/list/ReleaseList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import RelationshipsTable from '../components/RelationshipsTable.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
@@ -64,6 +65,7 @@ component AreaReleases(
         pagedLinkTypeGroup={pagedLinkTypeGroup}
         pager={pager}
       />
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </AreaLayout>
   );
 }

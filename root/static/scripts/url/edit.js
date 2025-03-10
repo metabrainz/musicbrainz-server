@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow
  * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,6 +10,7 @@
 // $FlowIgnore[untyped-import]
 import $ from 'jquery';
 
+import '../edit/validation.js';
 import './components/UrlRelationshipEditor.js';
 
 import {registerEvents} from '../edit/URLCleanup.js';

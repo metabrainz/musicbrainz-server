@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,6 +8,7 @@
  */
 
 import '../edit/components/FormRowTextList.js';
+import '../edit/validation.js';
 
 import typeBubble from '../edit/typeBubble.js';
 

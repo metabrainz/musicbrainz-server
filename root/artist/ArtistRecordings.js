@@ -12,6 +12,7 @@ import * as React from 'react';
 import RecordingList from '../components/list/RecordingList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import Filter from '../static/scripts/common/components/Filter.js';
 import {type RecordingFilterT}
   from '../static/scripts/common/components/FilterForm.js';
@@ -154,6 +155,10 @@ component ArtistRecordings(
       )}
 
       <FooterSwitch {...footerSwitchProps} />
+
+      {manifest('common/components/Filter', {async: 'async'})}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
+      {manifest('common/ratings', {async: 'async'})}
     </ArtistLayout>
   );
 }

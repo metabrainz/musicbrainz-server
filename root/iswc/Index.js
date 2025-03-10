@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
+import manifest from '../static/manifest.mjs';
 import CodeLink from '../static/scripts/common/components/CodeLink.js';
 import WorkListEntry
   from '../static/scripts/common/components/WorkListEntry.js';
@@ -81,6 +82,7 @@ component Index(
           </div>
         ) : null}
       </form>
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </Layout>
   );
 }

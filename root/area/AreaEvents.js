@@ -12,6 +12,7 @@ import * as React from 'react';
 import EventList from '../components/list/EventList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
@@ -56,6 +57,8 @@ component AreaEvents(
           {l('This area is not currently associated with any events.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
+      {manifest('common/ratings', {async: 'async'})}
     </AreaLayout>
   );
 }

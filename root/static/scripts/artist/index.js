@@ -1,5 +1,5 @@
 /*
- * @flow strict
+ * @flow
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -9,4 +9,7 @@
 
 import '../common/components/Annotation.js';
 import '../common/components/CommonsImage.js';
+import '../common/components/Filter.js';
 import '../common/components/WikipediaExtract.js';
+import '../common/MB/Control/SelectAll.js';
+import '../common/ratings.js';

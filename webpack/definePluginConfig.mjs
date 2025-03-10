@@ -6,9 +6,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {WEBPACK_MODE} from './constants.mjs';
-
-const GLOBAL_JS_NAMESPACE = '__MB__';
+import {
+  GLOBAL_JS_NAMESPACE,
+  WEBPACK_MODE,
+} from './constants.mjs';
 
 export default {
   /*

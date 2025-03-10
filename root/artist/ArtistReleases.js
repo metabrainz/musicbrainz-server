@@ -12,6 +12,7 @@ import * as React from 'react';
 import ReleaseList from '../components/list/ReleaseList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import Filter from '../static/scripts/common/components/Filter.js';
 import {type ReleaseFilterT}
   from '../static/scripts/common/components/FilterForm.js';
@@ -89,6 +90,9 @@ component ArtistReleases(
           {show_all: `/artist/${artist.gid}/releases?va=1`},
         )
       )}
+
+      {manifest('common/components/Filter', {async: 'async'})}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </ArtistLayout>
   );
 }
