@@ -2964,7 +2964,7 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?([^/]+\.)?imdb\./i],
     restrict: [LINK_TYPES.imdb],
     clean(url) {
-      return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, 'https://www.imdb.com/$3/');
+      return url.replace(/^https?:\/\/(?:[^.]+\.)?imdb\.(?:com|de|it|es|fr|pt)\/(?:[a-z]{2}\/)?([a-z]+\/[a-z0-9]+)(?:\/.*)*$/, 'https://www.imdb.com/$1/');
     },
     validate(url, id) {
       const m = /^https:\/\/www\.imdb\.com\/(name\/nm|title\/tt|character\/ch|company\/co)[0-9]{7,}\/$/.exec(url);

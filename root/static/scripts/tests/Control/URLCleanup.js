@@ -2994,9 +2994,10 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'https://www.imdb.com/name/nm10024808/',
+                     input_url: 'https://www.imdb.com/de/name/nm10024808/',
              input_entity_type: 'artist',
     expected_relationship_type: 'imdb',
+            expected_clean_url: 'https://www.imdb.com/name/nm10024808/',
        only_valid_entity_types: ['artist'],
   },
   {
