@@ -19,6 +19,16 @@ use MusicBrainz::Server::EditSearch::Predicate::AppliedEdits;
 use MusicBrainz::Server::EditSearch::Predicate::Voter;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality;
+use MusicBrainz::Server::EditSearch::Predicate::AreaType;
+use MusicBrainz::Server::EditSearch::Predicate::ArtistType;
+use MusicBrainz::Server::EditSearch::Predicate::EventType;
+use MusicBrainz::Server::EditSearch::Predicate::InstrumentType;
+use MusicBrainz::Server::EditSearch::Predicate::LabelType;
+use MusicBrainz::Server::EditSearch::Predicate::PlaceType;
+use MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupPrimaryType;
+use MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupSecondaryType;
+use MusicBrainz::Server::EditSearch::Predicate::SeriesType;
+use MusicBrainz::Server::EditSearch::Predicate::WorkType;
 use MusicBrainz::Server::EditSearch::Predicate::ArtistArea;
 use MusicBrainz::Server::EditSearch::Predicate::LabelArea;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry;
@@ -42,6 +52,16 @@ my %field_map = (
     voter => 'MusicBrainz::Server::EditSearch::Predicate::Voter',
     release_language => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage',
     release_quality => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality',
+    area_type => 'MusicBrainz::Server::EditSearch::Predicate::AreaType',
+    artist_type => 'MusicBrainz::Server::EditSearch::Predicate::ArtistType',
+    event_type => 'MusicBrainz::Server::EditSearch::Predicate::EventType',
+    instrument_type => 'MusicBrainz::Server::EditSearch::Predicate::InstrumentType',
+    label_type => 'MusicBrainz::Server::EditSearch::Predicate::LabelType',
+    place_type => 'MusicBrainz::Server::EditSearch::Predicate::PlaceType',
+    release_group_primary_type => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupPrimaryType',
+    release_group_secondary_type => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseGroupSecondaryType',
+    series_type => 'MusicBrainz::Server::EditSearch::Predicate::SeriesType',
+    work_type => 'MusicBrainz::Server::EditSearch::Predicate::WorkType',
     artist_area => 'MusicBrainz::Server::EditSearch::Predicate::ArtistArea',
     label_area => 'MusicBrainz::Server::EditSearch::Predicate::LabelArea',
     release_country => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry',
