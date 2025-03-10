@@ -4856,6 +4856,7 @@ const CLEANUPS: CleanupEntries = {
       if (m) {
         const prefix = m[1];
         const subPath = m[2];
+        const isAVideo = ['musicvideo', 'video'].includes(subPath);
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
             return {
@@ -4883,7 +4884,7 @@ const CLEANUPS: CleanupEntries = {
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.recording:
-            if (prefix === 'release' && subPath !== 'musicvideo') {
+            if (prefix === 'release' && !isAVideo) {
               return {
                 error:
                   l('Only RYM music videos can be linked to recordings.'),
@@ -4893,7 +4894,7 @@ const CLEANUPS: CleanupEntries = {
             }
             return {
               result: prefix === 'song' ||
-                      (prefix === 'release' && subPath === 'musicvideo'),
+                      (prefix === 'release' && isAVideo),
               target: ERROR_TARGETS.RELATIONSHIP,
             };
           case LINK_TYPES.otherdatabases.release:
