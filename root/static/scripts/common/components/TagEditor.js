@@ -16,7 +16,7 @@ import loopParity from '../../../../utility/loopParity.js';
 import {unwrapNl} from '../i18n.js';
 import {keyBy, sortByNumber} from '../utility/arrays.js';
 import bracketed, {bracketedText} from '../utility/bracketed.js';
-import {compareStrings} from '../utility/compare.js';
+import {compareStrings} from '../utility/compare.mjs';
 import debounce from '../utility/debounce.js';
 import isBlank from '../utility/isBlank.js';
 
