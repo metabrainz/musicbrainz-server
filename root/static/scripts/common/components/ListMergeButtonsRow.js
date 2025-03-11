@@ -59,4 +59,4 @@ component ListMergeButtonsRow(
 export default (hydrate<React.PropsOf<ListMergeButtonsRow>>(
   'div.list-merge-buttons-row-container',
   ListMergeButtonsRow,
-): React.AbstractComponent<React.PropsOf<ListMergeButtonsRow>>);
+): component(...React.PropsOf<ListMergeButtonsRow>));
