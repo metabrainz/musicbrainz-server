@@ -130,6 +130,22 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
+    my %artist_credit = (
+        'artist-credit' => [{
+            artist => {
+                id => '22dd2db3-88ea-4428-a7a8-5cd3acf23175',
+                name => 'm-flo',
+                'sort-name' => 'm-flo',
+                'type' => 'Group',
+                'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
+                disambiguation => '',
+                tags => [],
+            },
+            name => 'm-flo',
+            joinphrase => '',
+        }],
+    );
+
     ws_test_json 'release group lookup with inc=artists+releases+tags+ratings',
     '/release-group/153f0a09-fead-3370-9b17-379ebd09446b?inc=artists+releases+tags+ratings' =>
         {
@@ -140,20 +156,7 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
             'primary-type-id' => 'd6038452-8ee0-3f68-affc-2de9a1ede0b9',
             'secondary-types' => [],
             'secondary-type-ids' => [],
-            'artist-credit' => [
-                {
-                    name => 'm-flo',
-                    artist => {
-                        id => '22dd2db3-88ea-4428-a7a8-5cd3acf23175',
-                        name => 'm-flo',
-                        'sort-name' => 'm-flo',
-                        disambiguation => '',
-                        tags => [],
-                        'type' => 'Group',
-                        'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
-                    },
-                    joinphrase => '',
-                }],
+            %artist_credit,
             releases => [
                 {
                     id => 'aff4a693-5970-4e2e-bd46-e2ee49c22de7',
@@ -181,6 +184,7 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
                     'packaging-id' => JSON::null,
                     disambiguation => '',
                     tags => [],
+                    %artist_credit,
                 }],
             disambiguation => '',
             rating => { 'votes-count' => 2, value => 5 },

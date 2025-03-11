@@ -1104,6 +1104,21 @@ test 'release lookup, related artists have no tags/genres' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
+    my %track_artist_credit = (
+        'artist-credit' => [{
+            artist => {
+                id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                name => 'Plone',
+                'sort-name' => 'Plone',
+                'type' => 'Group',
+                'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
+                disambiguation => '',
+            },
+            name => 'Plone',
+            joinphrase => '',
+        }],
+    );
+
     ws2_test_json 'release lookup, related artists have no tags/genres',
     '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?inc=artists+recordings+tags+genres+artist-rels+recording-level-rels'
     => {
@@ -1192,8 +1207,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'On My Bus',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'On My Bus',
+                    %track_artist_credit,
                 },
                 {
                     id => 'f38b8e31-a10d-3973-8c1f-10923ee61adc',
@@ -1231,8 +1248,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Top & Low Rent',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Top & Low Rent',
+                    %track_artist_credit,
                 },
                 {
                     id => 'd17bed32-940a-3fcc-9210-a5d7c516b4bb',
@@ -1270,8 +1289,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Plock',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Plock',
+                    %track_artist_credit,
                 },
                 {
                     id => '001bc675-ba25-32bc-9914-d5d9e22c3c44',
@@ -1309,8 +1330,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Marbles',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Marbles',
+                    %track_artist_credit,
                 },
                 {
                     id => 'c009176f-ff26-3f5f-bd16-46cede30ebe6',
@@ -1348,8 +1371,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Busy Working',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Busy Working',
+                    %track_artist_credit,
                 },
                 {
                     id => '70454e43-b39b-3ca7-8c50-ae235b5ef358',
@@ -1387,8 +1412,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'The Greek Alphabet',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'The Greek Alphabet',
+                    %track_artist_credit,
                 },
                 {
                     id => '1b5da50c-e20f-3762-839c-5a0eea89d6a5',
@@ -1426,8 +1453,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Press a Key',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Press a Key',
+                    %track_artist_credit,
                 },
                 {
                     id => 'f1b5bd23-ad01-3c0c-a49a-cf8e99088369',
@@ -1465,8 +1494,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Bibi Plone',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Bibi Plone',
+                    %track_artist_credit,
                 },
                 {
                     id => '928f2274-5694-35f9-92da-a1fc565867cf',
@@ -1504,8 +1535,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Be Rude to Your School',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Be Rude to Your School',
+                    %track_artist_credit,
                 },
                 {
                     id => '40727388-237d-34b2-8a3a-288878e5c883',
@@ -1543,8 +1576,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Summer Plays Out',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Summer Plays Out',
+                    %track_artist_credit,
                 },
             ],
         } ],

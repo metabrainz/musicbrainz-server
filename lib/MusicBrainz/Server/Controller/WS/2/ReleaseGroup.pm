@@ -62,7 +62,7 @@ sub release_group_toplevel {
 
     $self->load_relationships($c, $stash, @rgs);
 
-    if ($inc->artists) {
+    if ($inc->artist_credits) {
         $c->model('ArtistCredit')->load(@rgs);
 
         my @acns = map { $_->artist_credit->all_names } @rgs;

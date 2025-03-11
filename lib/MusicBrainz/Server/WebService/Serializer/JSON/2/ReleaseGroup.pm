@@ -22,7 +22,7 @@ sub serialize
     $body{disambiguation} = $entity->comment // '';
 
     serialize_artist_credit(\%body, $entity, $inc, $stash)
-        if $entity->artist_credit && $inc && ($inc->artist_credits || $inc->artists);
+        if $entity->artist_credit && $inc && $inc->artist_credits;
 
     $body{releases} = list_of($entity, $inc, $stash, 'releases')
         if $inc && $inc->releases;

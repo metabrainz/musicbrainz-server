@@ -98,16 +98,8 @@ sub serialize
         $body{'release-group'} = serialize_entity($entity->release_group, $inc, $stash);
     }
 
-    if ($toplevel)
-    {
-        serialize_artist_credit(\%body, $entity, $inc, $stash, $inc->artists)
-            if $inc->artist_credits || $inc->artists;
-    }
-    else
-    {
-        serialize_artist_credit(\%body, $entity, $inc, $stash)
-            if $inc && $inc->artist_credits;
-    }
+    serialize_artist_credit(\%body, $entity, $inc, $stash)
+        if $inc->artist_credits;
 
     $body{'label-info'} = [
         map {

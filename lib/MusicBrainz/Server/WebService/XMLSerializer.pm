@@ -209,7 +209,7 @@ sub _serialize_artist
 
 sub _serialize_artist_credit
 {
-    my ($self, $parent_node, $artist_credit, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $artist_credit, $inc, $stash) = @_;
 
     my $ac_node = $parent_node->addNewChild(undef, 'artist-credit');
 
@@ -336,8 +336,8 @@ sub _serialize_release_group
 
     if ($toplevel)
     {
-        $self->_serialize_artist_credit($rg_node, $release_group->artist_credit, $inc, $stash, $inc->artists)
-            if $inc->artists || $inc->artist_credits;
+        $self->_serialize_artist_credit($rg_node, $release_group->artist_credit, $inc, $stash)
+            if $inc->artist_credits;
 
         $self->_serialize_release_list($rg_node, $opts->{releases}, $inc, $stash)
             if $inc->releases;
@@ -424,8 +424,8 @@ sub _serialize_release
 
     if ($toplevel)
     {
-        $self->_serialize_artist_credit($release_node, $release->artist_credit, $inc, $stash, $inc->artists)
-            if $inc->artist_credits || $inc->artists;
+        $self->_serialize_artist_credit($release_node, $release->artist_credit, $inc, $stash)
+            if $inc->artist_credits;
     }
     else
     {
@@ -610,8 +610,8 @@ sub _serialize_recording
     {
         $self->_serialize_annotation($rec_node, $recording, $inc, $stash);
 
-        $self->_serialize_artist_credit($rec_node, $recording->artist_credit, $inc, $stash, $inc->artists)
-            if $inc->artists || $inc->artist_credits;
+        $self->_serialize_artist_credit($rec_node, $recording->artist_credit, $inc, $stash)
+            if $inc->artist_credits;
 
         if (defined $recording->first_release_date) {
             $rec_node->appendTextChild('first-release-date', $recording->first_release_date->format);
