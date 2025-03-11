@@ -13,13 +13,14 @@ sub serialize
     $body{'sort-name'} = $entity->sort_name;
     $body{disambiguation} = $entity->comment // '';
 
+    if ($entity->has_loaded_country_code) {
+        $body{country} = $entity->country_code // JSON::null;
+    }
+
     if ($toplevel)
     {
         $body{gender} = $entity->gender ? $entity->gender_name : JSON::null;
         $body{'gender-id'} = $entity->gender ? $entity->gender->gid : JSON::null;
-
-        $body{country} = $entity->area && $entity->area->country_code
-            ? $entity->area->country_code : JSON::null;
 
         $body{area} = $entity->area ? serialize_entity($entity->area) : JSON::null;
         $body{'begin-area'} = $entity->begin_area ? serialize_entity($entity->begin_area) : JSON::null;

@@ -433,6 +433,7 @@ ws_test 'browse releases via recording, with recording and work rels',
                                                 <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                                                     <name>Blind Melon</name>
                                                     <sort-name>Blind Melon</sort-name>
+                                                    <country>US</country>
                                                 </artist>
                                             </relation>
                                         </relation-list>

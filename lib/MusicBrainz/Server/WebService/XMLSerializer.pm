@@ -176,13 +176,16 @@ sub _serialize_artist
         }
 
         if (my $area = $artist->area) {
-            $artist_node->appendTextChild('country', $area->country_code) if $area->country_code;
             $self->_serialize_area($artist_node, $area, $inc, $stash, $toplevel);
         }
 
         $self->_serialize_begin_area($artist_node, $artist->begin_area, $inc, $stash, $toplevel) if $artist->begin_area;
         $self->_serialize_end_area($artist_node, $artist->end_area, $inc, $stash, $toplevel) if $artist->end_area;
         $self->_serialize_life_span($artist_node, $artist, $inc, $opts);
+    }
+
+    if (my $country_code = $artist->country_code) {
+        $artist_node->appendTextChild('country', $country_code);
     }
 
     $self->_serialize_alias_list($artist_node, $opts->{aliases}, $inc, $opts)
