@@ -99,8 +99,8 @@ sub serialize
 
     if ($toplevel)
     {
-        $body{'artist-credit'} = serialize_entity($entity->artist_credit, $inc, $stash, $inc->artists)
-            if $inc->artist_credits || $inc->artists;
+        $body{'artist-credit'} = serialize_entity($entity->artist_credit, $inc, $stash)
+            if $inc->artist_credits;
     }
     else
     {

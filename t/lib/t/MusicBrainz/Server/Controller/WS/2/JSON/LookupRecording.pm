@@ -119,6 +119,21 @@ test 'recording lookup with releases' => sub {
 test 'recording lookup with releases, release-groups, and artists' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
+    my %artist_credit = (
+        'artist-credit' => [{
+            artist => {
+                id => '802673f0-9b88-4e8a-bb5c-dd01d68b086f',
+                name => '7人祭',
+                'sort-name' => '7nin Matsuri',
+                type => 'Group',
+                'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
+                disambiguation => '',
+            },
+            name => '7人祭',
+            joinphrase => '',
+        }],
+    );
+
     ws_test_json 'recording lookup with releases, release-groups, and artists',
     '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=releases+release-groups+artists' =>
         {
@@ -127,20 +142,7 @@ test 'recording lookup with releases, release-groups, and artists' => sub {
             title => 'サマーれげぇ!レインボー',
             id => '162630d9-36d2-4a8d-ade1-1c77440b34e7',
             video => JSON::false,
-            'artist-credit' => [
-                {
-                    name => '7人祭',
-                    artist => {
-                        'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
-                        type => 'Group',
-                        name => '7人祭',
-                        disambiguation => '',
-                        id => '802673f0-9b88-4e8a-bb5c-dd01d68b086f',
-                        'sort-name' => '7nin Matsuri',
-                    },
-                    joinphrase => '',
-                },
-            ],
+            %artist_credit,
             releases => [
                 {
                     id => 'b3b7e934-445b-4c68-a097-730c6a6d47e6',
@@ -154,6 +156,7 @@ test 'recording lookup with releases, release-groups, and artists' => sub {
                         id => 'b84625af-6229-305f-9f1b-59c0185df016',
                         releases => [],
                         'first-release-date' => '2001-07-04',
+                        %artist_credit,
                     },
                     quality => 'high',
                     status => 'Pseudo-Release',
@@ -183,6 +186,7 @@ test 'recording lookup with releases, release-groups, and artists' => sub {
                     title => 'Summer Reggae! Rainbow',
                     'packaging-id' => JSON::null,
                     date => '2001-07-04',
+                    %artist_credit,
                 },
                 {
                     'release-events' => [
@@ -214,6 +218,7 @@ test 'recording lookup with releases, release-groups, and artists' => sub {
                         disambiguation => '',
                         'first-release-date' => '2001-07-04',
                         releases => [],
+                        %artist_credit,
                     },
                     status => 'Official',
                     'status-id' => '4e304316-386d-3409-af2e-78857eec5cfe',
@@ -225,6 +230,7 @@ test 'recording lookup with releases, release-groups, and artists' => sub {
                         script => 'Jpan',
                     },
                     disambiguation => '',
+                    %artist_credit,
                 },
             ],
             'first-release-date' => '2001-07-04',

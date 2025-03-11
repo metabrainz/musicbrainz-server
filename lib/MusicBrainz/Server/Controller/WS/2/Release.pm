@@ -98,8 +98,7 @@ sub release_toplevel {
     my @rels_entities = @releases;
     my @ac_entities;
 
-    if ($inc->artists)
-    {
+    if ($inc->artist_credits) {
         push @ac_entities, @releases;
     }
 
