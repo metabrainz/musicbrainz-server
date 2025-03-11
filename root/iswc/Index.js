@@ -11,10 +11,12 @@ import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
+import manifest from '../static/manifest.mjs';
 import CodeLink from '../static/scripts/common/components/CodeLink.js';
+import ListMergeButtonsRow
+  from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import WorkListEntry
   from '../static/scripts/common/components/WorkListEntry.js';
-import {returnToCurrentPage} from '../utility/returnUri.js';
 
 component Index(
   iswcs: $ReadOnlyArray<IswcT>,
@@ -41,10 +43,10 @@ component Index(
         )}
       </h2>
       <form
-        action={'/work/merge_queue?' + returnToCurrentPage($c)}
+        action="/work/merge_queue"
         method="post"
       >
-        <table className="tbl">
+        <table className="tbl mergeable-table">
           <thead>
             <tr>
               {userExists ? (
@@ -72,13 +74,15 @@ component Index(
           </tbody>
         </table>
         {userExists ? (
-          <div className="row">
-            <span className="buttons">
-              <button type="submit">
-                {l('Add selected works for merging')}
-              </button>
-            </span>
-          </div>
+          <>
+            <ListMergeButtonsRow
+              label={l('Add selected works for merging')}
+            />
+            {manifest(
+              'common/components/ListMergeButtonsRow',
+              {async: 'async'},
+            )}
+          </>
         ) : null}
       </form>
     </Layout>

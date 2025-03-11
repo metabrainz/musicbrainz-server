@@ -19,6 +19,8 @@ import Annotation from '../static/scripts/common/components/Annotation.js';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
+import ListMergeButtonsRow
+  from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import Relationships
   from '../static/scripts/common/components/Relationships.js';
 import ReleaseEvents
@@ -27,11 +29,8 @@ import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract.js';
 import formatBarcode from '../static/scripts/common/utility/formatBarcode.js';
-import FormRow from '../static/scripts/edit/components/FormRow.js';
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import loopParity from '../utility/loopParity.js';
 import releaseGroupType from '../utility/releaseGroupType.js';
-import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ReleaseGroupLayout from './ReleaseGroupLayout.js';
 
@@ -151,11 +150,11 @@ component ReleaseGroupIndex(
         <>
           <h2>{releaseGroupType(releaseGroup)}</h2>
           <form
-            action={'/release/merge_queue?' + returnToCurrentPage($c)}
+            action="/release/merge_queue"
             method="post"
           >
             <PaginatedResults pager={pager}>
-              <table className="tbl">
+              <table className="tbl mergeable-table">
                 <thead>
                   <tr>
                     {$c.user ? (
@@ -187,9 +186,15 @@ component ReleaseGroupIndex(
               </table>
             </PaginatedResults>
             {$c.user ? (
-              <FormRow>
-                <FormSubmit label={l('Add selected releases for merging')} />
-              </FormRow>
+              <>
+                <ListMergeButtonsRow
+                  label={l('Add selected releases for merging')}
+                />
+                {manifest(
+                  'common/components/ListMergeButtonsRow',
+                  {async: 'async'},
+                )}
+              </>
             ) : null}
           </form>
         </>

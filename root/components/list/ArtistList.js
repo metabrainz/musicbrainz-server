@@ -40,6 +40,8 @@ component ArtistList(
 ) {
   const $c = React.useContext(CatalystContext);
 
+  const className = checkboxes === 'add-to-merge' ? 'mergeable-table' : '';
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
@@ -139,7 +141,7 @@ component ArtistList(
     ],
   );
 
-  return useTable<ArtistT>({columns, data: artists});
+  return useTable<ArtistT>({className, columns, data: artists});
 }
 
 export default ArtistList;

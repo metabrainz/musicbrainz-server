@@ -12,11 +12,12 @@ import * as React from 'react';
 import ReleaseList from '../components/list/ReleaseList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import Filter from '../static/scripts/common/components/Filter.js';
 import {type ReleaseFilterT}
   from '../static/scripts/common/components/FilterForm.js';
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
-import {returnToCurrentPage} from '../utility/returnUri.js';
+import ListMergeButtonsRow
+  from '../static/scripts/common/components/ListMergeButtonsRow.js';
 
 import ArtistLayout from './ArtistLayout.js';
 
@@ -42,16 +43,22 @@ component ArtistReleases(
 
       {releases.length ? (
         <form
-          action={'/release/merge_queue?' + returnToCurrentPage($c)}
+          action="/release/merge_queue"
           method="post"
         >
           <PaginatedResults pager={pager}>
             <ReleaseList checkboxes="add-to-merge" releases={releases} />
           </PaginatedResults>
           {$c.user ? (
-            <div className="row">
-              <FormSubmit label={l('Add selected releases for merging')} />
-            </div>
+            <>
+              <ListMergeButtonsRow
+                label={l('Add selected releases for merging')}
+              />
+              {manifest(
+                'common/components/ListMergeButtonsRow',
+                {async: 'async'},
+              )}
+            </>
           ) : null}
         </form>
       ) : null}

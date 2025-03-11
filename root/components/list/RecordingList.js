@@ -64,6 +64,8 @@ component RecordingList(
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
 
+  const className = checkboxes === 'add-to-merge' ? 'mergeable-table' : '';
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
@@ -146,6 +148,7 @@ component RecordingList(
   );
 
   const table = useTable<RecordingWithArtistCreditT>({
+    className,
     columns,
     data: recordings,
   });
