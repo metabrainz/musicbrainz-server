@@ -21,7 +21,6 @@ import ListMergeButtonsRow
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength.js';
 import loopParity from '../utility/loopParity.js';
-import {returnToCurrentPage} from '../utility/returnUri.js';
 
 component Index(
   isrcs: $ReadOnlyArray<IsrcT>,
@@ -50,7 +49,7 @@ component Index(
         )}
       </h2>
       <form
-        action={'/recording/merge_queue?' + returnToCurrentPage($c)}
+        action="/recording/merge_queue"
         method="post"
       >
         <table className="tbl mergeable-table">

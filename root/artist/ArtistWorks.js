@@ -18,7 +18,6 @@ import {type WorkFilterT}
   from '../static/scripts/common/components/FilterForm.js';
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
-import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ArtistLayout from './ArtistLayout.js';
 
@@ -42,7 +41,7 @@ component ArtistWorks(
 
       {works?.length ? (
         <form
-          action={'/work/merge_queue?' + returnToCurrentPage($c)}
+          action="/work/merge_queue"
           method="post"
         >
           <PaginatedResults pager={pager}>

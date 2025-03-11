@@ -26,7 +26,6 @@ import ListMergeButtonsRow
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract.js';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
-import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import LabelLayout from './LabelLayout.js';
 
@@ -82,7 +81,7 @@ component LabelIndex(
 
       {releases?.length ? (
         <form
-          action={'/release/merge_queue?' + returnToCurrentPage($c)}
+          action="/release/merge_queue"
           method="post"
         >
           <PaginatedResults pager={pager}>

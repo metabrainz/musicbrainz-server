@@ -17,7 +17,6 @@ import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import WorkListEntry
   from '../static/scripts/common/components/WorkListEntry.js';
-import {returnToCurrentPage} from '../utility/returnUri.js';
 
 component Index(
   iswcs: $ReadOnlyArray<IswcT>,
@@ -44,7 +43,7 @@ component Index(
         )}
       </h2>
       <form
-        action={'/work/merge_queue?' + returnToCurrentPage($c)}
+        action="/work/merge_queue"
         method="post"
       >
         <table className="tbl mergeable-table">

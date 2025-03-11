@@ -17,7 +17,6 @@ import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import {MAPBOX_ACCESS_TOKEN}
   from '../static/scripts/common/DBDefs-client.mjs';
-import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
 
@@ -48,7 +47,7 @@ component AreaPlaces(
             </p>
           )}
           <form
-            action={'/place/merge_queue?' + returnToCurrentPage($c)}
+            action="/place/merge_queue"
             method="post"
           >
             <PaginatedResults pager={pager}>
