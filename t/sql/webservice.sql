@@ -14,8 +14,8 @@ INSERT INTO area (id, gid, name, type) VALUES
   (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1),
   (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 1),
   (241, '89a675c2-3e37-3518-b83c-418bad59a85a', 'Europe', 1);
-INSERT INTO country_area (area) VALUES ( 13), ( 81), (107), (150), (221), (222), (241);
-INSERT INTO iso_3166_1 (area, code) VALUES ( 13, 'AU'), ( 81, 'DE'), (107, 'JP'), (150, 'NL'), (221, 'GB'), (222, 'US'), (241, 'XE');
+INSERT INTO country_area (area) VALUES (13), (81), (107), (113), (150), (221), (222), (241);
+INSERT INTO iso_3166_1 (area, code) VALUES (13, 'AU'), (81, 'DE'), (107, 'JP'), (113, 'KR'), (150, 'NL'), (221, 'GB'), (222, 'US'), (241, 'XE');
 
 -- Editors
 

@@ -99,7 +99,7 @@ sub serialize
     }
 
     serialize_artist_credit(\%body, $entity, $inc, $stash)
-        if $inc->artist_credits;
+        if $inc && $inc->artist_credits;
 
     $body{'label-info'} = [
         map {

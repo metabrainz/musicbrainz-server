@@ -62,6 +62,7 @@ sub artist_toplevel
     $c->model('Area')->load(@artists);
     $c->model('Artist')->ipi->load_for(@artists);
     $c->model('Artist')->isni->load_for(@artists);
+    $c->model('Artist')->load_country_code(@artists);
 
     $c->model('Artist')->annotation->load_latest(@artists)
         if $inc->annotation;

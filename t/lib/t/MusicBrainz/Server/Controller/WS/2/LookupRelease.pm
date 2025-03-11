@@ -761,6 +761,7 @@ ws_test 'release lookup, relation attributes',
                 <artist id="4d5ec626-2251-4bb1-b62a-f24f471e3f2c" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                     <name>이수만</name>
                     <sort-name>Lee, Soo-Man</sort-name>
+                    <country>KR</country>
                 </artist>
             </relation>
         </relation-list>
@@ -2021,6 +2022,7 @@ ws_test 'release lookup, pregap track',
         <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
           <name>Blind Melon</name>
           <sort-name>Blind Melon</sort-name>
+          <country>US</country>
         </artist>
       </name-credit>
     </artist-credit>
@@ -2047,6 +2049,7 @@ ws_test 'release lookup, pregap track',
                 <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                   <name>Blind Melon</name>
                   <sort-name>Blind Melon</sort-name>
+                  <country>US</country>
                 </artist>
               </name-credit>
             </artist-credit>
@@ -2066,6 +2069,7 @@ ws_test 'release lookup, pregap track',
                   <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Blind Melon</name>
                     <sort-name>Blind Melon</sort-name>
+                    <country>US</country>
                   </artist>
                 </name-credit>
               </artist-credit>
@@ -2083,6 +2087,7 @@ ws_test 'release lookup, pregap track',
                   <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Blind Melon</name>
                     <sort-name>Blind Melon</sort-name>
+                    <country>US</country>
                   </artist>
                 </name-credit>
               </artist-credit>
@@ -2157,6 +2162,117 @@ test 'MBS-7914' => sub {
                   </artist>
                 </name-credit>
               </artist-credit>
+            </recording>
+          </track>
+        </track-list>
+      </medium>
+    </medium-list>
+  </release>
+</metadata>';
+};
+
+test 'MBS-12170' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-12170');
+
+    ws_test 'All artists include their containing country',
+    '/release/2b6c3d35-c8ad-44ba-8ea0-35b2cc27e95a' .
+        '?inc=artist-credits+recordings+artist-rels+work-rels+release-groups+recording-level-rels+work-level-rels' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <release id="2b6c3d35-c8ad-44ba-8ea0-35b2cc27e95a">
+    <title>Artist Country Test</title>
+    <quality>normal</quality>
+    <artist-credit>
+      <name-credit>
+        <artist id="607f3b8d-d5cf-4705-98bf-32b3fac80f2c" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
+          <name>Jalil Zaland</name>
+          <sort-name>Zaland, Jalil</sort-name>
+          <country>AF</country>
+          <disambiguation>Artist from Kabul</disambiguation>
+        </artist>
+      </name-credit>
+    </artist-credit>
+    <release-group id="6316b4db-0cdb-448d-87b5-46f31ef9fce3">
+      <title>Artist Country Test</title>
+      <artist-credit>
+        <name-credit>
+          <artist id="bc65c311-9886-41ab-bcc2-d8cf11fd9ab6" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
+            <name>N.Fushigi</name>
+            <sort-name>N.Fushigi</sort-name>
+            <country>AD</country>
+          </artist>
+        </name-credit>
+      </artist-credit>
+    </release-group>
+    <cover-art-archive>
+      <artwork>false</artwork>
+      <count>0</count>
+      <front>false</front>
+      <back>false</back>
+    </cover-art-archive>
+    <medium-list count="1">
+      <medium>
+        <position>1</position>
+        <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
+        <track-list count="1" offset="0">
+          <track id="5dd38166-bcbc-44b5-9617-4dc669cf76dd">
+            <position>1</position>
+            <number>1</number>
+            <artist-credit>
+              <name-credit>
+                <artist id="751196b3-5599-46be-8c44-ac44fa8158f2" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
+                  <name>Sigi Bastri</name>
+                  <sort-name>Bastri, Sigi</sort-name>
+                  <country>AL</country>
+                </artist>
+              </name-credit>
+            </artist-credit>
+            <recording id="831c6058-f19a-4a7a-9723-cd02daf8f3a5">
+              <title>A</title>
+              <artist-credit>
+                <name-credit>
+                  <artist id="831482b2-c956-419d-bf6d-9e558d005902" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
+                    <name>Yumba</name>
+                    <sort-name>Yumba</sort-name>
+                    <country>AO</country>
+                    <disambiguation>Guitarist from Zaire</disambiguation>
+                  </artist>
+                </name-credit>
+              </artist-credit>
+              <relation-list target-type="artist">
+                <relation type="performer" type-id="628a9658-f54c-4142-b0c0-95f031b544da">
+                  <target>6b5236be-0037-4627-af62-e396b1ca906f</target>
+                  <direction>backward</direction>
+                  <artist id="6b5236be-0037-4627-af62-e396b1ca906f" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                    <name>Los Hermanos Abalos</name>
+                    <sort-name>Hermanos Abalos, Los</sort-name>
+                    <country>AR</country>
+                  </artist>
+                </relation>
+              </relation-list>
+              <relation-list target-type="work">
+                <relation type="performance" type-id="a3005666-a872-32c3-ad06-98af558e99b0">
+                  <target>b9121cf5-0641-453b-bb99-a88f0bc18751</target>
+                  <direction>forward</direction>
+                  <work id="b9121cf5-0641-453b-bb99-a88f0bc18751">
+                    <title>A</title>
+                    <relation-list target-type="artist">
+                      <relation type="writer" type-id="a255bca1-b157-4518-9108-7b147dc3fc68">
+                        <target>6b5236be-0037-4627-af62-e396b1ca906f</target>
+                        <direction>backward</direction>
+                        <artist id="6b5236be-0037-4627-af62-e396b1ca906f" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                          <name>Los Hermanos Abalos</name>
+                          <sort-name>Hermanos Abalos, Los</sort-name>
+                          <country>AR</country>
+                        </artist>
+                      </relation>
+                    </relation-list>
+                  </work>
+                </relation>
+              </relation-list>
             </recording>
           </track>
         </track-list>

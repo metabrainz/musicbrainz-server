@@ -154,6 +154,26 @@ sub _serialize_artist
     $artist_node->appendTextChild('name', $artist->name);
     $artist_node->appendTextChild('sort-name', $artist->sort_name) if $artist->sort_name;
 
+    if ($toplevel)
+    {
+        if (my $gender = $artist->gender) {
+            add_type_elem($artist_node, 'gender', $gender);
+        }
+    }
+
+    if (my $country_code = $artist->country_code) {
+        $artist_node->appendTextChild('country', $country_code);
+    }
+
+    if ($toplevel) {
+        if (my $area = $artist->area) {
+            $self->_serialize_area($artist_node, $area, $inc, $stash, $toplevel);
+        }
+
+        $self->_serialize_begin_area($artist_node, $artist->begin_area, $inc, $stash, $toplevel) if $artist->begin_area;
+        $self->_serialize_end_area($artist_node, $artist->end_area, $inc, $stash, $toplevel) if $artist->end_area;
+    }
+
     $self->_serialize_annotation($artist_node, $artist, $inc, $opts) if $toplevel;
 
     $artist_node->appendTextChild('disambiguation', $artist->comment) if $artist->comment;
@@ -169,19 +189,7 @@ sub _serialize_artist
         $isni_list_node->appendTextChild('isni', $_->isni) for @isni_codes;
     }
 
-    if ($toplevel)
-    {
-        if (my $gender = $artist->gender) {
-            add_type_elem($artist_node, 'gender', $gender);
-        }
-
-        if (my $area = $artist->area) {
-            $artist_node->appendTextChild('country', $area->country_code) if $area->country_code;
-            $self->_serialize_area($artist_node, $area, $inc, $stash, $toplevel);
-        }
-
-        $self->_serialize_begin_area($artist_node, $artist->begin_area, $inc, $stash, $toplevel) if $artist->begin_area;
-        $self->_serialize_end_area($artist_node, $artist->end_area, $inc, $stash, $toplevel) if $artist->end_area;
+    if ($toplevel) {
         $self->_serialize_life_span($artist_node, $artist, $inc, $opts);
     }
 
