@@ -499,6 +499,7 @@ sub linked_artist_creditable_entities {
         $c->model('Artist')->load(@acns);
         my @artists = uniq map { $_->artist } @acns;
         $c->model('ArtistType')->load(@artists);
+        $c->model('Artist')->load_country_code(@artists);
 
         $self->linked_artists($c, $stash, \@artists);
     }
@@ -553,9 +554,11 @@ sub _validate_entity
 sub load_relationships {
     my ($self, $c, $stash, @for) = @_;
 
-    if ($c->stash->{inc}->has_rels)
+    my $inc = $c->stash->{inc};
+
+    if ($inc->has_rels)
     {
-        my $types = $c->stash->{inc}->get_rel_types();
+        my $types = $inc->get_rel_types();
         my @rels = $c->model('Relationship')->load_subset($types, @for);
 
         my @entities_with_rels = @for;
@@ -566,7 +569,7 @@ sub load_relationships {
             grep { $_->target_type eq 'work' }
             map { $_->all_relationships } @for;
 
-        if ($c->stash->{inc}->work_level_rels)
+        if ($inc->work_level_rels)
         {
             push(@entities_with_rels, @works);
             # Avoid returning recording-work relationships for other recordings
@@ -585,8 +588,22 @@ sub load_relationships {
                     map { $_->target } @$rels,
                 );
             }
-            if ($target_type eq 'place') {
+            my @artists;
+            if ($target_type eq 'artist') {
+                push @artists, map { $_->target } @$rels;
+            } elsif ($target_type eq 'place') {
                 $c->model('AreaType')->load(map { $_->area } map { $_->target } @$rels);
+            }
+            if (
+                $inc->artist_credits &&
+                $ENTITIES{$target_type}{artist_credits}
+            ) {
+                push @artists, map { $_->artist } map {
+                    $_->target->artist_credit->all_names
+                } @$rels;
+            }
+            if (@artists) {
+                $c->model('Artist')->load_country_code(@artists);
             }
         }
 
