@@ -45,21 +45,21 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # Arainuki <esetipodealla@gmail.com>, 2024.
+# eigenric <ricardoruizfdez@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-10-17 17:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-03-08 03:44+0000\n"
+"Last-Translator: eigenric <ricardoruizfdez@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.10.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -411,20 +411,14 @@ msgid "A Dorian"
 msgstr "la dórico"
 
 #: DB:work_attribute_type_allowed_value/value:1070
-#, fuzzy
-#| msgctxt "work_attribute_type_allowed_value"
-#| msgid "A Dorian"
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Locrian"
-msgstr "la dórico"
+msgstr "La locrio"
 
 #: DB:work_attribute_type_allowed_value/value:1063
-#, fuzzy
-#| msgctxt "work_attribute_type_allowed_value"
-#| msgid "A Mixolydian"
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Lydian"
-msgstr "la mixolidio"
+msgstr "La lidio"
 
 #: DB:work_attribute_type_allowed_value/value:806
 msgctxt "work_attribute_type_allowed_value"
@@ -434,7 +428,7 @@ msgstr "la mixolidio"
 #: DB:work_attribute_type_allowed_value/value:1056
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Phrygian"
-msgstr ""
+msgstr "La frigio"
 
 #. name:Ballet
 #: DB:work_type/description:2
@@ -797,6 +791,12 @@ msgid ""
 "to disown the release and no longer consider it part of their discography. "
 "If it is unclear, use Withdrawn."
 msgstr ""
+"Un lanzamiento previamente oficial que fue eliminado activamente de la "
+"discografía de un artista o compañía discográfica. Esto no debe usarse en "
+"casos en los que el lanzamiento simplemente fue retirado; debe existir una "
+"intención conocida por parte del artista o del sello de desvincularse del "
+"lanzamiento y no considerarlo más como parte de su discografía. Si no está "
+"claro, utiliza \"Retirado\"."
 
 #. name:Demo
 #: DB:release_group_secondary_type/description:10

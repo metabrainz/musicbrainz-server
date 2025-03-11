@@ -25,23 +25,24 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # Echelon666 <echelon01@wp.pl>, 2024.
 # Peter69 <echelon01@wp.pl>, 2024, 2025.
+# Michal77 <michal_wilk@poczta.fm>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 10:52+0100\n"
-"PO-Revision-Date: 2025-01-20 10:44+0000\n"
-"Last-Translator: Peter69 <echelon01@wp.pl>\n"
+"PO-Revision-Date: 2025-02-26 18:44+0000\n"
+"Last-Translator: Michal77 <michal_wilk@poczta.fm>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10.1\n"
 
 #: ../root/components/common-macros.tt:12
 #, fuzzy
@@ -2163,10 +2164,8 @@ msgstr "Poprzedni"
 #: ../root/release_group/edit_form.tt:16
 #: ../root/edit/details/AddReleaseGroup.js:62
 #: ../root/edit/details/EditReleaseGroup.js:56
-#, fuzzy
-#| msgid "Primary Type:"
 msgid "Primary type"
-msgstr "Główny typ:"
+msgstr "Główny typ"
 
 #: ../root/components/search.tt:9 ../root/search/components/SearchForm.js:71
 msgid "Query:"
@@ -4334,7 +4333,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:390
 msgid "Your message could not be sent"
-msgstr "Twoja wiadomość nie może zostać wysłana."
+msgstr "Twoja wiadomość nie mogła  zostać wysłana"
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:556
 #, perl-brace-format
@@ -5556,11 +5555,9 @@ msgid "Edit URL"
 msgstr "Edytuj adres URL"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/utility/edit.js:48
-#, fuzzy
-#| msgid "Opened:"
 msgctxt "adjective, edit status"
 msgid "Open"
-msgstr "Otwarte:"
+msgstr "Otwarte"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/utility/edit.js:41
 #, fuzzy
@@ -5772,10 +5769,8 @@ msgstr "Edytowanie/głosowanie wyłączone"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:294
 #: ../root/static/scripts/common/utility/privileges.js:164
-#, fuzzy
-#| msgid "Voting is closed."
 msgid "Voting disabled"
-msgstr "Głosowanie zostało zakończone."
+msgstr "Głosowanie zostało zakończone"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
 #: ../root/static/scripts/common/utility/privileges.js:167
@@ -5796,7 +5791,7 @@ msgstr "{attribute}: {value}"
 
 #: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:50
 msgid " &#x2013; ????"
-msgstr "&#x2013; ????"
+msgstr " &#x2013; ????"
 
 #: ../lib/MusicBrainz/Server/Entity/Role/DatePeriod.pm:56
 #, perl-brace-format
@@ -6572,10 +6567,8 @@ msgstr "Usuń notatkę"
 
 #: ../root/account/Donation.js:26 ../root/account/Donation.js:28
 #: ../root/components/UserAccountTabs.js:95
-#, fuzzy
-#| msgid "Donate"
 msgid "Donation check"
-msgstr " Darowizna"
+msgstr "Darowizna"
 
 #: ../root/account/Donation.js:32
 msgid ""
@@ -6670,10 +6663,8 @@ msgstr ""
 
 #: ../root/account/LostUsername.js:24 ../root/account/LostUsername.js:25
 #: ../root/account/LostUsernameSent.js:16
-#, fuzzy
-#| msgid "User name:"
 msgid "Lost username"
-msgstr "Nazwa użytkownika:"
+msgstr "Nazwa użytkownika"
 
 #: ../root/account/LostUsername.js:27
 msgid ""
@@ -7021,11 +7012,9 @@ msgid "Changelog:"
 msgstr ""
 
 #: ../root/annotation/EditAnnotation.js:87
-#, fuzzy
-#| msgid "Preview:"
 msgctxt "interactive"
 msgid "Preview"
-msgstr "Podgląd:"
+msgstr "Podgląd"
 
 #: ../root/annotation/EditAnnotation.js:92
 #, fuzzy
@@ -7851,11 +7840,9 @@ msgstr "Koniec"
 
 #: ../root/cdtoc/CDTocInfo.js:53 ../root/cdtoc/CDTocInfo.js:55
 #: ../root/cdtoc/CDTocInfo.js:57
-#, fuzzy
-#| msgid "Time:"
 msgctxt "CD timecode"
 msgid "Time"
-msgstr "Czas:"
+msgstr "Czas"
 
 #: ../root/cdtoc/CDTocInfo.js:54 ../root/cdtoc/CDTocInfo.js:56
 #: ../root/cdtoc/CDTocInfo.js:58
@@ -8541,11 +8528,9 @@ msgstr ""
 #: ../root/report/components/EventList.js:70
 #: ../root/search/components/EventResults.js:84
 #: ../root/static/scripts/event/components/EventEditForm.js:299
-#, fuzzy
-#| msgid "Time:"
 msgctxt "event"
 msgid "Time"
-msgstr "Czas:"
+msgstr "Czas"
 
 #: ../root/components/list/EventList.js:96
 #: ../root/static/scripts/common/components/FilterForm.js:393
@@ -9821,11 +9806,9 @@ msgid "New order"
 msgstr ""
 
 #: ../root/edit/details/SetCoverArt.js:33
-#, fuzzy
-#| msgid "Add cover art"
 msgctxt "singular"
 msgid "Old cover art:"
-msgstr "Dodaj okładkę"
+msgstr "Stara okładka:"
 
 #: ../root/edit/details/SetCoverArt.js:54
 msgid ""
@@ -10340,7 +10323,7 @@ msgid ""
 "with a recording, please {search_url|search for the recording} and add it."
 msgstr ""
 "Ten ISRC nie jest związany z żadnym nagraniem. Jeśli chcesz przypisać go do "
-"nagrania, {search_url|wyszukaj  je} i powiąż."
+"nagrania, {search_url|wyszukaj je} i powiąż."
 
 #: ../root/entity/NotFound.js:124
 #, fuzzy
@@ -10397,11 +10380,9 @@ msgid ""
 msgstr ""
 
 #: ../root/entity/NotFound.js:160
-#, fuzzy
-#| msgid "Recording Not Found"
 msgctxt "header"
 msgid "Recording not found"
-msgstr "Nie znaleziono Nagrania."
+msgstr "Nie znaleziono nagrania"
 
 #: ../root/entity/NotFound.js:162
 msgid ""
@@ -10412,11 +10393,9 @@ msgstr ""
 "spróbować użyć {search_url|wyszukiwarki}."
 
 #: ../root/entity/NotFound.js:169
-#, fuzzy
-#| msgid "No relationship attributes found."
 msgctxt "header"
 msgid "Relationship attribute not found"
-msgstr "Nie odnaleziono atrybutów relacji."
+msgstr "Nie odnaleziono atrybutów relacji"
 
 #: ../root/entity/NotFound.js:171
 msgid ""
@@ -10435,11 +10414,9 @@ msgid "Sorry, we could not find a relationship type with that MusicBrainz ID."
 msgstr ""
 
 #: ../root/entity/NotFound.js:187
-#, fuzzy
-#| msgid "Release Not Found"
 msgctxt "header"
 msgid "Release not found"
-msgstr "Nie znaleziono Wydania."
+msgstr "Nie znaleziono wydania"
 
 #: ../root/entity/NotFound.js:189
 msgid ""
@@ -10450,11 +10427,9 @@ msgstr ""
 "użyć {search_url|wyszukiwarki}."
 
 #: ../root/entity/NotFound.js:196
-#, fuzzy
-#| msgid "Release Group Not Found"
 msgctxt "header"
 msgid "Release group not found"
-msgstr "Nie znaleziono Grupy Wydań."
+msgstr "Nie znaleziono grupy wydań"
 
 #: ../root/entity/NotFound.js:198
 msgid ""
@@ -10709,15 +10684,11 @@ msgid "All sizes:"
 msgstr ""
 
 #: ../root/event/EventArt.js:95
-#, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {eaa|Event Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr ""
-"Obrazy dostarczane są przez {caa|Cover Art Archive}. Możesz je również "
+"Obrazy dostarczane są przez {eaa|Event Art Archive}. Możesz je również "
 "zobaczyć na {ia|Internet Archive}."
 
 #: ../root/event/EventArt.js:107
@@ -10784,13 +10755,8 @@ msgid "Remove event art"
 msgstr "Usuń wydarzenie"
 
 #: ../root/event/RemoveEventArt.js:30 ../root/release/RemoveCoverArt.js:31
-#, fuzzy
-#| msgid ""
-#| "Are you sure you wish to remove the below cover art from {release} by "
-#| "{artist}?"
 msgid "Are you sure you wish to remove the image below from {entity}?"
-msgstr ""
-"Czy na pewno chcesz usunąć poniższą okładkę z {release} autorstwa {artist}?"
+msgstr "Czy na pewno chcesz usunąć poniższą okładkę z {entity}?"
 
 #: ../root/futureColumnLabels.js:24
 msgid "ISO 639-1"
@@ -10836,11 +10802,9 @@ msgid "Associated tags"
 msgstr "Powiązane AcoustID"
 
 #: ../root/genre/GenreIndex.js:34
-#, fuzzy
-#| msgid "Primary Type:"
 msgctxt "folksonomy"
 msgid "Primary tag"
-msgstr "Główny typ:"
+msgstr "Główny typ"
 
 #: ../root/genre/GenreListPage.js:15 ../root/genre/GenreListPage.js:17
 #: ../root/layout/components/BottomMenu.js:329
@@ -10913,10 +10877,8 @@ msgstr[3] ""
 #: ../root/iswc/Index.js:57 ../root/report/IswcsWithManyWorks.js:52
 #: ../root/search/components/WorkResults.js:56
 #: ../root/utility/tableColumns.js:804
-#, fuzzy
-#| msgid "Recording by {artist}"
 msgid "Recording artists"
-msgstr "Nagranie autorstwa {artist}"
+msgstr "Nagranie autorstwa"
 
 #: ../root/label/LabelIndex.js:105
 msgid "This label does not have any releases."
@@ -11079,7 +11041,7 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:205
 msgid "Live Data Feed"
-msgstr "Live Data Feed"
+msgstr "Strumień danych"
 
 #: ../root/layout/components/BottomMenu.js:221
 #, fuzzy
@@ -11402,10 +11364,8 @@ msgid "You have no event collections!"
 msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:22
-#, fuzzy
-#| msgid "You have no collections."
 msgid "You have no genre collections!"
-msgstr "Nie masz żadnych kolekcji."
+msgstr "Nie masz żadnych kolekcji!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:23
 msgid "You have no instrument collections!"
@@ -11693,11 +11653,9 @@ msgid "Other tags"
 msgstr "Inne"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:85
-#, fuzzy
-#| msgid "Show all tags."
 msgctxt "folksonomy"
 msgid "See all tags"
-msgstr "Pokaż wszystkie tagi."
+msgstr "Pokaż wszystkie tagi"
 
 #: ../root/layout/components/sidebar/WorkSidebar.js:56
 msgid "Work information"
@@ -11809,7 +11767,7 @@ msgstr ""
 #: ../root/main/error/Error404.js:34
 #: ../root/main/error/components/ErrorInfo.js:26
 msgid "Error message: "
-msgstr "Treść błędu:"
+msgstr "Treść błędu: "
 
 #: ../root/main/error/Error404.js:46
 msgid ""
@@ -14349,10 +14307,8 @@ msgid "Last updated: {date}"
 msgstr "Ostatnia aktualizacja: {date}"
 
 #: ../root/search/components/SearchError.js:20
-#, fuzzy
-#| msgid "Search method:"
 msgid "Search error"
-msgstr "Metoda szukania:"
+msgstr "Błąd wyszukiwania"
 
 #: ../root/search/components/SearchError.js:24
 msgid ""
@@ -14568,16 +14524,12 @@ msgid "Notes on edits I have abstained on"
 msgstr ""
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:249
-#, fuzzy
-#| msgid "Send me mails with edits to my subscriptions:"
 msgid "Send me mails with edits to my subscriptions"
-msgstr "Wysyłaj wiadomości e-mail, gdy zostaną edytowane moje subskrypcje:"
+msgstr "Wysyłaj wiadomości e-mail, gdy zostaną edytowane moje subskrypcje"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:259
-#, fuzzy
-#| msgid "Automatically subscribe me to labels I create."
 msgid "Automatically subscribe me when I add"
-msgstr "Automatycznie subskrybuj mnie to wytwórni, które tworzę."
+msgstr "Automatycznie subskrybuj mnie gdy dodaję"
 
 #: ../root/static/scripts/account/components/RegisterForm.js:55
 msgid "Your username will be publicly visible."
@@ -14623,10 +14575,8 @@ msgid "Alias name:"
 msgstr ""
 
 #: ../root/static/scripts/alias/AliasEditForm.js:327
-#, fuzzy
-#| msgid "This is the primary alias for this locale"
 msgid "This is the {alias_doc|primary alias} for this locale"
-msgstr "To jest główny alias dla tego języka"
+msgstr "To jest {alias_doc|primary typ} dla tego języka"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:349
 msgid "This alias is no longer current."
@@ -14795,7 +14745,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/MB/Control/EditList.js:45
 msgid "Vote on all edits:"
-msgstr "Głosuj na wszystkie edycje"
+msgstr "Głosuj na wszystkie edycje:"
 
 #: ../root/static/scripts/common/MB/Control/EditSummary.js:23
 #, fuzzy
@@ -14944,10 +14894,8 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:87
 #: ../root/static/scripts/common/components/EntityLink.js:82
-#, fuzzy
-#| msgid "Primary Type:"
 msgid "Primary alias"
-msgstr "Główny typ:"
+msgstr "Główny typ"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:336
 msgid "{forward_link_phrase} / {backward_link_phrase}"
@@ -15378,7 +15326,7 @@ msgstr "Wikipedia"
 
 #: ../root/static/scripts/common/components/WikipediaExtract.js:75
 msgid "Continue reading at Wikipedia..."
-msgstr "Kontynuuj czytanie w Wikipedii"
+msgstr "Kontynuuj czytanie w Wikipedii..."
 
 #: ../root/static/scripts/common/components/WikipediaExtract.js:80
 msgid ""
@@ -15424,10 +15372,8 @@ msgstr ""
 
 #: ../root/static/scripts/common/i18n/addQuotes.js:13
 #: ../root/static/scripts/common/i18n/addQuotes.js:17
-#, fuzzy
-#| msgid "{variable}:"
 msgid "“{variable}”"
-msgstr "{variable}:"
+msgstr "''{variable}''"
 
 #: ../root/static/scripts/common/i18n/hyphenateTitle.js:14
 msgid "{title} - {subtitle}"
@@ -16573,14 +16519,12 @@ msgstr[2] "{n} prac wybranych"
 msgstr[3] "{n} prac wybranych"
 
 #: ../root/static/scripts/release-editor/actions.js:142
-#, fuzzy
-#| msgid "{medium} on {release}"
 msgid "{num} release"
 msgid_plural "{num} releases"
-msgstr[0] "{medium} na {release}"
-msgstr[1] "{medium} na {release}"
-msgstr[2] "{medium} na {release}"
-msgstr[3] "{medium} na {release}"
+msgstr[0] "{num} wydanie"
+msgstr[1] "{num} wydania"
+msgstr[2] "{num} wydań"
+msgstr[3] "{num} wydań"
 
 #: ../root/static/scripts/release-editor/actions.js:465
 msgid ""
@@ -17143,11 +17087,9 @@ msgid "No non-genre tags have been used yet."
 msgstr ""
 
 #: ../root/tag/TagIndex.js:24
-#, fuzzy
-#| msgid "This place is not currently associated with any events."
 msgctxt "folksonomy"
 msgid "This tag is associated with the genre {genre}."
-msgstr "To miejsce nie jest obecnie powiązane z jakimkolwiek wydarzeniem."
+msgstr "To miejsce jest powiązane z {genre}."
 
 #: ../root/tag/TagLayout.js:42 ../root/tag/TagLayout.js:44
 #: ../root/tag/TagLayout.js:51
@@ -17472,10 +17414,8 @@ msgid "Artist collections"
 msgstr "Kolekcje artystów"
 
 #: ../root/user/UserCollections.js:39
-#, fuzzy
-#| msgid "You have no collections."
 msgid "Event collections"
-msgstr "Nie masz żadnych kolekcji."
+msgstr "Nie masz żadnych kolekcji"
 
 #: ../root/user/UserCollections.js:40
 #, fuzzy
@@ -17734,7 +17674,7 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:414
 msgid "Languages"
-msgstr ""
+msgstr "Języki"
 
 #: ../root/user/UserProfile.js:485 ../root/user/UserProfile.js:580
 #: ../root/user/UserProfile.js:590 ../root/user/UserProfile.js:600
@@ -18033,14 +17973,12 @@ msgstr[3] ""
 #: ../root/user/UserTagList.js:21
 msgctxt "folksonomy"
 msgid "Tags {user} downvoted"
-msgstr ""
+msgstr "Etykiety na \"NIE\" wg {user}"
 
 #: ../root/user/UserTagList.js:22
-#, fuzzy
-#| msgid "This user is automated."
 msgctxt "folksonomy"
 msgid "Tags {user} upvoted"
-msgstr "Ten użytkownik jest zautomatyzowany."
+msgstr "Etykiety na \"TAK\" wg {user}"
 
 #: ../root/user/UserTagList.js:123
 msgid "{user} has not downvoted any tags."
