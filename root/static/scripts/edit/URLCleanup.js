@@ -2964,7 +2964,7 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?([^/]+\.)?imdb\./i],
     restrict: [LINK_TYPES.imdb],
     clean(url) {
-      return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, 'https://www.imdb.com/$3/');
+      return url.replace(/^https?:\/\/(?:[^.]+\.)?imdb\.(?:com|de|it|es|fr|pt)\/(?:[a-z]{2}\/)?([a-z]+\/[a-z0-9]+)(?:\/.*)*$/, 'https://www.imdb.com/$1/');
     },
     validate(url, id) {
       const m = /^https:\/\/www\.imdb\.com\/(name\/nm|title\/tt|character\/ch|company\/co)[0-9]{7,}\/$/.exec(url);
@@ -4856,6 +4856,7 @@ const CLEANUPS: CleanupEntries = {
       if (m) {
         const prefix = m[1];
         const subPath = m[2];
+        const isAVideo = ['musicvideo', 'video'].includes(subPath);
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
             return {
@@ -4883,7 +4884,7 @@ const CLEANUPS: CleanupEntries = {
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.recording:
-            if (prefix === 'release' && subPath !== 'musicvideo') {
+            if (prefix === 'release' && !isAVideo) {
               return {
                 error:
                   l('Only RYM music videos can be linked to recordings.'),
@@ -4893,7 +4894,7 @@ const CLEANUPS: CleanupEntries = {
             }
             return {
               result: prefix === 'song' ||
-                      (prefix === 'release' && subPath === 'musicvideo'),
+                      (prefix === 'release' && isAVideo),
               target: ERROR_TARGETS.RELATIONSHIP,
             };
           case LINK_TYPES.otherdatabases.release:
@@ -6110,6 +6111,11 @@ const CLEANUPS: CleanupEntries = {
               result: prefix === 'Es',
               target: ERROR_TARGETS.ENTITY,
             };
+          case LINK_TYPES.otherdatabases.genre:
+            return {
+              result: prefix === 'T',
+              target: ERROR_TARGETS.ENTITY,
+            };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
       }
@@ -7075,7 +7081,7 @@ entitySpecificRules.release_group = function (url) {
  * 1, 2, 3, [1, 2], [1, 3], [2, 3], [1, 2, 3]
  */
 function anyCombinationOf(
-  entityType: string,
+  entityType: RelatableEntityTypeT,
   types: $ReadOnlyArray<string>,
 ): $ReadOnlyArray<EntityTypesMap> {
   const result = [];

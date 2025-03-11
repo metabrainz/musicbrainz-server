@@ -22,13 +22,13 @@ import DescriptiveLink
 import Filter from '../static/scripts/common/components/Filter.js';
 import {type ReleaseGroupFilterT}
   from '../static/scripts/common/components/FilterForm.js';
+import ListMergeButtonsRow
+  from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract.js';
 import commaOnlyList, {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList.js';
 import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
-import {returnToCurrentPage} from '../utility/returnUri.js';
 import uriWith from '../utility/uriWith.js';
 
 import ArtistLayout from './ArtistLayout.js';
@@ -263,7 +263,7 @@ component ArtistIndex(
 
       {existingReleaseGroups ? (
         <form
-          action={'/release_group/merge_queue?' + returnToCurrentPage($c)}
+          action="/release_group/merge_queue"
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -274,16 +274,22 @@ component ArtistIndex(
             />
           </PaginatedResults>
           {$c.user ? (
-            <div className="row">
-              <FormSubmit label={l('Merge release groups')} />
-            </div>
+            <>
+              <ListMergeButtonsRow
+                label={l('Merge release groups')}
+              />
+              {manifest(
+                'common/components/ListMergeButtonsRow',
+                {async: 'async'},
+              )}
+            </>
           ) : null}
         </form>
       ) : null}
 
       {existingRecordings ? (
         <form
-          action={'/recording/merge_queue?' + returnToCurrentPage($c)}
+          action="/recording/merge_queue"
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -294,9 +300,15 @@ component ArtistIndex(
             />
           </PaginatedResults>
           {$c.user ? (
-            <div className="row">
-              <FormSubmit label={l('Add selected recordings for merging')} />
-            </div>
+            <>
+              <ListMergeButtonsRow
+                label={l('Add selected recordings for merging')}
+              />
+              {manifest(
+                'common/components/ListMergeButtonsRow',
+                {async: 'async'},
+              )}
+            </>
           ) : null}
         </form>
       ) : null}

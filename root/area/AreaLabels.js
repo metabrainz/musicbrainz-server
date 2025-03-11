@@ -12,7 +12,9 @@ import * as React from 'react';
 import LabelList from '../components/list/LabelList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
-import {returnToCurrentPage} from '../utility/returnUri.js';
+import manifest from '../static/manifest.mjs';
+import ListMergeButtonsRow
+  from '../static/scripts/common/components/ListMergeButtonsRow.js';
 
 import AreaLayout from './AreaLayout.js';
 
@@ -28,7 +30,7 @@ component AreaLabels(
 
       {labels.length > 0 ? (
         <form
-          action={'/label/merge_queue?' + returnToCurrentPage($c)}
+          action="/label/merge_queue"
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -39,13 +41,15 @@ component AreaLabels(
             />
           </PaginatedResults>
           {$c.user ? (
-            <div className="row">
-              <span className="buttons">
-                <button type="submit">
-                  {l('Add selected labels for merging')}
-                </button>
-              </span>
-            </div>
+            <>
+              <ListMergeButtonsRow
+                label={l('Add selected labels for merging')}
+              />
+              {manifest(
+                'common/components/ListMergeButtonsRow',
+                {async: 'async'},
+              )}
+            </>
           ) : null}
         </form>
       ) : (

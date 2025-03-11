@@ -46,6 +46,7 @@ component Filter(
       $.getJSON(ajaxFormUrl, function (data) {
         setFilterForm(data);
         setHidden(false);
+        setCookie('filter', '1');
       });
     }
   }
@@ -78,5 +79,5 @@ component Filter(
 
 export default (
   hydrate<React.PropsOf<Filter>>('div.filter', Filter):
-  React.AbstractComponent<React.PropsOf<Filter>>
+  component(...React.PropsOf<Filter>)
 );

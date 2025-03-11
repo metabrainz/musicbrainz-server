@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Data::Series;
 
-use List::AllUtils qw( max );
+use List::AllUtils qw( max partition_by );
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Constants qw(
@@ -12,6 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_table_attributes
     load_subobjects
     order_by
+    placeholders
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
@@ -137,6 +138,31 @@ sub _merge_impl {
     return 1;
 }
 
+=method load_ids
+
+Load internal IDs for event objects that only have GIDs.
+
+=cut
+
+sub load_ids
+{
+    my ($self, @series) = @_;
+
+    my @gids = map { $_->gid } @series;
+    return () unless @gids;
+
+    my $query = '
+        SELECT gid, id FROM series
+        WHERE gid IN (' . placeholders(@gids) . ')
+    ';
+    my %map = map { $_->[0] => $_->[1] }
+        @{ $self->sql->select_list_of_lists($query, @gids) };
+
+    for my $series (@series) {
+        $series->id($map{$series->gid}) if exists $map{$series->gid};
+    }
+}
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -222,6 +248,38 @@ sub get_entities {
             ordering_key => $ordering_key,
         };
     });
+}
+
+sub load_entity_count {
+    my ($self, @series) = @_;
+    return unless @series;
+
+    my %series_by_item_type = partition_by {
+        $_->type->item_entity_type
+    } @series;
+    my @entity_types = sort keys %series_by_item_type;
+
+    my $query = join(' UNION ALL ',
+       map {
+           my $entity_type = $_;
+           my $series_table = "${entity_type}_series";
+           "  (SELECT series, count(*) AS count
+                FROM $series_table
+               WHERE series = any(?)
+            GROUP BY series)"
+       } @entity_types,
+    );
+
+    my @query_params = map {
+        [map { $_->id } @{ $series_by_item_type{$_} }]
+    } @entity_types;
+    my $rows = $self->sql->select_list_of_hashes($query, @query_params);
+    my %rows_by_id = partition_by { $_->{series} } @$rows;
+
+    for my $series (@series) {
+        my $row = $rows_by_id{$series->id}->[0];
+        $series->entity_count($row->{count} // 0);
+    }
 }
 
 sub find_by_subscribed_editor

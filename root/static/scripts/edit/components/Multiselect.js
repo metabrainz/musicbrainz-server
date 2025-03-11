@@ -60,17 +60,6 @@ export type MultiselectStateT<
   ...
 };
 
-export type MultiselectPropsT<
-  V: AutocompleteEntityItemT,
-  VS: MultiselectValueStateT<V>,
-  S: MultiselectStateT<V, VS>,
-> = {
-  +addLabel: string,
-  +buildExtraValueChildren?: ($Exact<VS>) => React.Node,
-  +dispatch: (MultiselectActionT<V>) => void,
-  +state: $Exact<S>,
-};
-
 export const ATTR_VALUE_LABEL_STYLE = {
   clear: 'both',
 };
@@ -156,22 +145,16 @@ export function runReducer<
   }
 }
 
-type MultiselectValueComponentT = React.AbstractComponent<
-  MultiselectValuePropsT<
-    AutocompleteEntityItemT,
-    MultiselectValueStateT<AutocompleteEntityItemT>,
-  >,
-  mixed,
->;
-
-export const MultiselectValue: MultiselectValueComponentT = React.memo(<
+component _MultiselectValue<
   V: AutocompleteEntityItemT,
   VS: MultiselectValueStateT<V>,
->({
-  buildExtraChildren,
-  dispatch,
-  state,
-}: MultiselectValuePropsT<V, VS>): React.MixedElement => {
+>(...props: MultiselectValuePropsT<V, VS>) {
+  const {
+    buildExtraChildren,
+    dispatch,
+    state,
+  } = props;
+
   const autocompleteDispatch = React.useCallback(
     (action: AutocompleteActionT<V>) => {
       dispatch({
@@ -212,18 +195,22 @@ export const MultiselectValue: MultiselectValueComponentT = React.memo(<
       />
     </div>
   );
-});
+}
 
-const Multiselect = (React.memo(<
+export const MultiselectValue: typeof _MultiselectValue =
+  // $FlowIssue[incompatible-type]
+  React.memo(_MultiselectValue);
+
+component _Multiselect<
   V: AutocompleteEntityItemT,
   VS: MultiselectValueStateT<V>,
   S: MultiselectStateT<V, VS>,
->({
-  addLabel,
-  buildExtraValueChildren,
-  dispatch,
-  state,
-}: MultiselectPropsT<V, VS, S>): React.MixedElement => {
+>(
+  addLabel: string,
+  buildExtraValueChildren?: (VS) => React.Node,
+  dispatch: (MultiselectActionT<V>) => void,
+  state: S,
+) {
   const handleAdd = React.useCallback(() => {
     dispatch({type: 'add-value'});
   }, [dispatch]);
@@ -232,20 +219,10 @@ const Multiselect = (React.memo(<
     return accum + (valueAttribute.removed ? 0 : 1);
   }, 0);
 
-  // XXX: https://github.com/facebook/flow/issues/7672
-  const GenericMultiselectValue = (
-    // $FlowIgnore[incompatible-cast]
-    MultiselectValue:
-      React.AbstractComponent<
-        MultiselectValuePropsT<V, VS>,
-        mixed,
-      >
-  );
-
   return (
     <>
       {state.values.map(valueAttribute => (
-        <GenericMultiselectValue
+        <MultiselectValue
           buildExtraChildren={buildExtraValueChildren}
           dispatch={dispatch}
           key={valueAttribute.key}
@@ -263,16 +240,10 @@ const Multiselect = (React.memo(<
       ) : null}
     </>
   );
-}): React.AbstractComponent<
-  MultiselectPropsT<
-    AutocompleteEntityItemT,
-    MultiselectValueStateT<AutocompleteEntityItemT>,
-    MultiselectStateT<
-      AutocompleteEntityItemT,
-      MultiselectValueStateT<AutocompleteEntityItemT>,
-    >,
-  >,
-  mixed,
->);
+}
+
+const Multiselect: typeof _Multiselect =
+  // $FlowIssue[incompatible-type]
+  React.memo(_Multiselect);
 
 export default Multiselect;

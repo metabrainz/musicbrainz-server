@@ -89,4 +89,4 @@ component CDTocReleaseListTable(
 export default (hydrate<React.PropsOf<CDTocReleaseListTable>>(
   'div.cd-toc-release-list-table-container',
   CDTocReleaseListTable,
-): React.ComponentType<React.PropsOf<CDTocReleaseListTable>>);
+): component(...React.PropsOf<CDTocReleaseListTable>));

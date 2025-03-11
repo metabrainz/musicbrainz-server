@@ -12,7 +12,9 @@ import * as React from 'react';
 import RecordingList from '../components/list/RecordingList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
-import {returnToCurrentPage} from '../utility/returnUri.js';
+import manifest from '../static/manifest.mjs';
+import ListMergeButtonsRow
+  from '../static/scripts/common/components/ListMergeButtonsRow.js';
 
 import InstrumentLayout from './InstrumentLayout.js';
 
@@ -33,7 +35,7 @@ component InstrumentRecordings(
 
       {recordings && recordings.length > 0 ? (
         <form
-          action={'/recording/merge_queue?' + returnToCurrentPage($c)}
+          action="/recording/merge_queue"
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -46,13 +48,15 @@ component InstrumentRecordings(
             />
           </PaginatedResults>
           {$c.user ? (
-            <div className="row">
-              <span className="buttons">
-                <button type="submit">
-                  {l('Add selected recordings for merging')}
-                </button>
-              </span>
-            </div>
+            <>
+              <ListMergeButtonsRow
+                label={l('Add selected recordings for merging')}
+              />
+              {manifest(
+                'common/components/ListMergeButtonsRow',
+                {async: 'async'},
+              )}
+            </>
           ) : null}
         </form>
       ) : (

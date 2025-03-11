@@ -45,6 +45,8 @@ component EventList(
 ) {
   const $c = React.useContext(CatalystContext);
 
+  const className = checkboxes === 'add-to-merge' ? 'mergeable-table' : '';
+
   const columns = React.useMemo(
     () => {
       const checkboxColumn = $c.user && (nonEmpty(checkboxes) || mergeForm)
@@ -136,7 +138,7 @@ component EventList(
     ],
   );
 
-  const table = useTable<EventT>({columns, data: events});
+  const table = useTable<EventT>({className, columns, data: events});
 
   return (
     <>

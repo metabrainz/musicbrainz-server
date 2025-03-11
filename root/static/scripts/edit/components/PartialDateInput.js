@@ -107,7 +107,7 @@ component PartialDateInput(
       fieldName: 'year' | 'month' | 'day',
     ) => {
       controlledProps.dispatch({
-        // $FlowIssue[invalid-computed-prop]
+        // $FlowIssue[incompatible-indexer]
         date: {[fieldName]: event.currentTarget.value},
         type: 'set-date',
       });

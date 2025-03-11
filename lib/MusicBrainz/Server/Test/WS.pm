@@ -13,6 +13,7 @@ use MusicBrainz::Server::Test ws_test_txt => { version => 2 };
 our @EXPORT_OK = qw(
     ws2_test_json
     ws2_test_json_forbidden
+    ws2_test_json_not_found
     ws2_test_json_unauthorized
     ws2_test_xml
     ws2_test_xml_forbidden
@@ -29,6 +30,11 @@ Readonly our $FORBIDDEN_JSON_RESPONSE => {
 
 Readonly our $UNAUTHORIZED_JSON_RESPONSE => {
     error => q(Your credentials could not be verified. Either you supplied the wrong credentials (e.g., bad password), or your client doesn't understand how to supply the credentials required.),
+    help => 'For usage, please see: https://musicbrainz.org/development/mmd',
+};
+
+Readonly our $NOT_FOUND_JSON_RESPONSE => {
+    error => 'Not Found',
     help => 'For usage, please see: https://musicbrainz.org/development/mmd',
 };
 
@@ -80,6 +86,14 @@ sub ws2_test_json_unauthorized {
     $opts //= {};
     $opts->{response_code} = HTTP_UNAUTHORIZED;
     ws_test_json($msg, $url, $UNAUTHORIZED_JSON_RESPONSE, $opts);
+}
+
+sub ws2_test_json_not_found {
+    my ($msg, $url, $opts) = @_;
+
+    $opts //= {};
+    $opts->{response_code} = HTTP_NOT_FOUND;
+    ws_test_json($msg, $url, $NOT_FOUND_JSON_RESPONSE, $opts);
 }
 
 sub ws2_test_xml { ws_test(@_) }

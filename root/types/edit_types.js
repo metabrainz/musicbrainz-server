@@ -495,6 +495,7 @@ declare type AddRemoveAliasEditT =
   | AddAreaAliasEditT
   | AddArtistAliasEditT
   | AddEventAliasEditT
+  | AddGenreAliasEditT
   | AddInstrumentAliasEditT
   | AddLabelAliasEditT
   | AddPlaceAliasEditT
@@ -506,6 +507,7 @@ declare type AddRemoveAliasEditT =
   | RemoveAreaAliasEditT
   | RemoveArtistAliasEditT
   | RemoveEventAliasEditT
+  | RemoveGenreAliasEditT
   | RemoveInstrumentAliasEditT
   | RemoveLabelAliasEditT
   | RemovePlaceAliasEditT
@@ -657,6 +659,7 @@ declare type EditAliasEditT =
   | EditAreaAliasEditT
   | EditArtistAliasEditT
   | EditEventAliasEditT
+  | EditGenreAliasEditT
   | EditInstrumentAliasEditT
   | EditLabelAliasEditT
   | EditPlaceAliasEditT
@@ -1575,6 +1578,7 @@ declare type CurrentEditT =
   | EditCoverArtEditT
   | EditEventArtEditT
   | EditEventEditT
+  | EditGenreEditT
   | EditInstrumentEditT
   | EditLabelEditT
   | EditMediumEditT

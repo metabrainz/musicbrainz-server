@@ -129,40 +129,49 @@ sub get_by_ids
 
 sub _load
 {
-    my ($self, $type, $target_types, $use_cardinality, @objs) = @_;
-    my @target_types = uniq @$target_types;
-    my @types = map { [ sort($type, $_) ] } @target_types;
+    my ($self, %args) = @_;
+    my @source_objs = @{ $args{source_objs} };
+    my $source_type = $args{source_type};
+    my @target_types = uniq @{ $args{target_types} };
+    my @types = map { [ sort($source_type, $_) ] } @target_types;
+    my $use_cardinality = $args{use_cardinality};
+    my $rel_ids_by_target_type = $args{rel_ids_by_target_type};
     my @rels;
     foreach my $t (@types) {
-        my $target_type = $type eq $t->[0] ? $t->[1] : $t->[0];
-        my %objs_by_id = map { $_->id => $_ }
-            grep { @{ $_->relationships_by_type($target_type) } == 0 } @objs;
-        my @ids = keys %objs_by_id;
-        next unless @ids;
+        my $target_type = $source_type eq $t->[0] ? $t->[1] : $t->[0];
+        my %source_objs_by_id = map { $_->id => $_ }
+            grep { @{ $_->relationships_by_type($target_type) } == 0 } @source_objs;
+        my @source_ids = keys %source_objs_by_id;
+        next unless @source_ids;
 
         my $type0 = $t->[0];
         my $type1 = $t->[1];
-        my (@cond, @params, $target, $target_id, $source_id, $query);
+        my (@cond, @params, $target_id, $source_id, $query);
 
-        if ($type eq $type0) {
-            my $condstring = 'entity0 IN (' . placeholders(@ids) . ')';
+        if (defined $rel_ids_by_target_type) {
+            my $rel_ids = $rel_ids_by_target_type->{$target_type};
+            next unless defined $rel_ids && @$rel_ids;
+            push @cond, "l_${type0}_${type1}.id = any(?)";
+            push @params, $rel_ids;
+        }
+
+        if ($source_type eq $type0) {
+            my $condstring = 'entity0 IN (' . placeholders(@source_ids) . ')';
             if ($use_cardinality) {
                 $condstring = "($condstring AND entity0_cardinality = 0)";
             }
             push @cond, $condstring;
-            push @params, @ids;
-            $target = $type1;
+            push @params, @source_ids;
             $target_id = 'entity1';
             $source_id = 'entity0';
         }
-        if ($type eq $type1) {
-            my $condstring = 'entity1 IN (' . placeholders(@ids) . ')';
+        if ($source_type eq $type1) {
+            my $condstring = 'entity1 IN (' . placeholders(@source_ids) . ')';
             if ($use_cardinality) {
                 $condstring = "($condstring AND entity1_cardinality = 0)";
             }
             push @cond, $condstring;
-            push @params, @ids;
-            $target = $type0;
+            push @params, @source_ids;
             $target_id = 'entity0';
             $source_id = 'entity1';
         }
@@ -180,38 +189,40 @@ sub _load
                      l.end_date_year,   l.end_date_month,   l.end_date_day,
                      l.ended';
 
-        if ($ENTITIES{$target}{sort_name}) {
-            $order .= ", ${target}.sort_name COLLATE musicbrainz";
-        } elsif ($target eq 'url') {
+        if ($ENTITIES{$target_type}{sort_name}) {
+            $order .= ", ${target_type}.sort_name COLLATE musicbrainz";
+        } elsif ($target_type eq 'url') {
             $order .= ', url';
         } else {
-            $order .= ", ${target}.name COLLATE musicbrainz";
+            $order .= ", ${target_type}.name COLLATE musicbrainz";
         }
 
+        $order .= ", $target_id, l_${type0}_${type1}.id";
+
         $query = "SELECT $select
-                    JOIN $target ON $target_id = ${target}.id
+                    JOIN $target_type ON $target_id = ${target_type}.id
                    WHERE " . join(' AND ', @cond) . "
                    ORDER BY $order";
 
         for my $row (@{ $self->sql->select_list_of_hashes($query, @params) }) {
             my $entity0 = $row->{entity0};
             my $entity1 = $row->{entity1};
-            if ($type eq $type0 && exists $objs_by_id{$entity0}) {
-                my $obj = $objs_by_id{$entity0};
-                my $rel = $self->_new_from_row($row, $type0, $type1, $obj, 0);
-                $obj->add_relationship($rel);
+            if ($source_type eq $type0 && exists $source_objs_by_id{$entity0}) {
+                my $source = $source_objs_by_id{$entity0};
+                my $rel = $self->_new_from_row($row, $type0, $type1, $source, 0);
+                $source->add_relationship($rel);
                 push @rels, $rel;
             }
-            if ($type eq $type1 && exists $objs_by_id{$entity1}) {
-                my $obj = $objs_by_id{$entity1};
-                my $rel = $self->_new_from_row($row, $type0, $type1, $obj, 1);
-                $obj->add_relationship($rel);
+            if ($source_type eq $type1 && exists $source_objs_by_id{$entity1}) {
+                my $source = $source_objs_by_id{$entity1};
+                my $rel = $self->_new_from_row($row, $type0, $type1, $source, 1);
+                $source->add_relationship($rel);
                 push @rels, $rel;
             }
         }
     }
-    for my $obj (@objs) {
-        $obj->has_loaded_relationships(1);
+    for my $source (@source_objs) {
+        $source->has_loaded_relationships(1);
     }
     return @rels;
 }
@@ -449,19 +460,37 @@ sub load_entities
 }
 
 sub _load_subset {
-    my ($self, $types, $use_cardinality, @objs) = @_;
-    my %objs_by_type;
-    return unless @objs; # nothing to do
-    foreach my $obj (@objs) {
-        if (my $type = ref_to_type($obj)) {
-            $objs_by_type{$type} = [] if !exists($objs_by_type{$type});
-            push @{$objs_by_type{$type}}, $obj;
+    my ($self, %args) = @_;
+
+    my $target_types = $args{target_types};
+    my $use_cardinality = $args{use_cardinality};
+    my @source_objs = @{ $args{source_objs} };
+
+    my %source_objs_by_type;
+    return unless @source_objs; # nothing to do
+    foreach my $source (@source_objs) {
+        if (my $source_type = ref_to_type($source)) {
+            $source_objs_by_type{$source_type} = []
+                unless exists $source_objs_by_type{$source_type};
+            push @{ $source_objs_by_type{$source_type} }, $source;
         }
     }
 
+    my $rel_ids_by_target_type;
+    if (ref($target_types) eq 'HASH') {
+        $rel_ids_by_target_type = $target_types;
+        $target_types = [keys %{$target_types}];
+    }
+
     my @rels;
-    foreach my $type (keys %objs_by_type) {
-        push @rels, $self->_load($type, $types, $use_cardinality, @{$objs_by_type{$type}});
+    foreach my $source_type (keys %source_objs_by_type) {
+        push @rels, $self->_load(
+            source_type => $source_type,
+            target_types => $target_types,
+            use_cardinality => $use_cardinality,
+            source_objs => $source_objs_by_type{$source_type},
+            rel_ids_by_target_type => $rel_ids_by_target_type,
+        );
     }
 
     $self->_load_related_info(@rels);
@@ -470,23 +499,39 @@ sub _load_subset {
 }
 
 sub load_subset {
-    my ($self, $types, @objs) = @_;
-    return $self->_load_subset($types, 0, @objs);
+    my ($self, $target_types, @source_objs) = @_;
+    return $self->_load_subset(
+        target_types => $target_types,
+        use_cardinality => 0,
+        source_objs => \@source_objs,
+    );
 }
 
 sub load {
-    my ($self, @objs) = @_;
-    return $self->_load_subset(\@RELATABLE_ENTITIES, 0, @objs);
+    my ($self, @source_objs) = @_;
+    return $self->_load_subset(
+        target_types => \@RELATABLE_ENTITIES,
+        use_cardinality => 0,
+        source_objs => \@source_objs,
+    );
 }
 
 sub load_cardinal {
-    my ($self, @objs) = @_;
-    return $self->_load_subset(\@RELATABLE_ENTITIES, 1, @objs);
+    my ($self, @source_objs) = @_;
+    return $self->_load_subset(
+        target_types => \@RELATABLE_ENTITIES,
+        use_cardinality => 1,
+        source_objs => \@source_objs,
+    );
 }
 
 sub load_subset_cardinal {
-    my ($self, $types, @objs) = @_;
-    return $self->_load_subset($types, 1, @objs);
+    my ($self, $target_types, @source_objs) = @_;
+    return $self->_load_subset(
+        target_types => $target_types,
+        use_cardinality => 1,
+        source_objs => \@source_objs,
+    );
 }
 
 sub generate_table_list {

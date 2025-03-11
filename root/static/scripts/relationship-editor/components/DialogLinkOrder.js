@@ -58,8 +58,8 @@ component _DialogLinkOrder(
   );
 }
 
-const DialogLinkOrder: React.AbstractComponent<
-  React.PropsOf<_DialogLinkOrder>
-> = React.memo(_DialogLinkOrder);
+const DialogLinkOrder:
+  component(...React.PropsOf<_DialogLinkOrder>) =
+  React.memo(_DialogLinkOrder);
 
 export default DialogLinkOrder;

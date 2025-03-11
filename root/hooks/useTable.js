@@ -19,7 +19,9 @@ import {
 import loopParity from '../utility/loopParity.js';
 
 const renderTableHeaderCell = (column: ColumnInstance) => {
-  const {key, ...headerProps} = column.getHeaderProps(column.headerProps);
+  const {key, ...headerProps} =
+    // See https://github.com/TanStack/table/issues/2862
+    column.getHeaderProps({...column.headerProps, role: null});
   return (
     <th {...headerProps} key={key}>
       {column.render('Header')}
@@ -28,7 +30,9 @@ const renderTableHeaderCell = (column: ColumnInstance) => {
 };
 
 const renderTableHeaderRow = (headerGroup: HeaderGroup) => {
-  const {key, ...headerGroupProps} = headerGroup.getHeaderGroupProps();
+  const {key, ...headerGroupProps} =
+    // See https://github.com/TanStack/table/issues/2862
+    headerGroup.getHeaderGroupProps({role: null});
   return (
     <tr {...headerGroupProps} key={key}>
       {headerGroup.headers.map(renderTableHeaderCell)}
@@ -37,7 +41,9 @@ const renderTableHeaderRow = (headerGroup: HeaderGroup) => {
 };
 
 const renderTableCell = (cell: Cell<mixed>) => {
-  const {key, ...cellProps} = cell.getCellProps(cell.column.cellProps);
+  const {key, ...cellProps} =
+    // See https://github.com/TanStack/table/issues/2862
+    cell.getCellProps({...cell.column.cellProps, role: null});
   return (
     <td {...cellProps} key={key}>
       {cell.render('Cell')}
@@ -46,7 +52,9 @@ const renderTableCell = (cell: Cell<mixed>) => {
 };
 
 const renderTableRow = <D>(row: Row<D>, i: number): React.MixedElement => {
-  const {key, ...rowProps} = row.getRowProps({className: loopParity(i)});
+  const {key, ...rowProps} =
+    // See https://github.com/TanStack/table/issues/2862
+    row.getRowProps({className: loopParity(i), role: null});
   return (
     <tr {...rowProps} key={key}>
       {row.cells.map(renderTableCell)}
@@ -80,11 +88,13 @@ const useRenderedTable = <D>({
     'tbl' + (nonEmpty(passedClassName) ? ' ' + passedClassName : '');
 
   return (
-    <table {...getTableProps({className})}>
+    // See https://github.com/TanStack/table/issues/2862
+    <table {...getTableProps({className, role: null})}>
       <thead>
         {headerGroups.map(renderTableHeaderRow)}
       </thead>
-      <tbody {...getTableBodyProps()}>
+      {/* See https://github.com/TanStack/table/issues/2862 */}
+      <tbody {...getTableBodyProps({role: null})}>
         {rows.map((row, i) => {
           prepareRow(row);
           return renderTableRow(row, i);
