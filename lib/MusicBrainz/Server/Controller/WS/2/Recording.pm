@@ -113,7 +113,7 @@ sub recording_toplevel
         }
     }
 
-    if ($inc->artists) {
+    if ($inc->artist_credits) {
         push @load_acs, @recordings;
     }
 
@@ -123,13 +123,11 @@ sub recording_toplevel
         $c->model('Artist')->load(@acns);
         $c->model('ArtistType')->load(map { $_->artist } @acns);
 
-        if ($inc->artists) {
-            $self->linked_artists(
-                $c, $stash,
-                [ map { $_->artist }
-                  map { $_->artist_credit->all_names } @recordings ],
-            );
-        }
+        $self->linked_artists(
+            $c, $stash,
+            [ map { $_->artist }
+                map { $_->artist_credit->all_names } @recordings ],
+        );
     }
 }
 
