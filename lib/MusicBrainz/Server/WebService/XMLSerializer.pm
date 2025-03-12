@@ -18,6 +18,8 @@ sub fmt { 'xml' }
 # Can change at runtime via 'local' shadowing
 our $in_relation_node = 0;
 our $show_aliases = 1;
+our $show_artist_aliases = 1;
+our $show_artist_tags_and_genres = 1;
 
 sub add_type_elem {
     my ($parent_node, $name, $type) = @_;
@@ -184,7 +186,7 @@ sub _serialize_artist
     }
 
     $self->_serialize_alias_list($artist_node, $opts->{aliases}, $inc, $opts)
-        if ($inc->aliases && $opts->{aliases} && !$compact_display);
+        if ($inc->aliases && $opts->{aliases} && $show_artist_aliases && !$compact_display);
 
     if ($toplevel)
     {
@@ -205,7 +207,8 @@ sub _serialize_artist
         if $inc->has_rels;
 
     unless ($compact_display) {
-        $self->_serialize_tags_and_genres($artist_node, $artist, $inc, $stash);
+        $self->_serialize_tags_and_genres($artist_node, $artist, $inc, $stash)
+            if $show_artist_tags_and_genres;
         $self->_serialize_ratings($artist_node, $artist, $inc, $stash);
     }
 }
@@ -342,8 +345,12 @@ sub _serialize_release_group
         $self->_serialize_artist_credit($rg_node, $release_group->artist_credit, $inc, $stash)
             if $inc->artist_credits;
 
-        $self->_serialize_release_list($rg_node, $opts->{releases}, $inc, $stash)
-            if $inc->releases;
+        do {
+            local $show_artist_aliases = 0;
+            local $show_artist_tags_and_genres = 0;
+            $self->_serialize_release_list($rg_node, $opts->{releases}, $inc, $stash)
+                if $inc->releases;
+        };
     }
     else
     {
@@ -623,8 +630,12 @@ sub _serialize_recording
             $rec_node->appendTextChild('first-release-date', $recording->first_release_date->format);
         }
 
-        $self->_serialize_release_list($rec_node, $opts->{releases}, $inc, $stash)
-            if $inc->releases;
+        do {
+            local $show_artist_aliases = 0;
+            local $show_artist_tags_and_genres = 0;
+            $self->_serialize_release_list($rec_node, $opts->{releases}, $inc, $stash)
+                if $inc->releases;
+        };
     }
     else
     {
