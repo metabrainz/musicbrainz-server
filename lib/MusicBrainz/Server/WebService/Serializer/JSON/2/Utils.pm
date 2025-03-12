@@ -24,6 +24,8 @@ our @EXPORT_OK = qw(
 our $show_aliases = 1;
 our $show_tags_and_genres = 1;
 our $show_sublevel_ratings = 0;
+our $show_artist_credit_aliases = 1;
+our $show_artist_credit_tags_and_genres = 1;
 
 my %serializers =
     map {

@@ -11,7 +11,7 @@ use MusicBrainz::Server::Constants qw(
     $ACCESS_SCOPE_SUBMIT_BARCODE
     $EDIT_RELEASE_EDIT_BARCODES
 );
-use List::AllUtils qw( natatime partition_by uniq uniq_by );
+use List::AllUtils qw( natatime partition_by uniq_by );
 use MusicBrainz::Server::WebService::XML::XPath;
 use MusicBrainz::Server::Validation qw( is_guid is_valid_barcode is_valid_gtin );
 use Readonly;
@@ -71,6 +71,8 @@ sub release_toplevel {
 
     my $inc = $c->stash->{inc};
     my @releases = @{$releases};
+    my @ac_entities;
+    push @ac_entities, @releases if $inc->artist_credits;
 
     $c->model('Release')->load_meta(@releases);
     $c->model('Release')->load_release_events(@releases);
@@ -96,11 +98,6 @@ sub release_toplevel {
     }
 
     my @rels_entities = @releases;
-    my @ac_entities;
-
-    if ($inc->artist_credits) {
-        push @ac_entities, @releases;
-    }
 
     if ($inc->labels)
     {
@@ -116,16 +113,18 @@ sub release_toplevel {
 
     if ($inc->release_groups)
     {
-         $c->model('ReleaseGroup')->load(@releases);
+        $c->model('ReleaseGroup')->load(@releases);
 
-         my @release_groups = map { $_->release_group } @releases;
-         $c->model('ReleaseGroup')->load_meta(@release_groups);
+        my @release_groups = map { $_->release_group } @releases;
+        $c->model('ReleaseGroup')->load_meta(@release_groups);
 
         if ($inc->release_group_level_rels) {
             push @rels_entities, @release_groups;
         }
 
-         $self->linked_release_groups($c, $stash, \@release_groups);
+        push @ac_entities, @release_groups if $inc->artist_credits;
+
+        $self->linked_release_groups($c, $stash, \@release_groups);
     }
 
     if ($inc->recordings)
@@ -145,10 +144,7 @@ sub release_toplevel {
         $c->model('Recording')->load_meta(@recordings);
         $c->model('Recording')->load_first_release_date(@recordings);
 
-        my $inc_artist_credits = $inc->artist_credits;
-        if ($inc_artist_credits) {
-            push @ac_entities, @tracks, @recordings;
-        }
+        push @ac_entities, @tracks, @recordings if $inc->artist_credits;
 
         # The maximum number of recordings to try to get relationships for, if
         # inc=recording-level-rels is specified. Certain releases with an enourmous
@@ -163,11 +159,7 @@ sub release_toplevel {
             push @rels_entities, @recordings;
         }
 
-        # Disable artist-credits during linked_recordings, since we load
-        # them below together with the tracks and release.
-        $inc->artist_credits(0) if $inc_artist_credits;
         $self->linked_recordings($c, $stash, \@recordings);
-        $inc->artist_credits(1) if $inc_artist_credits;
     }
 
     if ($inc->collections || $inc->user_collections) {
@@ -200,18 +192,8 @@ sub release_toplevel {
         }
     }
 
-    if (@ac_entities) {
-        $c->model('ArtistCredit')->load(@ac_entities);
-
-        my @acns = map { $_->all_names }
-                   uniq map { $_->artist_credit } @ac_entities;
-
-        $c->model('Artist')->load(@acns);
-        my @artists = uniq map { $_->artist } @acns;
-        $c->model('ArtistType')->load(@artists);
-
-        $self->linked_artists($c, $stash, \@artists);
-    }
+    $self->linked_artist_creditable_entities($c, $stash, \@ac_entities)
+        if @ac_entities;
 
     my $it = natatime 500, @rels_entities;
     while (my @rels_entities_subset = $it->()) {
