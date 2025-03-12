@@ -104,6 +104,7 @@ my @all = qw(
     ReleasesMissingDiscIDs
     ReleasesConflictingDiscIDs
     SeparateDiscs
+    SeriesContainingDuplicates
     SetInDifferentRG
     ShouldNotHaveDiscIDs
     ShowNotesButNotBroadcast
@@ -211,6 +212,7 @@ use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;
 use MusicBrainz::Server::Report::ReleasesMissingDiscIDs;
 use MusicBrainz::Server::Report::ReleasesConflictingDiscIDs;
 use MusicBrainz::Server::Report::SeparateDiscs;
+use MusicBrainz::Server::Report::SeriesContainingDuplicates;
 use MusicBrainz::Server::Report::SetInDifferentRG;
 use MusicBrainz::Server::Report::ShouldNotHaveDiscIDs;
 use MusicBrainz::Server::Report::ShowNotesButNotBroadcast;
