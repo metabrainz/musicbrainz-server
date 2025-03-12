@@ -10,6 +10,15 @@ sub serialize
 {
     my ($self, $entity, $inc, $stash, $toplevel) = @_;
 
+    no strict 'refs';
+    *Utils = *MusicBrainz::Server::WebService::Serializer::JSON::2::Utils;
+    local $Utils::show_aliases =
+        $Utils::show_aliases &&
+        $Utils::show_artist_credit_aliases;
+    local $Utils::show_tags_and_genres =
+        $Utils::show_tags_and_genres &&
+        $Utils::show_artist_credit_tags_and_genres;
+
     my @body = map {
         {
             'name' => $_->name,
