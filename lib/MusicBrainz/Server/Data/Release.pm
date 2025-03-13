@@ -1673,13 +1673,15 @@ sub set_release_events {
     $self->c->model('ReleaseGroup')->_delete_from_cache($release_group_id);
 }
 
+our $empty_partial_date = MusicBrainz::Server::Entity::PartialDate->new;
+
 sub series_ordering {
     my ($self, $r1, $r2) = @_;
 
     my ($a_date) = sort { $a <=> $b } map { $_->date } $r1->entity0->all_events;
     my ($b_date) = sort { $a <=> $b } map { $_->date } $r2->entity0->all_events;
-    my $empty = MusicBrainz::Server::Entity::PartialDate->new();
-    my $cmp = ($a_date // $empty) <=> ($b_date // $empty);
+
+    my $cmp = ($a_date // $empty_partial_date) <=> ($b_date // $empty_partial_date);
     return $cmp if $cmp;
 
     my ($a_catalog_number) = sort map { $_->catalog_number // '' } $r1->entity0->all_labels;
