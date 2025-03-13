@@ -1676,16 +1676,12 @@ sub set_release_events {
 sub series_ordering {
     my ($self, $r1, $r2) = @_;
 
-    my @releases = ($r1->entity0, $r2->entity0);
-    $self->load_release_events(@releases);
-
     my ($a_date) = sort { $a <=> $b } map { $_->date } $r1->entity0->all_events;
     my ($b_date) = sort { $a <=> $b } map { $_->date } $r2->entity0->all_events;
     my $empty = MusicBrainz::Server::Entity::PartialDate->new();
     my $cmp = ($a_date // $empty) <=> ($b_date // $empty);
     return $cmp if $cmp;
 
-    $self->c->model('ReleaseLabel')->load(@releases);
     my ($a_catalog_number) = sort map { $_->catalog_number // '' } $r1->entity0->all_labels;
     my ($b_catalog_number) = sort map { $_->catalog_number // '' } $r2->entity0->all_labels;
     return ($a_catalog_number // '') cmp ($b_catalog_number // '');

@@ -329,6 +329,12 @@ sub automatically_reorder {
     $self->c->model('LinkType')->load(map { $_->link } @relationships);
     $self->c->model('Relationship')->load_entities(@relationships);
 
+    if ($entity_type eq 'release') {
+        my @releases = map { $_->$target_prop } @relationships;
+        $self->c->model('Release')->load_release_events(@releases);
+        $self->c->model('ReleaseLabel')->load(@releases);
+    }
+
     my %relationships_by_text_value;
     my %relationships_by_link_order;
     for my $item (@$series_items) {
