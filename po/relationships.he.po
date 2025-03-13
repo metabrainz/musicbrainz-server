@@ -2997,6 +2997,13 @@ msgstr "ציון קבוצת הוצאה שבהשראתה כונה כך האמן."
 msgid "This indicates the release group that inspired this genre’s name."
 msgstr "ציון קבוצת הוצאה שבהשראתה כונה כך האמן."
 
+#. name:named after release group
+#: DB:link_type/description:1282
+#, fuzzy
+#| msgid "This indicates the release group that inspired this artist’s name."
+msgid "This indicates the release group that inspired this series’ name."
+msgstr "ציון קבוצת הוצאה שבהשראתה כונה כך האמן."
+
 #. name:rights society
 #: DB:link_type/description:349
 msgid ""
@@ -3068,6 +3075,13 @@ msgstr "ציון יצירה שבהשראתה כונה כך האמן."
 #, fuzzy
 #| msgid "This indicates the artist that inspired this place’s name."
 msgid "This indicates the work that inspired this label’s name."
+msgstr "ציון האמן שבהשראתו כונה כך המקום."
+
+#. name:named after work
+#: DB:link_type/description:1283
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the work that inspired this release group’s name."
 msgstr "ציון האמן שבהשראתו כונה כך המקום."
 
 #. name:named after work
@@ -7648,8 +7662,15 @@ msgstr "מתן הַשְׁרָאָה לשם של"
 msgid "inspired the name of place"
 msgstr "מתן הַשְׁרָאָה לשם של"
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1000
+#. name:named after work
+#: DB:link_type/reverse_link_phrase:1283
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of release group"
+msgstr "מתן הַשְׁרָאָה לשם של"
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
 #, fuzzy
 #| msgid "inspired the name of"
 msgid "inspired the name of series"
@@ -7880,7 +7901,7 @@ msgstr "קרוי על שם"
 
 #. name:named after work
 #: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
 #, fuzzy
 #| msgid "is named after"
 msgid "is named after work"
@@ -8614,16 +8635,18 @@ msgid "named after place"
 msgstr "קרוי על שם"
 
 #. name:named after release group
-#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
-#: DB:link_type/link_phrase:974
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/name:1282
+#: DB:link_type/link_phrase:1261 DB:link_type/link_phrase:974
+#: DB:link_type/reverse_link_phrase:1282
 #, fuzzy
 #| msgid "recorded release groups"
 msgid "named after release group"
 msgstr "קבוצות הוצאה הוקלטה"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1265
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:1278
+#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
 #: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "named after"
@@ -11550,6 +11573,13 @@ msgstr "{entity1} נקראה על שם {entity0}"
 #, fuzzy
 #| msgid "{entity1} is named after {entity0}"
 msgid "{entity1} is named after artist {entity0}"
+msgstr "{entity1} נקראה על שם {entity0}"
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1282
+#, fuzzy
+#| msgid "{entity1} is named after {entity0}"
+msgid "{entity1} is named after release group {entity0}"
 msgstr "{entity1} נקראה על שם {entity0}"
 
 #. name:anthem

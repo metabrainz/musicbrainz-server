@@ -5,9 +5,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "PO-Revision-Date: 2025-02-19 13:44+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Traditional Han script) <https://"
-"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hant/>"
-"\n"
+"Language-Team: Chinese (Traditional Han script) <https://translations."
+"metabrainz.org/projects/musicbrainz/relationship-types/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2762,6 +2761,13 @@ msgstr "指某個發行組的名稱啟發了這個創作者的名字。"
 msgid "This indicates the release group that inspired this genre’s name."
 msgstr "指某個發行組的名稱啟發了這個流派的名稱。"
 
+#. name:named after release group
+#: DB:link_type/description:1282
+#, fuzzy
+#| msgid "This indicates the release group that inspired this genre’s name."
+msgid "This indicates the release group that inspired this series’ name."
+msgstr "指某個發行組的名稱啟發了這個流派的名稱。"
+
 #. name:rights society
 #: DB:link_type/description:349
 msgid ""
@@ -2829,6 +2835,13 @@ msgstr "指某個作品啟發了這個創作者的名字。"
 #. name:named after work
 #: DB:link_type/description:1265
 msgid "This indicates the work that inspired this label’s name."
+msgstr "指某個作品啟發了這個廠牌的名字。"
+
+#. name:named after work
+#: DB:link_type/description:1283
+#, fuzzy
+#| msgid "This indicates the work that inspired this label’s name."
+msgid "This indicates the work that inspired this release group’s name."
 msgstr "指某個作品啟發了這個廠牌的名字。"
 
 #. name:named after work
@@ -7188,8 +7201,15 @@ msgstr "啟發了廠牌的名稱"
 msgid "inspired the name of place"
 msgstr "啟發了地點的名稱"
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1000
+#. name:named after work
+#: DB:link_type/reverse_link_phrase:1283
+#, fuzzy
+#| msgid "inspired the name of label"
+msgid "inspired the name of release group"
+msgstr "啟發了廠牌的名稱"
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
 msgid "inspired the name of series"
 msgstr "啟發了系列的名稱"
 
@@ -7400,7 +7420,7 @@ msgstr "以發行組命名"
 
 #. name:named after work
 #: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr "以作品命名"
 
@@ -8123,14 +8143,16 @@ msgid "named after place"
 msgstr "母廠牌"
 
 #. name:named after release group
-#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
-#: DB:link_type/link_phrase:974
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/name:1282
+#: DB:link_type/link_phrase:1261 DB:link_type/link_phrase:974
+#: DB:link_type/reverse_link_phrase:1282
 msgid "named after release group"
 msgstr "以發行組命名"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1265
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:1278
+#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
 #: DB:link_type/link_phrase:1265
 msgid "named after work"
 msgstr "Geonames 頁面，關於"
@@ -10991,6 +11013,13 @@ msgstr "{entity1} 於 {entity0} 製造"
 #: DB:link_type/long_link_phrase:1257 DB:link_type/long_link_phrase:975
 #: DB:link_type/long_link_phrase:1000
 msgid "{entity1} is named after artist {entity0}"
+msgstr "{entity1} 於 {entity0} 製造"
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1282
+#, fuzzy
+#| msgid "{entity1} is named after area {entity0}"
+msgid "{entity1} is named after release group {entity0}"
 msgstr "{entity1} 於 {entity0} 製造"
 
 #. name:anthem

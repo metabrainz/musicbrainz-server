@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "PO-Revision-Date: 2025-02-19 13:44+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Traditional Han script) <https://"
-"translations.metabrainz.org/projects/musicbrainz/attributes/zh_Hant/>\n"
+"Language-Team: Chinese (Traditional Han script) <https://translations."
+"metabrainz.org/projects/musicbrainz/attributes/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -363,6 +363,16 @@ msgid ""
 "A ballet is music composed to be used, together with a choreography, for a "
 "ballet dance production."
 msgstr "芭蕾是為芭蕾舞劇配合編排的音樂作品，通常與舞蹈動作結合使用。"
+
+#. name:Program
+#: DB:event_art_archive.art_type/description:11
+msgctxt "event_art_type"
+msgid ""
+"A booklet given or sold to event attendees that contains information about "
+"the event, such as scheduling, performer data, and details about the music "
+"being played. Programs/programmes are most often made available for music "
+"festivals and for stage and classical performances."
+msgstr ""
 
 #. name:Box
 #: DB:release_packaging/description:19
@@ -1363,11 +1373,17 @@ msgstr ""
 
 #. name:Schedule
 #: DB:event_art_archive.art_type/description:5
+#, fuzzy
+#| msgctxt "event_art_type"
+#| msgid ""
+#| "An image usually showing the order and time for the performances in an "
+#| "event. Can be a standalone image, but also a poster or banner (in which "
+#| "case all applicable types should be set)."
 msgctxt "event_art_type"
 msgid ""
 "An image usually showing the order and time for the performances in an "
-"event. Can be a standalone image, but also a poster or banner (in which case "
-"all applicable types should be set)."
+"event. Can be a standalone image, but also a poster, a banner or a page from "
+"a program (in which case all applicable types should be set)."
 msgstr ""
 "通常是一張顯示活動中的表演順序和時間安排的圖像。它可以是一個獨立的圖像，也可"
 "以是海報或橫幅的一部分(在這種情況下，所有適用的類型都應被設置)。"
@@ -4564,6 +4580,15 @@ msgctxt "work_attribute_type"
 msgid "ID for the Salvadoran rights society SACIM"
 msgstr "薩爾瓦多著作權協會SACIM ID"
 
+#. name:SOKOJ ID
+#: DB:work_attribute_type/description:213
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Norwegian rights society TONO"
+msgctxt "work_attribute_type"
+msgid "ID for the Serbian rights society SOKOJ"
+msgstr "挪威著作權協會TONO ID"
+
 #. name:COMPASS ID
 #: DB:work_attribute_type/description:45
 msgctxt "work_attribute_type"
@@ -6858,6 +6883,11 @@ msgctxt "label_type"
 msgid "Production"
 msgstr "產品"
 
+#: DB:event_art_archive.art_type/name:11
+msgctxt "event_art_type"
+msgid "Program"
+msgstr ""
+
 #: DB:release_status/name:2
 msgctxt "release_status"
 msgid "Promotion"
@@ -7438,6 +7468,11 @@ msgstr "SOCAN ID"
 msgctxt "work_attribute_type"
 msgid "SODRAC ID"
 msgstr "SODRAC ID"
+
+#: DB:work_attribute_type/name:213
+msgctxt "work_attribute_type"
+msgid "SOKOJ ID"
+msgstr ""
 
 #: DB:work_attribute_type/name:35
 msgctxt "work_attribute_type"

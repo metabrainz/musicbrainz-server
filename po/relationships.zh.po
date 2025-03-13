@@ -2767,6 +2767,13 @@ msgstr "指某个发行组的名称启发了这个艺术家的名字。"
 msgid "This indicates the release group that inspired this genre’s name."
 msgstr "指某个发行组的名称启发了这个流派的名称。"
 
+#. name:named after release group
+#: DB:link_type/description:1282
+#, fuzzy
+#| msgid "This indicates the release group that inspired this genre’s name."
+msgid "This indicates the release group that inspired this series’ name."
+msgstr "指某个发行组的名称启发了这个流派的名称。"
+
 #. name:rights society
 #: DB:link_type/description:349
 msgid ""
@@ -2834,6 +2841,13 @@ msgstr "指某个作品启发了这个艺术家的名字。"
 #. name:named after work
 #: DB:link_type/description:1265
 msgid "This indicates the work that inspired this label’s name."
+msgstr "指某个作品启发了这个厂牌的名字。"
+
+#. name:named after work
+#: DB:link_type/description:1283
+#, fuzzy
+#| msgid "This indicates the work that inspired this label’s name."
+msgid "This indicates the work that inspired this release group’s name."
 msgstr "指某个作品启发了这个厂牌的名字。"
 
 #. name:named after work
@@ -7200,8 +7214,15 @@ msgstr ""
 msgid "inspired the name of place"
 msgstr ""
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1000
+#. name:named after work
+#: DB:link_type/reverse_link_phrase:1283
+#, fuzzy
+#| msgid "Points to the BookBrainz page for this release group."
+msgid "inspired the name of release group"
+msgstr "指向此专辑组的BookBrainz页。"
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
 msgid "inspired the name of series"
 msgstr ""
 
@@ -7418,7 +7439,7 @@ msgstr ""
 
 #. name:named after work
 #: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr ""
 
@@ -8144,14 +8165,16 @@ msgid "named after place"
 msgstr "母厂牌"
 
 #. name:named after release group
-#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
-#: DB:link_type/link_phrase:974
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/name:1282
+#: DB:link_type/link_phrase:1261 DB:link_type/link_phrase:974
+#: DB:link_type/reverse_link_phrase:1282
 msgid "named after release group"
 msgstr ""
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1265
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:1278
+#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
 #: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "Geonames page for"
@@ -11041,6 +11064,13 @@ msgstr "{entity1} 于 {entity0} 制造"
 #, fuzzy
 #| msgid "{entity1} was manufactured in {entity0}"
 msgid "{entity1} is named after artist {entity0}"
+msgstr "{entity1} 于 {entity0} 制造"
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1282
+#, fuzzy
+#| msgid "{entity1} was manufactured in {entity0}"
+msgid "{entity1} is named after release group {entity0}"
 msgstr "{entity1} 于 {entity0} 制造"
 
 #. name:anthem

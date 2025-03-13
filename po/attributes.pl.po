@@ -28,8 +28,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
-"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 "X-Generator: Weblate 5.10.1\n"
 
@@ -41,8 +41,8 @@ msgid ""
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
 msgstr ""
-"\"Motet\" jest terminem, który tyczy się różnych typów dzieł chóralnych ("
-"zwykle bez akompaniamentu). To, czym motet w istocie jest - zależy od "
+"\"Motet\" jest terminem, który tyczy się różnych typów dzieł chóralnych "
+"(zwykle bez akompaniamentu). To, czym motet w istocie jest - zależy od "
 "określonego okresu (epoki)."
 
 #. name:Sonata
@@ -416,6 +416,16 @@ msgid ""
 msgstr ""
 "Balet to utwór napisany do użytku w połączeniu z choreografią w widowisku "
 "baletowym."
+
+#. name:Program
+#: DB:event_art_archive.art_type/description:11
+msgctxt "event_art_type"
+msgid ""
+"A booklet given or sold to event attendees that contains information about "
+"the event, such as scheduling, performer data, and details about the music "
+"being played. Programs/programmes are most often made available for music "
+"festivals and for stage and classical performances."
+msgstr ""
 
 #. name:Box
 #: DB:release_packaging/description:19
@@ -1508,11 +1518,17 @@ msgstr ""
 
 #. name:Schedule
 #: DB:event_art_archive.art_type/description:5
+#, fuzzy
+#| msgctxt "event_art_type"
+#| msgid ""
+#| "An image usually showing the order and time for the performances in an "
+#| "event. Can be a standalone image, but also a poster or banner (in which "
+#| "case all applicable types should be set)."
 msgctxt "event_art_type"
 msgid ""
 "An image usually showing the order and time for the performances in an "
-"event. Can be a standalone image, but also a poster or banner (in which case "
-"all applicable types should be set)."
+"event. Can be a standalone image, but also a poster, a banner or a page from "
+"a program (in which case all applicable types should be set)."
 msgstr ""
 "Obraz zwykle pokazujący kolejność i czas występów na wydarzeniu. Może to być "
 "samodzielny obraz, ale także plakat lub baner (w takim przypadku należy "
@@ -4780,6 +4796,15 @@ msgid "ID for the Salvadoran rights society SACIM"
 msgstr ""
 "Identyfikator salwadorskiego stowarzyszenia praw autorskich twórców SACIM"
 
+#. name:SOKOJ ID
+#: DB:work_attribute_type/description:213
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Norwegian rights society TONO"
+msgctxt "work_attribute_type"
+msgid "ID for the Serbian rights society SOKOJ"
+msgstr "Identyfikator norweskiego stowarzyszenia praw autorskich twórców TONO"
+
 #. name:COMPASS ID
 #: DB:work_attribute_type/description:45
 msgctxt "work_attribute_type"
@@ -7115,6 +7140,11 @@ msgctxt "label_type"
 msgid "Production"
 msgstr "Produkcja"
 
+#: DB:event_art_archive.art_type/name:11
+msgctxt "event_art_type"
+msgid "Program"
+msgstr ""
+
 #: DB:release_status/name:2
 msgctxt "release_status"
 msgid "Promotion"
@@ -7704,6 +7734,11 @@ msgstr "SOCAN ID"
 #: DB:work_attribute_type/name:53
 msgctxt "work_attribute_type"
 msgid "SODRAC ID"
+msgstr ""
+
+#: DB:work_attribute_type/name:213
+msgctxt "work_attribute_type"
+msgid "SOKOJ ID"
 msgstr ""
 
 #: DB:work_attribute_type/name:35

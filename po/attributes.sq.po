@@ -320,6 +320,16 @@ msgstr ""
 "Një balet është muzikë e kompozuar për t’u përdorur, tok me koreografi, për "
 "një produksion baleti."
 
+#. name:Program
+#: DB:event_art_archive.art_type/description:11
+msgctxt "event_art_type"
+msgid ""
+"A booklet given or sold to event attendees that contains information about "
+"the event, such as scheduling, performer data, and details about the music "
+"being played. Programs/programmes are most often made available for music "
+"festivals and for stage and classical performances."
+msgstr ""
+
 #. name:Box
 #: DB:release_packaging/description:19
 msgctxt "release_packaging"
@@ -1324,8 +1334,8 @@ msgstr ""
 msgctxt "event_art_type"
 msgid ""
 "An image usually showing the order and time for the performances in an "
-"event. Can be a standalone image, but also a poster or banner (in which case "
-"all applicable types should be set)."
+"event. Can be a standalone image, but also a poster, a banner or a page from "
+"a program (in which case all applicable types should be set)."
 msgstr ""
 
 #. name:Concert
@@ -4559,6 +4569,15 @@ msgctxt "work_attribute_type"
 msgid "ID for the Salvadoran rights society SACIM"
 msgstr ""
 
+#. name:SOKOJ ID
+#: DB:work_attribute_type/description:213
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Mexican rights society SACM"
+msgctxt "work_attribute_type"
+msgid "ID for the Serbian rights society SOKOJ"
+msgstr "ID për shoqërinë meksikane të të drejtave, SACM"
+
 #. name:COMPASS ID
 #: DB:work_attribute_type/description:45
 msgctxt "work_attribute_type"
@@ -6864,6 +6883,11 @@ msgctxt "label_type"
 msgid "Production"
 msgstr "Produksion"
 
+#: DB:event_art_archive.art_type/name:11
+msgctxt "event_art_type"
+msgid "Program"
+msgstr ""
+
 #: DB:release_status/name:2
 msgctxt "release_status"
 msgid "Promotion"
@@ -7443,6 +7467,11 @@ msgstr "ID SOCAN"
 #: DB:work_attribute_type/name:53
 msgctxt "work_attribute_type"
 msgid "SODRAC ID"
+msgstr ""
+
+#: DB:work_attribute_type/name:213
+msgctxt "work_attribute_type"
+msgid "SOKOJ ID"
 msgstr ""
 
 #: DB:work_attribute_type/name:35
