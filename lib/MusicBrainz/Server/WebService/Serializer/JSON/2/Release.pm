@@ -90,7 +90,7 @@ sub serialize
         # any), those of the release group should be serialized (to match the
         # behaviour of the XML serializer). So we override a package variable to
         # force the ratings to be serialized despite not being top-level.
-        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Utils::force_ratings = 1;
+        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Utils::show_sublevel_ratings = 1;
         # Used in `JSON::2::Utils::serialize_tags` to hide tags/genres for
         # release group artists which already appear in the release artist
         # credit.
@@ -116,7 +116,7 @@ sub serialize
         # any), those of the related entities should be displayed. So we override
         # a package variable to force the ratings to be serialized despite not
         # being top-level.
-        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Utils::force_ratings = 1;
+        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Utils::show_sublevel_ratings = 1;
         # Used in `JSON::2::Utils::serialize_tags` to hide tags/genres for
         # track/recording artists which already appear in the release artist
         # credit.
