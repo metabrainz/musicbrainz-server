@@ -281,6 +281,49 @@ const testData = [
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://fr-ca.7digital.com/artist/83-1/release/récidivistes-12888712',
   },
+  // ACUM
+  {
+          input_url: 'https://nocs.acum.org.il/acumsitesearchdb/album?albumid=000608',
+          input_entity_type: 'release',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/album?albumid=000608',
+          only_valid_entity_types: ['release'],
+  },
+  {
+          input_url: 'https://nocs.acum.org.il/acumsitesearchdb/work?workid=29AJOVQ&tab=musical',
+          input_entity_type: 'work',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/work?workid=29AJOVQ',
+          only_valid_entity_types: ['work'],
+  },
+  {
+          input_url: 'https://nocs.acum.org.il/acumsitesearchdb/version?workid=1031256&versionid=1031256001',
+          input_entity_type: 'work',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/work?workid=1031256',
+          only_valid_entity_types: ['work'],
+  },
+  {
+          input_url: 'https://nocs.acum.org.il/acumsitesearchdb/results?creatorid=I-000137240-1',
+          input_entity_type: 'label',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/results?creatorid=I-000137240-1',
+          only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+          input_url: 'https://nocs.acum.org.il/acumsitesearchdb/results?creatoripnnumber=00551105395',
+          input_entity_type: 'label',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/results?creatoripnnumber=00551105395',
+          only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+          input_url: 'https://nocs.acum.org.il/acumsitesearchdb/results?performerid=2',
+          input_entity_type: 'label',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/results?performerid=2',
+          only_valid_entity_types: ['artist'],
+  },
   // AllMusic
   {
                      input_url: 'https://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
