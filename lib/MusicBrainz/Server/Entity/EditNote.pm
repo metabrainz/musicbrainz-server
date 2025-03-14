@@ -7,7 +7,10 @@ use Moose;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
-use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 );
+use MusicBrainz::Server::Data::Utils qw(
+    contains_string
+    datetime_to_iso8601
+);
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Filters qw( format_editnote );
@@ -75,17 +78,22 @@ sub _localize_text {
         my $version = $source->{version} // 0;
         my $fn_package = 'MusicBrainz::Server::Translation';
         my $fn_name = 'l';
-        my @args = ($source->{message} // '');
+        my @args;
         my $source_vars;
 
         if ($version == 0) {
+            @args = ($source->{message} // '');
             # old versions of `localized_note` passed substitution
             # variables as `args`.
             $source_vars = $source->{args};
         } elsif ($version == 1) {
-            push @args, @{ $source->{args} // [] };
+            my $no_message_functions = [ qw ( comma_list comma_only_list ) ];
 
             $fn_name = $source->{function} // 'l';
+            @args = ($source->{message} // '')
+                unless contains_string($no_message_functions, $fn_name);
+            push @args, map { _localize_text($_, $depth + 1) } @{ $source->{args} // [] };
+
             $source_vars = $source->{vars};
 
             my $domain = $source->{domain};
