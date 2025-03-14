@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
+    object_to_ids
     order_by
     placeholders
 );
@@ -562,6 +563,68 @@ sub _find_recording_artists
         push @{ $map->{$work_id} }, map +{
             entity => $artist_credits->{$_},
         }, @$artist_credit_ids;
+    }
+}
+
+=method load_median_length
+
+This method will load the median length for the recordings of the work,
+ignoring any recordings marked as partial or as being a medley.
+
+For context, see the only recording-work relationship type, "performance",
+and its attributes:
+https://musicbrainz.org/relationship/a3005666-a872-32c3-ad06-98af558e99b0
+
+=cut
+
+sub load_median_length
+{
+    my ($self, @works) = @_;
+
+    my @ids = map { $_->id } @works;
+    return () unless @ids;
+
+    my %map = object_to_ids(@works);
+    $self->_find_median_length(\@ids, \%map);
+}
+
+sub _find_median_length
+{
+    my ($self, $ids, $map) = @_;
+    return unless @$ids;
+
+    my $query = <<~'SQL';
+                SELECT lrw.entity1 AS work_id,
+                       median(r.length) AS length
+                  FROM l_recording_work lrw
+                  JOIN recording r ON lrw.entity0 = r.id
+                 WHERE lrw.entity1 = any(?)
+        AND NOT EXISTS (  SELECT 1
+                            FROM l_recording_work lrw2
+                           WHERE lrw2.entity0 = lrw.entity0
+                        GROUP BY lrw2.entity0
+                          HAVING COUNT(*) > 1
+                       )
+        AND NOT EXISTS (SELECT 1
+                          FROM link_attribute la
+                         WHERE la.link = lrw.link
+                           AND la.attribute_type IN (
+                                   567, -- cover
+                                   579, -- partial
+                                   750 -- medley
+                               )
+                       )
+              GROUP BY lrw.entity1
+    SQL
+
+    my $rows = $self->sql->select_list_of_hashes(
+        $query,
+        $ids,
+    );
+
+    for my $row (@$rows) {
+        my $works = $map->{$row->{work_id}};
+        $_->length($row->{length}) for @$works;
     }
 }
 
