@@ -1050,6 +1050,38 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'awa': {
+    match: [/^(https?:\/\/)?s\.awa\.fm\/.*(album|artist|track)\//i],
+    restrict: [LINK_TYPES.streamingpaid],
+    clean(url) {
+      return url.replace(/^(?:https?:\/\/)?s\.awa\.fm\/(?:#!\/)?([\w/]+).*$/, 'https://s.awa.fm/$1');
+    },
+    validate(url, id) {
+      const m = /^https:\/\/s\.awa\.fm\/(album|artist|track)\/[0-9a-f-]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingpaid.artist:
+            if (prefix === 'artist') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.streamingpaid.release:
+            if (prefix === 'album') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.streamingpaid.recording:
+            if (prefix === 'track') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'baidubaike': {
     match: [/^(https?:\/\/)?baike\.baidu\.com\//i],
     restrict: [LINK_TYPES.otherdatabases],
