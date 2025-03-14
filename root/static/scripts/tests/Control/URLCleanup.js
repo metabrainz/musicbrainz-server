@@ -761,6 +761,27 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'discographyentry',
   },
+  // AWA
+  {
+                     input_url: 'http://s.awa.fm/artist/98739e4d703ac5805b51',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://s.awa.fm/artist/98739e4d703ac5805b51',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://s.awa.fm/track/6c6902a0267e46056d78',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://s.awa.fm/album/9508728d912dee540379#testy',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://s.awa.fm/album/9508728d912dee540379',
+       only_valid_entity_types: ['release'],
+  },
   // Baidu Baike
   {
                      input_url: 'baike.baidu.com/view/6458423.htm#1',

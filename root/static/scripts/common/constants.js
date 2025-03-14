@@ -87,6 +87,7 @@ export const FAVICON_CLASSES: {
   'anison.info': 'anisongeneration',
   'archive.org': 'archive',
   'audiomack.com': 'audiomack',
+  'awa.fm': 'awa',
   'baidu.com': 'baidu',
   'bandcamp.com': 'bandcamp',
   'bandsintown.com': 'bandsintown',
