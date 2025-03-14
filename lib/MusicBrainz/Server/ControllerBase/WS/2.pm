@@ -414,18 +414,6 @@ sub linked_recordings
         }
     }
 
-    if ($c->stash->{inc}->artist_credits)
-    {
-        $c->model('ArtistCredit')->load(@$recordings);
-
-        my @acns = map { $_->artist_credit->all_names } @$recordings;
-        $c->model('Artist')->load(@acns);
-        my @artists = uniq map { $_->artist } @acns;
-        $c->model('ArtistType')->load(@artists);
-
-        $self->linked_artists($c, $stash, \@artists);
-    }
-
     $self->_tags_and_ratings($c, 'Recording', $recordings, $stash);
     $self->_aliases($c, 'Recording', $recordings, $stash);
 }
@@ -461,15 +449,6 @@ sub linked_releases
         $c->model('CDTOC')->load(@medium_cdtocs);
     }
 
-    if ($c->stash->{inc}->artist_credits)
-    {
-        $c->model('ArtistCredit')->load(@$releases);
-
-        my @acns = map { $_->artist_credit->all_names } @$releases;
-        $c->model('Artist')->load(@acns);
-        $c->model('ArtistType')->load(map { $_->artist } @acns);
-    }
-
     $self->_tags($c, 'Release', $releases, $stash);
     $self->_aliases($c, 'Release', $releases, $stash);
 }
@@ -479,18 +458,6 @@ sub linked_release_groups
     my ($self, $c, $stash, $release_groups) = @_;
 
     $c->model('ReleaseGroupType')->load(@$release_groups);
-
-    if ($c->stash->{inc}->artist_credits)
-    {
-        $c->model('ArtistCredit')->load(@$release_groups);
-
-        my @acns = map { $_->artist_credit->all_names } @$release_groups;
-        $c->model('Artist')->load(@acns);
-        my @artists = uniq map { $_->artist } @acns;
-        $c->model('ArtistType')->load(@artists);
-
-        $self->linked_artists($c, $stash, \@artists);
-    }
 
     $self->_tags_and_ratings($c, 'ReleaseGroup', $release_groups, $stash);
     $self->_aliases($c, 'ReleaseGroup', $release_groups, $stash);
@@ -520,6 +487,22 @@ sub linked_events
 
     $self->_tags_and_ratings($c, 'Event', $events, $stash);
     $self->_aliases($c, 'Event', $events, $stash);
+}
+
+sub linked_artist_creditable_entities {
+    my ($self, $c, $stash, $entities) = @_;
+
+    if ($c->stash->{inc}->artist_credits) {
+        $c->model('ArtistCredit')->load(@$entities);
+
+        my @acns = map { $_->artist_credit->all_names } @$entities;
+        $c->model('Artist')->load(@acns);
+        my @artists = uniq map { $_->artist } @acns;
+        $c->model('ArtistType')->load(@artists);
+        $c->model('Artist')->load_country_code(@artists);
+
+        $self->linked_artists($c, $stash, \@artists);
+    }
 }
 
 sub _validate_post
@@ -571,9 +554,11 @@ sub _validate_entity
 sub load_relationships {
     my ($self, $c, $stash, @for) = @_;
 
-    if ($c->stash->{inc}->has_rels)
+    my $inc = $c->stash->{inc};
+
+    if ($inc->has_rels)
     {
-        my $types = $c->stash->{inc}->get_rel_types();
+        my $types = $inc->get_rel_types();
         my @rels = $c->model('Relationship')->load_subset($types, @for);
 
         my @entities_with_rels = @for;
@@ -584,7 +569,7 @@ sub load_relationships {
             grep { $_->target_type eq 'work' }
             map { $_->all_relationships } @for;
 
-        if ($c->stash->{inc}->work_level_rels)
+        if ($inc->work_level_rels)
         {
             push(@entities_with_rels, @works);
             # Avoid returning recording-work relationships for other recordings
@@ -603,8 +588,22 @@ sub load_relationships {
                     map { $_->target } @$rels,
                 );
             }
-            if ($target_type eq 'place') {
+            my @artists;
+            if ($target_type eq 'artist') {
+                push @artists, map { $_->target } @$rels;
+            } elsif ($target_type eq 'place') {
                 $c->model('AreaType')->load(map { $_->area } map { $_->target } @$rels);
+            }
+            if (
+                $inc->artist_credits &&
+                $ENTITIES{$target_type}{artist_credits}
+            ) {
+                push @artists, map { $_->artist } map {
+                    $_->target->artist_credit->all_names
+                } @$rels;
+            }
+            if (@artists) {
+                $c->model('Artist')->load_country_code(@artists);
             }
         }
 

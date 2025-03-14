@@ -53,6 +53,7 @@ sub artist_toplevel
 
     my $inc = $c->stash->{inc};
     my @artists = @{$artists};
+    my @ac_entities;
 
     $self->linked_artists($c, $stash, $artists);
 
@@ -61,6 +62,7 @@ sub artist_toplevel
     $c->model('Area')->load(@artists);
     $c->model('Artist')->ipi->load_for(@artists);
     $c->model('Artist')->isni->load_for(@artists);
+    $c->model('Artist')->load_country_code(@artists);
 
     $c->model('Artist')->annotation->load_latest(@artists)
         if $inc->annotation;
@@ -76,6 +78,7 @@ sub artist_toplevel
             push @recordings, @{ $opts->{recordings}{items} };
         }
         $self->linked_recordings($c, $stash, \@recordings) if @recordings;
+        push @ac_entities, @recordings if $inc->artist_credits;
     }
 
     if ($inc->releases) {
@@ -96,6 +99,7 @@ sub artist_toplevel
             push @releases, @{ $opts->{releases}{items} };
         }
         $self->linked_releases($c, $stash, \@releases) if @releases;
+        push @ac_entities, @releases if $inc->artist_credits;
     }
 
     if ($inc->release_groups) {
@@ -109,6 +113,7 @@ sub artist_toplevel
             push @release_groups, @{ $opts->{release_groups}{items} };
         }
         $self->linked_release_groups($c, $stash, \@release_groups) if @release_groups;
+        push @ac_entities, @release_groups if $inc->artist_credits;
     }
 
     if ($inc->works) {
@@ -121,6 +126,9 @@ sub artist_toplevel
         }
         $self->linked_works($c, $stash, \@works) if @works;
     }
+
+    $self->linked_artist_creditable_entities($c, $stash, \@ac_entities)
+        if @ac_entities;
 }
 
 sub artist_browse : Private
