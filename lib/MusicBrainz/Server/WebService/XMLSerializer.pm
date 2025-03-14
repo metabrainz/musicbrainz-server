@@ -203,8 +203,11 @@ sub _serialize_artist
 
     $self->_serialize_relation_lists($artist_node, $artist, $artist->relationships, $inc, $stash)
         if $inc->has_rels;
-    $self->_serialize_tags_and_ratings($artist_node, $artist, $inc, $stash)
-        if !$compact_display;
+
+    unless ($compact_display) {
+        $self->_serialize_tags_and_genres($artist_node, $artist, $inc, $stash);
+        $self->_serialize_ratings($artist_node, $artist, $inc, $stash);
+    }
 }
 
 sub _serialize_artist_credit
@@ -352,7 +355,8 @@ sub _serialize_release_group
         if ($inc->aliases && $opts->{aliases});
 
     $self->_serialize_relation_lists($rg_node, $release_group, $release_group->relationships, $inc, $stash) if $inc->has_rels;
-    $self->_serialize_tags_and_ratings($rg_node, $release_group, $inc, $stash);
+    $self->_serialize_tags_and_genres($rg_node, $release_group, $inc, $stash);
+    $self->_serialize_ratings($rg_node, $release_group, $inc, $stash);
 }
 
 sub _serialize_release_list
@@ -468,7 +472,8 @@ sub _serialize_release
         if ($release->mediums && ($inc->media || $inc->discids || $inc->recordings));
 
     $self->_serialize_relation_lists($release_node, $release, $release->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings($release_node, $release, $inc, $stash);
+    $self->_serialize_tags_and_genres($release_node, $release, $inc, $stash);
+    $self->_serialize_ratings($release_node, $release, $inc, $stash);
     $self->_serialize_collection_list($release_node, $opts->{collections}, $inc, $stash, 0)
         if $opts->{collections} && @{ $opts->{collections}{items} };
         # MBS-8845: Don't output <collection-list count="0" />, since at breaks (at least) Picard.
@@ -552,7 +557,8 @@ sub _serialize_work
         if ($inc->aliases && $opts->{aliases});
 
     $self->_serialize_relation_lists($work_node, $work, $work->relationships, $inc, $stash) if $inc->has_rels;
-    $self->_serialize_tags_and_ratings($work_node, $work, $inc, $stash);
+    $self->_serialize_tags_and_genres($work_node, $work, $inc, $stash);
+    $self->_serialize_ratings($work_node, $work, $inc, $stash);
 }
 
 sub _serialize_url
@@ -637,7 +643,8 @@ sub _serialize_recording
         if ($opts->{isrcs} && $inc->isrcs);
 
     $self->_serialize_relation_lists($rec_node, $recording, $recording->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings($rec_node, $recording, $inc, $stash);
+    $self->_serialize_tags_and_genres($rec_node, $recording, $inc, $stash);
+    $self->_serialize_ratings($rec_node, $recording, $inc, $stash);
 
 }
 
@@ -894,7 +901,8 @@ sub _serialize_label
     }
 
     $self->_serialize_relation_lists($label_node, $label, $label->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings($label_node, $label, $inc, $stash);
+    $self->_serialize_tags_and_genres($label_node, $label, $inc, $stash);
+    $self->_serialize_ratings($label_node, $label, $inc, $stash);
 }
 
 sub _serialize_area_list
@@ -952,7 +960,8 @@ sub _serialize_area_inner
         if ($inc->aliases && $opts->{aliases});
 
     $self->_serialize_relation_lists($area_node, $area, $area->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings($area_node, $area, $inc, $stash);
+    $self->_serialize_tags_and_genres($area_node, $area, $inc, $stash);
+    $self->_serialize_ratings($area_node, $area, $inc, $stash);
 }
 
 sub _serialize_area
@@ -1023,7 +1032,8 @@ sub _serialize_place
         if ($inc->aliases && $opts->{aliases});
 
     $self->_serialize_relation_lists($place_node, $place, $place->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings($place_node, $place, $inc, $stash);
+    $self->_serialize_tags_and_genres($place_node, $place, $inc, $stash);
+    $self->_serialize_ratings($place_node, $place, $inc, $stash);
 }
 
 sub _serialize_instrument_list {
@@ -1063,7 +1073,8 @@ sub _serialize_instrument {
         if ($inc->aliases && $opts->{aliases});
 
     $self->_serialize_relation_lists($inst_node, $instrument, $instrument->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings($inst_node, $instrument, $inc, $stash);
+    $self->_serialize_tags_and_genres($inst_node, $instrument, $inc, $stash);
+    $self->_serialize_ratings($inst_node, $instrument, $inc, $stash);
 }
 
 sub _serialize_relation_lists
@@ -1198,7 +1209,8 @@ sub _serialize_series
         if ($inc->aliases && $opts->{aliases});
 
     $self->_serialize_relation_lists($series_node, $series, $series->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings($series_node, $series, $inc, $stash);
+    $self->_serialize_tags_and_genres($series_node, $series, $inc, $stash);
+    $self->_serialize_ratings($series_node, $series, $inc, $stash);
 }
 
 sub _serialize_event_list
@@ -1248,7 +1260,8 @@ sub _serialize_event
 
     $self->_serialize_relation_lists($event_node, $event, $event->relationships, $inc, $stash)
         if $inc->has_rels;
-    $self->_serialize_tags_and_ratings($event_node, $event, $inc, $stash);
+    $self->_serialize_tags_and_genres($event_node, $event, $inc, $stash);
+    $self->_serialize_ratings($event_node, $event, $inc, $stash);
 }
 
 sub _serialize_isrc_list
@@ -1285,7 +1298,7 @@ sub _serialize_isrc
     }
 }
 
-sub _serialize_tags_and_ratings
+sub _serialize_tags_and_genres
 {
     my ($self, $parent_node, $entity, $inc, $stash) = @_;
 
@@ -1299,6 +1312,14 @@ sub _serialize_tags_and_ratings
         if $opts->{genres} && $inc->{genres};
     $self->_serialize_entity_user_genre_list($parent_node, $entity, $inc, $stash)
         if $opts->{user_genres} && $inc->{user_genres};
+}
+
+sub _serialize_ratings
+{
+    my ($self, $parent_node, $entity, $inc, $stash) = @_;
+
+    my $opts = $stash->store($entity);
+
     $self->_serialize_rating($parent_node, $entity, $inc, $stash)
         if $opts->{ratings} && $inc->{ratings};
     $self->_serialize_user_rating($parent_node, $entity, $inc, $stash)
