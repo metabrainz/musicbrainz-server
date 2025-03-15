@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 
+cd /home/musicbrainz/musicbrainz-server
+
+RENDERER_SOCKET="$(realpath "$(
+    sudo -E -H -u musicbrainz \
+        carton exec -- \
+        perl -Ilib -e 'use DBDefs; print DBDefs->RENDERER_SOCKET;'
+)")"
+
+if ! ss -lx | grep -Fq "$RENDERER_SOCKET"; then
+    echo "No socket ready at $RENDERER_SOCKET."
+    exit 1
+fi
+
 /usr/local/bin/dbdefs_to_js.sh
 
 exec /usr/local/bin/start_musicbrainz_server.sh
