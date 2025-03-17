@@ -70,13 +70,14 @@
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # aerozol <aerozol@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# nzure <nzure@leaft.ch>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-11 15:20+0100\n"
-"PO-Revision-Date: 2024-12-26 21:42+0000\n"
-"Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-03-13 00:44+0000\n"
+"Last-Translator: nzure <nzure@leaft.ch>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
 "Language: de\n"
@@ -84,7 +85,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10.2\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -11886,7 +11887,6 @@ msgid "FreeDB ID:"
 msgstr "FreeDB-ID:"
 
 #: ../root/otherlookup/OtherLookupForm.js:102
-#, fuzzy
 msgid "MBID"
 msgstr "MBID"
 
