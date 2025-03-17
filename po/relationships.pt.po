@@ -2,11 +2,12 @@
 # Translators:
 # Felipe Silva <musicbrainz@felipeqq2.rocks>, 2024.
 # tanio <tanioms3@gmail.com>, 2024.
+# joaodtx <joao.buckb@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-23 00:45+0000\n"
-"Last-Translator: tanio <tanioms3@gmail.com>\n"
+"PO-Revision-Date: 2025-03-17 05:45+0000\n"
+"Last-Translator: joaodtx <joao.buckb@gmail.com>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/pt/>\n"
 "Language: pt\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.10.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -74,7 +75,7 @@ msgstr ""
 #. name:amazon asin
 #: DB:link_type/link_phrase:77 DB:link_type/reverse_link_phrase:77
 msgid "ASIN"
-msgstr ""
+msgstr "ASIN"
 
 #. name:allmusic
 #: DB:link_type/link_phrase:755 DB:link_type/link_phrase:284
@@ -103,7 +104,7 @@ msgstr ""
 #. name:BBC Music page
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
-msgstr ""
+msgstr "BBC Music"
 
 #: DB:link_type/name:190
 msgid "BBC Music page"

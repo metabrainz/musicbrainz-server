@@ -7,13 +7,14 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # Felipe Silva <musicbrainz@felipeqq2.rocks>, 2024.
 # tanio <tanioms3@gmail.com>, 2024.
+# joaodtx <joao.buckb@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-11 15:20+0100\n"
-"PO-Revision-Date: 2024-08-26 22:42+0000\n"
-"Last-Translator: tanio <tanioms3@gmail.com>\n"
+"PO-Revision-Date: 2025-03-17 05:45+0000\n"
+"Last-Translator: joaodtx <joao.buckb@gmail.com>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pt/>\n"
 "Language: pt\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.10.3\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -363,6 +364,9 @@ msgid ""
 "An admin has set the following restrictions on your account: {list}. If you "
 "haven’t already been contacted about why, please {uri|send us a message}."
 msgstr ""
+"Um administrador aplicou as seguintes restrições na sua conta: {list}. Se "
+"você ainda não foi informado sobre o motivo, por favor {uri|entre em contato "
+"conosco}."
 
 #: ../root/components/common-macros.tt:569
 msgid ""
@@ -621,7 +625,7 @@ msgstr "Blog"
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:35
 msgid "Bluesky"
-msgstr ""
+msgstr "Bluesky"
 
 #: ../root/edit/search_macros.tt:438
 msgctxt "user type"
@@ -1006,7 +1010,7 @@ msgstr "Nota de edição:"
 #: ../root/layout/components/BottomMenu.js:320
 msgctxt "noun"
 msgid "Edit types"
-msgstr "Tipos de edição"
+msgstr "Tipos de edições"
 
 #: ../root/edit/search_macros.tt:473
 msgid "Edited entity"
@@ -1717,7 +1721,7 @@ msgstr "Entrada manual de dados"
 
 #: ../root/layout.tt:118 ../root/layout/components/Footer.js:34
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: ../root/cdtoc/lookup.tt:5
 msgid "Matching CDs"
@@ -1958,6 +1962,11 @@ msgid ""
 "or improved artwork; this includes AI improvements and square versions of "
 "non-square art. See the {cover_art_doc|documentation} for more details."
 msgstr ""
+"Envie apenas imagens que correspondam a este lançamento específico (por "
+"exemplo, verifique se o código de barras e o número de catálogo estão "
+"corretos). Não envie artes feitas por fãs, editadas ou melhoradas; isso "
+"inclui melhorias feitas por IA e versões quadradas de artes não quadradas. "
+"Veja a {cover_art_doc|documentação} para mais detalhes."
 
 #: ../root/edit/search_macros.tt:123
 msgid ""
@@ -2375,7 +2384,7 @@ msgstr "Resultados:"
 
 #: ../root/release/edit/information.tt:68
 msgid "Retry"
-msgstr ""
+msgstr "Tentar novamente"
 
 #: ../root/release/edit/recordings.tt:14
 msgid "Reuse previous recordings"
@@ -2402,7 +2411,7 @@ msgstr ""
 #: ../root/edit/details/historic/AddRelease.js:61
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:201
 msgid "Script"
-msgstr ""
+msgstr "Sistema de escrita"
 
 #: ../root/cdtoc/lookup.tt:79 ../root/cdtoc/lookup.tt:89
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:136
@@ -2443,7 +2452,7 @@ msgstr ""
 #: ../root/edit/details/AddReleaseGroup.js:74
 #: ../root/edit/details/EditReleaseGroup.js:76
 msgid "Secondary types"
-msgstr ""
+msgstr "Tipos secundários"
 
 #: ../root/release/edit/tracklist.tt:123
 msgid ""
@@ -2475,10 +2484,13 @@ msgstr ""
 "descrição desses tipos."
 
 #: ../root/components/forms.tt:316
+#, fuzzy
 msgid ""
 "Select any type from the list to see its description. If the work doesn’t "
 "seem to match any type, just leave this blank."
 msgstr ""
+"Selecione um tipo na lista para ver a descrição. Se o trabalho não "
+"corresponder com nenhum tipo, deixe em branco."
 
 #: ../root/event/add_event_art.tt:31 ../root/release/add_cover_art.tt:31
 msgid "Select images..."
@@ -2522,7 +2534,7 @@ msgstr "Capa"
 
 #: ../root/cdtoc/list.tt:54 ../root/release/DiscIds.js:58
 msgid "Set track lengths"
-msgstr ""
+msgstr "Definir duração da faixa"
 
 #: ../root/edit/search_macros.tt:43
 msgid ""
@@ -2532,7 +2544,7 @@ msgstr ""
 
 #: ../root/release/edit/duplicates.tt:2
 msgid "Similar releases"
-msgstr ""
+msgstr "Lançamentos similares"
 
 #: ../root/release/edit/tracklist.tt:518
 msgid ""
@@ -3164,7 +3176,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:473 ../root/elections/ElectionVotes.js:22
 msgid "Voter"
-msgstr ""
+msgstr "Votante"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:65
 #: ../root/user/UserProfile.js:689
@@ -4258,7 +4270,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:194
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
 msgctxt "edit type"
@@ -6632,7 +6644,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/Relationships.js:86
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:645
 msgid "Relationships"
-msgstr ""
+msgstr "Relacionamentos"
 
 #: ../root/area/AreaReleases.js:30 ../root/area/AreaReleases.js:33
 #: ../root/artist/ArtistReleases.js:36 ../root/artist/ArtistReleases.js:37
@@ -9327,7 +9339,7 @@ msgstr ""
 
 #: ../root/elections/ElectionDetails.js:55
 msgid "Total votes"
-msgstr ""
+msgstr "Total de votos"
 
 #: ../root/elections/ElectionDetails.js:59
 #: ../root/elections/ElectionTable/index.js:24
@@ -11576,7 +11588,7 @@ msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:39
 msgid "{type0}-{type1}"
-msgstr ""
+msgstr "{type0}-{type1}"
 
 #: ../root/release/ChangeQuality.js:28
 msgid "Change release data quality"
@@ -13434,7 +13446,7 @@ msgstr ""
 
 #: ../root/search/components/ResultsLayout.js:32
 msgid "Last updated: {date}"
-msgstr ""
+msgstr "Última atualização: {date}"
 
 #: ../root/search/components/SearchError.js:20
 msgid "Search error"
@@ -13733,7 +13745,7 @@ msgstr[2] ""
 
 #: ../root/static/scripts/area/places-map.js:107
 msgid "No type"
-msgstr ""
+msgstr "Sem tipo"
 
 #: ../root/static/scripts/area/places-map.js:109
 msgid "{place_name} (closed)"
@@ -16634,7 +16646,7 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:414
 msgid "Languages"
-msgstr ""
+msgstr "Idiomas"
 
 #: ../root/user/UserProfile.js:485 ../root/user/UserProfile.js:580
 #: ../root/user/UserProfile.js:590 ../root/user/UserProfile.js:600
@@ -16648,7 +16660,7 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:572
 msgid "Edits"
-msgstr ""
+msgstr "Edições"
 
 #: ../root/user/UserProfile.js:578
 msgctxt "edit descriptor"
@@ -16670,7 +16682,7 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:618
 msgid "Voted down"
-msgstr ""
+msgstr "Votou contra"
 
 #: ../root/user/UserProfile.js:628
 msgid "Failed"
@@ -16893,7 +16905,7 @@ msgstr ""
 
 #: ../root/user/UserSubscriptions.js:245
 msgid "Private collections"
-msgstr ""
+msgstr "Coleções privadas"
 
 #: ../root/user/UserSubscriptions.js:259
 msgid "{editor} is also subscribed to {n} other private collection."
