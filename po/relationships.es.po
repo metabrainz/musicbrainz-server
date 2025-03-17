@@ -3009,6 +3009,13 @@ msgstr ""
 msgid "This indicates the release group that inspired this genre’s name."
 msgstr "Indica el grupo de publicaciones que inspiró el nombre de este género."
 
+#. name:named after release group
+#: DB:link_type/description:1282
+#, fuzzy
+#| msgid "This indicates the release group that inspired this genre’s name."
+msgid "This indicates the release group that inspired this series’ name."
+msgstr "Indica el grupo de publicaciones que inspiró el nombre de este género."
+
 #. name:rights society
 #: DB:link_type/description:349
 msgid ""
@@ -3082,6 +3089,13 @@ msgstr "Indica la obra que inspiró el nombre de este artista."
 #. name:named after work
 #: DB:link_type/description:1265
 msgid "This indicates the work that inspired this label’s name."
+msgstr "Indica la obra que inspiró el nombre de esta discográfica."
+
+#. name:named after work
+#: DB:link_type/description:1283
+#, fuzzy
+#| msgid "This indicates the work that inspired this label’s name."
+msgid "This indicates the work that inspired this release group’s name."
 msgstr "Indica la obra que inspiró el nombre de esta discográfica."
 
 #. name:named after work
@@ -7571,8 +7585,15 @@ msgstr "inspiró el nombre de la discográfica"
 msgid "inspired the name of place"
 msgstr "inspiró el nombre del lugar"
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1000
+#. name:named after work
+#: DB:link_type/reverse_link_phrase:1283
+#, fuzzy
+#| msgid "inspired the name of label"
+msgid "inspired the name of release group"
+msgstr "inspiró el nombre de la discográfica"
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
 msgid "inspired the name of series"
 msgstr "inspiró el nombre de la serie"
 
@@ -7783,7 +7804,7 @@ msgstr "tiene un nombre inspirado en el grupo de publicaciones"
 
 #. name:named after work
 #: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr "tiene un nombre inspirado en la obra"
 
@@ -8505,14 +8526,16 @@ msgid "named after place"
 msgstr "nombre inspirado en el lugar"
 
 #. name:named after release group
-#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
-#: DB:link_type/link_phrase:974
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/name:1282
+#: DB:link_type/link_phrase:1261 DB:link_type/link_phrase:974
+#: DB:link_type/reverse_link_phrase:1282
 msgid "named after release group"
 msgstr "nombre inspirado en el grupo de publicaciones"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1265
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:1278
+#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
 #: DB:link_type/link_phrase:1265
 msgid "named after work"
 msgstr "nombre inspirado en la obra"
@@ -11423,6 +11446,13 @@ msgstr "{entity1} tiene un nombre inspirado en el área {entity0}"
 #: DB:link_type/long_link_phrase:1000
 msgid "{entity1} is named after artist {entity0}"
 msgstr "{entity1} tiene un nombre inspirado en el artista {entity0}"
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1282
+#, fuzzy
+#| msgid "{entity1} is named after area {entity0}"
+msgid "{entity1} is named after release group {entity0}"
+msgstr "{entity1} tiene un nombre inspirado en el área {entity0}"
 
 #. name:anthem
 #: DB:link_type/long_link_phrase:357

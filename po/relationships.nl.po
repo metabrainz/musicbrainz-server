@@ -3288,6 +3288,15 @@ msgstr ""
 "Dit geeft aan dat de naam van de artiest is geïnspireerd op deze "
 "uitgavegroep."
 
+#. name:named after release group
+#: DB:link_type/description:1282
+#, fuzzy
+#| msgid "This indicates the release group that inspired this artist’s name."
+msgid "This indicates the release group that inspired this series’ name."
+msgstr ""
+"Dit geeft aan dat de naam van de artiest is geïnspireerd op deze "
+"uitgavegroep."
+
 #. name:rights society
 #: DB:link_type/description:349
 msgid ""
@@ -3362,6 +3371,14 @@ msgstr ""
 #, fuzzy
 #| msgid "This indicates the artist that inspired this place’s name."
 msgid "This indicates the work that inspired this label’s name."
+msgstr ""
+"Dit geeft aan dat de naam van de plaats is geïnspireerd op deze plaatsnaam."
+
+#. name:named after work
+#: DB:link_type/description:1283
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the work that inspired this release group’s name."
 msgstr ""
 "Dit geeft aan dat de naam van de plaats is geïnspireerd op deze plaatsnaam."
 
@@ -8105,8 +8122,15 @@ msgstr "was de inspiratie voor de naam van"
 msgid "inspired the name of place"
 msgstr "was de inspiratie voor de naam van"
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1000
+#. name:named after work
+#: DB:link_type/reverse_link_phrase:1283
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of release group"
+msgstr "was de inspiratie voor de naam van"
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
 #, fuzzy
 #| msgid "inspired the name of"
 msgid "inspired the name of series"
@@ -8335,7 +8359,7 @@ msgstr "is vernoemd naar"
 
 #. name:named after work
 #: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
 #, fuzzy
 #| msgid "is named after"
 msgid "is named after work"
@@ -9076,16 +9100,18 @@ msgid "named after place"
 msgstr "vernoemd naar"
 
 #. name:named after release group
-#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
-#: DB:link_type/link_phrase:974
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/name:1282
+#: DB:link_type/link_phrase:1261 DB:link_type/link_phrase:974
+#: DB:link_type/reverse_link_phrase:1282
 #, fuzzy
 #| msgid "recorded release groups"
 msgid "named after release group"
 msgstr "opgenomen uitgavegroepen"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1265
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:1278
+#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
 #: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "named after"
@@ -12096,6 +12122,13 @@ msgstr "{entity1} is vernoemd naar {entity0}"
 #, fuzzy
 #| msgid "{entity1} is named after {entity0}"
 msgid "{entity1} is named after artist {entity0}"
+msgstr "{entity1} is vernoemd naar {entity0}"
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1282
+#, fuzzy
+#| msgid "{entity1} is named after {entity0}"
+msgid "{entity1} is named after release group {entity0}"
 msgstr "{entity1} is vernoemd naar {entity0}"
 
 #. name:anthem
