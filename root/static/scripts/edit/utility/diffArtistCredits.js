@@ -68,8 +68,8 @@ export default function diffArtistCredits(
 
     switch (diff.type) {
       case EQUAL:
-        oldItems.forEach(function (credit) {
-          const link = <ArtistLink credit={credit} />;
+        oldItems.forEach(function (credit, index) {
+          const link = <ArtistLink credit={credit} key={'equal-' + index} />;
           oldNames.push(link, credit.joinPhrase);
           newNames.push(link, credit.joinPhrase);
         });
@@ -87,6 +87,7 @@ export default function diffArtistCredits(
           const oldJoin = (
             <DiffSide
               filter={DELETE}
+              key={'old-join-' + i}
               newText={newCredit.joinPhrase}
               oldText={oldCredit.joinPhrase}
               split="\s+"
@@ -96,6 +97,7 @@ export default function diffArtistCredits(
           const newJoin = (
             <DiffSide
               filter={INSERT}
+              key={'new-join-' + i}
               newText={newCredit.joinPhrase}
               oldText={oldCredit.joinPhrase}
               split="\s+"
