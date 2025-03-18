@@ -20,6 +20,10 @@ import CommonsImage from
 import IswcList from '../../../static/scripts/common/components/IswcList.js';
 import commaOnlyList
   from '../../../static/scripts/common/i18n/commaOnlyList.js';
+import formatTrackLength
+  from '../../../static/scripts/common/utility/formatTrackLength.js';
+import InformationIcon
+  from '../../../static/scripts/edit/components/InformationIcon.js';
 import ExternalLinks from '../ExternalLinks.js';
 
 import AnnotationLinks from './AnnotationLinks.js';
@@ -35,8 +39,9 @@ import SidebarType from './SidebarType.js';
 
 component WorkSidebar(work: WorkT) {
   const $c = React.useContext(CatalystContext);
-  const {attributes, iswcs, languages, typeID} = work;
+  const {attributes, iswcs, languages, length, typeID} = work;
   const showInfo = Boolean(
+    length != null ||
     attributes.length ||
     iswcs.length ||
     languages.length ||
@@ -75,6 +80,27 @@ component WorkSidebar(work: WorkT) {
                 )}
               </SidebarProperty>
             ) : null}
+
+            {length == null ? null : (
+              <SidebarProperty
+                className="work-length"
+                label={addColonText(l('Median length'))}
+              >
+                {formatTrackLength(length)}
+                {' '}
+                <InformationIcon
+                  className="align-top"
+                  title={l(
+                    `Autocalculated from all non-partial, non-medley,
+                     non-cover recordings linked only to this work.
+                     If the data seems off, it’s likely some
+                     recording relationships need to be marked as
+                     partial or medley, or that this is a brief work
+                     meant to be played one or more times in a row.`,
+                  )}
+                />
+              </SidebarProperty>
+            )}
 
             {iswcs.length ? (
               <>

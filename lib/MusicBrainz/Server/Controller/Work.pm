@@ -75,6 +75,7 @@ after 'load' => sub
         }
     }
 
+    $c->model('Work')->load_median_length($work);
     $c->model('WorkType')->load($work);
     $c->model('ISWC')->load_for_works($work);
 };
