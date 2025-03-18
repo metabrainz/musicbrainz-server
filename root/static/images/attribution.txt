@@ -184,7 +184,6 @@ Images:
     icons/expand.png
     icons/guesscase.32x32.png
     icons/guesscase.png
-    icons/help.png
     icons/up.png
 
     (original .svg versions are in src/icons/*.svg)
@@ -221,6 +220,7 @@ License:     CC-BY/4.0 (see: http://creativecommons.org/licenses/by/4.0/) (https
 Download:    https://fontawesome.com/
 Images:
 
+    icons/help.svg (original: https://fontawesome.com/icons/up-right-from-square?f=classic&s=solid)
     icons/new_tab.svg (original: https://fontawesome.com/icons/up-right-from-square?f=classic&s=solid)
     
 ----------------------------------------------------------------------------
