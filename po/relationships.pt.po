@@ -2,11 +2,12 @@
 # Translators:
 # Felipe Silva <musicbrainz@felipeqq2.rocks>, 2024.
 # tanio <tanioms3@gmail.com>, 2024.
+# joaodtx <joao.buckb@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-23 00:45+0000\n"
-"Last-Translator: tanio <tanioms3@gmail.com>\n"
+"PO-Revision-Date: 2025-03-17 05:45+0000\n"
+"Last-Translator: joaodtx <joao.buckb@gmail.com>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/pt/>\n"
 "Language: pt\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.10.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -74,7 +75,7 @@ msgstr ""
 #. name:amazon asin
 #: DB:link_type/link_phrase:77 DB:link_type/reverse_link_phrase:77
 msgid "ASIN"
-msgstr ""
+msgstr "ASIN"
 
 #. name:allmusic
 #: DB:link_type/link_phrase:755 DB:link_type/link_phrase:284
@@ -103,7 +104,7 @@ msgstr ""
 #. name:BBC Music page
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
-msgstr ""
+msgstr "BBC Music"
 
 #: DB:link_type/name:190
 msgid "BBC Music page"
@@ -2552,6 +2553,11 @@ msgstr ""
 msgid "This indicates the release group that inspired this genre’s name."
 msgstr ""
 
+#. name:named after release group
+#: DB:link_type/description:1282
+msgid "This indicates the release group that inspired this series’ name."
+msgstr ""
+
 #. name:rights society
 #: DB:link_type/description:349
 msgid ""
@@ -2611,6 +2617,11 @@ msgstr ""
 #. name:named after work
 #: DB:link_type/description:1265
 msgid "This indicates the work that inspired this label’s name."
+msgstr ""
+
+#. name:named after work
+#: DB:link_type/description:1283
+msgid "This indicates the work that inspired this release group’s name."
 msgstr ""
 
 #. name:named after work
@@ -6676,8 +6687,13 @@ msgstr ""
 msgid "inspired the name of place"
 msgstr ""
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1000
+#. name:named after work
+#: DB:link_type/reverse_link_phrase:1283
+msgid "inspired the name of release group"
+msgstr ""
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
 msgid "inspired the name of series"
 msgstr ""
 
@@ -6888,7 +6904,7 @@ msgstr ""
 
 #. name:named after work
 #: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr ""
 
@@ -7608,14 +7624,16 @@ msgid "named after place"
 msgstr ""
 
 #. name:named after release group
-#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
-#: DB:link_type/link_phrase:974
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/name:1282
+#: DB:link_type/link_phrase:1261 DB:link_type/link_phrase:974
+#: DB:link_type/reverse_link_phrase:1282
 msgid "named after release group"
 msgstr ""
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1265
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:1278
+#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
 #: DB:link_type/link_phrase:1265
 msgid "named after work"
 msgstr ""
@@ -10457,6 +10475,11 @@ msgstr ""
 #: DB:link_type/long_link_phrase:1257 DB:link_type/long_link_phrase:975
 #: DB:link_type/long_link_phrase:1000
 msgid "{entity1} is named after artist {entity0}"
+msgstr ""
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1282
+msgid "{entity1} is named after release group {entity0}"
 msgstr ""
 
 #. name:anthem

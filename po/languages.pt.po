@@ -2,11 +2,12 @@
 # Translators:
 # goliv <goliv04053@tutanota.com>, 2023.
 # Felipe Silva <musicbrainz@felipeqq2.rocks>, 2024.
+# joaodtx <joao.buckb@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-24 01:42+0000\n"
-"Last-Translator: Felipe Silva <musicbrainz@felipeqq2.rocks>\n"
+"PO-Revision-Date: 2025-03-17 01:26+0000\n"
+"Last-Translator: joaodtx <joao.buckb@gmail.com>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/pt/>\n"
 "Language: pt\n"
@@ -15,12 +16,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.10.3\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
 msgid "Abkhazian"
-msgstr ""
+msgstr "Abecásio"
 
 #. frequency:1 iso_code_3:ace
 #: DB:language/name:3
@@ -365,7 +366,7 @@ msgstr ""
 #. frequency:1 iso_code_3:bul
 #: DB:language/name:62
 msgid "Bulgarian"
-msgstr ""
+msgstr "Búlgaro"
 
 #. frequency:1 iso_code_3:bua
 #: DB:language/name:60
@@ -400,7 +401,7 @@ msgstr "Catalão"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:69
 msgid "Caucasian languages"
-msgstr ""
+msgstr "Línguas caucasianas"
 
 #. frequency:1 iso_code_3:ceb
 #: DB:language/name:70
@@ -670,7 +671,7 @@ msgstr ""
 #. frequency:1 iso_code_3:egy
 #: DB:language/name:117
 msgid "Egyptian (Ancient)"
-msgstr ""
+msgstr "Egípcio (Antigo)"
 
 #. frequency:1 iso_code_3:eka
 #: DB:language/name:118
@@ -690,12 +691,12 @@ msgstr "Inglês"
 #. frequency:1 iso_code_3:enm
 #: DB:language/name:121
 msgid "English, Middle (1100-1500)"
-msgstr ""
+msgstr "Inglês médio (1100-1500)"
 
 #. frequency:1 iso_code_3:ang
 #: DB:language/name:16
 msgid "English, Old (ca.450-1100)"
-msgstr ""
+msgstr "Inglês antigo (c. 450-1100)"
 
 #. frequency:1 iso_code_3:myv
 #: DB:language/name:290
@@ -705,7 +706,7 @@ msgstr ""
 #. frequency:1 iso_code_3:epo
 #: DB:language/name:122
 msgid "Esperanto"
-msgstr ""
+msgstr "Esperanto"
 
 #. frequency:1 iso_code_3:est
 #: DB:language/name:123
@@ -2782,4 +2783,4 @@ msgstr ""
 #. frequency:1 iso_code_3:zxx
 #: DB:language/name:486
 msgid "[No linguistic content]"
-msgstr ""
+msgstr "[Sem conteúdo linguístico]"
