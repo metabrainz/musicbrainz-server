@@ -330,7 +330,8 @@ sub _serialize_release_group
     $rg_node->appendTextChild('title', $release_group->name);
     $rg_node->appendTextChild('disambiguation', $release_group->comment) if $release_group->comment;
     $self->_serialize_annotation($rg_node, $release_group, $inc, $opts) if $toplevel;
-    $rg_node->appendTextChild('first-release-date', $release_group->first_release_date->format);
+    my $first_release_date = $release_group->first_release_date->format;
+    $rg_node->appendTextChild('first-release-date', $first_release_date) if $first_release_date;
 
     add_type_elem($rg_node, 'primary-type', $primary_type)
         if $release_group->primary_type;
