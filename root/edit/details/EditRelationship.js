@@ -16,6 +16,7 @@ component EditRelationship(edit: EditRelationshipEditT) {
       <RelationshipDiff
         newRelationship={edit.display_data.new}
         oldRelationship={edit.display_data.old}
+        showTooltip
       />
       {edit.display_data.unknown_attributes ? (
         <tr>

@@ -9,6 +9,8 @@
 
 import * as React from 'react';
 
+import RelationshipDocsTooltip
+  from '../../../../../edit/components/RelationshipDocsTooltip.js';
 import DescriptiveLink from '../../../common/components/DescriptiveLink.js';
 import commaList from '../../../common/i18n/commaList.js';
 import {
@@ -65,6 +67,7 @@ component _RelationshipDiff(
   makeEntityLink: MakeEntityLinkT = makeDescriptiveLink,
   newRelationship: RelationshipT,
   oldRelationship: RelationshipT,
+  showTooltip: boolean = false,
 ) {
   const oldAttrs = keyBy(oldRelationship.attributes, getTypeId);
   const newAttrs = keyBy(newRelationship.attributes, getTypeId);
@@ -210,7 +213,14 @@ component _RelationshipDiff(
   return (
     <>
       <tr>
-        <th rowSpan="2">{addColonText(l('Relationship'))}</th>
+        <th rowSpan="2">
+          {addColonText(l('Relationship'))}
+          {showTooltip ? (
+            <RelationshipDocsTooltip
+              relationships={[oldRelationship, newRelationship]}
+            />
+          ) : null}
+        </th>
         <td className="old">
           {oldPhrase}
           {' '}

@@ -17,11 +17,12 @@ import areDatePeriodsEqual
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import isDisabledLink from '../../common/utility/isDisabledLink.js';
 import RelationshipDiff from '../../edit/components/edit/RelationshipDiff.js';
+import getRelationshipLinkType
+  from '../../edit/utility/getRelationshipLinkType.js';
 import type {
   RelationshipStateT,
 } from '../types.js';
 import getBatchSelectionMessage from '../utility/getBatchSelectionMessage.js';
-import getRelationshipLinkType from '../utility/getRelationshipLinkType.js';
 import relationshipsHaveSamePhraseGroup
   from '../utility/relationshipsHaveSamePhraseGroup.js';
 

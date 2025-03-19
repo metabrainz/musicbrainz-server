@@ -9,13 +9,17 @@
 
 import Tooltip from './Tooltip.js';
 
-const ICON_STYLE = {
-  display: 'inline-block',
-  marginLeft: '10px',
-  verticalAlign: 'text-top',
-};
+component HelpIcon(
+  content: React.Node,
+  marginLeft: string = '10px',
+  verticalAlign: string = 'text-top',
+) {
+  const ICON_STYLE = {
+    display: 'inline-block',
+    marginLeft,
+    verticalAlign,
+  };
 
-component HelpIcon(content: React.Node) {
   return (
     <Tooltip
       content={content}
