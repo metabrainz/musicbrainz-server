@@ -212,12 +212,12 @@ test 'Test trim and sanitize' => sub {
 test 'Test ref_to_type' => sub {
     like exception {
         ref_to_type(undef);
-    }, qr/Can't call method "isa" on an undefined value/,
+    }, qr/ref_to_type can only be called on references/,
         'ref_to_type of undef throws an exception';
 
     like exception {
         ref_to_type('');
-    }, qr/Can't call method "isa" without a package or object reference/,
+    }, qr/ref_to_type can only be called on references/,
         'ref_to_type of "" throws an exception';
 
     my $area_alias_type = MusicBrainz::Server::Entity::AreaAliasType->new;

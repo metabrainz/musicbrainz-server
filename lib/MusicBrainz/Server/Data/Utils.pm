@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::Utils;
 use 5.18.2;
 use strict;
 use warnings;
+use feature 'state';
 
 use base 'Exporter';
 use Carp qw( confess croak );
@@ -84,23 +85,36 @@ our @EXPORT_OK = qw(
 
 Readonly my %TYPE_TO_MODEL => map { $_ => $ENTITIES{$_}{model} } grep { $ENTITIES{$_}{model} } keys %ENTITIES;
 
+sub ref_to_type {
+    my $object = shift;
+
+    state %ref_to_type = map {
+        my $model = $TYPE_TO_MODEL{$_};
+        ("MusicBrainz::Server::Entity::$model" => $_)
+    } keys %TYPE_TO_MODEL;
+
+    my $object_ref = ref $object;
+    die 'ref_to_type can only be called on references'
+        unless $object_ref;
+
+    my $type = $ref_to_type{$object_ref};
+    return $type if defined $type;
+
+    for my $ref ($object->meta->superclasses) {
+        $type = $ref_to_type{$ref};
+        if (defined $type) {
+            $ref_to_type{$object_ref} = $type;
+            return $type;
+        }
+    }
+    return;
+}
+
 sub copy_escape {
     shift =~ s/\n/\\n/gr
           =~ s/\t/\\t/gr
           =~ s/\r/\\r/gr
           =~ s/\\/\\\\/gr;
-}
-
-sub ref_to_type
-{
-    my $ref = shift;
-    my %map = reverse %TYPE_TO_MODEL;
-    for (keys %map) {
-        return $map{$_}
-            if ($ref->isa("MusicBrainz::Server::Entity::$_"))
-    }
-
-    return;
 }
 
 sub artist_credit_to_ref
