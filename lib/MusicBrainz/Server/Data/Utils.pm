@@ -84,6 +84,7 @@ our @EXPORT_OK = qw(
 );
 
 Readonly my %TYPE_TO_MODEL => map { $_ => $ENTITIES{$_}{model} } grep { $ENTITIES{$_}{model} } keys %ENTITIES;
+Readonly my %MODEL_TO_TYPE => reverse %TYPE_TO_MODEL;
 
 sub ref_to_type {
     my $object = shift;
@@ -515,8 +516,7 @@ sub type_to_model
 sub model_to_type {
     my $model = shift;
     if (defined $model) {
-        my %map = reverse %TYPE_TO_MODEL;
-        return $map{$model};
+        return $MODEL_TO_TYPE{$model};
     }
     return;
 }
