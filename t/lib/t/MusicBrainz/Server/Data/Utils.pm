@@ -15,6 +15,7 @@ use MusicBrainz::Server::Data::Utils qw(
     sanitize
     trim
     ref_to_type
+    model_to_type
 );
 use MusicBrainz::Server::Entity::AreaAliasType;
 use MusicBrainz::Server::Entity::PartialDate;
@@ -232,6 +233,21 @@ test 'Test ref_to_type' => sub {
 
     is(ref_to_type($url), 'url',
        'ref_to_type of Entity::URL::45cat is "url"');
+};
+
+test 'Test model_to_type' => sub {
+    is(model_to_type(undef), undef, 'model_to_type of undef is undef');
+
+    is(model_to_type(''), undef, 'model_to_type of "" is undef');
+
+    is(model_to_type('AreaAliasType'), 'area_alias_type',
+       'model_to_type of "AreaAliasType" is "area_alias_type"');
+
+    is(model_to_type('Recording'), 'recording',
+       'model_to_type of "Recording" is "recording"');
+
+    is(model_to_type('URL'), 'url',
+       'model_to_type of "URL" is "url"');
 };
 
 1;
