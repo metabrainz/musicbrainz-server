@@ -512,10 +512,13 @@ sub type_to_model
     return $TYPE_TO_MODEL{$_[0]} || die "$_[0] is not a type that has a model";
 }
 
-sub model_to_type
-{
-    my %map = reverse %TYPE_TO_MODEL;
-    return $map{$_[0]} || undef;
+sub model_to_type {
+    my $model = shift;
+    if (defined $model) {
+        my %map = reverse %TYPE_TO_MODEL;
+        return $map{$model};
+    }
+    return;
 }
 
 sub object_to_ids
