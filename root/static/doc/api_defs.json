@@ -1,0 +1,360 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "MusicBrainz API",
+    "description": "This describes the current (2.0) version of the MusicBrainz API.\n\nFor requests that require authentication, you can authenticate using HTTP Digest, with the same username and password used to access the main `https://musicbrainz.org` website.\n",
+    "contact": {
+      "email": "support@metabrainz.org"
+    },
+    "version": "2.0",
+    "license": {
+      "name": "GPL-2.0-or-later",
+      "url": "https://spdx.org/licenses/GPL-2.0-or-later.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://musicbrainz.org/ws/2"
+    },
+    {
+      "url": "https://beta.musicbrainz.org/ws/2"
+    }
+  ],
+  "tags": [
+    {
+      "name": "recording",
+      "description": "Requests for recordings",
+      "externalDocs": {
+        "description": "Recording documentation",
+        "url": "https://musicbrainz.org/doc/Recording"
+      }
+    },
+    {
+      "name": "release",
+      "description": "Requests for releases",
+      "externalDocs": {
+        "description": "Release documentation",
+        "url": "https://musicbrainz.org/doc/Release"
+      }
+    },
+    {
+      "name": "artist",
+      "description": "Requests for artists",
+      "externalDocs": {
+        "description": "Artist documentation",
+        "url": "https://musicbrainz.org/doc/Artist"
+      }
+    }
+  ],
+  "security": [],
+  "paths": {
+    "/artist/{artist_mbid}": {
+      "get": {
+        "tags": [
+          "artist"
+        ],
+        "summary": "Get data for one artist by its MBID",
+        "description": "An artist lookup request allows you to request data for one artist\nbased on its MBID. This is meant to get data for the artist itself;\nif you want data about its releases, for example, you probably want\na release browse request.\n",
+        "operationId": "ArtistLookup",
+        "parameters": [
+          {
+            "name": "artist_mbid",
+            "in": "path",
+            "description": "MBID of the artist",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/MBID"
+            }
+          },
+          {
+            "name": "inc",
+            "in": "query",
+            "style": "spaceDelimited",
+            "description": "Allows requesting additional data for the returned entity.\nFor details on each option, see the table below.\n\n| value | Description | Requirements |\n| ----- | ----------- | ------------ |\n| aliases | Returns any aliases for the artist, and any other entities included in the response (such as any requested recordings, releases or works). | |\n| annotation | Loads the latest annotation for the artist (but not for other entities included in the response). | |\n| area-rels | Returns any relationships between this artist and any areas. [See the list of possible relationships](https://musicbrainz.org/relationships/area-artist). | |\n| artist-credits | Loads the artist credits for any recordings, releases and/or release groups returned with the request. | At least one of inc=**recordings**, inc=**recording-rels**, inc=**releases**, inc=**release-rels**, inc=**release-groups** or inc=**release-group-rels** |\n| artist-rels | Returns any relationships between this artist and any other artists. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-artist). | |\n| discids | Loads the associated disc IDs for any mediums returned with the request. | inc=**releases**+**media** |\n| event-rels | Returns any relationships between this artist and any events. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-event). | |\n| genres | Returns any genre tags for the artist, and any other entities included in the response (such as any requested recordings, releases or works), with their community score. | |\n| instrument-rels | Returns any relationships between this artist and any instruments. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-instrument). | |\n| isrcs | Loads the ISRCs for any recordings returned with the request. | ?inc=**recordings** |\n| label-rels | Returns any relationships between this artist and any labels. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-label). | |\n| media | Loads the mediums for any releases returned with the request. Without this, only the basic information for the releases will be returned, without tracklists. | ?inc=**releases** |\n| place-rels | Returns any relationships between this artist and any places. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-place). | |\n| ratings | Returns the community rating for the artist, and any other entities included in the response (such as any requested recordings, releases or works). | |\n| recordings | Returns a sample of up to 25 recordings which have this artist in the artist credit. If you need more than 25 results, send a *recording* browse request using this artist's MBID. | |\n| recording-rels | Returns any relationships between this artist and any recordings. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-recording). | |\n| releases | Returns a sample of up to 25 releases which have this artist in the artist credit. If you need more than 25 results, send a *release* browse request using this artist's MBID. | |\n| release-rels | Returns any relationships between this artist and any releases. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-release). | |\n| release-groups | Returns a sample of up to 25 release groups which have this artist in the artist credit. If you need more than 25 results, send a *release-group* browse request using this artist's MBID. | |\n| release-group-rels | Returns any relationships between this artist and any release groups. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-release_group). | |\n| series-rels | Returns any relationships between this artist and any series. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-series). | |\n| tags | Returns any tags for the artist, and any other entities included in the response (such as any requested recordings, releases or works), with their community score. This also includes genre tags, so you can filter them by your own genre list instead of ours if you want. | |\n| url-rels | Returns any relationships between this artist and any URLs - that is, external links for this artist. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-url). | |\n| user-genres | Returns the requesting user's genre tags for the artist, and any other entities included in the response (such as any requested recordings, releases or works). | Authentication |\n| user-ratings | Returns the requesting user's rating for the artist, and any other entities included in the response (such as any requested recordings, releases or works). | Authentication |\n| user-tags | Returns the requesting user's genre tags for the artist, and any other entities included in the response (such as any requested recordings, releases or works). This also includes genre tags, so you can filter them by your own genre list instead of ours if you want. | Authentication |\n| works | Returns a sample of up to 25 works related to this artist (either with a relationship, such as composer or lyricist, or because the artist is in the artist credit of a recording of the work). If you need more than 25 results, send a *work* browse request using this artist's MBID. | |\n| work-rels | Returns any relationships between this artist and any works. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-work). | |\n| various-artists | Returns a sample of up to 25 releases where the artist appears on one of the tracks, but not in the artist credit for the release itself. Overrides the default for *releases*. | ?inc=**releases** |\n",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "aliases",
+                  "annotation",
+                  "area-rels",
+                  "artist-credits",
+                  "artist-rels",
+                  "discids",
+                  "event-rels",
+                  "genres",
+                  "instrument-rels",
+                  "isrcs",
+                  "label-rels",
+                  "media",
+                  "place-rels",
+                  "ratings",
+                  "recordings",
+                  "recording-rels",
+                  "releases",
+                  "release-rels",
+                  "release-groups",
+                  "release-group-rels",
+                  "series-rels",
+                  "tags",
+                  "url-rels",
+                  "user-genres",
+                  "user-ratings",
+                  "user-tags",
+                  "works",
+                  "work-rels",
+                  "various-artists"
+                ]
+              }
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Format"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Invalid query supplied"
+          },
+          "401": {
+            "description": "Tried to access data that requires authentication\nwhile logged out\n"
+          },
+          "404": {
+            "description": "Artist not found"
+          }
+        }
+      }
+    },
+    "/artist": {
+      "get": {
+        "tags": [
+          "artist"
+        ],
+        "summary": "Browse artists based on some other entity related to them",
+        "description": "An artist browse request allows you to find all artists directly linked\nto another entity, by passing the MBID of said entity.\nOnly one entity parameter can be used to browse by at a time.\n",
+        "operationId": "ArtistBrowse",
+        "parameters": [
+          {
+            "name": "area",
+            "in": "query",
+            "description": "The MBID of an area. Will return all artists whose main area,\nbegin area or end area is either the given area or a part of it\n(for example, passing France will show any artists set to Paris).\n",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MBID"
+            }
+          },
+          {
+            "name": "collection",
+            "in": "query",
+            "description": "The MBID of an artist collection. Will return all artists\nwhich are part of the collection.\n\nIf the collection is not public you will need to authenticate to prove\nyou have access to it (that is, you are the collection owner\nor a collaborator on it).\n",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MBID"
+            }
+          },
+          {
+            "name": "recording",
+            "in": "query",
+            "description": "The MBID of a recording. Will return all artists present\non the artist credit of the recording.\n",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MBID"
+            }
+          },
+          {
+            "name": "release",
+            "in": "query",
+            "description": "The MBID of a release group. Will return all artists present\non the artist credit of the release or any of its tracks.\n",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MBID"
+            }
+          },
+          {
+            "name": "release-group",
+            "in": "query",
+            "description": "The MBID of a release group. Will return all artists present\non the artist credit of the release group.\n",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MBID"
+            }
+          },
+          {
+            "name": "work",
+            "in": "query",
+            "description": "The MBID of a work. Will return all artists linked to the work\nwith relationships (such as composers and lyricists), plus all artists\npresent on the artist credits of any recordings of the work.\n",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MBID"
+            }
+          },
+          {
+            "name": "inc",
+            "in": "query",
+            "style": "spaceDelimited",
+            "description": "Allows requesting additional data for the returned entity.\nFor details on each option, see the table below.\n\n| value | Description | Requirements |\n| ----- | ----------- | ------------ |\n| aliases | Returns any aliases for the returned artists. | |\n| annotation | Loads the latest annotation for the returned artists. | |\n| area-rels | Returns any relationships between the returned artists and any areas. [See the list of possible relationships](https://musicbrainz.org/relationships/area-artist). | |\n| artist-credits | Loads the artist credits for any recordings, releases and/or release groups returned with the request. | At least one of inc=**recording-rels**, inc=**release-rels** or inc=**release-group-rels** |\n| artist-rels | Returns any relationships between the returned artists and any other artists. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-artist). | |\n| event-rels | Returns any relationships between the returned artists and any events. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-event). | |\n| genres | Returns any genre tags for the returned artists, with their community score. | |\n| instrument-rels | Returns any relationships between the returned artists and any instruments. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-instrument). | |\n| label-rels | Returns any relationships between the returned artists and any labels. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-label). | |\n| place-rels | Returns any relationships between the returned artists and any places. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-place). | |\n| ratings | Returns the community rating for the returned artists. | |\n| recording-rels | Returns any relationships between the returned artists and any recordings. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-recording). | |\n| release-rels | Returns any relationships between the returned artists and any releases. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-release). | |\n| release-group-rels | Returns any relationships between the returned artists and any release groups. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-release_group). | |\n| series-rels | Returns any relationships between the returned artists and any series. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-series). | |\n| tags | Returns any tags for the returned artists, with their community score. This also includes genre tags, so you can filter them by your own genre list instead of ours if you want. | |\n| url-rels | Returns any relationships between the returned artists and any URLs - that is, external links for the artists. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-url). | |\n| user-genres | Returns the requesting user's genre tags for the returned artists. | Authentication |\n| user-ratings | Returns the requesting user's rating for the returned artists. | Authentication |\n| user-tags | Returns the requesting user's genre tags for the returned artists. This also includes genre tags, so you can filter them by your own genre list instead of ours if you want. | Authentication |\n| work-rels | Returns any relationships between the returned artists and any works. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-work). | |\n",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "aliases",
+                  "annotation",
+                  "area-rels",
+                  "artist-credits",
+                  "artist-rels",
+                  "event-rels",
+                  "genres",
+                  "instrument-rels",
+                  "label-rels",
+                  "place-rels",
+                  "ratings",
+                  "recording-rels",
+                  "release-rels",
+                  "release-group-rels",
+                  "series-rels",
+                  "tags",
+                  "url-rels",
+                  "user-genres",
+                  "user-ratings",
+                  "user-tags",
+                  "work-rels"
+                ]
+              }
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Format"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          },
+          {
+            "$ref": "#/components/parameters/Offset"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Invalid query supplied"
+          },
+          "404": {
+            "description": "Provided related entity not found"
+          }
+        }
+      }
+    },
+    "/artist?": {
+      "get": {
+        "tags": [
+          "artist"
+        ],
+        "summary": "Search artists based on search criteria",
+        "description": "An artist search request allows you to search for artists based on\nsome conditions. Searches always return the same specific set of data\nand are mostly meant to help you find the MBID for the artist you want,\nso you can do any more specific queries using it.\n",
+        "operationId": "ArtistSearch",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "A Lucene search query; indicates what you are actually searching for.\nIt supports the full [Lucene search syntax](https://lucene.apache.org/core/7_7_2/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package.description).\n\nFor details on each field, see the table below.\n\n| Field | Description |\n| ----- | ----------- |\n| alias | (Part of) any alias attached to the artist (diacritics are ignored) |\n| area | (Part of) the name of the artist's main associated area |\n| arid | The artist's MBID |\n| artist | (Part of) the artist's name (diacritics are ignored) |\n| artistaccent | (Part of) the artist's name (with the specified diacritics) |\n| begin | The artist's begin date in ISO 8601 format (e.g. \"1980-01-22\") |\n| beginarea | (Part of) the name of the artist's begin area |\n| comment | (Part of) the artist's disambiguation comment |\n| country | The 2-letter code (ISO 3166-1 alpha-2) for the artist's main associated country |\n| end | The artist's end date in ISO 8601 format (e.g. \"1980-01-22\") |\n| endarea | (Part of) the name of the artist's end area |\n| ended | A boolean flag (true/false) indicating whether or not the artist has ended (a band is dissolved, or a person is deceased) |\n| gender | The artist's gender (“male”, “female”, “non-binary” or “not applicable”) |\n| ipi | An IPI code associated with the artist |\n| isni | An ISNI code associated with the artist |\n| primary_alias | (Part of) any primary alias attached to the artist (diacritics are ignored) |\n| sortname | (Part of) the artist's sort name |\n| tag | (Part of) a tag attached to the artist |\n| type | The artist's type (“person”, “group”, etc.) |\n\nYou can combine multiple fields with ' AND ' (space, AND, space).\n\nTo search specifically for unset fields, use `-search_field:*`.\nFor example, “type:person AND -gender:*” will return artists set\nas type Person but without a gender set.\n\nIf you don't specify a field and just enter bare terms (“Nirvana”),\nthey will be searched for in the alias, artist and sortname fields.\nKeep in mind that when searching with bare terms you will need to\n[escape any Lucene special characters](https://lucene.apache.org/core/7_7_2/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#Escaping_Special_Characters).\n\nQueries are represented as a simple free-text string due to current\nOpenAPI limitations; you will need to construct your query string\nby hand, such as “area:France AND type:group”.\n",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Dismax"
+          },
+          {
+            "$ref": "#/components/parameters/Format"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          },
+          {
+            "$ref": "#/components/parameters/Offset"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Invalid query supplied"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MBID": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "Format": {
+        "type": "string",
+        "enum": [
+          "json",
+          "xml"
+        ]
+      },
+      "Limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 100
+      },
+      "TrueOrFalse": {
+        "type": "boolean",
+        "enum": [
+          true,
+          false
+        ]
+      }
+    },
+    "parameters": {
+      "Format": {
+        "name": "fmt",
+        "in": "query",
+        "description": "The desired format of the response (JSON or XML). Default is XML.\n",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/Format"
+        }
+      },
+      "Limit": {
+        "name": "limit",
+        "in": "query",
+        "description": "The maximum number of results per page (1 to 100, defaults to 25).\n",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/Limit"
+        }
+      },
+      "Offset": {
+        "name": "offset",
+        "in": "query",
+        "description": "How many entities to skip (used to page through results).",
+        "required": false,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "Dismax": {
+        "name": "dismax",
+        "in": "query",
+        "description": "If set to \"true\", switches the Solr query parser from the default edismax\nparser (equivalent to the \"advanced query syntax\" method\non the MusicBrainz website) to a simpler \n[dismax](https://solr.apache.org/guide/7_0/the-dismax-query-parser.html)\nparser, which will escape certain special query syntax characters\nby default for ease of use (equivalent to the plain \"indexed search\"\nmethod on the website).\n\nKeep in mind that this will ignore any specified fields in the query.\n\nDefaults to \"false\".\n",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/TrueOrFalse"
+        }
+      }
+    }
+  }
+}

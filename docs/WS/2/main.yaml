@@ -1,0 +1,43 @@
+# The definition is split for ease of use and bundled after updating.
+# To generate an updated bundle for the doc page, run:
+# npx @redocly/cli bundle docs/WS/2/main.yaml -o root/static/doc/api_defs.yaml
+openapi: 3.0.3
+info:
+  title: MusicBrainz API
+  description: |
+    This describes the current (2.0) version of the MusicBrainz API.
+
+    For requests that require authentication, you can authenticate using HTTP Digest, with the same username and password used to access the main `https://musicbrainz.org` website.
+  contact:
+    email: support@metabrainz.org
+  version: '2.0'
+  license:
+    name: GPL-2.0-or-later
+    url: https://spdx.org/licenses/GPL-2.0-or-later.html
+servers:
+  - url: https://musicbrainz.org/ws/2
+  - url: https://beta.musicbrainz.org/ws/2
+tags:
+  - name: recording
+    description: Requests for recordings
+    externalDocs:
+      description: Recording documentation
+      url: https://musicbrainz.org/doc/Recording
+  - name: release
+    description: Requests for releases
+    externalDocs:
+      description: Release documentation
+      url: https://musicbrainz.org/doc/Release
+  - name: artist
+    description: Requests for artists
+    externalDocs:
+      description: Artist documentation
+      url: https://musicbrainz.org/doc/Artist
+security: []
+paths:
+  /artist/{artist_mbid}:
+    $ref: "./paths/artist_lookup.yaml"
+  /artist:
+    $ref: "./paths/artist_browse.yaml"
+  /artist?:
+    $ref: "./paths/artist_search.yaml"
