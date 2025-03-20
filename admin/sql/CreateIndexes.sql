@@ -507,6 +507,8 @@ CREATE UNIQUE INDEX editor_collection_type_idx_gid ON editor_collection_type (gi
 CREATE UNIQUE INDEX cdtoc_idx_discid ON cdtoc (discid);
 CREATE INDEX cdtoc_idx_freedb_id ON cdtoc (freedb_id);
 
+CREATE UNIQUE INDEX medium_idx_gid ON medium (gid);
+
 CREATE INDEX medium_attribute_idx_medium ON medium_attribute (medium);
 
 CREATE UNIQUE INDEX medium_attribute_type_idx_gid ON medium_attribute_type (gid);
@@ -739,6 +741,7 @@ CREATE INDEX editor_collection_gid_redirect_idx_new_id ON editor_collection_gid_
 CREATE INDEX event_gid_redirect_idx_new_id ON event_gid_redirect (new_id);
 CREATE INDEX instrument_gid_redirect_idx_new_id ON instrument_gid_redirect (new_id);
 CREATE INDEX label_gid_redirect_idx_new_id ON label_gid_redirect (new_id);
+CREATE INDEX medium_gid_redirect_idx_new_id ON medium_gid_redirect (new_id);
 CREATE INDEX place_gid_redirect_idx_new_id ON place_gid_redirect (new_id);
 CREATE INDEX recording_gid_redirect_idx_new_id ON recording_gid_redirect (new_id);
 CREATE INDEX release_gid_redirect_idx_new_id ON release_gid_redirect (new_id);

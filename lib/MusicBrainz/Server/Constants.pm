@@ -735,6 +735,7 @@ Readonly our @CORE_TABLE_LIST => qw(
     medium_attribute_type_allowed_value_allowed_format
     medium_cdtoc
     medium_format
+    medium_gid_redirect
     orderable_link_type
     place
     place_alias
