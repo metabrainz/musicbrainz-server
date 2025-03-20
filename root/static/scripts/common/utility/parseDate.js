@@ -15,9 +15,11 @@ function parseDate(str: string): PartialDateT {
   const match = str.match(dateRegex) || [];
   /* eslint-disable sort-keys */
   return {
+    /* eslint-disable sort-keys */
     year: parseIntegerOrNull(match[1]),
     month: parseIntegerOrNull(match[2]),
     day: parseIntegerOrNull(match[3]),
+    /* eslint-enable sort-keys */
   };
   /* eslint-enable sort-keys */
 }

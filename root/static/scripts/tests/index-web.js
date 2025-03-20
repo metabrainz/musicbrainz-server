@@ -60,6 +60,7 @@ require('./utility/isObjectEmpty.js');
 require('./utility/isShortenedUrl.js');
 require('./utility/natatime.js');
 require('./utility/parseDate.js');
+require('./utility/parseNaturalDate.js');
 require('./utility/primaryAreaCode.js');
 require('./utility/relationshipDateText.js');
 require('./utility/sanitizedEditor.js');
