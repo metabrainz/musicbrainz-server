@@ -22,12 +22,14 @@ component TagList(
   isGenreList: boolean = false,
   tags: ?$ReadOnlyArray<AggregatedTagT>,
 ) {
+  const $c = React.useContext(CatalystContext);
   const upvotedTags = tags ? tags.filter(tag => tag.count > 0) : null;
   const links = upvotedTags ? upvotedTags.reduce((
     accum: Array<React.MixedElement>,
     aggregatedTag,
   ) => {
-    if (Boolean(aggregatedTag.tag.genre) === isGenreList) {
+    const genre = $c.stash.genre_map?.[aggregatedTag.tag.name];
+    if ((genre != null) === isGenreList) {
       accum.push(
         <TagLink
           key={'tag-' + aggregatedTag.tag.name}
