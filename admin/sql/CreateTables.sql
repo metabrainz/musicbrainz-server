@@ -2907,7 +2907,8 @@ CREATE TABLE medium ( -- replicate (verbose)
     name                VARCHAR NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    track_count         INTEGER NOT NULL DEFAULT 0
+    track_count         INTEGER NOT NULL DEFAULT 0,
+    gid                 UUID NOT NULL
 );
 
 CREATE TABLE medium_attribute_type ( -- replicate (verbose)
@@ -2971,6 +2972,12 @@ CREATE TABLE medium_format ( -- replicate
     has_discids         BOOLEAN NOT NULL DEFAULT FALSE,
     description         TEXT,
     gid                 uuid NOT NULL
+);
+
+CREATE TABLE medium_gid_redirect ( -- replicate (verbose)
+    gid                 UUID NOT NULL, -- PK
+    new_id              INTEGER NOT NULL, -- references medium.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE mood ( -- replicate (verbose)

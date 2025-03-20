@@ -264,6 +264,7 @@ ALTER TABLE medium_attribute_type_allowed_value DROP CONSTRAINT IF EXISTS medium
 ALTER TABLE medium_attribute_type_allowed_value_allowed_format DROP CONSTRAINT IF EXISTS medium_attribute_type_allowed_value_allowed_format_pkey;
 ALTER TABLE medium_cdtoc DROP CONSTRAINT IF EXISTS medium_cdtoc_pkey;
 ALTER TABLE medium_format DROP CONSTRAINT IF EXISTS medium_format_pkey;
+ALTER TABLE medium_gid_redirect DROP CONSTRAINT IF EXISTS medium_gid_redirect_pkey;
 ALTER TABLE medium_index DROP CONSTRAINT IF EXISTS medium_index_pkey;
 ALTER TABLE mood DROP CONSTRAINT IF EXISTS mood_pkey;
 ALTER TABLE mood_alias DROP CONSTRAINT IF EXISTS mood_alias_pkey;
