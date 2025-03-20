@@ -597,6 +597,7 @@ ALTER TABLE medium_attribute_type_allowed_value_allowed_format DROP CONSTRAINT I
 ALTER TABLE medium_cdtoc DROP CONSTRAINT IF EXISTS medium_cdtoc_fk_medium;
 ALTER TABLE medium_cdtoc DROP CONSTRAINT IF EXISTS medium_cdtoc_fk_cdtoc;
 ALTER TABLE medium_format DROP CONSTRAINT IF EXISTS medium_format_fk_parent;
+ALTER TABLE medium_gid_redirect DROP CONSTRAINT IF EXISTS medium_gid_redirect_fk_new_id;
 ALTER TABLE medium_index DROP CONSTRAINT IF EXISTS medium_index_fk_medium;
 ALTER TABLE mood_alias DROP CONSTRAINT IF EXISTS mood_alias_fk_mood;
 ALTER TABLE mood_alias DROP CONSTRAINT IF EXISTS mood_alias_fk_type;
