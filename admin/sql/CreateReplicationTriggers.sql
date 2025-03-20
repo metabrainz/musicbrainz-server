@@ -815,6 +815,10 @@ CREATE TRIGGER "reptg_medium_format"
 AFTER INSERT OR DELETE OR UPDATE ON "medium_format"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_medium_gid_redirect"
+AFTER INSERT OR DELETE OR UPDATE ON "medium_gid_redirect"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_medium_index"
 AFTER INSERT OR DELETE OR UPDATE ON "medium_index"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
