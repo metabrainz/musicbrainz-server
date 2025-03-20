@@ -815,6 +815,10 @@ CREATE TRIGGER reptg2_medium_format
 AFTER INSERT OR DELETE OR UPDATE ON medium_format
 FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();
 
+CREATE TRIGGER reptg2_medium_gid_redirect
+AFTER INSERT OR DELETE OR UPDATE ON medium_gid_redirect
+FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();
+
 CREATE TRIGGER reptg2_medium_index
 AFTER INSERT OR DELETE OR UPDATE ON medium_index
 FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();
