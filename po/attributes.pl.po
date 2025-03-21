@@ -16,11 +16,12 @@
 # Tobias Toedter <email address hidden>, 2007
 # Echelon666 <echelon01@wp.pl>, 2024.
 # Peter69 <echelon01@wp.pl>, 2024.
+# Michal77 <michal_wilk@poczta.fm>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-12-23 13:42+0000\n"
-"Last-Translator: Peter69 <echelon01@wp.pl>\n"
+"PO-Revision-Date: 2025-02-26 18:44+0000\n"
+"Last-Translator: Michal77 <michal_wilk@poczta.fm>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/pl/>\n"
 "Language: pl\n"
@@ -30,7 +31,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -41,8 +42,8 @@ msgid ""
 "the period."
 msgstr ""
 "\"Motet\" jest terminem, który tyczy się różnych typów dzieł chóralnych "
-"(zwykle nieakompaniowanych). To, czym motet w istocie jest - zależy od "
-"określonego przedziału czasu"
+"(zwykle bez akompaniamentu). To, czym motet w istocie jest - zależy od "
+"określonego okresu (epoki)."
 
 #. name:Sonata
 #: DB:work_type/description:5
@@ -415,6 +416,16 @@ msgid ""
 msgstr ""
 "Balet to utwór napisany do użytku w połączeniu z choreografią w widowisku "
 "baletowym."
+
+#. name:Program
+#: DB:event_art_archive.art_type/description:11
+msgctxt "event_art_type"
+msgid ""
+"A booklet given or sold to event attendees that contains information about "
+"the event, such as scheduling, performer data, and details about the music "
+"being played. Programs/programmes are most often made available for music "
+"festivals and for stage and classical performances."
+msgstr ""
 
 #. name:Box
 #: DB:release_packaging/description:19
@@ -1507,11 +1518,17 @@ msgstr ""
 
 #. name:Schedule
 #: DB:event_art_archive.art_type/description:5
+#, fuzzy
+#| msgctxt "event_art_type"
+#| msgid ""
+#| "An image usually showing the order and time for the performances in an "
+#| "event. Can be a standalone image, but also a poster or banner (in which "
+#| "case all applicable types should be set)."
 msgctxt "event_art_type"
 msgid ""
 "An image usually showing the order and time for the performances in an "
-"event. Can be a standalone image, but also a poster or banner (in which case "
-"all applicable types should be set)."
+"event. Can be a standalone image, but also a poster, a banner or a page from "
+"a program (in which case all applicable types should be set)."
 msgstr ""
 "Obraz zwykle pokazujący kolejność i czas występów na wydarzeniu. Może to być "
 "samodzielny obraz, ale także plakat lub baner (w takim przypadku należy "
@@ -4779,6 +4796,15 @@ msgid "ID for the Salvadoran rights society SACIM"
 msgstr ""
 "Identyfikator salwadorskiego stowarzyszenia praw autorskich twórców SACIM"
 
+#. name:SOKOJ ID
+#: DB:work_attribute_type/description:213
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Norwegian rights society TONO"
+msgctxt "work_attribute_type"
+msgid "ID for the Serbian rights society SOKOJ"
+msgstr "Identyfikator norweskiego stowarzyszenia praw autorskich twórców TONO"
+
 #. name:COMPASS ID
 #: DB:work_attribute_type/description:45
 msgctxt "work_attribute_type"
@@ -4981,12 +5007,6 @@ msgstr "Terytorium / rezerwat rdzennej ludności"
 
 #. name:Indigenous territory / reserve
 #: DB:area_type/description:9
-#, fuzzy
-#| msgctxt "area_type"
-#| msgid ""
-#| "Used for semi-autonomous territories governed by indigenous peoples, such "
-#| "as Indian reserves/reservations in North America and indigenous "
-#| "territories in Central and South America."
 msgctxt "area_type"
 msgid ""
 "Indigenous territory / reserve is used for semi-autonomous territories "
@@ -4994,9 +5014,9 @@ msgid ""
 "North America and indigenous territories in Central and South America."
 msgstr ""
 "Termin „terytorium/rezerwat tubylczy” odnosi się do półautonomicznych "
-"terytoriów zarządzanych przez ludność tubylczą, takich jak rezerwaty/"
-"rezerwaty indiańskie w Ameryce Północnej i terytoria tubylcze w Ameryce "
-"Środkowej i Południowej."
+"terytoriów zarządzanych przez ludność rdzenną, takich jak rezerwaty "
+"indiańskie w Ameryce Północnej i terytoria tubylcze w Ameryce Środkowej i "
+"Południowej."
 
 #: DB:place_type/name:5
 msgctxt "place_type"
@@ -7120,6 +7140,11 @@ msgctxt "label_type"
 msgid "Production"
 msgstr "Produkcja"
 
+#: DB:event_art_archive.art_type/name:11
+msgctxt "event_art_type"
+msgid "Program"
+msgstr ""
+
 #: DB:release_status/name:2
 msgctxt "release_status"
 msgid "Promotion"
@@ -7709,6 +7734,11 @@ msgstr "SOCAN ID"
 #: DB:work_attribute_type/name:53
 msgctxt "work_attribute_type"
 msgid "SODRAC ID"
+msgstr ""
+
+#: DB:work_attribute_type/name:213
+msgctxt "work_attribute_type"
+msgid "SOKOJ ID"
 msgstr ""
 
 #: DB:work_attribute_type/name:35

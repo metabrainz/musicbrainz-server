@@ -5,10 +5,22 @@ use warnings;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
+use Test::Fatal;
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Data::Utils qw( order_by generate_gid take_while sanitize trim );
+use MusicBrainz::Server::Data::Utils qw(
+    order_by
+    generate_gid
+    take_while
+    sanitize
+    trim
+    ref_to_type
+    model_to_type
+);
+use MusicBrainz::Server::Entity::AreaAliasType;
 use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Entity::Recording;
+use MusicBrainz::Server::Entity::URL::45cat;
 use MusicBrainz::Server::Test;
 
 with 't::Context';
@@ -196,6 +208,46 @@ test 'Test trim and sanitize' => sub {
            'strips BOM, removes leading/trailing whitespace',
            ' A B ',
            'strips BOM, keeps leading/trailing whitespace');
+};
+
+test 'Test ref_to_type' => sub {
+    like exception {
+        ref_to_type(undef);
+    }, qr/ref_to_type can only be called on references/,
+        'ref_to_type of undef throws an exception';
+
+    like exception {
+        ref_to_type('');
+    }, qr/ref_to_type can only be called on references/,
+        'ref_to_type of "" throws an exception';
+
+    my $area_alias_type = MusicBrainz::Server::Entity::AreaAliasType->new;
+    my $recording = MusicBrainz::Server::Entity::Recording->new;
+    my $url = MusicBrainz::Server::Entity::URL::45cat->new;
+
+    is(ref_to_type($area_alias_type), 'area_alias_type',
+       'ref_to_type of Entity::AreaAliasType is "area_alias_type"');
+
+    is(ref_to_type($recording), 'recording',
+       'ref_to_type of Entity::Recording is "recording"');
+
+    is(ref_to_type($url), 'url',
+       'ref_to_type of Entity::URL::45cat is "url"');
+};
+
+test 'Test model_to_type' => sub {
+    is(model_to_type(undef), undef, 'model_to_type of undef is undef');
+
+    is(model_to_type(''), undef, 'model_to_type of "" is undef');
+
+    is(model_to_type('AreaAliasType'), 'area_alias_type',
+       'model_to_type of "AreaAliasType" is "area_alias_type"');
+
+    is(model_to_type('Recording'), 'recording',
+       'model_to_type of "Recording" is "recording"');
+
+    is(model_to_type('URL'), 'url',
+       'model_to_type of "URL" is "url"');
 };
 
 1;
