@@ -63,6 +63,12 @@ CREATE TRIGGER a_del_release_group_mirror AFTER DELETE ON release_group
 CREATE TRIGGER a_upd_release_group_meta_mirror AFTER UPDATE ON release_group_meta
     FOR EACH ROW EXECUTE PROCEDURE a_upd_release_group_meta_mirror();
 
+CREATE TRIGGER a_upd_release_group_primary_type_mirror AFTER UPDATE ON release_group_primary_type
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_release_group_primary_type_mirror();
+
+CREATE TRIGGER a_upd_release_group_secondary_type_mirror AFTER UPDATE ON release_group_secondary_type
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_release_group_secondary_type_mirror();
+
 CREATE TRIGGER a_ins_release_group_secondary_type_join_mirror AFTER INSERT ON release_group_secondary_type_join
     FOR EACH ROW EXECUTE PROCEDURE a_ins_release_group_secondary_type_join_mirror();
 
