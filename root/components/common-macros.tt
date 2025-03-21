@@ -389,10 +389,6 @@ END -%]
     comma_only_list(out);
 END -%]
 
-[%~ MACRO css_class_name(name) BLOCK; # React equivalent is kebabCase at root/static/scripts/common/utility/strings.js
-    name | lower | replace('[^a-z]+', '-') | remove('^-|-$');
-    END -%]
-
 [%~ MACRO warning_icon BLOCK # Converted to React at root/static/scripts/common/components/WarningIcon.js
 -%]
    [% React.embed(c, 'static/scripts/common/components/WarningIcon') %]
