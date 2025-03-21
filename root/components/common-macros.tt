@@ -15,7 +15,7 @@
 ~%]
 [%- USE UserDate(c.user.preferences, current_language) # Converted to React at root/utility/formatUserDate.js
 -%]
-[%~ MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
+[%~ MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc/' _ to) %][%- END -%]
 [%~ MACRO va_doc_link BLOCK -%]
     [%- doc_link('Style/Unknown_and_untitled/Special_purpose_artist#List_of_official_SPAs') -%]
 [%- END -%]
