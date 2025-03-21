@@ -56,10 +56,6 @@ role {
                 Chained => 'load',
                 PathPart => "$archive-art",
             },
-            "${archive}_art_uploaded" => {
-                Chained => 'load',
-                PathPart => "$archive-art-uploaded",
-            },
             "add_${archive}_art" => {
                 Chained => 'load',
                 PathPart => "add-$archive-art",
@@ -179,15 +175,6 @@ role {
                 $entity_type => $entity->TO_JSON,
             },
         );
-    };
-
-    method "${archive}_art_uploaded" => sub :
-        Chained('load')
-        PathPart("$archive-art-uploaded")
-    {
-        my ($self, $c) = @_;
-
-        $c->stash->{filename} = $c->req->params->{key};
     };
 
     method image_editing_unavailable => sub : Private {
