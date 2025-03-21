@@ -130,30 +130,6 @@ END; -%]
     [%- END -%]
 [%- END -%]
 
-[%~ MACRO expanded_artist_credit_list(ac) IF ac -%] [% # Converted to React at root/static/scripts/common/components/ExpandedArtistCredit.js %]
-  [%- IF ac.name != ac.names.0.artist.name || ac.names.size > 1 || ac.names.0.artist.comment -%]
-    [%- SET artist_list = [];
-        SET show_list = 0;
-        FOR name=ac.names;
-          IF name.artist.name != name.name;
-            artist_list.push(l('{artist} as {name}', { artist => descriptive_link(name.artist), name => html_escape(name.name)}));
-            SET show_list = 1;
-          ELSE;
-            artist_list.push(descriptive_link(name.artist));
-            IF name.artist.comment;
-              SET show_list = 1;
-            END;
-          END;
-        END; -%]
-    [%- IF show_list -%]<span class="expanded-ac-list">[%- comma_only_list(artist_list) -%]</span>[%- END -%]
-  [% END %]
-[%- END -%]
-
-[%~ MACRO expanded_artist_credit(ac) IF ac -%] [% # Converted to React at root/static/scripts/common/components/ExpandedArtistCredit.js %]
-  [%- artist_credit(ac) -%]<br />
-  [%- expanded_artist_credit_list(ac) -%]<br />
-[%- END -%]
-
 [%~ MACRO link_entity(entity, action, text, credited_as, no_escape) BLOCK; # Converted to React at root/static/scripts/common/components/EntityLink.js
     # no_escape is only available for artists and recordings
     show_disambiguation = text == '';
