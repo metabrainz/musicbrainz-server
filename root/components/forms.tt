@@ -97,14 +97,6 @@
     [% END %]
 [%- END -%]
 
-[%- MACRO form_row_password(r, field_name, label) BLOCK -%]
-    [% WRAPPER form_row %]
-      [% r.label(field_name, label || r.form.field(field_name).label) %]
-      [% r.password(field_name) %]
-      [% field_errors(r.form, field_name) %]
-    [% END %]
-[%- END -%]
-
 [%- MACRO form_row_checkbox(r, field_name, label) BLOCK # Converted to React at root/components/FormRowCheckbox.js
 -%]
     <div class="row no-label">
