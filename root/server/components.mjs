@@ -507,6 +507,7 @@ export default {
   'label/LabelHeader': (): Promise<mixed> => import('../label/LabelHeader.js'),
   'layout/components/Head': (): Promise<mixed> => import('../layout/components/Head.js'),
   'layout/components/Header': (): Promise<mixed> => import('../layout/components/Header.js'),
+  'layout/components/MergeHelper': (): Promise<mixed> => import('../layout/components/MergeHelper.js'),
   'layout/components/sidebar/AreaSidebar': (): Promise<mixed> => import('../layout/components/sidebar/AreaSidebar.js'),
   'layout/components/sidebar/ArtistSidebar': (): Promise<mixed> => import('../layout/components/sidebar/ArtistSidebar.js'),
   'layout/components/sidebar/CDStubSidebar': (): Promise<mixed> => import('../layout/components/sidebar/CDStubSidebar.js'),

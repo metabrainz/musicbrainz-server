@@ -104,8 +104,9 @@
             [%- content -%]
         </div>
 
-        [%- INCLUDE 'layout/merge-helper.tt'
-           IF c.try_get_session('merger') AND !hide_merge_helper -%]
+        [%- IF c.try_get_session('merger') AND !hide_merge_helper -%]
+            [% React.embed(c, 'layout/components/MergeHelper', {merger => React.to_json_object(merger)}) %]
+        [%- END -%]
 
         <div id="footer">
             <p class="left" id="footer-menu">

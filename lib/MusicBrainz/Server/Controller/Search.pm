@@ -10,7 +10,6 @@ use List::AllUtils qw( min max );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;
 use Scalar::Util qw( looks_like_number );
 
@@ -299,30 +298,6 @@ sub do_external_search {
     }
 }
 
-sub filter : Private
-{
-    my ($self, $c, $type, $model, $default) = @_;
-
-    my $query = $c->form( query_form => 'Search::Query', name => 'filter' );
-    my $results = $c->form( results_form => 'Search::Results' );
-
-    if ($c->form_posted_and_valid($results))
-    {
-        return $c->model($model)->get_by_id($results->field('selected_id')->value);
-    }
-    elsif ($c->form_posted_and_valid($query))
-    {
-        my $q = $query->field('query')->value;
-        $c->stash(
-            search_results => $self->_load_paged($c, sub {
-                    $c->model('DirectSearch')->search($type, $q, shift, shift);
-                }),
-        );
-    }
-
-    $c->detach;
-}
-
 1;
 
 =head1 NAME
@@ -337,46 +312,9 @@ and tags.
 
 =head1 METHODS
 
-=head2 editor
-
-Serach for a MusicBrainz database.
-
-This search is performed right in this action, and is not dispatched to
-one of the MusicBrainz search servers. It searches for a moderator with
-the exact name given, and if found, redirects to their profile page. If
-no moderator could be found, the user is informed.
-
 =head2 external
 
 Search using an external search engine
-
-=head2 filter_artist
-
-Provide a form for users to search for an artist. This is a 3 stage form.
-
-=over 4
-
-=item First, the user is presented with the form and enters a query
-
-=item Then the user is presented with a list of search results
-
-=item Finally, the user selects a result and may continue.
-
-=back
-
-To retrieve the item that the user has selected, you should use the
-C<state> method of the current context. For example:
-
-    $c->forward('/search/fitler_artist');
-    if (defined $c->state)
-    {
-        # Do stuff with the artist
-    }
-    else
-    {
-        # No search result yet, probably want to wait
-        # until we have an artist
-    }
 
 =head1 COPYRIGHT AND LICENSE
 

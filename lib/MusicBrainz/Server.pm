@@ -285,13 +285,6 @@ sub redirect_back {
     $c->res->redirect($returnto);
 }
 
-# XXX temporary hack for remove_from_merge in common-macros.tt, and
-# merge-helper.tt.
-use WWW::Form::UrlEncoded qw( build_urlencoded );
-sub returnto_relative_uri {
-    build_urlencoded(returnto => shift->relative_uri);
-}
-
 sub get_relative_uri {
     my ($c, $uri_string) = @_;
 

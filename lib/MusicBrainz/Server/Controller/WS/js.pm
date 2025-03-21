@@ -552,10 +552,6 @@ sub _art_upload {
 
     my %s3_policy;
     $s3_policy{mime_type} = $mime_type;
-    $s3_policy{redirect} = $c->uri_for_action(
-        "/$entity_type/${archive}_art_uploaded", [$gid],
-    )->as_string() if $c->request->params->{redirect};
-
     my $expiration = gmtime() + 3600;
     $s3_policy{expiration} = $expiration->datetime . '.000Z';
 

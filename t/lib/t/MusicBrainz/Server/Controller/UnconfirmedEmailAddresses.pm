@@ -184,11 +184,8 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::Event::commons_image',
   'Controller::Event::details',
   'Controller::Event::edits',
-  # FIXME: Unclear why `event_art` isn't detected, while `event_art_uploaded`
-  # is: they appear in the exact same file and have the exact same CODE
-  # attributes!
+  # FIXME: Unclear why `event_art` isn't detected.
   #'Controller::Event::event_art',
-  'Controller::Event::event_art_uploaded',
   'Controller::Event::latest_annotation',
   'Controller::Event::open_edits',
   'Controller::Event::ratings',
@@ -328,11 +325,8 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::Release::annotation_history',
   'Controller::Release::annotation_revision',
   'Controller::Release::base',
-  # FIXME: Unclear why `cover_art` isn't detected, while `cover_art_uploaded`
-  # is: they appear in the exact same file and have the exact same CODE
-  # attributes!
+  # FIXME: Unclear why `cover_art` isn't detected.
   #'Controller::Release::cover_art',
-  'Controller::Release::cover_art_uploaded',
   'Controller::Release::details',
   'Controller::Release::edits',
   'Controller::Release::latest_annotation',
