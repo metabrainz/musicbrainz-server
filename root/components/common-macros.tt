@@ -20,12 +20,6 @@
     [%- doc_link('Style/Unknown_and_untitled/Special_purpose_artist#List_of_official_SPAs') -%]
 [%- END -%]
 
-[%~ MACRO isolate_text(text) BLOCK; # Converted to React at root/static/scripts/common/utility/isolateText.js
-    IF text != ''; INCLUDE _wrap_text options=['isolate', 'escape'] content=text;
-    ELSE; '';
-    END;
-END ~%]
-
 [%- USE Translation('mb_server') -%]
 [%~ MACRO l(text, args) BLOCK; # Converted to React at root/static/scripts/common/i18n.js
     Translation.l(text, args);
