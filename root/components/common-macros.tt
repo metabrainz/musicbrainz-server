@@ -303,20 +303,6 @@ END -%]
     INCLUDE _link_mbid_entity entity=area type='area' action=action content=text default_content=area.l_name;
 END -%]
 
-[%~ MACRO link_area_containment(area) BLOCK;
-    link_areas = [];
-    FOR area=area.containment;
-      link_areas.push(link_area(area));
-    END;
-    comma_only_list(link_areas);
-END -%]
-
-[%~ MACRO link_area_with_containment(area, action, text, credited_as) BLOCK;
-    link_entity(area, action, text, credited_as);
-    containment_link = link_area_containment(area);
-    IF containment_link; ', ' _ containment_link; END;
-END -%]
-
 [%~ MACRO link_place(place, action, text) BLOCK;
     INCLUDE _link_mbid_entity entity=place type='place' action=action content=text;
 END -%]
