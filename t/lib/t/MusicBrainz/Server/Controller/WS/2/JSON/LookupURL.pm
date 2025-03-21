@@ -187,6 +187,7 @@ test 'basic url lookup' => sub {
                 relations => [
                     {
                         artist => {
+                            country => JSON::null,
                             disambiguation => '',
                             id => '05d83760-08b5-42bb-a8d7-00d80b3bf47c',
                             name => 'Paul Allgood',
@@ -241,6 +242,7 @@ test 'basic url lookup' => sub {
                         name => 'Paul Allgood',
                         'sort-name' => 'Allgood, Paul',
                         disambiguation => '',
+                        country => JSON::null,
                         'type' => 'Person',
                         'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
                     },

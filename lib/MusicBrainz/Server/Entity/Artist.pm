@@ -69,6 +69,13 @@ has 'end_area' => (
     isa => 'Area',
 );
 
+# Unlike `area->country_code`, this stores the containing country code.
+has 'country_code' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
+    predicate => 'has_loaded_country_code',
+);
+
 sub is_special_purpose {
     my $self = shift;
     return ($self->id && ($self->id == $DARTIST_ID ||
