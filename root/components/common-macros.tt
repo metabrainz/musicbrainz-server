@@ -170,19 +170,6 @@ END -%]
       '</span>';
     END; -%]
 
-[%~ MACRO descriptive_link(entity, credited_as) # Converted to React at root/static/scripts/common/components/DescriptiveLink.js
-    IF entity.artist_credit.defined;
-        l('{entity} by {artist}', { entity => link_entity(entity, 'show', '', credited_as),
-                                    artist => artist_credit(entity.artist_credit) });
-    ELSIF get_entity_type(entity) == 'place' && entity.area.defined;
-        l('{place} in {area}', { place => link_entity(entity, 'show', '', credited_as),
-                                 area => link_area_with_containment(entity.area) });
-    ELSIF get_entity_type(entity) == 'area' && entity.gid;
-        link_area_with_containment(entity, 'show', '', credited_as);
-    ELSE;
-        link_entity(entity, 'show', '', credited_as);
-    END; -%]
-
 [%~ MACRO get_entity_type(entity) BLOCK;
     IF entity.isa('MusicBrainz::Server::Entity::Artist'); "artist";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); "area";
