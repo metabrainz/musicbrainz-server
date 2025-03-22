@@ -23,15 +23,16 @@
 # Светлана Ширикалова <email address hidden>, 2018
 # Хамит Фатхлисламов <email address hidden>, 2019
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
-# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
+# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025.
 # 4irefall <firekonstantin@mail.ru>, 2024.
 # liilliil <liilliil@liilliil.net>, 2024.
 # EmO686 <eiswuste@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-02-12 23:44+0000\n"
-"Last-Translator: EmO686 <eiswuste@gmail.com>\n"
+"PO-Revision-Date: 2025-03-21 00:44+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ru/>\n"
 "Language: ru\n"
@@ -39,9 +40,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.9.2\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.10.3\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -157,12 +158,9 @@ msgid "8cm CD+G"
 msgstr "CD+G (8 см)"
 
 #: DB:medium_format/name:210
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "8cm CD"
 msgctxt "medium_format"
 msgid "8cm CD-R"
-msgstr "CD (8 см)"
+msgstr "CD-R (8 см)"
 
 #. name:MiniDVD
 #: DB:medium_format/description:166
@@ -5906,7 +5904,7 @@ msgstr ""
 #: DB:editor_collection_type/name:6
 msgctxt "collection_type"
 msgid "Maybe attending"
-msgstr ""
+msgstr "Возможно пойду"
 
 #: DB:work_attribute_type_allowed_value/value:452
 msgctxt "work_attribute_type_allowed_value"
@@ -6859,12 +6857,12 @@ msgstr "Увертюра"
 #: DB:editor_collection_type/name:2
 msgctxt "collection_type"
 msgid "Owned music"
-msgstr ""
+msgstr "Музыка в собственности"
 
 #: DB:editor_collection_type/name:17
 msgctxt "collection_type"
 msgid "Owned recordings"
-msgstr ""
+msgstr "Записи в собственности"
 
 #: DB:work_attribute_type_allowed_value/value:762
 msgctxt "work_attribute_type_allowed_value"
@@ -7005,7 +7003,7 @@ msgstr "Пианино"
 #: DB:editor_collection_type/name:11
 msgctxt "collection_type"
 msgid "Place collection"
-msgstr ""
+msgstr "Коллекция мест"
 
 #: DB:place_alias_type/name:1
 msgctxt "alias_type"
@@ -7321,7 +7319,7 @@ msgstr "Премия для записей"
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
 msgid "Recording collection"
-msgstr ""
+msgstr "Коллекция записей"
 
 #: DB:recording_alias_type/name:1
 msgctxt "alias_type"
@@ -7356,7 +7354,7 @@ msgstr ""
 #: DB:editor_collection_type/name:1
 msgctxt "collection_type"
 msgid "Release collection"
-msgstr ""
+msgstr "Коллекция релизов"
 
 #: DB:series_type/name:47
 msgctxt "series_type"
@@ -7366,7 +7364,7 @@ msgstr "Премия для групп релизов"
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
 msgid "Release group collection"
-msgstr ""
+msgstr "Коллекция групп релизов"
 
 #: DB:release_group_alias_type/name:1
 msgctxt "alias_type"
