@@ -35,18 +35,18 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-11 15:20+0100\n"
-"PO-Revision-Date: 2025-02-18 21:02+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-03-22 12:44+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.10\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -445,10 +445,8 @@ msgid "Area"
 msgstr "Area"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Primary type"
 msgid "Area type"
-msgstr "Tipo principale"
+msgstr "Area principale"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/list.tt:8
 #: ../root/cdtoc/lookup.tt:42 ../root/cdtoc/lookup.tt:77
@@ -526,10 +524,8 @@ msgid "Artist details"
 msgstr "Dettagli dell'artista"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Artist area"
 msgid "Artist type"
-msgstr "Area dell'artista"
+msgstr "Tipo di artista"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
@@ -1153,10 +1149,8 @@ msgid "Event"
 msgstr "Evento"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Entity type"
 msgid "Event type"
-msgstr "Tipo di entità"
+msgstr "Tipo di evento"
 
 #: ../root/release/edit/tracklist.tt:247
 msgid "Existing medium"
@@ -1340,16 +1334,10 @@ msgstr ""
 "corretta."
 
 #: ../root/release/edit/tracklist.tt:413
-#, fuzzy
-#| msgid "I confirm this is an intentional use of Various Artists on tracks."
 msgid "I confirm this is an intentional use of Various Artists for tracks."
-msgstr "Confermo che l'utilizzo di Artisti Vari sulle tracce è intenzionale."
+msgstr "Confermo che l'utilizzo di Artisti Vari nelle tracce è intenzionale."
 
 #: ../root/release/edit/tracklist.tt:431
-#, fuzzy
-#| msgid ""
-#| "I confirm this is an intentional use of featured artists on track titles, "
-#| "or that these aren’t actually featured artists."
 msgid ""
 "I confirm this is an intentional use of featured artists in track titles, or "
 "that these aren’t actually featured artists."
@@ -1516,19 +1504,14 @@ msgstr ""
 "sopra. In caso contrario, correggi i dati."
 
 #: ../root/release/edit/tracklist.tt:434
-#, fuzzy
-#| msgid ""
-#| "If you’re sure the use of featured artists on track titles is correct, "
-#| "confirm it above. Otherwise, please fix the data (the “Guess feat. "
-#| "artists” button might help!)."
 msgid ""
 "If you’re sure the use of featured artists in track titles is correct, "
 "confirm it above. Otherwise, please fix the data (the “Guess feat. artists” "
 "button might help!)."
 msgstr ""
 "Se sei sicuro che l'utilizzo di artisti con \"feat.\" nei titoli delle "
-"tracce è corretto, confermalo qui sopra. In caso contrario, correggi i dati "
-"(il pulsante \"Ritocca artisti feat.\" può aiutarti!)."
+"tracce è corretto, confermalo qui sopra. In caso contrario, correggi i dati ("
+"il pulsante \"Ritocca artisti feat.\" può aiutarti!)."
 
 #: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:43
 msgid "Image not available, please try again later."
@@ -1556,10 +1539,8 @@ msgid "Instrument"
 msgstr "Strumento"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Instrument list"
 msgid "Instrument type"
-msgstr "Elenco strumenti"
+msgstr "Tipo di strumento"
 
 #: ../root/components/common-macros.tt:490
 msgid "Javascript is required for this page to work properly."
@@ -1654,10 +1635,8 @@ msgid "Label details"
 msgstr "Dettagli dell'etichetta"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Label area"
 msgid "Label type"
-msgstr "Area dell'etichetta"
+msgstr "Tipo di etichetta"
 
 #: ../root/release/edit/information.tt:157
 #: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:57
@@ -2042,10 +2021,8 @@ msgid "Place details"
 msgstr "Dettagli del luogo"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Related type"
 msgid "Place type"
-msgstr "Tipo collegato"
+msgstr "Tipo di luogo"
 
 #: ../root/edit/search_macros.tt:471
 msgid "Please choose a condition"
@@ -2257,20 +2234,16 @@ msgid "Release group details"
 msgstr "Dettagli del gruppo di pubblicazioni"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Release group type"
 msgid "Release group primary type"
-msgstr "Tipo del gruppo di pubblicazioni"
+msgstr "Tipo principale del gruppo di pubblicazioni"
 
 #: ../root/release/edit/information.tt:67
 msgid "Release group search error"
 msgstr "Errore nella ricerca dei gruppi di pubblicazioni"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Release group type"
 msgid "Release group secondary type"
-msgstr "Tipo del gruppo di pubblicazioni"
+msgstr "Tipo secondario del gruppo di pubblicazioni"
 
 #: ../root/release_group/layout.tt:1
 #: ../root/release_group/ReleaseGroupLayout.js:26
@@ -2532,10 +2505,8 @@ msgid "Series details"
 msgstr "Dettagli della serie"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Series"
 msgid "Series type"
-msgstr "Serie"
+msgstr "Tipo di serie"
 
 #: ../root/release_group/set_cover_art.tt:1
 #: ../root/release_group/set_cover_art.tt:4
@@ -2960,10 +2931,6 @@ msgstr ""
 "pubblicazione selezionata."
 
 #: ../root/release/edit/tracklist.tt:426
-#, fuzzy
-#| msgid ""
-#| "This medium seems to have featured artists on the track titles. These "
-#| "should usually be {featured_style|entered as part of the track artist}."
 msgid ""
 "This medium seems to have featured artists in the track titles. These should "
 "usually be {featured_style|entered as part of the track artist}."
@@ -3525,11 +3492,6 @@ msgstr ""
 "sotto."
 
 #: ../root/release/edit/tracklist.tt:409
-#, fuzzy
-#| msgid ""
-#| "You’ve used the {valink|Various Artists} special purpose artist on some "
-#| "tracks below. {valink|Various Artists} should very rarely be used on "
-#| "tracks; please make sure the artists have been entered correctly."
 msgid ""
 "You’ve used the {valink|Various Artists} special purpose artist for some "
 "tracks below. {valink|Various Artists} should very rarely be used for "
@@ -15461,7 +15423,7 @@ msgstr "Mostra meno ISWC"
 
 #: ../root/static/scripts/common/components/ListMergeButtonsRow.js:32
 msgid "{action_label} (in a new tab)"
-msgstr ""
+msgstr "{action_label} (in una nuova scheda)"
 
 #: ../root/static/scripts/common/components/MediumLink.js:17
 msgid "{medium} on {release}"
