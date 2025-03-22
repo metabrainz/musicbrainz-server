@@ -9,12 +9,13 @@
 # weeeeei <weeeeei@duck.com>, 2024.
 # thephy <differentphy@outlook.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
+# delamons <lamons.n@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2025-03-22 07:45+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"Last-Translator: delamons <lamons.n@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
@@ -884,8 +885,6 @@ msgid "Area types"
 msgstr "区域类型"
 
 #: ../root/statistics/stats.js:17
-#, fuzzy
-#| msgid "Artist Countries"
 msgid "Artist countries"
 msgstr "艺术家国家"
 
