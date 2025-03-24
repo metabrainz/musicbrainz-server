@@ -1,18 +1,19 @@
 # guardiansock <guardian.sock5925@fastmail.com>, 2024, 2025.
+# ferocity12 <darksunlight210@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-01-14 18:44+0000\n"
-"Last-Translator: guardiansock <guardian.sock5925@fastmail.com>\n"
-"Language-Team: Chinese (Traditional Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/statistics/zh_Hant/>\n"
+"PO-Revision-Date: 2025-03-09 04:44+0000\n"
+"Last-Translator: ferocity12 <darksunlight210@gmail.com>\n"
+"Language-Team: Chinese (Traditional Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10.2\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -148,7 +149,7 @@ msgstr "此處沒有可顯示的數據。"
 msgid ""
 "For the vote statistics, only yes or no votes are counted, abstain votes are "
 "not counted."
-msgstr "對於投票統計，只計算贊成票或反對票，不計算棄權票."
+msgstr "對於投票統計，只計算贊成票或反對票，不計算棄權票。"
 
 #: ../root/statistics/Editors.js:104
 msgid "Open and applied edits in past week"
@@ -159,16 +160,12 @@ msgid "Most active editors in the past week"
 msgstr "過去一週內最活躍的編輯者"
 
 #: ../root/statistics/Editors.js:110
-#, fuzzy
-#| msgid "Open and applied edits in past week"
 msgid "Applied edits in past year"
-msgstr "過去一週內打開和應用的編輯"
+msgstr "過去一年內已應用的編輯"
 
 #: ../root/statistics/Editors.js:113
-#, fuzzy
-#| msgid "Most active editors in the past week"
 msgid "Most active editors in the past year"
-msgstr "過去一週內最活躍的編輯者"
+msgstr "過去一年內最活躍的編輯者"
 
 #: ../root/statistics/Editors.js:116
 msgid "Total applied edits"
@@ -201,10 +198,8 @@ msgid "Votes in past year"
 msgstr "上週的投票者"
 
 #: ../root/statistics/Editors.js:136
-#, fuzzy
-#| msgid "Most active voters in the past week"
 msgid "Most active voters in the past year"
-msgstr "上週最活躍的投票者"
+msgstr "過去一年最活躍的投票者"
 
 #: ../root/statistics/Editors.js:139
 msgid "Total votes"

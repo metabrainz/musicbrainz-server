@@ -2994,9 +2994,10 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'https://www.imdb.com/name/nm10024808/',
+                     input_url: 'https://www.imdb.com/de/name/nm10024808/',
              input_entity_type: 'artist',
     expected_relationship_type: 'imdb',
+            expected_clean_url: 'https://www.imdb.com/name/nm10024808/',
        only_valid_entity_types: ['artist'],
   },
   {
@@ -4912,6 +4913,13 @@ limited_link_type_combinations: [
         only_valid_entity_types: ['recording', 'release', 'release_group'],
   },
   {
+                     input_url: 'https://rateyourmusic.com/release/video/ensemble-for-new-music-tallinn-arash-yazdani/in-vain/',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://rateyourmusic.com/release/video/ensemble-for-new-music-tallinn-arash-yazdani/in-vain/',
+        only_valid_entity_types: ['recording', 'release', 'release_group'],
+  },
+  {
                      input_url: 'https://rateyourmusic.com/release/single/tori_amos/a_sorta_fairytale/',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
@@ -6339,6 +6347,13 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://vocadb.net/S/143473',
        only_valid_entity_types: ['recording', 'work'],
+  },
+  {
+                     input_url: 'https://touhoudb.com/T/1041/pumpcore',
+             input_entity_type: 'event',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://touhoudb.com/T/1041',
+       only_valid_entity_types: ['genre'],
   },
   // Utamap
   {

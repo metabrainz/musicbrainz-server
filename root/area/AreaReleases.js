@@ -13,7 +13,9 @@ import ReleaseList from '../components/list/ReleaseList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import RelationshipsTable from '../components/RelationshipsTable.js';
 import {SanitizedCatalystContext} from '../context.mjs';
-import {returnToCurrentPage} from '../utility/returnUri.js';
+import manifest from '../static/manifest.mjs';
+import ListMergeButtonsRow
+  from '../static/scripts/common/components/ListMergeButtonsRow.js';
 
 import AreaLayout from './AreaLayout.js';
 
@@ -32,20 +34,22 @@ component AreaReleases(
 
           {releases?.length ? (
             <form
-              action={'/release/merge_queue?' + returnToCurrentPage($c)}
+              action="/release/merge_queue"
               method="post"
             >
               <PaginatedResults pager={pager}>
                 <ReleaseList checkboxes="add-to-merge" releases={releases} />
               </PaginatedResults>
               {$c.user ? (
-                <div className="row">
-                  <span className="buttons">
-                    <button type="submit">
-                      {l('Add selected releases for merging')}
-                    </button>
-                  </span>
-                </div>
+                <>
+                  <ListMergeButtonsRow
+                    label={l('Add selected releases for merging')}
+                  />
+                  {manifest(
+                    'common/components/ListMergeButtonsRow',
+                    {async: 'async'},
+                  )}
+                </>
               ) : null}
             </form>
           ) : (

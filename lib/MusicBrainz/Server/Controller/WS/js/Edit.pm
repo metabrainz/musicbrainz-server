@@ -495,7 +495,7 @@ sub process_relationship {
 
             if ($previewing && !$entity_data->{gid}) {
                 my $entity_class = "MusicBrainz::Server::Entity::$model";
-                my ($entity) = $model eq 'URL' ? $c->model('URL')->find_by_url($name) : ();
+                my $entity = $model eq 'URL' ? $c->model('URL')->get_by_url($name) : undef;
 
                 $data->{$prop} = $entity // $entity_class->new(name => $name);
             } elsif ($model eq 'URL') {

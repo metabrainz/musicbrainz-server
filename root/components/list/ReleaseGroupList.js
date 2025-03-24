@@ -37,6 +37,8 @@ export component ReleaseGroupListTable(
 ) {
   const $c = React.useContext(CatalystContext);
 
+  const className = checkboxes === 'add-to-merge' ? 'mergeable-table' : '';
+
   function getFirstReleaseYear(entity: ReleaseGroupT) {
     if (empty(entity.firstReleaseDate)) {
       return '—';
@@ -120,7 +122,7 @@ export component ReleaseGroupListTable(
   );
 
   return useTable<ReleaseGroupT>({
-    className: 'release-group-list',
+    className: 'release-group-list ' + className,
     columns,
     data: releaseGroups,
   });

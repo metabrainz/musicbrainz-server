@@ -12,12 +12,13 @@ import * as React from 'react';
 import RecordingList from '../components/list/RecordingList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import Filter from '../static/scripts/common/components/Filter.js';
 import {type RecordingFilterT}
   from '../static/scripts/common/components/FilterForm.js';
+import ListMergeButtonsRow
+  from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import bracketed from '../static/scripts/common/utility/bracketed.js';
-import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
-import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ArtistLayout from './ArtistLayout.js';
 
@@ -127,7 +128,7 @@ component ArtistRecordings(
 
       {recordings.length ? (
         <form
-          action={'/recording/merge_queue?' + returnToCurrentPage($c)}
+          action="/recording/merge_queue"
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -140,9 +141,15 @@ component ArtistRecordings(
             />
           </PaginatedResults>
           {$c.user ? (
-            <div className="row">
-              <FormSubmit label={l('Add selected recordings for merging')} />
-            </div>
+            <>
+              <ListMergeButtonsRow
+                label={l('Add selected recordings for merging')}
+              />
+              {manifest(
+                'common/components/ListMergeButtonsRow',
+                {async: 'async'},
+              )}
+            </>
           ) : null}
         </form>
       ) : (

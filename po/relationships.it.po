@@ -21,18 +21,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-02-11 00:44+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-03-22 12:44+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.9.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -449,7 +449,7 @@ msgstr ""
 #. name:schedule
 #: DB:link_type/description:1083
 msgid "Indicates a page with an official schedule for an event series."
-msgstr "Indica una pagina con il programma ufficiale di una serie di eventi."
+msgstr "Indica una pagina con l'orario ufficiale di una serie di eventi."
 
 #. name:parent
 #: DB:link_type/description:109
@@ -3161,6 +3161,12 @@ msgid "This indicates the release group that inspired this genre’s name."
 msgstr ""
 "Indica il gruppo di pubblicazioni che ha ispirato il nome di questo genere."
 
+#. name:named after release group
+#: DB:link_type/description:1282
+msgid "This indicates the release group that inspired this series’ name."
+msgstr ""
+"Indica il gruppo di pubblicazioni che ha ispirato il nome di questa serie."
+
 #. name:rights society
 #: DB:link_type/description:349
 msgid ""
@@ -3234,6 +3240,12 @@ msgstr "Indica l'opera che ha ispirato il nome di quest'artista."
 #: DB:link_type/description:1265
 msgid "This indicates the work that inspired this label’s name."
 msgstr "Indica l'opera che ha ispirato il nome di quest'etichetta."
+
+#. name:named after work
+#: DB:link_type/description:1283
+msgid "This indicates the work that inspired this release group’s name."
+msgstr ""
+"Indica l'opera che ha ispirato il nome di questo gruppo di pubblicazioni."
 
 #. name:named after work
 #: DB:link_type/description:1278
@@ -7540,7 +7552,7 @@ msgstr "ha una pagina di recensione su"
 #. name:schedule
 #: DB:link_type/long_link_phrase:1083
 msgid "has a schedule at"
-msgstr "ha un programma su"
+msgstr "ha un orario su"
 
 #. name:setlistfm
 #: DB:link_type/long_link_phrase:811 DB:link_type/long_link_phrase:816
@@ -7931,8 +7943,13 @@ msgstr "ha ispirato il nome dell'etichetta"
 msgid "inspired the name of place"
 msgstr "ha ispirato il nome del luogo"
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1000
+#. name:named after work
+#: DB:link_type/reverse_link_phrase:1283
+msgid "inspired the name of release group"
+msgstr "ha ispirato il nome del gruppo di pubblicazioni"
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
 msgid "inspired the name of series"
 msgstr "ha ispirato il nome della serie"
 
@@ -8143,7 +8160,7 @@ msgstr "prende il nome dal gruppo di pubblicazioni"
 
 #. name:named after work
 #: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr "prende il nome dall'opera"
 
@@ -8870,14 +8887,16 @@ msgid "named after place"
 msgstr "prende il nome dal luogo"
 
 #. name:named after release group
-#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
-#: DB:link_type/link_phrase:974
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/name:1282
+#: DB:link_type/link_phrase:1261 DB:link_type/link_phrase:974
+#: DB:link_type/reverse_link_phrase:1282
 msgid "named after release group"
 msgstr "prende il nome dal gruppo di pubblicazioni"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1265
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:1278
+#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
 #: DB:link_type/link_phrase:1265
 msgid "named after work"
 msgstr "prende il nome dall'opera"
@@ -9944,12 +9963,12 @@ msgstr "campiona il materiale"
 #. name:schedule
 #: DB:link_type/name:1083 DB:link_type/link_phrase:1083
 msgid "schedule"
-msgstr "programma"
+msgstr "orario"
 
 #. name:schedule
 #: DB:link_type/reverse_link_phrase:1083
 msgid "schedule for"
-msgstr "programma di"
+msgstr "orario di"
 
 #. name:school director at
 #: DB:link_type/name:1166 DB:link_type/link_phrase:1166
@@ -11817,6 +11836,11 @@ msgstr "{entity1} prende il nome dall'area {entity0}"
 #: DB:link_type/long_link_phrase:1000
 msgid "{entity1} is named after artist {entity0}"
 msgstr "{entity1} prende il nome dall'artista {entity0}"
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1282
+msgid "{entity1} is named after release group {entity0}"
+msgstr "{entity1} prende il nome dal gruppo di pubblicazioni {entity0}"
 
 #. name:anthem
 #: DB:link_type/long_link_phrase:357

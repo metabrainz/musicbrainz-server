@@ -22,9 +22,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-02-02 14:44+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-03-21 00:44+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -32,9 +32,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.9.2\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.10.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -258,7 +258,7 @@ msgstr ""
 #. name:mix-DJ
 #: DB:link_type/reverse_link_phrase:155
 msgid "DJ-mixer"
-msgstr ""
+msgstr "DJ-миксер"
 
 #. name:mix-DJ
 #: DB:link_type/reverse_link_phrase:43
@@ -268,7 +268,7 @@ msgstr ""
 #. name:DJ-mix
 #: DB:link_type/reverse_link_phrase:227
 msgid "DJ-mixes"
-msgstr ""
+msgstr "DJ-миксы"
 
 #. name:mastering engineer position
 #: DB:link_type/description:704
@@ -2873,6 +2873,13 @@ msgstr "Указывает на группу релизов, которая вд
 msgid "This indicates the release group that inspired this genre’s name."
 msgstr "Указывает на группу релизов, которая вдохновила имя этого исполнителя."
 
+#. name:named after release group
+#: DB:link_type/description:1282
+#, fuzzy
+#| msgid "This indicates the release group that inspired this artist’s name."
+msgid "This indicates the release group that inspired this series’ name."
+msgstr "Указывает на группу релизов, которая вдохновила имя этого исполнителя."
+
 #. name:rights society
 #: DB:link_type/description:349
 msgid ""
@@ -2883,17 +2890,17 @@ msgstr ""
 #. name:video shot at
 #: DB:link_type/description:963
 msgid "This indicates the video was shot at this place."
-msgstr ""
+msgstr "Указывает на место, где было снято видео."
 
 #. name:video shot at
 #: DB:link_type/description:966
 msgid "This indicates the video was shot at/during this event."
-msgstr ""
+msgstr "Указывает на событие, где или во время которого было снято видео."
 
 #. name:video shot in
 #: DB:link_type/description:964
 msgid "This indicates the video was shot in this area."
-msgstr ""
+msgstr "Указывает на область, где было снято видео."
 
 #. name:dedication
 #: DB:link_type/description:914
@@ -2946,6 +2953,13 @@ msgstr "Указывает на работу, которая вдохновил�
 #, fuzzy
 #| msgid "This indicates the artist that inspired this place’s name."
 msgid "This indicates the work that inspired this label’s name."
+msgstr "Указывает на исполнителя, который вдохновил имя этого места."
+
+#. name:named after work
+#: DB:link_type/description:1283
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the work that inspired this release group’s name."
 msgstr "Указывает на исполнителя, который вдохновил имя этого места."
 
 #. name:named after work
@@ -5135,6 +5149,11 @@ msgid ""
 "individually (collections of songs, several sonatas or concertos published "
 "as a set, books of piano pieces, etc.)."
 msgstr ""
+"Используется для указания на то, что родительское произведение не "
+"предназначено для исполнения целиком, а представляет собой лишь группу пьес "
+"или произведений, которые могут исполняться по отдельности (сборники песен, "
+"несколько сонат или концертов, изданных в виде комплекта, книги фортепианных "
+"пьес и т. д.)."
 
 #. name:act
 #: DB:link_attribute_type/description:1030
@@ -7202,8 +7221,15 @@ msgstr "вдохновило имя"
 msgid "inspired the name of place"
 msgstr "вдохновило имя"
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1000
+#. name:named after work
+#: DB:link_type/reverse_link_phrase:1283
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of release group"
+msgstr "вдохновило имя"
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
 #, fuzzy
 #| msgid "inspired the name of"
 msgid "inspired the name of series"
@@ -7430,7 +7456,7 @@ msgstr "назван в честь"
 
 #. name:named after work
 #: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
 #, fuzzy
 #| msgid "is named after"
 msgid "is named after work"
@@ -8155,14 +8181,16 @@ msgid "named after place"
 msgstr "названо в честь места"
 
 #. name:named after release group
-#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
-#: DB:link_type/link_phrase:974
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/name:1282
+#: DB:link_type/link_phrase:1261 DB:link_type/link_phrase:974
+#: DB:link_type/reverse_link_phrase:1282
 msgid "named after release group"
 msgstr "названо в честь группы релизов"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1265
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:1278
+#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
 #: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "named after"
@@ -9770,7 +9798,7 @@ msgstr ""
 
 #: DB:link_type/name:964
 msgid "video shot in"
-msgstr ""
+msgstr "место снятия видео"
 
 #. name:video appearance
 #: DB:link_type/reverse_link_phrase:858
@@ -10188,7 +10216,7 @@ msgstr ""
 #. name:video shot in
 #: DB:link_type/reverse_link_phrase:964
 msgid "{additional:additionally} shot in"
-msgstr ""
+msgstr "{additional:дополнительно} снято в"
 
 #. name:transferred at
 #: DB:link_type/reverse_link_phrase:1182
@@ -11038,6 +11066,13 @@ msgstr "{entity1} посвящено {entity0}"
 msgid "{entity1} is named after artist {entity0}"
 msgstr "{entity1} посвящено {entity0}"
 
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1282
+#, fuzzy
+#| msgid "{entity1} is dedicated to {entity0}"
+msgid "{entity1} is named after release group {entity0}"
+msgstr "{entity1} посвящено {entity0}"
+
 #. name:anthem
 #: DB:link_type/long_link_phrase:357
 msgid "{entity1} is/was an anthem of {entity0}"
@@ -11249,7 +11284,7 @@ msgstr ""
 #. name:video shot in
 #: DB:link_type/long_link_phrase:964
 msgid "{entity1} was {additional:additionally} shot in {entity0}"
-msgstr ""
+msgstr "{entity1} было {additional:дополнительно} снято в {entity0}"
 
 #. name:transferred at
 #: DB:link_type/long_link_phrase:1182

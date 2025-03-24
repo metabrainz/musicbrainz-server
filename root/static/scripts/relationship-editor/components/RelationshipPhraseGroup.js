@@ -124,9 +124,7 @@ component _RelationshipPhraseGroup(
       );
     }
 
-    return {
-      // $FlowIgnore[invalid-computed-prop]
-      [backward ? 'entity1' : 'entity0']: source,
+    const relationshipData: Partial<{...RelationshipStateT}> = {
       attributes: newAttributesData,
       linkOrder: maxLinkOrder > 0 ? (maxLinkOrder + 1) : 0,
       /*
@@ -137,6 +135,12 @@ component _RelationshipPhraseGroup(
        */
       linkTypeID: linkTypeId || null,
     };
+    if (backward) {
+      relationshipData.entity1 = source;
+    } else {
+      relationshipData.entity0 = source;
+    }
+    return relationshipData;
   }, [
     canBeOrdered,
     relationships,
@@ -302,8 +306,8 @@ component _RelationshipPhraseGroup(
   ) : null;
 }
 
-const RelationshipPhraseGroup: React.AbstractComponent<
-  React.PropsOf<_RelationshipPhraseGroup>
-> = React.memo(_RelationshipPhraseGroup);
+const RelationshipPhraseGroup:
+  component(...React.PropsOf<_RelationshipPhraseGroup>) =
+  React.memo(_RelationshipPhraseGroup);
 
 export default RelationshipPhraseGroup;

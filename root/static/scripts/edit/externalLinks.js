@@ -9,7 +9,6 @@
 
 import punycode from 'punycode';
 
-import {captureException} from '@sentry/browser';
 import $ from 'jquery';
 import ko from 'knockout';
 import * as React from 'react';
@@ -39,8 +38,12 @@ import {
 } from '../common/utility/catalyst.js';
 import {compareDatePeriods} from '../common/utility/compareDates.js';
 import formatDatePeriod from '../common/utility/formatDatePeriod.js';
+import isDatabaseRowId from '../common/utility/isDatabaseRowId.js';
 import {isDateNonEmpty} from '../common/utility/isDateEmpty.js';
-import {hasSessionStorage} from '../common/utility/storage.js';
+import {
+  hasSessionStorage,
+  sessionStorageWrapper,
+} from '../common/utility/storage.js';
 import {uniqueId} from '../common/utility/strings.js';
 import {
   appendHiddenRelationshipInputs,
@@ -199,6 +202,12 @@ export class _ExternalLinksEditor
 
   +typeOptions: $ReadOnlyArray<LinkTypeOptionT>;
 
+  +submittedLinksWrapper: {
+    get(): ?Array<LinkStateT>,
+    remove(): void,
+    set(links: $ReadOnlyArray<LinkStateT>): void,
+  };
+
   constructor(props: LinksEditorProps) {
     super(props);
 
@@ -217,6 +226,34 @@ export class _ExternalLinksEditor
       );
     });
 
+    const sourceId = isDatabaseRowId(sourceData.id) ? sourceData.id : 'new';
+    const submittedLinksKey = `submittedLinks_${sourceType}_${sourceId}`;
+    this.submittedLinksWrapper = {
+      get() {
+        if (hasSessionStorage) {
+          const submittedLinksJson =
+            sessionStorageWrapper.get(submittedLinksKey);
+          if (submittedLinksJson) {
+            return ((
+              decompactEntityJson(JSON.parse(submittedLinksJson))
+            ): any).filter(l => !isEmpty(l)).map(newLinkState);
+          }
+        }
+        return undefined;
+      },
+      remove() {
+        sessionStorageWrapper.remove(submittedLinksKey);
+      },
+      set(links) {
+        if (hasSessionStorage) {
+          sessionStorageWrapper.set(
+            submittedLinksKey,
+            JSON.stringify(compactEntityJson(links)),
+          );
+        }
+      },
+    };
+
     if (typeof window !== 'undefined') {
       const $c = getCatalystContext();
       if (
@@ -227,15 +264,10 @@ export class _ExternalLinksEditor
          */
         sourceType !== 'release'
       ) {
-        if (hasSessionStorage) {
-          const submittedLinks =
-            window.sessionStorage.getItem('submittedLinks');
-          if (submittedLinks) {
-            initialLinks = ((
-              decompactEntityJson(JSON.parse(submittedLinks))
-            ): any).filter(l => !isEmpty(l)).map(newLinkState);
-            window.sessionStorage.removeItem('submittedLinks');
-          }
+        const submittedLinks = this.submittedLinksWrapper.get();
+        if (submittedLinks) {
+          initialLinks = submittedLinks;
+          this.submittedLinksWrapper.remove();
         }
       } else {
         /*
@@ -1643,7 +1675,7 @@ export class ExternalLink extends React.Component<LinkProps> {
 }
 
 export const ExternalLinksEditor:
-  React.AbstractComponent<LinksEditorProps, _ExternalLinksEditor> =
+  component(ref: React.RefSetter<_ExternalLinksEditor>, ...LinksEditorProps) =
   withLoadedTypeInfo<LinksEditorProps, _ExternalLinksEditor>(
     _ExternalLinksEditor,
     new Set(['link_type', 'link_attribute_type']),
@@ -1948,15 +1980,8 @@ export function prepareExternalLinksHtmlFormSubmission(
       externalLinksEditor.getFormData(formName + '.url', 0, pushInput);
 
       const links = externalLinksEditor.state.links;
-      if (hasSessionStorage && links.length) {
-        try {
-          window.sessionStorage.setItem(
-            'submittedLinks',
-            JSON.stringify(compactEntityJson(links)),
-          );
-        } catch (error) {
-          captureException(error);
-        }
+      if (links.length) {
+        externalLinksEditor.submittedLinksWrapper.set(links);
       }
     },
   );

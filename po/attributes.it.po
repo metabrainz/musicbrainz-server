@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-02-19 01:44+0000\n"
+"PO-Revision-Date: 2025-03-22 12:44+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.10\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -407,6 +407,20 @@ msgid ""
 msgstr ""
 "Un balletto è la musica composta per essere utilizzata, insieme a una "
 "coreografia, per la produzione di un balletto di danza."
+
+#. name:Program
+#: DB:event_art_archive.art_type/description:11
+msgctxt "event_art_type"
+msgid ""
+"A booklet given or sold to event attendees that contains information about "
+"the event, such as scheduling, performer data, and details about the music "
+"being played. Programs/programmes are most often made available for music "
+"festivals and for stage and classical performances."
+msgstr ""
+"Un libretto (booklet) dato in omaggio o venduto ai partecipanti che contiene "
+"informazioni sull'evento, come orari, informazioni sugli artisti e dettagli "
+"sulla musica che verrà eseguita. I programmi sono disponibili più spesso per "
+"i festival musicali e per le esibizioni in scena e di musica classica."
 
 #. name:Box
 #: DB:release_packaging/description:19
@@ -1513,12 +1527,13 @@ msgstr ""
 msgctxt "event_art_type"
 msgid ""
 "An image usually showing the order and time for the performances in an "
-"event. Can be a standalone image, but also a poster or banner (in which case "
-"all applicable types should be set)."
+"event. Can be a standalone image, but also a poster, a banner or a page from "
+"a program (in which case all applicable types should be set)."
 msgstr ""
 "Un'immagine che mostra l'ordine e l'orario delle esibizioni durante un "
-"evento. Può essere un'immagine a sé stante, oppure un manifesto o un banner "
-"(e in quel caso andranno selezionati tutti i tipi rilevanti)."
+"evento. Può essere un'immagine a sé stante, oppure un manifesto, un banner o "
+"una pagina presa da un programma (e in quel caso andranno selezionati tutti "
+"i tipi rilevanti)."
 
 #. name:Concert
 #: DB:event_type/description:1
@@ -2682,7 +2697,7 @@ msgstr "Concerto"
 #: DB:event_type/name:4
 msgctxt "event_type"
 msgid "Convention/Expo"
-msgstr "Convention/Expo"
+msgstr "Convegno/Esposizione"
 
 #: DB:medium_format/name:61
 msgctxt "medium_format"
@@ -4709,6 +4724,12 @@ msgstr "ID per la società di diritti portoghese SPA"
 msgctxt "work_attribute_type"
 msgid "ID for the Salvadoran rights society SACIM"
 msgstr "ID per la società di diritti salvadoregna SACIM"
+
+#. name:SOKOJ ID
+#: DB:work_attribute_type/description:213
+msgctxt "work_attribute_type"
+msgid "ID for the Serbian rights society SOKOJ"
+msgstr "ID per la società di diritti serba SOKOJ"
 
 #. name:COMPASS ID
 #: DB:work_attribute_type/description:45
@@ -7016,6 +7037,11 @@ msgctxt "label_type"
 msgid "Production"
 msgstr "Produzione"
 
+#: DB:event_art_archive.art_type/name:11
+msgctxt "event_art_type"
+msgid "Program"
+msgstr "Programma"
+
 #: DB:release_status/name:2
 msgctxt "release_status"
 msgid "Promotion"
@@ -7605,6 +7631,11 @@ msgctxt "work_attribute_type"
 msgid "SODRAC ID"
 msgstr "ID SODRAC"
 
+#: DB:work_attribute_type/name:213
+msgctxt "work_attribute_type"
+msgid "SOKOJ ID"
+msgstr "ID SOKOJ"
+
 #: DB:work_attribute_type/name:35
 msgctxt "work_attribute_type"
 msgid "SPA ID"
@@ -7749,7 +7780,7 @@ msgstr "Sazsemaisi"
 #: DB:event_art_archive.art_type/name:5
 msgctxt "event_art_type"
 msgid "Schedule"
-msgstr "Programma"
+msgstr "Orario"
 
 #: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
 #: DB:place_alias_type/name:2 DB:recording_alias_type/name:2
@@ -7985,7 +8016,7 @@ msgstr "Stadio"
 #: DB:event_type/name:6
 msgctxt "event_type"
 msgid "Stage performance"
-msgstr "Esibizione messa in scena"
+msgstr "Esibizione in scena"
 
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"

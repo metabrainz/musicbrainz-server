@@ -392,6 +392,26 @@ role {
         my $entity_map = load_entities($c, ref_to_type($source), @field_values);
         my $link_types_by_id = {};
         my %reordered_relationships;
+        my %rel_ids_by_target_type;
+
+        for my $field (@field_values) {
+            my $relationship_id = $field->{relationship_id};
+            if (defined $relationship_id) {
+                push @{ $rel_ids_by_target_type{ $field->{target_type} } },
+                    $relationship_id;
+            }
+        }
+        my %existing_relationships = map {
+            my $key = $_->target_type . '-' . $_->id;
+            ($key => $_)
+        } $c->model('Relationship')->load_subset(
+            \%rel_ids_by_target_type,
+            $source->meta->clone_object(
+                $source,
+                relationships => [],
+                has_loaded_relationships => 0,
+            ),
+        );
 
         for my $field (@field_values) {
             my %args;
@@ -426,17 +446,13 @@ role {
 
             my $relationship;
             if ($field->{relationship_id}) {
-                $relationship = $c->model('Relationship')->get_by_id(
-                   $link_type->entity0_type, $link_type->entity1_type, $field->{relationship_id},
-                );
-
-                # MBS-7354: relationship may have been deleted after the form was created
+                $relationship = $existing_relationships{
+                    $field->{target_type} . '-' . $field->{relationship_id}
+                };
+                # The relationship may have been deleted after the form was
+                # created (MBS-7354), or it may not have belonged to the
+                # source entity to begin with (MBS-13959).
                 defined $relationship or next;
-
-                $c->model('Link')->load($relationship);
-                $c->model('LinkType')->load($relationship->link);
-                $c->model('Relationship')->load_entities($relationship);
-
                 $args{relationship} = $relationship;
             }
 
@@ -508,7 +524,7 @@ role {
             );
         }
 
-        return @edits;
+        return grep { defined } @edits;
     };
 };
 

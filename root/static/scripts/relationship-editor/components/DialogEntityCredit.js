@@ -215,8 +215,8 @@ component _DialogEntityCredit(
   );
 }
 
-const DialogEntityCredit: React.AbstractComponent<
-  React.PropsOf<_DialogEntityCredit>
-> = React.memo(_DialogEntityCredit);
+const DialogEntityCredit:
+  component(...React.PropsOf<_DialogEntityCredit>) =
+  React.memo(_DialogEntityCredit);
 
 export default DialogEntityCredit;

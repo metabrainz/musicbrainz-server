@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-01-27 13:44+0000\n"
+"PO-Revision-Date: 2025-03-17 11:45+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/sq/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -2825,6 +2825,13 @@ msgstr ""
 msgid "This indicates the release group that inspired this genre’s name."
 msgstr "Kjo tregon veprën që frymëzoi emrin e këtij artisti."
 
+#. name:named after release group
+#: DB:link_type/description:1282
+#, fuzzy
+#| msgid "This indicates the work that inspired this artist’s name."
+msgid "This indicates the release group that inspired this series’ name."
+msgstr "Kjo tregon veprën që frymëzoi emrin e këtij artisti."
+
 #. name:rights society
 #: DB:link_type/description:349
 msgid ""
@@ -2887,6 +2894,12 @@ msgstr "Kjo tregon veprën që frymëzoi emrin e këtij artisti."
 #| msgid "This indicates the work that inspired this artist’s name."
 msgid "This indicates the work that inspired this label’s name."
 msgstr "Kjo tregon veprën që frymëzoi emrin e këtij artisti."
+
+#. name:named after work
+#: DB:link_type/description:1283
+msgid "This indicates the work that inspired this release group’s name."
+msgstr ""
+"Kjo tregon veprën që frymëzoi emrin e këtij grupi hedhjesh në qarkullim."
 
 #. name:named after work
 #: DB:link_type/description:1278
@@ -7055,8 +7068,15 @@ msgstr "frymëzoi emrin e "
 msgid "inspired the name of place"
 msgstr "frymëzoi emrin e "
 
-#. name:named after artist
-#: DB:link_type/link_phrase:1000
+#. name:named after work
+#: DB:link_type/reverse_link_phrase:1283
+#, fuzzy
+#| msgid "inspired the name of"
+msgid "inspired the name of release group"
+msgstr "frymëzoi emrin e "
+
+#. name:named after artist, name:named after release group
+#: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
 #, fuzzy
 #| msgid "inspired the name of"
 msgid "inspired the name of series"
@@ -7281,7 +7301,7 @@ msgstr ""
 
 #. name:named after work
 #: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
 #, fuzzy
 #| msgid "named after"
 msgid "is named after work"
@@ -8011,16 +8031,18 @@ msgid "named after place"
 msgstr "emërtuar për nder të"
 
 #. name:named after release group
-#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/link_phrase:1261
-#: DB:link_type/link_phrase:974
+#: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/name:1282
+#: DB:link_type/link_phrase:1261 DB:link_type/link_phrase:974
+#: DB:link_type/reverse_link_phrase:1282
 #, fuzzy
 #| msgid "named after"
 msgid "named after release group"
 msgstr "emërtuar për nder të"
 
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1265
-#: DB:link_type/link_phrase:972 DB:link_type/link_phrase:1278
+#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:1265 DB:link_type/link_phrase:972
+#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
 #: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "named after"
@@ -10896,6 +10918,13 @@ msgstr "{entity1} qe orkestruar në {entity0}"
 #, fuzzy
 #| msgid "{entity1} was arranged in {entity0}"
 msgid "{entity1} is named after artist {entity0}"
+msgstr "{entity1} qe orkestruar në {entity0}"
+
+#. name:named after release group
+#: DB:link_type/long_link_phrase:1282
+#, fuzzy
+#| msgid "{entity1} was arranged in {entity0}"
+msgid "{entity1} is named after release group {entity0}"
 msgstr "{entity1} qe orkestruar në {entity0}"
 
 #. name:anthem

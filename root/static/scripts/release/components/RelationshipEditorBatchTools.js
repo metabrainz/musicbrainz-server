@@ -165,8 +165,8 @@ component _RelationshipEditorBatchTools(
   );
 }
 
-const RelationshipEditorBatchTools: React.AbstractComponent<
-  React.PropsOf<_RelationshipEditorBatchTools>
-> = React.memo(_RelationshipEditorBatchTools);
+const RelationshipEditorBatchTools:
+  component(...React.PropsOf<_RelationshipEditorBatchTools>) =
+  React.memo(_RelationshipEditorBatchTools);
 
 export default RelationshipEditorBatchTools;

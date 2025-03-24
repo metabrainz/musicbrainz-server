@@ -9,13 +9,14 @@
 # Андрій Пиндик <email address hidden>, 2017
 # Дмитрий <email address hidden>, 2014
 # cijic <altcode@ya.ru>, 2024.
-# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024.
+# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025.
 # liilliil <liilliil@liilliil.net>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-12-11 20:42+0000\n"
-"Last-Translator: liilliil <liilliil@liilliil.net>\n"
+"PO-Revision-Date: 2025-03-21 00:44+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ru/>\n"
 "Language: ru\n"
@@ -25,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.8.4\n"
+"X-Generator: Weblate 5.10.3\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -262,6 +263,8 @@ msgid ""
 "objects (preparations) between or on the strings or on the hammers or "
 "dampers."
 msgstr ""
+"Подготовленное фортепиано - это фортепиано, звук которого изменяется путем "
+"размещения предметов между или на струнах, на молоточках или демпферах."
 
 #. name:pūpakapaka
 #: DB:instrument/description:861
@@ -269,6 +272,8 @@ msgid ""
 "A pūtātara with a long wooden mouth piece, it has a deeper timbre than the "
 "pūtātara."
 msgstr ""
+"Путатара с длинным деревянным мундштуком, обладает более глубоким тембром, "
+"чем путатара."
 
 #. name:chirimía
 #: DB:instrument/description:821
@@ -276,6 +281,8 @@ msgid ""
 "A relative of the shawm, it was introduced to central and south-america by "
 "the Spanish in the sixteenth and seventeenth century."
 msgstr ""
+"Родственник шаума, был завезен в центральную и южную Америку испанцами в XVI-"
+"XVII веках."
 
 #. name:spinet
 #: DB:instrument/description:797
@@ -283,6 +290,8 @@ msgid ""
 "A smaller harpsichord, often with the strings at 30 degrees from the "
 "keyboard."
 msgstr ""
+"Клавесин меньшего размера, часто со струнами, расположенными под углом 30 "
+"градусов по отношению к клавиатуре."
 
 #. name:suikinkutsu
 #: DB:instrument/description:147
@@ -292,6 +301,10 @@ msgid ""
 "it is named after the sound the koto (a Japanese zither) makes and is not "
 "actually a string instrument."
 msgstr ""
+"Суйкинкуцу - это вид японского садового украшения, в котором для создания "
+"музыки используется капающая вода. Хотя он также известен как японская "
+"водяная цитра, он назван в честь звука, который издает кото (японская цитра)"
+", и на самом деле не является струнным инструментом."
 
 #. name:talkbox
 #: DB:instrument/description:453
@@ -299,6 +312,8 @@ msgid ""
 "A talkbox is an effects device which enables a musician to modify the sound "
 "of an instrument."
 msgstr ""
+"Токбокс - это устройство для создания эффектов, позволяющее музыканту "
+"изменять звучание инструмента."
 
 #. name:tar
 #: DB:instrument/description:607
